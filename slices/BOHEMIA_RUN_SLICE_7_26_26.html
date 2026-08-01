@@ -1465,6 +1465,23 @@ function sfx(ev,when){
    parent's document, so the parent can be sitting with no audio at all while
    the thumb hammers the D-pad. This fires on the gesture itself, ahead of any
    sound, so the audio has already started by the time a footstep is asked for. */
+/* WHERE AND WHEN YOU ARE (8/1). He approved all 15 world tones, so the run has
+   to say which one applies. Two facts, nothing else: are you indoors, and is it
+   night. mode==='ext' is the same flag the footstep classifier already uses, and
+   SIM.turn is the world MINUTE (one turn = one world-minute, 1440 a day), which
+   is the same clock the NPC schedules run on. Night is before 06:00 or after
+   19:00, which is where the schedules already put dusk. */
+function sfxWhere(){
+  try{
+    var min = 720;                                   /* noon if the sim is not up */
+    try{ if(typeof SIM!=='undefined' && SIM) min = SIM.turn % 1440; }catch(_e){}
+    var night = (min < 6*60 || min >= 19*60);
+    if(window.parent&&window.parent!==window)
+      window.parent.postMessage({type:'BOHEMIA_WHERE',
+        inside:(mode!=='ext'), night:night, min:min},'*');
+  }catch(_e){}
+}
+setInterval(sfxWhere, 4000);
 (function(){
   function gesture(){
     try{ if(window.parent&&window.parent!==window)

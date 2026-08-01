@@ -175,9 +175,74 @@ def parent_block(bank):
          this document, so the run tells us one happened and we take the chance
          to start the audio while the browser may still count it as gestured. */
       if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
+      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d); return; }
       if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
     }catch(e){}
   });
+
+  /* === THE WORLD TONE (8/1) ==============================================
+     He approved all 15. It is one of the ambient noises: a rare sound so the
+     valley is not dead air. It is NOT a clock -- something that fires a minute
+     apart tells you nothing about the time, and the music already handles time
+     of day. What it does is make the place feel occupied by nothing.
+
+     THREE RULES, boring on purpose:
+       WHICH  indoors -> air_inside. Outdoors -> air_night before 06:00 or from
+              19:00, else air_day. The run reports both facts every 4s.
+       WHEN   a random gap of 40 to 95 seconds. That is MY DEFAULT and nothing
+              decided it but taste. One word from him changes it.
+       QUIET  its own bus at 0.4 of the level he judged it at. He judged these
+              loud enough to hear on a phone; under the game they sit below
+              everything. He was told that before he thumbed them, so this is
+              the plan he approved rather than a change to it.
+
+     IT ONLY RUNS WHILE THE RUN IS ON SCREEN. If the reports stop, the ambience
+     stops, so it can never play over him judging sounds in the MUSIC tab. */
+  var AMB={
+    kind:null, next:0, bus:null, seen:0,
+    where:function(d){
+      this.seen=Date.now();
+      this.kind = d.inside ? 'air_inside' : (d.night ? 'air_night' : 'air_day');
+    },
+    gap:function(){ return 40 + Math.random()*55; },
+    tick:function(){
+      if(!this.kind) return;
+      /* IS THE RUN ACTUALLY ON SCREEN? Message recency does NOT answer this:
+         a hidden iframe keeps its timers running, so the run keeps reporting
+         from the MUSIC tab and the ambience would play over him judging
+         sounds. Ask the DOM whether the run panel is visible instead. */
+      if(Date.now()-this.seen > 12000) return;      /* the run is not even loaded */
+      /* ASK THE TAB, not the panel. Two wrong guesses before this one:
+         offsetParent is null under any position:fixed ancestor even when the
+         thing is plainly on screen, and #p-run is display:none the whole time
+         because the RUN tab actually shows the p-city panel
+         (PANEL = t.dataset.p==='run' ? 'city' : ...). The tab carrying class
+         'on' is what the alpha itself uses to mean "this is the open tab", so
+         use the app's own answer instead of inventing a third one. */
+      var tab=document.querySelector('.tab[data-p="run"]');
+      if(!tab || !tab.classList.contains('on')) return;
+      var now=Date.now();
+      if(!this.next){ this.next = now + this.gap()*1000; return; }
+      if(now < this.next) return;
+      this.next = now + this.gap()*1000;
+      try{
+        if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return;
+        MUS.audio(); if(!MUS.AC) return;
+        if(!this.bus){
+          this.bus = MUS.AC.createGain();
+          this.bus.gain.value = 0.4;
+          this.bus.connect(MUS.MAST||MUS.AC.destination);
+        }
+        var set=APPROVED[this.kind]; if(!set||!set.length) return;
+        var i=set[(Math.random()*set.length)|0];
+        var v=vec(this.kind,i); if(!v) return;
+        BOH_SFX.render(v,MUS.AC,this.bus,null);
+        SFX_COUNT++;
+      }catch(e){}
+    }
+  };
+  window.__AMB=AMB;
+  setInterval(function(){ AMB.tick(); }, 1000);
   /* the parent's own surfaces: every button on the phone is a UI TAP */
   document.addEventListener('click',function(e){
     var t=e&&e.target; if(!t)return;
@@ -238,6 +303,23 @@ function sfx(ev,when){
    parent's document, so the parent can be sitting with no audio at all while
    the thumb hammers the D-pad. This fires on the gesture itself, ahead of any
    sound, so the audio has already started by the time a footstep is asked for. */
+/* WHERE AND WHEN YOU ARE (8/1). He approved all 15 world tones, so the run has
+   to say which one applies. Two facts, nothing else: are you indoors, and is it
+   night. mode==='ext' is the same flag the footstep classifier already uses, and
+   SIM.turn is the world MINUTE (one turn = one world-minute, 1440 a day), which
+   is the same clock the NPC schedules run on. Night is before 06:00 or after
+   19:00, which is where the schedules already put dusk. */
+function sfxWhere(){
+  try{
+    var min = 720;                                   /* noon if the sim is not up */
+    try{ if(typeof SIM!=='undefined' && SIM) min = SIM.turn % 1440; }catch(_e){}
+    var night = (min < 6*60 || min >= 19*60);
+    if(window.parent&&window.parent!==window)
+      window.parent.postMessage({type:'BOHEMIA_WHERE',
+        inside:(mode!=='ext'), night:night, min:min},'*');
+  }catch(_e){}
+}
+setInterval(sfxWhere, 4000);
 (function(){
   function gesture(){
     try{ if(window.parent&&window.parent!==window)

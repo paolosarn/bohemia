@@ -310,6 +310,17 @@ def main():
     chk('function foldSongs' in alpha_src,
         'the SONG list does not fold, and he named songs explicitly')
 
+    # 7b-iv. THE WORLD TONE IS WIRED (he approved all 15 on 8/1).
+    for ev in ('air_day', 'air_night', 'air_inside'):
+        chk(len(bank.get(ev, [])) == 5,
+            '%s should hold all five he approved, holds %d' % (ev, len(bank.get(ev, []))))
+    chk('window.__AMB' in alpha_src, 'no ambience scheduler shipped')
+    chk("classList.contains('on')" in alpha_src,
+        'the ambience does not check the RUN tab is open -- a hidden iframe '
+        'keeps its timers, so it would play over him judging in the MUSIC tab')
+    chk(re.search(r'gain\.value\s*=\s*0\.4', alpha_src) is not None,
+        'the ambience does not sit on its own quieter bus')
+
     # 7c. THE RING/SILENT SWITCH. WebAudio-only pages are muted by the physical
     #     switch on an iPhone, silently. The opt-out must be in the shipped file.
     #     (the first version of this check tested `'audioSession' in src`, which
@@ -326,6 +337,9 @@ def main():
     run = open(RUN, encoding='utf8').read()
     chk('new AudioContext' not in run, "the run built its own AudioContext")
     chk('BOHEMIA_SFX' in run, 'the run never asks for a sound')
+    chk('BOHEMIA_WHERE' in run,
+        'the run never reports whether it is inside or after dark, so the '
+        'ambience cannot know which one applies')
 
     with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as fh:
         fh.write(JS)

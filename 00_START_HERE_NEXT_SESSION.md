@@ -2229,6 +2229,49 @@ LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
 scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
 pages from coming back.
 
+SOUNDS (xk7pjp): 8/2 LATEST — THE VALLEY MAKES NOISE. 100/100 judged, 55 banked,
+world tone WIRED. Nothing in this lane is waiting on him.
+
+HIS FRAMING RULING, and it binds how this lane TALKS: "you don't need to think
+too deeply philosophically about it. You know it's probably gonna be one of the
+many ambient noises that's OK. I wish you kind of just frame it and explain it
+like that." He is right and I had oversold the ambience as the thing that tells
+you the time of day. IT IS BAD AT THAT -- a sound a minute apart is a poor clock
+and the music already carries time of day. It is ONE OF THE AMBIENT NOISES. It
+makes the valley feel occupied by nothing. Say what a thing is, say when it
+fires, move on.
+
+WIRED NOW: indoors -> air_inside; outdoors -> air_night before 06:00 or from
+19:00, else air_day. Random 40-95s gap (MY default, taste only, one word changes
+it). Own bus at 0.4 of judged level. ONLY while the RUN tab is open.
+
+THE BUG WORTH INHERITING: "is the run on screen" took three tries.
+  1. offsetParent is null under ANY position:fixed ancestor even when the
+     element is plainly visible. Silenced the ambience everywhere.
+  2. #p-run is display:none PERMANENTLY -- the RUN tab shows the p-city panel
+     (PANEL = t.dataset.p==='run' ? 'city' : t.dataset.p). Measuring its box
+     was measuring the wrong element.
+  3. RIGHT ANSWER: ask the app its own question. The tab carrying class 'on'.
+  AND: message recency is NOT a visibility test. A hidden iframe keeps its
+  timers, so the run kept reporting from the MUSIC tab and ambience would have
+  played over him judging sounds.
+
+STILL UNWIRED, FOR LACK OF A MOMENT, NOT A SOUND: pickup (no loot event; LOOT IS
+CLOSED by another lane), block (combat has no block mechanic), phone_buzz (no
+feed moment). STILL SILENT ON PURPOSE, zero approved: door_open, door_shut, miss,
+vital, clear.
+
+NEXT FOR THIS LANE (nothing is blocked on him):
+  1. The ambience gap is a guess. If he plays and it feels wrong, it is one
+     number in tools/bohemia_sfx_wire_patch.py.
+  2. A DOOR, only on his word. Evidence says NOT metal and NOT wood.
+  3. miss/vital/clear died 5/5 once. The rule their deaths bought: combat is
+     LOW, ash-or-stone, DRIVEN HARD, SHORT. Do not re-cook unasked.
+  4. INDOORS COULD CHANGE HIS FOOTSTEPS instead of only adding a sound. I raised
+     it, he did not rule, so it was NOT built. Ask before building.
+
+BUILD STAMP: 8/2f - THE VALLEY MAKES NOISE NOW (RUN TAB).
+
 SOUNDS (xk7pjp): 8/1 (c) LATEST — THE WORLD TONE. 15 candidates to judge, and
 the valley stops being silent.
 

@@ -1,0 +1,42 @@
+=== BOHEMIA SFX VERDICT — THE WORLD TONE (8/1/26, second sitting) ===
+
+100/100 judged. All three ambient moments swept 5/5.
+
+HIS FRAMING NOTE, and it is a ruling about how to TALK about this, not about the
+sound: "you don't need to think too deeply philosophically about it. You know
+it's probably gonna be one of the many ambient noises that's OK. I wish you kind
+of just frame it and explain it like that."
+  SO: the world tone is one of the ambient noises. It is not a thesis about
+  silence. Say what it is, say when it fires, move on. I had oversold it as the
+  thing that tells you the time of day, which it is bad at -- a sound that fires
+  a minute apart is a poor clock. It is good at making the valley feel occupied
+  by nothing. That is the whole job.
+
+  air_day     5/5 UP
+  air_night   5/5 UP
+  air_inside  5/5 UP
+
+Everything else in this export matches what was already banked on 7/30 and
+8/1 (a): 40 approvals, unchanged, re-confirmed. New total: 55.
+
+STILL ZERO APPROVED, STILL SILENT ON PURPOSE: door_open, door_shut, miss, vital,
+clear.
+
+--------------------------------------------------------------------------------
+THE FULL TABLE (machine-read by gates/sfx_wired_gate.py)
+--------------------------------------------------------------------------------
+  UP   air_day.0
+  UP   air_day.1
+  UP   air_day.2
+  UP   air_day.3
+  UP   air_day.4
+  UP   air_night.0
+  UP   air_night.1
+  UP   air_night.2
+  UP   air_night.3
+  UP   air_night.4
+  UP   air_inside.0
+  UP   air_inside.1
+  UP   air_inside.2
+  UP   air_inside.3
+  UP   air_inside.4
