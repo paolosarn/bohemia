@@ -219,7 +219,7 @@ MATERIALS = [
          name='corrugated metal, rusted'),
     dict(id='wall_plaster_bare', rgb=(134, 120, 101), kind='plaster', wear=0.75,
          name='wall, plaster blown off to substrate'),
-    dict(id='gravel_roof',     rgb=(117, 110,  97), kind='gravel',  wear=0.50,
+    dict(id='gravel_roof',     rgb=(117, 110,  97), veg=True, kind='gravel',  wear=0.50,
          name='roof, tar and gravel'),
 
     # ---- VOLUME, 8/1. Paolo approved all 36 of batch 1 ("fucking fantastic"), and
@@ -243,24 +243,24 @@ MATERIALS = [
     # glazing in a city with 12% power. The bay reads black, the aluminium catches light.
     dict(id='storefront_alum', rgb=( 96,  96,  95), kind='mullion', wear=0.55,
          name='storefront aluminium, dead-dark glazing'),              # TF-ART-008
-    dict(id='freeway_asphalt', rgb=( 78,  76,  74), kind='asphalt', wear=0.60,
+    dict(id='freeway_asphalt', rgb=( 78,  76,  74), veg=True, hardware=True, kind='asphalt', wear=0.60,
          name='freeway asphalt, wide lane'),                           # TF-ART-011
-    dict(id='lot_asphalt',     rgb=( 84,  81,  78), kind='asphalt', wear=0.70,
+    dict(id='lot_asphalt',     rgb=( 84,  81,  78), veg=True, hardware=True, kind='asphalt', wear=0.70,
          name='parking lot asphalt'),                                  # TF-ART-003
-    dict(id='rail_ballast',    rgb=(104,  98,  90), kind='gravel',  wear=0.55,
+    dict(id='rail_ballast',    rgb=(104,  98,  90), veg=True, kind='gravel',  wear=0.55,
          name='railroad ballast'),                                     # TF-ART-010
-    dict(id='pool_basin',      rgb=(150, 150, 146), kind='plaster', wear=0.65,
+    dict(id='pool_basin',      rgb=(150, 150, 146), veg=True, kind='plaster', wear=0.65,
          name='empty pool basin, plaster'),                            # TF-ART-006
     # STRAW, NOT GREEN. (122,114,76) rendered olive-GREEN at this grain, and a green
     # playing field in a dead desert city is a lie about the whole premise. Dead Bermuda
     # in Vegas is straw: red clearly ahead of green, no chlorophyll left.
-    dict(id='dead_turf',       rgb=(152, 128,  78), kind='turf',    wear=0.75,
+    dict(id='dead_turf',       rgb=(152, 128,  78), veg=True, kind='turf',    wear=0.75,
          name='dead sports turf, burnt to straw'),                     # TF-ART-005
-    dict(id='crop_furrow',     rgb=(118, 100,  76), kind='furrow',  wear=0.70,
+    dict(id='crop_furrow',     rgb=(118, 100,  76), veg=True, kind='furrow',  wear=0.70,
          name='dead furrowed crop field'),                             # TF-ART-014
-    dict(id='landfill_cover',  rgb=(112, 104,  90), kind='gravel',  wear=0.80,
+    dict(id='landfill_cover',  rgb=(112, 104,  90), veg=True, kind='gravel',  wear=0.80,
          name='landfill cover cap'),                                   # TF-ART-015
-    dict(id='tiltup_concrete', rgb=(138, 136, 130), kind='tiltup',  wear=0.50,
+    dict(id='tiltup_concrete', rgb=(138, 136, 130), hardware=True, kind='tiltup',  wear=0.50,
          name='tilt-up concrete panel'),                               # warehouse walls
     dict(id='steel_rusted',    rgb=(112,  76,  56), kind='rib',     wear=0.85,
          name='rusted steel sheet'),                                   # industrial
@@ -423,6 +423,110 @@ def structure(kind, x, y, n, rnd_phase):
 
 
 
+
+def warped(xx, yy, wobble, phase):
+    """Push the sample point around before the plate test.
+
+    A raw Voronoi gives DEAD STRAIGHT cell walls and evenly sized cells - it reads as a
+    diagram, which is exactly how mine looked beside his: his crazing wanders, forks and
+    varies in width along a single crack. Offsetting the sample point by a smooth noise
+    field bends every boundary without breaking the topology, so the network still meets
+    at real junctions and still closes. The offset is periodic in the cell, so warping
+    cannot reintroduce the border he circled on 8/1.
+    """
+    a = (xx / CELL) * 6.2832
+    b = (yy / CELL) * 6.2832
+    ox = (math.sin(b * 2 + phase) + math.sin(b * 3 - phase * 1.7) * 0.5) * wobble
+    oy = (math.sin(a * 2 - phase) + math.sin(a * 3 + phase * 1.3) * 0.5) * wobble
+    return xx + ox, yy + oy
+
+
+VEG_ROOT = (46, 48, 26)      # the shaded base where it meets the ground
+VEG_MID = (96, 106, 44)      # the blade body
+VEG_TIP = (156, 168, 74)     # the tip catching the sun
+VEG_DEAD = (128, 116, 56)    # the half of it that is straw
+
+
+def weed(rnd, stamp, ink, cx, cy):
+    """A RADIAL ROSETTE, which is what his weeds actually are.
+
+    Looked at his tiles at 190px: a clump is a dandelion/crabgrass rosette - blades
+    fanning out from a DARK CORE where it meets the ground, 1-2px wide, varying length,
+    slightly curved, with the tips catching light. It grows OUT OF a crack, so it takes
+    a shadow with it.
+
+    Half the blades are drawn dead straw rather than green. This is a desert city thirty
+    years after the money stopped; a uniformly green clump would be a lie about the
+    climate, and his own tiles carry that yellow.
+    """
+    n = int(rnd.r(14, 26))
+    for i in range(n):
+        a = (i / n) * 6.283 + rnd.r(-0.16, 0.16)
+        ln = rnd.r(5.0, 12.0)
+        curve = rnd.r(-0.30, 0.30)
+        dead = rnd.f() < 0.42
+        for k in range(int(ln)):
+            t = k / max(ln - 1, 1)
+            th = a + curve * t
+            x = cx + math.cos(th) * (k + 1)
+            y = cy + math.sin(th) * (k + 1) * 0.72      # squashed: seen from above
+            base = VEG_DEAD if dead else VEG_MID
+            c = VEG_TIP if t > 0.72 else base if t > 0.22 else VEG_ROOT
+            ink(x, y, tuple(int(v + rnd.r(-14, 14)) for v in c))
+            if k < ln * 0.7:                    # his blades are FAT near the root
+                ink(x, y + 1, tuple(int(v + rnd.r(-16, 10)) for v in c))
+            if k == int(ln) - 1 and rnd.f() < 0.5:
+                ink(x + rnd.r(-1, 1), y - 1, VEG_TIP)
+    for dy in range(-2, 3):                              # the dark heart of the clump
+        for dx in range(-2, 3):
+            if dx * dx + dy * dy <= 4:
+                ink(cx + dx, cy + dy, VEG_ROOT, 0.85)
+                stamp(cx + dx, cy + dy, -18)
+
+
+def hardware(rnd, stamp, ink, cx, cy):
+    """A MANHOLE or a DRAIN GRATE. The other thing his pack has that mine did not: a
+    piece of the city's plumbing sitting in the surface, cast iron and darker than
+    everything around it."""
+    if rnd.f() < 0.55:
+        # A MANHOLE IS A HEAVY DARK DISC, not a grey circle. The first pass drew a mid
+        # grey with faint ribs and it read as a smudge; his sit in the surface with real
+        # weight. What makes it read: it is DARKER than the road, it has a recessed
+        # SEATING RING around it, and the cover carries a coarse cast pattern you can
+        # actually see at 44px - concentric rings crossed by radial spokes, which is what
+        # a real cast-iron cover has and what survives being this small.
+        r = rnd.r(6.5, 9.0)
+        for yy in range(int(-r) - 2, int(r) + 3):
+            for xx in range(int(-r) - 2, int(r) + 3):
+                dd = math.hypot(xx, yy)
+                if dd > r + 1.6:
+                    continue
+                if dd > r:                                   # the seat: a dark gap
+                    ink(cx + xx, cy + yy, (30, 28, 27))
+                    continue
+                v = 62 + int(rnd.r(-9, 9))
+                ring = int(dd * 1.5) % 2 == 0                # concentric casting rings
+                spoke = int((math.atan2(yy, xx) + 3.1416) / 6.2832 * 10) % 2 == 0
+                if dd > r * 0.30 and (ring or spoke):
+                    v -= 26
+                if dd < r * 0.22:                            # the pick hole in the middle
+                    v -= 30
+                ink(cx + xx, cy + yy, (v + 2, v, v - 4))
+        for a in range(0, 360, 4):                           # lit lip, upper LEFT
+            th = math.radians(a)
+            if 100 < a < 300:
+                ink(cx + math.cos(th) * r, cy + math.sin(th) * r, (128, 124, 116))
+        stamp(cx, cy + r + 2, -16)                           # it sits in a shallow dish
+    else:
+        w, h = int(rnd.r(9, 15)), int(rnd.r(6, 10))
+        for yy in range(h):
+            for xx in range(w):
+                edge = xx == 0 or yy == 0 or xx == w - 1 or yy == h - 1
+                bar = (yy % 3 == 1)
+                ink(cx + xx, cy + yy, (58, 56, 54) if edge else
+                    (30, 29, 28) if bar else (86, 83, 79))
+
+
 def features(rnd, mat, seed_gain=1.0):
     """THE HERO FEATURES. Measured off his pack, not invented.
 
@@ -444,9 +548,20 @@ def features(rnd, mat, seed_gain=1.0):
     one-sided mark.
     """
     d = [[0.0] * CELL for _ in range(CELL)]
+    # A SECOND LAYER THAT CARRIES COLOUR. Everything above works in luminance, which is
+    # right for damage - a crack is the material, darker. It is WRONG for a weed: living
+    # green is not the wall's own colour made darker, and dimming stucco never produces
+    # chlorophyll. So vegetation and hardware paint into `tint` and override.
+    tint = [[None] * CELL for _ in range(CELL)]
 
     def stamp(x, y, v):
         d[int(y) % CELL][int(x) % CELL] += v
+
+    def ink(x, y, rgb, k=1.0):
+        xx, yy = int(x) % CELL, int(y) % CELL
+        old = tint[yy][xx]
+        tint[yy][xx] = rgb if old is None or k >= 1.0 else tuple(
+            int(old[i] + (rgb[i] - old[i]) * k) for i in range(3))
 
     def blob(cx, cy, r, v, hard=0.0):
         rr = int(r) + 1
@@ -457,7 +572,62 @@ def features(rnd, mat, seed_gain=1.0):
                     fall = 1.0 if hard else (1.0 - dist / max(r, 0.01))
                     stamp(cx + dx, cy + dy, v * fall)
 
-    n = 2 + int(rnd.f() * 2.6 * seed_gain)          # 2..4 events
+    # VEGETATION, drawn from his actual distribution rather than sprinkled everywhere.
+    # Measured on his 34 concrete tiles: 23 have essentially NO weed, a handful carry
+    # 2-3%, and TWO are 30% overgrown mats. So most tiles get nothing, some get one
+    # clump, a few are taken over. Weeds on every tile would be as wrong as none.
+    if mat.get('veg'):
+        roll = rnd.f()
+        clumps = 0 if roll < 0.62 else (1 if roll < 0.88 else 2) if roll < 0.94 else 5
+        for _ in range(clumps):
+            weed(rnd, stamp, ink, rnd.f() * CELL, rnd.f() * CELL)
+    if mat.get('hardware') and rnd.f() < 0.22:
+        hardware(rnd, stamp, ink, rnd.r(8, CELL - 8), rnd.r(8, CELL - 8))
+
+    # GROUND CARRIES MORE THAN A WALL, and that is physics rather than metric-chasing.
+    # A road abandoned thirty years is crazed across its whole surface; a stucco wall of
+    # the same age has a few cracks and some staining. His 54 reference tiles are ALL
+    # ground, which is why comparing my walls to them was never the fair test - measured
+    # on ground-like surfaces alone mine sat at 5.6% against his 7.0%.
+    ground = bool(mat.get('veg') or mat['kind'] in ('asphalt', 'gravel'))
+
+    # A DEAD ROAD IS CRAZED EDGE TO EDGE, not a clean slab with a few cracks in it.
+    # This is the last structural difference from his pack and it is not a number to
+    # chase: looking at his concrete tiles, the ENTIRE tile is one plate network. Mine
+    # drew cracking as a LOCAL EVENT, so a tile got one patch of crazing and clean
+    # surface around it - which is what a two-year-old car park looks like, not a road
+    # thirty years after the money stopped. Ground materials get a full-tile network
+    # UNDERNEATH everything else, and the discrete events sit on top of it.
+    if ground:
+        seeds = [(rnd.f() * CELL, rnd.f() * CELL) for _ in range(int(rnd.r(14, 24)))]
+        depth = rnd.r(-74, -48)
+        wob = rnd.r(1.6, 3.4)
+        ph = rnd.f() * 6.28
+        for yy in range(CELL):
+            for xx in range(CELL):
+                wx, wy = warped(xx, yy, wob, ph)
+                d1 = d2 = 1e9
+                for (sx, sy) in seeds:
+                    ddx = abs(wx - sx)
+                    ddy = abs(wy - sy)
+                    ddx = min(ddx, CELL - ddx)
+                    ddy = min(ddy, CELL - ddy)
+                    dd = ddx * ddx + ddy * ddy
+                    if dd < d1:
+                        d2, d1 = d1, dd
+                    elif dd < d2:
+                        d2 = dd
+                # WIDTH VARIES ALONG THE CRACK. A constant width is the other half of
+                # why a raw Voronoi reads as a diagram: real cracks open and close.
+                width = 0.55 + 0.55 * (0.5 + 0.5 * math.sin(
+                    (xx / CELL) * 6.2832 * 3 + (yy / CELL) * 6.2832 * 2 + ph))
+                gap = math.sqrt(d2) - math.sqrt(d1)
+                if gap < width:
+                    f = 1.0 - gap / width
+                    stamp(xx, yy, depth * f * f)
+                    if f > 0.62:
+                        stamp(xx, yy - 1, -depth * 0.16)
+    n = (3 if ground else 2) + int(rnd.f() * (3.4 if ground else 2.6) * seed_gain)
     for _ in range(n):
         pick = rnd.f()
         cx, cy = rnd.f() * CELL, rnd.f() * CELL
@@ -477,15 +647,18 @@ def features(rnd, mat, seed_gain=1.0):
             # the plate boundary, so segments come out straight-ish, meet at real
             # junctions, and close. Distance is measured with WRAPPING, so the network
             # continues across the tile edge instead of stopping at it.
-            seeds = [(rnd.f() * CELL, rnd.f() * CELL) for _ in range(int(rnd.r(4, 9)))]
+            seeds = [(rnd.f() * CELL, rnd.f() * CELL) for _ in range(int(rnd.r(6, 12)))]
             depth = rnd.r(-92, -58)
             width = rnd.r(0.75, 1.5)
+            wob2 = rnd.r(1.4, 3.0)
+            ph2 = rnd.f() * 6.28
             for yy in range(CELL):
                 for xx in range(CELL):
+                    wx, wy = warped(xx, yy, wob2, ph2)
                     d1 = d2 = 1e9
                     for (sx, sy) in seeds:
-                        ddx = abs(xx - sx)
-                        ddy = abs(yy - sy)
+                        ddx = abs(wx - sx)
+                        ddy = abs(wy - sy)
                         ddx = min(ddx, CELL - ddx)
                         ddy = min(ddy, CELL - ddy)
                         dd = ddx * ddx + ddy * ddy
@@ -549,7 +722,7 @@ def features(rnd, mat, seed_gain=1.0):
                 stamp(cx + ox, cy + oy, rnd.r(-56, -22))
                 if rnd.f() < 0.3:
                     stamp(cx + ox, cy + oy - 1, rnd.r(16, 36))
-    return d
+    return d, tint
 
 
 def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0,
@@ -570,7 +743,7 @@ def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0,
     # per-tile chip/pit sites, so no two tiles are the same wall
     pits = [(rnd.next() % CELL, rnd.next() % CELL, rnd.r(1.2, 3.0), rnd.r(-34, -14))
             for _ in range(int(6 + 10 * mat['wear']))]
-    hero = features(rnd, mat, feat_gain)
+    hero, tint = features(rnd, mat, feat_gain)
 
     im = Image.new('RGB', (CELL, CELL))
     px = im.load()
@@ -613,6 +786,11 @@ def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0,
                     L += pd * (1.0 - d / pr)
 
             L += hero[y][x]                                      # THE HERO FEATURES
+            if tint[y][x] is not None:                           # vegetation / hardware
+                t = tint[y][x]
+                px[x, y] = (max(0, min(255, t[0])), max(0, min(255, t[1])),
+                            max(0, min(255, t[2])))
+                continue
             k = 1.0 + L / 128.0
             r = base[0] * k + (fine(v, u) - 0.5) * 13.0          # per-channel break-up,
             g = base[1] * k + (fine(u + 0.37, v) - 0.5) * 13.0   # which is what pushes

@@ -1,3 +1,70 @@
+ART (f3eu53): 8/2 (b) LATEST — WEEDS, MANHOLES, AND THE CRACK NETWORK STOPPED LOOKING
+LIKE A DIAGRAM. Queue item 1 closed as far as it honestly goes.
+
+=== HIS WEEDS, MEASURED AND LOOKED AT BEFORE DRAWING ANY ===
+Rendered his tiles at 190px. A clump is a RADIAL ROSETTE: blades fanning from a DARK
+CORE where it meets the ground, 1-2px, varying length, slightly curved, tips catching
+light, growing OUT OF a crack. Half of it is straw, not green - this is a desert city
+thirty years on and a uniformly green clump lies about the climate.
+*** AND THE DISTRIBUTION IS THE OTHER HALF OF IT. Measured on his 34 concrete tiles:
+23 HAVE ESSENTIALLY NO WEED, a handful carry 2-3%, and TWO are 30% overgrown mats.
+Weeds on every tile would be as wrong as weeds on none. Mine now rolls 62% nothing /
+26% one clump / 6% two / 6% overgrown. ***
+
+=== FEATURES NEEDED A COLOUR LAYER, WHICH THEY DID NOT HAVE ===
+Every feature until now worked in LUMINANCE, which is right for damage - a crack is the
+material, darker. It is WRONG for a weed: dimming stucco never produces chlorophyll. So
+vegetation and hardware paint into a `tint` layer and override.
+
+=== HARDWARE: A MANHOLE IS A HEAVY DARK DISC, NOT A GREY CIRCLE ===
+The first pass drew mid-grey with faint ribs and read as a smudge. What makes it read at
+44px: DARKER than the road, a recessed seating ring, and a coarse cast pattern -
+concentric rings crossed by radial spokes, plus a pick hole and a lit north-west lip.
+
+=== THE ONE THAT MATTERED MOST, AND THE METRIC ARGUED AGAINST IT ===
+Beside his tiles, my plate network read as a VORONOI DIAGRAM: dead straight cell walls,
+evenly sized cells, constant crack width. His crazing WANDERS, forks, and opens and
+closes along a single crack. Fixed by warping the sample point through a periodic noise
+field before the plate test (bends every boundary, keeps the topology, still closes,
+still wraps) and by varying width along the crack.
+*** ALSO: a dead road is crazed EDGE TO EDGE. Ground materials now get a full-tile
+network UNDERNEATH the discrete events. Cracking as a purely local event is what a
+two-year-old car park looks like, not a road thirty years after the money stopped. ***
+AND THE METRIC WENT DOWN WHEN I DID IT (ground median 5.8% -> 5.5%). That is the metric
+being wrong, not the art: a full-tile crack raises the tile's own standard deviation, so
+the 2-sd threshold rises with it and fewer pixels clear a moving bar. THE ART GOT MORE
+LIKE HIS AND THE NUMBER GOT WORSE. Shipped on the look. (Edge did rise, 16.9 -> 18.4,
+against his 18.4 - that one agrees.)
+
+=== WHERE IT ACTUALLY STANDS, NOT ROUNDED UP ===
+  features, ground surfaces   mine ~5.5-5.8% median   HIS 7.0%
+  edge                        18.38                   18.36
+  seam worst                  1.16                    (gate limit 1.25)
+The weeds are now near-indistinguishable from his in character. His CRACKS are still
+crisper and darker than mine - my grain washes them slightly - and his plate cells are
+tighter. That is the remaining gap and it is a craft gap, not a knob.
+records/target/FEATURE_COMPARE.png is his six beside mine at 190px.
+records/target/VEG_HARDWARE.png is the vegetation and hardware set.
+
+=== STATE ===
+banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt  114 tiles / 38 materials, ALL APPROVED, CANON
+texture_match 24/24, run_gate 126/126, banks_used 26/26, banklaw 8/8.
+
+=== THE QUEUE ===
+1. (this) Features - as far as it goes without a crack model finer than the grain.
+2. House UPPER floor band, perimeter wall, gate mouth, garage mouth still target-set.
+3. His bought yard tiles band. "I'll let you know when I have issues with the banding
+   until then" - LEAVE IT. Never touch his pixels.
+4. Art cell 44 -> 88 px, "thats down the line". NOTE: this would fix the crack-vs-grain
+   problem above outright, because a finer crack needs sub-pixel room it does not have
+   at 44.
+
+=== STILL RED ON MAIN, STILL NOT MINE ===
+LIFE / DRESS / POPULATION / MEMORY / DEVIATION - all report ZERO AGENTS SIMMED, the
+block has no people in the sim. Bisected eight commits back. CITY PEOPLE is GREEN, so
+the DRAW is fine and the SIM is empty. WORLD/LIFE lane's. PARTS PAINTED + BODY VARIATION
+are the CHARACTER lane's.
+
 ART (f3eu53): 8/2 LATEST — THE LOGO IS GOLD. I BUILT IT BACKWARDS FIRST AND HE CAUGHT IT.
 
 Paolo 8/2, with a zoomed screenshot of the gold letter: "I told you use this color and
