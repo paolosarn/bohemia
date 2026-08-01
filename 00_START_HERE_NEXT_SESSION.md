@@ -63,6 +63,103 @@ crack. Mine are consistent texture at the right density. That is the distance be
 - Doubling the art cell 44 -> 88 px ("thats down the line").
 - Houses: the SHAPE work can reopen now. The texture finding is the reason - the shapes
   were never what was wrong.
+PEOPLE (7h9sfy): 8/1 (b) LATEST — I WENT LOOKING FOR THE EMPTY ROADS AND FOUND
+SOMETHING BIGGER: THE VALLEY HOLDS SIXTY PEOPLE. Nothing in the game changed; this is
+a measurement and a [PENDING Paolo]. Full write-up:
+records/BOHEMIA_HOW_MANY_PEOPLE_CONTRADICTION_8_1_26.md
+
+*** I ALSO HAVE TO CORRECT MY OWN LAST TURN. *** The "8,282 residents / 2,306 workers"
+I reported hours ago counted a population THE GAME DOES NOT HAVE - they came from the
+agents module's flat 0.30 placeholder, not from the zone map the run actually uses. The
+worker feature is real and unaffected (the run passes its own rate); the valley-wide
+NUMBERS were wrong and are corrected below.
+
+=== THE MEASUREMENT (same valley, seed 7, three live sources of truth) ===
+  flat OCCUPIED_RATE=0.30 placeholder  -> 8,282 residents, 36% of cells
+  Paolo's ZONE MAP (7/29, his ruling)  ->    60 PEOPLE IN THE WHOLE VALLEY, 1% of cells
+  GDD v5 (~3% of 2.3M survive)         -> ~69,000 people
+Sixty, eight thousand, sixty-nine thousand. On cell 39,22 the two rates differ SIXTYFOLD.
+
+=== WHY NOBODY SAW IT ===
+The run is on the zone map and does not FEEL empty, because it applies a 6-household
+FLOOR to the player's own cell only. Measured on the real surface:
+    39,23 the player's block  13 people   (that is the floor)
+    39,22 one block north      0 people
+    39,24 one block south      0 people
+Walk one street over and the neighbourhood is dead. Every other consumer (gates, city
+tab, this lane's own numbers) calls agentsForPlot with no rate and gets 0.30, so the run
+and everything reasoning about the run describe two different cities.
+
+=== WHAT I DID NOT DO ===
+I made the zone map the default inside agentsForPlot, measured it, and BACKED IT OUT. It
+makes everything agree - on 60 people in a city, which contradicts his own GDD by three
+orders of magnitude. Making every consumer agree on a suspected-wrong number spreads the
+bug instead of containing it, and choosing between two live rulings is not a mechanism
+call. The disagreement is documented AT THE CALL SITE so the next reader cannot miss it.
+
+=== AND IT KILLS THIS LANE'S OWN QUEUED NEXT ITEM ===
+"Put travellers on the empty roads" was queued last turn. A cell is 96m x 96m
+(valley_scale_gate), so a three-cell commute is under 300m - about four minutes' walk.
+Rendering commuters mid-journey would be INVENTING traffic, not showing it. The roads
+being empty is not the bug. The population number is.
+
+*** IF YOU EDIT AN ENGINE MODULE, RUN `node tools/build_run_slice.js`. ***
+The builder inlines every engine module into slices/BOHEMIA_RUN_CURRENT.html, so a
+one-line COMMENT in engine/*.js makes the committed run stale and run_gate says so
+("regenerating changes nothing" -> 125/1). Caught before pushing. The builder alone is
+safe; it is the PATCH TOOL below that is not.
+
+*** A DEFECT IN THIS LANE'S OWN PATCH TOOL — FIX THIS FIRST. ***
+tools/bohemia_people_identity_patch.py is supposed to be safely re-runnable on top of
+whatever main has. IT IS NOT, ANY MORE. Main's run slice passes RUN PEOPLE 45/0; run the
+tool on it and the same gate goes 34/5. The tool's restore-then-reapply no longer
+reproduces what is committed, because other lanes have edited the slice around its
+markers. NOTHING WAS SHIPPED THROUGH IT THIS TURN - main's slice was taken verbatim and
+this turn ships only a comment, a record and the handoff.
+WHAT THE 5 FAILURES ARE, because they are a REAL conflict and not just tool drift:
+run_people_gate's count() is SIM.agents.length while facts() is RUN_PEOPLE, and the
+visiting workers this lane added are in the first and not the second - so "one person
+record per agent" breaks, and worse, VISITORS ESCAPE MASS EDITS, which is a direct
+conflict with Paolo's 7/29 mass-edit condition. Visitors cannot simply be added to
+RUN_PEOPLE either: it keys by agent.id and H1-1 exists on every block, so a visitor
+collides with the local resident of the same id.
+THE FIX IS A UNIQUE PERSON ID FOR VISITORS (their home cell is already on them as
+fromCell), threaded through peopleForAgents/conditionAgents. It needs doing carefully
+with both gates watched, and it was NOT attempted on a thin context.
+
+=== THE SHIPPED SUITE'S TWO REDS, PROVED INHERITED ===
+PARTS PAINTED  "no part is empty on any facing [NE/2, NW/2]"  21 pass / 1 fail
+BODY VARIATION the frame cache hashes the dials                40 pass / 1 fail
+Both come back BYTE-IDENTICAL on origin/main (8dd19d8) with this lane's work removed, so
+neither is this lane's. They are the CHARACTER lane's rig/body work, in flight today.
+Flagged by owner, not fixed here.
+
+=== FLEET-WIDE, NOT THIS LANE: THE BROWSER GATES FLAKE UNDER SUITE LOAD ===
+THREE separate real-browser gates went red exactly once each inside the full suite today
+and passed standalone immediately after, repeatedly:
+    SFX WIRED     red in suite -> 150/0 standalone, twice
+    ANSWERED FOR  red in suite -> 11/0 standalone, twice
+    THE RUN       red in suite -> 126/0 standalone, THREE times
+The suite run that failed THE RUN took 1245s against a normal ~760s, so the machine was
+heavily loaded. These gates drive real Chromium and real audio and they are timing out,
+not finding defects. NOBODY SHOULD CHASE A GHOST: if one of these is red once, run it
+alone before believing it. Somebody should give the browser gates a retry-once or a
+serialised slot - any lane can take it, it is not cook work. Reported rather than quietly
+re-run until green, because "I ran it again and it passed" only means something if it is
+said out loud.
+
+=== WHAT COMES AFTER, in order ===
+1. HIS ANSWER, in one sentence: walking one block from home, how many people should be
+   on that street - nobody, a couple, or a dozen? Three ways out are written up in the
+   record (zone constants too low / the GDD's 3% is stale / everyone is indoors in the
+   Mojave heat). ONE of them is right and it is his call, not a mechanism call.
+2. Whichever way he rules, the FIX IS ONE PLACE: agentsForPlot's rate, plus deleting the
+   run's home-cell floor if the answer is "the valley really is that empty".
+3. Still true from earlier today: JOB_DISTRICTS is four entries (a FARM employs nobody),
+   and squatting outside housing is [PENDING Paolo].
+4. PARKED, DO NOT ASK: who he already knows (KNOWN_AT_START). FACTIONS ARE OFF.
+
+--------------------------------------------------------------------------------
 
 RUN (eak241): 8/1 LATEST — HE CAN HEAR HIS STEPS, THE STREET IS HIS AGAIN, AND
 "INSIDE" IS NOW A FACT ABOUT THE CELL INSTEAD OF A STATE OF THE PLAYER.

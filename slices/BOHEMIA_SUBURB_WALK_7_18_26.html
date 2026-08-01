@@ -935,6 +935,21 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
        that block — otherwise the worker standing at the solar farm is a different
        person from the neighbour standing in their own yard, and this lane's whole
        promise is that they are not. */
+    /* WHICH POPULATION THIS CELL HOLDS, and a contradiction this function must
+       NOT resolve on its own. MEASURED 8/1:
+         this module's flat OCCUPIED_RATE placeholder -> 8,282 people in the valley
+         Paolo's ruled zone map (7/29)                ->    60 people in the valley
+         GDD v5 (~3% of pre-crash 2.3M survive)       -> ~69,000 people
+       Three numbers, three orders of magnitude apart, all live at once. The RUN
+       uses the zone map and only feels inhabited because it applies a 6-household
+       FLOOR to the player's own cell; walk one block and the neighbourhood is
+       genuinely dead (cells 39,22 and 39,24 hold nobody, measured on the real
+       surface). Defaulting this to the zone map was tried and BACKED OUT: it makes
+       every consumer agree on a population that is almost certainly wrong, which
+       spreads the bug instead of containing it. A contradiction between two live
+       rulings is [PENDING Paolo], not this function's call.
+       So the rate stays explicit: opts.rateFor (the run's, zone map + its floor),
+       else opts.occupiedRate, else the module's declared placeholder. */
     var rate = opts.rateFor ? opts.rateFor(x,y) : opts.occupiedRate;
     return agentsForBlock(cell.seed>>>0, plot.buildings, jobs, fpOf,
                           (rate!=null)?{occupiedRate:rate}:{});
