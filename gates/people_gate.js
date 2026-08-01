@@ -570,11 +570,27 @@ async function partD() {
     !!A.RESIDENTIAL.apartment && !!A.RESIDENTIAL.trailer && !!A.RESIDENTIAL.suburb);
 
   /* D4-D5: workers arrive, and they are not new people. */
-  const wk = A.workersForPlot(world, 20, 3);
-  const home = A.agentsForPlot(world, 20, 5);
-  ok('D4 a job site is staffed by the blocks that send it people (' + wk.length + ')', wk.length > 0);
-  ok('D5 every worker there is one of the residents next door, same id and seed',
-    wk.length > 0 && wk.every(w => home.some(h => h.id === w.id && h.seed === w.seed)));
+  /* FIND a staffed job site rather than naming one. Hard-coded coordinates broke
+     the moment the occupancy rate was derived down 8x on 8/1: cell 20,3 stopped
+     having commuters and the claim went red without anything being wrong. The
+     claim was always "job sites are staffed by the blocks that send them", never
+     "cell 20,3 specifically". */
+  let wk = [], home = [], at = null;
+  outer:
+  for (let y = 0; y < 48 && !at; y++) for (let x = 0; x < 48; x++) {
+    const w = A.workersForPlot(world, x, y);
+    if (!w.length) continue;
+    wk = w; at = [x, y];
+    home = A.agentsForPlot(world, w[0].fromCell[0], w[0].fromCell[1]);
+    break outer;
+  }
+  ok('D4 a job site somewhere is staffed by the blocks that send it people' +
+    (at ? ' (' + at + ', ' + wk.length + ' workers)' : ''), wk.length > 0);
+  ok('D5 every worker there is one of the residents of the block they came from',
+    wk.length > 0 && wk.every(w => {
+      const h = A.agentsForPlot(world, w.fromCell[0], w.fromCell[1]);
+      return h.some(r => r.id === w.id && r.seed === w.seed);
+    }));
   ok('D6 a visitor is flagged so the sim never treats them as a resident',
     wk.every(w => w.visiting === true && Array.isArray(w.fromCell)));
 
@@ -765,6 +781,66 @@ function partF() {
   ok('F6 their conditioning code is still in the file', /BohemiaPopulation.conditionAgents/.test(slice));
 }
 
+/* ==========================================================================
+   PART G — THE SCALE MODEL. Paolo, 8/1, asked the question that settles how many
+   people belong in this valley: take our Las Vegas against the real one, put the
+   full 2040/2050 population into the scale model first, THEN apply the
+   apocalypse. tools/bohemia_scale_model.js runs that derivation against the LIVE
+   map. These claims keep the map, the arithmetic and the sim from drifting apart.
+   ========================================================================== */
+function partG() {
+  console.log('G. THE SCALE MODEL SAYS HOW MANY');
+  const SM = require(path.join(ROOT, 'tools/bohemia_scale_model.js'));
+  const m = SM.measure(7), d = SM.derive(m);
+
+  ok('G1 the map is the size the valley-scale law says (' + m.km2.toFixed(2) + ' km2)',
+    Math.abs(m.km2 - 21.23) < 0.05);
+  ok('G2 the map really contains the homes the model counts (' + m.dwellings + ')',
+    m.dwellings > 10000 && m.dwellings < 15000);
+
+  /* G3 IS THE ONE THAT MATTERS. Two independent scales - area and housing - have
+     to agree, or the map is not a model of anything and the whole derivation is
+     numerology. */
+  const gap = Math.abs(d.byArea - d.byHomes) / d.byHomes;
+  ok('G3 area scale (1:' + d.byArea.toFixed(1) + ') and housing scale (1:' +
+    d.byHomes.toFixed(1) + ') agree within 25% (' + Math.round(gap * 100) + '%)', gap < 0.25);
+
+  ok('G4 step 1: full 2050 Vegas at this scale is tens of thousands, not millions (' +
+    Math.round(d.noApocalypse).toLocaleString('en-US') + ')',
+    d.noApocalypse > 20000 && d.noApocalypse < 80000);
+  ok('G5 step 2: after the 3% survival the valley holds about a thousand people (' +
+    Math.round(d.afterCrash) + ')', d.afterCrash > 600 && d.afterCrash < 2000);
+
+  /* G6: the SIM has to actually hold that many. This is the claim that goes red
+     if somebody edits the occupancy rate back to a round guess. */
+  const W2 = require(path.join(ROOT, 'engine/bohemia_world.js'));
+  global.window = global;
+  const world = (global.BohemiaWorld || W2).world(7);
+  let live = 0;
+  for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++) {
+    const c = world.at(x, y);
+    if (c && A.RESIDENTIAL[c.district]) live += A.agentsForPlot(world, x, y).length;
+  }
+  const off = Math.abs(live - d.afterCrash) / d.afterCrash;
+  ok('G6 THE SIM HOLDS WHAT THE ARITHMETIC SAYS: ' + live + ' people vs ' +
+    Math.round(d.afterCrash) + ' derived (' + Math.round(off * 100) + '% off)', off < 0.25);
+
+  /* G7: the old placeholder was 0.30 and it was 7x too many. Lock the door. */
+  const src = fs.readFileSync(path.join(ROOT, 'engine/bohemia_agents.js'), 'utf8');
+  const rate = /var OCCUPIED_RATE=([0-9.]+);/.exec(src);
+  ok('G7 the occupancy rate is the derived one, not a round guess (' +
+    (rate ? rate[1] : '?') + ')', !!rate && parseFloat(rate[1]) < 0.08);
+  ok('G8 the derivation is written down where the number lives',
+    /scale model of our Las Vegas|SCALE|1,113|scale_model/.test(src));
+
+  /* G9: his slider has to be able to REACH the truthful setting. The zone-map
+     path yields ~60 at dial 1, so the answer is around 19x - a max of 4 could
+     not express it, which is a broken slider. */
+  const POP = require(path.join(ROOT, 'engine/bohemia_population.js'));
+  ok('G9 the dial can reach the scale-model answer (max ' + POP.DIAL_MAX + ')',
+    POP.DIAL_MAX >= 20);
+}
+
 (async () => {
   console.log('PEOPLE GATE — the bodies on the block are people');
   partA();
@@ -773,6 +849,7 @@ function partF() {
   await partD();
   await partE();
   partF();
+  partG();
   console.log((fail ? 'FAILED' : 'OK') + ': ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.log('  FAIL: gate threw — ' + (e && e.stack || e)); process.exit(1); });

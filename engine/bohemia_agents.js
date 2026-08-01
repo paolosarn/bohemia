@@ -69,7 +69,37 @@
   // THE VALUE IS A PLACEHOLDER - how dead Vegas is (90%? 50%?) is Paolo's
   // canon ruling, [PENDING Paolo]. The MECHANISM (deterministic per-house
   // vacancy, dial-driven) is locked here and gated.
-  var OCCUPIED_RATE=0.30;
+  // DERIVED 8/1/26, no longer a placeholder. Paolo asked the question that settles
+  // it: "if we know the scale model of our Las Vegas compared to real Las Vegas ...
+  // it was just the full amount of people living in Vegas in 2040, 2050 - millions
+  // of people right - but then you get the scale model of it and now it's not
+  // millions, and then on top of it now we have an apocalypse."
+  //   THE THREE STEPS, run against the LIVE MAP by tools/bohemia_scale_model.js so
+  //   this number can never drift away from the world it describes:
+  //     THE MAP        48x48 cells x 96 m = 21.23 km2, 12,260 dwellings drawn
+  //     THE SCALE      1:78 by housing (12,260 of Clark County's 958,705 units),
+  //                    1:66 by area (21.2 km2 of the valley's 540 sq mi = 1,398.6).
+  //                    Two independent measures agreeing within 16% is what says
+  //                    the map is a coherent model and not a doodle.
+  //     STEP 1         2050 Vegas is ~2.9 M (UNLV CBER: 3 M in 2055). At 1:78 that
+  //                    is 37,085 people. Millions became tens of thousands purely
+  //                    from the scale model - his whole point.
+  //     STEP 2         then the apocalypse. GDD v5: ~3% remain. 37,085 x 3%
+  //                    = 1,113 PEOPLE IN THE WHOLE VALLEY.
+  //     STEP 3         1,113 / 2.2 per household = 506 occupied homes of 12,260.
+  //                    OCCUPANCY = 4.1% on paper; 0.038 is the value that
+  //                    LANDS there on the real map, because occupancy is a per-house
+  //                    hash roll and household draws are not exactly the mean.
+  //   THE OLD VALUE WAS 0.30 and its own comment called it a placeholder whose real
+  //   number was [PENDING Paolo]. It was 7.3x too many people. This replaces a
+  //   self-declared placeholder with arithmetic off his own GDD and public data -
+  //   it does not overrule any ruling.
+  //   THE OTHER PATH IS STILL OFF, and it is HIS so it was not touched: the 7/29
+  //   zone map yields 60 people valley-wide, ~19x too FEW. Its SHAPE (clusters AND
+  //   no man's lands AND spread) is his ruling and is correct; only its head counts
+  //   are small. The population dial's range was widened so his slider can reach
+  //   the truthful number without anybody editing that ruling.
+  var OCCUPIED_RATE=0.038;
   function houseOccupied(blockSeed,i,rate){
     var r=(rate!=null)?rate:OCCUPIED_RATE;
     return (hash(blockSeed,i+1,777)%1000)/1000 < r;

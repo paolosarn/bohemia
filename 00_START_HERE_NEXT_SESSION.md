@@ -56,6 +56,72 @@ gates/logo_gate.py                         16 checks, registered as LOGO
    have issues with the banding until then" - LEAVE IT. Never touch his pixels; if he
    reopens it the fix is placement, dropping edge-scored tiles from the yard pool.
 4. Doubling the art cell 44 -> 88 px ("thats down the line").
+PEOPLE (7h9sfy): 8/1 (f) LATEST — THE POPULATION QUESTION IS ANSWERED: ~1,113 PEOPLE IN
+THE WHOLE VALLEY, derived from the scale model the way Paolo said to derive it. The world
+now holds that many. Full derivation + sources:
+records/BOHEMIA_HOW_MANY_PEOPLE_ANSWERED_8_1_26.md
+Reproduce any time: `node tools/bohemia_scale_model.js` (runs against the LIVE map, so the
+number can never drift from the world it describes).
+
+=== HIS METHOD, AND IT WAS THE RIGHT ONE ===
+"if we know the scale model of our Las Vegas compared to real Las Vegas ... it was just the
+full amount of people living in Vegas in 2040, 2050 - millions of people right - but then
+you get the scale model of it and now it's not millions of people, and then on top of it
+now we have an apocalypse."
+
+  THE MAP        48x48 cells x 96 m = 21.23 km2, 12,260 dwellings actually drawn
+  THE SCALE      1:78 by housing (12,260 of Clark County's 958,705 units)
+                 1:66 by area     (21.2 km2 of the valley's 540 sq mi)
+                 THEY AGREE WITHIN 16% - two measures from completely different things
+                 landing together is what says the map is a real model, not a doodle
+  STEP 1         2050 Vegas ~2.9 M (UNLV CBER: 3 M in 2055) / 78.2 = 37,085 PEOPLE
+                 millions became tens of thousands from the scale model alone
+  STEP 2         GDD's ~3% survive -> 1,113 PEOPLE IN THE WHOLE VALLEY
+  STEP 3         506 occupied homes of 12,260 = 4.1% occupancy, 1.8 per residential cell
+
+=== THE ANSWER TO THE QUESTION THIS LANE HAS BEEN ASKING FOR THREE TURNS ===
+WALKING ONE BLOCK FROM HOME YOU SHOULD USUALLY SEE NOBODY. SOMETIMES ONE. IN A CLUSTER, A
+DOZEN. The emptiness is not a bug - it is what a thousand survivors in a hundred-thousand-
+person shell looks like, and his 7/29 zone map (clusters AND no man's lands AND spread) is
+exactly the right shape to hang it on.
+
+=== IT GRADED BOTH LIVE NUMBERS, AND BOTH WERE WRONG ===
+  flat placeholder 0.30   8,282 people   7.4x TOO MANY
+  zone map at dial 1         60 people   19x TOO FEW
+  the scale model         1,113 people   <- the answer
+Opposite directions, which is why neither ever felt right.
+
+=== WHAT CHANGED ===
+OCCUPIED_RATE 0.30 -> 0.038, full derivation written AT the constant. That value's own
+comment called it a placeholder [PENDING Paolo]; this replaces it with arithmetic off his
+GDD and public data, which is not overruling anything. Measured: 1,047 valley-wide, 6%
+under target (occupancy is a per-house hash roll, so it lands near, not on).
+DIAL_MAX 4 -> 32, because the zone-map path needs ~19x to reach the truth and a slider that
+cannot reach the right answer is a broken slider.
+THE ZONE MAP ITSELF WAS NOT TOUCHED. Its SHAPE is his ruling and it is right; only its head
+counts are low and those are his. The widened dial lets his slider reach the truth without
+anybody editing that ruling.
+
+=== GATE: people_gate part G, 9 claims, 115 total ===
+G3 the two scales must agree (the foundation). G6 THE SIM MUST HOLD WHAT THE ARITHMETIC
+SAYS within 25% (the teeth). G7 the rate cannot go back to a round guess. G9 the slider must
+still reach the answer. Mutation-proved twice.
+ALSO FIXED: D4/D5 hard-coded cell 20,3 and went red the moment the population dropped 8x.
+They SEARCH for a staffed job site now - the claim was always "job sites are staffed", never
+"that cell specifically".
+
+=== WHAT COMES AFTER, in order ===
+1. HIS VERDICT ON THE FEEL. The arithmetic is honest; whether 1,113 feels right when he
+   walks it is a verdict, not a calculation. If he wants a busier valley the lever is ONE
+   number now and the derivation says exactly what he would be trading away.
+2. THE ZONE MAP'S HEAD COUNTS are ~19x low against this. His ruling, his numbers - but the
+   arithmetic to fix them is now written down and reproducible.
+3. VISITORS ESCAPE MASS EDITS (unchanged): a worker at a job site is not in RUN_PEOPLE. Fix
+   is a unique person id for visitors threaded through peopleForAgents/conditionAgents.
+4. JOB_DISTRICTS is four entries; a FARM employs nobody. WORLD's call.
+5. PARKED, DO NOT ASK: who he already knows. FACTIONS ARE OFF.
+
+--------------------------------------------------------------------------------
 
 ART (f3eu53): 8/1 (e) LATEST — THE HERO FEATURES. He told me to leave the banding and
 keep going, so I closed the gap this lane has carried as named debt since the first
