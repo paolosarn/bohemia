@@ -2333,6 +2333,41 @@ LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
 scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
 pages from coming back.
 
+SOUNDS (xk7pjp): 8/2 (b) LATEST — ONE VOLUME KNOB, and one honest gap.
+
+HIS RULING: "when we have a menu and it's gonna have Settings and then we can
+change the volume of all sound effects or whatever so yeah just keep that in
+mind." Also confirmed the doubled-footstep worry was nothing: "I just hear a
+single one."
+
+SHIPPED: every sound effect now routes through ONE node, SFXBUS -> MUS.MAST, and
+the entire settings hook is window.setSFXVolume(0..1) / getSFXVolume(), persisted
+in localStorage. When the menu exists it calls that and nothing else. It does NOT
+re-mix anything: the ambience bus keeps its 0.4 and simply feeds the master
+instead of bypassing it, so every level he judged sits exactly where it was.
+MEASURED: kill at volume 1 peaks 0.479, at 0.5 peaks 0.239 (exactly half), at 0
+peaks 0.000.
+
+THE GAP, STATED PLAINLY BECAUSE IT IS NOT FIXED: FOOTSTEPS STILL BYPASS THE
+MASTER. With SFX volume at 0, walking still measured 0.29. Another session built
+STEP_BUS on 8/1 off his "A LOT A LOT quieter" ruling and it connects straight to
+MUS.MAST. I patched that one line to prefer window.__SFXBUS and then made the
+master eagerly on unlock so creation order could not lose the race, and it STILL
+bypasses -- so my model of that code is wrong somewhere and I stopped rather than
+keep guessing at another lane's system with no budget left.
+  NEXT SESSION: find where footsteps actually reach the destination. Do not
+  assume it is the STEP_BUS.connect line I patched; something else is carrying
+  them. Then gate it: assert that with setSFXVolume(0) a WALK measures silence.
+  That gate does not exist yet, which is why this shipped with the hole visible
+  instead of hidden.
+
+VERIFIED THIS TURN: SFX WIRED 230, SFX FACTORY 160, ALPHA LOADS 20 (zero page
+errors), RUN 126. The FULL suite was NOT run on this final tree -- the session
+ran out of room. Two reds (PARTS PAINTED, BODY VARIATION) were proven
+pre-existing on clean origin/main earlier today and are the CHARACTER lane's.
+
+BUILD STAMP: 8/2k - ONE VOLUME KNOB FOR ALL SFX (SETTINGS-READY).
+
 SOUNDS (xk7pjp): 8/2 LATEST — THE VALLEY MAKES NOISE. 100/100 judged, 55 banked,
 world tone WIRED. Nothing in this lane is waiting on him.
 

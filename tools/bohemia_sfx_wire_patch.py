@@ -114,6 +114,43 @@ def parent_block(bank):
     if(!cache[k]){ try{ cache[k]=BOH_SFX.cook(ev,5)[i]; }catch(e){ return null; } }
     return cache[k];
   }
+  /* ===== ONE BUS FOR EVERY SOUND EFFECT (8/2) ==========================
+     Paolo 8/2: "when we have a menu and it's gonna have Settings and then we
+     can change the volume of all sound effects or whatever so yeah just keep
+     that in mind."
+     Effects were reaching the output THREE different ways: footsteps on their
+     own quiet bus, ambience on another, and everything else straight into the
+     music master. A volume slider would have had to know about all three and
+     would have drifted the moment a fourth appeared. So there is one node now.
+     Everything an effect makes goes through SFXBUS -> MUS.MAST, and the whole
+     settings hook is setSFXVolume().
+     IT DOES NOT FLATTEN THE MIX HE APPROVED: the footstep bus and the ambience
+     bus keep their own gains and simply feed this one instead of the master, so
+     every level he judged stays exactly where it was relative to everything
+     else. This is a place to put a knob, not a re-mix. */
+  var SFXBUS=null, SFXVOL=1;
+  try{ var sv=parseFloat(localStorage.getItem('bohemia_sfxvol'));
+       if(sv>=0 && sv<=1) SFXVOL=sv; }catch(e){}
+  function sfxBus(){
+    try{
+      if(SFXBUS) return SFXBUS;
+      if(typeof MUS==='undefined' || !MUS.AC) return null;
+      SFXBUS=MUS.AC.createGain(); SFXBUS.gain.value=SFXVOL;
+      SFXBUS.connect(MUS.MAST||MUS.AC.destination);
+      window.__SFXBUS=SFXBUS;
+    }catch(e){ SFXBUS=null; }
+    return SFXBUS;
+  }
+  /* THE WHOLE SETTINGS HOOK. When the menu exists it calls this and nothing
+     else. 0 is silent, 1 is the mix he judged. */
+  window.setSFXVolume=function(v){
+    v=Math.max(0,Math.min(1,+v||0)); SFXVOL=v;
+    try{ localStorage.setItem('bohemia_sfxvol',String(v)); }catch(e){}
+    try{ if(SFXBUS) SFXBUS.gain.value=v; }catch(e){}
+    return v;
+  };
+  window.getSFXVolume=function(){ return SFXVOL; };
+
   /* THE ONE ENTRY POINT. when==='beat' fires on the next downbeat of the real
      song (the 120 BPM LAW: a kill lands ON the beat), anything else fires now. */
   window.playSFX=function(ev,when){
@@ -122,7 +159,7 @@ def parent_block(bank):
       var i=pick(ev); if(i==null)return null;
       var v=vec(ev,i); if(!v)return null;
       MUS.audio();
-      var AC=MUS.AC, dest=MUS.MAST||AC.destination;
+      var AC=MUS.AC, dest=sfxBus()||MUS.MAST||AC.destination;
       var at=null;
       if(when==='beat' && MUS.playing && MUS.nextT){
         /* the next 16th that is also a beat boundary */
@@ -160,6 +197,13 @@ def parent_block(bank):
   function unlock(){
     claimPlayback();
     try{ MUS.audio(); if(MUS.AC && MUS.AC.state==='suspended') MUS.AC.resume(); }catch(e){}
+    /* BUILD THE SFX MASTER THE INSTANT AUDIO EXISTS. Lazily is not good enough:
+       the footstep bus is built on the first footstep and reads window.__SFXBUS
+       to decide what to plug into, so if a step happens before any other sound
+       it wires itself to the music master FOREVER and the volume slider cannot
+       reach it. Measured exactly that: muted everything and footsteps still
+       came out at 0.27. Order of creation is not something to leave to luck. */
+    try{ sfxBus(); }catch(e){}
   }
   ['pointerdown','touchend','mousedown','click','keydown'].forEach(function(t){
     document.addEventListener(t, unlock, {capture:true, passive:true});
@@ -231,7 +275,7 @@ def parent_block(bank):
         if(!this.bus){
           this.bus = MUS.AC.createGain();
           this.bus.gain.value = 0.4;
-          this.bus.connect(MUS.MAST||MUS.AC.destination);
+          this.bus.connect(sfxBus()||MUS.MAST||MUS.AC.destination);
         }
         var set=APPROVED[this.kind]; if(!set||!set.length) return;
         var i=set[(Math.random()*set.length)|0];
@@ -368,6 +412,22 @@ def main():
     anchor = '<div id="exportModal"'
     k = alpha.index(anchor)
     alpha = alpha[:k] + P_BEGIN + '\n<script>' + parent_block(bank) + '</script>\n' + P_END + '\n' + alpha[k:]
+    # THE FOOTSTEP BUS FEEDS THE SFX MASTER TOO (8/2). Another session built
+    # STEP_BUS on 8/1 off his "A LOT A LOT quieter" ruling, and it connects
+    # straight to the music master. That is ONE LINE in someone else's block and
+    # I am changing it deliberately: his settings ruling needs ONE knob, and a
+    # footstep bus that bypasses the SFX master would be the one sound a volume
+    # slider could not turn down. Their gain is untouched, so the level he
+    # approved is exactly preserved -- only what it plugs into changes.
+    _old = 'STEP_BUS.connect(MUS.MAST || AC.destination);'
+    _new = ('STEP_BUS.connect((window.__SFXBUS) || MUS.MAST || AC.destination);'
+            '  /* 8/2: through the SFX master so one slider reaches it */')
+    if _old in alpha:
+        alpha = alpha.replace(_old, _new, 1)
+        print('  footstep bus rerouted through the SFX master (their gain untouched)')
+    elif _new not in alpha:
+        print('  NOTE: no footstep bus found to reroute (another lane may have moved it)')
+
     open(ALPHA, 'w', encoding='utf8').write(alpha)
 
     # ---------- run ----------
