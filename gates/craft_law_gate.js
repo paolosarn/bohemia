@@ -27,7 +27,7 @@ const CLAUSES = [
   ['1 THE BACK IS NOT THE FRONT',      'THE BACK IS NOT THE FRONT'],
   ['2 COVER THE HEADSPACE',            'COVER THE HEADSPACE'],
   ['3 NO STRAIGHT LINES',              'NO STRAIGHT LINES'],
-  ['4 ONE PIXEL, NOT THREE',           'ONE PIXEL, NOT THREE'],
+  ['4 TWO HAIR ONE SKIN (amended)',    'TWO PIXELS OF HAIR, ONE PIXEL OF SKIN'],
   ['5 CENTRE WHAT SHOULD BE CENTRAL',  'CENTRE WHAT SHOULD BE CENTRAL'],
   ['6 A FADE MUST ACTUALLY FADE',      'A FADE MUST ACTUALLY FADE'],
   ['7 LONG HAIR SHOWS FROM THE FRONT', 'LONG HAIR SHOWS FROM THE FRONT'],
@@ -47,8 +47,10 @@ ok('it still quotes him on the back of the head',
   flat.indexOf("there's a lot of headspace that should be covered more by hair") >= 0);
 ok('it still quotes him on straight lines',
   flat.indexOf('a lot of straight lines and that') >= 0);
-ok('it still quotes him on one pixel',
+ok('it still quotes him on one pixel (the superseded wording, kept)',
   flat.indexOf('just one pixel not like two or three') >= 0);
+ok('and quotes the AMENDMENT that supersedes it',
+  flat.indexOf('one pixel for the skin two pixels for the hair') >= 0);
 
 /* the process lessons are load-bearing too -- they are why the craft ones stuck */
 for (const needle of [
@@ -65,8 +67,14 @@ ok('clause 3 in code: row edges take a deterministic wobble',
   /var wob=function\(y,side\)/.test(src) && /mn-=wob\(y,0\); mx\+=wob\(y,1\)/.test(src));
 ok('clause 3 in code: the wobble is HASHED, never rolled (an NPC must not shimmer)',
   /_wseed/.test(src) && !/Math\.random[\s\S]{0,200}wob/.test(src));
-ok('clause 4 in code: the texture alternates every OTHER pixel, not every third',
-  /tex==='locs'&&\(\(x-mn\)%2===1\)/.test(src));
+/* AMENDED 8/1 the same day: 2 HAIR : 1 SKIN, not 1:1. The original %3 was already
+   right; I changed it to %2 on an over-reading of his first note and he corrected
+   me. The gate now pins the ratio he actually specified, and pins it for EVERY
+   skin-through-hair texture, because he said "any sort of skin to hair hairstyle". */
+ok('clause 4 in code: two pixels of hair to one of skin (ropes)',
+  /tex==='locs'&&\(\(x-mn\)%3===2\)/.test(src));
+ok('clause 4 in code: the same ratio on the weave, not just the ropes',
+  /tex==='braid'[\s\S]{0,60}%3===2[\s\S]{0,30}%3===2/.test(src));
 ok('clause 5 in code: the head centre floors instead of rounding',
   /hcx=Math\.floor\(\(hMn\+hMx\)\/2\)/.test(src));
 ok('clause 5 in code: a strip centres on its own row',

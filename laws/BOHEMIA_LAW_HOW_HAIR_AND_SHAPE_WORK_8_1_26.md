@@ -52,7 +52,29 @@ Perfectly straight edges read as machine-drawn. Irregularity must be
 DETERMINISTIC (same input, same wobble, forever) or an NPC shimmers between
 frames. Randomness is not the answer; a hash is.
 
-### 4. ONE PIXEL, NOT THREE
+### 4. TWO PIXELS OF HAIR, ONE PIXEL OF SKIN  *(AMENDED 8/1, same day)*
+
+> "new rule for cornrows or any sort of skin to hair hairstyle one pixel for the
+> skin two pixels for the hair pretty please and thank you"
+> — Paolo, 8/1/26, superseding his own earlier wording below
+
+**THE RATIO IS 2:1, HAIR TO SKIN.** Wherever skin shows through hair — cornrows,
+ropes, braids, any weave — two pixels of hair, one pixel of skin. It applies to
+the CLASS ("any sort of skin to hair hairstyle"), not to one style.
+
+**AND I GOT THIS WRONG IN BOTH DIRECTIONS, which is why it is written twice.**
+The original generator was `%3` — already 2 hair : 1 skin, already right. His
+first note said "the difference is just one pixel not like two or three", I read
+that as 1:1, and changed it to `%2`. That was OVER-reading him: he was rejecting a
+*three-pixel gap*, not asking for a one-pixel *ram*. My "fix" was a regression he
+then had to spend a turn correcting. **When a note could mean two things, the one
+that changes working code needs checking before it ships.**
+
+At 56px the difference is not subtle: 1:1 reads as grey mush, 2:1 reads as rows.
+
+### 4a. THE SUPERSEDED WORDING, kept for the audit trail
+
+
 > "when we don't have a lot of real estate to work with ... The difference is just
 > one pixel not like two or three"
 

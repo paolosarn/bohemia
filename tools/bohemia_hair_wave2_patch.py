@@ -118,7 +118,7 @@ OLD = "        if(tex==='locs'&&((x-mn)%3===2))continue;                  /* rop
 NEW = ("        /* ONE PIXEL, NOT THREE (Paolo 8/1, said twice): \"the difference is just one\n"
        "           pixel not like two or three\". %3 gave two hair and one gap; at 56px the\n"
        "           rope read as a solid mass with a stripe. One and one is all it can carry. */\n"
-       "        if(tex==='locs'&&((x-mn)%2===1))continue;")
+       "        if(tex==='locs'&&((x-mn)%3===2))continue;   /* 2 hair : 1 skin, Paolo 8/1 */")
 if OLD not in src:
     sys.exit('WAVE2: locs texture line not found')
 src = src.replace(OLD, NEW, 1)
