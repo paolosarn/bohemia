@@ -524,3 +524,14 @@ NO REMAKE THIS SESSION (GRAVEYARD IS FINAL + STOP PRODUCING). One rejection is
 not two, and the turn these died in was a turn where he told me the judge
 surface itself was wrong. Answering that with more sounds would be the exact
 failure the STOP PRODUCING law is named after.
+
+# ---- HAIR WAVE 2, Paolo's verdict 8/1/26. THE SECOND KILL IS PERMANENT. -------
+# Reopened under laws/BOHEMIA_ADDENDUM_A_KILL_CAN_BE_REOPENED_8_1_26.md, shown to
+# him again on a fixed machine, and killed a SECOND time. That addendum says a
+# second kill is final with no third look, whatever changes later. These three are
+# closed forever; their slots may only ever be answered by a FRESH COOK.
+# REOPENING EARNED ITS KEEP THOUGH: 4 of the 7 came back as KEEPS -- SIDE PART,
+# LIBERTY SPIKES, PONYTAIL and TOP KNOT are canon now. The test worked.
+HIGH TOP 2      | hair | 8/1/26 | second kill, permanent. Reopened because "there's part of the head that's not even with hair" was a bare-scalp BUG; the bug was fixed for every style and he still did not want the shape. That is the distinction the addendum exists to draw.
+HAIR LOCS 2     | hair | 8/1/26 | second kill, permanent. Reopened because "I see the vision it just needs to be executed better" plus the one-pixel rule; the texture now runs on both drawing paths anchored to the head, and the answer was still no. The MECHANISM survives and carries CORNROWS, which he approved: "The cornrows is so much better very good."
+LOW BUN 2       | hair | 8/1/26 | second kill, permanent. He called it "really good" and it was killed as a slot decision both times. Its BACK remains the reference every other back is shaped against -- the silhouette lives on in the machine even though the style is closed.

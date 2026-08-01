@@ -4,10 +4,11 @@
 #   4th field added 7/21 for dress-code-by-rank -- bohemia_dress.js parse()
 #   widened to p.length>=3 the same turn; regenerate any embedded slice
 #   copy (tools/bohemia_life_slice.py) so its stamped parser matches)
-# count: 234
+# count: 238
 BUZZ CUT|hair|#201e1b|
 CROP|hair|#523a26|
 SLICK BACK|hair|#201e1b|
+SIDE PART|hair|#967850|
 BOWL CUT|hair|#523a26|
 FRINGE|hair|#201e1b|
 SHAG|hair|#523a26|
@@ -16,7 +17,10 @@ LONG LOOSE|hair|#523a26|
 MULLET|hair|#7c3a22|
 WOLF CUT|hair|#201e1b|
 MOHAWK|hair|#201e1b|
+LIBERTY SPIKES|hair|#6ea434|
 CORNROWS|hair|#201e1b|
+PONYTAIL|hair|#967850|
+TOP KNOT|hair|#201e1b|
 GREY WISPS|hair|#babac2|
 RED SHIRT|base|#963c36|
 WHITE TEE|base|#d4d0c8|

@@ -39,8 +39,11 @@ const done = () => { console.log(`\n=== HAIR GATE: ${p} passed, ${f} failed ===`
 /* ---- static ------------------------------------------------------------- */
 ok('genHair is in the alpha', /function genHair\(g,opt\)\{/.test(src));
 ok('hair composites UNDER headwear and OVER the body', /'hands','hair','head','face'/.test(src));
+/* the filename now carries the ROUND (8/1), so this matches the prefix rather than
+   a fixed name -- still .txt, still never .json, per the verdict workflow. */
 ok('the judge board exports .txt and never .json (the verdict workflow)',
-  /BOHEMIA_HAIR_VERDICTS\.txt/.test(src) && !/hair[^\n]*\.json/i.test(src));
+  /BOHEMIA_HAIR_VERDICTS_R'\s*\+\s*hairRound\(\)\s*\+\s*'\.txt/.test(src)
+  && !/hair[^\n]*\.json/i.test(src));
 ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
 
 /* ---- the real surface --------------------------------------------------- */
@@ -173,6 +176,32 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
   ok('the board shows the BACK as well as the front (a bun and a tail match from the front)',
     R.shots === R.judgeable * 2);
   ok('the board has a notes box (comment section at the bottom, always)', R.notes);
+  /* A ROUND IS A ROUND (Paolo 8/1: "fully update the judge save system ... when I
+     leave notes they shouldn't be around for the next round"). Notes lived in one
+     forever-key, so every wave opened holding the last wave's comments. Driven on
+     the real surface below: type a note, export, and the box must come back EMPTY
+     with the round advanced and the sheet archived -- cleared, never lost. */
+  const RR = await pg.evaluate(() => {
+    const ta = document.getElementById('hairNotes');
+    if (!ta) return { ok: false };
+    const r0 = parseInt(localStorage.getItem('bohemia_hair_roundno') || '1', 10);
+    ta.value = 'GATE PROBE NOTE'; ta.oninput();
+    const stored = localStorage.getItem('bohemia_hair_notes_r' + r0);
+    const btn = [...document.querySelectorAll('button')].find(b => /EXPORT/i.test(b.textContent));
+    if (btn) btn.click();
+    return {
+      ok: true, stored: stored,
+      advanced: parseInt(localStorage.getItem('bohemia_hair_roundno') || '1', 10) === r0 + 1,
+      cleared: (document.getElementById('hairNotes') || {}).value === '',
+      archived: !!localStorage.getItem('bohemia_hair_round_' + r0),
+      votesCleared: !localStorage.getItem('bohemia_hair_votes_b1'),
+    };
+  });
+  ok('a note is saved against the CURRENT round', RR.stored === 'GATE PROBE NOTE');
+  ok('exporting ADVANCES the round', RR.advanced);
+  ok('and the notes box comes back EMPTY for the next round', RR.cleared);
+  ok('the thumbs reset too, so a stale vote cannot ride into the next wave', RR.votesCleared);
+  ok('but nothing is lost -- the sheet is archived under its round', RR.archived);
   ok('the board reports what is unjudged (' + R.stat + ')', /unjudged/.test(R.stat));
 
   await b.close();
