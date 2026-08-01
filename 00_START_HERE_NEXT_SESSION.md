@@ -329,6 +329,80 @@ FOR ANYONE MUTATION-TESTING: two of my attempts were case-sensitive and sailed p
 working check. A WEAK MUTATION LOOKS EXACTLY LIKE A ROBUST CHECK -- mutate case-
 insensitively and mutate ALL occurrences.
 
+CITY (03): 8/1 LATEST — 98% OF THE VALLEY WAS BUILT AS A GATED COMMUNITY, AND
+TWO OF HIS OWN BANK LAWS HAD BEEN SITTING UNENFORCED FOR 18 DAYS.
+
+HIS RULING, in his own approved bank since 7/14, in `paolo_laws`:
+  > "most Vegas communities are walled but NOT gated; gates = boujee/richer
+  >  pre-apocalypse (story fuel post-apocalypse)"
+The backlog named it as ungated on 7/28 and banklaw_gate.py admitted it out loud
+on every single run. Nobody had built the machine. Now it exists.
+
+THE BUG WAS ONE MISSING ARGUMENT. Three district types share the suburb generator
+(suburb / gated / estate) and bohemia_world.js called it with a seed and the
+street edges and never said WHICH. So it stamped a GATE through every street edge
+of all three, `gated` was a district type that changed nothing, and 2,582 of the
+valley's 2,631 residential cells were built as gated communities.
+  NOW: gated/estate (1.9%) get a gate assembly. Ordinary suburbs (98.1%) get the
+  STREET RUNNING THROUGH a gap in the block wall. Same aperture, different thing
+  standing in it. No new tile, no new art, nothing cooked.
+
+THE RESEARCH, because everything here is grounded in the real: Clark County's
+Unified Development Code 30.64.020 REQUIRES a developer-installed decorative
+perimeter wall on a subdivision. A wall is CODE, not status - it signals nothing,
+every tract has one. A GATE is what a richer community bought on top. The
+American Housing Survey (2015, the last year it asked) put 5.9% of US households
+behind a wall and 3.4% behind controlled access.
+
+TWO THINGS THIS TURN THAT ARE WORTH MORE THAN THE FEATURE:
+
+  1. A SECOND BUG THE FIRST ONE EXPOSED. roadConnected() started its walk by
+     scanning for the first code-5 cell and calling it the way in. That was true
+     only while every community was gated. The moment a suburb opened its street
+     instead, `start` came back null and every ordinary suburb in the valley
+     reported its roads DISCONNECTED - not because they were, but because the
+     function could not find a door it recognised. It starts from the returned
+     entrance list now, whatever kind of entrance it is.
+
+  2. I WROTE A GATE THAT COULD NOT FAIL, AGAIN, AND SABOTAGE CAUGHT IT. The
+     assertion that the world passes the district was a REGEX on
+     bohemia_world.js. I deleted the argument for real and the gate stayed GREEN
+     at 84/84 - that exact string occurs FIVE times in that file and the regex
+     found one of the other four. Replaced with: build the real world, pull a
+     real suburb cell and a real gated cell, look at the plot the game would hand
+     a renderer. Now it fails.
+     THIS IS THE SAME MISTAKE AS THE 7/31 FACING GATE that called the helper
+     instead of reading the render. THE TELL BOTH TIMES: THE ASSERTION NEVER
+     TOUCHED THE OUTPUT. If a check would still pass with the feature ripped out,
+     it is not a check. And note the near-miss: my FIRST sabotage attempt used a
+     sed that silently did not match, so I nearly recorded a false all-clear on
+     the false green. VERIFY THE SABOTAGE APPLIED, not just that you ran it.
+
+GATE: GATED IS RICH, 87 assertions, in the suite. Proved able to fail three ways
+(the world stops passing the district; the generator defaults to gated; the
+entrance spoke is cut). banklaw_gate.py's 18-day debt note is deleted - all three
+Vegas suburb laws are machine-held now.
+
+WHAT COMES AFTER, in order:
+  1. THE CITY-BUILDER HALF IS STILL THE BIGGEST HOLE IN THE GAME and no lane can
+     touch it. records/BOHEMIA_THE_BIG_MISSING_7_29_26.md item 2: what the player
+     builds, from what, why, where, and how rebuilding drives the three acts. It
+     needs YAP SESSIONS WITH PAOLO, not a lane. Everything else (economy sinks,
+     faction stakes, vehicle unlocks) plugs into it.
+  2. [PENDING Paolo] roof hips (backlog 0S), #modeFace lumpy x1.25, and "the
+     street that I didn't say you could go".
+  3. The eight tile forms from 7/28 are still with the ART lane.
+  4. The run has no weather and no per-cell power reading, so the darkStay and
+     wetStay conditions are live on the CITY tab and inert in the RUN. One object
+     literal in tools/bohemia_run_person_facts_patch.py learns about it when the
+     run gains weather.
+
+DO NOT: put a schedule reader back into bohemia_population.js (ENGINE SYNC, and
+zone_map_gate will catch it). Do not print anybody's routine (INVISIBLE SCHEDULE).
+Do not build a second schedule system. Do not raise the population because it
+feels empty - a quarter of the map is empty ON HIS ORDER.
+
+--- earlier turns, still current ---
 CITY (03): 7/31 LATEST — HE RULED THE SCHEDULE INVISIBLE, AND RULED A NAME
 SOMETHING YOU HAVE TO ASK FOR. LAW + GATE LANDED THE SAME TURN.
 

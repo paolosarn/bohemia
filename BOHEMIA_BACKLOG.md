@@ -1724,6 +1724,50 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AH. [DONE 8/1 — TWO OF HIS OWN BANK LAWS, UNENFORCED FOR 18 DAYS, AND 98% OF
+   THE VALLEY WAS BUILT WRONG] MOST OF VEGAS IS WALLED, NOT GATED.
+   Backlog 0N (7/28) named these two as the residual: "STILL UNGATED, NAMED:
+   gates_touch_streets and gated_is_rich are generator-level rules with no
+   machine." banklaw_gate.py printed the same admission every run. Closed now.
+   HIS WORDS, from banks/BOHEMIA_GRAPHICS_VERDICTS_MASTER_7_16_26.txt and
+   BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt (`paolo_laws`, 7/14):
+     > "most Vegas communities are walled but NOT gated; gates = boujee/richer
+     >  pre-apocalypse (story fuel post-apocalypse)"
+   THE BUG, one line: three district types share the suburb generator (suburb /
+   gated / estate) and bohemia_world.js called it with a seed and street edges
+   and NEVER SAID WHICH. So the generator stamped a GATE through every street
+   edge of every one of them. `gated` was a district type that changed nothing,
+   and 2,582 of the valley's 2,631 residential cells - 98.1% - were built as
+   gated communities. The exact inversion of his ruling.
+   THE FIX: the world passes `district`, the generator picks the entrance.
+     GATED (gated/estate, 1.9% of cells) - a gate assembly (code 5).
+     WALLED (ordinary suburb, 98.1%)     - the STREET RUNS THROUGH (code 1).
+   Same 7-tile aperture; what stands in it is the difference. No new tile code,
+   no new art, no bank touched.
+   THE REAL VEGAS, researched 8/1 because everything here is grounded in the
+   real: Clark County Unified Development Code 30.64.020 REQUIRES a developer-
+   installed decorative perimeter wall on a subdivision - a wall is CODE, not
+   status, so it signals nothing. A gate is what a richer community bought on
+   top. The American Housing Survey (2015, last year it asked) put 5.9% of US
+   households behind a wall and 3.4% behind controlled access.
+   A SECOND BUG THE FIRST ONE EXPOSED: roadConnected() began its walk by scanning
+   for the first code-5 cell and calling it the way in. True only while every
+   community was gated - the moment a suburb opened its street instead, `start`
+   came back null and every ordinary suburb reported its roads DISCONNECTED. It
+   starts from the returned entrance list now, whatever kind of entrance it is.
+   AND A GATE THAT COULD NOT FAIL, CAUGHT BY SABOTAGE: the assertion that the
+   world passes the district was a REGEX on bohemia_world.js. Deleting the
+   argument for real left the gate green at 84/84, because that exact string
+   occurs five times in that file and the regex found one of the other four.
+   Replaced with: build the real world, pull a real suburb cell and a real gated
+   cell, and look at the plot the game would hand a renderer. NOW it fails.
+   Same class as the 7/31 facing gate that called the helper instead of reading
+   the render. THE TELL BOTH TIMES: the assertion never touched the output.
+   | engine/bohemia_suburb.js + engine/bohemia_world.js (one argument)
+   | gate: GATED IS RICH, 87 assertions, proved able to fail three ways
+   | banklaw_gate.py's 18-day debt note deleted, dossier + tilespec regenerated
+   | 8/1 | YES - walk any neighbourhood; the gate is gone unless it is a rich one.
+
 0AG. [RULED 7/31, RECORDED, GATED — AND IT CLOSES THE LANE'S LAST PENDING]
    A ROUTINE IS INVISIBLE INFORMATION, AND A NAME IS ASKED FOR.
    He answered the Majora's Mask question this lane had been holding open since

@@ -76,11 +76,16 @@ low = after.lower()
 for name, quote in MUST:
     ok('the index still carries %s ("%s")' % (name, quote), quote.lower() in low)
 
-# Honesty, stated rather than hidden: two of the three Vegas suburb laws have no
-# gate of their own yet. Naming them here is the point of the index.
-print('  (not gated yet, stated on purpose: `gates_touch_streets` and `gated_is_rich` '
-      'are generator-level rules with no machine of their own. one_wall_per_community '
-      'is enforced by gates/wallclass_gate.js as of 7/28.)')
+# ALL THREE VEGAS SUBURB LAWS NOW HAVE A MACHINE. This block used to name two of
+# them as deliberately ungated, which is the honest thing to do with a debt but a
+# bad thing to leave standing for eighteen days. `gated_is_rich` and
+# `gates_touch_streets` were closed 8/1 by gates/gated_is_rich_gate.js, which
+# found that the world model never told the suburb generator WHICH district it
+# was building - so all 2,582 ordinary suburbs in the valley were built as gated
+# communities, the exact inversion of his ruling.
+print('  (all three Vegas suburb laws are machine-held: one_wall_per_community by '
+      'gates/wallclass_gate.js since 7/28; gated_is_rich and gates_touch_streets by '
+      'gates/gated_is_rich_gate.js since 8/1.)')
 
 print('BANK LAW GATE: %d passed, %d failed' % (passed, failed))
 sys.exit(1 if failed else 0)

@@ -15,9 +15,11 @@
 // BOHEMIA SUBURB (canonical, 7/18/26) — Paolo APPROVED cul-de-sacs + the scale.
 // Real dimensions at the game scale (TILE=0.75 m, 128 tiles = 96 m per cell):
 // a ~14x8 m house body + a 6x6 m front garage + a 6 m driveway to the street, on
-// ~16 m lots, lining cul-de-sac streets off the gate. Cluster-aware (cw,ch) per
+// ~16 m lots, lining cul-de-sac streets off the entrance. Cluster-aware (cw,ch) per
 // the MERGE LAW: fills the union as ONE connected neighborhood, wall wrapping the
-// union, a gate per street-facing cell. Homes are exposed as footprints the world
+// union, an ENTRANCE per street-facing cell — a GATE only if this community was
+// rich enough to buy one (GATED IS RICH, Paolo's bank law, enforced 8/1; an
+// ordinary walled suburb opens its street through the wall instead). Homes are exposed as footprints the world
 // model floorplans (residential). Loops + garden were graveyarded (7/18 verdict).
 // codes: 0 dead-ground 1 road 2 house 3 driveway 4 wall 5 gate 6 garage 10 sidewalk (7=tree and 8=pool are GRAVEYARDED, dead world)
 // ACT 1 IS A DEAD WORLD: no vegetation ever (no trees/pools/grass). Backyards are
@@ -198,19 +200,56 @@
   // EVERY frontage: both sides of every rung (top+bottom wall rows and all interior
   // rows), and the outer side of each rail (left+right wall columns). Nothing is left
   // as empty band; every home keeps its 3-tile dead backyard to the wall.
-  // punch a GATE through a street-facing wall edge and run a spoke to the ladder,
-  // so the gate actually touches the street AND connects to the interior network.
-  function punchGate(g,edge,frac,W,H,rails){var i;
+  /* PUNCH THE ENTRANCE THROUGH A STREET-FACING WALL, and WHAT KIND of entrance
+     is the whole point of this function now.
+
+     GATED IS RICH (Paolo's own bank law, in banks/BOHEMIA_GRAPHICS_VERDICTS_
+     MASTER_7_16_26.txt and BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt, verbatim:
+     "most Vegas communities are walled but NOT gated; gates = boujee/richer
+     pre-apocalypse (story fuel post-apocalypse)"). It sat in his approved banks
+     unenforced from 7/14 to 8/1 and the generator broke it on every single cell:
+     it stamped a GATE (code 5) through every street edge of every district in
+     the suburb family, so `suburb`, `gated` and `estate` were the same place
+     wearing three names.
+
+     THE REAL VEGAS THIS IS MODELLED ON, and it is regulation rather than taste:
+     Clark County's Unified Development Code 30.64.020 REQUIRES the developer to
+     install a decorative perimeter wall on a subdivision - so in this valley
+     WALLED is very nearly universal and is not a signal of anything. GATED is
+     the signal. Nationally the American Housing Survey (2015, the last year it
+     asked) put 5.9% of households behind a wall or fence and only 3.4% behind
+     controlled access; Vegas sits far above both, but the RATIO is the point and
+     the ratio is what his law states. A gate is a thing a richer community
+     bought on top of the wall everybody had to build.
+
+     SO THERE ARE TWO ENTRANCES, and they use tiles that already exist:
+       GATED   (gated / estate)  code 5 across the aperture: a gate assembly.
+       WALLED  (ordinary suburb) code 1 across the aperture: THE STREET SIMPLY
+               RUNS THROUGH. The block wall stops, the road continues out to the
+               arterial, the wall picks up on the far side. No leaf, no guard
+               house, nothing to open - which is exactly what the overwhelming
+               majority of Las Vegas tract subdivisions actually look like.
+     Same aperture width either way (7 tiles, the road's own 2*RD+1), because the
+     difference is what is IN the gap, not how big the gap is.
+
+     POST-APOCALYPSE, this is the "story fuel" half of his ruling and it comes
+     free: after the collapse, which neighbourhoods could be SHUT is decided by
+     which ones were rich enough to have bought a gate before it. Nothing here
+     has to encode that. The map just tells the truth and the story is already in
+     it. */
+  function punchGate(g,edge,frac,W,H,rails,gated){var i;
+    var APERTURE = gated ? 5 : 1;          // 5 = gate assembly, 1 = open street
     if(edge==='S'||edge==='N'){ var gx=Math.min(W-4,Math.max(3,Math.round(W*frac))), gy=(edge==='S')?H-1:0, dir=(edge==='S')?-1:1;
-      for(i=-3;i<=3;i++)if(gx+i>0&&gx+i<W-1)g[gy][gx+i]=5;
+      for(i=-3;i<=3;i++)if(gx+i>0&&gx+i<W-1)g[gy][gx+i]=APERTURE;
       seg(g,gx,gy+dir,gx,(edge==='S')?rails.by:rails.ty,RD);
-      return {edge:edge,x:gx,y:gy}; }
+      return {edge:edge,x:gx,y:gy,gated:!!gated}; }
     var gy2=Math.min(H-4,Math.max(3,Math.round(H*frac))), gx2=(edge==='E')?W-1:0, dir2=(edge==='E')?-1:1;
-    for(i=-3;i<=3;i++)if(gy2+i>0&&gy2+i<H-1)g[gy2+i][gx2]=5;
+    for(i=-3;i<=3;i++)if(gy2+i>0&&gy2+i<H-1)g[gy2+i][gx2]=APERTURE;
     seg(g,gx2+dir2,gy2,(edge==='E')?rails.rx:rails.lx,gy2,RD);
-    return {edge:edge,x:gx2,y:gy2}; }
-  // fill the whole union with the packed ladder + houses; gates only on street edges.
-  function denseFill(g,W,H,streets,gpe){
+    return {edge:edge,x:gx2,y:gy2,gated:!!gated}; }
+  // fill the whole union with the packed ladder + houses; entrances only on
+  // street edges, and gated ONLY if this community was rich enough to buy one.
+  function denseFill(g,W,H,streets,gpe,gated){
     var back=RD+DRIVE+HD, R=back+5, Lx=R, Rx=W-R, Ty=R, By=H-R, i;
     /* DENSITY IS NOT ALLOWED TO PAY FOR THE DRIVEWAY (Paolo 7/31 D2 gave every
        driveway 2 more tiles of length; WALKABLE-LAND says buildings must still
@@ -232,7 +271,7 @@
     for(i=0;i<n;i++) seg(g,Lx,ys[i],Rx,ys[i],RD);
     var rails={ty:ys[0],by:ys[n-1],lx:Lx,rx:Rx}, gates=[];
     streets.forEach(function(edge){ var cnt=gpe[edge]||1;
-      for(var k=0;k<cnt;k++) gates.push(punchGate(g,edge,(k+1)/(cnt+1),W,H,rails)); });
+      for(var k=0;k<cnt;k++) gates.push(punchGate(g,edge,(k+1)/(cnt+1),W,H,rails,gated)); });
     /* THE WALK GOES DOWN BEFORE THE HOUSES DO (Paolo 7/31, clause D1: "houses or
        buildings should NEVER SIT ON THE SIDEWALK EVER ANYWHERE IN THE WORLD").
        Order is the whole enforcement. Laid AFTER homes -- which is how it shipped
@@ -263,13 +302,25 @@
     else if(typeof a==='string'){opts.cw=b;opts.ch=c;}
     else {opts.cw=a;opts.ch=b;}
     var cw=opts.cw||1, ch=opts.ch||1, streets=opts.streets||['S'];
+    /* IS THIS COMMUNITY GATED? Paolo's bank law: "most Vegas communities are
+       walled but NOT gated; gates = boujee/richer". Three district types share
+       this generator - suburb, gated, estate - and until 8/1 it was handed NO
+       district at all, so all three came out identical and every one of them was
+       gated. The world model knows the type; it just was not saying.
+       DEFAULT IS UNGATED. A caller that says nothing gets the ordinary walled
+       subdivision, which is the overwhelming majority of the real valley, so the
+       expensive thing has to be asked for by name. */
+    var gated = (opts.gated != null) ? !!opts.gated
+              : (opts.district === 'gated' || opts.district === 'estate');
     SEED_CTX=(seed>>>0)||1;
     var g=blank(SZ*cw,SZ*ch), W=Wd(g), H=Ht(g), x, y;
-    // ONE perimeter wall around the whole union (gates punch through on street edges)
+    // ONE perimeter wall around the whole union (the entrance punches through on
+    // street edges - a gate if this community bought one, an open street if not)
     for(x=0;x<W;x++){g[0][x]=4;g[H-1][x]=4;} for(y=0;y<H;y++){g[y][0]=4;g[y][W-1]=4;}
-    var gpe={N:cw,S:cw,E:ch,W:ch};                              // gates scale with the edge's length
-    var gates=denseFill(g,W,H,streets,gpe);
-    var res={g:g,W:W,H:H,cw:cw,ch:ch,streets:streets,gates:gates};
+    var gpe={N:cw,S:cw,E:ch,W:ch};                              // entrances scale with the edge's length
+    var gates=denseFill(g,W,H,streets,gpe,gated);
+    var res={g:g,W:W,H:H,cw:cw,ch:ch,streets:streets,gates:gates,gated:gated,
+             district:opts.district||null};
     res.houses=homeFootprints(res).length;
     return res;
   }
@@ -284,7 +335,19 @@
           if(!seen[k]&&nx>=0&&ny>=0&&nx<W&&ny<H&&body(g[ny][nx])){seen[k]=1;st.push([nx,ny]);}}}
       out.push({x:x0,y:y0,w:x1-x0+1,h:y1-y0+1,story:two?2:1});}
     return out;}
+  /* THE WALK STARTS AT THE ENTRANCE, AND THE ENTRANCE IS NOT ALWAYS A GATE.
+     This began the drivable-network check by scanning for the first code-5 cell
+     and calling it the way in. That was true for exactly as long as every
+     community was gated, which was the bug: the moment an ordinary walled
+     subdivision opened its street instead (GATED IS RICH, Paolo's bank law),
+     `start` came back null and every one of the valley's 2,582 ordinary suburbs
+     reported its roads DISCONNECTED - not because they were, but because the
+     function could not find a door it recognised.
+     The entrance list the generator returns is the honest source: it says where
+     every way in is and what kind each one is. The code-5 scan survives only as
+     a fallback for a caller that hands over a bare grid with no result object. */
   function roadConnected(res){var g=res.g,W=res.W,H=res.H,start=null,total=0;
+    if(res.gates&&res.gates.length){ var e0=res.gates[0]; if(e0&&e0.x!=null) start=[e0.x,e0.y]; }
     for(var y=0;y<H;y++)for(var x=0;x<W;x++){var c=g[y][x];if(c===1||c===5||c===3||c===6){total++;if(!start&&c===5)start=[x,y];}}
     if(!start)return false;var seen={},st=[start];seen[start[0]+','+start[1]]=1;var reach=0;
     while(st.length){var p=st.pop();reach++;for(var i=0,d=[[1,0],[-1,0],[0,1],[0,-1]];i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;
@@ -299,19 +362,25 @@
     2:{name:'house',              kind:'building',   act1:'single-story stucco tract house, faded, dark windows', enter:'house floorplan (residential): living + kitchen up front, bedrooms/bath off a hall, door to the garage'},
     3:{name:'driveway',           kind:'drive',      act1:'cracked concrete driveway apron (drivable to garage)'},
     4:{name:'wall',               kind:'fence',      act1:'block perimeter wall / side fence, tan stucco, chipped'},
-    5:{name:'gate',               kind:'gate',       act1:'neighborhood street entrance off the arterial'},
+    /* GATED IS RICH (Paolo's bank law, enforced 8/1): code 5 appears ONLY on a
+       `gated` or `estate` district. An ordinary walled `suburb` opens its
+       perimeter and lets the STREET (code 1) run through instead - same
+       aperture, no gate assembly - which is what ~98% of this valley is. */
+    5:{name:'gate',               kind:'gate',       act1:'gated-community entrance assembly off the arterial: sliding leaf, call box, kerb returns - only on a gated/estate community, never an ordinary walled suburb'},
     6:{name:'garage',             kind:'building',   act1:'front-corner garage, steel roll door, dented', enter:'garage interior: 1-2 car bays, junk shelves, a door into the house'},
     10:{name:'sidewalk',           kind:'walk',       act1:'cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation'},
     9:{name:'house upper floor',  kind:'building',   act1:'2-story house upper mass (taller top-down read)', enter:'the house floorplan upper story (bedrooms), reached by interior stairs'}
   };
   var NOTES={
-    summary:'Walled tract-home neighborhood — cul-de-sac streets off the gate, homes with front-garage driveways, packed lots, dead-dirt yards.',
-    reference:['Vegas suburb: ~14x8m house body + 6x6m front garage + 6m driveway on ~16m lots; ~85-90% single-family by land area; curvilinear cul-de-sacs, walled, few entries'],
+    summary:'Walled tract-home neighborhood — cul-de-sac streets off the entrance, homes with front-garage driveways, packed lots, dead-dirt yards. WALLED always; GATED only if the community was rich enough to buy a gate (suburb = open street through the wall, gated/estate = a gate assembly).',
+    reference:['Vegas suburb: ~14x8m house body + 6x6m front garage + 6m driveway on ~16m lots; ~85-90% single-family by land area; curvilinear cul-de-sacs, walled, few entries',
+      'WALLED IS MANDATORY, GATED IS BOUGHT: Clark County Unified Development Code 30.64.020 requires a developer-installed decorative perimeter wall on a subdivision, so a wall signals nothing in this valley - every tract has one. A GATE is the thing a richer community paid for on top of it, and access gates carry their own 18ft setback from the property line on a collector or arterial.',
+      'The American Housing Survey (2015, the last year it asked) put 5.9% of US households behind a wall or fence and 3.4% behind controlled access. Vegas sits far above both in absolute terms; the RATIO is what Paolo ruled and what the generator now builds - measured on the canon seed at 1.9% gated across 2,631 residential cells.'],
     layout:['Cul-de-sac streets branch off the entrance gate; homes line them on packed ~0.15-acre lots.',
       'Each home: a short driveway apron -> a front-corner garage -> the house body; 2-story homes add an upper-floor mass (code 9).',
       'A perimeter block wall; dead-dirt yards — NO vegetation ever in act 1.',
       'Cluster-aware: fills a cw x ch union as ONE connected neighborhood (snaps into 1x2 / 2x2).'],
-    circulation:'Street-aware: gates only on street edges (a corner exits two streets); roads reach every lot from the gate (roadConnected). Driveways (code 3) + roads (code 1) are the drivable surface.',
+    circulation:'Street-aware: ENTRANCES only on street edges (a corner exits two streets); roads reach every lot from the entrance (roadConnected). Driveways (code 3) + roads (code 1) are the drivable surface. GATED IS RICH: a gated/estate community gets a GATE ASSEMBLY (code 5) in the aperture; an ordinary walled suburb gets the STREET ITSELF (code 1) running through a gap in the block wall - same 7-tile aperture, different thing standing in it.',
     layering:'GROUND plane: roads, the one-grid SIDEWALK hugging every street (10), driveways, dead-dirt yards (flat, walk/drive). STRUCTURES (¾ front face, solid): the house (2, ENTERABLE -> floorplan) and its garage (6, ENTERABLE -> car bays + a door into the house); the perimeter wall (4). The 2-story mass (9) is the same house drawing UP a second story (its footprint is the ground-floor cell; the upper story is height, reached inside by stairs). PORTAL: the neighborhood gate (5). Key layering: a house occupies its footprint cells (block) and rises with a front face toward the street; you enter via the front door or drive into the garage — outside shell becomes inside rooms.',
     decisions:['Every home has a proper street -> driveway -> front-garage (Paolo ruling).',
       'Every street wears a ONE-GRID SIDEWALK on both sides (code 10), broken only where a driveway crosses it (Paolo 7/31, LOCKED). A real cell in the generator, not a render-time band, so the city and the dossier see it too.',
@@ -913,11 +982,45 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     var doorCell=[];                 // house index -> [x,y] exterior door cell
     Object.keys(doorOf).forEach(function(k){ var p=k.split(',');
       doorCell[doorOf[k]]=[+p[0],+p[1]]; });
-    var gate=null;                   // the block gate (code 5) exterior cell
-    // prefer the gate cell with the entry ROAD directly inside it (the gate row
+    /* THE WAY IN IS NOT ALWAYS A GATE (8/1, CITY lane).
+       This scanned the grid for a code-5 cell and called it the block's
+       entrance. That held only while every residential block was gated, which
+       was itself a bug: Paolo's bank law says "most Vegas communities are walled
+       but NOT gated", and once the suburb generator started building the 98% of
+       ordinary subdivisions with an OPEN STREET through the wall instead of a
+       gate assembly, this scan found nothing, `gate` stayed null, and agents on
+       those blocks could no longer leave for work or walk home. The life sim
+       went quiet on almost the whole valley.
+       THE RESULT OBJECT ALREADY KNOWS. `res` is the generator's own output and
+       it carries `gates` - every entrance, with its edge and its centre cell,
+       whichever kind it is. Reading it needs no new argument and no caller
+       change, and it is strictly BETTER than the scan: the recorded cell is
+       always the centre column, which is the one the road spoke runs into. The
+       scan survives underneath for callers that hand over a bare grid. */
+    var gate=null;                   // the block's entrance (gate OR open street)
+    /* AN ENTRANCE IS NOT ALWAYS A GATE CELL. This scan looked for code 5 and
+       nothing else, which held only while every residential block was gated -
+       itself the bug Paolo's bank law names ("most Vegas communities are walled
+       but NOT gated"). Once the suburb generator started building the valley's
+       98% of ordinary subdivisions with an OPEN STREET through the wall instead
+       of a gate assembly, this found nothing, `gate` stayed null, and nobody on
+       those blocks could leave for work or walk home. The life sim went quiet on
+       almost the whole valley.
+       ONLY THE PREDICATE CHANGED, AND THAT IS THE WHOLE POINT. The first attempt
+       at this fix read the generator's own entrance list instead, which sounds
+       strictly better and is not: the scan lands on the FIRST aperture cell with
+       a road beside it (x=61 of the 61..67 row), the entrance list records the
+       CENTRE (x=64), and swapping one for the other left two commuters per block
+       stranded mid-walk. population_gate caught it. So the search is untouched,
+       byte-for-byte, on every block that has a real gate - it just also
+       recognises the open-street entrance, which is a road cell sitting ON the
+       perimeter ring and cannot be anything else. */
+    var _perim=function(x,y){ return x===0||y===0||x===W-1||y===H-1; };
+    var _entrance=function(x,y){ return G[y][x]===5 || (G[y][x]===1 && _perim(x,y)); };
+    // prefer the entrance cell with the entry ROAD directly inside it (the row
     // is 7 cells wide but only the center column carries the road; targeting a
     // flank cell makes every commuter shuffle the wall row single-file)
-    for(var y0=0;y0<H;y0++)for(var x0=0;x0<W;x0++) if(G[y0][x0]===5){
+    for(var y0=0;y0<H;y0++)for(var x0=0;x0<W;x0++) if(_entrance(x0,y0)){
       var rd=[[0,-1],[0,1],[-1,0],[1,0]].some(function(d){var ax=x0+d[0],ay=y0+d[1];
         return ax>=0&&ay>=0&&ax<W&&ay<H&&G[ay][ax]===1;});
       if(rd){gate=[x0,y0];y0=H;break;}

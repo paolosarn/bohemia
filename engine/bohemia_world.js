@@ -488,7 +488,16 @@
         var eset={}; realEdges.forEach(function(e){eset[e]=1;}); relayEdges.forEach(function(e){eset[e]=1;});
         var uniq=Object.keys(eset);
         var streets = uniq.length ? uniq : ['S'];
-        var gres=dg.mod.generate(cell.seed>>>0, {cw:1,ch:1,streets:streets});
+        /* THE GENERATOR IS TOLD WHICH DISTRICT IT IS BUILDING, and it never was.
+           Three types share the suburb generator (suburb / gated / estate) and it
+           was handed only a seed and the street edges, so all three built the
+           identical gated community - which broke Paolo's own bank law ("most
+           Vegas communities are walled but NOT gated; gates = boujee/richer")
+           on every residential cell in the valley from 7/14 to 8/1.
+           ONE ARGUMENT, exactly the shape `streets` already had. Every other
+           generator ignores it; the ones that care read it. */
+        var gres=dg.mod.generate(cell.seed>>>0,
+          {cw:1,ch:1,streets:streets,district:cell.district});
         var feet=dg.foot(gres)||[];
         // LAYERING (Paolo 7/19): expose the recorded per-tile layer/occupancy/interior so the
         // renderer + collision + interior/zoom systems can READ what blocks, what you pass

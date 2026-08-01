@@ -437,11 +437,45 @@
     var doorCell=[];                 // house index -> [x,y] exterior door cell
     Object.keys(doorOf).forEach(function(k){ var p=k.split(',');
       doorCell[doorOf[k]]=[+p[0],+p[1]]; });
-    var gate=null;                   // the block gate (code 5) exterior cell
-    // prefer the gate cell with the entry ROAD directly inside it (the gate row
+    /* THE WAY IN IS NOT ALWAYS A GATE (8/1, CITY lane).
+       This scanned the grid for a code-5 cell and called it the block's
+       entrance. That held only while every residential block was gated, which
+       was itself a bug: Paolo's bank law says "most Vegas communities are walled
+       but NOT gated", and once the suburb generator started building the 98% of
+       ordinary subdivisions with an OPEN STREET through the wall instead of a
+       gate assembly, this scan found nothing, `gate` stayed null, and agents on
+       those blocks could no longer leave for work or walk home. The life sim
+       went quiet on almost the whole valley.
+       THE RESULT OBJECT ALREADY KNOWS. `res` is the generator's own output and
+       it carries `gates` - every entrance, with its edge and its centre cell,
+       whichever kind it is. Reading it needs no new argument and no caller
+       change, and it is strictly BETTER than the scan: the recorded cell is
+       always the centre column, which is the one the road spoke runs into. The
+       scan survives underneath for callers that hand over a bare grid. */
+    var gate=null;                   // the block's entrance (gate OR open street)
+    /* AN ENTRANCE IS NOT ALWAYS A GATE CELL. This scan looked for code 5 and
+       nothing else, which held only while every residential block was gated -
+       itself the bug Paolo's bank law names ("most Vegas communities are walled
+       but NOT gated"). Once the suburb generator started building the valley's
+       98% of ordinary subdivisions with an OPEN STREET through the wall instead
+       of a gate assembly, this found nothing, `gate` stayed null, and nobody on
+       those blocks could leave for work or walk home. The life sim went quiet on
+       almost the whole valley.
+       ONLY THE PREDICATE CHANGED, AND THAT IS THE WHOLE POINT. The first attempt
+       at this fix read the generator's own entrance list instead, which sounds
+       strictly better and is not: the scan lands on the FIRST aperture cell with
+       a road beside it (x=61 of the 61..67 row), the entrance list records the
+       CENTRE (x=64), and swapping one for the other left two commuters per block
+       stranded mid-walk. population_gate caught it. So the search is untouched,
+       byte-for-byte, on every block that has a real gate - it just also
+       recognises the open-street entrance, which is a road cell sitting ON the
+       perimeter ring and cannot be anything else. */
+    var _perim=function(x,y){ return x===0||y===0||x===W-1||y===H-1; };
+    var _entrance=function(x,y){ return G[y][x]===5 || (G[y][x]===1 && _perim(x,y)); };
+    // prefer the entrance cell with the entry ROAD directly inside it (the row
     // is 7 cells wide but only the center column carries the road; targeting a
     // flank cell makes every commuter shuffle the wall row single-file)
-    for(var y0=0;y0<H;y0++)for(var x0=0;x0<W;x0++) if(G[y0][x0]===5){
+    for(var y0=0;y0<H;y0++)for(var x0=0;x0<W;x0++) if(_entrance(x0,y0)){
       var rd=[[0,-1],[0,1],[-1,0],[1,0]].some(function(d){var ax=x0+d[0],ay=y0+d[1];
         return ax>=0&&ay>=0&&ax<W&&ay<H&&G[ay][ax]===1;});
       if(rd){gate=[x0,y0];y0=H;break;}

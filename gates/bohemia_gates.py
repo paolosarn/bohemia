@@ -352,6 +352,8 @@ GATES = [
      "Paolo 7/29's condition on the people: stable ids, one derivation point, an overrides layer - and a REAL bulk edit that provably reaches the cached surface, not a promise that it could", True),
     ('RUN PEOPLE',     ['node', 'gates/run_people_gate.js'],
      "HE PLAYS THE RUN: the surface Paolo actually taps has a day in it - the street fills, empties through the Mojave afternoon and refills, a bulk edit reaches bodies already walking, and the draw never paints somebody the sim put indoors", True),
+    ('GATED IS RICH',  ['node', 'gates/gated_is_rich_gate.js'],
+     "Paolo's bank law, 7/14, unenforced until 8/1: most Vegas communities are WALLED but NOT gated - a wall is Clark County code, a gate is money, and every entrance still touches its street and reaches the whole plot", False),
     ('INVISIBLE SCHEDULE', ['node', 'gates/invisible_schedule_gate.js'],
      "Paolo 7/31: a routine is FELT, never READ, and a name is ASKED FOR, never given - the game prints nobody's timetable, present-tense eyesight stays legal, and no module manufactures a name", False),
     ('TILE FORM',      ['python3', 'gates/tileform_gate.py'],

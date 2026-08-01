@@ -106,9 +106,19 @@ for (const seed of SEEDS) {
       if (e === 'E' && tileChecked < 15) {
         tileChecked++;
         try {
+          /* AN ENTRANCE IS A GATE **OR** AN OPEN STREET (8/1). This looked for
+             code 5 on both sides, which was right only while every community was
+             gated. Paolo's bank law is that most Vegas communities are walled but
+             NOT gated, so 98% of the valley now opens its perimeter with the
+             STREET ITSELF (code 1) instead of a gate assembly - and this check
+             went red on three seeds while the thing it is actually asserting,
+             that two connected neighbours' entrances LINE UP at the same offset,
+             was still perfectly true. The intent never changed; only what an
+             entrance looks like did. */
+          const ENTRANCE = v => v === 5 || v === 1;
           const g1 = w.plot(x, y).block.grid, g2 = w.plot(nx, ny).block.grid;
-          const e1 = g1.some((row, ry) => Math.abs(ry - 64) <= 4 && row[127] === 5);
-          const e2 = g2.some((row, ry) => Math.abs(ry - 64) <= 4 && row[0] === 5);
+          const e1 = g1.some((row, ry) => Math.abs(ry - 64) <= 4 && ENTRANCE(row[127]));
+          const e2 = g2.some((row, ry) => Math.abs(ry - 64) <= 4 && ENTRANCE(row[0]));
           if (e1 && e2) tileVerified++;
         } catch (e2) { /* counted as unverified below */ }
       }
