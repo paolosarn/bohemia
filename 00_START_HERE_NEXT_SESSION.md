@@ -1,3 +1,85 @@
+RUN (eak241): 8/1 LATEST — HE CAN HEAR HIS STEPS, THE STREET IS HIS AGAIN, AND
+"INSIDE" IS NOW A FACT ABOUT THE CELL INSTEAD OF A STATE OF THE PLAYER.
+
+Paolo 8/1, four rulings, all four answered:
+  1. "I don't hear sound at all... even when I take steps I don't hear no sound"
+  2. "all the street tiles you have to change back to how they were when I like
+     them, not when you" (he wrote records/BOHEMIA_WHERE_THE_GOOD_STREET_PIXELS_ARE)
+  3. "freeways and railyards do not get sidewalks"
+  4. "you can take a shot at interior rebuilds, do big brain online research"
+
+=== SHIPPED ===
+FOOTSTEPS. His 7/30 bank had 38 judged sounds including step_dirt/asphalt/gravel,
+  five approved variants each. The CITY frame -- the surface he actually walks --
+  asked for ZERO of them. 'step_asphalt' appeared 0 times in the renderer. Now the
+  city posts a footfall with the surface read off the tile dossier, the shell plays
+  his approved variant, ONE AudioContext (the parent's). Measured on a real browser:
+  64 -> 133 audio nodes while walking. gates/footstep_gate.js, 14 checks.
+STREET TILES. Measured on the surface he plays, before the fix:
+      pool     his bank      what the city drew      byte-identical
+      street   18 @ 44x44    6 @ 16x16               0
+      side     36 @ 44x44    6 @ 16x16               0
+  Not ONE tile he approved was on screen -- under a comment that NAMED his bank.
+  A citation that is a lie. gates/street_source_gate.js compares BYTES, never a
+  citation, and checks the 44x44 size because the re-cook is how it drifted.
+  His weather_rarity ruling (88/12) now travels WITH the tiles, at pick time.
+ONE WORLD INTERIORS, STEP 1 OF 6. Spec written from research BEFORE any code:
+  records/BOHEMIA_ONE_WORLD_INTERIORS_SPEC_7_31_26.md. Project Zomboid keeps
+  interiors on the SAME grid -- inside/outside is a DETECTION, not a mode -- and
+  flood fill over connected roofed tiles is the standard reveal.
+  engine/bohemia_rooms.js  4-connected flood fill; every cell gets room (0 =
+    outdoors) and roof. FOUR-connected, never eight: two houses touching at a
+    corner are two buildings, and welding them makes every roof on a block vanish
+    at once. NOTHING renders differently yet, by design.
+  engine/bohemia_world.js  tileInfo() now carries room/roof/inside; the plot
+    answers roomAt()/insideAt(). What counts as indoors comes from the district's
+    OWN building list unioned with its dossier legend, never a hardcoded code.
+  gates/rooms_gate.js  23 checks including a REAL BROWSER half.
+
+=== THE NEXT SESSION IN THIS LANE PICKS UP AT STEP 2 ===
+The spec's build order, each step green on its own:
+  2. stamp the floorplan INTO the world grid  <-- NEXT
+  3. one movement predicate; delete passInt
+  4. roof-by-room reveal on the overhead layer
+  5. delete mode/enter()/leave()/fp so the old path cannot return as a fallback
+  6. room-driven materials + windows that see the world
+THE TRAP, PROVEN TWICE THIS SESSION: the RUN tab opens the CITY blob. Two render
+fixes landed in the run slice and were INVISIBLE to him ("ALL THE FIXES I NEEDED
+TO SEE ARE NOT THERE"). Steps 3, 4 and 6 are RENDER-side and must land in the city
+blob via a patch tool (it is base64) or they do not exist.
+
+=== WHAT IS HONESTLY STILL OPEN ===
+HIS PIXEL-QUALITY COMPLAINT ("WHY IS THE PIXEL QUALITY NOT AT FULL BRO WTF") is
+  STILL UNEXPLAINED. I guessed once, shipped a devicePixelRatio "fix" that was a
+  PLACEBO -- the CITY lane had already solved it on 7/27 with image-rendering:
+  pixelated, so my change produced identical output at 9x the memory and broke a
+  locked contract. Reverted, tool deleted. DO NOT GUESS A THIRD TIME. Measure on
+  the city canvas first.
+D1 (no building mass on a public sidewalk) is true in 1 of 48 districts. 5,195
+  mass cells still sit on streets: mall 1566, industrial 1455, trailer 498, farm
+  438, battery 360, medical 288, +5 more. Suburb is fixed and gated. The registry-
+  wide gate needs layWalks promoted to a kit primitive; his freeway/railyard
+  exemption (ruling 3 above) is recorded and unblocks it.
+bohemia_mall.js:55 runs a drive lane THROUGH both anchor stores (38 cells inside
+  the west anchor after another lane's rebuild). Rerouting is layout design =
+  MAP LAW, so it is [PENDING] the owning lane or Paolo.
+12 of the 17 BUILT WORLD LAW clauses are still NOT ENFORCED (the law file names
+  which, honestly, in its GATE column).
+
+=== PROOF ===
+ALL GATES GREEN (885s, full suite, uncontaminated) on the twice-rebased tree.
+Both new gates sabotage-tested: an 8-connected fill fails the corner fixture, a
+leaked predicate fails the open-ground sweep, and stripping the rooms module from
+the built surface fails all four browser checks.
+
+=== A PROCESS NOTE WORTH KEEPING ===
+Three lanes pushed to main during this session's gate runs, and the alpha's 32MB
+base64 CITY_B64 CANNOT be merged by git -- both sides rewrite the whole line.
+The resolution that works: take MAIN's blob, then RE-APPLY your own city changes
+by re-running your patch tools. That only works if every city patch tool is
+IDEMPOTENT and refuses to write when its expected source text is missing. Write
+them that way. It saved this ship twice.
+
 ART (f3eu53): 8/1 LATEST — I FINALLY MEASURED WHY MY ART LOOKS WRONG NEXT TO HIS, AND
 IT WAS NEVER THE SHAPES. Paolo 8/1: "make as much pixel art that I approve of for
 everything we need in the game as possible INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT
