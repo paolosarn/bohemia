@@ -1,3 +1,50 @@
+PEOPLE (7h9sfy): 8/1 (e) LATEST — THE FENCES ARE RE-CUT. The patch tool runs clean
+again, round-trips byte-identically, and CANNOT eat another lane's code. Nothing in the
+game changed.
+
+=== WHAT THIS FIXED (the item my own last handoff called item zero) ===
+tools/bohemia_people_identity_patch.py had one fence (PEOPLE:WORKERS) spanning another
+lane's 29-line RUN PERSON FACTS block, so every re-run DELETED their code. Last turn I
+shipped a guard that made it REFUSE instead of delete - safe, but the tool could no longer
+run at all. This turn re-cuts the fences properly:
+    PEOPLE:WORKERS  now closes at `var _agents = ...`, BEFORE their block
+    <their RUN PERSON FACTS block, untouched, verbatim>
+    PEOPLE:JOIN     opens after it and carries the residential guard + the concat
+THE BUG THAT BEAT ME LAST TIME, named so nobody repeats it: B_JOIN's closing marker sat
+BEFORE its own anchor line, so restoring the fence re-emitted the anchor and it resolved
+twice. A fence must ENCLOSE the anchor it re-emits. Fixed and asserted.
+
+SUCCESS CRITERION WAS A DIFF, NOT AN EYEBALL: three consecutive runs exit 0, the
+round-trip diff is ZERO lines, and their block is still in the file.
+
+=== GATE: people_gate part F, 6 claims, 106 total ===
+F1/F2 the guard exists AND compares against the block's own insert text rather than
+sniffing for banner comments (the first version of that guard flagged this tool's own
+headers - a checker that cannot tell a mention from a use is the broken one, 8/1 law).
+F4 NO FENCE SPANS ANOTHER LANE'S BLOCK - the invariant, checked statically against the
+committed slice. F5 the specific shape: WORKERS closes before their block, JOIN opens
+after. F6 their conditioning code is still there.
+IT IS A STATIC CHECK ON PURPOSE: this gate must never RUN the tool, because the tool
+writes files. Mutation-proved: putting the fences back the old way fails F4 and F5.
+
+VERIFIED: PEOPLE 106/0, RUN 126/0, RUN PEOPLE 45/0.
+
+=== WHAT COMES AFTER, in order ===
+1. HIS ANSWER, still the one that unblocks the population work: walking one block from
+   home, how many people should be on that street - nobody, a couple, or a dozen? Three
+   candidate explanations are written up in
+   records/BOHEMIA_HOW_MANY_PEOPLE_CONTRADICTION_8_1_26.md.
+2. THE POPULATION SLIDER is plumbed and waiting (8/1 c). BohemiaPopulation.setDial(v),
+   0..4, default 1. ACT_DIAL ships empty - which number each act wants is his.
+3. VISITORS ESCAPE MASS EDITS. A worker standing at a job site is not in RUN_PEOPLE, so a
+   bulk edit does not reach them - a real conflict with his 7/29 mass-edit condition. The
+   fix is a unique person id for visitors (fromCell is already on them) threaded through
+   peopleForAgents/conditionAgents. Both gates must be watched while doing it.
+4. JOB_DISTRICTS is four entries; a FARM employs nobody. Valley-wide behaviour, WORLD's.
+5. PARKED, DO NOT ASK: who he already knows. FACTIONS ARE OFF.
+
+--------------------------------------------------------------------------------
+
 LAB (e2r7sv): 8/1 LATEST — 12 QUESTIONS FOR PAOLO, EACH ONE CHECKED AGAINST CANON
 FIRST. He asked for them: "Ask me big brain reference lab questions you need from me like
 even the nitty gritty niche details of gameplay".

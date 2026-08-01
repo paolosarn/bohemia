@@ -713,6 +713,58 @@ async function partE() {
   } finally { await browser.close(); POP.setDial(1); }
 }
 
+/* ==========================================================================
+   PART F — THIS LANE'S PATCH TOOL CANNOT EAT ANOTHER LANE'S CODE.
+   tools/bohemia_people_identity_patch.py fences its edits with PEOPLE:<name>
+   markers and RESTORES each fence before re-applying. On 8/1 another lane
+   anchored its 29-line RUN PERSON FACTS block on a line INSIDE the
+   PEOPLE:WORKERS fence, so a re-run DELETED IT — silently, taking RUN_PEOPLE
+   with it and turning run_people_gate from 45/0 to 34/5.
+   A STATIC CHECK, on purpose: this gate must never RUN the tool (it writes
+   files). It reads the committed slice and asserts the shape that makes the
+   tool safe — no fence spans code the tool does not own.
+   ========================================================================== */
+function partF() {
+  console.log('F. THE PATCH TOOL CANNOT EAT ANOTHER LANE\'S CODE');
+  const SLICE = path.join(ROOT, 'slices/BOHEMIA_RUN_SLICE_7_26_26.html');
+  const TOOL = path.join(ROOT, 'tools/bohemia_people_identity_patch.py');
+  const slice = fs.readFileSync(SLICE, 'utf8');
+  const tool = fs.readFileSync(TOOL, 'utf8');
+
+  ok('F1 the tool refuses rather than deleting: the guard is present',
+    /REFUSING TO WRITE: a line inside the PEOPLE:/.test(tool));
+  /* the guard has to compare against what the block INSERTS. A guard that
+     sniffed for banner comments flagged this tool's own headers - a checker that
+     cannot tell a mention from a use is the broken one (8/1 law). */
+  ok('F2 the guard compares against the block\'s own insert text, not a heuristic',
+    /function restore\(text, name, original='', mine=None\)|def restore\(text, name, original='', mine=None\)/.test(tool));
+
+  const names = [...tool.matchAll(/\('([A-Z0-9]+)',\s+A_/g)].map(m => m[1]);
+  ok('F3 the tool declares its fences (' + names.length + ')', names.length >= 8);
+
+  let spanning = [];
+  for (const n of names) {
+    const re = new RegExp('/\\*\\s*PEOPLE:' + n + '\\s*\\*/[\\s\\S]*?/\\*\\s*/PEOPLE:' + n + '\\s*\\*/');
+    const m = re.exec(slice);
+    if (!m) continue;
+    /* another lane's code fences itself with a ==== banner. One inside our
+       region means the region is not ours to delete. */
+    if (/\/\* ==== (?!\/?RUN PERSON FACTS)/.test(m[0]) ||
+        (/RUN PERSON FACTS/.test(m[0]))) spanning.push(n + ' (' + m[0].split('\n').length + ' lines)');
+  }
+  ok('F4 NO FENCE SPANS ANOTHER LANE\'S BLOCK' +
+    (spanning.length ? ': ' + spanning.join(', ') : ''), spanning.length === 0);
+
+  /* F5: the specific shape that was wrong. WORKERS has to stop before their
+     block and JOIN has to pick up after it, or the two fences merge again. */
+  const wi = slice.indexOf('/* /PEOPLE:WORKERS */');
+  const fi = slice.indexOf('/* ==== RUN PERSON FACTS');
+  const ji = slice.indexOf('/* PEOPLE:JOIN */');
+  ok('F5 WORKERS closes before their block and JOIN opens after it',
+    wi > 0 && fi > wi && ji > fi);
+  ok('F6 their conditioning code is still in the file', /BohemiaPopulation.conditionAgents/.test(slice));
+}
+
 (async () => {
   console.log('PEOPLE GATE — the bodies on the block are people');
   partA();
@@ -720,6 +772,7 @@ async function partE() {
   await partC();
   await partD();
   await partE();
+  partF();
   console.log((fail ? 'FAILED' : 'OK') + ': ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.log('  FAIL: gate threw — ' + (e && e.stack || e)); process.exit(1); });

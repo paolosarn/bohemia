@@ -452,8 +452,8 @@ B_JOIN = """    /* PEOPLE:JOIN */
       _agents = _agents.concat(
         BohemiaAgents.workersForPlot(WORLD, CELL[0], CELL[1], 3, {rateFor:_rateFor}));
     }catch(_e){} }
-    /* /PEOPLE:JOIN */
     SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
+    /* /PEOPLE:JOIN */
 """
 A_RATE = """    var _rate = null;
 """
