@@ -25,6 +25,7 @@ WHAT IT HOLDS:
 
 Run from repo root:  python3 gates/sfx_wired_gate.py
 """
+import glob
 import json
 import os
 import re
@@ -158,6 +159,12 @@ const METER=`(function(){
      FIRST: the footsteps above have decay tails, and measuring on top of them
      reads their ring-out as the door's noise (it did, at 0.2044, the first time
      this check ran). Let the bus go quiet, THEN zero the meter. */
+  /* STOP THE SONG BEFORE MEASURING THE DOOR. The differential test kept
+     tripping because the studio starts playing on its own sometimes, so the
+     "floor" window and the "door" window caught different bars of different
+     music and the difference read as a door. Silence the bus and the question
+     becomes answerable. */
+  await p.evaluate(()=>{ try{ if(typeof MUS!=='undefined' && MUS.playing && MUS.stop) MUS.stop(); }catch(e){} });
   await p.waitForTimeout(2500);
   out.musicPlaying=await p.evaluate(()=>!!(typeof MUS!=='undefined'&&MUS.playing));
   /* BASELINE, not silence. If the studio is playing a song the bus is never
@@ -202,8 +209,13 @@ def main():
     verdict = open(VERDICT, encoding='utf8').read()
 
     # ---- 1 & 2: the bank is HIS, and only his
-    ups = set(re.findall(r'^\s*UP\s+(\S+)', verdict, re.M))
-    downs = set(re.findall(r'^\s*DOWN\s+(\S+)', verdict, re.M))
+    # EVERY committed verdict file, not just the first one. Hardcoding the 7/30
+    # file meant his 8/1 thumbs read as "he never approved that" the moment they
+    # were banked -- the same class of bug he was complaining about.
+    allv = ''.join(open(f, encoding='utf8').read()
+                   for f in sorted(glob.glob('records/BOHEMIA_SFX_VERDICT_*.txt')))
+    ups = set(re.findall(r'^\s*UP\s+(\S+\.\d+)\s*$', allv, re.M))
+    downs = set(re.findall(r'^\s*DOWN\s+(\S+\.\d+)\s*$', allv, re.M))
     # the verdict record stores the tally, not per-line ids; fall back to the
     # committed verdict table if the export block is not inlined
     if not ups:
@@ -222,8 +234,9 @@ def main():
                 '%s is in the bank and he thumbed it DOWN' % d)
     chk('door_open' not in bank and 'door_shut' not in bank,
         'a door is banked -- he killed all ten door candidates, the game owes doors silence')
-    chk(sum(len(v) for v in bank.values()) == 38,
-        'the bank does not hold his 38 approvals (holds %d)' % sum(len(v) for v in bank.values()))
+    chk(sum(len(v) for v in bank.values()) == len(ups),
+        'the bank holds %d sounds but he thumbed %d UP across every verdict file'
+        % (sum(len(v) for v in bank.values()), len(ups)))
 
     # 3. sets, not singles, where he approved more than one
     for ev in ('step_dirt', 'step_asphalt', 'step_gravel'):
@@ -244,6 +257,11 @@ def main():
     chk('function sfxAsk' in demo, 'combat cannot ask the parent for a sound')
     chk("sfxAsk('hit')" in demo, 'combat never asks for his HIT sound')
     chk("sfxAsk('kill')" in demo, 'combat never asks for his KILL sound')
+    chk("sfxAsk('shot')" in demo, 'combat never asks for his SHOT sound (shot.3, 8/1)')
+    chk("sfxAsk('hurt')" in demo, 'combat never asks for his HURT sound (hurt.2, 8/1)')
+    for fn in ('sndShot', 'sndReturn'):
+        chk(demo.count('function %s(' % fn) == 1,
+            '%s is not defined exactly once in combat' % fn)
     chk(demo.count('function sndHit(') == 1 and demo.count('function sndKill(') == 1,
         'sndHit/sndKill are not defined exactly once in combat')
     chk('BOHEMIA_GESTURE' in demo,
@@ -260,6 +278,37 @@ def main():
     chk("sfxAsk('block')" not in demo,
         'combat wires a BLOCK, but this demo has no block mechanic -- inventing '
         'one to justify a sound is his call, not the machine\'s')
+
+    # 7b-ii. HIS THUMBS SURVIVE A DEPLOY (Paolo 8/1: "I can't be judging shit
+    #        and then you pretend that I didn't"). His verdicts used to live only
+    #        in the phone's localStorage, so growing the batch handed him back a
+    #        sheet with 60 judged sounds showing as never-judged. The committed
+    #        verdict tables must be baked into the shipped surface.
+    settled = {}
+    for f in sorted(glob.glob('records/BOHEMIA_SFX_VERDICT_*.txt')):
+        for verdict, cid in re.findall(r'^\s*(UP|DOWN)\s+(\S+\.\d+)\s*$',
+                                       open(f, encoding='utf8').read(), re.M):
+            settled[cid] = 1 if verdict == 'UP' else -1
+    chk(len(settled) >= 85, 'only %d committed verdicts found; he has judged more '
+                            'than that and they must not be lost' % len(settled))
+    m = re.search(r'var SETTLED=(\{.*?\});', alpha_src)
+    chk(m is not None, 'the judge surface ships NO baked-in verdicts -- it would '
+                       'ask him to re-judge everything he has already decided')
+    if m:
+        baked = json.loads(m.group(1))
+        chk(len(baked) == len(settled),
+            'the surface bakes %d verdicts but %d are committed' % (len(baked), len(settled)))
+        wrong = [k for k, v in settled.items() if baked.get(k) != v]
+        chk(not wrong, 'the shipped surface disagrees with his committed thumbs on %s'
+            % wrong[:4])
+
+    # 7b-iii. AND IT COLLAPSES (same message: "I shouldn't be having a scroll for
+    #         five fucking minutes ... whether it's a song or a sound effect")
+    chk('COLLAPSE ALL' in alpha_src and 'EXPAND ALL' in alpha_src,
+        'the judge surface has no collapse controls')
+    chk('ONLY UNJUDGED' in alpha_src, 'no way to see only what still needs him')
+    chk('function foldSongs' in alpha_src,
+        'the SONG list does not fold, and he named songs explicitly')
 
     # 7c. THE RING/SILENT SWITCH. WebAudio-only pages are muted by the physical
     #     switch on an iPhone, silently. The opt-out must be in the shipped file.

@@ -1742,6 +1742,71 @@ LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
 scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
 pages from coming back.
 
+SOUNDS (xk7pjp): 8/1 (b) LATEST — I THREW HIS THUMBS AWAY AND ASKED HIM TO JUDGE
+AGAIN. Read this before touching any judge surface in this repo.
+
+HIS WORDS: "I already made verdicts in a previous chat... I can't be judging shit
+and then you pretend that I didn't so yeah you gotta fix that and then everything
+that I approve like it should be collapsible you know like I shouldn't be having
+a scroll for five fucking minutes every time for the music whether it's a song or
+a sound effect"
+
+THE BUG: the SFX judge surface stored his verdicts ONLY in the phone's
+localStorage. Nothing in the repo. So a new deploy, a cleared cache or a second
+device wiped 60 judged sounds, and when the batch grew 12 -> 17 moments his
+export came back reading "--" (never judged) for everything he had already
+decided. He had to look at his own finished work being asked for again.
+
+THE FIX, AND IT IS THE GENERAL LESSON: HIS VERDICTS ARE A REPO FILE, NOT A
+COOKIE. tools/bohemia_sfx_factory.py now parses every
+records/BOHEMIA_SFX_VERDICT_*.txt at build time and bakes the UP/DOWN table into
+the shipped surface as SETTLED. localStorage holds only CHANGES on top of that,
+so the worst a wiped phone can do is fall back to what he already decided. 85
+verdicts bake in today. The factory REFUSES TO BUILD if it finds no committed
+verdicts, because a surface that asks him to re-judge everything is worse than
+no surface.
+  ANY FUTURE JUDGE SURFACE IN THIS REPO MUST DO THIS. The verdict .txt in
+  records/ is the truth; the browser is a cache. If you build a judge board and
+  its state lives in localStorage only, you have built this bug again.
+
+AND IT FOLDS NOW (both halves of what he asked):
+  SOUNDS: every moment is a collapsible card. A moment he has finished judging
+    opens CLOSED with a green "DECIDED · n UP" line. Only unjudged moments open.
+    COLLAPSE ALL / EXPAND ALL / ONLY UNJUDGED in the bar, plus an explicit
+    "NOTHING LEFT TO JUDGE" state so the filter never hands him a blank page.
+    Measured in a real browser: 17 cards, all DECIDED, 85/85, surface 1527px ->
+    358px with the filter on.
+  SONGS: he named songs explicitly, so foldSongs() runs AFTER MUS.build and
+    turns each section heading the studio already writes into a toggle for the
+    rows under it, closed by default, remembered in localStorage. It does NOT
+    touch the studio's code and no-ops if the list is not shaped as expected.
+    Measured: 144 song rows -> 13 visible.
+
+HIS 8/1 COMBAT VERDICT: 2 UP of 25. shot.3 and hurt.2, both now banked (40 total)
+and WIRED into combat -- sndShot and sndReturn join sndHit and sndKill, so the
+gun and the hit you take are his sounds now. miss/vital/clear were wiped 5/5 and
+are graveyarded with the post-mortem.
+  THE INFERENCE THAT COST ME A BATCH: I carried the 7/30 MATERIAL table into
+  combat as if a material score were context-free. It is not. vital was CRYSTAL
+  (8/10 on 7/30) and died 5/5; clear was BELL (10/10 on 7/30, and SAVED is built
+  from it) and died 5/5. miss was ash and still died -- the only ash that was
+  high and undriven. THE RULE: combat is LOW, ASH-OR-STONE, DRIVEN HARD, SHORT.
+  A verdict is about a sound IN A PLACE, never a material in the abstract.
+  DO NOT re-cook miss/vital/clear unasked. One rejection is not two, and the turn
+  they died in was a turn about the surface being wrong.
+
+GATES: SFX WIRED now 190 checks. The new families are PROVED to fail -- blanking
+SETTLED reproduces exactly the bug he reported and turns the gate red.
+  ALSO FIXED: the gate read UP/DOWN from the 7/30 file ONLY and hardcoded "38
+  approvals", so his 8/1 thumbs read as "he never approved that" the moment they
+  were banked. It now unions every verdict file and derives the count. Same class
+  of bug as the one it was written to catch.
+  AND: the door-silence check kept tripping because the studio starts playing on
+  its own sometimes; it now stops the song before measuring, so the floor is a
+  real 0.0000 instead of a bar of music.
+
+BUILD STAMP: 8/1s - YOUR THUMBS STICK + EVERYTHING FOLDS (MUSIC TAB).
+
 SOUNDS (xk7pjp): 8/1 LATEST — THE COMBAT VOICE. 25 NEW CANDIDATES WAITING ON HIS
 THUMBS, in the MUSIC tab. Sound is confirmed WORKING on his phone ("Its green!").
 

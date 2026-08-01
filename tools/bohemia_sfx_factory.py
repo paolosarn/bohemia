@@ -59,6 +59,8 @@ blocks with the current engine + UI instead of stacking a second copy.
 
   python3 tools/bohemia_sfx_factory.py
 """
+import json
+import glob
 import os
 import re
 import sys
@@ -89,13 +91,30 @@ UI = r"""
  var N_CAND=5;
 
  var SJ={
-  V:{}, C:{}, note:'', sun:false, built:null, cache:{},
-  load:function(){ try{var d=JSON.parse(localStorage.getItem('bohemia_sfx')||'null');
-    if(d){this.V=d.V||{};this.C=d.C||{};this.note=d.note||'';this.sun=!!d.sun;} }catch(e){} },
+  V:{}, C:{}, note:'', sun:false, built:null, cache:{}, open:{}, onlyNew:false,
+  /* HIS VERDICTS ARE A REPO FILE, NOT A COOKIE (Paolo 8/1: "I can't be judging
+     shit and then you pretend that I didn't"). They used to live ONLY in this
+     phone's localStorage, so a new deploy, a cleared cache or a second device
+     wiped 60 judged sounds and the surface asked him all over again. SETTLED
+     below is baked in at build time from every records/BOHEMIA_SFX_VERDICT_*.txt
+     in the repo -- his actual thumbs, committed. localStorage now only holds
+     CHANGES on top of that, so the worst a wiped phone can do is fall back to
+     what he already decided. */
+  load:function(){
+    var k; for(k in SETTLED) this.V[k]=SETTLED[k];
+    try{var d=JSON.parse(localStorage.getItem('bohemia_sfx')||'null');
+      if(d){ if(d.V) for(k in d.V) this.V[k]=d.V[k];    /* he may change his mind */
+             this.C=d.C||{};this.note=d.note||'';this.sun=!!d.sun;
+             this.open=d.open||{}; this.onlyNew=!!d.onlyNew; } }catch(e){} },
   save:function(){ try{localStorage.setItem('bohemia_sfx',JSON.stringify(
-    {V:this.V,C:this.C,note:this.note,sun:this.sun}));}catch(e){} },
+    {V:this.V,C:this.C,note:this.note,sun:this.sun,open:this.open,onlyNew:this.onlyNew}));}catch(e){} },
   cand:function(ev){ if(!this.cache[ev])this.cache[ev]=BOH_SFX.cook(ev,N_CAND); return this.cache[ev]; },
   judged:function(){ var n=0; for(var k in this.V) if(this.V[k]) n++; return n; },
+  /* a moment is DONE when every one of its candidates has a thumb either way */
+  done:function(ev){ var c=this.cand(ev), i;
+    for(i=0;i<c.length;i++) if(!this.V[c[i].id]) return false; return true; },
+  ups:function(ev){ var c=this.cand(ev), n=0, i;
+    for(i=0;i<c.length;i++) if(this.V[c[i].id]===1) n++; return n; },
 
   /* ONE AUDIOCONTEXT, THE PARENT'S: the studio's, with its brickwall limiter
      already in the chain. This never makes a context. */
@@ -184,20 +203,54 @@ UI = r"""
   var ex=el('button','border-color:#6f6;color:#8fe89a','<b>EXPORT SFX (to Claude)</b>');
   ex.addEventListener('click',function(){ SJ.exportTxt(); });
   var cnt=el('span','font:10px ui-monospace,monospace;color:#8a7a5a;letter-spacing:1px'); cnt.id='sfxCount';
-  bar.appendChild(sun); bar.appendChild(ex); bar.appendChild(cnt);
+  var colAll=el('button',null,'COLLAPSE ALL');
+  var expAll=el('button',null,'EXPAND ALL');
+  var only=el('button',null,'ONLY UNJUDGED'); only.id='sfxOnlyNew';
+  bar.appendChild(sun); bar.appendChild(colAll); bar.appendChild(expAll);
+  bar.appendChild(only); bar.appendChild(ex); bar.appendChild(cnt);
   W.appendChild(bar);
 
   function refresh(){ var c=document.getElementById('sfxCount');
     if(c)c.textContent=SJ.judged()+' / '+(BOH_SFX.EVENTS.length*N_CAND)+' JUDGED'; }
 
+  /* EVERYTHING COLLAPSES (Paolo 8/1: "I shouldn't be having a scroll for five
+     fucking minutes"). A moment he has finished judging starts CLOSED and shows
+     one green line saying what he decided. Only the undecided ones are open, so
+     the page opens on exactly the work that is left. */
+  var CARDS=[];
   BOH_SFX.EVENTS.forEach(function(E){
    var card=el('div'); card.className='sfxCard';
-   var hd=el('div','display:flex;gap:6px;align-items:center;justify-content:space-between');
-   hd.appendChild(el('div',null,'<span class="sfxLbl">'+E.label+'</span>'
-     +'<div class="sfxWhy">'+E.why+'</div>'));
+   var done=SJ.done(E.ev), ups=SJ.ups(E.ev);
+   var isOpen=(SJ.open[E.ev]!==undefined)?!!SJ.open[E.ev]:!done;
+   var body=el('div');
+
+   var hd=el('div','display:flex;gap:6px;align-items:center;justify-content:space-between;cursor:pointer');
+   var caret=el('span','font:11px ui-monospace,monospace;color:#8a7a5a;min-width:12px','');
+   var ttl=el('div',null,'<span class="sfxLbl">'+E.label+'</span>'
+     +'<div class="sfxWhy">'+E.why+'</div>');
+   var badge=el('div','font:10px ui-monospace,monospace;letter-spacing:1px;white-space:nowrap');
+   function paint(){
+    var d=SJ.done(E.ev), u=SJ.ups(E.ev);
+    caret.textContent=isOpen?'▾':'▸';
+    body.style.display=isOpen?'':'none';
+    card.style.opacity=(d&&!isOpen)?'0.72':'1';
+    badge.innerHTML = d
+      ? '<span style="color:#8fe89a">DECIDED &middot; '+u+' UP</span>'
+      : '<span style="color:#e8b478">NEEDS YOU</span>';
+   }
+   hd.addEventListener('click',function(ev){
+    if(ev.target && ev.target.tagName==='BUTTON') return;   /* PLAY is not a toggle */
+    isOpen=!isOpen; SJ.open[E.ev]=isOpen; SJ.save(); paint(); });
+   var left=el('div','display:flex;gap:7px;align-items:center');
+   left.appendChild(caret); left.appendChild(ttl);
+   var right=el('div','display:flex;gap:6px;align-items:center');
    var all=el('button','border-color:#8a6ad0;color:#c0a8f0','PLAY '+N_CAND);
    all.addEventListener('click',function(){ SJ.hearRow(E.ev); });
-   hd.appendChild(all); card.appendChild(hd);
+   right.appendChild(badge); right.appendChild(all);
+   hd.appendChild(left); hd.appendChild(right); card.appendChild(hd);
+   card.appendChild(body);
+   CARDS.push({ev:E.ev, card:card, paint:paint,
+               setOpen:function(o){ isOpen=o; SJ.open[E.ev]=o; paint(); }});
 
    SJ.cand(E.ev).forEach(function(v,i){
     var row=el('div'); row.className='sfxRow';
@@ -208,19 +261,46 @@ UI = r"""
     var up=el('button',null,'&#128077;'); up.className='sfxUp'+(SJ.V[v.id]===1?' on':'');
     var dn=el('button',null,'&#128078;'); dn.className='sfxDn'+(SJ.V[v.id]===-1?' on':'');
     up.addEventListener('click',function(){ SJ.V[v.id]=(SJ.V[v.id]===1)?0:1; SJ.save();
-      up.className='sfxUp'+(SJ.V[v.id]===1?' on':''); dn.className='sfxDn'+(SJ.V[v.id]===-1?' on':''); refresh(); });
+      up.className='sfxUp'+(SJ.V[v.id]===1?' on':''); dn.className='sfxDn'+(SJ.V[v.id]===-1?' on':'');
+      paint(); refresh(); });
     dn.addEventListener('click',function(){ SJ.V[v.id]=(SJ.V[v.id]===-1)?0:-1; SJ.save();
-      up.className='sfxUp'+(SJ.V[v.id]===1?' on':''); dn.className='sfxDn'+(SJ.V[v.id]===-1?' on':''); refresh(); });
+      up.className='sfxUp'+(SJ.V[v.id]===1?' on':''); dn.className='sfxDn'+(SJ.V[v.id]===-1?' on':'');
+      paint(); refresh(); });
     /* PER-ITEM COMMENT (verdict workflow): the note about THIS sound rides with
        this sound into the export, not into a paragraph at the bottom */
     var nt=document.createElement('input'); nt.className='sfxN'; nt.type='text';
     nt.placeholder='note'; nt.value=SJ.C[v.id]||'';
     nt.addEventListener('input',function(){ SJ.C[v.id]=nt.value; SJ.save(); });
     row.appendChild(pl); row.appendChild(mt); row.appendChild(up); row.appendChild(dn); row.appendChild(nt);
-    card.appendChild(row);
+    body.appendChild(row);
    });
+   paint();
    W.appendChild(card);
   });
+
+  var empty=el('div','display:none;text-align:center;padding:18px 10px;font:11px ui-monospace,monospace;color:#8fe89a;letter-spacing:1px;border:1px dashed #3a5a34;border-radius:6px;margin:8px 0','NOTHING LEFT TO JUDGE &mdash; every sound in the game has your thumb on it.<br><span style="color:#7a6a4e">tap ONLY UNJUDGED again to see everything you decided</span>');
+  W.appendChild(empty);
+
+  /* the three controls that make a long list survivable, wired after the cards
+     exist so they can reach every one of them */
+  function applyFilter(){
+   var left=0;
+   CARDS.forEach(function(c){
+    var hide=(SJ.onlyNew && SJ.done(c.ev));
+    c.card.style.display=hide?'none':'';
+    if(!SJ.done(c.ev)) left++; });
+   only.style.borderColor=SJ.onlyNew?'#e8b478':'#3a3020';
+   only.style.color=SJ.onlyNew?'#e8b478':'#cfc3a8';
+   /* never hand him a blank page: if the filter hides everything, SAY so */
+   empty.style.display=(SJ.onlyNew && left===0)?'':'none';
+  }
+  colAll.addEventListener('click',function(){
+   CARDS.forEach(function(c){ c.setOpen(false); }); SJ.save(); });
+  expAll.addEventListener('click',function(){
+   CARDS.forEach(function(c){ c.setOpen(true); }); SJ.save(); });
+  only.addEventListener('click',function(){
+   SJ.onlyNew=!SJ.onlyNew; SJ.save(); applyFilter(); });
+  applyFilter();
 
   /* THE COMMENT SECTION AT THE BOTTOM, ALWAYS (verdict workflow law) */
   W.appendChild(el('div','font:10px ui-monospace,monospace;color:#7a6a4e;letter-spacing:1px;margin:10px 0 4px 0',
@@ -231,6 +311,49 @@ UI = r"""
 
   P.insertBefore(W,P.firstChild);
   refresh();
+  try{ foldSongs(); }catch(e){}
+ }
+
+ /* THE SONG LIST FOLDS TOO (Paolo 8/1: "I shouldn't be having a scroll for five
+    fucking minutes every time for the music WHETHER IT'S A SONG OR A SOUND
+    EFFECT"). This does not touch the studio's own code: it runs AFTER MUS.build
+    has rendered, finds the section headings it already writes, and makes each
+    one a toggle for the rows underneath it. The studio already ships a
+    tap-to-open graveyard box, so this is that idea applied to every section.
+    Structure-driven and defensive -- if the list is not shaped the way it reads
+    here, it does nothing at all rather than mangling the panel. */
+ function foldSongs(){
+  var first=document.querySelector('#p-music .mus-row'); if(!first)return;
+  var lib=first.parentElement; if(!lib || lib.__folded)return;
+  lib.__folded=true;
+  var kids=[].slice.call(lib.children), groups=[], cur=null, i;
+  for(i=0;i<kids.length;i++){
+   var k=kids[i];
+   var isRow=k.classList && k.classList.contains('mus-row');
+   var holdsRows=k.querySelector && k.querySelector('.mus-row');
+   if(!isRow && !holdsRows && (k.textContent||'').length<70){   /* a heading */
+    cur={hd:k, rows:[]}; groups.push(cur);
+   } else if(cur){ cur.rows.push(k); }
+  }
+  if(!groups.length)return;
+  var ST={}; try{ ST=JSON.parse(localStorage.getItem('bohemia_songfold')||'{}'); }catch(e){}
+  groups.forEach(function(g){
+   if(!g.rows.length)return;
+   var key=(g.hd.textContent||'').trim().slice(0,40);
+   var open=(ST[key]!==undefined)?!!ST[key]:false;   /* closed by default: that is the whole point */
+   var tag=document.createElement('span');
+   tag.style.cssText='font:10px ui-monospace,monospace;color:#8a7a5a;margin-left:8px;letter-spacing:1px';
+   g.hd.style.cursor='pointer'; g.hd.appendChild(tag);
+   function paint(){
+    g.rows.forEach(function(r){ r.style.display=open?'':'none'; });
+    tag.textContent=(open?'▾ ':'▸ ')+g.rows.length;
+   }
+   g.hd.addEventListener('click',function(){
+    open=!open; ST[key]=open;
+    try{ localStorage.setItem('bohemia_songfold',JSON.stringify(ST)); }catch(e){}
+    paint(); });
+   paint();
+  });
  }
 
  /* The studio rebuilds its whole panel on a category change (MUS.rebuild ->
@@ -265,6 +388,26 @@ def main():
     alpha = open(ALPHA, encoding='utf8').read()
     engine = open(ENGINE, encoding='utf8').read()
 
+    # HIS VERDICTS ARE A REPO FILE (Paolo 8/1: "I can't be judging shit and then
+    # you pretend that I didn't"). They used to live only in the phone's
+    # localStorage, so growing the batch from 12 moments to 17 handed him back a
+    # sheet with 60 already-judged sounds showing as never-judged. Read every
+    # committed verdict table and bake it into the surface, so his thumbs survive
+    # a new deploy, a cleared cache, and a different device.
+    settled, sources = {}, []
+    for f in sorted(glob.glob('records/BOHEMIA_SFX_VERDICT_*.txt')):
+        txt = open(f, encoding='utf8').read()
+        found = 0
+        for verdict, cid in re.findall(r'^\s*(UP|DOWN)\s+(\S+\.\d+)\s*$', txt, re.M):
+            settled[cid] = 1 if verdict == 'UP' else -1
+            found += 1
+        if found:
+            sources.append('%s (%d)' % (os.path.basename(f), found))
+    if not settled:
+        print('FAIL: no committed verdicts found -- refusing to build a surface '
+              'that would ask him to re-judge everything')
+        return 1
+
     # idempotent: rip any previous mount out whole, then re-inject the current one
     if BEGIN in alpha:
         i = alpha.index(BEGIN)
@@ -283,7 +426,11 @@ def main():
              + '\n<script>\n/* ENGINE SYNC LAW: this body is engine/bohemia_sfx.js, inlined verbatim.\n'
              + '   Edit the engine file, re-run tools/bohemia_sfx_factory.py. Never edit here. */\n'
              + engine
-             + '</script>\n<script>' + UI + '</script>\n'
+             + '</script>\n<script>\n/* HIS COMMITTED THUMBS, baked in from records/'
+               'BOHEMIA_SFX_VERDICT_*.txt. localStorage only holds CHANGES on top of\n'
+               '   this, so a wiped phone falls back to what he already decided. */\n'
+             + 'var SETTLED=' + json.dumps(settled, separators=(',', ':')) + ';\n'
+             + UI + '</script>\n'
              + END + '\n')
 
     anchor = '<div id="exportModal"'
@@ -300,7 +447,9 @@ def main():
     print('SFX FACTORY MOUNTED in the MUSIC tab of the ONE alpha.')
     print('  engine: %s (%d bytes, inlined verbatim)' % (ENGINE, len(engine)))
     print('  batch:  %d game moments x 5 candidates = %d sounds' % (n_ev, n_ev * 5))
-    print('  bank:   EMPTY (mechanism-mine: which sound each event makes is his verdict)')
+    print('  thumbs: %d committed verdicts baked in from %s' % (len(settled), ', '.join(sources)))
+    print('          a decided moment opens COLLAPSED; he is never asked twice')
+    print('  bank:   EMPTY in the engine (mechanism-mine: which sound each event makes is his verdict)')
     return 0
 
 

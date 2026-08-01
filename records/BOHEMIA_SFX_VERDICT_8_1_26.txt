@@ -1,0 +1,100 @@
+=== BOHEMIA SFX VERDICT — BATCH SFX-02, THE COMBAT VOICE (8/1/26) ===
+
+HIS EXPORT: 25 of the 25 new combat candidates judged. 2 UP, 23 DOWN.
+(The 85-total count in the export header includes the 12 moments he had already
+judged on 7/30. Those showed as "--" because the judge surface threw his thumbs
+away when the batch grew -- that is the defect he called out in this same
+message, and it is fixed in this build. His 7/30 verdicts stand, all 38 of them.)
+
+HIS WORDS, VERBATIM:
+  "I already made verdicts in a previous chat. You just have to scroll up. I
+   already told you how I felt about the approved sound so you gotta find out
+   how you wanna deal with that in the UI of the Dev mode but I already approved
+   so I already judged a lot of the sound so you gotta find out how you wanna
+   collapse it or store it or categorize it but yeah, like I can't be judging
+   shit and then you pretend that I didn't so yeah you gotta fix that and then
+   everything that I approve like it should be collapsible you know like I
+   shouldn't be having a scroll for five fucking minutes every time for the
+   music whether it's a song or a sound effect"
+
+--------------------------------------------------------------------------------
+THE TALLY
+--------------------------------------------------------------------------------
+  shot    1/5   shot.3 UP
+  hurt    1/5   hurt.2 UP
+  miss    0/5   WIPED OUT
+  vital   0/5   WIPED OUT
+  clear   0/5   WIPED OUT
+
+--------------------------------------------------------------------------------
+WHAT SURVIVED (banked as (event, index) into the shipped generator)
+--------------------------------------------------------------------------------
+  shot.3   mat=ash hz=65.57 modes=5 bright=0.5 decay=0.125 damp=2.4 warble=0.35
+           atk=0 slide=-4.950505 trans=0.95 transHz=8054.1521 transQ=1.1
+           grit=0.95 gritHz=511.157143 space=0.220847 room=0.25 refl=2
+           dark=1315.543424 width=0.485795 drive=0.682273 gain=0.34 mkup=1.765
+           pan=0.335194 hits=0|0.0625|0.0625
+
+  hurt.2   mat=ash hz=66.97 modes=4 bright=0.35 decay=0.25 damp=2.2 warble=0.5
+           atk=0 slide=-5.518655 trans=0.6 transHz=1117.49395 transQ=0.8
+           grit=0.8 gritHz=553.463097 space=0.372937 room=0.375 refl=1
+           dark=843.516346 width=0.3 drive=0.712205 gain=0.36 mkup=1.528
+           pan=-0.157347 hits=0
+
+--------------------------------------------------------------------------------
+WHAT HIS THUMBS SAY (INFERENCE, labelled as such -- he thumbed, he did not theorise)
+--------------------------------------------------------------------------------
+THE COMBAT VOICE IS ASH AND DRIVE. Both survivors are ash, both are LOW (65.6 and
+67.0 Hz, the bottom of their jitter ranges), and both are the HARDEST DRIVEN of
+their five (0.682 and 0.712, the top of theirs). Nothing else lived.
+
+WHAT DIED, AND IT IS NOT RANDOM:
+  vital was CRYSTAL at 880 Hz. Crystal went 8/10 with him on 7/30, so the
+    material was not the problem -- the REGISTER was. High and bright is wrong
+    for a body being hit.
+  clear was BELL with a 1.5-beat tail. Bell went 10/10 on 7/30 and SAVED is
+    built from it. So bell is not dead either: a long ringing resolution is
+    wrong FOR COMBAT. He does not want a fight to end like a save chime.
+  miss WAS ash -- and still died 5/5. It was the only ash in the batch that was
+    high (320 Hz) and barely driven (0.12). That is the control case, and it
+    confirms the pattern is not "ash wins", it is LOW AND DRIVEN wins.
+
+SO THE RULE THIS BATCH BOUGHT: combat is dry, low and saturated. Not bright, not
+ringing, not airy. Two materials that scored 10/10 and 8/10 in other contexts
+were both rejected here, which means CONTEXT beats material -- the 7/30 material
+table does not transfer to combat unexamined.
+
+DO NOT RE-COOK miss / vital / clear THIS SESSION. That is one rejection, not two,
+and STOP PRODUCING says a lane that has just been told its surface is wrong does
+not answer by producing more. The rule above is what a future batch would be
+built on: low, ash-or-stone, driven hard, short. His call whether that batch
+happens.
+
+--------------------------------------------------------------------------------
+THE FULL TABLE (machine-read by gates/sfx_wired_gate.py)
+--------------------------------------------------------------------------------
+  DOWN shot.0
+  DOWN shot.1
+  DOWN shot.2
+  UP   shot.3
+  DOWN shot.4
+  DOWN miss.0
+  DOWN miss.1
+  DOWN miss.2
+  DOWN miss.3
+  DOWN miss.4
+  DOWN vital.0
+  DOWN vital.1
+  DOWN vital.2
+  DOWN vital.3
+  DOWN vital.4
+  DOWN hurt.0
+  DOWN hurt.1
+  UP   hurt.2
+  DOWN hurt.3
+  DOWN hurt.4
+  DOWN clear.0
+  DOWN clear.1
+  DOWN clear.2
+  DOWN clear.3
+  DOWN clear.4

@@ -457,3 +457,35 @@ BRAIDED TAIL    | hair | 8/1/26 | "looks like dog shit".
 PONYTAIL        | hair | 8/1/26 | "all fucked up like there's no hair in between the top and then the ponytail when it's the back so it's pretty creepy" -- the tie floated free of the mass.
 TOP KNOT        | hair | 8/1/26 | "it's the same from the front and the backside and there needs to be more hair".
 LOW BUN         | hair | 8/1/26 | KILLED AS A STYLE, PROMOTED AS THE REFERENCE. "By far the most natural looking back of the head that you have is the low bun so think about how you made the low bun when you make the rest of the back of the heads." Its silhouette is now the target every back is shaped against; the style itself did not take a slot.
+================================================================================
+2026-08-01  SFX BATCH 02 — 23 OF 25 COMBAT CANDIDATES DOWN (his thumbs)
+================================================================================
+  records/BOHEMIA_SFX_VERDICT_8_1_26.txt
+
+DEAD: shot.0 shot.1 shot.2 shot.4 · miss.0-4 (ALL) · vital.0-4 (ALL) ·
+      hurt.0 hurt.1 hurt.3 hurt.4 · clear.0-4 (ALL)
+LIVED: shot.3, hurt.2. Both ash, both at the bottom of their pitch range, both
+      at the top of their drive range.
+
+POST-MORTEM. Three whole moments were wiped out and the reason is the useful
+part, because two of them were built from materials he had already scored 10/10
+and 8/10:
+  vital was CRYSTAL at 880 Hz. Crystal was 8/10 on 7/30. The material was not
+    the problem, the REGISTER was -- high and bright is wrong for a body taking
+    damage.
+  clear was BELL with a 1.5-beat tail. Bell was 10/10 on 7/30 and the approved
+    SAVED chime is built from it. So a long ringing resolution is wrong FOR
+    COMBAT specifically. A fight must not end like a save.
+  miss was ash and STILL died 5/5 -- the only ash in the batch that was high
+    (320 Hz) and barely driven (0.12). That is the control case: the rule is not
+    "ash wins", it is LOW AND DRIVEN wins.
+
+WHAT IT COST ME TO LEARN: I carried the 7/30 material table into combat as if a
+material score were context-free. It is not. Two top-scoring materials were both
+rejected the moment the moment changed. A verdict is about a SOUND IN A PLACE,
+never about a material in the abstract, and the inference file now says so.
+
+NO REMAKE THIS SESSION (GRAVEYARD IS FINAL + STOP PRODUCING). One rejection is
+not two, and the turn these died in was a turn where he told me the judge
+surface itself was wrong. Answering that with more sounds would be the exact
+failure the STOP PRODUCING law is named after.
