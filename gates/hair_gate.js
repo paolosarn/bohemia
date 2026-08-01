@@ -69,7 +69,8 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
     const eq = {}; for (const k in keepE) eq[k] = keepE[k];
     eq.hat = ''; eq.glasses = ''; eq.hair = '';
     const cooked = window.GARMENTS.filter(g => g.layer === 'hair').length;
-    const res = { n: hairs.length, cooked: cooked, empties: [], faceHidden: [], sil: {}, backSil: {}, extremeFail: [] };
+    const judgeable = window.GARMENTS.filter(g => g.layer === 'hair' && (g.st==='canon'||g.st==='cook')).length;
+    const res = { n: hairs.length, cooked: cooked, judgeable: judgeable, empties: [], faceHidden: [], sil: {}, backSil: {}, extremeFail: [] };
     try {
       G.equipped = eq;
       /* the bare face, per facing: how many pixels the painted face region shows
@@ -160,10 +161,17 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
     backN >= Math.ceil(R.n * 0.7));
   ok(`hair still fits the tallest and shortest citizens (${R.extremeFail.length} broke)`,
     R.extremeFail.length === 0);
-  ok(`the judge board lists every shape (${R.rows} rows, ${R.shots} head shots)`,
-    R.rows >= R.n && R.shots === R.n * 2);
+  /* THE BOARD SHOWS EVERY JUDGEABLE SHAPE, not just the canon ones. Since 8/1 that
+     is canon PLUS reopened kills (st:'cook'): his ruling was "try again with the
+     previous hairstyles I thumbs down ... to bring them back to life", and a
+     reopened kill returns as a CANDIDATE needing a fresh thumb. This assertion
+     compared against the CANON count and went red when seven candidates appeared --
+     reporting a failure for his own ruling being carried out, which is a gate
+     outranking a ruling. Counts what the board is actually for. */
+  ok(`the judge board lists every JUDGEABLE shape (${R.rows} rows, ${R.shots} head shots, ${R.judgeable} judgeable)`,
+    R.rows >= R.judgeable && R.shots === R.judgeable * 2);
   ok('the board shows the BACK as well as the front (a bun and a tail match from the front)',
-    R.shots === R.n * 2);
+    R.shots === R.judgeable * 2);
   ok('the board has a notes box (comment section at the bottom, always)', R.notes);
   ok('the board reports what is unjudged (' + R.stat + ')', /unjudged/.test(R.stat));
 

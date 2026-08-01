@@ -447,16 +447,51 @@ enforces VERBATIM: any tile claiming to be his must be byte-identical to the ban
 SHAVED FADE     | hair | 8/1/26 | "bad because there's not a lot of hair at all and then there's no sort of fade" -- and a fade must blend into skin tone, which nothing did. See laws/BOHEMIA_ADDENDUM_A_HAIRCUT_IS_A_LUXURY_8_1_26.md: a fade is a luxury signal, not a neutral shape.
 FLATTOP         | hair | 8/1/26 | "dog shit". Also a machine-taper shape, same luxury ruling.
 POMPADOUR       | hair | 8/1/26 | "looks like dog shit. It looks like a skinny beanie or something" -- the volume read as headwear, not hair.
-SIDE PART       | hair | 8/1/26 | "isn't really doing a side part at all kind of strange would like to see the side part go more to one side and then the back needs a little more hair" -- the part was never lateral enough to read.
+# REOPENED 8/1/26 (Paolo: "try again with the previous hairstyles I thumbs down
+#   with the new information ... to bring them back to life"). Tombstone KEPT per
+#   laws/BOHEMIA_ADDENDUM_A_KILL_CAN_BE_REOPENED_8_1_26.md -- his kill reason named a
+#   DEFECT, the machine has since been fixed, and it returns as a CANDIDATE needing a
+#   fresh thumb. A second kill is permanent.
+# SIDE PART       | hair | 8/1/26 | "isn't really doing a side part at all kind of strange would like to see the side part go more to one side and then the back needs a little more hair" -- the part was never lateral enough to read.
 CHIN BOB        | hair | 8/1/26 | "Bob is OK" but not kept -- a slot decision, not a quality one.
-LIBERTY SPIKES  | hair | 8/1/26 | off-centre like the mohawk ("just have it Kind of going up to the right side of the head" / centre it). The centring bug is fixed in wave 2; this shape still did not earn a slot.
+# REOPENED 8/1/26 (Paolo: "try again with the previous hairstyles I thumbs down
+#   with the new information ... to bring them back to life"). Tombstone KEPT per
+#   laws/BOHEMIA_ADDENDUM_A_KILL_CAN_BE_REOPENED_8_1_26.md -- his kill reason named a
+#   DEFECT, the machine has since been fixed, and it returns as a CANDIDATE needing a
+#   fresh thumb. A second kill is permanent.
+# LIBERTY SPIKES  | hair | 8/1/26 | off-centre like the mohawk ("just have it Kind of going up to the right side of the head" / centre it). The centring bug is fixed in wave 2; this shape still did not earn a slot.
 HAIR AFRO       | hair | 8/1/26 | "was so bad not an Afro at all" -- the harshest verdict of the wave. A volume dial is not an afro; it needs its own silhouette, cooked fresh.
-HIGH TOP        | hair | 8/1/26 | "there's part of the head that's not even with hair. It's kind of creepy" -- the bare-scalp bug that wave 2 fixed globally, but the shape is dead regardless.
-HAIR LOCS       | hair | 8/1/26 | "I see the vision it just needs to be executed better ... The difference is just one pixel not like two or three". The 1px rule is now the texture rule; the shape itself is dead.
+# REOPENED 8/1/26 (Paolo: "try again with the previous hairstyles I thumbs down
+#   with the new information ... to bring them back to life"). Tombstone KEPT per
+#   laws/BOHEMIA_ADDENDUM_A_KILL_CAN_BE_REOPENED_8_1_26.md -- his kill reason named a
+#   DEFECT, the machine has since been fixed, and it returns as a CANDIDATE needing a
+#   fresh thumb. A second kill is permanent.
+# HIGH TOP        | hair | 8/1/26 | "there's part of the head that's not even with hair. It's kind of creepy" -- the bare-scalp bug that wave 2 fixed globally, but the shape is dead regardless.
+# REOPENED 8/1/26 (Paolo: "try again with the previous hairstyles I thumbs down
+#   with the new information ... to bring them back to life"). Tombstone KEPT per
+#   laws/BOHEMIA_ADDENDUM_A_KILL_CAN_BE_REOPENED_8_1_26.md -- his kill reason named a
+#   DEFECT, the machine has since been fixed, and it returns as a CANDIDATE needing a
+#   fresh thumb. A second kill is permanent.
+# HAIR LOCS       | hair | 8/1/26 | "I see the vision it just needs to be executed better ... The difference is just one pixel not like two or three". The 1px rule is now the texture rule; the shape itself is dead.
 BRAIDED TAIL    | hair | 8/1/26 | "looks like dog shit".
-PONYTAIL        | hair | 8/1/26 | "all fucked up like there's no hair in between the top and then the ponytail when it's the back so it's pretty creepy" -- the tie floated free of the mass.
-TOP KNOT        | hair | 8/1/26 | "it's the same from the front and the backside and there needs to be more hair".
-LOW BUN         | hair | 8/1/26 | KILLED AS A STYLE, PROMOTED AS THE REFERENCE. "By far the most natural looking back of the head that you have is the low bun so think about how you made the low bun when you make the rest of the back of the heads." Its silhouette is now the target every back is shaped against; the style itself did not take a slot.
+# REOPENED 8/1/26 (Paolo: "try again with the previous hairstyles I thumbs down
+#   with the new information ... to bring them back to life"). Tombstone KEPT per
+#   laws/BOHEMIA_ADDENDUM_A_KILL_CAN_BE_REOPENED_8_1_26.md -- his kill reason named a
+#   DEFECT, the machine has since been fixed, and it returns as a CANDIDATE needing a
+#   fresh thumb. A second kill is permanent.
+# PONYTAIL        | hair | 8/1/26 | "all fucked up like there's no hair in between the top and then the ponytail when it's the back so it's pretty creepy" -- the tie floated free of the mass.
+# REOPENED 8/1/26 (Paolo: "try again with the previous hairstyles I thumbs down
+#   with the new information ... to bring them back to life"). Tombstone KEPT per
+#   laws/BOHEMIA_ADDENDUM_A_KILL_CAN_BE_REOPENED_8_1_26.md -- his kill reason named a
+#   DEFECT, the machine has since been fixed, and it returns as a CANDIDATE needing a
+#   fresh thumb. A second kill is permanent.
+# TOP KNOT        | hair | 8/1/26 | "it's the same from the front and the backside and there needs to be more hair".
+# REOPENED 8/1/26 (Paolo: "try again with the previous hairstyles I thumbs down
+#   with the new information ... to bring them back to life"). Tombstone KEPT per
+#   laws/BOHEMIA_ADDENDUM_A_KILL_CAN_BE_REOPENED_8_1_26.md -- his kill reason named a
+#   DEFECT, the machine has since been fixed, and it returns as a CANDIDATE needing a
+#   fresh thumb. A second kill is permanent.
+# LOW BUN         | hair | 8/1/26 | KILLED AS A STYLE, PROMOTED AS THE REFERENCE. "By far the most natural looking back of the head that you have is the low bun so think about how you made the low bun when you make the rest of the back of the heads." Its silhouette is now the target every back is shaped against; the style itself did not take a slot.
 ================================================================================
 2026-08-01  SFX BATCH 02 — 23 OF 25 COMBAT CANDIDATES DOWN (his thumbs)
 ================================================================================
