@@ -141,9 +141,26 @@ ok('the bank still states its own height law (min 2 tiles)', /MIN 2 TILES/i.test
         }
       }
     }
+    /* COUNT THE COVERED TILES: for every wall cell, is the tile its upper course
+       paints over still walkable? His law says it must be - a two-tile wall may
+       never cost a tile of ground. */
+    let covered = 0;
+    { let n2 = 0;
+      for (let y = 0; y < om.n; y++) for (let x = 0; x < om.n; x++) {
+        const t = om.at(x, y); if (!t || t.district !== 'suburb') continue;
+        if (++n2 > 60) break;
+        const m = tileMeta(x, y); if (!m.sub) continue;
+        for (let ly = 1; ly < FN; ly++) for (let lx = 0; lx < FN; lx++) {
+          if (m.sub[ly * FN + lx] !== 4) continue;
+          const cov = cellAt(x * FN + lx, y * FN + ly - 1);
+          if (cov && cov.code !== 4 && cov.walk) covered++;
+        }
+      }
+    }
     if (!found) return { noWall: true };
     return {
       pool: found.artPool_face, h: found.wallH, face: !!found.face, solid: !found.walk,
+      coveredWalkable: covered,
       houseH: houseFace ? (houseFace.wallH || 3) : null,
       housePool: houseFace ? houseFace.artPool_face : null,
     };
@@ -157,35 +174,77 @@ ok('the bank still states its own height law (min 2 tiles)', /MIN 2 TILES/i.test
   ok('WALL TAXONOMY HELD IN THE DRAW: the perimeter cell draws from the `perimeter` pool (' +
     r.pool + ') and never from a building-wall pool — "different than like building wall"',
     r.pool === 'perimeter' && !BUILDING.includes(r.pool));
-  /* HEIGHT — REWRITTEN 8/1 BY A RULING, NOT WORKED AROUND.
-     This asserted `h >= 2`, from the bank's "MIN 2 TILES" note, read as a DRAWN
-     GRID HEIGHT when it was set on 7/27. Paolo, 8/1, describing the geometry
-     himself: "if I am one tile north, behind a wall, because of the view of our
-     game, the wall border should end at that first tile, base of the wall...
-     and that's for all walls... it has to be a building if walls are two tiles
-     thick."
-     He is right and the measurement agreed with him: at wallH=2 the face was
-     painted over the WALKABLE cell to its north - 7,417 of them across the
-     valley - so you stood inside the wall. And because his thirteen approved
-     tiles are complete walls at 44x44, painting one over a two-tile rect
-     repeated it, which is the "two layers of walls... a different wall in the
-     wall" he saw. One cause, both complaints.
-     A GATE MUST NEVER OUTRANK A RULING (the same precedent people_gate cites
-     for the naming law), so the claim is rewritten. NEWEST DATE WINS.
-     WHAT IS ASSERTED NOW: a wall owns its own tile and nothing else, and only a
-     BUILDING may be taller - which is his second sentence, machine-held.
-     AND THE BANK IS NOT CONTRADICTED, which matters because line 58 still
-     asserts its "MIN 2 TILES" text is intact and that assertion is correct.
-     The bank is stating how tall the wall IS IN THE WORLD - two tiles of the
-     0.75m grid is ~1.5m, a real Vegas block wall. The number this gate now
-     holds is how many GROUND CELLS its face is painted across, which is a
-     different quantity entirely. His approved 44x44 tile already contains the
-     whole height; it just belongs on one cell. Both are true, and reading one
-     as the other is what put wallH=2 here in the first place. */
-  ok('HEIGHT: the wall ends at its own tile — the walkable border stops at its base (' + r.h + ')',
-    (r.h || 0) === 1);
-  ok('HEIGHT: and a BUILDING is the only thing allowed to be taller (house ' +
-    (r.houseH || 3) + ' vs wall ' + r.h + ')', (r.h || 0) < (r.houseH || 3));
+  /* THE THREE QUANTITIES (Paolo 8/2, LOCKED). He had to say it twice because I
+     collapsed them into one the first time:
+       HEIGHT     every wall DRAWS two tiles. Fence, concrete, brick, all of them.
+       COLLISION  exactly ONE tile stops you - the wall's own cell.
+       OPACITY    stand on the tile the upper course covers and the wall FADES.
+     > "all walls should at least be two tiles tall from fencing to concrete to
+     >  brick whatever, but the walkable border where it stops allowing you to
+     >  walk should only be one tile... and that's when the opacity matters."
+     MY MISREAD, recorded so it is not repeated: he said "the wall border should
+     end at that first tile" and I read BORDER as the DRAWN EDGE, shipping
+     wallH=1. He meant the WALKABLE border. I also quoted his "it has to be a
+     building if walls are two tiles THICK" as proof walls are one tile TALL -
+     thick is footprint, tall is height, and they are not the same word.
+     THE TELL I MISSED: his bank has said "wall height min 2 tiles" since 7/14
+     and I wrote a long paragraph explaining why it did not mean that. WHEN THE
+     RECONCILIATION GETS THAT LONG, THE READING IS WRONG. */
+  ok('HEIGHT: the wall stands the 2 tiles his bank has demanded since 7/14 (' + r.h + ')',
+    (r.h || 0) === 2);
+  ok('HEIGHT: and only a BUILDING is taller (house ' + (r.houseH || 3) + ' vs wall ' + r.h + ')',
+    (r.h || 0) < (r.houseH || 3));
+  ok('COLLISION: the wall cell itself is the one tile that stops you', r.solid === true);
+  ok('COLLISION: and the tile its upper course covers is STILL WALKABLE (' +
+    r.coveredWalkable + ' of them) — a two-tile wall never costs a tile of ground',
+    r.coveredWalkable > 0);
+  /* OPACITY — READ OFF THE CANVAS, NOT OFF THE SOURCE.
+     The third clause is the one that makes a one-tile collision under a
+     two-tile wall legible: stand on the covered tile and the wall must FADE so
+     you can see your own feet. A source-level check for `WALL_SEE` would pass
+     with the fade disconnected - this lane has shipped exactly that mistake
+     twice (a regex that matched the wrong line, a gate that called a helper
+     instead of the render). So this SAMPLES THE PIXEL where the wall's upper
+     course is painted over the player, with him standing there and with him
+     standing away. If they are identical, the wall is not fading and he is
+     invisible behind it. */
+  const see = await f.evaluate(() => {
+    let spot = null, n = 0;
+    for (let y = 0; y < om.n && !spot; y++) for (let x = 0; x < om.n && !spot; x++) {
+      const t = om.at(x, y); if (!t || t.district !== 'suburb') continue;
+      if (++n > 60) break;
+      const m = tileMeta(x, y); if (!m.sub) continue;
+      for (let ly = 3; ly < FN && !spot; ly++) for (let lx = 3; lx < FN - 3; lx++) {
+        if (m.sub[ly * FN + lx] !== 4) continue;
+        const cov = cellAt(x * FN + lx, y * FN + ly - 1);
+        if (cov && cov.code !== 4 && cov.walk) { spot = { fx: x * FN + lx, fy: y * FN + ly }; break; }
+      }
+    }
+    if (!spot) return { err: 'no covered walkable cell to stand on' };
+    const sample = () => {
+      const g2 = cv.getContext('2d');
+      const ox = Math.round(cv.width / 2 - hx * HC - HC / 2);
+      const oy = Math.round(cv.height / 2 - hy * HC - HC / 2);
+      const sx = Math.round(ox + spot.fx * HC + HC / 2);
+      const sy = Math.round(oy + (spot.fy - 1) * HC + HC / 2);
+      const d = g2.getImageData(sx, sy, 1, 1).data;
+      return [d[0], d[1], d[2]];
+    };
+    MODE = 'human';
+    hx = spot.fx; hy = spot.fy - 1; render(); const behind = sample();
+    hx = spot.fx; hy = spot.fy - 8; render(); const away = sample();
+    return { spot, behind, away, WALL_SEE };
+  });
+  ok('OPACITY: there is a real covered tile to stand on', !see.err);
+  if (!see.err) {
+    ok('OPACITY: standing BEHIND the wall changes the pixel the wall paints over him — ' +
+      'behind ' + JSON.stringify(see.behind) + ' vs away ' + JSON.stringify(see.away) +
+      ' — so the wall really does go see-through',
+      see.behind.join() !== see.away.join());
+    ok('OPACITY: and the fade is partial, not a hole (WALL_SEE ' + see.WALL_SEE + ')',
+      see.WALL_SEE > 0 && see.WALL_SEE < 1);
+  }
+
   if (r.housePool) ok('the house facade still uses a BUILDING pool (' + r.housePool + '), the other side of the same law',
     BUILDING.includes(r.housePool));
 

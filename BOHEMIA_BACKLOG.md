@@ -1724,7 +1724,45 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
-0AK. [DONE 8/1, HIS RULING, AND HE DESCRIBED THE GEOMETRY HIMSELF] A WALL ENDS
+0AL. [DONE 8/2 — HIS CORRECTION, AND I HAD IT BACKWARDS] EVERY WALL IS TWO
+   TILES TALL AND ONE TILE SOLID.
+   laws/BOHEMIA_LAW_WALLS_ARE_TWO_TALL_ONE_SOLID_8_2_26.md
+   > "walls should always be two tiles tall. End of story... from fencing to
+   >  concrete to brick whatever, but the walkable border where it stops
+   >  allowing you to walk should only be one tile... that's when the opacity
+   >  matters. And then if you are south one tile below the wall, you are
+   >  already doing good."
+   THREE QUANTITIES, and 0AK collapsed them into one:
+     HEIGHT 2 tiles (all walls; only a BUILDING is taller - a house is 3)
+     COLLISION 1 tile (the wall's own cell; the covered tile STAYS WALKABLE)
+     OPACITY the wall FADES when he stands on the covered tile
+   MY MISREAD: he said "the wall border should end at that first tile" and I read
+   BORDER as the DRAWN EDGE, shipping wallH=1 in 0AK. He meant the WALKABLE
+   border. I also quoted his "a building if walls are two tiles THICK" as proof
+   walls are one tile TALL - thick is footprint, tall is height.
+   THE TELL I MISSED, and it generalises: his bank has said "wall height min 2
+   tiles" since 7/14, and to ship a one-tile wall I wrote a long paragraph
+   explaining why his bank did not mean what it said. WHEN THE RECONCILIATION
+   GETS THAT LONG, THE READING IS WRONG.
+   ALSO FIXED, found while checking "all walls": every kind:'fence' tile in the
+   valley stood THREE tiles - the house-facade height - because the kit layers a
+   fence as a structure and the CITY tab's structure branch never set a height,
+   so fences fell through to WALL_H=3. Fixed BY KIND so later districts inherit
+   it. No walkability changed.
+   | tools/bohemia_city_wall_two_tall_patch.py + bohemia_city_fence_two_tall_patch.py
+   | gate: WALL CLASS 19 -> 24, and the OPACITY clause is read OFF THE CANVAS
+     (sample the pixel with him behind the wall and with him away; identical
+     pixels = not fading). Proved able to fail twice: one-tile wall turns HEIGHT
+     and OPACITY red - exactly the state 0AK shipped - and disabling the fade
+     turns OPACITY red on its own.
+   | ART FOLLOW-UP, filed not guessed (his call: "that's just an aesthetic
+     decision"): his 13 tiles are complete 44x44 walls WITH A CAP, so painting
+     one across two tiles puts a cap in the MIDDLE. The lower course wants the
+     tile's body without its cap. ART lane's. | 8/2 | YES.
+
+0AK. [SUPERSEDED 8/2 BY 0AL - I read "border" as the drawn edge when he meant
+   the walkable one, and made walls SHORTER when they were always meant to be
+   two tall.] A WALL ENDS
    AT ITS OWN TILE. laws/BOHEMIA_ADDENDUM_A_WALL_ENDS_AT_ITS_OWN_TILE_8_1_26.md
    > "if I am a tile south of a wall and the wall is north of me, the game is
    >  doing fine. But if I am one tile north, behind a wall, because of the view

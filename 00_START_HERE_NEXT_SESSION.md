@@ -1223,6 +1223,58 @@ FOR ANYONE MUTATION-TESTING: two of my attempts were case-sensitive and sailed p
 working check. A WEAK MUTATION LOOKS EXACTLY LIKE A ROBUST CHECK -- mutate case-
 insensitively and mutate ALL occurrences.
 
+CITY (03): 8/2 LATEST — EVERY WALL IS TWO TILES TALL AND ONE TILE SOLID, AND I
+HAD IT BACKWARDS YESTERDAY.
+
+> "walls should always be two tiles tall. End of story... from fencing to
+>  concrete to brick whatever, but the walkable border where it stops allowing
+>  you to walk should only be one tile... that's when the opacity matters."
+
+THREE QUANTITIES. I collapsed them into one and shipped the opposite:
+  HEIGHT     2 tiles, every wall, and only a BUILDING is taller (house = 3)
+  COLLISION  1 tile, the wall's own cell; the covered tile STAYS WALKABLE
+  OPACITY    the wall FADES when he stands on the covered tile behind it
+
+HOW I GOT IT WRONG, and it is the useful part: he said "the wall border should
+end at that first tile" and I read BORDER as the DRAWN EDGE, so I made walls
+SHORTER. He meant the WALKABLE border. I also quoted his "it has to be a
+building if walls are two tiles THICK" as proof walls are one tile TALL. Thick
+is footprint. Tall is height. Different words.
+  THE TELL I MISSED, AND IT GENERALISES: his own bank has said "wall height min
+  2 tiles" since 7/14, and to ship a one-tile wall I had to write a long
+  paragraph explaining why his bank did not mean what it plainly said.
+  WHEN THE RECONCILIATION GETS THAT LONG, THE READING IS WRONG.
+  And: a word like "border"/"thick"/"tall" in a spatial ruling is worth one
+  MEASUREMENT, not one guess. I had the tools and picked instead.
+
+ALSO FIXED, found by actually checking "all walls": every kind:'fence' tile in
+the valley stood THREE tiles - the house-facade height - because the kit layers
+a fence as a structure and the CITY tab's structure branch never set a height,
+so fences fell through to WALL_H=3. Fixed BY KIND, so every district built later
+inherits it without anyone remembering. No walkability changed.
+
+GATE: WALL CLASS, 19 -> 24 assertions, all three clauses. The OPACITY one is
+READ OFF THE CANVAS - sample the pixel where the wall paints over the player,
+with him standing there and standing away; identical pixels mean it is not
+fading. A source-level check for WALL_SEE would have passed with the fade
+disconnected, and this lane has shipped that class of false green twice.
+Proved able to fail twice.
+
+LAW: laws/BOHEMIA_LAW_WALLS_ARE_TWO_TALL_ONE_SOLID_8_2_26.md - he asked for it
+in the training data; it cannot go there (same answer as the 8/1 hair law), so
+the file plus the gate ARE that memory.
+
+ART FOLLOW-UP, filed not guessed (his call - "that's just an aesthetic
+decision"): his 13 approved tiles are complete 44x44 walls WITH A CAP, so
+painting one across two tiles puts a cap in the MIDDLE of the wall. That is the
+"two layers of walls" look. The lower course wants the tile's body without its
+cap. ART lane's, not invented here.
+
+DO NOT: make a wall one tile tall again. Do not make a fence three. Do not seal
+the covered tile to "fix" a wall - it costs a tile of ground and it re-creates
+the prison NO PRISON removed. Do not check the fade by grepping for WALL_SEE.
+
+--- earlier turns, still current ---
 CITY (03): 8/1 LATEST — A WALL ENDS AT ITS OWN TILE, AND IT WAS ONE CAUSE FOR
 BOTH THINGS HE COMPLAINED ABOUT.
 
