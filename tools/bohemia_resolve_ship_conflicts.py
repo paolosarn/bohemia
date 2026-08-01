@@ -33,7 +33,26 @@ os.chdir(REPO)
 
 HANDOFF = '00_START_HERE_NEXT_SESSION.md'
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
-STAMP = re.compile(r'BUILD (\d+/\d+)([a-z]) - ')
+STAMP = re.compile(r'BUILD (\d+/\d+)([a-z]+) - ')
+
+
+def bump(letter):
+    """a -> b, z -> aa, az -> ba. NEVER chr(ord('z')+1).
+
+    That is not hypothetical: with this many lanes shipping, 8/1 actually ran past z,
+    and the naive increment put "BUILD 8/1{" on main. run_gate caught it -- the stamp
+    must be a date-letter and a headline -- but it was live for one push, and a stamp
+    Paolo cannot read is the exact failure the stamp law exists to prevent.
+    """
+    chars = list(letter)
+    i = len(chars) - 1
+    while i >= 0:
+        if chars[i] != 'z':
+            chars[i] = chr(ord(chars[i]) + 1)
+            return ''.join(chars)
+        chars[i] = 'a'
+        i -= 1
+    return 'a' + ''.join(chars)
 
 
 def hunks(lines):
@@ -79,7 +98,7 @@ def resolve_stamp(lines):
             # than what it was replacing, which is worse than not bumping at all.
             date, letter = ma.group(1), ma.group(2)
             if (date, letter) >= (mb.group(1), mb.group(2)):
-                nxt = chr(ord(letter) + 1)
+                nxt = bump(letter)
                 b_lines = [STAMP.sub('BUILD %s%s - ' % (date, nxt), l, count=1)
                            if STAMP.search(l) else l for l in b_lines]
                 print('   stamp: main is at %s%s, mine advances to %s%s'
