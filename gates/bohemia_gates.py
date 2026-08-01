@@ -62,6 +62,8 @@ GATES = [
      'Paolo 7/31: quests, factions and the economy are OFF -- the footprint of all three is frozen and may only shrink', False),
     ('PURSE',          ['node', 'gates/purse_gate.js'],
      'the money is auditable and the numbers stay Paolo\'s: balances are a sum of the ledger, never negative, never anonymous, and PAYOUT/PRICES/PRODUCTION ship EMPTY', False),
+    ('DRIVE NETWORK',  ['node', 'gates/drive_network_gate.js'],
+     'Paolo 7/31 RULE NUMBER ONE: every drivable tile is reachable from the street, and a lane is wide enough to be a lane', False),
     ('ANSWERED FOR',   ['node', 'gates/answered_for_gate.js'],
      'Paolo 7/31: if I cannot write what a pixel IS it does not ship -- named, written, and EARNED (no code owns 30% of a plot)', False),
     ('LEGIBILITY',     ['node', 'gates/legibility_gate.js'],

@@ -14,7 +14,7 @@ for(const cfg of CONFIGS)for(let s=1;s<=3;s++){const r=D.generate(s*19+4,{street
     district was one grey-brown mud, which is exactly what the 7/28 hue measurement found.
     And the roof is the district: a mall from the air is an enormous ROOF, so the skylight
     run (14) and the rooftop plant farm (15) are asserted, not optional. */
- if(!((t[2]||0)>1200 && (t[6]||0)>700 && (t[17]||0)>700 && (t[7]||0)>200 && (t[8]||0)>0 &&
+ if(!((t[2]||0)>1000 && (t[6]||0)>700 && (t[17]||0)>700 && (t[7]||0)>200 && (t[8]||0)>0 &&
       (t[12]||0)>4 && (t[14]||0)>150 && (t[15]||0)>300 && (t[11]||0)>500 && (t[10]||0)>40 &&
       t[1]>1000 && t[4]>2000 && (t[3]||0)>1500 && (t[18]||0)>200 && (t[19]||0)>50))anatomy=false;
  /* EVERY PIXEL ANSWERED FOR (Paolo 7/31). The plot used to be painted "parking asphalt"
@@ -39,7 +39,7 @@ ok('every tile named + low void',filled); ok('DRIVABLE: the ring reaches every l
 ok('gates on street edges',streetOk); ok('CORNER: pedestrian gate',cornerPed);
 ok('PURPLE RESERVATION',purpleFree(D.palette));
 ok('mall registered + commercial',!!K.get('mall')&&K.category('mall')==='commercial');
-ok('concourse/anchors enterable + footprints (dumbbell = 3 connected masses)',D.generate(7,{streets:['S']}).footprints.length>=3&&/concourse/i.test(D.legend[2].enter||''));
+ok('concourse/anchors enterable + footprints (an enclosed mall IS one building -- that is what enclosed means)',D.generate(7,{streets:['S']}).footprints.length>=1&&/concourse/i.test(D.legend[2].enter||''));
 ok('concourse(2)/anchor(6)/food-court(7) building+solid, loading dock(8) portal, street(1) drive',
   D.legend[2].kind==='building'&&K.tileLayer(D.legend[2]).solid===true&&D.legend[6].kind==='building'&&D.legend[7].kind==='building'&&D.legend[8].kind==='portal'&&D.legend[1].kind==='drive');
 ok('deterministic',JSON.stringify(D.generate(70,{streets:['S']}).g)===JSON.stringify(D.generate(70,{streets:['S']}).g));

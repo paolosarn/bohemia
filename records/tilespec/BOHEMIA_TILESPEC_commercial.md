@@ -38,9 +38,9 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dead-ground | ground | bare cracked dirt at the property line | ground | no | — | 1461 |
-| 1 | `#33333c` | lot asphalt | drive | the cracked parking field and its drive aisles, weeds up every joint (car-drivable) | ground | no | — | 4595 |
+| 1 | `#33333c` | lot asphalt | drive | the cracked parking field and its drive aisles, weeds up every joint (car-drivable) | ground | no | — | 4667 |
 | 2 | `#7c7367` | store | building | concrete shell — the anchor box and the inline shop bays, fascia stripped, glass out | structure | yes | retail interior: an open sales floor, checkout line stripped for metal, stock room and office behind | 2582 |
-| 3 | `#3a4526` | dead tree | tree-dead | a dead lot tree in its island, gone to stick | prop | no | — | 168 |
+| 3 | `#3a4526` | dead tree | tree-dead | a dead lot tree in its island, gone to stick | prop | no | — | 167 |
 | 4 | `#4a4a35` | landscape island | ground | a kerbed planting island inside the parking field — the shrub is a stick, the kerb is cracked open, and this is where the loose carts end up | ground | no | — | 419 |
 | 5 | `#c79a3f` | curb cut / gate | gate | the driveway curb cut off the street, amber paint gone chalky | portal | no | — | 11 |
 | 6 | `#8a8a92` | storefront walk | walk | the covered concrete walk along the shopfronts, cracked, glass underfoot | ground | no | — | 499 |
@@ -52,14 +52,14 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#b0863a` | pylon sign / pole | structure | the tall pylon sign at the kerb, board blank and weather-blown, and the lot light poles | structure | yes | — | 51 |
 | 13 | `#a39a88` | roof ridge / plant | structure | the roof edge and the rooftop units — the parapet line, HVAC boxes, a stripped condenser | structure | yes | — | 1434 |
 | 14 | `#241f1a` | doorway | portal | a way in — a shop entry with the glass gone, or a steel back door standing open | portal | no | — | 45 |
-| 15 | `#2b2b31` | service alley | drive | the rear service lane, oil-black, drivable | ground | no | — | 1003 |
+| 15 | `#2b2b31` | service alley | drive | the rear service lane, oil-black, drivable | ground | no | — | 1238 |
 | 16 | `#6a6e72` | dock / pallets | prop | a loading dock with pallets still stacked on it and nobody to load them | prop | yes | — | 144 |
 | 17 | `#6a6e72` | dead car | vehicle | a car left in its stall, flat, sun-bleached, never collected | prop | yes | — | 114 |
 | 18 | `#9aa0a6` | shopping cart | prop | a shopping cart drifted up against a kerb | prop | no | — | 12 |
 | 19 | `#5f6670` | fuel canopy | structure | the fuel-island canopy, brand panels stripped, you drive under it | overhead | no | — | 233 |
 | 20 | `#8a5a4a` | fuel pump | prop | a dead pump, hoses down, screen dark | prop | yes | — | 6 |
 | 21 | `#6e6a5c` | garden centre wall | fence | the block wall round the garden centre yard — open to the sky, which is why it has no roof, gate hanging off its hinge | structure | yes | — | 97 |
-| 22 | `#46442f` | setback ground | ground | the unpaved property setback between the kerb and the pavement — hardpan dirt that was decorative gravel once, split by weeds, with the drift sand banked against every kerb face | ground | no | — | 2552 |
+| 22 | `#46442f` | setback ground | ground | the unpaved property setback between the kerb and the pavement — hardpan dirt that was decorative gravel once, split by weeds, with the drift sand banked against every kerb face | ground | no | — | 2246 |
 
 **Gate:** `gates/commercial_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

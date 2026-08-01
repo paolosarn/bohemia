@@ -33,8 +33,8 @@
     // enclosed building genuinely dominates the plot, matching real dead-mall aerials, not a
     // small store lost in a sea of asphalt ----
     G.rect(20,42,108,80,2);                                               // the concourse spine (wider + deeper)
-    G.rect(2,32,22,90,6);                                                 // west anchor
-    G.rect(106,32,126,90,17);                                             // east anchor, the rival brand
+    G.rect(10,32,30,90,6);                                                // west anchor, pulled in for the ring
+    G.rect(98,32,118,90,17);                                              // east anchor, pulled in for the ring
     // ---- food court bump-out, north side of the spine ----
     G.rect(52,30,76,42,7);
     // ---- entrance doors along the SOUTH face of the concourse ----
@@ -84,7 +84,7 @@
     // ---- weeds + lights through the lot ----
     for(i=0;i<40;i++){ var wx=6+Math.floor(r()*116), wy=6+Math.floor(r()*116); if(get(wx,wy)===4&&r()<0.3)set(wx,wy,3); }
     [[10,18],[118,18],[10,106],[118,106]].forEach(function(p){ set(p[0],p[1],9); });
-    set(9,92,13);                                                         // a dumpster at the service corner
+    set(34,40,13);                                                        // a dumpster at the service corner (moved off the new ring road)
     // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit): a driveway
     // ring linking both parking fields to the gate — side lanes AND the horizontal connectors
     // that actually tie them to the gate (a ring only works if every leg touches the next) ----
@@ -96,9 +96,19 @@
     var gx=64;
     G.rect(gx-4,118,gx+4,H-1,1);
     for(i=-4;i<=4;i++)set(gx+i,H-1,5);
-    G.rect(6,10,6,118,1); G.rect(122,10,122,118,1);                       // full-height side drive lanes
-    G.rect(6,116,gx-4,120,1); G.rect(gx+4,116,122,120,1);                 // south connectors: side lanes -> the gate lane
-    G.rect(6,26,122,30,1);                                                // north connector: ties both side lanes across the top lot
+    /* THE RING ROAD. PAOLO 7/31 circled the two vertical lines that used to be here and
+       asked what they were supposed to be, and the honest answer is NOTHING: they were
+       drive lanes ONE TILE WIDE. At 0.75m per tile that is a 30-inch road. No car fits, it
+       connected the two lots to each other only on paper, and it read as a mystery stripe
+       down each edge of the district -- which is exactly how he read it.
+
+       A mall has a RING ROAD: a real two-way loop right around the building tying the
+       north lot to the south lot so you can circle for a space without going back out to
+       the street. It is 6 tiles (4.5m) here, which is a lane you can actually drive, and
+       the anchors were pulled in off the plot edge to make room for it. */
+    G.rect(4,26,9,94,1); G.rect(119,26,124,94,1);                         // the two legs
+    G.rect(4,26,124,30,1);                                                // and it closes at both ends
+    G.rect(4,90,124,94,1);
     return g;
   }
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
@@ -106,7 +116,11 @@
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:14});
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2||v===6||v===7||v===12||v===14||v===15||v===16||v===17;})}; }
-  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+  /* THE WHOLE DRIVE SURFACE IS ONE NETWORK (Paolo 7/31: "how dare you continue to make
+     streets in a district that don't connect with each other, that's rule number one").
+     Asking only about code 1 was the bug behind the bug -- the ring road answered while
+     the parking fields it is supposed to serve were a different code and never checked. */
+  function driveConnected(res){ return K.driveNetworkReach(res.g, res.legend || LEGEND) > 0.999; }
   /* HUE (7/31). Everything here was one grey-brown, which is what the 7/28 measurement
      found across the whole valley. A real mall's two anchors were rival department stores
      in their own brand colours and the food court was the warm room -- so the anchors carry
@@ -120,7 +134,7 @@
     1:{name:'street / drive',     kind:'drive',      act1:'the cracked mall ring-road / driveway (car-drivable)'},
     2:{name:'concourse',          kind:'building',   act1:'the enclosed mall concourse, tilt-up + glazing, most glass gone', solid:true, enter:'concourse interior: a long dead promenade, storefronts dark on both sides'},
     3:{name:'reclaimed ground',   kind:'ground',     act1:'the lot edge going back to the desert — asphalt broken into plates by forty summers, creosote and tumbleweed rooted in the joints, sand drifted over the kerb line. Nothing is resurfacing this', solid:false},
-    4:{name:'parking asphalt',    kind:'ground',     act1:'the parking field proper — asphalt still holding where the cars packed it down, striping ghosted to grey, oil shadows where the engines dripped'},
+    4:{name:'parking asphalt',    kind:'drive',     act1:'the parking field proper — asphalt still holding where the cars packed it down, striping ghosted to grey, oil shadows where the engines dripped'},
     5:{name:'gate',               kind:'gate',       act1:'the main driveway curb cut off the street, amber curb'},
     6:{name:'anchor store',       kind:'building',   act1:'a big-box anchor department store, sign faded, doors boarded', solid:true, enter:'anchor store interior: a cavernous dead sales floor'},
     7:{name:'food court',         kind:'building',   act1:'the food court bump-out, skylight glazing shattered', solid:true, enter:'food court interior: dead counter stalls around a seating pit'},

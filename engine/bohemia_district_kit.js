@@ -167,6 +167,73 @@
     while(st.length){var p=st.pop();reach++;var d=[[1,0],[-1,0],[0,1],[0,-1]];for(i=0;i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;if(seen[k]||nx<0||ny<0||nx>=n||ny>=n)continue;if(g[ny][nx]===driveCode){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total; }
 
+  /* THE DRIVE NETWORK IS ONE NETWORK (Paolo 7/31/26).
+     "how dare you continue to like make streets in in a district that like don't connect
+     with each other like that's like the rule number one bro like what's wrong with you?"
+     He was right, and it was worse than the two districts he was looking at: measured
+     across the valley, 23 of them had drive surface a car could see and never reach.
+
+     THE BUG BEHIND THE BUG was this function's absence. Every district asked
+     driveReachFromStreet(g, ONE_CODE) -- so a mall asked whether its ring road connected
+     and never asked about the parking fields the ring exists to serve, because those are a
+     different code. Each district was checking one limb and calling the body healthy.
+
+     So: take EVERY code the legend calls a drive surface, plus every MARKING, because a
+     stall stripe is paint on asphalt and a car drives straight over it -- treating paint as
+     a wall was inventing pockets that are not there -- and ask one question about the lot:
+     starting from the plot edges, can a car reach all of it? */
+  function driveMask(legend){
+    var S = {}, any = false;
+    for (var c in legend) {
+      if (!legend[c]) continue;
+      if (legend[c].kind === 'drive') { S[c] = 1; any = true; }
+      else if (legend[c].kind === 'marking') { S[c] = 1; }
+    }
+    return any ? S : null;
+  }
+  function driveNetworkReach(g, legend){
+    var S = driveMask(legend || {});
+    if (!S) return 1;
+    var n = g.length, x, y, i, total = 0, st = [], seen = {};
+    for (y = 0; y < n; y++) for (x = 0; x < n; x++) if (S[g[y][x]]) total++;
+    if (!total) return 1;
+    function seed(px, py){ if (S[g[py][px]] && !seen[px + ',' + py]) { seen[px + ',' + py] = 1; st.push([px, py]); } }
+    for (x = 0; x < n; x++) { seed(x, 1); seed(x, n - 2); }
+    for (y = 0; y < n; y++) { seed(1, y); seed(n - 2, y); }
+    if (!st.length) return 0;
+    var reach = 0, d4 = [[1,0],[-1,0],[0,1],[0,-1]];
+    while (st.length) {
+      var p = st.pop(); reach++;
+      for (i = 0; i < 4; i++) {
+        var nx = p[0] + d4[i][0], ny = p[1] + d4[i][1], k = nx + ',' + ny;
+        if (seen[k] || nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+        if (S[g[ny][nx]]) { seen[k] = 1; st.push([nx, ny]); }
+      }
+    }
+    return reach / total;
+  }
+
+  /* A LANE HAS TO BE WIDE ENOUGH TO BE A LANE. Paolo circled two vertical lines running
+     down the mall and asked what they were supposed to be; they were drive lanes ONE TILE
+     WIDE. At 0.75 m a tile that is a 30-inch road -- no car fits, and it reads as a mystery
+     stripe rather than a street, which is exactly how he read it. This returns the share of
+     drive tiles sitting in a 3x3 block of drive, so a district made of hairlines scores
+     near zero however connected it is. */
+  function driveWidthScore(g, legend){
+    var S = driveMask(legend || {});
+    if (!S) return 1;
+    var n = g.length, tot = 0, core = 0, x, y, dx, dy;
+    for (y = 1; y < n - 1; y++) for (x = 1; x < n - 1; x++) {
+      if (!S[g[y][x]]) continue;
+      tot++;
+      var all = true;
+      for (dy = -1; dy <= 1 && all; dy++) for (dx = -1; dx <= 1; dx++)
+        if (!S[g[y + dy][x + dx]]) { all = false; break; }
+      if (all) core++;
+    }
+    return tot ? core / tot : 1;
+  }
+
   // LAYERING (Paolo 7/19: "you have to understand the layering you're making and what it looks
   // like when the player goes INSIDE — a building, a parking garage, the tunnel — record what
   // tiles, what positions"). Every tile resolves to a render/occupancy LAYER so the ¾-view
@@ -344,7 +411,7 @@
     STREET_ORDER:STREET_ORDER,primaryStreet:primaryStreet,rotateCW:rotateCW,scanGates:scanGates,
     pedGate:pedGate,rotateToStreet:rotateToStreet,
     driveNetworkOk:driveNetworkOk,driveTouchesEdge:driveTouchesEdge,stallsReachable:stallsReachable,
-    driveReachFromStreet:driveReachFromStreet,KIND_LAYER:KIND_LAYER,tileLayer:tileLayer};
+    driveReachFromStreet:driveReachFromStreet,driveNetworkReach:driveNetworkReach,driveWidthScore:driveWidthScore,driveMask:driveMask,KIND_LAYER:KIND_LAYER,tileLayer:tileLayer};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaDistrictKit=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

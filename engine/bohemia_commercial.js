@@ -56,8 +56,17 @@
 
     /* ---- THE SERVICE ALLEY, behind everything (Paolo 7/18: every business has a back
        door for trash and deliveries) ---- */
-    G.rect(4,4,W-5,9,15);
-    G.rect(120,4,124,86,15);                                  // and down the east side
+    /* IT HAS TO GO ALL THE WAY ROUND. Paolo 7/31: "how dare you continue to like make
+       streets in a district that like don't connect with each other, that's like rule
+       number one." He was right and it was worse than it looked -- only 71.9% of this
+       district's drivable surface could be reached from the kerb. The alley ran along the
+       back and down one side and then just STOPPED, so a truck could enter it and never
+       get out, and the bank pad was its own island. A service alley that does not return
+       to the lot is not an alley, it is a trench. */
+    G.rect(4,4,W-5,9,15);                                     // behind the anchor
+    G.rect(120,4,124,96,15);                                  // down the east side...
+    G.rect(4,4,8,58,15);                                      // ...and down the west side
+    G.rect(4,54,8,58,15);                                     // west leg meets the lot
 
     /* ---- THE ANCHOR: the big box across the back. The largest roof on the plot, and the
        thing that makes this district's silhouette. ---- */
@@ -131,7 +140,10 @@
 
     /* ---- OUTPARCEL PADS AT THE KERB. The thing that makes a lot read as a retail centre
        instead of an apron: buildings out in front, each with its own little site. ---- */
-    /* the fuel canopy, west pad */
+    /* the fuel canopy, west pad — TIED TO THE LOT. It was its own island too: the lot
+       stops at y112 and the pad started at y116, so you could see the pumps and never
+       drive to them. */
+    G.rect(24,108,34,124,1);                                  // the tie north to the lot
     G.rect(8,116,34,124,1);
     G.rect(10,117,32,122,19);                                 // canopy (you drive UNDER it)
     for(x=14;x<=28;x+=6){ set(x,119,20); set(x,120,20); }     // pumps
@@ -145,8 +157,11 @@
     for(x=68;x<=84;x+=4) set(x,123,11);
 
     /* the bank pad, south-east — the corner was an empty olive void and a real centre
-       fills its street frontage with pads, not lawn */
+       fills its street frontage with pads, not lawn. IT IS TIED IN AT BOTH ENDS: the east
+       alley comes down into it and a lane runs west to the drive-thru pad, so it is part
+       of the network instead of an island you can see and never reach. */
     G.rect(98,96,124,124,1);
+    G.rect(90,108,100,120,1);                                 // the tie west to the drive-thru pad
     G.rect(104,102,120,114,2);
     G.rect(102,117,122,121,19);                               // its drive-thru canopy
     for(x=106;x<=118;x+=4) set(x,119,11);
@@ -180,7 +195,9 @@
     return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2||v===ROOF||v===DOOR||v===7;})};
   }
-  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+  /* THE WHOLE DRIVE SURFACE IS ONE NETWORK (Paolo 7/31, rule number one). Asking about
+     code 1 alone was how a service alley at 0% and a marooned fuel pad both shipped green. */
+  function driveConnected(res){ return K.driveNetworkReach(res.g, LEGEND) > 0.999; }
   function storeFootprints(res){ return res.footprints; }
   function hasServiceAccess(res){
     var g=res.g,doors=0,alley=0;

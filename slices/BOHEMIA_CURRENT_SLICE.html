@@ -4538,6 +4538,73 @@ root.BQRuntime=API;
     while(st.length){var p=st.pop();reach++;var d=[[1,0],[-1,0],[0,1],[0,-1]];for(i=0;i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;if(seen[k]||nx<0||ny<0||nx>=n||ny>=n)continue;if(g[ny][nx]===driveCode){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total; }
 
+  /* THE DRIVE NETWORK IS ONE NETWORK (Paolo 7/31/26).
+     "how dare you continue to like make streets in in a district that like don't connect
+     with each other like that's like the rule number one bro like what's wrong with you?"
+     He was right, and it was worse than the two districts he was looking at: measured
+     across the valley, 23 of them had drive surface a car could see and never reach.
+
+     THE BUG BEHIND THE BUG was this function's absence. Every district asked
+     driveReachFromStreet(g, ONE_CODE) -- so a mall asked whether its ring road connected
+     and never asked about the parking fields the ring exists to serve, because those are a
+     different code. Each district was checking one limb and calling the body healthy.
+
+     So: take EVERY code the legend calls a drive surface, plus every MARKING, because a
+     stall stripe is paint on asphalt and a car drives straight over it -- treating paint as
+     a wall was inventing pockets that are not there -- and ask one question about the lot:
+     starting from the plot edges, can a car reach all of it? */
+  function driveMask(legend){
+    var S = {}, any = false;
+    for (var c in legend) {
+      if (!legend[c]) continue;
+      if (legend[c].kind === 'drive') { S[c] = 1; any = true; }
+      else if (legend[c].kind === 'marking') { S[c] = 1; }
+    }
+    return any ? S : null;
+  }
+  function driveNetworkReach(g, legend){
+    var S = driveMask(legend || {});
+    if (!S) return 1;
+    var n = g.length, x, y, i, total = 0, st = [], seen = {};
+    for (y = 0; y < n; y++) for (x = 0; x < n; x++) if (S[g[y][x]]) total++;
+    if (!total) return 1;
+    function seed(px, py){ if (S[g[py][px]] && !seen[px + ',' + py]) { seen[px + ',' + py] = 1; st.push([px, py]); } }
+    for (x = 0; x < n; x++) { seed(x, 1); seed(x, n - 2); }
+    for (y = 0; y < n; y++) { seed(1, y); seed(n - 2, y); }
+    if (!st.length) return 0;
+    var reach = 0, d4 = [[1,0],[-1,0],[0,1],[0,-1]];
+    while (st.length) {
+      var p = st.pop(); reach++;
+      for (i = 0; i < 4; i++) {
+        var nx = p[0] + d4[i][0], ny = p[1] + d4[i][1], k = nx + ',' + ny;
+        if (seen[k] || nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
+        if (S[g[ny][nx]]) { seen[k] = 1; st.push([nx, ny]); }
+      }
+    }
+    return reach / total;
+  }
+
+  /* A LANE HAS TO BE WIDE ENOUGH TO BE A LANE. Paolo circled two vertical lines running
+     down the mall and asked what they were supposed to be; they were drive lanes ONE TILE
+     WIDE. At 0.75 m a tile that is a 30-inch road -- no car fits, and it reads as a mystery
+     stripe rather than a street, which is exactly how he read it. This returns the share of
+     drive tiles sitting in a 3x3 block of drive, so a district made of hairlines scores
+     near zero however connected it is. */
+  function driveWidthScore(g, legend){
+    var S = driveMask(legend || {});
+    if (!S) return 1;
+    var n = g.length, tot = 0, core = 0, x, y, dx, dy;
+    for (y = 1; y < n - 1; y++) for (x = 1; x < n - 1; x++) {
+      if (!S[g[y][x]]) continue;
+      tot++;
+      var all = true;
+      for (dy = -1; dy <= 1 && all; dy++) for (dx = -1; dx <= 1; dx++)
+        if (!S[g[y + dy][x + dx]]) { all = false; break; }
+      if (all) core++;
+    }
+    return tot ? core / tot : 1;
+  }
+
   // LAYERING (Paolo 7/19: "you have to understand the layering you're making and what it looks
   // like when the player goes INSIDE — a building, a parking garage, the tunnel — record what
   // tiles, what positions"). Every tile resolves to a render/occupancy LAYER so the ¾-view
@@ -4715,7 +4782,7 @@ root.BQRuntime=API;
     STREET_ORDER:STREET_ORDER,primaryStreet:primaryStreet,rotateCW:rotateCW,scanGates:scanGates,
     pedGate:pedGate,rotateToStreet:rotateToStreet,
     driveNetworkOk:driveNetworkOk,driveTouchesEdge:driveTouchesEdge,stallsReachable:stallsReachable,
-    driveReachFromStreet:driveReachFromStreet,KIND_LAYER:KIND_LAYER,tileLayer:tileLayer};
+    driveReachFromStreet:driveReachFromStreet,driveNetworkReach:driveNetworkReach,driveWidthScore:driveWidthScore,driveMask:driveMask,KIND_LAYER:KIND_LAYER,tileLayer:tileLayer};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaDistrictKit=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
@@ -5098,8 +5165,17 @@ root.BQRuntime=API;
 
     /* ---- THE SERVICE ALLEY, behind everything (Paolo 7/18: every business has a back
        door for trash and deliveries) ---- */
-    G.rect(4,4,W-5,9,15);
-    G.rect(120,4,124,86,15);                                  // and down the east side
+    /* IT HAS TO GO ALL THE WAY ROUND. Paolo 7/31: "how dare you continue to like make
+       streets in a district that like don't connect with each other, that's like rule
+       number one." He was right and it was worse than it looked -- only 71.9% of this
+       district's drivable surface could be reached from the kerb. The alley ran along the
+       back and down one side and then just STOPPED, so a truck could enter it and never
+       get out, and the bank pad was its own island. A service alley that does not return
+       to the lot is not an alley, it is a trench. */
+    G.rect(4,4,W-5,9,15);                                     // behind the anchor
+    G.rect(120,4,124,96,15);                                  // down the east side...
+    G.rect(4,4,8,58,15);                                      // ...and down the west side
+    G.rect(4,54,8,58,15);                                     // west leg meets the lot
 
     /* ---- THE ANCHOR: the big box across the back. The largest roof on the plot, and the
        thing that makes this district's silhouette. ---- */
@@ -5173,7 +5249,10 @@ root.BQRuntime=API;
 
     /* ---- OUTPARCEL PADS AT THE KERB. The thing that makes a lot read as a retail centre
        instead of an apron: buildings out in front, each with its own little site. ---- */
-    /* the fuel canopy, west pad */
+    /* the fuel canopy, west pad — TIED TO THE LOT. It was its own island too: the lot
+       stops at y112 and the pad started at y116, so you could see the pumps and never
+       drive to them. */
+    G.rect(24,108,34,124,1);                                  // the tie north to the lot
     G.rect(8,116,34,124,1);
     G.rect(10,117,32,122,19);                                 // canopy (you drive UNDER it)
     for(x=14;x<=28;x+=6){ set(x,119,20); set(x,120,20); }     // pumps
@@ -5187,8 +5266,11 @@ root.BQRuntime=API;
     for(x=68;x<=84;x+=4) set(x,123,11);
 
     /* the bank pad, south-east — the corner was an empty olive void and a real centre
-       fills its street frontage with pads, not lawn */
+       fills its street frontage with pads, not lawn. IT IS TIED IN AT BOTH ENDS: the east
+       alley comes down into it and a lane runs west to the drive-thru pad, so it is part
+       of the network instead of an island you can see and never reach. */
     G.rect(98,96,124,124,1);
+    G.rect(90,108,100,120,1);                                 // the tie west to the drive-thru pad
     G.rect(104,102,120,114,2);
     G.rect(102,117,122,121,19);                               // its drive-thru canopy
     for(x=106;x<=118;x+=4) set(x,119,11);
@@ -5222,7 +5304,9 @@ root.BQRuntime=API;
     return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2||v===ROOF||v===DOOR||v===7;})};
   }
-  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+  /* THE WHOLE DRIVE SURFACE IS ONE NETWORK (Paolo 7/31, rule number one). Asking about
+     code 1 alone was how a service alley at 0% and a marooned fuel pad both shipped green. */
+  function driveConnected(res){ return K.driveNetworkReach(res.g, LEGEND) > 0.999; }
   function storeFootprints(res){ return res.footprints; }
   function hasServiceAccess(res){
     var g=res.g,doors=0,alley=0;
@@ -8957,8 +9041,8 @@ root.BQRuntime=API;
     // enclosed building genuinely dominates the plot, matching real dead-mall aerials, not a
     // small store lost in a sea of asphalt ----
     G.rect(20,42,108,80,2);                                               // the concourse spine (wider + deeper)
-    G.rect(2,32,22,90,6);                                                 // west anchor
-    G.rect(106,32,126,90,17);                                             // east anchor, the rival brand
+    G.rect(10,32,30,90,6);                                                // west anchor, pulled in for the ring
+    G.rect(98,32,118,90,17);                                              // east anchor, pulled in for the ring
     // ---- food court bump-out, north side of the spine ----
     G.rect(52,30,76,42,7);
     // ---- entrance doors along the SOUTH face of the concourse ----
@@ -9008,7 +9092,7 @@ root.BQRuntime=API;
     // ---- weeds + lights through the lot ----
     for(i=0;i<40;i++){ var wx=6+Math.floor(r()*116), wy=6+Math.floor(r()*116); if(get(wx,wy)===4&&r()<0.3)set(wx,wy,3); }
     [[10,18],[118,18],[10,106],[118,106]].forEach(function(p){ set(p[0],p[1],9); });
-    set(9,92,13);                                                         // a dumpster at the service corner
+    set(34,40,13);                                                        // a dumpster at the service corner (moved off the new ring road)
     // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit): a driveway
     // ring linking both parking fields to the gate — side lanes AND the horizontal connectors
     // that actually tie them to the gate (a ring only works if every leg touches the next) ----
@@ -9020,9 +9104,19 @@ root.BQRuntime=API;
     var gx=64;
     G.rect(gx-4,118,gx+4,H-1,1);
     for(i=-4;i<=4;i++)set(gx+i,H-1,5);
-    G.rect(6,10,6,118,1); G.rect(122,10,122,118,1);                       // full-height side drive lanes
-    G.rect(6,116,gx-4,120,1); G.rect(gx+4,116,122,120,1);                 // south connectors: side lanes -> the gate lane
-    G.rect(6,26,122,30,1);                                                // north connector: ties both side lanes across the top lot
+    /* THE RING ROAD. PAOLO 7/31 circled the two vertical lines that used to be here and
+       asked what they were supposed to be, and the honest answer is NOTHING: they were
+       drive lanes ONE TILE WIDE. At 0.75m per tile that is a 30-inch road. No car fits, it
+       connected the two lots to each other only on paper, and it read as a mystery stripe
+       down each edge of the district -- which is exactly how he read it.
+
+       A mall has a RING ROAD: a real two-way loop right around the building tying the
+       north lot to the south lot so you can circle for a space without going back out to
+       the street. It is 6 tiles (4.5m) here, which is a lane you can actually drive, and
+       the anchors were pulled in off the plot edge to make room for it. */
+    G.rect(4,26,9,94,1); G.rect(119,26,124,94,1);                         // the two legs
+    G.rect(4,26,124,30,1);                                                // and it closes at both ends
+    G.rect(4,90,124,94,1);
     return g;
   }
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
@@ -9030,7 +9124,11 @@ root.BQRuntime=API;
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:14});
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
       footprints:K.footprints(g,function(v){return v===2||v===6||v===7||v===12||v===14||v===15||v===16||v===17;})}; }
-  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+  /* THE WHOLE DRIVE SURFACE IS ONE NETWORK (Paolo 7/31: "how dare you continue to make
+     streets in a district that don't connect with each other, that's rule number one").
+     Asking only about code 1 was the bug behind the bug -- the ring road answered while
+     the parking fields it is supposed to serve were a different code and never checked. */
+  function driveConnected(res){ return K.driveNetworkReach(res.g, res.legend || LEGEND) > 0.999; }
   /* HUE (7/31). Everything here was one grey-brown, which is what the 7/28 measurement
      found across the whole valley. A real mall's two anchors were rival department stores
      in their own brand colours and the food court was the warm room -- so the anchors carry
@@ -9044,7 +9142,7 @@ root.BQRuntime=API;
     1:{name:'street / drive',     kind:'drive',      act1:'the cracked mall ring-road / driveway (car-drivable)'},
     2:{name:'concourse',          kind:'building',   act1:'the enclosed mall concourse, tilt-up + glazing, most glass gone', solid:true, enter:'concourse interior: a long dead promenade, storefronts dark on both sides'},
     3:{name:'reclaimed ground',   kind:'ground',     act1:'the lot edge going back to the desert — asphalt broken into plates by forty summers, creosote and tumbleweed rooted in the joints, sand drifted over the kerb line. Nothing is resurfacing this', solid:false},
-    4:{name:'parking asphalt',    kind:'ground',     act1:'the parking field proper — asphalt still holding where the cars packed it down, striping ghosted to grey, oil shadows where the engines dripped'},
+    4:{name:'parking asphalt',    kind:'drive',     act1:'the parking field proper — asphalt still holding where the cars packed it down, striping ghosted to grey, oil shadows where the engines dripped'},
     5:{name:'gate',               kind:'gate',       act1:'the main driveway curb cut off the street, amber curb'},
     6:{name:'anchor store',       kind:'building',   act1:'a big-box anchor department store, sign faded, doors boarded', solid:true, enter:'anchor store interior: a cavernous dead sales floor'},
     7:{name:'food court',         kind:'building',   act1:'the food court bump-out, skylight glazing shattered', solid:true, enter:'food court interior: dead counter stalls around a seating pit'},
