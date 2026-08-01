@@ -155,6 +155,16 @@ research partner. He DECIDES, you PRODUCE.
   walled — real Sun Belt subdivision privacy, from the 7/21 Vegas-urbanism
   research. Gate: landlocked_gate.js. Full
   law + the known small residual (isolated single-cell landmarks) in /laws.
+- HOW HAIR AND SHAPE WORK (Paolo 8/1/26, LOCKED): he asked for his craft feedback
+  to go "into your own training data". It cannot -- nothing from a session reaches
+  the weights. laws/BOHEMIA_LAW_HOW_HAIR_AND_SHAPE_WORK_8_1_26.md IS that memory:
+  the back is not the front; cover the headspace; no straight lines (hair is little
+  off shapes); ONE PIXEL not three at 56px; centre what should be central (Math.round
+  breaks .5 upward and puts it one pixel right, forever); a fade must blend into skin
+  tone [UNBUILT]; long hair shows from the front. Plus the process lessons that day:
+  A GATE MUST NEVER OUTRANK A RULING, a checker that cannot tell a mention from a use
+  is the broken one, fix the ruler never the target, and do not claim things about
+  the codebase without checking. Gate: craft_law_gate.js.
 - NO DAMAGE BEFORE THE DIAL. EVER.
 
 ## LORE YAP SESSIONS (no code involved — a first-class session type)

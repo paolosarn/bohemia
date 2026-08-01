@@ -231,6 +231,8 @@ GATES = [
      'every person is a different person: id -> body dials + outfit, deterministic and order-proof, one rig only, never varies his skin tone, only ever wears what he approved', False),
     ('THE CROWD',     ['node', 'gates/crowd_gate.js'],
      'the population reaches the SCREEN: twelve citizens drawn through the real drawChar path, none blank, none identical (heads checked separately), deterministic pixel-for-pixel, and his own look handed back untouched', False),
+    ('CRAFT LAW',     ['node', 'gates/craft_law_gate.js'],
+     'Paolo 8/1 "remember all my feedback and put it into your own training data" -- I cannot, so the repo remembers instead: his seven craft rules and the process lessons pinned as law, with the code that implements each checkable clause asserted still in place', False),
     ('HAIR',          ['node', 'gates/hair_gate.js'],
      'Paolo 8/1 cook up as many hairstyles as you possibly can: 26 SHAPES not recolours (footprint-hashed, colour discarded), the face never covered, all 8 facings, fits the tallest and shortest citizen, and a thumbs board that exports .txt', False),
     ('FACING',        ['node', 'gates/facing_gate.js'],

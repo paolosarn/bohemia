@@ -1,0 +1,89 @@
+// BOHEMIA — CRAFT LAW GATE (8/1/26). The memory Paolo actually asked for.
+//
+// Paolo 8/1: "Please remember all my feedback and put it into your own training
+// data." That is not a thing I can do -- nothing from a session reaches the
+// weights, and the next session boots with no memory of this one. What CAN
+// persist is this repo, which is why GIT IS THE MEMORY is a standing law.
+//
+// So this gate IS the remembering. It fails if the craft law is deleted, if a
+// clause is quietly dropped, or if the code that implements a clause regresses.
+// A law without a machine gate is not enforced, and this repo proved that the
+// hard way -- six of nine ungated laws were already broken when someone checked.
+const fs = require('fs'), path = require('path');
+const ROOT = path.join(__dirname, '..');
+const LAW = path.join(ROOT, 'laws', 'BOHEMIA_LAW_HOW_HAIR_AND_SHAPE_WORK_8_1_26.md');
+const ALPHA = path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html');
+let p = 0, f = 0;
+const ok = (n, c) => { c ? p++ : (f++, console.log('  > FAIL ' + n)); };
+const done = () => { console.log(`\n=== CRAFT LAW GATE: ${p} passed, ${f} failed ===`); process.exit(f ? 1 : 0); };
+
+ok('the craft law is checked in', fs.existsSync(LAW));
+if (!fs.existsSync(LAW)) done();
+const law = fs.readFileSync(LAW, 'utf8');
+const src = fs.readFileSync(ALPHA, 'utf8');
+
+/* ---- the law still says what he said ----------------------------------- */
+const CLAUSES = [
+  ['1 THE BACK IS NOT THE FRONT',      'THE BACK IS NOT THE FRONT'],
+  ['2 COVER THE HEADSPACE',            'COVER THE HEADSPACE'],
+  ['3 NO STRAIGHT LINES',              'NO STRAIGHT LINES'],
+  ['4 ONE PIXEL, NOT THREE',           'ONE PIXEL, NOT THREE'],
+  ['5 CENTRE WHAT SHOULD BE CENTRAL',  'CENTRE WHAT SHOULD BE CENTRAL'],
+  ['6 A FADE MUST ACTUALLY FADE',      'A FADE MUST ACTUALLY FADE'],
+  ['7 LONG HAIR SHOWS FROM THE FRONT', 'LONG HAIR SHOWS FROM THE FRONT'],
+];
+for (const [name, needle] of CLAUSES) ok('clause ' + name + ' is intact', law.indexOf(needle) >= 0);
+
+/* HIS WORDS SURVIVE, not my paraphrase. Collapse whitespace first: these quotes
+   are line-wrapped markdown, and the first version of this check searched for
+   them as single lines and failed on quotes that were sitting right there. That
+   is the ninth time in this repo a checker assumed prose came unwrapped -- and
+   collapsing whitespace ALONE is not enough either: these are markdown
+   BLOCKQUOTES, so the '> ' markers survive the collapse and land mid-sentence
+   ("...covered more by hair > covered more by hair..."). The LAB lane hit this
+   exact bug on his exact quotes. Strip the quote markers, THEN collapse. */
+const flat = law.replace(/^\s*>\s?/gm, '').replace(/\s+/g, ' ');
+ok('it still quotes him on the back of the head',
+  flat.indexOf("there's a lot of headspace that should be covered more by hair") >= 0);
+ok('it still quotes him on straight lines',
+  flat.indexOf('a lot of straight lines and that') >= 0);
+ok('it still quotes him on one pixel',
+  flat.indexOf('just one pixel not like two or three') >= 0);
+
+/* the process lessons are load-bearing too -- they are why the craft ones stuck */
+for (const needle of [
+  'A GATE MUST NEVER OUTRANK A RULING',
+  'A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE',
+  'Fix the ruler, never the target',
+  'DO NOT CLAIM THINGS ABOUT THE CODEBASE WITHOUT CHECKING',
+]) ok('process lesson kept: "' + needle.slice(0, 42) + '"', law.indexOf(needle) >= 0);
+
+/* ---- and the CODE still honours the clauses a machine can check --------- */
+ok('clause 2 in code: the back facing covers the whole skull',
+  /var sideBot=back\?hBot:/.test(src));
+ok('clause 3 in code: row edges take a deterministic wobble',
+  /var wob=function\(y,side\)/.test(src) && /mn-=wob\(y,0\); mx\+=wob\(y,1\)/.test(src));
+ok('clause 3 in code: the wobble is HASHED, never rolled (an NPC must not shimmer)',
+  /_wseed/.test(src) && !/Math\.random[\s\S]{0,200}wob/.test(src));
+ok('clause 4 in code: the texture alternates every OTHER pixel, not every third',
+  /tex==='locs'&&\(\(x-mn\)%2===1\)/.test(src));
+ok('clause 5 in code: the head centre floors instead of rounding',
+  /hcx=Math\.floor\(\(hMn\+hMx\)\/2\)/.test(src));
+ok('clause 5 in code: a strip centres on its own row',
+  /_rc=Math\.floor\(\(s\[0\]\+s\[1\]\)\/2\)/.test(src));
+ok('clause 7 in code: a long style widens its curtain below the jaw',
+  /\(opt\.back\|\|0\)>=3&&y>hBot/.test(src));
+
+/* clause 6 is NOT built. Say so out loud rather than let silence imply done. */
+ok('clause 6 is honestly recorded as unbuilt (a fade that blends into skin tone)',
+  /\[NOT YET BUILT\.\]/.test(law));
+
+/* ---- the rulings this law grew out of are still on file ---------------- */
+ok('the wave-1 verdict sheet is kept',
+  fs.existsSync(path.join(ROOT, 'records', 'HAIR_VERDICTS_WAVE1_8_1_26.txt')));
+ok('the haircut-is-a-luxury addendum is kept',
+  fs.existsSync(path.join(ROOT, 'laws', 'BOHEMIA_ADDENDUM_A_HAIRCUT_IS_A_LUXURY_8_1_26.md')));
+ok('the law is honest that training data is not where this lives',
+  /That is not something I\s*\ncan do\.|\*\*That is not something I/.test(law));
+
+done();
