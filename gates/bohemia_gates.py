@@ -65,6 +65,8 @@ GATES = [
      'corner plaza: stores + parking connected to the streets', False),
     ('DISTRICT KIT',   ['node', 'gates/district_kit_gate.js'],
      'the factory: shared machine every district extends', False),
+    ('FEEDBACK MASTER',['python3', 'gates/feedback_master_gate.py'],
+     'Paolo 8/1 "remember all my feedback": every ruling in his own words is indexed where the next session reads it -- the repo is the only memory there is', False),
     ('BUILD THE WORLD',['python3', 'gates/build_the_world_gate.py'],
      'Paolo 7/31: quests, factions and the economy are OFF -- the footprint of all three is frozen and may only shrink', False),
     ('PURSE',          ['node', 'gates/purse_gate.js'],

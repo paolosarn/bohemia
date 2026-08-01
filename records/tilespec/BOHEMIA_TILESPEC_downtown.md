@@ -4,47 +4,62 @@ _Category: **commercial**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/tile)
 
 GENERATED from `engine/bohemia_downtown.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
-**A dead downtown block — four podium blocks with slender towers rising from them, filling the block to the street wall, a street grid threading through, a central plaza with a sculpture, a skybridge between towers. The densest district — the core.**
+**A dead downtown core: four blocks that are four different things — a slender blue-glass TOWER off-centre on its podium with a forecourt, an open-sided PARKING STRUCTURE with its ramp climbing the face, a stepped bronze MID-RISE over a mid-block alley beside the gap-toothed lot where a building came down, and TWO SMALLER TOWERS under a run of retail awnings — around a street grid, a roundabout plaza with its dry fountain, and a skybridge over the street.**
 
 ### Real-world reference
-- Downtown / podium-tower urbanism (ArchDaily podium-tower, LA Downtown Design Guide street wall, Phoenix City Square): a high-coverage low-rise PODIUM base (retail + parking + loading) fills the block to a tight STREET WALL along the sidewalks; slender TOWERS rise from the podiums; plazas + a street grid; the model maximizes density while holding a human-scaled street wall.
+- REBUILT 8/1 because on the whole-valley contact sheet this read as FOUR GREY SQUARES. It was one podium function called four times with an identical centred tower on each, in one grey — and downtown is the signature of a city, so if any district has to be a landmark it is this one.
+- Podium-tower urbanism (ArchDaily podium-tower, LA Downtown Design Guide street wall, Phoenix City Square): a high-coverage low-rise base holding a tight street wall along the sidewalk, slender towers rising off it, the grid threading through.
+- A REAL BLOCK IS NEVER ITS NEIGHBOUR. The four quadrants are deliberately four building types, and the parking structure is the load-bearing one — a garage with a visible ramp is the most instantly readable building in any city core.
+- THE GLASS IS THE HUE. A core is dated by its curtain wall: 70s bronze, 80s blue, 90s green over concrete. Three faded tones is honest to the building type and it is what makes four blocks read as four.
+- Built to the approved standard: the high school (89%), commercial (85%) and mall (85%).
 
 ### Layout — what is where
-- Four PODIUM blocks (dead retail + parking base, window/floor detail) fill the quadrants to the STREET WALL along the wide sidewalks, each with a slender TOWER rising from its centre (rooftop mech atop).
-- An internal STREET grid (a cross with lane dashes) threads the block.
-- A central PLAZA at the crossing carries dead street trees + a sculpture/fountain; setback planters + street trees line the street wall; a SKYBRIDGE spans between towers.
+- NW is THE TOWER: a slender blue-glass tower set off-centre on its podium — a tower centred on its own base is a diagram, not a building — with a forecourt plaza and dead street trees in front.
+- NE is THE PARKING STRUCTURE: open-sided decks with the cars still on them and a switchback RAMP climbing the east face.
+- SW is the stepped bronze MID-RISE over a retail base, with a service ALLEY cut mid-block and the SURFACE LOT beside it where a building came down.
+- SE is TWO SMALLER TOWERS, green and blue, on a shared podium under a run of retail awnings at grade.
+- The street grid crosses at a ROUNDABOUT around the plaza and its dry fountain; a skybridge spans the street between two blocks.
 
 ### Circulation (street-aware / drivable)
-Street-aware via canonical-south + K.rotateToStreet: the block entrance is on the primary street; the internal STREET grid (code 1) is drivable, reached from the curb (K.driveReachFromStreet). Foot circulation is the wide sidewalks + the plaza. WALKABLE-LAND: the podiums + towers dominate overwhelmingly — the densest district, almost all building. Corner side streets get a pedestrian gate onto the sidewalk.
+Street-aware via canonical-south + K.rotateToStreet. RULE NUMBER ONE (Paolo 7/31): the street grid, the roundabout ring, the mid-block alley and the surface lot are ONE drive network and every tile of it is reachable from the kerb (K.driveNetworkReach) — the roundabout exists precisely so the four street arms can never be severed from each other. On foot the sidewalk runs the whole street wall, the forecourt and the plaza open off it, and the skybridge and awnings are OVERHEAD: you walk under them.
 
 ### Layering — exterior vs interior, what blocks, what you go under/into
-GROUND plane (walk/drive, flat): the street (1, drive) + crosswalks (11), the sidewalks (8), the plaza (7), desert (0). STRUCTURES (¾ front face, solid, ENTERABLE): the PODIUM blocks (2 -> retail concourse + lobby + parking + cores) with the TOWERS (6) rising from them + rooftop mech (10) + parking decks (13). OVERHEAD (pass under): the SKYBRIDGE (12). PROPS: street trees (3), planters (4), pole lights (9). PORTALS: the gate (5). The towers over the podium street wall are the vertical hero; the street grid + plaza are the low plane you move through.
+GROUND (drive): the streets (1), the alley (20), the surface lot (21), with the lane and stall paint (11). GROUND (walk): sidewalk (8), forecourt and plaza (7), desert margin (0). STRUCTURE (solid, ENTERABLE): the podiums (2), the towers and the mid-rise (6/15/16), the parking structure (13) — five different interiors — plus the roof edges (17) and rooftop plant (10), which sit ON the mass and are part of it. STRUCTURE (solid): pole lights (9), the garage ramp (14). OVERHEAD (you pass under): the skybridge (12) and the retail awnings (22). PROP: street trees (3), planters (4). VEHICLE: the cars on the decks and in the lot (19). PORTAL: the kerb gate (5) and every DOORWAY (18).
 
 ### Decisions & rulings
-- Act-1 DEAD: towers dark + glass shattered, ground-floor retail boarded, the plaza weed-split, the skybridge dead. Who holds the core (the high ground of the dead city) is faction canon (Paolo's).
-- Commercial category (downtown). Zero purple. No corporate names/signage (Paolo's to author).
-- WALKABLE-LAND honored overwhelmingly: the densest district — podiums + towers dominate, streets are the connective grid.
-- Research-first (per the playbook): built from real podium-tower downtown design, not memory.
+- FOUR BLOCKS, FOUR DIFFERENT BUILDINGS. The old module had one podium function called four times, which is exactly why it read as squares.
+- THE TOWER IS OFF-CENTRE ON ITS PODIUM, deliberately. Centred towers are what made the old one read as a diagram rather than a place.
+- NO SIGNAGE TEXT, no brand, no logo anywhere — MECHANISM-MINE / CONTENTS-PAOLO'S.
+- ACT ONE ONLY (Paolo 7/28): stripped, dark, sun-bleached. No act-2/3 materials are specified.
 
 ### Tile legend — every code: material to skin + layer/occupancy/interior
 _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=drawn above, pass under · prop=object on the ground · portal=go through into an interior._
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare dirt at a broken block edge (rare downtown) | ground | no | — | 2196 |
-| 1 | `#33333c` | street | drive | the cracked downtown street threading the block (car-drivable), double-yellow gone | ground | no | — | 1679 |
-| 2 | `#6a6a72` | podium / mid-rise | building | a low-rise podium block — dead ground-floor retail + parking, boarded | structure | yes | podium interior: the retail concourse + lobby at grade, parking + back-of-house behind, cores up to the tower | 8110 |
-| 3 | `#3a4526` | street tree | tree-dead | a dead street tree in its grate | prop | no | — | 24 |
-| 4 | `#43521f` | setback planter | prop | a dead streetwall planter | prop | no | — | — |
-| 5 | `#c79a3f` | gate | gate | the street entrance to the block, amber curb | portal | no | — | 7 |
-| 6 | `#4e4e58` | tower | structure | a slender tower rising from the podium — dark glass shattered, floors dead | structure | yes | — | 888 |
-| 7 | `#8f8676` | plaza | ground | the central plaza at the crossing, cracked pavers, weeds | ground | no | — | 242 |
-| 8 | `#6a675e` | sidewalk | ground | the wide downtown sidewalk / street-wall frontage, cracked | ground | no | — | 2941 |
-| 9 | `#8f8676` | pole light | prop | a street pole light, head dark | prop | yes | — | 5 |
-| 10 | `#8a8478` | tower rooftop mech | structure | rooftop mechanical / a water tank atop a tower | structure | yes | — | 15 |
-| 11 | `#c9c1aa` | crosswalk / marking | ground | faded crosswalk / lane paint | ground | no | — | 210 |
-| 12 | `#43521f` | skybridge | overhead | a skybridge spanning the street between towers (you pass UNDER it) | overhead | no | — | 67 |
-| 13 | `#4a4a52` | parking podium deck | structure | exposed structured-parking deck in a podium base | structure | yes | — | — |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt where the block ends and nobody ever built the next one | ground | no | — | 2188 |
+| 1 | `#33333c` | street | drive | the downtown street grid — asphalt plated and lifting, lane paint ghosted, sand banked into the gutters (car-drivable) | ground | no | — | 2268 |
+| 2 | `#6d675b` | podium / retail base | building | the low podium that holds the street wall — ground-floor retail with every window out, dark mezzanine above | structure | yes | podium interior: a stripped retail floor, the escalator well dead, a service corridor running back to the alley | 2151 |
+| 3 | `#3a4526` | street tree | tree-dead | a dead street tree still standing in its grate, trunk split, the iron grate itself long since prised up | prop | no | — | 28 |
+| 4 | `#414a2b` | setback planter | prop | a concrete street planter, its shrub down to a stick, filled to the rim with blown sand and glass | prop | no | — | 18 |
+| 5 | `#c79a3f` | gate / kerb cut | gate | the block entrance off the street, amber kerb paint gone chalky | portal | no | — | 9 |
+| 6 | `#3f5570` | tower (blue glass) | building | an 80s blue curtain-wall tower — the glass gone milky where it survived and open to the sky where it did not | structure | yes | tower interior: a lobby stripped to its core, lift shafts standing open, the floor plates above reachable only by stair | 925 |
+| 7 | `#6a675e` | forecourt plaza | ground | the tower forecourt — pavers heaved up by roots, the granite benches still exactly where they were bolted | ground | no | — | 601 |
+| 8 | `#7d7a71` | sidewalk | walk | the downtown sidewalk, wide slabs cracked corner to corner, the awning bolts still in the wall above them | ground | no | — | 2888 |
+| 9 | `#b0863a` | pole light | structure | a street light on its cast pole, head dark, the banner arm bent and empty | structure | yes | — | 5 |
+| 10 | `#8e8a7c` | rooftop plant | structure | rooftop mechanical — cooling towers and duct runs, one unit stripped back to its coil for the copper | structure | yes | — | 153 |
+| 11 | `#c9c1aa` | lane / stall marking | marking | faded paint — lane dashes down the street, stall ticks in the lot, most of it a ghost you read by the shadow | ground | no | — | 103 |
+| 12 | `#5e6a72` | skybridge | structure | the skybridge spanning the street between two blocks, its glazing gone, and you walk under it | overhead | no | — | 57 |
+| 13 | `#5c5b57` | parking deck | building | the open-sided parking structure, deck slabs stacked with the cars still parked on them | structure | yes | garage interior: split-level decks joined by the ramp, the pay booth prised open | 1284 |
+| 14 | `#7e7d76` | garage ramp | structure | the switchback ramp climbing the face of the structure — the one thing that makes a garage read as a garage from the air | structure | yes | — | 837 |
+| 15 | `#7a5c34` | mid-rise (bronze) | building | a 70s bronze-glass mid-rise, stepped back at the shoulder, spandrel panels hanging off their clips | structure | yes | mid-rise interior: office floor plates with the partitions collapsed, the stair core still sound | 613 |
+| 16 | `#3f6152` | tower (green glass) | building | a 90s green-glass tower, the tint still reading under the dust on the panes that held | structure | yes | tower interior: open floor plates around a dead lift core | 335 |
+| 17 | `#9a9384` | roof edge | structure | the parapet line where a roof meets its wall, coping stones missing in long runs | structure | yes | — | 1026 |
+| 18 | `#241f1a` | doorway | portal | a way in — a lobby entrance with the glass gone, a stair-core door, a shopfront standing open | portal | no | — | 15 |
+| 19 | `#6a6e72` | dead car | vehicle | a car left exactly where it was parked, flat and sun-bleached, on a deck or out in the lot | prop | yes | — | 110 |
+| 20 | `#2b2b31` | service alley | drive | the mid-block alley — dumpsters, fire escapes overhead, and the back doors every one of these buildings has (car-drivable) | ground | no | — | 242 |
+| 21 | `#3a3a42` | surface lot | drive | the gap-toothed lot where a building came down and nothing replaced it, its foundation still printed in the asphalt (car-drivable) | ground | no | — | 348 |
+| 22 | `#8c3f38` | retail awning | structure | the run of shopfront awnings at grade, canvas split back to the frame, and you walk under them | overhead | no | — | 180 |
 
 **Gate:** `gates/downtown_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

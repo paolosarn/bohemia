@@ -186,28 +186,55 @@
     var S = {}, any = false;
     for (var c in legend) {
       if (!legend[c]) continue;
-      if (legend[c].kind === 'drive') { S[c] = 1; any = true; }
-      else if (legend[c].kind === 'marking') { S[c] = 1; }
+      var k = legend[c].kind, layer = tileLayer(legend[c]).layer;
+      if (k === 'drive') { S[c] = 1; any = true; }
+      /* PAINT IS NOT A WALL: a stall stripe is a marking painted on asphalt and a car
+         drives straight over it. Treating it as an obstacle invents pockets that are not
+         there -- it is what stranded ten tiles of the commercial lot behind its own
+         parking stripes. */
+      else if (k === 'marking') { S[c] = 1; }
+      /* overheads are handled separately -- see driveConductors below. They are not drive
+         surface and must not be counted as such: an awning over a sidewalk is not road. */
     }
     return any ? S : null;
   }
+  /* AN OVERHEAD IS NOT ROAD, BUT IT IS NOT A WALL EITHER. A skybridge, a fuel canopy, a
+     shop awning is drawn ABOVE the ground plane and you pass BENEATH it. In a single-layer
+     grid it overwrites whatever it spans, so treating it as solid severs the very thing it
+     crosses -- downtown's skybridge cut its own north street arm off from the grid, 260
+     tiles marooned by a bridge a car is meant to drive under. So overheads CONDUCT a path
+     without being counted as drive surface themselves. Counting them as road was the first
+     fix and it was wrong in the other direction: it made awnings over sidewalks into
+     unreachable roads and took the broken-district count from 22 to 25. */
+  function driveConductors(legend){
+    var C = {};
+    for (var c in legend) {
+      if (!legend[c]) continue;
+      if (tileLayer(legend[c]).layer === 'overhead') C[c] = 1;
+    }
+    return C;
+  }
   function driveNetworkReach(g, legend){
-    var S = driveMask(legend || {});
+    legend = legend || {};
+    var S = driveMask(legend);
     if (!S) return 1;
+    var C = driveConductors(legend);
     var n = g.length, x, y, i, total = 0, st = [], seen = {};
     for (y = 0; y < n; y++) for (x = 0; x < n; x++) if (S[g[y][x]]) total++;
     if (!total) return 1;
-    function seed(px, py){ if (S[g[py][px]] && !seen[px + ',' + py]) { seen[px + ',' + py] = 1; st.push([px, py]); } }
+    function pass(v){ return S[v] || C[v]; }
+    function seed(px, py){ if (pass(g[py][px]) && !seen[px + ',' + py]) { seen[px + ',' + py] = 1; st.push([px, py]); } }
     for (x = 0; x < n; x++) { seed(x, 1); seed(x, n - 2); }
     for (y = 0; y < n; y++) { seed(1, y); seed(n - 2, y); }
     if (!st.length) return 0;
     var reach = 0, d4 = [[1,0],[-1,0],[0,1],[0,-1]];
     while (st.length) {
-      var p = st.pop(); reach++;
+      var p = st.pop();
+      if (S[g[p[1]][p[0]]]) reach++;          /* only real drive surface counts as reached */
       for (i = 0; i < 4; i++) {
         var nx = p[0] + d4[i][0], ny = p[1] + d4[i][1], k = nx + ',' + ny;
         if (seen[k] || nx < 0 || ny < 0 || nx >= n || ny >= n) continue;
-        if (S[g[ny][nx]]) { seen[k] = 1; st.push([nx, ny]); }
+        if (pass(g[ny][nx])) { seen[k] = 1; st.push([nx, ny]); }
       }
     }
     return reach / total;
@@ -411,7 +438,7 @@
     STREET_ORDER:STREET_ORDER,primaryStreet:primaryStreet,rotateCW:rotateCW,scanGates:scanGates,
     pedGate:pedGate,rotateToStreet:rotateToStreet,
     driveNetworkOk:driveNetworkOk,driveTouchesEdge:driveTouchesEdge,stallsReachable:stallsReachable,
-    driveReachFromStreet:driveReachFromStreet,driveNetworkReach:driveNetworkReach,driveWidthScore:driveWidthScore,driveMask:driveMask,KIND_LAYER:KIND_LAYER,tileLayer:tileLayer};
+    driveReachFromStreet:driveReachFromStreet,driveNetworkReach:driveNetworkReach,driveWidthScore:driveWidthScore,driveMask:driveMask,driveConductors:driveConductors,KIND_LAYER:KIND_LAYER,tileLayer:tileLayer};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaDistrictKit=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
