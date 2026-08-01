@@ -55,6 +55,10 @@ GATES = [
      'Paolo 7/31: street pixels come from HIS harmonized pool -- bytes, not a citation', False),
     ('FOOTSTEP',       ['node', 'gates/footstep_gate.js'],
      'Paolo 7/31: walking MAKES A SOUND -- his judged footsteps reach the surface he walks', True),
+    ('TRAFFIC SIGNAL',['node', 'gates/traffic_signal_gate.js'],
+     'Paolo 8/1: his 348-sprite signal bank reached NOTHING for two weeks. His sprites are in '
+     'the renderer byte for byte, the broken ones on the floor with them, his arm/color laws '
+     'applied, and a signal MEASURED on screen at a real intersection in a real browser', True),
     ('FULL PIXEL',     ['node', 'gates/full_pixel_gate.js'],
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
