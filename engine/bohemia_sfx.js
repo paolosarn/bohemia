@@ -220,7 +220,14 @@ const BOH_SFX = (function () {
     { ev: 'miss',         label: 'THE SHOT MISSES',     why: 'it went past. you feel it leave without landing' },
     { ev: 'vital',        label: 'VITAL HIT',           why: 'you hit something that matters. worse than a hit, not yet a kill' },
     { ev: 'hurt',         label: 'YOU TAKE THE HIT',    why: 'return fire lands on YOU. the only sound in the game that is bad news' },
-    { ev: 'clear',        label: 'THE FIGHT IS OVER',   why: 'everyone is down and the room goes quiet' }
+    { ev: 'clear',        label: 'THE FIGHT IS OVER',   why: 'everyone is down and the room goes quiet' },
+    /* ---- THE WORLD TONE (8/1/26) ---------------------------------------
+       The valley makes NO sound. You walk, you hear your own feet, then
+       nothing. These are not a wall of wind -- they are the RARE thing you
+       hear in the emptiness, fired minutes apart. See the research record. */
+    { ev: 'air_day',      label: 'THE VALLEY AT MIDDAY', why: 'outside, in the heat. what you hear when nothing is happening' },
+    { ev: 'air_night',    label: 'THE VALLEY AT NIGHT',  why: 'outside, after dark. this one is the horror' },
+    { ev: 'air_inside',   label: 'INSIDE A BUILDING',    why: 'a room with nobody in it but you' }
   ];
 
   /* ---- THE RECIPES -----------------------------------------------------
@@ -382,6 +389,70 @@ const BOH_SFX = (function () {
               slide: [-14, -5], decay: [0.125, 0.25], drive: [0.45, 0.8],
               space: [0.2, 0.44], dark: [450, 900] }
     },
+    /* ===================================================================
+       THE WORLD TONE (8/1/26)
+       -------------------------------------------------------------------
+       RESEARCH (records/BOHEMIA_RESEARCH_AMBIENCE_8_1_26.md): a game ambience
+       runs FOUR layers -- the bed (room tone), SPOT ambient (a distant car, a
+       door), character foley (footsteps: already shipped), and threat. And the
+       horror finding that decided the whole shape:
+
+         "Silence is not a sound you can't add; it is a sound you choose to
+          remove. In horror, tension comes not from what you add but from what
+          you take away."
+
+       That is already this game's doctrine -- small sounds intimate, big sounds
+       telling you how empty it is. So these are NOT a continuous wall of wind.
+       They are the SPOT layer: one rare event in a lot of nothing, fired
+       minutes apart with the silence between doing the work.
+
+       AND IT DODGES THE LOOP PROBLEM BY CONSTRUCTION. The literature's warning
+       is that a repeating ambience bed is what breaks immersion; the fix is
+       randomised one-shots over a sparse bed. A one-shot is exactly what this
+       engine already makes, so the ambience needs NO new synthesis and no
+       loop -- which is also the only way it can obey the SCREECH LAW, because
+       there is nothing here that can ring or feed back.
+
+       THESE ARE COOKED LOUD ENOUGH TO JUDGE, not at bed level. He has to hear
+       a thing to thumb it. What level it sits at in the world is a wiring
+       decision that comes after his verdict, not a number I bake in now. */
+
+    /* MIDDAY. Heat, distance, and dry air. High and thin, almost no body --
+       the sound of a valley too hot to be outside in. */
+    air_day: {
+      base: { mat: 'stone', hz: 1480, modes: 4, bright: 1.3, decay: 1.25, damp: 1.6,
+              warble: 2.1, atk: 0.25, slide: -2, trans: 0.06, transHz: 6200,
+              transQ: 0.5, grit: 0.55, gritHz: 4800, space: 0.85, room: 1.75,
+              refl: 3, dark: 5200, width: 0.9, drive: 0.03, mkup: 1.0, gain: 0.2 },
+      jit:  { hz: [1080, 1960], decay: [1, 1.75], warble: [1.5, 2.8],
+              gritHz: [3600, 6200], space: [0.7, 0.95], room: [1.5, 2.25],
+              dark: [4200, 6500], bright: [1, 1.7], width: [0.75, 1] }
+    },
+    /* AFTER DARK. THIS ONE IS THE HORROR. Low, wide, and it should sound like
+       a room far bigger than the one you are standing in. choir is the dead
+       chapel -- the only place in the batch it belongs. */
+    air_night: {
+      base: { mat: 'choir', hz: 62, modes: 8, bright: 0.4, decay: 2.5, damp: 1.1,
+              warble: 2.4, atk: 0.5, slide: -1, trans: 0.04, transHz: 900,
+              transQ: 0.6, grit: 0.2, gritHz: 700, space: 0.95, room: 2.75,
+              refl: 4, dark: 1200, width: 1, drive: 0.02, mkup: 1.4, gain: 0.22 },
+      jit:  { hz: [48, 84], decay: [1.875, 3.25], warble: [1.8, 3],
+              room: [2.25, 3], dark: [800, 1900], bright: [0.3, 0.6],
+              space: [0.85, 1], damp: [0.9, 1.4] }
+    },
+    /* INSIDE. A building with nobody in it. Close and dry, because the contrast
+       with the night outside is the whole point: the room is SMALL and you can
+       hear that it is small. */
+    air_inside: {
+      base: { mat: 'wood', hz: 148, modes: 5, bright: 0.5, decay: 0.75, damp: 1.8,
+              warble: 1.2, atk: 0.125, trans: 0.14, transHz: 1600, transQ: 0.9,
+              grit: 0.3, gritHz: 1100, space: 0.35, room: 0.625, refl: 2,
+              dark: 1600, width: 0.5, drive: 0.06, mkup: 1.0, gain: 0.2 },
+      jit:  { hz: [112, 210], decay: [0.5, 1], warble: [0.8, 1.8],
+              space: [0.25, 0.5], room: [0.5, 0.875], dark: [1200, 2400],
+              bright: [0.4, 0.75], width: [0.4, 0.7] }
+    },
+
     /* THE ROOM GOES QUIET. The one moment in a fight allowed a real tail, and
        the only one that gets bell -- which went 10/10 with him, and is what
        SAVED is built from. Resolution sounds like resolution. */

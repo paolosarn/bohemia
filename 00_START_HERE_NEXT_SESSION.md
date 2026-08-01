@@ -1960,6 +1960,61 @@ LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
 scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
 pages from coming back.
 
+SOUNDS (xk7pjp): 8/1 (c) LATEST — THE WORLD TONE. 15 candidates to judge, and
+the valley stops being silent.
+
+THE HOLE: every sound shipped so far is a thing HE does -- a step, a shot, a
+save. Nothing told him where he was standing or what time it was. The valley made
+no sound at all.
+
+RESEARCH: records/BOHEMIA_RESEARCH_AMBIENCE_8_1_26.md, 8 sources. A game ambience
+is FOUR layers (bed / spot / foley / threat) and the conventional bed is stereo
+LOOPS. Two things killed that approach here:
+  1. The literature's own warning: a uniform loop is what breaks immersion; real
+     ambience carries randomised one-shots.
+  2. THE SCREECH LAW. No delay, no convolver, nothing that can ring -- a
+     conventional looping bed with a reverb send is not even available to us.
+THE FINDING THAT DECIDED IT: "Silence is not a sound you can't add; it is a sound
+you choose to remove. In horror, tension comes not from what you add but from
+what you take away." That is ALREADY this engine's header doctrine, written
+before the research existed.
+  SO: the world tone is NOT a wall of wind. It is the SPOT layer with the bed
+  left almost empty -- one rare event, minutes apart, silence doing the work.
+  And that solves the engineering for free: a randomised one-shot is exactly
+  what BOH_SFX already makes, so there is NO new synthesis, NO loop to
+  recognise, and the SCREECH LAW is held by construction because there is no
+  feedback path to audit.
+
+  air_day     stone, high and thin   midday, too hot to be outside
+  air_night   choir, low and wide    THIS ONE IS THE HORROR: a room far bigger
+                                     than the one he is standing in
+  air_inside  wood, close and dry    small, and you can HEAR that it is small
+  choir is used exactly once, for the night. The contrast between air_night
+  (huge) and air_inside (small) is the point: a door should change the size of
+  the world.
+
+COOKED TO JUDGE, NOT AT BED LEVEL. All three land ~0.20 peak, level with a UI
+tap, because he has to hear a thing to thumb it. What level ambience sits at
+UNDER the game is a wiring decision AFTER his verdict. The ladder now asserts
+shot and kill dwarf all three, so the room can never come up over the game.
+
+IT PLUGS INTO STATE THAT ALREADY EXISTS: the run has a real day clock,
+dayFrac(turn) over DAY_TURNS with the turn counter in the save, already driving
+NPC schedules (Mojave midday shelter, dusk sitting). Inside/outside is
+mode==='ext', already used by the footstep classifier. The old handoff said
+ambience was blocked on RUN 0d's daycycle -- IT IS NOT BLOCKED ANY MORE, the
+daycycle shipped.
+
+GATES: SFX RENDER 874 checks over 100 candidates. One candidate (air_night.0)
+rendered at 0.118, under the judgeable floor, and the band check caught it before
+he ever saw it -- the family was lifted so its whole jitter range stays hearable.
+
+NEXT: his thumbs on the 15. Then wiring, which is where the real design question
+is and it is HIS: how often does the valley speak? Minutes apart is the research
+answer, but the exact rhythm of emptiness is a taste ruling, not a number I pick.
+
+BUILD STAMP: 8/1z - THE WORLD TONE: 15 TO JUDGE (MUSIC TAB).
+
 SOUNDS (xk7pjp): 8/1 (b) LATEST — I THREW HIS THUMBS AWAY AND ASKED HIM TO JUDGE
 AGAIN. Read this before touching any judge surface in this repo.
 

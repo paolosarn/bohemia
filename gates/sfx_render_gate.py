@@ -287,7 +287,11 @@ def main():
               ('hurt', 'hit'),          # being shot is the worst news in the game
               ('hurt', 'step_dirt'),
               ('clear', 'ui_tap'),
-              ('miss', 'ui_tap')]
+              ('miss', 'ui_tap'),
+              # THE WORLD TONE sits UNDER the game. The gun must dwarf the room,
+              # or the ambience is competing with the thing it is a backdrop for.
+              ('shot', 'air_day'), ('shot', 'air_night'), ('shot', 'air_inside'),
+              ('hit', 'air_day'), ('kill', 'air_night')]
     for loud, quiet in ladder:
         chk(med(loud) > med(quiet), 'the mix ladder inverted: %s (%.3f) is not above %s (%.3f)'
             % (loud, med(loud), quiet, med(quiet)))
