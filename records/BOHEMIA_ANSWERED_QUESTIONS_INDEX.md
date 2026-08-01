@@ -128,7 +128,13 @@ PLAYER; and the strongest tools he named are not visual at all (screaming, beggi
 - `laws/BOHEMIA_ADDENDUM_TRAUMATIC_NOT_GORY_7_31_26.md`
 - `records/BOHEMIA_RESEARCH_CRISIS_RESPONSE_VIOLENCE_7_31_26.md`
 
-### 12. CAN A LANE DECIDE ART LOOKS GOOD ENOUGH TO SHIP?
+### 12. SHOULD A BOHEMIA STAT BE A "MINI-GAME" RATHER THAN A NUMBER?
+**NO.** Asked 8/1 off the Rogue Fable IV measurement and answered directly: *"The
+answer is no I don't like the direction that you took this turn."* The page was killed
+before it shipped. Do not re-propose it, and do not re-frame it.
+- `records/BOHEMIA_RF4_DIRECTION_KILL_8_1_26.md`
+
+### 13. CAN A LANE DECIDE ART LOOKS GOOD ENOUGH TO SHIP?
 **NO. HE THUMBS. EVERYTHING ELSE IS OURS.** Machine gates prove craft; only Paolo
 judges whether it looks right.
 - `laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md`
@@ -164,6 +170,8 @@ when does the game start | ten years after the crash | laws/BOHEMIA_ADDENDUM_TEN
 daily upkeep | no. buildings are EARNED, not afforded | laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md
 go bankrupt | no. no income and no bankruptcy | laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md
 buildings cost upkeep | no. earned by levelling, quests and act tier | laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md
+stat be a mini-game | no. he said no on 8/1; do not re-propose | records/BOHEMIA_RF4_DIRECTION_KILL_8_1_26.md
+mini-game rather than a modifier | no. killed 8/1 | records/BOHEMIA_RF4_DIRECTION_KILL_8_1_26.md
 should the violence be gory | no. TRAUMATIC not gory; gore is never the mechanism | laws/BOHEMIA_ADDENDUM_TRAUMATIC_NOT_GORY_7_31_26.md
 how gory should | traumatic, not gory. two different dials | laws/BOHEMIA_ADDENDUM_TRAUMATIC_NOT_GORY_7_31_26.md
 ```

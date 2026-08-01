@@ -535,3 +535,20 @@ failure the STOP PRODUCING law is named after.
 HIGH TOP 2      | hair | 8/1/26 | second kill, permanent. Reopened because "there's part of the head that's not even with hair" was a bare-scalp BUG; the bug was fixed for every style and he still did not want the shape. That is the distinction the addendum exists to draw.
 HAIR LOCS 2     | hair | 8/1/26 | second kill, permanent. Reopened because "I see the vision it just needs to be executed better" plus the one-pixel rule; the texture now runs on both drawing paths anchored to the head, and the answer was still no. The MECHANISM survives and carries CORNROWS, which he approved: "The cornrows is so much better very good."
 LOW BUN 2       | hair | 8/1/26 | second kill, permanent. He called it "really good" and it was killed as a slot decision both times. Its BACK remains the reference every other back is shaped against -- the silhouette lives on in the machine even though the style is closed.
+
+================================================================================
+DEAD 8/1/26 — slices/lab/BOHEMIA_LAB_RF4_TRINITY_8_1_26.html (LAB-10)
+NEVER SHIPPED: the commit was dropped before it reached main.
+PAOLO: "The answer is no I don't like the direction that you took this turn"
+POST-MORTEM: records/BOHEMIA_RF4_DIRECTION_KILL_8_1_26.md
+
+WHY: he asked me to MEASURE Rogue Fable IV and I came back asking him to ADOPT its
+design philosophy ("should a Bohemia stat be a mini-game?"). That is importing a
+reference, not measuring one. The reply was also mostly about my own gate plumbing
+rather than about the game.
+
+ALSO DEAD AS A PROPOSAL: "a Bohemia stat should be a mini-game rather than a number
+you accumulate." He said no. It is an ANSWERED question now
+(records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md) and may not be re-proposed.
+
+NO V2. No second Rogue Fable page and no reframed salvage of this one.

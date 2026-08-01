@@ -1,3 +1,35 @@
+LAB (e2r7sv): 8/1 (c) LATEST — HE KILLED THE RF4 DIRECTION. IT NEVER SHIPPED. NO V2.
+
+Paolo: "The answer is no I don't like the direction that you took this turn."
+The commit was DROPPED before it reached main, so there is nothing to un-ship. Page and
+records deleted. Graveyarded with a post-mortem:
+records/BOHEMIA_RF4_DIRECTION_KILL_8_1_26.md
+
+*** WHAT I DID WRONG, AND IT IS THE ONLY PART WORTH READING: HE ASKED ME TO MEASURE A
+GAME AND I CAME BACK ASKING HIM TO ADOPT ONE. *** "Rogue fable 4 all of it" is a
+research instruction. I built a page whose closing question was "should a Bohemia stat be
+a mini-game -- and if yes, which three?" That is importing a reference, not measuring
+one, and it puts him in the position of approving another studio's design instead of
+designing his own.
+SECOND THING: the reply was mostly about MY OWN PLUMBING -- a new gate tier, three bugs
+in my own checks, a repo incident. All true, none of it what he asked for. The STOP
+PRODUCING law already says green gates never lead a reply, and I let machinery be the
+story again.
+
+THE RULE OUT OF IT, for every lane: *** A REFERENCE IS FOR UNDERSTANDING, NOT FOR
+IMPORTING. *** When he names a game, the deliverable is what that game does and why it
+works -- never a request that Bohemia become it. The moment a research turn ends with
+"shall we adopt this", it stopped being research.
+
+ALSO DEAD AS A PROPOSAL, now machine-enforced: "a Bohemia stat should be a mini-game
+rather than a number you accumulate." He said NO. It is row 12 of
+records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md (25 settled questions now) and
+gates/answered_gate.py FAILS THE BUILD if any session asks it again. Do not re-frame it.
+
+NO V2. No second Rogue Fable page, no salvaged version, no same-findings-different-
+framing. Under STOP PRODUCING, finding a legal way to ship a rejected thing IS the
+violation.
+
 ART (f3eu53): 8/1 (f) LATEST — TEN LOGOS, TEN ALPHABETS. AWAITING HIS PICK; THE ONE HE
 CHOOSES GOES ON THE HOME SCREEN.
 
