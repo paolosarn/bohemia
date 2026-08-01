@@ -214,44 +214,44 @@ re-added only my two lines (+4).
 ART (f3eu53): 7/31 (c) LATEST — HIS BOUGHT ART NOW DRESSES THE YARD, THE BIGGEST
 SURFACE ON THE BLOCK. Paolo: "Is there anyway u can just implement them back right now
 please what I approved and the loo of thigs were going for stop wasting my time"
+PEOPLE (7h9sfy): 8/1 LATEST — THE WORKERS ACTUALLY ARRIVE NOW, AND NOBODY SLEEPS IN
+THE STRIP MALL. RUN TAB, build 8/1l. Full write-up: records/BOHEMIA_PEOPLE_AT_WORK_8_1_26.md
 
-=== THE SHOT THAT MADE THE CASE (records/target/) ===
-STREET_BEFORE_YARD.png vs STREET_AFTER_YARD.png, both from tools/bohemia_street_shot.js
-(walks out the front door and shoots the real surface). BEFORE: his purchased road and
-sidewalk are rich, cracked, weeded, manholed - and the yard directly beneath them is a
-FLAT PAINTED TAN NOISE FIELD. Two different games in one frame. AFTER: the yard is his
-cracked dirt and gravel, and the block reads as one thing.
+=== WHAT HE CAN GO LOOK AT ===
+Walk to a workplace. The clinic west of your own house has 29 people in it, 16 of them
+out in it, and SIX OF THEM ARE YOUR OWN NEIGHBOURS - the same people, same identities,
+as the ones standing in your street. Ask somebody their name at home and you know them
+at work.
 
-=== WHAT WAS ACTUALLY WRONG, AND IT WAS NOT A MISSING PACK ===
-His "1. Cracked contrete tiles" pack is NOT one texture. It is a desert RANGE: the same
-20 tiles run from pale poured concrete (saturation 0.19) to brown dirt and gravel (0.37).
-All 20 were being laid on the SIDEWALK, so his best dirt tiles were dressing a pavement
-while the yard got paint. The fix is a PLACEMENT split, clause 4 of his law, and it
-changes no pixel of his art:
-  sat >= 0.24 -> YARD (5 tiles, the brown gravelly ones: #19 .37, #21 .37, #26 .30 ...)
-  sat <  0.24 -> SIDEWALK + DRIVEWAY (15 tiles, the pale poured concrete)
-Measured by tools/bohemia_tile_saturation.py so the number in the builder and the number
-in any record come from ONE implementation. Builder throws if either pool empties.
+=== THE TWO BUGS, BOTH MEASURED BEFORE THEY WERE CLAIMED ===
+1. TEN PEOPLE SLEPT IN A STRIP MALL. agentsForBlock makes a HOUSEHOLD (bedrooms, a home
+   to walk back to) out of every building handed to it, and agentsForPlot handed it every
+   building in the valley whatever the district was. On 58 sampled cells the census and
+   the generator DISAGREED ON 52. Three in a solar farm's inverter shed, six in storage
+   units. The identity card shipped the day before would have said "LIVES: HOUSE 2 ON
+   THIS BLOCK" while the player stood in a shopping centre.
+   TWO root causes: (a) RESIDENTIAL was {suburb,gated,estate} while the district kit's
+   OWN registrations say apartment/suburb/trailer are category:'residential' - a
+   hand-written list had drifted from the registry and was calling real apartment blocks
+   and trailer parks uninhabited; (b) agentsForPlot never consulted the list at all.
+2. EVERY WORKER LEFT THE WORLD AT 7AM. Agents have carried job:{kind:'site',district}
+   since 7/19: they walk out the gate, leaveGrid 'away', and cease to exist. HALF A
+   JOURNEY HAS BEEN SIMULATED FOR TWO WEEKS - they depart and never arrive - so every
+   workplace stood empty all day while the sim insisted people were at it.
 
-=== FILES (RUN LANE'S, TOUCHED ON HIS DIRECT ORDER - FLAG FOR THAT LANE) ===
-tools/build_run_slice.js          the saturation split + __BOUGHT_YARD_JSON__
-slices/BOHEMIA_RUN_SLICE_7_26_26.html  BOUGHT_YARD_B64, boughtFor(0)='yard', drawBought
-                                  takes three banks instead of a two-way ternary
-gates/bought_beats_painted_gate.js  see below
-tools/bohemia_tile_saturation.py  NEW. Decodes his tiles, reports saturation, cooks
-                                  nothing, writes nothing.
-Verified: run_gate 126/126, bought_beats_painted 16/16, full suite green except the two
-pre-existing CHARACTER reds (RIG CHECK, BODY VARIATION) that fail identically on clean
-main and are already flagged by that lane.
+=== THE FIX ===
+workersForPlot is jobsNear RUN BACKWARDS. jobsNear looks from a home along four compass
+rings to radius 3, so the homes that can send anybody to a cell are at exactly the twelve
+mirrored positions. IT INVENTS NOBODY - same ids, same seeds, same identity keys. A
+visitor is a resident inverted in the sim: 'home' means gone from this grid, 'work' means
+here, and their home.building never touches this cell's doors.
+IDENTITY IS KEYED TO WHERE YOU LIVE, NOT WHERE YOU STAND. A worker re-keyed by the cell
+they are standing on would be a stranger at home the moment you asked their name at work.
+That was a real bug on the way through, caught on the real surface, fixed with
+blockSeedFor(fromCell).
 
-=== A GATE THAT WAS LYING, AND WHY IT COULD ===
-bought_beats_painted_gate.js printed its "STILL PAINTED" debt list out of two HAND-
-MAINTAINED literal objects. The moment the yard was wired it drifted: the gate went on
-printing "dead-ground yard" as painted while his tiles were already drawing there. A
-debt list that can be WRONG is worse than no list, because it gets read as proof. It now
-DERIVES the covered set from the run's own boughtFor() switch - the single place that
-decides - so it cannot drift again. And "the list only shrinks" is now a CHECK against a
-high-water mark, not a caption. Debt is 6 -> 5.
+    census vs agents mismatches   52 of 58  ->  0 of 738
+    residents 8,282 | workers who now arrive 2,306 | workplace cells staffed 110 of 370
 
 === HIS ART NOW COVERS ===
   dead-ground yard, road, driveway, sidewalk
@@ -3419,3 +3419,56 @@ Batch-of-sixteen just failed, and it failed on things a single full-size look ca
 [FLAG, not mine] another lane locked BOUGHT BEATS PAINTED 7/31 ("if i bought it i
 prefer it! Thats for all textures bro!!!"). House 02 and the factory use his APPROVED
 PAINTED skins. If he owns house textures, that ruling likely governs houses too.
+=== THE HONEST TRADE, stated because it is a real cost ===
+Cells holding people went 834 -> 731 (36% -> 32%). That is the LIE being removed: farm,
+storage, downtown and resort had fake residents and now have nobody. Commercial went the
+other way, 683 fake residents -> 2,049 real workers.
+
+=== GATE ===
+people_gate.js part D, 11 claims, driven on the REAL run through the run's own loadCell
+(added as __RUN.gotoCell so a gate can see the other 2,303 cells, not just the one the
+game opens on). 90 claims total. Two mutations proved red-able: families back in the
+strip mall, and workers not arriving.
+
+=== THE SUITE WENT ALL GREEN ON THE SHIPPED TREE ===
+Every gate green, 759s, on the exact tree that was pushed. The two long-running reds
+(RIG CHECK, BODY VARIATION) were fixed by their own lanes while this work was in
+flight - they were never this lane's. Kept below because the FLAKE note still matters.
+ANSWERED FOR and SFX WIRED both went red ONCE each under full-suite load today and both
+pass standalone (11/0 and 150/0, run twice each). They are heavy real-browser gates
+sharing a machine with the whole suite. If you see either red once, run it alone before
+believing it.
+
+=== THE REDS AS THEY STOOD MID-FLIGHT (history, all resolved) ===
+RIG CHECK      bohemia_combat_carfix_clip_aim_patch.py (COMBAT) + bohemia_headshot_
+               ragdoll_exemption_patch.py (CHARACTER). Not this lane's files.
+BODY VARIATION the frame cache hashes the dials (CHARACTER). 20 pass / 1 fail.
+ANSWERED FOR   A FLAKE. Passes 11/0 standalone, twice, right after the suite said
+               otherwise - same shape as the SFX WIRED flake earlier today. Both are
+               heavy real-browser gates sharing a machine with the whole suite. If you
+               see either red once, run it alone before believing it. Said out loud
+               rather than quietly re-run until green.
+
+=== WHAT COMES AFTER, in order ===
+1. THE ROADS ARE EMPTY. 568 arterial + 228 freeway cells = 35% of the valley and there is
+   not one person on any of them. Nobody in Bohemia is ever BETWEEN places. That is the
+   next people-shaped hole and it is bigger than this one.
+2. JOB_DISTRICTS IS FOUR ENTRIES (commercial/industrial/medical/solar). A FARM is
+   obviously a workplace and the GDD treats farms as the food system, but adding one
+   changes where every existing resident commutes - a valley-wide behaviour change owned
+   by WORLD. FLAGGED, NOT TAKEN.
+3. Squatting outside housing is [PENDING Paolo]. Post-collapse people really do occupy
+   commercial buildings, but as squatters or a compound, never a nuclear family with
+   bedrooms. The mechanism now says "no residents here"; whether a strip mall holds a
+   squat is his canon and the table is empty.
+4. WHO HE ALREADY KNOWS IS PARKED BY PAOLO (8/1): "Don't worry about that right now don't
+   worry at all about that right now." KNOWN_AT_START stays empty. DO NOT ASK AGAIN.
+5. FACTIONS ARE OFF (BUILD THE WORLD, 7/31). This lane's item 2 is dead by ruling.
+
+RESEARCH THAT SHAPED IT: in subsistence economies ~80% of labour is subsistence
+agriculture and work is home-based; separation of home and workplace is an INDUSTRIAL
+phenomenon. So the right move was never to invent a workforce per district - it was to
+render the small number of commuters the sim already had.
+
+--------------------------------------------------------------------------------
+

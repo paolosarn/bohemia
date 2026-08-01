@@ -12810,7 +12810,24 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   // only materialize inside the player's bubble. The census runs the SAME
   // vacancy + household hashes agentsForBlock runs, so the numbers and the
   // materialized people can never disagree (gated: census === agents.length).
-  var RESIDENTIAL={suburb:1,gated:1,estate:1};
+  // ---- WHERE PEOPLE ACTUALLY LIVE -----------------------------------------
+  // MEASURED 8/1 AND WRONG TWO WAYS AT ONCE. This list was {suburb,gated,estate}
+  // and it is the census's definition of housing, while agentsForPlot ignored it
+  // completely and made a HOUSEHOLD out of every building in the valley. On 58
+  // sampled cells the two disagreed 52 times. Concretely: ten people slept
+  // inside a strip mall, three inside a solar farm's inverter shed, six in
+  // self-storage units, each with a bedRoom index and a home they walk back to.
+  //   FIX 1, THE LIST: the district kit's OWN registrations say apartment,
+  //   suburb and trailer are category:'residential' (bohemia_apartment.js:99,
+  //   bohemia_suburb.js:308, bohemia_trailer.js:84). The hand-written list
+  //   disagreed with the registry and dropped apartments and trailer parks —
+  //   real housing that the census therefore counted as zero. gated and estate
+  //   are procedural suburb variants with no module of their own, so they stay
+  //   listed by hand.
+  //   FIX 2, THE GENERATOR: agentsForPlot now asks this list too, so a building
+  //   is only a DWELLING where people actually live. Everything else gets
+  //   workersForPlot instead — see below.
+  var RESIDENTIAL={suburb:1,gated:1,estate:1,apartment:1,trailer:1};
   function censusForBlock(blockSeed, feet, rate){
     var lived=0, people=0;
     for(var i=0;i<feet.length;i++){
@@ -12917,13 +12934,73 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     found.sort(function(a,b){return a.dist-b.dist;});
     return found;
   }
-  function agentsForPlot(worldApi,x,y){
+  // ---- THE OTHER END OF THE COMMUTE ---------------------------------------
+  // Every worker in the valley already walks out of their gate to a named
+  // district (job:{kind:'site',district,dir,dist}) — and then LEAVES THE WORLD.
+  // loc.mode goes 'away' and nothing anywhere renders them. Half a journey has
+  // been simulated since 7/19: they depart and never arrive, so the sites they
+  // work at stand empty all day while the sim insists people are there.
+  //   workersForPlot is jobsNear run BACKWARDS. jobsNear looks from a home along
+  //   the four compass rings out to radius 3; so the homes that can possibly
+  //   send anybody HERE are at exactly the mirrored twelve positions, and the
+  //   agents there are re-derived from the same seeds. NO NEW POPULATION IS
+  //   INVENTED — these are the same people, with the same ids and the same
+  //   identity keys, standing where the sim already said they were. Walk to the
+  //   solar farm at noon and you can meet the neighbour you asked the name of.
+  function workersForPlot(worldApi,X,Y,radius,opts){
+    radius=radius||3; opts=opts||{};
+    var here=worldApi.at(X,Y);
+    if(!here||!JOB_DISTRICTS[here.district]) return [];
+    var out=[];
+    for(var d=1;d<=radius;d++){
+      /* mirror of jobsNear's ring: a home NORTH of here saw this cell to its
+         SOUTH, so it recorded dir 'S'. */
+      var ring=[[0,-d,'S'],[0,d,'N'],[-d,0,'E'],[d,0,'W']];
+      for(var k=0;k<ring.length;k++){
+        var hx=X+ring[k][0], hy=Y+ring[k][1];
+        var hc=worldApi.at(hx,hy);
+        if(!hc||!RESIDENTIAL[hc.district]) continue;
+        var home=agentsForPlot(worldApi,hx,hy,opts);
+        for(var i=0;i<home.length;i++){
+          var a=home[i], j=a.job;
+          if(!j||j.kind!=='site') continue;
+          if(j.district!==here.district||j.dir!==ring[k][2]||j.dist!==d) continue;
+          /* a VISITOR: their home is on another grid, so this cell may never
+             treat them as a resident. The sim reads this flag and inverts them —
+             present while their shift says 'work', away the rest of the day. */
+          var v={}; for(var kk in a) v[kk]=a[kk];
+          v.visiting=true; v.fromCell=[hx,hy];
+          out.push(v);
+        }
+      }
+    }
+    return out;
+  }
+  /* EVERYBODY A CELL HOLDS: the residents who live there plus the workers who
+     are there for the day. This is what a surface should ask for. */
+  function peopleForPlot(worldApi,x,y,opts){
+    return agentsForPlot(worldApi,x,y,opts).concat(workersForPlot(worldApi,x,y,3,opts));
+  }
+  function agentsForPlot(worldApi,x,y,opts){
+    opts=opts||{};
     var plot=worldApi.plot(x,y);
     if(!plot||!plot.buildings||!plot.buildings.length) return [];
     var cell=worldApi.at(x,y);
+    /* NOBODY LIVES IN THE STRIP MALL. A building is only a home where homes are
+       (see RESIDENTIAL above). This is what makes censusForPlot and this
+       function agree; they disagreed on 52 of 58 sampled cells. */
+    if(!RESIDENTIAL[cell.district]) return [];
     var jobs=jobsNear(worldApi,x,y,3);
     var fpOf=function(i){ var b=plot.building(i); return b?b.floorplan():null; };
-    return agentsForBlock(cell.seed>>>0, plot.buildings, jobs, fpOf);
+    /* THE SAME RATE ON BOTH ENDS OF THE COMMUTE. A caller that generates a block
+       at one occupancy rate (the run uses a zone map, and a floor on the player's
+       own cell) has to hand the SAME rate in when it asks who commutes out of
+       that block — otherwise the worker standing at the solar farm is a different
+       person from the neighbour standing in their own yard, and this lane's whole
+       promise is that they are not. */
+    var rate = opts.rateFor ? opts.rateFor(x,y) : opts.occupiedRate;
+    return agentsForBlock(cell.seed>>>0, plot.buildings, jobs, fpOf,
+                          (rate!=null)?{occupiedRate:rate}:{});
   }
 
   // ---- BOUNDED DEVIATION (rung 4b, the Radiant lesson made law) ------------
@@ -13077,6 +13154,19 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
         var want=b.where, act=b.act;
         if(act!==a._act){ a._act=act; a._path=null; }   // activity change -> replan
         var door=doorCell[a.home.building]||gate;
+        /* A VISITOR IS A RESIDENT INVERTED. They live on another cell, so 'home'
+           means gone from this grid and 'work' means here. Their home.building
+           indexes another cell's buildings and must never be used against this
+           one's doors. */
+        if(a.visiting){
+          if(want==='work'){
+            if(a.loc.mode==='away'||a.loc.mode==='in'){
+              if(gate&&occFree(gate[0],gate[1],a.id)){ a.loc.mode='out'; place(a,gate[0],gate[1]); a._path=null; }
+              return; }
+            roam(a,act); return; }
+          if(a.loc.mode!=='away') leaveGrid(a,'away');   /* off shift: they went home */
+          return;
+        }
         if(want==='home'){
           if(a.loc.mode==='in') return;                  // already home
           if(a.loc.mode==='away'){                       // walking back: reappear at the gate
@@ -13135,7 +13225,8 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     offlineSummary:offlineSummary,RESIDENTIAL:RESIDENTIAL,
     ADVERTS:ADVERTS,homeActAt:homeActAt,homeSpotFor:homeSpotFor,
     deviate:deviate,DEVIATION_CAP:DEVIATION_CAP,
-    jobsNear:jobsNear,makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash};
+    jobsNear:jobsNear,workersForPlot:workersForPlot,peopleForPlot:peopleForPlot,
+    makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash};
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
@@ -16624,6 +16715,16 @@ function buildSim(warm){
        random spread (BOHEMIA_ADDENDUM_HOW_MANY_PEOPLE_7_29_26).
        The rate comes from the SHARED module, so this block holds exactly as
        many people as the CITY tab says it holds. One city, two renderers. */
+    /* PEOPLE:RATEFN */
+    /* the zone-map rate, as ONE function, because both this cell and every
+       neighbour a commuter comes from have to be generated at the same one. */
+    function _zoneRate(cx,cy){
+      try{ if(typeof BohemiaPopulation!=='undefined' && WORLD)
+        return BohemiaPopulation.occupiedRateFor(WORLD, POWERMAP, cx, cy,
+                 SEED, feet.length||6); }catch(_e){}
+      return null;
+    }
+    /* /PEOPLE:RATEFN */
     var _rate = null;
     try{ if(typeof BohemiaPopulation!=='undefined' && WORLD)
       _rate = BohemiaPopulation.occupiedRateFor(WORLD, POWERMAP, CELL[0], CELL[1],
@@ -16646,8 +16747,33 @@ function buildSim(warm){
     var _here = (typeof CELL!=='undefined' && HOME_CELL &&
                  CELL[0]===HOME_CELL[0] && CELL[1]===HOME_CELL[1]);
     if(_here){ var _floor = 6/Math.max(1,feet.length); if(_rate==null||_rate<_floor) _rate=_floor; }
+    /* PEOPLE:WORKERS */
+    /* THE OTHER END OF THE COMMUTE (PEOPLE lane 8/1). Everyone whose job is a
+       named district already walked out of their gate and LEFT THE WORLD; the
+       site they work at stood empty all day while the sim insisted they were
+       there. workersForPlot is jobsNear run backwards: the SAME people, from the
+       neighbouring blocks that actually send them, materialised where they were
+       always supposed to be. It invents nobody — walk to the solar farm at noon
+       and the neighbour whose name you asked is standing in it.
+       rateFor hands the run's own zone-map occupancy into the neighbours it
+       re-derives, or the person at work would be a different person from the one
+       at home. */
+    var _rateFor = function(cx,cy){
+      if(HOME_CELL && cx===HOME_CELL[0] && cy===HOME_CELL[1]){
+        var f=6/Math.max(1,feet.length); var r=_zoneRate(cx,cy);
+        return (r==null||r<f)?f:r; }
+      return _zoneRate(cx,cy);
+    };
     var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf,
       (_rate!=null) ? {occupiedRate:_rate} : {});
+    /* a cell nobody LIVES on gets no households at all - the census has always
+       said so and the generator used to disagree with it on 52 of 58 cells */
+    if(WORLD && !BohemiaAgents.RESIDENTIAL[(WORLD.at(CELL[0],CELL[1])||{}).district]) _agents=[];
+    if(WORLD){ try{
+      _agents = _agents.concat(
+        BohemiaAgents.workersForPlot(WORLD, CELL[0], CELL[1], 3, {rateFor:_rateFor}));
+    }catch(_e){} }
+    /* /PEOPLE:WORKERS */
 /* ==== RUN PERSON FACTS (7/31) ==== */
     /* WHO THEY ARE, not just how many. The zone map above answers HOW MANY
        people live on this block; this answers what each of them is like, and
@@ -18095,12 +18221,23 @@ var PERSON_OPEN = null;
    whole valley) — keying people off that would hand house 3's second resident
    the same identity in every cell there is. */
 var PEOPLE_SEED = 0;
+/* THE BLOCK SEED FOR ANY CELL, by the same mix buildSim uses. */
+function blockSeedFor(cx,cy){ return (SEED ^ (cx*73856093) ^ (cy*19349663)) >>> 0; }
+/* WHOSE BLOCK NAMES THEM: a person is identified by where they LIVE, never by
+   where they happen to be standing. A worker at the clinic is the same person as
+   the neighbour in their own yard, so their key comes from their HOME cell - or
+   you would ask somebody their name at work and be a stranger to them at home. */
+function seedOfPerson(agent){
+  return (agent && agent.visiting && agent.fromCell)
+    ? blockSeedFor(agent.fromCell[0], agent.fromCell[1]) : PEOPLE_SEED;
+}
 function personFor(agent){
   var roster = (SIM && SIM.agents) ? SIM.agents : [agent];
   var sizes = {};
   roster.forEach(function(r){ var h=BohemiaPeople.seatOf(r).house; sizes[h]=(sizes[h]||0)+1; });
-  var key = BohemiaPeople.keyOf(PEOPLE_SEED, agent);
-  return BohemiaPeople.personOf(PEOPLE_SEED, agent,
+  var seed = seedOfPerson(agent);
+  var key = BohemiaPeople.keyOf(seed, agent);
+  return BohemiaPeople.personOf(seed, agent,
     { householdSize: sizes[BohemiaPeople.seatOf(agent).house],
       asked: PEOPLE_MET.asked(key) });
 }
@@ -18587,6 +18724,15 @@ window.__RUN = {
     return { turn:SIM.turn, day:worldDay(), n:out.length,
              namesKnown:PEOPLE_MET.namesKnown(), met:PEOPLE_MET.serialize(), looks:(CAST&&CAST.portraits)?CAST.portraits.looks.length:0,
              open:PERSON_OPEN?PERSON_OPEN.key:null, people:out };
+  },
+  /* THE VALLEY IS BIGGER THAN ONE BLOCK, and a gate that can only ever see the
+     cell the game opens on cannot check the other 2,303. This calls the run's
+     OWN loadCell - the same function the edge-crossing uses when you walk off
+     the block - so what the gate sees is what a player who walked there sees.
+     Reports after acting; it is a test hook and people_gate is its only caller. */
+  gotoCell: function(cx,cy){
+    try{ loadCell(cx,cy); buildSim(450); refresh(); draw();
+      return { at:CELL.slice(), name:CELLNAME }; }catch(_e){ return null; }
   },
   /* /PEOPLE:DBG */
   moments: function(){ return MOMENTS.map(function(m){ return {name:m.name,spends:m.spends}; }); },

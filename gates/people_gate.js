@@ -538,11 +538,83 @@ async function partC() {
   }
 }
 
+/* ==========================================================================
+   PART D — THE OTHER END OF THE COMMUTE. Every worker in the valley walked out
+   of their gate to a named district and then LEFT THE WORLD: loc.mode 'away',
+   rendered by nobody, while the site they worked at stood empty all day. And
+   in the other direction the generator made a HOUSEHOLD out of every building
+   in the valley, so ten people slept in a strip mall and three in a solar
+   farm's inverter shed — 52 of 58 sampled cells had the census saying nobody
+   lived there while agents materialised anyway.
+   Driven on the REAL run through the run's own loadCell, because a model that
+   is right in node and wrong on the surface is wrong.
+   ========================================================================== */
+async function partD() {
+  console.log('D. A WORKER IS THE SAME PERSON AT WORK AS AT HOME');
+  const W = require(path.join(ROOT, 'engine/bohemia_world.js'));
+  global.window = global;
+  const world = (global.BohemiaWorld || W).world(7);
+
+  /* D1-D3: the lie is gone, valley-wide, and the two sources of truth agree. */
+  let mismatch = 0, checked = 0, sleepersInShops = 0;
+  for (let y = 0; y < 48; y += 3) for (let x = 0; x < 48; x += 3) {
+    const c = world.at(x, y); if (!c || !c.district) continue;
+    const res = A.agentsForPlot(world, x, y);
+    const cen = A.censusForPlot(world, x, y).people;
+    checked++; if (cen !== res.length) mismatch++;
+    if (!A.RESIDENTIAL[c.district] && res.length) sleepersInShops += res.length;
+  }
+  ok('D1 census and agents agree on every sampled cell (' + checked + ' cells)', mismatch === 0);
+  ok('D2 NOBODY SLEEPS IN THE STRIP MALL any more', sleepersInShops === 0);
+  ok('D3 the housing list matches the kit\'s own registrations (apartment + trailer are homes)',
+    !!A.RESIDENTIAL.apartment && !!A.RESIDENTIAL.trailer && !!A.RESIDENTIAL.suburb);
+
+  /* D4-D5: workers arrive, and they are not new people. */
+  const wk = A.workersForPlot(world, 20, 3);
+  const home = A.agentsForPlot(world, 20, 5);
+  ok('D4 a job site is staffed by the blocks that send it people (' + wk.length + ')', wk.length > 0);
+  ok('D5 every worker there is one of the residents next door, same id and seed',
+    wk.length > 0 && wk.every(w => home.some(h => h.id === w.id && h.seed === w.seed)));
+  ok('D6 a visitor is flagged so the sim never treats them as a resident',
+    wk.every(w => w.visiting === true && Array.isArray(w.fromCell)));
+
+  /* D7: THE REAL SURFACE. Walk the run to the clinic west of home and check the
+     people standing in it are the player's own neighbours. */
+  const { chromium } = requirePlaywright();
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  const errs = [];
+  page.on('pageerror', e => errs.push('PAGEERROR: ' + e.message));
+  try {
+    await page.goto('file://' + RUN_FILE);
+    await page.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 60000 });
+    const homeCell = await page.evaluate(() => window.__RUN.cell());
+    const clinic = await page.evaluate(() => window.__RUN.gotoCell(38, 23));
+    ok('D7 the run can stand on a workplace cell', !!clinic && clinic.name === 'medical');
+    const atWork = await page.evaluate(() => window.__RUN.people());
+    ok('D8 THE CLINIC HAS PEOPLE IN IT (' + (atWork ? atWork.n : 0) + ')', !!atWork && atWork.n > 0);
+    ok('D9 and some of them are out in it right now (' +
+      (atWork ? atWork.people.filter(p => p.outside).length : 0) + ')',
+      !!atWork && atWork.people.some(p => p.outside));
+    const workKeys = atWork.people.map(p => p.key);
+    await page.evaluate(c => window.__RUN.gotoCell(c[0], c[1]), homeCell.at);
+    const atHome = await page.evaluate(() => window.__RUN.people());
+    const shared = atHome.people.filter(p => workKeys.includes(p.key)).length;
+    /* THE WHOLE POINT: identity keyed to where you LIVE, not where you stand. If
+       a worker were re-keyed by the cell they are standing on, this is 0 and you
+       would ask somebody their name at work and be a stranger to them at home. */
+    ok('D10 YOUR OWN NEIGHBOURS ARE AT THE CLINIC (' + shared + ' of ' + atWork.n +
+      ' share an identity with this block)', shared > 0);
+    ok('D11 nothing threw while crossing the valley', errs.length === 0);
+  } finally { await browser.close(); }
+}
+
 (async () => {
   console.log('PEOPLE GATE — the bodies on the block are people');
   partA();
   partB();
   await partC();
+  await partD();
   console.log((fail ? 'FAILED' : 'OK') + ': ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.log('  FAIL: gate threw — ' + (e && e.stack || e)); process.exit(1); });

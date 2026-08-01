@@ -174,12 +174,23 @@ var PERSON_OPEN = null;
    whole valley) — keying people off that would hand house 3's second resident
    the same identity in every cell there is. */
 var PEOPLE_SEED = 0;
+/* THE BLOCK SEED FOR ANY CELL, by the same mix buildSim uses. */
+function blockSeedFor(cx,cy){ return (SEED ^ (cx*73856093) ^ (cy*19349663)) >>> 0; }
+/* WHOSE BLOCK NAMES THEM: a person is identified by where they LIVE, never by
+   where they happen to be standing. A worker at the clinic is the same person as
+   the neighbour in their own yard, so their key comes from their HOME cell - or
+   you would ask somebody their name at work and be a stranger to them at home. */
+function seedOfPerson(agent){
+  return (agent && agent.visiting && agent.fromCell)
+    ? blockSeedFor(agent.fromCell[0], agent.fromCell[1]) : PEOPLE_SEED;
+}
 function personFor(agent){
   var roster = (SIM && SIM.agents) ? SIM.agents : [agent];
   var sizes = {};
   roster.forEach(function(r){ var h=BohemiaPeople.seatOf(r).house; sizes[h]=(sizes[h]||0)+1; });
-  var key = BohemiaPeople.keyOf(PEOPLE_SEED, agent);
-  return BohemiaPeople.personOf(PEOPLE_SEED, agent,
+  var seed = seedOfPerson(agent);
+  var key = BohemiaPeople.keyOf(seed, agent);
+  return BohemiaPeople.personOf(seed, agent,
     { householdSize: sizes[BohemiaPeople.seatOf(agent).house],
       asked: PEOPLE_MET.asked(key) });
 }
@@ -362,7 +373,62 @@ B_DBG = A_DBG + """  /* PEOPLE:DBG */
              namesKnown:PEOPLE_MET.namesKnown(), met:PEOPLE_MET.serialize(), looks:(CAST&&CAST.portraits)?CAST.portraits.looks.length:0,
              open:PERSON_OPEN?PERSON_OPEN.key:null, people:out };
   },
+  /* THE VALLEY IS BIGGER THAN ONE BLOCK, and a gate that can only ever see the
+     cell the game opens on cannot check the other 2,303. This calls the run's
+     OWN loadCell - the same function the edge-crossing uses when you walk off
+     the block - so what the gate sees is what a player who walked there sees.
+     Reports after acting; it is a test hook and people_gate is its only caller. */
+  gotoCell: function(cx,cy){
+    try{ loadCell(cx,cy); buildSim(450); refresh(); draw();
+      return { at:CELL.slice(), name:CELLNAME }; }catch(_e){ return null; }
+  },
   /* /PEOPLE:DBG */
+"""
+
+A_SIM = """    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf,
+      (_rate!=null) ? {occupiedRate:_rate} : {});
+"""
+B_SIM = """    /* PEOPLE:WORKERS */
+    /* THE OTHER END OF THE COMMUTE (PEOPLE lane 8/1). Everyone whose job is a
+       named district already walked out of their gate and LEFT THE WORLD; the
+       site they work at stood empty all day while the sim insisted they were
+       there. workersForPlot is jobsNear run backwards: the SAME people, from the
+       neighbouring blocks that actually send them, materialised where they were
+       always supposed to be. It invents nobody — walk to the solar farm at noon
+       and the neighbour whose name you asked is standing in it.
+       rateFor hands the run's own zone-map occupancy into the neighbours it
+       re-derives, or the person at work would be a different person from the one
+       at home. */
+    var _rateFor = function(cx,cy){
+      if(HOME_CELL && cx===HOME_CELL[0] && cy===HOME_CELL[1]){
+        var f=6/Math.max(1,feet.length); var r=_zoneRate(cx,cy);
+        return (r==null||r<f)?f:r; }
+      return _zoneRate(cx,cy);
+    };
+    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf,
+      (_rate!=null) ? {occupiedRate:_rate} : {});
+    /* a cell nobody LIVES on gets no households at all - the census has always
+       said so and the generator used to disagree with it on 52 of 58 cells */
+    if(WORLD && !BohemiaAgents.RESIDENTIAL[(WORLD.at(CELL[0],CELL[1])||{}).district]) _agents=[];
+    if(WORLD){ try{
+      _agents = _agents.concat(
+        BohemiaAgents.workersForPlot(WORLD, CELL[0], CELL[1], 3, {rateFor:_rateFor}));
+    }catch(_e){} }
+    /* /PEOPLE:WORKERS */
+"""
+A_RATE = """    var _rate = null;
+"""
+B_RATE = """    /* PEOPLE:RATEFN */
+    /* the zone-map rate, as ONE function, because both this cell and every
+       neighbour a commuter comes from have to be generated at the same one. */
+    function _zoneRate(cx,cy){
+      try{ if(typeof BohemiaPopulation!=='undefined' && WORLD)
+        return BohemiaPopulation.occupiedRateFor(WORLD, POWERMAP, cx, cy,
+                 SEED, feet.length||6); }catch(_e){}
+      return null;
+    }
+    /* /PEOPLE:RATEFN */
+    var _rate = null;
 """
 
 BLOCKS = [
@@ -375,6 +441,8 @@ BLOCKS = [
     ('LOAD',    A_LOAD,    B_LOAD,              '',        'save loader'),
     ('SEED',    A_SEED,    B_SEED,              '',        'block seed'),
     ('LOOK',    A_LOOK,    B_LOOK,              A_LOOK,    'body look'),
+    ('RATEFN',  A_RATE,    B_RATE,              '',        'zone rate fn'),
+    ('WORKERS', A_SIM,     B_SIM,               A_SIM,     'workers at their sites'),
     ('DBG',     A_DBG,     B_DBG,               '',        'debug surface'),
 ]
 
