@@ -45,24 +45,25 @@
   "TOLERANCE": {
     "colours_min": 600,
     "edge": [
-      14.0,
-      30.0
+      14.2733,
+      31.0407
     ],
     "grain": [
-      50.0,
-      80.0
+      54.8203,
+      77.5264
     ],
     "sat": [
-      0.15,
-      0.34
+      0.0358,
+      0.5228
     ],
     "lum_mean": [
-      80.0,
-      130.0
+      45.8207,
+      121.4371
     ],
     "lum_sd": [
-      20.0,
-      42.0
-    ]
+      5.365,
+      60.5444
+    ],
+    "derived_from": "54 of his shipping tiles. colour = his full observed range; detail density = 25th percentile floor, so a derived band can never readmit the smooth art it exists to keep out"
   }
 }

@@ -59,9 +59,32 @@ const WAIVED = {
      run, the open yard) and every tile that carries SHAPE keeps the target set
      (base course, eave shadow, corners, window, boarded, all four hips, the
      garage). Measured on the block: the CBB tileset went 83% -> 17%.
-     Still open and filed, NOT waived here because it is a look call and not an
-     unused bank: the four roof HIP tiles are still the target set's orange
-     against his shingle roof (backlog 0S). */
+     THE ORANGE HIP IS FIXED, 8/1 (backlog 0S closed). The four roof hips and
+     wall_base were still the target set's bright orange corrugated against his
+     shingle roof; they are skinned now. It was caught by walking out the front
+     door and LOOKING, not by any number - every gate was green either way, and
+     against the new dark textures that orange read as a garish stripe down the
+     side of every house, visibly worse than before the wiring. */
+
+  /* AND THE SKINS THEMSELVES ARE NOW SUPERSEDED, 8/1. He approved the
+     texture-match set twice that day ("the graphics tiles that you made are
+     fucking fantastic", then "I approve of them all"), and the wall + roof field
+     draws THOSE. This is not a bank quietly falling out of use, which is exactly
+     what this gate exists to catch: it is newest-date-wins between two sets he
+     approved, on a MEASURED difference rather than a preference.
+       7/21 house skins        81 colours/tile, edge  9.4, grain 26.2%
+       his own BOUGHT ground 1443 colours/tile, edge 20.9, grain 64.7%
+       8/1 texture match     1604 colours/tile, edge 15.3, grain 68.1%
+     The 7/21 skins are the art that made the houses read as flat mush directly
+     above his rich bought asphalt. They stay loaded because the builder lifts the
+     walk surface's art block verbatim, and they remain the FALLBACK if the
+     texture pool is ever empty. */
+  'house skins (7/21 UP — roof + wall + yard)':
+    'backlog 0T - SUPERSEDED 8/1, not missing. Paolo approved the texture-match ' +
+    'set twice on 8/1 and the wall/roof field draws it; the yard draws his ' +
+    'BOUGHT dirt (7/31). Kept loaded as the fallback and because the builder ' +
+    'lifts the walk art block verbatim. Delete this waiver if the texture set is ' +
+    'ever reverted, and delete the BANK if the fallback is ever removed.',
   'walk-file door art (superseded)':
     'backlog 0Q — SUPERSEDED, not missing. The approved animated door bank ' +
     '(7/13, 2 tiles tall) replaced this on 7/26 and IS drawing. These 9 ride ' +

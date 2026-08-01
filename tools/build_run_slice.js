@@ -129,6 +129,40 @@ html = html.replace('__BOUGHT_YARD_JSON__', JSON.stringify(boughtYard));
 console.log('  BOUGHT GROUND: ' + boughtWalk.length + ' concrete + ' + boughtRoad.length
             + ' street + ' + boughtYard.length + ' dirt/yard, his own, verbatim');
 
+/* ---- THE APPROVED TEXTURE-MATCH WALLS AND ROOFS (Paolo 8/1, TWICE) ----------
+   "Holy shit so fucking good ... the graphics tiles that you made are fucking
+   fantastic thank you" (36 tiles), then "I approve of them all! Dont be scared to
+   have a little more variety in color!" (all 90+).
+
+   These REPLACE the 7/21 painted house skins on the wall and roof FIELD. Both sets
+   are his, so this is newest-date-wins on a measured difference, not a preference:
+   the 7/21 skins average 81 COLOURS PER TILE at edge 9.4, his purchased ground art
+   measures 1443 at edge 20.9, and the texture-match set is built to the second. The
+   7/21 skins are what made the houses read as flat mush directly above his rich
+   bought asphalt.
+   The yard is untouched: it already wears his BOUGHT dirt. ---- */
+var TEX = 'banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt';
+var texBank = JSON.parse(fs.readFileSync(TEX, 'utf8'));
+function texPool(kinds, exclude) {
+  return texBank.tiles.filter(function (t) {
+    return kinds.indexOf(t.kind) >= 0 && String(t.verdict || '').indexOf('APPROVED') === 0
+           && (!exclude || !exclude.test(t.material));
+  }).map(function (t) { return t.b64; });
+}
+/* WALLS: the house body materials only. asphalt, ballast, turf and furrow are
+   GROUND in this bank and would put a road surface on a bungalow. */
+var texWall = texPool(['stucco', 'block', 'brick', 'ashlar', 'tiltup'], null);
+/* ROOFS: the things a roof is actually made of. */
+var texRoof = texPool(['barrel', 'shingle', 'gravel'], null);
+if (texWall.length < 12) throw new Error('TEXTURE MATCH: wall pool too thin (' + texWall.length + ')');
+if (texRoof.length < 9) throw new Error('TEXTURE MATCH: roof pool too thin (' + texRoof.length + ')');
+if (html.indexOf('__TEX_WALL_JSON__') < 0) throw new Error('missing __TEX_WALL_JSON__ placeholder');
+if (html.indexOf('__TEX_ROOF_JSON__') < 0) throw new Error('missing __TEX_ROOF_JSON__ placeholder');
+html = html.replace('__TEX_WALL_JSON__', JSON.stringify(texWall));
+html = html.replace('__TEX_ROOF_JSON__', JSON.stringify(texRoof));
+console.log('  TEXTURE MATCH: ' + texWall.length + ' wall + ' + texRoof.length
+            + ' roof tiles, approved 8/1, onto the house field');
+
 if (html.indexOf('__ART_BANKS__') < 0) throw new Error('missing __ART_BANKS__ placeholder');
 html = html.replace('__ART_BANKS__', banks);
 

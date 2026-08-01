@@ -1,3 +1,65 @@
+ART (f3eu53): 8/1 (c) LATEST — ALL 90 APPROVED, HIS COLOUR RULING APPLIED, AND THE
+TEXTURES ARE NOW ON THE HOUSES. 114 tiles / 38 materials.
+
+Paolo 8/1: "I approve of them all! Dont be scared to have a little more variety in
+color! Great job"
+
+=== HIS COLOUR RULING CORRECTED A REAL MISTAKE OF MINE ===
+The style target measured his tiles at MEAN saturation 0.189, and this cook read that
+MEAN AS A CEILING: capped every base at 0.30 and pulled everything to one desert
+neutral. Measured per tile, his shipping ground art actually runs 0.058 to 0.501 --
+a 9x spread -- and the cook was huddling at the bottom of a band that was itself far
+tighter than his library. THE TOLERANCE IS NOW DERIVED FROM HIS OBSERVED SPREAD, not
+from numbers I picked that felt about right.
+
+*** AND THE SPLIT THAT MATTERS, because a derived band nearly undid the whole thing:
+COLOUR is a spread to REPRODUCE -> saturation takes his FULL observed range.
+DETAIL DENSITY is a floor to HOLD -> deriving from his absolute minimum put the edge
+floor at 7.05, which is exactly where the REJECTED house skins (9.4) and CMU wall (7.1)
+measured. A derived band that readmits the art it was built to keep out is worse than
+no band. Edge and grain now take a 25th-PERCENTILE floor: still his real art, never his
+softest outlier used as a licence. Edge floor 14.27. ***
+
+New colourways per his ruling: sage, desert rose, blue-grey, butter yellow stucco;
+slate barrel tile; weathered green shingle; ribbed garage door; chalked white trim.
+Plus PER-VARIANT hue/chroma jitter, so a material's three variants are three colourways
+instead of three noise seeds of one colour. A street of identical stucco is not a street.
+
+=== WIRED. THE HOUSES WEAR THEM NOW (RUN TAB, walk out the front door) ===
+tools/build_run_slice.js + slices/BOHEMIA_RUN_SLICE_7_26_26.html: the wall and roof
+FIELD draws from the 8/1 approved texture set instead of the 7/21 painted skins. Both
+sets are his, so this is newest-date-wins on a MEASURED difference: the 7/21 skins
+average 81 colours per tile at edge 9.4; his own bought ground art measures 1443 at
+edge 20.9. The 7/21 skins are exactly what made the houses read as flat mush directly
+above his rich bought asphalt.
+
+*** THE THING THE NUMBERS COULD NOT SEE, caught by walking out the door and LOOKING:
+the first wiring left roof HIPS and wall_base on the target set. That was fine while
+the field wore the tonally-close 7/21 skins; against a dark weathered shingle the
+target set's BRIGHT ORANGE CORRUGATED hip read as a garish stripe down every house --
+VISIBLY WORSE THAN BEFORE THE WIRING, with every gate green either way. Hips and
+wall_base are skinned now. records/target/STREET_TEXTURED.png is the after. ***
+
+=== A TEST THAT COLLIDED WITH HIS RULING, AND HOW IT WAS RESOLVED ===
+The PINK negative test (from the salmon bug) fired on the desert-rose stucco added
+BECAUSE he asked for colour variety. Banning a hue outright was wrong and so was
+deleting the test. Materials now DECLARE an intentional colourway (rosy=True) and the
+gate exempts only declared ones; an undeclared pink still fails. Sabotage-tested: a
+pinked undeclared tile trips it.
+
+=== STATE ===
+banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt  114 tiles / 38 materials, ALL APPROVED, CANON
+gates/texture_match_gate.py             22 checks
+records/BOHEMIA_VERDICT_TEXTURE_MATCH_8_1_26.txt  both verdicts, verbatim
+run_gate 126/126, bought_beats_painted 16/16, wallclass 19/19, houseart 24/24
+
+=== STILL DEBT ===
+- The house UPPER floor / interior band is still flat target-set tan in the shot. Next.
+- Perimeter wall, gate mouth and garage mouth still target-set.
+- His tiles carry BIG FEATURES (a manhole, a weed clump, a long crack); mine are
+  consistent texture. That is the gap between "same material family" and "same pack".
+- Doubling the art cell 44 -> 88 px ("thats down the line").
+
 ART (f3eu53): 8/1 (b) LATEST — HE APPROVED ALL 36 ("fucking fantastic"), SO THE VOLUME
 IS SPENT: 90 TILES ACROSS 30 MATERIALS, AND THE 18 BLOCKED ART FORMS ARE UNBLOCKED.
 

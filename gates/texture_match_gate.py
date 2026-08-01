@@ -140,7 +140,11 @@ def main():
         # salmon failure. Real desert brown keeps red close to green.
         pinkish = sum(1 for r, g, bb in trip
                       if r > g + 34 and r > 140 and bb > 90) / len(trip)
-        if pinkish > 0.18:
+        # A DECLARED colourway is allowed to be rosy; an undeclared one is the salmon
+        # bug. Paolo 8/1 asked for "a little more variety in color" and desert rose is a
+        # real southwestern house colour, so the test has to tell an intended colour from
+        # an accident rather than banning a hue outright.
+        if pinkish > 0.18 and not t.get('rosy'):
             pink.append((t['id'], round(100 * pinkish, 1)))
 
         # MUSH NEGATIVE TEST: structure has to survive the grain. A material with a
@@ -165,7 +169,7 @@ def main():
            '%s(edge %.1f grain %.0f sat %.2f lum %.0f/%.0f)'
            % (i, m['edge'], m['grain'], m['sat'], m['lum_mean'], m['lum_sd'])
            for i, m in bad[:4])))
-    ok('nothing came out PINK (the salmon failure, 8/1)', not pink,
+    ok('no UNDECLARED tile came out PINK (the salmon failure, 8/1)', not pink,
        'desaturation must hold luminance so clay goes brown: '
        + ', '.join('%s %s%%' % p for p in pink[:5]))
     ok('structure survived the grain - no material is a field of mush', not flat,

@@ -75,6 +75,53 @@ def measure(im):
     )
 
 
+def tolerance(rows):
+    """THE BAND IS HIS ACTUAL SPREAD, not numbers I picked that felt about right.
+
+    Paolo 8/1, approving all 90: "Dont be scared to have a little more variety in color!"
+    He was correcting a real error. The first tolerance was hand-written as sat 0.15-0.34
+    on the strength of his MEAN being 0.189 -- reading an average as a ceiling. Measured
+    per tile, his shipping ground art actually runs 0.058 to 0.501, a 9x spread, and the
+    cook was huddling at the bottom of a band that was itself far tighter than his
+    library. So the band is now DERIVED: the observed range of his own tiles, with a
+    small margin, on every metric. If his library is varied, the art built against it is
+    allowed to be varied.
+
+    colours_min stays a hard floor rather than a percentile: it is the anti-regression
+    that stops a 13-colour flat ramp ever going beside his art again, which is the whole
+    reason any of this exists.
+    """
+    def band(key, pad, lo_pct=0.0):
+        v = sorted(r[key] for r in rows)
+        lo = v[int(lo_pct * (len(v) - 1))]
+        hi = v[-1]
+        span = max(hi - lo, 1e-6)
+        return [round(lo - span * pad, 4), round(hi + span * pad, 4)]
+
+    # TWO KINDS OF METRIC, AND THEY DO NOT GET THE SAME TREATMENT.
+    #
+    # COLOUR is a spread to REPRODUCE. He said so: "Dont be scared to have a little more
+    # variety in color". Saturation takes his FULL observed range, floor to ceiling.
+    #
+    # DETAIL DENSITY is a FLOOR to HOLD. Smooth art is the failure this whole system
+    # exists to prevent, and taking the absolute minimum of his library put the edge
+    # floor at 7.05 -- which is exactly where the rejected house skins (9.4) and CMU
+    # wall (7.1) measured. Deriving a band that readmits the art it was built to keep
+    # out is worse than not deriving it. So edge and grain take a 25th-PERCENTILE floor:
+    # still his real art, but not his softest outlier used as a licence.
+    return {
+        'colours_min': 600,
+        'edge': band('edge', 0.10, 0.25),
+        'grain': band('grain', 0.10, 0.25),
+        'sat': band('sat', 0.05),
+        'lum_mean': band('lum_mean', 0.10),
+        'lum_sd': band('lum_sd', 0.15),
+        'derived_from': '%d of his shipping tiles. colour = his full observed range; '
+                        'detail density = 25th percentile floor, so a derived band can '
+                        'never readmit the smooth art it exists to keep out' % len(rows),
+    }
+
+
 def summarise(rows):
     keys = ['colours', 'edge', 'grain', 'sat', 'lum_mean', 'lum_sd', 'lum_min', 'lum_max']
     return {k: round(st.mean([r[k] for r in rows]), 4) for k in keys}
@@ -87,12 +134,15 @@ def main():
         'street': lambda p: 'cracked street' in p,
     }
     out = {}
+    per_tile = []
     for name, match in groups.items():
         rows = []
         for t in bank['tiles']:
             if not t.get('b64') or not match(str(t.get('pack', '')).lower()):
                 continue
-            rows.append(measure(Image.open(io.BytesIO(base64.b64decode(t['b64'])))))
+            m = measure(Image.open(io.BytesIO(base64.b64decode(t['b64']))))
+            rows.append(m)
+            per_tile.append(m)
         if rows:
             out[name] = summarise(rows)
             out[name]['n'] = len(rows)
@@ -120,14 +170,7 @@ def main():
         },
         'per_pack': out,
         'TARGET': tgt,
-        'TOLERANCE': {
-            'colours_min': 600,      # a 13-colour ramp can never sit beside his art
-            'edge': [14.0, 30.0],
-            'grain': [50.0, 80.0],
-            'sat': [0.15, 0.34],
-            'lum_mean': [80.0, 130.0],
-            'lum_sd': [20.0, 42.0],
-        },
+        'TOLERANCE': tolerance(per_tile),
     }
     json.dump(doc, open(OUT, 'w'), indent=2)
 

@@ -51,6 +51,15 @@ RUN | the CBB target tileset (42) | DRAWS
 RUN | suburb border walls (13, approved 7/28) | DRAWS
 RUN | animated door bank (7/13, 2 tiles tall) | DRAWS
 RUN | interior pool (Great Sweep UP) | DRAWS
-RUN | house skins (7/21 UP - roof + wall + yard) | DRAWS
+RUN | house skins (7/21 UP - roof + wall + yard) | DEBT
 RUN | walk-file door art (superseded) | DEBT
 ```
+
+NOTE 8/1: the 7/21 house skins moved DRAWS -> DEBT because Paolo approved the
+TEXTURE-MATCH set twice that day and the wall/roof field draws that instead
+(banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt, 114 tiles). Newest-date-wins between two
+sets he approved, on a measured difference: the 7/21 skins are 81 colours per tile
+at edge 9.4; his own bought ground art is 1443 at 20.9. They stay loaded as the
+fallback. The YARD in that bank is superseded too - the yard wears his BOUGHT dirt
+since 7/31. Waiver and reasoning: gates/banks_used_gate.js, backlog 0T.
+

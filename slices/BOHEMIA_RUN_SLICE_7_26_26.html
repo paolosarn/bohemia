@@ -410,6 +410,11 @@ function _mkimgs(arr){ return (arr||[]).map(function(b){ var im=new Image();
 var BOUGHT_WALK_IMG = _mkimgs(BOUGHT_WALK_B64);
 var BOUGHT_ROAD_IMG = _mkimgs(BOUGHT_ROAD_B64);
 var BOUGHT_YARD_IMG = _mkimgs(BOUGHT_YARD_B64);
+/* the 8/1-approved texture-match walls and roofs, injected by the builder */
+var TEX_WALL_B64 = __TEX_WALL_JSON__;
+var TEX_ROOF_B64 = __TEX_ROOF_JSON__;
+var TEX_WALL_IMG = _mkimgs(TEX_WALL_B64);
+var TEX_ROOF_IMG = _mkimgs(TEX_ROOF_B64);
 /* deterministic per cell: same tile in the same place every time, no shimmer */
 function boughtImg(bank,gx,gy){
   if(!bank||!bank.length) return null;
@@ -1131,8 +1136,18 @@ function pathSet(){
    half-way through nothing. THE HIPS ARE UNTOUCHED - roof_hipTL/TR/BL/BR are the
    cut corners where a roof turns, they carry the SHAPE, and his bank has no
    corner variants. Massing kept, materials returned. */
-var SKIN_FIELD = { wall_0:'W', wall_1:'W', wall_2:'W',
+/* THE HIPS ARE SKINNED NOW TOO (8/1). They were deliberately left on the target set
+   because they carry the roof's SHAPE. That held while the field wore the 7/21 painted
+   skins, which were close in tone. With the 8/1 texture-match roofs it stopped holding:
+   the target set's hip is BRIGHT ORANGE CORRUGATED, and against a dark weathered
+   shingle it read as a garish stripe down the side of every house - visibly worse than
+   before the wiring. Verified by walking out the front door and looking, not by the
+   numbers, which were all green either way.
+   wall_base is skinned for the same reason: it is the bottom course of the house body,
+   and leaving one target-set band under a textured wall is the same defect. */
+var SKIN_FIELD = { wall_0:'W', wall_1:'W', wall_2:'W', wall_base:'W',
                    roof_slope:'R', roof_eave:'R', roof_ridge:'R',
+                   roof_hipTL:'R', roof_hipTR:'R', roof_hipBL:'R', roof_hipBR:'R',
                    yard_0:'Y', yard_1:'Y', yard_2:'Y' };
 var _footAt = null;
 function footIndexAt(gx,gy){
@@ -1143,7 +1158,16 @@ function footIndexAt(gx,gy){
   return (v===undefined)?-1:v;
 }
 function skinImg(kind,gx,gy){
-  var bank = kind==='R'?ROOF_IMG : kind==='W'?WALL_IMG : YARD_IMG;
+  /* PAOLO 8/1, APPROVED TWICE: the texture-match set dresses the wall and roof
+     FIELD now. Both sets are his (the 7/21 skins were thumbed UP too), so this is
+     newest-date-wins on a MEASURED difference: the 7/21 skins average 81 colours
+     per tile at edge 9.4, his own bought ground art measures 1443 at edge 20.9,
+     and these are built to the second. The 7/21 skins are exactly what made the
+     houses read as flat mush directly above his rich bought asphalt.
+     Yard is untouched: it already wears his BOUGHT dirt. */
+  var bank = kind==='R'?(TEX_ROOF_IMG.length?TEX_ROOF_IMG:ROOF_IMG)
+           : kind==='W'?(TEX_WALL_IMG.length?TEX_WALL_IMG:WALL_IMG)
+           : YARD_IMG;
   if(!bank||!bank.length) return null;
   var seed;
   if(kind==='Y'){                                  /* one yard per BLOCK */

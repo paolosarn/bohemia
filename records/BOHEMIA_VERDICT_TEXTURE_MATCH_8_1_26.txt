@@ -67,3 +67,36 @@ KNOWN WEAKNESS, STATED AT THE MOMENT OF APPROVAL
 His tiles carry BIG FEATURES that break the field: a manhole, a weed clump, a long
 crack. The approved batch is consistent texture at the right density. That is the
 distance between "same material family" and "same pack", and it is the next cook.
+
+
+================================================================================
+BATCH 2 VERDICT — 8/1/26, SAME DAY
+================================================================================
+
+PAOLO, VERBATIM: "I approve of them all! Dont be scared to have a little more
+variety in color! Great job"
+
+VERDICT: APPROVED. ALL 90 TILES, 30 MATERIALS. Bank status -> CANON.
+
+AND A NEW STANDING RULING, RECORDED AS A RULING AND NOT A SUGGESTION:
+  *** MORE VARIETY IN COLOUR. Paolo 8/1, LOCKED. ***
+
+WHAT THAT CORRECTS, HONESTLY
+-----------------------------
+The style target measured his purchased tiles at mean saturation 0.189 with a
+range up to ~0.37, and the cook responded by capping every base at 0.30 and
+pulling everything to a desert neutral. That was reading a MEAN as a CEILING.
+His own library is not one colour: his concrete pack alone runs 0.19 to 0.37,
+which is nearly a 2x spread, and the cook was collapsing that spread instead of
+reproducing it.
+
+The correction is NOT to abandon the measured band -- that band is why the art
+finally landed. It is to USE THE WHOLE OF IT rather than huddling at the bottom:
+  - saturation cap 0.30 -> 0.34 (his measured maximum)
+  - per-variant HUE JITTER, so the three variants of a material are three
+    colourways rather than three noise seeds of one colour
+  - real suburban colourways for the house materials, because a street of
+    identical stucco is not a street
+
+STRUCTURE-NOT-COLOUR still holds (7/19): a recolour is never progress and never
+the headline. This is variety WITHIN an approved material, not new material.

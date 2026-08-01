@@ -60,6 +60,19 @@ TASTE CHECK (laws/BOHEMIA_PAOLO_TASTE_CANON.md, consulted before a pixel was dra
   AND THE ONE THIS COOK ADDED, 8/1: pink is not a desert colour. Desaturating a dark red
     at constant value produces salmon; clay must go BROWN.
 
+*** MORE VARIETY IN COLOUR. Paolo 8/1, LOCKED, approving all 90: "I approve of them
+all! Dont be scared to have a little more variety in color!" ***
+That corrects a real mistake here: his tiles measure mean saturation 0.189 with a range
+up to ~0.37, and this cook READ THE MEAN AS A CEILING -- capping every base at 0.30 and
+pulling everything to one desert neutral. His concrete pack alone spans 0.19 to 0.37,
+nearly 2x, and the cook was collapsing that spread instead of reproducing it. The fix is
+not to abandon the measured band (that band is why the art landed) but to USE THE WHOLE
+OF IT: cap raised to his real maximum, and a per-variant HUE JITTER so a material's
+three variants are three COLOURWAYS rather than three noise seeds of one colour. A street
+of identical stucco is not a street.
+STRUCTURE-NOT-COLOUR (7/19) still holds: this is variety WITHIN an approved material,
+never a recolour passed off as progress.
+
 NO PURE BLACK RULE IS APPLIED HERE. His own tiles bottom out at luminance 0 and he was
 explicit on 7/31 that he never banned it; the conditioner that assumed otherwise is in
 the graveyard. Matching him means matching his range too.
@@ -142,7 +155,7 @@ def fbm(rnd, octaves=(2, 4, 11, 22)):
     return at
 
 
-def tinted(rgb, cap=0.30, floor=0.19, scale=1.0):
+def tinted(rgb, cap=0.34, floor=0.19, scale=1.0, hue_shift=0.0, sat_gain=1.0):
     """Pull a base colour into HIS saturation band.
 
     Measured, not taste: his tiles average 0.19 saturation and never pass ~0.34, while
@@ -151,6 +164,8 @@ def tinted(rgb, cap=0.30, floor=0.19, scale=1.0):
     that is simply too colourful to sit beside his. Vegas sun bleaches everything anyway.
     """
     h, sa, v = colorsys.rgb_to_hsv(rgb[0] / 255, rgb[1] / 255, rgb[2] / 255)
+    h = (h + hue_shift) % 1.0
+    sa *= sat_gain
     # A SATURATION FLOOR AS WELL AS A CAP. His band is 0.15-0.34 and a neutral grey CMU
     # measures 0.067 -- too GREY to be his, which is the same defect as too colourful,
     # pointed the other way. Real Vegas block is warm anyway: desert dust in the pores.
@@ -250,8 +265,35 @@ MATERIALS = [
          name='tar paper, roof underlayment'),                         # exposed roofs
     dict(id='stucco_grey',     rgb=(134, 132, 126), kind='stucco',  wear=0.55,
          name='house wall, grey stucco'),
+    # gentler colourway spread: the +30% chroma variant pushed red adobe toward the
+    # salmon the gate is built to catch. Adobe varies in VALUE, not chroma.
     dict(id='adobe_red',       rgb=(128,  96,  74), kind='stucco',  wear=0.60,
+         ways=[(0.0, 0.85), (-0.012, 1.00), (0.012, 0.72)],
          name='house wall, red adobe'),
+
+    # ---- HIS COLOUR RULING, 8/1: "Dont be scared to have a little more variety in
+    # color!" Suburban Vegas is not one beige. These are real tract-house colourways,
+    # all inside his measured band, and with the per-variant jitter each yields three.
+    dict(id='stucco_sage',     rgb=(126, 132, 112), kind='stucco',  wear=0.55,
+         name='house wall, sage stucco'),
+    # ROSY BY DECISION, not by accident. The gate's PINK test exists because a broken
+    # desaturation produced salmon by mistake; desert rose is a real southwestern tract
+    # colour and he asked for variety, so it is DECLARED and the gate exempts declared
+    # colourways only. An undeclared pink tile still fails, which is the point.
+    dict(id='stucco_sand_pink', rgb=(158, 132, 118), kind='stucco', wear=0.50,
+         rosy=True, name='house wall, desert rose stucco'),
+    dict(id='stucco_blue_grey', rgb=(114, 124, 134), kind='stucco', wear=0.55,
+         name='house wall, blue-grey stucco'),
+    dict(id='stucco_butter',   rgb=(164, 148, 106), kind='stucco',  wear=0.50,
+         name='house wall, butter yellow stucco'),
+    dict(id='roof_tile_slate', rgb=( 86,  90,  96), kind='barrel',  wear=0.55,
+         name='roof, slate-grey barrel tile'),
+    dict(id='roof_shingle_grn', rgb=( 84,  94,  80), kind='shingle', wear=0.60,
+         name='roof, weathered green shingle'),
+    dict(id='door_garage_wht', rgb=(156, 152, 144), kind='rib',     wear=0.60,
+         name='garage door, ribbed steel'),
+    dict(id='trim_white',      rgb=(168, 162, 150), kind='plaster', wear=0.45,
+         name='house trim, chalked white'),
 ]
 
 
@@ -348,9 +390,10 @@ def structure(kind, x, y, n, rnd_phase):
     return 0.0
 
 
-def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0):
+def cook(mat, seed, grain_gain=1.0, speck_gain=1.0, val_scale=1.0,
+         hue_shift=0.0, sat_gain=1.0):
     rnd = Rnd(seed)
-    base = tinted(mat['rgb'], scale=val_scale)
+    base = tinted(mat['rgb'], scale=val_scale, hue_shift=hue_shift, sat_gain=sat_gain)
     body = fbm(rnd, (2, 4, 11, 22))       # the material's own mottling
     fine = fbm(rnd, (11, 22, 44))         # the high-frequency grain: the whole ballgame
     stain = fbm(rnd, (2, 3))              # big soft dirt
@@ -425,7 +468,13 @@ def inside(m, tol):
             and tol['lum_sd'][0] <= m['lum_sd'] <= tol['lum_sd'][1])
 
 
-def cook_to_target(mat, seed, tol, tries=22):
+# HIS COLOUR RULING, MADE CONCRETE. Variant 0 is the material's own colour; 1 and 2 are
+# real colourways off it. Small in hue (a wall is still that material) but decisive in
+# chroma, because his own pack spans nearly 2x saturation and the cook was flattening it.
+COLOURWAY = [(0.000, 1.00), (-0.020, 1.30), (0.022, 0.80)]
+
+
+def cook_to_target(mat, seed, tol, tries=22, way=0):
     """draw, MEASURE, nudge, redraw. Smooth art never leaves this function.
 
     TWO dials, because grain and edge are not the same thing and the first version of
@@ -439,7 +488,9 @@ def cook_to_target(mat, seed, tol, tries=22):
     tgt_g = sum(tol['grain']) / 2.0
     tgt_l = sum(tol['lum_mean']) / 2.0
     for _ in range(tries):
-        im = cook(mat, seed, gain, speck, val)
+        ways = mat.get('ways') or COLOURWAY
+        hs, sg = ways[way % len(ways)]
+        im = cook(mat, seed, gain, speck, val, hs, sg)
         m = measure(im)
         if inside(m, tol):
             return im, m, True
@@ -491,11 +542,12 @@ def main():
     tiles, rows, misses = [], [], []
     for mi, mat in enumerate(MATERIALS):
         for k in range(3):                       # 3 variants each = 36 tiles
-            im, m, ok = cook_to_target(mat, 9001 + mi * 101 + k * 7, tol)
+            im, m, ok = cook_to_target(mat, 9001 + mi * 101 + k * 7, tol, way=k)
             if not ok:
                 misses.append((mat['id'], k, m))
             tiles.append(dict(id='%s_%d' % (mat['id'], k), material=mat['id'],
                               name=mat['name'], kind=mat['kind'],
+                              rosy=bool(mat.get('rosy')),
                               verdict=('APPROVED 8/1' if mat['id'] in APPROVED_8_1
                                        else 'PENDING PAOLO'),
                               measured={kk: round(vv, 3) for kk, vv in m.items()},
