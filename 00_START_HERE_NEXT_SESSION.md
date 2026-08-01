@@ -64,6 +64,50 @@ LIFE / DRESS / POPULATION / MEMORY / DEVIATION - all report ZERO AGENTS SIMMED, 
 block has no people in the sim. Bisected eight commits back. CITY PEOPLE is GREEN, so
 the DRAW is fine and the SIM is empty. WORLD/LIFE lane's. PARTS PAINTED + BODY VARIATION
 are the CHARACTER lane's.
+PEOPLE (7h9sfy): 8/1 (h) LATEST — FOUR FAMILIES IN THE STARTING NEIGHBOURHOOD, and this
+one he CAN see. Record: records/BOHEMIA_FOUR_FAMILIES_8_1_26.md
+
+HIS RULING: "in my starting neighborhood I want there to be four families." EXACTLY four.
+
+WHY IT WAS NOT ALREADY POSSIBLE: the starting block had a FLOOR of six households expressed
+as a RATE (6/homes). A rate is a per-house coin flip - it lands NEAR a number, never ON it,
+and on the shipping seed it produced FIVE. WHEN HE NAMES A COUNT, THE COUNT IS THE LAW, so
+agentsForBlock gained `households: N` - pick exactly N houses, deterministically.
+
+THREE DECISIONS INSIDE IT:
+1. WHICH four: spread across the block, not clumped. Four in a row is a terrace; four down
+   the street is a neighbourhood. Deterministic from the block seed - same four forever.
+2. A FAMILY IS MORE THAN ONE PERSON. The household roll returns 1 about 30% of the time and
+   the first build came out two couples and two people living alone. The named-count path
+   floors household size at 2. ONLY that path - everywhere else a household of one is still
+   a household of one, because most survivors are alone and that is the honest picture.
+3. THE DIAL WINS EVEN OVER A NAMED COUNT. Two rulings met: "four families" and "the slider
+   can go all the way from ZERO to a maximum". At dial 0 the ghost valley has to include his
+   own street. So the COUNT is dialled like a rate: 4 at dial 1, 2 at 0.5, none at 0, 8 at 2.
+   THE GATE CAUGHT THIS - E11 went red the moment the count bypassed the dial. A gate doing
+   its job on a design conflict, not a typo.
+
+MEASURED ON THE REAL RUN:
+    4 FAMILIES, 10 people - H1 (2), H5 (3), H10 (3), H15 (2), 3 outside right now
+
+AND A FIX TO THIS LANE'S OWN TOOL, forced by this work: the 8/1 guard cannot tell OUR OWN
+OLD TEXT from another lane's, so it refused every legitimate edit to our own blocks.
+    python3 tools/bohemia_people_identity_patch.py --allow WORKERS
+An intentional rewrite is now a deliberate act somebody TYPES; a silent deletion stays
+impossible. Verified the other lane's 29-line block survived the migration.
+
+GATE: part H, 6 claims, 121 total, on the real run. Mutation-proved twice (rate floor gives
+five and fails H1/H3; a one-person family fails H2).
+VERIFIED: PEOPLE 121/0, RUN 126/0, RUN PEOPLE 45/0.
+
+=== WHAT COMES AFTER ===
+1. PARKED BY HIM: the thin-vs-clustered distribution question ("we'll deal with this down
+   the pipeline"). DO NOT re-raise it.
+2. The population slider plumbing is done and dialled; ACT_DIAL still ships empty.
+3. Unchanged: visitors escape mass edits; JOB_DISTRICTS is four entries.
+4. PARKED, DO NOT ASK: who he already knows. FACTIONS ARE OFF.
+
+--------------------------------------------------------------------------------
 
 ART (f3eu53): 8/2 LATEST — THE LOGO IS GOLD. I BUILT IT BACKWARDS FIRST AND HE CAUGHT IT.
 

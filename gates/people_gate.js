@@ -841,6 +841,44 @@ function partG() {
     POP.DIAL_MAX >= 20);
 }
 
+/* ==========================================================================
+   PART H — FOUR FAMILIES (Paolo 8/1, LOCKED: "in my starting neighborhood I want
+   there to be four families"). EXACTLY four, and a family means more than one
+   person. Driven on the real run, because the starting neighbourhood is the one
+   place in the game he is guaranteed to stand.
+   ========================================================================== */
+async function partH() {
+  console.log('H. FOUR FAMILIES IN THE STARTING NEIGHBOURHOOD');
+  const { chromium } = requirePlaywright();
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  const errs = [];
+  page.on('pageerror', e => errs.push('PAGEERROR: ' + e.message));
+  try {
+    await page.goto('file://' + RUN_FILE);
+    await page.waitForFunction(() => window.__RUN_READY === true, null, { timeout: 60000 });
+    const h = await page.evaluate(() => window.__RUN.people());
+    const fam = {};
+    h.people.forEach(p => { const k = p.id.split('-')[0]; (fam[k] = fam[k] || []).push(p); });
+    const keys = Object.keys(fam);
+
+    ok('H1 THE STARTING NEIGHBOURHOOD HOLDS EXACTLY FOUR FAMILIES (' + keys.length + ')',
+      keys.length === 4);
+    /* A RATE cannot say four. The old floor was a per-house coin flip that landed
+       near six and came out five on this seed - which is why he asked twice. */
+    ok('H2 every one of them is a FAMILY, not somebody living alone (' +
+      keys.map(k => fam[k].length).join('/') + ')',
+      keys.length > 0 && keys.every(k => fam[k].length >= 2));
+    ok('H3 they are spread across the block, not clumped together',
+      keys.length === 4 && new Set(keys).size === 4 &&
+      Math.max(...keys.map(k => +k.slice(1))) - Math.min(...keys.map(k => +k.slice(1))) >= 6);
+    ok('H4 the neighbourhood is a real handful of people (' + h.n + ')', h.n >= 8 && h.n <= 16);
+    ok('H5 and some of them are outside where he can meet them (' +
+      h.people.filter(p => p.outside).length + ')', h.people.some(p => p.outside));
+    ok('H6 nothing threw', errs.length === 0);
+  } finally { await browser.close(); }
+}
+
 (async () => {
   console.log('PEOPLE GATE — the bodies on the block are people');
   partA();
@@ -850,6 +888,7 @@ function partG() {
   await partE();
   partF();
   partG();
+  await partH();
   console.log((fail ? 'FAILED' : 'OK') + ': ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.log('  FAIL: gate threw — ' + (e && e.stack || e)); process.exit(1); });

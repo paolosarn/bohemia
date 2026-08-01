@@ -840,8 +840,18 @@ function buildSim(warm){
         return (r==null||r<f)?f:r; }
       return _zoneRate(cx,cy);
     };
-    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf,
-      (_rate!=null) ? {occupiedRate:_rate} : {});
+    /* FOUR FAMILIES (Paolo 8/1, LOCKED: "in my starting neighborhood I want there
+       to be four families"). EXACTLY four, not about four. The line above is a
+       RATE floor - a per-house coin flip that lands NEAR six and never ON it, so
+       the starting block came out five, six or seven depending on the seed. When
+       he names a count the count is the law, so the home cell asks for households
+       BY NUMBER and the four houses are spread across the block rather than
+       clumped together, which is what makes them read as a neighbourhood instead
+       of a terrace. The rate floor above stops mattering here and still serves
+       every other caller. */
+    var _opts = (_rate!=null) ? {occupiedRate:_rate} : {};
+    if(_here) _opts.households = 4;
+    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf, _opts);
     /* /PEOPLE:WORKERS */
 /* ==== RUN PERSON FACTS (7/31) ==== */
     /* WHO THEY ARE, not just how many. The zone map above answers HOW MANY

@@ -81,7 +81,7 @@ def restore(text, name, original='', mine=None):
         re.S)
 
     def sub(m):
-        if mine:
+        if mine and name not in ALLOW:
             ours = set(l.strip() for l in mine.split('\n'))
             for line in m.group(0).split('\n'):
                 t = line.strip()
@@ -92,6 +92,18 @@ def restore(text, name, original='', mine=None):
                              'not span foreign code.\n  %s\n' % (name, t[:90]))
         return original
     return pat.sub(sub, text)
+
+
+# BLOCKS THE GUARD IS ALLOWED TO REWRITE THIS RUN, named on the command line:
+#     python3 tools/bohemia_people_identity_patch.py --allow WORKERS
+# The guard cannot tell OUR OWN OLD TEXT from another lane's, so every legitimate
+# edit to a block's content would otherwise be refused forever. This makes an
+# intentional rewrite a DELIBERATE ACT somebody types, while a silent deletion
+# stays impossible. It prints what it dropped so the diff is never invisible.
+ALLOW = set()
+for _i, _a in enumerate(sys.argv):
+    if _a == '--allow' and _i + 1 < len(sys.argv):
+        ALLOW.update(sys.argv[_i + 1].split(','))
 
 
 def once(text, anchor, what):
@@ -433,8 +445,18 @@ B_SIM = """    /* PEOPLE:WORKERS */
         return (r==null||r<f)?f:r; }
       return _zoneRate(cx,cy);
     };
-    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf,
-      (_rate!=null) ? {occupiedRate:_rate} : {});
+    /* FOUR FAMILIES (Paolo 8/1, LOCKED: "in my starting neighborhood I want there
+       to be four families"). EXACTLY four, not about four. The line above is a
+       RATE floor - a per-house coin flip that lands NEAR six and never ON it, so
+       the starting block came out five, six or seven depending on the seed. When
+       he names a count the count is the law, so the home cell asks for households
+       BY NUMBER and the four houses are spread across the block rather than
+       clumped together, which is what makes them read as a neighbourhood instead
+       of a terrace. The rate floor above stops mattering here and still serves
+       every other caller. */
+    var _opts = (_rate!=null) ? {occupiedRate:_rate} : {};
+    if(_here) _opts.households = 4;
+    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf, _opts);
     /* /PEOPLE:WORKERS */
 """
 

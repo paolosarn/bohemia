@@ -13163,6 +13163,15 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   // plot); jobs = nearby job sites [{district,dir,dist}] (agentsForPlot scans
   // the real overmap for them). fpOf(i) -> floorplan of house i (injected so
   // block-level callers and world-level callers share one body).
+  /* the population dial, if bohemia_population is loaded. 1 when it is not. */
+  function dialOf(){
+    try{
+      var POP=(typeof BohemiaPopulation!=='undefined')?BohemiaPopulation
+             :(root&&root.BohemiaPopulation)||null;
+      if(POP&&POP.dial) return POP.dial();
+    }catch(_e){}
+    return 1;
+  }
   function agentsForBlock(blockSeed, feet, jobs, fpOf, opts){
     opts=opts||{};
     var rate=(opts.occupiedRate!=null)?opts.occupiedRate:OCCUPIED_RATE;
@@ -13180,9 +13189,46 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     }catch(_e){}
     var out=[];
     var jobSite=(jobs&&jobs.length)? jobs[0] : null;   // nearest site
+    /* EXACTLY N HOUSEHOLDS (Paolo 8/1: "in my starting neighborhood I want there
+       to be FOUR FAMILIES"). A RATE cannot say four - it is a per-house coin flip
+       that lands near a number and never on it, which is why the starting block's
+       old "floor of 6 households" produced 5, 6 or 7 depending on the seed. When
+       he names a count, the count is the law: pick exactly that many houses,
+       deterministically, and leave every other door shut.
+       WHICH houses: spread across the block rather than clumped at index 0, so
+       four families read as a neighbourhood and not as a terrace. Deterministic
+       from the block seed, so they are the same four houses forever. */
+    var chosen=null;
+    if(opts.households>0 && feet.length){
+      /* THE DIAL STILL HAS THE LAST WORD, even over a named count. Two of his
+         rulings meet here: "four families in my starting neighborhood" and "the
+         slider can go all the way from ZERO to a maximum". At dial 0 the valley
+         is a ghost valley and that has to include his own street, or the bottom
+         of the slider is a lie. So the COUNT is dialled the same way a rate is:
+         four families at 1, two at 0.5, none at 0, eight at 2. */
+      var want=Math.round(opts.households * (opts.preDialled ? 1 : dialOf()));
+      if(want<=0) return out;
+      want=Math.min(want, feet.length);
+      chosen={};
+      var step=feet.length/want, off=hash(blockSeed,101,7)%Math.max(1,Math.floor(step));
+      for(var k=0;k<want;k++){
+        var idx=Math.min(feet.length-1, Math.floor(k*step)+off);
+        while(chosen[idx]&&idx<feet.length-1) idx++;
+        chosen[idx]=1;
+      }
+    }
     for(var i=0;i<feet.length;i++){
-      if(!houseOccupied(blockSeed,i,rate)) continue;   // abandoned shell: nobody home
+      if(chosen){ if(!chosen[i]) continue; }          // he named a count: obey it
+      else if(!houseOccupied(blockSeed,i,rate)) continue;   // abandoned shell
       var hh=household(hash(blockSeed,i+1,0));
+      /* A FAMILY IS MORE THAN ONE PERSON. When he names a COUNT OF FAMILIES the
+         word has to mean what it means in English - the household roll returns 1
+         thirty percent of the time, and "four families" coming out as two
+         couples and two people living alone is not four families. Only the
+         named-count path floors this; everywhere else in the valley a household
+         of one is still a household of one, because most survivors are alone and
+         that is the honest picture. */
+      if(chosen && hh < 2) hh = 2;
       for(var n=0;n<hh;n++){
         // alternate: within a household, later members may use a farther site
         var js=(jobs&&jobs.length)? jobs[hash(blockSeed,i+1,n+13)%jobs.length] : jobSite;
@@ -17481,8 +17527,18 @@ function buildSim(warm){
         return (r==null||r<f)?f:r; }
       return _zoneRate(cx,cy);
     };
-    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf,
-      (_rate!=null) ? {occupiedRate:_rate} : {});
+    /* FOUR FAMILIES (Paolo 8/1, LOCKED: "in my starting neighborhood I want there
+       to be four families"). EXACTLY four, not about four. The line above is a
+       RATE floor - a per-house coin flip that lands NEAR six and never ON it, so
+       the starting block came out five, six or seven depending on the seed. When
+       he names a count the count is the law, so the home cell asks for households
+       BY NUMBER and the four houses are spread across the block rather than
+       clumped together, which is what makes them read as a neighbourhood instead
+       of a terrace. The rate floor above stops mattering here and still serves
+       every other caller. */
+    var _opts = (_rate!=null) ? {occupiedRate:_rate} : {};
+    if(_here) _opts.households = 4;
+    var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf, _opts);
     /* /PEOPLE:WORKERS */
 /* ==== RUN PERSON FACTS (7/31) ==== */
     /* WHO THEY ARE, not just how many. The zone map above answers HOW MANY
