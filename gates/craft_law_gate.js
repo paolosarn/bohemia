@@ -71,10 +71,23 @@ ok('clause 3 in code: the wobble is HASHED, never rolled (an NPC must not shimme
    right; I changed it to %2 on an over-reading of his first note and he corrected
    me. The gate now pins the ratio he actually specified, and pins it for EVERY
    skin-through-hair texture, because he said "any sort of skin to hair hairstyle". */
+/* ONE FUNCTION, BOTH PATHS (8/1). The ratio used to live inline in the mass loop
+   while the front-curtain branch drew SOLID, so half a cornrow had no rows in it.
+   And the phase was keyed to the ROW START, which moves every row -- a stripe whose
+   phase shifts per row is not a stripe. Anchored to the HEAD (hMn) it lines up
+   vertically down the skull whichever path drew it, which is what a cornrow, a loc
+   and a fade taper all are. This is the piece fades will reuse. */
+ok('clause 4 in code: ONE shared texture function, not a rule per drawing path',
+  /var texSkip=function\(x,y\)/.test(src));
 ok('clause 4 in code: two pixels of hair to one of skin (ropes)',
-  /tex==='locs'&&\(\(x-mn\)%3===2\)/.test(src));
+  /tex==='locs'\)\s*return \(\(x-hMn\)%3===2\)/.test(src));
 ok('clause 4 in code: the same ratio on the weave, not just the ropes',
-  /tex==='braid'[\s\S]{0,60}%3===2[\s\S]{0,30}%3===2/.test(src));
+  /tex==='braid'\)\s*return \(\(\(y-hTop\)%3===2\)&&\(\(x-hMn\)%3===2\)\)/.test(src));
+ok('clause 4 in code: the phase is anchored to the HEAD, not the moving row start',
+  !/%3===2/.test(src.match(/var texSkip[\s\S]{0,400}/)[0].replace(/x-hMn/g, '')) === false
+  && !/\(x-mn\)%3/.test(src));
+ok('clause 4 in code: the FRONT CURTAINS use it too (they drew solid before)',
+  /if\(texSkip\(xl,y\)\)continue/.test(src) && /if\(texSkip\(xr,y\)\)continue/.test(src));
 ok('clause 5 in code: the head centre floors instead of rounding',
   /hcx=Math\.floor\(\(hMn\+hMx\)\/2\)/.test(src));
 ok('clause 5 in code: a strip centres on its own row',
