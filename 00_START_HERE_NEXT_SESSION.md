@@ -36,6 +36,55 @@ gore overlays, non-combatants, how a body's state is shown. All already flagged
 NOTE ON THE REPO: my local checkout had fallen behind to an old commit while the remote
 had all my work. Verified every file was present on origin/main before resetting onto it.
 If that happens to you, CHECK THE REMOTE BEFORE ASSUMING ANYTHING WAS LOST.
+PEOPLE (7h9sfy): 8/1 (d) LATEST — THE LANDMINE IS DISARMED. My own patch tool was
+SILENTLY DELETING ANOTHER LANE'S CODE on every re-run. It now refuses instead. Nothing in
+the game changed; the run slice on main is untouched and still 45/0.
+
+=== WHAT WAS ACTUALLY WRONG (worse than the "tool drift" I wrote up last turn) ===
+tools/bohemia_people_identity_patch.py fences its edits with PEOPLE:<name> markers and
+RESTORES each fenced region before re-applying. Another lane anchored its RUN PERSON FACTS
+block (29 lines: peopleForAgents + conditionAgents + rulesVersion) on a line INSIDE the
+PEOPLE:WORKERS fence. So the marker pair came to span code that was not mine, and a re-run
+DELETED IT - taking RUN_PEOPLE with it, which is exactly why run_people_gate went 45/0 ->
+34/5 and why I could not reproduce the committed file. A tool that exists to make
+cross-lane edits SAFE was doing the precise opposite, quietly.
+
+=== WHAT SHIPPED: THE GUARD ===
+restore() now takes the text the block is about to insert and refuses, loudly, if ANY
+substantial line inside the fence is not in it. Exit 1, nothing written, names the line.
+THE TEST IS EXACT, NOT A HEURISTIC - and that matters, because the first version of this
+guard looked for banner comments and flagged THIS FILE'S OWN block headers. A checker that
+cannot tell a mention from a use is the broken one (8/1 law). Second version compares
+against the actual insert text and is right.
+IT IMMEDIATELY FOUND A SECOND SWALLOWED FENCE I did not know about (PEOPLE:RUNTIME), which
+is the whole argument for having it.
+
+=== WHAT IS LEFT, AND IT IS SMALL AND PRECISE ===
+The tool currently REFUSES TO RUN. That is the correct state - it is safe and loud instead
+of destructive and quiet - but this lane cannot patch the run surface again until the
+fences are re-cut. THE MIGRATION IS ONE EDIT TO THE COMMITTED SLICE:
+  PEOPLE:WORKERS must END at `var _agents = BohemiaAgents.agentsForBlock(...)`, because the
+  other lane's RUN PERSON FACTS block anchors immediately after that line. The residential
+  guard + the workersForPlot concat move into a SECOND fence (PEOPLE:JOIN) placed AFTER
+  their block, anchored on `SIM = BohemiaAgents.makeSim(`. B_SIM/A_JOIN/B_JOIN for exactly
+  this are already written in the tool.
+  I ATTEMPTED THE MIGRATION AND BACKED IT OUT: my rebuild left the JOIN anchor resolving
+  twice (the B_JOIN text ends with the anchor line, so a careless splice duplicates it).
+  The tool caught that too and refused. Do it with `diff` against the committed slice as
+  the success criterion - ZERO diff lines - not by eye.
+
+=== WHY IT WAS NOT FORCED THROUGH ===
+Running out of room to verify a destructive edit to another lane's file is exactly when the
+7/30 lesson applies (hand-resolving this same file ate a megabyte of somebody's work). The
+guard is the part that makes everyone safer and it shipped; the re-cut is a fifteen-minute
+job for a session with room to diff it properly.
+
+=== EVERYTHING ELSE FROM TODAY STILL STANDS ===
+The population dial (8/1 c), the workers arriving, the name-asking, the identity layer. The
+open question is still his: walking one block from home, how many people should be on that
+street.
+
+--------------------------------------------------------------------------------
 
 CHARACTER (0lurbs): 8/1 (r) LATEST — HAIR WAVE 2 SHIPPED AND JUDGED WELL. CORNROWS
 IS HALF-FIXED AND I STOPPED AFTER THREE ATTEMPTS. THE MEASUREMENT IS BELOW — DO NOT

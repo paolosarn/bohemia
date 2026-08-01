@@ -60,14 +60,38 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'slices', 'BOHEMIA_RUN_SLICE_7_26_26.html')
 
 
-def restore(text, name, original=''):
+def restore(text, name, original='', mine=None):
     """Replace a marker-bounded block with what was there before it (default:
-    nothing, for blocks that were pure insertions)."""
+    nothing, for blocks that were pure insertions).
+
+    AND REFUSE IF SOMEBODY ELSE'S CODE HAS MOVED INSIDE OUR FENCE. Not
+    theoretical: it happened. On 8/1 another lane anchored its RUN PERSON FACTS
+    block on a line inside PEOPLE:WORKERS, so the pair came to span 29 lines that
+    were not ours, and a re-run DELETED THEM SILENTLY -- taking RUN_PEOPLE with
+    it and turning run_people_gate from 45/0 to 34/5. A tool that exists to make
+    cross-lane edits safe was doing the exact opposite.
+    THE TEST IS EXACT, not a heuristic: `mine` is the very text this block
+    inserts, so any substantial line inside the fence that is not in it belongs
+    to somebody else. (The first version of this guard looked for banner comments
+    and flagged this file's OWN block headers - a checker that cannot tell a
+    mention from a use is the broken one.)"""
     pat = re.compile(
         r'[ \t]*(?:/\*|<!--)\s*PEOPLE:' + name + r'\s*(?:\*/|-->).*?'
         r'(?:/\*|<!--)\s*/PEOPLE:' + name + r'\s*(?:\*/|-->)[ \t]*(?:\n|(?=\S))?',
         re.S)
-    return pat.sub(lambda _m: original, text)
+
+    def sub(m):
+        if mine:
+            ours = set(l.strip() for l in mine.split('\n'))
+            for line in m.group(0).split('\n'):
+                t = line.strip()
+                if len(t) > 3 and t not in ours:
+                    sys.exit('REFUSING TO WRITE: a line inside the PEOPLE:%s fence '
+                             'is not ours, so restoring would delete somebody '
+                             'else\'s code. Re-anchor the block so its markers do '
+                             'not span foreign code.\n  %s\n' % (name, t[:90]))
+        return original
+    return pat.sub(sub, text)
 
 
 def once(text, anchor, what):
@@ -394,11 +418,15 @@ B_SIM = """    /* PEOPLE:WORKERS */
        site they work at stood empty all day while the sim insisted they were
        there. workersForPlot is jobsNear run backwards: the SAME people, from the
        neighbouring blocks that actually send them, materialised where they were
-       always supposed to be. It invents nobody — walk to the solar farm at noon
+       always supposed to be. It invents nobody \u2014 walk to the solar farm at noon
        and the neighbour whose name you asked is standing in it.
        rateFor hands the run's own zone-map occupancy into the neighbours it
        re-derives, or the person at work would be a different person from the one
-       at home. */
+       at home.
+       THIS FENCE STOPS AT `var _agents`, deliberately: another lane's RUN PERSON
+       FACTS block anchors immediately after that line, and a fence that spanned
+       it would delete their code on every re-run. The rest of this change is the
+       PEOPLE:JOIN block, below theirs. */
     var _rateFor = function(cx,cy){
       if(HOME_CELL && cx===HOME_CELL[0] && cy===HOME_CELL[1]){
         var f=6/Math.max(1,feet.length); var r=_zoneRate(cx,cy);
@@ -407,6 +435,16 @@ B_SIM = """    /* PEOPLE:WORKERS */
     };
     var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf,
       (_rate!=null) ? {occupiedRate:_rate} : {});
+    /* /PEOPLE:WORKERS */
+"""
+
+# ---------------------------------------------------------------------------
+# 8b. THE JOIN, which lands AFTER the other lane's RUN PERSON FACTS section so
+#     neither fence ever spans the other's code.
+# ---------------------------------------------------------------------------
+A_JOIN = """    SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
+"""
+B_JOIN = """    /* PEOPLE:JOIN */
     /* a cell nobody LIVES on gets no households at all - the census has always
        said so and the generator used to disagree with it on 52 of 58 cells */
     if(WORLD && !BohemiaAgents.RESIDENTIAL[(WORLD.at(CELL[0],CELL[1])||{}).district]) _agents=[];
@@ -414,7 +452,8 @@ B_SIM = """    /* PEOPLE:WORKERS */
       _agents = _agents.concat(
         BohemiaAgents.workersForPlot(WORLD, CELL[0], CELL[1], 3, {rateFor:_rateFor}));
     }catch(_e){} }
-    /* /PEOPLE:WORKERS */
+    /* /PEOPLE:JOIN */
+    SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
 """
 A_RATE = """    var _rate = null;
 """
@@ -443,6 +482,7 @@ BLOCKS = [
     ('LOOK',    A_LOOK,    B_LOOK,              A_LOOK,    'body look'),
     ('RATEFN',  A_RATE,    B_RATE,              '',        'zone rate fn'),
     ('WORKERS', A_SIM,     B_SIM,               A_SIM,     'workers at their sites'),
+    ('JOIN',    A_JOIN,    B_JOIN,              A_JOIN,    'workers join the sim'),
     ('DBG',     A_DBG,     B_DBG,               '',        'debug surface'),
 ]
 
@@ -450,8 +490,8 @@ BLOCKS = [
 def main():
     src = open(SRC, encoding='utf-8').read()
 
-    for name, _anchor, _after, undo, _what in BLOCKS:       # UNDO FIRST, ALWAYS
-        src = restore(src, name, undo)
+    for name, _anchor, after, undo, _what in BLOCKS:        # UNDO FIRST, ALWAYS
+        src = restore(src, name, undo, after)
     for _n, anchor, _after, _undo, what in BLOCKS:
         once(src, anchor, what)
     for _n, anchor, after, _undo, _w in BLOCKS:
