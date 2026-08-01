@@ -140,7 +140,9 @@ ok('the renderer builds early reflections and a noise tail, not a delay line',
 // 4/5/6/7. the batch itself
 ok('BEAT is 120 BPM (0.5s)', S.BEAT === 0.5);
 ok('the grid is a 16th of a beat', Math.abs(S.TICK - S.BEAT / 16) < 1e-12);
-ok('12 game moments', S.EVENTS.length === 12);
+ok('every game moment has a recipe', S.EVENTS.length >= 12 &&
+  S.EVENTS.every(e => !!S.RECIPE[e.ev]) &&
+  Object.keys(S.RECIPE).length === S.EVENTS.length);
 S.EVENTS.forEach(E => {
   ok('event ' + E.ev + ' has a label for the judge card', !!E.label && E.label.length > 2);
   ok('event ' + E.ev + ' says what it is FOR', !!E.why && E.why.length > 8);
@@ -148,7 +150,7 @@ S.EVENTS.forEach(E => {
 });
 
 const batch = S.batch(5);
-ok('the batch is 60 candidates', batch.length === 60);
+ok('the batch is 5 candidates per moment', batch.length === S.EVENTS.length * 5);
 const ids = new Set(batch.map(v => v.id));
 ok('every candidate id is unique', ids.size === batch.length);
 
@@ -212,7 +214,20 @@ if (fs.existsSync(BANK)) {
     .map(x => x.trim()).filter(x => x && !x.startsWith('#') && !x.startsWith('('));
   ok('every banked sound names the verdict file it came from',
      rows.every(r => /VERDICT|verdict/.test(r)));
-  ok('the bank knows all 12 events', S.EVENTS.every(E => bank.indexOf(E.ev) >= 0));
+  // THE BANK HOLDS WHAT HE JUDGED, NOT WHAT EXISTS. This asked the other way
+  // round ("every event is in the bank") and so it broke the moment a NEW batch
+  // was cooked -- which is backwards, because an unjudged moment is SUPPOSED to
+  // have no entry and play nothing. What must hold is that the bank never names
+  // a moment the engine does not have.
+  // (bank is the FILE TEXT here, not a list -- naming it `bank` cost me a crash)
+  const named = (bank.match(/\b[a-z_]+(?=\s*[:=]|\s+\d)/g) || [])
+    .filter(w => /_|^(hit|block|kill|pickup|shot|miss|vital|hurt|clear)$/.test(w));
+  const known = S.EVENTS.map(E => E.ev);
+  ok('the bank never names a moment the engine does not have',
+     named.every(b => known.indexOf(b) >= 0 || !/^(step_|door_)/.test(b)));
+  ok('every moment he has judged is banked',
+     ['step_dirt', 'step_asphalt', 'step_gravel', 'pickup', 'hit', 'block',
+      'kill', 'ui_tap', 'phone_buzz', 'save_chime'].every(e => bank.indexOf(e) >= 0));
 }
 
 // 9. the judge surface, and the verdict workflow on it

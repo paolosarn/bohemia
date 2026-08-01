@@ -41,6 +41,7 @@ These are pulled off the waveform:
   python3 gates/sfx_render_gate.py --record   # re-record the fingerprints
 """
 import json
+import re
 import os
 import subprocess
 import sys
@@ -182,7 +183,10 @@ def chk(ok, msg):
 
 def main():
     record = '--record' in sys.argv
-    print('=== SFX RENDER GATE — the 60 candidates measured as audio ===')
+    eng = open('engine/bohemia_sfx.js', encoding='utf8').read()
+    NEV = len(re.findall(r"\{ ev: '", eng))
+    NCAND = NEV * 5
+    print('=== SFX RENDER GATE — the %d candidates measured as audio ===' % NCAND)
     with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as fh:
         fh.write(JS)
         js = fh.name
@@ -205,11 +209,11 @@ def main():
 
     chk(not data.get('errs'), 'the alpha threw while the MUSIC tab built: %s' % (data.get('errs') or [])[:2])
     chk(data.get('mounted'), 'the SFX judge is not in the MUSIC tab of the shipped alpha')
-    chk(data.get('cards') == 12, 'expected 12 game moments on the judge surface, saw %s' % data.get('cards'))
-    chk(data.get('candRows') == 60, 'expected 60 candidate rows, saw %s' % data.get('candRows'))
+    chk(data.get('cards') == NEV, 'expected %d game moments on the judge surface, saw %s' % (NEV, data.get('cards')))
+    chk(data.get('candRows') == NCAND, 'expected %d candidate rows, saw %s' % (NCAND, data.get('candRows')))
 
     rows = data['rows']
-    chk(len(rows) == 60, 'expected 60 rendered candidates, got %d' % len(rows))
+    chk(len(rows) == NCAND, 'expected %d rendered candidates, got %d' % (NCAND, len(rows)))
 
     by_ev = {}
     for m in rows:
@@ -270,7 +274,20 @@ def main():
         xs = sorted(x['peak'] for x in by_ev.get(ev, []))
         return xs[len(xs) // 2] if xs else 0.0
     ladder = [('kill', 'hit'), ('hit', 'step_dirt'), ('hit', 'ui_tap'),
-              ('door_shut', 'ui_tap'), ('step_asphalt', 'ui_tap')]
+              ('door_shut', 'ui_tap'), ('step_asphalt', 'ui_tap'),
+              # THE COMBAT VOICE (8/1). At mkup 1.0 the GUN came out at 0.340 --
+              # quieter than a door shutting and quieter than picking something
+              # up. It is the sound a fight makes most often and the one every
+              # other combat sound is judged against, so these are the shapes
+              # that must hold no matter what a later recipe edit does.
+              ('shot', 'hit'),          # the gun is bigger than a punch
+              ('shot', 'miss'),         # a shot that lands beats one that does not
+              ('shot', 'step_asphalt'),
+              ('vital', 'hit'),         # a vital is worse than a plain hit
+              ('hurt', 'hit'),          # being shot is the worst news in the game
+              ('hurt', 'step_dirt'),
+              ('clear', 'ui_tap'),
+              ('miss', 'ui_tap')]
     for loud, quiet in ladder:
         chk(med(loud) > med(quiet), 'the mix ladder inverted: %s (%.3f) is not above %s (%.3f)'
             % (loud, med(loud), quiet, med(quiet)))
@@ -320,7 +337,7 @@ def main():
 
     print('  %d passed, %d FAILED' % (P, F))
     if not F:
-        print('  60 candidates rendered, measured, silent on time, and identical twice.')
+        print('  %d candidates rendered, measured, silent on time, and identical twice.' % NCAND)
         print('  proof screenshot: %s' % SHOT)
     return 1 if F else 0
 

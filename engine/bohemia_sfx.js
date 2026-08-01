@@ -211,7 +211,16 @@ const BOH_SFX = (function () {
     { ev: 'kill',         label: 'KILL — ON THE BEAT',  why: 'the kill drops exactly on the beat, with the music' },
     { ev: 'ui_tap',       label: 'UI TAP',              why: 'every button on the phone' },
     { ev: 'phone_buzz',   label: 'PHONE BUZZES',        why: 'a new post, a message, the feed' },
-    { ev: 'save_chime',   label: 'SAVED',               why: 'the run recorded what you did' }
+    { ev: 'save_chime',   label: 'SAVED',               why: 'the run recorded what you did' },
+    /* ---- THE COMBAT VOICE (8/1/26) -------------------------------------
+       The 7/30 batch had no gun in it, and combat is a shooting game whose
+       gunshot was still a placeholder oscillator. These five are every world
+       sound the fight makes that was still beeping. */
+    { ev: 'shot',         label: 'YOUR GUN GOES OFF',   why: 'the sound the game makes most in a fight. everything else is judged against it' },
+    { ev: 'miss',         label: 'THE SHOT MISSES',     why: 'it went past. you feel it leave without landing' },
+    { ev: 'vital',        label: 'VITAL HIT',           why: 'you hit something that matters. worse than a hit, not yet a kill' },
+    { ev: 'hurt',         label: 'YOU TAKE THE HIT',    why: 'return fire lands on YOU. the only sound in the game that is bad news' },
+    { ev: 'clear',        label: 'THE FIGHT IS OVER',   why: 'everyone is down and the room goes quiet' }
   ];
 
   /* ---- THE RECIPES -----------------------------------------------------
@@ -295,6 +304,95 @@ const BOH_SFX = (function () {
       jit:  { hz: [294, 520], decay: [0.9375, 1.75], warble: [1.2, 2.6],
               space: [0.55, 0.9], room: [1, 1.75], dark: [2400, 4800],
               bright: [0.8, 1.4], damp: [0.7, 1.1] }
+    },
+
+    /* ===================================================================
+       THE COMBAT VOICE (8/1/26)
+       -------------------------------------------------------------------
+       RESEARCH (records/BOHEMIA_RESEARCH_GUNSHOT_8_1_26.md): a real gunshot
+       is not one sound, it is four, and the whole engine already has a layer
+       for each of them:
+         MUZZLE BLAST   gas decompressing past the muzzle. LOW and broadband,
+                        and it falls in pitch as the pressure drops -> low hz,
+                        heavy grit, NEGATIVE slide.
+         BALLISTIC CRACK the supersonic shock, a separate and much sharper
+                        event than the blast -> trans + a high transHz.
+         MECHANICAL     firing pin, bolt, slide. A second, tiny, later strike
+                        -> hits[], which already exists for gravel.
+         ENVIRONMENT    the reflection off whatever you are standing in
+                        -> space / room / refl / dark.
+       And the game-audio rule that decides the mix: in a game the player needs
+       a clear TRANSIENT and reliable feedback more than a cinematic tail. That
+       is the same ruling his own thumbs already made on 7/30 -- survivors were
+       brighter, shorter, harder-driven, more articulated -- so the research and
+       his taste agree, and both say CUT AND STOP.
+
+       MATERIALS ARE CHOSEN FROM HIS THUMBS, NOT FROM CONVENTION. On 7/30:
+       ash 10/10, bell 10/10, stone 5/5, crystal 8/10 -- metal 3/15, wood 0/5.
+       A gunshot is conventionally a metal crack. Metal is the material he
+       killed hardest, and both dead doors were metal and wood. So the gun is
+       built from ASH and STONE: concussion and dust rather than a Hollywood
+       receiver clank, which is also what a post-collapse valley should sound
+       like. This is the inference from his verdict being used to predict what
+       dies BEFORE he has to sit and listen to it.
+       =================================================================== */
+
+    /* THE GUN. Everything else in a fight is judged against this one. */
+    shot: {
+      base: { mat: 'ash', hz: 74, modes: 5, bright: 0.5, decay: 0.125, damp: 2.4,
+              warble: 0.35, slide: -7, trans: 0.95, transHz: 5600, transQ: 1.1,
+              grit: 0.95, gritHz: 700, space: 0.22, room: 0.25, refl: 2,
+              dark: 900, width: 0.45, drive: 0.55, mkup: 1.765, gain: 0.34,
+              hits: [0, 0.03125] },
+      jit:  { hz: [58, 96], transHz: [3800, 8200], gritHz: [500, 1100],
+              slide: [-11, -4], decay: [0.0625, 0.1875], drive: [0.4, 0.75],
+              space: [0.14, 0.34], dark: [700, 1400], width: [0.35, 0.6] },
+      /* the action cycling: one shot, or a shot with the bolt behind it */
+      hitSets: [[0, 0.03125], [0, 0.03125], [0], [0, 0.03125, 0.0625], [0, 0.0625]]
+    },
+    /* IT WENT PAST. Almost no body -- a miss is air, not impact. */
+    miss: {
+      base: { mat: 'ash', hz: 320, modes: 3, bright: 1.5, decay: 0.0625, damp: 2.8,
+              warble: 0.2, slide: -5, trans: 0.5, transHz: 7200, transQ: 0.7,
+              grit: 0.98, gritHz: 5200, space: 0.16, room: 0.1875, refl: 1,
+              dark: 4200, width: 0.7, drive: 0.12, mkup: 1.25, gain: 0.24 },
+      jit:  { hz: [240, 440], gritHz: [3800, 7000], transHz: [5200, 9500],
+              slide: [-9, -2], width: [0.55, 0.9], bright: [1.2, 2.0],
+              decay: [0.0625, 0.125], space: [0.1, 0.26] }
+    },
+    /* VITAL. The horrible bright one. crystal went 8/10 with him, and this is
+       the moment that wants to sound WRONG rather than powerful. */
+    vital: {
+      base: { mat: 'crystal', hz: 880, modes: 7, bright: 1.7, decay: 0.1875,
+              damp: 1.9, warble: 1.4, trans: 0.88, transHz: 8200, transQ: 3.2,
+              grit: 0.4, gritHz: 3600, space: 0.3, room: 0.375, refl: 2,
+              dark: 5200, width: 0.6, drive: 0.3, mkup: 2.0, gain: 0.28 },
+      jit:  { hz: [660, 1180], transHz: [6200, 10500], warble: [0.9, 2.2],
+              decay: [0.125, 0.3125], bright: [1.3, 2.2], space: [0.2, 0.44],
+              damp: [1.4, 2.4], width: [0.45, 0.8] }
+    },
+    /* IT LANDED ON YOU. The only bad-news sound in the game, so it is the
+       darkest and the most concussive: low, dull, close, and it does not ring. */
+    hurt: {
+      base: { mat: 'ash', hz: 58, modes: 4, bright: 0.35, decay: 0.1875, damp: 2.2,
+              warble: 0.5, slide: -9, trans: 0.6, transHz: 1100, transQ: 0.8,
+              grit: 0.8, gritHz: 420, space: 0.3, room: 0.375, refl: 1,
+              dark: 600, width: 0.3, drive: 0.6, mkup: 1.528, gain: 0.36 },
+      jit:  { hz: [44, 78], gritHz: [320, 620], transHz: [800, 1800],
+              slide: [-14, -5], decay: [0.125, 0.25], drive: [0.45, 0.8],
+              space: [0.2, 0.44], dark: [450, 900] }
+    },
+    /* THE ROOM GOES QUIET. The one moment in a fight allowed a real tail, and
+       the only one that gets bell -- which went 10/10 with him, and is what
+       SAVED is built from. Resolution sounds like resolution. */
+    clear: {
+      base: { mat: 'bell', hz: 262, modes: 10, bright: 0.85, decay: 1.5, damp: 0.9,
+              warble: 1.6, atk: 0.0625, trans: 0.3, transHz: 3800, transQ: 1.6,
+              grit: 0.15, gritHz: 1800, space: 0.78, room: 1.5, refl: 3,
+              dark: 2600, width: 0.85, drive: 0.05, mkup: 1.538, gain: 0.26 },
+      jit:  { hz: [196, 349], decay: [1.125, 2], warble: [1.1, 2.4],
+              space: [0.62, 0.92], room: [1.25, 2], dark: [1800, 3600],
+              bright: [0.65, 1.15], damp: [0.75, 1.1] }
     },
     /* --- combat. bone and dead metal, close, only the kill gets the hall --- */
     hit: {

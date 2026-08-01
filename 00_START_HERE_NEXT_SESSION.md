@@ -1443,6 +1443,75 @@ LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
 scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
 pages from coming back.
 
+SOUNDS (xk7pjp): 8/1 LATEST — THE COMBAT VOICE. 25 NEW CANDIDATES WAITING ON HIS
+THUMBS, in the MUSIC tab. Sound is confirmed WORKING on his phone ("Its green!").
+
+THE HOLE NOBODY HAD NAMED: the 7/30 batch was twelve moments and NOT ONE OF THEM
+WAS A GUN. Combat is a shooting game whose gunshot was still
+sndShot(){ tone(180,...); tone(90,...); } -- two oscillators, the exact 2007 sfxr
+topology he rejected by name. The loudest, most-repeated sound in the game was
+the one thing never cooked properly. Five new moments answer it:
+  shot   THE GUN. everything else in a fight is judged against it
+  miss   it went past. air, not impact
+  vital  the bright wrong one. worse than a hit, not yet a kill
+  hurt   return fire lands on YOU. the only bad-news sound in the game
+  clear  the fight ends and the room goes quiet
+
+RESEARCH: records/BOHEMIA_RESEARCH_GUNSHOT_8_1_26.md, 10 cited sources. A gunshot
+is FOUR sounds -- muzzle blast (low, broadband, and it FALLS in pitch as gas
+pressure decays), ballistic crack (a separate, much sharper shock), mechanical
+action (pin/bolt/slide), and the room. Every one of those already had a field in
+BOH_SFX v2, which is the strongest argument yet that the modal rebuild was right:
+slide negative IS the pressure drop, hits[] IS the action cycling, trans IS the
+crack. NOTHING NEW WAS BUILT IN THE ENGINE.
+  THE CONVERGENCE WORTH REMEMBERING: the FPS-design literature says "in a game
+  the player needs a clear TRANSIENT and reliable feedback more than a cinematic
+  tail." That is his own 7/30 verdict restated as an engineering rule -- brighter,
+  shorter, harder-driven, "sounds that CUT and STOP." Research and his taste
+  arrived at the same place independently. Every recipe is front-loaded because
+  of it.
+
+MATERIALS CAME FROM HIS THUMBS, NOT FROM CONVENTION. A gunshot is conventionally
+a metal crack. Metal is what he killed hardest (3/15; both dead doors were metal
+and wood; ash 10/10, bell 10/10, stone 5/5). So the gun is ASH AND STONE:
+concussion and dust, not a Hollywood receiver clank -- which is also what a
+post-collapse valley should sound like. This is the inference from his verdict
+being used the way it was recorded to be used: predicting what dies BEFORE he has
+to listen to it.
+
+WHAT THE MEASUREMENT CAUGHT, and it is the good part: rendered at neutral makeup
+THE GUN CAME OUT AT 0.340 PEAK -- QUIETER THAN A DOOR SHUTTING (0.450) AND
+QUIETER THAN PICKING SOMETHING UP (0.390). The most-repeated sound in a fight sat
+near the bottom of the mix and nothing would have caught it by ear in a browser.
+Makeup gains were set from the measured medians, and the ladder now reads
+shot .600 / kill .598 / vital .560 / hurt .550 / hit .524 ... miss .300 / steps
+.27 / ui_tap .210. Eight new ladder relationships are locked in
+gates/sfx_render_gate.py and PROVED to fail when the gun is turned back down.
+
+NOT WIRED YET, AND THAT IS THE CORRECT ORDER: these 25 are unjudged, so they are
+not in the bank and playSFX returns null for them. Combat still plays its old
+placeholder beeps for shot/miss/vital/return/win. WIRE THEM ONLY AFTER HE JUDGES
+-- wiring first would make combat SILENT, which is worse than a beep. His HIT and
+KILL are already live in combat from 7/31.
+
+GATES: SFX RENDER now 1176 checks over 85 candidates (was 843 over 60). SFX
+FACTORY 151. Fingerprints re-recorded for all 85.
+  A LESSON: four checks broke purely because "12" and "60" were written down in
+  three files. Both gates now DERIVE the roster from the engine, and the sfx gate
+  no longer asserts "every event is in the bank" -- that was backwards and broke
+  the moment a new batch existed, because an unjudged moment is SUPPOSED to have
+  no bank entry. A magic number in a gate is a gate that breaks on growth.
+
+NEXT FOR THIS LANE, in order:
+  1. HIS VERDICTS on the 25. Then bank them and wire sndShot/sndMiss/sndVital/
+     sndReturn/sndWin, which is a five-line change to tools/
+     bohemia_combat_sfx_patch.py -- the call sites are already single functions.
+  2. BLOCK still has no mechanic to attach to. PENDING his word.
+  3. pickup has no loot event to fire from, and LOOT IS CLOSED by another lane.
+  4. AMBIENT BEDS still wait on RUN 0d's daycycle.
+
+BUILD STAMP: 8/1h - THE COMBAT VOICE: 25 NEW SOUNDS TO JUDGE (MUSIC TAB).
+
 SOUNDS (xk7pjp): 7/31 (b) LATEST — HE SAID IT AGAIN: "I did not hear any of the
 walking sound effects." SECOND REPORT OF SILENCE. Plus: combat now plays his HIT
 and KILL.
