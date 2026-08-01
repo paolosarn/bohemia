@@ -2550,6 +2550,47 @@ LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
 scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
 pages from coming back.
 
+SOUNDS (xk7pjp): 8/2 (c) LATEST — I WAS WRONG ABOUT THE BYPASS, AND THE REAL BUG
+WAS WORSE. Read this before trusting any measurement taken on MUS.MAST.
+
+CORRECTION FIRST: last turn I told him "footsteps bypass the volume knob, they
+still measure 0.29 when muted." THAT WAS WRONG. Footsteps route through the SFX
+master correctly and setSFXVolume(0) silences them to 0.000. What I had actually
+measured was the CITY MUSIC starting when you walk -- MUS.MAST carries the song,
+so anything metered there is polluted by it, and MUS.stop() tears the analyser
+tap down so "stop the music first" does not save you either.
+  THE FIX FOR THAT WHOLE CLASS: METER THE SFX BUS, NOT THE MASTER. Music never
+  passes through window.__SFXBUS, so a reading there is effects-only and
+  music-proof by construction. Every mix check in the gate now taps it.
+
+THE REAL BUG IT UNCOVERED, AND IT WAS HIS RULING BEING DROPPED: another session
+built "footsteps A LOT A LOT quieter" (8/1) as stepSfx() + STEP_BUS at 0.12,
+hanging off a BOHEMIA_STEP message. THE RUN NEVER POSTS BOHEMIA_STEP. Measured
+live: stepSfx called ZERO times across a full walk while playSFX handled every
+single footstep. So that ruling was dead code for a day and footsteps were still
+playing at full level, with two sessions each assuming it had shipped.
+  APPLIED NOW on the path that actually runs: playSFX sends step_* through a
+  0.12 sub-bus -> SFXBUS -> master. His vectors are untouched; the verdict is on
+  the SOUND, never on how loud the game plays it.
+  MEASURED: footstep 0.032 vs kill 0.598 on the SFX bus. 19x down, about -25 dB.
+  And setSFXVolume(0) still silences it, so the knob reaches it.
+
+GATE: SFX WIRED 238 checks. The new ones are PROVED to fail -- putting STEP_GAIN
+back to 1.0 reproduces exactly the state that shipped yesterday and turns it red
+("FOOTSTEPS ARE NOT A LOT A LOT QUIETER: step 0.2659 vs kill 0.5983, 44.4%").
+That regression cannot happen quietly a third time.
+
+DEAD CODE LEFT ALONE ON PURPOSE: the other lane's stepSfx()/STEP_BUS still
+exists and still never fires. It is theirs, it is harmless, and ripping it out
+mid-flight is how you break somebody else's next turn. Flagged, not touched.
+
+LESSON WORTH THE WHOLE TURN: I reported a defect that did not exist because I
+measured on a bus carrying something else, and the measurement error HID a real
+defect sitting right next to it. When a number surprises you, check what else is
+on the wire before you write it up as a finding.
+
+BUILD STAMP: 8/2q - FOOTSTEPS ACTUALLY QUIET NOW (RUN TAB).
+
 SOUNDS (xk7pjp): 8/2 (b) LATEST — ONE VOLUME KNOB, and one honest gap.
 
 HIS RULING: "when we have a menu and it's gonna have Settings and then we can

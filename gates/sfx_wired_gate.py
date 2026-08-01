@@ -180,6 +180,44 @@ const METER=`(function(){
   await p.waitForTimeout(900);
   out.peakDoor=await p.evaluate(()=>window.__PEAK);
 
+  /* ===== THE MIX HE RULED ON, MEASURED ON THE SFX BUS ITSELF =============
+     Tapping MUS.MAST means the song pollutes every reading and MUS.stop()
+     tears the tap down. The SFX bus carries effects and nothing else, so this
+     is music-proof by construction.
+     TWO RULINGS ARE UNDER TEST:
+       "A LOT A LOT quieter" (8/1) -- a footstep must sit far under a kill.
+         Another session built that ruling onto a stepSfx() the run never calls,
+         so it was dead code and footsteps played at full level for a day while
+         everyone assumed it had shipped.
+       "change the volume of all sound effects" (8/2) -- one knob must reach
+         everything, footsteps very much included. */
+  out.sfxTap = await p.evaluate(()=>{
+    if(!window.__SFXBUS) return false;
+    window.__BPEAK=0;
+    const an=MUS.AC.createAnalyser(); an.fftSize=2048;
+    window.__SFXBUS.connect(an);
+    const buf=new Float32Array(an.fftSize);
+    setInterval(()=>{ an.getFloatTimeDomainData(buf);
+      let m=0; for(let i=0;i<buf.length;i++){const v=Math.abs(buf[i]); if(v>m)m=v;}
+      if(m>window.__BPEAK) window.__BPEAK=m; },16);
+    return true;
+  });
+  async function onBus(ev){
+    await p.evaluate(()=>{window.__BPEAK=0;}); await p.waitForTimeout(300);
+    /* NOT `e=>window.playSFX(e)` -- that returns a live AudioNode, which is
+       not serialisable across the bridge and poisons the whole result. */
+    await p.evaluate(e=>{ window.playSFX(e); }, ev); await p.waitForTimeout(1500);
+    return await p.evaluate(()=>window.__BPEAK);
+  }
+  out.mixStep = await onBus('step_asphalt');
+  out.mixKill = await onBus('kill');
+  out.stepBusGain = await p.evaluate(()=>window.__STEPBUS?window.__STEPBUS.gain.value:null);
+  out.hasVolume = await p.evaluate(()=>typeof window.setSFXVolume==='function');
+  await p.evaluate(()=>window.setSFXVolume(0));
+  out.mixStepMuted = await onBus('step_asphalt');
+  out.mixKillMuted = await onBus('kill');
+  await p.evaluate(()=>window.setSFXVolume(1));
+
   out.errs=errs;
   console.log(JSON.stringify(out));
   await b.close();
@@ -357,6 +395,10 @@ def main():
     except Exception as e:
         print('  FAIL  unreadable browser output (%s):\n%s' % (e, r.stdout[-1200:]))
         return 1
+    if not isinstance(d, dict):
+        print('  FAIL  the browser returned %s, not a result object. Last line:\n%s'
+              % (type(d).__name__, r.stdout.strip().splitlines()[-1][:400]))
+        return 1
 
     chk(not d.get('errs'), 'the page threw: %s' % (d.get('errs') or [])[:2])
 
@@ -422,6 +464,26 @@ def main():
     chk((d.get('peakDoor') or 0) <= floor * 1.5 + 0.02,
         'a DOOR RAISED THE LEVEL (floor %.4f -> %.4f) and he approved none of the ten'
         % (floor, d.get('peakDoor') or 0))
+
+    # 7b-v. THE MIX HE RULED ON, measured on the SFX bus (music-proof).
+    chk(d.get('sfxTap'), 'could not tap the SFX bus, so the mix was not measured')
+    chk(d.get('hasVolume'), 'there is no setSFXVolume for a settings menu to call')
+    chk(abs((d.get('stepBusGain') or 0) - 0.12) < 0.001,
+        'the footstep sub-bus is not at 0.12 (it is %s)' % d.get('stepBusGain'))
+    mstep, mkill = d.get('mixStep') or 0, d.get('mixKill') or 0
+    chk(mkill > 0.05, 'a kill measured %.4f on the SFX bus, so nothing was measured' % mkill)
+    chk(mstep > 0.001, 'a footstep measured %.5f -- it went silent, which is not '
+                       '"quieter", it is broken' % mstep)
+    chk(mkill > 0 and (mstep / mkill) < 0.15,
+        'FOOTSTEPS ARE NOT "A LOT A LOT QUIETER": step %.4f vs kill %.4f (%.1f%%). '
+        'His 8/1 ruling was dead code once already; do not let it die again.'
+        % (mstep, mkill, 100.0 * mstep / max(mkill, 1e-9)))
+    # 7b-vi. ONE KNOB REACHES EVERYTHING, footsteps included.
+    chk((d.get('mixStepMuted') or 0) <= 0.001,
+        'setSFXVolume(0) did NOT silence a footstep (%.5f) -- the settings slider '
+        'would miss the most frequent sound in the game' % (d.get('mixStepMuted') or 0))
+    chk((d.get('mixKillMuted') or 0) <= 0.001,
+        'setSFXVolume(0) did NOT silence a kill (%.5f)' % (d.get('mixKillMuted') or 0))
 
     print('  %d passed, %d FAILED' % (P, F))
     if not F:

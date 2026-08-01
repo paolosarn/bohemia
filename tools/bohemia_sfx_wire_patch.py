@@ -151,6 +151,29 @@ def parent_block(bank):
   };
   window.getSFXVolume=function(){ return SFXVOL; };
 
+  /* FOOTSTEPS SIT WAY UNDER EVERYTHING (Paolo 8/1): "relative to like the music
+     it should be like a lot quieter like A LOT A LOT quieter -- the noise that
+     makes for me stepping in different terrain should be quieter."
+     ANOTHER SESSION BUILT THIS RULING AND IT NEVER FIRED. Their stepSfx() hangs
+     off a BOHEMIA_STEP message that the run does not post -- measured live:
+     stepSfx called 0 times across a walk, while playSFX handled every footstep.
+     So the 0.12 they set was dead code and his ruling was being dropped on the
+     floor while everyone assumed it had shipped. It is applied HERE, on the
+     path that actually runs.
+     A SUB-BUS, not an edit to his vectors: the verdict is on the SOUND, never
+     on how loud the game chooses to play it. STEPS -> SFXBUS -> master, so the
+     settings knob still reaches them. */
+  var STEPBUS=null, STEP_GAIN=0.12;      /* ~-18 dB under everything else */
+  function stepBus(){
+    try{
+      if(STEPBUS) return STEPBUS;
+      var out=sfxBus(); if(!out) return null;
+      STEPBUS=MUS.AC.createGain(); STEPBUS.gain.value=STEP_GAIN;
+      STEPBUS.connect(out); window.__STEPBUS=STEPBUS;
+    }catch(e){ STEPBUS=null; }
+    return STEPBUS;
+  }
+
   /* THE ONE ENTRY POINT. when==='beat' fires on the next downbeat of the real
      song (the 120 BPM LAW: a kill lands ON the beat), anything else fires now. */
   window.playSFX=function(ev,when){
@@ -159,7 +182,10 @@ def parent_block(bank):
       var i=pick(ev); if(i==null)return null;
       var v=vec(ev,i); if(!v)return null;
       MUS.audio();
-      var AC=MUS.AC, dest=sfxBus()||MUS.MAST||AC.destination;
+      var AC=MUS.AC;
+      /* a footstep goes to the quiet sub-bus; everything else to the master */
+      var dest=(ev.indexOf('step_')===0 ? (stepBus()||sfxBus()) : sfxBus())
+               || MUS.MAST || AC.destination;
       var at=null;
       if(when==='beat' && MUS.playing && MUS.nextT){
         /* the next 16th that is also a beat boundary */
