@@ -127,7 +127,7 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
   ok('the arm-then-tap MOVE button is dead (Paolo: use the ring)',
     !demo.includes('id="movebtn"'));
   ok('a plain one-tile step still costs the turn (routes through endTurnReturn) -- walking is the free thing stamina buys you OUT of',
-    /function doMove\([\s\S]{0,4200}?endTurnReturn\(false\); \}/.test(demo));
+    /function doMove\([\s\S]{0,9000}?endTurnReturn\(false\); \}/.test(demo));   /* V106+V108 widened the window: doMove now carries the stair branch and the cover readout. The INVARIANT is unchanged -- a plain step still routes through endTurnReturn. */
   // v19: victory walk + blood by health
   ok('VICTORY WALK: the ring keeps working after the win (no turn cost)',
     demo.includes('VICTORY WALK V19') && demo.includes("setRead('WALKING THE FIELD'"));
@@ -320,7 +320,7 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes('mv(s,0.02)') && demo.includes('mv(L,0.02)'));
   // v22: the plumbing pass — the red line law finally complete
   ok('V24 LOS BEAD (supersedes v22): a step only resets guns whose LINE you broke',
-    demo.includes('V24 LOS BEAD') && demo.includes('if(myCoverAgainst(e2.ea,e2.edist,e2.lvl)){ if((e2.acq||0)>=1)_broke++; e2.acq=0; }'));   /* V90: same check, now level-aware */
+    demo.includes('V24 LOS BEAD') && demo.includes('if(myConcealAgainst(e2.ea,e2.edist,e2.lvl)){ if((e2.acq||0)>=1)_broke++; e2.acq=0; }'));   /* V108 RE-POINTED: his own words were "it has to be a line of sight thing", and v108 finally separated the LINE from the PROTECTION. The bead asks myConcealAgainst, so a car door breaks the lock exactly as it really would. Same law, sharper test. */   /* V90: same check, now level-aware */
   ok('danger outranks its warning: red line 0.30, acquiring amber 0.18',
     demo.includes("'rgba(232,60,40,0.30)'") && demo.includes("'rgba(232,140,40,0.18)'") &&
     !demo.includes("'rgba(232,140,40,0.32)'"));
@@ -657,7 +657,9 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   // v54: the MOBILITY TOOLKIT -- stamina spine + suppress + hand-peek + dash + vault
   ok('V54 STAMINA SPINE: STAM_MAX=3, full at fight start, +1 regenerated at the turn-end choke, shown as pips -- a stamina action does not end the turn',
     demo.includes('const STAM_MAX=3;') &&
-    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G.groove=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false;') &&
+    /* V107 RE-POINTED: the hand-written list in setupCombat became resetFightState(), the ONE reset both doors call. The invariant is stronger, not weaker -- newEncounter gets it too now. */
+    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0;') &&
+    demo.includes('function resetFightState(){') &&
     demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
     demo.includes("function spendStam(n){ if((G.stam||0)<n)return false;") && demo.includes('function spendMove(n){'));
   ok('V67 SUPPRESS IS TURN-BASED, NOT WALL-CLOCK (Paolo: "it doesn\'t seem like it does fucking anything"). The 2.2-SECOND pin expired while he was still deciding his move; a pin is now counted in TURNS like everything else in this fight, it breaks the red lines they were holding, and it costs a turn of cooldown',
@@ -711,7 +713,9 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
        trailing comment, so the two are asserted separately. The invariant is
        unchanged: dashArm is cleared on a fresh fight, and the reset is still the
        MOBILITY TOOLKIT reset it always was. */
-    demo.includes('G.dashArm=false; G.sprintArm=false; G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G.groove=0; G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false;') &&
+    /* V107 RE-POINTED again: the list is resetFightState() now. */
+    demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0;') &&
+    demo.includes('function resetFightState(){') &&
     demo.includes('/* V54 MOBILITY TOOLKIT: full stamina, full body, fresh fight. V56'));
   ok('V67 SUPPRESS IS LEGIBLE: the pinned wear a PINNED tag on the body, the action button counts them, and the readout names the broken red lines. He pressed it and nothing on screen changed -- that was half the bug',
     demo.includes(":pinned(e)?'PINNED'") &&
@@ -731,7 +735,8 @@ ok('V67 A PINNED MAN IS EASY MEAT: the dial window opens 35% on a suppressed tar
     demo.includes("G._oneStreak=(G._oneStreak||0)+1; showVerd('ON THE ONE'+(G._oneStreak>1?' x'+G._oneStreak:'')") &&
     demo.includes("else { G._onePop=false; G._oneStreak=0; }") &&
     demo.includes("*(1+(G._onePop?Math.min(0.30,0.12+(Math.max(1,G._oneStreak||1)-1)*0.06):0));") &&
-    demo.includes("G._oneStreak=0; G._endSent=false; G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false;"));
+    demo.includes("G.groove=0; G._oneStreak=0; G._endSent=false;") &&
+    demo.includes('function resetFightState(){'));   /* V107 RE-POINTED: one reset, both doors */
 ok('V67 ONE CLOCK (Paolo: "the dead eye dial is not synced up with beat one"). The dial rode a per-frame counter with no relationship to the audio sequencer\'s step 0, so the sweep and the loud hero downbeat drifted forever. The AUDIO is the clock now, latency-compensated to what the ear hears',
     demo.includes('function audioMs(){') &&
     demo.includes('const lat=((AC.outputLatency||AC.baseLatency||0)||0);') &&
@@ -1188,7 +1193,8 @@ ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight 
       demo.includes('fireGrantTick(); }   /* V68: a held shot is granted on the beat */') &&
       demo.includes('if(beatNow()>=G._fireReq.at){ G._fireReq=null; try{setPhaseUI();}catch(_e){} fireNow(); }') &&
       demo.includes("fb.innerHTML='<b style=\"font-size:11px;letter-spacing:1px\">ON THE<br>BEAT</b>'") &&
-      demo.includes('G.suppCd=0; G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0; G.groove=0; G._oneStreak=0;') &&
+      demo.includes('G._fireReq=null; G._grades=[]; G._lastGrade=null; G._pressBeat=null; G._perfects=0;') &&
+      demo.includes('function resetFightState(){') &&   /* V107 RE-POINTED: and now a held shot dies on NEW ENCOUNTER too, which it did not before */
       demo.includes('_spawnLayout:null, _fireReq:null, groove:0 };'));
   }
 }
@@ -1410,7 +1416,9 @@ ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 ass
   ok('A HIT BREAKS THE CHAIN (the rule that makes it a stake rather than a press counter), and it is announced, not silent',
     /function hurtFlash\(\)\{[\s\S]{0,400}?G\.groove=0;[\s\S]{0,120}?CHAIN BROKEN/.test(demo));
   ok('and no chain survives a fight, through the NEW ENCOUNTER path or the run handoff',
-    demo.includes('G._perfects=0; G.groove=0; G._oneStreak=0;') &&
+    demo.includes('G.groove=0; G._oneStreak=0; G._endSent=false;') &&
+    demo.includes('function resetFightState(){') &&   /* V107: THIS is the check that would have caught the stuck grenade -- one reset, called by newEncounter as well */
+    /function newEncounter\(\)\{[\s\S]{0,900}resetFightState\(\);/.test(demo) &&
     demo.includes('_fireReq:null, groove:0 };'));
   ok('the chain reads on screen with its level and goes HOT at max, on the same strip as the grade',
     demo.includes("GROOVE x'+_gl+(_max?' MAX':'')") && demo.includes('var _chain=(G.groove||0)>0?') &&
@@ -2089,7 +2097,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
     demo.includes('if(G.litter.length>JUICE_BRASS_MAX)G.litter.shift(); }') &&
     jm.exports.BRASS > 14 && jm.exports.BRASS <= 256);
   ok('and it is still BOUNDED and still cleared on a fresh fight -- permanence lasts the encounter, not the session',
-    demo.includes('G.litter=[];       /* AF: fresh ground */'));
+    demo.includes('G.coverHoles=[]; G.litter=[]; G.lvl=0;'));   /* V107 RE-POINTED: fresh ground moved into resetFightState */
 
   /* (g) the impact carries a direction, which is the whole point of a burst. */
   ok('V86 THE IMPACT THROWS ALONG THE SHOT: twelve particles at k/12*6.28 is a perfect circle, the one shape a real impact never makes, and it threw away the only thing a burst exists to say -- where it came from',
@@ -2336,7 +2344,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
     gen.includes('const r=Math.max(0.45,Math.min(1.15,bulk+(Math.random()-0.5)*0.30));') &&
     !demo.includes('edist:Math.hypot(nx2,ny2),r:0.55,tall:'));
   ok('AND THE EXISTING COVER MATHS ALREADY SCALED OFF P.r everywhere it is used, so nothing had to be rewritten -- the number was simply never allowed to vary',
-    demo.includes('return dA<Math.PI/2 && Math.sin(dA)*P.edist<P.r*0.9; }); }') &&
+    demo.includes('if(dA<Math.PI/2 && Math.sin(dA)*P.edist<P.r*0.9){') &&   /* V108 RE-POINTED: the same P.r geometry, now inside coverPillarAgainst, which myCoverAgainst is a boolean over */
     demo.includes('segNear(0,0,exy[0],exy[1],pxy[0],pxy[1],P.r*0.85)') &&
     demo.includes('Math.hypot(q[0]-sx,q[1]-sy)<P.r*0.6+0.35'));
   ok('PIECES CLUSTER INTO RUNS, so WALLS and CORNERS emerge from the same circle maths that already ships -- a wall is three pillars in a row, and every cover function already understands three pillars in a row. No new geometry, no new collision, no new cover rule',
@@ -2375,15 +2383,30 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
 {
   ok('V90 THE ONE RULE: myCoverAgainst takes a LEVEL and returns false across floors -- a floor between you is not a wall between you',
     demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
-    demo.includes('if(lvl!=null&&(lvl|0)!==myLvl())return false;'));
+    /* V108 RE-POINTED: the cross-level rule moved INTO coverPillarAgainst, which
+       both myCoverAgainst and myConcealAgainst are thin wrappers over -- so the
+       rule now has exactly ONE owner instead of being duplicated per wrapper. */
+    demo.includes('function coverPillarAgainst(ang,dist,lvl,soft){') &&
+    demo.includes('if(lvl!=null&&(lvl|0)!==myLvl())return null;') &&
+    demo.includes('return !!coverPillarAgainst(ang,dist,lvl,false); }'));
   ok('AND IT RUNS BOTH WAYS: his cover from you dies across floors too, in realCoverPillar, so the deck is not a free kill box in one direction only',
     /function realCoverPillar\(e\)\{[\s\S]{0,260}?if\(\(e\.lvl\|0\)!==myLvl\(\)\)return false;/.test(demo));
   ok('AND EVERY ENEMY-FACING COVER CALL CARRIES ITS LEVEL -- all 14 of them, so no code path can quietly keep the old flat answer',
-    demo.split('myCoverAgainst(e.ea,e.edist,e.lvl)').length - 1 === 8 &&
-    demo.split('myCoverAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 4 &&
+    /* V108 RE-POINTED: three of the e2 sites are the ACQUISITION BEAD, which is
+       a line-of-sight test and now calls myConcealAgainst. The invariant is
+       unchanged and is asserted across BOTH functions: every enemy-facing cover
+       or concealment call carries its level, and none of them may be levelless. */
+    /* 8 enemy-facing calls, still 8: seven ask the boolean and the eighth asks
+       coverPillarAgainst directly, because the volley needs to know WHICH piece
+       stopped the round so it can put the heat in the car. */
+    demo.split('myCoverAgainst(e.ea,e.edist,e.lvl)').length - 1 === 7 &&
+    demo.split('coverPillarAgainst(e.ea,e.edist,e.lvl,false)').length - 1 === 1 &&
+    demo.split('myCoverAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 1 &&
+    demo.split('myConcealAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 3 &&
+    demo.includes('coverPillarAgainst(e.ea,e.edist,e.lvl,false)') &&
     demo.includes('myCoverAgainst(tgt.ea,tgt.edist,tgt.lvl)') &&
     demo.includes('myCoverAgainst(e.ea,null,e.lvl)') &&
-    !/myCoverAgainst\((e|e2|tgt)\.ea,\s*(e|e2|tgt)\.edist\)/.test(demo));
+    !/my(Cover|Conceal)Against\((e|e2|tgt)\.ea,\s*(e|e2|tgt)\.edist\)/.test(demo));
 
   ok('HIS NO-MULTIPLIERS RULING HOLDS: height changes nothing about damage. KILL_DMG is still the flat constant and no level term is anywhere near it',
     demo.includes('const KILL_DMG=100;') && demo.includes('applyDamage(tgt,KILL_DMG);') &&
@@ -2430,7 +2453,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
   ok('A BLADE CANNOT REACH A FLOOR ABOVE IT -- not a balance number, an arm being too short',
     /for\(const e of G\.e\)\{ if\(e\.dead\|\|e\.downed\|\|e\.broken\|\|e\.fleeing\|\|!e\.melee\)continue;\s*\n\s*if\(\(e\.lvl\|0\)!==myLvl\(\)\)continue;/.test(demo));
   ok('and every fight starts on the lot',
-    demo.includes('G.lvl=0;           /* V90B: every fight starts on the lot */'));
+    /function resetFightState\(\)\{[\s\S]{0,1200}G\.lvl=0;/.test(demo));   /* V107 RE-POINTED: and now NEW ENCOUNTER puts you back on the lot too, which the old inline list never did */
 
   /* the render: levels are drawn RELATIVE, which is the one-scene law */
   ok('V90B LEVELS ARE DRAWN RELATIVE TO YOU: the deck floats above the lot from the ground and becomes the floor under your feet once you are on it. ONE SCENE, the same law the killshot and the board already obey',
@@ -2589,11 +2612,16 @@ ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: 
     demo.includes('function underDeck(o){ if(!o||(o.lvl|0)!==0)return false;') &&
     demo.includes("const UNDER_TINT='rgba(96,132,178,0.90)', UNDER_ALPHA=0.42;"));
   ok('and the predicate is a REAL level+footprint test, not a distance guess: level 0, standing on a deck tile',
-    /function underDeck\(o\)\{ if\(!o\|\|\(o\.lvl\|0\)!==0\)return false;\s*\n\s*return !!deckTileAt\(Math\.cos\(o\.ea\)\*o\.edist,Math\.sin\(o\.ea\)\*o\.edist\); \}/.test(demo));
+    /* V106 RE-POINTED: deckSlabAt, not deckTileAt -- a staircase is a deck tile
+       and it is NOT something you can be underneath. Standing on the foot of the
+       run used to X-RAY you, which is exactly what Paolo reported as "I walk on
+       the stairs and then it says I'm behind the stairs". Still a real
+       level+footprint test; the footprint just stopped including the door. */
+    /function underDeck\(o\)\{ if\(!o\|\|\(o\.lvl\|0\)!==0\)return false;\s*\n\s*return !!deckSlabAt\(Math\.cos\(o\.ea\)\*o\.edist,Math\.sin\(o\.ea\)\*o\.edist\); \}/.test(demo));
 
   ok('EVERY BODY OBEYS ONE RULE, enemies and YOU alike, so you can always tell which floor your own man is standing on',
     demo.includes('if(underDeck(e)){ const f2=enemyFrame(e,now); if(!f2)return false;') &&
-    demo.includes('function underDeckMe(){ return myLvl()===0 && !!deckTileAt(0,0); }') &&
+    demo.includes('function underDeckMe(){ return myLvl()===0 && !!deckSlabAt(0,0); }') &&
     demo.includes('if(underDeckMe()){ x.save(); x.globalAlpha=UNDER_ALPHA;'));
   ok('and the ghost REUSES drawHumanWashed, the tint path the stun / firing / peeking / wounded reads already ride -- no new draw path was invented for it',
     demo.includes('drawHumanWashed(x,f2,ex,ey,UNDER_TINT);') &&
@@ -2607,7 +2635,7 @@ ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: 
     demo.includes('UNDER THE DECK'));
 
   ok('V93 A GHOST IS A READ, NOT A RULE CHANGE: being under the deck alters nothing about cover, damage or exposure -- the cross-level rule is still the only thing levels do to the fight',
-    demo.includes('if(lvl!=null&&(lvl|0)!==myLvl())return false;') &&
+    demo.includes('if(lvl!=null&&(lvl|0)!==myLvl())return null;') &&   /* V108 RE-POINTED */
     demo.includes('const KILL_DMG=100;') &&
     !/underDeck\([^)]*\)[^\n]{0,80}(KILL_DMG|applyDamage|distAccuracy)/.test(demo));
 
@@ -2886,7 +2914,10 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('G.pillars.push({ea:Math.atan2(c[1],c[0]),edist:Math.hypot(c[0],c[1]),'));
 
   ok('V103 ONE OBJECT, TWO COVER VALUES: engine and cabin are TALL (chest, no vault), the boot is LOW (waist, vaultable). That is the thing a car has that no block can do, and it rides the tall/low flag that already existed',
-    demo.includes('const tall=along(c)<span*0.6;') &&
+    /* V108 RE-POINTED: tall is DERIVED FROM THE PART now, which is the same
+       answer arrived at honestly -- and the old span expression was measurably
+       wrong for a car parked across the screen (no cabin at all). */
+    demo.includes("const tall=(part!=='boot');") &&
     demo.includes('r:0.5,tall:tall,car:cid,'));
 
   ok('V103 ONE SPRITE OVER SIX CELLS: only the nose cell draws, the other five are real cover that simply are not blocks',
@@ -2958,7 +2989,7 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('x.fillRect(p[0]-t2*0.5+bI*bw,ty,bw*0.82,t2+1); }'));
 
   ok('V105 AND THE TILE IN YOUR WAY GETS OUT OF THE WAY -- his third ask, answered at the CAUSE this time. A deck tile with a living body under it drops to DECK_SEE alpha, so the man shows THROUGH the boards instead of being hidden and then redrawn',
-    demo.includes('const thin=_below(T);') &&
+    demo.includes('const thin=!T.stair&&_below(T);') &&   /* V106 migrated this line: the staircase is never a floor, so it never thins */
     demo.includes('x.save(); if(thin)x.globalAlpha=DECK_SEE;'));
 
   ok('V105 AND v93\'S GHOST STAYS AS THE BACKSTOP: two independent reads of the same fact, because he has asked to see who is underneath three times',
@@ -2968,8 +2999,125 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
 
   ok('V105 IT IS STILL A READ, NOT A RULE CHANGE: a thinner tile changes what you can SEE, never what you can hit -- the cross-level cover rule is untouched',
     demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
-    demo.includes('if(lvl!=null&&(lvl|0)!==myLvl())return false;') &&
-    !/const thin=_below\(T\);[\s\S]{0,400}(gcov=|KILL_DMG|applyDamage)/.test(demo));
+    /* V108 migrated this: the cross-level rule moved INTO coverPillarAgainst,
+       which myCoverAgainst is now a thin boolean over. Same rule, one owner. */
+    demo.includes('function coverPillarAgainst(ang,dist,lvl,soft){') &&
+    demo.includes('if(lvl!=null&&(lvl|0)!==myLvl())return null;') &&
+    !/const thin=!T\.stair&&_below\(T\);[\s\S]{0,400}(gcov=|KILL_DMG|applyDamage)/.test(demo));
+
+  /* ===== 40. V106 THE STAIRS ARE A THING YOU WALK ON =================== */
+  ok('V106 A STAIRCASE IS NOT A CEILING (Paolo: "I walk on the stairs and then it says I\'m behind the stairs"). The stair IS a deck tile, so deckTileAt matched it and the v93 under-deck x-ray fired on the one tile it must never fire on -- the game telling him he was UNDERNEATH the thing he had just climbed onto. deckSlabAt is the split: "a deck tile that can be over your head", stair excluded',
+    demo.includes('V106 THE STAIRS ARE A THING YOU WALK ON') &&
+    demo.includes('function deckSlabAt(wx,wy){') &&
+    demo.includes('if(T.stair)return false;'));
+
+  ok('V106 AND BOTH X-RAY READS MOVED ONTO IT -- mine and theirs. Fixing this at the call site instead of the predicate is how it would come back',
+    /function underDeck\(o\)\{[\s\S]{0,200}deckSlabAt\(/.test(demo) &&
+    demo.includes('function underDeckMe(){ return myLvl()===0 && !!deckSlabAt(0,0); }') &&
+    !/function underDeckMe\(\)\{ return myLvl\(\)===0 && !!deckTileAt\(0,0\); \}/.test(demo));
+
+  ok('V106 WALKING ONTO THE RUN CLIMBS IT (Paolo: "basically I can\'t even walk up the stairs if I wanted to" -- literally true, the button was the only door). One pip each way, the same price doStairs charges, because it is the same act',
+    demo.includes('function stairStepAt(wx,wy){') &&
+    demo.includes('const _climb=(myLvl()!==DECK_LVL)&&stairStepAt(sx,sy);') &&
+    demo.includes('const _down =(myLvl()===DECK_LVL)&&onStairNow()&&!deckTileAt(sx,sy);') &&
+    demo.includes("worldShift(sx,sy); G.lvl=_climb?DECK_LVL:0;"));
+
+  ok('V106 AND THE EDGE IS REAL. doMove had no idea levels existed, so you could walk clean off the boards and keep standing one storey up over nothing. Nobody had ever seen it because nobody could get up there without the button',
+    demo.includes("setRead('THE EDGE','nothing under that step") &&
+    /myLvl\(\)===DECK_LVL&&!deckTileAt\(sx,sy\)\)\{/.test(demo));
+
+  ok('V106 THE BUTTON SURVIVES as the FINDER, not the only door -- v91 measured that the button appeared zero times across eight arenas at the old 1.6 range, and the phone-proof channel is still the thing that says a way up exists',
+    demo.includes('function updStairBtn(){') && demo.includes('function doStairs(){'));
+
+  /* ===== 41. V107 THE KILL WEARS NOTHING, ONE RESET, TWO REPORTS ======= */
+  ok('V107 THE ORANGE, NAMED BY INSTRUMENT AND NOT BY GUESS. Wrapping fill/stroke/fillRect/fillText and filtering to frames where G.ks is live put rgb(202,160,122) at drawArmNeedle at the top of the list: the GHOST FAN, eight fading copies of the needle, every frame, ungated, welded around the locked arm for the whole cinematic. Six reports, two wrong fixes, and this is it',
+    demo.includes('V107 THE KILL WEARS NOTHING') &&
+    demo.includes('function dialOrnament(){ return !G.ks; }') &&
+    demo.includes('if(dialOrnament())for(let i=8;i>=1;i--){'));
+
+  ok('V107 AND THE FAMILY IS SWEPT, NOT THE MEMBER. v87 gated the chain glow, v94 deleted the median, v85 held the ghost chip -- three turns, three separate fixes, one bug. Every warm dial ornament now asks the SAME named predicate, including the reticle fan nobody had reported yet',
+    demo.includes('if(dialOrnament())for(let i=6;i>=1;i--){') &&
+    demo.includes('if(JUICE.AL&&dialOrnament()){') &&
+    /* every ghost-fan loop in the file is guarded -- counting is the only
+       honest way to say "none of them is ungated" */
+    (demo.match(/for\(let i=8;i>=1;i--\)\{/g) || []).length ===
+      (demo.match(/if\(dialOrnament\(\)\)for\(let i=8;i>=1;i--\)\{/g) || []).length &&
+    (demo.match(/for\(let i=6;i>=1;i--\)\{/g) || []).length ===
+      (demo.match(/if\(dialOrnament\(\)\)for\(let i=6;i>=1;i--\)\{/g) || []).length);
+
+  ok('V107 ONE RESET, CALLED BY BOTH DOORS (Paolo: "I\'m just so confused the type of transition you have between combat mode and non-combat mode"). His live grenade walked through the end of a fight AND through NEW ENCOUNTER because setupCombat cleared it and newEncounter -- which never calls setupCombat -- kept its own inline list that predates the grenade',
+    demo.includes('function resetFightState(){') &&
+    demo.includes('G.pGren=null; G.pGrenLeft=P_GREN_PER_FIGHT; G.grenArm=false;    /* YOURS -- the one he caught */') &&
+    demo.includes('camHome(); resetFightState(); resetBeat();'));
+
+  ok('V107 AND setupCombat DELEGATES TO IT, so there is exactly ONE list. A second copy of the list is the bug, not the fix',
+    /function setupCombat\(\)\{[\s\S]{0,900}resetFightState\(\);/.test(demo) &&
+    (demo.match(/G\.pGrenLeft=P_GREN_PER_FIGHT/g) || []).length === 1);
+
+  ok('V107 HP IS DELIBERATELY NOT IN THE RESET: a new encounter carries your HP over, which is a ruling, and fullResetCombat is the one that heals',
+    (function(){ const i = demo.indexOf('function resetFightState(){');
+      if (i < 0) return false;
+      const body = demo.slice(i, demo.indexOf('\n}', i));
+      return body.length > 200 && !/G\.pHP/.test(body); })());
+
+  ok('V107 TWO SHOTS, TWO GUNSHOTS (Paolo: "I need to hear like two gunshot noises"). The double tap already called sndShot twice -- 90ms apart with the IDENTICAL two-oscillator voice, so the second landed inside the first one\'s decay on the same frequencies and summed into one fatter bang. A real controlled pair is 150-250ms and the second round is lower and drier',
+    demo.includes("function sndShot2(){") &&
+    demo.includes('if(dbl)setTimeout(()=>{try{sndShot2();') &&
+    demo.includes('},165);'));
+
+  /* ===== 42. V108 THE CAR IS COVER WITH PARTS ========================== */
+  ok('V108 A CAR IS NOT ONE THING (Paolo: "Please make sure cars can be used as Cover"). Since v103 a car was six identical pillar cells -- worth exactly as much as a concrete block, and the game never said the word CAR. Now the three rows ARE the parts, which is the shape the vehicle already had',
+    demo.includes('V108 THE CAR IS THREE DIFFERENT OFFERS') &&
+    demo.includes("const part=_row<=0?'engine':(_row>=2?'boot':'cabin');") &&
+    demo.includes("part:part,hard:hard,tank:(part==='boot'),"));
+
+  ok('V108 AND THE ROW MATH USES CAR_L, NOT span. span is (vert?CAR_L:CAR_W)-1, which is 1 for a car parked ACROSS the screen -- a v103 slip that was invisible while it only fed a boolean. MEASURED before shipping: with span a horizontal car came out engine/boot/boot and had NO CABIN AT ALL',
+    demo.includes('const _rows=CAR_L-1;') &&
+    demo.includes('Math.round(along(c)/Math.max(1,_rows)*2)'));
+
+  ok('V108 THE DOORS STOP NOTHING. Grounded, not invented: a car door is 20-gauge sheet with an air gap behind it and penetration testing puts pistol rounds through both of them, while the engine bay is a foot of cast iron. hard=false is the whole mechanic -- the only cover in this game that LIES to you',
+    demo.includes('function coverPillarAgainst(ang,dist,lvl,soft){') &&
+    demo.includes('if(!soft&&P.hard===false)continue;') &&
+    demo.includes('function myConcealAgainst(ang,dist,lvl){ return !!coverPillarAgainst(ang,dist,lvl,true); }'));
+
+  ok('V108 AND CONCEALMENT STILL BUYS TIME: the acquisition bead is a LINE test, so a car door breaks their lock exactly as it really would -- there and nowhere else. That separation is what makes the cabin a real choice instead of a dead tile',
+    (demo.match(/myConcealAgainst\(e2\.ea,e2\.edist,e2\.lvl\)/g) || []).length >= 3 &&
+    demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
+    demo.includes('return !!coverPillarAgainst(ang,dist,lvl,false); }'));
+
+  ok('V108 THE RULE RUNS BOTH WAYS: a man tucked at a car door has no more protection from you than you have from him',
+    /function realCoverPillar\(e\)\{[\s\S]{0,600}if\(P\.hard===false\)return false;/.test(demo));
+
+  ok('V108 YOU ARE TOLD WHICH END YOU ARE AT. The whole mechanic is worthless if you cannot read it off the screen, so the step that puts you behind a car names the part in his words',
+    demo.includes("return P.part==='engine'?'ENGINE BLOCK':(P.part==='boot'?'THE BOOT':'THE DOORS');") &&
+    demo.includes('function coverLine(P){'));
+
+  ok('V108 AND THEN IT COOKS OFF. Rounds your cover ATE have to go somewhere: if the thing that stopped them was a car, that is heat in the metal, and the heat is a fuse both sides can watch. The best cover on the lot is a bomb you are standing next to',
+    demo.includes('const CAR_COOK=10;') &&
+    demo.includes('function carHeat(cid,n){') &&
+    demo.includes('if(covP&&covP.car)carHeat(covP.car,1);') &&
+    demo.includes('function cookOff(cid){'));
+
+  ok('V108 ONE BULLET NEVER SETS OFF A FUEL TANK -- the film version would make the best cover on the lot unusable. It takes sustained fire or an explosion, which is also what makes the GRENADE the deliberate answer: throw it at the wreck, not at the man',
+    demo.includes('const CAR_GREN_HEAT=7;') &&
+    demo.includes('carHeat(P.car,CAR_GREN_HEAT); } } }'));
+
+  ok('V108 AND THE BLAST IS HONEST BOTH WAYS: it uses one band function for you and for them, so hugging the car you just cooked costs you exactly what it costs them',
+    /const band=d=>d<0\.9\?/.test(demo) &&
+    /const dS=Math\.hypot\(bx,by\), sd=band\(dS\);/.test(demo) &&
+    /const p=pXY\(e\), dmg=band\(Math\.hypot\(p\[0\]-bx,p\[1\]-by\)\);/.test(demo));
+
+  ok('V108 WHAT IS LEFT IS A SHELL, and the lot is permanently different. Fire takes the glass, the seats and the tyres; the block and the frame do not go anywhere -- so every cell becomes LOW HARD cover and the cabin gets BETTER, which is the one honest surprise in the mechanic',
+    demo.includes('for(const P of cells){ P.burnt=true; P.tall=false; P.hard=true; P.tank=false; }') &&
+    demo.includes("if(P.burnt)return 'BURNT SHELL';"));
+
+  ok('V108 THE HEAT IS ON THE CAR, NOT IN A MENU. A fuse nobody can see is not a decision: the metal reddens as the rounds go in and breathes faster the closer it gets, and a burnt shell goes dark and stays dark',
+    demo.includes("const _ht=Math.min(1,((G._carHeat||{})[P.car]||0)/CAR_COOK);") &&
+    demo.includes("x.globalCompositeOperation='multiply';") &&
+    demo.includes('if(G._carFire&&G._carFire.length){'));
+
+  ok('V108 AND A NEW LOT IS COLD METAL: the heat book, the burnt book and the fire fx are rebuilt with the cars, so nothing survives a fight it did not belong to (the exact class of bug v107 fixed for the grenade)',
+    demo.includes('G._cars=placed.length; G._carHeat={}; G._carBurnt={}; G._carFire=[]; }'));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

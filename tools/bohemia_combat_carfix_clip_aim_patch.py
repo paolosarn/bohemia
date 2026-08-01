@@ -81,6 +81,16 @@ Every replacement asserts its anchor count EXACTLY. Idempotent.
 
 Usage: python3 tools/bohemia_combat_carfix_clip_aim_patch.py
 Gate:  node gates/combat_lab_gate.js   (section 38)
+
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): this patch AUTHORS NO RIG GEOMETRY and
+  reshapes nothing. It only CHOOSES which already-baked clip a covered body
+  plays -- swapping the v102 pick (rise112, baked from 'floor-rise') for the one
+  that is actually the peek out of cover (cfire112, baked from 'cover-fire').
+  The clips, their joints and Paolo's painted regions are untouched; the change
+  is an index into an existing bank.
+  built on: the BAKED package
+  joints: none
+  parts: none
 """
 import base64, os, sys
 
