@@ -1724,8 +1724,42 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
-0AJ. [HIS COMPLAINT 8/1, NOT FIXED YET, DIAGNOSED ONLY] THE LIMITS OF THE WALL
-   ARE CONFUSING. > "I'm so confused by what you choose is the limits of the wall
+0AJ. [HIS COMPLAINT 8/1, MEASURED TO A NUMBER, FIX NOT ATTEMPTED - NEXT ITEM]
+   YOU CAN STAND INSIDE THE WALL. HE RULED IT IS ABOUT WHERE YOU CAN WALK.
+   > "I'm so confused by what you choose is the limits of the wall and what's
+   >  not... it looks like there's like two layers of walls at the base of the
+   >  wall like I'm walking across the wall line and like there's a separate tile
+   >  that's a different wall in the wall that it is it's crazy."
+   > Asked walk-or-looks, he answered: "Where you can walk".
+   MEASURED ON THE REAL CITY TAB (frame probe via cellAt, 60 suburb cells):
+     the wall cell itself   wallH = 2, walk = false, face = true   <- correct
+     22,345 wall cells swept
+     7,417 OF THEM HAVE A WALKABLE CELL DIRECTLY ABOVE  <- the bug
+   The wall is DRAWN TWO TILES TALL and is SOLID FOR ONE. The second course
+   rises into the cell above, and that cell is walkable - so you stand in the
+   screen space the wall occupies. That is both halves of what he described:
+   "two layers of wall" is the 2-tile face, and "walking across the wall line"
+   is standing in the half of it that has no collision.
+   AND THE TWO SURFACES DISAGREE, which is its own latent bug: the RUN draws the
+   same wall ONE tile tall (drawPerim(X,Y,S), S = one CELL) over one solid cell,
+   so the run is self-consistent and the CITY tab is not. wallclass_gate asserts
+   >= 2 tiles - on the CITY tab only.
+   TWO THINGS RULED OUT BY MEASUREMENT, so nobody re-checks them:
+     the doubled draw on a wall cell (a yard tile is painted, then the wall over
+       it) is NOT what he sees - his 13 approved wall PNGs are colourType 2, RGB
+       with NO ALPHA CHANNEL, fully opaque 44x44, so the yard underneath is
+       invisible. Wasteful, not visible. Do not "fix" it expecting a change.
+     the RUN's wall is not doubled either - one cell drawn, one cell solid.
+   THE FIX IS ONE RULE: a cell whose screen space is covered by a wall face is
+   not walkable. NOT DONE HERE ON PURPOSE - it changes walkable geometry across
+   the whole valley, and the cells beside a gate opening must NOT be sealed or
+   it re-creates the prison 0AI just removed. It needs its own turn, its own
+   gate, and a NO PRISON re-run afterwards.
+   | engine + the CITY tab's cell walkability | gate: extend NO PRISON or a new
+     one | 8/1 | NOT YET - his to look at once it lands.
+
+0AJ-OLD. (superseded by the entry above, kept because the first read was wrong)
+   THE LIMITS OF THE WALL ARE CONFUSING. > "I'm so confused by what you choose is the limits of the wall
    and what's not it's very strange." Two screenshots: in both he appears to be
    STANDING ON a wall course rather than beside it.
    NOT GUESSED AT, AND DELIBERATELY NOT FIXED IN THE SAME TURN as the prison bug,
