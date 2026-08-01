@@ -1,3 +1,62 @@
+ART (f3eu53): 8/1 (f) LATEST — TEN LOGOS, TEN ALPHABETS. AWAITING HIS PICK; THE ONE HE
+CHOOSES GOES ON THE HOME SCREEN.
+
+Paolo 8/1: "cook me up 10 new Bohemia logos that try to capture the feeling of the game
+... different fonts different styles I don't wanna see the same font in the same style
+10 different times ... the one that you choose I will put on the home screen"
+
+=== THE BRIEF HAS A CHEAP READ AND IT WAS REFUSED ===
+One wordmark under ten filters would satisfy the word "logo" and fail the actual ask.
+It is STRUCTURE-NOT-COLOUR (7/19) pointed at type: a recolour is never progress. So the
+LETTERFORMS are authored ten times - different widths, weights, stroke contrast,
+terminals and counters, hand-set as bitmaps. gates/logo_gate.py checks this on the raw
+GLYPH BITMAPS rather than the finished pictures, so a filter-farm can never pass it.
+
+=== THE TEN, AND WHAT EACH CLAIMS ABOUT THE GAME ===
+ 1 DEAD MARQUEE     bulb sign, 12% lit and CLUSTERED because that is the power law.
+ 2 GOOGIE ATOMIC    wide sheared chrome + starburst. What Vegas PROMISED.
+ 3 PUNK STENCIL     sprayed through a cut plate, with overspray and a run. Babypunk.
+ 4 RANSOM ZINE      EVERY LETTER FROM A DIFFERENT ALPHABET on torn scraps. Scarcity as
+                    a typeface, and the most honest logo here about the world.
+ 5 SIGN PAINTER     gold leaf on a framed board, lifting after 30 years.
+ 6 BRUTALIST STAMP  struck into concrete, lit lip upper-left, shadow lower-right.
+ 7 SCRATCHED        hairline gouged into rusted steel with a burr thrown up.
+ 8 DESERT DECO      tall gilded condensed, deco rules and a fan. The showgirl half.
+ 9 BOARDWALK        whitewash across weathered planks, paint skipping the board gaps.
+10 AMALGAMATION     modular, on a visible lattice, nodes at every turn - the ENEMY's
+                    language, and it refuses their purple, which is the argument.
+
+*** MY PICK: 1, DEAD MARQUEE. *** It states the premise instead of decorating it: the
+sign is still standing and almost none of it is lit. The 12% clustered-power law does
+the work, so it is CANON rather than a mood, and bulbs stay legible at phone size when
+fine detail does not. His call, not mine.
+
+=== THE BUG THAT ALMOST SHIPPED ===
+The first render hand-picked a scale per logo and FOUR OF TEN RAN OFF THE CANVAS: the
+marquee, the scratched plate, the boardwalk and the Amalgamation all lost their final A,
+and the Amalgamation lost its B as well. Invisible in every number, obvious the instant
+the sheet was looked at. Auto-fit now picks the biggest WHOLE-pixel scale that fits (a
+fractional scale would resample pixel letterforms), and the gate fails any logo with ink
+on its outer columns.
+
+=== STATE ===
+banks/BOHEMIA_LOGO_CANDIDATES_8_1_26.txt   10 logos, status PENDING PAOLO
+records/target/LOGO_SHEET.png              all ten, 2x, for judging
+records/target/logos/LOGO_01..10.png       each at full size
+gates/logo_gate.py                         16 checks, registered as LOGO
+
+=== THE QUEUE HE ASKED ME TO KEEP ===
+1. FEATURES ARE STILL HALF HIS DENSITY (median 4.9% vs his 7.0%, 17/114 vs 42/54). The
+   plate-network crack model is right; the COUNT is low. Next pass raises events per
+   tile and adds the two things his pack has and mine does not: VEGETATION pushing
+   through a crack (his weed clumps are the most characterful thing in his library) and
+   HARDWARE (a manhole, a drain, a vent).
+2. House UPPER floor band, perimeter wall, gate mouth, garage mouth still target-set.
+3. HIS bought yard tiles band at their borders. Paolo 8/1: "I'll let you know when I
+   have issues with the banding until then" - LEAVE IT. Never touch his pixels; if he
+   reopens it the fix is placement, dropping edge-scored tiles from the yard pool.
+4. Doubling the art cell 44 -> 88 px ("thats down the line").
+
 ART (f3eu53): 8/1 (e) LATEST — THE HERO FEATURES. He told me to leave the banding and
 keep going, so I closed the gap this lane has carried as named debt since the first
 batch: his tiles have EVENTS, mine were even texture.

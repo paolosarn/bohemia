@@ -412,6 +412,12 @@ GATES = [
      'real doors in the live SLICE tab: canon door + warm-filtered trim, crisp scaling, purity', False),
     ('REUSE FIRST',    ['python3', 'gates/reusefirst_gate.py'],
      'every art-cooking tool documents a REUSE CHECK, claimed bank reuse must actually open the bank', False),
+    ('LOGO',           ['python3', 'gates/logo_gate.py'],
+     'Paolo 8/1: "10 unique vastly different logo ideas ... I don\'t wanna see the same '
+     'font in the same style 10 different times". The cheap read of that brief is one '
+     'wordmark under ten filters, so this checks the LETTERFORMS themselves differ, not '
+     'the pictures - plus the bug that almost shipped, four of ten running off their own '
+     'frame and losing letters', False),
     ('TEXTURE MATCH', ['python3', 'gates/texture_match_gate.py'],
      'Paolo 8/1: "make as much pixel art ... INSPIRED BY THE GRAPHIC ASSETS THAT I '
      'BOUGHT TRYING TO REPLICATE THE EXACT LOOK". Three house batches were rejected and '
