@@ -216,7 +216,9 @@ ok('STREET FLOOR: world-anchored tile board with median + lane markings (V94: th
   ok('the chosen man wears the selection ring', demo.includes('your chosen man'));
   // v10 ONE SCENE: the zoomed board IS the aim stage, no duplicates
   ok('ONE SCENE: exact zoom, full opacity, aim opts into drawField',
-    demo.includes('ONE SCENE V10') && demo.includes('drawField(ctx,W,H,cx,cy,{dial:true,zb:zb});') &&
+    /* V114 RE-POINTED: the opts object gained `gone`, so the POSE leaves with
+       the dial. Same one-scene contract, one more field on it. */
+    demo.includes('ONE SCENE V10') && demo.includes('drawField(ctx,W,H,cx,cy,{dial:true,zb:zb,gone:DIAL_GONE});') &&
     !demo.includes("ctx.globalAlpha=0.85;"));
   // v11 BOARD BODY + v12 cam pin
   ok('BOARD BODY: the field sprite IS you during the dial; the needle is an arm at board scale',
@@ -2712,7 +2714,7 @@ ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: 
     /* V110 RE-POINTED: there are TWO floors now (the chain ramp and exposure
        pressure) and the point-blank term is still the additive one, so his 7/27
        ruling survives both. */
-    /G\.pkgDiff=Math\.max\(0,Math\.min\(4,Math\.max\([\s\S]{0,300}chainRampDial\(\),[\s\S]{0,80}pressurePkg\(\)\)\)\);/.test(demo) &&
+    /G\.pkgDiff=Math\.max\(0,Math\.min\(4,Math\.max\([\s\S]{0,300}chainRampDial\(\),[\s\S]{0,80}pressurePkg\(\)\)\) - highGroundEdge\(tgt\)\);/.test(demo) &&
     demo.includes('distPkg(tgt)+(tgt.elite?1:0)+(tgt.gcov?1:-1)+(G.handPeek?1:0),'));
 
   /* SUPERSEDED BY A RULING, WHICH IS THE ONLY LEGITIMATE WAY A CHECK DIES. v95
@@ -3057,7 +3059,10 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
 
   ok('V106 WALKING ONTO THE RUN CLIMBS IT (Paolo: "basically I can\'t even walk up the stairs if I wanted to" -- literally true, the button was the only door). One pip each way, the same price doStairs charges, because it is the same act',
     demo.includes('function stairStepAt(wx,wy){') &&
+    /* V114 RE-POINTED: the `if(!roam)` wrapper is GONE -- the level rules are the
+       world, not a combat mode. Everything else this asserts is unchanged. */
     demo.includes('const _climb=(myLvl()!==DECK_LVL)&&stairStepAt(sx,sy);') &&
+    demo.includes('V114 ONE WORLD') &&
     demo.includes('const _down =(myLvl()===DECK_LVL)&&onStairNow()&&!deckTileAt(sx,sy);') &&
     demo.includes("worldShift(sx,sy); G.lvl=_climb?DECK_LVL:0;"));
 
@@ -3211,7 +3216,7 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('V110 EXPOSURE HAS A PRICE') &&
     demo.includes('function pressureGuns(){') &&
     demo.includes('function pressurePkg(){ const n=pressureGuns(); return n<2?0:Math.min(4,n); }') &&
-    demo.includes('pressurePkg())));'));
+    demo.includes('pressurePkg()))'));   /* V114 RE-POINTED: the high-ground edge subtracts a tier after the max() closes */
 
   ok('V110 AND IT COUNTS ONLY THE SITUATION HE DESCRIBED: a gun BEHIND COVER, holding a line on you, that you have NO cover from. A gun in the open is a target, not pressure; a gun you are covered from is not shooting at you. MEASURED: 1 gun -> no floor, 2 -> HARD, 3 -> V.HARD, 4 -> BOHEMIAN, and taking cover from one of three drops the count to two',
     demo.includes('&&e.gcov&&(e.acq||0)>=1&&!myCoverAgainst(e.ea,e.edist,e.lvl)).length; }'));
@@ -3335,6 +3340,45 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V113 AND THE SCAFFOLD STRUCTURE IS UNTOUCHED -- legs, X-bracing, slatted boards, kick rail. Value contrast is the height cue, which is what the isometric sources say too, and none of that was ever the problem',
     demo.includes('if(openL||openR){') &&
     demo.includes('const _sw=(t2+1)/4;'));
+
+  /* ===== 48. V114 THE DIAL LEAVES / ONE WORLD / HIS RULINGS ========== */
+  ok('V114 A HARD OFF, NOT A FADE TO NEARLY-NOTHING (Paolo, ELEVENTH report, and this time he gave the FIX: "Make the whole dead shot dial go away, fade away as the bullet gets closer to the person"). The timing was already right -- _df runs across the bullet\'s own travel and a measured killshot draws no arm, no needle, no ticks. Past 97% faded the whole block is now SKIPPED. A dial that is "almost gone" is what eleven reports look like',
+    demo.includes('V114 THE DIAL LEAVES, ALL OF IT') &&
+    demo.includes('const DIAL_GONE=(_df<=0.03);'));
+
+  ok('V114 AND THE POSE LEAVES WITH IT. His screenshot shows the FIRE button GREEN -- phase aim -- so the orange shape is HIS OWN ARM AND GUN, the baked deadeye pose at the dial centre blown up by the zoomed camera, because the chain drops him back into aim over a body that is still dying. It is the biggest warm object the dial owns and it was the last one standing',
+    demo.includes('drawField(ctx,W,H,cx,cy,{dial:true,zb:zb,gone:DIAL_GONE});') &&
+    demo.includes("if(aimo&&typeof aimo==='object'&&aimo.gone){"));
+
+  ok('V114 ONE WORLD (Paolo: "just have the physics world be the same bro for real... I couldn\'t walk off the edge, but I was doing combat, but now that combat is over I can\'t even test it"). HE WAS DESCRIBING MY OWN CODE: v106 wrapped the whole stair-and-edge block in if(!roam), so the moment a fight ended the staircase stopped being a staircase and you could walk off a second storey into the air -- on the exact screen where he finally had time to test it',
+    demo.includes('V114 ONE WORLD') &&
+    !/if\(!roam\)\{\s*\n\s*\/\* THE LANDING BELONGS TO BOTH FLOORS/.test(demo) &&
+    demo.includes("setRead('THE EDGE','nothing under that step"));
+
+  ok('V114 AND THE ONLY THING roam STILL CHANGES IS THAT WALKING IS FREE, which is what a victory walk is FOR. The geometry is never free',
+    demo.includes("if(!roam&&!spendStam(1)){ setRead('NO STAMINA','the stairs cost one pip','#8a7d66'); return; }"));
+
+  ok('V114 A GRENADE AT YOUR FEET KILLS YOU (Paolo 8/2, ruling): "if a grenade explodes at my feet, I should be dead. End of story. now the outside radius is a different thing but yeah keep that in mind." 40-52 for a frag going off ON you was a videogame number. The band OUTSIDE it is untouched, because he drew that line himself',
+    demo.includes('let sd=0; if(dSelf<0.9)sd=999; else if(dSelf<1.5)sd=18+Math.floor(Math.random()*8);'));
+
+  ok('V114 THE HIGH GROUND BEATS A CROUCH (Paolo 8/2): "if they just have a crouching cover... it should be easier to hit them because you have that height vantage point... if someone is close by in crouch cover and you\'re at a taller height then it should probably help you". A man crouched behind a low wall is hidden from someone at his own eye level; from a storey up you are looking down INTO the pocket, and the closer he is the steeper the angle',
+    demo.includes('function highGroundEdge(e){') &&
+    demo.includes('const NEAR_HG=5, FAR_HG=12;') &&
+    demo.includes('return (d<=NEAR_HG)?2:1;'));
+
+  ok('V114 AND IT IS STRICTLY EARNED: same floor gives nothing, a man with NO cover gives nothing (there is no pocket to look into), a man ABOVE you gives nothing, and it is gone by FAR_HG. MEASURED: same floor 0, above+close 2, above+mid 1, above+far 0, no cover 0, both up 0, he-above 0',
+    demo.includes('if(!e||myLvl()===(e.lvl|0))return 0;') &&
+    demo.includes('if(myLvl()<=(e.lvl|0))return 0;') &&
+    demo.includes('if(!e.gcov)return 0;'));
+
+  ok('V114 AND IT PULLS THE DIAL, NEVER THE DAMAGE. It subtracts a tier on the same machinery every other modifier uses, so his no-multipliers ruling holds exactly',
+    demo.includes('pressurePkg())) - highGroundEdge(tgt));') &&
+    !/highGroundEdge\([^)]*\)[^\n]{0,80}(KILL_DMG|applyDamage)/.test(demo));
+
+  ok('V114 EXECUTION PAYS, BARELY (Paolo 8/2, his number): "if you down someone and they were already down and you kill them maybe you can just get like a really minor stupid amount of experience... maybe only +2% or +3%". The kill is already paid for when he goes DOWN; this is a token for finishing a man on the floor, deliberately almost nothing, because the point is that it is a CHOICE and not an optimisation',
+    demo.includes('const EXEC_XP_PCT=0.03;') &&
+    demo.includes("G.ledger.execXP=(G.ledger.execXP||0)+_x;") &&
+    /function finishHim[\s\S]{0,1800}EXEC_XP_PCT/.test(demo));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
