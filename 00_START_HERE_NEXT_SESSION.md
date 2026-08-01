@@ -1,3 +1,60 @@
+PEOPLE (7h9sfy): 8/1 (g) LATEST — HE ASKED FOR THE NPC COUNTS AND THEY OVERTURNED MY OWN
+CONCLUSION. Research: records/BOHEMIA_NPC_COUNTS_IN_REAL_GAMES_8_1_26.md
+NOTHING SHIPPED TO THE GAME THIS TURN, ON PURPOSE - see the last section.
+
+=== THE COUNTS ===
+  Fallout: New Vegas     ~373-380 named NPCs
+  Fallout 4              500+ (Bethesda's own figure)
+  Skyrim                 ~979-1,001
+  Red Dead Redemption 2  ~1,000+
+  BOHEMIA, derived 8/1   1,113
+Our scale-model arithmetic landed on Skyrim's number WITHOUT EVER LOOKING AT IT. Real Vegas
+census data shrunk 1:78 and cut to 3% survivors, versus what shipped games actually contain
+- two independent roads, same answer. The total is validated.
+
+=== AND THE PART THAT MATTERS MORE: DENSITY, NOT TOTAL ===
+  SKYRIM   ~1,000 NPCs over ~37 km2 = ~27 per km2
+  BOHEMIA   1,047 people over 21 km2 = ~49 per km2
+WE ARE ALREADY TWICE AS DENSE AS SKYRIM PER KM2 AND IT STILL READS AS DEAD. The total was
+never the problem. Measured distribution of our 1,047:
+     276 residential cells hold NOBODY
+     180 hold 1-2
+     129 hold 3-5
+      42 hold 6-10
+       1 holds 11+   <- THE BIGGEST SETTLEMENT IN THE ENTIRE VALLEY IS TWELVE PEOPLE
+Skyrim puts 50-70 inside Whiterun, a space you cross in two minutes, and leaves whole
+mountains empty. You FEEL a thousand because you meet sixty at once. We smeared the same
+number over 352 blocks at three each, and three people on a 96 m block is invisible.
+
+*** THIS IS PAOLO'S OWN 7/29 RULING NOT BEING FOLLOWED. *** He ruled "clusters AND no man's
+lands AND random spread". What runs is almost pure random spread - the clustering is so weak
+that the largest cluster in Las Vegas is a dozen people. Fixing it means changing the zone
+map's numbers, which are HIS, so it was not done unilaterally. THE QUESTION IS IN HIS ASK.
+
+=== WHY HE SAW NOTHING FROM THE POPULATION SHIP, AND IT IS MY FAULT ===
+The run applies a FLOOR of 6 households to the PLAYER'S OWN CELL and only that cell (7/29,
+"your own block always has neighbours"). His block held 16 people before the change and
+holds 16 after. THE ONE BLOCK HE PLAYS ON IS PINNED BY CONSTRUCTION AND CANNOT SHOW A
+VALLEY-WIDE POPULATION CHANGE. Measured after the ship: his block 16 people / 6 outside,
+one north 0, one south 0. The code DID deploy (later Pages runs green, commit on main).
+I shipped something invisible from where he stands and then told him to go look at it.
+LESSON FOR THIS LANE: before telling him to look, check the thing is visible FROM HIS
+BLOCK. The floor makes his cell a special case and it will hide any population work.
+
+=== WHAT COMES AFTER, in order ===
+1. HIS CALL, and it is now a clean either/or backed by measurement:
+   A THIN AND EVERYWHERE (today) - two or three people every other block, nowhere empty,
+     nowhere a town.
+   B CLUSTERED HARD (Skyrim's way, and his own ruling) - 20-30 real settlements of 40-60
+     people each, long stretches of genuinely dead city between.
+   B is what makes a thousand people FEEL like a thousand. It needs the zone map's head
+   counts changed, which are his.
+2. If B: the change is the zone map's HEADS constants, not the total. The total is right.
+3. Unchanged and still open: visitors escape mass edits; JOB_DISTRICTS is four entries.
+4. PARKED, DO NOT ASK: who he already knows. FACTIONS ARE OFF.
+
+--------------------------------------------------------------------------------
+
 LAB (e2r7sv): 8/1 (c) LATEST — HE KILLED THE RF4 DIRECTION. IT NEVER SHIPPED. NO V2.
 
 Paolo: "The answer is no I don't like the direction that you took this turn."
