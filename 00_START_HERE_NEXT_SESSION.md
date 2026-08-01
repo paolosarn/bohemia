@@ -1,3 +1,87 @@
+CHARACTER (0lurbs): 8/1 (r) LATEST — HAIR WAVE 2 SHIPPED AND JUDGED WELL. CORNROWS
+IS HALF-FIXED AND I STOPPED AFTER THREE ATTEMPTS. THE MEASUREMENT IS BELOW — DO NOT
+GUESS AT IT AGAIN.
+
+=== THE ONE THING TO PICK UP FIRST ===
+Paolo 8/1: "The cornrows is not one pixel of skin two pixels of hair what's wrong
+with you?" He is right. I claimed it fixed WITHOUT MEASURING THE FRONT VIEW.
+
+MEASURED, facing S, CORNROWS, H=hair pixel / s=skin showing through:
+    row  5   sHHsHHss          1 skin : 2 hair   CORRECT
+    row  6   sHHsHHsHHs        1 skin : 2 hair   CORRECT
+    row  7   sHHsHHsHHsHs      1 skin : 2 hair   CORRECT
+    row  8   sHssssssssHs      ONE pixel. no ratio at all.
+    row  9   sHssssssssHs      ONE pixel.
+    row 10   sHssssssssHs      ONE pixel.
+
+ROOT CAUSE, located exactly: genHair has TWO drawing paths. Above frontLine the
+main mass loop runs and applies `tex` (the 2:1 rule). Below frontLine, on a FRONT
+facing, control passes to the two-curtain branch:
+
+    if(front&&y>frontLine){ ... for(xl=mn;xl<fs[0]+w;xl++) put(...); ... continue; }
+
+That branch draws SOLID and never touches `tex` at all, and its width
+w = max(1, round(span*0.22)) resolves to ~1px on a 12px head. So more than half
+the visible cornrow from the front is a bare line with no rows in it.
+
+MY THIRD ATTEMPT MADE IT WORSE and is NOT in the repo: I added a skip-function to
+both curtains with a 3px floor, and the RIGHT curtain vanished entirely (the base
+index I passed to the skip test was wrong). Reverted. Do not re-apply that shape.
+The branch needs REWRITING so both paths share one texture function, not patching.
+
+BACK view is already correct (sHHsHHsHH...). Only the front curtains are wrong.
+
+=== WHAT SHIPPED AND IS GOOD ===
+HAIR WAVE 2 (8/1k) -- his verdict on it: "OK, very good a lot better the hair".
+  Backs now cover the whole skull (sideBot=hBot on back facings) + a nape taper.
+  The bug: sideF was applied on EVERY facing, so from behind -- where there is no
+  face to avoid -- the mass stopped at 62% of head height and left scalp bare.
+  Also: deterministic edge wobble (no straight lines), strip centring (Math.round
+  breaks .5 UPWARD and put every mohawk one pixel right, forever), long styles
+  peek from the front.
+13 KEEP / 13 KILL, all 13 kills in the graveyard with his words as post-mortems,
+  killed in the FACTORY TOOL's payload too or a re-run resurrects them.
+THE CROWD + ONE ID ONE WHOLE PERSON (8/1c): twelve citizens, 12/12 distinct heads.
+FACING (8/1j): curDir was written in ONE place (the CLOTHES preview), so every
+  garment rendered front-facing everywhere. Coats opened down his spine.
+A SHOE HAS A HEEL (8/1q): genShoes read no direction; 18/18 identical -> 0/18.
+THE EAR IS GONE (8/1p): the ONLY edit ever made to his painted rig, authorised in
+  his words "Delete them yourself". 10 pixels, pins moved in the same commit.
+
+=== HIS RULINGS THIS SESSION, ALL IN LAW ===
+laws/BOHEMIA_LAW_HOW_HAIR_AND_SHAPE_WORK_8_1_26.md  (gate: craft_law_gate.js, 28)
+  Seven craft rules in his words. Clause 4 was AMENDED the same day: 2 hair : 1
+  skin, superseding "just one pixel". BOTH wordings are on the page with the
+  reason it moved -- 4a is the audit trail, do not tidy it away.
+laws/BOHEMIA_ADDENDUM_A_HAIRCUT_IS_A_LUXURY_8_1_26.md
+  Grooming is an ECONOMY. A fade needs clippers, power, and somebody to re-cut it
+  every three weeks. A sharp fade is a RECEIPT, not a look. Unlock mechanism is
+  [PENDING, HIS CALL] -- do not invent it.
+records/HAIR_VERDICTS_WAVE1_8_1_26.txt   full verdict sheet + per-style quotes.
+
+=== MISTAKES OF MINE WORTH NOT REPEATING ===
+- I told him the identical heads needed NEW ART. False: NPCFactory had varied skin
+  and hair since 7/2 and I was bypassing it. Zero new art was needed.
+- I told him NO clothing generator was facing-aware. False: 12 of 13 were. My grep
+  pattern was broken (d==='N' never matches dir==='N').
+- I changed the hair texture from %3 to %2 on an over-reading of "just one pixel".
+  The original was ALREADY RIGHT. He had to spend a turn correcting my regression.
+- I said cornrows was fixed without rendering the front view.
+  ALL FOUR ARE THE SAME FAILURE: claiming instead of checking.
+- RIG CHECK caught four of my own citations naming things I never used.
+
+=== [PENDING, PAOLO'S CALL] ===
+1. The gameplay unlock for a fade (he said "maybe we can lock that behind some
+   gameplay mechanics"). Clause 6 of the craft law is UNBUILT and gated as unbuilt.
+2. Hair wave 3 -- only after he judges wave 2's rebuilt backs.
+3. Names of the 13 surviving styles: PARKED by him explicitly. Do not raise it.
+4. cough / whistle / search: frozen, two rejections each.
+
+=== NOTE ON THIS SESSION'S ENVIRONMENT ===
+The local checkout silently rolled back to a stale commit FOUR times. Work was
+safe on the remote every time. If files you know you wrote are missing:
+`git fetch origin main && git reset --hard origin/main` before believing anything.
+
 ART (f3eu53): 8/1 (d) LATEST — HE CIRCLED THE TILE BORDERS AND HE WAS RIGHT. TWO REAL
 BUGS, BOTH MINE, BOTH NOW GATED.
 
