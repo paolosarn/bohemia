@@ -33,7 +33,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [courthouse](tilespec/BOHEMIA_TILESPEC_courthouse.md) | civic | 14 | yes |
 | [jail](tilespec/BOHEMIA_TILESPEC_jail.md) | civic | 14 | yes |
 | [farm](tilespec/BOHEMIA_TILESPEC_farm.md) | infrastructure | 15 | yes |
-| [downtown](tilespec/BOHEMIA_TILESPEC_downtown.md) | commercial | 23 | yes |
+| [downtown](tilespec/BOHEMIA_TILESPEC_downtown.md) | commercial | 21 | yes |
 | [trailer](tilespec/BOHEMIA_TILESPEC_trailer.md) | residential | 14 | yes |
 | [apartment](tilespec/BOHEMIA_TILESPEC_apartment.md) | residential | 16 | yes |
 | [warehouse](tilespec/BOHEMIA_TILESPEC_warehouse.md) | industrial | 15 | yes |

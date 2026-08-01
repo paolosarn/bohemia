@@ -8892,37 +8892,51 @@ root.BQRuntime=API;
 </script>
 <script>
 /* inlined: engine/bohemia_downtown.js */
-// BOHEMIA DOWNTOWN — THE DEAD CORE (rebuilt 8/1/26, WORLD lane)
+// BOHEMIA DOWNTOWN — ONE BLOCK OF DOWNTOWN LAS VEGAS (rebuilt 8/1/26, WORLD lane)
 //
-// WHY IT WENT BACK. On the whole-valley contact sheet this district read as FOUR GREY
-// SQUARES with a roundabout in the middle, and that is exactly what it was: one podium
-// function called four times, each with an identical tower centred on it, in one grey.
-// Downtown is the signature of a city — if any district has to be a landmark it is this
-// one — and it was the most anonymous thing in the set.
+// PAOLO 8/1: "in Vegas there's no roundabouts in downtown... you're like 15% done with
+// that." Both true, and the research says the reason is worse than the roundabout.
+// Full write-up + sources: records/BOHEMIA_DOWNTOWN_VEGAS_RESEARCH_8_1_26.md
 //
-// THE FIX IS THE ONE THAT GOT THE OTHER THREE APPROVED, and it is not decoration:
-// FOUR BLOCKS THAT ARE FOUR DIFFERENT THINGS. A real downtown block is never its neighbour.
-//   NW  THE TOWER, slender, set OFF-CENTRE on its podium with a forecourt in front of it,
-//       because a tower centred on its own base is a diagram, not a building.
-//   NE  THE PARKING STRUCTURE. Open-sided decks with a switchback RAMP climbing the face.
-//       A garage is the most instantly readable building in any city core and this
-//       district did not have one.
-//   SW  THE STEPPED MID-RISE over a retail base, with a mid-block ALLEY and the
-//       gap-toothed SURFACE LOT where a building came down and nothing replaced it.
-//   SE  TWO SMALLER TOWERS on a shared podium under a run of retail awnings at grade.
+// THE FINDING: A CELL IS A BLOCK.
+//   The Fremont Street Experience canopy is 1,375 ft over FOUR blocks = 344 ft = 105 m
+//   per block. A Bohemia cell is 128 x 0.75 m = 96 m = 315 ft.
+//   ONE DISTRICT CELL IS ONE DOWNTOWN BLOCK.
+// The version this replaces put FOUR blocks, an internal street grid, a roundabout and a
+// skybridge inside a single cell -- an entire miniature downtown squeezed into one city
+// block. At the real scale those internal "streets" were alleys as wide as a boulevard.
+// That is the 15%, and it is a SCALE error, not a decoration error.
 //
-// HUE. The palette was one grey-brown, which is the 7/28 finding across the whole valley.
-// A real core is dated by its curtain wall — 70s bronze, 80s blue, 90s green, over
-// concrete. Three faded glass tones is honest to the building type AND it is the thing
-// that makes four blocks read as four instead of as one grey field.
+// AND HE ALREADY SAID THE ANSWER: "it's gonna be a couple districts wide and we're gonna
+// make different downtown districts." A downtown is BLOCKS ACROSS THE MAP, one cell each,
+// each block a different kind of block. Not one cell trying to be a city.
 //
-// THE LAWS THIS IS BUILT TO, all of them his:
-//   RULE NUMBER ONE (7/31) — every drivable tile reachable from the street. The grid, the
-//     roundabout, the alley and the surface lot are ONE network.
-//   EVERY PIXEL ANSWERED FOR (7/31) — no code owns 30% of the plot, every code written.
-//   NO BUILDING IS A FLAT RECTANGLE (7/30) — roofs and doors from K.roofsAndDoors.
-//   EVERY DISTRICT IS ITS OWN LANDMARK (7/28) — the tower cluster over a street wall.
-//   ACT ONE ONLY (7/28). MECHANISM-MINE / CONTENTS-PAOLO'S: no signage text anywhere.
+// NO ROUNDABOUT. Downtown Las Vegas is a 1905 RAILROAD TOWNSITE -- Clark's railroad
+// auctioned 1,200 lots on a surveyed rectangular grid in a single day in May 1905. A grid
+// platted for a lot auction is orthogonal with signalised corners; the roundabout is a
+// modern retrofit and I invented it. Gone.
+//
+// WHAT A DOWNTOWN VEGAS BLOCK ACTUALLY IS, and every one of these is in here:
+//   A THIRD OF IT IS PARKING. ~33% of downtown Las Vegas is off-street surface parking
+//     (Parking Reform Network). The lot is not a leftover, it is half the block, and the
+//     buildings crowd onto what is left. My last version had a fragment of one.
+//   A STREET WALL OF NARROW LOTS. The 1905 auction sold LOTS, not superblocks, so the
+//     frontage is a ROW of separate narrow buildings sharing party walls -- different
+//     widths, different heights, different colours, built right out to the sidewalk.
+//     Arts District storefronts still standing date to the 1930s. This is the biggest
+//     single difference from what I built: a downtown frontage is MANY buildings.
+//   A MID-BLOCK ALLEY. Townsite blocks are two rows of lots back-to-back onto a service
+//     alley -- the dumpsters, the loading, the back doors.
+//   BLADE SIGNS over the sidewalk. Downtown is where the neon started. The shapes are
+//     mine; every word on them is Paolo's (MECHANISM-MINE / CONTENTS-PAOLO'S).
+//   A VACANT PARCEL, because a building came down and nothing replaced it.
+//
+// RESERVED, NOT BUILT: the Fremont Street casino core. Casinos, resorts and the Strip
+// landmarks are Paolo's hand by law and are never auto-generated.
+//
+// LAWS: RULE NUMBER ONE (7/31) the alley and both lots are one drive network reachable
+// from the street. EVERY PIXEL ANSWERED FOR (7/31). NO FLAT RECTANGLES (7/30).
+// ACT ONE ONLY (7/28).
 (function(root){
   var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
@@ -8934,77 +8948,102 @@ root.BQRuntime=API;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
 
-    G.rect(0,0,W-1,H-1,0);
-    G.rect(4,6,W-5,H-5,8);                                   // the sidewalk street wall
+    /* THE SIDEWALK IS A RING, NOT THE BASE. First cut painted the whole block sidewalk and
+       built on top, which made 35% of the plot one code -- the same base-fill mistake that
+       made the mall 40% "parking asphalt". A downtown sidewalk is 12-15 ft: six tiles. */
+    G.rect(0,0,W-1,H-1,4);                                   // the block's own ground
+    G.rect(0,0,W-1,5,8); G.rect(0,H-6,W-1,H-1,8);            // the sidewalk ring, all four sides
+    G.rect(0,0,5,H-1,8); G.rect(W-6,0,W-1,H-1,8);
 
-    /* ---- THE GRID: the street cross, its lane dashes, and (below) the roundabout ring
-       that keeps all four arms connected to each other — RULE NUMBER ONE. ---- */
-    G.rect(58,6,68,H-5,1); G.rect(4,58,W-5,68,1);
-    for(y=8;y<H-8;y+=6) set(63,y,11);
-    for(x=8;x<W-8;x+=6) set(x,63,11);
+    /* ---- THE MID-BLOCK ALLEY. A townsite block is two rows of lots back-to-back onto a
+       service alley, ~20 ft wide. It runs clean through to the street at BOTH ends, which
+       is what makes it an alley and not a trench (RULE NUMBER ONE). ---- */
+    var AY0=59, AY1=67;
+    G.rect(0,AY0,W-1,AY1,1);
+    for(x=6;x<W-6;x+=9) set(x,63,11);
 
-    /* ---- NW: THE TOWER, off-centre on its podium, with a forecourt ---- */
-    G.rect(8,10,54,54,2);
-    G.rect(14,16,38,44,6);
-    G.rect(18,22,22,26,10); G.rect(30,34,34,38,10);
-    G.rect(42,18,52,50,7);                                   // the forecourt
-    for(i=0;i<4;i++) set(47,22+i*9,3);
-
-    /* ---- NE: THE PARKING STRUCTURE, decks and a ramp you can read from the air ---- */
-    G.rect(72,10,120,54,13);
-    for(y=14;y<=50;y+=6) G.rect(74,y,118,y+1,14);            // the open deck edges
-    G.rect(104,12,118,52,14);                                // THE RAMP up the east face
-    for(i=0;i<6;i++) G.rect(106,15+i*6,116,17+i*6,13);       // its switchbacks
-    for(i=0;i<16;i++){                                       // cars still on the decks
-      var px=76+Math.floor(r()*13)*2, py=16+Math.floor(r()*6)*6;
-      if(get(px,py)===13) G.rect(px,py,px+1,py+2,19);
+    /* ---- THE STREET WALL, north frontage: A ROW OF NARROW LOTS. The 1905 auction sold
+       lots, so the frontage is MANY buildings sharing party walls -- different widths,
+       different colours, built right out to the sidewalk. This is the thing that was most
+       wrong before: one mass with a tower centred on it. ---- */
+    var LOTS=[[9,13],[24,10],[36,15],[53,9],[64,12],[78,11]], face;
+    for(i=0;i<LOTS.length;i++){
+      var lx=LOTS[i][0], lw=LOTS[i][1], deep=26+((i*7)%12);
+      var body_=[2,15,16][i%3];
+      G.rect(lx,7,lx+lw,7+deep,body_);
+      G.rect(lx+1,7+deep,lx+lw-1,7+deep,20);                 // the awning over the walk
+      G.rect(lx+2,4,lx+3,6,12);                              // its blade sign out over the sidewalk
+      if(i%2===0) G.rect(lx+3,12+((i*5)%8),lx+6,15+((i*5)%8),10);   // rooftop plant
+      G.rect(lx+1,AY0-2,lx+4,AY0-1,14);                      // loading, onto the alley
     }
 
-    /* ---- SW: THE STEPPED MID-RISE, a mid-block ALLEY, the gap-toothed lot ---- */
-    G.rect(8,72,54,116,2);
-    G.rect(12,78,40,102,15);
-    G.rect(16,84,20,88,10); G.rect(30,92,34,96,10);
-    /* THE ALLEY RUNS THROUGH TO THE STREET and the lot opens onto the alley. First cut had
-       both of them floating clear of the grid -- 82.9% reachable, RULE NUMBER ONE broken on
-       the very next district after he made it a law. An alley that does not reach a street
-       is a trench, and a lot you cannot drive into is a picture of a lot. */
-    G.rect(8,106,58,110,20);                                 // THE ALLEY, through to the street
-    G.rect(42,72,54,106,21);                                 // the lot, opening onto the alley
-    for(x=44;x<=52;x+=4) for(y=76;y<=100;y++) set(x,y,11);
-    for(i=0;i<5;i++){ var lx=45+Math.floor(r()*3)*4, ly=78+Math.floor(r()*20);
-      if(get(lx,ly)===21||get(lx,ly)===11) G.rect(lx,ly,lx+1,ly+3,19); }
+    /* ---- THE MID-RISE on the north-east corner, rising behind the street wall ---- */
+    G.rect(92,7,118,44,6);
+    G.rect(97,14,101,18,10); G.rect(108,26,112,30,10);
+    G.rect(92,45,118,52,7);                                  // its forecourt off the corner
 
-    /* ---- SE: TWO SMALLER TOWERS on a shared podium, retail awnings at grade ---- */
-    G.rect(72,72,120,116,2);
-    G.rect(78,78,96,98,16);                                  // green glass
-    G.rect(102,80,116,104,6);                                // blue glass
-    G.rect(82,84,86,88,10); G.rect(106,86,110,90,10);
-    G.rect(74,110,118,113,22);                               // the awning run
+    /* ---- A THIRD OF THE BLOCK IS PARKING. This is the defining fact about downtown Las
+       Vegas from the air and it is not a leftover: the lot is half the block and the
+       buildings crowd onto what is left. Both lots open onto the alley. ---- */
+    G.rect(6,AY1+1,58,121,13);                               // the south-west lot
+    for(x=10;x<=54;x+=4){
+      for(y=AY1+3;y<=AY1+9;y++) set(x,y,11);
+      for(y=AY1+19;y<=AY1+25;y++) set(x,y,11);
+      for(y=AY1+35;y<=AY1+41;y++) set(x,y,11);
+    }
+    G.rect(8,AY1+2,56,AY1+2,11); G.rect(8,118,56,118,11);
+    G.rect(60,AY1+1,121,97,13);                              // the north-east lot, off the alley
+    for(x=64;x<=118;x+=4){ for(y=AY1+3;y<=AY1+9;y++) set(x,y,11);
+      for(y=AY1+19;y<=AY1+25;y++) set(x,y,11); }
+    /* AND THE LOT ON THE NORTH SIDE TOO. A third of downtown Las Vegas is off-street
+       surface parking (Parking Reform Network) -- the lot is not what is left over after
+       the buildings, it is half the block, and the buildings crowd onto the rest. */
+    /* the third parcel is NOT paved. Not every open parcel downtown is asphalt -- plenty
+       are the bare slab of whatever came down, used as informal parking and never striped.
+       Keeping it dirt is truer to the block AND it stops the paved lot owning a third of
+       the plot on its own, which would fail EVERY PIXEL ANSWERED FOR on a technicality
+       while being perfectly well answered for. */
+    G.rect(6,44,88,AY0-1,4);
+    for(i=0;i<9;i++){ var dx2=10+Math.floor(r()*18)*4, dy2=46+Math.floor(r()*10);
+      if(get(dx2,dy2)===4) G.rect(dx2,dy2,dx2+1,dy2+3,19); }
 
-    /* ---- THE PLAZA at the crossing, inside the roundabout ---- */
-    G.disc(63,63,9,7);
-    for(i=0;i<8;i++){ var a=i/8*Math.PI*2;
-      set(Math.round(63+Math.cos(a)*6),Math.round(63+Math.sin(a)*6),3); }
-    set(63,63,10); set(62,62,10); set(64,64,10);             // the dry fountain
-    for(var a2=0;a2<360;a2+=1){ var rr=a2*Math.PI/180;
-      set(Math.round(63+Math.cos(rr)*11),Math.round(63+Math.sin(rr)*11),1);
-      set(Math.round(63+Math.cos(rr)*12),Math.round(63+Math.sin(rr)*12),1); }
+    /* nobody came back for these */
+    for(i=0;i<26;i++){
+      var cx=10+Math.floor(r()*12)*4, cy=AY1+3+Math.floor(r()*3)*16;
+      if(get(cx+1,cy)===13||get(cx+1,cy)===11) G.rect(cx+1,cy,cx+2,cy+3,19);
+      var ex=88+Math.floor(r()*8)*4, ey=AY1+3+Math.floor(r()*2)*16;
+      if(get(ex+1,ey)===13||get(ex+1,ey)===11) G.rect(ex+1,ey,ex+2,ey+3,19);
+    }
 
-    /* ---- the street wall: planters, trees, lights, the skybridge ---- */
-    for(x=10;x<=118;x+=12){ if(get(x,56)===8)set(x,56,4); if(get(x,70)===8)set(x,70,4); }
-    for(y=10;y<=118;y+=12){ if(get(56,y)===8)set(56,y,3); if(get(70,y)===8)set(70,y,3); }
-    G.rect(54,30,72,32,12);                                  // the skybridge
-    [[6,8],[120,8],[6,120],[120,120],[63,44]].forEach(function(p){ set(p[0],p[1],9); });
+    /* ---- THE SOUTH FRONTAGE: a shorter row of storefronts, and THE VACANT PARCEL where
+       a building came down and nothing replaced it. ---- */
+    var SL=[[62,14],[80,12],[96,13]];
+    for(i=0;i<SL.length;i++){
+      var sx=SL[i][0], sw=SL[i][1];
+      G.rect(sx,100,sx+sw,120,[16,2,15][i%3]);
+      G.rect(sx+1,98,sx+sw-1,99,20);                         // awning onto the south walk
+      G.rect(sx+2,121,sx+3,123,12);                          // blade sign
+      G.rect(sx+1,AY1+1,sx+4,AY1+2,14);                      // loading onto the alley
+    }
+    for(i=0;i<16;i++){ var vx=8+Math.floor(r()*110), vy=8+Math.floor(r()*110);
+      if(get(vx,vy)===4) set(vx,vy,3); }        // creosote through the vacant ground
 
-    /* ---- ROOFS AND DOORS on every mass, from the shared machine ---- */
-    K.roofsAndDoors(g,{ building:function(c){return c===2||c===6||c===13||c===15||c===16;},
-      roof:ROOF, door:DOOR, min:120,
-      outside:function(c){ return c===8||c===1||c===7||c===20||c===21||c===11||c===4; } });
+    /* ---- street trees and pole lights along the frontage ---- */
+    for(x=10;x<=118;x+=14){ if(get(x,3)===8) set(x,3,3); if(get(x,124)===8) set(x,124,3); }
+    [[4,6],[123,6],[4,121],[123,121],[63,3],[63,124]].forEach(function(p){ set(p[0],p[1],9); });
 
-    /* ---- the entrance off the south street ---- */
+    /* ---- ROOFS AND DOORS on every mass ---- */
+    K.roofsAndDoors(g,{ building:function(c){return c===2||c===6||c===15||c===16;},
+      roof:17, door:18, min:120,
+      outside:function(c){ return c===8||c===1||c===7||c===13||c===11||c===4; } });
+
+    /* ---- kerb cuts: the alley mouths and one into each lot ---- */
     var gx=63;
     for(i=-4;i<=4;i++) set(gx+i,H-1,5);
-    for(y=H-1;y>=H-9;y--) for(x=-4;x<=4;x++){ var c=get(gx+x,y); if(c===0||c===8||c===11) set(gx+x,y,1); }
+    for(y=H-1;y>=120;y--) for(x=-4;x<=4;x++){ var c=get(gx+x,y); if(c===8||c===0) set(gx+x,y,13); }
+    /* the alley simply reaches both kerbs -- it is not a GATE. Marking the mouths as gates
+       put entrances on the east and west edges of a district that only fronts one street,
+       which is the street-aware contract broken by a typo of intent. */
     return g;
   }
 
@@ -9022,15 +9061,15 @@ root.BQRuntime=API;
      the dead world's value band and never merged into one another. */
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#6d675b',3:'#3a4526',4:'#414a2b',5:'#c79a3f',
     6:'#3f5570',7:'#6a675e',8:'#7d7a71',9:'#b0863a',10:'#8e8a7c',11:'#c9c1aa',12:'#5e6a72',
-    13:'#5c5b57',14:'#7e7d76',15:'#7a5c34',16:'#3f6152',17:'#9a9384',18:'#241f1a',
-    19:'#6a6e72',20:'#2b2b31',21:'#3a3a42',22:'#8c3f38'};
+    13:'#3a3a42',14:'#6a6e72',15:'#7a5c34',16:'#3f6152',17:'#9a9384',18:'#241f1a',
+    19:'#6a6e72',20:'#8c3f38'};
 
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt where the block ends and nobody ever built the next one'},
-    1:{name:'street',             kind:'drive',    act1:'the downtown street grid — asphalt plated and lifting, lane paint ghosted, sand banked into the gutters (car-drivable)'},
+    1:{name:'mid-block alley',    kind:'drive',    act1:'the service alley cut through the middle of the block — the townsite platted two rows of lots back-to-back onto it, so this is where every delivery, dumpster and back door on the block has always been (car-drivable, and it runs through to the street at both ends)'},
     2:{name:'podium / retail base',kind:'building',act1:'the low podium that holds the street wall — ground-floor retail with every window out, dark mezzanine above', enter:'podium interior: a stripped retail floor, the escalator well dead, a service corridor running back to the alley'},
     3:{name:'street tree',        kind:'tree-dead',act1:'a dead street tree still standing in its grate, trunk split, the iron grate itself long since prised up', solid:false},
-    4:{name:'setback planter',    kind:'prop',     act1:'a concrete street planter, its shrub down to a stick, filled to the rim with blown sand and glass', solid:false},
+    4:{name:'vacant parcel',      kind:'ground',   act1:'the parcel where a building came down and nothing replaced it — the slab is still there under the dirt, its footprint printed in the asphalt, creosote rooted along the old party wall'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the block entrance off the street, amber kerb paint gone chalky'},
     6:{name:'tower (blue glass)', kind:'building', act1:'an 80s blue curtain-wall tower — the glass gone milky where it survived and open to the sky where it did not', enter:'tower interior: a lobby stripped to its core, lift shafts standing open, the floor plates above reachable only by stair'},
     7:{name:'forecourt plaza',    kind:'ground',   act1:'the tower forecourt — pavers heaved up by roots, the granite benches still exactly where they were bolted'},
@@ -9038,17 +9077,15 @@ root.BQRuntime=API;
     9:{name:'pole light',         kind:'structure',act1:'a street light on its cast pole, head dark, the banner arm bent and empty'},
     10:{name:'rooftop plant',     kind:'structure',act1:'rooftop mechanical — cooling towers and duct runs, one unit stripped back to its coil for the copper'},
     11:{name:'lane / stall marking',kind:'marking',act1:'faded paint — lane dashes down the street, stall ticks in the lot, most of it a ghost you read by the shadow'},
-    12:{name:'skybridge',         kind:'structure',act1:'the skybridge spanning the street between two blocks, its glazing gone, and you walk under it', layer:'overhead', solid:false},
-    13:{name:'parking deck',      kind:'building', act1:'the open-sided parking structure, deck slabs stacked with the cars still parked on them', enter:'garage interior: split-level decks joined by the ramp, the pay booth prised open'},
-    14:{name:'garage ramp',       kind:'structure',act1:'the switchback ramp climbing the face of the structure — the one thing that makes a garage read as a garage from the air'},
+    12:{name:'blade sign',        kind:'structure',act1:'a blade sign cantilevered out over the sidewalk from a storefront parapet — downtown is where the neon started, and the board is blank because every word on it is Paolo\'s', layer:'overhead', solid:false},
+    13:{name:'surface parking lot',kind:'drive',   act1:'the surface lot — about a THIRD of downtown Las Vegas is off-street surface parking, and this is it: asphalt gone to plates, striping ghosted, the cars that were in it when everything stopped still in it (car-drivable)'},
+    14:{name:'loading dock',      kind:'prop',     act1:'a loading dock off the alley — the dumpster still chained to the wall beside it, pallets stacked and never collected'},
     15:{name:'mid-rise (bronze)', kind:'building', act1:'a 70s bronze-glass mid-rise, stepped back at the shoulder, spandrel panels hanging off their clips', enter:'mid-rise interior: office floor plates with the partitions collapsed, the stair core still sound'},
-    16:{name:'tower (green glass)',kind:'building',act1:'a 90s green-glass tower, the tint still reading under the dust on the panes that held', enter:'tower interior: open floor plates around a dead lift core'},
     17:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping stones missing in long runs'},
     18:{name:'doorway',           kind:'portal',   act1:'a way in — a lobby entrance with the glass gone, a stair-core door, a shopfront standing open'},
     19:{name:'dead car',          kind:'vehicle',  act1:'a car left exactly where it was parked, flat and sun-bleached, on a deck or out in the lot'},
-    20:{name:'service alley',     kind:'drive',    act1:'the mid-block alley — dumpsters, fire escapes overhead, and the back doors every one of these buildings has (car-drivable)'},
-    21:{name:'surface lot',       kind:'drive',    act1:'the gap-toothed lot where a building came down and nothing replaced it, its foundation still printed in the asphalt (car-drivable)'},
-    22:{name:'retail awning',     kind:'structure',act1:'the run of shopfront awnings at grade, canvas split back to the frame, and you walk under them', layer:'overhead', solid:false}
+    20:{name:'storefront awning', kind:'structure',act1:'the awning over the shopfront walk, canvas split back to its frame, and you pass under it', layer:'overhead', solid:false},
+    16:{name:'storefront (green)',kind:'building', act1:'a 1930s storefront in faded green — the Arts District blocks still standing date from then — parapet stepped, transom glass gone', enter:'storefront interior: one deep narrow room to the party walls, counter ripped out, stock room and back door onto the alley'}
   };
   var NOTES={
     summary:'A dead downtown core: four blocks that are four different things — a slender blue-glass TOWER off-centre on its podium with a forecourt, an open-sided PARKING STRUCTURE with its ramp climbing the face, a stepped bronze MID-RISE over a mid-block alley beside the gap-toothed lot where a building came down, and TWO SMALLER TOWERS under a run of retail awnings — around a street grid, a roundabout plaza with its dry fountain, and a skybridge over the street.',

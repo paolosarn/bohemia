@@ -37,29 +37,27 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt where the block ends and nobody ever built the next one | ground | no | — | 2188 |
-| 1 | `#33333c` | street | drive | the downtown street grid — asphalt plated and lifting, lane paint ghosted, sand banked into the gutters (car-drivable) | ground | no | — | 2268 |
-| 2 | `#6d675b` | podium / retail base | building | the low podium that holds the street wall — ground-floor retail with every window out, dark mezzanine above | structure | yes | podium interior: a stripped retail floor, the escalator well dead, a service corridor running back to the alley | 2151 |
-| 3 | `#3a4526` | street tree | tree-dead | a dead street tree still standing in its grate, trunk split, the iron grate itself long since prised up | prop | no | — | 28 |
-| 4 | `#414a2b` | setback planter | prop | a concrete street planter, its shrub down to a stick, filled to the rim with blown sand and glass | prop | no | — | 18 |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt where the block ends and nobody ever built the next one | ground | no | — | — |
+| 1 | `#33333c` | mid-block alley | drive | the service alley cut through the middle of the block — the townsite platted two rows of lots back-to-back onto it, so this is where every delivery, dumpster and back door on the block has always been (car-drivable, and it runs through to the street at both ends) | ground | no | — | 1139 |
+| 2 | `#6d675b` | podium / retail base | building | the low podium that holds the street wall — ground-floor retail with every window out, dark mezzanine above | structure | yes | podium interior: a stripped retail floor, the escalator well dead, a service corridor running back to the alley | 667 |
+| 3 | `#3a4526` | street tree | tree-dead | a dead street tree still standing in its grate, trunk split, the iron grate itself long since prised up | prop | no | — | 18 |
+| 4 | `#414a2b` | vacant parcel | ground | the parcel where a building came down and nothing replaced it — the slab is still there under the dirt, its footprint printed in the asphalt, creosote rooted along the old party wall | ground | no | — | 2986 |
 | 5 | `#c79a3f` | gate / kerb cut | gate | the block entrance off the street, amber kerb paint gone chalky | portal | no | — | 9 |
-| 6 | `#3f5570` | tower (blue glass) | building | an 80s blue curtain-wall tower — the glass gone milky where it survived and open to the sky where it did not | structure | yes | tower interior: a lobby stripped to its core, lift shafts standing open, the floor plates above reachable only by stair | 925 |
-| 7 | `#6a675e` | forecourt plaza | ground | the tower forecourt — pavers heaved up by roots, the granite benches still exactly where they were bolted | ground | no | — | 601 |
-| 8 | `#7d7a71` | sidewalk | walk | the downtown sidewalk, wide slabs cracked corner to corner, the awning bolts still in the wall above them | ground | no | — | 2888 |
-| 9 | `#b0863a` | pole light | structure | a street light on its cast pole, head dark, the banner arm bent and empty | structure | yes | — | 5 |
-| 10 | `#8e8a7c` | rooftop plant | structure | rooftop mechanical — cooling towers and duct runs, one unit stripped back to its coil for the copper | structure | yes | — | 153 |
-| 11 | `#c9c1aa` | lane / stall marking | marking | faded paint — lane dashes down the street, stall ticks in the lot, most of it a ghost you read by the shadow | ground | no | — | 103 |
-| 12 | `#5e6a72` | skybridge | structure | the skybridge spanning the street between two blocks, its glazing gone, and you walk under it | overhead | no | — | 57 |
-| 13 | `#5c5b57` | parking deck | building | the open-sided parking structure, deck slabs stacked with the cars still parked on them | structure | yes | garage interior: split-level decks joined by the ramp, the pay booth prised open | 1284 |
-| 14 | `#7e7d76` | garage ramp | structure | the switchback ramp climbing the face of the structure — the one thing that makes a garage read as a garage from the air | structure | yes | — | 837 |
-| 15 | `#7a5c34` | mid-rise (bronze) | building | a 70s bronze-glass mid-rise, stepped back at the shoulder, spandrel panels hanging off their clips | structure | yes | mid-rise interior: office floor plates with the partitions collapsed, the stair core still sound | 613 |
-| 16 | `#3f6152` | tower (green glass) | building | a 90s green-glass tower, the tint still reading under the dust on the panes that held | structure | yes | tower interior: open floor plates around a dead lift core | 335 |
-| 17 | `#9a9384` | roof edge | structure | the parapet line where a roof meets its wall, coping stones missing in long runs | structure | yes | — | 1026 |
-| 18 | `#241f1a` | doorway | portal | a way in — a lobby entrance with the glass gone, a stair-core door, a shopfront standing open | portal | no | — | 15 |
-| 19 | `#6a6e72` | dead car | vehicle | a car left exactly where it was parked, flat and sun-bleached, on a deck or out in the lot | prop | yes | — | 110 |
-| 20 | `#2b2b31` | service alley | drive | the mid-block alley — dumpsters, fire escapes overhead, and the back doors every one of these buildings has (car-drivable) | ground | no | — | 242 |
-| 21 | `#3a3a42` | surface lot | drive | the gap-toothed lot where a building came down and nothing replaced it, its foundation still printed in the asphalt (car-drivable) | ground | no | — | 348 |
-| 22 | `#8c3f38` | retail awning | structure | the run of shopfront awnings at grade, canvas split back to the frame, and you walk under them | overhead | no | — | 180 |
+| 6 | `#3f5570` | tower (blue glass) | building | an 80s blue curtain-wall tower — the glass gone milky where it survived and open to the sky where it did not | structure | yes | tower interior: a lobby stripped to its core, lift shafts standing open, the floor plates above reachable only by stair | 778 |
+| 7 | `#6a675e` | forecourt plaza | ground | the tower forecourt — pavers heaved up by roots, the granite benches still exactly where they were bolted | ground | no | — | 216 |
+| 8 | `#7d7a71` | sidewalk | walk | the downtown sidewalk, wide slabs cracked corner to corner, the awning bolts still in the wall above them | ground | no | — | 2714 |
+| 9 | `#b0863a` | pole light | structure | a street light on its cast pole, head dark, the banner arm bent and empty | structure | yes | — | 6 |
+| 10 | `#8e8a7c` | rooftop plant | structure | rooftop mechanical — cooling towers and duct runs, one unit stripped back to its coil for the copper | structure | yes | — | 98 |
+| 11 | `#c9c1aa` | lane / stall marking | marking | faded paint — lane dashes down the street, stall ticks in the lot, most of it a ghost you read by the shadow | ground | no | — | 559 |
+| 12 | `#5e6a72` | blade sign | structure | a blade sign cantilevered out over the sidewalk from a storefront parapet — downtown is where the neon started, and the board is blank because every word on it is Paolo's | overhead | no | — | 54 |
+| 13 | `#3a3a42` | surface parking lot | drive | the surface lot — about a THIRD of downtown Las Vegas is off-street surface parking, and this is it: asphalt gone to plates, striping ghosted, the cars that were in it when everything stopped still in it (car-drivable) | ground | no | — | 3951 |
+| 14 | `#6a6e72` | loading dock | prop | a loading dock off the alley — the dumpster still chained to the wall beside it, pallets stacked and never collected | prop | yes | — | 24 |
+| 15 | `#7a5c34` | mid-rise (bronze) | building | a 70s bronze-glass mid-rise, stepped back at the shoulder, spandrel panels hanging off their clips | structure | yes | mid-rise interior: office floor plates with the partitions collapsed, the stair core still sound | 840 |
+| 16 | `#3f6152` | storefront (green) | building | a 1930s storefront in faded green — the Arts District blocks still standing date from then — parapet stepped, transom glass gone | structure | yes | storefront interior: one deep narrow room to the party walls, counter ripped out, stock room and back door onto the alley | 984 |
+| 17 | `#9a9384` | roof edge | structure | the parapet line where a roof meets its wall, coping stones missing in long runs | structure | yes | — | 893 |
+| 18 | `#241f1a` | doorway | portal | a way in — a lobby entrance with the glass gone, a stair-core door, a shopfront standing open | portal | no | — | 18 |
+| 19 | `#6a6e72` | dead car | vehicle | a car left exactly where it was parked, flat and sun-bleached, on a deck or out in the lot | prop | yes | — | 304 |
+| 20 | `#8c3f38` | storefront awning | structure | the awning over the shopfront walk, canvas split back to its frame, and you pass under it | overhead | no | — | 126 |
 
 **Gate:** `gates/downtown_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.
