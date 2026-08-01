@@ -1512,6 +1512,52 @@ FOR ANYONE MUTATION-TESTING: two of my attempts were case-sensitive and sailed p
 working check. A WEAK MUTATION LOOKS EXACTLY LIKE A ROBUST CHECK -- mutate case-
 insensitively and mutate ALL occurrences.
 
+CITY (03): 8/2 LATEST — *** THE SURFACE HE PLAYS IS THE CITY FRAME, NOT THE RUN
+SLICE. READ THIS BEFORE YOU FIX ANYTHING WORLD-FACING. ***
+
+He ruled: "the city tab will now live in the run tab. There's no point in having
+a city tab anymore." Done - and the measurement behind it is the important part.
+
+THE TAB PART WAS ALREADY DONE AND NOBODY NOTICED. The alpha's tab handler has
+read `PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p` since 7/28, when he
+FIRST asked for this. Both buttons opened the SAME PANEL for five days. The CITY
+tab was a pure duplicate. It is deleted; nothing moved, nothing reloaded.
+
+*** THE FINDING ***
+  #p-run is display:none for the entire life of the app.
+  THE RUN TAB HAS NEVER SHOWN slices/BOHEMIA_RUN_CURRENT.html.
+  When Paolo taps RUN he is looking at the CITY FRAME's walk mode.
+The run slice is real, tested, driven by gates by file - and INVISIBLE to him.
+
+WHAT THAT COSTS, said plainly: the 8/1 NO DISTRICT IS A PRISON fix went into the
+run slice's findHomeCell and was proved by walking the run slice in a browser.
+IT CANNOT HAVE REACHED HIM. The wall fixes went into the city frame and did.
+This lane's most repeated failure is fixing the surface he cannot see, and it
+happened again yesterday, with a gate green over it.
+
+  BEFORE CHANGING ANYTHING WORLD-FACING, ASK WHICH FRAME DRAWS IT:
+    cityFrame                     what he sees (built from CITY_B64 in the alpha)
+    BOHEMIA_RUN_CURRENT.html      real, tested, and not on his screen
+
+MEASURED ON THE SURFACE HE ACTUALLY PLAYS (city frame walk mode, 4 suburbs):
+every one reaches a road, but only after a 7,400-9,400 tile search. So he is not
+trapped there - that is why it FELT like a prison. The valley is continuous in
+that frame; there are no block boundaries to escape.
+
+[PENDING PAOLO] THE FORK NOBODY SHOULD TAKE ALONE: does the run slice get SHOWN,
+MERGED into the city frame, or RETIRED? All the run-lane work (quests, combat
+handoff, the people schedules, the doorstep) lives in a file he cannot open. It
+is a real cost either way and it is not a decision to make inside a tab deletion.
+
+GATE: ONE WORLD TAB, 167 assertions. The CITY tab is absent, RUN reaches the
+world frame, the routing survives, NO GATE navigates by the dead button (four
+had to be rerouted), and the p-run finding is asserted so nobody rediscovers it
+the expensive way. Proved able to fail two ways.
+
+DO NOT: put a CITY tab back. Do not fix a world thing in the run slice assuming
+he will see it - check which frame draws it first.
+
+--- earlier turns, still current ---
 CITY (03): 8/2 LATEST — EVERY WALL IS TWO TILES TALL AND ONE TILE SOLID, AND I
 HAD IT BACKWARDS YESTERDAY.
 

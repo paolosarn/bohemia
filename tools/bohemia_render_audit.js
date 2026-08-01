@@ -85,7 +85,12 @@ const PROBE = `(() => {
   await page.click('#front').catch(() => {});
   await page.waitForTimeout(1200);
   if (FRAME) {
-    await page.click('.tab[data-p="' + FRAME + '"]').catch(() => {});
+    /* THE CITY TAB IS GONE (Paolo 8/2): the world is reached through RUN, which
+       has routed to the city panel since 7/28. The FRAME asked for is still
+       `city` - that is the iframe's id and it has not changed - but the BUTTON
+       that opens it is RUN now. Tab and frame are no longer the same word. */
+    const TAB = (FRAME === 'city') ? 'run' : FRAME;
+    await page.click('.tab[data-p="' + TAB + '"]').catch(() => {});
     await page.waitForSelector('#' + FRAME + 'Frame', { timeout: 60000 }).catch(() => {});
     for (let i = 0; i < 20; i++) {
       await page.waitForTimeout(3000);

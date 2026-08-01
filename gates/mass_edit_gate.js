@@ -132,7 +132,10 @@ ok('every archetype is one of the four agents.js defines',
   await pg.mouse.click(195, 420);
   await pg.waitForTimeout(6000);
   await pg.evaluate(() => {
-    const t = [...document.querySelectorAll('.tab,button')].find(e => e.textContent.trim() === 'CITY');
+    /* THE CITY TAB IS GONE (Paolo 8/2). It found the tab by its TEXT, which is
+       why the data-p sweep did not catch it. The world is reached through RUN;
+       both buttons opened the same panel since 7/28. */
+      const t = [...document.querySelectorAll('.tab,button')].find(e => e.textContent.trim() === 'RUN');
     if (t) t.click();
   });
   await pg.waitForTimeout(22000);

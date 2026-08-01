@@ -46,7 +46,10 @@ const ok = (n, c) => { c ? pass++ : fails.push(n); };
   await p.mouse.click(195, 420);                       /* the real splash: TAP TO ENTER */
   await p.waitForTimeout(6000);
   await p.evaluate(() => {
-    const t = [...document.querySelectorAll('.tab,button')].find(e => e.textContent.trim() === 'CITY');
+    /* THE CITY TAB IS GONE (Paolo 8/2). It found the tab by its TEXT, which is
+       why the data-p sweep did not catch it. The world is reached through RUN;
+       both buttons opened the same panel since 7/28. */
+      const t = [...document.querySelectorAll('.tab,button')].find(e => e.textContent.trim() === 'RUN');
     if (t) t.click();
   });
   await p.waitForTimeout(22000);

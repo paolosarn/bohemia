@@ -118,7 +118,11 @@ const READ = sel => {
     'copy/paste is correct in a text field and wrong on a d-pad', ta === 'text' || ta === 'auto' || ta === 'none-present');
 
   // the walk d-pad, which is the actual thing that was broken
-  await page.click('.tab[data-p="city"]').catch(() => {});
+  /* THE CITY TAB IS GONE (Paolo 8/2): "there's no point in having a city tab
+     anymore". Both buttons opened the same panel since 7/28, so the world is
+     reached through RUN now. Navigating by a button the user does not have is
+     a gate testing a surface nobody can reach. */
+  await page.click('.tab[data-p="run"]').catch(() => {});
   await page.waitForTimeout(14000);
   const f = page.frames().find(fr => fr.name() === 'cityFrame');
   ok('the CITY frame is reachable', !!f);

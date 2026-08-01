@@ -369,6 +369,8 @@ GATES = [
      "Paolo 7/29's condition on the people: stable ids, one derivation point, an overrides layer - and a REAL bulk edit that provably reaches the cached surface, not a promise that it could", True),
     ('RUN PEOPLE',     ['node', 'gates/run_people_gate.js'],
      "HE PLAYS THE RUN: the surface Paolo actually taps has a day in it - the street fills, empties through the Mojave afternoon and refills, a bulk edit reaches bodies already walking, and the draw never paints somebody the sim put indoors", True),
+    ('ONE WORLD TAB',  ['node', 'gates/one_world_tab_gate.js'],
+     "Paolo 8/2: one tab shows the world and it is RUN - no CITY tab, the routing that makes RUN show it survives, no gate navigates by the dead button, and the surface he plays is the CITY FRAME not the run slice", True),
     ('NO PRISON',      ['node', 'gates/no_prison_gate.js'],
      "Paolo 8/1, said from inside one: from anywhere a body can stand a real street is reachable ON FOOT - the doorstep touches a road, every district relays out, and the walk is proved in a real browser", True),
     ('GATED IS RICH',  ['node', 'gates/gated_is_rich_gate.js'],

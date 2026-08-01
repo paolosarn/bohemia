@@ -1724,6 +1724,36 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AM. [DONE 8/2, HIS RULING — AND THE MEASUREMENT FOUND SOMETHING BIGGER]
+   ONE WORLD TAB, AND IT IS RUN. laws/BOHEMIA_LAW_ONE_WORLD_TAB_8_2_26.md
+   > "the city tab will now live in the run tab. There's no point in having a
+   >  city tab anymore. Make sure everything in the city tab is migrated on the
+   >  run."
+   HE IS RIGHT AND NOTHING HAD TO MOVE. The alpha's tab handler has read
+   `PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p` since 7/28, when he
+   FIRST asked ("Can you put the city in the run tab?"). Both buttons opened the
+   SAME PANEL for five days. The CITY tab was a pure duplicate; it is deleted.
+   No world moved, no iframe reloaded, no second instance.
+   *** THE BIGGER FINDING, AND EVERY LANE NEEDS IT ***
+   #p-run is display:none for the entire life of the app. THE RUN TAB HAS NEVER
+   SHOWN slices/BOHEMIA_RUN_CURRENT.html. The frame is in the document and the
+   alpha posts to it, but the player has never looked at it. WHAT HE SEES WHEN
+   HE TAPS RUN IS THE CITY FRAME'S WALK MODE.
+   CONSEQUENCE, stated plainly: the 8/1 NO PRISON fix went into the run slice's
+   findHomeCell and was proved by walking the run slice in a browser. IT CANNOT
+   HAVE REACHED HIM. The wall fixes, which went into the city frame, did. This
+   lane's most repeated failure is fixing the surface he cannot see, and it
+   happened again yesterday.
+   MEASURED ON THE SURFACE HE ACTUALLY PLAYS (city frame walk mode, 4 suburbs):
+   every one reaches a road - but only after a 7,400-9,400 tile search. Not a
+   prison; that is why it FELT like one.
+   [PENDING Paolo] whether the run slice gets SHOWN, MERGED into the city frame,
+   or RETIRED is a real fork with real cost and is not decided inside a tab
+   deletion.
+   | tools/bohemia_alpha_one_world_tab_patch.py + 4 gates rerouted off the dead
+     button | gate: ONE WORLD TAB, 167 assertions, proved able to fail two ways
+   | 8/2 | YES - the tab bar is one shorter.
+
 0AL. [DONE 8/2 — HIS CORRECTION, AND I HAD IT BACKWARDS] EVERY WALL IS TWO
    TILES TALL AND ONE TILE SOLID.
    laws/BOHEMIA_LAW_WALLS_ARE_TWO_TALL_ONE_SOLID_8_2_26.md

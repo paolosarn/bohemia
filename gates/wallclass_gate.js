@@ -82,7 +82,11 @@ ok('the bank still states its own height law (min 2 tiles)', /MIN 2 TILES/i.test
   await page.waitForTimeout(2500);
   await page.click('#front').catch(() => {});
   await page.waitForTimeout(1200);
-  await page.click('.tab[data-p="city"]').catch(() => {});
+  /* THE CITY TAB IS GONE (Paolo 8/2): "there's no point in having a city tab
+     anymore". Both buttons opened the same panel since 7/28, so the world is
+     reached through RUN now. Navigating by a button the user does not have is
+     a gate testing a surface nobody can reach. */
+  await page.click('.tab[data-p="run"]').catch(() => {});
   await page.waitForTimeout(14000);
   const f = page.frames().find(fr => fr.name() === 'cityFrame');
   ok('the CITY frame is reachable', !!f);
