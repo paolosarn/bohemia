@@ -18,9 +18,19 @@ whitespace) so formatting cannot move it and only real pixel changes can. Plus
 the per-facing pixel counts, so a failure says WHERE it drifted instead of just
 "the hash moved".
 
-    layers sha256   1208890003f42d0d393416cb71c8ccbfe9621faa1327796b8f807cbad1ce5f62
-    total painted   5246
-    S 715  SE 657  E 598  NE 638  N 717  NW 656  W 598  SW 667
+    layers sha256   25a5448330ea0021ac7be78f2ba8c4f31f9ba00f3259aa71ebbf53fe760936e3
+    total painted   5248
+    S 715  SE 657  E 598  NE 639  N 717  NW 657  W 598  SW 667
+
+RE-PINNED 8/1/26, AND THIS IS THE ONLY TIME IT HAS MOVED WITHOUT AN EXPORT.
+Paolo, asked directly whether to delete the leftover ear pixels on NE/NW or send a
+fresh export, answered: "Delete them yourself". Ten pixels changed, all inside his
+own silhouette: four FACE pixels on each of NE and NW became HEAD, and the one-pixel
+HOLE he left at row 10 of each was filled with HEAD. Nothing was added to or removed
+from the outline -- the counts move +1 per side purely from filling the two gaps.
+Tool: tools/bohemia_rig_delete_ear_remnant_8_1.py. Record:
+records/rig/EAR_REMNANT_DELETED_8_1_26.txt. Previous pin, for the audit trail:
+sha 1208890003f42d0d..., total 5246, NE 638, NW 656.
 
 HOW TO CHANGE THE RIG, and this is the only way: Paolo exports from his rig tool,
 a transcriber tool applies it VERBATIM, and the constants below are updated IN
@@ -47,10 +57,10 @@ ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 EXPORT = 'records/rig/RIG_FACE_7_31_26.json'
 
 # HIS RIG, 7/31/26. Only his export may move these.
-SHA = '1208890003f42d0d393416cb71c8ccbfe9621faa1327796b8f807cbad1ce5f62'
-TOTAL = 5246
-PER_DIR = {'S': 715, 'SE': 657, 'E': 598, 'NE': 638,
-           'N': 717, 'NW': 656, 'W': 598, 'SW': 667}
+SHA = '25a5448330ea0021ac7be78f2ba8c4f31f9ba00f3259aa71ebbf53fe760936e3'
+TOTAL = 5248
+PER_DIR = {'S': 715, 'SE': 657, 'E': 598, 'NE': 639,
+           'N': 717, 'NW': 657, 'W': 598, 'SW': 667}
 PARTS = 12
 DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']
 

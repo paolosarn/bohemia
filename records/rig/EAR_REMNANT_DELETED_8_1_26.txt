@@ -1,0 +1,71 @@
+BOHEMIA — THE EAR REMNANT, DELETED ON NE AND NW
+CHARACTER LANE, 8/1/26.  AUTHORISED BY PAOLO, IN THESE WORDS: "Delete them yourself"
+==============================================================================
+
+THIS IS THE ONLY EDIT EVER MADE TO PAOLO'S PAINTED RIG BY CLAUDE, and it happened
+only because he was asked a direct question and gave a direct answer.
+
+RIG LAW: "Paolo's painted regions are SACROSANCT: never reshape, mesh, mirror, or
+'fix' region geometry. Ever." He overrode it for these ten pixels and NOTHING
+else. Every other rig change still goes the only legal way: he exports, a
+transcriber applies it verbatim, the pins move in the same commit.
+
+WHAT WAS WRONG — HIS DATA, NOT THE RENDERER
+------------------------------------------------------------------------------
+7/31, his words: "biggest changes are for ne and nw where i tried to simulate ears
+but ur redarded so i just removed it."
+
+The removal was incomplete. Four pixels survived on each side, and where he
+cleared one it left a real gap in the skull:
+
+    NE, column 32              NW, column 23
+      row  8   FACE              row  8   FACE
+      row  9   FACE              row  9   FACE
+      row 10   (HOLE)            row 10   (HOLE)
+      row 11   head              row 11   head
+      row 12   FACE              row 12   FACE
+      row 13   FACE              row 13   FACE
+
+8/1, his report: the head "looks like the head is cut off ... and it's very strange
+at some cardinal directions." That vertical dark slot on the back-three-quarter
+views is this column. FACE pixels on a view where no face is visible take face
+shading; the hole takes nothing at all.
+
+His 7/31 face export was otherwise applied byte-for-byte in all 8 facings —
+verified part by part against records/rig/RIG_FACE_7_31_26.json before touching
+anything. The defect was in the source, not in the transcription.
+
+WHAT "DELETE THEM" WAS TAKEN TO MEAN, AND WHY
+------------------------------------------------------------------------------
+Deleting the pixels OUTRIGHT would have been a second unauthorised edit. They sit
+one column IN from the skull's edge (col 33 on NE, col 22 on NW are the true
+edges), so removing them would punch a channel through the back of the head.
+
+What he is deleting is the EAR, not the skull. So:
+
+    the four FACE pixels  ->  HEAD   (part 2 -> part 1)
+    the one HOLE          ->  HEAD   (nothing -> part 1)
+
+Ten pixels changed across both facings. Nothing added to or removed from the
+outline. The result is a solid, continuous skull with no ear and no gap.
+
+BOTH COPIES
+------------------------------------------------------------------------------
+BAKED exists twice — inline in the alpha, and inside the base64-embedded rig tool
+(RIG_B64) — and rig_is_law_gate asserts they are byte-identical. Both were edited
+in the same pass. Editing one is how a rig starts disagreeing with itself.
+
+THE PINS, MOVED IN THE SAME COMMIT
+------------------------------------------------------------------------------
+                    BEFORE                                   AFTER
+  layers sha256     1208890003f42d0d...                      25a5448330ea0021...
+  total painted     5246                                     5248
+  NE                638                                      639
+  NW                656                                      657
+  (S 715, SE 657, E 598, N 717, W 598, SW 667 — all unchanged)
+
+The +1 per side is the filled hole. The four re-classified pixels are
+count-neutral: they moved from part 2 to part 1, they did not appear or vanish.
+
+Tool: tools/bohemia_rig_delete_ear_remnant_8_1.py (idempotent).
+Gate:  gates/rig_no_drift_gate.py, re-pinned with this authorisation quoted in it.

@@ -190,10 +190,39 @@ if (fs.existsSync(RIGEDIT)) {
       else if (src[k] === '}') { dd--; if (!dd) { baked = JSON.parse(src.slice(i0, k + 1)); break; } } } }
   ok('the live BAKED is extractable', !!baked);
   if (baked) {
-    let bad = 0;
-    for (const d in want) for (const q of ['1', '2', '3'])
-      if (JSON.stringify(baked.layers[d][q]) !== JSON.stringify(want[d][q])) bad++;
-    ok('THE HEAD, FACE AND NECK THE GAME DRAWS ARE HIS 7/31 EXPORT, byte for byte', bad === 0);
+    /* HIS 7/31 EXPORT, PLUS THE TEN PIXELS HE AUTHORISED DELETING ON 8/1 -- and
+       nothing else. Asked whether to remove the leftover "ear" pixels on NE/NW or
+       send a fresh export, he said: "Delete them yourself". Four FACE pixels per
+       side became HEAD and the one-pixel HOLE at row 10 was filled with HEAD, so
+       the skull is continuous and the ear is gone.
+       This is NOT loosened to "close enough". The allowance is exactly two columns
+       on two facings, enumerated below; any other byte still fails. Record:
+       records/rig/EAR_REMNANT_DELETED_8_1_26.txt */
+    const EAR = { NE: 32, NW: 23 }, EARROWS = [8, 9, 10, 12, 13];
+    const allowed = (d, q, idx) => {
+      const col = EAR[d]; if (col === undefined) return false;
+      const row = Math.floor(idx / 56); if (idx % 56 !== col) return false;
+      if (!EARROWS.includes(row)) return false;
+      return q === '1' || q === '2';          /* head gained them, face lost them */
+    };
+    let bad = 0, earFixed = 0;
+    for (const d in want) for (const q of ['1', '2', '3']) {
+      const a = baked.layers[d][q] || [], b = want[d][q] || [];
+      const A = new Set(a), B = new Set(b);
+      for (const v of A) if (!B.has(v)) { allowed(d, q, v) ? earFixed++ : bad++; }
+      for (const v of B) if (!A.has(v)) { allowed(d, q, v) ? earFixed++ : bad++; }
+    }
+    ok('THE HEAD, FACE AND NECK THE GAME DRAWS ARE HIS 7/31 EXPORT, byte for byte '
+       + '(plus the ' + earFixed + ' ear pixels he told me to delete on 8/1)', bad === 0);
+    /* 18 DIFFS, 10 PIXELS. A pixel that moved from FACE to HEAD shows up twice --
+       once leaving part 2, once joining part 1 -- so the four re-classified pixels
+       per side are 8 diffs, plus 1 for the filled hole: 9 a side, 18 in total.
+       My first assertion here said 10 and was simply wrong about its own arithmetic. */
+    ok('the ear remnant really is gone from BOTH back-angled facings '
+       + '(' + earFixed + ' diffs = 10 pixels: 8 re-classified + 2 holes filled)',
+      earFixed === 18);
+    ok('and the skull has no hole left at row 10 on either side',
+      baked.layers.NE['1'].includes(10 * 56 + 32) && baked.layers.NW['1'].includes(10 * 56 + 23));
     ok('the chin/neck column he removed on E is gone (face idx 870, neck idx 926)',
       baked.layers.E['2'].indexOf(870) < 0 && baked.layers.E['3'].indexOf(926) < 0);
     ok('the chin/neck column he removed on W is gone (face idx 865, neck idx 921)',
