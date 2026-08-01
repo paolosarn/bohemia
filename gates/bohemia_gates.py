@@ -224,6 +224,8 @@ GATES = [
      'the population reaches the SCREEN: twelve citizens drawn through the real drawChar path, none blank, none identical (heads checked separately), deterministic pixel-for-pixel, and his own look handed back untouched', False),
     ('HAIR',          ['node', 'gates/hair_gate.js'],
      'Paolo 8/1 cook up as many hairstyles as you possibly can: 26 SHAPES not recolours (footprint-hashed, colour discarded), the face never covered, all 8 facings, fits the tallest and shortest citizen, and a thumbs board that exports .txt', False),
+    ('FACING',        ['node', 'gates/facing_gate.js'],
+     'Paolo 8/1 the back of my outfits are the exact same when Im facing south: 19 generators read curDir and only the CLOTHES preview ever set it, so every garment rendered front-facing everywhere. The composite now feeds the frame direction and hands it back', False),
     ('MOTION VISIBLE',['node', 'gates/motion_visible_gate.js'],
      'a clip whose name promises movement actually moves PIXELS: pray and winded rendered zero changed pixels while "animating" at 0.2px on a 56px sprite', False),
     ('RIG CHECK',      ['python3', 'gates/rig_check_gate.py'],
