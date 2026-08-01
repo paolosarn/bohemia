@@ -1,3 +1,54 @@
+ART (f3eu53): 8/1 (g) LATEST — HE CHOSE THE LOGO AND IT IS THE FRONT SCREEN NOW.
+
+Paolo 8/1, with logos 3 and 5 side by side: "If you can put the coloring of the [Sign]
+painter exactly as the Punk stencil is just be concerned with the coloring I would be
+very happy. Do that properly slide it into the homepage the first thing I see every time
+I open up the alpha, please"
+
+=== SHIPPED ===
+Logo 11 = SIGN PAINTER letterforms + PUNK STENCIL palette. It is the alpha FRONT SCREEN.
+records/target/FRONT_SCREEN.png is the real 390px phone shot.
+records/BOHEMIA_VERDICT_LOGO_8_1_26.txt is the verdict, verbatim.
+
+ONLY THE COLOUR MOVED, because that is what he asked ("just be concerned with the
+coloring"). Kept: the brush letterforms, the board and its double frame, the
+signwriter's drop shadow, the tracking. Taken from 3: the dark grainy wall, off-white
+spray ink, uneven coverage, overspray halo, runs. Gone: the gold and the brown board.
+The gold is the prettiest thing in the ten and it is not what he asked for.
+
+MY PICK (1, DEAD MARQUEE) IS SUPERSEDED. His call ends it; my reasoning stays on file
+only so nobody re-litigates it.
+
+=== THE SPLASH WAS SHOWING UNJUDGED ART ===
+renderWordmark() drew a live GLYPH-table wordmark - italic, sheared, fault-slipped - and
+nobody ever thumbed it. His logo wins on that alone. The old renderer stays in the file
+because other surfaces call it.
+
+=== TWO THINGS THE NUMBERS COULD NOT SEE ===
+1. The first wiring letterboxed a 400x130 logo in the old 640x170 canvas at integer
+   scale 1: SMALL, adrift in dead canvas. The canvas takes the artwork's size now, CSS
+   lays out the logo itself, image-rendering:pixelated keeps it crisp.
+2. The patch REFUSED on its first run: '<div id="front">' matches twice in the alpha,
+   once as markup and once inside a comment. That refusal was correct - a two-match
+   anchor in a 34 MB single-file build is how the wrong thing gets rewritten, and this
+   file has been truncated to zero bytes once already.
+
+=== GATE ===
+gates/logo_gate.py, 24 checks, registered as LOGO. Holds: the letterforms must actually
+differ (checked on raw GLYPH BITMAPS, so one wordmark under ten filters cannot pass), no
+logo may run off its own frame, and the bytes on the splash must BE the judged bytes,
+blitted with smoothing off.
+
+=== THE QUEUE, UNCHANGED AND STILL HIS ===
+1. FEATURES AT HALF HIS DENSITY (median 4.9% vs 7.0%, 17/114 vs 42/54). Plate-network
+   cracks are right, the COUNT is low. Next: more events per tile, plus VEGETATION
+   through a crack and HARDWARE (manhole, drain, vent) - the two things his pack has
+   that mine does not.
+2. House UPPER floor band, perimeter wall, gate mouth, garage mouth still target-set.
+3. His bought yard tiles band. "I'll let you know when I have issues with the banding
+   until then" - LEAVE IT. Never touch his pixels.
+4. Art cell 44 -> 88 px, "thats down the line".
+
 PEOPLE (7h9sfy): 8/1 (g) LATEST — HE ASKED FOR THE NPC COUNTS AND THEY OVERTURNED MY OWN
 CONCLUSION. Research: records/BOHEMIA_NPC_COUNTS_IN_REAL_GAMES_8_1_26.md
 NOTHING SHIPPED TO THE GAME THIS TURN, ON PURPOSE - see the last section.

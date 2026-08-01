@@ -1,0 +1,54 @@
+BOHEMIA VERDICT — THE LOGO (8/1/26)
+====================================
+
+PAOLO, 8/1, VERBATIM, with logos 3 and 5 side by side on his screen:
+
+  "If you can put the coloring of the [Sign] painter exactly as the Punk stencil is
+   just be concerned with the coloring I would be very happy.
+   Do that properly slide it into the homepage the first thing I see every time I
+   open up the alpha, please"
+
+VERDICT: CHOSEN. Logo 5 (SIGN PAINTER) letterforms, logo 3 (PUNK STENCIL) palette.
+Shipped as logo 11 in banks/BOHEMIA_LOGO_CANDIDATES_8_1_26.txt, and it is now the
+alpha's FRONT SCREEN.
+
+WHAT MOVED AND WHAT DID NOT
+----------------------------
+He said "just be concerned with the coloring", so ONLY the colour moved:
+  KEPT   the sign-painter letterforms (F_BRUSH: swelling stems, 8x10, its own counters)
+  KEPT   the board, its double frame, and the signwriter's down-right drop shadow
+  KEPT   the layout and the tracking
+  TAKEN FROM 3   the dark grainy wall, the off-white spray ink, the uneven coverage,
+                 the overspray halo and the runs
+  GONE   the gold, the brown board, the warm gradient
+Widening this into a redesign would have been answering a brief he did not give. The
+temptation was real: the gold is the prettiest thing in the ten and it is not what he
+asked for.
+
+MY OWN PICK IS SUPERSEDED, ON THE RECORD
+-----------------------------------------
+I had picked 1, DEAD MARQUEE, and said why. He picked differently. His call ends it, and
+the reasoning stays on file only so the next session does not re-litigate it.
+
+WHAT IT TOOK TO PUT IT ON THE FRONT SCREEN
+-------------------------------------------
+The splash was drawing an UNJUDGED wordmark - renderWordmark(), a GLYPH table baked into
+the alpha, italic and sheared with a fault-slip. Nobody ever thumbed it. His logo wins on
+that alone; the old renderer stays in the file because other surfaces call it.
+
+TWO THINGS CAUGHT BY LOOKING AT THE REAL PHONE SCREEN, NOT BY A NUMBER:
+  1. The first wiring letterboxed a 400x130 logo inside the old 640x170 canvas at
+     integer scale 1. It came out SMALL and adrift in a field of dead canvas. The canvas
+     takes the artwork's own size now, so CSS lays out the logo itself and it fills its
+     box; image-rendering:pixelated keeps it crisp on the phone.
+  2. The patch REFUSED to run on its first attempt because '<div id="front">' matches
+     twice in the alpha - once as markup and once inside a comment. That refusal was
+     correct. A two-match anchor in a 34 MB single-file build is exactly how the wrong
+     thing gets rewritten, and this file has been truncated to zero bytes once before.
+
+GATE
+----
+gates/logo_gate.py, 24 checks, registered as LOGO. It holds the brief (the LETTERFORMS
+must differ, checked on the raw glyph bitmaps so a filter-farm cannot pass), the clipping
+bug (no logo may run off its own frame), and now the front screen: the bytes on the
+splash must BE the judged bytes, blitted without smoothing.

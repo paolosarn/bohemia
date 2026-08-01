@@ -58,12 +58,17 @@ def main():
 
     bank = json.load(open(BANK))
     logos = bank.get('logos') or []
-    ok('there are TEN', len(logos) == 10, '%d found' % len(logos))
+    # TEN CANDIDATES, plus the variant he asked for on top of them. The count moved from
+    # 10 to 11 the moment he chose, and a gate that still demanded exactly ten would be
+    # forcing the record to disagree with what actually happened.
+    ok('the ten he was shown are all on file', len(logos) >= 10, '%d found' % len(logos))
+    ok('the bank is the ten plus at most his chosen variant', len(logos) <= 11,
+       '%d - anything past 11 is unjudged work hiding in a judged bank' % len(logos))
     ok('it carries his brief verbatim', 'vastly different' in str(bank.get('ruling', '')))
     ok('the batch is honestly unjudged', bank.get('status') == 'PENDING PAOLO',
        str(bank.get('status')))
     ok('a pick is named, because he asked which one I would choose',
-       isinstance(bank.get('my_pick'), int) and 1 <= bank['my_pick'] <= 10)
+       isinstance(bank.get('my_pick'), int) and 1 <= bank['my_pick'] <= len(logos))
     ok('and the pick gives a REASON, not a preference',
        len(str(bank.get('my_pick_reason', ''))) > 80)
     ok('every logo says what it claims about the game',
@@ -120,6 +125,28 @@ def main():
     ok('every logo actually has a wordmark on it', not blank, ', '.join(blank))
     ok('the cook auto-fits rather than hand-picking a scale that can overflow',
        'def fit(' in open(COOK).read())
+
+    # ---- HIS PICK IS ON THE FRONT SCREEN. Paolo 8/1: "slide it into the homepage the
+    # first thing I see every time I open up the alpha".
+    ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
+    a = open(ALPHA, encoding='utf8').read()
+    ok('the alpha carries his chosen logo inline', 'BOH_FRONT_LOGO_B64' in a)
+    chosen = bank.get('chosen_by_paolo')
+    ok('the bank records that HE chose, not that I picked', chosen is not None,
+       'no chosen_by_paolo - a pick of mine is not a verdict of his')
+    if chosen:
+        want = next((l for l in logos if l['n'] == chosen), None)
+        ok('the chosen logo exists in the bank', want is not None)
+        if want:
+            ok('THE BYTES ON THE FRONT SCREEN ARE THE JUDGED BYTES',
+               want['b64'] in a,
+               'the alpha shows something other than the artwork he approved')
+    ok('the front screen draws the image, not the old unjudged live wordmark',
+       'BOH_FRONT_LOGO_IMG' in a and 'function drawLogoBig()' in a)
+    ok('it blits without smoothing, so pixel art stays crisp',
+       'imageSmoothingEnabled=false' in a)
+    ok('and the canvas is styled to scale crisply on a phone',
+       'image-rendering:pixelated' in a)
 
     print('   LOGO GATE: %d passed, %d failed  (%d logos, %d alphabets)'
           % (P, F, len(logos), len(fonts)))

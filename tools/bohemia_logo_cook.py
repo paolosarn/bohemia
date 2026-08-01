@@ -672,8 +672,70 @@ def logo_grid(rnd):
     return im, 'AMALGAMATION', "the enemy's language: modular, on a lattice, eerily perfect. Bohemia's name in their font, refusing their purple."
 
 
+
+# --------------------------------------------------- 11 SIGN PAINTER, STENCIL COLOURWAY
+def logo_chosen(rnd):
+    """*** THE ONE HE PICKED, 8/1. ***
+
+    Paolo, with logos 3 and 5 side by side: "If you can put the coloring of the [Sign]
+    painter exactly as the Punk stencil is just be concerned with the coloring I would be
+    very happy. Do that properly slide it into the homepage the first thing I see every
+    time I open up the alpha."
+
+    So: SIGN PAINTER's letterforms, its board and its painter's drop-shadow, wearing PUNK
+    STENCIL's palette. ONLY THE COLOUR MOVES - he was explicit ("just be concerned with
+    the coloring"), and widening that into a redesign would be answering a brief he did
+    not give. The gold goes; the white ink, the dark grainy wall and the overspray come
+    across from 3 exactly as they are there.
+    """
+    im = blank((30, 28, 26))
+    d = ImageDraw.Draw(im)
+    # STENCIL'S WALL, the same generator as logo 3
+    for y in range(CANVAS[1]):
+        for x in range(CANVAS[0]):
+            v = 34 + int(rnd.f() * 16)
+            px(im, x, y, (v + 4, v + 2, v - 2))
+    grid = lay(F_BRUSH, WORD, tracking=2)
+    S = fit(grid, 6)
+    x0, y0, gw, gh = place(grid, S)
+    # SIGN PAINTER'S BOARD, in the wall's own greys instead of the brown
+    d.rectangle([x0 - 18, y0 - 14, x0 + gw + 17, y0 + gh + 13], outline=(96, 92, 86))
+    d.rectangle([x0 - 14, y0 - 10, x0 + gw + 13, y0 + gh + 9], outline=(64, 61, 57))
+    for y, row in enumerate(grid):
+        for x, v in enumerate(row):
+            if not v:
+                continue
+            for sy in range(S):
+                for sx in range(S):
+                    if rnd.f() < 0.10:            # stencil paint does not cover evenly
+                        continue
+                    c = 226 + int(rnd.r(-30, 22))
+                    px(im, x0 + x * S + sx, y0 + y * S + sy, (c, c - 6, c - 16))
+            # the signwriter's drop shadow, kept: it is STRUCTURE, not colour
+            for k in range(2):
+                px(im, x0 + x * S + S + k, y0 + y * S + S + k, (20, 19, 18))
+    # STENCIL'S OVERSPRAY, the thing that proves it was sprayed and not printed
+    for _ in range(2600):
+        gx, gy = int(rnd.r(0, len(grid[0]))), int(rnd.r(0, len(grid)))
+        if not grid[gy][gx]:
+            continue
+        ax = x0 + gx * S + rnd.r(-9, 9 + S)
+        ay = y0 + gy * S + rnd.r(-9, 9 + S)
+        if 0 <= ax < CANVAS[0] and 0 <= ay < CANVAS[1]:
+            base = im.getpixel((int(ax), int(ay)))
+            k = rnd.r(0.12, 0.42)
+            px(im, ax, ay, tuple(int(b + (222 - b) * k) for b in base))
+    for _ in range(3):                            # and a run, held too close
+        rx = x0 + rnd.r(0, gw)
+        for i in range(int(rnd.r(6, 22))):
+            px(im, rx, y0 + gh + i, (206, 200, 188))
+    return im, 'THE ONE (SIGN PAINTER IN STENCIL WHITE)', "his pick, 8/1: sign painter's letterforms and board wearing the punk stencil's palette. Only the colour moved."
+
+
+
 LOGOS = [logo_marquee, logo_googie, logo_stencil, logo_ransom, logo_brush,
-         logo_slab, logo_scratch, logo_deco, logo_west, logo_grid]
+         logo_slab, logo_scratch, logo_deco, logo_west, logo_grid,
+         logo_chosen]
 
 
 def b64(im):
@@ -693,7 +755,7 @@ def main():
 
     SC = 2
     W, H = CANVAS[0] * SC, CANVAS[1] * SC
-    sheet = Image.new('RGB', (W * 2 + 24, (H + 30) * 5 + 34), (12, 12, 14))
+    sheet = Image.new('RGB', (W * 2 + 24, (H + 30) * 6 + 34), (12, 12, 14))
     d = ImageDraw.Draw(sheet)
     d.text((10, 10), 'BOHEMIA — TEN LOGOS, TEN ALPHABETS.  Pick one and it goes on the '
                      'home screen.', fill=(238, 226, 196))
@@ -718,13 +780,15 @@ def main():
                 'filters, which is the cheap read of the brief and the STRUCTURE-NOT-'
                 'COLOUR trap pointed at type.',
         'status': 'PENDING PAOLO',
-        'my_pick': 1,
-        'my_pick_reason': 'DEAD MARQUEE. It is the only one that states the premise '
-                          'instead of decorating it: the sign is still standing, and '
-                          'almost none of it is lit. The 12% clustered power law does '
-                          'the work, so the logo is canon rather than a mood. It also '
-                          'reads at phone size, because bulbs stay legible when detail '
-                          'does not.',
+        'my_pick': 11,
+        'my_pick_reason': 'NOT MINE ANY MORE - PAOLO CHOSE, 8/1. He took logo 5 (SIGN '
+                          'PAINTER) and asked for logo 3 (PUNK STENCIL) colouring: "just '
+                          'be concerned with the coloring". Logo 11 is that, and it is '
+                          'now the alpha front screen, which is what he asked for: "the '
+                          'first thing I see every time I open up the alpha". My own '
+                          'vote had been 1, DEAD MARQUEE; his call supersedes it and the '
+                          'ten stay on file as the record.',
+        'chosen_by_paolo': 11,
         'logos': out,
     }, open(OUT, 'w'))
 
