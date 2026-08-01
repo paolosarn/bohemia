@@ -1,3 +1,80 @@
+ART (f3eu53): 8/1 LATEST — I FINALLY MEASURED WHY MY ART LOOKS WRONG NEXT TO HIS, AND
+IT WAS NEVER THE SHAPES. Paolo 8/1: "make as much pixel art that I approve of for
+everything we need in the game as possible INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT
+TRYING TO REPLICATE THE EXACT LOOK I don't know what's so difficult"
+
+*** READ THE TABLE. IT EXPLAINS THREE REJECTED BATCHES. ***
+                            colours/tile   edge   grain    sat
+    HIS BOUGHT concrete            1443    20.9   64.7%   0.274
+    my recooked tileset             417     8.7   24.4%   0.323
+    my house skins (he UP'd)         81     9.4   26.2%   0.383
+    my CMU wall                       4     7.1   14.4%   0.082
+    my perimeter wall              1222     7.0   23.2%   0.466
+
+HIS ART IS ROUGH AND GREY. MINE WAS SMOOTH AND TOO COLOURFUL. He carries ~2.5x the local
+contrast and ~2.7x the grain density at ~60% of the saturation. That is not a palette
+disagreement, it is a different ORDER OF DETAIL, and NO CHOICE OF COLOURS CLOSES IT. A
+13-colour flat ramp cannot sit beside a 1,300-colour photographic texture and read as one
+game. Every house rejection was blamed on shapes. The shapes were not the problem.
+  edge  = mean |luminance delta| between horizontally adjacent pixels
+  grain = % of adjacent pairs differing by more than 8 luminance
+
+=== SHIPPED (NOT IN A TAB YET - a bank, a gate and a contact sheet) ===
+tools/bohemia_style_target.py       derives THE LOOK off the concrete + street packs he
+  BOUGHT and that already ship. Cooks nothing. -> records/BOHEMIA_STYLE_TARGET_8_1_26.json
+  TARGET: 1260 colours, edge 18.4, grain 61%, sat 0.19, lum 83 sd 27.
+tools/bohemia_texture_match_cook.py 36 tiles / 12 materials, all for surfaces HIS LIBRARY
+  DOES NOT COVER (house walls and roofs - he owns none, proven 7/31). Material body +
+  real structure + 4-octave fbm + per-pixel speck + wear + one light from upper left.
+  Every tile is MEASURED AFTER DRAWING and redrawn until it lands inside his band; a cook
+  that cannot hit it fails loudly instead of shipping something smooth.
+  -> banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt  (status PENDING PAOLO)
+  -> records/target/TEXTURE_MATCH_CONTACT.png  HIS TILES ON THE TOP ROW, MINE UNDER THEM
+  RESULT: 36/36 in tolerance. MINE 1646 colours, edge 18.6, grain 72.7%, sat 0.242.
+gates/texture_match_gate.py         16 checks, registered as TEXTURE MATCH. The ruler is
+  HIS OWN TILES, RE-DERIVED EVERY RUN so it can never drift off his library.
+
+=== THREE DIALS, AND THE FIRST VERSION ONLY HAD ONE ===
+grain (how much of the tile changes), edge (how hard it changes between touching pixels),
+and base VALUE (the material itself). Chasing grain alone pinned edge at 12 against his
+18.4 and everything came out soft. The fix for edge was a PER-PIXEL UNCORRELATED term:
+fbm is bilinear-smoothed so neighbours correlate, and a photographic texture is
+essentially independent at the finest scale.
+
+=== TWO FAILURES CAUGHT BY LOOKING, NOW PERMANENT NEGATIVE TESTS IN THE GATE ===
+PINK  capping saturation at constant VALUE turns a dark red into SALMON. The first run
+      made pink stucco and a pink terracotta roof. Desaturation must HOLD LUMINANCE so
+      clay goes brown, not pale. Two base colours were also just too red and were fixed
+      (ochre adobe; dark weathered terracotta).
+MUSH  at this grain the material's own structure was being BURIED - fields of noise that
+      hit every number and told you nothing about what you were looking at. Structure
+      amplitude doubled. Gate threshold was first set at 12 when real tiles measure
+      37-82, i.e. a check that could never fail; tightened to 25.
+Both sabotage-tested: a pinked tile and a structureless tile both trip the gate.
+
+=== WHAT IS HONESTLY STILL WEAK ===
+His tiles have BIG FEATURES that break the field - a manhole, a weed clump, a long crack.
+Mine are consistent texture at the right density. That is the next step and it is the
+difference between "same material family" and "same pack".
+
+=== ALSO THIS SESSION ===
+- His bought dirt now dresses the YARD (7/31 c section below). His concrete pack is a
+  desert RANGE, not one texture; split by saturation, brown half to yard, pale half to
+  sidewalk. No pixel changed. Debt 6 -> 5 surfaces.
+- The bought-tile CONDITIONER was built and killed by him on sight: it enforced an
+  "act-1 no pure black" law THAT DOES NOT EXIST. Graveyarded. THE TELL: it condemned
+  1,410 of his 1,506 tiles. When a rule condemns 94% of what the man bought, THE RULE IS
+  WRONG, NOT THE LIBRARY.
+- He owns NO house wall and NO house roof in 2,525 purchased tiles. That is why these
+  surfaces are painted, and it is his law's clause 5 named debt, not laziness.
+
+=== PENDING PAOLO ===
+- THE 36 TILES ARE UNJUDGED. Thumbs on records/target/TEXTURE_MATCH_CONTACT.png.
+- A suburban wall/roof pack is still the highest-leverage purchase for this lane.
+- Doubling the art cell 44 -> 88 px ("thats down the line").
+- Houses: the SHAPE work is still dead this session. The texture finding above is the
+  reason to reopen it, because the shapes were never what was wrong.
+
 CHARACTER (0lurbs): 8/1 (c) LATEST — THE CROWD + ONE ID, ONE WHOLE PERSON.
 THE POPULATION REACHES THE SCREEN, AND LOOKING AT IT FOUND THREE BUGS EVERY GREEN
 GATE HAD MISSED. THE THIRD ONE WAS A FALSE CLAIM I MADE ABOUT THE CODEBASE.

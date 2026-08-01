@@ -1,0 +1,68 @@
+{
+  "version": "BOHEMIA_STYLE_TARGET_v1",
+  "date": "2026-08-01",
+  "ruling": "Paolo 8/1: \"make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK\"",
+  "source": "banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt (the tiles already shipping in the game)",
+  "note": "HIS ART IS ROUGH AND GREY; painted art in this repo has been SMOOTH and TOO COLOURFUL. The gap is detail DENSITY, not palette choice. Any tile cooked to sit beside his must land inside TOLERANCE of TARGET.",
+  "definitions": {
+    "colours": "distinct RGB triples in the tile",
+    "edge": "mean |luminance delta| between horizontally adjacent pixels",
+    "grain": "percent of adjacent pairs differing by more than 8 luminance",
+    "sat": "mean HSV saturation"
+  },
+  "per_pack": {
+    "concrete": {
+      "colours": 1443,
+      "edge": 20.8474,
+      "grain": 64.7385,
+      "sat": 0.2744,
+      "lum_mean": 101.9453,
+      "lum_sd": 30.1789,
+      "lum_min": 0.5267,
+      "lum_max": 207.3875,
+      "n": 34
+    },
+    "street": {
+      "colours": 1077.8,
+      "edge": 15.873,
+      "grain": 57.5053,
+      "sat": 0.1034,
+      "lum_mean": 64.6145,
+      "lum_sd": 24.2777,
+      "lum_min": 4.0972,
+      "lum_max": 171.8984,
+      "n": 20
+    }
+  },
+  "TARGET": {
+    "colours": 1260.4,
+    "edge": 18.3602,
+    "grain": 61.1219,
+    "sat": 0.1889,
+    "lum_mean": 83.2799,
+    "lum_sd": 27.2283
+  },
+  "TOLERANCE": {
+    "colours_min": 600,
+    "edge": [
+      14.0,
+      30.0
+    ],
+    "grain": [
+      50.0,
+      80.0
+    ],
+    "sat": [
+      0.15,
+      0.34
+    ],
+    "lum_mean": [
+      80.0,
+      130.0
+    ],
+    "lum_sd": [
+      20.0,
+      42.0
+    ]
+  }
+}

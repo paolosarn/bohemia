@@ -397,6 +397,15 @@ GATES = [
      'real doors in the live SLICE tab: canon door + warm-filtered trim, crisp scaling, purity', False),
     ('REUSE FIRST',    ['python3', 'gates/reusefirst_gate.py'],
      'every art-cooking tool documents a REUSE CHECK, claimed bank reuse must actually open the bank', False),
+    ('TEXTURE MATCH', ['python3', 'gates/texture_match_gate.py'],
+     'Paolo 8/1: "make as much pixel art ... INSPIRED BY THE GRAPHIC ASSETS THAT I '
+     'BOUGHT TRYING TO REPLICATE THE EXACT LOOK". Three house batches were rejected and '
+     'every post-mortem blamed the SHAPES; measured, his art carries 2.5x the local '
+     'contrast and 2.7x the grain at 60% of the saturation. His is ROUGH AND GREY, mine '
+     'was SMOOTH AND TOO COLOURFUL. This gate is the ruler and the ruler is HIS OWN '
+     'TILES, re-derived every run so it cannot drift - plus the two failures that almost '
+     'shipped: PINK (desaturating at constant value turns clay into salmon) and MUSH '
+     '(structure buried under the grain)', False),
     ('BOUGHT-FIRST (COOKS)', ['python3', 'gates/bought_first_gate.py'],
      'REUSE FIRST was green while I cooked a concrete block wall he had already BOUGHT: the '
      'shopping check walked the APPROVED-ASSET index (what he has judged) and never the '
