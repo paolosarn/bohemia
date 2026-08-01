@@ -1,3 +1,42 @@
+LAB (e2r7sv): 8/1 LATEST — 12 QUESTIONS FOR PAOLO, EACH ONE CHECKED AGAINST CANON
+FIRST. He asked for them: "Ask me big brain reference lab questions you need from me like
+even the nitty gritty niche details of gameplay".
+
+records/BOHEMIA_LAB_QUESTIONS_FOR_PAOLO_8_1_26.md — 12 questions in three tiers, each
+carrying the search that PROVES it is not already ruled. Answerable in a word, in any
+order, whenever. Nothing in it blocks a turn.
+*** AND THE GATE I BUILT YESTERDAY VALIDATED THE LIST. *** gates/answered_gate.py sweeps
+records/ for question-shaped text against the 23 settled rulings, this file is inside
+that sweep, and it came back 13/0. The machine that exists because I asked him two
+settled questions is now the thing that certifies a question list before he sees it. That
+is the loop closing, and it is reusable by any lane that wants to ask him anything.
+
+THE FOUR THAT CHANGE WHAT GETS BUILT (not just how):
+  Q1 CAN YOU BE ATTACKED WHILE CAMPED? Never said anywhere. The whole mobile camp rests
+     on it: safe = a save room, raidable = "should I stop here" becomes the best decision
+     in the survival system.
+  Q2 IS THE CROSSING INTERRUPTIBLE? 12,288 steps and nothing says whether anything can
+     happen during them. Uninterruptible = the map is a menu.
+  Q3 WHEN A GENERATION CHANGES, WHAT DOES THE HEIR KEEP? Canon says heirs inherit the
+     choice log; it never says whether they inherit the CLOTHES (the progression),
+     the standing, the companions or the gear. Biggest unknown in the dynasty spine.
+  Q4 DOES THE CITY RUN ON THE SAME CLOCK AS THE RUN? One clock or two.
+
+TWO REFERENCE GAPS WORTH KNOWING ABOUT EVEN IF HE NEVER ANSWERS:
+  ROGUE FABLE IV is the most-cited reference in this repo (GDD, groove chain, camp law)
+  and the lab HAS NEVER MEASURED IT. Strange hole.
+  ROGUE LEGACY — the game that invented the dynasty roguelite, heirs inheriting traits
+  and gold — appears NOWHERE in design canon. Closest existing thing to Bohemia's spine.
+
+DELIBERATELY NOT ASKED: the camp law's ten open clauses, the action clock's denomination
+and ceiling, the building catalog, the zone naming, how neglect bites without upkeep, the
+gore overlays, non-combatants, how a body's state is shown. All already flagged
+[PENDING Paolo] in their own laws. Repeating them would be noise.
+
+NOTE ON THE REPO: my local checkout had fallen behind to an old commit while the remote
+had all my work. Verified every file was present on origin/main before resetting onto it.
+If that happens to you, CHECK THE REMOTE BEFORE ASSUMING ANYTHING WAS LOST.
+
 CHARACTER (0lurbs): 8/1 (r) LATEST — HAIR WAVE 2 SHIPPED AND JUDGED WELL. CORNROWS
 IS HALF-FIXED AND I STOPPED AFTER THREE ATTEMPTS. THE MEASUREMENT IS BELOW — DO NOT
 GUESS AT IT AGAIN.
