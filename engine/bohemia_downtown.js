@@ -123,7 +123,11 @@
 
     /* ---- THE SOUTH FRONTAGE: a shorter row of storefronts, and THE VACANT PARCEL where
        a building came down and nothing replaced it. ---- */
-    var SL=[[62,14],[80,12],[96,13]];
+    /* SCOOTED RIGHT TO THE BLOCK EDGE (Paolo 8/2 circled the gap). The row stopped at
+       x109 and left twelve tiles of dead ground between the last storefront and the corner
+       -- on a downtown block the street wall runs to the corner, because the corner lot is
+       the most valuable one on the block and is always the first thing built. */
+    var SL=[[62,16],[81,17],[101,20]];
     for(i=0;i<SL.length;i++){
       var sx=SL[i][0], sw=SL[i][1];
       G.rect(sx,100,sx+sw,120,[16,2,15][i%3]);
@@ -144,9 +148,15 @@
       outside:function(c){ return c===8||c===1||c===7||c===13||c===11||c===4; } });
 
     /* ---- kerb cuts: the alley mouths and one into each lot ---- */
-    var gx=63;
-    for(i=-4;i<=4;i++) set(gx+i,H-1,5);
-    for(y=H-1;y>=120;y--) for(x=-4;x<=4;x++){ var c=get(gx+x,y); if(c===8||c===0) set(gx+x,y,13); }
+    /* THE DRIVEWAY GOES WHERE THE LOT MEETS THE KERB (Paolo 8/2 circled it). It was
+       punched at x63, which is the middle of the south storefront row -- so it drove
+       straight into the back wall of a shop and stopped, leaving the stub he circled: a
+       kerb cut connected to nothing, which is RULE NUMBER ONE failing in the one place a
+       car actually enters the block. It now opens off the south-west lot, which is the
+       only part of this block that fronts the street with parking behind it. */
+    var gx=30;
+    for(i=-5;i<=5;i++) set(gx+i,H-1,5);
+    for(y=H-1;y>=120;y--) for(x=-5;x<=5;x++){ var c=get(gx+x,y); if(c===8||c===0) set(gx+x,y,13); }
     /* the alley simply reaches both kerbs -- it is not a GATE. Marking the mouths as gates
        put entrances on the east and west edges of a district that only fronts one street,
        which is the street-aware contract broken by a typo of intent. */

@@ -54,7 +54,8 @@ KNOWN_TWINS = {
     frozenset(('storage', 'warehouse')),        # 0.8% -- rows of units vs rows of units
     frozenset(('ballpark', 'speedway')),        # 2.3%
     frozenset(('commercial', 'terminal')),      # 3.1%
-    frozenset(('courthouse', 'library')),       # 3.9%
+    # courthouse/library RETIRED 8/2: the library icon was rebuilt on Predock (a drum, a
+    # tower, a clerestory wing) and no longer reads as the same civic box. Debt 13 -> 12.
     frozenset(('industrial', 'terminal')),      # 3.9%
     frozenset(('commercial', 'mall')),          # 4.7%
     frozenset(('swapmeet', 'truckstop')),       # 4.7%

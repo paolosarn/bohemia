@@ -544,23 +544,51 @@ def build_courthouse(P):
 
 # ---------------------------------------------------------------- LIBRARY
 def build_library(P):
-    BLD, STEPS, COL, STACKS, PLAZA, DRIVE = P[2], P[6], P[8], P[11], P[7], P[1]
+    """engine/bohemia_library.js — REBUILT 8/2 to match the district, which was itself
+    rebuilt on the real reference: Antoine Predock's LAS VEGAS LIBRARY AND LIED DISCOVERY
+    MUSEUM (1986-90, Las Vegas Blvd, across from Cashman Field). What everybody remembers
+    is the geometry -- the CONES and the giant concrete TOWER -- in sandstone, because in
+    Predock's own words "the color scheme is provided by the desert."
+
+    The old icon was a reading-room block behind a classical COLONNADE, which is a library
+    from a different country and a different century, and it drew palette code 6 -- a code
+    the rebuilt district no longer has, so the factory threw KeyError: 6 and the icon bank
+    could not be rebuilt at all. gates/tools_run_gate.py caught that; nothing else would
+    have, because every other gate reads the pre-baked bank instead of running the factory.
+
+    REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks no new graphic pixels of its own -- it
+    composes the district's OWN palette through the shared iso primitives in
+    tools/bohemia_iso3d.py, the same way every other hero here does. No bank was opened
+    because none applies: there is no iso hero-building sprite bank in the repo."""
+    BLD, OCULUS, CLERE, PLAZA, TERRACE, PLANT, DRIVE = P[2], P[14], P[11], P[7], P[13], P[10], P[1]
     s = Scene()
-    _ground(s, (-3, -3, 15, 15), patches=[(-3, -3, 15, 9.5, PLAZA)], lot=(9.5, 10.5, 15, 15),
-            drive=(11, 10.5, 14, 15), groundc=(114, 112, 106), lotc=(58, 58, 66))
-    s.box((-1, -1, 0), (11, 8, 1.4), {'c': _dark(STEPS, 1.0)['c']})             # low podium
-    # a long reading-room block + a taller stacks tower behind
-    s.box((0, 0, 1.4), (9, 6.5, 6.4), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 7, 3, 4),
-          'py': _win(BLD, 5, 3, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    s.box((1.5, 0.5, 1.4), (4.5, 5.5, 9.5), {'top': _dark(STACKS, 0.9), 'px': _win(STACKS, 3, 6, 6, 0.1),
-          'py': _win(STACKS, 3, 6, 11, 0.1), 'nx': _dark(STACKS), 'ny': _dark(STACKS)})   # stacks tower
-    # a COLONNADE across the front + steps
-    for cy in (0.5, 2.0, 3.5, 5.0, 6.4):
-        s.box((9.0, cy, 1.4), (0.5, 0.5, 5.2), {'c': COL})
-    s.box((9.0, 0.3, 6.6), (0.7, 6.4, 0.6), {'c': tuple(min(255, int(c * 1.05)) for c in COL)})
-    for i, sz in enumerate((1.2, 0.7)):
-        s.box((9.6 + i * 0.5, 1.6, 0), (0.5, 3.8, sz), {'c': STEPS})
-    _door(s, 9.05, 3.0, 4.4, 2.4, doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
+    _ground(s, (-3, -3, 15, 15), patches=[(-3, -3, 15, 10.5, PLAZA)], lot=(9.5, 10.5, 15, 15),
+            drive=(11, 10.5, 14, 15), groundc=(122, 116, 100), lotc=(58, 58, 66))
+    s.box((-1.5, -1.5, 0), (13, 11, 1.2), {'c': _dark(TERRACE, 1.0)['c']})        # the terrace
+
+    # THE DRUM. Stepped in plan so it reads round rather than square at icon size, and
+    # capped with the OCULUS ring and its lantern -- the thing you remember about it.
+    for inset, h in ((0.0, 5.4), (0.6, 5.9)):
+        s.box((0.4 + inset, 0.4 + inset, 1.2), (5.2 - inset * 2, 5.2 - inset * 2, h - 1.2),
+              {'top': _dark(BLD, 0.95), 'px': _win(BLD, 5, 3, 4), 'py': _win(BLD, 5, 3, 9),
+               'nx': _dark(BLD), 'ny': _dark(BLD)})
+    s.box((1.6, 1.6, 5.9), (2.8, 2.8, 0.5), {'c': OCULUS})                        # the oculus ring
+    s.box((2.4, 2.4, 6.4), (1.2, 1.2, 0.7), {'c': tuple(min(255, int(c * 1.1)) for c in OCULUS)})
+
+    # THE TOWER. Square, concrete, the tallest thing on the block.
+    s.box((7.6, 0.6, 1.2), (3.0, 3.0, 10.4), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 2, 7, 5, 0.1),
+          'py': _win(BLD, 2, 7, 12, 0.1), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    s.box((8.1, 1.1, 11.6), (2.0, 2.0, 0.5), {'c': PLANT})
+
+    # THE READING WING: a long low bar under a clerestory that runs its whole length.
+    s.box((0.2, 6.2, 1.2), (11.4, 3.4, 3.6), {'top': _dark(BLD, 0.92), 'px': _win(BLD, 9, 2, 6),
+          'py': _win(BLD, 3, 2, 10), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    for i in range(9):
+        s.box((0.7 + i * 1.2, 6.5, 4.8), (0.7, 2.8, 0.5), {'c': CLERE})           # the clerestory teeth
+    _door(s, 11.65, 7.4, 8.6, 2.2, doorc=_dark(BLD, 0.4)['c'],
+          framec=tuple(min(255, int(c * 1.2)) for c in BLD))
+
+    _vehicle(s, 11.6, 12.0, CAR, P[19], along='x')                                 # one still in the lot
     return s, 6.4
 
 
@@ -1331,7 +1359,7 @@ LABEL = {
     'commercial': 'Commercial — matched: an L of STORES with glass storefronts + a parking lot + a GAS-STATION canopy & pumps in the corner.',
     'school': 'High school — matched to the walkable district (Paolo ruled it HIGH SCHOOL, 7/28): the STADIUM as the landmark — an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS standing close in at the corners of the bowl — plus the academic spine with its second storey and two forward wings, TWO entryways (main doors and the gym doors), the GYM in school colours, the AUTO SHOP under its sawtooth roof with a roll-up bay standing open over an oiled yard (Paolo 7/30 killed the tennis courts and gave the ground to it), and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground and no tennis: both were rulings, both are held at zero by the gate.',
     'courthouse': 'Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + grand STEPS + a DOME.',
-    'library': 'Library — matched: a reading-room block + a stacks tower + a front COLONNADE + steps.',
+    'library': 'Library — matched to the rebuilt district, which is built on the real reference: Antoine Predock\'s Las Vegas Library and Lied Discovery Museum (1986-90, Las Vegas Blvd). The DRUM with its oculus ring and lantern, the giant concrete TOWER, and the long reading wing under a clerestory that runs its whole length, all on a raised terrace above the plaza — sandstone and concrete, because in Predock\'s words the colour scheme is provided by the desert. The old icon was a classical COLONNADE, which is a library from a different country and a different century.',
     'farm': 'Farm — matched: a red BARN + a tall SILO + a farmhouse + a dead tractor + crop-row fields (dirt, not grass).',
     'firestation': 'Fire station — matched: quarters + a bay block with RED apparatus doors + a HOSE TOWER + a red fire engine + staff car.',
     'policestation': 'Police station — matched: a station building + a SALLY PORT + a PATROL-CAR fleet + an impound wreck + a roof antenna + a fence.',
@@ -1444,11 +1472,11 @@ PARTS = {
         'dome/cupola — the dome on the roof center (code 10 "dome / cupola"); plaza (code 7) + lot/drive (code 1)',
     ],
     'library': [
-        'low podium — the civic base (code 6 "entrance steps")',
-        'reading-room block — the long main block (code 2 "building (library)"), windows',
-        'stacks tower — the taller stacks mass behind (code 11 "stacks / reading detail")',
-        'front colonnade x5 — the colonnade + lintel (code 8 "colonnade columns")',
-        'steps + ground entrance doors; plaza (code 7) + lot/drive (code 1)',
+        'terrace — the raised base the whole composition sits on (code 13 "terrace / walk")',
+        'the DRUM — a stepped cylinder so it reads round at icon size, capped by the OCULUS ring and its lantern (code 2 sandstone, code 14 "oculus ring")',
+        'the TOWER — the tall square concrete mass, rooftop plant on its cap (code 2, code 10 "rooftop plant")',
+        'the READING WING — a long low bar with nine CLERESTORY teeth running its length (code 2, code 11 "clerestory glazing")',
+        'ground entrance doors on the wing; entry plaza (code 7) + lot/drive (code 1) with one dead car (canon CAR, code 19)',
     ],
     'farm': [
         'red barn — the barn w/ a peaked roof cap (code 14 "barn")',

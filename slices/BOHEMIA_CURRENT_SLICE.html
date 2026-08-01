@@ -7861,41 +7861,73 @@ root.BQRuntime=API;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
 
-    // ---- BASE: civic landscaping / sidewalk campus; desert at the margins ----
+    /* REBUILT 8/2 on the research. The old district was ONE building mass -- 37% of the
+       plot under a single code, one footprint, a flat rectangle wrapped round a courtyard
+       sitting on a lawn. It was the worst remaining district on the contact sheet.
+
+       THE REFERENCE IS REAL AND IT IS IN LAS VEGAS: Antoine Predock's LAS VEGAS LIBRARY
+       AND LIED DISCOVERY MUSEUM (1986-90, Las Vegas Boulevard, across from Cashman Field).
+       56,800 sq ft of library plus a 32,000 sq ft children's museum, and what everyone
+       remembers is the GEOMETRY -- iconic CONES, a conical party room by the museum
+       entrance, and a giant concrete TOWER that the local paper still refers to it by.
+       Sandstone and concrete, "the color scheme is provided by the desert".
+       That is a silhouette nothing else in this valley makes: a DRUM and a TOWER against
+       long low wings. A civic building should be the landmark of its block, and this one
+       actually was one. */
+
     G.rect(0,0,W-1,H-1,0);
-    G.rect(5,7,W-6,H-6,4);                                                // reading-garden lawn band
-    G.rect(6,8,120,92,13);                                              // the sidewalk/terrace the building sits on
+    G.rect(4,4,W-5,H-5,4);                                   // the desert forecourt ground
+    G.rect(6,8,120,96,13);                                   // the terrace the building sits on
 
-    // ---- the LIBRARY BUILDING — a big mass wrapped around an inner reading COURTYARD ----
-    G.rect(14,8,114,82,2);
-    G.rect(46,26,82,58,12); for(x=48;x<=80;x+=6){ set(x,42,3);} set(64,42,10);  // inner reading courtyard + a garden + centre sculpture
-    // multi-tiered STACKS + reading detail (concentric-ish rings of shelving read)
-    for(y=14;y<=76;y+=6){ for(x=18;x<=110;x+=3){ if((x<44||x>84||y<26||y>58)) set(x,y,11); } } // stack rows, skipping the courtyard
-    for(x=18;x<=110;x+=6) set(x,8,11);                                   // parapet / clerestory line
-    G.rect(16,60,44,80,2); G.rect(84,60,112,80,2);                       // the administration + community wings (solid)
+    /* ---- THE DRUM. The cone. The thing you see first and remember. ---- */
+    G.disc(40,40,22,2);
+    G.disc(40,40,15,14);                                     // its lit oculus ring
+    G.disc(40,40,7,2);
+    G.disc(40,40,3,10);                                      // the rooftop lantern
 
-    // ---- grand ENTRANCE: a COLONNADE + STEPS down to the PIAZZA (south front) ----
-    G.rect(34,82,94,84,8); for(x=36;x<=92;x+=5) G.rect(x,82,x+1,86,8);   // the colonnade of columns across the front
-    G.rect(40,86,88,94,6);                                              // the broad entrance STEPS
-    G.rect(22,94,106,114,7);                                            // the entrance PIAZZA / plaza
-    G.disc(64,104,5,10); G.disc(64,104,3,7);                            // the dead central FOUNTAIN on the plaza
-    for(x=30;x<=98;x+=12){ set(x,96,3); set(x,112,3);}                   // planters lining the plaza
+    /* ---- THE TOWER. Square, concrete, and the tallest thing on the block. ---- */
+    G.rect(84,14,104,34,2);
+    G.rect(88,18,100,30,10);
+    G.rect(92,34,96,36,18);
 
-    // ---- small PARKING + drop-off (minimal — a library is a building, not a lot) ----
-    G.rect(8,98,20,116,1); G.rect(108,98,120,116,1);
-    for(y=100;y<=112;y+=5){ set(12,y,11); set(16,y,11); set(112,y,11); set(116,y,11); }
+    /* ---- THE READING WING: a long low bar with a clerestory running its length ---- */
+    G.rect(14,68,112,88,2);
+    for(x=18;x<=108;x+=5) G.rect(x,74,x+2,82,11);            // the clerestory teeth
+    G.rect(56,88,70,90,18);                                  // the doors onto the plaza
 
-    // ---- pole lights, book-return, dead trees ----
-    [[8,94],[120,94],[8,116],[120,116],[64,116]].forEach(function(p){ set(p[0],p[1],9); });
-    set(30,100,13); set(98,100,13);                                     // book-return kiosks
-    for(i=0;i<14;i++){ var tx=6+Math.floor(r()*(W-12)), ty=6+Math.floor(r()*3); if(get(tx,ty)===4)set(tx,ty,3); }
+    /* ---- THE MUSEUM WING, its own mass, set back and turned off the drum ---- */
+    G.rect(62,14,80,60,2);
+    G.rect(66,20,70,24,10); G.rect(72,40,76,44,10);
+    G.rect(62,60,80,62,18);
 
-    // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit) ----
-    var gx=W>>1;
-    for(i=-3;i<=3;i++)set(gx+i,H-1,5);
-    G.rect(gx-2,114,gx+2,H-1,1);                                         // drop-off drive from the street to the plaza
-    for(y=H-1;y>=114;y--)for(x=-2;x<=2;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4||c===13)set(gx+x,y,1); }
-    G.rect(20,114,gx,117,1); G.rect(gx,114,108,117,1);                  // a curb lane tying the two lots to the drive
+    /* ---- THE COURTYARD between the drum, the tower and the wings ---- */
+    G.rect(20,46,58,64,12);
+    for(x=24;x<=54;x+=8) set(x,55,3);
+    G.rect(84,40,112,64,12);
+    for(x=88;x<=108;x+=8) set(x,52,3);
+
+    /* ---- THE ENTRY PLAZA and its dry fountain, south front ---- */
+    G.rect(20,92,110,112,7);
+    G.disc(64,102,6,10); G.disc(64,102,3,7);                 // the fountain, dry since
+    for(x=26;x<=104;x+=13) set(x,110,9);                     // the plaza lights
+
+    /* ---- THE LOT, off the south-east, and the service drive round the back ---- */
+    G.rect(6,114,120,124,1);
+    for(x=10;x<=116;x+=4) for(y=116;y<=122;y++) set(x,y,11);
+    G.rect(6,8,10,124,1);                                    // the service drive, west side
+    for(i=0;i<12;i++){ var cx=10+Math.floor(r()*26)*4, cy=116+Math.floor(r()*3);
+      if(get(cx+1,cy)===1||get(cx+1,cy)===11) G.rect(cx+1,cy,cx+2,cy+3,19); }
+
+    /* ---- dead planting through the forecourt ---- */
+    for(i=0;i<22;i++){ var tx=6+Math.floor(r()*116), ty=6+Math.floor(r()*116);
+      if(get(tx,ty)===4) set(tx,ty,3); }
+
+    K.roofsAndDoors(g,{ building:function(c){return c===2;}, roof:17, door:18, min:150,
+      outside:function(c){ return c===13||c===7||c===12||c===1||c===4||c===11; } });
+
+    var gx=64;
+    for(i=-5;i<=5;i++) set(gx+i,H-1,5);
+    for(y=H-1;y>=124;y--) for(x=-5;x<=5;x++){ var c=get(gx+x,y); if(c===0||c===4||c===13) set(gx+x,y,1); }
     return g;
   }
 
@@ -7909,24 +7941,30 @@ root.BQRuntime=API;
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={0:'#1c1a15',1:'#3a3a42',2:'#7a7060',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#8a8175',
-    7:'#8f8676',8:'#a89e8a',9:'#8f8676',10:'#5a6a5a',11:'#b0a894',12:'#43521f',13:'#6a675e'};
+  /* SANDSTONE AND CONCRETE. Predock's own note on the building: "the color scheme is
+     provided by the desert." No green anywhere -- nothing is watering this. */
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#9a7f5c',3:'#514f40',4:'#6b6250',5:'#c79a3f',
+    7:'#8a8175',9:'#b0863a',10:'#8e8a7c',11:'#93a2a8',12:'#6f6a5c',13:'#7d7a71',
+    14:'#c2b48c',17:'#bfa87f',18:'#241f1a',19:'#6a6e72'};
   var LEGEND={
-    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the campus edge (setback)'},
-    1:{name:'drive / lot',        kind:'drive',      act1:'the drop-off drive + a small side lot (car-drivable)'},
-    2:{name:'building (library)', kind:'building',   act1:'the library — columned stone mass, windows broken, the doors chained', enter:'library interior: circulation + the reading room at the core, wrapped by multi-tiered stacks, reading rooms + the admin/community wings around'},
-    3:{name:'landscaping / tree', kind:'tree-dead',  act1:'a dead campus tree / planter shrub', solid:false},
-    4:{name:'reading garden',     kind:'ground',     act1:'the dead reading-garden lawn around the library'},
-    5:{name:'gate',               kind:'gate',       act1:'the library drop-off entrance off the street, amber curb'},
-    6:{name:'entrance steps',     kind:'structure',  act1:'the broad stone entrance steps up to the colonnade'},
-    7:{name:'entrance plaza / piazza',kind:'ground', act1:'the entrance piazza — cracked pavers, weeds in the joints'},
-    8:{name:'colonnade columns',  kind:'structure',  act1:'the row of stone columns across the grand front, one or two toppled', solid:true},
-    9:{name:'pole light',         kind:'prop',       act1:'a campus pole light, head dark'},
-    10:{name:'dead fountain / sculpture',kind:'prop', act1:'the dry central fountain / a civic sculpture on the plaza', solid:true},
-    11:{name:'stacks / reading detail',kind:'structure',act1:'the multi-tiered book stacks / reading-room floor read of the interior mass'},
-    12:{name:'reading courtyard', kind:'ground',     act1:'the inner reading courtyard / garden at the heart of the building'},
-    13:{name:'sidewalk',          kind:'ground',     act1:'the terrace / sidewalk the library sits on, cracked'}
+    0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
+    1:{name:'drive / lot',        kind:'drive',    act1:'the library lot and its service drive — asphalt gone to plates, weeds up every joint (car-drivable)'},
+    2:{name:'library / museum',   kind:'building', act1:'sandstone and concrete geometry — Predock built this valley a landmark out of a drum, a tower and two long low wings, and the sandstone is still the colour of the desert it was matched to', enter:'library interior: the drum is one round room under a dead oculus, the reading wing is stacks and tables to the clerestory, the museum wing is three floors of stripped gallery'},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead courtyard tree gone to stick, its grate prised up for the metal', solid:false},
+    4:{name:'forecourt ground',   kind:'ground',   act1:'the unpaved forecourt — decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this'},
+    5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the lot, amber paint gone chalky'},
+    7:{name:'entry plaza',        kind:'ground',   act1:'the civic plaza across the front — big sandstone pavers heaved by roots, and the fountain basin dry in the middle of it'},
+    9:{name:'plaza light',        kind:'structure',act1:'a plaza light on its concrete stem, head dark, the glass long gone'},
+    10:{name:'rooftop lantern / plant',kind:'structure',act1:'the drum\'s rooftop lantern and the mechanical plant on the tower and the wings, ducting collapsed, one unit stripped for its copper'},
+    11:{name:'clerestory glazing',kind:'structure',act1:'the clerestory teeth running the length of the reading wing — the glass that lit the stacks, now mostly sky'},
+    12:{name:'courtyard',         kind:'ground',   act1:'a walled reading courtyard between the masses, its paving cracked, the planting dead in place'},
+    13:{name:'terrace / walk',    kind:'walk',     act1:'the raised concrete terrace the whole building sits on, and the walks across it, cracked corner to corner'},
+    14:{name:'oculus ring',       kind:'structure',act1:'the ring of the drum\'s oculus — the round clerestory that dropped daylight into the middle of the reading room, its glazing gone'},
+    17:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping missing in runs'},
+    18:{name:'doorway',           kind:'portal',   act1:'a way in — the plaza doors under the reading wing, the museum entrance, the tower stair core'},
+    19:{name:'dead car',          kind:'vehicle',  act1:'a car left in the lot, flat and sun-bleached, nobody came back for it'}
   };
+;
   var NOTES={
     summary:'A dead public library — a big columned stone building wrapped around an inner reading courtyard, a grand colonnade + entrance steps down to a piazza with a dead fountain, admin + community wings, a reading garden, a small side lot.',
     reference:['Library design guides (WBDG public-library space types, Boston/Salt Lake/LA central-library plans, Opening the Book space planning): the plan centres on CIRCULATION, wrapped by multi-tiered book STACKS, wrapped by READING ROOMS; a grand ENTRANCE (steps + colonnade) opening onto a PIAZZA/plaza; an administration wing; an inner reading COURTYARD/garden. A library is BUILDING-dominant.'],
@@ -8727,7 +8765,11 @@ root.BQRuntime=API;
 
     /* ---- THE SOUTH FRONTAGE: a shorter row of storefronts, and THE VACANT PARCEL where
        a building came down and nothing replaced it. ---- */
-    var SL=[[62,14],[80,12],[96,13]];
+    /* SCOOTED RIGHT TO THE BLOCK EDGE (Paolo 8/2 circled the gap). The row stopped at
+       x109 and left twelve tiles of dead ground between the last storefront and the corner
+       -- on a downtown block the street wall runs to the corner, because the corner lot is
+       the most valuable one on the block and is always the first thing built. */
+    var SL=[[62,16],[81,17],[101,20]];
     for(i=0;i<SL.length;i++){
       var sx=SL[i][0], sw=SL[i][1];
       G.rect(sx,100,sx+sw,120,[16,2,15][i%3]);
@@ -8748,9 +8790,15 @@ root.BQRuntime=API;
       outside:function(c){ return c===8||c===1||c===7||c===13||c===11||c===4; } });
 
     /* ---- kerb cuts: the alley mouths and one into each lot ---- */
-    var gx=63;
-    for(i=-4;i<=4;i++) set(gx+i,H-1,5);
-    for(y=H-1;y>=120;y--) for(x=-4;x<=4;x++){ var c=get(gx+x,y); if(c===8||c===0) set(gx+x,y,13); }
+    /* THE DRIVEWAY GOES WHERE THE LOT MEETS THE KERB (Paolo 8/2 circled it). It was
+       punched at x63, which is the middle of the south storefront row -- so it drove
+       straight into the back wall of a shop and stopped, leaving the stub he circled: a
+       kerb cut connected to nothing, which is RULE NUMBER ONE failing in the one place a
+       car actually enters the block. It now opens off the south-west lot, which is the
+       only part of this block that fronts the street with parking behind it. */
+    var gx=30;
+    for(i=-5;i<=5;i++) set(gx+i,H-1,5);
+    for(y=H-1;y>=120;y--) for(x=-5;x<=5;x++){ var c=get(gx+x,y); if(c===8||c===0) set(gx+x,y,13); }
     /* the alley simply reaches both kerbs -- it is not a GATE. Marking the mouths as gates
        put entrances on the east and west edges of a district that only fronts one street,
        which is the street-aware contract broken by a typo of intent. */

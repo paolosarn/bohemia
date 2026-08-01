@@ -32,20 +32,22 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the campus edge (setback) | ground | no | — | 2669 |
-| 1 | `#3a3a42` | drive / lot | drive | the drop-off drive + a small side lot (car-drivable) | ground | no | — | 880 |
-| 2 | `#7a7060` | building (library) | building | the library — columned stone mass, windows broken, the doors chained | structure | yes | library interior: circulation + the reading room at the core, wrapped by multi-tiered stacks, reading rooms + the admin/community wings around | 6074 |
-| 3 | `#3a4526` | landscaping / tree | tree-dead | a dead campus tree / planter shrub | prop | no | — | 23 |
-| 4 | `#49512e` | reading garden | ground | the dead reading-garden lawn around the library | ground | no | — | 1288 |
-| 5 | `#c79a3f` | gate | gate | the library drop-off entrance off the street, amber curb | portal | no | — | 2 |
-| 6 | `#8a8175` | entrance steps | structure | the broad stone entrance steps up to the colonnade | structure | yes | — | 392 |
-| 7 | `#8f8676` | entrance plaza / piazza | ground | the entrance piazza — cracked pavers, weeds in the joints | ground | no | — | 1634 |
-| 8 | `#a89e8a` | colonnade columns | structure | the row of stone columns across the grand front, one or two toppled | structure | yes | — | 211 |
-| 9 | `#8f8676` | pole light | prop | a campus pole light, head dark | prop | yes | — | 4 |
-| 10 | `#5a6a5a` | dead fountain / sculpture | prop | the dry central fountain / a civic sculpture on the plaza | prop | yes | — | 53 |
-| 11 | `#b0a894` | stacks / reading detail | structure | the multi-tiered book stacks / reading-room floor read of the interior mass | structure | yes | — | 231 |
-| 12 | `#43521f` | reading courtyard | ground | the inner reading courtyard / garden at the heart of the building | ground | no | — | 1214 |
-| 13 | `#6a675e` | sidewalk | ground | the terrace / sidewalk the library sits on, cracked | ground | no | — | 1709 |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb | ground | no | — | 1836 |
+| 1 | `#33333c` | drive / lot | drive | the library lot and its service drive — asphalt gone to plates, weeds up every joint (car-drivable) | ground | no | — | 1547 |
+| 2 | `#9a7f5c` | library / museum | building | sandstone and concrete geometry — Predock built this valley a landmark out of a drum, a tower and two long low wings, and the sandstone is still the colour of the desert it was matched to | structure | yes | library interior: the drum is one round room under a dead oculus, the reading wing is stacks and tables to the clerestory, the museum wing is three floors of stripped gallery | 2095 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead courtyard tree gone to stick, its grate prised up for the metal | prop | no | — | 8 |
+| 4 | `#6b6250` | forecourt ground | ground | the unpaved forecourt — decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this | ground | no | — | 1473 |
+| 5 | `#c79a3f` | gate / kerb cut | gate | the kerb cut off the street into the lot, amber paint gone chalky | portal | no | — | 11 |
+| 7 | `#8a8175` | entry plaza | ground | the civic plaza across the front — big sandstone pavers heaved by roots, and the fountain basin dry in the middle of it | ground | no | — | 1820 |
+| 9 | `#b0863a` | plaza light | structure | a plaza light on its concrete stem, head dark, the glass long gone | structure | yes | — | 7 |
+| 10 | `#8e8a7c` | rooftop lantern / plant | structure | the drum's rooftop lantern and the mechanical plant on the tower and the wings, ducting collapsed, one unit stripped for its copper | structure | yes | — | 332 |
+| 11 | `#93a2a8` | clerestory glazing | structure | the clerestory teeth running the length of the reading wing — the glass that lit the stacks, now mostly sky | structure | yes | — | 695 |
+| 12 | `#6f6a5c` | courtyard | ground | a walled reading courtyard between the masses, its paving cracked, the planting dead in place | ground | no | — | 1459 |
+| 13 | `#7d7a71` | terrace / walk | walk | the raised concrete terrace the whole building sits on, and the walks across it, cracked corner to corner | ground | no | — | 3371 |
+| 14 | `#c2b48c` | oculus ring | structure | the ring of the drum's oculus — the round clerestory that dropped daylight into the middle of the reading room, its glazing gone | structure | yes | — | 374 |
+| 17 | `#bfa87f` | roof edge | structure | the parapet line where a roof meets its wall, coping missing in runs | structure | yes | — | 1143 |
+| 18 | `#241f1a` | doorway | portal | a way in — the plaza doors under the reading wing, the museum entrance, the tower stair core | portal | no | — | 125 |
+| 19 | `#6a6e72` | dead car | vehicle | a car left in the lot, flat and sun-bleached, nobody came back for it | prop | yes | — | 88 |
 
 **Gate:** `gates/library_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

@@ -11,7 +11,23 @@ const purpleFree = pal => { for (const c of Object.keys(pal)) { const h = pal[c]
 let anatomy = true, filled = true, streetOk = true, cornerPed = true, drive = true, contentDom = true;
 for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   const r = D.generate(s * 27 + 6, { streets: cfg }), t = counts(r), g = r.g, W = g[0].length, H = g.length;
-  if (!(t[2] > 4500 && (t[11] || 0) > 100 && (t[12] || 0) > 600 && (t[6] || 0) > 150 && t[7] > 900 && (t[8] || 0) > 100 && (t[10] || 0) > 20)) anatomy = false;
+  /* REBUILT 8/2 on the research. The old district was ONE building mass -- 37% of the plot
+     under a single code, one footprint, a flat rectangle on a lawn, and the worst thing
+     left on the contact sheet.
+     THE REFERENCE IS REAL AND IT IS IN LAS VEGAS: Antoine Predock's Las Vegas Library and
+     Lied Discovery Museum (1986-90, Las Vegas Blvd). What everybody remembers is the
+     geometry -- the CONES and the giant concrete TOWER -- in sandstone, because "the color
+     scheme is provided by the desert". */
+  if (!((t[2] || 0) > 1500 && (t[14] || 0) > 200 && (t[11] || 0) > 300 && (t[12] || 0) > 500 &&
+        (t[7] || 0) > 800 && (t[13] || 0) > 1500 && (t[10] || 0) > 50 && (t[9] || 0) > 4 &&
+        (t[1] || 0) > 800 && (t[19] || 0) > 20 && (t[3] || 0) > 4 && (t[18] || 0) > 10 &&
+        (t[17] || 0) > 200)) anatomy = false;
+  /* EVERY PIXEL ANSWERED FOR (7/31): no code owns 30% of the plot. */
+  { const A = r.g.length * r.g[0].length; let big = 0; for (const k in t) if (t[k] > big) big = t[k];
+    if (100 * big / A >= 30) anatomy = false; }
+  /* IT IS NOT ONE BLOB. A civic landmark is a composition of masses -- a drum, a tower,
+     two wings -- and the old one was a single footprint. */
+  if (r.footprints.length < 4) anatomy = false;
   const ls = K.landStats(g, D.legend); if (!(ls.contentPct >= ls.drivePct)) contentDom = false;
   if (!K.legendOk(g, D.palette) || K.voidFraction(g) > 0.22) filled = false;
   if (!D.driveConnected(r)) drive = false;
@@ -20,7 +36,10 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { if (g[y][x] !== 5) continue; const e = eo(x, y); if (!e || !cfg.includes(e)) streetOk = false; else gE.add(e); }
   if (cfg.length > 1) { for (const e of cfg) if (!gE.has(e)) cornerPed = false; }
 }
-ok('big library building + stacks detail + reading courtyard + colonnade + steps + piazza + fountain', anatomy);
+ok('THE DRUM AND THE TOWER: Predock\'s geometry — the drum with its oculus ring, the ' +
+   'concrete tower, the reading wing under its clerestory, the museum wing, walled ' +
+   'courtyards, the entry plaza with its dry fountain, the terrace it all sits on and the ' +
+   'lot with the cars still in it — four masses or more, and no code owning 30% of the plot', anatomy);
 ok('WALKABLE-LAND: content dominates (a library IS its building)', contentDom);
 ok('every tile named + low void', filled);
 ok('DRIVABLE: the drop-off + side lots reach the curb', drive);
@@ -29,7 +48,11 @@ ok('CORNER: pedestrian gate on the side street', cornerPed);
 ok('PURPLE RESERVATION: no swatch reads purple', purpleFree(D.palette));
 ok('library registered + civic', !!K.get('library') && K.category('library') === 'civic');
 ok('library enterable + footprints', D.generate(7, { streets: ['S'] }).footprints.length >= 1 && /interior/i.test(D.legend[2].enter || ''));
-ok('columns(8) structure-solid, steps(6) structure, piazza(7) ground, drive(1) drive', K.tileLayer(D.legend[8]).solid === true && D.legend[6].kind === 'structure' && D.legend[7].kind === 'ground' && D.legend[1].kind === 'drive');
+ok('the library(2) is ENTERABLE, the plaza(7) and courtyard(12) are ground, the terrace(13) ' +
+   'is walk, the lot(1) is drive, and the doorway(18) is a PORTAL',
+   /interior/i.test((D.legend[2] || {}).enter || '') && D.legend[7].kind === 'ground' &&
+   D.legend[12].kind === 'ground' && D.legend[13].kind === 'walk' &&
+   D.legend[1].kind === 'drive' && D.legend[18].kind === 'portal');
 ok('deterministic', JSON.stringify(D.generate(70, { streets: ['S'] }).g) === JSON.stringify(D.generate(70, { streets: ['S'] }).g));
 console.log('LIBRARY GATE: ' + pass + ' passed, ' + fail + ' failed  (' + CONFIGS.length + ' configs)');
 process.exit(fail ? 1 : 0);

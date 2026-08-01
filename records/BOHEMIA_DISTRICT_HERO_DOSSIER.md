@@ -116,14 +116,14 @@ _Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + 
 - grand steps — the tiered steps down to grade (code 6)
 - dome/cupola — the dome on the roof center (code 10 "dome / cupola"); plaza (code 7) + lot/drive (code 1)
 
-## LIBRARY  (259x191, anchor 129,116)
-_Library — matched: a reading-room block + a stacks tower + a front COLONNADE + steps._
+## LIBRARY  (259x176, anchor 129,100)
+_Library — matched to the rebuilt district, which is built on the real reference: Antoine Predock's Las Vegas Library and Lied Discovery Museum (1986-90, Las Vegas Blvd). The DRUM with its oculus ring and lantern, the giant concrete TOWER, and the long reading wing under a clerestory that runs its whole length, all on a raised terrace above the plaza — sandstone and concrete, because in Predock's words the colour scheme is provided by the desert. The old icon was a classical COLONNADE, which is a library from a different country and a different century._
 
-- low podium — the civic base (code 6 "entrance steps")
-- reading-room block — the long main block (code 2 "building (library)"), windows
-- stacks tower — the taller stacks mass behind (code 11 "stacks / reading detail")
-- front colonnade x5 — the colonnade + lintel (code 8 "colonnade columns")
-- steps + ground entrance doors; plaza (code 7) + lot/drive (code 1)
+- terrace — the raised base the whole composition sits on (code 13 "terrace / walk")
+- the DRUM — a stepped cylinder so it reads round at icon size, capped by the OCULUS ring and its lantern (code 2 sandstone, code 14 "oculus ring")
+- the TOWER — the tall square concrete mass, rooftop plant on its cap (code 2, code 10 "rooftop plant")
+- the READING WING — a long low bar with nine CLERESTORY teeth running its length (code 2, code 11 "clerestory glazing")
+- ground entrance doors on the wing; entry plaza (code 7) + lot/drive (code 1) with one dead car (canon CAR, code 19)
 
 ## FARM  (266x175, anchor 133,98)
 _Farm — matched: a red BARN + a tall SILO + a farmhouse + a dead tractor + crop-row fields (dirt, not grass)._
