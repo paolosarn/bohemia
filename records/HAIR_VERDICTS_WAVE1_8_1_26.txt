@@ -1,0 +1,122 @@
+BOHEMIA — HAIR VERDICTS, WAVE 1
+CHARACTER LANE, 8/1/26.  PAOLO'S RULING, VERBATIM SOURCE: his exported verdict
+sheet + notes, 8/1/26.
+==============================================================================
+
+13 KEEP / 13 KILL / 0 UNJUDGED.  A 50% kill rate on a first wave is a good
+outcome, not a bad one -- it is the pipeline working.
+
+KEEP (13)                          KILL (13)
+  BUZZ CUT                           SHAVED FADE   [KILLED]
+  CROP                               FLATTOP   [KILLED]
+  SLICK BACK                         POMPADOUR   [KILLED]
+  BOWL CUT                           SIDE PART   [KILLED]
+  FRINGE                             CHIN BOB   [KILLED]
+  SHAG                               LIBERTY SPIKES   [KILLED]
+  SHOULDER LENGTH                    AFRO   [KILLED]
+  LONG LOOSE                         HIGH TOP   [KILLED]
+  MULLET                             LOCS   [KILLED]
+  WOLF CUT                           BRAIDED TAIL   [KILLED]
+  MOHAWK                             PONYTAIL   [KILLED]
+  CORNROWS                           TOP KNOT   [KILLED]
+  GREY WISPS                         LOW BUN   [KILLED]
+
+HIS HEADLINE, AND IT APPLIES TO EVERY SHAPE INCLUDING THE KEEPS
+------------------------------------------------------------------------------
+"the shape from the front and the back for a lot of hairstyles whether I proved
+or disapprove them they are coming off very similar and not well research that a
+front shape would look different than when a person would turn around"
+
+"By far the most natural looking back of the head that you have is the low bun so
+think about how you made the low bun when you make the rest of the back of the
+heads a lot of the back of the heads there's a lot of headspace that should be
+covered more by hair absolutely that's the first thing"
+
+*** LOW BUN IS KILLED AS A STYLE AND PROMOTED AS THE REFERENCE FOR EVERY BACK
+    OF THE HEAD. Those are not in conflict: the style did not earn a slot, the
+    silhouette did. ***
+
+THE FOUR CROSS-CUTTING RULES HE GAVE
+------------------------------------------------------------------------------
+1. THE BACK IS NOT THE FRONT. A front shape must differ from the back shape.
+   Right now they read the same, and he named it as the first thing.
+2. COVER THE HEADSPACE. Backs of heads are showing bare skin that hair should
+   own. Named for BUZZ CUT, CROP, BOWL CUT, SIDE PART, TOP KNOT, HIGH TOP.   [KILLED]
+3. NO STRAIGHT LINES. "a lot about hair is about just the little off shapes that
+   it makes so even something with the shag ... I'm seeing you make like a lot of
+   straight lines and that's not realistic at all"
+4. ONE PIXEL, NOT THREE. Said twice, for LOCS and CORNROWS: "just have it. The   [KILLED]
+   difference is just one pixel not like two or three" -- one pixel hair, one
+   pixel skin. At 56px there is no real estate for a 3px gap.
+
+PER-STYLE, HIS WORDS
+------------------------------------------------------------------------------
+KEEPS
+  BUZZ CUT         "decent just needs more hair in the back"
+  CROP             "OK just the back of the head needs to be better"
+  SLICK BACK       "pretty good however you can make the front just like one
+                    pixel taller"
+  BOWL CUT         "OK just again the hair in the back of the head"
+  FRINGE           "clean and OK"
+  SHAG             approved, but "if you would like to edit it a little bit
+                    more" -- the no-straight-lines note was aimed here first
+  SHOULDER LENGTH  "is good"
+  LONG LOOSE       "is good"
+  MULLET           "is good" + with longer styles "even from the front I would
+                    like to see you know a couple pixels of hair ... even if it
+                    is in the back of the head"
+  WOLF CUT         "pretty good"
+  MOHAWK           "is good, but I would like to see you ... just have it more
+                    central on the head. You kinda have it like off to the right
+                    so please fix that"
+  CORNROWS         "decent please do it better" + the one-pixel rule
+  GREY WISPS       "is really good"
+
+KILLS
+  SHAVED FADE      "bad because there's not a lot of hair at all and then   [KILLED]
+                    there's no sort of fade"
+  FLATTOP          "dog shit"   [KILLED]
+  POMPADOUR        "looks like dog shit. It looks like a skinny beanie"   [KILLED]
+  SIDE PART        "isn't really doing a side part at all kind of strange would   [KILLED]
+                    like to see the side part go more to one side and then the
+                    back needs a little more hair"
+  CHIN BOB         "Bob is OK" -- killed anyway; read as a slot decision
+  LIBERTY SPIKES   centre it, same as the mohawk   [KILLED]
+  AFRO             "was so bad not an Afro at all"   [KILLED]
+  HIGH TOP         "there's part of the head that's not even with hair. It's   [KILLED]
+                    kind of creepy"
+  LOCS             "I see the vision it just needs to be executed better" + the   [KILLED]
+                    one-pixel rule
+  BRAIDED TAIL     "looks like dog shit"   [KILLED]
+  PONYTAIL         "all fucked up like there's no hair in between the top and   [KILLED]
+                    then the ponytail when it's the back so it's pretty creepy"
+  TOP KNOT         "it's the same from the front and the backside and there   [KILLED]
+                    needs to be more hair"
+  LOW BUN          "is really good" -- KILLED AS A STYLE, KEPT AS THE REFERENCE
+
+ON THE NAMES
+------------------------------------------------------------------------------
+"It's also funny seeing you trying to name them because there's just some names
+that totally don't apply for the hairstyle I would associate with it, but we'll
+worry about that later. Don't worry about that too much right now."
+=> PARKED by his explicit instruction. Not a pending, not a task. Do not raise it.
+
+*** NEW CANON, LOCKED 8/1/26 — see the addendum, written the same turn ***
+------------------------------------------------------------------------------
+"getting haircuts and getting bleach and hair color to dye your hair in this
+economic apocalypse probably sounds like it would be pretty difficult or a luxury
+so I think a lot of people would have either longer hair or like trimmed hair,
+but I don't know if there will be a lot of basically having like a fade like a
+modern day fade of hair like that's a luxury reserved for Rich people so maybe we
+can lock that behind some gameplay mechanics or something. I want you to mark it
+down in the system, whatever happens"
+
+Full text and its consequences: laws/BOHEMIA_ADDENDUM_A_HAIRCUT_IS_A_LUXURY_8_1_26.md
+
+ALSO HIS, AND NOT YET BUILT
+------------------------------------------------------------------------------
+"I'm not seeing you with any of the hairs that you're making like try to fade in
+a natural skin color that's customizable obviously to the hair."
+=> A fade must blend hair into the SKIN TONE of that person, and the blend must
+   be customizable per hair colour. No shape currently does this. It is the
+   mechanism half of the luxury ruling and it is recorded as outstanding.

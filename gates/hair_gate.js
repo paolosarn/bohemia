@@ -68,7 +68,8 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
     const keepW = window.G_WORN, keepE = G.equipped, keepV = G.bodyVar;
     const eq = {}; for (const k in keepE) eq[k] = keepE[k];
     eq.hat = ''; eq.glasses = ''; eq.hair = '';
-    const res = { n: hairs.length, empties: [], faceHidden: [], sil: {}, backSil: {}, extremeFail: [] };
+    const cooked = window.GARMENTS.filter(g => g.layer === 'hair').length;
+    const res = { n: hairs.length, cooked: cooked, empties: [], faceHidden: [], sil: {}, backSil: {}, extremeFail: [] };
     try {
       G.equipped = eq;
       /* the bare face, per facing: how many pixels the painted face region shows
@@ -138,7 +139,16 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
     return res;
   });
 
-  ok(`he got a real batch of shapes (${R.n})`, R.n >= 20);
+  /* THIS COUNTED THE WRONG THING, and his 8/1 verdict is what exposed it. It read
+     "he got a real batch" off the CANON count and demanded 20+. He then killed 13
+     of 26, and the gate went red -- reporting a FAILURE for the pipeline working
+     exactly as designed. A verdict is the authority; a gate that goes red when he
+     exercises it is a gate outranking a ruling, which is never allowed.
+     What the check was actually FOR is that I cooked a real batch to judge, so it
+     now measures the COOK (canon + killed = everything he was shown), and asserts
+     separately that something survived. */
+  ok(`he was shown a real batch to judge (${R.cooked} cooked)`, R.cooked >= 20);
+  ok(`and shapes survived his verdict (${R.n} canon)`, R.n >= 1);
   ok(`every shape renders in all 8 facings (${R.empties.length} bad: ${R.empties.slice(0,3).join(', ')})`,
     R.empties.length === 0);
   ok(`no style blanks the face on a front facing (${R.faceHidden.length} bad)`, R.faceHidden.length === 0);

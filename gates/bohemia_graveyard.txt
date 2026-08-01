@@ -433,3 +433,27 @@ decoding and LOOKING, not by a colour rule, and it is the finding that matters.
 
 NO V2. His tiles ship exactly as purchased. gates/bought_first_gate.py now
 enforces VERBATIM: any tile claiming to be his must be byte-identical to the bank.
+
+# ---- HAIR WAVE 1, Paolo's verdict 8/1/26. 13 KEEP / 13 KILL. -----------------
+# Post-mortems are his words. GRAVEYARD IS FINAL: these are not edited back to
+# life. A future wave answering the same slot is a FRESH COOK under a new name.
+# Full verdict sheet: records/HAIR_VERDICTS_WAVE1_8_1_26.txt
+# TWO TOKENS ARE QUALIFIED ("HAIR AFRO", "HAIR LOCS") because the bare words are
+# not unique in this repo: AFRO occurs inside a base64 JPEG blob and LOCS occurs
+# inside "VOTING BLOCS" in questbook 104. A graveyard token has to name ONE thing;
+# a token that also matches ordinary prose reports a resurrection that never
+# happened. Same lesson as RIG CHECK and REUSE CHECK today -- a checker that
+# cannot tell a mention from a use is the broken one.
+SHAVED FADE     | hair | 8/1/26 | "bad because there's not a lot of hair at all and then there's no sort of fade" -- and a fade must blend into skin tone, which nothing did. See laws/BOHEMIA_ADDENDUM_A_HAIRCUT_IS_A_LUXURY_8_1_26.md: a fade is a luxury signal, not a neutral shape.
+FLATTOP         | hair | 8/1/26 | "dog shit". Also a machine-taper shape, same luxury ruling.
+POMPADOUR       | hair | 8/1/26 | "looks like dog shit. It looks like a skinny beanie or something" -- the volume read as headwear, not hair.
+SIDE PART       | hair | 8/1/26 | "isn't really doing a side part at all kind of strange would like to see the side part go more to one side and then the back needs a little more hair" -- the part was never lateral enough to read.
+CHIN BOB        | hair | 8/1/26 | "Bob is OK" but not kept -- a slot decision, not a quality one.
+LIBERTY SPIKES  | hair | 8/1/26 | off-centre like the mohawk ("just have it Kind of going up to the right side of the head" / centre it). The centring bug is fixed in wave 2; this shape still did not earn a slot.
+HAIR AFRO       | hair | 8/1/26 | "was so bad not an Afro at all" -- the harshest verdict of the wave. A volume dial is not an afro; it needs its own silhouette, cooked fresh.
+HIGH TOP        | hair | 8/1/26 | "there's part of the head that's not even with hair. It's kind of creepy" -- the bare-scalp bug that wave 2 fixed globally, but the shape is dead regardless.
+HAIR LOCS       | hair | 8/1/26 | "I see the vision it just needs to be executed better ... The difference is just one pixel not like two or three". The 1px rule is now the texture rule; the shape itself is dead.
+BRAIDED TAIL    | hair | 8/1/26 | "looks like dog shit".
+PONYTAIL        | hair | 8/1/26 | "all fucked up like there's no hair in between the top and then the ponytail when it's the back so it's pretty creepy" -- the tie floated free of the mass.
+TOP KNOT        | hair | 8/1/26 | "it's the same from the front and the backside and there needs to be more hair".
+LOW BUN         | hair | 8/1/26 | KILLED AS A STYLE, PROMOTED AS THE REFERENCE. "By far the most natural looking back of the head that you have is the low bun so think about how you made the low bun when you make the rest of the back of the heads." Its silhouette is now the target every back is shaped against; the style itself did not take a slot.
