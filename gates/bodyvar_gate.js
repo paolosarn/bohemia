@@ -55,8 +55,16 @@ ok('rigSkel still feeds the nipple row, the shoulder blend and the garment conta
    --------------------------------------------------------------------------- */
 ok('BOH_BODYVAR is inlined in the alpha', src.indexOf('const BOH_BODYVAR') >= 0);
 ok('rebuildFromRig resolves the dials through it', /BODY_PKG=BOH_BODYVAR\.apply\(BAKED,G\.bodyVar\)/.test(src));
+/* WINDOW WIDENED 7/31, and the reason matters. This asserts the dials are in the
+   frame-cache hash -- true then, true now. It failed because a comment was added
+   inside frameLookHash (explaining that G_WORN had to join the hash, the bug that
+   made SHUFFLE FIT do nothing) and that pushed G.bodyVar past 400 chars. The
+   CLAIM never broke; a distance assumption did. A proximity window is a proxy for
+   'is it in this function', so it gets a window big enough to hold the function. */
 ok('the frame cache hashes the dials (a slider drag can never draw a stale frame)',
-  /frameLookHash[\s\S]{0,400}G\.bodyVar/.test(src));
+  /frameLookHash[\s\S]{0,1600}G\.bodyVar/.test(src));
+ok('the frame cache also hashes WHAT HE IS WEARING (7/31: shuffle fit drew stale frames)',
+  /frameLookHash[\s\S]{0,1600}G_WORN/.test(src));
 ok('the dials persist with the look', src.indexOf('bodyVar:G.bodyVar') >= 0);
 ok('the BODY row is the slider row, not a rig picker', src.indexOf('BODY_VAR_ROW') >= 0);
 ok('all three dials Paolo named are on the surface',

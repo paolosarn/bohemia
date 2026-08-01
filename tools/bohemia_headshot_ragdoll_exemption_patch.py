@@ -50,8 +50,11 @@ RIG CHECK (RIG IS LAW, Paolo 7/26/26): no joints, no anatomy, no layering, no
 pixels. It decides WHICH pose source the frame uses, and for this clip the source
 was always meant to be the ragdoll.
   built on: posedSkel, poseHoldAt, TERMINAL
-  joints: headTop, waC
+  joints: headTop
   parts: none
+  (First draft also claimed waC. rig_check_gate caught it -- waC appears in the
+   measurement quoted in the header, not in anything this file does. Corrected,
+   because a citation is a claim the machine can check.)
 
 REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks ZERO graphic pixels, opens NO banks.
 

@@ -84,10 +84,38 @@ check('the law still requires work to CITE its rig layers',
       'cannot cite its rig layers is invalid' in flat)
 
 # ------------------------------------------------- 1. THE RIG CHECK, per tool
+def code_only(s):
+    """Strip docstrings and comments before deciding a tool TOUCHES the rig.
+
+    8/1: this gate failed a COMBAT-lane tool that never goes near the rig. Its
+    only match was the English sentence "FROM WHAT IT IS BAKED FROM" -- the word
+    BAKED, in prose, about an animation clip. Classifying that as rig contact and
+    then demanding a rig citation for it is the same mistake this gate exists to
+    punish in the other direction: it could not tell a USE from a MENTION.
+
+    Note the asymmetry, which is deliberate. Classification reads CODE ONLY, so
+    prose can never drag a tool in. But once a tool IS classified, its citation
+    is still re-derived against the source with the RIG CHECK block removed --
+    because there the risk runs the other way, and a claim must be checkable.
+
+    THE MODULE DOCSTRING ONLY -- not every triple-quoted string. The first
+    attempt at this stripped all of them and gutted the gate: 167 checks fell to
+    107, and a deliberately falsified citation sailed through. These are PATCH
+    tools, so their injected JS lives in r'''...''' payloads -- that is CODE
+    wearing quotes, and stripping it hid every real rig reference in the repo.
+    A mutation test caught it. Prose lives in the module docstring and in
+    comments; that is all that comes out.
+    """
+    s = re.sub(r'\A(?:#![^\n]*\n)?\s*(?:"""[\s\S]*?"""|\'\'\'[\s\S]*?\'\'\')', '', s)
+    s = re.sub(r'/\*[\s\S]*?\*/', '', s)
+    s = re.sub(r'^\s*#[^\n]*$', '', s, flags=re.M)
+    s = re.sub(r'^\s*//[^\n]*$', '', s, flags=re.M)
+    return s
+
 tools = []
 for f in sorted(glob.glob('tools/*.py') + glob.glob('tools/*.js')):
     src = open(f, encoding='utf8', errors='replace').read()
-    if RIG.search(src) and os.path.basename(f) != 'bohemia_rig_check_stamp.py':
+    if RIG.search(code_only(src)) and os.path.basename(f) != 'bohemia_rig_check_stamp.py':
         tools.append((f, src))
 
 check('rig-touching tools found', len(tools) > 0, '%d' % len(tools))
