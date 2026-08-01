@@ -113,7 +113,7 @@ ok('the BEAT TACTICS LAB is retired from the alpha (Paolo 7/20 verdict)',
     demo.includes('!e.dead&&!e.melee&&!pinned(e)&&e.stun<=0&&(peeking(e)||firing(e))&&!myCoverAgainst') &&
     demo.includes('!e.dead&&!e.melee&&!pinned(e)&&e.stun<=0&&(peeking(e)||firing(e))&&hasLine'));
 ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure, cover, return volley, the enemy fire loop, grenade throwers) excludes the suppressed',
-    (demo.split('&&!e.melee&&!pinned(e)&&e.stun<=0').length - 1) === 7 &&
+    (demo.split('&&!e.melee&&!pinned(e)&&e.stun<=0').length - 1) === 8 &&   /* V110: pressureGuns is the eighth threat filter and it obeys the same law */
     !demo.includes('&&!e.melee&&e.stun<=0') &&
     demo.includes('||e.melee||pinned(e)||e.stun>0||e.prone>0||e.stagger>0)continue;'));
   ok('demo has the contextual SHOVE button + perks UI',
@@ -145,7 +145,7 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
        real range. The bare block became an arena-kind branch, and BOTH branches
        rebuild G.pillars from empty, which is more of what this was asking for. */
     demo.includes('G.pillars=[];') &&
-    demo.includes("G.arenaKind=(Math.random()<0.5)?'warehouse':'street';") &&
+    demo.includes("G.arenaKind='street';") &&   /* V110 RE-POINTED: one kind now, see the warehouse rejection below */
     demo.includes('const NP=2+Math.floor(Math.random()*14);') &&
     demo.includes('function buildWarehouse(){'));
   ok('my cover is geometry-aware (pillar on the shooter line, distance-honest)',
@@ -321,9 +321,9 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
   // v22: the plumbing pass — the red line law finally complete
   ok('V24 LOS BEAD (supersedes v22): a step only resets guns whose LINE you broke',
     demo.includes('V24 LOS BEAD') && demo.includes('if(myConcealAgainst(e2.ea,e2.edist,e2.lvl)){ if((e2.acq||0)>=1)_broke++; e2.acq=0; }'));   /* V108 RE-POINTED: his own words were "it has to be a line of sight thing", and v108 finally separated the LINE from the PROTECTION. The bead asks myConcealAgainst, so a car door breaks the lock exactly as it really would. Same law, sharper test. */   /* V90: same check, now level-aware */
-  ok('danger outranks its warning: red line 0.30, acquiring amber 0.18',
-    demo.includes("'rgba(232,60,40,0.30)'") && demo.includes("'rgba(232,140,40,0.18)'") &&
-    !demo.includes("'rgba(232,140,40,0.32)'"));
+  ok('danger outranks its warning, and the LINES ARE VISIBLE AGAIN. Paolo 8/1 reversed his own 7/3 and 7/4 dial-downs -- "I\'m not seeing the beads anymore... I want them to come back for now" -- so red and amber came back up. The ORDERING he set is what this check has always been about and it still holds: red outranks amber outranks out outranks tucked',
+    demo.includes("'rgba(232,60,40,0.62)'") && demo.includes("'rgba(232,140,40,0.42)'") &&
+    !demo.includes("'rgba(232,60,40,0.30)';w=2;"));
   ok('the warning speaks: fresh locks announce on damage-free turns (both turn ends)',
     demo.includes('V22: fresh beads announce themselves') &&
     demo.split("setRead('LOCKING ON',G._newBeads+' gun'").length >= 3);
@@ -450,9 +450,10 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes('the pool starts the instant he drops, not next turn'));
   ok('NERVE is event-gated: the roll only fires the turn a NEW casualty happens',
     demo.includes('_down>(G._nerveLastDown||0)') && demo.includes('G._nerveLastDown=_down;'));
-  ok('KNEEL AND BEG: adjacency swaps the downed pose to hands-up, begging text renders on downed+broken',
-    demo.includes('V32 KNEEL AND BEG') && demo.includes('BEG_LINES') &&
-    demo.includes('e.edist<=BohemiaMelee.SHOVE_RANGE&&L.handsup112'));
+  ok('BEGGING, AND A DYING MAN STAYS ON THE FLOOR. SUPERSEDED BY PAOLO 8/1: "if they\'re like crawling then they stand up when I get next to them to finish them off". The v32 INTENT was KNEEL AND BEG; the clip that got wired was handsup112, which is a man ON HIS FEET, so walking over to finish a dying man stood him up. handsup belongs to the BROKEN, who surrendered without ever falling. The begging TEXT is untouched -- it was never the bug',
+    demo.includes('BEG_LINES') &&
+    demo.includes('if(e.broken){ return L.handsup112||L.idle112; }') &&
+    !demo.includes('e.edist<=BohemiaMelee.SHOVE_RANGE&&L.handsup112'));
   ok('MANUAL TARGET RING + SELECT A TARGET prompt render for manual mode',
     demo.includes('V32 MANUAL TARGET RING') && demo.includes("'SELECT A TARGET'"));
   ok('V32C LOG PANEL: a real dark backing behind the log text, not just a thin shadow',
@@ -551,7 +552,12 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes('V44 SPRINT') &&
     demo.includes('id="sprintbtn"') &&
     demo.includes('const _sprinting=!!G.sprintArm;') &&
-    demo.includes('const _mult=_sprinting?2:1;') &&
+    /* SUPERSEDED BY PAOLO 8/1, NEWEST DATE WINS: "I want to change it to
+       sprinting moving two tiles to one tile... sprinting basically just means
+       you get to take movement action without your turn ending." The 2-tile
+       distance is dead; everything else this check asserts is untouched. */
+    demo.includes('const _mult=1;') &&
+    !demo.includes('const _mult=_sprinting?2:1;') &&
     demo.includes("if(_sprinting){ spendMove(1); G.sprintArm=false; updMoveMode(); }") &&
     demo.includes("renderBoard(); updGap(); return; }   /* V73 FREE AND SAFE: no turn end, NO return fire */"));
 ok('V67 SPRINT COSTS STAMINA (Paolo: "sprint should be using up stamina points"): 1 pip, refused when the pips are gone, spent on the move itself',
@@ -1925,8 +1931,12 @@ ok('V84C/V94 THE ORANGE WAS NEVER THE DIAL: it was the road\'s hand-painted DOUB
    v84C did that to two hand-drawn stripes; now the whole ground does it, which is
    strictly broader, and it reads visNow() so a held freeze holds it. */
 ok('the environment still steps back during a kill -- generalised from two stripes to the whole ground, and on the FROZEN clock so a held pause holds it too',
-    demo.includes("const _mk=(G.ks&&G._ksAt)?Math.max(0,1-(visNow()-G._ksAt)/260):1;") &&
-    demo.includes("if(_mk<1){ x.fillStyle='rgba(0,0,0,'+((1-_mk)*0.42).toFixed(3)+')';") &&
+    /* V110 RE-POINTED: same pass, MOVED. It used to fire inside the floor block,
+       where the deck, the stairs and the cars all drew over it at full
+       brightness -- so the thing the dim exists to push back was exempt from it.
+       It now lands after the whole environment. Strictly more ground covered. */
+    demo.includes("const _mk2=(G.ks&&G._ksAt)?Math.max(0,1-(visNow()-G._ksAt)/260):1;") &&
+    demo.includes("if(_mk2<1){ x.fillStyle='rgba(0,0,0,'+((1-_mk2)*0.42).toFixed(3)+')';") &&
     !/rgba\(215,205,185,'\+\(0\.38\*_mk/.test(demo));
   /* V94 RE-POINTED. The ordering trap this recorded (drawFloor's vignette runs
    BEFORE drawField paints on top of it) is still real and still the reason a
@@ -2020,7 +2030,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
   /* (d) THE RULE THIS TURN COST FIVE ROUNDS TO LEARN. */
   ok('AND THE v84 FIXES BOTH STAND: the floor pulse is still silent during a freeze, and the environment still steps back on a kill -- every later turn added to them and none traded one symptom for another',
     demo.includes('if(pb>0.004&&!(G._freezeT>0)){x.fillStyle=f.acc;') &&
-    demo.includes("if(_mk<1){ x.fillStyle='rgba(0,0,0,'+((1-_mk)*0.42).toFixed(3)+')';"));
+    demo.includes("if(_mk2<1){ x.fillStyle='rgba(0,0,0,'+((1-_mk2)*0.42).toFixed(3)+')';"));   /* V110 RE-POINTED: the dim moved past the environment */
 }
 
 /* ============================================================================
@@ -2399,7 +2409,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
     /* 8 enemy-facing calls, still 8: seven ask the boolean and the eighth asks
        coverPillarAgainst directly, because the volley needs to know WHICH piece
        stopped the round so it can put the heat in the car. */
-    demo.split('myCoverAgainst(e.ea,e.edist,e.lvl)').length - 1 === 7 &&
+    demo.split('myCoverAgainst(e.ea,e.edist,e.lvl)').length - 1 === 8 &&   /* V110: pressureGuns is the eighth, and it carries its level like every other */
     demo.split('coverPillarAgainst(e.ea,e.edist,e.lvl,false)').length - 1 === 1 &&
     demo.split('myCoverAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 1 &&
     demo.split('myConcealAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 3 &&
@@ -2426,7 +2436,11 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
   ok('NEVER BUILT ON TOP OF THE PLAYER, and never so far out it is scenery',
     demo.includes('if(Math.hypot(tx,ty)<2.6)continue;') && demo.includes('if(Math.hypot(tx,ty)>12)continue;'));
   ok('AND THE DECK EVICTS GROUND COVER UNDER IT, so a pillar can never be stranded inside a slab as cover nobody can see',
-    demo.includes('G.pillars=G.pillars.filter(P=>{ const q=pXY(P); return !deckTileAt(q[0],q[1]); });'));
+    /* V110 RE-POINTED AND STRENGTHENED: still evicts ground cover under the slab,
+       but a CAR is evicted whole. Per-cell was the bug -- it deleted the one cell
+       that draws and left five invisible solid ones. */
+    demo.includes('G.pillars=G.pillars.filter(P=>{ if(P.car)return !_doomed[P.car];') &&
+    demo.includes('const q=pXY(P); return !deckTileAt(q[0],q[1]); }); } }'));
   /* V92 SUPERSEDES THE PLACEMENT, NOT THE PROMISE. v90 took the closest deck tile
      outright; v92 takes the closest tile ON THE NEAR EDGE, because a run of steps
      only reads when it descends toward the viewer. The promise this check exists to
@@ -2469,7 +2483,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
    rail to read the height against. Same requirement, better answer. */
 ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: vertical legs + a bright kick rail, instead of a near-black wall)',
     demo.includes('x.lineWidth=Math.max(2,t2*0.09); x.strokeStyle=') &&
-    demo.includes("x.strokeStyle='rgba(232,214,172,0.92)'; x.lineWidth=Math.max(2,t2*0.08);") &&
+    demo.includes("x.strokeStyle=dialOrnament()?'rgba(232,214,172,0.92)':'rgba(120,110,88,0.30)'; x.lineWidth=Math.max(2,t2*0.08);") &&   /* V110 RE-POINTED: the rail is still the bright kick rail -- it just stops being the brightest thing on screen during a kill */
     !demo.includes("x.fillStyle='#3e372c';"));
   /* V92 REPLACED WHAT THIS CHECKED. The "steps on the tile" it asserted were a
      DECAL on a tile floating a storey above the lot -- Paolo: "looking like dog
@@ -2559,9 +2573,9 @@ ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: 
     demo.includes('const NS=5, run=t4*1.05, halfW=t4*0.46;') &&
     demo.includes("x.fillStyle='#14110d';") &&
     demo.includes("x.fillStyle='#8c7d61';") &&
-    demo.includes("x.fillStyle='rgba(232,214,172,0.95)';"));
+    demo.includes("x.fillStyle=dialOrnament()?'rgba(232,214,172,0.95)':'rgba(120,110,88,0.32)';"));   /* V110 RE-POINTED: the lit lip is still the lit lip, dark during a kill */
   ok('RULE 1, THREE SHADES PER STEP: near-black riser, mid tread, hard lit lip on the leading edge -- three distinct values per step, which is the documented isometric rule',
-    /x\.fillStyle='#14110d';[\s\S]{0,200}?x\.fillStyle='#8c7d61';[\s\S]{0,160}?x\.fillStyle='rgba\(232,214,172,0\.95\)';/.test(demo));
+    /x\.fillStyle='#14110d';[\s\S]{0,200}?x\.fillStyle='#8c7d61';[\s\S]{0,260}?rgba\(232,214,172,0\.95\)/.test(demo));   /* V110 RE-POINTED: three distinct values per step, unchanged */
   ok('RULE 2, THE HEIGHT LINE IS VERTICAL: the riser is a straight vertical face drawn from the tread down, which is the only thing in a top-down frame that says "this is tall"',
     demo.includes('x.fillRect(ox2-wx*0.5, oy2, wx, riser+tread);'));
   ok('RULE 3, BACK TO FRONT: the loop runs from the TOP step down, so every lower step occludes the one behind it. Without the occlusion a stack of bands is a barcode',
@@ -2651,8 +2665,8 @@ ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: 
     !demo.includes("for(const lane of [-1.5,6.5]){"));
 
   ok('V94 THE v84C KILL FADE IS GENERALISED, NOT DELETED -- the whole ground steps back on a kill instead of one stripe -- AND IT READS visNow(): the old line used performance.now(), so a held freeze kept fading the marking back in on wall-clock time. That was a latent THE-PAUSE-IS-EMPTY bug',
-    demo.includes('const _mk=(G.ks&&G._ksAt)?Math.max(0,1-(visNow()-G._ksAt)/260):1;') &&
-    !demo.includes('const _mk=(G.ks&&G._ksAt)?Math.max(0,1-(performance.now()-G._ksAt)/260):1;'));
+    demo.includes('const _mk2=(G.ks&&G._ksAt)?Math.max(0,1-(visNow()-G._ksAt)/260):1;') &&
+    !/const _mk2?=\(G\.ks&&G\._ksAt\)\?Math\.max\(0,1-\(performance\.now\(\)-G\._ksAt\)\/260\):1;/.test(demo));   /* V110 RE-POINTED: still visNow(), now applied after the environment too */
 
   ok('V94 MAP LAW HELD: the street anatomy was ALREADY declared in code (median 2.5, lanes -1.5/6.5) and the tiles render that declaration. Markings snap to the nearest cell centre, ties low, which is a rule and not a taste',
     demo.includes('const ST_MED=2, ST_LANE_L=-2, ST_LANE_R=6;') &&
@@ -2695,7 +2709,10 @@ ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: 
     demo.includes('if(G._chainN>chainWall()){'));
 
   ok('V95 THE RAMP IS A FLOOR, NOT A REPLACEMENT: point blank still pulls the dial easier exactly as he ruled 7/27, but it can never fully cancel the ramp, so closing the distance is HOW YOU AFFORD the extra shot',
-    /G\.pkgDiff=Math\.max\(0,Math\.min\(4,Math\.max\([\s\S]{0,240}chainRampDial\(\)\)\)\);/.test(demo) &&
+    /* V110 RE-POINTED: there are TWO floors now (the chain ramp and exposure
+       pressure) and the point-blank term is still the additive one, so his 7/27
+       ruling survives both. */
+    /G\.pkgDiff=Math\.max\(0,Math\.min\(4,Math\.max\([\s\S]{0,300}chainRampDial\(\),[\s\S]{0,80}pressurePkg\(\)\)\)\);/.test(demo) &&
     demo.includes('distPkg(tgt)+(tgt.elite?1:0)+(tgt.gcov?1:-1)+(G.handPeek?1:0),'));
 
   /* SUPERSEDED BY A RULING, WHICH IS THE ONLY LEGITIMATE WAY A CHECK DIES. v95
@@ -2710,21 +2727,26 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
     !/function chainAllowance\(\)\{[^}]*userPkg/.test(demo));
 
   ok('V95 "extremely hard" IS HIS WORD, so it is extreme immediately: first shot past the allowance is V.HARD, the next is BOHEMIAN, and 4 is the top of the dial so it stays there. Both numbers are dials',
-    demo.includes('const CHAIN_RAMP_BASE=3, CHAIN_RAMP_STEP=1;') &&
-    demo.includes('return o<=0?0:Math.max(0,Math.min(4,CHAIN_RAMP_BASE+(o-1)*CHAIN_RAMP_STEP)); }'));
+    /* SUPERSEDED BY PAOLO 8/1, NEWEST DATE WINS, AND HARDER THAN BEFORE: "that
+       third shot, I want it to be a Bohemian difficulty pattern not even very
+       hard just straight up Bohemian difficulty pattern." The 3-then-4 ramp is
+       dead. The first shot past the allowance is BOHEMIAN, which is more extreme
+       than what "extremely hard" bought him in v95, not less. */
+    demo.includes('function chainRampDial(){ return chainOver()<=0?0:4; }') &&
+    !demo.includes('CHAIN_RAMP_BASE+(o-1)*CHAIN_RAMP_STEP'));
 
   ok('V95 THE WEAPON CEILING IS STILL A WALL AND IS NOT RAMPED: a gun running out is physics, not a difficulty question, and it is what keeps the pistol the chain weapon and the rifle a one-shot',
     demo.includes('function chainWall(){ return Math.max(1, WEAPON_CAP[WEAPON]||8); }') &&
     demo.includes('const WEAPON_CAP={pistol:8,smg:2,rifle:1,shotgun:2};'));
 
   ok('V95 "i didnt see that" IS THE ACTUAL COMPLAINT, so the mechanic SAYS itself: the headline flips to PUSHING in the warning red and both reads count the shot against the allowance in words',
-    demo.includes("setRead(_ov?'PUSHING':(isChain?'CHAIN':'AIM'),") &&
+    demo.includes("setRead(_ov?'PUSHING':(_pg>=2?'IN THE OPEN':(isChain?'CHAIN':'AIM')),") &&   /* V110 RE-POINTED: PUSHING still outranks everything; exposure got its own headline underneath it */
     demo.includes("'SHOT '+(G._chainN||1)+' OF '+chainAllowance()+' · '") &&
     demo.includes('PAST YOUR ALLOWANCE'));
 
   ok('V95 BELOW THE ALLOWANCE THE RAMP CHANGES NOTHING: chainRampDial returns 0 when you are inside it, and max(range,0) is just range',
     demo.includes('function chainOver(){ return Math.max(0,(G._chainN||1)-chainAllowance()); }') &&
-    demo.includes('function chainRampDial(){ const o=chainOver();'));
+    demo.includes('function chainRampDial(){ return chainOver()<=0?0:4; }'));   /* V110 RE-POINTED: still exactly 0 inside the allowance */
 
   /* ===== 32. V98 THE DARK SHRINKS THE RANGE + THE ALLOWANCE IS A PERK ==== */
   ok('V98 NIGHT IS NOT AN ACCURACY PENALTY. A symmetric penalty changes no decision and just makes the fight longer, which is the tally mistake. Darkness shrinks the RANGE at which anyone shoots well, through the one function every range read already runs on',
@@ -2788,8 +2810,16 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
 
   /* ===== 34. V100 THE WAREHOUSE ========================================= */
   ok('V100 THE ARENA HAS A KIND (Paolo 7/29: "for arena lets start off with a warehouse"). The old arena was a scatter of blocks on a field, and a scatter has no THROUGH-LINES, so it can never make one plan better than another at any density',
+    /* SUPERSEDED BY PAOLO 8/1, NEWEST DATE WINS: "The warehouse arena is dog
+       shit it gives me anxiety looking at it like it looks really bad. The only
+       one I'm comfortable playing on is street." The 7/29 ruling that ASKED for
+       a warehouse is dead; the kind machinery survives (the arena still HAS a
+       kind, and the street is a real authored kind, not a scatter) and the
+       generator is kept unreachable rather than graveyarded, because nothing is
+       graveyarded without his word. */
     demo.includes('V100 THE WAREHOUSE') &&
-    demo.includes("G.arenaKind=(Math.random()<0.5)?'warehouse':'street';") &&
+    demo.includes("G.arenaKind='street';") &&
+    !demo.includes("G.arenaKind=(Math.random()<0.5)?'warehouse':'street';") &&
     demo.includes('function buildWarehouse(){'));
 
   ok('V100 THE SHAPE IS THE ARENA: racking in long rows makes AISLES, so you are safe ACROSS the racking and naked ALONG it, and the question becomes which aisle you commit to and where you cross',
@@ -2935,9 +2965,12 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     /putCar\(ox,oy,vert,cid\)\{[\s\S]{0,400}Math\.hypot\(wx,wy\)<2\.6\)return false;/.test(demo.replace('function putCar(ox,oy,vert,cid){','putCar(ox,oy,vert,cid){')));
 
   ok('V103 THEY GO IN BOTH ARENAS, and the scatter runs BEFORE the deck so the slab filter that already evicts cover from under a storey evicts a car too',
+    /* V110 RE-POINTED: the ordering invariant is unchanged and now MATTERS MORE,
+       because the eviction became whole-car. The per-cell filter this used to
+       assert was the bug: it decapitated cars and left invisible solid cover. */
     demo.includes("scatterCars(G.arenaKind);") &&
     demo.indexOf('scatterCars(G.arenaKind);') < demo.indexOf('G.deck=[]; G.stairs=[]; G.lvl=0;') &&
-    demo.includes('G.pillars=G.pillars.filter(P=>{ const q=pXY(P); return !deckTileAt(q[0],q[1]); });'));
+    demo.includes('G.pillars=G.pillars.filter(P=>{ if(P.car)return !_doomed[P.car];'));
 
   ok('V103 THE ART IS REUSE, NOT A COOK: it is the approved car_wreck pool (top-down abandoned cars from the HD repo), fitted into the 2x3 box UNSTRETCHED rather than fattened to fill it',
     demo.includes('const CAR_B64=[') || demo.includes('const CAR_B64=["'));
@@ -3065,9 +3098,13 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
       return body.length > 200 && !/G\.pHP/.test(body); })());
 
   ok('V107 TWO SHOTS, TWO GUNSHOTS (Paolo: "I need to hear like two gunshot noises"). The double tap already called sndShot twice -- 90ms apart with the IDENTICAL two-oscillator voice, so the second landed inside the first one\'s decay on the same frequencies and summed into one fatter bang. A real controlled pair is 150-250ms and the second round is lower and drier',
+    /* V110 RE-POINTED: he said it a SECOND time, so the 165ms timer was not the
+       answer and re-tuning it again would have been the fourth-version mistake.
+       The real defect was two clocks: the report on a setTimeout, the second
+       bullet on the killshot's travel fraction. One clock now. */
     demo.includes("function sndShot2(){") &&
-    demo.includes('if(dbl)setTimeout(()=>{try{sndShot2();') &&
-    demo.includes('},165);'));
+    demo.includes('if(p>=0.06&&!ks._dblSnd){ ks._dblSnd=true;') &&
+    !demo.includes('},165);'));
 
   /* ===== 42. V108 THE CAR IS COVER WITH PARTS ========================== */
   ok('V108 A CAR IS NOT ONE THING (Paolo: "Please make sure cars can be used as Cover"). Since v103 a car was six identical pillar cells -- worth exactly as much as a concrete block, and the game never said the word CAR. Now the three rows ARE the parts, which is the shape the vehicle already had',
@@ -3163,6 +3200,75 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V109 EVERYTHING RIDES THE ONE 120 CLOCK. The seamless-transition finding, applied: a cut reads as a POP when the outgoing frame and the incoming clip disagree, and this engine has an advantage nobody was using -- a transition landing on a beat boundary is one the player has already been told to expect. The bob, the writhe and the fire cycle all run off _bpmClock, never off performance.now()',
     /const _w=bodyBreathes\(\)\?\(Math\.floor\(\(JUICE\.A\?_bpmClock:now\)\/500\)%4\)/.test(demo) &&
     demo.includes('Math.floor((JUICE.A?_bpmClock:now)/500)%2];   /* JUICE.A BEAT-BREATHING'));
+
+  /* ===== 44. V110 EXPOSURE HAS A PRICE (Paolo's T9 list) ============== */
+  ok('V110 PRESSURE IS A FLOOR ON THE DIAL (Paolo 8/1: "if there\'s three or four enemies with cover like I\'m fully exposed no cover it should be really hard to get that green... it slides with how many enemies have cover trying to shoot at you"). Standing in the open against four covered guns pulled the SAME dial as standing behind a wall against one -- the dial has had a floor mechanism since v95 and the most basic tactical fact in the game was not using it',
+    demo.includes('V110 EXPOSURE HAS A PRICE') &&
+    demo.includes('function pressureGuns(){') &&
+    demo.includes('function pressurePkg(){ const n=pressureGuns(); return n<2?0:Math.min(4,n); }') &&
+    demo.includes('pressurePkg())));'));
+
+  ok('V110 AND IT COUNTS ONLY THE SITUATION HE DESCRIBED: a gun BEHIND COVER, holding a line on you, that you have NO cover from. A gun in the open is a target, not pressure; a gun you are covered from is not shooting at you. MEASURED: 1 gun -> no floor, 2 -> HARD, 3 -> V.HARD, 4 -> BOHEMIAN, and taking cover from one of three drops the count to two',
+    demo.includes('&&e.gcov&&(e.acq||0)>=1&&!myCoverAgainst(e.ea,e.edist,e.lvl)).length; }'));
+
+  ok('V110 AND POINT BLANK STILL EASES THE DIAL. Pressure is a FLOOR, the same shape v95 gave the chain ramp, so his 7/27 point-blank ruling survives intact -- closing the distance is still how you buy a friendlier dial, it just cannot fully cancel the cost of standing in the open',
+    /Math\.max\(\s*distPkg\(tgt\)\+\(tgt\.elite\?1:0\)[\s\S]{0,120}chainRampDial\(\),[\s\S]{0,80}pressurePkg\(\)/.test(demo));
+
+  ok('V110 AND HE CAN SEE WHY THE DIAL WENT MEAN: the headline says IN THE OPEN and names the count. A difficulty that changes without saying so is the tally mistake in a new costume',
+    demo.includes("_pg>=2?'IN THE OPEN'") &&
+    demo.includes("+(!_ov&&_pg>=2?_pg+' COVERED GUNS ON YOU · ':'')"));
+
+  ok('V110 PAST THE ALLOWANCE IS BOHEMIAN, FLAT (Paolo 8/1: "that third shot, I want it to be a Bohemian difficulty pattern not even very hard just straight up Bohemian"). The ramp is deleted, not re-tuned -- the allowance is the whole negotiation and beyond it there is one answer',
+    demo.includes('function chainRampDial(){ return chainOver()<=0?0:4; }') &&
+    !/CHAIN_RAMP_BASE\+\(o-1\)\*CHAIN_RAMP_STEP/.test(demo));
+
+  ok('V110 THE ORANGE, SEVENTH REPORT, AND IT WAS NOT THE DIAL THIS TIME. Instrumented again: the v107 ghost fans stayed dead and what lit up the kill was THE TWO-STOREY -- 232 strokes of the deck kick rail and 29 of the stair tread lips, the brightest warm objects in the game. CAUSE: draw order. The v94 kill dim fired inside the FLOOR block and the deck, stairs and cars all drew after it at full brightness',
+    demo.includes('V110 THE KILL DIMS THE WORLD, ALL OF IT') &&
+    demo.includes('if(!aimo){ const _mk2=(G.ks&&G._ksAt)?Math.max(0,1-(visNow()-G._ksAt)/260):1;') &&
+    !demo.includes('const _mk=(G.ks&&G._ksAt)'));
+
+  ok('V110 AND THE HIGHLIGHTS GO DARK AT THE SOURCE, not merely under an overlay. A 0.42 black wash only takes a 232-luminance cream to ~135, and seven reports is enough evidence that dimming is not the same as removing. MEASURED AFTER: zero rgba(232,214,172) draws during a killshot',
+    demo.includes("x.strokeStyle=dialOrnament()?'rgba(232,214,172,0.92)':'rgba(120,110,88,0.30)';") &&
+    demo.includes("x.fillStyle=dialOrnament()?'rgba(232,214,172,0.95)':'rgba(120,110,88,0.32)';") &&
+    demo.includes("dialOrnament()?'rgba(186,170,132,0.5)':'rgba(186,170,132,0.12)'"));
+
+  ok('V110 THE BLACK RECTANGLE THAT POPS UP FROM NOWHERE, FOUND BY INSTRUMENT: a grid of solid rgba(0,0,0,0.28) 74x74 squares that MERGE into one hard black rectangle, slid into frame by the killshot zoom. The code\'s own comment says a scaffold throws a BROKEN shadow because it has gaps, and then it drew a slab -- the comment was right and the code was lying',
+    demo.includes("x.fillStyle='rgba(0,0,0,0.26)';") &&
+    demo.includes('for(let _b=0;_b<4;_b++)x.fillRect(p[0]-t2*0.5+_b*_sw,p[1]-t2*0.5,_sw*0.78,t2+1); }') &&
+    !demo.includes("x.fillStyle='rgba(0,0,0,0.28)'; x.fillRect(p[0]-t2*0.5,p[1]-t2*0.5,t2+1,t2+1); }"));
+
+  ok('V110 NO INVISIBLE COVER (Paolo 8/1: "there\'s invisible pillars sometimes in the arena"). MEASURED before: 10 of 588 cars across 300 rolled arenas -- 1.7% -- had NO NOSE CELL, which is solid cover with no sprite. A car is six cells and only the flagged nose draws, and the deck filter evicted pillars CELL BY CELL, so a deck corner landing on a car deleted its nose and left five invisible solid cells. MEASURED AFTER: 0 of 572',
+    demo.includes('const _doomed={};') &&
+    demo.includes('G.pillars=G.pillars.filter(P=>{ if(P.car)return !_doomed[P.car];') &&
+    !demo.includes('G.pillars=G.pillars.filter(P=>{ const q=pXY(P); return !deckTileAt(q[0],q[1]); }); }'));
+
+  ok('V110 THE BEADS COME BACK (Paolo 8/1: "I\'m not seeing the beads anymore... I want them to come back for now"). They were never removed -- they were dialled DOWN TWICE on his own 7/3 and 7/4 instructions, which left red at 0.30 alpha on a 430px phone. A ruling he has now reversed. His ORDERING survives: danger still outranks its warning and a tucked man still draws almost nothing',
+    demo.includes("col='rgba(232,60,40,0.62)';w=2.8;") &&
+    demo.includes("col='rgba(232,140,40,0.42)';w=2.4;") &&
+    demo.includes("col='rgba(120,108,86,0.05)';w=1;"));
+
+  ok('V110 SPRINT IS ONE TILE (Paolo 8/1, ruling): "I\'m not a big fan of it moving two tiles and you still get to move for free... sprinting basically just means you get to take movement action without your turn ending." The distance cheat is gone; the VERB is the whole point',
+    demo.includes('const _mult=1;') &&
+    !demo.includes('const _mult=_sprinting?2:1;') &&
+    demo.includes("'one tile — 1 pip, no turn spent, nobody gets a shot'"));
+
+  ok('V110 THE WAREHOUSE IS OFF (Paolo 8/1: "The warehouse arena is dog shit it gives me anxiety looking at it... The only one I\'m comfortable playing on is street"). A REJECTION, and the second time the two-storey arena has come back -- so it is off, not argued and not re-tuned. buildWarehouse is NOT deleted, because nothing is graveyarded without his word; it is unreachable',
+    demo.includes("G.arenaKind='street';") &&
+    !demo.includes("G.arenaKind=(Math.random()<0.5)?'warehouse':'street';") &&
+    demo.includes('function buildWarehouse(){'));
+
+  ok('V110 A DYING MAN DOES NOT STAND UP (Paolo 8/1: "if they\'re like crawling then they stand up when I get next to them to finish them off"). Exactly right, and it was one line: handsup112 is a STANDING pose, the v32 intent was KNEEL AND BEG, and the clip that got wired put a man on his feet. handsup belongs to the BROKEN, who surrendered without ever falling',
+    !demo.includes('if(e.edist<=BohemiaMelee.SHOVE_RANGE&&L.handsup112)return L.handsup112;') &&
+    demo.includes('if(e.broken){ return L.handsup112||L.idle112; }'));
+
+  ok('V110 AND THE FINISH ACTUALLY PLAYS (Paolo: "when I do finish them off, they don\'t do any animation. They just like go instantly until like a straight death picture"). -1200ms started the 12-frame clip at frame 8: four frames, from a body already lying flat, into an end pose also lying flat. Nothing to see because nothing moved',
+    demo.includes('t._deadAt=performance.now()-750;') &&
+    !demo.includes('t._deadAt=performance.now()-1200;'));
+
+  ok('V110 TWO BULLETS, TWO BANGS, ON ONE CLOCK. He has said this twice, so re-tuning the delay again would be the fourth-version mistake. The real defect: the report fired on a setTimeout while the second bullet spawns off the killshot travel fraction -- two clocks agreeing only by luck. The report now fires FROM the killshot when the round leaves the muzzle',
+    demo.includes('if(p>=0.06&&!ks._dblSnd){ ks._dblSnd=true;') &&
+    !demo.includes('},165);') &&
+    demo.includes('function sndShot2(){'));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
