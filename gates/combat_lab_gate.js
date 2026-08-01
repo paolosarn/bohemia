@@ -3027,7 +3027,9 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
 
   ok('V105 AND THE TILE IN YOUR WAY GETS OUT OF THE WAY -- his third ask, answered at the CAUSE this time. A deck tile with a living body under it drops to DECK_SEE alpha, so the man shows THROUGH the boards instead of being hidden and then redrawn',
     demo.includes('const thin=!T.stair&&_below(T);') &&   /* V106 migrated this line: the staircase is never a floor, so it never thins */
-    demo.includes('x.save(); if(thin)x.globalAlpha=DECK_SEE;'));
+    /* V113 RE-POINTED: the per-tile thin SURVIVES, multiplied by floorFocus, so
+       a body under the deck is now doubly legible instead of singly. */
+    demo.includes('x.save(); x.globalAlpha=floorFocus(DECK_LVL)*(thin?DECK_SEE:1);'));
 
   ok('V105 AND v93\'S GHOST STAYS AS THE BACKSTOP: two independent reads of the same fact, because he has asked to see who is underneath three times',
     demo.includes('function underDeck(o){') &&
@@ -3297,6 +3299,42 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V111 AND NO NEW NUMBER WAS INVENTED. PT_BLANK is 4 tiles and this engine puts a tile at ~1.5m, so point blank is ~6m -- and the buckshot patterning literature\'s tight single-mass band sits right at that short end. The constant Paolo ruled on for an entirely different reason lands on the real one-mass distance, so it is used AS FOUND',
     demo.includes('const PT_BLANK=4') &&
     !/const SHOT_(MASS|KNOCK)[A-Z_]*=/.test(demo));
+
+  /* ===== 46. V112 THE ORANGE, TENTH REPORT, AND IT WAS MINE =========== */
+  ok('V112 THE ORANGE IS THE CAR HEAT SLAB I ADDED IN v108, and the reason I missed it three investigations running is a flaw in my METHOD: every instrument run ranked results BY CALL COUNT, which finds eight ghost arms and a rail stroked 232 times and completely hides ONE BIG RECTANGLE DRAWN ONCE A FRAME. Ranked by AREA it was the top warm object on the first run -- fillRect rgb(232,71,40), 146x219, which at ring=73 is exactly 2 tiles by 3, a car, sitting on a drawImage of identical size',
+    demo.includes('V112 HOT METAL IS NOT AN ORANGE RECTANGLE') &&
+    !demo.includes("x.fillStyle='rgba(232,'+Math.round(120-70*_ht)+',40,'+(0.30*_ht*_pu).toFixed(3)+')';"));
+
+  ok('V112 AND IT WAS `lighter`, WHICH IS WHY DIMMING NEVER TOUCHED IT. v110 moved the kill dim past the whole environment and darkened every warm highlight at the source -- and you cannot subtract an ADDITIVE layer with a black wash, so the one fix built to catch exactly this walked straight past it. No lighter composite survives on the heat',
+    !/globalCompositeOperation='lighter'[\s\S]{0,300}_ht/.test(demo));
+
+  ok('V112 AND A FULL-BODY SLAB WAS WRONG EVEN WHEN NOBODY WAS DYING. Additive orange over a dark sprite is a flat orange rectangle, which is what he photographed. Hot metal glows at its EDGES and is hottest where the fire is -- and the fire is the tank, which is in the boot. What is left is the rim plus a radial bloom at the tank end, and it never draws during a kill',
+    demo.includes('else if(dialOrnament()){ const _ht=Math.min(1,((G._carHeat||{})[P.car]||0)/CAR_COOK);') &&
+    demo.includes('const g2=x.createRadialGradient(_tx,_ty,0,_tx,_ty,_tr);') &&
+    demo.includes("x.strokeRect(bx+1,by+1,bw-2,bh-2); x.restore();"));
+
+  ok('V112 THE MECHANIC IS UNTOUCHED: heat still accumulates from rounds your cover eats, still cooks off, still kills. Only the drawing changed',
+    demo.includes('function carHeat(cid,n){') &&
+    demo.includes('function cookOff(cid){') &&
+    demo.includes('const CAR_COOK=10;'));
+
+  /* ===== 47. V113 FLOOR FOCUS (the second-storey research) ============ */
+  ok('V113 THE RESEARCH SAYS WE WERE DOING THE OPPOSITE. Every floor-system source -- Unreal, Unity, Godot and Roblox threads, the TopDown Engine docs, Larian\'s camera-height forum, the Princeton Adaptive Cutaways paper -- lands on one sentence: an upper floor cannot be fully visible at all times because it OBSTRUCTS THE CAMERA, so you fade the floor the player is NOT on. Bohemia drew both floors at full strength and ghosted the BODIES instead, which fades the thing he is trying to look AT',
+    demo.includes('V113 FLOOR FOCUS') &&
+    demo.includes('const floorFocus=l=>((l|0)===(G.lvl||0))?1:FLOOR_OFF;') &&
+    demo.includes('const FLOOR_OFF=0.42;'));
+
+  ok('V113 THE WHOLE DECK RECEDES, not just the tiles with a body under them. Per-tile opacity reads as a glitch rather than as a storey -- "which tiles happen to have a man beneath them" is not something a player can see or use',
+    demo.includes('x.globalAlpha=floorFocus(DECK_LVL)*(thin?DECK_SEE:1);'));
+
+  ok('V113 AND BOTH OLDER READS SURVIVE AS BACKSTOPS: the v93 x-ray silhouette and the v105 per-tile thin both still fire, so a man under the deck is legible three independent ways. He has asked to see who is underneath more times than anything else in this lane',
+    demo.includes('function underDeckMe(){ return myLvl()===0 && !!deckSlabAt(0,0); }') &&
+    demo.includes('const DECK_SEE=0.34, NBOARD=4;') &&
+    demo.includes('if(underDeck(e)){'));
+
+  ok('V113 AND THE SCAFFOLD STRUCTURE IS UNTOUCHED -- legs, X-bracing, slatted boards, kick rail. Value contrast is the height cue, which is what the isometric sources say too, and none of that was ever the problem',
+    demo.includes('if(openL||openR){') &&
+    demo.includes('const _sw=(t2+1)/4;'));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
