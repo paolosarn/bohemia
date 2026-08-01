@@ -269,3 +269,104 @@ cover value) is a DIAL, set to something playable and his to move.
 All idempotent, all carrying a REUSE CHECK, none of them cooks a pixel. The car
 sprites are the eight approved wrecks already embedded by v103; the burnt state
 is a tint on the SAME approved sprite.
+
+---
+
+# ADDENDUM — v109, SAME DAY: THE DEATH READS FROM THE HIT
+
+Paolo: *"Code my feedback now ty"*. These are the T7 notes I had listed above as
+not shipped.
+
+## THE FALL WAS ROLLED ON DICE. IT IS INHERITED NOW.
+
+The line he was complaining about said the opposite **out loud, in the source**:
+
+```js
+tgt._deathVar=Math.floor(Math.random()*3);
+  /* THE SHUFFLE: which way they fall is rolled, never inherited */
+```
+
+Six separate call sites, six separate dice rolls. That is the same two-lists
+disease v107 just cured for the reset, so this is ONE function, `deathFall()`,
+and every site asks it. The fall now comes from **what killed him**: a shotgun
+throws a body, a grenade or a cooking fuel tank throws it harder, a pistol at
+twenty tiles drops it where it stood.
+
+### AND THE MEASUREMENT THAT DECIDED IT — INCLUDING THE BAD NEWS
+
+I did not guess which baked fall means what. Every frame of all three was
+rendered and measured (alpha centroid, bounding box, frame 0 against frame 11):
+
+| clip | driftX | flatten | reads as |
+|---|---|---|---|
+| death[0] | **-10.5** | 0.73 | the body TRAVELS: knocked off its feet |
+| death[1] | -0.3 | 0.25 | collapses straight down in place |
+| death[2] | -0.3 | 0.25 | **PIXEL-IDENTICAL TO death[1]** |
+
+**There are not three falls. There are two.** That is a real ceiling on what
+"translated from the type of headshot they got" can currently mean, and building
+a three-way mapping on top of art that cannot express it would be a fiction. So
+the mapping ships as the honest two-way read — KNOCKBACK vs COLLAPSE — and the
+third fall is filed as an **art request** with a machine-checkable acceptance
+test (`|driftX| < 4 AND flatten > 0.5`, i.e. measurably neither of the two we
+have): `records/BOHEMIA_COMBAT_ANIM_REQUESTS_3_8_1_26.txt`. The wiring for it is
+already in place; it is one index.
+
+MEASURED AFTER: shotgun at 20 tiles → fall 0. Pistol at 20 → fall 1. Pistol at
+2 (point blank) → fall 0. Rifle at 20 → fall 1. Blast → fall 0. Deterministic
+across 20 calls. Different men take different collapse clips, so a row of bodies
+is never all one frame.
+
+## NOBODY BREATHES DURING A KILL
+
+I chased the squat wrong twice and I was not going to publish a third
+diagnosis. Instead the complaint is made **structurally impossible**, on the
+rule v107 already established for the dial.
+
+Every covered body runs `cover112[floor(clock/500)%2]` — crouch, rise, crouch,
+rise, forever. **That IS a man squatting and standing back up.** Two ways it
+lands on top of a headshot: the kill zooms the camera in so a neighbour's bob
+suddenly fills the screen, or the freeze snaps `_bpmClock` forward on release
+and flips the whole phase in one frame.
+
+THE KILL WEARS NOTHING, extended from the dial to the bodies: **while a kill is
+playing, every body holds its pose.** That kills both candidates without needing
+to know which one he saw.
+
+And separately the v102 dial-cover scrub is **fenced by assertion** — it refuses
+any man who is dead, downed, broken, fleeing, stunned, or hit in the last 600ms.
+It was already unreachable for a dead man, and "already unreachable" is exactly
+the reasoning that produced two wrong diagnoses.
+
+MEASURED AFTER: the bob moves normally, holds on frame 0 through a kill; a
+freshly hit man leaves the scrub for the stagger clip.
+
+## BLEEDING OUT, WIGGLING AROUND
+
+His words. A downed man used to lie **perfectly still** between crawl ticks —
+indistinguishable from a corpse, which is the one thing a dying man must never
+look like, because whether he is still alive is a decision the player makes
+(FINISH him, or walk past). Now he writhes: prone and the first crawl frame
+alternating on the 120 grid. Measured centroids 71.5 vs 72.4 — a small shift of
+a body that cannot get up. Not a crawl, not a corpse.
+
+**NO NEW ART.** Both clips were already baked and already approved. Nothing was
+cooked during an art freeze.
+
+## CONNECTING ANIMATIONS SEAMLESSLY (the research he asked for)
+
+A cut between two clips reads as a POP when the outgoing clip's current frame
+and the incoming clip's frame 0 disagree about where the body is. Sprite work
+has exactly two fixes and only two: **share a pose at the seam**, or **hold the
+outgoing frame until the incoming clip's natural start**.
+
+This engine has a third advantage nobody was using: **everything is on the 120
+grid**, so a transition that lands on a beat boundary is one the player's ear
+has already been told to expect. That is why the cover bob, the new writhe and
+the fire cycle all run off the one shared `_bpmClock` rather than off
+`performance.now()`. The standing rule for any new clip, written into the
+request board: **declare its length in BEATS, not milliseconds, and start and
+end on a pose another clip can hand off to.**
+
+Combat gate 574 → 583, 0 fail. One v102 anchor migrated (narrowed, never
+widened). Tool: `tools/bohemia_combat_death_reads_the_hit_patch.py`.

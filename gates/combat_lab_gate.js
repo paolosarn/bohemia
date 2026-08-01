@@ -2886,7 +2886,11 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     !demo.includes('const R=L.rise112;'));
 
   ok('V102 ONLY THE MAN UNDER THE DIAL ("i still like how they animate already"): the branch needs him to be the aim target, the dial to be live, and him to really be in cover. Every other body animates exactly as before',
-    demo.includes('if(e.gcov&&dialLive()&&e===G.e[G.fireTarget]){'));
+    /* V109 RE-POINTED: the three original conditions are all still required and
+       still asserted -- v109 only ADDED the fence (a dying, broken, running,
+       stunned or freshly-hit body is refused out loud). Narrower, never wider. */
+    demo.includes('if(e.gcov&&dialLive()&&e===G.e[G.fireTarget]') &&
+    demo.includes('&&!e.dead&&!e.downed&&!e.broken&&!e.fleeing&&!(e.stun>0)'));
 
   ok('V102 IT IS A READ, NOT A RULE CHANGE: e.gcov is never written in the pose branch, so cover, damage, exposure and every AI decision resolve exactly as before -- the picture agrees with maths that were always there, it does not become a second invisible difficulty system',
     !/dialLive\(\)&&e===G\.e\[G\.fireTarget\]\)\{[\s\S]{0,700}e\.gcov=/.test(demo) &&
@@ -3118,6 +3122,47 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
 
   ok('V108 AND A NEW LOT IS COLD METAL: the heat book, the burnt book and the fire fx are rebuilt with the cars, so nothing survives a fight it did not belong to (the exact class of bug v107 fixed for the grenade)',
     demo.includes('G._cars=placed.length; G._carHeat={}; G._carBurnt={}; G._carFire=[]; }'));
+
+  /* ===== 43. V109 THE DEATH READS FROM THE HIT ======================== */
+  ok('V109 THE FALL IS INHERITED, NOT ROLLED (Paolo: "all of it has to be translated from the type of headshot they got"). The old line said the opposite OUT LOUD -- "THE SHUFFLE: which way they fall is rolled, never inherited" -- in six separate places, each with its own dice. One function now, and every site asks it',
+    demo.includes('V109 THE FALL IS INHERITED, NOT ROLLED') &&
+    demo.includes('function deathFall(e,src,dist){') &&
+    demo.includes('function fallSrc(){') &&
+    (demo.match(/_deathVar=Math\.floor\(Math\.random\(\)\*3\)/g) || []).length === 0 &&
+    (demo.match(/_deathVar=deathFall\(/g) || []).length === 6);
+
+  ok('V109 KNOCKBACK vs COLLAPSE, and the mapping was MEASURED not guessed. All three baked falls rendered and compared frame 0 against frame 11: death[0] driftX -10.5 (the body TRAVELS, off its feet), death[1] driftX -0.3 flatten 0.25 (collapses in place), death[2] PIXEL-IDENTICAL to death[1]. So the bank holds TWO distinct falls, not three, and the mapping is an honest two-way read instead of a fiction built on art that cannot express it',
+    demo.includes('const FALL_KNOCK=0;') &&
+    demo.includes('const FALL_DROP=[1,2];') &&
+    demo.includes("if(src==='blast'||src==='shotgun'||d<=PT_BLANK)return FALL_KNOCK;"));
+
+  ok('V109 AND AN EXPLOSION THROWS A BODY: the grenade and the cooking fuel tank both pass \'blast\', so the thing that killed him is what decides how he lands, everywhere, not just on the dial',
+    demo.includes("e._deathVar=deathFall(e,'blast',0); try{addWound(e);}catch(_e){}") &&
+    demo.includes("e._deathVar=deathFall(e,'blast',0);   /* V109: a fuel tank throws a body */"));
+
+  ok('V109 THE COLLAPSE IS STABLE, NOT RANDOM: the same man always falls the same way (so it reads as CAUSED), but different men take different collapse clips (so a row of bodies is not all one frame). Keyed off e.i, never off Math.random',
+    demo.includes('return FALL_DROP[((e&&e.i)|0)%FALL_DROP.length]; }'));
+
+  ok('V109 NOBODY BREATHES DURING A KILL -- v107\'s rule extended from the dial to the BODIES. Every covered man runs a crouch/rise bob forever, and a kill zooms the camera straight onto it: that IS "squatting doing an animation with squatting back up right after they get their headshot", whether it is the target or the man beside him. A kill is a held moment',
+    demo.includes('function bodyBreathes(){ return !G.ks; }') &&
+    demo.includes('if(!bodyBreathes())return frames[0];') &&
+    demo.includes('L.fire112[bodyBreathes()?Math.floor((JUICE.A?_bpmClock:now)/250)%2:0]'));
+
+  ok('V109 AND THE DIAL-COVER SCRUB IS FENCED BY ASSERTION. It was already unreachable for a dead man -- and "already unreachable" is exactly the reasoning that produced two WRONG diagnoses of this complaint, so a dying, broken, running, stunned or freshly-hit body is now refused out loud instead of by inference',
+    demo.includes('&&!e.dead&&!e.downed&&!e.broken&&!e.fleeing&&!(e.stun>0)') &&
+    demo.includes('&&!(e._hitAt&&now-e._hitAt<600)){'));
+
+  ok('V109 BLEEDING OUT, WIGGLING AROUND (Paolo\'s exact words). A downed man used to lie PERFECTLY STILL between crawl ticks, which made him indistinguishable from a corpse -- the one thing a dying man must never look like, because whether he is still alive is a decision the player makes: FINISH him, or walk past',
+    demo.includes('V109 BLEEDING OUT, WIGGLING AROUND') &&
+    demo.includes('const _w=bodyBreathes()?(Math.floor((JUICE.A?_bpmClock:now)/500)%4):0;') &&
+    demo.includes('return _w===2?L.crawl112[0]:L.prone112; }'));
+
+  ok('V109 AND THE WRITHE COSTS NO ART: prone112 and crawl112 are already baked and already approved, so a dying body moves without one new pixel being cooked during an art freeze. The one thing that WOULD need art -- a third distinct fall -- is deliberately not cooked here',
+    demo.includes('L.prone112&&L.crawl112&&L.crawl112.length'));
+
+  ok('V109 EVERYTHING RIDES THE ONE 120 CLOCK. The seamless-transition finding, applied: a cut reads as a POP when the outgoing frame and the incoming clip disagree, and this engine has an advantage nobody was using -- a transition landing on a beat boundary is one the player has already been told to expect. The bob, the writhe and the fire cycle all run off _bpmClock, never off performance.now()',
+    /const _w=bodyBreathes\(\)\?\(Math\.floor\(\(JUICE\.A\?_bpmClock:now\)\/500\)%4\)/.test(demo) &&
+    demo.includes('Math.floor((JUICE.A?_bpmClock:now)/500)%2];   /* JUICE.A BEAT-BREATHING'));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */

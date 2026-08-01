@@ -1,0 +1,79 @@
+BOHEMIA COMBAT — ANIMATION REQUESTS ROUND 3 (8/1/26, for the Animation chat)
+==============================================================================
+Round 1 (cover-rise, cover-drop, gun-walk, cover-fire, get-shoved, floor-rise,
+shiv-jab, bat-arc, spear-drive) and Round 2 (crouch-aim, flee/scramble) are
+COOKED AND WIRED. This is one request, and it comes with a MEASUREMENT rather
+than an opinion.
+
+THE RULING THAT DEMANDS IT
+--------------------------
+Paolo 7/31: "when they die they're either bleeding out wiggling around which
+you might have to make a new animation for and ALL OF IT HAS TO BE TRANSLATED
+FROM THE TYPE OF HEADSHOT THEY GOT... if I'm using a shotgun everyone fucking
+dies".
+
+COMBAT v109 shipped the MECHANISM for that on 8/1: the fall is no longer rolled
+on dice, it is inherited from the weapon and the range (deathFall(e,src,dist)),
+and every one of the six kill sites asks the same function. The mapping is live
+and gated.
+
+THE PROBLEM, MEASURED
+---------------------
+Before wiring it I rendered all three baked death variants on the real surface
+and measured every frame (alpha centroid, bounding box, frame 0 vs frame 11):
+
+    death[0]   driftX -10.5   flatten 0.73   widen 2.33
+    death[1]   driftX  -0.3   flatten 0.25   widen 3.64
+    death[2]   driftX  -0.3   flatten 0.25   widen 3.64
+
+  * death[0] is the one that TRAVELS: the body ends ~10px from where it
+    started and stays comparatively tall. Knocked off its feet, sideways.
+  * death[1] collapses straight down in place, 100px tall down to 24px.
+  * death[2] ENDS PIXEL-IDENTICAL TO death[1]. Same centroid, same box.
+
+SO THE BANK HOLDS TWO DISTINCT FALLS, NOT THREE. v109 therefore ships an honest
+two-way read (KNOCKBACK vs COLLAPSE) rather than a three-way fiction built on
+art that cannot express it.
+
+THE REQUEST
+-----------
+1. death-fold      ~2 beats   A THIRD, GENUINELY DISTINCT FALL: the body folds
+                              FORWARD over the wound and goes down face-first,
+                              rather than travelling sideways (death[0]) or
+                              collapsing flat under itself (death[1]/[2]).
+                              ACCEPTANCE, machine-checkable, same method as the
+                              measurement above: |driftX| < 4 AND flatten > 0.5
+                              at the last frame, i.e. it must be measurably
+                              NEITHER of the two we have. If it comes back
+                              matching death[1]'s numbers it has not been
+                              delivered.
+                              WIRING IS ALREADY THERE: add its index to
+                              FALL_DROP (or give it its own constant) and
+                              deathFall routes to it. No engine work needed.
+
+WHAT THIS UNLOCKS
+-----------------
+A rifle death that is not a pistol death. Today "translated from the type of
+headshot they got" can only say throw-him or drop-him. A third fall makes it a
+real read, and it is the only thing standing between the mechanic and what he
+asked for.
+
+NOT REQUESTED, DELIBERATELY
+---------------------------
+The bleed-out wiggle is DONE and cost no art. v109 makes a downed man alternate
+prone112 and crawl112[0] on the 120 grid (measured centroids 71.5 vs 72.4 -- a
+small shift of a body that cannot get up, not a crawl and not a corpse). Both
+clips were already baked and already approved. This lane cooked no pixels.
+
+THE SEAMLESS-TRANSITION FINDING (Paolo asked for the research)
+--------------------------------------------------------------
+A cut between two clips reads as a POP when the outgoing clip's current frame
+and the incoming clip's frame 0 disagree about where the body is. Sprite work
+has exactly two fixes: share a pose at the seam, or hold the outgoing frame
+until the incoming clip's natural start. This engine has a third advantage
+nobody was using -- EVERYTHING IS ON THE 120 GRID, so a transition that lands
+on a beat boundary is one the player's ear has already been told to expect.
+That is why the cover bob, the new writhe and the fire cycle all run off the
+one shared _bpmClock rather than off performance.now(). Any new clip should
+declare its length in BEATS, not milliseconds, and should start and end on a
+pose another clip can hand off to.
