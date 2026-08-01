@@ -428,3 +428,26 @@ already exempts vehicular venues whose vehicle surface IS the venue (drive-in,
 truck stop, parking structure). **Does D1 inherit that exemption?** A freeway
 shoulder and a railyard have no business wearing a sidewalk, but that is his call,
 not a guess to be baked into a gate.
+
+
+## D1-EXEMPT (Paolo 7/31, LOCKED) -- HIS ANSWER, SO NOBODY ASKS AGAIN
+
+> "OK, freeways and railyards do not get sidewalks"
+
+**FREEWAYS AND RAILYARDS ARE EXEMPT FROM D1.** They carry no sidewalk and a
+building fronting their surface is not a violation. This is his ruling, verbatim,
+and it is written here so the next session reads it instead of asking.
+
+It also settles the general shape, consistent with WALKABLE-LAND's existing
+vehicular-venue exemption: **a surface whose whole purpose is vehicles or rail
+does not wear a pedestrian walk.** The exempt set for the D1 gate is therefore:
+
+    freeway, interchange, rail, railyard, speedway, airport, airbase
+
+plus the WALKABLE-LAND vehicular venues already blessed (drive-in, truck stop,
+parking structure). Anything NOT on that list is a street a person walks beside,
+and D1 applies to it in full.
+
+**THIS LIST IS HIS, NOT MINE TO EXTEND.** A future session that wants another
+district exempted asks him; it does not reason by analogy from this list. The two
+he named are named; the rest follow from a law he already wrote.
