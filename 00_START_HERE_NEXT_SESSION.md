@@ -1,3 +1,51 @@
+ART (f3eu53): 8/2 LATEST — THE LOGO IS GOLD. I BUILT IT BACKWARDS FIRST AND HE CAUGHT IT.
+
+Paolo 8/2, with a zoomed screenshot of the gold letter: "I told you use this color and
+you didn't what the fuck"
+
+=== READ THE SENTENCE PROPERLY, IT IS THE WHOLE LESSON ===
+  "If you can put the coloring of the [Sign] painter exactly as the Punk stencil is
+   just be concerned with the coloring"
+I parsed: SIGN PAINTER shape + STENCIL colour, and shipped a WHITE stencil wordmark.
+He meant: THE PUNK STENCIL STAYS EXACTLY AS IT IS; THE SIGN PAINTER'S COLOURING IS WHAT
+GETS APPLIED. Gold onto the stencil. His reading is the one the sentence supports.
+*** BOTH READINGS WERE GRAMMATICALLY AVAILABLE, WHICH IS PRECISELY WHY IT SHOULD HAVE
+BEEN ASKED. One word would have cost nothing; assuming cost him a wrong front screen. ***
+
+=== SHIPPED ===
+Logo 11 = LOGO 3 UNCHANGED (dark wall, F_STENCIL cut-plate letterforms with bridges,
+uneven coverage, overspray halo, runs) wearing LOGO 5's GOLD. It is the alpha front
+screen. records/target/FRONT_SCREEN.png is the real 390px phone shot.
+
+THE GOLD IS SAMPLED OFF HIS SCREENSHOT, not re-derived - guessing twice was not an
+option:
+    his letter body       rgb(202, 173, 101)  #CAAD65
+    his lit stroke top    rgb(224, 196, 119)  #E0C477
+    my shipped mean ink   rgb(205, 174, 101)
+Three points on one channel, which is the JPEG of a photographed phone screen.
+
+=== A GUARD THAT WAS RIGHT AND MIS-CALIBRATED ===
+The front-screen patch REFUSED the legitimate re-patch because the gold PNG compressed
+4 KB smaller than the white one. Correct instinct, wrong number: that guard exists to
+catch the alpha being TRUNCATED (this file has gone to zero bytes once) and not to catch
+a payload swap. It is 2% now.
+
+=== STILL OPEN, AND STILL NOT MINE ===
+MAIN IS RED ON SEVEN GATES. Five are one failure wearing five names - LIFE, DRESS,
+POPULATION, MEMORY, DEVIATION all report ZERO AGENTS SIMMED. The block has no people in
+the sim. Bisected eight commits back on main: red at every one. CITY PEOPLE is GREEN
+(10 on screen in a real browser), so the DRAW is fine and the SIM is empty. Flagged for
+the WORLD/LIFE lane. PARTS PAINTED + BODY VARIATION are the CHARACTER lane's.
+
+=== THE QUEUE, UNCHANGED ===
+1. Features at half his density (median 4.9% vs his 7.0%). Plate-network cracks are
+   right, the COUNT is low. Next: more events per tile + VEGETATION through a crack and
+   HARDWARE (manhole, drain, vent).
+2. House upper floor band, perimeter wall, gate mouth, garage mouth still target-set.
+3. His bought yard tiles band. "I'll let you know when I have issues with the banding
+   until then" - LEAVE IT.
+4. Art cell 44 -> 88 px, "thats down the line".
+
 ART (f3eu53): 8/1 (g) LATEST — HE CHOSE THE LOGO AND IT IS THE FRONT SCREEN NOW.
 
 Paolo 8/1, with logos 3 and 5 side by side: "If you can put the coloring of the [Sign]

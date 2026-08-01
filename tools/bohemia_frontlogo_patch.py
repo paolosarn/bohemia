@@ -110,8 +110,14 @@ def main():
             "}")
         src = src.replace(old, new, 1)
 
-    if len(src) < before:
-        raise SystemExit('REFUSING: alpha would SHRINK %d -> %d' % (before, len(src)))
+    # THE GUARD IS AGAINST TRUNCATION, NOT AGAINST CHANGE. It first refused a legitimate
+    # re-patch because the replacement PNG compressed 4 KB smaller than the one it
+    # replaced - a correct instinct calibrated wrong. What it must catch is the alpha
+    # going to zero or losing a chunk, which is a real thing that has happened to this
+    # file. 2% is far tighter than any real loss and far looser than a payload swap.
+    if len(src) < before * 0.98:
+        raise SystemExit('REFUSING: alpha would LOSE CONTENT %d -> %d (%.1f%%)'
+                         % (before, len(src), 100.0 * len(src) / before))
     open(ALPHA, 'w', encoding='utf8').write(src)
     print('  alpha %d -> %d bytes' % (before, len(src)))
     print('  front screen now shows his logo, letterboxed, integer scale, no smoothing')

@@ -52,3 +52,41 @@ gates/logo_gate.py, 24 checks, registered as LOGO. It holds the brief (the LETTE
 must differ, checked on the raw glyph bitmaps so a filter-farm cannot pass), the clipping
 bug (no logo may run off its own frame), and now the front screen: the bytes on the
 splash must BE the judged bytes, blitted without smoothing.
+
+
+================================================================================
+CORRECTION — 8/2. I BUILT IT BACKWARDS AND HE CAUGHT IT.
+================================================================================
+
+PAOLO, sending a zoomed screenshot of the GOLD letter: "I told you use this color
+and you didn't what the fuck"
+
+HE IS RIGHT. His instruction was:
+  "If you can put the coloring of the [Sign] painter exactly as the Punk stencil
+   is just be concerned with the coloring"
+
+I parsed it as SIGN PAINTER'S SHAPE + STENCIL'S COLOUR and shipped a white stencil
+wordmark on the front screen. The sentence says the opposite, and it says it
+clearly once read properly: the thing that stays "exactly as it is" is THE PUNK
+STENCIL. The thing being APPLIED is THE SIGN PAINTER'S COLOURING. Gold onto the
+stencil, not white onto the sign painter.
+
+Both readings are grammatically available, which is exactly why it should have
+been ASKED rather than assumed - a one-word question would have cost nothing and
+it cost him a wrong front screen instead.
+
+THE FIX: logo 3 unchanged in every respect - the dark wall, the F_STENCIL cut-plate
+letterforms with their bridges, the uneven coverage, the overspray halo, the runs -
+wearing logo 5's gold.
+
+AND THE GOLD IS SAMPLED OFF HIS OWN SCREENSHOT, not re-derived. Guessing a second
+time was not an option:
+    his letter body        rgb(202, 173, 101)   #CAAD65
+    his lit top of stroke  rgb(224, 196, 119)   #E0C477
+    my shipped mean ink    rgb(205, 174, 101)
+Three points off on one channel, which is the JPEG of a photographed phone screen.
+
+ALSO FIXED: the front-screen patch refused this legitimate re-patch because the new
+PNG compressed 4 KB smaller than the one it replaced. The instinct was right and the
+calibration was wrong - that guard exists to catch the alpha being TRUNCATED, which
+has really happened to this file, not to catch a payload swap. It is 2% now.

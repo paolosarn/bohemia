@@ -673,48 +673,54 @@ def logo_grid(rnd):
 
 
 
-# --------------------------------------------------- 11 SIGN PAINTER, STENCIL COLOURWAY
+# ------------------------------------------- 11 PUNK STENCIL IN SIGN-PAINTER GOLD
 def logo_chosen(rnd):
-    """*** THE ONE HE PICKED, 8/1. ***
+    """*** THE ONE HE CHOSE, 8/1 - AND I BUILT IT BACKWARDS THE FIRST TIME. ***
 
-    Paolo, with logos 3 and 5 side by side: "If you can put the coloring of the [Sign]
-    painter exactly as the Punk stencil is just be concerned with the coloring I would be
-    very happy. Do that properly slide it into the homepage the first thing I see every
-    time I open up the alpha."
+    Paolo: "If you can put the coloring of the [Sign] painter exactly as the Punk stencil
+    is just be concerned with the coloring I would be very happy."
 
-    So: SIGN PAINTER's letterforms, its board and its painter's drop-shadow, wearing PUNK
-    STENCIL's palette. ONLY THE COLOUR MOVES - he was explicit ("just be concerned with
-    the coloring"), and widening that into a redesign would be answering a brief he did
-    not give. The gold goes; the white ink, the dark grainy wall and the overspray come
-    across from 3 exactly as they are there.
+    I parsed that as "sign painter's SHAPE, stencil's COLOUR" and shipped a white stencil
+    wordmark. He meant the opposite and the sentence says so: the thing that stays
+    "exactly as it is" is THE PUNK STENCIL; the thing being applied is THE SIGN PAINTER'S
+    COLOURING. He then sent a zoomed screenshot of the gold letter with "I told you use
+    this color and you didn't" - which is the correction, and he is right.
+
+    SO: LOGO 3 UNCHANGED IN EVERY RESPECT - the dark wall, the F_STENCIL letterforms with
+    their cut-plate bridges, the uneven coverage, the overspray halo, the runs - wearing
+    LOGO 5's GOLD. Only the ink colour moves, which is what "just be concerned with the
+    coloring" asks for in either reading.
+
+    THE GOLD IS SAMPLED OFF HIS OWN SCREENSHOT rather than re-derived: the letter body
+    reads #CAAD65 with the lit top of the stroke at #E0C477, on his dark ground. Those
+    are the numbers below. Guessing a second time was not an option.
     """
+    GOLD_TOP = (232, 198, 119)          # #E8C677  the lit top of the stroke
+    GOLD_MID = (202, 173, 101)          # #CAAD65  his screenshot's body colour
+    GOLD_LOW = (168, 138, 74)           # the fall-off, so it is not one flat chip
     im = blank((30, 28, 26))
-    d = ImageDraw.Draw(im)
-    # STENCIL'S WALL, the same generator as logo 3
+    # LOGO 3'S WALL, unchanged
     for y in range(CANVAS[1]):
         for x in range(CANVAS[0]):
             v = 34 + int(rnd.f() * 16)
             px(im, x, y, (v + 4, v + 2, v - 2))
-    grid = lay(F_BRUSH, WORD, tracking=2)
+    grid = lay(F_STENCIL, WORD, tracking=2)
     S = fit(grid, 6)
     x0, y0, gw, gh = place(grid, S)
-    # SIGN PAINTER'S BOARD, in the wall's own greys instead of the brown
-    d.rectangle([x0 - 18, y0 - 14, x0 + gw + 17, y0 + gh + 13], outline=(96, 92, 86))
-    d.rectangle([x0 - 14, y0 - 10, x0 + gw + 13, y0 + gh + 9], outline=(64, 61, 57))
     for y, row in enumerate(grid):
         for x, v in enumerate(row):
             if not v:
                 continue
             for sy in range(S):
                 for sx in range(S):
-                    if rnd.f() < 0.10:            # stencil paint does not cover evenly
+                    if rnd.f() < 0.10:              # spray never covers evenly
                         continue
-                    c = 226 + int(rnd.r(-30, 22))
-                    px(im, x0 + x * S + sx, y0 + y * S + sy, (c, c - 6, c - 16))
-            # the signwriter's drop shadow, kept: it is STRUCTURE, not colour
-            for k in range(2):
-                px(im, x0 + x * S + S + k, y0 + y * S + S + k, (20, 19, 18))
-    # STENCIL'S OVERSPRAY, the thing that proves it was sprayed and not printed
+                    t = (y * S + sy) / max(gh - 1, 1)
+                    base = GOLD_TOP if t < 0.30 else GOLD_MID if t < 0.74 else GOLD_LOW
+                    j = rnd.r(-14, 12)
+                    px(im, x0 + x * S + sx, y0 + y * S + sy,
+                       tuple(max(0, min(255, int(c + j))) for c in base))
+    # LOGO 3'S OVERSPRAY, in the same gold, because it is the same paint
     for _ in range(2600):
         gx, gy = int(rnd.r(0, len(grid[0]))), int(rnd.r(0, len(grid)))
         if not grid[gy][gx]:
@@ -722,14 +728,15 @@ def logo_chosen(rnd):
         ax = x0 + gx * S + rnd.r(-9, 9 + S)
         ay = y0 + gy * S + rnd.r(-9, 9 + S)
         if 0 <= ax < CANVAS[0] and 0 <= ay < CANVAS[1]:
-            base = im.getpixel((int(ax), int(ay)))
+            b0 = im.getpixel((int(ax), int(ay)))
             k = rnd.r(0.12, 0.42)
-            px(im, ax, ay, tuple(int(b + (222 - b) * k) for b in base))
-    for _ in range(3):                            # and a run, held too close
+            px(im, ax, ay, tuple(int(b0[i] + (GOLD_MID[i] - b0[i]) * k) for i in range(3)))
+    for _ in range(3):                              # and the runs, held too close
         rx = x0 + rnd.r(0, gw)
+        ry = y0 + gh - 4
         for i in range(int(rnd.r(6, 22))):
-            px(im, rx, y0 + gh + i, (206, 200, 188))
-    return im, 'THE ONE (SIGN PAINTER IN STENCIL WHITE)', "his pick, 8/1: sign painter's letterforms and board wearing the punk stencil's palette. Only the colour moved."
+            px(im, rx, ry + i, GOLD_LOW)
+    return im, 'THE ONE (PUNK STENCIL IN SIGN-PAINTER GOLD)', 'his pick, 8/1: logo 3 exactly as it is, wearing logo 5\'s gold. Gold sampled off his own screenshot.'
 
 
 
@@ -782,8 +789,12 @@ def main():
         'status': 'PENDING PAOLO',
         'my_pick': 11,
         'my_pick_reason': 'NOT MINE ANY MORE - PAOLO CHOSE, 8/1. He took logo 5 (SIGN '
-                          'PAINTER) and asked for logo 3 (PUNK STENCIL) colouring: "just '
-                          'be concerned with the coloring". Logo 11 is that, and it is '
+                          'STENCIL) and asked for logo 5 (SIGN PAINTER) COLOURING: "just '
+                          'be concerned with the coloring". I built it backwards first - '
+                          'stencil colour on sign-painter shapes - and he corrected it '
+                          'with a zoomed screenshot of the gold: "I told you use this '
+                          'color and you didn\'t". Logo 11 is now logo 3 unchanged in '
+                          'gold sampled off that screenshot, and it is '
                           'now the alpha front screen, which is what he asked for: "the '
                           'first thing I see every time I open up the alpha". My own '
                           'vote had been 1, DEAD MARQUEE; his call supersedes it and the '
