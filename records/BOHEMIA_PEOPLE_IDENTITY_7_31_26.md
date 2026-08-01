@@ -126,7 +126,10 @@ PROOF, through the real alpha with the real cast:
 ## WHAT IS HIS, AND IS EMPTY
 Two tables ship empty and the gate fails if either gains a row:
 - **KNOWN_AT_START** — who you already know: main-quest and backstory people.
-  [PENDING Paolo]. The lineman is the obvious first candidate (the run's own
+  **PARKED BY PAOLO 8/1, NOT PENDING.** Asked once; his answer was "Don't worry
+  about that right now don't worry at all about that right now." The table stays
+  empty, the game ships with nobody known from the first frame, and asking
+  everybody their name is the complete mechanic. Do not re-surface it. The lineman is the obvious first candidate (the run's own
   words: "he is your neighbour, one door down, nothing closer is possible") and he
   is deliberately NOT in it, because naming him is a ruling and not an inference.
 - **LINES** — what anybody says when no quest is talking. This lane builds the

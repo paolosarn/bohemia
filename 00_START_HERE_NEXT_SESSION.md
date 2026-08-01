@@ -341,10 +341,14 @@ SOUNDS lane's footsteps commit, and it lost none of their bytes (RUN GATE 126/12
 after).
 
 === WHAT COMES AFTER, in order ===
-1. WHO DOES HE ALREADY KNOW? KNOWN_AT_START is empty and it is the last open half
-   of his own ruling. The lineman is the obvious first (the run's own words: "he is
-   your neighbour, one door down, nothing closer is possible"). Naming him is a
-   ruling, not an inference, so it was NOT done. One name from Paolo closes it.
+1. *** WHO HE ALREADY KNOWS IS PARKED BY PAOLO. DO NOT ASK HIM AGAIN. ***
+   He was asked once, on 8/1, whether the lineman (or anyone) should be named from
+   the start. His answer, verbatim: "Don't worry about that right now don't worry
+   at all about that right now." That is a RULING, not a delay: KNOWN_AT_START
+   stays empty, the game ships with nobody known from the first frame, and asking
+   everybody their name IS the complete mechanic until he raises it himself.
+   It is not a hole and it does not block anything. Re-surfacing a question he
+   closed is the thing the doctrine calls a turn that missed.
 2. PEOPLE 2, THE FACTION STANDING LEDGER: *** DEAD BY RULING, see the top. ***
 3. PEOPLE 3, the companion social layer, still waits on the combat extraction.
 4. Flagged, NOT claimed — for CHARACTER: the six portraits are six colourways of

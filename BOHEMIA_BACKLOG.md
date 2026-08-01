@@ -3406,8 +3406,11 @@ P-A. [PAOLO RULED IT 7/31, FILED BY THE CITY LANE, NOT TOUCHED BY THEM]
    >>> called by their trade, an "Ask their name" button is the only door to a
    >>> name, and asking is remembered forever across saves. The gate that
    >>> asserted the opposite was rewritten, not worked around.
-   >>> STILL [PENDING Paolo]: WHO you already know (KNOWN_AT_START, empty) — the
-   >>> lineman is the obvious first, and naming him is his call.
+   >>> WHO YOU ALREADY KNOW IS **PARKED BY PAOLO 8/1**, not pending: "Don't worry
+   >>> about that right now don't worry at all about that right now." KNOWN_AT_START
+   >>> stays empty and the game ships with nobody known from the first frame.
+   >>> DO NOT ASK HIM AGAIN and do not fill the table; ask-everybody IS the whole
+   >>> mechanic until he raises it himself.
    TWO REAL BUGS FOUND BY THE GATE, both measured: (1) `agent.seed % 6` can only
    return 0/2/4 over 528 bodies on 40 blocks, so THREE OF THE SIX townsfolk
    bodies the alpha bakes had never been drawn — dead low bits from a float64
