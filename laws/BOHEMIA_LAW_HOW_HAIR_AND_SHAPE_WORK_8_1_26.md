@@ -121,6 +121,20 @@ silhouette, different palette per citizen. MEASURED, SUN CROP, one shape on thre
 complexions: crown identical at 82,58,38; taper porcelain 154,139,130 / tan
 106,81,61 / ebony 47,35,27. 76 hair pixels in every case -- nothing dissolved.
 
+ONLY ON THE SKULL (Paolo 8/2, amending clause 6): *"that fade effect that you do
+should only apply to hair that is inside the borders of the head of the skull. You
+can't be doing that fitting effect for hair that is outside the borders of the
+head."*
+
+The reason is physical, and it is why this is a rule rather than a preference: the
+tint exists BECAUSE THE SCALP IS UNDER THE HAIR. Hair hanging past the skull -- a
+fall below the jaw, a flared side, a back extension -- has nothing behind it but
+air. Tinting that toward skin is colouring hair with a body part that is not there.
+The test is the PART GRID, not a bounding box, so it follows his painted silhouette
+exactly. MEASURED: ASH SWEEP 8 off-skull pixels, 0 tinted; DESERT CURL 29
+off-skull, 0 tinted -- identical across complexions, while on-skull pixels carry
+the wearer's tone.
+
 SUPERSEDED MEASUREMENT from the killed density version:
 `92% -> 69% -> 54% -> 42% -> 33% -> 25% -> 0%`. BUZZ CUT, which has no fade, holds
 ~90% and then stops dead. That difference is the whole clause, and it is why

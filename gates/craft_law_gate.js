@@ -104,11 +104,18 @@ ok('clause 6 is BUILT and says so', /\*\*BUILT 8\/1\/26\.\*\*/.test(law) && !/\[
    NOT JUST STRAIGHT THE SKIN TONE." It BLENDS now: the pixel stays hair and stays
    in the mass, its colour mixed toward the wearer's own complexion. */
 ok('clause 6 in code: it TINTS hair toward the wearer\'s skin, it does not skip',
-  /var skinTint=function\(c,y\)/.test(src) && /skinMid/.test(src));
+  /var skinTint=function\(c,x,y\)/.test(src) && /skinMid/.test(src));
 ok('clause 6 in code: the tint is capped so a hair pixel never becomes plain skin',
   /Math\.min\(0\.75,/.test(src));
 ok('clause 6 in code: every hair pixel is routed through the tint',
   /put\(x,y, skinTint\(/.test(src));
+/* ONLY ON THE SKULL (Paolo 8/2). The tint exists because the scalp is under the
+   hair; hair hanging past the skull has nothing behind it but air. The test is the
+   PART GRID, not a bounding box, so it follows his painted silhouette exactly. */
+ok('clause 6 in code: the tint is refused off the skull (head/face pixels only)',
+  /var gv=g\[y\*CW\+x\];\s*\n\s*if\(gv!==1&&gv!==2\)return c;/.test(src));
+ok('clause 6: the skull test reads the PART GRID, not a bounding box',
+  /The test is the PART GRID, not a bounding box/.test(src));
 /* PINNED A NAME AND HE APPROVED IT. This asserted SUN CROP was st:'cook' -- so the
    moment he thumbed it up ("Perfect I thumbs up both of the additions"), the gate
    reported a FAILURE for his own verdict. Fifth time today a gate has gone red at a
