@@ -259,6 +259,55 @@ def main():
                  style['TARGET']['grain'], style['TARGET']['sat']))
         print('   MINE%6.0f colours  edge %5.2f  grain %5.1f%%  sat %.3f'
               % (agg['colours'], agg['edge'], agg['grain'], agg['sat']))
+    # ---- THE OPENINGS (8/2). Window, boarded window, garage bay: the last old art on
+    # the house. They are OVERLAYS WITH ALPHA and that is load-bearing, not an
+    # implementation detail: the run picks one wall skin per house out of fifteen, so an
+    # opening baked as a whole tile carries ONE of those walls and fourteen houses in
+    # fifteen show a window in the wrong stucco. This gate holds the overlay design.
+    OPEN = 'banks/BOHEMIA_OPENINGS_8_2_26.txt'
+    ok('the openings bank exists', os.path.exists(OPEN), OPEN)
+    if os.path.exists(OPEN):
+        ob = json.load(open(OPEN))
+        ot = {t['id']: t for t in ob.get('tiles', [])}
+        need = ['wall_window', 'wall_boarded', 'garage_top', 'garage_bottom',
+                'garage_top_l', 'garage_bottom_l', 'garage_top_r', 'garage_bottom_r']
+        ok('every opening the run asks for exists',
+           all(k in ot for k in need),
+           'missing: ' + ', '.join(k for k in need if k not in ot))
+        solid = []
+        nohole = []
+        for k, t in ot.items():
+            im = Image.open(io.BytesIO(base64.b64decode(t['b64']))).convert('RGBA')
+            ok_size = im.size == (44, 44)
+            if not ok_size:
+                solid.append(k)
+                continue
+            b4 = im.tobytes()
+            pxs = [tuple(b4[i:i + 4]) for i in range(0, len(b4), 4)]
+            alpha = [p[3] for p in pxs]
+            # a WALL opening must be mostly transparent, or it is a baked tile wearing
+            # the word "overlay" and the wall behind it never shows
+            if k.startswith('wall_') and sum(1 for a2 in alpha if a2 < 8) < len(alpha) * 0.25:
+                solid.append(k)
+            # and it must actually be a HOLE: real dark pixels, not just a frame
+            dark = sum(1 for p in pxs
+                       if p[3] > 200 and 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2] < 60)
+            if dark < len(alpha) * 0.06:
+                nohole.append(k)
+        ok('WALL openings are real overlays, not baked tiles', not solid,
+           'these are opaque across the wall: ' + ', '.join(solid[:4]))
+        ok('every opening is actually a HOLE (dark interior, not just a frame)',
+           not nohole, ', '.join(nohole[:4]))
+        ok('the openings are honestly unjudged', ob.get('status') == 'PENDING PAOLO',
+           str(ob.get('status')))
+        run = 'slices/BOHEMIA_RUN_CURRENT.html'
+        if os.path.exists(run):
+            r = open(run, encoding='utf8', errors='ignore').read()
+            ok('the run draws the wall BEHIND a window before punching it',
+               'OPEN_ON_WALL' in r and 'OPENING_IMG' in r)
+            ok('the opening bytes actually ship in the run',
+               ot['wall_window']['b64'] in r if 'wall_window' in ot else False)
+
     print('   TEXTURE MATCH GATE: %d passed, %d failed  (%d tiles, %d materials)'
           % (P, F, len(tiles), len(mats)))
     return 1 if F else 0

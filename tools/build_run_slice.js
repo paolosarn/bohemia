@@ -163,6 +163,25 @@ html = html.replace('__TEX_ROOF_JSON__', JSON.stringify(texRoof));
 console.log('  TEXTURE MATCH: ' + texWall.length + ' wall + ' + texRoof.length
             + ' roof tiles, approved 8/1, onto the house field');
 
+/* ---- THE OPENINGS (8/2): window, boarded window, garage bay. -----------------
+   OVERLAYS WITH ALPHA, not whole tiles. The run picks ONE wall skin per house out of
+   fifteen (his wall law: one design per plot, variety between plots), so a window baked
+   as a complete tile could only carry ONE of those fifteen walls and fourteen houses in
+   fifteen would show a window in the wrong stucco. Drawn on top of whatever skin the
+   house already wears, they match for free - including for skins cooked later. ---- */
+var OPEN_BANK = 'banks/BOHEMIA_OPENINGS_8_2_26.txt';
+var openBank = JSON.parse(fs.readFileSync(OPEN_BANK, 'utf8'));
+var openMap = {};
+openBank.tiles.forEach(function (t) { openMap[t.id] = t.b64; });
+['wall_window', 'wall_boarded', 'garage_top', 'garage_bottom',
+ 'garage_top_l', 'garage_bottom_l', 'garage_top_r', 'garage_bottom_r'
+].forEach(function (k) {
+  if (!openMap[k]) throw new Error('OPENINGS: missing ' + k + ' in ' + OPEN_BANK);
+});
+if (html.indexOf('__OPENINGS_JSON__') < 0) throw new Error('missing __OPENINGS_JSON__ placeholder');
+html = html.replace('__OPENINGS_JSON__', JSON.stringify(openMap));
+console.log('  OPENINGS: ' + Object.keys(openMap).length + ' alpha overlays onto the wall skin');
+
 if (html.indexOf('__ART_BANKS__') < 0) throw new Error('missing __ART_BANKS__ placeholder');
 html = html.replace('__ART_BANKS__', banks);
 

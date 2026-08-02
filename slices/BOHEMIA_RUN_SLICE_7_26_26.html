@@ -1212,6 +1212,14 @@ function skinImg(kind,gx,gy){
   var im=bank[seed%bank.length];
   return (im&&im.complete&&im.naturalWidth)?im:null;
 }
+/* THE OPENINGS (8/2), as alpha overlays over whatever wall this house wears. */
+var OPENINGS_B64 = __OPENINGS_JSON__;
+var OPENING_IMG = {};
+Object.keys(OPENINGS_B64).forEach(function(k){
+  var im=new Image(); im.src='data:image/png;base64,'+OPENINGS_B64[k]; OPENING_IMG[k]=im; });
+/* which surface each opening belongs on: a window is in a WALL, a garage bay is its own
+   dark box and takes no skin behind it. */
+var OPEN_ON_WALL = { wall_window:1, wall_boarded:1 };
 var _skinLit={};
 function litSkin(im,mul){
   /* the same tile, relit. Cached per (image,multiplier) so a wall costs one canvas
@@ -1232,6 +1240,19 @@ function litSkin(im,mul){
   return c;
 }
 function drawSkin(id,gx,gy,X,Y,S){
+  var ov=OPENING_IMG[id];
+  if(ov){
+    /* AN OPENING IS TWO PASSES: the house's own wall first, then the hole punched
+       through it. That is what keeps a window in the SAME stucco as the wall around it
+       no matter which of the fifteen skins this plot drew. A garage bay is its own dark
+       box and gets no wall behind it. */
+    if(OPEN_ON_WALL[id]){
+      var w=skinImg('W',gx,gy);
+      if(w) ctx.drawImage(w,X,Y,S,S);
+    }
+    if(ov.complete&&ov.naturalWidth){ ctx.drawImage(ov,X,Y,S,S); return true; }
+    return !!OPEN_ON_WALL[id];
+  }
   var k=SKIN_FIELD[id]; if(!k) return false;
   var im=skinImg(k,gx,gy); if(!im) return false;
   var mul=SKIN_LIGHT[id];

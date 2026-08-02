@@ -1,3 +1,55 @@
+ART (f3eu53): 8/2 (d) LATEST — THE OPENINGS. THE LAST OLD ART ON THE HOUSE IS GONE.
+
+=== WHAT WAS LEFT ===
+Roof, yard and the whole wall field were textured; the WINDOW, the BOARDED WINDOW and
+the GARAGE BAY were still flat tan target-set tiles sitting in a textured wall. Those
+three were deliberately skipped before, because they carry OPENINGS and skinning them
+with a field texture would have PAINTED THE WINDOW SHUT. They needed a cook.
+
+*** THE DESIGN DECISION THAT MATTERS: THEY ARE OVERLAYS WITH ALPHA, NOT WHOLE TILES. ***
+The run picks ONE wall skin per house out of fifteen (his wall law: one design per plot,
+variety between plots). A window baked as its own complete tile can only ever carry ONE
+of those fifteen walls, so FOURTEEN HOUSES IN FIFTEEN would show a window in the wrong
+stucco - the same flat-tan mismatch this whole run of work exists to remove, just
+subtler and much harder to spot. Drawn as a transparent overlay ON TOP of whatever skin
+the house already wears, it matches for free, forever, including for skins cooked later.
+drawSkin() does two passes for a wall opening: the house's own wall, then the hole.
+
+=== WHAT MAKES AN OPENING READ AS A HOLE AND NOT A DARK RECTANGLE ===
+  REVEAL     the wall has thickness, so a jamb shows down one side
+  HEAD       the top is in shadow, hard and dark
+  SILL       the bottom catches sky, the lightest thing on the tile, and it OVERSAILS
+  DEAD GLASS near-black with ONE weak sky reflection near the head. 12% CLUSTERED POWER
+             is canon - a lit window would be the most off-canon thing in the file
+  GRIME      thirty years of dust runs DOWN off the sill, never up
+  MUNTIN     a domestic window is divided, and the division survives at 44px
+BOARDED: plywood nailed at an angle with visible nails, because nobody measured.
+GARAGE: the roll-up curtain coiled in its header, a dark bay, and a concrete apron with
+the oil still on it. Jambs are the same tile with a lit reveal down one edge.
+
+=== GATED ===
+gates/texture_match_gate.py is 31 checks now and holds the overlay design itself: a
+WALL opening must be MOSTLY TRANSPARENT (or it is a baked tile wearing the word
+"overlay" and the wall behind it never shows), it must contain real dark interior (a
+frame with no hole is not an opening), the run must draw the wall BEFORE punching it,
+and the shipped bytes must be the cooked bytes.
+run_gate 126/126, banks_used 26/26, taste 29/29, reusefirst 91/91, banklaw 8/8.
+
+=== THE QUEUE ===
+1. Perimeter wall and gate mouth - the last target-set surfaces on the BLOCK (the house
+   itself is done).
+2. Features: ground ~5.5% vs his 7.0%. Weeds and manholes read right; his CRACKS are
+   still crisper - my grain washes them. Craft gap, not a knob.
+3. His bought yard tiles band. "I'll let you know when I have issues with the banding
+   until then" - LEAVE IT. Never touch his pixels.
+4. Art cell 44 -> 88 px. Would fix (2) outright: a finer crack needs sub-pixel room it
+   does not have at 44.
+
+=== STILL RED ON MAIN, STILL NOT MINE ===
+LIFE / DRESS / POPULATION / MEMORY / DEVIATION - ZERO AGENTS SIMMED, the block has no
+people in the sim. Bisected eight commits back. CITY PEOPLE is GREEN so the DRAW is fine
+and the SIM is empty. WORLD/LIFE lane's. PARTS PAINTED + BODY VARIATION are CHARACTER's.
+
 ART (f3eu53): 8/2 (c) LATEST — THE WHOLE WALL FIELD IS TEXTURED NOW, NOT THREE-FIFTHS
 OF IT. Queue item 2, most of the way.
 
