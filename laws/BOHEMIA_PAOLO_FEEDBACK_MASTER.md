@@ -55,6 +55,14 @@ five is not done.
 
 Each line is a ruling he made, in his words, with the machine that holds it.
 
+- **8/2 — LABEL EVERY PICTURE.** "You are showing me pictures, but I don't know which is
+  which." Every image put in front of him carries its own NAME **in the pixels** — not in
+  the caption, not in the sentence above it, not implied by the order they were sent. One
+  subject per image; a grid of four unlabelled renders is one picture of a grid and he
+  cannot score any of it. A PICTURE HE CANNOT IDENTIFY IS A PICTURE HE CANNOT JUDGE, and
+  asking for a verdict on one costs him a turn. Same root as "he never digs in files": HE
+  DOES NOT HAVE MY CONTEXT. `gates/label_every_picture_gate.py` +
+  `tools/bohemia_judge_cards.py`
 - **8/2 — ARTICULATION IS NOT FRAGMENTATION.** "There's like six different buildings
   of the library. What's up with that?" A library is ONE building. "No building is a
   flat rectangle" means ARTICULATE THE MASS (a drum, a tower, a long wing, all sharing

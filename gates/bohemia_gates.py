@@ -134,6 +134,9 @@ GATES = [
      'dead police station: HQ, sally port, patrol fleet, impound, public/secure separation', False),
     ('LIBRARY',        ['node', 'gates/library_gate.js'],
      'dead library: ONE building — Predock drum + tower + museum wing + reading wing, plaza, lot', False),
+    ('LABEL PICTURES', ['python3', 'gates/label_every_picture_gate.py'],
+     'Paolo 8/2: "you are showing me pictures, but I dont know which is which" -- every image '
+     'carries its own NAME in the pixels, checked by READING the title band, not by trusting the draw call', False),
     ('ONE BUILDING',   ['node', 'gates/one_building_gate.js'],
      'ARTICULATION IS NOT FRAGMENTATION: a library/chapel/hall is ONE mass, a downtown block is MANY', False),
     ('LANDFILL',       ['node', 'gates/landfill_gate.js'],
