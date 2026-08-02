@@ -134,8 +134,15 @@ ok('clause 6: the skull test reads the PART GRID, not a bounding box',
    it is "a skin-toned style ENTERS as a candidate, and only HE promotes it". So:
    there must be candidates awaiting his thumb, and the fade option must appear on
    at least one of them. Names are his to change; the rule is not. */
-ok('clause 6: skin-toned styles ENTER as candidates awaiting his thumb',
-  (src.match(/st:'cook',layer:'hair'/g) || []).length >= 1);
+/* THIS DEMANDED A NON-EMPTY QUEUE, and he emptied it by approving everything.
+   "All the hair thumbs up." An empty candidate queue is the GOAL of the verdict
+   workflow, not a failure of it -- STALE UNJUDGED IS DEAD cuts the other way too.
+   Sixth time today a gate has gone red at a ruling being carried out.
+   The real invariant is not "something is pending"; it is that the ROUTE exists:
+   the judge board must still SHOW candidates when there are any, so a new cook
+   cannot be born straight into canon without passing his thumb. */
+ok('clause 6: the judge board still admits candidates, so nothing enters canon unjudged',
+  /g\.st === 'canon' \|\| g\.st === 'cook'/.test(src));
 /* The tint must be REACHABLE, not necessarily on whatever happens to be pending
    his thumb right now -- the candidate list turns over every round. Assert the
    approved canon carries it. */

@@ -172,9 +172,14 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
      reporting a failure for his own ruling being carried out, which is a gate
      outranking a ruling. Counts what the board is actually for. */
   ok(`the judge board lists every JUDGEABLE shape (${R.rows} rows, ${R.shots} head shots, ${R.judgeable} judgeable)`,
-    R.rows >= R.judgeable && R.shots === R.judgeable * 2);
-  ok('the board shows the BACK as well as the front (a bun and a tail match from the front)',
-    R.shots === R.judgeable * 2);
+    R.rows >= R.judgeable && R.shots === R.judgeable * 8);
+  /* ALL EIGHT, not two (Paolo 8/2: "I have not seen all eight Cardinal directions
+     of the hair, just north and south"). He had approved 21 styles off 2 views of
+     8. Front-and-back was never enough: the PROFILE is where a mohawk's ridge, a
+     ponytail's tail and a fringe's depth actually read, and it is where the strip
+     bug I recorded still lives. A judge surface that hides a facing hides a defect. */
+  ok('the board shows ALL EIGHT facings, not just front and back',
+    R.shots === R.judgeable * 8);
   ok('the board has a notes box (comment section at the bottom, always)', R.notes);
   /* A ROUND IS A ROUND (Paolo 8/1: "fully update the judge save system ... when I
      leave notes they shouldn't be around for the next round"). Notes lived in one
