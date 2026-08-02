@@ -1,3 +1,64 @@
+PEOPLE (7h9sfy): 8/2 (e) LATEST — SOMEBODY TO ACTUALLY TALK TO. He asked for it in
+these words: "can you just have one extra NPC chilling outside the spawn in the suburb
+that I can just talk to and test out your mechanics?"
+Record: records/BOHEMIA_SOMEBODY_TO_TALK_TO_8_2_26.md
+
+DONE: walk out the front door and he is TWO TILES away. The button reads TALK TO THE
+KEEPER. Tap it, ask his name, leave, and his name is over his head.
+
+=== WHY HE HAD TO ASK, WHICH IS A MEASUREMENT AND NOT AN EXCUSE ===
+The sim's roam() sends every idle body to a RANDOM TILE ANYWHERE ON A 128x128 BLOCK, so
+the nearest person standing outdoors was routinely 99 TILES from the front door, and
+often there was nobody in sight at all. Everything this lane has built - the one button,
+the card, asking a name, the name over their head - was reachable only after a long walk
+and a lot of luck. Measured both ways: fixture removed 99 tiles, fixture in 2 tiles.
+
+=== HE IS A REAL RESIDENT, NOT A PROP ===
+A prop would test nothing. Real seat in a real house, built by the agents module's own
+makeAgent, so he resolves to an ordinary person: real trade, real household seat, real
+card, a name you have to ask for. ONE flag is special: porch:true = walk to one spot and
+stay there instead of roaming.
+HE IS INSIDE MASS EDITS like everybody else - joins the roster BEFORE the person-facts
+pass, so Paolo's 7/29 law reaches him. Verified: with the everyone-indoors rule he goes
+indoors.
+
+=== THREE OF HIS OWN LOCKED RULINGS SAID NO TO MY FIRST VERSION ===
+Each caught by a gate, each a real break.
+1. FIVE FAMILIES. A free seat in the nearest EMPTY house made him a household of one, so
+   the block held five families instead of the four he ruled on 8/1 - and one of them was
+   a man living alone, which is not what "four families" means in English.
+   FIXED: he joins an EXISTING household. Four families hold at 3/3/3/2.
+2. HE SURVIVED THE DIAL AT ZERO. Added unconditionally he was still standing there at
+   dial 0, so the ghost valley was not a ghost valley and the bottom of his slider was a
+   lie. FIXED: only added if the block already has residents. Dial 0 -> 0 bodies.
+3. *** HE PLUGGED A WALKWAY, and this is the one to keep. *** A body that never moves
+   PERMANENTLY REMOVES A CELL (occupancy law: one body per cell), so parking him on a
+   driveway is not a decoration, it is a wall. At 15:00 three bodies sat stacked at
+   (4,28)(4,29)(4,30) all wanting home, TWO OF THEM ORDINARY RESIDENTS QUEUED BEHIND HIM,
+   and run_people_gate went red on "every body is indoors after the edit" - not because
+   the edit missed anybody but because they could not walk.
+   FIXED: he stands on OPEN GROUND. Most walkable neighbours wins, nearest breaks the
+   tie, under four open sides is a corridor and not a place to loiter.
+AND A FOURTH THING THE SURFACE SAID NO TO: placed adjacent to your own door, the one
+contextual button prefers THE DOOR YOU ARE STANDING AT over the person beside you, so it
+read GO INSIDE and the conversation was unreachable. He stands 2-5 tiles out.
+
+IF YOU MOVE HIM, KEEP ALL FOUR: existing household, only when the block is populated,
+open ground, and not adjacent to the player's own door.
+
+=== AND A NOTE FOR EVERY LANE: THE BUILD STAMP HAS A SHAPE ===
+run_gate checks /BUILD \d{1,2}\/\d{1,2}[a-z]*\s*[·-]\s*\S/ - date, then LETTERS only.
+Main was carrying "BUILD 8/2b1", and a DIGIT after the date fails that pattern, so THE
+RUN was red on main for it. I hit the same thing with 8/2b2 and fixed it to 8/2bc, which
+turns THE RUN green again. If you are past 'z', go 'aa', 'ab' - never a number.
+
+=== GATE ===
+C4c nearest body on the street is 2 tiles away, not across the block.
+C4d and he is standing on open ground, not plugging a walkway.
+Mutations: no NPC -> C4c red at 99 tiles. Porch flag ignored so he roams -> C4c red at
+99 tiles.
+PEOPLE 150 -> 152. RUN PEOPLE 45, recovered from 43/2.
+
 CITY (1eztay): 8/2 (an) LATEST — HOW BIG THE MAP IS, ANSWERED WITH A FLOOR, AND
 THE ONE LINK WAS DEAD ON MAIN AGAIN (fixed, and it was also the dead COMBAT tab).
 

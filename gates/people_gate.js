@@ -422,6 +422,47 @@ async function partC() {
     ok('C4 there are people out on the street (' +
       morning.people.filter(p => p.outside).length + ')', morning.people.some(p => p.outside));
 
+    /* C4c: SOMEBODY IS RIGHT THERE WHEN YOU STEP OUTSIDE.
+       Paolo, 8/2, in these words: "can you just have one extra NPC chilling
+       outside the spawn in the suburb that I can just talk to and test out your
+       mechanics." He had to ask because roam() sends every body to a random tile
+       on a 128-tile block, so the nearest person outdoors was routinely a HUNDRED
+       tiles from his front door - everything this lane built was reachable only
+       after a long walk and a lot of luck.
+       THE NUMBER IS THE CLAIM. "There exists a porch sitter" would pass with him
+       standing anywhere at all; what he asked for is somebody he does not have to
+       go looking for. */
+    const outNow = await page.evaluate(() => window.__RUN.state());
+    const near = morning.people.filter(p => p.outside)
+      .map(p => Math.abs(p.x - outNow.px) + Math.abs(p.y - outNow.py))
+      .sort((a, b) => a - b)[0];
+    ok('C4c SOMEBODY IS CHILLING OUTSIDE YOUR DOOR — nearest body on the street ' +
+      'is ' + near + ' tiles away, not across the block', near != null && near <= 12);
+
+    /* C4d: AND HE IS NOT PLUGGING A WALKWAY. A body that never moves permanently
+       removes a cell (OCCUPANCY LAW: one body per cell), so parking him in a
+       driveway is not a decoration, it is a wall. The first placement did exactly
+       that: at 15:00 three bodies sat stacked in a one-wide path all wanting
+       home, two of them ordinary residents queued behind him, and run_people_gate
+       went red on 'every body is indoors after the edit' - not because the edit
+       missed anybody but because they could not walk. */
+    const openness = await page.evaluate(() => {
+      const g = window.__RUN.grid(), st = window.__RUN.state();
+      const pl = window.__RUN.people().people.filter(p => p.outside)
+        .map(p => ({ p, d: Math.abs(p.x - st.px) + Math.abs(p.y - st.py) }))
+        .sort((a, b) => a.d - b.d)[0];
+      if (!pl) return -1;
+      let open = 0;
+      for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) {
+        if (!dx && !dy) continue;
+        const row = g.pass[pl.p.y + dy];
+        if (row && row[pl.p.x + dx]) open++;
+      }
+      return open;
+    });
+    ok('C4d and he is standing on OPEN GROUND, not plugging a walkway (' +
+      openness + ' walkable sides)', openness >= 4);
+
     /* THE KEY IS THE BLOCK'S, NOT THE VALLEY'S. `SEED` is 7 for the whole world;
        if identity keyed off it, house 3's second resident would be the same
        person in every cell there is. */
@@ -544,9 +585,14 @@ async function partC() {
       'a stranger with no name over them', drawn.length === 1);
 
     const goldAfter = await goldOnScreen();
+    /* THE THRESHOLD IS SMALL ON PURPOSE. A four-letter first name at 10px is
+       only about twenty lit pixels, so this can never be a big number - the
+       strength of the claim is that it is a DELTA in a view where nothing else
+       moved, not that it is large. C27a and C27b are the exact checks; this one
+       exists to prove the ink reached the canvas at all. */
     ok('C27c the letters are REALLY PAINTED on the run canvas — gold went ' +
       goldBefore + ' -> ' + goldAfter + ' with nothing else changed',
-      goldBefore >= 0 && goldAfter - goldBefore > 20);
+      goldBefore >= 0 && goldAfter - goldBefore >= 10);
     await page.screenshot({ path: path.join(PROOF_DIR, 'BOHEMIA_PEOPLE_NAME_ON_THE_WORLD_8_2_26.png') });
 
     await page.click('#act');

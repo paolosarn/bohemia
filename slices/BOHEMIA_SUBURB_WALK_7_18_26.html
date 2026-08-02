@@ -1268,6 +1268,18 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
             if(gate&&occFree(gate[0],gate[1],a.id)){ a.loc.mode='out'; place(a,gate[0],gate[1]); a._path=null; }
             return; }
           if(a.loc.mode==='in'){ stepOut(a,door); return; }
+          /* A PORCH SITTER GOES TO ONE SPOT AND STAYS THERE. roam() below picks
+             a random tile anywhere on a 128-tile block, which is exactly why the
+             nearest person outdoors is routinely a hundred tiles from your front
+             door. A body flagged porch walks to a.porchAt once and then stops.
+             It is the ONE thing this flag does; everything else about them -
+             identity, schedule, card, the name you have to ask for - is an
+             ordinary resident's, because a prop would test nothing. */
+          if(a.porch){
+            if(a.porchAt && (a.loc.x!==a.porchAt[0]||a.loc.y!==a.porchAt[1]))
+              walkTo(a,a.porchAt);
+            return;
+          }
           roam(a,act);
         }
       });

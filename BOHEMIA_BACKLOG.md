@@ -3641,6 +3641,48 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-H. [SHIPPED 8/2, HE ASKED FOR IT - records/BOHEMIA_SOMEBODY_TO_TALK_TO_8_2_26.md]
+   "can you just have one extra NPC chilling outside the spawn in the suburb that
+   I can just talk to and test out your mechanics?" Done - walk out the front door
+   and he is TWO TILES away.
+   WHY HE HAD TO ASK, measured: roam() sends every idle body to a random tile on a
+   128x128 block, so the nearest person outdoors was routinely 99 TILES from the
+   front door and often nobody was in sight at all. Everything this lane built was
+   reachable only after a long walk and a lot of luck. With the fixture removed:
+   99 tiles. With it: 2.
+   HE IS A REAL RESIDENT, NOT A PROP: real seat in a real house, built by the
+   agents module's own makeAgent, so he has a real trade (the button reads TALK TO
+   THE KEEPER), a real card, a name you must ask for, and a name over his head
+   once you have. ONE flag is special - porch:true, walk to one spot and stay.
+   *** THREE OF PAOLO'S OWN LOCKED RULINGS SAID NO TO MY FIRST VERSION, and each
+   one was caught by a gate: ***
+   (1) FIVE FAMILIES. A free seat in the nearest EMPTY house made him a household
+       of one, so the block held five families instead of the four he ruled on
+       8/1, one of them a man living alone. FIXED: he joins an EXISTING household.
+       Four families hold at 3/3/3/2.
+   (2) HE SURVIVED THE DIAL AT ZERO, so the ghost valley was not a ghost valley
+       and the bottom of his slider was a lie. FIXED: only added if the block
+       already has residents. Dial 0 -> 0 bodies.
+   (3) HE PLUGGED A WALKWAY, and this is the one worth keeping. A body that never
+       moves PERMANENTLY REMOVES A CELL (occupancy law), so parking him on a
+       driveway is not a decoration, it is a wall. At 15:00 three bodies sat
+       stacked at (4,28)(4,29)(4,30) all wanting home, TWO OF THEM ORDINARY
+       RESIDENTS QUEUED BEHIND HIM, and run_people_gate went red on "every body is
+       indoors after the edit" - not because the edit missed them but because they
+       could not walk. FIXED: he stands on OPEN GROUND (most walkable neighbours
+       wins, under four open sides is a corridor not a place to loiter).
+   AND A FOURTH THING THE SURFACE SAID NO TO: adjacent to your own door, the one
+   contextual button prefers THE DOOR YOU ARE STANDING AT over the person next to
+   you, so it read GO INSIDE and the conversation was unreachable. He stands 2-5
+   tiles out: past the doorway, still right there.
+   HE IS INSIDE MASS EDITS: joins the roster before the person-facts pass, so a
+   rule reaches him. Verified - with the everyone-indoors rule, he goes indoors.
+   GATE: C4c nearest body 2 tiles not across the block; C4d standing on open
+   ground not plugging a walkway. Mutations: no NPC -> C4c red at 99 tiles; porch
+   flag ignored so he roams -> C4c red at 99 tiles.
+   | gates: PEOPLE 150 -> 152, RUN PEOPLE 45 recovered from 43/2 | 8/2 | YES - he
+   is the thing to go and talk to.
+
 P-F. [SHIPPED 8/2 - records/BOHEMIA_A_NAME_YOU_EARNED_IS_A_NAME_YOU_SEE_8_2_26.md]
    THE SECOND HALF OF THE 7/31 RULING, WHICH HAD NEVER BEEN BUILT. His words:
    "the game will track that SO ANYTIME YOU MIGHT SEE THEM IN THE FUTURE LIKE
