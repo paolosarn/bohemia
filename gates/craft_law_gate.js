@@ -90,8 +90,19 @@ ok('clause 4 in code: the FRONT CURTAINS use it too (they drew solid before)',
   /if\(texSkip\(xl,y\)\)continue/.test(src) && /if\(texSkip\(xr,y\)\)continue/.test(src));
 ok('clause 5 in code: the head centre floors instead of rounding',
   /hcx=Math\.floor\(\(hMn\+hMx\)\/2\)/.test(src));
-ok('clause 5 in code: a strip centres on its own row',
-  /_rc=Math\.floor\(\(s\[0\]\+s\[1\]\)\/2\)/.test(src));
+/* THIS PINNED THE BROKEN FIX. It asserted the strip centred via
+   Math.floor((s[0]+s[1])/2) -- which is exactly the implementation he killed three
+   styles over. Flooring an even-width head's centre lands the strip half a pixel
+   LEFT, every row, every facing (measured: head 22-33 centre 27.5, strip 25-29
+   centre 27). The real bug was PARITY: c-strip..c+strip is always an ODD width and
+   an odd strip cannot centre on an even head. Now both edges come off the DOUBLED
+   centre, so the strip's parity follows the head's. Measured after: 0.0 offset on
+   every front and back facing. */
+ok('clause 5 in code: a strip takes its parity from the head, so the centre is exact',
+  /var _d2=s\[0\]\+s\[1\];/.test(src)
+  && /mn=Math\.ceil\(_d2\/2\)-strip; mx=Math\.floor\(_d2\/2\)\+strip;/.test(src));
+ok('clause 5: the profile-view gap is recorded as KNOWN and unfixed, not hidden',
+  /KNOWN, MEASURED, NOT FIXED/.test(src));
 ok('clause 7 in code: a long style widens its curtain below the jaw',
   /\(opt\.back\|\|0\)>=3&&y>hBot/.test(src));
 
@@ -125,8 +136,11 @@ ok('clause 6: the skull test reads the PART GRID, not a bounding box',
    at least one of them. Names are his to change; the rule is not. */
 ok('clause 6: skin-toned styles ENTER as candidates awaiting his thumb',
   (src.match(/st:'cook',layer:'hair'/g) || []).length >= 1);
-ok('clause 6: a candidate actually carries the skin-tint (fade:) option',
-  /st:'cook',layer:'hair'[\s\S]{0,240}fade:\s*\d/.test(src));
+/* The tint must be REACHABLE, not necessarily on whatever happens to be pending
+   his thumb right now -- the candidate list turns over every round. Assert the
+   approved canon carries it. */
+ok('clause 6: the skin-tint is live on approved canon styles',
+  (src.match(/st:'canon',layer:'hair'[\s\S]{0,240}?fade:\s*\d/g) || []).length >= 4);
 
 /* ---- the rulings this law grew out of are still on file ---------------- */
 ok('the wave-1 verdict sheet is kept',
