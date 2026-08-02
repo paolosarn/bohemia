@@ -53,8 +53,13 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
   await p.waitForTimeout(1200);
   await p.evaluate(()=>{const f=document.getElementById('front');if(f)f.click();});
   await p.waitForTimeout(600);
+  // ONE WORLD TAB (Paolo 8/2): the CITY tab is gone, RUN opens the world frame.
+  // This clicked 'city', found nothing, and `if(t)` swallowed it — so the gate
+  // then waited 30s for a frame no click had ever asked for and died on timeout.
+  // A gate that navigates by a button the user does not have is testing nothing.
   await p.evaluate(()=>{const t=[...document.querySelectorAll('.tab')]
-    .find(x=>x.getAttribute('data-p')==='city'); if(t)t.click();});
+    .find(x=>x.getAttribute('data-p')==='run');
+    if(!t) throw new Error('no RUN tab in the bar'); t.click();});
   // THE CITY PANEL IS A srcdoc IFRAME, so it has no URL to match on and it is
   // created lazily on the first tab click. Wait for the ELEMENT, then take its
   // content frame — matching frames by url() silently found nothing.

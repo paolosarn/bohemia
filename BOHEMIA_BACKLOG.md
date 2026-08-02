@@ -1724,6 +1724,25 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AP. [DONE 8/2 — MY OWN REGRESSION, FOUND BY RUNNING THE SUITE AND CHECKING
+   WHOSE IT WAS] DELETING THE CITY TAB BROKE TWO MORE NAVIGATORS, AND MY SWEEP
+   SWORE THEY WERE CLEAN. The tab-deletion ship swept gates/ and tools/ for the
+   two spellings of the dead button I had found and fixed four gates. The full
+   suite then went red on two more: gates/bottomleft_gate.py (a THIRD spelling,
+   getAttribute('data-p')==='city' — 30s timeout on #cityFrame) and
+   tools/bohemia_canvas_scale_audit.js (the selector built from a TABS array, so
+   nothing static could ever have seen it — 3 failed assertions in
+   canvas_scale_gate, which is how CANVAS SCALE and BOTTOM-LEFT both showed red
+   on main all day). BOTH FIXED, both gates green (bottomleft 9/0, canvas scale
+   29/0).
+   THE SWEEP IS NOW A PROPERTY, NOT A BLOCKLIST: one_world_tab_gate reads the tab
+   bar out of the LIVE document and requires every tab any gate or tool navigates
+   by to exist. AND the thing under all three, which no name check can see: THE
+   FAILED CLICK WAS SILENT — `.catch(() => {})` or `if (t) t.click()`. 16 files
+   carried the swallow; all 16 are strict now and the gate fails any new one, for
+   tab names that do not exist yet. Law updated with the post-mortem.
+   | one_world_tab_gate 92/0, sabotage-proven | none | no.
+
 0AN. [DONE 8/2 — THE PRISON FIX FINALLY REACHED HIM] DROP IN LANDS YOU ON THE
    STREET, ON THE SURFACE HE ACTUALLY PLAYS.
    0AI built NO DISTRICT IS A PRISON into the RUN SLICE and proved it by walking
@@ -1745,7 +1764,9 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
      preference puts the worst case straight back to 9,432. | 8/2 | YES - tap
      RUN, hit DROP IN anywhere, you should be standing on a street.
 
-0AO. [FLAGGED 8/2, NOT DECIDED — CANON-LEVEL, PENDING PAOLO] TWO LIVE ANSWERS TO
+0AO. [FLAGGED 8/2 — PARKED BY PAOLO, DO NOT RAISE IT. "just worry about the
+   coding and plumbing for now." It stays recorded as PLUMBING DEBT, not as a
+   question for him.] TWO LIVE ANSWERS TO
    A NUMBER HE RULED. Measured today, both on main:
      bohemia_population.js (the 7/29 zone map, HIS ruling made mechanical)
        297 people in the walkable valley - his ~300 - and 64% of residential

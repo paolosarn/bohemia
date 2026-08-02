@@ -59,7 +59,7 @@ function cityBlob(a){
     await page.waitForTimeout(3000);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
     await page.waitForTimeout(1500);
-    await page.evaluate(() => { const t = document.querySelector('[data-p="run"]'); if (t) t.click(); });
+    await page.evaluate(() => { const t = document.querySelector('[data-p="run"]'); if(!t) throw new Error('that tab is not in the bar'); t.click(); });
     let f = null;
     for (let i = 0; i < 20; i++) {
       await page.waitForTimeout(3000);

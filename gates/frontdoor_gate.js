@@ -38,7 +38,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
      anymore". Both buttons opened the same panel since 7/28, so the world is
      reached through RUN now. Navigating by a button the user does not have is
      a gate testing a surface nobody can reach. */
-  await page.click('.tab[data-p="run"]').catch(() => {});
+  await page.click('.tab[data-p="run"]');
   await page.waitForTimeout(14000);
   const f = page.frames().find(fr => fr.name() === 'cityFrame');
   if (!f) { console.log('  FAIL: the CITY frame never loaded'); process.exit(1); }

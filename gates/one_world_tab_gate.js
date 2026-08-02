@@ -48,19 +48,83 @@ ok('the RUN tab is still there', /data-p="run">RUN</.test(src));
 ok('and the routing that makes RUN show the world survives',
   src.indexOf("(t.dataset.p==='run') ? 'city'") >= 0);
 /* NOTHING MAY NAVIGATE BY A BUTTON THE USER DOES NOT HAVE.
-   The first version of this swept gates/ for the data-p selector only, and three
-   things slipped through in the same hour: two gates that found the tab by its
-   TEXT ('CITY'), and tools/bohemia_render_audit.js, which is not in gates/ at
-   all. So the sweep covers BOTH directories and BOTH ways of naming a tab. */
-for (const dir of ['gates', 'tools']) {
-  for (const g of fs.readdirSync(path.join(ROOT, dir))) {
-    if (!/\.(js|py)$/.test(g) || g === 'one_world_tab_gate.js') continue;
-    if (/one_world_tab_patch/.test(g)) continue;          // the patch that removed it
-    const body = fs.readFileSync(path.join(ROOT, dir, g), 'utf8');
-    ok('nothing clicks the dead CITY tab by selector (' + dir + '/' + g + ')',
-      body.indexOf('.tab[data-p="city"]') < 0);
-    ok('nothing finds the dead CITY tab by its text (' + dir + '/' + g + ')',
-      !/textContent\.trim\(\)\s*===\s*'CITY'/.test(body));
+   THREE VERSIONS OF THIS CHECK, and the first two were the same mistake twice.
+   v1 swept gates/ for the `.tab[data-p="city"]` selector. v2 added tools/ and the
+   by-TEXT form after two gates and tools/bohemia_render_audit.js slipped through.
+   Both were BLOCKLISTS: they banned the spellings I had happened to find. So
+   gates/bottomleft_gate.py sailed through green-swept and then died on a 30s
+   timeout in the real suite, because it names the tab a THIRD way --
+       [...document.querySelectorAll('.tab')].find(x=>x.getAttribute('data-p')==='city')
+   -- and then `if(t) t.click()` SWALLOWED the miss, so the failure surfaced far
+   from its cause. A blocklist of spellings can always be spelled around.
+
+   v3 asserts the PROPERTY instead: collect every tab name any gate or tool
+   navigates by, and require each one to be a tab that ACTUALLY EXISTS. It needs
+   no edit the next time a tab is renamed or retired -- it fails on its own,
+   naming the file and the dead tab.
+
+   AND THE BAR IS READ FROM THE RUNNING DOCUMENT, NOT FROM A REGEX. v3's first
+   draft scraped the alpha with /class="tab"[^>]*data-p="([a-z]+)"/ and reported
+   that four gates navigate by a CHARACTER tab that does not exist. It does
+   exist. It is written `class="tab on"` because it is the tab you start on, and
+   the regex demanded the exact string `class="tab"`. That is the SAME mistake as
+   the blocklist one layer up: assuming a spelling. A live `querySelectorAll`
+   cannot be spelled around, so the sweep waits for the browser and uses it.
+   (Verified in a browser before believing the accusation: from the alpha you can
+   tap back to CHARACTER, so nobody is locked out of it -- the gate was wrong,
+   not the game. DO NOT CLAIM THINGS ABOUT THE CODEBASE WITHOUT CHECKING.) */
+function sweepNavigators(BAR) {
+  ok('the tab bar came from the LIVE document (' + [...BAR].join(',') + ')', BAR.size >= 3);
+  for (const dir of ['gates', 'tools']) {
+    for (const g of fs.readdirSync(path.join(ROOT, dir))) {
+      if (!/\.(js|py)$/.test(g) || g === 'one_world_tab_gate.js') continue;
+      const raw = fs.readFileSync(path.join(ROOT, dir, g), 'utf8');
+      /* COMMENTS ARE NOT CODE. A file that EXPLAINS in prose that the CITY tab
+         used to be clicked here is documenting the fix, not doing the thing --
+         and this check accused bohemia_canvas_scale_audit.js of exactly that,
+         one line after its comment said why it no longer does it. Strip block
+         comments, line comments and python docstrings before scanning. */
+      const body = raw
+        .replace(/\/\*[\s\S]*?\*\//g, ' ')
+        .replace(/^[ \t]*(\/\/|#).*$/gm, ' ')
+        .replace(/"""[\s\S]*?"""/g, ' ');
+      /* a PATCH TOOL carries the old markup on purpose -- that is its search
+         anchor, not navigation. The honest separator is not the filename but
+         whether the file ever CLICKS anything: a byte-rewriter never does.
+         A CALL, not the word: `\bclick\b` also matched this patch tool's own
+         docstring sentence "four gates reached the world by clicking". */
+      if (!/\.click\(|click\(\)/.test(body)) continue;
+      const named = new Set();
+      /* every way a tab gets named: the CSS selector, a data-p comparison however
+         it is spelled (getAttribute / dataset), and the visible label text. */
+      for (const m of body.matchAll(/\.tab\[data-p=["']([a-z]+)["']\]/g)) named.add(m[1]);
+      for (const m of body.matchAll(/data-p['"]?\s*\)?\s*={2,3}\s*['"]([a-z]+)['"]/g)) named.add(m[1]);
+      for (const m of body.matchAll(/dataset\.p\s*={2,3}\s*['"]([a-z]+)['"]/g)) named.add(m[1]);
+      /* the by-TEXT form, WINDOWED to the same expression -- a file-wide test for
+         `.tab` plus any uppercase textContent compare anywhere in the file caught
+         button labels ('NONE') that have nothing to do with the tab bar. */
+      for (const m of body.matchAll(
+        /querySelectorAll\(['"]\.tab['"]\)[\s\S]{0,200}?textContent[^=]{0,24}={2,3}\s*['"]([A-Z]+)['"]/g))
+        named.add(m[1].toLowerCase());
+      for (const t of named)
+        ok('navigates by a tab that EXISTS: ' + dir + '/' + g + ' -> ' + t.toUpperCase(),
+          BAR.has(t));
+
+      /* AND THE SWALLOW, WHICH IS THE ACTUAL BUG IN ALL THREE CASES.
+         Name-checking only works when the name is a literal in the file. It is
+         not in tools/bohemia_canvas_scale_audit.js, which builds the selector
+         from a TABS array -- so that one clicked a dead CITY tab for a whole day
+         and the name sweep above could never have seen it.
+         What every one of them shares is that the FAILED CLICK WAS SILENT:
+         `.catch(() => {})` on the click, or `if (t) t.click()` on a find that
+         returned undefined. The gate then failed thirty seconds and one wrong
+         surface later, nowhere near its cause. So: a tab click may not swallow
+         its own failure. This holds for tab names that do not exist yet. */
+      ok('a failed tab click is not swallowed by .catch (' + dir + '/' + g + ')',
+        !/\.tab\[data-p=[^;]{0,80}?\)\s*\.catch\s*\(/.test(body));
+      ok('a tab that was not found is not silently skipped (' + dir + '/' + g + ')',
+        !/data-p[\s\S]{0,120}?if\s*\(\s*(\w+)\s*\)\s*\1\.click\(\)/.test(body));
+    }
   }
 }
 
@@ -76,6 +140,7 @@ for (const dir of ['gates', 'tools']) {
   const bar = await page.evaluate(() => [...document.querySelectorAll('.tab')].map(t => t.dataset.p));
   ok('the tab bar carries no CITY button (' + bar.join(',') + ')', bar.indexOf('city') < 0);
   ok('the tab bar carries RUN', bar.indexOf('run') >= 0);
+  sweepNavigators(new Set(bar));
 
   await page.click('.tab[data-p="run"]');
   await page.waitForTimeout(14000);

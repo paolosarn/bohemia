@@ -63,7 +63,7 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
   await p.waitForTimeout(500);
   // open RUN so the frame exists and boots
   await p.evaluate(()=>{const t=[...document.querySelectorAll('.tab')]
-    .find(x=>x.getAttribute('data-p')==='run'); if(t)t.click();});
+    .find(x=>x.getAttribute('data-p')==='run'); if(!t) throw new Error('that tab is not in the bar'); t.click();});
   // ATTACHED, not visible: the panel is display:none until its tab is on, and the
   // frame boots regardless. Waiting for visibility waits forever.
   await p.waitForSelector('#runFrame',{state:'attached',timeout:30000});

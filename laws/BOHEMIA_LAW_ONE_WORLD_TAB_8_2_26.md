@@ -68,3 +68,60 @@ line that makes that work is still there.
 ## THE LIFE LESSON UNDERNEATH (never preached in game)
 Two doors into one room is not twice the access. It is one room and a lie about
 how big the building is.
+
+---
+
+# THE SAME MISTAKE THREE TIMES, AND WHAT ACTUALLY FIXES IT
+## added 8/2/26, later the same day
+
+Deleting the CITY button broke every gate that navigated by it. The first sweep
+found four and fixed them. Then the full suite ran, and **two more turned up red**
+that the sweep had sworn were clean:
+
+| what broke | how it named the tab | how it failed |
+|---|---|---|
+| `gates/bottomleft_gate.py` | `getAttribute('data-p')==='city'` | 30s timeout waiting for `#cityFrame` |
+| `tools/bohemia_canvas_scale_audit.js` | `'.tab[data-p="' + t + '"]'` from a `TABS` array | measured the wrong panel; **3 assertions** in `canvas_scale_gate` failed |
+
+## WHY THE SWEEP MISSED THEM: IT WAS A BLOCKLIST
+
+It banned the two spellings I had happened to find. A blocklist of spellings can
+always be spelled around, and it was — twice, within the hour, in the same repo.
+
+**v3 asserts the property instead:** read the tab bar out of the LIVE document,
+collect every tab name any gate or tool navigates by, and require each one to
+exist. It needs no edit the next time a tab is renamed. It fails on its own.
+
+## AND THE THING UNDER ALL THREE, WHICH IS NOT ABOUT NAMES AT ALL
+
+A name check cannot see `'.tab[data-p="' + t + '"]'`. Nothing static can. But
+every one of these failures shared something a machine CAN see:
+
+> **THE FAILED CLICK WAS SILENT.**
+> `.catch(() => {})` on the click. `if (t) t.click()` on a find that returned
+> undefined.
+
+The click did not happen, nothing said so, and the gate died thirty seconds and
+one wrong surface later — nowhere near the cause. **The swallow is the bug. The
+dead tab was only the trigger.** Sixteen files carried it; all sixteen are strict
+now, and `one_world_tab_gate` fails any new one. This holds for tab names that do
+not exist yet, which is the whole point.
+
+## AND THE ACCUSATION I ALMOST FILED
+
+v3's first draft scraped the bar with `/class="tab"[^>]*data-p="([a-z]+)"/` and
+reported that four gates navigate by a CHARACTER tab **that does not exist**. It
+does exist. It is written `class="tab on"`, because it is the tab you start on,
+and the regex demanded the exact string `class="tab"`. One browser probe — tap
+RUN, then tap back — showed CHARACTER reachable in one tap.
+
+That is the same mistake one layer up: **assuming a spelling**. It nearly became
+a written claim that Paolo was locked out of his own character screen. He was
+not. *DO NOT CLAIM THINGS ABOUT THE CODEBASE WITHOUT CHECKING* (8/1) applies to
+what a gate reports, not only to what a session says.
+
+The bar is now read with a live `querySelectorAll`. A running document cannot be
+spelled around.
+
+## THE LIFE LESSON UNDERNEATH (never preached in game)
+Banning the lies you have already heard is not honesty. It is a list.

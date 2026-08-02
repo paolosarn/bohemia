@@ -90,7 +90,7 @@ const PROBE = `(() => {
        `city` - that is the iframe's id and it has not changed - but the BUTTON
        that opens it is RUN now. Tab and frame are no longer the same word. */
     const TAB = (FRAME === 'city') ? 'run' : FRAME;
-    await page.click('.tab[data-p="' + TAB + '"]').catch(() => {});
+    await page.click('.tab[data-p="' + TAB + '"]');
     await page.waitForSelector('#' + FRAME + 'Frame', { timeout: 60000 }).catch(() => {});
     for (let i = 0; i < 20; i++) {
       await page.waitForTimeout(3000);

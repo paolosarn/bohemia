@@ -262,7 +262,7 @@ const RUN_FILE = path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html');
     await p2.waitForTimeout(2500);
     await p2.click('#front').catch(() => {});
     await p2.waitForTimeout(1200);
-    await p2.click('.tab[data-p="run"]').catch(() => {});
+    await p2.click('.tab[data-p="run"]');
     await p2.waitForTimeout(14000);
     const cf = p2.frames().find(fr => fr.name() === 'cityFrame');
     ok('D the frame he actually plays is reachable', !!cf);

@@ -26,7 +26,7 @@ const { chromium } = require('/opt/node22/lib/node_modules/playwright');
   await p.waitForTimeout(9000);
   await p.mouse.click(215,450); await p.waitForTimeout(2500);
   await p.mouse.click(215,450); await p.waitForTimeout(2500);
-  await p.evaluate(()=>{const t=document.querySelector('[data-p="combat"]');if(t)t.click();});
+  await p.evaluate(()=>{const t=document.querySelector('[data-p="combat"]');if(!t) throw new Error('that tab is not in the bar'); t.click();});
   await p.waitForTimeout(7000);
   const f=p.frames().find(x=>x.name()==='combatFrame');
   if(!f){ console.log(JSON.stringify({ok:false,why:'no combatFrame',errs})); await b.close(); return; }

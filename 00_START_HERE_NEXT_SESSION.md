@@ -1,3 +1,54 @@
+CITY (1eztay): 8/2 (am) LATEST — *** TWO GATES WERE RED ON MAIN ALL DAY AND BOTH
+WERE MINE. *** The lesson the PEOPLE lane wrote below ("check whether the red is
+yours") paid off within the hour of it being written.
+
+WHAT SHIPPED
+1. DROP IN LANDS YOU ON A STREET. Paolo: "I'm like locked in this fucking suburb."
+   The 8/1 prison fix went into the run slice's findHomeCell and COULD NOT HAVE
+   REACHED HIM, because #p-run is display:none for the life of the app and he has
+   never once looked at that file. It is in the CITY FRAME now, the surface he
+   actually plays: DROP IN prefers a road cell, then a cell touching a road, then
+   any walkable cell as before. Worst-case walk to a street went 9,432 tiles -> 3.
+   Walkability itself is unchanged - only which walkable cell you are handed.
+2. THE TAB DELETION'S OWN WRECKAGE, CLEANED UP. Deleting the CITY button broke
+   two more navigators my sweep had sworn were clean, and they were the red
+   BOTTOM-LEFT and CANVAS SCALE that everybody has been stepping around:
+     - gates/bottomleft_gate.py named the tab a THIRD way and died on a 30s
+       timeout waiting for a frame no click had ever asked for. Now 9/0.
+     - tools/bohemia_canvas_scale_audit.js built the selector from a TABS array,
+       so no static sweep could ever see it. It silently measured whatever panel
+       was open and reported no walked world at all - 3 failed assertions in
+       canvas_scale_gate. Now 29/0.
+
+THE PART EVERY LANE SHOULD TAKE
+My sweep was a BLOCKLIST: it banned the two spellings I happened to have found.
+A blocklist of spellings gets spelled around, and it was, twice, in one hour.
+It is a PROPERTY now - the tab bar is read out of the LIVE document and every tab
+any gate or tool navigates by must exist.
+
+AND THE THING UNDER ALL THREE, which no name check can ever see: THE FAILED CLICK
+WAS SILENT. `.catch(() => {})` on the click, or `if (t) t.click()` on a find that
+returned undefined. The click did not happen, nothing said so, and the gate failed
+thirty seconds and one wrong surface later. SIXTEEN FILES CARRIED THAT SWALLOW.
+All sixteen are strict now (they throw, naming the tab) and one_world_tab_gate
+fails any new one - including for tabs that do not exist yet. Sabotage-proven both
+ways. Law + post-mortem: laws/BOHEMIA_LAW_ONE_WORLD_TAB_8_2_26.md.
+
+I ALSO ALMOST FILED A FALSE ACCUSATION. The first property check scraped the bar
+with /class="tab"[^>]*data-p="([a-z]+)"/ and reported four gates navigating by a
+CHARACTER tab that does not exist. It does. It is written `class="tab on"` because
+it is the tab you start on. One browser probe (tap RUN, tap back) showed CHARACTER
+one tap away. Same mistake one layer up - assuming a spelling - and it nearly
+became a written claim that Paolo was locked out of his own character screen.
+
+NOT MINE TO DECIDE, AND ONE OF THEM IS PARKED
+- THE POPULATION NUMBER is PARKED BY PAOLO ("just worry about the coding and
+  plumbing for now") - DO NOT RAISE IT. The two live answers are still ~15x apart
+  (zone map 297 from his 7/29 food ceiling; OCCUPIED_RATE=0.038 -> ~1,113 from the
+  8/1 survival model) and that is recorded in backlog 0AO as plumbing debt, not as
+  a question for him.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. It is real, tested, and invisible. Still
+  open, still not something a tab deletion gets to decide.
 ART (f3eu53): 8/2 (ah) LATEST — THE COMMUNITY WALL AND ITS GATE. THE BLOCK IS DONE.
 
 PEOPLE (7h9sfy): 8/2 (c) LATEST — REPAIRING A DISTRICT TURNED EVERY NEIGHBOUR YOU HAD

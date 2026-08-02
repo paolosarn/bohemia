@@ -62,7 +62,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   await page.waitForTimeout(2500);
   await page.click('#front').catch(() => {});
   await page.waitForTimeout(1200);
-  await page.click('.tab[data-p="run"]').catch(() => {});
+  await page.click('.tab[data-p="run"]');
   /* THE RUN TAB OPENS THE CITY NOW (Paolo 7/28: "Kill"). The run slice is dead as a
      TAB, but it is still wired into the shell and what this gate measures is still
      alive in it - so the harness shows that panel directly instead of tapping a tab

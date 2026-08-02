@@ -116,7 +116,7 @@ function cityBlob(alpha) {
     await page.waitForTimeout(2500);
     await page.evaluate(() => {
       document.querySelectorAll('#splash,.splash').forEach(s => s.style.display = 'none');
-      const t = document.querySelector('[data-p="run"]'); if (t) t.click();
+      const t = document.querySelector('[data-p="run"]'); if(!t) throw new Error('that tab is not in the bar'); t.click();
     });
     await page.waitForTimeout(3500);
 

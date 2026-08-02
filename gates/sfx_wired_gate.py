@@ -101,7 +101,7 @@ const METER=`(function(){
   /* Reach the run WITHOUT a gesture: script-driven, so no user activation is
      granted. This is the strict path -- the one his phone was on. */
   await p.evaluate(()=>{const t=[...document.querySelectorAll('.tab')]
-    .find(x=>x.getAttribute('data-p')==='run'); if(t)t.click();});
+    .find(x=>x.getAttribute('data-p')==='run'); if(!t) throw new Error('that tab is not in the bar'); t.click();});
   await p.waitForSelector('#runFrame',{state:'attached',timeout:30000});
   await p.waitForTimeout(3500);
   const fr=await (await p.$('#runFrame')).contentFrame();

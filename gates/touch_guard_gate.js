@@ -122,7 +122,7 @@ const READ = sel => {
      anymore". Both buttons opened the same panel since 7/28, so the world is
      reached through RUN now. Navigating by a button the user does not have is
      a gate testing a surface nobody can reach. */
-  await page.click('.tab[data-p="run"]').catch(() => {});
+  await page.click('.tab[data-p="run"]');
   await page.waitForTimeout(14000);
   const f = page.frames().find(fr => fr.name() === 'cityFrame');
   ok('the CITY frame is reachable', !!f);
@@ -137,7 +137,7 @@ const READ = sel => {
   }
   /* THE RUN'S OWN DIRECTION BUTTONS, MEASURED IN THE REAL ALPHA. Source checks
      stop the regression; this is the control he actually had in his thumb. */
-  await page.click('.tab[data-p="run"]').catch(() => {});
+  await page.click('.tab[data-p="run"]');
   /* THE RUN TAB OPENS THE CITY NOW (Paolo 7/28: "Kill"). The run slice is dead as a
      TAB, but it is still wired into the shell and what this gate measures is still
      alive in it - so the harness shows that panel directly instead of tapping a tab

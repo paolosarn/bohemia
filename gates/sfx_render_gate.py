@@ -73,7 +73,7 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
   await p.evaluate(()=>{const f=document.getElementById('front');if(f)f.click();});
   await p.waitForTimeout(500);
   await p.evaluate(()=>{const t=[...document.querySelectorAll('.tab')]
-    .find(x=>x.getAttribute('data-p')==='music'); if(t)t.click();});
+    .find(x=>x.getAttribute('data-p')==='music'); if(!t) throw new Error('that tab is not in the bar'); t.click();});
   await p.waitForTimeout(2500);
 
   const shot=process.argv[3];

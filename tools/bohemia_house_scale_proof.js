@@ -31,7 +31,7 @@ const REPO = path.dirname(__dirname);
   await p.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
   await p.waitForTimeout(500);
   await p.evaluate(() => { const t = [...document.querySelectorAll('.tab')]
-    .find(x => x.getAttribute('data-p') === 'char'); if (t) t.click(); });
+    .find(x => x.getAttribute('data-p') === 'char'); if(!t) throw new Error('that tab is not in the bar'); t.click(); });
   await p.waitForTimeout(4000);
 
   const out = await p.evaluate(() => {

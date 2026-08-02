@@ -71,7 +71,16 @@ const isInt = v => Math.abs(v - Math.round(v)) <= 0.005;
   };
 
   for (const t of TABS) {
-    await page.click('.tab[data-p="' + t + '"]').catch(() => {});
+    /* THE CITY TAB IS GONE (Paolo 8/2): the world is reached through RUN. The
+       SURFACE is still called `city` -- that is the iframe's id and the name
+       canvas_scale_gate looks these rows up by -- but the BUTTON that opens it
+       is RUN now. Tab and surface are no longer the same word.
+       AND THE CLICK NO LONGER SWALLOWS ITS OWN FAILURE. `.catch(() => {})` meant
+       that when `.tab[data-p="city"]` stopped existing, this walked on, measured
+       whatever panel happened to be open, and reported no walked world at all --
+       three gate failures whose real cause was a click that never happened. */
+    const BUTTON = (t === 'city') ? 'run' : t;
+    await page.click('.tab[data-p="' + BUTTON + '"]');
     await page.waitForTimeout(t === 'city' ? 14000 : 4000);
     await collect(t, 'default');
     // the CITY tab has two completely different surfaces behind one canvas: the
