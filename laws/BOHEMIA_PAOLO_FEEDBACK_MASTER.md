@@ -64,6 +64,12 @@ Each line is a ruling he made, in his words, with the machine that holds it.
   and repeated a vertex on every quad it did emit (holes + slivers = a tarp), and `_door`
   took a hand-passed plane nobody checked a wall was behind. THE SHAPE OF NEARLY EVERY BUG
   HERE: a value passed by hand where a value could be DERIVED. `gates/round_and_doors_gate.py`
+- **8/2 — TWO NUMBERS, NEVER ONE: "For the walking and icon."** A district is two
+  artefacts built by two different files — the plot from the engine module, the icon from
+  the hero factory — and a bug in one is invisible in the other (the tarp roofs were
+  icon-only; the greenwashed lawns were plot-only). One score makes him average two
+  unrelated things, and an average never tells me which file to open. Every judge card
+  asks for both. `gates/label_every_picture_gate.py`
 - **8/2 — LABEL EVERY PICTURE.** "You are showing me pictures, but I don't know which is
   which." Every image put in front of him carries its own NAME **in the pixels** — not in
   the caption, not in the sentence above it, not implied by the order they were sent. One

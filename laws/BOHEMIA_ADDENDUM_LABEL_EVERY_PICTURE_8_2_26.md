@@ -46,13 +46,29 @@ picture with no name at all. An unlabelled picture is not a small lie; it is a t
   has caught them disagreeing before ("the icon could have more parking", 8/2)
 - one line of **what it is** and one line of **what it was built on** (the real
   reference), so he never has to ask what he is looking at
-- a **SCORE strip** at the bottom, because a number is what I am asking him for
+- **TWO SCORE lines** at the bottom — **THE WALKING** and **THE ICON** — never one
 
 `gates/label_every_picture_gate.py` renders a card for every registered district and
 asserts the name was really drawn — it reads the pixels in the title band and fails if
 the band is blank, if the ink does not scale with the length of the name, or if a card
 is missing for a district that exists. **A gate that trusted the source code would pass
 on a tool that silently drew nothing.**
+
+## TWO NUMBERS, NEVER ONE (Paolo, 8/2: "For the walking and icon")
+
+A district is **two artefacts**, built by two different files:
+
+| | drawn by | judged as |
+|---|---|---|
+| **THE WALKING** | `engine/bohemia_<district>.js` | the plot he walks |
+| **THE ICON** | `tools/bohemia_district_hero_factory.py` | what he sees on the map |
+
+**A bug in one is invisible in the other.** The tarp roofs were icon-only; the
+greenwashed lawns were plot-only; the library's "six different buildings" was both, but
+for two different reasons. Asking for a single score forces him to average two unrelated
+things, and **an average never tells me which file to open.**
+
+So every card asks for both, and the gate fails a card that only has one line.
 
 ## THE STANDING RULE FOR REPLIES
 

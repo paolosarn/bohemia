@@ -80,7 +80,7 @@ def ink_in_band(im):
     return n
 
 
-rendered, blank, tiny, noscore = [], [], [], []
+rendered, blank, tiny, noscore, onescore = [], [], [], [], []
 inks = {}
 for t in TYPES:
     try:
@@ -94,16 +94,25 @@ for t in TYPES:
         blank.append(t)
     if im.width < 600 or im.height < 500:
         tiny.append(t)
-    # the SCORE strip lives in the bottom 60px and is drawn in the gold ink
+    # TWO score lines live in the bottom ~100px, drawn in the gold ink -- one for the
+    # WALKING and one for the ICON (Paolo 8/2: "for the walking and icon"). A district is
+    # two artefacts built by two different files, and one number makes him average them.
     px = im.convert('RGB').load()
     gold = 0
-    for y in range(max(0, im.height - 60), im.height):
+    for y in range(max(0, im.height - 100), im.height):
         for x in range(0, im.width):
             r, g, b = px[x, y]
             if r > 170 and 110 < g < 200 and b < 110:
                 gold += 1
     if gold < 100:
         noscore.append(t)
+    else:
+        # both lines, not one: count the distinct gold ROWS, which must span two bands
+        rows = [y for y in range(max(0, im.height - 100), im.height)
+                if any(px[x, y][0] > 170 and 110 < px[x, y][1] < 200 and px[x, y][2] < 110
+                       for x in range(0, im.width, 3))]
+        if not rows or (max(rows) - min(rows)) < 30:
+            onescore.append(t)
 
 ok('a card RENDERS for every district that has a plot (%d rendered)' % len(rendered),
    len(rendered) >= 20)
@@ -126,6 +135,11 @@ ok('every card is big enough to read on a phone held in one hand'
    + (' -- too small: ' + ', '.join(tiny[:6]) if tiny else ''), not tiny)
 ok('every card carries the SCORE strip, because a NUMBER is what the card is asking him '
    'for' + (' -- missing on: ' + ', '.join(noscore[:6]) if noscore else ''), not noscore)
+ok('every card asks for TWO numbers, THE WALKING and THE ICON (Paolo 8/2). They are two '
+   'artefacts out of two different files -- the plot from the engine module, the icon from '
+   'the hero factory -- and a bug in one is invisible in the other. One number makes him '
+   'average them, and an average never tells me which file to open'
+   + (' -- one line only on: ' + ', '.join(onescore[:6]) if onescore else ''), not onescore)
 
 LAW = 'laws/BOHEMIA_ADDENDUM_LABEL_EVERY_PICTURE_8_2_26.md'
 ok('the law is filed with his words in it', os.path.exists(LAW) and

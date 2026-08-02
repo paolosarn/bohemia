@@ -25,7 +25,13 @@ WHAT A CARD IS: one district, big enough to read on a phone held in one hand.
       and he has caught them disagreeing before
     - one line of WHAT IT IS and one line of WHAT IT WAS BUILT ON (the real
       reference), so he never has to ask what he is looking at
-    - a SCORE strip along the bottom, because what I want back from him is a number
+    - TWO SCORE lines along the bottom, one for THE WALKING and one for THE ICON.
+      Paolo, 8/2: "For the walking and icon." A district is TWO artefacts and they are
+      not the same quality -- the plot you walk is drawn by the engine module, the icon
+      is baked by the hero factory, and a bug in one is invisible in the other (the tarp
+      roofs were icon-only; the greenwashed lawns were plot-only). One number for both
+      forces him to average two different things, and an average tells me which file to
+      open exactly never.
 
 REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks NO new graphic pixels. Every pixel of
 the district plot comes from the shared painter path used by
@@ -143,7 +149,7 @@ def card(name):
     sum_lines = _wrap(probe, summary, f_body, body_w)
     ref_lines = _wrap(probe, 'BUILT ON: ' + reference, f_small, body_w)[:3]
     H = (PAD + 62 + 16 + max(plot.height, (icon.height + 30) if icon else 0)
-         + 24 + len(sum_lines) * 26 + 12 + len(ref_lines) * 23 + 22 + 46 + PAD)
+         + 24 + len(sum_lines) * 26 + 12 + len(ref_lines) * 23 + 22 + 84 + PAD)
 
     im = Image.new('RGB', (W, H), BG)
     d = ImageDraw.Draw(im)
@@ -173,8 +179,10 @@ def card(name):
 
     y += 22
     d.line([(PAD, y), (W - PAD, y)], fill=RULE, width=2)
-    d.text((PAD, y + 12), 'SCORE THIS ONE:  ' + name.upper() + '  =  ____ %',
-           font=_font(26, bold=True), fill=GOLD)
+    # TWO numbers, never one (Paolo 8/2: "for the walking and icon").
+    f_score = _font(26, bold=True)
+    d.text((PAD, y + 12), name.upper() + ' — THE WALKING  =  ____ %', font=f_score, fill=GOLD)
+    d.text((PAD, y + 46), name.upper() + ' — THE ICON     =  ____ %', font=f_score, fill=GOLD)
     return im
 
 
