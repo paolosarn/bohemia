@@ -92,6 +92,39 @@ function cityBlob(a){
          r.oldDistrict !== r.district);
       ok('he does not open on a road surface (strip/arterial/freeway/interchange)',
          ['strip','arterial','freeway','interchange','rail'].indexOf(r.district) < 0);
+
+      /* PAOLO 8/1: "THE SUBURB IM SPAWNED IN DOESNT HAVE ACCESS TO THE REST OF THE
+       * STREETS." Not a flag check -- WALK IT. Flood-fill the walkable network from
+       * the exact cell he lands on and require it to leave the spawn plot AND reach
+       * a real road surface. A spawn that opens in the right district but is sealed
+       * inside it is the same complaint wearing a different hat. */
+      const w = await f.evaluate(() => {
+        const out = {};
+        try { if (MODE !== 'human' && typeof swapMode === 'function') swapMode(); } catch (e) {}
+        const seen = new Set([hx + ',' + hy]); const st = [[hx, hy]];
+        let n = 0, left = false, road = false;
+        const ROADS = ['strip','arterial','freeway','beltway','interchange'];
+        while (st.length && n < 60000) {
+          const p = st.pop(); n++;
+          const tx = (p[0] / FN) | 0, ty = (p[1] / FN) | 0;
+          if (tx !== city.x || ty !== city.y) left = true;
+          const tt = om.at(tx, ty);
+          if (tt && ROADS.indexOf(tt.district) >= 0) road = true;
+          if (left && road) break;
+          for (const d of DIRS) {
+            const nx = p[0] + d[0], ny = p[1] + d[1], k = nx + ',' + ny;
+            if (seen.has(k)) continue;
+            const c = cellAt(nx, ny); if (!c || !c.walk) continue;
+            seen.add(k); st.push([nx, ny]);
+          }
+        }
+        out.reached = n; out.leftSpawnPlot = left; out.reachedRealRoad = road;
+        return out;
+      });
+      ok('HE CAN WALK OUT OF THE PLOT HE SPAWNS IN (' + w.reached + ' cells explored)',
+         w.leftSpawnPlot);
+      ok('AND THE WALK REACHES A REAL STREET -- the spawn is not sealed off',
+         w.reachedRealRoad);
     }
   } finally { await browser.close(); }
   console.log('RUN SPAWN GATE: ' + pass + ' passed, ' + fail + ' failed');
