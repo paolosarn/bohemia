@@ -1,3 +1,48 @@
+ART (f3eu53): 8/2 (c) LATEST — THE WHOLE WALL FIELD IS TEXTURED NOW, NOT THREE-FIFTHS
+OF IT. Queue item 2, most of the way.
+
+=== WHAT WALKING OUT THE DOOR SHOWED ===
+The roof and yard were textured and the house body still carried WIDE FLAT TAN BANDS.
+The under-eave course and both corner columns were still target-set, sitting directly
+against the new textured wall - the same "two different games in one frame" the yard had
+on 7/31, moved up onto the house.
+
+=== WHY THOSE THREE WERE SAFE TO SKIN AND THE OTHERS ARE NOT ===
+wall_under_eave, wall_end_l and wall_end_r are NOT shape. They are THE SAME WALL IN
+DIFFERENT LIGHT - the eave's shadow, the sunlit corner, the shaded corner. So they take
+the same skin with a TONAL SHIFT (0.74 / 1.12 / 0.86, one light from the upper left,
+exactly how every cooked tile is lit). The shift was always what carried the
+information; the flat tan was only ever being flat.
+*** STILL TARGET-SET, DELIBERATELY: wall_window, wall_boarded and the garage carry
+OPENINGS. Skinning those would PAINT THE WINDOW SHUT. They need real art in this style,
+which is a cook and not a wiring change. That is the next job and it is the last old art
+on the house. ***
+
+Relighting is cached per (tile, multiplier) - the block draws thousands of these a
+frame, so a naive per-cell canvas would have been a real cost.
+
+=== STATE ===
+run_gate 126/126, wallclass 24/24, three-tile wall 7/7, bought_beats_painted 16/16,
+banks_used 26/26, texture_match 24/24.
+records/target/STREET_TEXTURED.png re-shot: the block reads as one material world now.
+
+=== THE QUEUE ===
+1. WINDOW / BOARDED / GARAGE DOOR, cooked in the approved texture style. Last old art on
+   the house, and the only thing left that reads as flat tan in the shot.
+2. Perimeter wall and gate mouth (separate from the house body).
+3. Features: ground surfaces ~5.5% vs his 7.0%. Weeds and manholes are there and read
+   right; his CRACKS are still crisper - my grain washes them. Craft gap, not a knob.
+4. His bought yard tiles band. "I'll let you know when I have issues with the banding
+   until then" - LEAVE IT. Never touch his pixels.
+5. Art cell 44 -> 88 px. Would fix (3) outright: a finer crack needs sub-pixel room it
+   does not have at 44.
+
+=== STILL RED ON MAIN, STILL NOT MINE ===
+LIFE / DRESS / POPULATION / MEMORY / DEVIATION - ZERO AGENTS SIMMED, the block has no
+people in the sim. Bisected eight commits back. CITY PEOPLE is GREEN, so the DRAW is
+fine and the SIM is empty. WORLD/LIFE lane's. PARTS PAINTED + BODY VARIATION are the
+CHARACTER lane's.
+
 PEOPLE (7h9sfy): 8/1 (i) LATEST — HE INTRODUCED THE REPAIR-A-DISTRICT GAME MODE, and the
 socket for it is built. Law + the holes I pulled:
 laws/BOHEMIA_ADDENDUM_REPAIR_A_DISTRICT_8_1_26.md

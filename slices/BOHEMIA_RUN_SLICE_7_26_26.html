@@ -1161,10 +1161,26 @@ function pathSet(){
    numbers, which were all green either way.
    wall_base is skinned for the same reason: it is the bottom course of the house body,
    and leaving one target-set band under a textured wall is the same defect. */
+/* THE WHOLE WALL FIELD, NOT THREE-FIFTHS OF IT (8/2). Walking out the front door
+   showed the roof and yard textured and the house body still carrying WIDE FLAT TAN
+   BANDS: the under-eave course and both corner columns were still target-set, sitting
+   directly against the new textured wall. Same "two different games in one frame"
+   problem that the yard had, moved up onto the house.
+   These three are not shape, they are the SAME WALL IN DIFFERENT LIGHT - under the
+   eave's shadow, the sunlit corner, the shaded corner - so they take the same skin with
+   a tonal shift instead of a different tile. The shift is what carried the information;
+   the flat tan was never doing anything but being flat.
+   STILL TARGET-SET, DELIBERATELY: wall_window, wall_boarded and the garage carry
+   OPENINGS. Skinning those would paint the window shut. They need real art in this
+   style, which is a cook and not a wiring change. */
 var SKIN_FIELD = { wall_0:'W', wall_1:'W', wall_2:'W', wall_base:'W',
+                   wall_under_eave:'W', wall_end_l:'W', wall_end_r:'W',
                    roof_slope:'R', roof_eave:'R', roof_ridge:'R',
                    roof_hipTL:'R', roof_hipTR:'R', roof_hipBL:'R', roof_hipBR:'R',
                    yard_0:'Y', yard_1:'Y', yard_2:'Y' };
+/* one light, from the upper LEFT, exactly as every cooked tile is lit */
+var SKIN_LIGHT = { wall_under_eave:0.74, wall_end_l:1.12, wall_end_r:0.86,
+                   wall_base:0.90 };
 var _footAt = null;
 function footIndexAt(gx,gy){
   if(!_footAt){ _footAt={};
@@ -1196,10 +1212,30 @@ function skinImg(kind,gx,gy){
   var im=bank[seed%bank.length];
   return (im&&im.complete&&im.naturalWidth)?im:null;
 }
+var _skinLit={};
+function litSkin(im,mul){
+  /* the same tile, relit. Cached per (image,multiplier) so a wall costs one canvas
+     once and not one per cell - the block draws thousands of these a frame. */
+  var key=(im.src.length+'_'+mul);
+  var c=_skinLit[key];
+  if(!c){
+    c=document.createElement('canvas'); c.width=im.naturalWidth; c.height=im.naturalHeight;
+    var g=c.getContext('2d'); g.imageSmoothingEnabled=false; g.drawImage(im,0,0);
+    var d=g.getImageData(0,0,c.width,c.height), p=d.data;
+    for(var i=0;i<p.length;i+=4){
+      p[i]  =Math.max(0,Math.min(255,p[i]  *mul));
+      p[i+1]=Math.max(0,Math.min(255,p[i+1]*mul));
+      p[i+2]=Math.max(0,Math.min(255,p[i+2]*mul));
+    }
+    g.putImageData(d,0,0); _skinLit[key]=c;
+  }
+  return c;
+}
 function drawSkin(id,gx,gy,X,Y,S){
   var k=SKIN_FIELD[id]; if(!k) return false;
   var im=skinImg(k,gx,gy); if(!im) return false;
-  ctx.drawImage(im,X,Y,S,S); return true;
+  var mul=SKIN_LIGHT[id];
+  ctx.drawImage(mul?litSkin(im,mul):im,X,Y,S,S); return true;
 }
 function isRoad(a,b){ return (a>=0&&b>=0&&a<W&&b<H) && G[b][a]===1; }
 /* EVERY OTHER DISTRICT, honestly. The suburb has a dressed language because its
