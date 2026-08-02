@@ -53,10 +53,18 @@ function requirePlaywright() {
    so the self-test below can run it on a deliberately broken copy without
    touching this gate's own counters. */
 function splashClosure(src) {
-  const f = src.indexOf('<div id="front">');
-  const a = src.indexOf('<div id="app">');
+  /* COMMENTS ARE NOT STRUCTURE. Strip them before counting anything: on 8/2 the
+     fix for this very bug added a comment EXPLAINING the missing tag, the words
+     inside it got counted as tags, and this checker went red on prose while the
+     document was perfectly well formed. That is the same mistake as a gate that
+     cannot tell a mention from a use, made by the gate that exists to catch a
+     structural break. A checker must read structure, never text that happens to
+     look like structure. */
+  const clean = src.replace(/<!--[\s\S]*?-->/g, '');
+  const f = clean.indexOf('<div id="front">');
+  const a = clean.indexOf('<div id="app">');
   if (f < 0 || a < f) return 'the splash and the app are not both in the file';
-  const between = src.slice(f, a);
+  const between = clean.slice(f, a);
   const opens = (between.match(/<div\b/g) || []).length;
   const closes = (between.match(/<\/div>/g) || []).length;
   return opens === closes ? null
@@ -116,11 +124,15 @@ async function realDoor() {
   structure(src);
 
   /* SELF-TEST: prove the static check SEES the break, rather than proving the
-     file happens to be well-formed today. This is the EXACT 8/2 edit — delete
-     the one </div> that closes the splash — applied to a copy in memory. */
-  const broken = src.replace('</div></div>\n<div id="app">', '</div><div id="app">');
+     file happens to be well-formed today. This is the EXACT 8/2 break — delete
+     the one closing tag that ends the splash — applied to a copy in memory.
+     It has to survive the tag moving onto its own line, which is the change
+     that stops the break happening in the first place, so it deletes the LAST
+     closer before the app opens rather than matching one hard-coded string. */
+  const cut = src.lastIndexOf('</div>', src.indexOf('<div id="app">'));
+  const broken = cut < 0 ? src : src.slice(0, cut) + src.slice(cut + 6);
   ok('S3 SELF-TEST: the probe really is the 8/2 break (the copy differs)',
-    broken !== src);
+    broken !== src && cut > src.indexOf('<div id="front">'));
   ok('S4 SELF-TEST: and the checker catches it', splashClosure(broken) !== null);
 
   await realDoor();

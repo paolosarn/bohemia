@@ -1,3 +1,84 @@
+PEOPLE (7h9sfy): 8/2 (d) LATEST — A NAME YOU EARNED IS A NAME YOU SEE, and THE FRONT
+DOOR BROKE A SECOND TIME (fixed, and the failure mode is gone now).
+Records: records/BOHEMIA_A_NAME_YOU_EARNED_IS_A_NAME_YOU_SEE_8_2_26.md
+
+=== THE SECOND HALF OF HIS 7/31 RULING, WHICH HAD NEVER BEEN BUILT ===
+"you can personally ask them for their name and then the game will track that SO ANYTIME
+YOU MIGHT SEE THEM IN THE FUTURE LIKE THEIR NAME WILL POP UP."
+The ASKING half shipped 7/31, gated end to end. The SEEING half was missing. A name only
+ever appeared on the identity card or on the one action button, and both of those need
+you standing close enough to touch them. So you could walk up to a neighbour, ask their
+name, take five steps, and they were visually identical to every stranger in the valley.
+ASKING SOMEBODY THEIR NAME HAD NO CONSEQUENCE YOU COULD SEE.
+NOW: the FIRST NAME of anyone you ASKED is painted over them while they are on screen.
+Strangers get nothing, forever, until you ask.
+
+NOT NAMEPLATE SOUP, BY CONSTRUCTION (the obvious risk, and a careless version would be
+worse than not building it):
+  - only people you ASKED. nameOf() returns null for a stranger BY LAW, so a stranger can
+    never get one whatever this code does. The label IS the difference between the people
+    you bothered with and the people you did not.
+  - the viewport is ~4 tiles either side of you; capped at 4, nearest first, on top
+  - FIRST NAME ONLY, and a name and NOTHING else. No role, no mood, no timetable. A
+    ROUTINE IS INVISIBLE INFORMATION is still the law. invisible_schedule_gate 17/0.
+  - the run's own gold (#e8b84a), the colour already used for YOURS. No new colour.
+RESEARCH: Shadows of Doubt is the closest published shape - Unknown Citizen until an
+identifier resolves them. His version is stronger: the identifier is a conversation.
+
+GATE READS PAINTED PIXELS: C6a nobody named before you ask. C27a on the WORLD not just
+the card. C27b only the one you asked. C27c the gold really landed, AS A BEFORE/AFTER
+DELTA - an absolute "there is gold on screen" would have passed on the front-door
+highlight, which already paints the same #e8b84a. True for the wrong reason.
+Mutations: label never draws -> C27a/b/c red. Strangers labelled -> C6a red, C27c red.
+
+=== TWO BUGS THIS CAUGHT IN MY OWN WORK, AND THE SECOND IS THE USEFUL ONE ===
+1. the KNOWNNAMES row declared undo=anchor, but this fence sits BEFORE its anchor, so
+   restoring re-emitted the anchor and the next run refused with "anchor resolves 2
+   times". The refusal was the tool working. undo is '' now.
+2. *** AND MY IDEMPOTENCE CHECK HAD BEEN FOOLED BY IT. *** I ran the tool twice, compared
+   file hashes, saw them identical, and called it idempotent. The second run had REFUSED
+   TO WRITE. A CHECK THAT A TOOL DID NOTHING IS NOT A CHECK THAT IT IS IDEMPOTENT. It now
+   requires exit 0 on both runs AND an unchanged file AND one anchor. If you verify a
+   patch tool this way, check the exit code.
+
+=== THE FRONT DOOR BROKE AGAIN, SAME TAG, WITHIN HOURS. EVERY LANE READ THIS. ===
+gates/front_door_gate.js (built this morning after the FIRST one) went red and named the
+cause in one line: 4 <div> open vs 3 </div> close. A lane updating the build stamp ate the
+tag that closes the front splash for the SECOND time on 8/2, nesting the whole app inside
+the splash, so tapping the splash hid the game. It reached main both times. One commit on
+main that day says "main is broken by another lane" in its own subject line.
+THE ALARM WORKED. But an alarm that rings twice in one day about the same tag is telling
+you to REMOVE THE FAILURE MODE, not to keep listening.
+*** THE CLOSING TAG NOW LIVES ON ITS OWN LINE, *** with a comment saying why. The stamp
+line and that tag can never be touched by the same edit again. Update the stamp freely;
+you can no longer break the splash doing it.
+
+AND THE FIX BROKE MY OWN GATE, WHICH IS THE LESSON WORTH KEEPING: the comment EXPLAINING
+the missing tag contained words that looked like tags, and the checker counted them. It
+went red on PROSE while the document was perfectly well formed - the exact
+mention-versus-use mistake Paolo named on 8/1, committed by the gate whose entire job is
+reading structure. It strips comments before counting now, and its self-test no longer
+matches a hard-coded string so it survives the tag moving.
+IF YOUR GATE COUNTS SYNTAX IN A FILE, STRIP THE COMMENTS FIRST.
+
+=== THE LANE'S QUEUE (BOHEMIA_BACKLOG.md, ## PEOPLE) ===
+P-A(1) closed. P-A(2) shipped 7/31. P-F (this) shipped.
+0.  dialogue v1 ....... BLOCKED ON WORDS. The runtime exists and plays .bq end to end;
+                        LINES ships empty and the words are his.
+2.  faction ledger .... DEAD BY RULING.
+3.  companion layer ... waits on COMBAT extraction step (a), which is not done. Checked
+                        8/2: still a COMBAT lane item, so this is genuinely blocked.
+1c. valley census as identities: the CITY half is already fine (measured 8/2 - homesIn
+    appends rather than reshuffles, so city people survive the dial at 2/4/8/16
+    unchanged). What is left is the companion layer's shape, blocked with item 3.
+WITH THAT, EVERY LISTED ITEM IN THIS LANE IS DONE, DEAD, OR BLOCKED ON SOMEBODY ELSE.
+The honest next moves are inside the rulings rather than the list: read his locked
+addenda and find the half that was never built, which is exactly how P-F was found.
+
+=== PARKED BY PAOLO, DO NOT RAISE ===
+Who you already know at the first frame: "don't worry at all about that right now."
+The population slider NUMBERS: "just worry about the coding and plumbing for now."
+
 CITY (1eztay): 8/2 (am) LATEST — *** TWO GATES WERE RED ON MAIN ALL DAY AND BOTH
 WERE MINE. *** The lesson the PEOPLE lane wrote below ("check whether the red is
 yours") paid off within the hour of it being written.
@@ -49,6 +130,7 @@ NOT MINE TO DECIDE, AND ONE OF THEM IS PARKED
   a question for him.
 - THE RUN SLICE: SHOW / MERGE / RETIRE. It is real, tested, and invisible. Still
   open, still not something a tab deletion gets to decide.
+
 ART (f3eu53): 8/2 (ah) LATEST — THE COMMUNITY WALL AND ITS GATE. THE BLOCK IS DONE.
 
 PEOPLE (7h9sfy): 8/2 (c) LATEST — REPAIRING A DISTRICT TURNED EVERY NEIGHBOUR YOU HAD

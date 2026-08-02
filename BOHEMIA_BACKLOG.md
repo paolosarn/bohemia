@@ -3622,6 +3622,59 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-F. [SHIPPED 8/2 - records/BOHEMIA_A_NAME_YOU_EARNED_IS_A_NAME_YOU_SEE_8_2_26.md]
+   THE SECOND HALF OF THE 7/31 RULING, WHICH HAD NEVER BEEN BUILT. His words:
+   "the game will track that SO ANYTIME YOU MIGHT SEE THEM IN THE FUTURE LIKE
+   THEIR NAME WILL POP UP." The asking half shipped 7/31 and is gated end to end;
+   the SEEING half was missing. A name only ever appeared on the identity card or
+   on the one button, both of which need you close enough to touch them, so you
+   could ask a neighbour their name, walk five steps, and they looked exactly like
+   every stranger in the valley. Asking had no consequence you could see.
+   NOW: the FIRST NAME of anyone you ASKED is painted over them while they are on
+   screen. Strangers get nothing, forever, until you ask.
+   NOT NAMEPLATE SOUP, by construction: only people you asked (nameOf returns null
+   for a stranger BY LAW, so a stranger can never get one); the viewport is ~4
+   tiles either side of you; capped at 4, nearest first; first name only; a name
+   and NOTHING else (no role, no mood, no timetable - invisible_schedule_gate
+   still 17/0); the run's own gold, no new colour.
+   RESEARCH: Shadows of Doubt is the closest published shape (Unknown Citizen
+   until an identifier resolves them). His version is stronger because the
+   identifier is a conversation, not a government database.
+   GATE reads PAINTED PIXELS on the real surface: C6a nobody named before you ask,
+   C27a the name is on the world not just the card, C27b only the one you asked,
+   C27c the gold really landed AS A BEFORE/AFTER DELTA - an absolute "there is
+   gold on screen" would have passed on the front-door highlight, which already
+   paints the same #e8b84a. True for the wrong reason.
+   TWO BUGS CAUGHT IN MY OWN WORK: (1) the KNOWNNAMES row declared undo=anchor but
+   the fence sits BEFORE its anchor, so restoring re-emitted it and the next run
+   refused. (2) *** AND MY IDEMPOTENCE CHECK HAD BEEN FOOLED BY IT: *** I hashed
+   the file across two runs, saw it identical, and called it idempotent - the
+   second run had REFUSED TO WRITE. A CHECK THAT A TOOL DID NOTHING IS NOT A CHECK
+   THAT IT IS IDEMPOTENT. Now: exit 0 twice AND unchanged AND one anchor.
+   | gates: PEOPLE 146 -> 150 | 8/2 | YES - one thing to look at, the name over a
+   neighbour's head on the RUN tab.
+
+P-G. [FIXED 8/2 - SECOND TIME TODAY, SAME TAG, NOT THIS LANE'S BUG]
+   THE FRONT DOOR BROKE AGAIN. gates/front_door_gate.js (built this morning after
+   the first one) went red and named the cause in one line: 4 <div> open vs 3
+   </div> close. A lane updating the build stamp ate the tag that closes the front
+   splash for the SECOND time on 8/2, nesting the whole app inside the splash so
+   tapping it hid the game. It reached main both times - one commit on main that
+   day even says "main is broken by another lane" in its own subject.
+   THE ALARM WORKED. But an alarm that rings twice in one day about the same tag
+   is telling you to REMOVE THE FAILURE MODE, not to keep listening. *** THE
+   CLOSING TAG NOW LIVES ON ITS OWN LINE, *** with a comment saying why, so the
+   stamp line and the tag can never be touched by the same edit again.
+   AND THE FIX BROKE MY OWN GATE, WHICH IS THE LESSON: the comment EXPLAINING the
+   missing tag contained words that looked like tags, and the checker counted
+   them. It went red on PROSE while the document was perfectly well formed - the
+   exact mention-versus-use mistake Paolo named on 8/1, made by the gate whose
+   whole job is reading structure. It strips comments before counting now, and its
+   self-test no longer matches a hard-coded string so it survives the tag moving.
+   FOR EVERY LANE: if you edit the build stamp, you cannot break the splash any
+   more. If your gate counts syntax in a file, strip the comments first.
+   | gate: FRONT DOOR 8, RUN 126 recovered from red | 8/2 | no.
+
 P-E. [FIXED 8/2, MUTATION-TESTED - records/BOHEMIA_A_PERSON_IS_KEYED_TO_WHERE_THEY_LIVE_8_2_26.md]
    REPAIRING A DISTRICT TURNED EVERY NEIGHBOUR YOU HAD MET INTO SOMEBODY ELSE,
    AND LEFT THEIR NAME ON. Two locked rulings meet at one line and it broke both:
