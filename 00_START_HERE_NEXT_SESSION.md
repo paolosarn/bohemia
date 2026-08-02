@@ -3006,7 +3006,7 @@ distance and moves him one tile, rather than hoping the sim walks somebody past.
   comparison is not a measurement. It now demands the RATIO the inverse law
   predicts (<0.75) and the sabotage goes red at 85%.
 
-BUILD STAMP: 8/2w - YOU CAN HEAR THE PEOPLE NOW (RUN TAB).
+BUILD STAMP: 8/2ad - YOU CAN HEAR THE PEOPLE NOW (RUN TAB).
 
 SOUNDS (xk7pjp): 8/2 (c) LATEST — I WAS WRONG ABOUT THE BYPASS, AND THE REAL BUG
 WAS WORSE. Read this before trusting any measurement taken on MUS.MAST.
