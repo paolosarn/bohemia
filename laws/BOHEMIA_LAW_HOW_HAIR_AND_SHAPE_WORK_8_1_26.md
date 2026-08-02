@@ -123,8 +123,12 @@ complexions: crown identical at 82,58,38; taper porcelain 154,139,130 / tan
 
 ONLY ON THE SKULL (Paolo 8/2, amending clause 6): *"that fade effect that you do
 should only apply to hair that is inside the borders of the head of the skull. You
-can't be doing that fitting effect for hair that is outside the borders of the
+can't be doing that fade effect for hair that is outside the borders of the
 head."*
+
+(Transcribed "fate effect" and "fitting effect"; he corrected it himself to FADE
+EFFECT and it is stored that way. His words are pinned by craft_law_gate, so a
+garble left in place would be quoted back at him forever as though he said it.)
 
 The reason is physical, and it is why this is a rule rather than a preference: the
 tint exists BECAUSE THE SCALP IS UNDER THE HAIR. Hair hanging past the skull -- a
