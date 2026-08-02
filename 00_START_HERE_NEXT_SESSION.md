@@ -3596,7 +3596,7 @@ SONG LOCK re-locked ON PURPOSE twice today, both documented in the lock note:
 adding songs, then baking verdicts. Song BODIES untouched both times -- proven
 by diffing every entry (130 -> 134, four added, none removed, zero edited).
 
-BUILD STAMP: 8/2ai - YOUR VERDICTS ARE BAKED (MUSIC TAB).
+BUILD STAMP: 8/2ak - YOUR VERDICTS ARE BAKED (MUSIC TAB).
 NEXT: three dead slots want fresh cooks, LINE FIRST. Not started -- he did not
 ask for another batch and STOP PRODUCING says do not answer a verdict with
 unrequested volume.
