@@ -91,3 +91,42 @@ other qualities. It is a filter, and it comes first.
 ## THE LIFE LESSON UNDERNEATH (never preached in game)
 A place you cannot leave stops being a home and becomes a cage, and the
 difference is not how nice the place is. It is whether the door works.
+
+
+---
+
+## 8/2 — THE LAW ARRIVED ON THE SURFACE HE ACTUALLY PLAYS
+
+Everything above was built into `slices/BOHEMIA_RUN_CURRENT.html`, proved by
+walking that file in a real browser, and shipped green. **Then the ONE WORLD TAB
+measurement found that `#p-run` is `display:none` for the entire life of the
+app** — he has never seen that file. When he taps RUN he is looking at the
+**CITY FRAME's walk mode**.
+
+So the fix for the complaint he actually made never reached the screen he made
+it about. **That is three for three on this lane's oldest failure: fix the
+surface he cannot see, prove it there, ship it green.**
+
+**WHAT WAS WRONG ON THE REAL SURFACE:** the city frame's DROP IN put him at the
+centre of whatever cell the camera was over, then spiralled to the first
+**walkable** cell — and walkable includes dead-dirt back yards. So it dropped
+him behind a house, inside a walled subdivision, facing a wall.
+
+| | before | after |
+|---|---|---|
+| worst search to find a road | **9,432 tiles** | **3 tiles** |
+
+Every drop-in now lands **on a road or touching one**. Preference, not a filter:
+road, then touching-a-road, then any walkable cell exactly as before — so a
+place with no road at all still drops you in rather than refusing, and nothing
+can become unreachable.
+
+**No walkability changed.** Not one cell became solid or walkable; only *which*
+walkable cell the camera hands you. That is why this cannot regress the law
+above.
+
+`gates/no_prison_gate.js` section D drives the city frame's own `swapMode()` —
+the real DROP IN — and asserts every landing reaches a road, lands on or beside
+one, and that finding the street is a step rather than an expedition. Proved
+able to fail: disabling the road preference puts the worst case straight back to
+9,432 tiles.

@@ -1865,6 +1865,64 @@ FOR ANYONE MUTATION-TESTING: two of my attempts were case-sensitive and sailed p
 working check. A WEAK MUTATION LOOKS EXACTLY LIKE A ROBUST CHECK -- mutate case-
 insensitively and mutate ALL occurrences.
 
+CITY (03): 8/2 LATEST — THE PRISON FIX FINALLY REACHED HIM, AND THERE ARE TWO
+LIVE ANSWERS TO A NUMBER HE RULED.
+
+1. DROP IN LANDS YOU ON THE STREET, ON THE SURFACE HE ACTUALLY PLAYS.
+   8/1 built NO DISTRICT IS A PRISON into the RUN SLICE and proved it by walking
+   that file. Then the ONE WORLD TAB measurement proved HE HAS NEVER SEEN THAT
+   FILE. So the fix for the complaint he made never reached the screen he made
+   it about - THREE FOR THREE on this lane's oldest failure.
+   The city frame's DROP IN put him at the centre of the cell the camera was
+   over and spiralled to the first WALKABLE cell - and walkable includes
+   dead-dirt back yards, so it landed him behind a house facing a wall.
+       worst search to find a road:  9,432 tiles  ->  3 tiles
+   Preference, not filter: road, then touching-a-road, then any walkable cell
+   exactly as before. NO WALKABILITY CHANGED - only which cell you are handed,
+   which is why it cannot regress the law it completes.
+   GATE: NO PRISON 15 -> 19. Section D drives the city frame's OWN swapMode(),
+   the real DROP IN. Proved able to fail: disabling the road preference puts the
+   worst case straight back to 9,432.
+
+2. *** [PENDING PAOLO] TWO LIVE ANSWERS TO A NUMBER HE RULED. ***
+   bohemia_population.js (his 7/29 zone map): 297 people in the walkable valley,
+     64% of residential cells at ZERO by design - "some no mans lands", his word.
+   bohemia_agents.js OCCUPIED_RATE, changed 8/1 by another lane to 0.038:
+     1,113 valley-wide, from a scale model + GDD v5's ~3% survival.
+   ~15x apart on mean occupancy (0.0025 vs 0.038).
+   HIS 7/29 RULING NAMES THE BASIS: "the number that reflects how many people
+   vegas can feed" - the FOOD CEILING, which is the zone map's path. The 8/1
+   derivation answers a different question (how many SURVIVE).
+   SIX GATES ARE RED ON MAIN because of it (LIFE, POPULATION, DRESS, MEMORY,
+   DEVIATION...): a 19-home block now yields ZERO residents and those gates
+   encode the older 30% assumption. VERIFIED they fail identically on a clean
+   checkout of main - not this lane's doing.
+   NOT RESOLVED HERE ON PURPOSE: the truth hierarchy says fix a contradiction if
+   it is mechanical and FLAG it if it is canon-level. How many people are alive
+   in Vegas is canon-level and his.
+
+THE RULE THIS LANE KEEPS RELEARNING, now written where it cannot be missed:
+  BEFORE FIXING ANYTHING WORLD-FACING, ASK WHICH FRAME DRAWS IT.
+    cityFrame                  what he sees (from CITY_B64 inside the alpha)
+    BOHEMIA_RUN_CURRENT.html   real, tested, and NOT on his screen
+  A law proved only on the invisible surface is a law he never received.
+
+WHAT COMES AFTER:
+  1. [PENDING Paolo] the population number above - it decides whether the
+     streets have anybody on them.
+  2. [PENDING Paolo] the run slice: SHOW it, MERGE it into the city frame, or
+     RETIRE it. Quests, combat handoff, the schedules and the doorstep all live
+     in a file he cannot open.
+  3. The city-builder half is still the biggest undesigned system in the game
+     and needs yap sessions with him, not a lane.
+  4. ART: his 13 wall tiles are complete 44x44 walls WITH A CAP, so painting one
+     across two tiles puts a cap in the middle. The lower course wants the body
+     without the cap.
+
+DO NOT: fix a world thing in the run slice assuming he will see it. Do not make
+a wall one tile tall or a fence three. Do not seal cells to fix a wall.
+
+--- earlier turns, still current ---
 CITY (03): 8/2 LATEST — *** THE SURFACE HE PLAYS IS THE CITY FRAME, NOT THE RUN
 SLICE. READ THIS BEFORE YOU FIX ANYTHING WORLD-FACING. ***
 

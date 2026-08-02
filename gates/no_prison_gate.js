@@ -245,6 +245,71 @@ const RUN_FILE = path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html');
     ok('AND WHERE IT PUTS YOU IS A REAL STREET', !!STREET[after.name]);
   }
 
+  /* ---------------------------------------------------------------------------
+     D. THE SURFACE HE ACTUALLY PLAYS.
+     Everything above this drives slices/BOHEMIA_RUN_CURRENT.html - and the
+     ONE WORLD TAB measurement (8/2) proved #p-run is display:none for the life
+     of the app, so PAOLO HAS NEVER SEEN THAT FILE. When he taps RUN he is
+     looking at the CITY FRAME's walk mode. A law proved only on the invisible
+     surface is a law he never received, and this one was: the 8/1 doorstep fix
+     went into the run slice and could not have reached the complaint he made.
+     So NO PRISON is asserted HERE too, on the frame he opens, by driving its
+     own DROP IN and looking at where it puts him.
+     --------------------------------------------------------------------------- */
+  {
+    const p2 = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    await p2.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'));
+    await p2.waitForTimeout(2500);
+    await p2.click('#front').catch(() => {});
+    await p2.waitForTimeout(1200);
+    await p2.click('.tab[data-p="run"]').catch(() => {});
+    await p2.waitForTimeout(14000);
+    const cf = p2.frames().find(fr => fr.name() === 'cityFrame');
+    ok('D the frame he actually plays is reachable', !!cf);
+    if (cf) {
+      const drops = await cf.evaluate(() => {
+        const P = window.__proof, out = [];
+        const isRoad = (x, y) => { const t = om.at(Math.floor(x / FN), Math.floor(y / FN));
+          return !!(t && /arterial|freeway|beltway|strip|interchange|road/.test(String(t.district))); };
+        const tries = []; let n = 0;
+        for (let y = 0; y < om.n && tries.length < 6; y++) for (let x = 0; x < om.n && tries.length < 6; x++) {
+          const c = om.at(x, y); if (!c || c.district !== 'suburb') continue;
+          if (++n > 400) break; tries.push([x, y]);
+        }
+        for (const [cx, cy] of tries) {
+          city.x = cx; city.y = cy; if (MODE === 'human') swapMode();
+          swapMode();                                   // DROP IN, the real one
+          let touches = isRoad(hx, hy);
+          for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) if (isRoad(hx + dx, hy + dy)) touches = true;
+          /* and how hard is it to FIND a road from where he was put */
+          const seen = new Set([hx + ',' + hy]); const q = [[hx, hy]]; let steps = 0, hit = false;
+          while (q.length && steps < 40000) {
+            const [x, y] = q.shift(); steps++;
+            if (isRoad(x, y)) { hit = true; break; }
+            for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+              const nx = x + dx, ny = y + dy, k = nx + ',' + ny;
+              if (nx < 0 || ny < 0 || nx >= WORLD_F || ny >= WORLD_F || seen.has(k)) continue;
+              const cc = P.cellAt(nx, ny); if (!cc || !cc.walk) continue;
+              seen.add(k); q.push([nx, ny]);
+            }
+          }
+          out.push({ cell: [cx, cy], touches, reached: hit, steps });
+          swapMode();
+        }
+        return out;
+      });
+      const worst = Math.max(...drops.map(d => d.steps));
+      console.log('  the surface he plays: ' + drops.length + ' drop-ins, worst search to a road = ' +
+        worst + ' tiles');
+      ok('D EVERY DROP-IN REACHES A ROAD', drops.every(d => d.reached));
+      ok('D AND IT LANDS YOU ON OR BESIDE ONE — not stranded behind a house',
+        drops.every(d => d.touches));
+      ok('D so finding the street is a step, not an expedition (worst ' + worst + ' tiles, was 7,400-9,400)',
+        worst < 100);
+    }
+    await p2.close();
+  }
+
   await browser.close();
   console.log('\n=== NO PRISON GATE: ' + pass + ' passed, ' + fail + ' failed ===');
   console.log('    Paolo 8/1: "make sure I can\'t be locked in any certain district ever again".');

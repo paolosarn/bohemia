@@ -1724,6 +1724,47 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AN. [DONE 8/2 — THE PRISON FIX FINALLY REACHED HIM] DROP IN LANDS YOU ON THE
+   STREET, ON THE SURFACE HE ACTUALLY PLAYS.
+   0AI built NO DISTRICT IS A PRISON into the RUN SLICE and proved it by walking
+   that file. 0AM then proved he has NEVER SEEN THAT FILE. So the fix for the
+   complaint he made never reached the screen he made it about - three for three
+   on this lane's oldest failure.
+   THE CITY FRAME'S DROP IN put him at the centre of the cell the camera was
+   over, then spiralled to the first WALKABLE cell - and walkable includes
+   dead-dirt back yards, so it landed him behind a house inside a walled
+   subdivision facing a wall.
+     worst search to find a road: 9,432 tiles  ->  3 tiles
+   Every drop-in now lands ON a road or TOUCHING one. PREFERENCE not filter:
+   road, then touching-a-road, then any walkable cell exactly as before, so
+   nowhere becomes unreachable. NO WALKABILITY CHANGED - only which walkable
+   cell the camera hands you, which is why it cannot regress 0AI.
+   | tools/bohemia_city_dropin_on_the_street_patch.py
+   | gate: NO PRISON 15 -> 19, new section D drives the city frame's own
+     swapMode() (the real DROP IN). Proved able to fail: disabling the road
+     preference puts the worst case straight back to 9,432. | 8/2 | YES - tap
+     RUN, hit DROP IN anywhere, you should be standing on a street.
+
+0AO. [FLAGGED 8/2, NOT DECIDED — CANON-LEVEL, PENDING PAOLO] TWO LIVE ANSWERS TO
+   A NUMBER HE RULED. Measured today, both on main:
+     bohemia_population.js (the 7/29 zone map, HIS ruling made mechanical)
+       297 people in the walkable valley - his ~300 - and 64% of residential
+       cells hold ZERO by design ("some no mans lands", his words).
+     bohemia_agents.js OCCUPIED_RATE, changed 8/1 by another lane to 0.038
+       derived from a scale model + GDD v5's ~3% survival = 1,113 valley-wide.
+   The two disagree by ~15x on the mean occupancy (0.0025 vs 0.038).
+   HIS 7/29 RULING PICKS THE BASIS EXPLICITLY: "i want to go with the number
+   that reflects how many people vegas can feed" - the FOOD CEILING, which is
+   the zone map's path. The 8/1 derivation answers a different question (how
+   many SURVIVE), and its own note says the zone map is "19x too FEW".
+   SIX GATES ARE RED ON MAIN because of it (LIFE, POPULATION, DRESS, MEMORY,
+   DEVIATION + others): a 19-home block now comes out with ZERO residents, and
+   those gates encode the older 30% assumption.
+   NOT RESOLVED HERE ON PURPOSE. The TRUTH HIERARCHY says a contradiction
+   between two live files is a bug to fix if mechanical and to FLAG if
+   canon-level. How many people are alive in Vegas is canon-level and his.
+   | needs Paolo: food-ceiling ~300, or survival ~1,113? | 8/2 | HIS CALL.
+
 0AM. [DONE 8/2, HIS RULING — AND THE MEASUREMENT FOUND SOMETHING BIGGER]
    ONE WORLD TAB, AND IT IS RUN. laws/BOHEMIA_LAW_ONE_WORLD_TAB_8_2_26.md
    > "the city tab will now live in the run tab. There's no point in having a
