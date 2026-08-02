@@ -64,6 +64,11 @@ GATES = [
      'ground of the houses": the chunk bake resolution EQUALS his approved art size, measured as '
      'a real source-vs-destination blit ratio in a browser, so nothing is decimated before '
      'compositing', True),
+    ('RUN SPAWN',      ['node', 'gates/run_spawn_gate.js'],
+     'Paolo 8/2: the run opens in the district we are WORKING ON, not the middle of the map. '
+     'It was hardcoded to the Strip at cell 44,48 every single run. One setting, one command '
+     '(tools/bohemia_run_spawn.py <district>), verified by booting the real alpha and asking '
+     'the world model what district the player is standing in', True),
     ('FULL PIXEL',     ['node', 'gates/full_pixel_gate.js'],
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],

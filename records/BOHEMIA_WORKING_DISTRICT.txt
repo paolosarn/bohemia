@@ -1,0 +1,8 @@
+suburb
+
+THE RUN OPENS HERE (Paolo 8/2). Set it with:
+    python3 tools/bohemia_run_spawn.py <district>
+Whatever district we are building, the run should start there. This file is
+the readable mirror of the WORKING_DISTRICT constant inside the city blob, so
+no session has to decode 24MB to find out where the run opens.
+Gate: gates/run_spawn_gate.js
