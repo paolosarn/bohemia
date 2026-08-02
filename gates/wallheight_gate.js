@@ -48,7 +48,7 @@ const PROBE = `(() => {
         if (a.length === 2) { dx = a[0]; dy = a[1]; dw = nw; dh = nh; sw = nw; sh = nh; }
         else if (a.length === 4) { dx = a[0]; dy = a[1]; dw = a[2]; dh = a[3]; sw = nw; sh = nh; }
         else if (a.length === 8) { sw = a[2]; sh = a[3]; dx = a[4]; dy = a[5]; dw = a[6]; dh = a[7]; }
-        rec.draws.push({ dx, dy, dw, dh, sw, sh, al: this.globalAlpha });
+        rec.draws.push({ dx, dy, dw, dh, sw, sh, al: this.globalAlpha, tgt: this.canvas });
       } catch (e) {}
     }
     return orig.apply(this, [img, ...a]);
@@ -131,18 +131,29 @@ const PROBE = `(() => {
     let away = null;
     if (clear) { hx = clear[0]; hy = clear[1]; away = grab(); }
 
-    const faded = d => d.filter(x => x.al < 0.99).length;
-    const tall = d => d.filter(x => Math.abs(x.dh - 2 * C) < 1.5 && Math.abs(x.dw - C) < 1.5);
-    const cell = d => d.filter(x => Math.abs(x.dh - C) < 1.5 && Math.abs(x.dw - C) < 1.5);
+    /* ON THE REAL SURFACE, NOT EVERY SURFACE (8/1/26). Every predicate below buckets
+     * a draw by its PIXEL SIZE alone, which quietly assumed the game's OFFSCREEN
+     * canvases were never the same size as an on-screen cell. Once the bake matches
+     * his 44px art (TPX 22 -> 44) they are: the chunk bake writes 44x44 tiles into a
+     * 704x704 texture canvas, and tallTex derives the two-tile door ONCE into an
+     * offscreen 44x88 cache -- the derive-once-and-cache this gate exists to BLESS,
+     * scored as the per-frame stretch it bans. Scope every facade predicate to the
+     * world canvas, which is the only thing this gate ever claimed to measure.
+     * Measured: faded/tall are identical either way; `cell` goes 6,417 -> 34, which
+     * is the real facade count. The gate was counting the bake as facades. */
+    const onCv = x => x.tgt === cv;
+    const faded = d => d.filter(onCv).filter(x => x.al < 0.99).length;
+    const tall = d => d.filter(onCv).filter(x => Math.abs(x.dh - 2 * C) < 1.5 && Math.abs(x.dw - C) < 1.5);
+    const cell = d => d.filter(onCv).filter(x => Math.abs(x.dh - C) < 1.5 && Math.abs(x.dw - C) < 1.5);
     /* Only the FACADE draws are this gate's business — one cell wide, one or two
      * cells tall. The street lamps are deliberately drawn 1.5 x 3 cells from a
      * square source and that is another feature's approved choice, not this
      * one's regression; scoping the check keeps this gate honest about what it
      * owns instead of failing on somebody else's art. */
-    const isFacade = x => Math.abs(x.dw - C) < 1.5 && (Math.abs(x.dh - C) < 1.5 || Math.abs(x.dh - 2 * C) < 1.5);
+    const isFacade = x => onCv(x) && Math.abs(x.dw - C) < 1.5 && (Math.abs(x.dh - C) < 1.5 || Math.abs(x.dh - 2 * C) < 1.5);
     const badAspect = d => d.filter(isFacade).filter(x => x.sw > 0 && x.sh > 0 && x.dw > 0 && x.dh > 0
       && Math.abs((x.dw / x.dh) / (x.sw / x.sh) - 1) > 0.03).length;
-    const offAspect = d => d.filter(x => !isFacade(x)).filter(x => x.sw > 0 && x.sh > 0 && x.dw > 0 && x.dh > 0
+    const offAspect = d => d.filter(x => onCv(x) && !isFacade(x)).filter(x => x.sw > 0 && x.sh > 0 && x.dw > 0 && x.dh > 0
       && Math.abs((x.dw / x.dh) / (x.sw / x.sh) - 1) > 0.03)
       .map(x => Math.round(x.sw) + 'x' + Math.round(x.sh) + '->' + Math.round(x.dw) + 'x' + Math.round(x.dh));
 
@@ -153,6 +164,7 @@ const PROBE = `(() => {
       behindBadAspect: badAspect(behind), behindOffAspect: Array.from(new Set(offAspect(behind))),
       awayTotal: away ? away.length : -1, awayFaded: away ? faded(away) : -1,
       awayTall: away ? tall(away).length : -1,
+      onCvBehind: behind.filter(onCv).length, onCvAway: away ? away.filter(onCv).length : -1,
       alphas: Array.from(new Set(behind.map(x => +x.al.toFixed(2)))).sort(),
     };
   });
@@ -164,6 +176,14 @@ const PROBE = `(() => {
 
   ok('the gate rendered real frames (' + r.behindTotal + ' draws behind a wall, ' + r.awayTotal + ' clear of one)',
     r.behindTotal > 20 && r.awayTotal > 20);
+  /* THE SCOPE IS ITSELF GATED, so it can never quietly become a rubber stamp: the
+   * frame MUST still contain draws this gate deliberately does not count (the chunk
+   * bake, the tall-door cache derivation), and the ones it does count must be a real
+   * facade population, not zero. */
+  ok('THE MEASUREMENT IS SCOPED TO THE GLASS (' + r.onCvBehind + ' of ' + r.behindTotal +
+    ' draws landed on the world canvas; the rest are the offscreen bake and the tall-door ' +
+    'cache, which are not facade draws and never were)',
+    r.onCvBehind > 20 && r.onCvBehind < r.behindTotal && r.onCvAway > 20);
   ok('THREE TILES TALL: facades draw a full cell high, many of them (' + r.behindCell +
     ' one-cell draws at ' + r.C + 'px) — the facade left the bake and is a live pass now',
     r.behindCell > 10);

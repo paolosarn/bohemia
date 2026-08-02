@@ -59,6 +59,11 @@ GATES = [
      'Paolo 8/1: his 348-sprite signal bank reached NOTHING for two weeks. His sprites are in '
      'the renderer byte for byte, the broken ones on the floor with them, his arm/color laws '
      'applied, and a signal MEASURED on screen at a real intersection in a real browser', True),
+    ('FULL RES',       ['node', 'gates/full_res_gate.js'],
+     'Paolo 7/31 + 8/1 "WHY IS THE PIXEL QUALITY NOT AT FULL BRO WTF... of the terrain of the '
+     'ground of the houses": the chunk bake resolution EQUALS his approved art size, measured as '
+     'a real source-vs-destination blit ratio in a browser, so nothing is decimated before '
+     'compositing', True),
     ('FULL PIXEL',     ['node', 'gates/full_pixel_gate.js'],
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
