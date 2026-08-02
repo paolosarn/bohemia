@@ -763,6 +763,51 @@
   var DIAL_MIN = 0, DIAL_MAX = 32;
   var DIAL = 1;                    // "leave the world exactly as it was"
   var ACT_DIAL = {};               // act -> dial. HIS. EMPTY.
+  // ==========================================================================
+  // PER-DISTRICT DIALS — the plumbing for REPAIRING A DISTRICT
+  // (Paolo 8/1: "when you fully repair a district, kind of like Stardew Valley -
+  // get rid of all the junk cars and make sure the electricity is on, solar
+  // panels everywhere - then more people will want to move in and live in the
+  // recovered ruins ... maybe towards the middle end of act one")
+  //
+  // The global dial says how full the WHOLE valley is. His idea needs one cell to
+  // move on its own: you fix this district, THIS district fills up, and the one
+  // next door does not. So a cell can carry its own multiplier on top of the
+  // global one, and repopulation becomes a thing the player CAUSES rather than a
+  // number somebody types.
+  //
+  // GROUNDED, and it says he is right: studies of 63 post-disaster infrastructure
+  // recoveries find that returning population is contingent on critical services
+  // - electricity, potable water, sanitation - and that those systems are
+  // mutually interdependent. People come back when the lights and the taps work.
+  // That is exactly the loop he described.
+  //
+  // WHAT SHIPS EMPTY AND STAYS EMPTY: what COUNTS as repaired, and how much
+  // population each repair is worth. REPAIR_WORTH is his table. This module only
+  // knows how to APPLY a number, never how to earn one - no session may decide
+  // that hauling ten junk cars is worth thirty people.
+  var CELL_DIAL = {};              // "x,y" -> multiplier. Set by whatever repairs.
+  var REPAIR_WORTH = {};           // repair -> dial gain. HIS. EMPTY.
+  function cellKey(cx, cy) { return (cx | 0) + ',' + (cy | 0); }
+  function cellDial(cx, cy) {
+    var v = CELL_DIAL[cellKey(cx, cy)];
+    return v == null ? 1 : v;
+  }
+  function setCellDial(cx, cy, v) {
+    v = Number(v);
+    if (!isFinite(v)) return cellDial(cx, cy);
+    v = v < DIAL_MIN ? DIAL_MIN : (v > DIAL_MAX ? DIAL_MAX : v);
+    CELL_DIAL[cellKey(cx, cy)] = v;
+    return v;
+  }
+  function clearCellDials() { CELL_DIAL = {}; }
+  function repairWorth(repair) {
+    return Object.prototype.hasOwnProperty.call(REPAIR_WORTH, repair)
+      ? REPAIR_WORTH[repair] : null;
+  }
+  /* the whole answer for one cell: the valley's dial times this cell's own. */
+  function dialAt(cx, cy) { return DIAL * cellDial(cx, cy); }
+
   function dial() { return DIAL; }
   function setDial(v) {
     v = Number(v);
@@ -774,9 +819,9 @@
     return Object.prototype.hasOwnProperty.call(ACT_DIAL, act) ? ACT_DIAL[act] : null;
   }
   /* the one place the dial is applied, so no caller can forget it */
-  function applyDial(rate) {
+  function applyDial(rate, cx, cy) {
     if (!(rate > 0)) return 0;
-    var r = rate * DIAL;
+    var r = rate * (cx == null ? DIAL : dialAt(cx, cy));
     return r < 0 ? 0 : (r > 1 ? 1 : r);
   }
 
@@ -790,9 +835,10 @@
     // the neighbourhood's people spread over its own residential cells
     var perCell = heads / s.res;
     var rate = perCell / (homes * HOUSEHOLD_MEAN);
-    /* THE DIAL IS THE LAST WORD. At 0 this returns 0 for every cell in the
-       valley and the world is genuinely empty; at 1 it is exactly the zone map. */
-    return applyDial(rate);
+    /* THE DIAL IS THE LAST WORD, and a REPAIRED cell carries its own on top of
+       the valley's. At 0 this returns 0 everywhere; at 1 it is exactly the zone
+       map; a cell somebody has fixed up returns more than its neighbours. */
+    return applyDial(rate, tx, ty);
   }
 
   // CONTENTS ARE PAOLO'S. No names, no factions, no dialogue. The mechanism
@@ -803,6 +849,8 @@
               zoneAt: zoneAt, headsAt: headsAt, homesIn: homesIn, census: census,
               occupiedRateFor: occupiedRateFor, HOUSEHOLD_MEAN: HOUSEHOLD_MEAN, weightOf: weightOf,
               dial: dial, setDial: setDial, applyDial: applyDial,
+              cellDial: cellDial, setCellDial: setCellDial, clearCellDials: clearCellDials,
+              dialAt: dialAt, REPAIR_WORTH: REPAIR_WORTH, repairWorth: repairWorth,
               DIAL_MIN: DIAL_MIN, DIAL_MAX: DIAL_MAX,
               ACT_DIAL: ACT_DIAL, dialForAct: dialForAct,
               ARCHETYPES: ARCHETYPES, personFields: personFields, peopleIn: peopleIn,

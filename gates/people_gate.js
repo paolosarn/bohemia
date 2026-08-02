@@ -879,6 +879,68 @@ async function partH() {
   } finally { await browser.close(); }
 }
 
+/* ==========================================================================
+   PART I — REPAIR A DISTRICT AND PEOPLE MOVE IN (Paolo 8/1, direction:
+   laws/BOHEMIA_ADDENDUM_REPAIR_A_DISTRICT_8_1_26.md). "when you fully repair a
+   district ... more people will want to move in and live in the recovered
+   ruins." The socket for that, and nothing else: WHAT counts as repaired and
+   what it is worth is his table and it ships empty.
+   ========================================================================== */
+function partI() {
+  console.log('I. A REPAIRED DISTRICT CAN FILL UP, AND ITS NEIGHBOUR DOES NOT');
+  const POP = require(path.join(ROOT, 'engine/bohemia_population.js'));
+  const W2 = require(path.join(ROOT, 'engine/bohemia_world.js'));
+  global.window = global; global.BohemiaPopulation = POP;
+  const world = (global.BohemiaWorld || W2).world(7);
+  POP.clearCellDials(); POP.setDial(1);
+
+  ok('I1 REPAIR_WORTH ships EMPTY — what a repair is worth is his design',
+    Object.keys(POP.REPAIR_WORTH).length === 0 && POP.repairWorth('solar') === null);
+  ok('I2 an untouched district carries no dial of its own', POP.cellDial(20, 20) === 1);
+
+  /* find a lived-in cell and repair it */
+  /* THE NEIGHBOUR MUST ALSO HAVE PEOPLE IN IT. First version of this claim
+     compared against an EMPTY neighbour, so a repair that leaked everywhere still
+     multiplied zero by eight and got zero - the mutation walked straight past it.
+     A control that cannot move is not a control. */
+  let at = null, nb = null;
+  outer2:
+  for (let y = 0; y < 48; y++) for (let x = 0; x < 47; x++) {
+    const c = world.at(x, y), c2 = world.at(x + 1, y);
+    if (!c || !c2 || !A.RESIDENTIAL[c.district] || !A.RESIDENTIAL[c2.district]) continue;
+    if (A.agentsForPlot(world, x, y).length > 2 && A.agentsForPlot(world, x + 1, y).length > 2) {
+      at = [x, y]; nb = [x + 1, y]; break outer2;
+    }
+  }
+  ok('I3 there is a district to repair, next to one that also has people', !!at && !!nb);
+  if (!at) return;
+  const before = A.agentsForPlot(world, at[0], at[1]).length;
+  const nbBefore = A.agentsForPlot(world, nb[0], nb[1]).length;
+  POP.setCellDial(at[0], at[1], 8);
+  const after = A.agentsForPlot(world, at[0], at[1]).length;
+  const nbAfter = A.agentsForPlot(world, nb[0], nb[1]).length;
+
+  ok('I4 REPAIRING A DISTRICT BRINGS PEOPLE IN (' + before + ' -> ' + after + ')', after > before);
+  /* the whole point: it is THIS district, not the valley. A change that leaked
+     into the neighbour would make repair a global cheat rather than a place. */
+  ok('I5 and the district next door, which ALSO has people, is untouched (' +
+    nbBefore + ' -> ' + nbAfter + ')', nbAfter === nbBefore && nbBefore > 2);
+
+  /* the global dial still outranks it, or "zero to a maximum" stops being true */
+  POP.setDial(0);
+  ok('I6 a ghost valley stays a ghost valley however much you repaired',
+    A.agentsForPlot(world, at[0], at[1]).length === 0);
+  POP.setDial(1); POP.clearCellDials();
+  ok('I7 clearing the repairs puts it back exactly where it was',
+    A.agentsForPlot(world, at[0], at[1]).length === before);
+
+  const law = path.join(ROOT, 'laws/BOHEMIA_ADDENDUM_REPAIR_A_DISTRICT_8_1_26.md');
+  ok('I8 his words are written down where the next session reads them',
+    fs.existsSync(law) && /more people will want to move in/.test(fs.readFileSync(law, 'utf8')));
+  ok('I9 the law names the holes rather than smoothing them over',
+    /WATER IS MISSING FROM HIS LIST/.test(fs.readFileSync(law, 'utf8')));
+}
+
 (async () => {
   console.log('PEOPLE GATE — the bodies on the block are people');
   partA();
@@ -889,6 +951,7 @@ async function partH() {
   partF();
   partG();
   await partH();
+  partI();
   console.log((fail ? 'FAILED' : 'OK') + ': ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.log('  FAIL: gate threw — ' + (e && e.stack || e)); process.exit(1); });

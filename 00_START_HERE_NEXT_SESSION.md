@@ -1,3 +1,67 @@
+PEOPLE (7h9sfy): 8/1 (i) LATEST — HE INTRODUCED THE REPAIR-A-DISTRICT GAME MODE, and the
+socket for it is built. Law + the holes I pulled:
+laws/BOHEMIA_ADDENDUM_REPAIR_A_DISTRICT_8_1_26.md
+
+HIS DIRECTION (not yet locked - he said "I'll be introducing" and "let's just say"):
+"when you fully repair a district kind of like Stardew Valley - get rid of all the junk cars
+and make sure the electricity is on, solar panels everywhere ... then more people will want
+to move in and live in the recovered ruins ... maybe towards the middle end of act one."
+
+WHY IT MATTERS MORE THAN IT SOUNDS: the third clause makes POPULATION A CONSEQUENCE OF PLAY.
+Every other lever in this game is a number a designer types. This one the player EARNS. It
+is also the first concrete statement of a payoff loop the coordinator called the single
+largest undesigned system in the game (BIG MISSING item 2, the city-builder half).
+
+GROUNDED, AND HE IS RIGHT: studies of 63 post-disaster infrastructure recoveries find
+returning population is contingent on electricity, potable water and sanitation, and that
+those systems are interdependent. People come back when the lights and taps work. Japan
+post-2011 repopulated fastest where infrastructure landed first.
+
+=== THE HOLES I PULLED, all in the law, none smoothed over ===
+1. WATER IS MISSING FROM HIS LIST AND IT IS AS BIG AS POWER. He named junk cars, electricity,
+   solar. The research puts water and sanitation level with power, and the GDD already calls
+   water "THE survival event" (cholera, Intake 3, the reclaim plant). A district with power
+   and no water should not repopulate.
+2. WHERE DO THE NEW PEOPLE COME FROM? The valley holds ~1,100. Fifty arriving from off-map is
+   GROWTH; fifty leaving another district is a ZERO-SUM TUG OF WAR. Different games. The
+   zero-sum one is more interesting and costs nothing extra - but it is his call.
+3. CAN IT GO BACKWARDS? If a faction cuts the power, do they leave? A ratchet is simpler; a
+   reversible one gives raiders something worth doing.
+4. WHAT STOPS IT BEING A CHORE? Stardew works on small bundles with immediate visible reward.
+   "Clear every junk car" is a flat list. PARTIAL CREDIT may be the difference between Stardew
+   and homework - though "fully repair" may already answer it as all-or-nothing.
+5. IT COLLIDES WITH THE ZONE MAP. If repair adds people, does a repaired no-man's-land become
+   a cluster, and does food carrying capacity still cap it?
+
+=== WHAT WAS BUILT (mechanism only) ===
+PER-DISTRICT DIALS on top of the global one:
+    cellDial(x,y) / setCellDial(x,y,v) / dialAt(x,y) / clearCellDials()
+One cell can now be fuller than its neighbours, which is the entire mechanical requirement
+of his idea. MEASURED: repairing one cell took it 3 -> 10 people while the cell next door
+stayed exactly where it was. The global dial still wins at zero, so a ghost valley stays a
+ghost valley however much you repaired.
+REPAIR_WORTH SHIPS EMPTY AND STAYS EMPTY. What counts as repaired, and what each repair is
+worth in people, is HIS table. No session may decide ten junk cars are worth thirty people.
+NOT BUILT, DELIBERATELY: repair tracking, junk-car counters, completion state, UI. That is
+the city-builder half and it needs his design first. This is the socket, nothing more.
+
+=== GATE: part I, 9 claims, 130 total ===
+I4 repairing brings people in. I5 THE NEIGHBOUR IS UNTOUCHED. I6 a ghost valley stays one.
+I7 clearing repairs restores exactly. I1 his table stays empty.
+A GATE WEAKNESS I FOUND BY MUTATING: I5 first compared against an EMPTY neighbour, so a
+repair that leaked everywhere still multiplied zero by eight and got zero - the mutation
+walked straight past it. A control that cannot move is not a control. It now requires a
+neighbour that also has people, and the leak mutation fails it 4 -> 13.
+
+=== WHAT COMES AFTER ===
+1. HIS ANSWERS to holes 1-5 above, whenever he wants. Hole 1 (water) is the one that changes
+   the most if left wrong.
+2. PARKED BY HIM: thin-vs-clustered distribution. DO NOT re-raise.
+3. Unchanged: visitors escape mass edits; JOB_DISTRICTS is four entries.
+4. PARKED, DO NOT ASK: who he already knows. FACTIONS ARE OFF.
+
+--------------------------------------------------------------------------------
+
 ART (f3eu53): 8/2 (b) LATEST — WEEDS, MANHOLES, AND THE CRACK NETWORK STOPPED LOOKING
 LIKE A DIAGRAM. Queue item 1 closed as far as it honestly goes.
 

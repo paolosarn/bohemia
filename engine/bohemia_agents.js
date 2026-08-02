@@ -211,10 +211,11 @@
   // the real overmap for them). fpOf(i) -> floorplan of house i (injected so
   // block-level callers and world-level callers share one body).
   /* the population dial, if bohemia_population is loaded. 1 when it is not. */
-  function dialOf(){
+  function dialOf(cell){
     try{
       var POP=(typeof BohemiaPopulation!=='undefined')?BohemiaPopulation
              :(root&&root.BohemiaPopulation)||null;
+      if(POP&&POP.dialAt&&cell) return POP.dialAt(cell[0],cell[1]);
       if(POP&&POP.dial) return POP.dial();
     }catch(_e){}
     return 1;
@@ -232,7 +233,8 @@
     try{
       var POP=(typeof BohemiaPopulation!=='undefined')?BohemiaPopulation
              :(root&&root.BohemiaPopulation)||null;
-      if(POP&&POP.applyDial&&!opts.preDialled) rate=POP.applyDial(rate);
+      if(POP&&POP.applyDial&&!opts.preDialled)
+        rate=POP.applyDial(rate, opts.cell?opts.cell[0]:null, opts.cell?opts.cell[1]:null);
     }catch(_e){}
     var out=[];
     var jobSite=(jobs&&jobs.length)? jobs[0] : null;   // nearest site
@@ -253,7 +255,7 @@
          is a ghost valley and that has to include his own street, or the bottom
          of the slider is a lie. So the COUNT is dialled the same way a rate is:
          four families at 1, two at 0.5, none at 0, eight at 2. */
-      var want=Math.round(opts.households * (opts.preDialled ? 1 : dialOf()));
+      var want=Math.round(opts.households * (opts.preDialled ? 1 : dialOf(opts.cell)));
       if(want<=0) return out;
       want=Math.min(want, feet.length);
       chosen={};
@@ -494,8 +496,9 @@
        So the rate stays explicit: opts.rateFor (the run's, zone map + its floor),
        else opts.occupiedRate, else the module's declared placeholder. */
     var rate = opts.rateFor ? opts.rateFor(x,y) : opts.occupiedRate;
-    return agentsForBlock(cell.seed>>>0, plot.buildings, jobs, fpOf,
-                          (rate!=null)?{occupiedRate:rate}:{});
+    var o = (rate!=null)?{occupiedRate:rate}:{};
+    o.cell = [x,y];          /* so a REPAIRED district fills up and its neighbour does not */
+    return agentsForBlock(cell.seed>>>0, plot.buildings, jobs, fpOf, o);
   }
 
   // ---- BOUNDED DEVIATION (rung 4b, the Radiant lesson made law) ------------
