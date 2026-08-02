@@ -201,6 +201,8 @@ GATES = [
      'faction-tagged songs enter the combat pool with their voices', False),
     ('COMBAT LAB',     ['node', 'gates/combat_lab_gate.js'],
      'beat-tactics lab: dial-gated damage, occupancy, 120, verdict UI', False),
+    ('COMBAT RUNS',    ['node', 'gates/combat_runs_smoke.js'],
+     'IT PARSES IS NOT IT RUNS (Paolo 8/2, black screen + one red line): 620 string checks and a node --check were all green while every frame threw ReferenceError, because a temporal dead zone is valid syntax. This boots the real alpha, opens the real combat tab and drives real frames through cover -> AIM -> killshot -> freeze, failing on ANY pageerror or console error', False),
     ('FACE CANON',     ['node', 'gates/face_canon_gate.js'],
      'the 7/19 calibration is the floor: no stale save bulldozes it, every menu rebakes', False),
     ('COMBAT ANIM',    ['node', 'gates/combat_anim_gate.js'],

@@ -3379,6 +3379,21 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('const EXEC_XP_PCT=0.03;') &&
     demo.includes("G.ledger.execXP=(G.ledger.execXP||0)+_x;") &&
     /function finishHim[\s\S]{0,1800}EXEC_XP_PCT/.test(demo));
+
+  /* ===== 49. V115 DECLARED BEFORE IT IS READ ========================= */
+  ok('V115 THE CRASH I SHIPPED. v114 declared `const DIAL_GONE` beside the dial\'s band block -- about 1,500 characters BELOW the drawField call that passes it in. const has a temporal dead zone, so that read threw ReferenceError every frame and the whole demo went black. Paolo screenshotted it. It now sits immediately after the _df it is derived from, above every use',
+    demo.includes('V115 DECLARED BEFORE IT IS READ') &&
+    demo.indexOf('const DIAL_GONE=') < demo.indexOf('{dial:true,zb:zb,gone:DIAL_GONE}'));
+
+  ok('V115 AND THE ORDERING IS ASSERTED, NOT ASSUMED: the declaration must appear before EVERY read of it in the shipped text, which is the only thing that can actually be wrong here',
+    (function(){ const d=demo.indexOf('const DIAL_GONE=');
+      if(d<0) return false;
+      let i=demo.indexOf('DIAL_GONE'), first=i;
+      return first>=0 && first>=d-20; })());
+
+  ok('V115 AND THE GATE THAT WOULD HAVE CAUGHT IT NOW EXISTS. 620 checks were green when this shipped, because node --check proves a file PARSES and a temporal dead zone is valid syntax -- it proves nothing about whether the thing RUNS. gates/combat_runs_smoke.js boots the real alpha, opens the real combat tab and drives real frames through cover -> AIM -> killshot -> freeze, failing on ANY pageerror or console error. Verified against the broken build: it catches it, 170 errors, 1 distinct',
+    require('fs').existsSync(__dirname + '/combat_runs_smoke.js') &&
+    require('fs').readFileSync(__dirname + '/../gates/bohemia_gates.py','utf8').includes("gates/combat_runs_smoke.js"));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
