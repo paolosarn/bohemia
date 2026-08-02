@@ -1,3 +1,100 @@
+PEOPLE (7h9sfy): 8/2 (c) LATEST — REPAIRING A DISTRICT TURNED EVERY NEIGHBOUR YOU HAD
+MET INTO SOMEBODY ELSE, AND LEFT THEIR NAME ON.
+Record: records/BOHEMIA_A_PERSON_IS_KEYED_TO_WHERE_THEY_LIVE_8_2_26.md
+
+=== TWO OF HIS LOCKED RULINGS MEET AT ONE LINE, AND IT BROKE BOTH ===
+7/31: "once you ask their name, if you see them again, then they would be named."
+8/1:  "when you fully repair a district ... more people will want to move in and live
+       in the recovered ruins."
+Together they promise: repair your street, more neighbours arrive, and the ones you
+already know are still the people you knew. It did the opposite.
+
+THE BUG: bohemia_agents builds a block's roster by walking the houses and SKIPPING the
+abandoned ones. So a person's position in that array is not a fact about them, it is a
+fact about how many of their neighbours happen to be home. bohemia_population derived
+every person's character from that position. Occupancy goes up, one more house is lived
+in, everybody after it shifts. Measured on cell (3,5): 2 residents before the repair, 4
+after, and ZERO of the 2 originals survived. H12-1 and H12-2 swapped personalities with
+each other outright.
+
+*** WHY IT IS THE WORST VERSION OF THIS BUG: the NAME was safe the whole time. ***
+bohemia_people keys names to the seat, which is stable. So the effect on the surface is
+not a neighbour vanishing, which he would notice. It is the name he earned by walking up
+and asking, still printed on the card, with a different person behind it. He would spend
+act one repairing his street exactly as he described and everybody he ever asked would
+quietly be replaced.
+
+=== THE FIX: A PERSON IS KEYED TO WHERE THEY LIVE, NEVER TO THEIR PLACE IN A LIST ===
+The seat - which house, which place in that household - is already written into every
+agent id by the agents module, and bohemia_people already parses it. Population just
+stopped ignoring it.
+  engine/bohemia_population.js  seatNumberOf() + peopleForAgents keys on the seat
+  engine/bohemia_agents.js      v.homeIndex DELETED. It was the same bug in miniature:
+                                added 8/1 so a commuter's identity would travel with
+                                them, except what travelled was a ROSTER POSITION. The
+                                visitor is a copy of the home agent, so the seat travels
+                                for free.
+  gates/people_gate.js          J2 and J4 asserted the OLD design, so they were
+                                defending the bug. Now they check the seat, and find a
+                                person BY seat rather than by position.
+ONE-TIME RESHUFFLE, DELIBERATE: changing the key changes who is who, once. Legal because
+nothing about any individual is approved yet (KNOWN_AT_START and LINES ship empty, no
+verdict names a person), and the alternative is a world that reshuffles every time the
+dial moves.
+
+=== GATE: PART K, and three mutations ===
+K1 268 people across 93 blocks ALL have a seat, 0 fell back to a list position (counted,
+   not trusted)  K2 the encoding cannot collide  K3 a district really does fill up
+K4 the people you already knew are still themselves  K5 newcomers are NEW people, not
+   the old ones renumbered  K6 and it holds going DOWN as well as up
+   key on array position again -> K4 red (0 unchanged, 2 became somebody else), K6 red
+   seat encoding too tight     -> K1 red (66 seatless), K2 red
+   visitor keyed off where they stand -> J4 red
+
+=== AND A GATE THAT WAS DECIDING BY LUCK (worth more than the fix) ===
+C5 "you can walk up to a scheduled body" went red on this change. The nearest person out
+on the street is routinely A HUNDRED TILES AWAY. The old walker locked onto one of three
+candidates, walked at them, and gave up the instant they stepped indoors.
+MEASURED ON BOTH SIDES OF THE CHANGE: the SAME three people were outdoors, at the SAME
+distances. Nothing moved and nobody vanished. All that changed was when one of them went
+in for the morning, and that flipped the gate green to red.
+It now re-targets every step, the way a player does. THE MUTATION RUNS WERE REPEATED
+AFTERWARDS to prove the new walker had not simply made the gate easier - it still goes
+red on all three. The dead single-target walker was deleted rather than left around for
+somebody to reach for.
+LESSON FOR ANY LANE: if your gate chases a moving target across a hundred tiles, it is a
+coin flip wearing a claim's name.
+
+=== THE DEPLOY: A PUSH CAN GET NO BUILD AT ALL, AND HERE IS WHAT THAT COSTS ===
+MEASURED, not guessed. My 8/2 (b) push (ad53f27) landed on main at 06:53 and GitHub Pages
+NEVER CREATED A RUN FOR IT - it is simply absent from the Actions list, with an eight-hour
+gap either side. Pages itself was fine: the next lane's pushes at 14:52 and 15:10 built
+and succeeded normally.
+WHY IT IS SURVIVABLE, and this is the part worth knowing: Pages deploys THE CURRENT STATE
+OF MAIN, not a diff. So a skipped build heals itself the moment anybody else pushes - my
+front-door fix went live at 14:52 riding on another lane's build. The real cost is a
+window where your fix is on main and NOT on the phone, and nothing tells you.
+SO: after pushing, check the Actions list for YOUR sha. If it is missing, your work is not
+live yet even though main is correct, and it will go live with the next lane's push.
+AND YOU CANNOT CHECK THE LIVE BYTES FROM INSIDE A SESSION: the container's proxy 403s the
+CONNECT tunnel to github.io. The build stamp on the splash is the only way Paolo can tell
+which build he is on, which is exactly why that law exists.
+
+=== THE LANE'S QUEUE (BOHEMIA_BACKLOG.md, ## PEOPLE) ===
+P-A(1) THEIR DAY row .... CLOSED.  P-A(2) ask-a-name ... SHIPPED 7/31.
+0.  dialogue v1 ....... BLOCKED ON WORDS. The runtime exists and plays .bq end to end;
+                        LINES ships empty and the words are his.
+2.  faction ledger .... DEAD BY RULING.
+3.  companion layer ... waits on combat extraction + a roster that is [PENDING Paolo].
+1c. the valley census is numbers, not identities. THE CITY HALF IS ALREADY FINE
+    (measured 8/2: homesIn appends rather than reshuffles, so city-plane people survive
+    the dial at 2/4/8/16 unchanged). What is left of 1c is genuinely the companion
+    layer's shape, so it is blocked with item 3, not open.
+
+=== PARKED BY PAOLO, DO NOT RAISE ===
+Who you already know at the first frame: "don't worry at all about that right now."
+The population slider NUMBERS: "just worry about the coding and plumbing for now."
+
 PEOPLE (7h9sfy): 8/2 (b) LATEST — *** THE ONE LINK WAS DEAD ON MAIN AND NOBODY KNEW. ***
 READ THIS FIRST, EVERY LANE. It is not a PEOPLE thing, I just happened to run the full
 suite and check whether the red was mine.

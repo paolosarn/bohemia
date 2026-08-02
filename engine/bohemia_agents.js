@@ -452,11 +452,15 @@
              present while their shift says 'work', away the rest of the day. */
           var v={}; for(var kk in a) v[kk]=a[kk];
           v.visiting=true; v.fromCell=[hx,hy];
-          /* WHERE THEY SIT IN THEIR OWN BLOCK'S ROSTER. bohemia_population derives
-             a person's character from (cell, index), so a visitor conditioned off
-             the cell they are STANDING on would have one personality at work and a
-             different one at home. Their home index travels with them. */
-          v.homeIndex=i;
+          /* WHERE THEY LIVE travels with them, and it is the CELL only.
+             This used to also carry v.homeIndex - their position in their home
+             block's roster - and that field was the array-index identity bug in
+             miniature: a roster position is not a fact about a person, it is a
+             fact about how many of their neighbours happen to be home, so it
+             moved the moment the block's occupancy changed. It is gone. The
+             visitor is a COPY of the home agent, so its 'H<house>-<slot>' id is
+             already the seat it has at home, and that is what bohemia_population
+             keys a person by (see A PERSON IS KEYED TO WHERE THEY LIVE there). */
           out.push(v);
         }
       }

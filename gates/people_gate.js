@@ -348,32 +348,40 @@ async function walkOutOfHouse(page) {
 
 /* CHASE. A scheduled body moves one tile per world-turn and so do you, so the
    only way to stand next to one is to re-plan after every single step. */
-async function walkUpTo(page, key, grid) {
+/* THE BLOCK IS 128 TILES ACROSS and a scheduled body can be anywhere on it, so
+   the nearest person out on the street is routinely a HUNDRED tiles away.
+
+   RE-TARGET EVERY STEP, BECAUSE THAT IS WHAT A PLAYER DOES. The old version
+   locked onto one person, walked at them, and gave up the instant they stepped
+   indoors - then tried the next of only three candidates the same way. Over a
+   hundred-tile chase somebody almost always goes inside first, so whether it
+   passed came down to luck: on 8/2 a change that moved nobody and removed nobody
+   (same three people outdoors, same distances, measured) flipped it from green to
+   red purely by shifting when one of them went in for the morning.
+   A gate whose answer depends on that is not measuring the thing it names. The
+   claim is "you can walk up to a scheduled body", so this walks toward whoever
+   is outdoors NOW, re-picks when that changes, and only fails if it truly cannot
+   reach anybody in a full block's worth of walking. */
+async function walkUpToAnyone(page, grid) {
   const g = grid || await page.evaluate(() => window.__RUN.grid());
-  for (let guard = 0; guard < 240; guard++) {
+  let stuck = 0;
+  for (let guard = 0; guard < 400; guard++) {
     const st = await page.evaluate(() => window.__RUN.state());
     const pl = await page.evaluate(() => window.__RUN.people());
-    const who = pl && pl.people.find(p => p.key === key);
-    if (!who || !who.outside) return false;      // they went indoors: pick another
-    if (Math.abs(who.x - st.px) + Math.abs(who.y - st.py) === 1) {
-      await tap(page, [who.x - st.px, who.y - st.py]);       // face them and stop
-      return true;
+    const outs = pl.people.filter(p => p.outside)
+      .map(p => ({ p, d: Math.abs(p.x - st.px) + Math.abs(p.y - st.py) }))
+      .sort((a, b) => a.d - b.d);
+    if (!outs.length) { if (++stuck > 40) return null; await tap(page, [0, 1]); continue; }
+    const who = outs[0].p;
+    if (outs[0].d === 1) { await tap(page, [who.x - st.px, who.y - st.py]); return who; }
+    /* if the closest is unroutable, try the next few before burning a step */
+    let stepped = false;
+    for (const c of outs.slice(0, 4)) {
+      const steps = route(g.pass, [st.px, st.py], [c.p.x, c.p.y], g.doorOf);
+      if (steps && steps.length) { await tap(page, steps[0]); stepped = true; break; }
     }
-    const steps = route(g.pass, [st.px, st.py], [who.x, who.y], g.doorOf);
-    if (!steps || !steps.length) return false;
-    await tap(page, steps[0]);
+    if (!stepped && ++stuck > 40) return null;
   }
-  return false;
-}
-/* THE BLOCK IS 128 TILES ACROSS and a scheduled body can be anywhere on it, so
-   chase the NEAREST one and fall through to the next if they go inside. */
-async function walkUpToAnyone(page, grid) {
-  const st = await page.evaluate(() => window.__RUN.state());
-  const pl = await page.evaluate(() => window.__RUN.people());
-  const outs = pl.people.filter(p => p.outside)
-    .map(p => ({ p, d: Math.abs(p.x - st.px) + Math.abs(p.y - st.py) }))
-    .sort((a, b) => a.d - b.d);
-  for (const c of outs.slice(0, 3)) if (await walkUpTo(page, c.p.key, grid)) return c.p;
   return null;
 }
 
@@ -999,8 +1007,15 @@ function partJ() {
   ok('J1 somebody in the valley commutes to work', !!at && wk.length > 0);
   if (!at) return;
 
-  ok('J2 a visitor carries where they live AND their seat in that block\'s roster',
-    wk.every(v => Array.isArray(v.fromCell) && v.homeIndex != null));
+  /* J2: WHAT travels with a commuter. This used to assert `homeIndex != null` -
+     their position in their home block's roster - and that field WAS the bug it
+     was guarding against, one layer down: a roster position moves the moment a
+     neighbour moves in. What actually travels is the cell they live on and the
+     SEAT they hold in a house there, which rides along in their own agent id. */
+  ok('J2 a visitor carries where they live AND their SEAT (house + place in the ' +
+     'household), never a roster position',
+    wk.every(v => Array.isArray(v.fromCell) && POP.seatNumberOf(v) != null) &&
+    wk.every(v => v.homeIndex === undefined));
 
   /* J3: EVERY body on the cell gets a person record, visitors included. A body
      with no record is a body no rule can reach. */
@@ -1010,13 +1025,19 @@ function partJ() {
   ok('J3 ONE PERSON RECORD PER BODY, workers included (' + recs.length + '/' + all.length + ')',
     recs.length === all.length);
 
-  /* J4: and the record is the one they have at HOME, not one invented here. */
+  /* J4: and the record is the one they have at HOME, not one invented here.
+     Found BY SEAT, not by roster position - the whole point of the 8/2 fix is
+     that a position is not a way to find a person, so a gate that finds them by
+     position is testing the wrong thing even when it passes. */
   const v = wk[0];
   const homeRoster = A.agentsForPlot(world, v.fromCell[0], v.fromCell[1]);
   const homeRecs = POP.peopleForAgents(homeRoster, v.fromCell[0], v.fromCell[1], 7, 'spread');
+  const seatAtHome = homeRoster.findIndex(h => h.id === v.id);
   const mine = recs[residents.length];
+  ok('J4a the commuter really is one of the people who live on their home block',
+    seatAtHome >= 0);
   ok('J4 THE SAME PERSON AT WORK AND AT HOME — same character, not two people',
-    JSON.stringify(mine) === JSON.stringify(homeRecs[v.homeIndex]));
+    seatAtHome >= 0 && JSON.stringify(mine) === JSON.stringify(homeRecs[seatAtHome]));
 
   /* J5: the whole point of the law. A rule added in bulk must land on them. */
   const before = JSON.stringify(POP.peopleForAgents(all, at[0], at[1], 7, 'spread')[residents.length]);
@@ -1032,6 +1053,124 @@ function partJ() {
     JSON.stringify(POP.peopleForAgents(all, at[0], at[1], 7, 'spread')[residents.length]) === before);
 }
 
+/* ==========================================================================
+   PART K — YOUR NEIGHBOUR IS STILL YOUR NEIGHBOUR AFTER YOU REPAIR THE STREET.
+
+   Two of Paolo's locked rulings meet here and the code was breaking both.
+     7/31, YOU HAVE TO ASK: "once you ask their name, if you see them again,
+       then they would be named."
+     8/1, REPAIR A DISTRICT: "when you fully repair a district ... more people
+       will want to move in and live in the recovered ruins."
+   Put them together and the game promises: repair your street, more neighbours
+   arrive, and the ones you already know are still the people you knew.
+
+   IT DID THE OPPOSITE. bohemia_agents builds a roster by walking the houses and
+   SKIPPING the abandoned ones, so a person's position in that array is a fact
+   about how many neighbours are home, not a fact about them. Character was
+   derived from that position. Measured on cell (3,5): 2 residents before the
+   repair, 4 after, and BOTH originals came back as different human beings -
+   H12-1 and H12-2 swapped personalities with each other. Their NAMES stayed put,
+   because bohemia_people.js keys those to the seat, so the effect on the surface
+   is the worst possible one: the name you earned still shows, attached to a
+   stranger.
+   ========================================================================== */
+function partK() {
+  console.log('K. YOUR NEIGHBOUR IS STILL YOUR NEIGHBOUR AFTER YOU REPAIR THE STREET');
+  const POP = require(path.join(ROOT, 'engine/bohemia_population.js'));
+  const W2 = require(path.join(ROOT, 'engine/bohemia_world.js'));
+  global.window = global; global.BohemiaPopulation = POP;
+  const world = (global.BohemiaWorld || W2).world(7);
+  POP.clearCellDials(); POP.setDial(1);
+
+  /* K1: the seat is a real, parseable thing on every body the generator makes.
+     A fallback to array position would silently reintroduce the whole bug, so
+     it is counted rather than trusted. */
+  let seatless = 0, bodies = 0, sample = 0;
+  for (let y = 0; y < 48; y += 2) for (let x = 0; x < 48; x += 2) {
+    const ag = A.agentsForPlot(world, x, y);
+    if (!ag.length) continue;
+    sample++; bodies += ag.length; seatless += POP.seatlessIn(ag);
+  }
+  ok('K1 EVERY body has a seat to be keyed by, across ' + sample + ' blocks and ' +
+    bodies + ' people (' + seatless + ' fell back to a list position)',
+    bodies > 100 && seatless === 0);
+
+  /* K2: the seat encoding cannot collide. household() returns 1..4 today; if it
+     ever returns more than SLOTS_PER_HOUSE, two different people in different
+     houses would share one key and quietly become the same person. */
+  let maxSlot = 0;
+  for (let y = 0; y < 48; y += 2) for (let x = 0; x < 48; x += 2)
+    for (const a of A.agentsForPlot(world, x, y)) {
+      const m = /^H(\d+)-(\d+)$/.exec(String(a.id || ''));
+      if (m) maxSlot = Math.max(maxSlot, parseInt(m[2], 10));
+    }
+  ok('K2 the biggest household in the valley (' + maxSlot + ') fits the seat ' +
+    'encoding (' + POP.SLOTS_PER_HOUSE + ' per house), so no two people share a key',
+    maxSlot > 0 && maxSlot <= POP.SLOTS_PER_HOUSE);
+
+  /* K3-K5: THE REPAIR ITSELF, on a real cell that really fills up. */
+  let cell = null, n0 = 0, n1 = 0;
+  outer:
+  for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++) {
+    POP.clearCellDials();
+    const a = A.agentsForPlot(world, x, y).length;
+    if (a < 2) continue;
+    POP.setCellDial(x, y, 4);
+    const b = A.agentsForPlot(world, x, y).length;
+    if (b > a) { cell = [x, y]; n0 = a; n1 = b; break outer; }
+  }
+  POP.clearCellDials();
+  ok('K3 a district in this valley really does fill up when it is repaired ' +
+    (cell ? '(' + cell + ': ' + n0 + ' -> ' + n1 + ')' : ''), !!cell && n1 > n0);
+  if (!cell) return;
+
+  const snap = () => {
+    const ag = A.agentsForPlot(world, cell[0], cell[1]);
+    const pe = POP.peopleForAgents(ag, cell[0], cell[1], 7, 'spread');
+    const m = {};
+    ag.forEach((a, i) => { m[a.id] = JSON.stringify(pe[i]); });
+    return m;
+  };
+  const before = snap();
+  POP.setCellDial(cell[0], cell[1], 4);
+  const after = snap();
+
+  let kept = 0, lost = 0;
+  for (const id of Object.keys(before)) {
+    if (!after[id]) continue;
+    if (after[id] === before[id]) kept++; else lost++;
+  }
+  ok('K4 THE PEOPLE YOU ALREADY KNEW ARE STILL THEMSELVES AFTER THE REPAIR (' +
+    kept + ' unchanged, ' + lost + ' turned into somebody else)',
+    kept > 0 && lost === 0);
+
+  /* K5: and the newcomers are ADDITIONAL people, not a renumbering. */
+  const newcomers = Object.keys(after).filter(id => !before[id]).length;
+  ok('K5 the extra residents are NEW people moving in (' + newcomers + ' of them), ' +
+    'not the old ones renumbered', newcomers === (n1 - n0) && newcomers > 0);
+
+  /* K6: it has to hold going DOWN as well. A district can lose people (the dial
+     runs to zero by his own ruling, and a repair can be undone), and the ones
+     who stay have to be the ones who stayed. Walking back from the REPAIRED
+     roster guarantees the two states actually overlap - the first version of
+     this claim dialled the cell to 0.5, emptied it completely, and then compared
+     an empty set to a full one and called the zero result a pass. A claim that
+     can be satisfied by having nothing to check is not a claim. */
+  POP.setCellDial(cell[0], cell[1], 4);
+  const full = snap();
+  POP.clearCellDials();
+  const thin = snap();
+  let survived = 0, mangled = 0;
+  for (const id of Object.keys(thin)) {
+    if (!full[id]) continue;
+    if (thin[id] === full[id]) survived++; else mangled++;
+  }
+  ok('K6 and when people LEAVE, the ones who stay are the ones who stayed (' +
+    survived + ' unchanged, ' + mangled + ' scrambled)',
+    Object.keys(thin).length > 0 && survived === Object.keys(thin).length && mangled === 0);
+  POP.clearCellDials(); POP.setDial(1);
+}
+
 (async () => {
   console.log('PEOPLE GATE — the bodies on the block are people');
   partA();
@@ -1044,6 +1183,7 @@ function partJ() {
   await partH();
   partI();
   partJ();
+  partK();
   console.log((fail ? 'FAILED' : 'OK') + ': ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.log('  FAIL: gate threw — ' + (e && e.stack || e)); process.exit(1); });

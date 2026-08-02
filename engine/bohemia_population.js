@@ -612,6 +612,47 @@
     return n;
   }
 
+  /* ==== A PERSON IS KEYED TO WHERE THEY LIVE, NEVER TO THEIR PLACE IN A LIST.
+     (8/2/26. The third time this lane keyed identity to the wrong thing, and
+     the worst of the three.)
+
+     bohemia_agents.js builds a block's roster by walking the houses and SKIPPING
+     the abandoned ones, so a person's position in that array is not a fact about
+     them - it is a fact about how many of their neighbours happen to be home.
+     Deriving character from the array position means that the moment occupancy
+     changes, everybody after the change becomes somebody else.
+
+     THAT IS NOT HYPOTHETICAL, IT IS THE GAME MODE PAOLO ASKED FOR ON 8/1: "when
+     you fully repair a district ... more people will want to move in and live in
+     the recovered ruins." Repairing a district raises its occupancy. Measured on
+     cell (3,5): two residents before the repair, four after, and BOTH of the
+     originals came back as different human beings - H12-1 and H12-2 swapped
+     personalities with each other outright. Zero of two survived.
+
+     And it lands squarely on his other locked ruling (7/31, YOU HAVE TO ASK):
+     "once you ask their name, if you see them again, then they would be named."
+     The NAME is safe - bohemia_people.js keys that to 'H<house>-<slot>', which is
+     stable. The CHARACTER was not. So you would spend act one repairing your
+     street and every neighbour you ever named would still answer to their name
+     while being a completely different person underneath.
+
+     THE KEY IS THE SEAT: which house, which place in that household. The agents
+     module already writes it into every agent id and bohemia_people.js already
+     parses it the same way; this just stops ignoring it.
+
+     ONE-TIME RESHUFFLE, DELIBERATE: changing the key changes who is who, once.
+     That is legal precisely because nothing about any individual is approved yet
+     (KNOWN_AT_START and LINES both ship empty, no verdict names a person), and
+     the alternative is a world that reshuffles every time the dial moves. ==== */
+  var SLOTS_PER_HOUSE = 8;         // household() returns 1..4; 8 is headroom, gated
+  function seatNumberOf(agent) {
+    var m = /^H(\d+)-(\d+)$/.exec(String(agent && agent.id || ''));
+    if (!m) return null;
+    var house = parseInt(m[1], 10) - 1, slot = parseInt(m[2], 10) - 1;
+    if (house < 0 || slot < 0 || slot >= SLOTS_PER_HOUSE) return null;
+    return house * SLOTS_PER_HOUSE + slot;
+  }
+
   // One person record per agent on a RUN block, derived and then run through
   // the overrides layer - derivation THEN overrides, in that order, exactly as
   // peopleIn does it for the CITY tab, so neither surface can ever see an
@@ -622,22 +663,31 @@
       var a = agents[i];
       /* A VISITOR IS CONDITIONED BY WHERE THEY LIVE, NOT WHERE THEY STAND.
          Workers who commute in from a neighbouring block are on this cell's
-         roster (they are standing here) but their character comes from (cell,
-         index) - so deriving them from THIS cell would give the same person one
-         personality at the clinic and a different one in their own yard, which
-         is the same class of bug as keying their identity to the wrong cell.
-         Their home cell and their index in their home roster travel with them.
+         roster (they are standing here) but their character belongs to their own
+         block - deriving them from THIS cell would give the same person one
+         personality at the clinic and another in their own yard.
          AND THIS IS WHAT PUTS THEM INSIDE MASS EDITS (Paolo 7/29): a visitor with
          no person record is a body no rule can reach, and "editing people means
-         adding a rule" has to mean every body on the surface. */
-      if (a && a.visiting && a.fromCell && a.homeIndex != null) {
-        out.push(applyRules(personFields(a.fromCell[0], a.fromCell[1], a.homeIndex,
-                                         seed, zone || 'spread', a.fromCell, 'run')));
-      } else {
-        out.push(applyRules(personFields(tx, ty, i, seed, zone || 'spread', [tx, ty], 'run')));
-      }
+         adding a rule" has to mean every body on the surface.
+         Their seat travels with them for free: workersForPlot copies the agent,
+         so its 'H<house>-<slot>' id is already the one it has at home. */
+      var cx = tx, cy = ty;
+      if (a && a.visiting && a.fromCell) { cx = a.fromCell[0]; cy = a.fromCell[1]; }
+      /* the array position is the FALLBACK ONLY, for a body with no seat in any
+         house. Every agent the generator makes has one; people_gate counts the
+         fallbacks and fails if the number is ever above zero. */
+      var seat = seatNumberOf(a);
+      out.push(applyRules(personFields(cx, cy, (seat != null) ? seat : i,
+                                       seed, zone || 'spread', [cx, cy], 'run')));
     }
     return out;
+  }
+  // how many bodies on this roster have no seat to be keyed by. For the gate.
+  function seatlessIn(agents) {
+    var n = 0;
+    for (var i = 0; i < (agents ? agents.length : 0); i++)
+      if (seatNumberOf(agents[i]) == null) n++;
+    return n;
   }
 
   // ---- THE OVERRIDES LAYER -------------------------------------------------
@@ -874,6 +924,8 @@
               allPeople: allPeople, where: where,
               conditionSchedule: conditionSchedule, conditionAgents: conditionAgents, shiftEdges: shiftEdges,
               peopleForAgents: peopleForAgents,
+              seatNumberOf: seatNumberOf, seatlessIn: seatlessIn,
+              SLOTS_PER_HOUSE: SLOTS_PER_HOUSE,
               NIGHT_FROM: NIGHT_FROM, NIGHT_TO: NIGHT_TO,
               addRule: addRule, removeRule: removeRule, clearRules: clearRules, rules: rules,
               applyRules: applyRules, rulesVersion: rulesVersion,

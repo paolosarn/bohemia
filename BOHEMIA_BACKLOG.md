@@ -3560,6 +3560,48 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-E. [FIXED 8/2, MUTATION-TESTED - records/BOHEMIA_A_PERSON_IS_KEYED_TO_WHERE_THEY_LIVE_8_2_26.md]
+   REPAIRING A DISTRICT TURNED EVERY NEIGHBOUR YOU HAD MET INTO SOMEBODY ELSE,
+   AND LEFT THEIR NAME ON. Two locked rulings meet at one line and it broke both:
+   7/31 "once you ask their name, if you see them again, then they would be
+   named" and 8/1 "when you fully repair a district ... more people will want to
+   move in and live in the recovered ruins."
+   THE BUG: bohemia_agents builds a roster by walking the houses and SKIPPING the
+   abandoned ones, so a person's position in that array is not a fact about them,
+   it is a fact about how many neighbours are home. bohemia_population derived
+   character from that position. Measured on cell (3,5): 2 residents before the
+   repair, 4 after, and ZERO of 2 originals survived - H12-1 and H12-2 swapped
+   personalities with each other outright.
+   WHY IT WAS THE WORST VERSION OF THE BUG: the NAME was safe the whole time
+   (bohemia_people keys it to the seat), so the surface effect is not a neighbour
+   vanishing, which you would notice. It is the name you earned still printed on
+   the card with a different person behind it.
+   FIX: A PERSON IS KEYED TO WHERE THEY LIVE, NEVER TO THEIR PLACE IN A LIST. The
+   seat (house + place in the household) is already in every agent id and
+   bohemia_people already parses it; population stopped ignoring it. v.homeIndex
+   is DELETED - it was the same bug in miniature, added 8/1 so a commuter's
+   identity would travel with them, except what travelled was a roster position.
+   ONE-TIME RESHUFFLE, deliberate: nothing about any individual is approved
+   (KNOWN_AT_START and LINES ship empty), and the alternative is a world that
+   reshuffles every time the dial moves.
+   GATE: part K, 6 claims. 268 people across 93 blocks all have a seat, 0 fell
+   back to a list position; the encoding cannot collide; the originals survive a
+   repair; newcomers are new people not renumbered old ones; and it holds going
+   down as well as up. Three mutations caught.
+   *** AND A GATE THAT WAS DECIDING BY LUCK, worth more than the fix: *** C5
+   ("you can walk up to a scheduled body") went red. The nearest person on the
+   street is routinely A HUNDRED TILES AWAY, and the old walker locked onto one of
+   three candidates and gave up the instant they stepped indoors. Measured on both
+   sides of the change: the SAME three people were outdoors at the SAME distances.
+   Nothing moved, nobody vanished - only when one of them went in for the morning,
+   and that flipped the gate. It now re-targets every step the way a player does.
+   The mutation runs were REPEATED afterwards to prove the new walker had not just
+   made the gate easier; it still goes red on all three. Dead single-target walker
+   deleted rather than left for somebody to reach for.
+   LESSON FOR ANY LANE: if your gate chases a moving target across a hundred
+   tiles, it is a coin flip wearing a claim's name.
+   | gates: PEOPLE 139 -> 146, RUN PEOPLE 45 held | 8/2 | no - defect fix.
+
 P-D. [FIXED 8/2 - NOT THIS LANE'S BUG, FOUND BY CHECKING WHETHER THE RED WAS MINE]
    *** THE ONE LINK WAS DEAD ON MAIN AND NOBODY KNEW. EVERY LANE READ THIS. ***
    THE RUN gate went red in the full suite. It fails identically on a clean worktree
