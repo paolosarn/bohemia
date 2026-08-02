@@ -5918,3 +5918,13 @@ item 00: THE FACTION DOSSIERS, one per faction + the Mob's caravan role,
 district-theme-sheet pattern (researched proposals, one judge sheet, his
 thumbs decide). He opens it with the word "factions" (routes to the PEOPLE
 lane).
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 7/31 NIGHT (c) — TWO MORE RULINGS, lore sitting addendum
+updated in place: MARCO IS CANON ("Marco hardcore realist and neighborly.
+Happy to help." — personality locked, faction/home/look/role still his,
+nothing invented). THE DEAD ARE A REALISTIC MIX ("ofc i want a realistic mix
+of skeletons and husks" — skeletons in the open, mummified husks in sealed
+places, DECAL layer for fresh kills; placement follows the desert's real
+logic). WORLD's dead-props tile forms are UNBLOCKED; PEOPLE lane's named
+cast has its first real entry.

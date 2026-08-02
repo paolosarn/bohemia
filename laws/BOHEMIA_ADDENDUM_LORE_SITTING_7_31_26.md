@@ -34,30 +34,33 @@ shows almost none of them. This is world dressing AND story-via-map: where
 bodies lie tells what happened there (the tower die-off, the exodus road,
 the hospital order — all pending damage-layer stories get their punctuation
 from the dead).
-GROUNDED IN THE REAL, for his pick [PENDING, one word]: a decade of Mojave
-desert does not leave Hollywood-white skeletons — dry heat MUMMIFIES.
-The honest palette of the dead: (a) bleached skeletons (scattered, animal-
-worked, outdoors), (b) desiccated/mummified husks (indoors, cars, tunnels —
-the desert's real signature), (c) the already-canon DECAL corpse-persist
-layer for fresh kills. Mix ratio is his call.
+THE LOOK, RULED (Paolo, same sitting): "ofc i want a realistic mix of
+skeletons and husks." LOCKED: the dead follow the desert's real logic —
+bleached, scattered, animal-worked SKELETONS in the open; desiccated
+mummified HUSKS in the sealed places (cars, rooms, tunnels); the
+already-canon DECAL corpse-persist layer for fresh kills. REALISTIC is the
+placement law: where a body lies determines what a decade made of it, so
+the dead tell you where they died. WORLD's tile forms are unblocked.
 MECHANICS ALREADY CANON, REUSE: corpse collection is LOCKED as an in-game
 system (GDD v5); the DECAL layer already holds corpse-persist the
 Amalgamation can read. This ruling adds DENSITY and ART, not new mechanics.
 ROUTING: WORLD files the tile forms (skeleton/husk prop families + corpse
 decals, placement language per district story); ART cooks from the forms.
 
-## 3. MARCO (named character — name-only canon, everything else unresolved)
-His words (voice-to-text): "Marco the custom faction neighbor and king hobo."
-CORRECTED BY PAOLO SAME SITTING: "MARCO IS NOT THE KING OF HOBOS LMAO."
-The coordinator's first reading (neighbor + king of the Homeless) was WRONG
-and is dead. WHAT IS CANON: a named character called MARCO exists. That is
-the entire entry. Every other word of the original sentence ("custom
-faction", "neighbor", "king hobo") is unresolved garble that Paolo has not
-re-stated — nothing is built, drawn, or written about Marco until he says
-who Marco is in a message that survives transcription.
-ROUTING: seeds the PEOPLE lane's named-cast tier as NAME ONLY. The standing
-lesson re-proven: a garbled sentence is a question to ask, never a lore
-entry to complete.
+## 3. MARCO (named character — CANON, his clean re-statement)
+His first sentence garbled; the coordinator's "king of the hobos" reading
+was WRONG ("MARCO IS NOT THE KING OF HOBOS LMAO") and is dead. Paolo then
+re-stated clean, and THIS is the canon, his words verbatim:
+"Marco hardcore realist and neighborly. Happy to help."
+MARCO: a HARDCORE REALIST — no illusions about what the world is now — who
+is NEIGHBORLY and HAPPY TO HELP anyway. That contradiction is the whole
+character: the man who believes nothing will save you and still shows up
+with tools. First entry in the named cast.
+STILL OPEN [Paolo's, when he feels like it]: faction or unaffiliated, where
+he lives, his look, his role in quests/companionship. Nothing invented.
+ROUTING: PEOPLE lane named-cast tier, personality canon as above. The
+standing lesson from the garble round stays: a garbled sentence is a
+question to ask, never a lore entry to complete.
 
 ## 4. THE MOB RUNS WITH THE CARAVANS (LOCKED as direction)
 His words: "I can see the mob a huge role with the caravans."
