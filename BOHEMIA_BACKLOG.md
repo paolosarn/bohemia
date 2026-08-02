@@ -3827,7 +3827,99 @@ P-A. [PAOLO RULED IT 7/31, FILED BY THE CITY LANE, NOT TOUCHED BY THEM]
        writes them.
    | filed by CITY 7/31 | law + gate landed same turn | PEOPLE lane's to build.
 
-00. THE FACTION DOSSIERS (Paolo direct order 7/31 lore sitting, recorded by
+P-F. (discovered 8/2 by the factions session, NOT FIXED, and deliberately not fixed
+   at the end of somebody else's turn) *** FOUR OF THIS LANE'S GATES ARE RED ON MAIN
+   AND HAVE BEEN FOR THE WHOLE VISIBLE HISTORY: LIFE, DRESS, POPULATION, MEMORY. ***
+   PROVED NOT MINE: a clean worktree at origin/main with none of my changes fails
+   BYTE-IDENTICALLY (LIFE 21/3 "0 agents simmed", DRESS 42/1 "0 distinct tops",
+   POPULATION 5/3, MEMORY 7/2 "0 sightings"), and it fails the same at every commit
+   the shallow clone can reach - 45+ back. Not a regression from today.
+   *** THE CAUSE, MEASURED, AND IT IS THE GATE CLAIM THAT IS WRONG, NOT THE CODE. ***
+   agentsForPlot on world seed 12345 returns, for the first six qualifying plots:
+   0, 6, 3, 1, 1, 0 residents. That is not a bug, THAT IS THE DEAD WORLD WORKING.
+   Our own population research says ~150 of 177 residential neighbourhoods hold
+   ZERO people and calls it "the dead world you have been asking for". life_gate
+   asserts `agents.length > 0` for the FIRST plot its scan happens to land on, which
+   is 14,10, which rolls empty. The claim contradicts canon this lane shipped, and
+   which plot it lands on is a scan artefact - IT IS THE SAME COIN-FLIP-WEARING-A-
+   CLAIM'S-NAME SHAPE AS THE C5 WALKER ON 8/2. DRESS ("0 distinct tops on the
+   block") and MEMORY ("0 sightings") are downstream of the same empty block.
+   WHY IT IS NOT FIXED IN THIS COMMIT, said plainly: fixing it means editing four
+   gates' CLAIMS. That is only legitimate because the claims disagree with shipped
+   canon, and a change of that shape must be its own turn where the reasoning IS the
+   deliverable - not a drive-by at the end of a turn about factions. Editing gates
+   to go green is the pre-named forbidden shortcut and it does not stop being one
+   because I think I am right.
+   WHAT THE FIX LOOKS LIKE: the claims should test the DISTRIBUTION, not one plot -
+   "across N qualifying plots the valley is mostly empty AND somewhere is inhabited",
+   which is both what canon says and a claim that cannot flip on a scan order. Same
+   shape for DRESS and MEMORY: seed the block from a plot that is populated, or
+   assert over the set.
+   | next PEOPLE turn should take this | 8/2 | no - gate work, nothing to judge.
+
+00. [SHIPPED 8/2, 16 DOSSIERS, AWAITING HIS THUMBS - records/BOHEMIA_FACTION_
+   DOSSIERS_8_2_26.md + records/factions/] THE FACTION DOSSIERS. He said ALL of
+   them, so it is the whole canon roster and not the shortlist of seven: 13
+   selectable factions + the Karen community + the Amalgamation + the four social
+   forces as one card. ONE judge sheet, LIFE tab, top card.
+   EVERY CARD IS TWO BLOCKS AND THE SPLIT IS THE DESIGN: a GREY block read out of
+   engine/BOHEMIA_faction_graph.json at generate time (align, act1/act3 power,
+   relations, the graph's own note) which is canon and carries no thumb, and a
+   GOLD block which is the proposal. He can see what he is actually judging.
+   THE ROW THIS LANE ADDED, and it is what turns a list into a system: WHEN YOU
+   ASK THEIR NAME. The ask-a-name machine shipped 7/31; every faction now answers
+   it differently. Cartel know YOURS and never give theirs. Network hand it over
+   unprompted and THAT IS THE TELL. Trades give you a job, not a name, and the
+   real one arrives after you hire them twice. Karens write it down. Homeless ask
+   where you sleep instead. Fifteen readings, no new code.
+   RESEARCHED THE WAY THE DISTRICT HOOKS WERE: Olson's stationary bandit for the
+   Mob (which makes Mob and Cartel the same violence with opposite time horizons),
+   Ostrom + Valencia's thousand-year water court for the Blues, the LDS storehouse
+   system for the Church (a congregation is a STANDING CENSUS - and the census
+   that finds the sick knows who is not attending), Quarantelli and elite panic
+   for the Volunteers, Vegas's real flood-channel population for the Homeless,
+   the limitanei for the Remnants, Radford's POW-camp economy for the Reds, and
+   the HOA-as-private-government for the Karens (60% of Vegas homes, and a golf
+   course is a pre-built farm with the plumbing already in the ground).
+   A HOLE PULLED IN CANON'S OWN FOLKLORE, kept rather than contradicted: the Mob
+   "kept Vegas safe" is a legend the record disagrees with. What was true is
+   narrower and better - they made promises BINDING where courts would not, which
+   is exactly the GUARANTOR seat the GDD calls the scariest chair in the canon.
+   *** THE COLOUR FINDING, MEASURED, AND IT ANSWERS THE 7/21 PARKING. *** That
+   pass ruled six factions and parked the rest because "real color collisions
+   turned up between them". Nobody went back. Measured with the engine's own
+   distance function and its own 95-unit tolerance: THE MUTED CORPUS CANNOT CARRY
+   13 DISTINGUISHABLE FACTION COLOURS. Every dark muted candidate collides with
+   the Cartel's oxblood (olive 39, field green 47, steel 78, khaki 80); moss green
+   collides with the Mob's mustard at 86. So the proposal is TWO colours, not
+   seven - Volunteers bone white (a medic must read at distance), Blues cobalt -
+   and eleven factions identified by SILHOUETTE instead, which is STRUCTURE-NOT-
+   COLOR (7/19) doing the job that law exists for. Remnants have no colour because
+   EVERYONE wears olive surplus; what civilians cannot get is webbing.
+   AND ONE FINDING THAT IS HIS: Caravans tan sits 76 from the Church's gold,
+   inside his own tolerance, both family mode, so nothing separates them on a
+   body. Printed every run, never failed on - failing a build on his ruling is not
+   the gate's job.
+   THE BOUNDARY GOT A MACHINE, NOT A PROMISE (BUILD THE WORLD 7/31 + STOP
+   PRODUCING 7/26): no new engine faction module, no .bq file, nothing in
+   questbook/ or quests/ opened, factory writes to exactly two places - and the
+   greps look for USES not mentions, per his 8/1 ruling. Custom has NO dossier on
+   purpose (writing the player's own faction is writing his character for him) and
+   the gate asserts the absence plus a recorded reason.
+   MARCO: his ruling MOVED four hours after I wrote against it (name-only ->
+   "hardcore realist and neighborly. Happy to help.", canon). My gate hard-coded the
+   old state, which is A GATE OUTRANKING A RULING (Paolo 8/1), so it now READS THE
+   LIVE ADDENDUM and enforces the half still open - HIS FACTION. No dossier claims
+   him, and the dead "king of the hobos" reading cannot come back.
+   | gate: FACTION DOSSIERS, 659 claims, SELF-TESTS with 6 planted mistakes (purple
+   proposal, invented garment, colliding colour, re-proposed ruling, emptied row,
+   two hooks instead of three) - all 6 caught. The factory also REFUSES TO GENERATE
+   on a bad garment name and already caught one.
+   | verified on the real surface: LIFE tab through the real door, 16 cards, thumb
+   moves the tally, SUN MODE, zero console errors.
+   | 8/2 | YES - 16 cards, all his. ORIGINAL TEXT BELOW.
+
+00-ORIGINAL. THE FACTION DOSSIERS (Paolo direct order 7/31 lore sitting, recorded by
    the coordinator: "WE NEED TO REALLY FLESH THE FACTIONS OUT FR MAKE ALL OF
    THEM AWESOME AND INTERESTING" — this is the lane's TOP item now). ONE
    DOSSIER PER FACTION (Remnants, Cartel, Network, Homeless, Karen

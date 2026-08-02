@@ -409,6 +409,8 @@ GATES = [
      "HE PLAYS THE RUN: the surface Paolo actually taps has a day in it - the street fills, empties through the Mojave afternoon and refills, a bulk edit reaches bodies already walking, and the draw never paints somebody the sim put indoors", True),
     ('THE ONE LINK',   ['node', 'gates/front_door_gate.js'],
      "THE ONE LINK OPENS THE GAME. On 8/2 one dropped </div> nested the whole app inside the front splash, so tapping the splash hid the game: 0x0, no tabs, a black screen on the only URL Paolo ever taps. The splash must close before the app opens, and the door is walked through in a real browser", True),
+    ('FACTION DOSSIERS', ['python3', 'gates/faction_dossier_gate.py'],
+     "Paolo 7/31: 'make all of them awesome and interesting.' One researched PROPOSAL dossier per faction, and the machine that keeps it honest: every selectable faction covered, the canon graph reproduced never re-argued, the six looks he already ruled carried verbatim instead of re-asked, approved wardrobe only, no purple, every proposed colour clearing the engine's own family tolerance, no dossier quietly giving Marco a faction (checked against the LIVE ruling, which moved the same day), and the frozen faction/quest machinery not grown by a single file. Seven planted mistakes self-tested every run", True),
     ('FENCE ORPHAN',   ['python3', 'gates/fence_orphan_gate.py'],
      "FLEET-WIDE, and it shipped on 8/2: a fence the patch tool stops emitting is NOT a fence that goes away - the text stays applied forever and nothing knows how to undo it. Every marker block in slices/ and engine/ is one some tool still knows how to remove, is a balanced pair, and is applied exactly once", True),
     ('ONE WORLD TAB',  ['node', 'gates/one_world_tab_gate.js'],

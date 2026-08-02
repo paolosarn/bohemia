@@ -1,3 +1,132 @@
+PEOPLE (factions): 8/2 (e) LATEST — SIXTEEN FACTION DOSSIERS. HIS TOP BACKLOG ITEM,
+CLOSED, AND THE ONE MECHANIC THIS LANE ALREADY BUILT NOW READS FIFTEEN DIFFERENT WAYS.
+Record: records/BOHEMIA_FACTION_DOSSIERS_8_2_26.md + records/factions/ (16 files + index)
+TAB: LIFE, top card, "THE FACTION DOSSIERS". Awaiting his thumbs.
+
+=== HIS ORDER, AND WHY IT IS SIXTEEN AND NOT SEVEN ===
+Paolo 7/31 lore sitting: "WE NEED TO REALLY FLESH THE FACTIONS OUT FR MAKE ALL OF THEM
+AWESOME AND INTERESTING." He said ALL, so it is the whole canon roster rather than the
+coordinator's shortlist: 13 selectable + the Karen community + the Amalgamation + the
+four social forces as one card. CUSTOM HAS NO DOSSIER ON PURPOSE - canon says the
+player's faction emerges from three generations of his own action, so writing it would
+be writing his character for him. The gate asserts the absence AND a recorded reason.
+
+=== EVERY CARD IS TWO BLOCKS, AND THE SPLIT IS THE DESIGN ===
+GREY = already canon, no thumb, READ OUT OF engine/BOHEMIA_faction_graph.json at
+generate time (align, act1/act3 power, relations, the graph's own note). Never typed by
+hand, so a dossier cannot drift off canon, and the gate re-checks every line of it.
+GOLD = my proposal, his thumb. He can see exactly what he is judging.
+
+=== THE ROW THIS LANE ADDED, AND IT IS THE POINT ===
+The ask-a-name machine shipped 7/31 off his ruling. Every dossier now answers WHAT
+HAPPENS WHEN YOU ASK A STRANGER OF THIS FACTION THEIR NAME, and no two are the same:
+  CARTEL   they know YOURS before you ask, you never get theirs (the mechanic backwards)
+  NETWORK  freely given, unprompted, warmly, first meeting - AND THAT IS THE TELL
+  TRADES   you get a job, not a name ("Sparks", "Water"); hire them twice and the real
+           one arrives unprompted - earned with WORK instead of words
+  KARENS   they ask your name AND WRITE IT DOWN. Being asked is the threat
+  HOMELESS they do not ask your name, they ask WHERE YOU SLEEP
+  ANARCHISTS a chosen name instantly, the birth name never - asking for the "real" one
+           is the insult, and the game should let the player make that mistake once
+Fifteen readings of one mechanic, zero new code. That is the difference between a list
+of factions and a system.
+
+=== THE COLOUR FINDING, MEASURED, AND IT ANSWERS A SEVEN-DAY-OLD PARKING ===
+The 7/21 dress pass ruled six faction looks and PARKED the rest, in its own words,
+because "real color collisions turned up between them in review". Nobody ever went back.
+Measured with the ENGINE'S OWN distance function and its OWN 95-unit family tolerance
+(read out of bohemia_dress.js so it cannot drift):
+  THE MUTED CORPUS CANNOT CARRY 13 DISTINGUISHABLE FACTION COLOURS. Every dark muted
+  candidate collides with the Cartel's oxblood - olive drab 39, field green 47, steel
+  78, khaki 80. Moss green collides with the Mob's mustard at 86.
+So the proposal is TWO colours, not seven: VOLUNTEERS bone white (a medic must read at
+distance under stress - and white is the hardest thing to keep clean in a dust valley,
+so a clean Volunteer is announcing they have water to spare) and BLUES cobalt. Eleven
+factions read by SILHOUETTE instead, which is STRUCTURE-NOT-COLOR (7/19) doing exactly
+the job that law exists for. REMNANTS get no colour because EVERYONE in America wears
+olive surplus; what civilians cannot get is WEBBING.
+AND ONE FINDING THAT IS HIS, PRINTED EVERY RUN AND NEVER FAILED ON: the Caravans' tan
+sits 76 units from the Church's gold, inside his own tolerance, and both are family
+mode, so on a body nothing separates them. Failing a build on his own ruling is not the
+gate's job. (Caravans/Mob at 59 is fine - the Mob is stripe mode.)
+HIS SIX RULINGS ARE CARRIED VERBATIM AND CARRY NO THUMB. NOTES ARE RULINGS: the gate
+fails if a ruled faction is re-proposed for a thumb.
+
+=== THE BOUNDARY GOT A MACHINE, NOT A PROMISE ===
+BUILD THE WORLD (7/31) turned faction machinery, quests and the economy OFF the same day
+this order landed. They do not conflict - that ruling bans MACHINERY ("no standing
+ledger, no territory model, no faction beats"), this order asks for LORE. But STOP
+PRODUCING (7/26) says finding a legal way to ship a frozen thing IS the violation, so:
+no new engine faction module (still empty, subset-checked against the ratchet), no .bq
+file, nothing in questbook/ or quests/ opened, factory writes to exactly two places.
+THE GREPS LOOK FOR USES, NEVER MENTIONS - Paolo 8/1, a checker that cannot tell a
+mention from a use is the broken one. My first version of that check failed on its own
+docstring and I fixed the ruler, not the target.
+TWO CARDS CARRY NO HOOKS AND SAY SO ON THE CARD: the AMALGAMATION (the act-1 names for
+the haunting are PENDING PAOLO in the 7/24 ghost lock - a hook would be inventing the
+vocabulary of the game's central mystery) and the SOCIAL FORCES (his to place).
+MARCO: THE RULING MOVED WHILE I WAS BUILDING. I wrote against "name only"; four hours
+later he re-stated Marco clean and it is canon ("hardcore realist and neighborly. Happy
+to help"). My gate hard-coded the old state, which is A GATE OUTRANKING A RULING (8/1),
+so it now READS THE LIVE ADDENDUM and enforces the part that is STILL open - HIS FACTION.
+No dossier claims him, and the dead "king of the hobos" reading cannot come back.
+
+=== GATE: FACTION DOSSIERS, 659 CLAIMS, AND IT SELF-TESTS ===
+Every selectable faction covered; every row answered and not thin; the canon graph
+reproduced exactly; approved wardrobe only (128 garment names checked by NAME and by
+LAYER against the 240-item bank); no purple anywhere; every proposed colour clearing the
+tolerance; the frozen machinery not grown; the sheet reachable from the LIFE hub with
+thumbs, SUN MODE, comments and .txt export.
+SIX PLANTED MISTAKES RUN EVERY TIME, ALL SIX CAUGHT: a purple proposal, an invented
+garment, a colour colliding with a ruled one, a ruling re-proposed for a thumb, an
+emptied row, and a card shipping two hooks instead of three. That proves the checker
+works rather than that the repo is clean today (the 8/2 fence-orphan lesson).
+AND THE FACTORY REFUSES TO GENERATE rather than emit a lie: an unknown garment or one
+filed under the wrong layer stops the run with the reason. It already caught one -
+BLANKET SHOULDER ROLL is gear, not back.
+
+=== VERIFIED ON THE REAL SURFACE ===
+Real browser 390x844, through the real door: splash tapped, LIFE tab opened, top card is
+THE FACTION DOSSIERS. 16 cards, a card opens to 25 rendered blocks, a thumb moves the
+tally, SUN MODE flips to daylight, ZERO console errors. Stamp: BUILD 8/2y.
+
+=== AND A RED THAT IS NOT MINE, NAMED RATHER THAN WALKED PAST ===
+FOUR OF THIS LANE'S GATES ARE RED ON MAIN: LIFE, DRESS, POPULATION, MEMORY. I ran the
+full suite, saw them, and did the 8/2 check - a clean worktree at origin/main with NONE
+of my changes fails BYTE-IDENTICALLY (LIFE 21/3 "0 agents simmed", DRESS 42/1, POPULATION
+5/3, MEMORY 7/2), and so does every commit the shallow clone can reach, 45+ back. Not a
+regression from today and not mine.
+THE CAUSE, MEASURED: agentsForPlot on seed 12345 returns 0, 6, 3, 1, 1, 0 residents for
+the first six qualifying plots. THAT IS THE DEAD WORLD WORKING, not a bug - our own
+population research says ~150 of 177 residential neighbourhoods hold ZERO people. life_gate
+asserts agents.length > 0 on the FIRST plot its scan lands on, 14,10, which rolls empty.
+THE CLAIM CONTRADICTS CANON THIS LANE SHIPPED, and which plot it lands on is a scan
+artefact - the exact coin-flip-wearing-a-claim's-name shape as the C5 walker on 8/2.
+DRESS and MEMORY are downstream of the same empty block.
+I DID NOT FIX IT, ON PURPOSE. Fixing it means editing four gates' CLAIMS, which is only
+legitimate because the claims disagree with shipped canon, and a change of that shape
+needs its own turn where the reasoning IS the deliverable. Editing gates to go green is
+the pre-named forbidden shortcut and it does not stop being one because I think I am
+right. Filed as P-F with the measurement and the shape of the fix (assert the
+DISTRIBUTION across plots, never one plot). NEXT PEOPLE TURN SHOULD TAKE IT.
+THE OTHER 25 REDS ARE THE ENVIRONMENT, NOT CODE: ModuleNotFoundError for numpy/PIL. Every
+art/image gate in the suite dies on import. TOOLS RUN's only failure is the same thing -
+its 262 tools and 218 gates all PARSED, including the two I added.
+
+=== WHAT THE NEXT PEOPLE SESSION SHOULD KNOW ===
+1. THE DOSSIERS ARE UNJUDGED. Do not re-surface them and do not build a second version
+   of anything on this sheet (STOP PRODUCING). If "verdicts in": approve unlocks the
+   FACTION_VETERAN_KIT + FACTION_LOOK fills, which is a table edit and not a new system.
+2. THE DRESS SOCKETS ARE STILL EMPTY AND STAY EMPTY until he thumbs. FACTION_VETERAN_KIT
+   and the unruled half of FACTION_LOOK in engine/bohemia_dress.js are where approved
+   dossiers land. Nothing was written into them.
+3. NAMED MECHANISM GAP, FLAGGED NOT FAKED: the ROOKIE half of dress-code-by-rank nudges
+   an outfit until half the body reads the faction colour. Six factions here have no
+   colour, so the rookie rule has nothing to act on. A second rookie mode (a forbidden
+   list rather than a colour) is a small change - do NOT build it without a ruling.
+4. THE LANE'S QUEUE BELOW IS OTHERWISE UNCHANGED: dialogue v1 still BLOCKED ON WORDS,
+   the faction standing ledger still DEAD BY RULING, the companion layer still blocked.
+
 PEOPLE (7h9sfy): 8/2 (d) LATEST — A NAME YOU EARNED IS A NAME YOU SEE, and THE FRONT
 DOOR BROKE A SECOND TIME (fixed, and the failure mode is gone now).
 Records: records/BOHEMIA_A_NAME_YOU_EARNED_IS_A_NAME_YOU_SEE_8_2_26.md

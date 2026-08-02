@@ -1,0 +1,66 @@
+# THE BLUES
+
+*PROPOSAL, NOT CANON. Paolo approves, edits or kills. Existing canon is the floor and is reproduced above, never re-argued.*
+
+Ordered by Paolo, 7/31 lore sitting: **"WE NEED TO REALLY FLESH THE FACTIONS OUT FR MAKE ALL OF THEM AWESOME AND INTERESTING."** Backlog PEOPLE item 00.
+
+## THE CANON FLOOR (not mine, not up for judgement)
+
+| | |
+|---|---|
+| alignment | `socialist` |
+| act 1 power | **7 of 14** |
+| act 3 power | 6 |
+| canon relations | none recorded |
+
+> Environmentalist. Large headcount. Collective decision-making = strength and tactical liability.
+
+Source: `engine/BOHEMIA_faction_graph.json` ("All canon; nothing invented", derived from GDD v2 section 9). Reproduced here by the generator, never typed by hand.
+
+## THE PROPOSAL
+
+### IDENTITY IN FIVE WORDS
+
+Everyone gets a say. Slowly.
+
+### GROUNDED IN THE REAL
+
+There is a Nobel prize sitting under this faction and it makes them credible instead of naive: Elinor Ostrom's work showed that communities really do govern shared water, forests and fisheries successfully WITHOUT markets or states, and she extracted the design principles that make it work - clear boundaries, users doing their own monitoring, graduated sanctions, cheap local dispute resolution. And the flagship real examples are about WATER IN A DRY PLACE: the Spanish acequia systems, and Valencia's Water Court, which has met in public every Thursday for something like a thousand years to settle irrigation disputes. In a valley whose entire premise is water, that is the single most grounded institution anybody could be running. AND THE CANON TACTICAL LIABILITY IS EQUALLY REAL, not a joke at their expense: consensus process is slow under time pressure. The Valencia court works because a water dispute can wait until Thursday. An ambush cannot. Their large headcount plus their slow decision loop is exactly the shape of a body that wins every argument that lasts a month and loses every one that lasts an hour.
+
+### TERRITORY + BASE
+
+The water: the wash, the detention basins, and the reclaim plant the GDD calls THE survival event. Also the real-grass parks, which canon reclassifies as FOOD. If the Blues hold anything they hold the things everybody needs and nobody can carry away.
+
+### WHAT THEY TRADE / CONTROL
+
+Water allocation and the growing that depends on it. They do not own it - they RUN THE MEETING about it, which in Ostrom's world is the more durable position.
+
+### HOW THEY DRESS
+
+PROPOSED - family #326ed2. PROPOSED: cobalt. Two reasons and neither is that they are called the Blues, though they are. It is the wardrobe's only true saturated blue, so it cannot be confused with the muted denim everybody already wears, and blue reads as WATER, which is what this faction actually is. Collision-checked at Paolo's 95-unit tolerance: clear of every ruled colour, nearest is the Cartel's oxblood at 184. NOTE FOR HIM, measured not guessed: cobalt sits 95 units from the wardrobe's teal, which is right on the tolerance line, so if a teal faction is ever ruled these two would read as the same family.
+VETERAN KIT (forced layers): base -> COPPER WORK SHIRT, SAGE FLANNEL; feet -> FIELD BOOTS; hands -> DUST GLOVES; head -> CHINESE RICE FARMER HAT; legs -> COBALT WORK PANTS; outer -> FIELD JACKET, DENIM VEST
+
+### HOW THEY TALK
+
+They answer for the group before they answer for themselves - 'we don't do that' comes out before any personal opinion does. Getting an individual view out of a Blue is frequently the entire conversation, and it is worth it, because the private opinion is usually sharper than the collective one.
+
+### WHEN YOU ASK THEIR NAME
+
+YOU GET THE GROUP'S NAME FIRST AND THEIRS LAST. Ask a Blue who they are and you are told which body they speak for. The personal name arrives only once you have done something the group has an opinion about - which means with the Blues the earned-name mechanic is gated by REPUTATION rather than by conversation, and it is the only faction where a stranger can be introduced to you by a vote.
+
+### WHAT THEY WANT FROM YOU
+
+Participation. They want you at the meeting, and they are not being naive about it - a person who has argued in the room is a person who will abide by what the room decided.
+
+### THREE QUEST HOOKS
+
+1. The allocation has to be cut and the meeting cannot finish. Every hour it runs, the thing they are arguing about gets smaller.
+2. Somebody has been taking more than their share for a year and is also the reason the pumps still run. The sanction ladder was designed for exactly this and nobody wants to climb it.
+3. A faster faction is offering to solve their water problem in a week, permanently, on one condition that sounds reasonable.
+
+### THE LIFE LESSON UNDERNEATH
+
+Everyone getting a say is slower, and it is the only thing that still holds when nobody is watching.
+
+---
+*BOHEMIA - faction dossier - 8/2/26 - PEOPLE lane - PROPOSAL, awaiting his thumb. Generated by tools/bohemia_faction_dossiers.py; edit the tool, never this file.*

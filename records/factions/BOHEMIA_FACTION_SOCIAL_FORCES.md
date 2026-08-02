@@ -1,0 +1,67 @@
+# THE SOCIAL FORCES
+### Pures / Panthers / La Familia / Triads
+
+*PROPOSAL, NOT CANON. Paolo approves, edits or kills. Existing canon is the floor and is reproduced above, never re-argued.*
+
+Ordered by Paolo, 7/31 lore sitting: **"WE NEED TO REALLY FLESH THE FACTIONS OUT FR MAKE ALL OF THEM AWESOME AND INTERESTING."** Backlog PEOPLE item 00.
+
+## THE CANON FLOOR (not mine, not up for judgement)
+
+This card covers 4 graph rows at once, because canon describes them as the same structure. Every one is reproduced:
+
+| | type | alignment | canon note |
+|---|---|---|---|
+| **Pures** | `social_force` | `identity-supremacist` | white supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts. |
+| **Panthers** | `social_force` | `identity-supremacist` | black supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts. |
+| **La Familia** | `social_force` | `identity-supremacist` | Latino supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts. |
+| **Triads** | `social_force` | `identity-supremacist` | Asian supremacist group. Members inside other factions. Larger in act1 (crash drove identity clustering), fixed ceiling, stagnant across acts. |
+
+Source: `engine/BOHEMIA_faction_graph.json`. Reproduced here by the generator, never typed by hand.
+
+- **NOT SELECTABLE, NO MAP TILE - canon, GDD v2 section 9. This dossier proposes no territory, no base, no colour and no quest content.**
+
+## THE PROPOSAL
+
+### IDENTITY IN FIVE WORDS
+
+Sorting, not building. Inside everyone.
+
+### GROUNDED IN THE REAL
+
+Canon is precise about what these are and the precision is the design: four identity-supremacist groups, NOT on the selection screen, no map tile, members found inside other factions, larger in act one because the crash drove identity clustering, fixed ceiling, stagnant across acts. THE REAL MECHANISM IS NOT HATRED FIRST, IT IS SORTING UNDER THREAT. When institutions stop protecting anybody, people fall back on the identity that will reliably take them in, and groups offering safety on identity terms grow fastest exactly when nothing else offers safety at all. The sharpest documented case is prison sociology, where racial sorting is strongest precisely where official protection is weakest - protection-seeking does at least as much work as ideology. That is why canon's 'larger in act one, fixed ceiling, does not grow' is exactly right: this is a FEAR structure, and fear is a bull market in year one and a dead one by year thirty. AND THE DESIGN POINT UNDER IT: they are not factions because THEY DO NOT BUILD ANYTHING. No territory, no trade, no craft, no repair. They are a thing that happens INSIDE other factions, which is both the honest description and the more frightening one.
+
+### TERRITORY + BASE
+
+None, by canon. That is the entire structural claim: no tile, no base, no selection slot. If one of these ever appears on a map it has been built wrong.
+
+### WHAT THEY TRADE / CONTROL
+
+Nothing anyone needs. Their only product is admission, and the price is what you are rather than what you do.
+
+### HOW THEY DRESS
+
+NO FACTION LOOK ENTRY. NO FACTION LOOK ENTRY AND THEY MUST NEVER GET ONE. A colour in FACTION_LOOK is a uniform the machine paints onto half a body, and giving these four a readable uniform would turn them into a visible team the player fights - which is exactly the wrong shape. They are supposed to be UNMARKED and inside the faction you already trust. Their tell should be a line of dialogue, never a garment.
+No veteran kit (nothing to dress).
+
+### HOW THEY TALK
+
+The first question is always what you are, and it arrives disguised as something else - where your people are from, who your family was, where you grew up. The tell is that the answer changes how the rest of the conversation goes.
+
+### WHEN YOU ASK THEIR NAME
+
+THEY ASK WHAT YOU ARE BEFORE THEY ASK WHO YOU ARE, and the name never really matters to them. The cleanest way for the player to detect one without a label on screen: this is the only person in the valley who asked a question about you and did not want the answer, only the category.
+
+### WHAT THEY WANT FROM YOU
+
+Recruits, and specifically recruits who are frightened. They approach after something bad has happened to you, never before.
+
+### THREE QUEST HOOKS
+
+1. [HOOKS NOT WRITTEN HERE, DELIBERATELY.] Canon says quests and characters are built around them, and that content is Paolo's to place - writing three of them off my own bat would be inventing canon in the most sensitive territory on the sheet. The dossier stops at the pattern.
+
+### THE LIFE LESSON UNDERNEATH
+
+The group that only asks what you are is the one that has nothing else to offer you.
+
+---
+*BOHEMIA - faction dossier - 8/2/26 - PEOPLE lane - PROPOSAL, awaiting his thumb. Generated by tools/bohemia_faction_dossiers.py; edit the tool, never this file.*
