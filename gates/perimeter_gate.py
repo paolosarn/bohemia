@@ -50,6 +50,9 @@ os.chdir(REPO)
 from PIL import Image  # noqa: E402
 
 BANK = 'banks/BOHEMIA_PERIMETER_8_2_26.txt'
+JUDGE = 'slices/BOHEMIA_PERIMETER_JUDGE_8_2_26.html'
+VERDICT = 'records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt'
+GRAVE = 'gates/bohemia_graveyard.txt'
 HIS = 'banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt'
 STYLE = 'records/BOHEMIA_STYLE_TARGET_8_1_26.json'
 RUN = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'
@@ -177,7 +180,7 @@ def main():
     ck('no wall seam worse than its own worst interior line', not rough,
        ', '.join('%s %.2f' % (t['id'], t['hseam']) for t in walls if t.get('hseam', 0) > 1.25))
     ck('the cook tests the seam against the FOLLOWING tile, not itself',
-       'def hseam(im, right=None)' in cook and "drawn['face'][0] if form == 'pillar'" in cook)
+       'def hseam(im, right=None)' in cook and "drawn['face_0'][0] if base_form == 'pillar'" in cook)
     ck('the cook says in words that these do not wrap vertically',
        bank.get('seam_axis') == 'horizontal only')
 
@@ -205,6 +208,81 @@ def main():
         ck('the gate has its %s piece for a wide aperture' % e,
            ('perim_gate_open_' + e) in tiles and ('perim_gate_steel_' + e) in tiles)
 
+    # ---- NO 44px STAMP. His 8/2 verdict in one word: "glitching out". One face tile
+    # per design meant the one crack baked into it landed on every cell of the wall in
+    # the same place forever, and an identical hard mark on a perfect grid reads as a
+    # rendering fault. This is the regression that must never come back.
+    faces = {}
+    bases = {}
+    for t in walls:
+        key = t['material'] + '_' + str(t.get('colourway'))
+        if t['form'] == 'face':
+            faces.setdefault(key, []).append(t)
+        elif t['form'] == 'base':
+            bases.setdefault(key, []).append(t)
+    thin = [k for k, v in faces.items() if len(v) < 4] + [k for k, v in bases.items() if len(v) < 4]
+    ck('every design is a POOL of faces, never one tile', not thin, ', '.join(thin[:4]))
+    ck('the run shuffles the pool per cell, with no visible period',
+       'function perimVar(' in src and 'faces[perimVar(gx,gy,faces.length)]' in src
+       and 'bases[perimVar(gx,gy,bases.length)]' in src)
+    # and MOST of them must be clean: a wall is not a road
+    quiet = 0
+    for k, v in faces.items():
+        for t in v:
+            im = dec(t['b64']).convert('RGB')
+            b = im.tobytes()
+            L = [0.299 * b[i] + 0.587 * b[i + 1] + 0.114 * b[i + 2] for i in range(0, len(b), 3)]
+            med = sorted(L)[len(L) // 2]
+            sd = st.pstdev(L)
+            if sum(1 for v2 in L if abs(v2 - med) > 2 * sd) / float(len(L)) < 0.055:
+                quiet += 1
+    frac = quiet / float(sum(len(v) for v in faces.values()))
+    ck('most faces carry NO hero damage (a wall is not a road): %.0f%% quiet' % (frac * 100),
+       frac >= 0.55, '%.0f%% quiet, needs 55%%' % (frac * 100))
+    ck('the cook says in writing why the stamp happened',
+       'glitching out' in cook and 'FACE_VARIANTS' in cook)
+    ck('the flat materials carry ghost coursing so a crack is not the only structure',
+       'def ghost_coursing(' in cook and "ghost=0.34" in cook)
+
+    # ---- HIS VERDICT IS OBEYED: the 11 he thumbed up ship, the 7 he downed do not
+    approved = ['perim_slump_0', 'perim_slump_1', 'perim_slump_2', 'perim_cmu_0',
+                'perim_cmu_1', 'perim_precast_2', 'perim_rose_0', 'perim_rose_1',
+                'perim_splitface_0', 'perim_splitface_1', 'perim_splitface_2']
+    downed = ['perim_cmu_2', 'perim_stucco_0', 'perim_stucco_1', 'perim_stucco_2',
+              'perim_precast_0', 'perim_precast_1', 'perim_rose_2']
+    ck('the builder ships exactly the 11 he approved 8/2',
+       all(("'" + a + "'") in builder for a in approved)
+       and builder.count('PERIM_APPROVED') >= 2)
+    built = open(BUILT, encoding='utf8').read()
+    leaked = []
+    for key in downed:
+        mid, k = key.rsplit('_', 1)
+        t = tiles.get('%s_face_0_%s' % (mid, k))
+        if t and t['b64'][:120] in built:
+            leaked.append(key)
+    ck('the 7 he KILLED are not quietly back in the game', not leaked, ', '.join(leaked))
+    judge = open(JUDGE, encoding='utf8').read()
+    ck('but they ARE in front of him again, labelled, with the fix',
+       all(('"' + d + '"') in judge for d in downed) and 'you downed this' in judge)
+
+    # ---- HIS 7/14 POOL IS DEAD, on his own thumbs, and must never draw again
+    hispool = json.load(open(HIS))
+    dead = [p['b64'] for p in hispool['pool'] if p['variant'] == 'tan']
+    ck('his 13 killed walls are OUT of the shipped run',
+       not any(b[:120] in built for b in dead))
+    ck("the builder no longer loads them at all",
+       "html.replace('__PERIM_B64_JSON__', '[]')" in builder)
+    ck('the kill is recorded with a post-mortem',
+       'ALL 13 KILLED' in open(GRAVE, encoding='utf8').read())
+    ck('and the verdict is on file in his own words',
+       "glitching out" in open(VERDICT, encoding='utf8').read())
+
+    # ---- THE CARD MUST NOT INVENT DEFECTS. He said the gate "looks decent" and
+    # thumbed all three gate cards DOWN: the card had stacked the barred leaf on the
+    # coping row over the open mouth on the row below, which the game never does.
+    ck('a gate strip shows ONE kind, the way a plot actually wears it',
+       'one kind per strip' in judge)
+
     # ---- WIRED: the run draws it, in the right order, from the cooked bank
     ck('the run draws the cooked perimeter', 'PERIM_COOK' in src and 'perimDesign(' in src)
     ck('the run draws the gate mouth', 'drawGateMouth(' in src)
@@ -212,7 +290,8 @@ def main():
        "c===5" in src and "drawGateMouth(X,Y,S,gx,gy2)" in src)
     ck('the wall goes down BEFORE the hole is punched',
        src.index('ctx.drawImage(wall,X,Y,S,S)') < src.index('if(im) ctx.drawImage(im,X,Y,S,S)'))
-    ck('one coping per wall, not one per cell', 'if(isPerim(gx,gy-1)) return ready(d[2])' in src)
+    ck('one coping per wall, not one per cell',
+       'if(isPerim(gx,gy-1)) return ready(bases[perimVar(gx,gy,bases.length)])' in src)
     ck('pillars are spaced along the run', "(((run%4)+4)%4)===0" in src)
     ck('one wall design per community, seeded off the plot',
        'perimDesign' in src and '>>2' in src)
@@ -223,19 +302,18 @@ def main():
 
     # ---- HIS POOL: still here, still loaded, and WB4 rescued not smeared
     hisbank = json.load(open(HIS))
-    ck('his 13 approved 7/14 walls are still in the repo',
+    ck('his 13 walls are still ON DISK as the record of what he judged',
        len([p for p in hisbank['pool'] if p['variant'] == 'tan']) >= 13)
-    ck('his pool is still loaded by the builder', 'PERIM_POOL' in builder)
-    ck('WB4 is rescued from its tiling preview, not blitted whole',
-       'bohemia_perim_rescue.py' in builder)
+    ck('WB4 is still rescuable, so what he killed was the wall and not the smear',
+       os.path.exists('tools/bohemia_perim_rescue.py'))
     ck('the rescue refuses to guess at his art',
        'REFUSING' in open('tools/bohemia_perim_rescue.py', encoding='utf8').read())
     ck('the record says WHY his walls were displaced, with the measurement',
        'why_replaced' in bank.get('reference_measured', {}))
 
     # ---- SHIPPED BYTES ARE THE COOKED BYTES
-    built = open(BUILT, encoding='utf8').read()
-    face0 = [t for t in walls if t['form'] == 'face'][0]
+    face0 = [t for t in walls if t['form'] == 'face'
+             and t['material'] + '_' + str(t['colourway']) in approved][0]
     ck('the shipped run carries the cooked bytes', face0['b64'][:120] in built)
     ck('the shipped run carries the gate overlay',
        tiles['perim_gate_steel_m']['b64'][:120] in built)

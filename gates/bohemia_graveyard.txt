@@ -603,3 +603,32 @@ line is a texture engine wearing a lead's job, however new it is.
   I picked mechanisms first and asked whether they could carry a tune second.
   Build the line first, then find the voice that can hold it.
 NO REMAKES. Fresh cooks answer the slots.
+
+# ---- THE 7/14 SUBURB BORDER WALLS, Paolo's verdict 8/2/26. ALL 13 KILLED. -----
+# *** DELIBERATELY NOT REGISTERED AS TOKENS ABOVE, AND THAT IS NOT AN OVERSIGHT. ***
+# The kill is real and it is recorded in records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt.
+# But this registry enforces NO LIVE REFERENCES, and the keys are "W26".."W37" and
+# "WB4" - short, generic strings that appear in 120 places across the backlog, the
+# handoffs, the archives and this session's own post-mortems, almost all of them
+# legitimate history. Registering them would make the historical record illegal and
+# would train the next session to ignore this gate, which is worse than not listing
+# them. The right enforcement for dead ART is that the BYTES NEVER DRAW AGAIN, and
+# that is machine-held where it belongs: gates/perimeter_gate.py asserts his pool is
+# no longer loaded into the run at all, and gates/banks_used_gate.js no longer waives
+# it because there is nothing left to waive.
+#
+# WHAT HE RULED: he judged 61 candidates down to these 13 across 7/14 and 7/17, and on
+# 8/2 thumbed all of them DOWN when the card asked one question - "thumbs up means KEEP
+# IT and it goes back in." (W32 no verdict; bulk silence on one of thirteen is not a
+# reprieve.) The replacement is his call, not mine.
+# THE POST-MORTEM, one sentence: they were judged as CHIPS, before he owned any
+# purchased ground, and against the bought asphalt and concrete that arrived later they
+# measure edge 5.8 / grain 20.0% against a floor of 14.27 / 54.8 derived from the tiles
+# he PAID FOR - a third of the local contrast of the ground they stand on. Smooth art
+# beside rich art. Same defect that killed the 7/21 house skins, same thing he said
+# himself on 7/31 looking at the yard: two different games in one frame.
+# THE OTHER HALF: WB4 was the sole survivor of 48 in batch 2 and had been SMEARED in
+# the game for weeks - stored as a 3x tiling preview, blitted as one 44px cell. It was
+# rescued BEFORE it was judged, so what he killed was the wall he actually chose and
+# not the smear. Verify what is on screen before putting art in front of him, including
+# art he already approved.

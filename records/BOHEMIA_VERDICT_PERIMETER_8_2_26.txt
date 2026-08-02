@@ -1,0 +1,102 @@
+BOHEMIA VERDICT — THE COMMUNITY WALL (8/2/26)
+surface: slices/BOHEMIA_PERIMETER_JUDGE_8_2_26.html (LIFE tab)
+bank: BOHEMIA_PERIMETER_v1
+
+================================================================================
+HIS WORDS, VERBATIM
+================================================================================
+"The gate assembly stuff actually looks decent. I'm just confused. I like the
+ middle part of the wall. It's kind of confusing. Looks like it's glitching out."
+
+================================================================================
+THE CALL HE MADE: THE NEW WALL STAYS
+================================================================================
+All 13 of his own 7/14 walls: THUMBS DOWN (W32 no verdict, and bulk silence on one
+of thirteen is not a reprieve). The card asked exactly one question — "thumbs up
+means KEEP IT and it goes back in" — and he answered it thirteen times.
+
+So the swap is SETTLED, not pending. His pool stops being loaded into the run and
+goes to the graveyard with the post-mortem. That is his call, not mine; I proposed
+it, he ruled on it.
+
+================================================================================
+THE 18 NEW DESIGNS: 11 UP, 7 DOWN
+================================================================================
+UP    slump #1 #2 #3 · cmu #1 #2 · precast #3 · rose #1 #2 · splitface #1 #2 #3
+DOWN  cmu #3 · stucco #1 #2 #3 · precast #1 #2 · rose #3
+GATE  all three cards DOWN — but "the gate assembly stuff actually looks decent",
+      so the thumbs were not about the gate. See below; the card was lying to him.
+
+================================================================================
+ROOT CAUSE, AND THE METRIC DID NOT SEE IT
+================================================================================
+First thing I checked: the numbers. UP averaged edge 18.31 / grain 61.2%; DOWN
+averaged edge 15.98 / grain 59.1%. Nearly identical, both deep inside tolerance.
+The style target — the thing this whole lane is built on — had NOTHING to say about
+why he rejected seven of them. That is worth writing down: a density ruler measures
+whether a tile is as rich as his purchased art. It cannot see STRUCTURE, and it
+cannot see anything about how a tile behaves when the wall is fifty of them long.
+
+Then I looked, which is what should have happened first.
+
+*** ONE HERO FEATURE, STAMPED AT EXACTLY 44px PITCH, FOREVER. ***
+The cook drew ONE face tile per design and the run repeated it down the whole wall.
+So the single crack — or on stucco, a single bright weed rosette — baked into that
+tile reappeared on EVERY CELL, in the same place, all the way along the block. An
+identical hard-edged mark on a perfect grid does not read as damage. It reads as a
+rendering fault. "Looks like it's glitching out" is a precise description of what
+was actually on screen, not a vague impression.
+
+WHY THIS NEVER SHOWED UP BEFORE: his purchased ground library is shuffled fifteen
+tiles deep per cell, so the repeat pitch is fifteen cells and invisible. The wall's
+pitch was one.
+
+WHY EXACTLY THOSE SEVEN: tan slump and split-face have strong block coursing, and a
+regular masonry grid OUTRANKS the stamp — the eye reads the coursing and files the
+crack as chipping. Stucco and precast are flat fields where the stamp is the only
+structure there is, so it becomes the whole read. All three stucco colourways went
+down. Both flat precast colourways went down. The one precast he kept (#3) is the
+darkest, where the crack has least contrast to work with.
+
+THE FIX, AND IT IS STRUCTURAL, NOT A DIAL
+  1. EIGHT face and EIGHT base variants per design, shuffled by a 2D hash of the
+     cell — the same way the ground has always shuffled his bought tiles. There is
+     no visible period left at all.
+  2. MOST VARIANTS CARRY NO DAMAGE. One face in four is allowed an event. A wall is
+     not a road: his concrete is crazed edge to edge because thirty years of traffic
+     did that, and a garden wall gets a crack here and a crack there.
+  3. STUCCO IS "STUCCO OVER BLOCK" AND THE "OVER BLOCK" WAS MISSING. A real Vegas
+     garden wall is skim coat over CMU and the coursing telegraphs through it,
+     especially after thirty years of sun. Drawn as a flat field it gave the eye
+     nothing to hold except the one crack. Both stucco materials now carry ghost
+     coursing at the block cook's own 11x22 module.
+
+================================================================================
+THE GATE: HE LIKED IT AND THUMBED IT DOWN, AND THE CARD IS WHY
+================================================================================
+"The gate assembly stuff actually looks decent" next to three thumbs down is not a
+contradiction — it is a report that the CARD was wrong, not the art. To fit both
+gate kinds in one strip I put the STEEL LEAF on the coping row and the OPEN MOUTH
+on the row directly below it. So he was looking at a single opening that was barred
+across the top and empty underneath: two different gates stacked, which is exactly
+"glitching out" again, and this time I built it into the judging surface myself.
+
+The game never did this — the kind is seeded per plot, so a neighbourhood is all
+steel or all open. The card invented the defect.
+
+FIXED: the two kinds are separate strips now, each drawn the way a plot actually
+wears it.
+
+LESSON, AND IT IS THE SAME ONE TWICE IN ONE PAGE: a judging surface that shows art
+in an arrangement the game never produces is not a judging surface. It manufactures
+verdicts about things that do not exist.
+
+================================================================================
+WHAT SHIPPED THIS TURN
+================================================================================
+LIVE   the 11 he approved, re-cooked with the stamp fix, 8 face + 8 base variants
+       each, shuffled per cell.
+JUDGE  the 7 he downed, re-cooked with the root-cause fix, back in front of him as
+       a labelled second look. They do NOT quietly reappear in the game: fixing
+       rejected art and saying nothing is how a verdict stops meaning anything.
+DEAD   his 13 7/14 walls, to the graveyard, on his own thumbs.

@@ -56,46 +56,19 @@ if (banks.indexOf('ROOF_IMG') < 0 || banks.indexOf('YARD_IMG') < 0 ||
     banks.indexOf('WALL_IMG') < 0 || banks.indexOf('DOOR_B64') < 0) {
   throw new Error('the lifted art block is missing one of the approved banks');
 }
-/* ---- RUN PERIMETER (7/28, Paolo: "i went on the run and the suburb border
-   walls are not changed its still the house tiles"). He was right and it was
-   worse than a wiring slip: the run returned 'wall_base' for the suburb
-   perimeter, which is the SAME starter-tileset tile its own bodyTile() lays as
-   the bottom course of a house. His 13 approved border walls - 61 candidates
-   judged down over two sessions - had never existed in this renderer at all.
-   The tan half of the pool comes in verbatim, like the door bank. ---- */
-var PERIM_POOL = 'banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt';
-var perimBank = JSON.parse(fs.readFileSync(PERIM_POOL, 'utf8'));
-var perimTan = perimBank.pool.filter(function (p) { return p.variant === 'tan'; }).map(function (p) { return p.b64; });
-if (perimTan.length < 12) throw new Error('the approved suburb border walls are missing from ' + PERIM_POOL);
-/* WB4 WAS BEING SMEARED, AND IT IS THE ONE HE KEPT OUT OF FORTY-EIGHT.
-   Batch 2 of the border-wall judging was 48 candidates; he passed exactly one, WB4.
-   It is stored in the bank as a 792x264 TILING PREVIEW - the real 44x44 art upscaled
-   3x and repeated 6x2, which is how it was PUT IN FRONT OF HIM, as a run of wall
-   rather than a single chip. drawPerim() does drawImage(im, X, Y, S, S), so that
-   entire sheet was being crushed into ONE 44px cell. One community in thirteen has
-   been wearing a grey smear instead of the wall he chose.
-   The recovery is EXACT: the sheet is a pure integer nearest-neighbour upscale, so
-   taking the first module and downsampling by the same integer returns the original
-   pixels bit for bit. Verified in tools/bohemia_perimeter_cook.py. Nothing is redrawn
-   or resampled - this is a PLACEMENT fix on his own art, which is clause 4. */
-var perimRescued = 0;
-perimTan = perimTan.map(function (b) {
-  var png = Buffer.from(b, 'base64');
-  var w = png.readUInt32BE(16), h = png.readUInt32BE(20);   /* IHDR */
-  if (w === 44 && h === 44) return b;
-  /* THE SCALE IS READ OFF THE PIXELS, not guessed from the dimensions. Guessing here
-     picked 6 for the 792x264 sheet (both dimensions divide by 44*6) when the real
-     upscale is 3x tiled 6x2, and the rescue refused it - correctly. Only the image
-     knows how wide its own solid blocks are, so the tool that can see them decides. */
-  var out = require('child_process').execFileSync('python3',
-    ['tools/bohemia_perim_rescue.py'], { input: b, encoding: 'utf8' }).trim();
-  perimRescued++;
-  return out;
-});
-if (perimRescued) console.log('  PERIMETER: recovered ' + perimRescued
-                              + ' of his walls from their tiling previews (exact, no resample)');
+/* ---- HIS 7/14 BORDER WALLS ARE DEAD, and this is where they used to be loaded.
+   Paolo 8/2 thumbed all thirteen DOWN on a card that asked one question: "thumbs up
+   means KEEP IT and it goes back in." So the pool is no longer read, no longer inlined,
+   and the run is 13 images lighter. The bank file stays on disk as the record of what he
+   judged; gates/perimeter_gate.py asserts those bytes never reach the run again.
+   Post-mortem in gates/bohemia_graveyard.txt, verdict in
+   records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt.
+
+   The WB4 rescue that lived here (a 3x tiling preview being crushed into one 44px cell)
+   moved to tools/bohemia_perim_rescue.py, which the judge page still calls: what he
+   killed had to be the wall he actually chose and not the smear. ---- */
 if (html.indexOf('__PERIM_B64_JSON__') < 0) throw new Error('missing __PERIM_B64_JSON__ placeholder');
-html = html.replace('__PERIM_B64_JSON__', JSON.stringify(perimTan));
+html = html.replace('__PERIM_B64_JSON__', '[]');
 
 /* ---- THE COOKED PERIMETER WALL (8/2). His 13 approved walls measure edge 5.76 /
    grain 20.0% against a tolerance floor of 14.27 / 54.8 derived from the tiles he
@@ -111,16 +84,36 @@ html = html.replace('__PERIM_B64_JSON__', JSON.stringify(perimTan));
    and PILLAR along the run. ---- */
 var PERIM_COOK = 'banks/BOHEMIA_PERIMETER_8_2_26.txt';
 var perimCook = JSON.parse(fs.readFileSync(PERIM_COOK, 'utf8'));
+/* HIS 8/2 VERDICT SHIPS: the ELEVEN he thumbed up, and only those.
+   records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt. He killed all thirteen of his own 7/14
+   walls in the same pass, so the replacement is settled, not pending. The seven designs
+   he downed are re-cooked with the root-cause fix and go back in front of him as a
+   judge item; they do NOT quietly reappear in the game, because reinstating rejected art
+   by fixing it and saying nothing is how a verdict stops meaning anything.
+
+   AND EVERY DESIGN IS NOW A POOL, NOT A TILE. "Looks like it's glitching out" was one
+   hero feature stamped at exactly 44px pitch: one face tile per design, repeated forever,
+   so the same crack landed on every cell of the wall. Eight faces and eight bases per
+   design now, shuffled per cell, and most of them carry no damage at all. */
+var PERIM_APPROVED = ['perim_slump_0', 'perim_slump_1', 'perim_slump_2',
+                      'perim_cmu_0', 'perim_cmu_1', 'perim_precast_2',
+                      'perim_rose_0', 'perim_rose_1',
+                      'perim_splitface_0', 'perim_splitface_1', 'perim_splitface_2'];
 var perimSets = {};
 perimCook.tiles.forEach(function (t) {
   if (['face', 'pillar', 'base'].indexOf(t.form) < 0) return;
-  var key = t.material + '_' + t.id.slice(-1);
-  (perimSets[key] = perimSets[key] || {})[t.form] = t.b64;
+  var key = t.material + '_' + t.colourway;
+  if (PERIM_APPROVED.indexOf(key) < 0) return;
+  var d = perimSets[key] = perimSets[key] || { face: [], base: [], pillar: null };
+  if (t.form === 'pillar') d.pillar = t.b64; else d[t.form].push(t.b64);
 });
 var perimDesigns = Object.keys(perimSets).sort().filter(function (k) {
-  return perimSets[k].face && perimSets[k].pillar && perimSets[k].base;
+  return perimSets[k].face.length >= 4 && perimSets[k].base.length >= 4 && perimSets[k].pillar;
 }).map(function (k) { return [perimSets[k].face, perimSets[k].pillar, perimSets[k].base]; });
-if (perimDesigns.length < 12) throw new Error('the cooked perimeter designs are missing from ' + PERIM_COOK);
+if (perimDesigns.length !== PERIM_APPROVED.length) {
+  throw new Error('PERIMETER: he approved ' + PERIM_APPROVED.length + ' designs on 8/2 and '
+                  + perimDesigns.length + ' are complete in ' + PERIM_COOK);
+}
 /* THE GATE COMES IN FOUR PIECES PER KIND, not one. The entrance aperture is seven
    tiles wide and it is ONE gate: 'l' carries the left pier, 'r' the right, 'm' neither,
    'lr' both for a one-cell opening. Repeating a jambed tile across the aperture drew
@@ -138,8 +131,9 @@ var perimGates = ['open', 'steel'].map(function (kind) {
 });
 html = html.replace('__PERIM_COOK_JSON__', JSON.stringify(perimDesigns));
 html = html.replace('__PERIM_GATE_JSON__', JSON.stringify(perimGates));
-console.log('  PERIMETER: ' + perimDesigns.length + ' cooked wall designs (face + pillar) + '
-            + perimGates.length + ' gate overlays');
+console.log('  PERIMETER: ' + perimDesigns.length + ' designs he approved 8/2, '
+            + perimDesigns[0][0].length + ' face + ' + perimDesigns[0][2].length
+            + ' base variants each (the 44px stamp is gone), + 2 gate kinds');
 
 /* ---- BOUGHT BEATS PAINTED (Paolo 7/31, LOCKED: "if i bought it i prefer it!
    Thats for all textures bro!!!"). His purchased, seam-processed ground library.

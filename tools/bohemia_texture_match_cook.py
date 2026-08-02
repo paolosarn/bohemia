@@ -854,7 +854,7 @@ def inside(m, tol):
 COLOURWAY = [(0.000, 1.00), (-0.020, 1.30), (0.022, 0.80)]
 
 
-def cook_to_target(mat, seed, tol, tries=40, way=0):
+def cook_to_target(mat, seed, tol, tries=40, way=0, feat=1.0):
     """draw, MEASURE, nudge, redraw. Smooth art never leaves this function.
 
     TWO dials, because grain and edge are not the same thing and the first version of
@@ -871,7 +871,11 @@ def cook_to_target(mat, seed, tol, tries=40, way=0):
     for _ in range(tries):
         ways = mat.get('ways') or COLOURWAY
         hs, sg = ways[way % len(ways)]
-        im = cook(mat, seed + reseed * 7919, gain, speck, val, hs, sg)
+        # feat: HOW MUCH HERO DAMAGE this tile carries. 1.0 is the ground default and
+        # is right for a road crazed edge to edge; a garden wall repeated along a run
+        # needs most of its tiles CLEAN, or the one crack baked into the one tile stamps
+        # at 44px pitch forever (Paolo 8/2: "looks like it's glitching out").
+        im = cook(mat, seed + reseed * 7919, gain, speck, val, hs, sg, feat)
         m = measure(im)
         sr = seam_ratio(im)
         if sr > 1.18:

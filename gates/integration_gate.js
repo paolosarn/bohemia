@@ -104,17 +104,24 @@ const PROBES = {
     const walls = cook.filter(t => ['face', 'pillar', 'base'].indexOf(t.form) >= 0);
     const gates = cook.filter(t => t.form === 'gate_overlay');
     if (walls.length < 36 || gates.length < 8) return false;
-    if (!walls.every(t => RUN.indexOf(t.b64) >= 0)) return false;   // the bytes, verbatim
+    /* only the ELEVEN he approved on 8/2 ship; the seven he killed are on the judge
+       page and must NOT be in the run, so this checks the approved set specifically */
+    const APPROVED = ['perim_slump_0', 'perim_slump_1', 'perim_slump_2', 'perim_cmu_0',
+                      'perim_cmu_1', 'perim_precast_2', 'perim_rose_0', 'perim_rose_1',
+                      'perim_splitface_0', 'perim_splitface_1', 'perim_splitface_2'];
+    const live = walls.filter(t => APPROVED.indexOf(t.material + '_' + t.colourway) >= 0);
+    if (live.length < 11 * 3) return false;
+    if (!live.every(t => RUN.indexOf(t.b64) >= 0)) return false;    // the bytes, verbatim
     if (!gates.every(t => RUN.indexOf(t.b64) >= 0)) return false;
-    /* HIS POOL IS STILL LOADED. That is the whole point of calling this a judge
-       item rather than a replacement, so the 12 that were never touched must
-       still be in the shipped run byte for byte. */
+    /* AND HIS 7/14 POOL IS OUT. It was loaded-but-not-drawing for an hour on 8/2
+       while the swap was a judge item; he thumbed all thirteen down the same day,
+       so the correct end state is an empty payload rather than a permanent waiver.
+       None of those bytes may be in the shipped run. */
     const pool = JSON.parse(fs.readFileSync(
       path.join(ROOT, 'banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt'), 'utf8')).pool;
     const tan = pool.filter(w => w.variant === 'tan');
     if (tan.length !== 13) return false;
-    const verbatim = tan.filter(w => RUN.indexOf(w.b64) >= 0).length;
-    if (verbatim !== 12) return false;          // 12 untouched + WB4 rescued
+    if (tan.some(w => RUN.indexOf(w.b64) >= 0)) return false;
     return RUN.indexOf('function perimImg(') >= 0 &&        // one wall per community
            RUN.indexOf('function drawPerim(') >= 0 &&       // and it really draws
            RUN.indexOf('function drawGateMouth(') >= 0 &&   // the aperture too

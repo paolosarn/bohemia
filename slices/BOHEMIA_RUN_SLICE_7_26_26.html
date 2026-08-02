@@ -1098,8 +1098,9 @@ var PERIM_IMG = (typeof PERIM_B64!=='undefined'?PERIM_B64:[]).map(function(b){
    7/31 looking at the yard: two different games in one frame. */
 function decode(list){ return (list||[]).map(function(b){
   var im=new Image(); im.src='data:image/png;base64,'+b; return im; }); }
+/* each design is [faces[], pillar, bases[]] - a POOL per form, not a tile */
 var PERIM_COOK = (typeof PERIM_COOK_B64!=='undefined'?PERIM_COOK_B64:[])
-  .map(function(pair){ return decode(pair); });
+  .map(function(d){ return [decode(d[0]), decode([d[1]])[0], decode(d[2])]; });
 var PERIM_GATE = (typeof PERIM_GATE_B64!=='undefined'?PERIM_GATE_B64:[])
   .map(function(kind){ return decode(kind); });   /* [open, steel] x [lr, l, m, r] */
 function ready(im){ return im&&im.complete&&im.naturalWidth?im:null; }
@@ -1111,9 +1112,21 @@ function perimDesign(){
   var h=(Math.imul(px,2654435761)^Math.imul(py,40503))>>>0;
   return PERIM_COOK[h%PERIM_COOK.length];
 }
+/* WHICH VARIANT THIS CELL WEARS. Paolo 8/2: "It's kind of confusing. Looks like it's
+   glitching out." One face tile per design meant the single crack baked into it landed
+   on EVERY cell of the wall, at exactly 44px pitch, forever - and an identical hard mark
+   on a perfect grid reads as a rendering fault, not as damage. Eight faces per design
+   now, picked by a 2D hash of the cell so there is no visible period at all, the same
+   way the ground has always shuffled his bought tiles. */
+function perimVar(gx,gy,n){
+  var h=(Math.imul(gx|0,2654435761)^Math.imul(gy|0,2246822519)^0x9e3779b9)>>>0;
+  h^=h>>>15; h=Math.imul(h,2246822519)>>>0; h^=h>>>13;
+  return n?(h%n):0;
+}
 function perimImg(gx,gy){
   var d=perimDesign();
   if(d){
+    var faces=d[0], pillar=d[1], bases=d[2];
     /* PILLARS EVERY FOURTH CELL along the run. A wall is panels BETWEEN pilasters;
        an unbroken extrusion of the same panel is the thing that reads as wallpaper.
        Keyed on the coordinate that varies along this stretch of wall, so a north-south
@@ -1124,8 +1137,9 @@ function perimImg(gx,gy){
        top of each other. Caught on the real surface (records/target/PERIMETER_WALL_LIVE
        .png), never in the sheet - a single tile looks right either way. If the cell to
        the NORTH is also wall, this one is the FACE below the coping, not another top. */
-    if(isPerim(gx,gy-1)) return ready(d[2]) || ready(d[0]);
-    return ready(d[(((run%4)+4)%4)===0 ? 1 : 0]) || ready(d[0]);
+    if(isPerim(gx,gy-1)) return ready(bases[perimVar(gx,gy,bases.length)])||ready(bases[0]);
+    if((((run%4)+4)%4)===0) return ready(pillar)||ready(faces[0]);
+    return ready(faces[perimVar(gx,gy,faces.length)])||ready(faces[0]);
   }
   if(!PERIM_IMG.length) return null;
   var px=(CELL&&CELL[0]||0)>>2, py=(CELL&&CELL[1]||0)>>2;

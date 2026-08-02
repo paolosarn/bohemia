@@ -85,29 +85,14 @@ const WAIVED = {
     'BOUGHT dirt (7/31). Kept loaded as the fallback and because the builder ' +
     'lifts the walk art block verbatim. Delete this waiver if the texture set is ' +
     'ever reverted, and delete the BANK if the fallback is ever removed.',
-  /* AND THE BORDER WALLS ARE SUPERSEDED TOO, 8/2, on exactly the same footing.
-     They are HIS - 61 candidates judged down to 13 across 7/14 and 7/17 - so this
-     is not a bank quietly falling out of use, which is what this gate exists to
-     catch. It is newest-date-wins between two sets, on a MEASURED difference:
-       his 7/14 border walls   781 colours/tile, edge  5.8, grain 20.0%
-       his own BOUGHT ground  1443 colours/tile, edge 20.9, grain 64.7%
-       8/2 perimeter cook     1694 colours/tile, edge 17.4, grain 61.2%
-     A third of the local contrast of the ground the wall stands on - the same gap
-     that superseded the 7/21 house skins one line above, and the same thing he
-     described himself on 7/31 looking at the yard: two different games in one
-     frame. THE POOL STAYS LOADED ON PURPOSE. It is the one-line revert, and one
-     word from him puts it back. Judge anchor: records/target/PERIMETER_VS_HIS.png.
-     While it was being displaced it was also FIXED: WB4, the sole survivor of the
-     48 in batch 2, is stored as a 3x tiling preview and the renderer was crushing
-     the whole 792x264 sheet into one 44px cell, so one community in thirteen wore
-     a grey smear. His art is now correct whichever set draws. */
-  'suburb border walls (13, approved 7/28)':
-    'backlog 0U - SUPERSEDED 8/2, not missing, and PENDING PAOLO. The cooked ' +
-    'perimeter set (banks/BOHEMIA_PERIMETER_8_2_26.txt) draws instead, on a ' +
-    'measured difference: his walls sit at edge 5.8 against a tolerance floor of ' +
-    '14.27 derived from the tiles he BOUGHT. Kept loaded deliberately as the ' +
-    'one-line revert - and rescued from the tiling-preview bug while it was in ' +
-    'here. Delete this waiver the moment he rules either way.',
+  /* HIS 7/14 BORDER WALLS ARE NOT WAIVED HERE ANY MORE, BECAUSE THEY ARE GONE.
+     They were waived for about an hour on 8/2 - loaded but not drawing, pending his
+     call. He made the call the same day and thumbed all thirteen DOWN, so the builder
+     stopped loading them entirely and there is nothing left for this gate to see. That
+     is the right end state for dead art: not a permanent waiver quietly explaining why
+     something approved never draws, but an empty payload. The kill and its post-mortem
+     are in gates/bohemia_graveyard.txt; gates/perimeter_gate.py asserts those bytes
+     never reach the run again. */
   'walk-file door art (superseded)':
     'backlog 0Q — SUPERSEDED, not missing. The approved animated door bank ' +
     '(7/13, 2 tiles tall) replaced this on 7/26 and IS drawing. These 9 ride ' +
@@ -157,7 +142,6 @@ const PROBE = `(() => {
       if (typeof ROOF_IMG  !== 'undefined') put('house skins (7/21 UP — roof + wall + yard)', ROOF_IMG);
       if (typeof WALL_IMG  !== 'undefined') put('house skins (7/21 UP — roof + wall + yard)', WALL_IMG);
       if (typeof YARD_IMG  !== 'undefined') put('house skins (7/21 UP — roof + wall + yard)', YARD_IMG);
-      if (typeof PERIM_IMG !== 'undefined') put('suburb border walls (13, approved 7/28)', PERIM_IMG);
       /* the 8/2 cook arrives as [face, pillar, base] triples and the gate mouth as
          [open, steel] x [lr,l,m,r], but they are ONE bank and one decision */
       if (typeof PERIM_COOK !== 'undefined')
@@ -254,8 +238,7 @@ const PROBE = `(() => {
      approved perimeter draws", and the choice between the two is a judge item
      with a waiver above, not something a gate gets to decide. */
   ok('an approved community wall is really drawing on the block',
-    ((res.drew['suburb border walls (13, approved 7/28)'] || 0)
-     + (res.drew['the cooked perimeter wall (8/2, 54 tiles)'] || 0)) > 0);
+    (res.drew['the cooked perimeter wall (8/2, 54 tiles)'] || 0) > 0);
   ok('the animated door bank he asked for on 7/26 is really drawing',
     (res.drew['animated door bank (7/13, 2 tiles tall)'] || 0) > 0);
 

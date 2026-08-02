@@ -1,3 +1,5 @@
+ART (f3eu53): 8/2 (f) LATEST — HIS VERDICT IS IN. THE WALL STOPPED GLITCHING.
+
 PEOPLE (factions): 8/2 (e) LATEST — SIXTEEN FACTION DOSSIERS. HIS TOP BACKLOG ITEM,
 CLOSED, AND THE ONE MECHANIC THIS LANE ALREADY BUILT NOW READS FIFTEEN DIFFERENT WAYS.
 Record: records/BOHEMIA_FACTION_DOSSIERS_8_2_26.md + records/factions/ (16 files + index)
@@ -131,134 +133,71 @@ PEOPLE (7h9sfy): 8/2 (d) LATEST — A NAME YOU EARNED IS A NAME YOU SEE, and THE
 DOOR BROKE A SECOND TIME (fixed, and the failure mode is gone now).
 Records: records/BOHEMIA_A_NAME_YOU_EARNED_IS_A_NAME_YOU_SEE_8_2_26.md
 
-=== THE SECOND HALF OF HIS 7/31 RULING, WHICH HAD NEVER BEEN BUILT ===
-"you can personally ask them for their name and then the game will track that SO ANYTIME
-YOU MIGHT SEE THEM IN THE FUTURE LIKE THEIR NAME WILL POP UP."
-The ASKING half shipped 7/31, gated end to end. The SEEING half was missing. A name only
-ever appeared on the identity card or on the one action button, and both of those need
-you standing close enough to touch them. So you could walk up to a neighbour, ask their
-name, take five steps, and they were visually identical to every stranger in the valley.
-ASKING SOMEBODY THEIR NAME HAD NO CONSEQUENCE YOU COULD SEE.
-NOW: the FIRST NAME of anyone you ASKED is painted over them while they are on screen.
-Strangers get nothing, forever, until you ask.
+=== WHAT HE RULED (records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt) ===
+"The gate assembly stuff actually looks decent. I'm just confused. I like the middle
+ part of the wall. It's kind of confusing. Looks like it's glitching out."
+ALL 13 of his own 7/14 border walls: THUMBS DOWN. The swap is SETTLED, not pending -
+they are out of the run entirely and the post-mortem is in the graveyard file.
+MY 18: 11 up, 7 down. All three gate cards down, while SAYING the gate looks decent.
 
-NOT NAMEPLATE SOUP, BY CONSTRUCTION (the obvious risk, and a careless version would be
-worse than not building it):
-  - only people you ASKED. nameOf() returns null for a stranger BY LAW, so a stranger can
-    never get one whatever this code does. The label IS the difference between the people
-    you bothered with and the people you did not.
-  - the viewport is ~4 tiles either side of you; capped at 4, nearest first, on top
-  - FIRST NAME ONLY, and a name and NOTHING else. No role, no mood, no timetable. A
-    ROUTINE IS INVISIBLE INFORMATION is still the law. invisible_schedule_gate 17/0.
-  - the run's own gold (#e8b84a), the colour already used for YOURS. No new colour.
-RESEARCH: Shadows of Doubt is the closest published shape - Unknown Citizen until an
-identifier resolves them. His version is stronger: the identifier is a conversation.
+=== ROOT CAUSE, AND THE METRIC WAS BLIND TO IT ===
+First thing I checked was the numbers: UP averaged edge 18.31 / grain 61.2%, DOWN 15.98
+/ 59.1%. Nearly identical, both deep in tolerance. THE STYLE TARGET HAD NOTHING TO SAY
+ABOUT WHY HE REJECTED SEVEN. Worth keeping: a density ruler measures whether a tile is
+as rich as his purchased art. It cannot see STRUCTURE and it cannot see how a tile
+behaves when the wall is fifty of them long. Then I looked, which should have been first.
+*** ONE HERO FEATURE STAMPED AT EXACTLY 44px PITCH. *** One face tile per design,
+repeated down the whole block, so the single crack baked into it landed on EVERY cell in
+the same place forever. A hard mark on a perfect grid reads as a rendering fault. His
+ground library never showed this because the run shuffles fifteen of his tiles per cell -
+pitch fifteen, invisible. The wall's pitch was one.
+WHY THOSE SEVEN: slump and split-face have strong block coursing and the coursing
+OUTRANKS the stamp. Stucco and precast are flat fields where the stamp is the only
+structure there is - all three stucco colourways died, both flat precasts died.
+THE FIX (structural, not a dial): 8 face + 8 base variants per design, shuffled by a 2D
+hash of the cell, no visible period at all; one face in four is allowed damage (a wall is
+not a road); and stucco finally gets the "over block" half of "stucco over block" - ghost
+coursing at the block cook's own 11x22 module.
 
-GATE READS PAINTED PIXELS: C6a nobody named before you ask. C27a on the WORLD not just
-the card. C27b only the one you asked. C27c the gold really landed, AS A BEFORE/AFTER
-DELTA - an absolute "there is gold on screen" would have passed on the front-door
-highlight, which already paints the same #e8b84a. True for the wrong reason.
-Mutations: label never draws -> C27a/b/c red. Strangers labelled -> C6a red, C27c red.
+=== THE GATE: HE LIKED IT AND THUMBED IT DOWN, AND MY CARD IS WHY ===
+To fit both kinds in one strip I put the STEEL LEAF on the coping row over the OPEN MOUTH
+on the row below - one opening, barred on top, empty underneath. The game never does that
+(the kind is seeded per plot). The card invented the defect.
+LESSON, TWICE ON ONE PAGE: a judging surface that arranges art in a way the game never
+produces is not a judging surface. It manufactures verdicts about things that do not exist.
 
-=== TWO BUGS THIS CAUGHT IN MY OWN WORK, AND THE SECOND IS THE USEFUL ONE ===
-1. the KNOWNNAMES row declared undo=anchor, but this fence sits BEFORE its anchor, so
-   restoring re-emitted the anchor and the next run refused with "anchor resolves 2
-   times". The refusal was the tool working. undo is '' now.
-2. *** AND MY IDEMPOTENCE CHECK HAD BEEN FOOLED BY IT. *** I ran the tool twice, compared
-   file hashes, saw them identical, and called it idempotent. The second run had REFUSED
-   TO WRITE. A CHECK THAT A TOOL DID NOTHING IS NOT A CHECK THAT IT IS IDEMPOTENT. It now
-   requires exit 0 on both runs AND an unchanged file AND one anchor. If you verify a
-   patch tool this way, check the exit code.
+=== WHAT SHIPPED ===
+LIVE   the 11 he approved, re-cooked, stamp gone.
+JUDGE  the 7 he killed, re-cooked with the fix, labelled "you downed this", in the LIFE
+       tab. They do NOT quietly reappear in the game.
+DEAD   his 13, out of the payload. NOT registered as graveyard tokens on purpose: the
+       keys are "W26".."W37"/"WB4", short generic strings with 120 legitimate historical
+       mentions, and registering them would make the record illegal and train the next
+       session to ignore that gate. The enforcement that matters is machine-held instead -
+       perimeter_gate asserts those bytes never reach the run.
 
-=== THE FRONT DOOR BROKE AGAIN, SAME TAG, WITHIN HOURS. EVERY LANE READ THIS. ===
-gates/front_door_gate.js (built this morning after the FIRST one) went red and named the
-cause in one line: 4 <div> open vs 3 </div> close. A lane updating the build stamp ate the
-tag that closes the front splash for the SECOND time on 8/2, nesting the whole app inside
-the splash, so tapping the splash hid the game. It reached main both times. One commit on
-main that day says "main is broken by another lane" in its own subject line.
-THE ALARM WORKED. But an alarm that rings twice in one day about the same tag is telling
-you to REMOVE THE FAILURE MODE, not to keep listening.
-*** THE CLOSING TAG NOW LIVES ON ITS OWN LINE, *** with a comment saying why. The stamp
-line and that tag can never be touched by the same edit again. Update the stamp freely;
-you can no longer break the splash doing it.
+=== GATED ===
+gates/perimeter_gate.py, 67 checks. New this round: every design is a POOL not a tile,
+most faces carry no damage, the flat materials carry ghost coursing, the 11 he approved
+ship and the 7 he killed do not, his dead pool is out of the run, and a gate strip shows
+ONE kind.
 
-AND THE FIX BROKE MY OWN GATE, WHICH IS THE LESSON WORTH KEEPING: the comment EXPLAINING
-the missing tag contained words that looked like tags, and the checker counted them. It
-went red on PROSE while the document was perfectly well formed - the exact
-mention-versus-use mistake Paolo named on 8/1, committed by the gate whose entire job is
-reading structure. It strips comments before counting now, and its self-test no longer
-matches a hard-coded string so it survives the tag moving.
-IF YOUR GATE COUNTS SYNTAX IN A FILE, STRIP THE COMMENTS FIRST.
+=== THE QUEUE ===
+1. HIS BOUGHT YARD HAS THE SAME REPEAT PROBLEM, and it is in the same frame as the wall
+   (records/target/PERIMETER_WALL_LIVE.png): only 5 dirt tiles shuffle across the whole
+   yard and each carries a big starburst weed, so a weed lands on nearly every cell. His
+   pixels are his - do not touch them - but PLACEMENT is clause 4 and 5 tiles is too few
+   for the largest surface on the block. NOT SURFACED TO HIM UNASKED.
+2. Features on ground ~5.5% vs his 7.0%; his cracks still crisper.
+3. Art cell 44 -> 88 px. Would fix (2) outright.
+4. Gated and estate communities render with the block art for the first time - nobody has
+   ever looked at one.
 
-=== THE LANE'S QUEUE (BOHEMIA_BACKLOG.md, ## PEOPLE) ===
-P-A(1) closed. P-A(2) shipped 7/31. P-F (this) shipped.
-0.  dialogue v1 ....... BLOCKED ON WORDS. The runtime exists and plays .bq end to end;
-                        LINES ships empty and the words are his.
-2.  faction ledger .... DEAD BY RULING.
-3.  companion layer ... waits on COMBAT extraction step (a), which is not done. Checked
-                        8/2: still a COMBAT lane item, so this is genuinely blocked.
-1c. valley census as identities: the CITY half is already fine (measured 8/2 - homesIn
-    appends rather than reshuffles, so city people survive the dial at 2/4/8/16
-    unchanged). What is left is the companion layer's shape, blocked with item 3.
-WITH THAT, EVERY LISTED ITEM IN THIS LANE IS DONE, DEAD, OR BLOCKED ON SOMEBODY ELSE.
-The honest next moves are inside the rulings rather than the list: read his locked
-addenda and find the half that was never built, which is exactly how P-F was found.
+=== STILL RED ON MAIN, STILL NOT MINE ===
+LIFE / DRESS / POPULATION / MEMORY / DEVIATION - zero agents simmed. PARTS PAINTED +
+BODY VARIATION are CHARACTER's. BOTTOM-LEFT + CANVAS SCALE verified failing on clean main.
 
-=== PARKED BY PAOLO, DO NOT RAISE ===
-Who you already know at the first frame: "don't worry at all about that right now."
-The population slider NUMBERS: "just worry about the coding and plumbing for now."
-
-CITY (1eztay): 8/2 (am) LATEST — *** TWO GATES WERE RED ON MAIN ALL DAY AND BOTH
-WERE MINE. *** The lesson the PEOPLE lane wrote below ("check whether the red is
-yours") paid off within the hour of it being written.
-
-WHAT SHIPPED
-1. DROP IN LANDS YOU ON A STREET. Paolo: "I'm like locked in this fucking suburb."
-   The 8/1 prison fix went into the run slice's findHomeCell and COULD NOT HAVE
-   REACHED HIM, because #p-run is display:none for the life of the app and he has
-   never once looked at that file. It is in the CITY FRAME now, the surface he
-   actually plays: DROP IN prefers a road cell, then a cell touching a road, then
-   any walkable cell as before. Worst-case walk to a street went 9,432 tiles -> 3.
-   Walkability itself is unchanged - only which walkable cell you are handed.
-2. THE TAB DELETION'S OWN WRECKAGE, CLEANED UP. Deleting the CITY button broke
-   two more navigators my sweep had sworn were clean, and they were the red
-   BOTTOM-LEFT and CANVAS SCALE that everybody has been stepping around:
-     - gates/bottomleft_gate.py named the tab a THIRD way and died on a 30s
-       timeout waiting for a frame no click had ever asked for. Now 9/0.
-     - tools/bohemia_canvas_scale_audit.js built the selector from a TABS array,
-       so no static sweep could ever see it. It silently measured whatever panel
-       was open and reported no walked world at all - 3 failed assertions in
-       canvas_scale_gate. Now 29/0.
-
-THE PART EVERY LANE SHOULD TAKE
-My sweep was a BLOCKLIST: it banned the two spellings I happened to have found.
-A blocklist of spellings gets spelled around, and it was, twice, in one hour.
-It is a PROPERTY now - the tab bar is read out of the LIVE document and every tab
-any gate or tool navigates by must exist.
-
-AND THE THING UNDER ALL THREE, which no name check can ever see: THE FAILED CLICK
-WAS SILENT. `.catch(() => {})` on the click, or `if (t) t.click()` on a find that
-returned undefined. The click did not happen, nothing said so, and the gate failed
-thirty seconds and one wrong surface later. SIXTEEN FILES CARRIED THAT SWALLOW.
-All sixteen are strict now (they throw, naming the tab) and one_world_tab_gate
-fails any new one - including for tabs that do not exist yet. Sabotage-proven both
-ways. Law + post-mortem: laws/BOHEMIA_LAW_ONE_WORLD_TAB_8_2_26.md.
-
-I ALSO ALMOST FILED A FALSE ACCUSATION. The first property check scraped the bar
-with /class="tab"[^>]*data-p="([a-z]+)"/ and reported four gates navigating by a
-CHARACTER tab that does not exist. It does. It is written `class="tab on"` because
-it is the tab you start on. One browser probe (tap RUN, tap back) showed CHARACTER
-one tap away. Same mistake one layer up - assuming a spelling - and it nearly
-became a written claim that Paolo was locked out of his own character screen.
-
-NOT MINE TO DECIDE, AND ONE OF THEM IS PARKED
-- THE POPULATION NUMBER is PARKED BY PAOLO ("just worry about the coding and
-  plumbing for now") - DO NOT RAISE IT. The two live answers are still ~15x apart
-  (zone map 297 from his 7/29 food ceiling; OCCUPIED_RATE=0.038 -> ~1,113 from the
-  8/1 survival model) and that is recorded in backlog 0AO as plumbing debt, not as
-  a question for him.
-- THE RUN SLICE: SHOW / MERGE / RETIRE. It is real, tested, and invisible. Still
-  open, still not something a tab deletion gets to decide.
+--------------------------------------------------------------------------------
 
 ART (f3eu53): 8/2 (ah) LATEST — THE COMMUNITY WALL AND ITS GATE. THE BLOCK IS DONE.
 

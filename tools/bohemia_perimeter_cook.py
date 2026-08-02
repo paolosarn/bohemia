@@ -111,6 +111,29 @@ SHADOW_H = 5       # the cast shadow under the oversail, falling off
 GRADE_H = 6        # blown dirt splashed up the bottom, 10cm
 PILLAR_W = 12      # 20cm pilaster, the real proportion against a 44px panel
 
+# *** HIS 8/2 VERDICT, AND THE REASON SEVEN DESIGNS WENT DOWN. ***
+# "I'm just confused. I like the middle part of the wall. It's kind of confusing.
+#  Looks like it's glitching out."
+# He was looking at a hero feature STAMPED AT EXACTLY 44px PITCH. The cook drew ONE face
+# tile per design and the run repeated it forever, so the one crack or one weed baked
+# into that tile reappeared on every single cell of the wall, in the same place, all the
+# way down the block. An identical high-contrast mark on a perfect grid does not read as
+# damage. It reads as a rendering fault, which is precisely the word he used.
+#
+# His purchased ground library never showed this because the run shuffles FIFTEEN of his
+# tiles across the cells; the repeat pitch is fifteen cells and invisible. The wall had a
+# pitch of one. That is also why the tan slump designs survived and the stucco ones did
+# not: slump has strong block coursing that outranks the stamp, and stucco is a flat
+# field where the stamp is the only structure there is.
+#
+# So: EIGHT face variants and eight base variants per design, shuffled along the run, and
+# most of them carry NO hero feature at all. A wall is not a road. His concrete is crazed
+# edge to edge because thirty years of traffic did that; a garden wall gets a crack here
+# and a crack there.
+FACE_VARIANTS = 8
+# one face in four is allowed an event; the rest are field and coursing
+FEATURE_RATE = 0.25
+
 
 # ---------------------------------------------------------------------------- materials
 # Real Las Vegas residential perimeter walls. Every one of these rings a subdivision
@@ -121,14 +144,19 @@ WALLS = [
          name='perimeter wall, tan slump block'),
     dict(id='perim_splitface', rgb=(124, 121, 114), kind='block',  wear=0.55,
          name='perimeter wall, grey split-face block'),
-    dict(id='perim_stucco',    rgb=(150, 134, 108), kind='stucco', wear=0.65,
+    # STUCCO OVER BLOCK, and the 'over block' is the part that was missing. Drawn as a
+    # pure stucco field it had NO structure of its own, so the one crack on the tile was
+    # the only thing the eye had to hold and its 44px repeat was unmissable - all three
+    # colourways went down on 8/2. A real Vegas garden wall is stucco skimmed over CMU
+    # and the coursing ghosts through it, especially after thirty years of the sun.
+    dict(id='perim_stucco',    rgb=(150, 134, 108), kind='block', ghost=0.34, wear=0.65,
          name='perimeter wall, stucco over block'),
     dict(id='perim_precast',   rgb=(134, 132, 126), kind='tiltup', wear=0.50,
          name='perimeter wall, precast concrete panel'),
     # DECLARED ROSY. He asked for colour variety on 8/1 and desert rose is a real
     # southwestern tract colour; the gate's PINK test exempts DECLARED colourways only,
     # so an accidental salmon still fails, which is the whole point of declaring.
-    dict(id='perim_rose',      rgb=(152, 128, 114), kind='stucco', wear=0.55,
+    dict(id='perim_rose',      rgb=(152, 128, 114), kind='block', ghost=0.34, wear=0.55,
          rosy=True, name='perimeter wall, desert rose stucco'),
     dict(id='perim_cmu',       rgb=(122, 120, 115), kind='block',  wear=0.70,
          name='perimeter wall, bare grey CMU'),
@@ -412,7 +440,32 @@ def gate_mouth(rnd, steel, ends='lr'):
 
 
 # ------------------------------------------------------------------------------- cook
-def cook_wall(mat, seed, tol, way, form):
+def ghost_coursing(im, mat, rnd):
+    """STUCCO OVER BLOCK. The skim coat does not erase the wall underneath it - the
+    coursing telegraphs through, softly, and after thirty years of sun and settlement it
+    telegraphs plainly. Drawn at the block cook's own 11x22 module so a stucco wall and a
+    bare CMU wall in the same neighbourhood are the same masonry wearing different coats.
+
+    This is here because of his 8/2 verdict, and it is a structure fix rather than a
+    tuning one: all three stucco colourways went down, and the reason was that a flat
+    field gives the eye nothing to hold except the one crack on the tile - so the crack's
+    44px repeat became the whole read."""
+    g = mat.get('ghost')
+    if not g:
+        return
+    px = im.load()
+    for y in range(CAP_H + CAP_LIP, CELL):
+        row = y // 11
+        for x in range(CELL):
+            mx = (x + (row % 2) * 11) % 22
+            my = y % 11
+            if my == 0 or mx == 0:
+                px[x, y] = dim(px[x, y], 0.20 * g + rnd.r(-0.03, 0.03)) + (255,)
+            elif my == 10:
+                px[x, y] = lit(px[x, y], 0.10 * g) + (255,)
+
+
+def cook_wall(mat, seed, tol, way, form, feat=1.0):
     """the texture-match cook draws the FIELD; this file builds the WALL out of it.
 
     *** MEASURE THE FINISHED TILE, NOT THE FIELD IT STARTED FROM. ***
@@ -425,7 +478,7 @@ def cook_wall(mat, seed, tol, way, form):
     So the field is redrawn from a fresh seed until the WALL measures right.
     """
     for attempt in range(8):
-        im, m, ok = _build(mat, seed + attempt * 6151, tol, way, form)
+        im, m, ok = _build(mat, seed + attempt * 6151, tol, way, form, feat)
         if ok and TEX.inside(TEX.measure(im.convert('RGB')), tol):
             return im, m, True
         if attempt == 0:
@@ -433,9 +486,10 @@ def cook_wall(mat, seed, tol, way, form):
     return first[0], first[1], False
 
 
-def _build(mat, seed, tol, way, form):
-    field, m, ok = TEX.cook_to_target(mat, seed, tol, way=way)
+def _build(mat, seed, tol, way, form, feat=1.0):
+    field, m, ok = TEX.cook_to_target(mat, seed, tol, way=way, feat=feat)
     im = field.convert('RGBA')
+    ghost_coursing(im, mat, TEX.Rnd(seed * 17 + 3))
     rnd = TEX.Rnd(seed * 31 + 7 + {'face': 0, 'pillar': 977, 'base': 4231}[form])
     # A WALL HAS ONE COPING, NOT ONE PER CELL. The block's perimeter is two cells thick
     # where it runs east-west, and giving both rows a cap drew TWO WALLS stacked on top
@@ -528,24 +582,35 @@ def main():
     tiles, rows, misses = [], [], []
     for mi, mat in enumerate(WALLS):
         for k in range(3):
+            seed0 = 4400 + mi * 137 + k * 11
             drawn = {}
-            for form in ('face', 'pillar', 'base'):
-                drawn[form] = cook_wall(mat, 4400 + mi * 137 + k * 11, tol, k, form)
-            for form in ('face', 'pillar', 'base'):
-                im, m, ok = drawn[form]
+            # EIGHT FACES AND EIGHT BASES, ONE PILLAR. The pillar is architecture and
+            # belongs on a rhythm; the face is FIELD and must never repeat at the cell.
+            # Most variants are drawn with the hero features turned right down, so a
+            # crack is something you come across rather than something stamped on every
+            # block of the wall. That single change is his whole 8/2 complaint.
+            for v in range(FACE_VARIANTS):
+                feat = 1.0 if (v % int(round(1 / FEATURE_RATE))) == 0 else 0.0
+                drawn['face_%d' % v] = cook_wall(mat, seed0 + v * 977, tol, k, 'face', feat)
+                drawn['base_%d' % v] = cook_wall(mat, seed0 + v * 977, tol, k, 'base', feat)
+            drawn['pillar'] = cook_wall(mat, seed0, tol, k, 'pillar', 0.0)
+            for form, (im, m, ok) in drawn.items():
+                base_form = form.split('_')[0]
                 mm = TEX.measure(im.convert('RGB'))
                 if not ok:
                     misses.append((mat['id'], k, form, mm))
                 # a pillar's right edge meets a FACE, never another pillar
-                nb = drawn['face'][0] if form == 'pillar' else None
+                nb = drawn['face_0'][0] if base_form == 'pillar' else None
                 tiles.append(dict(id='%s_%s_%d' % (mat['id'], form, k),
-                                  material=mat['id'], form=form, name=mat['name'],
+                                  material=mat['id'], form=base_form,
+                                  variant=(0 if base_form == 'pillar' else int(form.split('_')[1])),
+                                  colourway=k, name=mat['name'],
                                   kind=mat['kind'], rosy=bool(mat.get('rosy')),
                                   verdict='PENDING PAOLO',
                                   measured={a: round(b, 3) for a, b in mm.items()},
                                   hseam=round(hseam(im, nb), 3),
                                   in_tolerance=ok, b64=png(im)))
-                rows.append((mat['id'], form, k, mm, ok, im))
+                rows.append((mat['id'], base_form, k, mm, ok, im))
 
     gates = []
     for steel in (False, True):
@@ -601,11 +666,17 @@ def main():
             vs.paste(im.resize((T, T), Image.NEAREST), ((i * RUN + r) * T, 26))
         vd.text((i * RUN * T + 3, 26 + T), '%s  edge %.1f' % (key, m['edge']),
                 fill=(240, 210, 140))
-    pick = [r for r in rows if r[2] == 0 and r[1] == 'face'][:3]
+    seen, pick = set(), []
+    for r in rows:
+        if r[2] == 0 and r[1] == 'face' and r[0] not in seen:
+            seen.add(r[0]); pick.append(r)
+        if len(pick) == 3:
+            break
     for i, (mid, form, k, m, ok, im) in enumerate(pick):
         for r in range(RUN):
-            src = im if (r % 3) else next(q[5] for q in rows
-                                          if q[0] == mid and q[1] == 'pillar' and q[2] == k)
+            src = next(q[5] for q in rows
+                       if q[0] == mid and q[1] == 'pillar' and q[2] == k) if not (r % 3) \
+                else [q[5] for q in rows if q[0] == mid and q[1] == 'face' and q[2] == k][r % 3]
             vs.paste(src.convert('RGB').resize((T, T), Image.NEAREST),
                      ((i * RUN + r) * T, 26 + T + 16))
         vd.text((i * RUN * T + 3, 26 + (T + 16) + T),

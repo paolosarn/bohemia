@@ -49,12 +49,18 @@ backlog).
 ```routing
 RUN | the CBB target tileset (42) | DRAWS
 RUN | the cooked perimeter wall (8/2, 54 tiles) | DRAWS
-RUN | suburb border walls (13, approved 7/28) | DEBT
 RUN | animated door bank (7/13, 2 tiles tall) | DRAWS
 RUN | interior pool (Great Sweep UP) | DRAWS
 RUN | house skins (7/21 UP - roof + wall + yard) | DEBT
 RUN | walk-file door art (superseded) | DEBT
 ```
+
+NOTE 8/2, LATER THE SAME DAY: his 13 suburb border walls are OFF this index entirely.
+They spent about an hour as DEBT, superseded and pending his call; he made the call and
+thumbed all thirteen DOWN (records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt). The builder no
+longer loads them, so there is no bank to route and no debt to carry. Post-mortem in
+gates/bohemia_graveyard.txt. The paragraph below is kept as the record of the hour they
+were pending, because it is the argument he was answering.
 
 NOTE 8/2: his 13 suburb border walls moved DRAWS -> DEBT, and it is the same
 move for the same reason as the house skins below. They are HIS - 61 candidates
