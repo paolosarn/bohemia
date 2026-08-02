@@ -2152,8 +2152,12 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
     demo.includes('streak:  BohemiaFreeze.note(4),'));
 
   ok('V87 THE INSTRUMENT IS NEVER ON SCREEN DURING A STOP: _df, the one alpha that owns the entire dial, is forced to 0 while the world is frozen. Whatever the timing math works out to on a device I do not have, the dial and the pause are never on screen together',
-    demo.includes('const _df=(G._freezeT>0)?0:((G.ks&&G._ksAt)?Math.max(0,1-(performance.now()-G._ksAt)/(_dfT*1000)):1);') &&
-    !demo.includes('const _df=(G.ks&&G._ksAt)?Math.max(0,1-(performance.now()-G._ksAt)/(_dfT*1000)):1;'));
+    /* V116B RE-POINTED: the freeze still forces 0 -- that clause is unchanged
+       and asserted below. What changed is the ELSE: instead of snapping to 1
+       the instant the kill ends, the dial ramps back in over DIAL_IN_MS. */
+    demo.includes('const _df=(G._freezeT>0)?0') &&
+    demo.includes(':((G.ks&&G._ksAt)?Math.max(0,1-_sinceKs/(_dfT*1000))') &&
+    demo.includes(':Math.max(0,Math.min(1,_sinceEnd/DIAL_IN_MS)));'));
   ok('AND IT IS SAFE BY CONSTRUCTION: the demo resets globalAlpha to 1 immediately before drawKillshotWorld, so _df owns the instrument and nothing else -- the bullet, the blood and the bodies are on the far side of that reset',
     demo.indexOf('ctx.globalAlpha=_df;') < demo.indexOf('ctx.globalAlpha=1;   /* dial fade never touches the killshot world */') &&
     demo.indexOf('ctx.globalAlpha=1;   /* dial fade never touches the killshot world */') <
@@ -3394,6 +3398,28 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V115 AND THE GATE THAT WOULD HAVE CAUGHT IT NOW EXISTS. 620 checks were green when this shipped, because node --check proves a file PARSES and a temporal dead zone is valid syntax -- it proves nothing about whether the thing RUNS. gates/combat_runs_smoke.js boots the real alpha, opens the real combat tab and drives real frames through cover -> AIM -> killshot -> freeze, failing on ANY pageerror or console error. Verified against the broken build: it catches it, 170 errors, 1 distinct',
     require('fs').existsSync(__dirname + '/combat_runs_smoke.js') &&
     require('fs').readFileSync(__dirname + '/../gates/bohemia_gates.py','utf8').includes("gates/combat_runs_smoke.js"));
+
+  /* ===== 50. V116 THE ORANGE ARM, TWENTIETH REPORT =================== */
+  ok('V116 ONE `=` THAT SHOULD ALWAYS HAVE BEEN A `*=`. Paolo, twentieth report, and the sentence that solved it: "The orange part of the dead shot dial does not slowly disappear LIKE THE REST of the dead shot dial." The rest fades and the orange part does not -- which is not a missing gate, it is one element ESCAPING a fade that already works on everything around it. drawArmNeedle was the ONLY globalAlpha ASSIGNMENT in the whole dial block, overwriting _df with its own number before drawing a single pixel',
+    demo.includes('V116 THE ARM INHERITS THE FADE') &&
+    demo.includes('c2.save(); c2.globalAlpha*=al;') &&
+    !demo.includes('c2.save(); c2.globalAlpha=al;'));
+
+  ok('V116 AND IT IS THE ONLY ONE, ASSERTED: no globalAlpha ASSIGNMENT may live inside drawArmNeedle again, because that is the exact shape of the bug that survived eleven fixes',
+    !/function drawArmNeedle[\s\S]{0,900}?\w+\.globalAlpha\s*=[^*=]/.test(demo));
+
+  ok('V116 THE WHOLE DIAL BAILS IN ONE BRANCH ("Make the WHOLE dead shot dial go away", his words, twice). v114 added DIAL_GONE and spent it on the player pose alone. It now wraps the wedge, the track, the ticks, the bands, both ghost fans, the needle, the reticle and the muzzle heat, so nothing in there can outlive the fade again whatever anyone adds later',
+    demo.includes('if(!DIAL_GONE){') &&
+    demo.includes("}   /* V116: end of the one DIAL_GONE branch") &&
+    demo.indexOf('if(!DIAL_GONE){') < demo.indexOf("ctx.globalAlpha=1;   /* dial fade never touches the killshot world */"));
+
+  ok('V116B A SNAP IS NOT A FADE. MEASURED and this is why twenty reports never matched what I fixed: the arm\'s alpha DURING G.ks was already 0 -- it is not on screen during the kill at all. What he photographs is the CHAIN (his own screenshot reads SHOT 2 OF 2 with FIRE green), where the dial slammed back to full the instant the killshot ended, over the body he just dropped. BEFORE: 0.045, full strength, first frame after. AFTER: 0.003 ramping, 0.022 peak across 200ms',
+    demo.includes('const DIAL_IN_MS=420;') &&
+    demo.includes('if(G.ks)G._ksEnd=performance.now();') &&
+    demo.includes('const _sinceEnd=(G._ksEnd!=null)?(performance.now()-G._ksEnd):1e9;'));
+
+  ok('V116B AND IT KEYS OFF THE KILL\'S END, NOT ITS START -- the first attempt keyed off _ksAt and did nothing, because _dfT is only the BULLET travel (~90-300ms) while the cinematic runs ~2s, so the ramp finished long before the dial was allowed back and it snapped to 1 exactly as before',
+    /if\(G\.ks\)G\._ksEnd=performance\.now\(\);[\s\S]{0,400}_sinceEnd\/DIAL_IN_MS/.test(demo));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
