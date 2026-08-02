@@ -462,6 +462,17 @@ GATES = [
      'TILES, re-derived every run so it cannot drift - plus the two failures that almost '
      'shipped: PINK (desaturating at constant value turns clay into salmon) and MUSH '
      '(structure buried under the grain)', False),
+    ('PERIMETER',      ['python3', 'gates/perimeter_gate.py'],
+     'the suburb border wall and the gate mouth, and the three bugs that were live and '
+     'invisible in every contact sheet: WB4 (the one wall he kept out of 48) was stored '
+     'as a 3x tiling PREVIEW and the renderer crushed the whole 792x264 sheet into one '
+     '44px cell; a two-cell-thick wall drew a coping on BOTH rows, stacking two walls; '
+     'and isSuburbCell() only accepted the district literally named "suburb" while '
+     'suburb, gated and estate are three names sharing ONE generator - so every gated '
+     'community rendered with none of the block art and the gate mouth could never draw '
+     'anywhere at all. Holds the anatomy too: the cap is the sky-lit lightest band (45 '
+     'DEGREE ART LAW), it oversails and casts, the pillar is proud AND casting, and the '
+     'seam is tested against the tile that ACTUALLY follows it', False),
     ('BOUGHT-FIRST (COOKS)', ['python3', 'gates/bought_first_gate.py'],
      'REUSE FIRST was green while I cooked a concrete block wall he had already BOUGHT: the '
      'shopping check walked the APPROVED-ASSET index (what he has judged) and never the '

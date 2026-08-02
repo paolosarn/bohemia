@@ -444,6 +444,8 @@ function drawBought(kind,gx,gy,X,Y,S){
 }
 
 var PERIM_B64 = __PERIM_B64_JSON__;
+var PERIM_COOK_B64 = __PERIM_COOK_JSON__;
+var PERIM_GATE_B64 = __PERIM_GATE_JSON__;
 </script>
 
 <script>
@@ -618,7 +620,26 @@ function loadCell(cx,cy){
 }
 loadCell(HOME_CELL[0], HOME_CELL[1]);
 var HOME_CELLNAME = CELLNAME;
-function isSuburbCell(){ return CELLNAME==='suburb'; }
+/* THE SUBURB FAMILY IS THREE DISTRICT NAMES, NOT ONE.
+   engine/bohemia_suburb.js says it in its own words: "Three district types share this
+   generator - suburb, gated, estate". They emit the SAME grid codes from the SAME code
+   - houses, driveways, garages, the perimeter wall - and the only difference is what
+   stands in the entrance aperture (an ordinary walled suburb gets the street running
+   through the gap; a gated or estate community gets a GATE ASSEMBLY, code 5).
+
+   This predicate only ever accepted 'suburb', so every gated and estate community in
+   the valley fell through to genericTile() and rendered with NONE of the block art:
+   no bought ground, no texture-matched house skins, no window openings, no perimeter
+   wall. It also meant the gate mouth could never draw ANYWHERE, because code 5 exists
+   only on the exact districts this returned false for.
+
+   Found by walking to one. The gate-mouth screenshot kept coming back empty, the
+   valley scan said the nearest estate was 42 cells out, and standing in it showed a
+   generic block - the art was wired correctly the whole time and was being asked
+   about a district that was never allowed to answer. */
+function isSuburbCell(){
+  return CELLNAME==='suburb' || CELLNAME==='gated' || CELLNAME==='estate';
+}
 
 /* ===========================================================================
    THE FRONT IS THE SOUTH FACE. ALWAYS.
@@ -1065,16 +1086,88 @@ function groundTile(c,gx,gy){
    and the community next door wears a different one. ========================= */
 var PERIM_IMG = (typeof PERIM_B64!=='undefined'?PERIM_B64:[]).map(function(b){
   var im=new Image(); im.src='data:image/png;base64,'+b; return im; });
-function perimImg(){
+/* THE COOKED WALL (8/2). Eighteen designs, each a [face, pillar] PAIR. His 7/14 pool
+   above is still loaded and still correct - PERIM_IMG - and swapping the two lines
+   below puts it back. The reason this one draws:
+
+     HIS 7/14 WALLS      edge  5.76   grain 20.0%
+     THE TILES HE BOUGHT edge 18.36   grain 61.1%   (tolerance floor 14.27 / 54.8)
+
+   a third of the local contrast of the ground they stand on, which is the same
+   measured gap that replaced the 7/21 house skins and the same thing he described on
+   7/31 looking at the yard: two different games in one frame. */
+function decode(list){ return (list||[]).map(function(b){
+  var im=new Image(); im.src='data:image/png;base64,'+b; return im; }); }
+var PERIM_COOK = (typeof PERIM_COOK_B64!=='undefined'?PERIM_COOK_B64:[])
+  .map(function(pair){ return decode(pair); });
+var PERIM_GATE = (typeof PERIM_GATE_B64!=='undefined'?PERIM_GATE_B64:[])
+  .map(function(kind){ return decode(kind); });   /* [open, steel] x [lr, l, m, r] */
+function ready(im){ return im&&im.complete&&im.naturalWidth?im:null; }
+/* ONE WALL PER COMMUNITY: the design is seeded off the 4x4 plot, never off the cell, so
+   a whole community wears one design and the community next door wears another. */
+function perimDesign(){
+  if(!PERIM_COOK.length) return null;
+  var px=(CELL&&CELL[0]||0)>>2, py=(CELL&&CELL[1]||0)>>2;
+  var h=(Math.imul(px,2654435761)^Math.imul(py,40503))>>>0;
+  return PERIM_COOK[h%PERIM_COOK.length];
+}
+function perimImg(gx,gy){
+  var d=perimDesign();
+  if(d){
+    /* PILLARS EVERY FOURTH CELL along the run. A wall is panels BETWEEN pilasters;
+       an unbroken extrusion of the same panel is the thing that reads as wallpaper.
+       Keyed on the coordinate that varies along this stretch of wall, so a north-south
+       run gets its pillars spaced down it and an east-west run gets them across. */
+    var run = (isPerim(gx+1,gy)||isPerim(gx-1,gy)) ? gx : gy;
+    /* ONE COPING PER WALL, NOT ONE PER CELL. The block's perimeter is two cells thick
+       where it runs east-west, and every cell drawing its own cap stacked TWO WALLS on
+       top of each other. Caught on the real surface (records/target/PERIMETER_WALL_LIVE
+       .png), never in the sheet - a single tile looks right either way. If the cell to
+       the NORTH is also wall, this one is the FACE below the coping, not another top. */
+    if(isPerim(gx,gy-1)) return ready(d[2]) || ready(d[0]);
+    return ready(d[(((run%4)+4)%4)===0 ? 1 : 0]) || ready(d[0]);
+  }
   if(!PERIM_IMG.length) return null;
   var px=(CELL&&CELL[0]||0)>>2, py=(CELL&&CELL[1]||0)>>2;
   var h=(Math.imul(px,2654435761)^Math.imul(py,40503))>>>0;
-  var im=PERIM_IMG[h%PERIM_IMG.length];
-  return (im&&im.complete&&im.naturalWidth)?im:null;
+  return ready(PERIM_IMG[h%PERIM_IMG.length]);
 }
-function drawPerim(X,Y,S){
-  var im=perimImg(); if(!im) return false;
+function isPerim(gx,gy){
+  return gy>=0&&gy<G.length&&gx>=0&&gx<G[0].length&&(G[gy][gx]===4||G[gy][gx]===5);
+}
+function drawPerim(X,Y,S,gx,gy){
+  var im=perimImg(gx,gy); if(!im) return false;
   ctx.drawImage(im,X,Y,S,S); return true;
+}
+/* THE GATE MOUTH. Grid code 5, the hole you walk out of, drawn until now as a plain
+   slab of ground concrete - no jamb, no head, no gate. It is an ALPHA OVERLAY for the
+   same reason the windows are: one wall design per community, so a baked gate could
+   only ever carry one of the eighteen and every other community would show a gate in
+   the wrong block. Transparent where the community's own wall belongs (the cap band
+   and both jambs), opaque where the hole is. The wall goes down first, then the hole
+   is punched in it. */
+function drawGateMouth(X,Y,S,gx,gy){
+  if(!PERIM_GATE.length) return false;
+  var wall=perimImg(gx,gy); if(!wall) return false;
+  ctx.drawImage(wall,X,Y,S,S);
+  /* MOSTLY OPEN, SOMETIMES STILL HUNG. A community whose gate still has its leaf is a
+     community that closed itself off, and that is a placement fact about the block, so
+     it is seeded off the plot like the wall design is - never per frame. */
+  var px=(CELL&&CELL[0]||0)>>2, py=(CELL&&CELL[1]||0)>>2;
+  var h=(Math.imul(px,374761393)^Math.imul(py,668265263))>>>0;
+  var kind=PERIM_GATE[(h%5)===0?1:0]; if(!kind) return true;
+  /* WHICH PIECE OF THE ASSEMBLY THIS CELL IS. The aperture runs along one axis; a cell
+     with gate on both sides is the MIDDLE, on one side is an END, on neither is a
+     one-cell opening. Without this every cell of a seven-tile aperture drew its own
+     pair of piers and the entrance read as four separate gates. */
+  function isG(x,y){ return y>=0&&y<G.length&&x>=0&&x<G[0].length&&G[y][x]===5; }
+  var horiz = isG(gx-1,gy)||isG(gx+1,gy);
+  var l = horiz ? isG(gx-1,gy) : isG(gx,gy-1);
+  var r = horiz ? isG(gx+1,gy) : isG(gx,gy+1);
+  var piece = (l&&r) ? 2 : l ? 3 : r ? 1 : 0;   /* m : r-pier : l-pier : lr */
+  var im=ready(kind[piece])||ready(kind[0]);
+  if(im) ctx.drawImage(im,X,Y,S,S);
+  return true;
 }
 /* ===========================================================================
    CONCRETE HAS TO BE GOING SOMEWHERE.
@@ -1931,7 +2024,14 @@ function draw(){
            canvas while the bank is still decoding. */
         if(isSuburbCell() && c===4){
           tput(groundTile(0,gx,gy2),X,Y,S);
-          if(drawPerim(X,Y,S)) continue;
+          if(drawPerim(X,Y,S,gx,gy2)) continue;
+        }
+        /* THE GATE MOUTH (8/2): code 5 used to fall through to 'concrete_0', a plain
+           slab of ground where the community wall opens. Ground first, then the wall,
+           then the hole punched in it. */
+        if(isSuburbCell() && c===5){
+          tput(groundTile(0,gx,gy2),X,Y,S);
+          if(drawGateMouth(X,Y,S,gx,gy2)) continue;
         }
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
@@ -2044,7 +2144,8 @@ function draw(){
       var gx=f[0], gy2=f[1], X=f[2], Y=f[3], S=f[4];
       /* RUN PERIMETER (7/28): the see-through pass draws the same tiles, so it
          needs his wall too or a faded community wall reverts to a house tile. */
-      if(isSuburbCell() && G[gy2][gx]===4){ tput(groundTile(0,gx,gy2),X,Y,S); if(drawPerim(X,Y,S)) return; }
+      if(isSuburbCell() && G[gy2][gx]===4){ tput(groundTile(0,gx,gy2),X,Y,S); if(drawPerim(X,Y,S,gx,gy2)) return; }
+      if(isSuburbCell() && G[gy2][gx]===5){ tput(groundTile(0,gx,gy2),X,Y,S); if(drawGateMouth(X,Y,S,gx,gy2)) return; }
       var laid = isSuburbCell()
         ? (isBody(gx,gy2) ? bodyTile(G[gy2][gx],gx,gy2) : groundTile(G[gy2][gx],gx,gy2))
         : genericTile(gx,gy2);
@@ -2922,9 +3023,12 @@ window.__RUN = {
     stage: RT?RT.state.stage:null, sent: window.__RUN_SENT.slice(),
     combat: RUN.combatOutcome,
     npc: (function(){ var n=questNpcTile(); return n?[n.x,n.y]:null; })() }; },
-  grid: function(){ var a=[];
-    for(var y=0;y<H;y++){ var r=[]; for(var x=0;x<W;x++) r.push(passExt(x,y)); a.push(r); }
-    return { W:W, H:H, pass:a, doorOf:doorOf }; },
+  grid: function(){ var a=[], c=[];
+    for(var y=0;y<H;y++){ var r=[], q=[]; for(var x=0;x<W;x++){ r.push(passExt(x,y)); q.push(G[y][x]); }
+      a.push(r); c.push(q); }
+    /* CODES, so a gate or a shot can find a surface by what it IS rather than by
+       guessing coordinates. 4 is the community wall, 5 the gate mouth. Reports only. */
+    return { W:W, H:H, pass:a, code:c, doorOf:doorOf }; },
   interior: function(){ if(!fp) return null; var a=[];
     for(var y=0;y<fp.H;y++){ var r=[]; for(var x=0;x<fp.W;x++) r.push(passInt(x,y)); a.push(r); }
     return { W:fp.W, H:fp.H, door:fpDoor, pass:a }; },
@@ -2967,8 +3071,25 @@ window.__RUN = {
   lastResolve: function(){ return LAST_RESOLVE; },
   reach: function(){ return { tiles:REACH.tiles, facing:PFACE,
     faced:REACH.facingTile(px,py,facingOf(PFACE)) }; },
-  cell: function(){ return { at:CELL.slice(), name:CELLNAME, home:HOME_CELL.slice(),
+  cell: function(){ return { at:CELL.slice(), name:CELLNAME, suburb:isSuburbCell(),
+    home:HOME_CELL.slice(),
     isHome:(CELL[0]===HOME_CELL[0]&&CELL[1]===HOME_CELL[1]), tiles:T, homes:feet.length }; },
+  /* WHERE THE GATED COMMUNITIES ARE, without loading a single one. "GATED IS RICH" is
+     Paolo's ruling and the generator honours it: a gate assembly (code 5) exists on
+     about 1.9% of residential cells, so a tool hunting one by walking the valley cell
+     by cell does hundreds of full loadCell+buildSim rounds to find nothing. WORLD.tile()
+     answers the district question straight from the overmap. Reports, never acts. */
+  gatedCells: function(r){
+    var out=[], R=r||10;
+    for(var dy=-R; dy<=R; dy++) for(var dx=-R; dx<=R; dx++){
+      var cx=CELL[0]+dx, cy=CELL[1]+dy; if(cx<0||cy<0) continue;
+      var t=WORLD?WORLD.tile(cx*T+(T>>1),cy*T+(T>>1)):null;
+      var d=t?String(t.district):'';
+      if(d==='gated'||d==='estate') out.push([cx,cy,d,Math.abs(dx)+Math.abs(dy)]);
+    }
+    out.sort(function(a,b){ return a[3]-b[3]; });
+    return out;
+  },
   neighbours: function(){ var out={};
     [['E',1,0],['W',-1,0],['S',0,1],['N',0,-1]].forEach(function(d){
       var t=WORLD?WORLD.tile((CELL[0]+d[1])*T+(T>>1),(CELL[1]+d[2])*T+(T>>1)):null;

@@ -1,3 +1,5 @@
+ART (f3eu53): 8/2 (e) LATEST — THE COMMUNITY WALL AND ITS GATE. THE BLOCK IS DONE.
+
 PEOPLE (7h9sfy): 8/2 (c) LATEST — REPAIRING A DISTRICT TURNED EVERY NEIGHBOUR YOU HAD
 MET INTO SOMEBODY ELSE, AND LEFT THEIR NAME ON.
 Record: records/BOHEMIA_A_PERSON_IS_KEYED_TO_WHERE_THEY_LIVE_8_2_26.md
@@ -214,54 +216,87 @@ The population slider NUMBERS: "just worry about the coding and plumbing for now
 ART (f3eu53): 8/2 (d) LATEST — THE OPENINGS. THE LAST OLD ART ON THE HOUSE IS GONE.
 
 === WHAT WAS LEFT ===
-Roof, yard and the whole wall field were textured; the WINDOW, the BOARDED WINDOW and
-the GARAGE BAY were still flat tan target-set tiles sitting in a textured wall. Those
-three were deliberately skipped before, because they carry OPENINGS and skinning them
-with a field texture would have PAINTED THE WINDOW SHUT. They needed a cook.
+The house was finished yesterday and this morning. What was still flat was the thing
+that RINGS the whole community and is therefore in almost every frame - the suburb
+border wall - and the hole you walk out through, which the renderer drew as a plain
+slab of ground concrete. 54 wall tiles (6 materials x 3 colourways x 3 forms) + 8 gate
+overlays. That is the last target-set surface on the block.
 
-*** THE DESIGN DECISION THAT MATTERS: THEY ARE OVERLAYS WITH ALPHA, NOT WHOLE TILES. ***
-The run picks ONE wall skin per house out of fifteen (his wall law: one design per plot,
-variety between plots). A window baked as its own complete tile can only ever carry ONE
-of those fifteen walls, so FOURTEEN HOUSES IN FIFTEEN would show a window in the wrong
-stucco - the same flat-tan mismatch this whole run of work exists to remove, just
-subtler and much harder to spot. Drawn as a transparent overlay ON TOP of whatever skin
-the house already wears, it matches for free, forever, including for skins cooked later.
-drawSkin() does two passes for a wall opening: the house's own wall, then the hole.
+*** THE PART PAOLO HAS TO JUDGE, SAID PLAINLY ***
+The wall that was there is HIS - 61 candidates judged down to 13 across 7/14 and 7/17.
+This replaces it in the live build on a MEASUREMENT, not a preference:
+    HIS 7/14 WALLS   edge  5.76   grain 20.0%
+    HIS BOUGHT TILES edge 18.36   grain 61.1%   (tolerance floor 14.27 / 54.8)
+    THE NEW WALL     edge 17.44   grain 61.2%
+A third of the local contrast of the ground it stands on - the same measured gap that
+replaced the 7/21 house skins, and the same thing he described himself on 7/31 looking
+at the yard: two different games in one frame. HIS POOL IS NOT DELETED and is still
+loaded by the builder, sitting directly above the new one with the reason next to it.
+Swapping which line draws is one line. Anchor: records/target/PERIMETER_VS_HIS.png.
 
-=== WHAT MAKES AN OPENING READ AS A HOLE AND NOT A DARK RECTANGLE ===
-  REVEAL     the wall has thickness, so a jamb shows down one side
-  HEAD       the top is in shadow, hard and dark
-  SILL       the bottom catches sky, the lightest thing on the tile, and it OVERSAILS
-  DEAD GLASS near-black with ONE weak sky reflection near the head. 12% CLUSTERED POWER
-             is canon - a lit window would be the most off-canon thing in the file
-  GRIME      thirty years of dust runs DOWN off the sill, never up
-  MUNTIN     a domestic window is divided, and the division survives at 44px
-BOARDED: plywood nailed at an angle with visible nails, because nobody measured.
-GARAGE: the roll-up curtain coiled in its header, a dark bay, and a concrete apron with
-the oil still on it. Jambs are the same tile with a lit reveal down one edge.
+=== THREE BUGS THAT WERE LIVE, NONE VISIBLE IN A CONTACT SHEET ===
+1. WB4 WAS BEING SMEARED, AND IT IS THE ONE HE KEPT OUT OF 48. It is stored as a
+   792x264 TILING PREVIEW (the true 44x44 upscaled 3x, repeated 6x2) so it could be
+   judged as a run of wall. drawPerim does drawImage(im,X,Y,44,44) - the whole sheet
+   crushed into ONE cell. One community in thirteen wore a grey smear. Recovery is
+   EXACT (pure integer upscale) and the rescue REFUSES rather than guess, which it did
+   when the caller's first attempt picked scale 6 instead of 3.
+2. A TWO-CELL-THICK WALL DREW TWO WALLS. Every cell drew its own coping. Third form:
+   if the cell NORTH is also wall, this one is the FACE below the coping.
+3. GATED COMMUNITIES HAD NO BLOCK ART AT ALL. isSuburbCell() was CELLNAME==='suburb',
+   but engine/bohemia_suburb.js says in its own words "Three district types share this
+   generator - suburb, gated, estate". So every gated/estate community fell through to
+   genericTile(): no bought ground, no house skins, no window openings, no wall. And
+   code 5 - the gate assembly - exists ONLY on those districts, so the gate mouth could
+   never draw ANYWHERE in the game. Found by walking to one, 42 cells out.
+
+=== THE MISTAKE WORTH KEEPING ===
+MEASURE THE FINISHED TILE, NOT THE FIELD IT STARTED FROM. cook_to_target redraws until
+the FIELD is inside tolerance; the architecture added afterwards changes the number
+(the cap ADDS contrast, the capless base LOSES it). Four base tiles shipped below his
+edge floor while their fields had passed - smooth art getting through on a measurement
+of something else. Same shape as the light bug: cap brightened v*1.30 then pillar
+brightened the same pixels v*1.34 and the coping came out pure 255 white. A multiply
+has no ceiling. Light is a BLEND TOWARD THE SKY now.
 
 === GATED ===
-gates/texture_match_gate.py is 31 checks now and holds the overlay design itself: a
-WALL opening must be MOSTLY TRANSPARENT (or it is a baked tile wearing the word
-"overlay" and the wall behind it never shows), it must contain real dark interior (a
-frame with no hole is not an opening), the run must draw the wall BEFORE punching it,
-and the shipped bytes must be the cooked bytes.
-run_gate 126/126, banks_used 26/26, taste 29/29, reusefirst 91/91, banklaw 8/8.
+gates/perimeter_gate.py, 55 checks, registered as PERIMETER. Ruler is his own bought
+art, re-derived every run. Holds all three bugs as regressions plus the anatomy: the
+cap is the sky-lit lightest band, it oversails and casts, the base carries NO second
+coping, the pillar is proud AND casting (brightness alone drew a stripe), every module
+divides 44, the gate overlays are transparent where the wall belongs, the wall draws
+BEFORE the hole is punched, his 13 walls are still loaded, WB4 is rescued.
+
+VERIFIED ON THE REAL SURFACE: tools/bohemia_perimeter_shot.js walks to the wall and to
+a gate. records/target/PERIMETER_WALL_LIVE.png (home block) and PERIMETER_GATE_LIVE.png
+(estate cell 8,35).
 
 === THE QUEUE ===
-1. Perimeter wall and gate mouth - the last target-set surfaces on the BLOCK (the house
-   itself is done).
-2. Features: ground ~5.5% vs his 7.0%. Weeds and manholes read right; his CRACKS are
+1. Features: ground ~5.5% vs his 7.0%. Weeds and manholes read right; his CRACKS are
    still crisper - my grain washes them. Craft gap, not a knob.
-3. His bought yard tiles band. "I'll let you know when I have issues with the banding
+2. His bought yard tiles band. "I'll let you know when I have issues with the banding
    until then" - LEAVE IT. Never touch his pixels.
-4. Art cell 44 -> 88 px. Would fix (2) outright: a finer crack needs sub-pixel room it
+3. Art cell 44 -> 88 px. Would fix (1) outright: a finer crack needs sub-pixel room it
    does not have at 44.
+4. NOW REACHABLE, AND IT WAS NOT BEFORE: gated and estate communities render with the
+   block art for the first time. Nobody has ever LOOKED at one. Worth a pass.
 
 === STILL RED ON MAIN, STILL NOT MINE ===
 LIFE / DRESS / POPULATION / MEMORY / DEVIATION - ZERO AGENTS SIMMED, the block has no
 people in the sim. Bisected eight commits back. CITY PEOPLE is GREEN so the DRAW is fine
 and the SIM is empty. WORLD/LIFE lane's. PARTS PAINTED + BODY VARIATION are CHARACTER's.
+
+--------------------------------------------------------------------------------
+
+ART (f3eu53): 8/2 (d) — THE OPENINGS. THE LAST OLD ART ON THE HOUSE IS GONE.
+Window, boarded window and garage bay were flat tan target-set tiles sitting in a
+textured wall. They are ALPHA OVERLAYS, not whole tiles: the run picks ONE wall skin per
+house out of fifteen, so a baked window locks to one of them and fourteen houses in
+fifteen show a window in the wrong stucco. Drawn on top of whatever skin the house wears
+it matches for free, forever, including for skins cooked later.
+REVEAL / HEAD / SILL that oversails / DEAD GLASS with one sky reflection / GRIME running
+down / MUNTIN. Boarded: plywood at an angle with visible nails. Garage: the roll-up
+coiled in its header, a dark bay, concrete apron with the oil still on it.
 
 ART (f3eu53): 8/2 (c) LATEST — THE WHOLE WALL FIELD IS TEXTURED NOW, NOT THREE-FIFTHS
 OF IT. Queue item 2, most of the way.

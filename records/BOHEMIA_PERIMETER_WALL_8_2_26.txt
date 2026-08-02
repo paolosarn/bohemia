@@ -1,0 +1,159 @@
+BOHEMIA — THE PERIMETER WALL AND THE GATE MOUTH
+ART lane, 8/2/26, build 8/2e
+STATUS: PENDING PAOLO (the wall is live; one word puts his 7/14 set back)
+
+================================================================================
+WHAT THIS IS
+================================================================================
+The last two target-set surfaces on the block. The house is finished — roof, yard,
+every wall tile, and this morning the window / boarded window / garage bay. What
+was still flat was the thing that RINGS the whole community and is therefore in
+almost every frame: the suburb border wall. And the hole you walk out through,
+which the renderer was drawing as a plain slab of ground concrete.
+
+54 wall tiles across 6 materials x 3 colourways x 3 forms, plus 8 gate overlays.
+
+================================================================================
+THE PART THAT IS A JUDGE ITEM, STATED PLAINLY
+================================================================================
+The wall that was there is HIS. He judged 61 candidates down to 13 across two
+sessions on 7/14 and 7/17. This replaces it in the live build, and it does so on
+a measurement, not a preference:
+
+    HIS 7/14 PERIMETER WALLS   edge  5.76   grain 20.0%   colours 781
+    THE TILES HE BOUGHT        edge 18.36   grain 61.1%   colours 1260
+    TOLERANCE FLOOR            edge 14.27   grain 54.8%
+    THE NEW WALL               edge 17.44   grain 61.2%   colours 1694
+
+A third of the local contrast of the ground it stands on. That is the same
+measured gap that replaced the 7/21 house skins, and it is the gap he described
+himself on 7/31 looking at the yard: "two different games in one frame."
+
+HIS POOL IS NOT DELETED, NOT GRAVEYARDED, AND STILL LOADED BY THE BUILDER. It sits
+directly above the new one in tools/build_run_slice.js with the reason written
+next to it. Swapping which of the two lines draws is a one-line change.
+
+    JUDGE ANCHOR: records/target/PERIMETER_VS_HIS.png
+      top row    = his 7/14 walls, drawn as runs
+      bottom row = the new ones, same scale, same framing
+
+================================================================================
+THREE BUGS THAT WERE LIVE, AND NONE OF THEM WERE VISIBLE IN A CONTACT SHEET
+================================================================================
+1. WB4 WAS BEING SMEARED, AND IT IS THE ONE HE KEPT OUT OF FORTY-EIGHT.
+   Batch 2 was 48 candidates; he passed exactly one. WB4 is stored in the bank as
+   a 792x264 TILING PREVIEW — the true 44x44 art upscaled 3x and repeated 6x2, so
+   it could be judged as a run of wall instead of as a chip. drawPerim() does
+   drawImage(im, X, Y, 44, 44), so that entire sheet was crushed into ONE cell.
+   One community in thirteen has been wearing a grey smear instead of his wall.
+   RECOVERY IS EXACT: the sheet is a pure integer nearest-neighbour upscale, so
+   taking the first module and sampling one pixel per block returns the original
+   bytes. tools/bohemia_perim_rescue.py asserts every block is solid first and
+   REFUSES rather than guess — which it did, correctly, when the caller's first
+   attempt guessed the scale from the dimensions and picked 6 instead of 3.
+
+2. A TWO-CELL-THICK WALL DREW TWO WALLS.
+   The perimeter is two cells thick where it runs east-west, and every cell was
+   drawing its own coping, so the run read as two walls stacked. Fixed with a
+   third form: if the cell to the NORTH is also wall, this one is the FACE below
+   the coping, not another top. Caught on the real surface, never in the sheet —
+   a single tile looks correct either way.
+
+3. GATED COMMUNITIES HAD NO BLOCK ART AT ALL, AND THE GATE COULD NEVER DRAW.
+   isSuburbCell() was CELLNAME==='suburb'. But engine/bohemia_suburb.js says in
+   its own words: "Three district types share this generator - suburb, gated,
+   estate." They emit the same grid codes from the same code. So every gated and
+   estate community in the valley fell through to genericTile() and rendered with
+   NONE of it: no bought ground, no texture-matched house skins, no window
+   openings, no perimeter wall. And code 5 — the gate assembly — exists ONLY on
+   the exact districts that predicate returned false for, so the gate mouth could
+   never draw anywhere in the game.
+   Found by walking to one. The gate screenshot kept coming back empty, the valley
+   scan said the nearest estate was 42 cells out, and standing in it showed a
+   generic block.
+
+================================================================================
+WHAT MAKES A PERIMETER WALL READ AS A WALL AND NOT A STRIP OF TEXTURE
+================================================================================
+The anatomy is taken from WB4 — the wall he kept when he killed 47 others. It is a
+capped wall with a pillar and a shadowed panel, and that is what every tile here
+is built on. No pixel of it is copied.
+
+  CAP       a wall is CAPPED. The coping is a horizontal surface, so it faces the
+            sky and is the brightest thing on the tile (45 DEGREE ART LAW), and it
+            is COURSED — individual cap stones with joints, on an 11px module that
+            divides 44 so nothing cuts at the border he circled on 8/1.
+  OVERSAIL  the cap is proud of the face, so it CASTS. That shadow is what
+            separates a capped wall from a painted stripe.
+  PILLAR    panels run BETWEEN pilasters. The pillar is proud, has ITS OWN
+            coursing deliberately out of phase with the panel behind it, wears a
+            cap that is taller and wider than the wall's, and casts onto both the
+            panel and the wall cap beside it.
+  GRADE     thirty years of blown dirt splashed up the bottom courses, and the
+            weeds that live at the foot of a wall because that is where the runoff
+            goes — drawn as BLADES, seen edge-on, not the ground cook's rosette.
+  GATE      you LOOK THROUGH a gate. The open mouth shows the ground on the other
+            side, in the wall's thickness-shadow at the head and opening out to
+            sky-lit dirt beyond. The first version was a near-black rectangle,
+            which is the taste canon's named failure and wrong besides. The steel
+            variant is a barred leaf still hanging, pickets on 4px centres, rust
+            running down off the rails, and the ground behind it dimmed — 12%
+            CLUSTERED POWER means nothing over there is lit.
+
+THE GATE IS AN ALPHA OVERLAY IN FOUR PIECES PER KIND. Transparent where the
+community's own wall belongs, opaque where the hole is, so one gate matches all
+eighteen wall designs instead of one — same argument as the window openings. And
+it comes in l / m / r / lr, because the entrance aperture is SEVEN TILES WIDE and
+it is ONE gate: repeating a jambed tile across it drew four separate barred gates
+side by side (seen at estate cell 8,35).
+
+VERTICALLY THESE TILES DO NOT WRAP, AND THAT IS CORRECT. Every other tile in the
+texture-match set is seamless on both axes because it is a FIELD. A wall has a top
+and a bottom in the world. So the seam test is HORIZONTAL ONLY — and against the
+tile that ACTUALLY follows it, since a pillar's right edge always meets a FACE and
+never another pillar. Testing a pillar against itself measured a join that never
+happens in the game.
+
+================================================================================
+THE MISTAKE WORTH KEEPING
+================================================================================
+MEASURE THE FINISHED TILE, NOT THE FIELD IT STARTED FROM.
+cook_to_target draws a texture field and redraws it until the FIELD lands inside
+his measured tolerance. That is the right loop for a texture and the wrong one for
+a wall, because the architecture added afterwards changes the number: the cap and
+its joints and its cast shadow ADD local contrast, and the capless base form,
+which has none of them, LOSES it. Four base tiles shipped at edge below his 14.27
+floor while their fields had passed — smooth art getting through on a measurement
+of something else. The gate caught it; the cook now redraws from a fresh seed
+until the WALL measures right.
+
+Same shape as the light bug: the cap was brightened with `v * 1.30`, then the
+pillar brightened the same pixels again with `v * 1.34`, and the coping came out
+as pure 255 white — a blown highlight with no material in it, on the most-read
+surface of the tile. A multiply has no ceiling. Light is now a BLEND TOWARD THE
+SKY, which cannot clip however many times it is applied and keeps the grain
+inside the highlight.
+
+================================================================================
+GATED
+================================================================================
+gates/perimeter_gate.py — 55 checks, registered in gates/bohemia_gates.py as
+PERIMETER. The ruler is HIS OWN BOUGHT ART, re-derived from the style target every
+run so it cannot drift. It holds all three bugs above as regressions, plus: the
+cap is the lightest band, it oversails and casts, the base form carries NO second
+coping, the pillar is proud AND casting (brightness alone drew a stripe), every
+module divides 44, the gate overlays are transparent where the wall belongs and
+carry real dark, the wall is drawn BEFORE the hole is punched, his 13 walls are
+still in the repo and still loaded, WB4 is rescued and not smeared, and the
+shipped bytes are the cooked bytes.
+
+================================================================================
+VERIFIED ON THE REAL SURFACE
+================================================================================
+tools/bohemia_perimeter_shot.js walks the player to the wall and to a gate — it
+reads the run's own grid, finds a cell standing beside code 4 (and, via the
+overmap rather than by walking the valley, an estate cell with code 5), BFSes a
+path and shoots the frame.
+
+  records/target/PERIMETER_WALL_LIVE.png   the wall, home block, 33 steps out
+  records/target/PERIMETER_GATE_LIVE.png   the gate, estate cell 8,35, 180 steps

@@ -67,8 +67,79 @@ var PERIM_POOL = 'banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt';
 var perimBank = JSON.parse(fs.readFileSync(PERIM_POOL, 'utf8'));
 var perimTan = perimBank.pool.filter(function (p) { return p.variant === 'tan'; }).map(function (p) { return p.b64; });
 if (perimTan.length < 12) throw new Error('the approved suburb border walls are missing from ' + PERIM_POOL);
+/* WB4 WAS BEING SMEARED, AND IT IS THE ONE HE KEPT OUT OF FORTY-EIGHT.
+   Batch 2 of the border-wall judging was 48 candidates; he passed exactly one, WB4.
+   It is stored in the bank as a 792x264 TILING PREVIEW - the real 44x44 art upscaled
+   3x and repeated 6x2, which is how it was PUT IN FRONT OF HIM, as a run of wall
+   rather than a single chip. drawPerim() does drawImage(im, X, Y, S, S), so that
+   entire sheet was being crushed into ONE 44px cell. One community in thirteen has
+   been wearing a grey smear instead of the wall he chose.
+   The recovery is EXACT: the sheet is a pure integer nearest-neighbour upscale, so
+   taking the first module and downsampling by the same integer returns the original
+   pixels bit for bit. Verified in tools/bohemia_perimeter_cook.py. Nothing is redrawn
+   or resampled - this is a PLACEMENT fix on his own art, which is clause 4. */
+var perimRescued = 0;
+perimTan = perimTan.map(function (b) {
+  var png = Buffer.from(b, 'base64');
+  var w = png.readUInt32BE(16), h = png.readUInt32BE(20);   /* IHDR */
+  if (w === 44 && h === 44) return b;
+  /* THE SCALE IS READ OFF THE PIXELS, not guessed from the dimensions. Guessing here
+     picked 6 for the 792x264 sheet (both dimensions divide by 44*6) when the real
+     upscale is 3x tiled 6x2, and the rescue refused it - correctly. Only the image
+     knows how wide its own solid blocks are, so the tool that can see them decides. */
+  var out = require('child_process').execFileSync('python3',
+    ['tools/bohemia_perim_rescue.py'], { input: b, encoding: 'utf8' }).trim();
+  perimRescued++;
+  return out;
+});
+if (perimRescued) console.log('  PERIMETER: recovered ' + perimRescued
+                              + ' of his walls from their tiling previews (exact, no resample)');
 if (html.indexOf('__PERIM_B64_JSON__') < 0) throw new Error('missing __PERIM_B64_JSON__ placeholder');
 html = html.replace('__PERIM_B64_JSON__', JSON.stringify(perimTan));
+
+/* ---- THE COOKED PERIMETER WALL (8/2). His 13 approved walls measure edge 5.76 /
+   grain 20.0% against a tolerance floor of 14.27 / 54.8 derived from the tiles he
+   BOUGHT: a third of the local contrast of the ground they stand on. That is the same
+   measured gap that replaced the 7/21 house skins, and the same thing he described
+   himself on 7/31 looking at the yard - two different games in one frame. So this is
+   newest-date-wins on a MEASURED difference, and his pool stays right above this line,
+   rescued and correct, one word from going back.
+
+   ONE WALL PER COMMUNITY is his law (banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt:
+   "each plot = ONE wall design (seeded per plot); variety BETWEEN plots"), so the run
+   picks one MATERIAL+COLOURWAY per 4x4 plot and then alternates that design's own FACE
+   and PILLAR along the run. ---- */
+var PERIM_COOK = 'banks/BOHEMIA_PERIMETER_8_2_26.txt';
+var perimCook = JSON.parse(fs.readFileSync(PERIM_COOK, 'utf8'));
+var perimSets = {};
+perimCook.tiles.forEach(function (t) {
+  if (['face', 'pillar', 'base'].indexOf(t.form) < 0) return;
+  var key = t.material + '_' + t.id.slice(-1);
+  (perimSets[key] = perimSets[key] || {})[t.form] = t.b64;
+});
+var perimDesigns = Object.keys(perimSets).sort().filter(function (k) {
+  return perimSets[k].face && perimSets[k].pillar && perimSets[k].base;
+}).map(function (k) { return [perimSets[k].face, perimSets[k].pillar, perimSets[k].base]; });
+if (perimDesigns.length < 12) throw new Error('the cooked perimeter designs are missing from ' + PERIM_COOK);
+/* THE GATE COMES IN FOUR PIECES PER KIND, not one. The entrance aperture is seven
+   tiles wide and it is ONE gate: 'l' carries the left pier, 'r' the right, 'm' neither,
+   'lr' both for a one-cell opening. Repeating a jambed tile across the aperture drew
+   four separate barred gates in a row (seen at estate cell 8,35). */
+var perimGates = ['open', 'steel'].map(function (kind) {
+  return ['lr', 'l', 'm', 'r'].map(function (e) {
+    var id = 'perim_gate_' + kind + '_' + e;
+    var t = perimCook.tiles.filter(function (q) { return q.id === id; })[0];
+    if (!t) throw new Error('missing gate overlay ' + id + ' in ' + PERIM_COOK);
+    return t.b64;
+  });
+});
+['__PERIM_COOK_JSON__', '__PERIM_GATE_JSON__'].forEach(function (p) {
+  if (html.indexOf(p) < 0) throw new Error('missing ' + p + ' placeholder');
+});
+html = html.replace('__PERIM_COOK_JSON__', JSON.stringify(perimDesigns));
+html = html.replace('__PERIM_GATE_JSON__', JSON.stringify(perimGates));
+console.log('  PERIMETER: ' + perimDesigns.length + ' cooked wall designs (face + pillar) + '
+            + perimGates.length + ' gate overlays');
 
 /* ---- BOUGHT BEATS PAINTED (Paolo 7/31, LOCKED: "if i bought it i prefer it!
    Thats for all textures bro!!!"). His purchased, seam-processed ground library.
