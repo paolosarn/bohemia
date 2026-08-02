@@ -48,6 +48,14 @@ honest: every law carrying his verbatim words must be indexed here.
 | 8/2 | library, rebuilt | **85%** | **APPROVED** — "hella yeah", one note: more parking on the icon |
 | 8/2 | city hall / courthouse | 50% / 50% | rejected — round roofs "look like tarps", doors off their walls |
 | 8/2 | terminal / chapel | 40% / 30% | rejected — same two pipeline bugs |
+| 8/2 | **first SPLIT scores** | walking / icon | city hall 50/50 · courthouse 50/50 · terminal 50/50 · chapel **65**/50 |
+
+**EVERY ICON HAS SCORED EXACTLY 50 (8/2).** Four different subjects landing on one
+number is a verdict on the SYSTEM, not the subjects — and these were the first split
+scores ever taken, so the five approvals below may have been carried entirely by their
+walking half. There is no evidence any icon in this game has ever been above 50.
+**DENSITY MOVES THE WALKING** (chapel +35 on an orchard, two memorial courts and a
+parish hall); removing a defect does not (city hall and courthouse +0 on the pipeline fix).
 
 **THE FIVE APPROVED DISTRICTS ARE THE STANDARD.** High school 89%, commercial 85%,
 mall 85%, downtown 85%, library 85%. Anything that does not hold up beside those

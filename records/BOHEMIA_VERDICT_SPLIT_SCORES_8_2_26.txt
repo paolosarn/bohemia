@@ -1,0 +1,77 @@
+BOHEMIA VERDICT — THE FIRST SPLIT SCORES, AND WHY THIS LANE STOPS
+8/2/26
+
+PAOLO, VERBATIM:
+  "Cityhall walking 50 / Icon 50
+   Courthouse walking 50 / Icon 50
+   Terminal walking 50 / Icon 50
+   Chapel walking 65 / Icon 50"
+
+SECOND REJECTION ON ALL FOUR. Under the STOP PRODUCING law (7/26) that ENDS these
+four for the session. No third version. This record is the turn.
+
+============================================================================
+WHAT THE NUMBERS ACTUALLY SAY, and it is not what I would have guessed
+============================================================================
+
+  district      walking   icon    movement since the first scores
+  city hall       50       50     50 -> 50   ( 0 )
+  courthouse      50       50     50 -> 50   ( 0 )
+  terminal        50       50     40 -> 50   (+10 )
+  chapel          65       50     30 -> 65   (+35 )
+
+EVERY ICON IS EXACTLY 50. Four completely different buildings -- a glass block
+with a solar farm, an L round a rotunda, a curved transit hall, a cruciform
+church -- all land on the same number. FOUR DIFFERENT SUBJECTS SCORING IDENTICALLY
+IS NOT A VERDICT ON THE SUBJECTS. It is a verdict on the SYSTEM that draws them.
+
+And the walking scores say the opposite thing: they MOVED, and they moved with
+work that had nothing to do with the pipeline.
+  - CHAPEL +35, the biggest jump of the session. What it got was DENSITY: a dead
+    orchard, two walled memorial courts with columbaria, a parish hall, roof
+    ridges. Content, not machinery.
+  - TERMINAL +10, and that is roughly what the pipeline fix was worth on its own.
+  - CITY HALL and COURTHOUSE +0 despite the same pipeline fix, because they were
+    already dense; the fix removed a defect but added nothing.
+
+SO: DENSITY MOVES THE WALKING. THE PIPELINE FIX MOVED ALMOST NOTHING. And nothing
+I did this session moved an icon at all.
+
+============================================================================
+THE THING I GOT WRONG, named plainly
+============================================================================
+
+I read "the roofs look like tarps" and "doors aren't where they're supposed to" as
+THE problem, fixed both, and expected the scores to move. They did not. Those were
+real bugs and they are really fixed -- but they were DEFECTS, and removing a defect
+is not the same as reaching a bar. I mistook "I found what he was pointing at" for
+"I know what he wants."
+
+THE 50 IS FLAT. A flat score across four subjects means the axis he is judging on
+is one I have not identified. I do not know what a good icon looks like to him, and
+I have now shipped four rounds of guesses at it.
+
+CORROBORATING: these are the FIRST split scores ever taken. The five approved
+districts (school 89, commercial 85, mall 85, downtown 85, library 85) were each
+scored as ONE number, before "for the walking and icon" existed. So it is entirely
+possible their icons were never at 85 either, and the single number was carried by
+the walking. I have no evidence any icon in this game has ever been above 50.
+
+============================================================================
+WHAT THIS LANE DOES NEXT
+============================================================================
+
+STOPPED on the four civics. Second rejection, law is explicit, no third version.
+
+NOT STOPPED, and safe to continue because the walking is the half that responds:
+the other downtown block types (downtown_arts, downtown_civic, downtown_lot) are
+WALKING work on a district type he approved at 85, and density is the lever that
+demonstrably moves walking scores.
+
+BLOCKING EVERYTHING ON THE ICON SIDE: I need to know whether the icons are wrong in
+STYLE (the whole look -- lighting, palette, the 3D-baked approach itself) or in
+DETAIL (the approach is fine, the buildings are too plain). Those are opposite
+fixes. Style means rebuilding the renderer; detail means more parts per icon.
+Guessing costs a round every time, and I have spent four.
+
+Law: laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md

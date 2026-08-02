@@ -4022,23 +4022,34 @@ LIBRARY 85% (8/2, "hella yeah"). "Approved for now" is an APPROVAL, not a snag
 list — do NOT reopen them on your own initiative, that is the STOP PRODUCING
 failure.
 
-AWAITING HIS SCORE: CITY HALL, COURTHOUSE, TERMINAL, CHAPEL. All four were
-still built from TYPOLOGY — "what a city hall looks like in general" — which in
-the Mojave produces a New England town hall with a clock tower on a green lawn.
-Each is now researched to a REAL BUILDING IN THIS VALLEY and rebuilt on it:
-  CITY HALL   -> Las Vegas City Hall (Elkus Manfredi 2012): the curvilinear
-                 council chamber merged into the angular glass block, a canopy
-                 on a SINGLE 160-ft column, and exactly 33 SOLAR TREES.
-  COURTHOUSE  -> Lloyd D. George U.S. Courthouse (CannonDesign 2000): an L round
-                 its own plaza, a ROTUNDA under a ringed 60-ft glass dome, a
-                 canopy PROJECTING off the top with nothing under it, and a blast
-                 SETBACK held by a bollard line.
-  TERMINAL    -> Bonneville Transit Center (2010): 16 sawtooth bays under a
-                 photovoltaic deck, 7 kerb loading points, 100 bike racks.
-  CHAPEL      -> kept a CHURCH (changing what a type IS is a contents call, his).
-                 The cruciform stays; the lawn became a walled MEMORIAL COURT
-                 with a COLUMBARIUM, and the 33.9% "sidewalk" became a walk
-                 APRON computed from the building plus a dead ORCHARD.
+STOPPED, SECOND REJECTION: CITY HALL, COURTHOUSE, TERMINAL, CHAPEL. Scored twice
+and stopped under the STOP PRODUCING law. The 8/2 split scores were
+  city hall 50/50 · courthouse 50/50 · terminal 50/50 · chapel 65/50 (walking/icon)
+DO NOT BUILD A THIRD VERSION OF THESE FOUR. The law is explicit and the numbers say
+a third guess would not land either.
+
+WHAT THE SPLIT SCORES TAUGHT, and it is the most useful thing this session produced:
+  EVERY ICON IS EXACTLY 50, across four completely different buildings. Four
+  subjects landing on one number is a verdict on the SYSTEM that draws them, not on
+  the subjects. These were the FIRST split scores ever taken -- the five approvals
+  (school 89, commercial/mall/downtown/library 85) were single numbers from before
+  "for the walking and icon" existed, so their icons may never have been at 85
+  either. There is no evidence any icon in this game has been above 50.
+  DENSITY MOVES THE WALKING: chapel +35 on an orchard, two walled memorial courts
+  and a parish hall. REMOVING A DEFECT DOES NOT: city hall and courthouse moved +0
+  on the tarp-roof and floating-door fix, which was a real repair of real bugs.
+  The lesson: finding what he pointed at is not the same as knowing what he wants.
+Full record: records/BOHEMIA_VERDICT_SPLIT_SCORES_8_2_26.txt
+
+BLOCKING THE WHOLE ICON SIDE [PENDING Paolo]: are the icons wrong in STYLE (the
+look itself -- lighting, palette, the 3D-baked approach) or in DETAIL (approach is
+fine, buildings too plain)? Those are opposite fixes and guessing costs a round
+each time. Four rounds spent.
+
+SAFE TO CONTINUE (walking is the half that responds): the other downtown block
+types -- downtown_arts, downtown_civic, downtown_lot -- on a district type he
+approved at 85, using density, which is the lever that demonstrably moves walking.
+
 Full write-up: records/BOHEMIA_FOUR_CIVICS_RESEARCH_8_2_26.md
 
 THREE RULES THIS ROUND PRODUCED, all now in gates:
