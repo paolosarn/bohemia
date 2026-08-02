@@ -3712,34 +3712,59 @@ standalone and 3-for-3 under deliberate parallel load — a contention flake, fr
 fixed waitForTimeout waits. That is the same finding 5826514 shipped the pid lock
 for. The lock is the right fix and it is in. Do not chase WALL CLASS.
 
-=== WHERE THE WORLD LANE ACTUALLY IS (8/2/26) ===
-FOUR DISTRICTS APPROVED, and they are the standard everything else is measured
-against: HIGH SCHOOL 89% (7/31), COMMERCIAL 85%, MALL 85% (8/1), DOWNTOWN 85%
-(8/2). "Approved for now" is an APPROVAL, not a snag list — do NOT reopen them
-on your own initiative, that is the STOP PRODUCING failure.
+=== WHERE THE WORLD LANE ACTUALLY IS (8/2/26, late) ===
+FIVE DISTRICTS APPROVED, and they are the standard everything else is measured
+against: HIGH SCHOOL 89% (7/31), COMMERCIAL 85%, MALL 85% (8/1), DOWNTOWN 85%,
+LIBRARY 85% (8/2, "hella yeah"). "Approved for now" is an APPROVAL, not a snag
+list — do NOT reopen them on your own initiative, that is the STOP PRODUCING
+failure.
 
-IN FLIGHT: the LIBRARY. He scored it 22% on 8/2 with one sentence that named a
-thinking error, not a drawing error: "There's like six different buildings of the
-library. What's up with that?" ARTICULATION IS NOT FRAGMENTATION — "no building
-is a flat rectangle" means articulate the mass, never split it into a campus, and
-THE BUILDING TYPE DECIDES, NEVER THE GATE. Rebuilt as one continuous Predock
-composition (drum + tower + museum wing + reading wing, all sharing walls) and
-awaiting his re-score. The worse half of that finding: library_gate.js had been
-asserting `footprints >= 4`, so the machine was REQUIRING the bug. New
-gates/one_building_gate.js now holds both directions (SINGLE: library, chapel,
-city hall, courthouse, terminal, mall >=90% of building area in one mass; MANY:
-downtown, commercial, school under 70%) and reads library_gate.js itself so the
-fragmentation assertion cannot come back quietly.
+AWAITING HIS SCORE: CITY HALL, COURTHOUSE, TERMINAL, CHAPEL. All four were
+still built from TYPOLOGY — "what a city hall looks like in general" — which in
+the Mojave produces a New England town hall with a clock tower on a green lawn.
+Each is now researched to a REAL BUILDING IN THIS VALLEY and rebuilt on it:
+  CITY HALL   -> Las Vegas City Hall (Elkus Manfredi 2012): the curvilinear
+                 council chamber merged into the angular glass block, a canopy
+                 on a SINGLE 160-ft column, and exactly 33 SOLAR TREES.
+  COURTHOUSE  -> Lloyd D. George U.S. Courthouse (CannonDesign 2000): an L round
+                 its own plaza, a ROTUNDA under a ringed 60-ft glass dome, a
+                 canopy PROJECTING off the top with nothing under it, and a blast
+                 SETBACK held by a bollard line.
+  TERMINAL    -> Bonneville Transit Center (2010): 16 sawtooth bays under a
+                 photovoltaic deck, 7 kerb loading points, 100 bike racks.
+  CHAPEL      -> kept a CHURCH (changing what a type IS is a contents call, his).
+                 The cruciform stays; the lawn became a walled MEMORIAL COURT
+                 with a COLUMBARIUM, and the 33.9% "sidewalk" became a walk
+                 APRON computed from the building plus a dead ORCHARD.
+Full write-up: records/BOHEMIA_FOUR_CIVICS_RESEARCH_8_2_26.md
 
-NEXT UP IN THIS LANE, in order: the remaining single-blob civic districts (city
-hall, courthouse, terminal, chapel), then the other downtown block types the
-8/1 research doc proposes (downtown_arts — the real 18-block Arts District of
-1930s storefronts and warehouses; downtown_civic; downtown_lot). Downtown is
-several districts wide by his own ruling and only ONE block type exists so far.
+THREE RULES THIS ROUND PRODUCED, all now in gates:
+  1. A NUMBER TAKEN FROM THE REAL BUILDING IS A FACT THE MACHINE CAN HOLD; a
+     number invented on the day is decoration. (33 trees, 16 bays, 7 kerb
+     points, 100 racks — all counted, all sourced.)
+  2. RENAMING EMPTINESS NEVER FIXES IT. The chapel's monoblock moved from
+     "sidewalk" to "gravel" and nothing improved. The gate checks the 30% cap
+     directly now, and the plot got an orchard, a parish hall and two courts.
+  3. AN OVERHEAD IS DRAWN AFTER THE GROUND IT SHADES, AND MASKED TO IT. Laid
+     straight over the grid it ERASES the building under it (it cut the
+     courthouse rotunda in half); drawn before the plaza it gets erased itself
+     (the city hall's 160-ft mast vanished). Both written into the modules.
+
+NEXT UP IN THIS LANE: the other downtown block types the 8/1 research doc
+proposes — downtown_arts (the real 18-block Arts District of 1930s storefronts
+and warehouses), downtown_civic, downtown_lot. Downtown is several districts
+wide by his own ruling and only ONE block type exists. After that, keep walking
+the ratchets down (the named debt lists below).
+
+PROPOSED, NOT BUILT, [PENDING Paolo]: the DRIVE-THRU WEDDING CHAPEL — the Tunnel
+of Love, a canopy you drive under with a walk-up window, several small chapels
+and a gazebo on one lot. The most Las Vegas building type there is and nothing
+in the valley has it. Not built because `chapel` is defined in canon as a church,
+and redefining a district type is a contents decision.
 
 THE RATCHETED DEBTS (named lists that may only shrink, all in the suite):
-  monoblock 34/36 · stub write-ups 70/75 · disconnected drive networks 21/22
-  hairline lanes 4/4 · silhouette twins 12/13 · greenwashed tiles fixed (27)
+  monoblock 31/36 · stub write-ups 60/75 · disconnected drive networks 20/22
+  hairline lanes 4/4 · silhouette twins 9/13 · greenwashed tiles fixed (27)
 
 BLOCKED ON PAOLO: HOW LONG SINCE THE COLLAPSE. Still unanswered, still sets the
 damage level for all 45 districts. Nothing about weathering can be authored
