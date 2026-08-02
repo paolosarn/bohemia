@@ -439,6 +439,26 @@ async function partC() {
     ok('C6 the one button names WHO it is (' + (verb && verb.label) + ')',
       !!verb && verb.verb === 'talk' && verb.label === 'TALK TO THE ' + target.heading);
 
+    /* GOLD ON THE CANVAS BEFORE ANYONE IS NAMED. Taken standing exactly where
+       C27a-c will take it again, so the two are the same view of the same street
+       with one thing changed. It has to be a DELTA and not an absolute: the run
+       already paints #e8b84a for your own front door, so "there is gold on
+       screen" would have passed on the door alone and the claim would have been
+       true for the wrong reason. */
+    const goldOnScreen = () => page.evaluate(() => {
+      const c = document.getElementById('cv') || document.querySelector('canvas');
+      if (!c) return -1;
+      const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+      let gold = 0;
+      for (let i = 0; i < d.length; i += 4)
+        if (d[i] > 200 && d[i + 1] > 150 && d[i + 1] < 210 && d[i + 2] < 110) gold++;
+      return gold;
+    });
+    const goldBefore = await goldOnScreen();
+    const strangerNames = await page.evaluate(() => window.__RUN_NAMES_DRAWN || []);
+    ok('C6a NOBODY HAS A NAME OVER THEM YET — a stranger is anonymous on the ' +
+      'world, not just on the card', strangerNames.length === 0);
+
     await page.click('#act');
     ok('C7 the dialogue sheet opens', await page.isVisible('#talk'));
     ok('C8 the identity card is on it', await page.isVisible('#idcard'));
@@ -504,6 +524,30 @@ async function partC() {
     const verb2 = await page.evaluate(() => window.__RUN.verb());
     ok('C27 THE ONE BUTTON CALLS THEM BY NAME NOW (' + (verb2 && verb2.label) + ')',
       !!verb2 && verb2.label === 'TALK TO ' + String(nameRow).split(' ')[0].toUpperCase());
+
+    /* ------------------------------------------------------------------
+       AND YOU CAN SEE IT (Paolo 7/31, the half of the ruling that had never
+       been built): "the game will track that SO ANYTIME YOU MIGHT SEE THEM IN
+       THE FUTURE LIKE THEIR NAME WILL POP UP."
+       Before this, the name lived on the card and on the one button - both of
+       which need you close enough to touch them. Walk five steps and the person
+       whose name you earned looked exactly like every stranger in the valley.
+       READ THE PAINTED PIXELS, not a helper (7/18 law: a side-door probe is a
+       lie). __RUN_NAMES_DRAWN says what the render decided; the canvas sample
+       proves it actually put ink on the screen.
+       ------------------------------------------------------------------ */
+    const firstName = String(nameRow).split(' ')[0];
+    const drawn = await page.evaluate(() => window.__RUN_NAMES_DRAWN || []);
+    ok('C27a THE NAME YOU EARNED IS ON THE WORLD, not just on the card (' +
+      JSON.stringify(drawn) + ')', drawn.indexOf(firstName) >= 0);
+    ok('C27b and ONLY the one you asked — every other body on screen is still ' +
+      'a stranger with no name over them', drawn.length === 1);
+
+    const goldAfter = await goldOnScreen();
+    ok('C27c the letters are REALLY PAINTED on the run canvas — gold went ' +
+      goldBefore + ' -> ' + goldAfter + ' with nothing else changed',
+      goldBefore >= 0 && goldAfter - goldBefore > 20);
+    await page.screenshot({ path: path.join(PROOF_DIR, 'BOHEMIA_PEOPLE_NAME_ON_THE_WORLD_8_2_26.png') });
 
     await page.click('#act');
     await page.screenshot({ path: path.join(PROOF_DIR, 'BOHEMIA_PEOPLE_NAMED_7_31_26.png') });

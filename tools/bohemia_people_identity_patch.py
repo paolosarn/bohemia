@@ -206,6 +206,12 @@ B_RUNTIME = """/* PEOPLE:RUNTIME */
    =========================================================================== */
 var PEOPLE_MET = BohemiaPeople.makeLedger(null);   /* rides in the save blob */
 var PERSON_OPEN = null;
+/* HOW MANY EARNED NAMES THE SCREEN WILL EVER SHOW AT ONCE (PEOPLE:KNOWNNAMES).
+   The viewport is only about four tiles either side of you so this is a
+   backstop, not a normal condition - but a crowd of neighbours you all happen
+   to know is exactly the case that would turn a good idea into nameplate soup,
+   and the nearest few are the ones you would actually be looking at. */
+var KNOWN_NAME_CAP = 4;
 /* THE BLOCK'S OWN SEED, set by buildSim. NOT the world SEED (which is 7 for the
    whole valley) — keying people off that would hand house 3's second resident
    the same identity in every cell there is. */
@@ -386,6 +392,76 @@ B_LOOK = """        /* PEOPLE:LOOK */var lk=lookFor(personFor(a).lookSeed);/* /P
 """
 
 # ---------------------------------------------------------------------------
+# 8c. A NAME YOU EARNED IS A NAME YOU SEE. The second half of Paolo's 7/31
+#     ruling, which had never been built.
+# ---------------------------------------------------------------------------
+A_NAMES = ("  /* no cast yet (this page opened outside the alpha): say so, "
+           "never pretend */\n")
+B_NAMES = """  /* PEOPLE:KNOWNNAMES */
+  /* A NAME YOU EARNED IS A NAME YOU SEE (Paolo 7/31, the half that was missing).
+     His ruling, in full: "you can personally ask them for their name and then
+     the game will track that SO ANYTIME YOU MIGHT SEE THEM IN THE FUTURE LIKE
+     THEIR NAME WILL POP UP."
+     The asking half shipped 7/31 and is gated end to end. The SEEING half was
+     never built: a name only ever appeared on the card, or on the one button
+     while you were close enough to touch them. So you could ask somebody their
+     name, walk five steps, and they were visually indistinguishable from every
+     stranger in the valley - the entire mechanic had no consequence you could
+     see. This is that consequence.
+
+     WHY IT DOES NOT TURN INTO NAMEPLATE SOUP, which is the obvious risk and the
+     reason a lesser version of this would be worse than nothing:
+       - ONLY people you ASKED. That is the whole point. nameOf() returns null
+         for a stranger by law, so a stranger can never get a label no matter
+         what happens here. The label IS the difference between the people you
+         bothered with and the people you did not.
+       - the run's viewport is about four tiles either side of you, so the most
+         this can ever paint is the handful of bodies actually on screen, and
+         it is capped and sorted nearest-first on top of that.
+       - FIRST NAME ONLY. You know somebody's first name; you do not read their
+         full record off their forehead.
+       - IT IS A NAME AND NOTHING ELSE. No role, no mood, no timetable. A
+         ROUTINE IS INVISIBLE INFORMATION (Paolo 7/31) is still the law here,
+         and a name is not a routine.
+     Drawn last so nothing paints over it, at integer pixel positions, in the
+     run's own gold - the same colour the game already uses for YOURS. */
+  if(mode==='ext' && SIM && typeof BohemiaPeople!=='undefined'){
+    var _kn=[], _kouts=SIM.outAgents();
+    for(var _ki=0;_ki<_kouts.length;_ki++){
+      var _ka=_kouts[_ki];
+      var _ksx=_ka.loc.x-px, _ksy=_ka.loc.y-py;
+      if(Math.abs(_ksx)>halfW||Math.abs(_ksy)>halfH) continue;
+      var _kp=personFor(_ka); if(!_kp) continue;
+      var _knm=BohemiaPeople.nameOf(_kp); if(!_knm) continue;
+      _kn.push({ n:String(_knm).split(' ')[0],
+                 x:Math.round((_ksx+halfW)*CELL+CELL/2),
+                 y:Math.round((_ksy+halfH)*CELL-Math.round(CELL*0.30)),
+                 d:Math.abs(_ksx)+Math.abs(_ksy) });
+    }
+    _kn.sort(function(A,B){ return A.d-B.d; });
+    if(_kn.length>KNOWN_NAME_CAP) _kn.length=KNOWN_NAME_CAP;
+    if(_kn.length){
+      ctx.save();
+      ctx.font='10px ui-monospace,monospace';
+      ctx.textAlign='center'; ctx.textBaseline='alphabetic';
+      for(var _kj=0;_kj<_kn.length;_kj++){
+        var _k=_kn[_kj];
+        /* a dark ring first, because this has to stay readable over pale
+           concrete AND over a dark yard, and the game has no UI plate to sit on */
+        ctx.fillStyle='rgba(12,14,10,0.85)';
+        for(var _ox=-1;_ox<=1;_ox++) for(var _oy=-1;_oy<=1;_oy++)
+          if(_ox||_oy) ctx.fillText(_k.n,_k.x+_ox,_k.y+_oy);
+        ctx.fillStyle='#e8b84a';
+        ctx.fillText(_k.n,_k.x,_k.y);
+      }
+      ctx.restore();
+    }
+    try{ window.__RUN_NAMES_DRAWN=_kn.map(function(_k){ return _k.n; }); }catch(_ek){}
+  }
+  /* /PEOPLE:KNOWNNAMES */
+""" + A_NAMES
+
+# ---------------------------------------------------------------------------
 # 9. WHAT THE GATE READS. window.__RUN is the run's existing report-never-act
 #    debug surface; people_gate.js drives the page through the same buttons
 #    Paolo taps and reads the world back through here.
@@ -518,6 +594,12 @@ BLOCKS = [
     ('LOOK',    A_LOOK,    B_LOOK,              A_LOOK,    'body look'),
     ('RATEFN',  A_RATE,    B_RATE,              '',        'zone rate fn'),
     ('WORKERS', A_SIM,     B_SIM,               A_SIM,     'workers at their sites'),
+    # undo is '' ON PURPOSE, and it took a caught bug to get right: this fence
+    # sits BEFORE its anchor line, so the anchor is never inside the markers.
+    # Restoring it to A_NAMES emitted the anchor TWICE and the next run refused
+    # with "anchor resolves 2 times, not 1". Same shape as the pure-insertion
+    # rows above. The refusal is the tool working; the wrong undo was mine.
+    ('KNOWNNAMES', A_NAMES, B_NAMES,            '',        'earned names, seen'),
     ('JOIN',    A_JOIN,    B_JOIN,              A_JOIN,    'legacy join (strip only)'),
     ('DBG',     A_DBG,     B_DBG,               '',        'debug surface'),
 ]
