@@ -134,6 +134,9 @@ GATES = [
      'dead police station: HQ, sally port, patrol fleet, impound, public/secure separation', False),
     ('LIBRARY',        ['node', 'gates/library_gate.js'],
      'dead library: ONE building — Predock drum + tower + museum wing + reading wing, plaza, lot', False),
+    ('ROUND + DOORS', ['python3', 'gates/round_and_doors_gate.py'],
+     'Paolo 8/2: "every time you make a circular shape the roof looks like tarps" + "doors arent '
+     'where theyre supposed to" -- both PIPELINE bugs, checked by measuring the geometry', False),
     ('LABEL PICTURES', ['python3', 'gates/label_every_picture_gate.py'],
      'Paolo 8/2: "you are showing me pictures, but I dont know which is which" -- every image '
      'carries its own NAME in the pixels, checked by READING the title band, not by trusting the draw call', False),

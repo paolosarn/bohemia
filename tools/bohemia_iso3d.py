@@ -43,6 +43,10 @@ def _norm(v):
 class Scene(object):
     def __init__(self):
         self.faces = []   # each: (verts[4] 3D, uvs[4], normal, material)
+        # every solid this scene contains, as (x, y, z, dx, dy, dz). A DOOR has to land on
+        # the face of one of these, and until 8/2 nothing checked that -- see _door_face in
+        # bohemia_district_hero_factory.py and gates/round_and_doors_gate.py.
+        self.solids = []
 
     def quad(self, v0, v1, v2, v3, material, normal=None):
         if normal is None:
@@ -60,6 +64,7 @@ class Scene(object):
         # face; a per-face dict names top/px/py/nx/ny.
         if not isinstance(mats, dict) or not any(k in mats for k in ('top', 'px', 'py', 'nx', 'ny')):
             mats = {k: mats for k in ('top', 'px', 'py', 'nx', 'ny')}
+        self.solids.append((x, y, z, dx, dy, dz))
         c = [(x, y, z), (x + dx, y, z), (x + dx, y + dy, z), (x, y + dy, z),
              (x, y, z + dz), (x + dx, y, z + dz), (x + dx, y + dy, z + dz), (x, y + dy, z + dz)]
         self.quad(c[4], c[5], c[6], c[7], mats.get('top'), (0, 0, 1))          # top
@@ -68,19 +73,66 @@ class Scene(object):
         self.quad(c[0], c[4], c[7], c[3], mats.get('nx'), (-1, 0, 0))          # -x
         self.quad(c[0], c[1], c[5], c[4], mats.get('ny'), (0, -1, 0))          # -y
 
-    def prism(self, cx, cy, z0, rad, dz, n, mat, top_mat=None):
-        """A vertical n-gon prism (cylinder-ish: curved council chamber, tanks)."""
+    def prism(self, cx, cy, z0, rad, dz, n, mat, top_mat=None, inner=0.0):
+        """A vertical n-gon prism (cylinder-ish: a drum, a council chamber, a rotunda, a tank).
+
+        THE ROOF OF A CIRCLE (Paolo, 8/2): "every time you make a circular shape the roof of
+        all your circles looks like tarps and shit."
+
+        He was looking at a real bug in this primitive, and it was in EVERY circular thing
+        the factory has ever baked -- the library drum, the city hall council chamber, the
+        courthouse rotunda, the terminal concourse, every silo and tank. The old cap was:
+
+            for i in range(0, n - 2, 2):
+                self.quad(topv[0], topv[i + 1], topv[i + 2], topv[min(i + 2, n - 1)], ...)
+
+        Two faults at once. It STEPPED BY TWO, so half the fan was never emitted and the cap
+        had wedge-shaped HOLES in it. And its fourth vertex was min(i + 2, n - 1), which is
+        the SAME POINT as the third, so every quad it did emit was a degenerate triangle.
+        Holes plus slivers, seen at 2:1 iso, is exactly a tarp pegged over a drum.
+
+        VERIFY ON THE REAL SURFACE (7/18): a symptom that survives content changes is a
+        PIPELINE bug. This one survived four district rebuilds because I kept adjusting the
+        drums instead of reading the primitive that draws them.
+
+        THE FIX: a centred fan. Every wedge runs centre -> a -> b -> c, so the cap is closed,
+        convex, gap-free and has no repeated vertices. The rim keeps a full n-gon of side
+        quads, so the silhouette is unchanged -- only the lid is repaired.
+
+        inner > 0 makes it a RING instead of a drum: the cap becomes an annulus and an inner
+        wall is drawn, so you can see down the middle of it. A stadium bowl, an oculus and a
+        tank curb are all rings, and before the cap was repaired they only LOOKED like rings
+        because the holes in the broken fan happened to let the floor show through.
+        """
         top_mat = top_mat or mat
-        ring = [(cx + rad * math.cos(2 * math.pi * i / n), cy + rad * math.sin(2 * math.pi * i / n)) for i in range(n)]
+        ring = [(cx + rad * math.cos(2 * math.pi * i / n), cy + rad * math.sin(2 * math.pi * i / n))
+                for i in range(n)]
+        self.solids.append((cx - rad, cy - rad, z0, rad * 2, rad * 2, dz))
         topv = []
         for i in range(n):
             a = ring[i]; b = ring[(i + 1) % n]
             nrm = _norm((a[0] + b[0] - 2 * cx, a[1] + b[1] - 2 * cy, 0))
             self.quad((a[0], a[1], z0), (b[0], b[1], z0), (b[0], b[1], z0 + dz), (a[0], a[1], z0 + dz), mat, nrm)
             topv.append((a[0], a[1], z0 + dz))
-        # top cap as a fan of quads (approx)
-        for i in range(0, n - 2, 2):
-            self.quad(topv[0], topv[i + 1], topv[i + 2], topv[min(i + 2, n - 1)], top_mat, (0, 0, 1))
+        if inner > 0:
+            iring = [(cx + inner * math.cos(2 * math.pi * i / n),
+                      cy + inner * math.sin(2 * math.pi * i / n)) for i in range(n)]
+            for i in range(n):
+                a, b = iring[i], iring[(i + 1) % n]
+                nrm = _norm((2 * cx - a[0] - b[0], 2 * cy - a[1] - b[1], 0))
+                self.quad((a[0], a[1], z0), (b[0], b[1], z0), (b[0], b[1], z0 + dz),
+                          (a[0], a[1], z0 + dz), mat, nrm)
+                self.quad((a[0], a[1], z0 + dz), (b[0], b[1], z0 + dz),
+                          (topv[(i + 1) % n][0], topv[(i + 1) % n][1], z0 + dz),
+                          (topv[i][0], topv[i][1], z0 + dz), top_mat, (0, 0, 1))
+            return
+        centre = (cx, cy, z0 + dz)
+        step = 2 if n % 2 == 0 else 1
+        for i in range(0, n, step):
+            a = topv[i]
+            b = topv[(i + 1) % n]
+            c = topv[(i + step) % n]
+            self.quad(centre, a, b, c, top_mat, (0, 0, 1))
 
 
 def _shade(color, normal, key_dir, key, ambient):

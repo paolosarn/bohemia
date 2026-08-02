@@ -46,6 +46,8 @@ honest: every law carrying his verbatim words must be indexed here.
 | 8/2 | downtown | **85%** | **APPROVED** ("we can approve it for now") |
 | 8/2 | library | 22% | rejected — "six different buildings" |
 | 8/2 | library, rebuilt | **85%** | **APPROVED** — "hella yeah", one note: more parking on the icon |
+| 8/2 | city hall / courthouse | 50% / 50% | rejected — round roofs "look like tarps", doors off their walls |
+| 8/2 | terminal / chapel | 40% / 30% | rejected — same two pipeline bugs |
 
 **THE FIVE APPROVED DISTRICTS ARE THE STANDARD.** High school 89%, commercial 85%,
 mall 85%, downtown 85%, library 85%. Anything that does not hold up beside those
@@ -55,6 +57,13 @@ five is not done.
 
 Each line is a ruling he made, in his words, with the machine that holds it.
 
+- **8/2 — A ROUND ROOF IS A CLOSED LID, AND A DOOR STANDS ON A WALL.** "Every time you
+  make a circular shape the roof of all your circles looks like tarps and shit... doors
+  aren't where they're supposed to." Two PIPELINE bugs in one sentence, both in shared
+  machinery, which is why they survived four rebuilds: the prism cap skipped half its fan
+  and repeated a vertex on every quad it did emit (holes + slivers = a tarp), and `_door`
+  took a hand-passed plane nobody checked a wall was behind. THE SHAPE OF NEARLY EVERY BUG
+  HERE: a value passed by hand where a value could be DERIVED. `gates/round_and_doors_gate.py`
 - **8/2 — LABEL EVERY PICTURE.** "You are showing me pictures, but I don't know which is
   which." Every image put in front of him carries its own NAME **in the pixels** — not in
   the caption, not in the sentence above it, not implied by the order they were sent. One

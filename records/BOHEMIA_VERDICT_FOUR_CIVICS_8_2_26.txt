@@ -1,0 +1,54 @@
+BOHEMIA VERDICT — THE FOUR CIVICS
+8/2/26
+
+PAOLO, VERBATIM:
+  "The icons are tweaking out a little bit. I don't know why every time you make
+   a circular shape the roof of all your circles looks like tarps and shit. It's
+   very bad. Doors aren't where they're supposed to. City hall is like 50%
+   courthouse like 50% terminal like 40% chapel like 30%"
+
+SCORES: city hall 50 · courthouse 50 · terminal 40 · chapel 30. ALL REJECTED.
+
+HE FOUND TWO PIPELINE BUGS IN ONE SENTENCE, and neither was content.
+
+1. THE ROOF OF EVERY CIRCLE. Scene.prism's top cap stepped by TWO (so half the
+   fan was never emitted -- wedge-shaped HOLES) and repeated its third vertex as
+   its fourth (so every quad it did emit was a degenerate SLIVER). Holes plus
+   slivers at 2:1 iso is exactly a tarp pegged over a drum. It was in EVERY
+   circular thing this factory has ever baked: the library drum, the city hall
+   council chamber, the courthouse rotunda, the terminal concourse, every silo,
+   every tank, every dry basin.
+
+2. DOORS OFF THEIR WALLS. _door took a bare plane and a bare span and drew a leaf
+   there; nothing checked a wall was behind it. SEVEN heroes had floating doors --
+   city hall's ran 1.2 units past the end of its own block, the courthouse's
+   floated clear of the rotunda, the campus library's overhung its colonnade, and
+   both of the school's missed.
+
+WHAT I SHOULD HAVE CAUGHT AND DID NOT
+  VERIFY ON THE REAL SURFACE (7/18) says in as many words: A SYMPTOM THAT SURVIVES
+  CONTENT CHANGES IS A PIPELINE BUG. I had that law. I still spent four district
+  rebuilds adjusting drums instead of reading the primitive that draws drums. He
+  had to tell me the circles were wrong before I looked at the code that makes
+  circles.
+
+  And both faults are the same shape as almost every bug in this repo: A VALUE
+  PASSED BY HAND WHERE A VALUE COULD BE DERIVED. Doors now derive their face from
+  the solid (_door_face), so a door CANNOT be off its wall.
+
+THE THIRD THING THE FIX SURFACED
+  Closing the prism cap turned the STADIUM icon monochrome, and the hue gate caught
+  it the same turn. The bowl had only ever read as a ring because the HOLES in the
+  broken cap let the field show through. Prisms take an inner radius now, so a bowl
+  is a real ring -- which is what a stadium bowl, an oculus and a tank curb all are.
+
+MACHINE: gates/round_and_doors_gate.py. It MEASURES rather than greps -- bakes
+prisms at 12/18/20/24 sides and checks the cap uses every rim vertex, repeats no
+vertex, and sums to the polygon's own area; then builds all 27 heroes and checks
+every door has a wall behind it, a y-span containing it and a roof over its head.
+DOORLESS DEBT declared at 12 and ratcheted: a building you cannot enter is not a
+building.
+
+Law: laws/BOHEMIA_ADDENDUM_ROUND_ROOFS_AND_DOORS_8_2_26.md
+
+STATUS: all four REOPENED and the pipeline repaired. Awaiting his re-score.

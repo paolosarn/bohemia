@@ -129,8 +129,41 @@ def _ground(s, plot, patches=None, lot=None, drive=None, groundc=(120, 121, 120)
         s.box((lx0, ly0, 0.02), (lx1 - lx0, ly1 - ly0, 0.07), {'top': LOT, 'px': ASP, 'py': ASP, 'nx': ASP, 'ny': ASP})
 
 
+def _door_face(s, org, size, width=2.0, ztop=3.0, doorc=(30, 33, 40),
+               framec=(158, 162, 168), awn=None, at_y=None):
+    """A door placed ON A REAL FACE, because the face is READ OFF THE SOLID.
+
+    Paolo, 8/2, scoring the four civics down: "doors aren't where they're supposed to."
+
+    He was right on three of the four. `_door` takes a bare x and a bare y-range and
+    draws a quad there, and NOTHING checked that a wall was actually behind it. The city
+    hall's door ran off the end of its own block, the courthouse's floated a fifth of a
+    tile clear of the rotunda, and both looked exactly like what they were: a door
+    hanging in the air beside a building.
+
+    This is the same class of bug as the ones that keep coming back -- a value passed by
+    hand where a value could be DERIVED. So it is derived now: hand it the box (its
+    origin and size, the same two tuples you gave Scene.box) and it computes the +x face
+    plane itself and centres the leaf in the box's own y-span. A door placed this way
+    CANNOT be off its wall, and gates/round_and_doors_gate.py fails the bake if any hero
+    puts a door where no solid stands.
+    """
+    x, y, _z = org
+    dx, dy, _dz = size
+    at = x + dx
+    cy = (y + dy / 2.0) if at_y is None else at_y
+    half = min(width, dy) / 2.0
+    _door(s, at, cy - half, cy + half, ztop, doorc=doorc, framec=framec, awn=awn)
+
+
 def _door(s, at, lo, hi, ztop, doorc=(30, 33, 40), framec=(158, 162, 168), awn=None):
-    """A visible ENTRANCE DOOR at GROUND on a building's +x front face at x=at."""
+    """A visible ENTRANCE DOOR at GROUND on a building's +x front face at x=at.
+    PREFER _door_face: it derives `at` and the leaf span from the solid, so the door
+    cannot end up off the wall (Paolo 8/2, "doors aren't where they're supposed to")."""
+    # recorded so gates/round_and_doors_gate.py can check every door against a real wall
+    if not hasattr(s, 'doors'):
+        s.doors = []
+    s.doors.append((at, lo, hi, ztop))
     s.quad((at + 0.02, lo - 0.3, 0), (at + 0.02, hi + 0.3, 0), (at + 0.02, hi + 0.3, ztop + 0.4), (at + 0.02, lo - 0.3, ztop + 0.4), {'c': framec}, (1, 0, 0))
     s.quad((at + 0.05, lo, 0), (at + 0.05, hi, 0), (at + 0.05, hi, ztop), (at + 0.05, lo, ztop), {'c': doorc}, (1, 0, 0))
     if awn:
@@ -205,8 +238,8 @@ def build_cityhall(P):
     s.box((7.6 - 0.35, 8.4 - 0.35, 0), (0.7, 0.7, 7.4), {'c': CMAST})
     s.box((0.5, 6.6, 7.4), (12.0, 3.6, 0.5), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.8),
           'py': _dark(CANOPY, 0.8), 'nx': _dark(CANOPY, 0.8), 'ny': _dark(CANOPY, 0.8)})
-    _door(s, 9.0, 2.2, 4.2, 3.0, doorc=_dark(BLD, 0.4)['c'],
-          framec=tuple(min(255, int(c * 1.2)) for c in BLD))
+    _door_face(s, (-1.5, -2.0, 0), (10.5, 5.0, 9.6), width=2.2, ztop=3.0,
+               doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
 
     # THE SOLAR TREE FARM. A grid of masts under panels: the thing you know it by.
     for ty in (11.0, 13.4):
@@ -284,8 +317,8 @@ def build_terminal(P):
     s.prism(4.5, 2.2, 0, 3.4, 5.4, 18, {'c': HALL}, {'c': _dark(HALL, 0.88)['c']})
     for i in range(8):                                                   # the glazed south wall
         s.box((-1.4 + i * 1.6, 2.1, 0.8), (1.1, 0.08, 3.4), {'c': GLASS})
-    _door(s, 7.9, 1.4, 3.0, 3.0, doorc=_dark(HALL, 0.4)['c'],
-          framec=tuple(min(255, int(c * 1.18)) for c in HALL))
+    _door_face(s, (-2.0, -2.0, 0), (13.0, 4.2, 6.8), width=2.4, ztop=3.0,
+               doorc=_dark(HALL, 0.4)['c'], framec=tuple(min(255, int(c * 1.18)) for c in HALL))
 
     # THE SOLAR SHADE over the platform: the district's signature, on slim posts.
     for (px, py) in [(-2.0, 3.4), (11.6, 3.4), (-2.0, 6.6), (11.6, 6.6)]:
@@ -360,7 +393,8 @@ def build_medical(P):
     s.quad((7.04, 3.2, 5.0), (7.04, 3.8, 5.0), (7.04, 3.8, 7.0), (7.04, 3.2, 7.0), {'c': REDX}, (1, 0, 0))
     # entrance drop-off canopy + doors
     s.box((7, 2.2, 0), (2.2, 3.2, 3.0), {'c': CANOPY})
-    _door(s, 7, 2.6, 4.4, 2.7, doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
+    _door_face(s, (-2, -1, 0), (9, 7, 9.0), width=1.8, ztop=2.7,
+               doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
     # the decked PARKING GARAGE (front-right) — horizontal deck bands read as levels
     s.box((9.5, 7, 0), (5, 6.5, 6.2), {'top': _dark(GARAGE, 0.9), 'px': _win(GARAGE, 1, 5, 2, 0.0),
           'py': _win(GARAGE, 1, 5, 5, 0.0), 'nx': _dark(GARAGE), 'ny': _dark(GARAGE)})
@@ -382,7 +416,8 @@ def build_mall(P):
               'py': _win(ANCHOR, 4, 3, 9, 0.16), 'nx': _dark(ANCHOR), 'ny': _dark(ANCHOR)})
     s.box((4.5, 6.0, 0), (4.0, 2.6, 4.2), {'top': _dark(FOOD, 0.9), 'px': _win(FOOD, 4, 2, 7),
           'py': _dark(FOOD, 0.9), 'nx': _dark(FOOD), 'ny': _dark(FOOD)})                # food-court bump-out
-    _door(s, 12.5, 3.0, 4.5, 2.6, doorc=_dark(CONC, 0.4)['c'], framec=tuple(min(255, int(c * 1.25)) for c in CONC))
+    _door_face(s, (-1, 1.5, 0), (13, 4.5, 5.0), width=1.6, ztop=2.6,
+               doorc=_dark(CONC, 0.4)['c'], framec=tuple(min(255, int(c * 1.25)) for c in CONC))
     for cx in (1.5, 4.0, 6.5, 9.0, 11.0):                                               # abandoned cars in the lot (canon CAR size)
         _vehicle(s, cx, 12.2, CAR, CARC, along='x')
     return s, 6.4
@@ -446,7 +481,8 @@ def build_commercial(P):
     s.box((-2, -1, 0), (3.4, 6.0, 4.8), {'top': _dark(STORE, 0.9), 'px': _dark(STORE, 0.96),
           'py': _win(STORE, 4, 2, 9, 0.14, GLASS), 'nx': _dark(STORE), 'ny': _dark(STORE)})
     s.box((-2, 2.6, 4.8), (13, 0.3, 0.7), {'c': DOOR})                          # sign band
-    _door(s, 11, 3.0, 4.6, 2.4, doorc=_dark(GLASS, 0.7)['c'], framec=tuple(min(255, int(c * 1.2)) for c in STORE))
+    _door_face(s, (-2, -1, 0), (13, 3.6, 4.8), width=1.6, ztop=2.4,
+               doorc=_dark(GLASS, 0.7)['c'], framec=tuple(min(255, int(c * 1.2)) for c in STORE))
     # a GAS STATION in the front corner: a flat canopy on posts + pumps
     for (px, py) in [(9.5, 9.0), (13.5, 9.0), (9.5, 12.5), (13.5, 12.5)]:
         s.box((px - 0.16, py - 0.16, 0), (0.32, 0.32, 3.0), {'c': _dark(GASC, 0.8)['c']})
@@ -534,10 +570,12 @@ def build_school(P):
     # PAOLO 7/29: "have another entryway to the school". A building this long with one
     # door is wrong anyway -- a real high school has a main entrance AND a separate
     # athletics entrance, and each one is a way the player gets inside.
-    _door(s, 5.6, -0.6, 0.9, 2.4, doorc=_dark(BLD, 0.4)['c'],
-          framec=tuple(min(255, int(c * 1.25)) for c in BLD))                     # main doors
-    _door(s, 12.4, -0.6, 0.5, 2.2, doorc=_dark(GYM, 0.4)['c'],
-          framec=tuple(min(255, int(c * 1.25)) for c in GYM))                     # gym doors
+    _door_face(s, (-2.6, 0.2, 0), (2.8, 3.6, 4.2), width=1.5, ztop=2.4,
+               doorc=_dark(BLD, 0.4)['c'],
+               framec=tuple(min(255, int(c * 1.25)) for c in BLD))                # main doors
+    _door_face(s, (12.4, -1.4, 0), (3.4, 3.6, 5.2), width=1.4, ztop=2.2,
+               doorc=_dark(GYM, 0.4)['c'],
+               framec=tuple(min(255, int(c * 1.25)) for c in GYM))                # gym doors
     # THE AUTO SHOP, east of the gym. PAOLO 7/30: "Remove the tennis courts make do what
     # you want." A flat court slab contributed nothing to the silhouette -- it was ground
     # paint. The shop is a real volume with a SAWTOOTH ROOF, which is the one roof shape
@@ -678,8 +716,9 @@ def build_library(P):
 
     for i in range(9):
         s.box((0.7 + i * 1.2, 6.5, 4.8), (0.7, 2.8, 0.5), {'c': CLERE})           # the clerestory teeth
-    _door(s, 11.65, 7.4, 8.6, 2.2, doorc=_dark(BLD, 0.4)['c'],
-          framec=tuple(min(255, int(c * 1.2)) for c in BLD))
+    _door_face(s, (0.2, 6.2, 1.2), (11.4, 3.4, 3.6), width=1.6, ztop=3.2,
+               doorc=_dark(BLD, 0.4)['c'],
+               framec=tuple(min(255, int(c * 1.2)) for c in BLD))
 
     for (vx, vy) in ((-1.6, 11.1), (2.2, 11.1), (10.0, 11.1), (0.4, 13.4), (8.0, 13.4), (12.4, 13.4)):
         _vehicle(s, vx, vy, CAR, P[19], along='x')                                 # left in the lot
@@ -775,7 +814,10 @@ def build_stadium(P):
     s = Scene()
     _ground(s, (-3, -3, 15, 15), lot=(-3, 11, 15, 15), groundc=(96, 94, 88), lotc=(52, 52, 60))
     s.prism(6, 4, 0.02, 5.4, 0.06, 22, {'c': _dark(FIELD, 0.9)['c']})                   # the field oval
-    s.prism(6, 4, 0, 6.9, 6.4, 26, {'c': FACADE}, {'c': _dark(BOWL, 1.05)['c']})        # the bowl (facade wall + seating top)
+    # A BOWL IS A RING. It only read as one while the prism cap was broken and its holes
+    # let the field show through; a closed cap turned the whole icon into one flat disc and
+    # the HUE gate caught it as monochrome the same turn the cap was repaired.
+    s.prism(6, 4, 0, 6.9, 6.4, 26, {'c': FACADE}, {'c': _dark(BOWL, 1.05)['c']}, inner=4.8)
     for (lx, ly) in [(0.4, -1.2), (11.6, -1.2), (0.4, 9.2), (11.6, 9.2)]:
         s.box((lx - 0.12, ly - 0.12, 0), (0.24, 0.24, 9.2), {'c': LIGHT})               # light-tower mast
         s.box((lx - 0.55, ly - 0.55, 9.2), (1.1, 1.1, 0.6), {'c': tuple(min(255, int(c * 1.12)) for c in LIGHT)})
@@ -1170,7 +1212,7 @@ def build_campus(P):
     for cy2 in (-1.6, -0.6, 0.4, 1.4, 2.4, 3.4):
         s.box((5.5, cy2, 0), (0.45, 0.45, 4.6), {'c': _dark(LIB, 1.18)['c']})
     s.box((5.5, -1.8, 4.6), (0.6, 5.8, 0.5), {'c': _dark(LIB, 1.1)['c']})
-    _door(s, 5.5, 0.4, 1.4, 1.6)
+    _door_face(s, (-2, -2.4, 0), (7.5, 3.2, 5.6), width=1.2, ztop=1.6)
     # ACADEMIC HALLS turning to face the quad
     s.box((-2.4, 3.4, 0), (2.8, 8.2, 4.4), {'top': _dark(HALL, 0.9), 'px': _win(HALL, 2, 3, 5),
           'py': _win(HALL, 6, 3, 7), 'nx': _dark(HALL), 'ny': _dark(HALL)})
