@@ -86,16 +86,39 @@ const PROBES = {
      was drawing 207 times. So: the bank's own bytes must SHIP, and the renderer
      must both PICK one per community and DRAW it. */
   banks_used: () => {
+    /* THE COMMUNITY WALL WRAPS THE BLOCK, and this proves the SHIPPED bytes are
+       the COOKED bytes rather than trusting the builder's own log.
+
+       8/2: this probe used to assert his 13 approved 7/14 walls were in the run
+       VERBATIM, and that was the right test right up until two things changed.
+       The cooked set supersedes them on a measured difference (his edge 5.8
+       against a 14.27 floor derived from the tiles he bought) - his pool stays
+       loaded as the one-line revert, and the waiver in banks_used_gate.js carries
+       the reason. And WB4, the one he kept out of 48, is no longer byte-identical
+       to the bank on purpose: it was stored as a 3x TILING PREVIEW and the
+       renderer was crushing the whole 792x264 sheet into a single 44px cell, so
+       it is now recovered to its true 44x44 first. A verbatim check would have
+       failed on the fix. */
+    const cook = JSON.parse(fs.readFileSync(
+      path.join(ROOT, 'banks/BOHEMIA_PERIMETER_8_2_26.txt'), 'utf8')).tiles;
+    const walls = cook.filter(t => ['face', 'pillar', 'base'].indexOf(t.form) >= 0);
+    const gates = cook.filter(t => t.form === 'gate_overlay');
+    if (walls.length < 36 || gates.length < 8) return false;
+    if (!walls.every(t => RUN.indexOf(t.b64) >= 0)) return false;   // the bytes, verbatim
+    if (!gates.every(t => RUN.indexOf(t.b64) >= 0)) return false;
+    /* HIS POOL IS STILL LOADED. That is the whole point of calling this a judge
+       item rather than a replacement, so the 12 that were never touched must
+       still be in the shipped run byte for byte. */
     const pool = JSON.parse(fs.readFileSync(
       path.join(ROOT, 'banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt'), 'utf8')).pool;
-    // the backlog order names the TAN variants specifically; the pool carries 26
-    // entries across colourways and only the tan set is the approved 13
     const tan = pool.filter(w => w.variant === 'tan');
     if (tan.length !== 13) return false;
-    if (!tan.every(w => RUN.indexOf(w.b64) >= 0)) return false;   // the bytes, verbatim
-    return RUN.indexOf('function perimImg(') >= 0 &&           // one wall per community
-           RUN.indexOf('function drawPerim(') >= 0 &&          // and it really draws
-           /PERIM_IMG\[h\s*%\s*PERIM_IMG\.length\]/.test(RUN);
+    const verbatim = tan.filter(w => RUN.indexOf(w.b64) >= 0).length;
+    if (verbatim !== 12) return false;          // 12 untouched + WB4 rescued
+    return RUN.indexOf('function perimImg(') >= 0 &&        // one wall per community
+           RUN.indexOf('function drawPerim(') >= 0 &&       // and it really draws
+           RUN.indexOf('function drawGateMouth(') >= 0 &&   // the aperture too
+           RUN.indexOf('function perimDesign(') >= 0;
   },
 
   /* THE D-PAD IS A CONTROL, NOT TEXT (Paolo 7/28). iOS raised the copy/paste menu

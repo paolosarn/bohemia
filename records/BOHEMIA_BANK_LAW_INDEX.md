@@ -44,24 +44,25 @@ bank cannot quietly add a rule nobody checks.
 | 22 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | `status` | PENDING PAOLO |
 | 23 | `banks/BOHEMIA_PARTICLE_LOOP_BANK_7_14_26.txt` | `law` | type-matched loops, borders machine-frozen |
 | 24 | `banks/BOHEMIA_PARTICLE_LOOP_COOK_7_14_26.txt` | `status` | UNJUDGED |
-| 25 | `banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt` | `law` | 85% tan / 15% original (Paolo); wall height min 2 tiles; W36/W37 seam-flagged \|\| v2 (7/17): +WB4 (batch-2 sole survivor, Paolo label PERIMETER); weights renormalized over 13 keys; tan variant via the pool-derived tan transform. |
-| 26 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.one_wall_per_community` | each plot = ONE wall design (seeded per plot); variety BETWEEN plots; per-cell wall shuffle BANNED |
-| 27 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.gates_touch_streets` | entrances must align with adjacent street network; entrance segment = suburb road type |
-| 28 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.gated_is_rich` | most Vegas communities are walled but NOT gated; gates = boujee/richer pre-apocalypse (story fuel post-apocalypse) |
-| 29 | `banks/BOHEMIA_STALL_STRIPE_CANDIDATES_7_14_26.txt` | `status` | UNJUDGED — pools only on Paolo UP |
-| 30 | `banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt` | `law` | art-first reset amendment C (the ANTI-BIOSHOCK rule): the picked mockup is CUT into a real starter tileset and the identical frame is REASSEMBLED from those tiles on the real render path. |
-| 31 | `banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt` | `law` | laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md |
-| 32 | `banks/BOHEMIA_TERRAIN_PICKS_7_14_26.txt` | `law` | pool membership is a Paolo verdict; pools carry the seamless bank pixels verbatim |
-| 33 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of for everything we need in the game as possible INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
-| 34 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `status` | MIXED - see per-tile verdict |
-| 35 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | `status` | UNJUDGED (first commissioned original; Paolo judges on the intersection proof) |
-| 36 | `banks/BOHEMIA_TURN_ARROW_CANDIDATES_7_17_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
-| 37 | `banks/BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
-| 38 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `status` | ACT 3 RESERVED (Paolo 7/21) - AWAITING OTHER ACT 1 WALL CLASSES |
-| 39 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `ruling` | Paolo 7/17, verbatim intent: rejected as suburb-perimeter walls only; "there's more walls than just gated communities." These 47 stay ELIGIBLE for every other wall class (building, industrial, whatever canon defines) and re-enter judging when a class exists. Rejection is PER CLASS. WB4 is not here; it lives in PERIMETER_WALL_POOL v2. |
-| 40 | `banks/BOHEMIA_WALL_PICKS_7_14_26.txt` | `paolo_direction` | 85% of Vegas walls are desert yellow tan brick vibes — create tan versions, keep originals; pool weighted 85% tan / 15% original |
-| 41 | `records/BOHEMIA_SONG_LOCK.json` | `law` | laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md |
-| 42 | `records/BOHEMIA_STYLE_TARGET_8_1_26.json` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
+| 25 | `banks/BOHEMIA_PERIMETER_8_2_26.txt` | `status` | PENDING PAOLO |
+| 26 | `banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt` | `law` | 85% tan / 15% original (Paolo); wall height min 2 tiles; W36/W37 seam-flagged \|\| v2 (7/17): +WB4 (batch-2 sole survivor, Paolo label PERIMETER); weights renormalized over 13 keys; tan variant via the pool-derived tan transform. |
+| 27 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.one_wall_per_community` | each plot = ONE wall design (seeded per plot); variety BETWEEN plots; per-cell wall shuffle BANNED |
+| 28 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.gates_touch_streets` | entrances must align with adjacent street network; entrance segment = suburb road type |
+| 29 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.gated_is_rich` | most Vegas communities are walled but NOT gated; gates = boujee/richer pre-apocalypse (story fuel post-apocalypse) |
+| 30 | `banks/BOHEMIA_STALL_STRIPE_CANDIDATES_7_14_26.txt` | `status` | UNJUDGED — pools only on Paolo UP |
+| 31 | `banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt` | `law` | art-first reset amendment C (the ANTI-BIOSHOCK rule): the picked mockup is CUT into a real starter tileset and the identical frame is REASSEMBLED from those tiles on the real render path. |
+| 32 | `banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt` | `law` | laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md |
+| 33 | `banks/BOHEMIA_TERRAIN_PICKS_7_14_26.txt` | `law` | pool membership is a Paolo verdict; pools carry the seamless bank pixels verbatim |
+| 34 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of for everything we need in the game as possible INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
+| 35 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `status` | MIXED - see per-tile verdict |
+| 36 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | `status` | UNJUDGED (first commissioned original; Paolo judges on the intersection proof) |
+| 37 | `banks/BOHEMIA_TURN_ARROW_CANDIDATES_7_17_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
+| 38 | `banks/BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
+| 39 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `status` | ACT 3 RESERVED (Paolo 7/21) - AWAITING OTHER ACT 1 WALL CLASSES |
+| 40 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `ruling` | Paolo 7/17, verbatim intent: rejected as suburb-perimeter walls only; "there's more walls than just gated communities." These 47 stay ELIGIBLE for every other wall class (building, industrial, whatever canon defines) and re-enter judging when a class exists. Rejection is PER CLASS. WB4 is not here; it lives in PERIMETER_WALL_POOL v2. |
+| 41 | `banks/BOHEMIA_WALL_PICKS_7_14_26.txt` | `paolo_direction` | 85% of Vegas walls are desert yellow tan brick vibes — create tan versions, keep originals; pool weighted 85% tan / 15% original |
+| 42 | `records/BOHEMIA_SONG_LOCK.json` | `law` | laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md |
+| 43 | `records/BOHEMIA_STYLE_TARGET_8_1_26.json` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
 
-TOTAL: 42 rulings across 29 files.
+TOTAL: 43 rulings across 30 files.
 

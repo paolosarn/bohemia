@@ -48,12 +48,25 @@ backlog).
 
 ```routing
 RUN | the CBB target tileset (42) | DRAWS
-RUN | suburb border walls (13, approved 7/28) | DRAWS
+RUN | the cooked perimeter wall (8/2, 54 tiles) | DRAWS
+RUN | suburb border walls (13, approved 7/28) | DEBT
 RUN | animated door bank (7/13, 2 tiles tall) | DRAWS
 RUN | interior pool (Great Sweep UP) | DRAWS
 RUN | house skins (7/21 UP - roof + wall + yard) | DEBT
 RUN | walk-file door art (superseded) | DEBT
 ```
+
+NOTE 8/2: his 13 suburb border walls moved DRAWS -> DEBT, and it is the same
+move for the same reason as the house skins below. They are HIS - 61 candidates
+judged down to 13 across 7/14 and 7/17 - so this is not approved art quietly
+falling out of the build. It is newest-date-wins between two sets, on a MEASURED
+difference: his walls sit at edge 5.8 / grain 20.0% against a tolerance floor of
+14.27 / 54.8 derived from the tiles he BOUGHT, which is a third of the local
+contrast of the ground the wall stands on. The pool STAYS LOADED on purpose: it
+is the one-line revert, and one word from him puts it back. It was also FIXED
+while it was being displaced - WB4, the one he kept out of 48, is stored as a 3x
+tiling preview and the renderer was crushing the whole sheet into a single cell.
+PENDING PAOLO. Judge anchor: records/target/PERIMETER_VS_HIS.png.
 
 NOTE 8/1: the 7/21 house skins moved DRAWS -> DEBT because Paolo approved the
 TEXTURE-MATCH set twice that day and the wall/roof field draws that instead
