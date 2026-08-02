@@ -77,5 +77,41 @@ stays on it once it is fixed.
 
 ---
 
+## 3. AND THEN HE SAID "DETAILS", SO I LOOKED CLOSER
+
+> "Details shits just looking glitchy for all of them bro" — Paolo, 8/2
+
+Asked whether the icons were wrong in **style** or in **detail**, he said detail — the
+approach is fine, the execution is glitchy. Zooming the icons 5× found two more of the
+same family, and **both are the same root cause a third and fourth time: a value passed
+by hand where a value could be DERIVED.**
+
+### THE WINDOW GRID WAS NEVER ON THE PIXEL GRID
+
+Window walls were laid out in UV with **fixed fractional thresholds** — a mullion was
+always 13% of a pane, whatever a pane happened to measure. A face 41 final pixels wide
+divided into 8 panes gives a **5.125 px pitch and a 1.33 px mullion**, and after the 4×
+supersample is box-downscaled those land as 5px and 6px panes with 1px and 2px mullions in
+no pattern at all. **Every window wall in the game was ragged**, and ragged detail at icon
+size reads as exactly one thing: glitchy.
+
+`_snap_grid(span_px, count)` measures the face's own projected span and returns a cell
+pitch that is a **whole number of final pixels** with a mullion of **exactly one**. The
+authored count is a wish; the pitch is what has to be integral, and the pitch is
+measurable. It floors rather than rounds, so the last cell is never sliced.
+
+### SLABS TUNNELLED THROUGH BUILDINGS
+
+**A canopy projects OFF a building. It does not pass THROUGH one.** The city hall's entry
+canopy ran across the council chamber, the courthouse's cantilever crossed the rotunda, and
+the terminal's solar deck went straight through the curved concourse. A thin slab crossing a
+mass at mid-height reads as a rendering error — his word exactly.
+
+The gate's test: does a slab overlap, in plan, a mass standing **meaningfully taller than
+the slab's own top**? A cap sitting on its own drum grazes a neighbour by hundredths of a
+unit and is not this; the 0.5 margin is what separates a merge seam from a tunnel.
+
+---
+
 *Filed under the TRUTH HIERARCHY: on any conflict the newest date wins. Indexed in
 `BOHEMIA_CANON_INDEX` and in `laws/BOHEMIA_PAOLO_FEEDBACK_MASTER.md`.*

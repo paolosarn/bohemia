@@ -161,6 +161,53 @@ ok('THE DOORLESS DEBT ONLY SHRINKS: nothing is still on the list that already ha
    % (('  -- stale: ' + ', '.join(stale)) if stale else ''), not stale)
 print('  DOORLESS DEBT: %d declared, %d actually doorless' % (len(DOORLESS_DEBT), len(doorless)))
 
+# ------------------------------------------------- 3. SLABS DO NOT TUNNEL THROUGH WALLS
+# Paolo, 8/2: "details shits just looking glitchy for all of them bro."
+# A CANOPY PROJECTS OFF A BUILDING, IT DOES NOT PASS THROUGH ONE. City hall's entry canopy
+# ran straight through the council chamber, the courthouse's through the rotunda, and the
+# terminal's solar deck through the curved concourse. At icon size a thin slab crossing a
+# mass reads as a rendering error, which is exactly the word he used.
+tunnels = []
+for d, fn in sorted(F.HEROES.items()):
+    try:
+        scene, _scale = fn(P[d])
+    except Exception:                                               # noqa: BLE001
+        continue
+    slabs = [s2 for s2 in scene.solids if s2[5] <= 0.8 and s2[2] >= 2.0]      # thin AND high
+    masses = [s2 for s2 in scene.solids if s2[5] >= 2.0]                      # a real volume
+    for (ax, ay, az, adx, ady, adz) in slabs:
+        for (bx, by, bz, bdx, bdy, bdz) in masses:
+            # THE TEST: does the slab overlap, in PLAN, a mass that stands MEANINGFULLY
+            # taller than the slab's own top? Then the mass must be passing through it.
+            # A cap sitting on its own drum grazes a neighbour by a few hundredths and is
+            # not this; the 0.5 margin is what separates a merge seam from a tunnel.
+            if bz + bdz <= az + adz + 0.5:
+                continue
+            ox_ = min(ax + adx, bx + bdx) - max(ax, bx)
+            oy_ = min(ay + ady, by + bdy) - max(ay, by)
+            if ox_ > 0.45 and oy_ > 0.45:
+                tunnels.append('%s slab top z=%.1f crossed by a mass to z=%.1f (%.1f x %.1f)'
+                               % (d, az + adz, bz + bdz, ox_, oy_))
+                break
+
+ok('NO SLAB TUNNELS THROUGH A BUILDING: a canopy, a deck or a shade projects OFF a mass '
+   'and reaches over open ground — it never crosses one at mid-height, which at icon size '
+   'reads as a rendering error%s'
+   % (('  -- ' + '; '.join(tunnels[:6])) if tunnels else ''), not tunnels)
+
+# ------------------------------------------------- 4. THE GRID IS ON THE PIXEL GRID
+# The window grid used FIXED fractions (a mullion was 13% of a pane, whatever a pane
+# measured), so pane widths and mullion widths landed on fractions of a final pixel and
+# every window wall came out RAGGED. _snap_grid measures the face and returns a whole-pixel
+# pitch. Checked here on the numbers, because the raggedness is arithmetic, not opinion.
+for span, count in ((41.0, 8), (70.0, 4), (134.0, 6), (23.0, 9), (200.0, 12)):
+    n, mfrac, used = ISO._snap_grid(span, count)
+    pitch = span * used / n
+    ok('a %.0fpx span asked for %d cells snaps to %d cells of EXACTLY %.0f px with a '
+       '%.0f px line — no fractional pane, no fractional mullion'
+       % (span, count, n, pitch, mfrac * pitch),
+       abs(pitch - round(pitch)) < 0.02 and abs(mfrac * pitch - 1.0) < 0.02)
+
 LAW = 'laws/BOHEMIA_ADDENDUM_ROUND_ROOFS_AND_DOORS_8_2_26.md'
 ok('the law is filed with his words in it', os.path.exists(LAW)
    and 'looks like tarps' in open(LAW, encoding='utf8').read())

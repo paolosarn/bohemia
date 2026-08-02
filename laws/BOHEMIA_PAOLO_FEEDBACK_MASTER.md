@@ -65,6 +65,13 @@ five is not done.
 
 Each line is a ruling he made, in his words, with the machine that holds it.
 
+- **8/2 — "DETAILS SHITS JUST LOOKING GLITCHY FOR ALL OF THEM BRO."** Asked style or
+  detail, he said DETAIL: the approach is right, the execution is glitchy. Two more
+  pipeline faults, same root cause as the two before them. (1) Window grids used FIXED
+  FRACTIONS, so pane and mullion widths landed on fractions of a final pixel and every
+  window wall in the game came out ragged — `_snap_grid` measures the face and returns a
+  whole-pixel pitch with a one-pixel mullion. (2) A CANOPY PROJECTS OFF A BUILDING, IT DOES
+  NOT PASS THROUGH ONE — three slabs were crossing masses at mid-height. `gates/round_and_doors_gate.py`
 - **8/2 — A ROUND ROOF IS A CLOSED LID, AND A DOOR STANDS ON A WALL.** "Every time you
   make a circular shape the roof of all your circles looks like tarps and shit... doors
   aren't where they're supposed to." Two PIPELINE bugs in one sentence, both in shared

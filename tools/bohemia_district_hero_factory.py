@@ -235,8 +235,11 @@ def build_cityhall(P):
     s.prism(4.0, 4.2, 5.6, 1.1, 0.6, 18, {'c': GLASS})
 
     # THE ENTRY CANOPY on ONE column. The whole point of it: no other supports.
-    s.box((7.6 - 0.35, 8.4 - 0.35, 0), (0.7, 0.7, 7.4), {'c': CMAST})
-    s.box((0.5, 6.6, 7.4), (12.0, 3.6, 0.5), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.8),
+    s.box((7.6 - 0.35, 9.1 - 0.35, 0), (0.7, 0.7, 6.2), {'c': CMAST})
+    # A CANOPY PROJECTS OFF A BUILDING, IT DOES NOT TUNNEL THROUGH ONE. This started at
+    # y=6.6 and ran straight through the council chamber (y 1.1..7.3), which at icon size
+    # reads as a slab slicing the building in half -- glitchy, exactly as he said.
+    s.box((0.5, 7.5, 6.2), (12.0, 3.2, 0.4), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.8),
           'py': _dark(CANOPY, 0.8), 'nx': _dark(CANOPY, 0.8), 'ny': _dark(CANOPY, 0.8)})
     _door_face(s, (-1.5, -2.0, 0), (10.5, 5.0, 9.6), width=2.2, ztop=3.0,
                doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
@@ -321,10 +324,10 @@ def build_terminal(P):
                doorc=_dark(HALL, 0.4)['c'], framec=tuple(min(255, int(c * 1.18)) for c in HALL))
 
     # THE SOLAR SHADE over the platform: the district's signature, on slim posts.
-    for (px, py) in [(-2.0, 3.4), (11.6, 3.4), (-2.0, 6.6), (11.6, 6.6)]:
+    for (px, py) in [(-2.0, 6.1), (11.6, 6.1), (-2.0, 9.0), (11.6, 9.0)]:
         s.box((px - 0.16, py - 0.16, 0), (0.32, 0.32, 4.2), {'c': POST})
     for i in range(6):
-        s.box((-2.6 + i * 2.4, 3.0, 4.2), (2.2, 4.2, 0.24), {'top': {'c': PANEL},
+        s.box((-2.6 + i * 2.4, 5.8, 4.2), (2.2, 3.6, 0.24), {'top': {'c': PANEL},
               'px': _dark(PANEL, 0.8), 'py': _dark(PANEL, 0.8),
               'nx': _dark(PANEL, 0.8), 'ny': _dark(PANEL, 0.8)})
 
@@ -629,7 +632,9 @@ def build_courthouse(P):
     s.prism(3.4, 4.0, 8.9, 0.7, 0.5, 20, {'c': GLASS})
 
     # THE PROJECTING CANOPY. It cantilevers off the top of the building: NO columns.
-    s.box((2.4, 4.6, 7.4), (11.0, 4.6, 0.5), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.8),
+    # It CANTILEVERS off the building and reaches over the plaza. It must not cross the
+    # rotunda in plan (y 1.1..6.9) or it reads as a slab cutting the icon in half.
+    s.box((2.4, 7.1, 7.4), (11.0, 3.4, 0.45), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.8),
           'py': _dark(CANOPY, 0.8), 'nx': _dark(CANOPY, 0.8), 'ny': _dark(CANOPY, 0.8)})
     _door(s, 6.3, 4.4, 6.4, 3.0, doorc=_dark(BLD, 0.4)['c'],
           framec=tuple(min(255, int(c * 1.2)) for c in BLD))

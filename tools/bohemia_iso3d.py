@@ -141,6 +141,36 @@ def _shade(color, normal, key_dir, key, ambient):
     return (min(255, color[0] * f), min(255, color[1] * f), min(255, color[2] * f))
 
 
+def _snap_grid(span_px, count, mullion_px=1.0, min_pitch=3.0):
+    """Snap a repeating grid so every cell and every line is a WHOLE FINAL PIXEL.
+
+    THE GLITCH (Paolo, 8/2): "details shits just looking glitchy for all of them bro."
+
+    Window grids were laid out in UV with FIXED fractional thresholds -- a mullion was
+    always 13% of a pane, whatever a pane happened to measure. A face 41 final pixels wide
+    divided into 8 panes gives a 5.125px pitch and a 1.33px mullion, and after the 4x
+    supersample is box-downscaled those land as 5px/6px panes with 1px/2px mullions in no
+    pattern at all. Every window wall in the game came out RAGGED, and ragged detail at
+    icon size reads as exactly one thing: glitchy.
+
+    This is the same root cause as the tarp roofs and the floating doors, for the third
+    time this session -- A VALUE PASSED BY HAND WHERE A VALUE COULD BE DERIVED. The pane
+    count was authored; the pane PITCH is what has to be whole, and pitch is measurable.
+
+    Returns (count_eff, mullion_frac, used_frac): a cell pitch that is an integer number of
+    final pixels, a mullion that is exactly `mullion_px` of them, and the fraction of the
+    span the snapped grid actually fills so the last cell is never sliced in half.
+    """
+    if span_px <= 0 or count <= 0:
+        return max(1, int(count)), 0.13, 1.0
+    pitch = max(min_pitch, round(span_px / float(count)))
+    # FLOOR, never round: n cells of a whole-pixel pitch have to FIT inside the span, or
+    # the last one gets sliced and the whole point is lost.
+    n = max(1, int(span_px // pitch))
+    used = min(1.0, (n * pitch) / span_px)
+    return n, min(0.45, mullion_px / pitch), used
+
+
 def _mat_color(material, u, v):
     if material is None:
         return None
@@ -196,6 +226,22 @@ def bake(scene, out_w, out_h, origin, scale, key_dir=(0.8, -0.35, 0.75),
             continue
         P = [_project(p, s, ox, oy) for p in verts]
         base_sh = None  # per-pixel color from material; shade once by normal
+        # SNAP any repeating grid on this face to whole FINAL pixels, measured off the
+        # face's own projected size. See _snap_grid: unsnapped grids are what made every
+        # window wall ragged, and ragged detail at icon size reads as glitchy.
+        grid = None
+        if material.get('t') in ('win', 'lot'):
+            span_u = math.hypot(P[1][0] - P[0][0], P[1][1] - P[0][1]) / float(ss)
+            span_v = math.hypot(P[3][0] - P[0][0], P[3][1] - P[0][1]) / float(ss)
+            gu0 = material.get('u0', 0.06 if material.get('t') == 'win' else 0.0)
+            gu1 = material.get('u1', 0.94 if material.get('t') == 'win' else 1.0)
+            gv0 = material.get('v0', 0.05 if material.get('t') == 'win' else 0.0)
+            gv1 = material.get('v1', 0.95 if material.get('t') == 'win' else 1.0)
+            nu, mu, usedu = _snap_grid(span_u * (gu1 - gu0), material.get('cols', 4))
+            nv, mv, usedv = _snap_grid(span_v * (gv1 - gv0), material.get('rows', 4))
+            grid = {'cols': nu, 'rows': nv, 'mu': mu, 'mv': mv,
+                    'u0': gu0, 'u1': gu0 + (gu1 - gu0) * usedu,
+                    'v0': gv0, 'v1': gv0 + (gv1 - gv0) * usedv}
         # split quad into 2 tris: (0,1,2) and (0,2,3)
         for tri in ((0, 1, 2), (0, 2, 3)):
             p0, p1, p2 = P[tri[0]], P[tri[1]], P[tri[2]]
@@ -227,22 +273,28 @@ def bake(scene, out_w, out_h, origin, scale, key_dir=(0.8, -0.35, 0.75),
             if material.get('t') == 'win':
                 col = np.empty((win.shape[0], win.shape[1], 3))
                 # vectorized window pattern
-                cols, rows = material['cols'], material['rows']
-                u0, u1 = material.get('u0', 0.06), material.get('u1', 0.94)
-                v0, v1 = material.get('v0', 0.05), material.get('v1', 0.95)
+                cols, rows = grid['cols'], grid['rows']
+                u0, u1 = grid['u0'], grid['u1']
+                v0, v1 = grid['v0'], grid['v1']
                 inwin = (u >= u0) & (u <= u1) & (vv >= v0) & (vv <= v1)
                 cu = (u - u0) / (u1 - u0) * cols
                 cv = (vv - v0) / (v1 - v0) * rows
                 fu = cu - np.floor(cu); fv = cv - np.floor(cv)
                 col[:] = material['wall']
+                mu, mv = grid['mu'], grid['mv']
                 if material.get('punch'):
-                    # small punched windows in a wall (masonry / industrial)
-                    gl = inwin & (fu > 0.3) & (fu < 0.7) & (fv > 0.28) & (fv < 0.72)
-                    fr = inwin & ~gl & (fu > 0.24) & (fu < 0.76) & (fv > 0.22) & (fv < 0.78)
+                    # small punched windows in a wall (masonry / industrial): the opening
+                    # is centred and its reveal is a whole pixel either side
+                    ou, ov = max(mu, 0.3), max(mv, 0.28)
+                    gl = inwin & (fu > ou) & (fu < 1 - ou) & (fv > ov) & (fv < 1 - ov)
+                    fr = inwin & ~gl & (fu > ou - mu) & (fu < 1 - ou + mu) \
+                         & (fv > ov - mv) & (fv < 1 - ov + mv)
                     border = ~gl
                 else:
-                    # full curtain-wall grid (glass panes + mullions)
-                    border = (fu < 0.13) | (fu > 0.87) | (fv < 0.1) | (fv > 0.9)
+                    # full curtain-wall grid: the mullion is EXACTLY ONE FINAL PIXEL wide,
+                    # on every face, at every size, because mu/mv were measured off this
+                    # face's own projected span instead of guessed at as a fraction
+                    border = (fu < mu) | (fu > 1 - mu) | (fv < mv) | (fv > 1 - mv)
                     gl = inwin & ~border
                     fr = inwin & border
                 for ch in range(3):
@@ -266,10 +318,10 @@ def bake(scene, out_w, out_h, origin, scale, key_dir=(0.8, -0.35, 0.75),
             elif material.get('t') == 'lot':
                 # a PARKING LOT top: asphalt with thin white stall stripes (one axis)
                 col = np.empty((win.shape[0], win.shape[1], 3))
-                colsN = material.get('cols', 9)
+                colsN = grid['cols']
                 cu = (u * colsN)
                 fu = cu - np.floor(cu)
-                cv2 = vv * material.get('rows', 2)
+                cv2 = vv * grid['rows']
                 fv2 = cv2 - np.floor(cv2)
                 col[:] = material['asphalt']
                 stall = (fu < 0.06) | (fu > 0.94)
