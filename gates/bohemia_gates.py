@@ -42,6 +42,8 @@ GATES = [
      'no street dead-ends into empty lots', False),
     ('VALLEY SCALE',   ['node', 'gates/valley_scale_gate.js'],
      'a district is the size the 7/6 law says (128x128 = 96m), and ONE constant says so', False),
+    ('MAP SIZE',       ['node', 'gates/mapsize_gate.js'],
+     'Paolo 8/2 "before you cut anything": the valley is 96x96 districts, 84.9 km2, 37.0 km2 of it BUILT (about the whole of Skyrim, ~4.6x Fallout New Vegas) and 75.7 km2 you can put a foot on -- with a FLOOR, so the world cannot be quietly emptied while every other gate stays green', False),
     ('DISTRICT REG',   ['node', 'gates/district_registry_gate.js'],
      'every district type is catalogued', False),
     ('FLOORPLAN',      ['node', 'gates/floorplan_gate.js'],

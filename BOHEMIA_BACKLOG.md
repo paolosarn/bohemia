@@ -1724,6 +1724,25 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AQ. [ANSWERED 8/2, ON HIS ASK] HOW BIG IS THE MAP, IN WALKING, VS SKYRIM AND
+   NEW VEGAS. He asked with "before you cut anything" in front of it, so it got a
+   FLOOR as well as an answer. Measured on the canon seed: 96x96 districts, 9.22 km
+   a side, 84.9 km2, 151 million walkable cells. Built districts 37.0 km2 (43.6%),
+   roads/rail 32.9, desert 5.7, rock+water 9.3, ON FOOT 75.7 km2. Skyrim ~37 km2,
+   Fallout New Vegas ~16.5 km2 -- so the BUILT HALF ALONE is about all of Skyrim
+   and the walkable land is ~4.6 New Vegases. Walking (BEAT=500, one cell a beat,
+   0.75 m a cell = 1.5 m/s, run = two cells a beat = 3.0 m/s, both read out of the
+   shipped city frame): 1 h 42 m to walk one side, 2 h 25 m corner to corner.
+   THE HONEST HALF, recorded so nobody quotes only the flattering one: ours are
+   GENERATED km2 and Skyrim's are hand-placed. Size was never the problem and
+   cutting it fixes nothing; FILLING is the problem (WALKABLE-LAND LAW, per
+   district). Record: records/BOHEMIA_HOW_BIG_IS_THE_MAP_8_2_26.md.
+   THE GAP IT CLOSED: valley_scale_gate pinned the per-CELL scale and nothing
+   pinned HOW MUCH LAND or HOW MUCH IS BUILT, so a lane could have turned built
+   districts back to desert with every gate green. gates/mapsize_gate.js (suite:
+   MAP SIZE, 13 claims) floors it; shrinking to 64x64 fails 7 of 13 by name.
+   | MAP SIZE 13/0, mutation-proven | none | no.
+
 0AP. [DONE 8/2 — MY OWN REGRESSION, FOUND BY RUNNING THE SUITE AND CHECKING
    WHOSE IT WAS] DELETING THE CITY TAB BROKE TWO MORE NAVIGATORS, AND MY SWEEP
    SWORE THEY WERE CLEAN. The tab-deletion ship swept gates/ and tools/ for the

@@ -1,3 +1,45 @@
+CITY (1eztay): 8/2 (an) LATEST — HOW BIG THE MAP IS, ANSWERED WITH A FLOOR, AND
+THE ONE LINK WAS DEAD ON MAIN AGAIN (fixed, and it was also the dead COMBAT tab).
+
+HOW BIG, on his ask ("before you cut anything"). Measured on the canon seed:
+  96x96 districts · 9.22 km a side · 84.9 km2 · 151 million walkable cells
+  built 37.0 km2 (43.6%) · roads 32.9 · desert 5.7 · rock+water 9.3 · ON FOOT 75.7
+  Skyrim ~37 km2 · Fallout New Vegas ~16.5 km2
+So the BUILT HALF ALONE is about all of Skyrim, and the walkable land is ~4.6 New
+Vegases. Walking, read out of the shipped city frame (BEAT=500, one cell a beat,
+0.75 m a cell = 1.5 m/s; run = two cells a beat): 1 h 42 m to walk one side,
+2 h 25 m corner to corner. THE HONEST HALF IS IN THE RECORD: ours are GENERATED
+km2, Skyrim's are hand-placed. Size was never the problem, FILLING is, and cutting
+the map would make the true problem smaller without making it better.
+Record: records/BOHEMIA_HOW_BIG_IS_THE_MAP_8_2_26.md
+
+AND IT HAS A FLOOR NOW. valley_scale_gate pinned the per-CELL scale and nothing
+pinned HOW MUCH LAND or HOW MUCH OF IT IS BUILT -- a lane could have turned built
+districts back into desert with every gate in the repo green. gates/mapsize_gate.js
+(suite: MAP SIZE, 13 claims) holds it. Shrinking to 64x64 fails 7 of 13 by name.
+
+THE ONE LINK WAS DEAD ON MAIN, SECOND TIME TODAY. `<div id="front">` was never
+closed before `<div id="app">`, so the whole game parsed as a CHILD of the splash;
+the splash hides itself and takes everything with it. Black rectangle.
+AND IT WAS THE COMBAT LANE'S URGENT ITEM TOO. 874cfe7 bisected a dead combat tab
+to a CITY-lane commit and handed it over rather than raid the blob. They were
+right, and it was not combat's bug: EVERY panel was 0x0. Same probe, same viewport:
+    pristine main   combat 0x0      #app 0x0     parent front
+    after the fix   combat 430x846  #app 430x900 parent BODY
+Also relabelled the splash gate THE ONE LINK (two different gates were both called
+FRONT DOOR, so "FRONT DOOR failed" named neither).
+
+EARLIER THIS SESSION: DROP IN lands you on a street in the CITY FRAME (the surface
+he actually plays -- the run slice is invisible), worst case 9,432 tiles -> 3; the
+CITY tab deletion's own wreckage cleaned up (two more gates it broke, my sweep was
+a BLOCKLIST and got spelled around twice); and the swallowed tab click banned in 18
+files, which then caught two gates other lanes wrote AFTER the rule.
+
+NOT MINE TO DECIDE, AND ONE OF THEM IS PARKED
+- THE POPULATION NUMBER is PARKED BY PAOLO ("just worry about the coding and
+  plumbing for now") - DO NOT RAISE IT. Recorded as plumbing debt in backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Real, tested, and invisible. Still open.
+
 ART (f3eu53): 8/2 (f) LATEST — HIS VERDICT IS IN. THE WALL STOPPED GLITCHING.
 
 PEOPLE (factions): 8/2 (e) LATEST — SIXTEEN FACTION DOSSIERS. HIS TOP BACKLOG ITEM,
