@@ -402,7 +402,7 @@ GATES = [
      "Paolo 7/29's condition on the people: stable ids, one derivation point, an overrides layer - and a REAL bulk edit that provably reaches the cached surface, not a promise that it could", True),
     ('RUN PEOPLE',     ['node', 'gates/run_people_gate.js'],
      "HE PLAYS THE RUN: the surface Paolo actually taps has a day in it - the street fills, empties through the Mojave afternoon and refills, a bulk edit reaches bodies already walking, and the draw never paints somebody the sim put indoors", True),
-    ('FRONT DOOR',     ['node', 'gates/front_door_gate.js'],
+    ('THE ONE LINK',   ['node', 'gates/front_door_gate.js'],
      "THE ONE LINK OPENS THE GAME. On 8/2 one dropped </div> nested the whole app inside the front splash, so tapping the splash hid the game: 0x0, no tabs, a black screen on the only URL Paolo ever taps. The splash must close before the app opens, and the door is walked through in a real browser", True),
     ('FENCE ORPHAN',   ['python3', 'gates/fence_orphan_gate.py'],
      "FLEET-WIDE, and it shipped on 8/2: a fence the patch tool stops emitting is NOT a fence that goes away - the text stays applied forever and nothing knows how to undo it. Every marker block in slices/ and engine/ is one some tool still knows how to remove, is a balanced pair, and is applied exactly once", True),

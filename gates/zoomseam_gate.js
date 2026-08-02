@@ -25,7 +25,10 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
     await page.waitForTimeout(3000);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
     await page.waitForTimeout(1500);
-    await page.evaluate(() => { const t = document.querySelector('[data-p="run"]'); if (t) t.click(); });
+    // a tab that is not there must SAY SO (one_world_tab_gate, 8/2): `if (t)`
+    // swallowed the miss, and a swallowed click fails 30s later on the wrong surface
+    await page.evaluate(() => { const t = document.querySelector('[data-p="run"]');
+      if (!t) throw new Error('that tab is not in the bar'); t.click(); });
     let f = null;
     for (let i = 0; i < 20; i++) {
       await page.waitForTimeout(3000);
