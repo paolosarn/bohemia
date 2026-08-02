@@ -182,7 +182,7 @@ and is marked dead in this file rather than left to rot in a commit message.
 | A3 | enter only by a door | -- | NOT ENFORCED |
 | A4 | free movement inside | -- | NOT ENFORCED |
 | B1 | integer scale, no smoothing, device resolution | full_pixel_gate (run) + canvas_scale_gate (city) | RUN FIXED. CITY WAS ALREADY CORRECT. **HIS COMPLAINT IS STILL UNEXPLAINED** |
-| B2 | shadows + sun direction by time | -- | NOT ENFORCED |
+| B2 | shadows + sun direction by time | **shadow_gate** | **ENFORCED 8/2** |
 | B3 | occlusion fades, never blocks | -- | NOT ENFORCED |
 | B4 | a door fills its doorway | full_pixel_gate (run slice only) | RUN ONLY -- NOT on the surface he plays |
 | B5 | doors animate on use | -- | NOT ENFORCED |

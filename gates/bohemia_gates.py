@@ -69,6 +69,11 @@ GATES = [
      'It was hardcoded to the Strip at cell 44,48 every single run. One setting, one command '
      '(tools/bohemia_run_spawn.py <district>), verified by booting the real alpha and asking '
      'the world model what district the player is standing in', True),
+    ('SUN SHADOWS',    ['node', 'gates/shadow_gate.js'],
+     'Paolo 8/2 BUILT WORLD B2: buildings cast shadows on the ground and the DIRECTION and '
+     'LENGTH follow the in-game clock. Measured in a real browser -- shadow cells counted at '
+     'midday, morning and evening falling opposite ways, longer at the horizons, and zero at '
+     'night', True),
     ('FULL PIXEL',     ['node', 'gates/full_pixel_gate.js'],
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
