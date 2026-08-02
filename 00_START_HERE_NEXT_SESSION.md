@@ -3615,25 +3615,46 @@ standalone and 3-for-3 under deliberate parallel load — a contention flake, fr
 fixed waitForTimeout waits. That is the same finding 5826514 shipped the pid lock
 for. The lock is the right fix and it is in. Do not chase WALL CLASS.
 
-=== WHERE THE WORLD LANE ACTUALLY IS ===
-BLOCKED ON PAOLO, and deliberately not producing around it (STOP PRODUCING law):
-  1. THE HIGH SCHOOL THUMB. He judged it "79% there", gave 8 specific notes across
-     plot and icon, all 8 are applied and judgeable at
-     slices/BOHEMIA_SCHOOL_JUDGE_7_28_26.html. His thumb on the REBUILT one is what
-     unlocks rolling the treatment to the other 35 districts. DO NOT roll it early —
-     that is exactly the four-versions failure the STOP PRODUCING law is about.
-  2. WHICH TILE FORMS THE ART LANE COOKS FIRST. 15 forms filed in records/tileforms/
-     (TF-WORLD-001..015) from an actual walk of 687 legend entries. My proposed
-     order: roofs -> signs -> kerbs. ART has already cooked TF-ART-001 (CMU block).
-  3. HOW LONG SINCE THE COLLAPSE. Still unanswered, still sets the damage level for
-     all 45 districts. Nothing about weathering can be authored until he rules it.
-NOT BLOCKED, available if this lane gets a "go" with no verdicts in: pull the 13
-SQUINT twin pairs apart, starting with storage/warehouse.
+=== WHERE THE WORLD LANE ACTUALLY IS (8/2/26) ===
+FOUR DISTRICTS APPROVED, and they are the standard everything else is measured
+against: HIGH SCHOOL 89% (7/31), COMMERCIAL 85%, MALL 85% (8/1), DOWNTOWN 85%
+(8/2). "Approved for now" is an APPROVAL, not a snag list — do NOT reopen them
+on your own initiative, that is the STOP PRODUCING failure.
 
-STANDING FOR THIS LANE: ACT ONE ONLY (Paolo 7/28). Every district cell is its own
-landmark. Do not cook art here — the ART lane cooks from forms only. Resolver
-tables stay empty until he rules numbers. Never auto-generate strip/resort/casino/
-luxor/sphere/strat/highroller/sign: Paolo's hand by law.
+IN FLIGHT: the LIBRARY. He scored it 22% on 8/2 with one sentence that named a
+thinking error, not a drawing error: "There's like six different buildings of the
+library. What's up with that?" ARTICULATION IS NOT FRAGMENTATION — "no building
+is a flat rectangle" means articulate the mass, never split it into a campus, and
+THE BUILDING TYPE DECIDES, NEVER THE GATE. Rebuilt as one continuous Predock
+composition (drum + tower + museum wing + reading wing, all sharing walls) and
+awaiting his re-score. The worse half of that finding: library_gate.js had been
+asserting `footprints >= 4`, so the machine was REQUIRING the bug. New
+gates/one_building_gate.js now holds both directions (SINGLE: library, chapel,
+city hall, courthouse, terminal, mall >=90% of building area in one mass; MANY:
+downtown, commercial, school under 70%) and reads library_gate.js itself so the
+fragmentation assertion cannot come back quietly.
+
+NEXT UP IN THIS LANE, in order: the remaining single-blob civic districts (city
+hall, courthouse, terminal, chapel), then the other downtown block types the
+8/1 research doc proposes (downtown_arts — the real 18-block Arts District of
+1930s storefronts and warehouses; downtown_civic; downtown_lot). Downtown is
+several districts wide by his own ruling and only ONE block type exists so far.
+
+THE RATCHETED DEBTS (named lists that may only shrink, all in the suite):
+  monoblock 34/36 · stub write-ups 70/75 · disconnected drive networks 21/22
+  hairline lanes 4/4 · silhouette twins 12/13 · greenwashed tiles fixed (27)
+
+BLOCKED ON PAOLO: HOW LONG SINCE THE COLLAPSE. Still unanswered, still sets the
+damage level for all 45 districts. Nothing about weathering can be authored
+until he rules it.
+
+STANDING FOR THIS LANE: ACT ONE ONLY (7/28). BUILD THE WORLD (7/31) — quests,
+factions and the economy are OFF and their footprint may only shrink. Every
+district cell is its own landmark. Do not cook art here — the ART lane cooks
+from forms only. Resolver and purse tables stay EMPTY until he rules numbers.
+No names, signage text, mascots or brand words anywhere. Never auto-generate
+strip/resort/casino/luxor/sphere/strat/highroller/sign, the Fremont casino core
+included: Paolo's hand by law.
 
 CHARACTER (0lurbs): 7/30 LATEST — I CAUSED THE DEAD ALPHA BELOW, AND I BUILT THE
 GATE THAT MAKES IT UNREPEATABLE. The one red the SOUNDS lane left me is now GREEN.

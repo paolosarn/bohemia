@@ -1,11 +1,11 @@
-# BOHEMIA CANON INDEX — regenerated 08/01/26
+# BOHEMIA CANON INDEX — regenerated 08/02/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-269 canon files indexed across 2 locations.
+271 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -108,8 +108,9 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_VEGAS_GEOGRAPHY_7_4_26.md`
 - `BOHEMIA_ADDENDUM_TURNBASED_COMBAT_RESEARCH_7_3_26.md`
 
-### PLOTS & DISTRICTS (6)
+### PLOTS & DISTRICTS (7)
 - `BOHEMIA_ADDENDUM_NO_DISTRICT_IS_A_PRISON_8_1_26.md`
+- `BOHEMIA_ADDENDUM_REPAIR_A_DISTRICT_8_1_26.md`
 - `BOHEMIA_ADDENDUM_EVERY_DISTRICT_IS_A_LANDMARK_7_28_26.md`
 - `BOHEMIA_ADDENDUM_LANDLOCKED_DISTRICT_LAW_7_21_26.md`
 - `BOHEMIA_ADDENDUM_PROCEDURAL_DISTRICTS_7_18_26.md`
@@ -161,7 +162,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_COMBAT_DNA_RF4_6_30_26.md`
 - `BOHEMIA_ADDENDUM_COMBAT_6_27_26.md`
 
-### TILES & ART (22)
+### TILES & ART (23)
+- `BOHEMIA_ADDENDUM_ARTICULATION_NOT_FRAGMENTATION_8_2_26.md`
 - `BOHEMIA_ADDENDUM_A_WALL_ENDS_AT_ITS_OWN_TILE_8_1_26.md`
 - `BOHEMIA_ADDENDUM_HUMAN_TILES_FIRST_7_27_26.md`
 - `BOHEMIA_ADDENDUM_THREE_TILE_WALL_7_27_26.md`
