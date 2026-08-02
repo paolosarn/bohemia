@@ -218,14 +218,16 @@ VOICES = V_BEGIN + r"""
 # ---------------------------------------------------------------------------
 # THE FOUR SONGS. No two share scale + feel + kick.
 # ---------------------------------------------------------------------------
+# JUDGED 8/2: THE HOUSE ALWAYS REMEMBERS and THE LAST LIGHT ON THE STRIP were
+# thumbed DOWN and are GRAVEYARD FINAL, so this tool no longer emits them. A
+# cook tool that keeps re-injecting a song he killed is a resurrection machine.
+# Their voices (ossuary, dyingfilament) stay in the rack: SONG-DEAD-NOT-VOICES.
 SONGS = S_BEGIN + r"""
- {n:'THE HOUSE ALWAYS REMEMBERS',acc:'#6f5f7d',root:45,scale:[0,1,5,6,10],wave:'triangle',kick:[0,10],bass:[0,10],hat:[6,14],inst:{b:'undertowbass',l:'ossuary'},am:'gravechoir',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true,bt:21},
  {n:'NOBODY CASHES OUT',acc:'#8a6a4a',root:50,scale:[0,2,3,6,7,9],wave:'sawtooth',kick:[0,6,8,14],bass:[0,3,8,11],hat:[2,6,10,14],inst:{b:'abyssbass',l:'lastrites'},am:'nightpad',kit:{k:'knock',h:'tight'},mel:'call',swing:0.2,feel:'normal',klay:'stabs',ff:true,bt:21},
- {n:'TITHE FOR THE EMPTY PEWS',acc:'#9a8ab0',root:38,scale:[0,3,5,8,11],wave:'sine',kick:[0,4,8,12],bass:[0,8],hat:[4,12],inst:{b:'choirbass',l:'tithebell'},am:'ashchoir',kit:{k:'boom',h:'ride'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,bt:21},
- {n:'THE LAST LIGHT ON THE STRIP',acc:'#c07a3a',root:53,scale:[0,1,3,7,8,11],wave:'square',kick:[0,7,11],bass:[0,4,7,11,14],hat:[2,6,10,14],inst:{b:'reservoirbass',l:'dyingfilament'},am:'dreadbed',kit:{k:'punchk',h:'clickh'},mel:'drive16',swing:0.15,feel:'drive',klay:'drive',ff:true,bt:21}""" + S_END
+ {n:'TITHE FOR THE EMPTY PEWS',acc:'#9a8ab0',root:38,scale:[0,3,5,8,11],wave:'sine',kick:[0,4,8,12],bass:[0,8],hat:[4,12],inst:{b:'choirbass',l:'tithebell'},am:'ashchoir',kit:{k:'boom',h:'ride'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,bt:21}
+""" + S_END
 
-NEW_NAMES = ['THE HOUSE ALWAYS REMEMBERS', 'NOBODY CASHES OUT',
-             'TITHE FOR THE EMPTY PEWS', 'THE LAST LIGHT ON THE STRIP']
+NEW_NAMES = ['NOBODY CASHES OUT', 'TITHE FOR THE EMPTY PEWS']
 
 REPO_ENTRY = """
 === BATCH 21 (8/2/26) — FOUR SONGS, FOUR NEWBORN TOPOLOGIES ===
@@ -312,9 +314,25 @@ def main():
     s = s.replace(host, host + VOICES, 1)
 
     # ---- 2. the songs, at the end of MLOOPS ----------------------------
+    # IDEMPOTENT BY NAME, NOT BY MARKER. The verdict tool rebuilds MLOOPS from
+    # its parsed entries, which legitimately strips this tool's comment markers
+    # -- so on the next run the marker was gone, the removal above found
+    # nothing, and both songs were injected A SECOND TIME. Measured: lastrites
+    # and tithebell each used by 2 songs, which tripped the NEW VOICES LAW
+    # because a duplicated song is not a song with a voice of its own.
+    # A name is the real identity; drop any entry that already carries one.
     i = s.index('const MLOOPS=[')
     j = s.index('\n];', i)
-    s = s[:j] + ',\n' + SONGS + s[j:]
+    head = 'const MLOOPS=['
+    body = s[i + len(head):j]
+    entries = [ln.strip().rstrip(',') for ln in body.split('\n')
+               if ln.strip().startswith("{n:'")]
+    mine = set(NEW_NAMES)
+    kept = [e for e in entries if e.split("'")[1] not in mine]
+    dropped = len(entries) - len(kept)
+    if dropped:
+        print('  dropped %d existing copy/copies of this batch before re-adding' % dropped)
+    s = s[:i] + head + '\n ' + ',\n '.join(kept) + ',\n' + SONGS + s[j:]
 
     # ---- 3. NEW_VIBES is THIS batch --------------------------------------
     m = re.search(r'const NEW_VIBES=\[[^\]]*\];', s)

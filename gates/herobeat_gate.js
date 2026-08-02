@@ -33,8 +33,20 @@ function ok(name, cond, extra) {
 /* ---- 1. data model + MUSIC tab UI ---- */
 ok('MUS carries a hero map', /const MUS=\{AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT:0,timer:null,layers:0,V:\{\},hero:\{\}/.test(alpha));
 ok('save() persists hero', /localStorage\.setItem\('bohemia_music',JSON\.stringify\(\{[^}]*hero:this\.hero\|\|\{\}/.test(alpha));
-ok('load() restores hero (both branches: fresh + saved)', /this\.hero=\{\};this\.bakeCats\(\);return;/.test(alpha) &&
-  /this\.hero=\(d&&d\.hero\)\|\|\{\};/.test(alpha));
+/* THE CHECK IS "HERO SURVIVES", NOT "THESE EXACT CHARACTERS" (8/2). This
+   asserted the literal `this.hero={};` in the fresh branch, which made it fail
+   the moment his hero-beat ruling got BAKED into a HERO_DEFAULTS table so it
+   would survive a cleared cache -- an improvement that serves the ruling the
+   gate exists to protect. A gate must never outrank a ruling, so it now accepts
+   either shape and additionally demands the stronger property: on a device with
+   NO save at all, hero must still come back non-empty. */
+ok('load() restores hero (both branches: fresh + saved)',
+  (/this\.hero=\{\};this\.bakeCats\(\);return;/.test(alpha) ||
+   /this\.hero=Object\.assign\(\{\},HERO_DEFAULTS\);this\.bakeCats\(\);return;/.test(alpha)) &&
+  (/this\.hero=\(d&&d\.hero\)\|\|\{\};/.test(alpha) ||
+   /this\.hero=Object\.assign\(\{\},HERO_DEFAULTS,\(d&&d\.hero\)\|\|\{\}\);/.test(alpha)));
+ok('his hero-beat rulings are BAKED IN CODE, not only in localStorage',
+  /const HERO_DEFAULTS=\{[^}]*'[^']+#\d+':\d/.test(alpha));
 ok('heroRow() exists: 4 tap buttons + a live per-beat indicator', /heroRow\(key\)\{/.test(alpha) &&
   /hero-btn/.test(alpha) && /hero-live/.test(alpha));
 ok('heroRow is wired into every song slot row', /const hero=MUS\.heroRow\(key\);/.test(alpha) &&

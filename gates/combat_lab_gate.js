@@ -1377,14 +1377,16 @@ ok('V71 PARENT: the music bus carries HIS overworld pools (all three time slots)
   alpha.includes("for(const cat of ['OVERWORLD NIGHT','OVERWORLD DAY','OVERWORLD DUSK/DAWN']){ const arr=[];") &&
   alpha.includes('if(arr.length)out.owpools[cat]=arr; }') &&
   alpha.includes('const _songObj=(m)=>{'));
-ok('and the app really does hold 13 songs tagged OVERWORLD in his baked 7/19 assignments (10 night, 1 day, 2 dusk/dawn) -- combat was seeing six of them',
+ok('and the app really does hold his OVERWORLD assignments (>= the 7/19 floor of 13) -- combat was seeing six of them',
   (() => {
-    const i = alpha.indexOf('const CAT_DEFAULTS={'), j = alpha.indexOf('};', i);
-    const blk = alpha.slice(i, j);
-    const n = (blk.match(/'OVERWORLD NIGHT'/g) || []).length;
-    const d = (blk.match(/'OVERWORLD DAY'/g) || []).length;
-    const dd = (blk.match(/'OVERWORLD DUSK\/DAWN'/g) || []).length;
-    return n === 10 && d === 1 && dd === 2;
+    /* DERIVED, NOT HARDCODED (8/2). This used to assert exactly 13 (10 night,
+       1 day, 2 dusk/dawn) and went red the moment he assigned MORE on his 8/2
+       sheet. His newer ruling is the truth and a gate must never outrank it.
+       Count what is actually baked, and keep the 7/19 number as a FLOOR so the
+       assignment can grow but never silently shrink. */
+    const cd = (alpha.match(/const CAT_DEFAULTS=\{[\s\S]*?\};/) || [''])[0];
+    const n = (cd.match(/'OVERWORLD[^']*'/g) || []).length;
+    return n >= 13;
   })());
 
 /* ============================================================================

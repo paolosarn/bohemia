@@ -3555,6 +3555,52 @@ own SIM still makes agents (measured 6-7 outdoors this session), so it is the
 world-model/census path that broke, not the run. Whoever owns LIFE/POPULATION
 should take this first -- it is bigger than anything in my lane.
 
+MUSIC (xk7pjp): 8/2 (b) LATEST — BATCH 21 JUDGED, 2 OF 4 LIVE, AND THE LESSON IS
+THE VALUABLE PART.
+
+  NOBODY CASHES OUT            CANON  lead lastrites  (undertone stack)
+  TITHE FOR THE EMPTY PEWS     CANON  lead tithebell  (differential decay)
+  THE HOUSE ALWAYS REMEMBERS   DOWN   lead ossuary LIVES
+  THE LAST LIGHT ON THE STRIP  DOWN   lead dyingfilament LIVES
+  WHAT THE PIT BOSS BURIED     DOWN   (batch 19, judged same sitting)
+
+THE LESSON, and it is mine to carry: THE TWO MOST STRUCTURALLY NOVEL LEADS IN
+THE BATCH ARE THE TWO THAT DIED. Both survivors hold a pitch you can follow and
+resolve. Both casualties are built on instability -- ossuary has NO OSCILLATOR
+and therefore no steady pitch to sing, and dyingfilament's whole idea is a
+flutter slowing to a stop, which is motion rather than melody. The canon's
+oldest kill reason is that the melody must LEAD under the dread and pure texture
+reads as unfinished (7/18 graveyard).
+  SO: NOVELTY OF MECHANISM IS NOT A SUBSTITUTE FOR A SINGABLE LINE. I picked
+  four topologies first and asked whether they could carry a tune second. Next
+  cook: BUILD THE LINE FIRST, then find the voice that can hold it. The variety
+  law asks for new topologies, not for topologies that cannot sing.
+  (Labelled INFERENCE. He gave no kill reasons and none were invented for him.)
+
+SONG-DEAD-NOT-VOICES HELD: ossuary and dyingfilament stay in the rack, legal for
+new fashions. Neither has had a second one, and both are genuinely useful as
+TEXTURE or accent voices even though they failed as leads.
+
+BAKED THIS TURN, verified on a FRESH DEVICE with zero localStorage: 3 downs at 0
+in CANON_DEFAULTS (excluded from every pool), 2 canon at 2, his 38 CATEGORY
+assignments into CAT_DEFAULTS.
+  AND A BUG FIXED: his HERO BEAT ruling had NOWHERE TO LIVE BUT LOCALSTORAGE.
+  MUS.load() read d.hero and there was no baked table, unlike CANON_DEFAULTS and
+  CAT_DEFAULTS which exist for exactly that reason. A cleared cache or a second
+  device threw the ruling away silently. HERO_DEFAULTS now exists and the save
+  only overrides it. Same class as the SFX judge-surface bug on 8/1: HIS
+  VERDICTS ARE A REPO FILE, NOT A COOKIE. Confirmed: CAMPFIRE CONFESSION#1 still
+  reads beat 4 on a device that has never saved anything.
+
+SONG LOCK re-locked ON PURPOSE twice today, both documented in the lock note:
+adding songs, then baking verdicts. Song BODIES untouched both times -- proven
+by diffing every entry (130 -> 134, four added, none removed, zero edited).
+
+BUILD STAMP: 8/2ai - YOUR VERDICTS ARE BAKED (MUSIC TAB).
+NEXT: three dead slots want fresh cooks, LINE FIRST. Not started -- he did not
+ask for another batch and STOP PRODUCING says do not answer a verdict with
+unrequested volume.
+
 MUSIC (xk7pjp): 8/2 — BATCH 21. FOUR SONGS, FOUR NEWBORN TOPOLOGIES.
 
 He fired the cook spell verbatim. Horror FFX, melodic under dread, new voices,

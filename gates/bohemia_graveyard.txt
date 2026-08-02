@@ -566,3 +566,40 @@ NO V2. No second Rogue Fable page and no reframed salvage of this one.
 LOW FADE        | hair | 8/1/26 | density-skip fade. Holes, not hair. Replaced by the skin-TINT mechanism.
 HIGH FADE       | hair | 8/1/26 | same defect: the taper dissolved the silhouette instead of colouring it.
 FADED CROP      | hair | 8/1/26 | same defect.
+
+================================================================================
+2026-08-02  MUSIC BATCH 21 VERDICT — THREE SONGS DOWN
+================================================================================
+n:'THE HOUSE ALWAYS REMEMBERS'   | 8/2/26 | DOWN as a SONG (batch 21). GRAVEYARD
+  FINAL. Its lead OSSUARY LIVES (song-dead-not-voices, 7/20): the voice is a
+  newborn topology -- a noise burst through four parallel bandpasses at the
+  free-free bar ratios, pitch living in the filters with no oscillator at all --
+  and it has never had a second fashion. Do not re-add the song.
+n:'THE LAST LIGHT ON THE STRIP'  | 8/2/26 | DOWN as a SONG (batch 21). GRAVEYARD
+  FINAL. Its lead DYINGFILAMENT LIVES: a tremolo whose RATE is enveloped to a
+  stop, which is a mechanism nothing else in the rack uses. Do not re-add the
+  song.
+n:'WHAT THE PIT BOSS BURIED'     | 8/2/26 | DOWN as a SONG (batch 19, judged in
+  the 8/2 sitting). GRAVEYARD FINAL. Its scrapchime voice LIVES and has now
+  outlived two songs. Do not re-add the song.
+
+SURVIVED THE SAME BATCH: NOBODY CASHES OUT (lead lastrites, the undertone stack
+built downward) and TITHE FOR THE EMPTY PEWS (lead tithebell, odd partials dying
+six times faster than even so the timbre moves with nothing modulating it). Both
+CANON.
+
+POST-MORTEM — AND IT IS LABELLED AS INFERENCE, because he gave no kill reasons
+this time and none are being invented on his behalf. What I can OBSERVE is that
+the two survivors both hold a pitch you can follow and resolve, while both
+casualties are built on instability: OSSUARY has no oscillator, so it has no
+steady pitch to sing, and DYINGFILAMENT's whole idea is a flutter slowing to a
+stop, which is motion rather than melody. The music canon's oldest kill reason
+is "the melody must LEAD under the dread; pure texture reads as unfinished"
+(records/BOHEMIA_MUSIC_GRAVEYARD_7_18_26.txt). A topology that cannot hold a
+line is a texture engine wearing a lead's job, however new it is.
+  THE RULE THIS BATCH BOUGHT, for whoever cooks next: novelty of MECHANISM is
+  not a substitute for a SINGABLE LINE. Both dead leads were the two most
+  structurally novel things in the batch and that is exactly why they failed --
+  I picked mechanisms first and asked whether they could carry a tune second.
+  Build the line first, then find the voice that can hold it.
+NO REMAKES. Fresh cooks answer the slots.
