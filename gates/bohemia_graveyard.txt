@@ -604,6 +604,52 @@ line is a texture engine wearing a lead's job, however new it is.
   Build the line first, then find the voice that can hold it.
 NO REMAKES. Fresh cooks answer the slots.
 
+================================================================================
+2026-08-02  MUSIC BATCH 22 VERDICT — TWO SONGS DOWN, ONE HE ACTUALLY LIKED
+================================================================================
+n:'A BELL FOR NOBODYS SHIFT'     | 8/2/26 | DOWN as a SONG (batch 22). GRAVEYARD
+  FINAL. Its lead SALTPSALM LIVES (song-dead-not-voices, 7/20): the voice is a
+  newborn topology -- two detuned voices that open a fifth apart and GLIDE into
+  unison inside a single note, so the interval resolves while it sounds -- and
+  it has never had a second fashion. Do not re-add the song.
+n:'COUNTING WHAT IS LEFT'        | 8/2/26 | DOWN as a SONG (batch 22). GRAVEYARD
+  FINAL. Its lead TOLLHOUSE LIVES: ring modulation at a fixed HZ offset instead
+  of a ratio, so the same rule makes low notes beat slowly and high notes go
+  clangorous. Never had a second fashion either. Do not re-add the song.
+
+SURVIVED, AND HE SAID SO OUT LOUD — the first stated positive ruling on a cooked
+song in this entire session, recorded VERBATIM because a compliment is a target
+and every other verdict has been a silent thumb:
+
+  "The marker on the door at full intensity is now one of my new favorite songs
+   that you've made great job"
+
+THE MARKER ON THE DOOR is CANON, category OVERWORLD DAY. Lead BROKENROSARY:
+rhythm INSIDE one note -- a single pitch re-struck within its own duration, the
+gaps stretching by 1.35x each time, every strike quieter and duller through a
+descending lowpass. He named the intensity too: FULL.
+
+POST-MORTEM, LABELLED AS INFERENCE because he gave no kill reasons and none are
+being invented on his behalf. Across batches 21 and 22 the score is now three
+survivors (lastrites, tithebell, brokenrosary) against four casualties (ossuary,
+dyingfilament, saltpsalm, tollhouse), and the split lines up with ONE observable
+property: every survivor ARTICULATES a clear, stable pitch you can follow, and
+every casualty is built on instability -- no oscillator at all, a flutter slowing
+to a stop, an interval sliding, a sideband that moves with register. That is the
+music canon's oldest kill reason restated: "the melody must LEAD under the dread;
+pure texture reads as unfinished" (records/BOHEMIA_MUSIC_GRAVEYARD_7_18_26.txt).
+  BUT IT IS ONLY A READING, AND THIS FILE ALREADY HOLDS ONE THEORY THAT DIED. On
+  8/2 I claimed the batch-21 casualties failed because their scales contained
+  adjacent semitones; a survivor and a casualty turned out to share the same
+  count and the canon corpus averages 1.19, so the rule was thrown away rather
+  than shipped. The pitch-stability reading has more behind it (7 data points and
+  a 7/18 precedent instead of 4 and a hunch) but it is still a correlation on
+  seven songs. Whoever cooks next should treat it as the working hypothesis, not
+  as law, and should say in their tool docstring which one they built on.
+  WHAT IS NOT A HYPOTHESIS: brokenrosary at full intensity is a thing he likes.
+  That is data he handed over directly. Start there.
+NO REMAKES. Fresh cooks answer the slots.
+
 # ---- THE 7/14 SUBURB BORDER WALLS, Paolo's verdict 8/2/26. ALL 13 KILLED. -----
 # *** DELIBERATELY NOT REGISTERED AS TOKENS ABOVE, AND THAT IS NOT AN OVERSIGHT. ***
 # The kill is real and it is recorded in records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt.

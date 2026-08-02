@@ -172,9 +172,15 @@ VOICES = V_BEGIN + r"""
 """ + V_END + "\n"
 
 SONGS = [
- "{n:'A BELL FOR NOBODYS SHIFT',acc:'#7d8a6f',root:41,scale:[0,2,5,7,10],wave:'triangle',kick:[0,6],bass:[0,6],hat:[4,12],inst:{b:'choirbass',l:'saltpsalm'},am:'gravechoir',kit:{k:'thud',h:'wood'},mel:'call',swing:0,feel:'half',klay:'melody',ff:true,bt:22}",
+ # BATCH 22 WAS JUDGED THE SAME DAY IT SHIPPED, AND TWO OF THREE WENT DOWN.
+ # Their literals are DELETED from this tool, not commented out: a commented
+ # `{n:'DEAD NAME'` is still a live reference to the graveyard gate, and a tool
+ # that can still emit a buried song is a remake waiting for a re-run.
+ # BURIED 8/2/26: A BELL FOR NOBODY'S SHIFT (lead saltpsalm) and COUNTING WHAT
+ # IS LEFT (lead tollhouse). Both LEADS live on (song-dead-not-voices, 7/20) and
+ # are still injected by the VOICES block above -- only the SONGS are gone.
+ # Re-running this tool now re-injects the three voices and the ONE survivor.
  "{n:'THE MARKER ON THE DOOR',acc:'#a06a5a',root:48,scale:[0,2,4,7,9],wave:'sawtooth',kick:[0,4,8,11],bass:[0,4,9,12],hat:[2,6,10,14],inst:{b:'abyssbass',l:'brokenrosary'},am:'nightpad',kit:{k:'knock',h:'tight'},mel:'longs',swing:0.1,feel:'normal',klay:'melody',ff:true,bt:22}",
- "{n:'COUNTING WHAT IS LEFT',acc:'#b09a58',root:55,scale:[0,3,7,10],wave:'square',kick:[0,3,8,12],bass:[0,3,7,10],hat:[2,6,10,14],inst:{b:'reservoirbass',l:'tollhouse'},am:'ashchoir',kit:{k:'punchk',h:'clickh'},mel:'seed8',swing:0.2,feel:'drive',klay:'stabs',ff:true,bt:22}",
 ]
 NEW_NAMES = [s.split("'")[1] for s in SONGS]
 

@@ -1,6 +1,6 @@
 {
   "law": "laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md",
-  "note": "Paolo 7/26: \"I don't want you touching the actual songs themselves.\" If a hash below moves, the build fails until someone updates this file ON PURPOSE and says why. Updating it is allowed (the music lane cooks new songs); doing it silently is not.",
+  "note": "Paolo 7/26: \"I don't want you touching the actual songs themselves.\" If a hash below moves, the build fails until someone updates this file ON PURPOSE and says why. Updating it is allowed (the music lane cooks new songs); doing it silently is not. RE-LOCKED 8/2/26 (batch 22 verdict): MLOOPS moved because he judged batch 22 and two of the three songs went DOWN -- A BELL FOR NOBODY'S SHIFT and COUNTING WHAT IS LEFT were removed from the working list per GRAVEYARD IS FINAL, and THE MARKER ON THE DOOR stayed as CANON. Songs left, none were altered. His words on the survivor: \"The marker on the door at full intensity is now one of my new favorite songs that you've made great job\"",
   "bodies": {
     "OVERWORLD_SONGS": {
       "md5": "e68552af654b3beb5272c220167a2bec",
@@ -28,8 +28,8 @@
       "what": "how each song intensifies in its own way (drive/stabs/melody/drums/bassrise)"
     },
     "MLOOPS": {
-      "md5": "9861de5c00c4d7568d9236855ac0ec13",
-      "bytes": 33242,
+      "md5": "868ff6c85c1d5a4965c905a82d4d5fec",
+      "bytes": 32711,
       "what": "his 46 approved vibe songs"
     },
     "MFACTIONS": {
