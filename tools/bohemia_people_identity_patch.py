@@ -435,10 +435,10 @@ B_SIM = """    /* PEOPLE:WORKERS */
        rateFor hands the run's own zone-map occupancy into the neighbours it
        re-derives, or the person at work would be a different person from the one
        at home.
-       THIS FENCE STOPS AT `var _agents`, deliberately: another lane's RUN PERSON
-       FACTS block anchors immediately after that line, and a fence that spanned
-       it would delete their code on every re-run. The rest of this change is the
-       PEOPLE:JOIN block, below theirs. */
+       THIS FENCE ENDS BEFORE the other lane's RUN PERSON FACTS block, which
+       anchors immediately below it: a fence that spanned their code would delete
+       it on every re-run, and on 8/1 it did exactly that. Everything this lane
+       adds to buildSim is inside these markers now. */
     var _rateFor = function(cx,cy){
       if(HOME_CELL && cx===HOME_CELL[0] && cy===HOME_CELL[1]){
         var f=6/Math.max(1,feet.length); var r=_zoneRate(cx,cy);
@@ -456,27 +456,41 @@ B_SIM = """    /* PEOPLE:WORKERS */
        every other caller. */
     var _opts = (_rate!=null) ? {occupiedRate:_rate} : {};
     if(_here) _opts.households = 4;
+    _opts.cell = [CELL[0], CELL[1]];   /* so a REPAIRED district fills up */
     var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf, _opts);
-    /* /PEOPLE:WORKERS */
-"""
-
-# ---------------------------------------------------------------------------
-# 8b. THE JOIN, which lands AFTER the other lane's RUN PERSON FACTS section so
-#     neither fence ever spans the other's code.
-# ---------------------------------------------------------------------------
-A_JOIN = """    SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
-"""
-B_JOIN = """    /* PEOPLE:JOIN */
     /* a cell nobody LIVES on gets no households at all - the census has always
        said so and the generator used to disagree with it on 52 of 58 cells */
     if(WORLD && !BohemiaAgents.RESIDENTIAL[(WORLD.at(CELL[0],CELL[1])||{}).district]) _agents=[];
+    /* THE WORKERS JOIN HERE, BEFORE the person-facts pass below, and the ordering
+       is the fix rather than a preference. Paolo 7/29: editing people means adding
+       a rule, and the rule has to REACH them. A visitor added after that pass has
+       no person record, so no bulk edit can ever touch them - they would be the
+       one set of bodies on the surface immune to his own mass-edit law. */
     if(WORLD){ try{
       _agents = _agents.concat(
         BohemiaAgents.workersForPlot(WORLD, CELL[0], CELL[1], 3, {rateFor:_rateFor}));
     }catch(_e){} }
-    SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
-    /* /PEOPLE:JOIN */
+    /* /PEOPLE:WORKERS */
 """
+
+# ---------------------------------------------------------------------------
+# 8b. THE JOIN — DEAD, AND THIS BLOCK EXISTS ONLY TO STRIP ITS CORPSE.
+#     Until 8/2 the workers were concatenated HERE, after the other lane's RUN
+#     PERSON FACTS section, which is exactly what put them outside every mass
+#     edit. The concat moved up into PEOPLE:WORKERS. But a fence the tool stops
+#     emitting is NOT a fence that goes away: the text stays applied in the file
+#     forever, so for one commit the clamp and the concat both ran TWICE — every
+#     worker on the block was duplicated, and on a non-residential cell the
+#     second clamp threw away the very bodies that had just been given person
+#     records. A block is only really deleted when the tool still knows how to
+#     undo it. So: anchor and insert are the SAME line, the patch is a no-op, and
+#     the only work this row does is restore() eating the legacy fence.
+#     (One-time migration ran with --allow JOIN; on a file that never had the
+#     fence, restore matches nothing and this row costs nothing.)
+# ---------------------------------------------------------------------------
+A_JOIN = """    SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
+"""
+B_JOIN = A_JOIN
 A_RATE = """    var _rate = null;
 """
 B_RATE = """    /* PEOPLE:RATEFN */
@@ -504,7 +518,7 @@ BLOCKS = [
     ('LOOK',    A_LOOK,    B_LOOK,              A_LOOK,    'body look'),
     ('RATEFN',  A_RATE,    B_RATE,              '',        'zone rate fn'),
     ('WORKERS', A_SIM,     B_SIM,               A_SIM,     'workers at their sites'),
-    ('JOIN',    A_JOIN,    B_JOIN,              A_JOIN,    'workers join the sim'),
+    ('JOIN',    A_JOIN,    B_JOIN,              A_JOIN,    'legacy join (strip only)'),
     ('DBG',     A_DBG,     B_DBG,               '',        'debug surface'),
 ]
 

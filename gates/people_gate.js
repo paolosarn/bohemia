@@ -632,6 +632,24 @@ async function partD() {
     ok('D9 and some of them are out in it right now (' +
       (atWork ? atWork.people.filter(p => p.outside).length : 0) + ')',
       !!atWork && atWork.people.some(p => p.outside));
+    /* D11a/D11b: THE MASS-EDIT LAW, CHECKED WHERE IT BROKE. Paolo 7/29: editing
+       the people means adding a rule, and the rule reaches everybody. A body with
+       no person record is a body no rule can touch, and for one commit on 8/2
+       the workers were concatenated TWICE - once before the person-facts pass and
+       once after - so the block carried more bodies than records and every worker
+       was standing next to a copy of himself. The old check only ever looked at
+       the cell the game opens on, which is residential and has no commuters, so
+       it could not see any of it. This looks on the CLINIC. */
+    const bal = await page.evaluate(() => ({
+      bodies: window.__RUN_PEOPLE.count(),
+      recs: (window.__RUN_PEOPLE.facts() || []).length,
+      ids: new Set(window.__RUN.people().people.map(p => p.key)).size,
+    }));
+    ok('D11a ONE PERSON RECORD PER BODY AT THE WORKPLACE (' + bal.recs + '/' +
+      bal.bodies + ') — nobody at work is outside a mass edit',
+      bal.recs === bal.bodies);
+    ok('D11b and nobody is standing next to a copy of himself (' + bal.ids +
+      ' identities, ' + bal.bodies + ' bodies)', bal.ids === bal.bodies);
     const workKeys = atWork.people.map(p => p.key);
     await page.evaluate(c => window.__RUN.gotoCell(c[0], c[1]), homeCell.at);
     const atHome = await page.evaluate(() => window.__RUN.people());
@@ -763,21 +781,35 @@ function partF() {
     const re = new RegExp('/\\*\\s*PEOPLE:' + n + '\\s*\\*/[\\s\\S]*?/\\*\\s*/PEOPLE:' + n + '\\s*\\*/');
     const m = re.exec(slice);
     if (!m) continue;
-    /* another lane's code fences itself with a ==== banner. One inside our
-       region means the region is not ours to delete. */
-    if (/\/\* ==== (?!\/?RUN PERSON FACTS)/.test(m[0]) ||
-        (/RUN PERSON FACTS/.test(m[0]))) spanning.push(n + ' (' + m[0].split('\n').length + ' lines)');
+    /* another lane's code fences itself with a ==== banner, and calls its own
+       module. Either one inside our region means the region is not ours to
+       delete. IT MUST BE A USE, NOT A MENTION (8/1 law): this used to flag the
+       bare words "RUN PERSON FACTS", so writing a COMMENT that said where their
+       block starts turned the gate red while nothing was wrong. A checker that
+       cannot tell a mention from a use is the broken one, so it looks for the
+       banner syntax and the actual call. */
+    if (/\/\* ==== /.test(m[0]) || /BohemiaPopulation\.conditionAgents/.test(m[0]))
+      spanning.push(n + ' (' + m[0].split('\n').length + ' lines)');
   }
   ok('F4 NO FENCE SPANS ANOTHER LANE\'S BLOCK' +
     (spanning.length ? ': ' + spanning.join(', ') : ''), spanning.length === 0);
 
-  /* F5: the specific shape that was wrong. WORKERS has to stop before their
-     block and JOIN has to pick up after it, or the two fences merge again. */
+  /* F5: the shape that was wrong, TWICE, in opposite directions.
+     First the WORKERS fence swallowed their block. The fix was a second fence,
+     PEOPLE:JOIN, below theirs - and that put the worker concat AFTER the
+     person-facts pass, which is what made workers immune to mass edits. Moving
+     the concat back up killed JOIN, and the corpse of that fence stayed applied
+     in the file, so for one commit the concat ran twice.
+     So the invariant is now stated as what it actually is: this lane touches
+     buildSim in EXACTLY ONE place, that place closes before their banner, and
+     the dead fence is not lurking in the file. */
   const wi = slice.indexOf('/* /PEOPLE:WORKERS */');
   const fi = slice.indexOf('/* ==== RUN PERSON FACTS');
-  const ji = slice.indexOf('/* PEOPLE:JOIN */');
-  ok('F5 WORKERS closes before their block and JOIN opens after it',
-    wi > 0 && fi > wi && ji > fi);
+  const joins = (slice.match(/BohemiaAgents\.workersForPlot\(WORLD, CELL\[0\], CELL\[1\]/g) || []).length;
+  ok('F5 the workers join the block EXACTLY ONCE (' + joins +
+    '), before the person-facts pass, and the dead JOIN fence is gone',
+    wi > 0 && fi > wi && joins === 1 && slice.indexOf('/* PEOPLE:JOIN */') < 0 &&
+    slice.indexOf('BohemiaAgents.workersForPlot(WORLD, CELL[0], CELL[1]') < fi);
   ok('F6 their conditioning code is still in the file', /BohemiaPopulation.conditionAgents/.test(slice));
 }
 
@@ -941,6 +973,65 @@ function partI() {
     /WATER IS MISSING FROM HIS LIST/.test(fs.readFileSync(law, 'utf8')));
 }
 
+/* ==========================================================================
+   PART J — A WORKER AT A JOB SITE IS INSIDE THE MASS EDIT.
+   Paolo 7/29, LOCKED: editing the people means ADDING A RULE, and the rule has
+   to REACH them. This lane introduced commuting workers on 8/1 and they were the
+   one set of bodies on the surface immune to that law: added to the sim AFTER
+   the person-facts pass, so they had no person record and no rule could touch
+   them. They also took their character from the cell they were STANDING on, so
+   the same person had one personality at the clinic and another in their own
+   yard.
+   ========================================================================== */
+function partJ() {
+  console.log('J. A WORKER AT A JOB SITE IS STILL ONE OF THE PEOPLE');
+  const POP = require(path.join(ROOT, 'engine/bohemia_population.js'));
+  const W2 = require(path.join(ROOT, 'engine/bohemia_world.js'));
+  global.window = global; global.BohemiaPopulation = POP;
+  const world = (global.BohemiaWorld || W2).world(7);
+  POP.clearCellDials(); POP.setDial(1);
+
+  let at = null, wk = [];
+  for (let y = 0; y < 48 && !at; y++) for (let x = 0; x < 48; x++) {
+    const k = A.workersForPlot(world, x, y);
+    if (k.length) { at = [x, y]; wk = k; break; }
+  }
+  ok('J1 somebody in the valley commutes to work', !!at && wk.length > 0);
+  if (!at) return;
+
+  ok('J2 a visitor carries where they live AND their seat in that block\'s roster',
+    wk.every(v => Array.isArray(v.fromCell) && v.homeIndex != null));
+
+  /* J3: EVERY body on the cell gets a person record, visitors included. A body
+     with no record is a body no rule can reach. */
+  const residents = A.agentsForPlot(world, at[0], at[1]);
+  const all = residents.concat(wk);
+  const recs = POP.peopleForAgents(all, at[0], at[1], 7, 'spread');
+  ok('J3 ONE PERSON RECORD PER BODY, workers included (' + recs.length + '/' + all.length + ')',
+    recs.length === all.length);
+
+  /* J4: and the record is the one they have at HOME, not one invented here. */
+  const v = wk[0];
+  const homeRoster = A.agentsForPlot(world, v.fromCell[0], v.fromCell[1]);
+  const homeRecs = POP.peopleForAgents(homeRoster, v.fromCell[0], v.fromCell[1], 7, 'spread');
+  const mine = recs[residents.length];
+  ok('J4 THE SAME PERSON AT WORK AND AT HOME — same character, not two people',
+    JSON.stringify(mine) === JSON.stringify(homeRecs[v.homeIndex]));
+
+  /* J5: the whole point of the law. A rule added in bulk must land on them. */
+  const before = JSON.stringify(POP.peopleForAgents(all, at[0], at[1], 7, 'spread')[residents.length]);
+  const vBefore = POP.rulesVersion();
+  POP.addRule({ name: 'gate-probe', where: function () { return true; },
+                set: { heatTol: 0.123456 } });
+  const after = POP.peopleForAgents(all, at[0], at[1], 7, 'spread')[residents.length];
+  ok('J5 A BULK EDIT REACHES THE WORKER AT THE JOB SITE', after.heatTol === 0.123456);
+  ok('J6 and the rules version moved, so cached surfaces know to re-derive',
+    POP.rulesVersion() !== vBefore);
+  POP.clearRules();
+  ok('J7 removing the rule puts them back exactly',
+    JSON.stringify(POP.peopleForAgents(all, at[0], at[1], 7, 'spread')[residents.length]) === before);
+}
+
 (async () => {
   console.log('PEOPLE GATE — the bodies on the block are people');
   partA();
@@ -952,6 +1043,7 @@ function partI() {
   partG();
   await partH();
   partI();
+  partJ();
   console.log((fail ? 'FAILED' : 'OK') + ': ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.log('  FAIL: gate threw — ' + (e && e.stack || e)); process.exit(1); });

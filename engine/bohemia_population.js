@@ -619,7 +619,23 @@
   function peopleForAgents(agents, tx, ty, seed, zone) {
     var out = [];
     for (var i = 0; i < (agents ? agents.length : 0); i++) {
-      out.push(applyRules(personFields(tx, ty, i, seed, zone || 'spread', [tx, ty], 'run')));
+      var a = agents[i];
+      /* A VISITOR IS CONDITIONED BY WHERE THEY LIVE, NOT WHERE THEY STAND.
+         Workers who commute in from a neighbouring block are on this cell's
+         roster (they are standing here) but their character comes from (cell,
+         index) - so deriving them from THIS cell would give the same person one
+         personality at the clinic and a different one in their own yard, which
+         is the same class of bug as keying their identity to the wrong cell.
+         Their home cell and their index in their home roster travel with them.
+         AND THIS IS WHAT PUTS THEM INSIDE MASS EDITS (Paolo 7/29): a visitor with
+         no person record is a body no rule can reach, and "editing people means
+         adding a rule" has to mean every body on the surface. */
+      if (a && a.visiting && a.fromCell && a.homeIndex != null) {
+        out.push(applyRules(personFields(a.fromCell[0], a.fromCell[1], a.homeIndex,
+                                         seed, zone || 'spread', a.fromCell, 'run')));
+      } else {
+        out.push(applyRules(personFields(tx, ty, i, seed, zone || 'spread', [tx, ty], 'run')));
+      }
     }
     return out;
   }

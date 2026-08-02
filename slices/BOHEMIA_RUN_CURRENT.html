@@ -12474,7 +12474,23 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   function peopleForAgents(agents, tx, ty, seed, zone) {
     var out = [];
     for (var i = 0; i < (agents ? agents.length : 0); i++) {
-      out.push(applyRules(personFields(tx, ty, i, seed, zone || 'spread', [tx, ty], 'run')));
+      var a = agents[i];
+      /* A VISITOR IS CONDITIONED BY WHERE THEY LIVE, NOT WHERE THEY STAND.
+         Workers who commute in from a neighbouring block are on this cell's
+         roster (they are standing here) but their character comes from (cell,
+         index) - so deriving them from THIS cell would give the same person one
+         personality at the clinic and a different one in their own yard, which
+         is the same class of bug as keying their identity to the wrong cell.
+         Their home cell and their index in their home roster travel with them.
+         AND THIS IS WHAT PUTS THEM INSIDE MASS EDITS (Paolo 7/29): a visitor with
+         no person record is a body no rule can reach, and "editing people means
+         adding a rule" has to mean every body on the surface. */
+      if (a && a.visiting && a.fromCell && a.homeIndex != null) {
+        out.push(applyRules(personFields(a.fromCell[0], a.fromCell[1], a.homeIndex,
+                                         seed, zone || 'spread', a.fromCell, 'run')));
+      } else {
+        out.push(applyRules(personFields(tx, ty, i, seed, zone || 'spread', [tx, ty], 'run')));
+      }
     }
     return out;
   }
@@ -13895,6 +13911,11 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
              present while their shift says 'work', away the rest of the day. */
           var v={}; for(var kk in a) v[kk]=a[kk];
           v.visiting=true; v.fromCell=[hx,hy];
+          /* WHERE THEY SIT IN THEIR OWN BLOCK'S ROSTER. bohemia_population derives
+             a person's character from (cell, index), so a visitor conditioned off
+             the cell they are STANDING on would have one personality at work and a
+             different one at home. Their home index travels with them. */
+          v.homeIndex=i;
           out.push(v);
         }
       }
@@ -18010,10 +18031,10 @@ function buildSim(warm){
        rateFor hands the run's own zone-map occupancy into the neighbours it
        re-derives, or the person at work would be a different person from the one
        at home.
-       THIS FENCE STOPS AT `var _agents`, deliberately: another lane's RUN PERSON
-       FACTS block anchors immediately after that line, and a fence that spanned
-       it would delete their code on every re-run. The rest of this change is the
-       PEOPLE:JOIN block, below theirs. */
+       THIS FENCE ENDS BEFORE the other lane's RUN PERSON FACTS block, which
+       anchors immediately below it: a fence that spanned their code would delete
+       it on every re-run, and on 8/1 it did exactly that. Everything this lane
+       adds to buildSim is inside these markers now. */
     var _rateFor = function(cx,cy){
       if(HOME_CELL && cx===HOME_CELL[0] && cy===HOME_CELL[1]){
         var f=6/Math.max(1,feet.length); var r=_zoneRate(cx,cy);
@@ -18031,7 +18052,20 @@ function buildSim(warm){
        every other caller. */
     var _opts = (_rate!=null) ? {occupiedRate:_rate} : {};
     if(_here) _opts.households = 4;
+    _opts.cell = [CELL[0], CELL[1]];   /* so a REPAIRED district fills up */
     var _agents = BohemiaAgents.agentsForBlock(seed, feet, [], fpOf, _opts);
+    /* a cell nobody LIVES on gets no households at all - the census has always
+       said so and the generator used to disagree with it on 52 of 58 cells */
+    if(WORLD && !BohemiaAgents.RESIDENTIAL[(WORLD.at(CELL[0],CELL[1])||{}).district]) _agents=[];
+    /* THE WORKERS JOIN HERE, BEFORE the person-facts pass below, and the ordering
+       is the fix rather than a preference. Paolo 7/29: editing people means adding
+       a rule, and the rule has to REACH them. A visitor added after that pass has
+       no person record, so no bulk edit can ever touch them - they would be the
+       one set of bodies on the surface immune to his own mass-edit law. */
+    if(WORLD){ try{
+      _agents = _agents.concat(
+        BohemiaAgents.workersForPlot(WORLD, CELL[0], CELL[1], 3, {rateFor:_rateFor}));
+    }catch(_e){} }
     /* /PEOPLE:WORKERS */
 /* ==== RUN PERSON FACTS (7/31) ==== */
     /* WHO THEY ARE, not just how many. The zone map above answers HOW MANY
@@ -18062,16 +18096,7 @@ function buildSim(warm){
       RUN_RULES_V = BohemiaPopulation.rulesVersion();
     } }catch(_ep){ RUN_PEOPLE=null; }
 /* ==== /RUN PERSON FACTS ==== */
-    /* PEOPLE:JOIN */
-    /* a cell nobody LIVES on gets no households at all - the census has always
-       said so and the generator used to disagree with it on 52 of 58 cells */
-    if(WORLD && !BohemiaAgents.RESIDENTIAL[(WORLD.at(CELL[0],CELL[1])||{}).district]) _agents=[];
-    if(WORLD){ try{
-      _agents = _agents.concat(
-        BohemiaAgents.workersForPlot(WORLD, CELL[0], CELL[1], 3, {rateFor:_rateFor}));
-    }catch(_e){} }
     SIM = BohemiaAgents.makeSim({ g:G, W:T, H:T }, feet, _agents,
-    /* /PEOPLE:JOIN */
       { fpOf:fpOf, doorOf:doorOf, startTurn:0 });
     SIM.playerAt = [px,py];
     for(var i=0;i<(warm||0);i++) SIM.step();

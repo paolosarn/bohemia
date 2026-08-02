@@ -452,6 +452,11 @@
              present while their shift says 'work', away the rest of the day. */
           var v={}; for(var kk in a) v[kk]=a[kk];
           v.visiting=true; v.fromCell=[hx,hy];
+          /* WHERE THEY SIT IN THEIR OWN BLOCK'S ROSTER. bohemia_population derives
+             a person's character from (cell, index), so a visitor conditioned off
+             the cell they are STANDING on would have one personality at work and a
+             different one at home. Their home index travels with them. */
+          v.homeIndex=i;
           out.push(v);
         }
       }
