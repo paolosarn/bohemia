@@ -5504,3 +5504,17 @@ render the small number of commuters the sim already had.
 
 --------------------------------------------------------------------------------
 
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 7/31 NIGHT — LORE SITTING, FOUR RULINGS (laws/BOHEMIA_
+ADDENDUM_LORE_SITTING_7_31_26.md): (1) CITY-BUILDER FEELS LIKE POCKET CITY 2,
+post-apocalyptic skin — the feel contract for the missing half is RULED; the
+loop (what taps cost, what the currencies buy, act tiers) continues in lore
+sittings. (2) MORE CORPSES/SKELETONS — the dead become world language at real
+density; WORLD files the tile forms (skeleton/mummified-husk props + decals;
+look mix [PENDING his one-word pick]); corpse-collection + DECAL mechanics
+already canon, reuse. (3) MARCO — first named-cast entry (neighbor + "king
+hobo"; "custom faction" garbled, confirm question with Paolo, build nothing
+past the name until answered). (4) THE MOB runs with the caravans — named
+contender for the guarantor seat; Mob-vs-Cartel relation [PENDING]. Canon
+index regenerated.
