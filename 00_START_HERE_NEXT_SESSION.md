@@ -2948,6 +2948,66 @@ LOOT IS CLOSED. Two loot emulations died in two days (Zomboid house, A Dark Room
 scavenge). No third one, by the STOP PRODUCING law. The graveyard gate keeps both
 pages from coming back.
 
+MAIN IS BADLY RED AND IT IS NOT THE SOUND LANE — SOMEBODY OWNS THIS.
+Seven gates fail on main. FIVE of them are a live regression in the PEOPLE
+system and I proved every one on a detached worktree at clean origin/main
+(c31a4bd) with ZERO sound work in the tree:
+  LIFE        21 pass / 3 fail  "0 agents simmed", "most homes are abandoned
+              shells (0 of 19 lived-in)"
+  POPULATION  5 pass / 3 fail   "die-off dial flows through the census
+              (full 33 >= default 0 > empty 0)", offline/online disagreement
+  MEMORY      7 pass / 2 fail   "0 sightings"
+  DEVIATION   fails
+  DRESS       42 pass / 1 fail
+Plus the two long-standing CHARACTER ones (PARTS PAINTED, BODY VARIATION).
+The shape of it: the offline census plane is producing ZERO people. The RUN's
+own SIM still makes agents (measured 6-7 outdoors this session), so it is the
+world-model/census path that broke, not the run. Whoever owns LIFE/POPULATION
+should take this first -- it is bigger than anything in my lane.
+
+SOUNDS (xk7pjp): 8/2 (d) LATEST — YOU CAN HEAR THE PEOPLE ON YOUR BLOCK.
+
+HIS STEER: "I'm not too concerned right now about the volume of fucking steps,
+bro. I just needed you to make sure you're coding that properly into any sort of
+menu volume slider." The slider hook is done and correct; stop polishing
+footstep levels and move.
+
+THE HOLE THIS CLOSES: every sound in the game happened AT the player. The valley
+has people walking around it and not one made a noise, so a full block read
+exactly like an empty one.
+
+RESEARCH: the horror/game-audio writing is blunt -- the player should hear
+something BEFORE seeing it, and from the sound alone know roughly where it is
+and how far. Distance: a point source follows the INVERSE law, amplitude ~1/r,
+about -6 dB per doubling, and inverse is the recommended default. Linear rolloff
+is for ambient zones and UI; used here it makes everything sound equally close
+until it abruptly is not. Pan is the crude correct tool for top-down 2D.
+
+BUILT: the run reports the NEAREST neighbour who moved within 7 tiles, at most
+one every 260ms (a crowd is not a machine gun). The parent plays HIS OWN
+approved footstep at that position: gain 1/(1+0.55r), pan from the x offset,
+hard cutoff below 0.06 because a sound too quiet to place is noise, not
+information. NO NEW SOUND WAS COOKED -- approval unlocks volume and this is
+volume.
+  IT ROUTES PAST THE PLAYER'S FOOTSTEP BUS ON PURPOSE. That bus is 0.12 because
+  HIS OWN steps fire constantly; a neighbour's is rare and is INFORMATION.
+  Stacking both made it 0.0095, which is a number, not a sound.
+  MEASURED: neighbour at 3 tiles = 0.102 on the SFX bus, at 30 tiles = silence,
+  kill = 0.598 for scale.
+  IT TOUCHES NO OTHER LANE'S CODE: the run already tracks agent positions in
+  updateFaces(), but reading its private state would couple this to their
+  internals, so this keeps its own last-seen map.
+
+GATE: SFX WIRED 246 checks, deterministic -- it stands ONE neighbour at a known
+distance and moves him one tile, rather than hoping the sim walks somebody past.
+  THE LESSON THAT COST ME A ROUND: my first distance check was "is the near peak
+  bigger than the far peak". Footstep candidates vary ~10% between picks, so
+  with attenuation DELETED ENTIRELY that check still passed 246/246. A
+  comparison is not a measurement. It now demands the RATIO the inverse law
+  predicts (<0.75) and the sabotage goes red at 85%.
+
+BUILD STAMP: 8/2w - YOU CAN HEAR THE PEOPLE NOW (RUN TAB).
+
 SOUNDS (xk7pjp): 8/2 (c) LATEST — I WAS WRONG ABOUT THE BYPASS, AND THE REAL BUG
 WAS WORSE. Read this before trusting any measurement taken on MUS.MAST.
 

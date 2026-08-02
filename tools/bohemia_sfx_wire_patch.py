@@ -246,9 +246,50 @@ def parent_block(bank):
          to start the audio while the browser may still count it as gestured. */
       if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
       if(d.type==='BOHEMIA_WHERE'){ AMB.where(d); return; }
+      if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
       if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
     }catch(e){}
   });
+
+  /* === SOMEBODY ELSE'S FOOTSTEP, PLACED IN SPACE (8/2) ==================
+     THE DISTANCE MODEL IS THE RESEARCHED ONE, not a guess: a point source
+     follows the inverse law, amplitude proportional to 1/r, dropping about 6 dB
+     every time the distance doubles, and inverse is the recommended default
+     when in doubt. So 1/(1+k*r), not a linear fade -- linear is for ambient
+     zones and UI, and it makes everything sound like it is the same distance
+     away until it abruptly is not.
+     PAN is the crude, correct tool for a top-down 2D game: left is left. It is
+     taken from the x offset only, because a top-down view has no front/back to
+     confuse and faking one with filters would be inventing information the
+     game does not have.
+     CUTOFF, not fade-to-nothing: below a hearable gain it plays NOTHING rather
+     than a sound too quiet to identify. A sound you cannot place is noise. */
+  function npcStep(d){
+    try{
+      var r=Math.max(0.5, +d.dist||0);
+      var g=1/(1+0.55*r);                    /* ~0.65 next to you, ~0.25 at 5 tiles */
+      if(g<0.06) return;                     /* too far to be information */
+      var pan=Math.max(-1,Math.min(1,(+d.dx||0)/6));
+      var ev='step_'+(({asphalt:'asphalt',dirt:'dirt',gravel:'gravel'})[d.surface]
+                      ||String(d.surface||'').replace('step_','')||'dirt');
+      if(!APPROVED[ev]) ev='step_dirt';
+      var i=pick(ev); if(i==null)return;
+      var v=vec(ev,i); if(!v)return;
+      if(typeof MUS==='undefined')return; MUS.audio(); if(!MUS.AC)return;
+      /* NOT through the player's footstep bus. That bus is at 0.12 because HIS
+         OWN steps fire constantly and would be fatiguing -- a neighbour's step
+         is rare and is INFORMATION, and stacking 0.12 on top of distance made
+         it 0.0095, which is a number, not a sound. Distance is the only thing
+         that should quieten this. */
+      var out=sfxBus(); if(!out)return;
+      var at=MUS.AC.createGain(); at.gain.value=g; at.connect(out);
+      /* the vector is HIS and is never edited -- a copy carries the position */
+      var w={}, k; for(k in v) w[k]=v[k];
+      w.pan=pan;
+      BOH_SFX.render(w,MUS.AC,at,null);
+      SFX_COUNT++;
+    }catch(e){}
+  }
 
   /* === THE WORLD TONE (8/1) ==============================================
      He approved all 15. It is one of the ambient noises: a rare sound so the
@@ -390,6 +431,49 @@ function sfxWhere(){
   }catch(_e){}
 }
 setInterval(sfxWhere, 4000);
+
+/* YOU CAN HEAR THE PEOPLE ON YOUR BLOCK (8/2) ============================
+   Every sound in this game happens AT the player. The valley has people walking
+   around it and not one of them makes a noise, so the block reads empty even
+   when it is full.
+   The horror writing is blunt about why this matters: the player should hear
+   something BEFORE seeing it, and from the sound alone know roughly where it is
+   and how far. That is the whole feature.
+   NO NEW SOUND IS COOKED. It is his own approved footsteps, played at somebody
+   else's position -- approval unlocks volume, and this is volume.
+   IT TOUCHES NOTHING THAT IS NOT MINE: the run's own updateFaces() already
+   tracks agent positions, but reading its private state would couple this to
+   another lane's internals, so this keeps its OWN last-seen map and compares
+   against that. */
+var NPCPOS={}, NPC_LAST=0;
+var NPC_RANGE=7;          /* tiles. past this a step is inaudible anyway */
+function npcSteps(){
+  try{
+    if(typeof SIM==='undefined' || !SIM) return;
+    if(mode!=='ext') return;              /* indoors you do not hear the street */
+    var outs=SIM.outAgents(), i, best=null, bestD=1e9;
+    for(i=0;i<outs.length;i++){
+      var a=outs[i], prev=NPCPOS[a.id];
+      var moved = prev && (prev[0]!==a.loc.x || prev[1]!==a.loc.y);
+      NPCPOS[a.id]=[a.loc.x,a.loc.y];
+      if(!moved) continue;
+      var dx=a.loc.x-px, dy=a.loc.y-py;
+      var d=Math.sqrt(dx*dx+dy*dy);
+      if(d>NPC_RANGE || d<0.5) continue;  /* d<0.5 would be the player himself */
+      if(d<bestD){ bestD=d; best={dx:dx,d:d,x:a.loc.x,y:a.loc.y}; }
+    }
+    if(!best) return;
+    /* A CROWD IS NOT A MACHINE GUN. One neighbour footfall at a time, the
+       nearest one, and never faster than a person actually walks. */
+    var now=Date.now();
+    if(now-NPC_LAST < 260) return;
+    NPC_LAST=now;
+    if(window.parent&&window.parent!==window)
+      window.parent.postMessage({type:'BOHEMIA_NPCSTEP',
+        surface:sfxGround(best.x,best.y), dx:best.dx, dist:best.d},'*');
+  }catch(_e){}
+}
+setInterval(npcSteps, 200);
 (function(){
   function gesture(){
     try{ if(window.parent&&window.parent!==window)

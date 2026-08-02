@@ -218,6 +218,34 @@ const METER=`(function(){
   out.mixKillMuted = await onBus('kill');
   await p.evaluate(()=>window.setSFXVolume(1));
 
+  /* ===== YOU CAN HEAR THE PEOPLE ON YOUR BLOCK (8/2) =====================
+     Deterministic on purpose. The sim walks people wherever it likes, so an
+     "did anyone happen to pass by" test is a coin flip that goes green by luck;
+     this stands ONE neighbour at a known distance and moves him one tile.
+     Measured on the SFX bus, so the song cannot pollute it. */
+  await fr.evaluate(()=>{ if(mode!=='ext'){ try{ leave(); if(typeof draw==='function') draw(); }catch(e){} } });
+  await p.waitForTimeout(500);
+  out.npcOutdoors = await fr.evaluate(()=>mode==='ext');
+  await p.evaluate(()=>{ window.__NPC=[];
+    window.addEventListener('message',function(e){ try{
+      if(e&&e.data&&e.data.type==='BOHEMIA_NPCSTEP')
+        window.__NPC.push({dx:e.data.dx,dist:e.data.dist}); }catch(_){}}); });
+  async function neighbourAt(off){
+    await p.evaluate(()=>{ window.__BPEAK=0; window.__NPC=[]; });
+    await fr.evaluate(async(o)=>{
+      var a=SIM.outAgents()[0]; if(!a) return;
+      a.loc.x=px+o; a.loc.y=py; await new Promise(r=>setTimeout(r,350));
+      a.loc.x=px+o+1; a.loc.y=py; await new Promise(r=>setTimeout(r,700));
+    }, off);
+    await p.waitForTimeout(1200);
+    return { peak: await p.evaluate(()=>window.__BPEAK),
+             msgs: await p.evaluate(()=>window.__NPC.length),
+             pan:  await p.evaluate(()=>window.__NPC.length?window.__NPC[0].dx:null) };
+  }
+  out.npcNear = await neighbourAt(3);
+  out.npcMid  = await neighbourAt(6);
+  out.npcFar  = await neighbourAt(30);
+
   out.errs=errs;
   console.log(JSON.stringify(out));
   await b.close();
@@ -484,6 +512,37 @@ def main():
         'would miss the most frequent sound in the game' % (d.get('mixStepMuted') or 0))
     chk((d.get('mixKillMuted') or 0) <= 0.001,
         'setSFXVolume(0) did NOT silence a kill (%.5f)' % (d.get('mixKillMuted') or 0))
+
+    # 7b-vii. THE BLOCK IS NOT EMPTY (8/2). His approved footsteps, played at
+    #         somebody else's position: distance sets the level, x sets the pan.
+    chk('BOHEMIA_NPCSTEP' in run, 'the run never reports a neighbour walking')
+    chk(d.get('npcOutdoors'), 'could not get the player outdoors, so this was untested')
+    near, mid, far = (d.get('npcNear') or {}), (d.get('npcMid') or {}), (d.get('npcFar') or {})
+    chk((near.get('msgs') or 0) > 0, 'a neighbour walked 3 tiles away and the run said nothing')
+    chk((near.get('peak') or 0) > 0.01,
+        'a neighbour 3 tiles away made no measurable sound (%.4f) -- the block is '
+        'still silent' % (near.get('peak') or 0))
+    chk((near.get('peak') or 0) < 0.5, 'a neighbour is as loud as the game (%.3f)'
+        % (near.get('peak') or 0))
+    chk((far.get('msgs') or 0) == 0 and (far.get('peak') or 0) <= 0.005,
+        'a neighbour THIRTY tiles away was audible (%.4f) -- the range cutoff is '
+        'not working, and a sound you cannot place is noise' % (far.get('peak') or 0))
+    # "is one bigger than the other" is NOT a distance test. Footstep candidates
+    # vary by ~10% peak between picks, so with attenuation removed entirely the
+    # louder one still wins half the time -- measured: that exact sabotage passed
+    # 246/246. Demand the RATIO the inverse law actually predicts. At 3 vs 6
+    # tiles, 1/(1+0.55r) gives 0.377 vs 0.233, so mid must land near 60% of near;
+    # 0.75 leaves room for candidate variance and still catches a flat mix.
+    if (near.get('peak') or 0) > 0 and (mid.get('peak') or 0) > 0:
+        ratio = mid['peak'] / near['peak']
+        chk(ratio < 0.75,
+            'DISTANCE DOES NOT ATTENUATE: 3 tiles %.4f vs 6 tiles %.4f (%.0f%%). The '
+            'inverse law is the whole point -- without it everything sounds equally '
+            'close and the block turns into a wall of feet.'
+            % (near['peak'], mid['peak'], 100 * ratio))
+    chk(near.get('pan') is not None and near.get('pan') > 0,
+        'the neighbour to the RIGHT did not report a positive x offset, so nothing '
+        'can pan him there')
 
     print('  %d passed, %d FAILED' % (P, F))
     if not F:

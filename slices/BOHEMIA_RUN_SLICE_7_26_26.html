@@ -1498,6 +1498,49 @@ function sfxWhere(){
   }catch(_e){}
 }
 setInterval(sfxWhere, 4000);
+
+/* YOU CAN HEAR THE PEOPLE ON YOUR BLOCK (8/2) ============================
+   Every sound in this game happens AT the player. The valley has people walking
+   around it and not one of them makes a noise, so the block reads empty even
+   when it is full.
+   The horror writing is blunt about why this matters: the player should hear
+   something BEFORE seeing it, and from the sound alone know roughly where it is
+   and how far. That is the whole feature.
+   NO NEW SOUND IS COOKED. It is his own approved footsteps, played at somebody
+   else's position -- approval unlocks volume, and this is volume.
+   IT TOUCHES NOTHING THAT IS NOT MINE: the run's own updateFaces() already
+   tracks agent positions, but reading its private state would couple this to
+   another lane's internals, so this keeps its OWN last-seen map and compares
+   against that. */
+var NPCPOS={}, NPC_LAST=0;
+var NPC_RANGE=7;          /* tiles. past this a step is inaudible anyway */
+function npcSteps(){
+  try{
+    if(typeof SIM==='undefined' || !SIM) return;
+    if(mode!=='ext') return;              /* indoors you do not hear the street */
+    var outs=SIM.outAgents(), i, best=null, bestD=1e9;
+    for(i=0;i<outs.length;i++){
+      var a=outs[i], prev=NPCPOS[a.id];
+      var moved = prev && (prev[0]!==a.loc.x || prev[1]!==a.loc.y);
+      NPCPOS[a.id]=[a.loc.x,a.loc.y];
+      if(!moved) continue;
+      var dx=a.loc.x-px, dy=a.loc.y-py;
+      var d=Math.sqrt(dx*dx+dy*dy);
+      if(d>NPC_RANGE || d<0.5) continue;  /* d<0.5 would be the player himself */
+      if(d<bestD){ bestD=d; best={dx:dx,d:d,x:a.loc.x,y:a.loc.y}; }
+    }
+    if(!best) return;
+    /* A CROWD IS NOT A MACHINE GUN. One neighbour footfall at a time, the
+       nearest one, and never faster than a person actually walks. */
+    var now=Date.now();
+    if(now-NPC_LAST < 260) return;
+    NPC_LAST=now;
+    if(window.parent&&window.parent!==window)
+      window.parent.postMessage({type:'BOHEMIA_NPCSTEP',
+        surface:sfxGround(best.x,best.y), dx:best.dx, dist:best.d},'*');
+  }catch(_e){}
+}
+setInterval(npcSteps, 200);
 (function(){
   function gesture(){
     try{ if(window.parent&&window.parent!==window)
