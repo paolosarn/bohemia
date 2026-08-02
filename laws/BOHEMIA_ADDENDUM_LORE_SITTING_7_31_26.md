@@ -46,18 +46,18 @@ Amalgamation can read. This ruling adds DENSITY and ART, not new mechanics.
 ROUTING: WORLD files the tile forms (skeleton/husk prop families + corpse
 decals, placement language per district story); ART cooks from the forms.
 
-## 3. MARCO (named character — FIRST of the named cast, partially garbled)
+## 3. MARCO (named character — name-only canon, everything else unresolved)
 His words (voice-to-text): "Marco the custom faction neighbor and king hobo."
-RECORDED AS CLEAR: MARCO is a NAMED CHARACTER — connected to being a
-NEIGHBOR, and "king hobo" (the Homeless faction is canon and holds the storm
-tunnels; a king of the hobos has a throne under the city already built).
-FLAGGED GARBLED, DO NOT BUILD ON IT: "the custom faction" — unresolved
-(his own faction? customs/tolls on the caravans? something else). One
-confirm question is with Paolo; nothing beyond the name + neighbor + king
-hobo reading enters canon until he answers.
-ROUTING: seeds the PEOPLE lane's named-cast tier (which was [PENDING] and
-now has its first entry). No dialogue, no look, no quests authored until
-the garble is resolved and he gives more.
+CORRECTED BY PAOLO SAME SITTING: "MARCO IS NOT THE KING OF HOBOS LMAO."
+The coordinator's first reading (neighbor + king of the Homeless) was WRONG
+and is dead. WHAT IS CANON: a named character called MARCO exists. That is
+the entire entry. Every other word of the original sentence ("custom
+faction", "neighbor", "king hobo") is unresolved garble that Paolo has not
+re-stated — nothing is built, drawn, or written about Marco until he says
+who Marco is in a message that survives transcription.
+ROUTING: seeds the PEOPLE lane's named-cast tier as NAME ONLY. The standing
+lesson re-proven: a garbled sentence is a question to ask, never a lore
+entry to complete.
 
 ## 4. THE MOB RUNS WITH THE CARAVANS (LOCKED as direction)
 His words: "I can see the mob a huge role with the caravans."

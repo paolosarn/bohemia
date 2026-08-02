@@ -5697,3 +5697,14 @@ hobo"; "custom faction" garbled, confirm question with Paolo, build nothing
 past the name until answered). (4) THE MOB runs with the caravans — named
 contender for the guarantor seat; Mob-vs-Cartel relation [PENDING]. Canon
 index regenerated.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 7/31 NIGHT (b) — MARCO CORRECTED + FACTIONS ORDERED. Paolo:
+"MARCO IS NOT THE KING OF HOBOS LMAO" — the lore-sitting addendum's Marco
+entry is corrected to NAME ONLY; every other word of that sentence is
+unresolved garble, ask never fill. AND his order: "WE NEED TO REALLY FLESH
+THE FACTIONS OUT FR MAKE ALL OF THEM AWESOME AND INTERESTING" — PEOPLE lane
+item 00: THE FACTION DOSSIERS, one per faction + the Mob's caravan role,
+district-theme-sheet pattern (researched proposals, one judge sheet, his
+thumbs decide). He opens it with the word "factions" (routes to the PEOPLE
+lane).

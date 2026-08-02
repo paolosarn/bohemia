@@ -3712,6 +3712,27 @@ P-A. [PAOLO RULED IT 7/31, FILED BY THE CITY LANE, NOT TOUCHED BY THEM]
        writes them.
    | filed by CITY 7/31 | law + gate landed same turn | PEOPLE lane's to build.
 
+00. THE FACTION DOSSIERS (Paolo direct order 7/31 lore sitting, recorded by
+   the coordinator: "WE NEED TO REALLY FLESH THE FACTIONS OUT FR MAKE ALL OF
+   THEM AWESOME AND INTERESTING" — this is the lane's TOP item now). ONE
+   DOSSIER PER FACTION (Remnants, Cartel, Network, Homeless, Karen
+   community, Amalgamation, + the Mob's caravan/guarantor role per lore
+   sitting ruling 4): identity in five words, real-world grounding (each
+   faction is a real social pattern — research it the way the district
+   hooks were researched), territory + base, what they trade/control, how
+   they dress (approved wardrobe only), how they talk (feeds the earned-
+   names/dialogue machine this lane already built), what they want from
+   the player, 3 quest hooks each, and the life lesson underneath — no
+   preaching. THE DISTRICT-THEME-SHEET PATTERN: PROPOSALS for his thumbs
+   on ONE side-by-side judge sheet, never canon until verdicted
+   (CONTENTS-PAOLO'S). Existing canon is the floor, never contradicted
+   (purple reservation, NETWORK eerily perfect, Homeless hold the storm
+   tunnels, LIGHT=TERRITORY, generic-faction-identity-until-asked).
+   MARCO: named-cast entry, NAME ONLY — Paolo's correction 7/31: "MARCO IS
+   NOT THE KING OF HOBOS LMAO"; the rest of his sentence is unresolved
+   garble. Ask, never fill. | one judge sheet, all factions side by side |
+   standing ledger (below) is the mechanism half, ships empty regardless |
+   yes (the dossiers ARE the judgeable).
 0. [MOSTLY ALREADY BUILT — verified 7/31, do NOT rebuild it] THE DIALOGUE
    SYSTEM v1. REUSE-FIRST found it: engine/bohemia_quest_runtime.js plus the
    run's own TALK sheet already play .bq conversations end to end on the real
