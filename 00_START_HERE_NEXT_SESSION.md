@@ -271,6 +271,14 @@ VERIFIED ON THE REAL SURFACE: tools/bohemia_perimeter_shot.js walks to the wall 
 a gate. records/target/PERIMETER_WALL_LIVE.png (home block) and PERIMETER_GATE_LIVE.png
 (estate cell 8,35).
 
+=== AND IT IS IN A TAB (NAME THE TAB, 7/28) ===
+slices/BOHEMIA_PERIMETER_JUDGE_8_2_26.html, carded on the LIFE hub. HIS 13 on top under
+"what is being replaced", the 18 new designs under them, the gate assembly at the
+bottom - every strip drawn the way the game draws it (coping row, face row, pillars
+along the run). Thumbs, per-item notes, SUN MODE, export .txt. A PNG in records/ is not
+a tab and a thing he cannot reach does not exist to him. name_the_tab_gate: 14 judging
+surfaces, all reachable from LIFE.
+
 === THE QUEUE ===
 1. Features: ground ~5.5% vs his 7.0%. Weeds and manholes read right; his CRACKS are
    still crisper - my grain washes them. Craft gap, not a knob.
