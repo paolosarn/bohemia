@@ -1,3 +1,70 @@
+BATCH 23 SHIPPED THE SAME TURN (BUILD 8/2l): two fresh songs answer the two slots
+batch 22's kills opened. Tab: MUSIC, they carry the NEW badge.
+  NOBODY LOCKS UP ANYMORE     lead SPLINTERBELL  a bell whose overtones sit at
+                              SEMITONES instead of physics ratios, so every note is
+                              a chord of itself and always in tune with the song.
+  WHAT THE METER STILL READS  lead ONEBREATH     the pitch never moves and the
+                              ENVELOPE is the instrument: a singer running out of
+                              air, sagging, catching a breath, giving out.
+Both leads ARTICULATE on purpose. That is the pitch-stability hypothesis being put
+on the board where he can kill it: if these two die too, the reading is wrong and
+the graveyard says so.
+
+MUSIC (sound-xk7pjp): 8/2 (k) LATEST — BATCH 22 JUDGED, AND HE SAID HE LIKED ONE.
+Ship: BUILD 8/2k - THE MARKER ON THE DOOR IS CANON. Tab: MUSIC.
+
+HE WROTE A SENTENCE, which he has not done once in this whole session:
+  "The marker on the door at full intensity is now one of my new favorite songs
+   that you've made great job"
+Every other music verdict this run has been a silent thumb with no words. That
+line is recorded VERBATIM in three places a future cook will actually look: the
+graveyard entry, the embedded BOHEMIA_MUSIC_REPO block in the alpha, and the
+note field of records/BOHEMIA_SONG_LOCK.json. Do not paraphrase it away.
+
+THE SHEET
+  A BELL FOR NOBODY'S SHIFT   DOWN    (lead saltpsalm)
+  THE MARKER ON THE DOOR      CANON   (lead brokenrosary) -> OVERWORLD DAY
+  COUNTING WHAT IS LEFT       DOWN    (lead tollhouse)
+Batch 21 + 22 together: 3 survived, 4 died. MLOOPS is 132 songs.
+
+WHAT IS IN THE MACHINE NOW
+- tools/bohemia_music_verdicts_8_2b.py bakes it: canon to 2, downs to 0 AND
+  OUT of MLOOPS (graveyard final means out of the working list; the graveyard
+  gate counts a name still in MLOOPS as a live reference). MLOOPS is rebuilt
+  from PARSED ENTRIES, never regex-surgery, because a stray comma makes an
+  array hole twice today. music_gate.js EVALs the literal and counts holes.
+- tools/bohemia_music_batch22.py had the two dead song literals DELETED, not
+  commented out. A cook tool that can still emit a buried song is a remake
+  waiting for a re-run. The three VOICES stay in the rack: song-dead-not-voices
+  (7/20) keeps saltpsalm and tollhouse legal for future fashions.
+- SONG LOCK re-locked ON PURPOSE, reason in the note.
+
+THE HYPOTHESIS FOR WHOEVER COOKS MUSIC NEXT, and it is labelled as one
+He gives no kill reasons, so none are invented. The observable split across all
+seven judged songs: every survivor ARTICULATES a stable pitch you can follow;
+every casualty is built on instability (no oscillator at all, a flutter slowing
+to a stop, an interval sliding to unison, a sideband that moves with register).
+That is the 7/18 kill reason restated - the melody must LEAD under the dread.
+IT IS A CORRELATION ON SEVEN SONGS. This session already killed one of my own
+theories (semitone adjacency) when a survivor and a casualty turned out to share
+the same count, so say in your tool docstring which theory you built on.
+NOT A HYPOTHESIS: brokenrosary at FULL INTENSITY is a thing he likes, in his own
+words. That is the only positive target in the whole music record. Start there.
+
+TWO DEAD SLOTS ARE OPEN and his standing law is that fresh cooks answer them.
+NO REMAKES.
+
+SOUND EFFECTS, same session, already shipped and green: the SFX are audible on
+his phone (first-gesture unlock + navigator.audioSession='playback' for the ring
+switch), combat hits/kills/shots are wired, footsteps are on their own quiet bus
+at his ruled level, neighbours attenuate by distance with pan, ambience only
+plays while the RUN tab is open, and window.setSFXVolume() is the single hook a
+settings slider will drive - which is the part he actually asked for. Still
+unwired for lack of a moment: pickup, block, phone_buzz.
+
+STAMP SHAPE, inherited from the PEOPLE lane's note below and obeyed here: run_gate
+wants LETTERS after the date, never a digit. 8/2k is legal, 8/2b2 is not.
+
 PEOPLE (7h9sfy): 8/2 (e) LATEST — SOMEBODY TO ACTUALLY TALK TO. He asked for it in
 these words: "can you just have one extra NPC chilling outside the spawn in the suburb
 that I can just talk to and test out your mechanics?"
