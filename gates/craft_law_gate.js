@@ -109,8 +109,17 @@ ok('clause 6 in code: the tint is capped so a hair pixel never becomes plain ski
   /Math\.min\(0\.75,/.test(src));
 ok('clause 6 in code: every hair pixel is routed through the tint',
   /put\(x,y, skinTint\(/.test(src));
-ok('clause 6: skin-toned styles ship as CANDIDATES, never canon on my say-so',
-  /\{n:'SUN CROP',st:'cook',layer:'hair'/.test(src));
+/* PINNED A NAME AND HE APPROVED IT. This asserted SUN CROP was st:'cook' -- so the
+   moment he thumbed it up ("Perfect I thumbs up both of the additions"), the gate
+   reported a FAILURE for his own verdict. Fifth time today a gate has gone red at a
+   ruling being carried out. The invariant was never "this style stays a candidate";
+   it is "a skin-toned style ENTERS as a candidate, and only HE promotes it". So:
+   there must be candidates awaiting his thumb, and the fade option must appear on
+   at least one of them. Names are his to change; the rule is not. */
+ok('clause 6: skin-toned styles ENTER as candidates awaiting his thumb',
+  (src.match(/st:'cook',layer:'hair'/g) || []).length >= 1);
+ok('clause 6: a candidate actually carries the skin-tint (fade:) option',
+  /st:'cook',layer:'hair'[\s\S]{0,240}fade:\s*\d/.test(src));
 
 /* ---- the rulings this law grew out of are still on file ---------------- */
 ok('the wave-1 verdict sheet is kept',
