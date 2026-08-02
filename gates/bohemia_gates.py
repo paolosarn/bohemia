@@ -84,6 +84,11 @@ GATES = [
      'setHZoom clamped the request on its first line so pinching out at the widest stop was '
      'silently pinned there. Both directions driven on the real surface, and the ZOOM LEVEL '
      'LAW still snaps to its four pixel-true stops', True),
+    ('INTERIOR WALL',  ['node', 'gates/interior_wall_gate.js'],
+     'Paolo 8/2 "MY BIGGEST THING WITH INTERIORS WHY IS THE DOOR TWO TILES AND THE WALLS ARE '
+     'ONE TILE": indoors the wall now stands two tiles like the door in it. Measured by '
+     'entering a real house and counting destination heights -- two-tall walls present, floor '
+     'still flat, nothing three or more', True),
     ('FULL PIXEL',     ['node', 'gates/full_pixel_gate.js'],
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
