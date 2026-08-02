@@ -79,6 +79,11 @@ GATES = [
      'with NO door is unchanged so nothing is ever sealed. The no-lockout check runs FIRST on '
      'purpose -- 10 of 14 district types have no door cell at all, so making walls solid '
      'everywhere before doors exist would seal the valley', True),
+    ('ZOOM SEAM',      ['node', 'gates/zoomseam_gate.js'],
+     'Paolo 8/2: "i should be able to ZOOM OUT UNTIL I GET INTO THE CITY BUILDER MODE". '
+     'setHZoom clamped the request on its first line so pinching out at the widest stop was '
+     'silently pinned there. Both directions driven on the real surface, and the ZOOM LEVEL '
+     'LAW still snaps to its four pixel-true stops', True),
     ('FULL PIXEL',     ['node', 'gates/full_pixel_gate.js'],
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
