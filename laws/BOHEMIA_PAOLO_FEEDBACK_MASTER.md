@@ -45,9 +45,11 @@ honest: every law carrying his verbatim words must be indexed here.
 | 8/1 | commercial + mall | **85%** | **APPROVED** ("approved for now") |
 | 8/2 | downtown | **85%** | **APPROVED** ("we can approve it for now") |
 | 8/2 | library | 22% | rejected — "six different buildings" |
+| 8/2 | library, rebuilt | **85%** | **APPROVED** — "hella yeah", one note: more parking on the icon |
 
-**THE FOUR APPROVED DISTRICTS ARE THE STANDARD.** High school 89%, commercial 85%,
-mall 85%, downtown 85%. Anything that does not hold up beside those four is not done.
+**THE FIVE APPROVED DISTRICTS ARE THE STANDARD.** High school 89%, commercial 85%,
+mall 85%, downtown 85%, library 85%. Anything that does not hold up beside those
+five is not done.
 
 ## 3. WHAT HE HAS RULED — the standing law, newest first
 

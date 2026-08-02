@@ -172,35 +172,57 @@ def _vehicle(s, x, y, size, color, along='x'):
 
 # ---------------------------------------------------------------- CITY HALL
 def build_cityhall(P):
-    BUILD, CLOCK, PLAZA, FOUNT = P[2], P[6], P[7], P[8]
-    DRIVE, LAWN, SEAL, FLAG, SIDE, POLE = P[1], P[4], P[10], P[12], P[11], P[9]
-    ROOF = _dark(BUILD, 0.9)['c']
-    # PAVED plot (Paolo 7/24: buildings on pavement, not grass) — plaza forecourt +
-    # a sidewalk pad under the block + a small visitor lot off a driveway
-    _ground(s := Scene(), (-3, -3, 15, 16),
-            patches=[(-3, 8.5, 6.5, 15.5, PLAZA), (0.5, 0.5, 12.5, 8.0, SIDE)],
-            lot=(8.0, 9.5, 15, 15.5), drive=(11.5, 15.5, 15, 16), groundc=(112, 110, 104), lotc=DRIVE)
-    # the administrative BLOCK — a dignified wide civic mass (not a lonely tower)
-    FX, FY, FW, FD = 2.0, -1.0, 10.0, 8.5
-    s.box((FX, FY, 0), (FW, FD, 9.5), {'top': {'c': ROOF}, 'px': _win(BUILD, 5, 5, 7),
-          'py': _win(BUILD, 4, 5, 11), 'nx': _dark(BUILD), 'ny': _dark(BUILD)})
-    # the CLOCK TOWER over the entrance (the civic landmark) — a taller thin mass
-    TX = FX + FW - 3.2
-    s.box((TX, FY + FD - 0.2, 0), (3.2, 2.6, 15.5), {'top': {'c': ROOF},
-          'px': _dark(CLOCK, 0.98), 'py': _dark(CLOCK, 0.9), 'nx': _dark(CLOCK), 'ny': _dark(CLOCK)})
-    s.quad((TX + 3.24, FY + FD + 0.6, 12.4), (TX + 3.24, FY + FD + 2.0, 12.4),
-           (TX + 3.24, FY + FD + 2.0, 13.8), (TX + 3.24, FY + FD + 0.6, 13.8), {'c': (206, 200, 178)}, (1, 0, 0))  # clock face
-    # the grand ENTRANCE at GROUND under the tower
-    _door(s, FX + FW, FY + FD + 0.3, FY + FD + 2.3, 3.0, doorc=_dark(BUILD, 0.4)['c'],
-          framec=tuple(min(255, int(c * 1.2)) for c in CLOCK), awn=1.3)
-    # forecourt PLAZA furniture: a DRY FOUNTAIN (round basin) + two flagpoles + civic seal
-    s.prism(0.5, 12.4, 0, 1.9, 0.5, 16, {'c': FOUNT}, {'c': _dark(FOUNT, 0.7)['c']})
-    s.prism(0.5, 12.4, 0.5, 0.5, 0.7, 10, {'c': _dark(FOUNT, 0.8)['c']})   # dry inner pedestal
-    for fx in (-1.8, 2.8):
-        s.box((fx - 0.09, 9.6, 0), (0.18, 0.18, 6.0), {'c': FLAG})
-    s.box((4.6, 13.6, 0), (0.7, 0.7, 1.4), {'c': SEAL})                     # toppled-seal monument block
-    for (lx, ly) in [(-2.4, 14.6), (5.4, 10.0)]:
-        s.box((lx - 0.08, ly - 0.08, 0), (0.16, 0.16, 2.4), {'c': POLE})   # plaza pole lights
+    """engine/bohemia_cityhall.js — REBUILT 8/2 with the district, on LAS VEGAS CITY HALL
+    (Elkus Manfredi, 2012). The old icon carried a CLOCK TOWER, which is a New England town
+    hall, and it drew palette codes the rebuilt district no longer has. What this building is
+    recognised by is the SOLAR TREE FARM in its plaza and the two shapes that merge behind it:
+    the curvilinear council chamber and the angular glass office block, under a canopy on a
+    single 160-foot column.
+
+    REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks no new graphic pixels of its own — it
+    composes the district's OWN palette through the shared iso primitives in
+    tools/bohemia_iso3d.py, the same way every other hero here does. No bank was opened
+    because none applies: there is no iso hero-building sprite bank in the repo."""
+    BLD, PANEL, PLAZA, MAST = P[2], P[6], P[7], P[10]
+    GLASS, CANOPY, CMAST, CHROOF, DECK = P[11], P[14], P[15], P[17], P[24]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), patches=[(-3, 4.0, 15, 15, PLAZA)],
+            lot=(9.5, -3, 15, 3.5), drive=(9.5, 3.5, 13.5, 6.0),
+            groundc=(122, 116, 100), lotc=(58, 58, 66))
+
+    # THE ANGULAR OFFICE BLOCK: seven storeys, stepped, glass.
+    s.box((-1.5, -2.0, 0), (10.5, 5.0, 9.6), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 8, 6, 5),
+          'py': _win(BLD, 4, 6, 11), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    s.box((-1.5, -2.0, 9.6), (10.5, 5.0, 0.4), {'c': CHROOF})
+    for i in range(4):                                                   # the roof plant line
+        s.box((-0.6 + i * 2.6, -1.2, 10.0), (1.6, 1.6, 0.7), {'c': _dark(BLD, 0.72)['c']})
+
+    # THE CURVILINEAR COUNCIL CHAMBER, merged into it (they meet in the lobby).
+    s.prism(4.0, 4.2, 0, 3.1, 5.6, 18, {'c': BLD}, {'c': CHROOF})
+    s.prism(4.0, 4.2, 5.6, 1.1, 0.6, 18, {'c': GLASS})
+
+    # THE ENTRY CANOPY on ONE column. The whole point of it: no other supports.
+    s.box((7.6 - 0.35, 8.4 - 0.35, 0), (0.7, 0.7, 7.4), {'c': CMAST})
+    s.box((0.5, 6.6, 7.4), (12.0, 3.6, 0.5), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.8),
+          'py': _dark(CANOPY, 0.8), 'nx': _dark(CANOPY, 0.8), 'ny': _dark(CANOPY, 0.8)})
+    _door(s, 9.0, 2.2, 4.2, 3.0, doorc=_dark(BLD, 0.4)['c'],
+          framec=tuple(min(255, int(c * 1.2)) for c in BLD))
+
+    # THE SOLAR TREE FARM. A grid of masts under panels: the thing you know it by.
+    for ty in (11.0, 13.4):
+        for tx in (-2.0, 0.6, 3.2, 5.8, 8.4, 11.0):
+            s.box((tx - 0.16, ty - 0.16, 0), (0.32, 0.32, 2.6), {'c': MAST})
+            s.box((tx - 1.0, ty - 0.9, 2.6), (2.0, 1.8, 0.22), {'top': {'c': PANEL},
+                  'px': _dark(PANEL, 0.8), 'py': _dark(PANEL, 0.8),
+                  'nx': _dark(PANEL, 0.8), 'ny': _dark(PANEL, 0.8)})
+
+    # THE PARKING DECK, attached on the east, its floor lighter because the sun never got in.
+    s.box((11.0, -3.0, 0), (4.2, 6.5, 3.0), {'top': {'c': DECK}, 'px': _dark(DECK, 1.25),
+          'py': _dark(DECK, 1.1), 'nx': _dark(DECK), 'ny': _dark(DECK)})
+    for dy in (-2.0, 0.4, 2.8):
+        s.box((11.2, dy, 3.0), (3.8, 0.25, 0.5), {'c': _dark(BLD, 1.05)['c']})   # spandrel rail
+    _vehicle(s, 12.0, 4.6, CAR, P[19], along='x')
+    _vehicle(s, 12.0, 1.0, CAR, P[19], along='x')
     return s, 7.2
 
 
@@ -241,35 +263,52 @@ def build_battery(P):
 
 # ---------------------------------------------------------------- TERMINAL (1x1)
 def build_terminal(P):
-    HALL, CANOPY, PLAT, BUSC, CLOCK = P[2], P[6], P[7], P[10], P[12]
-    DRIVE, MARK, POLE, BENCH = P[1], P[11], P[9], P[8]
-    ROOF = _dark(HALL, 0.9)['c']
-    # PAVED plot (Paolo 7/24: buildings on pavement, not grass) — the concrete
-    # platform apron IS the surface; a kiss-and-ride drive fronts it
-    _ground(s := Scene(), (-3, -3, 15, 15),
-            patches=[(-2.5, 4.5, 13.5, 8.5, PLAT)],
-            drive=(-3, 9.5, 13.5, 15), groundc=(96, 94, 88), lotc=DRIVE)
-    # the waiting HALL (back), windows, filling the block width
-    s.box((-2.0, -1.0, 0), (12.0, 5.0, 6.6), {'top': {'c': ROOF}, 'px': _win(HALL, 7, 4, 4),
+    """engine/bohemia_terminal.js — REBUILT 8/2 with the district, on the BONNEVILLE TRANSIT
+    CENTER (2010, downtown Las Vegas): a CURVED two-storey head house, a boarding platform
+    under a PHOTOVOLTAIC SHADE STRUCTURE, sawtooth bus bays, and a bank of double-stacked
+    bike racks. The old icon had a schedule-board CLOCK TOWER and a flat grey canopy, which
+    is an intercity coach station in Ohio, not a LEED Platinum transit centre in the Mojave.
+
+    REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks no new graphic pixels of its own — it
+    composes the district's OWN palette through the shared iso primitives in
+    tools/bohemia_iso3d.py. No bank applies: there is no iso hero-building sprite bank."""
+    HALL, PANEL, PLAT, BUSC = P[2], P[6], P[13], P[15]
+    GLASS, POST, RACK, MARK, DRIVE = P[11], P[10], P[12], P[20], P[1]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), patches=[(-3, 3.0, 15, 7.0, PLAT)],
+            drive=(-3, 7.0, 15, 15), groundc=(112, 108, 100), lotc=DRIVE)
+
+    # THE HEAD HOUSE: a bar with a CURVED concourse bulging south out of it.
+    s.box((-2.0, -2.0, 0), (13.0, 4.2, 6.8), {'top': _dark(HALL, 0.9), 'px': _win(HALL, 9, 4, 4),
           'py': _win(HALL, 5, 4, 8), 'nx': _dark(HALL), 'ny': _dark(HALL)})
-    # the SCHEDULE-BOARD CLOCK over the doors (the terminal landmark)
-    s.box((3.0, 3.4, 0), (3.0, 1.4, 9.2), {'top': {'c': ROOF}, 'px': _dark(CLOCK, 1.0),
-          'py': _dark(CLOCK, 0.88), 'nx': _dark(CLOCK), 'ny': _dark(CLOCK)})
-    s.quad((6.04, 3.7, 6.6), (6.04, 4.5, 6.6), (6.04, 4.5, 8.2), (6.04, 3.7, 8.2), {'c': (206, 200, 178)}, (1, 0, 0))  # clock face
-    _door(s, 4.0, 0.4, 3.0, 3.2, doorc=_dark(HALL, 0.4)['c'], framec=tuple(min(255, int(c * 1.18)) for c in HALL), awn=1.2)
-    # the gray boarding CANOPY over the platform, on posts (buses read underneath)
-    for (px, py) in [(0.0, 4.8), (11.0, 4.8), (0.0, 8.4), (11.0, 8.4)]:
-        s.box((px - 0.18, py - 0.18, 0), (0.36, 0.36, 3.8), {'c': _dark(CANOPY, 0.8)['c']})
-    s.box((-0.6, 4.4, 3.8), (12.0, 4.4, 0.45), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.8),
-          'py': _dark(CANOPY, 0.8), 'nx': _dark(CANOPY, 0.8), 'ny': _dark(CANOPY, 0.8)})
-    # a ROW of dead BUSES nosed in at the bays under the canopy (canon BUS size)
-    for bx in (0.6, 3.5, 6.4, 9.3):
-        _vehicle(s, bx, 4.9, BUS, BUSC, along='y')
-        s.box((bx - 0.05, 4.8, 0.0), (0.04, 3.9, 0.06), {'c': MARK})        # bay-line stripe
-    for lx in (-1.0, 12.2):
-        s.box((lx - 0.08, 6.4, 0), (0.16, 0.16, 3.4), {'c': POLE})
-    s.box((10.4, 9.6, 0), (2.2, 0.5, 0.5), {'c': BENCH})                    # a platform bench cluster
-    return s, 7.0
+    s.prism(4.5, 2.2, 0, 3.4, 5.4, 18, {'c': HALL}, {'c': _dark(HALL, 0.88)['c']})
+    for i in range(8):                                                   # the glazed south wall
+        s.box((-1.4 + i * 1.6, 2.1, 0.8), (1.1, 0.08, 3.4), {'c': GLASS})
+    _door(s, 7.9, 1.4, 3.0, 3.0, doorc=_dark(HALL, 0.4)['c'],
+          framec=tuple(min(255, int(c * 1.18)) for c in HALL))
+
+    # THE SOLAR SHADE over the platform: the district's signature, on slim posts.
+    for (px, py) in [(-2.0, 3.4), (11.6, 3.4), (-2.0, 6.6), (11.6, 6.6)]:
+        s.box((px - 0.16, py - 0.16, 0), (0.32, 0.32, 4.2), {'c': POST})
+    for i in range(6):
+        s.box((-2.6 + i * 2.4, 3.0, 4.2), (2.2, 4.2, 0.24), {'top': {'c': PANEL},
+              'px': _dark(PANEL, 0.8), 'py': _dark(PANEL, 0.8),
+              'nx': _dark(PANEL, 0.8), 'ny': _dark(PANEL, 0.8)})
+
+    # THE SAWTOOTH BAYS, STEPPED against each other, with buses still nosed into them.
+    for i, bx in enumerate((-1.6, 1.6, 4.8, 8.0, 11.2)):
+        step = 0.0 if i % 2 == 0 else 0.7
+        s.box((bx - 0.06, 7.4 + step, 0.0), (0.05, 4.4, 0.06), {'c': MARK})
+        s.box((bx + 2.4, 7.4 + step, 0.0), (0.05, 4.4, 0.06), {'c': MARK})
+        if i % 2 == 0:
+            _vehicle(s, bx + 0.5, 7.8 + step, BUS, BUSC, along='y')
+
+    # THE BIKE RACKS: double-stacked, in a bank beside the doors.
+    for ry in (3.6, 5.0, 6.4):
+        for rx in (12.6, 13.6):
+            s.box((rx, ry, 0), (0.5, 0.9, 0.55), {'c': RACK})
+            s.box((rx + 0.05, ry + 0.1, 0.55), (0.4, 0.7, 0.45), {'c': _dark(RACK, 0.8)['c']})
+    return s, 7.2
 
 
 # ---------------------------------------------------------------- DOWNTOWN
@@ -522,24 +561,49 @@ def build_school(P):
 
 # ---------------------------------------------------------------- COURTHOUSE
 def build_courthouse(P):
-    BLD, STEPS, COL, DOME, PLAZA, DRIVE = P[2], P[6], P[8], P[10], P[7], P[1]
+    """engine/bohemia_courthouse.js — REBUILT 8/2 with the district, on the LLOYD D. GEORGE
+    U.S. COURTHOUSE (CannonDesign, 2000): an L-SHAPED building wrapping a plaza, a ROTUNDA at
+    the elbow under a sixty-foot glass dome, a canopy PROJECTING from the top of the building
+    with no columns under it, and a bollard line holding the blast standoff. The old icon was
+    a portico of columns and a cupola — a county courthouse in Ohio.
+
+    REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks no new graphic pixels of its own — it
+    composes the district's OWN palette through the shared iso primitives in
+    tools/bohemia_iso3d.py. No bank applies: there is no iso hero-building sprite bank."""
+    BLD, JOINT, PLAZA, GLASS = P[2], P[6], P[7], P[11]
+    CANOPY, BOLL, DOME, WALL, DRIVE = P[14], P[15], P[17], P[20], P[1]
     s = Scene()
-    _ground(s, (-3, -3, 15, 15), patches=[(-3, -3, 15, 9.5, PLAZA)], lot=(9.5, 10.5, 15, 15),
-            drive=(11, 10.5, 14, 15), groundc=(114, 112, 106), lotc=(58, 58, 66))
-    # a stately civic block on a raised podium
-    s.box((-1, -1, 0), (11, 8, 1.8), {'c': _dark(STEPS, 1.0)['c']})             # podium
-    s.box((0, 0, 1.8), (8.5, 6.5, 8.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 6, 4, 4),
-          'py': _win(BLD, 4, 4, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    # a PORTICO of columns across the front (+x) + a lintel
-    for cy in (0.4, 1.6, 2.8, 4.0, 5.2, 6.4):
-        s.box((8.5, cy, 1.8), (0.55, 0.55, 6.4), {'c': COL})
-    s.box((8.5, 0.2, 8.2), (0.8, 6.6, 0.7), {'c': tuple(min(255, int(c * 1.05)) for c in COL)})
-    # grand STEPS down to grade
-    for i, sz in enumerate((1.6, 1.1, 0.6)):
-        s.box((9.2 + i * 0.55, 1.5, 0), (0.55, 4.0, sz), {'c': STEPS})
-    # a DOME / cupola on the roof center
-    s.prism(4.2, 3.2, 9.8, 1.7, 1.3, 14, {'c': DOME}, {'c': tuple(min(255, int(c * 1.1)) for c in DOME)})
-    return s, 6.4
+    _ground(s, (-3, -3, 15, 15), patches=[(3.0, 3.0, 15, 12.0, PLAZA)],
+            lot=(-3, 12.0, 15, 15), drive=(9.0, 10.0, 12.5, 15),
+            groundc=(118, 112, 98), lotc=(58, 58, 66))
+
+    # THE L: the north leg east-west, the west leg north-south. One building.
+    s.box((-2.0, -2.0, 0), (14.0, 4.6, 9.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 10, 6, 4),
+          'py': _win(BLD, 4, 6, 9), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    s.box((-2.0, 2.6, 0), (4.6, 8.0, 9.0), {'top': _dark(BLD, 0.88), 'px': _win(BLD, 4, 6, 12),
+          'py': _win(BLD, 6, 6, 15), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    for i in range(6):                                                   # the precast panel joints
+        s.box((-1.4 + i * 2.3, -2.05, 0.4), (0.14, 0.06, 8.2), {'c': JOINT})
+
+    # THE ROTUNDA at the elbow, under the ring of what is left of the glass dome.
+    s.prism(3.4, 4.0, 0, 2.9, 8.2, 20, {'c': BLD}, {'c': DOME})
+    s.prism(3.4, 4.0, 8.2, 2.0, 0.7, 20, {'c': DOME}, {'c': GLASS})
+    s.prism(3.4, 4.0, 8.9, 0.7, 0.5, 20, {'c': GLASS})
+
+    # THE PROJECTING CANOPY. It cantilevers off the top of the building: NO columns.
+    s.box((2.4, 4.6, 7.4), (11.0, 4.6, 0.5), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.8),
+          'py': _dark(CANOPY, 0.8), 'nx': _dark(CANOPY, 0.8), 'ny': _dark(CANOPY, 0.8)})
+    _door(s, 6.3, 4.4, 6.4, 3.0, doorc=_dark(BLD, 0.4)['c'],
+          framec=tuple(min(255, int(c * 1.2)) for c in BLD))
+
+    # THE BOLLARD LINE: standoff distance, held, and the reason the setback is empty.
+    for bx in (-2.0, 0.4, 2.8, 5.2, 7.6, 10.0, 12.4):
+        s.box((bx - 0.17, 11.4, 0), (0.34, 0.34, 1.0), {'c': BOLL})
+    # THE SECURE YARD wall on the west, with a staff car still behind it.
+    s.box((-3.0, 3.0, 0), (0.35, 8.0, 2.4), {'c': WALL})
+    s.box((-3.0, 10.7, 0), (5.5, 0.35, 2.4), {'c': WALL})
+    _vehicle(s, -2.2, 8.4, CAR, P[19], along='x')
+    return s, 6.8
 
 
 # ---------------------------------------------------------------- LIBRARY
@@ -569,8 +633,11 @@ def build_library(P):
     because none applies: there is no iso hero-building sprite bank in the repo."""
     BLD, OCULUS, CLERE, PLAZA, TERRACE, PLANT, DRIVE = P[2], P[14], P[11], P[7], P[13], P[10], P[1]
     s = Scene()
-    _ground(s, (-3, -3, 15, 15), patches=[(-3, -3, 15, 10.5, PLAZA)], lot=(9.5, 10.5, 15, 15),
-            drive=(11, 10.5, 14, 15), groundc=(122, 116, 100), lotc=(58, 58, 66))
+    # MORE PARKING (Paolo 8/2, approving at 85%: "the icon could have more parking").
+    # The lot now runs the full width of the plot in front of the building the way the
+    # district's own does, with a drive apron off the street and cars left in it.
+    _ground(s, (-3, -3, 15, 15), patches=[(-3, -3, 15, 10.0, PLAZA)], lot=(-3, 10.0, 15, 15),
+            drive=(4.5, 8.5, 8.0, 15), groundc=(122, 116, 100), lotc=(58, 58, 66))
     s.box((-1.5, -1.5, 0), (13, 11, 1.2), {'c': _dark(TERRACE, 1.0)['c']})        # the terrace
 
     # ONE BUILDING (Paolo 8/2: "there's like six different buildings of the library").
@@ -614,7 +681,8 @@ def build_library(P):
     _door(s, 11.65, 7.4, 8.6, 2.2, doorc=_dark(BLD, 0.4)['c'],
           framec=tuple(min(255, int(c * 1.2)) for c in BLD))
 
-    _vehicle(s, 11.6, 12.0, CAR, P[19], along='x')                                 # one still in the lot
+    for (vx, vy) in ((-1.6, 11.1), (2.2, 11.1), (10.0, 11.1), (0.4, 13.4), (8.0, 13.4), (12.4, 13.4)):
+        _vehicle(s, vx, vy, CAR, P[19], along='x')                                 # left in the lot
     return s, 6.4
 
 

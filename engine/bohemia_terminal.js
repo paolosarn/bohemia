@@ -1,122 +1,202 @@
-// BOHEMIA TRANSIT TERMINAL (7/23/26). INFRASTRUCTURE, on the DISTRICT KIT. Paolo: "look at all the
-// pocket city 2 buildings, we have to make them as districts" — Pocket City 2's Transport category
-// (bus/train stations that raise the traffic/transit rating) has no PASSENGER equivalent in Bohemia;
-// bohemia_railyard.js is FREIGHT rail (industrial, no passengers). Research-first (real intercity/
-// regional bus-terminal design): a TERMINAL BUILDING (waiting hall, ticket counters, restrooms), a
-// row of BUS BAYS under a long boarding CANOPY with a raised platform, a bus LAYOVER/staging yard,
-// a kiss-and-ride drop-off loop, a small park-and-ride lot, a schedule-board clock landmark. Act-1
-// DEAD: buses dead at the bays and in the layover yard, the schedule board blank, the waiting hall
-// dark, benches empty. Street-aware + drivable (bays, loop, and lot are all one connected car
-// surface, buses AND cars alike reach the curb). Terminal + canopy + platform + bus fleet dominate
-// (WALKABLE-LAND) — a real terminal's paved bus surface is itself the venue, but is anchored by a
-// real building mass, not a bare apron.
+// BOHEMIA TRANSIT TERMINAL (7/23/26; REBUILT 8/2/26). INFRASTRUCTURE, on the DISTRICT KIT.
+//
+// THE REBUILD. The old district was a generic intercity bus station: a rectangular terminal
+// box, a straight canopy, and 26% of the plot painted LAWN in a Mojave valley where nothing
+// has been watered in a decade. That lawn is the same greenwash Paolo caught in downtown
+// ("are you putting grass in downtown?"), and the plot ran 30.5% drive against 14% building.
+//
+// BUILT INSTEAD ON THE ONE THIS VALLEY HAS: the BONNEVILLE TRANSIT CENTER (2010, 101 E
+// Bonneville Ave, downtown Las Vegas), and its numbers are the district's numbers:
+//   16 ON-SITE VEHICLE BAYS, in a sawtooth so a bus pulls in and out without reversing.
+//   SOLAR-PANEL SHADE STRUCTURES over the bays -- the whole reason you can stand there in
+//     July, and a LEED Platinum building's actual signature.
+//   7 ON-STREET LOADING POINTS at the kerb, beyond the 16 on site.
+//   ~100 DOUBLE-STACKED BIKE RACKS and a self-service repair stand.
+//   A 2-STOREY, ~20,000 sq ft head house with a fully enclosed waiting room, and the
+//     CURVED lines that got it its design award.
+// 16, 7 and 100 are counted by the gate. A number taken from the real building is a fact
+// the machine can hold; a number invented on the day is decoration.
+//
+// VEHICULAR VENUE (WALKABLE-LAND LAW exception): at a transit centre the vehicle surface IS
+// the venue. Exempt from the pavement cap -- and still DRESSED, never a bare apron.
+//
+// Act-1 DEAD: buses left in the bays and along the layover row, the panels milky, the
+// waiting room dark behind its glass. Street-aware + drivable: one kerb cut, and the apron,
+// the bays and the park-and-ride are one connected surface a bus can turn in.
 // LEGEND:
-//  0 desert  1 drive (bays/loop/lot, DRIVABLE)  2 terminal building  3 dead landscaping
-//  4 lawn  5 gate  6 boarding canopy (OVERHEAD)  7 platform  8 bench / shelter
-//  9 pole light  10 dead bus  11 bay marking  12 schedule board / clock  13 bike rack
+//  0 desert dead-ground   1 apron / drive / lot (DRIVABLE)   2 head house
+//  3 dead tree            4 hardpan                          5 gate / kerb cut
+//  6 solar shade (OVERHEAD)  7 forecourt paving              8 rooftop plant
+//  9 light               10 bay post                        11 curtain wall glazing
+//  12 bike rack          13 boarding platform               14 roof edge
+//  15 dead bus           16 doorway (PORTAL)                17 stall marking (PAINT)
+//  18 dead car           19 kerb loading mark (PAINT)       20 bay marking (PAINT)
 (function(root){
   var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
   var M=K.M;
 
+  var BAYS = 16, KERB_POINTS = 7, BIKE_RACKS = 100;   // Bonneville's own counts
+
   function buildCanonical(seed){
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
+    /* an OVERHEAD only ever lands on OPEN GROUND: laid straight over the grid it would
+       ERASE whatever is under it, and a canopy shades a thing, it does not replace it. */
+    function shade(x0,y0,x1,y1,c){ for(var yy=y0;yy<=y1;yy++) for(var xx=x0;xx<=x1;xx++){
+      var v=get(xx,yy); if(v===13||v===7||v===4||v===0||v===1) set(xx,yy,c); } }
 
-    // ---- BASE: dead lawn; desert only at the margins ----
     G.rect(0,0,W-1,H-1,0);
-    G.rect(5,5,W-6,H-6,4);
+    G.rect(3,3,W-4,H-4,4);                                   // hardpan, NOT lawn
+    G.rect(6,6,122,52,7);                                     // the forecourt paving
 
-    // ---- THE TERMINAL BUILDING (back of the lot, the mass) + a schedule-board clock landmark ----
-    G.rect(16,10,96,38,2);
-    for(x=20;x<=92;x+=6) set(x,10,11);                                   // window-line read along the front face
-    set(56,6,12);                                                        // the schedule board / clock tower over the doors
+    /* ---- THE HEAD HOUSE: two storeys, and CURVED, which is what it won its award for. ---- */
+    G.rect(16,8,112,30,2);
+    G.disc(64,30,26,2);                                       // the curved concourse bulging south
+    G.rect(38,28,90,40,2);                                    // merged into the bar
+    for(x=20;x<=108;x+=5) G.rect(x,28,x+2,30,11);             // the glazed south wall
+    for(x=24;x<=104;x+=14) G.rect(x,12,x+6,17,8);             // rooftop plant
+    /* THE ROOF IS NOT A FLAT PLATE: the joint lines and the concourse skylight run. */
+    for(x=20;x<=110;x+=9) G.rect(x,8,x,30,21);
+    for(y=13;y<=27;y+=7) G.rect(16,y,112,y,21);
+    for(x=22;x<=104;x+=7) G.rect(x,21,x+4,26,11);
+    G.rect(58,44,72,48,16);                                   // the doors onto the platform
 
-    // ---- BOARDING CANOPY + PLATFORM — the bus bays' overhead + the raised platform under it ----
-    G.rect(14,40,98,46,6);
-    G.rect(14,46,98,50,7);
-    for(x=18;x<=94;x+=10){ set(x,48,8); }                                // benches along the platform
-    for(x=20;x<=90;x+=10) set(x,40,9);                                   // canopy-mounted lights
+    /* ---- THE BOARDING PLATFORM, and the 16 SAWTOOTH BAYS off it. ---- */
+    G.rect(8,54,120,66,13);
+    var bays=0;
+    for(i=0;i<BAYS;i++){
+      var bx=9+i*7;
+      /* SAWTOOTH: each box is STEPPED against its neighbour, which is what lets a coach
+         pull straight out instead of reversing across the apron. A row of identical
+         rectangles is a car park; the step is the whole geometry. */
+      G.rect(bx,68+(i%2)*3,bx+5,80,20);
+      G.rect(bx,66,bx+1,68+(i%2)*3,20);
+      set(bx+2,60,10);                                        // the bay post on the platform
+      bays++;
+    }
 
-    // ---- BUS BAYS — a row of dead buses staged nose-in at the platform ----
-    G.rect(10,50,102,68,1);
-    for(x=18;x<=90;x+=12){ G.rect(x,52,x+8,64,10); set(x+4,51,11); }     // a bus at each bay + a bay-line stripe
+    /* ---- THE APRON: one surface a bus can turn a full circle in. ---- */
+    G.rect(6,66,122,112,1);
+    for(i=0;i<BAYS;i++){ var bx2=9+i*7; G.rect(bx2,68+(i%2)*3,bx2+5,80,20); G.rect(bx2,66,bx2+1,68+(i%2)*3,20); }
+    /* the apron's own lane lines, so a bus knows where the through route is */
+    for(x=10;x<=118;x+=3) { set(x,86,22); set(x,90,22); }
+    for(x=10;x<=118;x+=3) set(x,109,22);
 
-    // ---- LAYOVER / STAGING YARD (SE) — more of the fleet parked dead, off the passenger bays ----
-    G.rect(70,72,116,110,1);
-    for(var ly=76; ly<=104; ly+=14) for(var lx=74; lx<=108; lx+=18){ G.rect(lx,ly,lx+10,ly+8,10); }
+    /* the SOLAR SHADE over the platform and the bay noses — the LEED Platinum signature,
+       and the only reason anybody could stand out here in July */
+    /* it shades the bay NOSES and the back of the platform, and leaves the walking strip
+       open to the sky down the middle -- shade the whole thing and the platform stops
+       existing, which is what the first cut did. */
+    shade(8,52,120,57,6); shade(8,63,120,68,6);
+    for(x=8;x<=120;x+=7) for(y=52;y<=68;y++) if(get(x,y)===6) set(x,y,9);   // the panel frames
 
-    // ---- KISS-AND-RIDE DROP-OFF LOOP + a small PARK-AND-RIDE LOT (SW) ----
-    G.rect(10,72,58,88,1);
-    G.rect(10,92,58,116,1);
-    for(x=14;x<=54;x+=6){ set(x,96,11); set(x,112,11); }
+    /* dead buses left in the bays and along the layover row */
+    for(i=0;i<BAYS;i+=3){ var vx=9+i*7; G.rect(vx+1,69,vx+4,78,15); }
+    for(x=12;x<=108;x+=14) G.rect(x,96,x+4,106,15);           // the layover row
 
-    // ---- DRIVE COLLECTOR: one connected car surface (bays -> loop -> layover -> lot ->
-    //      the entrance). Everything a bus or car touches reaches the curb (DRIVABLE LAW). ----
-    G.rect(10,68,116,72,1);                                              // full-width collector behind the bays
-    G.rect(56,68,60,116,1);                                             // central spine down to the entrance lane
-    G.rect(10,88,58,92,1);                                              // tie SW loop to the park-and-ride lot
+    /* ---- THE BIKE RACKS: 100 of them, double-stacked, beside the doors. ---- */
+    var racks=0;
+    for(y=34;y<=50&&racks<BIKE_RACKS;y+=3) for(x=94;x<=118&&racks<BIKE_RACKS;x+=2){
+      if(get(x,y)!==7) continue; set(x,y,12); racks+=2;       // double-stacked: two per unit
+    }
+    for(y=34;y<=50&&racks<BIKE_RACKS;y+=3) for(x=10;x<=34&&racks<BIKE_RACKS;x+=2){
+      if(get(x,y)!==7) continue; set(x,y,12); racks+=2;
+    }
 
-    // ---- BIKE RACK near the entrance + dead landscaping at the margins ----
-    set(20,70,13); set(92,70,13);
-    for(i=0;i<12;i++){ var tx=6+Math.floor(r()*4), ty=8+Math.floor(r()*(H-16)); if(get(tx,ty)===4)set(tx,ty,3); }
-    for(i=0;i<12;i++){ var tx2=W-6+Math.floor(r()*4), ty2=8+Math.floor(r()*(H-16)); if(get(tx2,ty2)===4)set(tx2,ty2,3); }
+    /* ---- PARK-AND-RIDE, small: a transit centre is not a commuter garage ---- */
+    G.rect(6,112,122,122,1);
+    for(x=9;x<=119;x+=3) for(y=113;y<=121;y++) set(x,y,17);
+    for(i=0;i<12;i++){ var cx=10+Math.floor(r()*27)*4, cy=114+Math.floor(r()*2);
+      if(get(cx+1,cy)===1||get(cx+1,cy)===17) G.rect(cx+1,cy,cx+2,cy+3,18); }
 
-    // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit) ----
-    var gx=W>>1;
-    for(i=-5;i<=5;i++)set(gx+i,H-1,5);
-    G.rect(gx-4,110,gx+4,H-1,1);
-    for(y=H-1;y>=110;y--)for(x=-4;x<=4;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4)set(gx+x,y,1); }
+    /* ---- THE 7 ON-STREET LOADING POINTS at the kerb, beyond the 16 on site ---- */
+    var KX=[8,22,36,50,78,92,106];                            // clear of the kerb cut on purpose
+    for(i=0;i<KERB_POINTS;i++){ G.rect(KX[i],124,KX[i]+9,126,19); }
+
+    for(x=14;x<=114;x+=16) set(x,110,9);                      // the apron light line
+    for(i=0;i<20;i++){ var tx=4+Math.floor(r()*120), ty=4+Math.floor(r()*120);
+      if(get(tx,ty)===4) set(tx,ty,3); }
+
+    K.roofsAndDoors(g,{ building:function(c){return c===2;}, roof:14, door:16, min:150,
+      outside:function(c){ return c===7||c===13||c===4||c===1||c===17||c===20; } });
+
+    var gx=64;
+    for(i=-6;i<=6;i++) set(gx+i,H-1,5);
+    for(y=H-1;y>=122;y--) for(x=-6;x<=6;x++){ var c=get(gx+x,y); if(c===0||c===4||c===7||c===19) set(gx+x,y,1); }
     return g;
   }
 
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
-    var soft=function(c){ return c===0||c===3||c===4; };
-    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
-    var g=res.g;
+    var soft=function(c){ return c===0||c===3||c===4||c===7; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:13, pedOver:soft, pedInset:12});
+    var g=res.g, n=function(code){ var k=0; for(var yy=0;yy<g.length;yy++) for(var xx=0;xx<g[0].length;xx++) if(g[yy][xx]===code) k++; return k; };
+    /* a BAY is a painted box, not a tile, so it is counted as a connected blob of paint --
+       the same way a person counts bays by walking the platform. */
+    var bayBlobs=K.footprints(g,function(v){return v===20;}).length;
     return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
-      footprints:K.footprints(g,function(v){return v===2;})};
+      bays:bayBlobs, kerbPoints:K.footprints(g,function(v){return v===19;}).length,
+      bikeRacks:n(12)*2,
+      footprints:K.footprints(g,function(v){return v===2||v===11||v===14||v===16||v===21;})};
   }
-  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+  function driveConnected(res){ return K.driveNetworkReach(res.g, LEGEND) > 0.999; }
 
-  var PALETTE={0:'#1c1a15',1:'#4a463c',2:'#726a58',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#5a564a',
-    7:'#8f887a',8:'#7a7268',9:'#8f8676',10:'#556065',11:'#c9c1aa',12:'#8a7f5e',13:'#635c4a'};
+  /* CONCRETE, SAND AND SUN-BLEACHED PAINT. Nothing green. */
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#8c8577',3:'#514f40',4:'#6b6250',5:'#c79a3f',
+    6:'#3f4a55',7:'#7f7a70',8:'#6e6a60',9:'#b0863a',10:'#5f5c54',11:'#8fa2ad',12:'#5d6a6e',
+    13:'#96907f',14:'#b3a78d',15:'#5c6468',16:'#241f1a',17:'#4a4a52',18:'#6a6e72',
+    19:'#8a7a48',20:'#55555f',21:'#6f6a5e',22:'#57575f'};
   var LEGEND={
-    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the terminal-lot edge (setback)'},
-    1:{name:'drive',              kind:'drive',      act1:'the bus bays, layover yard, kiss-and-ride loop, and park-and-ride lot — one connected car surface (drivable)'},
-    2:{name:'building (terminal)',kind:'building',   act1:'the terminal — waiting hall, ticket counters, restrooms, boarded, the departures board dark', enter:'terminal interior: the waiting hall + ticket counters up front, restrooms + a small office behind'},
-    3:{name:'dead landscaping',   kind:'tree-dead',  act1:'a dead tree / hedge at the lot edge', solid:false},
-    4:{name:'lawn',               kind:'ground',     act1:'the dead lawn edging the terminal lot'},
-    5:{name:'gate',               kind:'gate',       act1:'the terminal entrance off the street, amber curb'},
-    6:{name:'boarding canopy',    kind:'overhead',   act1:'the boarding canopy over the bus bays (pass under it to reach the platform)'},
-    7:{name:'platform',           kind:'ground',     act1:'the raised boarding platform under the canopy, paint worn to bare concrete'},
-    8:{name:'bench / shelter',    kind:'prop',       act1:'a platform bench, seat cracked, no one waiting'},
-    9:{name:'pole light',         kind:'prop',       act1:'a canopy-mounted light, dead'},
-    10:{name:'dead bus',          kind:'vehicle',    act1:'a bus dead at its bay or in the layover yard, tyres flat, destination sign blank', solid:true},
-    11:{name:'bay marking',       kind:'marking',    act1:'faded bay-line striping on the bus lane'},
-    12:{name:'schedule board / clock',kind:'structure',act1:'the schedule-board clock tower over the terminal doors, hands stopped, board blank', solid:true},
-    13:{name:'bike rack',         kind:'prop',       act1:'a bike rack near the entrance, empty, rusted'}
+    0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
+    1:{name:'apron / drive / lot',kind:'drive',    act1:'the bus apron and the park-and-ride — heavy-duty concrete gone to plates, weeds up every joint (bus- and car-drivable)'},
+    2:{name:'head house',         kind:'building', act1:'the two-storey terminal, its long curved south wall glazed end to end, the waiting room dark behind it', enter:'terminal interior: the enclosed waiting room along the curve, the ticket and information counter, restrooms, and the operations offices on the upper floor'},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead forecourt tree gone to stick, its grate prised up for the metal', solid:false},
+    4:{name:'hardpan',            kind:'ground',   act1:'decomposed granite gone to hardpan at the edges of the site, split by weeds. Not a lawn: nothing is watering this'},
+    5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street onto the apron, wide enough for a bus, amber paint gone chalky'},
+    6:{name:'solar shade',        kind:'overhead', act1:'the photovoltaic shade structure over the platform and the bay noses — the only reason anybody could stand here in July, the glass now milky and half of it stripped for the copper. You walk and drive UNDER it'},
+    7:{name:'forecourt paving',   kind:'ground',   act1:'the paved forecourt between the street and the head house, big scored slabs heaved at the joints'},
+    8:{name:'rooftop plant',      kind:'structure',act1:'a mechanical unit on the head house roof, ducting collapsed, one of them stripped out entirely'},
+    9:{name:'light',              kind:'structure',act1:'an apron light on its concrete stem, head dark, the glass long gone'},
+    10:{name:'bay post',          kind:'structure',act1:'the numbered post at the nose of a bay, the route board on it faded to a blank white rectangle'},
+    11:{name:'curtain wall glazing',kind:'structure',act1:'the glazed curve of the waiting room — the panels that are left are sun-hazed, the rest is board and sky'},
+    12:{name:'bike rack',         kind:'structure',act1:'a double-stacked bike rack, two bikes high, most of the hoops empty and one wheel still locked to the frame'},
+    13:{name:'boarding platform', kind:'walk',     act1:'the raised boarding platform running the length of the bays, tactile edge strip worn smooth'},
+    14:{name:'roof edge',         kind:'structure',act1:'the parapet line where the head house roof meets its wall, coping missing in runs'},
+    15:{name:'dead bus',          kind:'vehicle',  act1:'a bus left where it stopped, glass gone, tyres flat and perished into the concrete'},
+    16:{name:'doorway',           kind:'portal',   act1:'a way in — the platform doors, and the operations door on the north side'},
+    17:{name:'stall marking',     kind:'marking',  act1:'the painted stall ticks across the park-and-ride, chalked out to ghosts — PAINT IS NOT A WALL, a car drives straight over it'},
+    18:{name:'dead car',          kind:'vehicle',  act1:'a car left in the park-and-ride, flat and sun-bleached, nobody came back for it'},
+    19:{name:'kerb loading mark', kind:'marking',  act1:'a painted on-street loading point at the kerb — one of seven, yellow gone to bone. PAINT IS NOT A WALL'},
+    22:{name:'lane line',         kind:'marking',  act1:'the dashed lane line down the apron, showing a coach the through route past the bays. PAINT IS NOT A WALL'},
+    21:{name:'roof joint',        kind:'structure',act1:'the joint line between two roof plates on the head house, sealant gone chalky and lifted out in runs', solid:true},
+    20:{name:'bay marking',       kind:'marking',  act1:'the painted box of a sawtooth bay, angled so a bus pulls straight out without reversing. PAINT IS NOT A WALL'}
   };
   var NOTES={
-    summary:'A dead transit terminal — a waiting-hall building with a stopped schedule-board clock, a row of bus bays under a long boarding canopy with a raised platform, a bus layover yard, a kiss-and-ride loop, a small park-and-ride lot. Passenger transport, distinct from the freight-only railyard.',
-    reference:['Intercity/regional bus-terminal design precedent: a TERMINAL BUILDING (waiting hall, ticket counters, restrooms) fronts a row of BUS BAYS under a long boarding CANOPY with a raised PLATFORM; a separate LAYOVER/staging yard holds off-duty buses; a KISS-AND-RIDE drop-off loop and a small PARK-AND-RIDE lot serve car access; a schedule-board clock is the conventional terminal landmark.'],
-    layout:['The TERMINAL building sits at the back of the lot with a schedule-board CLOCK tower over its doors.',
-      'A boarding CANOPY (overhead — pass under it) shelters the raised PLATFORM in front of the building; benches line the platform.',
-      'A row of BUS BAYS runs along the platform, a dead bus staged at each; bay-line striping marks the lane.',
-      'A LAYOVER/staging yard (SE) holds more of the fleet parked dead, off the passenger bays; a kiss-and-ride loop + small park-and-ride lot sit SW.'],
-    circulation:'Street-aware via canonical-south + K.rotateToStreet: the entrance opens onto the primary street; the bays, layover yard, kiss-and-ride loop, and park-and-ride lot are ALL one connected drivable surface (code 1) reachable from the curb (K.driveReachFromStreet) — buses and cars alike. Corner side streets get a pedestrian gate onto the platform side. Foot circulation is the platform along the canopy.',
-    layering:'GROUND plane (walk/drive, flat): the platform (7), lawn (4), the drive/bays/lot (1, drive), bay marking (11), desert (0). OVERHEAD (drawn above, pass under): the boarding CANOPY (6). STRUCTURES (¾ front face, solid, ENTERABLE): the TERMINAL building (2 -> waiting hall/ticket counters/restrooms/office) with the schedule-board CLOCK (12). PROPS / VEHICLES: dead buses (10, solid, at bays and in the layover yard), benches (8), pole lights (9), bike rack (13). PORTALS: the gate (5). The terminal + clock are the vertical mass; the canopy and its dead bus fleet are the wide low read you approach across the platform.',
-    decisions:['Act-1 DEAD: buses dead at the bays and in the layover yard (flat tyres, blank destination signs), the schedule board dark and stopped, the waiting hall boarded, benches empty. Who if anyone still runs a route is faction canon (Paolo\'s).',
-      'Infrastructure category (terminal) — already reserved in K.TAXONOMY (Paolo 7/18\'s taxonomy pass anticipated this slot alongside airport/rail/freeway), filled in this turn rather than inventing a new bucket.',
-      'Deliberately distinct from railyard: PASSENGER transport (terminal building, platform, bus bays, kiss-and-ride) vs railyard\'s FREIGHT classification tracks and rolling stock — no overlap in vocabulary.',
-      'WALKABLE-LAND honored: the building + canopy + platform + parked bus fleet are the content that anchors the paved bus surface — never a bare apron with a tiny building stranded in it.',
-      'Research-first (per the playbook): built from real intercity/regional bus-terminal design, not memory.']
+    summary:'A dead transit centre — a curved two-storey head house behind a glazed south wall, a boarding platform under a photovoltaic shade structure, SIXTEEN sawtooth bus bays with the buses still in some of them, SEVEN on-street loading points at the kerb, a hundred double-stacked bike racks, a layover row and a small park-and-ride. A VEHICULAR VENUE: the vehicle surface is the venue.',
+    reference:['BONNEVILLE TRANSIT CENTER (2010, 101 E Bonneville Ave, downtown Las Vegas), LEED Platinum: 16 on-site vehicle bays, 7 on-street loading points, roughly 100 double-stacked bike racks with a self-service repair stand, preferred parking for hybrids, a fully enclosed passenger waiting area in a 2-storey ~20,000 sq ft building, and SOLAR-PANEL SHADE STRUCTURES over the bays. Its curved lines are what the design juries singled out.',
+      'Sawtooth bay geometry, standard for bus facilities: angled boxes off a single platform edge so a coach pulls in and pulls straight out again without reversing across the apron.'],
+    layout:['THE HEAD HOUSE runs across the north as a bar with a CURVED concourse bulging south out of it — one building, the curve merged into the bar, its whole south wall glazed.',
+      'THE BOARDING PLATFORM runs the full width below it, with a numbered POST at the nose of each bay.',
+      'SIXTEEN SAWTOOTH BAYS are painted off the platform edge onto the apron, angled, with buses still standing in every third one.',
+      'THE SOLAR SHADE covers the platform and the bay noses. It is an OVERHEAD: it shades the path, never severs it.',
+      'A HUNDRED DOUBLE-STACKED BIKE RACKS stand in two banks on the forecourt either side of the doors.',
+      'THE LAYOVER ROW is the line of parked buses across the middle of the apron; the PARK-AND-RIDE and its stall ticks fill the south strip; SEVEN painted on-street loading points sit at the kerb outside the property line.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: ONE kerb cut, deliberately wider than a car gate because a bus has to make it, feeds an apron that is a single connected surface a coach can turn in — bays, layover row and park-and-ride all reach the kerb (K.driveNetworkReach = 1.0). Every painted thing here (bay boxes, stall ticks, kerb points) is MARKING and the shade is OVERHEAD, so nothing painted or hanging severs a route. Foot circulation is forecourt -> doors -> waiting room -> platform -> bay. A corner adds a pedestrian gate onto the forecourt.',
+    layering:'GROUND (flat): the forecourt paving (7), the hardpan (4), the boarding platform (13, WALK), the apron / park-and-ride (1, DRIVE) with bay boxes (20), stall ticks (17) and kerb points (19) all MARKING, bare desert (0). OVERHEAD (pass UNDER): the solar shade (6). STRUCTURE (¾ front face, solid, ENTERABLE): the HEAD HOUSE (2 — enclosed waiting room, ticket counter, restrooms, upstairs operations), its curtain wall glazing (11), roof edge (14), rooftop plant (8), the bay posts (10), the bike racks (12), the apron lights (9). PROP: dead trees (3), dead buses (15) and cars (18). PORTAL: the doorways (16) and the kerb cut (5).',
+    decisions:['THE LAWN IS DEAD. 26% of this plot was painted green in a valley that stopped watering things a decade before act one opens — the exact greenwash Paolo caught in downtown. Replaced with hardpan and paved forecourt.',
+      'THE NUMBERS ARE THE REAL BUILDING\'S: 16 bays, 7 kerb loading points, 100 double-stacked racks. The gate counts all three. A number taken from the real thing is a fact the machine can hold; a number invented on the day is decoration.',
+      'VEHICULAR VENUE (WALKABLE-LAND exception, 7/20): at a transit centre the vehicle surface IS the venue, so the pavement cap does not apply — but the exemption is not a licence for a bare apron, and this one is dressed with platform, shade, posts, racks, buses and a layover row.',
+      'Deliberately differentiated from the railyard (FREIGHT rail, no passengers) and from every other district: nothing else in the valley is a sawtooth of sixteen bays under a solar deck. Every district is its own landmark (7/28).',
+      'Act-1 DEAD: buses in the bays with the glass gone and the tyres perished into the concrete, route boards faded to blank rectangles, panels milky and half stripped for copper. Who runs anything on these roads now is faction canon and stays Paolo\'s.',
+      'Zero purple. No route numbers, agency name or signage text anywhere (Paolo\'s to author).']
   };
-  K.register('terminal', { generate:generate, body:function(c){return c===2;}, category:'infrastructure', palette:PALETTE, legend:LEGEND, notes:NOTES });
+  K.register('terminal', { generate:generate, body:function(c){return c===2||c===11||c===14||c===16||c===21;},
+    category:'infrastructure', vehicular:true, palette:PALETTE, legend:LEGEND, notes:NOTES });
 
-  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  var API={generate:generate,driveConnected:driveConnected,BAYS:BAYS,KERB_POINTS:KERB_POINTS,BIKE_RACKS:BIKE_RACKS,
+    footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaTerminal=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

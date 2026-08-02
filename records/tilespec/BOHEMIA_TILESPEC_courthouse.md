@@ -4,47 +4,65 @@ _Category: **civic**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/tile)  · 
 
 GENERATED from `engine/bohemia_courthouse.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
-**A dead courthouse — a grand columned stone building with office wings and a central dome, a portico + monumental steps down to a civic plaza with the Justice statue + flagpoles, a small visitor lot + a prisoner sally port on the secure wing.**
+**A dead federal courthouse — ONE L-shaped building wrapping a public plaza in its elbow, with a three-storey ROTUNDA at the corner under a dead sixty-foot glass dome, a steel canopy PROJECTING from the top of the building to shadow the plaza, a blast standoff setback held by a bollard line, and a walled SECURE YARD with its sally port. The judicial seat, distinct from the executive city hall.**
 
 ### Real-world reference
-- Civic / courthouse design (classical seat-of-law: a grand columned MASS + PORTICO + central DOME/rotunda, monumental STEPS to a civic PLAZA, office WINGS, a secure prisoner SALLY PORT for transport, a statue of Justice): the monumental civic building form.
+- LLOYD D. GEORGE U.S. COURTHOUSE (CannonDesign, 2000, 333 Las Vegas Blvd S): a 450,000 sq ft L-SHAPED building of beige limestone, glass and 22ft x 10ft precast wall panels; a three-storey ROTUNDA public lobby capped by a 60-foot cable-truss glass dome; and a dramatic steel and aluminium canopy PROJECTING FROM THE TOP OF THE BUILDING that shadows the plaza. One of only three buildings in the country to take the GSA Honor Award for Architecture.
+- It was the FIRST federal building constructed to the post-Oklahoma-City blast-resistance requirements. That is why the setback is wide and empty and why the bollard line exists: standoff distance IS the security, so the emptiness is a feature and not a void.
 
 ### Layout — what is where
-- The COURTHOUSE is the hero: a big columned stone mass with office WINGS and a central DOME over the rotunda, window/cornice detail down its face.
-- A grand PORTICO colonnade + monumental STEPS descend to a civic PLAZA with the Justice STATUE + flanking FLAGPOLES.
-- A small VISITOR lot flanks the plaza; a prisoner SALLY PORT bay sits on the secure wing; dead landscaping edges the square.
+- ONE BUILDING, an L. The west leg runs north-south, the north leg east-west, and the ROTUNDA bulges out of the elbow into the plaza. Every mass shares a wall.
+- THE DOME reads from above as a bright RING, because sixty feet of it was glass and most of that is gone.
+- THE PRECAST PANEL GRID (22ft x 10ft) runs across both roof plates — the cladding module, legible from the air — and the rooftop plant sits in a line along the north leg.
+- THE PROJECTING CANOPY hangs off the building over the plaza and down its west side. It has NO masts, because on the real building it cantilevers from the top.
+- THE PUBLIC PLAZA fills the elbow with a dry basin, a flag row along the building face and a light line at its edge.
+- THE BLAST SETBACK rings the whole plot, held by a BOLLARD LINE on the street side and the east flank.
+- THE SECURE YARD is walled on the west with staff parking inside it, a SALLY PORT into the west leg, and a gated drive out to the public lot.
 
 ### Circulation (street-aware / drivable)
-Street-aware via canonical-south + K.rotateToStreet: a small drive on the primary street feeds the visitor lot + the secure sally lane (code 1 reaches them from the curb, K.driveReachFromStreet). Foot circulation is the plaza -> steps -> portico. WALKABLE-LAND: a courthouse IS its building — nearly all structure + plaza; the lots are minimal. Corner side streets get a pedestrian gate onto the plaza.
+Street-aware via canonical-south + K.rotateToStreet: ONE kerb cut on the primary street feeds the public lot, and the drive along the south links it to the secure yard gate, so the whole drive network is reachable from the kerb (K.driveNetworkReach = 1.0). The sally port and yard gate are PORTALS, never a second car entrance. Stall ticks are MARKING and the canopy is OVERHEAD, so neither severs a path. Foot circulation is plaza -> under the canopy -> the public doors. A corner adds a pedestrian gate.
 
 ### Layering — exterior vs interior, what blocks, what you go under/into
-GROUND plane (walk/drive, flat): the plaza (7), lawn (4), sidewalk (12), the drive/lot (1, drive), desert (0). STRUCTURES (¾ front face, solid, ENTERABLE): the COURTHOUSE (2 -> rotunda + courtrooms + chambers + holding) with the DOME (10) + PORTICO columns (8) + grand STEPS (6). PROPS: the Justice STATUE (11), FLAGPOLES (13), pole lights (9), dead landscaping (3). PORTALS: the gate (5), the sally port. The columned mass + dome are the vertical hero; you climb the steps through the portico.
+GROUND (flat): the public plaza (7), the blast setback (4), the walks (13), the dry basin (8), the lot and yard floor (1, DRIVE) with their stall ticks (21, MARKING), bare desert (0). OVERHEAD (pass UNDER): the projecting canopy (14). STRUCTURE (¾ front face, solid, ENTERABLE): the COURTHOUSE mass (2 — rotunda lobby, screening hall, courtrooms and jury suites up both legs, holding behind the sally port), the precast panel joints (6), the dome (17) and its glazing (11), the roof edge (16), the rooftop plant (10), the plaza lights (9), the security bollards (15), the secure yard wall (20, FENCE). PROP: dead trees (3), flagpoles (12), dead cars (19). PORTAL: the doorways (18), the sally port and yard gate (22), the kerb cut (5).
 
 ### Decisions & rulings
-- Act-1 DEAD: boarded, the dome streaked, columns cracked, seals defaced, the plaza weed-split. Whose law rules now is faction canon (Paolo's).
-- Civic category (courthouse). Zero purple. No jurisdiction/seal (Paolo's to author).
-- WALKABLE-LAND honored (easily): the building + plaza dominate; lots minimal.
-- Research-first (per the playbook): built from the classical courthouse form, not memory.
+- THE COLONNADE IS DEAD, and the lawn with it. A portico and monumental steps is a county courthouse in Ohio; this valley has a blast-rated federal L with a glass dome, and that is what actually got built here.
+- THE SETBACK IS NOT A VOID, and this is the one district where empty ground is CORRECT. Standoff distance is the security measure the building was the first in the country to be designed around. It is named, written and bollarded, so it is answered for.
+- Deliberately differentiated from city hall (solar tree farm + single-masted canopy) and the library (drum + tower + reading wing): here it is an L round a plaza, a ringed dome at the elbow, and a cantilevered canopy. Every district is its own landmark (7/28).
+- ONE BUILDING (8/2): both legs and the rotunda share walls; the yard wall is a fence, not a second courthouse.
+- THE SECURE HALF is what a courthouse has and a city hall does not: a walled yard, staff parking inside it, and a sally port. It stays a PORTAL, never a second car entrance (street-aware law).
+- Act-1 DEAD: the dome mostly sky, sealant dropped out of the panel joints, plant stripped for copper, pavers heaved, one sally port leaf standing open. Who holds the building now is faction canon and stays Paolo's.
+- Zero purple. No inscriptions, seals or signage text anywhere (Paolo's to author).
 
 ### Tile legend — every code: material to skin + layer/occupancy/interior
 _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=drawn above, pass under · prop=object on the ground · portal=go through into an interior._
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the civic-square edge (setback) | ground | no | — | 2671 |
-| 1 | `#3a3a42` | drive / lot | drive | the small visitor lot + the secure sally lane (car-drivable) | ground | no | — | 891 |
-| 2 | `#7a7365` | building (courthouse) | building | the courthouse — columned stone mass + office wings, boarded, seals defaced | structure | yes | courthouse interior: the rotunda + courtrooms off the public hall, clerk + records + judges' chambers in the wings, holding by the sally port | 5828 |
-| 3 | `#3a4526` | landscaping | tree-dead | a dead civic tree / hedge on the square | prop | no | — | 1 |
-| 4 | `#49512e` | lawn | ground | the dead civic-square lawn | ground | no | — | 1603 |
-| 5 | `#c79a3f` | gate | gate | the civic-square entrance off the street, amber curb | portal | no | — | 5 |
-| 6 | `#8a8175` | grand steps | structure | the monumental stone steps rising to the portico | structure | yes | — | 689 |
-| 7 | `#8f8676` | plaza | ground | the civic plaza before the steps, cracked pavers, weeds | ground | no | — | 1451 |
-| 8 | `#a89e8a` | portico columns | structure | the grand portico colonnade across the front, a column or two cracked | structure | yes | — | 299 |
-| 9 | `#8f8676` | pole light | prop | a civic pole light, head dark | prop | yes | — | 2 |
-| 10 | `#9a9082` | dome / cupola | structure | the central dome / cupola over the rotunda, copper streaked green-black | structure | yes | — | 292 |
-| 11 | `#b0863a` | statue / monument | prop | the Justice statue / civic monument on the plaza, weathered | prop | yes | — | 37 |
-| 12 | `#6a675e` | sidewalk | ground | the civic-square terrace / sidewalk, cracked | ground | no | — | 2613 |
-| 13 | `#c79a3f` | flagpole | prop | a flagpole flanking the plaza, halyard slapping | prop | yes | — | 2 |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb | ground | no | — | 1467 |
+| 1 | `#33333c` | drive / lot | drive | the public lot and the secure yard floor — asphalt gone to plates, weeds up every joint (car-drivable) | ground | no | — | 1888 |
+| 2 | `#9c9179` | courthouse | building | beige limestone and precast panel, an L wrapped round its own plaza, blast-rated walls that outlived the government that ordered them | structure | yes | courthouse interior: the rotunda lobby under the dead dome, the screening hall, courtrooms and jury suites stacked up both legs, holding cells behind the sally port | 2183 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead setback tree gone to stick, its grate prised up for the metal | prop | no | — | 7 |
+| 4 | `#6b6250` | blast setback | ground | the standoff strip between the kerb and the wall — decomposed granite gone to hardpan. It is empty ON PURPOSE: this was the first federal building in the country built to the post-Oklahoma-City blast rules, and the emptiness IS the security | ground | no | — | 2257 |
+| 5 | `#c79a3f` | gate / kerb cut | gate | the kerb cut off the street into the public lot, amber paint gone chalky | portal | no | — | 11 |
+| 6 | `#8a8069` | precast panel joint | structure | the joint line between two precast panels, twenty-two feet by ten, the sealant gone chalky and dropped out in runs | structure | yes | — | 748 |
+| 7 | `#8b8478` | public plaza | ground | the plaza in the elbow of the building, big pavers heaved by roots, shaded half the day by the canopy overhead | ground | no | — | 1841 |
+| 8 | `#5a6660` | dry basin | water-dead | a reflecting basin bone dry, the old waterline stained around it like a tidemark | ground | no | — | 103 |
+| 9 | `#b0863a` | plaza light | structure | a plaza light on its concrete stem, head dark, the glass long gone | structure | yes | — | 5 |
+| 10 | `#6e6a60` | rooftop plant | structure | a mechanical unit on the roof of the north leg, ducting collapsed, one of them stripped for its copper | structure | yes | — | 175 |
+| 11 | `#93a2a8` | dome glazing | structure | what is left of the sixty-foot glass dome over the rotunda — a cable truss and mostly sky | structure | yes | — | 149 |
+| 12 | `#8a7f5e` | flagpole | prop | a flagpole in the row facing the plaza, halyard slapping, nothing left on it | prop | yes | — | 3 |
+| 13 | `#7d7a71` | walk | walk | the concrete walks across the setback, cracked corner to corner | ground | no | — | 2324 |
+| 14 | `#6d675c` | projecting canopy | overhead | the steel and aluminium canopy that hangs off the top of the building and shadows the plaza — no columns hold it up, and you walk UNDER it | overhead | no | — | 1186 |
+| 15 | `#5f5c54` | security bollard | structure | a steel bollard in the standoff line, still dead upright. Nothing short of a truck moves one, and nothing has | structure | yes | — | 49 |
+| 16 | `#c0b498` | roof edge | structure | the parapet line where a roof meets its wall, coping missing in runs | structure | yes | — | 869 |
+| 17 | `#b6a888` | rotunda dome | structure | the ring of the rotunda dome, the crown of the public lobby, its glazing gone | structure | yes | — | 230 |
+| 18 | `#241f1a` | doorway | portal | a way in — the public doors under the canopy, the staff entrance on the north leg | portal | no | — | 88 |
+| 19 | `#6a6e72` | dead car | vehicle | a car left where it was parked, flat and sun-bleached, nobody came back for it | prop | yes | — | 96 |
+| 20 | `#585349` | secure yard wall | fence | the wall round the secure yard, razor wire long since rusted off the top of it | structure | yes | — | 114 |
+| 21 | `#4a4a52` | stall marking | marking | the painted stall ticks, chalked out to ghosts by twenty summers — PAINT IS NOT A WALL, a car drives straight over it | ground | no | — | 240 |
+| 22 | `#3a3630` | sally port | portal | the sally port — the sealed vehicle door prisoners came in through, one leaf standing open | portal | no | — | 85 |
+| 23 | `#7a7263` | plaza planter | structure | a low limestone planter across the plaza, bed gone to hardpan with a dead tree still in it, coping cracked where people sat on it waiting to be called | structure | yes | — | 266 |
 
 **Gate:** `gates/courthouse_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

@@ -8332,17 +8332,34 @@ root.BQRuntime=API;
 </script>
 <script>
 /* inlined: engine/bohemia_chapel.js */
-// BOHEMIA CHURCH (7/21/26). CIVIC, on the DISTRICT KIT. Research-first (church architecture — Keiser
-// Design parts of a church, UMC narthex/nave, cruciform cathedral plans): a CRUCIFORM (Latin-cross)
-// building — NARTHEX (entry) + long NAVE crossed by the TRANSEPTS, the SANCTUARY/apse at the head — a
-// BELL TOWER flanking the entrance, a forecourt PLAZA/atrium with an arcade, a memorial garden. A
-// church is BUILDING-dominant. Act-1 DEAD: shattered stained glass, the bell silent, doors chained,
-// the garden dead. Street-aware + drivable (a small lot). Full dossier + layering. Hero: the cross-plan
-// building + the bell tower.
+// BOHEMIA CHURCH / CHAPEL (7/21/26; REBUILT 8/2/26). CIVIC, on the DISTRICT KIT.
+//
+// The CRUCIFORM plan stays: it is right, it is one building, and it is the one civic form in
+// the valley nothing else shares. What was wrong was everything around it.
+//
+// TWO THINGS THE REBUILD FIXES, both of them findings Paolo made on other districts:
+//   THE GREEN. "memorial garden" and "dead landscaping" were #49512e and #3a4526 -- lawn
+//     green -- across a fifth of the plot, in a valley that stopped watering things a decade
+//     before act one opens. Same greenwash he caught in downtown. A Mojave churchyard is not
+//     a lawn; it is a walled MEMORIAL COURT of decomposed granite with a COLUMBARIUM wall of
+//     niches, because in this ground you do not dig graves, you build a wall and fill it.
+//   THE MONOBLOCK. 33.9% of the plot was one code called "sidewalk". Split into the things
+//     it actually is: the churchyard walk, the memorial court paving, and the gravel margin.
+// And it gains what every approved district has: roofs and doors from the shared machine, a
+// covered walk you pass UNDER, stall ticks that are PAINT, and a dressed lot.
+//
+// Act-1 DEAD: the stained glass is out and the lead buckled, the bell is on the ground where
+// it came through the belfry floor, the niches are prised open, the font is dry.
+// Street-aware + drivable (a small lot + drop-off). Full dossier + layering.
 // LEGEND:
-//  0 desert  1 drive/lot (DRIVABLE)  2 building (church)  3 dead tree  4 memorial garden  5 gate
-//  6 bell tower  7 forecourt plaza  8 arcade columns  9 pole light  10 cross / statue  11 stained glass
-//  12 sidewalk
+//  0 desert dead-ground   1 drive / lot (DRIVABLE)   2 church (the ONE building)
+//  3 dead tree            4 memorial court           5 gate / kerb cut
+//  6 bell tower           7 forecourt plaza          8 arcade columns
+//  9 pole light          10 cross / fallen bell     11 stained glass
+//  12 churchyard walk    13 columbarium wall        14 gravel margin
+//  15 covered walk (OVERHEAD)  16 roof edge         17 niche plaque
+//  18 doorway (PORTAL)   19 dead car                20 stall marking (PAINT)
+//  21 dry font           22 roof ridge              23 orchard bed
 (function(root){
   var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
@@ -8351,55 +8368,138 @@ root.BQRuntime=API;
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
-    // ---- BASE: churchyard lawn + sidewalk terrace; desert at the margins ----
-    G.rect(0,0,W-1,H-1,0); G.rect(5,7,W-6,H-6,4); G.rect(8,10,120,96,12);
-    // ---- the CRUCIFORM CHURCH (Latin cross): nave + transepts + apse + narthex ----
+    /* ---- BASE. Decomposed granite and gravel, never lawn. ---- */
+    G.rect(0,0,W-1,H-1,0);
+    G.rect(3,3,W-4,H-4,14);                                              // the gravel margin
+
+    /* ---- THE CRUCIFORM CHURCH (Latin cross): nave + transepts + apse + narthex.
+       ONE building: every arm shares a wall with the crossing. ---- */
     G.rect(52,22,76,86,2);                                               // the long NAVE
     G.rect(30,44,98,62,2);                                               // the TRANSEPTS (cross arms)
-    G.disc(64,22,11,2);                                                  // the SANCTUARY / apse (rounded head, north)
-    G.rect(46,84,82,94,2);                                               // the NARTHEX (entry vestibule, south)
-    // stained-glass windows down the nave + transept ends + a rose window in the apse
-    for(y=28;y<=82;y+=6){ set(52,y,11); set(76,y,11); } for(y=48;y<=58;y+=4){ set(30,y,11); set(98,y,11); }
+    G.disc(64,22,11,2);                                                  // the SANCTUARY / apse, north
+    G.rect(46,84,82,94,2);                                               // the NARTHEX, south
+    G.rect(36,84,46,112,6); G.rect(38,86,44,88,11); set(41,84,10);       // the BELL TOWER + belfry + finial
+    G.rect(44,90,48,96,2);                                               // the tower joined to the narthex
+    G.rect(96,38,118,70,2);                                              // THE PARISH HALL, off the east transept
+    for(y=42;y<=66;y+=6) G.rect(118,y,118,y+2,11);                       // its hall windows
+
+    /* ---- THE DEAD ORCHARD across the north. A mission planting is what a parish did with
+       ground it could not build on, and rows of dead citrus is what is left of one. It also
+       answers the thing that made this plot fail twice: the north half was 30%+ of a single
+       empty code, first called sidewalk and then called gravel. Renaming emptiness does not
+       fix it; PUTTING SOMETHING THERE does. ---- */
+    for(y=8;y<=36;y++) for(x=10;x<=118;x++) if(get(x,y)===14) set(x,y,4);
+    for(y=11;y<=33;y+=5) for(x=14;x<=114;x+=5) if(get(x,y)===4){
+      G.rect(x-1,y-1,x+1,y+1,23); set(x,y,3); }               // the tree in its granite bed
+    for(x=10;x<=118;x++){ if(get(x,8)===4)set(x,8,13); if(get(x,36)===4)set(x,36,13); }
+    for(y=8;y<=36;y++){ if(get(10,y)===4)set(10,y,13); if(get(118,y)===4)set(118,y,13); }
+    for(x=60;x<=68;x++) if(get(x,36)===13) set(x,36,4);                  // the gap you walk in through
+
+    /* THE WALK IS AN APRON, NOT A FIELD. Painting the whole churchyard "sidewalk" made one
+       code 35.5% of the plot, which is the MONOBLOCK failure. A walk is the band that hugs
+       the building, so it is computed from the building instead of guessed at. */
+    for(y=4;y<128-4;y++) for(x=4;x<128-4;x++){
+      if(get(x,y)!==14) continue;
+      var near=false;
+      for(var dy=-5;dy<=5&&!near;dy++) for(var dx=-5;dx<=5;dx++)
+        if(get(x+dx,y+dy)===2||get(x+dx,y+dy)===6){ near=true; break; }
+      if(near) set(x,y,12);
+    }
+
+    /* THE ROOF IS NOT A FLAT PLATE. A pitched church roof reads as a RIDGE down the nave
+       and each transept arm with the tile courses stepping off it -- a mass this size in one
+       colour is the 7/30 flat-rectangle failure at building scale. */
+    G.rect(63,20,65,86,22); G.rect(30,52,98,54,22);
+    for(y=24;y<=84;y+=6){ G.rect(54,y,62,y,16); G.rect(66,y,74,y,16); }
+    for(x=32;x<=96;x+=6){ G.rect(x,46,x,51,16); G.rect(x,55,x,60,16); }
+    G.rect(100,42,116,44,22);
+    for(y=48;y<=66;y+=5) G.rect(98,y,116,y,16);
+
+    /* stained glass down the nave, across the transept ends, and the rose in the apse */
+    for(y=28;y<=82;y+=6){ set(52,y,11); set(76,y,11); }
+    for(y=48;y<=58;y+=4){ set(30,y,11); set(98,y,11); }
     set(64,16,11); set(60,18,11); set(68,18,11);
-    // ---- BELL TOWER flanking the entrance (tall, SW of the narthex) ----
-    G.rect(36,84,46,112,6); G.rect(38,86,44,88,11); set(41,84,10);       // tower + belfry window + a cross finial
-    // ---- forecourt PLAZA + arcade + a cross/statue in front ----
-    G.rect(30,96,98,114,7); for(x=34;x<=94;x+=6) G.rect(x,94,x+1,96,8);  // plaza + the entrance arcade columns
-    set(64,105,10); set(63,104,10); set(65,104,10); set(64,103,10);      // the churchyard cross / statue
-    // ---- memorial GARDEN + dead trees at the sides; a small parking + drive ----
-    G.rect(10,64,28,92,4); G.rect(100,64,118,92,4); for(x=12;x<=116;x+=8){ if(get(x,68)===4)set(x,68,3); if(get(x,88)===4)set(x,88,3); }
-    G.rect(102,98,118,114,1); for(y=102;y<=110;y+=4){ set(106,y,12); set(112,y,12); }
-    [[10,96],[120,96],[10,114],[64,114]].forEach(function(p){ set(p[0],p[1],9); });
-    // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit) ----
-    var gx=W>>1;
-    G.rect(gx-2,114,gx+2,H-1,1);
-    for(y=H-1;y>=114;y--)for(x=-2;x<=2;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4||c===12)set(gx+x,y,1); }
-    G.rect(gx,114,110,117,1);
-    for(i=-2;i<=2;i++)set(gx+i,H-1,5);
+
+    /* ---- THE MEMORIAL COURT, both flanks: a walled court of decomposed granite with a
+       COLUMBARIUM wall of niches round it. In this ground you do not dig, you build a wall
+       and you fill it, and the plaques are what people came to read. ---- */
+    [[10,64],[100,64]].forEach(function(c0){
+      var mx=c0[0], my=c0[1];
+      G.rect(mx,my,mx+18,my+30,4);
+      for(x=mx;x<=mx+18;x++){ set(x,my,13); set(x,my+30,13); }
+      for(y=my;y<=my+30;y++){ set(mx,y,13); set(mx+18,y,13); }
+      for(y=my+2;y<=my+28;y+=3){ set(mx,y,17); set(mx+18,y,17); }        // the niche plaques
+      for(x=mx+3;x<=mx+15;x+=4) set(x,my+15,3);                          // the dead planting down the middle
+      G.rect(mx+7,my+30,mx+11,my+30,4);                                  // the gap you walk in through
+    });
+
+    /* ---- THE FORECOURT: arcade, churchyard cross, the fallen bell, the dry font ---- */
+    G.rect(28,96,100,116,7);
+    for(x=32;x<=96;x+=6) G.rect(x,94,x+1,96,8);                          // the entrance arcade
+    set(64,106,10); set(63,105,10); set(65,105,10); set(64,104,10);      // the churchyard cross
+    G.disc(48,110,4,10); G.disc(48,110,2,7);                             // the BELL, down where it fell
+    G.disc(84,108,4,21); G.disc(84,108,2,7);                             // the dry font
+    for(x=34;x<=94;x+=15) set(x,114,9);
+
+    /* the COVERED WALK from the lot to the narthex: an overhead, so you pass UNDER it */
+    for(y=98;y<=114;y++) for(x=100;x<=106;x++){ var cv=get(x,y); if(cv===7||cv===12||cv===14) set(x,y,15); }
+
+    /* ---- THE LOT ---- */
+    G.rect(6,118,122,124,1);
+    G.rect(102,112,122,120,1);
+    for(x=10;x<=118;x+=4) for(y=119;y<=123;y++) set(x,y,20);
+    for(i=0;i<8;i++){ var cx=10+Math.floor(r()*27)*4, cy=119+Math.floor(r()*2);
+      if(get(cx+1,cy)===1||get(cx+1,cy)===20) G.rect(cx+1,cy,cx+2,cy+2,19); }
+
+    for(i=0;i<24;i++){ var tx=4+Math.floor(r()*120), ty=4+Math.floor(r()*120);
+      if(get(tx,ty)===14) set(tx,ty,3); }
+
+    K.roofsAndDoors(g,{ building:function(c){return c===2;}, roof:16, door:18, min:150,
+      outside:function(c){ return c===12||c===7||c===4||c===14||c===1||c===20; } });
+
+    var gx=64;
+    for(i=-5;i<=5;i++) set(gx+i,H-1,5);
+    for(y=H-1;y>=124;y--) for(x=-5;x<=5;x++){ var c=get(gx+x,y); if(c===0||c===14||c===12) set(gx+x,y,1); }
     return g;
   }
   function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
     var soft=function(c){ return c===0||c===3||c===4||c===12; };
     var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:12, pedOver:soft, pedInset:12});
     var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
-      footprints:K.footprints(g,function(v){return v===2;})}; }
-  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
-  var PALETTE={0:'#1c1a15',1:'#3a3a42',2:'#7a7060',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#6f665a',
-    7:'#8f8676',8:'#a89e8a',9:'#8f8676',10:'#b0863a',11:'#4a6a72',12:'#6a675e'};
+      /* THE BELL TOWER IS THE CHURCH. It shares a wall with the narthex, so counting only
+         the nave stone left its belfry window stranded as a second building (ONE BUILDING, 8/2). */
+      footprints:K.footprints(g,function(v){return v===2||v===6||v===11||v===16||v===18||v===22;})}; }
+  function driveConnected(res){ return K.driveNetworkReach(res.g, LEGEND) > 0.999; }
+  /* SUN-BLEACHED STONE, GRANITE AND GRAVEL. Nothing green: a Mojave churchyard is not a lawn. */
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7a7060',3:'#514f40',4:'#6b6250',5:'#c79a3f',6:'#6f665a',
+    7:'#8f8676',8:'#a89e8a',9:'#b0863a',10:'#8e8a7c',11:'#4a6a72',12:'#7d7a71',13:'#8a8272',
+    14:'#5f5a4c',15:'#9a9184',16:'#b3a78d',17:'#a08f6e',18:'#241f1a',19:'#6a6e72',20:'#4a4a52',
+    21:'#5a6660',22:'#8e8474',23:'#7b7361'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the churchyard edge (setback)'},
     1:{name:'drive / lot',        kind:'drive',      act1:'the small church parking + drop-off drive (car-drivable)'},
     2:{name:'building (church)',  kind:'building',   act1:'the cruciform church — stone walls, roof steep, doors chained', enter:'church interior: the narthex, the long nave of pews to the altar at the apse, the transept chapels off the crossing'},
-    3:{name:'dead tree',          kind:'tree-dead',  act1:'a dead churchyard tree / shrub', solid:false},
-    4:{name:'memorial garden',    kind:'ground',     act1:'the dead memorial garden / churchyard lawn'},
+    3:{name:'dead tree',          kind:'tree-dead',  act1:'a dead churchyard tree gone to stick, its grate prised up for the metal', solid:false},
+    4:{name:'memorial court',     kind:'ground',     act1:'the walled memorial court — decomposed granite raked once, now hardpan split by weeds. Not a lawn: in this ground you do not dig graves, you build a wall and fill it'},
     5:{name:'gate',               kind:'gate',       act1:'the churchyard entrance off the street, amber curb'},
     6:{name:'bell tower',         kind:'structure',  act1:'the bell tower flanking the entrance, tall, the bell silent, a cross finial atop', solid:true},
     7:{name:'forecourt plaza',    kind:'ground',     act1:'the forecourt piazza before the doors, cracked pavers, weeds'},
     8:{name:'arcade columns',     kind:'structure',  act1:'the entrance arcade / colonnade across the front', solid:true},
     9:{name:'pole light',         kind:'prop',       act1:'a churchyard pole light, head dark'},
-    10:{name:'cross / statue',    kind:'prop',       act1:'the churchyard cross / a memorial statue, weathered', solid:true},
+    10:{name:'cross / fallen bell',kind:'prop',      act1:'the churchyard cross, and the BELL itself lying in the forecourt where it came through the belfry floor', solid:true},
     11:{name:'stained glass',     kind:'structure',  act1:'a stained-glass window (nave/transept/rose), shattered, lead buckled'},
-    12:{name:'sidewalk',          kind:'ground',     act1:'the churchyard terrace / sidewalk, cracked'}
+    12:{name:'churchyard walk',   kind:'walk',       act1:'the concrete walk that rings the church, cracked corner to corner and lifted where the roots got under it'},
+    13:{name:'columbarium wall',  kind:'fence',      act1:'the niche wall round the memorial court — rows of small sealed compartments, a third of them prised open', solid:true},
+    14:{name:'gravel margin',     kind:'ground',     act1:'the gravel margin at the property line, sun-bleached rock over failed weed cloth'},
+    15:{name:'covered walk',      kind:'overhead',   act1:'the covered walk from the lot to the doors, half its roof sheets peeled back. You pass UNDER it'},
+    16:{name:'roof edge',         kind:'structure',  act1:'the parapet and eave line where a roof meets its wall, tiles gone in runs'},
+    17:{name:'niche plaque',      kind:'structure',  act1:'a name plaque on a columbarium niche, the letters still cut deep enough to read'},
+    18:{name:'doorway',           kind:'portal',     act1:'a way in — the narthex doors, the transept door, the gate into a memorial court'},
+    19:{name:'dead car',          kind:'vehicle',    act1:'a car left in the lot, flat and sun-bleached, nobody came back for it'},
+    20:{name:'stall marking',     kind:'marking',    act1:'the painted stall ticks, chalked out to ghosts by twenty summers — PAINT IS NOT A WALL, a car drives straight over it'},
+    22:{name:'roof ridge',        kind:'structure',  act1:'the ridge line down the nave and the transept arms, tiles gone off it in runs and the battens showing', solid:true},
+    23:{name:'orchard bed',       kind:'ground',     act1:'the granite bed round an orchard tree, its drip line long since cut off at the main'},
+    21:{name:'dry font',          kind:'water-dead', act1:'the font in the forecourt, bone dry, a tidemark ringed inside the bowl'}
   };
   var NOTES={
     summary:'A dead church — a cruciform stone building (narthex + long nave crossed by the transepts, the sanctuary apse at the head), a bell tower flanking the entrance, a forecourt plaza with an arcade + a churchyard cross, a memorial garden, a small lot.',
@@ -8414,7 +8514,7 @@ root.BQRuntime=API;
       'WALKABLE-LAND honored (easily): the cruciform building + plaza + garden dominate; lot minimal.',
       'Research-first (per the playbook): built from real cruciform church plans, not memory.']
   };
-  K.register('chapel', { generate:generate, body:function(c){return c===2;}, category:'civic', palette:PALETTE, legend:LEGEND, notes:NOTES });
+  K.register('chapel', { generate:generate, body:function(c){return c===2||c===6||c===11||c===16||c===18||c===22;}, category:'civic', palette:PALETTE, legend:LEGEND, notes:NOTES });
   var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API; root.BohemiaChapel=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
@@ -8422,89 +8522,209 @@ root.BQRuntime=API;
 </script>
 <script>
 /* inlined: engine/bohemia_courthouse.js */
-// BOHEMIA COURTHOUSE (7/21/26). CIVIC, on the DISTRICT KIT. Research-first (civic/courthouse design +
-// classical civic buildings — grand columned mass, portico, dome, monumental steps to a plaza, office
-// wings, a secure prisoner sally port): the classic seat-of-law form. Building-dominant. Act-1 DEAD:
-// boarded, the dome streaked, columns cracked, the plaza weed-split, justice long fled. Street-aware +
-// drivable (a small lot + a secure sally lane). Full dossier + layering. Hero: the columned building
-// + dome + grand steps.
+// BOHEMIA COURTHOUSE (7/21/26; REBUILT 8/2/26). CIVIC, on the DISTRICT KIT.
+//
+// THE REBUILD. The old district spoke classical: a PORTICO COLONNADE across the front,
+// monumental steps, a justice statue, a dome, and a dead green lawn. That is a 19th-century
+// county courthouse in Ohio. It was also 35.6% one building code, which is a MONOBLOCK by
+// the 7/31 every-pixel-answered finding.
+//
+// BUILT INSTEAD ON THE ONE THIS VALLEY HAS: the LLOYD D. GEORGE U.S. COURTHOUSE (CannonDesign,
+// 2000, 333 Las Vegas Blvd S). Four things make it that building and nothing else:
+//   AN L-SHAPED PLAN, 450,000 sq ft, wrapping a public plaza in its elbow.
+//   A THREE-STOREY ROTUNDA at the elbow, the public lobby, capped by a 60-FOOT GLASS DOME
+//     on a cable truss.
+//   A DRAMATIC STEEL AND ALUMINIUM CANOPY PROJECTING FROM THE TOP OF THE BUILDING, which
+//     shadows the plaza below. It hangs off the building: no masts, and you walk under it.
+//   BLAST RESISTANCE. It was the FIRST federal building built to the post-Oklahoma-City
+//     requirements, and that is not trivia -- it is why there is a wide empty setback
+//     between the kerb and the wall, and a bollard line holding it.
+// Clad in 22ft x 10ft precast panels and beige limestone, which is the panel grid you can
+// read across its roof plates from above.
+//
+// ONE BUILDING (8/2 law): both legs and the rotunda share walls. The secure yard's wall is
+// a fence, not a second courthouse.
+//
+// Act-1 DEAD: the dome is mostly sky, the plaza pavers are heaved, the bollards are still
+// standing because nothing short of a truck moves them. Street-aware + drivable: one kerb
+// cut to the public lot, and the SALLY PORT into the secure yard is a portal, not a second
+// car entrance.
 // LEGEND:
-//  0 desert  1 drive/lot (DRIVABLE)  2 building (courthouse)  3 landscaping  4 lawn  5 gate
-//  6 grand steps  7 plaza  8 portico columns  9 pole light  10 dome/cupola  11 statue/monument  12 sidewalk  13 flagpole
+//  0 desert dead-ground   1 drive / lot (DRIVABLE)      2 courthouse (the ONE building)
+//  3 dead tree            4 blast setback (hardpan)      5 gate / kerb cut
+//  6 precast panel joint  7 public plaza                 8 dry basin
+//  9 plaza light         10 rooftop plant               11 dome glazing
+//  12 flagpole           13 walk                        14 projecting canopy (OVERHEAD)
+//  15 security bollard   16 roof edge                   17 rotunda dome
+//  18 doorway (PORTAL)   19 dead car                    20 secure yard wall (FENCE)
+//  21 stall marking (PAINT)  22 sally port (PORTAL)   23 plaza planter
 (function(root){
   var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
   var M=K.M;
+
   function buildCanonical(seed){
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
-    // ---- BASE: civic lawn + sidewalk terrace; desert at the margins ----
-    G.rect(0,0,W-1,H-1,0); G.rect(5,7,W-6,H-6,4); G.rect(8,10,120,96,12);
-    // ---- the COURTHOUSE: a big columned mass with office wings + a central DOME ----
-    G.rect(16,12,112,74,2);                                              // the main block
-    G.rect(16,12,34,74,2); G.rect(94,12,112,74,2);                       // the office wings (reads as a massed civic building)
-    for(x=20;x<=108;x+=6) set(x,12,11); for(y=18;y<=68;y+=6){ set(16,y,11); set(112,y,11); } // window/cornice detail
-    G.disc(64,34,12,10); G.disc(64,34,7,2); set(64,22,11);              // the DOME / cupola over the rotunda
-    // ---- grand PORTICO of columns + monumental STEPS down to the PLAZA ----
-    G.rect(40,74,88,78,8); for(x=42;x<=86;x+=5) G.rect(x,74,x+1,82,8);   // the portico colonnade
-    for(y=82;y<=94;y++) G.rect(38,y,90,y,6);                            // the monumental steps (widening down)
-    G.rect(24,96,104,116,7);                                            // the civic plaza
-    set(64,106,11); set(63,105,11); set(65,105,11); set(64,104,11); set(64,107,11); // the justice statue/monument
-    set(44,100,13); set(84,100,13);                                     // flagpoles flanking the plaza
-    // ---- landscaping + a small VISITOR lot + a SECURE sally lane at the side ----
-    for(x=12;x<=116;x+=10){ if(get(x,14)===12)set(x,14,3); }
-    G.rect(10,98,22,114,1); G.rect(106,98,118,114,1); for(y=102;y<=110;y+=4){ set(14,y,12); set(110,y,12); }
-    G.rect(106,60,118,74,2); set(112,74,10);                            // the prisoner SALLY PORT bay on the secure wing
-    [[10,96],[120,96],[10,114],[64,114]].forEach(function(p){ set(p[0],p[1],9); });
-    // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit) ----
-    var gx=W>>1;
-    G.rect(gx-2,114,gx+2,H-1,1);
-    for(y=H-1;y>=114;y--)for(x=-2;x<=2;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4||c===12)set(gx+x,y,1); }
-    G.rect(10,114,gx,117,1); G.rect(gx,114,118,117,1);
-    for(i=-2;i<=2;i++)set(gx+i,H-1,5);
+    /* an OVERHEAD only ever lands on OPEN GROUND. See the canopy note below. */
+    function overhead(x0,y0,x1,y1){ for(var yy=y0;yy<=y1;yy++) for(var xx=x0;xx<=x1;xx++){
+      var v=get(xx,yy); if(v===7||v===13||v===4||v===0) set(xx,yy,14); } }
+
+    G.rect(0,0,W-1,H-1,0);
+    G.rect(3,3,W-4,H-4,4);                                   // the BLAST SETBACK, hardpan not lawn
+    G.rect(8,8,120,104,13);                                  // the walks over it
+
+    /* ---- ONE BUILDING: the L. The west leg runs north-south, the north leg east-west,
+       and the ROTUNDA sits in the elbow bulging into the plaza. ---- */
+    G.rect(14,14,50,82,2);                                   // the west leg
+    G.rect(14,14,110,44,2);                                  // the north leg
+    G.disc(52,48,19,2);                                      // THE ROTUNDA, on both legs
+    G.rect(38,34,66,52,2);                                   // merged into the elbow
+
+    /* THE DOME: read from above it is a bright RING, not a solid cap -- sixty feet of it
+       was glass and most of that is gone. */
+    G.disc(52,48,15,17); G.disc(52,48,10,11); G.disc(52,48,4,17);
+
+    /* THE PRECAST PANEL GRID, 22ft x 10ft, which is what clads it and what you read on the
+       roof plates from the air. */
+    for(x=18;x<=106;x+=8) G.rect(x,16,x,42,6);
+    for(y=20;y<=40;y+=7) G.rect(16,y,108,y,6);
+    for(y=54;y<=78;y+=7) G.rect(16,y,48,y,6);
+    for(x=20;x<=46;x+=8) G.rect(x,52,x,80,6);
+    for(x=24;x<=100;x+=12) G.rect(x,24,x+4,28,10);           // rooftop plant along the north leg
+
+    /* ---- THE PUBLIC PLAZA in the elbow ---- */
+    G.rect(50,46,116,100,7);
+    G.disc(96,80,7,8); G.disc(96,80,3,7);                    // the dry basin
+    for(x=60;x<=112;x+=13) set(x,98,9);
+    set(70,64,12); set(78,64,12); set(86,64,12);             // the flag row
+    /* THE PLAZA IS DRESSED. A screening queue does not stand in a bare field: planters run
+       the length of it, the security bollards continue INTO it as a vehicle screen, and the
+       paving is scored into bands. An empty plaza is a void with a nice name. */
+    for(x=66;x<=110;x+=11){ G.rect(x,68,x+5,72,23); set(x+2,70,3);
+                            G.rect(x,88,x+5,92,23); set(x+2,90,3); }
+    for(x=62;x<=114;x+=6) set(x,84,15);
+    for(y=66;y<=96;y+=8) G.rect(54,y,114,y,13);
+
+    /* ---- THE PROJECTING CANOPY. It hangs off the top of the building over the plaza:
+       no masts, an OVERHEAD, so it shadows a path without ever severing one.
+       MASKED to open ground on purpose: a canopy laid straight over a grid ERASES the
+       building under it, which cut the rotunda clean in half on the first cut. An overhead
+       shades what is already there; it never replaces it. ---- */
+    overhead(52,48,112,62);
+    overhead(52,62,60,94);
+    G.rect(58,44,74,48,18);                                  // the public doors under it
+
+    /* ---- THE BOLLARD LINE. The whole reason for the setback: standoff distance, held. ---- */
+    for(x=14;x<=118;x+=4) set(x,106,15);
+    for(y=14;y<=100;y+=4) set(122,y,15);
+
+    /* ---- THE SECURE YARD on the west: walled, with the SALLY PORT into the west leg.
+       This is the half of a courthouse a city hall does not have. ---- */
+    G.rect(6,86,46,116,1);
+    for(x=6;x<=46;x++){ set(x,86,20); set(x,116,20); }
+    for(y=86;y<=116;y++){ set(6,y,20); set(46,y,20); }
+    G.rect(24,82,32,88,22);                                  // the sally port into the building
+    G.rect(30,114,40,118,22);                                // its gate onto the drive
+    for(x=12;x<=42;x+=4) for(y=90;y<=96;y++) set(x,y,21);
+    for(x=12;x<=42;x+=4) for(y=104;y<=110;y++) set(x,y,21);
+    for(i=0;i<6;i++){ var sx=12+Math.floor(r()*7)*4, sy=92+Math.floor(r()*16);
+      if(get(sx+1,sy)===1||get(sx+1,sy)===21) G.rect(sx+1,sy,sx+2,sy+3,19); }
+
+    /* ---- THE PUBLIC LOT ---- */
+    G.rect(50,110,122,122,1);
+    for(x=54;x<=118;x+=4) for(y=112;y<=116;y++) set(x,y,21);
+    for(x=54;x<=118;x+=4) for(y=119;y<=121;y++) set(x,y,21);
+    G.rect(30,116,58,122,1);                                 // the drive linking yard gate to lot
+    for(i=0;i<10;i++){ var cx=54+Math.floor(r()*16)*4, cy=112+Math.floor(r()*2);
+      if(get(cx+1,cy)===1||get(cx+1,cy)===21) G.rect(cx+1,cy,cx+2,cy+3,19); }
+
+    for(i=0;i<24;i++){ var tx=4+Math.floor(r()*120), ty=4+Math.floor(r()*120);
+      if(get(tx,ty)===4) set(tx,ty,3); }
+
+    K.roofsAndDoors(g,{ building:function(c){return c===2;}, roof:16, door:18, min:150,
+      outside:function(c){ return c===13||c===7||c===4||c===1||c===21; } });
+
+    var gx=88;
+    for(i=-5;i<=5;i++) set(gx+i,H-1,5);
+    for(y=H-1;y>=122;y--) for(x=-5;x<=5;x++){ var c=get(gx+x,y); if(c===0||c===4||c===13) set(gx+x,y,1); }
     return g;
   }
-  function generate(seed,opts){ opts=opts||{}; var streets=opts.streets||['S'];
-    var soft=function(c){ return c===0||c===3||c===4||c===12; };
-    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:12, pedOver:soft, pedInset:12});
-    var g=res.g; return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
-      footprints:K.footprints(g,function(v){return v===2;})}; }
-  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
-  var PALETTE={0:'#1c1a15',1:'#3a3a42',2:'#7a7365',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#8a8175',
-    7:'#8f8676',8:'#a89e8a',9:'#8f8676',10:'#9a9082',11:'#b0863a',12:'#6a675e',13:'#c79a3f'};
+
+  function generate(seed,opts){
+    opts=opts||{}; var streets=opts.streets||['S'];
+    var soft=function(c){ return c===0||c===3||c===4||c===13; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:13, pedOver:soft, pedInset:12});
+    var g=res.g;
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      /* the panel joints, the dome, its glazing, the roof edge and the doorways ARE the
+         building. They are holes in it, never gaps between two of them (ONE BUILDING). */
+      footprints:K.footprints(g,function(v){return v===2||v===6||v===11||v===16||v===17||v===18;})};
+  }
+  function driveConnected(res){ return K.driveNetworkReach(res.g, LEGEND) > 0.999; }
+  function hasSallyPort(res){ for(var y=0;y<res.g.length;y++) for(var x=0;x<res.g[0].length;x++) if(res.g[y][x]===22) return true; return false; }
+
+  /* BEIGE LIMESTONE AND PRECAST. No green: the setback is decomposed granite, and nothing
+     in this valley has been watered in a very long time. */
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#9c9179',3:'#514f40',4:'#6b6250',5:'#c79a3f',
+    6:'#8a8069',7:'#8b8478',8:'#5a6660',9:'#b0863a',10:'#6e6a60',11:'#93a2a8',12:'#8a7f5e',
+    13:'#7d7a71',14:'#6d675c',15:'#5f5c54',16:'#c0b498',17:'#b6a888',18:'#241f1a',
+    19:'#6a6e72',20:'#585349',21:'#4a4a52',22:'#3a3630',23:'#7a7263'};
   var LEGEND={
-    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the civic-square edge (setback)'},
-    1:{name:'drive / lot',        kind:'drive',      act1:'the small visitor lot + the secure sally lane (car-drivable)'},
-    2:{name:'building (courthouse)',kind:'building',  act1:'the courthouse — columned stone mass + office wings, boarded, seals defaced', enter:'courthouse interior: the rotunda + courtrooms off the public hall, clerk + records + judges\' chambers in the wings, holding by the sally port'},
-    3:{name:'landscaping',        kind:'tree-dead',  act1:'a dead civic tree / hedge on the square', solid:false},
-    4:{name:'lawn',               kind:'ground',     act1:'the dead civic-square lawn'},
-    5:{name:'gate',               kind:'gate',       act1:'the civic-square entrance off the street, amber curb'},
-    6:{name:'grand steps',        kind:'structure',  act1:'the monumental stone steps rising to the portico'},
-    7:{name:'plaza',              kind:'ground',     act1:'the civic plaza before the steps, cracked pavers, weeds'},
-    8:{name:'portico columns',    kind:'structure',  act1:'the grand portico colonnade across the front, a column or two cracked', solid:true},
-    9:{name:'pole light',         kind:'prop',       act1:'a civic pole light, head dark'},
-    10:{name:'dome / cupola',     kind:'structure',  act1:'the central dome / cupola over the rotunda, copper streaked green-black', solid:true},
-    11:{name:'statue / monument', kind:'prop',       act1:'the Justice statue / civic monument on the plaza, weathered', solid:true},
-    12:{name:'sidewalk',          kind:'ground',     act1:'the civic-square terrace / sidewalk, cracked'},
-    13:{name:'flagpole',          kind:'prop',       act1:'a flagpole flanking the plaza, halyard slapping'}
+    0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
+    1:{name:'drive / lot',        kind:'drive',    act1:'the public lot and the secure yard floor — asphalt gone to plates, weeds up every joint (car-drivable)'},
+    2:{name:'courthouse',         kind:'building', act1:'beige limestone and precast panel, an L wrapped round its own plaza, blast-rated walls that outlived the government that ordered them', enter:'courthouse interior: the rotunda lobby under the dead dome, the screening hall, courtrooms and jury suites stacked up both legs, holding cells behind the sally port'},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead setback tree gone to stick, its grate prised up for the metal', solid:false},
+    4:{name:'blast setback',      kind:'ground',   act1:'the standoff strip between the kerb and the wall — decomposed granite gone to hardpan. It is empty ON PURPOSE: this was the first federal building in the country built to the post-Oklahoma-City blast rules, and the emptiness IS the security'},
+    5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the public lot, amber paint gone chalky'},
+    6:{name:'precast panel joint',kind:'structure',act1:'the joint line between two precast panels, twenty-two feet by ten, the sealant gone chalky and dropped out in runs'},
+    7:{name:'public plaza',       kind:'ground',   act1:'the plaza in the elbow of the building, big pavers heaved by roots, shaded half the day by the canopy overhead'},
+    8:{name:'dry basin',          kind:'water-dead',act1:'a reflecting basin bone dry, the old waterline stained around it like a tidemark'},
+    9:{name:'plaza light',        kind:'structure',act1:'a plaza light on its concrete stem, head dark, the glass long gone'},
+    10:{name:'rooftop plant',     kind:'structure',act1:'a mechanical unit on the roof of the north leg, ducting collapsed, one of them stripped for its copper'},
+    11:{name:'dome glazing',      kind:'structure',act1:'what is left of the sixty-foot glass dome over the rotunda — a cable truss and mostly sky'},
+    12:{name:'flagpole',          kind:'prop',     act1:'a flagpole in the row facing the plaza, halyard slapping, nothing left on it'},
+    13:{name:'walk',              kind:'walk',     act1:'the concrete walks across the setback, cracked corner to corner'},
+    14:{name:'projecting canopy', kind:'overhead', act1:'the steel and aluminium canopy that hangs off the top of the building and shadows the plaza — no columns hold it up, and you walk UNDER it'},
+    15:{name:'security bollard',  kind:'structure',act1:'a steel bollard in the standoff line, still dead upright. Nothing short of a truck moves one, and nothing has'},
+    16:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping missing in runs'},
+    17:{name:'rotunda dome',      kind:'structure',act1:'the ring of the rotunda dome, the crown of the public lobby, its glazing gone'},
+    18:{name:'doorway',           kind:'portal',   act1:'a way in — the public doors under the canopy, the staff entrance on the north leg'},
+    19:{name:'dead car',          kind:'vehicle',  act1:'a car left where it was parked, flat and sun-bleached, nobody came back for it'},
+    20:{name:'secure yard wall',  kind:'fence',    act1:'the wall round the secure yard, razor wire long since rusted off the top of it', solid:true},
+    21:{name:'stall marking',     kind:'marking',  act1:'the painted stall ticks, chalked out to ghosts by twenty summers — PAINT IS NOT A WALL, a car drives straight over it'},
+    23:{name:'plaza planter',     kind:'structure',act1:'a low limestone planter across the plaza, bed gone to hardpan with a dead tree still in it, coping cracked where people sat on it waiting to be called', solid:true},
+    22:{name:'sally port',        kind:'portal',   act1:'the sally port — the sealed vehicle door prisoners came in through, one leaf standing open'}
   };
   var NOTES={
-    summary:'A dead courthouse — a grand columned stone building with office wings and a central dome, a portico + monumental steps down to a civic plaza with the Justice statue + flagpoles, a small visitor lot + a prisoner sally port on the secure wing.',
-    reference:['Civic / courthouse design (classical seat-of-law: a grand columned MASS + PORTICO + central DOME/rotunda, monumental STEPS to a civic PLAZA, office WINGS, a secure prisoner SALLY PORT for transport, a statue of Justice): the monumental civic building form.'],
-    layout:['The COURTHOUSE is the hero: a big columned stone mass with office WINGS and a central DOME over the rotunda, window/cornice detail down its face.',
-      'A grand PORTICO colonnade + monumental STEPS descend to a civic PLAZA with the Justice STATUE + flanking FLAGPOLES.',
-      'A small VISITOR lot flanks the plaza; a prisoner SALLY PORT bay sits on the secure wing; dead landscaping edges the square.'],
-    circulation:'Street-aware via canonical-south + K.rotateToStreet: a small drive on the primary street feeds the visitor lot + the secure sally lane (code 1 reaches them from the curb, K.driveReachFromStreet). Foot circulation is the plaza -> steps -> portico. WALKABLE-LAND: a courthouse IS its building — nearly all structure + plaza; the lots are minimal. Corner side streets get a pedestrian gate onto the plaza.',
-    layering:'GROUND plane (walk/drive, flat): the plaza (7), lawn (4), sidewalk (12), the drive/lot (1, drive), desert (0). STRUCTURES (¾ front face, solid, ENTERABLE): the COURTHOUSE (2 -> rotunda + courtrooms + chambers + holding) with the DOME (10) + PORTICO columns (8) + grand STEPS (6). PROPS: the Justice STATUE (11), FLAGPOLES (13), pole lights (9), dead landscaping (3). PORTALS: the gate (5), the sally port. The columned mass + dome are the vertical hero; you climb the steps through the portico.',
-    decisions:['Act-1 DEAD: boarded, the dome streaked, columns cracked, seals defaced, the plaza weed-split. Whose law rules now is faction canon (Paolo\'s).',
-      'Civic category (courthouse). Zero purple. No jurisdiction/seal (Paolo\'s to author).',
-      'WALKABLE-LAND honored (easily): the building + plaza dominate; lots minimal.',
-      'Research-first (per the playbook): built from the classical courthouse form, not memory.']
+    summary:'A dead federal courthouse — ONE L-shaped building wrapping a public plaza in its elbow, with a three-storey ROTUNDA at the corner under a dead sixty-foot glass dome, a steel canopy PROJECTING from the top of the building to shadow the plaza, a blast standoff setback held by a bollard line, and a walled SECURE YARD with its sally port. The judicial seat, distinct from the executive city hall.',
+    reference:['LLOYD D. GEORGE U.S. COURTHOUSE (CannonDesign, 2000, 333 Las Vegas Blvd S): a 450,000 sq ft L-SHAPED building of beige limestone, glass and 22ft x 10ft precast wall panels; a three-storey ROTUNDA public lobby capped by a 60-foot cable-truss glass dome; and a dramatic steel and aluminium canopy PROJECTING FROM THE TOP OF THE BUILDING that shadows the plaza. One of only three buildings in the country to take the GSA Honor Award for Architecture.',
+      'It was the FIRST federal building constructed to the post-Oklahoma-City blast-resistance requirements. That is why the setback is wide and empty and why the bollard line exists: standoff distance IS the security, so the emptiness is a feature and not a void.'],
+    layout:['ONE BUILDING, an L. The west leg runs north-south, the north leg east-west, and the ROTUNDA bulges out of the elbow into the plaza. Every mass shares a wall.',
+      'THE DOME reads from above as a bright RING, because sixty feet of it was glass and most of that is gone.',
+      'THE PRECAST PANEL GRID (22ft x 10ft) runs across both roof plates — the cladding module, legible from the air — and the rooftop plant sits in a line along the north leg.',
+      'THE PROJECTING CANOPY hangs off the building over the plaza and down its west side. It has NO masts, because on the real building it cantilevers from the top.',
+      'THE PUBLIC PLAZA fills the elbow with a dry basin, a flag row along the building face and a light line at its edge.',
+      'THE BLAST SETBACK rings the whole plot, held by a BOLLARD LINE on the street side and the east flank.',
+      'THE SECURE YARD is walled on the west with staff parking inside it, a SALLY PORT into the west leg, and a gated drive out to the public lot.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: ONE kerb cut on the primary street feeds the public lot, and the drive along the south links it to the secure yard gate, so the whole drive network is reachable from the kerb (K.driveNetworkReach = 1.0). The sally port and yard gate are PORTALS, never a second car entrance. Stall ticks are MARKING and the canopy is OVERHEAD, so neither severs a path. Foot circulation is plaza -> under the canopy -> the public doors. A corner adds a pedestrian gate.',
+    layering:'GROUND (flat): the public plaza (7), the blast setback (4), the walks (13), the dry basin (8), the lot and yard floor (1, DRIVE) with their stall ticks (21, MARKING), bare desert (0). OVERHEAD (pass UNDER): the projecting canopy (14). STRUCTURE (¾ front face, solid, ENTERABLE): the COURTHOUSE mass (2 — rotunda lobby, screening hall, courtrooms and jury suites up both legs, holding behind the sally port), the precast panel joints (6), the dome (17) and its glazing (11), the roof edge (16), the rooftop plant (10), the plaza lights (9), the security bollards (15), the secure yard wall (20, FENCE). PROP: dead trees (3), flagpoles (12), dead cars (19). PORTAL: the doorways (18), the sally port and yard gate (22), the kerb cut (5).',
+    decisions:['THE COLONNADE IS DEAD, and the lawn with it. A portico and monumental steps is a county courthouse in Ohio; this valley has a blast-rated federal L with a glass dome, and that is what actually got built here.',
+      'THE SETBACK IS NOT A VOID, and this is the one district where empty ground is CORRECT. Standoff distance is the security measure the building was the first in the country to be designed around. It is named, written and bollarded, so it is answered for.',
+      'Deliberately differentiated from city hall (solar tree farm + single-masted canopy) and the library (drum + tower + reading wing): here it is an L round a plaza, a ringed dome at the elbow, and a cantilevered canopy. Every district is its own landmark (7/28).',
+      'ONE BUILDING (8/2): both legs and the rotunda share walls; the yard wall is a fence, not a second courthouse.',
+      'THE SECURE HALF is what a courthouse has and a city hall does not: a walled yard, staff parking inside it, and a sally port. It stays a PORTAL, never a second car entrance (street-aware law).',
+      'Act-1 DEAD: the dome mostly sky, sealant dropped out of the panel joints, plant stripped for copper, pavers heaved, one sally port leaf standing open. Who holds the building now is faction canon and stays Paolo\'s.',
+      'Zero purple. No inscriptions, seals or signage text anywhere (Paolo\'s to author).']
   };
-  K.register('courthouse', { generate:generate, body:function(c){return c===2;}, category:'civic', palette:PALETTE, legend:LEGEND, notes:NOTES });
-  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
-  if(typeof module!=='undefined')module.exports=API; root.BohemiaCourthouse=API;
+  K.register('courthouse', { generate:generate, body:function(c){return c===2||c===6||c===11||c===16||c===17||c===18;},
+    category:'civic', palette:PALETTE, legend:LEGEND, notes:NOTES });
+
+  var API={generate:generate,driveConnected:driveConnected,hasSallyPort:hasSallyPort,
+    footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  if(typeof module!=='undefined')module.exports=API;
+  root.BohemiaCourthouse=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
 
 </script>
@@ -9521,116 +9741,200 @@ root.BQRuntime=API;
 </script>
 <script>
 /* inlined: engine/bohemia_cityhall.js */
-// BOHEMIA CITY HALL (7/23/26). CIVIC, on the DISTRICT KIT. Paolo: "look at all the pocket city 2
-// buildings, we have to make them as districts" — the municipal seat (Town Hall / City Hall) is a
-// Pocket City 2 Service-building staple Bohemia never had: the EXECUTIVE/ADMINISTRATIVE government
-// building (mayor's office, council chamber, city clerk, permits counter), distinct from
-// bohemia_courthouse.js (JUDICIAL — courtrooms, chambers, a prisoner sally port). Research-first
-// (US municipal civic-center precedent — a modern low-rise administrative block, NOT the classical
-// colonnaded language courthouse already owns): a wide low block with a CLOCK TOWER landmark, a
-// public forecourt PLAZA with a DRY reflecting fountain and flagpoles (the "come to a public
-// meeting" civic read), a notice/bulletin kiosk, modest visitor parking (city hall draws walk-ins +
-// bus riders, not commuter volume). Act-1 DEAD: fountain dry and cracked, clock stopped, doors
-// chained, the civic seal toppled, notices long since rotted off the kiosk. Street-aware + drivable.
+// BOHEMIA CITY HALL (7/23/26; REBUILT 8/2/26). CIVIC, on the DISTRICT KIT.
+//
+// THE REBUILD, and why. The old district was generic US-civic-centre precedent: a wide low
+// block with a CLOCK TOWER, a dead green LAWN over 28% of the plot, and a small lot. Two
+// things were wrong with it. A clock tower is a New England town hall, not a Mojave one.
+// And the lawn was GREEN (#49512e) on a plot in a valley where nothing is watering
+// anything -- the exact thing Paolo caught in downtown ("are you putting grass in
+// downtown?").
+//
+// SO IT IS BUILT ON THE ONE THIS VALLEY ACTUALLY HAS: LAS VEGAS CITY HALL (Elkus Manfredi
+// Architects, 2012, 495 S Main St), and what makes it recognisable from the air is not a
+// tower, it is THE SOLAR TREE FARM: 33 tubular columns, 25 to 35 feet tall, each carrying a
+// photovoltaic panel, standing in a grid across the public plaza. Exactly 33, and this
+// district draws exactly 33. Behind them the building is TWO SHAPES that merge in the
+// lobby -- the CURVILINEAR council chamber and the ANGULAR seven-storey glass office block
+// -- and over the main entrance a dynamic CANOPY carried on a single 160-foot column.
+//
+// ONE BUILDING (8/2 law): chamber, office block and north wing all share walls. The solar
+// trees are plaza furniture, not buildings.
+//
+// Act-1 DEAD: the panels are milky and half of them are gone for the copper in the leads,
+// the fountain basin is dry, the curtain wall is boarded in runs. Street-aware + drivable:
+// one kerb cut feeds the surface lot and the ramp up into the attached parking deck.
 // LEGEND:
-//  0 desert dead-ground   1 drive / lot        2 building (city hall)   3 dead landscaping
-//  4 lawn                 5 gate                6 clock tower            7 plaza
-//  8 dry fountain          9 pole light          10 civic seal / monument 11 sidewalk
-//  12 flagpole             13 bulletin / notice kiosk
+//  0 desert dead-ground   1 drive / lot / deck (DRIVABLE)   2 city hall (the ONE building)
+//  3 dead tree            4 forecourt hardpan               5 gate / kerb cut
+//  6 solar panel (OVERHEAD)  7 civic plaza                  8 dry fountain basin
+//  9 plaza light         10 solar tree mast                11 curtain wall glazing
+//  12 flagpole           13 walk / podium                  14 entry canopy (OVERHEAD)
+//  15 canopy mast        16 roof edge                      17 council chamber roof
+//  18 doorway (PORTAL)   19 dead car                       20 deck column
+//  21 stall marking (PAINT)  22 deck edge   23 roof joint   24 deck floor   25 rooftop plant
 (function(root){
   var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
   var M=K.M;
+
+  var SOLAR_TREES = 33;   // Elkus Manfredi's count, and the gate checks it
 
   function buildCanonical(seed){
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
 
-    // ---- BASE: dead lawn; desert only at the margins ----
     G.rect(0,0,W-1,H-1,0);
-    G.rect(6,4,W-7,H-6,4);
+    G.rect(3,3,W-4,H-4,4);                                   // decomposed granite, NOT lawn
+    G.rect(6,6,122,74,13);                                   // the podium the building stands on
 
-    // ---- THE CIVIC BLOCK: a wide low modern municipal building + a CLOCK TOWER landmark ----
-    G.rect(16,14,112,50,2);                                              // the administrative block (the mass)
-    G.rect(56,0,72,14,6);                                                 // the clock tower rising off its north face
-    for(x=20;x<=108;x+=6) set(x,14,11);                                  // window-line / parapet read along the front face
-    for(y=2;y<=12;y+=4) set(56,y,11); for(y=2;y<=12;y+=4) set(72,y,11);  // tower window bands
+    /* ---- ONE BUILDING: the ANGULAR office block + the CURVILINEAR council chamber, which
+       merge, exactly as they do in the lobby of the real one. ---- */
+    G.rect(14,12,100,46,2);                                  // the seven-storey office block
+    G.rect(100,20,114,46,2);                                 // its stepped east wing
+    G.rect(22,4,90,12,2);                                    // the stepped-back north wing
+    G.disc(58,54,15,2);                                      // THE COUNCIL CHAMBER, curved, landing on the block
+    G.rect(44,42,72,54,2);                                   // and merged into it
 
-    // ---- THE PUBLIC PLAZA: dry reflecting fountain, flagpoles, civic seal, notice kiosk ----
-    G.rect(16,54,112,88,7);
-    G.disc(64,71,9,8);                                                   // the dry reflecting fountain (the plaza hero)
-    set(64,71,8);
-    set(40,72,12); set(88,72,12);                                        // flagpoles flanking the fountain
-    set(64,86,10);                                                       // civic seal / monument at the plaza's entry edge
-    set(28,86,13); set(100,86,13);                                       // bulletin / notice kiosks
-    for(i=0;i<8;i++){ var px=20+Math.floor(r()*88), py=58+Math.floor(r()*10); if(get(px,py)===7 && (i%3===0)) set(px,py,7); }
+    /* the chamber's own roof, so the curve reads as a separate VOLUME of one building */
+    G.disc(58,54,11,17); G.disc(58,54,4,11);
 
-    // ---- SIDEWALK band linking plaza to the visitor lot ----
-    G.rect(16,88,112,92,11);
+    /* THE ROOF IS NOT A FLAT PLATE. Precast joint lines across it, the plant rows, and the
+       skylight run over the office floors -- a mass this size reading as one colour is the
+       7/30 flat-rectangle failure at building scale. */
+    for(x=20;x<=110;x+=9) G.rect(x,14,x,44,23);
+    for(y=20;y<=40;y+=8) G.rect(16,y,112,y,23);
+    for(x=24;x<=96;x+=16) G.rect(x,16,x+7,21,25);
+    for(x=22;x<=94;x+=6) G.rect(x,34,x+3,40,11);
 
-    // ---- VISITOR LOT (SMALL — city hall draws walk-ins + bus riders, not commuter volume) ----
-    G.rect(30,98,98,120,1);
+    /* the curtain wall: the block's south face is glass, boarded in runs */
+    for(x=18;x<=96;x+=4) G.rect(x,44,x+2,46,11);
+    for(y=24;y<=42;y+=5) G.rect(112,y,114,y+2,11);
+    for(x=26;x<=86;x+=6) G.rect(x,4,x+3,6,11);
 
-    // ---- POLE LIGHTS + dead landscaping at the margins ----
-    [[12,20],[116,20],[12,110],[116,110]].forEach(function(p){ set(p[0],p[1],9); });
-    for(i=0;i<12;i++){ var tx=8+Math.floor(r()*4), ty=6+Math.floor(r()*(H-14)); if(get(tx,ty)===4)set(tx,ty,3); }
-    for(i=0;i<12;i++){ var tx2=W-8+Math.floor(r()*4), ty2=6+Math.floor(r()*(H-14)); if(get(tx2,ty2)===4)set(tx2,ty2,3); }
+    /* ---- THE CIVIC PLAZA ---- */
+    G.rect(8,76,120,110,7);
+    G.disc(20,82,6,8); G.disc(20,82,3,7);                      // the dry reflecting basin
+    G.disc(104,94,7,8); G.disc(104,94,3,7);                  // its twin on the east
+    set(46,74,12); set(82,74,12);                            // flagpoles either side of the doors
 
-    // ---- ENTRANCE / LOT CONNECTOR off the SOUTH street (rotated to the real street by the kit) ----
-    var gx=W>>1;
-    for(i=-4;i<=4;i++)set(gx+i,H-1,5);
-    G.rect(gx-3,92,gx+3,H-1,1);
-    for(y=H-1;y>=92;y--)for(x=-3;x<=3;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4)set(gx+x,y,1); }
+    /* ---- THE ENTRY CANOPY on its SINGLE mast. Drawn AFTER the plaza and MASKED to open
+       ground: laid straight over the grid an overhead ERASES what is under it, and then the
+       plaza laid over the top erases the canopy in turn. A canopy shades a thing; it never
+       replaces it, and it is never drawn before the ground it shades. ---- */
+    for(y=70;y<=84;y++) for(x=26;x<=104;x++){ var ov=get(x,y); if(ov===7||ov===13||ov===4) set(x,y,14); }
+    G.rect(62,78,68,84,15);                                  // the 160-foot column, the only support
+    G.rect(56,68,72,72,18);                                  // the main doors under it
+
+    for(x=14;x<=114;x+=14) set(x,111,9);                     // the plaza light line, clear of the trees
+
+    /* ---- THE SOLAR TREE FARM: 33 masts, each under its panel. The thing you recognise. ---- */
+    var trees=0;
+    for(y=88;y<=106&&trees<SOLAR_TREES;y+=9) for(x=14;x<=102&&trees<SOLAR_TREES;x+=8){
+      if(get(x,y)!==7) continue;
+      G.rect(x-2,y-2,x+2,y+2,6); set(x,y,10); trees++;
+    }
+
+    /* ---- THE PARKING DECK, attached, east. Columns on a grid under a roof edge, and the
+       aisle inside it IS drive surface -- a deck you can get a car into. ---- */
+    G.rect(100,50,122,74,24);
+    G.rect(100,50,122,51,22); G.rect(100,73,122,74,22);
+    for(y=55;y<=69;y+=5) for(x=103;x<=119;x+=5) G.rect(x,y,x+1,y+1,20);
+    for(y=57;y<=67;y+=5) G.rect(102,y,120,y,21);            // its stall ticks
+    G.rect(104,72,118,78,24);                                 // the ramp down THROUGH the deck rail to the lot
+
+    /* ---- THE SURFACE LOT ---- */
+    G.rect(6,112,122,122,1);
+    for(x=10;x<=118;x+=4) for(y=114;y<=120;y++) set(x,y,21);
+    G.rect(104,78,118,112,1);                                // the east aisle joining deck to lot
+    for(i=0;i<10;i++){ var cx=10+Math.floor(r()*26)*4, cy=114+Math.floor(r()*2);
+      if(get(cx+1,cy)===1||get(cx+1,cy)===21) G.rect(cx+1,cy,cx+2,cy+3,19); }
+
+    /* dead street trees wherever the hardpan is open */
+    for(i=0;i<26;i++){ var tx=4+Math.floor(r()*120), ty=4+Math.floor(r()*120);
+      if(get(tx,ty)===4) set(tx,ty,3); }
+
+    K.roofsAndDoors(g,{ building:function(c){return c===2;}, roof:16, door:18, min:150,
+      outside:function(c){ return c===13||c===7||c===4||c===1||c===21; } });
+
+    var gx=64;
+    for(i=-5;i<=5;i++) set(gx+i,H-1,5);
+    for(y=H-1;y>=122;y--) for(x=-5;x<=5;x++){ var c=get(gx+x,y); if(c===0||c===4||c===13) set(gx+x,y,1); }
     return g;
   }
 
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
-    var soft=function(c){ return c===0||c===3||c===4; };
-    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:11, pedOver:soft, pedInset:14});
+    var soft=function(c){ return c===0||c===3||c===4||c===13; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:13, pedOver:soft, pedInset:12});
     var g=res.g;
     return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
-      footprints:K.footprints(g,function(v){return v===2;})};
+      /* the glazing, the chamber roof, the roof edge and the doorways ARE the building --
+         they are holes in it, never gaps between two of them (ONE BUILDING, 8/2). */
+      footprints:K.footprints(g,function(v){return v===2||v===11||v===16||v===17||v===18||v===23||v===25;}),
+      solarTrees:(function(){ var n=0; for(var yy=0;yy<g.length;yy++) for(var xx=0;xx<g[0].length;xx++) if(g[yy][xx]===10) n++; return n; })()};
   }
-  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+  function driveConnected(res){ return K.driveNetworkReach(res.g, LEGEND) > 0.999; }
 
-  var PALETTE={0:'#1c1a15',1:'#4a463c',2:'#726a58',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#847a64',
-    7:'#8f887a',8:'#5a6660',9:'#8f8676',10:'#9c8e76',11:'#b7ae98',12:'#8a7f5e',13:'#635c4a'};
+  /* THE DESERT PALETTE. Glass and sand-coloured precast, and NOTHING GREEN: this valley
+     stopped watering things a long time before act one opens. */
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7d7566',3:'#514f40',4:'#6b6250',5:'#c79a3f',
+    6:'#3f4a55',7:'#8b8478',8:'#5a6660',9:'#b0863a',10:'#6e6a60',11:'#8fa2ad',12:'#8a7f5e',
+    13:'#7d7a71',14:'#9a9184',15:'#a89c86',16:'#b3a78d',17:'#a3947a',18:'#241f1a',
+    19:'#6a6e72',20:'#77726a',21:'#4a4a52',22:'#8b8272',23:'#635c4f',24:'#4c4a48',25:'#6e6a60'};
   var LEGEND={
-    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the civic-block edge (setback)'},
-    1:{name:'drive / lot',        kind:'drive',      act1:'the small visitor lot + entrance drive (car-drivable)'},
-    2:{name:'building (city hall)',kind:'building',  act1:'the administrative block — mayor\'s office, council chamber, clerk + permits counter — windows boarded, doors chained', enter:'city hall interior: the public counter + records hall up front, the council chamber behind it, the mayor\'s + department offices in the wings'},
-    3:{name:'dead landscaping',   kind:'tree-dead',  act1:'a dead civic tree / hedge at the lawn edge', solid:false},
-    4:{name:'lawn',               kind:'ground',     act1:'the dead civic lawn ringing the block'},
-    5:{name:'gate',               kind:'gate',       act1:'the lot entrance off the street, amber curb'},
-    6:{name:'clock tower',        kind:'structure',  act1:'the clock tower over the entrance, hands stopped, face cracked', solid:true},
-    7:{name:'plaza',              kind:'ground',     act1:'the public forecourt plaza before city hall, pavers cracked, weeds through the joints'},
-    8:{name:'dry fountain',       kind:'water-dead', act1:'the reflecting fountain at the plaza\'s center, bone dry, basin stained with old waterlines'},
-    9:{name:'pole light',         kind:'prop',       act1:'a plaza pole light, head dark'},
-    10:{name:'civic seal / monument',kind:'prop',    act1:'the city seal monument at the plaza entry, toppled, bronze gone green', solid:true},
-    11:{name:'sidewalk',          kind:'ground',     act1:'the sidewalk band linking the plaza to the visitor lot, cracked'},
-    12:{name:'flagpole',          kind:'prop',       act1:'a flagpole flanking the fountain, halyard slapping, no flag left'},
-    13:{name:'bulletin / notice kiosk',kind:'prop',  act1:'a public-notice kiosk at the plaza edge, the meeting agendas long since rotted off', solid:true}
+    0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
+    1:{name:'drive / lot / deck', kind:'drive',    act1:'the visitor lot, the aisle and the deck floor above it — asphalt gone to plates, weeds up every joint (car-drivable)'},
+    2:{name:'city hall',          kind:'building', act1:'sand-coloured precast and glass — the angular office block and the curved council chamber that merge in the lobby, the curtain wall boarded in runs where it came down', enter:'city hall interior: the public counter and permits hall behind the doors, the round council chamber under its own roof, seven floors of department offices in the block'},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead civic tree gone to stick, its grate prised up for the metal', solid:false},
+    4:{name:'forecourt hardpan',  kind:'ground',   act1:'decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this'},
+    5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the lot, amber paint gone chalky'},
+    6:{name:'solar panel',        kind:'overhead', act1:'a photovoltaic panel on its tree — the glass milky, half the array stripped for the copper in the leads. You walk and drive UNDER it'},
+    7:{name:'civic plaza',        kind:'ground',   act1:'the public plaza under the solar trees, big pavers heaved by roots, the meeting-day chalk long gone'},
+    8:{name:'dry fountain basin', kind:'water-dead',act1:'a reflecting basin bone dry, the old waterline stained around it like a tidemark'},
+    9:{name:'plaza light',        kind:'structure',act1:'a plaza light on its concrete stem, head dark, the glass long gone'},
+    10:{name:'solar tree mast',   kind:'structure',act1:'the tubular column of a solar tree, thirty feet of steel, powder coat blistered off the sunward side'},
+    11:{name:'curtain wall glazing',kind:'structure',act1:'the glass curtain wall — the panels that are left are sun-hazed, the rest is board and sky'},
+    12:{name:'flagpole',          kind:'prop',     act1:'a flagpole beside the doors, halyard slapping in the wind, nothing left on it'},
+    13:{name:'walk / podium',     kind:'walk',     act1:'the raised concrete podium the building stands on and the walks across it, cracked corner to corner'},
+    14:{name:'entry canopy',      kind:'overhead', act1:'the great canopy over the main entrance, one edge folded down where a panel let go. You walk UNDER it'},
+    15:{name:'canopy mast',       kind:'structure',act1:'the single column that holds the whole canopy up, a hundred and sixty feet of it, still dead plumb'},
+    16:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping missing in runs'},
+    17:{name:'council chamber roof',kind:'structure',act1:'the round roof over the council chamber, its ring of clerestory glazing gone'},
+    18:{name:'doorway',           kind:'portal',   act1:'a way in — the main doors under the canopy, the deck stair, the loading door on the north wing'},
+    19:{name:'dead car',          kind:'vehicle',  act1:'a car left in the lot, flat and sun-bleached, nobody came back for it'},
+    20:{name:'deck column',       kind:'structure',act1:'a concrete column holding the parking deck up, corner spalled to the rebar'},
+    25:{name:'rooftop plant',     kind:'structure',act1:'a mechanical unit on the office roof, ducting collapsed, one of them stripped for its copper', solid:true},
+    23:{name:'roof joint',        kind:'structure',act1:'the joint line between two roof plates, sealant gone chalky and lifted out in runs', solid:true},
+    24:{name:'deck floor',        kind:'drive',    act1:'the covered floor of the parking deck — lighter than the open lot because the sun never got at it, oil ghosts still in every stall (car-drivable)'},
+    22:{name:'deck edge',         kind:'structure',act1:'the spandrel rail round the parking deck, a bay of it folded outward where something went through', solid:true},
+    21:{name:'stall marking',     kind:'marking',  act1:'the painted stall ticks across the lot, chalked out to ghosts by twenty summers — PAINT IS NOT A WALL, a car drives straight over it'}
   };
   var NOTES={
-    summary:'A dead city hall — a wide low modern administrative block with a stopped clock tower, a public forecourt plaza with a bone-dry reflecting fountain and flagpoles, a civic-seal monument, notice kiosks, a sidewalk to a small visitor lot. The executive/administrative seat, distinct from the judicial courthouse.',
-    reference:['US municipal civic-center precedent: a modern low-rise administrative block (mayor\'s office, council chamber, city clerk, permits counter) rather than the classical colonnaded language a courthouse uses; a CLOCK TOWER is the conventional City Hall landmark feature; a public forecourt PLAZA with a reflecting fountain and flagpoles reads as "come to a public meeting" civic space; visitor parking stays modest — city hall draws walk-ins and bus/transit riders, not commuter volume, unlike a big-box civic campus.'],
-    layout:['The ADMINISTRATIVE BLOCK sits at the back (north) of the lot with the CLOCK TOWER rising off its front face — the vertical landmark, distinct from courthouse\'s dome.',
-      'A public PLAZA fills the forecourt: a dry reflecting FOUNTAIN at its center, flagpoles flanking it, the civic SEAL monument near the entry edge, notice KIOSKS at the plaza corners.',
-      'A SIDEWALK band links the plaza to a small VISITOR lot (SW) — modest, not commuter-scaled.',
-      'Dead landscaping edges the lawn; pole lights mark the lot corners.'],
-    circulation:'Street-aware via canonical-south + K.rotateToStreet: the visitor lot + entrance drive (code 1) reach the curb from any placement (K.driveReachFromStreet). Corner side streets get a pedestrian gate onto the sidewalk/plaza rather than a second car entrance. Foot circulation is plaza -> sidewalk -> tower entrance.',
-    layering:'GROUND plane (walk/drive, flat): the plaza (7), lawn (4), sidewalk (11), the dry fountain basin (8, water-dead), the drive/lot (1, drive), desert (0). STRUCTURES (¾ front face, solid, ENTERABLE): the CITY HALL block (2 -> public counter/records, council chamber, mayor\'s + department offices) with the CLOCK TOWER (6). PROPS: the civic seal monument (10), flagpoles (12), notice kiosks (13), pole lights (9). PORTALS: the gate (5). The block + tower are the vertical mass; the plaza and its dry fountain are the public forecourt you cross to reach the doors.',
-    decisions:['Act-1 DEAD: the clock stopped, doors chained, fountain bone dry with old waterline stains, the civic seal toppled and oxidized, notices rotted off the kiosk. Whose administration (if any) runs it now is faction canon (Paolo\'s).',
-      'Civic category (cityhall), filed alongside courthouse/library/firestation. Zero purple.',
-      'Deliberately differentiated from courthouse: a modern administrative block + clock tower (not classical columns + dome), a fountain-centered public plaza (not just cracked pavers), no sally port (city hall has no jail function).',
-      'WALKABLE-LAND honored: the block + tower + plaza dominate; the visitor lot is minimal by design (walk-in/transit civic use, not commuter parking).',
-      'Research-first (per the playbook): built from real municipal civic-center precedent, not memory.']
+    summary:'A dead city hall — ONE building of two merged shapes, the ANGULAR seven-storey glass office block and the CURVILINEAR council chamber, standing on a podium behind a great entry canopy carried on a single column, with 33 SOLAR TREES in a grid across the public plaza in front of it and an attached parking deck to the east. The executive seat, distinct from the judicial courthouse.',
+    reference:['LAS VEGAS CITY HALL (Elkus Manfredi Architects, 2012, 495 S Main St). Two distinctive shapes — the curvilinear Council Chamber and the angular seven-storey glass office structure — that MERGE inside the lobby; a dynamic canopy over the plaza entrance carried on a single 160-foot column; and in the plaza a solar "tree farm" of 33 tubular columns 25 to 35 feet tall mounted with photovoltaic panels, which generated about 7% of the building\'s energy. The tree farm is what the building is recognised by from the air, so it is what this district is recognised by.',
+      'US municipal civic-centre programme, kept: mayor\'s office, council chamber, city clerk, permits counter. What changed is the FORM — a clock tower is a New England town hall, and this is a Mojave one.'],
+    layout:['ONE BUILDING. The office block runs across the north with a stepped east wing and a stepped-back north wing; the round COUNCIL CHAMBER lands on its south face and merges into it. Every mass shares a wall.',
+      'THE ENTRY CANOPY spans the plaza in front of the doors on ONE mast — an overhead, so you walk under it and it never blocks a path.',
+      'THE SOLAR TREE FARM: exactly 33 masts on a grid, each under its panel, filling the plaza. Panels are overhead; the masts are what you bump into.',
+      'Two dry reflecting BASINS flank the plaza, flagpoles stand either side of the doors, and the plaza light line runs along the kerb.',
+      'THE PARKING DECK is attached on the east — columns on a grid under a roof edge, its floor drivable, with a ramp down to the surface lot and an aisle joining the two.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: ONE kerb cut on the primary street feeds the surface lot, the east aisle and the ramp up into the deck, and the whole drive network is reachable from the kerb (K.driveNetworkReach = 1.0). The stall ticks are MARKING, so a car drives over them, and the canopy and panels are OVERHEAD, so they conduct a path instead of severing one. Foot circulation is plaza -> under the canopy -> the doors. A corner adds a pedestrian gate onto the plaza, never a second car entrance.',
+    layering:'GROUND (flat, walk on it): the civic plaza (7), the forecourt hardpan (4), the podium and walks (13), the dry basins (8), the lot / aisle / deck floor (1, DRIVE) and its stall ticks (21, MARKING), bare desert (0). OVERHEAD (pass UNDER): the solar panels (6) and the entry canopy (14). STRUCTURE (¾ front face, solid, ENTERABLE): the CITY HALL mass (2 — permits hall, council chamber, seven floors of offices), the curtain wall glazing (11), the chamber roof (17), the roof edge (16), the solar tree masts (10), the canopy mast (15), the deck columns (20), the plaza lights (9). PROP: dead trees (3), flagpoles (12), dead cars (19). PORTAL: the doorways (18) and the kerb cut (5).',
+    decisions:['THE CLOCK TOWER IS DEAD and the LAWN with it. A clock tower is a New England town hall; the lawn was 28% of the plot painted green in a valley that stopped watering anything. Replaced with the real local landmark and with decomposed granite.',
+      'THE 33 IS NOT DECORATIVE. Elkus Manfredi built 33 solar trees; this district draws 33 and its gate counts them. A number taken from the real building is a fact the machine can hold.',
+      'Deliberately differentiated from the courthouse (L-plan + rotunda + blast setback) and from the library (drum + tower + reading wing): here it is a grid of solar trees under a single-masted canopy. Every district is its own landmark (7/28).',
+      'ONE BUILDING (8/2): the chamber and the block merge, the way they do in the real lobby. Articulation, not fragmentation.',
+      'WALKABLE-LAND: building + plaza + tree farm dominate; the lot and deck are the only pavement, and the deck is a real vehicular structure rather than more apron.',
+      'Act-1 DEAD: panels milky and half stripped for the copper in the leads, basins dry with tidemarks, curtain wall boarded in runs, deck columns spalled to the rebar. Who administers anything now is faction canon and stays Paolo\'s.',
+      'Zero purple. No city name, seal text or signage anywhere (Paolo\'s to author).']
   };
-  K.register('cityhall', { generate:generate, body:function(c){return c===2;}, category:'civic', palette:PALETTE, legend:LEGEND, notes:NOTES });
+  K.register('cityhall', { generate:generate, body:function(c){return c===2||c===11||c===16||c===17||c===18||c===23||c===25;},
+    category:'civic', palette:PALETTE, legend:LEGEND, notes:NOTES });
 
-  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},
+    SOLAR_TREES:SOLAR_TREES,palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaCityhall=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
@@ -9754,125 +10058,205 @@ root.BQRuntime=API;
 </script>
 <script>
 /* inlined: engine/bohemia_terminal.js */
-// BOHEMIA TRANSIT TERMINAL (7/23/26). INFRASTRUCTURE, on the DISTRICT KIT. Paolo: "look at all the
-// pocket city 2 buildings, we have to make them as districts" — Pocket City 2's Transport category
-// (bus/train stations that raise the traffic/transit rating) has no PASSENGER equivalent in Bohemia;
-// bohemia_railyard.js is FREIGHT rail (industrial, no passengers). Research-first (real intercity/
-// regional bus-terminal design): a TERMINAL BUILDING (waiting hall, ticket counters, restrooms), a
-// row of BUS BAYS under a long boarding CANOPY with a raised platform, a bus LAYOVER/staging yard,
-// a kiss-and-ride drop-off loop, a small park-and-ride lot, a schedule-board clock landmark. Act-1
-// DEAD: buses dead at the bays and in the layover yard, the schedule board blank, the waiting hall
-// dark, benches empty. Street-aware + drivable (bays, loop, and lot are all one connected car
-// surface, buses AND cars alike reach the curb). Terminal + canopy + platform + bus fleet dominate
-// (WALKABLE-LAND) — a real terminal's paved bus surface is itself the venue, but is anchored by a
-// real building mass, not a bare apron.
+// BOHEMIA TRANSIT TERMINAL (7/23/26; REBUILT 8/2/26). INFRASTRUCTURE, on the DISTRICT KIT.
+//
+// THE REBUILD. The old district was a generic intercity bus station: a rectangular terminal
+// box, a straight canopy, and 26% of the plot painted LAWN in a Mojave valley where nothing
+// has been watered in a decade. That lawn is the same greenwash Paolo caught in downtown
+// ("are you putting grass in downtown?"), and the plot ran 30.5% drive against 14% building.
+//
+// BUILT INSTEAD ON THE ONE THIS VALLEY HAS: the BONNEVILLE TRANSIT CENTER (2010, 101 E
+// Bonneville Ave, downtown Las Vegas), and its numbers are the district's numbers:
+//   16 ON-SITE VEHICLE BAYS, in a sawtooth so a bus pulls in and out without reversing.
+//   SOLAR-PANEL SHADE STRUCTURES over the bays -- the whole reason you can stand there in
+//     July, and a LEED Platinum building's actual signature.
+//   7 ON-STREET LOADING POINTS at the kerb, beyond the 16 on site.
+//   ~100 DOUBLE-STACKED BIKE RACKS and a self-service repair stand.
+//   A 2-STOREY, ~20,000 sq ft head house with a fully enclosed waiting room, and the
+//     CURVED lines that got it its design award.
+// 16, 7 and 100 are counted by the gate. A number taken from the real building is a fact
+// the machine can hold; a number invented on the day is decoration.
+//
+// VEHICULAR VENUE (WALKABLE-LAND LAW exception): at a transit centre the vehicle surface IS
+// the venue. Exempt from the pavement cap -- and still DRESSED, never a bare apron.
+//
+// Act-1 DEAD: buses left in the bays and along the layover row, the panels milky, the
+// waiting room dark behind its glass. Street-aware + drivable: one kerb cut, and the apron,
+// the bays and the park-and-ride are one connected surface a bus can turn in.
 // LEGEND:
-//  0 desert  1 drive (bays/loop/lot, DRIVABLE)  2 terminal building  3 dead landscaping
-//  4 lawn  5 gate  6 boarding canopy (OVERHEAD)  7 platform  8 bench / shelter
-//  9 pole light  10 dead bus  11 bay marking  12 schedule board / clock  13 bike rack
+//  0 desert dead-ground   1 apron / drive / lot (DRIVABLE)   2 head house
+//  3 dead tree            4 hardpan                          5 gate / kerb cut
+//  6 solar shade (OVERHEAD)  7 forecourt paving              8 rooftop plant
+//  9 light               10 bay post                        11 curtain wall glazing
+//  12 bike rack          13 boarding platform               14 roof edge
+//  15 dead bus           16 doorway (PORTAL)                17 stall marking (PAINT)
+//  18 dead car           19 kerb loading mark (PAINT)       20 bay marking (PAINT)
 (function(root){
   var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
         : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
   var M=K.M;
 
+  var BAYS = 16, KERB_POINTS = 7, BIKE_RACKS = 100;   // Bonneville's own counts
+
   function buildCanonical(seed){
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
+    /* an OVERHEAD only ever lands on OPEN GROUND: laid straight over the grid it would
+       ERASE whatever is under it, and a canopy shades a thing, it does not replace it. */
+    function shade(x0,y0,x1,y1,c){ for(var yy=y0;yy<=y1;yy++) for(var xx=x0;xx<=x1;xx++){
+      var v=get(xx,yy); if(v===13||v===7||v===4||v===0||v===1) set(xx,yy,c); } }
 
-    // ---- BASE: dead lawn; desert only at the margins ----
     G.rect(0,0,W-1,H-1,0);
-    G.rect(5,5,W-6,H-6,4);
+    G.rect(3,3,W-4,H-4,4);                                   // hardpan, NOT lawn
+    G.rect(6,6,122,52,7);                                     // the forecourt paving
 
-    // ---- THE TERMINAL BUILDING (back of the lot, the mass) + a schedule-board clock landmark ----
-    G.rect(16,10,96,38,2);
-    for(x=20;x<=92;x+=6) set(x,10,11);                                   // window-line read along the front face
-    set(56,6,12);                                                        // the schedule board / clock tower over the doors
+    /* ---- THE HEAD HOUSE: two storeys, and CURVED, which is what it won its award for. ---- */
+    G.rect(16,8,112,30,2);
+    G.disc(64,30,26,2);                                       // the curved concourse bulging south
+    G.rect(38,28,90,40,2);                                    // merged into the bar
+    for(x=20;x<=108;x+=5) G.rect(x,28,x+2,30,11);             // the glazed south wall
+    for(x=24;x<=104;x+=14) G.rect(x,12,x+6,17,8);             // rooftop plant
+    /* THE ROOF IS NOT A FLAT PLATE: the joint lines and the concourse skylight run. */
+    for(x=20;x<=110;x+=9) G.rect(x,8,x,30,21);
+    for(y=13;y<=27;y+=7) G.rect(16,y,112,y,21);
+    for(x=22;x<=104;x+=7) G.rect(x,21,x+4,26,11);
+    G.rect(58,44,72,48,16);                                   // the doors onto the platform
 
-    // ---- BOARDING CANOPY + PLATFORM — the bus bays' overhead + the raised platform under it ----
-    G.rect(14,40,98,46,6);
-    G.rect(14,46,98,50,7);
-    for(x=18;x<=94;x+=10){ set(x,48,8); }                                // benches along the platform
-    for(x=20;x<=90;x+=10) set(x,40,9);                                   // canopy-mounted lights
+    /* ---- THE BOARDING PLATFORM, and the 16 SAWTOOTH BAYS off it. ---- */
+    G.rect(8,54,120,66,13);
+    var bays=0;
+    for(i=0;i<BAYS;i++){
+      var bx=9+i*7;
+      /* SAWTOOTH: each box is STEPPED against its neighbour, which is what lets a coach
+         pull straight out instead of reversing across the apron. A row of identical
+         rectangles is a car park; the step is the whole geometry. */
+      G.rect(bx,68+(i%2)*3,bx+5,80,20);
+      G.rect(bx,66,bx+1,68+(i%2)*3,20);
+      set(bx+2,60,10);                                        // the bay post on the platform
+      bays++;
+    }
 
-    // ---- BUS BAYS — a row of dead buses staged nose-in at the platform ----
-    G.rect(10,50,102,68,1);
-    for(x=18;x<=90;x+=12){ G.rect(x,52,x+8,64,10); set(x+4,51,11); }     // a bus at each bay + a bay-line stripe
+    /* ---- THE APRON: one surface a bus can turn a full circle in. ---- */
+    G.rect(6,66,122,112,1);
+    for(i=0;i<BAYS;i++){ var bx2=9+i*7; G.rect(bx2,68+(i%2)*3,bx2+5,80,20); G.rect(bx2,66,bx2+1,68+(i%2)*3,20); }
+    /* the apron's own lane lines, so a bus knows where the through route is */
+    for(x=10;x<=118;x+=3) { set(x,86,22); set(x,90,22); }
+    for(x=10;x<=118;x+=3) set(x,109,22);
 
-    // ---- LAYOVER / STAGING YARD (SE) — more of the fleet parked dead, off the passenger bays ----
-    G.rect(70,72,116,110,1);
-    for(var ly=76; ly<=104; ly+=14) for(var lx=74; lx<=108; lx+=18){ G.rect(lx,ly,lx+10,ly+8,10); }
+    /* the SOLAR SHADE over the platform and the bay noses — the LEED Platinum signature,
+       and the only reason anybody could stand out here in July */
+    /* it shades the bay NOSES and the back of the platform, and leaves the walking strip
+       open to the sky down the middle -- shade the whole thing and the platform stops
+       existing, which is what the first cut did. */
+    shade(8,52,120,57,6); shade(8,63,120,68,6);
+    for(x=8;x<=120;x+=7) for(y=52;y<=68;y++) if(get(x,y)===6) set(x,y,9);   // the panel frames
 
-    // ---- KISS-AND-RIDE DROP-OFF LOOP + a small PARK-AND-RIDE LOT (SW) ----
-    G.rect(10,72,58,88,1);
-    G.rect(10,92,58,116,1);
-    for(x=14;x<=54;x+=6){ set(x,96,11); set(x,112,11); }
+    /* dead buses left in the bays and along the layover row */
+    for(i=0;i<BAYS;i+=3){ var vx=9+i*7; G.rect(vx+1,69,vx+4,78,15); }
+    for(x=12;x<=108;x+=14) G.rect(x,96,x+4,106,15);           // the layover row
 
-    // ---- DRIVE COLLECTOR: one connected car surface (bays -> loop -> layover -> lot ->
-    //      the entrance). Everything a bus or car touches reaches the curb (DRIVABLE LAW). ----
-    G.rect(10,68,116,72,1);                                              // full-width collector behind the bays
-    G.rect(56,68,60,116,1);                                             // central spine down to the entrance lane
-    G.rect(10,88,58,92,1);                                              // tie SW loop to the park-and-ride lot
+    /* ---- THE BIKE RACKS: 100 of them, double-stacked, beside the doors. ---- */
+    var racks=0;
+    for(y=34;y<=50&&racks<BIKE_RACKS;y+=3) for(x=94;x<=118&&racks<BIKE_RACKS;x+=2){
+      if(get(x,y)!==7) continue; set(x,y,12); racks+=2;       // double-stacked: two per unit
+    }
+    for(y=34;y<=50&&racks<BIKE_RACKS;y+=3) for(x=10;x<=34&&racks<BIKE_RACKS;x+=2){
+      if(get(x,y)!==7) continue; set(x,y,12); racks+=2;
+    }
 
-    // ---- BIKE RACK near the entrance + dead landscaping at the margins ----
-    set(20,70,13); set(92,70,13);
-    for(i=0;i<12;i++){ var tx=6+Math.floor(r()*4), ty=8+Math.floor(r()*(H-16)); if(get(tx,ty)===4)set(tx,ty,3); }
-    for(i=0;i<12;i++){ var tx2=W-6+Math.floor(r()*4), ty2=8+Math.floor(r()*(H-16)); if(get(tx2,ty2)===4)set(tx2,ty2,3); }
+    /* ---- PARK-AND-RIDE, small: a transit centre is not a commuter garage ---- */
+    G.rect(6,112,122,122,1);
+    for(x=9;x<=119;x+=3) for(y=113;y<=121;y++) set(x,y,17);
+    for(i=0;i<12;i++){ var cx=10+Math.floor(r()*27)*4, cy=114+Math.floor(r()*2);
+      if(get(cx+1,cy)===1||get(cx+1,cy)===17) G.rect(cx+1,cy,cx+2,cy+3,18); }
 
-    // ---- ENTRANCE off the SOUTH street (rotated to the real street by the kit) ----
-    var gx=W>>1;
-    for(i=-5;i<=5;i++)set(gx+i,H-1,5);
-    G.rect(gx-4,110,gx+4,H-1,1);
-    for(y=H-1;y>=110;y--)for(x=-4;x<=4;x++){ var c=g[y][gx+x]; if(c===0||c===3||c===4)set(gx+x,y,1); }
+    /* ---- THE 7 ON-STREET LOADING POINTS at the kerb, beyond the 16 on site ---- */
+    var KX=[8,22,36,50,78,92,106];                            // clear of the kerb cut on purpose
+    for(i=0;i<KERB_POINTS;i++){ G.rect(KX[i],124,KX[i]+9,126,19); }
+
+    for(x=14;x<=114;x+=16) set(x,110,9);                      // the apron light line
+    for(i=0;i<20;i++){ var tx=4+Math.floor(r()*120), ty=4+Math.floor(r()*120);
+      if(get(tx,ty)===4) set(tx,ty,3); }
+
+    K.roofsAndDoors(g,{ building:function(c){return c===2;}, roof:14, door:16, min:150,
+      outside:function(c){ return c===7||c===13||c===4||c===1||c===17||c===20; } });
+
+    var gx=64;
+    for(i=-6;i<=6;i++) set(gx+i,H-1,5);
+    for(y=H-1;y>=122;y--) for(x=-6;x<=6;x++){ var c=get(gx+x,y); if(c===0||c===4||c===7||c===19) set(gx+x,y,1); }
     return g;
   }
 
   function generate(seed,opts){
     opts=opts||{}; var streets=opts.streets||['S'];
-    var soft=function(c){ return c===0||c===3||c===4; };
-    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:1, pedOver:soft, pedInset:12});
-    var g=res.g;
+    var soft=function(c){ return c===0||c===3||c===4||c===7; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:13, pedOver:soft, pedInset:12});
+    var g=res.g, n=function(code){ var k=0; for(var yy=0;yy<g.length;yy++) for(var xx=0;xx<g[0].length;xx++) if(g[yy][xx]===code) k++; return k; };
+    /* a BAY is a painted box, not a tile, so it is counted as a connected blob of paint --
+       the same way a person counts bays by walking the platform. */
+    var bayBlobs=K.footprints(g,function(v){return v===20;}).length;
     return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
-      footprints:K.footprints(g,function(v){return v===2;})};
+      bays:bayBlobs, kerbPoints:K.footprints(g,function(v){return v===19;}).length,
+      bikeRacks:n(12)*2,
+      footprints:K.footprints(g,function(v){return v===2||v===11||v===14||v===16||v===21;})};
   }
-  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+  function driveConnected(res){ return K.driveNetworkReach(res.g, LEGEND) > 0.999; }
 
-  var PALETTE={0:'#1c1a15',1:'#4a463c',2:'#726a58',3:'#3a4526',4:'#49512e',5:'#c79a3f',6:'#5a564a',
-    7:'#8f887a',8:'#7a7268',9:'#8f8676',10:'#556065',11:'#c9c1aa',12:'#8a7f5e',13:'#635c4a'};
+  /* CONCRETE, SAND AND SUN-BLEACHED PAINT. Nothing green. */
+  var PALETTE={0:'#1c1a15',1:'#33333c',2:'#8c8577',3:'#514f40',4:'#6b6250',5:'#c79a3f',
+    6:'#3f4a55',7:'#7f7a70',8:'#6e6a60',9:'#b0863a',10:'#5f5c54',11:'#8fa2ad',12:'#5d6a6e',
+    13:'#96907f',14:'#b3a78d',15:'#5c6468',16:'#241f1a',17:'#4a4a52',18:'#6a6e72',
+    19:'#8a7a48',20:'#55555f',21:'#6f6a5e',22:'#57575f'};
   var LEGEND={
-    0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the terminal-lot edge (setback)'},
-    1:{name:'drive',              kind:'drive',      act1:'the bus bays, layover yard, kiss-and-ride loop, and park-and-ride lot — one connected car surface (drivable)'},
-    2:{name:'building (terminal)',kind:'building',   act1:'the terminal — waiting hall, ticket counters, restrooms, boarded, the departures board dark', enter:'terminal interior: the waiting hall + ticket counters up front, restrooms + a small office behind'},
-    3:{name:'dead landscaping',   kind:'tree-dead',  act1:'a dead tree / hedge at the lot edge', solid:false},
-    4:{name:'lawn',               kind:'ground',     act1:'the dead lawn edging the terminal lot'},
-    5:{name:'gate',               kind:'gate',       act1:'the terminal entrance off the street, amber curb'},
-    6:{name:'boarding canopy',    kind:'overhead',   act1:'the boarding canopy over the bus bays (pass under it to reach the platform)'},
-    7:{name:'platform',           kind:'ground',     act1:'the raised boarding platform under the canopy, paint worn to bare concrete'},
-    8:{name:'bench / shelter',    kind:'prop',       act1:'a platform bench, seat cracked, no one waiting'},
-    9:{name:'pole light',         kind:'prop',       act1:'a canopy-mounted light, dead'},
-    10:{name:'dead bus',          kind:'vehicle',    act1:'a bus dead at its bay or in the layover yard, tyres flat, destination sign blank', solid:true},
-    11:{name:'bay marking',       kind:'marking',    act1:'faded bay-line striping on the bus lane'},
-    12:{name:'schedule board / clock',kind:'structure',act1:'the schedule-board clock tower over the terminal doors, hands stopped, board blank', solid:true},
-    13:{name:'bike rack',         kind:'prop',       act1:'a bike rack near the entrance, empty, rusted'}
+    0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
+    1:{name:'apron / drive / lot',kind:'drive',    act1:'the bus apron and the park-and-ride — heavy-duty concrete gone to plates, weeds up every joint (bus- and car-drivable)'},
+    2:{name:'head house',         kind:'building', act1:'the two-storey terminal, its long curved south wall glazed end to end, the waiting room dark behind it', enter:'terminal interior: the enclosed waiting room along the curve, the ticket and information counter, restrooms, and the operations offices on the upper floor'},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead forecourt tree gone to stick, its grate prised up for the metal', solid:false},
+    4:{name:'hardpan',            kind:'ground',   act1:'decomposed granite gone to hardpan at the edges of the site, split by weeds. Not a lawn: nothing is watering this'},
+    5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street onto the apron, wide enough for a bus, amber paint gone chalky'},
+    6:{name:'solar shade',        kind:'overhead', act1:'the photovoltaic shade structure over the platform and the bay noses — the only reason anybody could stand here in July, the glass now milky and half of it stripped for the copper. You walk and drive UNDER it'},
+    7:{name:'forecourt paving',   kind:'ground',   act1:'the paved forecourt between the street and the head house, big scored slabs heaved at the joints'},
+    8:{name:'rooftop plant',      kind:'structure',act1:'a mechanical unit on the head house roof, ducting collapsed, one of them stripped out entirely'},
+    9:{name:'light',              kind:'structure',act1:'an apron light on its concrete stem, head dark, the glass long gone'},
+    10:{name:'bay post',          kind:'structure',act1:'the numbered post at the nose of a bay, the route board on it faded to a blank white rectangle'},
+    11:{name:'curtain wall glazing',kind:'structure',act1:'the glazed curve of the waiting room — the panels that are left are sun-hazed, the rest is board and sky'},
+    12:{name:'bike rack',         kind:'structure',act1:'a double-stacked bike rack, two bikes high, most of the hoops empty and one wheel still locked to the frame'},
+    13:{name:'boarding platform', kind:'walk',     act1:'the raised boarding platform running the length of the bays, tactile edge strip worn smooth'},
+    14:{name:'roof edge',         kind:'structure',act1:'the parapet line where the head house roof meets its wall, coping missing in runs'},
+    15:{name:'dead bus',          kind:'vehicle',  act1:'a bus left where it stopped, glass gone, tyres flat and perished into the concrete'},
+    16:{name:'doorway',           kind:'portal',   act1:'a way in — the platform doors, and the operations door on the north side'},
+    17:{name:'stall marking',     kind:'marking',  act1:'the painted stall ticks across the park-and-ride, chalked out to ghosts — PAINT IS NOT A WALL, a car drives straight over it'},
+    18:{name:'dead car',          kind:'vehicle',  act1:'a car left in the park-and-ride, flat and sun-bleached, nobody came back for it'},
+    19:{name:'kerb loading mark', kind:'marking',  act1:'a painted on-street loading point at the kerb — one of seven, yellow gone to bone. PAINT IS NOT A WALL'},
+    22:{name:'lane line',         kind:'marking',  act1:'the dashed lane line down the apron, showing a coach the through route past the bays. PAINT IS NOT A WALL'},
+    21:{name:'roof joint',        kind:'structure',act1:'the joint line between two roof plates on the head house, sealant gone chalky and lifted out in runs', solid:true},
+    20:{name:'bay marking',       kind:'marking',  act1:'the painted box of a sawtooth bay, angled so a bus pulls straight out without reversing. PAINT IS NOT A WALL'}
   };
   var NOTES={
-    summary:'A dead transit terminal — a waiting-hall building with a stopped schedule-board clock, a row of bus bays under a long boarding canopy with a raised platform, a bus layover yard, a kiss-and-ride loop, a small park-and-ride lot. Passenger transport, distinct from the freight-only railyard.',
-    reference:['Intercity/regional bus-terminal design precedent: a TERMINAL BUILDING (waiting hall, ticket counters, restrooms) fronts a row of BUS BAYS under a long boarding CANOPY with a raised PLATFORM; a separate LAYOVER/staging yard holds off-duty buses; a KISS-AND-RIDE drop-off loop and a small PARK-AND-RIDE lot serve car access; a schedule-board clock is the conventional terminal landmark.'],
-    layout:['The TERMINAL building sits at the back of the lot with a schedule-board CLOCK tower over its doors.',
-      'A boarding CANOPY (overhead — pass under it) shelters the raised PLATFORM in front of the building; benches line the platform.',
-      'A row of BUS BAYS runs along the platform, a dead bus staged at each; bay-line striping marks the lane.',
-      'A LAYOVER/staging yard (SE) holds more of the fleet parked dead, off the passenger bays; a kiss-and-ride loop + small park-and-ride lot sit SW.'],
-    circulation:'Street-aware via canonical-south + K.rotateToStreet: the entrance opens onto the primary street; the bays, layover yard, kiss-and-ride loop, and park-and-ride lot are ALL one connected drivable surface (code 1) reachable from the curb (K.driveReachFromStreet) — buses and cars alike. Corner side streets get a pedestrian gate onto the platform side. Foot circulation is the platform along the canopy.',
-    layering:'GROUND plane (walk/drive, flat): the platform (7), lawn (4), the drive/bays/lot (1, drive), bay marking (11), desert (0). OVERHEAD (drawn above, pass under): the boarding CANOPY (6). STRUCTURES (¾ front face, solid, ENTERABLE): the TERMINAL building (2 -> waiting hall/ticket counters/restrooms/office) with the schedule-board CLOCK (12). PROPS / VEHICLES: dead buses (10, solid, at bays and in the layover yard), benches (8), pole lights (9), bike rack (13). PORTALS: the gate (5). The terminal + clock are the vertical mass; the canopy and its dead bus fleet are the wide low read you approach across the platform.',
-    decisions:['Act-1 DEAD: buses dead at the bays and in the layover yard (flat tyres, blank destination signs), the schedule board dark and stopped, the waiting hall boarded, benches empty. Who if anyone still runs a route is faction canon (Paolo\'s).',
-      'Infrastructure category (terminal) — already reserved in K.TAXONOMY (Paolo 7/18\'s taxonomy pass anticipated this slot alongside airport/rail/freeway), filled in this turn rather than inventing a new bucket.',
-      'Deliberately distinct from railyard: PASSENGER transport (terminal building, platform, bus bays, kiss-and-ride) vs railyard\'s FREIGHT classification tracks and rolling stock — no overlap in vocabulary.',
-      'WALKABLE-LAND honored: the building + canopy + platform + parked bus fleet are the content that anchors the paved bus surface — never a bare apron with a tiny building stranded in it.',
-      'Research-first (per the playbook): built from real intercity/regional bus-terminal design, not memory.']
+    summary:'A dead transit centre — a curved two-storey head house behind a glazed south wall, a boarding platform under a photovoltaic shade structure, SIXTEEN sawtooth bus bays with the buses still in some of them, SEVEN on-street loading points at the kerb, a hundred double-stacked bike racks, a layover row and a small park-and-ride. A VEHICULAR VENUE: the vehicle surface is the venue.',
+    reference:['BONNEVILLE TRANSIT CENTER (2010, 101 E Bonneville Ave, downtown Las Vegas), LEED Platinum: 16 on-site vehicle bays, 7 on-street loading points, roughly 100 double-stacked bike racks with a self-service repair stand, preferred parking for hybrids, a fully enclosed passenger waiting area in a 2-storey ~20,000 sq ft building, and SOLAR-PANEL SHADE STRUCTURES over the bays. Its curved lines are what the design juries singled out.',
+      'Sawtooth bay geometry, standard for bus facilities: angled boxes off a single platform edge so a coach pulls in and pulls straight out again without reversing across the apron.'],
+    layout:['THE HEAD HOUSE runs across the north as a bar with a CURVED concourse bulging south out of it — one building, the curve merged into the bar, its whole south wall glazed.',
+      'THE BOARDING PLATFORM runs the full width below it, with a numbered POST at the nose of each bay.',
+      'SIXTEEN SAWTOOTH BAYS are painted off the platform edge onto the apron, angled, with buses still standing in every third one.',
+      'THE SOLAR SHADE covers the platform and the bay noses. It is an OVERHEAD: it shades the path, never severs it.',
+      'A HUNDRED DOUBLE-STACKED BIKE RACKS stand in two banks on the forecourt either side of the doors.',
+      'THE LAYOVER ROW is the line of parked buses across the middle of the apron; the PARK-AND-RIDE and its stall ticks fill the south strip; SEVEN painted on-street loading points sit at the kerb outside the property line.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: ONE kerb cut, deliberately wider than a car gate because a bus has to make it, feeds an apron that is a single connected surface a coach can turn in — bays, layover row and park-and-ride all reach the kerb (K.driveNetworkReach = 1.0). Every painted thing here (bay boxes, stall ticks, kerb points) is MARKING and the shade is OVERHEAD, so nothing painted or hanging severs a route. Foot circulation is forecourt -> doors -> waiting room -> platform -> bay. A corner adds a pedestrian gate onto the forecourt.',
+    layering:'GROUND (flat): the forecourt paving (7), the hardpan (4), the boarding platform (13, WALK), the apron / park-and-ride (1, DRIVE) with bay boxes (20), stall ticks (17) and kerb points (19) all MARKING, bare desert (0). OVERHEAD (pass UNDER): the solar shade (6). STRUCTURE (¾ front face, solid, ENTERABLE): the HEAD HOUSE (2 — enclosed waiting room, ticket counter, restrooms, upstairs operations), its curtain wall glazing (11), roof edge (14), rooftop plant (8), the bay posts (10), the bike racks (12), the apron lights (9). PROP: dead trees (3), dead buses (15) and cars (18). PORTAL: the doorways (16) and the kerb cut (5).',
+    decisions:['THE LAWN IS DEAD. 26% of this plot was painted green in a valley that stopped watering things a decade before act one opens — the exact greenwash Paolo caught in downtown. Replaced with hardpan and paved forecourt.',
+      'THE NUMBERS ARE THE REAL BUILDING\'S: 16 bays, 7 kerb loading points, 100 double-stacked racks. The gate counts all three. A number taken from the real thing is a fact the machine can hold; a number invented on the day is decoration.',
+      'VEHICULAR VENUE (WALKABLE-LAND exception, 7/20): at a transit centre the vehicle surface IS the venue, so the pavement cap does not apply — but the exemption is not a licence for a bare apron, and this one is dressed with platform, shade, posts, racks, buses and a layover row.',
+      'Deliberately differentiated from the railyard (FREIGHT rail, no passengers) and from every other district: nothing else in the valley is a sawtooth of sixteen bays under a solar deck. Every district is its own landmark (7/28).',
+      'Act-1 DEAD: buses in the bays with the glass gone and the tyres perished into the concrete, route boards faded to blank rectangles, panels milky and half stripped for copper. Who runs anything on these roads now is faction canon and stays Paolo\'s.',
+      'Zero purple. No route numbers, agency name or signage text anywhere (Paolo\'s to author).']
   };
-  K.register('terminal', { generate:generate, body:function(c){return c===2;}, category:'infrastructure', palette:PALETTE, legend:LEGEND, notes:NOTES });
+  K.register('terminal', { generate:generate, body:function(c){return c===2||c===11||c===14||c===16||c===21;},
+    category:'infrastructure', vehicular:true, palette:PALETTE, legend:LEGEND, notes:NOTES });
 
-  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  var API={generate:generate,driveConnected:driveConnected,BAYS:BAYS,KERB_POINTS:KERB_POINTS,BIKE_RACKS:BIKE_RACKS,
+    footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
   if(typeof module!=='undefined')module.exports=API;
   root.BohemiaTerminal=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

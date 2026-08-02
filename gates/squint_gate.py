@@ -53,14 +53,15 @@ MIN_DIFF = 0.055            # fraction of cells that must differ between two dis
 KNOWN_TWINS = {
     frozenset(('storage', 'warehouse')),        # 0.8% -- rows of units vs rows of units
     frozenset(('ballpark', 'speedway')),        # 2.3%
-    frozenset(('commercial', 'terminal')),      # 3.1%
-    # courthouse/library RETIRED 8/2: the library icon was rebuilt on Predock (a drum, a
-    # tower, a clerestory wing) and no longer reads as the same civic box. Debt 13 -> 12.
-    frozenset(('industrial', 'terminal')),      # 3.9%
+    # RETIRED 8/2, all four, by rebuilding the icons on the real Las Vegas buildings rather
+    # than on generic civic/transport boxes. Debt 13 -> 9.
+    #   courthouse/library  -- the library became a Predock drum + tower + clerestory wing
+    #   commercial/terminal -- the terminal became a curved head house under a solar deck
+    #   industrial/terminal --   with sawtooth bays and buses in them
+    #   courthouse/medical  -- the courthouse became an L round a plaza with a ringed dome
     frozenset(('commercial', 'mall')),          # 4.7%
     frozenset(('swapmeet', 'truckstop')),       # 4.7%
     frozenset(('commercial', 'industrial')),    # 5.5%
-    frozenset(('courthouse', 'medical')),       # 5.5%
     frozenset(('farm', 'swapmeet')),            # 5.5%
     frozenset(('farm', 'truckstop')),           # 5.5%
     frozenset(('interchange', 'rail')),         # 5.5%

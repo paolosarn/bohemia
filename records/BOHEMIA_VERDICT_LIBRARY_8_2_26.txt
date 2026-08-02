@@ -1,0 +1,27 @@
+BOHEMIA VERDICT — LIBRARY
+8/2/26
+
+PAOLO, VERBATIM:
+  "Hella yeah its like 85% the icon could have more parking but yeah"
+
+LIBRARY — 85%, APPROVED.
+  22% -> 85% in one pass. Fifth approved district.
+  school 89 · commercial 85 · mall 85 · downtown 85 · library 85.
+
+THE NOTE, BUILT THE SAME TURN (NOTES ARE RULINGS, 7/19 — if he said it, that IS
+the verdict; he does not get asked to re-thumb his own words):
+  MORE PARKING ON THE ICON. The hero's lot was a small corner pad tucked behind
+  the building, x9.5..15 only, with one car in it. It now runs the FULL WIDTH of
+  the plot across the front, striped, with a drive apron off the street and six
+  cars left in it — which is also what the district's own plot does, so the icon
+  and the ground finally agree. Silhouette, hue, dossier, wire and vehicle-size
+  gates all re-run green: the lot changed the icon's base, not its outline.
+
+WHAT THE 22 -> 85 ACTUALLY WAS, kept here because the lesson outranks the score:
+  ARTICULATION IS NOT FRAGMENTATION. "No building is a flat rectangle" (7/30)
+  means articulate the mass, never split it up. A library is one building because
+  a library IS one building. THE BUILDING TYPE DECIDES, NEVER THE GATE.
+  Full law: laws/BOHEMIA_ADDENDUM_ARTICULATION_NOT_FRAGMENTATION_8_2_26.md
+  Machine: gates/one_building_gate.js (SINGLE list + MANY list, both directions).
+
+STATUS: LIBRARY APPROVED (85). Five districts now hold the standard.

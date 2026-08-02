@@ -4,49 +4,62 @@ _Category: **infrastructure**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/t
 
 GENERATED from `engine/bohemia_terminal.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
-**A dead transit terminal — a waiting-hall building with a stopped schedule-board clock, a row of bus bays under a long boarding canopy with a raised platform, a bus layover yard, a kiss-and-ride loop, a small park-and-ride lot. Passenger transport, distinct from the freight-only railyard.**
+**A dead transit centre — a curved two-storey head house behind a glazed south wall, a boarding platform under a photovoltaic shade structure, SIXTEEN sawtooth bus bays with the buses still in some of them, SEVEN on-street loading points at the kerb, a hundred double-stacked bike racks, a layover row and a small park-and-ride. A VEHICULAR VENUE: the vehicle surface is the venue.**
 
 ### Real-world reference
-- Intercity/regional bus-terminal design precedent: a TERMINAL BUILDING (waiting hall, ticket counters, restrooms) fronts a row of BUS BAYS under a long boarding CANOPY with a raised PLATFORM; a separate LAYOVER/staging yard holds off-duty buses; a KISS-AND-RIDE drop-off loop and a small PARK-AND-RIDE lot serve car access; a schedule-board clock is the conventional terminal landmark.
+- BONNEVILLE TRANSIT CENTER (2010, 101 E Bonneville Ave, downtown Las Vegas), LEED Platinum: 16 on-site vehicle bays, 7 on-street loading points, roughly 100 double-stacked bike racks with a self-service repair stand, preferred parking for hybrids, a fully enclosed passenger waiting area in a 2-storey ~20,000 sq ft building, and SOLAR-PANEL SHADE STRUCTURES over the bays. Its curved lines are what the design juries singled out.
+- Sawtooth bay geometry, standard for bus facilities: angled boxes off a single platform edge so a coach pulls in and pulls straight out again without reversing across the apron.
 
 ### Layout — what is where
-- The TERMINAL building sits at the back of the lot with a schedule-board CLOCK tower over its doors.
-- A boarding CANOPY (overhead — pass under it) shelters the raised PLATFORM in front of the building; benches line the platform.
-- A row of BUS BAYS runs along the platform, a dead bus staged at each; bay-line striping marks the lane.
-- A LAYOVER/staging yard (SE) holds more of the fleet parked dead, off the passenger bays; a kiss-and-ride loop + small park-and-ride lot sit SW.
+- THE HEAD HOUSE runs across the north as a bar with a CURVED concourse bulging south out of it — one building, the curve merged into the bar, its whole south wall glazed.
+- THE BOARDING PLATFORM runs the full width below it, with a numbered POST at the nose of each bay.
+- SIXTEEN SAWTOOTH BAYS are painted off the platform edge onto the apron, angled, with buses still standing in every third one.
+- THE SOLAR SHADE covers the platform and the bay noses. It is an OVERHEAD: it shades the path, never severs it.
+- A HUNDRED DOUBLE-STACKED BIKE RACKS stand in two banks on the forecourt either side of the doors.
+- THE LAYOVER ROW is the line of parked buses across the middle of the apron; the PARK-AND-RIDE and its stall ticks fill the south strip; SEVEN painted on-street loading points sit at the kerb outside the property line.
 
 ### Circulation (street-aware / drivable)
-Street-aware via canonical-south + K.rotateToStreet: the entrance opens onto the primary street; the bays, layover yard, kiss-and-ride loop, and park-and-ride lot are ALL one connected drivable surface (code 1) reachable from the curb (K.driveReachFromStreet) — buses and cars alike. Corner side streets get a pedestrian gate onto the platform side. Foot circulation is the platform along the canopy.
+Street-aware via canonical-south + K.rotateToStreet: ONE kerb cut, deliberately wider than a car gate because a bus has to make it, feeds an apron that is a single connected surface a coach can turn in — bays, layover row and park-and-ride all reach the kerb (K.driveNetworkReach = 1.0). Every painted thing here (bay boxes, stall ticks, kerb points) is MARKING and the shade is OVERHEAD, so nothing painted or hanging severs a route. Foot circulation is forecourt -> doors -> waiting room -> platform -> bay. A corner adds a pedestrian gate onto the forecourt.
 
 ### Layering — exterior vs interior, what blocks, what you go under/into
-GROUND plane (walk/drive, flat): the platform (7), lawn (4), the drive/bays/lot (1, drive), bay marking (11), desert (0). OVERHEAD (drawn above, pass under): the boarding CANOPY (6). STRUCTURES (¾ front face, solid, ENTERABLE): the TERMINAL building (2 -> waiting hall/ticket counters/restrooms/office) with the schedule-board CLOCK (12). PROPS / VEHICLES: dead buses (10, solid, at bays and in the layover yard), benches (8), pole lights (9), bike rack (13). PORTALS: the gate (5). The terminal + clock are the vertical mass; the canopy and its dead bus fleet are the wide low read you approach across the platform.
+GROUND (flat): the forecourt paving (7), the hardpan (4), the boarding platform (13, WALK), the apron / park-and-ride (1, DRIVE) with bay boxes (20), stall ticks (17) and kerb points (19) all MARKING, bare desert (0). OVERHEAD (pass UNDER): the solar shade (6). STRUCTURE (¾ front face, solid, ENTERABLE): the HEAD HOUSE (2 — enclosed waiting room, ticket counter, restrooms, upstairs operations), its curtain wall glazing (11), roof edge (14), rooftop plant (8), the bay posts (10), the bike racks (12), the apron lights (9). PROP: dead trees (3), dead buses (15) and cars (18). PORTAL: the doorways (16) and the kerb cut (5).
 
 ### Decisions & rulings
-- Act-1 DEAD: buses dead at the bays and in the layover yard (flat tyres, blank destination signs), the schedule board dark and stopped, the waiting hall boarded, benches empty. Who if anyone still runs a route is faction canon (Paolo's).
-- Infrastructure category (terminal) — already reserved in K.TAXONOMY (Paolo 7/18's taxonomy pass anticipated this slot alongside airport/rail/freeway), filled in this turn rather than inventing a new bucket.
-- Deliberately distinct from railyard: PASSENGER transport (terminal building, platform, bus bays, kiss-and-ride) vs railyard's FREIGHT classification tracks and rolling stock — no overlap in vocabulary.
-- WALKABLE-LAND honored: the building + canopy + platform + parked bus fleet are the content that anchors the paved bus surface — never a bare apron with a tiny building stranded in it.
-- Research-first (per the playbook): built from real intercity/regional bus-terminal design, not memory.
+- THE LAWN IS DEAD. 26% of this plot was painted green in a valley that stopped watering things a decade before act one opens — the exact greenwash Paolo caught in downtown. Replaced with hardpan and paved forecourt.
+- THE NUMBERS ARE THE REAL BUILDING'S: 16 bays, 7 kerb loading points, 100 double-stacked racks. The gate counts all three. A number taken from the real thing is a fact the machine can hold; a number invented on the day is decoration.
+- VEHICULAR VENUE (WALKABLE-LAND exception, 7/20): at a transit centre the vehicle surface IS the venue, so the pavement cap does not apply — but the exemption is not a licence for a bare apron, and this one is dressed with platform, shade, posts, racks, buses and a layover row.
+- Deliberately differentiated from the railyard (FREIGHT rail, no passengers) and from every other district: nothing else in the valley is a sawtooth of sixteen bays under a solar deck. Every district is its own landmark (7/28).
+- Act-1 DEAD: buses in the bays with the glass gone and the tyres perished into the concrete, route boards faded to blank rectangles, panels milky and half stripped for copper. Who runs anything on these roads now is faction canon and stays Paolo's.
+- Zero purple. No route numbers, agency name or signage text anywhere (Paolo's to author).
 
 ### Tile legend — every code: material to skin + layer/occupancy/interior
 _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=drawn above, pass under · prop=object on the ground · portal=go through into an interior._
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the terminal-lot edge (setback) | ground | no | — | 2413 |
-| 1 | `#4a463c` | drive | drive | the bus bays, layover yard, kiss-and-ride loop, and park-and-ride lot — one connected car surface (drivable) | ground | no | — | 5002 |
-| 2 | `#726a58` | building (terminal) | building | the terminal — waiting hall, ticket counters, restrooms, boarded, the departures board dark | structure | yes | terminal interior: the waiting hall + ticket counters up front, restrooms + a small office behind | 2336 |
-| 3 | `#3a4526` | dead landscaping | tree-dead | a dead tree / hedge at the lot edge | prop | no | — | 13 |
-| 4 | `#49512e` | lawn | ground | the dead lawn edging the terminal lot | ground | no | — | 4318 |
-| 5 | `#c79a3f` | gate | gate | the terminal entrance off the street, amber curb | portal | no | — | 2 |
-| 6 | `#5a564a` | boarding canopy | overhead | the boarding canopy over the bus bays (pass under it to reach the platform) | overhead | no | — | 502 |
-| 7 | `#8f887a` | platform | ground | the raised boarding platform under the canopy, paint worn to bare concrete | ground | no | — | 332 |
-| 8 | `#7a7268` | bench / shelter | prop | a platform bench, seat cracked, no one waiting | prop | yes | — | 8 |
-| 9 | `#8f8676` | pole light | prop | a canopy-mounted light, dead | prop | yes | — | 8 |
-| 10 | `#556065` | dead bus | vehicle | a bus dead at its bay or in the layover yard, tyres flat, destination sign blank | prop | yes | — | 1413 |
-| 11 | `#c9c1aa` | bay marking | marking | faded bay-line striping on the bus lane | ground | no | — | 34 |
-| 12 | `#8a7f5e` | schedule board / clock | structure | the schedule-board clock tower over the terminal doors, hands stopped, board blank | structure | yes | — | 1 |
-| 13 | `#635c4a` | bike rack | prop | a bike rack near the entrance, empty, rusted | prop | yes | — | 2 |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb | ground | no | — | 1325 |
+| 1 | `#33333c` | apron / drive / lot | drive | the bus apron and the park-and-ride — heavy-duty concrete gone to plates, weeds up every joint (bus- and car-drivable) | ground | no | — | 4384 |
+| 2 | `#8c8577` | head house | building | the two-storey terminal, its long curved south wall glazed end to end, the waiting room dark behind it | structure | yes | terminal interior: the enclosed waiting room along the curve, the ticket and information counter, restrooms, and the operations offices on the upper floor | 1717 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead forecourt tree gone to stick, its grate prised up for the metal | prop | no | — | 1 |
+| 4 | `#6b6250` | hardpan | ground | decomposed granite gone to hardpan at the edges of the site, split by weeds. Not a lawn: nothing is watering this | ground | no | — | 1136 |
+| 5 | `#c79a3f` | gate / kerb cut | gate | the kerb cut off the street onto the apron, wide enough for a bus, amber paint gone chalky | portal | no | — | 13 |
+| 6 | `#3f4a55` | solar shade | overhead | the photovoltaic shade structure over the platform and the bay noses — the only reason anybody could stand here in July, the glass now milky and half of it stripped for the copper. You walk and drive UNDER it | overhead | no | — | 978 |
+| 7 | `#7f7a70` | forecourt paving | ground | the paved forecourt between the street and the head house, big scored slabs heaved at the joints | ground | no | — | 2088 |
+| 8 | `#6e6a60` | rooftop plant | structure | a mechanical unit on the head house roof, ducting collapsed, one of them stripped out entirely | structure | yes | — | 190 |
+| 9 | `#b0863a` | light | structure | an apron light on its concrete stem, head dark, the glass long gone | structure | yes | — | 205 |
+| 10 | `#5f5c54` | bay post | structure | the numbered post at the nose of a bay, the route board on it faded to a blank white rectangle | structure | yes | — | 16 |
+| 11 | `#8fa2ad` | curtain wall glazing | structure | the glazed curve of the waiting room — the panels that are left are sun-hazed, the rest is board and sky | structure | yes | — | 504 |
+| 12 | `#5d6a6e` | bike rack | structure | a double-stacked bike rack, two bikes high, most of the hoops empty and one wheel still locked to the frame | structure | yes | — | 50 |
+| 13 | `#96907f` | boarding platform | walk | the raised boarding platform running the length of the bays, tactile edge strip worn smooth | ground | no | — | 549 |
+| 14 | `#b3a78d` | roof edge | structure | the parapet line where the head house roof meets its wall, coping missing in runs | structure | yes | — | 355 |
+| 15 | `#5c6468` | dead bus | vehicle | a bus left where it stopped, glass gone, tyres flat and perished into the concrete | prop | yes | — | 625 |
+| 16 | `#241f1a` | doorway | portal | a way in — the platform doors, and the operations door on the north side | portal | no | — | 81 |
+| 17 | `#4a4a52` | stall marking | marking | the painted stall ticks across the park-and-ride, chalked out to ghosts — PAINT IS NOT A WALL, a car drives straight over it | ground | no | — | 301 |
+| 18 | `#6a6e72` | dead car | vehicle | a car left in the park-and-ride, flat and sun-bleached, nobody came back for it | prop | yes | — | 88 |
+| 19 | `#8a7a48` | kerb loading mark | marking | a painted on-street loading point at the kerb — one of seven, yellow gone to bone. PAINT IS NOT A WALL | ground | no | — | 204 |
+| 20 | `#55555f` | bay marking | marking | the painted box of a sawtooth bay, angled so a bus pulls straight out without reversing. PAINT IS NOT A WALL | ground | no | — | 994 |
+| 21 | `#6f6a5e` | roof joint | structure | the joint line between two roof plates on the head house, sealant gone chalky and lifted out in runs | structure | yes | — | 469 |
+| 22 | `#57575f` | lane line | marking | the dashed lane line down the apron, showing a coach the through route past the bays. PAINT IS NOT A WALL | ground | no | — | 111 |
 
 **Gate:** `gates/terminal_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.
