@@ -3224,6 +3224,53 @@ own SIM still makes agents (measured 6-7 outdoors this session), so it is the
 world-model/census path that broke, not the run. Whoever owns LIFE/POPULATION
 should take this first -- it is bigger than anything in my lane.
 
+MUSIC (xk7pjp): 8/2 — BATCH 21. FOUR SONGS, FOUR NEWBORN TOPOLOGIES.
+
+He fired the cook spell verbatim. Horror FFX, melodic under dread, new voices,
+no shared scale/feel/kick, screech law, graveyard final, embedded repo updated,
+gate green, ship same turn.
+
+  THE HOUSE ALWAYS REMEMBERS   45 [0,1,5,6,10]   half   [0,10]      lead OSSUARY
+  NOBODY CASHES OUT            50 [0,2,3,6,7,9]  normal [0,6,8,14]  lead LASTRITES
+  TITHE FOR THE EMPTY PEWS     38 [0,3,5,8,11]   half   [0,4,8,12]  lead TITHEBELL
+  THE LAST LIGHT ON THE STRIP  53 [0,1,3,7,8,11] drive  [0,7,11]    lead DYINGFILAMENT
+
+THE RACK ALREADY HELD 607 VOICES, so a new NAME on an old skeleton would have
+been worth nothing. Each of these four is a different MECHANISM:
+  ossuary        NO OSCILLATOR. A noise burst through four parallel bandpasses
+                 at the free-free bar ratios 1 : 2.76 : 5.40 : 8.93. The pitch
+                 lives in the FILTERS; the source is air.
+  lastrites      BUILT DOWNWARD. Undertone stack f, f/2, f/3, f/5 -- the
+                 harmonic series inverted, each division on its own drift so
+                 they beat against each other.
+  tithebell      DIFFERENTIAL DECAY. Odd partials die 6x faster than even, so
+                 the TIMBRE moves with no filter and no modulator: strikes
+                 clangorous, arrives pure.
+  dyingfilament  A TREMOLO WHOSE RATE IS ENVELOPED TO A STOP. Modulation-rate
+                 envelope, not amplitude envelope. The light going out.
+
+VERIFIED AS AUDIO, not as structure: each rendered offline in the real alpha --
+ossuary 0.259, lastrites 0.293, tithebell 0.339, dyingfilament 0.166 peak, and
+ALL FOUR fully silent well before 4s, which is the SCREECH LAW proved on the
+waveform rather than by grepping for createDelay.
+  OSSUARY NEEDED 24x MAKEUP. Four bandpasses at Q 16-37 threw away nearly all
+  the energy: it first rendered at 0.0101 against 0.29-0.34 for its batch-mates.
+  The filters ARE the instrument, so the fix is gain after them, never a wider Q.
+
+THE BUG WORTH INHERITING — A STRAY COMMA IS A HOLE IN THE SONG LIST. My tool's
+idempotent removal took the block but left the comma it had injected, so the
+next re-run wrote `},\n,\n{` and JS turned that into an EMPTY SLOT. MLOOPS[130]
+was `undefined` and everything that maps over songs died on `undefined.n`.
+  IT WAS INVISIBLE THREE WAYS: the file reads fine by eye, a grep for ',,' never
+  matches because a NEWLINE sits between them, and the song COUNT still looks
+  right. Only asking the parsed array found it.
+  gates/music_gate.js now EVALS the literal and fails on any hole (16 checks,
+  proved by putting the comma back). Reading the text is what let it in.
+
+BUILD STAMP: 8/2af - FOUR NEW SONGS, FOUR NEW VOICES (MUSIC TAB).
+NEXT: his thumbs. NEW_VIBES is these four; downs go to the graveyard with a
+post-mortem and stay dead.
+
 SOUNDS (xk7pjp): 8/2 (d) LATEST — YOU CAN HEAR THE PEOPLE ON YOUR BLOCK.
 
 HIS STEER: "I'm not too concerned right now about the volume of fucking steps,

@@ -44,6 +44,23 @@ function grabArr(marker){
 const mloops=grabArr('const MLOOPS=');
 const mfact=grabArr('const MFACTIONS=');
 ok('MLOOPS parses', !!mloops); ok('MFACTIONS parses', !!mfact);
+// NO HOLES IN THE SONG LIST (8/2). A batch tool that leaves a stray comma
+// writes `},\n,\n{` and JS turns that into an EMPTY SLOT. Everything that maps
+// over songs then dies on `undefined.n`, and it is invisible three ways: the
+// file looks fine by eye, a grep for ',,' never matches because a newline sits
+// between them, and the song COUNT still looks right. It cost a crash this
+// batch. Ask the parsed array, not the text.
+// grabArr returns TEXT, so EVAL the literal and ask the real array. Reading
+// the text is what let this slip in the first place.
+function holesIn(txt){
+  if(!txt) return -1;
+  let arr; try{ arr = eval(txt); }catch(e){ return -2; }
+  if(!Array.isArray(arr)) return -3;
+  let h=0; for(let i=0;i<arr.length;i++) if(!arr[i] || !arr[i].n) h++;
+  return h;
+}
+ok('no holes in MLOOPS (a stray comma makes an empty slot)', holesIn(mloops)===0);
+ok('no holes in MFACTIONS', holesIn(mfact)===0);
 
 // tolerant parser: split the array into top-level {...} entries, read fields independently
 function parse(block){ const out=[]; let d=0,st=-1;
