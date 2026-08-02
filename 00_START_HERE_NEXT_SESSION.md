@@ -3623,6 +3623,50 @@ own SIM still makes agents (measured 6-7 outdoors this session), so it is the
 world-model/census path that broke, not the run. Whoever owns LIFE/POPULATION
 should take this first -- it is bigger than anything in my lane.
 
+MUSIC (xk7pjp): 8/2 (c) LATEST — BATCH 22, THREE SONGS ANSWERING THE THREE DEAD
+SLOTS. And a theory I tested and threw away, which is the part worth reading.
+
+  A BELL FOR NOBODYS SHIFT  41 [0,2,5,7,10]  half   [0,6]       lead SALTPSALM
+  THE MARKER ON THE DOOR    48 [0,2,4,7,9]   normal [0,4,8,11]  lead BROKENROSARY
+  COUNTING WHAT IS LEFT     55 [0,3,7,10]    drive  [0,3,8,12]  lead TOLLHOUSE
+
+THE THEORY THAT DIED. After batch 21 I inferred the casualties failed because
+their leads could not hold a line, and refined it to a mechanism: the melody
+engine picks scale degrees BY HASH, so a scale with adjacent semitones should
+throw random rubs and read as texture. Measured across all 131 scaled songs:
+    NOBODY CASHES OUT        LIVED  2 semitone-adjacent pairs
+    THE HOUSE ALWAYS REMEMBERS DIED 2   <- identical count to a survivor
+    canon corpus mean 1.19, only 28% at zero
+A SURVIVOR AND A CASUALTY SHARE THE COUNT, so the rule is dead. Recorded because
+the tempting move was to build the batch on a tidy rule and present it as
+insight. DO NOT REBUILD ON IT.
+
+WHAT BATCH 22 IS ACTUALLY BUILT ON: the laws, plus the ONE real signal in the
+data -- both songs he kept have leads that SUSTAIN a clear pitch for the length
+of a note. All three new leads sustain. Not because a theory says so, because
+the two things he actually kept do.
+
+THREE NEWBORN TOPOLOGIES (none among the 607, none of batch 21's four):
+  brokenrosary  RHYTHM INSIDE ONE NOTE -- the same pitch re-struck within its
+                own duration, gaps stretching, each strike quieter and duller.
+                Everything else in the rack is one attack per note.
+  saltpsalm     AN INTERVAL THAT RESOLVES WHILE IT SOUNDS -- two voices open a
+                fifth apart and glide together into unison across the note.
+                subharmglide glides a pitch; this glides the DISTANCE to zero.
+  tollhouse     RING MOD AT A FIXED HZ OFFSET, not a ratio, so low notes beat
+                slowly and high notes go clangorous. One rule, a different
+                instrument at each end of the keyboard.
+
+MEASURED AS AUDIO in the real alpha: brokenrosary 0.202, saltpsalm 0.309,
+tollhouse 0.337 peak, all three fully silent well before 4s (screech law on the
+waveform). Zero page errors.
+
+APPEND-ONLY PROVEN by diffing every entry: 131 -> 134, three added, none
+removed, ZERO existing songs edited. Song lock re-locked with the reason.
+
+BUILD STAMP: 8/2an - THREE MORE SONGS TO JUDGE (MUSIC TAB).
+NEXT: his thumbs on these three.
+
 MUSIC (xk7pjp): 8/2 (b) LATEST — BATCH 21 JUDGED, 2 OF 4 LIVE, AND THE LESSON IS
 THE VALUABLE PART.
 
