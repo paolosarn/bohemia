@@ -552,3 +552,17 @@ you accumulate." He said no. It is an ANSWERED question now
 (records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md) and may not be re-proposed.
 
 NO V2. No second Rogue Fable page and no reframed salvage of this one.
+
+# ---- FADE WAVE 1, Paolo's verdict 8/1/26. ALL THREE KILLED. ------------------
+# "I didn't like any of your new additions. I was actually thinking more in term
+# along the lines of a complete hairstyle that takes the skin color into account
+# with some of the pixels of the hair so maybe some pixels of the hair could be
+# like based on the skin tone, you know NOT JUST STRAIGHT THE SKIN TONE."
+# THE POST-MORTEM, one sentence: I built a DENSITY ramp that SKIPPED pixels so the
+# raw body showed through. A hole is not a hair pixel. He wanted a hair pixel whose
+# COLOUR is informed by the skin underneath -- still hair, still part of the mass,
+# carrying that person's complexion. Skipping was "straight the skin tone"; he said
+# not that. The replacement BLENDS instead, and the shape stays whole.
+LOW FADE        | hair | 8/1/26 | density-skip fade. Holes, not hair. Replaced by the skin-TINT mechanism.
+HIGH FADE       | hair | 8/1/26 | same defect: the taper dissolved the silhouette instead of colouring it.
+FADED CROP      | hair | 8/1/26 | same defect.

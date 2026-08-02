@@ -98,12 +98,19 @@ ok('clause 7 in code: a long style widens its curtain below the jaw',
 /* CLAUSE 6 IS BUILT (8/1). It was recorded as unbuilt for exactly as long as it was
    unbuilt -- silence never implied done -- and now it is asserted in the code. */
 ok('clause 6 is BUILT and says so', /\*\*BUILT 8\/1\/26\.\*\*/.test(law) && !/\[NOT YET BUILT\.\]/.test(law));
-ok('clause 6 in code: the fade is a DENSITY ramp inside the shared texture function',
-  /var fadeRows=opt\.fade\|\|0/.test(src) && /if\(fadeRows\)\{/.test(src));
-ok('clause 6 in code: it blends into SKIN by skipping, not into a paler hair tone',
-  /return true;\s*\/\* the bottom is skin/.test(src));
-ok('clause 6: fades ship as CANDIDATES, never canon on my say-so',
-  /\{n:'HIGH FADE',st:'cook',layer:'hair'/.test(src));
+/* REBUILT 8/1 AFTER HE KILLED ALL THREE. My first version was a DENSITY ramp that
+   SKIPPED pixels so the raw body showed through -- and a hole is not a hair pixel.
+   "some of the pixels of the hair could be like based on the skin tone, you know
+   NOT JUST STRAIGHT THE SKIN TONE." It BLENDS now: the pixel stays hair and stays
+   in the mass, its colour mixed toward the wearer's own complexion. */
+ok('clause 6 in code: it TINTS hair toward the wearer\'s skin, it does not skip',
+  /var skinTint=function\(c,y\)/.test(src) && /skinMid/.test(src));
+ok('clause 6 in code: the tint is capped so a hair pixel never becomes plain skin',
+  /Math\.min\(0\.75,/.test(src));
+ok('clause 6 in code: every hair pixel is routed through the tint',
+  /put\(x,y, skinTint\(/.test(src));
+ok('clause 6: skin-toned styles ship as CANDIDATES, never canon on my say-so',
+  /\{n:'SUN CROP',st:'cook',layer:'hair'/.test(src));
 
 /* ---- the rulings this law grew out of are still on file ---------------- */
 ok('the wave-1 verdict sheet is kept',

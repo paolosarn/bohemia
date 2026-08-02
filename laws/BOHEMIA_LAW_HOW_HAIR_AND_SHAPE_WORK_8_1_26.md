@@ -112,7 +112,16 @@ own colour shows, whatever that person's complexion is. That is what makes it
 "customizable obviously to the hair" for free — it is the real skin underneath, per
 citizen, with no palette of mine involved.
 
-MEASURED, HIGH FADE from behind, hair coverage per row:
+REBUILT 8/1 AFTER HE KILLED ALL THREE FIRST ATTEMPTS. My version SKIPPED pixels so
+the raw body showed through. He rejected exactly that: *"some of the pixels of the
+hair could be like based on the skin tone, you know NOT JUST STRAIGHT THE SKIN
+TONE."* A hole is not a hair pixel. It now BLENDS -- the pixel stays hair, mixed
+toward the wearer's own complexion and capped so it never becomes plain skin. Same
+silhouette, different palette per citizen. MEASURED, SUN CROP, one shape on three
+complexions: crown identical at 82,58,38; taper porcelain 154,139,130 / tan
+106,81,61 / ebony 47,35,27. 76 hair pixels in every case -- nothing dissolved.
+
+SUPERSEDED MEASUREMENT from the killed density version:
 `92% -> 69% -> 54% -> 42% -> 33% -> 25% -> 0%`. BUZZ CUT, which has no fade, holds
 ~90% and then stops dead. That difference is the whole clause, and it is why
 SHAVED FADE was killed ("there's no sort of fade").
