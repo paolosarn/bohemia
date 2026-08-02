@@ -1,3 +1,119 @@
+PEOPLE (7h9sfy): 8/2 (b) LATEST — *** THE ONE LINK WAS DEAD ON MAIN AND NOBODY KNEW. ***
+READ THIS FIRST, EVERY LANE. It is not a PEOPLE thing, I just happened to run the full
+suite and check whether the red was mine.
+
+THE RUN gate went red. It fails identically on clean origin/main with none of my changes
+and passes on the commit before, so it arrived with 5a42b42 ("THE RUN OPENS WHERE WE ARE
+WORKING"). ONE </div> WAS DROPPED - the one that closes the front splash. <div id="app">
+then parsed as a CHILD of <div id="front">. The splash handler does what it always did:
+    front.style.display='none';  app.style.display='flex';
+but a child of a display:none parent is not rendered whatever its own display says.
+Measured on the real surface at 390x844: #app parent = front, box 0x0, ZERO client
+rects, ZERO tabs. *** PAOLO TAPS THE LINK, TAPS THE SCREEN, AND GETS A BLACK RECTANGLE.
+*** Every lane's work for those hours was shipping into a build nobody could open.
+
+FIXED: the </div> is restored. #app parent is BODY, 390x844, tabs on screen, run_gate
+back to 126/0.
+
+AND GATED, because the ONE-LINK LAW is one of the oldest locked laws here and NOTHING
+GATED THE DOOR ITSELF: gates/front_door_gate.js (suite: FRONT DOOR, 8 claims). run_gate
+did catch it, but as a 30-second Playwright timeout saying "element is not visible" -
+a symptom three screens deep in a 126-claim test that says nothing about a missing tag.
+The new gate says the cause in one line ("4 <div> open vs 3 </div> close between them")
+in about a millisecond, then walks through the real door in a real browser and checks
+the app has a real box and the tabs are on screen. Self-tests with the exact 8/2 edit.
+Mutation: reintroducing the real break fails 5 of its 8 claims.
+
+THE LESSON FOR EVERY LANE: when the suite goes red, CHECK WHETHER IT IS YOURS before
+assuming it is somebody else's known-red. Two minutes with a worktree at origin/main
+answered it, and the answer was that the game had been unopenable for hours.
+
+PEOPLE (7h9sfy): 8/2 LATEST — THE WORKERS AT THEIR JOB SITES WERE OUTSIDE PAOLO'S OWN
+MASS-EDIT LAW, AND MY FIX FOR IT SHIPPED A WORSE BUG FOR ONE COMMIT.
+Record: records/BOHEMIA_WORKERS_INSIDE_THE_MASS_EDIT_8_2_26.md
+
+=== THE THREE BUGS, IN THE ORDER THEY WERE FOUND ===
+1. Paolo 7/29, LOCKED: editing the people means ADDING A RULE, and the rule reaches
+   everybody. The commuting workers this lane shipped on 8/1 were concatenated into the
+   sim AFTER the person-facts pass, so they had no entry in RUN_PEOPLE at all, so no
+   bulk edit could ever touch them. Measured on the real surface: 0 records for 22
+   bodies standing in the clinic.
+2. peopleForAgents derived every record from the cell the body is STANDING on. A
+   commuter does not live where they stand, so the neighbour whose name you asked in
+   your own street was a different human being at work.
+3. *** THE ONE WORTH READING. *** Moving the concat up meant the patch tool stopped
+   emitting its PEOPLE:JOIN fence. A FENCE THE TOOL STOPS EMITTING IS NOT A FENCE THAT
+   GOES AWAY: the text stays applied in the file and the tool no longer knows how to
+   undo it, so BOTH copies of the concat ran. Every workplace carried 44 bodies for 22
+   identities - everyone standing next to a copy of himself - and on a non-residential
+   cell the leftover clamp threw away the very bodies that had just been given records.
+   IT WAS LIVE FOR ONE COMMIT WITH EVERY GATE GREEN.
+
+=== WHAT ANY LANE WITH A MARKER-FENCED PATCH TOOL SHOULD TAKE FROM THIS ===
+A BLOCK IS ONLY REALLY DELETED WHEN THE TOOL STILL KNOWS HOW TO UNDO IT. Deleting the
+row from BLOCKS orphans its applied text in the file forever. The JOIN row is kept as a
+strip-only entry: anchor and insert are the same line, the patch is a no-op, and the
+only work it does is eat the corpse.
+AND: the surface check only ever looked at the cell the game OPENS on, which is
+residential and has no commuters, so it was structurally incapable of seeing any of
+this. If your gate checks one place, it is checking one place.
+
+=== TWO GATE CLAIMS WERE WRONG, NOT THE CODE ===
+F5 asserted the OLD arrangement (JOIN opens after their block) - which was the bug, so
+the gate was defending it. F4 flagged the bare WORDS "RUN PERSON FACTS", so writing a
+COMMENT that says where another lane's block begins turned it red while nothing was
+wrong. Paolo 8/1: a checker that cannot tell a mention from a use is the broken one, and
+you fix the ruler, never the target. Both rewritten to check uses.
+
+=== THE FIX ===
+engine/bohemia_agents.js      workersForPlot stamps v.homeIndex - a visitor's seat in
+                              their OWN roster travels with them next to fromCell
+engine/bohemia_population.js  peopleForAgents derives a visitor from (fromCell,
+                              homeIndex), never from the cell they stand on
+tools/bohemia_people_identity_patch.py
+                              the concat lives inside PEOPLE:WORKERS, which closes
+                              BEFORE the other lane's block; JOIN kept as strip-only
+
+=== PROOF (mutation-tested, not green-on-first-try) ===
+PEOPLE 130 -> 139, RUN PEOPLE 45 held. Four mutations, all caught:
+  visitor derived from the standing cell ....... J4 red
+  visitor gets no record ...................... J3, J4 red
+  concat after the person-facts pass (bug 1) .. D11a red, 0/22 records
+  concat twice (bug 3) ........................ D11a red 22/44, D11b red, F5 red
+
+=== AND BUG 3 IS NOW GATED FLEET-WIDE, NOT JUST FIXED FOR ME ===
+gates/fence_orphan_gate.py (suite name FENCE ORPHAN, 9 claims). Half a dozen lanes edit
+each other's surfaces through marker-fenced patch tools and every one of them has this
+failure available to it. The gate sweeps every marker block in slices/ and engine/:
+  1. NO ORPHAN - a tool that writes a fence necessarily contains its marker text, so a
+     marker no tool anywhere mentions is a block nothing can remove. 24 fences, 0
+     orphans today; mine was the only one.
+  2. EVERY FENCE IS A PAIR - restore() matches open..close non-greedily, so a missing
+     closer makes it eat past its own end (the 8/1 bug, 29 lines of another lane's
+     code deleted silently).
+  3. NO BLOCK IS APPLIED TWICE.
+It SELF-TESTS with three synthetic probes, so it proves the checker works rather than
+that the repo happens to be clean today. Mutations on the real tree, all caught:
+recreating the exact orphan that shipped, applying a fence twice, deleting a closer.
+
+=== WHERE PAOLO CAN SEE IT: THE RUN TAB ===
+Walk to a workplace next door. The people in it are your own neighbours, one each.
+
+=== THE LANE'S QUEUE (BOHEMIA_BACKLOG.md, ## PEOPLE) ===
+P-A(1) THEIR DAY row .... CLOSED. Row gone, waiver list empty, gate asserts both.
+P-A(2) ask-a-name ....... SHIPPED 7/31.
+0.     dialogue v1 ...... BLOCKED ON WORDS. The runtime already exists and plays .bq
+                          end to end; LINES ships empty and the words are his.
+2.     faction ledger ... DEAD BY RULING. build_the_world_gate.py enforces it.
+3.     companion layer .. waits on combat extraction + a roster that is [PENDING Paolo].
+1c.    the valley census is numbers, not identities. That is the shape item 3 needs and
+       it is the lane's largest unblocked mechanism.
+
+=== PARKED BY PAOLO, DO NOT RAISE ===
+Who you already know at the first frame (KNOWN_AT_START stays empty): "don't worry at
+all about that right now". Ask-everybody IS the whole mechanic until he raises it.
+The population slider NUMBERS: "just worry about the coding and plumbing for now."
+
 ART (f3eu53): 8/2 (d) LATEST — THE OPENINGS. THE LAST OLD ART ON THE HOUSE IS GONE.
 
 === WHAT WAS LEFT ===

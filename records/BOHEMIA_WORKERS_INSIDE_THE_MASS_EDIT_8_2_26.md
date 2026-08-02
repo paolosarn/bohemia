@@ -88,6 +88,34 @@ Paolo's own 8/1 law: fix the ruler, never the target.
 
 ---
 
+## AND THE CLASS OF BUG IS NOW GATED FLEET-WIDE
+
+Bug 3 is not a PEOPLE bug. Half a dozen lanes edit each other's surfaces through
+marker-fenced patch tools, because under the parallel-sessions law that is the
+safe way to touch a file you do not own — and every one of them has this failure
+available to it. So it is gated for everybody, not patched for me:
+**`gates/fence_orphan_gate.py`** (suite name `FENCE ORPHAN`, 9 claims).
+
+It sweeps every marker block in `slices/` and `engine/` and asserts three things:
+
+1. **No orphan.** A tool that writes a fence necessarily contains its marker
+   text, so a marker no tool source anywhere mentions is a block nothing can
+   remove. Measured today: **24 fences, 0 orphans** — mine was the only one, and
+   it is gone.
+2. **Every fence is a pair.** `restore()` matches open..close non-greedily, so a
+   missing or doubled closer makes it eat past its own end. That is the 8/1 bug
+   where a fence came to span 29 lines of another lane's code and a re-run
+   deleted them silently.
+3. **No block is applied twice.**
+
+It also **self-tests**: three synthetic probes prove the checker sees each shape,
+rather than proving that the repo happens to be clean today. And it holds the
+worked example down — the strip-only JOIN row and the sentence explaining it have
+to stay in the tool where the next lane will meet them.
+
+Mutation runs, on the real tree, all caught: recreating the exact orphan that
+shipped, applying a fence twice, and deleting a closer.
+
 ## WHERE PAOLO CAN SEE IT
 
 **RUN tab.** Walk to a workplace next door. The people in it are your own
@@ -95,3 +123,53 @@ neighbours, one each, and asking one their name in the street still knows you at
 the clinic tomorrow. Before this, half the bodies in there were duplicates.
 
 Gates: PEOPLE 130 -> **139**, RUN PEOPLE 45 (held).
+
+---
+
+## AND WHILE SHIPPING THIS, THE ONE LINK WAS DEAD
+
+Found by the full suite, not by looking for it. **THE RUN** went red, so I checked
+whether it was mine: it fails identically on clean `origin/main` with none of my
+changes, and it passes on the commit before. So it arrived with `5a42b42`.
+
+**One `</div>` was dropped** — the one that closes the front splash. `<div id="app">`
+then parsed as a **child** of `<div id="front">`. The splash handler does exactly
+what it always did:
+
+```js
+front.style.display = 'none';  app.style.display = 'flex';
+```
+
+but a child of a `display:none` parent is not rendered no matter what its own
+display says. Measured on the real surface at 390x844:
+
+| | before the tap | after the tap |
+|---|---|---|
+| `#app` parent | `front` | `front` |
+| `#app` box | — | **0 x 0, zero client rects** |
+| tabs visible | — | **0** |
+
+**Paolo taps the link, taps the screen, and gets a black rectangle.** Every lane's
+work for the last few hours was shipping into a build that could not be opened.
+
+FIXED: the `</div>` is restored. `#app` parent is BODY, 390x844, tabs on screen,
+`run_gate` back to **126/0**.
+
+### AND IT IS GATED NOW: `gates/front_door_gate.js` (suite name `FRONT DOOR`)
+
+The ONE-LINK LAW is one of the oldest locked laws in the repo and **nothing gated
+the door itself**. run_gate did catch this, but as a 30-second Playwright timeout
+reading "element is not visible" — a symptom three screens deep in a 126-claim
+browser test, saying nothing about a missing tag. 8 claims:
+
+- **S2** the splash closes before the app opens, reported as `4 <div> open vs 3
+  </div> close` — the cause, in one line, in about a millisecond
+- **S3/S4** self-test: the exact 8/2 edit applied to an in-memory copy, and the
+  checker catches it
+- **R1** `#app` is not inside `#front`, on the real surface
+- **R2** tapping the splash opens the game rather than a black screen, measured as
+  a real box at 390x844
+- **R3** the tabs he navigates by are on screen
+- **R4** nothing throws walking through the front door
+
+Mutation: reintroducing the real break on disk fails 5 of the 8.
