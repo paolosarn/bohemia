@@ -74,6 +74,11 @@ GATES = [
      'LENGTH follow the in-game clock. Measured in a real browser -- shadow cells counted at '
      'midday, morning and evening falling opposite ways, longer at the horizons, and zero at '
      'night', True),
+    ('DOORWAY',        ['node', 'gates/doorway_gate.js'],
+     'Paolo 8/2: a building WITH a door can only be entered through its door, and a building '
+     'with NO door is unchanged so nothing is ever sealed. The no-lockout check runs FIRST on '
+     'purpose -- 10 of 14 district types have no door cell at all, so making walls solid '
+     'everywhere before doors exist would seal the valley', True),
     ('FULL PIXEL',     ['node', 'gates/full_pixel_gate.js'],
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
