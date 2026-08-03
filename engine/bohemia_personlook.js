@@ -136,7 +136,19 @@
       /* SORTED so the pick cannot depend on array order -- a garment added
          anywhere in GARMENTS must not reshuffle everyone already on the street. */
       var pool = byCat[cat].slice().sort(function (x, y) { return x.n < y.n ? -1 : x.n > y.n ? 1 : 0; });
-      out[cat] = pool[Math.floor(unit(id, 'pick:' + cat) * pool.length) % pool.length].n;
+      /* A HAIRCUT IS A LUXURY (Paolo 8/1, LOCKED). His law says unmaintained hair is
+         the DEFAULT across a population and a machine taper is a wealth signal --
+         "a luxury reserved for Rich people". The pick was uniform, so a sharp fade
+         was exactly as common on the street as unkempt long hair, and the law had
+         no machine behind it. It does now.
+         The UNLOCK is still [PENDING, HIS CALL] and is NOT invented here. This is
+         only the DISTRIBUTION half, which that addendum assigns to me. It reads a
+         `lux` FLAG on the garment -- data, not a name -- so this module still holds
+         no garment names and he can retag anything without touching code. */
+      var _luxOdds = 0.22;
+      var _plain = pool.filter(function (x) { return !x.lux; });
+      var _use = (_plain.length && unit(id, 'lux:' + cat) > _luxOdds) ? _plain : pool;
+      out[cat] = _use[Math.floor(unit(id, 'pick:' + cat) * _use.length) % _use.length].n;
     }
     return out;
   }

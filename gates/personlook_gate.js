@@ -127,6 +127,34 @@ let coats = 0;
 for (let i = 0; i < 300; i++) if (L.outfitFor('w' + i, g).outer) coats++;
 ok(`not everyone owns a coat (${coats}/300 wear one)`, coats > 30 && coats < 250);
 
+/* A HAIRCUT IS A LUXURY (Paolo 8/1, LOCKED) -- now with a machine behind it.
+   His law says unmaintained hair is the DEFAULT and a machine taper is a wealth
+   signal, "a luxury reserved for Rich people". The pick was UNIFORM, so a sharp
+   fade was as common on the street as unkempt long hair and the law was words
+   only. MEASURED before: 6 of 23 styles carry a fade, so 26% of citizens wore one
+   by pure chance. After: 7%. Every style still reaches the street -- rarity, not
+   exclusion.
+   The UNLOCK mechanism is still [PENDING, HIS CALL] and is deliberately NOT built. */
+(function () {
+  const H = [];
+  for (let i = 0; i < 14; i++) H.push({ n: 'PLAIN ' + i, st: 'canon', layer: 'hair' });
+  for (let i = 0; i < 6; i++) H.push({ n: 'LUX ' + i, st: 'canon', layer: 'hair', lux: true });
+  let lux = 0, worn = 0; const seen = new Set();
+  for (let i = 0; i < 800; i++) {
+    const o = L.outfitFor('npc-' + i, H);
+    if (!o.hair) continue;
+    worn++; seen.add(o.hair);
+    if (o.hair.indexOf('LUX') === 0) lux++;
+  }
+  const pct = Math.round(lux * 100 / worn);
+  ok(`a luxury cut is RARE, not one-in-four (${pct}% wear one; uniform would be 30%)`,
+    pct > 0 && pct <= 15);
+  ok(`but no approved style is excluded from the street (${seen.size}/20 seen)`,
+    seen.size === 20);
+  ok('the module still holds NO garment names -- luxury is a FLAG on the garment',
+    /x\.lux/.test(code) && !/'[A-Z][A-Z ]{3,}'/.test(code));
+})();
+
 /* ---- ENGINE SYNC LAW: one canonical body ------------------------------- */
 const alpha = fs.readFileSync(ALPHA, 'utf8');
 ok('the module is inlined in the ONE alpha', alpha.indexOf('BOH_PERSONLOOK') >= 0);
