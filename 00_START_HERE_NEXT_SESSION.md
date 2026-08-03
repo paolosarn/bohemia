@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 COMBAT (combat-nfnki9): 8/3 (b) LATEST -- THE COOK IS IN THE GRAVEYARD, AND I
 SPENT HALF A DAY NOT ACTUALLY DEPLOYING. Live on main as 27ca030, BUILD 8/3j,
 Pages build verified SUCCESS at 19:40.
@@ -162,6 +163,44 @@ BODY VARIATION are CHARACTER's. BOTTOM-LEFT + CANVAS SCALE verified failing on c
 --------------------------------------------------------------------------------
 
 
+=======
+PEOPLE (factions): 8/2 (h) LATEST — ALL 12 GAPS THUMBED "WANT", AND NOT ONE CAN BE BUILT
+UNTIL HE SAYS ONE WORD. Plus a second colour ruling that made the rule better.
+Records: records/BOHEMIA_FACTION_GAPS_VERDICT_8_2_26.txt
+
+=== HIS COLOUR RULING, PART TWO: "the mini group factions dont need colors bro" ===
+The Karens' pale rose is GONE. And this is not a subtraction, it SHARPENS the system:
+*** A COLOUR IS THE BADGE OF BEING A MAP FACTION. *** A row in the canon graph means a
+colour; no row means no colour. So a group WITHOUT one is telling you what it is before it
+opens its mouth. 12 map factions carry a colour. The Karens, the Amalgamation and the four
+social forces carry none, on purpose.
+THE GATE NOW CHECKS IT BOTH WAYS and self-tests both mistakes: a map faction with no colour
+fails (the error he caught me making this morning), and a non-faction carrying one fails
+too (the error I would have made this afternoon).
+NOTE THE SHAPE OF THE LAST TWO CORRECTIONS - they look opposite and they are the same
+ruling. "Every faction has a colour" and "the mini groups don't" only contradict if you
+think a colour is decoration. It is a CLASSIFIER.
+
+=== ALL 12 GAPS ARE WANTED. ALL 12 ARE BLOCKED. ===
+12 want, 0 no, 0 unjudged. Every single one is faction MACHINERY, and
+laws/BOHEMIA_ADDENDUM_BUILD_THE_WORLD_7_31_26.md turned that off on 7/31 - "no standing
+ledger, no territory model, no faction beats" - with gates/build_the_world_gate.py holding
+the ratchet.
+*** DO NOT READ THE THUMBS AS THE LIFT. *** That law says in its own words: "The ruling is
+lifted only by Paolo, and lifting it means editing the gate." A thumbs-up on a research
+card is not somebody editing that gate. Deciding it counts is EXACTLY the
+find-a-legal-way-to-ship-anyway move that STOP PRODUCING (7/26) is named after, and this
+lane would be the second one to make that mistake in three days.
+SO THE ONLY THING BLOCKING TWELVE WANTED SYSTEMS IS ONE WORD FROM HIM. Asked this turn.
+IF HE SAYS YES, THE ORDER IS 2 -> 3 -> 5, and the reason is that all three ride machines
+this lane ALREADY SHIPPED:
+  2. THE MEMBERS ARE WALLPAPER  -> 268 derived people already exist with schedules and faces
+  3. REPUTATION TELEPORTS       -> the witness/memory system already holds and decays sightings
+  5. WRONG COLOURS DO NOTHING   -> the dress system + the 12 colours ruled today
+Nothing else in the twelve gives that much per unit of work.
+
+<<<<<<< HEAD
+>>>>>>> 42b5cfe (THE MINI GROUPS LOSE THEIR COLOUR, AND ALL 12 GAPS ARE WANTED)
 SOUND (sound-xk7pjp): 8/2 (r) LATEST - EVERY SOUND IS A BUTTON IN THE MUSIC TAB.
 
 HE SAID: "bro wtf every sfx should be in the sfx in the music menu not for me to

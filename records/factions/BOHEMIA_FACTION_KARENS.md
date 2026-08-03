@@ -8,6 +8,8 @@ Ordered by Paolo, 7/31 lore sitting: **"WE NEED TO REALLY FLESH THE FACTIONS OUT
 
 No row in the faction graph. See the flags below for why, and for what canon does say.
 
+- **AND HIS SECOND RULING THE SAME DAY, WHICH FOLLOWS STRAIGHT FROM THE FIRST: "the mini group factions dont need colors bro". I had given them a pale rose off the Reds' family; it is GONE. A COLOUR IS THE BADGE OF BEING A MAP FACTION, so a group that is not one does not wear one - and that makes the colour system say something it could not say before: anybody without a colour is telling you what they are before they open their mouth. The gate checks it BOTH ways now - a map faction with no colour fails, and a non-faction carrying one fails too.**
+
 - **PAOLO'S VERDICT, 8/2, AND IT RESHAPES THE ENTRY: "not a faction. a quest giving group. they get a long with the reds". THUMBED UP with that correction. So: NOT A FACTION - no selection slot, no standing, no territory claim against anybody. A QUEST-GIVING GROUP sitting on the one working golf course, and FRIENDLY WITH THE REDS, which the canon already half-said ('remnants of Remnants and Reds'). Everything below stands; it is a group you get quests from, not a power you fight.**
 
 - **GDD v5 listed 'Karen community details' as PENDING. His 8/2 verdict is the ruling that fills it.**
@@ -34,7 +36,7 @@ Fresh food from the only irrigated ground in the valley, and MEMBERSHIP, which i
 
 ### HOW THEY DRESS
 
-PROPOSED - family #e0a0a8. PALE ROSE, and the choice is doing story work. Paolo's 8/2 verdict says they GET ON WITH THE REDS - so they take the Reds' hue family and a completely different value: the Reds are a hard saturated red at mid value, the Karens are a pale washed rose at the top of the scale. Same family, opposite register, which is exactly how an alliance should read on a body. It is also the single most honest HOA colour there is. SECOND SIGNAL: the dress code - collared, unpatched, closed-toe. NEEDS A COLOURWAY COOKED; the wardrobe has no pastel.
+NO FACTION LOOK ENTRY. NO COLOUR, BY HIS RULING - Paolo 8/2: "the mini group factions dont need colors bro". A COLOUR IS THE BADGE OF BEING A FACTION, and he already ruled these are not one: "not a faction. a quest giving group". I had given them a pale rose off the Reds' family and he took it back the same day, which makes the colour system SHARPER rather than poorer: thirteen map factions wear a colour, and anybody who does not is telling you what they are before they open their mouth. THEIR UNIFORM IS A DRESS CODE, which needs no hue - an HOA never had a team colour in its life, it had STANDARDS. Collared, unpatched, closed-toe, tucked. Being presentable IS the membership signal.
 VETERAN KIT (forced layers): base -> BONE BUTTON-UP, KHAKI BUTTON-UP; feet -> WHITE SNEAKERS; hands -> LEATHER GLOVES; legs -> KHAKI CARGOS, KHAKI SHORTS; waist -> LEATHER BELT
 
 ### HOW THEY TALK

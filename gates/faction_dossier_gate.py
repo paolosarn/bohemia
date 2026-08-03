@@ -289,16 +289,30 @@ def check_all(D, order, graph, ruled, tol, bank, files, verdicts=None, vcomments
             '%s proposes %s, which reads PURPLE. Purple belongs to the Amalgamation alone '
             '(PURPLE RESERVATION) and pointing it at a faction hands away the act-3 reveal.'
             % (k, hexv))
-    # EVERY FACTION HAS A COLOUR. Paolo 8/2: "we chose the colors". A card that ducks the
-    # question is the defect, so the gate demands one from anything that has members.
+    # A COLOUR IS THE BADGE OF BEING A MAP FACTION. Two rulings, same day, and together
+    # they are sharper than either alone:
+    #   "we chose colors for factions so i dont fuck with u trying to say they wont have
+    #    color" -> every real faction HAS one, and I may never solve a palette problem by
+    #    taking one away.
+    #   "the mini group factions dont need colors bro" -> and nothing else may have one.
+    # So the test is two-sided, and the line is the canon graph: a row in
+    # BOHEMIA_faction_graph.json means a colour, no row means no colour. That makes the
+    # colour itself say what a group IS before it opens its mouth.
     for k in order:
         d0 = D[k]
-        if d0['kind'] in ('antagonist', 'social'):
-            continue          # no members to dress; these two carry no look on purpose
-        chk(bool((d0['dress'].get('look') or {}).get('color')) or
-            (d0['dress'].get('look') or {}).get('mode') == 'rainbow',
-            '%s has NO faction colour. Paolo 8/2: "we chose the colors" - every faction gets '
-            'one, and solving a palette problem by taking the colour away is not solving it.' % k)
+        look = d0['dress'].get('look') or {}
+        has = bool(look.get('color')) or look.get('mode') == 'rainbow'
+        if d0.get('graph'):
+            chk(has,
+                '%s is a MAP FACTION in the canon graph and has NO colour. Paolo 8/2: "we chose '
+                'the colors" - solving a palette collision by taking the colour away is not '
+                'solving it, cook a colourway instead.' % k)
+        else:
+            chk(not has,
+                '%s is NOT a map faction (no row in the canon graph) and carries a faction '
+                'colour. Paolo 8/2: "the mini group factions dont need colors bro". The colour '
+                'is the badge of being a faction; giving one to a group that is not a faction '
+                'says the wrong thing about it.' % k)
 
     # THE RULER, REBUILT. The old check was one number: euclidean distance in RGB, fail
     # under 95. That ruler said olive drab and oxblood "collide" at 39 - a dark green and a
@@ -514,7 +528,12 @@ def selftest(graph, ruled, tol, bank, verdicts, vcomments):
         # the exact mistake I made on 8/2 and he threw out: a palette problem solved by
         # taking the colour away instead of by cooking one
         D['TRADES']['dress']['look'] = None
-    probe('a faction has its colour taken away to dodge a collision', m_nocolour)
+    probe('a map faction has its colour taken away to dodge a collision', m_nocolour)
+
+    def m_minicolour(D):
+        # the other half of the same ruling: "the mini group factions dont need colors bro"
+        D['KARENS']['dress']['look'] = {'mode': 'family', 'color': '#e0a0a8'}
+    probe('a group that is not a faction is given a faction colour', m_minicolour)
 
     caught = 0
     for name, mutate in probes:

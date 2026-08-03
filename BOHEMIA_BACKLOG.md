@@ -3957,7 +3957,30 @@ P-F. (discovered 8/2 by the factions session, NOT FIXED, and deliberately not fi
    assert over the set.
    | next PEOPLE turn should take this | 8/2 | no - gate work, nothing to judge.
 
-0A. [SHIPPED 8/2 - 12 GAPS ON A JUDGE SHEET, AWAITING HIS THUMBS.
+0B. [VERDICT IN 8/2 - ALL 12 GAPS "WANT", 0 NO. records/BOHEMIA_FACTION_GAPS_VERDICT_
+   8_2_26.txt] AND ONE MORE COLOUR RULING IN THE SAME BREATH: "the mini group factions
+   dont need colors bro". The Karens' pale rose is GONE. That makes the colour rule
+   TWO-SIDED and better than it was: A COLOUR IS THE BADGE OF BEING A MAP FACTION -
+   a row in the canon graph means a colour, no row means no colour - so anybody without
+   one is telling you what they are before they open their mouth. 12 map factions carry
+   a colour; the Karens, the Amalgamation and the social forces carry none, on purpose.
+   Gate checks BOTH directions and self-tests both mistakes.
+   *** ALL 12 GAPS ARE WANTED AND NOT ONE OF THEM CAN BE BUILT YET. *** Every one is
+   faction machinery, and laws/BOHEMIA_ADDENDUM_BUILD_THE_WORLD_7_31_26.md turned that
+   OFF ("no standing ledger, no territory model, no faction beats") with
+   gates/build_the_world_gate.py holding the ratchet. That law says in its own words:
+   "The ruling is lifted only by Paolo, and lifting it means editing the gate." A thumbs
+   up on a research card is NOT that, and reading it as that is precisely the
+   find-a-legal-way-to-ship-anyway move STOP PRODUCING (7/26) is named after.
+   SO THIS IS A ONE-WORD BLOCK, and it is the only thing standing between this lane and
+   twelve wanted systems. [PENDING PAOLO: is the faction freeze lifted?]
+   IF HE SAYS YES, the order is 2 -> 3 -> 5, because all three ride machines this lane
+   already shipped: 268 derived people (members), the witness/memory system (reputation
+   that travels), and the dress system (colours that mean something when you wear the
+   wrong ones). Nothing else in the twelve gives that much per unit of work.
+   | 8/2 | no - the cards are judged, the build is blocked on one word.
+
+0A. [SHIPPED 8/2, ALL 12 THUMBED "WANT" - see 0B.
    records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md, LIFE tab top card]
    HE OVERTURNED MY COLOUR CALL AND HE WAS RIGHT: "we chose colors for factions so i
    dont fuck with u trying to say they wont have color like. wtf bro."
