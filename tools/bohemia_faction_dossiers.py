@@ -56,6 +56,42 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(ROOT)
 
+ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
+
+
+def read_chosen():
+    """THE COLOURS PAOLO ALREADY CHOSE, read out of the alpha's MFACTIONS table.
+
+    8/2, and he had to say it twice: "BRO WE ALREADY CHOSE COLORS FIND IT IN THE
+    PROJECT." He was right. Every one of the fourteen factions has carried an ACCENT
+    COLOUR and a MOTIF in the music lane's faction table since the faction songs
+    shipped - live in the alpha, judged, his. I proposed a parallel set without ever
+    looking, which is a REUSE-FIRST violation with his name on it.
+
+    So this is read from the file now instead of retyped. A colour cannot drift from
+    the one he picked if nobody is allowed to type it.
+    """
+    src = open(ALPHA, encoding='utf-8').read()
+    i = src.find('MFACTIONS=[')
+    if i < 0:
+        return {}
+    seg = src[i:]
+    seg = seg[:seg.find('\n];')]
+    out = {}
+    # split on the row heads rather than matching a trailing comma - the LAST row has
+    # no comma, and a regex that needs one silently drops the Homeless. (It did.)
+    heads = list(re.finditer(r"\{n:'([^']+)'", seg))
+    for i, hm in enumerate(heads):
+        body = seg[hm.end():(heads[i + 1].start() if i + 1 < len(heads) else len(seg))]
+        acc = re.search(r"acc:'(#[0-9a-fA-F]{6})'", body)
+        mot = re.search(r"motif:'(\w+)'", body)
+        if acc:
+            out[hm.group(1)] = {'acc': acc.group(1), 'motif': mot.group(1) if mot else None}
+    return out
+
+
+CHOSEN = read_chosen()
+
 GRAPH = 'engine/BOHEMIA_faction_graph.json'
 DRESS = 'engine/bohemia_dress.js'
 BANK = 'banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt'
@@ -157,14 +193,9 @@ D['REMNANTS'] = dict(
         "the valley. They do not sell the map. They trade READS of it."
     ),
     dress=dict(
-        look={'mode': 'family', 'color': '#4a5036'}, proposed=True,
+        look={'mode': 'family', 'color': '#9aa23a'}, chosen=True, motif='stencil',
         look_note=(
-            "OLIVE DRAB. The colour is the uniform and the uniform is the point - they are the "
-            "only faction that ever HAD one. Hue 74, the only olive on the wheel, and dark "
-            "enough that nothing else in the valley sits near it. SECOND SIGNAL, because a "
-            "colour is never alone: everybody in America owns surplus olive, so what actually "
-            "says Remnant at fifty metres is the WEBBING - rig, bracers, leg wraps, helm. "
-            "Colour says which side, silhouette says how serious."
+            "OLIVE DRAB - and it was already chosen, in the alpha, since the faction songs shipped. A STENCIL green: the colour of a number sprayed on a crate. SECOND SIGNAL, because a colour is never alone - everybody in America owns surplus olive, so what says REMNANT at fifty metres is the WEBBING: rig, bracers, leg wraps, helm. Colour says which side, silhouette says how serious."
         ),
         kit={'base': ['WORK COVERALLS', 'OLIVE DRAB TEE'], 'legs': ['OLIVE PANTS', 'BLACK CARGOS'],
              'feet': ['FIELD BOOTS', 'BROWN BOOTS'], 'gear': ['OLIVE CHEST RIG', 'WORN BRACERS', 'OLIVE LEG WRAPS'],
@@ -297,16 +328,9 @@ D['NETWORK'] = dict(
         "the valley in an hour instead of a day, and they have never once charged for it."
     ),
     dress=dict(
-        look={'mode': 'family', 'color': '#28bea0'}, proposed=True,
+        look={'mode': 'family', 'color': '#1fbf9c'}, chosen=True, motif='circuit',
         look_note=(
-            "TEAL, and it is already half-canon: the data fortress is a near-black slab with a "
-            "CYAN NIGHT HUM. The colour of the thing that still has power. Hue 168, the only "
-            "cyan on the wheel, nothing near it. SECOND SIGNAL: their clothes are INTACT. "
-            "Everyone else is patched, tattered, dust-eaten; a Network member's teal is CLEAN, "
-            "which in a valley with no laundry means somebody has water to spare on appearance. "
-            "PURPLE WAS THE OBVIOUS WRONG ANSWER and the reservation forbids it - purple is the "
-            "Amalgamation's alone, and putting it on the Amalgamation's own pawn would hand the "
-            "player the act-3 reveal in act one."
+            "TEAL, already chosen, and already half-canon twice over: the data fortress is a near-black slab with a CYAN NIGHT HUM, and his motif for them is CIRCUIT. The colour of the thing that still has power. SECOND SIGNAL: their clothes are INTACT. Everyone else is patched and dust-eaten; a Network member's teal is CLEAN, which in a valley with no laundry means somebody has water to spare on appearance. PURPLE WAS THE OBVIOUS WRONG ANSWER and the reservation forbids it - putting the Amalgamation's colour on the Amalgamation's own pawn would hand the player the act-3 reveal in act one."
         ),
         kit={'base': ['STEEL WORK SHIRT', 'BONE BUTTON-UP', 'CHARCOAL TURTLENECK'],
              'legs': ['SLATE WORK PANTS'], 'feet': ['STEEL SNEAKERS', 'SLATE SNEAKERS'],
@@ -375,14 +399,9 @@ D['HOMELESS'] = dict(
         "only people who can tell you when that is a route and when it is a grave."
     ),
     dress=dict(
-        look={'mode': 'family', 'color': '#686a70'}, proposed=True,
+        look={'mode': 'family', 'color': '#b8642a'}, chosen=True, motif='cracked',
         look_note=(
-            "CONCRETE GREY - the colour of the tunnel, and the only camouflage that works where "
-            "they live. It sits on the NEUTRAL AXIS with almost no saturation, so it cannot "
-            "collide with any hue on the wheel; it is told apart from the Volunteers' white and "
-            "the Anarchists' black by VALUE alone, which is the oldest trick in the book and the "
-            "one that still works in greyscale. SECOND SIGNAL: layers that do not match, plus "
-            "carried bedding - the silhouette of somebody wearing their entire property."
+            "RUST BROWN, already chosen, motif CRACKED - the colour of a dry channel and the concrete that made it. Not grey, which is what I guessed: rust is what corrugate and rebar and old steel actually go in a desert, and it is what somebody living in a storm drain would be stained with. SECOND SIGNAL: layers that do not match, plus carried bedding - the silhouette of somebody wearing their entire property."
         ),
         kit={'base': ['TATTERED FLANNEL', 'TATTERED TEE'], 'legs': ['PATCHED WORK PANTS'],
              'feet': ['WRAPPED BOOTS', 'SANDWALKERS'], 'outer': ['HOODED DUST PONCHO', 'STORM PONCHO'],
@@ -676,16 +695,9 @@ D['VOLUNTEERS'] = dict(
         "still read a dosage."
     ),
     dress=dict(
-        look={'mode': 'family', 'color': '#d4d0c8'}, proposed=True,
+        look={'mode': 'family', 'color': '#5aae6a'}, chosen=True, motif='cross',
         look_note=(
-            "BONE WHITE, for a working reason rather than a mood: a medic has to READ AT "
-            "DISTANCE, by strangers, under stress. That is exactly why the real convention is a "
-            "high-contrast off-white - the ICRC inverted the Swiss flag precisely so it would "
-            "carry across a battlefield. Neutral axis, highest value in the game, so it cannot "
-            "collide with a hue and it still separates from the Homeless grey and the Anarchist "
-            "black in pure greyscale. And it does a second job for free: white is the hardest "
-            "thing to keep clean in a dust valley, so a Volunteer in clean bone is announcing "
-            "either that they have water to spare or that somebody else washes it for them."
+            "CLINIC GREEN, already chosen, and the motif is literally CROSS. That is the whole argument and I should have found it first: a medic has to READ AT DISTANCE, by strangers, under stress, and green-and-cross is the most recognised aid signal on earth after the red one. SECOND SIGNAL: the cross itself, plus the satchel. And the thing green does that white could not - it stays legible against dust, which is most of what this valley is made of."
         ),
         kit={'base': ['BONE HENLEY', 'WHITE TEE', 'BONE TURTLENECK'], 'legs': ['BONE WORK PANTS'],
              'feet': ['BONE SNEAKERS'], 'outer': ['BONE DUSTER'], 'back': ['SALVAGE SATCHEL'],
@@ -751,18 +763,9 @@ D['TRADES'] = dict(
         "the quiet lever - they decide who in the next generation gets to be worth something."
     ),
     dress=dict(
-        look={'mode': 'family', 'color': '#c8e020'}, proposed=True, needs_cook=True,
+        look={'mode': 'family', 'color': '#d07a2a'}, chosen=True, motif='plate',
         look_note=(
-            "HI-VIS YELLOW-GREEN - the real world's actual high-visibility standard, and the one "
-            "colour that means WORKING rather than BELONGING. That is exactly the Trades' "
-            "position, because canon says they never take a public side: hi-vis is not a flag, "
-            "it is a warning that somebody is up a ladder. FIRST TRY WAS SAFETY ORANGE AND THE "
-            "GATE KILLED IT - 12 degrees of hue and 0.07 of value from the Caravans' tan, which "
-            "on a body is the same person. This one clears every faction in the game with room. "
-            "It sits 6 degrees from the Remnants' olive on hue and that is fine, because it is "
-            "four times the saturation and twice the brightness: a hi-vis vest next to army "
-            "fatigues has never confused anybody. SECOND SIGNAL: apron, tool belt, suspenders, "
-            "gloves. NEEDS A COLOURWAY COOKED, same as the five cooked to order on 7/21."
+            "WORK ORANGE, already chosen, with the motif PLATE - steel plate, the thing they actually make things out of. I had proposed hi-vis yellow-green off a research argument without ever checking that he had already picked this, which is the whole mistake he called out. Orange is not a flag, it is a warning that somebody is up a ladder - and that is exactly the Trades' position, because canon says they never take a public side. SECOND SIGNAL: apron, tool belt, suspenders, gloves."
         ),
         kit={'base': ['ROLLED WORK SHIRT', 'WORK COVERALLS', 'BIB OVERALLS'],
              'legs': ['PATCHED WORK PANTS', 'DUST TROUSERS'], 'feet': ['BROWN BOOTS', 'RANCH BOOTS'],
@@ -898,15 +901,9 @@ D['BLUES'] = dict(
         "MEETING about it, which in Ostrom's world is the more durable position."
     ),
     dress=dict(
-        look={'mode': 'family', 'color': '#326ed2'}, proposed=True,
+        look={'mode': 'family', 'color': '#2e6fae'}, chosen=True, motif='grid',
         look_note=(
-            "COBALT. Two reasons, and neither is that they are called the Blues, though they "
-            "are. It is the only true saturated blue in the wardrobe, so it cannot be confused "
-            "with the muted denim everybody already wears, and blue reads as WATER, which is "
-            "what this faction actually is. Hue 218, a full 50 degrees off the Network's teal - "
-            "the two nearest colours on the cool half of the wheel and still nobody's going to "
-            "mix up a cyan technician with a cobalt farmer. SECOND SIGNAL: the rice hat and the "
-            "field kit - they are the only people in the valley dressed for standing in water."
+            "COBALT, already chosen, and his motif for them is GRID - which is exactly what an irrigation system looks like from above. Blue reads as WATER and water is what this faction is. SECOND SIGNAL: the rice hat and the field kit. They are the only people in the valley dressed for standing in water."
         ),
         kit={'base': ['COPPER WORK SHIRT', 'SAGE FLANNEL'], 'legs': ['COBALT WORK PANTS'],
              'feet': ['FIELD BOOTS'], 'outer': ['FIELD JACKET', 'DENIM VEST'],
@@ -971,14 +968,9 @@ D['ANARCHISTS'] = dict(
         "on the street. If something in this valley becomes widely believed in a week, they did it."
     ),
     dress=dict(
-        look={'mode': 'family', 'color': '#303034'}, proposed=True,
+        look={'mode': 'family', 'color': '#c026a0'}, chosen=True, motif='shard',
         look_note=(
-            "BLACK. Not an absence of a colour - a CHOSEN one, and the most historically loaded "
-            "one there is: the black flag and the black bloc are a hundred and fifty years of "
-            "real people deciding that refusing the uniform IS the uniform. Neutral axis, lowest "
-            "value in the game, so it separates from the Homeless grey and the Volunteers' white "
-            "by value alone and never fights a hue. SECOND SIGNAL: painted, cut, layered, "
-            "deliberately wrong - the black is the only part they all agree on."
+            "MAGENTA, already chosen, motif SHARD. Not black, which is what I guessed from the history books - and his pick is the better one, because black is what everybody expects and this faction's whole identity is refusing the expected. It is also the loudest colour in the game, which is right for the faction canon calls culturally enormous. SECOND SIGNAL: painted, cut, layered, deliberately wrong. *** ONE THING HE SHOULD SEE: this hex reads as PURPLE-FAMILY under the purple-reservation test (r and b both clear g by more than 25), and so does the Colorful's pink. Both have been live in the alpha for weeks; the purity sweep only ever looked at art pixels, never at colours written in code. Flagged, not changed - they are his. ***"
         ),
         kit={'base': ['HOOD-UP COAL HOODIE', 'SOOT TANK'], 'legs': ['CUTOFF DENIM SHORTS', 'BLACK DENIM'],
              'feet': ['TALL MOTO BOOTS'], 'outer': ['DENIM VEST', 'LEATHER JACKET'],
@@ -1389,9 +1381,12 @@ def rows_for(key):
     if look is None:
         look_line = 'NO FACTION LOOK ENTRY. ' + dr['look_note']
     else:
-        tag = 'SETTLED (his ruling)' if dr.get('ruled') else 'PROPOSED'
+        tag = ('SETTLED (his 7/21 clothing ruling)' if dr.get('ruled')
+               else 'HIS, ALREADY CHOSEN (the faction table in the alpha)' if dr.get('chosen')
+               else 'PROPOSED')
         desc = look['mode'] + (' ' + look['color'] if look.get('color') else '')
-        look_line = '%s - %s. %s' % (tag, desc, dr['look_note'])
+        look_line = '%s - %s%s. %s' % (
+            tag, desc, (' + motif "%s"' % dr['motif']) if dr.get('motif') else '', dr['look_note'])
     kit = dr.get('kit') or {}
     kit_line = ('VETERAN KIT (forced layers): ' +
                 '; '.join('%s -> %s' % (k, ', '.join(v)) for k, v in sorted(kit.items()))
@@ -1532,7 +1527,8 @@ def write_judge(graph):
             'multi': [{'n': n, 'type': g.get('type', ''), 'align': g.get('align', ''),
                        'note': g.get('note', '')} for n, g in canon_multi(key, graph)],
             'flags': d.get('canon_flags', []),
-            'settled': bool(dr.get('ruled')),
+            'settled': bool(dr.get('ruled') or dr.get('chosen')),
+            'motif': dr.get('motif'),
             'lookline': (('%s %s' % (look['mode'], look.get('color') or '')).strip()
                          if look else 'no colour'),
             'lookcol': (look.get('color') if look else None),
@@ -1637,7 +1633,7 @@ function build(){
       chip.style.cssText='width:22px;height:22px;border-radius:6px;border:1px solid #888;display:inline-block;background:'+fill;
       sw.appendChild(chip);
       var lab=document.createElement('span');
-      lab.textContent=(c.settled?'SETTLED 7/21 · ':'PROPOSED · ')+c.lookline;
+      lab.textContent=(c.settled?'HIS COLOUR · ':'PROPOSED · ')+c.lookline+(c.motif?('  ·  motif: '+c.motif):'');
       sw.appendChild(lab);
       card.appendChild(sw);
     }

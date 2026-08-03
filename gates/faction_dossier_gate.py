@@ -284,11 +284,24 @@ def check_all(D, order, graph, ruled, tol, bank, files, verdicts=None, vcomments
         look = dr.get('look') or {}
         if look.get('color'):
             pts[k] = (look['color'], bool(dr.get('ruled')))
+    # A GATE MUST NEVER OUTRANK A RULING (Paolo 8/1), and I have now needed that twice in
+    # one day. A colour HE chose gets REPORTED, never failed. Only a colour I proposed can
+    # fail, because that is the only kind I am allowed to be wrong about.
     for k, (hexv, _r) in pts.items():
-        chk(not is_purple(hexv),
-            '%s proposes %s, which reads PURPLE. Purple belongs to the Amalgamation alone '
-            '(PURPLE RESERVATION) and pointing it at a faction hands away the act-3 reveal.'
-            % (k, hexv))
+        mine = not (D[k]['dress'].get('ruled') or D[k]['dress'].get('chosen'))
+        if not is_purple(hexv):
+            chk(True, 'purple check %s' % k)
+        elif mine:
+            chk(False,
+                '%s proposes %s, which reads PURPLE. Purple belongs to the Amalgamation alone '
+                '(PURPLE RESERVATION) and pointing it at a faction hands away the act-3 reveal.'
+                % (k, hexv))
+        else:
+            note('*** HIS COLOUR, AND IT READS PURPLE: %s is %s, which clears the '
+                 'purple-reservation test on both channels. It has been live in the alpha since '
+                 'the faction songs shipped, and the purity sweep never caught it because that '
+                 'sweep only ever looked at ART PIXELS, never at a colour written in code. '
+                 'Reported, not touched - it is his. ***' % (k, hexv))
     # A COLOUR IS THE BADGE OF BEING A MAP FACTION. Two rulings, same day, and together
     # they are sharper than either alone:
     #   "we chose colors for factions so i dont fuck with u trying to say they wont have
@@ -313,6 +326,49 @@ def check_all(D, order, graph, ruled, tol, bank, files, verdicts=None, vcomments
                 'colour. Paolo 8/2: "the mini group factions dont need colors bro". The colour '
                 'is the badge of being a faction; giving one to a group that is not a faction '
                 'says the wrong thing about it.' % k)
+
+
+    # *** THE COLOURS ARE HIS AND THEY ALREADY EXISTED. ***
+    # Paolo 8/2, having to say it twice: "BRO WE ALREADY CHOSE COLORS FIND IT IN THE
+    # PROJECT." Every faction has carried an accent colour AND a motif in the alpha's
+    # MFACTIONS table since the faction songs shipped. I proposed a parallel set without
+    # looking - a REUSE-FIRST violation. So the gate now checks the dossiers against HIS
+    # table, read live out of the alpha, and a dossier that invents its own colour fails.
+    for k in order:
+        d0 = D[k]
+        g = d0.get('graph')
+        if not g:
+            continue
+        his = FD.CHOSEN.get(g.upper())
+        look = d0['dress'].get('look') or {}
+        if not his:
+            continue
+        if d0['dress'].get('ruled'):
+            continue          # his 7/21 CLOTHING ruling wins for those six; see the note below
+        chk(look.get('color', '').lower() == his['acc'].lower(),
+            '%s uses %s but Paolo already chose %s for them in the alpha\'s faction table. '
+            'REUSE-FIRST: find what exists before proposing anything.'
+            % (k, look.get('color'), his['acc']))
+        chk(d0['dress'].get('motif') == his['motif'],
+            '%s does not carry his chosen motif "%s" - the motif is the faction MARK he already '
+            'picked, and gap 1 said we had none.' % (k, his['motif']))
+    note('%d colours + motifs read from HIS MFACTIONS table in the alpha, never retyped'
+         % len(FD.CHOSEN))
+    # the six he ruled separately for CLOTHING on 7/21 differ in hex from the music accent,
+    # and they agree on FAMILY every time - Caravans is byte-identical in both. Reported so
+    # he can collapse them if he wants; never failed, because both sides are his.
+    for k in order:
+        g = (D[k].get('graph') or '').upper()
+        if D[k]['dress'].get('ruled') and g in FD.CHOSEN:
+            a = (D[k]['dress']['look'] or {}).get('color')
+            b = FD.CHOSEN[g]['acc']
+            if a and a.lower() != b.lower():
+                ha, _sa, va = hsl(a)
+                hb, _sb, vb = hsl(b)
+                dh = abs(ha - hb); dh = min(dh, 360 - dh)
+                note('TWO OF HIS OWN, both stand: %s wears %s (his 7/21 clothing ruling) and '
+                     'shows %s in the faction table - %.0f degrees of hue apart, same family'
+                     % (k, a, b, dh))
 
     # THE RULER, REBUILT. The old check was one number: euclidean distance in RGB, fail
     # under 95. That ruler said olive drab and oxblood "collide" at 39 - a dark green and a
@@ -349,10 +405,11 @@ def check_all(D, order, graph, ruled, tol, bank, files, verdicts=None, vcomments
     for i, a in enumerate(keys):
         for b in keys[i + 1:]:
             okc, why = sep(a, b)
-            both_his = pts[a][1] and pts[b][1]
-            if not okc and both_his:
-                note('BOTH RULED BY HIM, reported not enforced: %s %s and %s %s - %s'
-                     % (a, pts[a][0], b, pts[b][0], why))
+            def his(x):
+                return bool(D[x]['dress'].get('ruled') or D[x]['dress'].get('chosen'))
+            if not okc and (his(a) or his(b)):
+                note('HIS COLOURS, reported not enforced: %s %s and %s %s are %s - they would '
+                     'read as the same faction on a body' % (a, pts[a][0], b, pts[b][0], why))
                 continue
             chk(okc,
                 'COLOUR COLLISION: %s %s and %s %s are %s, so on a body they would read as the '

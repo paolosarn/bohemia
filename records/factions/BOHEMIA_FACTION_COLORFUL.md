@@ -37,7 +37,7 @@ Nothing on a map and a great deal on a network: who is where, who is safe, who h
 
 ### HOW THEY DRESS
 
-SETTLED (his ruling) - rainbow. SETTLED, PAOLO 7/21: 'the colorful will be fun, they can have a rainbow colorway... not even a single color, like rainbow literally.' Rainbow mode, which needed five spectrum colorways cooked that turn because the wardrobe carried no real blue, green or yellow at all. Not re-proposed and not thumbed.
+SETTLED (his 7/21 clothing ruling) - rainbow. SETTLED, PAOLO 7/21: 'the colorful will be fun, they can have a rainbow colorway... not even a single color, like rainbow literally.' Rainbow mode, which needed five spectrum colorways cooked that turn because the wardrobe carried no real blue, green or yellow at all. Not re-proposed and not thumbed.
 VETERAN KIT (forced layers): base -> MOSS GREEN SHIRT, TEAL WORK SHIRT; face -> ROSE BANDANA; feet -> SIGNAL RED BOOTS; legs -> COBALT WORK PANTS; neck -> TRAILING SCARF
 
 ### HOW THEY TALK

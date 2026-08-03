@@ -37,7 +37,7 @@ The feed, the radio repeaters, and the lit grid. They are the reason a message c
 
 ### HOW THEY DRESS
 
-PROPOSED - family #28bea0. TEAL, and it is already half-canon: the data fortress is a near-black slab with a CYAN NIGHT HUM. The colour of the thing that still has power. Hue 168, the only cyan on the wheel, nothing near it. SECOND SIGNAL: their clothes are INTACT. Everyone else is patched, tattered, dust-eaten; a Network member's teal is CLEAN, which in a valley with no laundry means somebody has water to spare on appearance. PURPLE WAS THE OBVIOUS WRONG ANSWER and the reservation forbids it - purple is the Amalgamation's alone, and putting it on the Amalgamation's own pawn would hand the player the act-3 reveal in act one.
+HIS, ALREADY CHOSEN (the faction table in the alpha) - family #1fbf9c + motif "circuit". TEAL, already chosen, and already half-canon twice over: the data fortress is a near-black slab with a CYAN NIGHT HUM, and his motif for them is CIRCUIT. The colour of the thing that still has power. SECOND SIGNAL: their clothes are INTACT. Everyone else is patched and dust-eaten; a Network member's teal is CLEAN, which in a valley with no laundry means somebody has water to spare on appearance. PURPLE WAS THE OBVIOUS WRONG ANSWER and the reservation forbids it - putting the Amalgamation's colour on the Amalgamation's own pawn would hand the player the act-3 reveal in act one.
 VETERAN KIT (forced layers): base -> STEEL WORK SHIRT, BONE BUTTON-UP, CHARCOAL TURTLENECK; feet -> STEEL SNEAKERS, SLATE SNEAKERS; hands -> LEATHER GLOVES; legs -> SLATE WORK PANTS; outer -> STORM VEST
 
 ### HOW THEY TALK

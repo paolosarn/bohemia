@@ -37,7 +37,7 @@ Credit, and therefore everything downstream of credit. They hold the debts, whic
 
 ### HOW THEY DRESS
 
-SETTLED (his ruling) - family #dc2820. SETTLED, PAOLO 7/21: 'the reds can be the brightest red possible'. Signal red, cooked that turn because the muted corpus carried nothing bright enough. Not re-proposed and not thumbed.
+SETTLED (his 7/21 clothing ruling) - family #dc2820. SETTLED, PAOLO 7/21: 'the reds can be the brightest red possible'. Signal red, cooked that turn because the muted corpus carried nothing bright enough. Not re-proposed and not thumbed.
 VETERAN KIT (forced layers): back -> SALVAGE SATCHEL; base -> SIGNAL RED SHIRT; feet -> SIGNAL RED BOOTS; legs -> BLACK DENIM, SLATE WORK PANTS; outer -> BRICK LONGCOAT
 
 ### HOW THEY TALK

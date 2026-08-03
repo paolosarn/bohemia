@@ -3991,6 +3991,28 @@ P-F. (discovered 8/2 by the factions session, NOT FIXED, and deliberately not fi
    assert over the set.
    | next PEOPLE turn should take this | 8/2 | no - gate work, nothing to judge.
 
+0C. [FIXED 8/2 - HIS COLOURS ARE IN, MINE ARE OUT] "BRO WE ALREADY CHOSE COLORS FIND
+   IT IN THE PROJECT." He was right. All 14 factions have carried an ACCENT COLOUR AND
+   A MOTIF in the alpha's MFACTIONS table since the faction songs shipped. I proposed a
+   parallel set without opening the file - REUSE-FIRST violation, and the second time in
+   one day I invented instead of looking.
+   THE DOSSIERS NOW READ THAT TABLE OUT OF THE ALPHA at generate time; nobody retypes a
+   colour, and the gate fails a dossier that invents one.
+   *** THE MOTIFS ANSWER GAP 1 BEFORE IT WAS ASKED *** - stripe/grid/shard/confetti/
+   aisle/circuit/plate/dust/cross/stencil/hazard/check/cracked/plain. The marks EXIST.
+   Whoever takes gap 1 draws them, never invents them.
+   THREE FINDINGS IN HIS OWN TABLE, reported not touched: (1) the Anarchists' magenta and
+   the Colorful's pink BOTH READ PURPLE on the reservation test, live for weeks, and the
+   purity sweep never caught them because IT ONLY LOOKS AT ART PIXELS, NEVER AT COLOURS
+   WRITTEN IN CODE - a real hole whatever he decides; (2) Caravans/Trades/Homeless/Church
+   share one hue band, Trades and Homeless 4 degrees apart, which is fine in a music
+   gradient and not fine on a body; (3) he has TWO colours for six factions (7/21 clothing
+   vs the faction table) which agree on family every time, Caravans byte-identical.
+   A GATE MUST NEVER OUTRANK A RULING, needed twice today: his colours go red on my own
+   checks, so his are REPORTED and only mine can FAIL.
+   | gate: 760 claims, 9/9 probes | 8/2 | no - correction.
+   STILL OPEN: veteran KITS were written against my wrong colours; want a re-pass.
+
 0B. [VERDICT IN 8/2 - ALL 12 GAPS "WANT", 0 NO. records/BOHEMIA_FACTION_GAPS_VERDICT_
    8_2_26.txt] AND ONE MORE COLOUR RULING IN THE SAME BREATH: "the mini group factions
    dont need colors bro". The Karens' pale rose is GONE. That makes the colour rule

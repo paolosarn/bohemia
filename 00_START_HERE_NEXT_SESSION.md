@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 PEOPLE (7h9sfy): 8/3 LATEST — YOU CAN TALK TO SOMEBODY ON THE SURFACE HE ACTUALLY
 PLAYS. The 8/2 ask is finally delivered.
 Record: records/BOHEMIA_CITY_TALK_8_3_26.md
@@ -47,6 +48,60 @@ who commute to job sites, the repair-a-district dial, and the porch neighbour th
 Those are all REAL and gated - they are just not on the tab he taps. Porting them is the
 next question for him, not a decision to make alone.
 
+=======
+PEOPLE (factions): 8/2 (i) LATEST — *** THE COLOURS WERE ALREADY IN THE PROJECT AND I DID
+NOT LOOK. *** He had to say it twice. Read this before touching anything faction-shaped.
+Record: records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md
+
+"BRO WE ALREADY CHOSE COLORS FIND IT IN THE PROJECT."
+
+HE WAS RIGHT. Every faction has carried an ACCENT COLOUR **and a MOTIF** in the alpha's
+MFACTIONS table since the faction songs shipped - judged, live, his. I proposed a whole
+parallel set off a research argument without ever opening the file. That is a REUSE-FIRST
+violation with his name on it, and it is the SECOND time in one day I solved a problem by
+inventing instead of looking (the first was taking colours AWAY to dodge a bad metric).
+  REDS #c0392b stripe · BLUES #2e6fae grid · ANARCHISTS #c026a0 shard
+  COLORFUL #e85aa0 confetti · CHURCH #d8a23a aisle · NETWORK #1fbf9c circuit
+  TRADES #d07a2a plate · CARAVANS #caa05a dust · VOLUNTEERS #5aae6a cross
+  REMNANTS #9aa23a stencil · CARTEL #a01818 hazard · MOB #caa83a check
+  HOMELESS #b8642a cracked · CUSTOM #6a5d46 plain
+THE DOSSIERS NOW READ THAT TABLE OUT OF THE ALPHA AT GENERATE TIME. Nobody retypes a
+colour, so nobody can drift off the one he picked, and the gate fails a dossier that
+invents its own. THE LESSON GENERALISES: if you are about to choose something, grep the
+project for it first. It is probably already chosen and it is probably in a lane you were
+not thinking about.
+
+*** AND THE MOTIFS ANSWER GAP 1 BEFORE IT WAS EVEN ASKED. *** "Factions have no mark" was
+the first gap on the sheet he thumbed WANT, and he had already picked all fourteen marks.
+They have simply never been drawn. Whoever takes gap 1: THE MARKS EXIST, do not invent
+them, and the heraldry constraint from the research still applies (a mark that cannot be
+painted fast, scratched into wood or roughly stitched is too complex).
+
+=== THREE THINGS IN HIS OWN TABLE HE SHOULD SEE - reported, never touched ===
+1. THE ANARCHISTS' MAGENTA #c026a0 READS PURPLE on the reservation test, and so does the
+   Colorful's pink. Both live in the alpha for weeks. THE PURITY SWEEP NEVER CAUGHT EITHER
+   BECAUSE IT ONLY EVER LOOKED AT ART PIXELS, NEVER AT A COLOUR WRITTEN IN CODE. That is a
+   real hole in the machine whatever he decides about the colours themselves.
+2. FOUR FACTIONS SHARE ONE BAND: Caravans, Trades, Homeless and Church are all within a few
+   degrees of hue. Trades and Homeless are 4 degrees and 0.05 of value apart - on a body
+   that is the same person. Matters far less in a music gradient than on a walking NPC.
+3. HE HAS TWO COLOURS FOR SIX FACTIONS - the 7/21 clothing rulings and the faction-table
+   accents. They AGREE ON FAMILY every time and Caravans is byte-identical in both. Both
+   are his, so both stand and the gate reports rather than picks.
+
+=== A GATE MUST NEVER OUTRANK A RULING - NEEDED TWICE TODAY ===
+When his colours went in, my own gate went red on THEM: purple on the Anarchists, four
+collisions in the orange band. Fixing that meant the same move as the Marco fix and the
+verdict-banner fix earlier: a colour HE chose is REPORTED, never failed; only a colour I
+proposed may fail, because that is the only kind I am allowed to be wrong about.
+
+STILL OPEN: the veteran KITS were written against my wrong colours (bone Volunteers, black
+Anarchists) and want a re-pass against his real ones. Flagged, not silently rewritten.
+STILL BLOCKED: all 12 gaps are thumbed WANT and every one is faction machinery, which
+BUILD THE WORLD (7/31) still has switched off. One word from him unblocks twelve systems.
+
+<<<<<<< HEAD
+>>>>>>> 09a8b8d (YOUR COLORS WERE ALREADY IN THE PROJECT AND I DID NOT LOOK)
 COMBAT (combat-nfnki9): 8/3 (b) LATEST -- THE COOK IS IN THE GRAVEYARD, AND I
 SPENT HALF A DAY NOT ACTUALLY DEPLOYING. Live on main as 27ca030, BUILD 8/3j,
 Pages build verified SUCCESS at 19:40.

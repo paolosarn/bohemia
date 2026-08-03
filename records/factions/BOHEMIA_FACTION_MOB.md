@@ -37,7 +37,7 @@ Tribute, and the enforcement of a deal. PAOLO 7/31, LOCKED AS DIRECTION: 'I can 
 
 ### HOW THEY DRESS
 
-SETTLED (his ruling) - stripe #b08a2a. SETTLED, PAOLO 7/21: 'i'd like to see gold STRIPES rather than all gold.' Stripe mode on the mustard ramp - duller, old-money, deliberately NOT the Church's bright vestment gold. Not re-proposed and not thumbed.
+SETTLED (his 7/21 clothing ruling) - stripe #b08a2a. SETTLED, PAOLO 7/21: 'i'd like to see gold STRIPES rather than all gold.' Stripe mode on the mustard ramp - duller, old-money, deliberately NOT the Church's bright vestment gold. Not re-proposed and not thumbed.
 VETERAN KIT (forced layers): base -> MOB PINSTRIPE SHIRT; face -> WRAPAROUND SHADES; feet -> TALL MOTO BOOTS; legs -> BLACK DENIM; outer -> LEATHER JACKET, SLATE TRENCH; waist -> LEATHER BELT
 
 ### HOW THEY TALK

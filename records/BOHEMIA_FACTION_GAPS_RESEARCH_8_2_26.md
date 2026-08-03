@@ -9,46 +9,62 @@ PROPOSALS.** Judge them in the **LIFE tab**, card "WHAT FACTIONS ARE MISSING".
 
 ---
 
-## FIRST: THE COLOUR CALL HE OVERTURNED, AND WHY HE WAS RIGHT
+## FIRST: THE COLOURS WERE ALREADY CHOSEN AND I DID NOT LOOK
 
-I told him six factions should have **no colour** and read by silhouette instead. He threw
-it out: *"we chose colors for factions so i dont fuck with u trying to say they wont have
-color like. wtf bro. we chose the colors dumbass."*
+Paolo, 8/2, having to say it twice: *"BRO WE ALREADY CHOSE COLORS FIND IT IN THE PROJECT."*
 
-**He is right, and the research says so explicitly.** The readability practice is to
-**layer at least THREE signals — hue, value, and shape/silhouette** — and to pair every
-colour-coded faction with a second signal. It is never colour *instead of* shape. My
-"no colour" call was a false choice, and worse, it was **me solving a broken measurement
-by deleting content.**
+**He was right and I went and found it.** Every faction has carried an **accent colour AND a
+motif** in the alpha's `MFACTIONS` table since the faction songs shipped. Judged, live, his.
+I proposed a parallel set off a research argument without ever opening the file — which is a
+**REUSE-FIRST violation** with his name on it, and the second time in one day I solved a
+problem by inventing instead of looking.
 
-**THE MEASUREMENT WAS THE BROKEN PART.** The old check was one number: euclidean distance
-in RGB, fail under 95. That ruler claimed olive drab and oxblood "collide" at 39 — a dark
-green and a dark red, which no human has ever confused. Fix the ruler, never the target
-(his own 8/1 law). The gate now measures the three real signals, and **all 13 factions
-carry a colour with room to spare**:
-
-| | | |
+| faction | HIS colour | HIS motif |
 |---|---|---|
-| **RED family**, split by value | REDS bright `#dc2820` · CARTEL dark maroon `#5c302a` · **KARENS pale rose `#e0a0a8`** | his own trick, and the Karens sharing the Reds' family reads as the alliance he just ruled |
-| **GOLD family**, split by value + mode | CHURCH `#ffd75c` · CARAVANS `#caa05a` · MOB mustard **stripe** `#b08a2a` | all his, 7/21 |
-| **HI-VIS** | TRADES `#c8e020` | the real high-visibility standard. Means WORKING, not belonging — which is canon's own "never takes a public side" |
-| **OLIVE** | REMNANTS `#4a5036` | the only faction that ever had a uniform |
-| **TEAL** | NETWORK `#28bea0` | already half-canon: the data fortress's cyan night hum |
-| **COBALT** | BLUES `#326ed2` | blue reads as water, and water is what they are |
-| **NEUTRAL AXIS**, split by value | VOLUNTEERS white `#d4d0c8` · HOMELESS concrete `#686a70` · ANARCHISTS black `#303034` | medical white, tunnel grey, black bloc — and it survives a greyscale test, which is the accessibility standard |
-| **RAINBOW** | COLORFUL | his, 7/21 |
+| **CUSTOM** | `#6a5d46` | `plain` |
+| **REDS** | `#c0392b` | `stripe` |
+| **BLUES** | `#2e6fae` | `grid` |
+| **ANARCHISTS** | `#c026a0` | `shard` |
+| **COLORFUL** | `#e85aa0` | `confetti` |
+| **CHURCH** | `#d8a23a` | `aisle` |
+| **NETWORK** | `#1fbf9c` | `circuit` |
+| **TRADES** | `#d07a2a` | `plate` |
+| **CARAVANS** | `#caa05a` | `dust` |
+| **VOLUNTEERS** | `#5aae6a` | `cross` |
+| **REMNANTS** | `#9aa23a` | `stencil` |
+| **CARTEL** | `#a01818` | `hazard` |
+| **MOB** | `#caa83a` | `check` |
+| **HOMELESS** | `#b8642a` | `cracked` |
 
-**FIRST TRY FOR THE TRADES WAS SAFETY ORANGE AND THE NEW GATE KILLED IT** — 12° of hue and
-0.07 of value from the Caravans' tan, which on a body is the same person. That is the
-ruler doing its job instead of me arguing. **TWO COLOURWAYS NEED COOKING** (hi-vis and pale
-rose), exactly as five were cooked to order on 7/21 — that is the CLOTHES lane's factory,
-not this one.
+**THE DOSSIERS NOW READ THAT TABLE OUT OF THE ALPHA AT GENERATE TIME.** Nobody retypes a
+colour, so nobody can drift off the one he picked. The gate fails any dossier that invents
+its own.
 
-**ONE FINDING THAT IS HIS, REPORTED AND NOT ENFORCED:** the Caravans' tan and the Church's
-gold are 8° of hue and 0.11 of value apart — both plain colour, both his. On a body there
-is very little telling them apart.
+**AND THE MOTIFS ANSWER GAP 1 BEFORE IT WAS ASKED.** "Factions have no mark" was the first
+gap on the sheet he thumbed WANT — and he had already picked all fourteen marks: *stripe,
+grid, shard, confetti, aisle, circuit, plate, dust, cross, stencil, hazard, check, cracked,
+plain.* They just have never been drawn.
 
----
+### THREE THINGS IN HIS OWN TABLE HE SHOULD SEE, REPORTED AND NOT TOUCHED
+
+1. **THE ANARCHISTS' MAGENTA `#c026a0` READS PURPLE** on the purple-reservation test — red
+   and blue both clear green by more than 25. So does the Colorful's pink `#e85aa0`. Both
+   have been live in the alpha for weeks and the purity sweep never caught either, **because
+   that sweep only ever looked at art pixels and never at a colour written in code.** That is
+   a real hole in the machine regardless of what he decides about the colours.
+2. **FOUR FACTIONS SHARE ONE BAND.** Caravans `#caa05a`, Trades `#d07a2a`, Homeless
+   `#b8642a` and Church `#ffd75c` sit within a few degrees of hue and a tenth of value of
+   each other. Trades and Homeless are **4 degrees and 0.05 apart** — on a body those are the
+   same person. It matters far less in a music-tab gradient than it will on a walking NPC.
+3. **HE HAS TWO COLOURS FOR SIX FACTIONS.** The 7/21 clothing rulings and the faction-table
+   accents differ in hex for Reds, Cartel, Church, Mob and Colorful — **and agree on family
+   every single time**, with Caravans byte-identical in both. Both sets are his, so both
+   stand and the gate reports rather than picks. Collapsing them to one number is a one-word
+   call whenever he wants it.
+
+**STILL OPEN:** the veteran KITS were written against my wrong colours (bone for the
+Volunteers, black for the Anarchists) and want a re-pass against his real ones. Flagged, not
+silently rewritten.
 
 ## THE TWELVE GAPS
 

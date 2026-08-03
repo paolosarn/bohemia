@@ -41,7 +41,7 @@ The underground itself - every entrance, every 90-degree culvert turn, and which
 
 ### HOW THEY DRESS
 
-PROPOSED - family #686a70. CONCRETE GREY - the colour of the tunnel, and the only camouflage that works where they live. It sits on the NEUTRAL AXIS with almost no saturation, so it cannot collide with any hue on the wheel; it is told apart from the Volunteers' white and the Anarchists' black by VALUE alone, which is the oldest trick in the book and the one that still works in greyscale. SECOND SIGNAL: layers that do not match, plus carried bedding - the silhouette of somebody wearing their entire property.
+HIS, ALREADY CHOSEN (the faction table in the alpha) - family #b8642a + motif "cracked". RUST BROWN, already chosen, motif CRACKED - the colour of a dry channel and the concrete that made it. Not grey, which is what I guessed: rust is what corrugate and rebar and old steel actually go in a desert, and it is what somebody living in a storm drain would be stained with. SECOND SIGNAL: layers that do not match, plus carried bedding - the silhouette of somebody wearing their entire property.
 VETERAN KIT (forced layers): back -> DUST BEDROLL; base -> TATTERED FLANNEL, TATTERED TEE; feet -> WRAPPED BOOTS, SANDWALKERS; gear -> BLANKET SHOULDER ROLL; head -> DESERT SHEMAGH; legs -> PATCHED WORK PANTS; outer -> HOODED DUST PONCHO, STORM PONCHO; waist -> HIP SASH
 
 ### HOW THEY TALK

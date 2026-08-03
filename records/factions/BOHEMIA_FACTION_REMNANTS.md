@@ -37,7 +37,7 @@ Ammunition, working radios, the only maintained vehicles, and the only accurate 
 
 ### HOW THEY DRESS
 
-PROPOSED - family #4a5036. OLIVE DRAB. The colour is the uniform and the uniform is the point - they are the only faction that ever HAD one. Hue 74, the only olive on the wheel, and dark enough that nothing else in the valley sits near it. SECOND SIGNAL, because a colour is never alone: everybody in America owns surplus olive, so what actually says Remnant at fifty metres is the WEBBING - rig, bracers, leg wraps, helm. Colour says which side, silhouette says how serious.
+HIS, ALREADY CHOSEN (the faction table in the alpha) - family #9aa23a + motif "stencil". OLIVE DRAB - and it was already chosen, in the alpha, since the faction songs shipped. A STENCIL green: the colour of a number sprayed on a crate. SECOND SIGNAL, because a colour is never alone - everybody in America owns surplus olive, so what says REMNANT at fifty metres is the WEBBING: rig, bracers, leg wraps, helm. Colour says which side, silhouette says how serious.
 VETERAN KIT (forced layers): back -> OLIVE RUCK PACK; base -> WORK COVERALLS, OLIVE DRAB TEE; feet -> FIELD BOOTS, BROWN BOOTS; gear -> OLIVE CHEST RIG, WORN BRACERS, OLIVE LEG WRAPS; head -> OLIVE FIELD CAP, SCRAP HELM; legs -> OLIVE PANTS, BLACK CARGOS
 
 ### HOW THEY TALK

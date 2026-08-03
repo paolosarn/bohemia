@@ -37,7 +37,7 @@ Water allocation and the growing that depends on it. They do not own it - they R
 
 ### HOW THEY DRESS
 
-PROPOSED - family #326ed2. COBALT. Two reasons, and neither is that they are called the Blues, though they are. It is the only true saturated blue in the wardrobe, so it cannot be confused with the muted denim everybody already wears, and blue reads as WATER, which is what this faction actually is. Hue 218, a full 50 degrees off the Network's teal - the two nearest colours on the cool half of the wheel and still nobody's going to mix up a cyan technician with a cobalt farmer. SECOND SIGNAL: the rice hat and the field kit - they are the only people in the valley dressed for standing in water.
+HIS, ALREADY CHOSEN (the faction table in the alpha) - family #2e6fae + motif "grid". COBALT, already chosen, and his motif for them is GRID - which is exactly what an irrigation system looks like from above. Blue reads as WATER and water is what this faction is. SECOND SIGNAL: the rice hat and the field kit. They are the only people in the valley dressed for standing in water.
 VETERAN KIT (forced layers): base -> COPPER WORK SHIRT, SAGE FLANNEL; feet -> FIELD BOOTS; hands -> DUST GLOVES; head -> CHINESE RICE FARMER HAT; legs -> COBALT WORK PANTS; outer -> FIELD JACKET, DENIM VEST
 
 ### HOW THEY TALK

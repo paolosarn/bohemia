@@ -37,7 +37,7 @@ Everything from outside the valley, and more importantly NEWS. A convoy arrival 
 
 ### HOW THEY DRESS
 
-SETTLED (his ruling) - family #caa05a. SETTLED, PAOLO 7/21: the accessory tan, which blends into the desert on purpose. Not re-proposed and not thumbed.
+SETTLED (his 7/21 clothing ruling) - family #caa05a. SETTLED, PAOLO 7/21: the accessory tan, which blends into the desert on purpose. Not re-proposed and not thumbed.
 VETERAN KIT (forced layers): back -> RUCK PACK, SALVAGE SATCHEL; base -> KHAKI BUTTON-UP, DUST PLAID SHIRT; face -> BONE DUST MASK; feet -> SANDWALKERS, RANCH BOOTS; head -> DUST WORK CAP, DESERT SHEMAGH; legs -> KHAKI CARGOS, DUST TROUSERS; outer -> KHAKI DUSTER, DUST PONCHO
 
 ### HOW THEY TALK

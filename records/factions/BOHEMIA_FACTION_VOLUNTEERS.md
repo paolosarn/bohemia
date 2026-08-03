@@ -37,7 +37,7 @@ Medicine, which is one of the game's three currencies, and TEACHING - canon puts
 
 ### HOW THEY DRESS
 
-PROPOSED - family #d4d0c8. BONE WHITE, for a working reason rather than a mood: a medic has to READ AT DISTANCE, by strangers, under stress. That is exactly why the real convention is a high-contrast off-white - the ICRC inverted the Swiss flag precisely so it would carry across a battlefield. Neutral axis, highest value in the game, so it cannot collide with a hue and it still separates from the Homeless grey and the Anarchist black in pure greyscale. And it does a second job for free: white is the hardest thing to keep clean in a dust valley, so a Volunteer in clean bone is announcing either that they have water to spare or that somebody else washes it for them.
+HIS, ALREADY CHOSEN (the faction table in the alpha) - family #5aae6a + motif "cross". CLINIC GREEN, already chosen, and the motif is literally CROSS. That is the whole argument and I should have found it first: a medic has to READ AT DISTANCE, by strangers, under stress, and green-and-cross is the most recognised aid signal on earth after the red one. SECOND SIGNAL: the cross itself, plus the satchel. And the thing green does that white could not - it stays legible against dust, which is most of what this valley is made of.
 VETERAN KIT (forced layers): back -> SALVAGE SATCHEL; base -> BONE HENLEY, WHITE TEE, BONE TURTLENECK; feet -> BONE SNEAKERS; hands -> LEATHER GLOVES; legs -> BONE WORK PANTS; outer -> BONE DUSTER
 
 ### HOW THEY TALK

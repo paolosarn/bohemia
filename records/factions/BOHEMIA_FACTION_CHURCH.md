@@ -37,7 +37,7 @@ Stored food, distribution logistics, and the only functioning register of who is
 
 ### HOW THEY DRESS
 
-SETTLED (his ruling) - family #ffd75c. SETTLED, PAOLO 7/21: a bright vestment gold, cooked deliberately more than 120 RGB units clear of the Mob's - his exact ask, 'have the church's gold different than the mob's gold'. Not re-proposed and not thumbed.
+SETTLED (his 7/21 clothing ruling) - family #ffd75c. SETTLED, PAOLO 7/21: a bright vestment gold, cooked deliberately more than 120 RGB units clear of the Mob's - his exact ask, 'have the church's gold different than the mob's gold'. Not re-proposed and not thumbed.
 VETERAN KIT (forced layers): base -> VESTMENT GOLD SHIRT, BONE BUTTON-UP; feet -> VESTMENT GOLD BOOTS, WHITE SNEAKERS; legs -> BONE WORK PANTS; neck -> BONE SCARF; outer -> BONE DUSTER
 
 ### HOW THEY TALK

@@ -37,7 +37,7 @@ Attention, and the ability to gather people fast. Nothing on the ledger and ever
 
 ### HOW THEY DRESS
 
-PROPOSED - family #303034. BLACK. Not an absence of a colour - a CHOSEN one, and the most historically loaded one there is: the black flag and the black bloc are a hundred and fifty years of real people deciding that refusing the uniform IS the uniform. Neutral axis, lowest value in the game, so it separates from the Homeless grey and the Volunteers' white by value alone and never fights a hue. SECOND SIGNAL: painted, cut, layered, deliberately wrong - the black is the only part they all agree on.
+HIS, ALREADY CHOSEN (the faction table in the alpha) - family #c026a0 + motif "shard". MAGENTA, already chosen, motif SHARD. Not black, which is what I guessed from the history books - and his pick is the better one, because black is what everybody expects and this faction's whole identity is refusing the expected. It is also the loudest colour in the game, which is right for the faction canon calls culturally enormous. SECOND SIGNAL: painted, cut, layered, deliberately wrong. *** ONE THING HE SHOULD SEE: this hex reads as PURPLE-FAMILY under the purple-reservation test (r and b both clear g by more than 25), and so does the Colorful's pink. Both have been live in the alpha for weeks; the purity sweep only ever looked at art pixels, never at colours written in code. Flagged, not changed - they are his. ***
 VETERAN KIT (forced layers): base -> HOOD-UP COAL HOODIE, SOOT TANK; face -> ROSE BANDANA, GREY WRAPAROUNDS; feet -> TALL MOTO BOOTS; gear -> ELBOW PADS, SCAV KNEEPADS; legs -> CUTOFF DENIM SHORTS, BLACK DENIM; outer -> DENIM VEST, LEATHER JACKET
 
 ### HOW THEY TALK

@@ -37,7 +37,7 @@ Passage. Also, quietly, PEOPLE - the canon frames them as organised human predat
 
 ### HOW THEY DRESS
 
-SETTLED (his ruling) - family #5c302a. SETTLED, PAOLO 7/21: 'cartel can be the darkest red possible, maroon vibes.' The oxblood ramp, already worn by six-plus canon items. Not re-proposed and not thumbed - it is his.
+SETTLED (his 7/21 clothing ruling) - family #5c302a. SETTLED, PAOLO 7/21: 'cartel can be the darkest red possible, maroon vibes.' The oxblood ramp, already worn by six-plus canon items. Not re-proposed and not thumbed - it is his.
 VETERAN KIT (forced layers): base -> OXBLOOD PLAID FLANNEL, FADED BLACK LONGSLEEVE; face -> OUTLAW BANDANA; feet -> OXBLOOD BOOTS, TALL MOTO BOOTS; gear -> OXBLOOD BRACERS, RUST THIGH HOLSTER; hands -> OXBLOOD GLOVES; legs -> BLACK DENIM
 
 ### HOW THEY TALK
