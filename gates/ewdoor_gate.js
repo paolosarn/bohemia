@@ -59,9 +59,22 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
     ok('the world frame booted', !!f);
     if (f) {
       const r = await f.evaluate(() => {
-        const out = { flagged: 0, W: 0, E: 0, sealed: 0, unreachable: 0, draws: 0, spot: null };
+        const out = { flagged: 0, W: 0, E: 0, sealed: 0, unreachable: 0, draws: 0, spot: null,
+                      spawnDistrict: '?', spawnSideDoors: 0 };
         try { if (MODE !== 'human' && typeof swapMode === 'function') swapMode(); } catch (e) {}
         out.hasPass = typeof ewDoorPass === 'function';
+        /* WHERE HE ACTUALLY STANDS. The first cut of this gate swept the whole 96x96
+           valley, found side doors in commercial and farm, reported "22 of 22" and went
+           green -- while the SUBURB he spawns in had ZERO, because the suburb is a
+           separate realizer branch the pass never touched. He said "id dint see the
+           side door" for the third time and he was right every time.
+           A MEASUREMENT NOT TAKEN WHERE HE IS STANDING IS NOT A MEASUREMENT OF WHAT HE
+           SEES. This runs FIRST, on the spawn cell only. */
+        { const st = om.at(city.x, city.y); out.spawnDistrict = (st && st.district) || '?'; }
+        for (let ly = 1; ly < FN - 1; ly++) for (let lx = 1; lx < FN - 1; lx++) {
+          const c = cellAt(city.x * FN + lx, city.y * FN + ly);
+          if (c && (c.doorW || c.doorE)) out.spawnSideDoors++;
+        }
         for (let ty = 20; ty < 80; ty += 7) for (let tx = 20; tx < 80; tx += 7) {
           const t = om.at(tx, ty); if (!t || !t.district) continue;
           for (let ly = 2; ly < FN - 2; ly++) for (let lx = 2; lx < FN - 2; lx++) {
@@ -85,6 +98,10 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
         return out;
       });
       ok('the side-door render pass is in the build', r.hasPass);
+      /* THE ASSERTION THAT WOULD HAVE CAUGHT IT: not "somewhere in the valley". HERE. */
+      ok('SIDE DOORS EXIST IN THE DISTRICT HE SPAWNS IN (' + r.spawnDistrict + ': '
+         + r.spawnSideDoors + ') -- it was 0 while the valley-wide sweep read 22/22',
+         r.spawnSideDoors > 0);
       ok('side doors are FLAGGED on real cells (' + r.flagged + ': ' + r.W + ' west, ' + r.E + ' east)',
          r.flagged > 0 && r.W > 0 && r.E > 0);
       ok('every side door counts toward its mass having a door (' + r.sealed + '/' + r.flagged + ')',

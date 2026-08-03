@@ -32,6 +32,14 @@ If he says a button does nothing, PRESS THE BUTTON. If he says he cannot see som
 READ THE PIXELS WHERE IT SHOULD BE. If he says he cannot move, DRIVE THE MOVER. A gate
 whose evidence is one step removed from his sentence is not evidence.
 
+**1b. MEASURE IT WHERE HE IS STANDING.**
+A number taken somewhere he never goes is not a number about his game. The east/west
+door gate swept the whole 96x96 valley, found side doors in commercial and farm,
+reported "22 of 22 buildings" and went green -- while the SUBURB he spawns in had ZERO,
+because the suburb is a separate realizer branch the pass never touched. He said "id
+dint see the side door" three times and was right every time. Every gate that measures
+coverage of anything must assert it IN THE SPAWN DISTRICT, by name, first.
+
 **2. A GATE MUST BE ABLE TO FAIL FOR THE REASON HE COMPLAINED.**
 Before you register a gate, ask: *if his exact complaint were true right now, would this
 gate be red?* If the answer is no, the gate is decoration. The door-jamb gate counted

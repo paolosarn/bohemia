@@ -63,6 +63,30 @@ origin/main FIRST, then hard-sync. Nothing has been lost.
    I am NOT guessing a title. R29 (Rogue Fable) is NOT live permission; killed 8/1.
 3. Canon-contradiction auditing across the indexed files.
 4. Did not touch #buildstamp again: laws/records/gates only, nothing new on the surface.
+RUN (run-eak241): 8/3 (g) LATEST -- SIDE DOORS IN THE SUBURB HE SPAWNS IN.
+Ship: BUILD 8/3g. Tab: RUN. READ laws/BOHEMIA_LAW_MEASURE_THE_THING_HE_NAMED_8_3_26.md
+clause 1b before you write another coverage gate.
+
+"id dint see the side door" -- THIRD TIME, and he was right all three times.
+I fixed the geometry (8/3a). I fixed the draw order (8/3a). I wired his 7/10 edge-on art
+into the KIT branch and measured "commercial 22/22, farm 10/10" and called it done (8/3d).
+HE SPAWNS IN THE SUBURB. The suburb is a COMPLETELY SEPARATE branch of the cell realizer
+(m.sub, its own 7/27 front-door rule) and the east/west pass only touched m.kit. So the
+one district he walks around in had ZERO side doors while the gate swept a 96x96 valley,
+found plenty in districts he has never visited, and went green.
+A MEASUREMENT NOT TAKEN WHERE HE IS STANDING IS NOT A MEASUREMENT OF WHAT HE SEES.
+That is now clause 1b of the law, and gates/ewdoor_gate.js asserts side doors exist IN
+THE SPAWN DISTRICT BY NAME, first, before any valley-wide number.
+FIX: the same rule ported into the suburb branch in the suburb's own codes (2 house,
+6 garage, 9 upper, and canStand = 0 dead-ground / 1 road / 3 driveway / 10 sidewalk).
+The 7/27 FRONT door rule is UNTOUCHED; this only adds the sides, which had nothing.
+AFTER: 42 side doors in the spawn cell alone, up from 0. Rendered, looked at, and the
+screenshot shows the stone doorway sliver two tiles tall on a house's west wall with the
+player standing beside it on the dirt.
+GATE: E/W DOOR 7/0 (was 6, the new one is the spawn-district assertion).
+STILL HIS TO JUDGE: the sliver is dark and narrow. The WIDTH is one number (JAMB_PX=7)
+and the bank says so itself: "7px was approved for the demo doors ONLY -- these are
+CANDIDATES; widths adjustable per doorway when judged."
 
 COMBAT (combat-nfnki9): 8/3 (a) LATEST -- DIFFICULTY NEVER TOUCHED THE ENEMY, AND
 RUN IS ONE BUTTON ON THE THUMB. Shipped to main as 4f5b9b4, BUILD 8/3f.
