@@ -172,14 +172,26 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
      reporting a failure for his own ruling being carried out, which is a gate
      outranking a ruling. Counts what the board is actually for. */
   ok(`the judge board lists every JUDGEABLE shape (${R.rows} rows, ${R.shots} head shots, ${R.judgeable} judgeable)`,
-    R.rows >= R.judgeable && R.shots === R.judgeable * 8);
+    R.rows >= R.judgeable && R.shots === R.judgeable);
   /* ALL EIGHT, not two (Paolo 8/2: "I have not seen all eight Cardinal directions
      of the hair, just north and south"). He had approved 21 styles off 2 views of
      8. Front-and-back was never enough: the PROFILE is where a mohawk's ridge, a
      ponytail's tail and a fringe's depth actually read, and it is where the strip
      bug I recorded still lives. A judge surface that hides a facing hides a defect. */
-  ok('the board shows ALL EIGHT facings, not just front and back',
-    R.shots === R.judgeable * 8);
+  /* ONE BIG HEAD THAT TURNS, not eight tiny ones (Paolo 8/2: "IN THE UI THEY ARE SO
+     FUCKING TINY I CANT TELL SHIT WHY NOT HAVE A LARGE ICON THE REVOLVES IN ALL 8
+     DIRECTIONS"). This gate previously demanded EIGHT shots per style, which is
+     exactly the mistake he called out: I answered "he has only seen 2 of 8" with
+     eight heads at scale 1, so every angle was present and none was readable.
+     EIGHT TINY HEADS IS NOT EIGHT VIEWS, IT IS NONE. The invariant is not a count
+     of shots -- it is that all eight facings are REACHABLE and BIG. */
+  ok('one large head per style, not a row of unreadable thumbnails',
+    R.shots === R.judgeable);
+  ok('and it cycles ALL EIGHT facings so none is hidden',
+    /HAIR_SPIN_DIRS = \['S','SE','E','NE','N','NW','W','SW'\]/.test(src)
+    && /HAIR_SPIN\[0\] = \(HAIR_SPIN\[0\] \+ 1\) % 8/.test(src));
+  ok('the head is drawn at 3x, not 1x (that was the whole complaint)',
+    /headShot\(h\.n, HAIR_SPIN_DIRS\[HAIR_SPIN\[0\]\], 3\)/.test(src));
   ok('the board has a notes box (comment section at the bottom, always)', R.notes);
   /* A ROUND IS A ROUND (Paolo 8/1: "fully update the judge save system ... when I
      leave notes they shouldn't be around for the next round"). Notes lived in one
