@@ -605,7 +605,7 @@ line is a texture engine wearing a lead's job, however new it is.
 NO REMAKES. Fresh cooks answer the slots.
 
 ================================================================================
-2026-08-02  MUSIC BATCH 22 VERDICT — TWO SONGS DOWN, ONE HE ACTUALLY LIKED
+2026-08-02  MUSIC BATCH 22 VERDICT - TWO SONGS DOWN, ONE HE ACTUALLY LIKED
 ================================================================================
 n:'A BELL FOR NOBODYS SHIFT'     | 8/2/26 | DOWN as a SONG (batch 22). GRAVEYARD
   FINAL. Its lead SALTPSALM LIVES (song-dead-not-voices, 7/20): the voice is a
@@ -649,6 +649,41 @@ pure texture reads as unfinished" (records/BOHEMIA_MUSIC_GRAVEYARD_7_18_26.txt).
   WHAT IS NOT A HYPOTHESIS: brokenrosary at full intensity is a thing he likes.
   That is data he handed over directly. Start there.
 NO REMAKES. Fresh cooks answer the slots.
+
+================================================================================
+2026-08-02  MUSIC BATCH 23 VERDICT - 0 OF 2, AND MY THEORY DIED WITH THEM
+================================================================================
+n:'NOBODY LOCKS UP ANYMORE'      | 8/2/26 | DOWN as a SONG (batch 23). GRAVEYARD
+  FINAL. Its lead SPLINTERBELL LIVES (song-dead-not-voices, 7/20): a bell whose
+  overtones sit at SEMITONE offsets instead of physics ratios, so every note is a
+  chord of itself and always in tune with the song. One fashion, never a second.
+  Do not re-add the song.
+n:'WHAT THE METER STILL READS'   | 8/2/26 | DOWN as a SONG (batch 23). GRAVEYARD
+  FINAL. Its lead ONEBREATH LIVES: the pitch never moves and the ENVELOPE is the
+  instrument, a singer sagging, catching a breath and giving out. Also one
+  fashion. Do not re-add the song.
+
+THE POST-MORTEM IS NOT ABOUT THESE TWO SONGS. IT IS ABOUT THE METHOD.
+Batch 23 was cooked on a NAMED theory, written into its tool docstring and into
+this file before he judged it: PITCH STABILITY, the reading that every survivor
+articulates a followable pitch and every casualty is built on instability. Both
+songs were engineered to satisfy it. He killed both. The tally is 3 survivors
+against 6 casualties and the two designed-to-fit songs are in the second column,
+so the theory does not predict his taste and it is DEAD. Do not rebuild on it.
+
+That is TWO theories of mine killed in one day: semitone adjacency in the
+morning, pitch stability at night. The pattern is not that I keep picking the
+wrong correlation, it is that I keep reverse-engineering his KILLS, which are
+silent, instead of building from the one thing he actually said out loud:
+  "The marker on the door at full intensity is now one of my new favorite songs
+   that you've made great job"
+Nine judged songs have produced exactly one sentence of his own words about
+music. That sentence, and the song it points at, are worth more than every
+inference in this file. NEXT COOK: start from THAT song and ask him something,
+do not deduce a rule from corpses.
+
+NO REMAKES. The two slots stay open, deliberately, for a session with something
+new to say rather than another guess.
 
 # ---- THE 7/14 SUBURB BORDER WALLS, Paolo's verdict 8/2/26. ALL 13 KILLED. -----
 # *** DELIBERATELY NOT REGISTERED AS TOKENS ABOVE, AND THAT IS NOT AN OVERSIGHT. ***

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BOHEMIA — MUSIC BATCH 23. TWO SONGS FOR THE TWO SLOTS BATCH 22 OPENED.
+BOHEMIA - MUSIC BATCH 23. TWO SONGS FOR THE TWO SLOTS BATCH 22 OPENED.
 
 WHICH THEORY THIS BATCH IS BUILT ON, said out loud because the graveyard now
 demands it: THE PITCH-STABILITY READING. Across the seven songs he has judged in
@@ -25,7 +25,7 @@ follow instead of a texture to sit in. So both voices here articulate too, by
 mechanisms the rack has never used. This is not a remake of brokenrosary: it is
 the PROPERTY he liked, carried into two different machines.
 
-VOICE LEDGER — two births, two mechanisms:
+VOICE LEDGER - two births, two mechanisms:
   splinterbell  A BELL WHOSE OVERTONES ARE MUSIC. Real bells are inharmonic
                 because physics puts their partials at ugly ratios. This one
                 puts them at SEMITONES -- +3, +7, +10, +15 above the fundamental,
@@ -148,13 +148,19 @@ VOICES = V_BEGIN + r"""
 """ + V_END + "\n"
 
 SONGS = [
- "{n:'NOBODY LOCKS UP ANYMORE',acc:'#7a8ea0',root:43,scale:[0,2,5,7,9],wave:'triangle',kick:[0,2,7,10],bass:[0,5,9],hat:[3,7,11,15],inst:{b:'gravechoir',l:'splinterbell'},am:'cryptorgan',kit:{k:'dropkick',h:'rim'},mel:'drive16',swing:0,feel:'drive',klay:'drive',ff:true,bt:23}",
- "{n:'WHAT THE METER STILL READS',acc:'#9a7f6a',root:34,scale:[0,1,5,8],wave:'sine',kick:[0,5,10],bass:[0,8],hat:[6,14],inst:{b:'abyssbass',l:'onebreath'},am:'dreadbed',kit:{k:'boom',h:'shakerh'},mel:'seed8',swing:0.15,feel:'half',klay:'bassrise',ff:true,bt:23}",
+ # BOTH SONGS WERE JUDGED DOWN THE SAME DAY THEY SHIPPED, so their literals are
+ # DELETED rather than commented: a cook tool that can still emit a buried song
+ # is a remake waiting for a re-run, and a commented dead name is still a live
+ # reference to the graveyard gate. Re-running this tool now injects the two
+ # VOICES and no songs, which is correct - splinterbell and onebreath live on
+ # (song-dead-not-voices, 7/20) and are free to wear a different fashion.
+ # AND READ THE DOCSTRING BEFORE REUSING THIS FILE AS A TEMPLATE: the theory it
+ # was built on (pitch stability) was disproved by these two kills.
 ]
 NEW_NAMES = [s.split("'")[1] for s in SONGS]
 
 REPO_ENTRY = """
-=== BATCH 23 (8/2/26) — TWO SONGS FOR THE TWO SLOTS BATCH 22 OPENED ===
+=== BATCH 23 (8/2/26) - TWO SONGS FOR THE TWO SLOTS BATCH 22 OPENED ===
 BUILT ON A NAMED THEORY, so it can be proved wrong: PITCH STABILITY. All three
 songs he has kept articulate a pitch you can follow; all four he has killed are
 built on instability. Seven data points, stated as a hypothesis, not a law.

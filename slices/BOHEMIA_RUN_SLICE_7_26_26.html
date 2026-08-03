@@ -2499,7 +2499,8 @@ function contextVerb(){
     /* anything the room is holding, right where you stand */
     if(propAt(px,py))
       return { verb:'use', label:'EAT WHAT YOU FOUND',
-               act:function(){ spendTime('EAT','You ate.'); } };
+               act:function(){ sfx('pickup');   /* HIS pickup (7/30): you take what the room held */
+                            spendTime('EAT','You ate.'); } };
     /* your own bed: the biggest block of time there is */
     if(curHouse===HOME)
       return { verb:'sleep', label:'SLEEP (8 HOURS, SAVES)',
@@ -2937,6 +2938,7 @@ window.addEventListener('message', function(ev){
 var PHONE=document.getElementById('phone');
 function openPhone(){
   var feed = BohemiaLoop.buildFeed(CTX, { limit:8 });
+  if(feed.length) sfx('phone_buzz');   /* HIS buzz (7/30): a post landed, not just a screen */
   var prof = BohemiaLoop.socialProfile(CTX);
   document.getElementById('pPosts').textContent = prof.posts;
   document.getElementById('pDone').textContent  = prof.questsCompleted;

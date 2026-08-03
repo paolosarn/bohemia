@@ -1,3 +1,46 @@
+SFX (sound-xk7pjp): 8/2 (o) LATEST - THE THREE SILENT FAMILIES NOW MAKE A SOUND.
+Build 8/2o. Tabs: RUN (pickup, phone buzz) and COMBAT (block).
+
+He thumbed 8 sounds UP on 7/30 that NOTHING IN THE GAME COULD PLAY. pickup (5),
+phone_buzz (2) and block (1) had no call site anywhere, for a week, while this
+lane's own law is APPROVED-BUT-UNUSED IS A DEFECT. All three have a real moment
+now and none of the moments was invented for the sound:
+  BLOCK       the shot your cover ATE. Combat has always rolled every incoming
+              round against your cover and scored a cover save; it already drew
+              a spark. It just never made a noise. Rate-guarded to one per
+              volley, and it sits on the FIRST line of fxCoverSave, ahead of the
+              JUICE.R return, so a visual toggle can never mute it.
+  PICKUP      the one thing the room is holding, under your feet, offered as EAT
+              WHAT YOU FOUND. *** THE ONE JUDGEMENT CALL IN THIS SHIP: there is
+              no inventory anywhere in the run or the loop engine, so this is
+              the closest real take-the-thing action rather than a literal bag.
+              If Paolo says no, delete the one sfx('pickup') line. ***
+  PHONE BUZZ  a post landing on your feed when the phone comes out. Guarded on
+              feed.length: a buzz announcing an empty feed is a lie he can hear.
+
+TWO GATE ASSERTIONS OF MINE WERE WRONG AND WERE FIXED, NOT WORKED AROUND:
+1. sfx_wired_gate asserted combat must NEVER wire a block, on my own 7/31 claim
+   that "this demo has no block mechanic". False. The cover roll was always
+   there. A guess of mine hardened into law would have kept his sound silent
+   forever. FIX THE RULER, NOT THE TARGET.
+2. music_gate demanded NEW_VIBES be non-empty. That broke the first time Paolo
+   caught up and judged everything in one day: after the last verdict the honest
+   value IS empty. It now allows empty and instead checks the thing that
+   actually matters, that no cooked song is hidden from him.
+
+*** AND CHECK 2 IMMEDIATELY FOUND NINE REAL SONGS IN THAT STATE. *** Batch 20
+cooked them, they carry his categories so he has seen them, he has never thumbed
+them either way, and they stopped being badged NEW the moment batch 21 replaced
+NEW_VIBES. They are NAMED in music_gate as a closed waiver (nothing new may join
+them) and they are in front of him to rule on. They were NOT buried: nine songs
+is his call, not a gate fix.
+
+MUSIC, same turn: batch 23 was judged 0 of 2 and both are graveyarded. The
+PITCH-STABILITY theory it was built on is DEAD and recorded as dead. That is two
+of my theories killed in one day, and the honest lesson in the graveyard is to
+stop reverse-engineering his silent kills and start from the one sentence he
+actually wrote. NEW_VIBES is empty. Two song slots stay open on purpose.
+
 RUN (run-eak241): 8/3 (b) -- AND THE ONE THING I STOPPED ON.
 NOT SHIPPED, ON PURPOSE: the interior surfaces. Read
 records/BOHEMIA_THE_INTERIOR_ART_EXISTS_8_3_26.md before touching interiors.
@@ -154,7 +197,7 @@ Both leads ARTICULATE on purpose. That is the pitch-stability hypothesis being p
 on the board where he can kill it: if these two die too, the reading is wrong and
 the graveyard says so.
 
-MUSIC (sound-xk7pjp): 8/2 (k) LATEST — BATCH 22 JUDGED, AND HE SAID HE LIKED ONE.
+MUSIC (sound-xk7pjp): 8/2 (k) LATEST - BATCH 22 JUDGED, AND HE SAID HE LIKED ONE.
 Ship: BUILD 8/2k - THE MARKER ON THE DOOR IS CANON. Tab: MUSIC.
 
 HE WROTE A SENTENCE, which he has not done once in this whole session:

@@ -339,11 +339,28 @@ def main():
         body = demo[i:i + 260]
         chk("sfxAsk('%s')" % ev in body and body.index("sfxAsk('%s')" % ev) < body.find('tone('),
             '%s still beeps its placeholder before asking for his sound' % fn)
-    # he approved a BLOCK but this demo has no block mechanic: it must NOT be
-    # invented just to spend the sound
-    chk("sfxAsk('block')" not in demo,
-        'combat wires a BLOCK, but this demo has no block mechanic -- inventing '
-        'one to justify a sound is his call, not the machine\'s')
+    # BLOCK, AND A CHECK OF MINE THAT WAS WRONG (corrected 8/2).
+    # This gate used to assert the OPPOSITE: that combat must never wire a block,
+    # because "this demo has no block mechanic and inventing one to justify a
+    # sound is his call". The premise was false. Combat has always had one: every
+    # return volley rolls each enemy against your cover and a shot that fails
+    # BECAUSE you were behind something is scored as a cover save, which the game
+    # already draws a spark for. That is his BLOCKED exactly, "the hit that did
+    # not land", and it needed a sound, not a prohibition.
+    # A GATE MUST NEVER OUTRANK A RULING, and it must not outrank the CODE
+    # either: this assertion was a guess I made on 7/31 hardened into law, and it
+    # would have kept a sound he approved silent forever. FIX THE RULER, NOT THE
+    # TARGET. What is worth keeping from the old check is the part that was
+    # actually true, so it is kept and made specific: the block may only ride the
+    # cover save, never some new mechanic added to spend a sound.
+    if "sfxAsk('block')" in demo:
+        i = demo.index("function sndBlock(")
+        chk(i > 0, 'block is asked for but sndBlock is not defined')
+        chk('coverPillarAgainst' in demo,
+            'block is wired but the cover roll it must ride is gone')
+        chk(demo.count("sfxAsk('block')") == 1,
+            'block is asked for from more than one place; it rides the cover save '
+            'and nothing else')
 
     # 7b-ii. HIS THUMBS SURVIVE A DEPLOY (Paolo 8/1: "I can't be judging shit
     #        and then you pretend that I didn't"). His verdicts used to live only
@@ -543,6 +560,87 @@ def main():
     chk(near.get('pan') is not None and near.get('pan') > 0,
         'the neighbour to the RIGHT did not report a positive x offset, so nothing '
         'can pan him there')
+
+    # ---- 8: NO APPROVED FAMILY IS SILENT (8/2) -------------------------
+    # APPROVED-BUT-UNUSED IS A DEFECT is the name of this gate's own law and it
+    # had three holes in it all week: pickup, block and phone_buzz were thumbed
+    # UP by Paolo on 7/30 and had no call site anywhere, so eight sounds he
+    # personally chose could not be produced by playing the game. Nothing in the
+    # machine noticed, because every check here measured sounds that DO fire.
+    # This one sweeps the whole bank and asks the opposite question: for every
+    # family he approved, is there code that can ask for it?
+    # SOURCE-LEVEL ON PURPOSE. Driving every one of these in a browser means
+    # winning a firefight and finishing a quest inside a gate, which would be
+    # slow and flaky; what actually rots is the CALL SITE disappearing, and that
+    # is exactly what this catches. The families that CAN be driven cheaply
+    # (steps, kill, ambience) are still measured for real above.
+    # alpha_src and demo (the decoded COMBAT_B64) are already in hand from the
+    # checks above; decoding the blob a second time would only be a second place
+    # for the index maths to be wrong.
+    combat_src = demo
+    chk(len(combat_src) > 100000, 'could not decode COMBAT_B64, so combat was unchecked')
+
+    AMB = "this.kind = d.inside ?"
+    amb_line = ''
+    if AMB in alpha_src:
+        amb_line = alpha_src[alpha_src.index(AMB):alpha_src.index(AMB) + 200]
+    ground = ''
+    if 'function sfxGround(' in run:
+        ground = run[run.index('function sfxGround('):][:900]
+
+    def wired(ev):
+        """Every shape a real request for `ev` can take. A MENTION IS NOT A USE:
+        every pattern here is a call or a return of the event name, never the
+        bare string, because 'block' also appears ~10 times in this build as a
+        CSS display value and a matcher that cannot tell those apart is the
+        broken one."""
+        for shape in ("sfx('%s'" % ev, "playSFX('%s'" % ev, "sfxAsk('%s'" % ev):
+            if shape in run or shape in alpha_src or shape in combat_src:
+                return True
+        if "return '%s'" % ev in ground:        # the ground picks the footstep
+            return True
+        if "'%s'" % ev in amb_line:             # the clock picks the world tone
+            return True
+        return False
+
+    silent = sorted(ev for ev in bank if not wired(ev))
+    chk(not silent,
+        'HE APPROVED THESE AND NOTHING CAN PLAY THEM: %s. Approved-but-unused is '
+        'a defect: either give the sound a real moment or take it out of the bank.'
+        % ', '.join(silent))
+    # THE MATCHER MUST BE ABLE TO SAY NO. A check that returns True for anything
+    # is worse than no check, and this file has already shipped one of those
+    # today (a distance test that passed with attenuation deleted).
+    chk(not wired('a_family_that_does_not_exist'),
+        'the silence matcher reports a made-up event as wired, so it proves nothing')
+    for ev in ('pickup', 'block', 'phone_buzz'):
+        chk(ev in bank and wired(ev),
+            '%s is the family that was silent for a week; it must stay wired' % ev)
+    # ONE SAVE PER VOLLEY. A return volley resolves several enemies in one frame
+    # and one wall can eat all of them, which would fire his single approved
+    # block sound three times in a tick.
+    chk('function sndBlock(' in combat_src and '_blkAt' in combat_src,
+        'the block sound has no rate guard, so a volley would machine-gun it')
+    chk('function fxCoverSave(ea){ sndBlock();' in combat_src,
+        'the block sound is not the first thing the cover save does')
+    # AND IT MUST STAY AHEAD OF THE VISUAL TOGGLE. fxCoverSave returns early when
+    # the R juice group is off; if the sound ever slides below that line, turning
+    # off a graphical effect silently mutes a sound Paolo approved.
+    _i = combat_src.find('function fxCoverSave(')
+    _body = combat_src[_i:_i + 400]
+    chk(_i > 0 and 'sndBlock()' in _body
+        and _body.index('sndBlock()') < _body.index('if(!JUICE.R)return'),
+        'the block sound sits BELOW the JUICE.R early return, so a visual toggle '
+        'can mute a sound he approved')
+    # the other lane pins the cover-save CALL SITE byte for byte as proof that his
+    # V42 cover revert survives. Nothing here may disturb it.
+    chk("else if(cov)onOffbeat(()=>fxCoverSave(e.ea));   /* R: your cover ate that one */"
+        in combat_src,
+        "the V42 cover-save call site was edited; combat_lab_gate pins it and it "
+        "is not this lane's line to move")
+    # and the buzz must not announce an empty feed
+    chk("if(feed.length) sfx('phone_buzz')" in run,
+        'the phone buzzes even when nothing was posted, which is a lie he can hear')
 
     print('  %d passed, %d FAILED' % (P, F))
     if not F:

@@ -94,7 +94,43 @@ if(missing.size) console.log('    missing:', [...missing].slice(0,8).join(' '));
 // 4+5+6. the fresh batch
 const nvm=/const NEW_VIBES=\[([^\]]*)\]/.exec(code);
 const newNames=nvm?[...nvm[1].matchAll(/'([^']+)'/g)].map(m=>m[1]):[];
-ok('NEW_VIBES declared and non-empty', newNames.length>0);
+/* NEW_VIBES MAY BE EMPTY, AND ON 8/2 IT IS (fixed the same day it fired).
+   This used to demand a non-empty list, on the assumption that there is always
+   a fresh unjudged batch in the build. That assumption broke the first time
+   Paolo caught up: he judged batches 21, 22 and 23 in one day, so after the
+   last verdict there was nothing left unjudged and the honest value is [].
+   The gate was failing him for being FAST.
+   The NEW badge means "cooked and not yet ruled on", so what the machine
+   actually has to protect is not a non-empty list - it is that nothing cooked
+   is HIDDEN from him. So: empty is legal, and when it is empty every song in
+   MLOOPS must carry a verdict. A cooked song sitting unbadged and unjudged is
+   the real defect, and that is now what fails. */
+ok('NEW_VIBES is declared at all', nvm!==null);
+const cdm=/const CANON_DEFAULTS=\{([^}]*)\}/.exec(code);
+const ruled=new Set(cdm?[...cdm[1].matchAll(/'([^']+?)#\d+'\s*:/g)].map(m=>m[1]):[]);
+/* THE BATCH 20 DEBT, NAMED RATHER THAN HIDDEN OR SILENTLY BURIED.
+   The first run of this check found nine real songs in exactly the state it was
+   written to catch: cooked by batch 20, shown to Paolo on his sheet (they carry
+   his categories), never thumbed either way, and no longer badged NEW because
+   batch 21 overwrote NEW_VIBES. They have been invisible-but-present for days.
+   THEY ARE NOT BEING BURIED HERE. "Unjudged is dead" is his law and burying
+   nine songs on his behalf inside a gate fix would be exactly the kind of
+   decision this repo says is his. They are LISTED, so the debt is a fact the
+   machine states out loud every run instead of a silence, and they are in front
+   of him to rule on. The waiver is CLOSED: anything that falls into this state
+   from now on fails, so the hole cannot reopen while nobody is looking. */
+const BATCH20_UNRULED=['THE FORECLOSURE NOTICE','THE COUNTING ROOM',
+  'THE BOSS TAKES HIS CUT','THE LAST GOOD CHECK','BROKEN WINDOW ANTHEM',
+  'PARADE OF LOST BALLOONS','WHAT THE APPRENTICE BUILDS','HANDS THAT STILL BUILD',
+  'A NAME NOT YET CHOSEN'];
+const unbadged=songs.map(s=>s.n).filter(n=>!newNames.includes(n)&&!ruled.has(n));
+const fresh_hidden=unbadged.filter(n=>!BATCH20_UNRULED.includes(n));
+ok('nothing is cooked-but-hidden: every song is either badged NEW or has a verdict'
+   +(newNames.length?'':'  (NEW_VIBES empty: he has judged everything else)'),
+   fresh_hidden.length===0);
+if(fresh_hidden.length) console.log('    unjudged and unbadged:', fresh_hidden.slice(0,8).join(' | '));
+if(unbadged.length) console.log('    KNOWN DEBT, waiting on Paolo ('+unbadged.length+
+  ' batch-20 songs cooked, shown, never ruled): '+unbadged.slice(0,4).join(' | ')+' ...');
 const newSongs=newNames.map(n=>songs.find(s=>s.n===n));
 ok('every NEW_VIBES name is a real MLOOPS song', newSongs.every(Boolean));
 const tuples=new Set(newSongs.filter(Boolean).map(s=>s.scale+'|'+s.feel+'|'+s.kick));

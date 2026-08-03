@@ -109,6 +109,28 @@ function sndShot(){ if(sfxAsk('shot'))return;
   tone(180,0.08,0.10,'sawtooth'); tone(90,0.10,0.08,'sine'); }
 function sndReturn(){ if(sfxAsk('hurt'))return;
   tone(90,0.22,0.12,'sawtooth'); }
+/* 8/2: BLOCKED. THE DEMO DOES HAVE A BLOCK, IT JUST WAS NOT CALLED ONE.
+   The 7/31 note in this file said combat had no block mechanic and that
+   inventing one was Paolo's call. That note was WRONG about the code, and the
+   right fix is to correct the claim rather than keep quoting it: every return
+   volley rolls each enemy against your cover, and a shot that fails its roll
+   BECAUSE you were behind something is scored as a cover save -- the game
+   already draws a spark on the cell that ate it. That is his BLOCKED exactly:
+   "the hit that did not land". No mechanic is being invented; a sound is being
+   put on one that has been in the fight all along.
+   ONE SAVE PER VOLLEY. A firefight resolves several enemies in the same frame
+   and three of them can all be eaten by the same wall, which would fire his
+   single approved block sound three times in one tick and turn it into a
+   rattle. The window is a fifth of a second, which is shorter than any real
+   volley gap and longer than one resolution loop. */
+var _blkAt=0;
+function sndBlock(){
+  var now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+  if(now-_blkAt<200)return;
+  _blkAt=now;
+  if(sfxAsk('block'))return;
+  tone(300,0.06,0.05,'triangle');
+}
 /* A FINGER IN HERE IS STILL A FINGER. It never reaches the parent's document,
    so the parent could sit with audio that was never started through a whole
    fight. Tell it on the gesture itself, ahead of any sound. */
@@ -121,6 +143,55 @@ function sndReturn(){ if(sfxAsk('hurt'))return;
     try{ document.addEventListener(t, gesture, {capture:true, passive:true}); }catch(_e){}
   });
 })();"""
+
+
+
+# WHERE THE BLOCK SOUND GOES, AND WHY IT MOVED.
+# First attempt put it on the CALL SITE, so the sound could not be killed by the
+# R juice toggle:  else if(cov){ sndBlock(); onOffbeat(...) }
+# combat_lab_gate.js pins that exact line, comment and spacing included, as its
+# proof that Paolo's V42 cover revert is still intact. That is ANOTHER LANE'S
+# gate guarding HIS ruling, and rewriting their assertion to fit my sound would
+# be exactly the move this repo keeps punishing. So the sound moved instead.
+# It now sits on the FIRST STATEMENT of fxCoverSave, AHEAD of the `if(!JUICE.R)
+# return`, which keeps the two properties that mattered:
+#   - a VISUAL toggle can never mute a sound he approved (it runs before it), and
+#   - the byte-exact call site the other lane pinned is untouched.
+# It also lands the sound where the spark lands: the call is wrapped in
+# onOffbeat, so the block now hits on the beat WITH its own flash instead of a
+# frame early. 120 BPM LAW, for free.
+COV_OLD = "function fxCoverSave(ea){ if(!JUICE.R)return;"
+COV_NEW = ("function fxCoverSave(ea){ sndBlock();"
+           "   /* HIS block (7/30): the shot your cover ATE, on the beat with its spark.\n"
+           "      BEFORE the JUICE.R return on purpose -- a visual toggle must never be\n"
+           "      able to mute a sound he approved. */\n"
+           "  if(!JUICE.R)return;")
+
+
+# THE FIRST ATTEMPT'S EDIT, WHICH HAS TO BE UNDONE WHERE IT ALREADY LANDED.
+# This tool ran once with the call-site version before the pin was discovered, so
+# a build can be carrying it. A patch tool that only knows how to move FORWARD
+# leaves its own mistakes welded into every tree it already touched, which is the
+# fence-orphan defect this repo has a gate for. So the repair is part of the tool.
+STALE_CALL = ("    else if(cov){ sndBlock(); onOffbeat(()=>fxCoverSave(e.ea)); }"
+              "   /* R: your cover ate that one, and 8/2 it is AUDIBLE */ }")
+PINNED_CALL = ("    else if(cov)onOffbeat(()=>fxCoverSave(e.ea));"
+               "   /* R: your cover ate that one */ }")
+
+
+def wire_block(demo):
+    """Put his BLOCKED sound on the cover save. Idempotent, and loud on failure."""
+    if STALE_CALL in demo:
+        demo = demo.replace(STALE_CALL, PINNED_CALL, 1)
+        print('  reverted the first attempt at the call site (it is pinned by '
+              'combat_lab_gate as proof of his V42 cover revert)')
+    if COV_NEW in demo:
+        return demo, True
+    if demo.count(COV_OLD) != 1:
+        print('FAIL: the cover-save call site is not present exactly once (%d)'
+              % demo.count(COV_OLD))
+        return demo, False
+    return demo.replace(COV_OLD, COV_NEW, 1), True
 
 
 def main():
@@ -155,10 +226,13 @@ def main():
                 print('FAIL: %s is defined %d times after re-inject'
                       % (fn, demo.count('function %s(' % fn)))
                 return 1
+        demo, ok = wire_block(demo)
+        if not ok:
+            return 1
         b64 = base64.b64encode(demo.encode('utf8')).decode('ascii')
         src = src[:i0] + b64 + src[j0:]
         open(ALPHA, 'w', encoding='utf8').write(src)
-        print('  re-injected (idempotent upgrade): hit, kill, shot, hurt')
+        print('  re-injected (idempotent upgrade): hit, kill, shot, hurt, block')
         return 0
 
     for old in (OLD_KILL, OLD_HIT, OLD_SHOT, OLD_RETURN):
@@ -177,6 +251,9 @@ def main():
                   % (fn, demo.count('function %s(' % fn)))
             return 1
 
+    demo, ok = wire_block(demo)
+    if not ok:
+        return 1
     b64 = base64.b64encode(demo.encode('utf8')).decode('ascii')
     src = src[:i0] + b64 + src[j0:]
     open(ALPHA, 'w', encoding='utf8').write(src)
@@ -185,8 +262,7 @@ def main():
     print('    sndKill -> playSFX("kill")  5 approved, never the same one twice')
     print('    sndShot -> playSFX("shot")  shot.3, the only survivor of five')
     print('    sndReturn -> playSFX("hurt") hurt.2, the only survivor of five')
-    print('    block:  NOT wired -- this demo has no block mechanic, and')
-    print('            inventing one to justify a sound is his call, not mine')
+    print('    sndBlock -> playSFX("block") on the shot your cover ATE')
     print('OK -> ' + ALPHA)
     return 0
 

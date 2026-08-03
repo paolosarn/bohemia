@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BOHEMIA — HIS 8/2 MUSIC VERDICTS, SECOND SITTING (batch 22 judged)
+BOHEMIA - HIS 8/2 MUSIC VERDICTS, SECOND SITTING (batch 22 judged)
 
 He judged batch 22 the same day he judged 21. One of three lived:
 
@@ -119,7 +119,7 @@ def main():
 
     # ---- 4. the embedded repo carries his words --------------------------
     entry = (
-        '=== BATCH 22 VERDICT (8/2/26) — 1 OF 3 LIVED ===\n'
+        '=== BATCH 22 VERDICT (8/2/26) - 1 OF 3 LIVED ===\n'
         'CANON  THE MARKER ON THE DOOR (lead brokenrosary, rhythm inside one note)\n'
         'DOWN   A BELL FOR NOBODYS SHIFT (saltpsalm) · COUNTING WHAT IS LEFT (tollhouse)\n'
         'CATEGORY  THE MARKER ON THE DOOR -> OVERWORLD DAY\n'

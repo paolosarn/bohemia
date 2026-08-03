@@ -580,19 +580,66 @@ def main():
                           "  sfx(sfxGround(px,py));   /* HIS footstep, chosen by the ground (7/30) */\n"
                           + step_anchor, 1)
 
+    # ---- 8/2: THE TWO APPROVED FAMILIES THAT STILL MADE NO SOUND ----------
+    # APPROVED-BUT-UNUSED IS A DEFECT is this lane's own law, and it had two
+    # holes left in it. He thumbed 2 PHONE BUZZ and 5 PICKUP candidates on 7/30
+    # and neither had a call site, so seven sounds he chose were dead weight in
+    # the bank. Both moments below already EXIST in the run; nothing is being
+    # invented to justify a sound, which is the trap the door candidates fell
+    # into.
+
+    # PHONE BUZZES. His own why: "a new post, a message, the feed". The run has
+    # exactly one feed and it comes out when you get home with the quest done.
+    # GUARDED ON feed.length ON PURPOSE: an empty feed is the phone with nothing
+    # on it, and a buzz that announces no post is a lie the player can hear.
+    ph_anchor = "  var feed = BohemiaLoop.buildFeed(CTX, { limit:8 });"
+    if "sfx('phone_buzz')" not in run:
+        if ph_anchor not in run:
+            print('FAIL: cannot find openPhone feed build')
+            return 1
+        run = run.replace(ph_anchor,
+                          ph_anchor + "\n"
+                          "  if(feed.length) sfx('phone_buzz');"
+                          "   /* HIS buzz (7/30): a post landed, not just a screen */", 1)
+
+    # PICK SOMETHING UP. THIS ONE IS A JUDGEMENT CALL AND IT IS FLAGGED AS ONE.
+    # His why was "loot, items, anything into the bag", and this game has no bag:
+    # there is no inventory anywhere in the run or the loop engine. What it DOES
+    # have is exactly one take-the-thing action -- the prop the room is holding,
+    # under your feet, offered as EAT WHAT YOU FOUND. You find it and you take
+    # it; the eating is what happens next. That is the closest real moment in the
+    # build, it is not a moment manufactured for the sound, and if Paolo says a
+    # pickup should not fire when he eats then this one line comes out and the
+    # five sounds go back to waiting for an inventory. Said out loud rather than
+    # buried, because a stretched moment is the kind of thing that should be easy
+    # for him to kill.
+    pk_anchor = ("      return { verb:'use', label:'EAT WHAT YOU FOUND',\n"
+                 "               act:function(){ spendTime('EAT','You ate.'); } };")
+    if "sfx('pickup')" not in run:
+        if pk_anchor not in run:
+            print('FAIL: cannot find the prop use verb')
+            return 1
+        run = run.replace(pk_anchor,
+                          "      return { verb:'use', label:'EAT WHAT YOU FOUND',\n"
+                          "               act:function(){ sfx('pickup');"
+                          "   /* HIS pickup (7/30): you take what the room held */\n"
+                          "                            spendTime('EAT','You ate.'); } };", 1)
+
     open(RUN, 'w', encoding='utf8').write(run)
     r = subprocess.run(['node', 'tools/build_run_slice.js'], capture_output=True, text=True)
     if r.returncode != 0:
         print('FAIL: the run would not rebuild:\n' + (r.stderr or '')[-800:])
         return 1
     built = open(BUILT, encoding='utf8').read()
-    if 'SFX WIRE, RUN SIDE' not in built or 'sfxGround(px,py)' not in built:
+    if ('SFX WIRE, RUN SIDE' not in built or 'sfxGround(px,py)' not in built
+            or "sfx('phone_buzz')" not in built or "sfx('pickup')" not in built):
         print('FAIL: the rebuilt run does not carry the wire')
         return 1
 
     print('THE APPROVED SOUNDS PLAY NOW.')
     print('  %d approved sounds across %d events, from his 7/30 thumbs' % (n, len(bank)))
     print('  footsteps chosen by the tile the game already knows')
+    print('  phone buzz on a real post, pickup on the thing the room held')
     print('  doors: SILENT, on purpose -- he killed all ten door candidates')
     return 0
 
