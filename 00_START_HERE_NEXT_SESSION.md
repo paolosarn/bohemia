@@ -1,3 +1,46 @@
+ART (f3eu53): 8/3 (e) LATEST — *** HIS BOUGHT ART WAS ON 3 DISTRICTS OUT OF 55. ***
+
+=== THE FINDING, MEASURED ON THE REAL SURFACE ===
+The suburb block is finished, so I went looking for what comes next and audited every
+district type in the valley. Sweeping a grid across a cell of each and counting real
+drawImage calls:
+    SUBURB      2108 draws of HIS BOUGHT art,  769 of the old flat starter set
+    DOWNTOWN       0 ........................  2880
+    THE STRIP      0 ........................  2880
+    COMMERCIAL, INDUSTRIAL, MALL, PARK, TRAILER, APARTMENT, MEDICAL, CASINO, SCHOOL:
+    every single one at ZERO.
+FIFTY-TWO of the fifty-five district types were drawing NOTHING he paid for, while
+bought_beats_painted_gate stayed GREEN -- because it only ever asked whether his library
+reaches the RENDERER, never whether the renderer reaches the WORLD.
+
+=== THE CAUSE: A KEY MISMATCH, NOT A DECISION ===
+boughtFor() maps a GRID CODE to one of his pools, and grid codes are the SUBURB
+generator's vocabulary. Every other district draws through genericTile(), which speaks in
+tile NAMES - and it already resolved them to 'road_0'/'walk_1'/'concrete_0'/'dirt', the
+very surfaces his library covers. His asphalt and concrete were ONE LOOKUP away from the
+whole valley the entire time. boughtForTile() is that lookup.
+AFTER: DOWNTOWN 1815, STRIP 2880 (100%), COMMERCIAL 2120, INDUSTRIAL 1804, MALL 1933,
+PARK 2708, TRAILER 2158, APARTMENT 2247, MEDICAL 1503, CASINO 2880, SCHOOL 2034.
+Shots: records/target/VALLEY_DOWNTOWN.png / _STRIP.png / _INDUSTRIAL.png
+HOUSE-ONLY ART DID NOT LEAK. Skins, openings and the community wall stay suburb-family,
+and the gate now checks that too: a stucco house skin on a casino would be a lie.
+
+=== THE QUEUE (and item 1 is now the obvious one) ===
+1. BUILDING WALLS OUTSIDE THE SUBURB. Every non-house building in the valley is still
+   flat starter tile - see the warehouse on the left of VALLEY_INDUSTRIAL.png. The art
+   ALREADY EXISTS and he ALREADY APPROVED IT (8/1, all 90 texture-match tiles include
+   tiltup_concrete, metal_corrugate, steel_rusted, brick_running, civic_stone,
+   storefront_alum). drawSkin() is keyed by tile NAME already, so the wiring is the same
+   one-line shape as the ground was.
+   DO NOT JUST UNGATE IT: the house pool would put stucco on a warehouse. It needs a
+   MATERIAL-PER-DISTRICT-TYPE map first (warehouse -> tiltup/corrugated/steel, casino ->
+   civic stone, downtown -> storefront) and that is real design work, not a one-liner.
+2. THE GRIME TUNING. Blocked on purpose until more district types are dressed. NOTE:
+   item 1 unblocks this - once buildings are textured valley-wide there IS a world to
+   judge the amount against.
+3. Features on ground ~5.5% vs his 7.0%; his cracks still crisper.
+4. Art cell 44 -> 88 px. Would fix (3) outright.
+
 CITY (1eztay): 8/2 (ao) LATEST — I WENT LOOKING FOR WHAT IS WRONG WITH THE WORLD
 AND THE ANSWER WAS "NOTHING I CAN MEASURE". Two floors shipped instead.
 *** AND THIS FILE WAS ON MAIN WITH LIVE <<<<<<< ======= >>>>>>> MARKERS IN IT, for
@@ -313,7 +356,8 @@ of it (#41 at .237 called sidewalk, #12 at .251 called yard, on two hundredths).
 FIX: the band 0.20-0.28 now serves BOTH pools. Yard 5 -> 16, sidewalk keeps its depth, NOT
 ONE PIXEL of his art touched. Clause 4, PLACEMENT. See records/target/PERIMETER_WALL_LIVE.png.
 
-=== THE QUEUE ===
+=== EARLIER TODAY (8/3d): THE GRIME MACHINE + THE YARD REPEAT ===
+=== old queue ===
 1. THE GRIME TUNING. Blocked on purpose until more district types are standing. When it
    unblocks: raise GRIME_STRENGTH off 0, judge it on a frame with 3+ district types in it,
    record a verdict, then the gate lets it stay up.

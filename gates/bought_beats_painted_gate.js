@@ -122,6 +122,37 @@ ok('the painted debt has not GROWN (' + debt.length + ' surfaces, was ' + HIGH_W
    debt.length <= HIGH_WATER,
    'a surface went back to painted art - that is the one direction this list may not move');
 
+/* ================================================================================
+   AND IT COVERS THE WHOLE VALLEY, NOT ONE DISTRICT (8/3).
+   MEASURED on the real surface, sweeping a grid across a cell of each type and
+   counting real drawImage calls:
+       SUBURB      2108 draws of HIS art,  769 of the old flat starter set
+       DOWNTOWN       0 ..................  2880
+       THE STRIP      0 ..................  2880
+       COMMERCIAL, INDUSTRIAL, MALL, PARK, TRAILER, APARTMENT, MEDICAL, CASINO,
+       SCHOOL: every single one at ZERO.
+   FIFTY-TWO of the fifty-five district types in the valley were drawing NOTHING he
+   paid for, while this gate stayed green -- because it only ever asked whether his
+   library REACHES THE RENDERER, never whether the renderer reaches the WORLD.
+   That is the same shape as the miss this whole law was written for.
+
+   THE CAUSE WAS A KEY MISMATCH: boughtFor() maps a GRID CODE to one of his pools,
+   and grid codes are the SUBURB generator's vocabulary. Every other district draws
+   through genericTile(), which speaks in tile NAMES. So the run needs BOTH lookups,
+   and this now checks for both. ============================================== */
+const bft = /function\s+boughtForTile\s*\(/.test(run);
+ok('the run can also pick his pool by TILE NAME, for the 52 districts that have no '
+   + 'suburb grid codes', bft);
+ok('the name lookup covers road, sidewalk/concrete and dirt/yard',
+   /indexOf\('road'\)===0/.test(run) && /indexOf\('concrete'\)===0/.test(run)
+   && /name==='dirt'/.test(run));
+ok('the draw site uses the name lookup OUTSIDE the suburb family',
+   /isSuburbCell\(\)\s*\?\s*boughtFor\(c\)\s*:\s*boughtForTile\(laid\)/.test(run));
+/* and the house-only art must NOT leak: a stucco house skin on a casino is a lie */
+ok('house skins and the community wall stay suburb-family',
+   /isSuburbCell\(\) && drawSkin\(/.test(run)
+   && /isSuburbCell\(\) && c===4/.test(run));
+
 console.log('  HIS ART COVERS : ' + Object.values(COVERED).join(', '));
 console.log('  STILL PAINTED  : ' + debt.join(', '));
 console.log('                   (legal only while he owns nothing for them; this list only shrinks)');

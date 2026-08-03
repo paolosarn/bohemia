@@ -17775,6 +17775,35 @@ function boughtImg(bank,gx,gy){
    name rather than letting it hide. */
 function boughtFor(c){ return (c===10||c===3) ? 'walk' : (c===1) ? 'road'
                             : (c===0) ? 'yard' : null; }
+/* *** HIS PURCHASED GROUND, ON EVERY DISTRICT IN THE VALLEY, NOT JUST THE SUBURB. ***
+   MEASURED 8/3 on the real surface, sweeping a grid across a cell of each type and
+   counting real drawImage calls:
+       SUBURB      2108 draws of HIS BOUGHT art,  769 of the old flat starter set
+       DOWNTOWN       0 ......................... 2880
+       THE STRIP      0 ......................... 2880
+       COMMERCIAL     0 ......................... 2936
+       INDUSTRIAL, MALL, PARK, TRAILER, APARTMENT, MEDICAL, CASINO, SCHOOL: all ZERO.
+   Fifty-two of the fifty-five district types in the valley were drawing NOTHING he
+   paid for. BOUGHT BEATS PAINTED (7/31, LOCKED): "if i bought it i prefer it! Thats
+   for all textures bro!!!" - and this is the exact failure that law was written for,
+   the same shape as the 98 pavement tiles that sat unused until he noticed himself.
+
+   THE CAUSE WAS A KEY MISMATCH, NOT A DECISION. boughtFor() above maps a GRID CODE to
+   one of his pools, and grid codes are the SUBURB generator's vocabulary. Every other
+   district draws through genericTile(), which speaks in tile NAMES - and it already
+   resolves them to 'road_0' / 'walk_1' / 'concrete_0' / 'dirt' / 'yard_2', which are
+   the very surfaces his library covers. His asphalt and his concrete were one lookup
+   away from the whole valley the entire time.
+
+   The house-specific art (skins, openings, the community wall) stays suburb-family,
+   because a house skin on a casino would be a lie. GROUND is ground everywhere. */
+function boughtForTile(name){
+  if(!name) return null;
+  if(name.indexOf('road')===0) return 'road';
+  if(name.indexOf('walk')===0 || name.indexOf('concrete')===0) return 'walk';
+  if(name==='dirt' || name.indexOf('yard')===0) return 'yard';
+  return null;
+}
 /* draws HIS tile if he owns one for this surface; false means fall back to paint */
 function drawBought(kind,gx,gy,X,Y,S){
   var bank = (kind==='walk') ? BOUGHT_WALK_IMG
@@ -19501,8 +19530,12 @@ function draw(){
           : genericTile(gx,gy2);
         /* HOUSE SKINS (7/28): his own approved texture for the FIELD tiles; the
            stack's shape tiles fall through to the target set untouched. */
-        /* BOUGHT BEATS PAINTED (Paolo 7/31): his own tile wins over anything painted */
-        if(isSuburbCell() && boughtFor(c)&&drawBought(boughtFor(c),gx,gy2,X,Y,S)) continue;
+        /* BOUGHT BEATS PAINTED (Paolo 7/31): his own tile wins over anything painted.
+           On the suburb the pool is chosen by GRID CODE; everywhere else in the valley
+           by the TILE NAME genericTile() already resolved. Same law, same bytes, and
+           52 more district types (measured 8/3: every one of them was at zero). */
+        var _bk = isSuburbCell() ? boughtFor(c) : boughtForTile(laid);
+        if(_bk && drawBought(_bk,gx,gy2,X,Y,S)) continue;
         if(isSuburbCell() && drawSkin(laid,gx,gy2,X,Y,S)) continue;
         if(!tput(laid,X,Y,S) && !body){
           /* only ever reached in the first frames while the bank decodes */
