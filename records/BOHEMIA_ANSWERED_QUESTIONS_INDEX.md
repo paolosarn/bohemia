@@ -134,7 +134,62 @@ answer is no I don't like the direction that you took this turn."* The page was 
 before it shipped. Do not re-propose it, and do not re-frame it.
 - `records/BOHEMIA_RF4_DIRECTION_KILL_8_1_26.md`
 
-### 13. CAN A LANE DECIDE ART LOOKS GOOD ENOUGH TO SHIP?
+### 13. HOW DOES TIME PASS WHILE YOU REST? IS THERE MORE THAN ONE CLOCK?
+**ONE UNIVERSAL CLOCK. TIME KEEPS MOVING WHILE YOU REST, AND YOU WATCH IT PASS.**
+Verbatim: *"There is one universal clock. Are you stupid?"* Rest is a **visible
+fast-forward, never a fade to black**, it can be interrupted by random events, and
+longer rest is a better buff. Sleeping, chilling and hanging out are ONE thing with
+ONE set of benefits.
+- `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R2, R3, R4, R5, R7, R8
+
+### 14. HOW DOES FAST TRAVEL UNLOCK? DOES CARRYING TOO MUCH STOP YOU?
+**YOU UNLOCK A DESTINATION BY HAVING WALKED THE DISTRICT. ENCUMBRANCE SLOWS YOU
+DOWN, IT NEVER WALLS YOU OFF.** The slowdown rides the action-cost shape already
+approved — condition as the divisor, thresholds not slopes — so it needs no new
+mechanism.
+- `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R9, R10
+- `laws/BOHEMIA_ADDENDUM_THE_ACTION_COST_SHAPE_7_31_26.md` clauses 3 and 5
+
+### 15. ARE DIALOGUE CHECKS A PERCENTAGE ROLL? CAN YOU REFUSE A QUEST?
+**NO ROLL — BINARY, YOU CAN OR YOU CANNOT.** He is not a fan of save scumming and a
+percentage check invites reloading until it passes. The gate does not have to be
+charisma; **faction standing is a legitimate key**. Main quests **cannot** be
+refused; side quests give you **variations instead of rejection**, and you clear one
+off the **phone**.
+- `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R12, R13, R14, R15, R16
+
+### 16. IS THERE A MORALITY METER? DO MERCY AND BRUTALITY GET SCORED?
+**RECORDED SILENTLY, NEVER SHOWN.** *"I think it's definitely something to record
+and then we can do what we want with the information."* It is a LEDGER, not a score
+and not a bar: log the acts, show the player nothing, and NPCs comment on how you
+play. Sparing somebody after you already shot them is a **different entry** from
+sparing somebody with their hands up.
+- `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R17, R18, R19
+
+### 17. WHAT DOES AN HEIR INHERIT? DO PERKS CARRY?
+**NO INHERITED PERKS — A BOOSTED START INSTEAD.** What actually carries: **gear
+stored at the family house**, the camp (upgradeable across acts, so you can be in
+act 3 on an act-1 camp), and city/faction/mayor choices that linger. NPCs mention
+your father. The whole dynasty layer is derived from **realism** — what would
+actually happen forty years after.
+- `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R22–R28
+
+### 18. HOW DOES NEGLECT BITE IF THERE IS NO UPKEEP?
+**IT DOESN'T BITE. YOU JUST STILL HAVE THE SHITTY CAMP.** Falling behind is a state
+you are still in, never a bill you failed to pay. Answered by the upgradeable camp
+(R26), and consistent with buildings being EARNED, not afforded.
+- `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R26
+- `laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md`
+
+### 19. SHOULD BOHEMIA LOOK MORE LIKE MACHINE PARTY?
+**YES — HE SAID SO ON 8/3 AND IT IS A NAMED VISUAL REFERENCE NOW.** *"I really want
+my game to look more like that very good."* No paint on any object, ONE grime pass
+over everything, dark as the default, stepped animation. It does **not** make
+Bohemia 3D, and it does **not** lift the art freeze.
+- `laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md`
+- `records/BOHEMIA_RESEARCH_MACHINE_PARTY_8_3_26.md`
+
+### 20. CAN A LANE DECIDE ART LOOKS GOOD ENOUGH TO SHIP?
 **NO. HE THUMBS. EVERYTHING ELSE IS OURS.** Machine gates prove craft; only Paolo
 judges whether it looks right.
 - `laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md`
@@ -174,4 +229,28 @@ stat be a mini-game | no. he said no on 8/1; do not re-propose | records/BOHEMIA
 mini-game rather than a modifier | no. killed 8/1 | records/BOHEMIA_RF4_DIRECTION_KILL_8_1_26.md
 should the violence be gory | no. TRAUMATIC not gory; gore is never the mechanism | laws/BOHEMIA_ADDENDUM_TRAUMATIC_NOT_GORY_7_31_26.md
 how gory should | traumatic, not gory. two different dials | laws/BOHEMIA_ADDENDUM_TRAUMATIC_NOT_GORY_7_31_26.md
+universal clock | one. and time keeps moving while you rest | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+more than one clock | no. ONE universal clock, and the camp meter is a meter | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+fade to black | no. rest is a VISIBLE fast-forward you watch | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+does time stop while you rest | no. time keeps moving, events can interrupt | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+hanging out different from sleeping | no. sleep/chill/hang out are ONE thing | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+chilling a separate | no. sleep/chill/hang out are ONE thing, one set of benefits | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+how does fast travel unlock | by having WALKED the district | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+gate fast travel | on having walked the district on foot | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+encumbrance a hard | no. encumbrance is a SLOWDOWN, never a wall | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+carrying too much stop | no. it slows you down, it never blocks you | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+speech check a percentage | no. BINARY. you can or you cannot. no save scumming | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+percentage on a check | no. binary only -- a percentage invites save scumming | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+save scumming | he is not a fan. checks are binary, never a roll | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+refuse a main quest | no. main quests cannot be refused | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+turn down a quest | side quests give VARIATIONS, not rejection; clear it off the phone | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+morality meter | no. record it SILENTLY. a ledger, never a bar | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+a morality score | no. logged silently, shown to nobody | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+show the player their | no morality/karma display. the ledger is silent | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+inherited perks | no. a BOOSTED START instead | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+perks carry to the heir | no. no individual perks; gear at the family house carries | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+what does an heir inherit | gear at the family house, the camp, lingering city choices | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+how does neglect bite | it doesn't. you just still have the shitty camp | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+look more like machine party | yes. named visual reference 8/3, and it is not 3D | laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md
+should we make it 3d | no. pixel art at 45 degrees. the reference is not the geometry | laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md
 ```

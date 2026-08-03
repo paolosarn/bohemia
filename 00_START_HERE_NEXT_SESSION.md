@@ -1,3 +1,89 @@
+LAB (lab-e2r7sv): 8/3 (a) LATEST -- MACHINE PARTY IS A NAMED VISUAL REFERENCE NOW,
+AND THIRTY RULINGS HE ALREADY GAVE ARE FINALLY ON DISK.
+
+=== HE ASKED FOR THE MACHINE PARTY LOOK (records/BOHEMIA_RESEARCH_MACHINE_PARTY_8_3_26.md) ===
+"I really want my game to look more like that very good." Four rounds of research.
+THE THING THAT HAD TO BE SAID FIRST: Machine Party is low-poly 3D built in Blender and
+Bohemia is pixel art at 45 degrees, so the geometry is not available. Six of the eight
+findings are resolution-independent anyway, and one of them is the answer to the freeze:
+  * NO PAINT. Klubnika's own rule -- every object designed by a fictional engineer who
+    did not care how it looked. Sharp angles, bare minimum, brutalism as the reference.
+  * THE GRIME IS ONE PASS OVER EVERYTHING, AFTER THE FACT. He painted dirty leaks into
+    every corner of every texture in Buckshot Roulette and it "blends the entire thing
+    together rather than having different objects." He does not even UV unwrap properly
+    and nobody notices, because the grunge covers it. THAT IS THE ANSWER TO "THE WORLD
+    DOES NOT LOOK CONSISTENT" -- it is not a higher bar per tile, it is one pass across
+    the whole bank.
+  * FIVE-COLOUR WARM-DEAD RAMP, NO COOL COLOUR. Dark is the default, lit is the exception.
+    Which is CLUSTERED POWER + LIGHT = TERRITORY already in law and not yet in the render.
+  * STEPPED, HELD ANIMATION reading as stop-motion. We already own the grid for it: 120 BPM.
+  * THE MENACE IS IN WHAT THE OBJECT IS FOR. An emotionless machine with no failsafe.
+    Corroborates TRAUMATIC NOT GORY from a second direction.
+NOT TRANSFERABLE: the geometry, the camera, computed lighting, fog. And ONE DELIBERATE
+DIVERGENCE: he let a gameplay-critical item go hard to read to protect the mood; we take
+his palette discipline and REFUSE that trade, because SUN MODE exists.
+HONEST LIMIT: every primary page 403'd through the proxy (Steam, his own site, all four
+interviews, lospec, every review). It is DOC_ONLY, the quotes are close paraphrase, and
+I never saw the game move. Said so at length in the record.
+
+=== LAW: laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md, 7 clauses, LOCKED ===
+It does NOT lift the art freeze and it authorises no pixel. It contains ZERO hex colour
+values on purpose -- the palette is his and always was. Gate: gates/no_paint_gate.js,
+42 checks, and its load-bearing one is the DERIVATIVE sweep: any file that cites this law
+and then defines a palette off it, or declares the freeze over, fails the build. A named
+reference plus a written brief is exactly the document shape that reads like a green light
+for the art lane, and it is the opposite of one.
+
+=== THE DEBT I CLEARED (records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md) ===
+He answered 12 questions plus 5 follow-ups on 8/1-8/2 saying "Don't do anything yet I'm
+still answering your questions" -- and I kept obeying that AFTER he finished, so thirty
+rulings lived only in a context window for two days. "Don't do anything" meant don't
+build. It never meant don't write it down. All thirty are on disk now. The big ones:
+  R3  rest is a VISIBLE FAST-FORWARD, never a fade to black (and R4: events interrupt it)
+  R7  sleeping / chilling / hanging out are ONE thing with ONE set of benefits
+  R8  ONE UNIVERSAL CLOCK ("Are you stupid?")
+  R9  fast travel unlocks by HAVING WALKED the district
+  R10 encumbrance is a SLOWDOWN, never a wall (rides the action-cost shape for free)
+  R12 NO SAVE SCUMMING: checks are BINARY, you can or you cannot. R13: faction is a valid key
+  R14/R15/R16 main quests unrefusable; side quests give VARIATIONS not rejection; clear off the phone
+  R17 the mercy/brutality ledger is SILENT -- record it, show nobody, decide later
+  R20/R21 witness plumbing on ALL NPCs, and STORIES SPREAD LIKE A PLAGUE with NPC memory
+  R24 GEAR STORED AT THE FAMILY HOUSE CARRIES across generations
+  R25 no inherited perks, a boosted start instead. R26: the camp upgrades across acts
+  R28 the whole dynasty layer derives from REALISM -- "what realistically happens 40 years after"
+TWO APPARENT CONTRADICTIONS RESOLVED IN WRITING so nobody "fixes" them: ONE CLOCK, TWO
+METERS (the camp meter is a meter, not a clock), and "how does neglect bite without
+upkeep" -> IT DOESN'T, YOU JUST STILL HAVE THE SHITTY CAMP.
+Gate: gates/rulings_gate.js, 50 checks, incl. two STRUCTURAL sweeps -- no percentage
+social check anywhere, and no morality value drawn for the player.
+
+=== THE BUG I WROTE AND CAUGHT (ninth instance) ===
+rulings_gate's first draft matched any `karma: 0` and instantly red-flagged
+engine/bohemia_engine.js -- which is the dynasty save's SILENT karma counter feeding the
+monument form, i.e. exactly what R17 ASKS FOR. Another lane's correct work, nearly failed
+by my gate, the same way ten_years_cold_gate falsely failed bohemia_purse.js. A check that
+hunts a WORD instead of a THING. The ban is DISPLAY only. Every pattern in both new gates
+was mutation-tested in both directions.
+
+=== 25 NEW SETTLED ROWS ===
+records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md is at 49 settled questions (was 24). Ask him
+about the clock, fast travel, encumbrance, save scumming, refusing a quest, a morality
+meter, inherited perks, neglect, or whether to go 3D, and answered_gate.py fails the build.
+
+=== NOT DONE / THE QUEUE ===
+1. R21 IS THE TOP LAB ITEM: research how games model rumour spread + NPC memory. He asked
+   for it explicitly ("do some online research on how games have previously done that").
+   FNV's two-counter reputation and RDR2's witness system are already studied and both
+   feed straight in.
+2. R30 "let's look into it" -- the legacy-roguelite family. The transcription was garbled
+   and I am NOT guessing at a title. R29 (Rogue Fable) is NOT live permission: that
+   direction was KILLED 8/1 and GRAVEYARD IS FINAL.
+3. Canon-contradiction auditing across the 275 indexed files. Two real ones found so far
+   (upkeep vs no-economy, both places). No verdict needed to keep going.
+4. DID NOT TOUCH #buildstamp. This ship is laws/records/gates only -- nothing to look at,
+   and the alpha is the ART/RUN lanes' file today. Bumping it would tell him there is
+   something new on the surface when there is not.
+
 PEOPLE (7h9sfy): 8/2 (f) LATEST — *** EVERY GATE IN THIS LANE IS GREEN ABOUT A PAGE THE
 ALPHA NEVER SHOWS. READ THIS BEFORE YOU BUILD ANYTHING HERE. ***
 Record: records/BOHEMIA_HE_WAS_NEVER_ON_MY_SURFACE_8_2_26.md
