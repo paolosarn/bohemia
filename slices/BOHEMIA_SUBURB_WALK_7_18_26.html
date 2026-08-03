@@ -147,14 +147,10 @@
      LAST PASS, deliberately: homes and driveways are already stamped, so a
      driveway apron (code 3) keeps its cells and the walk breaks where a car
      crosses it, which is what a real street does. Only dead ground converts. */
-  function layWalks(g){
-    var W=Wd(g),H=Ht(g),add=[];
-    for(var y=1;y<H-1;y++)for(var x=1;x<W-1;x++){
-      if(g[y][x]!==0) continue;                                  // only dead ground converts
-      if(g[y][x+1]===1||g[y][x-1]===1||g[y+1][x]===1||g[y-1][x]===1) add.push([x,y]);
-    }
-    for(var i=0;i<add.length;i++) g[add[i][1]][add[i][0]]=10;    // one grid, hugging the street
-  }
+  /* ONE BODY, AND IT IS IN THE KIT NOW. This was private to this file, which is exactly
+     why D1 was true in one district out of forty: nobody else could call it. K.layWalks is
+     the same code, proved byte-identical on 32 blocks / 786,432 cells; this is the caller. */
+  function layWalks(g){ return K.layWalks(g,{road:{1:1},walk:10,over:function(c){return c===0;}}); }
   function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
   // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
   // ~0.15 acre lots, 2-story homes, packed). The developer maximizes LOTS; streets
@@ -358,7 +354,10 @@
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
     0:{name:'dead-ground (yard)', kind:'ground',    act1:'dead-dirt front/back yard, no grass, cracked'},
-    1:{name:'road',               kind:'drive',      act1:'cracked residential street asphalt (car-drivable)'},
+    /* street:true = a PUBLIC RIGHT OF WAY, so D1 demands a walk beside it. Code 3 (the
+       driveway apron) deliberately has no such flag: D1's own text lets the apron cross
+       the walk, and that is what keeps 1,928 legal garage-to-apron adjacencies legal. */
+    1:{name:'road',               kind:'drive',      street:true, act1:'cracked residential street asphalt (car-drivable)'},
     2:{name:'house',              kind:'building',   act1:'single-story stucco tract house, faded, dark windows', enter:'house floorplan (residential): living + kitchen up front, bedrooms/bath off a hall, door to the garage'},
     3:{name:'driveway',           kind:'drive',      act1:'cracked concrete driveway apron (drivable to garage)'},
     4:{name:'wall',               kind:'fence',      act1:'block perimeter wall / side fence, tan stucco, chipped'},
