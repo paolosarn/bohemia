@@ -406,6 +406,55 @@
     return '#'+v.map(function(n){ n=Math.round(n+(255-n)*f); return (n<16?'0':'')+n.toString(16); }).join('');
   }
 
+  /* D1: NO BUILDING EVER SITS ON A SIDEWALK. ANYWHERE IN THE WORLD.
+     Paolo 7/31, LOCKED, his caps: "houses or buildings should NEVER SIT ON THE SIDEWALK
+     EVER ANYWHERE IN THE WORLD." laws/BOHEMIA_THE_BUILT_WORLD_LAW_7_31_26.md clause D1.
+
+     It was true in ONE district out of forty, and the reason was this function's ADDRESS:
+     layWalks() lived PRIVATE inside bohemia_suburb.js, unexported, so no other generator
+     could lay a walk even if it wanted to. Promoted verbatim here - proved byte-identical
+     to the suburb's own on 32 blocks / 786,432 cells, so nothing in the suburb moves.
+
+     WHICH DRIVE TILES DEMAND A WALK IS DECLARED, NEVER GUESSED. A legend drive entry that
+     says `street:true` is a public right-of-way and wears a walk. Anything else - a
+     driveway apron, a lot aisle, a truck court, a haul road - does not, and D1 itself says
+     the apron is allowed to cross the walk. That declaration is not decoration: without it
+     the only rule you could write fails the SUBURB, the one district that is correct,
+     because a suburb GARAGE touches its own APRON 1,928 times per 24 blocks.
+     DEFAULT IS FALSE. A district that declares nothing is unchanged and ungated. */
+  function streetCodes(legend){ var S={},any=false; for(var c in legend){ var e=legend[c];
+    if(e && e.kind==='drive' && e.street===true){ S[c]=1; any=true; } } return any?S:null; }
+  /* ONE GRID OF WALK hugging every declared street. Only `over` cells convert, so a
+     driveway apron keeps its cells and the walk breaks where a car crosses it - which is
+     what a real street does. */
+  function layWalks(g,opt){ opt=opt||{};
+    var road=opt.road||{1:1}, walk=(opt.walk==null)?10:opt.walk;
+    var over=opt.over||function(c){ return c===0; };
+    var W=g[0].length,H=g.length,add=[],x,y;
+    for(y=1;y<H-1;y++)for(x=1;x<W-1;x++){
+      if(!over(g[y][x])) continue;
+      if(road[g[y][x+1]]||road[g[y][x-1]]||road[g[y+1][x]]||road[g[y-1][x]]) add.push([x,y]);
+    }
+    for(var i=0;i<add.length;i++) g[add[i][1]][add[i][0]]=walk;
+    return add.length; }
+  /* THE ORDER IS THE ENFORCEMENT, not an audit afterwards. The walk goes down first and
+     this refuses the WHOLE footprint if any cell of it lands on one - the generalised form
+     of the suburb's home() check (bohemia_suburb.js:90-96). You cannot build on the walk
+     because the walk is there first. */
+  function canPlaceMass(g,cells,opt){ opt=opt||{};
+    var free=opt.free||function(c){ return c===0; };
+    var W=g[0].length,H=g.length,i;
+    for(i=0;i<cells.length;i++){ var x=cells[i][0],y=cells[i][1];
+      if(x<0||y<0||x>=W||y>=H) return false;
+      if(!free(g[y][x])) return false; }
+    return true; }
+  /* D1-EXEMPT (Paolo 7/31, LOCKED, verbatim: "OK, freeways and railyards do not get
+     sidewalks"). A surface whose whole purpose is vehicles or rail wears no pedestrian
+     walk. THIS LIST IS HIS, NOT MINE TO EXTEND - a session that wants another district on
+     it ASKS HIM, it does not reason by analogy. */
+  var D1_EXEMPT={freeway:1,interchange:1,rail:1,railyard:1,speedway:1,airport:1,airbase:1,
+                 drivein:1,truckstop:1,garage:1};
+
   // EXPLAIN-EVERY-TILE (Paolo 7/18): every non-ground tile must map to a named thing in the
   // district's legend (palette), and there must be little unexplained void.
   function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(c!==0 && !(c in palette)) return false; } return true; }
@@ -437,6 +486,7 @@
     legendOk:legendOk,voidFraction:voidFraction,largestBlob:largestBlob,roofsAndDoors:roofsAndDoors,buildingEdges:buildingEdges,lighten:lighten,
     STREET_ORDER:STREET_ORDER,primaryStreet:primaryStreet,rotateCW:rotateCW,scanGates:scanGates,
     pedGate:pedGate,rotateToStreet:rotateToStreet,
+    streetCodes:streetCodes,layWalks:layWalks,canPlaceMass:canPlaceMass,D1_EXEMPT:D1_EXEMPT,
     driveNetworkOk:driveNetworkOk,driveTouchesEdge:driveTouchesEdge,stallsReachable:stallsReachable,
     driveReachFromStreet:driveReachFromStreet,driveNetworkReach:driveNetworkReach,driveWidthScore:driveWidthScore,driveMask:driveMask,driveConductors:driveConductors,KIND_LAYER:KIND_LAYER,tileLayer:tileLayer};
   if(typeof module!=='undefined')module.exports=API;

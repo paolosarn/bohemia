@@ -1,4 +1,4 @@
-# BOHEMIA CANON INDEX — regenerated 08/02/26
+# BOHEMIA CANON INDEX — regenerated 08/03/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
@@ -65,6 +65,7 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
   - `GDD_v2 six-ending framing (Liberation/Surrender/Compromise/Unknown/Nuked/Space)` -> folded 7/18/26 into the THREE endings (Liberate/Respect/Become) in laws/BOHEMIA_STORY_MASTER_7_18_26.md. GDD v2 stays the sole home of its other canon (not archived); only the six-ending list is superseded by the three.
   - `BOHEMIA_ADDENDUM_RECORDED_VS_UNRECORDED_7_1_26.md` -> RETIRED 7/20/26 by Paolo's TOTAL RECALL call (laws/BOHEMIA_ADDENDUM_SOCIAL_FEED_QUEST_LOG_7_20_26.md): everything is remembered on the feed, no recorded:false / off-feed channel. The two-ledger split was a Claude-originated engine framing Paolo rejected. Also overrides GDD v2 section blind-spot's "off-feed is the dynasty's advantage" premise; the Act 3 win runs through the feed (section 18: the feed is the battlefield), not around it. Moved to archive/.
   - `BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md` -> SUPERSEDED 7/25/26 by laws/BOHEMIA_ADDENDUM_ONE_RIG_VARIATIONS_7_25_26.md. Paolo killed the separate female rig after four rejected versions in one session ("remove the whole female rig... this two-rig, male and female shit you're doing is really bad"). Everything renders off the ONE male rig; body variety becomes VARIATION SLIDERS (height / belly / arms) on that rig, built in a new session. The whole premise of the 7/21 addendum -- that a second body gets DERIVED from the male paint by transform and judged as a candidate -- is dead, so the file cannot ride next to its replacement. Post-mortem: records/BOHEMIA_WOMAN_RIG_POSTMORTEM_7_25_26.txt. Moved to archive/.
+  - `BOHEMIA_EW_DOORS_WHAT_IT_NEEDS_8_2_26.md` -> 8/3/26 | WRONG PREMISE. It read the E/W door bank as doors for east/west-FACING walls and claimed the blocker was a facade-geometry rebuild plus a building-silhouette ruling from Paolo. Measured: the W tile is opaque in columns 0..6 and the E tile in 37..43 -- 7px frame-edge strips for the NEIGHBOURING tile, i.e. the door's JAMB. No geometry rebuild, no ruling needed. Replaced by records/BOHEMIA_THE_SIDE_DOOR_HE_COULD_NOT_SEE_8_3_26.md
 
 **LINE_COLOR_LAW  (+ ENFORCED)**
   - `BOHEMIA_ADDENDUM_LINE_COLOR_LAW_ENFORCED_7_16_26.md`  <- CURRENT

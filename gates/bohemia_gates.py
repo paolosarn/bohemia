@@ -105,6 +105,8 @@ GATES = [
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
      'Paolo 7/31: if he bought it, it wins -- his library draws FIRST, painted is the named fallback', False),
+    ('D1 KERB',        ['node', 'gates/d1_kerb_gate.js'],
+     'Paolo 7/31: NEVER ON THE SIDEWALK, ANYWHERE -- swept over the whole district registry, not one module', False),
     ('SUBURB STREET',  ['node', 'gates/suburb_street_gate.js'],
      'Paolo 7/31: a ONE-GRID sidewalk, NO building on it ever, and driveways exactly 4x5', False),
     ('COMMERCIAL',     ['node', 'gates/commercial_gate.js'],
