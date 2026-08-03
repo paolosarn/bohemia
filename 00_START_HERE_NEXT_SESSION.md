@@ -258,6 +258,39 @@ PITCH-STABILITY theory it was built on is DEAD and recorded as dead. That is two
 of my theories killed in one day, and the honest lesson in the graveyard is to
 stop reverse-engineering his silent kills and start from the one sentence he
 actually wrote. NEW_VIBES is empty. Two song slots stay open on purpose.
+RUN (run-eak241): 8/3 (c) LATEST -- BUILDINGS HAVE DOORS NOW, AND A DOOR IS THE WAY IN.
+Ship: BUILD 8/3c. Tab: RUN. LAW: laws/BOHEMIA_LAW_MEASURE_THE_THING_HE_NAMED_8_3_26.md
+(he asked for laws every other session must follow; that file is it, READ IT).
+
+"WY IS IT WHEN IM IN THE OUTSIDE OF A BUILDING I CAN ENTER IT FROM JUST WALKING TO ANY
+WALL." The 8/2 pass shipped the SAFE HALF (a mass WITH a door can only be entered through
+it; a mass with NO door left alone so nothing seals shut). Measured on the real surface:
+    suburb  42 masses / 8 doors   commercial 22 / 0   farm 10 / 0
+    TOTAL   74 masses, 8 with a door, 66 WITH NO DOOR = the rule covered 11%
+The blocker was never the rule. BUILDINGS HAD NO DOORS. The generic kit path never
+placed one, on purpose (7/27: "the portals are the doors") -- which only holds if every
+mass has a portal, and most do not.
+FIX, and it is the suburb's own rule with the suburb-specific codes taken out:
+  A DOOR GOES WHERE AN ENTERABLE BUILDING MEETS GROUND A PERSON CAN STAND ON, one per
+  contiguous run of that frontage, and nowhere else.
+Never hashed. Read off the plot the generator already made, so every door is reachable
+BY CONSTRUCTION. entry.enter gates which masses qualify, so a FENCE never gets a front
+door (fences live on the same branch -- that is why wallH=2 is there).
+AFTER: 74 masses, 29 with a door. farm 10/10, commercial 11/22, suburb unchanged 8/42.
+89% permeable -> 61%.
+SUBURB IS THE RESIDUAL AND IT IS THE NEXT MOVE: its own rule only puts a door where the
+house meets DRIVEWAY or STREET, so 34 of 42 masses whose frontage is dead-ground backyard
+get none. A back door onto a walkable yard IS reachable. Extending that needs mass
+knowledge at generation time, so it was not bolted on late in a long session.
+GATE: gates/everydoor_gate.js (EVERY DOOR), a RATCHET on real coverage measured in a
+browser. Floor 35% (reading 39%), was 11%. Also asserts a minimum mass count so coverage
+can never be won by DELETING buildings. Prints the permeable residual every run.
+No lockouts: DOORWAY 5/0, FRONT DOOR 4/0, STEP INSIDE 8/0, DOOR JAMB 15/0.
+
+WATCH OUT, IT COST ME AN HOUR: this container's checkout was silently REWOUND to an older
+main (a0e51e8) mid-session while my commits sat safely on origin/main. Markers vanished
+from the blob, gate files "disappeared". If something you shipped seems to have evaporated,
+check `git rev-parse HEAD` against `git rev-parse origin/main` BEFORE believing it.
 
 RUN (run-eak241): 8/3 (b) -- AND THE ONE THING I STOPPED ON.
 NOT SHIPPED, ON PURPOSE: the interior surfaces. Read

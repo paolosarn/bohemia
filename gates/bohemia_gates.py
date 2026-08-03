@@ -105,6 +105,8 @@ GATES = [
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
      'Paolo 7/31: if he bought it, it wins -- his library draws FIRST, painted is the named fallback', False),
+    ('EVERY DOOR',     ['node', 'gates/everydoor_gate.js'],
+     'Paolo: "WY IS IT WHEN IM IN THE OUTSIDE OF A BUILDING I CAN ENTER IT FROM JUST WALKING TO ANY WALL" -- the 8/2 rule was right and covered 11% of buildings because buildings had no doors; a RATCHET on real door coverage, measured in a browser, that cannot be won by deleting buildings', True),
     ('STEP INSIDE',    ['node', 'gates/stepinside_gate.js'],
      'Paolo: "WHY WHEN I ENTER A HOUSE I CANT GO LEFT AND RIGHT" -- he was landing ON the door cell with a jamb either side; the gate PRESSES left and right through the real mover instead of flood-filling the passability test', False),
     ('KIT BINDING',    ['node', 'gates/city_kit_binding_gate.js'],
