@@ -79,15 +79,20 @@ ok('clause 3 in code: the wobble is HASHED, never rolled (an NPC must not shimme
    and a fade taper all are. This is the piece fades will reuse. */
 ok('clause 4 in code: ONE shared texture function, not a rule per drawing path',
   /var texSkip=function\(x,y\)/.test(src));
+/* THE RATIO AND THE ANCHOR ARE UNCHANGED -- they were factored into _ph/_pq when
+   the phase learned to ROTATE WITH THE VIEW (8/2). Cornrows run front-to-back over
+   the scalp: from the front you look ACROSS them (vertical stripes), from the SIDE
+   you look ALONG them (horizontal bands). The gate pinned the literal inline
+   expressions, so refactoring them read as removing them. Pin the behaviour. */
 ok('clause 4 in code: two pixels of hair to one of skin (ropes)',
-  /tex==='locs'\)\s*return \(\(x-hMn\)%3===2\)/.test(src));
+  /if\(tex==='locs'\)\s*return \(_ph%3===2\)/.test(src));
 ok('clause 4 in code: the same ratio on the weave, not just the ropes',
-  /tex==='braid'\)\s*return \(\(\(y-hTop\)%3===2\)&&\(\(x-hMn\)%3===2\)\)/.test(src));
+  /if\(tex==='braid'\)\s*return \(\(_ph%3===2\)&&\(_pq%3===2\)\)/.test(src));
 ok('clause 4 in code: the phase is anchored to the HEAD, not the moving row start',
-  !/%3===2/.test(src.match(/var texSkip[\s\S]{0,400}/)[0].replace(/x-hMn/g, '')) === false
-  && !/\(x-mn\)%3/.test(src));
-ok('clause 4 in code: the FRONT CURTAINS use it too (they drew solid before)',
-  /if\(texSkip\(xl,y\)\)continue/.test(src) && /if\(texSkip\(xr,y\)\)continue/.test(src));
+  /_ph=prof\?\(y-hTop\):\(x-hMn\)/.test(src) && !/\(x-mn\)%3/.test(src));
+ok('clause 4 in code: and the pattern ROTATES with the view (rows run the right way in profile)',
+  /_pq=prof\?\(x-hMn\):\(y-hTop\)/.test(src));
+
 ok('clause 5 in code: the head centre floors instead of rounding',
   /hcx=Math\.floor\(\(hMn\+hMx\)\/2\)/.test(src));
 /* THIS PINNED THE BROKEN FIX. It asserted the strip centred via
