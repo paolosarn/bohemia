@@ -99,6 +99,10 @@ def parent_block(bank):
   'use strict';
   if(window.__SFX_WIRE)return; window.__SFX_WIRE=true;
   var APPROVED=%s;
+  /* THE BOARD HAS TO KNOW WHICH MOMENTS ACTUALLY HAVE A SOUND (8/2), and it
+     must read the SAME table playSFX reads. A second copy of his thumbs is a
+     second thing that can be wrong. */
+  try{ window.__SFX_APPROVED=APPROVED; }catch(_e){}
   var last={};                       /* per event: what played last, never twice */
   var SFX_COUNT=0;                   /* what the status line in the MUSIC tab reports */
   function pick(ev){

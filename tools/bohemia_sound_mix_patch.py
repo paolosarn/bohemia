@@ -40,6 +40,27 @@ nothing else, and a real output bus is created underneath it:
   - the compressor and brickwall limiter still sit at the very end, so the
     screech law's guarantee is unchanged: nothing gets past them.
 
+=== 3. THE SOUNDBOARD (added 8/2, after he said it plainly) ==================
+
+"bro wtf every sfx should be in the sfx in the music menu not for me to find in
+the game"
+
+He was right and the cause was mine. The SFX judge panel collapses every moment
+he has FINISHED judging - `isOpen = !done` - because it was designed as a to-do
+list that opens on the work that is left. That is correct for JUDGING. But he
+judged all 100 candidates, so every card in the panel is now folded shut and
+dimmed, and the panel stopped being a place where a sound can be HEARD. Then I
+told him to go win a firefight to hear the block and eat food to hear the pickup.
+Making him play the game to audition a sound effect is the opposite of the
+verdict workflow this whole repo runs on.
+
+So: a SOUNDBOARD, above the judge, always open, nothing to expand. One button per
+game moment, and tapping it plays THE SOUND THE GAME ACTUALLY PLAYS -- through
+window.playSFX, the same call the run and combat make, so what he hears is not a
+preview of a candidate, it is the thing. The moments with no approved sound say
+so on the button instead of being hidden, because a silent button he cannot
+explain is worse than an honest one.
+
 === 2. THE VOLUME CONTROL, IN HIS OWN WORDS ==================================
 
 Paolo, 8/2: "keep in mind at the end of the day like when we have a menu and
@@ -173,7 +194,21 @@ BLOCK = r"""
   +'.mixRow label{flex:0 0 74px;font:700 10px ui-monospace,monospace;letter-spacing:1px;color:#9d90b8}'
   +'.mixRow input[type=range]{flex:1 1 auto;height:34px;accent-color:#8f6fd0;background:transparent}'
   +'.mixVal{flex:0 0 42px;text-align:right;font:700 11px ui-monospace,monospace;color:#e6dcff}'
-  +'.mixNote{margin-top:6px;font:400 9.5px ui-monospace,monospace;color:#6d6386;line-height:1.45}';
+  +'.mixNote{margin-top:6px;font:400 9.5px ui-monospace,monospace;color:#6d6386;line-height:1.45}'
+  +'#sbWrap{margin:0 0 10px 0;padding:10px 12px;border:1px solid #3a3350;border-radius:10px;'
+  +'background:linear-gradient(180deg,#141020,#0b0810)}'
+  +'#sbWrap h4{margin:0 0 4px 0;font:800 10.5px ui-monospace,monospace;letter-spacing:2px;'
+  +'color:#c9b6ea;text-transform:uppercase}'
+  +'.sbGroup{margin:9px 0 0 0}'
+  +'.sbGL{font:700 9px ui-monospace,monospace;letter-spacing:2px;color:#6d6386;margin:0 0 5px 2px}'
+  +'.sbRow{display:flex;flex-wrap:wrap;gap:6px}'
+  +'.sbBtn{flex:1 1 46%;min-height:46px;padding:6px 8px;border:1px solid #463d63;border-radius:8px;'
+  +'background:#1d1730;color:#e6dcff;text-align:left;display:flex;flex-direction:column;'
+  +'justify-content:center;gap:2px;cursor:pointer}'
+  +'.sbBtn .sbName{font:700 10px ui-monospace,monospace;letter-spacing:.6px;line-height:1.2}'
+  +'.sbBtn .sbN{font:400 8.5px ui-monospace,monospace;color:#8d81ab;letter-spacing:.5px}'
+  +'.sbBtn.sbHot{background:#3a2c66;border-color:#8f6fd0}'
+  +'.sbBtn.sbDead{opacity:.45}';
  try{ var st=document.createElement('style'); st.textContent=CSS; document.head.appendChild(st); }catch(e){}
 
  function row(key,label,onDone){
@@ -193,6 +228,60 @@ BLOCK = r"""
   });
   r.appendChild(l); r.appendChild(i); r.appendChild(v);
   return r;
+ }
+
+ /* ---- THE SOUNDBOARD ---------------------------------------------------
+    Paolo 8/2: "every sfx should be in the sfx in the music menu not for me to
+    find in the game". Every game moment, one button, always visible, and the
+    tap plays what the GAME plays -- window.playSFX is the same entry point the
+    run and combat use, so this is the sound and not a preview of one. */
+ var BOARD=[
+  ['WALKING',  ['step_asphalt','step_dirt','step_gravel']],
+  ['THE FIGHT',['shot','hit','vital','block','hurt','kill','clear','miss']],
+  ['THE WORLD',['air_day','air_night','air_inside','door_open','door_shut']],
+  ['YOU',      ['pickup','phone_buzz','save_chime','ui_tap']]
+ ];
+ function labelOf(ev){
+  try{ var E=BOH_SFX.EVENTS; for(var i=0;i<E.length;i++) if(E[i].ev===ev) return E[i].label; }catch(e){}
+  return ev;
+ }
+ function approvedCount(ev){
+  try{ return (window.__SFX_APPROVED && window.__SFX_APPROVED[ev] || []).length; }catch(e){ return 0; }
+ }
+ function boardBlock(){
+  var b=document.createElement('div'); b.id='sbWrap';
+  var h=document.createElement('h4'); h.textContent='EVERY SOUND IN THE GAME';
+  b.appendChild(h);
+  var sub=document.createElement('div'); sub.className='mixNote';
+  sub.style.marginTop='0'; sub.style.marginBottom='8px';
+  sub.textContent='Tap one and you hear exactly what the game plays. Nothing here '
+   +'needs judging and nothing needs finding in a run.';
+  b.appendChild(sub);
+  BOARD.forEach(function(grp){
+   var g=document.createElement('div'); g.className='sbGroup';
+   var gl=document.createElement('div'); gl.className='sbGL'; gl.textContent=grp[0];
+   g.appendChild(gl);
+   var row=document.createElement('div'); row.className='sbRow';
+   grp[1].forEach(function(ev){
+    var n=approvedCount(ev);
+    var btn=document.createElement('button');
+    btn.className='sbBtn'+(n?'':' sbDead');
+    btn.id='sb_'+ev;
+    btn.setAttribute('data-ev',ev);
+    btn.innerHTML='<span class="sbName">'+labelOf(ev)+'</span>'
+      +'<span class="sbN">'+(n? n+(n===1?' sound':' sounds') : 'no sound yet')+'</span>';
+    btn.addEventListener('click',function(){
+     /* THE GAME'S OWN CALL. Not a private preview path -- a side door would let
+        the board sound healthy while the game is silent, which is exactly the
+        class of lie this lane has already shipped once. */
+     try{ if(window.playSFX) window.playSFX(ev); }catch(e){}
+     btn.classList.add('sbHot'); setTimeout(function(){ btn.classList.remove('sbHot'); },220);
+    });
+    row.appendChild(btn);
+   });
+   g.appendChild(row); b.appendChild(g);
+  });
+  return b;
  }
 
  function build(){
@@ -219,8 +308,19 @@ BLOCK = r"""
     re-adopt as the backstop. */
  function mount(){
   var P=document.getElementById('p-music'); if(!P) return;
-  if(document.getElementById('mixWrap')) return;
+  if(document.getElementById('mixWrap') && document.getElementById('sbWrap')) return;
+  if(document.getElementById('mixWrap')){
+   if(!document.getElementById('sbWrap')){
+    var mw=document.getElementById('mixWrap');
+    P.insertBefore(boardBlock(), mw.nextSibling);
+   }
+   return;
+  }
   P.insertBefore(build(), P.firstChild);
+  if(!document.getElementById('sbWrap')){
+   var m=document.getElementById('mixWrap');
+   P.insertBefore(boardBlock(), m ? m.nextSibling : P.firstChild);
+  }
  }
  function hook(){
   if(typeof MUS==='undefined'||!MUS.build) return false;
@@ -229,7 +329,8 @@ BLOCK = r"""
   var prev=MUS.build.bind(MUS);
   MUS.build=function(){ prev(); try{ mount(); }catch(e){} };
   setInterval(function(){ var P=document.getElementById('p-music');
-    if(P&&P.children.length&&!document.getElementById('mixWrap')){ try{ mount(); }catch(e){} } },1500);
+    if(P&&P.children.length&&(!document.getElementById('mixWrap')||!document.getElementById('sbWrap'))){
+      try{ mount(); }catch(e){} } },1500);
   if(MUS.built){ try{ mount(); }catch(e){} }
   return true;
  }

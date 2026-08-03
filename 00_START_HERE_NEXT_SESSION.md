@@ -1,3 +1,38 @@
+SOUND (sound-xk7pjp): 8/2 (r) LATEST - EVERY SOUND IS A BUTTON IN THE MUSIC TAB.
+
+HE SAID: "bro wtf every sfx should be in the sfx in the music menu not for me to
+find in the game are you retarded"
+
+HE WAS RIGHT AND THE CAUSE WAS STRUCTURAL, not an oversight in wording. The SFX
+judge panel sets isOpen = !done, so every moment he has FINISHED judging is
+COLLAPSED. That is correct for a to-do list and useless the moment he catches up.
+He judged all 100 candidates, so MEASURED IN A REAL BROWSER: 20 of 20 cards
+folded shut. The MUSIC tab had nothing tappable in it. And then I told him to go
+win a firefight to hear the block and eat food to hear the pickup. Making him
+play the game to audition a sound effect is the opposite of the verdict workflow
+this whole repo runs on.
+
+THE FIX: a SOUNDBOARD above the judge, always open, nothing to expand. One button
+per game moment, grouped WALKING / THE FIGHT / THE WORLD / YOU. Tapping plays
+THE SOUND THE GAME PLAYS - it calls window.playSFX, the same entry point the run
+and combat use, so it is the thing and not a preview of it. Moments with no
+approved sound (the ten doors he killed, plus miss/vital/clear) are shown DIMMED
+and labelled "no sound yet" rather than hidden, because a silent button you
+cannot explain is worse than an honest one.
+
+GATE (sfx_wired_gate, now 284): the board exists, covers EVERY BOH_SFX.EVENTS
+entry, at least 20 buttons are actually on screen with nothing expanded,
+unapproved moments are marked dead, and seven of them are TAPPED BY CLICKING THE
+REAL BUTTON and must produce measurable audio at the output bus. Driven through
+the button and not through playSFX on purpose: a side door would let the board
+look healthy while his thumb got silence. The gate also PRINTS the judge-collapse
+count every run, so the reason the board exists stays visible.
+Mutation-tested: removing the combat group from the board turns it red on 5.
+
+THE LESSON FOR EVERY LANE, not just this one: a judging surface that hides
+finished work stops being a surface at all once he finishes. If he has to enter
+the game to experience a thing you built, you did not ship it to him.
+
 PEOPLE (factions): 8/2 (f) LATEST — VERDICT IN ON THE FACTION DOSSIERS: 15 UP, 0 DOWN,
 1 NOTED. Record: records/BOHEMIA_FACTION_VERDICT_8_2_26.txt
 

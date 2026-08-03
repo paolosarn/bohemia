@@ -309,6 +309,58 @@ const METER=`(function(){
   out.npcFar  = await neighbourAt(30);
 
   out.errs=errs;
+
+  /* ===== THE SOUNDBOARD (8/2) ============================================
+     Paolo: "bro wtf every sfx should be in the sfx in the music menu not for me
+     to find in the game". The judge panel collapses every moment he has FINISHED
+     judging, and he judged all 100, so the panel folds itself shut and there is
+     nothing left to tap. Then he was told to go win a firefight to hear a block.
+     Every game moment must be one visible button in the MUSIC tab, and tapping
+     it must make a REAL NOISE -- driven by clicking the actual button, not by
+     calling playSFX behind its back, because a side door would let the board
+     look healthy while the button is dead. */
+  await p.evaluate(()=>{ const t=[...document.querySelectorAll('.tab')]
+    .find(x=>x.getAttribute('data-p')==='music'); if(t)t.click(); });
+  await p.waitForTimeout(2500);
+  out.boardPresent = await p.evaluate(()=>!!document.getElementById('sbWrap'));
+  out.boardCovers = await p.evaluate(()=>{
+    try{ const have=new Set([...document.querySelectorAll('.sbBtn')].map(x=>x.getAttribute('data-ev')));
+      return BOH_SFX.EVENTS.every(E=>have.has(E.ev)) ? BOH_SFX.EVENTS.length : -1; }catch(e){ return -2; }
+  });
+  out.boardVisible = await p.evaluate(()=>[...document.querySelectorAll('.sbBtn')]
+    .filter(x=>x.getClientRects().length>0).length);
+  out.boardDeadMarked = await p.evaluate(()=>{
+    try{ const A=window.__SFX_APPROVED||{};
+      return [...document.querySelectorAll('.sbBtn')].every(x=>{
+        const n=(A[x.getAttribute('data-ev')]||[]).length;
+        return n>0 ? !x.classList.contains('sbDead') : x.classList.contains('sbDead'); });
+    }catch(e){ return false; }
+  });
+  /* the reason this whole thing was needed, measured so it stays measured */
+  out.judgeCollapsed = await p.evaluate(()=>{
+    const c=[...document.querySelectorAll('.sfxCard')]; let shut=0;
+    c.forEach(card=>{ const b=card.children[1]; if(b&&b.style.display==='none')shut++; });
+    return {cards:c.length, collapsed:shut};
+  });
+  await p.evaluate(()=>{
+    window.__BP=0;
+    const dst=window.__OUTBUS||MUS.MAST;
+    const an=MUS.AC.createAnalyser(); an.fftSize=2048; dst.connect(an);
+    const buf=new Float32Array(an.fftSize);
+    setInterval(()=>{ an.getFloatTimeDomainData(buf);
+      let m=0; for(let i=0;i<buf.length;i++){const v=Math.abs(buf[i]); if(v>m)m=v;}
+      if(m>window.__BP) window.__BP=m; },16);
+  });
+  async function tapBoard(ev){
+    await p.evaluate(()=>{window.__BP=0;}); await p.waitForTimeout(250);
+    await p.click('#sb_'+ev,{force:true}).catch(()=>{});
+    await p.waitForTimeout(1600);
+    return await p.evaluate(()=>window.__BP);
+  }
+  out.boardTaps={};
+  for(const ev of ['step_asphalt','kill','block','pickup','phone_buzz','air_night','shot'])
+    out.boardTaps[ev]=await tapBoard(ev);
+
   console.log(JSON.stringify(out));
   await b.close();
 })();
@@ -758,6 +810,38 @@ def main():
     # and the buzz must not announce an empty feed
     chk("if(feed.length) sfx('phone_buzz')" in run,
         'the phone buzzes even when nothing was posted, which is a lie he can hear')
+
+    # ---- 9: EVERY SOUND IS IN THE MENU (Paolo 8/2) ---------------------
+    # "bro wtf every sfx should be in the sfx in the music menu not for me to
+    # find in the game". He was right and the cause was structural: the judge
+    # panel opens on the work that is LEFT (isOpen = !done), which is correct
+    # for judging and useless once he has judged everything. He had finished all
+    # 100 candidates, so all 20 cards were folded shut and the panel had nothing
+    # tappable in it. Then I told him to win a firefight to hear the block.
+    chk(d.get('boardPresent'),
+        'there is no soundboard in the MUSIC tab, so hearing a sound means '
+        'playing the game until it happens')
+    chk((d.get('boardCovers') or -1) > 0,
+        'the soundboard does not cover every game moment (%s); a moment missing '
+        'from the board is a sound he can only find by playing'
+        % d.get('boardCovers'))
+    chk((d.get('boardVisible') or 0) >= 20,
+        'only %s board buttons are actually on screen -- the point is that '
+        'NOTHING has to be expanded' % (d.get('boardVisible') or 0))
+    chk(d.get('boardDeadMarked'),
+        'a moment with no approved sound is not marked dead on the board, so a '
+        'silent button reads as broken instead of honest')
+    taps = d.get('boardTaps') or {}
+    for ev, peak in sorted(taps.items()):
+        chk((peak or 0) > 0.02,
+            'TAPPING %s on the board made no sound (%.4f). The board is driven by '
+            'clicking the real button, so this is what his thumb would get.'
+            % (ev, peak or 0))
+    # AND THE CAUSE STAYS MEASURED. If the judge panel ever stops collapsing,
+    # this number moves and whoever reads it learns why the board exists.
+    jc = d.get('judgeCollapsed') or {}
+    print('  judge cards collapsed: %s of %s (this is WHY the board exists)'
+          % (jc.get('collapsed'), jc.get('cards')))
 
     print('  %d passed, %d FAILED' % (P, F))
     if not F:
