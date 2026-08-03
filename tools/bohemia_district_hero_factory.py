@@ -730,6 +730,148 @@ def build_library(P):
     return s, 6.4
 
 
+def _gable(s, org, size, rise, mat, ridge_frac=0.10):
+    """A PITCHED ROOF over a box footprint, as four proper quads plus a narrow ridge cap.
+
+    A church does not read as a church from a flat roof with a stripe painted down it. It
+    reads from its SECTION: two slopes meeting at a ridge, and gable ends you can see the
+    triangle of. So the roof is real geometry, not a decal.
+
+    The ridge is a narrow flat band rather than a knife edge on purpose: a true apex needs
+    triangles, and a triangle in this renderer is a quad with two coincident vertices --
+    the exact degenerate sliver that made every round roof look like a tarp (Paolo 8/2).
+    A truncated ridge keeps every face a real quad and reads identically at icon size.
+    """
+    x, y, z = org
+    dx, dy, dz = size
+    zb = z + dz
+    along_x = dx >= dy
+    rw = (dy if along_x else dx) * ridge_frac
+    if along_x:
+        y0, y1 = y + dy / 2 - rw / 2, y + dy / 2 + rw / 2
+        a = (x, y, zb); b = (x + dx, y, zb); c = (x + dx, y + dy, zb); d = (x, y + dy, zb)
+        r0 = (x, y0, zb + rise); r1 = (x + dx, y0, zb + rise)
+        r2 = (x + dx, y1, zb + rise); r3 = (x, y1, zb + rise)
+    else:
+        x0, x1 = x + dx / 2 - rw / 2, x + dx / 2 + rw / 2
+        a = (x, y, zb); b = (x + dx, y, zb); c = (x + dx, y + dy, zb); d = (x, y + dy, zb)
+        r0 = (x0, y, zb + rise); r1 = (x1, y, zb + rise)
+        r2 = (x1, y + dy, zb + rise); r3 = (x0, y + dy, zb + rise)
+    lit = {'c': tuple(min(255, int(v * 1.10)) for v in mat)}
+    shd = {'c': tuple(int(v * 0.80) for v in mat)}
+    end = {'c': tuple(int(v * 0.90) for v in mat)}
+    cap = {'c': tuple(min(255, int(v * 1.18)) for v in mat)}
+    if along_x:
+        s.quad(a, b, r1, r0, shd)                       # the -y slope
+        s.quad(d, r3, r2, c, lit)                       # the +y slope
+        s.quad(a, r0, r3, d, end)                       # the two gable ends
+        s.quad(b, c, r2, r1, end)
+    else:
+        s.quad(a, r0, r3, d, shd)
+        s.quad(b, c, r2, r1, lit)
+        s.quad(a, b, r1, r0, end)
+        s.quad(d, r3, r2, c, end)
+    s.quad(r0, r1, r2, r3, cap, (0, 0, 1))              # the ridge band
+    s.solids.append((x, y, zb, dx, dy, rise))
+
+
+def _spire(s, cx, cy, z0, half, rise, mat, tip=0.16):
+    """A STEEPLE: a truncated pyramid on a tower. Four trapezoids and a small cap, so no
+    face is a degenerate triangle. The pointed thing over a bell tower is the single most
+    recognisable silhouette a church has, and it is what makes the icon read at map size."""
+    t = half * tip
+    b0 = (cx - half, cy - half, z0); b1 = (cx + half, cy - half, z0)
+    b2 = (cx + half, cy + half, z0); b3 = (cx - half, cy + half, z0)
+    t0 = (cx - t, cy - t, z0 + rise); t1 = (cx + t, cy - t, z0 + rise)
+    t2 = (cx + t, cy + t, z0 + rise); t3 = (cx - t, cy + t, z0 + rise)
+    lit = {'c': tuple(min(255, int(v * 1.12)) for v in mat)}
+    shd = {'c': tuple(int(v * 0.78) for v in mat)}
+    mid = {'c': tuple(int(v * 0.94) for v in mat)}
+    s.quad(b0, b1, t1, t0, shd)
+    s.quad(b1, b2, t2, t1, mid)
+    s.quad(b3, t3, t2, b2, lit)
+    s.quad(b0, t0, t3, b3, mid)
+    s.quad(t0, t1, t2, t3, lit, (0, 0, 1))
+    s.solids.append((cx - half, cy - half, z0, half * 2, half * 2, rise))
+
+
+# ---------------------------------------------------------------- CHAPEL / CHURCH
+def build_chapel(P):
+    """engine/bohemia_chapel.js — BUILT 8/2, because there was no icon at all and Paolo
+    scored the empty box 0%. He was right to: a district with no map icon is a district
+    you cannot find, and an empty panel on a judge card is worth exactly nothing.
+
+    A cruciform church reads from the air by ITS PLAN — the long nave crossed by the
+    transepts with a rounded apse at the head — so the icon is built from the plan up:
+    nave, transepts, apse, narthex, and the bell tower that is the only vertical thing on
+    a Mojave churchyard. Beside it the walled MEMORIAL COURT with its columbarium, because
+    in this ground you do not dig graves, you build a wall and fill it.
+
+    REUSE CHECK (REUSE-FIRST, Paolo 7/22): cooks no new graphic pixels of its own — it
+    composes the district's OWN palette through the shared iso primitives in
+    tools/bohemia_iso3d.py. No bank applies: there is no iso hero-building sprite bank."""
+    STONE, TOWER, PLAZA, GLASS = P[2], P[6], P[7], P[11]
+    CROSS, WALL, RIDGE, COURT, GRAVEL, DRIVE = P[10], P[13], P[22], P[4], P[14], P[1]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), patches=[(-1.0, 9.5, 12.5, 13.5, PLAZA),
+                                          (8.0, -2.5, 14.0, 5.0, COURT)],
+            lot=(-3, 13.5, 15, 15), drive=(9.0, 12.0, 12.5, 15),
+            groundc=GRAVEL, lotc=(58, 58, 66))
+
+    # THE CROSS, and it has to READ as one: a long narrow NAVE with the TRANSEPTS sticking
+    # clear out of both flanks, the APSE rounding off the head, the NARTHEX at the foot.
+    # Walls low, roofs steep -- a church is mostly roof, which is exactly why the flat-box
+    # first cut read as a warehouse with a tower next to it.
+    s.box((4.2, -0.6, 0), (2.8, 9.4, 3.0), {'top': _dark(STONE, 0.92), 'px': _win(STONE, 2, 2, 4),
+          'py': _win(STONE, 5, 2, 9), 'nx': _dark(STONE), 'ny': _dark(STONE)})
+    _gable(s, (4.2, -0.6, 0), (2.8, 9.4, 3.0), 2.4, RIDGE)
+    s.box((0.6, 3.0, 0), (10.0, 2.6, 2.7), {'top': _dark(STONE, 0.9), 'px': _win(STONE, 2, 2, 6),
+          'py': _win(STONE, 5, 2, 11), 'nx': _dark(STONE), 'ny': _dark(STONE)})
+    _gable(s, (0.6, 3.0, 0), (10.0, 2.6, 2.7), 2.0, RIDGE)
+    s.prism(5.6, -0.6, 0, 1.4, 3.0, 16, {'c': STONE}, {'c': _dark(STONE, 0.86)['c']})
+    _spire(s, 5.6, -0.6, 3.0, 1.4, 1.9, RIDGE, tip=0.30)                 # the apse cone
+
+    for gy in (0.6, 1.8, 6.6, 7.8):                                      # stained glass, nave flank
+        s.box((6.98, gy, 1.0), (0.06, 0.8, 1.5), {'c': GLASS})
+
+    # THE NARTHEX porch and THE BELL TOWER under its STEEPLE -- the silhouette that makes
+    # this icon a church at map size and nothing else in the valley.
+    s.box((3.6, 8.8, 0), (4.0, 1.8, 2.8), {'top': _dark(STONE, 0.94), 'px': _win(STONE, 2, 1, 12),
+          'py': _dark(STONE, 0.9), 'nx': _dark(STONE), 'ny': _dark(STONE)})
+    _gable(s, (3.6, 8.8, 0), (4.0, 1.8, 2.8), 1.5, RIDGE)
+    s.box((1.0, 8.6, 0), (2.2, 2.2, 7.2), {'top': _dark(TOWER, 0.9), 'px': _dark(TOWER, 1.04),
+          'py': _dark(TOWER, 0.84), 'nx': _dark(TOWER), 'ny': _dark(TOWER)})
+    s.box((1.25, 8.85, 5.2), (1.7, 1.7, 1.4), {'c': GLASS})              # the belfry opening
+    _spire(s, 2.1, 9.7, 7.2, 1.35, 3.4, RIDGE)                           # THE STEEPLE
+    s.box((1.95, 9.55, 10.6), (0.3, 0.3, 1.1), {'c': CROSS})             # the finial cross
+    s.box((1.5, 9.55, 11.1), (1.2, 0.3, 0.3), {'c': CROSS})
+    _door_face(s, (3.6, 8.8, 0), (4.0, 1.8, 2.8), width=1.3, ztop=2.0,
+               doorc=_dark(STONE, 0.4)['c'],
+               framec=tuple(min(255, int(c * 1.25)) for c in STONE))
+
+    # THE MEMORIAL COURT: a walled square of decomposed granite with the COLUMBARIUM round
+    # it. In this ground you do not dig graves, you build a wall and you fill it.
+    for (wx, wy, wdx, wdy) in ((8.1, -2.4, 5.7, 0.35), (8.1, 4.6, 5.7, 0.35),
+                               (8.1, -2.4, 0.35, 7.3), (13.45, -2.4, 0.35, 7.3)):
+        s.box((wx, wy, 0), (wdx, wdy, 1.9), {'top': _dark(WALL, 1.1), 'px': _dark(WALL, 1.0),
+              'py': _dark(WALL, 0.85), 'nx': _dark(WALL), 'ny': _dark(WALL)})
+    for ty in (-0.8, 1.1, 3.0):
+        s.box((10.6, ty, 0), (0.22, 0.22, 1.4), {'c': _dark(P[3], 1.0)['c']})
+        s.box((10.2, ty - 0.35, 1.4), (1.0, 0.9, 0.3), {'c': _dark(P[3], 0.8)['c']})
+
+    # THE FORECOURT: the churchyard cross, the bell that came through the belfry floor,
+    # and the font with nothing in it.
+    s.box((5.5, 11.4, 0), (0.36, 0.36, 2.6), {'c': CROSS})
+    s.box((4.85, 11.4, 2.0), (1.7, 0.36, 0.36), {'c': CROSS})
+    s.prism(2.9, 12.0, 0, 0.8, 0.75, 14, {'c': _dark(CROSS, 0.65)['c']})   # the fallen bell
+    s.prism(8.8, 12.0, 0, 0.95, 0.4, 14, {'c': _dark(P[21], 1.0)['c']},
+            {'c': _dark(P[21], 0.7)['c']}, inner=0.6)                       # the dry font
+    for lx in (0.2, 11.2):
+        s.box((lx - 0.08, 12.8, 0), (0.16, 0.16, 2.4), {'c': P[9]})
+    _vehicle(s, 1.5, 13.6, CAR, P[19], along='x')
+    return s, 6.6
+
+
 # ---------------------------------------------------------------- FARM
 def build_farm(P):
     HOUSE, SILO, TRACTOR, FENCE, BARN, FIELD = P[2], P[6], P[10], P[11], P[14], P[13]
@@ -1461,7 +1603,10 @@ HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': buil
           'rail': build_rail, 'interchange': build_interchange,
           # THE LANDMARK SET (7/27), icons shipping with their ground per the icon law
           'campus': build_campus, 'speedway': build_speedway,
-          'town': build_town, 'ballpark': build_ballpark}
+          'town': build_town, 'ballpark': build_ballpark,
+          # 8/2: he scored the chapel's MISSING icon 0%, correctly. A district with no map
+          # icon is a district you cannot find, and an empty panel is worth exactly nothing.
+          'chapel': build_chapel}
 
 # HELD BACK, DELIBERATELY: 'airport': build_airport, 'airbase': build_airbase.
 # Both builders are finished and correct and they stay in this file, but they are
@@ -1500,6 +1645,7 @@ LABEL = {
     'commercial': 'Commercial — matched: an L of STORES with glass storefronts + a parking lot + a GAS-STATION canopy & pumps in the corner.',
     'school': 'High school — matched to the walkable district (Paolo ruled it HIGH SCHOOL, 7/28): the STADIUM as the landmark — an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS standing close in at the corners of the bowl — plus the academic spine with its second storey and two forward wings, TWO entryways (main doors and the gym doors), the GYM in school colours, the AUTO SHOP under its sawtooth roof with a roll-up bay standing open over an oiled yard (Paolo 7/30 killed the tennis courts and gave the ground to it), and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground and no tennis: both were rulings, both are held at zero by the gate.',
     'courthouse': 'Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + grand STEPS + a DOME.',
+    'chapel': 'Church — matched: the CRUCIFORM plan (nave crossed by the transepts, a rounded APSE at the head, the NARTHEX porch at the foot) under its roof RIDGE, the BELL TOWER with its belfry and cross finial, the walled MEMORIAL COURT with its columbarium and dead planting, and a forecourt with the churchyard cross, the fallen bell and the dry font. There was no chapel icon at all until 8/2, and Paolo scored the empty panel 0%.',
     'library': 'Library — matched to the rebuilt district, which is built on the real reference: Antoine Predock\'s Las Vegas Library and Lied Discovery Museum (1986-90, Las Vegas Blvd). The DRUM with its oculus ring and lantern, the giant concrete TOWER, and the long reading wing under a clerestory that runs its whole length, all on a raised terrace above the plaza — sandstone and concrete, because in Predock\'s words the colour scheme is provided by the desert. The old icon was a classical COLONNADE, which is a library from a different country and a different century.',
     'farm': 'Farm — matched: a red BARN + a tall SILO + a farmhouse + a dead tractor + crop-row fields (dirt, not grass).',
     'firestation': 'Fire station — matched: quarters + a bay block with RED apparatus doors + a HOSE TOWER + a red fire engine + staff car.',
@@ -1611,6 +1757,32 @@ PARTS = {
         'column portico x6 — the front colonnade + a lintel (code 8 "portico columns")',
         'grand steps — the tiered steps down to grade (code 6)',
         'dome/cupola — the dome on the roof center (code 10 "dome / cupola"); plaza (code 7) + lot/drive (code 1)',
+    ],
+    'chapel': [
+        'nave — the long bar of the cross, stained glass down its flank (code 2 "building (church)")',
+        'transepts — the arms that cross it, which is what makes the plan a CROSS from the air (code 2)',
+        'apse — the rounded head at the north end (code 2)',
+        'roof ridge — the pitched line down the nave and both arms (code 22 "roof ridge")',
+        'narthex — the entry porch at the foot, doors at ground (code 2 + code 18 "doorway")',
+        'bell tower — the only vertical thing on a Mojave churchyard: belfry opening (code 11 "stained glass") + a cross finial (code 10)',
+        'memorial court — the walled square of decomposed granite (code 4 "memorial court") inside its COLUMBARIUM wall (code 13), dead planting down the middle (code 3)',
+        'churchyard cross — the standing cross in the forecourt (code 10)',
+        'fallen bell — the bell itself, on the ground where it came through the belfry floor (code 10)',
+        'dry font — the font in the forecourt, a ring with nothing in it (code 21 "dry font")',
+        'pole lights x2 + abandoned car (canon CAR) — the forecourt lights (code 9) and the lot (code 1)',
+    ],
+    'chapel': [
+        'nave — the long bar of the cross, stained glass down its flank (code 2 "building (church)")',
+        'transepts — the arms that cross it, which is what makes the plan a CROSS from the air (code 2)',
+        'apse — the rounded head at the north end (code 2)',
+        'roof ridge — the pitched line down the nave and both arms (code 22 "roof ridge")',
+        'narthex — the entry porch at the foot, doors at ground (code 2 + code 18 "doorway")',
+        'bell tower — the only vertical thing on a Mojave churchyard: belfry opening (code 11 "stained glass") + a cross finial (code 10)',
+        'memorial court — the walled square of decomposed granite (code 4) inside its COLUMBARIUM wall (code 13), dead planting down the middle (code 3)',
+        'churchyard cross — the standing cross in the forecourt (code 10)',
+        'fallen bell — the bell itself, on the ground where it came through the belfry floor (code 10)',
+        'dry font — the font in the forecourt, a ring with nothing in it (code 21 "dry font")',
+        'pole lights x2 + abandoned car (canon CAR) — the forecourt lights (code 9) and the lot (code 1)',
     ],
     'library': [
         'terrace — the raised base the whole composition sits on (code 13 "terrace / walk")',

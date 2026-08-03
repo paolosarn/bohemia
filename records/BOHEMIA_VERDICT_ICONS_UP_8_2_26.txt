@@ -1,0 +1,47 @@
+BOHEMIA VERDICT — THE PIPELINE FIXES LANDED, AND ONE ZERO
+8/2/26
+
+PAOLO, VERBATIM:
+  "city hall walking 65 percent icon 65 %
+   courthoyse walking 70% icon 65%
+   terminal walking 75% icon 70%
+   Chapel walking 75% icon 0%"
+
+MOVEMENT, from the scores before the four pipeline fixes:
+  district      walking        icon
+  city hall     50 -> 65 (+15)  50 -> 65 (+15)
+  courthouse    50 -> 70 (+20)  50 -> 65 (+15)
+  terminal      50 -> 75 (+25)  50 -> 70 (+20)
+  chapel        65 -> 75 (+10)  50 ->  0 (---)
+
+WHAT THIS CONFIRMS. The four faults were real and they were the blocker: closed
+round roofs, doors on walls, window grids on the pixel grid, and canopies that stop
+tunnelling through buildings moved every icon 15-20 points and every walking score
+10-25. THE FLAT 50 WAS NOT AN OPINION, IT WAS FOUR BUGS.
+
+THE ZERO, AND IT IS THE MOST USEFUL NUMBER OF THE DAY.
+  The chapel icon scored 0 because THERE WAS NO CHAPEL ICON. The judge card showed
+  an empty panel and he priced it exactly right. A district with no map icon is a
+  district you cannot find.
+
+  And it is not one district: 22 OF 45 HAD NO ICON AT ALL --
+    airbase airport apartment arterial boneyard cemetery chapel desert drivein
+    freeway golf jail landfill mountain railyard substation suburb trailer wash
+    water waterpark watertreat
+  Nearly half the valley would have scored 0 on the same question, and nothing in
+  the machine cared until he asked for the icon separately. THAT is what splitting
+  the score into WALKING and ICON bought, one turn after he ruled it.
+
+BUILT THIS TURN: the CHAPEL icon. A cruciform church reads by its plan and its
+silhouette, so it got both -- a long nave crossed by transepts under real PITCHED
+roofs, a rounded apse cone, the narthex porch, and a BELL TOWER under a STEEPLE with
+a cross finial. Two new shared primitives came out of it, _gable and _spire, both
+built as proper quads with a truncated ridge and a truncated tip: a true apex needs
+triangles, and a triangle in this renderer is a quad with two coincident vertices --
+the exact degenerate sliver that made every round roof look like a tarp.
+
+MACHINE: gates/round_and_doors_gate.py now also holds the NO-ICON DEBT (21 declared,
+ratcheted, only shrinks) beside the DOORLESS DEBT (12). Nothing new ships without an
+icon; nothing stays on either list once it is fixed.
+
+STATUS: city hall 65/65, courthouse 70/65, terminal 75/70, chapel 75/0 -> icon built.

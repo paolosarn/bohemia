@@ -49,6 +49,7 @@ honest: every law carrying his verbatim words must be indexed here.
 | 8/2 | city hall / courthouse | 50% / 50% | rejected — round roofs "look like tarps", doors off their walls |
 | 8/2 | terminal / chapel | 40% / 30% | rejected — same two pipeline bugs |
 | 8/2 | **first SPLIT scores** | walking / icon | city hall 50/50 · courthouse 50/50 · terminal 50/50 · chapel **65**/50 |
+| 8/2 | after the pipeline fixes | walking / icon | city hall 65/65 · courthouse 70/65 · terminal 75/70 · chapel 75/**0** |
 
 **EVERY ICON HAS SCORED EXACTLY 50 (8/2).** Four different subjects landing on one
 number is a verdict on the SYSTEM, not the subjects — and these were the first split
@@ -65,6 +66,10 @@ five is not done.
 
 Each line is a ruling he made, in his words, with the machine that holds it.
 
+- **8/2 — A DISTRICT WITH NO MAP ICON SCORES ZERO.** He gave the chapel "walking 75% icon
+  0%" — there was no chapel icon at all, and he priced the empty panel exactly right. A
+  district with no icon is a district you cannot find. **22 of 45 districts had none.**
+  Named and ratcheted in `gates/round_and_doors_gate.py` so the list can only shrink.
 - **8/2 — "DETAILS SHITS JUST LOOKING GLITCHY FOR ALL OF THEM BRO."** Asked style or
   detail, he said DETAIL: the approach is right, the execution is glitchy. Two more
   pipeline faults, same root cause as the two before them. (1) Window grids used FIXED

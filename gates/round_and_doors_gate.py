@@ -208,6 +208,35 @@ for span, count in ((41.0, 8), (70.0, 4), (134.0, 6), (23.0, 9), (200.0, 12)):
        % (span, count, n, pitch, mfrac * pitch),
        abs(pitch - round(pitch)) < 0.02 and abs(mfrac * pitch - 1.0) < 0.02)
 
+# ------------------------------------------------- 5. A DISTRICT WITH NO ICON SCORES ZERO
+# Paolo, 8/2, scoring the chapel: "walking 75% icon 0%". There was no chapel icon at all,
+# and he priced the empty panel exactly right -- a district with no map icon is a district
+# you cannot find. 22 of 45 districts had none. Named so the list can only SHRINK.
+NO_ICON_DEBT = {
+    'airbase', 'airport', 'apartment', 'arterial', 'boneyard', 'cemetery', 'desert',
+    'drivein', 'freeway', 'golf', 'jail', 'landfill', 'mountain', 'railyard',
+    'substation', 'suburb', 'trailer', 'wash', 'water', 'waterpark', 'watertreat',
+}
+import json as _json, subprocess as _sub
+_t = _sub.run(['node', '-e',
+               "const K=require('./engine/bohemia_district_kit.js');"
+               "require('./engine/bohemia_world.js');"
+               "process.stdout.write(JSON.stringify(K.types()));"],
+              capture_output=True, text=True)
+TYPES = set(_json.loads(_t.stdout)) if _t.returncode == 0 else set()
+if TYPES:
+    missing = sorted(TYPES - set(F.HEROES))
+    new_missing = sorted(set(missing) - NO_ICON_DEBT)
+    stale_missing = sorted(NO_ICON_DEBT - set(missing))
+    ok('NO NEW DISTRICT SHIPS WITHOUT A MAP ICON: he prices an empty panel at zero and he '
+       'is right, because a district with no icon is a district you cannot find%s'
+       % (('  -- new: ' + ', '.join(new_missing)) if new_missing else ''), not new_missing)
+    ok('THE NO-ICON DEBT ONLY SHRINKS: nothing is still on the list that now has an icon%s'
+       % (('  -- stale: ' + ', '.join(stale_missing)) if stale_missing else ''),
+       not stale_missing)
+    print('  NO-ICON DEBT: %d declared, %d districts still without an icon (%d of %d have one)'
+          % (len(NO_ICON_DEBT), len(missing), len(TYPES) - len(missing), len(TYPES)))
+
 LAW = 'laws/BOHEMIA_ADDENDUM_ROUND_ROOFS_AND_DOORS_8_2_26.md'
 ok('the law is filed with his words in it', os.path.exists(LAW)
    and 'looks like tarps' in open(LAW, encoding='utf8').read())

@@ -286,3 +286,18 @@ _Ballpark — matched: the ninety-degree DIAMOND seen from behind home plate, th
 - bullpens x2 — past the end of the seating down both lines (code 13 "bullpen")
 - light towers x6 — the masts ringing the field, every head dark (code 12 "light tower")
 - abandoned car (canon CAR) — one left in the lot (code 1 "parking / drive")
+
+## CHAPEL  (266x170, anchor 133,93)
+_Church — matched: the CRUCIFORM plan (nave crossed by the transepts, a rounded APSE at the head, the NARTHEX porch at the foot) under its roof RIDGE, the BELL TOWER with its belfry and cross finial, the walled MEMORIAL COURT with its columbarium and dead planting, and a forecourt with the churchyard cross, the fallen bell and the dry font. There was no chapel icon at all until 8/2, and Paolo scored the empty panel 0%._
+
+- nave — the long bar of the cross, stained glass down its flank (code 2 "building (church)")
+- transepts — the arms that cross it, which is what makes the plan a CROSS from the air (code 2)
+- apse — the rounded head at the north end (code 2)
+- roof ridge — the pitched line down the nave and both arms (code 22 "roof ridge")
+- narthex — the entry porch at the foot, doors at ground (code 2 + code 18 "doorway")
+- bell tower — the only vertical thing on a Mojave churchyard: belfry opening (code 11 "stained glass") + a cross finial (code 10)
+- memorial court — the walled square of decomposed granite (code 4) inside its COLUMBARIUM wall (code 13), dead planting down the middle (code 3)
+- churchyard cross — the standing cross in the forecourt (code 10)
+- fallen bell — the bell itself, on the ground where it came through the belfry floor (code 10)
+- dry font — the font in the forecourt, a ring with nothing in it (code 21 "dry font")
+- pole lights x2 + abandoned car (canon CAR) — the forecourt lights (code 9) and the lot (code 1)
