@@ -61,8 +61,14 @@ for (const needle of [
 ]) ok('process lesson kept: "' + needle.slice(0, 42) + '"', law.indexOf(needle) >= 0);
 
 /* ---- and the CODE still honours the clauses a machine can check --------- */
-ok('clause 2 in code: the back facing covers the whole skull',
-  /var sideBot=back\?hBot:/.test(src));
+/* WIDENED 8/2 TO INCLUDE PROFILE, and the reason is the bug it was pinning around.
+   sideF stops the mass halfway down the skull so it cannot run over the eyes on a
+   FRONT view. BACK was exempted on 8/1; profile never was, so E/W kept half-covering
+   the side of the head -- measured: cornrows on E occupied rows 5-6 and nothing
+   else. Side-on there is no face in the way either. Pin BOTH exemptions so neither
+   can be quietly dropped. */
+ok('clause 2 in code: the back AND profile facings cover the whole skull',
+  /var sideBot=\(back\|\|prof\)\?hBot:/.test(src));
 ok('clause 3 in code: row edges take a deterministic wobble',
   /var wob=function\(y,side\)/.test(src) && /mn-=wob\(y,0\); mx\+=wob\(y,1\)/.test(src));
 ok('clause 3 in code: the wobble is HASHED, never rolled (an NPC must not shimmer)',
