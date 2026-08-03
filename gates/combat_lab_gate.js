@@ -694,10 +694,17 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
     demo.includes('const P=nearestPillar(true);') &&
     demo.includes('tall:Math.random()<0.5') &&
     demo.includes('function nearestPillar(lowOnly){'));
-  ok('V54 TOOLKIT UI: four buttons wired in the action row, disabled in the aim phase like WAIT, stamina pips shown',
-    demo.includes('id="suppressbtn"') && demo.includes('id="dashbtn"') && demo.includes('id="vaultbtn"') &&
+  /* MIGRATED BY V122. Paolo removed dashbtn and vaultbtn ("I never use them")
+     and their verbs moved onto RUN in the thumb cluster. The LAW this check
+     guards is untouched -- the toolkit is cover-phase only and greys out in
+     aim -- so it now names the four buttons that exist, RUN and the thumb
+     grenade included. A live-looking button that does nothing is the exact
+     complaint that removed the other two. */
+  ok('V54 TOOLKIT UI: four buttons wired, disabled in the aim phase like WAIT, stamina pips shown',
+    demo.includes('id="suppressbtn"') && demo.includes("mk('runbtn','RUN'") &&
+    demo.includes("mk('grenbtn2','GREN'") &&
     demo.includes('id="peekbtn"') && demo.includes('id="stampips"') &&
-    demo.includes("for(const _id of ['suppressbtn','peekbtn','dashbtn','vaultbtn']){"));
+    demo.includes("for(const _id of ['suppressbtn','peekbtn','runbtn','grenbtn2']){"));
   // v55: shuffle the time of day per fight (morning/dusk/night), washing the scene
   ok('V55 DAY PHASE: pickDayPhase rolls morning/dusk/night; applyDayPhase washes the scene per phase and is called from screenOverlays',
     demo.includes("G.dayPhase=['morning','dusk','night'][Math.floor(Math.random()*3)]") &&
@@ -2222,8 +2229,12 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
   ok('AUDIT PINNED: player kill damage is a flat constant (KILL_DMG=100) applied through armor only -- if this becomes positional the audit stops being true',
     demo.includes('const KILL_DMG=100;') &&
     demo.includes('function applyDamage(tgt,raw){ const mit=Math.max(0,raw-(tgt.armor||0)); tgt.hp=Math.max(0,tgt.hp-mit); return mit; }'));
-  ok('AUDIT PINNED: the enemy accuracy curve is 0.97 - distT*0.60, i.e. 0.97 at point blank down to 0.37 at long range, a 2.6x swing',
-    demo.includes('function distAccuracy(e){ return 0.97 - distT(e)*0.60; }'));
+  /* MIGRATED BY V121. The curve is still 0.97 - distT*0.60 and still a 2.6x
+     swing; it is now the BASE the difficulty divides the miss out of, so the
+     literal one-line form this pinned no longer exists. The number it was
+     actually guarding is asserted below, unchanged. */
+  ok('AUDIT PINNED: the enemy accuracy BASE curve is 0.97 - distT*0.60, i.e. 0.97 at point blank down to 0.37 at long range, a 2.6x swing',
+    demo.includes('const base=0.97 - distT(e)*0.60;'));
   ok('AUDIT PINNED: the distance bands are PT_BLANK=4 / FAR_TILE=26 / MAX_RANGE=42, which is what makes that curve mean anything on the board',
     demo.includes('const PT_BLANK=4, FAR_TILE=26, MAX_RANGE=42;'));
   ok('AUDIT PINNED: cover is a BINARY predicate and incoming fire FILTERS on it -- an enemy you have cover against is removed from the volley entirely, 0% or 100%, never a modifier',
@@ -2420,7 +2431,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
     demo.split('myCoverAgainst(e.ea,e.edist,e.lvl)').length - 1 === 8 &&   /* V110: pressureGuns is the eighth, and it carries its level like every other */
     demo.split('coverPillarAgainst(e.ea,e.edist,e.lvl,false)').length - 1 === 1 &&
     demo.split('myCoverAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 1 &&
-    demo.split('myConcealAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 3 &&
+    demo.split('myConcealAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 4 &&   /* MIGRATED BY V122: runBreakLocks is the fourth, and it carries its level like every other -- the invariant is that no enemy-facing call may be levelless, not that there are exactly three */
     demo.includes('coverPillarAgainst(e.ea,e.edist,e.lvl,false)') &&
     demo.includes('myCoverAgainst(tgt.ea,tgt.edist,tgt.lvl)') &&
     demo.includes('myCoverAgainst(e.ea,null,e.lvl)') &&
@@ -2769,7 +2780,7 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
 
   ok('V98 IT MOVES BOTH SIDES OFF ONE NUMBER: my dial (distPkg), their hit chance (distAccuracy) and the range words+colour all read distT, so there is no second accuracy system to keep in step',
     demo.includes('function distPkg(e){ return Math.round(distT(e)*(G.userPkg||0)); }') &&
-    demo.includes('function distAccuracy(e){ return 0.97 - distT(e)*0.60; }') &&
+    demo.includes('const base=0.97 - distT(e)*0.60;') &&   /* MIGRATED BY V121: still one number, distT; the difficulty divides the miss out of it */
     demo.includes('function rangeTier(e){ const t=distT(e);'));
 
   ok('V98 AND THE READ SAYS WHY: a man who reads LONG RANGE at night when he read MID RANGE at noon is explained, not mysterious',
@@ -3422,6 +3433,83 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
 
   ok('V116B AND IT KEYS OFF THE KILL\'S END, NOT ITS START -- the first attempt keyed off _ksAt and did nothing, because _dfT is only the BULLET travel (~90-300ms) while the cinematic runs ~2s, so the ramp finished long before the dial was allowed back and it snapped to 1 exactly as before',
     /if\(G\.ks\)G\._ksEnd=performance\.now\(\);[\s\S]{0,400}_sinceEnd\/DIAL_IN_MS/.test(demo));
+}
+
+/* ===== V121 NOBODY STANDS IN A CAR, AND DIFFICULTY TOUCHES THE ENEMY ===== */
+{
+  ok('V121 OCCUPANCY IS ENFORCED ON SPAWN. Paolo: "the Enemies are able to like be inside the cars or like being the same tiles of the cars and it\'s not good." MEASURED 40 in cars + 30 in cover across 1,600 bodies = 4.4%, because setupEnemies wrote e.ea/e.edist straight in and never once asked whether anything was already there. The OCCUPANCY LAW is one body per cell and enemy placement was the one place in the fight that never enforced it',
+    demo.includes('V121 NOBODY STANDS IN A CAR') &&
+    /\(function v121Occupancy\(\)\{/.test(demo) &&
+    /const solidAt=\(qx,qy\)=>\(G\.pillars\|\|\[\]\)\.some/.test(demo) &&
+    /const takenAt=\(qx,qy,self\)=>\(G\.e\|\|\[\]\)\.some/.test(demo));
+
+  ok('V121 IT RUNS AFTER THE DECK HOLDERS AND SKIPS THEM: a man lifted one storey up is never judged against ground cover, so the fix cannot quietly evict the roof',
+    /m\.lvl=DECK_LVL; m\.gcov=0; \} \}[\s\S]{0,900}\(function v121Occupancy/.test(demo) &&
+    demo.includes('if((e.lvl|0)!==0)continue;'));
+
+  ok('V121 IT SPIRALS TO THE NEAREST FREE CELL, never teleports across the lot, never onto the player, and if the lot is packed he is pushed OUTWARD rather than left standing in a wreck',
+    /for\(let r=1;r<=4&&!placed;r\+\+\)/.test(demo) &&
+    demo.includes('if(Math.hypot(nx,ny)<2.2)continue;') &&
+    demo.includes('if(!placed){ e.edist=Math.min(MAX_RANGE,e.edist+2.5); }'));
+
+  ok('V121 DIFFICULTY FINALLY REACHES THE ENEMY. Paolo: "I am really concerned how easy this game could be unless I throw 8+ enemies at a player." MEASURED: EASY and BOHEMIAN both killed me in 6 turns at 16.7 HP/turn -- IDENTICAL -- because G.pkgDiff only ever fed THE DIAL. Every difficulty in this game meant one thing, how hard is it for YOU to shoot, and nothing ever made THEM better',
+    demo.includes('V121 DIFFICULTY FINALLY TOUCHES THE ENEMY') &&
+    demo.includes('const THREAT_BY_PKG=[1.00,1.12,1.26,1.42,1.60];') &&
+    /function threatMult\(\)\{ const k=Math\.max\(0,Math\.min\(4,\(G\.userPkg\|\|0\)\|0\)\);/.test(demo));
+
+  ok('V121 IT DIVIDES THE MISS, NOT THE HIT. The first cut multiplied the hit chance and I MEASURED V.HARD and BOHEMIAN both landing on the 0.99 clamp -- two identical tiers, the exact bug being fixed, moved up two notches. Dividing the miss cannot pass 1, so no clamp can ever eat a tier',
+    demo.includes('return 1-(1-base)/threatMult();') &&
+    !/Math\.min\(0\.99,\(0\.97 - distT\(e\)\*0\.60\)\*threatMult\(\)\)/.test(demo));
+
+  ok('V121 IT IS NOT A DAMAGE MULTIPLIER AND IT DOES NOT TOUCH THE DIAL: his no-multipliers ruling stands (a bullet does what a bullet does), and v98 says out loud that the killshot allowance must never be wired to difficulty. threatMult is read by distAccuracy and nowhere else',
+    (demo.match(/threatMult\(\)/g) || []).length === 2 &&
+    demo.includes('*** DO NOT WIRE G.userPkg BACK IN HERE. ***') &&
+    demo.includes('function perkKillshots(){ return Math.max(1,(G.chainSkill||2)|0); }'));
+}
+
+/* ===== V122 ONE RUN BUTTON, ON THE THUMB ============================== */
+{
+  ok('V122 DASH AND VAULT ARE OFF THE TOP MENU. Paolo: "removing the dash and vault button definitely I never use them." They lived at the TOP of the screen and acted at the BOTTOM on the ring with his thumb -- DASH did not even act on its own, it ARMED and made him travel back down to say which way',
+    !demo.includes('<button id="dashbtn"') &&
+    !demo.includes('<button id="vaultbtn"') &&
+    !demo.includes("D('dashbtn'); if(_d)_d.addEventListener('click',doDash)"));
+
+  ok('V122 AND THE FUNCTIONS ARE NOT DELETED: GRAVEYARD IS FINAL cuts both ways, nothing dies without his word, and he said remove the BUTTONS. doDash, doDashMove and doVault stay callable so either verb is a one-line restore instead of a rebuild',
+    demo.includes('function doDash(){') &&
+    demo.includes('function doDashMove(d){') &&
+    demo.includes('function doVault(){'));
+
+  ok('V122 RUN AND GRENADE LIVE IN THE THUMB CLUSTER, on the ring, where the movement is. Paolo: "a standardized run button next to the actual action in movement buttons actually on screen" and "I want a grenade button next to the action and directional movement buttons as well"',
+    demo.includes("mk('runbtn','RUN'") &&
+    demo.includes("mk('grenbtn2','GREN'") &&
+    /const mk=\(id,txt,col,dy,fn\)=>\{/.test(demo));
+
+  ok('V122 THE OFFSET IS MEASURED, NOT GUESSED: the first placement was left:-56px and it overlapped the W and NW pips with RUN and the W and SW pips with GREN, so two of his eight directions would have been covered by the new buttons. The pips sit at R=66, which puts the W pip 34px outside the wrap',
+    demo.includes("'position:absolute;left:-100px;top:'") &&
+    !demo.includes("'position:absolute;left:-56px;top:'"));
+
+  ok('V122 ONE VERB, THREE OUTCOMES, decided by what is actually down that line: cover out there -> all the way to it for 2 pips (his number), low cover on you -> over it (that is VAULT with no button and no refusal), nothing out there -> one tile for 1 pip (the 8/1 sprint ruling, unchanged)',
+    demo.includes('const RUN_COVER_COST=2;') &&
+    demo.includes('function runTargetIn(d){') &&
+    demo.includes("setRead('OVER IT'") &&
+    demo.includes("setRead('RUN TO COVER'"));
+
+  ok('V122 RUN KEEPS DASH\'S REAL PAYLOAD: the run is FREE (no turn end, nobody shoots) and arriving somewhere new BREAKS THEIR RED LINES. Dash\'s point was never "two tiles", it was that the fight loses track of you',
+    demo.includes('function runBreakLocks(){') &&
+    demo.includes('if(myConcealAgainst(e2.ea,e2.edist,e2.lvl)){ if((e2.acq||0)>=1)n++; e2.acq=0; }'));
+
+  ok('V122 EVERY CHECK HAPPENS BEFORE A SINGLE PIP IS SPENT. MEASURED on the first cut, which spent first and refunded on refusal: a TALL pillar already one tile away gave stop=0, the no-move fallback pushed one tile FORWARD, and RUN walked me straight INSIDE a solid wall for 2 pips. An OCCUPANCY LAW break shipped by a convenience',
+    /const stop=L-1;[\s\S]{0,1400}if\(!spendMove\(RUN_COVER_COST\)\)/.test(demo) &&
+    demo.includes("setRead('ALREADY ON IT'") &&
+    demo.includes('if(stop<0.9||(!sx&&!sy)){'));
+
+  ok('V122 AND NO RUN EVER LANDS ON A BODY OR IN A WALL: all three branches (to cover, over low cover, plain tile) test the destination cell against the pillars and against every living man on your floor before moving',
+    (demo.match(/OCCUPANCY LAW/g) || []).length >= 4 &&
+    (demo.match(/setRead\('SOMEBODY IS THERE'/g) || []).length === 3);
+
+  ok('V122 THE RING STEERS AN ARMED RUN, and the arm never survives the tap -- same rail the dash used, checked first because RUN is now the only armed move with a button',
+    /if\(G\.runArm\)\{ G\.runArm=false; updRunBtn\(\); updMoveMode\(\); return doRunMove\(d\); \}/.test(demo) &&
+    demo.includes('G.runArm=!G.runArm; if(G.runArm){ G.sprintArm=false; G.dashArm=false; }'));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
