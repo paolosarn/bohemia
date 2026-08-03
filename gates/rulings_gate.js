@@ -125,7 +125,6 @@ ok('A14 his standing goal is recorded in his words',
 const stillHis = rec.slice(rec.search(/WHAT IS STILL HIS/i));
 ok('B1 the WHAT IS STILL HIS section exists', stillHis.length > 80);
 [['R5 rest numbers', /R5's rest numbers/i],
- ['R11 walked-map inheritance', /R11's inheritance of the walked map/i],
  ['R13 check keys', /R13's actual check keys/i],
  ['R21 spread rates and NPC memory', /R21's spread rates/i],
  ['R25 the boost', /R25's boost/i],
@@ -134,13 +133,59 @@ ok('B1 the WHAT IS STILL HIS section exists', stillHis.length > 80);
 ok('B3 R5 is marked pending at the ruling itself, not only in the summary list',
    /\[PENDING Paolo\][^.]{0,40}NO DIAL, NO NUMBERS/i.test(rec) ||
    /R5[\s\S]{0,300}\[PENDING Paolo\]/.test(rec));
-ok('B4 R11 is offered as MY recommendation with HIS call left open',
-   /\[MY RECOMMENDATION, HIS CALL\]/.test(rec) && /Still yours to rule/i.test(rec));
+/* R11 WAS THE ONE OPEN RECOMMENDATION AND HE RULED IT ON 8/3: "NO THEN". An heir does
+   not inherit the walked map. Two things gated: the ruling is recorded with his word,
+   and it came OFF the still-his list the same turn -- a pending that stays listed after
+   it has been ruled is how a session ends up asking him twice. */
+ok('B4 R11 is RULED, with his word, and no longer offered as a recommendation',
+   /RULED 8\/3\/26: AN HEIR DOES NOT INHERIT THE WALKED MAP/i.test(rec) &&
+   /"NO THEN"/.test(rec) && !/\[MY RECOMMENDATION, HIS CALL\]/.test(rec));
+ok('B4b R11 was removed from the still-his list the same turn it was ruled',
+   !/R11's inheritance of the walked map/i.test(stillHis) &&
+   /R11 came off this list on 8\/3/i.test(stillHis));
+ok('B4c and the ruling explains WHY it is right, not just that he said it',
+   /nobody ever walks again/i.test(rec) && /going back out/i.test(rec));
 /* The quote mark sits OUTSIDE the period in the prose ("maybe."), so a regex that
    demanded a closing quote straight after the word failed on correct text. Same
    family as every other prose bug in this repo: match the words, not the punctuation. */
 ok('B5 R27 stays a MAYBE and is not promoted to a ruling',
    /Recorded as a MAYBE, not a ruling/i.test(rec) && /it stays ["'“]?maybe/i.test(rec));
+
+/* ---- R21's RESEARCH, AND THE MECHANIC HE APPROVED OFF IT ------------------- */
+/* He asked for this research by name ("do some online research on how games have
+   previously done that"), then on 8/3 approved its darkest recommendation outright:
+   "ABSOLUTELY ANYTHING U THINK U CAN AND SHOULD DO IS IMPORTANT." That sentence is a
+   grant of JUDGEMENT on mechanism, and the risk is over-reading it as a blank cheque on
+   content he has reserved. So the record has to hold both halves, and the gate holds
+   that it holds both. */
+const SPREAD = 'records/BOHEMIA_RESEARCH_STORIES_SPREAD_8_3_26.md';
+ok('E1 the rumour research exists', fs.existsSync(path.join(ROOT, SPREAD)));
+const spread = fs.existsSync(path.join(ROOT, SPREAD))
+  ? norm(fs.readFileSync(path.join(ROOT, SPREAD), 'utf8')) : '';
+ok('E2 R21 cites it', rec.indexOf(path.basename(SPREAD)) > 0);
+ok('E3 its headline is the OBJECT model, not a reputation number',
+   /a rumour is an OBJECT, not a number/i.test(spread) ||
+   /A RUMOUR IS AN OBJECT, NOT A NUMBER/i.test(spread));
+ok('E4 Skyrim is kept as the anti-reference, with the reason',
+   /THE ANTI-REFERENCE/i.test(spread) &&
+   /a meter cannot remember who was in the room/i.test(spread));
+ok('E5 rule 5 records his approval verbatim',
+   /ABSOLUTELY ANYTHING U THINK U CAN AND SHOULD DO IS IMPORTANT/.test(spread));
+ok('E6 and reads it as a grant of JUDGEMENT, not a blank cheque on his content',
+   /GRANT OF JUDGEMENT, NOT A BLANK CHEQUE/i.test(spread) &&
+   /does not repeal NO DAMAGE BEFORE THE DIAL/i.test(spread));
+ok('E7 the mechanic may not be softened into something safer',
+   /no lane may soften it/i.test(spread) && /the option is real/i.test(spread));
+ok('E8 the three constraints that make it fair are all held',
+   /THERE HAS TO BE A WINDOW/i.test(spread) &&
+   /THE WITNESS MUST BE FINDABLE/i.test(spread) &&
+   /IT MUST COST/i.test(spread));
+ok('E9 and approving the mechanic did NOT set any number',
+   /Approving the mechanic did not set a single one of them/i.test(spread));
+ok('E10 the spread numbers are still his',
+   /\[PENDING Paolo\]: the numbers/i.test(spread));
+ok('E11 it is still honest about being DOC_ONLY off unreachable primaries',
+   /DOC_ONLY/.test(spread) && /403/.test(spread));
 
 /* ---- THE ROWS EXIST ------------------------------------------------------- */
 /* This is the actual lock. answered_gate.py reads the machine block; a ruling with no
@@ -162,6 +207,14 @@ ok('C2 its machine block is readable', block.length > 200);
 ].forEach(([what, re]) => ok('C3 a settled row exists for: ' + what, re.test(block)));
 ok('C4 every row in the block still has all three fields',
    block.trim().split('\n').filter(Boolean).every(l => l.split('|').length === 3));
+/* The index's headings are hand-numbered and I duplicated 18/19/20 the first time I
+   inserted three rows in the middle of it. A duplicate number in a REGISTRY is rot: two
+   "question 18"s means a citation to one of them is ambiguous forever. Cheap to check,
+   so it is checked. */
+const nums = (idx.match(/^### (\d+)\./gm) || []).map(h => +h.match(/\d+/)[0]);
+ok('C4b the index headings are numbered 1..N with no duplicates and no gaps (' +
+   nums.length + ' questions)',
+   nums.length > 0 && nums.every((n, i) => n === i + 1));
 ok('C5 every row cites a file that exists',
    block.trim().split('\n').filter(Boolean).every(l => {
      const f = l.split('|')[2].trim();

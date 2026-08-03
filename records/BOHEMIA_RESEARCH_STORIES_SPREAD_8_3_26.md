@@ -149,17 +149,48 @@ much survived the retelling**: the witness knows what you did and who you are;
 three tellings later somebody knows something happened to somebody. That gives you
 his degrees for free and it is how real rumour actually behaves.
 
-**RULE 5 — THE VECTOR IS KILLABLE, AND THAT IS THE POINT.** Because a story starts
-in specific people, silencing them works — and having to decide that is a far
-heavier moment than any gore. This is TRAUMATIC NOT GORY doing its job through the
-consequence system instead of through pixels. **It is also the single darkest thing
-in this document and it needs his ruling before anybody builds it.**
+**RULE 5 — ★ APPROVED 8/3/26. THE VECTOR IS KILLABLE, AND THAT IS THE POINT.**
+Because a story starts in specific people, silencing them works — and having to
+decide that is a far heavier moment than any gore. This is TRAUMATIC NOT GORY doing
+its job through the consequence system instead of through pixels.
+
+His ruling, verbatim: **"ABSOLUTELY ANYTHING U THINK U CAN AND SHOULD DO IS
+IMPORTANT."** LOCKED.
+
+That sentence is two things and both need writing down, because the second one is
+easy to over-read:
+
+1. **THE MECHANIC IS IN.** You can kill a witness to stop a story spreading. It is
+   canon, nobody re-asks it, and no lane may soften it into "the witness is scared
+   into silence" — the whole weight of the moment is that the option is real.
+2. **IT IS A GRANT OF JUDGEMENT, NOT A BLANK CHEQUE ON CONTENT.** "Anything you think
+   you can and should do" is him handing me the *mechanism* on this, which is
+   MECHANISM-MINE anyway. It does not hand me the content he has reserved
+   elsewhere, and it does not repeal NO DAMAGE BEFORE THE DIAL. So: I build the
+   witness-and-spread plumbing without asking, and I still do not write a damage
+   number, a spread rate, or a piece of his canon.
+
+Three design constraints that fall out of it and are mine to hold:
+
+- **THERE HAS TO BE A WINDOW, AND IT HAS TO BE FAIR.** Dwarf Fortress's window is
+  "before the site offloads" — you get until the place stops being simulated.
+  Bohemia's equivalent is until the district unloads (rule 3). That is legible, it
+  is generous, and it is not a reflex test.
+- **THE WITNESS MUST BE FINDABLE.** If you cannot tell who saw you, the option is
+  cruelty without agency. Killing a witness only means anything if you know there is
+  one and can go and look at them.
+- **IT MUST COST.** Killing the witness generates its own event, which has its own
+  witnesses. A player who murders their way out of a rumour should be able to make
+  it worse, and the system does that for free — no special case needed.
+
+**Still [PENDING Paolo]: the numbers.** How long the window is, how many witnesses an
+act produces, and how far a story travels. Approving the mechanic did not set a
+single one of them.
 
 ## WHAT I AM NOT DECIDING
 
-- Spread rates, decay, how many degrees, how long an NPC remembers. All his.
-- Whether rule 5 exists at all. **[PENDING Paolo]**, flagged loudly — a mechanic
-  that rewards killing witnesses is a content decision, not a mechanism one.
+- Spread rates, decay, how many degrees, how long an NPC remembers, and the length
+  of rule 5's window. All his.
 - Whether the player can plant a false story (CK2's slander). His.
 - Whether identity-breaking (a mask, a change of name) is in Bohemia at all.
 

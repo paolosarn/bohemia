@@ -143,7 +143,7 @@ ok('B11 it says plainly that nothing was cooked',
 /* Scoped TO THE CLAUSE, never to a flat window: the two pendings sit two clauses
    apart, and a window wide enough to reach one is wide enough to be fooled by the
    other. This is the bug traumatic_gate's C1 and earned_not_afforded's D1 both had. */
-[['the grime decision (clause 2)', /CLAUSE 2[^|]*?ONE PASS OVER EVERYTHING/i, /CLAUSE 3/i],
+[['the grime STRENGTH dial (clause 2a)', /CLAUSE 2A[^|]*?PIPELINE STAGE/i, /CLAUSE 3/i],
  ['the palette (clause 4)', /CLAUSE 4[^|]*?THE COLOURS ARE HIS/i, /CLAUSE 5/i]
 ].forEach(([what, start, end]) => {
   const m = start.exec(law);
@@ -158,6 +158,33 @@ ok('B11 it says plainly that nothing was cooked',
 });
 ok('C2 clause 4 still says the palette was ALWAYS his, not newly reserved',
    /BOHEMIA'S PALETTE IS \[PENDING Paolo\] AND ALWAYS WAS/i.test(law));
+
+/* ---- HE APPROVED THE GRIME PASS ON 8/3, AND THE ANSWER TO HIS QUESTION IS GATED --
+   He said "SURE" with a question attached: do we do this before the demo or at the end?
+   The answer is NEITHER -- it is a bake-time pipeline stage, so it is never a milestone
+   and adding hundreds more assets costs no extra grime work. That answer is the whole
+   value of the clause: if a later session reads clause 2 as "hand-paint dirt onto every
+   tile," it inherits a pass that must be redone by hand every time an asset lands, which
+   is exactly the trap he smelled. So the reasoning is load-bearing and it is held here. */
+ok('E1 his approval is recorded verbatim, so nobody re-asks it',
+   /APPROVED 8\/3\/26: "SURE"/.test(law) && /The grime pass happens/i.test(law));
+ok('E2 his question is quoted, not paraphrased away',
+   /DO WE DO THIS BEFORE WE THE DEMO ND THE END/i.test(law));
+ok('E3 the answer is a PIPELINE STAGE, explicitly not a milestone',
+   /NEITHER\. IT IS A PIPELINE STAGE, NOT A MILESTONE/i.test(law) &&
+   /neither "before the demo" nor "at the end"/i.test(law));
+ok('E4 and it names the trap that answer avoids -- a manual pass redone per asset',
+   /redone from scratch\s*every single time an asset is added/i.test(law));
+ok('E5 requirement: it composites at bake and NEVER writes to banks/',
+   /never writes to `?banks\/`?/i.test(law) && /sacrosanct/i.test(law));
+ok('E6 requirement: ONE dial, judged on the world and not on a tile',
+   /IT IS ONE DIAL/i.test(law) && /by looking at the world, not at a tile/i.test(law));
+ok('E7 requirement: indifferent to object boundaries -- the finding itself',
+   /INDIFFERENT TO OBJECT BOUNDARIES/i.test(law) &&
+   /reproduced the exact problem it exists to solve/i.test(law));
+ok('E8 the ART lane owns the build, not the lab, and it still waits for the freeze',
+   /THE ART LANE, NOT THIS ONE/i.test(law) &&
+   /an approved grime pass is not an approved art batch/i.test(law));
 
 /* ---- THE SWEEP: NOBODY TREATED THIS AS PERMISSION ------------------------- */
 /* A banned CATEGORY needs a sweep and not a paragraph (the lesson ten_years_cold

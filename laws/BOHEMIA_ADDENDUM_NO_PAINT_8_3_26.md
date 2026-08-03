@@ -63,10 +63,56 @@ consistent, imperfection in an individual tile stops being visible.** He does no
 even UV unwrap his models properly and nobody notices, because the grunge covers
 it. The route to a coherent world is therefore NOT a higher bar per tile.
 
-LOCKED as the PRINCIPLE. **Whether the pass happens, and how heavy it is, is
-[PENDING Paolo]** — it changes how every tile in the game looks and that is his
-call, not a lane's. Whether it is hand-authored per tile or applied
-programmatically is mechanism and therefore ours, once he says go.
+**APPROVED 8/3/26: "SURE".** The grime pass happens. That is his word and it is the
+ruling; nobody re-asks it.
+
+He approved it with a question attached, and the question is the important half:
+
+> "SURE BUT WE HAVE SO MANY GRAPHICS ASSETS TO ADD. DO WE DO THIS BEFORE WE THE DEMO
+> ND THE END?"
+
+## CLAUSE 2A — THE ANSWER: NEITHER. IT IS A PIPELINE STAGE, NOT A MILESTONE.
+
+He is right to smell a trap, and the trap is real: **if the grime is a hand-painted
+pass, then it can only ever be done at the end, and it has to be redone from scratch
+every single time an asset is added.** Hundreds of assets are still coming. A manual
+pass would be re-run, by hand, hundreds of times, and would be permanently out of
+date in between. That is the version that eats the schedule, and it is the version he
+was worried about.
+
+So it is not that. **THE GRIME IS A MACHINE THAT RUNS AT BAKE TIME OVER WHATEVER THE
+BANK CURRENTLY HOLDS.** Build it once, now, and:
+
+- **Every asset added from that day forward is grimed the day it lands**, with no
+  extra work and no second pass. Adding five hundred more tiles costs zero grime
+  work.
+- **It is never a milestone**, so it is neither "before the demo" nor "at the end" —
+  it is simply on, from the moment it exists, the way the 45-degree check is on.
+- **Nothing is behind it.** Asset production does not wait for the grime and the
+  grime does not wait for asset production. That is the whole reason to answer his
+  question this way instead of picking one of the two dates he offered.
+- **It answers the same question for the demo:** the demo gets grime because
+  everything gets grime. There is no separate demo pass to schedule.
+
+Three requirements on that machine, all mechanism and therefore ours:
+
+1. **IT COMPOSITES AT BAKE, IT NEVER WRITES TO `banks/`.** RIG LAW and his painted
+   regions are sacrosanct. The source pixels he bought and painted are not touched;
+   the dirt is a layer applied on the way to the screen. Which also means it is
+   reversible, and a wrong strength is a one-line change and not a re-cook.
+2. **IT IS ONE DIAL, SO HE JUDGES STRENGTH ONCE.** Not per-tile, not per-material —
+   one number for the whole world, because uniformity across object boundaries is the
+   entire finding. **The number is [PENDING Paolo]** and he judges it by looking at
+   the world, not at a tile.
+3. **IT IS INDIFFERENT TO OBJECT BOUNDARIES.** A grime system that respects where
+   one asset stops and the next begins has reproduced the exact problem it exists to
+   solve. This is the requirement most likely to be quietly broken by somebody being
+   tidy, so it is the one the gate has to hold.
+
+**WHO BUILDS IT: THE ART LANE, NOT THIS ONE.** It is a texture-pipeline stage and the
+ART lane owns the texture pipeline and is actively working in it. The LAB lane wrote
+the brief and does not touch the cook. And it still does not run until he lifts the
+freeze — an approved grime pass is not an approved art batch.
 
 ## CLAUSE 3 — DARK IS THE DEFAULT, LIT IS THE EXCEPTION, AND WE ALREADY SAID SO
 

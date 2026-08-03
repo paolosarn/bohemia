@@ -68,13 +68,22 @@ approved: over-weight becomes a divisor on the conversion, under the threshold i
 is free. That is clause 3 and clause 5 of the action cost shape doing their job
 with zero new mechanism.
 
-**R11 — [MY RECOMMENDATION, HIS CALL] WALKED-MAP MEMORY ACROSS ACTS.** He asked me
-this one, so I answer it rather than bouncing it back: **the walked map should NOT
-carry forward intact.** An heir inheriting a fully-revealed valley deletes the
-best thing about R9 for two thirds of the game. What I would do instead: the heir
-inherits the *family's* places (the house, the camp sites, whatever the city has
-actually been built into) and re-walks the rest. That way inheritance is felt
-without the world going flat. **Still yours to rule.**
+**R11 — ★ RULED 8/3/26: AN HEIR DOES NOT INHERIT THE WALKED MAP. "NO THEN".**
+He asked me this one on 8/1, I recommended no, and he ruled **no** on 8/3. LOCKED.
+
+The reasoning that stands behind it: an heir inheriting a fully-revealed valley
+deletes the best thing about R9 for two thirds of the game — if fast travel is
+unlocked by having walked somewhere, then handing a new generation the whole map
+means nobody ever walks again. What the heir gets instead is the **family's**
+places: the house, the camp sites, whatever the city has actually been built into.
+Everything else is dark again and has to be walked.
+
+Which is the good version anyway, because it makes the second and third generations
+feel like *going back out* rather than resuming a save. Rerolling the map's darkness
+is the mechanism that makes R24 (gear at the family house) and R22 (the city
+remembers) land as inheritance instead of as a menu.
+
+*Owner: MAP / CITY plumbing, same as R9. Nothing built.*
 
 ## THE DIALOGUE AND QUEST RULINGS
 
@@ -201,7 +210,8 @@ to, and because R21 is the ruling he said it about.
 
 ## WHAT IS STILL HIS
 
-- R5's rest numbers. R11's inheritance of the walked map. R13's actual check keys.
+- R5's rest numbers. R13's actual check keys.
+  (**R11 came off this list on 8/3 — he ruled it. "NO THEN".**)
 - R21's spread rates, degrees of story, and how long an NPC remembers.
 - R25's boost.
 - R27 — whether the robot companion exists at all.

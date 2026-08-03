@@ -1,3 +1,69 @@
+LAB (lab-e2r7sv): 8/3 (b) LATEST -- HE RULED ALL THREE, AND THE GRIME ANSWER IS
+"IT IS A PIPELINE STAGE, NOT A MILESTONE".
+
+=== RULING 1: THE GRIME PASS IS APPROVED. "SURE" ===
+And he attached the question that mattered: "BUT WE HAVE SO MANY GRAPHICS ASSETS TO ADD.
+DO WE DO THIS BEFORE WE THE DEMO ND THE END?" He was right to smell a trap. If the grime
+is a HAND-PAINTED pass it can only ever be done at the end AND it has to be redone from
+scratch every single time an asset lands -- hundreds of times, permanently out of date in
+between. THE ANSWER IS NEITHER OF HIS TWO DATES: it is a BAKE-TIME PIPELINE STAGE. Build
+it once and every asset added from that day forward is grimed automatically, adding 500
+more tiles costs zero grime work, nothing waits on anything, and the demo gets grime
+because everything does. laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md clause 2 + NEW CLAUSE 2A.
+THREE REQUIREMENTS, all mechanism: it COMPOSITES AT BAKE and never writes to banks/ (his
+pixels stay sacrosanct, and a wrong strength is a one-line change not a re-cook); it is
+ONE DIAL so he judges strength once by looking at the WORLD not a tile (the number is
+still [PENDING Paolo]); and it is INDIFFERENT TO OBJECT BOUNDARIES, because a grime system
+that respects where one asset stops has reproduced the exact problem it exists to solve.
+*** THE ART LANE BUILDS IT, NOT THIS ONE. *** It is a texture-pipeline stage, that lane
+owns the pipeline and is actively in it. And it does not run until he lifts the freeze --
+an approved grime pass is not an approved art batch.
+
+=== RULING 2: YOU CAN KILL A WITNESS TO STOP A STORY SPREADING ===
+"ABSOLUTELY ANYTHING U THINK U CAN AND SHOULD DO IS IMPORTANT." Rule 5 of
+records/BOHEMIA_RESEARCH_STORIES_SPREAD_8_3_26.md is APPROVED. Two halves, both written
+down: the MECHANIC is in and no lane may soften it into "scared into silence" (the weight
+is that the option is real), AND it is a grant of JUDGEMENT on mechanism, not a blank
+cheque on the content he reserved -- it does not repeal NO DAMAGE BEFORE THE DIAL. Three
+constraints I hold: there is a WINDOW (until the district unloads, Dwarf Fortress's own
+trigger), the witness must be FINDABLE (otherwise it is cruelty without agency), and it
+MUST COST (killing them is its own event with its own witnesses, so murdering your way
+out can make it worse -- free, no special case).
+
+=== RULING 3: AN HEIR DOES NOT INHERIT THE WALKED MAP. "NO THEN" ===
+R11 is RULED and came OFF the still-his list the same turn. The heir gets the family's
+places (house, camp sites, whatever the city was built into) and re-walks the rest.
+Reason: fast travel unlocks by having walked (R9), so a revealed valley means nobody ever
+walks again -- and re-darkening makes gen 2 and 3 feel like GOING BACK OUT, not resuming
+a save.
+
+=== GATED (mutation-tested in both directions, seven mutations, all caught) ===
+no_paint_gate.js 50 checks (+E1..E8: his approval verbatim, HIS QUESTION quoted not
+paraphrased away, the pipeline-stage answer, the trap it avoids, and all three
+requirements). rulings_gate.js 63 checks (+E1..E11 on the rumour research and the witness
+mechanic, +B4/B4b/B4c on R11, +C4b). The answered index is at 23 questions / 59 triggers.
+NEW CHECK WORTH KEEPING: C4b asserts the index headings are numbered 1..N with no
+duplicates -- I duplicated 18/19/20 inserting three rows mid-file, and a duplicate number
+in a REGISTRY makes every citation to it ambiguous forever.
+
+=== MY OWN MESS, OWNED ===
+Last ship I committed CONFLICT MARKERS into this handoff. A python resolver asserted at
+its LAST line (the marker check), so the file was never written -- and I ran git add and
+rebase --continue anyway. Fixed and force-pushed the same turn. THE RULE: a resolver that
+throws must never be followed by a blind `git add`. Also the local working dir has rolled
+back to an old commit THREE times this session; every time, verify the work exists on
+origin/main FIRST, then hard-sync. Nothing has been lost.
+
+=== NOT DONE / THE QUEUE ===
+1. THE WITNESS + STORY-SPREAD PLUMBING is now APPROVED work and it is the top item. The
+   object model (a rumour is a THING, not a number), witness sensing on all NPCs (R20),
+   spread on district unload, degrees = fidelity not severity, and the kill-the-vector
+   window. Numbers stay his.
+2. R30 "let's look into it" -- the legacy-roguelite family. Transcription was garbled and
+   I am NOT guessing a title. R29 (Rogue Fable) is NOT live permission; killed 8/1.
+3. Canon-contradiction auditing across the indexed files.
+4. Did not touch #buildstamp again: laws/records/gates only, nothing new on the surface.
+
 COMBAT (combat-nfnki9): 8/3 (a) LATEST -- DIFFICULTY NEVER TOUCHED THE ENEMY, AND
 RUN IS ONE BUTTON ON THE THUMB. Shipped to main as 4f5b9b4, BUILD 8/3f.
 

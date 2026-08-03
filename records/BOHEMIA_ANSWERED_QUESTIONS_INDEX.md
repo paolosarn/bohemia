@@ -166,7 +166,33 @@ play. Sparing somebody after you already shot them is a **different entry** from
 sparing somebody with their hands up.
 - `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R17, R18, R19
 
-### 17. WHAT DOES AN HEIR INHERIT? DO PERKS CARRY?
+### 17. DOES THE GRIME PASS HAPPEN? WHEN — BEFORE THE DEMO OR AT THE END?
+**YES, HE SAID "SURE" ON 8/3 — AND THE ANSWER TO "WHEN" IS NEITHER.** It is a bake-time
+**pipeline stage**, not a milestone, so it is never scheduled: every asset added from the
+day it exists is grimed automatically, and adding hundreds more costs no extra grime
+work. It composites at bake and **never writes to `banks/`**, it is **one dial** (the
+strength is still his), and it is **indifferent to object boundaries** — which is the
+whole finding. Built by the ART lane, and it still does not run until he lifts the
+freeze.
+- `laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md` clause 2 + clause 2A
+
+### 18. CAN YOU KILL A WITNESS TO STOP A STORY SPREADING?
+**YES. APPROVED 8/3: "ABSOLUTELY ANYTHING U THINK U CAN AND SHOULD DO IS IMPORTANT."**
+The mechanic is canon and no lane may soften it into "the witness is scared into
+silence" — the weight of the moment is that the option is real. There is a **window**
+(until the district unloads), the witness must be **findable**, and it must **cost**
+(killing them is its own event with its own witnesses). The numbers are still his.
+- `records/BOHEMIA_RESEARCH_STORIES_SPREAD_8_3_26.md` rule 5
+- `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R20, R21
+
+### 19. DOES AN HEIR INHERIT THE WALKED MAP?
+**NO. RULED 8/3: "NO THEN".** The heir gets the family's places — the house, the camp
+sites, whatever the city has been built into — and re-walks everything else. Handing a
+new generation a revealed valley would mean nobody ever walks again, which deletes the
+point of fast travel unlocking by foot.
+- `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R11
+
+### 20. WHAT DOES AN HEIR INHERIT? DO PERKS CARRY?
 **NO INHERITED PERKS — A BOOSTED START INSTEAD.** What actually carries: **gear
 stored at the family house**, the camp (upgradeable across acts, so you can be in
 act 3 on an act-1 camp), and city/faction/mayor choices that linger. NPCs mention
@@ -174,14 +200,14 @@ your father. The whole dynasty layer is derived from **realism** — what would
 actually happen forty years after.
 - `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R22–R28
 
-### 18. HOW DOES NEGLECT BITE IF THERE IS NO UPKEEP?
+### 21. HOW DOES NEGLECT BITE IF THERE IS NO UPKEEP?
 **IT DOESN'T BITE. YOU JUST STILL HAVE THE SHITTY CAMP.** Falling behind is a state
 you are still in, never a bill you failed to pay. Answered by the upgradeable camp
 (R26), and consistent with buildings being EARNED, not afforded.
 - `records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md` R26
 - `laws/BOHEMIA_ADDENDUM_EARNED_NOT_AFFORDED_7_31_26.md`
 
-### 19. SHOULD BOHEMIA LOOK MORE LIKE MACHINE PARTY?
+### 22. SHOULD BOHEMIA LOOK MORE LIKE MACHINE PARTY?
 **YES — HE SAID SO ON 8/3 AND IT IS A NAMED VISUAL REFERENCE NOW.** *"I really want
 my game to look more like that very good."* No paint on any object, ONE grime pass
 over everything, dark as the default, stepped animation. It does **not** make
@@ -189,7 +215,7 @@ Bohemia 3D, and it does **not** lift the art freeze.
 - `laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md`
 - `records/BOHEMIA_RESEARCH_MACHINE_PARTY_8_3_26.md`
 
-### 20. CAN A LANE DECIDE ART LOOKS GOOD ENOUGH TO SHIP?
+### 23. CAN A LANE DECIDE ART LOOKS GOOD ENOUGH TO SHIP?
 **NO. HE THUMBS. EVERYTHING ELSE IS OURS.** Machine gates prove craft; only Paolo
 judges whether it looks right.
 - `laws/BOHEMIA_AUTONOMY_DOCTRINE_7_26_26.md`
@@ -253,4 +279,14 @@ what does an heir inherit | gear at the family house, the camp, lingering city c
 how does neglect bite | it doesn't. you just still have the shitty camp | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
 look more like machine party | yes. named visual reference 8/3, and it is not 3D | laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md
 should we make it 3d | no. pixel art at 45 degrees. the reference is not the geometry | laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md
+does the grime pass happen | yes. he said SURE on 8/3 | laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md
+when do we do the grime | neither before the demo nor at the end -- it is a bake-time pipeline stage | laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md
+before the demo or at the end | neither. a pipeline stage is never a milestone | laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md
+grime strength | the dial is still his; the pass itself is approved | laws/BOHEMIA_ADDENDUM_NO_PAINT_8_3_26.md
+kill a witness | yes, approved 8/3. window, findable, and it costs | records/BOHEMIA_RESEARCH_STORIES_SPREAD_8_3_26.md
+silence a witness | yes. approved 8/3, and it may not be softened | records/BOHEMIA_RESEARCH_STORIES_SPREAD_8_3_26.md
+stop a story spreading | yes -- kill the vector before the district unloads | records/BOHEMIA_RESEARCH_STORIES_SPREAD_8_3_26.md
+heir inherit the walked map | no. "NO THEN" 8/3. only the family's places carry | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+inherit the map | no. the heir re-walks everything but the family's places | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
+walked map carry | no. ruled 8/3 | records/BOHEMIA_RULINGS_FROM_THE_QUESTION_ROUND_8_3_26.md
 ```
