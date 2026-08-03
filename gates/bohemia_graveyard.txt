@@ -713,3 +713,24 @@ new to say rather than another guess.
 # rescued BEFORE it was judged, so what he killed was the wall he actually chose and
 # not the smear. Verify what is on screen before putting art in front of him, including
 # art he already approved.
+
+THE COOK (grenade fuse minigame, v124, 8/3/26) -- KILLED ON SIGHT, never shipped.
+# "bro what fucking minigame was that im so confused? like wtf. the deadshot dial is
+# a minigame. that grenade throwing was dogshit."
+# WHAT IT WAS: hold the grenade, a bar fills across three bands (cold / green pocket /
+# too long), tap to release, longer hold = shorter fuse, hold too long and it kills you.
+# WHY IT DIED, AND HE IS RIGHT: A BAR THAT FILLS WHILE YOU HOLD IS A QUICKTIME EVENT,
+# NOT A MINIGAME. The dead-shot dial is a minigame because it has a SHAPE you read -- a
+# needle on a track, patterns that change fight to fight, a window you learn to see. The
+# cook had no shape at all. It was a loading bar with a green stripe, which is the most
+# generic interaction in games, and I filed it under the same word as the dial.
+# THE PROCESS FAILURE UNDERNEATH IT: I researched hard (fuse cooking is real, the dart
+# study on window width is real) and the research was all about WHY the mechanic should
+# exist. I never once asked what it should FEEL like, or held it next to the dial and
+# asked whether it belonged in the same game. Good reasons for a bad interaction.
+# AND I PICKED THE VERB MYSELF. He said "lets think about building and how to build
+# that throwing grenade minigame" -- think about HOW -- and I skipped straight past him
+# to a finished implementation. MECHANISM-MINE/CONTENTS-PAOLO'S: the shape of a minigame
+# he has to play every fight is CONTENT, and it was his to name.
+# NO REMAKE OF THE FUSE BAR. EVER. The next grenade minigame starts from his answer to
+# what it is, not from a variation on this.

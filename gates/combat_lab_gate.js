@@ -552,7 +552,11 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
   // v44: SPRINT -- real movement/strategy stakes, not just repositioning
   ok('V44 SPRINT: arms a 2-tile move that resolves fully engaged (real return fire), blocked if either tile in the path has a pillar, consumes itself after one use',
     demo.includes('V44 SPRINT') &&
-    demo.includes('id="sprintbtn"') &&
+    /* MIGRATED BY V123, Paolo 8/3: "I NEED YOU TO HAVE SPRINT OFF THE TOP MENU
+       BC ITS IN THE GAMEPLAY UI NOW." The BUTTON is gone; the VERB is not, same
+       as doDash and doVault after v122, so this now guards the verb (which is
+       what it was always about) instead of a chrome element he removed. */
+    demo.includes("{const _sp=D('sprintbtn'); if(_sp)_sp.addEventListener('click',") &&
     demo.includes('const _sprinting=!!G.sprintArm;') &&
     /* SUPERSEDED BY PAOLO 8/1, NEWEST DATE WINS: "I want to change it to
        sprinting moving two tiles to one tile... sprinting basically just means
@@ -617,8 +621,14 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
     demo.includes('addLiveComment();   /* V51 NO ADD BUTTON'));
   // v52: dense feedback batch -- POP OUT vs ENGAGE wording, the fall-timing bug,
   // and two defaults (pistol, killshots/turn=1) so a fresh fight reads honest
-  ok('V52 POP OUT VS ENGAGE: with no pillar near the player at all, the action button says ENGAGE, not POP OUT (nothing to pop out of if you were never in cover)',
-    demo.includes('const nearCov=playerNearCover();') &&
+  /* MIGRATED BY V123, and the law got STRICTER not looser. v52 said "no pillar
+     near you -> ENGAGE". Paolo 8/3 caught that a pillar near you is not the
+     question: cover to your north with every gun to your south still said POP
+     OUT. The button now reads coveredFromAnyone(), so ENGAGE covers both the
+     no-stone case this always guarded AND the stone-that-shields-you-from-
+     nobody case it never did. */
+  ok('V52 POP OUT VS ENGAGE: when nothing is actually covering you, the action button says ENGAGE, not POP OUT (nothing to pop out of if you were never in cover)',
+    demo.includes('const nearCov=coveredFromAnyone();') &&
     demo.includes("col='#8a7d66'; txt=nearCov?'POP OUT':'ENGAGE';") &&
     demo.includes("col='#eafff0'; txt=nearCov?'POP OUT':'ENGAGE'; green=true;"));
   ok('V52 FALL TIMING FIX: a lethal kill sets _deadAt (not just _fellAt) to the real bullet-travel timestamp, so enemyFrame() actually holds the death pose until the bullet lands instead of self-initializing _deadAt to "now"',
@@ -2428,7 +2438,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
     /* 8 enemy-facing calls, still 8: seven ask the boolean and the eighth asks
        coverPillarAgainst directly, because the volley needs to know WHICH piece
        stopped the round so it can put the heat in the car. */
-    demo.split('myCoverAgainst(e.ea,e.edist,e.lvl)').length - 1 === 8 &&   /* V110: pressureGuns is the eighth, and it carries its level like every other */
+    demo.split('myCoverAgainst(e.ea,e.edist,e.lvl)').length - 1 === 9 &&   /* V110: pressureGuns was the eighth. MIGRATED BY V123: coveredFromAnyone is the ninth, and it carries its level like every other -- the invariant is that no enemy-facing call may be levelless, never that there is a fixed number of them */
     demo.split('coverPillarAgainst(e.ea,e.edist,e.lvl,false)').length - 1 === 1 &&
     demo.split('myCoverAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 1 &&
     demo.split('myConcealAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 4 &&   /* MIGRATED BY V122: runBreakLocks is the fourth, and it carries its level like every other -- the invariant is that no enemy-facing call may be levelless, not that there are exactly three */
@@ -2803,7 +2813,10 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
     demo.includes('V99 YOU CAN THROW A GRENADE') &&
     demo.includes('function doThrow(){') &&
     demo.includes('function pGrenTurn(){') &&
-    demo.includes('id="grenbtn"'));
+    /* MIGRATED BY V124: the button moved to the thumb cluster (Paolo 8/3, "get
+       rid of the grenade button too"). There is still exactly one grenade
+       button, it is just where his hand is. */
+    demo.includes("mk('grenbtn2','GREN'"));
 
   ok('V99 THEY GET THE SAME TWO BEATS YOU DO -- which is what makes it a POSITIONING tool and not free damage. A man caught in the blast steps off the tile, and he loses the stone he was tucked behind when he does',
     demo.includes('function stepOffBlast(e,gp){') &&
@@ -3510,6 +3523,64 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V122 THE RING STEERS AN ARMED RUN, and the arm never survives the tap -- same rail the dash used, checked first because RUN is now the only armed move with a button',
     /if\(G\.runArm\)\{ G\.runArm=false; updRunBtn\(\); updMoveMode\(\); return doRunMove\(d\); \}/.test(demo) &&
     demo.includes('G.runArm=!G.runArm; if(G.runArm){ G.sprintArm=false; G.dashArm=false; }'));
+}
+
+/* ===== YOU ALWAYS SHOOT FIRST (Paolo 8/3/26, LOCKED) ==================
+   laws/BOHEMIA_ADDENDUM_YOU_ALWAYS_SHOOT_FIRST_8_3_26.md. I surfaced the
+   opening turn as an open question because it looked like a standing advantage
+   nobody paid for. He answered: "no enemies never get the first shot thats why
+   its important to not miss." It is deliberate, it is the point, and it is now
+   canon no session may reopen. A law without a machine gate is not enforced. */
+{
+  const LAW = require('fs').readFileSync(__dirname + '/../laws/BOHEMIA_ADDENDUM_YOU_ALWAYS_SHOOT_FIRST_8_3_26.md','utf8');
+  ok('THE LAW IS ON DISK AND IT CARRIES HIS WORDS AND HIS REASON: the player opens every fight, and the reason is that a guaranteed first shot is what makes missing it a choice you got wrong instead of luck you did not get',
+    LAW.includes('no enemies never get the first shot thats why its important to not miss') &&
+    /THE PLAYER OPENS EVERY FIGHT/.test(LAW));
+
+  ok('AND THE FIGHT ACTUALLY OPENS IN YOUR PHASE: setupCombat puts you in cover phase and setupEnemies zeroes the enemy turn counter, so nobody has acted when you take your first turn',
+    /function setupCombat\(\)\{[\s\S]{0,400}G\.phase='cover';/.test(demo) &&
+    demo.includes('G.e=[]; const N=G.numEnemies; G.mTurn=0;'));
+
+  ok('AND NOTHING GRANTS A PRE-TURN ENEMY ACTION: no initiative roll, no ambush opener, no difficulty tier that opens in the enemy phase. The fight never starts anywhere but cover',
+    !/G\.phase\s*=\s*'(enemy|foe|them|react)'/.test(demo) &&
+    !/initiative/i.test(demo) &&
+    !/ambushOpener|enemyFirst|theyShootFirst/.test(demo));
+
+  ok('AND DIFFICULTY IS NOT ALLOWED TO BUY THE OPENING TURN: threatMult reaches accuracy and nothing else, so the 8/3 wiring makes them better shots without ever touching who moves first',
+    (demo.match(/threatMult\(\)/g) || []).length === 2 &&
+    !/pkgDiff[\s\S]{0,60}phase/.test(demo));
+}
+
+/* ===== V123 SPRINT OFF, THE PC GETS ITS ROWS, POP OUT KNOWS WHO ======== */
+{
+  ok('V123 SPRINT IS OFF THE TOP MENU. Paolo 8/3: "I NEED YOU TO HAVE SPRINT OFF THE TOP MENU BC ITS IN THE GAMEPLAY UI NOW." A v122 miss -- that patch took DASH and VAULT because he named them and left SPRINT because he had not. He has now decided, and RUN on the ring is the movement verb',
+    !demo.includes('<button id="sprintbtn"') &&
+    !/\bD\('sprintbtn'\)\.addEventListener/.test(demo));
+
+  ok('V123 AND THE SPRINT VERB IS NOT DELETED, same as doDash and doVault after v122: nothing dies without his word, so G.sprintArm and doMove\'s sprint branch stay callable behind a null-safe wire',
+    demo.includes("{const _sp=D('sprintbtn'); if(_sp)_sp.addEventListener('click',") &&
+    demo.includes('const _sprinting=!!G.sprintArm;'));
+
+  ok('V123 THE SIDEWAYS STRIP WAS A PHONE CONTROL SHIPPED TO A DESKTOP, and it was my v119 bug. Paolo: "THE UI MENU SLIDER DOESNT WORK ON PC... I HAVE TO USE LEFT AND RIGHT MOUSE BUTTON." A wheel scrolls vertically, a horizontal container ignores it, and v119 hid the scrollbar, so press-and-drag was the only thing left that moved the row -- exactly what he described. The fix is NOT a better slider, it is NO slider: a PC has vertical room and gets its rows back',
+    demo.includes('body.desk #chud .crow{flex-wrap:wrap;overflow-x:visible;}') &&
+    demo.includes("if(!G.isTouch)document.body.classList.add('desk');"));
+
+  ok('V123 AND THE PHONE KEEPS ITS STRIP, plus a wheel/trackpad gesture maps to horizontal scroll so a TOUCHSCREEN LAPTOP -- which reports as touch and would still get the strip -- is not stuck either. The thing that broke here was assuming one input model',
+    demo.includes('#chud .crow{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;') &&
+    /r\.addEventListener\('wheel',ev=>\{/.test(demo) &&
+    demo.includes('if(r.scrollWidth<=r.clientWidth)return;') &&
+    demo.includes('r.scrollLeft+=dx; ev.preventDefault();'));
+
+  ok('V123 POP OUT NOW ASKS WHO IT IS COVER FROM. Paolo: "IF I HAVE CIVER TIO MY NORTH OF ME BUT THERES NO ENEMIES TO THE NORTH... THE ACTION BUTTON SHOULD NOT BE SAYING POP OUT." playerNearCover asked IS THERE ANY STONE WITHIN 1.8 TILES IN ANY DIRECTION, full stop -- it never asked whether that stone was between you and a living man. Wrong since v52',
+    demo.includes('function coveredFromAnyone(){') &&
+    demo.includes('const nearCov=coveredFromAnyone();') &&
+    !demo.includes('const nearCov=playerNearCover();'));
+
+  ok('V123 AND IT REUSES THE REAL GEOMETRY TEST INSTEAD OF INVENTING A SECOND ONE: myCoverAgainst is what the volley, the exposure floor and the acquisition bead already ask, so the action button stops being the one place asking the cheap question',
+    /coveredFromAnyone\(\)\{[\s\S]{0,220}myCoverAgainst\(e\.ea,e\.edist,e\.lvl\)/.test(demo));
+
+  ok('V123 AND COVER FROM A CORPSE IS NOT COVER: dead, downed, broken and fleeing men are not threats, so a stone that only shields you from bodies reads ENGAGE',
+    /!e\.dead&&!e\.downed&&!e\.broken&&!e\.fleeing[\s\S]{0,80}myCoverAgainst/.test(demo));
 }
 
 /* ---- 6. the parent shell: the other half of the handoff ---- */
