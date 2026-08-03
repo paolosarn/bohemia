@@ -218,6 +218,68 @@ const METER=`(function(){
   out.mixKillMuted = await onBus('kill');
   await p.evaluate(()=>window.setSFXVolume(1));
 
+  /* ===== THE MUSIC OFF BUTTON MUST NOT MUTE THE GAME (8/2) ===============
+     MEASURED AT THE OUTPUT BUS, not at the SFX bus. That distinction IS the
+     bug: SFXBUS used to feed MUS.MAST, and MUS.stop() ducks MAST to zero and
+     leaves it there, so every effect in the game died the moment the music was
+     turned off. A meter on SFXBUS reads the same either way, because it sits
+     UPSTREAM of the gain that was killing the sound -- which is exactly why a
+     week of green sound gates never saw it. Measure where the speaker is. */
+  out.hasOutBus = await p.evaluate(()=>!!window.__OUTBUS && !!window.__MUSVOL);
+  await p.evaluate(()=>{
+    window.__OPEAK=0;
+    const dst=window.__OUTBUS||MUS.MAST;
+    const an=MUS.AC.createAnalyser(); an.fftSize=2048;
+    dst.connect(an);
+    const buf=new Float32Array(an.fftSize);
+    setInterval(()=>{ an.getFloatTimeDomainData(buf);
+      let m=0; for(let i=0;i<buf.length;i++){const v=Math.abs(buf[i]); if(v>m)m=v;}
+      if(m>window.__OPEAK) window.__OPEAK=m; },16);
+  });
+  async function atOutput(ev){
+    await p.evaluate(()=>{window.__OPEAK=0;}); await p.waitForTimeout(300);
+    await p.evaluate(e=>{ window.playSFX(e); }, ev); await p.waitForTimeout(1500);
+    return await p.evaluate(()=>window.__OPEAK);
+  }
+  out.outKillBefore = await atOutput('kill');
+  /* press PLAY then STOP: exactly what the music button does */
+  await p.evaluate(()=>{ try{ MUS.start(); }catch(e){} });
+  await p.waitForTimeout(800);
+  await p.evaluate(()=>{ try{ MUS.stop(); }catch(e){} });
+  await p.waitForTimeout(500);
+  out.mastAfterStop = await p.evaluate(()=>MUS.MAST?MUS.MAST.gain.value:null);
+  out.outKillAfterMusicOff = await atOutput('kill');
+  out.outStepAfterMusicOff = await atOutput('step_asphalt');
+
+  /* ===== THE THREE KNOBS HE ASKED FOR ==================================== */
+  out.hasKnobs = await p.evaluate(()=>typeof window.setMasterVolume==='function'
+    && typeof window.setMusicVolume==='function'
+    && typeof window.setEffectsVolume==='function'
+    && typeof window.getMix==='function');
+  /* PERCEPTUAL, NOT LINEAR. A slider wired straight to gain wastes its bottom
+     two thirds. Halfway must be much quieter than half. */
+  out.taperHalf = await p.evaluate(()=>window.__mixTaper?window.__mixTaper(0.5):null);
+  out.taperZero = await p.evaluate(()=>window.__mixTaper?window.__mixTaper(0):null);
+  out.taperOne  = await p.evaluate(()=>window.__mixTaper?window.__mixTaper(1):null);
+  /* EFFECTS at zero silences an effect; MASTER at zero silences it too. Two
+     different knobs, two different nodes, both have to actually reach it. */
+  await p.evaluate(()=>window.setEffectsVolume(0));
+  out.outKillEffectsZero = await atOutput('kill');
+  await p.evaluate(()=>window.setEffectsVolume(1));
+  await p.evaluate(()=>window.setMasterVolume(0));
+  out.outKillMasterZero = await atOutput('kill');
+  await p.evaluate(()=>window.setMasterVolume(1));
+  out.outKillRestored = await atOutput('kill');
+  /* and the MUSIC knob must NOT be able to touch an effect: that is the whole
+     point of the routing, and a master-in-disguise would pass every other check */
+  await p.evaluate(()=>window.setMusicVolume(0));
+  out.outKillMusicZero = await atOutput('kill');
+  await p.evaluate(()=>window.setMusicVolume(0.75));
+  out.mixPanel = await p.evaluate(()=>!!document.getElementById('mixWrap')
+    && !!document.getElementById('mix_master')
+    && !!document.getElementById('mix_music')
+    && !!document.getElementById('mix_sfx'));
+
   /* ===== YOU CAN HEAR THE PEOPLE ON YOUR BLOCK (8/2) =====================
      Deterministic on purpose. The sim walks people wherever it likes, so an
      "did anyone happen to pass by" test is a coin flip that goes green by luck;
@@ -560,6 +622,61 @@ def main():
     chk(near.get('pan') is not None and near.get('pan') > 0,
         'the neighbour to the RIGHT did not report a positive x offset, so nothing '
         'can pan him there')
+
+    # ---- 7c: THE MUSIC OFF BUTTON MUST NOT MUTE THE GAME (8/2) ---------
+    # Found by measuring, not by reading, and it was real: press the music
+    # button off and every sound effect in the game went to ZERO and stayed
+    # there. SFXBUS fed MUS.MAST, and MUS.stop() ducks MAST to zero to kill
+    # notes already scheduled (Paolo 7/27, "i press the music button off and the
+    # music still plays" -- his fix, still correct). Two right changes, one dead
+    # game. Nothing caught it because every sound check in this repo measured on
+    # the SFX bus, which sits UPSTREAM of the gain that was doing the killing.
+    chk(d.get('hasOutBus'),
+        'there is no output bus: the effects are riding the music master again, '
+        'which means the music OFF button mutes the whole game')
+    chk((d.get('outKillBefore') or 0) > 0.05,
+        'nothing was measured at the OUTPUT bus at all (%.4f), so this proves '
+        'nothing' % (d.get('outKillBefore') or 0))
+    chk((d.get('mastAfterStop') or 0) <= 0.001,
+        'MUS.stop() no longer silences the music master (%.4f) -- his 7/27 fix '
+        'has been undone' % (d.get('mastAfterStop') or 0))
+    chk((d.get('outKillAfterMusicOff') or 0) > 0.05,
+        'THE MUSIC OFF BUTTON MUTES THE GAME: a kill measured %.4f at the output '
+        'after MUS.stop(). Route the effects through MUS.OUT, never MUS.MAST.'
+        % (d.get('outKillAfterMusicOff') or 0))
+    chk((d.get('outStepAfterMusicOff') or 0) > 0.002,
+        'a footstep measured %.5f at the output after the music was turned off'
+        % (d.get('outStepAfterMusicOff') or 0))
+
+    # ---- 7d: THE THREE KNOBS (Paolo 8/2: "any sort of menu volume slider") --
+    chk(d.get('hasKnobs'),
+        'setMasterVolume / setMusicVolume / setEffectsVolume / getMix are not all '
+        'there, so a settings menu has nothing to drive')
+    chk(d.get('mixPanel'),
+        'the SOUND panel is not in the MUSIC tab, so the knobs exist but he cannot '
+        'touch one -- a thing he cannot reach does not exist')
+    th = d.get('taperHalf')
+    chk(th is not None and th < 0.25,
+        'the volume taper is LINEAR (half = %s). Loudness is logarithmic; a linear '
+        'slider spends its bottom two thirds doing nothing audible and then jumps.'
+        % th)
+    chk(d.get('taperZero') == 0, 'zero on the slider is not exact silence')
+    chk(abs((d.get('taperOne') or 0) - 1) < 1e-9, 'full on the slider is not full gain')
+    chk((d.get('outKillEffectsZero') or 0) <= 0.001,
+        'EFFECTS at zero did not silence a kill (%.5f)' % (d.get('outKillEffectsZero') or 0))
+    chk((d.get('outKillMasterZero') or 0) <= 0.001,
+        'MASTER at zero did not silence a kill (%.5f) -- the master knob does not '
+        'reach the effects' % (d.get('outKillMasterZero') or 0))
+    chk((d.get('outKillRestored') or 0) > 0.05,
+        'the sound did not come BACK when the knobs went up again (%.4f); a volume '
+        'control that only goes down is a mute button'
+        % (d.get('outKillRestored') or 0))
+    # THE MUSIC KNOB MUST NOT BE A SECOND MASTER. Without this, wiring all three
+    # sliders to the same node would pass every check above.
+    chk((d.get('outKillMusicZero') or 0) > 0.05,
+        'MUSIC at zero also silenced a KILL (%.4f) -- the music slider is reaching '
+        'the effects, so the routing is not separate at all'
+        % (d.get('outKillMusicZero') or 0))
 
     # ---- 8: NO APPROVED FAMILY IS SILENT (8/2) -------------------------
     # APPROVED-BUT-UNUSED IS A DEFECT is the name of this gate's own law and it

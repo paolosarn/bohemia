@@ -1,3 +1,50 @@
+SOUND (sound-xk7pjp): 8/2 (p) LATEST - THE MUSIC OFF BUTTON WAS MUTING THE WHOLE
+GAME, and now there are real volume knobs. Build 8/2p. Tab: MUSIC, top of the panel.
+
+*** THE BUG, FOUND BY MEASURING AND NOT BY READING ***
+Press the music button off and EVERY sound effect in the game went to zero and
+stayed there until the music was turned back on. Measured at the output, before
+any change: a kill 0.479 -> 0.000, a footstep -> 0.000.
+Two correct changes made it. Paolo 7/27 ("i press the music button off and the
+music still plays") got the right fix: MUS.stop() ducks MUS.MAST to zero, which
+kills notes already scheduled. Separately on 7/30 the SFX bus was plugged into
+MUS.MAST, because at that moment MAST was simply where the limiter lived.
+NOTHING CAUGHT IT because every sound check in this repo measures on the SFX bus,
+which sits UPSTREAM of the gain doing the killing. MEASURE WHERE THE SPEAKER IS.
+
+THE ROUTING NOW, and this is the thing to not undo:
+    MUS.MAST -> MUS.MUSVOL --\
+                              +--> MUS.OUT -> compressor -> brickwall -> out
+    SFXBUS   ----------------/
+MAST means MUSIC and only music, so his 7/27 fix is untouched. Effects reach the
+limiter without passing through the music at all. Never connect a sound bus to
+MUS.MAST again.
+
+THE THREE KNOBS he asked for on 8/2 ("just needed you to make sure you're coding
+that properly into any sort of menu volume slider"): MASTER / MUSIC / EFFECTS, in
+the MUSIC tab at the top. window.setMasterVolume / setMusicVolume /
+setEffectsVolume / getMix. PERCEPTUAL TAPER p^2.5, not linear, because a linear
+slider wastes its bottom two thirds; halfway is ~18% gain, which is what half
+volume actually sounds like. Persisted per phone, DEFAULTS BAKED IN CODE. Letting
+go of EFFECTS plays one of his approved taps so the level is heard, not read.
+
+ONE MISTAKE WORTH KEEPING: the first version re-applied the mix on a blind
+1.2s interval, which made it a SECOND owner of the SFX gain and stomped every
+direct setSFXVolume() call a second later - the exact defect my own comment one
+function above warned about. The tick is identity-based now: it only writes when
+the audio nodes are actually new (a rebuilt context), never in steady state.
+
+GATE: sfx_wired_gate 273 checks. New section measures at the OUTPUT BUS: music
+off then a kill and a footstep must still sound, MASTER 0 silences, EFFECTS 0
+silences, MUSIC 0 must NOT silence an effect (that one catches wiring all three
+sliders to the same node), the sound comes BACK, and the taper is not linear.
+Mutation-tested twice: putting the SFX bus back on MUS.MAST turns it red on 5
+checks, making the taper linear turns it red on 1.
+
+STILL OPEN IN THIS LANE: weather audio is genuinely blocked - the run says in its
+own code that it has no weather. Music voices being off the SFX vector spec needs
+a ruling. Both are in BOHEMIA_BACKLOG under SOUNDS.
+
 CHARACTER (0lurbs): 8/2 (m) LATEST — HAIR IS 23 CANON. THE SIDE VIEWS ARE THE OPEN
 WORK. READ THE MEASUREMENTS BELOW BEFORE TOUCHING genHair; I WASTED TWO BUILDS
 GUESSING AT CAUSES I COULD HAVE MEASURED IN ONE COMMAND.
@@ -68,7 +115,6 @@ A gate that goes red because he exercised a verdict is the gate being wrong.
   file you know you wrote is missing: `git fetch origin main && git reset --hard
   origin/main` before believing it.
 - main moves every ~10 minutes. Rebuild-on-main + replay beats rebasing the alpha.
-
 
 LAB (lab-e2r7sv): 8/3 (b) LATEST -- HE RULED ALL THREE, AND THE GRIME ANSWER IS
 "IT IS A PIPELINE STAGE, NOT A MILESTONE".
