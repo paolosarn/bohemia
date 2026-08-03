@@ -50,6 +50,7 @@ honest: every law carrying his verbatim words must be indexed here.
 | 8/2 | terminal / chapel | 40% / 30% | rejected — same two pipeline bugs |
 | 8/2 | **first SPLIT scores** | walking / icon | city hall 50/50 · courthouse 50/50 · terminal 50/50 · chapel **65**/50 |
 | 8/2 | after the pipeline fixes | walking / icon | city hall 65/65 · courthouse 70/65 · terminal 75/70 · chapel 75/**0** |
+| 8/2 | after the chapel icon | walking / icon | city hall **80/80** · courthouse **80/80** · terminal **80/80** · chapel **80**/50 |
 
 **EVERY ICON HAS SCORED EXACTLY 50 (8/2).** Four different subjects landing on one
 number is a verdict on the SYSTEM, not the subjects — and these were the first split
@@ -66,6 +67,12 @@ five is not done.
 
 Each line is a ruling he made, in his words, with the machine that holds it.
 
+- **8/2 — A CANOPY IS FURNITURE, NOT A PLANK.** "The icon is TRYING SO HARD to have some
+  SHADE shit like WTF" — said twice, about the only two icons carrying a big featureless
+  slab hanging in mid-air across the whole front. THE EFFORT WAS VISIBLE AND IT READ AS
+  NOTHING. A canopy has to be SMALL ENOUGH to be furniture (it covers the door, not the
+  icon) and DETAILED ENOUGH to be built (a fascia edge and ribs you can see). Slab area
+  cut by ~75% on both. `gates/round_and_doors_gate.py`
 - **8/2 — A DISTRICT WITH NO MAP ICON SCORES ZERO.** He gave the chapel "walking 75% icon
   0%" — there was no chapel icon at all, and he priced the empty panel exactly right. A
   district with no icon is a district you cannot find. **22 of 45 districts had none.**

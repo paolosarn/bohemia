@@ -1,0 +1,45 @@
+BOHEMIA VERDICT — EVERYTHING AT 80, AND THE SHADE NOTE
+8/2/26
+
+PAOLO, VERBATIM:
+  "CITYHALL WALKING 80% ICON 80%
+   THE ICON IS TRYING SO HARD TO HAVE SOME SHADE SHIT LIKE WTF
+   COURTHOUSE WALKING 8% ICON 80%
+   THE ICON IS TRYING SO HARD TO HAVE SOME SHADE SHIT LIKE WTF
+   TERMINAL WALKING 80% ICON 80%
+   CHAPEL WALKING 80% ICON 50%"
+
+READ AS: courthouse walking 80%, not 8%. Nothing in the courthouse plot changed
+between its 70% and this line, every other number on the page is 80, and its icon
+went UP. A 70 -> 8 collapse with no change to the file is not a thing that can
+happen. Recorded as 80 and flagged here so the reading is on the record rather than
+buried in my head. If it really was 8, that overrides this note.
+
+THE ARC, one day, four rounds of verdicts:
+  district      walking                    icon
+  city hall     50 -> 65 -> 80             50 -> 65 -> 80
+  courthouse    50 -> 70 -> 80             50 -> 65 -> 80
+  terminal      40 -> 50 -> 75 -> 80       50 -> 70 -> 80
+  chapel        30 -> 65 -> 75 -> 80        0 -> 50   (there was no icon at all)
+
+THE NOTE, TWICE, AND ONLY ON TWO ICONS
+  "trying so hard to have some SHADE shit" landed on city hall and courthouse and on
+  nothing else. Those were the only two carrying a BIG FLAT SLAB hanging in mid-air
+  across the whole front of the building -- twelve units wide on the city hall, eleven
+  on the courthouse, featureless grey, no visible support, no edge.
+
+  THE EFFORT WAS VISIBLE AND IT READ AS NOTHING. That is the whole note. A canopy in
+  an icon has to be:
+    SMALL ENOUGH TO BE FURNITURE -- it covers the DOOR, not the icon. Both are now
+      about a quarter of the area they were.
+    DETAILED ENOUGH TO BE BUILT -- a fascia edge you can see and ribs under it. A
+      featureless plane at this size is not read as a canopy, it is read as an error.
+
+  Same family as the four faults before it: the icon was doing something ambitious
+  and unreadable instead of something small and legible.
+
+CHAPEL ICON 50, its first score ever, one day after it did not exist. Not reopened
+this turn beyond the shared canopy work -- it is the next thing to move.
+
+STATUS: city hall 80/80, courthouse 80/80, terminal 80/80, chapel 80/50.
+The five approved districts sit at 85-89. These four are one push away.

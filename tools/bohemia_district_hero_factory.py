@@ -235,12 +235,21 @@ def build_cityhall(P):
     s.prism(4.0, 4.2, 5.6, 1.1, 0.6, 18, {'c': GLASS})
 
     # THE ENTRY CANOPY on ONE column. The whole point of it: no other supports.
-    s.box((7.6 - 0.35, 9.1 - 0.35, 0), (0.7, 0.7, 6.2), {'c': CMAST})
+    s.box((8.2 - 0.28, 9.3 - 0.28, 0), (0.56, 0.56, 6.2), {'c': CMAST})
     # A CANOPY PROJECTS OFF A BUILDING, IT DOES NOT TUNNEL THROUGH ONE. This started at
     # y=6.6 and ran straight through the council chamber (y 1.1..7.3), which at icon size
     # reads as a slab slicing the building in half -- glitchy, exactly as he said.
-    s.box((0.5, 7.5, 6.2), (12.0, 3.2, 0.4), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.8),
-          'py': _dark(CANOPY, 0.8), 'nx': _dark(CANOPY, 0.8), 'ny': _dark(CANOPY, 0.8)})
+    # AN ENTRANCE BLADE, NOT A PLANK. Paolo, 8/2: "the icon is TRYING SO HARD to have some
+    # SHADE shit like WTF." He was looking at a 12-unit featureless grey slab hanging in
+    # mid-air across the whole front of the building -- the effort was visible and it read
+    # as nothing. A canopy has to be SMALL ENOUGH to be furniture and DETAILED ENOUGH to be
+    # built: it covers the door, it has a fascia edge you can see, and it has ribs.
+    s.box((5.0, 7.6, 6.2), (6.4, 2.6, 0.22), {'top': {'c': tuple(min(255, int(c * 1.14)) for c in CANOPY)},
+          'px': _dark(CANOPY, 0.7), 'py': _dark(CANOPY, 0.7),
+          'nx': _dark(CANOPY, 0.7), 'ny': _dark(CANOPY, 0.7)})
+    for rb in range(1, 5):                                               # its ribs, so it reads BUILT
+        s.box((5.0 + rb * 1.28, 7.6, 6.06), (0.16, 2.6, 0.18), {'c': _dark(CANOPY, 0.62)['c']})
+    s.box((5.0, 7.6, 6.06), (6.4, 0.18, 0.2), {'c': _dark(CANOPY, 0.8)['c']})   # the fascia
     _door_face(s, (-1.5, -2.0, 0), (10.5, 5.0, 9.6), width=2.2, ztop=3.0,
                doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
 
@@ -634,8 +643,15 @@ def build_courthouse(P):
     # THE PROJECTING CANOPY. It cantilevers off the top of the building: NO columns.
     # It CANTILEVERS off the building and reaches over the plaza. It must not cross the
     # rotunda in plan (y 1.1..6.9) or it reads as a slab cutting the icon in half.
-    s.box((2.4, 7.1, 7.4), (11.0, 3.4, 0.45), {'top': {'c': CANOPY}, 'px': _dark(CANOPY, 0.8),
-          'py': _dark(CANOPY, 0.8), 'nx': _dark(CANOPY, 0.8), 'ny': _dark(CANOPY, 0.8)})
+    # AN ENTRANCE CANOPY, NOT A PLANK (Paolo 8/2, same note as the city hall's). It
+    # cantilevers over the DOORS, it is thin, it has a fascia you can see and ribs under it.
+    # A slab wide enough to cross the whole icon reads as a mistake, not as shade.
+    s.box((4.4, 6.6, 7.0), (5.6, 2.4, 0.2), {'top': {'c': tuple(min(255, int(c * 1.16)) for c in CANOPY)},
+          'px': _dark(CANOPY, 0.7), 'py': _dark(CANOPY, 0.7),
+          'nx': _dark(CANOPY, 0.7), 'ny': _dark(CANOPY, 0.7)})
+    for rb in range(1, 4):
+        s.box((4.4 + rb * 1.4, 6.6, 6.88), (0.14, 2.4, 0.16), {'c': _dark(CANOPY, 0.6)['c']})
+    s.box((4.4, 6.6, 6.88), (5.6, 0.16, 0.18), {'c': _dark(CANOPY, 0.8)['c']})
     _door(s, 6.3, 4.4, 6.4, 3.0, doorc=_dark(BLD, 0.4)['c'],
           framec=tuple(min(255, int(c * 1.2)) for c in BLD))
 
