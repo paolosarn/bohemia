@@ -425,6 +425,12 @@ GATES = [
      "Paolo 7/29's condition on the people: stable ids, one derivation point, an overrides layer - and a REAL bulk edit that provably reaches the cached surface, not a promise that it could", True),
     ('RUN PEOPLE',     ['node', 'gates/run_people_gate.js'],
      "HE PLAYS THE RUN: the surface Paolo actually taps has a day in it - the street fills, empties through the Mojave afternoon and refills, a bulk edit reaches bodies already walking, and the draw never paints somebody the sim put indoors", True),
+    ('HUMAN START',    ['node', 'gates/human_start_gate.js'],
+     "Paolo 8/2: 'when I press the run tab it just starts me off where I should start off ... I'd "
+     "rather start off in human mode rather than city mode'. It opened in the zoomed-out city builder "
+     "with the walked player at hx=0,hy=0, and BOHEMIA_GOTO_CELL flipped it straight back whenever the "
+     "first fix tried. Driven on the ALPHA -- not the run file, which the alpha never shows -- so the "
+     "RUN tab opens in HUMAN MODE, on foot, in the district we are working on, city still one tap away", True),
     ('THE ONE LINK',   ['node', 'gates/front_door_gate.js'],
      "THE ONE LINK OPENS THE GAME. On 8/2 one dropped </div> nested the whole app inside the front splash, so tapping the splash hid the game: 0x0, no tabs, a black screen on the only URL Paolo ever taps. The splash must close before the app opens, and the door is walked through in a real browser", True),
     ('FACTION DOSSIERS', ['python3', 'gates/faction_dossier_gate.py'],

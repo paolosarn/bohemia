@@ -3641,6 +3641,45 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-I. [SHIPPED 8/2 + *** THE FINDING THAT MATTERS MOST IN THIS LANE *** -
+   records/BOHEMIA_HE_WAS_NEVER_ON_MY_SURFACE_8_2_26.md]
+   "I couldn't find them can you make sure when I press the run tab it just starts
+   me off where I should start off... I'd rather start off in human mode rather
+   than city mode."
+   (1) FIXED, and measured first: tapping RUN gave MODE='city', HUD CITY MODE,
+   player at hx=0,hy=0 - the zoomed-out overview with the walked person never
+   placed at all in a 12288x12288 world. Calling swapMode() at boot was not
+   enough: it came up human and flipped straight back. Logging every message the
+   frame gets - ["BOHEMIA_CITY_PLAYER","BOHEMIA_CITY_PLAYER","BOHEMIA_GOTO_CELL"]
+   - showed GOTO_CELL's handler ending in an unconditional MODE='city'. That line
+   was RIGHT when written (Paolo 7/28 "I want that reflected when I'm in the city
+   menu", back when RUN and CITY were two tabs) and wrong now that THE RUN TAB IS
+   THE CITY FRAME, because the alpha fires cityGoToRunCell() on city-tab open. His
+   ruling was about the MARKER, never the mode. Now: HUMAN MODE, SUBURB, ON FOOT,
+   city still one tap away. tools/bohemia_human_start.py, gate human_start_gate.js
+   (9 claims; original boot fails 5, GOTO-flip fails 3).
+   (2) *** WHY HE FOUND NOBODY, AND IT IS BIGGER THAN WHAT HE NOTICED. ***
+   THE ALPHA ROUTES THE RUN TAB TO THE CITY PANEL:
+       PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p
+   #p-run (BOHEMIA_RUN_CURRENT.html) is display:none the whole time - the alpha's
+   own source says so in a comment. And that file is where ALL of this lane lives:
+   the identity card, the one contextual button, asking a name, the name over
+   their head, and the neighbour placed outside his door. Counted in the city
+   frame, the surface he actually taps: 16 references to the population module,
+   ZERO "TALK TO", ZERO card, ZERO ask. People walk around on his surface and
+   there is no way to speak to any of them.
+   THIS IS MY OWN LAW CATCHING ME. VERIFY ON THE REAL SURFACE (7/18): every gate
+   this lane owns opens BOHEMIA_RUN_CURRENT.html DIRECTLY AS A FILE. All 152 are
+   green about a page the alpha never shows. They were not lying about the code,
+   they were answering a question about the wrong door. The new gate drives the
+   ALPHA and taps the TAB, and every future gate in this lane must.
+   WHAT IT WOULD TAKE: porting the conversation surface (verb, sheet, card, ask,
+   name over head, porch neighbour) onto the city frame. The population module is
+   already shared so the PEOPLE are already the same people; what is missing is
+   the talking. [PENDING PAOLO - it is the CITY lane's file and a day of work, and
+   nobody should move it unasked.]
+   | gates: HUMAN START 9 new | 8/2 | he has to decide (2).
+
 P-H. [SHIPPED 8/2, HE ASKED FOR IT - records/BOHEMIA_SOMEBODY_TO_TALK_TO_8_2_26.md]
    "can you just have one extra NPC chilling outside the spawn in the suburb that
    I can just talk to and test out your mechanics?" Done - walk out the front door

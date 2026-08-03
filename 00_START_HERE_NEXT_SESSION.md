@@ -1,3 +1,55 @@
+PEOPLE (7h9sfy): 8/2 (f) LATEST — *** EVERY GATE IN THIS LANE IS GREEN ABOUT A PAGE THE
+ALPHA NEVER SHOWS. READ THIS BEFORE YOU BUILD ANYTHING HERE. ***
+Record: records/BOHEMIA_HE_WAS_NEVER_ON_MY_SURFACE_8_2_26.md
+
+He said "I couldn't find them". Two things came out of that. One is what he asked for
+and it is fixed. The other is why he found nobody, and it is worse than what he noticed.
+
+=== 1. THE RUN TAB OPENED IN THE CITY BUILDER (FIXED) ===
+"can you make sure when I press the run tab it just starts me off where I should start
+off exactly where I should and not in city mode. I'd rather start off in human mode."
+MEASURED FIRST, before touching anything: visible panel p-city, MODE='city', HUD read
+CITY MODE, player at hx=0,hy=0 - never placed at all in a 12288x12288 world.
+Calling the app's own swapMode() at boot was NOT ENOUGH: it came up human and flipped
+straight back. Logging every message the frame receives gave
+["BOHEMIA_CITY_PLAYER","BOHEMIA_CITY_PLAYER","BOHEMIA_GOTO_CELL"] and GOTO_CELL's
+handler ended in an unconditional MODE='city'. THAT LINE WAS RIGHT WHEN IT WAS WRITTEN -
+Paolo 7/28 "I want that reflected when I'm in the city menu", back when RUN and CITY were
+two separate tabs - and wrong now that THE RUN TAB IS THE CITY FRAME, because the alpha
+fires cityGoToRunCell() on city-tab open. His ruling was about the MARKER, never the mode.
+NOW: HUMAN MODE, SUBURB, ON FOOT, at (6205,6271). City view still one tap away, zoom seam
+still reaches it. swapMode already lands him on a road (NO DISTRICT IS A PRISON, 8/1) and
+already uses WORKING_DISTRICT, so nothing was reimplemented.
+tools/bohemia_human_start.py · gate human_start_gate.js, 9 claims. Mutations: the original
+city boot fails 5 of 9; keeping the boot fix but letting GOTO_CELL flip it back fails 3.
+
+=== 2. *** THE ONE THAT MATTERS: THIS LANE HAS BEEN BUILDING ON A HIDDEN PAGE. *** ===
+The alpha routes the RUN tab to the CITY panel:
+    PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p
+#p-run (BOHEMIA_RUN_CURRENT.html) is display:none THE WHOLE TIME. The alpha's own source
+says so in a comment. And that file is where ALL of this lane lives: the identity card,
+the one contextual button, asking a name, the name over their head, and the neighbour I
+put outside his front door.
+COUNTED IN THE CITY FRAME, the surface he actually taps:
+    references to the population module ... 16
+    "TALK TO" .......................... 0
+    identity card / ask a name ......... 0
+So there are people walking around on his surface and NO WAY TO SPEAK TO ANY OF THEM.
+
+*** THIS IS OUR OWN LAW CATCHING US. *** VERIFY ON THE REAL SURFACE (7/18): "art is
+verified ONLY on the surface Paolo sees - a side-door probe is a lie." Every gate this
+lane owns opens BOHEMIA_RUN_CURRENT.html DIRECTLY, AS A FILE. All 152 of them are green
+about a page the alpha never shows. They were not lying about the code; they were
+answering a question about the wrong door.
+IF YOU WRITE A GATE IN THIS LANE, DRIVE THE ALPHA AND TAP THE TAB. human_start_gate.js is
+the pattern.
+
+WHAT IT WOULD TAKE: porting the conversation surface - the one verb, the dialogue sheet,
+the card, the ask, the name over the head, the porch neighbour - onto the city frame. The
+population module is ALREADY SHARED, so the people are already the same people; what is
+missing is the talking. [PENDING PAOLO: it is the CITY lane's file and about a day of
+work. Do not move it unasked.]
+
 ART (f3eu53): 8/2 (LATEST) — THE BRICK THROUGH THE MIDDLE OF THE GATE, AND ALL 18 LIVE.
 
 === HE RULED TWICE IN ONE DAY (records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt) ===
