@@ -105,6 +105,8 @@ GATES = [
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
      'Paolo 7/31: if he bought it, it wins -- his library draws FIRST, painted is the named fallback', False),
+    ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
+     'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
     ('EVERY DOOR',     ['node', 'gates/everydoor_gate.js'],
      'Paolo: "WY IS IT WHEN IM IN THE OUTSIDE OF A BUILDING I CAN ENTER IT FROM JUST WALKING TO ANY WALL" -- the 8/2 rule was right and covered 11% of buildings because buildings had no doors; a RATCHET on real door coverage, measured in a browser, that cannot be won by deleting buildings', True),
     ('STEP INSIDE',    ['node', 'gates/stepinside_gate.js'],

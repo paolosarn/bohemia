@@ -38,7 +38,8 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
 
 /* MEASURED 8/3/26 after the door pass. Raise these when coverage improves; the
    gate fails if coverage falls. Never lower them to make a red run green. */
-const FLOOR_PCT = 35;      // reading at the time of writing: 39%
+const FLOOR_PCT = 50;      // 11% before the door pass -> 39% after it -> 54% once
+                           // EAST/WEST facing doors landed. Only ever raise this.
 const FLOOR_MASSES = 60;   // reading: 74 -- so coverage cannot be "won" by deleting buildings
 
 (async () => {

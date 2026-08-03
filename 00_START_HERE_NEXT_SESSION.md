@@ -258,6 +258,40 @@ PITCH-STABILITY theory it was built on is DEAD and recorded as dead. That is two
 of my theories killed in one day, and the honest lesson in the graveyard is to
 stop reverse-engineering his silent kills and start from the one sentence he
 actually wrote. NEW_VIBES is empty. Two song slots stay open on purpose.
+RUN (run-eak241): 8/3 (d) LATEST -- EAST AND WEST FACING DOORS, THE ONES HE MADE 7/10.
+Ship: BUILD 8/3d. Tab: RUN.
+
+"I never saw your eastern west facing doors, bro what's up with that?" HE WAS RIGHT AND
+I CLOSED HIS TICKET WRONG. On 8/2 I measured banks/BOHEMIA_DOOR_EW_BANK, found 7px of
+paint at the west/east edge of each 44x44 tile, concluded they were door JAMBS for the
+tile next door, shipped them as a bleed into the neighbouring cell (which he HAD asked
+for separately on 8/2, in those words) and ticked the E/W door item off.
+THE PIXELS WERE MEASURED RIGHT. THE JOB WAS READ WRONG. I never rendered the tiles and
+looked, which settles it in thirty seconds: the first tile is a BROWN DOOR LEAF, SWUNG
+OPEN, SEEN EDGE-ON. The rest are stone doorway arches, also edge-on. They are doors on
+walls that face east/west, drawn the only way a fixed 3/4 camera can draw one.
+THE GAP THAT LEFT (24-agent sweep, confirmed):
+    324 house cells approach from the SOUTH ->  81 doors
+    368 approach from the EAST
+    336 approach from the WEST              ->   0 doors
+Side approaches outnumber south 2.2 to 1 and every one was blank wall. The 8/3c door
+pass only reads the cell BELOW, so it did nothing for them either.
+FIX: same rule as the south door (ground a person can stand on, one per contiguous
+VERTICAL run, topmost tile takes it), flagged as c.doorW/c.doorE, drawn by ewDoorPass as
+an OVERLAY on the mass edge -- NOT a third facade face, because c.face tests the cell
+below in all three places it is set and that is CORRECT for this camera (you do not see
+a side face in 3/4). That is exactly why his art is a 7px sliver.
+ZERO NEW BYTES: reuses the JAMB_WI/JAMB_EI arrays already embedded for the 8/2 bleed.
+Same 368 strips, same bank, two jobs.
+COVERAGE: commercial 11/22 -> 22/22, farm 10/10. Overall 39% -> 54%. EVERY DOOR floor
+raised 35 -> 50. GATES: E/W DOOR 6/0 (side doors flagged, counted by massHasDoor so the
+wall beside them SEALS, none unreachable, and they DRAW on the real canvas), EVERY DOOR
+5/0. Rendered and looked at before shipping.
+SUBURB IS THE WHOLE REMAINING RESIDUAL: 34 of 42 masses, all on the suburb's OWN path
+(m.sub), whose rule only puts a door where the house meets DRIVEWAY or STREET. Houses
+whose frontage is dead-ground backyard get none. A back door onto a walkable yard IS
+reachable. THAT IS THE NEXT MOVE.
+
 RUN (run-eak241): 8/3 (c) LATEST -- BUILDINGS HAVE DOORS NOW, AND A DOOR IS THE WAY IN.
 Ship: BUILD 8/3c. Tab: RUN. LAW: laws/BOHEMIA_LAW_MEASURE_THE_THING_HE_NAMED_8_3_26.md
 (he asked for laws every other session must follow; that file is it, READ IT).
