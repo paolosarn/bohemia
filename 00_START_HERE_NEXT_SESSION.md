@@ -1,3 +1,75 @@
+CHARACTER (0lurbs): 8/2 (m) LATEST — HAIR IS 23 CANON. THE SIDE VIEWS ARE THE OPEN
+WORK. READ THE MEASUREMENTS BELOW BEFORE TOUCHING genHair; I WASTED TWO BUILDS
+GUESSING AT CAUSES I COULD HAVE MEASURED IN ONE COMMAND.
+
+=== WHERE HAIR STANDS ===
+23 canon styles, 0 pending candidates (he judged everything). Board shows ALL EIGHT
+facings, 184 head shots. Export ends a ROUND: notes + thumbs clear, sheet archived,
+file named _R<n>.txt.
+
+HIS STANDING VERDICT ON THE SIDES, 8/2, still open:
+  "you really aren't doing it from a good eastern west angle ... I know it's a
+   first pass, but I wasn't impressed ... keep going you're not close."
+Then after two more builds: "You doing better needs more work please continue."
+IT IS BETTER, IT IS NOT DONE. Do not treat the sides as finished.
+
+=== THE FOUR THINGS THAT WERE ACTUALLY WRONG (all found by MEASURING) ===
+1. HAIR WAS GLUED TO THE SKULL OUTLINE. Every row clamped to span(y), which IS the
+   skull, so hair was a skin-tight cap with no silhouette of its own on any facing.
+   Research: in a side profile HAIR DRAPES WITHOUT FOLLOWING THE SHAPE OF THE HEAD.
+   Fixed: the mass projects past the skull, piling at the BACK, held off the FACE,
+   keyed to the face centroid.
+2. A PATTERN DID NOT ROTATE WITH THE VIEW. Cornrows run front-to-back over the
+   scalp: from the front you look ACROSS them (vertical stripes), from the SIDE you
+   look ALONG them (horizontal bands). The phase was on X for all eight facings.
+   Same bug's other face: a mohawk is a blade on the midline -- thickness from the
+   front, LENGTH from the side. It was narrowed on every facing, so in profile the
+   whole haircut collapsed to 1-2px. Fixed: phase on Y in profile; a strip in
+   profile draws a CREST spanning the skull, ABOVE hTop (background rows, so put()
+   accepts them -- widening it ACROSS the skull measured WORSE because put() refuses
+   face pixels on a non-back facing).
+3. A PARTING WAS A HOLE. The texture SKIPPED, so raw LIT skin showed between rows --
+   max contrast, read as a comb. Fixed: a parting is the wearer's own skin TAKEN
+   DOWN (scalp in a groove), which also honours his "not just straight the skin
+   tone" ruling.
+4. THE SIDE OF THE HEAD WAS BALD. sideBot stops the mass halfway down the skull so
+   it cannot run over the eyes on a FRONT view. BACK was exempted on 8/1; PROFILE
+   never was. MEASURED: facing E, CORNROWS occupied ROWS 5-6 AND NOTHING ELSE.
+   I had publicly called this a "contrast problem" the build before, from a
+   thumbnail. It was not. Fixed: profile joins back at full-skull coverage.
+
+=== THE PROCESS LESSON, and it cost two builds today ===
+TWICE I named a cause by eye from a thumbnail and was wrong both times. Reading the
+actual pixels took ONE command and gave a different answer each time. Before
+naming a cause in genHair, dump the pixel grid for that facing. There is a probe
+pattern in the session scratchpad; it is ten lines.
+
+=== KNOWN AND OPEN ===
+- Cornrows in TRUE PROFILE: coverage is fixed, but whether the bands READ at 56px
+  on a near-black ramp is UNJUDGED. He has not seen the 8/2m build yet.
+- The strip-in-profile crest is new and unjudged.
+- Clause 6 fade UNLOCK mechanism: [PENDING, HIS CALL] -- a fade is a luxury
+  (laws/BOHEMIA_ADDENDUM_A_HAIRCUT_IS_A_LUXURY_8_1_26.md). Do not invent the economy.
+- Names of the 23 styles: PARKED by him explicitly. Do not raise it.
+- cough / whistle / search: frozen, two rejections each.
+
+=== GATES THAT WENT RED AT HIM, SIX TIMES TODAY ===
+hair_gate twice (batch size when he killed 13; board count when he approved 7),
+craft_law_gate three times (pinned style name, empty candidate queue, pinned the
+BROKEN centring and later the BROKEN half-fix), dress_gate once (counted a canon
+token inside a COMMENT).
+A GATE THAT PINS AN IMPLEMENTATION WILL DEFEND ITS BUGS. Pin BEHAVIOUR.
+A gate that goes red because he exercised a verdict is the gate being wrong.
+
+=== SHIP HYGIENE, learned the hard way ===
+- `node gate.js | tail -1` in an && chain gives you TAIL's exit status. I pushed a
+  red gate twice before switching to `node gate.js >/dev/null 2>&1 || exit 1`.
+- The local checkout silently rolled back to a stale commit FOUR times today. If a
+  file you know you wrote is missing: `git fetch origin main && git reset --hard
+  origin/main` before believing it.
+- main moves every ~10 minutes. Rebuild-on-main + replay beats rebasing the alpha.
+
+
 LAB (lab-e2r7sv): 8/3 (b) LATEST -- HE RULED ALL THREE, AND THE GRIME ANSWER IS
 "IT IS A PIPELINE STAGE, NOT A MILESTONE".
 
