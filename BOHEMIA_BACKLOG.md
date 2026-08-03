@@ -3641,6 +3641,40 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-J. [SHIPPED 8/3 - records/BOHEMIA_CITY_TALK_8_3_26.md]
+   YOU CAN TALK TO SOMEBODY ON THE SURFACE HE ACTUALLY PLAYS. This closes the ask
+   he made on 8/2 ("one extra NPC chilling outside the spawn that I can just talk
+   to and test out your mechanics") which my first attempt did not deliver,
+   because I built it on a page the game never shows.
+   TAP RUN NOW: you land on your feet in the suburb, somebody is standing TWO
+   TILES away, one step and the button says TALK TO THE WATCH, the card opens
+   with NAME: YOU HAVE NOT ASKED, tapping Ask their name makes her Marisela
+   Escobar, the button becomes TALK TO MARISELA, her name is over her head, and
+   it survives a reload.
+   EVERY PIECE IS THE SHARED MODULE. engine/bohemia_people.js is inlined verbatim
+   the same way bohemia_city_people_patch.py already inlines population and
+   agents, so the name, the trade, the card and the three tiers are THAT module's
+   answers and this frame decides nothing about who anybody is (ENGINE SYNC LAW).
+   The neighbour is a real personFields record - same derivation as all 300 people
+   in the valley - pinned to the SPAWN, not to the player. Everything learned
+   placing the last one carried: out of the doorway (the button prefers a door you
+   stand on over a person beside you) and on OPEN GROUND (a body that never moves
+   permanently removes a cell, and on the run surface that queued three people
+   behind a fixture).
+   *** THE GATE LOOKS DIFFERENT FROM EVERY OTHER ONE THIS LANE OWNS, AND THAT IS
+   THE CORRECTION: gates/city_talk_gate.js OPENS THE ALPHA AND TAPS THE TAB. ***
+   Every other gate here opens BOHEMIA_RUN_CURRENT.html directly as a FILE. All
+   152 are green about a page the game never shows. They were not lying about the
+   code, they were answering a question about the wrong door. If you write a gate
+   in this lane, drive the alpha.
+   18 claims. Mutations: no neighbour -> 13 of 18 red; strangers named without
+   asking -> 6 of 18 red. Two bugs caught in my own work by driving it for real:
+   the neighbour was counted twice, and the card read "TRADE: MARISELA" because
+   headingOf() correctly returns the name once asked (right for a heading, wrong
+   for that row).
+   Neighbours held: CITY PEOPLE 18, ONE WORLD TAB 120, ZOOM SEAM 7, HUMAN START 9.
+   | gates: CITY TALK 18 new | 8/3 | YES - the conversation is the thing to try.
+
 P-I. [SHIPPED 8/2 + *** THE FINDING THAT MATTERS MOST IN THIS LANE *** -
    records/BOHEMIA_HE_WAS_NEVER_ON_MY_SURFACE_8_2_26.md]
    "I couldn't find them can you make sure when I press the run tab it just starts

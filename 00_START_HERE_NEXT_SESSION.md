@@ -1,4 +1,52 @@
-<<<<<<< HEAD
+PEOPLE (7h9sfy): 8/3 LATEST — YOU CAN TALK TO SOMEBODY ON THE SURFACE HE ACTUALLY
+PLAYS. The 8/2 ask is finally delivered.
+Record: records/BOHEMIA_CITY_TALK_8_3_26.md
+
+TAP RUN: you land on your feet in the suburb, SOMEBODY IS STANDING TWO TILES AWAY, one
+step and the button says TALK TO THE WATCH, the card opens with NAME: YOU HAVE NOT
+ASKED, tap Ask their name and she is Marisela Escobar, the button becomes TALK TO
+MARISELA, her name is over her head, and it survives a reload.
+
+=== WHY THE FIRST ATTEMPT DID NOT COUNT ===
+He asked on 8/2 for one NPC to test the mechanics on. I built it. He said "I couldn't
+find them." He was right and the reason was worse than a missing NPC: the alpha routes
+the RUN tab to the CITY panel, so #p-run (BOHEMIA_RUN_CURRENT.html) is display:none the
+whole time - and that file is where EVERYTHING this lane had built lived.
+MEASURED ON HIS SURFACE: 0 bodies drawn, nearest person 192 tiles away, zero "TALK TO",
+zero cards. Not "nobody to talk to". NOBODY AT ALL.
+
+=== EVERY PIECE IS THE SHARED MODULE, NOT A SECOND IMPLEMENTATION ===
+engine/bohemia_people.js is inlined verbatim, the same way bohemia_city_people_patch.py
+already inlines population and agents. The name, the trade, the card and the three tiers
+are THAT module's answers; this frame decides nothing about who anybody is (ENGINE SYNC
+LAW - the alternative is a second idea of who somebody is, the exact bug 8/2 removed).
+The neighbour is a REAL personFields record, same derivation as all 300 people in the
+valley, pinned to the SPAWN and not to the player (a body that follows you is a cursor).
+Everything learned placing the last one carried over: OUT OF THE DOORWAY (the one button
+prefers a door you are standing on over a person beside you) and ON OPEN GROUND (a body
+that never moves permanently removes a cell, and on the run surface that left three
+people queued behind a fixture).
+
+=== *** THE GATE LOOKS DIFFERENT FROM EVERY OTHER ONE IN THIS LANE, ON PURPOSE *** ===
+gates/city_talk_gate.js OPENS THE ALPHA AND TAPS THE TAB.
+Every other gate here opens BOHEMIA_RUN_CURRENT.html DIRECTLY, AS A FILE. All 152 are
+green about a page the game never shows. They were not lying about the code; they were
+answering a question about the wrong door. VERIFY ON THE REAL SURFACE (7/18) is our own
+law and it took him saying "I couldn't find them" for me to check.
+IF YOU WRITE A GATE IN THIS LANE, DRIVE THE ALPHA AND TAP THE TAB.
+18 claims. Mutations: no neighbour -> 13 of 18 red; strangers named without asking -> 6
+of 18 red. Two bugs it caught in my own work: the neighbour counted TWICE, and the card
+reading "TRADE: MARISELA" because headingOf() correctly returns the name once asked
+(right for a heading, wrong for that row).
+Neighbours held: CITY PEOPLE 18, ONE WORLD TAB 120, ZOOM SEAM 7, HUMAN START 9, THE ONE
+LINK 8.
+
+=== WHAT IS STILL ONLY ON THE HIDDEN RUN SLICE ===
+The run slice still has things the city frame does not: the four families, the workers
+who commute to job sites, the repair-a-district dial, and the porch neighbour there.
+Those are all REAL and gated - they are just not on the tab he taps. Porting them is the
+next question for him, not a decision to make alone.
+
 COMBAT (combat-nfnki9): 8/3 (b) LATEST -- THE COOK IS IN THE GRAVEYARD, AND I
 SPENT HALF A DAY NOT ACTUALLY DEPLOYING. Live on main as 27ca030, BUILD 8/3j,
 Pages build verified SUCCESS at 19:40.
@@ -163,7 +211,6 @@ BODY VARIATION are CHARACTER's. BOTTOM-LEFT + CANVAS SCALE verified failing on c
 --------------------------------------------------------------------------------
 
 
-=======
 PEOPLE (factions): 8/2 (h) LATEST — ALL 12 GAPS THUMBED "WANT", AND NOT ONE CAN BE BUILT
 UNTIL HE SAYS ONE WORD. Plus a second colour ruling that made the rule better.
 Records: records/BOHEMIA_FACTION_GAPS_VERDICT_8_2_26.txt
@@ -199,8 +246,6 @@ this lane ALREADY SHIPPED:
   5. WRONG COLOURS DO NOTHING   -> the dress system + the 12 colours ruled today
 Nothing else in the twelve gives that much per unit of work.
 
-<<<<<<< HEAD
->>>>>>> 42b5cfe (THE MINI GROUPS LOSE THEIR COLOUR, AND ALL 12 GAPS ARE WANTED)
 SOUND (sound-xk7pjp): 8/2 (r) LATEST - EVERY SOUND IS A BUTTON IN THE MUSIC TAB.
 
 HE SAID: "bro wtf every sfx should be in the sfx in the music menu not for me to

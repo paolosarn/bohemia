@@ -431,6 +431,14 @@ GATES = [
      "Paolo 7/29's condition on the people: stable ids, one derivation point, an overrides layer - and a REAL bulk edit that provably reaches the cached surface, not a promise that it could", True),
     ('RUN PEOPLE',     ['node', 'gates/run_people_gate.js'],
      "HE PLAYS THE RUN: the surface Paolo actually taps has a day in it - the street fills, empties through the Mojave afternoon and refills, a bulk edit reaches bodies already walking, and the draw never paints somebody the sim put indoors", True),
+    ('CITY TALK',      ['node', 'gates/city_talk_gate.js'],
+     "Paolo 8/2 asked for one NPC outside the spawn to test the mechanics on, then said 'I "
+     "couldn't find them'. He was right: the RUN tab shows the CITY panel, #p-run is display:none, "
+     "and every one of this lane's 152 claims was measured on that hidden page. Measured on HIS "
+     "surface: 0 bodies drawn, nearest person 192 tiles away, zero ways to talk. This drives the "
+     "ALPHA and taps the TAB: somebody stands by the spawn, you walk up, the one button names their "
+     "trade, the card says YOU HAVE NOT ASKED, asking names them, the button calls them by it, the "
+     "name is over their head, and it survives a reload", True),
     ('HUMAN START',    ['node', 'gates/human_start_gate.js'],
      "Paolo 8/2: 'when I press the run tab it just starts me off where I should start off ... I'd "
      "rather start off in human mode rather than city mode'. It opened in the zoomed-out city builder "
