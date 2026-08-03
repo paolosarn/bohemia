@@ -96,6 +96,11 @@ GATES = [
      'THAT PREVIOUSLY": his 7/13 bank held 30 approved clips and ZERO frames had ever reached '
      'a renderer. Ten 88x176 swing clips now ride the door plate they exactly match, on his '
      'own 9-frames-over-2-beats timing, with animated frames COUNTED on a real canvas', True),
+    ('DOOR JAMB',      ['node', 'gates/doorjamb_gate.js'],
+     'Paolo 8/2 "if there is a door i need you to have it stick out slightly on the next '
+     'tile": his 7/10 bank of 368 frame-edge strips had shipped 0 bytes. Every door now '
+     'bleeds its jamb into the cell left and right, never stretched, never mirrored, and '
+     'the jambs are COUNTED drawing on a real canvas', True),
     ('FULL PIXEL',     ['node', 'gates/full_pixel_gate.js'],
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
