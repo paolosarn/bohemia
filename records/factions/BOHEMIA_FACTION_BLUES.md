@@ -37,7 +37,7 @@ Water allocation and the growing that depends on it. They do not own it - they R
 
 ### HOW THEY DRESS
 
-PROPOSED - family #326ed2. PROPOSED: cobalt. Two reasons and neither is that they are called the Blues, though they are. It is the wardrobe's only true saturated blue, so it cannot be confused with the muted denim everybody already wears, and blue reads as WATER, which is what this faction actually is. Collision-checked at Paolo's 95-unit tolerance: clear of every ruled colour, nearest is the Cartel's oxblood at 184. NOTE FOR HIM, measured not guessed: cobalt sits 95 units from the wardrobe's teal, which is right on the tolerance line, so if a teal faction is ever ruled these two would read as the same family.
+PROPOSED - family #326ed2. COBALT. Two reasons, and neither is that they are called the Blues, though they are. It is the only true saturated blue in the wardrobe, so it cannot be confused with the muted denim everybody already wears, and blue reads as WATER, which is what this faction actually is. Hue 218, a full 50 degrees off the Network's teal - the two nearest colours on the cool half of the wheel and still nobody's going to mix up a cyan technician with a cobalt farmer. SECOND SIGNAL: the rice hat and the field kit - they are the only people in the valley dressed for standing in water.
 VETERAN KIT (forced layers): base -> COPPER WORK SHIRT, SAGE FLANNEL; feet -> FIELD BOOTS; hands -> DUST GLOVES; head -> CHINESE RICE FARMER HAT; legs -> COBALT WORK PANTS; outer -> FIELD JACKET, DENIM VEST
 
 ### HOW THEY TALK

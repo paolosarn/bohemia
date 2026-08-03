@@ -37,7 +37,7 @@ The feed, the radio repeaters, and the lit grid. They are the reason a message c
 
 ### HOW THEY DRESS
 
-NO FACTION LOOK ENTRY. NO COLOUR - THEIR TELL IS THAT THEIR CLOTHES ARE INTACT. Every other faction's wardrobe is patched, tattered, dust-eaten. A Network member's garments are whole and clean, which in a valley with no laundry means somebody has water to spare on appearance. Their veteran kit is a NEGATIVE rule the existing machine can already express: forced to crisp garments, never TATTERED or PATCHED anything. Purple is the obvious wrong answer and the PURPLE RESERVATION forbids it - purple is the Amalgamation's alone, and pointing it at the Amalgamation's own protection layer would hand the player the act-3 reveal in act one.
+PROPOSED - family #28bea0. TEAL, and it is already half-canon: the data fortress is a near-black slab with a CYAN NIGHT HUM. The colour of the thing that still has power. Hue 168, the only cyan on the wheel, nothing near it. SECOND SIGNAL: their clothes are INTACT. Everyone else is patched, tattered, dust-eaten; a Network member's teal is CLEAN, which in a valley with no laundry means somebody has water to spare on appearance. PURPLE WAS THE OBVIOUS WRONG ANSWER and the reservation forbids it - purple is the Amalgamation's alone, and putting it on the Amalgamation's own pawn would hand the player the act-3 reveal in act one.
 VETERAN KIT (forced layers): base -> STEEL WORK SHIRT, BONE BUTTON-UP, CHARCOAL TURTLENECK; feet -> STEEL SNEAKERS, SLATE SNEAKERS; hands -> LEATHER GLOVES; legs -> SLATE WORK PANTS; outer -> STORM VEST
 
 ### HOW THEY TALK

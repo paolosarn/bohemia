@@ -37,7 +37,7 @@ Medicine, which is one of the game's three currencies, and TEACHING - canon puts
 
 ### HOW THEY DRESS
 
-PROPOSED - family #d4d0c8. PROPOSED, and for a working reason rather than a mood: a medic has to READ AT DISTANCE, by strangers, under stress. That is exactly why the real convention is a high-contrast off-white (the ICRC inverted the Swiss flag precisely so it would carry across a battlefield). And it does a second job for free - white is the hardest thing to keep clean in a dust valley, so a Volunteer in clean bone is announcing either that they have water to spare or that somebody else washes it for them. Collision-checked: at Paolo's own 95-unit family tolerance this clears every already-ruled faction colour, the nearest being the Church's gold at 116.
+PROPOSED - family #d4d0c8. BONE WHITE, for a working reason rather than a mood: a medic has to READ AT DISTANCE, by strangers, under stress. That is exactly why the real convention is a high-contrast off-white - the ICRC inverted the Swiss flag precisely so it would carry across a battlefield. Neutral axis, highest value in the game, so it cannot collide with a hue and it still separates from the Homeless grey and the Anarchist black in pure greyscale. And it does a second job for free: white is the hardest thing to keep clean in a dust valley, so a Volunteer in clean bone is announcing either that they have water to spare or that somebody else washes it for them.
 VETERAN KIT (forced layers): back -> SALVAGE SATCHEL; base -> BONE HENLEY, WHITE TEE, BONE TURTLENECK; feet -> BONE SNEAKERS; hands -> LEATHER GLOVES; legs -> BONE WORK PANTS; outer -> BONE DUSTER
 
 ### HOW THEY TALK

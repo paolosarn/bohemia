@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+"""BOHEMIA — WHAT FACTIONS ARE MISSING, as a judge sheet (8/2/26, PEOPLE lane)
+
+Paolo, 8/2: "okay its just the beginning though. do big brain online research to find
+out what about factions we are missing."
+
+Twelve researched gaps, one card each, thumbs on every one. NOTHING IS BUILT: the
+BUILD-THE-WORLD ruling (7/31) has faction machinery off and STOP PRODUCING says finding
+a legal way to ship a frozen thing IS the violation. This is a list for his thumbs and
+it stays a list until he says otherwise.
+
+Full write-up with every source: records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md
+
+REUSE CHECK (7/22 law):
+  - slices/BOHEMIA_FACTION_DOSSIER_JUDGE_8_2_26.html ... USED as the FORM. Same card
+    shell, same thumbs, same SUN MODE, same .txt export, same comment box. He learned
+    that page an hour ago; a second grammar for the same job would be the waste.
+  - records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md ... USED as the content source.
+  - nothing new is drawn. This cooks TEXT, not pixels.
+
+  python3 tools/bohemia_faction_gaps.py
+"""
+import json
+import os
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
+os.chdir(ROOT)
+
+OUT = 'slices/BOHEMIA_FACTION_GAPS_JUDGE_8_2_26.html'
+RECORD = 'records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md'
+
+# (id, title, tag, the gap in plain words, what the research actually says, what we already have)
+GAPS = [
+    ('MARK', 'FACTIONS HAVE NO MARK', 'art',
+     "They have colours now. They have no SYMBOL - nothing sprayed on a wall, stitched on a "
+     "sleeve, or scratched into a door.",
+     "Heraldry exists for exactly this: knowing who somebody is when you cannot see their "
+     "face. And the real constraint is a gift - if a mark cannot be painted fast, scratched "
+     "into wood, or roughly stitched onto cloth, it is too complicated. In a valley with no "
+     "printing that is not a style rule, it is physics.",
+     "A mark also becomes TERRITORY the second somebody sprays it on a wall, which is how "
+     "real groups claim ground and costs one tile."),
+
+    ('RANKFILE', 'THE MEMBERS ARE WALLPAPER', 'the big one',
+     "Faction games write the leaders and leave the ordinary members with nothing to do. That "
+     "is the number one reason faction systems feel fake.",
+     "This is the central finding of the 2024 academic paper on faction systems: games script "
+     "their primary characters heavily, and the background NPCs who actually ARE the faction "
+     "have little or no role.",
+     "WE ARE BETTER PLACED THAN ANYONE TO FIX IT: 268 people already exist with schedules, "
+     "jobs, homes and faces. Not one of them currently acts like a member of anything."),
+
+    ('WITNESS', 'REPUTATION TELEPORTS', 'the big one',
+     "In most games everybody instantly knows what you did, with no way the news could have "
+     "reached them.",
+     "The researched fix is reputation that spreads from WITNESSES - people remember what they "
+     "personally saw, tell each other, and form their own opinion instead of reading one "
+     "global score. Gossip even distorts as it travels.",
+     "WE ALREADY BUILT THE HARD HALF: the memory system holds sightings and lets them fade. "
+     "Nothing connects it to factions."),
+
+    ('REDEEM', 'NO WAY BACK', 'design',
+     "If standing only ever goes one way, one bad night follows you forever and you stop "
+     "caring.",
+     "New Vegas's most-cited flaw: reputation can never be removed, only buried under a bigger "
+     "opposite number, so there is no honest road from hated back to neutral.",
+     "Whatever standing gets built needs a way back, and it should cost more than the fall did."),
+
+    ('DISGUISE', 'WEARING THE WRONG COLOURS DOES NOTHING', 'your colours',
+     "You picked a colour for every faction today. Right now you could walk into anybody's "
+     "territory wearing it and nothing happens.",
+     "A colour's entire real-world job is to signal identity to allies AND provoke rivals. Real "
+     "groups even carry sub-signals inside a colour - how the bandana is folded, how the hat "
+     "sits.",
+     "Wear their colours and be taken for theirs. Get caught by somebody who knows your face "
+     "and pay for it. This is the direct payoff of the ruling you just made."),
+
+    ('AGENDA', 'FACTIONS DO NOTHING WHEN YOU ARE NOT LOOKING', 'design',
+     "Ours are entries in a file. They never want anything, never move, never fight each other "
+     "unless you are standing there.",
+     "RimWorld, Dwarf Fortress and Songs of Syx all run factions that chase goals, raid each "
+     "other and suffer internal strife with no player involved. That is the bar.",
+     "A faction with no agenda is set dressing with a flag on it."),
+
+    ('COST', 'HELPING EVERYONE COSTS NOTHING', 'design',
+     "If you can max out every faction there was never a choice.",
+     "Systems where every side can be pleased at once have no stakes; the tension is the "
+     "product.",
+     "AND CANON ALREADY CARVED THE EXCEPTIONS: the Volunteers are untouchable, the Caravans are "
+     "protected, the Trades never take a side. Those three are exactly what make the rest of "
+     "the trade-offs mean something."),
+
+    ('JOIN', 'YOU CANNOT JOIN, LEAVE, OR BE THROWN OUT', 'design',
+     "There is no membership at all. No initiation, no defection, no expulsion.",
+     "Membership is the thing every faction system is actually about - belonging, and what it "
+     "costs to stop belonging.",
+     "Canon already has the sharpest version: your Custom faction is supposed to EMERGE from "
+     "three generations of what you did. That is a membership arc with no membership under it."),
+
+    ('INTERNAL', 'EVERY FACTION IS ONE BLOCK', 'lore',
+     "Each faction agrees with itself about everything. Real groups are full of arguments.",
+     "Believable groups have factions inside factions - the old guard, the hard-liners, the "
+     "ones who want out.",
+     "CANON ALREADY SAYS OURS DO: the four social forces sit INSIDE other factions by design. "
+     "A whole internal-politics layer that exists on paper and nowhere in the game."),
+
+    ('SEEIT', 'YOU CANNOT SEE WHERE YOU STAND', 'surface',
+     "Nothing anywhere tells you what a faction thinks of you, or why.",
+     "Standing a player cannot read is standing a player cannot play around.",
+     "Whatever this becomes, it needs a surface you can actually reach."),
+
+    ('GREYSCALE', 'THE COLOURS HAVE NEVER BEEN COLOURBLIND-TESTED', 'art',
+     "Thirteen faction colours and nobody has checked whether they survive greyscale or "
+     "colourblindness.",
+     "The standard practice is to check a faction palette in pure greyscale (does brightness "
+     "alone separate them?) and run it through the three colourblindness simulators.",
+     "The new gate does the brightness half today. The colourblind half is not built."),
+
+    ('MAP', 'FACTIONS ARE NOT REALLY ON THE MAP', 'world',
+     "Faction bases were placed by counting evenly down a list, so all fourteen ended up on "
+     "one-cell suburb plots.",
+     "Territory that does not match what a faction DOES is territory that says nothing.",
+     "Whether a faction's ground should match its trade is your call. The machinery is a small "
+     "change."),
+]
+
+
+HTML = r"""<meta charset="utf-8">
+<title>BOHEMIA - WHAT FACTIONS ARE MISSING</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<body id="bd" style="margin:0;background:#0d0f0a;font-family:-apple-system,sans-serif;color:#ddd">
+<div id="bar" style="position:sticky;top:0;z-index:9;background:#0d0f0a;padding:10px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #2a2a1f">
+  <div style="flex:1;min-width:120px">
+    <div id="hdr" style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">WHAT FACTIONS ARE MISSING</div>
+    <div id="tally" style="font:600 11px ui-monospace,monospace;color:#8f8770;margin-top:2px"></div>
+  </div>
+  <button id="sun" style="padding:9px 13px;border-radius:8px;border:1px solid #887;background:#222;color:#ddd">&#9728; SUN MODE</button>
+  <button id="exp" style="padding:9px 13px;border-radius:8px;background:#3f8c3f;color:#fff;border:0">&#10515; EXPORT .txt</button>
+</div>
+<div id="intro" style="font:12px/1.6 -apple-system,sans-serif;color:#8f8770;padding:12px 14px 0;max-width:760px">
+  You asked what we are missing about factions. Twelve things, each one a real finding, not
+  a wishlist. <b>Nothing here is built</b> and nothing will be until you pick. Thumb what you
+  want and skip what you do not.
+</div>
+<div id="list"></div>
+<div style="padding:16px 14px 60px;max-width:760px">
+  <div id="gcap" style="font:12px sans-serif;color:#8f8770;margin-bottom:4px">PAOLO COMMENTS (rides the export):</div>
+  <textarea id="gc" rows="5" style="width:100%;padding:10px;border-radius:10px;border:1px solid #888;box-sizing:border-box;background:#111;color:#ddd;font:13px sans-serif"></textarea>
+</div>
+<script>
+var GAPS = /*__DATA__*/;
+var SUN=false, verdict={}, comments={};
+function C(d,s){ return SUN?s:d; }
+function tally(){
+  var u=0,n=0; Object.keys(verdict).forEach(function(k){ if(verdict[k]==='up')u++; if(verdict[k]==='down')n++; });
+  document.getElementById('tally').textContent = u+' want / '+n+' no / '+(GAPS.length-u-n)+' left';
+}
+function build(){
+  document.body.style.background=C('#0d0f0a','#efe7cf');
+  document.getElementById('bar').style.background=C('#0d0f0a','#efe7cf');
+  document.getElementById('hdr').style.color=C('#cdbd8a','#3a3320');
+  document.getElementById('intro').style.color=C('#8f8770','#5a5138');
+  document.getElementById('gcap').style.color=C('#8f8770','#6a6045');
+  var gc=document.getElementById('gc'); gc.style.background=C('#111','#fff'); gc.style.color=C('#ddd','#222');
+  var list=document.getElementById('list'); list.innerHTML='';
+  GAPS.forEach(function(g,i){
+    var card=document.createElement('div');
+    card.style.cssText='margin:14px 12px;border-radius:12px;padding:14px;background:'+C('#181a12','#e4dbc0')+';border:1px solid '+C('#2a2a1f','#c9bd9a');
+    var t=document.createElement('div');
+    t.style.cssText='font:700 16px -apple-system,sans-serif;color:'+C('#cdbd8a','#3a3320');
+    t.textContent=(i+1)+'. '+g.title;
+    card.appendChild(t);
+    var tag=document.createElement('span');
+    tag.style.cssText='display:inline-block;margin-top:5px;font:600 10px sans-serif;background:'+C('#c79a3f','#c79a3f')+';color:#201700;border-radius:4px;padding:2px 6px';
+    tag.textContent=g.tag.toUpperCase(); card.appendChild(tag);
+    [['THE GAP', g.gap], ['WHAT THE RESEARCH SAYS', g.research], ['WHAT WE ALREADY HAVE', g.have]].forEach(function(r){
+      var h=document.createElement('div');
+      h.style.cssText='font:700 10px sans-serif;letter-spacing:.6px;margin:11px 0 3px;color:'+C('#8f8770','#7a6f50');
+      h.textContent=r[0]; card.appendChild(h);
+      var b=document.createElement('div');
+      b.style.cssText='font:13px/1.6 -apple-system,sans-serif;color:'+C('#c8c0a8','#3a3320');
+      b.textContent=r[1]; card.appendChild(b);
+    });
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;gap:8px;margin-top:12px';
+    [['up','👍','#3f8c3f'],['down','👎','#8c3f3f']].forEach(function(p){
+      var b=document.createElement('button');
+      b.textContent=p[1];
+      b.style.cssText='flex:1;padding:11px;border-radius:9px;font-size:19px;border:2px solid '+(verdict[g.id]===p[0]?p[2]:'transparent')+';background:'+(verdict[g.id]===p[0]?p[2]:C('#12140d','#d8ceae'));
+      b.onclick=function(){ verdict[g.id]=(verdict[g.id]===p[0]?null:p[0]); build(); };
+      row.appendChild(b);
+    });
+    card.appendChild(row);
+    var cm=document.createElement('textarea');
+    cm.rows=2; cm.placeholder='comment on '+g.title;
+    cm.value=comments[g.id]||'';
+    cm.style.cssText='width:100%;margin-top:7px;padding:8px;border-radius:8px;border:1px solid #888;box-sizing:border-box;background:'+C('#111','#fff')+';color:'+C('#ddd','#222')+';font:13px sans-serif';
+    cm.oninput=function(){ comments[g.id]=cm.value; };
+    card.appendChild(cm);
+    list.appendChild(card);
+  });
+  tally();
+}
+function exportTxt(){
+  var L=['BOHEMIA - WHAT FACTIONS ARE MISSING - VERDICT 8/2/26',''];
+  GAPS.forEach(function(g,i){
+    var v=verdict[g.id]||'UNJUDGED';
+    L.push('['+(v==='up'?'WANT':v==='down'?'NO':'UNJUDGED')+']  '+(i+1)+'. '+g.title);
+    if(comments[g.id]) L.push('    comment: '+comments[g.id]);
+    L.push('');
+  });
+  var u=0,n=0; Object.keys(verdict).forEach(function(k){ if(verdict[k]==='up')u++; if(verdict[k]==='down')n++; });
+  L.push('TALLY: '+u+' want, '+n+' no, '+(GAPS.length-u-n)+' unjudged','','PAOLO COMMENTS:',
+         document.getElementById('gc').value||'(none)');
+  var b=new Blob([L.join('\n')],{type:'text/plain'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(b);
+  a.download='BOHEMIA_FACTION_GAPS_VERDICT_8_2_26.txt'; a.click();
+}
+document.getElementById('sun').onclick=function(){ SUN=!SUN; build(); };
+document.getElementById('exp').onclick=exportTxt;
+build();
+</script>
+"""
+
+
+def main():
+    rows = [{'id': g[0], 'title': g[1], 'tag': g[2], 'gap': g[3], 'research': g[4], 'have': g[5]}
+            for g in GAPS]
+    open(OUT, 'w', encoding='utf-8').write(
+        HTML.replace('/*__DATA__*/', json.dumps(rows, ensure_ascii=False)))
+    print('WHAT FACTIONS ARE MISSING: %d gaps -> %s' % (len(rows), OUT))
+    print('  record: %s' % RECORD)
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

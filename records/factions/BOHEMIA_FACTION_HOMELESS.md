@@ -41,7 +41,7 @@ The underground itself - every entrance, every 90-degree culvert turn, and which
 
 ### HOW THEY DRESS
 
-NO FACTION LOOK ENTRY. NO COLOUR, because a colour is a thing you chose. Their look is LAYERS THAT DO NOT MATCH plus carried bedding - the silhouette of somebody wearing their entire property. Every piece below is already canon and already dusty; nothing needs to be cooked.
+PROPOSED - family #686a70. CONCRETE GREY - the colour of the tunnel, and the only camouflage that works where they live. It sits on the NEUTRAL AXIS with almost no saturation, so it cannot collide with any hue on the wheel; it is told apart from the Volunteers' white and the Anarchists' black by VALUE alone, which is the oldest trick in the book and the one that still works in greyscale. SECOND SIGNAL: layers that do not match, plus carried bedding - the silhouette of somebody wearing their entire property.
 VETERAN KIT (forced layers): back -> DUST BEDROLL; base -> TATTERED FLANNEL, TATTERED TEE; feet -> WRAPPED BOOTS, SANDWALKERS; gear -> BLANKET SHOULDER ROLL; head -> DESERT SHEMAGH; legs -> PATCHED WORK PANTS; outer -> HOODED DUST PONCHO, STORM PONCHO; waist -> HIP SASH
 
 ### HOW THEY TALK

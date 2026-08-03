@@ -3957,6 +3957,45 @@ P-F. (discovered 8/2 by the factions session, NOT FIXED, and deliberately not fi
    assert over the set.
    | next PEOPLE turn should take this | 8/2 | no - gate work, nothing to judge.
 
+0A. [SHIPPED 8/2 - 12 GAPS ON A JUDGE SHEET, AWAITING HIS THUMBS.
+   records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md, LIFE tab top card]
+   HE OVERTURNED MY COLOUR CALL AND HE WAS RIGHT: "we chose colors for factions so i
+   dont fuck with u trying to say they wont have color like. wtf bro."
+   THE RESEARCH AGREES WITH HIM, EXPLICITLY: readability practice is to LAYER THREE
+   SIGNALS - hue, value, shape - and pair every colour-coded faction with a second
+   signal. Never colour INSTEAD of shape. My "no colour for six factions" was a false
+   choice, and worse, it was solving a broken MEASUREMENT by deleting content.
+   *** THE MEASUREMENT WAS THE BROKEN PART. *** The old check was one number: RGB
+   euclidean, fail under 95. That ruler called olive drab and oxblood a collision at 39
+   - a dark green and a dark red. FIX THE RULER, NEVER THE TARGET (his own 8/1 law).
+   The gate now measures hue, value and the neutral axis, and ALL 13 FACTIONS CARRY A
+   COLOUR: Remnants olive, Network teal, Blues cobalt, Trades hi-vis, Karens pale rose
+   (Reds' hue family, opposite value - reads as the alliance he just ruled), and the
+   NEUTRAL AXIS split by value for Volunteers white / Homeless concrete / Anarchists
+   black, which also survives a greyscale test. His six 7/21 rulings untouched.
+   THE NEW RULER IMMEDIATELY EARNED ITS KEEP: my first Trades colour (safety orange)
+   FAILED it - 12 degrees of hue and 0.07 of value from the Caravans' tan. Replaced
+   with hi-vis yellow-green, which clears everything. TWO COLOURWAYS NEED COOKING
+   (hi-vis, pale rose) - CLOTHES lane's factory, not this one, same as the five cooked
+   on 7/21.
+   THE 12 GAPS, researched with sources. The three worth reading:
+   (2) THE MEMBERS ARE WALLPAPER - the central finding of the 2024 FDG faction-systems
+       paper: games script leaders and leave the NPCs who ARE the faction with no role.
+       We ship 268 derived people already; none of them acts like a member of anything.
+   (3) REPUTATION TELEPORTS - the documented failure everywhere. The fix is reputation
+       spreading from WITNESSES who remember and gossip. WE ALREADY BUILT THE HARD HALF
+       (the memory system holds sightings and decays them); nothing wires it to factions.
+   (5) WEARING THE WRONG COLOURS DOES NOTHING - the direct payoff of the ruling he just
+       made. A colour's real job is to signal to allies AND provoke rivals.
+   Also: no faction MARK (heraldry's paint-it/scratch-it/stitch-it constraint is physics
+   here), no redemption path, no agendas, no zero-sum, no join/leave/expel, no internal
+   politics, no standing surface, never colourblind-tested, bases placed by list stride.
+   NOTHING BUILT - BUILD THE WORLD (7/31) has faction machinery off and STOP PRODUCING
+   says finding a legal way to ship a frozen thing IS the violation. It is a list until
+   he picks.
+   | gate: FACTION DOSSIERS 675 -> 761, 8/8 probes (new one: a faction having its colour
+   taken away to dodge a collision - the exact mistake he threw out) | 8/2 | YES - 12 cards.
+
 00. [DONE 8/2 - VERDICT IN: 15 UP, 0 DOWN, 1 NOTED. records/BOHEMIA_FACTION_VERDICT_
    8_2_26.txt] HIS TWO RULINGS APPLIED THE SAME TURN:
    (1) KARENS: "not a faction. a quest giving group . they get a long with the reds".

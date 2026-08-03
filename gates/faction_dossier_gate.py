@@ -111,6 +111,13 @@ def dist(a, b):
     return math.sqrt(sum((ra[i] - rb[i]) ** 2 for i in range(3)))
 
 
+def hsl(x):
+    import colorsys
+    r, g, b = [c / 255 for c in rgb(x)]
+    H, L, S = colorsys.rgb_to_hls(r, g, b)
+    return H * 360, S, L
+
+
 def is_purple(h):
     """PURPLE RESERVATION - the same test the clothing purity sweep uses."""
     r, g, b = rgb(h)
@@ -282,39 +289,66 @@ def check_all(D, order, graph, ruled, tol, bank, files, verdicts=None, vcomments
             '%s proposes %s, which reads PURPLE. Purple belongs to the Amalgamation alone '
             '(PURPLE RESERVATION) and pointing it at a faction hands away the act-3 reveal.'
             % (k, hexv))
+    # EVERY FACTION HAS A COLOUR. Paolo 8/2: "we chose the colors". A card that ducks the
+    # question is the defect, so the gate demands one from anything that has members.
+    for k in order:
+        d0 = D[k]
+        if d0['kind'] in ('antagonist', 'social'):
+            continue          # no members to dress; these two carry no look on purpose
+        chk(bool((d0['dress'].get('look') or {}).get('color')) or
+            (d0['dress'].get('look') or {}).get('mode') == 'rainbow',
+            '%s has NO faction colour. Paolo 8/2: "we chose the colors" - every faction gets '
+            'one, and solving a palette problem by taking the colour away is not solving it.' % k)
+
+    # THE RULER, REBUILT. The old check was one number: euclidean distance in RGB, fail
+    # under 95. That ruler said olive drab and oxblood "collide" at 39 - a dark green and a
+    # dark red, which no human being has ever confused - and the conclusion I drew from it
+    # was to take colours AWAY from six factions. Paolo threw that out and he was right.
+    # THE REAL STANDARD, from the accessibility/readability practice: layer THREE signals -
+    # HUE, VALUE, and SHAPE - and two things are distinguishable if they differ on ANY of
+    # them. So that is what this measures. Fix the ruler, never the target (Paolo 8/1).
+    HUE_GAP, VAL_GAP, NEUTRAL_SAT = 20.0, 0.14, 0.16
+    def sep(a, b):
+        """(distinguishable?, which signal did the work)"""
+        ha, sa, va = hsl(pts[a][0])
+        hb, sb, vb = hsl(pts[b][0])
+        dv = abs(va - vb)
+        na, nb = sa < NEUTRAL_SAT, sb < NEUTRAL_SAT
+        if na != nb:
+            return True, 'one is neutral, one is coloured'
+        if na and nb:
+            return dv >= VAL_GAP, 'value %.2f apart on the neutral axis' % dv
+        dh = abs(ha - hb)
+        dh = min(dh, 360 - dh)
+        if dh >= HUE_GAP:
+            return True, 'hue %.0f degrees apart' % dh
+        if dv >= VAL_GAP:
+            return True, 'same hue family, value %.2f apart (his own Reds/Cartel trick)' % dv
+        ma = (D[a]['dress']['look'] or {}).get('mode')
+        mb = (D[b]['dress']['look'] or {}).get('mode')
+        if ma != mb:
+            return True, 'same hue and value, told apart by MODE (%s vs %s)' % (ma, mb)
+        return False, 'hue %.0f apart and value %.2f apart' % (dh, dv)
+
     keys = sorted(pts)
+    worst = (999.0, None, None, '')
     for i, a in enumerate(keys):
         for b in keys[i + 1:]:
-            ha, ra = pts[a]
-            hb, rb = pts[b]
-            d = dist(ha, hb)
-            if ra and rb:
-                # both are HIS. Not mine to fail him on - reported, never enforced.
-                if d <= tol:
-                    ma = (D[a]['dress']['look'] or {}).get('mode')
-                    mb = (D[b]['dress']['look'] or {}).get('mode')
-                    if ma != mb:
-                        why = ('still told apart by MODE (%s vs %s), never by hue' % (ma, mb))
-                    else:
-                        why = ('and BOTH are %s mode, so on a body there is nothing left to '
-                               'tell them apart - worth a look' % ma)
-                    note('BOTH RULED BY HIM 7/21, reported not enforced: %s %s and %s %s are '
-                         '%.0f apart, inside his own %d-unit family tolerance, %s.'
-                         % (a, ha, b, hb, d, tol, why))
+            okc, why = sep(a, b)
+            both_his = pts[a][1] and pts[b][1]
+            if not okc and both_his:
+                note('BOTH RULED BY HIM, reported not enforced: %s %s and %s %s - %s'
+                     % (a, pts[a][0], b, pts[b][0], why))
                 continue
-            chk(d > tol,
-                'COLOUR COLLISION: %s %s and %s %s are %.0f apart, inside the engine\'s own '
-                '%d-unit family tolerance - on a body they would read as the same faction. '
-                'This is exactly why the 7/21 dress pass parked the remaining factions.'
-                % (a, ha, b, hb, d, tol))
-    prop = [k for k in keys if not pts[k][1]]
-    if prop:
-        worst = []
-        for k in prop:
-            near = min(((dist(pts[k][0], pts[o][0]), o) for o in keys if o != k),
-                       default=(999, '-'))
-            worst.append('%s nearest %s at %.0f' % (k, near[1], near[0]))
-        note('proposed colours (%d): %s' % (len(prop), '; '.join(worst)))
+            chk(okc,
+                'COLOUR COLLISION: %s %s and %s %s are %s, so on a body they would read as the '
+                'same faction on all three signals. Cook a colourway or move one - do not take '
+                'the colour away.' % (a, pts[a][0], b, pts[b][0], why))
+    note('%d faction colours, all separated on hue, value or the neutral axis' % len(keys))
+    cooks = [k for k in order if D[k]['dress'].get('needs_cook')]
+    if cooks:
+        note('NEEDS A COLOURWAY COOKED (the wardrobe has no hex near it, same as the five '
+             'cooked on 7/21): %s - CLOTHES lane\'s factory, not this one' % ', '.join(cooks))
 
     # --- F. the frozen systems are not grown ------------------------------
     # the ratchet in gates/build_the_world_gate.py froze the faction footprint at
@@ -475,6 +509,12 @@ def selftest(graph, ruled, tol, bank, verdicts, vcomments):
     def m_marco(D):
         D['HOMELESS']['canon_flags'] = ['Marco runs with this faction.']
     probe('a dossier quietly gives Marco a faction', m_marco)
+
+    def m_nocolour(D):
+        # the exact mistake I made on 8/2 and he threw out: a palette problem solved by
+        # taking the colour away instead of by cooking one
+        D['TRADES']['dress']['look'] = None
+    probe('a faction has its colour taken away to dodge a collision', m_nocolour)
 
     caught = 0
     for name, mutate in probes:

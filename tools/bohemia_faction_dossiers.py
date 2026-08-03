@@ -157,14 +157,14 @@ D['REMNANTS'] = dict(
         "the valley. They do not sell the map. They trade READS of it."
     ),
     dress=dict(
-        look=None,
+        look={'mode': 'family', 'color': '#4a5036'}, proposed=True,
         look_note=(
-            "NO FACTION COLOUR, and this is the finding rather than a gap. In America after a "
-            "collapse, olive drab is the CHEAPEST AND MOST COMMON salvage clothing there is - "
-            "every surplus store in the valley was full of it. A green shirt means nothing. "
-            "What civilians cannot get is LOAD-BEARING EQUIPMENT: rigs, plates, pauldrons, "
-            "bracers, real boots. So the Remnants read by WEBBING, not by hue - which is "
-            "STRUCTURE-NOT-COLOR (7/19) doing exactly the job that law exists for."
+            "OLIVE DRAB. The colour is the uniform and the uniform is the point - they are the "
+            "only faction that ever HAD one. Hue 74, the only olive on the wheel, and dark "
+            "enough that nothing else in the valley sits near it. SECOND SIGNAL, because a "
+            "colour is never alone: everybody in America owns surplus olive, so what actually "
+            "says Remnant at fifty metres is the WEBBING - rig, bracers, leg wraps, helm. "
+            "Colour says which side, silhouette says how serious."
         ),
         kit={'base': ['WORK COVERALLS', 'OLIVE DRAB TEE'], 'legs': ['OLIVE PANTS', 'BLACK CARGOS'],
              'feet': ['FIELD BOOTS', 'BROWN BOOTS'], 'gear': ['OLIVE CHEST RIG', 'WORN BRACERS', 'OLIVE LEG WRAPS'],
@@ -297,16 +297,16 @@ D['NETWORK'] = dict(
         "the valley in an hour instead of a day, and they have never once charged for it."
     ),
     dress=dict(
-        look=None,
+        look={'mode': 'family', 'color': '#28bea0'}, proposed=True,
         look_note=(
-            "NO COLOUR - THEIR TELL IS THAT THEIR CLOTHES ARE INTACT. Every other faction's "
-            "wardrobe is patched, tattered, dust-eaten. A Network member's garments are whole "
-            "and clean, which in a valley with no laundry means somebody has water to spare on "
-            "appearance. Their veteran kit is a NEGATIVE rule the existing machine can already "
-            "express: forced to crisp garments, never TATTERED or PATCHED anything. Purple is "
-            "the obvious wrong answer and the PURPLE RESERVATION forbids it - purple is the "
-            "Amalgamation's alone, and pointing it at the Amalgamation's own protection layer "
-            "would hand the player the act-3 reveal in act one."
+            "TEAL, and it is already half-canon: the data fortress is a near-black slab with a "
+            "CYAN NIGHT HUM. The colour of the thing that still has power. Hue 168, the only "
+            "cyan on the wheel, nothing near it. SECOND SIGNAL: their clothes are INTACT. "
+            "Everyone else is patched, tattered, dust-eaten; a Network member's teal is CLEAN, "
+            "which in a valley with no laundry means somebody has water to spare on appearance. "
+            "PURPLE WAS THE OBVIOUS WRONG ANSWER and the reservation forbids it - purple is the "
+            "Amalgamation's alone, and putting it on the Amalgamation's own pawn would hand the "
+            "player the act-3 reveal in act one."
         ),
         kit={'base': ['STEEL WORK SHIRT', 'BONE BUTTON-UP', 'CHARCOAL TURTLENECK'],
              'legs': ['SLATE WORK PANTS'], 'feet': ['STEEL SNEAKERS', 'SLATE SNEAKERS'],
@@ -375,12 +375,14 @@ D['HOMELESS'] = dict(
         "only people who can tell you when that is a route and when it is a grave."
     ),
     dress=dict(
-        look=None,
+        look={'mode': 'family', 'color': '#686a70'}, proposed=True,
         look_note=(
-            "NO COLOUR, because a colour is a thing you chose. Their look is LAYERS THAT DO NOT "
-            "MATCH plus carried bedding - the silhouette of somebody wearing their entire "
-            "property. Every piece below is already canon and already dusty; nothing needs to be "
-            "cooked."
+            "CONCRETE GREY - the colour of the tunnel, and the only camouflage that works where "
+            "they live. It sits on the NEUTRAL AXIS with almost no saturation, so it cannot "
+            "collide with any hue on the wheel; it is told apart from the Volunteers' white and "
+            "the Anarchists' black by VALUE alone, which is the oldest trick in the book and the "
+            "one that still works in greyscale. SECOND SIGNAL: layers that do not match, plus "
+            "carried bedding - the silhouette of somebody wearing their entire property."
         ),
         kit={'base': ['TATTERED FLANNEL', 'TATTERED TEE'], 'legs': ['PATCHED WORK PANTS'],
              'feet': ['WRAPPED BOOTS', 'SANDWALKERS'], 'outer': ['HOODED DUST PONCHO', 'STORM PONCHO'],
@@ -676,14 +678,14 @@ D['VOLUNTEERS'] = dict(
     dress=dict(
         look={'mode': 'family', 'color': '#d4d0c8'}, proposed=True,
         look_note=(
-            "PROPOSED, and for a working reason rather than a mood: a medic has to READ AT "
+            "BONE WHITE, for a working reason rather than a mood: a medic has to READ AT "
             "DISTANCE, by strangers, under stress. That is exactly why the real convention is a "
-            "high-contrast off-white (the ICRC inverted the Swiss flag precisely so it would "
-            "carry across a battlefield). And it does a second job for free - white is the "
-            "hardest thing to keep clean in a dust valley, so a Volunteer in clean bone is "
-            "announcing either that they have water to spare or that somebody else washes it "
-            "for them. Collision-checked: at Paolo's own 95-unit family tolerance this clears "
-            "every already-ruled faction colour, the nearest being the Church's gold at 116."
+            "high-contrast off-white - the ICRC inverted the Swiss flag precisely so it would "
+            "carry across a battlefield. Neutral axis, highest value in the game, so it cannot "
+            "collide with a hue and it still separates from the Homeless grey and the Anarchist "
+            "black in pure greyscale. And it does a second job for free: white is the hardest "
+            "thing to keep clean in a dust valley, so a Volunteer in clean bone is announcing "
+            "either that they have water to spare or that somebody else washes it for them."
         ),
         kit={'base': ['BONE HENLEY', 'WHITE TEE', 'BONE TURTLENECK'], 'legs': ['BONE WORK PANTS'],
              'feet': ['BONE SNEAKERS'], 'outer': ['BONE DUSTER'], 'back': ['SALVAGE SATCHEL'],
@@ -749,13 +751,18 @@ D['TRADES'] = dict(
         "the quiet lever - they decide who in the next generation gets to be worth something."
     ),
     dress=dict(
-        look=None,
+        look={'mode': 'family', 'color': '#c8e020'}, proposed=True, needs_cook=True,
         look_note=(
-            "NO COLOUR, AND THIS ONE IS A CANON REQUIREMENT RATHER THAN A PREFERENCE. The graph "
-            "says the Trades never take a public position; a faction colour IS a public position, "
-            "worn daily, on every member. They read by TOOLS instead: apron, tool belt, "
-            "suspenders, gloves. Silhouette, not hue - STRUCTURE-NOT-COLOR (7/19) again, and the "
-            "veteran-kit socket in bohemia_dress.js already holds it."
+            "HI-VIS YELLOW-GREEN - the real world's actual high-visibility standard, and the one "
+            "colour that means WORKING rather than BELONGING. That is exactly the Trades' "
+            "position, because canon says they never take a public side: hi-vis is not a flag, "
+            "it is a warning that somebody is up a ladder. FIRST TRY WAS SAFETY ORANGE AND THE "
+            "GATE KILLED IT - 12 degrees of hue and 0.07 of value from the Caravans' tan, which "
+            "on a body is the same person. This one clears every faction in the game with room. "
+            "It sits 6 degrees from the Remnants' olive on hue and that is fine, because it is "
+            "four times the saturation and twice the brightness: a hi-vis vest next to army "
+            "fatigues has never confused anybody. SECOND SIGNAL: apron, tool belt, suspenders, "
+            "gloves. NEEDS A COLOURWAY COOKED, same as the five cooked to order on 7/21."
         ),
         kit={'base': ['ROLLED WORK SHIRT', 'WORK COVERALLS', 'BIB OVERALLS'],
              'legs': ['PATCHED WORK PANTS', 'DUST TROUSERS'], 'feet': ['BROWN BOOTS', 'RANCH BOOTS'],
@@ -893,14 +900,13 @@ D['BLUES'] = dict(
     dress=dict(
         look={'mode': 'family', 'color': '#326ed2'}, proposed=True,
         look_note=(
-            "PROPOSED: cobalt. Two reasons and neither is that they are called the Blues, though "
-            "they are. It is the wardrobe's only true saturated blue, so it cannot be confused "
+            "COBALT. Two reasons, and neither is that they are called the Blues, though they "
+            "are. It is the only true saturated blue in the wardrobe, so it cannot be confused "
             "with the muted denim everybody already wears, and blue reads as WATER, which is "
-            "what this faction actually is. Collision-checked at Paolo's 95-unit tolerance: "
-            "clear of every ruled colour, nearest is the Cartel's oxblood at 184. NOTE FOR HIM, "
-            "measured not guessed: cobalt sits 95 units from the wardrobe's teal, which is right "
-            "on the tolerance line, so if a teal faction is ever ruled these two would read as "
-            "the same family."
+            "what this faction actually is. Hue 218, a full 50 degrees off the Network's teal - "
+            "the two nearest colours on the cool half of the wheel and still nobody's going to "
+            "mix up a cyan technician with a cobalt farmer. SECOND SIGNAL: the rice hat and the "
+            "field kit - they are the only people in the valley dressed for standing in water."
         ),
         kit={'base': ['COPPER WORK SHIRT', 'SAGE FLANNEL'], 'legs': ['COBALT WORK PANTS'],
              'feet': ['FIELD BOOTS'], 'outer': ['FIELD JACKET', 'DENIM VEST'],
@@ -965,13 +971,14 @@ D['ANARCHISTS'] = dict(
         "on the street. If something in this valley becomes widely believed in a week, they did it."
     ),
     dress=dict(
-        look=None,
+        look={'mode': 'family', 'color': '#303034'}, proposed=True,
         look_note=(
-            "NO COLOUR, AND THAT IS THE IDENTITY RATHER THAN AN OMISSION. A faction uniform is "
-            "the exact thing they exist to refuse, and the machine's default behaviour with no "
-            "entry (a free draw across the whole canon wardrobe) is already precisely right for "
-            "them. What they do have is a SILHOUETTE - painted, cut, layered, deliberately "
-            "wrong - which the veteran-kit socket expresses without touching hue."
+            "BLACK. Not an absence of a colour - a CHOSEN one, and the most historically loaded "
+            "one there is: the black flag and the black bloc are a hundred and fifty years of "
+            "real people deciding that refusing the uniform IS the uniform. Neutral axis, lowest "
+            "value in the game, so it separates from the Homeless grey and the Volunteers' white "
+            "by value alone and never fights a hue. SECOND SIGNAL: painted, cut, layered, "
+            "deliberately wrong - the black is the only part they all agree on."
         ),
         kit={'base': ['HOOD-UP COAL HOODIE', 'SOOT TANK'], 'legs': ['CUTOFF DENIM SHORTS', 'BLACK DENIM'],
              'feet': ['TALL MOTO BOOTS'], 'outer': ['DENIM VEST', 'LEATHER JACKET'],
@@ -1110,16 +1117,15 @@ D['KARENS'] = dict(
         "actual product. Everything they have is available and there is a process."
     ),
     dress=dict(
-        look=None,
+        look={'mode': 'family', 'color': '#e0a0a8'}, proposed=True, needs_cook=True,
         look_note=(
-            "NO COLOUR - THEIR UNIFORM IS A DRESS CODE. An HOA has never had a team colour in its "
-            "life; it has STANDARDS. Collared, unpatched, closed-toe, tucked. Being presentable "
-            "is the membership signal and it is enforced socially, which the veteran-kit socket "
-            "expresses exactly. NAMED MECHANISM GAP, FLAGGED RATHER THAN FAKED: the rookie half "
-            "of dress-code-by-rank nudges an outfit until half the body reads one colour, and "
-            "these people have no colour, so the rookie rule has nothing to act on. If Paolo "
-            "wants rank to read on a Karen, the machine needs a second rookie mode (a forbidden "
-            "list, not a colour) and that is a small change, not a new system."
+            "PALE ROSE, and the choice is doing story work. Paolo's 8/2 verdict says they GET ON "
+            "WITH THE REDS - so they take the Reds' hue family and a completely different value: "
+            "the Reds are a hard saturated red at mid value, the Karens are a pale washed rose at "
+            "the top of the scale. Same family, opposite register, which is exactly how an "
+            "alliance should read on a body. It is also the single most honest HOA colour there "
+            "is. SECOND SIGNAL: the dress code - collared, unpatched, closed-toe. NEEDS A "
+            "COLOURWAY COOKED; the wardrobe has no pastel."
         ),
         kit={'base': ['BONE BUTTON-UP', 'KHAKI BUTTON-UP'], 'legs': ['KHAKI CARGOS', 'KHAKI SHORTS'],
              'feet': ['WHITE SNEAKERS'], 'waist': ['LEATHER BELT'], 'hands': ['LEATHER GLOVES']},

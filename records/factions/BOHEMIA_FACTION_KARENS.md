@@ -34,7 +34,7 @@ Fresh food from the only irrigated ground in the valley, and MEMBERSHIP, which i
 
 ### HOW THEY DRESS
 
-NO FACTION LOOK ENTRY. NO COLOUR - THEIR UNIFORM IS A DRESS CODE. An HOA has never had a team colour in its life; it has STANDARDS. Collared, unpatched, closed-toe, tucked. Being presentable is the membership signal and it is enforced socially, which the veteran-kit socket expresses exactly. NAMED MECHANISM GAP, FLAGGED RATHER THAN FAKED: the rookie half of dress-code-by-rank nudges an outfit until half the body reads one colour, and these people have no colour, so the rookie rule has nothing to act on. If Paolo wants rank to read on a Karen, the machine needs a second rookie mode (a forbidden list, not a colour) and that is a small change, not a new system.
+PROPOSED - family #e0a0a8. PALE ROSE, and the choice is doing story work. Paolo's 8/2 verdict says they GET ON WITH THE REDS - so they take the Reds' hue family and a completely different value: the Reds are a hard saturated red at mid value, the Karens are a pale washed rose at the top of the scale. Same family, opposite register, which is exactly how an alliance should read on a body. It is also the single most honest HOA colour there is. SECOND SIGNAL: the dress code - collared, unpatched, closed-toe. NEEDS A COLOURWAY COOKED; the wardrobe has no pastel.
 VETERAN KIT (forced layers): base -> BONE BUTTON-UP, KHAKI BUTTON-UP; feet -> WHITE SNEAKERS; hands -> LEATHER GLOVES; legs -> KHAKI CARGOS, KHAKI SHORTS; waist -> LEATHER BELT
 
 ### HOW THEY TALK

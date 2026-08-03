@@ -37,7 +37,7 @@ Repair. Water pumps, inverters, vehicles, wells, walls. Also APPRENTICESHIPS, wh
 
 ### HOW THEY DRESS
 
-NO FACTION LOOK ENTRY. NO COLOUR, AND THIS ONE IS A CANON REQUIREMENT RATHER THAN A PREFERENCE. The graph says the Trades never take a public position; a faction colour IS a public position, worn daily, on every member. They read by TOOLS instead: apron, tool belt, suspenders, gloves. Silhouette, not hue - STRUCTURE-NOT-COLOR (7/19) again, and the veteran-kit socket in bohemia_dress.js already holds it.
+PROPOSED - family #c8e020. HI-VIS YELLOW-GREEN - the real world's actual high-visibility standard, and the one colour that means WORKING rather than BELONGING. That is exactly the Trades' position, because canon says they never take a public side: hi-vis is not a flag, it is a warning that somebody is up a ladder. FIRST TRY WAS SAFETY ORANGE AND THE GATE KILLED IT - 12 degrees of hue and 0.07 of value from the Caravans' tan, which on a body is the same person. This one clears every faction in the game with room. It sits 6 degrees from the Remnants' olive on hue and that is fine, because it is four times the saturation and twice the brightness: a hi-vis vest next to army fatigues has never confused anybody. SECOND SIGNAL: apron, tool belt, suspenders, gloves. NEEDS A COLOURWAY COOKED, same as the five cooked to order on 7/21.
 VETERAN KIT (forced layers): base -> ROLLED WORK SHIRT, WORK COVERALLS, BIB OVERALLS; feet -> BROWN BOOTS, RANCH BOOTS; gear -> WORK SUSPENDERS, KHAKI ELBOW PADS; hands -> LEATHER GLOVES; head -> SLATE WORK CAP; legs -> PATCHED WORK PANTS, DUST TROUSERS; outer -> SMITH'S APRON, TRADES APRON, LEATHER HALF APRON; waist -> SCAV TOOL BELT
 
 ### HOW THEY TALK

@@ -37,7 +37,7 @@ Ammunition, working radios, the only maintained vehicles, and the only accurate 
 
 ### HOW THEY DRESS
 
-NO FACTION LOOK ENTRY. NO FACTION COLOUR, and this is the finding rather than a gap. In America after a collapse, olive drab is the CHEAPEST AND MOST COMMON salvage clothing there is - every surplus store in the valley was full of it. A green shirt means nothing. What civilians cannot get is LOAD-BEARING EQUIPMENT: rigs, plates, pauldrons, bracers, real boots. So the Remnants read by WEBBING, not by hue - which is STRUCTURE-NOT-COLOR (7/19) doing exactly the job that law exists for.
+PROPOSED - family #4a5036. OLIVE DRAB. The colour is the uniform and the uniform is the point - they are the only faction that ever HAD one. Hue 74, the only olive on the wheel, and dark enough that nothing else in the valley sits near it. SECOND SIGNAL, because a colour is never alone: everybody in America owns surplus olive, so what actually says Remnant at fifty metres is the WEBBING - rig, bracers, leg wraps, helm. Colour says which side, silhouette says how serious.
 VETERAN KIT (forced layers): back -> OLIVE RUCK PACK; base -> WORK COVERALLS, OLIVE DRAB TEE; feet -> FIELD BOOTS, BROWN BOOTS; gear -> OLIVE CHEST RIG, WORN BRACERS, OLIVE LEG WRAPS; head -> OLIVE FIELD CAP, SCRAP HELM; legs -> OLIVE PANTS, BLACK CARGOS
 
 ### HOW THEY TALK

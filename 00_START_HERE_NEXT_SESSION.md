@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 SOUND (sound-xk7pjp): 8/2 (r) LATEST - EVERY SOUND IS A BUTTON IN THE MUSIC TAB.
 
 HE SAID: "bro wtf every sfx should be in the sfx in the music menu not for me to
@@ -32,6 +33,67 @@ Mutation-tested: removing the combat group from the board turns it red on 5.
 THE LESSON FOR EVERY LANE, not just this one: a judging surface that hides
 finished work stops being a surface at all once he finishes. If he has to enter
 the game to experience a thing you built, you did not ship it to him.
+=======
+PEOPLE (factions): 8/2 (g) LATEST — HE OVERTURNED MY COLOUR CALL, AND THE RESEARCH SAYS
+HE WAS RIGHT. Plus 12 researched gaps on a judge sheet.
+Record: records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md    TAB: LIFE, top card.
+
+=== THE CORRECTION, AND IT IS THE LESSON OF THE WHOLE DAY ===
+"we chose colors for factions so i dont fuck with u trying to say they wont have color
+like. wtf bro. we chose the colors dumbass."
+I had told him SIX factions should have no colour and read by silhouette instead. THE
+RESEARCH AGREES WITH HIM EXPLICITLY: the readability standard is to LAYER THREE SIGNALS -
+hue, value and shape - and to pair every colour-coded faction WITH a second signal. Never
+colour instead of shape. It was a false choice.
+*** AND THE REAL SIN UNDER IT: I SOLVED A BROKEN MEASUREMENT BY DELETING CONTENT. *** The
+old check was a single number - RGB euclidean distance, fail under 95 - and it called olive
+drab and oxblood a "collision" at 39. A dark green and a dark red. No human has ever
+confused those. FIX THE RULER, NEVER THE TARGET is his own 8/1 law and I broke it while
+quoting other laws at him.
+THE RULER IS REBUILT: hue gap, value gap, or the neutral axis, whichever does the work -
+which is what the research actually describes. ALL 13 FACTIONS NOW CARRY A COLOUR.
+  RED family by value ...... REDS bright / CARTEL maroon / KARENS pale rose
+                             (his 8/2 ruling says the Karens get on with the Reds, so
+                             sharing the hue family at the opposite value READS as that)
+  GOLD family .............. CHURCH / CARAVANS / MOB stripe   (all his, 7/21, untouched)
+  HI-VIS ................... TRADES   OLIVE ... REMNANTS   TEAL ... NETWORK
+  COBALT ................... BLUES    RAINBOW . COLORFUL   (his)
+  NEUTRAL AXIS by value .... VOLUNTEERS white / HOMELESS concrete / ANARCHISTS black
+                             - and that trio survives a pure greyscale test, which is the
+                             accessibility standard nobody here had ever applied
+THE NEW RULER EARNED ITS KEEP IMMEDIATELY: my first Trades colour, safety orange, FAILED
+it - 12 degrees of hue and 0.07 of value from the Caravans' tan, which on a body is the
+same person. Replaced with hi-vis yellow-green, which is also the real-world standard.
+TWO COLOURWAYS NEED COOKING (hi-vis, pale rose). That is the CLOTHES lane's factory, not
+this one - same as the five cooked to order on 7/21. DO NOT COOK THEM FROM THIS LANE.
+ONE FINDING THAT IS HIS, REPORTED NEVER ENFORCED: Caravans tan and Church gold are 8
+degrees of hue and 0.11 of value apart. Very little tells them apart on a body.
+
+=== AND THE 12 GAPS (LIFE tab, "WHAT FACTIONS ARE MISSING") ===
+Researched with sources, all in the record. The three that matter most, and all three lean
+on machines THIS LANE ALREADY BUILT:
+ 2. THE MEMBERS ARE WALLPAPER - the central finding of the 2024 FDG paper on faction
+    systems: games script the leaders and leave the background NPCs who ACTUALLY ARE the
+    faction with no role. We ship 268 derived people with schedules, jobs and faces and
+    not one of them behaves like a member of anything.
+ 3. REPUTATION TELEPORTS - the documented failure everywhere. The researched fix is
+    reputation spreading from WITNESSES who remember and gossip, distorting as it goes.
+    WE ALREADY BUILT THE HARD HALF: the memory system holds sightings and decays them.
+    Nothing connects it to factions.
+ 5. WEARING THE WRONG COLOURS DOES NOTHING - the direct payoff of the ruling he just made.
+    A colour's whole real-world job is to signal to allies AND provoke rivals.
+Also: no faction MARK, no redemption path, no agendas, no zero-sum, no join/leave/expel,
+no internal politics, no standing surface, never colourblind-tested, bases on list stride.
+
+=== NOTHING WAS BUILT, ON PURPOSE ===
+BUILD THE WORLD (7/31) has faction machinery OFF and STOP PRODUCING says finding a legal
+way to ship a frozen thing IS the violation. He asked what we are missing; the answer is a
+list for his thumbs and it stays a list. The gate re-asserts every run that no faction
+machinery grew.
+
+GATE: FACTION DOSSIERS 675 -> 761, 8/8 self-test probes. The new probe is the exact mistake
+he threw out: a faction having its colour taken away to dodge a collision.
+>>>>>>> 73aff72 (EVERY FACTION HAS A COLOR - he threw out my call and the research says he was right)
 
 PEOPLE (factions): 8/2 (f) LATEST — VERDICT IN ON THE FACTION DOSSIERS: 15 UP, 0 DOWN,
 1 NOTED. Record: records/BOHEMIA_FACTION_VERDICT_8_2_26.txt

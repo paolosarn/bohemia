@@ -37,7 +37,7 @@ Attention, and the ability to gather people fast. Nothing on the ledger and ever
 
 ### HOW THEY DRESS
 
-NO FACTION LOOK ENTRY. NO COLOUR, AND THAT IS THE IDENTITY RATHER THAN AN OMISSION. A faction uniform is the exact thing they exist to refuse, and the machine's default behaviour with no entry (a free draw across the whole canon wardrobe) is already precisely right for them. What they do have is a SILHOUETTE - painted, cut, layered, deliberately wrong - which the veteran-kit socket expresses without touching hue.
+PROPOSED - family #303034. BLACK. Not an absence of a colour - a CHOSEN one, and the most historically loaded one there is: the black flag and the black bloc are a hundred and fifty years of real people deciding that refusing the uniform IS the uniform. Neutral axis, lowest value in the game, so it separates from the Homeless grey and the Volunteers' white by value alone and never fights a hue. SECOND SIGNAL: painted, cut, layered, deliberately wrong - the black is the only part they all agree on.
 VETERAN KIT (forced layers): base -> HOOD-UP COAL HOODIE, SOOT TANK; face -> ROSE BANDANA, GREY WRAPAROUNDS; feet -> TALL MOTO BOOTS; gear -> ELBOW PADS, SCAV KNEEPADS; legs -> CUTOFF DENIM SHORTS, BLACK DENIM; outer -> DENIM VEST, LEATHER JACKET
 
 ### HOW THEY TALK
