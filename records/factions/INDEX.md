@@ -19,7 +19,7 @@ Every file here is a **PROPOSAL**. Judge them on ONE sheet in the **LIFE tab**, 
 | [THE BLUES](BOHEMIA_FACTION_BLUES.md) | selectable | 7 | Everyone gets a say. Slowly. |
 | [THE ANARCHISTS](BOHEMIA_FACTION_ANARCHISTS.md) | selectable | 6 | Four hundred people, one day, anything. |
 | [THE COLORFUL](BOHEMIA_FACTION_COLORFUL.md) | selectable | 1 | A family that cannot be found. |
-| [THE KAREN COMMUNITY](BOHEMIA_FACTION_KARENS.md) | pending-slot | - | A government nobody had to invent. |
+| [THE KAREN COMMUNITY](BOHEMIA_FACTION_KARENS.md) | quest-giving group (NOT a faction) | - | A government nobody had to invent. |
 | [THE AMALGAMATION](BOHEMIA_FACTION_AMALGAMATION.md) | antagonist | - | Not a faction. A haunting. |
 | [THE SOCIAL FORCES](BOHEMIA_FACTION_SOCIAL_FORCES.md) | social | - | Sorting, not building. Inside everyone. |
 

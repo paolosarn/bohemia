@@ -86,10 +86,38 @@ FIELDS = [
 NAME_RULE = 'name_rule'
 FIELDS.insert(6, NAME_RULE)
 
+# VERDICT IN, 8/2/26: records/BOHEMIA_FACTION_VERDICT_8_2_26.txt. 15 UP, 0 down,
+# 1 left unthumbed with a note. So these stopped being proposals the moment he
+# exported that file - APPROVED is CANON (verdict pipeline), and a card that still
+# said "proposal, not canon" after he thumbed it would be asking him to rule twice.
+# The two cards he wrote on carry HIS words in their flags, not my summary of them.
+VERDICT = 'records/BOHEMIA_FACTION_VERDICT_8_2_26.txt'
+APPROVED_BANNER = (
+    'CANON. Paolo thumbed this UP on 8/2/26 (%s). Everything below is his now. The '
+    'canon floor above is the older canon it was built on, and is still not up for '
+    'judgement.' % VERDICT
+)
+NOTED_BANNER = (
+    'NOT THUMBED, AND CORRECTLY SO - he left a NOTE on this card instead of a verdict '
+    'on 8/2/26 (%s), because it is not a faction to approve. NOTES ARE RULINGS: his '
+    'note is in the flags below, in his words.' % VERDICT
+)
+# a card added AFTER the sitting would carry this again; nothing does today
 PROPOSAL_BANNER = (
     'PROPOSAL, NOT CANON. Paolo approves, edits or kills. Existing canon is the '
     'floor and is reproduced above, never re-argued.'
 )
+# from the verdict file, verbatim. UNJUDGED here is his deliberate note-instead-of-thumb.
+VERDICTS = {k: 'up' for k in
+            ['REMNANTS', 'CARTEL', 'NETWORK', 'HOMELESS', 'MOB', 'CARAVANS', 'CHURCH',
+             'VOLUNTEERS', 'TRADES', 'REDS', 'BLUES', 'ANARCHISTS', 'COLORFUL', 'KARENS',
+             'SOCIAL_FORCES']}
+VERDICTS['AMALGAMATION'] = 'noted'
+
+
+def banner_for(key):
+    v = VERDICTS.get(key)
+    return APPROVED_BANNER if v == 'up' else NOTED_BANNER if v == 'noted' else PROPOSAL_BANNER
 
 # ============================================================================
 # THE DOSSIERS. Ordered as the sheet reads: the seven he named first, then the
@@ -1049,7 +1077,7 @@ D['COLORFUL'] = dict(
 )
 
 D['KARENS'] = dict(
-    name='THE KAREN COMMUNITY', kind='pending-slot', graph=None,
+    name='THE KAREN COMMUNITY', kind='quest-giving group (NOT a faction)', graph=None,
     five_words='A government nobody had to invent.',
     grounding=(
         "The joke name is hiding the single most credible surviving institution in a Sun Belt "
@@ -1103,7 +1131,7 @@ D['KARENS'] = dict(
         "exception."
     ),
     name_rule=(
-        "THEY ASK YOUR NAME AND THEY WRITE IT DOWN. This is the one faction where being asked is "
+        "THEY ASK YOUR NAME AND THEY WRITE IT DOWN. This is the one group where being asked is "
         "the THREAT - the question is not friendliness, it is intake. And it goes both ways, "
         "because they give theirs immediately, along with the position they hold, because the "
         "position is the point. A Karen introduces herself as an office."
@@ -1126,8 +1154,14 @@ D['KARENS'] = dict(
         "ordinary one."
     ),
     canon_flags=[
-        "GDD v5 lists 'Karen community details' as PENDING - this whole dossier is a proposal "
-        "into an empty slot he deliberately left open, and it contradicts nothing.",
+        "PAOLO'S VERDICT, 8/2, AND IT RESHAPES THE ENTRY: \"not a faction. a quest giving group. "
+        "they get a long with the reds\". THUMBED UP with that correction. So: NOT A FACTION - no "
+        "selection slot, no standing, no territory claim against anybody. A QUEST-GIVING GROUP "
+        "sitting on the one working golf course, and FRIENDLY WITH THE REDS, which the canon "
+        "already half-said ('remnants of Remnants and Reds'). Everything below stands; it is a "
+        "group you get quests from, not a power you fight.",
+        "GDD v5 listed 'Karen community details' as PENDING. His 8/2 verdict is the ruling that "
+        "fills it.",
         "Canon floor kept exactly: they hold the ONE operational golf course, and they are "
         "'remnants of Remnants and Reds' (GDD v5, and the 7/4 geography addendum: 'the op course "
         "has owners now').",
@@ -1149,8 +1183,9 @@ D['AMALGAMATION'] = dict(
         "survivors with no manual - people who hear voices, know things they could not know, "
         "speak in another person's words, move wrong. Clarke's third law doing real work. "
         "THE RELATIONSHIP TO THE FACTION SHEET, which is the only reason it belongs here: the "
-        "NETWORK is its manufactured protection and canon says the Network's own people do not "
-        "know it. Nobody on this sheet is its ally on purpose. The one faction that resists it "
+        "NETWORK IS ITS PAWN - Paolo's word, 8/2, on this card. Its manufactured protection, and "
+        "canon says the Network's own people do not know they are being played. Nobody on this "
+        "sheet is its ally on purpose. The one faction that resists it "
         "does so by ACCIDENT - the Homeless barely use the feed - and canon is explicit that the "
         "reason they survive on top of its infrastructure is that they never LOOK."
     ),
@@ -1199,6 +1234,9 @@ D['AMALGAMATION'] = dict(
         "original."
     ),
     canon_flags=[
+        "PAOLO 8/2, ON THIS CARD: \"okay but dont forget the network is its pawn\". Left unthumbed "
+        "and given a note instead, which is the right call - it is not a faction to approve. THE "
+        "NOTE IS THE RULING and PAWN is now the word: the Network is played, not allied.",
         "ACT 1 IS A GHOST (7/24, LOCKED). Nothing here names it a machine, and no dossier row on "
         "this sheet says the word Amalgamation inside an act-1 fiction context.",
         "PURPLE RESERVATION: purple is its alone. Machine-checked across every row on this sheet.",
@@ -1393,7 +1431,7 @@ def write_dossiers(graph):
         L = ['# %s' % d['name']]
         if d.get('subtitle'):
             L.append('### %s' % d['subtitle'])
-        L += ['', '*%s*' % PROPOSAL_BANNER, '',
+        L += ['', '*%s*' % banner_for(key), '',
               'Ordered by Paolo, 7/31 lore sitting: **"WE NEED TO REALLY FLESH THE FACTIONS OUT '
               'FR MAKE ALL OF THEM AWESOME AND INTERESTING."** Backlog PEOPLE item 00.', '',
               '## THE CANON FLOOR (not mine, not up for judgement)']
@@ -1426,12 +1464,14 @@ def write_dossiers(graph):
                           'what canon does say.']
         for f in d.get('canon_flags', []):
             L += ['', '- **%s**' % f]
-        L += ['', '## THE PROPOSAL', '']
+        L += ['', '## THE ENTRY' if VERDICTS.get(key) else '## THE PROPOSAL', '']
         for title, body in rows_for(key):
             L += ['### %s' % title, '', body, '']
-        L += ['---', '*BOHEMIA - faction dossier - 8/2/26 - PEOPLE lane - PROPOSAL, awaiting his '
-              'thumb. Generated by tools/bohemia_faction_dossiers.py; edit the tool, never this '
-              'file.*']
+        L += ['---', '*BOHEMIA - faction dossier - 8/2/26 - PEOPLE lane - %s. Generated by '
+              'tools/bohemia_faction_dossiers.py; edit the tool, never this file.*'
+              % ('CANON, thumbed up 8/2' if VERDICTS.get(key) == 'up'
+                 else 'his note stands in place of a thumb, 8/2' if VERDICTS.get(key)
+                 else 'PROPOSAL, awaiting his thumb')]
         path = os.path.join(OUTDIR, 'BOHEMIA_FACTION_%s.md' % key)
         open(path, 'w', encoding='utf-8').write('\n'.join(L) + '\n')
         written.append(path)

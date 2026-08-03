@@ -1,3 +1,34 @@
+PEOPLE (factions): 8/2 (f) LATEST — VERDICT IN ON THE FACTION DOSSIERS: 15 UP, 0 DOWN,
+1 NOTED. Record: records/BOHEMIA_FACTION_VERDICT_8_2_26.txt
+
+HIS TWO RULINGS, APPLIED THE SAME TURN:
+1. KARENS — "not a faction. a quest giving group . they get a long with the reds."
+   Thumbed UP with that correction. The entry is reshaped: NO selection slot, NO
+   standing, NO territory claim against anybody. A quest-giving group on the one
+   working golf course, friendly with the Reds. Do not build them as a faction.
+2. AMALGAMATION — left unthumbed with a note instead, which is the right call since it
+   is not a faction to approve: "okay but dont forget the network is its pawn." PAWN is
+   the word on the card now. The Network is PLAYED, not allied.
+
+APPROVE IS CANON, so every thumbed card stopped saying PROPOSAL and now says he owns it.
+
+*** AND THE GATE HAD TO MOVE FOR THAT, WHICH IS THE PART WORTH READING. *** It asserted
+"every dossier says PROPOSAL, NOT CANON". True for one day, then he thumbed them, and the
+gate started failing 15 cards for the crime of being approved. A GATE MUST NEVER OUTRANK
+A RULING (Paolo 8/1) — so it now READS HIS EXPORTED .txt and asserts each card says what
+he actually decided: an approved card must NOT still ask, an unjudged one must say so, and
+a DOWN card still sitting on the sheet fails outright because a kill belongs in the
+graveyard, not back in the pile. Same shape as the Marco fix earlier today: when a ruling
+moves, the gate reads the ruling instead of remembering a version of it.
+FACTION DOSSIERS gate 659 -> 675, 7/7 self-test probes still caught.
+
+*** AND A PROCESS CORRECTION FROM HIM, FOR EVERY LANE, NOT JUST THIS ONE ***
+"never have a mass dump of info on me ever again."
+My reply that turn was a wall of text — the research, the colour maths, the red-gate
+finding, all of it, in the reply. THE WORK GOES IN THE FILES. THE REPLY IS SHORT. He
+judges by tapping a tab, not by reading me explain myself. If it is longer than a few
+lines plus the ask and the TLDR, it is a dump.
+
 SOUND (sound-xk7pjp): 8/2 (p) LATEST - THE MUSIC OFF BUTTON WAS MUTING THE WHOLE
 GAME, and now there are real volume knobs. Build 8/2p. Tab: MUSIC, top of the panel.
 

@@ -3957,7 +3957,24 @@ P-F. (discovered 8/2 by the factions session, NOT FIXED, and deliberately not fi
    assert over the set.
    | next PEOPLE turn should take this | 8/2 | no - gate work, nothing to judge.
 
-00. [SHIPPED 8/2, 16 DOSSIERS, AWAITING HIS THUMBS - records/BOHEMIA_FACTION_
+00. [DONE 8/2 - VERDICT IN: 15 UP, 0 DOWN, 1 NOTED. records/BOHEMIA_FACTION_VERDICT_
+   8_2_26.txt] HIS TWO RULINGS APPLIED THE SAME TURN:
+   (1) KARENS: "not a faction. a quest giving group . they get a long with the reds".
+       Thumbed UP with that correction, so the entry is reshaped: no selection slot,
+       no standing, no territory claim - a quest-giving group on the working golf
+       course, friendly with the Reds.
+   (2) AMALGAMATION: left unthumbed with a note instead, which is right - it is not
+       a faction to approve. "okay but dont forget the network is its pawn". PAWN is
+       now the word on the card: the Network is played, not allied.
+   APPROVE IS CANON, so every thumbed card stopped saying PROPOSAL. THE GATE HAD TO
+   MOVE FOR THAT: it asserted "every dossier says PROPOSAL, NOT CANON", which was
+   right for a day and then he thumbed them - A GATE MUST NEVER OUTRANK A RULING
+   (8/1). It now READS HIS EXPORTED .txt and asserts each card says what he actually
+   decided: approved cards must NOT still ask, unjudged ones must, and a DOWN card on
+   the sheet fails outright (a kill goes to the graveyard, not back in the pile).
+   | gate: FACTION DOSSIERS 659 -> 675 | 8/2 | no - judged, done.
+
+00-SHIPPED. [SHIPPED 8/2, 16 DOSSIERS - records/BOHEMIA_FACTION_
    DOSSIERS_8_2_26.md + records/factions/] THE FACTION DOSSIERS. He said ALL of
    them, so it is the whole canon roster and not the shortlist of seven: 13
    selectable factions + the Karen community + the Amalgamation + the four social

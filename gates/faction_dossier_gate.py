@@ -78,6 +78,7 @@ BANK = 'banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt'
 OUTDIR = 'records/factions'
 JUDGE = 'slices/BOHEMIA_FACTION_DOSSIER_JUDGE_8_2_26.html'
 HUB = 'slices/BOHEMIA_LIFE_CURRENT.html'
+VERDICT_FILE = 'records/BOHEMIA_FACTION_VERDICT_8_2_26.txt'
 LAW_ORDER = 'WE NEED TO REALLY FLESH THE FACTIONS OUT'
 
 P = F = 0
@@ -130,6 +131,29 @@ def read_ruled(src):
     return out
 
 
+def read_verdicts(order, names):
+    """Parse HIS exported .txt. The file is the record (VERDICT WORKFLOW), so the gate
+    reads it rather than trusting a table somebody retyped. Lines look like
+    '[UP]  THE REMNANTS   (five words)' with an optional indented 'comment:'."""
+    out, comments = {}, {}
+    if not os.path.exists(VERDICT_FILE):
+        return out, comments
+    by_name = {names[k]: k for k in order}
+    last = None
+    for line in open(VERDICT_FILE, encoding='utf-8'):
+        m = re.match(r'\s*\[(\w+)\]\s+(.+?)\s{2,}\(', line)
+        if m:
+            key = by_name.get(m.group(2).strip())
+            last = key
+            if key:
+                out[key] = m.group(1).upper()
+            continue
+        c = re.match(r'\s+comment:\s*(.+)', line)
+        if c and last:
+            comments[last] = c.group(1).strip()
+    return out, comments
+
+
 def read_bank():
     names = {}
     for line in open(BANK, encoding='utf-8'):
@@ -143,7 +167,9 @@ def read_bank():
 
 
 # ---------------------------------------------------------------- the checks
-def check_all(D, order, graph, ruled, tol, bank, files):
+def check_all(D, order, graph, ruled, tol, bank, files, verdicts=None, vcomments=None):
+    verdicts = verdicts or {}
+    vcomments = vcomments or {}
     # --- A. the order is served -------------------------------------------
     selectable = [k for k, v in graph.items() if v.get('type') == 'selectable']
     covered = {D[k].get('graph') for k in order if D[k].get('graph')}
@@ -381,9 +407,27 @@ def check_all(D, order, graph, ruled, tol, bank, files):
         path = os.path.join(OUTDIR, 'BOHEMIA_FACTION_%s.md' % k)
         if os.path.exists(path):
             txt = open(path, encoding='utf-8').read()
-            chk('PROPOSAL, NOT CANON' in txt,
-                '%s does not say it is a proposal. CONTENTS-PAOLO\'S: a dossier that reads as '
-                'canon has declared canon in unruled territory.' % k)
+            # This claim used to be "every dossier says PROPOSAL, NOT CANON", which was right
+            # for about a day and then he thumbed them. A GATE MUST NEVER OUTRANK A RULING
+            # (Paolo 8/1), so it now reads HIS EXPORTED VERDICT FILE and asserts each card
+            # says what he actually decided about it - unjudged cards must still say proposal,
+            # approved ones must NOT, because asking him to rule twice is the real defect.
+            v = verdicts.get(k)
+            if v == 'UP':
+                chk('CANON. Paolo thumbed this UP' in txt,
+                    '%s was thumbed UP in %s and the dossier still reads as an open proposal. '
+                    'APPROVE IS CANON - a card that keeps asking is asking him to rule twice.'
+                    % (k, VERDICT_FILE))
+                chk('PROPOSAL, NOT CANON' not in txt,
+                    '%s is approved and still carries the proposal banner' % k)
+            elif v == 'DOWN':
+                chk(False, '%s was thumbed DOWN and is still on the sheet. A kill goes to the '
+                           'graveyard with a post-mortem, not back in the pile.' % k)
+            else:
+                chk('PROPOSAL, NOT CANON' in txt or 'NOT THUMBED' in txt,
+                    '%s has no verdict in %s and does not say so. CONTENTS-PAOLO\'S: a dossier '
+                    'that reads as canon has declared canon in unruled territory.'
+                    % (k, VERDICT_FILE))
             chk(LAW_ORDER in txt, '%s does not carry his order verbatim' % k)
     idx = os.path.join(OUTDIR, 'INDEX.md')
     chk(os.path.exists(idx), 'the index is missing')
@@ -394,7 +438,7 @@ def check_all(D, order, graph, ruled, tol, bank, files):
 
 
 # ---------------------------------------------------------------- self-test
-def selftest(graph, ruled, tol, bank):
+def selftest(graph, ruled, tol, bank, verdicts, vcomments):
     """Six real mistakes. Every one must be CAUGHT, or the checker is decorative."""
     import copy
     global P, F, QUIET
@@ -443,7 +487,7 @@ def selftest(graph, ruled, tol, bank):
         QUIET = True
         try:
             builtins.print = lambda *a, **k: buf.append(' '.join(str(x) for x in a))
-            check_all(D2, FD.ORDER, graph, ruled, tol, bank, [])
+            check_all(D2, FD.ORDER, graph, ruled, tol, bank, [], verdicts, vcomments)
         finally:
             builtins.print = real_print
             QUIET = False
@@ -472,15 +516,24 @@ def main():
         'could not read COLOR_FAMILY_TOL out of %s - the collision check must use the engine\'s '
         'own number, never a copy' % DRESS)
     ruled = read_ruled(src)
+    verdicts, vcomments = read_verdicts(FD.ORDER, {k: FD.D[k]['name'] for k in FD.ORDER})
+    chk(len(verdicts) == len(FD.ORDER),
+        'his exported verdict %s covers %d of %d cards - a card he judged that the gate cannot '
+        'match by name is a verdict silently lost' % (VERDICT_FILE, len(verdicts), len(FD.ORDER)))
+    note('verdict 8/2: %d up, %d down, %d left with a note; his comments on %s'
+         % (sum(1 for v in verdicts.values() if v == 'UP'),
+            sum(1 for v in verdicts.values() if v == 'DOWN'),
+            sum(1 for v in verdicts.values() if v not in ('UP', 'DOWN')),
+            ', '.join(sorted(vcomments)) or 'nothing'))
     chk(len(ruled) == 6,
         'expected the 6 faction looks Paolo ruled on 7/21 in the live module, found %d' % len(ruled))
     bank = read_bank()
     chk(len(bank) > 200, 'the wardrobe bank looks truncated (%d rows)' % len(bank))
 
     files = [os.path.join(OUTDIR, 'BOHEMIA_FACTION_%s.md' % k) for k in FD.ORDER] + [JUDGE]
-    check_all(FD.D, FD.ORDER, graph, ruled, tol or 95, bank, files)
+    check_all(FD.D, FD.ORDER, graph, ruled, tol or 95, bank, files, verdicts, vcomments)
 
-    caught, total = selftest(graph, ruled, tol or 95, bank)
+    caught, total = selftest(graph, ruled, tol or 95, bank, verdicts, vcomments)
     chk(caught == total, 'self-test: only %d of %d planted mistakes were caught' % (caught, total))
 
     for n in NOTES:
