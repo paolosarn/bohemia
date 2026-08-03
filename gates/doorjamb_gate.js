@@ -82,7 +82,12 @@ function cityBlob(a){
     await page.waitForTimeout(3000);
     await page.evaluate(() => { const f = document.getElementById('front'); if (f) f.click(); });
     await page.waitForTimeout(1500);
-    await page.evaluate(() => { const t = document.querySelector('[data-p="run"]'); if (t) t.click(); });
+    /* ONE WORLD TAB LAW: a tab click may NEVER swallow its own failure. A missing
+       RUN tab used to mean this gate quietly probed the wrong surface and failed
+       thirty seconds later, nowhere near the cause. */
+    await page.evaluate(() => { const t = document.querySelector('[data-p="run"]');
+      if (!t) throw new Error('THE RUN TAB IS GONE from the alpha tab bar');
+      t.click(); });
     let f = null;
     for (let i = 0; i < 20; i++) {
       await page.waitForTimeout(3000);

@@ -4777,6 +4777,55 @@ root.BQRuntime=API;
     return '#'+v.map(function(n){ n=Math.round(n+(255-n)*f); return (n<16?'0':'')+n.toString(16); }).join('');
   }
 
+  /* D1: NO BUILDING EVER SITS ON A SIDEWALK. ANYWHERE IN THE WORLD.
+     Paolo 7/31, LOCKED, his caps: "houses or buildings should NEVER SIT ON THE SIDEWALK
+     EVER ANYWHERE IN THE WORLD." laws/BOHEMIA_THE_BUILT_WORLD_LAW_7_31_26.md clause D1.
+
+     It was true in ONE district out of forty, and the reason was this function's ADDRESS:
+     layWalks() lived PRIVATE inside bohemia_suburb.js, unexported, so no other generator
+     could lay a walk even if it wanted to. Promoted verbatim here - proved byte-identical
+     to the suburb's own on 32 blocks / 786,432 cells, so nothing in the suburb moves.
+
+     WHICH DRIVE TILES DEMAND A WALK IS DECLARED, NEVER GUESSED. A legend drive entry that
+     says `street:true` is a public right-of-way and wears a walk. Anything else - a
+     driveway apron, a lot aisle, a truck court, a haul road - does not, and D1 itself says
+     the apron is allowed to cross the walk. That declaration is not decoration: without it
+     the only rule you could write fails the SUBURB, the one district that is correct,
+     because a suburb GARAGE touches its own APRON 1,928 times per 24 blocks.
+     DEFAULT IS FALSE. A district that declares nothing is unchanged and ungated. */
+  function streetCodes(legend){ var S={},any=false; for(var c in legend){ var e=legend[c];
+    if(e && e.kind==='drive' && e.street===true){ S[c]=1; any=true; } } return any?S:null; }
+  /* ONE GRID OF WALK hugging every declared street. Only `over` cells convert, so a
+     driveway apron keeps its cells and the walk breaks where a car crosses it - which is
+     what a real street does. */
+  function layWalks(g,opt){ opt=opt||{};
+    var road=opt.road||{1:1}, walk=(opt.walk==null)?10:opt.walk;
+    var over=opt.over||function(c){ return c===0; };
+    var W=g[0].length,H=g.length,add=[],x,y;
+    for(y=1;y<H-1;y++)for(x=1;x<W-1;x++){
+      if(!over(g[y][x])) continue;
+      if(road[g[y][x+1]]||road[g[y][x-1]]||road[g[y+1][x]]||road[g[y-1][x]]) add.push([x,y]);
+    }
+    for(var i=0;i<add.length;i++) g[add[i][1]][add[i][0]]=walk;
+    return add.length; }
+  /* THE ORDER IS THE ENFORCEMENT, not an audit afterwards. The walk goes down first and
+     this refuses the WHOLE footprint if any cell of it lands on one - the generalised form
+     of the suburb's home() check (bohemia_suburb.js:90-96). You cannot build on the walk
+     because the walk is there first. */
+  function canPlaceMass(g,cells,opt){ opt=opt||{};
+    var free=opt.free||function(c){ return c===0; };
+    var W=g[0].length,H=g.length,i;
+    for(i=0;i<cells.length;i++){ var x=cells[i][0],y=cells[i][1];
+      if(x<0||y<0||x>=W||y>=H) return false;
+      if(!free(g[y][x])) return false; }
+    return true; }
+  /* D1-EXEMPT (Paolo 7/31, LOCKED, verbatim: "OK, freeways and railyards do not get
+     sidewalks"). A surface whose whole purpose is vehicles or rail wears no pedestrian
+     walk. THIS LIST IS HIS, NOT MINE TO EXTEND - a session that wants another district on
+     it ASKS HIM, it does not reason by analogy. */
+  var D1_EXEMPT={freeway:1,interchange:1,rail:1,railyard:1,speedway:1,airport:1,airbase:1,
+                 drivein:1,truckstop:1,garage:1};
+
   // EXPLAIN-EVERY-TILE (Paolo 7/18): every non-ground tile must map to a named thing in the
   // district's legend (palette), and there must be little unexplained void.
   function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(c!==0 && !(c in palette)) return false; } return true; }
@@ -4808,6 +4857,7 @@ root.BQRuntime=API;
     legendOk:legendOk,voidFraction:voidFraction,largestBlob:largestBlob,roofsAndDoors:roofsAndDoors,buildingEdges:buildingEdges,lighten:lighten,
     STREET_ORDER:STREET_ORDER,primaryStreet:primaryStreet,rotateCW:rotateCW,scanGates:scanGates,
     pedGate:pedGate,rotateToStreet:rotateToStreet,
+    streetCodes:streetCodes,layWalks:layWalks,canPlaceMass:canPlaceMass,D1_EXEMPT:D1_EXEMPT,
     driveNetworkOk:driveNetworkOk,driveTouchesEdge:driveTouchesEdge,stallsReachable:stallsReachable,
     driveReachFromStreet:driveReachFromStreet,driveNetworkReach:driveNetworkReach,driveWidthScore:driveWidthScore,driveMask:driveMask,driveConductors:driveConductors,KIND_LAYER:KIND_LAYER,tileLayer:tileLayer};
   if(typeof module!=='undefined')module.exports=API;
@@ -4836,8 +4886,29 @@ root.BQRuntime=API;
   // the district kit. The whole generic marriage in the CITY app keys off that
   // registry, so the walked district fell back to the legacy prefab stamps -
   // not the canon plot, and not one enterable building in it.
-  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
-        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+  // AND IT WAS STILL BROKEN IN THE CITY APP (8/3 fix, measured). The binding above
+  // was captured AT LOAD TIME, and inside the alpha's CITY blob this module is
+  // inlined at line 2950 while the district kit is inlined at 3335 -- the ONLY
+  // district of thirty-nine that loads BEFORE the kit. So `BohemiaDistrictKit` did
+  // not exist yet, K froze as undefined forever, and the first line of this module
+  // that ever actually reached for the kit blew the whole world up
+  // ("Cannot read properties of undefined (reading 'layWalks')" out of realizeCell,
+  // which took 32 gates red at once). Measured in the running app: 35 districts in
+  // BohemiaDistrictKit.types(), and `suburb` is NOT one of them -- the registration
+  // at the tail of this file has never run in the CITY app for the same reason.
+  // THE FIX IS TO STOP CAPTURING. K() resolves at CALL time, by which point the kit
+  // is always up, so load order cannot decide it any more. Registration behaviour is
+  // deliberately UNCHANGED (the tail still asks at load time, so it still no-ops in
+  // the CITY app) -- newly registering Paolo's spawn district would change what the
+  // walked suburb is generated by, and that is a measured change, not a side effect.
+  // Recorded: records/BOHEMIA_THE_SUBURB_NEVER_HAD_THE_KIT_8_3_26.md
+  var _K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js') : null;
+  function K(){
+    if(_K) return _K;
+    var k=(typeof BohemiaDistrictKit!=='undefined')?BohemiaDistrictKit:(root&&root.BohemiaDistrictKit);
+    if(!k) throw new Error('bohemia_suburb: the district kit is not loaded yet');
+    return k;
+  }
 
   var SZ=128, TILE=0.75;                                  // tiles/cell, m/tile
   var M=function(m){return Math.round(m/TILE);};          // meters -> tiles
@@ -4952,14 +5023,10 @@ root.BQRuntime=API;
      LAST PASS, deliberately: homes and driveways are already stamped, so a
      driveway apron (code 3) keeps its cells and the walk breaks where a car
      crosses it, which is what a real street does. Only dead ground converts. */
-  function layWalks(g){
-    var W=Wd(g),H=Ht(g),add=[];
-    for(var y=1;y<H-1;y++)for(var x=1;x<W-1;x++){
-      if(g[y][x]!==0) continue;                                  // only dead ground converts
-      if(g[y][x+1]===1||g[y][x-1]===1||g[y+1][x]===1||g[y-1][x]===1) add.push([x,y]);
-    }
-    for(var i=0;i<add.length;i++) g[add[i][1]][add[i][0]]=10;    // one grid, hugging the street
-  }
+  /* ONE BODY, AND IT IS IN THE KIT NOW. This was private to this file, which is exactly
+     why D1 was true in one district out of forty: nobody else could call it. K.layWalks is
+     the same code, proved byte-identical on 32 blocks / 786,432 cells; this is the caller. */
+  function layWalks(g){ return K().layWalks(g,{road:{1:1},walk:10,over:function(c){return c===0;}}); }
   function ringRect(g,x0,y0,x1,y1,w){seg(g,x0,y0,x1,y0,w);seg(g,x1,y0,x1,y1,w);seg(g,x1,y1,x0,y1,w);seg(g,x0,y1,x0,y0,w);}
   // WALLED NEIGHBORHOOD — LOTS FIRST (Paolo 7/18, calibrated to 89147/Campana Dr:
   // ~0.15 acre lots, 2-story homes, packed). The developer maximizes LOTS; streets
@@ -5163,7 +5230,10 @@ root.BQRuntime=API;
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
     0:{name:'dead-ground (yard)', kind:'ground',    act1:'dead-dirt front/back yard, no grass, cracked'},
-    1:{name:'road',               kind:'drive',      act1:'cracked residential street asphalt (car-drivable)'},
+    /* street:true = a PUBLIC RIGHT OF WAY, so D1 demands a walk beside it. Code 3 (the
+       driveway apron) deliberately has no such flag: D1's own text lets the apron cross
+       the walk, and that is what keeps 1,928 legal garage-to-apron adjacencies legal. */
+    1:{name:'road',               kind:'drive',      street:true, act1:'cracked residential street asphalt (car-drivable)'},
     2:{name:'house',              kind:'building',   act1:'single-story stucco tract house, faded, dark windows', enter:'house floorplan (residential): living + kitchen up front, bedrooms/bath off a hall, door to the garage'},
     3:{name:'driveway',           kind:'drive',      act1:'cracked concrete driveway apron (drivable to garage)'},
     4:{name:'wall',               kind:'fence',      act1:'block perimeter wall / side fence, tan stucco, chipped'},
@@ -5193,7 +5263,10 @@ root.BQRuntime=API;
       'MODULARITY LAW: must snap into 1x2 / 2x2, connected.',
       'Loops + garden-curve variants GRAVEYARDED (7/18 verdict) — THE BLOCK packed grid is the one canonical suburb block.']
   };
-  if(typeof K!=='undefined'&&K.register) K.register('suburb', { generate:generate, body:function(c){return c===2||c===9;}, category:'residential', palette:PALETTE, legend:LEGEND, notes:NOTES });
+  /* UNCHANGED ON PURPOSE: still asked at LOAD time, so in the CITY app (where this
+     module is inlined before the kit) it still no-ops exactly as it does today. */
+  var _k0=null; try{ _k0=K(); }catch(e){}
+  if(_k0&&_k0.register) _k0.register('suburb', { generate:generate, body:function(c){return c===2||c===9;}, category:'residential', palette:PALETTE, legend:LEGEND, notes:NOTES });
 
   var API={generate:generate,homeFootprints:homeFootprints,roadConnected:roadConnected,palette:PALETTE,legend:LEGEND,notes:NOTES,SZ:SZ,TILE:TILE};
   if(typeof module!=='undefined')module.exports=API;
