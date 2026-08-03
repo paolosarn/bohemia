@@ -1,3 +1,95 @@
+COMBAT (combat-nfnki9): 8/3 (a) LATEST -- DIFFICULTY NEVER TOUCHED THE ENEMY, AND
+RUN IS ONE BUTTON ON THE THUMB. Shipped to main as 4f5b9b4, BUILD 8/3f.
+
+=== HE ASKED WHY THE FIGHT IS EASY. I MEASURED IT INSTEAD OF GUESSING ===
+"I am really concerned how easy this game could be unless I throw 8+ enemies at a
+player... I don't know if it's because I'm not easy difficulty or if it's because of
+the rule that pretty much you're always guaranteed to get the first shot always."
+He named two suspects. BOTH ARE REAL, and there is a third he did not guess.
+  1. YOU DO ALWAYS SHOOT FIRST. Confirmed: startPhase 'cover', enemiesActedBeforeYou 0,
+     every time. NOT CHANGED -- who moves first is a design ruling, not a plumbing bug.
+     [PENDING Paolo] and it is on the ask list.
+  2. *** THE DIFFICULTY SETTING DID NOT TOUCH THE ENEMY AT ALL. *** Twenty turns of
+     standing still, eight foes: EASY killed me in 6 turns at 16.7 HP/turn, BOHEMIAN
+     killed me in 6 turns at 16.7 HP/turn. IDENTICAL. G.pkgDiff only ever fed THE DIAL,
+     so every difficulty meant one thing -- how hard is it for YOU to shoot -- and
+     nothing ever made THEM better. That is why more bodies was the only lever that
+     ever worked. Now scales distAccuracy, the one number every enemy shot runs through.
+     THREAT_BY_PKG 1.00/1.12/1.26/1.42/1.60, EASY left exactly where it was.
+     IT DIVIDES THE MISS, NOT THE HIT, and I only know that because I measured the
+     first cut: multiplying the hit chance ran V.HARD and BOHEMIAN both into the 0.99
+     clamp -- two identical tiers, the exact bug being fixed, moved up two notches, and
+     it would have shipped green. Expected hits per volley now 3.65/3.93/4.21/4.43/4.60,
+     long range .379 -> .611, point blank barely moves (.970 -> .981).
+     NOT a damage multiplier (no-multipliers ruling) and it does NOT touch the dial
+     (v98: the killshot allowance must never be wired to difficulty). The gate counts
+     threatMult's call sites to keep it that way.
+  3. 4.4% OF EVERY MAN SPAWNED INSIDE SOMETHING SOLID -- 40 in cars, 30 in cover blocks
+     across 200 arenas and 1,600 bodies. setupEnemies never asked whether anything was
+     there; the OCCUPANCY LAW's one gap. Now spirals out to the nearest free cell,
+     never onto the player, runs after the deck holders. Measured after: 0, 0, 0%.
+
+=== RUN IS ONE BUTTON (v122) ===
+"removing the dash and vault button definitely I never use them... I'd rather
+incorporate them in a standardized run button next to the actual action in movement
+buttons actually on screen." He never used them because they sat at the TOP of the
+screen while the thing they do happens at the BOTTOM, on the ring, with his thumb.
+DASH did not even act on its own -- it ARMED, then made him travel back down.
+RUN reads what is down the line he taps: cover out there -> all the way to it, 2 pips
+(his number); low cover on you -> over it (that is VAULT, no button, no refusal);
+nothing out there -> one tile, 1 pip (the 8/1 sprint ruling). Keeps DASH's real payload
+(free, no turn end, breaks their red lines). GRENADE joins it in the cluster.
+doDash/doDashMove/doVault NOT deleted -- he said remove the BUTTONS. SPRINT stays; he
+did not name it.
+MEASURED 200 spawns x 8 directions: 86 to cover, 91 one-tile, 23 refused, 0 short,
+0 console errors. Low pillar adjacent gets vaulted; tall one refused with ALREADY ON IT.
+TWO BUGS THE REAL SURFACE CAUGHT THAT READING THE CODE DID NOT:
+  * the buttons at left:-56px COVERED the W, NW and SW direction pips -- two of his
+    eight directions. Moved to -100px, re-measured, zero overlaps.
+  * RUN WALKED ME INSIDE A WALL. A tall pillar one tile away gives stop=0, the no-move
+    fallback pushed one tile FORWARD, and the first cut spent pips before checking.
+    An OCCUPANCY LAW break shipped by a convenience. Every check now precedes the spend.
+
+=== GATE ===
+combat_lab_gate 628 -> 643, fourteen new, ALL NEGATIVE-TESTED (they fail on an unpatched
+alpha). combat_runs_smoke green. FOUR existing checks migrated with the supersession
+named: two pinned the literal old distAccuracy line, the V54 toolkit check now names the
+four buttons that exist (RUN greys out in aim like the rest of the toolkit), and the
+enemy-facing cover-call count 3 -> 4 because runBreakLocks carries its level.
+FULL SUITE run on the real merge. 11 gates red -- RIG CHECK, PARTS PAINTED, BODY
+VARIATION, LIFE, DRESS, POPULATION, MEMORY, DEVIATION, WALL CLASS, CANVAS SCALE,
+INTERIORS -- and ALL ELEVEN VERIFIED to fail identically on pristine origin/main with
+none of my changes present. Other lanes' reds, not inherited silently.
+
+=== DEPLOY, HONESTLY ===
+Pushed to main at 4f5b9b4. The Pages build for that SHA was IN PROGRESS at last check
+and the Actions API then served a frozen snapshot for 15 minutes, so I could NOT confirm
+it concluded. Outbound fetch to github.io is blocked from this container. The stamp to
+look for is BUILD 8/3f. If a later SHA carries it, that is the run to wait on.
+
+=== WHAT IS PENDING PAOLO ===
+  1. THE FIVE DIFFICULTY NUMBERS: 1.00/1.12/1.26/1.42/1.60. Mechanism mine, numbers his.
+  2. SHOULD ENEMIES EVER SHOOT FIRST? He was right that he always gets the opening turn.
+  3. THE GRENADE MINI-GAME. He said "potentially" -- not a ruling, so not built.
+
+=== STILL OPEN IN THIS LANE (his T4 list, not yet built) ===
+  * HP AS PORTRAIT DAMAGE STATES: a visual change on the bottom-right face per 10% lost.
+  * STAMINA AS FLUID: he named Warcraft/Diablo globes. Research + incorporate into the
+    action area.
+  * Swapping in the new character models/hairstyles/clothing -- ANOTHER SESSION'S SYSTEM.
+    Needs a handoff, not a raid (ONE SYSTEM, ONE SESSION).
+  * The two-storey rebuild's other half: standing ON the deck, the lot should recede.
+    Needs a renderer reorder (the lot draws at four points, some after the deck).
+  * Jumping off the deck -- a verb he named, never ruled on.
+  * A third distinct death fall and a purpose-cut execution beat
+    (records/BOHEMIA_COMBAT_ANIM_REQUESTS_3_8_1_26.txt).
+
+RECORDS: records/BOHEMIA_COMBAT_WHY_IT_IS_EASY_MEASURED_8_3_26.md
+         records/BOHEMIA_COMBAT_RUN_IS_ONE_BUTTON_8_3_26.md
+TOOLS (replay in order after any rebase, both idempotent):
+         tools/bohemia_combat_occupancy_and_threat_patch.py   (v121)
+         tools/bohemia_combat_run_button_patch.py             (v122)
+
 LAB (lab-e2r7sv): 8/3 (a) LATEST -- MACHINE PARTY IS A NAMED VISUAL REFERENCE NOW,
 AND THIRTY RULINGS HE ALREADY GAVE ARE FINALLY ON DISK.
 
