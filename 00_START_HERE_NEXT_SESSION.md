@@ -1,3 +1,38 @@
+RUN (run-eak241): 8/3 (b) — AND THE ONE THING I STOPPED ON.
+NOT SHIPPED, ON PURPOSE: the interior surfaces. Read
+records/BOHEMIA_THE_INTERIOR_ART_EXISTS_8_3_26.md before touching interiors.
+
+TWO OF HIS LIST ITEMS WERE NEVER BLOCKED. "why is the inside of the house using
+concrete tiles" and "the interior walls are the same as the exterior walls" were
+both carried as [BLOCKED: no interior art in any bank]. Measured:
+banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt holds 48 floors, 48 walls, 16 windows and
+24 dirt floors at 48x48, bucketed by room function on 7/26 out of his PURCHASED HD
+repo. 0 of them reach the alpha. They DO ship -- into slices/BOHEMIA_RUN_CURRENT.html,
+with roomFloor()/ROLE_FLOOR/propAt written and gated -- but ONE WORLD TAB (8/2) says
+the RUN tab shows the CITY FRAME, so the work was done once in a window he never
+opens. Seventh approved-but-unused this month.
+WHAT THE CITY FRAME DRAWS: inFloorPool() returns 'side' for every role but six, and
+'side' IS the harmonized outdoor STREET SIDEWALK pool -- so a living room, a kitchen,
+two bedrooms and a bathroom all render on cracked outdoor sidewalk with weeds in it.
+Walls are 'hwall', the exterior stucco, deliberately.
+THE MECHANISM IS BUILT AND WORKS: tools/bohemia_city_interior_surfaces_patch.py.
+One floor per room, one wall material per building (the first cut rolled per CELL and
+came out a patchwork of brick/chainlink/scrap -- caught only by rendering and looking),
+plain floor for any role nobody wrote a rule for, and every tile CROPPED to 44x44 so it
+blits 1:1 (48->44 is a 0.917 resample the MOBILE RENDER CONTRACT bans). 163 of his
+tiles measured drawing in one real interior frame.
+I STOPPED THERE. Version 2 renders a coherent room and it reads as an INDUSTRIAL
+BUNKER, not a suburban Vegas house. That may be right for a dead world; it may be
+badly wrong for the house he spawns beside. Not mine to rule (MECHANISM-MINE /
+CONTENTS-PAOLO'S), and the 8/2 diagnosis wrote the warning in advance: "changing
+sidewalk concrete to dungeon cobblestone is a different wrong answer."
+THE PATCH IS NOT APPLIED TO THE ALPHA. Tool committed, finding recorded, build clean.
+[PENDING PAOLO] WHICH OF HIS OWN PACKS IS A VEGAS HOUSE MADE OF INSIDE? The pack
+names and counts are listed at the bottom of the record. When he rules: run the tool,
+narrow IN_ROLE_FLOOR and the wall bucket to what he named, render, LOOK, gate it.
+DO NOT re-cook interior art -- 465 of his tiles already exist. DO NOT guess the look;
+it was guessed once and stopped.
+
 RUN (run-eak241): 8/3 (b) LATEST — YOU WALK THROUGH THE DOORWAY, NOT INTO IT.
 Ship: BUILD 8/3b. Tab: RUN (walk up to a house and go in).
 
