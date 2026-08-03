@@ -1,3 +1,80 @@
+RUN (run-eak241): 8/3 (a) LATEST — THE SIDE DOOR YOU CAN SEE, D1 ACROSS ALL 36
+DISTRICTS, AND A BUG THAT WOULD HAVE SHIPPED A SUBURB THAT DOES NOT LOAD.
+Ship: BUILD 8/3a - THE SIDE DOOR YOU CAN SEE + NEVER ON THE SIDEWALK. Tab: RUN.
+
+WHAT LANDED
+- THE DOOR STICKS OUT (Paolo 8/2), CORRECTED after "id dint see the side door".
+  His jamb art is painted on the EDGE of its own 44px tile (W = opaque cols 0..6,
+  E = cols 37..43, measured on all 184 doors, zero variation). v1 had TWO bugs:
+  it shifted the tile a whole CELL (paint lands on the neighbour's FAR edge, 37px
+  of blank wall from the door), and facadePass walks gx ascending so the cell to
+  the door's right buried the east jamb every time. Now: offset by the STRIP width
+  (7px scaled C/44), and jambs queue and flush at the END of each ROW.
+  doorjamb_gate no longer counts drawImage calls -- it renders with and without the
+  jambs and DIFFS the 7px band either side, plus a control band two cells out that
+  must NOT change. Verified by eye at 6x on the real canvas.
+  WIDTH IS STILL HIS TO JUDGE. It is one number, JAMB_PX.
+- D1 SWEPT THE WHOLE REGISTRY. layWalks() was PRIVATE inside bohemia_suburb.js --
+  that address, not any design decision, is why "never on the sidewalk" was true in
+  1 district of 40. Promoted to the kit with streetCodes/canPlaceMass/D1_EXEMPT.
+  PROVED IT MOVES NOTHING: 36 suburb blocks, 589,824 cells, identical md5.
+  A public street is DECLARED (street:true), never guessed -- the suburb's road has
+  it, its driveway apron deliberately does not, which is what keeps 1,928 legal
+  garage-to-apron touches legal. gates/d1_kerb_gate.js sweeps 36 non-exempt
+  districts: 0 mass on the kerb, 0 bare frontage, 46 green.
+  RATCHET: six districts (library 23514, courthouse 14382, cityhall 13266,
+  commercial 834, downtown 108, chapel 60) write mass over their own walk code and
+  always have. All six are ONE legend code doing double duty -- the public walk AND
+  the plinth the building stands on, their own act1 text saying both. Ceilings can
+  only go DOWN, list is CLOSED (gate fails on a 7th or on any raise).
+  [PENDING PAOLO] one word -- SIDEWALK or PLINTH -- clears all six.
+- THE SUBURB NEVER HAD THE KIT. The D1 fix was the first line in that module's
+  history to reach for the kit at generate time, and it took 32 GATES RED AT ONCE
+  while the alpha still booted with ZERO page errors. The CITY blob inlines the
+  suburb at line 2950 and the kit at 3335 -- the ONE district of 39 that loads
+  BEFORE the kit, so its load-time capture of K froze as undefined forever.
+  Measured in the running app: BohemiaDistrictKit.types() = 35 districts and
+  'suburb' is NOT one of them; K.register('suburb') has never run in the CITY app.
+  The 7/26 comment above that binding says making it register was the whole point.
+  FIX: K() resolves at CALL time. Registration behaviour deliberately UNCHANGED --
+  newly registering Paolo's spawn district is a measured change, not a side effect.
+  GATE: gates/city_kit_binding_gate.js. A BLOB THAT PARSES IS NOT A BLOB THAT RUNS.
+- FIVE DERIVED FILES INLINE THE ENGINE and all five staled at once: the phone slice,
+  the run slice, the MAP tab embed, the quest judge page, the integration probe's
+  slice. Rebuilt. A derived artifact is not derived until you re-derive it.
+- FOUR GATES SWALLOWED A MISSING RUN TAB (`if (t) t.click()`), the exact bug
+  one_world_tab_gate bans. All four throw now. 103/3 -> 108/0.
+
+SUITE STATE, MEASURED NOT GUESSED: 10 red, and ALL TEN are identically red on
+8e193ba (main at session start). RIG CHECK 141/2 (MUSIC lane tools) · PARTS PAINTED
+21/1 · BODY VARIATION 40/1 · LIFE 21/3 · DRESS 42/1 · POPULATION 5/3 · MEMORY 7/2 ·
+DEVIATION crash · WALL CLASS 22/2 · INTERIORS 39/1.
+LIFE + DRESS + POPULATION + MEMORY ARE ONE BUG: all four trace to "0 agents simmed";
+DRESS and MEMORY only fail because there is nobody to dress or to witness. Whoever
+takes the LIFE lane fixes agent spawn and watches three go green behind it.
+THE CROWD is FLAKY not broken: three runs on untouched main gave 16/0, 16/0, 15/1.
+Method + numbers: records/BOHEMIA_SUITE_BASELINE_8_3_26.md (git worktree at the sha
+you branched from, run the red gate there -- same counts means it was not you).
+
+STILL OPEN ON PAOLO'S LIST (RUN lane)
+- windows consistent with what is outside (one-world interiors step 6)
+- interior wall + floor materials: BLOCKED, no interior wall/floor art in any bank
+- one-world interiors steps 2-6
+- 33 districts still have NO sidewalk to build off. The primitive exists for them
+  now; each district's lane opts in with a legend row + palette row + street:true,
+  then re-runs walkable_gate and its drive-network gate. A BLANKET road->walk carve
+  is BANNED: measured, it drops trailer driveNetworkReach 0.9773 -> 0.4256.
+- LAYOUT, not plumbing (MAP LAW): mall ring road on top of both anchors (4,344
+  kerb cells), trailer lot stride sits on its own entrance spine (1,984).
+- [PENDING PAOLO] is a private aisle / truck court / parking field "a street a
+  person walks beside"? 23,256 storage cells + 8,070 industrial + 7,968 solar +
+  6,452 stadium + 3,432 campus + 2,568 ballpark + 2,448 landfill ride on it.
+- "cant go left/right inside a house" MEASURED as a camera problem, not movement
+  (records/BOHEMIA_INTERIOR_MOVEMENT_MEASURED_8_2_26.md). renderInside FITS the
+  plate to the phone below a zoom threshold, so the body moves and the screen does
+  not. At HC=44 a 13x12 house already falls through to the follow branch -- NEEDS
+  RE-MEASURING ON THE REAL SURFACE before anyone changes that camera.
+
 BATCH 23 SHIPPED THE SAME TURN (BUILD 8/2l): two fresh songs answer the two slots
 batch 22's kills opened. Tab: MUSIC, they carry the NEW badge.
   NOBODY LOCKS UP ANYMORE     lead SPLINTERBELL  a bell whose overtones sit at
