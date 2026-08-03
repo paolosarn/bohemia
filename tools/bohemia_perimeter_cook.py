@@ -347,8 +347,9 @@ def pillar(im, rnd):
 GATE_JAMB = 7          # how much wall shows on each side of the mouth
 
 
-def gate_mouth(rnd, steel, ends='lr'):
-    """ends: which sides of THIS cell carry a jamb.
+def gate_mouth(rnd, steel, ends='lr', vert='full'):
+    """ends: which sides of THIS cell carry a jamb. vert: where this cell sits in a
+    gate that is more than one cell TALL.
 
     THE APERTURE IS SEVEN TILES WIDE AND IT IS ONE GATE. Drawing the same jambed tile
     across all of it put FOUR SEPARATE BARRED GATES side by side in the wall - caught on
@@ -356,12 +357,31 @@ def gate_mouth(rnd, steel, ends='lr'):
     obviously correct. So the run gets three pieces, the same way the garage bay already
     does: 'l' carries the left jamb, 'r' the right, and 'm' neither, so the opening reads
     as one wide entrance with a wall pier at each end of it.
+
+    *** AND IT IS TWO TILES TALL TOO, WHICH IS WHAT PAOLO CIRCLED ON 8/2. ***
+    "why if you're gonna have a gate like why is there a middle brick part of it"
+    He drew a ring around a band of BRICK running straight through the middle of the
+    barred gate, and he was looking at a real defect in the game, not a card artifact.
+    Every overlay leaves its top rows TRANSPARENT so the community's own coping shows
+    through above the opening - correct, that is the lintel. The block's perimeter is TWO
+    cells thick where it runs east-west, and the same overlay was drawn on BOTH, so the
+    LOWER cell's transparent band let a course of wall show across the gate's waist. It
+    also gave the gate two thresholds and two head shadows.
+
+    A tall opening is not one tile repeated, it is a TOP and a BOTTOM:
+      full    a one-cell gate: coping above, threshold below
+      top     coping above, and the opening runs off the BOTTOM edge to continue
+      bottom  the opening arrives from the TOP edge, threshold below, no coping band
+    Exactly the split the garage bay already uses, for exactly the same reason.
     """
     im = Image.new('RGBA', (CELL, CELL), (0, 0, 0, 0))
     px = im.load()
     x0 = GATE_JAMB if 'l' in ends else 0
     x1 = (CELL - 1 - GATE_JAMB) if 'r' in ends else CELL - 1
-    y0 = CAP_H + CAP_LIP                       # the mouth starts under the cap
+    # the mouth starts under the coping - unless the coping is a cell above us, in which
+    # case the opening simply continues and there is no band to leave transparent
+    y0 = 0 if vert == 'bottom' else CAP_H + CAP_LIP
+    floor = vert != 'top'                      # a top piece has no threshold; it continues
     # *** YOU LOOK THROUGH A GATE, YOU DO NOT LOOK AT A HOLE. ***
     # The first version filled the mouth with near-black and it came out as a bare
     # undressed rectangle — the exact thing the taste canon bans, and dead wrong besides:
@@ -383,10 +403,12 @@ def gate_mouth(rnd, steel, ends='lr'):
         b = px[x, y]
         f = rnd.r(0.66, 1.34)
         px[x, y] = tuple(min(255, int(c * f)) for c in b[:3]) + (255,)
-    # HEAD: the underside of the lintel, the hardest shadow on the tile
-    for k in range(3):
-        for x in range(x0, x1 + 1):
-            px[x, y0 + k] = (24, 22, 21, 255)
+    # HEAD: the underside of the lintel, the hardest shadow on the tile. Only where the
+    # lintel actually is - a bottom piece has the rest of the opening above it.
+    if vert != 'bottom':
+        for k in range(3):
+            for x in range(x0, x1 + 1):
+                px[x, y0 + k] = (24, 22, 21, 255)
     # REVEAL: the wall has thickness, so the left jamb shows its inner face, lit, and
     # the right jamb shows its shaded one. This is what makes a hole a hole.
     for y in range(y0, CELL):
@@ -396,35 +418,50 @@ def gate_mouth(rnd, steel, ends='lr'):
             if 'r' in ends:
                 px[x1 - k, y] = scale((112, 106, 96), 0.52 + k * 0.10) + (255,)
     # THRESHOLD: a concrete apron catching sky at the foot of the opening, and the dirt
-    # tracked over it by everything that ever walked through
-    for k in range(5):
-        y = CELL - 1 - k
-        t = k / 5.0
-        for x in range(x0, x1 + 1):
-            g = int(150 - t * 54 + rnd.r(-13, 13))
-            px[x, y] = (g, int(g * 0.97), int(g * 0.90), 255)
-    for _ in range(48):
-        x, y = int(rnd.r(x0, x1)), int(rnd.r(CELL - 6, CELL))
-        b = px[x, y]
-        px[x, y] = tuple(int(b[i] * 0.72 + (104, 88, 66)[i] * 0.28) for i in range(3)) + (255,)
+    # tracked over it by everything that ever walked through. ONCE per gate, at the
+    # bottom of it - a top piece has another cell of opening below it.
+    if floor:
+        for k in range(5):
+            y = CELL - 1 - k
+            t = k / 5.0
+            for x in range(x0, x1 + 1):
+                g = int(150 - t * 54 + rnd.r(-13, 13))
+                px[x, y] = (g, int(g * 0.97), int(g * 0.90), 255)
+        for _ in range(48):
+            x, y = int(rnd.r(x0, x1)), int(rnd.r(CELL - 6, CELL))
+            b = px[x, y]
+            px[x, y] = tuple(int(b[i] * 0.72 + (104, 88, 66)[i] * 0.28)
+                             for i in range(3)) + (255,)
 
     if steel:
+        yb = (CELL - 5) if floor else CELL     # where the leaf stops: at the threshold,
+        #                                        or at the cell edge if it continues below
         # behind a gate that is still hung you see the same ground, but dimmer: the leaf
         # itself shades it, and DEAD-DARK is act-1 law on anything that could read as lit
-        for y in range(y0, CELL - 5):
+        for y in range(y0, yb):
             for x in range(x0, x1 + 1):
                 px[x, y] = tuple(int(c * 0.58) for c in px[x, y][:3]) + (255,)
         # A BARRED GATE, still hanging. Wrought pickets on 4px centres (4 divides 44), a
         # top and bottom rail, dead dark between them — 12% CLUSTERED POWER means there
         # is nothing lit on the other side of it.
+        # THE PICKETS RUN THROUGH THE CELL EDGE. A two-cell-tall gate is ONE leaf, so the
+        # bars on the lower piece have to start at y=0 and line up with the bars above -
+        # they are on 4px centres off x0, which is a fixed offset, so they do.
+        ytop = (y0 + 3) if vert != 'bottom' else 0
         for x in range(x0 + 2, x1 - 1):
             if (x - x0) % 4 == 0:
-                for y in range(y0 + 3, CELL - 5):
+                for y in range(ytop, yb):
                     g = int(rnd.r(58, 84))
                     px[x, y] = (g, int(g * 0.94), int(g * 0.86), 255)
                     if x + 1 <= x1:
                         px[x + 1, y] = (int(g * 0.55), int(g * 0.53), int(g * 0.49), 255)
-        for ry in (y0 + 4, CELL - 11):
+        # ONE TOP RAIL AND ONE BOTTOM RAIL PER GATE, not per cell
+        rails = []
+        if vert != 'bottom':
+            rails.append(y0 + 4)
+        if floor:
+            rails.append(CELL - 11)
+        for ry in rails:
             for x in range(x0 + 2, x1):
                 g = int(rnd.r(74, 104))
                 px[x, ry] = (g, int(g * 0.94), int(g * 0.86), 255)
@@ -432,7 +469,7 @@ def gate_mouth(rnd, steel, ends='lr'):
         # RUST, running down off the rails, because it has been thirty years
         for _ in range(70):
             x = int(rnd.r(x0 + 2, x1))
-            y = int(rnd.r(y0 + 5, CELL - 6))
+            y = int(rnd.r(ytop + 2, yb - 1))
             b = px[x, y]
             px[x, y] = tuple(int(b[i] * 0.62 + (112, 62, 34)[i] * 0.38)
                              for i in range(3)) + (255,)
@@ -614,21 +651,31 @@ def main():
 
     gates = []
     for steel in (False, True):
-        for ends in ('lr', 'l', 'm', 'r'):
-            rnd = TEX.Rnd(880231 + (1 if steel else 0) + len(ends) * 31 + ord(ends[0]))
-            im = gate_mouth(rnd, steel, ends)
-            gid = ('perim_gate_steel' if steel else 'perim_gate_open') + '_' + ends
-            gates.append(dict(id=gid, form='gate_overlay', ends=ends,
-                              name=('the community gate, barred steel leaf still hanging'
-                                    if steel else 'the community gate, mouth standing open')
-                                   + {'lr': ', one cell wide', 'l': ', left pier',
-                                      'm': ', middle of the run', 'r': ', right pier'}[ends],
-                              why='ALPHA OVERLAY: transparent where the community wall '
-                                  'belongs, opaque where the hole is, so one gate matches '
-                                  'all eighteen walls instead of one. Split l/m/r because '
-                                  'the aperture is seven tiles wide and is ONE gate.',
-                              verdict='PENDING PAOLO', b64=png(im)))
-            gates[-1]['_im'] = im
+        for vert in ('full', 'top', 'bottom'):
+            for ends in ('lr', 'l', 'm', 'r'):
+                rnd = TEX.Rnd(880231 + (1 if steel else 0) + len(ends) * 31
+                              + ord(ends[0]) + ord(vert[0]) * 613)
+                im = gate_mouth(rnd, steel, ends, vert)
+                gid = (('perim_gate_steel' if steel else 'perim_gate_open')
+                       + '_' + ends + '_' + vert)
+                gates.append(dict(id=gid, form='gate_overlay', ends=ends, vert=vert,
+                                  name=('the community gate, barred steel leaf still '
+                                        'hanging' if steel
+                                        else 'the community gate, mouth standing open')
+                                       + {'lr': ', one cell wide', 'l': ', left pier',
+                                          'm': ', middle of the run',
+                                          'r': ', right pier'}[ends]
+                                       + {'full': '', 'top': ', upper course',
+                                          'bottom': ', lower course'}[vert],
+                                  why='ALPHA OVERLAY: transparent where the community wall '
+                                      'belongs, opaque where the hole is, so one gate '
+                                      'matches every wall instead of one. Split l/m/r '
+                                      'because the aperture is seven tiles WIDE, and '
+                                      'top/bottom because it is two cells TALL - drawing '
+                                      'the same piece on both put a course of brick '
+                                      'through the middle of the gate (Paolo 8/2).',
+                                  verdict='PENDING PAOLO', b64=png(im)))
+                gates[-1]['_im'] = im
 
     # ---- the sheet: the cooked set, drawn as a RUN of wall the way it will be seen
     S = 66

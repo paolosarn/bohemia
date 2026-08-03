@@ -41,6 +41,7 @@ import base64
 import io
 import json
 import os
+import re
 import statistics as st
 import sys
 
@@ -104,7 +105,8 @@ def main():
 
     print('PERIMETER GATE')
     ck('bank has wall tiles', len(walls) >= 36, 'only %d' % len(walls))
-    ck('bank has the l/m/r gate pieces', len(gates) >= 8, 'only %d' % len(gates))
+    ck('bank has the l/m/r x full/top/bottom gate pieces', len(gates) >= 24,
+       'only %d' % len(gates))
 
     # ---- STYLE: the ruler is his own bought art, re-derived, never a taste
     bad = [t['id'] for t in walls if not t.get('in_tolerance')]
@@ -198,15 +200,56 @@ def main():
         clear = sum(1 for v in a.getdata() if v == 0) / float(CELL * CELL)
         rgb = im.convert('RGB')
         dark = sum(1 for p in rgb.getdata() if sum(p) / 3 < 60) / float(CELL * CELL)
-        ck('%s leaves the community wall showing' % g['id'], clear > 0.10,
-           'only %.0f%% transparent' % (clear * 100))
+        # ONLY WHERE THERE IS WALL TO SHOW. The 'm/bottom' piece is the middle of a wide
+        # opening on its lower course: no pier either side, no coping above it, so it is
+        # correctly opaque end to end and this check does not apply. Asserting it there
+        # would be demanding a hole in the middle of a hole.
+        if g['ends'] != 'm' or g.get('vert') != 'bottom':
+            ck('%s leaves the community wall showing' % g['id'], clear > 0.10,
+               'only %.0f%% transparent' % (clear * 100))
         ck('%s is a real opening, not a frame' % g['id'], dark > 0.12,
            'only %.0f%% dark' % (dark * 100))
     ck('the open gate is not a bare black rectangle',
        'YOU LOOK THROUGH A GATE' in cook)
     for e in ('lr', 'l', 'm', 'r'):
-        ck('the gate has its %s piece for a wide aperture' % e,
-           ('perim_gate_open_' + e) in tiles and ('perim_gate_steel_' + e) in tiles)
+        for v in ('full', 'top', 'bottom'):
+            ck('the gate has its %s/%s piece' % (e, v),
+               ('perim_gate_open_%s_%s' % (e, v)) in tiles
+               and ('perim_gate_steel_%s_%s' % (e, v)) in tiles)
+    # *** NO COURSE OF BRICK THROUGH THE MIDDLE OF THE GATE. ***
+    # Paolo 8/2 circled it: "why is there a middle brick part of it". The perimeter is
+    # TWO cells thick where it runs east-west and the same overlay was drawn on both, so
+    # the lower cell's transparent coping band showed a stripe of wall across the
+    # opening's waist. A BOTTOM piece must be opaque from its very first row.
+    band = []
+    for g in gates:
+        if g.get('vert') != 'bottom':
+            continue
+        a = dec(g['b64']).split()[3]
+        w = a.width
+        row0 = [a.getpixel((x, 0)) for x in range(w)]
+        mid = [a.getpixel((x, CELL // 2)) for x in range(w)]
+        if sum(1 for v2 in row0 if v2 > 0) < sum(1 for v2 in mid if v2 > 0) - 2:
+            band.append(g['id'])
+    ck('a lower gate course has NO transparent coping band (the brick stripe he circled)',
+       not band, ', '.join(band[:4]))
+    # and only ONE threshold per gate: a top piece must run off its own bottom edge
+    # A THRESHOLD IS A STEP, NOT A GRADIENT. The first version of this check compared
+    # the bottom rows to the middle and flagged every OPEN top piece - but an open gate
+    # is SUPPOSED to get brighter downward, because that is the ground beyond receding
+    # into daylight. What a threshold actually is, is a discontinuity: a concrete apron
+    # jumps ~60 luminance in one row. Measuring the jump instead of the level tells the
+    # two apart, which is the difference between a ruler and a tripwire.
+    sill = []
+    for g in gates:
+        if g.get('vert') != 'top':
+            continue
+        rows = lum_rows(dec(g['b64']))
+        if max(rows[y + 1] - rows[y] for y in range(CELL - 8, CELL - 1)) > 34:
+            sill.append(g['id'])
+    ck('a top gate course has NO second threshold', not sill, ', '.join(sill[:4]))
+    ck('the run picks the vertical piece from its neighbours',
+       'var above=isG(gx,gy-1), below=isG(gx,gy+1);' in src and 'kind[v]||kind[0]' in src)
 
     # ---- NO 44px STAMP. His 8/2 verdict in one word: "glitching out". One face tile
     # per design meant the one crack baked into it landed on every cell of the wall in
@@ -245,25 +288,19 @@ def main():
        'def ghost_coursing(' in cook and "ghost=0.34" in cook)
 
     # ---- HIS VERDICT IS OBEYED: the 11 he thumbed up ship, the 7 he downed do not
-    approved = ['perim_slump_0', 'perim_slump_1', 'perim_slump_2', 'perim_cmu_0',
-                'perim_cmu_1', 'perim_precast_2', 'perim_rose_0', 'perim_rose_1',
-                'perim_splitface_0', 'perim_splitface_1', 'perim_splitface_2']
-    downed = ['perim_cmu_2', 'perim_stucco_0', 'perim_stucco_1', 'perim_stucco_2',
-              'perim_precast_0', 'perim_precast_1', 'perim_rose_2']
-    ck('the builder ships exactly the 11 he approved 8/2',
-       all(("'" + a + "'") in builder for a in approved)
-       and builder.count('PERIM_APPROVED') >= 2)
+    # HE WIDENED IT ON THE SECOND PASS. First card: 11 up, 7 down. Shown the fix he
+    # said "to be Frank, I liked all of them." NOTES ARE RULINGS, so all eighteen are
+    # live. The seven were never bad designs - they were the ones where the 44px stamp
+    # had nothing to hide behind, which is why every FLAT material failed and every
+    # COURSED one survived.
+    approved = ['%s_%d' % (m, k) for m in ('perim_slump', 'perim_cmu', 'perim_stucco',
+                                           'perim_precast', 'perim_rose', 'perim_splitface')
+                for k in range(3)]
     built = open(BUILT, encoding='utf8').read()
-    leaked = []
-    for key in downed:
-        mid, k = key.rsplit('_', 1)
-        t = tiles.get('%s_face_0_%s' % (mid, k))
-        if t and t['b64'][:120] in built:
-            leaked.append(key)
-    ck('the 7 he KILLED are not quietly back in the game', not leaked, ', '.join(leaked))
+    ck('the builder ships all 18 he approved 8/2',
+       all(("'" + a2 + "'") in builder for a2 in approved)
+       and builder.count('PERIM_APPROVED') >= 2)
     judge = open(JUDGE, encoding='utf8').read()
-    ck('but they ARE in front of him again, labelled, with the fix',
-       all(('"' + d + '"') in judge for d in downed) and 'you downed this' in judge)
 
     # ---- HIS 7/14 POOL IS DEAD, on his own thumbs, and must never draw again
     hispool = json.load(open(HIS))
@@ -280,8 +317,23 @@ def main():
     # ---- THE CARD MUST NOT INVENT DEFECTS. He said the gate "looks decent" and
     # thumbed all three gate cards DOWN: the card had stacked the barred leaf on the
     # coping row over the open mouth on the row below, which the game never does.
+    JCOOK = 'tools/bohemia_perimeter_judge.py'
+    jc = open(JCOOK, encoding='utf8').read()
+    ck('the judge page is BUILT BY A TOOL IN THE REPO, not a throwaway script',
+       os.path.exists(JCOOK))
     ck('a gate strip shows ONE kind, the way a plot actually wears it',
-       'one kind per strip' in judge)
+       "for kind, label in (('steel', 'still hung'), ('open', 'standing open'))" in jc
+       and 'ONE KIND PER STRIP' in jc)
+    ck('the judge strip puts TOP on the upper course and BOTTOM on the lower',
+       "'perim_gate_%s_%s_top'" in jc and "'perim_gate_%s_%s_bottom'" in jc)
+    ck('the judge strip shuffles faces with the RUN\'s own cell hash',
+       'def cell_hash(' in jc and '0x9E3779B9' in jc
+       and '0x9e3779b9' in src.lower())
+    # every gate card names exactly one kind, so a mixed strip cannot slip back in
+    names = re.findall(r'"name":\s*"the gate ([^,"]+)', judge)
+    ck('no gate card mixes the two kinds',
+       names and all((n.count('still hung') + n.count('standing open')) == 1
+                     for n in names), ', '.join(names[:3]))
 
     # ---- WIRED: the run draws it, in the right order, from the cooked bank
     ck('the run draws the cooked perimeter', 'PERIM_COOK' in src and 'perimDesign(' in src)
@@ -316,7 +368,7 @@ def main():
              and t['material'] + '_' + str(t['colourway']) in approved][0]
     ck('the shipped run carries the cooked bytes', face0['b64'][:120] in built)
     ck('the shipped run carries the gate overlay',
-       tiles['perim_gate_steel_m']['b64'][:120] in built)
+       tiles['perim_gate_steel_m_bottom']['b64'][:120] in built)
 
     print('\n%d/%d' % (len(PASSES), len(PASSES) + len(FAILS)))
     if FAILS:

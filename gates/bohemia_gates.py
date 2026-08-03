@@ -507,7 +507,11 @@ GATES = [
      'community rendered with none of the block art and the gate mouth could never draw '
      'anywhere at all. Holds the anatomy too: the cap is the sky-lit lightest band (45 '
      'DEGREE ART LAW), it oversails and casts, the pillar is proud AND casting, and the '
-     'seam is tested against the tile that ACTUALLY follows it', False),
+     'seam is tested against the tile that ACTUALLY follows it. Plus the two he caught '
+     'himself on 8/2: one face tile per design stamped its single crack on EVERY cell '
+     'at 44px pitch ("looks like it is glitching out"), and drawing the same gate piece '
+     'on both courses of a two-cell-thick wall put a COURSE OF BRICK through the middle '
+     'of the opening ("why is there a middle brick part of it")', False),
     ('BOUGHT-FIRST (COOKS)', ['python3', 'gates/bought_first_gate.py'],
      'REUSE FIRST was green while I cooked a concrete block wall he had already BOUGHT: the '
      'shopping check walked the APPROVED-ASSET index (what he has judged) and never the '

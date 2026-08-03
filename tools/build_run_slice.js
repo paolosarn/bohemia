@@ -84,20 +84,23 @@ html = html.replace('__PERIM_B64_JSON__', '[]');
    and PILLAR along the run. ---- */
 var PERIM_COOK = 'banks/BOHEMIA_PERIMETER_8_2_26.txt';
 var perimCook = JSON.parse(fs.readFileSync(PERIM_COOK, 'utf8'));
-/* HIS 8/2 VERDICT SHIPS: the ELEVEN he thumbed up, and only those.
-   records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt. He killed all thirteen of his own 7/14
-   walls in the same pass, so the replacement is settled, not pending. The seven designs
-   he downed are re-cooked with the root-cause fix and go back in front of him as a
-   judge item; they do NOT quietly reappear in the game, because reinstating rejected art
-   by fixing it and saying nothing is how a verdict stops meaning anything.
+/* HIS 8/2 VERDICT SHIPS, AND THEN HE WIDENED IT: ALL EIGHTEEN.
+   First pass he thumbed 11 up and 7 down. Shown the fix he said "to be Frank, I liked
+   all of them" - NOTES ARE RULINGS, so all eighteen are live and PERIM_APPROVED is the
+   whole set. The seven were never bad designs; they were the ones where the 44px stamp
+   had nothing to hide behind, which is why every flat material failed and every coursed
+   one survived. Record: records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt.
+   He killed all thirteen of his own 7/14 walls in the same pass, so that swap is settled.
 
-   AND EVERY DESIGN IS NOW A POOL, NOT A TILE. "Looks like it's glitching out" was one
-   hero feature stamped at exactly 44px pitch: one face tile per design, repeated forever,
-   so the same crack landed on every cell of the wall. Eight faces and eight bases per
+   AND EVERY DESIGN IS A POOL, NOT A TILE. "Looks like it's glitching out" was one hero
+   feature stamped at exactly 44px pitch: one face tile per design, repeated forever, so
+   the same crack landed on every cell of the wall. Eight faces and eight bases per
    design now, shuffled per cell, and most of them carry no damage at all. */
 var PERIM_APPROVED = ['perim_slump_0', 'perim_slump_1', 'perim_slump_2',
-                      'perim_cmu_0', 'perim_cmu_1', 'perim_precast_2',
-                      'perim_rose_0', 'perim_rose_1',
+                      'perim_cmu_0', 'perim_cmu_1', 'perim_cmu_2',
+                      'perim_stucco_0', 'perim_stucco_1', 'perim_stucco_2',
+                      'perim_precast_0', 'perim_precast_1', 'perim_precast_2',
+                      'perim_rose_0', 'perim_rose_1', 'perim_rose_2',
                       'perim_splitface_0', 'perim_splitface_1', 'perim_splitface_2'];
 var perimSets = {};
 perimCook.tiles.forEach(function (t) {
@@ -118,12 +121,22 @@ if (perimDesigns.length !== PERIM_APPROVED.length) {
    tiles wide and it is ONE gate: 'l' carries the left pier, 'r' the right, 'm' neither,
    'lr' both for a one-cell opening. Repeating a jambed tile across the aperture drew
    four separate barred gates in a row (seen at estate cell 8,35). */
+/* THE GATE COMES IN TWELVE PIECES PER KIND. The entrance aperture is seven tiles WIDE
+   and it is ONE gate: 'l' carries the left pier, 'r' the right, 'm' neither. It is also
+   TWO CELLS TALL where the perimeter runs east-west, and it is still ONE gate: 'top'
+   has the coping above it and runs off its bottom edge, 'bottom' arrives from above and
+   carries the threshold, 'full' is a one-cell opening with both.
+   Paolo 8/2 circled the defect this fixes: drawing the same piece on both rows let the
+   lower one's transparent coping band show A COURSE OF BRICK straight through the middle
+   of the gate. "why is there a middle brick part of it" */
 var perimGates = ['open', 'steel'].map(function (kind) {
-  return ['lr', 'l', 'm', 'r'].map(function (e) {
-    var id = 'perim_gate_' + kind + '_' + e;
-    var t = perimCook.tiles.filter(function (q) { return q.id === id; })[0];
-    if (!t) throw new Error('missing gate overlay ' + id + ' in ' + PERIM_COOK);
-    return t.b64;
+  return ['full', 'top', 'bottom'].map(function (v) {
+    return ['lr', 'l', 'm', 'r'].map(function (e) {
+      var id = 'perim_gate_' + kind + '_' + e + '_' + v;
+      var t = perimCook.tiles.filter(function (q) { return q.id === id; })[0];
+      if (!t) throw new Error('missing gate overlay ' + id + ' in ' + PERIM_COOK);
+      return t.b64;
+    });
   });
 });
 ['__PERIM_COOK_JSON__', '__PERIM_GATE_JSON__'].forEach(function (p) {

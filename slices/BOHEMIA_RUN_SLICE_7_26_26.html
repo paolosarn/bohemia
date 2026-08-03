@@ -1192,8 +1192,9 @@ function decode(list){ return (list||[]).map(function(b){
 /* each design is [faces[], pillar, bases[]] - a POOL per form, not a tile */
 var PERIM_COOK = (typeof PERIM_COOK_B64!=='undefined'?PERIM_COOK_B64:[])
   .map(function(d){ return [decode(d[0]), decode([d[1]])[0], decode(d[2])]; });
+/* [open, steel] x [full, top, bottom] x [lr, l, m, r] */
 var PERIM_GATE = (typeof PERIM_GATE_B64!=='undefined'?PERIM_GATE_B64:[])
-  .map(function(kind){ return decode(kind); });   /* [open, steel] x [lr, l, m, r] */
+  .map(function(kind){ return kind.map(function(v){ return decode(v); }); });
 function ready(im){ return im&&im.complete&&im.naturalWidth?im:null; }
 /* ONE WALL PER COMMUNITY: the design is seeded off the 4x4 plot, never off the cell, so
    a whole community wears one design and the community next door wears another. */
@@ -1261,16 +1262,26 @@ function drawGateMouth(X,Y,S,gx,gy){
   var px=(CELL&&CELL[0]||0)>>2, py=(CELL&&CELL[1]||0)>>2;
   var h=(Math.imul(px,374761393)^Math.imul(py,668265263))>>>0;
   var kind=PERIM_GATE[(h%5)===0?1:0]; if(!kind) return true;
-  /* WHICH PIECE OF THE ASSEMBLY THIS CELL IS. The aperture runs along one axis; a cell
-     with gate on both sides is the MIDDLE, on one side is an END, on neither is a
-     one-cell opening. Without this every cell of a seven-tile aperture drew its own
-     pair of piers and the entrance read as four separate gates. */
+  /* WHICH PIECE OF THE ASSEMBLY THIS CELL IS, IN BOTH AXES.
+     ACROSS: the aperture runs seven tiles along the wall. A cell with gate on both
+     sides is the MIDDLE, on one side an END, on neither a one-cell opening. Without
+     this every cell drew its own pair of piers and the entrance read as four gates.
+     DOWN: the perimeter is TWO CELLS THICK where it runs east-west, and the gate is
+     still ONE gate. Drawing the same piece on both rows let the lower one's transparent
+     coping band show A COURSE OF BRICK through the middle of the opening, and gave it
+     two thresholds and two head shadows. Paolo circled exactly that on 8/2: "why is
+     there a middle brick part of it". */
   function isG(x,y){ return y>=0&&y<G.length&&x>=0&&x<G[0].length&&G[y][x]===5; }
   var horiz = isG(gx-1,gy)||isG(gx+1,gy);
   var l = horiz ? isG(gx-1,gy) : isG(gx,gy-1);
   var r = horiz ? isG(gx+1,gy) : isG(gx,gy+1);
   var piece = (l&&r) ? 2 : l ? 3 : r ? 1 : 0;   /* m : r-pier : l-pier : lr */
-  var im=ready(kind[piece])||ready(kind[0]);
+  /* vertical only matters when the run is horizontal; a vertical run is one cell thick
+     along its length and every cell of it is a 'full' opening */
+  var above=isG(gx,gy-1), below=isG(gx,gy+1);
+  var v = (horiz && (above||below)) ? (above ? 2 : 1) : 0;   /* full : top : bottom */
+  var set=kind[v]||kind[0];
+  var im=ready(set[piece])||ready(set[0]);
   if(im) ctx.drawImage(im,X,Y,S,S);
   return true;
 }

@@ -1,3 +1,63 @@
+ART (f3eu53): 8/2 (LATEST) — THE BRICK THROUGH THE MIDDLE OF THE GATE, AND ALL 18 LIVE.
+
+=== HE RULED TWICE IN ONE DAY (records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt) ===
+ROUND 1: all 13 of his own 7/14 border walls DOWN (swap settled, they are out of the
+payload). Of my 18: 11 up, 7 down, all three gate cards down while SAYING the gate
+looks decent. "Looks like it's glitching out."
+ROUND 2, with a circled screenshot: "to be Frank, I liked all of them. I'm just very
+confused ... why is there a middle brick part of it". TWO RULINGS: all 18 are live, and
+the brick band is a real bug.
+
+=== BUG 1: THE 44px STAMP (round 1) ===
+One face tile per design, repeated forever, so the single crack baked into it landed on
+EVERY cell in the same place. A hard mark on a perfect grid reads as a rendering fault.
+THE METRIC WAS BLIND: kept averaged edge 18.31, killed 15.98 — nearly identical, both
+deep in tolerance. A density ruler cannot see STRUCTURE and cannot see what a tile does
+when the wall is fifty of them long. Why those seven: coursed materials (slump,
+split-face) outrank the stamp; FLAT ones (stucco, precast) have nothing else to look at.
+FIX: 8 face + 8 base variants per design shuffled by a 2D cell hash, one face in four
+allowed damage, and stucco finally gets the "over block" half of "stucco over block".
+
+=== BUG 2: THE BRICK THROUGH THE GATE (round 2, and he was right) ===
+Every gate overlay leaves its TOP ROWS transparent so the wall's coping shows through
+above the opening — correct, that is the lintel. But the perimeter is TWO CELLS THICK
+where it runs east-west and the same overlay was drawn on BOTH, so the lower one's
+transparent band showed a course of brick across the gate's waist, plus two thresholds
+and two head shadows. A tall opening is a TOP and a BOTTOM, never one piece twice —
+the same split the garage bay has always used. 24 overlays now (2 kinds x 3 vertical x
+4 horizontal); the pickets run through the cell join as ONE leaf.
+
+=== WHAT THE RULER LEARNED, TWICE ===
+The new "no second threshold" check first flagged every OPEN top piece, because an open
+gate is SUPPOSED to brighten downward: that is the ground beyond receding into daylight.
+A threshold is not a LEVEL, it is a STEP. Measuring the jump instead of the level tells
+them apart. A checker that cannot tell a feature from a defect is the broken one.
+Also: a judging surface that arranges art in a way the game never produces is not a
+judging surface. My round-1 gate card stacked the barred leaf over the open mouth in one
+strip and collected three thumbs down for a defect I invented.
+
+=== GATED ===
+gates/perimeter_gate.py, 106 checks. Holds both bugs as regressions: every design is a
+POOL not a tile, most faces carry no damage, the flat materials carry ghost coursing, a
+lower gate course has NO transparent coping band, a top course has NO second threshold,
+and the run picks its vertical piece from its neighbours.
+
+=== THE QUEUE ===
+1. HIS BOUGHT YARD HAS THE SAME REPEAT PROBLEM, same frame as the wall
+   (records/target/PERIMETER_WALL_LIVE.png): only 5 dirt tiles across the whole yard and
+   each carries a big starburst weed, so a weed lands on nearly every cell. His pixels
+   are his — PLACEMENT is clause 4 and 5 tiles is too few for the biggest surface on the
+   block. NOT SURFACED TO HIM UNASKED.
+2. Features on ground ~5.5% vs his 7.0%; his cracks still crisper.
+3. Art cell 44 -> 88 px. Would fix (2) outright.
+4. Gated and estate communities render with the block art for the first time.
+
+=== STILL RED ON MAIN, STILL NOT MINE ===
+LIFE / DRESS / POPULATION / MEMORY / DEVIATION — zero agents simmed. PARTS PAINTED +
+BODY VARIATION are CHARACTER's. BOTTOM-LEFT + CANVAS SCALE verified failing on clean main.
+
+--------------------------------------------------------------------------------
+
 SFX (sound-xk7pjp): 8/2 (o) LATEST - THE THREE SILENT FAMILIES NOW MAKE A SOUND.
 Build 8/2o. Tabs: RUN (pickup, phone buzz) and COMBAT (block).
 

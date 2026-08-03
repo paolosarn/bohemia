@@ -92,11 +92,48 @@ in an arrangement the game never produces is not a judging surface. It manufactu
 verdicts about things that do not exist.
 
 ================================================================================
+ROUND 2, SAME DAY: THE BRICK THROUGH THE MIDDLE OF THE GATE
+================================================================================
+He came back with a circled screenshot:
+
+  "to be Frank, I liked all of them. I'm just very confused as to what I'm seeing in
+   the picture like why if you're gonna have a gate like why is there a middle brick
+   part of it like what's going on?"
+
+TWO RULINGS IN ONE MESSAGE.
+
+1. "I LIKED ALL OF THEM." NOTES ARE RULINGS: all 18 designs are live, not 11. The
+   seven he downed were never bad designs — they were the flat materials, the ones
+   where the 44px stamp had nothing to hide behind. Fix the stamp and they are fine.
+
+2. THE BRICK BAND HE CIRCLED IS A REAL BUG IN THE GAME, and my first read of his
+   original "glitching out" comment only got half of it.
+   Every gate overlay leaves its TOP ROWS TRANSPARENT so the community's own coping
+   shows through above the opening. That is correct: it is the lintel. But the
+   perimeter is TWO CELLS THICK where it runs east-west, and the same overlay was
+   drawn on BOTH cells — so the LOWER one's transparent band let a course of wall
+   show straight across the gate's waist. It also gave every gate two thresholds and
+   two head shadows.
+   A tall opening is not one piece drawn twice. It is a TOP and a BOTTOM:
+     full    a one-cell gate: coping above, threshold below
+     top     coping above, opening runs off the bottom edge to continue
+     bottom  opening arrives from above, threshold below, NO coping band
+   The steel pickets now run through the cell join as one leaf, with one top rail and
+   one bottom rail per GATE rather than per cell. This is the same split the garage
+   bay has always used, for the same reason.
+   24 overlays now: 2 kinds x 3 vertical x 4 horizontal.
+
+WHAT THE RULER LEARNED, AGAIN: the first version of the new "no second threshold"
+check flagged every OPEN top piece, because an open gate is SUPPOSED to brighten
+downward — that is the ground beyond receding into daylight. A threshold is not a
+LEVEL, it is a STEP: a concrete apron jumps ~60 luminance in one row. Measuring the
+jump instead of the level tells them apart. A checker that cannot tell a feature from
+a defect is the broken one.
+
+================================================================================
 WHAT SHIPPED THIS TURN
 ================================================================================
-LIVE   the 11 he approved, re-cooked with the stamp fix, 8 face + 8 base variants
-       each, shuffled per cell.
-JUDGE  the 7 he downed, re-cooked with the root-cause fix, back in front of him as
-       a labelled second look. They do NOT quietly reappear in the game: fixing
-       rejected art and saying nothing is how a verdict stops meaning anything.
-DEAD   his 13 7/14 walls, to the graveyard, on his own thumbs.
+LIVE   ALL 18, on his second ruling, 8 face + 8 base variants each, shuffled per cell.
+GATE   24 overlays: top/bottom as well as left/middle/right, so no course of brick
+       ever crosses an opening again.
+DEAD   his 13 7/14 walls, on his own thumbs, out of the payload entirely.
