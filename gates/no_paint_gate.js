@@ -215,9 +215,16 @@ const DERIVATIVE = [
   [/#[0-9a-fA-F]{6}\b[\s\S]{0,80}#[0-9a-fA-F]{6}\b/,
    'defines a colour list off this law'],
   [/\b(MACHINE_PARTY|NO_PAINT)_?(PALETTE|RAMP|COLORS|COLOURS)\b/i,
-   'names a palette constant after the reference'],
-  [/\bgrime(Pass|Strength|Amount)\b|\bGRIME_(PASS|STRENGTH)\b/,
-   'implements the grime pass he has not approved']
+   'names a palette constant after the reference']
+  /* THE GRIME BAN WAS REMOVED ON 8/3, THE SAME DAY IT WAS WRITTEN, AND THIS COMMENT IS
+     THE RECEIPT. The original fourth pattern failed any file that implemented a grime
+     pass, on the grounds that he had not approved one. THEN HE APPROVED ONE ("SURE"),
+     and the ART lane built the machinery with the dial held at 0.0 -- correctly, exactly
+     as clause 2A requires. My check then red-flagged their correct work with the reason
+     "the grime pass he has not approved," which was simply no longer true.
+     A GATE MUST NEVER OUTRANK A RULING (craft law, 8/1). His word made the check wrong,
+     so the check goes -- fix the ruler, never the target. What replaced it is E9 below,
+     which checks the thing that IS still true: the dial is his until he rules it. */
 ];
 let derived = [];
 all.forEach(f => {
@@ -227,6 +234,50 @@ all.forEach(f => {
 });
 ok('D1 no file has turned this law into work (' + all.length + ' swept)' +
    (derived.length ? ' -> ' + derived.slice(0, 3).join('; ') : ''), derived.length === 0);
+
+/* ---- E9: THE GRIME MACHINE EXISTS, AND ITS DIAL IS STILL HIS ---------------
+   Clause 2A says the grime is a bake-time machine with ONE dial whose number is
+   [PENDING Paolo]. The ART lane built exactly that on 8/3 and shipped it at strength
+   0.0 with its own regression gate. This check does NOT re-implement grime_gate.py's
+   job -- two gates asserting the same thing is how they end up disagreeing. It checks
+   the CROSS-LANE contract: if an implementation exists at all, then it is gated, and it
+   is not shipping a number he never gave. Skipped entirely if no implementation exists,
+   because clause 2A does not require anyone to have built it yet. */
+const GRIME_IMPL = ['tools/bohemia_grime_cook.py', 'gates/grime_gate.py']
+  .filter(f => fs.existsSync(path.join(ROOT, f)));
+if (GRIME_IMPL.length) {
+  ok('E9.1 an existing grime implementation carries its own regression gate (FACTORY LAW)',
+     fs.existsSync(path.join(ROOT, 'gates/grime_gate.py')));
+
+  /* ★ CHECK THE SHIPPED NUMBER, NOT ANYBODY'S PROSE ABOUT IT. The first draft of E9.2
+     matched grime_gate.py's DOCSTRING ("THE STRENGTH IS 0.0"), so mutating the actual
+     literal to 0.45 left this gate green -- the docstring still said zero. Tenth time in
+     this repo a check has read a description instead of the thing described. The dial the
+     player actually gets is a literal on the shipped surfaces, so that is what is read.
+     A recorded verdict from him legitimately unlocks it, and that escape hatch has to
+     exist or the gate outranks a future ruling. */
+  const RUNS = ['slices/BOHEMIA_RUN_CURRENT.html', 'slices/BOHEMIA_ALPHA_0_9.html',
+                'slices/BOHEMIA_RUN_SLICE_7_26_26.html']
+    .filter(f => fs.existsSync(path.join(ROOT, f)))
+    .filter(f => /GRIME_STRENGTH/.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));
+  const verdict = walk('records', /\.(md|txt)$/, [])
+    .some(f => /grime/i.test(f) && /verdict|approved amount|strength ruled/i
+      .test(fs.readFileSync(path.join(ROOT, f), 'utf8')));
+  const hot = RUNS.filter(f => {
+    const m = /GRIME_STRENGTH\s*=\s*([0-9.]+)/.exec(fs.readFileSync(path.join(ROOT, f), 'utf8'));
+    return m && parseFloat(m[1]) > 0;
+  });
+  ok('E9.2 the SHIPPED grime strength is still 0 on every surface that has one (' +
+     RUNS.length + ' checked, verdict on file: ' + verdict + ')' +
+     (hot.length ? ' -> turned up in ' + hot.join(', ') : ''),
+     RUNS.length > 0 && (hot.length === 0 || verdict));
+  const gg = fs.existsSync(path.join(ROOT, 'gates/grime_gate.py'))
+    ? fs.readFileSync(path.join(ROOT, 'gates/grime_gate.py'), 'utf8') : '';
+  ok('E9.3 and their gate asserts the literal too, so two gates read one source of truth',
+     /GRIME_STRENGTH\s*=\s*0\.0/.test(gg));
+} else {
+  ok('E9 no grime implementation yet, which clause 2A permits', true);
+}
 
 /* And the law has to be REACHABLE, or it is a document nobody will find: the canon
    index is how any session locates an addendum. */

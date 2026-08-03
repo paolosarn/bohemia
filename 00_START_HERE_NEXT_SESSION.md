@@ -1,3 +1,63 @@
+LAB (lab-e2r7sv): 8/3 (c) LATEST -- HOW BIG OUR MAP IS vs THE REFERENCES, AND I HAD
+TO DELETE ONE OF MY OWN GATE CHECKS BECAUSE HIS RULING OUTRANKED IT.
+
+=== HE ASKED: SKYRIM vs VALHEIM vs FNV vs OURS ===
+records/BOHEMIA_MAP_SIZE_VS_THE_REFERENCES_8_3_26.md.
+  FNV ~16.5 km2 | Skyrim ~37.1 km2 | BOHEMIA 84.9 km2 (75.7 ON FOOT) | Valheim 314 km2
+  Valheim is ~8.5x Skyrim, ~19x New Vegas, ~3.7x us -- BY TOTAL AREA.
+AND THOSE RATIOS ARE MISLEADING. Valheim is a 10 km-radius CIRCLE and almost all the
+extra is Ocean biome you SAIL, not ground you walk. I could not find a sourced land
+fraction for it and did not invent one. What is solid: our 75.7 km2 walkable is ~2x
+Skyrim and ~4.6x New Vegas, because neither of those has an ocean to discount.
+THE HONEST RULER IS CROSSING TIME, NOT AREA: Skyrim walks end-to-end in ~2h30m
+(community-measured); ours is 2h25m corner to corner over a 13 km diagonal, 12,288 steps
+at 3.52 s. We already take as long to walk across as Skyrim while being 1:1 real city
+scale (128 tiles = 96 m) instead of a compressed province. Ours are the only numbers in
+that file I would defend to the decimal -- they come from gates/mapsize_gate.js on the
+canon seed. Did NOT touch that gate; it is the CITY lane's.
+
+=== *** A GATE MUST NEVER OUTRANK A RULING, AND MINE TRIED *** ===
+no_paint_gate's derivative sweep originally failed ANY file implementing a grime pass,
+because when I wrote it he had not approved one. THEN HE APPROVED ONE ("SURE") and the
+ART lane built the machinery -- so my check red-flagged their CORRECT work with the
+reason "the grime pass he has not approved", which was no longer true. Deleted the ban
+the same day I wrote it, left the receipt in the code, and replaced it with E9.
+
+=== THE ART LANE ALREADY BUILT IT, AT ZERO, AND THAT IS RIGHT ===
+tools/bohemia_grime_cook.py + gates/grime_gate.py, 8/3, with GRIME_STRENGTH = 0.0. The
+machine exists, the world looks identical, and their gate fails the build if anyone turns
+the dial up without a recorded ruling. Exactly what clause 2A asks for.
+HE RAISED THE SAME WORRY WITH BOTH LANES AND GOT THE SAME ANSWER TWICE: to them "are you
+absolutely sure we do it now?", to me "DO WE DO THIS BEFORE WE THE DEMO ND THE END?" Both
+lanes split it BUILD THE MACHINERY NOW / DEFER THE TUNING, independently. Their reason is
+the sharper one: 1 of 27 district types is finished, so tuning a whole-world look against
+4% of the world means tuning it twice and spending his thumbs on a number guaranteed to
+change. Recorded in the law so he is not asked a third time.
+
+=== E9: THE CROSS-LANE CONTRACT (and the TENTH instance of the same bug) ===
+E9 checks that if a grime implementation exists it is gated, and that the SHIPPED dial is
+still 0 unless a recorded verdict exists. FIRST DRAFT READ grime_gate.py's DOCSTRING --
+mutating the real literal to 0.45 left my gate green because the prose still said zero.
+TENTH time in this repo a check has read a DESCRIPTION instead of the THING DESCRIBED.
+Now it parses the literal off the shipped surfaces. Three mutations, all three caught.
+NO PAINT is 53 checks. It deliberately does NOT re-implement grime_gate's job -- two
+gates asserting the same thing is how they end up disagreeing -- it reads the same
+source of truth.
+
+=== THE ROLLBACK, FOURTH TIME ===
+The working dir reverted to a stale mid-rebase state at 42d4e2f again. Verified 8a2ad4d
+was on origin/main FIRST (clause 2A present, "NO THEN" present), backed the new record up
+to scratch, then hard-synced. Nothing lost, four for four. If it happens again: verify on
+origin BEFORE touching anything, always.
+
+=== NOT DONE / THE QUEUE ===
+1. THE WITNESS + STORY-SPREAD PLUMBING -- approved work, top item. Rumour as an OBJECT,
+   witness sensing on all NPCs, spread on district unload, degrees = fidelity not
+   severity, the kill-the-vector window. Numbers stay his.
+2. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing a title.
+3. Canon-contradiction auditing across the 276 indexed files.
+4. Did not touch #buildstamp: records/laws/gates only.
+
 ART (f3eu53): 8/3 (e) LATEST — *** HIS BOUGHT ART WAS ON 3 DISTRICTS OUT OF 55. ***
 
 === THE FINDING, MEASURED ON THE REAL SURFACE ===

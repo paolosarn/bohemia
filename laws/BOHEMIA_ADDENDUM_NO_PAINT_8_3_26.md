@@ -114,6 +114,36 @@ ART lane owns the texture pipeline and is actively working in it. The LAB lane w
 the brief and does not touch the cook. And it still does not run until he lifts the
 freeze — an approved grime pass is not an approved art batch.
 
+### AND IT IS ALREADY BUILT, CORRECTLY, AT ZERO
+
+**STATUS 8/3/26:** the ART lane shipped `tools/bohemia_grime_cook.py` and
+`gates/grime_gate.py` the same day, with **`GRIME_STRENGTH = 0.0`** — the machinery
+exists, the world looks exactly as it did, and their own gate fails the build if a later
+session turns the dial up without a recorded ruling from him. That is this clause
+satisfied to the letter.
+
+**HE RAISED THE SAME WORRY WITH BOTH LANES, IN DIFFERENT WORDS, AND GOT THE SAME ANSWER
+TWICE.** To that lane: *"are you absolutely sure we do it now?"* To this one: *"BUT WE
+HAVE SO MANY GRAPHICS ASSETS TO ADD. DO WE DO THIS BEFORE WE THE DEMO ND THE END?"* Both
+lanes independently split the thing in half the same way — **BUILD THE MACHINERY NOW,
+DEFER THE TUNING** — and their reason is the sharper one: one district type of
+twenty-seven is finished, so tuning a whole-world look against four percent of the world
+means tuning it twice and spending his thumbs on a number guaranteed to change.
+
+Recorded because two lanes converging on the same split from different evidence is the
+strongest form this answer can take, and because he should not have to be asked a third
+time.
+
+### A NOTE ON HOW THIS GATE GOT IT WRONG FIRST
+
+`no_paint_gate.js`'s derivative sweep originally failed **any** file implementing a grime
+pass, on the grounds that he had not approved one. Then he approved one, and the ART lane
+built it — so the check red-flagged their correct work with a reason that was no longer
+true. **A GATE MUST NEVER OUTRANK A RULING.** The ban was removed the same day it was
+written and replaced with E9, which checks what is still true: an implementation must be
+gated, and the dial stays at zero until he rules the amount. Fix the ruler, never the
+target.
+
 ## CLAUSE 3 — DARK IS THE DEFAULT, LIT IS THE EXCEPTION, AND WE ALREADY SAID SO
 
 CLUSTERED POWER (~12% lit) and LIGHT = TERRITORY are already canon and already
