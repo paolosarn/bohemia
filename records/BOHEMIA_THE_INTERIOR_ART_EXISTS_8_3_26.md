@@ -1,4 +1,4 @@
-# THE INTERIOR ART EXISTS — two "blocked" items were never blocked, and I stopped one step short of shipping a look he has not ruled on (8/3/26, RUN lane)
+# THE INTERIOR ART EXISTS -- two "blocked" items were never blocked, and I stopped one step short of shipping a look he has not ruled on (8/3/26, RUN lane)
 
 ## TWO ITEMS OFF HIS LIST, BOTH CARRIED AS BLOCKED, BOTH WRONG
 
@@ -29,12 +29,12 @@ instance of approved-but-unused this month.
 ## WHAT THE CITY FRAME DRAWS TODAY
 
 - **FLOORS.** `inFloorPool(role)` returns `'side'` for every role but six. `'side'` is
-  `pools.side` of the harmonized STREET pool — the 36-tile **outdoor sidewalk concrete**.
+  `pools.side` of the harmonized STREET pool -- the 36-tile **outdoor sidewalk concrete**.
   The residential grammar is living/kitchen/bed/bed/bath and not one of those five is in
   the exception list, so a Vegas house's living room, kitchen, both bedrooms and bathroom
   all render on **cracked outdoor sidewalk with weeds growing through it.** That is his
   "concrete tiles", exactly, and it is worse than he described.
-- **WALLS.** `'hwall'` — the exterior stucco, on purpose, with a comment saying "the
+- **WALLS.** `'hwall'` -- the exterior stucco, on purpose, with a comment saying "the
   interior is literally made of the exterior." He looked at it and said that is wrong.
 
 ## THE MECHANISM IS BUILT AND IT WORKS
@@ -44,7 +44,7 @@ instance of approved-but-unused this month.
 - **ONE FLOOR PER ROOM**, the room's own function picking which kind. `ROLE_FLOOR` copied
   from the run slice so the two surfaces cannot disagree.
 - **ONE WALL MATERIAL PER BUILDING.** The first cut rolled a tile per cell and the room
-  came out a patchwork of brick, chainlink, scrap panel and cobblestone — a texture sheet,
+  came out a patchwork of brick, chainlink, scrap panel and cobblestone -- a texture sheet,
   not a house. Only caught by rendering it and looking.
 - **A ROOM NOBODY ASKED ABOUT GETS THE PLAIN FLOOR**, never a specialist material. Without
   that rule, a bedroom drew rusted metal plate.
@@ -57,7 +57,7 @@ instance of approved-but-unused this month.
 ## AND THEN I STOPPED, DELIBERATELY
 
 Version 2 renders a coherent room. **It reads as an industrial bunker, not a suburban
-Las Vegas house** — the wall bucket's packs are "Broken building walls", "Broken wall
+Las Vegas house** -- the wall bucket's packs are "Broken building walls", "Broken wall
 tiles", "Scrap wall and panels", and the plain floors read as rusted plate and plank.
 
 That may well be right for a dead world ten years cold. It may be completely wrong for
@@ -75,7 +75,7 @@ inside?** Everything else is done and measured.
 
 ## WHAT THE NEXT SESSION DOES WITH THIS
 
-Do NOT re-cook interior art — 465 tiles of his already exist. Do NOT guess the look; it
+Do NOT re-cook interior art -- 465 tiles of his already exist. Do NOT guess the look; it
 was guessed once and stopped. When he rules, run
 `python3 tools/bohemia_city_interior_surfaces_patch.py`, narrow `IN_ROLE_FLOOR` and the
 wall bucket to the packs he named, render, look, and gate it.

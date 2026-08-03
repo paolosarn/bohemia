@@ -1,4 +1,4 @@
-RUN (run-eak241): 8/3 (b) — AND THE ONE THING I STOPPED ON.
+RUN (run-eak241): 8/3 (b) -- AND THE ONE THING I STOPPED ON.
 NOT SHIPPED, ON PURPOSE: the interior surfaces. Read
 records/BOHEMIA_THE_INTERIOR_ART_EXISTS_8_3_26.md before touching interiors.
 
@@ -33,7 +33,7 @@ narrow IN_ROLE_FLOOR and the wall bucket to what he named, render, LOOK, gate it
 DO NOT re-cook interior art -- 465 of his tiles already exist. DO NOT guess the look;
 it was guessed once and stopped.
 
-RUN (run-eak241): 8/3 (b) LATEST — YOU WALK THROUGH THE DOORWAY, NOT INTO IT.
+RUN (run-eak241): 8/3 (b) LATEST -- YOU WALK THROUGH THE DOORWAY, NOT INTO IT.
 Ship: BUILD 8/3b. Tab: RUN (walk up to a house and go in).
 
 Paolo: "WHY WHEN I ENTER A HOUSE I CANT GO LEFT AND RIGHT."
@@ -65,7 +65,7 @@ THE SAME MISTAKE THREE TIMES IN ONE DAY, all three now recorded:
   a reachable cell is not a pressed direction (this one)
 When he says a button does nothing, PRESS THE BUTTON.
 
-RUN (run-eak241): 8/3 (a) LATEST — THE SIDE DOOR YOU CAN SEE, D1 ACROSS ALL 36
+RUN (run-eak241): 8/3 (a) LATEST -- THE SIDE DOOR YOU CAN SEE, D1 ACROSS ALL 36
 DISTRICTS, AND A BUG THAT WOULD HAVE SHIPPED A SUBURB THAT DOES NOT LOAD.
 Ship: BUILD 8/3a - THE SIDE DOOR YOU CAN SEE + NEVER ON THE SIDEWALK. Tab: RUN.
 

@@ -1,10 +1,10 @@
-# WHAT WAS ALREADY RED ON MAIN — a measured baseline, not an excuse (8/3/26, RUN lane)
+# WHAT WAS ALREADY RED ON MAIN -- a measured baseline, not an excuse (8/3/26, RUN lane)
 
 The 8/3 RUN ship ran the full suite and got **32 red**. One root cause (the suburb's
 kit binding, see `BOHEMIA_THE_SUBURB_NEVER_HAD_THE_KIT_8_3_26.md`) accounted for most
 of it. After that fix: **17 red**. Rather than guess which of the 17 were mine, I cut a
 `git worktree` at `8e193ba` (main as of the start of this session) and ran every one of
-them there. **Same gate, same repo, no changes — that is the baseline.**
+them there. **Same gate, same repo, no changes -- that is the baseline.**
 
 ## FIXED THIS SESSION (mine, red before the fix, green after)
 
@@ -33,9 +33,9 @@ tree. They are not mine, and under ONE SYSTEM / ONE SESSION they are not mine to
 | PARTS PAINTED | 21/1 | 21/1 | a part is empty on facings NE/2, NW/2 (CHARACTER lane) |
 | BODY VARIATION | 40/1 | 40/1 | a dial extreme loses a part set (CHARACTER lane) |
 | LIFE | 21/3 | 21/3 | 0 agents simmed across 3 world plots, 0 of 19 homes lived-in (LIFE lane) |
-| DRESS | 42/1 | 42/1 | 0 distinct tops on the block — downstream of LIFE's 0 agents |
+| DRESS | 42/1 | 42/1 | 0 distinct tops on the block -- downstream of LIFE's 0 agents |
 | POPULATION | 5/3 | 5/3 | census/bodies disagree, offline plane not cheap (LIFE lane) |
-| MEMORY | 7/2 | 7/2 | 0 sightings held — downstream of LIFE's 0 agents |
+| MEMORY | 7/2 | 7/2 | 0 sightings held -- downstream of LIFE's 0 agents |
 | DEVIATION | crash | crash | `TypeError: Cannot set properties of undefined (setting 'dev')` (LIFE lane) |
 | WALL CLASS | 22/2 | 22/2 | the RUN slice carries 0 tiles of the border-wall pool |
 | INTERIORS | 39/1 | 39/1 | no painted surfaces, solid colours only as load fallbacks (5) |

@@ -1,4 +1,4 @@
-# "ID DINT SEE THE SIDE DOOR" — the two geometry bugs, and the gate that could not catch them (8/3/26, RUN lane)
+# "ID DINT SEE THE SIDE DOOR" -- the two geometry bugs, and the gate that could not catch them (8/3/26, RUN lane)
 
 Paolo 8/2: *"if there is a door i need you to have it stick out slightly on the next tile
 that its supposed to be on... lets say its assigned to tile 0 it will have a slight
@@ -11,7 +11,7 @@ and nothing he could see changed.
 
 ## THE ART, MEASURED
 
-`banks/BOHEMIA_DOOR_EW_BANK_7_10_26.txt` — 184 doorways x {W,E} = 368 tiles, 44x44 RGBA.
+`banks/BOHEMIA_DOOR_EW_BANK_7_10_26.txt` -- 184 doorways x {W,E} = 368 tiles, 44x44 RGBA.
 Measured on all 184, zero variation:
 
 ```
@@ -21,18 +21,18 @@ side E   44x44   opaque columns 37..43   7px on the RIGHT edge of the tile
 
 The paint sits at the EDGE of its own tile. That single fact is what both bugs missed.
 
-## BUG 1 — WRONG PLACE
+## BUG 1 -- WRONG PLACE
 
 v1 blitted the W tile at `dx-C` and the E tile at `dx+C`: a whole cell over. Shift a
 tile whose paint is on its edge by a whole cell and the paint lands on the FAR edge of
-the neighbour — **37px of blank wall between the door and its own frame.** That is not a
+the neighbour -- **37px of blank wall between the door and its own frame.** That is not a
 jamb, that is a stripe.
 
 A strip painted at the tile edge only crosses the boundary if you shift the tile by the
 STRIP's width, not the CELL's. W goes to `dx-7`, E to `dx+7` (scaled `C/44`), which puts
 the paint flush against the opening on both sides.
 
-## BUG 2 — THE EAST ONE WAS BURIED
+## BUG 2 -- THE EAST ONE WAS BURIED
 
 `facadePass` walks `gx` ascending, so the cell to the door's RIGHT is drawn AFTER the
 door. Its wall covered the east jamb every single time, on every door in the world.
@@ -51,7 +51,7 @@ WITHOUT them and diffs the 7px band on either side of the door cell:
 
 ```
 THE FRAME IS ON SCREEN, WEST of the door tile (>25% of a 7px x 88px band changes)
-THE FRAME IS ON SCREEN, EAST of the door tile — v1 shipped this buried under the next wall
+THE FRAME IS ON SCREEN, EAST of the door tile -- v1 shipped this buried under the next wall
 and it does NOT bleed two cells out (control band ~0%)
 ```
 
@@ -80,7 +80,7 @@ sides, crossing into the next tiles.
 
 ## STILL HIS TO JUDGE
 
-The bank marks itself UNJUDGED: *"7px was approved for the demo doors ONLY — these are
+The bank marks itself UNJUDGED: *"7px was approved for the demo doors ONLY -- these are
 CANDIDATES; widths adjustable per doorway when judged."* He has now asked for the
 BEHAVIOUR twice, which is the ruling on the behaviour. The WIDTH is one number
 (`JAMB_PX`) and it is still his.

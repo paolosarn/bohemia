@@ -1,16 +1,16 @@
-# "WHY WHEN I ENTER A HOUSE I CANT GO LEFT AND RIGHT" — he was standing in the doorway (8/3/26, RUN lane)
+# "WHY WHEN I ENTER A HOUSE I CANT GO LEFT AND RIGHT" -- he was standing in the doorway (8/3/26, RUN lane)
 
 ## THE ANSWER WAS WRONG ON 8/2, AND THE REASON IS THE INSTRUMENT
 
 `records/BOHEMIA_INTERIOR_MOVEMENT_MEASURED_8_2_26.md` closed this complaint with:
 
-> "**There is no missing left/right.**" — after flood-filling every cell reachable from
+> "**There is no missing left/right.**" -- after flood-filling every cell reachable from
 > the landing cell using the game's OWN movement predicate and its OWN 8-direction table.
 
 That flood fill is honest and it is still true. It is also the wrong instrument. **A
 flood fill says which cells are reachable IN PRINCIPLE. It never presses a direction.**
-Drive the real mover instead — `stepOnce`, in a real browser, in real houses entered
-through real doors — and the answer flips:
+Drive the real mover instead -- `stepOnce`, in a real browser, in real houses entered
+through real doors -- and the answer flips:
 
 ```
 you land on:            the DOOR cell itself, every time
@@ -23,7 +23,7 @@ right works on landing: 0 of 6
 
 He is standing IN THE OPENING, with a jamb either side of him. Press left: wall. Press
 right: wall. **Exactly what he said, word for word, and it was never a movement bug or a
-camera bug** — both of which were investigated first and cleared.
+camera bug** -- both of which were investigated first and cleared.
 
 While measuring, the 8/2 camera theory also failed on its own terms: `renderInside`'s
 fit-the-plate branch only triggers below a zoom threshold, and at the shipped default
@@ -48,10 +48,10 @@ untouched.
 `gates/stepinside_gate.js`, registered as STEP INSIDE. It **presses the directions**
 rather than inferring them:
 
-1. entering lands you OFF the plate perimeter — through the threshold, not stood in it
+1. entering lands you OFF the plate perimeter -- through the threshold, not stood in it
 2. **left or right actually moves you**, driven through the game's own `stepOnce`
 3. you can still leave: the door is one step back and walkable
-4. a blocked threshold does not teleport you — the rule only fires on a walkable cell
+4. a blocked threshold does not teleport you -- the rule only fires on a walkable cell
 
 ```
 STEP INSIDE GATE: 8 passed, 0 failed
