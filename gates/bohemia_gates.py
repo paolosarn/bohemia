@@ -507,6 +507,18 @@ GATES = [
      'TILES, re-derived every run so it cannot drift - plus the two failures that almost '
      'shipped: PINK (desaturating at constant value turns clay into salmon) and MUSH '
      '(structure buried under the grain)', False),
+    ('GRIME',          ['python3', 'gates/grime_gate.py'],
+     'Paolo 8/3 loved Machine Party, and the research found the mechanism in Klubnika\'s '
+     'own words: he "added dirty and grimy leaks to every corner, which BLENDS EVERYTHING '
+     'TOGETHER rather than having different objects" -- the answer to the thing Paolo said '
+     'himself on 7/31, two different games in one frame. The MACHINE is built: one '
+     'continuous 8x8-cell sheet sampled by WORLD position, so a stain that starts on one '
+     'cell carries onto the next (baking it into a 44px tile would repeat it at cell pitch, '
+     'which IS the 8/2 bug). Half of what this gate protects is a DECISION NOT TO BUILD '
+     'YET: he pushed back on tuning it now and he was right, because one district of '
+     'twenty-seven is finished and a global look tuned against 4% of the world gets tuned '
+     'twice. THE DIAL IS HELD AT ZERO until he rules on the amount -- a session that '
+     'quietly raises it has surfaced unjudged art into the game he plays', False),
     ('PERIMETER',      ['python3', 'gates/perimeter_gate.py'],
      'the suburb border wall and the gate mouth, and the three bugs that were live and '
      'invisible in every contact sheet: WB4 (the one wall he kept out of 48) was stored '

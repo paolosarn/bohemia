@@ -444,6 +444,7 @@ function drawBought(kind,gx,gy,X,Y,S){
 }
 
 var PERIM_B64 = __PERIM_B64_JSON__;
+var GRIME_B64 = __GRIME_B64__, GRIME_CELLS = __GRIME_CELLS__;
 var PERIM_COOK_B64 = __PERIM_COOK_JSON__;
 var PERIM_GATE_B64 = __PERIM_GATE_JSON__;
 </script>
@@ -1196,6 +1197,10 @@ var PERIM_COOK = (typeof PERIM_COOK_B64!=='undefined'?PERIM_COOK_B64:[])
 var PERIM_GATE = (typeof PERIM_GATE_B64!=='undefined'?PERIM_GATE_B64:[])
   .map(function(kind){ return kind.map(function(v){ return decode(v); }); });
 function ready(im){ return im&&im.complete&&im.naturalWidth?im:null; }
+/* the grime sheet: one image, decoded once, sampled per cell by world position */
+var GRIME_IMG=(function(){ var i=new Image();
+  i.src='data:image/png;base64,'+(typeof GRIME_B64!=='undefined'?GRIME_B64:''); return i; })();
+function grimeReady(){ return !!ready(GRIME_IMG); }
 /* ONE WALL PER COMMUNITY: the design is seeded off the 4x4 plot, never off the cell, so
    a whole community wears one design and the community next door wears another. */
 function perimDesign(){
@@ -2200,6 +2205,50 @@ function draw(){
     }
     if(doorOf[px+','+py]!=null) doorOver=[px,py,halfW*CELL,halfH*CELL,CELL];
   })();
+  /* ===========================================================================
+     THE GRIME PASS (8/3). ONE LAYER OF FILTH OVER THE WHOLE WORLD, INDIFFERENT TO
+     WHERE ONE OBJECT STOPS AND THE NEXT STARTS.
+
+     Paolo 8/3, on Machine Party: "I really love machine parties aesthetic." The
+     research found the mechanism in Klubnika's own words about how he textures: he
+     "added dirty and grimy leaks to every corner, which BLENDS EVERYTHING TOGETHER
+     rather than having different objects." That is the answer to the thing Paolo
+     said himself on 7/31 looking at the yard -- two different games in one frame.
+     Bohemia textures every tile INDEPENDENTLY and nothing crosses a seam, so three
+     perfectly textured surfaces that share nothing are three assets side by side.
+
+     IT IS A SHEET, NOT A TILE, AND THAT IS THE WHOLE DESIGN. Each cell samples its
+     own window into ONE CONTINUOUS 8x8-cell image, keyed to WORLD position -- so a
+     stain that begins on one cell carries onto the next because it was drawn as one
+     stain. Baking grime into a 44px tile would repeat it at cell pitch forever,
+     which is precisely the bug he circled on 8/2 ("looks like it's glitching out").
+
+     PIXEL-TRUE: the source rect is a whole 44x44 window and the destination is the
+     integer CELL, so this is the same integer blit as every other tile. No filter,
+     no smoothing, no resample -- the no-resample law applies to dirt too.
+
+     DRAWN AFTER EVERY WORLD SURFACE AND BEFORE THE CAST. Dirt is on the world, not
+     on the people standing in it.
+
+     *** GRIME_STRENGTH IS 0 AND THAT IS DELIBERATE. *** The MACHINERY is cheap and
+     invalidates nothing he has approved. The TUNING -- how dirty the world is -- is
+     a whole-world art-direction call, and ONE district type of twenty-seven is
+     finished, so tuning it now means tuning it twice. The dial goes up when there is
+     a world to judge it against, and not before. gates/grime_gate.py holds the zero.
+     =========================================================================== */
+  var GRIME_STRENGTH = 0.0;
+  if(mode==='ext' && GRIME_STRENGTH>0 && grimeReady()){
+    ctx.save(); ctx.globalAlpha=GRIME_STRENGTH;
+    for(var _gy=-halfH; _gy<=halfH; _gy++) for(var _gx=-halfW; _gx<=halfW; _gx++){
+      var _wx=px+_gx, _wy=py+_gy;
+      if(_wx<0||_wy<0||_wx>=gw||_wy>=gh) continue;
+      var _sx=(((_wx%GRIME_CELLS)+GRIME_CELLS)%GRIME_CELLS)*ART_PX;
+      var _sy=(((_wy%GRIME_CELLS)+GRIME_CELLS)%GRIME_CELLS)*ART_PX;
+      ctx.drawImage(GRIME_IMG,_sx,_sy,ART_PX,ART_PX,
+                    (_gx+halfW)*CELL,(_gy+halfH)*CELL,CELL,CELL);
+    }
+    ctx.restore();
+  }
   /* THE DOORS, standing two tiles tall over everything the ground pass drew */
   doorDraws.forEach(function(d){
     if(!drawDoorFace(d[0],d[1],d[2],d[3],d[4])){

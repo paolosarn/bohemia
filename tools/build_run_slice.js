@@ -148,6 +148,30 @@ console.log('  PERIMETER: ' + perimDesigns.length + ' designs he approved 8/2, '
             + perimDesigns[0][0].length + ' face + ' + perimDesigns[0][2].length
             + ' base variants each (the 44px stamp is gone), + 2 gate kinds');
 
+/* ---- THE GRIME PASS (8/3). THE MACHINE ONLY; THE DIAL IS ZERO.
+   Paolo 8/3 on Machine Party: "I really love machine parties aesthetic." Klubnika, on
+   his own texturing: he "added dirty and grimy leaks to every corner, which BLENDS
+   EVERYTHING TOGETHER rather than having different objects" -- a direct answer to the
+   failure Paolo named himself on 7/31, two different games in one frame.
+   ONE CONTINUOUS 8x8-CELL SHEET, sampled per cell by WORLD position, so a stain that
+   starts on one cell carries onto the next. It is NOT a tile: a mark baked into a 44px
+   tile repeats at cell pitch forever, which is the bug he circled on 8/2.
+   IT SHIPS AT STRENGTH 0. The machinery is cheap and invalidates no approved art; the
+   TUNING is a whole-world call and one district of twenty-seven is built. The game looks
+   exactly as it did. gates/grime_gate.py holds the zero. ---- */
+var GRIME_BANK = 'banks/BOHEMIA_GRIME_8_3_26.txt';
+var grime = JSON.parse(fs.readFileSync(GRIME_BANK, 'utf8'));
+if (!grime.b64 || grime.patch_cells < 4) throw new Error('the grime sheet is missing from ' + GRIME_BANK);
+if (grime.ships_at !== 0) throw new Error('GRIME: the bank says it ships at ' + grime.ships_at
+  + '. The machine ships at ZERO until Paolo rules on the amount.');
+['__GRIME_B64__', '__GRIME_CELLS__'].forEach(function (ph) {
+  if (html.indexOf(ph) < 0) throw new Error('missing ' + ph + ' placeholder');
+});
+html = html.replace('__GRIME_B64__', JSON.stringify(grime.b64));
+html = html.replace('__GRIME_CELLS__', String(grime.patch_cells));
+console.log('  GRIME: ' + grime.patch_cells + 'x' + grime.patch_cells
+            + '-cell sheet wired, strength 0 (machine only, the game is unchanged)');
+
 /* ---- BOUGHT BEATS PAINTED (Paolo 7/31, LOCKED: "if i bought it i prefer it!
    Thats for all textures bro!!!"). His purchased, seam-processed ground library.
    These are the tiles he PAID FOR; the painted starter-set ground tiles are the
@@ -191,13 +215,27 @@ var boughtAll = groundBank.tiles.filter(function (t) {
 var SAT = JSON.parse(require('child_process').execFileSync('python3',
   ['tools/bohemia_tile_saturation.py'], { encoding: 'utf8' }));
 function satOf(t) { var v = SAT[t.pack + '#' + t.idx]; return (v === undefined) ? 0 : v; }
-var boughtYard = boughtAll.filter(function (t) { return satOf(t) >= 0.24; })
+/* THE SPLIT OVERLAPS IN THE MIDDLE, AND THE YARD GETS THE DEEPER POOL (8/3).
+   The hard cut at 0.24 gave the YARD exactly FIVE tiles - for the LARGEST surface on
+   the block - while the narrow sidewalk band got fifteen. That is backwards: a pool's
+   depth should follow how much of the screen it covers, and with five tiles a weed
+   lands on every fifth cell of an entire yard. It is the same defect Paolo circled on
+   8/2 on the wall, just with a period of five instead of one.
+   And the hard cut was never real. His pack is a CONTINUUM from pale poured concrete
+   to brown dirt-and-gravel, and 0.24 fell straight through the densest part of it:
+   #41 at .237 and #3 at .230 were called sidewalk while #12 at .251 was called yard,
+   on a difference of two hundredths. Tiles in the middle honestly read as either.
+   So the band 0.20-0.28 now serves BOTH pools. Yard goes 5 -> 15, sidewalk keeps its
+   depth, and not one pixel of his art is touched - this is clause 4, PLACEMENT. */
+var boughtYard = boughtAll.filter(function (t) { return satOf(t) >= 0.20; })
                           .map(function (t) { return t.b64; });
-var boughtWalk = boughtAll.filter(function (t) { return satOf(t) < 0.24; })
+var boughtWalk = boughtAll.filter(function (t) { return satOf(t) < 0.28; })
                           .map(function (t) { return t.b64; });
 if (boughtWalk.length < 8) throw new Error('BOUGHT BEATS PAINTED: his concrete pack is missing from ' + GROUND_LIB);
 if (boughtRoad.length < 8) throw new Error('BOUGHT BEATS PAINTED: his street pack is missing from ' + GROUND_LIB);
-if (boughtYard.length < 4) throw new Error('BOUGHT BEATS PAINTED: the yard split emptied - his dirt-toned tiles vanished from ' + GROUND_LIB);
+if (boughtYard.length < 12) throw new Error('BOUGHT BEATS PAINTED: the yard pool is only '
+  + boughtYard.length + ' tiles. The yard is the biggest surface on the block and a thin '
+  + 'pool repeats a weed on every Nth cell (' + GROUND_LIB + ')');
 if (html.indexOf('__BOUGHT_WALK_JSON__') < 0) throw new Error('missing __BOUGHT_WALK_JSON__ placeholder');
 if (html.indexOf('__BOUGHT_ROAD_JSON__') < 0) throw new Error('missing __BOUGHT_ROAD_JSON__ placeholder');
 if (html.indexOf('__BOUGHT_YARD_JSON__') < 0) throw new Error('missing __BOUGHT_YARD_JSON__ placeholder');

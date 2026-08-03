@@ -1,4 +1,58 @@
-<<<<<<< HEAD
+ART (f3eu53): 8/3 (d) LATEST — THE GRIME MACHINE (DIAL AT ZERO) + THE YARD REPEAT.
+
+=== HE PUSHED BACK AND HE WAS HALF RIGHT ===
+I said build the grime pass now. He said "are you absolutely sure? the reference lab says
+its a time waist to do it now." I CHECKED: the Reference Lab says nothing of the kind. It
+is ten mechanic teardowns of other games and its own clause 1 rules rendering and lighting
+OUT of scope as "plumbing, not mechanics". Nothing in the repo said it either.
+BUT THE PUSHBACK WAS STILL CORRECT, because I had collapsed two things into one word:
+  THE MACHINERY  a render-time layer. Cheap, touches no existing art, invalidates no
+                 verdict he has given. NOT a waste now.
+  THE TUNING     how dirty the world is. A whole-world art-direction call, and ONE
+                 district type of twenty-seven is finished. Tuning a global look against
+                 4% of the world means tuning it twice. GENUINELY a waste now.
+My "every verdict is given against the picture" argument was weak - it proves too much and
+would justify doing every visual change immediately, forever.
+SO: THE MACHINE LANDED AND THE DIAL IS 0.0. The game looks exactly as it did.
+
+=== THE GRIME MACHINE ===
+tools/bohemia_grime_cook.py + gates/grime_gate.py (23 checks), registered as GRIME.
+ONE CONTINUOUS 8x8-CELL SHEET, sampled per cell by WORLD position, drawn after every world
+surface and before the cast. A stain that starts on one cell CARRIES ONTO THE NEXT because
+it was drawn as one stain. That is Klubnika's "blends everything together rather than
+having different objects", which he gets free from unique UVs in 3D and which costs a big
+sheet plus a world-keyed sample here.
+IT IS NOT A TILE, AND THAT IS THE WHOLE DESIGN: a mark baked into a 44px tile repeats at
+cell pitch forever, which is exactly the bug he circled on 8/2.
+THE GATE HOLDS THE ZERO. A session that quietly raises the dial has not shipped a feature,
+it has surfaced unjudged art into the game he plays. Raising it needs a recorded verdict.
+
+=== THE YARD REPEAT (same defect class, in the same frame) ===
+His bought concrete was split at saturation 0.24: sidewalk below, yard above. That gave the
+YARD - the largest surface on the block - exactly FIVE tiles, while the narrow sidewalk got
+fifteen. Backwards, and with five tiles a weed lands on every fifth cell. Same defect he
+circled on the wall, period five instead of one.
+And the cut was never real: his pack is a CONTINUUM and 0.24 fell through the densest part
+of it (#41 at .237 called sidewalk, #12 at .251 called yard, on two hundredths).
+FIX: the band 0.20-0.28 now serves BOTH pools. Yard 5 -> 16, sidewalk keeps its depth, NOT
+ONE PIXEL of his art touched. Clause 4, PLACEMENT. See records/target/PERIMETER_WALL_LIVE.png.
+
+=== THE QUEUE ===
+1. THE GRIME TUNING. Blocked on purpose until more district types are standing. When it
+   unblocks: raise GRIME_STRENGTH off 0, judge it on a frame with 3+ district types in it,
+   record a verdict, then the gate lets it stay up.
+2. Features on ground ~5.5% vs his 7.0%; his cracks still crisper.
+3. Art cell 44 -> 88 px. Would fix (2) outright.
+4. Gated and estate communities render with the block art for the first time and nobody
+   has ever looked at one.
+
+=== STILL RED ON MAIN, STILL NOT MINE ===
+LIFE / DRESS / POPULATION / MEMORY / DEVIATION - zero agents simmed. PARTS PAINTED +
+BODY VARIATION are CHARACTER's. BOTTOM-LEFT + CANVAS SCALE verified failing on clean main.
+
+--------------------------------------------------------------------------------
+
+
 SOUND (sound-xk7pjp): 8/2 (r) LATEST - EVERY SOUND IS A BUTTON IN THE MUSIC TAB.
 
 HE SAID: "bro wtf every sfx should be in the sfx in the music menu not for me to
@@ -33,7 +87,7 @@ Mutation-tested: removing the combat group from the board turns it red on 5.
 THE LESSON FOR EVERY LANE, not just this one: a judging surface that hides
 finished work stops being a surface at all once he finishes. If he has to enter
 the game to experience a thing you built, you did not ship it to him.
-=======
+
 PEOPLE (factions): 8/2 (g) LATEST — HE OVERTURNED MY COLOUR CALL, AND THE RESEARCH SAYS
 HE WAS RIGHT. Plus 12 researched gaps on a judge sheet.
 Record: records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md    TAB: LIFE, top card.
@@ -93,7 +147,6 @@ machinery grew.
 
 GATE: FACTION DOSSIERS 675 -> 761, 8/8 self-test probes. The new probe is the exact mistake
 he threw out: a faction having its colour taken away to dodge a collision.
->>>>>>> 73aff72 (EVERY FACTION HAS A COLOR - he threw out my call and the research says he was right)
 
 PEOPLE (factions): 8/2 (f) LATEST — VERDICT IN ON THE FACTION DOSSIERS: 15 UP, 0 DOWN,
 1 NOTED. Record: records/BOHEMIA_FACTION_VERDICT_8_2_26.txt
