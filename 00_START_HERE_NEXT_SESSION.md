@@ -94,7 +94,27 @@ POOL not a tile, most faces carry no damage, the flat materials carry ghost cour
 lower gate course has NO transparent coping band, a top course has NO second threshold,
 and the run picks its vertical piece from its neighbours.
 
+=== MACHINE PARTY RESEARCH (8/3), HIS ASK ===
+records/BOHEMIA_REFERENCE_MACHINE_PARTY_8_3_26.md. Mike Klubnika + GDeavid, out 30 July
+2026, Very Positive. THE ONE FINDING THAT MATTERS TO THIS LANE, in Klubnika's own words
+about texturing Buckshot Roulette: he "added dirty and grimy leaks to every corner, which
+BLENDS EVERYTHING TOGETHER rather than having different objects."
+That is a direct answer to Paolo's own 7/31 complaint, "two different games in one frame."
+Bohemia textures every tile INDEPENDENTLY to a density target - each individually correct,
+nothing crossing a seam. Klubnika lays ONE filth pass over everything, indifferent to
+object boundaries, and it is the dirt rather than the palette that makes a room read as
+one place. Three perfectly textured surfaces that share nothing are three assets.
+SECOND FINDING, and it confirms this lane's ruler from the other side: he PHOTOGRAPHS his
+own textures (mainly electronics) and urban-explores real factories. Photographic surfaces
+are uncorrelated at the finest scale, which is exactly why the cook needed a per-pixel
+independent term to reach his bought tiles' edge 18.4 at all. Paolo loving Klubnika and
+Paolo buying that tile library are the same taste pointing at the same physical property.
+ALL OF IT IS [PENDING PAOLO]. Nothing was built off it.
+
 === THE QUEUE ===
+0. THE GRIME PASS, if he wants it: one dirt layer that crosses tile boundaries instead of
+   per-tile perfection. Would be the biggest single change to how the block reads. DO NOT
+   BUILD UNASKED - it touches every surface in the game.
 1. HIS BOUGHT YARD HAS THE SAME REPEAT PROBLEM, same frame as the wall
    (records/target/PERIMETER_WALL_LIVE.png): only 5 dirt tiles across the whole yard and
    each carries a big starburst weed, so a weed lands on nearly every cell. His pixels
