@@ -1724,6 +1724,58 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AS. [DONE 8/2 — FOUND WHILE REBASING, NOT MINE, FIXED ANYWAY] THE HANDOFF WAS ON
+   MAIN WITH LIVE MERGE MARKERS IN IT, FOR THE SECOND TIME IN ITS HISTORY.
+   00_START_HERE_NEXT_SESSION.md carried <<<<<<< HEAD / ======= / >>>>>>> 73aff72,
+   with the SOUND lane's whole status buried inside the PEOPLE(factions) lane's.
+   CLAUDE.md tells every parallel session to read that file FIRST, before doing
+   anything. A conflicted handoff does not throw, does not fail to load and does not
+   look broken at a glance -- it silently hides one lane behind a marker and the next
+   session plans against half a picture. Highest-traffic file in the repo, and it had
+   NO machine check of any kind.
+   RESOLVED, both lanes' heads kept, nobody lost a word. AND GATED:
+   gates/handoff_gate.js (suite: HANDOFF, 5 claims) -- exactly one handoff, at the
+   canonical name, leading with a lane head, no unresolved merge in it OR in any
+   tracked text file. Proven by replaying THE ACTUAL conflicted file that was on
+   main: 3 of 5 claims fail and name the file.
+   THE MARKER TEST IS DELIBERATELY NARROW so it cannot fail the fix it guards: only
+   <<<<<<< and >>>>>>> at line start count. Bare ======= is a markdown setext heading
+   underline and this repo's records are full of them, and a line that MENTIONS
+   markers mid-sentence is prose about the bug, not the bug.
+   | HANDOFF 5/5, proven on the real artefact | none | no.
+
+0AR. [DONE 8/2] WHAT THE WALK COSTS, AND WHAT EVERY DISTRICT HOLDS. The follow-on
+   to 0AQ, which ended "size was never the problem, filling is". Both halves checked.
+   (a) THE WALK IS FAST AND PERFORMANCE IS NOT NEXT. Nobody had ever measured a FRAME
+   on the surface he looks at -- streaming_gate measures the world MODEL's step cost,
+   which is a side-door probe. Real alpha, RUN tab, dropped in, 390x844 @3x, ~1,350
+   frames while holding a direction four ways: MEDIAN FRAME 0.6 ms, p95 1.0 ms, 0.2%
+   miss 60fps, ~49 drawImage and 11.97 Mpx a frame onto a 0.29 Mpx canvas (41x
+   overdraw, and not worth chasing at 0.6 ms). A whole lane of renderer optimisation
+   ruled out for the cost of one measurement. OPEN, STATED HONESTLY: bursts of ~8
+   consecutive 60-75 ms frames, twice -- 20% more work for 110x the time, zero
+   never-seen draw sources, flat heap. It ran in HEADLESS CHROMIUM, which
+   software-rasterises, so it is NOT evidence of an iPhone stutter and is not being
+   claimed as one. Needs a real phone to call.
+   (b) I WENT LOOKING FOR UNDER-BUILT DISTRICTS AND FOUND NONE. All 49 types ranked
+   for the first time; median 45.8% content. The two that looked wrong were the real
+   world modelled correctly: SUBURB 27/23/50 matches real single-family zoning (lot
+   coverage caps at 30-40% PER LOT, plus streets, plus yards); CEMETERY's 61% lawn is
+   917 headstones on 2.28 acres = 403 GRAVES AN ACRE, inside the real 300-600 band for
+   a historic cemetery. Park/golf/desert: open ground IS the land use. TWICE IN ONE
+   TURN a number that looked like a defect was reality, and both checks cost one
+   search.
+   SO THE OUTPUT WAS A FLOOR, NOT A WORK ORDER. walkable_gate holds the law's LETTER
+   (pavement may not dominate content) and cannot catch emptiness with NO pavement in
+   it -- a district with no drive surface passes however empty it gets. The law's own
+   text admits it ("SPIRIT the number can't fully catch"). gates/district_fill_gate.js
+   (suite: DISTRICT FILL, 53 claims) pins all 49 types at today's share plus a floor
+   under the median. MUTATION-PROVEN THE HARD WAY: my first two sabotages silently did
+   not apply and the gate said 53/0 both times; the third measured the effect first
+   (cemetery 14.35% -> 9.23%) and the gate named it.
+   Record: records/BOHEMIA_WHAT_THE_WORLD_ACTUALLY_COSTS_AND_HOLDS_8_2_26.md
+   | DISTRICT FILL 53/0 mutation-proven | none | no.
+
 0AQ. [ANSWERED 8/2, ON HIS ASK] HOW BIG IS THE MAP, IN WALKING, VS SKYRIM AND
    NEW VEGAS. He asked with "before you cut anything" in front of it, so it got a
    FLOOR as well as an answer. Measured on the canon seed: 96x96 districts, 9.22 km

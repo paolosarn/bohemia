@@ -1,4 +1,70 @@
-<<<<<<< HEAD
+CITY (1eztay): 8/2 (ao) LATEST — I WENT LOOKING FOR WHAT IS WRONG WITH THE WORLD
+AND THE ANSWER WAS "NOTHING I CAN MEASURE". Two floors shipped instead.
+*** AND THIS FILE WAS ON MAIN WITH LIVE <<<<<<< ======= >>>>>>> MARKERS IN IT, for
+the second time in this file's history. Resolved, both lanes' heads kept, nobody
+lost a word — and GATED now (handoff_gate.js), because the one file every session
+is told to read FIRST is the worst possible place for an unresolved merge. ***
+
+THE WALK IS FAST. PERFORMANCE IS NOT THE NEXT JOB.
+Nobody had ever measured a FRAME on the surface he looks at. streaming_gate
+measures the world MODEL's step cost, which is a side-door probe (7/18 law).
+Real alpha, RUN tab, dropped in, 390x844 @3x, ~1,350 frames walking four ways:
+    median frame 0.6 ms · p95 1.0 ms · 0.2% miss 60fps
+    ~49 drawImage and 11.97 Mpx a frame onto a 0.29 Mpx canvas (41x overdraw)
+A whole lane of renderer optimisation ruled out for one measurement. OPEN AND NOT
+EXAGGERATED: bursts of ~8 consecutive 60-75 ms frames, twice, doing 20% more work
+for 110x the time with zero never-seen draw sources and a flat heap. It ran in
+HEADLESS CHROMIUM, which software-rasterises. That is NOT evidence of an iPhone
+stutter and I am not claiming it is. Needs a real phone.
+
+I WENT LOOKING FOR UNDER-BUILT DISTRICTS AND FOUND NONE.
+All 49 types ranked for the first time, median 45.8% content. The two that looked
+plainly wrong were the real world modelled correctly:
+  SUBURB 27% content / 23% pavement / 50% yard — real single-family zoning caps
+    building coverage at 30-40% PER LOT, and a subdivision is lots + streets +
+    yards. It is not thin, it is right.
+  CEMETERY 61% lawn vs 5.6% headstones — that is 917 stones on 2.28 acres = 403
+    GRAVES AN ACRE, inside the real 300-600 band for a historic cemetery.
+TWICE IN ONE TURN a number that looked like a defect was reality, and both checks
+cost one search. The right output was a FLOOR, not a work order.
+
+TWO FLOORS, BOTH BECAUSE HE SAID "BEFORE YOU CUT ANYTHING"
+  MAP SIZE (13 claims) — 96x96 districts, 84.9 km2, built land never below 35,
+    on-foot never below 73. Shrinking to 64x64 fails 7 of 13 by name.
+  DISTRICT FILL (53 claims) — all 49 district types pinned at today's content
+    share, plus a floor under the median. It exists because walkable_gate compares
+    PAVEMENT to CONTENT, so a district with no pavement passes however empty it
+    gets, and the law's own text admits that hole.
+MUTATION-PROVEN THE HARD WAY: my first two sabotages on DISTRICT FILL SILENTLY DID
+NOT APPLY and it reported 53/0 both times. A green gate against an edit that never
+landed proves nothing. The third measured the effect first (cemetery 14.35% ->
+9.23%) and only then did the gate speak. MEASURE THAT YOUR SABOTAGE LANDED.
+
+THE ANSWER TO HIS QUESTION: 96x96 districts, 9.22 km a side, 84.9 km2, 151 million
+walkable cells. Built land alone 37.0 km2 = about ALL OF SKYRIM; on foot 75.7 km2 =
+~4.6 New Vegases. Walking is 1.5 m/s (BEAT=500, one cell a beat, 0.75 m a cell), so
+1 h 42 m to walk one side, 2 h 25 m corner to corner. The honest half: ours are
+GENERATED km2, Skyrim's are hand-placed.
+Records: BOHEMIA_HOW_BIG_IS_THE_MAP_8_2_26.md ·
+         BOHEMIA_WHAT_THE_WORLD_ACTUALLY_COSTS_AND_HOLDS_8_2_26.md
+
+EARLIER TODAY, THIS LANE: the ONE LINK was dead on main twice (a missing </div>
+nested the whole game inside the splash; it was also the "dead COMBAT tab" another
+lane bisected to us — every panel was 0x0). DROP IN lands you on a street. The CITY
+tab deletion's own wreckage cleaned up, and the swallowed tab click banned in 18
+files, which then caught two gates other lanes wrote AFTER the rule.
+
+RED ON MAIN RIGHT NOW AND NOT MINE (checked each on pristine origin/main before
+saying so): WALL CLASS (2), INTERIORS (1), CANVAS SCALE (1), plus the standing
+character/life set (RIG CHECK, PARTS PAINTED, BODY VARIATION, LIFE, DRESS,
+POPULATION, MEMORY, DEVIATION). THE RUN is GREEN run alone on both trees — it
+flaked once under full-suite load.
+
+NOT MINE TO DECIDE, AND ONE IS PARKED
+- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
+  now"). DO NOT RAISE IT. Plumbing debt in backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Real, tested, invisible. Still open.
+
 PEOPLE (7h9sfy): 8/3 LATEST — YOU CAN TALK TO SOMEBODY ON THE SURFACE HE ACTUALLY
 PLAYS. The 8/2 ask is finally delivered.
 Record: records/BOHEMIA_CITY_TALK_8_3_26.md
@@ -48,7 +114,6 @@ who commute to job sites, the repair-a-district dial, and the porch neighbour th
 Those are all REAL and gated - they are just not on the tab he taps. Porting them is the
 next question for him, not a decision to make alone.
 
-=======
 PEOPLE (factions): 8/2 (i) LATEST — *** THE COLOURS WERE ALREADY IN THE PROJECT AND I DID
 NOT LOOK. *** He had to say it twice. Read this before touching anything faction-shaped.
 Record: records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md
@@ -100,8 +165,6 @@ Anarchists) and want a re-pass against his real ones. Flagged, not silently rewr
 STILL BLOCKED: all 12 gaps are thumbed WANT and every one is faction machinery, which
 BUILD THE WORLD (7/31) still has switched off. One word from him unblocks twelve systems.
 
-<<<<<<< HEAD
->>>>>>> 09a8b8d (YOUR COLORS WERE ALREADY IN THE PROJECT AND I DID NOT LOOK)
 COMBAT (combat-nfnki9): 8/3 (b) LATEST -- THE COOK IS IN THE GRAVEYARD, AND I
 SPENT HALF A DAY NOT ACTUALLY DEPLOYING. Live on main as 27ca030, BUILD 8/3j,
 Pages build verified SUCCESS at 19:40.
