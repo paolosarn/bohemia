@@ -105,6 +105,8 @@ GATES = [
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
      'Paolo 7/31: if he bought it, it wins -- his library draws FIRST, painted is the named fallback', False),
+    ('STEP INSIDE',    ['node', 'gates/stepinside_gate.js'],
+     'Paolo: "WHY WHEN I ENTER A HOUSE I CANT GO LEFT AND RIGHT" -- he was landing ON the door cell with a jamb either side; the gate PRESSES left and right through the real mover instead of flood-filling the passability test', False),
     ('KIT BINDING',    ['node', 'gates/city_kit_binding_gate.js'],
      'the CITY blob inlines the suburb BEFORE the district kit, so a load-time kit capture freezes as undefined and the world dies on the first call -- 32 gates red at once, alpha still booting clean', False),
     ('D1 KERB',        ['node', 'gates/d1_kerb_gate.js'],

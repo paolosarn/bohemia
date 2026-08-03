@@ -1,3 +1,35 @@
+RUN (run-eak241): 8/3 (b) LATEST — YOU WALK THROUGH THE DOORWAY, NOT INTO IT.
+Ship: BUILD 8/3b. Tab: RUN (walk up to a house and go in).
+
+Paolo: "WHY WHEN I ENTER A HOUSE I CANT GO LEFT AND RIGHT."
+The 8/2 record closed this as "there is no missing left/right", measured by
+FLOOD-FILLING inPassable from the landing cell. That flood fill is honest and still
+true, and it is the WRONG INSTRUMENT: it says which cells are reachable in principle
+and never presses a direction. Drive the real stepOnce in a real browser and:
+    you land on            the DOOR cell itself, every time
+    works there            N, NE, NW
+    BLOCKED there          E, SE, S, SW, W
+    turn left/right on landing   0 of 6 houses
+    ... one cell further in      6 of 6 houses
+He is standing IN THE OPENING with a jamb either side. Not a movement bug, not a
+camera bug -- both were investigated first and both are fine (at HC=44 renderInside
+takes the FOLLOW branch, and three steps changed 70.2% of the screen; the 8/2 camera
+theory does not apply at the shipped default zoom).
+FIX: entry steps ONE cell inward off the door along that edge's inward normal, if
+walkable. One cell deliberately, not "until you can turn" -- a one-wide hall is real
+architecture. The door is one step back, so leaving is unchanged.
+GATE: gates/stepinside_gate.js (STEP INSIDE) PRESSES the directions instead of
+inferring them. 8/0.
+NOT FIXED, do not mistake it: the working district has only 6 door cells in the whole
+thing (records/BOHEMIA_BUILDINGS_HAVE_NO_DOORS_8_2_26.md). Every house you CAN enter
+now behaves; there are not many.
+
+THE SAME MISTAKE THREE TIMES IN ONE DAY, all three now recorded:
+  a counted drawImage is not a visible door   (the side door)
+  a page that loads is not a world that runs  (the suburb kit binding)
+  a reachable cell is not a pressed direction (this one)
+When he says a button does nothing, PRESS THE BUTTON.
+
 RUN (run-eak241): 8/3 (a) LATEST — THE SIDE DOOR YOU CAN SEE, D1 ACROSS ALL 36
 DISTRICTS, AND A BUG THAT WOULD HAVE SHIPPED A SUBURB THAT DOES NOT LOAD.
 Ship: BUILD 8/3a - THE SIDE DOOR YOU CAN SEE + NEVER ON THE SIDEWALK. Tab: RUN.
