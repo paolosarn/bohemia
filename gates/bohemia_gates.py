@@ -91,6 +91,11 @@ GATES = [
      'ONE TILE": indoors the wall now stands two tiles like the door in it. Measured by '
      'entering a real house and counting destination heights -- two-tall walls present, floor '
      'still flat, nothing three or more', True),
+    ('DOOR SWING',     ['node', 'gates/dooranim_gate.js'],
+     'Paolo 8/2 "WHY IS THERE NO ANIMATIONS WHEN I GO THROUGH AND OPEN A DOOR WEVE WORKED ON '
+     'THAT PREVIOUSLY": his 7/13 bank held 30 approved clips and ZERO frames had ever reached '
+     'a renderer. Ten 88x176 swing clips now ride the door plate they exactly match, on his '
+     'own 9-frames-over-2-beats timing, with animated frames COUNTED on a real canvas', True),
     ('FULL PIXEL',     ['node', 'gates/full_pixel_gate.js'],
      'Paolo 7/31 B1: device-resolution canvas and an integer cell -- his art is never resampled', True),
     ('BOUGHT BEATS PAINTED', ['node', 'gates/bought_beats_painted_gate.js'],
