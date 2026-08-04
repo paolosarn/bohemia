@@ -37,6 +37,8 @@
 
    Run: node gates/one_building_gate.js   Registered as ONE BUILDING. */
 'use strict';
+const K = require('../engine/bohemia_district_kit.js');
+require('../engine/bohemia_world.js');
 
 const CONFIGS = [['S'], ['N'], ['E'], ['W'], ['S', 'E'], ['N', 'W']];
 
@@ -61,11 +63,24 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
 /* the share of all BUILDING/STRUCTURE area that sits in the single largest connected
    mass, taken at its WORST across every placement and seed. */
-function worstShare(mod) {
-  const body = Object.keys(mod.legend)
-    .filter(c => mod.legend[c].kind === 'building' || mod.legend[c].kind === 'structure')
-    .map(Number);
-  const isB = v => body.indexOf(v) >= 0;
+function worstShare(mod, name) {
+  /* USE THE MODULE'S OWN BODY PREDICATE where it has one. Each district already declares
+     to K.register exactly which codes ARE its building; asking that instead of sweeping
+     every structure-kinded tile is both more accurate and the thing the law actually says.
+     It started mattering on 8/2, when the city hall's solar array moved out of the plaza
+     into its own bed as EQUIPMENT (Paolo: "no more canopies") -- 33 free-standing panels
+     are structure, they are not part of the city hall, and counting them as building area
+     dragged a genuinely single building down to 85%. A gate that measures the wrong set
+     fails honest work, which is the 8/2 library lesson in a different costume. */
+  const spec = K.get(name);
+  const isB = (spec && typeof spec.body === 'function')
+    ? spec.body
+    : (function () {
+        const body = Object.keys(mod.legend)
+          .filter(c => mod.legend[c].kind === 'building' || mod.legend[c].kind === 'structure')
+          .map(Number);
+        return v => body.indexOf(v) >= 0;
+      })();
   let worst = 1;
   for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
     const g = mod.generate(s * 13 + 1, { streets: cfg }).g;
@@ -93,12 +108,12 @@ function worstShare(mod) {
 }
 
 for (const d of Object.keys(SINGLE)) {
-  const share = worstShare(require('../engine/bohemia_' + d + '.js'));
+  const share = worstShare(require('../engine/bohemia_' + d + '.js'), d);
   ok('SINGLE — ' + d + ': ' + SINGLE[d] + '  (largest mass ' + (share * 100).toFixed(1) + '% of its building area, worst placement)',
      share >= 0.90);
 }
 for (const d of Object.keys(MANY)) {
-  const share = worstShare(require('../engine/bohemia_' + d + '.js'));
+  const share = worstShare(require('../engine/bohemia_' + d + '.js'), d);
   ok('MANY — ' + d + ': ' + MANY[d] + '  (largest mass ' + (share * 100).toFixed(1) + '%, must stay under 70%)',
      share < 0.70);
 }

@@ -46,18 +46,17 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 4 | `#6b6250` | blast setback | ground | the standoff strip between the kerb and the wall — decomposed granite gone to hardpan. It is empty ON PURPOSE: this was the first federal building in the country built to the post-Oklahoma-City blast rules, and the emptiness IS the security | ground | no | — | 2257 |
 | 5 | `#c79a3f` | gate / kerb cut | gate | the kerb cut off the street into the public lot, amber paint gone chalky | portal | no | — | 11 |
 | 6 | `#8a8069` | precast panel joint | structure | the joint line between two precast panels, twenty-two feet by ten, the sealant gone chalky and dropped out in runs | structure | yes | — | 748 |
-| 7 | `#8b8478` | public plaza | ground | the plaza in the elbow of the building, big pavers heaved by roots, shaded half the day by the canopy overhead | ground | no | — | 1841 |
+| 7 | `#8b8478` | public plaza | ground | the plaza in the elbow of the building, big pavers heaved by roots, shaded half the day by the canopy overhead | ground | no | — | 2595 |
 | 8 | `#5a6660` | dry basin | water-dead | a reflecting basin bone dry, the old waterline stained around it like a tidemark | ground | no | — | 103 |
 | 9 | `#b0863a` | plaza light | structure | a plaza light on its concrete stem, head dark, the glass long gone | structure | yes | — | 5 |
 | 10 | `#6e6a60` | rooftop plant | structure | a mechanical unit on the roof of the north leg, ducting collapsed, one of them stripped for its copper | structure | yes | — | 175 |
 | 11 | `#93a2a8` | dome glazing | structure | what is left of the sixty-foot glass dome over the rotunda — a cable truss and mostly sky | structure | yes | — | 149 |
 | 12 | `#8a7f5e` | flagpole | prop | a flagpole in the row facing the plaza, halyard slapping, nothing left on it | prop | yes | — | 3 |
-| 13 | `#7d7a71` | walk | walk | the concrete walks across the setback, cracked corner to corner | ground | no | — | 2324 |
-| 14 | `#6d675c` | projecting canopy | overhead | the steel and aluminium canopy that hangs off the top of the building and shadows the plaza — no columns hold it up, and you walk UNDER it | overhead | no | — | 1186 |
-| 15 | `#5f5c54` | security bollard | structure | a steel bollard in the standoff line, still dead upright. Nothing short of a truck moves one, and nothing has | structure | yes | — | 49 |
+| 13 | `#7d7a71` | walk | walk | the concrete walks across the setback, cracked corner to corner | ground | no | — | 2617 |
+| 15 | `#5f5c54` | security bollard / entrance pier | structure | a steel bollard in the standoff line, still dead upright. Nothing short of a truck moves one, and nothing has | structure | yes | — | 154 |
 | 16 | `#c0b498` | roof edge | structure | the parapet line where a roof meets its wall, coping missing in runs | structure | yes | — | 869 |
 | 17 | `#b6a888` | rotunda dome | structure | the ring of the rotunda dome, the crown of the public lobby, its glazing gone | structure | yes | — | 230 |
-| 18 | `#241f1a` | doorway | portal | a way in — the public doors under the canopy, the staff entrance on the north leg | portal | no | — | 88 |
+| 18 | `#241f1a` | doorway | portal | a way in — the public doors under the canopy, the staff entrance on the north leg | portal | no | — | 122 |
 | 19 | `#6a6e72` | dead car | vehicle | a car left where it was parked, flat and sun-bleached, nobody came back for it | prop | yes | — | 96 |
 | 20 | `#585349` | secure yard wall | fence | the wall round the secure yard, razor wire long since rusted off the top of it | structure | yes | — | 114 |
 | 21 | `#4a4a52` | stall marking | marking | the painted stall ticks, chalked out to ghosts by twenty summers — PAINT IS NOT A WALL, a car drives straight over it | ground | no | — | 240 |

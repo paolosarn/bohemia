@@ -8720,7 +8720,7 @@ root.BQRuntime=API;
 //  6 bell tower           7 forecourt plaza          8 arcade columns
 //  9 pole light          10 cross / fallen bell     11 stained glass
 //  12 churchyard walk    13 columbarium wall        14 gravel margin
-//  15 covered walk (OVERHEAD)  16 roof edge         17 niche plaque
+//  15 path wall            16 roof edge         17 niche plaque
 //  18 doorway (PORTAL)   19 dead car                20 stall marking (PAINT)
 //  21 dry font           22 roof ridge              23 orchard bed
 (function(root){
@@ -8804,8 +8804,11 @@ root.BQRuntime=API;
     G.disc(84,108,4,21); G.disc(84,108,2,7);                             // the dry font
     for(x=34;x<=94;x+=15) set(x,114,9);
 
-    /* the COVERED WALK from the lot to the narthex: an overhead, so you pass UNDER it */
-    for(y=98;y<=114;y++) for(x=100;x<=106;x++){ var cv=get(x,y); if(cv===7||cv===12||cv===14) set(x,y,15); }
+    /* NO CANOPY (Paolo 8/2). The covered walk from the lot to the doors is gone; what a
+       churchyard actually has instead is a low WALL along the path and the trees that were
+       meant to shade it, dead in their grates. Nothing overhead on this plot. */
+    for(y=98;y<=114;y++){ set(100,y,15); set(106,y,15); }
+    for(y=100;y<=112;y+=4) set(103,y,3);
 
     /* ---- THE LOT ---- */
     G.rect(6,118,122,124,1);
@@ -8854,7 +8857,7 @@ root.BQRuntime=API;
     12:{name:'churchyard walk',   kind:'walk',       act1:'the concrete walk that rings the church, cracked corner to corner and lifted where the roots got under it'},
     13:{name:'columbarium wall',  kind:'fence',      act1:'the niche wall round the memorial court — rows of small sealed compartments, a third of them prised open', solid:true},
     14:{name:'gravel margin',     kind:'ground',     act1:'the gravel margin at the property line, sun-bleached rock over failed weed cloth'},
-    15:{name:'covered walk',      kind:'overhead',   act1:'the covered walk from the lot to the doors, half its roof sheets peeled back. You pass UNDER it'},
+    15:{name:'path wall',         kind:'fence',      act1:'the low wall running either side of the path from the lot to the doors, coping cracked and one run shoved out of line', solid:true},
     16:{name:'roof edge',         kind:'structure',  act1:'the parapet and eave line where a roof meets its wall, tiles gone in runs'},
     17:{name:'niche plaque',      kind:'structure',  act1:'a name plaque on a columbarium niche, the letters still cut deep enough to read'},
     18:{name:'doorway',           kind:'portal',     act1:'a way in — the narthex doors, the transept door, the gate into a memorial court'},
@@ -8917,7 +8920,7 @@ root.BQRuntime=API;
 //  3 dead tree            4 blast setback (hardpan)      5 gate / kerb cut
 //  6 precast panel joint  7 public plaza                 8 dry basin
 //  9 plaza light         10 rooftop plant               11 dome glazing
-//  12 flagpole           13 walk                        14 projecting canopy (OVERHEAD)
+//  12 flagpole           13 walk
 //  15 security bollard   16 roof edge                   17 rotunda dome
 //  18 doorway (PORTAL)   19 dead car                    20 secure yard wall (FENCE)
 //  21 stall marking (PAINT)  22 sally port (PORTAL)   23 plaza planter
@@ -8930,9 +8933,6 @@ root.BQRuntime=API;
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
-    /* an OVERHEAD only ever lands on OPEN GROUND. See the canopy note below. */
-    function overhead(x0,y0,x1,y1){ for(var yy=y0;yy<=y1;yy++) for(var xx=x0;xx<=x1;xx++){
-      var v=get(xx,yy); if(v===7||v===13||v===4||v===0) set(xx,yy,14); } }
 
     G.rect(0,0,W-1,H-1,0);
     G.rect(3,3,W-4,H-4,4);                                   // the BLAST SETBACK, hardpan not lawn
@@ -8970,14 +8970,13 @@ root.BQRuntime=API;
     for(x=62;x<=114;x+=6) set(x,84,15);
     for(y=66;y<=96;y+=8) G.rect(54,y,114,y,13);
 
-    /* ---- THE PROJECTING CANOPY. It hangs off the top of the building over the plaza:
-       no masts, an OVERHEAD, so it shadows a path without ever severing one.
-       MASKED to open ground on purpose: a canopy laid straight over a grid ERASES the
-       building under it, which cut the rotunda clean in half on the first cut. An overhead
-       shades what is already there; it never replaces it. ---- */
-    overhead(52,48,112,62);
-    overhead(52,62,60,94);
-    G.rect(58,44,74,48,18);                                  // the public doors under it
+    /* ---- NO CANOPY (Paolo 8/2: "new rule no more canopies I only see canopies at parks
+       and shit"). The cantilever is gone. A federal entrance without one is STEPS and a
+       SCREENING PORCH: a broad flight up out of the plaza, the piers that carry the wall
+       above them, and the doors at the head of it. Nothing overhead on this plot. ---- */
+    G.rect(54,50,96,58,13);                                  // the broad entrance steps
+    for(x=56;x<=94;x+=6) G.rect(x,52,x+2,56,15);             // the entrance piers
+    G.rect(58,44,74,50,18);                                  // the public doors at the head of them
 
     /* ---- THE BOLLARD LINE. The whole reason for the setback: standoff distance, held. ---- */
     for(x=14;x<=118;x+=4) set(x,106,15);
@@ -9032,7 +9031,7 @@ root.BQRuntime=API;
      in this valley has been watered in a very long time. */
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#9c9179',3:'#514f40',4:'#6b6250',5:'#c79a3f',
     6:'#8a8069',7:'#8b8478',8:'#5a6660',9:'#b0863a',10:'#6e6a60',11:'#93a2a8',12:'#8a7f5e',
-    13:'#7d7a71',14:'#6d675c',15:'#5f5c54',16:'#c0b498',17:'#b6a888',18:'#241f1a',
+    13:'#7d7a71',15:'#5f5c54',16:'#c0b498',17:'#b6a888',18:'#241f1a',
     19:'#6a6e72',20:'#585349',21:'#4a4a52',22:'#3a3630',23:'#7a7263'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
@@ -9049,8 +9048,7 @@ root.BQRuntime=API;
     11:{name:'dome glazing',      kind:'structure',act1:'what is left of the sixty-foot glass dome over the rotunda — a cable truss and mostly sky'},
     12:{name:'flagpole',          kind:'prop',     act1:'a flagpole in the row facing the plaza, halyard slapping, nothing left on it'},
     13:{name:'walk',              kind:'walk',     act1:'the concrete walks across the setback, cracked corner to corner'},
-    14:{name:'projecting canopy', kind:'overhead', act1:'the steel and aluminium canopy that hangs off the top of the building and shadows the plaza — no columns hold it up, and you walk UNDER it'},
-    15:{name:'security bollard',  kind:'structure',act1:'a steel bollard in the standoff line, still dead upright. Nothing short of a truck moves one, and nothing has'},
+    15:{name:'security bollard / entrance pier', kind:'structure',act1:'a steel bollard in the standoff line, still dead upright. Nothing short of a truck moves one, and nothing has'},
     16:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping missing in runs'},
     17:{name:'rotunda dome',      kind:'structure',act1:'the ring of the rotunda dome, the crown of the public lobby, its glazing gone'},
     18:{name:'doorway',           kind:'portal',   act1:'a way in — the public doors under the canopy, the staff entrance on the north leg'},
@@ -10130,10 +10128,10 @@ root.BQRuntime=API;
 // LEGEND:
 //  0 desert dead-ground   1 drive / lot / deck (DRIVABLE)   2 city hall (the ONE building)
 //  3 dead tree            4 forecourt hardpan               5 gate / kerb cut
-//  6 solar panel (OVERHEAD)  7 civic plaza                  8 dry fountain basin
+//  6 solar panel           7 civic plaza                  8 dry fountain basin
 //  9 plaza light         10 solar tree mast                11 curtain wall glazing
-//  12 flagpole           13 walk / podium                  14 entry canopy (OVERHEAD)
-//  15 canopy mast        16 roof edge                      17 council chamber roof
+//  12 flagpole           13 walk / podium                  15 entry pier
+//  16 roof edge          17 council chamber roof
 //  18 doorway (PORTAL)   19 dead car                       20 deck column
 //  21 stall marking (PAINT)  22 deck edge   23 roof joint   24 deck floor   25 rooftop plant
 (function(root){
@@ -10180,23 +10178,29 @@ root.BQRuntime=API;
     G.rect(8,76,120,110,7);
     G.disc(20,82,6,8); G.disc(20,82,3,7);                      // the dry reflecting basin
     G.disc(104,94,7,8); G.disc(104,94,3,7);                  // its twin on the east
-    set(46,74,12); set(82,74,12);                            // flagpoles either side of the doors
+    set(44,66,12); set(84,66,12); set(64,62,12);             // the flag row above the steps
 
-    /* ---- THE ENTRY CANOPY on its SINGLE mast. Drawn AFTER the plaza and MASKED to open
-       ground: laid straight over the grid an overhead ERASES what is under it, and then the
-       plaza laid over the top erases the canopy in turn. A canopy shades a thing; it never
-       replaces it, and it is never drawn before the ground it shades. ---- */
-    for(y=70;y<=84;y++) for(x=26;x<=104;x++){ var ov=get(x,y); if(ov===7||ov===13||ov===4) set(x,y,14); }
-    G.rect(62,78,68,84,15);                                  // the 160-foot column, the only support
-    G.rect(56,68,72,72,18);                                  // the main doors under it
+    /* ---- NO CANOPY (Paolo 8/2: "new rule no more canopies I only see canopies at parks
+       and shit"). What stood here was a shade plane on a single mast. It is gone, and what
+       replaces it is what a civic entrance actually has when it is not hiding under
+       something: a WIDE FLIGHT OF STEPS up onto the podium, a row of ENTRY PIERS marking
+       the doors, and the doors themselves. Nothing overhead anywhere on this plot. ---- */
+    G.rect(40,68,88,76,13);                                  // the entrance steps off the plaza
+    for(x=42;x<=86;x+=6) G.rect(x,70,x+2,74,15);             // the entry piers
+    G.rect(56,64,72,70,18);                                  // the main doors, straight onto the steps
 
-    for(x=14;x<=114;x+=14) set(x,111,9);                     // the plaza light line, clear of the trees
+    for(x=66;x<=118;x+=10) set(x,108,9);                     // the plaza light line, east of the array bed
 
-    /* ---- THE SOLAR TREE FARM: 33 masts, each under its panel. The thing you recognise. ---- */
+    /* ---- THE SOLAR ARRAY: 33 masts, each carrying its panel. Still the thing this
+       building is recognised by, and still exactly 33 -- but it stands in its OWN BED at
+       the edge of the plot instead of hanging over the plaza people walk across.
+       Paolo 8/2: "new rule no more canopies I only see canopies at parks and shit."
+       A solar tree you stand under is a canopy whatever the legend calls it, so the array
+       is EQUIPMENT now: panels on masts in a gravel bed, nothing overhead anywhere. ---- */
+    G.rect(6,84,62,112,4);                                   // the array bed, decomposed granite
     var trees=0;
-    for(y=88;y<=106&&trees<SOLAR_TREES;y+=9) for(x=14;x<=102&&trees<SOLAR_TREES;x+=8){
-      if(get(x,y)!==7) continue;
-      G.rect(x-2,y-2,x+2,y+2,6); set(x,y,10); trees++;
+    for(y=88;y<=108&&trees<SOLAR_TREES;y+=6) for(x=10;x<=58&&trees<SOLAR_TREES;x+=6){
+      G.rect(x,y,x+3,y+3,6); set(x+1,y+4,10); trees++;
     }
 
     /* ---- THE PARKING DECK, attached, east. Columns on a grid under a roof edge, and the
@@ -10244,7 +10248,7 @@ root.BQRuntime=API;
      stopped watering things a long time before act one opens. */
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7d7566',3:'#514f40',4:'#6b6250',5:'#c79a3f',
     6:'#3f4a55',7:'#8b8478',8:'#5a6660',9:'#b0863a',10:'#6e6a60',11:'#8fa2ad',12:'#8a7f5e',
-    13:'#7d7a71',14:'#9a9184',15:'#a89c86',16:'#b3a78d',17:'#a3947a',18:'#241f1a',
+    13:'#7d7a71',15:'#a89c86',16:'#b3a78d',17:'#a3947a',18:'#241f1a',
     19:'#6a6e72',20:'#77726a',21:'#4a4a52',22:'#8b8272',23:'#635c4f',24:'#4c4a48',25:'#6e6a60'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
@@ -10253,7 +10257,7 @@ root.BQRuntime=API;
     3:{name:'dead tree',          kind:'tree-dead',act1:'a dead civic tree gone to stick, its grate prised up for the metal', solid:false},
     4:{name:'forecourt hardpan',  kind:'ground',   act1:'decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the lot, amber paint gone chalky'},
-    6:{name:'solar panel',        kind:'overhead', act1:'a photovoltaic panel on its tree — the glass milky, half the array stripped for the copper in the leads. You walk and drive UNDER it'},
+    6:{name:'solar panel',        kind:'structure',act1:'a photovoltaic panel on its tree, tilted to the south — the glass milky, half the array stripped for the copper in the leads. Equipment in its own bed, not something you shelter under', solid:true},
     7:{name:'civic plaza',        kind:'ground',   act1:'the public plaza under the solar trees, big pavers heaved by roots, the meeting-day chalk long gone'},
     8:{name:'dry fountain basin', kind:'water-dead',act1:'a reflecting basin bone dry, the old waterline stained around it like a tidemark'},
     9:{name:'plaza light',        kind:'structure',act1:'a plaza light on its concrete stem, head dark, the glass long gone'},
@@ -10261,8 +10265,7 @@ root.BQRuntime=API;
     11:{name:'curtain wall glazing',kind:'structure',act1:'the glass curtain wall — the panels that are left are sun-hazed, the rest is board and sky'},
     12:{name:'flagpole',          kind:'prop',     act1:'a flagpole beside the doors, halyard slapping in the wind, nothing left on it'},
     13:{name:'walk / podium',     kind:'walk',     act1:'the raised concrete podium the building stands on and the walks across it, cracked corner to corner'},
-    14:{name:'entry canopy',      kind:'overhead', act1:'the great canopy over the main entrance, one edge folded down where a panel let go. You walk UNDER it'},
-    15:{name:'canopy mast',       kind:'structure',act1:'the single column that holds the whole canopy up, a hundred and sixty feet of it, still dead plumb'},
+    15:{name:'entry pier',        kind:'structure',act1:'one of the squat piers marking the main entrance, concrete, a corner knocked off the sunward one'},
     16:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping missing in runs'},
     17:{name:'council chamber roof',kind:'structure',act1:'the round roof over the council chamber, its ring of clerestory glazing gone'},
     18:{name:'doorway',           kind:'portal',   act1:'a way in — the main doors under the canopy, the deck stair, the loading door on the north wing'},
@@ -10449,7 +10452,7 @@ root.BQRuntime=API;
 // LEGEND:
 //  0 desert dead-ground   1 apron / drive / lot (DRIVABLE)   2 head house
 //  3 dead tree            4 hardpan                          5 gate / kerb cut
-//  6 solar shade (OVERHEAD)  7 forecourt paving              8 rooftop plant
+//  6 rooftop solar array   7 forecourt paving              8 rooftop plant
 //  9 light               10 bay post                        11 curtain wall glazing
 //  12 bike rack          13 boarding platform               14 roof edge
 //  15 dead bus           16 doorway (PORTAL)                17 stall marking (PAINT)
@@ -10465,10 +10468,6 @@ root.BQRuntime=API;
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
-    /* an OVERHEAD only ever lands on OPEN GROUND: laid straight over the grid it would
-       ERASE whatever is under it, and a canopy shades a thing, it does not replace it. */
-    function shade(x0,y0,x1,y1,c){ for(var yy=y0;yy<=y1;yy++) for(var xx=x0;xx<=x1;xx++){
-      var v=get(xx,yy); if(v===13||v===7||v===4||v===0||v===1) set(xx,yy,c); } }
 
     G.rect(0,0,W-1,H-1,0);
     G.rect(3,3,W-4,H-4,4);                                   // hardpan, NOT lawn
@@ -10507,13 +10506,14 @@ root.BQRuntime=API;
     for(x=10;x<=118;x+=3) { set(x,86,22); set(x,90,22); }
     for(x=10;x<=118;x+=3) set(x,109,22);
 
-    /* the SOLAR SHADE over the platform and the bay noses — the LEED Platinum signature,
-       and the only reason anybody could stand out here in July */
-    /* it shades the bay NOSES and the back of the platform, and leaves the walking strip
-       open to the sky down the middle -- shade the whole thing and the platform stops
-       existing, which is what the first cut did. */
-    shade(8,52,120,57,6); shade(8,63,120,68,6);
-    for(x=8;x<=120;x+=7) for(y=52;y<=68;y++) if(get(x,y)===6) set(x,y,9);   // the panel frames
+    /* NO CANOPY (Paolo 8/2: "new rule no more canopies I only see canopies at parks and
+       shit"). The photovoltaic array does not go OVER the platform any more -- it goes ON
+       THE HEAD HOUSE ROOF, which is where a roof-mounted array belongs and is a structure
+       rather than a shelter. The PV stays because it is the building's real signature and
+       it is EQUIPMENT; the thing he ruled out is a shade plane you stand under, and there
+       is not one on this plot now. */
+    for(y=10;y<=26;y+=5) for(x=20;x<=106;x+=8) if(get(x,y)===2) G.rect(x,y,x+5,y+2,6);
+    for(x=18;x<=108;x+=8) for(y=10;y<=28;y++) if(get(x,y)===6) set(x,y,9);   // the array frames
 
     /* dead buses left in the bays and along the layover row */
     for(i=0;i<BAYS;i+=3){ var vx=9+i*7; G.rect(vx+1,69,vx+4,78,15); }
@@ -10578,7 +10578,7 @@ root.BQRuntime=API;
     3:{name:'dead tree',          kind:'tree-dead',act1:'a dead forecourt tree gone to stick, its grate prised up for the metal', solid:false},
     4:{name:'hardpan',            kind:'ground',   act1:'decomposed granite gone to hardpan at the edges of the site, split by weeds. Not a lawn: nothing is watering this'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street onto the apron, wide enough for a bus, amber paint gone chalky'},
-    6:{name:'solar shade',        kind:'overhead', act1:'the photovoltaic shade structure over the platform and the bay noses — the only reason anybody could stand here in July, the glass now milky and half of it stripped for the copper. You walk and drive UNDER it'},
+    6:{name:'rooftop solar array',kind:'structure',act1:'the photovoltaic array bolted across the head house roof — the LEED Platinum signature, the glass milky now and half the strings stripped for the copper in their leads', solid:true},
     7:{name:'forecourt paving',   kind:'ground',   act1:'the paved forecourt between the street and the head house, big scored slabs heaved at the joints'},
     8:{name:'rooftop plant',      kind:'structure',act1:'a mechanical unit on the head house roof, ducting collapsed, one of them stripped out entirely'},
     9:{name:'light',              kind:'structure',act1:'an apron light on its concrete stem, head dark, the glass long gone'},

@@ -39,23 +39,22 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb | ground | no | — | 1467 |
 | 1 | `#33333c` | drive / lot / deck | drive | the visitor lot, the aisle and the deck floor above it — asphalt gone to plates, weeds up every joint (car-drivable) | ground | no | — | 1573 |
-| 2 | `#7d7566` | city hall | building | sand-coloured precast and glass — the angular office block and the curved council chamber that merge in the lobby, the curtain wall boarded in runs where it came down | structure | yes | city hall interior: the public counter and permits hall behind the doors, the round council chamber under its own roof, seven floors of department offices in the block | 2336 |
-| 3 | `#514f40` | dead tree | tree-dead | a dead civic tree gone to stick, its grate prised up for the metal | prop | no | — | 1 |
-| 4 | `#6b6250` | forecourt hardpan | ground | decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this | ground | no | — | 1293 |
+| 2 | `#7d7566` | city hall | building | sand-coloured precast and glass — the angular office block and the curved council chamber that merge in the lobby, the curtain wall boarded in runs where it came down | structure | yes | city hall interior: the public counter and permits hall behind the doors, the round council chamber under its own roof, seven floors of department offices in the block | 2292 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead civic tree gone to stick, its grate prised up for the metal | prop | no | — | 2 |
+| 4 | `#6b6250` | forecourt hardpan | ground | decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this | ground | no | — | 2252 |
 | 5 | `#c79a3f` | gate / kerb cut | gate | the kerb cut off the street into the lot, amber paint gone chalky | portal | no | — | 11 |
-| 6 | `#3f4a55` | solar panel | overhead | a photovoltaic panel on its tree — the glass milky, half the array stripped for the copper in the leads. You walk and drive UNDER it | overhead | no | — | 792 |
-| 7 | `#8b8478` | civic plaza | ground | the public plaza under the solar trees, big pavers heaved by roots, the meeting-day chalk long gone | ground | no | — | 1775 |
-| 8 | `#5a6660` | dry fountain basin | water-dead | a reflecting basin bone dry, the old waterline stained around it like a tidemark | ground | no | — | 129 |
-| 9 | `#b0863a` | plaza light | structure | a plaza light on its concrete stem, head dark, the glass long gone | structure | yes | — | 7 |
+| 6 | `#3f4a55` | solar panel | structure | a photovoltaic panel on its tree, tilted to the south — the glass milky, half the array stripped for the copper in the leads. Equipment in its own bed, not something you shelter under | structure | yes | — | 528 |
+| 7 | `#8b8478` | civic plaza | ground | the public plaza under the solar trees, big pavers heaved by roots, the meeting-day chalk long gone | ground | no | — | 1785 |
+| 8 | `#5a6660` | dry fountain basin | water-dead | a reflecting basin bone dry, the old waterline stained around it like a tidemark | ground | no | — | 107 |
+| 9 | `#b0863a` | plaza light | structure | a plaza light on its concrete stem, head dark, the glass long gone | structure | yes | — | 4 |
 | 10 | `#6e6a60` | solar tree mast | structure | the tubular column of a solar tree, thirty feet of steel, powder coat blistered off the sunward side | structure | yes | — | 33 |
 | 11 | `#8fa2ad` | curtain wall glazing | structure | the glass curtain wall — the panels that are left are sun-hazed, the rest is board and sky | structure | yes | — | 761 |
-| 12 | `#8a7f5e` | flagpole | prop | a flagpole beside the doors, halyard slapping in the wind, nothing left on it | prop | yes | — | 2 |
-| 13 | `#7d7a71` | walk / podium | walk | the raised concrete podium the building stands on and the walks across it, cracked corner to corner | ground | no | — | 2681 |
-| 14 | `#9a9184` | entry canopy | overhead | the great canopy over the main entrance, one edge folded down where a panel let go. You walk UNDER it | overhead | no | — | 1047 |
-| 15 | `#a89c86` | canopy mast | structure | the single column that holds the whole canopy up, a hundred and sixty feet of it, still dead plumb | structure | yes | — | 49 |
+| 12 | `#8a7f5e` | flagpole | prop | a flagpole beside the doors, halyard slapping in the wind, nothing left on it | prop | yes | — | 3 |
+| 13 | `#7d7a71` | walk / podium | walk | the raised concrete podium the building stands on and the walks across it, cracked corner to corner | ground | no | — | 3002 |
+| 15 | `#a89c86` | entry pier | structure | one of the squat piers marking the main entrance, concrete, a corner knocked off the sunward one | structure | yes | — | 112 |
 | 16 | `#b3a78d` | roof edge | structure | the parapet line where a roof meets its wall, coping missing in runs | structure | yes | — | 457 |
-| 17 | `#a3947a` | council chamber roof | structure | the round roof over the council chamber, its ring of clerestory glazing gone | structure | yes | — | 300 |
-| 18 | `#241f1a` | doorway | portal | a way in — the main doors under the canopy, the deck stair, the loading door on the north wing | portal | no | — | 92 |
+| 17 | `#a3947a` | council chamber roof | structure | the round roof over the council chamber, its ring of clerestory glazing gone | structure | yes | — | 291 |
+| 18 | `#241f1a` | doorway | portal | a way in — the main doors under the canopy, the deck stair, the loading door on the north wing | portal | no | — | 126 |
 | 19 | `#6a6e72` | dead car | vehicle | a car left in the lot, flat and sun-bleached, nobody came back for it | prop | yes | — | 72 |
 | 20 | `#77726a` | deck column | structure | a concrete column holding the parking deck up, corner spalled to the rebar | structure | yes | — | 48 |
 | 21 | `#4a4a52` | stall marking | marking | the painted stall ticks across the lot, chalked out to ghosts by twenty summers — PAINT IS NOT A WALL, a car drives straight over it | ground | no | — | 253 |

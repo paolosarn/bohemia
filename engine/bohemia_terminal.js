@@ -26,7 +26,7 @@
 // LEGEND:
 //  0 desert dead-ground   1 apron / drive / lot (DRIVABLE)   2 head house
 //  3 dead tree            4 hardpan                          5 gate / kerb cut
-//  6 solar shade (OVERHEAD)  7 forecourt paving              8 rooftop plant
+//  6 rooftop solar array   7 forecourt paving              8 rooftop plant
 //  9 light               10 bay post                        11 curtain wall glazing
 //  12 bike rack          13 boarding platform               14 roof edge
 //  15 dead bus           16 doorway (PORTAL)                17 stall marking (PAINT)
@@ -42,10 +42,6 @@
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
-    /* an OVERHEAD only ever lands on OPEN GROUND: laid straight over the grid it would
-       ERASE whatever is under it, and a canopy shades a thing, it does not replace it. */
-    function shade(x0,y0,x1,y1,c){ for(var yy=y0;yy<=y1;yy++) for(var xx=x0;xx<=x1;xx++){
-      var v=get(xx,yy); if(v===13||v===7||v===4||v===0||v===1) set(xx,yy,c); } }
 
     G.rect(0,0,W-1,H-1,0);
     G.rect(3,3,W-4,H-4,4);                                   // hardpan, NOT lawn
@@ -84,13 +80,14 @@
     for(x=10;x<=118;x+=3) { set(x,86,22); set(x,90,22); }
     for(x=10;x<=118;x+=3) set(x,109,22);
 
-    /* the SOLAR SHADE over the platform and the bay noses — the LEED Platinum signature,
-       and the only reason anybody could stand out here in July */
-    /* it shades the bay NOSES and the back of the platform, and leaves the walking strip
-       open to the sky down the middle -- shade the whole thing and the platform stops
-       existing, which is what the first cut did. */
-    shade(8,52,120,57,6); shade(8,63,120,68,6);
-    for(x=8;x<=120;x+=7) for(y=52;y<=68;y++) if(get(x,y)===6) set(x,y,9);   // the panel frames
+    /* NO CANOPY (Paolo 8/2: "new rule no more canopies I only see canopies at parks and
+       shit"). The photovoltaic array does not go OVER the platform any more -- it goes ON
+       THE HEAD HOUSE ROOF, which is where a roof-mounted array belongs and is a structure
+       rather than a shelter. The PV stays because it is the building's real signature and
+       it is EQUIPMENT; the thing he ruled out is a shade plane you stand under, and there
+       is not one on this plot now. */
+    for(y=10;y<=26;y+=5) for(x=20;x<=106;x+=8) if(get(x,y)===2) G.rect(x,y,x+5,y+2,6);
+    for(x=18;x<=108;x+=8) for(y=10;y<=28;y++) if(get(x,y)===6) set(x,y,9);   // the array frames
 
     /* dead buses left in the bays and along the layover row */
     for(i=0;i<BAYS;i+=3){ var vx=9+i*7; G.rect(vx+1,69,vx+4,78,15); }
@@ -155,7 +152,7 @@
     3:{name:'dead tree',          kind:'tree-dead',act1:'a dead forecourt tree gone to stick, its grate prised up for the metal', solid:false},
     4:{name:'hardpan',            kind:'ground',   act1:'decomposed granite gone to hardpan at the edges of the site, split by weeds. Not a lawn: nothing is watering this'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street onto the apron, wide enough for a bus, amber paint gone chalky'},
-    6:{name:'solar shade',        kind:'overhead', act1:'the photovoltaic shade structure over the platform and the bay noses — the only reason anybody could stand here in July, the glass now milky and half of it stripped for the copper. You walk and drive UNDER it'},
+    6:{name:'rooftop solar array',kind:'structure',act1:'the photovoltaic array bolted across the head house roof — the LEED Platinum signature, the glass milky now and half the strings stripped for the copper in their leads', solid:true},
     7:{name:'forecourt paving',   kind:'ground',   act1:'the paved forecourt between the street and the head house, big scored slabs heaved at the joints'},
     8:{name:'rooftop plant',      kind:'structure',act1:'a mechanical unit on the head house roof, ducting collapsed, one of them stripped out entirely'},
     9:{name:'light',              kind:'structure',act1:'an apron light on its concrete stem, head dark, the glass long gone'},

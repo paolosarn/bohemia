@@ -217,39 +217,40 @@ def build_cityhall(P):
     tools/bohemia_iso3d.py, the same way every other hero here does. No bank was opened
     because none applies: there is no iso hero-building sprite bank in the repo."""
     BLD, PANEL, PLAZA, MAST = P[2], P[6], P[7], P[10]
-    GLASS, CANOPY, CMAST, CHROOF, DECK = P[11], P[14], P[15], P[17], P[24]
+    GLASS, PIER, CHROOF, DECK = P[11], P[15], P[17], P[24]
+    CANOPY = PIER                      # the canopy is gone (Paolo 8/2); the piers took its palette slot
     s = Scene()
     _ground(s, (-3, -3, 15, 15), patches=[(-3, 4.0, 15, 15, PLAZA)],
             lot=(9.5, -3, 15, 3.5), drive=(9.5, 3.5, 13.5, 6.0),
             groundc=(122, 116, 100), lotc=(58, 58, 66))
 
     # THE ANGULAR OFFICE BLOCK: seven storeys, stepped, glass.
-    s.box((-1.5, -2.0, 0), (10.5, 5.0, 9.6), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 8, 6, 5),
-          'py': _win(BLD, 4, 6, 11), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    s.box((-1.5, -2.0, 9.6), (10.5, 5.0, 0.4), {'c': CHROOF})
+    # SEVEN STOREYS, which is what the real one is and what stops this reading as the same
+    # low bar-plus-drum as the transit centre once both lost their overhead (squint gate,
+    # 8/2). Height is the cheapest silhouette there is.
+    s.box((-1.5, -2.0, 0), (10.5, 5.0, 13.2), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 8, 8, 5),
+          'py': _win(BLD, 4, 8, 11), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    s.box((-1.5, -2.0, 13.2), (10.5, 5.0, 0.4), {'c': CHROOF})
     for i in range(4):                                                   # the roof plant line
-        s.box((-0.6 + i * 2.6, -1.2, 10.0), (1.6, 1.6, 0.7), {'c': _dark(BLD, 0.72)['c']})
+        s.box((-0.6 + i * 2.6, -1.2, 13.6), (1.6, 1.6, 0.7), {'c': _dark(BLD, 0.72)['c']})
 
     # THE CURVILINEAR COUNCIL CHAMBER, merged into it (they meet in the lobby).
     s.prism(4.0, 4.2, 0, 3.1, 5.6, 18, {'c': BLD}, {'c': CHROOF})
     s.prism(4.0, 4.2, 5.6, 1.1, 0.6, 18, {'c': GLASS})
 
     # THE ENTRY CANOPY on ONE column. The whole point of it: no other supports.
-    s.box((8.2 - 0.28, 9.3 - 0.28, 0), (0.56, 0.56, 6.2), {'c': CMAST})
     # A CANOPY PROJECTS OFF A BUILDING, IT DOES NOT TUNNEL THROUGH ONE. This started at
     # y=6.6 and ran straight through the council chamber (y 1.1..7.3), which at icon size
     # reads as a slab slicing the building in half -- glitchy, exactly as he said.
-    # AN ENTRANCE BLADE, NOT A PLANK. Paolo, 8/2: "the icon is TRYING SO HARD to have some
-    # SHADE shit like WTF." He was looking at a 12-unit featureless grey slab hanging in
-    # mid-air across the whole front of the building -- the effort was visible and it read
-    # as nothing. A canopy has to be SMALL ENOUGH to be furniture and DETAILED ENOUGH to be
-    # built: it covers the door, it has a fascia edge you can see, and it has ribs.
-    s.box((5.0, 7.6, 6.2), (6.4, 2.6, 0.22), {'top': {'c': tuple(min(255, int(c * 1.14)) for c in CANOPY)},
-          'px': _dark(CANOPY, 0.7), 'py': _dark(CANOPY, 0.7),
-          'nx': _dark(CANOPY, 0.7), 'ny': _dark(CANOPY, 0.7)})
-    for rb in range(1, 5):                                               # its ribs, so it reads BUILT
-        s.box((5.0 + rb * 1.28, 7.6, 6.06), (0.16, 2.6, 0.18), {'c': _dark(CANOPY, 0.62)['c']})
-    s.box((5.0, 7.6, 6.06), (6.4, 0.18, 0.2), {'c': _dark(CANOPY, 0.8)['c']})   # the fascia
+    # NO CANOPY (Paolo 8/2: "new rule no more canopies I only see canopies at parks and
+    # shit"). The blade and its mast are gone. A civic entrance without one is STEPS and a
+    # row of PIERS, which is what the district's own plot draws now.
+    for st in range(3):
+        s.box((4.6 - st * 0.5, 5.6 + st * 0.55, 0), (7.2 + st, 0.55, 0.5 - st * 0.14),
+              {'c': _dark(CANOPY, 0.94 + st * 0.06)['c']})
+    for pi in range(5):
+        s.box((5.0 + pi * 1.5, 4.6, 0), (0.55, 0.55, 3.4), {'c': _dark(CANOPY, 1.06)['c']})
+
     _door_face(s, (-1.5, -2.0, 0), (10.5, 5.0, 9.6), width=2.2, ztop=3.0,
                doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
 
@@ -332,13 +333,17 @@ def build_terminal(P):
     _door_face(s, (-2.0, -2.0, 0), (13.0, 4.2, 6.8), width=2.4, ztop=3.0,
                doorc=_dark(HALL, 0.4)['c'], framec=tuple(min(255, int(c * 1.18)) for c in HALL))
 
-    # THE SOLAR SHADE over the platform: the district's signature, on slim posts.
-    for (px, py) in [(-2.0, 6.1), (11.6, 6.1), (-2.0, 9.0), (11.6, 9.0)]:
-        s.box((px - 0.16, py - 0.16, 0), (0.32, 0.32, 4.2), {'c': POST})
-    for i in range(6):
-        s.box((-2.6 + i * 2.4, 5.8, 4.2), (2.2, 3.6, 0.24), {'top': {'c': PANEL},
-              'px': _dark(PANEL, 0.8), 'py': _dark(PANEL, 0.8),
-              'nx': _dark(PANEL, 0.8), 'ny': _dark(PANEL, 0.8)})
+    # NO CANOPY (Paolo 8/2: "new rule no more canopies I only see canopies at parks and
+    # shit"). The photovoltaic array used to stand over the platform on posts, which is a
+    # shade structure however the legend labelled it. It is ON THE ROOF now -- which is
+    # where a roof-mounted array belongs, keeps the building's real signature, and leaves
+    # nothing on this icon that a person walks under.
+    for r_ in range(3):
+        for c_ in range(5):
+            s.box((-1.4 + c_ * 2.3, -1.6 + r_ * 1.2, 6.8), (1.9, 0.9, 0.18),
+                  {'top': {'c': PANEL}, 'px': _dark(PANEL, 0.8), 'py': _dark(PANEL, 0.8),
+                   'nx': _dark(PANEL, 0.8), 'ny': _dark(PANEL, 0.8)})
+            s.box((-1.4 + c_ * 2.3, -1.6 + r_ * 1.2, 6.8), (0.12, 0.9, 0.12), {'c': POST})
 
     # THE SAWTOOTH BAYS, STEPPED against each other, with buses still nosed into them.
     for i, bx in enumerate((-1.6, 1.6, 4.8, 8.0, 11.2)):
@@ -621,7 +626,8 @@ def build_courthouse(P):
     composes the district's OWN palette through the shared iso primitives in
     tools/bohemia_iso3d.py. No bank applies: there is no iso hero-building sprite bank."""
     BLD, JOINT, PLAZA, GLASS = P[2], P[6], P[7], P[11]
-    CANOPY, BOLL, DOME, WALL, DRIVE = P[14], P[15], P[17], P[20], P[1]
+    BOLL, DOME, WALL, DRIVE = P[15], P[17], P[20], P[1]
+    CANOPY = BOLL                      # the canopy is gone (Paolo 8/2); piers use the bollard tone
     s = Scene()
     _ground(s, (-3, -3, 15, 15), patches=[(3.0, 3.0, 15, 12.0, PLAZA)],
             lot=(-3, 12.0, 15, 15), drive=(9.0, 10.0, 12.5, 15),
@@ -643,17 +649,17 @@ def build_courthouse(P):
     # THE PROJECTING CANOPY. It cantilevers off the top of the building: NO columns.
     # It CANTILEVERS off the building and reaches over the plaza. It must not cross the
     # rotunda in plan (y 1.1..6.9) or it reads as a slab cutting the icon in half.
-    # AN ENTRANCE CANOPY, NOT A PLANK (Paolo 8/2, same note as the city hall's). It
-    # cantilevers over the DOORS, it is thin, it has a fascia you can see and ribs under it.
-    # A slab wide enough to cross the whole icon reads as a mistake, not as shade.
-    s.box((4.4, 6.6, 7.0), (5.6, 2.4, 0.2), {'top': {'c': tuple(min(255, int(c * 1.16)) for c in CANOPY)},
-          'px': _dark(CANOPY, 0.7), 'py': _dark(CANOPY, 0.7),
-          'nx': _dark(CANOPY, 0.7), 'ny': _dark(CANOPY, 0.7)})
-    for rb in range(1, 4):
-        s.box((4.4 + rb * 1.4, 6.6, 6.88), (0.14, 2.4, 0.16), {'c': _dark(CANOPY, 0.6)['c']})
-    s.box((4.4, 6.6, 6.88), (5.6, 0.16, 0.18), {'c': _dark(CANOPY, 0.8)['c']})
-    _door(s, 6.3, 4.4, 6.4, 3.0, doorc=_dark(BLD, 0.4)['c'],
-          framec=tuple(min(255, int(c * 1.2)) for c in BLD))
+    # NO CANOPY (Paolo 8/2). The cantilever is gone; a federal entrance without one is a
+    # broad flight of STEPS and the PIERS that carry the wall above them.
+    for st in range(3):
+        s.box((3.6 - st * 0.45, 4.4 + st * 0.5, 0), (6.4 + st * 0.9, 0.5, 0.55 - st * 0.15),
+              {'c': _dark(CANOPY, 0.96 + st * 0.05)['c']})
+    for pi in range(4):
+        s.box((4.2 + pi * 1.6, 3.6, 0), (0.6, 0.6, 4.2), {'c': _dark(CANOPY, 1.08)['c']})
+
+    _door_face(s, (-2.0, 2.6, 0), (4.6, 8.0, 9.0), width=1.8, ztop=3.0,
+               doorc=_dark(BLD, 0.4)['c'],
+               framec=tuple(min(255, int(c * 1.2)) for c in BLD))
 
     # THE BOLLARD LINE: standoff distance, held, and the reason the setback is empty.
     for bx in (-2.0, 0.4, 2.8, 5.2, 7.6, 10.0, 12.4):

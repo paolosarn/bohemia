@@ -30,7 +30,7 @@
 //  3 dead tree            4 blast setback (hardpan)      5 gate / kerb cut
 //  6 precast panel joint  7 public plaza                 8 dry basin
 //  9 plaza light         10 rooftop plant               11 dome glazing
-//  12 flagpole           13 walk                        14 projecting canopy (OVERHEAD)
+//  12 flagpole           13 walk
 //  15 security bollard   16 roof edge                   17 rotunda dome
 //  18 doorway (PORTAL)   19 dead car                    20 secure yard wall (FENCE)
 //  21 stall marking (PAINT)  22 sally port (PORTAL)   23 plaza planter
@@ -43,9 +43,6 @@
     var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
     function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
     function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
-    /* an OVERHEAD only ever lands on OPEN GROUND. See the canopy note below. */
-    function overhead(x0,y0,x1,y1){ for(var yy=y0;yy<=y1;yy++) for(var xx=x0;xx<=x1;xx++){
-      var v=get(xx,yy); if(v===7||v===13||v===4||v===0) set(xx,yy,14); } }
 
     G.rect(0,0,W-1,H-1,0);
     G.rect(3,3,W-4,H-4,4);                                   // the BLAST SETBACK, hardpan not lawn
@@ -83,14 +80,13 @@
     for(x=62;x<=114;x+=6) set(x,84,15);
     for(y=66;y<=96;y+=8) G.rect(54,y,114,y,13);
 
-    /* ---- THE PROJECTING CANOPY. It hangs off the top of the building over the plaza:
-       no masts, an OVERHEAD, so it shadows a path without ever severing one.
-       MASKED to open ground on purpose: a canopy laid straight over a grid ERASES the
-       building under it, which cut the rotunda clean in half on the first cut. An overhead
-       shades what is already there; it never replaces it. ---- */
-    overhead(52,48,112,62);
-    overhead(52,62,60,94);
-    G.rect(58,44,74,48,18);                                  // the public doors under it
+    /* ---- NO CANOPY (Paolo 8/2: "new rule no more canopies I only see canopies at parks
+       and shit"). The cantilever is gone. A federal entrance without one is STEPS and a
+       SCREENING PORCH: a broad flight up out of the plaza, the piers that carry the wall
+       above them, and the doors at the head of it. Nothing overhead on this plot. ---- */
+    G.rect(54,50,96,58,13);                                  // the broad entrance steps
+    for(x=56;x<=94;x+=6) G.rect(x,52,x+2,56,15);             // the entrance piers
+    G.rect(58,44,74,50,18);                                  // the public doors at the head of them
 
     /* ---- THE BOLLARD LINE. The whole reason for the setback: standoff distance, held. ---- */
     for(x=14;x<=118;x+=4) set(x,106,15);
@@ -145,7 +141,7 @@
      in this valley has been watered in a very long time. */
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#9c9179',3:'#514f40',4:'#6b6250',5:'#c79a3f',
     6:'#8a8069',7:'#8b8478',8:'#5a6660',9:'#b0863a',10:'#6e6a60',11:'#93a2a8',12:'#8a7f5e',
-    13:'#7d7a71',14:'#6d675c',15:'#5f5c54',16:'#c0b498',17:'#b6a888',18:'#241f1a',
+    13:'#7d7a71',15:'#5f5c54',16:'#c0b498',17:'#b6a888',18:'#241f1a',
     19:'#6a6e72',20:'#585349',21:'#4a4a52',22:'#3a3630',23:'#7a7263'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
@@ -162,8 +158,7 @@
     11:{name:'dome glazing',      kind:'structure',act1:'what is left of the sixty-foot glass dome over the rotunda — a cable truss and mostly sky'},
     12:{name:'flagpole',          kind:'prop',     act1:'a flagpole in the row facing the plaza, halyard slapping, nothing left on it'},
     13:{name:'walk',              kind:'walk',     act1:'the concrete walks across the setback, cracked corner to corner'},
-    14:{name:'projecting canopy', kind:'overhead', act1:'the steel and aluminium canopy that hangs off the top of the building and shadows the plaza — no columns hold it up, and you walk UNDER it'},
-    15:{name:'security bollard',  kind:'structure',act1:'a steel bollard in the standoff line, still dead upright. Nothing short of a truck moves one, and nothing has'},
+    15:{name:'security bollard / entrance pier', kind:'structure',act1:'a steel bollard in the standoff line, still dead upright. Nothing short of a truck moves one, and nothing has'},
     16:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping missing in runs'},
     17:{name:'rotunda dome',      kind:'structure',act1:'the ring of the rotunda dome, the crown of the public lobby, its glazing gone'},
     18:{name:'doorway',           kind:'portal',   act1:'a way in — the public doors under the canopy, the staff entrance on the north leg'},

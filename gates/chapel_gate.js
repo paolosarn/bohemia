@@ -29,7 +29,7 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   if (!(t[2] > 1300 && (t[22] || 0) > 150 && (t[16] || 0) > 300 && (t[11] || 0) > 20 &&
         (t[6] || 0) > 60 && (t[12] || 0) > 800 && (t[4] || 0) > 1500 && (t[13] || 0) > 200 &&
         (t[17] || 0) > 30 && (t[23] || 0) > 400 && (t[7] || 0) > 800 && (t[8] || 0) > 30 &&
-        (t[10] || 0) >= 6 && (t[21] || 0) > 6 && (t[9] || 0) >= 4 && (t[15] || 0) > 50 &&
+        (t[10] || 0) >= 6 && (t[21] || 0) > 6 && (t[9] || 0) >= 4 && (t[15] || 0) > 20 &&
         (t[1] || 0) > 400 && (t[20] || 0) > 120 && (t[19] || 0) > 10 &&
         (t[14] || 0) > 1000)) anatomy = false;
   /* ONE BUILDING (8/2): the tower shares a wall with the narthex, the parish hall with the
@@ -66,8 +66,10 @@ ok('NOTHING IS GREEN. The "memorial garden" and "dead landscaping" here were law
    'fifth of the plot; a Mojave churchyard is decomposed granite and a niche wall', noGreen);
 ok('NO MONOBLOCK: no single code owns 30% of the plot. "Sidewalk" used to own 33.9% of it, and ' +
    'renaming that to "gravel" would have been the same bug wearing a different name', !monoblock);
-ok('THE COVERED WALK IS OVERHEAD — you pass UNDER it, so it never severs the route from the ' +
-   'lot to the doors (RULE NUMBER ONE, 7/31)', K.tileLayer(D.legend[15]).layer === 'overhead');
+ok('NOTHING ON THIS PLOT IS OVERHEAD (Paolo 8/2: "no more canopies I only see canopies at ' +
+   'parks and shit"). The covered walk is gone; what a churchyard has instead is a low WALL ' +
+   'either side of the path and the trees that were meant to shade it, dead in their grates',
+   Object.keys(D.legend).every(c => K.tileLayer(D.legend[c]).layer !== 'overhead'));
 ok('WALKABLE-LAND: content dominates (a church IS its building)', contentDom);
 ok('every tile named + low void', filled); ok('DRIVABLE: the small lot reaches the curb', drive);
 ok('gates on street edges', streetOk); ok('CORNER: pedestrian gate on the side street', cornerPed);

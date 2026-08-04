@@ -67,7 +67,15 @@ five is not done.
 
 Each line is a ruling he made, in his words, with the machine that holds it.
 
-- **8/2 — A CANOPY IS FURNITURE, NOT A PLANK.** "The icon is TRYING SO HARD to have some
+- **8/2 — NO CANOPIES. A CANOPY IS A PARK THING.** "New rule no more canopies I only see
+  canopies at parks and shit. What's wrong with you?" HE TOLD ME TWICE. The first time
+  ("trying so hard to have some shade shit") I made them SMALLER — which is the STOP
+  PRODUCING failure by name: finding a legal way to ship the rejected thing. A ruling is not
+  a design conversation. All four districts and all four icons lost theirs; where one stood
+  the building gets STEPS and PIERS instead. A SPAN (skybridge, overpass deck, gantry, jet
+  bridge) is not a canopy and stays. `gates/no_canopies_gate.py`
+- **8/2 — A CANOPY IS FURNITURE, NOT A PLANK.** *(superseded the same day by the rule above
+  — kept because the mistake matters more than the note: I answered a ruling with a tweak.)* "The icon is TRYING SO HARD to have some
   SHADE shit like WTF" — said twice, about the only two icons carrying a big featureless
   slab hanging in mid-air across the whole front. THE EFFORT WAS VISIBLE AND IT READ AS
   NOTHING. A canopy has to be SMALL ENOUGH to be furniture (it covers the door, not the

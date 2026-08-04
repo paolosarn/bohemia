@@ -24,10 +24,10 @@
 // LEGEND:
 //  0 desert dead-ground   1 drive / lot / deck (DRIVABLE)   2 city hall (the ONE building)
 //  3 dead tree            4 forecourt hardpan               5 gate / kerb cut
-//  6 solar panel (OVERHEAD)  7 civic plaza                  8 dry fountain basin
+//  6 solar panel           7 civic plaza                  8 dry fountain basin
 //  9 plaza light         10 solar tree mast                11 curtain wall glazing
-//  12 flagpole           13 walk / podium                  14 entry canopy (OVERHEAD)
-//  15 canopy mast        16 roof edge                      17 council chamber roof
+//  12 flagpole           13 walk / podium                  15 entry pier
+//  16 roof edge          17 council chamber roof
 //  18 doorway (PORTAL)   19 dead car                       20 deck column
 //  21 stall marking (PAINT)  22 deck edge   23 roof joint   24 deck floor   25 rooftop plant
 (function(root){
@@ -74,23 +74,29 @@
     G.rect(8,76,120,110,7);
     G.disc(20,82,6,8); G.disc(20,82,3,7);                      // the dry reflecting basin
     G.disc(104,94,7,8); G.disc(104,94,3,7);                  // its twin on the east
-    set(46,74,12); set(82,74,12);                            // flagpoles either side of the doors
+    set(44,66,12); set(84,66,12); set(64,62,12);             // the flag row above the steps
 
-    /* ---- THE ENTRY CANOPY on its SINGLE mast. Drawn AFTER the plaza and MASKED to open
-       ground: laid straight over the grid an overhead ERASES what is under it, and then the
-       plaza laid over the top erases the canopy in turn. A canopy shades a thing; it never
-       replaces it, and it is never drawn before the ground it shades. ---- */
-    for(y=70;y<=84;y++) for(x=26;x<=104;x++){ var ov=get(x,y); if(ov===7||ov===13||ov===4) set(x,y,14); }
-    G.rect(62,78,68,84,15);                                  // the 160-foot column, the only support
-    G.rect(56,68,72,72,18);                                  // the main doors under it
+    /* ---- NO CANOPY (Paolo 8/2: "new rule no more canopies I only see canopies at parks
+       and shit"). What stood here was a shade plane on a single mast. It is gone, and what
+       replaces it is what a civic entrance actually has when it is not hiding under
+       something: a WIDE FLIGHT OF STEPS up onto the podium, a row of ENTRY PIERS marking
+       the doors, and the doors themselves. Nothing overhead anywhere on this plot. ---- */
+    G.rect(40,68,88,76,13);                                  // the entrance steps off the plaza
+    for(x=42;x<=86;x+=6) G.rect(x,70,x+2,74,15);             // the entry piers
+    G.rect(56,64,72,70,18);                                  // the main doors, straight onto the steps
 
-    for(x=14;x<=114;x+=14) set(x,111,9);                     // the plaza light line, clear of the trees
+    for(x=66;x<=118;x+=10) set(x,108,9);                     // the plaza light line, east of the array bed
 
-    /* ---- THE SOLAR TREE FARM: 33 masts, each under its panel. The thing you recognise. ---- */
+    /* ---- THE SOLAR ARRAY: 33 masts, each carrying its panel. Still the thing this
+       building is recognised by, and still exactly 33 -- but it stands in its OWN BED at
+       the edge of the plot instead of hanging over the plaza people walk across.
+       Paolo 8/2: "new rule no more canopies I only see canopies at parks and shit."
+       A solar tree you stand under is a canopy whatever the legend calls it, so the array
+       is EQUIPMENT now: panels on masts in a gravel bed, nothing overhead anywhere. ---- */
+    G.rect(6,84,62,112,4);                                   // the array bed, decomposed granite
     var trees=0;
-    for(y=88;y<=106&&trees<SOLAR_TREES;y+=9) for(x=14;x<=102&&trees<SOLAR_TREES;x+=8){
-      if(get(x,y)!==7) continue;
-      G.rect(x-2,y-2,x+2,y+2,6); set(x,y,10); trees++;
+    for(y=88;y<=108&&trees<SOLAR_TREES;y+=6) for(x=10;x<=58&&trees<SOLAR_TREES;x+=6){
+      G.rect(x,y,x+3,y+3,6); set(x+1,y+4,10); trees++;
     }
 
     /* ---- THE PARKING DECK, attached, east. Columns on a grid under a roof edge, and the
@@ -138,7 +144,7 @@
      stopped watering things a long time before act one opens. */
   var PALETTE={0:'#1c1a15',1:'#33333c',2:'#7d7566',3:'#514f40',4:'#6b6250',5:'#c79a3f',
     6:'#3f4a55',7:'#8b8478',8:'#5a6660',9:'#b0863a',10:'#6e6a60',11:'#8fa2ad',12:'#8a7f5e',
-    13:'#7d7a71',14:'#9a9184',15:'#a89c86',16:'#b3a78d',17:'#a3947a',18:'#241f1a',
+    13:'#7d7a71',15:'#a89c86',16:'#b3a78d',17:'#a3947a',18:'#241f1a',
     19:'#6a6e72',20:'#77726a',21:'#4a4a52',22:'#8b8272',23:'#635c4f',24:'#4c4a48',25:'#6e6a60'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
@@ -147,7 +153,7 @@
     3:{name:'dead tree',          kind:'tree-dead',act1:'a dead civic tree gone to stick, its grate prised up for the metal', solid:false},
     4:{name:'forecourt hardpan',  kind:'ground',   act1:'decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the lot, amber paint gone chalky'},
-    6:{name:'solar panel',        kind:'overhead', act1:'a photovoltaic panel on its tree — the glass milky, half the array stripped for the copper in the leads. You walk and drive UNDER it'},
+    6:{name:'solar panel',        kind:'structure',act1:'a photovoltaic panel on its tree, tilted to the south — the glass milky, half the array stripped for the copper in the leads. Equipment in its own bed, not something you shelter under', solid:true},
     7:{name:'civic plaza',        kind:'ground',   act1:'the public plaza under the solar trees, big pavers heaved by roots, the meeting-day chalk long gone'},
     8:{name:'dry fountain basin', kind:'water-dead',act1:'a reflecting basin bone dry, the old waterline stained around it like a tidemark'},
     9:{name:'plaza light',        kind:'structure',act1:'a plaza light on its concrete stem, head dark, the glass long gone'},
@@ -155,8 +161,7 @@
     11:{name:'curtain wall glazing',kind:'structure',act1:'the glass curtain wall — the panels that are left are sun-hazed, the rest is board and sky'},
     12:{name:'flagpole',          kind:'prop',     act1:'a flagpole beside the doors, halyard slapping in the wind, nothing left on it'},
     13:{name:'walk / podium',     kind:'walk',     act1:'the raised concrete podium the building stands on and the walks across it, cracked corner to corner'},
-    14:{name:'entry canopy',      kind:'overhead', act1:'the great canopy over the main entrance, one edge folded down where a panel let go. You walk UNDER it'},
-    15:{name:'canopy mast',       kind:'structure',act1:'the single column that holds the whole canopy up, a hundred and sixty feet of it, still dead plumb'},
+    15:{name:'entry pier',        kind:'structure',act1:'one of the squat piers marking the main entrance, concrete, a corner knocked off the sunward one'},
     16:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping missing in runs'},
     17:{name:'council chamber roof',kind:'structure',act1:'the round roof over the council chamber, its ring of clerestory glazing gone'},
     18:{name:'doorway',           kind:'portal',   act1:'a way in — the main doors under the canopy, the deck stair, the loading door on the north wing'},

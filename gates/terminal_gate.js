@@ -31,7 +31,7 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
      bike racks (12); the apron (1) with its lane lines (22); the park-and-ride ticks (17) and
      the cars nobody came back for (18); the kerb loading marks (19); the hardpan (4). */
   if (!(t[2] > 1500 && (t[11] || 0) > 200 && (t[21] || 0) > 200 && (t[14] || 0) > 100 &&
-        (t[8] || 0) > 100 && (t[13] || 0) > 300 && (t[6] || 0) > 800 && (t[9] || 0) > 60 &&
+        (t[8] || 0) > 100 && (t[13] || 0) > 900 && (t[6] || 0) > 150 &&
         (t[20] || 0) > 900 && (t[10] || 0) >= 16 && (t[15] || 0) > 300 && (t[12] || 0) >= 40 &&
         (t[1] || 0) > 3000 && (t[22] || 0) > 60 && (t[17] || 0) > 250 &&   /* ticks, minus whatever the dead cars are parked on top of */ (t[18] || 0) > 20 &&
         (t[19] || 0) > 100 && (t[4] || 0) > 500)) anatomy = false;
@@ -71,10 +71,13 @@ ok('NOTHING IS GREEN: no ground swatch reads as living plant. The old 26% lawn h
 ok('THE CLOCK TOWER IS DEAD: no legend entry names a clock, because a schedule-board clock ' +
    'tower is an intercity coach station and this is a transit centre',
    !Object.keys(D.legend).some(c => /clock/i.test(D.legend[c].name)));
-ok('THE SOLAR SHADE IS OVERHEAD and every painted thing is MARKING — so nothing hanging and ' +
-   'nothing painted ever severs a bus route (RULE NUMBER ONE, 7/31)',
-   K.tileLayer(D.legend[6]).layer === 'overhead' && D.legend[20].kind === 'marking' &&
-   D.legend[17].kind === 'marking' && D.legend[19].kind === 'marking' && D.legend[22].kind === 'marking');
+ok('NOTHING ON THIS PLOT IS OVERHEAD (Paolo 8/2: "no more canopies"). The photovoltaics moved ' +
+   'ONTO THE HEAD HOUSE ROOF, which keeps the building\'s real signature and leaves nothing ' +
+   'for a person to stand under. Every painted thing is still MARKING, so nothing painted ' +
+   'severs a bus route either (RULE NUMBER ONE, 7/31)',
+   Object.keys(D.legend).every(c => K.tileLayer(D.legend[c]).layer !== 'overhead') &&
+   D.legend[20].kind === 'marking' && D.legend[17].kind === 'marking' &&
+   D.legend[19].kind === 'marking' && D.legend[22].kind === 'marking');
 ok('VEHICULAR VENUE declared: at a transit centre the vehicle surface IS the venue, so the ' +
    'WALKABLE-LAND pavement cap is lifted — and the exemption is not a licence for a bare apron',
    K.get('terminal').vehicular === true);
@@ -91,7 +94,9 @@ const N = D.notes, L = D.legend;
 ok('NOTES complete (summary/reference/layout/circulation/layering/decisions)', !!(N && N.summary && N.reference.length && N.layout.length && N.circulation && N.layering && N.decisions.length));
 let legOk = true; for (const c of Object.keys(L)) if (!L[c].name || !L[c].kind) legOk = false;
 ok('LEGEND: every code named + kinded', legOk);
-ok('terminal(2) enterable, drive(1) drive, canopy(6) overhead (pass under), bus(10) solid vehicle, clock(12) structure', /interior/i.test(L[2].enter || '') && L[1].kind === 'drive' && L[6].kind === 'overhead' && K.tileLayer(L[10]).solid === true && L[12].kind === 'structure');
+ok('terminal(2) enterable, drive(1) drive, rooftop array(6) structure, bus(15) a vehicle',
+   /interior/i.test(D.legend[2].enter || '') && D.legend[1].kind === 'drive' &&
+   D.legend[6].kind === 'structure' && D.legend[15].kind === 'vehicle');
 ok('distinct from railyard: PASSENGER vocabulary (platform/bay/terminal), not freight', /platform/i.test(JSON.stringify(L)) && /terminal/i.test(JSON.stringify(L)));
 ok('deterministic per seed', JSON.stringify(D.generate(70, { streets: ['S'] }).g) === JSON.stringify(D.generate(70, { streets: ['S'] }).g));
 console.log('TERMINAL GATE: ' + pass + ' passed, ' + fail + ' failed  (' + CONFIGS.length + ' configs)');

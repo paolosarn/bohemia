@@ -29,8 +29,7 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
      flagpoles (12), the plaza lights (9); the podium (13); and the parking deck — its
      floor (24), its columns (20) and its spandrel rail (22) — beside the surface lot (1). */
   if (!(t[2] > 1800 && (t[11] || 0) > 400 && (t[17] || 0) > 150 && (t[23] || 0) > 200 &&
-        (t[25] || 0) > 100 && (t[7] || 0) > 1500 && (t[6] || 0) > 600 && (t[14] || 0) > 400 &&
-        (t[15] || 0) > 20 && (t[8] || 0) > 60 && (t[12] || 0) >= 2 && (t[9] || 0) >= 4 &&
+        (t[25] || 0) > 100 && (t[7] || 0) > 1200 && (t[6] || 0) > 400 && (t[15] || 0) > 100 && (t[8] || 0) > 60 && (t[12] || 0) >= 2 && (t[9] || 0) >= 4 &&
         (t[13] || 0) > 1000 && (t[24] || 0) > 300 && (t[20] || 0) > 20 && (t[22] || 0) > 20 &&
         (t[1] || 0) > 800 && (t[21] || 0) > 100 && (t[19] || 0) > 20)) anatomy = false;
   /* EXACTLY 33 SOLAR TREES, in every placement and at every seed. */
@@ -55,7 +54,7 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
   if (cfg.length > 1) { for (const e of cfg) if (!gE.has(e)) cornerPed = false; }
 }
 ok('THE PROGRAMME: the merged block + council chamber under its own roof, the plaza with its ' +
-   'dry basins and flag row, the entry canopy on ONE mast, the parking deck with columns and ' +
+   'dry basins and flag row, the ENTRANCE STEPS and their piers, the parking deck with columns and ' +
    'rail, the surface lot with ticks and the cars nobody came back for', anatomy);
 ok('EXACTLY 33 SOLAR TREES — Elkus Manfredi\'s own count, in every placement and at every seed. ' +
    'This is the thing the building is recognised by from the air', trees33);
@@ -83,9 +82,11 @@ ok('building(2) enterable, lot(1) and deck floor(24) drive, basin(8) water-dead,
    'MARKING so a car drives over them',
    /interior/i.test(L[2].enter || '') && L[1].kind === 'drive' && L[24].kind === 'drive' &&
    L[8].kind === 'water-dead' && L[21].kind === 'marking');
-ok('THE SOLAR PANELS AND THE ENTRY CANOPY ARE OVERHEAD — you walk and drive UNDER them, so ' +
-   'neither ever severs a route (RULE NUMBER ONE, 7/31)',
-   K.tileLayer(L[6]).layer === 'overhead' && K.tileLayer(L[14]).layer === 'overhead');
+ok('NOTHING ON THIS PLOT IS OVERHEAD (Paolo 8/2: "no more canopies I only see canopies at ' +
+   'parks and shit"). The entry canopy is gone and the solar array stands in its own bed as ' +
+   'EQUIPMENT rather than shade — a solar tree you walk under is a canopy whatever the ' +
+   'legend calls it',
+   Object.keys(L).every(c => K.tileLayer(L[c]).layer !== 'overhead'));
 ok('deliberately distinct from the COURTHOUSE (which owns the sally port, the rotunda dome ' +
    'and the blast setback): none of those words appears in this legend',
    !Object.keys(L).some(c => /sally|portico|dome|blast|bollard/i.test(L[c].name)));

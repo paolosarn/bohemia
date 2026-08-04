@@ -30,7 +30,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [railyard](tilespec/BOHEMIA_TILESPEC_railyard.md) | industrial | 14 | yes |
 | [substation](tilespec/BOHEMIA_TILESPEC_substation.md) | infrastructure | 14 | yes |
 | [chapel](tilespec/BOHEMIA_TILESPEC_chapel.md) | civic | 24 | yes |
-| [courthouse](tilespec/BOHEMIA_TILESPEC_courthouse.md) | civic | 24 | yes |
+| [courthouse](tilespec/BOHEMIA_TILESPEC_courthouse.md) | civic | 23 | yes |
 | [jail](tilespec/BOHEMIA_TILESPEC_jail.md) | civic | 14 | yes |
 | [farm](tilespec/BOHEMIA_TILESPEC_farm.md) | infrastructure | 15 | yes |
 | [downtown](tilespec/BOHEMIA_TILESPEC_downtown.md) | commercial | 21 | yes |
@@ -39,7 +39,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [warehouse](tilespec/BOHEMIA_TILESPEC_warehouse.md) | industrial | 15 | yes |
 | [waterpark](tilespec/BOHEMIA_TILESPEC_waterpark.md) | leisure | 16 | yes |
 | [mall](tilespec/BOHEMIA_TILESPEC_mall.md) | commercial | 20 | yes |
-| [cityhall](tilespec/BOHEMIA_TILESPEC_cityhall.md) | civic | 26 | yes |
+| [cityhall](tilespec/BOHEMIA_TILESPEC_cityhall.md) | civic | 25 | yes |
 | [battery](tilespec/BOHEMIA_TILESPEC_battery.md) | infrastructure | 14 | yes |
 | [terminal](tilespec/BOHEMIA_TILESPEC_terminal.md) | infrastructure | 23 | yes |
 | [arterial](tilespec/BOHEMIA_TILESPEC_arterial.md) | infrastructure | 18 | yes |

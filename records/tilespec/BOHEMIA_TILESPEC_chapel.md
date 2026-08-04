@@ -34,7 +34,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the churchyard edge (setback) | ground | no | — | 1467 |
 | 1 | `#33333c` | drive / lot | drive | the small church parking + drop-off drive (car-drivable) | ground | no | — | 785 |
 | 2 | `#7a7060` | building (church) | building | the cruciform church — stone walls, roof steep, doors chained | structure | yes | church interior: the narthex, the long nave of pews to the altar at the apse, the transept chapels off the crossing | 1443 |
-| 3 | `#514f40` | dead tree | tree-dead | a dead churchyard tree gone to stick, its grate prised up for the metal | prop | no | — | 96 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead churchyard tree gone to stick, its grate prised up for the metal | prop | no | — | 99 |
 | 4 | `#6b6250` | memorial court | ground | the walled memorial court — decomposed granite raked once, now hardpan split by weeds. Not a lawn: in this ground you do not dig graves, you build a wall and fill it | ground | no | — | 2582 |
 | 5 | `#c79a3f` | gate | gate | the churchyard entrance off the street, amber curb | portal | no | — | 11 |
 | 6 | `#6f665a` | bell tower | structure | the bell tower flanking the entrance, tall, the bell silent, a cross finial atop | structure | yes | — | 88 |
@@ -45,8 +45,8 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 11 | `#4a6a72` | stained glass | structure | a stained-glass window (nave/transept/rose), shattered, lead buckled | structure | yes | — | 62 |
 | 12 | `#7d7a71` | churchyard walk | walk | the concrete walk that rings the church, cracked corner to corner and lifted where the roots got under it | ground | no | — | 1320 |
 | 13 | `#8a8272` | columbarium wall | fence | the niche wall round the memorial court — rows of small sealed compartments, a third of them prised open | structure | yes | — | 393 |
-| 14 | `#5f5a4c` | gravel margin | ground | the gravel margin at the property line, sun-bleached rock over failed weed cloth | ground | no | — | 3524 |
-| 15 | `#9a9184` | covered walk | overhead | the covered walk from the lot to the doors, half its roof sheets peeled back. You pass UNDER it | overhead | no | — | 104 |
+| 14 | `#5f5a4c` | gravel margin | ground | the gravel margin at the property line, sun-bleached rock over failed weed cloth | ground | no | — | 3594 |
+| 15 | `#9a9184` | path wall | fence | the low wall running either side of the path from the lot to the doors, coping cracked and one run shoved out of line | structure | yes | — | 31 |
 | 16 | `#b3a78d` | roof edge | structure | the parapet and eave line where a roof meets its wall, tiles gone in runs | structure | yes | — | 1612 |
 | 17 | `#a08f6e` | niche plaque | structure | a name plaque on a columbarium niche, the letters still cut deep enough to read | structure | yes | — | 36 |
 | 18 | `#241f1a` | doorway | portal | a way in — the narthex doors, the transept door, the gate into a memorial court | portal | no | — | 3 |

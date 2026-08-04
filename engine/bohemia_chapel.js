@@ -23,7 +23,7 @@
 //  6 bell tower           7 forecourt plaza          8 arcade columns
 //  9 pole light          10 cross / fallen bell     11 stained glass
 //  12 churchyard walk    13 columbarium wall        14 gravel margin
-//  15 covered walk (OVERHEAD)  16 roof edge         17 niche plaque
+//  15 path wall            16 roof edge         17 niche plaque
 //  18 doorway (PORTAL)   19 dead car                20 stall marking (PAINT)
 //  21 dry font           22 roof ridge              23 orchard bed
 (function(root){
@@ -107,8 +107,11 @@
     G.disc(84,108,4,21); G.disc(84,108,2,7);                             // the dry font
     for(x=34;x<=94;x+=15) set(x,114,9);
 
-    /* the COVERED WALK from the lot to the narthex: an overhead, so you pass UNDER it */
-    for(y=98;y<=114;y++) for(x=100;x<=106;x++){ var cv=get(x,y); if(cv===7||cv===12||cv===14) set(x,y,15); }
+    /* NO CANOPY (Paolo 8/2). The covered walk from the lot to the doors is gone; what a
+       churchyard actually has instead is a low WALL along the path and the trees that were
+       meant to shade it, dead in their grates. Nothing overhead on this plot. */
+    for(y=98;y<=114;y++){ set(100,y,15); set(106,y,15); }
+    for(y=100;y<=112;y+=4) set(103,y,3);
 
     /* ---- THE LOT ---- */
     G.rect(6,118,122,124,1);
@@ -157,7 +160,7 @@
     12:{name:'churchyard walk',   kind:'walk',       act1:'the concrete walk that rings the church, cracked corner to corner and lifted where the roots got under it'},
     13:{name:'columbarium wall',  kind:'fence',      act1:'the niche wall round the memorial court — rows of small sealed compartments, a third of them prised open', solid:true},
     14:{name:'gravel margin',     kind:'ground',     act1:'the gravel margin at the property line, sun-bleached rock over failed weed cloth'},
-    15:{name:'covered walk',      kind:'overhead',   act1:'the covered walk from the lot to the doors, half its roof sheets peeled back. You pass UNDER it'},
+    15:{name:'path wall',         kind:'fence',      act1:'the low wall running either side of the path from the lot to the doors, coping cracked and one run shoved out of line', solid:true},
     16:{name:'roof edge',         kind:'structure',  act1:'the parapet and eave line where a roof meets its wall, tiles gone in runs'},
     17:{name:'niche plaque',      kind:'structure',  act1:'a name plaque on a columbarium niche, the letters still cut deep enough to read'},
     18:{name:'doorway',           kind:'portal',     act1:'a way in — the narthex doors, the transept door, the gate into a memorial court'},

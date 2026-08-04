@@ -29,7 +29,7 @@ for (const cfg of CONFIGS) for (let s = 1; s <= 3; s++) {
      the walls (20) and SALLY PORT (22) of the secure yard; and both lots (1) with their
      ticks (21) and the cars nobody came back for (19). */
   if (!(t[2] > 1500 && (t[6] || 0) > 400 && (t[16] || 0) > 150 && (t[10] || 0) > 60 &&
-        (t[17] || 0) > 150 && (t[11] || 0) > 100 && (t[14] || 0) > 800 && (t[7] || 0) > 1200 &&
+        (t[17] || 0) > 150 && (t[11] || 0) > 100 && (t[7] || 0) > 1200 &&
         (t[23] || 0) > 100 && (t[8] || 0) > 60 && (t[12] || 0) >= 3 && (t[9] || 0) >= 4 &&
         (t[4] || 0) > 1200 && (t[15] || 0) > 30 && (t[20] || 0) > 100 && (t[22] || 0) > 20 &&
         (t[1] || 0) > 800 && (t[21] || 0) > 200 && (t[19] || 0) > 20)) anatomy = false;
@@ -60,9 +60,10 @@ ok('NOTHING IS GREEN: no ground swatch reads as living plant (Paolo: "are you pu
 ok('THE COLONNADE IS DEAD and cannot come back: no legend entry names a portico, a column or ' +
    'a step, because that is a county courthouse in Ohio and this is a blast-rated federal L',
    !Object.keys(D.legend).some(c => /portico|colonnade|column(?!.*deck)|grand step/i.test(D.legend[c].name)));
-ok('THE PROJECTING CANOPY IS OVERHEAD — it cantilevers off the top of the building, so you walk ' +
-   'UNDER it and it never severs a route (RULE NUMBER ONE, 7/31)',
-   K.tileLayer(D.legend[14]).layer === 'overhead');
+ok('NOTHING ON THIS PLOT IS OVERHEAD (Paolo 8/2: "no more canopies I only see canopies at ' +
+   'parks and shit"). The cantilever is gone; a federal entrance without one is STEPS and ' +
+   'the PIERS that carry the wall above them',
+   Object.keys(D.legend).every(c => K.tileLayer(D.legend[c]).layer !== 'overhead'));
 ok('THE SALLY PORT IS A PORTAL, never a second car entrance (STREET-AWARE law): one car gate ' +
    'on the primary street, and the secure yard is reached through the site',
    K.tileLayer(D.legend[22]).layer === 'portal' &&

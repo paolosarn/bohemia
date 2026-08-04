@@ -38,27 +38,27 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb | ground | no | — | 1325 |
-| 1 | `#33333c` | apron / drive / lot | drive | the bus apron and the park-and-ride — heavy-duty concrete gone to plates, weeds up every joint (bus- and car-drivable) | ground | no | — | 4384 |
-| 2 | `#8c8577` | head house | building | the two-storey terminal, its long curved south wall glazed end to end, the waiting room dark behind it | structure | yes | terminal interior: the enclosed waiting room along the curve, the ticket and information counter, restrooms, and the operations offices on the upper floor | 1717 |
+| 1 | `#33333c` | apron / drive / lot | drive | the bus apron and the park-and-ride — heavy-duty concrete gone to plates, weeds up every joint (bus- and car-drivable) | ground | no | — | 4595 |
+| 2 | `#8c8577` | head house | building | the two-storey terminal, its long curved south wall glazed end to end, the waiting room dark behind it | structure | yes | terminal interior: the enclosed waiting room along the curve, the ticket and information counter, restrooms, and the operations offices on the upper floor | 1666 |
 | 3 | `#514f40` | dead tree | tree-dead | a dead forecourt tree gone to stick, its grate prised up for the metal | prop | no | — | 1 |
-| 4 | `#6b6250` | hardpan | ground | decomposed granite gone to hardpan at the edges of the site, split by weeds. Not a lawn: nothing is watering this | ground | no | — | 1136 |
+| 4 | `#6b6250` | hardpan | ground | decomposed granite gone to hardpan at the edges of the site, split by weeds. Not a lawn: nothing is watering this | ground | no | — | 1224 |
 | 5 | `#c79a3f` | gate / kerb cut | gate | the kerb cut off the street onto the apron, wide enough for a bus, amber paint gone chalky | portal | no | — | 13 |
-| 6 | `#3f4a55` | solar shade | overhead | the photovoltaic shade structure over the platform and the bay noses — the only reason anybody could stand here in July, the glass now milky and half of it stripped for the copper. You walk and drive UNDER it | overhead | no | — | 978 |
-| 7 | `#7f7a70` | forecourt paving | ground | the paved forecourt between the street and the head house, big scored slabs heaved at the joints | ground | no | — | 2088 |
-| 8 | `#6e6a60` | rooftop plant | structure | a mechanical unit on the head house roof, ducting collapsed, one of them stripped out entirely | structure | yes | — | 190 |
-| 9 | `#b0863a` | light | structure | an apron light on its concrete stem, head dark, the glass long gone | structure | yes | — | 205 |
+| 6 | `#3f4a55` | rooftop solar array | structure | the photovoltaic array bolted across the head house roof — the LEED Platinum signature, the glass milky now and half the strings stripped for the copper in their leads | structure | yes | — | 270 |
+| 7 | `#7f7a70` | forecourt paving | ground | the paved forecourt between the street and the head house, big scored slabs heaved at the joints | ground | no | — | 2174 |
+| 8 | `#6e6a60` | rooftop plant | structure | a mechanical unit on the head house roof, ducting collapsed, one of them stripped out entirely | structure | yes | — | 153 |
+| 9 | `#b0863a` | light | structure | an apron light on its concrete stem, head dark, the glass long gone | structure | yes | — | 7 |
 | 10 | `#5f5c54` | bay post | structure | the numbered post at the nose of a bay, the route board on it faded to a blank white rectangle | structure | yes | — | 16 |
-| 11 | `#8fa2ad` | curtain wall glazing | structure | the glazed curve of the waiting room — the panels that are left are sun-hazed, the rest is board and sky | structure | yes | — | 504 |
+| 11 | `#8fa2ad` | curtain wall glazing | structure | the glazed curve of the waiting room — the panels that are left are sun-hazed, the rest is board and sky | structure | yes | — | 476 |
 | 12 | `#5d6a6e` | bike rack | structure | a double-stacked bike rack, two bikes high, most of the hoops empty and one wheel still locked to the frame | structure | yes | — | 50 |
-| 13 | `#96907f` | boarding platform | walk | the raised boarding platform running the length of the bays, tactile edge strip worn smooth | ground | no | — | 549 |
-| 14 | `#b3a78d` | roof edge | structure | the parapet line where the head house roof meets its wall, coping missing in runs | structure | yes | — | 355 |
+| 13 | `#96907f` | boarding platform | walk | the raised boarding platform running the length of the bays, tactile edge strip worn smooth | ground | no | — | 1340 |
+| 14 | `#b3a78d` | roof edge | structure | the parapet line where the head house roof meets its wall, coping missing in runs | structure | yes | — | 246 |
 | 15 | `#5c6468` | dead bus | vehicle | a bus left where it stopped, glass gone, tyres flat and perished into the concrete | prop | yes | — | 625 |
-| 16 | `#241f1a` | doorway | portal | a way in — the platform doors, and the operations door on the north side | portal | no | — | 81 |
+| 16 | `#241f1a` | doorway | portal | a way in — the platform doors, and the operations door on the north side | portal | no | — | 78 |
 | 17 | `#4a4a52` | stall marking | marking | the painted stall ticks across the park-and-ride, chalked out to ghosts — PAINT IS NOT A WALL, a car drives straight over it | ground | no | — | 301 |
 | 18 | `#6a6e72` | dead car | vehicle | a car left in the park-and-ride, flat and sun-bleached, nobody came back for it | prop | yes | — | 88 |
 | 19 | `#8a7a48` | kerb loading mark | marking | a painted on-street loading point at the kerb — one of seven, yellow gone to bone. PAINT IS NOT A WALL | ground | no | — | 204 |
 | 20 | `#55555f` | bay marking | marking | the painted box of a sawtooth bay, angled so a bus pulls straight out without reversing. PAINT IS NOT A WALL | ground | no | — | 994 |
-| 21 | `#6f6a5e` | roof joint | structure | the joint line between two roof plates on the head house, sealant gone chalky and lifted out in runs | structure | yes | — | 469 |
+| 21 | `#6f6a5e` | roof joint | structure | the joint line between two roof plates on the head house, sealant gone chalky and lifted out in runs | structure | yes | — | 427 |
 | 22 | `#57575f` | lane line | marking | the dashed lane line down the apron, showing a coach the through route past the bays. PAINT IS NOT A WALL | ground | no | — | 111 |
 
 **Gate:** `gates/terminal_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
