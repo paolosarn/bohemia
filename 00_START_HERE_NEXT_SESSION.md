@@ -7953,3 +7953,35 @@ of skeletons and husks" — skeletons in the open, mummified husks in sealed
 places, DECAL layer for fresh kills; placement follows the desert's real
 logic). WORLD's dead-props tile forms are UNBLOCKED; PEOPLE lane's named
 cast has its first real entry.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/4 — THE VALHEIM SHAPE (laws/BOHEMIA_ADDENDUM_THE_VALHEIM_
+SHAPE_8_4_26.md, LOCKED): the world STAYS BIG (honest numbers on record: our
+valley ~85 km^2 = ~2.3x Skyrim's acreage, "10x Skyrim" carried by density —
+a Pelican Town per cell x 9,216 cells; PZ-class map). VALHEIM DISCIPLINE:
+not meant to explore every nook, ~20% per run is the shape, everything still
+meets the look bar, seed+quest variety is the comeback engine. ACT REPAIR
+CAPS, the first hard city-builder numbers: A1 ~15% no deathly grind, A2
+33-40% not boring, A3 80-100% optional (tail boredom accepted). COMEBACK
+CANON recorded (Valheim top, FNV, Skyrim, Civ5, Stellaris, Starfield-kinda,
+SoD2, Subnautica, Surviving Mars-kinda) = the lab's menu source. MARCO
+CORRECTED AGAIN, his words: "first Neighbor of the custom faction" — THE
+CUSTOM FACTION is real (player's own faction reading; details in flight in
+his lab conversation, not yet canon); 7/31 garble flag lifted. PEOPLE
+dossiers add THE CUSTOM FACTION [PENDING his lab ideas].
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/4 — THE VALHEIM SHAPE (laws/BOHEMIA_ADDENDUM_THE_VALHEIM_
+SHAPE_8_4_26.md, LOCKED): the world STAYS BIG (honest numbers on record: our
+valley ~85 km^2 = ~2.3x Skyrim's acreage, "10x Skyrim" carried by density —
+a Pelican Town per cell x 9,216 cells; PZ-class map). VALHEIM DISCIPLINE:
+not meant to explore every nook, ~20% per run is the shape, everything still
+meets the look bar, seed+quest variety is the comeback engine. ACT REPAIR
+CAPS, the first hard city-builder numbers: A1 ~15% no deathly grind, A2
+33-40% not boring, A3 80-100% optional (tail boredom accepted). COMEBACK
+CANON recorded (Valheim top, FNV, Skyrim, Civ5, Stellaris, Starfield-kinda,
+SoD2, Subnautica, Surviving Mars-kinda) = the lab's menu source. MARCO
+CORRECTED AGAIN, his words: "first Neighbor of the custom faction" — THE
+CUSTOM FACTION is real (player's own faction reading; details in flight in
+his lab conversation, not yet canon); 7/31 garble flag lifted. PEOPLE
+dossiers add THE CUSTOM FACTION [PENDING his lab ideas].
