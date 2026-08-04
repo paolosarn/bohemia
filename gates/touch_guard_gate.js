@@ -65,10 +65,14 @@ const READ = sel => {
      checked. That is the same shape as the fifty checks CITY TAB was stepping
      over (records/BOHEMIA_THE_GATES_COULD_NOT_SEE_THE_CITY_8_4_26.md): a gate
      that skips is worse than a gate that fails, because it reports GREEN.
-     The city is asked for by name now (gates/bohemia_city_src.js, the one place
+     The city is asked for by name now (gates/bohemia_city_app.js, the one place
      that knows where the world lives) and a MISSING payload is a FAILURE, never
-     a skip. */
-  const cityTxt = require('./bohemia_city_src.js')(src, { optional: true });
+     a skip.
+     TWO SESSIONS BUILT THAT RESOLVER THE SAME DAY. The WORLD lane's landed on
+     main first, so it is the one; a second resolver for the same fact would be
+     the very thing both of them exist to stop. */
+  const _app = require('./bohemia_city_app.js').read();
+  const cityTxt = _app ? _app.src : null;
   ok('CITY FRAME SOURCE: the walked world is findable at all (it left the alpha on 8/4; a gate that cannot find it must FAIL, never skip)',
     !!cityTxt && cityTxt.length > 100000);
   if (cityTxt) ok('CITY FRAME SOURCE: its universal reset declares -webkit-touch-callout:none', universal(cityTxt));

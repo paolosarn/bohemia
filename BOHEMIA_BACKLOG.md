@@ -3831,46 +3831,26 @@ P-O. [SHIPPED 8/4, AND IT CLOSES P-F BELOW - records/BOHEMIA_NOBODY_STANDS_IN_
    engine work, nothing to judge. He may FEEL it: neighbours no longer freeze
    solid when he stands in a doorway.
 
-P-M. [FIXED 8/4 - NOT THIS LANE, FLEET-CRITICAL - records/BOHEMIA_THE_GATES_
-   COULD_NOT_SEE_THE_CITY_8_4_26.md]
-   *** NINETEEN GATES COULD NOT SEE THE WORLD, AND ONE OF THEM WAS HIDING FIFTY
-   CHECKS. EVERY LANE READ THIS. ***
-   The CITY lane extracted the walked world from a 35.76 MB base64 constant inside
-   the alpha (CITY_B64) out to slices/BOHEMIA_CITY_WORLD.html so the alpha opens
-   29x faster. Right call, nobody undo it. But TWENTY-ONE GATES read the city by
-   hunting that constant, each with its own hand-rolled extractor copied from the
-   last. Two were migrated with the move. NINETEEN WERE NOT.
-   WHY THAT IS WORSE THAN A RED SUITE: "green or it does not ship" is the law
-   every lane works under, and when a third of the suite is red for a reason that
-   has nothing to do with anybody's code, RED STOPS MEANING ANYTHING. The next
-   real breakage then lands in a suite nobody is reading.
-   AND IT WAS NOT ONLY NOISE. A broken extractor SKIPS EVERYTHING DOWNSTREAM:
-   *** CITY TAB went from 14 claims to 64 once it could read the world again. The
-   failed extraction was silently stepping over FIFTY CHECKS *** - the canon
-   overmap married in, the street fixes, the island prune - none running, none
-   reported missing. Same shape as the PEOPLE lane's own 8/3 bug: a gate green (or
-   red) about the wrong door tells you nothing about the right one.
-   FIX: ONE ANSWER TO "WHERE IS THE CITY" - gates/bohemia_city_src.js and its
-   Python twin. Prefers the standalone file, falls back to the old inline constant
-   so it works on old trees too. Next time the world moves (this is its second
-   home already) that is ONE EDIT instead of nineteen digs.
-   Two mechanical changes per gate: (1) the extractor becomes citySrc(alpha);
-   (2) thirteen BROWSER gates found the city frame by /srcdoc/.test(fr.url())
-   because it used to be decoded into srcdoc - it is a real page now.
-   AND ONE GATE WAS ASSERTING THE OLD WORLD: city_tab_gate claimed "CITY_B64
-   payload present in the alpha" and "boots the iso view (CITY_B64 srcdoc)". Both
-   FALSE BY DESIGN now. A GATE MUST NEVER OUTRANK A RULING - what those checks
-   protect is that the real iso city still EXISTS AND IS REACHED, not where its
-   bytes sit. Rewritten to say that.
-   RESULT: 18 of 21 repaired. CITY TAB 14 -> 64 claims.
-   *** AND GRAVEYARD IS RED FOR A TRUE REASON IT COULD NOT SEE BEFORE: ***
-   "HAIR AFRO is dead. 8/1/26 - 1 LIVE REFERENCE". Dead things staying dead is one
-   of the oldest laws here and it was quietly unenforced while the gate could not
-   read the world. CHARACTER LANE'S TO RESOLVE. Named here so it is not lost.
-   ICON, INTERIORS, WALLCLASS still red - each verified red on clean origin/main
-   before any of this, and they now fail on their own content rather than a
-   missing blob.
-   | gates: 18 repaired, CITY TAB 14 -> 64 | 8/4 | no - repair.
+P-M. [SUPERSEDED 8/4 BY THE WORLD LANE, WHO SHIPPED THE SAME FIX FIRST - and one
+   piece of it SURVIVED because their sweep could not see it]
+   Both sessions built a resolver for "where is the city" in the same hours. gates/
+   bohemia_city_app.js (WORLD lane) landed on main first, so THEIRS IS THE ONE; my
+   gates/bohemia_city_src.js is deleted and my one surviving check moved onto theirs.
+   A second resolver for the same fact is exactly what both exist to stop. The
+   incumbent wins; whose name is on it does not matter. Nothing to re-litigate.
+   *** WHAT SURVIVED, AND WHY IT IS THE INTERESTING PART ***
+   touch_guard_gate looped the three embedded frames and did
+       if (src.indexOf(key) < 0) continue;
+   The city key stopped existing, so THE BIGGEST FRAME IN THE GAME QUIETLY STOPPED
+   BEING CHECKED - no failure, no claim, a GREEN gate. Verified directly: origin/main
+   at 1ceb61c still carried that `continue` after their twenty-one-gate sweep, because
+   A SWEEP DRIVEN BY WHAT IS RED CANNOT SEE A GATE THAT GOES QUIET INSTEAD OF RED.
+   That gate exists because Paolo could not walk - holding the d-pad raised iOS's
+   copy/paste magnifier. A GATE THAT SKIPS IS WORSE THAN ONE THAT FAILS. A missing
+   payload is a FAILURE now, for all three frames.
+   STANDING LESSON FOR EVERY LANE: when you sweep a class of bug, sweep the PATTERN,
+   not the red list. The instances that went quiet are the ones still out there.
+   Record: records/BOHEMIA_THE_GATES_COULD_NOT_SEE_THE_CITY_8_4_26.md | 8/4 | no.
 
 P-N. [OPEN, NOT MINE, MECHANICAL - THE OTHER HALF OF P-M]
    SIXTY TOOLS IN tools/ ALSO REACH FOR CITY_B64 AND CRASH. The entire city patch

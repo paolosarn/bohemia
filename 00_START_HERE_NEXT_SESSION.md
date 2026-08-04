@@ -64,270 +64,30 @@ ALARM, NOT A DIAGNOSIS - the check names them now instead of counting them.
    mine to lower on their district. CITY LANE'S, and it is a one-minute job.
 
 -----------------------------------------------------------------------------------
-SAME TURN, EARLIER — *** NINETEEN GATES COULD NOT SEE THE WORLD, AND ONE OF
-THEM WAS HIDING FIFTY CHECKS. EVERY LANE READ THIS. *** (not my lane, fleet-critical)
-Record: records/BOHEMIA_THE_GATES_COULD_NOT_SEE_THE_CITY_8_4_26.md
+SAME TURN, EARLIER — THE CITY-RESOLVER WORK, AND *** THE WORLD LANE SHIPPED THE SAME
+FIX FIRST, SO THEIRS IS THE ONE. *** Record (rewritten honestly):
+records/BOHEMIA_THE_GATES_COULD_NOT_SEE_THE_CITY_8_4_26.md
 
-The CITY lane extracted the walked world from a 35.76 MB base64 constant inside the
-alpha (CITY_B64) out to slices/BOHEMIA_CITY_WORLD.html so the alpha opens 29x faster.
-RIGHT CALL, NOBODY UNDO IT. But TWENTY-ONE GATES read the city by hunting that constant,
-each with its own hand-rolled extractor copied from the last one. Two were migrated with
-the move. NINETEEN WERE NOT, and they broke at once.
+Both of us built a resolver for "where is the city" in the same hours. gates/
+bohemia_city_app.js (WORLD lane) landed on main first; I deleted mine and moved my
+one surviving check onto theirs. A SECOND RESOLVER FOR THE SAME FACT IS EXACTLY
+WHAT BOTH OF THEM EXIST TO STOP - the incumbent wins, whose name is on it does not
+matter. Nothing to argue about, noted so nobody re-litigates it.
 
-WHY THAT IS WORSE THAN A RED SUITE: "green or it does not ship" is the law every lane
-works under. When a third of the suite is red for a reason that has nothing to do with
-anybody's code, RED STOPS MEANING ANYTHING, and the next real breakage lands in a suite
-nobody is reading any more.
-
-AND IT WAS NOT ONLY NOISE. A broken extractor SKIPS EVERYTHING DOWNSTREAM:
-*** CITY TAB went from 14 claims to 64 once it could read the world again. The failed
-extraction was silently stepping over FIFTY CHECKS *** - the canon overmap married in,
-the street fixes, the island prune - none of them running, none reported missing. Same
-shape as this lane's own 8/3 bug: a gate green (or red) about the WRONG DOOR tells you
-nothing about the right one.
-
-=== THE FIX: ONE ANSWER TO "WHERE IS THE CITY" ===
-gates/bohemia_city_src.js + gates/bohemia_city_src.py. Prefers the standalone file,
-falls back to the old inline constant so it works on old trees too. Next time the world
-moves - this is already its second home - that is ONE EDIT instead of nineteen digs.
-    const frame = require('./bohemia_city_src.js')(alpha);   // js
-    from bohemia_city_src import city_src; frame = city_src() # py
-Two mechanical changes per gate: the extractor becomes citySrc(alpha), and THIRTEEN
-BROWSER GATES found the city frame by /srcdoc/.test(fr.url()) because it used to be
-decoded into srcdoc - it is a real page now, so the frame URL is a filename.
-
-AND ONE GATE WAS ASSERTING THE OLD WORLD: city_tab_gate claimed "CITY_B64 payload
-present in the alpha" and "boots the iso view (CITY_B64 srcdoc)". Both FALSE BY DESIGN
-now - it was defending an architecture that had been deliberately replaced. A GATE MUST
-NEVER OUTRANK A RULING: what those checks protect is that the real iso city STILL EXISTS
-AND IS REACHED, not where its bytes sit.
-
-AND THE WORST ONE NEVER WENT RED AT ALL. touch_guard_gate looped the three embedded
-frames and did `if (src.indexOf(key) < 0) continue;`. The city key stopped existing, so
-THE BIGGEST FRAME IN THE GAME QUIETLY STOPPED BEING CHECKED - no failure, no claim, a
-GREEN gate. That is the gate that exists because Paolo could not walk (holding the d-pad
-raised iOS's copy/paste magnifier instead of moving him). A GATE THAT SKIPS IS WORSE
-THAN A GATE THAT FAILS. A missing payload is a FAILURE now, for all three frames.
-
-=== RESULT: 19 OF 21 REPAIRED ===
-*** GRAVEYARD IS RED FOR A TRUE REASON IT COULD NOT SEE BEFORE: ***
-   "HAIR AFRO is dead. 8/1/26 - 1 LIVE REFERENCE"
-Dead things staying dead is one of the oldest laws here and it was quietly unenforced
-while the gate could not read the world. CHARACTER LANE'S TO RESOLVE - named here so it
-is not lost.
-ICON, INTERIORS, WALLCLASS still red: each verified red on clean origin/main before any
-of this, and they now fail on their own content rather than on a missing blob.
-
-=== THE OTHER HALF, OPEN AND NOT MINE: SIXTY TOOLS ===
-60 tools in tools/ also reach for CITY_B64 and CRASH. The entire city patch toolchain
-cannot re-apply anything right now. 31 share one exact shape; the rest vary. Rewriting
-another lane's whole toolchain blind - where a tool that HALF-works is worse than one
-that crashes loudly - is not a thing to do at speed on somebody else's system, so I did
-not. ONE IS MIGRATED AS THE WORKED EXAMPLE (tools/bohemia_city_zoombuild_patch.py,
-because a gate depended on it) and its header carries the recipe. Same three edits every
-time:
-  1. read CITY (slices/BOHEMIA_CITY_WORLD.html) instead of hunting CITY_B64 in ALPHA
-  2. write CITY back at the end instead of re-encoding into ALPHA
-  3. change nothing else - the patch body is untouched
-An afternoon of mechanical work for whoever owns them. Backlog: PEOPLE P-N.
-
-ART (f3eu53): 8/4 (f) LATEST -- *** THERE WAS NO LIGHT IN THIS GAME. HE WAS RIGHT AND
-THE MEASUREMENT SAID SO. ***
-
-"You know you're called the art direction chat and you're not doing a lot of art
- directing. You're kind of just like putting art in places. I can't even see it like
- what's wrong with you"
-
-=== THE ROOT CAUSE, AND IT INVALIDATES A WEEK OF METHOD ===
-I had measured TILES all week (colours, edge, grain, sat) and never once measured a
-FRAME. So I measured the play area of a real screenshot as a PICTURE:
-  VALUE RANGE   110 of 255   the brightest thing in the game is mid grey
-  COOL PIXELS   0.0%         every pixel in the frame is the same temperature
-  CAST SHADOWS  none         nothing in the world throws one
-Seven days of texture decisions were made inside a 110-value band of ONE colour, on
-objects sitting on the ground like stickers on paper. THAT is why he cannot see the
-art. Denser texture was never going to fix it, and I kept making denser texture.
-*** THE LESSON FOR EVERY LANE: a tile metric cannot see a frame problem. ***
-
-=== WHAT SHIPPED ===
-THE LOOK -- one grade over every world tile. Tone curve around the world's own median,
-then a SPLIT TONE: lit end toward the sun's colour, dark end toward the SKY's, which is
-blue. Not a style. A shadow is not the ground turned down, it is the ground lit by the
-sky, and a world with 0.0% cool pixels has no sky in it.
-THE SUN -- every solid mass throws a cast shadow DOWN-RIGHT, matching the upper-left key
-that every cooked tile in this repo already has (SKIN_LIGHT end_l 1.12 / end_r 0.86).
-Two cells, full then half; that step IS the penumbra at 44px. MULTIPLY TOWARD A BLUE,
-never a black wash, so his bought texture survives underneath it.
-
-=== THE FIRST CUT WAS A NO-OP AND MEASURED AS ONE (record this, it will recur) ===
-The first LOOK ran a per-CHANNEL lookup: each channel split-toned by ITS OWN value. The
-source art is red-over-blue everywhere, so red took the highlight boost and blue took
-the shadow boost IN THE SAME PIXEL. Cool pixels 0.0% BEFORE and 0.0% AFTER. It looked
-like a working feature and it did nothing.
-*** A MULTIPLY CANNOT MOVE A HUE. ONLY A BLEND TOWARD A COLOUR CAN. *** Exactly the 8/2
-perimeter-cap lesson (where a multiply blew to pure white) pointed at a different
-problem. The split must key on the PIXEL'S LUMINANCE, never per channel.
-
-=== A CACHE BUG KILLED ON THE WAY PAST ===
-look() memoises a graded canvas per image; the first key was src.length. Two tiles of
-the same size that encode to the same byte count collide -- with hundreds of 44x44 PNGs
-that is not hypothetical, and it swaps one wall for another while reading as a WORLD
-bug. Keyed on a stamped per-image id now, and the gate holds it.
-
-=== MEASURED ON THE REAL SURFACE, out his own front door, same frame twice ===
-                UNLIT     LIT
-  VALUE RANGE    106      144
-  CONTRAST SD   31.7     42.5
-  COOL PIXELS    0.1%     8.9%    there is sky in the shadows now
-  WARM PIXELS   98.6%    83.1%    and it is still a desert
-  GROUND CELLS IN SHADOW: 47, was 0
-  records/target/LOOK_AB.png (full phone screen) · SUN_SHADOW_AB.png (the shadow alone)
-
-=== WHAT I TURNED BACK OFF, DELIBERATELY ===
-*** THE GRIME DIAL IS BACK AT ZERO. *** Earlier today I moved it to 0.55 on the strength
-of "do what you want". THAT IS NOT A RULING ON AN AMOUNT and he has never seen a dirty
-frame. My own grime_gate.py says in writing the dial holds at zero until a verdict
-exists in records/ -- writing my own record to satisfy my own gate is gaming the gate.
-The stated reason also has not changed: one district of twenty-seven is finished.
-Three frames of the same street at 0 / 0.30 / 0.55 so he can rule on a NUMBER:
-  records/target/GRIME_DIAL_THREE_UP.png
-
-=== GATED ===
-gates/light_gate.js, 41 checks, registered as LIGHT. Source checks for the three
-failures that already happened once (per-channel split, src.length cache, a sun pointing
-the wrong way) PLUS it walks out the front door of the shipped run and reads the real
-canvas with the light off and on. A grade that draws nothing cannot pass it.
-
-=== THE SUITE, MEASURED AGAINST CLEAN MAIN INSTEAD OF ASSERTED ===
-The full 250-gate suite reports 40 RED on my branch. It reports 39 RED on UNTOUCHED
-origin/main. Diffed by name: exactly ONE new failure, PERIMETER, and it was MINE --
-perimeter_gate asserted the draw ORDER by matching two draw calls as LITERAL STRINGS,
-and the LOOK wraps every world draw site in look(), so a check about order died on a
-ValueError over a substring. Fixed to ask for the draws by SUBJECT and compare
-positions. 112/112. Swept every other gate for the same literal-matching pattern; that
-was the only one.
-*** 39 GATES WERE ALREADY RED ON MAIN BEFORE THIS SESSION TOUCHED ANYTHING. *** Most
-share one root -- "the alpha carries a readable CITY blob" / "the world frame booted" --
-and THERE IS NO CITY TAB IN THE ALPHA ANY MORE. Booted it to check: 10 tabs, 12
-canvases, ZERO page errors, stamp present. THE GAME IS FINE, THE GATES ARE STALE. A
-suite this red for days is worse than no suite: it trains every lane to skim past reds,
-which is the exact inverse of what the gate law is for. NOT ART'S TO FIX, but somebody
-must own it.
-
-=== NOT DONE / THE QUEUE ===
-1. THE ART CELL IS 44px. His bought tiles carry features on 7.0% of their area; mine
-   land at 5.5% because 44px has no room for a crack that crisp. 88 fixes it outright.
-   BIGGEST REMAINING ART JOB.
-2. Civic masses have parapets and openings but NO CORNERS and NO ENDS -- a warehouse
-   still reads flat from the side.
-3. The grime NUMBER is [PENDING, Paolo's call].
-4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
-
-CITY (1eztay): 8/2 (ap) LATEST — THE ALPHA IS FOUR BLOBS IN A TRENCH COAT AND
-NOTHING WAS GUARDING THEM. Now something is.
-
-    CITY_B64    28,120,885 chars   the walked world + city builder
-    COMBAT_B64   1,055,197         the combat slice
-    RIG_B64         95,906         the rig tool
-    PREFAB_B64      10,612         the prefab tool
-
-Four lanes rewrite these BY STRING SURGERY every day, and every rebase resolves a
-34 MB file by taking one side whole. What guarded them was PRESENCE and a SIZE
-FLOOR -- "exists and is over 100,000 chars". A stale re-encode passes both. A
-half-merged one passes both. A truncated one usually passes both. That is exactly
-the damage this repo produces.
-
-PROVEN, NOT ASSUMED:
-  * the game shipped a BLACK SCREEN TWICE today from ONE missing </div>, with every
-    gate green, found by a human tapping the link. The second time it wore a
-    disguise: it presented as a dead COMBAT tab and sent another lane bisecting
-    after a combat bug that was never a combat bug (every panel was 0x0).
-  * PREFAB_B64 can be silently replaced and NOTHING notices. Measured: changing a
-    colour inside it left alpha_loads 20/0, city_tab 64/0, rig_is_law 12/0.
-
-*** THE ARCHITECTURE MOVED UNDER THIS GATE THE SAME DAY, and that is the useful
-part. 3ef222f lifted CITY_B64 out to slices/BOHEMIA_CITY_WORLD.html (alpha 38.7 MB
--> 2.92 MB, first load 12,561 ms -> 398 ms, ~43 days off a hard GitHub 100 MB push
-limit nobody was watching). My gate went RED on the merge, correctly, because
-CITY_B64 was no longer a const. THE CHECK DID NOT GET SMALLER, IT GOT BIGGER: the
-game is now a shell plus EIGHT big documents (3 inline blobs + 5 sibling pages,
-each a surface he opens from a tab) and every property here is as true of a page
-as of a blob. 41 claims -> 70. A gate that insisted on the shape it was born with
-would be testing something nobody ships. ***
-
-BLOB INTEGRITY (70 claims): every document decodes, is not truncated (tag balance),
-carries NO MERGE MARKERS (a blob is where a bad conflict resolution hides best --
-nobody reads 28 million characters), every inline script still PARSES (compiled,
-never executed), and has not collapsed. Mutation-proven against the three REAL
-failure shapes, each caught by name in about a second, and RE-PROVEN on the new
-extracted world page:
-    drop one </div> from the world page -> "BOHEMIA_CITY_WORLD.html (64/63)"
-    leave a merge marker in a blob      -> "COMBAT_B64 CARRIES NO MERGE MARKERS"
-    string-surgery drops a brace        -> "RIG_B64 every inline script PARSES"
-
-*** THE SECOND DRAFT IS THE PART EVERY LANE SHOULD TAKE. *** v1's clever tag regex
-reported THREE TRUNCATED BLOBS (63/64, 60/61, a missing </script>) -- a serious
-accusation about three files four lanes depend on. THE BLOBS WERE FINE AND MY
-RULER WAS BENT: plain counting says 64/64, 61/61, 1/1. Fix the ruler, never the
-target. That is the THIRD time in two turns that a number which looked like a
-defect was my own instrument. BEFORE REPORTING A DEFECT, TEST THE INSTRUMENT ON
-SOMETHING KNOWN-GOOD.
-
-ALSO: ICON was red on main for a one-word bookkeeping slip -- the lane that drew
-the chapel icon left 'chapel' on the OWED list, and the ratchet fails when an owed
-type is secretly already done. Fixed, ICON 25/0, debt honestly stated at 21 of 49.
-I did NOT cook the other 21: heroes are HAND-BUILT scenes (a hero is authored per
-district, not generated), so they are real art production landing "UNJUDGED", and
-the verdict queue is already loaded across lanes. REUSE-FIRST checked first -- 20
-of 22 owed types have a rendered judgecard, but a judge card is a verdict render,
-not a builder hero, so it is not a substitute.
-
-*** AND THE EXTRACTION LEFT 24 GATES BEHIND. READ THIS IF YOUR SUITE IS RED. ***
-Lifting CITY_B64 out was RIGHT (38.7MB -> 2.92MB, first load 12,561ms -> 398ms, ~43
-days off a hard GitHub push limit). But 81 files in gates/ and tools/ referenced
-CITY_B64 and the suite went 12 failures -> 40. Two mechanical causes, both the same
-shape as the CITY-tab deletion earlier the same day -- a consumer still looking for
-something that moved:
-  (1) a copy-pasted cityBlob(alpha) helper decoding a const that is gone
-  (2) frame detection by /srcdoc/.test(fr.url()) -- the frame is fr.src now, so its
-      URL is a real path. THIRTEEN gates failed on "the world frame booted", which
-      reads like the GAME is broken when it is the TEST that is.
-I REPAIRED ALL 24 AND THEN THREW THAT WORK AWAY, WHICH WAS RIGHT. Another lane
-landed the same repair concurrently and did it BETTER: ONE shared CITY_APP.read()
-instead of my twenty-four per-file injections -- a single source of truth, which is
-what FACTORY LAW asks for and what I should have written. On the rebase I took
-THEIRS for every one of the 24 conflicted files. Keeping mine would have been ego,
-not engineering. (They had also already removed 'chapel' from icon_gate's OWED list,
-the same one-word ratchet slip I fixed independently.) Suite is 14 red now, all
-checked: the standing character/life set + WALL CLASS, CANVAS SCALE, INTERIORS;
-GRAVEYARD and QUEST PLACEMENT verified red on pristine main; D1 KERB left on
-purpose (a CONTENT ratchet from main's own NO CANOPIES ruling on the civics --
-raising another lane's ceiling is a design call, not a merge fix).
-
-THE PATTERN, THIRD TIME TODAY: an architecture change is not done when the thing
-works, it is done when EVERYTHING THAT POINTED AT THE OLD SHAPE HAS BEEN FOUND. The
-grep takes a minute. Skipping it costs the fleet a red suite it cannot tell apart
-from real breakage.
-
-DISTRICT FILL CAUGHT ITS FIRST REAL DROP AND IT WAS A RULING: cityhall 59.8 -> 53.9,
-courthouse 52.9 -> 48.3, terminal 52.4 -> 50.6, chapel 56.2 -> 55.7, all from 2fc2e3f
-NO CANOPIES. A floor catches ACCIDENTAL emptying; a RULING re-baselines it. Those four
-re-baselined with the reason recorded in the baseline file, the other 45 left pinned.
-
-WHAT I CHECKED AND STAYED OUT OF: the spawn suburb has 4,368 walls that admit you
-and 3 doors. That is RUN (run-eak241)'s live work (8/3 (g), "SIDE DOORS IN THE
-SUBURB HE SPAWNS IN") and I did not touch it. ONE SYSTEM ONE SESSION.
-
-EARLIER THIS SESSION: MAP SIZE and DISTRICT FILL floors (84.9 km2, 96x96, all 49
-district types pinned); the handoff conflict-marker gate (it caught main again
-within 20 minutes); the walk measured FAST on the real surface (median frame
-0.6 ms) which ruled out a whole lane of renderer work; DROP IN lands you on a
-street; the CITY tab deletion's wreckage cleaned up.
-
-NOT MINE TO DECIDE, AND ONE IS PARKED
-- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
-  now"). DO NOT RAISE IT. Plumbing debt in backlog 0AO.
-- THE RUN SLICE: SHOW / MERGE / RETIRE. Real, tested, invisible. Still open.
+*** THE ONE THING THAT SURVIVED, BECAUSE A REDS-DRIVEN SWEEP COULD NOT SEE IT ***
+touch_guard_gate looped the three embedded frames and did
+    if (src.indexOf(key) < 0) continue;
+The city key stopped existing, so THE BIGGEST FRAME IN THE GAME QUIETLY STOPPED
+BEING CHECKED - no failure, no claim, a GREEN gate. THAT IS WHY IT SURVIVED A
+TWENTY-ONE-GATE SWEEP: a sweep driven by what is RED cannot see a gate that
+responds to a missing input by going quiet. Verified directly - origin/main at
+1ceb61c still carried that `continue` until this ship. That gate exists because
+Paolo could not walk (the d-pad raised iOS's copy/paste magnifier instead of moving
+him). A GATE THAT SKIPS IS WORSE THAN A GATE THAT FAILS. A missing payload is a
+FAILURE now, for all three frames.
+LESSON FOR EVERY LANE: when you sweep a class of bug, do not sweep the RED LIST.
+Sweep the PATTERN. The instances that went quiet instead of red are the ones still
+out there, and they are the dangerous ones.
 
 PEOPLE (7h9sfy): 8/3 (b) LATEST — THE PEOPLE ARE NOT COPIES OF HIM ANY MORE.
 Record: records/BOHEMIA_THE_PEOPLE_ARE_NOT_HIM_8_3_26.md
