@@ -3525,6 +3525,49 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('G.runArm=!G.runArm; if(G.runArm){ G.sprintArm=false; G.dashArm=false; }'));
 }
 
+/* ===== V125 THE ROUND GOES SOMEWHERE ================================== */
+{
+  ok('V125 A MISSED ROUND NOW EXISTS. MEASURED before this: 42 juice items, 37 switched on, and ZERO firing on YOUR miss -- all four freeze call sites are damage events, and the miss branch was a sound, the grey word MISS, and an 8ms buzz. THE BULLET ITSELF WAS NEVER CREATED. Meanwhile JUICE.D has drawn THEIR misses whipping past your body since v24, because we built the incoming side and never the outgoing one',
+    demo.includes('V125 THE ROUND GOES SOMEWHERE') &&
+    demo.includes('function fireMissRound(tgt){') &&
+    /\/\* V125: THE ROUND GOES SOMEWHERE[\s\S]{0,400}try\{ fireMissRound\(tgt\); \}catch\(_e\)\{\}[\s\S]{0,80}G\.killStreak=0; sndMiss\(\);/.test(demo));
+
+  ok('V125 THE DIAL DECIDES WHERE IT LANDS: JUICE.I already computed the release error and printed it as "37ms EARLY" over his head, which is a number, and degrees mean nothing to a player. The SIGNED error is now a lateral offset in the world, so you see that you pulled left instead of reading that you were early',
+    demo.includes('function missLandPoint(tgt){') &&
+    demo.includes('const side=(err*vel)<0?-1:1;') &&
+    /return \[tx-uy\*lat, ty\+ux\*lat\]/.test(demo));
+
+  ok('V125 AND IT SCALES WITH RANGE, which is free physics and a free lesson: the same wrist error throws a round further off the further out he is, so a sloppy release point blank still lands near him and the same release at twenty tiles sails. That teaches his 7/27 range trade with no UI at all',
+    demo.includes('const MISS_RANGE_K=0.06;') &&
+    /Math\.abs\(err\)\*MISS_LAT\*\(1\+\(tgt\.edist\|\|6\)\*MISS_RANGE_K\)/.test(demo));
+
+  ok('V125 THE CONSTANTS ARE SIZED FROM THE REAL INPUT RANGE, NOT GUESSED. G.angle is clamped to +/-LIM and LIM is Math.PI/3, so the error spans about +/-1.05. The first cut used 0.85 and MEASURED every shot piling onto the 0.55 floor -- a hair off and wildly off landed in the same place, the same mistake as the difficulty multipliers, caught the same way: by printing the numbers before shipping',
+    demo.includes('const MISS_LAT=2.4;') &&
+    demo.includes('const MISS_MAX=4.0;') &&
+    demo.includes('const lat=side*Math.max(0.35,mag);'));
+
+  ok('V125 EVERYTHING IS SOMEWHERE, so the surface answers: a car sparks, a pillar chips stone, open ground kicks dust. It asks G.pillars what is standing there -- the same question cover, the vault, the dash path and the AI all already ask',
+    demo.includes('function missSurfaceAt(wx,wy){') &&
+    /return P\.car\?'metal':'stone'/.test(demo) &&
+    demo.includes("return 'dirt'; }") &&
+    demo.includes('function sndMissImpact(surf){'));
+
+  ok('V125 THE IMPACT FIRES FROM THE TICK, NOT THE DRAW, AND THAT WAS A REAL BUG CAUGHT BY MEASURING. The first cut spawned it from fxDrawField when the tracer finished, but fxTick culls with p.t<p.life, so the round could be deleted before any frame saw it end -- measured as a round that flew and produced ZERO impact particles. Logic in the tick, drawing in the draw',
+    /for\(const p of G\._fx\)\{ if\(p\.type==='missrd'&&!p\._hit&&p\.t>=p\.life\)\{ p\._hit=true;[\s\S]{0,120}missImpact\(p\)/.test(demo) &&
+    /missImpact\(p\)[\s\S]{0,200}G\._fx=G\._fx\.filter\(p=>p\.t<p\.life\); \}/.test(demo) &&
+    demo.includes('function missImpact(p){'));
+
+  ok('V125 NO DAMAGE AND NO ACCURACY CHANGE: the round RENDERS an error the dial already decided. NO DAMAGE BEFORE THE DIAL holds -- fireMissRound touches no hp, no applyDamage, and no hit/miss decision',
+    !/function fireMissRound[\s\S]{0,600}(applyDamage|\.hp\s*-=|pHP)/.test(demo) &&
+    !/function missLandPoint[\s\S]{0,700}(applyDamage|\.hp\s*-=)/.test(demo) &&
+    !/function missImpact[\s\S]{0,900}(applyDamage|\.hp\s*-=)/.test(demo));
+
+  ok('V125 REUSE, NOT INVENTION: the tracer is the same two-point stroke the incoming crack draws, and the impact is the EXISTING dust particle -- a metal spark is that same particle with the ric spark\'s own warm white and a faster fall. No new FX renderer, no new colour invented',
+    demo.includes("x.fillStyle=p.spark") &&
+    demo.includes("'rgba(255,240,190,'+(0.85*(1-q2)).toFixed(3)+')'") &&
+    demo.includes("G._fx.push({type:'dust',spark:1"));
+}
+
 /* ===== YOU ALWAYS SHOOT FIRST (Paolo 8/3/26, LOCKED) ==================
    laws/BOHEMIA_ADDENDUM_YOU_ALWAYS_SHOOT_FIRST_8_3_26.md. I surfaced the
    opening turn as an open question because it looked like a standing advantage
