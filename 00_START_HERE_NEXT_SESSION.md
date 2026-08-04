@@ -1,3 +1,91 @@
+LAB (lab-e2r7sv): 8/3 (d) LATEST -- WHY VALHEIM WORKED, AND IT CONFIRMED TWO OF HIS
+OWN RULINGS IN REAL SOURCE CODE.
+
+=== HE ASKED WHY VALHEIM IS SO SUCCESSFUL (he is "an intense fan") ===
+records/BOHEMIA_RESEARCH_WHY_VALHEIM_WORKED_8_3_26.md. Five rounds, and unlike the
+Machine Party study THIS ONE IS SOURCED -- raw.githubusercontent.com is reachable, so the
+ValheimPlus tree gave real file:line citations off code that patches the actual game.
+
+THE ANSWER IN ONE LINE: VALHEIM'S PROGRESSION HAS NO CHARACTER SHEET. Max health never
+permanently rises, ever. Power lives in your belly, your gear, your base and your muscle
+memory -- never in a number attached to you.
+  1 MAX HEALTH IS COMPUTED FROM YOUR STOMACH. Player.Food{m_health,m_stamina,m_eitr,
+    m_item} (Player.cs:325-328) summed by GetTotalFoodValue (:322). The mod disables
+    decay by SWAPPING WHICH FIELD IS READ -- the food's current decaying value for the
+    item's original (:330, :349-357), with m_foodBurnTime the countdown (:254). Your peak
+    is RENTED, never owned. That is where the stakes come from.
+  2 THE GATE IS A KEY, NOT A LEVEL. Boss trophy + Forsaken Power + the previous biome's
+    metal. Never an XP threshold -- you are stopped because you lack the coat, so a good
+    player can push early and a new one is never blocked by an invisible number.
+  3 THE 23 SKILLS ARE ALL VERBS (Skills.cs:20-45). Jump, Sneak, Run, Swim, Cooking,
+    Farming, WoodCutting... NO Strength, NO Intelligence. You got better at running
+    because you ran (m_accumulator, :61).
+  4 *** ONE RADIUS, TWO JOBS *** the workbench build range IS the enemy no-spawn area,
+    and the source comment says so (CraftingStation.cs:26-28, EffectArea.Type.PlayerBase,
+    m_rangeBuild :21). Plus m_craftRequireRoof (:48) -- a station only works under a
+    roof, so crafting forces you to build a BUILDING, not drop a box.
+  5 DIFFICULTY IS LOCAL AND PHYSICAL. m_damageScalePerPlayer / m_healthScalePerPlayer /
+    m_difficultyScaleRange (Game.cs:40,59,85) -- scaled by players PHYSICALLY NEAR you,
+    inside a radius. Nobody picks Normal or Hard.
+  6 STAMINA PRICES VERBS. dodge/encumbered/sneak/run/jump/swim all one meter
+    (Player.cs:27-35). And m_swimStaminaDrainMinSkill/MaxSkill: SKILL LERPS THE COST of
+    an action rather than unlocking anything.
+  7 THRESHOLDS NOT SLOPES. Fall damage ((d-4)/16)*100 (Character.cs:153) -- FREE under
+    four metres. Death is a SKILL HAIRCUT (Skills.LowerAllSkills :72), never a wipe: you
+    lose sharpness, never progress.
+COMMERCIAL: FIVE PEOPLE, $19.99, ~1 GB, 1M copies in 8 DAYS, 10M in a year. And the
+sentence that matters most to a one-human project: it started as an MMO and Iron Gate cut
+that -- "narrowing the scope of it is probably the best design decision I've ever made."
+A five-person team's biggest win was a SCOPE CUT.
+
+=== *** IT CONFIRMED TWO OF HIS OWN RULINGS IN REAL CODE *** ===
+R1 (the camp is a no-spawn radius "the way a Valheim workbench is") -- CONFIRMED at
+CraftingStation.cs:26-28, and the reference goes one better by making that circle the
+same one you build inside. R10 (encumbrance is "a slow down", not a wall) -- CONFIRMED:
+m_encumberedStaminaDrain sits in the same list as running and jumping, a LINE ITEM on one
+meter. He was right on instinct, twice, before this research existed.
+FOUR of the seven mechanisms are ALREADY CANON here (comparison table in the record):
+their skill-lerps-cost is our ACTION COST SHAPE clause 3; their 4-metre fall threshold is
+our clause 5; their no-stat-sheet is our R25/R17/three-counters; their key-not-level is
+our R9. And their best trick -- danger you can READ off the world -- we already have and
+arguably stronger: CLUSTERED POWER + LIGHT = TERRITORY, where the danger has an OWNER, a
+person, not a biome.
+
+=== WHAT DOES NOT TRANSFER ===
+The food-as-max-health model (it is a health/damage system -- NO DAMAGE BEFORE THE DIAL,
+recorded as understood NOT proposed), sailing and the open sea, player-count difficulty
+scaling (single player), losing skill on death (we are a DYNASTY, settled question 1), and
+3D/first-person anything.
+
+=== GATED ===
+rulings_gate.js is 76 checks (+F1..F13). The load-bearing ones hold the two
+corroborations WITH their citations, and the honesty: F8 that the citations are to a MOD
+and not Iron Gate's closed source, F9 that STRUCTURE is sourced while any CONSTANT is
+only indicative, F10 that boss/biome gating is community-documented rather than code, F11
+that the food model is understood and NOT proposed, F12 that the one open pending stays
+FLAGGED and is not answered by a lane. Seven mutations, all caught. NOTE on M3: my first
+mutation of F10 looked like a weak check but was a WEAK MUTATION -- the phrase appears
+twice and I only replaced one. A mutation that does not fully remove the claim proves
+nothing.
+
+=== THE ROLLBACK, FIFTH TIME, AND IT NEARLY COST SOMETHING ===
+The working dir reverted to the stale mid-rebase state at 42d4e2f AGAIN -- and this time
+it was subtle: rulings_gate.js came back as its 50-check version, so when I appended 13
+new checks the total read 63, which is EXACTLY the number the 63-check version had
+produced. The count looked unchanged instead of wrong. Caught it by grepping for ok('E,
+which returned 0. THE LESSON: after a rollback, verify by CONTENT not by a total -- two
+different files can print the same number. Verified fdd9b65 on origin/main first, backed
+the record and the new block to scratch, hard-synced, re-applied on top of the correct
+file with asserts that BOTH the old and new blocks are present.
+
+=== NOT DONE / THE QUEUE ===
+1. THE WITNESS + STORY-SPREAD PLUMBING -- approved work, still the top item.
+2. The readable-danger stop sign: what "I cannot survive over there yet" IS in Bohemia,
+   moment to moment. FLAGGED [PENDING Paolo], content not mechanism, not asked.
+3. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
+4. Canon-contradiction auditing across the indexed files.
+5. Did not touch #buildstamp: records and gates only.
+
 LAB (lab-e2r7sv): 8/3 (c) LATEST -- HOW BIG OUR MAP IS vs THE REFERENCES, AND I HAD
 TO DELETE ONE OF MY OWN GATE CHECKS BECAUSE HIS RULING OUTRANKED IT.
 

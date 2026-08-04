@@ -187,6 +187,49 @@ ok('E10 the spread numbers are still his',
 ok('E11 it is still honest about being DOC_ONLY off unreachable primaries',
    /DOC_ONLY/.test(spread) && /403/.test(spread));
 
+/* ---- THE VALHEIM STUDY, AND THE TWO RULINGS IT CONFIRMED ------------------ */
+/* He asked why Valheim is successful. The answer turned out to CORROBORATE two of his
+   own rulings in real source: R1 (the camp is a no-spawn radius "the way a Valheim
+   workbench is") and R10 (encumbrance is a slowdown, not a wall). Those corroborations
+   are the most valuable thing in the study, because they are evidence his instinct
+   matched a shipped ten-million-copy game -- so they are gated, and so is the honesty
+   about the citations being to a MOD rather than to Iron Gate's closed source. */
+const VALHEIM = 'records/BOHEMIA_RESEARCH_WHY_VALHEIM_WORKED_8_3_26.md';
+ok('F1 the Valheim study exists', fs.existsSync(path.join(ROOT, VALHEIM)));
+const vh = fs.existsSync(path.join(ROOT, VALHEIM))
+  ? norm(fs.readFileSync(path.join(ROOT, VALHEIM), 'utf8')) : '';
+ok('F2 it quotes his ask verbatim',
+   /im an intense fan of valheim and its progression open world system/i.test(vh));
+ok('F3 its headline is the absence of a character sheet',
+   /NO CHARACTER SHEET/i.test(vh) && /never in a number attached to you/i.test(vh));
+ok('F4 it is SOURCED, and says which files',
+   /Player\.cs/.test(vh) && /Skills\.cs/.test(vh) && /CraftingStation\.cs/.test(vh) &&
+   /Character\.cs/.test(vh) && /Game\.cs/.test(vh));
+ok('F5 R1 is recorded as confirmed by real code, with the citation',
+   /EXACTLY HIS R1 RULING, CONFIRMED IN REAL CODE/i.test(vh) &&
+   /CraftingStation\.cs:2[0-9]/.test(vh));
+ok('F6 R10 is recorded as confirmed by real code, with the citation',
+   /m_encumberedStaminaDrain IS HIS R10 RULING/i.test(vh) &&
+   /Player\.cs:2[0-9]-3[0-9]/.test(vh));
+ok('F7 the two action-cost-shape clauses it corroborates are named',
+   /clause 3/i.test(vh) && /clause 5/i.test(vh) && /THE ACTION_COST_SHAPE|ACTION_COST_SHAPE/i.test(vh));
+/* THE LIMIT THAT MATTERS: a line number in a MOD is not a line number in the game. A
+   later session that reads these as Iron Gate citations will over-trust a constant. */
+ok('F8 it discloses that the citations are to a MOD, not to Iron Gate source',
+   /ValheimPlus, a MOD/i.test(vh) && /closed/i.test(vh));
+ok('F9 and separates sourced STRUCTURE from indicative CONSTANTS',
+   /STRUCTURE as sourced and any specific constant as indicative/i.test(vh));
+ok('F10 the boss/biome gating is marked community-documented, not code',
+   /community-documented, not code/i.test(vh));
+ok('F11 the food model is understood but explicitly NOT proposed',
+   /NO DAMAGE BEFORE THE DIAL/.test(vh) && /not proposed/i.test(vh));
+ok('F12 the readable-danger pending is FLAGGED and not answered by a lane',
+   /FLAGGED, NOT ASKED/i.test(vh) &&
+   /\[PENDING Paolo\]/.test(vh) &&
+   /stays flagged rather than answered by a lane/i.test(vh));
+ok('F13 the dynasty settled question is not re-opened by the death-penalty finding',
+   /DYNASTY, not a one-life run/i.test(vh));
+
 /* ---- THE ROWS EXIST ------------------------------------------------------- */
 /* This is the actual lock. answered_gate.py reads the machine block; a ruling with no
    row is a ruling he will be asked about again. */
