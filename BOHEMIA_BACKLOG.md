@@ -1724,6 +1724,45 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AT. [DONE 8/2] THE ALPHA IS FOUR BLOBS IN A TRENCH COAT AND NOTHING GUARDED THEM.
+   CITY_B64 (28.1M chars), COMBAT_B64 (1.06M), RIG_B64 (95.9K), PREFAB_B64 (10.6K).
+   Four lanes rewrite these BY STRING SURGERY every day and every rebase resolves a
+   34MB file by taking one side whole. What guarded them: PRESENCE and a SIZE FLOOR
+   ("exists and is over 100,000 chars"). A stale re-encode passes both. A half-merged
+   one passes both. A truncated one usually passes both -- which is exactly the damage
+   this repo produces.
+   PROVEN, NOT ASSUMED: (1) the game shipped a BLACK SCREEN twice today from ONE
+   missing </div>, every gate green, found by a human tapping the link -- and the
+   second time it wore a disguise, presenting as a dead COMBAT tab and sending another
+   lane bisecting after a combat bug that was never a combat bug. (2) PREFAB_B64 can be
+   silently replaced and NOTHING notices: changing a colour inside it left alpha_loads
+   20/0, city_tab 64/0 and rig_is_law 12/0. No content check of any kind.
+   gates/blob_integrity_gate.js (suite: BLOB INTEGRITY, 41 claims): each blob decodes,
+   is not truncated (tag balance), carries NO MERGE MARKERS (a blob is where a bad
+   conflict hides best -- nobody reads 28 million characters), every inline script
+   still PARSES (compiled, never run), and has not collapsed. Caught all three real
+   failure shapes by name, including the exact 8/2 black screen.
+   THE SECOND DRAFT IS THE PART WORTH KEEPING: v1's clever tag regex reported THREE
+   TRUNCATED BLOBS (63/64, 60/61, missing </script>). The blobs were fine; the ruler
+   was bent -- plain counting says 64/64, 61/61, 1/1. FIX THE RULER NEVER THE TARGET.
+   Third time in two turns that a "defect" was my own instrument. Before reporting one,
+   TEST THE INSTRUMENT ON SOMETHING KNOWN-GOOD.
+   Record: records/BOHEMIA_THE_BLOBS_WERE_UNGUARDED_8_2_26.md
+   | BLOB INTEGRITY 41/0, 3 real failure shapes mutation-proven | none | no.
+
+0AU. [DONE 8/2 — ONE WORD, ANOTHER LANE'S RATCHET] ICON GATE WAS RED ON MAIN FOR A
+   BOOKKEEPING SLIP. The lane that drew the chapel icon left 'chapel' on the OWED
+   list, and icon_gate's ratchet fails when something listed as owed is secretly
+   already done. Removed. ICON 25/0, debt now 21 of 49 honestly stated.
+   NOT DONE, AND DELIBERATELY: the remaining 21 icons are HAND-BUILT scenes in
+   tools/bohemia_district_hero_factory.py (a hero is authored per district, not
+   generated), so they are real art production, and they land "UNJUDGED (awaiting
+   Paolo thumbs)". The verdict queue is already loaded across lanes. Cooking 21 more
+   for him to thumb is exactly what STOP PRODUCING forbids. REUSE-FIRST was checked
+   first: 20 of the 22 owed types DO have a rendered judgecard on disk, but a judge
+   card is a big verdict render, not a builder hero, so it is not a substitute.
+   | ICON 25/0 | 21 icons owed, art production, needs his queue to clear | no.
+
 0AS. [DONE 8/2 — FOUND WHILE REBASING, NOT MINE, FIXED ANYWAY] THE HANDOFF WAS ON
    MAIN WITH LIVE MERGE MARKERS IN IT, FOR THE SECOND TIME IN ITS HISTORY.
    00_START_HERE_NEXT_SESSION.md carried <<<<<<< HEAD / ======= / >>>>>>> 73aff72,

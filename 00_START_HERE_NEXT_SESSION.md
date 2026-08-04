@@ -1,4 +1,66 @@
-<<<<<<< HEAD
+CITY (1eztay): 8/2 (ap) LATEST — THE ALPHA IS FOUR BLOBS IN A TRENCH COAT AND
+NOTHING WAS GUARDING THEM. Now something is.
+
+    CITY_B64    28,120,885 chars   the walked world + city builder
+    COMBAT_B64   1,055,197         the combat slice
+    RIG_B64         95,906         the rig tool
+    PREFAB_B64      10,612         the prefab tool
+
+Four lanes rewrite these BY STRING SURGERY every day, and every rebase resolves a
+34 MB file by taking one side whole. What guarded them was PRESENCE and a SIZE
+FLOOR -- "exists and is over 100,000 chars". A stale re-encode passes both. A
+half-merged one passes both. A truncated one usually passes both. That is exactly
+the damage this repo produces.
+
+PROVEN, NOT ASSUMED:
+  * the game shipped a BLACK SCREEN TWICE today from ONE missing </div>, with every
+    gate green, found by a human tapping the link. The second time it wore a
+    disguise: it presented as a dead COMBAT tab and sent another lane bisecting
+    after a combat bug that was never a combat bug (every panel was 0x0).
+  * PREFAB_B64 can be silently replaced and NOTHING notices. Measured: changing a
+    colour inside it left alpha_loads 20/0, city_tab 64/0, rig_is_law 12/0.
+
+BLOB INTEGRITY (41 claims): every blob decodes, is not truncated (tag balance),
+carries NO MERGE MARKERS (a blob is where a bad conflict resolution hides best --
+nobody reads 28 million characters), every inline script still PARSES (compiled,
+never executed), and has not collapsed. Mutation-proven against the three REAL
+failure shapes, each caught by name in about a second:
+    drop one </div> from the city blob  -> "CITY_B64 <div> balances (64/63)"
+    leave a merge marker in a blob      -> "COMBAT_B64 CARRIES NO MERGE MARKERS"
+    string-surgery drops a brace        -> "RIG_B64 every inline script PARSES"
+
+*** THE SECOND DRAFT IS THE PART EVERY LANE SHOULD TAKE. *** v1's clever tag regex
+reported THREE TRUNCATED BLOBS (63/64, 60/61, a missing </script>) -- a serious
+accusation about three files four lanes depend on. THE BLOBS WERE FINE AND MY
+RULER WAS BENT: plain counting says 64/64, 61/61, 1/1. Fix the ruler, never the
+target. That is the THIRD time in two turns that a number which looked like a
+defect was my own instrument. BEFORE REPORTING A DEFECT, TEST THE INSTRUMENT ON
+SOMETHING KNOWN-GOOD.
+
+ALSO: ICON was red on main for a one-word bookkeeping slip -- the lane that drew
+the chapel icon left 'chapel' on the OWED list, and the ratchet fails when an owed
+type is secretly already done. Fixed, ICON 25/0, debt honestly stated at 21 of 49.
+I did NOT cook the other 21: heroes are HAND-BUILT scenes (a hero is authored per
+district, not generated), so they are real art production landing "UNJUDGED", and
+the verdict queue is already loaded across lanes. REUSE-FIRST checked first -- 20
+of 22 owed types have a rendered judgecard, but a judge card is a verdict render,
+not a builder hero, so it is not a substitute.
+
+WHAT I CHECKED AND STAYED OUT OF: the spawn suburb has 4,368 walls that admit you
+and 3 doors. That is RUN (run-eak241)'s live work (8/3 (g), "SIDE DOORS IN THE
+SUBURB HE SPAWNS IN") and I did not touch it. ONE SYSTEM ONE SESSION.
+
+EARLIER THIS SESSION: MAP SIZE and DISTRICT FILL floors (84.9 km2, 96x96, all 49
+district types pinned); the handoff conflict-marker gate (it caught main again
+within 20 minutes); the walk measured FAST on the real surface (median frame
+0.6 ms) which ruled out a whole lane of renderer work; DROP IN lands you on a
+street; the CITY tab deletion's wreckage cleaned up.
+
+NOT MINE TO DECIDE, AND ONE IS PARKED
+- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
+  now"). DO NOT RAISE IT. Plumbing debt in backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Real, tested, invisible. Still open.
+
 PEOPLE (7h9sfy): 8/3 (b) LATEST — THE PEOPLE ARE NOT COPIES OF HIM ANY MORE.
 Record: records/BOHEMIA_THE_PEOPLE_ARE_NOT_HIM_8_3_26.md
 
@@ -114,7 +176,6 @@ rulings_gate is 96 checks. Six mutations, all six caught -- including paraphrasi
 2. THE WITNESS + STORY-SPREAD PLUMBING -- approved work; boss 7 THE VOICE is its payoff.
 3. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
 4. Did not touch #buildstamp: one record, one gate.
-=======
 WORLD (world-9lfjtf): 8/4 (d) LATEST -- THE BUILDING IS THE ICON, and NINETEEN GATES WERE
 LYING ABOUT THE CITY (five of them accusing his own art of never shipping).
 Live on main, BUILD 8/4e.
@@ -229,7 +290,6 @@ reference is a record of the real building, the LAYOUT note is what describes wh
 2. DOORLESS_DEBT = 12 heroes with no door on any wall.
 3. downtown_arts / downtown_civic / downtown_lot, from the 8/1 downtown research.
 4. [PENDING Paolo] the drive-thru wedding chapel as its own cell type -- proposed, not built.
->>>>>>> e7b5ce7 (A GATE THAT TESTS A LOCATION IS NOT A GATE)
 
 LAB (lab-e2r7sv): 8/4 (b) LATEST -- *** HE KILLED THE MATERIAL FRAMING AND HE WAS RIGHT.
 IT WAS MY FACTUAL ERROR, NOT HIS TASTE. *** The ladder is 16 TOOLS now.
@@ -497,7 +557,6 @@ STILL WORTH A LOOK, reported not fixed: the four BOHEMIA_HD_TILE_REPO_part*.txt 
 1. COMBAT_B64 is still inlined at 1.35 MB - same one-line fix, now proven.
 2. The four HD tile banks.
 3. Nothing else in the repo is near the wall, measured, and the gate watches all of it now.
-
 
 LAB (lab-e2r7sv): 8/3 (g) LATEST -- HE RENAMED THE BOSSES AFTER THE SUBSTANCE, AND
 "CONCRETE BOSS" TURNED OUT TO BE THE HINGE OF THE WHOLE LADDER.
@@ -780,6 +839,67 @@ verdict is the gate being wrong.
 AFRO inside a base64 blob, LOCS inside 'VOTING BLOCS', DESERT CURL 2 inside
 'DESERT CURL 29 off-skull pixels'. Suffix tokens (HAIR AFRO, w3) when the bare
 name is an English word or a possible numeric prefix.
+
+
+ALL LANES (factions): 8/2 (k) LATEST — *** THE PROJECT WAS ~43 DAYS FROM NOT BEING ABLE
+TO SHIP AT ALL, AND NOBODY HAD MEASURED IT. FIXED. READ THIS ONE. ***
+Record: records/BOHEMIA_THE_PAYLOAD_WALL_8_2_26.md
+
+Paolo 8/2: "We need to do so much that we know that we don't know you need to be able to
+know that." THE BIG MISSING (7/29) is the list of KNOWN gaps. He asked for the other list.
+So I measured the file he actually taps.
+
+  slices/BOHEMIA_ALPHA_0_9.html was 38.7 MB, gaining ~1.4-2.1 MB/day off real git history.
+  GITHUB REJECTS ANY FILE OVER 100 MB. Not a warning - the push fails.
+  ~43 DAYS AND EVERY LANE IN THE FLEET LOSES THE ABILITY TO PUSH THE GAME.
+  And the one link cost him 65 SECONDS on weak LTE before the splash could draw.
+
+Not a hard problem. An UNWATCHED one - which is what an unknown-unknown actually looks
+like: it would have landed on an ordinary Tuesday, on a limit nobody tracked, with no
+obvious cause.
+
+=== WHERE THE BYTES WERE ===
+  line 6624   35.76 MB   const CITY_B64='...'   an entire HTML page, base64'd, inline
+  line 1014    1.35 MB   COMBAT_B64, same trick
+  everything else 0.90 MB - ALL the actual code in the game
+96% of the file was two blobs, and base64 costs 33% on top of what it carries, so ~9 MB
+was the ENCODING alone. THE CHEAPER PATTERN WAS ALREADY IN THE SAME FILE FOUR TIMES:
+RUN / SLICE / LIFE / MAP all load their page from a sibling with data-src.
+
+=== THE FIX AND WHAT IT MEASURED ===
+CITY_B64 -> slices/BOHEMIA_CITY_WORLD.html, loaded with fr.src.
+  alpha 38.7 MB -> 2.92 MB
+  first load over HTTP (same origin model as Pages): 12,561 ms -> 398 ms. TWENTY-NINE
+  TIMES FASTER, frame state byte-identical, zero console errors.
+  The world page is now fetched only when he opens the tab, like the other four already.
+GATES: FRONT DOOR 8/0, ALPHA LOADS 20/0, ONE WORLD TAB 120/0 (that is the gate that drives
+the real RUN surface and asserts it shows the world - the strongest signal available).
+run_gate could not run: it shells out to a tool that needs PIL, the same environment red
+that fails 25 other gates. Not this change.
+
+*** TWO THINGS THAT NEARLY COST THE WIN - EVERY LANE SHOULD KNOW BOTH ***
+1. file:// LIES ABOUT ORIGINS. Locally the split looked BROKEN - same-origin false, parent
+   could not read the frame. Chrome gives every file:// document its own opaque origin, so
+   an inlined srcdoc frame is same-origin and a sibling src frame is not. On Pages both are
+   https://paolosarn.github.io and the distinction does not exist. Served over a local HTTP
+   server the split is IDENTICAL to baseline. IF I HAD TRUSTED THE file:// RESULT I WOULD
+   HAVE THROWN AWAY A 29x WIN FOR A BUG THAT DOES NOT EXIST WHERE THE GAME RUNS.
+   If you are testing anything about iframes, origins, storage or fetch, SERVE IT OVER HTTP.
+2. A 37-MILLION-CHARACTER LINE DOES NOT END WHERE YOU THINK. That line does not stop at the
+   closing quote - the entire tab-click handler is tacked onto the same line. Replacing
+   "the line" deleted it and the app never opened. Edit the LITERAL, never the line.
+
+=== THE ALARM, SO IT CANNOT COME BACK ===
+gates/payload_wall_gate.py, registered as PAYLOAD WALL. Measures every tracked file,
+projects the date off real git history, fails at a 45 MB budget - under GitHub's 50 MB
+warning and well under the 100 MB wall - and names the offending lines.
+STILL WORTH A LOOK, reported not fixed: the four BOHEMIA_HD_TILE_REPO_part*.txt banks are
+42.7-43.5 MB EACH, just under budget and half way to the wall on their own.
+
+=== WHAT COMES AFTER ===
+1. COMBAT_B64 is still inlined at 1.35 MB - same one-line fix, now proven.
+2. The four HD tile banks.
+3. Nothing else in the repo is near the wall, measured, and the gate watches all of it now.
 
 COMBAT (combat-nfnki9): 8/3 (c) LATEST -- YOUR MISSED ROUND EXISTS NOW. Live on
 main as 17cd5a8, BUILD 8/3k, Pages build VERIFIED success 04:08.
