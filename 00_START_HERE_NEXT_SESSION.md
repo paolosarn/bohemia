@@ -8040,3 +8040,16 @@ CORRECTED AGAIN, his words: "first Neighbor of the custom faction" — THE
 CUSTOM FACTION is real (player's own faction reading; details in flight in
 his lab conversation, not yet canon); 7/31 garble flag lifted. PEOPLE
 dossiers add THE CUSTOM FACTION [PENDING his lab ideas].
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/4 (b) — TWO MORE RULINGS into the Valheim-shape addendum
+(§4b): BUILDING IS FULLY OPTIONAL (a zero-build run finishes the game; the
+cost is narrative — story and world progress "will definitely look
+different"; act caps are ceilings, never floors) + THE PSEUDO-MAYOR / UNITED
+FRONT (large-scale rebuild is a combination; at 80% you are the pseudo
+mayor the valley rebuilds around; it takes factions that get along with
+you, and one faction only goes so far — 80-100% needs a UNITED FRONT across
+factions; the standing system and the build system are ONE system at
+scale). One garble kept verbatim, unresolved: "you definitely have your
+death in." This binds the faction dossiers + standing ledger to the
+city-builder design directly.

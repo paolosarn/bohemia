@@ -65,6 +65,37 @@ BOHEMIA_LAB_VALHEIM_PATTERN_NOTE_7_27_26.md and BOHEMIA_LAB_VALHEIM_WEAPONS_
 PATTERN_NOTE_7_31_26.md — Valheim study continues there per his current
 lab conversation.
 
+## 4b. BUILDING IS OPTIONAL + THE UNITED FRONT (his answer to "who rebuilds
+## in Act 3", same sitting, LOCKED)
+His words (voice-to-text, quoted with garbles marked): "this is you could if
+you wanted to. if you don't want to build a single thing in the game that's
+OK too. It's just most likely the story in the progress of the world might
+will definitely look different... maybe it's a combination of a lot of
+things. Ultimately I see if you're able to rebuild 80% of the city...
+this is supposed to be like the pseudo mayor vibe so you definitely have
+your [GARBLED: "death in"] ... need [factions] to get along with you to
+help you. absolutely [GARBLED: "affection" — likely "a faction"] can only
+go so far. has to be like a united front."
+TWO RULINGS:
+(a) BUILDING IS FULLY OPTIONAL. A player can finish the game having built
+NOTHING — legal, supported, never punished by a wall. The cost is
+narrative, not mechanical: the story and the world's progress "will
+definitely look different." The act repair caps (§3) are CEILINGS for
+players who want to build, never floors anyone must meet. This is
+comeback-canon design: the build-nothing run and the rebuild-everything
+run are different games on the same seed.
+(b) THE PSEUDO-MAYOR AND THE UNITED FRONT. Large-scale rebuilding is a
+COMBINATION of many things, and the vibe is PSEUDO-MAYOR: at 80% you are
+not laying every brick, you are the one the valley rebuilds AROUND. It
+requires FACTIONS THAT GET ALONG WITH YOU — and one faction can only go so
+far: the 80-100% tier takes a UNITED FRONT across factions. So the endgame
+city-builder currency is not concrete, it is ALLIANCE — the faction
+standing system and the build system are ONE system at scale, and the
+faction dossiers + standing ledger just became city-builder
+infrastructure.
+GARBLES ON RECORD, NOT CANONIZED: "you definitely have your death in"
+stays unresolved verbatim until he re-states it.
+
 ## 5. MARCO + THE CUSTOM FACTION (correction of the 7/31 entry, his words)
 "Marco is the first Neighbor of the custom faction." THE CUSTOM FACTION is
 REAL — the original sentence was not garble on that word, and the 7/31
