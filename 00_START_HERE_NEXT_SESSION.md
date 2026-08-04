@@ -1233,6 +1233,37 @@ Nobody WEARS their faction colour on the surface he plays yet - bohemia_dress is
 the LIFE slice, not by the alpha's RUN. Wiring it into the run touches the RUN lane's
 surface, so it is a coordination job, not a solo one. THAT IS THE NEXT VISIBLE STEP and it
 is what turns all of this from true into SEEN.
+RUN (run-eak241): 8/3 (h) LATEST -- THE WHOLE BUILDING GOES TRANSPARENT, THE DOOR STAYS.
+Ship: BUILD 8/3h. Tab: RUN.
+
+Paolo RULED IT TWICE and I asked a second time anyway, which is the error to not repeat:
+  "Ofcourse the building should become see through to reflect characters items or the
+   player or doors"
+  "Building should be absolutely transparent when I just gave you the fucking answer...
+   because of the nature of our game being a 45 asymmetric we gotta do better we gotta be
+   able to have people see you when you're behind the building."
+WHEN HE HAS RULED, BUILD IT. Do not come back with a narrower option and a question.
+
+v1 was a 2-cell halo at WALL_SEE=0.35. That was not the ruling. NOW:
+  - THE WHOLE BUILDING. The mass he is at/in/behind is resolved ONCE per frame through
+    inFootprint (the same flood fill the door rule uses, memoised on hx,hy) and every
+    facade cell of THAT mass goes together. A building is one object; half a transparent
+    building is worse than none.
+  - ABSOLUTELY TRANSPARENT: XRAY_A=0.12, not 0.35.
+  - NOTHING CAN HIDE HIM: the FRONT facade pass SKIPS that footprint outright. The front
+    pass is the only thing that can paint over a body, so behind his building he always
+    reads. That is his 45-degree argument, answered.
+  - THE DOOR STAYS SOLID (__XRAY_DOOR_STAYS__). The wall goes to glass at 0.12 and the
+    door plate is reset to alpha 1, because he said the transparency exists to reflect
+    "characters items or the player or DOORS" -- a door that vanishes with its wall
+    defeats the point: you would see through the building and not see the way in.
+Verified by rendering and LOOKING: wall gone (roof reads through it), body fully visible,
+door standing solid with its stone jambs. 12 walls faded, up from 5.
+GATE: gates/xray_gate.js (SEE THROUGH) 5/0 -- fades AT A REAL DOOR IN THE SPAWN DISTRICT,
+bounded (20 cells away it stops), and the same state renders identically twice.
+WHY THE ROOF IS NOT TOUCHED: a mass's top is baked into the chunk canvas and drawn BEFORE
+the body, so it is already behind him and can never hide him.
+
 RUN (run-eak241): 8/3 (h) LATEST -- BUILDINGS GO SEE-THROUGH WHEN YOU WALK UP TO THEM.
 Ship: BUILD 8/3h. Tab: RUN.
 
