@@ -1,3 +1,66 @@
+CHARACTER (0lurbs): 8/2 (t) LATEST — HAIR IS 15 AFTER ROUND 3. THE SIDE VIEWS ARE
+STILL THE OPEN WORK AND THREE FIXES ARE UNJUDGED. DO NOT COOK A FOURTH VERSION
+UNTIL HE HAS LOOKED.
+
+=== ROUND 3 (8/2): 15 KEEP / 8 KILL ===
+KILLED: DESERT CURL, SIDE PART, MULLET, MOHAWK, LIBERTY SPIKES, CORNROWS,
+PONYTAIL, TOP KNOT. All in the graveyard with post-mortems. MOHAWK and LIBERTY
+SPIKES are on their THIRD strike; SIDE PART/PONYTAIL/TOP KNOT/CORNROWS/MULLET/
+DESERT CURL on their second. Per the reopening addendum a second kill is FINAL.
+SURVIVING 15: SUN CROP, DUSK SHAG, TEMPLE TAPER, ASH SWEEP, SALT CROWN, BUZZ CUT,
+CROP, SLICK BACK, BOWL CUT, FRINGE, SHAG, SHOULDER LENGTH, LONG LOOSE, WOLF CUT,
+GREY WISPS.
+
+=== HIS ROUND-3 NOTES, ALL THREE ADDRESSED BUT UNJUDGED ===
+1. 'the long hair part to come down the middle ... should be in the back of the
+   head. Whats wrong with you?' Below the jaw the fall narrowed SYMMETRICALLY to
+   the sprite centre. From the front the back of the head IS the centre; in
+   PROFILE it is at one EDGE, so the fall hung down the face. Now offset to the
+   rear edge via the face centroid. THIS IS THE THIRD TIME the same class of bug
+   appeared: a feature living at the back of the skull must FOLLOW the back of the
+   skull when the head turns (also: the mohawk strip, the satchel strap).
+2. 'look like they belong on Oompa Loompas ... calm down on the shaping.' I had
+   set the silhouette projection at 2px past the skull. On a 12px head that is a
+   THIRD AGAIN of head width in hair. Halved. Several of the 8 kills might have
+   survived a calmer version - the cost of over-correcting.
+3. 'like a rectangle on someones head' - the profile crest was a flat slab at
+   every height. Now tapers: short at brow and nape, tallest over the crown.
+
+=== THE JUDGE SURFACE, rebuilt 8/2 after he could not use it ===
+ONE head per style at 3x (168px), TURNING through all 8 on a shared 900ms ticker,
+facing named underneath. Previously EIGHT shots at scale 1 - his words: 'SO
+FUCKING TINY I CANT TELL SHIT'. EIGHT TINY HEADS IS NOT EIGHT VIEWS, IT IS NONE.
+The hair gate had PINNED the eight-thumbnail layout and was defending the mistake.
+
+=== THE WARDROBE WAS DEAD FOR AN UNKNOWN NUMBER OF DAYS ===
+'THE WARDROBE DOES NOTHING WTF I CANT EVEN CLICK IT'. MEASURED: 0 bytes of HTML on
+a booted page. wardrobeRefresh was called ONCE at script time before GARMENTS
+existed, and it RETURNS SILENTLY when GARMENTS is missing. A silent early return is
+how a dead surface looks alive in the source. Now self-healing: retry until it
+produces something, then stop. 24,894 bytes / 268 buttons / 12 sections.
+LOOK FOR THIS PATTERN ELSEWHERE - any builder called once at script time.
+
+=== OPEN, IN PRIORITY ORDER ===
+1. He has NOT judged the three round-3 fixes. Wait for him.
+2. E/W generally: he has said 'still dogshit' twice. Better each round, not done.
+3. Fade UNLOCK mechanism: [PENDING, HIS CALL]. Do not invent the economy.
+4. Style names: PARKED by him. Do not raise it.
+5. cough / whistle / search: frozen, two rejections each.
+
+=== SEVEN TIMES TODAY A GATE WENT RED AT HIM ===
+hair_gate x3 (batch size when he killed 13; board count when he approved 7; the
+eight-thumbnail layout), craft_law_gate x3 (a pinned style name, an empty candidate
+queue, and TWICE it pinned a BROKEN implementation - the Math.floor centring and
+later the back-only half-fix), dress_gate x1 (counted a canon token inside a
+COMMENT). PIN BEHAVIOUR, NEVER AN IMPLEMENTATION. A gate that pins an
+implementation defends its bugs, and a gate that reddens when he exercises a
+verdict is the gate being wrong.
+
+=== THREE GRAVEYARD TOKEN COLLISIONS ===
+AFRO inside a base64 blob, LOCS inside 'VOTING BLOCS', DESERT CURL 2 inside
+'DESERT CURL 29 off-skull pixels'. Suffix tokens (HAIR AFRO, w3) when the bare
+name is an English word or a possible numeric prefix.
+
 <<<<<<< HEAD
 COMBAT (combat-nfnki9): 8/3 (c) LATEST -- YOUR MISSED ROUND EXISTS NOW. Live on
 main as 17cd5a8, BUILD 8/3k, Pages build VERIFIED success 04:08.
