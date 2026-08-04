@@ -37,13 +37,28 @@ const alpha = fs.readFileSync(ALPHA, 'utf8');
    So: name the loss, fail cleanly, and check the whole set -- because whatever
    ate COMBAT_B64 was never aiming at COMBAT_B64 specifically. */
 {
-  const BLOBS = ['CITY_B64', 'COMBAT_B64', 'PREFAB_B64', 'RIG_B64'];
+  /* MIGRATED 8/4: CITY_B64 IS DELIBERATELY GONE and that is a win, not a loss.
+     Another lane measured the alpha at 38.7 MB gaining ~2 MB/day, with GitHub's
+     hard 100 MB file limit ~43 days out -- at which point NO lane could push the
+     game at all. 35.76 MB of that was one line, const CITY_B64='...', a whole
+     HTML page base64'd inline. It now loads from slices/BOHEMIA_CITY_WORLD.html
+     with fr.src, the same data-src pattern RUN/SLICE/LIFE/MAP already used, and
+     the alpha is 2.92 MB with first load 12,561ms -> 398ms.
+     So this check must NOT demand it back. The invariant it exists to protect --
+     a merge silently eating a blob -- is unchanged for the three that are still
+     inline, and the city gets the check that actually fits it now: the page it
+     moved to has to EXIST and the alpha has to point at it. */
+  const BLOBS = ['COMBAT_B64', 'PREFAB_B64', 'RIG_B64'];
   for (const b of BLOBS) {
     const n = (alpha.match(new RegExp('const ' + b + "='", 'g')) || []).length;
     ok('THE ALPHA STILL HAS ITS BLOBS: ' + b + ' is declared exactly once (got ' + n + ')', n === 1);
   }
   ok('THE ALPHA STILL HAS ITS BLOBS: BAKED, the rig pose data the render base is built from, is declared exactly once',
     (alpha.match(/const BAKED=\{/g) || []).length === 1);
+  /* the city's replacement invariant: it left the alpha, so it has to be THERE */
+  ok('THE CITY LEFT THE ALPHA ON PURPOSE AND STILL HAS TO EXIST: CITY_B64 was 35.76 MB of one line and is now a sibling page, so the alpha must point at a file that is really on disk (the split saved the project from a hard GitHub limit ~43 days out)',
+    !/const CITY_B64='/.test(alpha) &&
+    require('fs').existsSync(require('path').join(__dirname, '..', 'slices', 'BOHEMIA_CITY_WORLD.html')));
   /* the duplicate-stamp half of the same accident: the stray copy is what
      overwrote the blobs, so a second stamp div IS the fingerprint of this bug */
   ok('AND EXACTLY ONE BUILDSTAMP DIV: a second copy is the fingerprint of the edit that ate the blobs',
@@ -3576,8 +3591,9 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('setTimeout(()=>{ if(!G.over) endTurnReturn(); },MISS_BEAT_MS);') &&
     !/setRead\('MISS','turn ends','#e8593a'\);[\s\S]{0,300}endTurnReturn\(\); \},170\)/.test(demo));
 
-  ok('V126 THE FIX IS TIME, NOT SIZE, AND IT IS ON THE GRID: one whole beat (BPM_MS, the 120 BPM law) so the round flies, the impact reads, THEN they answer. The round itself flies faster so it lands well inside that beat',
-    demo.includes('const MISS_FLY_MS=120;') &&
+  ok('V126 THE FIX IS TIME, NOT SIZE, AND IT IS ON THE GRID: one whole beat (BPM_MS, the 120 BPM law) so the round flies, the impact reads, THEN they answer -- and the flight still lands well inside that beat',
+    /const MISS_FLY_MS=(\d+);/.test(demo) &&
+    parseInt(demo.match(/const MISS_FLY_MS=(\d+);/)[1], 10) < 500 &&   /* MIGRATED BY V127: 120 was seven frames and unreadable; the invariant is that the flight fits inside the held beat, never a specific number */
     /MISS_BEAT_MS=BPM_MS/.test(demo));
 
   ok('V126 A HIT IS UNTOUCHED: only the MISS -- the moment that had nothing -- gets the held beat. A clean hit still resolves at 170ms exactly as it always did, so the trade the fight is built on does not move',
@@ -3601,6 +3617,34 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V126 STILL NO DAMAGE AND NO ACCURACY CHANGE: the held beat delays the return volley, it does not remove it, and missImpact/missflash touch no hp',
     demo.includes('function endTurnReturn(engaged){') &&
     !/function missImpact[\s\S]{0,1100}(applyDamage|\.hp\s*-=)/.test(demo));
+}
+
+/* ===== V127 HOLD THE CAMERA =========================================== */
+{
+  ok('V127 THE CAMERA HOLDS WHILE A MISSED ROUND IS IN THE AIR. Paolo: "it kind of moves too quick and you know you have the camera shifting around so much so quickly it\'s kind of difficult to see." THE DIAL IS NOT A SEPARATE SCREEN -- it is the FIELD zoomed up to 3.6x on the target, so the instant a shot resolves THREE easings unwind at once (the field cam at 0.2, the board zoom _zbS at 0.08, his own pinch at 0.055). The round is drawn in world tiles, so the camera was carrying it across the screen and scaling it down WHILE it travelled',
+    demo.includes('V127 HOLD THE CAMERA') &&
+    demo.includes('function missHolding(){ return (G._missHold||0)>performance.now(); }') &&
+    demo.includes('G._missHold=performance.now()+MISS_FLY_MS+140; }'));
+
+  ok('V127 ALL THREE EASINGS ARE GATED, not just the obvious one -- the field cam, the board zoom that does the 3.6x-to-1x scale-down, and the user pinch. Gating one and leaving the others would have left the round still sliding',
+    demo.includes('if(!G.ks&&!missHolding()){ cam.x+=(W/2-cam.x)*0.2;') &&
+    /G\._zbS=\(G\._zbS==null\|\|G\.aimCamGlide===false\)\?zbT:\(missHolding\(\)\?G\._zbS:G\._zbS\+\(zbT-G\._zbS\)\*0\.08\)/.test(demo) &&
+    /else if\(!missHolding\(\)\)\{ const k=0\.055;/.test(demo));
+
+  ok('V127 NOTHING IS RETARGETED, ONLY PAUSED, so when the hold expires the camera resumes from exactly where it was instead of snapping. The hold covers the flight plus a moment on the impact and never outlasts the beat, so the volley is never waiting on the camera',
+    /MISS_FLY_MS\+140/.test(demo) &&
+    demo.includes('const MISS_BEAT_MS=BPM_MS;'));
+
+  ok('V127 AND THE ROUND IS SLOW ENOUGH TO TRACK: 120ms is SEVEN FRAMES at 60fps, and part of those the eye is still travelling from the dial back to the field. 280 is a bit over half a beat, and still lands well inside the held beat so the impact reads before the volley answers',
+    demo.includes('const MISS_FLY_MS=280;') &&
+    !demo.includes('const MISS_FLY_MS=120;'));
+
+  ok('V127 A CAMERA HOLD NEVER SURVIVES A RESET, the same rule the cook\'s timer had to obey: a stale hold would freeze the camera into the next encounter',
+    /G\._missHold=0;\s*\/\* V127: a camera hold never survives a reset \*\//.test(demo));
+
+  ok('V127 A HIT IS UNTOUCHED: the hold is armed only by fireMissRound and it is only ever read by the camera easings, so a landed shot resolves with the camera doing exactly what it always did',
+    (demo.match(/G\._missHold=performance\.now\(\)/g) || []).length === 1 &&
+    !/function endTurnClean[\s\S]{0,400}_missHold/.test(demo));
 }
 
 /* ===== YOU ALWAYS SHOOT FIRST (Paolo 8/3/26, LOCKED) ==================
