@@ -936,7 +936,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/4b - THE CAMERA HOLDS ON A MISS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/4c - THIRTY NEW SOUNDS, AND EAT IS ITS OWN (MUSIC TAB)</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11969,6 +11969,60 @@ drawLogoBig();requestAnimationFrame(loop);
 
 
 
+<!-- BOHEMIA RUN BEAT BRIDGE (7/29/26) -->
+<script>
+/* === RUN BEAT BRIDGE (7/29/26, SOUNDS lane) ==============================
+   The studio schedules on the AudioContext clock. The run lives in an iframe
+   and cannot see that clock at all, so a raw AC time would be meaningless to
+   it. Every quarter-beat we translate the beat's audio time into the CHILD'S
+   own timebase (performance.now()) and post it. One number the run can act on.
+
+   Posted on the beat boundary only, not per 16th: the run needs the beat, and
+   four times the messages for the same information is four times the cost on a
+   phone. */
+(function(){
+  'use strict';
+  if(window.__RUNBEAT_BRIDGE)return; window.__RUNBEAT_BRIDGE=true;
+  var lastSent=-1;
+  function tick(){
+    try{
+      if(typeof MUS==='undefined'||!MUS.AC){ return; }
+      var playing=!!MUS.playing;
+      var msPerBeat=(typeof MUS.stepDur==='function')?(MUS.stepDur()*4*1000):500;
+      var beat=Math.floor((MUS.step||0)/4);
+      if(!playing){
+        /* SILENCE IS A STATE, NOT A GAP. Tell the run the transport stopped so
+           it free-runs on the last known tempo instead of waiting forever for a
+           beat that is not coming. */
+        if(lastSent!==-1){ lastSent=-1;
+          runPost({type:'BOHEMIA_RUN_BEAT',on:false,bpm:60000/msPerBeat,msPerBeat:msPerBeat}); }
+        return;
+      }
+      if(beat===lastSent)return;
+      lastSent=beat;
+      /* MUS.nextT is the AC time of the NEXT 16th to be scheduled. Walk back to
+         the audio time of the beat we are announcing, then convert into the
+         child's clock: perf = now + (audioTime - acNow) * 1000. */
+      var acNow=MUS.AC.currentTime;
+      var stepDur=(typeof MUS.stepDur==='function')?MUS.stepDur():0.125;
+      var atAudio=(MUS.nextT||acNow)-((MUS.step||0)-beat*4)*stepDur;
+      /* A DELTA, NEVER A TIMESTAMP. performance.now() is measured from each
+         browsing context's OWN time origin, and an iframe's origin is when the
+         iframe was created -- so the parent's stamp is ahead of the child's by
+         however long the page had been up. Sending one measured the run 22
+         beats away from the studio on the first gate run. `inMs` means "this
+         beat lands this many milliseconds from when you read this", which is
+         true in anybody's clock. postMessage inside one process is sub-
+         millisecond; a beat is 500. */
+      runPost({type:'BOHEMIA_RUN_BEAT',on:true,beat:beat,bpm:60000/msPerBeat,
+               msPerBeat:msPerBeat,inMs:(atAudio-acNow)*1000});
+    }catch(_e){}
+  }
+  setInterval(tick,60);       /* well under a quarter-beat, so no beat is missed */
+  window.__runBeatTick=tick;  /* the gate drives this directly */
+})();
+</script>
+<!-- /BOHEMIA RUN BEAT BRIDGE -->
 <!-- BOHEMIA SOUND MIX (8/2/26) -->
 <script>
 /* === THE SOUND MIX (8/2/26, SOUNDS lane) =================================
@@ -12054,7 +12108,9 @@ drawLogoBig();requestAnimationFrame(loop);
   +'.sbBtn .sbName{font:700 10px ui-monospace,monospace;letter-spacing:.6px;line-height:1.2}'
   +'.sbBtn .sbN{font:400 8.5px ui-monospace,monospace;color:#8d81ab;letter-spacing:.5px}'
   +'.sbBtn.sbHot{background:#3a2c66;border-color:#8f6fd0}'
-  +'.sbBtn.sbDead{opacity:.45}';
+  +'.sbBtn.sbDead{opacity:.45}'
+  +'.sbBtn.sbNew{border-color:#8f6fd0;background:#241a3d}'
+  +'.sbBtn.sbNew .sbN{color:#c2a6f5}';
  try{ var st=document.createElement('style'); st.textContent=CSS; document.head.appendChild(st); }catch(e){}
 
  function row(key,label,onDone){
@@ -12084,7 +12140,8 @@ drawLogoBig();requestAnimationFrame(loop);
  var BOARD=[
   ['WALKING',  ['step_asphalt','step_dirt','step_gravel']],
   ['THE FIGHT',['shot','hit','vital','block','hurt','kill','clear','miss']],
-  ['THE WORLD',['air_day','air_night','air_inside','door_open','door_shut']],
+  ['THE WORLD',['air_day','air_night','air_inside','go_inside','door_open','door_shut']],
+  ['A DAY',    ['eat','sleep','time_pass','talk_start','quest_done']],
   ['YOU',      ['pickup','phone_buzz','save_chime','ui_tap']]
  ];
  function labelOf(ev){
@@ -12093,6 +12150,20 @@ drawLogoBig();requestAnimationFrame(loop);
  }
  function approvedCount(ev){
   try{ return (window.__SFX_APPROVED && window.__SFX_APPROVED[ev] || []).length; }catch(e){ return 0; }
+ }
+ /* THREE STATES, AND THE THIRD ONE IS THE GRAVEYARD.
+      LIVE  he approved at least one  -> play the GAME's sound
+      NEW   cooked, not fully judged  -> audition the candidates in turn
+      DEAD  every candidate thumbed and none survived -> PLAY NOTHING
+    That last one is not styling. He judged all ten door candidates DOWN, and
+    GRAVEYARD IS FINAL: a board that auditions them is putting dead art back in
+    front of him. Dead buttons say so and stay silent. */
+ function stateOf(ev){
+  if(approvedCount(ev)>0) return 'live';
+  var cookable=0; try{ cookable=BOH_SFX.cook(ev,5).length; }catch(e){}
+  if(!cookable) return 'dead';
+  try{ if(window.BOH_SFX_JUDGE && window.BOH_SFX_JUDGE.done(ev)) return 'dead'; }catch(e){}
+  return 'new';
  }
  function boardBlock(){
   var b=document.createElement('div'); b.id='sbWrap';
@@ -12103,24 +12174,56 @@ drawLogoBig();requestAnimationFrame(loop);
   sub.textContent='Tap one and you hear exactly what the game plays. Nothing here '
    +'needs judging and nothing needs finding in a run.';
   b.appendChild(sub);
+  /* ANY MOMENT NO GROUP LISTS STILL GETS A BUTTON. His complaint was that a
+     sound existed and he could not reach it; a hand-written group list is
+     exactly how that happens again the next time somebody cooks a batch and
+     forgets this file. The leftovers group is the backstop, not the plan. */
+  try{
+   var listed={}; BOARD.forEach(function(g){ g[1].forEach(function(e){ listed[e]=1; }); });
+   var extra=BOH_SFX.EVENTS.map(function(E){ return E.ev; }).filter(function(e){ return !listed[e]; });
+   if(extra.length) BOARD.push(['ALSO IN THE GAME', extra]);
+  }catch(e){}
   BOARD.forEach(function(grp){
    var g=document.createElement('div'); g.className='sbGroup';
    var gl=document.createElement('div'); gl.className='sbGL'; gl.textContent=grp[0];
    g.appendChild(gl);
    var row=document.createElement('div'); row.className='sbRow';
    grp[1].forEach(function(ev){
-    var n=approvedCount(ev);
+    var n=approvedCount(ev), st=stateOf(ev);
     var btn=document.createElement('button');
-    btn.className='sbBtn'+(n?'':' sbDead');
+    btn.className='sbBtn'+(st==='dead'?' sbDead':'')+(st==='new'?' sbNew':'');
     btn.id='sb_'+ev;
     btn.setAttribute('data-ev',ev);
     btn.innerHTML='<span class="sbName">'+labelOf(ev)+'</span>'
-      +'<span class="sbN">'+(n? n+(n===1?' sound':' sounds') : 'no sound yet')+'</span>';
+      +'<span class="sbN">'
+      +(st==='live' ? n+(n===1?' sound':' sounds')
+        : st==='new' ? 'NEW - tap to hear all 5'
+        : 'nothing survived judging')+'</span>';
+    var turn=0;
     btn.addEventListener('click',function(){
-     /* THE GAME'S OWN CALL. Not a private preview path -- a side door would let
-        the board sound healthy while the game is silent, which is exactly the
-        class of lie this lane has already shipped once. */
-     try{ if(window.playSFX) window.playSFX(ev); }catch(e){}
+     var st2=stateOf(ev);
+     if(st2==='dead') return;   /* GRAVEYARD IS FINAL: nothing to play, on purpose */
+     if(st2==='live'){
+      /* THE GAME'S OWN CALL for a moment he has already ruled. Not a private
+         preview path -- a side door would let the board sound healthy while the
+         game is silent, which is a lie this lane has shipped once already. */
+      try{ if(window.playSFX) window.playSFX(ev); }catch(e){}
+     }else{
+      /* AND A MOMENT HE HAS NOT RULED YET MUST AUDITION ITS CANDIDATES.
+         playSFX falls back to step_dirt for an unbanked event, which is correct
+         inside the GAME (better a footstep than a hole) and a disaster on a
+         board: tapping EAT played a footstep, so a freshly cooked batch sounded
+         like nothing new at all. That is literally the complaint that started
+         this - "Theres no new sounds". Each tap plays the NEXT candidate, so
+         five taps is the whole set and the button says which one. */
+      try{
+       var c=BOH_SFX.cook(ev,5), v=c[turn%c.length]; turn++;
+       if(window.BOH_SFX_JUDGE) window.BOH_SFX_JUDGE.hear(v);
+       else BOH_SFX.render(v, MUS.AC, (window.__SFXBUS||MUS.OUT||MUS.MAST));
+       var n=btn.querySelector('.sbN');
+       if(n) n.textContent='candidate '+(((turn-1)%c.length)+1)+' of '+c.length+' - not judged';
+      }catch(e){}
+     }
      btn.classList.add('sbHot'); setTimeout(function(){ btn.classList.remove('sbHot'); },220);
     });
     row.appendChild(btn);
@@ -12417,7 +12520,18 @@ const BOH_SFX = (function () {
        hear in the emptiness, fired minutes apart. See the research record. */
     { ev: 'air_day',      label: 'THE VALLEY AT MIDDAY', why: 'outside, in the heat. what you hear when nothing is happening' },
     { ev: 'air_night',    label: 'THE VALLEY AT NIGHT',  why: 'outside, after dark. this one is the horror' },
-    { ev: 'air_inside',   label: 'INSIDE A BUILDING',    why: 'a room with nobody in it but you' }
+    { ev: 'air_inside',   label: 'INSIDE A BUILDING',    why: 'a room with nobody in it but you' },
+    /* ---- BATCH 02 (8/2/26): SIX MOMENTS THE GAME ALREADY HAS ----------
+       Paolo 8/2: "Theres no new sounds make new sounds" and, ruling the moment
+       rather than the sound, "eat will be a different sound". Every one of these
+       already happens in the run today, in silence. */
+    { ev: 'eat',        label: 'YOU EAT',            why: 'what the room was holding, and you took it. nobody else hears this' },
+    { ev: 'sleep',      label: 'YOU SLEEP',          why: 'eight hours gone. the biggest block of time in the game' },
+    { ev: 'talk_start', label: 'SOMEBODY TURNS TO YOU', why: 'the moment a conversation starts. small: a person is not an event' },
+    { ev: 'go_inside',  label: 'YOU STEP INSIDE',    why: 'crossing into a building. the ROOM is the sound, not the door' },
+    { ev: 'quest_done', label: 'IT IS DONE',         why: 'the run completed. the one moment that earns the whole room' },
+    { ev: 'time_pass',  label: 'HOURS GO BY',        why: 'time spent standing still. the only sound here that moves in pitch' }
+    /* ---- end batch 02 events ---- */
   ];
 
   /* ---- THE RECIPES -----------------------------------------------------
@@ -12698,7 +12812,67 @@ const BOH_SFX = (function () {
                 [0, 0.0625, 0.125, 0.1875, 0.5, 0.5625, 0.625, 0.6875],
                 [0, 0.0625, 0.5, 0.5625],
                 [0, 0.0625, 0.125, 0.5, 0.5625, 0.625]]
+    },
+    /* ---- BATCH 02 RECIPES (8/2/26) ----
+       Spread deliberately across this file's own contrast law: eat and talk are
+       dry and close, quest_done gets the most room of anything in the game. */
+    eat: {
+      base: { mat: 'water', hz: 148, modes: 6, bright: 0.7, decay: 0.1875, damp: 2.2,
+              warble: 1.4, trans: 0.55, transHz: 1100, transQ: 0.8, grit: 0.6,
+              gritHz: 700, space: 0.05, room: 0.0625, refl: 0, dark: 800,
+              width: 0.3, drive: 0.2, mkup: 1.2, gain: 0.3,
+              hits: [0, 0.125] },
+      jit:  { hz: [110, 205], decay: [0.125, 0.3125], transHz: [700, 1900],
+              grit: [0.45, 0.8], gritHz: [500, 1200], warble: [0.8, 2.2],
+              damp: [1.7, 2.8], width: [0.2, 0.45] },
+      hitSets: [[0, 0.125], [0, 0.0625, 0.1875], [0, 0.1875],
+                [0, 0.0625, 0.125, 0.25], [0, 0.125, 0.25]]
+    },
+    sleep: {
+      base: { mat: 'choir', hz: 54, modes: 11, bright: 0.45, decay: 3, damp: 0.7,
+              warble: 1.9, atk: 0.375, slide: -4, trans: 0.08, transHz: 500,
+              transQ: 0.6, grit: 0.18, gritHz: 380, space: 0.72, room: 2.25,
+              refl: 3, dark: 900, width: 0.85, drive: 0.05, mkup: 1.6, gain: 0.26 },
+      jit:  { hz: [42, 72], decay: [2.25, 3.75], atk: [0.25, 0.5], slide: [-8, -2],
+              space: [0.6, 0.85], room: [1.75, 2.75], dark: [650, 1300],
+              warble: [1.3, 2.6], width: [0.7, 1] }
+    },
+    talk_start: {
+      base: { mat: 'wood', hz: 262, modes: 5, bright: 1.05, decay: 0.125, damp: 2,
+              warble: 0.6, trans: 0.62, transHz: 2100, transQ: 1.3, grit: 0.16,
+              gritHz: 1500, space: 0.18, room: 0.125, refl: 1, dark: 1900,
+              width: 0.55, drive: 0.1, mkup: 0.95, gain: 0.28 },
+      jit:  { hz: [205, 340], decay: [0.0625, 0.1875], transHz: [1500, 3200],
+              bright: [0.85, 1.4], damp: [1.6, 2.5], width: [0.5, 0.8],
+              space: [0.14, 0.26] }
+    },
+    go_inside: {
+      base: { mat: 'stone', hz: 84, modes: 8, bright: 0.6, decay: 0.75, damp: 1.4,
+              warble: 1.1, atk: 0.0625, trans: 0.3, transHz: 1300, transQ: 1.8,
+              grit: 0.3, gritHz: 900, space: 0.66, room: 1.125, refl: 4,
+              dark: 1200, width: 0.75, drive: 0.15, mkup: 1.25, gain: 0.29 },
+      jit:  { hz: [62, 124], decay: [0.5, 1], space: [0.5, 0.8], room: [0.875, 1.5],
+              refl: [2, 4], dark: [850, 1900], warble: [0.7, 1.8], width: [0.6, 0.95] }
+    },
+    quest_done: {
+      base: { mat: 'bell', hz: 196, modes: 14, bright: 1.15, decay: 3.5, damp: 1.1,
+              warble: 2.4, trans: 0.45, transHz: 3400, transQ: 2.2, grit: 0.1,
+              gritHz: 2600, space: 0.88, room: 2.875, refl: 4, dark: 3000,
+              width: 0.95, drive: 0.1, mkup: 1.35, gain: 0.3 },
+      jit:  { hz: [150, 268], decay: [2.75, 4], space: [0.75, 1], room: [2.25, 3],
+              dark: [2200, 4200], warble: [1.7, 3], bright: [0.9, 1.7],
+              transHz: [2400, 5200] }
+    },
+    time_pass: {
+      base: { mat: 'glass', hz: 340, modes: 7, bright: 1.3, decay: 1.25, damp: 1.7,
+              warble: 1.6, atk: 0.125, slide: -9, trans: 0.2, transHz: 4600,
+              transQ: 2.6, grit: 0.08, gritHz: 3400, space: 0.42, room: 0.75,
+              refl: 2, dark: 2400, width: 0.62, drive: 0.05, mkup: 1.15, gain: 0.24 },
+      jit:  { hz: [255, 460], decay: [0.875, 1.75], slide: [-14, -5],
+              space: [0.3, 0.55], room: [0.5, 1], dark: [1700, 3400],
+              warble: [1.1, 2.4], atk: [0.0625, 0.1875] }
     }
+    /* ---- end batch 02 recipes ---- */
   };
 
   /* ---- THE GENERATOR --------------------------------------------------- */
@@ -13314,60 +13488,6 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 })();
 </script>
 <!-- /BOHEMIA SFX FACTORY MOUNT -->
-<!-- BOHEMIA RUN BEAT BRIDGE (7/29/26) -->
-<script>
-/* === RUN BEAT BRIDGE (7/29/26, SOUNDS lane) ==============================
-   The studio schedules on the AudioContext clock. The run lives in an iframe
-   and cannot see that clock at all, so a raw AC time would be meaningless to
-   it. Every quarter-beat we translate the beat's audio time into the CHILD'S
-   own timebase (performance.now()) and post it. One number the run can act on.
-
-   Posted on the beat boundary only, not per 16th: the run needs the beat, and
-   four times the messages for the same information is four times the cost on a
-   phone. */
-(function(){
-  'use strict';
-  if(window.__RUNBEAT_BRIDGE)return; window.__RUNBEAT_BRIDGE=true;
-  var lastSent=-1;
-  function tick(){
-    try{
-      if(typeof MUS==='undefined'||!MUS.AC){ return; }
-      var playing=!!MUS.playing;
-      var msPerBeat=(typeof MUS.stepDur==='function')?(MUS.stepDur()*4*1000):500;
-      var beat=Math.floor((MUS.step||0)/4);
-      if(!playing){
-        /* SILENCE IS A STATE, NOT A GAP. Tell the run the transport stopped so
-           it free-runs on the last known tempo instead of waiting forever for a
-           beat that is not coming. */
-        if(lastSent!==-1){ lastSent=-1;
-          runPost({type:'BOHEMIA_RUN_BEAT',on:false,bpm:60000/msPerBeat,msPerBeat:msPerBeat}); }
-        return;
-      }
-      if(beat===lastSent)return;
-      lastSent=beat;
-      /* MUS.nextT is the AC time of the NEXT 16th to be scheduled. Walk back to
-         the audio time of the beat we are announcing, then convert into the
-         child's clock: perf = now + (audioTime - acNow) * 1000. */
-      var acNow=MUS.AC.currentTime;
-      var stepDur=(typeof MUS.stepDur==='function')?MUS.stepDur():0.125;
-      var atAudio=(MUS.nextT||acNow)-((MUS.step||0)-beat*4)*stepDur;
-      /* A DELTA, NEVER A TIMESTAMP. performance.now() is measured from each
-         browsing context's OWN time origin, and an iframe's origin is when the
-         iframe was created -- so the parent's stamp is ahead of the child's by
-         however long the page had been up. Sending one measured the run 22
-         beats away from the studio on the first gate run. `inMs` means "this
-         beat lands this many milliseconds from when you read this", which is
-         true in anybody's clock. postMessage inside one process is sub-
-         millisecond; a beat is 500. */
-      runPost({type:'BOHEMIA_RUN_BEAT',on:true,beat:beat,bpm:60000/msPerBeat,
-               msPerBeat:msPerBeat,inMs:(atAudio-acNow)*1000});
-    }catch(_e){}
-  }
-  setInterval(tick,60);       /* well under a quarter-beat, so no beat is missed */
-  window.__runBeatTick=tick;  /* the gate drives this directly */
-})();
-</script>
-<!-- /BOHEMIA RUN BEAT BRIDGE -->
 <!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->
 <script>
 /* === SFX WIRE, PARENT SIDE (7/30/26) ====================================

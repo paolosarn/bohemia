@@ -617,16 +617,34 @@ def main():
     # five sounds go back to waiting for an inventory. Said out loud rather than
     # buried, because a stretched moment is the kind of thing that should be easy
     # for him to kill.
+    # EAT IS ITS OWN SOUND (Paolo 8/2: "eat will be a different sound"). This
+    # used to wire PICKUP here, as the closest real take-the-thing moment, and
+    # it was flagged at the time as the one judgement call in that ship. He
+    # answered by ruling the MOMENT rather than the sound: eating is not picking
+    # up. So this wires 'eat', which batch 02 cooks its own five candidates for,
+    # and PICKUP goes back to having no call site until an inventory exists.
     pk_anchor = ("      return { verb:'use', label:'EAT WHAT YOU FOUND',\n"
                  "               act:function(){ spendTime('EAT','You ate.'); } };")
-    if "sfx('pickup')" not in run:
-        if pk_anchor not in run:
+    if "sfx('eat')" not in run:
+        # A BUILD MAY ALREADY CARRY THE PICKUP WIRE. This tool shipped it on 8/2
+        # before he ruled, so an existing tree has sfx('pickup') at this site and
+        # the plain anchor is gone. Upgrade it in place rather than bailing out:
+        # a patch tool that can only recognise the pristine shape cannot correct
+        # its own past output, which is how a superseded ruling survives.
+        if "sfx('pickup');" in run:
+            run = run.replace("sfx('pickup');", "sfx('eat');", 1)
+            run = run.replace(
+                "/* HIS pickup (7/30): you take what the room held */",
+                "/* HIS EAT (8/2 ruling: \"eat will be a different sound\") */", 1)
+            print("  upgraded the old pickup wire to EAT (his 8/2 ruling)")
+        elif pk_anchor not in run:
             print('FAIL: cannot find the prop use verb')
             return 1
-        run = run.replace(pk_anchor,
+        elif True:
+            run = run.replace(pk_anchor,
                           "      return { verb:'use', label:'EAT WHAT YOU FOUND',\n"
-                          "               act:function(){ sfx('pickup');"
-                          "   /* HIS pickup (7/30): you take what the room held */\n"
+                          "               act:function(){ sfx('eat');"
+                          "   /* HIS EAT (8/2 ruling: \"eat will be a different sound\") */\n"
                           "                            spendTime('EAT','You ate.'); } };", 1)
 
     open(RUN, 'w', encoding='utf8').write(run)
@@ -636,14 +654,14 @@ def main():
         return 1
     built = open(BUILT, encoding='utf8').read()
     if ('SFX WIRE, RUN SIDE' not in built or 'sfxGround(px,py)' not in built
-            or "sfx('phone_buzz')" not in built or "sfx('pickup')" not in built):
+            or "sfx('phone_buzz')" not in built or "sfx('eat')" not in built):
         print('FAIL: the rebuilt run does not carry the wire')
         return 1
 
     print('THE APPROVED SOUNDS PLAY NOW.')
     print('  %d approved sounds across %d events, from his 7/30 thumbs' % (n, len(bank)))
     print('  footsteps chosen by the tile the game already knows')
-    print('  phone buzz on a real post, pickup on the thing the room held')
+    print('  phone buzz on a real post, EAT on the thing the room held (his 8/2 ruling)')
     print('  doors: SILENT, on purpose -- he killed all ten door candidates')
     return 0
 

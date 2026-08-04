@@ -2707,7 +2707,7 @@ function contextVerb(){
     /* anything the room is holding, right where you stand */
     if(propAt(px,py))
       return { verb:'use', label:'EAT WHAT YOU FOUND',
-               act:function(){ sfx('pickup');   /* HIS pickup (7/30): you take what the room held */
+               act:function(){ sfx('eat');   /* HIS EAT (8/2 ruling: "eat will be a different sound") */
                             spendTime('EAT','You ate.'); } };
     /* your own bed: the biggest block of time there is */
     if(curHouse===HOME)

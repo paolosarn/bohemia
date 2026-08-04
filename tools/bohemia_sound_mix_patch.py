@@ -208,7 +208,9 @@ BLOCK = r"""
   +'.sbBtn .sbName{font:700 10px ui-monospace,monospace;letter-spacing:.6px;line-height:1.2}'
   +'.sbBtn .sbN{font:400 8.5px ui-monospace,monospace;color:#8d81ab;letter-spacing:.5px}'
   +'.sbBtn.sbHot{background:#3a2c66;border-color:#8f6fd0}'
-  +'.sbBtn.sbDead{opacity:.45}';
+  +'.sbBtn.sbDead{opacity:.45}'
+  +'.sbBtn.sbNew{border-color:#8f6fd0;background:#241a3d}'
+  +'.sbBtn.sbNew .sbN{color:#c2a6f5}';
  try{ var st=document.createElement('style'); st.textContent=CSS; document.head.appendChild(st); }catch(e){}
 
  function row(key,label,onDone){
@@ -238,7 +240,8 @@ BLOCK = r"""
  var BOARD=[
   ['WALKING',  ['step_asphalt','step_dirt','step_gravel']],
   ['THE FIGHT',['shot','hit','vital','block','hurt','kill','clear','miss']],
-  ['THE WORLD',['air_day','air_night','air_inside','door_open','door_shut']],
+  ['THE WORLD',['air_day','air_night','air_inside','go_inside','door_open','door_shut']],
+  ['A DAY',    ['eat','sleep','time_pass','talk_start','quest_done']],
   ['YOU',      ['pickup','phone_buzz','save_chime','ui_tap']]
  ];
  function labelOf(ev){
@@ -247,6 +250,20 @@ BLOCK = r"""
  }
  function approvedCount(ev){
   try{ return (window.__SFX_APPROVED && window.__SFX_APPROVED[ev] || []).length; }catch(e){ return 0; }
+ }
+ /* THREE STATES, AND THE THIRD ONE IS THE GRAVEYARD.
+      LIVE  he approved at least one  -> play the GAME's sound
+      NEW   cooked, not fully judged  -> audition the candidates in turn
+      DEAD  every candidate thumbed and none survived -> PLAY NOTHING
+    That last one is not styling. He judged all ten door candidates DOWN, and
+    GRAVEYARD IS FINAL: a board that auditions them is putting dead art back in
+    front of him. Dead buttons say so and stay silent. */
+ function stateOf(ev){
+  if(approvedCount(ev)>0) return 'live';
+  var cookable=0; try{ cookable=BOH_SFX.cook(ev,5).length; }catch(e){}
+  if(!cookable) return 'dead';
+  try{ if(window.BOH_SFX_JUDGE && window.BOH_SFX_JUDGE.done(ev)) return 'dead'; }catch(e){}
+  return 'new';
  }
  function boardBlock(){
   var b=document.createElement('div'); b.id='sbWrap';
@@ -257,24 +274,56 @@ BLOCK = r"""
   sub.textContent='Tap one and you hear exactly what the game plays. Nothing here '
    +'needs judging and nothing needs finding in a run.';
   b.appendChild(sub);
+  /* ANY MOMENT NO GROUP LISTS STILL GETS A BUTTON. His complaint was that a
+     sound existed and he could not reach it; a hand-written group list is
+     exactly how that happens again the next time somebody cooks a batch and
+     forgets this file. The leftovers group is the backstop, not the plan. */
+  try{
+   var listed={}; BOARD.forEach(function(g){ g[1].forEach(function(e){ listed[e]=1; }); });
+   var extra=BOH_SFX.EVENTS.map(function(E){ return E.ev; }).filter(function(e){ return !listed[e]; });
+   if(extra.length) BOARD.push(['ALSO IN THE GAME', extra]);
+  }catch(e){}
   BOARD.forEach(function(grp){
    var g=document.createElement('div'); g.className='sbGroup';
    var gl=document.createElement('div'); gl.className='sbGL'; gl.textContent=grp[0];
    g.appendChild(gl);
    var row=document.createElement('div'); row.className='sbRow';
    grp[1].forEach(function(ev){
-    var n=approvedCount(ev);
+    var n=approvedCount(ev), st=stateOf(ev);
     var btn=document.createElement('button');
-    btn.className='sbBtn'+(n?'':' sbDead');
+    btn.className='sbBtn'+(st==='dead'?' sbDead':'')+(st==='new'?' sbNew':'');
     btn.id='sb_'+ev;
     btn.setAttribute('data-ev',ev);
     btn.innerHTML='<span class="sbName">'+labelOf(ev)+'</span>'
-      +'<span class="sbN">'+(n? n+(n===1?' sound':' sounds') : 'no sound yet')+'</span>';
+      +'<span class="sbN">'
+      +(st==='live' ? n+(n===1?' sound':' sounds')
+        : st==='new' ? 'NEW - tap to hear all 5'
+        : 'nothing survived judging')+'</span>';
+    var turn=0;
     btn.addEventListener('click',function(){
-     /* THE GAME'S OWN CALL. Not a private preview path -- a side door would let
-        the board sound healthy while the game is silent, which is exactly the
-        class of lie this lane has already shipped once. */
-     try{ if(window.playSFX) window.playSFX(ev); }catch(e){}
+     var st2=stateOf(ev);
+     if(st2==='dead') return;   /* GRAVEYARD IS FINAL: nothing to play, on purpose */
+     if(st2==='live'){
+      /* THE GAME'S OWN CALL for a moment he has already ruled. Not a private
+         preview path -- a side door would let the board sound healthy while the
+         game is silent, which is a lie this lane has shipped once already. */
+      try{ if(window.playSFX) window.playSFX(ev); }catch(e){}
+     }else{
+      /* AND A MOMENT HE HAS NOT RULED YET MUST AUDITION ITS CANDIDATES.
+         playSFX falls back to step_dirt for an unbanked event, which is correct
+         inside the GAME (better a footstep than a hole) and a disaster on a
+         board: tapping EAT played a footstep, so a freshly cooked batch sounded
+         like nothing new at all. That is literally the complaint that started
+         this - "Theres no new sounds". Each tap plays the NEXT candidate, so
+         five taps is the whole set and the button says which one. */
+      try{
+       var c=BOH_SFX.cook(ev,5), v=c[turn%c.length]; turn++;
+       if(window.BOH_SFX_JUDGE) window.BOH_SFX_JUDGE.hear(v);
+       else BOH_SFX.render(v, MUS.AC, (window.__SFXBUS||MUS.OUT||MUS.MAST));
+       var n=btn.querySelector('.sbN');
+       if(n) n.textContent='candidate '+(((turn-1)%c.length)+1)+' of '+c.length+' - not judged';
+      }catch(e){}
+     }
      btn.classList.add('sbHot'); setTimeout(function(){ btn.classList.remove('sbHot'); },220);
     });
     row.appendChild(btn);

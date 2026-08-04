@@ -1,3 +1,51 @@
+SOUND (sound-xk7pjp): 8/4 (c) LATEST - SFX BATCH 02. THIRTY NEW SOUNDS, AND EAT
+IS ITS OWN MOMENT. Tab: MUSIC, top of the panel.
+
+TWO RULINGS FROM HIM, VERBATIM:
+  "Theres no new sounds make new sounds"
+  "eat will be a different sound"
+
+THE FIRST ONE WAS TRUE AND IT WAS WORSE THAN HE KNEW. The board was showing the
+7/30 batch, the only batch that has ever existed. AND playSFX falls back to
+step_dirt for any unbanked event, which is right INSIDE the game (better a
+footstep than a hole) and a disaster on a judging board: measured, tapping EAT
+played a FOOTSTEP. Every new moment would have sounded like an old one forever.
+The board now has three states and this is the thing to not undo:
+  LIVE  he approved one          -> plays the GAME's sound (window.playSFX)
+  NEW   cooked, not fully judged -> AUDITIONS its own candidates, one per tap
+  DEAD  every candidate thumbed, none survived -> PLAYS NOTHING
+That third state is the graveyard: he killed all ten door candidates, and a
+board that auditions them is putting dead art back in front of him.
+
+SFX BATCH 02, six moments that already happen in the run in silence:
+  eat / sleep / talk_start / go_inside / quest_done / time_pass
+Spread across the engine's own contrast law (only meaning gets the room): eat is
+wet and close with almost no room, quest_done is the chapel bell with the most
+room of anything in the game. 5 candidates each, 30 total. THE BANK IS EMPTY for
+all six and stays empty until he thumbs one.
+
+EAT IS ITS OWN SOUND (his ruling), so the eat action calls sfx('eat') and PICKUP
+goes back to having no call site - there is still no inventory anywhere in the
+run or the loop engine. Pickup is a NAMED, CLOSED waiver in sfx_wired_gate with
+the reason printed every run. His ruling outranks my check; the check was mine.
+
+GATES: sfx_wired 299/299, sfx_render 1766/1766 (fingerprints re-recorded ON
+PURPOSE - 100 old rows byte-identical, 30 added, so none of his judged sounds
+drifted), MUSIC 17/17, COMBAT LAB 654/654, RUN 126/126, SONG LOCK 20/20.
+
+TWO THINGS I GOT WRONG AND FIXED, both caught by machines and not by reading:
+1. stateOf() was CALLED but never DEFINED - an earlier edit aborted before
+   writing the function. Every button threw and went silent. The gate caught it
+   as 21 failures. A mention is not a definition.
+2. talk_start candidate 3 rendered at 0.019 stereo width, effectively MONO, and
+   moving off mono is the one thing this engine was rebuilt around. Small does
+   not mean centred. Width floor raised; it is still the driest thing in the batch.
+
+AND A WARNING FOR THIS LANE: sfx_wired_gate now takes 20+ minutes in a loaded
+container. I trimmed the board section to ONE TAP PER STATE (live/new/dead)
+rather than per event - coverage of the full event LIST is still total and cheap
+via boardCovers, which needs no sound. Do not re-expand it to a sweep.
+
 LAB (lab-e2r7sv): 8/4 (a) LATEST -- THE RESEARCH SAYS HIS THREE PERCENTAGES ARE THREE
 DIFFERENT VERBS, AND ANOTHER SESSION HAD ALREADY LOCKED THE NUMBERS.
 

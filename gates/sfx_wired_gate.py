@@ -329,13 +329,29 @@ const METER=`(function(){
   });
   out.boardVisible = await p.evaluate(()=>[...document.querySelectorAll('.sbBtn')]
     .filter(x=>x.getClientRects().length>0).length);
-  out.boardDeadMarked = await p.evaluate(()=>{
-    try{ const A=window.__SFX_APPROVED||{};
-      return [...document.querySelectorAll('.sbBtn')].every(x=>{
-        const n=(A[x.getAttribute('data-ev')]||[]).length;
-        return n>0 ? !x.classList.contains('sbDead') : x.classList.contains('sbDead'); });
-    }catch(e){ return false; }
+  /* THREE STATES: live (he approved one) / new (cooked, unjudged) / dead (every
+     candidate thumbed, none survived). The third one is the graveyard: he killed
+     all ten door candidates, and a board that auditions them puts dead art back
+     in front of him. */
+  out.boardStates = await p.evaluate(()=>{
+    try{ const A=window.__SFX_APPROVED||{}; const bad=[];
+      [...document.querySelectorAll('.sbBtn')].forEach(x=>{
+        const ev=x.getAttribute('data-ev');
+        const n=(A[ev]||[]).length;
+        const done=(window.BOH_SFX_JUDGE&&window.BOH_SFX_JUDGE.done(ev))||false;
+        const want = n>0 ? 'live' : (done ? 'dead' : 'new');
+        const got = x.classList.contains('sbDead') ? 'dead'
+                  : x.classList.contains('sbNew') ? 'new' : 'live';
+        if(want!==got) bad.push(ev+':want '+want+' got '+got);
+      });
+      return bad;
+    }catch(e){ return ['threw '+e.message]; }
   });
+  /* AND A DEAD BUTTON MUST BE SILENT. Doors are the test: he killed all ten. */
+  out.deadSilent = await (async()=>{
+    const a=await tapBoard('door_open'), b2=await tapBoard('door_shut');
+    return [a,b2];
+  })();
   /* the reason this whole thing was needed, measured so it stays measured */
   out.judgeCollapsed = await p.evaluate(()=>{
     const c=[...document.querySelectorAll('.sfxCard')]; let shut=0;
@@ -354,12 +370,36 @@ const METER=`(function(){
   async function tapBoard(ev){
     await p.evaluate(()=>{window.__BP=0;}); await p.waitForTimeout(250);
     await p.click('#sb_'+ev,{force:true}).catch(()=>{});
-    await p.waitForTimeout(1600);
+    await p.waitForTimeout(1200);   /* longest board sound is ~4 beats = 2s at
+                                       120bpm, but the PEAK lands in the attack,
+                                       so this is measuring the strike not the tail */
     return await p.evaluate(()=>window.__BP);
   }
   out.boardTaps={};
-  for(const ev of ['step_asphalt','kill','block','pickup','phone_buzz','air_night','shot'])
+  for(const ev of ['step_asphalt','kill','block','phone_buzz','air_night','shot'])
     out.boardTaps[ev]=await tapBoard(ev);
+
+  /* A FRESHLY COOKED MOMENT MUST AUDITION ITS OWN CANDIDATES ON THE BOARD.
+     playSFX falls back to step_dirt for an unbanked event, which is right in the
+     GAME (better a footstep than a hole) and a disaster on a judging surface:
+     tapping EAT played a FOOTSTEP, so a brand new batch sounded like nothing new
+     at all. That is exactly the complaint that started this - "Theres no new
+     sounds". Two taps must both sound AND differ, because identical peaks are
+     the fingerprint of the fallback. */
+  out.newTaps={};
+  for(const ev of ['eat','sleep','talk_start','go_inside','quest_done','time_pass']){
+    const a=await tapBoard(ev), b2=await tapBoard(ev);
+    out.newTaps[ev]=[a,b2];
+  }
+  out.newUnbanked = await p.evaluate(()=>{
+    const A=window.__SFX_APPROVED||{};
+    return ['eat','sleep','talk_start','go_inside','quest_done','time_pass']
+      .every(e=>!(A[e]&&A[e].length));
+  });
+  out.newCookable = await p.evaluate(()=>{
+    try{ return ['eat','sleep','talk_start','go_inside','quest_done','time_pass']
+      .every(e=>BOH_SFX.cook(e,5).length===5); }catch(e){ return false; }
+  });
 
   console.log(JSON.stringify(out));
   await b.close();
@@ -543,7 +583,9 @@ def main():
         js = fh.name
     try:
         r = subprocess.run(['node', js, os.path.abspath(REPO)],
-                           capture_output=True, text=True, timeout=600)
+                           capture_output=True, text=True, timeout=900)   # 8/2: the board section added ~30 real taps, each of
+                           # which has to WAIT for a sound to finish ringing.
+                           # 600s was the old budget for a smaller probe.
     finally:
         os.unlink(js)
     if r.returncode != 0:
@@ -772,19 +814,42 @@ def main():
             return True
         return False
 
+    # PICKUP IS WAIVED, BY HIS OWN RULING, AND THE WAIVER IS NAMED.
+    # On 8/2 I wired PICKUP to the EAT WHAT YOU FOUND action as the closest real
+    # take-the-thing moment and flagged it as the judgement call. He answered by
+    # ruling the MOMENT: "eat will be a different sound". So EAT is its own
+    # recipe with its own candidates, the eat action calls it, and pickup goes
+    # back to having no call site because there is still no inventory anywhere
+    # in the run or the loop engine. His ruling outranks my check. It is a
+    # WAIVER and not a deletion: the five sounds he approved stay in the bank,
+    # the debt is printed every run, and the list is CLOSED so nothing else can
+    # quietly join it.
+    WAIVED = {'pickup': 'Paolo 8/2 ruled EAT is its own sound; pickup waits for '
+                        'an inventory to exist'}
     silent = sorted(ev for ev in bank if not wired(ev))
-    chk(not silent,
+    unexpected = [ev for ev in silent if ev not in WAIVED]
+    chk(not unexpected,
         'HE APPROVED THESE AND NOTHING CAN PLAY THEM: %s. Approved-but-unused is '
         'a defect: either give the sound a real moment or take it out of the bank.'
-        % ', '.join(silent))
+        % ', '.join(unexpected))
+    for ev in silent:
+        if ev in WAIVED:
+            print('  WAIVED: %s has no moment -- %s' % (ev, WAIVED[ev]))
     # THE MATCHER MUST BE ABLE TO SAY NO. A check that returns True for anything
     # is worse than no check, and this file has already shipped one of those
     # today (a distance test that passed with attenuation deleted).
     chk(not wired('a_family_that_does_not_exist'),
         'the silence matcher reports a made-up event as wired, so it proves nothing')
-    for ev in ('pickup', 'block', 'phone_buzz'):
+    for ev in ('block', 'phone_buzz'):
         chk(ev in bank and wired(ev),
             '%s is the family that was silent for a week; it must stay wired' % ev)
+    # HIS RULING, MACHINE-HELD: eating is not picking up.
+    chk("sfx('eat')" in run,
+        'the eat action does not call sfx(\'eat\') -- Paolo 8/2: "eat will be a '
+        'different sound"')
+    chk("sfx('pickup')" not in run,
+        'pickup is still wired to an action after he ruled that eat is its own '
+        'sound; his ruling outranks the old wire')
     # ONE SAVE PER VOLLEY. A return volley resolves several enemies in one frame
     # and one wall can eat all of them, which would fire his single approved
     # block sound three times in a tick.
@@ -828,9 +893,32 @@ def main():
     chk((d.get('boardVisible') or 0) >= 20,
         'only %s board buttons are actually on screen -- the point is that '
         'NOTHING has to be expanded' % (d.get('boardVisible') or 0))
-    chk(d.get('boardDeadMarked'),
-        'a moment with no approved sound is not marked dead on the board, so a '
-        'silent button reads as broken instead of honest')
+    bad = d.get('boardStates')
+    chk(bad == [],
+        'the board mislabels these moments: %s. live = he approved one, new = '
+        'cooked and unjudged, dead = every candidate thumbed and none survived.'
+        % ', '.join(bad or []))
+    ds = d.get('deadSilent') or [0, 0]
+    chk(max(ds) <= 0.005,
+        'A DEAD MOMENT MADE A SOUND ON THE BOARD (door_open %.4f, door_shut %.4f). '
+        'He judged all ten door candidates DOWN and GRAVEYARD IS FINAL: '
+        'auditioning them puts dead art back in front of him.' % (ds[0], ds[1]))
+    # ---- 9b: THE NEW BATCH IS AUDIBLE AND IT IS NOT THE FALLBACK (8/2) --
+    chk(d.get('newCookable'),
+        'batch 02 does not cook five candidates for every new moment')
+    chk(d.get('newUnbanked'),
+        'a batch-02 moment is already in the bank -- MECHANISM-MINE/CONTENTS-'
+        'PAOLO\'S: the bank stays empty until he thumbs one')
+    for ev, pair in sorted((d.get('newTaps') or {}).items()):
+        a, b2 = (pair + [0, 0])[:2]
+        chk((a or 0) > 0.02 and (b2 or 0) > 0.02,
+            'tapping the new moment %s made no sound (%.4f, %.4f)' % (ev, a or 0, b2 or 0))
+        chk(abs((a or 0) - (b2 or 0)) > 1e-6,
+            'two taps on %s produced the IDENTICAL peak %.4f, which is the '
+            'fingerprint of playSFX falling back to step_dirt. A new moment must '
+            'audition its own candidates or a fresh batch sounds like nothing new.'
+            % (ev, a or 0))
+
     taps = d.get('boardTaps') or {}
     for ev, peak in sorted(taps.items()):
         chk((peak or 0) > 0.02,

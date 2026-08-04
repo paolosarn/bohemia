@@ -227,7 +227,18 @@ const BOH_SFX = (function () {
        hear in the emptiness, fired minutes apart. See the research record. */
     { ev: 'air_day',      label: 'THE VALLEY AT MIDDAY', why: 'outside, in the heat. what you hear when nothing is happening' },
     { ev: 'air_night',    label: 'THE VALLEY AT NIGHT',  why: 'outside, after dark. this one is the horror' },
-    { ev: 'air_inside',   label: 'INSIDE A BUILDING',    why: 'a room with nobody in it but you' }
+    { ev: 'air_inside',   label: 'INSIDE A BUILDING',    why: 'a room with nobody in it but you' },
+    /* ---- BATCH 02 (8/2/26): SIX MOMENTS THE GAME ALREADY HAS ----------
+       Paolo 8/2: "Theres no new sounds make new sounds" and, ruling the moment
+       rather than the sound, "eat will be a different sound". Every one of these
+       already happens in the run today, in silence. */
+    { ev: 'eat',        label: 'YOU EAT',            why: 'what the room was holding, and you took it. nobody else hears this' },
+    { ev: 'sleep',      label: 'YOU SLEEP',          why: 'eight hours gone. the biggest block of time in the game' },
+    { ev: 'talk_start', label: 'SOMEBODY TURNS TO YOU', why: 'the moment a conversation starts. small: a person is not an event' },
+    { ev: 'go_inside',  label: 'YOU STEP INSIDE',    why: 'crossing into a building. the ROOM is the sound, not the door' },
+    { ev: 'quest_done', label: 'IT IS DONE',         why: 'the run completed. the one moment that earns the whole room' },
+    { ev: 'time_pass',  label: 'HOURS GO BY',        why: 'time spent standing still. the only sound here that moves in pitch' }
+    /* ---- end batch 02 events ---- */
   ];
 
   /* ---- THE RECIPES -----------------------------------------------------
@@ -508,7 +519,67 @@ const BOH_SFX = (function () {
                 [0, 0.0625, 0.125, 0.1875, 0.5, 0.5625, 0.625, 0.6875],
                 [0, 0.0625, 0.5, 0.5625],
                 [0, 0.0625, 0.125, 0.5, 0.5625, 0.625]]
+    },
+    /* ---- BATCH 02 RECIPES (8/2/26) ----
+       Spread deliberately across this file's own contrast law: eat and talk are
+       dry and close, quest_done gets the most room of anything in the game. */
+    eat: {
+      base: { mat: 'water', hz: 148, modes: 6, bright: 0.7, decay: 0.1875, damp: 2.2,
+              warble: 1.4, trans: 0.55, transHz: 1100, transQ: 0.8, grit: 0.6,
+              gritHz: 700, space: 0.05, room: 0.0625, refl: 0, dark: 800,
+              width: 0.3, drive: 0.2, mkup: 1.2, gain: 0.3,
+              hits: [0, 0.125] },
+      jit:  { hz: [110, 205], decay: [0.125, 0.3125], transHz: [700, 1900],
+              grit: [0.45, 0.8], gritHz: [500, 1200], warble: [0.8, 2.2],
+              damp: [1.7, 2.8], width: [0.2, 0.45] },
+      hitSets: [[0, 0.125], [0, 0.0625, 0.1875], [0, 0.1875],
+                [0, 0.0625, 0.125, 0.25], [0, 0.125, 0.25]]
+    },
+    sleep: {
+      base: { mat: 'choir', hz: 54, modes: 11, bright: 0.45, decay: 3, damp: 0.7,
+              warble: 1.9, atk: 0.375, slide: -4, trans: 0.08, transHz: 500,
+              transQ: 0.6, grit: 0.18, gritHz: 380, space: 0.72, room: 2.25,
+              refl: 3, dark: 900, width: 0.85, drive: 0.05, mkup: 1.6, gain: 0.26 },
+      jit:  { hz: [42, 72], decay: [2.25, 3.75], atk: [0.25, 0.5], slide: [-8, -2],
+              space: [0.6, 0.85], room: [1.75, 2.75], dark: [650, 1300],
+              warble: [1.3, 2.6], width: [0.7, 1] }
+    },
+    talk_start: {
+      base: { mat: 'wood', hz: 262, modes: 5, bright: 1.05, decay: 0.125, damp: 2,
+              warble: 0.6, trans: 0.62, transHz: 2100, transQ: 1.3, grit: 0.16,
+              gritHz: 1500, space: 0.18, room: 0.125, refl: 1, dark: 1900,
+              width: 0.55, drive: 0.1, mkup: 0.95, gain: 0.28 },
+      jit:  { hz: [205, 340], decay: [0.0625, 0.1875], transHz: [1500, 3200],
+              bright: [0.85, 1.4], damp: [1.6, 2.5], width: [0.5, 0.8],
+              space: [0.14, 0.26] }
+    },
+    go_inside: {
+      base: { mat: 'stone', hz: 84, modes: 8, bright: 0.6, decay: 0.75, damp: 1.4,
+              warble: 1.1, atk: 0.0625, trans: 0.3, transHz: 1300, transQ: 1.8,
+              grit: 0.3, gritHz: 900, space: 0.66, room: 1.125, refl: 4,
+              dark: 1200, width: 0.75, drive: 0.15, mkup: 1.25, gain: 0.29 },
+      jit:  { hz: [62, 124], decay: [0.5, 1], space: [0.5, 0.8], room: [0.875, 1.5],
+              refl: [2, 4], dark: [850, 1900], warble: [0.7, 1.8], width: [0.6, 0.95] }
+    },
+    quest_done: {
+      base: { mat: 'bell', hz: 196, modes: 14, bright: 1.15, decay: 3.5, damp: 1.1,
+              warble: 2.4, trans: 0.45, transHz: 3400, transQ: 2.2, grit: 0.1,
+              gritHz: 2600, space: 0.88, room: 2.875, refl: 4, dark: 3000,
+              width: 0.95, drive: 0.1, mkup: 1.35, gain: 0.3 },
+      jit:  { hz: [150, 268], decay: [2.75, 4], space: [0.75, 1], room: [2.25, 3],
+              dark: [2200, 4200], warble: [1.7, 3], bright: [0.9, 1.7],
+              transHz: [2400, 5200] }
+    },
+    time_pass: {
+      base: { mat: 'glass', hz: 340, modes: 7, bright: 1.3, decay: 1.25, damp: 1.7,
+              warble: 1.6, atk: 0.125, slide: -9, trans: 0.2, transHz: 4600,
+              transQ: 2.6, grit: 0.08, gritHz: 3400, space: 0.42, room: 0.75,
+              refl: 2, dark: 2400, width: 0.62, drive: 0.05, mkup: 1.15, gain: 0.24 },
+      jit:  { hz: [255, 460], decay: [0.875, 1.75], slide: [-14, -5],
+              space: [0.3, 0.55], room: [0.5, 1], dark: [1700, 3400],
+              warble: [1.1, 2.4], atk: [0.0625, 0.1875] }
     }
+    /* ---- end batch 02 recipes ---- */
   };
 
   /* ---- THE GENERATOR --------------------------------------------------- */
