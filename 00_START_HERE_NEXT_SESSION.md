@@ -50,6 +50,19 @@ allowed tags only BEFORE the layer. SUN CROP, DUSK SHAG, TEMPLE TAPER, ASH SWEEP
 SALT CROWN were dropped in silence. Fixed; hair 10 -> 15 items. A COUNT IS A SMOKE
 ALARM, NOT A DIAGNOSIS - the check names them now instead of counting them.
 
+=== TWO REDS LEFT ON MAIN AFTER THIS SHIP, NEITHER MINE, BOTH NAMED SO THEY ARE NOT
+=== LOST. Measured on a clean tree before and after my work; identical both times.
+1. GRAVEYARD: "HAIR AFRO is dead. 8/1/26 - 1 LIVE REFERENCE". Dead things staying
+   dead is one of the oldest laws here and it was quietly unenforced while the gate
+   could not read the world (see below). CHARACTER LANE'S.
+2. DISTRICT FILL: "cityhall is not emptier than it was on 8/2 (53.9% vs 59.8%)".
+   Caused by commit 2fc2e3f "NO CANOPIES: a ruling is not a design conversation" -
+   a PAOLO RULING removed content and the 8/3 floor did not move with it. THAT IS A
+   GATE OUTRANKING A RULING, which 8/1 law forbids. The fix is one line - re-pin
+   cityhall's baseline in records/BOHEMIA_DISTRICT_FILL_BASELINE_8_2_26.json with
+   the ruling cited - but a content floor is the CITY lane's number to set, not
+   mine to lower on their district. CITY LANE'S, and it is a one-minute job.
+
 -----------------------------------------------------------------------------------
 SAME TURN, EARLIER — *** NINETEEN GATES COULD NOT SEE THE WORLD, AND ONE OF
 THEM WAS HIDING FIFTY CHECKS. EVERY LANE READ THIS. *** (not my lane, fleet-critical)
