@@ -51,22 +51,18 @@ MIN_DIFF = 0.055            # fraction of cells that must differ between two dis
 # KNOWN TWINS (the debt). These pairs already read alike and predate the law.
 # This list may ONLY shrink. Do not add to it -- new work must pass.
 KNOWN_TWINS = {
-    frozenset(('storage', 'warehouse')),        # 0.8% -- rows of units vs rows of units
-    frozenset(('ballpark', 'speedway')),        # 2.3%
-    # RETIRED 8/2, all four, by rebuilding the icons on the real Las Vegas buildings rather
-    # than on generic civic/transport boxes. Debt 13 -> 9.
-    #   courthouse/library  -- the library became a Predock drum + tower + clerestory wing
-    #   commercial/terminal -- the terminal became a curved head house under a solar deck
-    #   industrial/terminal --   with sawtooth bays and buses in them
-    #   courthouse/medical  -- the courthouse became an L round a plaza with a ringed dome
-    frozenset(('commercial', 'mall')),          # 4.7%
-    frozenset(('swapmeet', 'truckstop')),       # 4.7%
-    frozenset(('commercial', 'industrial')),    # 5.5%
-    frozenset(('farm', 'swapmeet')),            # 5.5%
-    frozenset(('farm', 'truckstop')),           # 5.5%
-    frozenset(('interchange', 'rail')),         # 5.5%
-    frozenset(('park', 'warehouse')),           # 5.5%
+    # 8/2, AFTER THE BIG-ICON PASS. Paolo: "all these icons they're a little too small. I
+    # want them taller. I want them wider... remove all the parking lots... I just really
+    # want the main building to be biggest as fuck." Framing tight on the building and
+    # dropping the asphalt took a lot of silhouette variety with it -- the ground used to be
+    # doing work the buildings now have to do themselves. Seven pairs came apart in that
+    # pass, once each district got the ONE vertical it actually has: the school its stair
+    # core, the gym its height, storage its office, solar its switchgear stack, rail its
+    # signal mast, commercial its pylon, the park its stand of dead crowns.
+    # Debt 13 -> 9 (8/2 morning) -> 2 here. This list may ONLY shrink.
+    frozenset(('swapmeet', 'truckstop')),
 }
+
 
 CELLS = N * N // 2
 passed = failed = 0

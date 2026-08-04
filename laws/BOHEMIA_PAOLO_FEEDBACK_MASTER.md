@@ -67,6 +67,15 @@ five is not done.
 
 Each line is a ruling he made, in his words, with the machine that holds it.
 
+- **8/2 — THE BUILDING IS THE ICON.** "All these icons they're a little too small. I want
+  them taller. I want them wider... remove all the parking lots... I just really want the
+  main building to be biggest as fuck... it just needs to fill up the square." Also: **the
+  vibe is a city builder, a VISUAL, not 100% realistic** — it matches the walkable district
+  but legibility at map zoom beats site-plan accuracy. Parking gone from all 28; the ground
+  pad is now FITTED to the building instead of a hand-guessed rectangle; buildings carry
+  their real storey counts. Removing the asphalt cost SILHOUETTE VARIETY (7 new lookalike
+  pairs), and the fix was never to add it back — each district got the one vertical it
+  actually has. Twin debt 13 → 1. `gates/big_icons_gate.py`
 - **8/2 — NO CANOPIES. A CANOPY IS A PARK THING.** "New rule no more canopies I only see
   canopies at parks and shit. What's wrong with you?" HE TOLD ME TWICE. The first time
   ("trying so hard to have some shade shit") I made them SMALLER — which is the STOP

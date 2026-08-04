@@ -175,6 +175,9 @@ GATES = [
      'dead police station: HQ, sally port, patrol fleet, impound, public/secure separation', False),
     ('LIBRARY',        ['node', 'gates/library_gate.js'],
      'dead library: ONE building — Predock drum + tower + museum wing + reading wing, plaza, lot', False),
+    ('BIG ICONS',     ['python3', 'gates/big_icons_gate.py'],
+     'Paolo 8/2: "I want them taller. I want them wider... remove all the parking lots... the main '
+     'building biggest as fuck... fill up the square" -- measured on the baked sprites', False),
     ('NO CANOPIES',   ['python3', 'gates/no_canopies_gate.py'],
      'Paolo 8/2: "new rule no more canopies I only see canopies at parks and shit" -- a canopy is a '
      'park thing; spans (skybridge/deck/gantry/jet bridge) are not canopies; the debt only shrinks', False),

@@ -109,24 +109,59 @@ def _anchor(scene, origin, scale):
 
 
 def _ground(s, plot, patches=None, lot=None, drive=None, groundc=(120, 121, 120), lotc=(60, 61, 65)):
-    """The square city plot, PAVED, using the district's own ground tones. patches
-    is a list of (x0,y0,x1,y1,color) overlays (plaza, gravel, lawn). A LOT + a
-    DRIVEWAY apron to the street give parking a reason."""
-    x0, y0, x1, y1 = plot
-    gt = tuple(min(255, int(c * 1.12)) for c in groundc)
-    s.box((x0, y0, -0.5), (x1 - x0, y1 - y0, 0.55), {'top': {'c': gt}, 'px': {'c': groundc},
-          'py': {'c': groundc}, 'nx': {'c': groundc}, 'ny': {'c': groundc}})
-    for (px0, py0, px1, py1, col) in (patches or []):
-        s.box((px0, py0, 0.0), (px1 - px0, py1 - py0, 0.06), {'c': col})
-    ASP = {'c': tuple(int(c * 0.85) for c in lotc)}
-    if drive:
-        dx0, dy0, dx1, dy1 = drive
-        s.box((dx0, dy0, 0.0), (dx1 - dx0, dy1 - dy0, 0.07), {'top': {'c': lotc}, 'px': ASP, 'py': ASP, 'nx': ASP, 'ny': ASP})
-    if lot:
-        lx0, ly0, lx1, ly1 = lot
-        LOT = {'t': 'lot', 'asphalt': lotc, 'stripe': (156, 156, 146),
-               'cols': max(3, int((lx1 - lx0) / 1.4)), 'rows': 2}
-        s.box((lx0, ly0, 0.02), (lx1 - lx0, ly1 - ly0, 0.07), {'top': LOT, 'px': ASP, 'py': ASP, 'nx': ASP, 'ny': ASP})
+    """The pad the building stands on — DEFERRED, and it no longer draws parking.
+
+    Paolo, 8/2: "if we from all the icons, we remove all the parking lots cause I honestly
+    I'm not really fucking with that anymore. I just really want the main building to be
+    biggest as fuck... it just needs to like fill up the square."
+
+    Two rulings in one, and they are the same ruling twice: THE BUILDING IS THE ICON.
+
+      NO PARKING. `lot` and `drive` are accepted and IGNORED. Every icon was spending a
+      third of its square on asphalt, which at map zoom is a grey smear that tells you
+      nothing about what the building is. All 28 lost it in one edit here rather than 28.
+
+      THE PAD IS FITTED TO THE BUILDING, NOT DECLARED BY HAND. Every builder passed a plot
+      rectangle it guessed at -- usually (-3,-3,15,15) whatever it actually built -- so the
+      sprite framed on the GUESS and the building sat small in the middle of it. The
+      request is recorded now and the pad is drawn AFTER the scene exists, hugging the real
+      footprint. That is the same fix as the doors and the window grid, a third time: A
+      VALUE PASSED BY HAND WHERE A VALUE COULD BE DERIVED.
+
+    THE VIBE IS A CITY BUILDER, NOT A SURVEY (Paolo, same note): "the city builder vibe is
+    supposed to be more of a visual than it being 100% realistic." It still matches the
+    walkable district -- same palette, same parts -- but it is a PORTRAIT of the building,
+    framed like one.
+    """
+    s._ground_req = {'patches': list(patches or []), 'groundc': groundc, 'lotc': lotc}
+
+
+def _draw_ground(s, pad=1.6):
+    """Draw the deferred pad, fitted to what the scene actually contains."""
+    req = getattr(s, '_ground_req', None)
+    if req is None:
+        return
+    solids = [q for q in s.solids if q[5] >= 0.5]
+    if not solids:
+        solids = s.solids
+    if not solids:
+        return
+    x0 = min(q[0] for q in solids) - pad
+    y0 = min(q[1] for q in solids) - pad
+    x1 = max(q[0] + q[3] for q in solids) + pad
+    y1 = max(q[1] + q[4] for q in solids) + pad
+    g = req['groundc']
+    gt = tuple(min(255, int(c * 1.12)) for c in g)
+    faces_before = list(s.faces)
+    s.faces = []
+    s.box((x0, y0, -0.5), (x1 - x0, y1 - y0, 0.55),
+          {'top': {'c': gt}, 'px': {'c': g}, 'py': {'c': g}, 'nx': {'c': g}, 'ny': {'c': g}})
+    for (px0, py0, px1, py1, col) in req['patches']:
+        ax0, ay0 = max(px0, x0), max(py0, y0)
+        ax1, ay1 = min(px1, x1), min(py1, y1)
+        if ax1 > ax0 and ay1 > ay0:
+            s.box((ax0, ay0, 0.0), (ax1 - ax0, ay1 - ay0, 0.06), {'c': col})
+    s.faces = s.faces + faces_before
 
 
 def _door_face(s, org, size, width=2.0, ztop=3.0, doorc=(30, 33, 40),
@@ -228,15 +263,15 @@ def build_cityhall(P):
     # SEVEN STOREYS, which is what the real one is and what stops this reading as the same
     # low bar-plus-drum as the transit centre once both lost their overhead (squint gate,
     # 8/2). Height is the cheapest silhouette there is.
-    s.box((-1.5, -2.0, 0), (10.5, 5.0, 13.2), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 8, 8, 5),
+    s.box((-1.5, -2.0, 0), (11.5, 5.6, 16.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 8, 8, 5),
           'py': _win(BLD, 4, 8, 11), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    s.box((-1.5, -2.0, 13.2), (10.5, 5.0, 0.4), {'c': CHROOF})
+    s.box((-1.5, -2.0, 16.0), (11.5, 5.6, 0.45), {'c': CHROOF})
     for i in range(4):                                                   # the roof plant line
-        s.box((-0.6 + i * 2.6, -1.2, 13.6), (1.6, 1.6, 0.7), {'c': _dark(BLD, 0.72)['c']})
+        s.box((-0.6 + i * 2.8, -1.2, 16.45), (1.7, 1.7, 0.8), {'c': _dark(BLD, 0.72)['c']})
 
     # THE CURVILINEAR COUNCIL CHAMBER, merged into it (they meet in the lobby).
-    s.prism(4.0, 4.2, 0, 3.1, 5.6, 18, {'c': BLD}, {'c': CHROOF})
-    s.prism(4.0, 4.2, 5.6, 1.1, 0.6, 18, {'c': GLASS})
+    s.prism(4.2, 4.6, 0, 3.6, 7.4, 18, {'c': BLD}, {'c': CHROOF})
+    s.prism(4.2, 4.6, 7.4, 1.3, 0.7, 18, {'c': GLASS})
 
     # THE ENTRY CANOPY on ONE column. The whole point of it: no other supports.
     # A CANOPY PROJECTS OFF A BUILDING, IT DOES NOT TUNNEL THROUGH ONE. This started at
@@ -251,24 +286,25 @@ def build_cityhall(P):
     for pi in range(5):
         s.box((5.0 + pi * 1.5, 4.6, 0), (0.55, 0.55, 3.4), {'c': _dark(CANOPY, 1.06)['c']})
 
-    _door_face(s, (-1.5, -2.0, 0), (10.5, 5.0, 9.6), width=2.2, ztop=3.0,
+    _door_face(s, (-1.5, -2.0, 0), (11.5, 5.6, 16.0), width=2.2, ztop=3.4,
                doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
 
     # THE SOLAR TREE FARM. A grid of masts under panels: the thing you know it by.
-    for ty in (11.0, 13.4):
-        for tx in (-2.0, 0.6, 3.2, 5.8, 8.4, 11.0):
-            s.box((tx - 0.16, ty - 0.16, 0), (0.32, 0.32, 2.6), {'c': MAST})
-            s.box((tx - 1.0, ty - 0.9, 2.6), (2.0, 1.8, 0.22), {'top': {'c': PANEL},
+    # THE ARRAY IS A GARNISH, NOT HALF THE PICTURE. It used to run twelve units wide at the
+    # front and the building had to share the square with it. Paolo 8/2: "I just really want
+    # the main building to be biggest as fuck... it just needs to like fill up the square."
+    for ty in (9.2, 10.9, 12.6):
+        for tx in (-0.6, 1.1, 2.8):
+            s.box((tx - 0.13, ty - 0.13, 0), (0.26, 0.26, 1.9), {'c': MAST})
+            s.box((tx - 0.7, ty - 0.6, 1.9), (1.4, 1.2, 0.18), {'top': {'c': PANEL},
                   'px': _dark(PANEL, 0.8), 'py': _dark(PANEL, 0.8),
                   'nx': _dark(PANEL, 0.8), 'ny': _dark(PANEL, 0.8)})
 
     # THE PARKING DECK, attached on the east, its floor lighter because the sun never got in.
-    s.box((11.0, -3.0, 0), (4.2, 6.5, 3.0), {'top': {'c': DECK}, 'px': _dark(DECK, 1.25),
+    s.box((11.6, -2.0, 0), (4.0, 6.0, 4.4), {'top': {'c': DECK}, 'px': _dark(DECK, 1.25),
           'py': _dark(DECK, 1.1), 'nx': _dark(DECK), 'ny': _dark(DECK)})
-    for dy in (-2.0, 0.4, 2.8):
-        s.box((11.2, dy, 3.0), (3.8, 0.25, 0.5), {'c': _dark(BLD, 1.05)['c']})   # spandrel rail
-    _vehicle(s, 12.0, 4.6, CAR, P[19], along='x')
-    _vehicle(s, 12.0, 1.0, CAR, P[19], along='x')
+    for dy in (-1.2, 0.6, 2.4):
+        s.box((11.8, dy, 4.4), (3.6, 0.25, 0.5), {'c': _dark(BLD, 1.05)['c']})   # spandrel rail
     return s, 7.2
 
 
@@ -282,22 +318,22 @@ def build_battery(P):
             patches=[(-2.5, -2.5, 3.5, 3.5, _dark(GRAVEL, 1.1)['c'])],
             drive=(11.0, 3.0, 14.5, 16), groundc=GRAVEL, lotc=ROAD)
     # the CONTROL building (compact, back-left) — the only real building
-    s.box((-1.5, -1.5, 0), (5.0, 4.6, 5.6), {'top': {'c': ROOF}, 'px': _win(CTRL, 4, 3, 5, 0.22),
+    s.box((-1.5, -1.5, 0), (5.2, 4.8, 6.4), {'top': {'c': ROOF}, 'px': _win(CTRL, 4, 4, 5, 0.22),
           'py': _win(CTRL, 3, 3, 9, 0.22), 'nx': _dark(CTRL), 'ny': _dark(CTRL)})
     _door(s, 3.5, -0.6, 0.8, 2.6, doorc=_dark(CTRL, 0.5)['c'], framec=tuple(min(255, int(c * 1.15)) for c in CTRL))
     s.box((-1.5, 3.1, 0.5), (5.0, 0.35, 0.7), {'c': HAZ})                   # hazard apron marking
     # rows of BATTERY CONTAINERS (the hero) — Megapack-style enclosures, HVAC on the end
     for r, ry in enumerate((1.5, 5.3, 9.1)):
-        s.box((5.5, ry, 0), (8.4, 2.4, 2.9), {'top': _dark(CONT, 1.05), 'px': _dark(CONT, 1.0),
+        s.box((5.5, ry, 0), (8.4, 2.6, 4.6), {'top': _dark(CONT, 1.05), 'px': _dark(CONT, 1.0),
               'py': _dark(CONT, 0.86), 'nx': _dark(CONT), 'ny': _dark(CONT)})
         for cx in range(1, 5):                                             # module seams read as a rack
-            s.box((5.5 + cx * 1.7, ry - 0.02, 0.2), (0.12, 0.05, 2.5), _dark(CONT, 0.7))
-        s.box((14.0, ry + 0.4, 0), (1.1, 1.6, 2.2), {'c': HVAC})           # HVAC/thermal unit on the end
+            s.box((5.5 + cx * 1.7, ry - 0.02, 0.2), (0.12, 0.05, 4.1), _dark(CONT, 0.7))
+        s.box((14.0, ry + 0.4, 0), (1.2, 1.7, 3.6), {'c': HVAC})           # HVAC/thermal unit on the end
     # the INVERTER / TRANSFORMER rack tying the array into the grid (taller mass, front-right)
-    s.box((5.7, 12.4, 0), (6.0, 2.2, 3.8), {'top': _dark(INV, 0.9), 'px': _dark(INV, 1.0),
+    s.box((5.7, 12.4, 0), (6.4, 2.4, 7.2), {'top': _dark(INV, 0.9), 'px': _dark(INV, 1.0),
           'py': _dark(INV, 0.86), 'nx': _dark(INV), 'ny': _dark(INV)})
     for ix in (7.0, 9.0, 11.0):
-        s.box((ix - 0.12, 12.3, 3.8), (0.24, 0.24, 0.8), {'c': tuple(min(255, int(c * 1.2)) for c in INV)})  # bushings read
+        s.box((ix - 0.12, 12.3, 7.2), (0.24, 0.24, 0.9), {'c': tuple(min(255, int(c * 1.2)) for c in INV)})  # bushings read
     s.box((5.7, 12.0, 0.5), (6.0, 0.3, 0.7), {'c': HAZ})                    # hazard band
     # perimeter FENCE posts around the yard + a couple pole lights
     for (fx, fy) in [(-2.5, -2.5), (14.5, -2.5), (14.5, 15.0), (-2.5, 15.0)]:
@@ -325,12 +361,12 @@ def build_terminal(P):
             drive=(-3, 7.0, 15, 15), groundc=(112, 108, 100), lotc=DRIVE)
 
     # THE HEAD HOUSE: a bar with a CURVED concourse bulging south out of it.
-    s.box((-2.0, -2.0, 0), (13.0, 4.2, 6.8), {'top': _dark(HALL, 0.9), 'px': _win(HALL, 9, 4, 4),
+    s.box((-2.0, -2.0, 0), (13.0, 5.0, 10.4), {'top': _dark(HALL, 0.9), 'px': _win(HALL, 9, 4, 4),
           'py': _win(HALL, 5, 4, 8), 'nx': _dark(HALL), 'ny': _dark(HALL)})
-    s.prism(4.5, 2.2, 0, 3.4, 5.4, 18, {'c': HALL}, {'c': _dark(HALL, 0.88)['c']})
+    s.prism(4.5, 3.0, 0, 4.0, 8.4, 18, {'c': HALL}, {'c': _dark(HALL, 0.88)['c']})
     for i in range(8):                                                   # the glazed south wall
-        s.box((-1.4 + i * 1.6, 2.1, 0.8), (1.1, 0.08, 3.4), {'c': GLASS})
-    _door_face(s, (-2.0, -2.0, 0), (13.0, 4.2, 6.8), width=2.4, ztop=3.0,
+        s.box((-1.4 + i * 1.6, 2.9, 0.8), (1.1, 0.08, 5.6), {'c': GLASS})
+    _door_face(s, (-2.0, -2.0, 0), (13.0, 5.0, 10.4), width=2.4, ztop=3.0,
                doorc=_dark(HALL, 0.4)['c'], framec=tuple(min(255, int(c * 1.18)) for c in HALL))
 
     # NO CANOPY (Paolo 8/2: "new rule no more canopies I only see canopies at parks and
@@ -340,22 +376,21 @@ def build_terminal(P):
     # nothing on this icon that a person walks under.
     for r_ in range(3):
         for c_ in range(5):
-            s.box((-1.4 + c_ * 2.3, -1.6 + r_ * 1.2, 6.8), (1.9, 0.9, 0.18),
+            s.box((-1.4 + c_ * 2.3, -1.6 + r_ * 1.4, 10.4), (1.9, 1.1, 0.2),
                   {'top': {'c': PANEL}, 'px': _dark(PANEL, 0.8), 'py': _dark(PANEL, 0.8),
                    'nx': _dark(PANEL, 0.8), 'ny': _dark(PANEL, 0.8)})
-            s.box((-1.4 + c_ * 2.3, -1.6 + r_ * 1.2, 6.8), (0.12, 0.9, 0.12), {'c': POST})
+            s.box((-1.4 + c_ * 2.3, -1.6 + r_ * 1.4, 10.4), (0.12, 1.1, 0.12), {'c': POST})
 
     # THE SAWTOOTH BAYS, STEPPED against each other, with buses still nosed into them.
-    for i, bx in enumerate((-1.6, 1.6, 4.8, 8.0, 11.2)):
-        step = 0.0 if i % 2 == 0 else 0.7
-        s.box((bx - 0.06, 7.4 + step, 0.0), (0.05, 4.4, 0.06), {'c': MARK})
-        s.box((bx + 2.4, 7.4 + step, 0.0), (0.05, 4.4, 0.06), {'c': MARK})
-        if i % 2 == 0:
-            _vehicle(s, bx + 0.5, 7.8 + step, BUS, BUSC, along='y')
+    for i, bx in enumerate((-1.2, 2.2, 5.6, 9.0)):
+        step = 0.0 if i % 2 == 0 else 0.5
+        s.box((bx - 0.06, 4.4 + step, 0.0), (0.05, 3.2, 0.06), {'c': MARK})
+        s.box((bx + 2.6, 4.4 + step, 0.0), (0.05, 3.2, 0.06), {'c': MARK})
+        _vehicle(s, bx + 0.6, 4.6 + step, BUS, BUSC, along='y')
 
     # THE BIKE RACKS: double-stacked, in a bank beside the doors.
-    for ry in (3.6, 5.0, 6.4):
-        for rx in (12.6, 13.6):
+    for ry in (0.0, 1.3, 2.6):
+        for rx in (11.4, 12.4):
             s.box((rx, ry, 0), (0.5, 0.9, 0.55), {'c': RACK})
             s.box((rx + 0.05, ry + 0.1, 0.55), (0.4, 0.7, 0.45), {'c': _dark(RACK, 0.8)['c']})
     return s, 7.2
@@ -454,10 +489,21 @@ def build_park(P):
     s.box((-2, 3.0, 0.01), (13, 1.1, 0.05), {'c': PATH})
     s.box((5.0, 3.0, 0.01), (1.1, 9.0, 0.05), {'c': PATH})
     # the small SHELTER / restroom building on its paved pad (the only structure)
-    s.box((0.5, 0.5, 0), (3.6, 3.0, 2.8), {'top': _dark(SHELTER, 0.9), 'px': _win(SHELTER, 2, 2, 4),
+    for (cx_, cy_) in ((7.2, 7.6), (10.4, 7.6), (7.2, 10.4), (10.4, 10.4)):
+        s.box((cx_ - 0.13, cy_ - 0.13, 0), (0.26, 0.26, 2.6), {'c': _dark(SHELTER, 1.1)['c']})
+    s.box((6.6, 7.0, 2.6), (4.4, 4.0, 0.3), {'top': _dark(SHELTER, 1.15),
+          'px': _dark(SHELTER, 0.8), 'py': _dark(SHELTER, 0.8),
+          'nx': _dark(SHELTER, 0.8), 'ny': _dark(SHELTER, 0.8)})   # THE PICNIC SHELTER
+    s.box((0.5, 0.5, 0), (3.8, 3.2, 3.4), {'top': _dark(SHELTER, 0.9), 'px': _win(SHELTER, 2, 2, 4),
           'py': _dark(SHELTER, 0.9), 'nx': _dark(SHELTER), 'ny': _dark(SHELTER)})
     _door(s, 4.1, 1.4, 2.4, 1.9, doorc=_dark(SHELTER, 0.4)['c'], framec=tuple(min(255, int(c * 1.15)) for c in SHELTER))
     # a dead shade tree + benches + a car at the lot (canon CAR size)
+    # A PARK'S SILHOUETTE IS ITS TREES. Light masts made it a twin of the speedway; a stand
+    # of big dead crowns is a shape nothing else in the valley has.
+    for (tx_, ty_, th_) in ((-1.4, 8.6, 6.4), (2.6, 7.4, 7.8), (0.4, 12.0, 5.6), (4.4, 11.4, 6.8)):
+        s.box((tx_ - 0.2, ty_ - 0.2, 0), (0.4, 0.4, th_), {'c': (74, 66, 52)})
+        s.box((tx_ - 1.3, ty_ - 1.1, th_), (2.6, 2.2, 1.5), {'c': (86, 78, 60)})
+        s.box((tx_ - 0.8, ty_ - 0.7, th_ + 1.5), (1.6, 1.4, 0.9), {'c': (96, 88, 68)})
     s.box((9.0, 5.5, 0), (0.5, 0.5, 3.0), {'c': (70, 60, 48)})
     for (bx, by) in [(2.0, 6.5), (7.5, 8.0)]:
         s.box((bx, by, 0), (1.6, 0.4, 0.4), {'c': BENCH})
@@ -478,7 +524,7 @@ def build_warehouse(P):
         for ux in range(0, 6):                                            # roll-up door seams
             s.box((-2 + ux * 1.9 + 0.5, ry - 0.02, 0.2), (0.9, 0.04, 2.4), _dark(col, 0.7))
     # the leasing OFFICE bay at the corner
-    s.box((9.5, -1.0, 0), (3.4, 3.0, 3.4), {'top': _dark(OFFICE, 0.9), 'px': _win(OFFICE, 3, 2, 6),
+    s.box((9.5, -1.0, 0), (3.6, 3.2, 7.2), {'top': _dark(OFFICE, 0.9), 'px': _win(OFFICE, 3, 4, 6),
           'py': _win(OFFICE, 2, 2, 9), 'nx': _dark(OFFICE), 'ny': _dark(OFFICE)})
     for (fx, fy) in [(-2.5, -2.5), (13.5, -2.5), (13.5, 9.5), (-2.5, 9.5)]:   # fortress fence posts
         s.box((fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.2), {'c': FENCE})
@@ -498,6 +544,8 @@ def build_commercial(P):
     s.box((-2, -1, 0), (3.4, 6.0, 4.8), {'top': _dark(STORE, 0.9), 'px': _dark(STORE, 0.96),
           'py': _win(STORE, 4, 2, 9, 0.14, GLASS), 'nx': _dark(STORE), 'ny': _dark(STORE)})
     s.box((-2, 2.6, 4.8), (13, 0.3, 0.7), {'c': DOOR})                          # sign band
+    s.box((12.2, 5.6, 0), (0.5, 0.5, 8.4), {'c': _dark(STORE, 1.12)['c']})      # the PYLON mast
+    s.box((11.4, 5.2, 8.4), (2.0, 1.2, 2.4), {'c': DOOR})                       # its blank sign face
     _door_face(s, (-2, -1, 0), (13, 3.6, 4.8), width=1.6, ztop=2.4,
                doorc=_dark(GLASS, 0.7)['c'], framec=tuple(min(255, int(c * 1.2)) for c in STORE))
     # a GAS STATION in the front corner: a flat canopy on posts + pumps
@@ -564,7 +612,7 @@ def build_school(P):
     # 5.2 units put them at nearly the height of the academic building's whole mass.
     for (lx, ly) in [(cx - SL - 0.9, cy - RO - 0.5), (cx + SL + 0.9, cy - RO - 0.5),
                      (cx - SL - 0.9, cy + RO + 0.5), (cx + SL + 0.9, cy + RO + 0.5)]:
-        s.box((lx - 0.12, ly - 0.12, 0), (0.24, 0.24, 3.1), {'c': TOWER})
+        s.box((lx - 0.16, ly - 0.16, 0), (0.32, 0.32, 8.2), {'c': TOWER})
         s.box((lx - 0.42, ly - 0.42, 3.1), (0.84, 0.84, 0.34),
               {'c': tuple(min(255, int(c * 1.15)) for c in TOWER)})
 
@@ -575,6 +623,8 @@ def build_school(P):
     # school with a stadium rather than a stadium with a wall behind it.
     s.box((-2.6, -3.4, 0), (13.2, 2.8, 4.4), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 9, 2, 4),
           'py': _win(BLD, 8, 2, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})          # the spine
+    s.box((3.2, -3.4, 0), (2.6, 2.8, 9.6), {'top': _dark(BLD, 0.86), 'px': _win(BLD, 2, 6, 21),
+          'py': _win(BLD, 2, 6, 24), 'nx': _dark(BLD), 'ny': _dark(BLD)})       # the stair core
     s.box((-1.2, -3.2, 4.4), (10.4, 2.4, 1.5), {'top': _dark(BLD, 1.0), 'px': _win(BLD, 8, 1, 5),
           'py': _dark(BLD, 0.86), 'nx': _dark(BLD), 'ny': _dark(BLD)})            # second storey
     for wy in (-3.4, 0.2):                                                        # wings forward
@@ -582,7 +632,7 @@ def build_school(P):
               'py': _win(BLD, 3, 2, 9), 'nx': _dark(BLD), 'ny': _dark(BLD)})
         s.box((9.4, wy, 0), (2.6, 3.6, 4.2), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 2, 2, 7),
               'py': _win(BLD, 3, 2, 3), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    s.box((12.4, -1.4, 0), (3.4, 3.6, 5.2), {'top': _dark(GYM, 0.95), 'px': _dark(GYM, 1.05),
+    s.box((12.4, -1.4, 0), (3.8, 4.0, 8.4), {'top': _dark(GYM, 0.95), 'px': _dark(GYM, 1.05),
           'py': _dark(GYM, 0.85), 'nx': _dark(GYM), 'ny': _dark(GYM)})            # the gym, teal
     # PAOLO 7/29: "have another entryway to the school". A building this long with one
     # door is wrong anyway -- a real high school has a main entrance AND a separate
@@ -590,7 +640,7 @@ def build_school(P):
     _door_face(s, (-2.6, 0.2, 0), (2.8, 3.6, 4.2), width=1.5, ztop=2.4,
                doorc=_dark(BLD, 0.4)['c'],
                framec=tuple(min(255, int(c * 1.25)) for c in BLD))                # main doors
-    _door_face(s, (12.4, -1.4, 0), (3.4, 3.6, 5.2), width=1.4, ztop=2.2,
+    _door_face(s, (12.4, -1.4, 0), (3.8, 4.0, 8.4), width=1.4, ztop=2.2,
                doorc=_dark(GYM, 0.4)['c'],
                framec=tuple(min(255, int(c * 1.25)) for c in GYM))                # gym doors
     # THE AUTO SHOP, east of the gym. PAOLO 7/30: "Remove the tennis courts make do what
@@ -634,17 +684,17 @@ def build_courthouse(P):
             groundc=(118, 112, 98), lotc=(58, 58, 66))
 
     # THE L: the north leg east-west, the west leg north-south. One building.
-    s.box((-2.0, -2.0, 0), (14.0, 4.6, 9.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 10, 6, 4),
+    s.box((-2.0, -2.0, 0), (14.0, 5.0, 13.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 10, 6, 4),
           'py': _win(BLD, 4, 6, 9), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    s.box((-2.0, 2.6, 0), (4.6, 8.0, 9.0), {'top': _dark(BLD, 0.88), 'px': _win(BLD, 4, 6, 12),
+    s.box((-2.0, 3.0, 0), (5.0, 8.0, 13.0), {'top': _dark(BLD, 0.88), 'px': _win(BLD, 4, 6, 12),
           'py': _win(BLD, 6, 6, 15), 'nx': _dark(BLD), 'ny': _dark(BLD)})
     for i in range(6):                                                   # the precast panel joints
-        s.box((-1.4 + i * 2.3, -2.05, 0.4), (0.14, 0.06, 8.2), {'c': JOINT})
+        s.box((-1.4 + i * 2.3, -2.05, 0.4), (0.14, 0.06, 12.2), {'c': JOINT})
 
     # THE ROTUNDA at the elbow, under the ring of what is left of the glass dome.
-    s.prism(3.4, 4.0, 0, 2.9, 8.2, 20, {'c': BLD}, {'c': DOME})
-    s.prism(3.4, 4.0, 8.2, 2.0, 0.7, 20, {'c': DOME}, {'c': GLASS})
-    s.prism(3.4, 4.0, 8.9, 0.7, 0.5, 20, {'c': GLASS})
+    s.prism(3.6, 4.4, 0, 3.4, 14.2, 20, {'c': BLD}, {'c': DOME})
+    s.prism(3.6, 4.4, 14.2, 2.3, 0.9, 20, {'c': DOME}, {'c': GLASS})
+    s.prism(3.6, 4.4, 15.1, 0.8, 0.7, 20, {'c': GLASS})
 
     # THE PROJECTING CANOPY. It cantilevers off the top of the building: NO columns.
     # It CANTILEVERS off the building and reaches over the plaza. It must not cross the
@@ -657,7 +707,7 @@ def build_courthouse(P):
     for pi in range(4):
         s.box((4.2 + pi * 1.6, 3.6, 0), (0.6, 0.6, 4.2), {'c': _dark(CANOPY, 1.08)['c']})
 
-    _door_face(s, (-2.0, 2.6, 0), (4.6, 8.0, 9.0), width=1.8, ztop=3.0,
+    _door_face(s, (-2.0, 3.0, 0), (5.0, 8.0, 13.0), width=1.8, ztop=3.4,
                doorc=_dark(BLD, 0.4)['c'],
                framec=tuple(min(255, int(c * 1.2)) for c in BLD))
 
@@ -665,9 +715,7 @@ def build_courthouse(P):
     for bx in (-2.0, 0.4, 2.8, 5.2, 7.6, 10.0, 12.4):
         s.box((bx - 0.17, 11.4, 0), (0.34, 0.34, 1.0), {'c': BOLL})
     # THE SECURE YARD wall on the west, with a staff car still behind it.
-    s.box((-3.0, 3.0, 0), (0.35, 8.0, 2.4), {'c': WALL})
-    s.box((-3.0, 10.7, 0), (5.5, 0.35, 2.4), {'c': WALL})
-    _vehicle(s, -2.2, 8.4, CAR, P[19], along='x')
+    s.box((-2.6, 11.2, 0), (9.0, 0.35, 2.4), {'c': WALL})
     return s, 6.8
 
 
@@ -844,14 +892,14 @@ def build_chapel(P):
     # clear out of both flanks, the APSE rounding off the head, the NARTHEX at the foot.
     # Walls low, roofs steep -- a church is mostly roof, which is exactly why the flat-box
     # first cut read as a warehouse with a tower next to it.
-    s.box((4.2, -0.6, 0), (2.8, 9.4, 3.0), {'top': _dark(STONE, 0.92), 'px': _win(STONE, 2, 2, 4),
+    s.box((4.2, -0.6, 0), (3.2, 9.4, 4.6), {'top': _dark(STONE, 0.92), 'px': _win(STONE, 2, 2, 4),
           'py': _win(STONE, 5, 2, 9), 'nx': _dark(STONE), 'ny': _dark(STONE)})
-    _gable(s, (4.2, -0.6, 0), (2.8, 9.4, 3.0), 2.4, RIDGE)
-    s.box((0.6, 3.0, 0), (10.0, 2.6, 2.7), {'top': _dark(STONE, 0.9), 'px': _win(STONE, 2, 2, 6),
+    _gable(s, (4.2, -0.6, 0), (3.2, 9.4, 4.6), 3.4, RIDGE)
+    s.box((0.6, 3.0, 0), (10.4, 3.0, 4.0), {'top': _dark(STONE, 0.9), 'px': _win(STONE, 2, 2, 6),
           'py': _win(STONE, 5, 2, 11), 'nx': _dark(STONE), 'ny': _dark(STONE)})
-    _gable(s, (0.6, 3.0, 0), (10.0, 2.6, 2.7), 2.0, RIDGE)
-    s.prism(5.6, -0.6, 0, 1.4, 3.0, 16, {'c': STONE}, {'c': _dark(STONE, 0.86)['c']})
-    _spire(s, 5.6, -0.6, 3.0, 1.4, 1.9, RIDGE, tip=0.30)                 # the apse cone
+    _gable(s, (0.6, 3.0, 0), (10.4, 3.0, 4.0), 2.8, RIDGE)
+    s.prism(5.8, -0.6, 0, 1.6, 4.6, 16, {'c': STONE}, {'c': _dark(STONE, 0.86)['c']})
+    _spire(s, 5.8, -0.6, 4.6, 1.6, 2.4, RIDGE, tip=0.30)                 # the apse cone
 
     for gy in (0.6, 1.8, 6.6, 7.8):                                      # stained glass, nave flank
         s.box((6.98, gy, 1.0), (0.06, 0.8, 1.5), {'c': GLASS})
@@ -861,25 +909,25 @@ def build_chapel(P):
     s.box((3.6, 8.8, 0), (4.0, 1.8, 2.8), {'top': _dark(STONE, 0.94), 'px': _win(STONE, 2, 1, 12),
           'py': _dark(STONE, 0.9), 'nx': _dark(STONE), 'ny': _dark(STONE)})
     _gable(s, (3.6, 8.8, 0), (4.0, 1.8, 2.8), 1.5, RIDGE)
-    s.box((1.0, 8.6, 0), (2.2, 2.2, 7.2), {'top': _dark(TOWER, 0.9), 'px': _dark(TOWER, 1.04),
+    s.box((1.0, 8.6, 0), (2.4, 2.4, 10.0), {'top': _dark(TOWER, 0.9), 'px': _dark(TOWER, 1.04),
           'py': _dark(TOWER, 0.84), 'nx': _dark(TOWER), 'ny': _dark(TOWER)})
-    s.box((1.25, 8.85, 5.2), (1.7, 1.7, 1.4), {'c': GLASS})              # the belfry opening
-    _spire(s, 2.1, 9.7, 7.2, 1.35, 3.4, RIDGE)                           # THE STEEPLE
-    s.box((1.95, 9.55, 10.6), (0.3, 0.3, 1.1), {'c': CROSS})             # the finial cross
-    s.box((1.5, 9.55, 11.1), (1.2, 0.3, 0.3), {'c': CROSS})
+    s.box((1.25, 8.85, 7.8), (1.9, 1.9, 1.5), {'c': GLASS})              # the belfry opening
+    _spire(s, 2.2, 9.8, 10.0, 1.45, 4.4, RIDGE)                           # THE STEEPLE
+    s.box((2.05, 9.65, 14.4), (0.3, 0.3, 1.2), {'c': CROSS})             # the finial cross
+    s.box((1.6, 9.65, 14.9), (1.2, 0.3, 0.3), {'c': CROSS})
     _door_face(s, (3.6, 8.8, 0), (4.0, 1.8, 2.8), width=1.3, ztop=2.0,
                doorc=_dark(STONE, 0.4)['c'],
                framec=tuple(min(255, int(c * 1.25)) for c in STONE))
 
     # THE MEMORIAL COURT: a walled square of decomposed granite with the COLUMBARIUM round
     # it. In this ground you do not dig graves, you build a wall and you fill it.
-    for (wx, wy, wdx, wdy) in ((8.1, -2.4, 5.7, 0.35), (8.1, 4.6, 5.7, 0.35),
-                               (8.1, -2.4, 0.35, 7.3), (13.45, -2.4, 0.35, 7.3)):
+    for (wx, wy, wdx, wdy) in ((8.1, -0.6, 4.2, 0.3), (8.1, 4.4, 4.2, 0.3),
+                               (8.1, -0.6, 0.3, 5.3), (12.0, -0.6, 0.3, 5.3)):
         s.box((wx, wy, 0), (wdx, wdy, 1.9), {'top': _dark(WALL, 1.1), 'px': _dark(WALL, 1.0),
               'py': _dark(WALL, 0.85), 'nx': _dark(WALL), 'ny': _dark(WALL)})
-    for ty in (-0.8, 1.1, 3.0):
-        s.box((10.6, ty, 0), (0.22, 0.22, 1.4), {'c': _dark(P[3], 1.0)['c']})
-        s.box((10.2, ty - 0.35, 1.4), (1.0, 0.9, 0.3), {'c': _dark(P[3], 0.8)['c']})
+    for ty in (0.4, 2.0, 3.6):
+        s.box((10.0, ty, 0), (0.22, 0.22, 1.4), {'c': _dark(P[3], 1.0)['c']})
+        s.box((9.6, ty - 0.35, 1.4), (1.0, 0.9, 0.3), {'c': _dark(P[3], 0.8)['c']})
 
     # THE FORECOURT: the churchyard cross, the bell that came through the belfry floor,
     # and the font with nothing in it.
@@ -967,13 +1015,13 @@ def build_solar(P):
     PVMAT = {'t': 'win', 'wall': PANEL, 'glass': _dark(PANEL, 0.8)['c'], 'frame': (120, 126, 136), 'cols': 6, 'rows': 2}
     for ry in (1.0, 3.6, 6.2, 8.8, 11.4):                                               # a FIELD of tilted PV rows
         for cx in (3.0, 6.5, 10.0, 13.2):
-            s.box((cx - 0.05, ry + 0.7, 0), (0.1, 0.1, 1.2), {'c': (92, 90, 86)})       # post
+            s.box((cx - 0.05, ry + 0.7, 0), (0.1, 0.1, 1.9), {'c': (92, 90, 86)})       # post
             s.quad((cx - 1.4, ry - 0.5, 1.9), (cx + 1.4, ry - 0.5, 1.4), (cx + 1.4, ry + 0.9, 1.4),
                    (cx - 1.4, ry + 0.9, 1.9), PVMAT, (0.2, 0, 0.98))                    # tilted panel
-    s.box((-2, -1.6, 0), (3.2, 2.6, 3.4), {'top': _dark(CTRL, 0.9), 'px': _win(CTRL, 3, 2, 4),
+    s.box((-2, -1.6, 0), (3.4, 2.8, 7.2), {'top': _dark(CTRL, 0.9), 'px': _win(CTRL, 3, 4, 4),
           'py': _dark(CTRL, 0.95), 'nx': _dark(CTRL), 'ny': _dark(CTRL)})               # control building
     s.box((1.6, -1.6, 0), (1.4, 1.4, 1.6), {'c': INV})                                  # inverter/transformer pad
-    s.box((3.4, -1.6, 0), (1.8, 1.4, 2.2), {'c': SWG})                                  # substation switchgear
+    s.box((3.4, -1.6, 0), (1.8, 1.4, 3.2), {'c': SWG})                                  # substation switchgear
     return s, 6.4
 
 
@@ -1001,11 +1049,11 @@ def build_storage(P):
     s = Scene()
     _ground(s, (-3, -3, 15, 15), drive=(-3, 9.5, 15, 15), groundc=(84, 80, 72), lotc=(52, 52, 58))
     for ry in (0.0, 3.4, 6.8):                                                          # unit rows wall-to-wall
-        s.box((-2, ry, 0), (11, 2.6, 3.0), {'top': _dark(UNIT, 0.9), 'px': _dark(UNIT, 1.0),
+        s.box((-2, ry, 0), (11, 2.6, 4.6), {'top': _dark(UNIT, 0.9), 'px': _dark(UNIT, 1.0),
               'py': _dark(UNIT, 0.84), 'nx': _dark(UNIT), 'ny': _dark(UNIT)})
         for ux in range(0, 6):
-            s.box((-2 + ux * 1.9 + 0.5, ry - 0.02, 0.15), (0.9, 0.05, 2.3), {'c': ROLLUP})   # orange roll-up doors
-        s.box((-2, ry + 1.2, 3.0), (11, 0.25, 0.3), {'c': ROOF})                        # roof ridge
+            s.box((-2 + ux * 1.9 + 0.5, ry - 0.02, 0.15), (0.9, 0.05, 3.4), {'c': ROLLUP})   # orange roll-up doors
+        s.box((-2, ry + 1.2, 4.6), (11, 0.25, 0.35), {'c': ROOF})                        # roof ridge
     s.box((9.5, -1.0, 0), (3.4, 3.0, 3.4), {'top': _dark(OFFICE, 0.9), 'px': _win(OFFICE, 3, 2, 6),
           'py': _win(OFFICE, 2, 2, 9), 'nx': _dark(OFFICE), 'ny': _dark(OFFICE)})       # office
     for (fx, fy) in [(-2.5, -2.5), (13.5, -2.5), (13.5, 9.5), (-2.5, 9.5)]:
@@ -1204,7 +1252,7 @@ def build_rail(P):
     _track(s, -3, 15, 5.0, (BAL, TIE, STEEL))                                            # the second track
     _railcar(s, 8.6, 5.0 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
     _railcar(s, 12.2, 5.0 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
-    s.box((1.2, 3.0, 0), (0.20, 0.20, 3.4), {'c': SIGNAL})                               # wayside signal mast
+    s.box((1.2, 3.0, 0), (0.26, 0.26, 7.6), {'c': SIGNAL})                               # wayside signal mast
     s.box((0.95, 2.85, 3.0), (0.7, 0.5, 0.9), {'c': _dark(SIGNAL, 0.72)['c']})           # signal head
     s.box((-1.4, 2.6, 0), (1.8, 1.6, 1.9), {'top': _dark(HUT, 0.9), 'px': _win(HUT, 2, 1, 3),
           'py': _dark(HUT, 0.86), 'nx': _dark(HUT), 'ny': _dark(HUT)})                   # relay hut
@@ -1376,14 +1424,14 @@ def build_campus(P):
     s.prism(6, 6, 0.10, 1.0, 0.45, 16, {'c': FOUNT}, {'c': _dark(FOUNT, 0.75)['c']})  # dry basin
     s.box((5.8, 5.8, 0.55), (0.4, 0.4, 0.8), {'c': _dark(FOUNT, 1.15)['c']})          # dead jet
     # THE LIBRARY, biggest mass, colonnade facing the quad
-    s.box((-2, -2.4, 0), (7.5, 3.2, 5.6), {'top': _dark(LIB, 0.9), 'px': _win(LIB, 5, 2, 4),
+    s.box((-2, -2.4, 0), (7.8, 3.4, 8.6), {'top': _dark(LIB, 0.9), 'px': _win(LIB, 5, 4, 4),
           'py': _win(LIB, 6, 2, 9), 'nx': _dark(LIB), 'ny': _dark(LIB)})
     for cy2 in (-1.6, -0.6, 0.4, 1.4, 2.4, 3.4):
         s.box((5.5, cy2, 0), (0.45, 0.45, 4.6), {'c': _dark(LIB, 1.18)['c']})
     s.box((5.5, -1.8, 4.6), (0.6, 5.8, 0.5), {'c': _dark(LIB, 1.1)['c']})
-    _door_face(s, (-2, -2.4, 0), (7.5, 3.2, 5.6), width=1.2, ztop=1.6)
+    _door_face(s, (-2, -2.4, 0), (7.8, 3.4, 8.6), width=1.2, ztop=2.4)
     # ACADEMIC HALLS turning to face the quad
-    s.box((-2.4, 3.4, 0), (2.8, 8.2, 4.4), {'top': _dark(HALL, 0.9), 'px': _win(HALL, 2, 3, 5),
+    s.box((-2.4, 3.4, 0), (3.0, 8.4, 7.4), {'top': _dark(HALL, 0.9), 'px': _win(HALL, 2, 5, 5),
           'py': _win(HALL, 6, 3, 7), 'nx': _dark(HALL), 'ny': _dark(HALL)})
     _door(s, 0.4, 6.6, 7.6, 1.5)
     s.box((12.0, 1.0, 0), (2.6, 7.4, 4.2), {'top': _dark(HALL, 0.9), 'px': _win(HALL, 2, 3, 3),
@@ -1533,8 +1581,8 @@ def build_ballpark(P):
     # SIX LIGHT TOWERS ringing the field — the tallest things on a ballpark site
     for (lx, ly) in [(hx - 1.9, hy + 11.4), (hx + 11.4, hy - 1.9), (hx + 9.2, hy + 9.2),
                      (hx + 12.2, hy + 4.6), (hx + 4.6, hy + 12.2), (hx - 3.6, hy - 3.6)]:
-        s.box((lx - 0.16, ly - 0.16, 0), (0.32, 0.32, 4.4), {'c': TOWER})
-        s.box((lx - 0.6, ly - 0.6, 4.4), (1.2, 1.2, 0.42),
+        s.box((lx - 0.18, ly - 0.18, 0), (0.36, 0.36, 8.6), {'c': TOWER})
+        s.box((lx - 0.7, ly - 0.7, 8.6), (1.4, 1.4, 0.5),
               {'c': tuple(min(255, int(c * 1.14)) for c in TOWER)})
     _vehicle(s, 13.4, 13.4, CAR, _dark(LOT, 1.4)['c'], along='x')                        # one car in the lot
     return s, 5.2
@@ -2005,7 +2053,13 @@ def main():
     }
     for d, fn in HEROES.items():
         scene, scale = fn(P[d])
-        w, h, origin = _fit(scene, scale)
+        _draw_ground(scene)                       # the pad, fitted to what got built
+        # BIGGER (Paolo 8/2: "I want them taller. I want them wider... big as fuck as big
+        # as we can have it"). The sprite frames TIGHT on the building now that the parking
+        # is gone, and the scale is lifted so the mass fills the square instead of sitting
+        # small in the middle of an apron it no longer has.
+        scale = scale * 1.55
+        w, h, origin = _fit(scene, scale, margin=5)
         img = bake(scene, w, h, origin=origin, scale=scale, ss=4)
         bx, by = _anchor(scene, origin, scale)
         buf = io.BytesIO(); Image.fromarray(img, 'RGBA').save(buf, 'PNG')
