@@ -1,3 +1,89 @@
+LAB (lab-e2r7sv): 8/3 (f) LATEST -- THE BOSS LADDER: 13 CANDIDATES, WEAKEST TO
+STRONGEST, ACROSS THE THREE ACTS. AWAITING HIS THUMBS.
+
+records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md. CANDIDATES, NOT CANON. He asked for
+10 ideas of what a BOSS or a BIOME means, so these are ideas -- each lives or dies on his
+word. No numbers anywhere.
+
+=== WHAT HE SETTLED IN THAT MESSAGE (treating as ruling, NOTES ARE RULINGS) ===
+The lights boss is IN as ONE boss, not the whole concept. A BOSS HANDS YOU A
+WORLD-ALTERING POWER, not a stat. Weakest to strongest. Spread across three acts. The
+ladder is "ideas of how to rebuild civilization." Can be many more than Valheim's seven.
+
+=== *** WHAT A "BIOME" MEANS HERE, AND IT IS NOT GEOGRAPHY *** ===
+In Valheim a biome is a CLIMATE YOU CANNOT SURVIVE YET. We have one valley and no
+climates. So: A BOHEMIA BIOME IS A MISSING FUNCTION, NOT A PLACE. A block you cannot hold
+because it is DARK. One you cannot work because it is SICK. Ground you cannot farm because
+it is DEAD. Three things fall out free: it OBEYS MAP LAW (no lane draws biome zones -- the
+tier is a property of what WORKS there); it makes the city-builder and the RPG THE SAME
+SYSTEM (restoring the function IS building the city); and THE SAME STREET IS A DIFFERENT
+BIOME IN ACT 1 THAN IN ACT 3.
+
+=== THE HOLE IN HIS OWN EXAMPLE, AND THE RULE THAT PLUGS IT ===
+"turn on any street in the game" -- if a power works everywhere for free, boss 5 ENDS THE
+GAME. Valheim never has this problem because THE BIOME GRANTS THE ABILITY AND THE ORE
+GRANTS THE AMOUNT. THE RULE: A BOSS GRANTS THE ABILITY, NEVER THE RESOURCE. You learn to
+light any street; you still PAY THE ELECTRICITY. Electricity is already a currency, so it
+costs no new system and no power ever deflates.
+AND THE DESTROYERS CAN NEVER BE BOSSES -- they are LOCKED as a FORCE who own nothing and
+rebuild nothing (7/19). A boss OWNS A FUNCTION. Destroyers are the weather, bosses are the
+owners. Exact opposites, which is a good sign the shape is right.
+
+=== THE 13, ORDERED BY HOW FUNDAMENTAL THE NEED IS (= real rebuild order, R28) ===
+ACT 1 ANIMAL, survival, one person's grip on one thing:
+  1 THE TAP water -> draw water anywhere there is pipe
+  2 THE BURN heat/fuel -> make fire anywhere, heat a building
+  3 THE TOLL passage -> permanently clear a blocked road (plugs into R9)
+  4 THE STRIPPER salvage -> strip any building for materials
+ACT 2 HUMAN, civic, somebody running a service:
+  5 THE LIGHTS power -> switch on any street in the valley  *** HIS IDEA ***
+    (act 2 not 1: light is the first CIVIC thing, the turn from surviving to governing)
+  6 THE WARD medicine -> treat wounds anywhere (a hurt body is a CLOCK; this stops it)
+  7 THE VOICE airwaves -> broadcast to the whole valley  *** BIGGEST UNLOCK ***
+    hands the player R20/R21's STORY SPREAD as a TOOL: seed a rumour deliberately instead
+    of waiting to be seen. Reputation stops being weather and becomes a lever.
+  8 THE DRAIN sanitation -> make a district habitable (the city-builder's real gate)
+  9 THE BOOK debt -> call in a debt anywhere (clout spendable, no market, TEN YEARS COLD holds)
+ACT 3 ANGEL, civilisation, each returns something the world gave up on:
+  10 THE JUDGE law -> pardon or condemn anyone (R17's silent ledger finally has somewhere to go)
+  11 THE SCHOOL knowledge -> teach a skill to somebody else (the dynasty payoff)
+  12 THE SOIL life -> THINGS GROW AGAIN  *** THE STRONGEST BOSS IN THE GAME ***
+     Act 1 is a DEAD WORLD BY LAW, gate-enforced. We spend the whole game teaching the
+     player nothing grows here, SO THE MOST POWERFUL THING IN BOHEMIA IS A GREEN SHOOT.
+     The law that forbids it in act 1 is exactly what makes it land.
+  13 THE GRID the network -> move power BETWEEN districts, not just switch it on. Boss 5
+     gave a switch; this gives the machine. Last thing you need before the Moon.
+
+=== WHY THAT ORDER ===
+Each power makes the previous one bigger and none replaces an earlier one. Not 13 features
+-- ONE SENTENCE ABOUT REBUILDING A CITY, CUT INTO 13 PIECES. And every one can be taken
+WITHOUT KILLING, because each boss is a person holding a function: each has something they
+want, somebody they fear, and a reason to hand it over. That is what "least possible loss
+of life as the desired outcome" needs to mean anything mechanically.
+
+=== VERIFIED, NOT ASSERTED ===
+Checked for contradictions against the dead-world rule (boss 12 DEPENDS on it), the
+Destroyers ruling, the three acts, TRAUMATIC NOT GORY, the three currencies, and MAP LAW.
+All three cited files verified present. ANSWERED 13 (59 settled, 227 files), RULINGS 76,
+NO PAINT 53, TRAUMATIC 27, TEN YEARS COLD 26 -- all green. Names are PLACEHOLDERS; naming
+is his and the Destroyers precedent says naming is late polish.
+
+=== THE ROLLBACK, SIXTH TIME -- AND THE LAST LESSON PAID OFF ===
+Reverted to the stale 42d4e2f state again. Last time I wrote "verify by CONTENT, not by a
+total" after a 63-vs-63 coincidence hid it. THIS TIME THE CONTENT CHECK CAUGHT IT
+IMMEDIATELY: a citation check reported the progression-spine record missing from disk while
+it existed on origin/main. Verified d6d427e on the remote, backed up, hard-synced,
+restored. Six for six, nothing lost.
+
+=== NOT DONE / THE QUEUE ===
+1. HIS THUMBS ON THE 13 -- which live, which die, the order, and the count. Everything
+   downstream waits on that. If he rules them, the addendum lands the same turn.
+2. THE WITNESS + STORY-SPREAD PLUMBING -- already approved work (and boss 7 is its payoff).
+3. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
+4. Canon-contradiction auditing across the indexed files.
+5. Did not touch #buildstamp: one record and a handoff.
+
+
 CHARACTER (0lurbs): 8/2 (t) LATEST — HAIR IS 15 AFTER ROUND 3. THE SIDE VIEWS ARE
 STILL THE OPEN WORK AND THREE FIXES ARE UNJUDGED. DO NOT COOK A FOURTH VERSION
 UNTIL HE HAS LOOKED.
@@ -61,7 +147,6 @@ AFRO inside a base64 blob, LOCS inside 'VOTING BLOCS', DESERT CURL 2 inside
 'DESERT CURL 29 off-skull pixels'. Suffix tokens (HAIR AFRO, w3) when the bare
 name is an English word or a possible numeric prefix.
 
-<<<<<<< HEAD
 COMBAT (combat-nfnki9): 8/3 (c) LATEST -- YOUR MISSED ROUND EXISTS NOW. Live on
 main as 17cd5a8, BUILD 8/3k, Pages build VERIFIED success 04:08.
 
@@ -224,7 +309,7 @@ them visible. Same class as his 7/27 "so many sidewalk cement things spread arou
 4. Art cell 44 -> 88 px. Would fix (3) outright.
 
 --- EARLIER TODAY ---
-=======
+
 PEOPLE (factions): 8/2 (j) LATEST — THE 268 PEOPLE STOPPED BEING WALLPAPER. Gap 2, the
 biggest finding in the research, is built.
 
@@ -277,7 +362,6 @@ Nobody WEARS their faction colour on the surface he plays yet - bohemia_dress is
 the LIFE slice, not by the alpha's RUN. Wiring it into the run touches the RUN lane's
 surface, so it is a coordination job, not a solo one. THAT IS THE NEXT VISIBLE STEP and it
 is what turns all of this from true into SEEN.
->>>>>>> 105a6b5 (THE 268 PEOPLE STOPPED BEING WALLPAPER)
 
 LAB (lab-e2r7sv): 8/3 (e) LATEST -- THE PROGRESSION SPINE. HE ASKED HOW THE WHOLE STACK
 FITS AND THE ANSWER WAS ALREADY IN HIS OWN LAWS. *** ONE RULING BLOCKS EVERYTHING. ***

@@ -603,6 +603,13 @@ GATES = [
      'Paolo 7/31: the crash is BACKSTORY (act 1 opens ten years after), NO economic gameplay as a category, and the utility is already dead everywhere - swept across every shipped surface, because a banned CATEGORY needs a sweep and not a paragraph', False),
     ('ACTION COST SHAPE', ['node', 'gates/action_cost_shape_gate.js'],
      'Paolo 7/31 approved the SHAPE of the action clock, not the numbers: fixed cost, condition as the divisor, a hard floor, thresholds not slopes - and no lane has started building the table he reserved', False),
+    ('NO MARKERS', ['node', 'gates/nomarkers_gate.js'],
+     'TWICE IN ONE DAY (8/3) a session committed git CONFLICT MARKERS into '
+     '00_START_HERE_NEXT_SESSION.md, the one file every session must read first -- once by me, '
+     'once by the PEOPLE lane in 105a6b5, mangling 162 lines of the COMBAT lane with it. The '
+     'handoff is shared infrastructure with no owning lane, so no lane gate was ever going to '
+     'check it. Sweeps every tracked text file for markers, and asserts a repair kept BOTH '
+     "lanes' sections -- a resolution that deletes the other lane is not a resolution", False),
     ('RULINGS', ['node', 'gates/rulings_gate.js'],
      "the thirty rulings he gave answering the 8/1 question round, finally written down: one universal clock, rest is a VISIBLE fast-forward, fast travel gated on having walked it, checks are BINARY (no save scumming), the mercy ledger is SILENT, stories spread like a plague, gear at the family house carries -- plus the two structural bans swept on every shipped surface", False),
     ('NO PAINT', ['node', 'gates/no_paint_gate.js'],
