@@ -279,6 +279,107 @@ html = html.replace('__TEX_ROOF_JSON__', JSON.stringify(texRoof));
 console.log('  TEXTURE MATCH: ' + texWall.length + ' wall + ' + texRoof.length
             + ' roof tiles, approved 8/1, onto the house field');
 
+/* ---- WHAT THE REST OF THE VALLEY IS BUILT OUT OF (8/3) -----------------------
+   His ground now draws on all 55 district types. Their BUILDINGS are still flat
+   starter tile: the warehouse in records/target/VALLEY_INDUSTRIAL.png is the proof.
+   The art already exists and he already APPROVED it on 8/1 (tilt-up concrete,
+   corrugated metal, rusted steel, painted brick, civic ashlar, storefront aluminium
+   were all in the 90 tiles he passed).
+
+   BUT IT CANNOT JUST BE UNGATED, and that is the whole design problem. The house
+   pool is fifteen stucco/block skins; ungating it puts a bungalow's butter-yellow
+   stucco on a warehouse and a casino. A material is not decoration, it says what a
+   building IS.
+
+   SO THE MAP IS BY WHAT VEGAS ACTUALLY BUILDS WITH, researched rather than guessed:
+   TILT-UP CONCRETE is the dominant commercial and light-industrial exterior in the
+   valley (warehouses, strip retail, and now offices, schools, churches and theatres
+   too - over 15% of all US industrial building is tilt-up), and STUCCO/EIFS is the
+   preferred southwestern commercial finish. Sources in
+   records/BOHEMIA_DISTRICT_MATERIALS_8_3_26.md.
+
+   AND THE ROOFS ARE FLAT. This is the correctness point that matters most and the
+   one a lazy ungating would have got wrong: a commercial or industrial building in
+   Vegas has a FLAT tar-and-gravel roof, not a pitched barrel tile. Barrel and
+   shingle are HOUSE roofs. Putting a terracotta pitched roof on a distribution
+   warehouse would be a lie about the building, so the civic roof pool is gravel and
+   tar paper only. ---------------------------------------------------------------- */
+function texMats(ids) {
+  var out = [];
+  ids.forEach(function (m) {
+    var got = texBank.tiles.filter(function (t) { return t.material === m; })
+                           .map(function (t) { return t.b64; });
+    if (!got.length) throw new Error('DISTRICT MATERIALS: no tiles for material "' + m + '"');
+    out.push(got);
+  });
+  return out;
+}
+/* wall pools by what the building IS. Each entry is a list of MATERIALS; a whole
+   building picks one material and then shuffles that material's colourways per cell,
+   so a warehouse is one warehouse rather than a patchwork. */
+var CIVIC = {
+  /* heavy industry, storage, utilities: tilt-up slab, corrugated skin, rusted steel */
+  industrial: ['tiltup_concrete', 'metal_corrugate', 'steel_rusted'],
+  warehouse:  ['tiltup_concrete', 'metal_corrugate', 'steel_rusted'],
+  storage:    ['tiltup_concrete', 'metal_corrugate'],
+  railyard:   ['metal_corrugate', 'steel_rusted', 'tiltup_concrete'],
+  granary:    ['metal_corrugate', 'steel_rusted'],
+  arsenal:    ['tiltup_concrete', 'steel_rusted'],
+  battery:    ['tiltup_concrete', 'metal_corrugate'],
+  substation: ['tiltup_concrete', 'steel_rusted'],
+  reclaim:    ['tiltup_concrete', 'metal_corrugate'],
+  landfill:   ['tiltup_concrete', 'metal_corrugate'],
+  airbase:    ['tiltup_concrete', 'metal_corrugate', 'steel_rusted'],
+  fort:       ['tiltup_concrete', 'steel_rusted'],
+  farm:       ['metal_corrugate', 'wood_fence', 'steel_rusted'],
+  /* retail: tilt-up shells with aluminium storefront across the front */
+  commercial: ['tiltup_concrete', 'storefront_alum', 'brick_painted', 'stucco_bone'],
+  mall:       ['tiltup_concrete', 'storefront_alum', 'stucco_bone'],
+  swapmeet:   ['metal_corrugate', 'tiltup_concrete'],
+  /* civic and institutional: cut stone and painted brick, the oldest buildings here */
+  downtown:   ['civic_stone', 'brick_painted', 'storefront_alum', 'brick_running'],
+  courthouse: ['civic_stone', 'brick_running'],
+  library:    ['civic_stone', 'brick_painted'],
+  policestation: ['civic_stone', 'tiltup_concrete'],
+  jail:       ['tiltup_concrete', 'civic_stone'],
+  school:     ['brick_painted', 'tiltup_concrete', 'civic_stone'],
+  campus:     ['brick_running', 'civic_stone', 'tiltup_concrete'],
+  medical:    ['tiltup_concrete', 'stucco_bone', 'storefront_alum'],
+  chapel:     ['civic_stone', 'brick_painted', 'stucco_bone'],
+  courthouse2: ['civic_stone'],
+  /* the show: big blank masses with glazing, not domestic materials */
+  casino:     ['storefront_alum', 'civic_stone', 'tiltup_concrete'],
+  strip:      ['storefront_alum', 'civic_stone', 'tiltup_concrete'],
+  resort:     ['storefront_alum', 'tiltup_concrete', 'stucco_bone'],
+  convention: ['tiltup_concrete', 'storefront_alum'],
+  highroller: ['steel_rusted', 'storefront_alum'],
+  sphere:     ['tiltup_concrete', 'storefront_alum'],
+  strat:      ['tiltup_concrete', 'storefront_alum'],
+  minigp:     ['tiltup_concrete', 'metal_corrugate'],
+  speedway:   ['tiltup_concrete', 'metal_corrugate', 'steel_rusted'],
+  ballpark:   ['tiltup_concrete', 'civic_stone'],
+  waterpark:  ['tiltup_concrete', 'stucco_bone'],
+  radio:      ['tiltup_concrete', 'steel_rusted'],
+  /* people still live in these, and in Vegas they really are stucco */
+  apartment:  ['stucco_tan', 'stucco_bone', 'stucco_ochre', 'stucco_sand_pink'],
+  /* a trailer park is ribbed siding, and that material was cooked for exactly this */
+  trailer:    ['mobile_siding', 'metal_corrugate'],
+};
+/* THE DEFAULT for anything unlisted: the honest neutral. Tilt-up and CMU are what
+   an unremarkable building in this valley is made of, and it is never a house. */
+var CIVIC_DEFAULT = ['tiltup_concrete', 'block_grey', 'block_painted'];
+/* FLAT ROOFS. Not a preference - a commercial or industrial building in Vegas has a
+   tar-and-gravel roof, and a pitched barrel tile on a warehouse would be a lie. */
+var CIVIC_ROOF = ['gravel_roof', 'tar_paper'];
+
+var civicWall = {}, civicOrder = Object.keys(CIVIC).sort();
+civicOrder.forEach(function (d) { civicWall[d] = texMats(CIVIC[d]); });
+var civicPayload = { d: civicWall, def: texMats(CIVIC_DEFAULT), roof: texMats(CIVIC_ROOF) };
+if (html.indexOf('__CIVIC_SKIN_JSON__') < 0) throw new Error('missing __CIVIC_SKIN_JSON__ placeholder');
+html = html.replace('__CIVIC_SKIN_JSON__', JSON.stringify(civicPayload));
+console.log('  DISTRICT MATERIALS: ' + civicOrder.length + ' district types mapped to real '
+            + 'Vegas construction, + a tilt-up/CMU default, flat tar-and-gravel roofs');
+
 /* ---- THE OPENINGS (8/2): window, boarded window, garage bay. -----------------
    OVERLAYS WITH ALPHA, not whole tiles. The run picks ONE wall skin per house out of
    fifteen (his wall law: one design per plot, variety between plots), so a window baked

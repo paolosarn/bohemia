@@ -415,6 +415,18 @@ var TEX_WALL_B64 = __TEX_WALL_JSON__;
 var TEX_ROOF_B64 = __TEX_ROOF_JSON__;
 var TEX_WALL_IMG = _mkimgs(TEX_WALL_B64);
 var TEX_ROOF_IMG = _mkimgs(TEX_ROOF_B64);
+/* WHAT THE REST OF THE VALLEY IS BUILT OUT OF (8/3). One entry per district type:
+   a list of MATERIALS, each material a list of its colourway tiles. Mapped to real
+   Vegas construction (records/BOHEMIA_DISTRICT_MATERIALS_8_3_26.md) rather than
+   ungated from the house pool, because a bungalow's butter stucco on a distribution
+   warehouse is a lie about what the building is. */
+var CIVIC_SKIN_B64 = __CIVIC_SKIN_JSON__;
+var CIVIC_SKIN = { d:{}, def:[], roof:[] };
+(function(){
+  var mk=function(mats){ return (mats||[]).map(function(m){ return _mkimgs(m); }); };
+  Object.keys(CIVIC_SKIN_B64.d||{}).forEach(function(k){ CIVIC_SKIN.d[k]=mk(CIVIC_SKIN_B64.d[k]); });
+  CIVIC_SKIN.def=mk(CIVIC_SKIN_B64.def); CIVIC_SKIN.roof=mk(CIVIC_SKIN_B64.roof);
+})();
 /* deterministic per cell: same tile in the same place every time, no shimmer */
 function boughtImg(bank,gx,gy){
   if(!bank||!bank.length) return null;
@@ -1505,6 +1517,53 @@ function drawSkin(id,gx,gy,X,Y,S){
   var mul=SKIN_LIGHT[id];
   ctx.drawImage(mul?litSkin(im,mul):im,X,Y,S,S); return true;
 }
+/* ===========================================================================
+   EVERY BUILDING IN THE VALLEY THAT IS NOT A HOUSE (8/3).
+
+   His bought ground reached all 55 district types this morning. Their BUILDINGS were
+   still flat starter tile - the warehouse on the left of VALLEY_INDUSTRIAL.png. The
+   art already existed and he already APPROVED it on 8/1: tilt-up concrete, corrugated
+   metal, rusted steel, painted brick, civic ashlar, storefront aluminium and mobile
+   siding were all in the ninety tiles he passed.
+
+   IT COULD NOT SIMPLY BE UNGATED. The house pool is fifteen stucco and block skins,
+   and turning it loose puts a bungalow's butter-yellow stucco on a warehouse. A
+   material is not decoration; it says what a building IS. So the pool is chosen by
+   DISTRICT TYPE, mapped to what Vegas actually builds with.
+
+   ONE MATERIAL PER BUILDING, not per cell. Non-suburb districts have no footprint
+   index, so the seed is a coarse 8x8-cell block - about a building - and the material
+   holds across it. Within that, the colourway shuffles per cell so nothing stamps.
+
+   AND THE ROOFS ARE FLAT. That is the correctness point a lazy ungating would have
+   got wrong: a commercial or industrial building here has a tar-and-gravel roof.
+   Barrel tile and shingle are HOUSE roofs, and a terracotta pitched roof on a
+   distribution warehouse would be a lie about the building.
+   =========================================================================== */
+function civicPool(kind){
+  if(kind==='R') return CIVIC_SKIN.roof;
+  var d=CIVIC_SKIN.d[CELLNAME];
+  return (d&&d.length)?d:CIVIC_SKIN.def;
+}
+function civicImg(kind,gx,gy){
+  var pool=civicPool(kind); if(!pool||!pool.length) return null;
+  /* ONE MATERIAL PER BUILDING: the seed is the 8x8-cell block plus the district and
+     the cell, so the warehouse next door is a different warehouse. */
+  var bx=gx>>3, by=gy>>3;
+  var h=(Math.imul(bx,2654435761)^Math.imul(by,40503)
+        ^Math.imul((CELL&&CELL[0])|0,2246822519)^Math.imul((CELL&&CELL[1])|0,668265263))>>>0;
+  var mat=pool[h%pool.length]; if(!mat||!mat.length) return null;
+  /* and the colourway shuffles per CELL, so the wall does not stamp one tile */
+  var c=(Math.imul(gx|0,374761393)^Math.imul(gy|0,3266489917)^h)>>>0;
+  var im=mat[c%mat.length];
+  return (im&&im.complete&&im.naturalWidth)?im:null;
+}
+function drawCivicSkin(id,gx,gy,X,Y,S){
+  var k=SKIN_FIELD[id]; if(!k||k==='Y') return false;   /* yard wears his BOUGHT dirt */
+  var im=civicImg(k,gx,gy); if(!im) return false;
+  var mul=SKIN_LIGHT[id];
+  ctx.drawImage(mul?litSkin(im,mul):im,X,Y,S,S); return true;
+}
 function isRoad(a,b){ return (a>=0&&b>=0&&a<W&&b<H) && G[b][a]===1; }
 /* EVERY OTHER DISTRICT, honestly. The suburb has a dressed language because its
    codes are known; the other twenty do not, and inventing one per district is
@@ -2195,6 +2254,9 @@ function draw(){
         var _bk = isSuburbCell() ? boughtFor(c) : boughtForTile(laid);
         if(_bk && drawBought(_bk,gx,gy2,X,Y,S)) continue;
         if(isSuburbCell() && drawSkin(laid,gx,gy2,X,Y,S)) continue;
+        /* and every OTHER district's buildings, in the material that district is
+           really built out of (8/3). Ground already fell through above. */
+        if(!isSuburbCell() && drawCivicSkin(laid,gx,gy2,X,Y,S)) continue;
         if(!tput(laid,X,Y,S) && !body){
           /* only ever reached in the first frames while the bank decodes */
           ctx.fillStyle = isBody(gx,gy2) ? (EXTCOL[c]||'#8a5a3a') : gcol(gx,gy2);

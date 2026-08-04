@@ -41,6 +41,7 @@ import colorsys
 import io
 import json
 import os
+import re
 import statistics as st
 import sys
 
@@ -307,6 +308,77 @@ def main():
                'OPEN_ON_WALL' in r and 'OPENING_IMG' in r)
             ok('the opening bytes actually ship in the run',
                ot['wall_window']['b64'] in r if 'wall_window' in ot else False)
+
+    # ================================================================================
+    # AND THE REST OF THE VALLEY IS BUILT OUT OF THE RIGHT THING (8/3)
+    # His ground reached all 55 districts this morning; their BUILDINGS were still flat
+    # starter tile. The art existed and he approved it on 8/1 - but the house pool is
+    # fifteen stucco skins, and ungating it puts a bungalow's butter stucco on a
+    # distribution warehouse. A material says what a building IS.
+    # Map + sources: records/BOHEMIA_DISTRICT_MATERIALS_8_3_26.md
+    # ================================================================================
+    BUILDER = 'tools/build_run_slice.js'
+    RUNSRC = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'
+    MAT_DOC = 'records/BOHEMIA_DISTRICT_MATERIALS_8_3_26.md'
+    bl = open(BUILDER, encoding='utf8').read()
+    rs = open(RUNSRC, encoding='utf8').read()
+    known = {t['material'] for t in bank['tiles']}
+
+    ok('the valley has a material map at all', 'var CIVIC = {' in bl)
+    civ = bl[bl.index('var CIVIC = {'):bl.index('var CIVIC_DEFAULT')]
+    used = set(re.findall(r"'([a-z_]+)'", civ))
+    districts = set(re.findall(r"^\s*([a-z][a-z0-9]*):", civ, re.M))
+    mats = used - districts
+    ghost = sorted(m2 for m2 in mats if m2 not in known)
+    ok('every material in the map is a real cooked tile', not ghost, ', '.join(ghost[:5]))
+    ok('the map covers a real spread of district types', len(districts) >= 30,
+       'only %d' % len(districts))
+
+    # *** NO HOUSE STUCCO ON A WAREHOUSE. *** The whole reason this is a map and not an
+    # ungating. apartment is the ONE legitimate exception: Vegas apartments really are
+    # stucco, and the doc says so in writing.
+    HOUSE = {'stucco_tan', 'stucco_ochre', 'stucco_sage', 'stucco_butter',
+             'stucco_blue_grey', 'stucco_grey', 'adobe_red', 'stucco_sand_pink'}
+    bad = []
+    for blk in re.finditer(r"^\s*([a-z][a-z0-9]*):\s*\[([^\]]*)\]", civ, re.M):
+        d, lst = blk.group(1), set(re.findall(r"'([a-z_]+)'", blk.group(2)))
+        if d in ('apartment',):
+            continue
+        hit = lst & HOUSE
+        if hit:
+            bad.append(d + ':' + ','.join(sorted(hit)))
+    ok('no house stucco on a non-residential district', not bad, '; '.join(bad[:4]))
+    ok('the default is NEVER the house pool',
+       not (set(re.findall(r"'([a-z_]+)'",
+            bl[bl.index('var CIVIC_DEFAULT'):bl.index('var CIVIC_ROOF')])) & HOUSE))
+
+    # *** FLAT ROOFS. *** A pitched barrel tile on a warehouse is a lie about the
+    # building, and the bank holds both kinds side by side, so this was one careless
+    # line away.
+    roofblk = bl[bl.index('var CIVIC_ROOF'):bl.index('var civicWall')]
+    rmats = set(re.findall(r"'([a-z_]+)'", roofblk))
+    kindof = {t['material']: t['kind'] for t in bank['tiles']}
+    pitched = sorted(m2 for m2 in rmats if kindof.get(m2) in ('barrel', 'shingle'))
+    ok('civic roofs are FLAT tar-and-gravel, never a house pitch', not pitched,
+       ', '.join(pitched))
+    ok('and there is at least one real flat roof material',
+       any(kindof.get(m2) in ('gravel', 'plaster') for m2 in rmats))
+
+    # ONE MATERIAL PER BUILDING, not per cell, or a warehouse is a patchwork
+    ok('a whole building wears one material (coarse block seed)',
+       'var bx=gx>>3, by=gy>>3;' in rs)
+    ok('the colourway still shuffles per cell so nothing stamps',
+       'var c=(Math.imul(gx|0,374761393)' in rs)
+    ok('the pool is chosen by DISTRICT, not ungated from the house pool',
+       'CIVIC_SKIN.d[CELLNAME]' in rs)
+    ok('the yard is left alone: it wears his BOUGHT dirt',
+       "if(!k||k==='Y') return false;" in rs)
+    ok('house skins still only draw on the suburb family',
+       'isSuburbCell() && drawSkin(' in rs)
+    ok('the civic skin only draws OUTSIDE the suburb family',
+       '!isSuburbCell() && drawCivicSkin(' in rs)
+    ok('the map is written down with its sources', os.path.exists(MAT_DOC)
+       and 'tilt-up' in open(MAT_DOC, encoding='utf8').read().lower())
 
     print('   TEXTURE MATCH GATE: %d passed, %d failed  (%d tiles, %d materials)'
           % (P, F, len(tiles), len(mats)))

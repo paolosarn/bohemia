@@ -1,3 +1,54 @@
+ART (f3eu53): 8/3 (f) LATEST — THE WHOLE VALLEY IS BUILT OUT OF SOMETHING NOW.
+
+=== TWO SHIPS TODAY, SAME ROOT CAUSE ===
+1. HIS BOUGHT GROUND was on 3 district types out of 55 (measured: DOWNTOWN 0 draws,
+   STRIP 0, INDUSTRIAL 0, every one at zero while SUBURB had 2108). Cause was a KEY
+   MISMATCH - boughtFor() maps a GRID CODE, and grid codes are the suburb generator's
+   vocabulary; every other district speaks TILE NAMES. boughtForTile() is that lookup.
+2. THEIR BUILDINGS were still flat starter tile. Fixed by a MATERIAL MAP, below.
+
+=== THE MATERIAL MAP (records/BOHEMIA_DISTRICT_MATERIALS_8_3_26.md) ===
+The art already existed and HE APPROVED IT 8/1 - tilt-up, corrugated metal, rusted
+steel, painted brick, civic ashlar, storefront aluminium, mobile siding were all in the
+90 tiles he passed. IT COULD NOT JUST BE UNGATED: the house pool is 15 stucco skins and
+turning it loose puts a bungalow's butter stucco on a warehouse. A material says what a
+building IS.
+RESEARCHED, NOT GUESSED: tilt-up concrete is the dominant Vegas commercial/industrial
+exterior (>15% of all US industrial building) and stucco/EIFS is the southwestern
+commercial finish. Sources in the record.
+*** AND THE ROOFS ARE FLAT. *** The correctness point a lazy ungating would have got
+wrong: commercial and industrial buildings here have TAR-AND-GRAVEL roofs. Barrel tile
+and shingle are HOUSE roofs, the bank holds both side by side, and a terracotta pitched
+roof on a distribution warehouse is a lie about the building. Civic roof pool is gravel
+and tar paper only, and texture_match_gate now FAILS on a pitched civic roof.
+ONE MATERIAL PER BUILDING (coarse 8x8-cell seed), colourway shuffled per cell so nothing
+stamps at 44px pitch. THE DEFAULT IS TILT-UP/CMU AND NEVER THE HOUSE POOL, so an
+unmapped district cannot quietly scatter bungalow stucco.
+
+=== MEASURED, BEFORE -> AFTER (old flat starter tileset draws) ===
+DOWNTOWN 2880->0 · INDUSTRIAL 3084->0 · MEDICAL 2986->0 · MALL 2912->0 · SCHOOL 2908->0
+PARK 2885->0 · COMMERCIAL 2936->6 · TRAILER 2939->16 · APARTMENT 2964->10 · STRIP/CASINO
+2880->0. Shots: records/target/VALLEY_INDUSTRIAL.png (warehouse is corrugated metal now,
+was a tan slab), _DOWNTOWN.png (brick), _STRIP.png.
+
+=== FILED FOR THE WORLD LANE, NOT FIXED HERE ===
+Downtown has single ASPHALT CELLS STRANDED in the middle of a concrete plaza (the two
+dark squares in VALLEY_DOWNTOWN.png). They were always there; his real asphalt just made
+them visible. Same class as his 7/27 "so many sidewalk cement things spread around".
+
+=== THE QUEUE ===
+1. OPENINGS AND EAVES OUTSIDE THE SUBURB. Only the wall FIELD and the roof are mapped.
+   Non-suburb buildings have NO windows, NO doors, NO eave shadow, NO corner treatment -
+   the suburb got all three. Bigger job than this one: a warehouse door is not a house
+   door, a storefront is not a window.
+2. THE GRIME TUNING. Now genuinely unblocked - there IS a dressed world to judge the
+   amount against. Raise GRIME_STRENGTH off 0, judge on a frame with 3+ district types,
+   record a verdict, and grime_gate lets it stay up.
+3. Features on ground ~5.5% vs his 7.0%; his cracks still crisper.
+4. Art cell 44 -> 88 px. Would fix (3) outright.
+
+--- EARLIER TODAY ---
+
 LAB (lab-e2r7sv): 8/3 (e) LATEST -- THE PROGRESSION SPINE. HE ASKED HOW THE WHOLE STACK
 FITS AND THE ANSWER WAS ALREADY IN HIS OWN LAWS. *** ONE RULING BLOCKS EVERYTHING. ***
 
