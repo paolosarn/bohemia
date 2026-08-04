@@ -1,4 +1,4 @@
-# BOHEMIA — THE BOSS LADDER: 13 CANDIDATES FOR VERDICT (8/3/26)
+# BOHEMIA — THE BOSS LADDER: 16 CANDIDATES FOR VERDICT (8/3/26)
 
 > "Maybe it's a good idea. Maybe you can think of 10 more immersive ideas of what a BOSS
 > or a biome means. Maybe the lights on in the territory is just one of the bosses of the
@@ -52,7 +52,7 @@ Three things fall out of it for free:
 ## SECOND: THE HOLE, AND THE RULE THAT PLUGS IT
 
 His own example contains the trap: *"turn on any street in the game."* If a power works
-everywhere for free, boss five ends the game.
+everywhere for free, the light boss ends the game.
 
 Valheim never has this problem because **the biome grants the ABILITY and the ore grants
 the AMOUNT** — knowing how to forge iron does not give you iron.
@@ -70,61 +70,144 @@ weather, bosses are the owners.**
 
 ---
 
-## THE LADDER — 13 CANDIDATES, WEAKEST TO STRONGEST
+# REVISION 1 (8/3/26, same day) — HE RENAMED THE WHOLE THING
+
+> "Maybe there's like a water BOSS maybe there's like a light boss maybe there's like a
+> concrete boss you know"
+> — Paolo, 8/3/26
+
+**THE BOSS IS THE SUBSTANCE.** Not "The Tap, who controls the water" — **THE WATER BOSS.**
+That is a ruling about naming and it is better than what I wrote, for a reason worth
+stating: **the name tells the player what they get before anybody explains anything.** My
+handles (The Tap, The Burn, The Toll) were character names for people; his are the names of
+the thing you win. Water. Light. Concrete. The handles below are demoted to flavour and the
+substance is the name.
+
+## ★ AND "CONCRETE" IS THE BEST IDEA IN THIS WHOLE DOCUMENT
+
+It is not just another entry. It is the one that makes the ladder work like Valheim's,
+because **concrete is the only material in Bohemia you cannot scavenge.**
+
+You can strip steel out of a building. You can pull copper, glass, timber, wire. **You
+cannot strip concrete** — it comes out as rubble, and rubble is not concrete. Concrete has
+to be **MADE**: cement, aggregate, and water, and cement means firing limestone in a kiln at
+around 1,450 °C. That is real, and it hands us three things for nothing:
+
+1. **★ REAL MATERIAL PREREQUISITES, NOT ARBITRARY TIERS.** The concrete boss *requires* the
+   water boss and the fire boss, because you physically cannot make concrete without water
+   and a kiln. **That is exactly what Valheim's biome-metal chain is** — copper needs the
+   Black Forest, iron needs the Swamp — and ours now has the same spine, except ours is
+   grounded in actual chemistry instead of a design decision. Nobody has to invent the
+   order; the order is physics.
+2. **CONCRETE IS THE LINE BETWEEN PATCHING AND BUILDING.** Before it you are lashing scrap
+   to scrap. After it you can build something that outlives you. **In a game about three
+   generations across a hundred years, that is THE mechanical dividing line** — it is the
+   boss that turns act 1's scavenging into act 2's construction, and it is where the
+   city-builder layer actually begins.
+3. **THE MATERIALS ARE ALREADY PAINTED.** Counted in `records/tilespec/` this turn:
+   **concrete 93 · glass 56 · asphalt 52 · gravel 51 · steel 23 · sand 23 · precast 7 ·
+   rebar 2**. Plus his bought concrete and asphalt are already on the ground. **A
+   material-boss ladder needs no new art category at all** — the progression tree is the
+   material bank that already exists.
+
+## SO THERE ARE TWO KINDS OF BOSS, AND HE JUST SHOWED ME THE BETTER ONE
+
+**MATERIAL BOSSES.** You win a **substance**, and the power is "you can make or place this
+anywhere." Water, fire, concrete, glass, steel, asphalt, soil. Instantly legible, and the
+assets exist.
+
+**SERVICE BOSSES.** You win a **function**. Light, medicine, signal, sanitation, debt, law,
+teaching, the grid. More abstract, and each one needs explaining.
+
+**MY RECOMMENDATION: ACT 1 IS ALL MATERIAL.** Substances are the right teacher for the
+first act because the power is visible the second you use it — you place concrete, and the
+concrete is there. Services are act 2 and 3, once the player already understands that
+beating somebody hands you a verb. **[His call.]**
+
+The list below is re-headed on his naming. **Genuinely NEW this revision: CONCRETE, GLASS
+and STEEL.** The asphalt boss is not new — it is the old "toll" boss renamed to its
+substance, which is what his naming ruling does to it. So the count goes 13 -> **16**, which
+is his "much more than Valheim." (First draft of this line said 17; the toll-to-asphalt
+rename was double-counted as an addition.)
+
+---
+
+## THE LADDER — 16 CANDIDATES, WEAKEST TO STRONGEST
 
 Ordered by **how fundamental the need is**, which is also roughly the order civilisation
 actually rebuilds in — his standard from R28, *what realistically happens.*
 
 Each one: **the function locked · who holds it · the power you gain.**
 
-### ACT 1 — ANIMAL. Bosses of SURVIVAL. Personal scale, one person's grip on one thing.
+### ACT 1 — ANIMAL. ALL MATERIAL. One person's grip on one substance.
 
-**1. THE TAP — water.**
-Somebody is sitting on a live main and selling from it. **POWER: you can draw water
-anywhere there is pipe.** The weakest boss in the game and the most human one — the first
-thing a person needs, held by one guy with a wrench.
+**1. THE WATER BOSS.** *(flavour: somebody sitting on a live main, selling from it)*
+**POWER: you can draw water anywhere there is pipe.** The weakest boss in the game and the
+most human one — the first thing a person needs, held by one guy with a wrench. **Everything
+downstream needs him**, concrete included.
 
-**2. THE BURN — heat and fuel.**
-Controls what can be burned and who gets warm. **POWER: you can make fire anywhere, and
-heat a building.** Cold stops being a threat and becomes a resource you hand out.
+**2. THE FIRE BOSS.** *(controls what can be burned, and who gets warm)*
+**POWER: you can make fire anywhere, and heat a building.** Cold stops being a threat and
+becomes a thing you hand out. **The other half of the concrete prerequisite** — no kiln, no
+cement.
 
-**3. THE TOLL — passage.**
-Holds a chokepoint and charges for it. **POWER: you can permanently clear a blocked road.**
-This one plugs straight into R9 — fast travel unlocks by having walked, and this is how the
-walk becomes possible in the first place.
+**3. THE SCRAP BOSS.** *(decides what may be taken apart)*
+**POWER: you can strip any building for materials.** The resources currency stops trickling
+and starts flowing. Note what this pointedly does NOT unlock: concrete. You can strip a
+building and still not be able to make one.
 
-**4. THE STRIPPER — salvage.**
-Decides what may be taken apart, and hurts people who take without asking. **POWER: you can
-strip any building for materials.** The resources currency stops trickling and starts
-flowing.
+**4. THE ASPHALT BOSS.** *(holds a chokepoint, or the last working plant)*
+**POWER: you can permanently clear and re-lay a road.** Plugs straight into R9 — fast travel
+unlocks by having walked, and this is what makes the walk possible in the first place. Lands
+on the harmonized street pool, which is already bought and already on the ground.
 
-### ACT 2 — HUMAN. Bosses of CIVIC LIFE. Institutional scale, somebody running a service.
+**5. ★★ THE CONCRETE BOSS — HIS IDEA, AND THE HINGE OF THE WHOLE LADDER.**
+**POWER: you can build something permanent, anywhere.**
+Requires water (1) and fire (2), because that is what concrete physically is. **This is the
+boss that ends scavenging and begins building**, and therefore the boss where the
+city-builder layer switches on. Everything before it is lashing scrap to scrap; everything
+after it outlives you — which in a three-generation game is the only dividing line that
+matters.
 
-**5. ★ THE LIGHTS — power. HIS IDEA, and it belongs exactly here.**
+**6. THE GLASS BOSS.** *(sand and a furnace; Vegas has infinite sand)*
+**POWER: you can close a building against the world.** The difference between shelter and a
+home, and the first boss whose reward is about *comfort* rather than survival. 56 glass
+references already in the dossiers.
+
+### ACT 2 — HUMAN. Services begin. Institutional scale, somebody running a function.
+
+**7. THE STEEL BOSS.** *(real smelting, not scavenging)*
+**POWER: you can make structural steel — rebar.** The last material boss and the one that
+comes *after* concrete on purpose: **concrete alone cannot span.** Unreinforced concrete
+holds a wall up and nothing else; rebar is what lets you build a floor, a bridge, a second
+storey. So the two of them together are what a city actually is, and splitting them across
+the act boundary is the ladder's cleanest step up.
+
+**8. ★ THE LIGHT BOSS — power. HIS IDEA, and it belongs exactly here.**
 Owns a lit block, and the lit 12% is owned by law already (CLUSTERED POWER, LIGHT =
 TERRITORY). **POWER: you can switch on any street in the valley.** Act 2 is right for it,
 not act 1: light is the first *civic* thing rather than a survival thing, and it is the
 moment the game turns from surviving into governing.
 
-**6. THE WARD — medicine.**
+**9. THE MEDICINE BOSS.** *(the last working clinic, and the drugs in it)*
 Holds the last working clinic and the drugs in it. **POWER: you can treat wounds anywhere.**
 This one reaches into TRAUMATIC NOT GORY: a hurt body is a CLOCK, and this boss gives you
 the ability to stop the clock — which makes every earlier fight retroactively survivable and
 every later one a choice.
 
-**7. ★ THE VOICE — the airwaves.**
+**10. ★ THE SIGNAL BOSS — the airwaves.**
 Owns the one transmitter still broadcasting. **POWER: you can broadcast to the whole
 valley.** The biggest mechanical unlock on the list, because it hands the player the STORY
 SPREAD system as a *tool*: R20/R21 say stories spread from witnesses like a plague, and this
 boss lets you **seed one deliberately** instead of waiting for somebody to see you.
 Reputation stops being weather and becomes a lever.
 
-**8. THE DRAIN — sanitation.**
+**11. THE SANITATION BOSS.**
 Controls where the waste goes, and therefore which districts are sick. **POWER: you can
 make a district habitable.** The unglamorous one, and the one that actually decides where
 people can live — which is the gate the city-builder layer needs.
 
-**9. THE BOOK — debt.**
+**12. THE DEBT BOSS.**
 Holds the ledger of who owes whom, which after ten years is the only real economy there is.
 **POWER: you can call in a debt anywhere.** Clout becomes spendable. And it needs no new
 currency and no market — no price moves by itself, so TEN YEARS COLD holds.
@@ -132,18 +215,18 @@ currency and no market — no price moves by itself, so TEN YEARS COLD holds.
 ### ACT 3 — ANGEL. Bosses of CIVILISATION. The strongest, because each returns something the
 ### world had given up on.
 
-**10. THE JUDGE — law.**
+**13. THE LAW BOSS.**
 Decides what counts as a crime and who answers for it. **POWER: you can pardon or condemn
 anyone.** The mercy ledger (R17, recorded silently) suddenly has somewhere to go, and every
 choice you logged for a hundred hours becomes a thing you can spend.
 
-**11. THE SCHOOL — knowledge.**
+**14. THE KNOWLEDGE BOSS.**
 Controls who gets taught, and hoards what is left of how things work. **POWER: you can
 teach a skill to somebody else.** The dynasty payoff: your heirs and your people improve
 without you standing there. The boss that makes the third generation feel different from the
 first.
 
-**12. ★★ THE SOIL — life. THE STRONGEST BOSS IN THE GAME, AND IT SHOULD BE.**
+**15. ★★ THE SOIL BOSS — life. THE STRONGEST BOSS IN THE GAME, AND IT SHOULD BE.**
 Holds the last living ground and the last seed stock. **POWER: things grow again.**
 
 Act 1 is a **DEAD WORLD BY LAW** — no trees, no grass, no pools, ever, gate-enforced
@@ -152,10 +235,10 @@ grows here. **So the single most powerful thing in Bohemia is a green shoot**, a
 that forbids it in act 1 is exactly what makes it land. Nothing else on this list can
 compete with that as an ending beat.
 
-**13. THE GRID — the network itself.**
+**16. THE GRID BOSS — the network itself.**
 The act-3 crumbling network (`laws/BOHEMIA_ADDENDUM_ACT3_MOONSHOT_STRUCTURE_7_19_26.md`).
 Not one lit block — the whole thing. **POWER: you can move power BETWEEN districts, not
-just switch it on.** Boss 5 gave you a switch; this gives you the machine. The city stops
+just switch it on.** Boss 8 gave you a switch; this gives you the machine. The city stops
 being a map you own and becomes a system you run, which is the last thing you need before
 the Moon.
 
@@ -180,9 +263,10 @@ desired outcome" needs in order to mean anything mechanically.
 
 ## WHAT IS HIS ON THIS
 
-- **Which of the 13 live, which die, and the order.** All of it. I ordered by real-world
-  rebuild sequence; he may want light earlier, or the soil somewhere else entirely.
-- **Whether the count is 13, or 7, or 30.** He said "much more than Valheim potentially";
+- **Which of the 16 live, which die, and the order.** All of it. I ordered by real-world
+  rebuild sequence, and by the material prerequisites where physics forces them; he may want
+  light earlier, or the soil somewhere else entirely.
+- **Whether the count is 16, or 7, or 30.** He said "much more than Valheim potentially";
   the number is his.
 - **The names.** Every name above is a PLACEHOLDER — "The Tap", "The Burn", "The Voice" are
   handles to talk with, not canon. Naming is his, and the Destroyers precedent says naming

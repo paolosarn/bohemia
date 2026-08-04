@@ -1,3 +1,86 @@
+LAB (lab-e2r7sv): 8/3 (g) LATEST -- HE RENAMED THE BOSSES AFTER THE SUBSTANCE, AND
+"CONCRETE BOSS" TURNED OUT TO BE THE HINGE OF THE WHOLE LADDER.
+
+"Maybe there's like a water BOSS maybe there's like a light boss maybe there's like a
+concrete boss you know" -> REVISION 1 of records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md.
+
+=== RULING: THE BOSS *IS* THE SUBSTANCE ===
+Not "The Tap, who controls the water" -- THE WATER BOSS. His naming beats mine and the
+reason is worth keeping: THE NAME TELLS THE PLAYER WHAT THEY GET BEFORE ANYBODY EXPLAINS
+ANYTHING. My handles (The Tap / The Burn / The Toll / The Ward / The Voice) were character
+names for people; his are the names of the thing you WIN. All 16 re-headed, no stale handle
+left anywhere in the file.
+
+=== *** WHY "CONCRETE" IS THE BEST IDEA IN THE DOCUMENT *** ===
+CONCRETE IS THE ONLY MATERIAL IN BOHEMIA YOU CANNOT SCAVENGE. You can strip steel, copper,
+timber, glass, wire. You cannot strip concrete -- it comes out as RUBBLE, and rubble is not
+concrete. It has to be MADE: cement + aggregate + water, and cement means firing limestone
+at ~1450 C. Three things fall out for free:
+ 1 REAL MATERIAL PREREQUISITES, NOT ARBITRARY TIERS. The concrete boss REQUIRES the water
+   boss and the fire boss because that is what concrete physically IS. That is exactly
+   Valheim's biome-metal chain, except OURS IS GROUNDED IN CHEMISTRY instead of a design
+   decision -- nobody has to invent the order, THE ORDER IS PHYSICS.
+ 2 CONCRETE IS THE LINE BETWEEN PATCHING AND BUILDING. Before it you lash scrap to scrap;
+   after it you build something that OUTLIVES YOU. In a three-generation game that is THE
+   dividing line, and it is where the city-builder layer actually switches on.
+ 3 THE MATERIALS ARE ALREADY PAINTED. Counted in records/tilespec/ this turn: concrete 93,
+   glass 56, asphalt 52, gravel 51, steel 23, sand 23, precast 7, rebar 2 -- plus his bought
+   concrete and asphalt already on the ground. A MATERIAL-BOSS LADDER NEEDS NO NEW ART
+   CATEGORY. The progression tree is the material bank that already exists.
+
+=== TWO KINDS OF BOSS, AND HE SHOWED ME THE BETTER ONE ===
+MATERIAL bosses (win a SUBSTANCE, power = "you can make/place this anywhere"): water, fire,
+scrap, asphalt, concrete, glass, steel, soil. Instantly legible, assets exist.
+SERVICE bosses (win a FUNCTION): light, medicine, signal, sanitation, debt, law, knowledge,
+grid. More abstract, each needs explaining.
+MY RECOMMENDATION: ACT 1 IS ALL MATERIAL, because the power is visible the second you use
+it -- you place concrete and the concrete is THERE. Services are acts 2-3, once the player
+already understands that beating somebody hands you a verb. [His call.]
+
+=== THE LADDER, 16, WEAKEST TO STRONGEST ===
+ACT 1 ALL MATERIAL: 1 WATER (draw water anywhere there is pipe) · 2 FIRE (fire anywhere,
+heat a building) · 3 SCRAP (strip any building -- and pointedly NOT concrete) · 4 ASPHALT
+(clear and re-lay a road; lands on the harmonized street pool) · 5 CONCRETE (build something
+PERMANENT; needs 1+2) · 6 GLASS (close a building against the world; Vegas has infinite sand)
+ACT 2: 7 STEEL (rebar -- and it comes AFTER concrete on purpose, because UNREINFORCED
+CONCRETE CANNOT SPAN: no rebar, no floor, no second storey) · 8 LIGHT (switch on any street
+-- HIS original idea) · 9 MEDICINE (treat wounds anywhere; a hurt body is a CLOCK, this stops
+it) · 10 SIGNAL (broadcast valley-wide -- hands the player R20/R21 story-spread as a TOOL) ·
+11 SANITATION (make a district habitable) · 12 DEBT (call in a debt anywhere)
+ACT 3: 13 LAW (pardon or condemn -- R17's silent ledger finally has somewhere to go) ·
+14 KNOWLEDGE (teach a skill to somebody else; the dynasty payoff) · 15 SOIL (THINGS GROW
+AGAIN -- strongest in the game, and it WORKS because act 1 is a dead world BY LAW) ·
+16 GRID (move power BETWEEN districts; boss 8 gave a switch, this gives the machine)
+
+=== MY OWN MISCOUNT, RECORDED NOT HIDDEN ===
+I wrote "17" while the list had 16, by double-counting a RENAME as an addition -- the toll
+boss becoming the asphalt boss is not a new boss. Corrected in all four places AND the
+miscount is written into the file, then GATED: rulings_gate G5 counts the actual entries and
+fails if the stated total disagrees, G6 checks 1..N with no gaps, G7 checks the miscount
+disclosure survives. Same rot class as C4b's duplicate heading numbers, same treatment:
+COUNT THE THINGS.
+
+=== GATED ===
+rulings_gate.js is 91 checks (+G1..G15: both his quotes, the substance ruling, the count
+consistency, and the five design catches -- biome=missing function, ability-not-resource,
+concrete's physics prerequisites, Destroyers excluded from boss-hood, soil depending on the
+dead-world law, and every boss takeable without killing). Six mutations, all six caught.
+
+=== THE HANDOFF MARKER BUG, AND MY GATE CAUGHT ME WITH IT ===
+Wrote gates/nomarkers_gate.js this turn after markers reached main twice in one day (mine,
+then the PEOPLE lane's in 105a6b5 which mangled 162 lines of COMBAT). Then during THIS
+turn's rebase my resolver threw on a SECOND conflict region and I ran git add + rebase
+--continue anyway -- the identical mistake -- AND THE NEW GATE FAILED IMMEDIATELY, 2 pass /
+4 fail. Fixed properly with a multi-region resolver, and the rule is now: RUN THE GATE
+BEFORE THE COMMIT, NOT AFTER. Twelve lane sections all intact on main, verified.
+
+=== NOT DONE / THE QUEUE ===
+1. HIS THUMBS ON THE 16 -- which live, which die, order, count. Everything waits on it.
+2. Whether act 1 is all-material (my recommendation, his call).
+3. THE WITNESS + STORY-SPREAD PLUMBING -- approved work; boss 10 is its payoff.
+4. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
+5. Did not touch #buildstamp: one record and two gates.
+
 ART (f3eu53): 8/3 (m) LATEST — EVERY BUILDING IN THE VALLEY HAS A TOP AND A WAY IN.
 
 === THE PARAPET IS THE SILHOUETTE, NOT TRIM ===

@@ -230,6 +230,60 @@ ok('F12 the readable-danger pending is FLAGGED and not answered by a lane',
 ok('F13 the dynasty settled question is not re-opened by the death-penalty finding',
    /DYNASTY, not a one-life run/i.test(vh));
 
+/* ---- THE BOSS LADDER ------------------------------------------------------- */
+/* He gave the mechanism ("unlock a new skill or like a tool to alter the world around
+   you") and then the NAMING ("maybe there's like a water BOSS ... a concrete boss"). Two
+   rulings, both recorded. The checks here are on the things a machine can hold: his two
+   quotes survive, the ladder is internally consistent, the count in the prose matches the
+   count of actual entries, and the load-bearing design catches are still written down. */
+const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md';
+ok('G1 the boss ladder record exists', fs.existsSync(path.join(ROOT, LADDER)));
+const rawLad = fs.existsSync(path.join(ROOT, LADDER))
+  ? fs.readFileSync(path.join(ROOT, LADDER), 'utf8') : '';
+const lad = norm(rawLad);
+ok('G2 his mechanism quote survives',
+   /unlock a new skill or like a tool to alter the world around you/i.test(lad));
+ok('G3 his NAMING quote survives',
+   /there's like a water BOSS maybe there's like a light boss maybe there's like a concrete boss/i
+     .test(lad));
+ok('G4 the boss IS the substance, not a character handle',
+   /THE BOSS IS THE SUBSTANCE/i.test(lad));
+/* THE COUNT MUST MATCH THE ENTRIES. I wrote "17" while there were 16, by double-counting a
+   RENAME as an addition -- the toll boss becoming the asphalt boss is not a new boss. A
+   stated total that disagrees with the list is the same class of rot as the duplicated
+   heading numbers C4b catches, so it gets the same treatment: count the things. */
+const entries = (rawLad.match(/^\*\*\d+\. [★ ]*THE [A-Z]+ BOSS/gm) || []);
+const stated = (rawLad.match(/THE LADDER — (\d+) CANDIDATES/) || [])[1];
+ok('G5 the stated count matches the actual entries (' + entries.length + ' entries, states ' +
+   stated + ')', !!stated && +stated === entries.length);
+ok('G6 the entries are numbered 1..N with no duplicates or gaps',
+   entries.map(e => +e.match(/\d+/)[0]).every((n, i) => n === i + 1));
+ok('G7 the miscount is recorded rather than quietly corrected',
+   /First draft of this line said 17/i.test(lad));
+/* THE FOUR DESIGN CATCHES. Each is a sentence a later session would delete as waffle, and
+   each is the reason the ladder is not broken. */
+ok('G8 a biome is a MISSING FUNCTION, not a place',
+   /A BOHEMIA "?BIOME"? IS A MISSING FUNCTION, NOT A PLACE/i.test(lad));
+ok('G9 the ability/resource rule that stops the light boss ending the game',
+   /A BOSS GRANTS THE ABILITY, NEVER THE RESOURCE/i.test(lad) &&
+   /the light boss ends the game/i.test(lad));
+ok('G10 concrete carries REAL prerequisites, not an invented tier order',
+   /the only material in Bohemia you cannot scavenge/i.test(lad) &&
+   /the order is physics/i.test(lad));
+ok('G11 the Destroyers are excluded from boss-hood, with the citation',
+   /Destroyers can never be bosses/i.test(lad) &&
+   /ACT1_PROCEDURAL_ENDING_AND_DESTROYERS/.test(lad));
+ok('G12 the soil boss depends on the dead-world law rather than breaking it',
+   /DEAD WORLD BY LAW/i.test(lad) && /most powerful thing in Bohemia is a green shoot/i.test(lad));
+ok('G13 every boss is takeable WITHOUT killing -- the thing that makes it not Valheim',
+   /can be taken WITHOUT killing/i.test(lad) &&
+   /least possible loss of life/i.test(lad));
+ok('G14 it stays candidates, and the names stay placeholders',
+   /CANDIDATES FOR HIS THUMBS\. NOT CANON/i.test(lad) &&
+   /Every name above is a PLACEHOLDER/i.test(lad));
+ok('G15 no damage number leaked into it',
+   /No numbers anywhere: NO DAMAGE BEFORE THE DIAL/i.test(lad));
+
 /* ---- THE ROWS EXIST ------------------------------------------------------- */
 /* This is the actual lock. answered_gate.py reads the machine block; a ruling with no
    row is a ruling he will be asked about again. */
