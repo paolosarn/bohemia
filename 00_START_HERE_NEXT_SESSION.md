@@ -8476,3 +8476,16 @@ factions; the standing system and the build system are ONE system at
 scale). One garble kept verbatim, unresolved: "you definitely have your
 death in." This binds the faction dossiers + standing ledger to the
 city-builder design directly.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/4 (c) — TWO FLEET-WIDE LAWS FROM THE LORE SITTING:
+REALISM FIRST (taste canon top rank: the realistic answer is the default
+answer, outbid only by fun/addicting or genuinely-interesting, and the trade
+is HIS; the game's identity sentence: "the most realistic economic crash
+simulator, but fun") + THE QUESTION FORMAT (all sessions: ONE question at a
+time from a visible queue, thorough researched explanation, 2-3 concrete
+conclusions A/B/C he picks with one letter; realistic option leads). Law:
+laws/BOHEMIA_ADDENDUM_REALISM_FIRST_AND_THE_QUESTION_FORMAT_8_4_26.md +
+CLAUDE.md amended. Coordinator's lore queue now runs one-at-a-time: Q1 the
+exodus/died split (asked, options given), then: what ended the hell years,
+California beliefs, faith, fun/the show, children, the guarantor seat.
