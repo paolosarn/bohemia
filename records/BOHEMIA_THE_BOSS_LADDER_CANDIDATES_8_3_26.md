@@ -1,4 +1,4 @@
-# BOHEMIA — THE BOSS LADDER: 16 CANDIDATES FOR VERDICT (8/3/26)
+# BOHEMIA — THE BOSS LADDER: 21 CANDIDATES FOR VERDICT (8/3-8/4/26)
 
 > "Maybe it's a good idea. Maybe you can think of 10 more immersive ideas of what a BOSS
 > or a biome means. Maybe the lights on in the territory is just one of the bosses of the
@@ -132,7 +132,11 @@ rename was double-counted as an addition.)
 
 ---
 
-## THE LADDER — 16 CANDIDATES, WEAKEST TO STRONGEST
+## THE LADDER — 21 CANDIDATES, WEAKEST TO STRONGEST
+
+(Entries 1-16 are below; 17-21 are added by REVISION 2 further down, in the tier they
+belong to. Every entry in this document wears the same heading shape so the count can be
+machine-checked -- see G5.)
 
 Ordered by **how fundamental the need is**, which is also roughly the order civilisation
 actually rebuilds in — his standard from R28, *what realistically happens.*
@@ -261,12 +265,137 @@ each has something they want, somebody they fear, and a reason to hand it over. 
 makes this Bohemia and not Valheim, and it is what "least possible loss of life as the
 desired outcome" needs in order to mean anything mechanically.
 
+---
+
+# REVISION 2 (8/4/26) — THE RESEARCH, AND THE PERCENTAGES CHANGE THE LADDER'S SHAPE
+
+> "Maybe we can have more bosses potentially to coordinate this. I was telling the master
+> coordinator chat that in act one if you do really good you might be able to impact the
+> rebuild of like 15[-]20% of the city before it gets really grinding and boring. Act two
+> maybe you can do 30 through 40% of the rebuild before it gets grinding and boring, and in
+> act three you can get to 80 to 100%. Can you think of bosses that can kind of fit this
+> vibe maybe we can have more. I like what you provided just do double research."
+> — Paolo, 8/4/26
+
+**FIRST, A PARALLEL-SESSION NOTE.** Those percentages are **already LOCKED canon** — another
+session wrote them up the same day as `laws/BOHEMIA_ADDENDUM_THE_VALHEIM_SHAPE_8_4_26.md`
+§3 while this lane was working. So I am not treating them as new input; I am fitting the
+ladder to law that already exists. Two of its clauses reshape this document, and one of them
+I would have got wrong:
+
+- **§3 THE ACT REPAIR CAPS:** act 1 ~15%, act 2 ~33-40%, act 3 80-100%, with the
+  **anti-grind clauses ranked equal to the numbers.**
+- **§4b BUILDING IS FULLY OPTIONAL.** The caps are **CEILINGS, never floors.**
+- **★ §4b THE PSEUDO-MAYOR AND THE UNITED FRONT: at 80% you are not laying every brick, you
+  are the one the valley rebuilds AROUND — and the endgame currency is NOT CONCRETE, IT IS
+  ALLIANCE.** One faction can only go so far; the top tier takes a united front.
+
+That last clause is the correction. My ladder was heading for a materials-all-the-way-up
+shape, and canon already says the top of it is made of **people agreeing**, not stuff.
+
+## THE RESEARCH — WHAT ACTUALLY CAUSES "GRINDING AND BORING"
+
+Four findings, and they agree with each other.
+
+**FINDING A — BOSS COUNT IS NOT THE PROBLEM.** Valheim has 7. Terraria has ~19. HOLLOW KNIGHT HAS 47+
+(over 50 counting variants).** Hollow Knight is not a grind, and the reason is the one that
+matters to us: **most of its bosses are OPTIONAL.** Which is *already* our law — his caps
+are ceilings, not floors. **So Hollow Knight's 47 bosses work for exactly the same reason
+§4b works, and our count can be large as long as most of the ladder is skippable.**
+
+**FINDING B — ★ THE GRIND IS CAUSED BY THE LAST UNIT OF PROGRESS COSTING THE SAME AS THE
+FIRST WHILE REWARDING LESS.** Surviving Mars players, verbatim on the failure: *once you get 3-4 domes
+and everything runs smoothly, there is no reward for going bigger, and filling another dome
+becomes very easy.* Same action, same cost, less meaning. That is the wall, and it is not
+about length.
+
+**FINDING C — ★ AND IT IS A CERTAINTY PROBLEM, NOT A LENGTH PROBLEM.** The sharpest line in the
+research: players *know they have won with very high probability, so they are WAITING to
+finish.* Boredom starts the moment the **outcome stops being in doubt** — not the moment the
+game gets long.
+
+**FINDING D — THE FIX FOR A LONG TAIL IS DELEGATION, NOT MORE CONTENT.** Frostpunk's late game is
+criticised because *some actions need to be automated* — repeatedly raising the generator,
+turning heaters on. And the summarising line worth pinning up: **"interesting parts of games
+are allowed to be slow, but it is a problem if uninteresting parts are."** Length is
+innocent. Unrewarded repetition is the crime.
+
+## ★ SO THE THREE PERCENTAGES ARE THREE DIFFERENT VERBS, AND THAT IS THE ANTI-GRIND DESIGN
+
+His numbers are not one curve getting longer. Look at the deltas: **0→15, then 15→40 (25
+points), then 40→100 (60 points).** Each act asks for *more* rebuild than the one before, so
+if the unit of work stayed the same size, act 3 would be four times the grind of act 1. It
+cannot be the same verb three times.
+
+**EACH ACT MUST MAKE THE UNIT OF WORK BIGGER. That is finding 2 inverted, and it is what the
+boss ladder is FOR:**
+
+| | delta | THE VERB | WHAT THE BOSSES GIVE YOU |
+|---|---|---|---|
+| **ACT 1** | 0 → ~15% | **YOU build it** | **MATERIALS** — you personally lay it |
+| **ACT 2** | ~15 → ~40% | **YOUR CREWS build it** | **LABOUR, MACHINES, SERVICES** — it happens without you standing there |
+| **ACT 3** | ~40 → 80-100% | **THE CITY builds itself** | **ALLIANCES** — you are the pseudo-mayor and the factions do it |
+
+You never hand-lay 60% of a city. You get sixteen factions to agree, and they lay it. Which
+is not my idea — it is §4b, and the ladder now delivers it.
+
+**AND IT SOLVES FINDING 3 FOR FREE.** A pile of concrete cannot betray you; **an alliance
+can.** Act 3's currency being alliance is what keeps the outcome in doubt through the long
+tail, because a united front is fragile in a way materials never are. The thing that stops
+80-100% being a wait is that **you can still lose it.**
+
+## THE ADDITIONAL BOSSES, FITTED TO THE TIERS
+
+**ACT 2 GETS THE DELEGATION BOSSES.** These are the ones that turn 25 points of rebuild from
+a grind into a management game, and they are what finding 4 demands *before* the tail, not
+patched in after.
+
+**17. THE CREW BOSS — labour.** *(whoever the working hands answer to)*
+**POWER: you can hire people to build without you.** The single most important act-2 unlock
+on this list, because it is the exact moment the unit of work stops being one wall and
+becomes one *building*.
+
+**18. THE MACHINE BOSS — heavy equipment.** *(a working excavator, a crane, and whoever
+holds the keys)*
+**POWER: one machine does the work of twenty people.** Rebuild stops being proportional to
+your day.
+
+**19. THE DIESEL BOSS — fuel that is not firewood.** *(deliberately NOT the fire boss)*
+**POWER: you can run the machines.** A hard prerequisite on 18, the same way water and fire
+gate concrete — and note it makes the machine boss's power *cost something ongoing*, which
+is the ability-not-the-resource rule doing its job again.
+
+**ACT 3'S BOSSES ARE THE FACTIONS, AND THE ROSTER ALREADY EXISTS.**
+`records/factions/` holds **16 dossiers** — Amalgamation, Anarchists, Blues, Caravans,
+Cartel, Church, Colorful, Homeless, Karens, Mob, Network, Reds, Remnants, Social Forces,
+Trades, Volunteers. §4b says the top tier takes a united front across them.
+
+**20. THE FACTION BOSS — each of the sixteen.** "Beating" one means getting it to *stand
+with you* — which is the version of a boss fight that TRAUMATIC NOT GORY and "least possible loss
+of life" have been pointing at the whole time. **Whether that is all 16, or a threshold of
+them, is [PENDING Paolo].** Their contents are his and I am not writing faction canon.
+
+**21. THE ALLIANCE BOSS — the united front, the real final boss, and not a person.**
+**POWER: the valley rebuilds around you.** The fight is getting two factions who hate each
+other to sit in the same room. Nothing on this list is harder and nothing else earns 100%.
+
+That brings the ladder to **21 candidates** (16 + 5) — between Terraria's 19 and Hollow Knight's 47,
+and legal at that size for the reason finding 1 gives: **most of it is optional, because his
+own §4b says so.**
+
+## WHAT THIS REVISION DOES NOT DO
+
+It sets no percentage of its own — the caps are §3's and I am fitting to them, not adjusting
+them. It writes no faction canon. It does not make building mandatory: **every boss on this
+list is skippable, and a player who beats none of them still finishes the game**, which is
+§4b and is not negotiable. And it invents no numbers.
+
 ## WHAT IS HIS ON THIS
 
-- **Which of the 16 live, which die, and the order.** All of it. I ordered by real-world
+- **Which of the 21 live, which die, and the order.** All of it. I ordered by real-world
   rebuild sequence, and by the material prerequisites where physics forces them; he may want
   light earlier, or the soil somewhere else entirely.
-- **Whether the count is 16, or 7, or 30.** He said "much more than Valheim potentially";
+- **Whether the count is 21, or 7, or 30.** He said "much more than Valheim potentially";
   the number is his.
 - **The names.** Every name above is a PLACEHOLDER — "The Tap", "The Burn", "The Voice" are
   handles to talk with, not canon. Naming is his, and the Destroyers precedent says naming

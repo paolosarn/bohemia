@@ -1,4 +1,145 @@
-<<<<<<< HEAD
+LAB (lab-e2r7sv): 8/4 (a) LATEST -- THE RESEARCH SAYS HIS THREE PERCENTAGES ARE THREE
+DIFFERENT VERBS, AND ANOTHER SESSION HAD ALREADY LOCKED THE NUMBERS.
+
+REVISION 2 of records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md. 21 candidates now.
+Still candidates, still not canon.
+
+=== *** READ THIS FIRST: THE PERCENTAGES WERE ALREADY LOCKED *** ===
+He gave act 1 ~15-20%, act 2 30-40%, act 3 80-100% -- and another session had ALREADY
+written them up the same day as laws/BOHEMIA_ADDENDUM_THE_VALHEIM_SHAPE_8_4_26.md §3. So I
+fitted the ladder to existing law instead of treating his message as new input. TWO of its
+clauses reshaped my document and ONE OF THEM I WOULD HAVE GOT WRONG:
+  §3 the caps, WITH the anti-grind clauses ranked EQUAL to the numbers.
+  §4b BUILDING IS FULLY OPTIONAL -- the caps are CEILINGS, NEVER FLOORS.
+  §4b *** THE ENDGAME CURRENCY IS NOT CONCRETE, IT IS ALLIANCE *** -- pseudo-mayor, and one
+  faction can only go so far. My ladder was heading materials-all-the-way-up. Canon already
+  said the top is made of PEOPLE AGREEING. That is the correction, recorded as a correction.
+
+=== THE RESEARCH -- WHAT ACTUALLY CAUSES "GRINDING AND BORING" ===
+A BOSS COUNT IS NOT THE PROBLEM. Valheim 7, Terraria ~19, HOLLOW KNIGHT 47+ (50 w/ variants)
+  and Hollow Knight is not a grind because MOST OF ITS BOSSES ARE OPTIONAL -- which is
+  ALREADY our law (§4b). So 21 bosses is legal for the same reason his caps are ceilings.
+B *** THE GRIND IS THE LAST UNIT OF PROGRESS COSTING THE SAME AS THE FIRST WHILE REWARDING
+  LESS. *** Surviving Mars players verbatim: once you have 3-4 domes running smoothly there
+  is NO REWARD FOR GOING BIGGER and filling another dome is very easy. Same action, same
+  cost, less meaning. That is the wall, and it is not about length.
+C *** AND IT IS A CERTAINTY PROBLEM, NOT A LENGTH PROBLEM. *** Sharpest line in the
+  research: players KNOW THEY HAVE WON with high probability, SO THEY ARE WAITING TO FINISH.
+  Boredom starts when the OUTCOME STOPS BEING IN DOUBT.
+D THE FIX FOR A LONG TAIL IS DELEGATION, NOT MORE CONTENT. Frostpunk's late game is
+  criticised because actions NEED TO BE AUTOMATED. And the line to pin up: "interesting
+  parts of games are allowed to be slow, but it is a problem if UNINTERESTING parts are."
+
+=== *** THE ANSWER: THE THREE PERCENTAGES ARE THREE DIFFERENT VERBS *** ===
+Look at the deltas: 0->15, then 15->40 (25 points), then 40->100 (60 points). EACH ACT ASKS
+FOR MORE REBUILD THAN THE LAST, so if the unit of work stayed the same size act 3 would be
+FOUR TIMES the grind of act 1. It cannot be the same verb three times. EACH ACT MUST MAKE
+THE UNIT OF WORK BIGGER -- that is finding B inverted, and it is what the ladder is FOR:
+  ACT 1  0->15%    YOU build it          bosses give MATERIALS
+  ACT 2  15->40%   YOUR CREWS build it   bosses give LABOUR, MACHINES, SERVICES
+  ACT 3  40->100%  THE CITY builds it    bosses give ALLIANCES (you are the pseudo-mayor)
+You never hand-lay 60% of a city. You get sixteen factions to agree and THEY lay it. Not my
+idea -- that is §4b, and the ladder now delivers it.
+AND IT SOLVES FINDING C FOR FREE: a pile of concrete cannot betray you, AN ALLIANCE CAN.
+What stops 80-100% being a wait is that YOU CAN STILL LOSE IT.
+
+=== THE 5 NEW BOSSES (21 total, = 16 + 5) ===
+ACT 2 DELEGATION (what turns 25 points from a grind into a management game, and finding D
+demands it BEFORE the tail not patched in after):
+  17 THE CREW BOSS -> hire people to build without you. The moment the unit of work stops
+     being one wall and becomes one BUILDING. Most important act-2 unlock on the list.
+  18 THE MACHINE BOSS -> one machine does the work of twenty people.
+  19 THE DIESEL BOSS -> run the machines. Deliberately NOT the fire boss; a hard prereq on
+     18, and it makes 18's power cost something ONGOING (ability-not-resource again).
+ACT 3 ALLIANCE:
+  20 THE FACTION BOSS, each of the sixteen. records/factions/ ALREADY HOLDS 16 DOSSIERS
+     (Amalgamation, Anarchists, Blues, Caravans, Cartel, Church, Colorful, Homeless, Karens,
+     Mob, Network, Reds, Remnants, Social Forces, Trades, Volunteers). "Beating" one means
+     getting it to STAND WITH YOU -- the version of a boss fight TRAUMATIC NOT GORY and
+     "least possible loss of life" have been pointing at all along. All 16 or a threshold is
+     [PENDING]. NO FACTION CANON WRITTEN HERE.
+  21 THE ALLIANCE BOSS -- the united front, the real final boss, and not a person. The fight
+     is getting two factions who hate each other to sit in the same room.
+
+=== GATED ===
+rulings_gate.js is 104 checks (+G16..G28). The load-bearing ones: it CITES the locked caps
+law rather than restating his numbers, it states it sets NO percentage of its own, §4b's
+alliance clause survives AND is recorded as a CORRECTION rather than pretended agreement,
+building stays optional, the three verbs cannot collapse into one, and the parallel-session
+collision is DISCLOSED. Six mutations, all six caught.
+ALSO FIXED: my G5 count check caught its own document -- revision 2 added entries outside the
+ladder section and the stated total went stale. All 21 entries now wear ONE heading shape so
+the count is machine-countable, and the four research findings were relabelled A-D so they
+stop looking like ladder entries.
+
+=== NOT DONE / THE QUEUE ===
+1. HIS THUMBS ON THE 21, and whether act 1 is all-material.
+2. Whether the united front is all 16 factions or a threshold. [PENDING]
+3. THE WITNESS + STORY-SPREAD PLUMBING -- approved work; boss 10 is its payoff.
+4. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
+5. Did not touch #buildstamp: one record, one gate.
+
+ALL LANES (factions): 8/2 (k) LATEST — *** THE PROJECT WAS ~43 DAYS FROM NOT BEING ABLE
+TO SHIP AT ALL, AND NOBODY HAD MEASURED IT. FIXED. READ THIS ONE. ***
+Record: records/BOHEMIA_THE_PAYLOAD_WALL_8_2_26.md
+
+Paolo 8/2: "We need to do so much that we know that we don't know you need to be able to
+know that." THE BIG MISSING (7/29) is the list of KNOWN gaps. He asked for the other list.
+So I measured the file he actually taps.
+
+  slices/BOHEMIA_ALPHA_0_9.html was 38.7 MB, gaining ~1.4-2.1 MB/day off real git history.
+  GITHUB REJECTS ANY FILE OVER 100 MB. Not a warning - the push fails.
+  ~43 DAYS AND EVERY LANE IN THE FLEET LOSES THE ABILITY TO PUSH THE GAME.
+  And the one link cost him 65 SECONDS on weak LTE before the splash could draw.
+
+Not a hard problem. An UNWATCHED one - which is what an unknown-unknown actually looks
+like: it would have landed on an ordinary Tuesday, on a limit nobody tracked, with no
+obvious cause.
+
+=== WHERE THE BYTES WERE ===
+  line 6624   35.76 MB   const CITY_B64='...'   an entire HTML page, base64'd, inline
+  line 1014    1.35 MB   COMBAT_B64, same trick
+  everything else 0.90 MB - ALL the actual code in the game
+96% of the file was two blobs, and base64 costs 33% on top of what it carries, so ~9 MB
+was the ENCODING alone. THE CHEAPER PATTERN WAS ALREADY IN THE SAME FILE FOUR TIMES:
+RUN / SLICE / LIFE / MAP all load their page from a sibling with data-src.
+
+=== THE FIX AND WHAT IT MEASURED ===
+CITY_B64 -> slices/BOHEMIA_CITY_WORLD.html, loaded with fr.src.
+  alpha 38.7 MB -> 2.92 MB
+  first load over HTTP (same origin model as Pages): 12,561 ms -> 398 ms. TWENTY-NINE
+  TIMES FASTER, frame state byte-identical, zero console errors.
+  The world page is now fetched only when he opens the tab, like the other four already.
+GATES: FRONT DOOR 8/0, ALPHA LOADS 20/0, ONE WORLD TAB 120/0 (that is the gate that drives
+the real RUN surface and asserts it shows the world - the strongest signal available).
+run_gate could not run: it shells out to a tool that needs PIL, the same environment red
+that fails 25 other gates. Not this change.
+
+*** TWO THINGS THAT NEARLY COST THE WIN - EVERY LANE SHOULD KNOW BOTH ***
+1. file:// LIES ABOUT ORIGINS. Locally the split looked BROKEN - same-origin false, parent
+   could not read the frame. Chrome gives every file:// document its own opaque origin, so
+   an inlined srcdoc frame is same-origin and a sibling src frame is not. On Pages both are
+   https://paolosarn.github.io and the distinction does not exist. Served over a local HTTP
+   server the split is IDENTICAL to baseline. IF I HAD TRUSTED THE file:// RESULT I WOULD
+   HAVE THROWN AWAY A 29x WIN FOR A BUG THAT DOES NOT EXIST WHERE THE GAME RUNS.
+   If you are testing anything about iframes, origins, storage or fetch, SERVE IT OVER HTTP.
+2. A 37-MILLION-CHARACTER LINE DOES NOT END WHERE YOU THINK. That line does not stop at the
+   closing quote - the entire tab-click handler is tacked onto the same line. Replacing
+   "the line" deleted it and the app never opened. Edit the LITERAL, never the line.
+
+=== THE ALARM, SO IT CANNOT COME BACK ===
+gates/payload_wall_gate.py, registered as PAYLOAD WALL. Measures every tracked file,
+projects the date off real git history, fails at a 45 MB budget - under GitHub's 50 MB
+warning and well under the 100 MB wall - and names the offending lines.
+STILL WORTH A LOOK, reported not fixed: the four BOHEMIA_HD_TILE_REPO_part*.txt banks are
+42.7-43.5 MB EACH, just under budget and half way to the wall on their own.
+
+=== WHAT COMES AFTER ===
+1. COMBAT_B64 is still inlined at 1.35 MB - same one-line fix, now proven.
+2. The four HD tile banks.
+3. Nothing else in the repo is near the wall, measured, and the gate watches all of it now.
+
+
 LAB (lab-e2r7sv): 8/3 (g) LATEST -- HE RENAMED THE BOSSES AFTER THE SUBSTANCE, AND
 "CONCRETE BOSS" TURNED OUT TO BE THE HINGE OF THE WHOLE LADDER.
 
@@ -282,69 +423,6 @@ AFRO inside a base64 blob, LOCS inside 'VOTING BLOCS', DESERT CURL 2 inside
 name is an English word or a possible numeric prefix.
 
 
-=======
-ALL LANES (factions): 8/2 (k) LATEST — *** THE PROJECT WAS ~43 DAYS FROM NOT BEING ABLE
-TO SHIP AT ALL, AND NOBODY HAD MEASURED IT. FIXED. READ THIS ONE. ***
-Record: records/BOHEMIA_THE_PAYLOAD_WALL_8_2_26.md
-
-Paolo 8/2: "We need to do so much that we know that we don't know you need to be able to
-know that." THE BIG MISSING (7/29) is the list of KNOWN gaps. He asked for the other list.
-So I measured the file he actually taps.
-
-  slices/BOHEMIA_ALPHA_0_9.html was 38.7 MB, gaining ~1.4-2.1 MB/day off real git history.
-  GITHUB REJECTS ANY FILE OVER 100 MB. Not a warning - the push fails.
-  ~43 DAYS AND EVERY LANE IN THE FLEET LOSES THE ABILITY TO PUSH THE GAME.
-  And the one link cost him 65 SECONDS on weak LTE before the splash could draw.
-
-Not a hard problem. An UNWATCHED one - which is what an unknown-unknown actually looks
-like: it would have landed on an ordinary Tuesday, on a limit nobody tracked, with no
-obvious cause.
-
-=== WHERE THE BYTES WERE ===
-  line 6624   35.76 MB   const CITY_B64='...'   an entire HTML page, base64'd, inline
-  line 1014    1.35 MB   COMBAT_B64, same trick
-  everything else 0.90 MB - ALL the actual code in the game
-96% of the file was two blobs, and base64 costs 33% on top of what it carries, so ~9 MB
-was the ENCODING alone. THE CHEAPER PATTERN WAS ALREADY IN THE SAME FILE FOUR TIMES:
-RUN / SLICE / LIFE / MAP all load their page from a sibling with data-src.
-
-=== THE FIX AND WHAT IT MEASURED ===
-CITY_B64 -> slices/BOHEMIA_CITY_WORLD.html, loaded with fr.src.
-  alpha 38.7 MB -> 2.92 MB
-  first load over HTTP (same origin model as Pages): 12,561 ms -> 398 ms. TWENTY-NINE
-  TIMES FASTER, frame state byte-identical, zero console errors.
-  The world page is now fetched only when he opens the tab, like the other four already.
-GATES: FRONT DOOR 8/0, ALPHA LOADS 20/0, ONE WORLD TAB 120/0 (that is the gate that drives
-the real RUN surface and asserts it shows the world - the strongest signal available).
-run_gate could not run: it shells out to a tool that needs PIL, the same environment red
-that fails 25 other gates. Not this change.
-
-*** TWO THINGS THAT NEARLY COST THE WIN - EVERY LANE SHOULD KNOW BOTH ***
-1. file:// LIES ABOUT ORIGINS. Locally the split looked BROKEN - same-origin false, parent
-   could not read the frame. Chrome gives every file:// document its own opaque origin, so
-   an inlined srcdoc frame is same-origin and a sibling src frame is not. On Pages both are
-   https://paolosarn.github.io and the distinction does not exist. Served over a local HTTP
-   server the split is IDENTICAL to baseline. IF I HAD TRUSTED THE file:// RESULT I WOULD
-   HAVE THROWN AWAY A 29x WIN FOR A BUG THAT DOES NOT EXIST WHERE THE GAME RUNS.
-   If you are testing anything about iframes, origins, storage or fetch, SERVE IT OVER HTTP.
-2. A 37-MILLION-CHARACTER LINE DOES NOT END WHERE YOU THINK. That line does not stop at the
-   closing quote - the entire tab-click handler is tacked onto the same line. Replacing
-   "the line" deleted it and the app never opened. Edit the LITERAL, never the line.
-
-=== THE ALARM, SO IT CANNOT COME BACK ===
-gates/payload_wall_gate.py, registered as PAYLOAD WALL. Measures every tracked file,
-projects the date off real git history, fails at a 45 MB budget - under GitHub's 50 MB
-warning and well under the 100 MB wall - and names the offending lines.
-STILL WORTH A LOOK, reported not fixed: the four BOHEMIA_HD_TILE_REPO_part*.txt banks are
-42.7-43.5 MB EACH, just under budget and half way to the wall on their own.
-
-=== WHAT COMES AFTER ===
-1. COMBAT_B64 is still inlined at 1.35 MB - same one-line fix, now proven.
-2. The four HD tile banks.
-3. Nothing else in the repo is near the wall, measured, and the gate watches all of it now.
-
-<<<<<<< HEAD
->>>>>>> b27652b (THE PROJECT WAS ~43 DAYS FROM NOT BEING ABLE TO SHIP AT ALL)
 COMBAT (combat-nfnki9): 8/3 (c) LATEST -- YOUR MISSED ROUND EXISTS NOW. Live on
 main as 17cd5a8, BUILD 8/3k, Pages build VERIFIED success 04:08.
 

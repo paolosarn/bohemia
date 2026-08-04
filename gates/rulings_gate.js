@@ -284,6 +284,46 @@ ok('G14 it stays candidates, and the names stay placeholders',
 ok('G15 no damage number leaked into it',
    /No numbers anywhere: NO DAMAGE BEFORE THE DIAL/i.test(lad));
 
+/* ---- REVISION 2: THE LADDER MUST FIT THE LOCKED CAPS, NOT INVENT ITS OWN ----
+   The act repair caps (15% / 33-40% / 80-100%) were LOCKED by another session on 8/4 in
+   THE VALHEIM SHAPE §3, while this lane was working. The danger with a proposal that
+   arrives at the same subject independently is that it quietly restates the numbers
+   slightly differently and the fleet ends up with two versions. So: the ladder must CITE
+   that law, must not state a percentage of its own, and must carry the clause that
+   corrected it -- §4b, that the endgame currency is ALLIANCE and not concrete. */
+const SHAPE = 'laws/BOHEMIA_ADDENDUM_THE_VALHEIM_SHAPE_8_4_26.md';
+ok('G16 the locked act-caps law exists', fs.existsSync(path.join(ROOT, SHAPE)));
+ok('G17 the ladder cites it rather than restating his numbers as new input',
+   /THE_VALHEIM_SHAPE_8_4_26/.test(lad) && /already LOCKED canon/i.test(lad));
+ok('G18 and says plainly it sets no percentage of its own',
+   /It sets no percentage of its own/i.test(lad));
+ok('G19 §4b is carried: the endgame currency is ALLIANCE, not concrete',
+   /endgame currency is NOT CONCRETE, IT IS\s*ALLIANCE/i.test(lad) ||
+   /currency is NOT CONCRETE, IT IS ALLIANCE/i.test(lad));
+ok('G20 and the ladder records that this CORRECTED it, instead of pretending it agreed',
+   /That last clause is the correction/i.test(lad));
+ok('G21 BUILDING IS OPTIONAL survives: the caps are ceilings, never floors',
+   /CEILINGS, never floors/i.test(lad) &&
+   /a player who beats none of them still finishes the game/i.test(lad));
+/* THE THREE VERBS ARE THE ANTI-GRIND ARCHITECTURE. Without them the ladder is just a
+   longer list, and a longer list is exactly what the research says causes the wall. */
+ok('G22 each act changes the VERB rather than repeating one',
+   /YOU build it/i.test(lad) && /YOUR CREWS build it/i.test(lad) &&
+   /THE CITY builds itself/i.test(lad));
+ok('G23 the research finding that explains why (unit of work must grow) is recorded',
+   /LAST UNIT OF PROGRESS COSTING THE SAME AS THE FIRST/i.test(lad));
+ok('G24 and the certainty finding, which is why alliance keeps the tail alive',
+   /CERTAINTY PROBLEM, NOT A LENGTH PROBLEM/i.test(lad) &&
+   /you can still lose it/i.test(lad));
+ok('G25 the optional-boss precedent is cited with its real count (Hollow Knight)',
+   /Hollow Knight/i.test(lad) && /47/.test(lad) && /OPTIONAL/i.test(lad));
+ok('G26 the faction roster is cited as existing rather than invented',
+   /records\/factions\//.test(lad) && /16 dossiers/i.test(lad));
+ok('G27 and no faction canon is written here',
+   /I am not writing faction canon/i.test(lad));
+ok('G28 the parallel-session collision is disclosed, not hidden',
+   /PARALLEL-SESSION NOTE/i.test(lad));
+
 /* ---- THE ROWS EXIST ------------------------------------------------------- */
 /* This is the actual lock. answered_gate.py reads the machine block; a ruling with no
    row is a ruling he will be asked about again. */
