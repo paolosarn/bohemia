@@ -4272,6 +4272,31 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    assert over the set.
    | next PEOPLE turn should take this | 8/2 | no - gate work, nothing to judge.
 
+0F. [SHIPPED 8/2 - GAP 3 BUILT, AND IT TOOK GAPS 4, 7 AND 10 WITH IT]
+   records/BOHEMIA_REPUTATION_TRAVELS_8_2_26.md + engine/bohemia_standing.js
+   Gap 3 was the documented failure of the whole genre: every NPC instantly knowing
+   what you did with no route the news could take. WE ALREADY HAD THE HARD HALF -
+   bohemia_memory is a real witness organ with decay; it just had no concept of a
+   DEED, an OPINION, or one person TELLING ANOTHER.
+   1 witnessed not announced (2 of 3; the far one learned nothing) · 2 opinion DERIVED
+   never stored · 3 hearsay weaker and hop-limited (watched 3.96 vs heard 2.18; a
+   rumour down a line of TWELVE reached THREE) · 4 a faction's view is its members'.
+   THREE GAPS FELL OUT FREE: gap 4 - opinions decay, one bad deed 4.00 -> 1.00 -> 0.06
+   -> 0.00 over a week, and one night is NOT forgiveness (gated both ways). gap 7 -
+   ALPHA who watched goes HOSTILE, BETA who was elsewhere stays NEUTRAL, with nobody
+   authoring who hates whom. gap 10 - becauseOf() returns the real remembered deeds,
+   who holds them, and whether they watched or only heard.
+   DEED_WEIGHT SHIPS EMPTY (his ruling, unmade) and the gate proves the module is
+   INERT with it empty. NOT the standing ledger BUILD THE WORLD turned off: nothing
+   stored, no faction named in the module, gate reads the source to prove it.
+   *** AND A LESSON ABOUT GATES: *** this gate's first self-test was DECORATIVE and
+   said so - six probes that re-ran the working module and asked if it misbehaved,
+   reporting 0/6 caught. Rewritten to feed each CLAIM'S predicate the values a broken
+   implementation would produce. 8/8. TEST THE CHECKER, NOT THE THING.
+   | gate: STANDING 23 claims, registered | 8/2 | no - mechanism, tables empty.
+   NEXT: nothing calls witness() yet (needs a deed vocabulary, his); then gap 5
+   (wearing another faction's colours) which is now cheap; then gaps 6/8/9.
+
 0E. [SHIPPED 8/2 - FLEET-WIDE, NOT THIS LANE'S: THE PAYLOAD WALL]
    records/BOHEMIA_THE_PAYLOAD_WALL_8_2_26.md. Paolo asked what we do not know we do
    not know. The alpha was 38.7 MB gaining ~1.4-2.1 MB/day and GITHUB REJECTS ANY FILE
