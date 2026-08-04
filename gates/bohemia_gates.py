@@ -539,6 +539,19 @@ GATES = [
      'TILES, re-derived every run so it cannot drift - plus the two failures that almost '
      'shipped: PINK (desaturating at constant value turns clay into salmon) and MUSH '
      '(structure buried under the grain)', False),
+    ('LIGHT',          ['node', 'gates/light_gate.js'],
+     'Paolo 8/3: "you\'re called the art direction chat and you\'re not doing a lot of art '
+     'directing ... I can\'t even see it". Measured, he was right: the play area used 110 of '
+     '255 values, 0.0% of its pixels were cool, and nothing in the world cast a shadow, so a '
+     'week of texture work was going into a picture with no LIGHT in it. THE LOOK grades every '
+     'world tile (one tone curve, then a split-tone keyed on the pixel\'s LUMINANCE toward a '
+     'blue sky and a warm sun) and THE SUN gives every solid mass a cast shadow down-right, '
+     'matching the upper-left key every cooked tile in this repo already has. It holds the '
+     'three failures that already happened once: a per-CHANNEL split-tone that measured 0.0% '
+     'cool before AND after (a multiply cannot move a hue - only a blend toward a colour can, '
+     'the same lesson as the 8/2 perimeter cap), a cache keyed on src.length that would swap '
+     'one 44px wall for another, and a sun pointing the wrong way. And it MEASURES on the real '
+     'surface: it walks out the front door and reads the canvas with the light off and on', False),
     ('GRIME',          ['python3', 'gates/grime_gate.py'],
      'Paolo 8/3 loved Machine Party, and the research found the mechanism in Klubnika\'s '
      'own words: he "added dirty and grimy leaks to every corner, which BLENDS EVERYTHING '

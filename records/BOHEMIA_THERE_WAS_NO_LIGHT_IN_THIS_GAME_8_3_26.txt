@@ -1,0 +1,99 @@
+THERE WAS NO LIGHT IN THIS GAME
+8/3/26  ART LANE  BUILD 8/4f
+
+PAOLO, 8/3:
+  "You know you're called the art direction chat and you're not doing a lot of
+   art directing. You're kind of just like putting art in places. I can't even
+   see it like what's wrong with you"
+
+He is right, and it is not a taste disagreement. I measured the play area of a
+real screenshot as a PICTURE instead of as tiles, which is a thing I had not
+done once all week:
+
+  VALUE RANGE USED   110 of 255      the brightest thing in the game is mid grey
+  COOL PIXELS        0.0%            every pixel in the frame is the same temperature
+  CONTRAST SD        30.5
+  CAST SHADOWS       none            nothing in the world throws one
+
+Every texture decision of the last seven days was made inside a 110-value band
+of a single colour, on objects that sit on the ground like stickers on paper.
+That is exactly why none of it reads. You cannot see the art because there is
+nothing lighting it. Denser texture was never going to fix that, and I kept
+making denser texture.
+
+----------------------------------------------------------------------------
+WHAT SHIPPED
+
+1. THE LOOK -- one grade over every world tile.
+   A tone curve (contrast around the world's own median, black point down, white
+   point up) so the frame uses the screen, then a SPLIT TONE: the lit end goes
+   toward the sun's colour and the dark end goes toward the SKY's, which is blue.
+   That is not a style, it is what a desert does. A shadow is not the ground
+   turned down; it is the ground lit by the sky.
+
+   THE FIRST CUT OF THIS WAS A NO-OP AND MEASURED AS ONE. It ran a per-CHANNEL
+   lookup: each channel split-toned by its own value. The source art is red-over-
+   blue everywhere, so red took the highlight boost and blue took the shadow
+   boost IN THE SAME PIXEL, and the hue never moved. Cool pixels: 0.0% before,
+   0.0% after. It looked like a working feature. The split has to key on the
+   PIXEL'S LUMINANCE and it has to be a blend TOWARD a colour -- a multiply
+   cannot put blue on top of red, ever. Same lesson as the 8/2 perimeter cap,
+   where a multiply blew to pure white and only a blend-toward-target worked.
+
+2. THE SUN -- every solid mass now throws a cast shadow onto the ground,
+   down and to the right, matching the upper-left key light every cooked tile in
+   this repo already has. Two cells long, full then half; that step is the
+   penumbra at this scale. It is a MULTIPLY TOWARD A BLUE, not a black wash, so
+   the bought texture underneath survives it -- a black rectangle at 55% would
+   erase the tiles he paid for, which is the entire point of having them.
+
+3. A CACHE BUG KILLED ON THE WAY PAST. look() memoises a graded canvas per
+   image and the first key was src.length. Two tiles of the same size encoding
+   to the same byte count collide, and with hundreds of 44x44 PNGs that is not
+   hypothetical -- it swaps one wall for another and reads as a world bug rather
+   than a cache bug. Keyed on a stamped per-image id now.
+
+----------------------------------------------------------------------------
+MEASURED ON THE REAL SURFACE, walking out his own front door, same standing
+frame, light off then on (gates/light_gate.js does this on every run):
+
+                     UNLIT      LIT
+  VALUE RANGE         102       137        +34
+  CONTRAST SD        30.5      40.9        +10.4
+  COOL PIXELS         0.1%      8.3%       there is sky in the shadows now
+  WARM PIXELS        99.1%     84.2%       and it is still a desert
+  GROUND CELLS IN SHADOW:  47 in the test frame, 0 before
+
+  Side by side, full phone screen: records/target/LOOK_AB.png
+  The shadow on its own:           records/target/SUN_SHADOW_AB.png
+
+----------------------------------------------------------------------------
+WHAT DID NOT SHIP, DELIBERATELY
+
+THE GRIME DIAL IS BACK AT ZERO.
+
+Earlier today I turned it to 0.55 on the strength of "do what you want". That is
+not a ruling on an AMOUNT, and he has never seen a dirty frame. A global dirt
+pass over the whole world is precisely the unjudged art the 7/26 STOP PRODUCING
+law says not to surface, and my own grime_gate.py says in writing that the dial
+is held at zero until a verdict exists in records/. Writing my own file to
+satisfy my own gate would be gaming the gate.
+
+The reason for zero also has not changed: one district type of twenty-seven is
+finished, and a whole-world look tuned against 4% of the world gets tuned twice.
+
+Three frames of the same street at 0 / 0.30 / 0.55 so he can rule on a number
+instead of on a word: records/target/GRIME_DIAL_THREE_UP.png
+
+----------------------------------------------------------------------------
+WHAT IS STILL WRONG, NAMED
+
+- The art cell is 44px. His own bought tiles carry features at 7.0% of their
+  area; mine land at 5.5% because 44px is not enough room for a crack that
+  crisp. Going to 88 fixes it outright and is the biggest remaining art job.
+- Civic masses have parapets and openings but no CORNERS and no ENDS, so a
+  warehouse still reads flat from the side.
+- Downtown has single asphalt cells stranded in concrete plazas. Visible now
+  that his real asphalt draws. WORLD lane, not art.
+
+GATE: gates/light_gate.js, 41 checks, registered in bohemia_gates.py as LIGHT.

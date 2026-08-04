@@ -17909,7 +17909,7 @@ function drawBought(kind,gx,gy,X,Y,S){
            : BOUGHT_YARD_IMG;
   var im=boughtImg(bank,gx,gy);
   if(!im) return false;
-  ctx.drawImage(im,X,Y,S,S); return true;
+  ctx.drawImage(look(im),X,Y,S,S); return true;
 }
 
 var PERIM_B64 = [];
@@ -18600,7 +18600,7 @@ var TT={}, TT_READY=0;
     im.src='data:image/png;base64,'+TARGET_TILES.tiles[id]; TT[id]=im; }); })();
 function th(x,y,n){ return (((x*73856093)^(y*19349663))>>>0)%n; }
 function tput(id,X,Y,S){ var im=TT[id];
-  if(im&&im.complete&&im.naturalWidth){ ctx.drawImage(im,X,Y,S,S); return true; } return false; }
+  if(im&&im.complete&&im.naturalWidth){ ctx.drawImage(look(im),X,Y,S,S); return true; } return false; }
 function isBody(a,b){ var c=(a>=0&&b>=0&&a<W&&b<H)?G[b][a]:-1; return c===2||c===9||c===6; }
 /* the front row of a building: the face you actually see from the street */
 function isFace(a,b){ return isBody(a,b) && !isBody(a,b+1); }
@@ -18717,7 +18717,7 @@ function isPerim(gx,gy){
 }
 function drawPerim(X,Y,S,gx,gy){
   var im=perimImg(gx,gy); if(!im) return false;
-  ctx.drawImage(im,X,Y,S,S); return true;
+  ctx.drawImage(look(im),X,Y,S,S); return true;
 }
 /* THE GATE MOUTH. Grid code 5, the hole you walk out of, drawn until now as a plain
    slab of ground concrete - no jamb, no head, no gate. It is an ALPHA OVERLAY for the
@@ -18729,7 +18729,7 @@ function drawPerim(X,Y,S,gx,gy){
 function drawGateMouth(X,Y,S,gx,gy){
   if(!PERIM_GATE.length) return false;
   var wall=perimImg(gx,gy); if(!wall) return false;
-  ctx.drawImage(wall,X,Y,S,S);
+  ctx.drawImage(look(wall),X,Y,S,S);
   /* MOSTLY OPEN, SOMETIMES STILL HUNG. A community whose gate still has its leaf is a
      community that closed itself off, and that is a placement fact about the block, so
      it is seeded off the plot like the wall design is - never per frame. */
@@ -18756,7 +18756,7 @@ function drawGateMouth(X,Y,S,gx,gy){
   var v = (horiz && (above||below)) ? (above ? 2 : 1) : 0;   /* full : top : bottom */
   var set=kind[v]||kind[0];
   var im=ready(set[piece])||ready(set[0]);
-  if(im) ctx.drawImage(im,X,Y,S,S);
+  if(im) ctx.drawImage(look(im),X,Y,S,S);
   return true;
 }
 /* ===========================================================================
@@ -18908,6 +18908,135 @@ Object.keys(OPENINGS_B64).forEach(function(k){
    dark box and takes no skin behind it. */
 var OPEN_ON_WALL = { wall_window:1, wall_boarded:1 };
 var _skinLit={};
+/* ===========================================================================
+   THE LOOK. ONE SET OF NUMBERS THAT DECIDES WHAT THIS GAME LOOKS LIKE.
+
+   Paolo 8/3: "you're called the art direction chat and you're not doing a lot of art
+   directing. You're kind of just like putting art in places. I can't even see it."
+
+   He is right, and the measurement says so in numbers. The play area of a real
+   screenshot, chrome cropped off:
+       VALUE RANGE     109 of 255   (darkest 19, brightest 127)
+       COOL PIXELS     0.0%         (warm 82%)
+       ROW-TO-ROW SD   9.9
+   The brightest thing in the game is MID GREY. Every pixel is the same temperature.
+   The frame is flat top to bottom. Every texture decision of the last week has been
+   made INSIDE a 109-value band of one colour, which is exactly why none of it reads.
+
+   That is not a texture problem and no amount of new art fixes it. It is a LIGHT
+   problem, and light is the art director's call, so here it is:
+
+     THE SUN IS WARM AND THE SHADOW IS BLUE. This is the one that buys the most and it
+     is physically true, not a style: in a desert the lit side takes the sun's warm
+     colour and the dark side is lit by the SKY, which is blue. A world with zero cool
+     pixels has no sky in it. Split-toning the value range is what puts the sky back.
+
+     THE RANGE OPENS. Darks go down, lights come up, so the frame uses the screen
+     instead of the middle third of it. Sun-struck concrete is BRIGHT; a doorway is
+     BLACK. Both were absent.
+
+     CONTRAST AROUND A PIVOT, not a gain. A flat multiply just makes a pale picture
+     paler. The pivot sits near the world's own median so the mid-tones stay put and
+     the ends separate.
+
+   IT IS ONE TRANSFORM ON THE TILE, CACHED ONCE, then blitted at integer scale like
+   everything else -- so the no-resample law is untouched and this costs one canvas per
+   image for the whole session, not one per cell per frame.
+   =========================================================================== */
+var LOOK = {
+  on:       true,
+  pivot:    0.42,   /* the world's own median, measured, so mids do not drift */
+  contrast: 1.26,
+  lift:    -0.030,  /* black point DOWN: there was nothing dark in the game */
+  gain:     1.30,   /* white point UP: there was nothing bright either */
+  /* THE SUN AND THE SKY, as COLOURS to move toward, not as multipliers.
+     A per-channel multiply cannot change a hue: the source art is r >> b
+     everywhere, so scaling blue by 1.15 and red by 0.88 still leaves red on top
+     and the pixel is still warm. Measured: 0.0% cool pixels, before and after.
+     The same lesson as the perimeter cap, where a multiply blew to pure white
+     and only a blend-toward-a-target did the job. A shadow is not a dark version
+     of the wall, it is the wall lit by the SKY, so it has to be sent TOWARD the
+     sky's colour. */
+  sky:     [ 74,  96, 140],  /* what light a shadow is actually getting */
+  sun:     [255, 236, 196],  /* what light the top of a thing is getting */
+  skyAmt:   0.34,            /* how far the deepest shadow travels */
+  sunAmt:   0.17,            /* how far the brightest highlight travels */
+  skyFall:  1.7,             /* darks only: how fast the sky lets go going up */
+  sunFall:  2.2              /* lights only: how fast the sun lets go going down */
+};
+var _lookLut = null;
+function lookLut(){
+  if(_lookLut) return _lookLut;
+  /* TONE first, one curve, the same for all three channels. Changing the shape of
+     the curve per channel is what a multiply does and it is not what light does. */
+  var tone=new Uint8Array(256);
+  for(var i=0;i<256;i++){
+    var v=i/255;
+    v=(v-LOOK.pivot)*LOOK.contrast+LOOK.pivot;
+    v=v*LOOK.gain+LOOK.lift;
+    tone[i]=Math.max(0,Math.min(255,Math.round(v*255)));
+  }
+  /* THEN THE SPLIT, keyed on the PIXEL'S OWN LUMINANCE, not on each channel's
+     value. That is the whole fix. Smoothstep so the crossover has no edge. */
+  var ws=new Float32Array(256), wh=new Float32Array(256);
+  for(var L=0;L<256;L++){
+    var t=L/255; t=t*t*(3-2*t);
+    ws[L]=LOOK.skyAmt*Math.pow(1-t,LOOK.skyFall);
+    wh[L]=LOOK.sunAmt*Math.pow(t,  LOOK.sunFall);
+  }
+  _lookLut={tone:tone,ws:ws,wh:wh};
+  return _lookLut;
+}
+/* THE OTHER HALF OF THE LIGHT: the direction it comes FROM. See the cast-shadow
+   pass in draw() for why this exists and why it is down-right. */
+var SUN = {
+  on:    true,
+  reach: 2,                 /* how many cells a mass throws */
+  step:  [0.62, 0.30],      /* full, then half. the step is the penumbra */
+  tint:  'rgb(126,138,170)' /* multiply: darker AND bluer, texture intact */
+};
+/* WHAT THROWS ONE. A building, a wall, a parapet - anything the occupancy layer
+   already calls solid or structure. Ground, yard and road throw nothing. */
+function sunSolid(gx,gy){
+  if(gy<0||gx<0||!SOLIDG[gy]||gx>=SOLIDG[gy].length) return false;
+  return !!SOLIDG[gy][gx] || (LAYERG[gy]&&LAYERG[gy][gx]==='structure');
+}
+var _looked={}, _lookId=0;
+/* EVERY WORLD TILE GOES THROUGH THIS AND NOTHING ELSE DOES. The cast, the d-pad and
+   the UI keep their own colour: a grade is a property of the WORLD you are looking at,
+   not of the interface you are looking through. */
+function look(im){
+  if(!LOOK.on||!im||!im.naturalWidth) return im;
+  /* THE KEY IS THE IMAGE ITSELF, stamped once. Keying on src.length collides the
+     moment two tiles of the same size encode to the same number of bytes, and with
+     hundreds of 44x44 PNGs that is not a hypothetical -- it swaps one wall for
+     another and looks like a world bug, not a cache bug. */
+  var key=im.__lookId || (im.__lookId = ++_lookId);
+  var c=_looked[key];
+  if(c) return c;
+  c=document.createElement('canvas');
+  c.width=im.naturalWidth; c.height=im.naturalHeight;
+  var g=c.getContext('2d'); g.imageSmoothingEnabled=false;
+  try{ g.drawImage(im,0,0); }catch(e){ return im; }
+  var d;
+  try{ d=g.getImageData(0,0,c.width,c.height); }catch(e){ return im; }
+  var p=d.data, L=lookLut(), T=L.tone, WS=L.ws, WH=L.wh;
+  var kr=LOOK.sky[0], kg=LOOK.sky[1], kb=LOOK.sky[2];
+  var nr=LOOK.sun[0], ng=LOOK.sun[1], nb=LOOK.sun[2];
+  for(var i=0;i<p.length;i+=4){
+    if(p[i+3]===0) continue;
+    var r=T[p[i]], gg=T[p[i+1]], bb=T[p[i+2]];
+    var lum=(r*77+gg*150+bb*29)>>8;
+    var a=WS[lum];                      /* toward the sky, in the darks */
+    r+=(kr-r)*a; gg+=(kg-gg)*a; bb+=(kb-bb)*a;
+    var s=WH[lum];                      /* toward the sun, in the lights */
+    r+=(nr-r)*s; gg+=(ng-gg)*s; bb+=(nb-bb)*s;
+    p[i]=r<0?0:r>255?255:r; p[i+1]=gg<0?0:gg>255?255:gg; p[i+2]=bb<0?0:bb>255?255:bb;
+  }
+  g.putImageData(d,0,0);
+  _looked[key]=c;
+  return c;
+}
 function litSkin(im,mul){
   /* the same tile, relit. Cached per (image,multiplier) so a wall costs one canvas
      once and not one per cell - the block draws thousands of these a frame. */
@@ -18935,15 +19064,15 @@ function drawSkin(id,gx,gy,X,Y,S){
        box and gets no wall behind it. */
     if(OPEN_ON_WALL[id]){
       var w=skinImg('W',gx,gy);
-      if(w) ctx.drawImage(w,X,Y,S,S);
+      if(w) ctx.drawImage(look(w),X,Y,S,S);
     }
-    if(ov.complete&&ov.naturalWidth){ ctx.drawImage(ov,X,Y,S,S); return true; }
+    if(ov.complete&&ov.naturalWidth){ ctx.drawImage(look(ov),X,Y,S,S); return true; }
     return !!OPEN_ON_WALL[id];
   }
   var k=SKIN_FIELD[id]; if(!k) return false;
   var im=skinImg(k,gx,gy); if(!im) return false;
   var mul=SKIN_LIGHT[id];
-  ctx.drawImage(mul?litSkin(im,mul):im,X,Y,S,S); return true;
+  ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S); return true;
 }
 /* ===========================================================================
    EVERY BUILDING IN THE VALLEY THAT IS NOT A HOUSE (8/3).
@@ -19009,7 +19138,7 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
   var k=SKIN_FIELD[id]; if(!k||k==='Y') return false;   /* yard wears his BOUGHT dirt */
   var im=civicImg(k,gx,gy); if(!im) return false;
   var mul=SKIN_LIGHT[id];
-  ctx.drawImage(mul?litSkin(im,mul):im,X,Y,S,S);
+  ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S);
   if(k!=='W') return true;
   /* ---- THE PARAPET. A wall cell with ROOF BEHIND IT is the building's top edge, and
      the wall runs up past the roof and stops in a capped band. This is the single
@@ -19024,7 +19153,7 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
   var par=CIVIC_OPEN_IMG.parapet;
   var topEdge = civicRoofAt(gx,gy-1) || !civicSolidAt(gx,gy-1);
   if(topEdge && par && par.complete && par.naturalWidth)
-    ctx.drawImage(par,X,Y,S,S);
+    ctx.drawImage(look(par),X,Y,S,S);
   /* ---- AND THE WAY IN, on the FRONT face only: a wall cell with open ground in front
      of it. Storefront glazing is CONTINUOUS along a retail front (it is not a punched
      hole); a dock door is one wide opening every few bays; a man door is rare. */
@@ -19036,7 +19165,7 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
     var show = kind==='storefront' ? true
              : kind==='dock' ? ((((run%6)+6)%6)===0)
              : ((((run%9)+9)%9)===0);
-    if(show && ov && ov.complete && ov.naturalWidth) ctx.drawImage(ov,X,Y,S,S);
+    if(show && ov && ov.complete && ov.naturalWidth) ctx.drawImage(look(ov),X,Y,S,S);
   }
   return true;
 }
@@ -19765,6 +19894,53 @@ function draw(){
       if(isX||ic.g==='door') doorDraws.push([gx,gy2,X,Y,CELL,isX]);
     }
   }
+  /* ===========================================================================
+     THE SUN. THE BUILDINGS THROW SHADOWS ONTO THE GROUND.  (8/3)
+
+     Paolo: "you're kind of just like putting art in places. I can't even see it."
+     The grade above fixed the RANGE and the TEMPERATURE of the frame. This fixes the
+     other half, which is the reason a screenshot of this game reads as a texture
+     swatch instead of a place: NOTHING IN THE WORLD CASTS A SHADOW. A wall, a house
+     and a warehouse all sat on the dirt like stickers on paper, at exactly the same
+     depth as the dirt, so the eye had nothing to tell it which things are OBJECTS
+     and which things are FLOOR. No amount of texture density buys that. One shadow
+     does, immediately.
+
+     THE LIGHT IS THE ONE THE ART ALREADY HAS. Every cooked tile in this repo is lit
+     from the upper LEFT (SKIN_LIGHT above: end_l 1.12 sunlit, end_r 0.86 shaded), so
+     the shadow falls DOWN AND RIGHT. Picking any other angle would put the cast
+     shadow on the lit side of every wall in the game and read as broken.
+
+     IT IS A MULTIPLY TOWARD A BLUE, NOT A BLACK WASH. Same physics as the grade: a
+     shadow is not the ground turned down, it is the ground lit by the SKY instead of
+     by the sun, so it goes darker AND cooler AND keeps its own texture. A black
+     rectangle at 55% would erase his bought asphalt, which is the whole point of
+     having bought it.
+
+     TWO CELLS LONG, FULL THEN HALF. That step IS the penumbra at this scale, and it
+     is aligned to the geometry that casts it, so it reads as a shadow and never as
+     the 44px stamp -- the stamp bug is a pattern with no cause in the world, and this
+     one has nothing BUT a cause.
+     =========================================================================== */
+  (function(){
+    if(mode!=='ext'||!SUN.on) return;
+    var pv=ctx.globalCompositeOperation, pa=ctx.globalAlpha;
+    ctx.globalCompositeOperation='multiply';
+    ctx.fillStyle=SUN.tint;
+    for(var sy=-halfH; sy<=halfH; sy++) for(var sx=-halfW; sx<=halfW; sx++){
+      var gx=px+sx, gy=py+sy;
+      if(gx<0||gy<0||gx>=gw||gy>=gh) continue;
+      if(sunSolid(gx,gy)) continue;                 /* a caster is not a receiver */
+      if(doorOf[gx+','+gy]!=null) continue;         /* a doorway is already its own dark */
+      var a=0;
+      for(var d=1; d<=SUN.reach; d++)
+        if(sunSolid(gx-d,gy-d)){ a=SUN.step[d-1]; break; }
+      if(!a) continue;
+      ctx.globalAlpha=a;
+      ctx.fillRect((sx+halfW)*CELL,(sy+halfH)*CELL,CELL,CELL);
+    }
+    ctx.globalAlpha=pa; ctx.globalCompositeOperation=pv;
+  })();
   /* the two real cases, worked out once per frame */
   (function(){
     if(mode!=='ext') return;
@@ -19807,6 +19983,13 @@ function draw(){
      finished, so tuning it now means tuning it twice. The dial goes up when there is
      a world to judge it against, and not before. gates/grime_gate.py holds the zero.
      =========================================================================== */
+  /* 8/3, SECOND LOOK: this was turned up to 0.55 earlier today on the strength of
+     "do what you want", and that is not a ruling on an AMOUNT. He has never seen a
+     dirty frame. A global dirt pass over the whole world is exactly the kind of
+     unjudged art the 7/26 STOP PRODUCING law says not to surface, and the reason
+     stated three lines up has not changed: one district of twenty-seven is finished.
+     Back to zero. It goes up when he rules on the number, and the side-by-side to
+     rule on is in records/target/. */
   var GRIME_STRENGTH = 0.0;
   if(mode==='ext' && GRIME_STRENGTH>0 && grimeReady()){
     ctx.save(); ctx.globalAlpha=GRIME_STRENGTH;
