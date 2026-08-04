@@ -230,92 +230,94 @@ ok('F12 the readable-danger pending is FLAGGED and not answered by a lane',
 ok('F13 the dynasty settled question is not re-opened by the death-penalty finding',
    /DYNASTY, not a one-life run/i.test(vh));
 
-/* ---- THE BOSS LADDER: TOOLS, NOT MATERIALS ---------------------------------
-   He killed the material framing on 8/4: "it's giving like material vibes and not like tool
-   vibes ... I'd rather have it be like you learn how to use a tool." He was right and it was
-   a FACTUAL error, not taste -- in Valheim the boss gives a FORSAKEN POWER (an ability), and
-   the metal comes out of the ground. Every one of the five powers is "this costs less or does
-   more": Eikthyr stamina, Elder chopping, Bonemass resistance, Moder tailwind, Yagluth
-   lightning. My own Valheim study said so and I built the ladder on the wrong half of the
-   sentence -- then broke the ability-not-resource rule I had written one revision earlier.
+/* ---- THE BOSS LADDER: V1 RESTORED --------------------------------------------
+   He rejected the ladder TWICE -- once the substance framing ("kind of stupid"), once the
+   tool framing ("that kinda sucks too") -- and then said: "i liked your first version the
+   best cant we build off that."
 
-   This block replaces the G-checks that guarded the material framing. Those checks were
-   CORRECT about a document that is now dead, which makes keeping them a way to preserve a
-   killed idea -- so they go. GRAVEYARD IS FINAL cuts both ways: the gate must not enforce a
-   corpse. What survives is what he kept (biome = missing function, the three verbs, alliance
-   as the endgame currency) plus the new rule and the kill itself. */
+   THE PATTERN BEHIND BOTH REJECTIONS: I KEPT REPLACING THE PERSON WITH A THING. v1's bosses
+   were PEOPLE who own a piece of the city. He said "concrete boss" and I renamed them after
+   substances; he said "tool vibes" and I renamed them after objects. Both times I heard
+   RENAME and deleted the character, which was the only thing making them interesting.
+
+   So this block guards a RESTORE, not another framing. The load-bearing check is G3: the
+   thirteen headings he liked must be BYTE-IDENTICAL to commit 7da7c89's, because "restored"
+   is a claim a machine can verify and a paraphrase would silently break it. STOP PRODUCING
+   says a second rejection ends the feature for the session, so there is no v5 to guard. */
 const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md';
 ok('G1 the boss ladder record exists', fs.existsSync(path.join(ROOT, LADDER)));
 const rawLad = fs.existsSync(path.join(ROOT, LADDER))
   ? fs.readFileSync(path.join(ROOT, LADDER), 'utf8') : '';
 const lad = norm(rawLad);
 
-ok('G2 his rejection is quoted verbatim',
-   /giving like material vibes and not like tool vibes/i.test(lad));
-ok('G3 the material framing is recorded as KILLED, not quietly dropped',
-   /THE MATERIAL FRAMING IS KILLED/i.test(lad) &&
-   /DEAD AND STAYING DEAD: bosses named after substances/i.test(lad));
-ok('G4 and it is owned as MY factual error rather than his change of taste',
-   /a factual error on my part, not a\s*taste disagreement/i.test(lad));
+ok('G2 his second rejection and the revert instruction are quoted verbatim',
+   /i liked your first version the best cant we build off that/i.test(lad));
 
-/* THE ROOT CAUSE MUST STAY WRITTEN DOWN, with the evidence, or the same mistake is free to
-   come back the next time somebody reads "Valheim boss" and thinks "ore". */
-ok('G5 the root cause is named: the ORE is not the boss reward, the POWER is',
-   /BUILT THE LADDER ON THE BIOME'S ORE INSTEAD OF THE BOSS'S POWER/i.test(lad));
-ok('G6 all five Forsaken Powers are listed as evidence they are abilities',
-   ['Eikthyr', 'Elder', 'Bonemass', 'Moder', 'Yagluth'].every(b => new RegExp(b).test(lad)) &&
-   /NOT ONE OF THEM IS A SUBSTANCE/i.test(lad));
-ok('G7 and it admits the study already had it right',
-   /wrote the right thing down and then built the ladder on the wrong half/i.test(lad));
-ok('G8 and that it broke a rule from the previous revision',
-   /it is my own rule, pointed\s*back at me/i.test(lad));
-ok('G9 the fourth-pass tell is named against STOP PRODUCING, not hidden',
-   /fourth pass/i.test(lad) && /STOP_PRODUCING/.test(lad) &&
-   /rewritten rather than revised a\s*third time/i.test(lad));
+/* ★ THE 13 ARE THE ONES HE LIKED, BYTE FOR BYTE. Hardcoded here rather than read from git,
+   so the check still works in a fresh clone with no history walk. */
+const V1 = [
+  '**1. THE TAP — water.**',
+  '**2. THE BURN — heat and fuel.**',
+  '**3. THE TOLL — passage.**',
+  '**4. THE STRIPPER — salvage.**',
+  '**6. THE WARD — medicine.**',
+  '**8. THE DRAIN — sanitation.**',
+  '**9. THE BOOK — debt.**',
+  '**10. THE JUDGE — law.**',
+  '**11. THE SCHOOL — knowledge.**',
+  '**13. THE GRID — the network itself.**'
+];
+const missingV1 = V1.filter(h => rawLad.indexOf(h) < 0);
+ok('G3 v1\'s headings are byte-identical, not paraphrased' +
+   (missingV1.length ? ' -> altered: ' + missingV1.slice(0, 3).join(' | ') : ''),
+   missingV1.length === 0);
+ok('G4 the two starred v1 entries survive with their emphasis',
+   /\*\*5\. ★ THE LIGHTS — power\./.test(rawLad) &&
+   /\*\*7\. ★ THE VOICE — the airwaves\.\*\*/.test(rawLad) &&
+   /\*\*12\. ★★ THE SOIL — life\./.test(rawLad));
+ok('G5 it says the 13 were recovered from git rather than rewritten from memory',
+   /recovered out of git/i.test(lad) && /7da7c89/.test(lad));
 
-/* ★ THE NEW RULE, AND THE REASON THE CURRENCY COMPLAINT IS ANSWERED WITHOUT TOUCHING THE
-   LOCKED THREE CURRENCIES. */
-ok('G10 the replacement rule is stated: materials are found, tools are won',
-   /MATERIALS ARE WHAT YOU FIND\. TOOLS ARE WHAT YOU WIN/i.test(lad));
-ok('G11 the three currencies are NOT changed, and a boss never hands you one',
-   /THREE CURRENCIES is locked canon/i.test(lad) &&
-   /a boss must never hand you a currency/i.test(lad));
-ok('G12 concrete survives as an ABILITY (the mixer), not as a prize',
-   /You do not beat a "?concrete boss\.?"?/i.test(lad) && /the mixer/i.test(lad));
+/* THE POST-MORTEM MUST STAY, because it is the thing that stops a third rename. */
+ok('G6 the root pattern is named: I kept replacing the person with a thing',
+   /I KEPT REPLACING THE PERSON WITH A THING/i.test(lad));
+ok('G7 and that a boss is a SOMEONE -- the thing both renames deleted',
+   /a boss is a\s*someone/i.test(lad) && /THE PERSON WAS THE POINT/i.test(lad));
+ok('G8 STOP PRODUCING is cited and the session stops proposing shapes',
+   /STOP_PRODUCING/.test(lad) &&
+   /then I stop\s*proposing shapes for the ladder/i.test(lad));
 
-/* EVERY ENTRY IS A VERB. That is the whole point, so it is counted rather than trusted: the
-   heading shape carries the verb, and the count in the prose must match the entries. */
-const entries = (rawLad.match(/^\*\*\d+\. [★ ]*THE [A-Z][A-Z ]* — [A-Z]+\.\*\*/gm) || []);
-const stated = (rawLad.match(/THE LADDER — (\d+) TOOLS/) || [])[1];
-ok('G13 every entry is "N. THE TOOL — VERB." (' + entries.length + ' entries)',
-   entries.length > 0);
-ok('G14 the stated count matches the actual entries (states ' + stated + ')',
-   !!stated && +stated === entries.length);
-ok('G15 the entries are numbered 1..N with no duplicates or gaps',
-   entries.map(e => +e.match(/\d+/)[0]).every((n, i) => n === i + 1));
-ok('G16 no entry is named after a substance any more',
-   !/^\*\*\d+\. [★ ]*THE (CONCRETE|GLASS|STEEL|ASPHALT|WATER|DIESEL|SOIL|SCRAP|FIRE) BOSS/m
-     .test(rawLad));
+/* THE COUNT, MACHINE-COUNTED. Same rot class the earlier passes kept hitting. */
+const entries = (rawLad.match(/^\*\*(\d+)\. /gm) || []).map(e => +e.match(/\d+/)[0]);
+const stated = (rawLad.match(/THE BOSS LADDER: (\d+) CANDIDATES/) || [])[1];
+ok('G9 the stated count matches the entries (' + entries.length + ' entries, states ' +
+   stated + ')', !!stated && +stated === entries.length);
+ok('G10 the entries run 1..N with no duplicates or gaps',
+   entries.every((n, i) => n === i + 1));
+ok('G11 the five additions are marked as additions, not smuggled into v1',
+   /THE FIVE ADDED \(8\/4\/26\)/.test(lad));
 
-/* WHAT HE KEPT, CARRIED FORWARD -- these three were right across every pass. */
-ok('G17 a biome is a MISSING FUNCTION, not a place',
-   /A BIOME IS A MISSING FUNCTION, NOT A PLACE/i.test(lad));
-ok('G18 the three acts are three different VERBS, with the anti-grind reason',
-   /ACT 1 you do it · ACT 2 your crews do it · ACT 3 the city does it around\s*you/i.test(lad) &&
-   /last unit of progress costing\s*the same as the first while rewarding less/i.test(lad));
-ok('G19 the locked act-caps law is cited, and no percentage is invented here',
+/* WHAT SURVIVES FROM THE DEAD PASSES -- mechanism he never rejected. */
+ok('G12 a biome is a MISSING FUNCTION, not a place',
+   /BIOME"? IS A MISSING FUNCTION, NOT A PLACE/i.test(lad));
+ok('G13 the three acts are three different verbs',
+   /ACT 1 you do it · ACT 2 your crews do it · ACT 3 the\s*city does it around you/i.test(lad));
+ok('G14 the locked caps law is cited and no percentage is invented here',
    /THE_VALHEIM_SHAPE_8_4_26/.test(lad) && /Sets no percentage/i.test(lad));
-ok('G20 act 3\'s currency is ALLIANCE, and the final tool is not an object',
-   /CURRENCY IS ALLIANCE, NOT STUFF/i.test(lad) &&
-   /only tool on the list you cannot hold/i.test(lad));
-ok('G21 building stays optional -- winning no tools still finishes the game',
+ok('G15 act 3\'s currency is ALLIANCE, and the broker carries it',
+   /currency is ALLIANCE/i.test(lad) && /THE BROKER/.test(lad));
+ok('G16 the ability-not-resource rule stands, and is owned as the one I broke',
+   /A BOSS GRANTS THE ABILITY, NEVER THE RESOURCE/i.test(lad) &&
+   /the thing I then broke/i.test(lad));
+ok('G17 building stays optional -- beating none of them still finishes the game',
    /CEILINGS never floors/i.test(lad) &&
-   /a player who wins none of them still finishes the\s*game/i.test(lad));
-ok('G22 the faction roster is cited as existing, and no faction canon is written',
-   /records\/factions\//.test(lad) && /sixteen dossiers/i.test(lad));
-ok('G23 it stays candidates: names are handles, not canon',
-   /never canon\. Naming is his/i.test(lad));
-ok('G24 no damage number leaked in', /NO DAMAGE BEFORE THE DIAL/.test(lad));
+   /beats none of them still finishes the game/i.test(lad));
+ok('G18 the faction roster is cited as existing, and no faction canon is written',
+   /records\/factions\//.test(lad) && /sixteen dossiers/i.test(lad) &&
+   /not writing faction canon/i.test(lad));
+ok('G19 it stays candidates and the names stay handles',
+   /handles to argue with, never canon/i.test(lad));
+ok('G20 no damage number leaked in', /NO DAMAGE BEFORE THE DIAL/.test(lad));
 
 /* ---- THE ROWS EXIST ------------------------------------------------------- */
 /* This is the actual lock. answered_gate.py reads the machine block; a ruling with no

@@ -1,3 +1,71 @@
+LAB (lab-e2r7sv): 8/4 (c) LATEST -- *** V1 RESTORED VERBATIM OUT OF GIT. HE REJECTED THE
+LADDER TWICE AND THE PATTERN WAS MINE: I KEPT REPLACING THE PERSON WITH A THING. ***
+
+"that kinda sucks too i liked your first version the best cant we build off that"
+
+=== READ THIS BEFORE TOUCHING THE BOSS LADDER ===
+He rejected it TWICE -- the substance framing ("I think that's kind of stupid") and then the
+tool framing ("that kinda sucks too"). THE PATTERN BEHIND BOTH:
+*** I KEPT REPLACING THE PERSON WITH A THING. ***
+v1's bosses were PEOPLE -- the Tap, the Ward, the Voice, the Judge -- somebody who OWNS a
+piece of the city, and beating them lets you do that thing anywhere. He said "concrete boss"
+and I renamed them all after SUBSTANCES. He said "tool vibes" and I renamed them all after
+OBJECTS. Both times I heard RENAME and stripped the character out, and both times what I
+deleted was the only thing that made them interesting: A BOSS IS A SOMEONE. The reward was
+never the problem. THE PERSON WAS THE POINT.
+
+=== WHAT I DID ABOUT IT ===
+Recovered v1 BYTE-FOR-BYTE out of git (commit 7da7c89), not rewritten from memory. All 13
+heading lines are byte-identical and the GATE ASSERTS IT (G3) -- "restored" is a claim a
+machine can check, and a paraphrase would have broken it silently. Then FIVE additions in the
+same voice, marked as additions. NO REFRAMING. STOP PRODUCING says a second rejection ends
+the feature for the session, so this is a RESTORE + 5 and then I stop proposing shapes.
+
+=== THE ORIGINAL 13, UNCHANGED ===
+ACT 1 survival: 1 THE TAP water · 2 THE BURN heat/fuel · 3 THE TOLL passage · 4 THE STRIPPER
+salvage
+ACT 2 civic: 5 ★ THE LIGHTS power (HIS idea) · 6 THE WARD medicine · 7 ★ THE VOICE airwaves ·
+8 THE DRAIN sanitation · 9 THE BOOK debt
+ACT 3 civilisation: 10 THE JUDGE law · 11 THE SCHOOL knowledge · 12 ★★ THE SOIL life
+(strongest, and it works BECAUSE act 1 is a dead world by law) · 13 THE GRID the network
+
+=== THE FIVE ADDED, same shape: a person who owns a thing ===
+14 THE WRECKER demolition -> take a building down. THE VERB I MISSED ACROSS THREE PASSES and
+   maybe the best on the list: you cannot rebuild Vegas without clearing it, and flattening a
+   structure is a real decision the moment it was somebody's home, shrine, or cover.
+15 ★ THE FOREMAN labour -> a crew works while you are somewhere else. Most important
+   addition: the moment the unit of work stops being one wall and becomes one BUILDING, and
+   the late-game-tedium research says delegation is the only real fix for a long tail.
+16 THE OPERATOR heavy machines -> run the heavy stuff, and it eats fuel forever, so the
+   ability arrives with a permanent bill.
+17 THE FIXER parts -> repair instead of replace. The quiet one, and the one that makes the
+   whole valley worth searching, because every district becomes somewhere a specific missing
+   part might be.
+18 ★★ THE BROKER the united front -> get two people who hate each other in the same room.
+   §4b as a boss: the endgame currency is ALLIANCE, and you never lay 60% of a city yourself.
+   The strongest boss to beat and THE ONLY ONE YOU CANNOT BEAT BY FORCE.
+
+=== CARRIED FROM THE DEAD PASSES (mechanism, never rejected) ===
+The act tiers fitted to THE VALHEIM SHAPE §3 -- ACT 1 you do it / ACT 2 your crews do it /
+ACT 3 the city does it around you, because the grind is the last unit of progress costing the
+same as the first while rewarding less. §4b alliance endgame. And A BOSS GRANTS THE ABILITY,
+NEVER THE RESOURCE -- my own rule, and the one I broke.
+
+=== THE GATE CAUGHT THE RESTORE ROLLING BACK GUARDRAILS ===
+v1 PREDATED three protections (no percentage of its own, no faction canon, NO DAMAGE BEFORE
+THE DIAL) and restoring it silently dropped them -- G14/G18/G20 went red immediately. Added
+back explicitly, with a note in the file saying why. THE LESSON WORTH KEEPING: A RESTORE MUST
+NOT QUIETLY ROLL BACK A PROTECTION ADDED AFTER THE THING BEING RESTORED.
+rulings_gate is 96 checks. Six mutations, all six caught -- including paraphrasing one of the
+13 and stripping a star off another.
+
+=== NOT DONE / THE QUEUE ===
+1. HIS THUMBS ON THE 18. Which live, which die, order, count. I am not proposing another
+   shape for this ladder in this session.
+2. THE WITNESS + STORY-SPREAD PLUMBING -- approved work; boss 7 THE VOICE is its payoff.
+3. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
+4. Did not touch #buildstamp: one record, one gate.
+
 LAB (lab-e2r7sv): 8/4 (b) LATEST -- *** HE KILLED THE MATERIAL FRAMING AND HE WAS RIGHT.
 IT WAS MY FACTUAL ERROR, NOT HIS TASTE. *** The ladder is 16 TOOLS now.
 
