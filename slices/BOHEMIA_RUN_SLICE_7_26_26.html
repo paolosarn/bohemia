@@ -420,6 +420,11 @@ var TEX_ROOF_IMG = _mkimgs(TEX_ROOF_B64);
    Vegas construction (records/BOHEMIA_DISTRICT_MATERIALS_8_3_26.md) rather than
    ungated from the house pool, because a bungalow's butter stucco on a distribution
    warehouse is a lie about what the building is. */
+var CIVIC_OPEN_B64 = __CIVIC_OPEN_JSON__;
+var CIVIC_OPEN_IMG = {}, CIVIC_OPEN_BY = (CIVIC_OPEN_B64&&CIVIC_OPEN_B64.by)||{};
+(function(){ var t=(CIVIC_OPEN_B64&&CIVIC_OPEN_B64.t)||{};
+  Object.keys(t).forEach(function(k){ var i=new Image(); i.src='data:image/png;base64,'+t[k];
+    CIVIC_OPEN_IMG[k]=i; }); })();
 var CIVIC_SKIN_B64 = __CIVIC_SKIN_JSON__;
 var CIVIC_SKIN = { d:{}, def:[], roof:[] };
 (function(){
@@ -1558,11 +1563,59 @@ function civicImg(kind,gx,gy){
   var im=mat[c%mat.length];
   return (im&&im.complete&&im.naturalWidth)?im:null;
 }
+/* IS THIS CELL A ROOF? The world names its own tiles and genericTile() already reads
+   them; this asks the same question of a NEIGHBOUR so the parapet knows where the
+   building's top edge is. */
+function civicRoofAt(gx,gy){
+  if(gy<0||gx<0||gy>=NAMEG.length||gx>=NAMEG[0].length) return false;
+  return /roof|canopy|deck/.test((NAMEG[gy][gx]||'').toLowerCase());
+}
+function civicSolidAt(gx,gy){
+  if(gy<0||gx<0||gy>=SOLIDG.length||gx>=SOLIDG[0].length) return false;
+  return !!SOLIDG[gy][gx] || LAYERG[gy][gx]==='structure';
+}
+/* WHICH OPENING THIS DISTRICT'S BUILDINGS HAVE, and NONE is a real answer. */
+function civicOpenKind(){
+  var n=CELLNAME;
+  if((CIVIC_OPEN_BY.dock||[]).indexOf(n)>=0) return 'dock';
+  if((CIVIC_OPEN_BY.storefront||[]).indexOf(n)>=0) return 'storefront';
+  if((CIVIC_OPEN_BY.mandoor||[]).indexOf(n)>=0) return 'mandoor';
+  return null;
+}
 function drawCivicSkin(id,gx,gy,X,Y,S){
   var k=SKIN_FIELD[id]; if(!k||k==='Y') return false;   /* yard wears his BOUGHT dirt */
   var im=civicImg(k,gx,gy); if(!im) return false;
   var mul=SKIN_LIGHT[id];
-  ctx.drawImage(mul?litSkin(im,mul):im,X,Y,S,S); return true;
+  ctx.drawImage(mul?litSkin(im,mul):im,X,Y,S,S);
+  if(k!=='W') return true;
+  /* ---- THE PARAPET. A wall cell with ROOF BEHIND IT is the building's top edge, and
+     the wall runs up past the roof and stops in a capped band. This is the single
+     strongest read a commercial building has and it is what a customer actually sees
+     from the parking lot. */
+  /* THE TOP EDGE IS WHERE THE MASS STOPS, not only where a roof tile is named.
+     MEASURED: keying the parapet on "roof behind me" gave INDUSTRIAL zero parapets and
+     13 dock doors, because that district's warehouse masses carry no roof-named cell at
+     all - they are solid wall all the way through. A building's top edge is simply the
+     row of it that has nothing solid behind it, whether that is open sky or a roof
+     plate, so that is what this asks now. */
+  var par=CIVIC_OPEN_IMG.parapet;
+  var topEdge = civicRoofAt(gx,gy-1) || !civicSolidAt(gx,gy-1);
+  if(topEdge && par && par.complete && par.naturalWidth)
+    ctx.drawImage(par,X,Y,S,S);
+  /* ---- AND THE WAY IN, on the FRONT face only: a wall cell with open ground in front
+     of it. Storefront glazing is CONTINUOUS along a retail front (it is not a punched
+     hole); a dock door is one wide opening every few bays; a man door is rare. */
+  var kind=civicOpenKind();
+  /* and the way in goes on the FRONT, never on the row already wearing the coping */
+  if(kind && !civicSolidAt(gx,gy+1) && !topEdge){
+    var ov=CIVIC_OPEN_IMG[kind];
+    var run=gx;
+    var show = kind==='storefront' ? true
+             : kind==='dock' ? ((((run%6)+6)%6)===0)
+             : ((((run%9)+9)%9)===0);
+    if(show && ov && ov.complete && ov.naturalWidth) ctx.drawImage(ov,X,Y,S,S);
+  }
+  return true;
 }
 function isRoad(a,b){ return (a>=0&&b>=0&&a<W&&b<H) && G[b][a]===1; }
 /* EVERY OTHER DISTRICT, honestly. The suburb has a dressed language because its

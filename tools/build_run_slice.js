@@ -380,6 +380,38 @@ html = html.replace('__CIVIC_SKIN_JSON__', JSON.stringify(civicPayload));
 console.log('  DISTRICT MATERIALS: ' + civicOrder.length + ' district types mapped to real '
             + 'Vegas construction, + a tilt-up/CMU default, flat tar-and-gravel roofs');
 
+/* ---- THE PARAPET AND THE CIVIC OPENINGS (8/3). Their buildings had the right material
+   and NO TOP AND NO WAY IN. On a strip mall the parapet coping and fascia are literally
+   the parts a customer sees from the parking lot; on a warehouse the roof is invisible
+   from the ground entirely. The parapet is the SILHOUETTE, not trim.
+   And it is the OPPOSITE of a house eave: a house roof oversails the WALL, a parapet
+   WALL oversails the roof. Getting that backwards makes every warehouse a very large
+   bungalow. Cook + sources: tools/bohemia_civic_openings_cook.py ---- */
+var CIVIC_OPEN = 'banks/BOHEMIA_CIVIC_OPENINGS_8_3_26.txt';
+var civOpen = JSON.parse(fs.readFileSync(CIVIC_OPEN, 'utf8'));
+var civMap = {};
+civOpen.tiles.forEach(function (t) { civMap[t.id.replace('civic_', '')] = t.b64; });
+['parapet', 'dock', 'storefront', 'mandoor'].forEach(function (k) {
+  if (!civMap[k]) throw new Error('CIVIC OPENINGS: missing "' + k + '" in ' + CIVIC_OPEN);
+});
+/* WHICH OPENING A BUILDING GETS, and "none" is a real answer. A casino is famously a
+   blank box and a corrugated warehouse wall is a blank box; punching an opening into
+   everything would be the lie. */
+var CIVIC_OPEN_BY = {
+  dock: ['industrial', 'warehouse', 'storage', 'railyard', 'granary', 'arsenal',
+         'battery', 'substation', 'reclaim', 'landfill', 'airbase', 'farm', 'swapmeet',
+         'speedway', 'minigp', 'radio', 'fort'],
+  storefront: ['commercial', 'mall', 'downtown', 'casino', 'strip', 'resort', 'medical',
+               'school', 'library', 'campus', 'convention', 'ballpark', 'waterpark',
+               'courthouse', 'chapel', 'policestation', 'highroller', 'sphere', 'strat'],
+  mandoor: ['jail', 'apartment', 'trailer']
+};
+if (html.indexOf('__CIVIC_OPEN_JSON__') < 0) throw new Error('missing __CIVIC_OPEN_JSON__ placeholder');
+html = html.replace('__CIVIC_OPEN_JSON__', JSON.stringify({ t: civMap, by: CIVIC_OPEN_BY }));
+console.log('  CIVIC OPENINGS: parapet + dock + storefront + man door, '
+            + Object.keys(CIVIC_OPEN_BY).reduce(function (n, k) {
+                return n + CIVIC_OPEN_BY[k].length; }, 0) + ' districts assigned');
+
 /* ---- THE OPENINGS (8/2): window, boarded window, garage bay. -----------------
    OVERLAYS WITH ALPHA, not whole tiles. The run picks ONE wall skin per house out of
    fifteen (his wall law: one design per plot, variety between plots), so a window baked

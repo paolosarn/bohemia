@@ -82,6 +82,21 @@ def measure(im):
                 lum_mean=st.mean(L), lum_sd=st.pstdev(L))
 
 
+CELL = 44
+
+
+def dec(b64):
+    return Image.open(io.BytesIO(base64.b64decode(b64))).convert('RGBA')
+
+
+def lum_rows(im):
+    im = im.convert('RGB')
+    w, h = im.size
+    b = im.tobytes()
+    return [st.mean([0.299 * b[(y * w + x) * 3] + 0.587 * b[(y * w + x) * 3 + 1]
+                     + 0.114 * b[(y * w + x) * 3 + 2] for x in range(w)]) for y in range(h)]
+
+
 def main():
     for f in (BANK, STYLE, COOK):
         ok('%s exists' % os.path.basename(f), os.path.exists(f), f)
@@ -379,6 +394,71 @@ def main():
        '!isSuburbCell() && drawCivicSkin(' in rs)
     ok('the map is written down with its sources', os.path.exists(MAT_DOC)
        and 'tilt-up' in open(MAT_DOC, encoding='utf8').read().lower())
+
+    # ================================================================================
+    # THE PARAPET AND THE CIVIC OPENINGS (8/3)
+    # Their buildings had the right material and NO TOP AND NO WAY IN. On a strip mall
+    # the parapet coping and fascia are the parts a customer sees from the parking lot;
+    # on a warehouse the roof is invisible from the ground. The parapet is the
+    # SILHOUETTE, not trim.
+    # ================================================================================
+    CIVOPEN = 'banks/BOHEMIA_CIVIC_OPENINGS_8_3_26.txt'
+    CIVCOOK = 'tools/bohemia_civic_openings_cook.py'
+    cb = json.load(open(CIVOPEN))
+    cc = open(CIVCOOK, encoding='utf8').read()
+    cids = {t['id']: t for t in cb['tiles']}
+    for need in ('civic_parapet', 'civic_dock', 'civic_storefront', 'civic_mandoor'):
+        ok('the civic set has %s' % need, need in cids)
+
+    # A PARAPET IS NOT AN EAVE, AND THEY ARE OPPOSITE OBJECTS. A house roof oversails
+    # the WALL; a parapet WALL oversails the roof. Backwards makes every warehouse a
+    # very large bungalow, so the cook has to say which way round it is.
+    ok('the cook knows a parapet is the opposite of an eave',
+       'oversails the ROOF' in cc and 'very large bungalow' in cc)
+
+    for tid, t in cids.items():
+        im = dec(t['b64'])
+        a = im.split()[3]
+        clear = sum(1 for v in a.getdata() if v == 0) / float(CELL * CELL)
+        ok('%s is an OVERLAY, so it works on all 13 civic materials' % tid, clear > 0.05,
+           'only %.0f%% transparent' % (clear * 100))
+
+    # THE COPING IS THE LIGHTEST BAND (45 DEGREE ART LAW) AND IT CASTS
+    prows = lum_rows(dec(cids['civic_parapet']['b64']).convert('RGB'))
+    ok('the parapet coping is the sky-lit lightest band', st.mean(prows[:9]) > st.mean(prows[13:22]) + 25)
+    ok('and it casts a hard fascia shadow below it, or it is a painted stripe',
+       min(prows[9:16]) < st.mean(prows[:9]) - 60)
+
+    # DEAD-DARK GLASS. Lit retail glazing would be the most off-canon thing in the
+    # valley, and this is the one place a cook could cheerfully get it wrong.
+    sf = dec(cids['civic_storefront']['b64']).convert('RGB')
+    px2 = [p3 for p3 in sf.getdata()]
+    lit = sum(1 for r, g, b2 in px2 if (r + g + b2) / 3 > 150) / float(len(px2))
+    ok('the storefront glass is DEAD DARK (12%% CLUSTERED POWER)', lit < 0.22,
+       '%.0f%% of it is bright' % (lit * 100))
+
+    # EVERY MODULE DIVIDES 44 or it cuts at the border he circled on 8/1
+    ok('the coping joints divide 44', '(x + 5) % 11 == 0' in cc)
+    ok('the storefront mullions divide 44', '(x + 4) % 11 == 0' in cc)
+    ok('the dock ribs divide 44', '(y - y0) % 4 == 0' in cc)
+
+    # WIRED, AND KEYED ON THE BUILDING'S REAL TOP EDGE
+    ok('the run draws the parapet on the mass top edge',
+       'var topEdge = civicRoofAt(gx,gy-1) || !civicSolidAt(gx,gy-1);' in rs)
+    ok('the top edge is not keyed on a roof NAME alone (industrial has none)',
+       '!civicSolidAt(gx,gy-1)' in rs and 'INDUSTRIAL zero parapets' in rs)
+    ok('the way in goes on the FRONT and never on the coping row',
+       '!civicSolidAt(gx,gy+1) && !topEdge' in rs)
+    ok('storefront glazing is CONTINUOUS along a front, not a punched hole',
+       "kind==='storefront' ? true" in rs)
+    ok('a blank building is a real answer (casino, corrugated warehouse)',
+       'if(kind && ' in rs and 'return null;' in rs)
+    ok('the openings are assigned by district, not sprayed everywhere',
+       'CIVIC_OPEN_BY' in bl and 'var CIVIC_OPEN_BY = {' in bl)
+    built2 = open('slices/BOHEMIA_RUN_CURRENT.html', encoding='utf8').read()
+    ok('the shipped run carries the parapet bytes',
+       cids['civic_parapet']['b64'][:120] in built2)
+
 
     print('   TEXTURE MATCH GATE: %d passed, %d failed  (%d tiles, %d materials)'
           % (P, F, len(tiles), len(mats)))

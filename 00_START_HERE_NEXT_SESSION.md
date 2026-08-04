@@ -1,3 +1,53 @@
+ART (f3eu53): 8/3 (m) LATEST — EVERY BUILDING IN THE VALLEY HAS A TOP AND A WAY IN.
+
+=== THE PARAPET IS THE SILHOUETTE, NOT TRIM ===
+Their buildings got the right material this morning and still had NO TOP AND NO WAY IN.
+RESEARCHED: on a strip mall the parapet coping and fascia are literally THE PARTS A
+CUSTOMER SEES FROM THE PARKING LOT; on a warehouse the roof is invisible from ground
+level entirely. A commercial building is a flat-roofed box whose wall runs UP PAST the
+roof and stops in a capped edge, and that band is the difference between a building and
+a coloured rectangle.
+*** AND IT IS THE EXACT OPPOSITE OF A HOUSE EAVE. *** A house ROOF oversails the WALL
+(wall in shadow beneath). A PARAPET WALL oversails the ROOF (roof in shadow behind).
+Same two objects, opposite stacking. Getting it backwards makes every warehouse in the
+valley a very large bungalow, and the gate now checks the cook knows which way round.
+
+=== WHAT A COMMERCIAL BUILDING HAS INSTEAD OF WINDOWS ===
+A house is punched with windows. These are not.
+  DOCK DOOR   wide ribbed roll-up, header lintel, raised apron with the oil still on it
+  STOREFRONT  CONTINUOUS dark glazing between aluminium mullions - it runs ALONG a front,
+              it is not a hole in a wall. DEAD-DARK is load-bearing: lit shop glass would
+              be the most off-canon thing in the valley.
+  MAN DOOR    one steel door, no glass
+  AND OFTEN NOTHING. A casino is a blank box. Punching openings into everything is a lie,
+  so "none" is a real answer in the map.
+
+=== THE BUG THE MEASUREMENT CAUGHT ===
+Keying the parapet on "is there a ROOF behind me" gave INDUSTRIAL zero parapets and 13
+dock doors - because that district's warehouse masses carry no roof-NAMED cell at all,
+they are solid wall all the way through. A building's top edge is simply the row with
+nothing solid behind it, roof plate or open sky. After: INDUSTRIAL 55 parapets.
+NOW: DOWNTOWN 171 parapets + 101 storefronts · MEDICAL 183 + 200 · SCHOOL 107 + 44 ·
+COMMERCIAL 82 + 31 · MALL 67 · PARK 117 · TRAILER 63 + 6 man doors · APARTMENT 40 + 3.
+
+=== GATED ===
+texture_match_gate 67 checks now. New: the coping is the sky-lit lightest band and it
+CASTS (or it is a painted stripe), the storefront glass is measurably DEAD DARK, every
+module divides 44, the parapet keys on the mass top edge and not on a roof name, the way
+in never lands on the coping row, and the cook states the eave/parapet inversion.
+
+=== THE QUEUE ===
+1. THE GRIME TUNING. Genuinely unblocked now - there IS a dressed valley to judge the
+   amount against. Raise GRIME_STRENGTH off 0, judge on a frame with 3+ district types,
+   record a verdict, grime_gate lets it stay up.
+2. CORNERS AND ENDS on civic buildings. They have a top and a front; they do not have
+   corner returns or end-of-run treatment, so a mass still reads slightly as a slab from
+   the side. Smaller than this job was.
+3. Features on ground ~5.5% vs his 7.0%; his cracks still crisper.
+4. Art cell 44 -> 88 px. Would fix (3) outright.
+
+--- EARLIER TODAY ---
+
 LAB (lab-e2r7sv): 8/3 (f) LATEST -- THE BOSS LADDER: 13 CANDIDATES, WEAKEST TO
 STRONGEST, ACROSS THE THREE ACTS. AWAITING HIS THUMBS.
 
@@ -146,6 +196,7 @@ verdict is the gate being wrong.
 AFRO inside a base64 blob, LOCS inside 'VOTING BLOCS', DESERT CURL 2 inside
 'DESERT CURL 29 off-skull pixels'. Suffix tokens (HAIR AFRO, w3) when the bare
 name is an English word or a possible numeric prefix.
+
 
 COMBAT (combat-nfnki9): 8/3 (c) LATEST -- YOUR MISSED ROUND EXISTS NOW. Live on
 main as 17cd5a8, BUILD 8/3k, Pages build VERIFIED success 04:08.
