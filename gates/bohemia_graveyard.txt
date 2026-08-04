@@ -734,3 +734,22 @@ THE COOK (grenade fuse minigame, v124, 8/3/26) -- KILLED ON SIGHT, never shipped
 # he has to play every fight is CONTENT, and it was his to name.
 # NO REMAKE OF THE FUSE BAR. EVER. The next grenade minigame starts from his answer to
 # what it is, not from a variation on this.
+
+# ---- HAIR WAVE 3, Paolo's verdict 8/2/26. 15 KEEP / 8 KILL. ------------------
+# "a lot of these hairs look like they belong on Oompa Loompa's. You might wanna
+# calm down on the shaping ... A lot of the sideways shit still fucked up."
+# TOKENS ARE SUFFIXED w3, not a bare number: 'DESERT CURL 2' matched the substring
+# inside 'DESERT CURL 29 off-skull pixels' in the craft law and reported a
+# resurrection that never happened. Third time today a token collided with prose.
+# THE COMMON CAUSE, and it is mine: I gave every style 2px of projection past the
+# skull to give hair its own silhouette. On a 12px head that is a third again of
+# the head's width in hair -- a bulb. Halved this build. Several of these might
+# have survived a calmer version, which is the cost of over-correcting.
+DESERT CURL w3  | hair | 8/2/26 | flare + 2px projection = the Oompa Loompa silhouette he named. Second kill for a curl shape; the slot needs a fresh cook, not a retune.
+SIDE PART w3    | hair | 8/2/26 | second kill, permanent per the reopening addendum. Reopened on the bare-scalp fix, kept in wave 2, killed in wave 3 on the sideways views.
+MULLET w3       | hair | 8/2/26 | the fall came down the MIDDLE in profile instead of behind the head -- "What's wrong with you?" Fair. Fixed generally this build, but the shape is dead.
+MOHAWK w3       | hair | 8/2/26 | "it's like a rectangle on someone's head." Third strike. The crest tapers now; the style is closed.
+LIBERTY SPIKES w3| hair | 8/2/26 | same rectangle crest, third strike, closed.
+CORNROWS w3     | hair | 8/2/26 | survived two rounds on the strength of the front view; the profile never read. Its 2:1 texture mechanism LIVES and carries any future weave.
+PONYTAIL w3     | hair | 8/2/26 | second kill, permanent.
+TOP KNOT w3     | hair | 8/2/26 | second kill, permanent.
