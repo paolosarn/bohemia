@@ -230,99 +230,92 @@ ok('F12 the readable-danger pending is FLAGGED and not answered by a lane',
 ok('F13 the dynasty settled question is not re-opened by the death-penalty finding',
    /DYNASTY, not a one-life run/i.test(vh));
 
-/* ---- THE BOSS LADDER ------------------------------------------------------- */
-/* He gave the mechanism ("unlock a new skill or like a tool to alter the world around
-   you") and then the NAMING ("maybe there's like a water BOSS ... a concrete boss"). Two
-   rulings, both recorded. The checks here are on the things a machine can hold: his two
-   quotes survive, the ladder is internally consistent, the count in the prose matches the
-   count of actual entries, and the load-bearing design catches are still written down. */
+/* ---- THE BOSS LADDER: TOOLS, NOT MATERIALS ---------------------------------
+   He killed the material framing on 8/4: "it's giving like material vibes and not like tool
+   vibes ... I'd rather have it be like you learn how to use a tool." He was right and it was
+   a FACTUAL error, not taste -- in Valheim the boss gives a FORSAKEN POWER (an ability), and
+   the metal comes out of the ground. Every one of the five powers is "this costs less or does
+   more": Eikthyr stamina, Elder chopping, Bonemass resistance, Moder tailwind, Yagluth
+   lightning. My own Valheim study said so and I built the ladder on the wrong half of the
+   sentence -- then broke the ability-not-resource rule I had written one revision earlier.
+
+   This block replaces the G-checks that guarded the material framing. Those checks were
+   CORRECT about a document that is now dead, which makes keeping them a way to preserve a
+   killed idea -- so they go. GRAVEYARD IS FINAL cuts both ways: the gate must not enforce a
+   corpse. What survives is what he kept (biome = missing function, the three verbs, alliance
+   as the endgame currency) plus the new rule and the kill itself. */
 const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md';
 ok('G1 the boss ladder record exists', fs.existsSync(path.join(ROOT, LADDER)));
 const rawLad = fs.existsSync(path.join(ROOT, LADDER))
   ? fs.readFileSync(path.join(ROOT, LADDER), 'utf8') : '';
 const lad = norm(rawLad);
-ok('G2 his mechanism quote survives',
-   /unlock a new skill or like a tool to alter the world around you/i.test(lad));
-ok('G3 his NAMING quote survives',
-   /there's like a water BOSS maybe there's like a light boss maybe there's like a concrete boss/i
-     .test(lad));
-ok('G4 the boss IS the substance, not a character handle',
-   /THE BOSS IS THE SUBSTANCE/i.test(lad));
-/* THE COUNT MUST MATCH THE ENTRIES. I wrote "17" while there were 16, by double-counting a
-   RENAME as an addition -- the toll boss becoming the asphalt boss is not a new boss. A
-   stated total that disagrees with the list is the same class of rot as the duplicated
-   heading numbers C4b catches, so it gets the same treatment: count the things. */
-const entries = (rawLad.match(/^\*\*\d+\. [★ ]*THE [A-Z]+ BOSS/gm) || []);
-const stated = (rawLad.match(/THE LADDER — (\d+) CANDIDATES/) || [])[1];
-ok('G5 the stated count matches the actual entries (' + entries.length + ' entries, states ' +
-   stated + ')', !!stated && +stated === entries.length);
-ok('G6 the entries are numbered 1..N with no duplicates or gaps',
-   entries.map(e => +e.match(/\d+/)[0]).every((n, i) => n === i + 1));
-ok('G7 the miscount is recorded rather than quietly corrected',
-   /First draft of this line said 17/i.test(lad));
-/* THE FOUR DESIGN CATCHES. Each is a sentence a later session would delete as waffle, and
-   each is the reason the ladder is not broken. */
-ok('G8 a biome is a MISSING FUNCTION, not a place',
-   /A BOHEMIA "?BIOME"? IS A MISSING FUNCTION, NOT A PLACE/i.test(lad));
-ok('G9 the ability/resource rule that stops the light boss ending the game',
-   /A BOSS GRANTS THE ABILITY, NEVER THE RESOURCE/i.test(lad) &&
-   /the light boss ends the game/i.test(lad));
-ok('G10 concrete carries REAL prerequisites, not an invented tier order',
-   /the only material in Bohemia you cannot scavenge/i.test(lad) &&
-   /the order is physics/i.test(lad));
-ok('G11 the Destroyers are excluded from boss-hood, with the citation',
-   /Destroyers can never be bosses/i.test(lad) &&
-   /ACT1_PROCEDURAL_ENDING_AND_DESTROYERS/.test(lad));
-ok('G12 the soil boss depends on the dead-world law rather than breaking it',
-   /DEAD WORLD BY LAW/i.test(lad) && /most powerful thing in Bohemia is a green shoot/i.test(lad));
-ok('G13 every boss is takeable WITHOUT killing -- the thing that makes it not Valheim',
-   /can be taken WITHOUT killing/i.test(lad) &&
-   /least possible loss of life/i.test(lad));
-ok('G14 it stays candidates, and the names stay placeholders',
-   /CANDIDATES FOR HIS THUMBS\. NOT CANON/i.test(lad) &&
-   /Every name above is a PLACEHOLDER/i.test(lad));
-ok('G15 no damage number leaked into it',
-   /No numbers anywhere: NO DAMAGE BEFORE THE DIAL/i.test(lad));
 
-/* ---- REVISION 2: THE LADDER MUST FIT THE LOCKED CAPS, NOT INVENT ITS OWN ----
-   The act repair caps (15% / 33-40% / 80-100%) were LOCKED by another session on 8/4 in
-   THE VALHEIM SHAPE §3, while this lane was working. The danger with a proposal that
-   arrives at the same subject independently is that it quietly restates the numbers
-   slightly differently and the fleet ends up with two versions. So: the ladder must CITE
-   that law, must not state a percentage of its own, and must carry the clause that
-   corrected it -- §4b, that the endgame currency is ALLIANCE and not concrete. */
-const SHAPE = 'laws/BOHEMIA_ADDENDUM_THE_VALHEIM_SHAPE_8_4_26.md';
-ok('G16 the locked act-caps law exists', fs.existsSync(path.join(ROOT, SHAPE)));
-ok('G17 the ladder cites it rather than restating his numbers as new input',
-   /THE_VALHEIM_SHAPE_8_4_26/.test(lad) && /already LOCKED canon/i.test(lad));
-ok('G18 and says plainly it sets no percentage of its own',
-   /It sets no percentage of its own/i.test(lad));
-ok('G19 §4b is carried: the endgame currency is ALLIANCE, not concrete',
-   /endgame currency is NOT CONCRETE, IT IS\s*ALLIANCE/i.test(lad) ||
-   /currency is NOT CONCRETE, IT IS ALLIANCE/i.test(lad));
-ok('G20 and the ladder records that this CORRECTED it, instead of pretending it agreed',
-   /That last clause is the correction/i.test(lad));
-ok('G21 BUILDING IS OPTIONAL survives: the caps are ceilings, never floors',
-   /CEILINGS, never floors/i.test(lad) &&
-   /a player who beats none of them still finishes the game/i.test(lad));
-/* THE THREE VERBS ARE THE ANTI-GRIND ARCHITECTURE. Without them the ladder is just a
-   longer list, and a longer list is exactly what the research says causes the wall. */
-ok('G22 each act changes the VERB rather than repeating one',
-   /YOU build it/i.test(lad) && /YOUR CREWS build it/i.test(lad) &&
-   /THE CITY builds itself/i.test(lad));
-ok('G23 the research finding that explains why (unit of work must grow) is recorded',
-   /LAST UNIT OF PROGRESS COSTING THE SAME AS THE FIRST/i.test(lad));
-ok('G24 and the certainty finding, which is why alliance keeps the tail alive',
-   /CERTAINTY PROBLEM, NOT A LENGTH PROBLEM/i.test(lad) &&
-   /you can still lose it/i.test(lad));
-ok('G25 the optional-boss precedent is cited with its real count (Hollow Knight)',
-   /Hollow Knight/i.test(lad) && /47/.test(lad) && /OPTIONAL/i.test(lad));
-ok('G26 the faction roster is cited as existing rather than invented',
-   /records\/factions\//.test(lad) && /16 dossiers/i.test(lad));
-ok('G27 and no faction canon is written here',
-   /I am not writing faction canon/i.test(lad));
-ok('G28 the parallel-session collision is disclosed, not hidden',
-   /PARALLEL-SESSION NOTE/i.test(lad));
+ok('G2 his rejection is quoted verbatim',
+   /giving like material vibes and not like tool vibes/i.test(lad));
+ok('G3 the material framing is recorded as KILLED, not quietly dropped',
+   /THE MATERIAL FRAMING IS KILLED/i.test(lad) &&
+   /DEAD AND STAYING DEAD: bosses named after substances/i.test(lad));
+ok('G4 and it is owned as MY factual error rather than his change of taste',
+   /a factual error on my part, not a\s*taste disagreement/i.test(lad));
+
+/* THE ROOT CAUSE MUST STAY WRITTEN DOWN, with the evidence, or the same mistake is free to
+   come back the next time somebody reads "Valheim boss" and thinks "ore". */
+ok('G5 the root cause is named: the ORE is not the boss reward, the POWER is',
+   /BUILT THE LADDER ON THE BIOME'S ORE INSTEAD OF THE BOSS'S POWER/i.test(lad));
+ok('G6 all five Forsaken Powers are listed as evidence they are abilities',
+   ['Eikthyr', 'Elder', 'Bonemass', 'Moder', 'Yagluth'].every(b => new RegExp(b).test(lad)) &&
+   /NOT ONE OF THEM IS A SUBSTANCE/i.test(lad));
+ok('G7 and it admits the study already had it right',
+   /wrote the right thing down and then built the ladder on the wrong half/i.test(lad));
+ok('G8 and that it broke a rule from the previous revision',
+   /it is my own rule, pointed\s*back at me/i.test(lad));
+ok('G9 the fourth-pass tell is named against STOP PRODUCING, not hidden',
+   /fourth pass/i.test(lad) && /STOP_PRODUCING/.test(lad) &&
+   /rewritten rather than revised a\s*third time/i.test(lad));
+
+/* ★ THE NEW RULE, AND THE REASON THE CURRENCY COMPLAINT IS ANSWERED WITHOUT TOUCHING THE
+   LOCKED THREE CURRENCIES. */
+ok('G10 the replacement rule is stated: materials are found, tools are won',
+   /MATERIALS ARE WHAT YOU FIND\. TOOLS ARE WHAT YOU WIN/i.test(lad));
+ok('G11 the three currencies are NOT changed, and a boss never hands you one',
+   /THREE CURRENCIES is locked canon/i.test(lad) &&
+   /a boss must never hand you a currency/i.test(lad));
+ok('G12 concrete survives as an ABILITY (the mixer), not as a prize',
+   /You do not beat a "?concrete boss\.?"?/i.test(lad) && /the mixer/i.test(lad));
+
+/* EVERY ENTRY IS A VERB. That is the whole point, so it is counted rather than trusted: the
+   heading shape carries the verb, and the count in the prose must match the entries. */
+const entries = (rawLad.match(/^\*\*\d+\. [★ ]*THE [A-Z][A-Z ]* — [A-Z]+\.\*\*/gm) || []);
+const stated = (rawLad.match(/THE LADDER — (\d+) TOOLS/) || [])[1];
+ok('G13 every entry is "N. THE TOOL — VERB." (' + entries.length + ' entries)',
+   entries.length > 0);
+ok('G14 the stated count matches the actual entries (states ' + stated + ')',
+   !!stated && +stated === entries.length);
+ok('G15 the entries are numbered 1..N with no duplicates or gaps',
+   entries.map(e => +e.match(/\d+/)[0]).every((n, i) => n === i + 1));
+ok('G16 no entry is named after a substance any more',
+   !/^\*\*\d+\. [★ ]*THE (CONCRETE|GLASS|STEEL|ASPHALT|WATER|DIESEL|SOIL|SCRAP|FIRE) BOSS/m
+     .test(rawLad));
+
+/* WHAT HE KEPT, CARRIED FORWARD -- these three were right across every pass. */
+ok('G17 a biome is a MISSING FUNCTION, not a place',
+   /A BIOME IS A MISSING FUNCTION, NOT A PLACE/i.test(lad));
+ok('G18 the three acts are three different VERBS, with the anti-grind reason',
+   /ACT 1 you do it · ACT 2 your crews do it · ACT 3 the city does it around\s*you/i.test(lad) &&
+   /last unit of progress costing\s*the same as the first while rewarding less/i.test(lad));
+ok('G19 the locked act-caps law is cited, and no percentage is invented here',
+   /THE_VALHEIM_SHAPE_8_4_26/.test(lad) && /Sets no percentage/i.test(lad));
+ok('G20 act 3\'s currency is ALLIANCE, and the final tool is not an object',
+   /CURRENCY IS ALLIANCE, NOT STUFF/i.test(lad) &&
+   /only tool on the list you cannot hold/i.test(lad));
+ok('G21 building stays optional -- winning no tools still finishes the game',
+   /CEILINGS never floors/i.test(lad) &&
+   /a player who wins none of them still finishes the\s*game/i.test(lad));
+ok('G22 the faction roster is cited as existing, and no faction canon is written',
+   /records\/factions\//.test(lad) && /sixteen dossiers/i.test(lad));
+ok('G23 it stays candidates: names are handles, not canon',
+   /never canon\. Naming is his/i.test(lad));
+ok('G24 no damage number leaked in', /NO DAMAGE BEFORE THE DIAL/.test(lad));
 
 /* ---- THE ROWS EXIST ------------------------------------------------------- */
 /* This is the actual lock. answered_gate.py reads the machine block; a ruling with no

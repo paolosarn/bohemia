@@ -1,3 +1,81 @@
+LAB (lab-e2r7sv): 8/4 (b) LATEST -- *** HE KILLED THE MATERIAL FRAMING AND HE WAS RIGHT.
+IT WAS MY FACTUAL ERROR, NOT HIS TASTE. *** The ladder is 16 TOOLS now.
+
+"it's giving like material vibes and not like tool vibes ... I'd rather have it be like you
+learn how to use a tool ... I think that's kind of stupid"
+
+=== THE ROOT CAUSE, AND IT IS UGLY ===
+IN VALHEIM THE BOSS DOES NOT GIVE YOU THE METAL. The metal is in the GROUND and you MINE it.
+The boss gives a FORSAKEN POWER and every single one is an ABILITY:
+  Eikthyr 60% less stamina running/jumping/swimming · Elder +60% chop and pickaxe damage,
+  +30% health regen · Bonemass blunt/slash/pierce resistance · Moder a forced tailwind ·
+  Yagluth lightning resistance
+NOT ONE IS A SUBSTANCE. They are all "this thing you do now costs less or does more."
+AND records/BOHEMIA_RESEARCH_WHY_VALHEIM_WORKED_8_3_26.md mechanism 2 ALREADY SAID IT
+CORRECTLY -- "boss trophy plus a Forsaken Power plus the previous biome's metal." I WROTE THE
+RIGHT THING DOWN AND THEN BUILT THE LADDER ON THE WRONG HALF OF MY OWN SENTENCE.
+WORSE: the previous revision of that same document contains MY OWN RULE, "A BOSS GRANTS THE
+ABILITY, NEVER THE RESOURCE" -- and then I named all sixteen bosses after resources. His
+complaint was not a new opinion. IT WAS MY RULE POINTED BACK AT ME.
+
+=== THE PROCESS TELL, NAMED NOT HIDDEN ===
+This was the FOURTH pass at one document (13 utilities -> 16 substances -> 21 with tiers ->
+this). STOP PRODUCING says a fourth version means you already failed. So the file was
+REWRITTEN, not revised a third time -- the layering WAS part of the failure, because the
+material framing survived two revisions by being built on top of instead of checked.
+
+=== THE REPLACEMENT RULE ===
+*** MATERIALS ARE WHAT YOU FIND. TOOLS ARE WHAT YOU WIN. ***
+Concrete does not disappear, it gets BETTER: you do not beat a "concrete boss", you win THE
+MIXER, and then the limestone and aggregate lying around all game become something.
+HIS CURRENCY POINT ANSWERED WITHOUT TOUCHING LOCKED CANON: THREE CURRENCIES stays (settled
+Q5, no fourth). What changes is that A BOSS MUST NEVER HAND YOU A CURRENCY -- it hands you a
+verb that changes what your currency can BECOME. Resources stay flat on purpose; the tool is
+what makes them interesting.
+DEAD AND STAYING DEAD: bosses named after substances.
+
+=== THE 16 TOOLS -- every entry is a VERB ===
+ACT 1 hand tools, you are the one doing it:
+  1 PRY BAR -> OPEN (weakest and most useful: the whole valley is closed)
+  2 WRENCH -> OPERATE (water is a CONSEQUENCE of the verb, not the prize)
+  3 SLEDGE -> DEMOLISH (most underrated verb in a rebuild game -- you cannot rebuild Vegas
+    without clearing it, and flattening somebody's building is a real cost)
+  4 CUTTER -> CUT · 5 MIXER -> POUR (concrete, correctly: the ABILITY is the reward; needs
+    wrench+fire because that is chemistry) · 6 HOIST -> LIFT (ends act 1's ceiling)
+ACT 2 tools that multiply you:
+  7 KEYS -> DRIVE (costs fuel forever) · 8 WHISTLE -> COMMAND *** most important tool on the
+  list: work happens when you are not there, the moment the unit stops being a wall and
+  becomes a BUILDING *** · 9 SWITCH -> LIGHT (his original idea in tool form: you close a
+  circuit, you still pay the electricity) · 10 KIT -> TREAT (stops the body CLOCK) ·
+  11 RADIO -> TELL (hands the player R20/R21 story-spread as a TOOL) · 12 PEN -> PROMISE
+ACT 3 tools that are not objects:
+  13 SLATE -> TEACH (the dynasty tool) · 14 GAVEL -> JUDGE (R17's ledger finally spendable) ·
+  15 SEED VAULT -> GROW (works BECAUSE act 1 is a dead world by law) ·
+  16 HANDSHAKE -> ALLY *** the only tool you cannot hold *** -- §4b's united front, and the
+  one verb that earns 80-100%, because you never lay 60% of a city yourself.
+
+=== WHY TOOLS FIX WHAT MATERIALS BROKE ===
+A tool is a VERB so it is instantly legible (you pry a door, the door opens -- no number, no
+inventory screen). A tool CANNOT INFLATE, so ability-not-resource holds by construction
+instead of by discipline. A tool CHANGES EVERYTHING YOU ALREADY OWN -- the pry bar re-opens
+the whole map behind you, a pile of concrete only adds to a pile. A tool can be TAUGHT (13)
+and LENT, which is what makes acts 2 and 3 possible at all. And it is what the reference
+actually does: Eikthyr does not hand you deer hide, he makes running cheap.
+
+=== GATED, AND THE GATE LOST CHECKS ON PURPOSE ===
+rulings_gate is 100 checks. The G-block was REPLACED, not extended: the old checks correctly
+guarded a document he has now killed, and keeping them would make the machine ENFORCE A
+CORPSE. GRAVEYARD IS FINAL cuts both ways. New checks hold the kill, the root cause with all
+five powers as evidence, the ownership of the error as mine, the fourth-pass disclosure, the
+new rule, that no entry is named after a substance, and every entry matching
+"N. THE TOOL — VERB." with the count machine-counted. Six mutations, all six caught.
+
+=== NOT DONE / THE QUEUE ===
+1. HIS THUMBS ON THE 16 TOOLS. Which live, which die, order, count.
+2. THE WITNESS + STORY-SPREAD PLUMBING -- approved work; tool 11 is its payoff.
+3. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
+4. Did not touch #buildstamp: one record, one gate.
+
 SOUND (sound-xk7pjp): 8/4 (c) LATEST - SFX BATCH 02. THIRTY NEW SOUNDS, AND EAT
 IS ITS OWN MOMENT. Tab: MUSIC, top of the panel.
 
