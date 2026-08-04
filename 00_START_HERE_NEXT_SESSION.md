@@ -1,3 +1,81 @@
+LAB (lab-e2r7sv): 8/3 (e) LATEST -- THE PROGRESSION SPINE. HE ASKED HOW THE WHOLE STACK
+FITS AND THE ANSWER WAS ALREADY IN HIS OWN LAWS. *** ONE RULING BLOCKS EVERYTHING. ***
+
+records/BOHEMIA_THE_PROGRESSION_SPINE_PROPOSAL_8_3_26.md. PROPOSAL, NOT CANON. Nothing
+built, all eight cited files verified to exist.
+
+=== HIS IDEA IS RIGHT AND IT IS EXACTLY HOW VALHEIM ALREADY WORKS ===
+"maybe u arent meant to explore most of the city." Nobody explores most of Valheim's
+314 km2 either and nobody calls it too big, because the map is a SEARCH SPACE not a
+checklist. THE RECONCILIATION: you are meant to see every district TYPE, never every
+district INSTANCE. 79 registered types = the content; 9,216 cells = the search space. So
+the size is FREE and NO CUT IS NEEDED -- the MAP SIZE floor is about the world being
+dense, not about obliging the player to walk it.
+THE HOLE I PULLED IN IT: if most of the city is optional, why go there? Valheim's answer
+is that the search space CONTAINS THE THING YOU NEED -- copper is not in the Meadows, you
+are not exploring, you are shopping. Optional districts with nothing you need are
+SCENERY, and 9,216 cells of scenery is worse than a small map. THE FIX: every district
+type must be the ONLY place something comes from. Machine-checkable; what each yields is
+his. [PENDING]
+
+=== "IS KILLING HELLA SHIT THE VIBE?" -- NO, AND CANON SAID SO TWICE ===
+TRAUMATIC NOT GORY (a hurt body is a CLOCK), the Crisis Response study he approved
+("least possible loss of life as the desired outcome"), and WHAT COMBAT IS FOR in his own
+words. THE ARGUMENT: his north star is about the QUALITY of one fight, and quality and
+quantity are in mathematical tension -- kill hundreds and fights must be cheap, and cheap
+fights are swung through, not solved. VALHEIM'S COMBAT IS SHALLOW *BECAUSE* ITS KILL
+COUNT IS HIGH. You cannot have both.
+BUT HE IS RIGHT THAT THE LADDER IS THE BEST PART, AND THE KILL COUNT IS NOT WHY IT WORKS:
+Valheim has ~7 bosses; the ladder is KEYS AND BIOMES, not corpses. Delete 90% of the
+trash and it works identically. TAKE THE LADDER, LEAVE THE BODY COUNT.
+
+=== *** THE LINCHPIN, AND IT IS THE ONE THING PENDING *** ===
+Valheim's tier is a BIOME and its key is METAL. Ours is already written and it is made of
+PEOPLE -- CLUSTERED POWER + LIGHT = TERRITORY: 12% lit, that 12% OWNED, nobody patrols
+the dark. So: the tier is A LIT BLOCK AND WHO OWNS IT, the boss is THE PERSON WHO OWNS
+IT, the "metal" is THE POWER (already a currency), the trophy is THE STORY OF HOW YOU
+TOOK IT (R17 ledger + R21 spread). Better than a biome for four canon reasons: it is
+realistic; the tiers ARE the three acts rather than sitting beside them; a person is
+remembered and an animal is not (dynasty); and *** YOU CAN TAKE A BLOCK WITHOUT KILLING
+ANYBODY *** -- which is the only way "least possible loss of life" means anything
+mechanically. A boss you can talk out of the building is only possible if the boss is a
+person. [PENDING PAOLO -- THIS UNLOCKS THE REST.]
+
+=== THE GEAR LADDER IS ALREADY BUILT: IT IS THE WARDROBE ===
+STRUCTURE-NOT-COLOR (LOCKED 7/19): progress is a new garment SHAPE, a recolor is filler,
+gated by structure_gate.js. That IS Valheim's armour ladder in our own words. In Valheim
+you cannot enter the Mountains without a cape; here you cannot hold a block without the
+coat that lets you be out in it.
+
+=== "SOMETHINGS GOTTA GIVE" -- THE ENEMY COUNT ANSWER ===
+MORE ENEMIES PER ENCOUNTER, NOT MORE ENCOUNTERS. A gang of nine holding one block is
+realistic; nine gangs on one street is not. It raises the on-screen count he asked for
+without raising the number of fights realism cannot survive, it keeps every fight
+expensive (TRAUMATIC NOT GORY), and it is THE CHEAPEST FIX FOR THE ASYMMETRY HIS OWN
+COMBAT AUDIT FOUND -- "position controls what you suffer and nothing about what you
+deliver." Nine bodies in one room make the ground an argument for attacking from a
+specific place with NO NEW MECHANIC: angles, chokepoints and crossfire come free from the
+count. [PENDING: how many is a lot. No numbers -- NO DAMAGE BEFORE THE DIAL.]
+
+=== THE STACK, RECONCILED, NO CONTRADICTIONS ===
+Isometric pixel = the camera (45 DEGREE ART LAW). Rhythm/RF4 beat-tactics = the fight,
+and NOTHING CONTRADICTS: what died 8/1 was a STAT AS A MINIGAME (settled Q12), not RF4
+combat -- COMBAT LAB is already beat-based at 120 and COMBAT_DNA_RF4 has been live since
+June. PROJECT ZOMBOID IS ATMOSPHERE ONLY -- the settled anti-reference is specifically
+its LOOT PACE (settled Q7), so dread yes, item-by-item inventory no. Valheim = the
+progression spine. Pocket City 2 = the builder on the blocks you took. Three acts = the
+tiers.
+THE THREAD: YOU TAKE A BLOCK. YOU LIGHT IT. YOU BUILD ON IT. THE STORY OF HOW YOU TOOK IT
+SPREADS. AND YOU CLIMB THAT LADDER THREE TIMES, ONCE PER GENERATION.
+
+=== NOT DONE / THE QUEUE ===
+1. IF HE RULES THE BOSS-IS-A-PERSON LINCHPIN, the addendum gets written the same turn and
+   this record becomes its working. Everything else in the queue is downstream of it.
+2. THE WITNESS + STORY-SPREAD PLUMBING -- already approved work.
+3. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
+4. Canon-contradiction auditing across the indexed files.
+5. Did not touch #buildstamp: one record only.
+
 LAB (lab-e2r7sv): 8/3 (d) LATEST -- WHY VALHEIM WORKED, AND IT CONFIRMED TWO OF HIS
 OWN RULINGS IN REAL SOURCE CODE.
 
