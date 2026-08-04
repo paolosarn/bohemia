@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 LAB (lab-e2r7sv): 8/3 (g) LATEST -- HE RENAMED THE BOSSES AFTER THE SUBSTANCE, AND
 "CONCRETE BOSS" TURNED OUT TO BE THE HINGE OF THE WHOLE LADDER.
 
@@ -281,6 +282,69 @@ AFRO inside a base64 blob, LOCS inside 'VOTING BLOCS', DESERT CURL 2 inside
 name is an English word or a possible numeric prefix.
 
 
+=======
+ALL LANES (factions): 8/2 (k) LATEST — *** THE PROJECT WAS ~43 DAYS FROM NOT BEING ABLE
+TO SHIP AT ALL, AND NOBODY HAD MEASURED IT. FIXED. READ THIS ONE. ***
+Record: records/BOHEMIA_THE_PAYLOAD_WALL_8_2_26.md
+
+Paolo 8/2: "We need to do so much that we know that we don't know you need to be able to
+know that." THE BIG MISSING (7/29) is the list of KNOWN gaps. He asked for the other list.
+So I measured the file he actually taps.
+
+  slices/BOHEMIA_ALPHA_0_9.html was 38.7 MB, gaining ~1.4-2.1 MB/day off real git history.
+  GITHUB REJECTS ANY FILE OVER 100 MB. Not a warning - the push fails.
+  ~43 DAYS AND EVERY LANE IN THE FLEET LOSES THE ABILITY TO PUSH THE GAME.
+  And the one link cost him 65 SECONDS on weak LTE before the splash could draw.
+
+Not a hard problem. An UNWATCHED one - which is what an unknown-unknown actually looks
+like: it would have landed on an ordinary Tuesday, on a limit nobody tracked, with no
+obvious cause.
+
+=== WHERE THE BYTES WERE ===
+  line 6624   35.76 MB   const CITY_B64='...'   an entire HTML page, base64'd, inline
+  line 1014    1.35 MB   COMBAT_B64, same trick
+  everything else 0.90 MB - ALL the actual code in the game
+96% of the file was two blobs, and base64 costs 33% on top of what it carries, so ~9 MB
+was the ENCODING alone. THE CHEAPER PATTERN WAS ALREADY IN THE SAME FILE FOUR TIMES:
+RUN / SLICE / LIFE / MAP all load their page from a sibling with data-src.
+
+=== THE FIX AND WHAT IT MEASURED ===
+CITY_B64 -> slices/BOHEMIA_CITY_WORLD.html, loaded with fr.src.
+  alpha 38.7 MB -> 2.92 MB
+  first load over HTTP (same origin model as Pages): 12,561 ms -> 398 ms. TWENTY-NINE
+  TIMES FASTER, frame state byte-identical, zero console errors.
+  The world page is now fetched only when he opens the tab, like the other four already.
+GATES: FRONT DOOR 8/0, ALPHA LOADS 20/0, ONE WORLD TAB 120/0 (that is the gate that drives
+the real RUN surface and asserts it shows the world - the strongest signal available).
+run_gate could not run: it shells out to a tool that needs PIL, the same environment red
+that fails 25 other gates. Not this change.
+
+*** TWO THINGS THAT NEARLY COST THE WIN - EVERY LANE SHOULD KNOW BOTH ***
+1. file:// LIES ABOUT ORIGINS. Locally the split looked BROKEN - same-origin false, parent
+   could not read the frame. Chrome gives every file:// document its own opaque origin, so
+   an inlined srcdoc frame is same-origin and a sibling src frame is not. On Pages both are
+   https://paolosarn.github.io and the distinction does not exist. Served over a local HTTP
+   server the split is IDENTICAL to baseline. IF I HAD TRUSTED THE file:// RESULT I WOULD
+   HAVE THROWN AWAY A 29x WIN FOR A BUG THAT DOES NOT EXIST WHERE THE GAME RUNS.
+   If you are testing anything about iframes, origins, storage or fetch, SERVE IT OVER HTTP.
+2. A 37-MILLION-CHARACTER LINE DOES NOT END WHERE YOU THINK. That line does not stop at the
+   closing quote - the entire tab-click handler is tacked onto the same line. Replacing
+   "the line" deleted it and the app never opened. Edit the LITERAL, never the line.
+
+=== THE ALARM, SO IT CANNOT COME BACK ===
+gates/payload_wall_gate.py, registered as PAYLOAD WALL. Measures every tracked file,
+projects the date off real git history, fails at a 45 MB budget - under GitHub's 50 MB
+warning and well under the 100 MB wall - and names the offending lines.
+STILL WORTH A LOOK, reported not fixed: the four BOHEMIA_HD_TILE_REPO_part*.txt banks are
+42.7-43.5 MB EACH, just under budget and half way to the wall on their own.
+
+=== WHAT COMES AFTER ===
+1. COMBAT_B64 is still inlined at 1.35 MB - same one-line fix, now proven.
+2. The four HD tile banks.
+3. Nothing else in the repo is near the wall, measured, and the gate watches all of it now.
+
+<<<<<<< HEAD
+>>>>>>> b27652b (THE PROJECT WAS ~43 DAYS FROM NOT BEING ABLE TO SHIP AT ALL)
 COMBAT (combat-nfnki9): 8/3 (c) LATEST -- YOUR MISSED ROUND EXISTS NOW. Live on
 main as 17cd5a8, BUILD 8/3k, Pages build VERIFIED success 04:08.
 

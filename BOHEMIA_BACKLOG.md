@@ -4043,6 +4043,25 @@ P-F. (discovered 8/2 by the factions session, NOT FIXED, and deliberately not fi
    assert over the set.
    | next PEOPLE turn should take this | 8/2 | no - gate work, nothing to judge.
 
+0E. [SHIPPED 8/2 - FLEET-WIDE, NOT THIS LANE'S: THE PAYLOAD WALL]
+   records/BOHEMIA_THE_PAYLOAD_WALL_8_2_26.md. Paolo asked what we do not know we do
+   not know. The alpha was 38.7 MB gaining ~1.4-2.1 MB/day and GITHUB REJECTS ANY FILE
+   OVER 100 MB - about 43 DAYS until no lane could push the game at all, on a limit
+   nobody was watching. 96% of it was two inlined base64 blobs (CITY_B64 35.76 MB,
+   COMBAT_B64 1.35 MB) against 0.90 MB of actual code; base64 costs 33% so ~9 MB was
+   encoding alone. RUN/SLICE/LIFE/MAP already load their page from a sibling file.
+   FIXED: CITY_B64 -> slices/BOHEMIA_CITY_WORLD.html via fr.src. Alpha 38.7 -> 2.92 MB,
+   first load over HTTP 12,561ms -> 398ms (29x), frame state identical, zero errors.
+   TWO TRAPS EVERY LANE SHOULD KNOW: (1) file:// gives every document an opaque origin,
+   so the split looked BROKEN locally and is identical over HTTP - serve it before you
+   believe an iframe/origin/storage result; (2) that 37-million-char line does not end
+   at the closing quote, the tab handler is on it - edit the LITERAL, never the line.
+   | gate: PAYLOAD WALL, registered, fails at a 45 MB budget and projects the date off
+   real git history | FRONT DOOR 8/0, ALPHA LOADS 20/0, ONE WORLD TAB 120/0
+   | 8/2 | no - it is a defect fix, but he WILL feel it: the game opens instantly now.
+   NEXT: COMBAT_B64 (1.35 MB, same one-line fix, proven) then the four HD tile banks
+   at 42.7-43.5 MB each.
+
 0D. [SHIPPED 8/2 - GAP 2 IS BUILT: THE PEOPLE BELONG TO SOMEBODY]
    Paolo 8/2: "We need to make lots of progress." All 12 gaps were thumbed WANT and I
    had asked once more whether the 7/31 freeze was lifted. He has driven faction work
