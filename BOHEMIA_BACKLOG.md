@@ -4043,6 +4043,37 @@ P-F. (discovered 8/2 by the factions session, NOT FIXED, and deliberately not fi
    assert over the set.
    | next PEOPLE turn should take this | 8/2 | no - gate work, nothing to judge.
 
+0D. [SHIPPED 8/2 - GAP 2 IS BUILT: THE PEOPLE BELONG TO SOMEBODY]
+   Paolo 8/2: "We need to make lots of progress." All 12 gaps were thumbed WANT and I
+   had asked once more whether the 7/31 freeze was lifted. He has driven faction work
+   three turns running - THE ASKING WAS THE PROBLEM. Built.
+   1. factionOf(agent, cell, bases) in engine/bohemia_agents.js. 30% affiliated,
+      measured at 29.9% over 4,000 agents; most people belong to nobody, which is what
+      "every faction is a startup at a third of maturity" actually means.
+      NOTHING INVENTED: FACTION_ASSIGN is STILL EMPTY - which faction holds which
+      ground is his unmade ruling. factionOf reads the bases the CALLER supplies and
+      the loop already seats them on real worldMap coordinates. No bases = every agent
+      unaffiliated exactly as before, and that is a gate claim, not a promise.
+   2. All 13 colours + all 14 marks into engine/bohemia_dress.js from HIS MFACTIONS
+      table; the gate re-reads that table out of the alpha and fails on a one-hex
+      drift. FACTION_VETERAN_KIT still empty - his.
+   *** THREE BUGS FOUND BY COUNTING, ALL INVISIBLE OTHERWISE: *** one hash doing both
+   the join roll and the faction pick (63% to one faction of three); then the shared
+   hash() ending on a multiply so its low bits barely move (48/40/12) - fixed with a
+   local murmur3 finalizer, hash() ITSELF UNTOUCHED because every seeded thing in the
+   world derives from it; then the one that mattered - AGENT IDS REPEAT ON EVERY BLOCK,
+   so hashing the id alone made every H3-1 in the valley the same faction. Keyed to
+   agent.seed. Same class as 8/2's keyed-to-a-list-position bug, twice in one day, so
+   the gate now asserts no id is welded to one faction valley-wide.
+   AND A GATE CLAIM THAT WAS DEFENDING A GAP THAT WAS NEVER A GAP: dress_gate asserted
+   "exactly his SIX ruled factions". True on 7/21 when this file was the only place
+   anybody looked; the other seven were in the alpha all along. Now checks every entry
+   is HIS - six from the clothing sitting, seven from his table - which is stronger.
+   | gate: FACTION MEMBERSHIP, 50 claims, 5/5 probes, registered | 8/2 | no - plumbing.
+   NEXT VISIBLE STEP: nobody WEARS their colour on the surface he plays. bohemia_dress
+   is loaded by the LIFE slice, not the alpha's RUN. Wiring it in touches the RUN lane's
+   surface - coordinate, do not collide.
+
 0C. [FIXED 8/2 - HIS COLOURS ARE IN, MINE ARE OUT] "BRO WE ALREADY CHOSE COLORS FIND
    IT IN THE PROJECT." He was right. All 14 factions have carried an ACCENT COLOUR AND
    A MOTIF in the alpha's MFACTIONS table since the faction songs shipped. I proposed a

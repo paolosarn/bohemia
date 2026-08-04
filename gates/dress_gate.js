@@ -206,8 +206,24 @@ ok('bucket 4 (blue-purple) stays EMPTY -- PURPLE RESERVATION holds even for a "r
 // ===== THE SIX REAL RULINGS (Paolo 7/21, exact asks) =====
 {
   const L = D.FACTION_LOOK;
-  ok('FACTION_LOOK carries exactly his six ruled factions (nothing guessed beyond them)',
-    Object.keys(L).sort().join(',') === ['CARAVANS', 'CARTEL', 'CHURCH', 'COLORFUL', 'MOB', 'REDS'].sort().join(','));
+  /* AMENDED 8/2/26, and the amendment is the point. This claim used to read "exactly his
+     SIX ruled factions (nothing guessed beyond them)" and it was right on 7/21, when this
+     file was the only place anybody had looked. Paolo 8/2: "BRO WE ALREADY CHOSE COLORS
+     FIND IT IN THE PROJECT." The other seven had been sitting in the alpha's MFACTIONS
+     table since the faction songs shipped - his, judged, live. The old claim was
+     defending a gap that was never a gap.
+     A GATE MUST NEVER OUTRANK A RULING (Paolo 8/1), so the claim now checks what it was
+     always REALLY for: that every entry here is HIS. Six from his 7/21 clothing sitting,
+     seven from his own faction table, and NOTHING ELSE - which is a stronger guarantee
+     than the count ever was. gates/faction_membership_gate.js re-reads MFACTIONS out of
+     the alpha and matches those seven hex by hex, so "his" is measured, not claimed. */
+  const HIS_7_21 = ['CARAVANS', 'CARTEL', 'CHURCH', 'COLORFUL', 'MOB', 'REDS'];
+  const HIS_TABLE = ['ANARCHISTS', 'BLUES', 'HOMELESS', 'NETWORK', 'REMNANTS', 'TRADES', 'VOLUNTEERS'];
+  ok('FACTION_LOOK carries ONLY colours that are his -- the six he ruled on 7/21 plus the '
+    + 'seven from his own MFACTIONS table, and nothing invented beside them',
+    Object.keys(L).sort().join(',') === HIS_7_21.concat(HIS_TABLE).sort().join(','));
+  ok('and every faction on the selection screen now has one (13, none left out)',
+    Object.keys(L).length === 13);
   ok('REDS is family mode', L.REDS.mode === 'family');
   ok('CARTEL is family mode', L.CARTEL.mode === 'family');
   ok('CHURCH is family mode', L.CHURCH.mode === 'family');

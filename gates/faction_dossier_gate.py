@@ -641,8 +641,18 @@ def main():
             sum(1 for v in verdicts.values() if v == 'DOWN'),
             sum(1 for v in verdicts.values() if v not in ('UP', 'DOWN')),
             ', '.join(sorted(vcomments)) or 'nothing'))
-    chk(len(ruled) == 6,
-        'expected the 6 faction looks Paolo ruled on 7/21 in the live module, found %d' % len(ruled))
+    # AMENDED 8/2: FACTION_LOOK held exactly his six on 7/21 and holds all thirteen now,
+    # because the other seven turned out to be his too - they were in the alpha's faction
+    # table the whole time. So the six are named explicitly rather than counted, and
+    # everything else in there is a colour HE chose in that other table.
+    RULED_7_21 = {'REDS', 'CARTEL', 'CHURCH', 'MOB', 'CARAVANS', 'COLORFUL'}
+    chk(RULED_7_21 <= set(ruled),
+        'his six 7/21 clothing rulings are not all in the live module: missing %s'
+        % sorted(RULED_7_21 - set(ruled)))
+    chk(len(ruled) == 13,
+        'FACTION_LOOK should now carry all 13 map factions (his 6 plus the 7 from his own '
+        'faction table); found %d' % len(ruled))
+    ruled = {k: v for k, v in ruled.items() if k in RULED_7_21}
     bank = read_bank()
     chk(len(bank) > 200, 'the wardrobe bank looks truncated (%d rows)' % len(bank))
 

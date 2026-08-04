@@ -147,13 +147,40 @@
   //   COLORFUL rainbow mode -- see rainbowOutfit. Needed 5 new spectrum
   //            colorways cooked first: the whole 187-item wardrobe carried
   //            ZERO real blue/green/purple/yellow before this turn.
+  // THE OTHER SEVEN, 8/2/26. They were never unruled - Paolo 8/2: "BRO WE ALREADY
+  // CHOSE COLORS FIND IT IN THE PROJECT." Every faction has carried an accent colour
+  // AND a motif in the alpha's MFACTIONS table since the faction songs shipped. The
+  // 7/21 pass called them "unruled" because it looked at THIS file and nowhere else.
+  // These seven hexes are copied from that table, byte for byte, and
+  // gates/faction_dossier_gate.py re-reads MFACTIONS out of the alpha every run and
+  // fails if a single one drifts - so nobody has to trust that I typed them right.
+  // The six above are his SEPARATE 7/21 clothing rulings and they stand as they are;
+  // where the two differ they agree on colour FAMILY every time, and CARAVANS is
+  // byte-identical in both, which is why the two tables are safe to hold at once.
   var FACTION_LOOK={
     REDS:{mode:'family',color:'#dc2820'},
     CARTEL:{mode:'family',color:'#5c302a'},
     CHURCH:{mode:'family',color:'#ffd75c'},
     MOB:{mode:'stripe',color:'#b08a2a'},
     CARAVANS:{mode:'family',color:'#caa05a'},
-    COLORFUL:{mode:'rainbow'}
+    COLORFUL:{mode:'rainbow'},
+    BLUES:{mode:'family',color:'#2e6fae'},
+    ANARCHISTS:{mode:'family',color:'#c026a0'},
+    NETWORK:{mode:'family',color:'#1fbf9c'},
+    TRADES:{mode:'family',color:'#d07a2a'},
+    VOLUNTEERS:{mode:'family',color:'#5aae6a'},
+    REMNANTS:{mode:'family',color:'#9aa23a'},
+    HOMELESS:{mode:'family',color:'#b8642a'}
+  };
+
+  // THE MARK. His too, same table, same turn - every faction has a MOTIF and none of
+  // them has ever been drawn. Kept here beside the colour so the two halves of a
+  // faction's look live together; nothing renders it yet.
+  var FACTION_MOTIF={
+    REDS:'stripe', BLUES:'grid', ANARCHISTS:'shard', COLORFUL:'confetti',
+    CHURCH:'aisle', NETWORK:'circuit', TRADES:'plate', CARAVANS:'dust',
+    VOLUNTEERS:'cross', REMNANTS:'stencil', CARTEL:'hazard', MOB:'check',
+    HOMELESS:'cracked', CUSTOM:'plain'
   };
 
   function hexHSL(hex){
@@ -349,7 +376,7 @@
   }
 
   var API={parse:parse,byLayer:byLayer,outfitFor:outfitFor,dressAll:dressAll,
-    FACTION_DRESS:FACTION_DRESS,EXTRA:EXTRA,REQUIRED:REQUIRED,
+    FACTION_DRESS:FACTION_DRESS,EXTRA:EXTRA,REQUIRED:REQUIRED,FACTION_MOTIF:FACTION_MOTIF,
     FACTION_COLOR:FACTION_COLOR,FACTION_VETERAN_KIT:FACTION_VETERAN_KIT,
     FACTION_LOOK:FACTION_LOOK,
     BODY_W:BODY_W,colorDist:colorDist,matchesFamily:matchesFamily,

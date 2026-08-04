@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 COMBAT (combat-nfnki9): 8/3 (c) LATEST -- YOUR MISSED ROUND EXISTS NOW. Live on
 main as 17cd5a8, BUILD 8/3k, Pages build VERIFIED success 04:08.
 
@@ -160,6 +161,60 @@ them visible. Same class as his 7/27 "so many sidewalk cement things spread arou
 4. Art cell 44 -> 88 px. Would fix (3) outright.
 
 --- EARLIER TODAY ---
+=======
+PEOPLE (factions): 8/2 (j) LATEST — THE 268 PEOPLE STOPPED BEING WALLPAPER. Gap 2, the
+biggest finding in the research, is built.
+
+Paolo 8/2: "We need to make lots of progress." He had thumbed all 12 gaps WANT and I had
+asked him one more time whether the 7/31 faction freeze was lifted. He has now driven
+faction work three turns running - THE ASKING WAS THE PROBLEM. Built instead.
+
+=== WHAT SHIPPED ===
+1. EVERY PERSON HAS AN ALLEGIANCE, and most people have none. engine/bohemia_agents.js
+   factionOf(agent, cell, bases). 30% affiliated, measured at 29.9% over 4,000 agents.
+   NOTHING INVENTED: FACTION_ASSIGN (which faction holds which ground) is STILL EMPTY
+   because that is his ruling and he has not made it. factionOf reads the bases the
+   CALLER supplies, and the loop already seats every faction on real worldMap
+   coordinates via bootFactions. Called with no bases every agent is unaffiliated
+   exactly as before - that is the zero-regression proof and it is a gate claim.
+2. ALL 13 COLOURS AND ALL 14 MARKS ARE IN engine/bohemia_dress.js, copied from HIS
+   MFACTIONS table, and the gate re-reads that table out of the alpha every run and
+   fails on a one-hex drift. FACTION_VETERAN_KIT still ships empty; that is his.
+
+=== TWO REAL BUGS FOUND BY COUNTING, BOTH INVISIBLE OTHERWISE ===
+1. ONE HASH DOING TWO JOBS. The do-they-belong roll and the which-faction pick came off
+   the same hash, so the agents who passed the first test were a biased slice of the
+   second: ONE FACTION TOOK 63% OF A THREE-WAY SPLIT. Split the draws.
+2. THEN 48/40/12, because the shared hash() ENDS ON A MULTIPLY and a multiply only
+   propagates bits LEFT - its low bits barely move, so `% 3` off them is lumpy. Added a
+   murmur3 finalizer locally. hash() ITSELF WAS NOT TOUCHED: every seeded thing in this
+   world derives from it and improving it would reshuffle the entire valley.
+3. AND THE ONE THAT MATTERED MOST: agent ids are 'H3-1', 'H8-2' and THEY REPEAT ON EVERY
+   BLOCK. Hashing the id alone made every H3-1 in the valley the same faction and
+   collapsed the whole population onto a dozen draws. Keyed to agent.seed instead, which
+   is unique per (block, house, seat). SAME CLASS OF BUG AS 8/2's "a person is keyed to
+   where they live, never to their place in a list" - twice in one day, so the gate now
+   asserts no agent id is welded to one faction valley-wide.
+LESSON: an even split is not something you can eyeball. Count it or you are guessing.
+
+=== A GATE CLAIM THAT WAS DEFENDING A GAP THAT WAS NEVER A GAP ===
+dress_gate asserted "FACTION_LOOK carries exactly his SIX ruled factions (nothing guessed
+beyond them)". Right on 7/21, when this file was the only place anybody had looked. The
+other seven were in the alpha the whole time. A GATE MUST NEVER OUTRANK A RULING - it now
+checks what it was always really for: every entry is HIS, six from the 7/21 clothing
+sitting plus seven from his own faction table, nothing else. Stronger than the count was.
+
+=== GATES ===
+FACTION MEMBERSHIP (new, registered, 50 claims, 5/5 self-test probes) · dress 43/1 (the 1
+is the pre-existing 0-agents red, P-F) · people 152/0 · run people 45/0 · mass edit 30/0 ·
+faction dossiers 761/0.
+
+=== WHAT IS STILL NOT DONE ===
+Nobody WEARS their faction colour on the surface he plays yet - bohemia_dress is loaded by
+the LIFE slice, not by the alpha's RUN. Wiring it into the run touches the RUN lane's
+surface, so it is a coordination job, not a solo one. THAT IS THE NEXT VISIBLE STEP and it
+is what turns all of this from true into SEEN.
+>>>>>>> 105a6b5 (THE 268 PEOPLE STOPPED BEING WALLPAPER)
 
 LAB (lab-e2r7sv): 8/3 (e) LATEST -- THE PROGRESSION SPINE. HE ASKED HOW THE WHOLE STACK
 FITS AND THE ANSWER WAS ALREADY IN HIS OWN LAWS. *** ONE RULING BLOCKS EVERYTHING. ***
