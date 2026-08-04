@@ -1,3 +1,19 @@
+#!/usr/bin/env python3
+"""
+THE WALL GOES TO GLASS, THE DOOR DOES NOT (8/3/26).
+
+Paolo ruled the building transparency exists "to reflect characters items or the player
+or DOORS". v1 faded the door along with its wall, which defeats the whole point: you
+would see through the building and still not see the way in.
+
+This resets the door plate to full alpha inside a building that is rendering
+transparent, so the wall is glass at XRAY_A and the door stands solid in it.
+
+REUSE CHECK: cooks no graphic pixels and opens no bank, because it draws nothing new --
+it changes ONE alpha value on the door plate the facade already draws.
+
+Idempotent: re-running finds the marker and reports NOOP.
+"""
 import base64,re,sys
 ALPHA='slices/BOHEMIA_ALPHA_0_9.html'; MARKER='__XRAY_DOOR_STAYS__'
 ANCHOR="""        const dr=facadeDoor(v,C);

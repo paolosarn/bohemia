@@ -74,12 +74,29 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
         const grab = () => ctx.getImageData(bx, by, bw, bh).data.slice();
         window.__XRAY_WALLS = 0;
         render(); const on = grab(); out.near = window.__XRAY_WALLS || 0;
-        /* far test: same frame, a wall 8 cells away must not have faded */
-        const savedR = XRAY_R;
-        /* switch the halo off by moving him far, then diff the same band */
-        hx = d[0] + 20; hy = d[1] + 20;
-        window.__XRAY_WALLS = 0;
-        render(); out.far = window.__XRAY_WALLS || 0;
+        /* BOUNDED, proved properly. The first cut moved him 20 cells and expected
+           fewer fades -- but the rule is WHOLE BUILDING, so 20 cells away he simply
+           stands at ANOTHER building and the same count fades there. That tested
+           nothing. The real claim is: stand where there is NO building and nothing
+           fades at all. */
+        let open = null;
+        for (let r = 6; r < 40 && !open; r++)
+          for (let a2 = 0; a2 < 8 && !open; a2++) {
+            const px = d[0] + Math.round(r * Math.cos(a2 * Math.PI / 4));
+            const py = d[1] + Math.round(r * Math.sin(a2 * Math.PI / 4));
+            const c2 = cellAt(px, py);
+            if (!c2 || !c2.walk) continue;
+            let clear = true;
+            for (let oy2 = -3; oy2 <= 3 && clear; oy2++) for (let ox2 = -3; ox2 <= 3; ox2++) {
+              const n = cellAt(px + ox2, py + oy2);
+              if (n && !n.walk && n.enter) { clear = false; break; }
+            }
+            if (clear) open = [px, py];
+          }
+        out.openSpot = open;
+        if (open) { hx = open[0]; hy = open[1]; window.__XRAY_WALLS = 0;
+                    render(); out.far = window.__XRAY_WALLS || 0; }
+        else out.far = -1;
         hx = d[0]; hy = d[1] + 1;
         render();
         /* pixel proof: render again with the radius neutralised */
@@ -96,8 +113,8 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
       ok('the halo radius is in the build and is sane', r.hasR);
       ok('standing at a door in the district he spawns in (' + r.district
          + '), walls go SEE-THROUGH (' + r.near + ')', r.near > 0);
-      ok('it is a HALO, not everything: 20 cells away nothing near him fades ('
-         + r.far + ' vs ' + r.near + ')', r.far < r.near);
+      ok('BOUNDED: standing in the open with no building near him, nothing fades ('
+         + r.far + ', at ' + JSON.stringify(r.openSpot) + ')', r.far === 0);
       ok('and the same state renders identically twice (no shimmer, ' + r.stable + ' px)',
          r.stable === 0);
     }
