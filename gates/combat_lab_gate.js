@@ -3568,6 +3568,41 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes("G._fx.push({type:'dust',spark:1"));
 }
 
+/* ===== V126 THE MISS GETS ITS BEAT ==================================== */
+{
+  ok('V126 THE CAMERA USED TO CUT AWAY ON THE EXACT FRAME THE ROUND LANDED. Paolo: "I didn\'t notice them either make it more noticeable or you didn\'t deploy it" -- it WAS deployed. The miss branch fired endTurnReturn at 170ms and v125 gave the round a life of exactly 170ms, and endTurnReturn takes the CAMERA to whoever is shooting back. Half a second of dust and sparks played while the camera was somewhere else. I built a collision and then asked him if he noticed it',
+    demo.includes('V126 THE MISS GETS ITS BEAT') &&
+    demo.includes('const MISS_BEAT_MS=BPM_MS;') &&
+    demo.includes('setTimeout(()=>{ if(!G.over) endTurnReturn(); },MISS_BEAT_MS);') &&
+    !/setRead\('MISS','turn ends','#e8593a'\);[\s\S]{0,300}endTurnReturn\(\); \},170\)/.test(demo));
+
+  ok('V126 THE FIX IS TIME, NOT SIZE, AND IT IS ON THE GRID: one whole beat (BPM_MS, the 120 BPM law) so the round flies, the impact reads, THEN they answer. The round itself flies faster so it lands well inside that beat',
+    demo.includes('const MISS_FLY_MS=120;') &&
+    /MISS_BEAT_MS=BPM_MS/.test(demo));
+
+  ok('V126 A HIT IS UNTOUCHED: only the MISS -- the moment that had nothing -- gets the held beat. A clean hit still resolves at 170ms exactly as it always did, so the trade the fight is built on does not move',
+    /setRead\('HIT', dmg\+' to '\+tgt\.n\+' . clean, turn ends','#8fd0e8'\);/.test(demo) &&
+    /endTurnClean\(\); \},170\)/.test(demo));
+
+  ok('V126 THE TRACER CARRIES A HEAD, which is the thing an eye actually tracks. 1.6px at 0.55 alpha for 170ms was a whisper: the incoming crack gets away with 1.4px because there are EIGHT of them across your body, and ONE line at mid-field is smaller than anything else the fight draws',
+    demo.includes('x.lineWidth=6.5;') &&
+    demo.includes('x.lineWidth=3.4;') &&
+    /\/\* THE HEAD \*\/[\s\S]{0,90}x\.arc\(bx,by,3\.1,0,7\); x\.fill\(\);/.test(demo));
+
+  ok('V126 AND THE IMPACT HAS A FRAME THAT SAYS *HERE*: particles alone have no single moment, they are already spreading by the time the eye arrives. One bright ring at contact gives the eye something to land on, and everything after it is aftermath instead of event',
+    demo.includes("G._fx.push({type:'missflash',x:ex,y:ey,surf:p.surf,t:0,life:0.22});") &&
+    /if\(p\.type!=='missflash'\|\|p\.t<0\)continue;/.test(demo));
+
+  ok('V126 AND ROUGHLY DOUBLE THE DEBRIS, living longer so it is still settling when the volley starts',
+    /for\(let k=0;k<11;k\+\+\)G\._fx\.push\(\{type:'dust',spark:1/.test(demo) &&
+    /for\(let k=0;k<10;k\+\+\)G\._fx\.push\(\{type:'dust'/.test(demo) &&
+    /for\(let k=0;k<12;k\+\+\)G\._fx\.push\(\{type:'dust'/.test(demo));
+
+  ok('V126 STILL NO DAMAGE AND NO ACCURACY CHANGE: the held beat delays the return volley, it does not remove it, and missImpact/missflash touch no hp',
+    demo.includes('function endTurnReturn(engaged){') &&
+    !/function missImpact[\s\S]{0,1100}(applyDamage|\.hp\s*-=)/.test(demo));
+}
+
 /* ===== YOU ALWAYS SHOOT FIRST (Paolo 8/3/26, LOCKED) ==================
    laws/BOHEMIA_ADDENDUM_YOU_ALWAYS_SHOOT_FIRST_8_3_26.md. I surfaced the
    opening turn as an open question because it looked like a standing advantage
