@@ -44,7 +44,7 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
     let f = null;
     for (let i = 0; i < 20; i++) {
       await page.waitForTimeout(3000);
-      f = page.frames().find(fr => /srcdoc/.test(fr.url()) && fr !== page.mainFrame());
+      f = page.frames().find(fr => (/srcdoc|CITY_WORLD|CITY_CURRENT/.test(fr.url())) && fr !== page.mainFrame());
       if (!f) continue;
       const up = await f.evaluate(() => typeof fit === 'function' &&
         document.getElementById('cv').width > 300).catch(() => false);

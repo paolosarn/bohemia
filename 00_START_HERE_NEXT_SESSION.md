@@ -408,6 +408,40 @@ reference is a record of the real building, the LAYOUT note is what describes wh
 3. downtown_arts / downtown_civic / downtown_lot, from the 8/1 downtown research.
 4. [PENDING Paolo] the drive-thru wedding chapel as its own cell type -- proposed, not built.
 
+RUN (run-eak241): 8/4 -- THE CITY LEFT THE ALPHA, AND 15 GATES WERE LOOKING IN THE OLD
+PLACE. READ THIS BEFORE YOU TOUCH ANY CITY CODE OR ANY BROWSER GATE.
+
+WHAT HAPPENED (another lane, 3ef222f, and it was RIGHT): the alpha was 38.7 MB gaining
+~1.4-2.1 MB/day and about 43 days from GitHub's hard 100 MB push limit, at which point NO
+LANE could push the game at all. They split the renderer out. Consequences nobody had
+swept for:
+  1. slices/BOHEMIA_ALPHA_0_9.html is 3 MB now. THERE IS NO CITY_B64 BLOB IN IT.
+  2. The city renderer is slices/BOHEMIA_CITY_WORLD.html, PLAIN TEXT, not base64.
+  3. The alpha loads it as an IFRAME WITH A SRC, so the frame URL is no longer
+     "srcdoc" -- and EVERY browser gate found its frame with /srcdoc/.test(fr.url()).
+     15 gates were silently unable to find the world at all.
+  4. Every city PATCH TOOL that edits CITY_B64 is now a no-op by definition.
+
+FIXED THIS TURN:
+  - all gates/*.js frame detection -> /srcdoc|CITY_WORLD|CITY_CURRENT/
+  - cityBlob() in 4 gates falls back to reading slices/BOHEMIA_CITY_WORLD.html directly
+  - the 8/3 TRANSPARENCY was made after the split and was lost with the old blob;
+    re-applied into BOHEMIA_CITY_WORLD.html by hand (whole building at XRAY_A=0.12,
+    door stays solid). SEE THROUGH 5/0.
+  GREEN AGAIN AFTER THE MIGRATION: SEE THROUGH 5/0, E/W DOOR 7/0, EVERY DOOR 5/0,
+  STEP INSIDE 8/0, DOOR JAMB 15/0, DOOR SWING 10/0, RUN SPAWN 13/0, SUN SHADOW 7/0,
+  ZOOM SEAM 7/0, INTERIOR WALL 5/0, KIT BINDING 12/0.
+
+STILL RED AND THEY ARE THE SAME MIGRATION, NOT NEW BUGS -- FIX THESE FIRST:
+  - TRAFFIC SIGNAL 6/5  and  FULL RES 8/1. Both read the city's BYTES and have not been
+    pointed at the new file. Give them the same cityBlob() fallback.
+  - EVERY tools/bohemia_city_*_patch.py still targets CITY_B64 and will report
+    "FAIL: CITY_B64 not found". They must edit slices/BOHEMIA_CITY_WORLD.html as plain
+    text. That is a mechanical change and it is the next job.
+
+THE LESSON, and it is the same one three times today: a gate that cannot find the thing
+it measures does not fail loudly, it passes vacuously or dies on a frame it never got.
+When the container moves, sweep the gates the same turn.
 
 LAB (lab-e2r7sv): 8/4 (b) LATEST -- *** HE KILLED THE MATERIAL FRAMING AND HE WAS RIGHT.
 IT WAS MY FACTUAL ERROR, NOT HIS TASTE. *** The ladder is 16 TOOLS now.

@@ -23,6 +23,23 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
    base64-ing it, and this gate reported HIS OWN ART missing from the shipped game
    when it had never left. One resolver knows: gates/bohemia_city_app.js. */
 function cityBlob(_a){ const x = require('./bohemia_city_app.js').read(); return x ? x.src : ''; }
+function cityBlob(a){
+  /* THE CITY LEFT THE ALPHA (8/4): another lane split the renderer out to
+     slices/BOHEMIA_CITY_WORLD.html because the alpha was 38.7 MB and ~43 days from
+     GitHub's hard 100 MB push limit. It is PLAIN TEXT there, not base64. Read the file
+     if the old inline blob is gone, so this gate follows the code instead of the
+     container it used to live in. */
+  const fs2=require('fs'), p2=require('path');
+  const f2=p2.join(__dirname,'..','slices/BOHEMIA_CITY_WORLD.html');
+  for (let ci = a.indexOf('CITY_B64'); ci >= 0; ci = a.indexOf('CITY_B64', ci + 1)) {
+    const t = a.slice(ci + 8, ci + 20), eq = t.indexOf('='); if (eq < 0) continue;
+    const qi = t.slice(eq).search(/['"`]/); if (qi < 0) continue;
+    const st = ci + 8 + eq + qi + 1, en = a.indexOf(a[st - 1], st);
+    if (en - st < 100000) continue;
+    return Buffer.from(a.slice(st, en), 'base64').toString('utf8');
+  }
+  try { return fs2.readFileSync(f2,'utf8'); } catch(e) { return ''; }
+}
 
 (async () => {
   const bank = JSON.parse(fs.readFileSync(BANK, 'utf8'));
@@ -66,6 +83,7 @@ function cityBlob(_a){ const x = require('./bohemia_city_app.js').read(); return
          srcdoc frame until the payload-wall pass; it is a sibling src frame now.
          One predicate knows: gates/bohemia_city_app.js. */
       f = page.frames().find(fr => require('./bohemia_city_app.js').isFrame(fr, page));
+      f = page.frames().find(fr => (/srcdoc|CITY_WORLD|CITY_CURRENT/.test(fr.url())) && fr !== page.mainFrame());
       if (!f) continue;
       const up = await f.evaluate(() => typeof fit === 'function' &&
         document.getElementById('cv').width > 300).catch(() => false);
