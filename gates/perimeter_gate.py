@@ -340,8 +340,18 @@ def main():
     ck('the run draws the gate mouth', 'drawGateMouth(' in src)
     ck('code 5 no longer falls through to plain ground',
        "c===5" in src and "drawGateMouth(X,Y,S,gx,gy2)" in src)
+    # ORDER, NOT SPELLING (8/4). This used to match the bare draw calls by literal,
+    # and the 8/4 LOOK grade wrapped every world draw site in look(...) -- so a gate
+    # that was really about ORDER blew up on a ValueError over a substring. The thing
+    # it protects has not changed: the wall goes down first and the hole is punched
+    # through it second. Ask for the two draws by their SUBJECT and compare positions,
+    # so the next thing that wraps a draw call cannot break this either.
+    i_wall = re.search(r'ctx\.drawImage\((?:look\()?wall\)?,X,Y,S,S\)', src)
+    i_hole = re.search(r'if\(im\) ctx\.drawImage\((?:look\()?im\)?,X,Y,S,S\)', src)
+    ck('the wall is drawn at all', i_wall is not None)
+    ck('the hole is punched at all', i_hole is not None)
     ck('the wall goes down BEFORE the hole is punched',
-       src.index('ctx.drawImage(wall,X,Y,S,S)') < src.index('if(im) ctx.drawImage(im,X,Y,S,S)'))
+       bool(i_wall) and bool(i_hole) and i_wall.start() < i_hole.start())
     ck('one coping per wall, not one per cell',
        'if(isPerim(gx,gy-1)) return ready(bases[perimVar(gx,gy,bases.length)])' in src)
     ck('pillars are spaced along the run', "(((run%4)+4)%4)===0" in src)
