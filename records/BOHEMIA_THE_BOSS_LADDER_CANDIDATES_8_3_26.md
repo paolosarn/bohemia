@@ -36,6 +36,42 @@ reject it:
 
 ---
 
+## ALL EIGHTEEN, NUMERICALLY (added 8/4 on his ask)
+
+He asked for one cohesive numbered list, so here it is in one place, **re-sorted into act
+order for reading.** Every entry: **who they are · what they hold · what beating them lets
+you do anywhere.**
+
+| # | THE BOSS | HOLDS | YOU CAN THEN | ACT |
+|---|---|---|---|---|
+| 1 | **THE TAP** | a live water main | draw water anywhere there is pipe | 1 |
+| 2 | **THE BURN** | fuel, and who gets warm | make fire anywhere, heat a building | 1 |
+| 3 | **THE TOLL** | a chokepoint | permanently clear a blocked road | 1 |
+| 4 | **THE STRIPPER** | what may be taken apart | strip any building for materials | 1 |
+| 5 | **THE WRECKER** | demolition | take a building down | 1 |
+| 6 | **THE LIGHTS** | a lit block | switch on any street in the valley | 2 |
+| 7 | **THE WARD** | the last working clinic | treat wounds anywhere | 2 |
+| 8 | **THE VOICE** | the one transmitter | broadcast to the whole valley | 2 |
+| 9 | **THE DRAIN** | where the waste goes | make a district habitable | 2 |
+| 10 | **THE BOOK** | who owes whom | call in a debt anywhere | 2 |
+| 11 | **THE FOREMAN** | the working hands | put a crew to work without you | 2 |
+| 12 | **THE OPERATOR** | the heavy machines | run the heavy stuff (costs fuel forever) | 2 |
+| 13 | **THE FIXER** | where the one working part is | repair instead of replace | 2 |
+| 14 | **THE JUDGE** | what counts as a crime | pardon or condemn anyone | 3 |
+| 15 | **THE SCHOOL** | who gets taught | teach a skill to somebody else | 3 |
+| 16 | **THE SOIL** | the last living ground | make things grow again | 3 |
+| 17 | **THE GRID** | the whole network | move power between districts | 3 |
+| 18 | **THE BROKER** | the only line all factions still use | get two enemies into one room | 3 |
+
+**FIVE IN ACT 1, EIGHT IN ACT 2, FIVE IN ACT 3.** Act 2 carries the most because it has the
+biggest rebuild delta to cover (~15% up to ~33-40% under
+`laws/BOHEMIA_ADDENDUM_THE_VALHEIM_SHAPE_8_4_26.md` §3) and it is the act where work starts
+happening without you standing there.
+
+**THIS TABLE RE-SORTS; THE SECTIONS BELOW DO NOT.** The numbering further down is v1's own,
+untouched, because those thirteen are the ones he approved and they do not get renumbered to
+suit a table. If the two ever disagree, **the sections below are the record.**
+
 ## FIRST: WHAT A "BIOME" MEANS HERE, BECAUSE IT IS NOT GEOGRAPHY
 
 In Valheim a biome is **a climate you cannot survive yet**. Frost kills you until you have

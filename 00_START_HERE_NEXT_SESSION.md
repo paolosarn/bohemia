@@ -1,4 +1,92 @@
-<<<<<<< HEAD
+LAB (lab-e2r7sv): 8/4 (d) LATEST -- ALL 18 BOSSES IN ONE NUMBERED TABLE, AND THE ANSWER ON
+WHERE THESE DESIGN CHATS BELONG.
+
+records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md now opens with a single at-a-glance
+table: # | THE BOSS | WHAT THEY HOLD | WHAT YOU CAN THEN DO ANYWHERE | ACT. He asked for one
+cohesive numbered list and had to read them out of three sections, which was on me.
+FIVE IN ACT 1, EIGHT IN ACT 2, FIVE IN ACT 3 -- act 2 carries the most because it has the
+biggest rebuild delta (~15% to ~33-40%, THE VALHEIM SHAPE §3) and it is the act where work
+starts happening without him standing there.
+IMPORTANT FOR ANY SESSION EDITING THAT FILE: the table RE-SORTS into act order, the sections
+below keep v1's ORIGINAL numbering untouched, and if the two ever disagree THE SECTIONS ARE
+THE RECORD. v1's thirteen are byte-identical to commit 7da7c89 and rulings_gate G3 asserts
+it -- do not renumber them to suit a table.
+
+=== HE ASKED: THIS CHAT WITH LAB OR WITH THE COORDINATOR? ANSWER: LAB. ===
+Checked laws/BOHEMIA_SESSION_BRIEF_COORDINATOR_7_24_26.md rather than guessing. Verbatim:
+the coordinator "never write[s] game code, never make[s] a design call, never push[es] to
+main." So a chat that produces rulings, records and laws CANNOT happen there -- it would have
+nowhere to land. Design belongs in a lane, and reference/progression design is LAB's charter.
+WHAT THE COORDINATOR IS ACTUALLY FOR, and he should use it: seeing ACROSS lanes. Twice today
+that would have saved real work -- the Machine Party research got done TWICE by two sessions
+the same day, and the act percentages got LOCKED by another lane while this lane was
+mid-design on the same numbers. Neither session could see the other. That is exactly the
+collision the coordinator exists to catch.
+THE PRACTICAL RULE WORTH KEEPING: tell ONE session a design ruling and let it propagate
+through git. Telling both is how the same thing gets built twice.
+
+=== THE HANDOFF HAD MARKERS ON MAIN AGAIN (third time today, third different lane) ===
+d1a67aa shipped live conflict markers into this file. Cleaned, both sides kept, 19 lane
+sections intact. gates/nomarkers_gate.js caught it instantly -- that gate has now caught
+FOUR separate marker incidents on the day it was written, including one of mine. Every
+session: RUN IT BEFORE YOU COMMIT, not after.
+
+=== NOT DONE / THE QUEUE ===
+1. HIS THUMBS ON THE 18. Which live, which die, order, count. Not proposing another shape.
+2. THE WITNESS + STORY-SPREAD PLUMBING -- approved work; boss 8 THE VOICE is its payoff.
+   NOTE: the PEOPLE lane just shipped "REPUTATION HAS TO TRAVEL" (d1a67aa) which overlaps
+   this. COORDINATION NEEDED before this lane builds any of it.
+3. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
+4. Did not touch #buildstamp: one record, one handoff repair.
+
+PEOPLE (factions): 8/2 (l) LATEST — GAP 3 IS BUILT, AND IT TOOK GAPS 4, 7 AND 10 WITH IT.
+Record: records/BOHEMIA_REPUTATION_TRAVELS_8_2_26.md   engine/bohemia_standing.js
+
+Gap 3 was the documented failure of the whole genre: every NPC instantly knowing what you
+did with no route the news could take. WE ALREADY HAD THE HARD HALF - bohemia_memory is a
+real witness organ with decay. It had no concept of a DEED, an OPINION, or one person
+TELLING ANOTHER. That is all the new module adds.
+
+  1. A DEED IS WITNESSED, NEVER ANNOUNCED   measured 2 of 3; the far one learned nothing
+  2. AN OPINION IS DERIVED, NEVER STORED    nothing to save, migrate or desync
+  3. HEARSAY IS WEAKER AND RUNS OUT         watched 3.96 vs heard 2.18; a rumour down a
+                                            line of TWELVE people reached THREE
+  4. A FACTION'S VIEW IS ITS MEMBERS' VIEWS no ledger, no faction named in the module
+
+*** THREE MORE GAPS FELL OUT OF ONE MECHANISM, NOBODY HAD TO BUILD THEM: ***
+  GAP 4 (no way back) - opinions decay, so one bad deed goes 4.00 -> 1.00 -> 0.06 -> 0.00
+    over a week. Time softens it, being seen doing better is the fast way, and ONE NIGHT IS
+    NOT FORGIVENESS (gated both directions).
+  GAP 7 (nothing costs anything) - same deed: ALPHA who watched goes HOSTILE -4.00, BETA
+    who was elsewhere stays NEUTRAL 0.00. Nobody authored a table of who hates whom.
+  GAP 10 (cannot see where you stand) - becauseOf() returns the actual remembered deeds,
+    who holds them, and whether they WATCHED it or only HEARD it.
+AND "no view" is distinguishable from "neutral view" (whoSaw), which most systems botch.
+
+DEED_WEIGHT SHIPS EMPTY. What counts as a deed and what it is worth is HIS and unmade;
+with it empty every opinion is 0 and every faction is NEUTRAL, and the gate proves the
+module is INERT rather than trusting the header. THIS IS NOT THE STANDING LEDGER BUILD THE
+WORLD TURNED OFF - nothing is stored anywhere and the gate reads the source to prove it.
+
+=== A LESSON ABOUT GATES, WORTH MORE THAN THE FEATURE ===
+The first version of this gate's self-test was DECORATIVE AND SAID SO: six probes that
+re-ran the working module and asked whether it misbehaved. Of course it did not. It
+reported 0/6 CAUGHT and could never have caught anything. Rewritten so each probe feeds a
+CLAIM'S OWN PREDICATE the values a broken implementation would produce, and passes only if
+the claim REJECTS them. Now 8/8. IF YOU WRITE A SELF-TEST, TEST THE CHECKER, NOT THE THING.
+
+GATES: STANDING 23/0 (registered) · FACTION MEMBERSHIP 50/0 · PEOPLE 152/0 · FRONT DOOR 8/0
+· PAYLOAD WALL 4/0 · BUILD THE WORLD 10/0 · ENGINE SYNC clean (17 modules).
+MEMORY 7/2 is the pre-existing 0-agents red (P-F), same on clean main.
+
+=== WHAT COMES AFTER ===
+1. NOTHING CALLS witness() YET. The organ is built and inert; the run has to report deeds
+   into it, and that needs a deed vocabulary, which is his.
+2. GAP 5 (wearing another faction's colours) is now cheap - colours in, membership in, and
+   this supplies "somebody who knows your face sees you in it".
+3. GAPS 6, 8, 9 (agendas, membership, internal politics) all sit on this.
+
+
 PEOPLE (7h9sfy): 8/4 LATEST — *** NOBODY STANDS IN THE STREET ALL DAY. *** Five of
 this lane's gates were dead on main for their whole visible history, and fixing the
 way they LOOK at the world found two real bugs in the world itself.
@@ -588,56 +676,6 @@ STILL WORTH A LOOK, reported not fixed: the four BOHEMIA_HD_TILE_REPO_part*.txt 
 2. The four HD tile banks.
 3. Nothing else in the repo is near the wall, measured, and the gate watches all of it now.
 
-=======
-PEOPLE (factions): 8/2 (l) LATEST — GAP 3 IS BUILT, AND IT TOOK GAPS 4, 7 AND 10 WITH IT.
-Record: records/BOHEMIA_REPUTATION_TRAVELS_8_2_26.md   engine/bohemia_standing.js
-
-Gap 3 was the documented failure of the whole genre: every NPC instantly knowing what you
-did with no route the news could take. WE ALREADY HAD THE HARD HALF - bohemia_memory is a
-real witness organ with decay. It had no concept of a DEED, an OPINION, or one person
-TELLING ANOTHER. That is all the new module adds.
-
-  1. A DEED IS WITNESSED, NEVER ANNOUNCED   measured 2 of 3; the far one learned nothing
-  2. AN OPINION IS DERIVED, NEVER STORED    nothing to save, migrate or desync
-  3. HEARSAY IS WEAKER AND RUNS OUT         watched 3.96 vs heard 2.18; a rumour down a
-                                            line of TWELVE people reached THREE
-  4. A FACTION'S VIEW IS ITS MEMBERS' VIEWS no ledger, no faction named in the module
-
-*** THREE MORE GAPS FELL OUT OF ONE MECHANISM, NOBODY HAD TO BUILD THEM: ***
-  GAP 4 (no way back) - opinions decay, so one bad deed goes 4.00 -> 1.00 -> 0.06 -> 0.00
-    over a week. Time softens it, being seen doing better is the fast way, and ONE NIGHT IS
-    NOT FORGIVENESS (gated both directions).
-  GAP 7 (nothing costs anything) - same deed: ALPHA who watched goes HOSTILE -4.00, BETA
-    who was elsewhere stays NEUTRAL 0.00. Nobody authored a table of who hates whom.
-  GAP 10 (cannot see where you stand) - becauseOf() returns the actual remembered deeds,
-    who holds them, and whether they WATCHED it or only HEARD it.
-AND "no view" is distinguishable from "neutral view" (whoSaw), which most systems botch.
-
-DEED_WEIGHT SHIPS EMPTY. What counts as a deed and what it is worth is HIS and unmade;
-with it empty every opinion is 0 and every faction is NEUTRAL, and the gate proves the
-module is INERT rather than trusting the header. THIS IS NOT THE STANDING LEDGER BUILD THE
-WORLD TURNED OFF - nothing is stored anywhere and the gate reads the source to prove it.
-
-=== A LESSON ABOUT GATES, WORTH MORE THAN THE FEATURE ===
-The first version of this gate's self-test was DECORATIVE AND SAID SO: six probes that
-re-ran the working module and asked whether it misbehaved. Of course it did not. It
-reported 0/6 CAUGHT and could never have caught anything. Rewritten so each probe feeds a
-CLAIM'S OWN PREDICATE the values a broken implementation would produce, and passes only if
-the claim REJECTS them. Now 8/8. IF YOU WRITE A SELF-TEST, TEST THE CHECKER, NOT THE THING.
-
-GATES: STANDING 23/0 (registered) · FACTION MEMBERSHIP 50/0 · PEOPLE 152/0 · FRONT DOOR 8/0
-· PAYLOAD WALL 4/0 · BUILD THE WORLD 10/0 · ENGINE SYNC clean (17 modules).
-MEMORY 7/2 is the pre-existing 0-agents red (P-F), same on clean main.
-
-=== WHAT COMES AFTER ===
-1. NOTHING CALLS witness() YET. The organ is built and inert; the run has to report deeds
-   into it, and that needs a deed vocabulary, which is his.
-2. GAP 5 (wearing another faction's colours) is now cheap - colours in, membership in, and
-   this supplies "somebody who knows your face sees you in it".
-3. GAPS 6, 8, 9 (agendas, membership, internal politics) all sit on this.
-
-<<<<<<< HEAD
->>>>>>> d1a67aa (REPUTATION HAS TO TRAVEL - gap 3 built, and it took gaps 4, 7 and 10 with it)
 LAB (lab-e2r7sv): 8/3 (g) LATEST -- HE RENAMED THE BOSSES AFTER THE SUBSTANCE, AND
 "CONCRETE BOSS" TURNED OUT TO BE THE HINGE OF THE WHOLE LADDER.
 
