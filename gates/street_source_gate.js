@@ -35,20 +35,11 @@ const LAW = path.join(ROOT, 'laws/BOHEMIA_ADDENDUM_STREETS_ARE_THE_HARMONIZED_PO
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
-function cityBlob(alpha) {
-  for (let ci = alpha.indexOf('CITY_B64'); ci >= 0; ci = alpha.indexOf('CITY_B64', ci + 1)) {
-    const tail = alpha.slice(ci + 8, ci + 20);
-    const eq = tail.indexOf('=');
-    if (eq < 0) continue;
-    const qi = tail.slice(eq).search(/['"`]/);
-    if (qi < 0) continue;
-    const start = ci + 8 + eq + qi + 1;
-    const end = alpha.indexOf(alpha[start - 1], start);
-    if (end - start < 100000) continue;
-    return Buffer.from(alpha.slice(start, end), 'base64').toString('utf8');
-  }
-  return null;
-}
+/* WHERE the city app lives and WHAT SHAPE it is in are not this gate's business
+   (8/4). One resolver knows; this asks it. The argument is ignored and kept only
+   so the call sites below read the same as they did. */
+const CITY = require('./bohemia_city_app.js');
+function cityBlob(_alpha) { const a = CITY.read(); return a ? a.src : null; }
 const sizeOf = b64 => {
   const b = Buffer.from(b64, 'base64');
   return b.readUInt32BE(16) + 'x' + b.readUInt32BE(20);

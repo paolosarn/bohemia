@@ -116,8 +116,8 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
   /* the two surfaces it was copied FROM still have theirs */
   const alpha = fs.readFileSync(ALPHA, 'utf8');
-  const cityB64 = (() => { const k = "const CITY_B64='"; const a0 = alpha.indexOf(k) + k.length;
-    return Buffer.from(alpha.slice(a0, alpha.indexOf("'", a0)), 'base64').toString('utf8'); })();
+  /* WHERE the city app lives is not this gate's business (8/4): one resolver knows. */
+  const cityB64 = (() => { const x = require('./bohemia_city_app.js').read(); return x ? x.src : ''; })();
   const combatB64 = (() => { const k = "const COMBAT_B64='"; const a0 = alpha.indexOf(k) + k.length;
     return Buffer.from(alpha.slice(a0, alpha.indexOf("'", a0)), 'base64').toString('utf8'); })();
   ok('THE CITY TAB still has the same cluster (portrait in a #nav ring)',

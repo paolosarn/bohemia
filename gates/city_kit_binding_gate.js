@@ -39,16 +39,10 @@ let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  > FAIL ' + n)); };
 function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
   catch(e){ return require('playwright'); } }
-function cityBlob(a){
-  for (let ci = a.indexOf('CITY_B64'); ci >= 0; ci = a.indexOf('CITY_B64', ci + 1)) {
-    const t = a.slice(ci + 8, ci + 20), eq = t.indexOf('='); if (eq < 0) continue;
-    const qi = t.slice(eq).search(/['"`]/); if (qi < 0) continue;
-    const st = ci + 8 + eq + qi + 1, en = a.indexOf(a[st - 1], st);
-    if (en - st < 100000) continue;
-    return Buffer.from(a.slice(st, en), 'base64').toString('utf8');
-  }
-  return '';
-}
+/* WHERE the city app lives and WHAT SHAPE it is in are not this gate's business
+   (8/4). One resolver knows; this asks it. */
+const CITY = require('./bohemia_city_app.js');
+function cityBlob(_a){ const x = CITY.read(); return x ? x.src : ''; }
 
 /* a LOAD-TIME capture: `var K = ... BohemiaDistrictKit ...` at module top level.
    A lazy accessor (`function K(){...}`) is what a pre-kit module must use instead. */
@@ -107,7 +101,10 @@ const CAPTURE = /var\s+K\s*=\s*\(typeof\s+module/;
     let f = null;
     for (let i = 0; i < 20; i++) {
       await page.waitForTimeout(3000);
-      f = page.frames().find(fr => /srcdoc/.test(fr.url()) && fr !== page.mainFrame());
+      /* FIND THE FRAME BY WHAT IT IS, NOT BY HOW IT WAS LOADED (8/4). It was a
+         srcdoc frame until the payload-wall pass; it is a sibling src frame now.
+         One predicate knows: gates/bohemia_city_app.js. */
+      f = page.frames().find(fr => require('./bohemia_city_app.js').isFrame(fr, page));
       if (!f) continue;
       const up = await f.evaluate(() => typeof fit === 'function' &&
         document.getElementById('cv').width > 300).catch(() => false);

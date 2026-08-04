@@ -126,10 +126,14 @@ check('LIFE hub links judge', os.path.basename(JUDGE) in hub)
 check('LIFE hub keeps living block', 'BOHEMIA_LIFE_SLICE_7_19_26.html' in hub)
 
 # 6) MARRIED IN: the verdict is in, the real art must actually be in the city
-alpha = open(ALPHA, encoding='utf8').read()
-key = "const CITY_B64='"
-a0 = alpha.index(key) + len(key)
-decoded = base64.b64decode(alpha[a0:alpha.index("'", a0)]).decode('utf8')
+# WHERE the city app lives and WHAT SHAPE it is in are not this gate's business
+# (8/4). One resolver knows: gates/bohemia_city_app.py.
+import sys as _sys
+_sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import bohemia_city_app as CITY_APP                                 # noqa: E402
+_app = CITY_APP.read()
+check('the city app is findable', _app is not None)
+decoded = _app.src if _app else ''
 check('the bank rides the city (byte-locked source reference)', 'HOUSE_SKIN_CANDIDATES' in decoded)
 check('all six art pools embedded', all(
     ("SA_TILES.%s=" % p) in decoded for p in

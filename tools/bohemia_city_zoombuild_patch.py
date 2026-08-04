@@ -43,14 +43,27 @@ import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
-ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 EDIT_ENGINE = 'engine/bohemia_cityedit.js'
 
+# WHERE the city app lives and WHAT SHAPE it is in are not this tool's business
+# (8/4). The payload-wall pass moved it out of the alpha on 8/2 and stopped
+# base64-ing it; a patcher that hard-codes the old arrangement either crashes or,
+# worse, silently patches nothing. One resolver knows: gates/bohemia_city_app.py.
+sys.path.insert(0, os.path.join(REPO, 'gates'))
+import bohemia_city_app as CITY_APP                                 # noqa: E402
+_app = CITY_APP.read()
+if _app is None:
+    sys.exit('the city app is not in any of: ' + ', '.join(CITY_APP.searched()))
+ALPHA = _app.file
 alpha = open(ALPHA, encoding='utf8').read()
-key = "const CITY_B64='"
-a0 = alpha.index(key) + len(key)
-a1 = alpha.index("'", a0)
-decoded = base64.b64decode(alpha[a0:a1]).decode('utf8')
+INLINE = _app.inline
+if INLINE:
+    a0 = a1 = 0
+else:
+    key = "const CITY_B64='"
+    a0 = alpha.index(key) + len(key)
+    a1 = alpha.index("'", a0)
+decoded = _app.src
 
 if 'ZOOM-BUILD' in decoded:
     print('zoom-build already wired. no-op.')
@@ -224,7 +237,10 @@ CLOSE = '</style></head>'
 assert decoded.count(CLOSE) == 1
 decoded = decoded.replace(CLOSE, CSS + CLOSE, 1)
 
-reencoded = base64.b64encode(decoded.encode('utf8')).decode('ascii')
-open(ALPHA, 'w', encoding='utf8').write(alpha[:a0] + reencoded + alpha[a1:])
+if INLINE:
+    open(ALPHA, 'w', encoding='utf8').write(decoded)
+else:
+    reencoded = base64.b64encode(decoded.encode('utf8')).decode('ascii')
+    open(ALPHA, 'w', encoding='utf8').write(alpha[:a0] + reencoded + alpha[a1:])
 print('zoom-build wired: tap a plot at the city zoom -> demolish / build / build big')
 print('  edit verbs reused from %s (inlined verbatim)' % EDIT_ENGINE)

@@ -59,10 +59,11 @@ ok('the bank still states its own height law (min 2 tiles)', /MIN 2 TILES/i.test
 
 /* ---- his art is embedded at the size he judged it ------------------------- */
 {
-  const src = fs.readFileSync(ALPHA, 'utf8');
-  const k = "const CITY_B64='";
-  const a0 = src.indexOf(k) + k.length;
-  const city = Buffer.from(src.slice(a0, src.indexOf("'", a0)), 'base64').toString('utf8');
+  /* WHERE the city app lives is not this gate's business (8/4): one resolver knows.
+     It reported HIS OWN tan wall tiles missing from the shipped game while they were
+     sitting in the sibling page the whole time. */
+  const _app = require('./bohemia_city_app.js').read();
+  const city = _app ? _app.src : '';
   const m = city.match(/SA_TILES\.perimeter=\[([\s\S]*?)\]/);
   ok('the perimeter pool is embedded in the city at all', !!m);
   if (m) {

@@ -4,7 +4,7 @@ _Category: **civic**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/tile)  · 
 
 GENERATED from `engine/bohemia_chapel.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
-**A dead church — a cruciform stone building (narthex + long nave crossed by the transepts, the sanctuary apse at the head), a bell tower flanking the entrance, a forecourt plaza with an arcade + a churchyard cross, a memorial garden, a small lot.**
+**A dead church — a cruciform stone building (narthex + long nave crossed by the transepts, the sanctuary apse at the head), a bell tower flanking the entrance with the BELL itself lying in the forecourt, a plaza with an arcade and a dry font, a walled MEMORIAL COURT ringed by a COLUMBARIUM of niches, a dead ORCHARD in its granite beds, and a small lot behind a low path wall.**
 
 ### Real-world reference
 - Church architecture (Keiser Design parts of a church, UMC narthex/nave, cruciform cathedral plans): a CRUCIFORM (Latin-cross) plan — the NARTHEX (entry) + the long NAVE crossed by the TRANSEPTS (cross arms), the SANCTUARY/apse at the head; a BELL TOWER/spire flanking the entrance; often a forecourt COURTYARD/atrium + arcade; stained-glass windows down the nave.
@@ -12,18 +12,23 @@ GENERATED from `engine/bohemia_chapel.js` (NOTES + LEGEND + PALETTE) — do not 
 ### Layout — what is where
 - A CRUCIFORM CHURCH is the hero: the long NAVE crossed by the TRANSEPTS, the rounded SANCTUARY apse at the north head, the NARTHEX vestibule at the south entrance, stained-glass windows down its length.
 - A BELL TOWER (with a cross finial) flanks the entrance; a forecourt PLAZA with an entrance arcade + a churchyard cross/statue fronts the doors.
-- A memorial GARDEN + dead trees flank the church on its terrace; a small parking + drop-off drive meets the street.
+- THE MEMORIAL COURT is walled, and the wall IS a COLUMBARIUM: rows of small sealed niches with name plaques, a third of them prised open. This ground does not take graves, so the dead go in the wall — the same reason real Mojave churchyards are built this way.
+- A dead ORCHARD stands in granite beds along the flank, the drip line cut off at the main years ago.
+- THE PATH FROM THE LOT TO THE DOORS runs between two LOW WALLS (8/2) — not under a covered walk. One run of coping is shoved out of line.
+- A small parking + drop-off drive meets the street, and a churchyard walk rings the whole building.
 
 ### Circulation (street-aware / drivable)
-Street-aware via canonical-south + K.rotateToStreet: a small drop-off drive on the primary street feeds the lot (code 1 reaches it from the curb, K.driveReachFromStreet). Foot circulation is the forecourt plaza -> arcade -> narthex. WALKABLE-LAND: a church IS its building — the plot is nearly all structure + plaza + garden; the lot is minimal. Corner side streets get a pedestrian gate onto the plaza.
+Street-aware via canonical-south + K.rotateToStreet: a small drop-off drive on the primary street feeds the lot (code 1 reaches it from the curb, K.driveReachFromStreet). Foot circulation is the lot -> the path between the low walls -> the forecourt plaza -> arcade -> narthex, and the churchyard walk rings the building to the transept door and the memorial court gate. NOTHING on this plot is overhead (Paolo 8/2, no more canopies): the covered walk that used to run from the lot to the doors is gone. WALKABLE-LAND: a church IS its building — the plot is nearly all structure + plaza + garden; the lot is minimal. Corner side streets get a pedestrian gate onto the plaza.
 
 ### Layering — exterior vs interior, what blocks, what you go under/into
-GROUND plane (walk/drive, flat): the forecourt plaza (7), memorial garden (4), sidewalk (12), the drive/lot (1, drive), desert (0). STRUCTURES (¾ front face, solid, ENTERABLE): the cruciform CHURCH (2 -> narthex/nave/altar/transept chapels) with its STAINED GLASS (11), the BELL TOWER (6), the arcade COLUMNS (8). PROPS: the churchyard CROSS/statue (10), pole lights (9), dead trees (3). PORTALS: the gate (5). The cross-plan mass + the bell tower are the vertical hero; you cross the plaza into the narthex.
+GROUND (flat, walk on it): the forecourt plaza (7), the memorial court floor (4), the churchyard walk (12, WALK), the gravel margin (14), the orchard beds (23), the dry font (21), the drive/lot (1, DRIVE) with its stall ticks (20, MARKING), bare desert (0). OVERHEAD (pass UNDER): NOTHING — this plot carries no overhead tile at all (Paolo 8/2). STRUCTURE (¾ front face, solid, ENTERABLE): the cruciform CHURCH (2 — narthex, nave, altar, transept chapels) with its STAINED GLASS (11), roof edge (16) and roof ridge (22), the BELL TOWER (6), the arcade COLUMNS (8), the COLUMBARIUM wall (13, FENCE) and its niche plaques (17), the path walls (15, FENCE). PROP: the churchyard cross and the fallen BELL (10), pole lights (9), dead trees (3), dead cars (19). PORTAL: the doorways (18) and the street gate (5). The cross-plan mass + the bell tower are the vertical hero; you cross the plaza into the narthex.
 
 ### Decisions & rulings
 - Act-1 DEAD: shattered stained glass, the bell silent, doors chained, the garden dead, the cross weathered. Faith + who gathers here is Paolo's / faction canon.
 - Civic category (chapel/church). Zero purple. No denomination/inscription (Paolo's to author).
 - WALKABLE-LAND honored (easily): the cruciform building + plaza + garden dominate; lot minimal.
+- THE LAWN IS DEAD and the covered walk with it (8/2). 33.9% of this plot was one flat sidewalk code — a monoblock. It is a walk apron computed from the building outline now, with the orchard beds and the memorial court taking the rest, so every pixel is answered for.
+- THE DEAD GO IN THE WALL. A columbarium instead of graves is not decoration: caliche hardpan is why Southwest churchyards build niche walls, and it gives the district a piece of purposeful content that is not pavement.
 - Research-first (per the playbook): built from real cruciform church plans, not memory.
 
 ### Tile legend — every code: material to skin + layer/occupancy/interior

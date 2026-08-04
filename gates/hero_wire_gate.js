@@ -18,11 +18,21 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 const bank = JSON.parse(fs.readFileSync('banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt', 'utf8'));
 const districts = bank.heroes.map(h => h.district);
 
-const alpha = fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8');
-const m = alpha.match(/const CITY_B64='([^']+)'/);
-ok('CITY_B64 present', !!m);
-if (m) {
-  const dec = Buffer.from(m[1], 'base64').toString('utf8');
+// THE CITY MOVED OUT OF THE ALPHA (8/2, the payload-wall pass in another lane) and stopped
+// being base64 on the way. This gate follows the artefact instead of assuming where it
+// lives or what shape it is -- it went red the moment the city was refactored, which is a
+// gate testing a LOCATION rather than the THING.
+const CITY_FILES = ['slices/BOHEMIA_CITY_WORLD.html', 'slices/BOHEMIA_ALPHA_0_9.html'];
+let dec = null, where = null;
+for (const f of CITY_FILES) {
+  if (!fs.existsSync(f)) continue;
+  const txt = fs.readFileSync(f, 'utf8');
+  const mm = txt.match(/const CITY_B64='([^']+)'/);
+  if (mm) { dec = Buffer.from(mm[1], 'base64').toString('utf8'); where = f; break; }
+  if (txt.indexOf('function renderCity(){') >= 0) { dec = txt; where = f; break; }
+}
+ok('the CITY APP is findable (' + (where || 'nowhere') + ')', !!dec);
+if (dec) {
   ok('drawHero() is defined in the city render', dec.indexOf('function drawHero(') >= 0);
   ok('HERO_WIRE block present (markers)', dec.indexOf('/*HERO_WIRE_START*/') >= 0 && dec.indexOf('/*HERO_WIRE_END*/') >= 0);
   ok('render switch is hero-guarded (all districts covered)', dec.indexOf('if(!(HERO_IMG[d]&&drawHero(d,p)))switch(d){') >= 0);

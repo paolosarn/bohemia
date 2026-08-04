@@ -28,15 +28,31 @@ import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
+# THE CITY MOVED OUT OF THE ALPHA (8/2 payload-wall pass, another lane) and its source is
+# inline now rather than base64. Follow the artefact, do not assume where it lives: a
+# resync that silently no-ops is worse than one that fails, because the engine and the app
+# drift apart without a word.
+CITY_FILES = ['slices/BOHEMIA_CITY_WORLD.html', 'slices/BOHEMIA_ALPHA_0_9.html']
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
+for _c in CITY_FILES:
+    if os.path.exists(_c):
+        _t = open(_c, encoding='utf8').read()
+        if "const CITY_B64='" in _t or 'function renderCity(){' in _t:
+            ALPHA = _c
+            break
 CHECK = '--check' in sys.argv
 DEPTH = 40          # revisions back to search for the body the app carries
 
 alpha = open(ALPHA, encoding='utf8').read()
 key = "const CITY_B64='"
-a0 = alpha.index(key) + len(key)
-a1 = alpha.index("'", a0)
-decoded = base64.b64decode(alpha[a0:a1]).decode('utf8')
+INLINE = key not in alpha
+if INLINE:
+    a0 = a1 = 0
+    decoded = alpha
+else:
+    a0 = alpha.index(key) + len(key)
+    a1 = alpha.index("'", a0)
+    decoded = base64.b64decode(alpha[a0:a1]).decode('utf8')
 
 # every engine module the app announces it has inlined
 mods = []
@@ -98,7 +114,7 @@ if CHECK:
     sys.exit(1 if (moved or lost) else 0)
 if moved:
     reencoded = base64.b64encode(decoded.encode('utf8')).decode('ascii')
-    open(ALPHA, 'w', encoding='utf8').write(alpha[:a0] + reencoded + alpha[a1:])
+    open(ALPHA, 'w', encoding='utf8').write(decoded if INLINE else alpha[:a0] + reencoded + alpha[a1:])
     print('  -> CITY_B64 rewritten')
 else:
     print('  -> nothing to do')

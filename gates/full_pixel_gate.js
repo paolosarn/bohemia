@@ -119,19 +119,9 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   const alpha = fsx.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
   ok('the RUN tab routes to the CITY panel (his 7/25 one-view ruling)',
      alpha.indexOf("(t.dataset.p==='run') ? 'city'") >= 0);
-  let city = null;
-  for (let ci = alpha.indexOf('CITY_B64'); ci >= 0; ci = alpha.indexOf('CITY_B64', ci + 1)) {
-    const tail = alpha.slice(ci + 8, ci + 20);
-    const eq = tail.indexOf('=');
-    if (eq < 0) continue;
-    const qi = tail.slice(eq).search(/['"`]/);
-    if (qi < 0) continue;
-    const start = ci + 8 + eq + qi + 1;
-    const end = alpha.indexOf(alpha[start - 1], start);
-    if (end - start < 100000) continue;
-    city = Buffer.from(alpha.slice(start, end), 'base64').toString('utf8');
-    break;
-  }
+  /* WHERE the city app lives is not this gate's business (8/4): one resolver knows. */
+  const _app = require(path.join(ROOT, 'gates/bohemia_city_app.js')).read();
+  const city = _app ? _app.src : null;
   ok('the alpha carries a readable CITY blob', !!city && city.length > 100000);
   if (city) {
     ok('THE SURFACE HE PLAYS: the walked world upscales NEAREST, never bilinear',

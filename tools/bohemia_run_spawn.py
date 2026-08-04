@@ -42,10 +42,13 @@ a camera, it does not design a map (MAP LAW: Claude never designs map layouts).
 Idempotent per district: re-running with the same district reports NOOP.
 """
 import base64
+import os
 import re
 import sys
 
-ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
+os.chdir(REPO)
+ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'   # legacy home; the resolver decides at run time
 RECORD = 'records/BOHEMIA_WORKING_DISTRICT.txt'
 MARKER = '__WORKING_DISTRICT__'
 
@@ -88,11 +91,25 @@ def main():
     if not re.fullmatch(r'[a-z_]+', district):
         print('FAIL: district must be a bare lowercase name, got %r' % district); return 1
 
-    alpha = open(ALPHA, encoding='utf8', errors='ignore').read()
-    m = re.search(r"CITY_B64\s*=\s*['\"`]([A-Za-z0-9+/=]{5000,})", alpha)
-    if not m:
-        print('FAIL: CITY_B64 not found'); return 1
-    city = base64.b64decode(m.group(1)).decode('utf8', errors='ignore')
+    # WHERE the city app lives and WHAT SHAPE it is in are not this tool's business
+    # (8/4). The payload-wall pass moved it out of the alpha on 8/2 and stopped
+    # base64-ing it, and this tool -- the one the gate tells a session to run --
+    # would have died on 'CITY_B64 not found'. One resolver knows.
+    sys.path.insert(0, os.path.join(REPO, 'gates'))
+    import bohemia_city_app as CITY_APP
+    app = CITY_APP.read()
+    if app is None:
+        print('FAIL: the city app is not in any of: '
+              + ', '.join(CITY_APP.searched())); return 1
+    target, city = app.file, app.src
+    alpha = open(target, encoding='utf8', errors='ignore').read()
+    if app.inline:
+        lo = hi = 0
+    else:
+        m = re.search(r"CITY_B64\s*=\s*['\"`]([A-Za-z0-9+/=]{5000,})", alpha)
+        if not m:
+            print('FAIL: CITY_B64 not found'); return 1
+        lo, hi = m.start(1), m.end(1)
 
     cur = re.search(r"const WORKING_DISTRICT='([a-z_]+)'", city)
     if cur:
@@ -108,8 +125,11 @@ def main():
         new_city = city.replace(OLD, block(district), 1)
         was = 'the strip, at the centre of the map'
 
-    out = base64.b64encode(new_city.encode('utf8')).decode('ascii')
-    open(ALPHA, 'w', encoding='utf8').write(alpha[:m.start(1)] + out + alpha[m.end(1):])
+    if app.inline:
+        open(target, 'w', encoding='utf8').write(new_city)
+    else:
+        out = base64.b64encode(new_city.encode('utf8')).decode('ascii')
+        open(target, 'w', encoding='utf8').write(alpha[:lo] + out + alpha[hi:])
     open(RECORD, 'w').write(
         district + "\n\n"
         "THE RUN OPENS HERE (Paolo 8/2). Set it with:\n"
@@ -118,7 +138,7 @@ def main():
         "the readable mirror of the WORKING_DISTRICT constant inside the city blob, so\n"
         "no session has to decode 24MB to find out where the run opens.\n"
         "Gate: gates/run_spawn_gate.js\n")
-    print('wrote %s' % ALPHA)
+    print('wrote %s' % target)
     print("  the run now opens in: %s   (was: %s)" % (district, was))
     print('  mirrored to %s' % RECORD)
     return 0

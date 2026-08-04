@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 PEOPLE (7h9sfy): 8/3 (b) LATEST — THE PEOPLE ARE NOT COPIES OF HIM ANY MORE.
 Record: records/BOHEMIA_THE_PEOPLE_ARE_NOT_HIM_8_3_26.md
 
@@ -113,6 +114,122 @@ rulings_gate is 96 checks. Six mutations, all six caught -- including paraphrasi
 2. THE WITNESS + STORY-SPREAD PLUMBING -- approved work; boss 7 THE VOICE is its payoff.
 3. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
 4. Did not touch #buildstamp: one record, one gate.
+=======
+WORLD (world-9lfjtf): 8/4 (d) LATEST -- THE BUILDING IS THE ICON, and NINETEEN GATES WERE
+LYING ABOUT THE CITY (five of them accusing his own art of never shipping).
+Live on main, BUILD 8/4e.
+
+=== HIS RULING, AND WHAT SHIPPED ===
+"the city builder vibe is supposed to be more of a VISUAL than 100% realistic... all these
+icons they're a little too small. I want them TALLER. I want them WIDER... remove all the
+parking lots... I just really want the main building to be BIGGEST AS FUCK... it just needs
+to FILL UP THE SQUARE."
+  NO PARKING IN ANY ICON, all 28, one edit not 28: `_ground` accepts lot/drive and ignores
+  them. At map zoom asphalt is a grey smear and it was eating a third of every square.
+  THE PAD IS FITTED TO THE BUILDING, never declared by hand. Every builder used to pass a
+  plot rectangle it had guessed at -- almost always (-3,-3,15,15) whatever it actually built
+  -- so the sprite framed on the GUESS. `_draw_ground` runs AFTER the scene exists and hugs
+  the real footprint. Median opaque sprite box 80,206 px.
+Law laws/BOHEMIA_ADDENDUM_BIG_ICONS_8_2_26.md, gate gates/big_icons_gate.py.
+
+=== NO CANOPIES (his second ruling, and I got the first one wrong) ===
+He said "the icon is trying so hard to have some shade shit" and I made the canopies
+SMALLER. That is the STOP PRODUCING failure by name: finding a legal way to ship the
+rejected thing. He then said "new rule no more canopies I only see canopies at parks and
+shit." They are GONE from all four civics -- steps + entry piers where they stood.
+Law laws/BOHEMIA_ADDENDUM_NO_CANOPIES_8_2_26.md, gate gates/no_canopies_gate.py
+(CANOPY_DEBT ratchet: 14 still standing elsewhere, list may only shrink).
+
+=== WHAT REMOVING THE PARKING COST, AND WHO PAID IT ===
+The asphalt had quietly been carrying SILHOUETTE VARIETY. With the lots gone and the frame
+tight, 7 pairs collapsed into lookalikes at 16x16. The fix was NEVER to add asphalt back --
+each district got the one vertical it actually has (school stair core, storage office, solar
+switchgear, rail signal mast, commercial pylon, a stand of dead crowns for the park).
+SILHOUETTE TWIN DEBT 13 -> 1.
+
+*** A GATE THAT TESTS A LOCATION IS NOT A GATE -- READ THIS ONE, IT WAS COSTING EVERY LANE ***
+records/BOHEMIA_A_GATE_THAT_TESTS_A_LOCATION_8_4_26.md
+NINE GATES ACROSS FOUR LANES WERE RED and none of them was about a real problem. The
+payload-wall pass legitimately moved the CITY app out of the alpha into
+slices/BOHEMIA_CITY_WORLD.html and stopped base64-ing it (38.7 MB -> 2.92 MB, 29x faster --
+the move was RIGHT). 21 gates and tools had each hand-written the same two facts that were
+never theirs to know: WHERE the city lives and WHAT SHAPE it is in. All stale in one instant.
+  WORSE THAN THE FALSE REDS: traffic_signal_gate spent the outage reporting Paolo's
+  348-sprite signal bank MISSING from the shipped game when it had been there all along, and
+  bohemia_city_module_resync.py did not fail when it could not find the blob -- it silently
+  DID NOTHING, so engine and app would have drifted apart without a word.
+  THE FIX, USE IT, NEVER WRITE A CITY PATH OR REGEX AGAIN:
+      const CITY = require('./bohemia_city_app.js');
+      const app = CITY.read();     // {src, file, inline} or null
+  It finds the city by its BODY (`function renderCity(`), not its path, and takes either
+  shape. New home = one line in FILES. New shape = one clause in read().
+  SECOND SURFACE, SAME BUG: a dozen browser gates found the world frame with
+  /srcdoc/.test(fr.url()) -- a fact about HOW it was loaded, not WHAT it is. It is a sibling
+  src frame now. CITY.isFrame(fr, page) is the one definition.
+  GREEN NOW, 19 GATES: hero_wire 61/0, mapsize 13/0, street_source 18/0, icon 25/0,
+  footstep 14/0, city_tab 64/0, city_kit_binding 12/0, full_res 13/0, traffic_signal 11/0,
+  run_spawn 13/0, shadow 7/0, dooranim 10/0, doorjamb 15/0, full_pixel 15/0, navcluster 12/0,
+  zoombuild 24/0, zoomseam, stepinside, doorway, everydoor, ewdoor, interior_wall.
+  *** FIVE OF THOSE REDS WERE SAYING PAOLO'S OWN ART HAD NEVER SHIPPED *** -- the 348 traffic
+  signals, the 90 door-swing frames, the 7px jamb strip, the tan wall tiles. All of them were
+  sitting in the sibling page the whole time. A gate that tests a LOCATION does not just fail
+  uselessly, IT ACCUSES THE WORK OF NOT EXISTING.
+  TOOLS FIXED TOO: city_hero_wire_patch, city_module_resync, city_zoombuild_patch, and
+  run_spawn -- that last one is the command run_spawn_gate tells you to run, and it would
+  have died on "FAIL: CITY_B64 not found".
+  STILL HARD-CODED, REPORTED NOT FIXED: ~50 one-shot tools/bohemia_city_*_patch.py files.
+  Each already applied, none run by the suite, all of them break if re-run.
+  gates/bohemia_city_app.py is there for whoever next touches one.
+  THE BOUNDARY: most of those gates are other lanes'. Every red was PROVEN INHERITED on a
+  detached worktree first, and what changed in another lane's gate is ONLY how it locates a
+  file -- not one assertion was weakened, and each asserts strictly MORE now than it did
+  while it was failing to find its subject.
+  STILL RED, NOT MINE (all proven identical on the base tree): graveyard 1 (a line of the
+  CHARACTER lane's own handoff prose naming a dead token), wallclass 2 (BOHEMIA_RUN_CURRENT
+  carries 0 border-wall tiles -- a different surface), interiors 1 (five interior surfaces
+  still solid colour, not paint).
+
+=== A RATCHET ANSWERED THE RIGHT WAY (READ THIS IF A RATCHET EVER STOPS YOU) ===
+d1_kerb_gate counts every cell that goes walk -> structure, its proxy for SIDEWALK
+SANCTITY, under a per-district ceiling that MAY ONLY SHRINK. cityhall read 14,004 against
+13,266 and courthouse 14,697 against 14,382 -- part inherited (the canopy->steps swap the
+day before already put both over), part mine (the new bike racks).
+NEITHER WAS ANSWERED BY RAISING THE CEILING. A ratchet you raise is a law you deleted.
+The cause in both was the same and it was also just architecturally wrong: the ENTRANCE
+PIERS were standing UP ON the flight of steps, and cityhall's bike racks were up on the
+podium. A civic colonnade stands at the FOOT of its steps, on the plaza; bike parking is
+plaza furniture. Moved both down. D1 KERB 44/2 -> 46/0, both districts now BELOW the
+ceilings they were breaking, and the plots read more like real entrances than before.
+
+=== THE PLAZA WAS A VOID WITH A NICE NAME ===
+district_fill_gate caught cityhall at 53.9% content against its 59.8% pin: taking the canopy
+out removed content and left bare pavers. NOT fixed by renaming pavement -- fixed by dressing
+it with what a civic forecourt has: limestone PLANTERS with the dead trees still in them, a
+SEATING STEP at the podium edge, a BIKE RACK row by the doors, SERVICE AISLES between the
+solar rows and an INVERTER CABINET at each row head (a real array is not panels in a field,
+the string DC has to become AC somewhere). 53.9% -> 57.5%.
+
+=== NOT A SINGLE PIXEL UNANSWERED ===
+The judge cards caught it: cityhall's dossier still described "a great entry canopy carried
+on a single column" that no longer exists. Stale NOTES on all four civics rewritten
+(summary / layout / circulation / LAYERING / decisions / the act1 lines that named the
+canopy), tilespec regenerated. The `reference:` lines KEEP the real canopy on purpose -- a
+reference is a record of the real building, the LAYOUT note is what describes what got drawn.
+
+=== PENDING PAOLO ===
+1. RE-SCORE the four civics, walking and icon: cityhall / courthouse / terminal / chapel.
+   Cards: records/judgecards/BOHEMIA_JUDGE_<name>.png (each carries its own NAME in pixels).
+2. Still unanswered from way back: HOW LONG SINCE THE COLLAPSE. It sets the damage level for
+   all 45 districts and nothing can be finish-passed without it.
+
+=== WHAT COMES AFTER (world lane, unblocked) ===
+1. NO_ICON_DEBT = 21 districts with no map icon at all: airbase, airport, apartment,
+   arterial, boneyard, cemetery, desert, drivein, freeway, golf, jail, landfill, mountain,
+   railyard, substation, suburb, trailer, wash, water, waterpark, watertreat.
+2. DOORLESS_DEBT = 12 heroes with no door on any wall.
+3. downtown_arts / downtown_civic / downtown_lot, from the 8/1 downtown research.
+4. [PENDING Paolo] the drive-thru wedding chapel as its own cell type -- proposed, not built.
+>>>>>>> e7b5ce7 (A GATE THAT TESTS A LOCATION IS NOT A GATE)
 
 LAB (lab-e2r7sv): 8/4 (b) LATEST -- *** HE KILLED THE MATERIAL FRAMING AND HE WAS RIGHT.
 IT WAS MY FACTUAL ERROR, NOT HIS TASTE. *** The ladder is 16 TOOLS now.

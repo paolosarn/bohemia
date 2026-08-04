@@ -11,7 +11,9 @@
 //   A THREE-STOREY ROTUNDA at the elbow, the public lobby, capped by a 60-FOOT GLASS DOME
 //     on a cable truss.
 //   A DRAMATIC STEEL AND ALUMINIUM CANOPY PROJECTING FROM THE TOP OF THE BUILDING, which
-//     shadows the plaza below. It hangs off the building: no masts, and you walk under it.
+//     shadows the plaza below. NOT DRAWN (Paolo 8/2, no more canopies): the entrance is a
+//     broad flight of STEPS and a row of PIERS instead. The reference keeps the record of
+//     the real building; the plot draws what the ruling allows.
 //   BLAST RESISTANCE. It was the FIRST federal building built to the post-Oklahoma-City
 //     requirements, and that is not trivia -- it is why there is a wide empty setback
 //     between the kerb and the wall, and a bollard line holding it.
@@ -85,8 +87,12 @@
        SCREENING PORCH: a broad flight up out of the plaza, the piers that carry the wall
        above them, and the doors at the head of it. Nothing overhead on this plot. ---- */
     G.rect(54,50,96,58,13);                                  // the broad entrance steps
-    for(x=56;x<=94;x+=6) G.rect(x,52,x+2,56,15);             // the entrance piers
     G.rect(58,44,74,50,18);                                  // the public doors at the head of them
+    /* THE PIERS STAND AT THE FOOT OF THE STEPS, ON THE PLAZA -- not up on the flight. That
+       is where a screening porch's colonnade actually is, and it keeps mass off the walk
+       surface (SIDEWALK SANCTITY / the d1_kerb ratchet counts every structure written over
+       a walk cell, and there is no reason to spend any). */
+    for(x=56;x<=94;x+=6) G.rect(x,59,x+2,63,15);             // the entrance piers, clear of the flag row at y=64
 
     /* ---- THE BOLLARD LINE. The whole reason for the setback: standoff distance, held. ---- */
     for(x=14;x<=118;x+=4) set(x,106,15);
@@ -151,17 +157,17 @@
     4:{name:'blast setback',      kind:'ground',   act1:'the standoff strip between the kerb and the wall — decomposed granite gone to hardpan. It is empty ON PURPOSE: this was the first federal building in the country built to the post-Oklahoma-City blast rules, and the emptiness IS the security'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the public lot, amber paint gone chalky'},
     6:{name:'precast panel joint',kind:'structure',act1:'the joint line between two precast panels, twenty-two feet by ten, the sealant gone chalky and dropped out in runs'},
-    7:{name:'public plaza',       kind:'ground',   act1:'the plaza in the elbow of the building, big pavers heaved by roots, shaded half the day by the canopy overhead'},
+    7:{name:'public plaza',       kind:'ground',   act1:'the plaza in the elbow of the building, big pavers heaved by roots, open to the sun corner to corner now that the cantilever is gone'},
     8:{name:'dry basin',          kind:'water-dead',act1:'a reflecting basin bone dry, the old waterline stained around it like a tidemark'},
     9:{name:'plaza light',        kind:'structure',act1:'a plaza light on its concrete stem, head dark, the glass long gone'},
     10:{name:'rooftop plant',     kind:'structure',act1:'a mechanical unit on the roof of the north leg, ducting collapsed, one of them stripped for its copper'},
     11:{name:'dome glazing',      kind:'structure',act1:'what is left of the sixty-foot glass dome over the rotunda — a cable truss and mostly sky'},
     12:{name:'flagpole',          kind:'prop',     act1:'a flagpole in the row facing the plaza, halyard slapping, nothing left on it'},
     13:{name:'walk',              kind:'walk',     act1:'the concrete walks across the setback, cracked corner to corner'},
-    15:{name:'security bollard / entrance pier', kind:'structure',act1:'a steel bollard in the standoff line, still dead upright. Nothing short of a truck moves one, and nothing has'},
+    15:{name:'security bollard / entrance pier', kind:'structure',act1:'in the standoff line, a steel bollard still dead upright — nothing short of a truck moves one, and nothing has; at the entrance, one of the squat concrete piers carrying the wall above the doors'},
     16:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping missing in runs'},
     17:{name:'rotunda dome',      kind:'structure',act1:'the ring of the rotunda dome, the crown of the public lobby, its glazing gone'},
-    18:{name:'doorway',           kind:'portal',   act1:'a way in — the public doors under the canopy, the staff entrance on the north leg'},
+    18:{name:'doorway',           kind:'portal',   act1:'a way in — the public doors at the head of the entrance steps, the staff entrance on the north leg'},
     19:{name:'dead car',          kind:'vehicle',  act1:'a car left where it was parked, flat and sun-bleached, nobody came back for it'},
     20:{name:'secure yard wall',  kind:'fence',    act1:'the wall round the secure yard, razor wire long since rusted off the top of it', solid:true},
     21:{name:'stall marking',     kind:'marking',  act1:'the painted stall ticks, chalked out to ghosts by twenty summers — PAINT IS NOT A WALL, a car drives straight over it'},
@@ -169,21 +175,22 @@
     22:{name:'sally port',        kind:'portal',   act1:'the sally port — the sealed vehicle door prisoners came in through, one leaf standing open'}
   };
   var NOTES={
-    summary:'A dead federal courthouse — ONE L-shaped building wrapping a public plaza in its elbow, with a three-storey ROTUNDA at the corner under a dead sixty-foot glass dome, a steel canopy PROJECTING from the top of the building to shadow the plaza, a blast standoff setback held by a bollard line, and a walled SECURE YARD with its sally port. The judicial seat, distinct from the executive city hall.',
+    summary:'A dead federal courthouse — ONE L-shaped building wrapping a public plaza in its elbow, with a three-storey ROTUNDA at the corner under a dead sixty-foot glass dome, a broad flight of ENTRANCE STEPS up out of the plaza between the piers that carry the wall above them, a blast standoff setback held by a bollard line, and a walled SECURE YARD with its sally port. The judicial seat, distinct from the executive city hall.',
     reference:['LLOYD D. GEORGE U.S. COURTHOUSE (CannonDesign, 2000, 333 Las Vegas Blvd S): a 450,000 sq ft L-SHAPED building of beige limestone, glass and 22ft x 10ft precast wall panels; a three-storey ROTUNDA public lobby capped by a 60-foot cable-truss glass dome; and a dramatic steel and aluminium canopy PROJECTING FROM THE TOP OF THE BUILDING that shadows the plaza. One of only three buildings in the country to take the GSA Honor Award for Architecture.',
       'It was the FIRST federal building constructed to the post-Oklahoma-City blast-resistance requirements. That is why the setback is wide and empty and why the bollard line exists: standoff distance IS the security, so the emptiness is a feature and not a void.'],
     layout:['ONE BUILDING, an L. The west leg runs north-south, the north leg east-west, and the ROTUNDA bulges out of the elbow into the plaza. Every mass shares a wall.',
       'THE DOME reads from above as a bright RING, because sixty feet of it was glass and most of that is gone.',
       'THE PRECAST PANEL GRID (22ft x 10ft) runs across both roof plates — the cladding module, legible from the air — and the rooftop plant sits in a line along the north leg.',
-      'THE PROJECTING CANOPY hangs off the building over the plaza and down its west side. It has NO masts, because on the real building it cantilevers from the top.',
+      'THE ENTRANCE IS STEPS AND A SCREENING PORCH (8/2), not a cantilever: a broad flight up out of the plaza, the row of PIERS carrying the wall above them, and the public doors at the head of it. Nothing overhead on this plot.',
       'THE PUBLIC PLAZA fills the elbow with a dry basin, a flag row along the building face and a light line at its edge.',
       'THE BLAST SETBACK rings the whole plot, held by a BOLLARD LINE on the street side and the east flank.',
       'THE SECURE YARD is walled on the west with staff parking inside it, a SALLY PORT into the west leg, and a gated drive out to the public lot.'],
-    circulation:'Street-aware via canonical-south + K.rotateToStreet: ONE kerb cut on the primary street feeds the public lot, and the drive along the south links it to the secure yard gate, so the whole drive network is reachable from the kerb (K.driveNetworkReach = 1.0). The sally port and yard gate are PORTALS, never a second car entrance. Stall ticks are MARKING and the canopy is OVERHEAD, so neither severs a path. Foot circulation is plaza -> under the canopy -> the public doors. A corner adds a pedestrian gate.',
-    layering:'GROUND (flat): the public plaza (7), the blast setback (4), the walks (13), the dry basin (8), the lot and yard floor (1, DRIVE) with their stall ticks (21, MARKING), bare desert (0). OVERHEAD (pass UNDER): the projecting canopy (14). STRUCTURE (¾ front face, solid, ENTERABLE): the COURTHOUSE mass (2 — rotunda lobby, screening hall, courtrooms and jury suites up both legs, holding behind the sally port), the precast panel joints (6), the dome (17) and its glazing (11), the roof edge (16), the rooftop plant (10), the plaza lights (9), the security bollards (15), the secure yard wall (20, FENCE). PROP: dead trees (3), flagpoles (12), dead cars (19). PORTAL: the doorways (18), the sally port and yard gate (22), the kerb cut (5).',
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: ONE kerb cut on the primary street feeds the public lot, and the drive along the south links it to the secure yard gate, so the whole drive network is reachable from the kerb (K.driveNetworkReach = 1.0). The sally port and yard gate are PORTALS, never a second car entrance. Stall ticks are MARKING, so a car drives over them, and NOTHING on this plot is overhead. Foot circulation is plaza -> up the entrance steps between the piers -> the public doors. A corner adds a pedestrian gate.',
+    layering:'GROUND (flat): the public plaza (7), the blast setback (4), the walks (13), the dry basin (8), the lot and yard floor (1, DRIVE) with their stall ticks (21, MARKING), bare desert (0). OVERHEAD (pass UNDER): NOTHING — this plot carries no overhead tile at all (Paolo 8/2, no more canopies). STRUCTURE (¾ front face, solid, ENTERABLE): the COURTHOUSE mass (2 — rotunda lobby, screening hall, courtrooms and jury suites up both legs, holding behind the sally port), the precast panel joints (6), the dome (17) and its glazing (11), the roof edge (16), the rooftop plant (10), the plaza lights (9), the security bollards and entrance piers (15), the secure yard wall (20, FENCE). PROP: dead trees (3), flagpoles (12), dead cars (19). PORTAL: the doorways (18), the sally port and yard gate (22), the kerb cut (5).',
     decisions:['THE COLONNADE IS DEAD, and the lawn with it. A portico and monumental steps is a county courthouse in Ohio; this valley has a blast-rated federal L with a glass dome, and that is what actually got built here.',
       'THE SETBACK IS NOT A VOID, and this is the one district where empty ground is CORRECT. Standoff distance is the security measure the building was the first in the country to be designed around. It is named, written and bollarded, so it is answered for.',
-      'Deliberately differentiated from city hall (solar tree farm + single-masted canopy) and the library (drum + tower + reading wing): here it is an L round a plaza, a ringed dome at the elbow, and a cantilevered canopy. Every district is its own landmark (7/28).',
+      'Deliberately differentiated from city hall (a seven-storey block merged with a round chamber over a bed of solar masts) and the library (drum + tower + reading wing): here it is an L round a plaza with a ringed dome at the elbow, standing back behind a bollarded setback. Every district is its own landmark (7/28).',
+      'NO CANOPY (8/2, Paolo: "no more canopies I only see canopies at parks and shit"). The cantilever the real building is known for is gone. The reference line above KEEPS it, because the reference is a record of the real building and not a description of this plot — the LAYOUT note is what describes what got drawn.',
       'ONE BUILDING (8/2): both legs and the rotunda share walls; the yard wall is a fence, not a second courthouse.',
       'THE SECURE HALF is what a courthouse has and a city hall does not: a walled yard, staff parking inside it, and a sally port. It stays a PORTAL, never a second car entrance (street-aware law).',
       'Act-1 DEAD: the dome mostly sky, sealant dropped out of the panel joints, plant stripped for copper, pavers heaved, one sally port leaf standing open. Who holds the building now is faction canon and stays Paolo\'s.',

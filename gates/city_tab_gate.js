@@ -73,7 +73,15 @@ ok('no wall-clock or random in the page script', !/Math\.random|Date\.now/.test(
 // its cityedit ENGINE reused inside the iso view. The 7/19 anti-hijack lesson
 // still holds: the boot stays DYNAMIC (loader guard intact, no static iframe).
 const alpha = fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8');
-ok('the real iso city lives: CITY_B64 payload present in the alpha', alpha.indexOf('CITY_B64') >= 0);
+/* THE CITY MOVED, AND THIS GATE WAS TESTING WHERE IT USED TO BE (8/4). Until the
+   8/2 payload-wall pass the renderer was base64'd into the alpha as CITY_B64 and
+   srcdoc'd into the frame; it is a sibling page loaded with fr.src now, which took
+   the alpha 38.7 MB -> 2.92 MB. What this gate exists to protect is unchanged --
+   the CITY tab boots the ONE iso view dynamically, with no static iframe hijack --
+   so it asserts THAT, from wherever the app actually lives. */
+const CITY_APP = require('./bohemia_city_app.js');
+const app = CITY_APP.read();
+ok('the real iso city lives (found in ' + (app ? app.file : 'none of ' + CITY_APP.searched().join(', ')) + ')', !!app);
 // The guard's CONDITION was renamed on 7/28 when Paolo asked for the city in the
 // run tab: the tab handler now computes PANEL (run routes to city) and the guard
 // tests that instead of t.dataset.p directly. What this check exists to protect -
@@ -82,8 +90,9 @@ ok('the real iso city lives: CITY_B64 payload present in the alpha', alpha.index
 // code; the protection does not move at all.
 ok('the dynamic city boot is intact (loader guard untouched)',
   alpha.indexOf("PANEL==='city'&&!document.getElementById('cityFrame')") >= 0);
-ok('the CITY tab boots the iso view (CITY_B64 srcdoc, not a separate flat map)',
-  alpha.indexOf('fr.srcdoc=new TextDecoder().decode(Uint8Array.from(atob(CITY_B64)') >= 0);
+ok('the CITY tab boots the iso view (the city app into the city frame, not a separate flat map)',
+  /fr\.id='cityFrame'/.test(alpha) && (/fr\.src=CITY_SRC/.test(alpha) ||
+    alpha.indexOf('fr.srcdoc=new TextDecoder().decode(Uint8Array.from(atob(CITY_B64)') >= 0));
 ok('NO static cityFrame hijack (the guard must find the panel empty, boot stays dynamic)',
   !/<iframe[^>]*id="cityFrame"/.test(alpha));
 ok('the standalone flat builder page is wired NOWHERE in the alpha (its engine is reused, not the page)',
@@ -95,10 +104,9 @@ ok('the standalone flat builder page is wired NOWHERE in the alpha (its engine i
 // the city rerolled the fragmented streets Paolo killed. If the overworld
 // session evolves the canon streets, this goes RED until
 // tools/bohemia_city_overmap_resync.py is rerun.
-const b64m = alpha.match(/const CITY_B64='([^']+)'/);
-ok('CITY_B64 payload extractable', !!b64m);
-if (b64m) {
-  const decoded = Buffer.from(b64m[1], 'base64').toString('utf8');
+ok('the city payload is readable', !!app && app.src.length > 100000);
+if (app) {
+  const decoded = app.src;
   const WRAP_OPEN = '(function(global){';
   const WRAP_CLOSE = "})(typeof window!=='undefined'?window:globalThis);";
   const canon = fs.readFileSync('engine/bohemia_overmap.js', 'utf8');

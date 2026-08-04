@@ -53,7 +53,7 @@ const ICON_REQUIRED = ['rail', 'interchange', 'campus', 'speedway', 'town', 'bal
    written down in the factory so nobody re-walks it. */
 const OWED = [
   'suburb', 'trailer', 'apartment', 'wash', 'cemetery', 'drivein', 'golf', 'jail',
-  'chapel', 'landfill', 'railyard', 'substation', 'watertreat', 'boneyard', 'waterpark',
+  'landfill', 'railyard', 'substation', 'watertreat', 'boneyard', 'waterpark',
   'airport', 'airbase', 'arterial', 'freeway', 'desert', 'mountain', 'water',
 ];
 
@@ -166,11 +166,13 @@ function pixels(b64) {
 
 // ---- 4. IT IS REACHABLE FROM THE THING PAOLO TOUCHES ------------------------
 {
-  const alpha = fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8');
-  const m = /const CITY_B64\s*=\s*'([^']+)'/.exec(alpha);
-  ok('the alpha carries the CITY builder payload', !!m);
-  if (m) {
-    const dec = Buffer.from(m[1], 'base64').toString('utf8');
+  /* WHERE the city app lives and WHAT SHAPE it is in are not this gate's business
+     (8/4). One resolver knows; this asks it. */
+  const CITY = require('./bohemia_city_app.js');
+  const app = CITY.read();
+  ok('the CITY builder payload is findable (' + (app ? app.file : 'nowhere') + ')', !!app);
+  if (app) {
+    const dec = app.src;
     ok('the builder has a hero draw path at all', dec.indexOf('function drawHero(') >= 0);
     let wired = 0;
     ICON_REQUIRED.forEach(t => {

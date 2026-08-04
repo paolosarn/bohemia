@@ -30,16 +30,10 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
   /* HIS SPRITES LIVE INSIDE THE BASE64 CITY BLOB, so searching the raw file finds
      nothing even when they shipped. Decode it and search the real renderer -- the
      same lesson street_source_gate learned: check the surface, not the wrapper. */
-  const city = (() => {
-    for (let ci = alpha.indexOf('CITY_B64'); ci >= 0; ci = alpha.indexOf('CITY_B64', ci + 1)) {
-      const tail = alpha.slice(ci + 8, ci + 20); const eq = tail.indexOf('='); if (eq < 0) continue;
-      const qi = tail.slice(eq).search(/['"`]/); if (qi < 0) continue;
-      const st = ci + 8 + eq + qi + 1, en = alpha.indexOf(alpha[st - 1], st);
-      if (en - st < 100000) continue;
-      return Buffer.from(alpha.slice(st, en), 'base64').toString('utf8');
-    }
-    return '';
-  })();
+  /* WHERE the city app lives and WHAT SHAPE it is in are not this gate's business
+     (8/4). It moved out of the alpha on 8/2 and stopped being base64, and this gate
+     reported his signal bank MISSING when it had shipped fine. One resolver knows. */
+  const city = (() => { const a = require('./bohemia_city_app.js').read(); return a ? a.src : ''; })();
   ok('the alpha carries a readable CITY renderer', city.length > 100000);
   ok('his 7/17 signal bank still exists', Array.isArray(bank.signals) && bank.signals.length > 300);
 
@@ -70,7 +64,10 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
     let f = null;
     for (let i = 0; i < 20; i++) {
       await page.waitForTimeout(3000);
-      f = page.frames().find(fr => /srcdoc/.test(fr.url()) && fr !== page.mainFrame());
+      /* FIND THE FRAME BY WHAT IT IS, NOT BY HOW IT WAS LOADED (8/4). It was a
+         srcdoc frame until the payload-wall pass; it is a sibling src frame now.
+         One predicate knows: gates/bohemia_city_app.js. */
+      f = page.frames().find(fr => require('./bohemia_city_app.js').isFrame(fr, page));
       if (!f) continue;
       const up = await f.evaluate(() => typeof fit === 'function' &&
         document.getElementById('cv').width > 300).catch(() => false);

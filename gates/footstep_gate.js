@@ -42,22 +42,13 @@ function requirePlaywright() {
   catch (e) { return require('playwright'); }
 }
 
-/* extract the city blob by INDEX -- the alpha is 42 MB and a regex with a big
-   quantifier over it blows the call stack (learned the hard way on 7/31) */
-function cityBlob(alpha) {
-  for (let ci = alpha.indexOf('CITY_B64'); ci >= 0; ci = alpha.indexOf('CITY_B64', ci + 1)) {
-    const tail = alpha.slice(ci + 8, ci + 20);
-    const eq = tail.indexOf('=');
-    if (eq < 0) continue;
-    const qi = tail.slice(eq).search(/['"`]/);
-    if (qi < 0) continue;
-    const start = ci + 8 + eq + qi + 1;
-    const end = alpha.indexOf(alpha[start - 1], start);
-    if (end - start < 100000) continue;
-    return Buffer.from(alpha.slice(start, end), 'base64').toString('utf8');
-  }
-  return null;
-}
+/* WHERE the city app lives and WHAT SHAPE it is in are not this gate's business
+   (8/4). The payload-wall pass moved it out of the alpha on 8/2 and stopped
+   base64-ing it, and this gate went red about a city that was fine. One resolver
+   knows: gates/bohemia_city_app.js. The `alpha` argument is ignored, kept only so
+   the call sites below read exactly as they did. */
+const CITY_APP = require('./bohemia_city_app.js');
+function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; }
 
 (async () => {
   const approved = JSON.parse(fs.readFileSync(BANK, 'utf8'));

@@ -4,7 +4,7 @@ _Category: **infrastructure**  ·  Cell: 96 m × 96 m = 128×128 tiles (0.75 m/t
 
 GENERATED from `engine/bohemia_terminal.js` (NOTES + LEGEND + PALETTE) — do not hand-edit; rerun `node tools/bohemia_tilespec.js`. ACT-1 material is the dead-world look to tile now; ACT-2/3 evolution is Paolo's call.
 
-**A dead transit centre — a curved two-storey head house behind a glazed south wall, a boarding platform under a photovoltaic shade structure, SIXTEEN sawtooth bus bays with the buses still in some of them, SEVEN on-street loading points at the kerb, a hundred double-stacked bike racks, a layover row and a small park-and-ride. A VEHICULAR VENUE: the vehicle surface is the venue.**
+**A dead transit centre — a curved two-storey head house behind a glazed south wall, an open boarding platform, a PHOTOVOLTAIC ARRAY on the head-house roof, SIXTEEN sawtooth bus bays with the buses still in some of them, SEVEN on-street loading points at the kerb, a hundred double-stacked bike racks, a layover row and a small park-and-ride. A VEHICULAR VENUE: the vehicle surface is the venue.**
 
 ### Real-world reference
 - BONNEVILLE TRANSIT CENTER (2010, 101 E Bonneville Ave, downtown Las Vegas), LEED Platinum: 16 on-site vehicle bays, 7 on-street loading points, roughly 100 double-stacked bike racks with a self-service repair stand, preferred parking for hybrids, a fully enclosed passenger waiting area in a 2-storey ~20,000 sq ft building, and SOLAR-PANEL SHADE STRUCTURES over the bays. Its curved lines are what the design juries singled out.
@@ -14,15 +14,15 @@ GENERATED from `engine/bohemia_terminal.js` (NOTES + LEGEND + PALETTE) — do no
 - THE HEAD HOUSE runs across the north as a bar with a CURVED concourse bulging south out of it — one building, the curve merged into the bar, its whole south wall glazed.
 - THE BOARDING PLATFORM runs the full width below it, with a numbered POST at the nose of each bay.
 - SIXTEEN SAWTOOTH BAYS are painted off the platform edge onto the apron, angled, with buses still standing in every third one.
-- THE SOLAR SHADE covers the platform and the bay noses. It is an OVERHEAD: it shades the path, never severs it.
+- THE PHOTOVOLTAIC ARRAY sits ON THE HEAD-HOUSE ROOF (8/2), not over the platform. Same panels, same count, roof-mounted equipment — nothing left for a person to stand under. The platform is open sky.
 - A HUNDRED DOUBLE-STACKED BIKE RACKS stand in two banks on the forecourt either side of the doors.
 - THE LAYOVER ROW is the line of parked buses across the middle of the apron; the PARK-AND-RIDE and its stall ticks fill the south strip; SEVEN painted on-street loading points sit at the kerb outside the property line.
 
 ### Circulation (street-aware / drivable)
-Street-aware via canonical-south + K.rotateToStreet: ONE kerb cut, deliberately wider than a car gate because a bus has to make it, feeds an apron that is a single connected surface a coach can turn in — bays, layover row and park-and-ride all reach the kerb (K.driveNetworkReach = 1.0). Every painted thing here (bay boxes, stall ticks, kerb points) is MARKING and the shade is OVERHEAD, so nothing painted or hanging severs a route. Foot circulation is forecourt -> doors -> waiting room -> platform -> bay. A corner adds a pedestrian gate onto the forecourt.
+Street-aware via canonical-south + K.rotateToStreet: ONE kerb cut, deliberately wider than a car gate because a bus has to make it, feeds an apron that is a single connected surface a coach can turn in — bays, layover row and park-and-ride all reach the kerb (K.driveNetworkReach = 1.0). Every painted thing here (bay boxes, stall ticks, kerb points) is MARKING, so a bus drives straight over it, and NOTHING on this plot is overhead. Foot circulation is forecourt -> doors -> waiting room -> platform -> bay. A corner adds a pedestrian gate onto the forecourt.
 
 ### Layering — exterior vs interior, what blocks, what you go under/into
-GROUND (flat): the forecourt paving (7), the hardpan (4), the boarding platform (13, WALK), the apron / park-and-ride (1, DRIVE) with bay boxes (20), stall ticks (17) and kerb points (19) all MARKING, bare desert (0). OVERHEAD (pass UNDER): the solar shade (6). STRUCTURE (¾ front face, solid, ENTERABLE): the HEAD HOUSE (2 — enclosed waiting room, ticket counter, restrooms, upstairs operations), its curtain wall glazing (11), roof edge (14), rooftop plant (8), the bay posts (10), the bike racks (12), the apron lights (9). PROP: dead trees (3), dead buses (15) and cars (18). PORTAL: the doorways (16) and the kerb cut (5).
+GROUND (flat): the forecourt paving (7), the hardpan (4), the boarding platform (13, WALK), the apron / park-and-ride (1, DRIVE) with bay boxes (20), stall ticks (17) and kerb points (19) all MARKING, bare desert (0). OVERHEAD (pass UNDER): NOTHING — this plot carries no overhead tile at all (Paolo 8/2, no more canopies). STRUCTURE (¾ front face, solid, ENTERABLE): the HEAD HOUSE (2 — enclosed waiting room, ticket counter, restrooms, upstairs operations), its curtain wall glazing (11), roof edge (14), rooftop plant (8), the ROOF-MOUNTED PV array (6), the bay posts (10), the bike racks (12), the apron lights (9). PROP: dead trees (3), dead buses (15) and cars (18). PORTAL: the doorways (16) and the kerb cut (5).
 
 ### Decisions & rulings
 - THE LAWN IS DEAD. 26% of this plot was painted green in a valley that stopped watering things a decade before act one opens — the exact greenwash Paolo caught in downtown. Replaced with hardpan and paved forecourt.

@@ -33,10 +33,12 @@ let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
 const alpha = fs.readFileSync(ALPHA, 'utf8');
-const key = "const CITY_B64='";
-const a0 = alpha.indexOf(key) + key.length;
-const a1 = alpha.indexOf("'", a0);
-const city = Buffer.from(alpha.slice(a0, a1), 'base64').toString('utf8');
+/* WHERE the city app lives and WHAT SHAPE it is in are not this gate's business
+   (8/4). The payload-wall pass moved it out of the alpha on 8/2 and stopped
+   base64-ing it. One resolver knows: gates/bohemia_city_app.js. */
+const _app = require('./bohemia_city_app.js').read();
+ok('the CITY app is findable', !!_app);
+const city = _app ? _app.src : '';
 
 ok('STEP-INSIDE is wired into the CITY app', city.includes('STEP-INSIDE'));
 

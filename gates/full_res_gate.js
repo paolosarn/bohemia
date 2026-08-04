@@ -36,18 +36,13 @@ function requirePlaywright() {
   try { return require('/opt/node22/lib/node_modules/playwright'); }
   catch (e) { return require('playwright'); }
 }
-function cityBlob(alpha) {
-  for (let ci = alpha.indexOf('CITY_B64'); ci >= 0; ci = alpha.indexOf('CITY_B64', ci + 1)) {
-    const tail = alpha.slice(ci + 8, ci + 20);
-    const eq = tail.indexOf('='); if (eq < 0) continue;
-    const qi = tail.slice(eq).search(/['"`]/); if (qi < 0) continue;
-    const start = ci + 8 + eq + qi + 1;
-    const end = alpha.indexOf(alpha[start - 1], start);
-    if (end - start < 100000) continue;
-    return Buffer.from(alpha.slice(start, end), 'base64').toString('utf8');
-  }
-  return null;
-}
+/* WHERE the city app lives and WHAT SHAPE it is in are not this gate's business
+   (8/4). The payload-wall pass moved it out of the alpha on 8/2 and stopped
+   base64-ing it, and this gate went red about a city that was fine. One resolver
+   knows: gates/bohemia_city_app.js. The `alpha` argument is ignored, kept only so
+   the call sites below read exactly as they did. */
+const CITY_APP = require('./bohemia_city_app.js');
+function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; }
 
 (async () => {
   const alpha = fs.readFileSync(ALPHA, 'utf8');
@@ -116,7 +111,10 @@ function cityBlob(alpha) {
     let f = null;
     for (let i = 0; i < 14; i++) {
       await page.waitForTimeout(3000);
-      f = page.frames().find(fr => /srcdoc/.test(fr.url()) && fr !== page.mainFrame());
+      /* FIND THE FRAME BY WHAT IT IS, NOT BY HOW IT WAS LOADED (8/4). It was a
+         srcdoc frame until the payload-wall pass; it is a sibling src frame now.
+         One predicate knows: gates/bohemia_city_app.js. */
+      f = page.frames().find(fr => require('./bohemia_city_app.js').isFrame(fr, page));
       if (!f) continue;
       const up = await f.evaluate(() => typeof fit === 'function' &&
         document.getElementById('cv').width > 300).catch(() => false);

@@ -49,12 +49,16 @@ def check(name, ok, detail=''):
 
 print('=== ZOOM-BUILD GATE ===')
 
-alpha = open(ALPHA, encoding='utf8').read()
-key = "const CITY_B64='"
-check('alpha carries the iso city app', key in alpha)
-a0 = alpha.index(key) + len(key)
-a1 = alpha.index("'", a0)
-iso = base64.b64decode(alpha[a0:a1]).decode('utf8')
+# WHERE the city app lives and WHAT SHAPE it is in are not this gate's business
+# (8/4). The payload-wall pass moved it out of the alpha on 8/2 and stopped
+# base64-ing it, and this gate went red about a city that was fine.
+import sys as _sys
+_sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import bohemia_city_app as CITY_APP                                 # noqa: E402
+_app = CITY_APP.read()
+check('the iso city app is findable (%s)'
+      % (_app.file if _app else 'none of ' + ', '.join(CITY_APP.searched())), _app is not None)
+iso = _app.src if _app else ''
 
 # 1. wired + the verbs are the canon engine, byte-identical
 check('zoom-build is wired into the iso view', 'ZOOM-BUILD' in iso)
@@ -113,8 +117,11 @@ p = subprocess.run([sys.executable, 'tools/bohemia_city_zoombuild_patch.py'],
                    capture_output=True, text=True, timeout=300)
 check('the patch tool is idempotent (re-running changes nothing)',
       p.returncode == 0 and 'no-op' in (p.stdout or ''), (p.stdout or p.stderr or '')[-90:])
-after = open(ALPHA, encoding='utf8').read()
-check('re-running the tool left the alpha byte-identical', after == alpha)
+# compare THE FILE THE CITY ACTUALLY LIVES IN, not a file this gate guessed at (8/4)
+_target = os.path.join(CITY_APP.ROOT, _app.file) if _app else None
+_after = CITY_APP.read()
+check('re-running the tool left the city app byte-identical',
+      _after is not None and _app is not None and _after.src == _app.src)
 
 print('=== %d passed / %d failed ===' % (passed, len(failed)))
 if failed:

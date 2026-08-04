@@ -97,10 +97,13 @@ ok('the district mix stays varied: 60+ types placed (' + Object.keys(census).len
 /* ---- walking, because that is the unit he asked in ------------------------
    READ OUT OF THE SHIPPED CITY FRAME. A crossing time derived from a constant
    somebody typed in a comment is a guess; this is the blob he walks. */
-const alpha = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
-const b64 = /CITY_B64\s*=\s*'([^']+)'/.exec(alpha);
-ok('the walked world is in the alpha', !!b64);
-const frame = b64 ? Buffer.from(b64[1], 'base64').toString('utf8') : '';
+/* WHERE the city app lives and WHAT SHAPE it is in are not this gate's business
+   (8/4). It moved out of the alpha on 8/2 and stopped being base64, and this gate
+   went red about a city that was fine. One resolver knows; this asks it. */
+const CITY = require('./bohemia_city_app.js');
+const app = CITY.read();
+ok('the walked world is findable (' + (app ? app.file : 'not in ' + CITY.searched().join(', ')) + ')', !!app);
+const frame = app ? app.src : '';
 ok('the beat is 500 ms (the 120 BPM law), so a step is a step',
   /const BEAT=500;/.test(frame));
 ok('a walk is ONE cell a beat and a run is TWO — the crossing times below are real',
