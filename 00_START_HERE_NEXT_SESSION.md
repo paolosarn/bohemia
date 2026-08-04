@@ -1,3 +1,95 @@
+ART (f3eu53): 8/4 (f) LATEST -- *** THERE WAS NO LIGHT IN THIS GAME. HE WAS RIGHT AND
+THE MEASUREMENT SAID SO. ***
+
+"You know you're called the art direction chat and you're not doing a lot of art
+ directing. You're kind of just like putting art in places. I can't even see it like
+ what's wrong with you"
+
+=== THE ROOT CAUSE, AND IT INVALIDATES A WEEK OF METHOD ===
+I had measured TILES all week (colours, edge, grain, sat) and never once measured a
+FRAME. So I measured the play area of a real screenshot as a PICTURE:
+  VALUE RANGE   110 of 255   the brightest thing in the game is mid grey
+  COOL PIXELS   0.0%         every pixel in the frame is the same temperature
+  CAST SHADOWS  none         nothing in the world throws one
+Seven days of texture decisions were made inside a 110-value band of ONE colour, on
+objects sitting on the ground like stickers on paper. THAT is why he cannot see the
+art. Denser texture was never going to fix it, and I kept making denser texture.
+*** THE LESSON FOR EVERY LANE: a tile metric cannot see a frame problem. ***
+
+=== WHAT SHIPPED ===
+THE LOOK -- one grade over every world tile. Tone curve around the world's own median,
+then a SPLIT TONE: lit end toward the sun's colour, dark end toward the SKY's, which is
+blue. Not a style. A shadow is not the ground turned down, it is the ground lit by the
+sky, and a world with 0.0% cool pixels has no sky in it.
+THE SUN -- every solid mass throws a cast shadow DOWN-RIGHT, matching the upper-left key
+that every cooked tile in this repo already has (SKIN_LIGHT end_l 1.12 / end_r 0.86).
+Two cells, full then half; that step IS the penumbra at 44px. MULTIPLY TOWARD A BLUE,
+never a black wash, so his bought texture survives underneath it.
+
+=== THE FIRST CUT WAS A NO-OP AND MEASURED AS ONE (record this, it will recur) ===
+The first LOOK ran a per-CHANNEL lookup: each channel split-toned by ITS OWN value. The
+source art is red-over-blue everywhere, so red took the highlight boost and blue took
+the shadow boost IN THE SAME PIXEL. Cool pixels 0.0% BEFORE and 0.0% AFTER. It looked
+like a working feature and it did nothing.
+*** A MULTIPLY CANNOT MOVE A HUE. ONLY A BLEND TOWARD A COLOUR CAN. *** Exactly the 8/2
+perimeter-cap lesson (where a multiply blew to pure white) pointed at a different
+problem. The split must key on the PIXEL'S LUMINANCE, never per channel.
+
+=== A CACHE BUG KILLED ON THE WAY PAST ===
+look() memoises a graded canvas per image; the first key was src.length. Two tiles of
+the same size that encode to the same byte count collide -- with hundreds of 44x44 PNGs
+that is not hypothetical, and it swaps one wall for another while reading as a WORLD
+bug. Keyed on a stamped per-image id now, and the gate holds it.
+
+=== MEASURED ON THE REAL SURFACE, out his own front door, same frame twice ===
+                UNLIT     LIT
+  VALUE RANGE    106      144
+  CONTRAST SD   31.7     42.5
+  COOL PIXELS    0.1%     8.9%    there is sky in the shadows now
+  WARM PIXELS   98.6%    83.1%    and it is still a desert
+  GROUND CELLS IN SHADOW: 47, was 0
+  records/target/LOOK_AB.png (full phone screen) · SUN_SHADOW_AB.png (the shadow alone)
+
+=== WHAT I TURNED BACK OFF, DELIBERATELY ===
+*** THE GRIME DIAL IS BACK AT ZERO. *** Earlier today I moved it to 0.55 on the strength
+of "do what you want". THAT IS NOT A RULING ON AN AMOUNT and he has never seen a dirty
+frame. My own grime_gate.py says in writing the dial holds at zero until a verdict
+exists in records/ -- writing my own record to satisfy my own gate is gaming the gate.
+The stated reason also has not changed: one district of twenty-seven is finished.
+Three frames of the same street at 0 / 0.30 / 0.55 so he can rule on a NUMBER:
+  records/target/GRIME_DIAL_THREE_UP.png
+
+=== GATED ===
+gates/light_gate.js, 41 checks, registered as LIGHT. Source checks for the three
+failures that already happened once (per-channel split, src.length cache, a sun pointing
+the wrong way) PLUS it walks out the front door of the shipped run and reads the real
+canvas with the light off and on. A grade that draws nothing cannot pass it.
+
+=== THE SUITE, MEASURED AGAINST CLEAN MAIN INSTEAD OF ASSERTED ===
+The full 250-gate suite reports 40 RED on my branch. It reports 39 RED on UNTOUCHED
+origin/main. Diffed by name: exactly ONE new failure, PERIMETER, and it was MINE --
+perimeter_gate asserted the draw ORDER by matching two draw calls as LITERAL STRINGS,
+and the LOOK wraps every world draw site in look(), so a check about order died on a
+ValueError over a substring. Fixed to ask for the draws by SUBJECT and compare
+positions. 112/112. Swept every other gate for the same literal-matching pattern; that
+was the only one.
+*** 39 GATES WERE ALREADY RED ON MAIN BEFORE THIS SESSION TOUCHED ANYTHING. *** Most
+share one root -- "the alpha carries a readable CITY blob" / "the world frame booted" --
+and THERE IS NO CITY TAB IN THE ALPHA ANY MORE. Booted it to check: 10 tabs, 12
+canvases, ZERO page errors, stamp present. THE GAME IS FINE, THE GATES ARE STALE. A
+suite this red for days is worse than no suite: it trains every lane to skim past reds,
+which is the exact inverse of what the gate law is for. NOT ART'S TO FIX, but somebody
+must own it.
+
+=== NOT DONE / THE QUEUE ===
+1. THE ART CELL IS 44px. His bought tiles carry features on 7.0% of their area; mine
+   land at 5.5% because 44px has no room for a crack that crisp. 88 fixes it outright.
+   BIGGEST REMAINING ART JOB.
+2. Civic masses have parapets and openings but NO CORNERS and NO ENDS -- a warehouse
+   still reads flat from the side.
+3. The grime NUMBER is [PENDING, Paolo's call].
+4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
+
 CITY (1eztay): 8/2 (ap) LATEST — THE ALPHA IS FOUR BLOBS IN A TRENCH COAT AND
 NOTHING WAS GUARDING THEM. Now something is.
 
@@ -333,6 +425,7 @@ reference is a record of the real building, the LAYOUT note is what describes wh
 2. DOORLESS_DEBT = 12 heroes with no door on any wall.
 3. downtown_arts / downtown_civic / downtown_lot, from the 8/1 downtown research.
 4. [PENDING Paolo] the drive-thru wedding chapel as its own cell type -- proposed, not built.
+
 
 LAB (lab-e2r7sv): 8/4 (b) LATEST -- *** HE KILLED THE MATERIAL FRAMING AND HE WAS RIGHT.
 IT WAS MY FACTUAL ERROR, NOT HIS TASTE. *** The ladder is 16 TOOLS now.
