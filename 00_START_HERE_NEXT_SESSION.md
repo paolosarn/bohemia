@@ -1233,6 +1233,29 @@ Nobody WEARS their faction colour on the surface he plays yet - bohemia_dress is
 the LIFE slice, not by the alpha's RUN. Wiring it into the run touches the RUN lane's
 surface, so it is a coordination job, not a solo one. THAT IS THE NEXT VISIBLE STEP and it
 is what turns all of this from true into SEEN.
+RUN (run-eak241): 8/3 (h) LATEST -- BUILDINGS GO SEE-THROUGH WHEN YOU WALK UP TO THEM.
+Ship: BUILD 8/3h. Tab: RUN.
+
+Paolo RULED it: "Ofcourse the building should become see through to reflect characters
+items or the player or doors."
+THE OLD FADE WAS CORRECT AND COULD NEVER FIRE. Measured in the SPAWN cell (law clause
+1b): 312 facade cells, ZERO walkable cells 1-2 north of any of them. A wall draws UPWARD
+so it can only cover the cells NORTH of it, and c.face is only set when the cell BELOW is
+not solid -- which makes every facade a building's SOUTH wall whose north side is always
+the building's own body. Two correct facts composing into a feature with nowhere to stand.
+FIX: the covering rule STAYS (it is the one that matters the second interiors are one
+world) and a HALO was added -- walls within XRAY_R=2 cells of the player drop to
+WALL_SEE. Walk up to a house and its wall turns to glass; the door and its stone jambs
+read straight through it, which is his sentence verbatim.
+NOT "always transparent": a wall that is always glass is not a wall, and the 7/17 note on
+that very line is right that the world must not shimmer while he walks.
+GATE: gates/xray_gate.js (SEE THROUGH) 5/0 -- halo constant sane, walls fade AT A REAL
+DOOR IN THE SPAWN DISTRICT, it is a halo (20 cells away it stops), and the same state
+renders identically twice. Rendered and looked at before shipping.
+STILL NOT BUILT, named not guessed: MASS OCCLUSION. A building's top is a flat roof baked
+into the chunk canvas and drawn BEFORE the body, so a building cannot hide him at all
+today. Making masses occlude-and-fade is a real feature with its own look and it is a
+design call. records/BOHEMIA_THE_SEE_THROUGH_CANNOT_FIRE_IN_THE_SUBURB_8_3_26.md
 
 LAB (lab-e2r7sv): 8/3 (e) LATEST -- THE PROGRESSION SPINE. HE ASKED HOW THE WHOLE STACK
 FITS AND THE ANSWER WAS ALREADY IN HIS OWN LAWS. *** ONE RULING BLOCKS EVERYTHING. ***
