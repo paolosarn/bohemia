@@ -119,7 +119,17 @@ UI = r"""
   /* ONE AUDIOCONTEXT, THE PARENT'S: the studio's, with its brickwall limiter
      already in the chain. This never makes a context. */
   ac:function(){ try{ MUS.audio(); }catch(e){} return (typeof MUS!=='undefined')?MUS.AC:null; },
-  bus:function(){ return (typeof MUS!=='undefined')?(MUS.MAST||MUS.AC.destination):null; },
+  /* THE JUDGE'S BUS IS THE OUTPUT BUS, NEVER THE MUSIC MASTER (8/4).
+     It used to return MUS.MAST, which is the MUSIC master: MUS.stop() ducks
+     that to zero and leaves it there (Paolo 7/27, "i press the music button
+     off and the music still plays" - his fix, still correct). So once he
+     turned the music off, EVERY CANDIDATE HE TRIED TO JUDGE WAS SILENT, on
+     the one surface whose entire job is playing sounds. Same defect the SFX
+     bus had, found and fixed on 8/2, still sitting here in a second place a
+     day later - which is what happens when a bus is fixed instead of a RULE.
+     THE RULE: nothing that is not music connects to MUS.MAST. */
+  bus:function(){ return (typeof MUS!=='undefined')
+    ?(MUS.OUT||MUS.MAST||MUS.AC.destination):null; },
   hear:function(v,when){ var AC=this.ac(); if(!AC)return null;
     try{ return BOH_SFX.render(v,AC,this.bus(),when); }catch(e){ return null; } },
   /* PLAY ALL 5 lands them a beat apart, on the grid, because that is how the

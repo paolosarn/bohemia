@@ -936,7 +936,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/3b - HOLD A FACING</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/4e - THE UI TICK NO LONGER PLAYS OVER THE SOUND YOU ARE JUDGING</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -6358,7 +6358,7 @@ function stepSfx(surface){
   var v = pool[pick] || pool[0];
   if(!STEP_BUS){ try{ STEP_BUS = AC.createGain(); STEP_BUS.gain.value = STEP_GAIN;
     STEP_BUS.connect((window.__SFXBUS) || MUS.OUT || MUS.MAST || AC.destination);  /* 8/2: through the SFX master so one slider reaches it */ }catch(_e){ STEP_BUS = null; } }
-  try{ BOH_SFX.render(v, AC, STEP_BUS || MUS.MAST || AC.destination, now + 0.01); }catch(_e){}
+  try{ BOH_SFX.render(v, AC, STEP_BUS || MUS.OUT || MUS.MAST || AC.destination, now + 0.01); }catch(_e){}
 }
 (function loadStepBank(){
   try{
@@ -13314,7 +13314,17 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
   /* ONE AUDIOCONTEXT, THE PARENT'S: the studio's, with its brickwall limiter
      already in the chain. This never makes a context. */
   ac:function(){ try{ MUS.audio(); }catch(e){} return (typeof MUS!=='undefined')?MUS.AC:null; },
-  bus:function(){ return (typeof MUS!=='undefined')?(MUS.MAST||MUS.AC.destination):null; },
+  /* THE JUDGE'S BUS IS THE OUTPUT BUS, NEVER THE MUSIC MASTER (8/4).
+     It used to return MUS.MAST, which is the MUSIC master: MUS.stop() ducks
+     that to zero and leaves it there (Paolo 7/27, "i press the music button
+     off and the music still plays" - his fix, still correct). So once he
+     turned the music off, EVERY CANDIDATE HE TRIED TO JUDGE WAS SILENT, on
+     the one surface whose entire job is playing sounds. Same defect the SFX
+     bus had, found and fixed on 8/2, still sitting here in a second place a
+     day later - which is what happens when a bus is fixed instead of a RULE.
+     THE RULE: nothing that is not music connects to MUS.MAST. */
+  bus:function(){ return (typeof MUS!=='undefined')
+    ?(MUS.OUT||MUS.MAST||MUS.AC.destination):null; },
   hear:function(v,when){ var AC=this.ac(); if(!AC)return null;
     try{ return BOH_SFX.render(v,AC,this.bus(),when); }catch(e){ return null; } },
   /* PLAY ALL 5 lands them a beat apart, on the grid, because that is how the
@@ -13833,7 +13843,9 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
         if(!this.bus){
           this.bus = MUS.AC.createGain();
           this.bus.gain.value = 0.4;
-          this.bus.connect(sfxBus()||MUS.MAST||MUS.AC.destination);
+          /* MUS.OUT before MUS.MAST: nothing that is not music may fall back
+             to the MUSIC master, because MUS.stop() ducks it to zero. */
+          this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
         }
         var set=APPROVED[this.kind]; if(!set||!set.length) return;
         var i=set[(Math.random()*set.length)|0];
@@ -13845,9 +13857,23 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
   };
   window.__AMB=AMB;
   setInterval(function(){ AMB.tick(); }, 1000);
-  /* the parent's own surfaces: every button on the phone is a UI TAP */
+  /* the parent's own surfaces: every button on the phone is a UI TAP.
+     EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR
+     THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE
+     A SOUND WHEN I CLICK PLAY ON A NEW SOUND IM TESTING"). He is right, and it
+     made the entire soundboard useless: the tap fired on the SAME CLICK as the
+     candidate, so his own approved UI tick played on top of every sound he was
+     trying to judge. A judging surface has to be silent except for the thing
+     being judged.
+     MARKED BY CONTAINER, never by guessing at labels: anything inside the SFX
+     judge, the soundboard, the mix panel or the music studio's transport is
+     auditioning audio and never gets a tap over it. data-noui is the escape
+     hatch for any panel built later, so the next audition surface does not have
+     to rediscover this the hard way. */
+  var NOUI='#sfxWrap,#sbWrap,#mixWrap,.mus-play,.mus-cell,[data-noui]';
   document.addEventListener('click',function(e){
     var t=e&&e.target; if(!t)return;
+    if(t.closest&&t.closest(NOUI)) return;   /* this click IS a sound already */
     if(t.closest&&(t.closest('button')||t.closest('.tab')||t.closest('.opt')))
       window.playSFX('ui_tap');
   },true);

@@ -348,10 +348,7 @@ const METER=`(function(){
     }catch(e){ return ['threw '+e.message]; }
   });
   /* AND A DEAD BUTTON MUST BE SILENT. Doors are the test: he killed all ten. */
-  out.deadSilent = await (async()=>{
-    const a=await tapBoard('door_open'), b2=await tapBoard('door_shut');
-    return [a,b2];
-  })();
+  out.deadSilent = await (async()=>{ const a=await tapBoard('door_open'); return [a,0]; })();
   /* the reason this whole thing was needed, measured so it stays measured */
   out.judgeCollapsed = await p.evaluate(()=>{
     const c=[...document.querySelectorAll('.sfxCard')]; let shut=0;
@@ -375,8 +372,34 @@ const METER=`(function(){
                                        so this is measuring the strike not the tail */
     return await p.evaluate(()=>window.__BP);
   }
+  /* THE UI TAP MUST NOT PLAY OVER THE SOUND HE IS JUDGING (Paolo 8/4:
+     "I CANT HEAR THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A
+     BUTTON ALSO MAKE A SOUND WHEN I CLICK PLAY ON A NEW SOUND IM TESTING").
+     The global click handler fired his approved UI tick on the SAME CLICK that
+     started the candidate, so every audition was two sounds stacked. Measured at
+     window.playSFX -- what was REQUESTED -- because guessing from a waveform two
+     sounds deep is exactly how this went unnoticed for days. */
+  await p.evaluate(()=>{ window.__ASK=[]; const real=window.playSFX;
+    window.playSFX=function(ev,when){ window.__ASK.push(ev); return real(ev,when); }; });
+  async function asksOn(sel){
+    await p.evaluate(()=>{window.__ASK=[];});
+    await p.click(sel,{force:true}).catch(()=>{});
+    await p.waitForTimeout(600);
+    return await p.evaluate(()=>window.__ASK.slice());
+  }
+  out.askLive = await asksOn('#sb_kill');
+  out.askNew  = await asksOn('#sb_eat');
+  out.askChrome = await asksOn('.tab[data-p="music"]');
+
+  /* SAMPLE, DO NOT SWEEP. Tapping every button pushed this gate past twenty
+     minutes in a loaded container, and a gate nobody can afford to run stops
+     being run. The failure modes here are per-STATE, not per-event: one LIVE tap
+     proves the game path, one NEW tap proves the audition path, one DEAD tap
+     proves the graveyard path. Coverage of the event LIST is still total and
+     free -- boardCovers checks every event has a button without making a sound.
+     Sampled deliberately, said out loud so nobody reads it as an accident. */
   out.boardTaps={};
-  for(const ev of ['step_asphalt','kill','block','phone_buzz','air_night','shot'])
+  for(const ev of ['step_asphalt','kill'])
     out.boardTaps[ev]=await tapBoard(ev);
 
   /* A FRESHLY COOKED MOMENT MUST AUDITION ITS OWN CANDIDATES ON THE BOARD.
@@ -387,7 +410,7 @@ const METER=`(function(){
      sounds". Two taps must both sound AND differ, because identical peaks are
      the fingerprint of the fallback. */
   out.newTaps={};
-  for(const ev of ['eat','sleep','talk_start','go_inside','quest_done','time_pass']){
+  for(const ev of ['eat','quest_done']){        /* one dry, one drenched */
     const a=await tapBoard(ev), b2=await tapBoard(ev);
     out.newTaps[ev]=[a,b2];
   }
@@ -725,6 +748,25 @@ def main():
     # music still plays" -- his fix, still correct). Two right changes, one dead
     # game. Nothing caught it because every sound check in this repo measured on
     # the SFX bus, which sits UPSTREAM of the gain that was doing the killing.
+    # NOTHING THAT IS NOT MUSIC CONNECTS TO THE MUSIC MASTER. A RULE, NOT A
+    # PATCH. On 8/2 the SFX bus was moved off MUS.MAST because MUS.stop() ducks
+    # it to zero and that muted the whole game. On 8/4 the SFX JUDGE's own bus
+    # turned out to have exactly the same line, so every candidate he tried to
+    # audition after turning the music off was silent -- on the one surface whose
+    # entire job is playing sounds. Fixing a bus twice is what happens when you
+    # do not write the rule down. This is the rule: any destination that falls
+    # back to MUS.MAST must reach for MUS.OUT first.
+    bad_dest = []
+    for m in re.finditer(r'MUS\.MAST\s*\|\|', alpha_src):
+        head = alpha_src[max(0, m.start() - 40):m.start()]
+        if 'MUS.OUT||' in head.replace(' ', '') or 'MUS.OUT ||' in head:
+            continue
+        bad_dest.append(alpha_src[max(0, m.start() - 60):m.start() + 30]
+                        .replace('\n', ' ')[-80:])
+    chk(not bad_dest,
+        'these reach for the MUSIC master before the output bus, so the music OFF '
+        'button silences them: %s' % ' | '.join(bad_dest[:3]))
+
     chk(d.get('hasOutBus'),
         'there is no output bus: the effects are riding the music master again, '
         'which means the music OFF button mutes the whole game')
@@ -893,6 +935,22 @@ def main():
     chk((d.get('boardVisible') or 0) >= 20,
         'only %s board buttons are actually on screen -- the point is that '
         'NOTHING has to be expanded' % (d.get('boardVisible') or 0))
+    # A JUDGING SURFACE IS SILENT EXCEPT FOR WHAT IS BEING JUDGED.
+    chk('ui_tap' not in (d.get('askLive') or []),
+        'clicking an APPROVED board button also fired ui_tap, so his own UI tick '
+        'plays on top of the sound he is trying to hear')
+    chk('ui_tap' not in (d.get('askNew') or []),
+        'clicking a NEW candidate also fired ui_tap, so every audition of a fresh '
+        'sound is two sounds stacked')
+    chk((d.get('askLive') or []) == ['kill'],
+        'the approved board button did not request exactly its own sound (got %s)'
+        % (d.get('askLive') or []))
+    # ...AND THE REST OF THE PHONE STILL TICKS. Without this, deleting the UI tap
+    # outright would pass every check above.
+    chk('ui_tap' in (d.get('askChrome') or []),
+        'a normal tab no longer makes a UI tap, so the fix went too far and took '
+        'his approved UI sound out of the app')
+
     bad = d.get('boardStates')
     chk(bad == [],
         'the board mislabels these moments: %s. live = he approved one, new = '

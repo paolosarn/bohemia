@@ -419,11 +419,21 @@ def main():
 
     # the run-side footstep sub-bus and the playSFX fallback both name MAST as
     # their last resort; give them the output bus first for the same reason.
+    # EVERY destination that falls back to the MUSIC master, in both the
+    # statement form (`... || AC.destination;`) and the ARGUMENT form
+    # (`render(v, AC, X || MUS.MAST || AC.destination, when)`). The argument form
+    # is the one the first pass missed, and the rule check in sfx_wired_gate
+    # found it a day later sitting in the other lane's footstep player. A rule
+    # that only knows one syntax is not a rule.
     for a, b in (
         ("STEP_BUS.connect((window.__SFXBUS) || MUS.MAST || AC.destination);",
          "STEP_BUS.connect((window.__SFXBUS) || MUS.OUT || MUS.MAST || AC.destination);"),
         ("|| MUS.MAST || AC.destination;",
          "|| MUS.OUT || MUS.MAST || AC.destination;"),
+        ("STEP_BUS || MUS.MAST || AC.destination",
+         "STEP_BUS || MUS.OUT || MUS.MAST || AC.destination"),
+        ("sfxBus()||MUS.MAST||MUS.AC.destination",
+         "sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination"),
     ):
         if a in s and b not in s:
             s = s.replace(a, b)

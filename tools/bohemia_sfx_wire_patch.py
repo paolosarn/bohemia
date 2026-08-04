@@ -346,7 +346,9 @@ def parent_block(bank):
         if(!this.bus){
           this.bus = MUS.AC.createGain();
           this.bus.gain.value = 0.4;
-          this.bus.connect(sfxBus()||MUS.MAST||MUS.AC.destination);
+          /* MUS.OUT before MUS.MAST: nothing that is not music may fall back
+             to the MUSIC master, because MUS.stop() ducks it to zero. */
+          this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
         }
         var set=APPROVED[this.kind]; if(!set||!set.length) return;
         var i=set[(Math.random()*set.length)|0];
@@ -358,9 +360,23 @@ def parent_block(bank):
   };
   window.__AMB=AMB;
   setInterval(function(){ AMB.tick(); }, 1000);
-  /* the parent's own surfaces: every button on the phone is a UI TAP */
+  /* the parent's own surfaces: every button on the phone is a UI TAP.
+     EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR
+     THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE
+     A SOUND WHEN I CLICK PLAY ON A NEW SOUND IM TESTING"). He is right, and it
+     made the entire soundboard useless: the tap fired on the SAME CLICK as the
+     candidate, so his own approved UI tick played on top of every sound he was
+     trying to judge. A judging surface has to be silent except for the thing
+     being judged.
+     MARKED BY CONTAINER, never by guessing at labels: anything inside the SFX
+     judge, the soundboard, the mix panel or the music studio's transport is
+     auditioning audio and never gets a tap over it. data-noui is the escape
+     hatch for any panel built later, so the next audition surface does not have
+     to rediscover this the hard way. */
+  var NOUI='#sfxWrap,#sbWrap,#mixWrap,.mus-play,.mus-cell,[data-noui]';
   document.addEventListener('click',function(e){
     var t=e&&e.target; if(!t)return;
+    if(t.closest&&t.closest(NOUI)) return;   /* this click IS a sound already */
     if(t.closest&&(t.closest('button')||t.closest('.tab')||t.closest('.opt')))
       window.playSFX('ui_tap');
   },true);

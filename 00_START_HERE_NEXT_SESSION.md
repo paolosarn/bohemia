@@ -1,3 +1,38 @@
+SOUND (sound-xk7pjp): 8/4 (e) LATEST - THE UI TICK WAS PLAYING OVER EVERY SOUND
+HE TRIED TO JUDGE. Tab: MUSIC.
+
+HIS WORDS: "I CANT HEAR THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK
+A BUTTON ALSO MAKE A SOUND WHEN I CLICK PLAY ON A NEW SOUND IM TESTING"
+
+He was right and it made the whole soundboard useless. The global click handler
+fires his approved ui_tap on EVERY button, and the soundboard is buttons, so the
+tick played on the SAME CLICK as the candidate. Every audition was two sounds
+stacked. FIX: the tap is suppressed inside any surface whose job is playing
+audio - #sfxWrap, #sbWrap, #mixWrap, the studio transport, and [data-noui] as
+the escape hatch for panels built later. The rest of the phone still ticks, and
+the gate checks BOTH directions so deleting the UI sound outright cannot pass.
+
+*** AND THE RULE THAT CAME OUT OF IT, WHICH IS THE PART THAT MATTERS ***
+NOTHING THAT IS NOT MUSIC CONNECTS TO MUS.MAST.
+MUS.stop() ducks MUS.MAST to zero and leaves it there (Paolo 7/27, his fix,
+still correct). On 8/2 I moved the SFX bus off it because that was muting the
+whole game. On 8/4 the SFX JUDGE's own bus turned out to have the identical
+line - so once he turned the music off, every candidate he tried to audition
+was silent, on the one surface whose entire job is playing sounds. I had fixed a
+BUS instead of writing a RULE. sfx_wired_gate now SWEEPS the alpha for any
+destination that reaches for MUS.MAST before MUS.OUT, and it immediately found
+two more: the footstep player's fallback and the ambience bus. All four fixed.
+A rule that only knows one syntax is not a rule: the sweep catches both the
+statement form and the argument form.
+
+ALSO LANDED: the board sample trim I claimed in the 8/4 batch-02 commit and did
+NOT actually ship (the tree reverted before it committed). It is real now - ONE
+TAP PER STATE (live/new/dead) instead of one per event. Coverage of the full
+event list is still total and free via boardCovers.
+
+GATES: sfx_wired 292/292, sfx_render 1766/1766, COMBAT LAB 675/675, RUN 126/126,
+MUSIC 17/17, ALPHA LOADS 20/20, SONG LOCK 20/20.
+
 LAB (lab-e2r7sv): 8/4 (d) LATEST -- ALL 18 BOSSES IN ONE NUMBERED TABLE, AND THE ANSWER ON
 WHERE THESE DESIGN CHATS BELONG.
 
@@ -85,7 +120,6 @@ MEMORY 7/2 is the pre-existing 0-agents red (P-F), same on clean main.
 2. GAP 5 (wearing another faction's colours) is now cheap - colours in, membership in, and
    this supplies "somebody who knows your face sees you in it".
 3. GAPS 6, 8, 9 (agendas, membership, internal politics) all sit on this.
-
 
 PEOPLE (7h9sfy): 8/4 LATEST — *** NOBODY STANDS IN THE STREET ALL DAY. *** Five of
 this lane's gates were dead on main for their whole visible history, and fixing the
