@@ -20,12 +20,23 @@ PROVEN, NOT ASSUMED:
   * PREFAB_B64 can be silently replaced and NOTHING notices. Measured: changing a
     colour inside it left alpha_loads 20/0, city_tab 64/0, rig_is_law 12/0.
 
-BLOB INTEGRITY (41 claims): every blob decodes, is not truncated (tag balance),
+*** THE ARCHITECTURE MOVED UNDER THIS GATE THE SAME DAY, and that is the useful
+part. 3ef222f lifted CITY_B64 out to slices/BOHEMIA_CITY_WORLD.html (alpha 38.7 MB
+-> 2.92 MB, first load 12,561 ms -> 398 ms, ~43 days off a hard GitHub 100 MB push
+limit nobody was watching). My gate went RED on the merge, correctly, because
+CITY_B64 was no longer a const. THE CHECK DID NOT GET SMALLER, IT GOT BIGGER: the
+game is now a shell plus EIGHT big documents (3 inline blobs + 5 sibling pages,
+each a surface he opens from a tab) and every property here is as true of a page
+as of a blob. 41 claims -> 70. A gate that insisted on the shape it was born with
+would be testing something nobody ships. ***
+
+BLOB INTEGRITY (70 claims): every document decodes, is not truncated (tag balance),
 carries NO MERGE MARKERS (a blob is where a bad conflict resolution hides best --
 nobody reads 28 million characters), every inline script still PARSES (compiled,
 never executed), and has not collapsed. Mutation-proven against the three REAL
-failure shapes, each caught by name in about a second:
-    drop one </div> from the city blob  -> "CITY_B64 <div> balances (64/63)"
+failure shapes, each caught by name in about a second, and RE-PROVEN on the new
+extracted world page:
+    drop one </div> from the world page -> "BOHEMIA_CITY_WORLD.html (64/63)"
     leave a merge marker in a blob      -> "COMBAT_B64 CARRIES NO MERGE MARKERS"
     string-surgery drops a brace        -> "RIG_B64 every inline script PARSES"
 
@@ -45,6 +56,38 @@ district, not generated), so they are real art production landing "UNJUDGED", an
 the verdict queue is already loaded across lanes. REUSE-FIRST checked first -- 20
 of 22 owed types have a rendered judgecard, but a judge card is a verdict render,
 not a builder hero, so it is not a substitute.
+
+*** AND THE EXTRACTION LEFT 24 GATES BEHIND. READ THIS IF YOUR SUITE IS RED. ***
+Lifting CITY_B64 out was RIGHT (38.7MB -> 2.92MB, first load 12,561ms -> 398ms, ~43
+days off a hard GitHub push limit). But 81 files in gates/ and tools/ referenced
+CITY_B64 and the suite went 12 failures -> 40. Two mechanical causes, both the same
+shape as the CITY-tab deletion earlier the same day -- a consumer still looking for
+something that moved:
+  (1) a copy-pasted cityBlob(alpha) helper decoding a const that is gone
+  (2) frame detection by /srcdoc/.test(fr.url()) -- the frame is fr.src now, so its
+      URL is a real path. THIRTEEN gates failed on "the world frame booted", which
+      reads like the GAME is broken when it is the TEST that is.
+I REPAIRED ALL 24 AND THEN THREW THAT WORK AWAY, WHICH WAS RIGHT. Another lane
+landed the same repair concurrently and did it BETTER: ONE shared CITY_APP.read()
+instead of my twenty-four per-file injections -- a single source of truth, which is
+what FACTORY LAW asks for and what I should have written. On the rebase I took
+THEIRS for every one of the 24 conflicted files. Keeping mine would have been ego,
+not engineering. (They had also already removed 'chapel' from icon_gate's OWED list,
+the same one-word ratchet slip I fixed independently.) Suite is 14 red now, all
+checked: the standing character/life set + WALL CLASS, CANVAS SCALE, INTERIORS;
+GRAVEYARD and QUEST PLACEMENT verified red on pristine main; D1 KERB left on
+purpose (a CONTENT ratchet from main's own NO CANOPIES ruling on the civics --
+raising another lane's ceiling is a design call, not a merge fix).
+
+THE PATTERN, THIRD TIME TODAY: an architecture change is not done when the thing
+works, it is done when EVERYTHING THAT POINTED AT THE OLD SHAPE HAS BEEN FOUND. The
+grep takes a minute. Skipping it costs the fleet a red suite it cannot tell apart
+from real breakage.
+
+DISTRICT FILL CAUGHT ITS FIRST REAL DROP AND IT WAS A RULING: cityhall 59.8 -> 53.9,
+courthouse 52.9 -> 48.3, terminal 52.4 -> 50.6, chapel 56.2 -> 55.7, all from 2fc2e3f
+NO CANOPIES. A floor catches ACCIDENTAL emptying; a RULING re-baselines it. Those four
+re-baselined with the reason recorded in the baseline file, the other 45 left pinned.
 
 WHAT I CHECKED AND STAYED OUT OF: the spawn suburb has 4,368 walls that admit you
 and 3 doors. That is RUN (run-eak241)'s live work (8/3 (g), "SIDE DOORS IN THE

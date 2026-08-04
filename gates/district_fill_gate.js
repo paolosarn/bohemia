@@ -62,7 +62,12 @@ let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL ' + n)); };
 
 ok('the 8/2 baseline is on disk', fs.existsSync(BASELINE));
-const base = JSON.parse(fs.readFileSync(BASELINE, 'utf8'));
+const rawBase = JSON.parse(fs.readFileSync(BASELINE, 'utf8'));
+/* JSON cannot carry a comment, so the baseline keeps its reasons under keys
+   prefixed with _ . They are notes, not districts -- counting one as a district
+   inflated the registry to 50 and dragged the median. */
+const base = {};
+for (const [k, v] of Object.entries(rawBase)) if (k[0] !== '_') base[k] = v;
 const CONFIGS = [['S'], ['N'], ['E'], ['W'], ['S', 'E'], ['N', 'W']];
 
 const measured = {};

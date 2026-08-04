@@ -102,11 +102,24 @@ NEW = """    hx=city.x*FN+(FN>>1); hy=city.y*FN+(FN>>1);
     }
     if(_best){ hx=_best[0]; hy=_best[1]; }"""
 
-alpha = open(ALPHA, encoding='utf8').read()
-key = "const CITY_B64='"
-a0 = alpha.index(key) + len(key)
-a1 = alpha.index("'", a0)
-decoded = base64.b64decode(alpha[a0:a1]).decode('utf8')
+# WHERE THE WORLD LIVES (8/2, 3ef222f): CITY_B64 was 35.76 MB of inline base64
+# pushing the alpha at GitHub's hard 100 MB push limit. It is now a plain sibling
+# file loaded by fr.src. This tool decoded the const and CRASHED the moment that
+# landed ("substring not found"). It reads the page when the page is there and
+# falls back to the const, so it works either side of the change and no lane has
+# to remember which shape today is.
+WORLD = 'slices/BOHEMIA_CITY_WORLD.html'
+
+if os.path.exists(WORLD):
+    carrier, wrap = WORLD, None
+    decoded = open(WORLD, encoding='utf8').read()
+else:
+    alpha = open(ALPHA, encoding='utf8').read()
+    key = "const CITY_B64='"
+    a0 = alpha.index(key) + len(key)
+    a1 = alpha.index("'", a0)
+    carrier, wrap = ALPHA, (alpha, a0, a1)
+    decoded = base64.b64decode(alpha[a0:a1]).decode('utf8')
 
 if 'YOU LAND ON THE STREET' in decoded:
     print('drop-in already lands you on the street. no-op.')
@@ -115,8 +128,12 @@ if decoded.count(OLD) != 1:
     sys.exit('DROP IN: anchor found %d times (expected 1).' % decoded.count(OLD))
 
 decoded = decoded.replace(OLD, NEW, 1)
-alpha = alpha[:a0] + base64.b64encode(decoded.encode('utf8')).decode('ascii') + alpha[a1:]
-open(ALPHA, 'w', encoding='utf8').write(alpha)
-print('DROP IN LANDS YOU ON THE STREET.')
+if wrap is None:
+    open(carrier, 'w', encoding='utf8').write(decoded)
+else:
+    alpha, a0, a1 = wrap
+    open(carrier, 'w', encoding='utf8').write(
+        alpha[:a0] + base64.b64encode(decoded.encode('utf8')).decode('ascii') + alpha[a1:])
+print('DROP IN LANDS YOU ON THE STREET.  (carrier: %s)' % carrier)
 print('  road first, then touching a road, then any walkable cell as before')
 print('  no walkability changed - only which walkable cell you are handed')

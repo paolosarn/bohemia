@@ -45,7 +45,7 @@ GATES = [
     ('DISTRICT FILL',  ['node', 'gates/district_fill_gate.js'],
      'the floor one level down from MAP SIZE: every district type pinned at the content share it measured on 8/2, because walkable_gate compares pavement to content and a district with NO pavement passes it however empty it gets', False),
     ('BLOB INTEGRITY', ['node', 'gates/blob_integrity_gate.js'],
-     'the alpha is four base64 blobs rewritten by string surgery daily and resolved whole on every rebase: each one decodes, is not truncated, carries no merge markers and still PARSES -- the checks that existed were presence and size floor, which a stale or half-merged re-encode passes', False),
+     'the game is a shell plus EIGHT big documents (3 inline blobs + 5 sibling pages) rewritten by string surgery daily and resolved whole on every rebase: each one decodes, is not truncated, carries no merge markers and still PARSES -- the checks that existed were presence and size floor, which a stale or half-merged re-encode passes', False),
     ('HANDOFF',        ['node', 'gates/handoff_gate.js'],
      'the one file every session is told to read FIRST is readable: exactly one handoff, at its canonical name, leading with a lane head, and carrying no unresolved merge -- it reached main conflicted TWICE, hiding a whole lane behind a marker', False),
     ('MAP SIZE',       ['node', 'gates/mapsize_gate.js'],

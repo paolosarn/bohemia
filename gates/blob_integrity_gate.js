@@ -2,16 +2,14 @@
 /* ============================================================================
    BLOB INTEGRITY GATE — 8/2/26.
 
-   The alpha is four base64 blobs in a trench coat:
+   The game Paolo taps is not one document. It is a shell plus EIGHT big ones:
+   three base64 blobs still inline in the alpha (COMBAT, RIG, PREFAB) and five
+   sibling pages loaded by src -- the walked world, the run, the slice, the map
+   and life.
 
-       CITY_B64     28.1 M chars decoded   the walked world + city builder
-       COMBAT_B64    1.06 M                the combat slice
-       RIG_B64        95.9 K                the rig tool
-       PREFAB_B64     10.6 K                the prefab tool
-
-   Four different lanes rewrite these by STRING SURGERY every day: decode,
-   replace an anchor, re-encode. Every rebase resolves a 34 MB file by taking one
-   side whole. Nothing checks that what comes out the other end is still a
+   Different lanes rewrite these by STRING SURGERY every day: decode, replace an
+   anchor, re-encode. Every rebase resolves a multi-megabyte file by taking one
+   side whole. Nothing checked that what came out the other end was still a
    coherent document.
 
    WHAT TODAY PROVED, twice, in one day:
@@ -28,7 +26,7 @@
    is the exact shape of damage this repo actually produces, and it was the one
    shape nothing looked for.
 
-   WHAT THIS HOLDS, for every blob, cheaply and without a browser:
+   WHAT THIS HOLDS, for every one of them, cheaply and without a browser:
      1. it is present and decodes as base64 to real UTF-8
      2. it is not TRUNCATED — HTML tags balance, the document closes
      3. it carries NO MERGE MARKERS — a blob is where a bad conflict resolution
@@ -59,24 +57,33 @@ const src = fs.readFileSync(ALPHA, 'utf8');
    growth and trimming never trip it, tight enough that a collapse or a truncated
    merge cannot hide. */
 const BLOBS = [
-  ['CITY_B64', 19000000],
   ['COMBAT_B64', 700000],
   ['RIG_B64', 65000],
   ['PREFAB_B64', 7000],
 ];
 
+/* THE SIBLING PAGES. This gate was written against "the alpha is four inline
+   blobs" and that stopped being true HOURS later: 3ef222f measured the alpha at
+   38.7 MB growing ~1.4-2.1 MB a day toward GitHub's hard 100 MB push limit (~43
+   days to a fleet that cannot ship at all) and lifted CITY_B64 out to
+   slices/BOHEMIA_CITY_WORLD.html loaded by fr.src. 38.7 MB -> 2.92 MB, first
+   load 12,561 ms -> 398 ms.
+   THE CHECK DID NOT GET SMALLER, IT GOT BIGGER. Everything this gate holds --
+   not truncated, no merge markers, still parses -- is exactly as true of a
+   sibling page as of an inline blob, and there are five of them now, each one a
+   surface Paolo opens from a tab. A gate that had refused to follow the
+   architecture would have been a gate testing a shape nobody ships. */
+const PAGES = [
+  ['BOHEMIA_CITY_WORLD.html', 19000000],   // the walked world + city builder
+  ['BOHEMIA_RUN_CURRENT.html', 100000],
+  ['BOHEMIA_CURRENT_SLICE.html', 100000],
+  ['BOHEMIA_MAP_CURRENT.html', 100000],
+  ['BOHEMIA_LIFE_CURRENT.html', 20000],
+];
+
 const MARK_START = /^<<<<<<< /m, MARK_END = /^>>>>>>> /m;
 
-for (const [name, floor] of BLOBS) {
-  const m = new RegExp("const " + name + "='([^']+)'").exec(src);
-  ok(name + ' is present as a single-quoted const', !!m);
-  if (!m) continue;
-
-  let body = null;
-  try { body = Buffer.from(m[1], 'base64').toString('utf8'); } catch (e) { /* below */ }
-  ok(name + ' decodes as base64 to UTF-8', typeof body === 'string' && body.length > 0);
-  if (!body) continue;
-
+function checkDocument(name, body, floor) {
   ok(name + ' has not collapsed (' + body.length.toLocaleString() + ' chars, floor '
     + floor.toLocaleString() + ')', body.length >= floor);
 
@@ -115,9 +122,32 @@ for (const [name, floor] of BLOBS) {
     + (broken.length ? ' — ' + broken[0] : '') + ')', broken.length === 0);
 }
 
+/* the blobs still embedded in the alpha */
+for (const [name, floor] of BLOBS) {
+  const m = new RegExp("const " + name + "='([^']+)'").exec(src);
+  ok(name + ' is present as a single-quoted const', !!m);
+  if (!m) continue;
+  let body = null;
+  try { body = Buffer.from(m[1], 'base64').toString('utf8'); } catch (e) { /* below */ }
+  ok(name + ' decodes as base64 to UTF-8', typeof body === 'string' && body.length > 0);
+  if (body) checkDocument(name, body, floor);
+}
+
+/* and the sibling pages the alpha loads by src -- same document, same damage */
+for (const [file, floor] of PAGES) {
+  const p = path.join(ROOT, 'slices', file);
+  ok(file + ' exists (the alpha loads it by src)', fs.existsSync(p));
+  if (!fs.existsSync(p)) continue;
+  checkDocument(file, fs.readFileSync(p, 'utf8'), floor);
+}
+
+/* and the alpha still knows where the world went */
+ok('the alpha points at the extracted world page',
+  src.indexOf('BOHEMIA_CITY_WORLD.html') >= 0 && /fr\.src\s*=\s*CITY_SRC/.test(src));
+
 /* and the shell the blobs live in */
 ok('the alpha shell carries no merge markers', !MARK_START.test(src) && !MARK_END.test(src));
 
 console.log('\n=== BLOB INTEGRITY GATE: ' + pass + ' passed, ' + fail + ' failed ===');
-console.log('    four blobs, rewritten by string surgery daily, now checked for damage.');
+console.log('    eight big documents, rewritten by string surgery daily, now checked for damage.');
 if (fail) process.exit(1);

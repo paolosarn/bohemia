@@ -1724,6 +1724,44 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AV. [DONE 8/2 — NOT MINE, FLEET-WIDE, FIXED] THE WORLD MOVED OUT OF THE ALPHA AND
+   LEFT 24 GATES BEHIND. 3ef222f lifting CITY_B64 out to slices/BOHEMIA_CITY_WORLD.html
+   was right and the numbers prove it (38.7MB -> 2.92MB, first load 12,561ms -> 398ms,
+   ~43 days off GitHub's hard 100MB push limit). But 81 files in gates/ and tools/
+   referenced CITY_B64 and the suite went 12 failures -> 40.
+   TWO MECHANICAL CAUSES, both the same shape as the CITY-tab deletion earlier the same
+   day (a consumer still looking for something that moved):
+     (1) a copy-pasted cityBlob(alpha) helper decoding a const that is gone. One
+         injection each: page first, old scan as fallback.
+     (2) frame detection by /srcdoc/.test(fr.url()) -- the frame is fr.src now, so the
+         URL is a real path and matched nothing. THIRTEEN gates failed on "the world
+         frame booted", which reads like the game is broken when it is the test.
+   I REPAIRED ALL 24 AND THEN THREW THAT WORK AWAY, WHICH WAS RIGHT. Another lane
+   landed the same repair concurrently and did it BETTER: ONE shared CITY_APP.read()
+   instead of my 24 per-file injections -- a single source of truth, which is what
+   FACTORY LAW asks for and what I should have written. On the rebase I took THEIRS
+   for all 24 conflicted files. Keeping mine would have been ego, not engineering.
+   (They had also already removed 'chapel' from icon_gate's OWED list, the same slip
+   I fixed independently.) Suite 40 -> 14.
+   LEFT DELIBERATELY: D1 KERB is a CONTENT ratchet tripping on courthouse and cityhall,
+   caused by main's own 2fc2e3f "NO CANOPIES" ruling on the four civics. Raising another
+   lane's ratchet ceiling is a design call, not a merge fix.
+   THE PATTERN, THIRD TIME TODAY: an architecture change is not done when the thing
+   works, it is done when everything that pointed at the old shape has been found. The
+   grep takes a minute; skipping it costs the fleet a red suite it cannot tell apart
+   from real breakage.
+   | 24 gates green standalone, suite 40 -> 16 | D1 KERB is the civics lane's | no.
+
+0AW. [DONE 8/2] DISTRICT FILL CAUGHT ITS FIRST REAL DROP, AND IT WAS A RULING.
+   cityhall 59.8 -> 53.9, courthouse 52.9 -> 48.3, terminal 52.4 -> 50.6, chapel 56.2 ->
+   55.7. Traced to 2fc2e3f "NO CANOPIES: a ruling is not a design conversation" -- Paolo
+   removed canopies from the four civics. A floor exists to catch ACCIDENTAL emptying; a
+   RULING re-baselines it. Those four re-baselined WITH THE REASON RECORDED in the
+   baseline file, the other 45 left pinned. The gate did its job by making somebody look.
+   (Also fixed: the baseline's _note key was being counted as a district, inflating the
+   registry to 50 and dragging the median. Keys prefixed _ are notes, not districts.)
+   | DISTRICT FILL 53/0 | none | no.
+
 0AT. [DONE 8/2] THE ALPHA IS FOUR BLOBS IN A TRENCH COAT AND NOTHING GUARDED THEM.
    CITY_B64 (28.1M chars), COMBAT_B64 (1.06M), RIG_B64 (95.9K), PREFAB_B64 (10.6K).
    Four lanes rewrite these BY STRING SURGERY every day and every rebase resolves a
@@ -1748,7 +1786,14 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    Third time in two turns that a "defect" was my own instrument. Before reporting one,
    TEST THE INSTRUMENT ON SOMETHING KNOWN-GOOD.
    Record: records/BOHEMIA_THE_BLOBS_WERE_UNGUARDED_8_2_26.md
-   | BLOB INTEGRITY 41/0, 3 real failure shapes mutation-proven | none | no.
+   THE ARCHITECTURE MOVED UNDER IT THE SAME DAY, which is the useful part: 3ef222f
+   lifted CITY_B64 out to slices/BOHEMIA_CITY_WORLD.html (alpha 38.7MB -> 2.92MB,
+   first load 12,561ms -> 398ms, ~43 days off a hard GitHub 100MB push limit nobody
+   was watching). This gate went RED on the merge, correctly. THE CHECK DID NOT GET
+   SMALLER, IT GOT BIGGER: the game is a shell plus EIGHT big documents now (3 inline
+   blobs + 5 sibling pages, each a tab surface) and every property holds for a page
+   exactly as for a blob. 41 claims -> 70, re-proven on the extracted world page.
+   | BLOB INTEGRITY 70/0, real failure shapes mutation-proven on both shapes | none | no.
 
 0AU. [DONE 8/2 — ONE WORD, ANOTHER LANE'S RATCHET] ICON GATE WAS RED ON MAIN FOR A
    BOOKKEEPING SLIP. The lane that drew the chapel icon left 'chapel' on the OWED
