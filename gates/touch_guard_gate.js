@@ -57,8 +57,24 @@ const READ = sel => {
   const universal = s => (s.match(/\*\{[^}]*\}/g) || []).some(r => /-webkit-touch-callout\s*:\s*none/.test(r));
   ok('SHELL SOURCE: the universal reset declares -webkit-touch-callout:none, so every control — ' +
     'including ones not written yet — inherits the guard', universal(shell));
-  for (const key of ['CITY_B64', 'COMBAT_B64', 'RIG_B64']) {
+  /* MIGRATED 8/4: THIS LOOP WAS SILENTLY DROPPING THE CITY.
+     The walked world used to be a base64 constant in the alpha; the CITY lane
+     moved it out to slices/BOHEMIA_CITY_WORLD.html so the alpha opens 29x
+     faster. The `continue` below then did exactly the wrong thing - no key, no
+     failure, no claim, the biggest frame in the game just quietly stopped being
+     checked. That is the same shape as the fifty checks CITY TAB was stepping
+     over (records/BOHEMIA_THE_GATES_COULD_NOT_SEE_THE_CITY_8_4_26.md): a gate
+     that skips is worse than a gate that fails, because it reports GREEN.
+     The city is asked for by name now (gates/bohemia_city_src.js, the one place
+     that knows where the world lives) and a MISSING payload is a FAILURE, never
+     a skip. */
+  const cityTxt = require('./bohemia_city_src.js')(src, { optional: true });
+  ok('CITY FRAME SOURCE: the walked world is findable at all (it left the alpha on 8/4; a gate that cannot find it must FAIL, never skip)',
+    !!cityTxt && cityTxt.length > 100000);
+  if (cityTxt) ok('CITY FRAME SOURCE: its universal reset declares -webkit-touch-callout:none', universal(cityTxt));
+  for (const key of ['COMBAT_B64', 'RIG_B64']) {
     const k = "const " + key + "='";
+    ok(key.replace('_B64', '') + ' FRAME SOURCE: the payload is still in the alpha to check', src.indexOf(k) >= 0);
     if (src.indexOf(k) < 0) continue;
     const a0 = src.indexOf(k) + k.length, a1 = src.indexOf("'", a0);
     const d = Buffer.from(src.slice(a0, a1), 'base64').toString('utf8');

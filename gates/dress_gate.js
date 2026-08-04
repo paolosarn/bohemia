@@ -30,6 +30,24 @@ ok('bank exists + parses (' + wardrobe.length + ' items)', wardrobe.length > 0);
 const alpha = fs.readFileSync(ALPHA, 'utf8');
 const live = (alpha.match(/st:'canon'/g) || []).length;
 ok('bank is FRESH: ' + wardrobe.length + ' banked === ' + live + ' canon in the alpha', wardrobe.length === live);
+/* A COUNT IS A SMOKE ALARM, NOT A DIAGNOSIS (8/4/26).
+   The count above did its job - it went red at 231 vs 236 - and then could not
+   say one useful word about WHICH five. The answer turned out to be SUN CROP,
+   DUSK SHAG, TEMPLE TAPER, ASH SWEEP and SALT CROWN: the clothing lane's 8/1
+   hair batch writes its tag AFTER the layer (`layer:'hair',lux:true,gen:`) and
+   the extractor's pattern only allowed tags BEFORE it, so five approved,
+   shipped hairstyles were dropped in silence and no person in the valley could
+   ever wear one. Parser fixed in tools/bohemia_wardrobe_extract.py.
+   NAMING THEM IS THE CHECK NOW. Every canon garment in the alpha must appear in
+   the bank BY NAME, so the next time a tag lands somewhere new this says which
+   clothes went missing instead of how many. */
+const liveNames = [];
+for (const m of alpha.matchAll(/\{n:(['"])(.+?)\1\s*,\s*st:'canon'\s*,/g)) liveNames.push(m[2]);
+const banked = new Set(wardrobe.map(g => g.n));
+const missing = liveNames.filter(n => !banked.has(n));
+ok('every canon garment in the alpha is in the bank BY NAME' +
+  (missing.length ? ' — MISSING: ' + missing.slice(0, 8).join(', ') : ' (' + liveNames.length + ' checked)'),
+  liveNames.length > 0 && missing.length === 0);
 
 // hex sanity + no purple (PURPLE RESERVATION: purple is the Amalgamation's)
 let hexOk = true, noPurple = true;
@@ -43,9 +61,29 @@ ok('no banked mid-tone is purple (PURPLE RESERVATION)', noPurple);
 
 ok('FACTION_DRESS table EMPTY (contents-Paolo\'s)', Object.keys(D.FACTION_DRESS).length === 0);
 
-// dress a synthetic population off real agent seeds
+/* dress a synthetic population off real agent seeds.
+   8/4/26 — THE POPULATION HAD TO BE PACKED, and saying why is the point.
+   This gate was red on main for its whole visible history with "0 distinct tops
+   on the block": it drew its people at the DEFAULT occupancy, which on 7/19 was
+   0.30 (22 homes -> ~15 people, plenty) and has been 0.038 since 8/1 (22 homes
+   -> zero, most of the time). Nothing here was wrong; the world got 7.9x emptier
+   underneath it, by correct arithmetic. Full measurements in
+   gates/bohemia_block_fixture.js.
+   THIS GATE IS ABOUT THE WARDROBE, NOT ABOUT THE CENSUS. How many people the
+   valley holds is life_gate's and population_gate's claim and they now assert it
+   over 40 blocks. What has to be true HERE is that every person who exists is
+   legally dressed and that the wardrobe spreads across them - so the population
+   is packed on purpose (occupiedRate 1), the same move life_gate has made since
+   7/19 for the stagger checks ("measured on a packed population so small-sample
+   luck can't flake the gate"). Packing is stated, never silent: a die-off dial
+   left at its default here would make this gate a census check wearing a
+   clothing check's name. */
 const feet = Array.from({ length: 22 }, (_, i) => ({ x: 0, y: 0, w: 10, h: 10 }));
-const agents = A.agentsForBlock(7, feet, [{ district: 'commercial', dir: 'E', dist: 1 }], null);
+const agents = A.agentsForBlock(7, feet, [{ district: 'commercial', dir: 'E', dist: 1 }], null,
+  { occupiedRate: 1 });
+ok('the dressed population is PACKED on purpose, and there is one (' + agents.length +
+  ' people in ' + feet.length + ' homes) — this gate checks clothes, not the census',
+  agents.length >= feet.length);
 D.dressAll(agents, wardrobe);
 
 const names = new Set(wardrobe.map(g => g.n));

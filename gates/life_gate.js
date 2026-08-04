@@ -12,10 +12,25 @@
 //   6. the day has shape: at 03:00 everyone is home; by late morning the
 //      block has people OUT living (workers gone to sites, scavengers on
 //      the streets)
+/* 8/4/26 — WHY THIS GATE WAS RED ON MAIN FOR THE WHOLE VISIBLE HISTORY, and
+   what changed. Full reasoning + the measurements in gates/bohemia_block_fixture.js.
+   Short version: it was written on 7/19 when OCCUPIED_RATE was 0.30, where every
+   seed and every plot came up populated, so "sample three plots and assert each
+   one has people in it" was a safe bet. On 8/1 the rate became 0.038 - derived
+   arithmetic off Paolo's scale-model question, and CORRECT - and a 20-home block
+   now averages 0.76 occupied houses. Empty is the MODAL outcome. The claim did
+   not become wrong so much as it became A COIN FLIP WEARING A CLAIM'S NAME: which
+   plot the scan lands on decides the verdict, and it landed on 14,10, which rolls
+   empty.
+   THE CLAIM NOW PINS BOTH ENDS - the valley is mostly empty (the die-off is real)
+   AND somewhere in it people are living (it is not dead-dead). That asserts MORE
+   than the old one, not less: the old check could not tell those two failures
+   apart, and this one cannot flip on scan order. */
 const W = require('../engine/bohemia_world.js');
 const A = require('../engine/bohemia_agents.js');
 const SUB = require('../engine/bohemia_suburb.js');
 const FP = require('../engine/bohemia_floorplan.js');
+const FIX = require('./bohemia_block_fixture.js');
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
@@ -25,20 +40,29 @@ const world = W.world(12345);
 // find residential plots with buildings AND at least one job district near
 const plots = [];
 outer:
-for (let y = 10; y < 60 && plots.length < 3; y++) for (let x = 10; x < 60; x++) {
+for (let y = 10; y < 60 && plots.length < 12; y++) for (let x = 10; x < 60; x++) {
   const c = world.at(x, y);
   if (!c || c.district !== 'suburb') continue;
   if (!A.jobsNear(world, x, y, 3).length) continue;
   const p = world.plot(x, y);
-  if (p && p.buildings && p.buildings.length > 5) { plots.push([x, y]); if (plots.length >= 3) break outer; }
+  if (p && p.buildings && p.buildings.length > 5) { plots.push([x, y]); if (plots.length >= 12) break outer; }
 }
-ok('world model yields residential plots with job districts in range', plots.length === 3);
+ok('world model yields residential plots with job districts in range', plots.length === 12);
+
+/* THE DISTRIBUTION, over the whole sample instead of over whichever plot the
+   scan reached first. Both halves are asserted because both halves are canon. */
+const plotPop = plots.map(([x, y]) => A.agentsForPlot(world, x, y).length);
+const livedPlots = plotPop.filter(n => n > 0).length;
+ok('the valley is MOSTLY EMPTY, as the die-off says (' + (plots.length - livedPlots) +
+  ' of ' + plots.length + ' sampled plots hold nobody)', livedPlots < plots.length * 0.75);
+ok('and it is NOT dead-dead: somewhere on the sample people are living (' +
+  livedPlots + ' inhabited plots, ' + plotPop.reduce((a, b) => a + b, 0) + ' residents)',
+  livedPlots > 0);
 
 let homed = true, schedFull = true, factionEmpty = Object.keys(A.FACTION_ASSIGN).length === 0;
 let deterministic = true, quantized = true, someEmployed = false, someScav = false;
 for (const [x, y] of plots) {
   const agents = A.agentsForPlot(world, x, y);
-  ok('plot ' + x + ',' + y + ' is populated (' + agents.length + ' agents)', agents.length > 0);
   const plot = world.plot(x, y);
   for (const a of agents) {
     const b = plot.building(a.home.building);
@@ -68,33 +92,30 @@ ok('population is deterministic per plot', deterministic);
 ok('both job kinds occur (site work + subsistence scavenge)', someEmployed && someScav);
 
 // ---- SIM: run a block through a day and a half -----------------------------
-const SEED = 7;
-const res = SUB.generate(SEED, 'ring', 1, 1);
-const feet = SUB.homeFootprints(res);
-const fpOf = i => FP.generate((SEED ^ ((i + 1) * 0x9E3779B1)) >>> 0, feet[i].w, feet[i].h, { zone: 'residential', entrance: 'S' });
-// front doors like the walk slice: house cell adjacent to driveway/road/ground
-const doorOf = {};
+/* THE SURVEY, not one seed. 40 ring blocks, seeds 1..40, deterministic. The
+   sim below runs on an INHABITED one, chosen as the lowest inhabited seed -
+   and the claims that could turn on WHICH one are asked of the whole survey
+   instead, never of this block alone (bohemia_block_fixture.js has the
+   measurements showing why: seed 39 has six people who never see each other
+   all day, and that is the dead world working, not a bug to route around). */
+const SURVEY = FIX.survey(40);
+const BLOCK = SURVEY.inhabited[0];
+const SEED = BLOCK.seed;
+const res = BLOCK.res, feet = BLOCK.feet, fpOf = BLOCK.fpOf, doorOf = BLOCK.doorOf;
 const G = res.g, WD = res.W, HT = res.H;
-const pref = (x, y, want) => [[0, 1], [0, -1], [1, 0], [-1, 0]].some(([dx, dy]) => {
-  const ax = x + dx, ay = y + dy;
-  return ax >= 0 && ay >= 0 && ax < WD && ay < HT && G[ay][ax] === want;
-});
-feet.forEach((f, i) => {
-  let pick = null;
-  for (const want of [3, 1, 0]) {
-    for (let y = f.y; y < f.y + f.h && !pick; y++) for (let x = f.x; x < f.x + f.w; x++)
-      if (G[y][x] === 2 && pref(x, y, want)) { pick = [x, y]; break; }
-    if (pick) break;
-  }
-  if (pick) doorOf[pick[0] + ',' + pick[1]] = i;
-});
-const JOBS = [{ district: 'commercial', dir: 'E', dist: 1 }];
-const agents = A.agentsForBlock(SEED, feet, JOBS, fpOf);
+const JOBS = FIX.JOBS;
+const agents = BLOCK.agents;
 
 // ---- VACANCY (Paolo 7/19: the suburb must reflect the die-off) -------------
-const lived = A.inhabitedHomes(agents);
-ok('most homes are abandoned shells (' + lived.length + ' of ' + feet.length + ' lived-in)',
-  lived.length > 0 && lived.length < feet.length * 0.55);
+/* asked of 40 blocks at once, so it is a statement about the world and not
+   about a coin. 825 homes / 91 people / 27 inhabited blocks when this landed. */
+const surveyLived = SURVEY.blocks.reduce((n, b) => n + A.inhabitedHomes(b.agents).length, 0);
+ok('most homes are abandoned shells across ' + SURVEY.n + ' blocks (' + surveyLived +
+  ' of ' + SURVEY.homes + ' lived-in, ' + SURVEY.people + ' people)',
+  surveyLived > 0 && surveyLived < SURVEY.homes * 0.55);
+ok('and the empty ones are the NORM, not the exception (' +
+  (SURVEY.n - SURVEY.inhabited.length) + ' of ' + SURVEY.n + ' blocks hold nobody at all)',
+  SURVEY.inhabited.length < SURVEY.n && SURVEY.inhabited.length > 0);
 const packed = A.agentsForBlock(SEED, feet, JOBS, fpOf, { occupiedRate: 1 });
 ok('the die-off dial works (rate 1 fills every home, rate 0 empties the block)',
   A.inhabitedHomes(packed).length === feet.length &&
@@ -138,18 +159,32 @@ for (let t = 0; t < A.DAY_TURNS * 1.5; t++) {
     if (!agents.every(a => a.loc.mode === 'in')) occupancyHolds = occupancyHolds; // checked below
   }
 }
-// day shape probes on a fresh sim (exact times)
-const sim2 = A.makeSim(res, feet, agents.map(a => ({ ...a })), { fpOf, doorOf, startTurn: 0 });
-let at3 = null, at11 = null;
-for (let t = 0; t < A.DAY_TURNS; t++) {
-  sim2.step();
-  if (sim2.tod() === 180) at3 = sim2.agents.filter(a => a.loc.mode === 'in').length;
-  if (sim2.tod() === 660) at11 = sim2.agents.filter(a => a.loc.mode !== 'in').length;
+/* DAY SHAPE, across every inhabited block in the survey rather than on one.
+   At 0.038 a single block can hold six people who all happen to be scavengers
+   with a late start, and "nobody is out at 11:00 HERE" is not the same finding
+   as "nobody in the valley ever goes out". These two claims separate them:
+   the 03:00 half must hold on EVERY block (a sleeping valley is universal),
+   the 11:00 half must hold SOMEWHERE (a living one is not). */
+let sleepsEverywhere = true, blocksAlive = 0, outAt11 = 0, simmed = 0;
+for (const b of SURVEY.inhabited) {
+  const s2 = A.makeSim(b.res, b.feet, b.agents.map(a => ({ ...a })),
+    { fpOf: b.fpOf, doorOf: b.doorOf, startTurn: 0 });
+  let a3 = null, a11 = null;
+  for (let t = 0; t < A.DAY_TURNS; t++) {
+    s2.step();
+    if (s2.tod() === 180) a3 = s2.agents.filter(a => a.loc.mode === 'in').length;
+    if (s2.tod() === 660) a11 = s2.agents.filter(a => a.loc.mode !== 'in').length;
+  }
+  simmed += b.agents.length;
+  if (a3 !== b.agents.length) sleepsEverywhere = false;
+  if (a11 > 0) { blocksAlive++; outAt11 += a11; }
 }
 ok('OCCUPANCY LAW holds across 1.5 sim days (one body per cell)', occupancyHolds);
 ok('nobody teleports (every move is one step)', oneStep);
-ok('03:00 — the block sleeps (all ' + agents.length + ' home)', at3 === agents.length);
-ok('11:00 — the block lives (' + at11 + ' out working/scavenging)', at11 !== null && at11 > 0);
+ok('03:00 — EVERY inhabited block sleeps, all ' + simmed + ' people indoors across ' +
+  SURVEY.inhabited.length + ' blocks', sleepsEverywhere);
+ok('11:00 — the valley lives (' + outAt11 + ' people out working/scavenging on ' +
+  blocksAlive + ' of ' + SURVEY.inhabited.length + ' inhabited blocks)', blocksAlive > 0);
 
 // ---- ROOM ADVERTISEMENTS (rung 3: the placed house positions its people) ---
 let advertsOk = true, bedAt3 = true, kitchenAtBreak = true, spotsDistinct = true;

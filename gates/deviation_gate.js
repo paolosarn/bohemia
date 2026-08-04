@@ -11,38 +11,42 @@
 //   5. OCCUPANCY survives a day full of deviations
 //   6. the offline plane stays the PLAN (whereAt ignores deviations)
 //   7. deterministic
+/* 8/4/26 — THIS GATE WAS NOT RED, IT WAS CRASHING, and a crash is a gate that
+   asserts nothing at all. `TypeError: Cannot set properties of undefined` at
+   `agent.dev=` : sim.agents[0] did not exist, because its fixture block held
+   nobody. Same root cause as LIFE / DRESS / POPULATION / MEMORY, and it was not
+   even on the list of four - full story and measurements in
+   gates/bohemia_block_fixture.js. In one line: written 7/19 at OCCUPIED_RATE
+   0.30 where every seed came up populated, and the rate has been a correct
+   0.038 since 8/1, where a 20-home block averages 0.76 occupied houses.
+   THE SUBJECTS ARE FOUND, NEVER ASSUMED - which is exactly the fix this gate
+   already made for itself on 7/31 ("FIND THE SUBJECTS, DO NOT ASSUME THE
+   MINUTE"), applied one level further out: to the block, not just the minute.
+   A DEVIATION IS A THING THAT HAPPENS TO A PERSON. It needs several people in
+   one place to test the cap and re-convergence at all, and the die-off means a
+   single block rarely has them - so the block is chosen as the most populated
+   of the survey, deterministically, and the count it found is asserted out
+   loud. This gate is about bounded deviation, not about the census; life_gate
+   and population_gate own the census claim and assert it over 40 blocks. */
 const A = require('../engine/bohemia_agents.js');
 const SUB = require('../engine/bohemia_suburb.js');
 const FP = require('../engine/bohemia_floorplan.js');
+const FIX = require('./bohemia_block_fixture.js');
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
-const SEED = 7;
-const res = SUB.generate(SEED, 'ring', 1, 1);
-const feet = SUB.homeFootprints(res);
-const fpOf = i => FP.generate((SEED ^ ((i + 1) * 0x9E3779B1)) >>> 0, feet[i].w, feet[i].h, { zone: 'residential', entrance: 'S' });
-const doorOf = {};
+const SURVEY = FIX.survey(40);
+const BLOCK = SURVEY.inhabited.slice().sort(
+  (a, b) => (b.agents.length - a.agents.length) || (a.seed - b.seed))[0];
+const SEED = BLOCK.seed;
+const res = BLOCK.res, feet = BLOCK.feet, fpOf = BLOCK.fpOf, doorOf = BLOCK.doorOf;
 const G = res.g, WD = res.W, HT = res.H;
-const pref = (x, y, want) => [[0, 1], [0, -1], [1, 0], [-1, 0]].some(([dx, dy]) => {
-  const ax = x + dx, ay = y + dy;
-  return ax >= 0 && ay >= 0 && ax < WD && ay < HT && G[ay][ax] === want;
-});
-feet.forEach((f, i) => {
-  let pick = null;
-  /* 10 = sidewalk (added 7/31). It did not exist when this fixture was written,
-     so a house fronting the walk found NO door, its residents could never leave,
-     and the midday street was empty -- which is how this gate caught the real
-     regression. Sidewalk is the FIRST preference: it is what a front door opens
-     onto. */
-  for (const want of [10, 3, 1, 0]) {
-    for (let y = f.y; y < f.y + f.h && !pick; y++) for (let x = f.x; x < f.x + f.w; x++)
-      if (G[y][x] === 2 && pref(x, y, want)) { pick = [x, y]; break; }
-    if (pick) break;
-  }
-  if (pick) doorOf[pick[0] + ',' + pick[1]] = i;
-});
-const JOBS = [{ district: 'commercial', dir: 'E', dist: 1 }];
+const JOBS = FIX.JOBS;
+ok('there is a block with enough people to deviate (seed ' + SEED + ', ' +
+  BLOCK.agents.length + ' residents; ' + SURVEY.people + ' people over ' +
+  SURVEY.n + ' blocks) — a fixture that finds nobody must say so, not crash on agents[0]',
+  BLOCK.agents.length >= 3);
 const mkSim = () => {
   const agents = A.agentsForBlock(SEED, feet, JOBS, fpOf);
   return A.makeSim(res, feet, agents, { fpOf, doorOf, startTurn: 0 });

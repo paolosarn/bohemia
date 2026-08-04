@@ -3777,6 +3777,118 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-O. [SHIPPED 8/4, AND IT CLOSES P-F BELOW - records/BOHEMIA_NOBODY_STANDS_IN_
+   THE_STREET_ALL_DAY_8_4_26.md]
+   *** FIVE OF THIS LANE'S GATES WERE DEAD, AND FIXING HOW THEY LOOK AT THE WORLD
+   FOUND TWO REAL BUGS IN THE WORLD. ***
+   P-F had this half-diagnosed and half-wrong. It said "the gate claim is wrong,
+   not the code". MEASURED, the claims were FINE and the FIXTURE stopped being
+   valid: all five built ONE block at seed 7 and asserted people were in it, which
+   was a safe bet on 7/19 when OCCUPIED_RATE was 0.30 (all 40 seeds populated) and
+   is a coin flip at the correct 0.038 (27 populated, 13 EMPTY; a 20-home block
+   averages 0.76 occupied houses). Nobody wrote bad code; the world got 7.9x
+   emptier underneath them, by arithmetic off Paolo's own scale-model question.
+   DEVIATION was not even on P-F's list of four and it was CRASHING, which is
+   worse than red - `Cannot set properties of undefined` at agents[0]. A crash
+   asserts nothing at all.
+   NOT A LICENCE TO EDIT GATES UNTIL THEY GO GREEN. Every claim was held to: DOES
+   IT ASSERT MORE? The new ones pin BOTH ends (mostly empty AND somewhere alive)
+   and cannot flip on scan order; mutation-tested in both directions (rate 0 makes
+   the fixture throw, rate 1 breaks the mostly-empty claim). AND THE TRAP ONE LEVEL
+   DOWN, which is why there is a shared fixture at all: "pick the first seed that
+   HAS people" is the same bug better disguised - seed 3 answers the missing-persons
+   question, seeds 9/21/25/39 do not, and seed 39's six residents never meet all
+   day, which is the DEAD WORLD WORKING. gates/bohemia_block_fixture.js surveys 40
+   blocks and THROWS rather than hand back an empty a caller sims in silence.
+   ALSO FOUND: the four copied door-pickers had already drifted - deviation_gate's
+   was fixed 7/31 to try SIDEWALK first and the other three never got it. They did
+   not go red over it because they were simming nobody.
+   *** THE BUG THE BLIND GATE WAS HIDING, AND IT IS IN THE GAME HE PLAYS ***
+   POPULATION went 0 spot checks -> 1,905 and failed on the first run.
+       H5-3  @111,18 wants 111,17 - held by H14-1
+       H14-1 @111,17 wants 111,18 - held by H5-3
+   Two people who wanted to SWAP CELLS, each one's next step being the other's
+   body. 1,589 and 1,533 turns standing still - over a game DAY each - on walks
+   home of 173 and 165 steps. Both had free neighbours the whole time. The blocked
+   branch said `a._path=null; // wait, replan next turn` AND THE COMMENT IS WHAT
+   HID IT: path() is a deterministic BFS over the STATIC grid, so replanning hands
+   back the same route into the same body forever.
+   FIX: replan with the other BODIES AS WALLS. 173 steps -> 173 turns. Carried into
+   all four inlining slices by tools/bohemia_walk_deadlock_patch.py (which reads the
+   replacement OUT OF THE ENGINE so it cannot drift), including BOHEMIA_CITY_WORLD
+   .html - the walked world the RUN tab opens.
+   I WROTE IT WRONG THE FIRST TIME and the new gate caught it the same hour: shift()
+   mutates the same array, so around[1] after it is the cell TWO ahead - a two-cell
+   teleport, and a crash on a one-step detour.
+   *** AND FIVE HAIRSTYLES NOBODY COULD WEAR *** DRESS red at 231 banked vs 236
+   canon. The bank was not stale, THE PARSER WAS: the 8/1 hair batch writes
+   `layer:'hair',lux:true,gen:` and the extractor allowed tags only BEFORE the
+   layer. SUN CROP / DUSK SHAG / TEMPLE TAPER / ASH SWEEP / SALT CROWN dropped in
+   silence. Hair 10 -> 15. A COUNT IS A SMOKE ALARM, NOT A DIAGNOSIS - it names
+   them now.
+   | LIFE 21/3->24/0, DRESS 42/2->46/0, POPULATION 5/3->10/0, MEMORY 7/2->10/0,
+   DEVIATION CRASH->12/0, new WALK DEADLOCK 23/0 registered | 8/4 | no - gate and
+   engine work, nothing to judge. He may FEEL it: neighbours no longer freeze
+   solid when he stands in a doorway.
+
+P-M. [FIXED 8/4 - NOT THIS LANE, FLEET-CRITICAL - records/BOHEMIA_THE_GATES_
+   COULD_NOT_SEE_THE_CITY_8_4_26.md]
+   *** NINETEEN GATES COULD NOT SEE THE WORLD, AND ONE OF THEM WAS HIDING FIFTY
+   CHECKS. EVERY LANE READ THIS. ***
+   The CITY lane extracted the walked world from a 35.76 MB base64 constant inside
+   the alpha (CITY_B64) out to slices/BOHEMIA_CITY_WORLD.html so the alpha opens
+   29x faster. Right call, nobody undo it. But TWENTY-ONE GATES read the city by
+   hunting that constant, each with its own hand-rolled extractor copied from the
+   last. Two were migrated with the move. NINETEEN WERE NOT.
+   WHY THAT IS WORSE THAN A RED SUITE: "green or it does not ship" is the law
+   every lane works under, and when a third of the suite is red for a reason that
+   has nothing to do with anybody's code, RED STOPS MEANING ANYTHING. The next
+   real breakage then lands in a suite nobody is reading.
+   AND IT WAS NOT ONLY NOISE. A broken extractor SKIPS EVERYTHING DOWNSTREAM:
+   *** CITY TAB went from 14 claims to 64 once it could read the world again. The
+   failed extraction was silently stepping over FIFTY CHECKS *** - the canon
+   overmap married in, the street fixes, the island prune - none running, none
+   reported missing. Same shape as the PEOPLE lane's own 8/3 bug: a gate green (or
+   red) about the wrong door tells you nothing about the right one.
+   FIX: ONE ANSWER TO "WHERE IS THE CITY" - gates/bohemia_city_src.js and its
+   Python twin. Prefers the standalone file, falls back to the old inline constant
+   so it works on old trees too. Next time the world moves (this is its second
+   home already) that is ONE EDIT instead of nineteen digs.
+   Two mechanical changes per gate: (1) the extractor becomes citySrc(alpha);
+   (2) thirteen BROWSER gates found the city frame by /srcdoc/.test(fr.url())
+   because it used to be decoded into srcdoc - it is a real page now.
+   AND ONE GATE WAS ASSERTING THE OLD WORLD: city_tab_gate claimed "CITY_B64
+   payload present in the alpha" and "boots the iso view (CITY_B64 srcdoc)". Both
+   FALSE BY DESIGN now. A GATE MUST NEVER OUTRANK A RULING - what those checks
+   protect is that the real iso city still EXISTS AND IS REACHED, not where its
+   bytes sit. Rewritten to say that.
+   RESULT: 18 of 21 repaired. CITY TAB 14 -> 64 claims.
+   *** AND GRAVEYARD IS RED FOR A TRUE REASON IT COULD NOT SEE BEFORE: ***
+   "HAIR AFRO is dead. 8/1/26 - 1 LIVE REFERENCE". Dead things staying dead is one
+   of the oldest laws here and it was quietly unenforced while the gate could not
+   read the world. CHARACTER LANE'S TO RESOLVE. Named here so it is not lost.
+   ICON, INTERIORS, WALLCLASS still red - each verified red on clean origin/main
+   before any of this, and they now fail on their own content rather than a
+   missing blob.
+   | gates: 18 repaired, CITY TAB 14 -> 64 | 8/4 | no - repair.
+
+P-N. [OPEN, NOT MINE, MECHANICAL - THE OTHER HALF OF P-M]
+   SIXTY TOOLS IN tools/ ALSO REACH FOR CITY_B64 AND CRASH. The entire city patch
+   toolchain cannot re-apply anything right now: every one of them dies with
+   "substring not found" the moment it runs.
+   31 share one exact shape; the rest vary. Rewriting another lane's whole
+   toolchain blind - where a tool that HALF-works is worse than one that crashes
+   loudly - is not a thing to do at speed on somebody else's system, so I did not.
+   ONE IS MIGRATED AS THE WORKED EXAMPLE (tools/bohemia_city_zoombuild_patch.py,
+   because a gate depended on it) and its header carries the recipe verbatim. It
+   is the same three edits every time:
+     1. read CITY (slices/BOHEMIA_CITY_WORLD.html) instead of hunting CITY_B64
+     2. write CITY back at the end instead of re-encoding into ALPHA
+     3. change nothing else - the patch body is untouched
+   gates/bohemia_city_src.py is there if you want the fallback-to-old-trees
+   behaviour too. An afternoon of mechanical work for whoever owns them.
+   | 8/4 | no.
+
 P-K. [SHIPPED 8/3 - records/BOHEMIA_THE_PEOPLE_ARE_NOT_HIM_8_3_26.md]
    THE PEOPLE ARE NOT COPIES OF HIM ANY MORE. Paolo, after seeing the first
    neighbour he could talk to: "I saw it very good... now we have character models
@@ -4118,7 +4230,11 @@ P-A. [PAOLO RULED IT 7/31, FILED BY THE CITY LANE, NOT TOUCHED BY THEM]
        fails it, and the gate also fails if somebody fixes the row and leaves the
        waiver behind.
 
-   (2) A NAME IS ASKED FOR, NEVER GIVEN, AND THIS IS NEW WORK THAT IS YOURS.
+   (2) [BOTH HALVES SHIPPED - asking 7/31, SEEING 8/2 (P-F above), and the whole
+       thing reached the surface he actually plays on 8/3 (P-J, the city TALK
+       button). Left here in full because the RULING is the thing that outlives
+       the task.]
+       A NAME IS ASKED FOR, NEVER GIVEN, AND THIS IS NEW WORK THAT IS YOURS.
        > "you will not know anyone's name and you'll have to ask everyone so
        >  everyone will pretty much have generic faction or non-faction you know
        >  identities and then you can personally ask them for their name and then
@@ -4139,7 +4255,14 @@ P-A. [PAOLO RULED IT 7/31, FILED BY THE CITY LANE, NOT TOUCHED BY THEM]
        writes them.
    | filed by CITY 7/31 | law + gate landed same turn | PEOPLE lane's to build.
 
-P-F. (discovered 8/2 by the factions session, NOT FIXED, and deliberately not fixed
+P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
+   that the fixture landed on an empty plot, and WRONG about the diagnosis: the
+   claims were not wrong, the FIXTURE stopped being valid when OCCUPIED_RATE went
+   0.30 -> 0.038 on 8/1. It also missed DEVIATION, which was crashing outright.
+   Both measured in records/BOHEMIA_NOBODY_STANDS_IN_THE_STREET_ALL_DAY_8_4_26.md.
+   Kept in full because the REASONING - never edit a gate to go green - is the
+   part worth keeping.]
+   (discovered 8/2 by the factions session, NOT FIXED, and deliberately not fixed
    at the end of somebody else's turn) *** FOUR OF THIS LANE'S GATES ARE RED ON MAIN
    AND HAVE BEEN FOR THE WHOLE VISIBLE HISTORY: LIFE, DRESS, POPULATION, MEMORY. ***
    PROVED NOT MINE: a clean worktree at origin/main with none of my changes fails

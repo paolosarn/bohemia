@@ -684,7 +684,11 @@
          Caught by that gate the same hour, which is the point of having it. */
       var c=G[y][x]; return c===0||c===1||c===3||c===5||c===10; }
     // BFS path on the exterior grid (roads/driveways/dead ground)
-    function path(from,to){
+    /* avoidFor: an agent id. When set, cells holding OTHER BODIES are treated as
+       walls, so the route goes AROUND them (the target itself is always
+       reachable - a door cell is not "passable" either). Used only when a walk
+       is blocked; see the deadlock note on walkTo. */
+    function path(from,to,avoidFor){
       if(!from||!to) return null;
       var q=[from], came={}, key=function(p){return p[0]+','+p[1];};
       came[key(from)]=null; var qi=0;
@@ -694,7 +698,9 @@
         var nb=[[1,0],[-1,0],[0,1],[0,-1]];
         for(var k=0;k<4;k++){ var nx=cur[0]+nb[k][0],ny=cur[1]+nb[k][1];
           var kk=nx+','+ny;
-          if((passable(nx,ny)||(nx===to[0]&&ny===to[1]))&&!(kk in came)){
+          var isTarget=(nx===to[0]&&ny===to[1]);
+          if(avoidFor&&!isTarget&&!occFree(nx,ny,avoidFor)) continue;
+          if((passable(nx,ny)||isTarget)&&!(kk in came)){
             came[kk]=cur; q.push([nx,ny]); } } }
       return null;
     }
@@ -830,8 +836,50 @@
       if(a._path.length<2){ if(arrive&&a.loc.x===to[0]&&a.loc.y===to[1])arrive(); return; }
       var nxt=a._path[1];
       if(occFree(nxt[0],nxt[1],a.id)){ a._path.shift(); place(a,nxt[0],nxt[1]);
-        if(a.loc.x===to[0]&&a.loc.y===to[1]&&arrive)arrive(); }
-      else a._path=null;                                 // blocked body: wait, replan next turn
+        if(a.loc.x===to[0]&&a.loc.y===to[1]&&arrive)arrive(); return; }
+      /* HEAD-ON DEADLOCK (found 8/4/26, and it had been happening the whole time).
+         This line used to be just `a._path=null;  // blocked body: wait, replan
+         next turn`, and the comment is what hid it: replanning does NOT change
+         anything. path() is a deterministic BFS over the STATIC grid, so from the
+         same cell to the same target it hands back the SAME route into the SAME
+         body, every turn, forever. Two people who want to swap cells stand there
+         until something outside the walk moves one of them.
+         MEASURED, on block seed 9:
+             H5-3  @111,18  wants 111,17  - held by H14-1
+             H14-1 @111,17  wants 111,18  - held by H5-3
+             free neighbours: H5-3 has 110,18 and 111,19. H14-1 has 110,17
+                              and 111,16. NOT a one-wide corridor - an open
+                              surface neither of them ever looked at.
+         They stood there 1,589 and 1,533 turns - over a game DAY each - on a walk
+         home of 173 and 165 steps, and only came unstuck when a schedule change
+         moved one of them. Everybody else on the block walked home at exactly one
+         cell per turn.
+         THE FIX IS THE ROUTE, NOT A RULE ABOUT WHO YIELDS: replan with the OTHER
+         BODIES AS WALLS and take the detour. Deterministic (same BFS, same
+         occupancy), one step (place() moves one cell), and OCCUPANCY LAW holds
+         because occFree still guards the destination. If no detour exists - a
+         genuinely one-wide corridor - it falls through to the old wait, which is
+         the correct behaviour there.
+         WHY NOBODY SAW IT: population_gate is the gate that catches walk bugs (it
+         caught the gate-cell regression and the sidewalk-as-wall regression, both
+         noted above in this file). It had been blind since 8/1 - its fixture block
+         rolled empty at the new OCCUPIED_RATE, so "0 spot checks" passed for
+         "agreement". The moment the fixture was fixed to survey 40 blocks it went
+         from 0 checks to 1,905 and put this on the first run. */
+      var around=path([a.loc.x,a.loc.y],to,a.id);
+      /* CAPTURE THE STEP BEFORE THE SHIFT. shift() mutates `around` in place -
+         it is the same array as a._path - so reading around[1] afterwards gives
+         the cell TWO ahead, which teleports a body two cells in one turn and
+         crashes outright when the detour is a single step. The success branch
+         above gets this right by capturing `nxt` first; this one has to as well.
+         Written wrong the first time and caught the same hour by
+         walk_deadlock_gate's one-step claim, which is the whole reason that
+         claim is in there. */
+      var det=(around&&around.length>1)?around[1]:null;
+      if(det&&occFree(det[0],det[1],a.id)){
+        a._path=around; a._path.shift(); place(a,det[0],det[1]);
+        if(a.loc.x===to[0]&&a.loc.y===to[1]&&arrive)arrive(); return; }
+      a._path=null;                                      // boxed in: wait, replan next turn
     }
     // scavenge/free wander: deterministic waypoints off the agent's seed + turn
     function roam(a,act){

@@ -1,3 +1,123 @@
+PEOPLE (7h9sfy): 8/4 LATEST — *** NOBODY STANDS IN THE STREET ALL DAY. *** Five of
+this lane's gates were dead on main for their whole visible history, and fixing the
+way they LOOK at the world found two real bugs in the world itself.
+Record: records/BOHEMIA_NOBODY_STANDS_IN_THE_STREET_ALL_DAY_8_4_26.md
+
+WHY THEY WERE DEAD, AND NOBODY WROTE BAD CODE. LIFE / DRESS / POPULATION / MEMORY
+were red and DEVIATION was CRASHING (worse: a crash asserts nothing at all). All five
+built one block at seed 7 and asserted people were in it. That was a safe bet on 7/19
+when OCCUPIED_RATE was 0.30 - measured, all 40 seeds came up populated. On 8/1 the
+rate became 0.038 by correct arithmetic off Paolo's scale-model question (1,113 people
+in the valley), a 20-home block now averages 0.76 occupied houses, EMPTY IS THE MODAL
+OUTCOME, and seed 7 came up tails.
+    seeds 1..40 at 0.30  -> 40 populated, 0 empty
+    seeds 1..40 at 0.038 -> 27 populated, 13 EMPTY
+NOT A LICENCE TO EDIT GATES UNTIL THEY GO GREEN. The test every claim was held to:
+DOES IT ASSERT MORE? The new claims pin BOTH ends - the valley is mostly empty AND
+somewhere people are living - and cannot flip on scan order. Mutation-tested both
+ways. AND THE TRAP ONE LEVEL DOWN: "just pick the first seed that HAS people" is the
+same bug in a better disguise (seed 3 answers the missing-persons question, seeds 9,
+21, 25, 39 do not, and seed 39's six residents never meet at all - the dead world
+working). gates/bohemia_block_fixture.js is the one fixture, 40 blocks, and it THROWS
+rather than hand back an empty a caller sims in silence.
+    LIFE 21/3 -> 24/0 | DRESS 42/2 -> 46/0 | POPULATION 5/3 -> 10/0
+    MEMORY 7/2 -> 10/0 | DEVIATION CRASH -> 12/0
+
+*** THE BUG THE BLIND GATE WAS HIDING - THIS ONE IS IN THE GAME HE PLAYS ***
+The moment POPULATION could see, it went 0 spot checks -> 1,905 and failed at once.
+    H5-3  @111,18 wants 111,17 - held by H14-1
+    H14-1 @111,17 wants 111,18 - held by H5-3
+Two people who wanted to SWAP CELLS. Each one's next step was the other's body. They
+stood there 1,589 and 1,533 turns - OVER A GAME DAY EACH - on walks home of 173 and
+165 steps, while everybody else walked home at one cell per turn. Both had free
+neighbours the whole time: an open street neither ever looked at, because the blocked
+branch said `a._path=null; // wait, replan next turn` AND THE COMMENT IS WHAT HID IT.
+Replanning changes nothing - path() is a deterministic BFS over the STATIC grid.
+FIX: replan with the other BODIES AS WALLS and take the detour. 173 steps -> 173
+turns. Carried into all four slices that inline it (tools/bohemia_walk_deadlock_patch
+.py reads the replacement OUT OF THE ENGINE so it can never drift) INCLUDING
+slices/BOHEMIA_CITY_WORLD.html, the walked world the RUN tab opens.
+I WROTE THE FIX WRONG THE FIRST TIME: shift() mutates the same array, so around[1]
+after it is the cell TWO ahead - a two-cell teleport, and a crash on a one-step
+detour. gates/walk_deadlock_gate.js caught it the same hour. Its regression test
+makes PAOLO the blocker: the player is parked on the agent's next cell every single
+turn and they still have to arrive.
+
+*** AND FIVE HAIRSTYLES NOBODY IN THE VALLEY COULD WEAR ***
+DRESS was red at 231 banked vs 236 canon. The bank was not stale, THE PARSER WAS: the
+clothing lane's 8/1 hair batch writes `layer:'hair',lux:true,gen:` and the extractor
+allowed tags only BEFORE the layer. SUN CROP, DUSK SHAG, TEMPLE TAPER, ASH SWEEP and
+SALT CROWN were dropped in silence. Fixed; hair 10 -> 15 items. A COUNT IS A SMOKE
+ALARM, NOT A DIAGNOSIS - the check names them now instead of counting them.
+
+-----------------------------------------------------------------------------------
+SAME TURN, EARLIER — *** NINETEEN GATES COULD NOT SEE THE WORLD, AND ONE OF
+THEM WAS HIDING FIFTY CHECKS. EVERY LANE READ THIS. *** (not my lane, fleet-critical)
+Record: records/BOHEMIA_THE_GATES_COULD_NOT_SEE_THE_CITY_8_4_26.md
+
+The CITY lane extracted the walked world from a 35.76 MB base64 constant inside the
+alpha (CITY_B64) out to slices/BOHEMIA_CITY_WORLD.html so the alpha opens 29x faster.
+RIGHT CALL, NOBODY UNDO IT. But TWENTY-ONE GATES read the city by hunting that constant,
+each with its own hand-rolled extractor copied from the last one. Two were migrated with
+the move. NINETEEN WERE NOT, and they broke at once.
+
+WHY THAT IS WORSE THAN A RED SUITE: "green or it does not ship" is the law every lane
+works under. When a third of the suite is red for a reason that has nothing to do with
+anybody's code, RED STOPS MEANING ANYTHING, and the next real breakage lands in a suite
+nobody is reading any more.
+
+AND IT WAS NOT ONLY NOISE. A broken extractor SKIPS EVERYTHING DOWNSTREAM:
+*** CITY TAB went from 14 claims to 64 once it could read the world again. The failed
+extraction was silently stepping over FIFTY CHECKS *** - the canon overmap married in,
+the street fixes, the island prune - none of them running, none reported missing. Same
+shape as this lane's own 8/3 bug: a gate green (or red) about the WRONG DOOR tells you
+nothing about the right one.
+
+=== THE FIX: ONE ANSWER TO "WHERE IS THE CITY" ===
+gates/bohemia_city_src.js + gates/bohemia_city_src.py. Prefers the standalone file,
+falls back to the old inline constant so it works on old trees too. Next time the world
+moves - this is already its second home - that is ONE EDIT instead of nineteen digs.
+    const frame = require('./bohemia_city_src.js')(alpha);   // js
+    from bohemia_city_src import city_src; frame = city_src() # py
+Two mechanical changes per gate: the extractor becomes citySrc(alpha), and THIRTEEN
+BROWSER GATES found the city frame by /srcdoc/.test(fr.url()) because it used to be
+decoded into srcdoc - it is a real page now, so the frame URL is a filename.
+
+AND ONE GATE WAS ASSERTING THE OLD WORLD: city_tab_gate claimed "CITY_B64 payload
+present in the alpha" and "boots the iso view (CITY_B64 srcdoc)". Both FALSE BY DESIGN
+now - it was defending an architecture that had been deliberately replaced. A GATE MUST
+NEVER OUTRANK A RULING: what those checks protect is that the real iso city STILL EXISTS
+AND IS REACHED, not where its bytes sit.
+
+AND THE WORST ONE NEVER WENT RED AT ALL. touch_guard_gate looped the three embedded
+frames and did `if (src.indexOf(key) < 0) continue;`. The city key stopped existing, so
+THE BIGGEST FRAME IN THE GAME QUIETLY STOPPED BEING CHECKED - no failure, no claim, a
+GREEN gate. That is the gate that exists because Paolo could not walk (holding the d-pad
+raised iOS's copy/paste magnifier instead of moving him). A GATE THAT SKIPS IS WORSE
+THAN A GATE THAT FAILS. A missing payload is a FAILURE now, for all three frames.
+
+=== RESULT: 19 OF 21 REPAIRED ===
+*** GRAVEYARD IS RED FOR A TRUE REASON IT COULD NOT SEE BEFORE: ***
+   "HAIR AFRO is dead. 8/1/26 - 1 LIVE REFERENCE"
+Dead things staying dead is one of the oldest laws here and it was quietly unenforced
+while the gate could not read the world. CHARACTER LANE'S TO RESOLVE - named here so it
+is not lost.
+ICON, INTERIORS, WALLCLASS still red: each verified red on clean origin/main before any
+of this, and they now fail on their own content rather than on a missing blob.
+
+=== THE OTHER HALF, OPEN AND NOT MINE: SIXTY TOOLS ===
+60 tools in tools/ also reach for CITY_B64 and CRASH. The entire city patch toolchain
+cannot re-apply anything right now. 31 share one exact shape; the rest vary. Rewriting
+another lane's whole toolchain blind - where a tool that HALF-works is worse than one
+that crashes loudly - is not a thing to do at speed on somebody else's system, so I did
+not. ONE IS MIGRATED AS THE WORKED EXAMPLE (tools/bohemia_city_zoombuild_patch.py,
+because a gate depended on it) and its header carries the recipe. Same three edits every
+time:
+  1. read CITY (slices/BOHEMIA_CITY_WORLD.html) instead of hunting CITY_B64 in ALPHA
+  2. write CITY back at the end instead of re-encoding into ALPHA
+  3. change nothing else - the patch body is untouched
+An afternoon of mechanical work for whoever owns them. Backlog: PEOPLE P-N.
+
 ART (f3eu53): 8/4 (f) LATEST -- *** THERE WAS NO LIGHT IN THIS GAME. HE WAS RIGHT AND
 THE MEASUREMENT SAID SO. ***
 

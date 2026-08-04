@@ -34,8 +34,22 @@ for m in re.finditer(r"([A-Z][A-Z0-9_]*)\s*=\s*\{dk:\[([\d,\s]+)\]\s*,\s*mid:\[(
 # 2) garment entries (single- or double-quoted names), canon only
 items = []
 # tags like cw:true (colorway filler) or fresh:true (new-in-canon) may sit
-# between st and layer (7/19) -- the parser must not go stale over them
-pat = re.compile(r"\{n:(['\"])(.+?)\1\s*,\s*st:'canon'\s*,\s*(?:\w+:true\s*,\s*)*layer:'(\w+)'\s*,\s*gen:(.*?)\}\s*[,\]]")
+# between st and layer (7/19) -- the parser must not go stale over them.
+#
+# AND ON 8/4 IT HAD GONE STALE ANYWAY, exactly as that comment feared, just on
+# the OTHER side of `layer`. The clothing lane's 8/1 hair batch writes the tag
+# after the layer instead of before it:
+#     {n:'SUN CROP',st:'canon',layer:'hair',lux:true,gen:...}
+#                              ^^^^^^^^^^^^ ^^^^^^^^
+# Five canon garments - SUN CROP, DUSK SHAG, TEMPLE TAPER, ASH SWEEP, SALT
+# CROWN - matched nothing and were dropped in silence, so five hairstyles that
+# had been approved and shipped into the alpha could never be worn by a single
+# person in the valley. dress_gate's freshness count (231 banked vs 236 canon)
+# is what caught it, and it could only say HOW MANY were missing, never which -
+# so the gate now names them. A COUNT IS A SMOKE ALARM, NOT A DIAGNOSIS.
+# Tags are optional on BOTH sides now, because the real rule is "a garment is
+# n/st/layer/gen and may carry any number of boolean tags anywhere between".
+pat = re.compile(r"\{n:(['\"])(.+?)\1\s*,\s*st:'canon'\s*,\s*(?:\w+:true\s*,\s*)*layer:'(\w+)'\s*,\s*(?:\w+:true\s*,\s*)*gen:(.*?)\}\s*[,\]]")
 for m in pat.finditer(src):
     name, layer, gen = m.group(2), m.group(3), m.group(4)
     rm = re.search(r"ramp:([A-Z][A-Z0-9_]*)", gen)

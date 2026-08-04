@@ -359,6 +359,11 @@ GATES = [
      'witnesses: clarity decays, familiarity holds, missing-persons answerable', False),
     ('DEVIATION',      ['node', 'gates/deviation_gate.js'],
      'events bend a life, never break it: expiry required, cap held, re-convergence', False),
+    ('WALK DEADLOCK',  ['node', 'gates/walk_deadlock_gate.js'],
+     'nobody stands in the street all day: two people who want to swap cells used to freeze '
+     'there forever (measured: 1,589 turns for a 173-step walk home), because the blocked '
+     'branch replanned the same static BFS into the same body. They route AROUND now, in the '
+     'engine AND in all four slices that inline it -- including the walked world Paolo plays', False),
     ('LOOP',           ['node', 'gates/bohemia_loop_gate.js'],
      'the nine islands boot into one driven engine: factions canon-wired, economy+spawner poured', False),
     ('CANON QUESTS',   ['node', 'gates/bohemia_canon_quests_gate.js'],
