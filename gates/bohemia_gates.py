@@ -441,6 +441,12 @@ GATES = [
      "Paolo 7/29's condition on the people: stable ids, one derivation point, an overrides layer - and a REAL bulk edit that provably reaches the cached surface, not a promise that it could", True),
     ('RUN PEOPLE',     ['node', 'gates/run_people_gate.js'],
      "HE PLAYS THE RUN: the surface Paolo actually taps has a day in it - the street fills, empties through the Mojave afternoon and refills, a bulk edit reaches bodies already walking, and the draw never paints somebody the sim put indoors", True),
+    ('CITY CAST',      ['node', 'gates/city_cast_gate.js'],
+     "Paolo 8/3: 'now we have character models just shuffle that character model every time the "
+     "game looks and have it not be a copy of me'. Every resident WAS him -- the city drew PLAYER_CV "
+     "with a hue shift over it. The alpha had been baking six real townsfolk for the run since 7/26 "
+     "and the city never got them. This HASHES THE ACTUAL PIXELS of every baked body and of his, and "
+     "requires all of them distinct AND not one of them his", True),
     ('CITY TALK',      ['node', 'gates/city_talk_gate.js'],
      "Paolo 8/2 asked for one NPC outside the spawn to test the mechanics on, then said 'I "
      "couldn't find them'. He was right: the RUN tab shows the CITY panel, #p-run is display:none, "

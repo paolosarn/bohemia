@@ -49,12 +49,20 @@ a camera, it designs nothing (MAP LAW: Claude never designs map layouts).
 
 Idempotent: the block is marker-fenced and a re-run reports NOOP.
 Gate: gates/human_start_gate.js
+
+THE CITY MOVED HOUSE ON 8/4: it used to be a base64 constant inside the alpha
+(CITY_B64) and the CITY lane extracted it to slices/BOHEMIA_CITY_WORLD.html so
+the alpha opens 29x faster. This tool's edits were already applied when that
+extraction happened, so they travelled into the new file intact - but the tool
+itself would crash on a re-run looking for CITY_B64. It reads the standalone
+file now: a plain text edit, no decode/encode, which is strictly better.
 """
 import base64
 import re
 import sys
 
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
+CITY = 'slices/BOHEMIA_CITY_WORLD.html'
 MARKER = '__HUMAN_START__'
 ANCHOR = 'updHud(); fit();\n'
 
@@ -110,11 +118,7 @@ GOTO_NEW = (
 
 
 def main():
-    alpha = open(ALPHA, encoding='utf8', errors='ignore').read()
-    m = re.search(r"CITY_B64\s*=\s*['\"`]([A-Za-z0-9+/=]{5000,})", alpha)
-    if not m:
-        print('FAIL: CITY_B64 not found'); return 1
-    city = base64.b64decode(m.group(1)).decode('utf8', errors='ignore')
+    city = open(CITY, encoding='utf8', errors='ignore').read()
 
     if MARKER in city:
         print('NOOP: the run tab already opens in human mode'); return 0
@@ -127,9 +131,8 @@ def main():
 
     city = city.replace(GOTO_OLD, GOTO_NEW, 1)
     city = city.replace(ANCHOR, BLOCK, 1)
-    out = base64.b64encode(city.encode('utf8')).decode('ascii')
-    open(ALPHA, 'w', encoding='utf8').write(alpha[:m.start(1)] + out + alpha[m.end(1):])
-    print('wrote %s' % ALPHA)
+    open(CITY, 'w', encoding='utf8').write(city)
+    print('wrote %s' % CITY)
     print('  the RUN tab now opens in HUMAN MODE at the working district')
     return 0
 

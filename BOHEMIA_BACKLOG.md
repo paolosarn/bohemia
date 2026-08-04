@@ -3693,6 +3693,48 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-K. [SHIPPED 8/3 - records/BOHEMIA_THE_PEOPLE_ARE_NOT_HIM_8_3_26.md]
+   THE PEOPLE ARE NOT COPIES OF HIM ANY MORE. Paolo, after seeing the first
+   neighbour he could talk to: "I saw it very good... now we have character models
+   just shuffle that character model every time the game looks and have it not be
+   a copy of me."
+   HE WAS DESCRIBING THE CODE EXACTLY: the city frame drew every resident as
+   PLAYER_CV - his own baked body - through pplTinted(), a colour shift over his
+   finished sprite. Same rig, same clothes, different hue. Six weeks of wardrobe
+   and everyone in the valley was him.
+   THE ANSWER WAS ALREADY IN THE GAME, ONE IFRAME AWAY. runSendCast() has baked
+   SIX REAL TOWNSFOLK for the run since 7/26 (swap G.tints + G.equipped.hat,
+   re-bake the rig through bake56). The city frame never received them.
+   NOW: citySendCast() bakes the same six and posts BOHEMIA_CITY_CAST; the people
+   pass draws cast[person.look % N] instead of tinting the player, and falls back
+   to the old tinted body if the bake has not landed so nobody vanishes. Which
+   body a person wears was ALREADY stable (personFields gives every person a
+   `look` from their own hash), so a body keeps its clothes instead of flickering.
+   REUSE CHECK: zero pixels cooked, no bank opened - every frame is baked by the
+   alpha's own bake56 from art he already approved. Only WHICH approved body each
+   existing person wears changed.
+   GATE (city_cast_gate.js, 8 claims, drives the alpha and taps the tab): "there
+   is a cast" would pass on six copies of him and "a message was sent" would pass
+   on an empty message, so it HASHES THE REAL PIXELS of every baked body and of
+   his and requires all distinct AND none his. Measured 6 bodies, 6 distinct, 0
+   matching his.
+   *** AND A VACUOUS CHECK I CAUGHT IN MY OWN GATE: *** PLAYER_CV and CAST_CV are
+   `let` at script top level - global LEXICAL bindings, NOT properties of window.
+   My first measurement read window.PLAYER_CV, got undefined, and "none of them is
+   the player" passed by comparing everything against null. A CHECK THAT COULD NOT
+   FAIL. B3 now asserts the player's body was measurable at all, so the important
+   claim can never go vacuous the same way. If you probe an iframe's state, use
+   BARE IDENTIFIERS.
+   Mutations: cast never reaches the draw -> B6 red; the six baked without
+   swapping clothes so they ARE him -> B4 red (1 of 6 distinct), B5 red (6 matches
+   his pixels), B6 red.
+   | gates: CITY CAST 8 new | 8/3 | YES - walk around and look at them.
+
+P-L. [PARKED BY PAOLO 8/3 - DO NOT BUILD UNASKED] "Maybe we can do more with that
+   but we have so much work." Deeper conversation (real dialogue, more than the
+   card and the ask) is his to raise. It is not blocked and it is not forgotten;
+   it is parked, and building it unasked is the STOP PRODUCING violation.
+
 P-J. [SHIPPED 8/3 - records/BOHEMIA_CITY_TALK_8_3_26.md]
    YOU CAN TALK TO SOMEBODY ON THE SURFACE HE ACTUALLY PLAYS. This closes the ask
    he made on 8/2 ("one extra NPC chilling outside the spawn that I can just talk

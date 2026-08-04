@@ -63,6 +63,13 @@ run file directly. VERIFY ON THE REAL SURFACE means the surface he taps.
 
 Idempotent: every injected region is bracketed and a re-run strips the previous
 version before injecting the current one.
+
+THE CITY MOVED HOUSE ON 8/4: it used to be a base64 constant inside the alpha
+(CITY_B64) and the CITY lane extracted it to slices/BOHEMIA_CITY_WORLD.html so
+the alpha opens 29x faster. This tool's edits were already applied when that
+extraction happened, so they travelled into the new file intact - but the tool
+itself would crash on a re-run looking for CITY_B64. It reads the standalone
+file now: a plain text edit, no decode/encode, which is strictly better.
 """
 import base64
 import os
@@ -71,6 +78,7 @@ import sys
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
+CITY = 'slices/BOHEMIA_CITY_WORLD.html'
 PEOPLE = 'engine/bohemia_people.js'
 
 MARK = 'CITY TALK'
@@ -355,11 +363,7 @@ def cut(text, a, b, what):
 
 
 def main():
-    alpha = open(ALPHA, encoding='utf8').read()
-    key = "const CITY_B64='"
-    a0 = alpha.index(key) + len(key)
-    a1 = alpha.index("'", a0)
-    city = base64.b64decode(alpha[a0:a1]).decode('utf8')
+    city = open(CITY, encoding='utf8').read()
 
     if MARK in city:
         city = cut(city, MOD_START, MOD_END, 'the identity module')
@@ -369,7 +373,6 @@ def main():
             print('FAILED: strip left traces behind, refusing to double-apply'); sys.exit(1)
         print('  (previous CITY TALK stripped, re-applying)')
 
-    # 1. the identity module, ahead of the frame's own script body
     anchor = '/* ==== engine/bohemia_powergrid.js (canon, married 7/20) ==== */'
     if anchor not in city:
         print('FAILED: engine anchor not found'); sys.exit(1)
@@ -377,21 +380,18 @@ def main():
     city = city.replace(anchor, MOD_START + '\n' + people_src + '\n' + MOD_END +
                         '\n' + anchor, 1)
 
-    # 2. the names pass, called by the people pass
     if city.count(NAMES_CALL_OLD) != 1:
         print('FAILED: the people-pass anchor resolves %d times, not 1'
               % city.count(NAMES_CALL_OLD)); sys.exit(1)
     city = city.replace(NAMES_CALL_OLD, NAMES_CALL_NEW, 1)
 
-    # 3. the talk surface, at the end of the frame's script
     tail = '\nwindow.__CITY_INSIDE=function()'
     if tail not in city:
         print('FAILED: script tail anchor not found'); sys.exit(1)
     city = city.replace(tail, '\n' + TALK_JS + tail, 1)
 
-    out = base64.b64encode(city.encode('utf8')).decode('ascii')
-    open(ALPHA, 'w', encoding='utf8').write(alpha[:a0] + out + alpha[a1:])
-    print('wrote %s' % ALPHA)
+    open(CITY, 'w', encoding='utf8').write(city)
+    print('wrote %s' % CITY)
     print('  the city frame can now be spoken to')
     return 0
 
