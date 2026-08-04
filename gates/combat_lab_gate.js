@@ -3547,19 +3547,29 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('function fireMissRound(tgt){') &&
     /\/\* V125: THE ROUND GOES SOMEWHERE[\s\S]{0,400}try\{ fireMissRound\(tgt\); \}catch\(_e\)\{\}[\s\S]{0,80}G\.killStreak=0; sndMiss\(\);/.test(demo));
 
-  ok('V125 THE DIAL DECIDES WHERE IT LANDS: JUICE.I already computed the release error and printed it as "37ms EARLY" over his head, which is a number, and degrees mean nothing to a player. The SIGNED error is now a lateral offset in the world, so you see that you pulled left instead of reading that you were early',
+  /* MIGRATED BY V128: the LAW is unchanged -- the dial decides where the round
+     goes, so he sees that he pulled left instead of reading that he was early.
+     What changed is that v125 read the EARLY/LATE flag for the side, which
+     flipped with the sweep direction; it now flies the needle's own bearing. */
+  ok('V125 THE DIAL DECIDES WHERE IT LANDS: JUICE.I already computed the release error and printed it as "37ms EARLY" over his head, which is a number, and degrees mean nothing to a player. The error now puts the round somewhere in the world, so you see that you pulled left instead of reading that you were early',
     demo.includes('function missLandPoint(tgt){') &&
-    demo.includes('const side=(err*vel)<0?-1:1;') &&
-    /return \[tx-uy\*lat, ty\+ux\*lat\]/.test(demo));
+    demo.includes('const err=(G.angle||0);') &&
+    /const a2=tgt\.ea\+dev;/.test(demo));
 
+  /* MIGRATED BY V128, and the law got MORE true, not less: v125 hand-tuned
+     MISS_RANGE_K to fake arc length. Flying the needle's bearing gives
+     r*sin(theta) exactly, so range scaling is now the real physics with no
+     constant. MEASURED 0.65 / 1.75 / 4.0 tiles lateral at 3 / 8 / 20 tiles. */
   ok('V125 AND IT SCALES WITH RANGE, which is free physics and a free lesson: the same wrist error throws a round further off the further out he is, so a sloppy release point blank still lands near him and the same release at twenty tiles sails. That teaches his 7/27 range trade with no UI at all',
-    demo.includes('const MISS_RANGE_K=0.06;') &&
-    /Math\.abs\(err\)\*MISS_LAT\*\(1\+\(tgt\.edist\|\|6\)\*MISS_RANGE_K\)/.test(demo));
+    /const d=Math\.max\(0\.8,tgt\.edist\|\|6\);/.test(demo) &&
+    /return \[Math\.cos\(a2\)\*d, Math\.sin\(a2\)\*d\]/.test(demo));
 
-  ok('V125 THE CONSTANTS ARE SIZED FROM THE REAL INPUT RANGE, NOT GUESSED. G.angle is clamped to +/-LIM and LIM is Math.PI/3, so the error spans about +/-1.05. The first cut used 0.85 and MEASURED every shot piling onto the 0.55 floor -- a hair off and wildly off landed in the same place, the same mistake as the difficulty multipliers, caught the same way: by printing the numbers before shipping',
-    demo.includes('const MISS_LAT=2.4;') &&
+  /* MIGRATED BY V128: the floor and the ceiling still exist and still cannot be
+     zero-width or absurd, but they are now expressed in LATERAL TILES (the
+     thing the eye judges) and applied to the magnitude only. */
+  ok('V125 THE BOUNDS ARE SIZED FROM SOMETHING REAL, NOT GUESSED. The first cut hand-tuned a lateral constant and MEASURED every shot piling onto its floor -- a hair off and wildly off landed in the same place, the same mistake as the difficulty multipliers, caught the same way: by printing the numbers before shipping',
     demo.includes('const MISS_MAX=4.0;') &&
-    demo.includes('const lat=side*Math.max(0.35,mag);'));
+    /const minDev=0\.35\/d, maxDev=Math\.asin\(Math\.min\(0\.999,MISS_MAX\/d\)\);/.test(demo));
 
   ok('V125 EVERYTHING IS SOMEWHERE, so the surface answers: a car sparks, a pillar chips stone, open ground kicks dust. It asks G.pillars what is standing there -- the same question cover, the vault, the dash path and the AI all already ask',
     demo.includes('function missSurfaceAt(wx,wy){') &&
@@ -3645,6 +3655,31 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V127 A HIT IS UNTOUCHED: the hold is armed only by fireMissRound and it is only ever read by the camera easings, so a landed shot resolves with the camera doing exactly what it always did',
     (demo.match(/G\._missHold=performance\.now\(\)/g) || []).length === 1 &&
     !/function endTurnClean[\s\S]{0,400}_missHold/.test(demo));
+}
+
+/* ===== V128 THE ROUND GOES WHERE THE NEEDLE WAS POINTING =============== */
+{
+  ok('V128 THE MISS DIRECTION WAS DECIDED BY THE WRONG THING. Paolo: "it didnt sometimes go to where i missed like the direction of the deadshot dial i chose" -- SOMETIMES is the whole diagnosis. v125 used `(err*vel)<0?-1:1`, which is JUICE.I\'s EARLY/LATE flag: angle times velocity asks "was the needle still travelling toward centre", a fact about TIME, not about where the needle WAS. The same needle position threw the round left or right depending purely on which way it was sweeping',
+    demo.includes('V128 THE ROUND GOES WHERE THE NEEDLE WAS POINTING') &&
+    !/const side=\(err\*vel\)<0\?-1:1;/.test(demo));
+
+  ok('V128 THE FILE ALREADY HAD THE ANSWER IN ONE LINE: the dial draws its needle at base+G.angle, and on a shot base is G.faceAng which IS tgt.ea -- so the needle is already pointing at a WORLD BEARING. The round flies along it, so it cannot disagree with what he was looking at',
+    /const a2=tgt\.ea\+dev;/.test(demo) &&
+    /return \[Math\.cos\(a2\)\*d, Math\.sin\(a2\)\*d\]; \}/.test(demo) &&
+    demo.includes('const ang=G.ks?G.ks.ang:(base+G.angle);'));
+
+  ok('V128 AND THE RANGE SCALING IS NOW FREE AND EXACT: MISS_LAT and MISS_RANGE_K were reimplementing arc length badly, and an angular error gives a lateral miss of r*sin(theta) with no constant at all. Both are DELETED',
+    !demo.includes('const MISS_LAT=') &&
+    !demo.includes('const MISS_RANGE_K=') &&
+    demo.includes('const MISS_ANGLE_K=0.55;'));
+
+  ok('V128 THE BOUNDS CAN NEVER FLIP THE SIGN: the min and max are applied to the MAGNITUDE and the sign is re-applied from the raw dial error, so no clamp can ever send the round to the wrong side -- which is the exact class of bug this patch is fixing',
+    /const mag=Math\.min\(maxDev,Math\.max\(minDev,Math\.abs\(dev\)\)\);/.test(demo) &&
+    /dev=\(err<0\?-1:1\)\*mag;/.test(demo));
+
+  ok('V128 AND THE BOUNDS ARE IN LATERAL TILES, which is what the eye judges: a minimum so it never lands on him, and MISS_MAX converted through asin so the clamp means the same distance at every range',
+    /const minDev=0\.35\/d, maxDev=Math\.asin\(Math\.min\(0\.999,MISS_MAX\/d\)\);/.test(demo) &&
+    demo.includes('const MISS_MAX=4.0;'));
 }
 
 /* ===== YOU ALWAYS SHOOT FIRST (Paolo 8/3/26, LOCKED) ==================
