@@ -1,3 +1,50 @@
+CITY (1eztay): 8/4 LATEST — THE SINGLE SOURCE OF TRUTH WAS DEAD CODE IN ALL 13
+PLACES IT WAS USED, AND EVERY ONE OF THEM WAS GREEN.
+
+Yesterday's extraction fix introduced gates/bohemia_city_app.js: ONE predicate that
+knows where the city app lives, so the next time it moves you edit one file. Right
+idea, and I took it over my own cruder version. THE WIRING NEVER LANDED. Thirteen
+gates contain BOTH of these lines, in this order:
+
+    f = page.frames().find(fr => require('./bohemia_city_app.js').isFrame(fr, page));
+    f = page.frames().find(fr => (/srcdoc|CITY_WORLD|CITY_CURRENT/.test(fr.url())) ...);
+
+The second OVERWRITES the first before its result is ever read. The shared predicate
+is called once per frame and thrown away. city_kit_binding, dooranim, doorjamb,
+doorway, everydoor, ewdoor, full_res, interior_wall, run_spawn, shadow, stepinside,
+traffic_signal, zoomseam. ALL THIRTEEN GREEN -- which is the whole problem. Nothing
+was failing, so nothing was ever going to find it.
+
+PROVED, NOT ARGUED. Sabotage isFrame to return false for every frame in existence:
+    as it is on main   ->  DOORWAY GATE: 5 passed, 0 failed
+    shadow removed     ->  DOORWAY GATE CRASHED: no frame
+A single source of truth you can replace with `return false` without one test
+noticing is not a source of truth. It is a comment. And the loop that refactor was
+written to END was still fully armed: next time the app moves you edit the resolver,
+nothing changes, and 13 gates fail on "the world frame booted" -- which reads like
+the GAME is broken when it is the TEST that is.
+
+THE FIX, IN THE ORDER THAT MATTERS. The shadow matched CITY_CURRENT and isFrame did
+NOT, so deleting the shadow first would have quietly NARROWED what the fleet finds --
+a behaviour change dressed as a cleanup. (1) widen isFrame to the exact union, unit
+tested on all four URL shapes plus the main frame, (2) THEN remove the shadow from
+all 13, (3) hoist the require out of the per-frame predicate (it was resolving once
+per frame per poll). SUPERSET FIRST, THEN REMOVE THE SHADOW.
+Record: records/BOHEMIA_THE_SHARED_RESOLVER_WAS_DEAD_CODE_8_4_26.md
+
+EARLIER THIS SESSION (8/2): BLOB INTEGRITY (70 claims, 8 big documents) after the
+game shipped black twice from one missing </div>; MAP SIZE and DISTRICT FILL floors;
+the HANDOFF gate after that file reached main conflicted FOUR times in a day; DROP IN
+lands you on a street; the CITY tab deletion's wreckage; the swallowed tab click
+banned in 18 files. And the honest measurements: the walk is FAST (median frame
+0.6 ms, so renderer optimisation is NOT the next job) and NO district is under-built
+(suburb 27/23/50 matches real zoning, the cemetery is 403 graves an acre).
+
+NOT MINE TO DECIDE, AND ONE IS PARKED
+- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
+  now"). DO NOT RAISE IT. Plumbing debt in backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Real, tested, invisible. Still open.
+
 SOUND (sound-xk7pjp): 8/4 (e) LATEST - THE UI TICK WAS PLAYING OVER EVERY SOUND
 HE TRIED TO JUDGE. Tab: MUSIC.
 

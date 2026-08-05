@@ -79,8 +79,7 @@ function cityBlob(a){
       /* FIND THE FRAME BY WHAT IT IS, NOT BY HOW IT WAS LOADED (8/4). It was a
          srcdoc frame until the payload-wall pass; it is a sibling src frame now.
          One predicate knows: gates/bohemia_city_app.js. */
-      f = page.frames().find(fr => require('./bohemia_city_app.js').isFrame(fr, page));
-      f = page.frames().find(fr => (/srcdoc|CITY_WORLD|CITY_CURRENT/.test(fr.url())) && fr !== page.mainFrame());
+      f = page.frames().find(fr => CITY_APP.isFrame(fr, page));
       if (!f) continue;
       const up = await f.evaluate(() => typeof fit === 'function' &&
         document.getElementById('cv').width > 300).catch(() => false);

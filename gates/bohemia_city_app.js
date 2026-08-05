@@ -98,7 +98,11 @@ function searched() { return FILES.slice(); }
 function isFrame(fr, page) {
   if (!fr || (page && fr === page.mainFrame())) return false;
   const u = String(fr.url() || '');
-  return /srcdoc/.test(u) || /BOHEMIA_CITY_WORLD/.test(u);
+  /* CITY_CURRENT included 8/4: thirteen gates called this and then IMMEDIATELY
+     overwrote the result on the next line with their own regex, which also
+     matched CITY_CURRENT. Removing that shadow without widening here would have
+     quietly NARROWED what the fleet finds. Superset first, then the shadow goes. */
+  return /srcdoc/.test(u) || /BOHEMIA_CITY_WORLD/.test(u) || /BOHEMIA_CITY_CURRENT/.test(u);
 }
 
 module.exports = { read, searched, isFrame, FILES, BODY };

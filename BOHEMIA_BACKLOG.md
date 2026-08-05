@@ -1724,6 +1724,34 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AX. [DONE 8/4 — NOT MINE, FOUND BY READING THE MERGE, FIXED] THE SHARED RESOLVER WAS
+   DEAD CODE IN ALL 13 PLACES IT WAS USED. Yesterday's extraction fix introduced
+   gates/bohemia_city_app.js -- ONE predicate that knows where the city app lives, so
+   the next move edits one file. Right idea. THE WIRING NEVER LANDED: thirteen gates
+   contain
+       f = page.frames().find(fr => require('./bohemia_city_app.js').isFrame(fr, page));
+       f = page.frames().find(fr => (/srcdoc|CITY_WORLD|CITY_CURRENT/.test(fr.url())) && ...);
+   and the second line OVERWRITES the first before its result is ever read. The shared
+   predicate is called once per frame and thrown away; the regex under it is what finds
+   the frame. All 13 are GREEN, which is the whole problem -- nothing was failing, so
+   nothing was going to find it.
+   PROVED: sabotage isFrame to return false for every frame in existence.
+     as it is on main  -> DOORWAY GATE: 5 passed, 0 failed
+     shadow removed    -> DOORWAY GATE CRASHED: no frame
+   A single source of truth you can replace with `return false` without one test
+   noticing is not a source of truth, it is a comment. And the loop it was written to
+   end was still fully armed: next time the app moves, you edit the resolver, nothing
+   changes, and 13 gates fail on "the world frame booted" again.
+   THE FIX, IN THE ORDER THAT MATTERS: the shadow matched CITY_CURRENT and isFrame did
+   NOT, so deleting the shadow first would have quietly NARROWED what the fleet finds --
+   a behaviour change dressed as a cleanup. (1) widen isFrame to the exact union,
+   unit-tested on all four URL shapes plus the main frame, (2) THEN remove the shadow
+   from all 13, (3) hoist the require out of the per-frame predicate. SUPERSET FIRST,
+   THEN REMOVE THE SHADOW.
+   Record: records/BOHEMIA_THE_SHARED_RESOLVER_WAS_DEAD_CODE_8_4_26.md
+   | doorway 5/0, zoomseam 7/0, run_spawn 13/0, shadow 7/0, stepinside 8/0; sabotage
+   flips from green to crash | none | no.
+
 0AV. [DONE 8/2 — NOT MINE, FLEET-WIDE, FIXED] THE WORLD MOVED OUT OF THE ALPHA AND
    LEFT 24 GATES BEHIND. 3ef222f lifting CITY_B64 out to slices/BOHEMIA_CITY_WORLD.html
    was right and the numbers prove it (38.7MB -> 2.92MB, first load 12,561ms -> 398ms,
