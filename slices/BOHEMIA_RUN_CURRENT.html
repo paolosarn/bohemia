@@ -5118,7 +5118,12 @@ root.BQRuntime=API;
 
   // EXPLAIN-EVERY-TILE (Paolo 7/18): every non-ground tile must map to a named thing in the
   // district's legend (palette), and there must be little unexplained void.
-  function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(c!==0 && !(c in palette)) return false; } return true; }
+  /* legendOk EXEMPTED CODE 0 BY NAME and hid an uncoloured tile in SIXTEEN districts --
+     70% of every mountain plot, 45% of every suburb. 0 meant "void" once; every module
+     gives it a real legend entry now ("bedrock face", "open water", "dead-ground"), so
+     the exemption was checking that a tile nobody had coloured was allowed to stay
+     uncoloured. A GATE THAT EXEMPTS THE MOST-USED CODE IS NOT CHECKING ANYTHING. */
+  function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(!(c in palette)) return false; } return true; }
   function voidFraction(g){ var W=g[0].length,H=g.length,z=0; for(var y=0;y<H;y++)for(var x=0;x<W;x++)if(g[y][x]===0)z++; return z/(W*H); }
   // largest contiguous blob of a single code that isn't a real structure — catches "big blank slabs"
   function largestBlob(g,isBlank){ var W=g[0].length,H=g.length,seen={},best=0,d4=[[1,0],[-1,0],[0,1],[0,-1]];
@@ -5515,7 +5520,11 @@ root.BQRuntime=API;
     while(st.length){var p=st.pop();reach++;for(var i=0,d=[[1,0],[-1,0],[0,1],[0,-1]];i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;
       if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;var cc=g[ny][nx];if(cc===1||cc===5||cc===3||cc===6){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total>0.9;}
-  var PALETTE={1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',10:'#57575f'};
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',10:'#57575f'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -6073,7 +6082,11 @@ root.BQRuntime=API;
   // a car reaches the campus drive network (code 1) from the street curb cut, in ANY placement
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={1:'#33333c',2:'#8a8478',3:'#55503f',4:'#c7a24a',5:'#c79a3f',6:'#7a7a80',7:'#9a9088',8:'#4c4c55',9:'#b04038',10:'#c9c1aa',11:'#5a5a64'};
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#55503f',4:'#c7a24a',5:'#c79a3f',6:'#7a7a80',7:'#9a9088',8:'#4c4c55',9:'#b04038',10:'#c9c1aa',11:'#5a5a64'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / unbuilt gaps)'},
@@ -6176,7 +6189,11 @@ root.BQRuntime=API;
   // placement (STREET-AWARE/DRIVABLE LAW 7/19). Solar's roads run edge-to-edge so this is high.
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.9; }
 
-  var PALETTE={1:'#5a5346',2:'#7a7266',3:'#4a4438',4:'#6b6b74',5:'#c79a3f',6:'#8a8a92',7:'#2e3440'};
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#5a5346',2:'#7a7266',3:'#4a4438',4:'#6b6b74',5:'#c79a3f',6:'#8a8a92',7:'#2e3440'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 material. NOTE the
   // CLUSTERED-POWER lore: this plant is INTACT + generating while the world is dead — so its
   // panels/switchgear read maintained (eerily perfect), not decayed, unlike other districts.
@@ -6321,7 +6338,11 @@ root.BQRuntime=API;
       footprints:K.footprints(g,function(v){return v===2;})};
   }
 
-  var PALETTE={1:'#6a6a70',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#566058',7:'#5a4f38',
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#453e30',1:'#6a6a70',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#566058',7:'#5a4f38',
     8:'#8a6a5a',9:'#3a4a52',10:'#c9c1aa',11:'#55555f',12:'#41414a',13:'#8f8676'};
   // TILE SPEC (the "note section" for the tiling phase): every code -> name, kind, and its
   // ACT-1 DEAD-WORLD material. act 2/3 evolution is CONTENTS-PAOLO'S ([PENDING] in the sheet).
@@ -6451,7 +6472,11 @@ root.BQRuntime=API;
   // a maintenance vehicle reaches the O&M roads from the street, any placement
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={1:'#4a4640',2:'#6b6660',3:'#6a5f42',4:'#7a756c',5:'#c79a3f',6:'#6e6a61',7:'#4a5048',
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#4a422f',1:'#4a4640',2:'#6b6660',3:'#6a5f42',4:'#7a756c',5:'#c79a3f',6:'#6e6a61',7:'#4a5048',
     8:'#141410',9:'#6b6355',10:'#8a8f94',11:'#8a7a5a'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt / channel embankment, cracked'},
@@ -6581,7 +6606,11 @@ root.BQRuntime=API;
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={1:'#4a4640',2:'#8a8478',3:'#4a4030',4:'#5a4f38',5:'#c79a3f',6:'#9a9488',7:'#9a938a',
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#4a4640',2:'#8a8478',3:'#4a4030',4:'#5a4f38',5:'#c79a3f',6:'#9a9488',7:'#9a938a',
     8:'#8f8a80',9:'#3a4a52',10:'#6a6a70',11:'#b0a89a',12:'#55555f',13:'#8f8676'};
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / bare gaps)'},
@@ -6694,7 +6723,11 @@ root.BQRuntime=API;
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={1:'#33333c',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#8a8890',7:'#6b6355',
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#4a422f',1:'#33333c',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#8a8890',7:'#6b6355',
     8:'#55555f',9:'#b0863a',10:'#8f8676',11:'#8a6a5a'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the parcel edge (setback/berms)'},
