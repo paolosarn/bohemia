@@ -548,6 +548,18 @@ GATES = [
      'TILES, re-derived every run so it cannot drift - plus the two failures that almost '
      'shipped: PINK (desaturating at constant value turns clay into salmon) and MUSH '
      '(structure buried under the grain)', False),
+    ('ART TAB',        ['node', 'gates/art_tab_gate.js'],
+     'Paolo 8/4: "can you put all the work in a different fucking tab like the life tab '
+     '... u want me to hunt all your work down ... i shouldnt have to tell you that". He '
+     'should not have had to. NAME THE TAB has been law since 7/28 -- "a thing he cannot '
+     'reach does not exist to him" -- and the ART lane quoted that law and then handed him '
+     'records/target/ file paths in the same turn. The law was written down and NOTHING IN '
+     'THE MACHINE CARED, which is the 7/16 ruling exactly. Holds the door, the room, every '
+     'picture in it, and the verdict controls (thumbs, note, one bottom comment box, SUN '
+     'MODE, .txt never .json) -- plus the loader bug it exposed, where the alpha promoted '
+     'data-src per-tab BY HAND so a newly added tab came up BLANK, which is worse than no '
+     'tab. And it boots the alpha, dismisses the splash and taps ART the way his thumb '
+     'does, because a tab that throws on open passes every source check ever written', False),
     ('LIGHT',          ['node', 'gates/light_gate.js'],
      'Paolo 8/3: "you\'re called the art direction chat and you\'re not doing a lot of art '
      'directing ... I can\'t even see it". Measured, he was right: the play area used 110 of '

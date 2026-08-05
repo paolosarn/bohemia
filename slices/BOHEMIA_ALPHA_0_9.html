@@ -936,7 +936,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/4f - EVERY DISTRICT HAS A MAP ICON NOW</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/4i - THE ART TAB</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -957,12 +957,14 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
     <div class="tab" data-p="map">MAP</div>
     <div class="tab" data-p="slice">SLICE</div>
     <div class="tab" data-p="life">LIFE</div>
+    <div class="tab" data-p="art">ART</div>
   </div>
   <div id="syncBadge">rig sync: waiting for a rig edit</div>
   <div id="stage">
     <div class="panel" id="p-run"><iframe id="runFrame" data-src="BOHEMIA_RUN_CURRENT.html" title="the run" style="width:100%;height:100%;border:0;background:#0b0d09"></iframe></div>
     <div class="panel" id="p-slice"><iframe id="sliceFrame" data-src="BOHEMIA_CURRENT_SLICE.html" title="live slice" style="width:100%;height:100%;border:0;background:#0d0d12"></iframe></div>
     <div class="panel" id="p-life"><iframe id="lifeFrame" data-src="BOHEMIA_LIFE_CURRENT.html" title="life" style="width:100%;height:100%;border:0;background:#0d0d12"></iframe></div>
+    <div class="panel" id="p-art"><iframe id="artFrame" data-src="BOHEMIA_ART_CURRENT.html" title="art, and what to judge" style="width:100%;height:100%;border:0;background:#0d0d12"></iframe></div>
     <div class="panel on" id="p-char">
       <div id="charStage" style="position:relative;width:min(92vw,420px);margin:8px auto;line-height:0">
         <canvas id="charCv" width="112" height="112" style="margin:0"></canvas>
@@ -15858,7 +15860,7 @@ window.CLO=(function(){
 })();
 </script>
 <script>(function(){var t=document.getElementById("tabs");if(!t)return;var down=false,sx=0,sl=0,moved=0;t.addEventListener("pointerdown",function(e){down=true;sx=e.clientX;sl=t.scrollLeft;moved=0;t.classList.add("drag");});window.addEventListener("pointermove",function(e){if(!down)return;var dx=e.clientX-sx;moved+=Math.abs(dx);t.scrollLeft=sl-dx;});function end(){if(down){down=false;t.classList.remove("drag");}}window.addEventListener("pointerup",end);window.addEventListener("pointercancel",end);t.addEventListener("click",function(e){if(moved>8){e.stopPropagation();e.preventDefault();}},true);var rt2=t.querySelector(".tab[data-p=run]");function runLoad(){var f=document.getElementById("runFrame");if(f&&!f.getAttribute("src"))f.src=f.dataset.src;}if(rt2)rt2.addEventListener("click",runLoad);setTimeout(runLoad,2500);/* THE RUN preloads quietly so tapping RUN is instant */
-var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",function(){var f=document.getElementById("sliceFrame");if(f&&!f.getAttribute("src"))f.src=f.dataset.src;});var lt=t.querySelector(".tab[data-p=life]");if(lt)lt.addEventListener("click",function(){var f=document.getElementById("lifeFrame");if(f&&!f.getAttribute("src"))f.src=f.dataset.src;});var mt=t.querySelector(".tab[data-p=map]");if(mt)mt.addEventListener("click",function(){var f=document.getElementById("mapFrame");if(f&&!f.getAttribute("src"))f.src=f.dataset.src;});})();</script>
+var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",function(){var f=document.getElementById("sliceFrame");if(f&&!f.getAttribute("src"))f.src=f.dataset.src;});var lt=t.querySelector(".tab[data-p=life]");if(lt)lt.addEventListener("click",function(){var f=document.getElementById("lifeFrame");if(f&&!f.getAttribute("src"))f.src=f.dataset.src;});var mt=t.querySelector(".tab[data-p=map]");if(mt)mt.addEventListener("click",function(){var f=document.getElementById("mapFrame");if(f&&!f.getAttribute("src"))f.src=f.dataset.src;});/* AND THE GENERIC ONE (8/4). Every line above names ONE tab and ONE frame by hand, so adding a tab means remembering to come back here and add a fourth -- and the ART tab was added and did not load, because I did not. A panel with an unloaded data-src iframe is a BLANK TAB, which under the NAME THE TAB law is the same as no tab at all. This promotes data-src to src for whatever panel just opened, so the next tab anyone adds works without touching this line. It runs after the named ones and checks !src, so it is a no-op for all of them. */t.addEventListener("click",function(e){var tab=e.target.closest?e.target.closest(".tab"):null; if(!tab)return;var pan=document.getElementById("p-"+tab.dataset.p); if(!pan)return;var f=pan.querySelector("iframe[data-src]");if(f&&!f.getAttribute("src"))f.src=f.dataset.src;});})();</script>
 <script>
 /* BUILD WATCHER (7/20, after "I'm not seeing anything new" three times): the
    OPEN page checks the network for a newer deploy -- every 2 minutes and on

@@ -1,0 +1,230 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — ART</title>
+<style>
+  :root{ --bg:#0d0d12; --ink:#e8e0cc; --faint:#8a8070; --line:#2a2620;
+         --gold:#d8b24a; --card:#15151c; }
+  body.sun{ --bg:#e9e4d6; --ink:#1a1710; --faint:#5c5446; --line:#b8ae98; --card:#f4f0e4; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+        padding:10px 10px 40px; }
+  header{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  h1{ font-size:13px; letter-spacing:2px; margin:0; flex:1; color:var(--gold); }
+  .sunbtn{ font:11px ui-monospace,monospace; letter-spacing:1px; padding:7px 10px;
+           background:transparent; color:var(--ink); border:1px solid var(--line);
+           border-radius:4px; }
+  .lede{ font-size:12px; color:var(--faint); margin:0 0 14px; line-height:1.55; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:8px;
+         padding:12px; margin-bottom:16px; }
+  h2{ font-size:13px; letter-spacing:1.5px; margin:0 0 6px; display:flex; gap:8px; align-items:center; }
+  .n{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px;
+      border-radius:50%; background:var(--gold); color:#14120c; font-size:11px; flex:none; }
+  .ask{ font-size:13px; margin:0 0 10px; }
+  .shotwrap{ position:relative; line-height:0; border:1px solid var(--line);
+             border-radius:6px; overflow:hidden; background:#000; cursor:pointer; }
+  .shotwrap img{ width:100%; display:none; image-rendering:pixelated; }
+  .shotwrap img.on{ display:block; }
+  .flag{ position:absolute; left:8px; top:8px; font:11px ui-monospace,monospace;
+         letter-spacing:1px; background:rgba(12,10,8,.82); color:#e8e0cc;
+         border:1px solid #3a3020; border-radius:3px; padding:4px 8px; line-height:1; }
+  .taphint{ position:absolute; right:8px; bottom:8px; font:10px ui-monospace,monospace;
+            letter-spacing:2px; background:rgba(12,10,8,.82); color:#d8b24a;
+            border:1px solid #3a3020; border-radius:3px; padding:4px 8px; line-height:1; }
+  .dial{ display:flex; gap:6px; margin-top:8px; }
+  .dialbtn{ flex:1; font:11px ui-monospace,monospace; letter-spacing:1px; padding:10px 4px;
+            background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:5px; }
+  .dialbtn.on{ background:var(--gold); color:#14120c; border-color:var(--gold); }
+  .why{ font-size:12px; color:var(--faint); margin:10px 0 4px; line-height:1.55; }
+  .num{ font-size:11px; color:var(--gold); margin:0 0 10px; letter-spacing:.5px; }
+  .verdict{ display:flex; gap:8px; }
+  .thumb{ flex:1; font:12px ui-monospace,monospace; letter-spacing:1px; padding:12px 4px;
+          background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:5px; }
+  .thumb.on.up{ background:#2f5d34; border-color:#4a8a52; color:#eaffea; }
+  .thumb.on.down{ background:#5d2f2f; border-color:#8a4a4a; color:#ffeaea; }
+  textarea{ width:100%; margin-top:8px; min-height:44px; background:transparent;
+            color:var(--ink); border:1px solid var(--line); border-radius:5px;
+            padding:8px; font:12px ui-monospace,monospace; resize:vertical; }
+  .bottom{ border-top:1px solid var(--line); padding-top:14px; }
+  .bottom h3{ font-size:12px; letter-spacing:1.5px; margin:0 0 8px; color:var(--gold); }
+  .bottom textarea{ min-height:110px; }
+  .exp{ width:100%; margin-top:10px; font:12px ui-monospace,monospace; letter-spacing:2px;
+        padding:15px; background:var(--gold); color:#14120c; border:0; border-radius:6px; }
+  .done{ font-size:11px; color:var(--faint); text-align:center; margin-top:8px; min-height:14px; }
+</style>
+
+<header>
+  <h1>ART &middot; 8/4 &middot; THE SUN CAME UP</h1>
+  <button class="sunbtn" id="sunbtn">SUN MODE</button>
+</header>
+<p class="lede">Everything this lane made today, in one place. Three things to judge.
+Tap a picture to flip it. Thumbs, then EXPORT at the bottom and send me the file.</p>
+
+
+  <section class="card" data-id="look">
+    <h2><span class="n">1</span>THE LIGHT</h2>
+    <p class="ask">Tap the picture. Does the game look better with the light on?</p>
+    <div class="shotwrap ab" data-card="look">
+      <img class="abimg a on" src="../records/target/ART_LIGHT_OFF.png" alt="LIGHT OFF (how it was)" loading="lazy">
+      <img class="abimg b"    src="../records/target/ART_LIGHT_ON.png" alt="LIGHT ON (what shipped)" loading="lazy">
+      <div class="flag" id="flag_look">LIGHT OFF (how it was)</div>
+      <div class="taphint">TAP TO FLIP</div>
+    </div>
+    <p class="why">The whole game was using 110 of 255 brightness values and 0.0% of its pixels were cool. Everything was the same colour and the same brightness, which is why you could not see any of the texture work. Now the bright things take the sun and the dark things take the sky, which is blue.</p>
+    <p class="num">brightness range 106 → 144 · contrast 31.7 → 42.5 · cool pixels 0.1% → 8.9%</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="look" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="look" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="look" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="sun">
+    <h2><span class="n">2</span>THE SHADOWS</h2>
+    <p class="ask">Tap the picture. Do the buildings sit on the ground now?</p>
+    <div class="shotwrap ab" data-card="sun">
+      <img class="abimg a on" src="../records/target/ART_SUN_OFF.png" alt="NO SHADOWS" loading="lazy">
+      <img class="abimg b"    src="../records/target/ART_LIGHT_ON.png" alt="SHADOWS ON" loading="lazy">
+      <div class="flag" id="flag_sun">NO SHADOWS</div>
+      <div class="taphint">TAP TO FLIP</div>
+    </div>
+    <p class="why">Nothing in this world threw a shadow, so every building sat on the dirt like a sticker on paper. Now every wall and every house drops a shadow down and to the right, the same direction the light in your tiles already comes from. It goes blue instead of black so your bought texture still shows through it.</p>
+    <p class="num">47 ground cells in shadow in this frame · 0 before</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="sun" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="sun" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="sun" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="grime">
+    <h2><span class="n">3</span>THE DIRT — PICK A NUMBER</h2>
+    <p class="ask">Three amounts of grime. Which one? NONE, SOME, or DIRTY.</p>
+    <div class="shotwrap">
+      <img class="dialimg on" data-k="0"
+           src="../records/target/ART_LIGHT_ON.png" alt="NONE" loading="lazy">
+      <img class="dialimg" data-k="0.30"
+           src="../records/target/ART_GRIME_030.png" alt="SOME" loading="lazy">
+      <img class="dialimg" data-k="0.55"
+           src="../records/target/ART_GRIME_055.png" alt="DIRTY" loading="lazy">
+      <div class="flag" id="flag_grime">NONE</div>
+    </div>
+    <div class="dial">
+      <button class="dialbtn on" data-card="grime"
+           data-k="0">NONE</button>
+      <button class="dialbtn" data-card="grime"
+           data-k="0.30">SOME</button>
+      <button class="dialbtn" data-card="grime"
+           data-k="0.55">DIRTY</button>
+    </div>
+    <p class="why">One grime pass over everything is the Machine Party trick you liked: it blends separate objects into one world instead of a pile of different art. The machine is built and the game currently ships it at ZERO, because you have never seen a dirty frame and picking the amount is yours, not mine.</p>
+    <p class="num">shipping at 0 until you pick</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="grime" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="grime" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="grime" placeholder="say anything about this one"></textarea>
+  </section>
+
+<div class="bottom">
+  <h3>ANYTHING ELSE</h3>
+  <textarea id="all" placeholder="whatever you want to say"></textarea>
+  <button class="exp" id="exp">EXPORT MY VERDICT</button>
+  <div class="done" id="done"></div>
+</div>
+
+<script>
+var CARDS = [{"id":"look","title":"THE LIGHT","labels":["LIGHT OFF (how it was)","LIGHT ON (what shipped)"]},{"id":"sun","title":"THE SHADOWS","labels":["NO SHADOWS","SHADOWS ON"]},{"id":"grime","title":"THE DIRT — PICK A NUMBER","labels":["NONE (0)","SOME (0.30)","DIRTY (0.55)"]}];
+var V = {}, NOTE = {}, DIAL = { grime: '0' };
+
+/* TAP FLIPS. The eye holds the first frame and the second lands on top of it, which
+   is the only way a grade is actually judgeable on a phone. */
+document.querySelectorAll('.shotwrap.ab').forEach(function(w){
+  w.addEventListener('click', function(){
+    var id = w.getAttribute('data-card');
+    var a = w.querySelector('.abimg.a'), b = w.querySelector('.abimg.b');
+    var toB = a.classList.contains('on');
+    a.classList.toggle('on', !toB); b.classList.toggle('on', toB);
+    var c = CARDS.filter(function(x){ return x.id === id; })[0];
+    document.getElementById('flag_' + id).textContent = c.labels[toB ? 1 : 0];
+  });
+});
+
+/* the dial: tapping a picture steps it, tapping a button sets it */
+function setDial(id, k){
+  DIAL[id] = k;
+  var card = document.querySelector('.card[data-id="' + id + '"]');
+  var imgs = card.querySelectorAll('.dialimg'), btns = card.querySelectorAll('.dialbtn');
+  var lbl = '';
+  imgs.forEach(function(im){ im.classList.toggle('on', im.getAttribute('data-k') === k); });
+  btns.forEach(function(bt){
+    var on = bt.getAttribute('data-k') === k;
+    bt.classList.toggle('on', on);
+    if (on) lbl = bt.textContent;
+  });
+  document.getElementById('flag_' + id).textContent = lbl;
+}
+document.querySelectorAll('.dialbtn').forEach(function(bt){
+  bt.addEventListener('click', function(){ setDial(bt.getAttribute('data-card'), bt.getAttribute('data-k')); });
+});
+document.querySelectorAll('.card').forEach(function(card){
+  var imgs = card.querySelectorAll('.dialimg');
+  if (!imgs.length) return;
+  var id = card.getAttribute('data-id');
+  card.querySelector('.shotwrap').addEventListener('click', function(){
+    var ks = [].map.call(imgs, function(im){ return im.getAttribute('data-k'); });
+    setDial(id, ks[(ks.indexOf(DIAL[id]) + 1) % ks.length]);
+  });
+});
+
+document.querySelectorAll('.thumb').forEach(function(bt){
+  bt.addEventListener('click', function(){
+    var id = bt.getAttribute('data-card'), v = bt.getAttribute('data-v');
+    V[id] = (V[id] === v) ? null : v;
+    document.querySelectorAll('.thumb[data-card="' + id + '"]').forEach(function(o){
+      o.classList.toggle('on', V[id] === o.getAttribute('data-v'));
+    });
+  });
+});
+document.querySelectorAll('textarea.note').forEach(function(t){
+  t.addEventListener('input', function(){ NOTE[t.getAttribute('data-card')] = t.value; });
+});
+
+/* WARM THE HIDDEN FRAMES. An img that is display:none never lazy-loads, so the
+   first tap of a flip would sit on a blank box while 1.4MB came down -- which
+   reads as the feature being broken, not as a download. Fetch them quietly once
+   the visible page has painted, so every flip after that is instant. */
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    document.querySelectorAll('img').forEach(function(im){
+      if (im.naturalWidth) return;
+      var w = new Image(); w.src = im.getAttribute('src');
+    });
+  }, 400);
+});
+
+document.getElementById('sunbtn').addEventListener('click', function(){
+  document.body.classList.toggle('sun');
+});
+
+/* .txt, NEVER .json (verdict workflow, standing) */
+document.getElementById('exp').addEventListener('click', function(){
+  var L = ['BOHEMIA ART VERDICT', 'build 8/4 - THE SUN CAME UP', ''];
+  CARDS.forEach(function(c){
+    L.push(c.title);
+    L.push('  verdict: ' + (V[c.id] || 'NO ANSWER'));
+    if (DIAL[c.id] !== undefined) L.push('  amount picked: ' + DIAL[c.id]);
+    if (NOTE[c.id]) L.push('  note: ' + NOTE[c.id]);
+    L.push('');
+  });
+  var all = document.getElementById('all').value;
+  if (all) { L.push('ANYTHING ELSE'); L.push(all); L.push(''); }
+  var blob = new Blob([L.join('\n')], { type: 'text/plain' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'BOHEMIA_ART_VERDICT.txt';
+  document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById('done').textContent = 'exported. send me the file.';
+});
+</script>

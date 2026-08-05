@@ -1,3 +1,81 @@
+ART (f3eu53): 8/4 (i) LATEST -- *** THE WORK WAS FINISHED AND IT STILL DID NOT
+EXIST, BECAUSE HE COULD NOT REACH IT. IT IS IN THE **ART TAB** NOW. ***
+
+"bro can you put all the work in a different fucking tab like the life tab bro wtf like
+ u want me to hunt all your work down bro thats goofy asf i shouldnt have to tell you that"
+
+=== READ THIS FIRST, EVERY LANE ===
+He should not have had to tell me. NAME THE TAB has been law since 7/28 and says it in
+as many words: "a thing he cannot reach does not exist to him." I QUOTED THAT LAW IN
+THIS SESSION AND THEN BROKE IT IN THE SAME TURN, handing him records/target/*.png paths
+and calling them a deliverable. The law was written down and NOTHING IN THE MACHINE
+CARED, which is the 7/16 ruling word for word.
+*** FINISHING IS NOT SHIPPING. A deliverable he cannot reach with his thumb is not a
+deliverable. The last step of an art turn is A ROOM HE CAN WALK INTO. Not a follow-up. ***
+
+=== THE ART TAB (slices/BOHEMIA_ART_CURRENT.html) ===
+Tap ART in the alpha. Three cards, each one thing he can answer in a word:
+  1 THE LIGHT    tap the picture to flip LIGHT OFF <-> LIGHT ON
+  2 THE SHADOWS  tap to flip NO SHADOWS <-> SHADOWS ON
+  3 THE DIRT     a DIAL: NONE / SOME / DIRTY, because the ask is a NUMBER not a word
+Thumbs per card, a note per card, ONE comment box at the bottom, SUN MODE, export .txt.
+Built by tools/build_art_tab.js from shots taken by tools/bohemia_art_tab_shots.js
+(same standing frame every time, exactly one thing changed between frames).
+A/B IS A TAP, NOT A SIDE-BY-SIDE: two half-width phone screens are two pictures too
+small to judge; one full-width picture that flips under your thumb is how a grade is
+actually seen.
+
+=== THE LOADER BUG IT EXPOSED -- THIS ONE IS EVERYBODY'S ===
+The alpha promoted data-src to src with ONE HAND-WRITTEN LINE PER TAB. So the ART tab
+was added, wired correctly, and CAME UP BLANK. A tab that opens nothing is worse than
+no tab: he taps it, sees nothing, and concludes the work does not exist.
+FIXED GENERICALLY: whatever panel opens now gets its own iframe[data-src] loaded, so
+the NEXT lane to add a tab cannot hit this. art_tab_gate holds it generic.
+
+=== WHAT IS IN THE TAB TO JUDGE (all measured on the real surface) ===
+THE LOOK: one grade over every world tile -- tone curve, then a split-tone keyed on the
+pixel's LUMINANCE toward a blue sky and a warm sun.
+THE SUN: every solid mass throws a cast shadow down-right, matching the upper-left key
+every cooked tile already has. Multiply toward a BLUE, never a black wash, so his bought
+texture survives underneath.
+                UNLIT     LIT
+  VALUE RANGE    106      144
+  CONTRAST SD   31.7     42.5
+  COOL PIXELS    0.1%     8.9%     there is sky in the shadows now
+  WARM PIXELS   98.6%    83.1%     and it is still a desert
+  GROUND CELLS IN SHADOW: 47, was 0
+
+=== THE NO-OP THAT MEASURED AS ONE (record this, it will recur) ===
+The first LOOK ran a per-CHANNEL lookup: each channel split-toned by ITS OWN value. The
+art is red-over-blue everywhere, so red took the highlight boost and blue took the
+shadow boost IN THE SAME PIXEL. Cool pixels 0.0% BEFORE and 0.0% AFTER. It looked like a
+working feature and did nothing.
+*** A MULTIPLY CANNOT MOVE A HUE. ONLY A BLEND TOWARD A COLOUR CAN. ***
+
+=== STILL AT ZERO, DELIBERATELY ===
+THE GRIME DIAL. It was moved to 0.55 earlier on "do what you want", which is not a
+ruling on an AMOUNT. grime_gate says in writing it holds at zero until a verdict exists;
+writing my own record to satisfy my own gate is gaming it. Card 3 of the ART tab is how
+he gives the number. [PENDING, Paolo's call]
+
+=== GATED ===
+gates/art_tab_gate.js  28 checks -- the door, the room, every picture in it, the verdict
+  controls, the generic loader; boots the alpha, dismisses the splash, taps ART.
+gates/light_gate.js    41 checks -- holds the three failures that already happened once
+  (per-channel split, src.length cache collision, a sun pointing the wrong way) and
+  MEASURES the real canvas with the light off and on.
+Suite diffed against clean main by NAME, not asserted: two new reds all session, both
+mine, both fixed (perimeter_gate matched a spelling when it meant an ORDER; the SLICE
+tab's derived build went stale).
+
+=== NOT DONE / THE QUEUE ===
+1. THE ART CELL IS 44px. His bought tiles carry features on 7.0% of their area, mine
+   land at 5.5%. 88 fixes it outright. BIGGEST REMAINING ART JOB.
+2. Civic masses have parapets and openings but NO CORNERS and NO ENDS -- a warehouse
+   still reads flat from the side.
+3. The grime NUMBER is [PENDING, Paolo's call].
+4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
+
 WORLD (world-9lfjtf): 8/4 (g) LATEST -- *** THE FOUR CIVICS ARE APPROVED AT 85% AND THE
 NO-ICON DEBT IS PAID: 21 -> 2. *** Live on main, BUILD 8/4f.
 
@@ -84,6 +162,7 @@ Three icons came in squat and the honest answer was not to lower the bar:
 3. downtown_arts / downtown_civic / downtown_lot, from the 8/1 downtown research.
 4. [PENDING Paolo] the drive-thru wedding chapel as its own cell type -- proposed, not built.
 
+
 CITY (1eztay): 8/4 LATEST — THE SINGLE SOURCE OF TRUTH WAS DEAD CODE IN ALL 13
 PLACES IT WAS USED, AND EVERY ONE OF THEM WAS GREEN.
 
@@ -125,6 +204,107 @@ lands you on a street; the CITY tab deletion's wreckage; the swallowed tab click
 banned in 18 files. And the honest measurements: the walk is FAST (median frame
 0.6 ms, so renderer optimisation is NOT the next job) and NO district is under-built
 (suburb 27/23/50 matches real zoning, the cemetery is 403 graves an acre).
+
+CITY (1eztay): 8/2 (ap) LATEST — THE ALPHA IS FOUR BLOBS IN A TRENCH COAT AND
+NOTHING WAS GUARDING THEM. Now something is.
+
+    CITY_B64    28,120,885 chars   the walked world + city builder
+    COMBAT_B64   1,055,197         the combat slice
+    RIG_B64         95,906         the rig tool
+    PREFAB_B64      10,612         the prefab tool
+
+Four lanes rewrite these BY STRING SURGERY every day, and every rebase resolves a
+34 MB file by taking one side whole. What guarded them was PRESENCE and a SIZE
+FLOOR -- "exists and is over 100,000 chars". A stale re-encode passes both. A
+half-merged one passes both. A truncated one usually passes both. That is exactly
+the damage this repo produces.
+
+PROVEN, NOT ASSUMED:
+  * the game shipped a BLACK SCREEN TWICE today from ONE missing </div>, with every
+    gate green, found by a human tapping the link. The second time it wore a
+    disguise: it presented as a dead COMBAT tab and sent another lane bisecting
+    after a combat bug that was never a combat bug (every panel was 0x0).
+  * PREFAB_B64 can be silently replaced and NOTHING notices. Measured: changing a
+    colour inside it left alpha_loads 20/0, city_tab 64/0, rig_is_law 12/0.
+
+*** THE ARCHITECTURE MOVED UNDER THIS GATE THE SAME DAY, and that is the useful
+part. 3ef222f lifted CITY_B64 out to slices/BOHEMIA_CITY_WORLD.html (alpha 38.7 MB
+-> 2.92 MB, first load 12,561 ms -> 398 ms, ~43 days off a hard GitHub 100 MB push
+limit nobody was watching). My gate went RED on the merge, correctly, because
+CITY_B64 was no longer a const. THE CHECK DID NOT GET SMALLER, IT GOT BIGGER: the
+game is now a shell plus EIGHT big documents (3 inline blobs + 5 sibling pages,
+each a surface he opens from a tab) and every property here is as true of a page
+as of a blob. 41 claims -> 70. A gate that insisted on the shape it was born with
+would be testing something nobody ships. ***
+
+BLOB INTEGRITY (70 claims): every document decodes, is not truncated (tag balance),
+carries NO MERGE MARKERS (a blob is where a bad conflict resolution hides best --
+nobody reads 28 million characters), every inline script still PARSES (compiled,
+never executed), and has not collapsed. Mutation-proven against the three REAL
+failure shapes, each caught by name in about a second, and RE-PROVEN on the new
+extracted world page:
+    drop one </div> from the world page -> "BOHEMIA_CITY_WORLD.html (64/63)"
+    leave a merge marker in a blob      -> "COMBAT_B64 CARRIES NO MERGE MARKERS"
+    string-surgery drops a brace        -> "RIG_B64 every inline script PARSES"
+
+*** THE SECOND DRAFT IS THE PART EVERY LANE SHOULD TAKE. *** v1's clever tag regex
+reported THREE TRUNCATED BLOBS (63/64, 60/61, a missing </script>) -- a serious
+accusation about three files four lanes depend on. THE BLOBS WERE FINE AND MY
+RULER WAS BENT: plain counting says 64/64, 61/61, 1/1. Fix the ruler, never the
+target. That is the THIRD time in two turns that a number which looked like a
+defect was my own instrument. BEFORE REPORTING A DEFECT, TEST THE INSTRUMENT ON
+SOMETHING KNOWN-GOOD.
+
+ALSO: ICON was red on main for a one-word bookkeeping slip -- the lane that drew
+the chapel icon left 'chapel' on the OWED list, and the ratchet fails when an owed
+type is secretly already done. Fixed, ICON 25/0, debt honestly stated at 21 of 49.
+I did NOT cook the other 21: heroes are HAND-BUILT scenes (a hero is authored per
+district, not generated), so they are real art production landing "UNJUDGED", and
+the verdict queue is already loaded across lanes. REUSE-FIRST checked first -- 20
+of 22 owed types have a rendered judgecard, but a judge card is a verdict render,
+not a builder hero, so it is not a substitute.
+
+*** AND THE EXTRACTION LEFT 24 GATES BEHIND. READ THIS IF YOUR SUITE IS RED. ***
+Lifting CITY_B64 out was RIGHT (38.7MB -> 2.92MB, first load 12,561ms -> 398ms, ~43
+days off a hard GitHub push limit). But 81 files in gates/ and tools/ referenced
+CITY_B64 and the suite went 12 failures -> 40. Two mechanical causes, both the same
+shape as the CITY-tab deletion earlier the same day -- a consumer still looking for
+something that moved:
+  (1) a copy-pasted cityBlob(alpha) helper decoding a const that is gone
+  (2) frame detection by /srcdoc/.test(fr.url()) -- the frame is fr.src now, so its
+      URL is a real path. THIRTEEN gates failed on "the world frame booted", which
+      reads like the GAME is broken when it is the TEST that is.
+I REPAIRED ALL 24 AND THEN THREW THAT WORK AWAY, WHICH WAS RIGHT. Another lane
+landed the same repair concurrently and did it BETTER: ONE shared CITY_APP.read()
+instead of my twenty-four per-file injections -- a single source of truth, which is
+what FACTORY LAW asks for and what I should have written. On the rebase I took
+THEIRS for every one of the 24 conflicted files. Keeping mine would have been ego,
+not engineering. (They had also already removed 'chapel' from icon_gate's OWED list,
+the same one-word ratchet slip I fixed independently.) Suite is 14 red now, all
+checked: the standing character/life set + WALL CLASS, CANVAS SCALE, INTERIORS;
+GRAVEYARD and QUEST PLACEMENT verified red on pristine main; D1 KERB left on
+purpose (a CONTENT ratchet from main's own NO CANOPIES ruling on the civics --
+raising another lane's ceiling is a design call, not a merge fix).
+
+THE PATTERN, THIRD TIME TODAY: an architecture change is not done when the thing
+works, it is done when EVERYTHING THAT POINTED AT THE OLD SHAPE HAS BEEN FOUND. The
+grep takes a minute. Skipping it costs the fleet a red suite it cannot tell apart
+from real breakage.
+
+DISTRICT FILL CAUGHT ITS FIRST REAL DROP AND IT WAS A RULING: cityhall 59.8 -> 53.9,
+courthouse 52.9 -> 48.3, terminal 52.4 -> 50.6, chapel 56.2 -> 55.7, all from 2fc2e3f
+NO CANOPIES. A floor catches ACCIDENTAL emptying; a RULING re-baselines it. Those four
+re-baselined with the reason recorded in the baseline file, the other 45 left pinned.
+
+WHAT I CHECKED AND STAYED OUT OF: the spawn suburb has 4,368 walls that admit you
+and 3 doors. That is RUN (run-eak241)'s live work (8/3 (g), "SIDE DOORS IN THE
+SUBURB HE SPAWNS IN") and I did not touch it. ONE SYSTEM ONE SESSION.
+
+EARLIER THIS SESSION: MAP SIZE and DISTRICT FILL floors (84.9 km2, 96x96, all 49
+district types pinned); the handoff conflict-marker gate (it caught main again
+within 20 minutes); the walk measured FAST on the real surface (median frame
+0.6 ms) which ruled out a whole lane of renderer work; DROP IN lands you on a
+street; the CITY tab deletion's wreckage cleaned up.
 
 NOT MINE TO DECIDE, AND ONE IS PARKED
 - THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for

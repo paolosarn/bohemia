@@ -64,8 +64,9 @@ frame, light off then on (gates/light_gate.js does this on every run):
   WARM PIXELS        99.1%     84.2%       and it is still a desert
   GROUND CELLS IN SHADOW:  47 in the test frame, 0 before
 
-  Side by side, full phone screen: records/target/LOOK_AB.png
-  The shadow on its own:           records/target/SUN_SHADOW_AB.png
+  ALL OF IT IS IN THE **ART TAB**. Tap ART in the alpha, tap a picture to flip
+  between before and after, thumb it, export. He should never be handed a file
+  path again -- see the 8/4 correction at the bottom of this file.
 
 ----------------------------------------------------------------------------
 WHAT DID NOT SHIP, DELIBERATELY
@@ -83,7 +84,7 @@ The reason for zero also has not changed: one district type of twenty-seven is
 finished, and a whole-world look tuned against 4% of the world gets tuned twice.
 
 Three frames of the same street at 0 / 0.30 / 0.55 so he can rule on a number
-instead of on a word: records/target/GRIME_DIAL_THREE_UP.png
+instead of on a word. THIRD CARD IN THE **ART TAB**, as a dial he taps.
 
 ----------------------------------------------------------------------------
 WHAT IS STILL WRONG, NAMED
@@ -97,3 +98,35 @@ WHAT IS STILL WRONG, NAMED
   that his real asphalt draws. WORLD lane, not art.
 
 GATE: gates/light_gate.js, 41 checks, registered in bohemia_gates.py as LIGHT.
+
+----------------------------------------------------------------------------
+8/4 CORRECTION -- AND IT IS THE BIGGEST THING IN THIS FILE
+
+"bro can you put all the work in a different fucking tab like the life tab bro
+ wtf like u want me to hunt all your work down bro thats goofy asf i shouldnt
+ have to tell you that"
+
+HE SHOULD NOT HAVE HAD TO TELL ME. Everything above was delivered as PATHS under
+records/target/ -- files he would have to go dig out of a repo he never opens.
+NAME THE TAB has been law since 7/28 and says this in as many words: "a thing he
+cannot reach does not exist to him." I quoted that law in this session and then
+broke it in the same turn.
+
+THE REAL LESSON IS NOT ABOUT A TAB. The work was finished and measured and gated
+and it still did not exist, because finishing is not shipping. A deliverable he
+cannot reach with his thumb is not a deliverable. The last step of every art turn
+is a ROOM HE CAN WALK INTO, and it is not optional and it is not a follow-up.
+
+FIXED: slices/BOHEMIA_ART_CURRENT.html, wired as the **ART tab** in the alpha.
+Tap a picture to flip before/after, thumbs, per-item note, one comment box at the
+bottom, SUN MODE, export to .txt.
+
+AND THE LOADER BUG IT EXPOSED: the alpha promoted data-src to src with one
+hand-written line PER TAB, so the ART tab was added and came up BLANK -- a tab
+that opens nothing is worse than no tab. The loader is generic now: whatever
+panel opens gets its frame loaded, so the next lane to add a tab cannot hit this.
+
+GATE: gates/art_tab_gate.js, 28 checks. Holds the door, the room, every picture
+in it, and the verdict controls -- and it boots the alpha, dismisses the splash
+and taps ART the way his thumb does, because a tab that throws on open passes
+every source check ever written.
