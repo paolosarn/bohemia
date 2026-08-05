@@ -457,7 +457,12 @@
 
   // EXPLAIN-EVERY-TILE (Paolo 7/18): every non-ground tile must map to a named thing in the
   // district's legend (palette), and there must be little unexplained void.
-  function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(c!==0 && !(c in palette)) return false; } return true; }
+  /* legendOk EXEMPTED CODE 0 BY NAME and hid an uncoloured tile in SIXTEEN districts --
+     70% of every mountain plot, 45% of every suburb. 0 meant "void" once; every module
+     gives it a real legend entry now ("bedrock face", "open water", "dead-ground"), so
+     the exemption was checking that a tile nobody had coloured was allowed to stay
+     uncoloured. A GATE THAT EXEMPTS THE MOST-USED CODE IS NOT CHECKING ANYTHING. */
+  function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(!(c in palette)) return false; } return true; }
   function voidFraction(g){ var W=g[0].length,H=g.length,z=0; for(var y=0;y<H;y++)for(var x=0;x<W;x++)if(g[y][x]===0)z++; return z/(W*H); }
   // largest contiguous blob of a single code that isn't a real structure — catches "big blank slabs"
   function largestBlob(g,isBlank){ var W=g[0].length,H=g.length,seen={},best=0,d4=[[1,0],[-1,0],[0,1],[0,-1]];

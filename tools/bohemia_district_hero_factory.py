@@ -1662,6 +1662,733 @@ def build_town(P):
     return s, 6.2
 
 
+# =============================================================================
+# THE NO-ICON DEBT, PAID (8/4/26).
+#
+# Paolo approved the four civics at 85% on the big-icons language, and APPROVAL
+# UNLOCKS VOLUME. Twenty-one registered districts had NO map icon at all -- a
+# third of the valley rendering as nothing at the zoom he actually navigates by.
+# He scored the chapel's missing icon 0% on 8/2 and he was right to: an empty
+# panel is worth exactly nothing.
+#
+# Every one below is built to the SAME approved language:
+#   THE BUILDING IS THE ICON. No parking, ever. The pad is fitted, never declared.
+#   ONE READABLE SIGNATURE per district, and it is the thing you would name if
+#   somebody pointed at the plot and asked what it was.
+#   Grounded in what the WALKABLE district actually contains -- the legend codes
+#   are read straight off each engine module, so the icon and the ground agree.
+#
+# Airport and airbase stay OUT. They are finished, they are wrong, the reason is
+# written above HEROES, and it is Paolo's design call and not mine to guess a
+# fifth time.
+# =============================================================================
+
+
+def build_apartment(P):
+    """engine/bohemia_apartment.js: a Sun Belt garden-apartment court. The signature is
+    the EXTERIOR STAIR AND WALKWAY -- Vegas walk-ups put their circulation on the
+    outside of the building, so the stairs and the deck rails ARE the elevation, and
+    the drained POOL in the courtyard is the second thing you name."""
+    BLDG, STAIR, CLUB, POOL, FENCE = P[2], P[15], P[7], P[8], P[12]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(112, 104, 88), lotc=(60, 60, 66))
+    for (bx, by, bw, bd) in [(-2.0, -2.0, 4.4, 10.0), (8.6, -2.0, 4.4, 10.0),
+                             (-2.0, 9.0, 15.0, 3.6)]:
+        s.box((bx, by, 0), (bw, bd, 6.6),
+              {'top': _dark(BLDG, 0.9), 'px': _win(BLDG, 3, 3, 4), 'py': _win(BLDG, 5, 3, 7),
+               'nx': _win(BLDG, 3, 3, 9), 'ny': _win(BLDG, 5, 3, 2)})
+        s.box((bx - 0.18, by - 0.18, 6.6), (bw + 0.36, bd + 0.36, 0.38), {'c': _dark(BLDG, 1.14)['c']})
+        # THE EXTERIOR WALKWAY DECKS, two levels, CANTILEVERED OFF the courtyard face --
+        # entirely outside the block's own plan, which is what an exterior walkway is and
+        # also what stops it reading as a slab passing through the building.
+        if bw < 6:
+            wx = (bx + bw) if bx < 4 else (bx - 0.75)
+            for lev in (2.1, 4.4):
+                # the deck STOPS at the stair tower; a walkway that runs through its own
+                # stair is a slab tunnelling through a mass, which is a rendering error
+                s.box((wx, by + 0.3, lev), (0.75, bd - 2.1, 0.16), {'c': STAIR})
+                for ry in range(5):
+                    s.box((wx + (0.67 if bx < 4 else 0.0), by + 0.5 + ry * 1.5, lev), (0.08, 0.08, 0.8), {'c': STAIR})
+            s.box((wx, by + bd - 1.7, 0), (0.75, 1.5, 4.9), {'c': _dark(STAIR, 0.86)['c']})  # the stair tower
+    s.box((3.2, 1.4, -0.05), (4.2, 4.6, 0.12), {'c': _dark(POOL, 0.7)['c']})            # the drained pool
+    s.box((3.6, 1.8, 0.05), (3.4, 3.8, 0.08), {'c': POOL})
+    s.box((3.0, 6.6, 0), (4.6, 2.0, 3.2), {'top': _dark(CLUB, 0.9), 'px': _win(CLUB, 4, 2, 5),
+          'py': _dark(CLUB, 0.86), 'nx': _dark(CLUB), 'ny': _dark(CLUB)})                # the clubhouse
+    _door_face(s, (3.0, 6.6, 0), (4.6, 2.0, 3.2), width=1.1, ztop=2.0)
+    for (fx, fy) in [(-2.6, -2.6), (13.4, -2.6), (13.4, 12.8), (-2.6, 12.8)]:
+        s.box((fx, fy, 0), (0.16, 0.16, 1.9), {'c': FENCE})
+    return s, 6.2
+
+
+def build_suburb(P):
+    """engine/bohemia_suburb.js: the signature is the CUL-DE-SAC -- houses shoulder to
+    shoulder around a bulb of road behind a continuous block WALL, which is what a Sun
+    Belt subdivision is from the air and why the 7/21 research called the privacy wall
+    the defining feature. Garages face the street; the wall faces everything else."""
+    HOUSE, ROOF, WALL, ROAD, GARAGE = P[2], P[9], P[4], P[1], P[6]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(116, 106, 88), lotc=(58, 58, 62))
+    s.box((4.6, -3.0, 0.01), (2.8, 11.0, 0.07), {'c': ROAD})                             # the street in
+    s.prism(6.0, 9.6, 0.01, 3.4, 0.07, 20, {'c': ROAD})                                  # the BULB
+    lots = [(-1.4, -1.6), (-1.4, 2.6), (-1.4, 6.8), (9.0, -1.6), (9.0, 2.6), (9.0, 6.8),
+            (1.4, 11.6), (7.2, 11.6)]
+    for i, (hx, hy) in enumerate(lots):
+        hw, hd = 3.4, 3.2
+        # TWO-STOREY IS THE MAJORITY in a Sun Belt subdivision, not the exception -- five of
+        # the eight, which is what Summerlin actually looks like and what stops a ring of
+        # houses squinting into any other low field.
+        s.box((hx, hy, 0), (hw, hd, 2.9 + (i % 3) * 0.5 + (2.6 if i % 8 < 5 else 0.0)),
+              {'top': _dark(HOUSE, 0.9), 'px': _win(HOUSE, 3, 2, i), 'py': _win(HOUSE, 3, 2, i + 5),
+               'nx': _dark(HOUSE), 'ny': _dark(HOUSE)})
+        _gable(s, (hx - 0.2, hy - 0.2, 2.9 + (i % 3) * 0.5 + (2.6 if i % 8 < 5 else 0.0)),
+               (hw + 0.4, hd + 0.4, 0), 1.15, ROOF)
+        gx = hx + hw if hx < 4 else hx - 1.5
+        s.box((gx, hy + 0.6, 0), (1.5, 1.9, 2.2), {'top': _dark(ROOF, 0.95), 'px': {'c': GARAGE},
+              'py': _dark(HOUSE, 0.86), 'nx': {'c': GARAGE}, 'ny': _dark(HOUSE, 0.86)})   # the garage door
+        if i < 3:                                                                          # and the FRONT DOOR
+            _door_face(s, (hx, hy, 0), (hw, hd, 2.9 + (i % 3) * 0.5 + (2.6 if i % 8 < 5 else 0.0)),
+                       width=0.8, ztop=1.7)
+    # THE BLOCK WALL, continuous, which is the whole point of the form
+    for (wx, wy, ww, wd) in [(-2.6, -2.6, 15.4, 0.3), (-2.6, -2.6, 0.3, 15.4),
+                             (12.5, -2.6, 0.3, 15.4), (-2.6, 12.5, 15.4, 0.3)]:
+        s.box((wx, wy, 0), (ww, wd, 2.1), {'top': _dark(WALL, 1.12), 'px': _dark(WALL, 1.0),
+              'py': _dark(WALL, 0.84), 'nx': _dark(WALL, 1.0), 'ny': _dark(WALL, 0.84)})
+    return s, 6.0
+
+
+def build_trailer(P):
+    """engine/bohemia_trailer.js: rows of SINGLE-WIDES on their pads, long axis all the
+    same way, skirted, with the sheds and propane bottles between them. The signature is
+    the REPETITION and the one BURNED unit that stopped the row -- a trailer park reads
+    as a barcode from above and that is exactly what it should look like."""
+    HOME, BURNT, SHED, PROP, FENCE, POLE = P[2], P[8], P[7], P[13], P[12], P[9]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(114, 104, 84), lotc=(74, 70, 62))
+    # THE MANAGER'S DOUBLE-WIDE, crosswise at the mouth: twice the width, its own porch,
+    # and turned 90 degrees to every other unit. Real parks put the office at the entrance
+    # and it is the one unit that is not a single-wide.
+    s.box((-2.4, -2.6, 0), (4.6, 4.4, 3.4),
+          {'top': _dark(HOME, 0.9), 'px': _win(HOME, 4, 2, 3), 'py': _win(HOME, 4, 2, 8),
+           'nx': _dark(HOME), 'ny': _dark(HOME)})
+    s.box((-2.6, -2.8, 3.4), (5.0, 4.8, 0.36), {'c': _dark(HOME, 1.18)['c']})
+    _door_face(s, (-2.4, -2.6, 0), (4.6, 4.4, 3.4), width=0.9, ztop=2.0)
+    for ri, ry in enumerate((2.6, 5.6, 8.6, 11.6, 14.6)):
+        for ci, base in enumerate((-2.2, 7.6)):
+            cx = base + ri * 1.15 * (1 if ci == 0 else -1)      # THE ECHELON: pads angled off the loop
+            burned = (ri == 2 and ci == 0)
+            col = BURNT if burned else HOME
+            hgt = 1.4 if burned else 2.5
+            s.box((cx, ry, 0), (4.6, 2.4, hgt),
+                  {'top': _dark(col, 0.92), 'px': _win(col, 4, 1, ri * 3 + ci),
+                   'py': _win(col, 4, 1, ri + ci * 5), 'nx': _dark(col), 'ny': _dark(col)})
+            if not burned:
+                s.box((cx - 0.12, ry + 1.0, hgt), (4.84, 0.4, 0.26), {'c': _dark(col, 1.16)['c']})  # the ridge cap
+                s.box((cx + 0.2, ry - 0.05, 0), (0.9, 0.1, 0.05), {'c': _dark(col, 0.6)['c']})      # skirting gap
+                if ri == 0 and ci == 0:                                                            # a way into a home
+                    _door_face(s, (cx, ry, 0), (4.6, 2.4, hgt), width=0.7, ztop=1.6)
+                s.box((cx + 4.7, ry + 0.5, 0), (0.9, 1.0, 1.3), {'c': SHED})                        # the shed
+                s.box((cx + 4.75, ry + 1.8, 0), (0.35, 0.35, 0.75), {'c': PROP})                    # propane bottle
+    for (fx, fy) in [(-2.7, -2.7), (13.3, -2.7), (13.3, 15.2), (-2.7, 15.2)]:
+        s.box((fx, fy, 0), (0.16, 0.16, 1.8), {'c': FENCE})
+    # THE YARD LIGHT: one tall pole lighting the whole lot, which is the only thing in a
+    # mobile home park taller than a single-wide and the one vertical it honestly has.
+    s.box((6.4, 5.9, 0), (0.4, 0.4, 9.2), {'c': _dark(POLE, 0.88)['c']})
+    s.box((6.05, 5.55, 9.2), (1.1, 1.1, 0.6), {'c': POLE})
+    for k in range(3):                                                                      # its guy wires' anchors
+        s.box((6.5 + [1.4, -1.4, 0.0][k], 6.0 + [0.0, 0.0, 1.5][k], 0), (0.16, 0.16, 0.5),
+              {'c': _dark(POLE, 0.7)['c']})
+    return s, 5.6
+
+
+def build_cemetery(P):
+    """engine/bohemia_cemetery.js: the MAUSOLEUM is the only building with height on a
+    memorial park, and the HEADSTONE FIELD around it is the pattern you recognise from
+    the air -- a grid of small pale marks, which is why the walkable plot carries 917 of
+    them. The obelisk gives the plot its one vertical."""
+    MAUS, STONE, OBEL, CHAPEL, COLUM, TREE = P[7], P[6], P[11], P[2], P[8], P[3]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(112, 108, 92), lotc=(60, 60, 62))
+    s.box((3.6, 3.0, 0), (5.2, 4.4, 5.0), {'top': _dark(MAUS, 0.9), 'px': _dark(MAUS, 1.0),
+          'py': _dark(MAUS, 0.84), 'nx': _dark(MAUS), 'ny': _dark(MAUS)})                 # THE MAUSOLEUM
+    for cx in (4.0, 5.4, 6.8, 8.2):                                                       # its colonnade front
+        s.box((cx, 7.4, 0), (0.5, 0.45, 4.2), {'c': _dark(MAUS, 1.12)['c']})
+    s.box((3.4, 2.8, 5.0), (5.6, 4.8, 0.42), {'c': _dark(MAUS, 1.16)['c']})
+    _door_face(s, (3.6, 3.0, 0), (5.2, 4.4, 5.0), width=1.3, ztop=2.4)
+    for gy in (-2.0, -0.6, 0.8, 8.8, 10.2, 11.6, 13.0):                                   # THE HEADSTONE FIELD
+        for gx in range(11):
+            s.box((-2.0 + gx * 1.42, gy, 0), (0.45, 0.28, 0.62), {'c': STONE})
+    for gy in (2.4, 4.0, 5.6, 7.2):
+        for gx in (0, 1, 7, 8, 9, 10):
+            s.box((-2.0 + gx * 1.42, gy, 0), (0.45, 0.28, 0.62), {'c': STONE})
+    s.box((10.6, 5.0, 0), (1.3, 1.3, 1.0), {'c': _dark(OBEL, 0.9)['c']})                  # THE OBELISK
+    s.box((10.85, 5.25, 1.0), (0.8, 0.8, 5.6), {'c': OBEL})
+    s.prism(11.25, 5.65, 6.6, 0.55, 0.9, 4, {'c': _dark(OBEL, 1.15)['c']})
+    s.box((-2.2, 3.2, 0), (2.6, 4.0, 2.2), {'c': COLUM})                                  # the columbarium wall
+    s.box((-2.2, 3.2, 2.2), (2.6, 4.0, 0.22), {'c': _dark(COLUM, 1.14)['c']})
+    for (tx, ty) in [(1.6, 1.4), (9.6, 9.4), (1.4, 9.6)]:
+        s.box((tx, ty, 0), (0.22, 0.22, 2.0), {'c': TREE})
+        s.box((tx - 0.4, ty - 0.4, 2.0), (1.0, 1.0, 0.3), {'c': _dark(TREE, 0.9)['c']})
+    return s, 6.0
+
+
+def build_jail(P):
+    """engine/bohemia_jail.js, built on the CLARK COUNTY DETENTION CENTER (JMA Architects
+    with HOK, 1981-84, 330 S Casino Center Blvd). The thing worth knowing about it is the
+    brief: it sits blocks from Fremont and the architects were told to design a jail THAT
+    WOULD NOT LOOK LIKE ONE, so it is a twelve-storey, 350,000 sq ft tower with narrow
+    horizontal bands of recessed windows -- an office block, until you see the walled yard
+    and the guard towers at its feet. That contradiction IS the icon."""
+    TOWER, WALL, GUARD, YARD, WIRE, POLE = P[2], P[12], P[6], P[7], P[8], P[9]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(96, 94, 90), lotc=(58, 58, 62))
+    # THE TOWER: it reads as an office block on purpose. Narrow horizontal window bands.
+    s.box((1.0, 0.6, 0), (6.4, 5.0, 14.5),
+          {'top': _dark(TOWER, 0.9), 'px': _win(TOWER, 7, 9, 4), 'py': _win(TOWER, 6, 9, 8),
+           'nx': _win(TOWER, 7, 9, 12), 'ny': _win(TOWER, 6, 9, 3)})
+    s.box((0.8, 0.4, 14.5), (6.8, 5.4, 0.5), {'c': _dark(TOWER, 1.14)['c']})
+    s.box((2.2, 1.8, 15.0), (2.6, 2.2, 1.2), {'c': _dark(TOWER, 0.96)['c']})              # rooftop plant
+    _door_face(s, (1.0, 0.6, 0), (6.4, 5.0, 14.5), width=1.4, ztop=2.6)
+    s.box((8.0, 1.4, 0), (4.4, 4.0, 4.2), {'top': _dark(TOWER, 0.88), 'px': _win(TOWER, 4, 3, 6),
+          'py': _dark(TOWER, 0.86), 'nx': _dark(TOWER), 'ny': _dark(TOWER)})              # the low intake block
+    # THE SECURE YARD: the wall with wire on top is what a tower alone would never say
+    s.box((-2.4, 7.2, 0.02), (15.0, 5.6, 0.06), {'c': YARD})
+    for (wx, wy, ww, wd) in [(-2.6, 6.9, 15.4, 0.34), (-2.6, 6.9, 0.34, 6.2),
+                             (12.4, 6.9, 0.34, 6.2), (-2.6, 12.8, 15.4, 0.34)]:
+        s.box((wx, wy, 0), (ww, wd, 3.4), {'top': {'c': WIRE}, 'px': _dark(WALL, 1.0),
+              'py': _dark(WALL, 0.84), 'nx': _dark(WALL, 1.0), 'ny': _dark(WALL, 0.84)})
+    for (gx, gy) in [(-2.2, 7.3), (12.0, 7.3), (-2.2, 12.4), (12.0, 12.4)]:               # THE GUARD TOWERS
+        s.box((gx, gy, 0), (0.5, 0.5, 5.2), {'c': _dark(GUARD, 0.86)['c']})
+        s.box((gx - 0.5, gy - 0.5, 5.2), (1.5, 1.5, 1.5), {'top': _dark(GUARD, 1.1),
+              'px': _win(GUARD, 2, 1, 3), 'py': _win(GUARD, 2, 1, 7), 'nx': _win(GUARD, 2, 1, 5),
+              'ny': _win(GUARD, 2, 1, 9)})
+    s.box((5.0, 9.4, 0), (0.2, 0.2, 3.6), {'c': POLE})
+    return s, 5.4
+
+
+def build_landfill(P):
+    """engine/bohemia_landfill.js, built on APEX REGIONAL (2,200 acres, the largest
+    landfill in the world by area and volume, up to 15,000 tons a day at peak). Its shape
+    is not a pit, it is a MOUNTAIN: the valley is etched into stepped TERRACES with the
+    waste layered under each one like a sheet cake, gas wells piped across the face, and
+    a flare stack burning what the 12 MW methane plant does not take. The terraced mound
+    is the icon; nothing else in the valley has that stepped profile."""
+    FILL, BERM, SOIL, BLDG, GAS, POND, DOZER = P[6], P[7], P[4], P[2], P[13], P[8], P[10]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(104, 92, 74), lotc=(78, 72, 60))
+    # THE TERRACED MOUND: four stepped benches, each smaller, each a value lighter
+    steps = [(-0.5, 0.0, 12.0, 11.5, 0.0, 2.4), (0.8, 1.2, 9.4, 9.0, 2.4, 2.2),
+             (2.1, 2.4, 6.8, 6.6, 4.6, 2.0), (3.4, 3.6, 4.2, 4.2, 6.6, 1.8)]
+    for i, (bx, by, bw, bd, bz, bh) in enumerate(steps):
+        c = tuple(min(255, int(v * (0.88 + i * 0.07))) for v in FILL)
+        s.box((bx, by, bz), (bw, bd, bh), {'top': _dark(c, 1.12), 'px': _dark(c, 1.0),
+              'py': _dark(c, 0.82), 'nx': _dark(c, 1.0), 'ny': _dark(c, 0.82)})
+        s.box((bx, by, bz + bh), (bw, bd, 0.16), {'c': BERM})                             # the cell berm lip
+    # THE WORKING FACE: raw fill and a dozer on the top bench
+    s.box((3.8, 4.0, 8.4), (3.4, 3.4, 0.14), {'c': _dark(SOIL, 0.9)['c']})
+    _vehicle(s, 4.6, 5.2, CAR, DOZER, along='x')
+    # THE GAS WELLS piped down the face, and the FLARE STACK
+    for (wx, wy, wz) in [(1.4, 1.8, 2.4), (2.6, 3.0, 4.6), (4.0, 4.2, 6.6), (9.2, 8.0, 0.0), (1.0, 9.0, 0.0)]:
+        s.box((wx, wy, wz), (0.22, 0.22, 1.1), {'c': GAS})
+    s.box((12.4, 1.0, 0), (1.4, 1.4, 1.2), {'c': _dark(GAS, 0.8)['c']})
+    s.box((12.75, 1.35, 1.2), (0.7, 0.7, 7.4), {'c': GAS})
+    s.box((12.55, 1.15, 8.6), (1.1, 1.1, 0.7), {'c': _dark(GAS, 1.2)['c']})               # the flare head
+    s.box((-2.4, 8.6, 0), (3.0, 2.6, 3.0), {'top': _dark(BLDG, 0.9), 'px': _win(BLDG, 3, 2, 5),
+          'py': _dark(BLDG, 0.86), 'nx': _dark(BLDG), 'ny': _dark(BLDG)})                 # the scale house
+    _door_face(s, (-2.4, 8.6, 0), (3.0, 2.6, 3.0), width=1.0, ztop=2.0)
+    s.box((8.6, 11.4, -0.05), (4.0, 2.6, 0.12), {'c': POND})                              # the leachate pond
+    return s, 5.6
+
+
+def build_railyard(P):
+    """engine/bohemia_railyard.js: the signature is the FAN -- a bundle of parallel tracks
+    spreading out of one throat, which is the only place in the valley that shape occurs.
+    The ENGINE SHED at the head of it and the GANTRY CRANE straddling the container road
+    are what give the fan a scale, and a locomotive sits in the shed road because an empty
+    yard is a car park with rails in it."""
+    SHED, TRACK, LOCOC, BOX, CONT, CRANE, POLE = P[2], P[6], P[8], P[7], P[10], P[13], P[9]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(96, 92, 84), lotc=(66, 64, 58))
+    BALLAST = P[4]
+    RAILPAL = (BALLAST, _dark(BALLAST, 0.72)['c'], TRACK)
+    for i, ty in enumerate((0.4, 2.0, 3.6, 5.2, 6.8, 8.4, 10.0)):                         # THE TRACK FAN
+        _track(s, -2.6 + i * 0.9, 13.0, ty, RAILPAL)
+    s.box((-2.6, -0.6, 0), (7.4, 8.4, 9.4), {'top': _dark(SHED, 0.9), 'px': _win(SHED, 4, 6, 3),
+          'py': _win(SHED, 7, 6, 6), 'nx': _dark(SHED), 'ny': _win(SHED, 7, 6, 11)})      # THE RUNNING SHED
+    s.box((-2.9, -0.9, 9.4), (8.0, 9.0, 0.5), {'c': _dark(SHED, 1.14)['c']})
+    for mv in (1.2, 3.6, 6.0):                                                            # its roof monitors
+        s.box((-2.0, mv, 9.9), (6.2, 1.1, 1.3), {'top': _dark(SHED, 1.2), 'px': _dark(SHED, 1.05),
+              'py': _dark(SHED, 0.8), 'nx': _dark(SHED, 1.05), 'ny': _dark(SHED, 0.8)})
+    for dz in (0.4, 2.0, 3.6, 5.2, 6.8):                                                  # its five shed roads
+        s.box((4.78, dz, 0), (0.06, 1.2, 4.2), {'c': _dark(SHED, 0.55)['c']})
+    # no at_y: the leaf centres itself in the solid's own y-span. Passing one by hand is how
+    # this door ended up 0.8 off the end of its own wall -- the same trap, again.
+    _door_face(s, (-2.6, -0.6, 0), (7.4, 8.4, 9.4), width=1.6, ztop=3.6)                  # the man door
+    _railcar(s, 3.4, 0.1, LOCO, LOCOC, along='x')                                         # the locomotive, shed road
+    _railcar(s, 7.6, 3.3, RAILCAR, BOX, along='x')
+    _railcar(s, 4.0, 4.9, RAILCAR, _dark(BOX, 0.86)['c'], along='x')
+    _railcar(s, 8.4, 6.5, RAILCAR, BOX, along='x')
+    # THE GANTRY CRANE straddling the container road
+    for (lx, ly) in [(5.0, 8.0), (5.0, 12.2), (10.6, 8.0), (10.6, 12.2)]:
+        s.box((lx, ly, 0), (0.3, 0.3, 5.4), {'c': _dark(CRANE, 0.86)['c']})
+    s.box((4.7, 7.8, 5.4), (6.2, 0.7, 0.7), {'c': CRANE})
+    s.box((4.7, 11.9, 5.4), (6.2, 0.7, 0.7), {'c': CRANE})
+    s.box((7.2, 7.8, 6.1), (1.3, 4.8, 0.4), {'c': _dark(CRANE, 1.12)['c']})
+    for (cx, cy) in [(5.6, 9.0), (5.6, 10.4), (8.4, 9.0), (8.4, 10.4), (8.4, 11.0)]:
+        s.box((cx, cy, 0), (2.5, 1.1, 1.1), {'top': _dark(CONT, 1.1), 'px': _dark(CONT, 1.0),
+              'py': _dark(CONT, 0.82), 'nx': _dark(CONT, 1.0), 'ny': _dark(CONT, 0.82)})
+    s.box((11.8, 2.4, 0), (0.22, 0.22, 4.0), {'c': POLE})
+    return s, 5.6
+
+
+def build_substation(P):
+    """engine/bohemia_substation.js: a transmission substation is a YARD OF FRAMES, not a
+    building -- lattice switchgear structures carrying the busbars overhead, transformer
+    banks with their radiator fins under them, and the little control house that runs it
+    all. The lattice IS the silhouette, and it is the only place in the valley that
+    reads as an open steel frame against sky."""
+    CTRL, XFMR, SWG, BUS, INSUL, FENCE = P[2], P[6], P[7], P[8], P[10], P[12]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(104, 100, 92), lotc=(72, 70, 64))
+    # THE SWITCHGEAR LATTICE: two frames of legs carrying the busbar gantries
+    for fy in (0.6, 5.4, 10.2):
+        for lx in (-1.6, 2.4, 6.4, 10.4):
+            s.box((lx, fy, 0), (0.32, 0.32, 7.4), {'c': _dark(SWG, 0.86)['c']})
+            s.box((lx - 0.1, fy - 0.1, 3.4), (0.52, 0.52, 0.2), {'c': SWG})                # the mid brace
+        s.box((-1.8, fy - 0.1, 7.4), (12.6, 0.5, 0.5), {'c': SWG})                          # the top gantry
+        for bx in (-1.0, 3.0, 7.0, 11.0):                                                   # THE BUSBAR run
+            s.box((bx, fy + 0.1, 8.0), (0.16, 0.16, 0.9), {'c': INSUL})
+        s.box((-1.6, fy + 0.14, 8.9), (12.3, 0.1, 0.1), {'c': BUS})
+    # THE TRANSFORMER BANKS, radiator fins on the flanks
+    for (tx, ty) in [(0.2, 2.2), (4.2, 2.2), (8.2, 2.2)]:
+        s.box((tx, ty, 0), (3.4, 3.2, 5.4), {'top': _dark(XFMR, 1.08), 'px': _dark(XFMR, 1.0),
+              'py': _dark(XFMR, 0.82), 'nx': _dark(XFMR, 1.0), 'ny': _dark(XFMR, 0.82)})
+        for fn in range(6):
+            s.box((tx + 0.3 + fn * 0.5, ty - 0.26, 0.5), (0.26, 0.26, 4.2), {'c': _dark(XFMR, 0.72)['c']})
+        for bh in (0.9, 1.9):                                                                # bushings
+            s.box((tx + bh, ty + 1.1, 5.4), (0.9, 0.9, 1.6), {'c': INSUL})
+        # THE FIRE WALL between banks: blast-rated concrete, and the reason a bank row is a
+        # WALL OF MASS rather than a field of cabinets
+        s.box((tx + 3.5, ty - 0.4, 0), (0.4, 4.0, 6.6), {'top': _dark(CTRL, 1.15), 'px': _dark(CTRL, 1.0),
+              'py': _dark(CTRL, 0.8), 'nx': _dark(CTRL, 1.0), 'ny': _dark(CTRL, 0.8)})
+    s.box((-2.4, 11.4, 0), (4.2, 2.6, 3.4), {'top': _dark(CTRL, 0.9), 'px': _win(CTRL, 4, 2, 5),
+          'py': _dark(CTRL, 0.86), 'nx': _dark(CTRL), 'ny': _dark(CTRL)})                   # THE CONTROL HOUSE
+    _door_face(s, (-2.4, 11.4, 0), (4.2, 2.6, 3.4), width=1.1, ztop=2.2)
+    for (fx, fy) in [(-2.8, -2.2), (12.6, -2.2), (12.6, 13.6), (-2.8, 13.6)]:
+        s.box((fx, fy, 0), (0.18, 0.18, 2.4), {'c': FENCE})
+    return s, 5.6
+
+
+def build_watertreat(P):
+    """engine/bohemia_watertreat.js: the signature is CIRCLES. A water reclamation plant
+    is the only industrial site whose plan is round -- the clarifiers are big open drums
+    with a rotating bridge across each one -- and the rectangular aeration basins beside
+    them are what makes the circles read as circles. Vegas returns nearly all its indoor
+    water through plants like this, which is why the valley has one at all."""
+    BLDG, CLAR, BASIN, PIPE, SLUDGE, FENCE = P[2], P[6], P[7], P[8], P[10], P[12]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(106, 104, 98), lotc=(70, 70, 66))
+    for (cx, cy, rad, wall) in [(1.4, 3.2, 4.4, 4.6), (9.2, 3.2, 4.4, 4.6),
+                                (1.4, 11.0, 2.4, 3.0), (9.2, 11.0, 2.4, 3.0)]:
+        s.prism(cx, cy, 0, rad, wall, 24, {'c': CLAR}, {'c': _dark(SLUDGE, 0.9)['c']}, inner=rad - 0.7)
+        s.prism(cx, cy, 0, rad - 0.7, 0.5, 24, {'c': _dark(SLUDGE, 0.8)['c']},
+                {'c': _dark(SLUDGE, 1.0)['c']})                                             # crusted floor
+        s.box((cx - rad, cy - 0.2, wall), (rad * 2, 0.4, 0.3), {'c': PIPE})                 # the rotating bridge
+        s.box((cx - 0.4, cy - 0.4, wall), (0.8, 0.8, 1.4), {'c': _dark(PIPE, 1.1)['c']})    # its centre drive
+    s.box((5.9, -1.4, -0.05), (2.4, 15.0, 0.1), {'c': _dark(BASIN, 0.8)['c']})              # the aeration channel
+    for by in range(8):                                                                     # its baffle walls
+        s.box((5.9, -1.4 + by * 1.9, 0), (2.4, 0.22, 1.6), {'c': BASIN})
+    s.box((5.9, -1.4, 0), (0.22, 15.0, 1.6), {'c': BASIN})
+    s.box((8.08, -1.4, 0), (0.22, 15.0, 1.6), {'c': BASIN})
+    s.box((-2.4, 5.2, 0), (3.4, 3.0, 4.6), {'top': _dark(BLDG, 0.9), 'px': _win(BLDG, 3, 3, 5),
+          'py': _dark(BLDG, 0.86), 'nx': _dark(BLDG), 'ny': _dark(BLDG)})                   # blower / control
+    _door_face(s, (-2.4, 5.2, 0), (3.4, 3.0, 4.6), width=1.1, ztop=2.3)
+    # THE DIGESTERS: the tall cone-roofed drums that make a treatment plant read from a
+    # distance. Without them the whole site is knee-high and the icon has no vertical.
+    for (dx2, dy2) in [(12.6, 6.0), (12.6, 10.6)]:
+        s.prism(dx2, dy2, 0, 1.6, 6.6, 16, {'c': _dark(BLDG, 0.94)['c']},
+                {'c': _dark(BLDG, 1.06)['c']})
+        s.prism(dx2, dy2, 6.6, 1.35, 1.5, 16, {'c': _dark(PIPE, 0.9)['c']},
+                {'c': _dark(PIPE, 1.1)['c']})                                               # the fixed cone roof
+        s.box((dx2 - 0.16, dy2 - 0.16, 8.1), (0.32, 0.32, 0.9), {'c': PIPE})                # the gas takeoff
+    for px in (8.4, 10.4, 12.4):                                                            # the pipe gallery
+        s.box((px, 12.6, 0.8), (0.36, 0.36, 0.5), {'c': PIPE})
+    s.box((8.0, 12.7, 1.3), (5.0, 0.2, 0.2), {'c': PIPE})
+    for (fx, fy) in [(-2.8, -2.4), (12.6, -2.4), (12.6, 13.4), (-2.8, 13.4)]:
+        s.box((fx, fy, 0), (0.18, 0.18, 2.2), {'c': FENCE})
+    return s, 5.8
+
+
+def build_waterpark(P):
+    """engine/bohemia_waterpark.js, on the dead WET'N'WILD (27 acres on the Strip,
+    1985-2004, closed and never replaced). The signature is the SLIDE TOWER -- a stack of
+    platforms with flumes spiralling off it, the tallest thing on the site by a long way
+    and the only structure in the valley shaped like that. The drained WAVE POOL at its
+    foot is the second read: a big pale bowl with a deep end."""
+    LOCK, WAVE, RIVER, TOWER, SPLASH, SNACK, CHAIR = P[2], P[6], P[7], P[8], P[9], P[13], P[11]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(114, 110, 96), lotc=(64, 64, 68))
+    # THE SLIDE TOWER: stacked platforms, each smaller, with flumes spiralling down
+    for i, (tz, half) in enumerate([(0.0, 1.9), (2.6, 1.55), (5.2, 1.2), (7.8, 0.85)]):
+        s.box((4.2 - half, 4.2 - half, tz), (half * 2, half * 2, 2.6),
+              {'top': _dark(TOWER, 1.12), 'px': _dark(TOWER, 1.0), 'py': _dark(TOWER, 0.82),
+               'nx': _dark(TOWER, 1.0), 'ny': _dark(TOWER, 0.82)})
+    s.box((3.7, 3.7, 10.4), (1.0, 1.0, 0.5), {'c': _dark(TOWER, 1.2)['c']})
+    for i, (fx, fy) in enumerate([(-1.2, -1.2), (9.6, -1.2), (9.6, 9.6), (-1.2, 9.6)]):     # THE FLUMES
+        steps = 7
+        for k in range(steps):
+            t = k / float(steps - 1)
+            zx = 4.2 + (fx - 4.2) * t
+            zy = 4.2 + (fy - 4.2) * t
+            s.box((zx - 0.45, zy - 0.45, 9.0 - t * 8.2), (0.9, 0.9, 0.34),
+                  {'c': _dark(RIVER, 1.0 + (k % 2) * 0.16)['c']})
+    s.box((-2.4, 10.2, -0.05), (8.6, 4.0, 0.12), {'c': _dark(WAVE, 0.72)['c']})             # THE WAVE POOL
+    s.box((-2.4, 10.2, 0.06), (5.2, 4.0, 0.1), {'c': WAVE})                                 # its shallow end
+    s.box((-2.6, 10.0, 0), (0.3, 4.4, 0.7), {'c': _dark(WAVE, 1.2)['c']})                   # the wave wall
+    s.box((7.4, 10.4, -0.04), (2.4, 2.4, 0.1), {'c': SPLASH})                               # a splash pool
+    s.box((10.6, 10.4, 0), (2.4, 2.2, 3.0), {'top': _dark(SNACK, 0.9), 'px': _win(SNACK, 3, 2, 4),
+          'py': _dark(SNACK, 0.86), 'nx': _dark(SNACK), 'ny': _dark(SNACK)})                # the snack bar
+    s.box((10.2, -1.8, 0), (2.8, 4.4, 3.6), {'top': _dark(LOCK, 0.9), 'px': _win(LOCK, 3, 3, 7),
+          'py': _dark(LOCK, 0.86), 'nx': _dark(LOCK), 'ny': _dark(LOCK)})                   # the locker building
+    _door_face(s, (10.2, -1.8, 0), (2.8, 4.4, 3.6), width=1.2, ztop=2.3)
+    for (lx, ly) in [(-1.6, 6.4), (0.2, 6.4), (2.0, 6.4), (7.2, 6.4), (9.0, 6.4)]:
+        s.box((lx, ly, 0), (0.9, 0.42, 0.3), {'c': CHAIR})                                  # the lounger row
+    return s, 5.6
+
+
+def build_golf(P):
+    """engine/bohemia_golf.js: the signature is the GREEN AND ITS BUNKERS -- a pale kidney
+    of sand wrapping a mown circle with a pin in it, which no other district has. In act 1
+    the fairways are dead brown and only the SAND still reads bright, so the bunkers do
+    most of the work. The CLUBHOUSE is the one building and it sits above the 18th."""
+    CLUB, FAIR, GREEN, SAND, HAZ, TEE, PIN, TREE, CART = P[2], P[4], P[6], P[7], P[8], P[9], P[10], P[12], P[13]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(112, 100, 76), lotc=(62, 62, 62))
+    for (fx, fy, fw, fd) in [(-2.6, -2.0, 7.4, 5.6), (4.0, 4.4, 9.0, 4.6), (-2.6, 8.4, 6.4, 5.0)]:
+        s.box((fx, fy, 0.01), (fw, fd, 0.07), {'c': FAIR})                                  # the dead fairways
+    for (gx, gy, gr) in [(2.6, 0.8, 2.0), (10.4, 6.6, 1.8), (0.8, 10.6, 1.7)]:
+        s.prism(gx, gy, 0.02, gr + 0.85, 0.06, 18, {'c': SAND})                             # the bunker ring
+        s.prism(gx, gy, 0.05, gr, 0.08, 18, {'c': GREEN})                                   # THE GREEN
+        s.box((gx - 0.05, gy - 0.05, 0.13), (0.1, 0.1, 1.5), {'c': PIN})                    # the pin
+        s.box((gx + 0.05, gy - 0.02, 1.2), (0.45, 0.04, 0.3), {'c': _dark(PIN, 1.3)['c']})  # its flag
+    for (bx, by) in [(6.4, 2.0), (7.8, 9.6), (-1.4, 5.6)]:
+        s.prism(bx, by, 0.02, 1.15, 0.06, 14, {'c': SAND})                                  # free bunkers
+    s.box((5.0, 11.6, -0.04), (4.6, 2.2, 0.1), {'c': _dark(HAZ, 0.8)['c']})                 # the dry hazard
+    for (tx, ty) in [(-2.0, 3.2), (5.2, 7.6), (11.6, 11.4)]:
+        s.box((tx, ty, 0.02), (1.5, 1.0, 0.12), {'c': TEE})                                 # the tee boxes
+    s.box((9.4, -2.2, 0), (3.8, 3.6, 4.4), {'top': _dark(CLUB, 0.9), 'px': _win(CLUB, 4, 3, 5),
+          'py': _win(CLUB, 4, 3, 9), 'nx': _dark(CLUB), 'ny': _dark(CLUB)})                 # THE CLUBHOUSE
+    _gable(s, (9.2, -2.4, 4.4), (4.2, 4.0, 0), 1.25, _dark(CLUB, 1.14)['c'])
+    _door_face(s, (9.4, -2.2, 0), (3.8, 3.6, 4.4), width=1.3, ztop=2.4)
+    for (tx2, ty2) in [(0.4, 3.6), (7.0, 0.4), (3.4, 12.4), (12.0, 3.0)]:
+        s.box((tx2, ty2, 0), (0.24, 0.24, 2.2), {'c': TREE})
+        s.box((tx2 - 0.5, ty2 - 0.5, 2.2), (1.24, 1.24, 0.34), {'c': _dark(TREE, 0.9)['c']})
+    _vehicle(s, 6.0, 5.6, CAR, CART, along='x')                                             # a cart left mid-round
+    return s, 5.8
+
+
+def build_drivein(P):
+    """engine/bohemia_drivein.js: the SCREEN TOWER, and nothing else is close. It is a
+    flat wall four storeys high standing alone at the end of a field with nothing behind
+    it, braced from the back -- the single most recognisable silhouette any American
+    roadside form has. The projection booth sits low in the middle of the ramped rows,
+    and the rows themselves are the arcs of earth cars park nose-up on."""
+    SCREEN, BOOTH, ROW, POLE, VEH = P[6], P[2], P[4], P[7], P[8]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(100, 92, 78), lotc=(58, 58, 62))
+    # THE SCREEN TOWER: a wall, its back bracing, and the dark deck it stands on
+    s.box((-1.0, -2.4, 0), (11.0, 0.55, 12.6),
+          {'top': _dark(SCREEN, 1.18), 'px': {'c': tuple(min(255, int(c * 1.22)) for c in SCREEN)},
+           'py': _dark(SCREEN, 0.7), 'nx': _dark(SCREEN, 0.86), 'ny': _dark(SCREEN, 0.7)})
+    s.box((-1.3, -2.7, 0), (11.6, 0.3, 13.1), {'c': _dark(SCREEN, 0.62)['c']})               # its frame edge
+    for bx in (0.0, 2.6, 5.2, 7.8):                                                          # the back bracing
+        s.box((bx, -2.4, 0), (0.3, -0.0 + 1.9, 0.3), {'c': _dark(SCREEN, 0.58)['c']})
+        s.quad((bx, -0.5, 0), (bx + 0.3, -0.5, 0), (bx + 0.3, -1.85, 8.0), (bx, -1.85, 8.0),
+               {'c': _dark(SCREEN, 0.58)['c']}, (0, -1, 0))
+    # THE RAMPED ROWS: low arcs of earth, cars nose up on each one
+    for i, ry in enumerate((1.6, 3.4, 5.2, 7.0, 8.8, 10.6, 12.4)):
+        s.box((-2.0, ry, 0), (13.0, 0.75, 0.34 + i * 0.05), {'c': ROW})
+        s.box((-2.0, ry + 0.75, 0), (13.0, 0.12, 0.1), {'c': _dark(ROW, 0.7)['c']})
+        s.box((-1.6 + (i % 3) * 0.4, ry - 0.5, 0), (0.16, 0.16, 2.4), {'c': POLE})           # the speaker poles
+        s.box((5.4 + (i % 2) * 0.6, ry - 0.5, 0), (0.16, 0.16, 2.4), {'c': POLE})
+    _vehicle(s, 2.2, 3.5, CAR, VEH, along='x')
+    _vehicle(s, 7.8, 7.1, CAR, _dark(VEH, 0.82)['c'], along='x')
+    _vehicle(s, 0.6, 10.7, CAR, _dark(VEH, 1.1)['c'], along='x')
+    s.box((10.6, 5.6, 0), (2.6, 3.0, 3.2), {'top': _dark(BOOTH, 0.9), 'px': _win(BOOTH, 3, 2, 4),
+          'py': _dark(BOOTH, 0.86), 'nx': _dark(BOOTH), 'ny': _dark(BOOTH)})                 # the booth
+    _door_face(s, (10.6, 5.6, 0), (2.6, 3.0, 3.2), width=1.0, ztop=2.1)
+    return s, 5.4
+
+
+def build_boneyard(P):
+    """engine/bohemia_boneyard.js: a wrecking yard, and its signature is the CRUSHED-CAR
+    STACK -- flattened bodies piled six and eight high in leaning towers, which is a
+    shape nothing else makes. The CRANE with its grapple stands over them, and the loose
+    wrecks fill the dirt aisles below in three different faded colours because a yard of
+    one colour is a scrapheap nobody can read."""
+    OFF, SCRAP, STACK, CRANE, WRECK, BLUE, WHITE, FENCE = P[2], P[3], P[7], P[8], P[6], P[13], P[14], P[12]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(96, 86, 70), lotc=(70, 64, 54))
+    # THE CRUSHED-CAR STACKS: each slab a flattened car, each stack leaning its own way
+    for si, (sx, sy, n) in enumerate([(-2.2, 0.2, 9), (-2.2, 2.2, 7), (-2.2, 4.2, 8),
+                                      (-2.2, 6.2, 6), (-2.2, 8.2, 9), (-2.2, 10.2, 7)]):
+        for k in range(n):
+            jog = ((si * 3 + k * 5) % 5 - 2) * 0.09
+            col = [WRECK, BLUE, WHITE][(si + k) % 3]
+            s.box((sx + jog, sy + jog * 0.6, k * 0.62), (2.5, 1.5, 0.58),
+                  {'top': _dark(col, 1.1), 'px': _dark(col, 1.0), 'py': _dark(col, 0.8),
+                   'nx': _dark(col, 1.0), 'ny': _dark(col, 0.8)})
+    # THE CRANE over the stacks
+    s.box((7.2, 3.4, 0), (2.2, 2.2, 1.4), {'c': _dark(CRANE, 0.8)['c']})                     # the tracks
+    s.box((7.5, 3.7, 1.4), (1.6, 1.6, 3.2), {'top': _dark(CRANE, 1.1), 'px': _win(CRANE, 2, 2, 4),
+          'py': _dark(CRANE, 0.84), 'nx': _dark(CRANE), 'ny': _dark(CRANE)})                 # the house
+    # THE BOOM, up and over the stacks -- the tallest thing for blocks, and what you see
+    # before you see the yard at all
+    s.quad((7.9, 4.2, 4.6), (8.5, 4.2, 4.6), (4.6, 4.2, 15.4), (4.0, 4.2, 15.4), {'c': CRANE}, (0, -1, 0))
+    s.quad((7.9, 4.8, 4.6), (8.5, 4.8, 4.6), (4.6, 4.8, 15.4), (4.0, 4.8, 15.4), {'c': _dark(CRANE, 0.84)['c']}, (0, 1, 0))
+    s.box((4.0, 4.15, 14.6), (0.9, 0.75, 0.9), {'c': _dark(CRANE, 1.12)['c']})                # the boom head
+    s.box((4.2, 4.3, 10.4), (0.22, 0.22, 4.2), {'c': _dark(CRANE, 0.6)['c']})                 # the fall
+    s.box((3.9, 4.05, 9.6), (0.8, 0.8, 1.0), {'c': _dark(CRANE, 1.1)['c']})                   # the grapple
+    for (wx, wy, along) in [(7.4, 7.0, 'x'), (10.4, 7.0, 'x'), (7.4, 9.4, 'x'),
+                            (10.4, 9.4, 'x'), (7.4, 11.8, 'x'), (10.4, 11.8, 'x'),
+                            (-2.2, 10.6, 'x'), (1.0, 10.6, 'x')]:
+        _vehicle(s, wx, wy, CAR, [WRECK, BLUE, WHITE][(int(wx) + int(wy)) % 3], along=along)
+    s.box((9.6, -2.2, 0), (3.4, 3.0, 3.4), {'top': _dark(OFF, 0.9), 'px': _win(OFF, 3, 2, 5),
+          'py': _dark(OFF, 0.86), 'nx': _dark(OFF), 'ny': _dark(OFF)})                       # office / parts
+    _door_face(s, (9.6, -2.2, 0), (3.4, 3.0, 3.4), width=1.1, ztop=2.2)
+    for (tx, ty) in [(-2.2, 0.6), (-2.2, 3.4), (-2.2, 6.2)]:                                 # the tyre piles
+        s.prism(tx, ty, 0, 1.0, 1.5, 12, {'c': SCRAP}, {'c': _dark(SCRAP, 1.12)['c']})
+    for (fx, fy) in [(-2.8, -2.6), (13.0, -2.6), (13.0, 13.4), (-2.8, 13.4)]:
+        s.box((fx, fy, 0), (0.18, 0.18, 2.2), {'c': FENCE})
+    return s, 5.6
+
+
+def build_wash(P):
+    """engine/bohemia_wash.js: the LAS VEGAS WASH is a lined trapezoidal flood channel,
+    and its icon is exactly that -- a concrete trough cut straight across the plot with
+    riprap on the banks and a road bridge over it. The SEWER TUNNEL MOUTH in the wall is
+    the thing that matters here and it is the only reason anybody goes down: this valley's
+    channels are where people actually live, and the mouth is a way IN."""
+    CONC, INVERT, BANK, RIP, TUNNEL, FENCE, BRUSH = P[2], P[6], P[4], P[9], P[8], P[10], P[3]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(112, 102, 82), lotc=(70, 68, 62))
+    # THE TRAPEZOIDAL CHANNEL: sloped walls cut down to a flat invert
+    for side, (wy, ny) in enumerate([(1.2, 1.0), (9.2, -1.0)]):
+        s.quad((-3.0, wy, 2.2), (14.0, wy, 2.2), (14.0, wy + ny * 2.0, -1.4),
+               (-3.0, wy + ny * 2.0, -1.4), {'c': CONC}, (0, -ny, 0.4))
+        s.box((-3.0, wy - 0.28 * ny, 2.2), (17.0, 0.56, 0.3), {'c': _dark(CONC, 1.16)['c']})  # the coping
+        s.box((-3.0, wy - 1.5 * ny, 0), (17.0, 1.2, 0.5), {'c': BANK})                        # the bank
+        for rx in range(8):                                                                   # riprap
+            s.box((-2.6 + rx * 2.1, wy - 1.3 * ny, 0.5), (0.7, 0.55, 0.42), {'c': RIP})
+    s.box((-3.0, 3.2, -1.5), (17.0, 6.0, 0.14), {'c': INVERT})                                # the invert floor
+    s.box((-3.0, 5.9, -1.42), (17.0, 0.7, 0.06), {'c': _dark(INVERT, 0.78)['c']})             # the low-flow trickle
+    # THE SEWER TUNNEL MOUTH, in the north wall -- the way in
+    s.box((4.4, 1.05, -1.4), (3.0, 0.35, 2.4), {'c': _dark(CONC, 1.1)['c']})
+    s.box((4.9, 0.98, -1.4), (2.0, 0.2, 1.9), {'c': TUNNEL})
+    # THE BRIDGE over it
+    s.box((9.6, 0.2, 2.5), (3.2, 11.0, 0.7), {'top': _dark(BANK, 1.2), 'px': _dark(BANK, 0.9),
+          'py': _dark(BANK, 0.78), 'nx': _dark(BANK, 0.9), 'ny': _dark(BANK, 0.78)})
+    for by in (2.0, 5.2, 8.4):
+        s.box((10.0, by, -1.5), (2.4, 0.7, 4.0), {'c': _dark(CONC, 0.86)['c']})                # its piers
+    for by2 in (0.2, 11.0):
+        for k in range(5):
+            s.box((9.7 + k * 0.66, by2, 3.2), (0.12, 0.2, 0.8), {'c': FENCE})                  # the bridge rail
+    # THE GAUGE MAST AND THE BRIDGE LIGHT: a lined channel is a trench, but the things
+    # that WATCH it stand up. The staff gauge on the wall is the only warning anybody down
+    # there gets that a wall of water is coming, which in this valley kills people.
+    s.box((2.2, 1.0, -1.4), (0.3, 0.3, 7.4), {'c': _dark(CONC, 0.6)['c']})
+    for k in range(7):
+        s.box((2.15, 0.94, -0.9 + k * 0.85), (0.4, 0.42, 0.16),
+              {'c': _dark(CONC, 1.3 if k % 2 else 0.75)['c']})
+    s.box((9.4, 0.0, 3.2), (0.28, 0.28, 3.4), {'c': _dark(BANK, 0.8)['c']})
+    s.box((9.28, 0.22, 6.45), (0.52, 1.0, 0.22), {'c': _dark(BANK, 1.25)['c']})
+    for (bx, by3) in [(0.4, -1.4), (6.6, -2.0), (2.4, 11.8), (11.0, 12.4)]:
+        s.box((bx, by3, 0), (0.7, 0.7, 0.5), {'c': BRUSH})
+    return s, 5.6
+
+
+def build_freeway(P):
+    """engine/bohemia_freeway.js: the ELEVATED DECK on its columns, with a SIGN GANTRY
+    over the lanes below and the sound wall running the length of the embankment. Both
+    the deck and the gantry are SPANS, not canopies (8/2): infrastructure that carries
+    something across a gap, which is the distinction the no-canopies law draws itself."""
+    LANE, LINE, BARRIER, SOUND, DECK, COL, GANTRY, SEMI, VEH = P[1], P[2], P[4], P[8], P[12], P[13], P[14], P[11], P[10]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(104, 96, 80), lotc=(58, 58, 62))
+    s.box((-3.0, 1.0, 0.01), (17.0, 9.0, 0.09), {'c': LANE})                                   # the roadbed
+    for ly in (3.0, 4.9, 6.8):                                                                 # the lane lines
+        for k in range(11):
+            s.box((-2.6 + k * 1.55, ly, 0.11), (0.85, 0.14, 0.03), {'c': LINE})
+    s.box((-3.0, 5.4, 0.1), (17.0, 0.5, 0.85), {'top': _dark(BARRIER, 1.14), 'px': _dark(BARRIER, 1.0),
+          'py': _dark(BARRIER, 0.84), 'nx': _dark(BARRIER, 1.0), 'ny': _dark(BARRIER, 0.84)})  # median barrier
+    for (sy, ) in [(0.5, ), (10.2, )]:                                                         # THE SOUND WALLS
+        s.box((-3.0, sy, 0), (17.0, 0.45, 3.4), {'top': _dark(SOUND, 1.16), 'px': _dark(SOUND, 1.0),
+              'py': _dark(SOUND, 0.82), 'nx': _dark(SOUND, 1.0), 'ny': _dark(SOUND, 0.82)})
+    # THE OVERPASS DECK on its columns -- a SPAN, crossing the lanes
+    for cy in (2.2, 8.6):
+        s.box((6.0, cy, 0), (1.6, 1.4, 5.6), {'c': COL})
+    s.box((5.4, -1.0, 5.6), (2.8, 13.5, 0.9), {'top': _dark(DECK, 1.18), 'px': _dark(DECK, 0.94),
+          'py': _dark(DECK, 0.8), 'nx': _dark(DECK, 0.94), 'ny': _dark(DECK, 0.8)})
+    for gy in (-1.0, 11.6):                                                                    # its parapets
+        s.box((5.4, gy, 6.5), (2.8, 0.9, 0.7), {'c': _dark(DECK, 0.8)['c']})
+    # THE SIGN GANTRY over the lanes -- also a SPAN
+    for gy2 in (1.4, 9.6):
+        s.box((11.4, gy2, 0.1), (0.34, 0.34, 5.0), {'c': GANTRY})
+    s.box((11.3, 1.3, 5.0), (0.55, 8.6, 0.4), {'c': GANTRY})
+    s.box((11.25, 2.4, 3.6), (0.2, 2.6, 1.4), {'c': _dark(GANTRY, 1.2)['c']})                  # the blank panel
+    s.box((11.25, 6.4, 3.6), (0.2, 2.6, 1.4), {'c': _dark(GANTRY, 1.2)['c']})
+    _vehicle(s, 0.4, 3.3, TRAILER, SEMI, along='x')
+    _vehicle(s, 8.6, 7.2, CAR, VEH, along='x')
+    _vehicle(s, 2.6, 8.2, CAR, _dark(VEH, 0.84)['c'], along='x')
+    return s, 5.6
+
+
+def build_arterial(P):
+    """engine/bohemia_arterial.js: a six-lane Vegas arterial, and the icon is the
+    INTERSECTION -- the signal masts reaching out over the lanes on their long arms,
+    the crosswalk ladders, the raised median with its dead palms, and the block wall
+    behind the sidewalk. The mast arm is the vertical; everything else is flat."""
+    ROAD, LINE, MEDIAN, WALK, WALL, LIGHT, MAST, PALM, VEH = P[1], P[2], P[4], P[6], P[8], P[9], P[12], P[11], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(106, 98, 82), lotc=(58, 58, 62))
+    s.box((-3.0, 1.4, 0.01), (17.0, 8.4, 0.09), {'c': ROAD})                                   # the roadway
+    s.box((3.6, -3.0, 0.02), (4.6, 17.0, 0.09), {'c': ROAD})                                   # the cross street
+    s.box((-3.0, 5.2, 0.1), (6.4, 0.9, 0.35), {'c': MEDIAN})                                   # the raised median
+    s.box((8.4, 5.2, 0.1), (5.8, 0.9, 0.35), {'c': MEDIAN})
+    for (px, py) in [(-1.6, 5.5), (1.4, 5.5), (9.6, 5.5), (12.4, 5.5)]:                        # dead palms in it
+        s.box((px, py, 0.35), (0.26, 0.26, 3.2), {'c': PALM})
+        s.box((px - 0.4, py - 0.4, 3.55), (1.06, 1.06, 0.24), {'c': _dark(PALM, 0.82)['c']})
+    for k in range(9):                                                                         # the crosswalk ladders
+        s.box((3.2, 1.7 + k * 0.85, 0.11), (0.5, 0.42, 0.03), {'c': LINE})
+        s.box((8.2, 1.7 + k * 0.85, 0.11), (0.5, 0.42, 0.03), {'c': LINE})
+    for k in range(6):
+        s.box((3.9 + k * 0.75, 1.1, 0.11), (0.42, 0.5, 0.03), {'c': LINE})
+        s.box((3.9 + k * 0.75, 9.5, 0.11), (0.42, 0.5, 0.03), {'c': LINE})
+    for (sy, ) in [(0.4, ), (10.0, )]:                                                         # sidewalk + block wall
+        s.box((-3.0, sy, 0.02), (17.0, 1.0, 0.1), {'c': WALK})
+        s.box((-3.0, sy + (1.0 if sy < 5 else -0.35), 0), (17.0, 0.35, 2.2),
+              {'top': _dark(WALL, 1.14), 'px': _dark(WALL, 1.0), 'py': _dark(WALL, 0.84),
+               'nx': _dark(WALL, 1.0), 'ny': _dark(WALL, 0.84)})
+    # THE SIGNAL MASTS, arms reaching out over the lanes -- the vertical of the whole plot
+    for (mx, my, arm) in [(3.0, 0.9, 1.0), (8.8, 10.2, -1.0)]:
+        s.box((mx, my, 0), (0.36, 0.36, 6.2), {'c': _dark(MAST, 0.88)['c']})
+        s.box((mx, my + (0.36 if arm > 0 else -4.6), 5.9), (0.3, 4.6, 0.3), {'c': MAST})
+        for k in range(3):
+            hy = my + arm * (1.1 + k * 1.2)
+            s.box((mx + 0.02, hy, 5.0), (0.32, 0.34, 0.85), {'c': _dark(MAST, 0.66)['c']})
+    for (lx, ly) in [(-1.0, 0.6), (6.0, 10.4), (12.0, 0.6)]:                                   # streetlights
+        s.box((lx, ly, 0), (0.2, 0.2, 4.4), {'c': LIGHT})
+        s.box((lx, ly + 0.2, 4.25), (0.18, 1.1, 0.18), {'c': LIGHT})
+    _vehicle(s, 0.2, 2.6, CAR, VEH, along='x')
+    _vehicle(s, 10.6, 7.6, CAR, _dark(VEH, 0.84)['c'], along='x')
+    return s, 5.6
+
+
+def build_mountain(P):
+    """engine/bohemia_mountain.js: a limestone ridge on the valley rim. The icon is the
+    RIDGE CREST -- a stepped mass rising to one summit with cliff bands on its face, talus
+    fanning off the bottom and a ravine cut into the flank. It is the tallest thing in the
+    valley and it should read that way at map zoom."""
+    ROCK, CREST, CLIFF, TALUS, RAVINE, SHRUB, BOULDER = P.get(0, P[2]), P[1], P[2], P[3], P[4], P[6], P[7]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(104, 94, 80), lotc=(84, 78, 68))
+    # THE MASSIF: stepped prisms rising to one summit, each a value lighter
+    steps = [(5.4, 5.4, 0.0, 7.6, 3.4, ROCK), (5.6, 5.2, 3.4, 5.9, 3.2, _dark(ROCK, 1.08)['c']),
+             (5.9, 5.0, 6.6, 4.3, 3.0, CLIFF), (6.2, 4.8, 9.6, 2.7, 2.8, _dark(CREST, 0.96)['c']),
+             (6.4, 4.7, 12.4, 1.3, 1.9, CREST)]
+    for (cx, cy, cz, rad, hgt, col) in steps:
+        s.prism(cx, cy, cz, rad, hgt, 9, {'c': col}, {'c': tuple(min(255, int(v * 1.14)) for v in col)})
+    # THE CLIFF BANDS on the sunward face
+    for (bz, bw) in [(2.6, 6.4), (5.8, 4.9), (8.8, 3.4)]:
+        s.box((5.4 - bw * 0.5, 5.4 - bw * 0.52, bz), (bw, 0.5, 0.75), {'c': _dark(CLIFF, 0.74)['c']})
+    # THE TALUS FAN off the foot, and the ravine cut
+    for (tx, ty, tr) in [(1.0, 10.4, 2.3), (10.6, 10.0, 2.0), (11.4, 1.4, 1.8), (0.4, 1.8, 1.9)]:
+        s.prism(tx, ty, 0, tr, 0.9, 8, {'c': TALUS}, {'c': _dark(TALUS, 1.12)['c']})
+    s.box((5.0, 8.6, 0), (1.5, 4.4, 0.35), {'c': RAVINE})
+    for (bx, by) in [(2.4, 12.2), (9.0, 12.6), (12.4, 6.0), (-1.8, 6.4)]:
+        s.prism(bx, by, 0, 0.75, 0.75, 7, {'c': BOULDER}, {'c': _dark(BOULDER, 1.14)['c']})
+    for (sx, sy) in [(3.2, 11.0), (11.0, 12.0), (-2.0, 9.0), (12.6, 9.4)]:
+        s.box((sx, sy, 0), (0.6, 0.6, 0.45), {'c': SHRUB})
+    return s, 5.4
+
+
+def build_desert(P):
+    """engine/bohemia_desert.js. LOW BY NATURE and named as such in the big-icons gate:
+    open Mojave has no building in it and inventing one would be a lie about the map.
+    What it does have is TEXTURE -- desert pavement varnished dark, rock lag, creosote in
+    its regular spacing (they poison each other's roots, which is why the spacing is even),
+    a dry rill, and the dumped debris and burned car that say somebody has been here."""
+    PAVE, LAG, CREO, BURSAGE, CALICHE, RILL, DEBRIS, BURNT, OUT, YUCCA = (
+        P.get(0, P[4]), P[1], P[2], P[3], P[4], P[5], P[7], P[8], P[11], P[12])
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=PAVE, lotc=CALICHE)
+    for (px, py, pw, pd, col) in [(-2.0, -1.4, 6.0, 5.0, LAG), (6.4, 2.2, 5.4, 4.6, CALICHE),
+                                  (-1.0, 7.4, 7.0, 5.2, LAG), (8.4, 8.6, 4.4, 4.0, CALICHE)]:
+        s.box((px, py, 0.01), (pw, pd, 0.06), {'c': col})
+    s.box((-2.6, 4.6, 0.02), (16.0, 1.1, 0.07), {'c': RILL})                                   # the dry rill
+    s.box((1.4, 5.6, 0.02), (1.0, 7.0, 0.07), {'c': _dark(RILL, 0.94)['c']})
+    # CREOSOTE, evenly spaced because they poison each other's roots -- the real signature
+    for gy in range(5):
+        for gx in range(5):
+            cx = -1.6 + gx * 3.05 + ((gy % 2) * 1.5)
+            cy = -1.6 + gy * 3.05
+            s.prism(cx, cy, 0, 0.62, 1.15, 7, {'c': CREO}, {'c': _dark(CREO, 1.16)['c']})
+            s.prism(cx + 1.35, cy + 1.3, 0, 0.38, 0.6, 6, {'c': BURSAGE}, {'c': _dark(BURSAGE, 1.14)['c']})
+    # THE ROCK OUTCROP: the one thing open Mojave stands up, and the only vertical this
+    # district honestly has. A varnished limestone knob reads across the flat for miles.
+    for (ox, oy, orr, oh) in [(9.6, 0.2, 2.8, 8.6), (0.2, 11.6, 1.6, 3.2)]:
+        s.prism(ox, oy, 0, orr, oh, 7, {'c': OUT}, {'c': _dark(OUT, 1.16)['c']})
+        s.prism(ox + 0.5, oy + 0.4, oh * 0.62, orr * 0.62, oh * 0.75, 6, {'c': _dark(OUT, 0.92)['c']},
+                {'c': _dark(OUT, 1.1)['c']})
+        s.prism(ox + 0.2, oy + 0.7, oh * 1.15, orr * 0.34, oh * 0.5, 6, {'c': _dark(OUT, 1.04)['c']},
+                {'c': _dark(OUT, 1.2)['c']})
+    for (yx, yy) in [(4.4, 1.0), (12.0, 6.4), (5.6, 12.2)]:                                    # DEAD YUCCA
+        s.box((yx, yy, 0), (0.3, 0.3, 2.5), {'c': YUCCA})
+        for k in range(4):
+            s.box((yx - 0.45 + (k % 2) * 0.9, yy - 0.4 + (k // 2) * 0.8, 1.9 + k * 0.12),
+                  (0.55, 0.5, 0.14), {'c': _dark(YUCCA, 0.88)['c']})
+    s.box((7.2, 11.0, 0), (1.4, 1.0, 0.45), {'c': DEBRIS})
+    _vehicle(s, 2.6, 8.6, CAR, BURNT, along='x')                                                # the burned car
+    return s, 5.6
+
+
+def build_water(P):
+    """engine/bohemia_water.js. LOW BY NATURE and named: this is Lake Mead's shoreline
+    after the drought and the whole subject is a HORIZONTAL. What makes it legible is the
+    BATHTUB RING -- the white mineral band the water left behind on the rock as it dropped
+    over twenty years -- with the exposed lakebed cracking below it and a LAUNCH RAMP that
+    now ends a long way short of the water. The sunken boat is the punchline."""
+    OPEN, SHALLOW, RING, BED, SILT, SHELL, ROCK, RAMP, BOAT, BRUSH = (
+        P.get(0, P[1]), P[1], P[2], P[3], P[4], P[5], P[6], P[7], P[8], P[9])
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=BED, lotc=SILT)
+    s.box((-3.0, -3.0, 0.02), (17.0, 7.2, 0.08), {'c': OPEN})                                  # THE WATER
+    s.box((-3.0, 3.4, 0.03), (17.0, 1.6, 0.08), {'c': SHALLOW})                                # its shallows
+    # THE BATHTUB RING: the shoreline shelf, stepped, with the white band on its face
+    s.box((-3.0, 5.0, 0), (17.0, 2.4, 1.5), {'top': {'c': BED}, 'px': {'c': RING},
+          'py': {'c': RING}, 'nx': {'c': RING}, 'ny': {'c': RING}})
+    s.box((-3.0, 7.4, 0), (17.0, 2.0, 2.7), {'top': {'c': SILT}, 'px': _dark(ROCK, 1.0),
+          'py': {'c': RING}, 'nx': _dark(ROCK, 1.0), 'ny': {'c': RING}})
+    s.box((-3.0, 9.4, 0), (17.0, 2.2, 3.8), {'top': {'c': SHELL}, 'px': _dark(ROCK, 1.0),
+          'py': _dark(ROCK, 0.86), 'nx': _dark(ROCK, 1.0), 'ny': _dark(ROCK, 0.86)})
+    for (rx, ry, rr, rh) in [(0.6, 12.4, 1.5, 2.2), (7.4, 12.8, 1.8, 2.6), (12.4, 12.0, 1.3, 1.9)]:
+        s.prism(rx, ry, 3.8, rr, rh, 8, {'c': ROCK}, {'c': _dark(ROCK, 1.16)['c']})             # shore rock
+    # THE LAUNCH RAMP, ending high and dry
+    s.quad((3.2, 4.2, 0.1), (6.0, 4.2, 0.1), (6.0, 11.6, 3.8), (3.2, 11.6, 3.8), {'c': RAMP}, (0, -0.4, 1))
+    # the ramp cleats are MARKS ON A SLOPE, not boxes standing on it -- drawn as quads so
+    # they are not solids, because a cleat is a texture and a solid is a thing you hit
+    for k in range(6):
+        cz = 0.14 + k * 0.6
+        s.quad((3.2, 4.6 + k * 1.15, cz), (6.0, 4.6 + k * 1.15, cz),
+               (6.0, 4.72 + k * 1.15, cz), (3.2, 4.72 + k * 1.15, cz),
+               {'c': _dark(RAMP, 0.82)['c']}, (0, 0, 1))
+    _vehicle(s, 8.8, 1.4, CAR, BOAT, along='x')                                                 # the sunken boat
+    # brush clumps, each pinned to the shelf it actually stands on. Deriving z from a y
+    # threshold put one of them straddling two shelves and half-buried in the upper bank.
+    for (bx, by, bz) in [(1.0, 6.2, 1.5), (10.6, 6.6, 1.5), (5.0, 8.2, 2.7), (11.8, 10.4, 3.8)]:
+        s.box((bx, by, bz), (0.7, 0.7, 0.5), {'c': BRUSH})
+    return s, 5.6
+
+
 HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': build_terminal,
           'downtown': build_downtown, 'industrial': build_industrial, 'medical': build_medical,
           'mall': build_mall, 'park': build_park, 'warehouse': build_warehouse,
@@ -1676,7 +2403,17 @@ HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': buil
           'town': build_town, 'ballpark': build_ballpark,
           # 8/2: he scored the chapel's MISSING icon 0%, correctly. A district with no map
           # icon is a district you cannot find, and an empty panel is worth exactly nothing.
-          'chapel': build_chapel}
+          'chapel': build_chapel,
+          # 8/4: THE NO-ICON DEBT PAID. He approved the four civics at 85% on the
+          # big-icons language, and APPROVAL UNLOCKS VOLUME -- so the nineteen
+          # districts that still rendered as nothing on the map get built in it.
+          'apartment': build_apartment, 'suburb': build_suburb, 'trailer': build_trailer,
+          'cemetery': build_cemetery, 'jail': build_jail, 'landfill': build_landfill,
+          'railyard': build_railyard, 'substation': build_substation,
+          'watertreat': build_watertreat, 'waterpark': build_waterpark,
+          'golf': build_golf, 'drivein': build_drivein, 'boneyard': build_boneyard,
+          'wash': build_wash, 'freeway': build_freeway, 'arterial': build_arterial,
+          'mountain': build_mountain, 'desert': build_desert, 'water': build_water}
 
 # HELD BACK, DELIBERATELY: 'airport': build_airport, 'airbase': build_airbase.
 # Both builders are finished and correct and they stay in this file, but they are
@@ -1715,6 +2452,25 @@ LABEL = {
     'commercial': 'Commercial — matched: an L of STORES with glass storefronts + a parking lot + a GAS-STATION canopy & pumps in the corner.',
     'school': 'High school — matched to the walkable district (Paolo ruled it HIGH SCHOOL, 7/28): the STADIUM as the landmark — an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS standing close in at the corners of the bowl — plus the academic spine with its second storey and two forward wings, TWO entryways (main doors and the gym doors), the GYM in school colours, the AUTO SHOP under its sawtooth roof with a roll-up bay standing open over an oiled yard (Paolo 7/30 killed the tennis courts and gave the ground to it), and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground and no tennis: both were rulings, both are held at zero by the gate.',
     'courthouse': 'Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + grand STEPS + a DOME.',
+    'apartment': 'Garden apartments — matched: three walk-up BLOCKS around a court, their circulation on the OUTSIDE the way Sun Belt walk-ups build it (open WALKWAY DECKS on two levels and the stair run at the end), the DRAINED POOL in the middle of the court, the clubhouse, and the perimeter fence.',
+    'arterial': 'Arterial — matched: the INTERSECTION, with SIGNAL MASTS reaching their long arms out over the lanes and the heads hanging off them, crosswalk ladders on all four legs, the raised MEDIAN with its dead palms, sidewalk and block wall behind, and streetlights. The mast arm is the vertical; everything else is flat by nature.',
+    'boneyard': 'Wrecking yard — matched: six CRUSHED-CAR STACKS, flattened bodies piled six and eight high in leaning towers — a shape nothing else makes — with the CRANE and its grapple standing over them, loose wrecks in three faded colours filling the dirt aisles, tyre piles and the parts office.',
+    'cemetery': 'Memorial park — matched: the MAUSOLEUM with its colonnade front (the only building with height on a cemetery), the HEADSTONE FIELD gridded around it, the OBELISK monument, a columbarium wall and the dead trees in their grates.',
+    'desert': "Open desert — LOW BY NATURE and named as such: there is no building in open Mojave and inventing one would be a lie about the map. What it has is TEXTURE — varnished desert pavement, rock lag, CREOSOTE in its evenly spaced grid (they poison each other's roots, which is why the spacing is even), bursage between them, a dry rill, rock outcrops, dead yucca, dumped debris and a burned car.",
+    'drivein': 'Drive-in theater — matched: the SCREEN TOWER, a flat wall four storeys high standing alone with its back bracing and nothing behind it, which is the most recognisable silhouette the American roadside has. Seven RAMPED ROWS of earth with speaker poles and the cars that never left, and the projection booth.',
+    'freeway': 'Freeway — matched: the ELEVATED DECK on its columns crossing the lanes, a SIGN GANTRY over them with its panels blank, sound walls the length of both embankments, the median barrier and a dead semi in the slow lane. The deck and the gantry are SPANS, not canopies (8/2) — infrastructure carrying something across a gap.',
+    'golf': 'Golf course — matched: three GREENS each ringed by its SAND BUNKER with the pin and flag standing in it — in act 1 the fairways are dead brown and only the sand still reads bright, so the bunkers do the work. Plus the dry water hazard, the tee boxes, the CLUBHOUSE under its gable and a cart left mid-round.',
+    'jail': 'Detention center — matched, on the CLARK COUNTY DETENTION CENTER (JMA with HOK, 1981-84): a twelve-storey TOWER with narrow horizontal window bands, designed on a brief to NOT LOOK LIKE A JAIL because it sits blocks from Fremont. The walled SECURE YARD with razor wire and four GUARD TOWERS at its feet is what gives it away.',
+    'landfill': 'Landfill — matched, on APEX REGIONAL (2,200 acres, the largest in the world by area and volume): the TERRACED MOUND, four stepped benches with waste layered under each like a sheet cake, GAS WELLS piped down the face, a FLARE STACK burning what the methane plant does not take, the scale house and a leachate pond.',
+    'mountain': 'Mountain — matched: a limestone RIDGE on the valley rim, a stepped massif rising to one summit with CLIFF BANDS across its sunward face, TALUS fans off the foot, a ravine cut into the flank and boulders on the apron. The tallest thing in the valley and it reads that way at map zoom.',
+    'railyard': 'Rail yard — matched: the TRACK FAN spreading out of one throat (a shape nothing else in the valley makes), the ENGINE SHED at its head with a locomotive standing in the shed road, boxcars down the body roads, and the GANTRY CRANE straddling the container aisle.',
+    'substation': 'Transmission substation — matched: a YARD OF FRAMES, not a building. Three lattice SWITCHGEAR structures carrying BUSBARS overhead on insulators, six TRANSFORMER BANKS with radiator fins and bushings under them, and the small control house. The open steel frame against sky is the only one in the valley.',
+    'suburb': 'Subdivision — matched: a CUL-DE-SAC bulb with eight houses shoulder to shoulder around it, gabled roofs, GARAGE doors facing the street, and the continuous BLOCK WALL that rings the whole thing — the defining feature of a Sun Belt subdivision from the air (7/21 Vegas urbanism research).',
+    'trailer': 'Mobile home park — matched: fifteen SINGLE-WIDES on their pads, all the same way round, skirted, with a ridge cap, a SHED and a PROPANE BOTTLE beside each one — and the one BURNED-OUT unit that stopped a row. A trailer park reads as a barcode from above and this one does.',
+    'wash': 'Flood channel — matched, on the LAS VEGAS WASH: a lined TRAPEZOIDAL CHANNEL cut straight across the plot, sloped concrete walls down to a flat invert with the low-flow trickle in it, riprap on the banks, a road BRIDGE on piers over it, and the SEWER TUNNEL MOUTH in the wall — which is the way IN, and why this district matters at all.',
+    'water': 'Lake shore — LOW BY NATURE and named as such: the subject is a horizontal. What makes it legible is the BATHTUB RING, the white mineral band the water left on the rock as it dropped over twenty years, with the exposed lakebed cracking below it, shore rock above, and a LAUNCH RAMP that now ends a long way short of the water. The sunken boat is the punchline.',
+    'waterpark': "Water park — matched, on the dead WET'N'WILD (27 acres on the Strip, 1985-2004): the SLIDE TOWER, four stacked platforms with FLUMES spiralling off all four corners, the drained WAVE POOL with its wave wall and shallow end, a splash pool, the locker building, the snack bar and the lounger row.",
+    'watertreat': 'Water reclamation plant — matched: CIRCLES, which no other industrial site has. Four CLARIFIER drums with the rotating bridge across each one and crusted sludge in the floor, the baffled AERATION CHANNEL beside them making the circles read as circles, the blower house and the pipe gallery.',
     'chapel': 'Church — matched: the CRUCIFORM plan (nave crossed by the transepts, a rounded APSE at the head, the NARTHEX porch at the foot) under its roof RIDGE, the BELL TOWER with its belfry and cross finial, the walled MEMORIAL COURT with its columbarium and dead planting, and a forecourt with the churchyard cross, the fallen bell and the dry font. There was no chapel icon at all until 8/2, and Paolo scored the empty panel 0%.',
     'library': 'Library — matched to the rebuilt district, which is built on the real reference: Antoine Predock\'s Las Vegas Library and Lied Discovery Museum (1986-90, Las Vegas Blvd). The DRUM with its oculus ring and lantern, the giant concrete TOWER, and the long reading wing under a clerestory that runs its whole length, all on a raised terrace above the plaza — sandstone and concrete, because in Predock\'s words the colour scheme is provided by the desert. The old icon was a classical COLONNADE, which is a library from a different country and a different century.',
     'farm': 'Farm — matched: a red BARN + a tall SILO + a farmhouse + a dead tractor + crop-row fields (dirt, not grass).',

@@ -102,7 +102,11 @@
   // a car reaches the campus drive network (code 1) from the street curb cut, in ANY placement
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={1:'#33333c',2:'#8a8478',3:'#55503f',4:'#c7a24a',5:'#c79a3f',6:'#7a7a80',7:'#9a9088',8:'#4c4c55',9:'#b04038',10:'#c9c1aa',11:'#5a5a64'};
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#55503f',4:'#c7a24a',5:'#c79a3f',6:'#7a7a80',7:'#9a9088',8:'#4c4c55',9:'#b04038',10:'#c9c1aa',11:'#5a5a64'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / unbuilt gaps)'},

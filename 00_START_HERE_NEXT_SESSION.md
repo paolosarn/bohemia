@@ -1,3 +1,89 @@
+WORLD (world-9lfjtf): 8/4 (g) LATEST -- *** THE FOUR CIVICS ARE APPROVED AT 85% AND THE
+NO-ICON DEBT IS PAID: 21 -> 2. *** Live on main, BUILD 8/4f.
+
+=== HIS VERDICT ===
+"Cityhall 85% both. Courthouse 85% both. Terminal 85% both. Chapel 85 both. all are good
+to go for now. all your failures and training data record them."
+Recorded: records/BOHEMIA_VERDICTS_CIVICS_8_4_26.txt (the verdicts AND the failure ledger
+he asked for -- I cannot write my own weights, so the repo is the memory).
+
+=== WHAT THE APPROVAL BOUGHT: NINETEEN ICONS ===
+records/BOHEMIA_THE_MAP_HAD_HOLES_IN_IT_8_4_26.md
+APPROVAL UNLOCKS VOLUME, and what got unlocked is the LANGUAGE, not four more civics. He
+judged four samples of the big-icons rules and passed them, so the same rules went onto the
+21 districts that still rendered as NOTHING at the zoom he navigates by -- a third of the
+valley invisible on its own map. HEROES 28 -> 47.
+  apartment suburb trailer cemetery jail landfill railyard substation watertreat waterpark
+  golf drivein boneyard wash freeway arterial mountain desert water
+Each one grounded in a real reference and in its own walkable legend, so the icon and the
+ground agree. Highlights: JAIL is the Clark County Detention Center, whose brief was to
+design a jail THAT WOULD NOT LOOK LIKE ONE (it sits blocks from Fremont) -- so it is an
+office tower, and the walled yard and guard towers at its feet are what give it away.
+LANDFILL is Apex, the largest on earth by area and volume, and its shape is not a pit, it
+is a terraced MOUNTAIN. WATERPARK is the dead Wet'n'Wild. WASH carries the SEWER TUNNEL
+MOUTH, which is the way IN and the reason that district exists at all.
+STILL OWED: airport + airbase ONLY, and they are HELD, not late -- both builders are
+finished and correct, and whether an airfield icon drops the runway to make the aeroplane
+read at 1x1 is Paolo's design call. [PENDING Paolo]
+
+*** AND THE NEW ICONS FOUND A BUG IN THE GROUND -- READ THIS ONE ***
+Rendering the new cards turned up MAGENTA in the water plot: the missing-colour sentinel,
+which is ALSO a PURPLE RESERVATION breach. Measured across the whole registry:
+  SIXTEEN DISTRICTS DREW AN UNCOLOURED CODE 0.
+  mountain 70.1% of every plot . suburb 45.2% . desert 36.4% . arterial 32.6% .
+  freeway 27.1% . wash 26.3% . airport 25.2% . airbase 25.7% . drivein 19.5% .
+  medical 17.6% . water 11.2% . solar 10.2% . rail 6.7% . cemetery 6.1% . park 3.0% .
+  interchange 1.9%
+SUBURB IS THE DISTRICT HE WALKS EVERY RUN and nearly half of it had no colour. The live
+game got away with it (its renderer has its own dead-ground fallback) but every JUDGING
+surface painted it magenta -- so the pictures I was sending him for verdicts were NOT THE
+GAME. He would have been scoring a lie.
+AND THE GATE THAT EXISTS TO CATCH IT WAS EXEMPTING IT BY NAME:
+    function legendOk(g,palette){ ... if(c!==0 && !(c in palette)) return false; ... }
+                                      ^^^^^^^
+0 meant "void" once; every module gives it a real legend entry now ("bedrock face", "open
+water", "dead-ground (yard)"), so the exemption was checking that a tile nobody had
+coloured was allowed to stay uncoloured. A GATE THAT EXEMPTS THE MOST-USED CODE IN THE
+VALLEY IS NOT CHECKING ANYTHING. Sixth sighting of the hand-written fact.
+FIXED: all sixteen carry a real colour from their own family, the exemption is gone, and
+every registered district passes the tightened check.
+
+=== TWO GATE REFINEMENTS, BOTH TIGHTENING ===
+ . A BAND ON A MASS IS NOT A TUNNEL THROUGH IT, and neither is a STEP. The slab check was
+   flagging landfill terrace lips and mountain cliff bands. A tunnel is a mass passing
+   THROUGH a slab at mid-height; a step is a mass rising from the same platform.
+ . LOW BY NATURE and DOORLESS BY NATURE are lists WITH REASONS ATTACHED. A ridge has no
+   door. Open Mojave has no building. A subdivision is single-storey -- that IS the form.
+   Named, never silently exempt, and neither list may grow without the reason written next
+   to the entry.
+
+=== WHAT REAL FIXES LOOKED LIKE (not exemptions) ===
+Three icons came in squat and the honest answer was not to lower the bar:
+ . WATERTREAT got its DIGESTERS -- the cone-roofed drums that make a plant read from a
+   distance. Leaving them out is why it was knee-high.
+ . TRAILER got its YARD LIGHT -- the only thing in a mobile home park taller than a
+   single-wide.
+ . WASH got its STAFF GAUGE MAST -- a lined channel is a trench, but the things that WATCH
+   it stand up, and that gauge is the only warning anybody down there gets that a wall of
+   water is coming. In this valley that kills people.
+
+=== PENDING PAOLO ===
+1. The 19 new icons are UNJUDGED. Cards: records/judgecards/BOHEMIA_JUDGE_<name>.png, each
+   with its NAME in the pixels and two blank score lines. Bulk silence is a verdict
+   (UNJUDGED IS DEAD), so if they are fine they are fine -- but they have never been seen.
+2. AIRPORT / AIRBASE: does an airfield icon drop the runway and show the aeroplane and
+   terminal only? Both builders exist and are one line from shipping once he rules.
+3. Still unanswered from way back: HOW LONG SINCE THE COLLAPSE. It sets the damage level
+   for all 45 districts and nothing can be finish-passed without it.
+
+=== WHAT COMES AFTER (world lane, unblocked) ===
+1. DOORLESS_DEBT is 12 older heroes (ballpark, farm, firestation, industrial, interchange,
+   solar, speedway, stadium, storage, swapmeet, town, warehouse) -- all pre-8/4, all with
+   real buildings that could carry a door.
+2. CANOPY_DEBT is 14 shelter canopies still standing outside parks.
+3. downtown_arts / downtown_civic / downtown_lot, from the 8/1 downtown research.
+4. [PENDING Paolo] the drive-thru wedding chapel as its own cell type -- proposed, not built.
+
 CITY (1eztay): 8/4 LATEST — THE SINGLE SOURCE OF TRUTH WAS DEAD CODE IN ALL 13
 PLACES IT WAS USED, AND EVERY ONE OF THEM WAS GREEN.
 

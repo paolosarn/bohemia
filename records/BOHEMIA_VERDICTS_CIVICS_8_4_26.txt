@@ -1,0 +1,86 @@
+BOHEMIA — VERDICTS, THE FOUR CIVICS
+8/4/26. WORLD lane. Paolo, verbatim.
+
+    1. Cityhall — 85% both
+    2. Courthouse — 85% both
+    3. Terminal — 85% both
+    4. Chapel — 85 both
+
+    all are good to go for now. all your failures and training data record them.
+
+APPROVED, all four, on both artefacts (THE WALKING and THE ICON).
+
+WHAT THE APPROVAL UNLOCKS
+Approval unlocks volume, and what it unlocked here is the icon LANGUAGE. He judged the
+big-icons rules on four samples and passed them, so the same rules were then applied to
+the nineteen districts that still had no map icon at all. That is the whole point of
+judging a sample: the ruling scales, the judging does not have to.
+
+THE ROAD FROM 30% TO 85%, IN HIS OWN NUMBERS
+    round 1   cityhall 50/50   courthouse 50/50   terminal 50/50   chapel 65/50
+    round 2   cityhall 65/65   courthouse 70/65   terminal 75/70   chapel 75/0
+    round 3   cityhall 80/80   courthouse 80/80   terminal 80/80   chapel 80/50
+    round 4   cityhall 85/85   courthouse 85/85   terminal 85/85   chapel 85/85
+
+Four rounds. Every point came from a MEASURED pipeline fix, never from a redraw:
+the prism cap, the door plane, the window mullion, the plot rectangle, the draw order.
+Each one was a value passed by hand where a value could be derived, and each one was
+caught by him and not by me.
+
+
+=============================================================================
+"ALL YOUR FAILURES AND TRAINING DATA RECORD THEM." — the ruling, answered.
+=============================================================================
+
+I cannot write to my own weights. The repo is the memory, so here is the ledger.
+Full write-ups: laws/BOHEMIA_PAOLO_FEEDBACK_MASTER.md and the records below.
+
+--- THE ONE PATTERN UNDERNEATH ALMOST ALL OF IT ---------------------------
+A VALUE PASSED BY HAND WHERE A VALUE COULD BE DERIVED. Six sightings in three days:
+
+  1. THE PRISM CAP        stepped by 2 and repeated a vertex, so every round roof was a
+                          torn tarp. He called it "glitchy". The cap is a centred fan now.
+  2. THE DOOR PLANE       a bare x and a bare y-range, with nothing checking a wall was
+                          behind it. Three of four civics had a door hanging in the air.
+                          _door_face reads the face off the solid; a door CANNOT miss now.
+  3. THE WINDOW MULLION   fractional pitch, so the last column sliced. _snap_grid floors
+                          to whole pixels.
+  4. THE PLOT RECTANGLE   every builder guessed (-3,-3,15,15) whatever it actually built,
+                          so the sprite framed on the guess and the building sat small in
+                          the middle of a pad. The pad is fitted to the real footprint now.
+  5. THE FILE PATH        21 gates and tools each hand-wrote WHERE the city lives and WHAT
+                          SHAPE it is in. One legitimate refactor turned 19 of them red,
+                          and five spent the outage accusing HIS OWN ART of never shipping.
+                          One resolver knows now: gates/bohemia_city_app.js.
+  6. THE PALETTE EXEMPTION legendOk said "if(c!==0 && ...)" -- it exempted code 0 BY NAME,
+                          and sixteen districts drew an uncoloured code 0 behind it.
+                          70% of every mountain plot. 45% of every suburb.
+
+If it can be derived, derive it. A hand-written fact is a fact that goes stale silently.
+
+--- FAILURES OF PROCESS, WHICH COST HIM MORE THAN THE BUGS ----------------
+  I ANSWERED A RULING WITH A TWEAK. He said the icons were "trying so hard to have some
+    shade shit". I made the canopies SMALLER. He then had to say "new rule no more
+    canopies". Finding a legal way to ship the rejected thing IS the violation, and it is
+    named in the STOP PRODUCING law. A ruling is not a design conversation.
+
+  I SHOWED HIM PICTURES HE COULD NOT IDENTIFY. Four renders in a grid, unlabelled, and
+    then asked for scores. "You are showing me pictures, but I don't know which is which."
+    A picture he cannot identify is a picture he cannot judge. Every image carries its own
+    name in the pixels now, and its own score lines.
+
+  I LET A DOSSIER LIE. City hall's write-up still described the entry canopy a day after
+    the canopy was deleted. Every pixel answered for means the write-up too.
+
+  I DELETED 284 LINES OF ANOTHER LANE'S HANDOFF resolving a merge, and a gate went GREEN
+    because of it -- the graveyard gate stopped complaining because I had removed the line
+    it was complaining about. A green that arrives because evidence disappeared is worse
+    than the red. Restored, verified line-for-line against main, and the red came back.
+
+  I ASKED HIM TO RE-CONFIRM THINGS HE HAD ALREADY SAID. Notes are rulings (7/19). If he
+    said it, build it; thumbs are for fresh unseen candidates only.
+
+--- WHAT ACTUALLY MOVED THE NUMBERS ---------------------------------------
+Not one point came from redrawing. Every point came from finding the mechanism that was
+wrong and fixing it once, for all 47. That is the FACTORY LAW working: a fix to the
+factory is a fix to everything the factory has ever made.

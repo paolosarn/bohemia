@@ -29,7 +29,12 @@ const MODULES = ['apartment', 'battery', 'boneyard', 'cemetery', 'chapel', 'city
   // 7/27: four DISTGEN types the dump never listed, so they were invisible to every
   // consumer of it -- including the bulk judge, which is meant to show him EVERYTHING.
   // (gated + estate share the SUBURB generator, so one plate covers all three.)
-  'suburb', 'substation'];
+  'suburb', 'substation',
+  // 8/4: the last six the dump still could not see, so the NO-ICON DEBT could not be
+  // paid for them -- their palettes were simply not in the file the factory reads.
+  // arterial/freeway/wash are the road-and-channel surfaces; desert/mountain/water are
+  // the terrain the valley is mostly made of.
+  'arterial', 'freeway', 'desert', 'mountain', 'water'];
 // require = self-register into K for most modules; a few (e.g. commercial) only
 // register when a GLOBAL K exists (browser), so also keep each module's exported
 // API as a fallback source of generate/palette/legend.

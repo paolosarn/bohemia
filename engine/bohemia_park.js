@@ -109,7 +109,11 @@
       footprints:K.footprints(g,function(v){return v===2;})};
   }
 
-  var PALETTE={1:'#6a6a70',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#566058',7:'#5a4f38',
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#453e30',1:'#6a6a70',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#566058',7:'#5a4f38',
     8:'#8a6a5a',9:'#3a4a52',10:'#c9c1aa',11:'#55555f',12:'#41414a',13:'#8f8676'};
   // TILE SPEC (the "note section" for the tiling phase): every code -> name, kind, and its
   // ACT-1 DEAD-WORLD material. act 2/3 evolution is CONTENTS-PAOLO'S ([PENDING] in the sheet).

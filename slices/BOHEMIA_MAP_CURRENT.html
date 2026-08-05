@@ -1,16 +1,16 @@
 <!doctype html><html><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>BOHEMIA MAP</title>
-<!-- engine-md5:engine/bohemia_district_kit.js:02b7080161f574266d4d1a6c81a525db -->
-<!-- engine-md5:engine/bohemia_suburb.js:018727fa7266d822df77ecd17ce80ffd -->
+<!-- engine-md5:engine/bohemia_district_kit.js:a422074024d78350335f025d640e2d77 -->
+<!-- engine-md5:engine/bohemia_suburb.js:07dd23c762a2849e5030a9f46173f46f -->
 <!-- engine-md5:engine/bohemia_commercial.js:0d05d874bd1ba04f616b3cdf40249b29 -->
 <!-- engine-md5:engine/bohemia_industrial.js:8baebb1d5c34ae13b1fda3bb0526d321 -->
-<!-- engine-md5:engine/bohemia_medical.js:5c1928d8f38aedf1552b10649cc43c6e -->
-<!-- engine-md5:engine/bohemia_solar.js:f13ee1ac090aa3b8b84cffac053d2c47 -->
-<!-- engine-md5:engine/bohemia_park.js:c7953835eef602d1844acb4654873bf0 -->
-<!-- engine-md5:engine/bohemia_wash.js:fc00af7177d7712d4591a8231d1f64b3 -->
-<!-- engine-md5:engine/bohemia_cemetery.js:62ddddba68af73317fab13c14799e196 -->
-<!-- engine-md5:engine/bohemia_drivein.js:a3bf711801b19d49e414bcf656c80825 -->
+<!-- engine-md5:engine/bohemia_medical.js:b541ae9d4b6b3f4368d4e3bd77289371 -->
+<!-- engine-md5:engine/bohemia_solar.js:36eb16d5ea4693713acc56d1f065d6f4 -->
+<!-- engine-md5:engine/bohemia_park.js:3b38ed7a6f64dd9708a200d99ddce534 -->
+<!-- engine-md5:engine/bohemia_wash.js:e220eb1134be15c5b3a9c2f13c92dc5f -->
+<!-- engine-md5:engine/bohemia_cemetery.js:b09a56ea6f4bfe37da0693dc05229617 -->
+<!-- engine-md5:engine/bohemia_drivein.js:4c88aa8c118d1e21f2f209c3edeedc1d -->
 <!-- engine-md5:engine/bohemia_golf.js:19265a9dff9af40c8d23e57030944ef0 -->
 <!-- engine-md5:engine/bohemia_stadium.js:eec69a7325925c924c4ad611af74b4b6 -->
 <!-- engine-md5:engine/bohemia_truckstop.js:3d5371a05f88907678895a5c678be73a -->
@@ -38,19 +38,19 @@
 <!-- engine-md5:engine/bohemia_cityhall.js:b0222882b6844cfe79ab7c323e330663 -->
 <!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
 <!-- engine-md5:engine/bohemia_terminal.js:ce047c09c723242b13f75789f82c8d6e -->
-<!-- engine-md5:engine/bohemia_arterial.js:ed7deb6eaa1620ae9a35fc12c70dde8c -->
-<!-- engine-md5:engine/bohemia_freeway.js:dc508616d200065a270789daa7d96399 -->
+<!-- engine-md5:engine/bohemia_arterial.js:a3cc2405b4fc93da05daf3a2a7829361 -->
+<!-- engine-md5:engine/bohemia_freeway.js:bf988f2c962ce363308573b72d411de0 -->
 <!-- engine-md5:engine/bohemia_terrain_noise.js:504a0a8b9db9ba1c15f08f951c9203e6 -->
-<!-- engine-md5:engine/bohemia_airfield.js:218471d6e10c218663aba935b83d0768 -->
-<!-- engine-md5:engine/bohemia_rail.js:faf2e0551e77393895019929f0a86fa4 -->
-<!-- engine-md5:engine/bohemia_interchange.js:b8c8ff977a8e46e465621b07516fafa4 -->
+<!-- engine-md5:engine/bohemia_airfield.js:4e2fd12f16f7044e02f5e6571eeae884 -->
+<!-- engine-md5:engine/bohemia_rail.js:96cad54411fbf0ff9657177de66bec31 -->
+<!-- engine-md5:engine/bohemia_interchange.js:26c583229a20398e8d1d29504600195e -->
 <!-- engine-md5:engine/bohemia_campus.js:d4c72302bcf9e3171f8c47b0331482ce -->
 <!-- engine-md5:engine/bohemia_speedway.js:0eb22581841ac6a6aa37821369ab872c -->
 <!-- engine-md5:engine/bohemia_town.js:7ee0d22ef47c5c57c5f4078a4184f7a1 -->
 <!-- engine-md5:engine/bohemia_ballpark.js:1c29a5e01563d387a47415891a68dd9e -->
-<!-- engine-md5:engine/bohemia_desert.js:15b4c3fca9ebcbfc40dc5e93503a5bcf -->
-<!-- engine-md5:engine/bohemia_mountain.js:56a331b1f6f0947c87301df2f8fdffa8 -->
-<!-- engine-md5:engine/bohemia_water.js:58ae095c13335690af8d5dd5e9e3b3bf -->
+<!-- engine-md5:engine/bohemia_desert.js:3bb9ad1318628ec729d46bdc20477acf -->
+<!-- engine-md5:engine/bohemia_mountain.js:737d45aa714ee95ef647a241d2ee1fcc -->
+<!-- engine-md5:engine/bohemia_water.js:e44540df91bcbc18f76810e897f91692 -->
 <!-- engine-md5:engine/bohemia_overmap.js:92225d2e508114dff78dd74b79e429d9 -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
@@ -541,7 +541,12 @@
 
   // EXPLAIN-EVERY-TILE (Paolo 7/18): every non-ground tile must map to a named thing in the
   // district's legend (palette), and there must be little unexplained void.
-  function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(c!==0 && !(c in palette)) return false; } return true; }
+  /* legendOk EXEMPTED CODE 0 BY NAME and hid an uncoloured tile in SIXTEEN districts --
+     70% of every mountain plot, 45% of every suburb. 0 meant "void" once; every module
+     gives it a real legend entry now ("bedrock face", "open water", "dead-ground"), so
+     the exemption was checking that a tile nobody had coloured was allowed to stay
+     uncoloured. A GATE THAT EXEMPTS THE MOST-USED CODE IS NOT CHECKING ANYTHING. */
+  function legendOk(g,palette){ for(var y=0;y<g.length;y++)for(var x=0;x<g[0].length;x++){ var c=g[y][x]; if(!(c in palette)) return false; } return true; }
   function voidFraction(g){ var W=g[0].length,H=g.length,z=0; for(var y=0;y<H;y++)for(var x=0;x<W;x++)if(g[y][x]===0)z++; return z/(W*H); }
   // largest contiguous blob of a single code that isn't a real structure — catches "big blank slabs"
   function largestBlob(g,isBlank){ var W=g[0].length,H=g.length,seen={},best=0,d4=[[1,0],[-1,0],[0,1],[0,-1]];
@@ -936,7 +941,11 @@
     while(st.length){var p=st.pop();reach++;for(var i=0,d=[[1,0],[-1,0],[0,1],[0,-1]];i<4;i++){var nx=p[0]+d[i][0],ny=p[1]+d[i][1],k=nx+','+ny;
       if(seen[k]||nx<0||ny<0||nx>=W||ny>=H)continue;var cc=g[ny][nx];if(cc===1||cc===5||cc===3||cc===6){seen[k]=1;st.push([nx,ny]);}}}
     return reach/total>0.9;}
-  var PALETTE={1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',10:'#57575f'};
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#3f3f47',4:'#6b6152',5:'#c79a3f',6:'#6b6b74',9:'#9a938a',10:'#57575f'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   // ACT 1 is a DEAD suburb: NO vegetation ever — dead-dirt yards, no trees/pools/grass.
   var LEGEND={
@@ -1488,7 +1497,11 @@
   // a car reaches the campus drive network (code 1) from the street curb cut, in ANY placement
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={1:'#33333c',2:'#8a8478',3:'#55503f',4:'#c7a24a',5:'#c79a3f',6:'#7a7a80',7:'#9a9088',8:'#4c4c55',9:'#b04038',10:'#c9c1aa',11:'#5a5a64'};
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#33333c',2:'#8a8478',3:'#55503f',4:'#c7a24a',5:'#c79a3f',6:'#7a7a80',7:'#9a9088',8:'#4c4c55',9:'#b04038',10:'#c9c1aa',11:'#5a5a64'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 dead-world material.
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / unbuilt gaps)'},
@@ -1589,7 +1602,11 @@
   // placement (STREET-AWARE/DRIVABLE LAW 7/19). Solar's roads run edge-to-edge so this is high.
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.9; }
 
-  var PALETTE={1:'#5a5346',2:'#7a7266',3:'#4a4438',4:'#6b6b74',5:'#c79a3f',6:'#8a8a92',7:'#2e3440'};
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#5a5346',2:'#7a7266',3:'#4a4438',4:'#6b6b74',5:'#c79a3f',6:'#8a8a92',7:'#2e3440'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 material. NOTE the
   // CLUSTERED-POWER lore: this plant is INTACT + generating while the world is dead — so its
   // panels/switchgear read maintained (eerily perfect), not decayed, unlike other districts.
@@ -1732,7 +1749,11 @@
       footprints:K.footprints(g,function(v){return v===2;})};
   }
 
-  var PALETTE={1:'#6a6a70',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#566058',7:'#5a4f38',
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#453e30',1:'#6a6a70',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#566058',7:'#5a4f38',
     8:'#8a6a5a',9:'#3a4a52',10:'#c9c1aa',11:'#55555f',12:'#41414a',13:'#8f8676'};
   // TILE SPEC (the "note section" for the tiling phase): every code -> name, kind, and its
   // ACT-1 DEAD-WORLD material. act 2/3 evolution is CONTENTS-PAOLO'S ([PENDING] in the sheet).
@@ -1860,7 +1881,11 @@
   // a maintenance vehicle reaches the O&M roads from the street, any placement
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={1:'#4a4640',2:'#6b6660',3:'#6a5f42',4:'#7a756c',5:'#c79a3f',6:'#6e6a61',7:'#4a5048',
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#4a422f',1:'#4a4640',2:'#6b6660',3:'#6a5f42',4:'#7a756c',5:'#c79a3f',6:'#6e6a61',7:'#4a5048',
     8:'#141410',9:'#6b6355',10:'#8a8f94',11:'#8a7a5a'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt / channel embankment, cracked'},
@@ -1988,7 +2013,11 @@
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={1:'#4a4640',2:'#8a8478',3:'#4a4030',4:'#5a4f38',5:'#c79a3f',6:'#9a9488',7:'#9a938a',
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#4a4640',2:'#8a8478',3:'#4a4030',4:'#5a4f38',5:'#c79a3f',6:'#9a9488',7:'#9a938a',
     8:'#8f8a80',9:'#3a4a52',10:'#6a6a70',11:'#b0a89a',12:'#55555f',13:'#8f8676'};
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / bare gaps)'},
@@ -2099,7 +2128,11 @@
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={1:'#33333c',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#8a8890',7:'#6b6355',
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#4a422f',1:'#33333c',2:'#7a7266',3:'#4a4030',4:'#c9c1aa',5:'#c79a3f',6:'#8a8890',7:'#6b6355',
     8:'#55555f',9:'#b0863a',10:'#8f8676',11:'#8a6a5a'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the parcel edge (setback/berms)'},
@@ -6338,6 +6371,10 @@
   }
 
   var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#b3ab97', 4: '#6f6a5e', 5: '#6b6b74', 6: '#8a8a92',
     7: '#6a5f47', 8: '#7a7266', 9: '#8f8676', 10: '#6a5f4a', 11: '#3a4520', 12: '#6a6a72',
     13: '#5c5648', 14: '#55555f', 15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a'
@@ -6704,6 +6741,10 @@
   }
 
   var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#3d3d46', 4: '#8a8a92', 5: '#6b6b74', 6: '#6a5f47',
     7: '#3a4520', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
     13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842', 16: '#5a5348', 17: '#8e8a84'
@@ -7050,6 +7091,10 @@
   }
 
   var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#4e4736',
     1: '#4a4a52', 2: '#b3ab97', 3: '#3f3f47', 4: '#50505a', 5: '#a08a3a', 6: '#565660',
     7: '#a8a08c', 8: '#7a7266', 9: '#6a6a72', 10: '#8a8a92', 11: '#8f8f97', 12: '#5c6152',
     13: '#6b6b74', 14: '#44444c', 15: '#8f8676', 16: '#3a3a42', 17: '#6f6a5e'
@@ -7485,6 +7530,10 @@
   }
 
   var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#57503f',
     1: '#5a5348', 2: '#4a4038', 3: '#8e8a84', 4: '#6a6152', 5: '#5b5647', 6: '#726853',
     7: '#6b6b74', 8: '#7d7a72', 9: '#6d675c', 10: '#4e4a46', 11: '#43413e', 12: '#3f3f47',
     13: '#a8a08c', 14: '#8f8676', 15: '#585349', 16: '#3a4520', 17: '#8a867e', 18: '#7a7266',
@@ -7833,6 +7882,10 @@
   }
 
   var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#3d3d46', 4: '#8a8a92', 5: '#6b6b74', 6: '#6a5f47',
     7: '#3a4520', 8: '#7a7266', 9: '#8f8676', 10: '#55555f', 11: '#4a4a54', 12: '#5c5c66',
     13: '#6f6a5e', 14: '#6a6a72', 15: '#4a4842', 16: '#38383f', 17: '#42424a',
@@ -9015,6 +9068,10 @@
   }
 
   var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#6e6045',
     1: '#8f8062', 2: '#4a5230', 3: '#5c5a3a', 4: '#a89c7e', 5: '#7e7256', 6: '#7a6c4e',
     7: '#6a6258', 8: '#4a4038', 9: '#9a8d70', 10: '#a09684', 11: '#6f6551', 12: '#5a5334',
     13: '#b0a070'
@@ -9244,6 +9301,10 @@
   }
 
   var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#5b5346',
     1: '#a09781', 2: '#463f36', 3: '#6e6656', 4: '#7f7666', 5: '#8b8270', 6: '#49512f',
     7: '#57503f', 8: '#8f8570', 9: '#b5ab93'
   };
@@ -9429,6 +9490,10 @@
   }
 
   var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#2c505c',
     1: '#3c6a76', 2: '#b8b09c', 3: '#8a8069', 4: '#948a72', 5: '#a49a80', 6: '#6b6153',
     7: '#a8a396', 8: '#5c564a', 9: '#4a5230', 10: '#6a6458'
   };

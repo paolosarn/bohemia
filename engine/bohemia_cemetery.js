@@ -87,7 +87,11 @@
   }
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
 
-  var PALETTE={1:'#4a4640',2:'#8a8478',3:'#4a4030',4:'#5a4f38',5:'#c79a3f',6:'#9a9488',7:'#9a938a',
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#4a4640',2:'#8a8478',3:'#4a4030',4:'#5a4f38',5:'#c79a3f',6:'#9a9488',7:'#9a938a',
     8:'#8f8a80',9:'#3a4a52',10:'#6a6a70',11:'#b0a89a',12:'#55555f',13:'#8f8676'};
   var LEGEND={
     0:{name:'dead-ground',        kind:'ground',    act1:'bare cracked dirt (setback / bare gaps)'},

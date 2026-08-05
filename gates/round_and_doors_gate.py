@@ -152,6 +152,21 @@ DOORLESS_DEBT = {
     'ballpark', 'farm', 'firestation', 'industrial', 'interchange', 'solar',
     'speedway', 'stadium', 'storage', 'swapmeet', 'town', 'warehouse',
 }
+# NO DOOR BY NATURE, and named rather than quietly waved through (8/4). None of these six
+# has an enterable building in it at all -- a ridge, open desert, a lake shore, a lined
+# flood channel, a road and a freeway. Cutting a door into any of them would be inventing
+# a building that the walkable district does not have, which is a worse failure than the
+# missing door. They are held to the same "no NEW doorless hero" rule as everything else:
+# this set may not grow without the reason being written next to it.
+DOORLESS_BY_NATURE = {
+    'mountain',   # a limestone ridge
+    'desert',     # open Mojave
+    'water',      # a drawn-down lake shore
+    'wash',       # a lined flood channel (the SEWER TUNNEL MOUTH is a portal, not a door)
+    'arterial',   # six lanes and a signal mast
+    'freeway',    # lanes, a deck and a gantry
+}
+DOORLESS_DEBT = DOORLESS_DEBT | DOORLESS_BY_NATURE
 new_doorless = sorted(set(doorless) - DOORLESS_DEBT)
 stale = sorted(DOORLESS_DEBT - set(doorless))
 ok('NO NEW DOORLESS HERO: a building you cannot enter is not a building, and anything '
@@ -185,6 +200,21 @@ for d, fn in sorted(F.HEROES.items()):
                 continue
             ox_ = min(ax + adx, bx + bdx) - max(ax, bx)
             oy_ = min(ay + ady, by + bdy) - max(ay, by)
+            # TWO THINGS THAT ARE NOT TUNNELS, and both are shapes we deliberately build
+            # (8/4). The test is about a mass passing THROUGH a slab at mid-height.
+            #   CONTAINED: the slab sits wholly inside the mass's own plan -- it is that
+            #     mass's cap, lip or cornice. A landfill terrace, a cliff band on a ridge.
+            #   STACKED: the mass starts at or above the slab's top -- it stands ON it.
+            #     Every stepped form in the valley is this, and a step is not a tunnel.
+            contained = (ax >= bx - 0.02 and ay >= by - 0.02 and
+                         ax + adx <= bx + bdx + 0.02 and ay + ady <= by + bdy + 0.02)
+            #   STACKED: the mass starts no LOWER than the slab does -- it rises from the
+            #     same platform, or from on top of it. A tunnel is the opposite shape: the
+            #     mass starts well BELOW the slab and carries on above it, which is what
+            #     the terminal's solar deck through the curved concourse actually did.
+            stacked = bz >= az - 0.05
+            if contained or stacked:
+                continue
             if ox_ > 0.45 and oy_ > 0.45:
                 tunnels.append('%s slab top z=%.1f crossed by a mass to z=%.1f (%.1f x %.1f)'
                                % (d, az + adz, bz + bdz, ox_, oy_))
@@ -212,11 +242,12 @@ for span, count in ((41.0, 8), (70.0, 4), (134.0, 6), (23.0, 9), (200.0, 12)):
 # Paolo, 8/2, scoring the chapel: "walking 75% icon 0%". There was no chapel icon at all,
 # and he priced the empty panel exactly right -- a district with no map icon is a district
 # you cannot find. 22 of 45 districts had none. Named so the list can only SHRINK.
-NO_ICON_DEBT = {
-    'airbase', 'airport', 'apartment', 'arterial', 'boneyard', 'cemetery', 'desert',
-    'drivein', 'freeway', 'golf', 'jail', 'landfill', 'mountain', 'railyard',
-    'substation', 'suburb', 'trailer', 'wash', 'water', 'waterpark', 'watertreat',
-}
+# 8/4: PAID, 21 -> 2. He approved the four civics at 85% on the big-icons language and
+# APPROVAL UNLOCKS VOLUME, so the nineteen districts that still rendered as nothing on the
+# map got built in it. What is left is airport and airbase, and they are not debt in the
+# same sense: both builders are finished and correct and both are HELD OUT deliberately
+# because the aeroplane does not read at 1x1 and that is Paolo's design call to make.
+NO_ICON_DEBT = {'airbase', 'airport'}
 import json as _json, subprocess as _sub
 _t = _sub.run(['node', '-e',
                "const K=require('./engine/bohemia_district_kit.js');"

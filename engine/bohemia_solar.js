@@ -62,7 +62,11 @@
   // placement (STREET-AWARE/DRIVABLE LAW 7/19). Solar's roads run edge-to-edge so this is high.
   function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.9; }
 
-  var PALETTE={1:'#5a5346',2:'#7a7266',3:'#4a4438',4:'#6b6b74',5:'#c79a3f',6:'#8a8a92',7:'#2e3440'};
+  var PALETTE={
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#463f30',1:'#5a5346',2:'#7a7266',3:'#4a4438',4:'#6b6b74',5:'#c79a3f',6:'#8a8a92',7:'#2e3440'};
   // TILE SPEC (the "note section" for tiling): code -> name, kind, ACT-1 material. NOTE the
   // CLUSTERED-POWER lore: this plant is INTACT + generating while the world is dead — so its
   // panels/switchgear read maintained (eerily perfect), not decayed, unlike other districts.

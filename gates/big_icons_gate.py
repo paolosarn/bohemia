@@ -82,7 +82,17 @@ TALL_FLOOR = 6.0            # world units, the tallest solid in the scene
 # TWO DISTRICTS ARE LOW BY NATURE and forcing a tower onto them would be a lie: a SPEEDWAY's
 # subject is a banked track and a SELF-STORAGE lot is rows of single-storey units. They are
 # named rather than exempted silently, and they still have to pass the fill and area tests.
-LOW_BY_NATURE = {'speedway', 'storage'}
+LOW_BY_NATURE = {
+    'speedway',   # the subject is a banked track
+    'storage',    # rows of single-storey units
+    # 8/4, the terrain and the road surfaces. Forcing a tower onto any of these would be
+    # a lie about the map, which is a worse failure than a low icon: OPEN DESERT has no
+    # building in it, a LINED FLOOD CHANNEL is a trench, a GOLF COURSE is greens and
+    # bunkers, and a SUBDIVISION and a TRAILER PARK are single-storey by definition --
+    # that IS the form. They are named here, never silently exempt, and they still have
+    # to pass the area and fill tests like everything else.
+    'desert', 'wash', 'golf', 'suburb', 'trailer',
+}
 
 small, empty, squat = [], [], []
 for d, h in sorted(heroes.items()):

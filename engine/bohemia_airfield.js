@@ -202,6 +202,10 @@
   }
 
   var PALETTE = {
+    /* CODE 0 IS A REAL TILE, NOT A VOID (8/4). Its legend names it and the plot draws
+       it, but it had no colour here -- so every judging surface painted it MAGENTA,
+       which is both a lie about the game and a PURPLE RESERVATION breach. */
+    0: '#4e4736',
     1: '#4a4a52', 2: '#b3ab97', 3: '#3f3f47', 4: '#50505a', 5: '#a08a3a', 6: '#565660',
     7: '#a8a08c', 8: '#7a7266', 9: '#6a6a72', 10: '#8a8a92', 11: '#8f8f97', 12: '#5c6152',
     13: '#6b6b74', 14: '#44444c', 15: '#8f8676', 16: '#3a3a42', 17: '#6f6a5e'

@@ -111,6 +111,10 @@ def district_plot(name):
     px = im.load()
     for y in range(H):
         for x in range(W):
+            # MAGENTA IS A BUG REPORT, NOT A COLOUR. It stays as the last resort so a
+            # missing palette entry is impossible to miss -- but it must never be the
+            # normal path, and until 8/4 it was, for every tile of code 0 in sixteen
+            # districts. Those all carry a real colour now.
             h = pal.get(str(g[y][x])) or pal.get(g[y][x]) or '#ff00ff'
             px[x, y] = (int(h[1:3], 16), int(h[3:5], 16), int(h[5:7], 16))
     return im, d['summary'], d['reference']

@@ -51,11 +51,10 @@ const ICON_REQUIRED = ['rail', 'interchange', 'campus', 'speedway', 'town', 'bal
    shorter. airport/airbase are called out separately below because they are not merely
    un-started — they were built, they failed the readability bar, and the reason is
    written down in the factory so nobody re-walks it. */
-const OWED = [
-  'suburb', 'trailer', 'apartment', 'wash', 'cemetery', 'drivein', 'golf', 'jail',
-  'landfill', 'railyard', 'substation', 'watertreat', 'boneyard', 'waterpark',
-  'airport', 'airbase', 'arterial', 'freeway', 'desert', 'mountain', 'water',
-];
+/* 8/4: PAID, 21 -> 2. Approval unlocks volume: he scored the four civics 85% on the
+   big-icons language, so the nineteen districts that still rendered as nothing on the map
+   were built in it. airport/airbase stay -- see the note in the factory above HEROES. */
+const OWED = ['airport', 'airbase'];
 
 // ---- 1. NEW WORK CANNOT ADD DEBT --------------------------------------------
 {
