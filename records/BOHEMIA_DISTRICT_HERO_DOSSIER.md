@@ -305,75 +305,206 @@ _Church — matched: the CRUCIFORM plan (nave crossed by the transepts, a rounde
 ## APARTMENT  (377x246, anchor 188,144)
 _Garden apartments — matched: three walk-up BLOCKS around a court, their circulation on the OUTSIDE the way Sun Belt walk-ups build it (open WALKWAY DECKS on two levels and the stair run at the end), the DRAINED POOL in the middle of the court, the clubhouse, and the perimeter fence._
 
+- walk-up blocks — three stucco masses round a court (walkable code 2 "apartment building"), windows w/ dead panes
+- exterior walkway decks — two levels cantilevered off the courtyard face (code 15 "exterior stair"), the rails on them
+- stair tower — the run at the end of each deck (code 15), which is where the circulation actually is on a Sun Belt walk-up
+- drained pool — the court pool, empty (code 8 "drained pool"), its shallow end a step up
+- clubhouse — the low office/laundry mass with its door (code 7 "clubhouse")
+- perimeter fence posts — the corner posts of the property fence (code 12 "fence")
 
 ## SUBURB  (377x229, anchor 188,128)
 _Subdivision — matched: a CUL-DE-SAC bulb with eight houses shoulder to shoulder around it, gabled roofs, GARAGE doors facing the street, and the continuous BLOCK WALL that rings the whole thing — the defining feature of a Sun Belt subdivision from the air (7/21 Vegas urbanism research)._
 
+- houses — eight on the bulb, majority two-storey which is what Summerlin is (code 2 "house", code 9 "house upper floor")
+- gable roofs — pitched over every house (code 2 mass), ridge running the long way
+- garages — the door facing the street on each lot (code 6 "garage")
+- front doors — at grade on the street face of the front three (code 2 face)
+- cul-de-sac bulb — the road disc the lots ring (code 1 "road", code 3 "driveway")
+- block wall — the continuous privacy wall round the whole subdivision (code 4 "wall"), the defining Sun Belt feature
 
 ## TRAILER  (377x217, anchor 188,115)
 _Mobile home park — matched: fifteen SINGLE-WIDES on their pads, all the same way round, skirted, with a ridge cap, a SHED and a PROPANE BOTTLE beside each one — and the one BURNED-OUT unit that stopped a row. A trailer park reads as a barcode from above and this one does._
 
+- single-wides — long narrow units in echelon off the loop (code 2 "mobile home"), ridge cap on each
+- manager's double-wide — twice the width, crosswise at the mouth, with its door (code 2)
+- burned unit — the one that stopped a rank (code 8 "burned trailer")
+- sheds — a tin shed beside each pad (code 7 "shed")
+- propane bottles — the tank at every unit (code 13 "propane tank")
+- yard light — the tall pole the whole lot is hung off (code 9 "pole light")
+- perimeter fence posts — corner posts of the park fence (code 12 "fence")
 
 ## CEMETERY  (350x185, anchor 175,90)
 _Memorial park — matched: the MAUSOLEUM with its colonnade front (the only building with height on a cemetery), the HEADSTONE FIELD gridded around it, the OBELISK monument, a columbarium wall and the dead trees in their grates._
 
+- mausoleum — the only building with height on a memorial park (code 7 "mausoleum"), its door at grade
+- colonnade — the row of piers across the mausoleum front (code 7 face)
+- headstone field — the grid of small pale marks (code 6 "headstone"), which is the pattern from the air
+- obelisk — the monument on its plinth with a capped tip (code 11 "monument (obelisk)")
+- columbarium wall — the niche wall on the west (code 8 "columbarium wall")
+- dead trees — in their grates across the lawn (code 3 "dead tree")
 
 ## JAIL  (304x259, anchor 152,176)
 _Detention center — matched, on the CLARK COUNTY DETENTION CENTER (JMA with HOK, 1981-84): a twelve-storey TOWER with narrow horizontal window bands, designed on a brief to NOT LOOK LIKE A JAIL because it sits blocks from Fremont. The walled SECURE YARD with razor wire and four GUARD TOWERS at its feet is what gives it away._
 
+- detention tower — twelve storeys of narrow horizontal window bands (code 2 "building (cell block/admin)"), an office block on purpose
+- intake block — the low mass beside it with the public door (code 2)
+- secure yard — the concrete floor inside the wall (code 4 "secure yard concrete", code 7 "recreation yard")
+- perimeter wall — razor wire along its top (code 12 "perimeter wall", code 8 "razor wire (wall top)")
+- guard towers — four, one at each corner of the yard, glazed cabs (code 6 "guard tower")
+- pole light — in the yard (code 9 "pole light")
 
 ## LANDFILL  (306x182, anchor 149,101)
 _Landfill — matched, on APEX REGIONAL (2,200 acres, the largest in the world by area and volume): the TERRACED MOUND, four stepped benches with waste layered under each like a sheet cake, GAS WELLS piped down the face, a FLARE STACK burning what the methane plant does not take, the scale house and a leachate pond._
 
+- terraced mound — four stepped benches, each smaller and lighter (code 6 "waste fill")
+- cell berms — the lip round every bench (code 7 "cell berm")
+- working face — raw fill on the top bench with a dozer on it (code 4 "cover soil / dirt", code 10 "equipment (dozer/compactor)")
+- gas wells — piped down the face (code 13 "gas well / pipe")
+- flare stack — burning what the methane plant does not take (code 13)
+- scale house — the office at the gate with its door (code 2 "building (scale/office/gas)")
+- leachate pond — the evaporation pond (code 8 "leachate pond")
 
 ## RAILYARD  (313x238, anchor 156,153)
 _Rail yard — matched: the TRACK FAN spreading out of one throat (a shape nothing else in the valley makes), the ENGINE SHED at its head with a locomotive standing in the shed road, boxcars down the body roads, and the GANTRY CRANE straddling the container aisle._
 
+- running shed — a shed that swallows whole locomotives, five roads, roof monitors (code 2 "building (engine shed/depot/office)")
+- shed roads — the five door openings in its face (code 2 face)
+- track fan — parallel roads spreading out of one throat on ballast (code 6 "rail track", code 4 "ballast / gravel")
+- locomotive — standing in the shed road (code 8 "locomotive")
+- boxcars — dead on the body roads (code 7 "rolling stock (boxcar)")
+- gantry crane — straddling the container aisle on four legs (code 13 "gantry crane")
+- containers — stacked under it (code 10 "container")
+- pole light — over the yard (code 9 "pole light")
 
 ## SUBSTATION  (342x227, anchor 171,134)
 _Transmission substation — matched: a YARD OF FRAMES, not a building. Three lattice SWITCHGEAR structures carrying BUSBARS overhead on insulators, six TRANSFORMER BANKS with radiator fins and bushings under them, and the small control house. The open steel frame against sky is the only one in the valley._
 
+- switchgear lattice — three frames of legs carrying the gantries (code 7 "switchgear structure")
+- busbars — the conductor runs on insulators over the yard (code 8 "busbar / conductor", code 10 "insulator / arrestor")
+- transformer banks — heavy blocks with radiator fins and bushings (code 6 "transformer")
+- fire walls — blast-rated concrete between the banks, which is why a bank row is a wall of mass (code 2 face)
+- control house — the small building that runs it, with its door (code 2 "control house")
+- perimeter fence posts — corner posts of the double fence (code 12 "perimeter fence")
 
 ## WATERTREAT  (367x203, anchor 183,104)
 _Water reclamation plant — matched: CIRCLES, which no other industrial site has. Four CLARIFIER drums with the rotating bridge across each one and crusted sludge in the floor, the baffled AERATION CHANNEL beside them making the circles read as circles, the blower house and the pipe gallery._
 
+- clarifiers — big open drums, the only round plan in the valley (code 6 "clarifier wall / core")
+- rotating bridges — the arm across each drum on its centre drive (code 8 "pipe gallery / catwalk")
+- crusted floors — scum in the bottom of every drum (code 10 "crusted sludge / scum")
+- aeration channel — the baffled run beside them (code 7 "aeration / filter basin")
+- digesters — cone-roofed drums with the gas takeoff, the vertical that makes a plant read (code 2 "building (control / blower / chem)")
+- blower house — the control mass with its door (code 2)
+- pipe gallery — the run along the back on its stands (code 8)
 
 ## WATERPARK  (342x210, anchor 171,117)
 _Water park — matched, on the dead WET'N'WILD (27 acres on the Strip, 1985-2004): the SLIDE TOWER, four stacked platforms with FLUMES spiralling off all four corners, the drained WAVE POOL with its wave wall and shallow end, a splash pool, the locker building, the snack bar and the lounger row._
 
+- slide tower — four stacked platforms, the tallest thing on site (code 8 "slide tower")
+- flumes — spiralling down off all four corners (code 7 "lazy river channel")
+- wave pool — drained, its wave wall and shallow end (code 6 "drained wave pool")
+- splash pool — at the foot of a flume (code 9 "splash pool")
+- locker building — with its door at grade (code 2 "locker building")
+- snack bar — the small mass by the pool (code 13 "snack bar")
+- lounger row — chairs on the deck (code 11 "lounge chair")
 
 ## GOLF  (325x170, anchor 159,80)
 _Golf course — matched: three GREENS each ringed by its SAND BUNKER with the pin and flag standing in it — in act 1 the fairways are dead brown and only the sand still reads bright, so the bunkers do the work. Plus the dry water hazard, the tee boxes, the CLUBHOUSE under its gable and a cart left mid-round._
 
+- greens — mown discs with the pin still standing (code 6 "green (putting surface)", code 10 "flagstick / pin")
+- bunkers — the sand rings that do all the work once the fairways are dead (code 7 "sand bunker")
+- fairways — dead brown runs between them (code 4 "dead fairway")
+- dry hazard — the pond that stopped being one (code 8 "dry water hazard")
+- tee boxes — the flat pads (code 9 "tee box")
+- clubhouse — gabled, with its door (code 2 "building (clubhouse / pro shop)")
+- dead trees — the landscaping (code 12 "dead tree / landscaping")
+- abandoned cart — left mid-round (code 13 "abandoned golf cart")
 
 ## DRIVEIN  (324x265, anchor 162,177)
 _Drive-in theater — matched: the SCREEN TOWER, a flat wall four storeys high standing alone with its back bracing and nothing behind it, which is the most recognisable silhouette the American roadside has. Seven RAMPED ROWS of earth with speaker poles and the cars that never left, and the projection booth._
 
+- screen tower — a flat wall four storeys high standing alone (code 6 "screen tower")
+- back bracing — the raked struts holding it up, which is why it is a tower and not a wall
+- ramped rows — arcs of earth cars park nose-up on (code 4 "parking-row arc marking", code 1 "parking / drive asphalt")
+- speaker poles — down every row (code 7 "speaker pole")
+- abandoned cars — still on the ramps (code 8 "abandoned car")
+- projection booth — the low mass mid-field with its door (code 2 "building (snack bar/projection/booth)")
 
 ## BONEYARD  (349x244, anchor 174,150)
 _Wrecking yard — matched: six CRUSHED-CAR STACKS, flattened bodies piled six and eight high in leaning towers — a shape nothing else makes — with the CRANE and its grapple standing over them, loose wrecks in three faded colours filling the dirt aisles, tyre piles and the parts office._
 
+- crushed-car stacks — flattened bodies six and eight high in leaning towers (code 7 "crushed-car stack")
+- crane — tracks, house and a boom up over the stacks (code 8 "crane / crusher")
+- grapple — hanging off the fall (code 8)
+- loose wrecks — in the dirt aisles in three faded colours (code 6 "wrecked car (rust)", code 13 "wrecked car (faded blue)", code 14 "wrecked car (faded white)")
+- tyre piles — at the fence line (code 3 "scrap / tire pile")
+- parts office — with its door (code 2 "building (office / parts)")
+- perimeter fence posts — corner posts (code 12 "perimeter fence")
 
-## WASH  (345x185, anchor 172,91)
+## WASH  (347x186, anchor 173,92)
 _Flood channel — matched, on the LAS VEGAS WASH: a lined TRAPEZOIDAL CHANNEL cut straight across the plot, sloped concrete walls down to a flat invert with the low-flow trickle in it, riprap on the banks, a road BRIDGE on piers over it, and the SEWER TUNNEL MOUTH in the wall — which is the way IN, and why this district matters at all._
 
+- channel walls — sloped concrete cut down to the invert (code 2 "concrete flood structure")
+- coping — the lip along both banks (code 2)
+- invert — the flat floor with the low-flow trickle down it (code 6 "channel invert", code 7 "dead low-flow trickle")
+- sewer tunnel mouth — the opening in the north wall, which is the way IN (code 8 "SEWER TUNNEL MOUTH")
+- riprap — rock armour up the banks (code 9 "riprap")
+- bridge — the road deck on its piers with its rail (code 4 "channel bank", code 10 "chain-link fence")
+- staff gauge — the graduated mast on the wall, the only flood warning anybody down there gets (code 2)
+- dead brush — tumbleweed caught on the banks (code 3 "dead brush / tumbleweed")
 
-## FREEWAY  (331x187, anchor 165,97)
+## FREEWAY  (334x187, anchor 167,97)
 _Freeway — matched: the ELEVATED DECK on its columns crossing the lanes, a SIGN GANTRY over them with its panels blank, sound walls the length of both embankments, the median barrier and a dead semi in the slow lane. The deck and the gantry are SPANS, not canopies (8/2) — infrastructure carrying something across a gap._
 
+- travel lanes — the roadbed with its lane lines (code 1 "travel lane", code 2 "white lane line")
+- median barrier — the concrete run down the middle (code 4 "median barrier")
+- sound walls — both embankments (code 8 "sound wall")
+- overpass deck — carried on columns across the lanes, a SPAN not a canopy (code 12 "overpass deck", code 13 "bridge column")
+- sign gantry — over the lanes, its panels blank (code 14 "sign gantry")
+- dead semi — in the slow lane (code 11 "dead semi")
+- dead cars — where they stopped (code 10 "dead car")
 
 ## ARTERIAL  (300x175, anchor 151,93)
 _Arterial — matched: the INTERSECTION, with SIGNAL MASTS reaching their long arms out over the lanes and the heads hanging off them, crosswalk ladders on all four legs, the raised MEDIAN with its dead palms, sidewalk and block wall behind, and streetlights. The mast arm is the vertical; everything else is flat by nature._
 
+- roadway — six lanes plus the cross street (code 1 "asphalt roadway")
+- crosswalk ladders — on all four legs of the intersection (code 3 "crosswalk")
+- raised median — with its dead palms (code 4 "raised median", code 11 "dead palm / shrub")
+- signal masts — long arms out over the lanes with the heads hanging off them (code 12 "signal mast")
+- streetlights — on their stems (code 9 "streetlight")
+- sidewalk and block wall — behind the kerb (code 6 "sidewalk", code 8 "block wall")
+- dead cars — left in the lanes (code 14 "dead car")
 
 ## MOUNTAIN  (326x220, anchor 163,131)
 _Mountain — matched: a limestone RIDGE on the valley rim, a stepped massif rising to one summit with CLIFF BANDS across its sunward face, TALUS fans off the foot, a ravine cut into the flank and boulders on the apron. The tallest thing in the valley and it reads that way at map zoom._
 
+- massif — stepped prisms rising to one summit (code 0 "bedrock face", code 1 "ridge crest")
+- cliff bands — across the sunward face (code 2 "cliff band")
+- talus fans — off the foot (code 3 "talus / scree")
+- ravine — cut into the flank (code 4 "ravine floor", code 5 "dry drainage")
+- boulders — on the apron (code 7 "boulder")
+- desert shrub — the little that grows at that elevation (code 6 "desert shrub")
 
 ## DESERT  (343x228, anchor 171,136)
 _Open desert — LOW BY NATURE and named as such: there is no building in open Mojave and inventing one would be a lie about the map. What it has is TEXTURE — varnished desert pavement, rock lag, CREOSOTE in its evenly spaced grid (they poison each other's roots, which is why the spacing is even), bursage between them, a dry rill, rock outcrops, dead yucca, dumped debris and a burned car._
 
+- desert pavement — varnished dark, the base plane (code 0 "desert pavement")
+- rock lag and caliche — the patches over it (code 1 "rock lag", code 4 "caliche hardpan")
+- creosote — in an evenly spaced grid, because they poison each other roots (code 2 "creosote bush")
+- bursage — between them (code 3 "bursage / scrub")
+- dry rill — the drainage cut (code 5 "dry rill")
+- rock outcrop — the butte, the one vertical open Mojave has (code 11 "rock outcrop")
+- dead yucca — the stalks (code 12 "dead yucca")
+- dumped debris and a burned car — somebody has been here (code 7 "dumped debris", code 8 "burned car")
 
 ## WATER  (339x180, anchor 176,84)
 _Lake shore — LOW BY NATURE and named as such: the subject is a horizontal. What makes it legible is the BATHTUB RING, the white mineral band the water left on the rock as it dropped over twenty years, with the exposed lakebed cracking below it, shore rock above, and a LAUNCH RAMP that now ends a long way short of the water. The sunken boat is the punchline._
 
+- open water — the shrunken sheet (code 0 "open water", code 1 "shallow water")
+- bathtub ring — the white mineral band the water left on the rock (code 2 "bathtub ring")
+- exposed lakebed — cracking below it (code 3 "exposed lakebed", code 4 "cracked silt")
+- shell bed — the terrace above (code 5 "shell bed")
+- shore rock — the knobs on the top bench (code 6 "shore rock")
+- launch ramp — running down and ending a long way short of the water (code 7 "launch ramp")
+- sunken boat — the punchline (code 8 "sunken boat")
+- dead brush — on the benches (code 9 "dead brush")

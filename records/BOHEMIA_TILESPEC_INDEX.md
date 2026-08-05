@@ -12,7 +12,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [medical](tilespec/BOHEMIA_TILESPEC_medical.md) | civic | 12 | yes |
 | [solar](tilespec/BOHEMIA_TILESPEC_solar.md) | infrastructure | 8 | yes |
 | [park](tilespec/BOHEMIA_TILESPEC_park.md) | leisure | 14 | yes |
-| [wash](tilespec/BOHEMIA_TILESPEC_wash.md) | terrain | 12 | yes |
+| [wash](tilespec/BOHEMIA_TILESPEC_wash.md) | terrain | 13 | yes |
 | [cemetery](tilespec/BOHEMIA_TILESPEC_cemetery.md) | civic | 14 | yes |
 | [drivein](tilespec/BOHEMIA_TILESPEC_drivein.md) | leisure | 12 | yes |
 | [golf](tilespec/BOHEMIA_TILESPEC_golf.md) | leisure | 14 | yes |

@@ -77,7 +77,7 @@ tab's derived build went stale).
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
 WORLD (world-9lfjtf): 8/4 (g) LATEST -- *** THE FOUR CIVICS ARE APPROVED AT 85% AND THE
-NO-ICON DEBT IS PAID: 21 -> 2. *** Live on main, BUILD 8/4f.
+NO-ICON DEBT IS PAID: 21 -> 2. *** Live on main, BUILD 8/4j.
 
 === HIS VERDICT ===
 "Cityhall 85% both. Courthouse 85% both. Terminal 85% both. Chapel 85 both. all are good

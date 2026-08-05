@@ -2201,6 +2201,39 @@ def build_wash(P):
               {'c': _dark(CONC, 1.3 if k % 2 else 0.75)['c']})
     s.box((9.4, 0.0, 3.2), (0.28, 0.28, 3.4), {'c': _dark(BANK, 0.8)['c']})
     s.box((9.28, 0.22, 6.45), (0.52, 1.0, 0.22), {'c': _dark(BANK, 1.25)['c']})
+    # THE CAMP in the invert, under the bridge where the shade is: bedding, a drum, sheets
+    # of ply against the wall. The storm channels are where people actually live here, and
+    # it is the only thing down there that is not concrete.
+    # THE O&M GATE at the top of the bank, amber kerb: code 5 in this district's own legend,
+    # painted on the walkable plot and never drawn here. The icon had every grey thing on
+    # the plot and none of the one coloured one.
+    GATEC = P[5]
+    s.box((1.0, 11.4, 0), (0.22, 0.22, 1.5), {'c': _dark(GATEC, 0.75)['c']})
+    s.box((4.2, 11.4, 0), (0.22, 0.22, 1.5), {'c': _dark(GATEC, 0.75)['c']})
+    s.box((1.0, 11.45, 1.2), (3.4, 0.12, 0.22), {'c': GATEC})
+    s.box((1.2, 12.2, 0.02), (3.0, 0.5, 0.06), {'c': GATEC})
+    CAMP = P[11]
+    s.box((10.2, 4.2, -1.35), (1.6, 1.2, 0.45), {'top': _dark(CAMP, 1.12), 'px': _dark(CAMP, 1.0),
+          'py': _dark(CAMP, 0.82), 'nx': _dark(CAMP, 1.0), 'ny': _dark(CAMP, 0.82)})
+    s.box((12.2, 5.0, -1.35), (0.7, 0.7, 0.8), {'c': _dark(CAMP, 0.8)['c']})
+    s.box((9.6, 6.4, -1.35), (0.12, 1.6, 1.5), {'c': _dark(CAMP, 1.2)['c']})
+    # THE TARP over it (code 14): blue poly, and the one thing in a concrete channel with a
+    # colour in it. It is in the walkable district too, so the icon and the ground agree.
+    TARP = P[14]
+    s.box((10.0, 4.0, -0.88), (2.1, 1.7, 0.16), {'top': _dark(TARP, 1.12), 'px': _dark(TARP, 1.0),
+          'py': _dark(TARP, 0.82), 'nx': _dark(TARP, 1.0), 'ny': _dark(TARP, 0.82)})
+    s.box((10.0, 4.0, -1.35), (0.14, 0.14, 0.5), {'c': _dark(TARP, 0.8)['c']})
+    s.box((11.96, 5.56, -1.35), (0.14, 0.14, 0.5), {'c': _dark(TARP, 0.8)['c']})
+    s.box((5.4, 7.4, -0.95), (1.7, 1.4, 0.14), {'c': TARP})
+    # AND ONE UP ON THE BANK under the bridge, where the shade is and where you can actually
+    # SEE it -- a tarp down in the invert is hidden behind the channel wall from this angle,
+    # which is the difference between drawing a thing and the thing being in the picture.
+    s.box((9.4, 10.2, 0.5), (2.4, 1.9, 0.18), {'top': _dark(TARP, 1.14), 'px': _dark(TARP, 1.0),
+          'py': _dark(TARP, 0.8), 'nx': _dark(TARP, 1.0), 'ny': _dark(TARP, 0.8)})
+    s.box((9.4, 10.2, 0), (0.16, 0.16, 0.55), {'c': _dark(TARP, 0.75)['c']})
+    s.box((11.64, 11.94, 0), (0.16, 0.16, 0.55), {'c': _dark(TARP, 0.75)['c']})
+    s.box((9.8, 12.4, 0), (1.3, 1.0, 0.55), {'c': CAMP})
+    s.box((5.6, 7.6, -1.35), (1.3, 1.0, 0.4), {'c': CAMP})
     for (bx, by3) in [(0.4, -1.4), (6.6, -2.0), (2.4, 11.8), (11.0, 12.4)]:
         s.box((bx, by3, 0), (0.7, 0.7, 0.5), {'c': BRUSH})
     return s, 5.6
@@ -2236,6 +2269,20 @@ def build_freeway(P):
     s.box((11.3, 1.3, 5.0), (0.55, 8.6, 0.4), {'c': GANTRY})
     s.box((11.25, 2.4, 3.6), (0.2, 2.6, 1.4), {'c': _dark(GANTRY, 1.2)['c']})                  # the blank panel
     s.box((11.25, 6.4, 3.6), (0.2, 2.6, 1.4), {'c': _dark(GANTRY, 1.2)['c']})
+    # THE GUARDRAIL, which the legend has (code 5) and the icon never drew, with its
+    # reflectors -- the only thing on a freeway at night that is not grey.
+    # DEAD BRUSH up the embankments: code 7, the only living-coloured thing on a freeway
+    # verge and, like the wash's amber kerb, simply never drawn.
+    BRUSHC = P[7]
+    for (bx3, by3) in [(-1.6, -0.4), (2.2, -0.6), (6.4, -0.2), (10.4, -0.6), (13.0, -0.2),
+                       (-1.0, 11.4), (3.4, 11.8), (7.8, 11.2), (12.2, 11.6)]:
+        s.prism(bx3, by3, 0, 0.72, 0.85, 7, {'c': BRUSHC}, {'c': _dark(BRUSHC, 1.2)['c']})
+    GUARD = P[5]
+    for k in range(9):
+        s.box((-2.6 + k * 1.9, 1.05, 0.1), (1.5, 0.16, 0.16), {'c': GUARD})
+        s.box((-2.6 + k * 1.9, 9.8, 0.1), (1.5, 0.16, 0.16), {'c': GUARD})
+        s.box((-2.2 + k * 1.9, 1.0, 0.28), (0.22, 0.1, 0.22), {'c': _dark(GUARD, 1.45)['c']})
+        s.box((-2.2 + k * 1.9, 9.9, 0.28), (0.22, 0.1, 0.22), {'c': _dark(GUARD, 1.45)['c']})
     _vehicle(s, 0.4, 3.3, TRAILER, SEMI, along='x')
     _vehicle(s, 8.6, 7.2, CAR, VEH, along='x')
     _vehicle(s, 2.6, 8.2, CAR, _dark(VEH, 0.84)['c'], along='x')
@@ -2496,6 +2543,175 @@ LABEL = {
 # versa). Each line: PART — what it is + which walkable-district landmark it mirrors.
 # hero_dossier_gate.py fails the build if a bank hero has no PARTS entry.
 PARTS = {
+    'apartment': [
+        'walk-up blocks — three stucco masses round a court (walkable code 2 "apartment building"), windows w/ dead panes',
+        'exterior walkway decks — two levels cantilevered off the courtyard face (code 15 "exterior stair"), the rails on them',
+        'stair tower — the run at the end of each deck (code 15), which is where the circulation actually is on a Sun Belt walk-up',
+        'drained pool — the court pool, empty (code 8 "drained pool"), its shallow end a step up',
+        'clubhouse — the low office/laundry mass with its door (code 7 "clubhouse")',
+        'perimeter fence posts — the corner posts of the property fence (code 12 "fence")',
+    ],
+    'arterial': [
+        'roadway — six lanes plus the cross street (code 1 "asphalt roadway")',
+        'crosswalk ladders — on all four legs of the intersection (code 3 "crosswalk")',
+        'raised median — with its dead palms (code 4 "raised median", code 11 "dead palm / shrub")',
+        'signal masts — long arms out over the lanes with the heads hanging off them (code 12 "signal mast")',
+        'streetlights — on their stems (code 9 "streetlight")',
+        'sidewalk and block wall — behind the kerb (code 6 "sidewalk", code 8 "block wall")',
+        'dead cars — left in the lanes (code 14 "dead car")',
+    ],
+    'boneyard': [
+        'crushed-car stacks — flattened bodies six and eight high in leaning towers (code 7 "crushed-car stack")',
+        'crane — tracks, house and a boom up over the stacks (code 8 "crane / crusher")',
+        'grapple — hanging off the fall (code 8)',
+        'loose wrecks — in the dirt aisles in three faded colours (code 6 "wrecked car (rust)", code 13 "wrecked car (faded blue)", code 14 "wrecked car (faded white)")',
+        'tyre piles — at the fence line (code 3 "scrap / tire pile")',
+        'parts office — with its door (code 2 "building (office / parts)")',
+        'perimeter fence posts — corner posts (code 12 "perimeter fence")',
+    ],
+    'cemetery': [
+        'mausoleum — the only building with height on a memorial park (code 7 "mausoleum"), its door at grade',
+        'colonnade — the row of piers across the mausoleum front (code 7 face)',
+        'headstone field — the grid of small pale marks (code 6 "headstone"), which is the pattern from the air',
+        'obelisk — the monument on its plinth with a capped tip (code 11 "monument (obelisk)")',
+        'columbarium wall — the niche wall on the west (code 8 "columbarium wall")',
+        'dead trees — in their grates across the lawn (code 3 "dead tree")',
+    ],
+    'desert': [
+        'desert pavement — varnished dark, the base plane (code 0 "desert pavement")',
+        'rock lag and caliche — the patches over it (code 1 "rock lag", code 4 "caliche hardpan")',
+        'creosote — in an evenly spaced grid, because they poison each other roots (code 2 "creosote bush")',
+        'bursage — between them (code 3 "bursage / scrub")',
+        'dry rill — the drainage cut (code 5 "dry rill")',
+        'rock outcrop — the butte, the one vertical open Mojave has (code 11 "rock outcrop")',
+        'dead yucca — the stalks (code 12 "dead yucca")',
+        'dumped debris and a burned car — somebody has been here (code 7 "dumped debris", code 8 "burned car")',
+    ],
+    'drivein': [
+        'screen tower — a flat wall four storeys high standing alone (code 6 "screen tower")',
+        'back bracing — the raked struts holding it up, which is why it is a tower and not a wall',
+        'ramped rows — arcs of earth cars park nose-up on (code 4 "parking-row arc marking", code 1 "parking / drive asphalt")',
+        'speaker poles — down every row (code 7 "speaker pole")',
+        'abandoned cars — still on the ramps (code 8 "abandoned car")',
+        'projection booth — the low mass mid-field with its door (code 2 "building (snack bar/projection/booth)")',
+    ],
+    'freeway': [
+        'travel lanes — the roadbed with its lane lines (code 1 "travel lane", code 2 "white lane line")',
+        'median barrier — the concrete run down the middle (code 4 "median barrier")',
+        'sound walls — both embankments (code 8 "sound wall")',
+        'overpass deck — carried on columns across the lanes, a SPAN not a canopy (code 12 "overpass deck", code 13 "bridge column")',
+        'sign gantry — over the lanes, its panels blank (code 14 "sign gantry")',
+        'dead semi — in the slow lane (code 11 "dead semi")',
+        'dead cars — where they stopped (code 10 "dead car")',
+    ],
+    'golf': [
+        'greens — mown discs with the pin still standing (code 6 "green (putting surface)", code 10 "flagstick / pin")',
+        'bunkers — the sand rings that do all the work once the fairways are dead (code 7 "sand bunker")',
+        'fairways — dead brown runs between them (code 4 "dead fairway")',
+        'dry hazard — the pond that stopped being one (code 8 "dry water hazard")',
+        'tee boxes — the flat pads (code 9 "tee box")',
+        'clubhouse — gabled, with its door (code 2 "building (clubhouse / pro shop)")',
+        'dead trees — the landscaping (code 12 "dead tree / landscaping")',
+        'abandoned cart — left mid-round (code 13 "abandoned golf cart")',
+    ],
+    'jail': [
+        'detention tower — twelve storeys of narrow horizontal window bands (code 2 "building (cell block/admin)"), an office block on purpose',
+        'intake block — the low mass beside it with the public door (code 2)',
+        'secure yard — the concrete floor inside the wall (code 4 "secure yard concrete", code 7 "recreation yard")',
+        'perimeter wall — razor wire along its top (code 12 "perimeter wall", code 8 "razor wire (wall top)")',
+        'guard towers — four, one at each corner of the yard, glazed cabs (code 6 "guard tower")',
+        'pole light — in the yard (code 9 "pole light")',
+    ],
+    'landfill': [
+        'terraced mound — four stepped benches, each smaller and lighter (code 6 "waste fill")',
+        'cell berms — the lip round every bench (code 7 "cell berm")',
+        'working face — raw fill on the top bench with a dozer on it (code 4 "cover soil / dirt", code 10 "equipment (dozer/compactor)")',
+        'gas wells — piped down the face (code 13 "gas well / pipe")',
+        'flare stack — burning what the methane plant does not take (code 13)',
+        'scale house — the office at the gate with its door (code 2 "building (scale/office/gas)")',
+        'leachate pond — the evaporation pond (code 8 "leachate pond")',
+    ],
+    'mountain': [
+        'massif — stepped prisms rising to one summit (code 0 "bedrock face", code 1 "ridge crest")',
+        'cliff bands — across the sunward face (code 2 "cliff band")',
+        'talus fans — off the foot (code 3 "talus / scree")',
+        'ravine — cut into the flank (code 4 "ravine floor", code 5 "dry drainage")',
+        'boulders — on the apron (code 7 "boulder")',
+        'desert shrub — the little that grows at that elevation (code 6 "desert shrub")',
+    ],
+    'railyard': [
+        'running shed — a shed that swallows whole locomotives, five roads, roof monitors (code 2 "building (engine shed/depot/office)")',
+        'shed roads — the five door openings in its face (code 2 face)',
+        'track fan — parallel roads spreading out of one throat on ballast (code 6 "rail track", code 4 "ballast / gravel")',
+        'locomotive — standing in the shed road (code 8 "locomotive")',
+        'boxcars — dead on the body roads (code 7 "rolling stock (boxcar)")',
+        'gantry crane — straddling the container aisle on four legs (code 13 "gantry crane")',
+        'containers — stacked under it (code 10 "container")',
+        'pole light — over the yard (code 9 "pole light")',
+    ],
+    'substation': [
+        'switchgear lattice — three frames of legs carrying the gantries (code 7 "switchgear structure")',
+        'busbars — the conductor runs on insulators over the yard (code 8 "busbar / conductor", code 10 "insulator / arrestor")',
+        'transformer banks — heavy blocks with radiator fins and bushings (code 6 "transformer")',
+        'fire walls — blast-rated concrete between the banks, which is why a bank row is a wall of mass (code 2 face)',
+        'control house — the small building that runs it, with its door (code 2 "control house")',
+        'perimeter fence posts — corner posts of the double fence (code 12 "perimeter fence")',
+    ],
+    'suburb': [
+        'houses — eight on the bulb, majority two-storey which is what Summerlin is (code 2 "house", code 9 "house upper floor")',
+        'gable roofs — pitched over every house (code 2 mass), ridge running the long way',
+        'garages — the door facing the street on each lot (code 6 "garage")',
+        'front doors — at grade on the street face of the front three (code 2 face)',
+        'cul-de-sac bulb — the road disc the lots ring (code 1 "road", code 3 "driveway")',
+        'block wall — the continuous privacy wall round the whole subdivision (code 4 "wall"), the defining Sun Belt feature',
+    ],
+    'trailer': [
+        'single-wides — long narrow units in echelon off the loop (code 2 "mobile home"), ridge cap on each',
+        "manager's double-wide — twice the width, crosswise at the mouth, with its door (code 2)",
+        'burned unit — the one that stopped a rank (code 8 "burned trailer")',
+        'sheds — a tin shed beside each pad (code 7 "shed")',
+        'propane bottles — the tank at every unit (code 13 "propane tank")',
+        'yard light — the tall pole the whole lot is hung off (code 9 "pole light")',
+        'perimeter fence posts — corner posts of the park fence (code 12 "fence")',
+    ],
+    'wash': [
+        'channel walls — sloped concrete cut down to the invert (code 2 "concrete flood structure")',
+        'coping — the lip along both banks (code 2)',
+        'invert — the flat floor with the low-flow trickle down it (code 6 "channel invert", code 7 "dead low-flow trickle")',
+        'sewer tunnel mouth — the opening in the north wall, which is the way IN (code 8 "SEWER TUNNEL MOUTH")',
+        'riprap — rock armour up the banks (code 9 "riprap")',
+        'bridge — the road deck on its piers with its rail (code 4 "channel bank", code 10 "chain-link fence")',
+        'staff gauge — the graduated mast on the wall, the only flood warning anybody down there gets (code 2)',
+        'dead brush — tumbleweed caught on the banks (code 3 "dead brush / tumbleweed")',
+    ],
+    'water': [
+        'open water — the shrunken sheet (code 0 "open water", code 1 "shallow water")',
+        'bathtub ring — the white mineral band the water left on the rock (code 2 "bathtub ring")',
+        'exposed lakebed — cracking below it (code 3 "exposed lakebed", code 4 "cracked silt")',
+        'shell bed — the terrace above (code 5 "shell bed")',
+        'shore rock — the knobs on the top bench (code 6 "shore rock")',
+        'launch ramp — running down and ending a long way short of the water (code 7 "launch ramp")',
+        'sunken boat — the punchline (code 8 "sunken boat")',
+        'dead brush — on the benches (code 9 "dead brush")',
+    ],
+    'waterpark': [
+        'slide tower — four stacked platforms, the tallest thing on site (code 8 "slide tower")',
+        'flumes — spiralling down off all four corners (code 7 "lazy river channel")',
+        'wave pool — drained, its wave wall and shallow end (code 6 "drained wave pool")',
+        'splash pool — at the foot of a flume (code 9 "splash pool")',
+        'locker building — with its door at grade (code 2 "locker building")',
+        'snack bar — the small mass by the pool (code 13 "snack bar")',
+        'lounger row — chairs on the deck (code 11 "lounge chair")',
+    ],
+    'watertreat': [
+        'clarifiers — big open drums, the only round plan in the valley (code 6 "clarifier wall / core")',
+        'rotating bridges — the arm across each drum on its centre drive (code 8 "pipe gallery / catwalk")',
+        'crusted floors — scum in the bottom of every drum (code 10 "crusted sludge / scum")',
+        'aeration channel — the baffled run beside them (code 7 "aeration / filter basin")',
+        'digesters — cone-roofed drums with the gas takeoff, the vertical that makes a plant read (code 2 "building (control / blower / chem)")',
+        'blower house — the control mass with its door (code 2)',
+        'pipe gallery — the run along the back on its stands (code 8)',
+    ],
     'cityhall': [
         'admin block — the mayor/council/clerk mass (walkable code 2 "building (city hall)"), windows w/ boarded dead panes',
         'clock tower — the stopped clock tower over the entrance (code 6 "clock tower"), with a pale clock face',

@@ -33,18 +33,19 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt / channel embankment, cracked | ground | no | — | 4282 |
+| 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt / channel embankment, cracked | ground | no | — | 4267 |
 | 1 | `#4a4640` | maintenance (O&M) road | drive | gravel/old-asphalt top-of-bank service road (truck-drivable) | ground | no | — | 1564 |
-| 2 | `#6b6660` | concrete flood structure | structure | poured headwall / outfall structure, stained concrete | structure | yes | — | 255 |
+| 2 | `#6b6660` | concrete flood structure | structure | poured headwall / outfall structure, stained concrete | structure | yes | — | 238 |
 | 3 | `#6a5f42` | dead brush / tumbleweed | tree-dead | dry tumbleweed + dead brush caught against the concrete | prop | no | — | 531 |
 | 4 | `#7a756c` | channel bank | structure | sloped concrete channel lining, cracked, faded graffiti | ground | no | — | 4554 |
 | 5 | `#c79a3f` | gate | gate | flood-district maintenance gate off the street, amber curb | portal | no | — | 7 |
-| 6 | `#6e6a61` | channel invert | structure | flat concrete channel floor, silt-stained, tagged | ground | no | — | 3313 |
+| 6 | `#6e6a61` | channel invert | structure | flat concrete channel floor, silt-stained, tagged | ground | no | — | 3286 |
 | 7 | `#4a5048` | dead low-flow trickle | water-dead | scummy dead-green standing trickle / dried mud line | ground | no | — | 371 |
 | 8 | `#141410` | SEWER TUNNEL MOUTH | structure | dark box-culvert opening under the street — the way underground | portal | no | THE UNDERGROUND: the LIFE flood-tunnel network where the unhoused live (a separate below-grade level; this is the door) | 204 |
-| 9 | `#6b6355` | riprap | prop | grouted rock rubble at the culvert transition | prop | yes | — | 975 |
+| 9 | `#6b6355` | riprap | prop | grouted rock rubble at the culvert transition | prop | yes | — | 960 |
 | 10 | `#8a8f94` | chain-link fence | fence | flood-channel security fence, sagging, a hole cut by the mouth | structure | yes | — | 211 |
-| 11 | `#8a7a5a` | homeless camp debris | prop | shopping cart, tarps, milk crates, mattress — a tunnel camp at the mouth | prop | yes | — | 117 |
+| 11 | `#8a7a5a` | homeless camp debris | prop | shopping cart, milk crates, mattress — a tunnel camp at the mouth | prop | yes | — | 121 |
+| 14 | `#3f6a8c` | camp tarp | prop | a blue poly tarp lashed over the camp against the wall, sun-bleached along every fold — the one thing down here with a colour in it | prop | yes | — | 70 |
 
 **Gate:** `gates/wash_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

@@ -52,6 +52,8 @@
     // ---- homeless camp debris on the invert apron just above the mouth (they live at the mouth) ----
     clump((mx0+mx1)>>1,96,10,60,11,function(c){return c===6||c===7;});
     G.rect(mx0-2,98,mx0,101,11); G.rect(mx1,94,mx1+2,97,11);                    // cart / crate clusters
+    G.rect(mx0-3,93,mx0+1,96,14); G.rect(mx1-1,102,mx1+3,105,14);               // THE TARPS lashed over them
+    G.rect(mx1+4,106,mx1+9,110,14); G.rect(mx1+5,111,mx1+8,113,11);             // and one up on the bank in the bridge shade
     scatter(inv0,top+4,inv1,90,3,0.015,function(c){return c===6;});            // dead brush caught in the channel
     scatter(inv0,top+4,inv1,botOpen,11,0.006,function(c){return c===6;});      // stray trash on the invert
 
@@ -84,7 +86,9 @@
        it, but it had no colour here -- so every judging surface painted it MAGENTA,
        which is both a lie about the game and a PURPLE RESERVATION breach. */
     0: '#4a422f',1:'#4a4640',2:'#6b6660',3:'#6a5f42',4:'#7a756c',5:'#c79a3f',6:'#6e6a61',7:'#4a5048',
-    8:'#141410',9:'#6b6355',10:'#8a8f94',11:'#8a7a5a'};
+    8:'#141410',9:'#6b6355',10:'#8a8f94',11:'#8a7a5a',
+    /* THE TARP: blue poly, and the one thing in a concrete channel with a colour in it. */
+    14:'#3f6a8c'};
   var LEGEND={
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt / channel embankment, cracked'},
     1:{name:'maintenance (O&M) road',kind:'drive',   act1:'gravel/old-asphalt top-of-bank service road (truck-drivable)'},
@@ -97,7 +101,8 @@
     8:{name:'SEWER TUNNEL MOUTH', kind:'structure',  act1:'dark box-culvert opening under the street — the way underground', layer:'portal', solid:false, enter:'THE UNDERGROUND: the LIFE flood-tunnel network where the unhoused live (a separate below-grade level; this is the door)'},
     9:{name:'riprap',             kind:'prop',       act1:'grouted rock rubble at the culvert transition'},
     10:{name:'chain-link fence',  kind:'fence',      act1:'flood-channel security fence, sagging, a hole cut by the mouth'},
-    11:{name:'homeless camp debris',kind:'prop',     act1:'shopping cart, tarps, milk crates, mattress — a tunnel camp at the mouth'}
+    11:{name:'homeless camp debris',kind:'prop',     act1:'shopping cart, milk crates, mattress — a tunnel camp at the mouth'},
+    14:{name:'camp tarp',           kind:'prop',     act1:'a blue poly tarp lashed over the camp against the wall, sun-bleached along every fold — the one thing down here with a colour in it'}
   };
   var NOTES={
     summary:'Las Vegas concrete flood-control wash — a lined channel that dives under the street at a box-culvert SEWER TUNNEL MOUTH, the way the unhoused get underground.',
