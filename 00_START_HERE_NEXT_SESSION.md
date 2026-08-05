@@ -76,8 +76,33 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/4 (g) LATEST -- *** THE FOUR CIVICS ARE APPROVED AT 85% AND THE
-NO-ICON DEBT IS PAID: 21 -> 2. *** Live on main, BUILD 8/4j.
+WORLD (world-9lfjtf): 8/5 (a) LATEST -- *** THE VALLEY GOT COUNTED. *** Live on main,
+BUILD 8/5a. records/BOHEMIA_THE_VALLEY_CENSUS_8_5_26.md.
+
+Non-cook turn on purpose: 19 icons are sitting unjudged, which is over the verdict-queue
+cap, so the doctrine says non-cook work only. Asked the shipped world model what is
+actually standing on all 9,216 cells instead of guessing off a backlog file.
+  NOTHING THROWS. EVERY building in the valley yields a real reachable interior, all three
+  seeds, zero failures. That half of the spine is measured now, not asserted.
+  22 types put NOTHING on the ground, split three ways because they are three different
+  situations and lumping them hid the third:
+    FLAT BY FORM  10 types / 5,079 cells -- a road, a ridge, a lake, a wash, both
+      airfields (their interiors are a CITY-lane item, said so in their own dossier).
+    RESERVED      2 types / 86 cells -- the Strip and the Fremont casino core, Paolo's hand.
+    FLAT DEBT     12 types / 29 cells -- *** THE ACTUAL HOLE, AND IT IS THE NEXT WORK ***
+      basin datafort reclaim reservoir intake gypsum granary fueldepot arsenal quarry
+      radio pumpstation. Named places the overmap sites with real geography behind them
+      (Sloan quarry, the granary on the rail, the Lake Mead intake, the tank farm, the
+      detention basins) that generate EMPTY GROUND. Unbuilt, not exempt.
+  RATCHET: gates/valley_census_gate.js. The debt may only shrink, a type drops off the
+  moment it puts a building down, and it FAILS if anything new goes flat or if a debt
+  entry stays listed after it is built. Tool: tools/bohemia_valley_census.js.
+  SEVENTH SIGHTING of the house bug, in the census itself: v1 strode every 3rd CELL, and
+  21 types are smaller than the stride, so they sampled ZERO times and printed a dash --
+  invisible in the census built to find them. Samples per TYPE now. Same shape a second
+  time: v1 ran ONE seed, and radio + pumpstation do not exist on 12345 at all. Three seeds.
+
+=== 8/4 (g), THE TURN BEFORE: THE FOUR CIVICS APPROVED AT 85%, NO-ICON DEBT 21 -> 2 ===
 
 === HIS VERDICT ===
 "Cityhall 85% both. Courthouse 85% both. Terminal 85% both. Chapel 85 both. all are good

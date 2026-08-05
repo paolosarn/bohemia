@@ -179,6 +179,10 @@ GATES = [
      'dead police station: HQ, sally port, patrol fleet, impound, public/secure separation', False),
     ('LIBRARY',        ['node', 'gates/library_gate.js'],
      'dead library: ONE building — Predock drum + tower + museum wing + reading wing, plaza, lot', False),
+    ('VALLEY CENSUS', ['node', 'gates/valley_census_gate.js'],
+     'Paolo 8/4: "know what comes after" -- measured across three seeds instead of guessed. Every '
+     'district type that puts NOTHING on the ground is either flat BY FORM (a road, a ridge), '
+     'RESERVED to Paolo (the Strip), or named FLAT DEBT that may only shrink', False),
     ('BIG ICONS',     ['python3', 'gates/big_icons_gate.py'],
      'Paolo 8/2: "I want them taller. I want them wider... remove all the parking lots... the main '
      'building biggest as fuck... fill up the square" -- measured on the baked sprites', False),
