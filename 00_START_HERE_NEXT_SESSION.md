@@ -9206,3 +9206,20 @@ laws/BOHEMIA_ADDENDUM_REALISM_FIRST_AND_THE_QUESTION_FORMAT_8_4_26.md +
 CLAUDE.md amended. Coordinator's lore queue now runs one-at-a-time: Q1 the
 exodus/died split (asked, options given), then: what ended the hell years,
 California beliefs, faith, fun/the show, children, the guarantor seat.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/4 (d) — THE BRAID IS THE PROGRESSION LAW (Paolo picked C:
+"lets do the braid lets do both" — laws/BOHEMIA_ADDENDUM_THE_BRAID_
+PROGRESSION_8_4_26.md). No walls ever; danger gates by territory/dark,
+WORKABILITY gates by the infrastructure chain reaching a district (water ->
+power -> fuel -> materials), and extending the chain runs through KEYSTONE
+SEATS (named canon buildings held by factions; unlock = negotiation, debt,
+alliance, or war; late rungs need the united front). District types repeat
+like Valheim biomes — secure ONE of each, the 20% discipline. Vehicles are
+the boat moments. ENGINE ships with EMPTY tables; tier/keystone contents are
+Paolo's. ROUTED: WORLD (braid skeleton: tier axis + keystone registry +
+chain reach), PEOPLE (dossiers name each faction's keystones), RUN (day +
+travel pacing consume tiers), COMBAT (danger by territory). CHARACTER/
+SOUNDS/ART/LAB unchanged. Coordinator lore queue: exodus split (asked,
+A/B/C open) then hell-years end, California, faith, the show, kids,
+guarantor seat.
