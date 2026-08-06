@@ -198,3 +198,64 @@ difference matters:
     wreck sit right on rail ballast) and not mechanical. I have not seen it. That
     is a real limit and it is the honest thing to write down rather than to imply
     a render I never took.
+
+============================================================================
+8/6 -- I FINALLY LOOKED AT THE DISTRICTS I SHIPPED BLIND, AND THEN I GOT THE
+FIX WRONG. BOTH HALVES MATTER.
+
+He said "honestly im lazy today" again, so again the queue skipped anything
+needing his thumbs. The debt I had written down MYSELF the turn before was:
+"somebody should LOOK at a railyard before calling it finished." That was mine.
+
+WHY NOBODY COULD LOOK, and it was not what I assumed. Every attempt shot a black
+frame and I had concluded gotoCell does not render. IT RENDERS FINE. THE SHOOTER
+WAS STILL INSIDE HIS HOUSE -- the run opens indoors, so teleporting moved the
+exterior cell underneath an INTERIOR camera and drew nothing. Walk out the front
+door first and any district can be photographed. That capability now exists for
+every session; it never needed building, only noticing.
+
+WHAT I SAW. The farm has no field. The railyard has no track. Both are the
+suburb's cracked concrete with different objects on it.
+
+WHY, MEASURED EXACTLY:
+    FARM      field soil 2116, crop rows 691  ->  yard x3480
+    RAILYARD  ballast / gravel 1243           ->  yard x2013
+    SOLAR     gravel access road 1836         ->  yard x2292
+    DATAFORT  data hall 985                   ->  yard x1689
+The world model knows precisely what every surface is. boughtForTile() answers
+only road / walk / yard, so FORTY NAMED SURFACES COLLAPSE TO THE SUBURB'S DIRT.
+Ground is most of every frame. This is the third instance of one bug this week:
+buildings were flat starter tile until 8/3, the valley had zero objects until
+8/5, and the ground has been one tile the whole time because nobody asked.
+
+*** THE FINDING IS REAL AND IT STANDS. THE FIX I BUILT WAS WRONG. ***
+
+I cooked a ground pool from his UP-verdicted "soil and dirt tiles" (24 UP, 0
+DOWN), "dirt path tiles" (46 UP), "stone paths" (24 UP) and "cracked contrete
+tiles" (42 UP), wired it, and rendered a farm. IT WAS BROKEN ON SIGHT: those are
+DECORATIVE PATCHES -- 96px art with transparent margins, made to sit ON ground.
+Laid AS ground they tile with a black gap between every single cell and read acid
+orange. A field of them looks like a checkerboard fault, not a field.
+
+*** A VERDICT IS ABOUT THE OBJECT. IT IS NEVER ABOUT WHERE, OR WHAT FOR. ***
+That is the THIRD time today the same reasoning error shipped into a render:
+  the car-sized potion jar  (UP as loot, used as scenery)
+  the market barrel on a Vegas lawn  (UP as goods, used as residential dressing)
+  the dirt patch as terrain  (UP as a detail, used as a base surface)
+Every one passed its gate. Every one was caught by looking. The rule that would
+have prevented all three: ask what the tile IS FOR, not only whether he liked it.
+
+REVERTED. The draw is removed and GROUND_ON is held at false with the whole
+post-mortem beside it, so the next session inherits the finding and the failed
+attempt instead of rediscovering the finding and repeating the attempt.
+
+WHAT THE RIGHT FIX ACTUALLY NEEDS, and it is not mine to decide:
+He owns exactly ONE seamless ground set (BOHEMIA_GROUND_SEAMLESS_SET_7_10_26,
+44px, 456 tiles) and it is CONCRETE AND ASPHALT. There is nothing seamless in the
+repo for soil, ballast, gravel or turf. So dressing a farm as a farm is a
+BUY-OR-COOK decision and it is his call:
+  A) buy a seamless terrain set (dirt/soil/gravel/ballast) -- cheapest, matches
+     how every other surface in this game got here
+  B) cook seamless terrain to the style target, which is a real art job
+  C) leave every district on concrete and accept that a farm reads as a lot
+[PENDING, Paolo's call]
