@@ -3562,7 +3562,7 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V125 A MISSED ROUND NOW EXISTS. MEASURED before this: 42 juice items, 37 switched on, and ZERO firing on YOUR miss -- all four freeze call sites are damage events, and the miss branch was a sound, the grey word MISS, and an 8ms buzz. THE BULLET ITSELF WAS NEVER CREATED. Meanwhile JUICE.D has drawn THEIR misses whipping past your body since v24, because we built the incoming side and never the outgoing one',
     demo.includes('V125 THE ROUND GOES SOMEWHERE') &&
     demo.includes('function fireMissRound(tgt){') &&
-    /\/\* V125: THE ROUND GOES SOMEWHERE[\s\S]{0,400}try\{ fireMissRound\(tgt\); \}catch\(_e\)\{\}[\s\S]{0,80}G\.killStreak=0; sndMiss\(\);/.test(demo));
+    /\/\* V125: THE ROUND GOES SOMEWHERE[\s\S]{0,400}try\{ fireMissRound\(tgt\); \}catch\(_e\)\{\}[\s\S]{0,1600}G\.killStreak=0; sndMiss\(\);/.test(demo));   /* gap widened by V130, which puts the miss stop and the climb between them */
 
   /* MIGRATED BY V128: the LAW is unchanged -- the dial decides where the round
      goes, so he sees that he pulled left instead of reading that he was early.
@@ -3737,6 +3737,30 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('x.drawImage(SPR.portraits.you,0,0);') &&
     /SPR\.portraits\.dying&&_f>0\.45/.test(demo) &&
     /x\.globalAlpha=Math\.min\(1,\(_f-0\.45\)\/0\.4\)/.test(demo));
+}
+
+/* ===== V130 A MISS IS THE WORLD NOT WAITING FOR YOU ==================== */
+{
+  ok('V130 THERE IS A STOP ON A MISS AT LAST. Every one of the four freeze call sites in the fight was a DAMAGE event -- you take a hit, the round that kills you, your own death, your kill -- and there had never been one on the moment that decides the turn',
+    demo.includes('V130 A MISS IS THE WORLD NOT WAITING FOR YOU') &&
+    /miss: note\(32\),/.test(demo) &&
+    /freeze\('miss',-Math\.cos\(_ba\),-Math\.sin\(_ba\)\)/.test(demo));
+
+  ok('V130 AND IT IS THE SHORTEST LEGAL NOTE IN THE FILE, not a celebration: a thirty-second at 62.5ms, half the graze and an eighth of the kill. The fighting-game literature says a stop exists to let the eyes register that it happened, and a miss needs that and nothing more. BohemiaFreeze\'s LEGAL list already contained 32 and no tier had ever used it, so the musical-subdivision law passes unchanged',
+    /var LEGAL=\[1,2,4,8,16,32\];/.test(demo) &&
+    /miss: note\(32\)[\s\S]{0,1200}graze:note\(16\)/.test(demo));
+
+  ok('V130 THE SHAKE POINTS THE OTHER WAY, which is the whole meaning. Every other freeze shakes ALONG the blow because something hit you; a miss is the opposite event -- nothing arrived -- so it runs along YOUR OWN BARREL, away from the target. The gun moved, not the world',
+    /const _ba=\(tgt&&tgt\.ea!=null\)\?tgt\.ea:\(G\.faceAng\|\|0\);/.test(demo) &&
+    /freeze\('miss',-Math\.cos\(_ba\),-Math\.sin\(_ba\)\)/.test(demo));
+
+  ok('V130 THE GUN CLIMBS IN PROPORTION TO HOW BADLY YOU PULLED IT, off the same G.angle the round\'s bearing reads: a hair off barely adds anything, a wild release makes it buck. Every shot used to recoil by the same weapon-fixed amount whether you threaded it or threw it away, which quietly said the two shots were the same act',
+    /const _off=Math\.min\(1,Math\.abs\(G\.angle\|\|0\)\/LIM\);/.test(demo) &&
+    /G\.recoil=Math\.max\(G\.recoil\|\|0,0\.55\+0\.75\*_off\);/.test(demo));
+
+  ok('V130 AND IT CHANGES NO ODDS: G.recoil is a render value that decays on the following frames and is read by nothing that decides a hit -- not accuracy, not the dial, not damage',
+    !/distAccuracy[\s\S]{0,200}G\.recoil/.test(demo) &&
+    /if\(G\.recoil>0\) G\.recoil=Math\.max\(0,G\.recoil-dt\/JUICEMS\.recoil\);/.test(demo));
 }
 
 /* ===== YOU ALWAYS SHOOT FIRST (Paolo 8/3/26, LOCKED) ==================
