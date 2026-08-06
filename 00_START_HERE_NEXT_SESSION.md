@@ -1,3 +1,62 @@
+CITY (1eztay): 8/6 LATEST — *** THE REPOSITORY RUNS OUT BEFORE THE 11-MONTH PLAN
+DOES. READ THIS, EVERY LANE. IT CHANGES HOW ALL OF US SHIP. ***
+
+On 8/2 a lane caught the 100 MB PER-FILE cap (~43 days out) and fixed it properly:
+the world moved to a sibling page, alpha 38.7 MB -> 2.92 MB, first load 29x faster.
+THAT FIXED THE FILE. THE REPOSITORY IS A DIFFERENT CEILING WITH ITS OWN CLOCK, and
+nobody was watching that one either.
+
+MEASURED ON A REAL BARE CLONE FROM ORIGIN, not estimated:
+    packed 900 MB  ·  54 SECONDS TO CLONE (every session pays it at startup)
+    repo age 11 DAYS  ·  growth 32.5 MB/day post-extraction
+    GitHub soft warning 1 GB  ->  ~4 DAYS
+    GitHub HARD cutoff  5 GB  ->  ~130 DAYS = 4.3 MONTHS
+ELEVEN MONTHS OF PLANNED WORK. THE REPO HITS GITHUB'S CEILING LESS THAN HALFWAY IN.
+That is not an opinion about the code. It is arithmetic on somebody else's limit.
+
+THE DRIVER IS NO LONGER THE ALPHA (1.9 MB/day). It is
+slices/BOHEMIA_CITY_WORLD.html at 20.5 MB/day: a 28 MB GENERATED file, rewritten by
+string surgery and committed WHOLE, several times a day, by several lanes. Git keeps
+every version. The extraction moved the weight; it did not stop it accumulating.
+
+THE MEASUREMENT ALMOST LIED TO ME TWICE, and every lane should take this:
+  local .git read 6.9 GB -- 3,888 loose objects, 5.34 GiB of MY OWN rebase churn,
+  against a 900 MB real repo. A 7x overstatement I was one command from reporting.
+  Then the growth query said 90.5 MB/day over 3 days and 257.7 MB/day over 7 -- the
+  7-day figure EXCEEDING THE WHOLE REPOSITORY, which is impossible.
+Only numbers taken INSIDE a fresh bare clone are trustworthy. WHEN TWO WINDOWS OF
+THE SAME MEASUREMENT DISAGREE, THE INSTRUMENT IS WRONG, NOT THE WORLD.
+
+GATED so it is never found by luck again: gates/repo_budget_gate.js (REPO BUDGET, 8
+claims) -- the recorded measurement must stay fresh (<=21 days), the projected runway
+must stay over 90 days, nothing near the 100 MB per-file cap, named drivers must
+still exist. It does NOT clone to measure (54s + 900 MB every ship) and REFUSES to
+fake it with a local git count-objects, for the 7x reason above. An honest
+stale-check beats a cheap wrong number. Mutation-proven three ways.
+
+*** WHAT COMES AFTER IS PAOLO'S ONE PICK, and no lane should act on it alone: ***
+  1. build the world page at DEPLOY TIME from a GitHub Action instead of committing
+     it -- kills ~20 MB/day at a stroke; costs diff-reviewability and changes every
+     lane's patch-tool workflow
+  2. Git LFS for the generated slices -- keeps the workflow, adds a quota
+  3. stop committing intermediates -- 4x 43 MB banks/BOHEMIA_HD_TILE_REPO_* plus the
+     judge/target PNGs are inputs and outputs, not source
+  4. do nothing, re-measure monthly -- legitimate, 130 days is real runway. It just
+     has to be a CHOICE instead of an accident.
+Records: BOHEMIA_THE_OTHER_CLOCK_8_6_26.md · BOHEMIA_REPO_BUDGET_8_6_26.json
+
+EARLIER THIS SESSION: the shared city-app resolver was DEAD CODE in all 13 gates
+that "used" it (a broken resolver left every one of them green -- proved by
+sabotage); BLOB INTEGRITY (70 claims) after the game shipped black twice from one
+missing </div>; MAP SIZE and DISTRICT FILL floors; the HANDOFF gate after that file
+reached main conflicted four times in a day. And the honest negatives: the walk is
+FAST (median frame 0.6 ms) and NO district is under-built.
+
+NOT MINE TO DECIDE
+- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
+  now"). DO NOT RAISE IT. Backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Still open.
+
 SOUND (sound-xk7pjp): 8/4 (f) LATEST - YOU CAN HEAR WHERE YOU ARE. Tab: RUN
 (walk outside, then go indoors and listen to your own footsteps).
 
@@ -164,7 +223,6 @@ ENGINE SYNC clean.
    list instead of a blank page. Do that before asking him anything.
 2. Gap 5 (wearing another faction's colours) - now cheap.
 3. Gaps 6, 8, 9 (agendas, membership, internal politics) all sit on this.
-
 ART (f3eu53): 8/4 (i) LATEST -- *** THE WORK WAS FINISHED AND IT STILL DID NOT
 EXIST, BECAUSE HE COULD NOT REACH IT. IT IS IN THE **ART TAB** NOW. ***
 

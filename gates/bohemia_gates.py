@@ -48,6 +48,8 @@ GATES = [
      'the game is a shell plus EIGHT big documents (3 inline blobs + 5 sibling pages) rewritten by string surgery daily and resolved whole on every rebase: each one decodes, is not truncated, carries no merge markers and still PARSES -- the checks that existed were presence and size floor, which a stale or half-merged re-encode passes', False),
     ('HANDOFF',        ['node', 'gates/handoff_gate.js'],
      'the one file every session is told to read FIRST is readable: exactly one handoff, at its canonical name, leading with a lane head, and carrying no unresolved merge -- it reached main conflicted TWICE, hiding a whole lane behind a marker', False),
+    ('REPO BUDGET',    ['node', 'gates/repo_budget_gate.js'],
+     'the OTHER clock: 8/2 caught the 100 MB PER-FILE cap, but the REPOSITORY ceiling has its own -- 900 MB packed, +32.5 MB/day, GitHub hard cutoff at 5 GB in ~130 days, less than halfway through the 11 months of planned work', False),
     ('MAP SIZE',       ['node', 'gates/mapsize_gate.js'],
      'Paolo 8/2 "before you cut anything": the valley is 96x96 districts, 84.9 km2, 37.0 km2 of it BUILT (about the whole of Skyrim, ~4.6x Fallout New Vegas) and 75.7 km2 you can put a foot on -- with a FLOOR, so the world cannot be quietly emptied while every other gate stays green', False),
     ('DISTRICT REG',   ['node', 'gates/district_registry_gate.js'],

@@ -1724,6 +1724,42 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AY. [MEASURED 8/6 — THE OTHER CLOCK. FLEET-WIDE. THE CHOICE IS PENDING PAOLO.]
+   THE REPOSITORY RUNS OUT BEFORE THE 11-MONTH PLAN DOES. On 8/2 a lane caught the
+   100 MB PER-FILE cap (~43 days out) and fixed it by moving the world to a sibling
+   page. That fixed the FILE. The REPOSITORY is a different ceiling with its own
+   clock and nobody was watching that one either. Measured on a REAL bare clone:
+     packed 900 MB · 54s to clone (every session pays it) · repo age 11 DAYS
+     growth 32.5 MB/day post-extraction (65.6 MB/day over 7 days)
+     GitHub soft warning 1 GB  -> ~4 DAYS
+     GitHub HARD cutoff  5 GB  -> ~130 DAYS = 4.3 MONTHS
+   ELEVEN MONTHS OF PLANNED WORK; THE REPO HITS THE CEILING LESS THAN HALFWAY IN.
+   The driver is no longer the alpha (1.9 MB/day) but slices/BOHEMIA_CITY_WORLD.html
+   at 20.5 MB/day -- a 28 MB GENERATED file rewritten by string surgery and committed
+   whole, several times a day, by several lanes.
+   THE MEASUREMENT ALMOST LIED TWICE. Local .git read 6.9 GB (3,888 loose objects,
+   5.34 GiB, my own rebase churn) against a 900 MB real repo -- a 7x overstatement I
+   was one command from reporting. Then the growth query said 90.5 MB/day over 3 days
+   and 257.7 MB/day over 7, the latter exceeding the whole repo, which is impossible.
+   Only numbers taken INSIDE the bare clone are trustworthy. WHEN TWO WINDOWS OF THE
+   SAME MEASUREMENT DISAGREE, THE INSTRUMENT IS WRONG, NOT THE WORLD.
+   WHAT COMES AFTER, [PENDING Paolo / fleet-wide] because it changes how EVERY lane
+   ships and no single lane gets to pick it: (1) build the world page at deploy time
+   from an Action instead of committing it -- kills ~20 MB/day, costs diff-reviewability
+   and every patch-tool workflow; (2) Git LFS for the generated slices; (3) stop
+   committing intermediates (4x 43 MB banks/BOHEMIA_HD_TILE_REPO_* plus judge/target
+   PNGs are inputs and outputs, not source); (4) do nothing and re-measure monthly --
+   legitimate, 130 days is real runway, it just has to be a CHOICE.
+   GATED: gates/repo_budget_gate.js (suite: REPO BUDGET, 8 claims) -- the recorded
+   measurement must stay fresh (<=21 days), the projected runway must stay over 90
+   days, no file near the 100 MB per-file cap, and the named drivers must still exist.
+   It does NOT clone to measure (54s + 900 MB every ship) and REFUSES to fake it with
+   a local git count-objects for the 7x reason above: an honest stale-check beats a
+   cheap wrong number. Mutation-proven three ways.
+   Record: records/BOHEMIA_THE_OTHER_CLOCK_8_6_26.md
+   Measurement: records/BOHEMIA_REPO_BUDGET_8_6_26.json (refresh command inside)
+   | REPO BUDGET 8/0, 3 mutations caught | THE ARCHITECTURE CHOICE IS HIS | YES — one pick.
+
 0AX. [DONE 8/4 — NOT MINE, FOUND BY READING THE MERGE, FIXED] THE SHARED RESOLVER WAS
    DEAD CODE IN ALL 13 PLACES IT WAS USED. Yesterday's extraction fix introduced
    gates/bohemia_city_app.js -- ONE predicate that knows where the city app lives, so
