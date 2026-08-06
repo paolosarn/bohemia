@@ -319,6 +319,49 @@ ok('G19 it stays candidates and the names stay handles',
    /handles to argue with, never canon/i.test(lad));
 ok('G20 no damage number leaked in', /NO DAMAGE BEFORE THE DIAL/.test(lad));
 
+/* ---- THE CAMP-FEEL RULING (8/4) ---------------------------------------------
+   "Valheim's build menu ... it really felt like you could just set up fucking camp anywhere
+   quickly." A reference ruling under NOTES ARE RULINGS -- and the one that most needs a
+   machine, because clause 11 of the mobile camp law is HIS OWN ruling that SETTING UP CAMP
+   TAKES TIME. Read carelessly, "very quickly" repeals it. The record has to keep both alive:
+   CHEAP IN TAPS, NEVER FREE IN TIME. A later session that collapses those two into one would
+   break a law he wrote while trying to honour a thing he said. */
+const CAMPFEEL = 'records/BOHEMIA_RESEARCH_VALHEIM_BUILD_FEEL_8_4_26.md';
+const CAMPLAW = 'laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md';
+ok('H1 the camp-feel study exists', fs.existsSync(path.join(ROOT, CAMPFEEL)));
+const cf = fs.existsSync(path.join(ROOT, CAMPFEEL))
+  ? norm(fs.readFileSync(path.join(ROOT, CAMPFEEL), 'utf8')) : '';
+ok('H2 his words are quoted verbatim', /set up fucking camp anywhere quickly/i.test(cf));
+ok('H3 the camp law it must not repeal still exists', fs.existsSync(path.join(ROOT, CAMPLAW)));
+/* THE LOAD-BEARING CHECK: the two currencies stay separate. */
+ok('H4 clause 11 is NOT repealed -- time cost and interaction cost are named as different',
+   /CHEAP IN TAPS\. NEVER FREE IN TIME/i.test(cf) && /Does not repeal clause 11/i.test(cf));
+ok('H5 and it says outright that nobody may read it as making camping free',
+   /permission to make camping free/i.test(cf));
+ok('H6 the real mechanism is recorded: no roof, no cover, for the two jobs that matter',
+   /NO ROOF AND NO COVER AT ALL/i.test(cf) &&
+   /not building a camp, you are placing one/i.test(cf));
+ok('H7 the refund finding carries its source citation',
+   /Piece\.cs:1[349]/.test(cf) && /m_recover/.test(cf) &&
+   /no punishment for guessing wrong/i.test(cf));
+ok('H8 the tool-is-the-menu finding is recorded', /THERE IS NO BUILD MODE/i.test(cf));
+/* THE TWO HONEST LIMITS -- both are sentences a later session would cut as hedging, and both
+   are the difference between copying the right system and the wrong one. */
+ok('H9 it separates the CAMP flow (loved) from the ARCHITECTURE tooling (complained about)',
+   /Building Feels Terrible/i.test(cf) && /manual build-piece snapping in 2023/i.test(cf) &&
+   /this is what transfers/i.test(cf));
+ok('H10 and warns that reading it as "copy Valheim building" builds the wrong one',
+   /will build the second one/i.test(cf));
+ok('H11 the mouse-versus-thumb problem is named rather than glossed',
+   /assumes a mouse/i.test(cf) && /one thumb, portrait/i.test(cf));
+ok('H12 the transferable principle is ONE OBJECT, tied back to R1',
+   /ONE OBJECT PLACES THE WHOLE CAMP/i.test(cf) &&
+   /no-spawn radius\s*the way a Valheim workbench is/i.test(cf));
+ok('H13 UX is left to the lane that owns the surface',
+   /UX is not my call/i.test(cf) && /RUN lane owns the surface/i.test(cf));
+ok('H14 and the ValheimPlus mod-not-Iron-Gate caveat is repeated here too',
+   /a line number is a\s*line in the MOD/i.test(cf));
+
 /* ---- THE ROWS EXIST ------------------------------------------------------- */
 /* This is the actual lock. answered_gate.py reads the machine block; a ruling with no
    row is a ruling he will be asked about again. */

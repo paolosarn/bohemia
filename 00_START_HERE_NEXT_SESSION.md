@@ -1,4 +1,131 @@
-<<<<<<< HEAD
+LAB (lab-e2r7sv): 8/4 (e) LATEST -- WHY VALHEIM'S CAMP FELT FAST, AND THE ONE READING OF IT
+THAT WOULD REPEAL A LAW HE ALREADY MADE.
+
+records/BOHEMIA_RESEARCH_VALHEIM_BUILD_FEEL_8_4_26.md. "Valheim's build menu ... it really
+felt like you could just set up fucking camp anywhere quickly like very quickly." Recorded as
+a reference ruling under NOTES ARE RULINGS, then taken apart -- "it felt easy" is a feeling
+and the job is the mechanism under it.
+
+=== *** READ THIS BEFORE ACTING ON IT: THE CONTRADICTION THAT ISN'T ONE *** ===
+Clause 11 of laws/BOHEMIA_ADDENDUM_THE_MOBILE_CAMP_7_27_26.md is HIS OWN ruling: "SETTING UP
+CAMP TAKES TIME", and that cost is what makes camp-here-or-push-on a decision. He has now
+said camp setup should be VERY QUICK. Read carelessly THAT REPEALS HIS OWN LAW. It does not,
+because they are two different currencies:
+  CLAUSE 11 IS THE TIME COST -- camping spends the in-game day. UNTOUCHED.
+  WHAT HE IS PRAISING IS THE INTERACTION COST -- taps, menus, screens, mode switches.
+*** CHEAP IN TAPS. NEVER FREE IN TIME. *** Valheim is exactly that: dropping a workbench is
+one action with no menu depth, and it still cost you the trip out to gather the wood.
+
+=== WHY IT ACTUALLY FELT FAST -- FIVE MECHANISMS ===
+1 THE TOOL IS THE MENU, THERE IS NO BUILD MODE. Equip hammer, left-click builds, right-click
+  opens the menu. No build screen, no mode to enter and exit. The distance between "I want a
+  camp" and "I am placing a camp" is ONE ITEM SWAP.
+2 *** THE ASYMMETRY, AND IT IS THE REAL ANSWER *** crafting and repairing need a roof and 70%
+  COVER, but BUILDING IN THE RADIUS AND SUPPRESSING SPAWNS NEED NO ROOF AND NO COVER AT ALL.
+  So the moment the bench hits bare dirt you already have the two things that make a camp a
+  camp. YOU ARE NOT BUILDING A CAMP, YOU ARE PLACING ONE -- everything after is improvement,
+  never prerequisite. That whole feeling is ONE design decision.
+3 DECONSTRUCT REFUNDS, SO BEING WRONG COSTS NOTHING. Sourced: Piece.DropResources,
+  IsPlacedByPlayer (Piece.cs:13), Piece.Requirement.m_recover (:14), and the mod's own comment
+  at :19-21 -- "the resources that drop are never less than the resources it cost to build the
+  piece in the first place." NO PUNISHMENT FOR GUESSING WRONG, and hesitation is what actually
+  makes a build system feel slow.
+4 YOU CAN SEE YOUR CLAIM -- the radius is a white circle drawn on the ground, 20m, up to 36m
+  (+4m per upgrade level, five levels). No number to read.
+5 IT IS STILL PHYSICAL -- vanilla requires a ground connection for structural integrity
+  (WearNTear.cs:29). Fast, but not weightless.
+
+=== THE HONEST LIMIT: HE IS PRAISING THE CAMP FLOW, NOT THE ARCHITECTURE TOOLING ===
+Valheim's building is NOT universally loved -- there is a Steam thread titled "Building Feels
+Terrible", and the devs added MANUAL build-piece snapping in 2023 because auto-snapping was a
+real pain point. TWO SYSTEMS LIVE IN THAT HAMMER AND ONLY ONE IS THE REFERENCE:
+  PLACING A CAMP -- one object, no cover, instantly useful. THIS is what he loved.
+  CONSTRUCTING A BUILDING -- snapping, rotation, roof pieces. Widely complained about.
+ANY LANE THAT READS THIS AS "COPY VALHEIM'S BUILDING" WILL BUILD THE SECOND ONE.
+
+=== WHAT DOES NOT TRANSFER, AND IT IS THE HARD PART ===
+All five mechanisms ASSUME A MOUSE -- right-click menu, cursor to aim the ghost, scroll to
+rotate, WASD to nudge. Bohemia is ONE THUMB, PORTRAIT, 390x844. The hammer cannot be copied.
+THE PRINCIPLE THAT DOES TRANSFER: *** ONE OBJECT PLACES THE WHOLE CAMP *** -- not a menu of
+pieces to assemble, a single thing you put down that creates the radius and works immediately.
+Which is R1 already ("the camp is a no-spawn radius the way a Valheim workbench is") and R26
+(upgrades come later, optional). PLUS the corollary from mechanism 3, which matters MORE on a
+phone: PICKING THE CAMP BACK UP MUST RETURN WHAT IT COST, because on a small screen a
+misplaced object is guaranteed and the refund is what stops one fat-thumb tap feeling like a
+punishment.
+
+=== ROUTED, NOT BUILT ===
+COMBAT owns the camp (per R1), RUN owns the surface. UX IS NOT THIS LANE'S CALL and it did not
+touch either. Gate: rulings_gate is 110 checks (+H1..H14), and the load-bearing one is H4 --
+clause 11 must still be intact and the two costs still named as different. Six mutations, all
+six caught, including the one that repeals clause 11.
+
+=== THE HANDOFF HAD MARKERS ON MAIN AGAIN (fourth incident today) ===
+Cleaned again, both sides kept. nomarkers_gate caught it immediately -- five catches on the
+day it was written now. EVERY SESSION: RUN IT BEFORE YOU COMMIT.
+
+=== NOT DONE / THE QUEUE ===
+1. HIS THUMBS ON THE 18 BOSSES. Not proposing another shape for that ladder.
+2. THE WITNESS + STORY-SPREAD PLUMBING -- approved, but the PEOPLE lane shipped "REPUTATION
+   HAS TO TRAVEL" which overlaps it. COORDINATION NEEDED FIRST. Untouched.
+3. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
+4. Did not touch #buildstamp: one record, one gate, one handoff repair.
+
+PEOPLE (factions): 8/2 (m) LATEST — *** YOUR FATHER'S DEBTS. The question the game's own
+premise raises and NOBODY HAD ASKED. ***
+Record: records/BOHEMIA_YOUR_FATHERS_DEBTS_8_2_26.md
+
+Bohemia is a FAMILY ACROSS THREE GENERATIONS (story master) and the handoff happens WHEN
+THE STORY SAYS SO, never on death (DEATH IS A RELOAD 7/26). So there is a canon moment when
+the valley stops judging you and starts judging your child.
+NOBODY HAD EVER ASKED WHAT HAPPENS TO YOUR REPUTATION AT THAT MOMENT. Not on the twelve-gap
+list, not in THE BIG MISSING, not in the GDD, not in a backlog. It was invisible because it
+only appears once a reputation system exists at all - which was three hours old.
+
+*** AND THE ORGAN ALREADY MODELLED IT. *** Thirty years pass and EVERY WITNESS IS DEAD, so
+the only trace of a life is what got REPEATED. The rule writes itself:
+    A QUIET GOOD DEED DIES WITH THE WITNESS.
+    A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR.
+This is not a new system. It is what the witness organ was always going to do if you ran
+the clock forward - which is why gossip had to exist first.
+
+MEASURED:
+  a secret, one witness, never repeated .... 0 carried, 1 died. Child inherits NOTHING.
+  a notorious one that spread to three ..... 2 carried. Child owes -0.767 they never ran up.
+  one generation further ................... grandchild -0.345, still faintly there.
+Three generations and only the loudest thing your grandfather did still registers, which is
+exactly the arc the story master already describes. legendOf() reports what the valley still
+says: the deed, how many still tell it, how many generations back.
+
+GROUNDED, real anthropology not a trope: in stateless societies a family is a CORPORATE
+ENTITY whose reputation carries its economic standing, lineages run 10-12 generations deep,
+and ostracism does the work fines and prisons do elsewhere. You are born owing what your
+father owed. Same reasoning that made the Mob the guarantor and the Caravans' name their
+armour.
+
+THE LIFE LESSON, never said out loud: you inherit goodwill you did not earn and debts you
+did not run up, and neither one is fair.
+
+COST: one function and one constant (GEN_LOSS 0.45 - less than half survives a handoff, so
+a legend must have been LOUD to cross even one).
+CONTENTS-PAOLO'S HELD: DEED_WEIGHT still EMPTY and the gate proves inheriting invents
+nothing. WHEN the handoff happens is HIS - inherit() is called by whoever runs that beat.
+
+GATE: STANDING 23 -> 29 claims, 10/10 probes. The two new probes are the two ways this
+could quietly break: a secret crossing a generation anyway, and an inherited reputation
+that never fades so a family is damned forever.
+Regression: FACTION MEMBERSHIP 50/0, PEOPLE 152/0, BUILD THE WORLD 10/0, FRONT DOOR 8/0,
+ENGINE SYNC clean.
+
+=== WHAT COMES AFTER (unchanged and now urgent) ===
+1. NOTHING CALLS witness() YET. The whole organ is inert until the run reports deeds into
+   it, and that needs a DEED VOCABULARY, which is his. THE NEXT NON-BLOCKED MOVE IS TO
+   INVENTORY EVERY ACTION THE RUN CAN ALREADY PRODUCE so his ruling is a thumb over a real
+   list instead of a blank page. Do that before asking him anything.
+2. Gap 5 (wearing another faction's colours) - now cheap.
+3. Gaps 6, 8, 9 (agendas, membership, internal politics) all sit on this.
+
+
 ART (f3eu53): 8/4 (i) LATEST -- *** THE WORK WAS FINISHED AND IT STILL DID NOT
 EXIST, BECAUSE HE COULD NOT REACH IT. IT IS IN THE **ART TAB** NOW. ***
 
@@ -460,63 +587,6 @@ MEMORY 7/2 is the pre-existing 0-agents red (P-F), same on clean main.
    this supplies "somebody who knows your face sees you in it".
 3. GAPS 6, 8, 9 (agendas, membership, internal politics) all sit on this.
 
-=======
-PEOPLE (factions): 8/2 (m) LATEST — *** YOUR FATHER'S DEBTS. The question the game's own
-premise raises and NOBODY HAD ASKED. ***
-Record: records/BOHEMIA_YOUR_FATHERS_DEBTS_8_2_26.md
-
-Bohemia is a FAMILY ACROSS THREE GENERATIONS (story master) and the handoff happens WHEN
-THE STORY SAYS SO, never on death (DEATH IS A RELOAD 7/26). So there is a canon moment when
-the valley stops judging you and starts judging your child.
-NOBODY HAD EVER ASKED WHAT HAPPENS TO YOUR REPUTATION AT THAT MOMENT. Not on the twelve-gap
-list, not in THE BIG MISSING, not in the GDD, not in a backlog. It was invisible because it
-only appears once a reputation system exists at all - which was three hours old.
-
-*** AND THE ORGAN ALREADY MODELLED IT. *** Thirty years pass and EVERY WITNESS IS DEAD, so
-the only trace of a life is what got REPEATED. The rule writes itself:
-    A QUIET GOOD DEED DIES WITH THE WITNESS.
-    A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR.
-This is not a new system. It is what the witness organ was always going to do if you ran
-the clock forward - which is why gossip had to exist first.
-
-MEASURED:
-  a secret, one witness, never repeated .... 0 carried, 1 died. Child inherits NOTHING.
-  a notorious one that spread to three ..... 2 carried. Child owes -0.767 they never ran up.
-  one generation further ................... grandchild -0.345, still faintly there.
-Three generations and only the loudest thing your grandfather did still registers, which is
-exactly the arc the story master already describes. legendOf() reports what the valley still
-says: the deed, how many still tell it, how many generations back.
-
-GROUNDED, real anthropology not a trope: in stateless societies a family is a CORPORATE
-ENTITY whose reputation carries its economic standing, lineages run 10-12 generations deep,
-and ostracism does the work fines and prisons do elsewhere. You are born owing what your
-father owed. Same reasoning that made the Mob the guarantor and the Caravans' name their
-armour.
-
-THE LIFE LESSON, never said out loud: you inherit goodwill you did not earn and debts you
-did not run up, and neither one is fair.
-
-COST: one function and one constant (GEN_LOSS 0.45 - less than half survives a handoff, so
-a legend must have been LOUD to cross even one).
-CONTENTS-PAOLO'S HELD: DEED_WEIGHT still EMPTY and the gate proves inheriting invents
-nothing. WHEN the handoff happens is HIS - inherit() is called by whoever runs that beat.
-
-GATE: STANDING 23 -> 29 claims, 10/10 probes. The two new probes are the two ways this
-could quietly break: a secret crossing a generation anyway, and an inherited reputation
-that never fades so a family is damned forever.
-Regression: FACTION MEMBERSHIP 50/0, PEOPLE 152/0, BUILD THE WORLD 10/0, FRONT DOOR 8/0,
-ENGINE SYNC clean.
-
-=== WHAT COMES AFTER (unchanged and now urgent) ===
-1. NOTHING CALLS witness() YET. The whole organ is inert until the run reports deeds into
-   it, and that needs a DEED VOCABULARY, which is his. THE NEXT NON-BLOCKED MOVE IS TO
-   INVENTORY EVERY ACTION THE RUN CAN ALREADY PRODUCE so his ruling is a thumb over a real
-   list instead of a blank page. Do that before asking him anything.
-2. Gap 5 (wearing another faction's colours) - now cheap.
-3. Gaps 6, 8, 9 (agendas, membership, internal politics) all sit on this.
-
-<<<<<<< HEAD
->>>>>>> 8c92264 (YOUR FATHER'S DEBTS - the question the game's own premise raises, and nobody had asked)
 PEOPLE (7h9sfy): 8/4 LATEST — *** NOBODY STANDS IN THE STREET ALL DAY. *** Five of
 this lane's gates were dead on main for their whole visible history, and fixing the
 way they LOOK at the world found two real bugs in the world itself.
