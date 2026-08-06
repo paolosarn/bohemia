@@ -694,6 +694,8 @@ GATES = [
      'handoff is shared infrastructure with no owning lane, so no lane gate was ever going to '
      'check it. Sweeps every tracked text file for markers, and asserts a repair kept BOTH '
      "lanes' sections -- a resolution that deletes the other lane is not a resolution", False),
+    ('CANON ROT', ['node', 'gates/canon_rot_gate.js'],
+     'nine sessions write canon in parallel across 583 law/record files that cite each other constantly, and NOTHING had ever checked those citations resolve -- a law pointing at a file that does not exist is worse than no citation, because a session follows it, finds nothing, and concludes the thing was never built. Hard-fails extension drift, ratchets pre-existing debt so no lane is blocked by another lane, and SELF-TESTS its own regex first because the first run of this audit was wrong in exactly that way', False),
     ('RULINGS', ['node', 'gates/rulings_gate.js'],
      "the thirty rulings he gave answering the 8/1 question round, finally written down: one universal clock, rest is a VISIBLE fast-forward, fast travel gated on having walked it, checks are BINARY (no save scumming), the mercy ledger is SILENT, stories spread like a plague, gear at the family house carries -- plus the two structural bans swept on every shipped surface", False),
     ('NO PAINT', ['node', 'gates/no_paint_gate.js'],

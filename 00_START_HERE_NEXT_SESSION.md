@@ -1,3 +1,314 @@
+LAB (lab-e2r7sv): 8/4 (f) LATEST -- *** BUILT THE MACHINE THAT FINDS CANON ROT, AND ITS
+FIRST RUN WAS WRONG IN A WAY WORTH READING. *** Nothing to judge.
+
+He said he was lazy and to think outside the box, so: not more design. NINE SESSIONS WRITE
+CANON IN PARALLEL across 338 laws + 245 records that cite each other constantly, and NOTHING
+HAD EVER CHECKED THOSE CITATIONS RESOLVE. A law pointing at a file that does not exist is
+worse than no citation, because a session follows it, finds nothing, and concludes the thing
+was never built. I had hand-found four contradictions this week and written a bespoke gate for
+each -- WRONG SHAPE. FACTORY LAW: build the thing that finds them.
+gates/canon_rot_gate.js (registered CANON ROT, 13 checks) +
+records/BOHEMIA_CANON_ROT_AUDIT_8_4_26.md.
+
+=== *** MY OWN BUG, AND IT IS THE MOST USEFUL THING HERE *** ===
+First version used /...\/[A-Za-z0-9_\/.]+\.(?:md|txt|js|py|json|html)/ . REGEX ALTERNATION IS
+FIRST-MATCH, NOT LONGEST-MATCH -- "js" is tried before "json" ever gets a turn, so EVERY REAL
+.json PATH IN THE REPO WAS CAPTURED AS .js and reported broken. It claimed 43 dead citations.
+FORTY-TWO WERE PHANTOMS OF MY OWN MAKING. Then my fixer "repaired" 40 ALREADY-CORRECT paths
+into ".jsonon" -- including the MASTER PALETTE in two live laws.
+REVERTED BEFORE COMMIT. Nothing shipped, 40 files restored, tree verified clean. Caught it
+because the fixer's output looked wrong: both .js and .json appeared once each in a file that
+should hold one path.
+NOW A PERMANENT SELF-TEST: checks A1-A4 prove the gate's own regex captures .json WHOLE before
+it may judge anything, and A4 is a NEGATIVE CONTROL that runs the OLD pattern and asserts it
+truncates -- so if a later session "simplifies" the alternation back, the gate goes red instead
+of lying. (My first negative control was itself broken: I kept the lazy quantifier and the
+lookahead, which FIX the bug, so the control proved nothing. A CONTROL THAT DOES NOT REPRODUCE
+THE FAILURE IS NOT A CONTROL.)
+This repo has shipped nine bugs of the form "a checker that cannot tell a thing from a
+lookalike". THIS IS THE FIRST WHERE THE CHECKER'S OWN PATTERN WAS THE LOOKALIKE, and it is the
+worst version, because a broken checker WITH A FIXER ATTACHED does damage instead of just
+missing things.
+
+=== WHAT IT ACTUALLY FOUND, once the ruler was straight (753 docs swept) ===
+1 ONE real extension drift, FIXED: EVERY_PIXEL_ANSWERED cited gates/answered_for_gate.py; it
+  is .js. One character, and the law pointed at nothing. NOT 43. ONE.
+2 *** SIX archived-as-live citations, and one is REAL ROT -- FLAGGED, NOT FIXED ***
+  laws/BOHEMIA_PAOLO_TASTE_CANON.md:93 lists as a LIVE "LIKE": "every generator reads only the
+  part-id grid so the whole wardrobe CARRIES TO THE WOMAN RIG", sourced to
+  laws/BOHEMIA_ADDENDUM_WOMAN_RIG_7_21_26.md -- WHICH IS IN /archive. The woman rig was KILLED
+  7/25 ("remove the whole female rig... this two-rig male and female shit is really bad"). So a
+  live taste-canon preference is sourced to a DEAD PREMISE. Whether it survives the one-rig
+  ruling (reworded to the variation sliders, or dropped) is CANON-LEVEL, not a path I can
+  retype. CLAUDE.md's rule exactly: fix if mechanical, FLAG if canon-level.
+  *** [PENDING Paolo / CHARACTER lane] *** The gate PRINTS all six every run so they cannot be
+  buried.
+  NOTE ON MY OWN FIRST DRAFT: I checked for superseded language ANYWHERE IN THE FILE and called
+  all seven clean. Scoping to the citation's own vicinity dropped that to one clean, six
+  flagged. A FILE-LEVEL GREP FOR A PER-ITEM PROPERTY -- the same mistake three other gates here
+  have shipped, and it produced a wrong all-clear in the first draft of the audit itself.
+3 EIGHTY truly-gone citations across SIX LANES' documents (June/July tools, killed lab
+  surfaces, the superseded woman_rig gate). MOST ARE LEGITIMATE TOMBSTONES -- a record saying
+  "this was killed, here is the post-mortem" SHOULD name the dead file. I cannot tell tombstone
+  from stale outside the owning lane, and guessing would either red-gate five lanes for
+  somebody else's debt or delete their record of what died. So it RATCHETS: may fall, never
+  rise. NO NEW ROT, NO LANE BLOCKED BY ANOTHER'S. Cleaning your lane's up? Lower CEILING.
+
+=== FOUR MUTATIONS, ALL CAUGHT ===
+Reverting the regex instantly produces 42 phantom drifts and A1 goes red -- the bug reproduced
+on demand. Planting a real drift, adding new gone-rot above the ratchet, and swapping
+exempt-by-path for exempt-by-nothing all fail correctly. THE AUDIT RECORD IS EXEMPT BY EXACT
+PATH, never by pattern, because "looks like a document about rot" is a hole anything could
+crawl through -- it quotes broken paths as specimens.
+
+=== WHAT IS STILL OPEN ===
+THE HARDER HALF IS NOT BUILT: SEMANTIC contradictions, where two live files give different
+VALUES for the same canon quantity. This proves citations RESOLVE, not that they AGREE. That is
+the next machine and it is bigger.
+
+=== NOT DONE / THE QUEUE ===
+1. HIS THUMBS ON THE 18 BOSSES. Not proposing another shape.
+2. THE TASTE-CANON WOMAN-RIG ROT -- [PENDING Paolo / CHARACTER].
+3. WITNESS + STORY-SPREAD -- approved, but PEOPLE's "REPUTATION HAS TO TRAVEL" overlaps.
+   Coordination needed. Untouched.
+4. Semantic contradiction machine (above).
+5. Did not touch #buildstamp: one gate, one record, one one-character law fix.
+   NOTE: another lane reports GitHub Pages has failed three commits running, so the live link
+   may be stale -- nothing I shipped today touches the playable surface either way.
+
+ART (f3eu53): 8/5 (a) LATEST -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
+HAND, AND THE GAME DREW ZERO. THAT IS WHY THE WORLD LOOKS EMPTY. ***
+
+=== READ THIS FIRST, EVERY LANE ===
+banks/BOHEMIA_HD_TILE_REPO_part1..4 is 8,674 tiles he PAID FOR. Measured: not one
+had ever drawn a pixel. And they were not unjudged --
+banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26 is his own Great Sweep, "every act-1 asset
+individually judged in context ... THE act-1 art authority", 1,927 UP.
+One session crossed the sweep with the masters, took the 465 that go INDOORS, wired
+them into rooms, and STOPPED AT THE FRONT DOOR. Nobody took the 812 that go outside.
+The entire valley had ZERO objects standing in it.
+*** THE WORLD DID NOT READ EMPTY BECAUSE THE TEXTURE WAS THIN. IT READ EMPTY
+BECAUSE THERE WAS NOTHING IN IT. *** I spent a week making texture denser.
+
+=== THE PROBE WAS VALIDATED BEFORE IT WAS BELIEVED ===
+An audit returned zero for every district two days ago because the PROBE was
+broken. So this one was run against a control first: ground seamless, which
+bought_beats_painted_gate already proves is live -> 33 of 456 found, exactly the
+known curated subset. Probe works. HD repo -> 0 of 8,674.
+
+=== THE BLOCKER EVERYONE ASSUMED WAS IMAGINARY ===
+Masters are ~96px, art cell is 44px, and the no-resample law was read as "art must
+be CELL-SIZED". *** IT DOES NOT SAY THAT. It says an art pixel is a WHOLE NUMBER OF
+SCREEN PIXELS. *** A 96px prop at the run's own integer zoom step is legal; it just
+spans ~2 cells, which is what an object that size should do. Nothing needed
+re-cutting. 180MB of purchased art sat dark for a rule nobody re-read.
+
+=== HIS THUMB ALREADY WROTE THE VOCABULARY, 23 DAYS AGO ===
+  rocks and stones ....... 100 UP,  0 DOWN   the desert, unanimous
+  dead trees and plants ... 47 UP,  1 DOWN
+  TREES AND NATURE ......... 0 UP, 23 DOWN   NO LIVING TREES. a dead valley.
+  abandoned cars .......... 55 UP,  0 DOWN
+  market and outdoor props . 0 UP, 23 DOWN   a whole pack he killed
+Reading the UP/DOWN split IS the art direction. It was in a file the whole time.
+
+=== WHAT SHIPPED ===
+banks/BOHEMIA_EXTERIOR_POOL_8_5_26.txt, 126 objects, all UP-verdicted, placed by
+SURFACE, which is mechanism and not content: road gets wrecks, sidewalk gets street
+furniture, dead ground gets the desert and what blew into it, a lot gets barricades,
+stalls and goods. One cell in nine. Never under his feet, in a doorway, inside a
+building, or on a driveway. PURE PAINT -- nothing touches passability, because a prop
+that quietly blocked a cell would break pathing valley-wide and read as a world bug.
+
+=== THREE CUTS, AND THE RENDER CAUGHT WHAT THE NUMBERS DID NOT ===
+CUT 1 drew NOTHING twice while every source check passed: I invented the world's
+  vocabulary from my own head twice ('yard_0', then 'yard') when the dossier calls
+  it "dead-ground (yard)". Fixed by SAMPLING eight districts first.
+CUT 2 put a CAR-SIZED GLOWING POTION JAR and a 2m backpack on a suburban lawn.
+  *** HIS VERDICT WAS RIGHT, MY READING OF IT WAS WRONG. *** The sweep judged every
+  asset IN CONTEXT and the context for a jar is a shelf. A VERDICT ON AN OBJECT IS
+  NOT A LICENCE TO RENDER IT AT ANY SIZE OR IN ANY PLACE. Loot is a different system.
+CUT 3 put wooden market barrels on a Vegas lawn. Right tiles, wrong WHERE. Split
+  TRASH (blows anywhere) from CRATE (lots and swap meets only).
+Only the third shipped. The numbers were green at cut 1.
+
+=== WHERE HE LOOKS ===
+*** THE ART TAB, card 2, "THINGS IN THE WORLD". *** Tap to flip empty vs dressed.
+He never opens a file. (NAME THE TAB, and I broke it on 8/4 -- see that section.)
+
+=== GATED ===
+gates/exterior_pool_gate.js 32 checks, registered EXTERIOR POOL. UP-only against
+his own sweep; nothing unjudged (only 2,604 of 8,674 were swept, silence is not
+approval); no hand-scale loot; no indoor packs; no bodies; NO LIVING TREES;
+integer blit + ceiling; props never block. Walks out the front door and asserts
+turning them on CHANGES THE REAL CANVAS -- because two cuts passed every source
+check while drawing nothing.
+Also fixed two of other lanes' new laws that were genuinely mine: TASTE (every
+standing factory documents a TASTE CHECK) and BANK LAW (a new bank must reach
+records/BOHEMIA_BANK_LAW_INDEX.md the same turn).
+
+=== NOT DONE / THE QUEUE, IN ORDER ===
+1. *** 6,070 OF HIS TILES WERE NEVER SWEPT. *** The Great Sweep covered 2,604 of
+   8,674. That is a JUDGE BATCH, not a cook, and it is the cheapest art in this
+   project because he already owns it. BIGGEST NEXT WIN.
+2. The other 54 district types need their surfaces mapped -- only the suburb
+   vocabulary is wired. A warehouse lot wants different objects than a front lawn.
+3. LOOT is now a NAMED ABSENCE: real pickups with no system to pick them up.
+4. Civic masses have no CORNERS and no ENDS -- a warehouse reads flat from the side.
+5. The grime NUMBER is still [PENDING, Paolo's call] -- ART tab card 4.
+
+
+PEOPLE (7h9sfy): 8/4 LATEST — *** A CHECK POINTED AT THE WRONG DOOR. THREE TIMES IN
+ONE DAY, AND THE THIRD ONE WAS MINE. EVERY LANE READ THIS. ***
+Record: records/BOHEMIA_A_CHECK_POINTED_AT_THE_WRONG_DOOR_8_4_26.md
+
+THE CORRECTION FIRST, BECAUSE IT IS MINE. I shipped the head-on deadlock fix and told
+Paolo neighbours in the RUN tab would "walk around each other instead of getting stuck
+standing in place." MEASURED AFTERWARDS ON THE REAL ALPHA, THAT OVERSTATED IT:
+    slices/BOHEMIA_CITY_WORLD.html   function makeSim( : 1 definition, 0 CALL SITES
+The walked surface draws people through the OFFLINE PLANE - ask the schedule where
+somebody is at this minute, draw them there - which is the documented two-plane design
+and is CORRECT. It does not step the sim. My fix is real and correct and live in
+BOHEMIA_RUN_CURRENT.html, which does step it, and which the RUN tab never shows. I
+should have measured before telling him what he would see.
+
+*** THE FLEET-SCALE VERSION OF THE SAME BUG, AND IT IS ON THE SCOREBOARD ***
+records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md says "THE RUN IS THE GAME: 25/31
+systems integrated". Every probe in integration_gate.js reads BOHEMIA_RUN_CURRENT.html.
+Since 7/28 the alpha routes RUN to the city panel, one line:
+    var PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p;
+MEASURED: tap RUN, the only visible panel is p-city at 390x790 running
+BOHEMIA_CITY_WORLD.html. runFrame exists with src=BOHEMIA_RUN_CURRENT.html and is
+NEVER SHOWN.
+THE ROWS ARE NOT WRONG. They are true about the file they name. What is wrong is that
+THE GREENS ARE NOT EVIDENCE ABOUT THE SURFACE HE PLAYS, and no reader can tell which
+ones are.
+I CHECKED BEFORE CLAIMING AND MY FIRST PASS WAS WRONG - worth knowing, because the
+same trap is waiting for the next person: I searched the city for the RUN SLICE'S
+function names and "found" five missing systems. FOUR WERE FALSE ALARMS. Doors,
+save/load, the resolver and combat are all there under their own spellings; the CITY
+lane ported the great majority of it. What survived checking: CLOUT / FEED / FOLLOWERS
+(marked INTEGRATED, no trace in the city under any spelling tried) and the agent sim.
+
+BUILT: gates/surface_truth_gate.js, 16 claims, FIVE MUTATIONS KILLED.
+It does NOT demand the two surfaces match. Which file the run lives in is a real design
+call with real consequences and IT IS THE RUN LANE'S - a gate forcing it would be A GATE
+OUTRANKING A RULING (Paolo 8/1). It demands HONESTY: the ledger declares which file it
+probes and which the RUN tab shows, both must be true, and a mismatch must be stated
+ABOVE the table where a reader cannot reach the greens first. THE SHOWN SURFACE IS
+DERIVED FROM THE ALPHA'S OWN ROUTING LINE, never typed, so it follows whoever re-points
+the tab and goes stale loudly the day it stops being true.
+
+=== FOR THE RUN LANE, WHOSE CALL THIS IS ===
+Either re-point the ledger at the city frame and re-probe every row against it, or make
+the run slice the shown surface again. Both are real, both cost. Not mechanical, not
+mine, NOT URGENT - but it should be DECIDED rather than drifted into, which is why it
+is now written where the scoreboard is read.
+
+STANDING LESSON, THIRD INSTANCE IN THREE DAYS: a check pointed at the wrong door NEVER
+ANNOUNCES ITSELF, because pointing at the wrong door produces confident GREEN, not red.
+Finding these one at a time has not worked. Before you believe a green, ask what FILE
+it read and whether that is the file he taps.
+
+-----------------------------------------------------------------------------------
+CITY (1eztay): 8/6 LATEST — *** THE REPOSITORY RUNS OUT BEFORE THE 11-MONTH PLAN
+DOES. READ THIS, EVERY LANE. IT CHANGES HOW ALL OF US SHIP. ***
+
+On 8/2 a lane caught the 100 MB PER-FILE cap (~43 days out) and fixed it properly:
+the world moved to a sibling page, alpha 38.7 MB -> 2.92 MB, first load 29x faster.
+THAT FIXED THE FILE. THE REPOSITORY IS A DIFFERENT CEILING WITH ITS OWN CLOCK, and
+nobody was watching that one either.
+
+MEASURED ON A REAL BARE CLONE FROM ORIGIN, not estimated:
+    packed 900 MB  ·  54 SECONDS TO CLONE (every session pays it at startup)
+    repo age 11 DAYS  ·  growth 32.5 MB/day post-extraction
+    GitHub soft warning 1 GB  ->  ~4 DAYS
+    GitHub HARD cutoff  5 GB  ->  ~130 DAYS = 4.3 MONTHS
+ELEVEN MONTHS OF PLANNED WORK. THE REPO HITS GITHUB'S CEILING LESS THAN HALFWAY IN.
+That is not an opinion about the code. It is arithmetic on somebody else's limit.
+
+THE DRIVER IS NO LONGER THE ALPHA (1.9 MB/day). It is
+slices/BOHEMIA_CITY_WORLD.html at 20.5 MB/day: a 28 MB GENERATED file, rewritten by
+string surgery and committed WHOLE, several times a day, by several lanes. Git keeps
+every version. The extraction moved the weight; it did not stop it accumulating.
+
+THE MEASUREMENT ALMOST LIED TO ME TWICE, and every lane should take this:
+  local .git read 6.9 GB -- 3,888 loose objects, 5.34 GiB of MY OWN rebase churn,
+  against a 900 MB real repo. A 7x overstatement I was one command from reporting.
+  Then the growth query said 90.5 MB/day over 3 days and 257.7 MB/day over 7 -- the
+  7-day figure EXCEEDING THE WHOLE REPOSITORY, which is impossible.
+Only numbers taken INSIDE a fresh bare clone are trustworthy. WHEN TWO WINDOWS OF
+THE SAME MEASUREMENT DISAGREE, THE INSTRUMENT IS WRONG, NOT THE WORLD.
+
+GATED so it is never found by luck again: gates/repo_budget_gate.js (REPO BUDGET, 8
+claims) -- the recorded measurement must stay fresh (<=21 days), the projected runway
+must stay over 90 days, nothing near the 100 MB per-file cap, named drivers must
+still exist. It does NOT clone to measure (54s + 900 MB every ship) and REFUSES to
+fake it with a local git count-objects, for the 7x reason above. An honest
+stale-check beats a cheap wrong number. Mutation-proven three ways.
+
+*** WHAT COMES AFTER IS PAOLO'S ONE PICK, and no lane should act on it alone: ***
+  1. build the world page at DEPLOY TIME from a GitHub Action instead of committing
+     it -- kills ~20 MB/day at a stroke; costs diff-reviewability and changes every
+     lane's patch-tool workflow
+  2. Git LFS for the generated slices -- keeps the workflow, adds a quota
+  3. stop committing intermediates -- 4x 43 MB banks/BOHEMIA_HD_TILE_REPO_* plus the
+     judge/target PNGs are inputs and outputs, not source
+  4. do nothing, re-measure monthly -- legitimate, 130 days is real runway. It just
+     has to be a CHOICE instead of an accident.
+Records: BOHEMIA_THE_OTHER_CLOCK_8_6_26.md · BOHEMIA_REPO_BUDGET_8_6_26.json
+
+EARLIER THIS SESSION: the shared city-app resolver was DEAD CODE in all 13 gates
+that "used" it (a broken resolver left every one of them green -- proved by
+sabotage); BLOB INTEGRITY (70 claims) after the game shipped black twice from one
+missing </div>; MAP SIZE and DISTRICT FILL floors; the HANDOFF gate after that file
+reached main conflicted four times in a day. And the honest negatives: the walk is
+FAST (median frame 0.6 ms) and NO district is under-built.
+
+NOT MINE TO DECIDE
+- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
+  now"). DO NOT RAISE IT. Backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Still open.
+
+SOUND (sound-xk7pjp): 8/4 (f) LATEST - YOU CAN HEAR WHERE YOU ARE. Tab: RUN
+(walk outside, then go indoors and listen to your own footsteps).
+
+THE FLATTEST THING LEFT IN THE AUDIO: every sound played IDENTICALLY everywhere.
+The same footstep in the open desert, in a street between two blocks, in a small
+bedroom, and inside a dead parking structure. A world that sounds the same in
+every place has one place in it.
+
+FOUR ACOUSTIC SPACES, from measured RT60 in the literature (small furnished room
+~0.2s, corridor ~2s, parking basement ~3s; street canyons lengthen the decay
+against open terrain because concrete and glass reflect):
+  OPEN    outdoors, off the road grid. Nothing to reflect off. Drier.
+  STREET  outdoors on/beside the road. THE BASELINE, 1.0 on every dial.
+  ROOM    indoors, small floorplan. Tight, and DARKER (cloth eats the highs).
+  HALL    indoors, large floorplan. Long and bright: a building with nothing in it.
+
+*** STREET RETURNS THE IDENTITY OBJECT, NOT A COPY, AND THE GATE CHECKS ===. ***
+The commonest place in the run is byte-for-byte what he approved; only LEAVING
+the street changes anything. That is what keeps this inside MECHANISM-MINE /
+CONTENTS-PAOLO'S: it never changes WHICH sound plays, only the room it plays in,
+same class as the distance+pan already applied to a neighbour's footstep.
+
+SCREECH LAW SAFE: no convolver, no delay, no feedback. It only turns four
+existing fields of the existing typed spec (space/room/refl/dark), which the
+engine already builds from re-struck bodies and a filtered noise tail.
+
+THE RUN NEEDS NO NEW STATE: mode ext/int is the flag the footstep classifier
+already uses, isRoad() is the same call, and small-vs-large is the interior's own
+FLOOR CELL COUNT (>=140 = HALL) rather than a guess at its name. A name can be
+wrong; a floor cannot.
+
+A MEASUREMENT MISTAKE WORTH KEEPING: the first probe played playSFX twice per
+space and compared. That proves NOTHING - playSFX picks a random candidate from
+his approved set each call, and two of his candidates differ by more than a room
+does. It "showed" open desert as the loudest space in the game. The gate now
+checks the DETERMINISTIC transform exactly, plus ONE FIXED VECTOR's audio
+(hall measured ~60% more energy than open, twice). And it states plainly that
+the meter CANNOT resolve OPEN from STREET - that difference is inside the noise,
+so it is not asserted.
+
 SOUND (sound-xk7pjp): 8/4 (i) LATEST - A NULL RESULT I DID NOT SHIP, AND
 BACKLOG SOUNDS #5 CLOSED. Nothing here needs judging.
 

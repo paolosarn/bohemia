@@ -50,7 +50,7 @@ act 1, its layer, whether it blocks, what is inside it, how many tiles and what
 percent of the plot. Every colour on the render has a line. If a colour has no
 line, that is the bug, visible at a glance.
 
-`tools/bohemia_answer_sheet.py` builds it. `gates/answered_for_gate.py` holds the
+`tools/bohemia_answer_sheet.py` builds it. `gates/answered_for_gate.js` holds the
 three tests above across every registered district.
 
 ## THE SCORES THIS RULING CAME WITH
