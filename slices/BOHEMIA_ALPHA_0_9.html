@@ -936,7 +936,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/5d - TWELVE NAMED PLACES BUILT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/3d - HIS NUMBERS, NOT A TUTORIALS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -14510,9 +14510,20 @@ window.CLO=(function(){
       if(!strip&&y>=hTop&&y<=hBot){
         /* CALM DOWN ON THE SHAPING (Paolo 8/2: "Oompa Loompa's ... calm down on the
            shaping"). 2px past a 12px skull is a third again of the head in hair. */
-        var _th=(front?0:1);
-        mn-=(_bias<0?_th+1:_th);
-        mx+=(_bias>0?_th+1:_th); }
+        /* HIS OWN NUMBERS, NOT A TUTORIAL'S (8/3). MEASURED off hair/curtain-bob --
+           the one hairstyle HE painted and the only one he has never criticised:
+               S  0 pixels past the skull
+               E  2 pixels past the skull
+               N  0 pixels past the skull
+           His hair BARELY LEAVES THE SKULL. I had read a pixel-art tutorial saying
+           hair in profile "drapes without following the shape of the head" and given
+           every style 2px on every non-front facing -- twice his profile value and
+           infinitely more than his front and back. That is the Oompa Loompa
+           silhouette he named, and it was measurable the whole time against art
+           already in this repo.
+           A rule from the internet does not outrank the reference he painted. */
+        var _th=prof?2:0;
+        if(_th){ mn-=(_bias<0?_th:0); mx+=(_bias>0?_th:0); } }
       if(y<hTop){ mn+=1; mx-=1; }                                  /* the crown tapers as it rises */
       var grow=Math.round(flare*Math.max(0,y-hTop));
       mn-=grow; mx+=grow;
