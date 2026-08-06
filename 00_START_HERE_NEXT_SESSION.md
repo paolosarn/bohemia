@@ -1,3 +1,51 @@
+PEOPLE (7h9sfy): 8/6 LATEST — *** THE SAVE COULD BE DELETED BY THE PHONE AFTER SEVEN
+DAYS AND NOTHING WAS ASKING IT NOT TO. FIXED. *** THE BIG MISSING item 7, filed 7/29,
+never acted on, owned by nobody.
+Record: records/BOHEMIA_A_SAVE_THAT_SURVIVES_A_WEEK_OFF_8_6_26.md
+
+RESEARCHED 8/6 because the 7/29 note was a summary and this policy moves:
+  * REAL AND CURRENT. Since iOS 13.4 / Safari 13.1 WebKit DELETES localStorage,
+    IndexedDB, SessionStorage AND SERVICE WORKER REGISTRATIONS after SEVEN DAYS with no
+    interaction with the origin. The counter resets every visit, so IT ONLY BITES THE
+    PLAYER WHO STOPS PLAYING - exactly the player you want back.
+  * ONE-CALL FIX WE HAD NEVER MADE. Eviction SKIPS origins granted persistence via
+    navigator.storage.persist(). Supported since Safari 17 / iOS 17.
+  * HOME-SCREEN WEB APPS get their own counter tied to real app use. Safer, but NOT a
+    substitute - installing is the player's choice, not ours, and most never do.
+
+MEASURED ON THE REAL SURFACE FIRST (boot the alpha, tap RUN, ask the page):
+    localStorage : 3 keys, 10,859 bytes   bohemia.save.v1 = 9,351
+    navigator.storage.persisted() : FALSE      <- never granted
+    navigator.storage.persist     : present    <- and NEVER CALLED
+    zero occurrences of `navigator.storage` anywhere in the repo
+    60 localStorage call sites, 0 IndexedDB
+
+*** THE SECOND INJURY NOBODY HAD CONNECTED: slices/sw.js is what makes the ONE-LINK LAW
+work (network-first, so the one URL always serves the newest deploy) and SERVICE WORKER
+REGISTRATIONS ARE ON THE SAME EVICTION LIST. A player back after a week loses the save
+AND falls back to a stale link - the exact failure the one-link law exists to prevent.
+
+SHIPPED: tools/bohemia_durable_save_patch.py, one request at boot, marker-fenced,
+idempotent. IT TOUCHES NO SAVE CODE - how a save is written/read/migrated/exported is
+the RUN lane's and none of it changes; this asks the browser to KEEP what is already
+being written, and the gate asserts the boundary (no setItem in the block). Fire and
+forget: false changes nothing, an exception changes nothing, boot never waits. WORST
+CASE IS EXACTLY TODAY. Nothing for Paolo to judge - Safari decides with no user prompt.
+GATE: gates/durable_save_gate.js, 13 claims, 3 mutations killed. IT MEASURES ON THE REAL
+SURFACE rather than grepping for the line, because A LINE THAT EXISTS AND NEVER RUNS is
+the exact bug this repo has found all week. It deliberately does NOT assert persistence
+was GRANTED - browsers decide on their own heuristics and headless Chromium answers
+differently from a phone; asserting the grant would make the gate a weather report. It
+asserts THAT WE ASKED, correctly, on the surface he opens. It also alarms if the save
+ever outgrows localStorage (10.8 KB today, ~5 MiB cap).
+
+[PENDING PAOLO, DUE ~MONTH 8, NOT BLOCKED TODAY] WHAT THE GAME SHIPS AS - web link /
+home-screen app / App Store wrapper. It matters more now the eviction rules are known:
+tab = 7-day counter (now mitigated), home-screen = own counter tied to real use
+(materially safer), wrapper = native storage, not subject to this at all. Store review,
+monetisation and packaging all work backwards from it.
+
+-----------------------------------------------------------------------------------
 *** FLEET-WIDE, READ BEFORE YOU PUSH ANYTHING: THE DEPLOY IS WEDGED (8/6) ***
 records/BOHEMIA_THE_DEPLOY_IS_WEDGED_AND_ONE_RUN_IS_MINE_8_6_26.md
 Nothing has published to the live site since ~14:00. The BUILD succeeds every

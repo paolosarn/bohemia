@@ -425,6 +425,13 @@ GATES = [
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],
      'the run IS the game we built: every system claimed integrated is machine-probed in the shipped run, no unproven claims', False),
+    ('DURABLE SAVE',   ['node', 'gates/durable_save_gate.js'],
+     'the save survives a week off the game. iOS WebKit DELETES localStorage, IndexedDB and '
+     'service worker registrations after SEVEN DAYS with no interaction -- every Bohemia save '
+     'is in localStorage and sw.js (the ONE-LINK worker) is on the same list, so a player who '
+     'stops for a week loses the save AND the link. Eviction skips origins granted persistence; '
+     'we had never asked. MEASURED on the real alpha, not grepped: the request must really RUN '
+     'at boot, never await, never throw, and touch no save code', False),
     ('REACHABILITY',   ['node', 'gates/reachability_gate.js'],
      'of everything we have BUILT, what reaches the surface he taps? 205 sources sampled by '
      'their own BYTES (not their names -- names are a lane dialect). SEVENTEEN finished things '

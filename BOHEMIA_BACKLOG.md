@@ -3875,6 +3875,35 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-R. [SHIPPED 8/6 - THE BIG MISSING ITEM 7, FILED 7/29, OWNED BY NOBODY -
+   records/BOHEMIA_A_SAVE_THAT_SURVIVES_A_WEEK_OFF_8_6_26.md]
+   *** THE PHONE COULD DELETE THE SAVE AFTER SEVEN DAYS AND NOTHING WAS ASKING IT
+   NOT TO. *** iOS WebKit deletes localStorage, IndexedDB AND SERVICE WORKER
+   REGISTRATIONS after 7 days with no interaction with the origin. The counter
+   resets every visit, so IT ONLY BITES THE PLAYER WHO STOPS PLAYING - the one you
+   want back. Researched 8/6 because the 7/29 note was a year-old summary.
+   MEASURED FIRST: 3 keys / 10,859 bytes (bohemia.save.v1 = 9,351), persisted()
+   FALSE, persist() present and NEVER CALLED, zero `navigator.storage` anywhere in
+   the repo, 60 localStorage sites, 0 IndexedDB.
+   SECOND INJURY NOBODY HAD CONNECTED: sw.js - the worker the ONE-LINK LAW depends
+   on - is on the SAME eviction list. A week away loses the save AND the fresh link.
+   FIX: one request at boot (navigator.storage.persist), because eviction SKIPS
+   origins granted persistence. Supported since Safari 17 / iOS 17.
+   BOUNDARY, and it is what makes this legitimate from this lane: IT TOUCHES NO SAVE
+   CODE. How a save is written/read/migrated/exported is the RUN lane's and none of
+   it changes; the gate asserts no setItem in the block. Fire and forget - false
+   changes nothing, an exception changes nothing, boot never waits, WORST CASE IS
+   EXACTLY TODAY.
+   GATE MEASURES ON THE REAL SURFACE, not a grep - a line that exists and never runs
+   is the bug this repo found all week. It does NOT assert the grant: browsers decide
+   and headless answers differently from a phone, so asserting it would make the gate
+   a weather report. It asserts THAT WE ASKED. Also alarms if the save outgrows
+   localStorage.
+   | gates/durable_save_gate.js 13 claims, 3 mutations killed, registered | 8/6 | no.
+   [PENDING PAOLO ~MONTH 8, NOT BLOCKED] what the game SHIPS AS: tab (7-day counter,
+   now mitigated) / home-screen app (own counter, materially safer) / App Store
+   wrapper (native storage, immune). Store review + monetisation work backwards from it.
+
 P-Q. [SHIPPED 8/6 - FLEET-CRITICAL, AND IT IS THE ROADMAP - records/BOHEMIA_WHAT_
    WE_BUILT_THAT_HE_CANNOT_REACH_8_6_26.md]
    *** SEVENTEEN FINISHED THINGS SHIP ONLY TO THE FILE NOBODY SEES. ***

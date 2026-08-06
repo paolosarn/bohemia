@@ -5,6 +5,33 @@
   forever -- no ?v= cache-busters, ever. This worker makes the plain URL always
   serve the newest deploy (network-first), killing the stale-cache reason the
   query strings existed. Silent, URL stays pristine. */
+/* __BOH_DURABLE__ (8/6/26): ASK THE BROWSER TO KEEP THE SAVE.
+   iOS WebKit deletes localStorage, IndexedDB AND service worker registrations
+   after SEVEN DAYS with no interaction with the origin. Every Bohemia save lives
+   in localStorage (measured: bohemia.save.v1, 9,351 bytes), and sw.js - the
+   worker the ONE-LINK LAW depends on - is on the same eviction list. So a player
+   who puts the game down for a week comes back to a deleted save AND a stale
+   link. That is THE BIG MISSING item 7, and it had never been acted on.
+   Eviction SKIPS origins granted persistence. This is that request, and it is
+   the whole fix. It touches no save code: nothing about how a save is written,
+   read, migrated or exported changes - it asks the browser to keep what is
+   already being written.
+   FIRE AND FORGET BY DESIGN: false changes nothing, an exception changes
+   nothing, and boot never waits on it. The worst case is exactly today.
+   Safari decides on its own heuristics with no user prompt, so there is nothing
+   here for anybody to judge. The answer is parked on window.__BOH_DURABLE so
+   the gate can MEASURE that the request really happened. */
+(function(){ try{
+  if(navigator.storage && navigator.storage.persist){
+    navigator.storage.persisted().then(function(already){
+      window.__BOH_DURABLE={api:true,already:already,granted:null};
+      if(already) { window.__BOH_DURABLE.granted=true; return; }
+      return navigator.storage.persist().then(function(ok){
+        window.__BOH_DURABLE.granted=!!ok;
+      });
+    }).catch(function(){ window.__BOH_DURABLE={api:true,error:true}; });
+  } else { window.__BOH_DURABLE={api:false}; }
+}catch(_bd){ window.__BOH_DURABLE={api:false,error:true}; } })();
 if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(function(reg){
   reg.update();                                              /* always re-check the worker on load */
   var reloaded=false;
@@ -936,7 +963,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/6c - EVERY BUILT DISTRICT HAS THINGS IN IT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/6e - YOUR SAVE SURVIVES A WEEK OFF</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
