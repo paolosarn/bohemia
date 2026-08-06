@@ -519,6 +519,32 @@ Object.keys(pool.buckets).forEach(function (b) {
 ['floors', 'walls', 'dirtfloor', 'furniture', 'container', 'clutter', 'debris'].forEach(function (b) {
   if (!poolOut[b] || !poolOut[b].length) throw new Error('the interior pool is missing bucket ' + b);
 });
+/* ---- THE EXTERIOR POOL (8/5). The same crossing as the interior pool above,
+   pointed OUTSIDE, where the valley had literally zero objects in it.
+   banks/BOHEMIA_HD_TILE_REPO_part1..4 is 8,674 tiles he bought and MEASURED ZERO
+   had ever drawn a pixel; banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26 is his own
+   Great Sweep over them, 1,927 UP. One lane took the 465 that belong in rooms and
+   stopped at the front door. This ships the outdoor ones.
+   UP-ONLY IS LOAD-BEARING: a DOWN tile in this file would put art on his screen
+   he already rejected, so the builder refuses the pool rather than trust it. ---- */
+var XPOOL_PATH = 'banks/BOHEMIA_EXTERIOR_POOL_8_5_26.txt';
+var xpool = JSON.parse(fs.readFileSync(XPOOL_PATH, 'utf8'));
+if (!/UP-ONLY/.test(xpool.law || '')) throw new Error(XPOOL_PATH + ' is not the UP-only pool');
+var xOut = {};
+Object.keys(xpool.buckets).forEach(function (b) {
+  xOut[b] = xpool.buckets[b].map(function (e) {
+    return { s: parseFloat(e.s) || 1, p: e.pack, b64: e.b64 };
+  });
+});
+['street', 'wreck', 'trash', 'crate', 'dead', 'barrier', 'camp'].forEach(function (b) {
+  if (!xOut[b] || !xOut[b].length) throw new Error('the exterior pool is missing bucket ' + b);
+});
+if (html.indexOf('__EXTERIOR_POOL_JSON__') < 0) throw new Error('missing __EXTERIOR_POOL_JSON__ placeholder');
+html = html.replace('__EXTERIOR_POOL_JSON__', JSON.stringify({
+  version: xpool.version, buckets: xOut }));
+console.log('  EXTERIOR POOL: ' + Object.keys(xOut).reduce(function (n, b) { return n + xOut[b].length; }, 0) +
+            ' objects he thumbed UP on 7/13, outdoors for the first time');
+
 if (html.indexOf('__INTERIOR_POOL_JSON__') < 0) throw new Error('missing __INTERIOR_POOL_JSON__ placeholder');
 html = html.replace('__INTERIOR_POOL_JSON__', JSON.stringify({
   version: pool.version, px: pool.px, buckets: poolOut }));

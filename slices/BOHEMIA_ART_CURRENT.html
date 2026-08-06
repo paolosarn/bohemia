@@ -55,10 +55,10 @@
 </style>
 
 <header>
-  <h1>ART &middot; 8/4 &middot; THE SUN CAME UP</h1>
+  <h1>ART &middot; 8/5 &middot; THE WORLD HAS THINGS IN IT</h1>
   <button class="sunbtn" id="sunbtn">SUN MODE</button>
 </header>
-<p class="lede">Everything this lane made today, in one place. Three things to judge.
+<p class="lede">Everything this lane made, in one place. Four things to judge.
 Tap a picture to flip it. Thumbs, then EXPORT at the bottom and send me the file.</p>
 
 
@@ -98,8 +98,26 @@ Tap a picture to flip it. Thumbs, then EXPORT at the bottom and send me the file
     <textarea class="note" data-card="sun" placeholder="say anything about this one"></textarea>
   </section>
 
+  <section class="card" data-id="props">
+    <h2><span class="n">3</span>THINGS IN THE WORLD</h2>
+    <p class="ask">Tap the picture. Does the block look like a place people left?</p>
+    <div class="shotwrap ab" data-card="props">
+      <img class="abimg a on" src="../records/target/ART_PROPS_OFF.png" alt="NOTHING IN IT (how it was)" loading="lazy">
+      <img class="abimg b"    src="../records/target/ART_PROPS_ON.png" alt="HIS OBJECTS, FIRST TIME EVER" loading="lazy">
+      <div class="flag" id="flag_props">NOTHING IN IT (how it was)</div>
+      <div class="taphint">TAP TO FLIP</div>
+    </div>
+    <p class="why">You bought 8,674 HD tiles and swept 2,604 of them by hand on 7/13 -- 1,927 thumbs up. NOT ONE had ever drawn a pixel. One session took the 465 that go indoors and put them in rooms and stopped at the front door, so the entire valley had zero objects standing in it. That is why it looked empty, and it was never about texture. Your own thumbs picked this vocabulary: rocks 100 up and 0 down, dead trees 47 up, LIVING trees 0 up and 23 down. It is a dead valley because you said so.</p>
+    <p class="num">126 objects you already approved, outdoors for the first time</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="props" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="props" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="props" placeholder="say anything about this one"></textarea>
+  </section>
+
   <section class="card" data-id="grime">
-    <h2><span class="n">3</span>THE DIRT — PICK A NUMBER</h2>
+    <h2><span class="n">4</span>THE DIRT — PICK A NUMBER</h2>
     <p class="ask">Three amounts of grime. Which one? NONE, SOME, or DIRTY.</p>
     <div class="shotwrap">
       <img class="dialimg on" data-k="0"
@@ -135,7 +153,7 @@ Tap a picture to flip it. Thumbs, then EXPORT at the bottom and send me the file
 </div>
 
 <script>
-var CARDS = [{"id":"look","title":"THE LIGHT","labels":["LIGHT OFF (how it was)","LIGHT ON (what shipped)"]},{"id":"sun","title":"THE SHADOWS","labels":["NO SHADOWS","SHADOWS ON"]},{"id":"grime","title":"THE DIRT — PICK A NUMBER","labels":["NONE (0)","SOME (0.30)","DIRTY (0.55)"]}];
+var CARDS = [{"id":"look","title":"THE LIGHT","labels":["LIGHT OFF (how it was)","LIGHT ON (what shipped)"]},{"id":"sun","title":"THE SHADOWS","labels":["NO SHADOWS","SHADOWS ON"]},{"id":"props","title":"THINGS IN THE WORLD","labels":["NOTHING IN IT (how it was)","HIS OBJECTS, FIRST TIME EVER"]},{"id":"grime","title":"THE DIRT — PICK A NUMBER","labels":["NONE (0)","SOME (0.30)","DIRTY (0.55)"]}];
 var V = {}, NOTE = {}, DIAL = { grime: '0' };
 
 /* TAP FLIPS. The eye holds the first frame and the second lands on top of it, which
@@ -210,7 +228,7 @@ document.getElementById('sunbtn').addEventListener('click', function(){
 
 /* .txt, NEVER .json (verdict workflow, standing) */
 document.getElementById('exp').addEventListener('click', function(){
-  var L = ['BOHEMIA ART VERDICT', 'build 8/4 - THE SUN CAME UP', ''];
+  var L = ['BOHEMIA ART VERDICT', 'build 8/5 - THE WORLD HAS THINGS IN IT', ''];
   CARDS.forEach(function(c){
     L.push(c.title);
     L.push('  verdict: ' + (V[c.id] || 'NO ANSWER'));

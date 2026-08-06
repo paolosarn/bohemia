@@ -1,3 +1,84 @@
+ART (f3eu53): 8/5 (a) LATEST -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
+HAND, AND THE GAME DREW ZERO. THAT IS WHY THE WORLD LOOKS EMPTY. ***
+
+=== READ THIS FIRST, EVERY LANE ===
+banks/BOHEMIA_HD_TILE_REPO_part1..4 is 8,674 tiles he PAID FOR. Measured: not one
+had ever drawn a pixel. And they were not unjudged --
+banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26 is his own Great Sweep, "every act-1 asset
+individually judged in context ... THE act-1 art authority", 1,927 UP.
+One session crossed the sweep with the masters, took the 465 that go INDOORS, wired
+them into rooms, and STOPPED AT THE FRONT DOOR. Nobody took the 812 that go outside.
+The entire valley had ZERO objects standing in it.
+*** THE WORLD DID NOT READ EMPTY BECAUSE THE TEXTURE WAS THIN. IT READ EMPTY
+BECAUSE THERE WAS NOTHING IN IT. *** I spent a week making texture denser.
+
+=== THE PROBE WAS VALIDATED BEFORE IT WAS BELIEVED ===
+An audit returned zero for every district two days ago because the PROBE was
+broken. So this one was run against a control first: ground seamless, which
+bought_beats_painted_gate already proves is live -> 33 of 456 found, exactly the
+known curated subset. Probe works. HD repo -> 0 of 8,674.
+
+=== THE BLOCKER EVERYONE ASSUMED WAS IMAGINARY ===
+Masters are ~96px, art cell is 44px, and the no-resample law was read as "art must
+be CELL-SIZED". *** IT DOES NOT SAY THAT. It says an art pixel is a WHOLE NUMBER OF
+SCREEN PIXELS. *** A 96px prop at the run's own integer zoom step is legal; it just
+spans ~2 cells, which is what an object that size should do. Nothing needed
+re-cutting. 180MB of purchased art sat dark for a rule nobody re-read.
+
+=== HIS THUMB ALREADY WROTE THE VOCABULARY, 23 DAYS AGO ===
+  rocks and stones ....... 100 UP,  0 DOWN   the desert, unanimous
+  dead trees and plants ... 47 UP,  1 DOWN
+  TREES AND NATURE ......... 0 UP, 23 DOWN   NO LIVING TREES. a dead valley.
+  abandoned cars .......... 55 UP,  0 DOWN
+  market and outdoor props . 0 UP, 23 DOWN   a whole pack he killed
+Reading the UP/DOWN split IS the art direction. It was in a file the whole time.
+
+=== WHAT SHIPPED ===
+banks/BOHEMIA_EXTERIOR_POOL_8_5_26.txt, 126 objects, all UP-verdicted, placed by
+SURFACE, which is mechanism and not content: road gets wrecks, sidewalk gets street
+furniture, dead ground gets the desert and what blew into it, a lot gets barricades,
+stalls and goods. One cell in nine. Never under his feet, in a doorway, inside a
+building, or on a driveway. PURE PAINT -- nothing touches passability, because a prop
+that quietly blocked a cell would break pathing valley-wide and read as a world bug.
+
+=== THREE CUTS, AND THE RENDER CAUGHT WHAT THE NUMBERS DID NOT ===
+CUT 1 drew NOTHING twice while every source check passed: I invented the world's
+  vocabulary from my own head twice ('yard_0', then 'yard') when the dossier calls
+  it "dead-ground (yard)". Fixed by SAMPLING eight districts first.
+CUT 2 put a CAR-SIZED GLOWING POTION JAR and a 2m backpack on a suburban lawn.
+  *** HIS VERDICT WAS RIGHT, MY READING OF IT WAS WRONG. *** The sweep judged every
+  asset IN CONTEXT and the context for a jar is a shelf. A VERDICT ON AN OBJECT IS
+  NOT A LICENCE TO RENDER IT AT ANY SIZE OR IN ANY PLACE. Loot is a different system.
+CUT 3 put wooden market barrels on a Vegas lawn. Right tiles, wrong WHERE. Split
+  TRASH (blows anywhere) from CRATE (lots and swap meets only).
+Only the third shipped. The numbers were green at cut 1.
+
+=== WHERE HE LOOKS ===
+*** THE ART TAB, card 2, "THINGS IN THE WORLD". *** Tap to flip empty vs dressed.
+He never opens a file. (NAME THE TAB, and I broke it on 8/4 -- see that section.)
+
+=== GATED ===
+gates/exterior_pool_gate.js 32 checks, registered EXTERIOR POOL. UP-only against
+his own sweep; nothing unjudged (only 2,604 of 8,674 were swept, silence is not
+approval); no hand-scale loot; no indoor packs; no bodies; NO LIVING TREES;
+integer blit + ceiling; props never block. Walks out the front door and asserts
+turning them on CHANGES THE REAL CANVAS -- because two cuts passed every source
+check while drawing nothing.
+Also fixed two of other lanes' new laws that were genuinely mine: TASTE (every
+standing factory documents a TASTE CHECK) and BANK LAW (a new bank must reach
+records/BOHEMIA_BANK_LAW_INDEX.md the same turn).
+
+=== NOT DONE / THE QUEUE, IN ORDER ===
+1. *** 6,070 OF HIS TILES WERE NEVER SWEPT. *** The Great Sweep covered 2,604 of
+   8,674. That is a JUDGE BATCH, not a cook, and it is the cheapest art in this
+   project because he already owns it. BIGGEST NEXT WIN.
+2. The other 54 district types need their surfaces mapped -- only the suburb
+   vocabulary is wired. A warehouse lot wants different objects than a front lawn.
+3. LOOT is now a NAMED ABSENCE: real pickups with no system to pick them up.
+4. Civic masses have no CORNERS and no ENDS -- a warehouse reads flat from the side.
+5. The grime NUMBER is still [PENDING, Paolo's call] -- ART tab card 4.
+
+
 PEOPLE (7h9sfy): 8/4 LATEST — *** A CHECK POINTED AT THE WRONG DOOR. THREE TIMES IN
 ONE DAY, AND THE THIRD ONE WAS MINE. EVERY LANE READ THIS. ***
 Record: records/BOHEMIA_A_CHECK_POINTED_AT_THE_WRONG_DOOR_8_4_26.md
@@ -457,56 +538,48 @@ Three icons came in squat and the honest answer was not to lower the bar:
 3. Still unanswered from way back: HOW LONG SINCE THE COLLAPSE. It sets the damage level
    for all 45 districts and nothing can be finish-passed without it.
 
-=== WHAT COMES AFTER (world lane, unblocked) ===
-1. DOORLESS_DEBT is 12 older heroes (ballpark, farm, firestation, industrial, interchange,
-   solar, speedway, stadium, storage, swapmeet, town, warehouse) -- all pre-8/4, all with
-   real buildings that could carry a door.
-2. CANOPY_DEBT is 14 shelter canopies still standing outside parks.
-3. downtown_arts / downtown_civic / downtown_lot, from the 8/1 downtown research.
-4. [PENDING Paolo] the drive-thru wedding chapel as its own cell type -- proposed, not built.
+=== WHAT SHIPPED ===
+banks/BOHEMIA_EXTERIOR_POOL_8_5_26.txt, 126 objects, all UP-verdicted, placed by
+SURFACE (mechanism, not content): road->wrecks, sidewalk->street furniture,
+dead ground->desert + blown trash, lot->barricades/stalls/goods. One cell in nine.
+Never under his feet, in a doorway, inside a building, or on a driveway.
+PURE PAINT -- nothing touches passability, because a prop that quietly blocked a
+cell would break pathing valley-wide and read as a world bug.
 
+=== THREE CUTS, AND THE RENDER CAUGHT WHAT THE NUMBERS DID NOT ===
+CUT 1 drew NOTHING twice while every source check passed: I invented the world's
+  vocabulary from my own head twice ('yard_0', then 'yard') when the dossier calls
+  it "dead-ground (yard)". Fixed by SAMPLING eight districts first.
+CUT 2 put a CAR-SIZED GLOWING POTION JAR and a 2m backpack on a suburban lawn.
+  *** HIS VERDICT WAS RIGHT, MY READING OF IT WAS WRONG. *** The sweep judged every
+  asset IN CONTEXT and the context for a jar is a shelf. A VERDICT ON AN OBJECT IS
+  NOT A LICENCE TO RENDER IT AT ANY SIZE. Loot is a different system.
+CUT 3 put wooden market barrels on a Vegas lawn. Right tiles, wrong WHERE. Split
+  TRASH (blows anywhere) from CRATE (lots and swap meets only).
+Only the third shipped. The numbers were green at cut 1.
 
-CITY (1eztay): 8/4 LATEST — THE SINGLE SOURCE OF TRUTH WAS DEAD CODE IN ALL 13
-PLACES IT WAS USED, AND EVERY ONE OF THEM WAS GREEN.
+=== WHERE HE LOOKS ===
+*** THE ART TAB, card 2, "THINGS IN THE WORLD". *** Tap to flip empty vs dressed.
+He never opens a file. (NAME THE TAB, and I broke it yesterday -- see 8/4.)
 
-Yesterday's extraction fix introduced gates/bohemia_city_app.js: ONE predicate that
-knows where the city app lives, so the next time it moves you edit one file. Right
-idea, and I took it over my own cruder version. THE WIRING NEVER LANDED. Thirteen
-gates contain BOTH of these lines, in this order:
+=== GATED ===
+gates/exterior_pool_gate.js 32 checks, registered EXTERIOR POOL. UP-only against
+his own sweep; nothing unjudged (only 2,604 of 8,674 were swept, silence is not
+approval); no hand-scale loot; no indoor packs; no bodies; NO LIVING TREES;
+integer blit + ceiling; props never block. Walks out the front door and asserts
+turning them on CHANGES THE REAL CANVAS -- because two cuts passed every source
+check while drawing nothing.
 
-    f = page.frames().find(fr => require('./bohemia_city_app.js').isFrame(fr, page));
-    f = page.frames().find(fr => (/srcdoc|CITY_WORLD|CITY_CURRENT/.test(fr.url())) ...);
+=== NOT DONE / THE QUEUE, IN ORDER ===
+1. *** 6,070 OF HIS TILES WERE NEVER SWEPT. *** The Great Sweep covered 2,604 of
+   8,674. That is a JUDGE BATCH, not a cook, and it is the cheapest art in this
+   project because he already owns it. BIGGEST NEXT WIN.
+2. The other 54 district types need their surfaces mapped -- only the suburb
+   vocabulary is wired. A warehouse lot wants different objects than a front lawn.
+3. LOOT is now a NAMED ABSENCE: real pickups with no system to pick them up.
+4. Civic masses have no CORNERS and no ENDS -- a warehouse reads flat from the side.
+5. The grime NUMBER is still [PENDING, Paolo's call] -- ART tab card 4.
 
-The second OVERWRITES the first before its result is ever read. The shared predicate
-is called once per frame and thrown away. city_kit_binding, dooranim, doorjamb,
-doorway, everydoor, ewdoor, full_res, interior_wall, run_spawn, shadow, stepinside,
-traffic_signal, zoomseam. ALL THIRTEEN GREEN -- which is the whole problem. Nothing
-was failing, so nothing was ever going to find it.
-
-PROVED, NOT ARGUED. Sabotage isFrame to return false for every frame in existence:
-    as it is on main   ->  DOORWAY GATE: 5 passed, 0 failed
-    shadow removed     ->  DOORWAY GATE CRASHED: no frame
-A single source of truth you can replace with `return false` without one test
-noticing is not a source of truth. It is a comment. And the loop that refactor was
-written to END was still fully armed: next time the app moves you edit the resolver,
-nothing changes, and 13 gates fail on "the world frame booted" -- which reads like
-the GAME is broken when it is the TEST that is.
-
-THE FIX, IN THE ORDER THAT MATTERS. The shadow matched CITY_CURRENT and isFrame did
-NOT, so deleting the shadow first would have quietly NARROWED what the fleet finds --
-a behaviour change dressed as a cleanup. (1) widen isFrame to the exact union, unit
-tested on all four URL shapes plus the main frame, (2) THEN remove the shadow from
-all 13, (3) hoist the require out of the per-frame predicate (it was resolving once
-per frame per poll). SUPERSET FIRST, THEN REMOVE THE SHADOW.
-Record: records/BOHEMIA_THE_SHARED_RESOLVER_WAS_DEAD_CODE_8_4_26.md
-
-EARLIER THIS SESSION (8/2): BLOB INTEGRITY (70 claims, 8 big documents) after the
-game shipped black twice from one missing </div>; MAP SIZE and DISTRICT FILL floors;
-the HANDOFF gate after that file reached main conflicted FOUR times in a day; DROP IN
-lands you on a street; the CITY tab deletion's wreckage; the swallowed tab click
-banned in 18 files. And the honest measurements: the walk is FAST (median frame
-0.6 ms, so renderer optimisation is NOT the next job) and NO district is under-built
-(suburb 27/23/50 matches real zoning, the cemetery is 403 graves an acre).
 
 CITY (1eztay): 8/2 (ap) LATEST — THE ALPHA IS FOUR BLOBS IN A TRENCH COAT AND
 NOTHING WAS GUARDING THEM. Now something is.

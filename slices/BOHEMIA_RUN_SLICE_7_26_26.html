@@ -378,6 +378,35 @@ var TARGET_TILES = __TARGET_TILES_JSON__;
    consumed here. Buckets are room FUNCTION: floors, dirtfloor, walls, windows,
    furniture, container, clutter, debris, tools, plant, light, doors. */
 var INT_POOL = __INTERIOR_POOL_JSON__;
+/* ===========================================================================
+   AND THE OUTSIDE. (8/5/26)
+
+   The interior pool above is the same idea done right and stopped at the front
+   door: his purchased HD masters, crossed with his own Great Sweep verdicts, put
+   in rooms. Outside there was NOTHING -- not one object in the entire valley.
+
+   MEASURED: banks/BOHEMIA_HD_TILE_REPO_part1..4 is 8,674 tiles he bought and
+   ZERO of them had ever drawn a pixel. banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26
+   is his Great Sweep, "every act-1 asset individually judged in context ... THE
+   act-1 art authority", 1,927 UP. One lane harvested the 465 that go indoors.
+   Nobody harvested the 812 that go OUTdoors.
+
+   That is why the world reads empty, and it was never a texture problem. A street
+   with perfect asphalt and nothing standing on it is an empty street.
+
+   HIS THUMB DESIGNED THIS VOCABULARY AND NOBODY READ IT:
+     rocks and stones ........ 100 UP,  0 DOWN   the desert, unanimous
+     dead trees and plants .... 47 UP,  1 DOWN
+     trees and nature .......... 0 UP, 23 DOWN   NO LIVING TREES. it is a dead valley.
+     abandoned cars ........... 55 UP,  0 DOWN
+     market and outdoor props .. 0 UP, 23 DOWN   a whole pack he killed
+   =========================================================================== */
+var EXT_POOL = __EXTERIOR_POOL_JSON__;
+var XP = {}, XP_LOADED = 0;
+(function(){ Object.keys(EXT_POOL.buckets||{}).forEach(function(b){
+  XP[b]=EXT_POOL.buckets[b].map(function(e){ var im=new Image();
+    im.onload=function(){ XP_LOADED++; if(typeof draw==='function') draw(); };
+    im.src='data:image/png;base64,'+e.b64; return { im:im, s:e.s||1, p:e.p||e.pack||'' }; }); }); })();
 </script>
 <script src="../engine/bohemia_loop.js"></script>
 <script>
@@ -1578,6 +1607,47 @@ function sunSolid(gx,gy){
   if(gy<0||gx<0||!SOLIDG[gy]||gx>=SOLIDG[gy].length) return false;
   return !!SOLIDG[gy][gx] || (LAYERG[gy]&&LAYERG[gy][gx]==='structure');
 }
+/* WHAT KIND OF THING STANDS ON WHAT KIND OF GROUND. Mechanism only: he decided
+   what EXISTS (his 7/13 thumbs), this decides only that a wreck belongs on a road
+   and a rock belongs on dirt. An unlisted surface gets nothing -- silence, never
+   a guess. */
+var PROPS = { on:true, rate:9, maxCells:1.6 };   /* one cell in nine, never wider than this */
+var PROP_BY_SURFACE = {
+  road:  ['wreck'],                        /* the cars stopped where they stopped */
+  walk:  ['street'],                       /* signs, pipes, fire barrels, kerb junk */
+  waste: ['dead','trash'],                 /* the desert taking a lot back, and what blew into it */
+  lot:   ['wreck','barrier','camp','crate'] /* an open lot is where people and their goods end up */
+};
+/* THE NAMES ARE THE WORLD'S OWN, SAMPLED, NOT GUESSED. Two cuts of this matched
+   nothing because I invented the vocabulary twice: first prefixes like 'yard_0'
+   (those are TILE IDS, a different namespace) and then 'yard' as a prefix, when
+   the dossier actually calls it "dead-ground (yard)". Read across eight districts
+   before writing this list. An unlisted surface gets NOTHING -- silence, never a
+   guess -- which is why the driveway is absent on purpose: a car has to get up it.
+   'reserved landmark ground' is absent for the same reason: it is reserved. */
+function propSurface(gx,gy){
+  var n=(NAMEG[gy]&&NAMEG[gy][gx]||'').toLowerCase();
+  if(!n) return null;
+  if(n==='road'||n.indexOf('alley')>=0) return 'road';
+  if(n.indexOf('sidewalk')>=0||n.indexOf('walk')>=0||n.indexOf('setback')>=0) return 'walk';
+  if(n.indexOf('dead-ground')>=0||n.indexOf('vacant')>=0||n.indexOf('landscape island')>=0) return 'waste';
+  if(n.indexOf('lot')>=0||n.indexOf('parking')>=0||n.indexOf('forecourt')>=0) return 'lot';
+  return null;
+}
+function propOutside(gx,gy){
+  if(gx===px&&gy===py) return null;                 /* never under his feet */
+  if(sunSolid(gx,gy)) return null;                  /* never inside a building */
+  if(doorOf[gx+','+gy]!=null) return null;          /* never in a doorway */
+  var h=(Math.imul(gx|0,2246822519)^Math.imul(gy|0,3266489917)
+        ^Math.imul(CELL_XY()[0]|0,668265263))>>>0;
+  h^=h>>>15; h=Math.imul(h,2246822519)>>>0; h^=h>>>13;
+  if(h%PROPS.rate!==0) return null;                 /* sparse, deterministic */
+  var surf=propSurface(gx,gy); if(!surf) return null;
+  var mix=PROP_BY_SURFACE[surf]; if(!mix||!mix.length) return null;
+  var b=mix[(h>>>4)%mix.length], a=XP[b];
+  if(!a||!a.length) return null;
+  return a[(h>>>9)%a.length];
+}
 var _looked={}, _lookId=0;
 /* EVERY WORLD TILE GOES THROUGH THIS AND NOTHING ELSE DOES. The cast, the d-pad and
    the UI keep their own colour: a grade is a property of the WORLD you are looking at,
@@ -2498,6 +2568,61 @@ function draw(){
       if(isX||ic.g==='door') doorDraws.push([gx,gy2,X,Y,CELL,isX]);
     }
   }
+  /* ===========================================================================
+     WHAT IS STANDING ON THE GROUND. (8/5)
+
+     An empty street with perfect asphalt is still an empty street. This is the
+     first pass of objects the valley has ever had, and every one of them is a
+     tile he BOUGHT and personally thumbed UP in the 7/13 Great Sweep.
+
+     THE SURFACE DECIDES WHAT IS ON IT, which is the whole placement rule and it
+     is mechanism, not content: a road gets WRECKS, a sidewalk gets STREET
+     furniture, dirt gets the DEAD desert, a yard gets JUNK. I am not choosing
+     what exists in his world -- he chose that with his thumb -- only that a
+     wreck belongs on a road and a rock belongs on dirt.
+
+     INTEGER SCALE, WHICH IS WHY THIS WAS POSSIBLE AT ALL. The masters are ~96px
+     and the art cell is 44px, and that mismatch is why 8,674 tiles sat dark: the
+     no-resample law was read as "art must be cell-sized". IT DOES NOT SAY THAT.
+     It says an art pixel is a whole number of screen pixels. So a prop is blitted
+     at the run's own integer zoom step and simply spans about two cells, which is
+     what an object the size of a market stall SHOULD do.
+
+     IT DECORATES, IT NEVER BLOCKS. Nothing here touches passExt() or the
+     occupancy layer. A prop that quietly made a cell impassable would break
+     pathing everywhere and read as a world bug, so props are pure paint: drawn
+     after the ground and its shadows, before any body.
+
+     SPARSE ON PURPOSE. One cell in nine, and never under your feet, never in a
+     doorway, never on a cell something solid already stands on.
+     =========================================================================== */
+  (function(){
+    if(mode!=='ext'||!PROPS.on) return;
+    for(var sy=-halfH; sy<=halfH; sy++) for(var sx=-halfW; sx<=halfW; sx++){
+      var gx=px+sx, gy=py+sy;
+      if(gx<0||gy<0||gx>=gw||gy>=gh) continue;
+      var e=propOutside(gx,gy); if(!e) continue;
+      var im=e.im; if(!im.complete||!im.naturalWidth) continue;
+      /* INTEGER BLIT: one art pixel = zoomStep() screen pixels, always. The tile's
+         own size decides how much ground it covers, never the other way round. */
+      /* INTEGER SCALE FIRST, THEN A CEILING. The masters run to 96px and the cell
+         is 44, so the honest blit is zoomStep() -- but a 96px master at 2x is 2.2
+         cells across, and while that is right for a dead tree it is absurd for a
+         crate. Measured on the real surface: the first cut put a two-metre
+         backpack on a lawn. So the scale steps DOWN in whole numbers until the
+         thing fits inside PROPS.maxCells, and never below 1: an art pixel stays a
+         whole number of screen pixels either way, which is what the law asks. */
+      var lim=CELL*PROPS.maxCells;
+      var z=Math.max(1, Math.round(CELL/ART_PX));
+      while(z>1 && im.naturalWidth*z>lim) z--;
+      z*=(e.s||1);
+      var w=Math.max(1, Math.round(im.naturalWidth*z)), h=Math.max(1, Math.round(im.naturalHeight*z));
+      var X=(sx+halfW)*CELL, Y=(sy+halfH)*CELL;
+      /* stood on the BOTTOM of its cell and centred, so a tall thing rises out of
+         the ground instead of floating in the middle of it */
+      ctx.drawImage(look(im), Math.round(X+(CELL-w)/2), Math.round(Y+CELL-h), w, h);
+    }
+  })();
   /* ===========================================================================
      THE SUN. THE BUILDINGS THROW SHADOWS ONTO THE GROUND.  (8/3)
 

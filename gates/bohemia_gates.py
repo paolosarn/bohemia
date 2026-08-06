@@ -560,6 +560,20 @@ GATES = [
      'TILES, re-derived every run so it cannot drift - plus the two failures that almost '
      'shipped: PINK (desaturating at constant value turns clay into salmon) and MUSH '
      '(structure buried under the grain)', False),
+    ('EXTERIOR POOL',  ['node', 'gates/exterior_pool_gate.js'],
+     'MEASURED 8/5 with a probe validated against a bank the gates already prove ships: '
+     'banks/BOHEMIA_HD_TILE_REPO_part1..4 is 8,674 tiles Paolo BOUGHT and ZERO of them had '
+     'ever drawn a pixel -- and they were not unjudged, because his 7/13 Great Sweep ("THE '
+     'act-1 art authority") gave 1,927 of them a thumbs UP. One lane harvested the 465 that '
+     'go indoors, wired them into rooms, and stopped at the front door; nobody ever '
+     'harvested the 812 that go OUTSIDE, so the whole valley had zero objects standing in '
+     'it. THAT is why the world read empty, and it was never a texture problem. The blocker '
+     'everyone assumed (96px masters, 44px cell) was imaginary: the law asks for an INTEGER '
+     'SCALE, not a cell-sized tile. Holds UP-only against his own sweep, keeps hand-scale '
+     'LOOT out of the scenery pool (the first cut put a car-sized glowing potion jar on a '
+     'lawn -- his verdict was right, my reading of it was not), keeps his no-living-trees '
+     'ruling, keeps props from ever blocking a cell, and walks out the front door to count '
+     'objects that actually reached the canvas', False),
     ('ART TAB',        ['node', 'gates/art_tab_gate.js'],
      'Paolo 8/4: "can you put all the work in a different fucking tab like the life tab '
      '... u want me to hunt all your work down ... i shouldnt have to tell you that". He '

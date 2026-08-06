@@ -1,0 +1,142 @@
+HE BOUGHT 8,674 TILES, HE JUDGED 2,604 OF THEM BY HAND, AND WE DREW ZERO
+8/5/26   ART LANE   BUILD 8/5a
+
+----------------------------------------------------------------------------
+THE FINDING
+
+  banks/BOHEMIA_HD_TILE_REPO_part1..4    8,674 purchased HD tiles, 294 packs
+  MEASURED: ZERO had ever drawn a pixel in the game.
+
+And they were not sitting there unjudged. banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26
+is his own Great Sweep:
+
+  "Paolo's Great Sweep, COMPLETE: every act-1 asset individually judged in
+   context. UP = confirmed act-1 spawn pool ... THE act-1 art authority."
+  2,604 judged  ->  1,927 UP  /  677 DOWN
+
+One session crossed that sweep with the masters, harvested the 465 tiles that
+belong INDOORS, and wired them into rooms. That work was done right. IT STOPPED
+AT THE FRONT DOOR. Nobody ever harvested the 812 that belong OUTSIDE.
+
+So a bungalow had clutter on its bedroom floor, and the entire valley outside had
+NOT ONE OBJECT STANDING IN IT.
+
+*** THAT is why the world reads empty. It was never a texture problem. ***
+
+I spent a week making texture denser inside a world with nothing in it.
+
+----------------------------------------------------------------------------
+HOW I KNOW THE ZERO IS REAL AND NOT A BROKEN PROBE
+
+I got burned by exactly this two days ago -- an audit that returned zero for every
+district because the probe was broken, not the game. So the probe was run against
+a CONTROL first: banks/BOHEMIA_GROUND_SEAMLESS_SET, which bought_beats_painted_gate
+already proves is live.
+
+  CONTROL   ground seamless   456 tiles ->  33 found in the run (7.2%)
+            exactly the known curated subset. The probe works.
+  HD REPO   part1..4        8,674 tiles ->   0 found. (0.0%)
+
+----------------------------------------------------------------------------
+THE BLOCKER EVERYONE ASSUMED WAS IMAGINARY
+
+The masters are ~96px and the art cell is 44px, and that mismatch is why 180MB of
+purchased art sat dark: the no-resample law was being read as "art must be
+cell-sized."
+
+IT DOES NOT SAY THAT. It says AN ART PIXEL IS A WHOLE NUMBER OF SCREEN PIXELS.
+
+A 96px prop blitted at the run's own integer zoom step is perfectly legal. It
+simply spans about two cells -- which is exactly what an object the size of a
+market stall SHOULD do. Nothing had to be re-cut, re-cooked or re-bought.
+Nobody checked.
+
+----------------------------------------------------------------------------
+HIS THUMB ALREADY WROTE THIS WORLD'S VOCABULARY
+
+Reading the UP/DOWN split in the sweep IS the art direction. It was sitting in a
+file for twenty-three days:
+
+  rocks and stones ............ 100 UP,  0 DOWN    the desert, unanimous
+  dead trees and plants ........ 47 UP,  1 DOWN
+  TREES AND NATURE .............. 0 UP, 23 DOWN    NO LIVING TREES.
+  abandoned cars ............... 55 UP,  0 DOWN
+  trash and debris ............. 34 UP,  0 DOWN
+  rubble / ruined building parts 38 UP,  0 DOWN
+  barricades, fences, wire ..... 65 UP
+  market and outdoor props ...... 0 UP, 23 DOWN    a whole pack he killed
+
+He decided on 7/13 that this is a DEAD valley -- living trees rejected 23 out of
+23, dead ones approved 47 out of 48 -- and nobody built it.
+
+----------------------------------------------------------------------------
+WHAT SHIPPED
+
+banks/BOHEMIA_EXTERIOR_POOL_8_5_26.txt -- 126 objects, seven buckets, every one
+carrying his UP verdict. Placed by SURFACE, which is mechanism and not content:
+a road gets wrecks, a sidewalk gets street furniture, dead ground gets the desert
+and what blew into it, an open lot gets barricades, stalls and goods. He decided
+what exists; this only decides that a rock belongs on dirt.
+
+  street 18 · wreck 18 · trash 18 · crate 18 · dead 18 · barrier 18 · camp 18
+
+One cell in nine. Never under his feet, never in a doorway, never inside a
+building, never on a driveway (a car has to get up it). PURE PAINT: nothing here
+touches passability or occupancy, because a decorative object that quietly made a
+cell impassable would break pathing across the valley and read as a world bug.
+
+----------------------------------------------------------------------------
+THREE CUTS, AND WHAT THE RENDER CAUGHT THAT THE NUMBERS DID NOT
+
+CUT 1 drew nothing, twice, while every source check passed. I invented the
+world's vocabulary out of my own head TWICE -- first tile ids ('yard_0'), then a
+prefix ('yard') -- when the dossier actually calls that ground "dead-ground
+(yard)". Fixed by SAMPLING the real names across eight districts before writing
+the map. Same lesson as the pack names an hour earlier: build the filter from his
+data, never from my assumption.
+
+CUT 2 put a CAR-SIZED GLOWING POTION JAR and a two-metre backpack on a suburban
+lawn. 'jars, bottles and items' was UP 47 and 'survival props' UP 49, so the
+filter took them.
+*** HIS VERDICT WAS NOT WRONG. MY READING OF IT WAS. *** The sweep says every
+asset was "individually judged IN CONTEXT", and the context for a jar is a shelf
+and for a backpack is a pickup. A VERDICT ON AN OBJECT IS NOT A LICENCE TO RENDER
+IT AT ANY SIZE. Those are LOOT, a different system, and they are out of the
+scenery pool until something picks things up.
+
+CUT 3 put wooden market barrels and slatted crates on a Las Vegas front lawn.
+Right tiles, wrong WHERE. Split into TRASH (bags and debris, which blow anywhere)
+and CRATE (market goods, lots and swap meets only). Same tiles, same verdicts,
+different placement.
+
+Only the third render is what shipped. The numbers were green at cut 1.
+
+----------------------------------------------------------------------------
+WHERE HE LOOKS
+
+*** THE ART TAB. *** Card 2, "THINGS IN THE WORLD". Tap the picture to flip
+between the empty block and the dressed one. He never opens a file.
+
+----------------------------------------------------------------------------
+GATE
+
+gates/exterior_pool_gate.js, 32 checks, registered as EXTERIOR POOL. Holds:
+every tile carries his UP verdict; nothing unjudged snuck in (only 2,604 of 8,674
+were ever swept, and silence is not approval); no hand-scale loot in the scenery
+pool; no indoor packs; no bodies; NO LIVING TREES; integer blit with a ceiling;
+props never block a cell. And it walks out the front door and asserts that turning
+them on CHANGES THE REAL CANVAS, because two cuts of this passed every source
+check while drawing nothing at all.
+
+----------------------------------------------------------------------------
+WHAT COMES AFTER, IN ORDER
+
+1. 6,070 of his tiles were NEVER SWEPT. The Great Sweep covered 2,604 of 8,674.
+   That is a judge batch, not a cook, and it is the cheapest art in the project:
+   he owns it already.
+2. The other 54 district types get their surfaces mapped. Only the suburb
+   vocabulary is wired; a warehouse lot and a strip apron want different objects.
+3. LOOT is now a named absence. The jars and packs are real pickups with no
+   system to pick them up.
+4. Civic masses still have no CORNERS and no ENDS -- a warehouse reads flat from
+   the side.

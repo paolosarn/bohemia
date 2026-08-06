@@ -67,6 +67,21 @@ const CARDS = [
     num: '47 ground cells in shadow in this frame · 0 before'
   },
   {
+    id: 'props',
+    title: 'THINGS IN THE WORLD',
+    ask: 'Tap the picture. Does the block look like a place people left?',
+    a: 'ART_PROPS_OFF.png', aLbl: 'NOTHING IN IT (how it was)',
+    b: 'ART_PROPS_ON.png',  bLbl: 'HIS OBJECTS, FIRST TIME EVER',
+    why: 'You bought 8,674 HD tiles and swept 2,604 of them by hand on 7/13 -- ' +
+         '1,927 thumbs up. NOT ONE had ever drawn a pixel. One session took the ' +
+         '465 that go indoors and put them in rooms and stopped at the front ' +
+         'door, so the entire valley had zero objects standing in it. That is why ' +
+         'it looked empty, and it was never about texture. Your own thumbs picked ' +
+         'this vocabulary: rocks 100 up and 0 down, dead trees 47 up, LIVING trees ' +
+         '0 up and 23 down. It is a dead valley because you said so.',
+    num: '126 objects you already approved, outdoors for the first time'
+  },
+  {
     id: 'grime',
     title: 'THE DIRT — PICK A NUMBER',
     ask: 'Three amounts of grime. Which one? NONE, SOME, or DIRTY.',
@@ -204,10 +219,10 @@ const html = `<!doctype html>
 </style>
 
 <header>
-  <h1>ART &middot; 8/4 &middot; THE SUN CAME UP</h1>
+  <h1>ART &middot; 8/5 &middot; THE WORLD HAS THINGS IN IT</h1>
   <button class="sunbtn" id="sunbtn">SUN MODE</button>
 </header>
-<p class="lede">Everything this lane made today, in one place. Three things to judge.
+<p class="lede">Everything this lane made, in one place. Four things to judge.
 Tap a picture to flip it. Thumbs, then EXPORT at the bottom and send me the file.</p>
 
 ${cardHtml}
@@ -295,7 +310,7 @@ document.getElementById('sunbtn').addEventListener('click', function(){
 
 /* .txt, NEVER .json (verdict workflow, standing) */
 document.getElementById('exp').addEventListener('click', function(){
-  var L = ['BOHEMIA ART VERDICT', 'build 8/4 - THE SUN CAME UP', ''];
+  var L = ['BOHEMIA ART VERDICT', 'build 8/5 - THE WORLD HAS THINGS IN IT', ''];
   CARDS.forEach(function(c){
     L.push(c.title);
     L.push('  verdict: ' + (V[c.id] || 'NO ANSWER'));
