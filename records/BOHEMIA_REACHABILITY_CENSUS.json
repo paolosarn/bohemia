@@ -1,7 +1,7 @@
 {
- "sources": 205,
- "total_mb": 272.1,
- "unreached_mb": 241.5,
+ "sources": 207,
+ "total_mb": 275.1,
+ "unreached_mb": 244.2,
  "rows": [
   {
    "path": "banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt",
@@ -132,10 +132,10 @@
   {
    "path": "banks/BOHEMIA_DESERT_POOLS_7_18_26.txt",
    "kind": "bank",
-   "verdict": "NO TRACE",
+   "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 0,
+   "hits_loaded": 3,
    "bytes": 1899631
   },
   {
@@ -152,9 +152,9 @@
    "kind": "bank",
    "verdict": "SHOWN (part)",
    "samples": 32,
-   "hits_shown": 16,
+   "hits_shown": 17,
    "hits_loaded": 0,
-   "bytes": 1704546
+   "bytes": 2037201
   },
   {
    "path": "banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt",
@@ -191,6 +191,15 @@
    "hits_shown": 0,
    "hits_loaded": 0,
    "bytes": 228
+  },
+  {
+   "path": "banks/BOHEMIA_EXTERIOR_POOL_8_5_26.txt",
+   "kind": "bank",
+   "verdict": "LOADED ONLY",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 32,
+   "bytes": 2619330
   },
   {
    "path": "banks/BOHEMIA_FIRE_FLICKER_BANK_7_13_26.txt",
@@ -267,10 +276,10 @@
   {
    "path": "banks/BOHEMIA_HD_TILE_REPO_part1.txt",
    "kind": "bank",
-   "verdict": "NO TRACE",
+   "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 0,
+   "hits_loaded": 2,
    "bytes": 45064347
   },
   {
@@ -636,10 +645,10 @@
   {
    "path": "banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt",
    "kind": "bank",
-   "verdict": "NO TRACE",
+   "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 0,
+   "hits_loaded": 3,
    "bytes": 458130
   },
   {
@@ -1662,11 +1671,11 @@
   {
    "path": "engine/bohemia_standing.js",
    "kind": "engine",
-   "verdict": "SHOWN (part)",
+   "verdict": "NO TRACE",
    "samples": 32,
-   "hits_shown": 1,
-   "hits_loaded": 1,
-   "bytes": 14028
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 16474
   },
   {
    "path": "engine/bohemia_storage.js",
@@ -1777,6 +1786,15 @@
    "bytes": 12573
   },
   {
+   "path": "engine/bohemia_utility.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 66301
+  },
+  {
    "path": "engine/bohemia_valleymap.js",
    "kind": "engine",
    "verdict": "SHOWN (part)",
@@ -1837,7 +1855,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 32,
-   "bytes": 60269
+   "bytes": 62298
   },
   {
    "path": "engine/bohemia_world_resolve.js",

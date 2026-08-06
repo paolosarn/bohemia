@@ -44,6 +44,9 @@ which the alpha loads and **never displays**.
 | `engine/bohemia_garage.js`, `bohemia_crypt.js` | interiors |
 | `banks/BOHEMIA_GRIME_8_3_26.txt`, `OPENINGS_8_2_26`, `CIVIC_OPENINGS_8_3_26` | approved art from the last four days |
 
+
+> **THIS NUMBER MOVES, AND THAT IS THE POINT.** It was **17** when written; after merging the same day's other lanes it was **21**. Nobody did anything wrong — new finished work keeps landing in the invisible file because nothing was watching. `python3 tools/bohemia_reachability_census.py` for the live count; `records/BOHEMIA_REACHABILITY_CENSUS.md` always holds it.
+
 **This is not a failure list. It is a work-already-paid-for list** — and at the
 start of an eleven-month run, that is the most valuable list there is.
 
