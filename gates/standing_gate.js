@@ -118,13 +118,27 @@ ok('DEED_WEIGHT ships EMPTY — what counts as a deed and what it is worth is hi
   S.DEED_WEIGHT.BAD = -4;
   S.witness(w.minds, 0, 'PLAYER', 'BAD', 10, 10, w.where);
   const day = t => Math.abs(S.opinionOf(w.minds[0], 'PLAYER', t * 1440));
-  const d0 = day(0), d1 = day(1), d3 = day(3), d7 = day(7);
-  notes.push('one bad deed decays: day0 ' + d0.toFixed(2) + ' -> day1 ' + d1.toFixed(2)
-    + ' -> day3 ' + d3.toFixed(2) + ' -> day7 ' + d7.toFixed(2));
-  ok('REDEMPTION IS FREE: the same deed weighs less every day (New Vegas could never remove '
-    + 'reputation, only bury it under a bigger number)', d0 > d1 && d1 > d3 && d3 > d7);
-  ok('...and it eventually reaches nothing, so hated is not a life sentence', d7 < d0 * 0.2);
-  ok('...but it does NOT vanish overnight — one night is not forgiveness', d1 > d0 * 0.2);
+  const d0 = day(0), d7 = day(7), d60 = day(60), d240 = day(240);
+  notes.push('one bad deed decays: day0 ' + d0.toFixed(2) + ' -> week1 ' + d7.toFixed(2)
+    + ' -> 2 months ' + d60.toFixed(2) + ' -> 8 months ' + d240.toFixed(2));
+  ok('REDEMPTION IS FREE: the same deed weighs less as time passes (New Vegas could never '
+    + 'remove reputation, only bury it under a bigger number)', d0 > d7 && d7 > d60 && d60 > d240);
+  ok('...and it eventually reaches nothing, so hated is not a life sentence', d240 < d0 * 0.2);
+  /* THE CLAIM THAT CAUGHT A REAL BUG, and it only existed because the demo page made
+     the system visible. Opinions used to decay on bohemia_memory's SIGHTING half-life -
+     twelve hours - so a serious wrong was worth -0.05 after three days and reputation
+     evaporated before anybody could act on it. Every unit test passed, because they all
+     asserted "it went down" and it HAD gone down. It took LOOKING at it.
+     A deed now carries its own much longer clock (see DEED_HALFLIFE), so this asserts
+     the thing the old tests could not: a serious wrong is STILL THERE next week. */
+  ok('A DEED IS NOT A FACE: a serious wrong is still most of itself a WEEK later — '
+    + 'reputation that evaporates in two days is not reputation (' + d7.toFixed(2)
+    + ' of ' + d0.toFixed(2) + ')', d7 > d0 * 0.8);
+  ok('...and still real two months on', d60 > d0 * 0.4);
+  ok('the deed clock is longer than the sighting clock it used to borrow',
+    S.DEED_HALFLIFE > 12 * 60 * 10);
+  ok('and a BIGGER deed is remembered longer than a small one (the flashbulb asymmetry)',
+    S.deedHalflife(8) > S.deedHalflife(1));
   delete S.DEED_WEIGHT.BAD;
 }
 
@@ -153,6 +167,27 @@ ok('DEED_WEIGHT ships EMPTY — what counts as a deed and what it is worth is hi
   ok('A RUMOUR CANNOT CROSS THE VALLEY: the hop limit stops it (' + reached + ' of 12 heard, '
     + 'not all 12) — without this a rumour reaches everybody in a sim day and reputation is '
     + 'teleporting again', reached < 12 && reached >= 2);
+  /* THE SECOND BUG THE DEMO PAGE FOUND, and it had killed the whole third rule.
+     GOSSIP_WINDOW was documented as a co-location window and then used as a
+     STALENESS window (turn - deed.turn > GOSSIP_WINDOW*24), which made news
+     untellable after EIGHTEEN HOURS. A day-step is 1440 minutes, so on any normal
+     clock gossip could never fire once - and every unit test passed, because they
+     all gossiped within minutes of the deed. One constant doing two jobs. */
+  {
+    const a2 = M.makeMind('L1'), b2 = M.makeMind('L2');
+    S.DEED_WEIGHT.T = -4;
+    S.witness([a2, b2], 0, 'PLAYER', 'T', 10, 10,
+      id => (id === 'L1' ? { x: 10, y: 10 } : null));
+    const moved = S.gossip(a2, b2, 3 * 1440);        // three days later
+    ok('NEWS STAYS TELLABLE FOR MORE THAN A DAY: somebody can still pass it on three '
+      + 'days later — the staleness window used to be 18 hours, so on a day-step clock '
+      + 'gossip could never fire at all and the third rule was silently dead', moved > 0);
+    ok('but ancient news is not volunteered', S.gossip(M.makeMind('L3'), a2, 400 * 1440) === 0
+      || S.NEWS_LIFE < 400 * 1440);
+    ok('the staleness window is named for what it is and is longer than a day',
+      S.NEWS_LIFE > 1440);
+    delete S.DEED_WEIGHT.T;
+  }
   const maxHops = Math.max(...chain.flatMap(m => (m.deeds || []).map(d => d.hops || 0)));
   ok('and no retelling ever exceeds the hop limit of ' + S.MAX_HOPS, maxHops <= S.MAX_HOPS);
   delete S.DEED_WEIGHT.T;
@@ -303,9 +338,9 @@ ok('DEED_WEIGHT ships EMPTY — what counts as a deed and what it is worth is hi
     return !(d0 > d1 && d1 > d3 && d3 > d7);
   });
   // claim D again: it must not vanish overnight either
-  P('one night of sleep wipes the slate clean', () => {
-    const d0 = 4, d1 = 0.1;                 // over-fast decay = forgiveness is free
-    return !(d1 > d0 * 0.2);
+  P('a serious wrong evaporates within days (the bug the demo page caught)', () => {
+    const d0 = 4, d7 = 0.05;                // decaying on the 12h SIGHTING clock
+    return !(d7 > d0 * 0.8);
   });
   // claim E: hearsay must be weaker than eyesight
   P('hearsay is worth the same as having watched it', () => {
@@ -316,6 +351,10 @@ ok('DEED_WEIGHT ships EMPTY — what counts as a deed and what it is worth is hi
   P('a rumour reaches everybody down a 12-person chain', () => {
     const reached = 12;                     // no hop limit = reputation teleports again
     return !(reached < 12 && reached >= 2);
+  });
+  P('news goes stale in under a day, so gossip can never fire (the second demo bug)', () => {
+    const moved = 0;                        // staleness window shorter than a day-step
+    return !(moved > 0);
   });
   // claim F: a faction that saw nothing must not move
   P('a faction nobody witnessed still moves', () => {

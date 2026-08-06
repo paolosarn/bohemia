@@ -1,3 +1,46 @@
+PEOPLE (factions): 8/2 (n) LATEST — WORD TRAVELS: he can finally SEE the reputation system,
+AND BUILDING THE VISIBLE VERSION FOUND TWO REAL BUGS IN AN HOUR.
+Record: records/BOHEMIA_WORD_TRAVELS_8_2_26.md   TAB: LIFE, top card.
+
+THE PROBLEM WAS MINE: three turns of deep faction plumbing and HE HAD SEEN NOTHING. The
+WORLD lane's 7/31 lesson word for word - a turn in this lane with nothing to look at is a
+turn that missed. So: a page he taps and watches, running the REAL engine modules inlined
+verbatim, not a mock-up. Tap DO SOMETHING BAD -> 8 of 18 saw it. Tap A DAY PASSES -> the
+story moves person to person, 15 of 18 know by day 3, standings slide COLD -> HOSTILE. Tap
+A GENERATION PASSES -> "Everyone who watched you is dead. 8 things died with them. 7
+survived, because people talked. Your kid now gets judged for it, and was not even born."
+
+*** THE DEED VOCABULARY WAS ALREADY HIS AND I ALMOST INVENTED ONE. *** The quest corpus
+carries 61 `@DO faction NAME +N` effects - per faction, both directions, real magnitudes,
+already authored and already studied. REUSE-FIRST, THIRD TIME TODAY: colours were already
+chosen, marks were already chosen, the deed vocabulary was already written.
+IF YOU ARE ABOUT TO INVENT SOMETHING, GREP FIRST.
+
+*** AND THEN IT FOUND TWO REAL BUGS, WHICH IS THE WHOLE POINT ***
+1. A DEED WAS FORGOTTEN IN TWO DAYS. On screen a serious wrong was -0.05 after three days
+   and the system looked broken. Opinions were decaying on bohemia_memory's SIGHTING
+   half-life - twelve hours. Right for "did you see that guy walk past", absurd for "that
+   man burned my neighbour's house". Deeds now carry THEIR OWN clock (three weeks base,
+   scaled by size - the flashbulb asymmetry). Sightings untouched.
+2. GOSSIP COULD NEVER FIRE. GOSSIP_WINDOW was documented as a co-location window and used
+   as a STALENESS window, making news untellable after EIGHTEEN HOURS. A day-step is 1440
+   minutes, so on any normal clock THE MODULE'S ENTIRE THIRD RULE WAS DEAD. Split into
+   NEWS_LIFE (a fortnight).
+*** BOTH PASSED EVERY UNIT TEST. *** The decay tests asserted "it went down" and it HAD.
+The gossip tests all gossiped within minutes of the deed. IT TOOK LOOKING AT IT. That is
+VERIFY ON THE REAL SURFACE (7/18) landing somewhere nobody thought it applied: not art,
+SIMULATION. If your system has no surface, your tests are grading their own homework.
+
+GATES: STANDING 29 -> 35 claims, 11/11 probes (three new claims exist only because the demo
+found the bugs). FACTION MEMBERSHIP 50/0, PEOPLE 152/0, NAME THE TAB 23/0, BUILD THE WORLD
+10/0, REUSE-FIRST 108/0, PAYLOAD WALL 4/0, ENGINE SYNC clean, FRONT DOOR 8/0.
+Verified through the real door: LIFE tab, top card, zero console errors. Stamp 8/2av.
+
+=== WHAT COMES AFTER ===
+1. NOTHING CALLS witness() IN THE REAL RUN YET. The vocabulary now exists (the quest corpus)
+   and the organ works and is visible. Wiring it is the next move - RUN-lane coordination.
+2. Gap 5 (wearing another faction's colours). 3. Gaps 6, 8, 9.
+
 ART (f3eu53): 8/5 (a) LATEST -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
 HAND, AND THE GAME DREW ZERO. THAT IS WHY THE WORLD LOOKS EMPTY. ***
 

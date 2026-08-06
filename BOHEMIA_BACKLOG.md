@@ -4381,6 +4381,25 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    assert over the set.
    | next PEOPLE turn should take this | 8/2 | no - gate work, nothing to judge.
 
+0H. [SHIPPED 8/2 - HE CAN SEE IT NOW, AND IT FOUND TWO REAL BUGS]
+   records/BOHEMIA_WORD_TRAVELS_8_2_26.md - LIFE tab, top card, nothing to judge.
+   THREE TURNS OF PLUMBING AND HE HAD SEEN NOTHING - my miss, and the WORLD lane's
+   7/31 lesson word for word. A page he taps and watches, running the REAL modules
+   inlined verbatim: who saw it, the story moving person to person, standings sliding,
+   then a generation passing and what his kid inherits.
+   THE DEED VOCABULARY WAS ALREADY HIS: 61 `@DO faction NAME +N` effects in the quest
+   corpus. REUSE-FIRST THIRD TIME TODAY (colours, marks, now deeds). GREP FIRST.
+   *** TWO REAL BUGS THE DEMO FOUND AND EVERY UNIT TEST MISSED: ***
+   (1) a deed was forgotten in TWO DAYS - opinions decayed on the 12h SIGHTING
+       half-life. Deeds now carry their own clock (3 weeks, scaled by size).
+   (2) gossip COULD NEVER FIRE - one constant doing two jobs made news untellable
+       after 18 hours, and a day-step is 1440 minutes, so rule 3 was silently dead.
+   Both passed every test: the decay tests asserted "it went down" and it HAD; the
+   gossip tests all gossiped within minutes. IT TOOK LOOKING AT IT. VERIFY ON THE REAL
+   SURFACE applies to SIMULATION, not just art.
+   | gate: STANDING 29 -> 35 claims, 11/11 probes | 8/2 | no - nothing to judge, just
+   something to look at, which is the point.
+
 0G. [SHIPPED 8/2 - OUTSIDE THE BOX: YOUR FATHER'S DEBTS]
    records/BOHEMIA_YOUR_FATHERS_DEBTS_8_2_26.md
    THE QUESTION THE GAME'S OWN PREMISE RAISES AND NOBODY HAD ASKED. Bohemia is a

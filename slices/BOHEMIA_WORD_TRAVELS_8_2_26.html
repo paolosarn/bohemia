@@ -1,3 +1,150 @@
+<meta charset="utf-8">
+<title>BOHEMIA - WORD TRAVELS</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<body id="bd" style="margin:0;background:#0d0f0a;font-family:-apple-system,sans-serif;color:#ddd">
+<div id="bar" style="position:sticky;top:0;z-index:9;background:#0d0f0a;padding:10px 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #2a2a1f">
+  <div style="flex:1;min-width:130px">
+    <div id="hdr" style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">WORD TRAVELS</div>
+    <div id="clock" style="font:600 11px ui-monospace,monospace;color:#8f8770;margin-top:2px"></div>
+  </div>
+  <button id="sun" style="padding:9px 13px;border-radius:8px;border:1px solid #887;background:#222;color:#ddd">&#9728; SUN MODE</button>
+</div>
+
+<div id="intro" style="font:12px/1.6 -apple-system,sans-serif;color:#8f8770;padding:12px 14px 0;max-width:720px">
+  Nothing to judge here. Just tap the buttons and watch. This is the real code the game
+  runs, not a mock-up.
+</div>
+
+<canvas id="cv" width="720" height="470" style="display:block;width:100%;max-width:720px;margin:12px auto 0;background:#0a0c07;border-radius:10px"></canvas>
+
+<div style="padding:10px 12px;max-width:720px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap">
+  <button class="b" id="doGood" style="flex:1 1 46%">&#128077; DO SOMETHING GOOD</button>
+  <button class="b" id="doBad"  style="flex:1 1 46%">&#128078; DO SOMETHING BAD</button>
+  <button class="b" id="day"    style="flex:1 1 46%">&#9654; A DAY PASSES</button>
+  <button class="b" id="gen"    style="flex:1 1 46%">&#9202; A GENERATION PASSES</button>
+  <button class="b" id="reset"  style="flex:1 1 100%;background:#2a2a1f">&#8635; START OVER</button>
+</div>
+
+<div id="say" style="font:13px/1.65 -apple-system,sans-serif;color:#cdbd8a;padding:8px 14px;max-width:720px;margin:0 auto;min-height:44px"></div>
+<div id="stand" style="padding:4px 14px 40px;max-width:720px;margin:0 auto"></div>
+
+<style>
+.b{padding:12px;border-radius:10px;border:0;background:#26301c;color:#dfe6d2;font:600 13px -apple-system,sans-serif}
+.b:active{opacity:.7}
+</style>
+
+<script>
+/* ===== THE REAL ENGINE MODULES, INLINED VERBATIM ===== */
+/* ---- engine/bohemia_memory.js ---- */
+// BOHEMIA MEMORY — what people remember seeing (7/19/26, LIFE session)
+//
+// The witness organ. Grounded in Shadows of Doubt's citizen memory model:
+// a sighting starts near-accurate and FUZZES with time; how long it lasts
+// scales with FAMILIARITY (you remember your neighbor longer than a
+// stranger). Distinctiveness/alertness modifiers join later when the world
+// has faces and factions (contents Paolo's).
+//
+// WHY THIS EXISTS NOW: the questbook's engine backlog demands THE
+// SETTLEMENT'S MISSING-PERSONS ORGAN (Q133/Q134/Q138). Its seed question,
+// "when did anyone last see H3-2, and how sure are they", is answerable
+// from these minds: sightings recorded during the online sim, clarity
+// decaying afterward, the best witness findable across a settlement.
+// Testimony VERBS, lies, and what factions do with witnesses stay Paolo's.
+//
+// MECHANISM RULES:
+//   - a mind is a RING BUFFER (cap enforced; memory is finite)
+//   - repeat sightings of the same subject REFRESH the record and build
+//     familiarity instead of flooding the buffer
+//   - clarity = 0.5 ^ (age / halflife), halflife grows with familiarity
+//     (base 12h; a face seen often keeps for days)
+//   - deterministic: no wall clock, no randomness; pure f(turn)
+(function(root){
+  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
+
+  var BASE_HALFLIFE=12*60;      // minutes: a stranger's face is fog by tomorrow
+  var REFRESH_WINDOW=30;        // re-seeing within 30min updates, not duplicates
+  var MIN_CLARITY=0.05;         // below this the witness has nothing usable
+
+  function makeMind(ownerId, cap){
+    return {owner:ownerId, cap:cap||64, sightings:[], fam:{}};
+  }
+  function see(mind, turn, subjectId, x, y){
+    if(subjectId===mind.owner) return;               // you are not your own witness
+    var s=mind.sightings, last=null;
+    for(var i=s.length-1;i>=0;i--) if(s[i].subject===subjectId){ last=s[i]; break; }
+    mind.fam[subjectId]=(mind.fam[subjectId]||0)+((!last||turn-last.turn>=5)?1:0);
+    if(last && turn-last.turn<=REFRESH_WINDOW){ last.turn=turn; last.x=x; last.y=y; return; }
+    s.push({subject:subjectId, turn:turn, x:x, y:y});
+    if(s.length>mind.cap) s.shift();                 // ring: oldest memory falls out
+  }
+  function halflife(mind, subjectId){
+    var f=mind.fam[subjectId]||0;
+    return BASE_HALFLIFE*(1+Math.log(1+f)/Math.LN2); // familiarity slows the fog
+  }
+  function clarity(mind, sight, now){
+    var age=Math.max(0, now-sight.turn);
+    return Math.pow(0.5, age/halflife(mind, sight.subject));
+  }
+  function recall(mind, subjectId, now){
+    var best=null;
+    for(var i=mind.sightings.length-1;i>=0;i--){ var s=mind.sightings[i];
+      if(s.subject!==subjectId) continue;
+      var c=clarity(mind,s,now);
+      if(c<MIN_CLARITY) continue;
+      if(!best||s.turn>best.turn) best={subject:s.subject,turn:s.turn,x:s.x,y:s.y,clarity:+c.toFixed(3)};
+    }
+    return best;
+  }
+  // THE ORGAN QUERY: across a settlement's minds, who saw the subject last,
+  // and how clearly. This is "when did anyone last see H3-2".
+  function lastSeenAcross(minds, subjectId, now){
+    var best=null;
+    (minds||[]).forEach(function(m){
+      var r=recall(m, subjectId, now);
+      if(r && (!best || r.turn>best.r.turn || (r.turn===best.r.turn && r.clarity>best.r.clarity)))
+        best={witness:m.owner, r:r};
+    });
+    return best;   // {witness, r:{turn,x,y,clarity}} or null: nobody remembers
+  }
+
+  // ---- SIM ATTACHMENT -------------------------------------------------------
+  // Give every agent in an online sim a mind, and record co-visibility each
+  // world-turn: out-agents see out-agents (and the player) within RADIUS.
+  // Block scale keeps this trivially cheap (n out-bodies is small).
+  var RADIUS=8;
+  function attach(sim, opts){
+    opts=opts||{};
+    var R=opts.radius||RADIUS;
+    sim.agents.forEach(function(a){ if(!a.mind) a.mind=makeMind(a.id, opts.cap); });
+    var step0=sim.step;
+    sim.step=function(){
+      var out=step0.apply(sim, arguments);
+      var vis=sim.outAgents();
+      for(var i=0;i<vis.length;i++){
+        for(var k=0;k<vis.length;k++){
+          if(i===k) continue;
+          var a=vis[i], b=vis[k];
+          if(Math.abs(a.loc.x-b.loc.x)+Math.abs(a.loc.y-b.loc.y)<=R)
+            see(a.mind, sim.turn, b.id, b.loc.x, b.loc.y);
+        }
+        if(sim.playerAt){ var p=sim.playerAt, a2=vis[i];
+          if(Math.abs(a2.loc.x-p[0])+Math.abs(a2.loc.y-p[1])<=R)
+            see(a2.mind, sim.turn, '@', p[0], p[1]); }
+      }
+      return out;
+    };
+    return sim;
+  }
+  function minds(sim){ return sim.agents.map(function(a){return a.mind;}).filter(Boolean); }
+
+  var API={makeMind:makeMind,see:see,clarity:clarity,halflife:halflife,recall:recall,
+    lastSeenAcross:lastSeenAcross,attach:attach,minds:minds,
+    BASE_HALFLIFE:BASE_HALFLIFE,REFRESH_WINDOW:REFRESH_WINDOW,MIN_CLARITY:MIN_CLARITY,RADIUS:RADIUS};
+  if(HASREQ) module.exports=API;
+  root.BohemiaMemory=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
+/* ---- engine/bohemia_standing.js ---- */
 // BOHEMIA STANDING — reputation that has to TRAVEL (8/2/26, PEOPLE lane)
 //
 // Paolo thumbed all twelve faction gaps WANT on 8/2. This is gap 3, and it was the
@@ -312,3 +459,176 @@
     DEED_HALFLIFE:DEED_HALFLIFE, deedHalflife:deedHalflife, NEWS_LIFE:NEWS_LIFE };
   if(HASREQ) module.exports=API; else root.BohemiaStanding=API;
 })(typeof globalThis!=='undefined'?globalThis:this);
+
+
+</script>
+<script>
+var M=window.BohemiaMemory, S=window.BohemiaStanding;
+var SUN=false;
+
+/* THE DEED VOCABULARY IS HIS. The quest corpus already carries 61 `@DO faction NAME
+   +N` effects with real magnitudes, per faction, both directions - that is the shape,
+   already authored and already studied. These two demo rows use it. The engine's own
+   DEED_WEIGHT stays EMPTY; the page installs its weights only into its own copy and
+   the banner on screen says so. */
+S.DEED_WEIGHT.HELPED = 4;
+S.DEED_WEIGHT.HURT  = -5;
+
+var W=26, H=15, CELL=26, PAD=10;
+var G, cv=document.getElementById('cv'), cx=cv.getContext('2d');
+
+function reset(){
+  G={turn:0, gen:0, you:'YOU', line:'YOU', minds:[], pos:{}, fac:{}, flash:[], last:''};
+  var names=['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R'];
+  var facs=['REMNANTS','TRADES','HOMELESS'];
+  for(var i=0;i<names.length;i++){
+    var id=names[i];
+    G.minds.push(M.makeMind(id,64));
+    /* spread them across the whole map on purpose: the FEELING that matters is
+       "hardly anybody saw that", and clustered dots inside one sightline hand the
+       player the opposite impression on the very first tap. */
+    G.pos[id]={x:1+Math.floor((i%9)*(W-2)/9), y:1+Math.floor(Math.floor(i/9)*(H-2)/2)+((i%3))};
+    G.fac[id]=facs[i%3];
+  }
+  G.pos[G.you]={x:Math.floor(W/2), y:Math.floor(H/2)};
+  G.last='18 people on a few streets. You are the white one. Do something and watch who notices.';
+  draw(); say(G.last); standings();
+}
+
+function col(f){ return f==='REMNANTS'?'#9aa23a':f==='TRADES'?'#d07a2a':'#b8642a'; }
+
+function draw(){
+  cx.fillStyle=SUN?'#e6e0cc':'#0a0c07'; cx.fillRect(0,0,cv.width,cv.height);
+  /* streets */
+  cx.strokeStyle=SUN?'#cfc7ab':'#15180f'; cx.lineWidth=1;
+  for(var x=0;x<=W;x++){cx.beginPath();cx.moveTo(PAD+x*CELL,PAD);cx.lineTo(PAD+x*CELL,PAD+H*CELL);cx.stroke();}
+  for(var y=0;y<=H;y++){cx.beginPath();cx.moveTo(PAD,PAD+y*CELL);cx.lineTo(PAD+W*CELL,PAD+y*CELL);cx.stroke();}
+  /* flashes: who just learned something */
+  G.flash.forEach(function(f){
+    var p=G.pos[f.id]; if(!p) return;
+    cx.fillStyle=f.kind==='saw'?'rgba(255,235,120,.30)':'rgba(120,200,255,.26)';
+    cx.beginPath();cx.arc(PAD+p.x*CELL+CELL/2,PAD+p.y*CELL+CELL/2,CELL*0.95,0,7);cx.fill();
+  });
+  /* people */
+  G.minds.forEach(function(m){
+    var p=G.pos[m.owner]; if(!p) return;
+    var knows=(m.deeds||[]).filter(function(d){return d.actor===G.line;});
+    var eyes=knows.some(function(d){return !d.hops;});
+    cx.fillStyle=col(G.fac[m.owner]);
+    cx.globalAlpha=knows.length?1:0.34;
+    cx.beginPath();cx.arc(PAD+p.x*CELL+CELL/2,PAD+p.y*CELL+CELL/2,7,0,7);cx.fill();
+    cx.globalAlpha=1;
+    if(knows.length){
+      cx.strokeStyle=eyes?'#ffe97a':'#7ac8ff'; cx.lineWidth=2;
+      cx.beginPath();cx.arc(PAD+p.x*CELL+CELL/2,PAD+p.y*CELL+CELL/2,11,0,7);cx.stroke();
+    }
+  });
+  /* you */
+  var yp=G.pos[G.you];
+  cx.fillStyle=SUN?'#222':'#fff';
+  cx.beginPath();cx.arc(PAD+yp.x*CELL+CELL/2,PAD+yp.y*CELL+CELL/2,9,0,7);cx.fill();
+  /* legend */
+  cx.font='11px ui-monospace,monospace';
+  cx.fillStyle=SUN?'#5a5138':'#8f8770';
+  cx.fillText('● you    ○ yellow ring = SAW IT    ○ blue ring = WAS TOLD    faded = has not heard', PAD, cv.height-8);
+}
+
+function say(t){ G.last=t; document.getElementById('say').innerHTML=t;
+  document.getElementById('clock').textContent =
+    'day '+Math.floor(G.turn/1440)+(G.gen?('  ·  generation '+(G.gen+1)+'  ·  you are the '+(G.gen===1?'child':'grandchild')):'');
+}
+
+function standings(){
+  var el=document.getElementById('stand'); el.innerHTML='';
+  ['REMNANTS','TRADES','HOMELESS'].forEach(function(f){
+    var st=S.standingOf(G.minds,f,G.line,G.turn,function(id){return G.fac[id];});
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;align-items:center;gap:9px;padding:7px 0;border-bottom:1px solid '+(SUN?'#d8d0b8':'#1c1f14');
+    var dot=document.createElement('span');
+    dot.style.cssText='width:12px;height:12px;border-radius:3px;background:'+col(f);
+    var nm=document.createElement('span');
+    nm.style.cssText='font:600 12px ui-monospace,monospace;flex:1;color:'+(SUN?'#3a3320':'#cdbd8a');
+    nm.textContent=f;
+    var vl=document.createElement('span');
+    vl.style.cssText='font:12px ui-monospace,monospace;color:'+(st.value<0?'#e07070':st.value>0?'#7ac87a':(SUN?'#7a6f50':'#8f8770'));
+    vl.textContent=st.rung+'  '+(st.value>0?'+':'')+st.value.toFixed(2)
+      +'   ('+st.whoSaw+' of '+st.members+' have heard anything)';
+    row.appendChild(dot);row.appendChild(nm);row.appendChild(vl);
+    el.appendChild(row);
+  });
+}
+
+function deed(kind){
+  var yp=G.pos[G.you];
+  var before=G.minds.map(function(m){return (m.deeds||[]).length;});
+  var n=S.witness(G.minds, G.turn, G.line, kind, yp.x, yp.y, function(id){return G.pos[id];});
+  G.flash=[];
+  G.minds.forEach(function(m,i){ if((m.deeds||[]).length>before[i]) G.flash.push({id:m.owner,kind:'saw'}); });
+  draw(); standings();
+  say(n===0
+    ? '<b>Nobody was close enough.</b> It never happened, as far as the valley is concerned. That is the whole point — there is no announcement.'
+    : '<b>'+n+' '+(n===1?'person':'people')+' actually saw it.</b> Yellow rings. Nobody else in the valley knows a thing yet.');
+}
+
+function aDay(){
+  G.turn+=1440;
+  /* people wander, and whoever ends up together talks */
+  G.minds.forEach(function(m){
+    var p=G.pos[m.owner];
+    /* a day's wandering. Wide enough that people actually run into each other,
+       because a demo where nobody ever meets shows none of the mechanic. */
+    p.x=Math.max(0,Math.min(W-1,p.x+(Math.floor(Math.random()*13)-6)));
+    p.y=Math.max(0,Math.min(H-1,p.y+(Math.floor(Math.random()*9)-4)));
+  });
+  var told=0; G.flash=[];
+  for(var i=0;i<G.minds.length;i++) for(var j=i+1;j<G.minds.length;j++){
+    var a=G.minds[i], b=G.minds[j];
+    var pa=G.pos[a.owner], pb=G.pos[b.owner];
+    if(Math.abs(pa.x-pb.x)+Math.abs(pa.y-pb.y)>3) continue;   /* close enough to talk */
+    var beforeA=(a.deeds||[]).length, beforeB=(b.deeds||[]).length;
+    var moved=S.gossip(a,b,G.turn);
+    if(moved){
+      told+=moved;
+      if((a.deeds||[]).length>beforeA) G.flash.push({id:a.owner,kind:'told'});
+      if((b.deeds||[]).length>beforeB) G.flash.push({id:b.owner,kind:'told'});
+    }
+  }
+  draw(); standings();
+  var heard=G.minds.filter(function(m){return (m.deeds||[]).some(function(d){return d.actor===G.line;});}).length;
+  say(told
+    ? '<b>'+told+' '+(told===1?'retelling':'retellings')+'.</b> Blue rings just heard it secondhand — and it counts for less than having watched. '+heard+' of 18 people know now.'
+    : '<b>Nobody who knew ran into anybody who did not.</b> The story sat still today. It also faded a little, because that is what memory does.');
+}
+
+function aGen(){
+  G.gen++;
+  var parent=G.line, child='GEN'+G.gen;
+  var r=S.inherit(G.minds, parent, child, G.turn+30*365*1440);
+  G.turn+=30*365*1440; G.line=child; G.flash=[];
+  /* the old witnesses are gone; new people stand where they stood */
+  draw(); standings();
+  var legend=S.legendOf(G.minds,G.line,G.turn);
+  say('<b>Thirty years. Everyone who watched you is dead.</b> '+r.died+' '
+    +(r.died===1?'thing':'things')+' died with them — nobody had ever repeated '
+    +(r.died===1?'it':'them')+'. '+r.carried+' survived, because '+(r.carried?'people talked':'nobody talked')
+    +'.<br><b>'+(legend.length
+      ? 'Your '+(G.gen===1?'kid':'grandkid')+' now gets judged for it, and was not even born.'
+      : 'Your '+(G.gen===1?'kid':'grandkid')+' starts clean. Nothing you did was loud enough to outlive you.')+'</b>');
+}
+
+document.getElementById('doGood').onclick=function(){ deed('HELPED'); };
+document.getElementById('doBad').onclick=function(){ deed('HURT'); };
+document.getElementById('day').onclick=aDay;
+document.getElementById('gen').onclick=aGen;
+document.getElementById('reset').onclick=reset;
+document.getElementById('sun').onclick=function(){
+  SUN=!SUN;
+  document.body.style.background=SUN?'#efe7cf':'#0d0f0a';
+  document.getElementById('bar').style.background=SUN?'#efe7cf':'#0d0f0a';
+  document.getElementById('hdr').style.color=SUN?'#3a3320':'#cdbd8a';
+  document.getElementById('intro').style.color=SUN?'#5a5138':'#8f8770';
+  document.getElementById('say').style.color=SUN?'#3a3320':'#cdbd8a';
+  draw(); standings();
+};
+reset();
+</script>
