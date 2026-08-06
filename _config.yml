@@ -1,0 +1,57 @@
+# BOHEMIA — GITHUB PAGES BUILD CONFIG (8/6/26)
+#
+# THE LINK STOPPED BEING TRUE, AND THIS IS WHY.
+# GitHub Pages had failed to publish THREE COMMITS RUNNING. The last build that
+# concluded SUCCESS was c8cf238 on 8/5; ba913e6 cancelled, 65a84f9 failed, b09f3ab
+# ran for THIRTY MINUTES and failed. Thirty minutes is not an error, it is a
+# TIMEOUT — the build was being asked to copy the entire repository.
+#
+# The push kept working the whole time, which is exactly why nobody caught it:
+# every lane's gates went green, every commit landed on main, and the page Paolo
+# taps simply stopped changing. The ONE-LINK LAW says the link is the door, and
+# the door was opening on a build from the day before.
+#
+# WHAT PAGES ACTUALLY HAS TO SERVE: slices/ — that is the whole product surface.
+# The repo is 496 MB of working tree and 106 MB of it is slices/. Everything else
+# — 261 MB of art banks, the questbook, the tools, the gates, the laws — was being
+# published to the open internet for NO REASON AT ALL, on every single push.
+#
+# NOTHING IS DELETED. This file does not remove one byte from the repository; it
+# only stops Pages from COPYING those bytes into the built site. Every bank, every
+# judgement, every record is exactly where it was. A green bought by deleted
+# evidence is worse than the red, and that is a rule this repo learned the hard way.
+#
+# WHAT IS KEPT, AND WHY EACH ONE:
+#   slices/          the product. The alpha and every tab it opens.
+#   engine/          four slices still load ../engine/*.js as real script tags
+#                    (RUN_SLICE, SOCIAL_PHONE, QUEST_DEMO are the un-inlined dev
+#                    templates; they must keep working).
+#   records/target/  the ART tab (slices/BOHEMIA_ART_CURRENT.html) loads its
+#                    target screens straight out of ../records/target/.
+#
+# Verified before writing this: there is not a single `{{` or `{%` anywhere in the
+# shipped slices, so letting Jekyll process the site cannot mangle the inline JS.
+#
+# IF A NEW SLICE EVER REACHES OUTSIDE THESE THREE FOLDERS, add that folder here or
+# the page will 404 in production while working perfectly on disk. That is the one
+# way this file can bite, so it is written down at the top of it.
+
+exclude:
+  - banks/          # 261 MB of art banks — read by the cook tools, never by a page
+  - questbook/      # 8.5 MB of quest study corpus
+  - archive/        # superseded files; history, never current
+  - tools/          # generators and cooks — they run in a session, not in a browser
+  - gates/          # the regression machines
+  - laws/           # the law masters
+  - quests/         # .bq canon quest sources (inlined into the slice at build time)
+  - records/refs/           # 30 MB of reference imagery
+  - records/judgecards/     # 3.9 MB of verdict cards
+  - records/tilespec/       # the district dossiers
+  - records/tileforms/
+  - records/zeromorph/
+  - "*.md"          # CLAUDE.md, the handoff, the backlog, the masters
+  - "*.txt"
+  - "*.json"
+
+# Pages serves files verbatim; nothing here is a Jekyll site in the blogging sense.
+plugins: []

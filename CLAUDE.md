@@ -223,6 +223,14 @@ rarely as one mega-session.
        is now earning its keep -- it is verifying a real merge, not re-verifying
        your own unchanged tree).
     5. Push the same SHA to the session branch. One gate pass, one deploy.
+- WHAT PAGES PUBLISHES IS NOT THE WHOLE REPO (8/6/26). Pages failed THREE commits
+  in a row -- thirty minutes then timeout -- because the build was copying all
+  496 MB when the product is the 106 MB in slices/. `_config.yml` now publishes
+  slices/ + engine/ + records/target (the only folders a slice actually loads from)
+  and NOTHING is deleted. If a new slice ever loads from another folder, add that
+  folder to _config.yml or the page 404s in production while working on disk.
+  Gate: pages_publish_gate.js. The push working is NOT the site working -- that is
+  the whole reason this was invisible for three commits.
 - Every turn that ships to main ends with the play link as the LAST LINE of
   the reply, always: https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html
   (GitHub Pages auto-redeploys main in ~2 minutes; the link never changes.)

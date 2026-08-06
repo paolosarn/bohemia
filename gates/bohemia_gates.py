@@ -181,6 +181,11 @@ GATES = [
      'dead police station: HQ, sally port, patrol fleet, impound, public/secure separation', False),
     ('LIBRARY',        ['node', 'gates/library_gate.js'],
      'dead library: ONE building — Predock drum + tower + museum wing + reading wing, plaza, lot', False),
+    ('PAGES PUBLISH', ['node', 'gates/pages_publish_gate.js'],
+     'the link stopped being true and no gate looked: Pages failed THREE commits running because the '
+     'build was copying the whole 496 MB repo. _config.yml publishes slices/ (+ engine/ + records/target, '
+     'which slices actually load) and this proves every outward ref still ships and the surface stays '
+     'under what the builder can finish', False),
     ('VALLEY CENSUS', ['node', 'gates/valley_census_gate.js'],
      'Paolo 8/4: "know what comes after" -- measured across three seeds instead of guessed. Every '
      'district type that puts NOTHING on the ground is either flat BY FORM (a road, a ridge), '
