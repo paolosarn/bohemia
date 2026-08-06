@@ -69,6 +69,23 @@ const DISTRICTS = [
   { name: 'ballpark',   mod: require('../engine/bohemia_ballpark.js') },
 ];
 
+// AND THEN EVERY DISTRICT THE HAND-WRITTEN LIST ABOVE DOES NOT KNOW ABOUT.
+// 8/5/26, seventh-and-then-some sighting of A VALUE PASSED BY HAND WHERE A VALUE COULD BE
+// DERIVED: this list is a second copy of the district registry, kept by hand, and the
+// twelve utility landmarks shipped with no dossier because nobody remembered to add twelve
+// lines here. The kit registry ALREADY knows every district that exists -- it is the thing
+// the world model, the renderers and every other gate read. So sweep it, and anything the
+// list above did not name gets its dossier from the registry entry itself. The thirteenth
+// landmark needs no edit to this file, which is the whole point.
+require('../engine/bohemia_world.js');            // loads + registers every generator
+const named = new Set(DISTRICTS.map(d => d.name));
+for (const t of K.types().sort()) {
+  if (named.has(t)) continue;
+  const spec = K.get(t);
+  if (!spec || typeof spec.generate !== 'function' || !spec.legend) continue;
+  DISTRICTS.push({ name: t, mod: spec });
+}
+
 const TILE = K.TILE, N = K.SZ;
 function countCodes(mod) {
   try { const r = mod.generate(1, { streets: ['S'], cw: 1, ch: 1 }); const t = {};

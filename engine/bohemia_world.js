@@ -41,6 +41,11 @@
   var LFL= HASREQ ? require('./bohemia_landfill.js')       : (typeof BohemiaLandfill!=='undefined'?BohemiaLandfill:root.BohemiaLandfill);
   var RLY= HASREQ ? require('./bohemia_railyard.js')       : (typeof BohemiaRailyard!=='undefined'?BohemiaRailyard:root.BohemiaRailyard);
   var SBS= HASREQ ? require('./bohemia_substation.js')     : (typeof BohemiaSubstation!=='undefined'?BohemiaSubstation:root.BohemiaSubstation);
+  // THE UTILITY LANDMARK FACTORY (8/5): ONE module registering TWELVE named landmarks the
+  // 8/5 valley census caught generating empty ground -- quarry, gypsum, fueldepot,
+  // reservoir, pumpstation, intake, granary, arsenal, datafort, basin, reclaim, radio.
+  // Requiring it registers all twelve on the kit; UTL.<type>.generate is the per-type body.
+  var UTL= HASREQ ? require('./bohemia_utility.js')        : (typeof BohemiaUtility!=='undefined'?BohemiaUtility:root.BohemiaUtility);
   var CHP= HASREQ ? require('./bohemia_chapel.js')         : (typeof BohemiaChapel!=='undefined'?BohemiaChapel:root.BohemiaChapel);
   var CTH= HASREQ ? require('./bohemia_courthouse.js')     : (typeof BohemiaCourthouse!=='undefined'?BohemiaCourthouse:root.BohemiaCourthouse);
   var JAL= HASREQ ? require('./bohemia_jail.js')           : (typeof BohemiaJail!=='undefined'?BohemiaJail:root.BohemiaJail);
@@ -121,7 +126,23 @@
     campus:     { mod:CMP, foot:function(r){return r.footprints;},           zone:'institutional' },
     speedway:   { mod:SPW, foot:function(r){return r.footprints;},           zone:'leisure' },
     town:       { mod:TWN, foot:function(r){return r.footprints;},           zone:'residential' },
-    ballpark:   { mod:BLP, foot:function(r){return r.footprints;},           zone:'leisure' }
+    ballpark:   { mod:BLP, foot:function(r){return r.footprints;},           zone:'leisure' },
+    // THE TWELVE UTILITY LANDMARKS (8/5). Every one of these was already SITED by the
+    // overmap with real geography behind it (Sloan quarry, the granary on the rail line,
+    // the Lake Mead intake, the tank farm, the flood detention basins) and every one of
+    // them generated bare ground until the census counted them. One factory, twelve specs.
+    quarry:     { mod:UTL.quarry,      foot:function(r){return r.footprints;}, zone:'warehouse' },
+    gypsum:     { mod:UTL.gypsum,      foot:function(r){return r.footprints;}, zone:'warehouse' },
+    fueldepot:  { mod:UTL.fueldepot,   foot:function(r){return r.footprints;}, zone:'warehouse' },
+    reservoir:  { mod:UTL.reservoir,   foot:function(r){return r.footprints;}, zone:'warehouse' },
+    pumpstation:{ mod:UTL.pumpstation, foot:function(r){return r.footprints;}, zone:'warehouse' },
+    intake:     { mod:UTL.intake,      foot:function(r){return r.footprints;}, zone:'warehouse' },
+    granary:    { mod:UTL.granary,     foot:function(r){return r.footprints;}, zone:'warehouse' },
+    arsenal:    { mod:UTL.arsenal,     foot:function(r){return r.footprints;}, zone:'warehouse' },
+    datafort:   { mod:UTL.datafort,    foot:function(r){return r.footprints;}, zone:'office' },
+    basin:      { mod:UTL.basin,       foot:function(r){return r.footprints;}, zone:'default' },
+    reclaim:    { mod:UTL.reclaim,     foot:function(r){return r.footprints;}, zone:'warehouse' },
+    radio:      { mod:UTL.radio,       foot:function(r){return r.footprints;}, zone:'office' }
   };
   /* SURFACE CELLS (7/26/26, WORLD lane — Paolo: "we need to actually build a fucking
      world"). A road cell is NOT a district: it never becomes faction territory, an

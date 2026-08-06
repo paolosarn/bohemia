@@ -59,25 +59,21 @@ const RESERVED = {
 };
 
 // ---- FLAT DEBT. Named, sited, and UNBUILT. RATCHET: may only shrink. -----------
-// Measured 8/5/26 on seed 12345: 27 cells across 10 types. Every one of them is a
-// real place the overmap sites on purpose (the comments are the overmap's own).
-const FLAT_DEBT = {
-  basin:     8,   // detention basins -- flood control, off the spine
-  datafort:  6,   // the data centre, sited inside the beltway
-  reclaim:   4,   // the water reclamation plant above the wash
-  reservoir: 3,   // the tanks pumped uphill onto the foothills
-  intake:    1,   // the Lake Mead intake
-  gypsum:    1,   // the gypsum works carved into the rim
-  granary:   1,   // the granary on the rail line
-  fueldepot: 1,   // the tank farm
-  arsenal:   1,   // the arsenal off the Strip axis
-  quarry:    1,   // Sloan -- carves the south approach hills
-  // these two are ABSENT from seed 12345 entirely and present on 777 and 20260805,
-  // which is the whole reason this gate runs three seeds: a census of one map is a
-  // census of one map. Both are sited by bohemia_overmap.js and both are unbuilt.
-  radio:       1, // the radio mast
-  pumpstation: 1, // the lift station that pushes water up to the reservoirs
-};
+//
+// PAID IN FULL, 8/5/26, the same day it was measured. The list opened at TWELVE types
+// and 29 cells -- basin, datafort, reclaim, reservoir, intake, gypsum, granary,
+// fueldepot, arsenal, quarry, radio, pumpstation -- every one a named place the
+// overmap sites with real geography behind it, every one generating bare ground.
+// engine/bohemia_utility.js builds all twelve from one factory (nine layout
+// primitives, twelve typed specs) and the ratchet below caught them the moment they
+// stopped being flat: it FAILED with all twelve listed as stale, which is the gate
+// working exactly as designed rather than a number somebody remembered to update.
+//
+// It stays here, empty, on purpose. An empty ratchet is the machine saying every
+// named place in the valley has something standing on it; a deleted ratchet is
+// nobody checking. Anything that goes flat in future must be added here WITH ITS
+// REASON, and it can only ever come back off by being built.
+const FLAT_DEBT = {};
 
 const SEEDS = [12345, 777, 20260805];
 

@@ -55,6 +55,10 @@ SPANS = {
     ('downtown', 'skybridge'), ('freeway', 'overpass deck'), ('freeway', 'sign gantry'),
     ('interchange', 'deck'), ('interchange', 'sign gantry'), ('airport', 'jet bridge'),
     ('airbase', 'jet bridge'), ('substation', 'busbar / conductor'),
+    # 8/5: a GUY WIRE is the purest span on the map -- a tensioned cable running from a mast
+    # to an anchor block. Nobody has ever stood under one to get out of the sun, and it holds
+    # a 15 m mast up. Same category as the busbar directly above it in this list.
+    ('radio', 'guy wire'),
 }
 
 # SHELTER CANOPIES still standing. RATCHET: this list may only shrink, and nothing new

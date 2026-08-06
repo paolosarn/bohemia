@@ -40,6 +40,7 @@ const MODULES = [
   'engine/bohemia_desert.js', 'engine/bohemia_mountain.js', 'engine/bohemia_water.js',
   'engine/bohemia_overmap.js', 'engine/bohemia_overmap_bridge.js', 'engine/bohemia_blockgen.js',
   'engine/bohemia_floorplan.js', 'engine/bohemia_garage.js', 'engine/bohemia_crypt.js',
+  'engine/bohemia_utility.js',
   'engine/bohemia_world.js', 'engine/bohemia_valleymap.js',
 ];
 let freshCount = 0;

@@ -508,3 +508,131 @@ _Lake shore — LOW BY NATURE and named as such: the subject is a horizontal. Wh
 - launch ramp — running down and ending a long way short of the water (code 7 "launch ramp")
 - sunken boat — the punchline (code 8 "sunken boat")
 - dead brush — on the benches (code 9 "dead brush")
+
+## QUARRY  (322x184, anchor 161,96)
+_QUARRY_
+
+- the pit -- four benches stepping DOWN to a floor, which makes it the only landmark in the valley that is a hole instead of a thing (code 6 "rock bench", code 4 "quarry floor")
+- bench lips -- the crest of every ring, loose rock along the edge (code 7 "bench lip / crest")
+- pit water -- standing in the bottom, gone the colour of the rock (code 8 "pit water")
+- crusher house -- on the rim with its door (code 2 "building (crusher house / plant)")
+- screen tower -- over the crusher, and the only thing that gives the hole its scale (code 14 "screen tower")
+- conveyor -- down off the rim to the stockpiles (code 13 "conveyor run")
+- stockpile -- a cone of graded stone (code 10 "shot rock / stockpile")
+
+## GYPSUM  (304x200, anchor 152,117)
+_GYPSUM WORKS_
+
+- the storage dome -- a real hemisphere built as nine stacked lifts on a cosine, and there is no other dome anywhere in this valley (code 7 "dome shell")
+- crown vent -- at the top of it (code 14 "dome crown")
+- quarry face -- three white benches behind the dome, so the dome has something to be from (code 6 "gypsum bench")
+- the mill -- with its door (code 2 "building (mill / board plant)")
+- calciner stack -- beside the mill (code 14 "calciner stack")
+- mobile conveyor -- ore straight from the quarry into the plant, which is how PABCO actually runs (code 13 "conveyor run")
+
+## FUELDEPOT  (295x173, anchor 147,92)
+_TANK FARM_
+
+- six tanks -- WIDE and LOW, each one a squat drum (code 6 "storage tank")
+- containment dikes -- a square concrete wall round every tank, which is the circle-in-a-square pattern nothing else makes (code 7 "containment dike")
+- floating roofs -- dropped to the bottom of every shell (code 7)
+- the manifold -- the pipe run tying every tank together (code 13 "pipe manifold")
+- terminal office -- with its door (code 2 "building (terminal office)")
+- vapour stack -- at the end of the rack (code 14 "vent stack")
+
+## RESERVOIR  (297x189, anchor 148,107)
+_RESERVOIR_
+
+- two tanks -- NARROW and TALL, the opposite proportion to the tank farm and the thing that keeps the two icons apart (code 6 "water tank")
+- tank roofs -- with their centre vents (code 7 "tank roof")
+- the cut slope -- the bench cut into the hill behind them, because a reservoir is sited ABOVE everyone it serves so gravity does the work (code 7)
+- standpipe -- between the tanks (code 14 "standpipe")
+- valve house -- with its door (code 2 "building (valve house)")
+- transmission main -- leaving downhill (code 13 "transmission main")
+
+## GRANARY  (292x247, anchor 146,166)
+_GRAIN ELEVATOR_
+
+- silo battery -- seven concrete cylinders touching in a comb (code 6 "concrete silo")
+- the gallery -- the run along the tops of them (code 7 "gallery / rail shed")
+- THE HEADHOUSE -- a block sitting ON the silos, not beside them, because the bucket elevator has to lift to the very top and everything below is gravity (code 14 "headhouse")
+- cupola -- on top of the headhouse (code 14)
+- rail spur -- with its ties, under where the shed was (code 8 "rail spur")
+- scale house -- with its door (code 2 "building (scale house / office)")
+
+## ARSENAL  (329x190, anchor 164,101)
+_ARSENAL_
+
+- earth-covered magazines -- six mounds built as stepped slabs, which is an earth cover in section (code 6 "earth-covered magazine")
+- headwalls -- concrete, on ONE end only, staring at you (code 7 "concrete arch")
+- magazine doors -- in every headwall (code 2 face)
+- earth traverses -- standing between one magazine and the next so a detonation does not propagate (code 7 "traverse")
+- the spacing -- quantity-distance separation, and as much of the silhouette as the mounds are (code 0 "setback")
+- issue point -- with its door (code 2 "building (issue point / guard)")
+- lightning mast -- over the ranks (code 14 "lightning mast")
+
+## DATAFORT  (329x239, anchor 173,145)
+_DATA FORT_
+
+- the hall -- twelve by eight and NO WINDOW anywhere in it, which is the recognition, because every other big building in the valley has glass somewhere (code 6 "data hall")
+- SwitchSHIELD -- two roof decks standing clear of each other on standoffs, rated to 200 mph with no roof penetrations (code 7 "second roof")
+- cooling units -- six thousand-ton units lining the building face (code 10 "cooling unit")
+- generator row -- down the flank (code 7 "generator")
+- guard house -- at the gate with its door, glass still intact, which on this site is the tell (code 2 "building (guard house)")
+- microwave masts -- on the roofline (code 14 "microwave mast")
+
+## BASIN  (289x165, anchor 154,81)
+_DETENTION BASIN_
+
+- the bowl -- four SQUARED rings stepping down, so it reads made and not eroded (code 6 "side slope", code 7 "embankment crest")
+- silt floor -- flat at the bottom, cracked into plates (code 4 "basin floor")
+- low-flow trickle -- crossing the floor to the orifice even when it has not rained (code 8 "low-flow trickle")
+- outlet box -- concrete, at the low corner, with its orifice (code 6 "outlet works")
+- debris rack -- across the mouth of it (code 10 "debris rack")
+- spillway -- notched THROUGH the crest above the outlet, which is the bite that separates this from the quarry (code 7 "spillway")
+- O&M shed -- with its door (code 2 "building (O&M shed)")
+- stage gauge -- on the crest (code 14 "gauge mast")
+
+## RECLAIM  (303x162, anchor 151,79)
+_RECLAMATION PONDS_
+
+- six ponds -- RECTANGLES in a grid, deliberately the opposite of watertreat, which is all circles (code 7 "pond berm")
+- the water -- still in them, still, green, going nowhere (code 8 "pond water")
+- crusts -- dried hard enough to walk on and not hard enough to trust (code 6 "crusted pond centre")
+- weir boxes -- on every pond corner (code 10 "weir box")
+- inlet header -- feeding every pond off one line (code 13 "inlet header")
+- the outfall -- leaving the frame east, because everything that leaves this valley goes to the wash and then the lake (code 8)
+- blower house -- with its door (code 2 "building (blower / control)")
+- vent stack -- on the blower house (code 14 "vent stack")
+
+## RADIO  (348x271, anchor 174,176)
+_ANTENNA FARM_
+
+- three guyed masts -- the tallest of them 15.5 m in icon scale, and the tallest thing in the whole hero set (code 14 "guyed mast")
+- guy wires -- climbing from each anchor to the mast, three per mast (code 8 "guy wire")
+- anchor blocks -- set far out from every base, which is why the site is mostly empty and why the emptiness is the recognition (code 6 "anchor block")
+- base plates -- under each mast (code 7 "anchor / base plate")
+- transmitter building -- with its door (code 2 "building (transmitter)")
+- equipment hut -- at the foot of the big mast (code 2 "building (equipment hut)")
+
+## PUMPSTATION  (310x187, anchor 155,102)
+_PUMP STATION_
+
+- the pump house -- low and plain, because it is only keeping the rain off the pipe (code 2 "building (pump house)")
+- roof monitor -- along the top of it (code 7 "roof monitor")
+- THE PIPE -- drawn at the diameter it actually is, sixty-six inches, entering one end and leaving the other, and at that size the pipe IS the landmark (code 13 "transmission main")
+- surge tank -- the thing that keeps a stopped column of water from tearing the pipe apart (code 6 "surge tank")
+- standpipe -- on top of the surge tank (code 14 "standpipe")
+- valve vault covers -- set flush along the main (code 10 "valve vault cover")
+- switchgear yard -- beside the house (code 7 "switchgear")
+
+## INTAKE  (364x215, anchor 182,116)
+_LAKE INTAKE_
+
+- the intake tower -- standing IN the water with its trash-rack bands (code 6 "intake structure")
+- THE BATHTUB RING -- the white mineral band the lake left on the rock as it dropped, with dark rock above it, and it is the one object in this valley that states how much has gone without any text on it (code 7 "bathtub ring")
+- the lake -- what is left of it, a long way below the ring (code 8 "lake water")
+- the shaft -- from the tower back to shore (code 13 "intake shaft")
+- intake pump house -- with its door (code 2 "building (intake pump house)")
+- the main -- leaving uphill toward the valley (code 13)
+- surge tank -- behind the house (code 14 "standpipe")

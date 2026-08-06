@@ -2436,6 +2436,377 @@ def build_water(P):
     return s, 5.6
 
 
+# =====================================================================================
+# THE TWELVE UTILITY LANDMARKS (8/5/26). One ground factory (engine/bohemia_utility.js),
+# twelve icons. Each one is drawn to the SINGLE THING you would name if somebody pointed
+# at the plot -- not to the site plan, which is what "make it look like the district"
+# kept producing and what kept coming back squinting like its neighbour.
+# =====================================================================================
+
+def build_quarry(P):
+    """engine/bohemia_utility.js quarry: THE ONLY LANDMARK IN THE VALLEY THAT GOES DOWN.
+    Everything else on this map is a thing standing up on the ground; a quarry is a
+    staircase cut into it, nested rings stepping down to a floor with water in the bottom,
+    and the screen tower on the rim is there to give the eye the scale of the hole."""
+    PLANT, BENCH, LIP, WATER, TOWER = P[2], P[6], P[7], P[8], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(122, 116, 100), lotc=(96, 92, 80))
+    # THE PIT: four benches stepping DOWN, each ring narrower and each floor lower
+    for i, (rad, z) in enumerate([(5.4, 4.4), (4.2, 3.0), (3.1, 1.6), (2.0, 0.4)]):
+        s.prism(3.2, 5.4, 0, rad, z, 26, {'c': _dark(BENCH, 0.94 - i * 0.05)['c']},
+                {'c': _dark(LIP, 1.02 - i * 0.05)['c']}, inner=0.0)
+    s.prism(3.2, 5.4, 0, 1.7, 0.18, 22, {'c': _dark(WATER, 0.9)['c']}, {'c': WATER})   # water in the bottom
+    # THE PLANT on the rim: crusher house, screen tower over it, conveyor out to a stockpile
+    s.box((9.8, 6.4, 0), (4.0, 4.4, 5.6), {'top': _dark(PLANT, 0.9), 'px': _win(PLANT, 3, 4, 4),
+          'py': _dark(PLANT, 0.86), 'nx': _dark(PLANT), 'ny': _dark(PLANT)})
+    _door_face(s, (9.8, 6.4, 0), (4.0, 4.4, 5.6), width=1.2, ztop=2.4)
+    s.box((10.4, 7.2, 5.6), (2.6, 2.6, 7.4), {'top': _dark(TOWER, 1.1), 'px': _dark(TOWER, 1.0),
+          'py': _dark(TOWER, 0.78), 'nx': _dark(TOWER, 1.0), 'ny': _dark(TOWER, 0.78)})  # THE SCREEN TOWER
+    for cz in (0.0, 1.6, 3.2, 4.8, 6.4):
+        s.box((10.4, 7.1, 5.8 + cz), (2.6, 0.14, 0.14), {'c': _dark(LIP, 0.8)['c']})
+    s.box((6.0, 8.4, 1.6), (4.4, 0.5, 0.3), {'c': _dark(LIP, 0.9)['c']})               # the conveyor down
+    s.prism(6.2, 11.6, 0, 1.9, 1.9, 16, {'c': _dark(BENCH, 1.06)['c']}, {'c': LIP})     # a graded stockpile
+    return s, 5.6
+
+
+def build_gypsum(P):
+    """engine/bohemia_utility.js gypsum: THE DOME. PABCO's storage dome is a monolithic
+    hemisphere, and there is no other hemisphere anywhere in this valley -- not one. That
+    makes it the cheapest possible icon to read at thumbnail size, so the dome IS the icon
+    and the white quarry face behind it is only there to say what is in it."""
+    MILL, ROCK, SHELL, STACK = P[2], P[6], P[7], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(132, 126, 110), lotc=(108, 104, 92))
+    # THE DOME, built as stacked prisms whose radius follows a circle -- a real hemisphere
+    import math as _m
+    R, LIFTS = 5.2, 9
+    for i in range(LIFTS):
+        f0, f1 = i / float(LIFTS), (i + 1) / float(LIFTS)
+        r0 = R * _m.cos(f0 * _m.pi / 2.0)
+        z0, z1 = R * _m.sin(f0 * _m.pi / 2.0), R * _m.sin(f1 * _m.pi / 2.0)
+        s.prism(5.0, 5.4, z0, r0, max(0.12, z1 - z0), 28,
+                {'c': _dark(SHELL, 0.98 - i * 0.012)['c']}, {'c': _dark(SHELL, 1.06)['c']})
+    s.prism(5.0, 5.4, R - 0.1, 0.6, 0.7, 12, {'c': _dark(STACK, 0.9)['c']}, {'c': STACK})  # its crown vent
+    # THE WHITE QUARRY FACE behind it, three benches, so the dome has something to be from
+    for i, (bx, bw, bz) in enumerate([(-2.0, 13.0, 1.0), (-1.0, 11.0, 2.0), (0.2, 9.0, 3.0)]):
+        s.box((bx, 10.0 + i * 0.9, 0), (bw, 1.0, bz),
+              {'top': _dark(ROCK, 1.10 - i * 0.03), 'px': _dark(ROCK, 0.96), 'py': _dark(ROCK, 0.86),
+               'nx': _dark(ROCK, 0.96), 'ny': _dark(ROCK, 0.86)})
+    s.box((-1.8, 1.2, 0), (3.6, 3.0, 3.4), {'top': _dark(MILL, 0.9), 'px': _win(MILL, 3, 3, 6),
+          'py': _dark(MILL, 0.86), 'nx': _dark(MILL), 'ny': _dark(MILL)})                  # the mill
+    _door_face(s, (-1.8, 1.2, 0), (3.6, 3.0, 3.4), width=1.1, ztop=2.2)
+    s.box((-2.6, 2.0, 0), (0.9, 0.9, 6.8), {'top': _dark(STACK, 1.1), 'px': _dark(STACK, 1.0),
+          'py': _dark(STACK, 0.78), 'nx': _dark(STACK, 1.0), 'ny': _dark(STACK, 0.78)})    # the calciner stack
+    s.box((1.5, 2.4, 1.6), (3.4, 0.4, 0.28), {'c': _dark(ROCK, 0.8)['c']})                 # the mobile conveyor
+    s.box((7.4, 11.6, 0.02), (4.6, 2.4, 0.06), {'c': P[8]})                                 # PIT WATER, gypsum-milky
+    s.box((8.2, 11.0, 0.02), (2.6, 0.7, 0.06), {'c': _dark(P[8], 1.18)['c']})
+    return s, 5.8
+
+
+def build_fueldepot(P):
+    """engine/bohemia_utility.js fueldepot: SIX SQUAT DRUMS EACH SITTING IN A SQUARE WALL.
+    A tank farm is the only place where a circle is DELIBERATELY put inside a square -- the
+    concrete containment dike -- and that circle-in-a-square repeated six times is a pattern
+    nothing else in the valley makes. The tanks are WIDE and LOW, which is what separates
+    this from the reservoir, where they are narrow and tall."""
+    OFFICE, TANK, DIKE, PIPE, VENT = P[2], P[6], P[7], P[13], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(104, 100, 88), lotc=(74, 72, 64))
+    for j in range(2):
+        for i in range(3):
+            cx, cy = 0.6 + i * 4.4, 2.0 + j * 5.0
+            for (wx, wy, wdx, wdy) in [(cx - 2.0, cy - 2.0, 4.0, 0.26), (cx - 2.0, cy + 1.74, 4.0, 0.26),
+                                       (cx - 2.0, cy - 2.0, 0.26, 4.0), (cx + 1.74, cy - 2.0, 0.26, 4.0)]:
+                s.box((wx, wy, 0), (wdx, wdy, 1.1), {'top': _dark(DIKE, 1.12), 'px': _dark(DIKE, 1.0),
+                      'py': _dark(DIKE, 0.8), 'nx': _dark(DIKE, 1.0), 'ny': _dark(DIKE, 0.8)})
+            s.prism(cx, cy, 0, 1.5, 4.4, 22, {'c': _dark(TANK, 0.96)['c']}, {'c': _dark(TANK, 1.10)['c']})
+            s.prism(cx, cy, 4.4, 1.25, 0.2, 22, {'c': _dark(DIKE, 0.9)['c']}, {'c': _dark(DIKE, 1.0)['c']})
+            for wz in (1.3, 2.6, 3.9):                                                     # THE WIND GIRDERS,
+                s.prism(cx, cy, wz, 1.46, 0.1, 22, {'c': _dark(TANK, 0.8)['c']}, {'c': _dark(TANK, 0.86)['c']})
+            s.box((cx - 0.1, cy + 1.4, 0.3), (0.2, 0.9, 0.2), {'c': PIPE})                  # its line out
+            s.box((cx + 1.3, cy - 0.1, 0), (0.2, 0.2, 4.6), {'c': _dark(DIKE, 0.72)['c']})     # its spiral stair
+    s.box((-1.4, 7.5, 0.25), (13.0, 0.24, 0.24), {'c': PIPE})                               # THE MANIFOLD
+    s.box((9.6, 10.6, 0), (3.4, 2.6, 2.8), {'top': _dark(OFFICE, 0.9), 'px': _win(OFFICE, 3, 2, 7),
+          'py': _dark(OFFICE, 0.86), 'nx': _dark(OFFICE), 'ny': _dark(OFFICE)})
+    _door_face(s, (9.6, 10.6, 0), (3.4, 2.6, 2.8), width=1.0, ztop=2.0)
+    s.box((8.6, 11.0, 2.8), (0.56, 0.56, 4.0), {'c': _dark(VENT, 1.0)['c']})                # THE VAPOUR STACK,
+    s.box((8.5, 10.9, 6.8), (0.76, 0.76, 0.4), {'c': _dark(VENT, 0.8)['c']})                # clear of the rack
+    return s, 5.4
+
+
+def build_reservoir(P):
+    """engine/bohemia_utility.js reservoir: TWO TALL DRUMS ON A CUT PAD, HIGH. The LVVWD
+    sites its reservoirs UPGRADIENT of everyone they serve so gravity does the work, so the
+    thing that makes a reservoir read is that it is standing ABOVE you on a bench cut into
+    the hill. Tall and narrow, no dikes -- the opposite proportion to the tank farm."""
+    VALVE, TANK, ROOF, MAIN, PIPE = P[2], P[6], P[7], P[13], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(112, 106, 92), lotc=(84, 80, 70))
+    s.box((-2.4, 8.4, 0), (15.0, 1.4, 2.2), {'top': _dark(ROOF, 1.06), 'px': _dark(ROOF, 0.94),
+          'py': _dark(ROOF, 0.8), 'nx': _dark(ROOF, 0.94), 'ny': _dark(ROOF, 0.8)})        # THE CUT SLOPE behind
+    for cx in (2.4, 8.6):
+        s.prism(cx, 4.6, 0, 2.7, 7.2, 26, {'c': _dark(TANK, 0.96)['c']}, {'c': _dark(TANK, 1.12)['c']})
+        s.prism(cx, 4.6, 7.2, 2.4, 0.5, 26, {'c': _dark(ROOF, 1.0)['c']}, {'c': _dark(ROOF, 1.14)['c']})
+        s.box((cx - 0.3, 4.3, 7.7), (0.6, 0.6, 0.7), {'c': _dark(ROOF, 0.86)['c']})         # its centre vent
+        s.box((cx - 0.16, 1.6, 0.2), (0.32, 0.5, 0.32), {'c': MAIN})                        # the main leaving
+    s.box((5.4, 4.2, 0), (0.6, 0.6, 9.2), {'top': _dark(PIPE, 1.1), 'px': _dark(PIPE, 1.0),
+          'py': _dark(PIPE, 0.76), 'nx': _dark(PIPE, 1.0), 'ny': _dark(PIPE, 0.76)})        # THE STANDPIPE
+    s.box((-1.0, 0.4, 0), (3.2, 2.4, 2.6), {'top': _dark(VALVE, 0.9), 'px': _win(VALVE, 2, 2, 9),
+          'py': _dark(VALVE, 0.86), 'nx': _dark(VALVE), 'ny': _dark(VALVE)})                # the valve house
+    _door_face(s, (-1.0, 0.4, 0), (3.2, 2.4, 2.6), width=1.0, ztop=2.0)
+    s.box((2.4, 0.9, 0.15), (8.0, 0.3, 0.3), {'c': MAIN})                                   # the transmission main
+    s.box((10.9, 2.0, 0.4), (0.5, 2.6, 0.5), {'c': P[8]})                                   # THE OVERFLOW
+    s.box((9.0, 0.2, 0.02), (3.4, 2.0, 0.06), {'c': _dark(P[8], 1.1)['c']})                 # and its stain
+    return s, 6.0
+
+
+def build_granary(P):
+    """engine/bohemia_utility.js granary: A COMB OF CYLINDERS WITH A BLOCK STRADDLING THE
+    TOP. The headhouse is why a grain elevator reads from ten miles away: the bucket
+    elevator has to lift to the very top and everything below is gravity, so the building
+    is a slab sitting ON the silos rather than beside them. Nothing else stacks that way."""
+    OFFICE, SILO, GALLERY, RAIL, HEAD = P[2], P[6], P[7], P[8], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(104, 100, 88), lotc=(76, 74, 66))
+    for i in range(7):
+        s.prism(0.4 + i * 1.9, 5.0, 0, 1.05, 7.6, 20,
+                {'c': _dark(SILO, 0.94 + (i % 2) * 0.05)['c']}, {'c': _dark(GALLERY, 1.06)['c']})
+    s.box((-0.8, 3.9, 7.6), (13.6, 2.2, 0.55), {'top': _dark(GALLERY, 1.12), 'px': _dark(GALLERY, 0.98),
+          'py': _dark(GALLERY, 0.8), 'nx': _dark(GALLERY, 0.98), 'ny': _dark(GALLERY, 0.8)})  # the gallery
+    s.box((4.6, 3.6, 8.15), (3.4, 2.8, 5.4), {'top': _dark(HEAD, 1.06), 'px': _win(HEAD, 3, 4, 3),
+          'py': _dark(HEAD, 0.82), 'nx': _dark(HEAD, 0.98), 'ny': _dark(HEAD, 0.82)})        # THE HEADHOUSE
+    s.box((5.2, 4.0, 13.55), (2.2, 2.0, 1.1), {'top': _dark(HEAD, 1.16), 'px': _dark(HEAD, 1.0),
+          'py': _dark(HEAD, 0.84), 'nx': _dark(HEAD, 1.0), 'ny': _dark(HEAD, 0.84)})         # its cupola
+    s.box((-1.2, 2.0, 0), (14.0, 0.9, 0.12), {'c': _dark(RAIL, 0.9)['c']})                   # the spur
+    for i in range(9):
+        s.box((-1.0 + i * 1.6, 2.0, 0.12), (0.22, 0.9, 0.06), {'c': _dark(RAIL, 0.7)['c']})  # its ties
+    s.box((-1.6, 9.6, 0), (3.4, 2.4, 2.6), {'top': _dark(OFFICE, 0.9), 'px': _win(OFFICE, 3, 2, 8),
+          'py': _dark(OFFICE, 0.86), 'nx': _dark(OFFICE), 'ny': _dark(OFFICE)})              # the scale house
+    _door_face(s, (-1.6, 9.6, 0), (3.4, 2.4, 2.6), width=1.0, ztop=2.0)
+    return s, 6.2
+
+
+def build_arsenal(P):
+    """engine/bohemia_utility.js arsenal: RANKS OF EARTH MOUNDS WITH A CONCRETE FACE ON ONE
+    END ONLY. An ammunition storage area is designed around the distance between its
+    magazines, so what you see is a repeated half-buried hump with a headwall staring at
+    you, set far apart -- and the SPACING is as much of the silhouette as the mounds are."""
+    ISSUE, MOUND, ARCH, POST, MAST = P[2], P[6], P[7], P[10], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(102, 100, 84), lotc=(78, 78, 66))
+    for j in range(3):
+        for i in range(2):
+            bx, by = 0.0 + i * 6.4 + (0.9 if j % 2 else 0.0), 0.6 + j * 4.2
+            # the mound: three stacked slabs stepping in, which is an earth cover in section
+            for k, (ins, hz) in enumerate([(0.0, 1.7), (0.45, 1.5), (0.95, 1.2)]):
+                s.box((bx + ins, by + ins, sum([1.7, 1.5, 1.2][:k])), (4.6 - ins * 2, 3.0 - ins * 2, hz),
+                      {'top': _dark(MOUND, 1.08 + k * 0.04), 'px': _dark(MOUND, 0.96),
+                       'py': _dark(MOUND, 0.82), 'nx': _dark(MOUND, 0.96), 'ny': _dark(MOUND, 0.82)})
+            s.box((bx + 1.1, by - 0.42, 0), (2.4, 0.45, 3.4), {'top': _dark(ARCH, 1.1), 'px': _dark(ARCH, 1.0),
+                  'py': _dark(ARCH, 0.9), 'nx': _dark(ARCH, 1.0), 'ny': _dark(ARCH, 0.9)})   # THE HEADWALL
+            s.box((bx + 1.9, by - 0.48, 0), (0.8, 0.1, 1.4), {'c': (26, 28, 32)})            # its door
+            s.box((bx - 0.7, by - 0.2, 0), (0.42, 3.4, 3.9), {'top': _dark(MOUND, 1.02), 'px': _dark(MOUND, 0.9),
+                  'py': _dark(MOUND, 0.78), 'nx': _dark(MOUND, 0.9), 'ny': _dark(MOUND, 0.78)})  # the traverse
+    s.box((9.4, 11.2, 0), (3.4, 2.4, 2.8), {'top': _dark(ISSUE, 0.9), 'px': _win(ISSUE, 3, 2, 11),
+          'py': _dark(ISSUE, 0.86), 'nx': _dark(ISSUE), 'ny': _dark(ISSUE)})                 # the issue point
+    _door_face(s, (9.4, 11.2, 0), (3.4, 2.4, 2.8), width=1.0, ztop=2.0)
+    s.box((-1.6, 12.0, 0), (0.34, 0.34, 8.4), {'c': _dark(MAST, 0.9)['c']})                  # the lightning mast
+    for (px, py) in [(-1.4, 0.4), (-1.4, 4.6), (-1.4, 8.8)]:
+        s.box((px, py, 0), (0.3, 0.3, 1.0), {'c': POST})
+    return s, 6.0
+
+
+def build_datafort(P):
+    """engine/bohemia_utility.js datafort: ONE ENORMOUS BOX WITH NO WINDOW IN IT. Switch's
+    SUPERNAP puts 400,000 square feet under a double roof rated to 200 mph with no roof
+    penetrations at all, and every other big building in this valley has glass somewhere.
+    A blank wall that large IS the recognition, so the icon refuses to break the surface."""
+    GUARD, HALL, ROOF, CHILL, MAST = P[2], P[6], P[7], P[10], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(96, 94, 88), lotc=(70, 70, 68))
+    s.box((-0.6, 2.4, 0), (12.4, 8.0, 6.4), {'top': _dark(HALL, 0.94), 'px': _dark(HALL, 1.02),
+          'py': _dark(HALL, 0.80), 'nx': _dark(HALL, 1.02), 'ny': _dark(HALL, 0.80)})     # THE HALL, blank
+    s.box((-1.0, 2.0, 6.4), (13.2, 8.8, 0.34), {'top': _dark(ROOF, 1.14), 'px': _dark(ROOF, 1.0),
+          'py': _dark(ROOF, 0.84), 'nx': _dark(ROOF, 1.0), 'ny': _dark(ROOF, 0.84)})      # the inner deck
+    s.box((-1.2, 1.8, 7.5), (13.6, 9.2, 0.34), {'top': _dark(ROOF, 1.20), 'px': _dark(ROOF, 1.04),
+          'py': _dark(ROOF, 0.88), 'nx': _dark(ROOF, 1.04), 'ny': _dark(ROOF, 0.88)})     # SwitchSHIELD, clear of it
+    for cx in (-1.0, 3.6, 8.2, 12.0):
+        s.box((cx, 6.74, 6.74), (0.34, 0.34, 0.76), {'c': _dark(ROOF, 0.72)['c']})        # the nine-foot standoffs
+    for i in range(6):                                                                     # THE COOLING UNITS on the face
+        s.box((0.2 + i * 2.0, 0.6, 0), (1.5, 1.7, 2.3), {'top': _dark(CHILL, 1.08), 'px': _dark(CHILL, 0.96),
+              'py': _dark(CHILL, 0.82), 'nx': _dark(CHILL, 0.96), 'ny': _dark(CHILL, 0.82)})
+        s.box((0.4 + i * 2.0, 0.5, 2.3), (1.1, 1.1, 0.2), {'c': _dark(CHILL, 0.7)['c']})
+    for i in range(5):                                                                     # the generator row, flank
+        s.box((12.2, 3.0 + i * 1.5, 0), (1.6, 1.1, 1.9), {'top': _dark(ROOF, 1.02), 'px': _dark(ROOF, 0.92),
+              'py': _dark(ROOF, 0.78), 'nx': _dark(ROOF, 0.92), 'ny': _dark(ROOF, 0.78)})
+    s.box((2.4, 11.4, 0), (3.2, 2.2, 2.6), {'top': _dark(GUARD, 0.9), 'px': _win(GUARD, 3, 2, 12),
+          'py': _dark(GUARD, 0.86), 'nx': _dark(GUARD), 'ny': _dark(GUARD)})               # the guard house
+    _door_face(s, (2.4, 11.4, 0), (3.2, 2.2, 2.6), width=1.0, ztop=2.0)
+    s.box((2.6, -2.2, 0.02), (5.0, 2.2, 0.06), {'c': P[8]})                               # GLYCOL, run out from
+    s.box((3.6, -2.9, 0.02), (2.8, 1.0, 0.06), {'c': _dark(P[8], 1.16)['c']})             # under the chillers
+    s.box((1.4, 3.2, 7.84), (0.28, 0.28, 3.2), {'c': _dark(MAST, 0.9)['c']})               # microwave masts
+    s.box((9.6, 3.2, 7.84), (0.28, 0.28, 2.6), {'c': _dark(MAST, 0.9)['c']})
+    return s, 6.0
+
+
+def build_basin(P):
+    """engine/bohemia_utility.js basin: A RECTANGULAR HOLE WITH A NOTCH CUT IN ONE WALL.
+    A detention basin is supposed to be EMPTY -- that is its working state -- so the icon
+    is the earth embankment squared off round nothing, with the concrete outlet box at the
+    low corner and the emergency spillway notched through the crest above it. The quarry
+    also goes down; the quarry is ROUND and stepped, this is SQUARE with one bite out."""
+    SHED, SLOPE, CREST, TRICKLE, GAUGE = P[2], P[6], P[7], P[8], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(112, 104, 82), lotc=(88, 82, 66))
+    # the embankment: four squared rings stepping down, so the hole reads as made not eroded
+    for i, (ins, z) in enumerate([(0.0, 3.4), (1.1, 2.5), (2.2, 1.6), (3.3, 0.7)]):
+        s.box((-0.4 + ins, 0.6 + ins, 0), (12.4 - ins * 2, 10.4 - ins * 2, z),
+              {'top': _dark(SLOPE, 1.12 - i * 0.05), 'px': _dark(CREST, 1.0 - i * 0.04),
+               'py': _dark(CREST, 0.84 - i * 0.03), 'nx': _dark(CREST, 1.0 - i * 0.04),
+               'ny': _dark(CREST, 0.84 - i * 0.03)})
+    s.box((3.4, 4.6, 0.68), (5.0, 3.2, 0.1), {'c': _dark(SLOPE, 0.86)['c']})               # the silt floor
+    s.box((3.8, 4.9, 0.78), (4.2, 0.9, 0.06), {'c': TRICKLE})                             # THE LOW-FLOW TRICKLE
+    s.box((5.4, 2.6, 0.78), (1.4, 2.4, 0.06), {'c': TRICKLE})                             # down to the orifice
+    s.box((4.4, -2.4, 0.06), (4.0, 2.4, 0.06), {'c': TRICKLE})                           # and what leaves the
+    s.box((5.4, -3.1, 0.06), (2.2, 1.0, 0.06), {'c': _dark(TRICKLE, 1.18)['c']})         # orifice, out on the apron
+    s.box((5.0, 0.9, 0), (2.4, 1.8, 2.4), {'top': _dark(CREST, 1.18), 'px': _dark(CREST, 1.04),
+          'py': _dark(CREST, 0.86), 'nx': _dark(CREST, 1.04), 'ny': _dark(CREST, 0.86)})   # THE OUTLET BOX
+    s.box((5.8, 0.8, 0.2), (0.9, 0.2, 0.9), {'c': (26, 28, 30)})                           # its orifice
+    for i in range(5):
+        s.box((5.2 + i * 0.45, 0.72, 0.2), (0.12, 0.12, 1.1), {'c': _dark(CREST, 0.7)['c']})  # the debris rack
+    s.box((8.6, 0.6, 2.0), (2.6, 0.9, 0.5), {'top': _dark(SLOPE, 1.06), 'px': _dark(SLOPE, 0.94),
+          'py': _dark(SLOPE, 0.8), 'nx': _dark(SLOPE, 0.94), 'ny': _dark(SLOPE, 0.8)})     # THE SPILLWAY notch
+    s.box((-1.6, 9.4, 0), (3.0, 2.2, 2.4), {'top': _dark(SHED, 0.9), 'px': _win(SHED, 2, 2, 13),
+          'py': _dark(SHED, 0.86), 'nx': _dark(SHED), 'ny': _dark(SHED)})                  # the O&M shed
+    _door_face(s, (-1.6, 9.4, 0), (3.0, 2.2, 2.4), width=1.0, ztop=1.9)
+    s.box((11.2, 9.6, 0), (0.34, 0.34, 7.2), {'c': _dark(GAUGE, 0.94)['c']})               # THE STAGE GAUGE
+    for gz in range(1, 7):                                                                 # its foot marks,
+        s.box((11.14, 9.54, gz * 1.1), (0.46, 0.46, 0.12), {'c': _dark(CREST, 1.18)['c']}) # read from the crest
+    return s, 5.8
+
+
+def build_reclaim(P):
+    """engine/bohemia_utility.js reclaim: A GRID OF SQUARE PONDS WITH SOMETHING STILL IN
+    THEM. The watertreat plant is ROUND -- clarifier drums -- and this one is deliberately
+    the opposite: rectangles in a grid, walled off each other by earth berms, with the
+    outfall channel leaving the frame toward the wash, because everything in this valley
+    that leaves goes east."""
+    BLOWER, CRUST, BERM, WATER, STACK = P[2], P[6], P[7], P[8], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(100, 100, 84), lotc=(76, 78, 66))
+    for j in range(2):
+        for i in range(3):
+            px, py = 0.0 + i * 4.3, 3.4 + j * 4.0
+            s.box((px, py, 0), (3.8, 3.4, 1.15), {'top': _dark(BERM, 1.12), 'px': _dark(BERM, 0.98),
+                  'py': _dark(BERM, 0.82), 'nx': _dark(BERM, 0.98), 'ny': _dark(BERM, 0.82)})
+            s.box((px + 0.5, py + 0.5, 0.62), (2.8, 2.4, 0.1), {'c': WATER})               # the water in it
+            s.box((px + 1.1, py + 1.0, 0.70), (1.6, 1.4, 0.08), {'c': _dark(CRUST, 1.0)['c']})  # the crust
+            s.box((px + 3.5, py + 1.4, 1.15), (0.5, 0.5, 0.4), {'c': _dark(BERM, 0.8)['c']})    # the weir box
+    s.box((-1.2, 3.0, 0.4), (0.5, 8.6, 0.5), {'c': _dark(BERM, 0.74)['c']})                # THE INLET HEADER
+    s.box((12.5, 5.2, 0.2), (2.6, 1.3, 0.16), {'c': WATER})                                # THE OUTFALL, leaving
+    s.box((12.5, 4.9, 0.2), (2.6, 0.3, 0.55), {'c': _dark(BERM, 0.9)['c']})
+    s.box((12.5, 6.5, 0.2), (2.6, 0.3, 0.55), {'c': _dark(BERM, 0.9)['c']})
+    s.box((2.0, 11.6, 0), (4.0, 2.4, 3.0), {'top': _dark(BLOWER, 0.9), 'px': _win(BLOWER, 4, 2, 14),
+          'py': _dark(BLOWER, 0.86), 'nx': _dark(BLOWER), 'ny': _dark(BLOWER)})            # the blower house
+    _door_face(s, (2.0, 11.6, 0), (4.0, 2.4, 3.0), width=1.1, ztop=2.1)
+    s.box((6.4, 12.0, 0), (0.7, 0.7, 6.2), {'top': _dark(STACK, 1.1), 'px': _dark(STACK, 1.0),
+          'py': _dark(STACK, 0.78), 'nx': _dark(STACK, 1.0), 'ny': _dark(STACK, 0.78)})    # the vent stack
+    return s, 5.6
+
+
+def build_radio(P):
+    """engine/bohemia_utility.js radio: MOSTLY AIR. A guyed mast has to put its anchors a
+    long way from its base, so an antenna site is a very tall thin thing with almost
+    nothing around it -- and that emptiness is the recognition, not a flaw in the drawing.
+    Black Mountain carries ten of them on the ridge above Henderson."""
+    HUT, ANCHOR, PLATE, GUY, MAST = P[2], P[6], P[7], P[8], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(104, 100, 86), lotc=(84, 82, 70))
+    import math as _m
+    for (mx, my, hgt, gr) in [(4.4, 5.6, 15.5, 4.2), (9.8, 3.0, 11.0, 3.2), (1.4, 9.8, 8.5, 2.6)]:
+        for k in range(3):
+            a = (k * 120 + 20) * _m.pi / 180.0
+            ax, ay = mx + gr * _m.cos(a), my + gr * _m.sin(a)
+            s.box((ax - 0.28, ay - 0.28, 0), (0.56, 0.56, 0.62), {'top': _dark(ANCHOR, 1.14),
+                  'px': _dark(ANCHOR, 1.0), 'py': _dark(ANCHOR, 0.84),
+                  'nx': _dark(ANCHOR, 1.0), 'ny': _dark(ANCHOR, 0.84)})                    # THE ANCHOR BLOCK
+            for t in range(1, 7):                                                          # THE GUY, climbing
+                f = t / 7.0
+                s.box((ax + (mx - ax) * f, ay + (my - ay) * f, hgt * f * 0.92),
+                      (0.09, 0.09, 0.09), {'c': GUY})
+        s.box((mx - 0.5, my - 0.5, 0), (1.0, 1.0, 0.3), {'c': _dark(PLATE, 1.0)['c']})      # its base plate
+        s.box((mx - 0.19, my - 0.19, 0.3), (0.38, 0.38, hgt), {'top': _dark(MAST, 1.16),
+              'px': _dark(MAST, 1.02), 'py': _dark(MAST, 0.8),
+              'nx': _dark(MAST, 1.02), 'ny': _dark(MAST, 0.8)})                            # THE MAST
+        for lz in range(3, int(hgt), 3):
+            s.box((mx - 0.34, my - 0.34, lz), (0.68, 0.68, 0.12), {'c': _dark(MAST, 0.78)['c']})
+    s.box((6.4, 10.8, 0), (3.6, 2.4, 2.6), {'top': _dark(HUT, 0.9), 'px': _win(HUT, 3, 2, 15),
+          'py': _dark(HUT, 0.86), 'nx': _dark(HUT), 'ny': _dark(HUT)})                     # the transmitter building
+    _door_face(s, (6.4, 10.8, 0), (3.6, 2.4, 2.6), width=1.0, ztop=2.0)
+    s.box((5.6, 6.4, 0), (1.6, 1.4, 1.5), {'top': _dark(HUT, 0.94), 'px': _dark(HUT, 0.9),
+          'py': _dark(HUT, 0.78), 'nx': _dark(HUT, 0.9), 'ny': _dark(HUT, 0.78)})          # an equipment hut
+    return s, 6.4
+
+
+def build_pumpstation(P):
+    """engine/bohemia_utility.js pumpstation: A LOW HALL WITH PIPE BIGGER THAN A DOOR
+    LEAVING BOTH ENDS OF IT. Sixty-six-inch steel lined with concrete mortar -- at that
+    size the PIPE is the landmark and the building is just the thing keeping the rain off
+    it, so the icon draws the pipe at full diameter and lets the hall stay plain."""
+    HOUSE, SURGE, GEAR, PIPE, STAND = P[2], P[6], P[7], P[13], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(100, 98, 88), lotc=(76, 76, 70))
+    s.box((1.6, 4.0, 0), (8.4, 4.4, 3.6), {'top': _dark(HOUSE, 0.92), 'px': _win(HOUSE, 5, 2, 16),
+          'py': _dark(HOUSE, 0.84), 'nx': _dark(HOUSE), 'ny': _dark(HOUSE, 0.84)})         # THE PUMP HOUSE
+    _door_face(s, (1.6, 4.0, 0), (8.4, 4.4, 3.6), width=1.4, ztop=2.6)
+    s.box((2.2, 4.6, 3.6), (7.2, 3.2, 0.8), {'top': _dark(GEAR, 1.12), 'px': _dark(GEAR, 1.0),
+          'py': _dark(GEAR, 0.84), 'nx': _dark(GEAR, 1.0), 'ny': _dark(GEAR, 0.84)})       # its roof monitor
+    s.prism(11.6, 6.2, 0, 1.9, 10.4, 22, {'c': _dark(SURGE, 0.98)['c']}, {'c': _dark(SURGE, 1.12)['c']})
+    for rz in (2.6, 5.2, 7.8):                                                             # its shell rings
+        s.prism(11.6, 6.2, rz, 1.84, 0.14, 22, {'c': _dark(SURGE, 0.82)['c']}, {'c': _dark(SURGE, 0.9)['c']})
+    s.box((11.4, 6.0, 10.4), (0.44, 0.44, 3.0), {'c': _dark(STAND, 1.0)['c']})             # THE SURGE TANK,
+    s.box((9.8, 6.1, 0), (0.24, 0.24, 10.4), {'c': _dark(STAND, 0.86)['c']})               # standing above the grade line
+    # THE PIPE, drawn at the diameter it actually is
+    s.box((-2.4, 5.0, 0.1), (4.2, 1.5, 1.5), {'top': _dark(PIPE, 1.12), 'px': _dark(PIPE, 0.98),
+          'py': _dark(PIPE, 0.8), 'nx': _dark(PIPE, 0.98), 'ny': _dark(PIPE, 0.8)})
+    s.box((10.0, 1.2, 0.1), (1.5, 4.0, 1.5), {'top': _dark(PIPE, 1.12), 'px': _dark(PIPE, 0.98),
+          'py': _dark(PIPE, 0.8), 'nx': _dark(PIPE, 0.98), 'ny': _dark(PIPE, 0.8)})
+    for i in range(4):
+        s.box((-1.8 + i * 1.0, 4.9, 1.6), (0.5, 0.5, 0.18), {'c': _dark(GEAR, 0.8)['c']})  # valve vault covers
+    s.box((-0.6, 6.6, 0.02), (3.6, 1.8, 0.06), {'c': P[8]})                               # A GLAND LET GO
+    s.box((0.4, 7.0, 0.02), (1.8, 0.9, 0.06), {'c': _dark(P[8], 1.16)['c']})
+    s.box((0.4, 10.4, 0), (3.4, 1.8, 1.6), {'top': _dark(GEAR, 1.06), 'px': _dark(GEAR, 0.94),
+          'py': _dark(GEAR, 0.8), 'nx': _dark(GEAR, 0.94), 'ny': _dark(GEAR, 0.8)})        # the switchgear yard
+    return s, 5.8
+
+
+def build_intake(P):
+    """engine/bohemia_utility.js intake: A TOWER STANDING IN WATER, WITH A WHITE BAND ON THE
+    ROCK ABOVE IT SHOWING WHERE THE WATER USED TO BE. The bathtub ring is the whole point --
+    it is the one object in this valley that states, without any text, how much has gone."""
+    HOUSE, TOWER, RING, WATER, STAND = P[2], P[6], P[7], P[8], P[14]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=(118, 112, 96), lotc=(96, 92, 80))
+    s.box((-2.4, -2.4, 0), (16.0, 4.4, 0.22), {'c': WATER})                                # THE LAKE, low
+    s.box((-2.4, 2.0, 0), (16.0, 1.0, 1.5), {'top': _dark(RING, 1.22), 'px': _dark(RING, 1.16),
+          'py': _dark(RING, 1.04), 'nx': _dark(RING, 1.16), 'ny': _dark(RING, 1.04)})      # THE BATHTUB RING
+    s.box((-2.4, 3.0, 0), (16.0, 1.2, 2.4), {'top': _dark(RING, 0.80), 'px': _dark(RING, 0.74),
+          'py': _dark(RING, 0.66), 'nx': _dark(RING, 0.74), 'ny': _dark(RING, 0.66)})      # dark rock above it
+    s.prism(4.6, 0.2, 0, 2.0, 6.8, 20, {'c': _dark(TOWER, 0.98)['c']}, {'c': _dark(TOWER, 1.14)['c']})
+    for rz in (1.6, 3.2, 4.8):
+        s.prism(4.6, 0.2, rz, 1.94, 0.22, 20, {'c': _dark(TOWER, 0.82)['c']}, {'c': _dark(TOWER, 0.9)['c']})
+    s.box((4.3, -0.1, 6.8), (0.6, 0.6, 1.4), {'c': _dark(STAND, 1.0)['c']})                # its hoist standpipe
+    s.box((4.4, 1.0, 0.2), (0.5, 3.6, 0.5), {'c': _dark(TOWER, 0.72)['c']})                # the shaft to shore
+    s.box((2.0, 6.4, 0), (5.2, 3.4, 3.4), {'top': _dark(HOUSE, 0.92), 'px': _win(HOUSE, 4, 2, 17),
+          'py': _dark(HOUSE, 0.84), 'nx': _dark(HOUSE), 'ny': _dark(HOUSE, 0.84)})         # the intake pump house
+    _door_face(s, (2.0, 6.4, 0), (5.2, 3.4, 3.4), width=1.2, ztop=2.4)
+    s.box((7.2, 7.4, 0.15), (5.4, 1.2, 1.2), {'top': _dark(TOWER, 1.06), 'px': _dark(TOWER, 0.94),
+          'py': _dark(TOWER, 0.8), 'nx': _dark(TOWER, 0.94), 'ny': _dark(TOWER, 0.8)})     # the main, uphill
+    s.box((9.6, 10.4, 0), (2.2, 2.2, 4.6), {'top': _dark(STAND, 1.08), 'px': _dark(STAND, 0.96),
+          'py': _dark(STAND, 0.8), 'nx': _dark(STAND, 0.96), 'ny': _dark(STAND, 0.8)})     # the surge tank
+    return s, 6.2
+
+
 HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': build_terminal,
           'downtown': build_downtown, 'industrial': build_industrial, 'medical': build_medical,
           'mall': build_mall, 'park': build_park, 'warehouse': build_warehouse,
@@ -2462,6 +2833,13 @@ HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': buil
           'wash': build_wash, 'freeway': build_freeway, 'arterial': build_arterial,
           'mountain': build_mountain, 'desert': build_desert, 'water': build_water}
 
+# THE TWELVE UTILITY LANDMARKS, appended LAST on purpose: art_45_gate samples heroes[0]
+# as this bank's representative form, and that slot belongs to the approved cityhall.
+HEROES.update({'quarry': build_quarry, 'gypsum': build_gypsum, 'fueldepot': build_fueldepot,
+               'reservoir': build_reservoir, 'granary': build_granary, 'arsenal': build_arsenal,
+               'datafort': build_datafort, 'basin': build_basin, 'reclaim': build_reclaim,
+               'radio': build_radio, 'pumpstation': build_pumpstation, 'intake': build_intake})
+
 # HELD BACK, DELIBERATELY: 'airport': build_airport, 'airbase': build_airbase.
 # Both builders are finished and correct and they stay in this file, but they are
 # NOT in HEROES, so nothing bakes and nothing wires. The reason is the bar, not the
@@ -2487,6 +2865,18 @@ HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': buil
 # aeroplane and terminal only?) and it is Paolo's call, not mine to keep guessing.
 # Tracked in BOHEMIA_BACKLOG.md. Adding these two back is one line, once he rules.
 LABEL = {
+    'arsenal': 'ARSENAL',
+    'basin': 'DETENTION BASIN',
+    'datafort': 'DATA FORT',
+    'fueldepot': 'TANK FARM',
+    'granary': 'GRAIN ELEVATOR',
+    'gypsum': 'GYPSUM WORKS',
+    'intake': 'LAKE INTAKE',
+    'pumpstation': 'PUMP STATION',
+    'quarry': 'QUARRY',
+    'radio': 'ANTENNA FARM',
+    'reclaim': 'RECLAMATION PONDS',
+    'reservoir': 'RESERVOIR',
     'cityhall': 'City Hall — matched to the walkable district: an admin BLOCK + a CLOCK TOWER over the entrance + a forecourt PLAZA with a DRY FOUNTAIN + flagpoles. Same palette as the tile you walk.',
     'battery': 'Battery — matched to the walkable district: a grid BATTERY-STORAGE yard (control building + rows of BATTERY CONTAINERS with HVAC + an INVERTER/TRANSFORMER rack + gravel + fence). Not a smokestack plant.',
     'terminal': 'Transit terminal (1x1) — matched to the walkable district: a waiting HALL + a SCHEDULE-BOARD CLOCK over the doors + a gray boarding CANOPY over a ROW of dead BUSES + a kiss-and-ride.',
@@ -2543,6 +2933,110 @@ LABEL = {
 # versa). Each line: PART — what it is + which walkable-district landmark it mirrors.
 # hero_dossier_gate.py fails the build if a bank hero has no PARTS entry.
 PARTS = {
+    'arsenal': [
+        'earth-covered magazines -- six mounds built as stepped slabs, which is an earth cover in section (code 6 "earth-covered magazine")',
+        'headwalls -- concrete, on ONE end only, staring at you (code 7 "concrete arch")',
+        'magazine doors -- in every headwall (code 2 face)',
+        'earth traverses -- standing between one magazine and the next so a detonation does not propagate (code 7 "traverse")',
+        'the spacing -- quantity-distance separation, and as much of the silhouette as the mounds are (code 0 "setback")',
+        'issue point -- with its door (code 2 "building (issue point / guard)")',
+        'lightning mast -- over the ranks (code 14 "lightning mast")',
+    ],
+    'basin': [
+        'the bowl -- four SQUARED rings stepping down, so it reads made and not eroded (code 6 "side slope", code 7 "embankment crest")',
+        'silt floor -- flat at the bottom, cracked into plates (code 4 "basin floor")',
+        'low-flow trickle -- crossing the floor to the orifice even when it has not rained (code 8 "low-flow trickle")',
+        'outlet box -- concrete, at the low corner, with its orifice (code 6 "outlet works")',
+        'debris rack -- across the mouth of it (code 10 "debris rack")',
+        'spillway -- notched THROUGH the crest above the outlet, which is the bite that separates this from the quarry (code 7 "spillway")',
+        'O&M shed -- with its door (code 2 "building (O&M shed)")',
+        'stage gauge -- on the crest (code 14 "gauge mast")',
+    ],
+    'datafort': [
+        'the hall -- twelve by eight and NO WINDOW anywhere in it, which is the recognition, because every other big building in the valley has glass somewhere (code 6 "data hall")',
+        'SwitchSHIELD -- two roof decks standing clear of each other on standoffs, rated to 200 mph with no roof penetrations (code 7 "second roof")',
+        'cooling units -- six thousand-ton units lining the building face (code 10 "cooling unit")',
+        'generator row -- down the flank (code 7 "generator")',
+        'guard house -- at the gate with its door, glass still intact, which on this site is the tell (code 2 "building (guard house)")',
+        'microwave masts -- on the roofline (code 14 "microwave mast")',
+    ],
+    'fueldepot': [
+        'six tanks -- WIDE and LOW, each one a squat drum (code 6 "storage tank")',
+        'containment dikes -- a square concrete wall round every tank, which is the circle-in-a-square pattern nothing else makes (code 7 "containment dike")',
+        'floating roofs -- dropped to the bottom of every shell (code 7)',
+        'the manifold -- the pipe run tying every tank together (code 13 "pipe manifold")',
+        'terminal office -- with its door (code 2 "building (terminal office)")',
+        'vapour stack -- at the end of the rack (code 14 "vent stack")',
+    ],
+    'granary': [
+        'silo battery -- seven concrete cylinders touching in a comb (code 6 "concrete silo")',
+        'the gallery -- the run along the tops of them (code 7 "gallery / rail shed")',
+        'THE HEADHOUSE -- a block sitting ON the silos, not beside them, because the bucket elevator has to lift to the very top and everything below is gravity (code 14 "headhouse")',
+        'cupola -- on top of the headhouse (code 14)',
+        'rail spur -- with its ties, under where the shed was (code 8 "rail spur")',
+        'scale house -- with its door (code 2 "building (scale house / office)")',
+    ],
+    'gypsum': [
+        'the storage dome -- a real hemisphere built as nine stacked lifts on a cosine, and there is no other dome anywhere in this valley (code 7 "dome shell")',
+        'crown vent -- at the top of it (code 14 "dome crown")',
+        'quarry face -- three white benches behind the dome, so the dome has something to be from (code 6 "gypsum bench")',
+        'the mill -- with its door (code 2 "building (mill / board plant)")',
+        'calciner stack -- beside the mill (code 14 "calciner stack")',
+        'mobile conveyor -- ore straight from the quarry into the plant, which is how PABCO actually runs (code 13 "conveyor run")',
+    ],
+    'intake': [
+        'the intake tower -- standing IN the water with its trash-rack bands (code 6 "intake structure")',
+        'THE BATHTUB RING -- the white mineral band the lake left on the rock as it dropped, with dark rock above it, and it is the one object in this valley that states how much has gone without any text on it (code 7 "bathtub ring")',
+        'the lake -- what is left of it, a long way below the ring (code 8 "lake water")',
+        'the shaft -- from the tower back to shore (code 13 "intake shaft")',
+        'intake pump house -- with its door (code 2 "building (intake pump house)")',
+        'the main -- leaving uphill toward the valley (code 13)',
+        'surge tank -- behind the house (code 14 "standpipe")',
+    ],
+    'pumpstation': [
+        'the pump house -- low and plain, because it is only keeping the rain off the pipe (code 2 "building (pump house)")',
+        'roof monitor -- along the top of it (code 7 "roof monitor")',
+        'THE PIPE -- drawn at the diameter it actually is, sixty-six inches, entering one end and leaving the other, and at that size the pipe IS the landmark (code 13 "transmission main")',
+        'surge tank -- the thing that keeps a stopped column of water from tearing the pipe apart (code 6 "surge tank")',
+        'standpipe -- on top of the surge tank (code 14 "standpipe")',
+        'valve vault covers -- set flush along the main (code 10 "valve vault cover")',
+        'switchgear yard -- beside the house (code 7 "switchgear")',
+    ],
+    'quarry': [
+        'the pit -- four benches stepping DOWN to a floor, which makes it the only landmark in the valley that is a hole instead of a thing (code 6 "rock bench", code 4 "quarry floor")',
+        'bench lips -- the crest of every ring, loose rock along the edge (code 7 "bench lip / crest")',
+        'pit water -- standing in the bottom, gone the colour of the rock (code 8 "pit water")',
+        'crusher house -- on the rim with its door (code 2 "building (crusher house / plant)")',
+        'screen tower -- over the crusher, and the only thing that gives the hole its scale (code 14 "screen tower")',
+        'conveyor -- down off the rim to the stockpiles (code 13 "conveyor run")',
+        'stockpile -- a cone of graded stone (code 10 "shot rock / stockpile")',
+    ],
+    'radio': [
+        'three guyed masts -- the tallest of them 15.5 m in icon scale, and the tallest thing in the whole hero set (code 14 "guyed mast")',
+        'guy wires -- climbing from each anchor to the mast, three per mast (code 8 "guy wire")',
+        'anchor blocks -- set far out from every base, which is why the site is mostly empty and why the emptiness is the recognition (code 6 "anchor block")',
+        'base plates -- under each mast (code 7 "anchor / base plate")',
+        'transmitter building -- with its door (code 2 "building (transmitter)")',
+        'equipment hut -- at the foot of the big mast (code 2 "building (equipment hut)")',
+    ],
+    'reclaim': [
+        'six ponds -- RECTANGLES in a grid, deliberately the opposite of watertreat, which is all circles (code 7 "pond berm")',
+        'the water -- still in them, still, green, going nowhere (code 8 "pond water")',
+        'crusts -- dried hard enough to walk on and not hard enough to trust (code 6 "crusted pond centre")',
+        'weir boxes -- on every pond corner (code 10 "weir box")',
+        'inlet header -- feeding every pond off one line (code 13 "inlet header")',
+        'the outfall -- leaving the frame east, because everything that leaves this valley goes to the wash and then the lake (code 8)',
+        'blower house -- with its door (code 2 "building (blower / control)")',
+        'vent stack -- on the blower house (code 14 "vent stack")',
+    ],
+    'reservoir': [
+        'two tanks -- NARROW and TALL, the opposite proportion to the tank farm and the thing that keeps the two icons apart (code 6 "water tank")',
+        'tank roofs -- with their centre vents (code 7 "tank roof")',
+        'the cut slope -- the bench cut into the hill behind them, because a reservoir is sited ABOVE everyone it serves so gravity does the work (code 7)',
+        'standpipe -- between the tanks (code 14 "standpipe")',
+        'valve house -- with its door (code 2 "building (valve house)")',
+        'transmission main -- leaving downhill (code 13 "transmission main")',
+    ],
     'apartment': [
         'walk-up blocks — three stucco masses round a court (walkable code 2 "apartment building"), windows w/ dead panes',
         'exterior walkway decks — two levels cantilevered off the courtyard face (code 15 "exterior stair"), the rails on them',

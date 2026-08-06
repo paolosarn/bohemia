@@ -15,7 +15,7 @@ const REPO = path.dirname(__dirname);
 const K = require(path.join(REPO, 'engine/bohemia_district_kit.js'));
 
 // every kit-registered walkable district module (require = self-register into K)
-const MODULES = ['apartment', 'battery', 'boneyard', 'cemetery', 'chapel', 'cityhall',
+let MODULES = ['apartment', 'battery', 'boneyard', 'cemetery', 'chapel', 'cityhall',
   'commercial', 'courthouse', 'downtown', 'drivein', 'farm', 'firestation', 'golf',
   'industrial', 'jail', 'landfill', 'library', 'mall', 'medical', 'park', 'policestation',
   'railyard', 'school', 'solar', 'stadium', 'storage', 'swapmeet', 'terminal', 'trailer',
@@ -40,6 +40,20 @@ const MODULES = ['apartment', 'battery', 'boneyard', 'cemetery', 'chapel', 'city
 // API as a fallback source of generate/palette/legend.
 const EXPORTS = {};
 for (const m of MODULES) { try { EXPORTS[m] = require(path.join(REPO, 'engine/bohemia_' + m + '.js')); } catch (e) {} }
+
+// AND EVERY DISTRICT THIS HAND-WRITTEN LIST DOES NOT KNOW ABOUT. Third copy of the district
+// registry kept by hand in this repo, third time it went stale: the list is keyed on
+// `engine/bohemia_<name>.js`, so it structurally CANNOT see a type whose file is not named
+// after it -- and the twelve utility landmarks all live in one factory file. The registry
+// already knows them. Sweep it, and add anything the list missed. (A VALUE PASSED BY HAND
+// WHERE A VALUE COULD BE DERIVED, again -- the file name was standing in for the type.)
+try { require(path.join(REPO, 'engine/bohemia_world.js')); } catch (e) {}
+for (const t of K.types().sort()) {
+  if (MODULES.indexOf(t) >= 0) continue;
+  const spec = K.get(t);
+  if (!spec || typeof spec.generate !== 'function' || !spec.legend) continue;
+  MODULES.push(t);
+}
 
 /* SCRATCH was pinned to one dead session's private directory; honour BOHEMIA_SCRATCH
    if it is set, else the system temp dir, so this runs in any session. */

@@ -53,6 +53,11 @@ MODULES = [
     'engine/bohemia_overmap.js', 'engine/bohemia_overmap_bridge.js', 'engine/bohemia_blockgen.js',
     'engine/bohemia_floorplan.js', 'engine/bohemia_garage.js', 'engine/bohemia_crypt.js',
     # ONE WORLD INTERIORS step 1: rooms loads BEFORE world, which reads BOH_ROOMS.
+    # THE UTILITY LANDMARK FACTORY (8/5). It must load BEFORE world.js, which reads
+    # BohemiaUtility off the global for its twelve DISTGEN entries -- in a plain browser
+    # bundle there is no require(), so a missing module here is a THROW on page load,
+    # not a quiet degrade.
+    'engine/bohemia_utility.js',
     'engine/bohemia_rooms.js',
     'engine/bohemia_world.js',
     'engine/bohemia_valleymap.js',

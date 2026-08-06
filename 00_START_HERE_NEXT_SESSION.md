@@ -435,7 +435,42 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/5 (a) LATEST -- *** THE VALLEY GOT COUNTED. *** Live on main,
+WORLD (world-9lfjtf): 8/5 (b) LATEST -- *** TWELVE NAMED PLACES BUILT. FLAT DEBT 12 -> 0. ***
+Live on main, BUILD 8/5b. records/BOHEMIA_TWELVE_NAMED_PLACES_8_5_26.md.
+
+He said "think outside the box... do big brain online research if you need to then execute."
+The census had already answered "what comes after": twelve places the overmap sites on
+purpose, with real Vegas geography behind every one, generating BARE GROUND. All twelve
+built, all twelve with an icon, same turn (Paolo's 7/27 icon law).
+  OUTSIDE THE BOX WAS: DO NOT WRITE TWELVE FILES. engine/bohemia_utility.js is NINE LAYOUT
+  PRIMITIVES + TWELVE TYPED SPECS + one generator + one legend machine, per the FACTORY LAW.
+  The thirteenth utility landmark is a spec, not a file.
+  RESEARCHED, not remembered: Sloan limestone quarry (bench system, plant below the mountain),
+  PABCO Blue Diamond and its monolithic storage DOME, the Calnev terminus and its concrete
+  containment dikes, LVVWD's 84 reservoirs sited upgradient + 55 pump stations on 66-inch
+  mains, Switch SUPERNAP (400k sq ft windowless, SwitchSHIELD double roof at 200 mph), Clark
+  County RFCD basins (10-50 acres, 50 ft deep, 51.5 ft to the spillway), the Black Mountain
+  antenna farm. Every citation is in the module's NOTES.reference.
+  THE HOUSE BUG TWICE MORE, both fixed AT THE ROOT: tilespec and the grid dump each kept
+  their OWN hand-written copy of the district registry. The dump's copy is keyed on
+  bohemia_<name>.js, so it structurally CANNOT see a type whose file is not named after it --
+  the file name was standing in for the type. Both sweep K.types() now.
+  FIVE MORE BUGS, every one caught by a machine and not by me: draw order erased the
+  reservoir's valve house (no code 2 = no building, no door, no interior); the basin's ramp
+  never reached the gate (reach 0.59); reservoir + granary were 22% content, which is the
+  fire-station failure the WALKABLE-LAND law exists for; the gypsum stack stood INSIDE the
+  dome; the intake's trash racks were proud of the tower so it read as passing through slabs.
+  AND ONE I CAUSED IN A GATE: art_45 samples heroes[0] as the bank's representative form, and
+  registering the twelve first made a HOLE (the quarry) stand in for the whole corpus. The
+  twelve are appended LAST now; that slot belongs to the approved cityhall.
+  SQUINT LEFT RED ON PURPOSE. Twelve icons took it 5 -> 19 pairs; ONE honest pass (taller
+  tanks, taller magazines, the quarry plant beside the hole, the surge tank above the grade
+  line -- every fix truer to the subject) took it to 11, worst pair 0.8% -> 3.1%. Then
+  STOPPED per STOP PRODUCING. Pass two starts being about the neighbours, not the subject.
+  STILL UNANSWERED from 8/4: should icons stop resembling their real building to stay
+  distinct at 16x16? 59 silhouettes in 128 cells is near what the medium holds.
+
+=== 8/5 (a), THE TURN BEFORE: THE VALLEY GOT COUNTED === Live on main,
 BUILD 8/5a. records/BOHEMIA_THE_VALLEY_CENSUS_8_5_26.md.
 
 Non-cook turn on purpose: 19 icons are sitting unjudged, which is over the verdict-queue
@@ -809,6 +844,60 @@ MEMORY 7/2 is the pre-existing 0-agents red (P-F), same on clean main.
 2. GAP 5 (wearing another faction's colours) is now cheap - colours in, membership in, and
    this supplies "somebody who knows your face sees you in it".
 3. GAPS 6, 8, 9 (agendas, membership, internal politics) all sit on this.
+
+PEOPLE (factions): 8/2 (m) LATEST — *** YOUR FATHER'S DEBTS. The question the game's own
+premise raises and NOBODY HAD ASKED. ***
+Record: records/BOHEMIA_YOUR_FATHERS_DEBTS_8_2_26.md
+
+Bohemia is a FAMILY ACROSS THREE GENERATIONS (story master) and the handoff happens WHEN
+THE STORY SAYS SO, never on death (DEATH IS A RELOAD 7/26). So there is a canon moment when
+the valley stops judging you and starts judging your child.
+NOBODY HAD EVER ASKED WHAT HAPPENS TO YOUR REPUTATION AT THAT MOMENT. Not on the twelve-gap
+list, not in THE BIG MISSING, not in the GDD, not in a backlog. It was invisible because it
+only appears once a reputation system exists at all - which was three hours old.
+
+*** AND THE ORGAN ALREADY MODELLED IT. *** Thirty years pass and EVERY WITNESS IS DEAD, so
+the only trace of a life is what got REPEATED. The rule writes itself:
+    A QUIET GOOD DEED DIES WITH THE WITNESS.
+    A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR.
+This is not a new system. It is what the witness organ was always going to do if you ran
+the clock forward - which is why gossip had to exist first.
+
+MEASURED:
+  a secret, one witness, never repeated .... 0 carried, 1 died. Child inherits NOTHING.
+  a notorious one that spread to three ..... 2 carried. Child owes -0.767 they never ran up.
+  one generation further ................... grandchild -0.345, still faintly there.
+Three generations and only the loudest thing your grandfather did still registers, which is
+exactly the arc the story master already describes. legendOf() reports what the valley still
+says: the deed, how many still tell it, how many generations back.
+
+GROUNDED, real anthropology not a trope: in stateless societies a family is a CORPORATE
+ENTITY whose reputation carries its economic standing, lineages run 10-12 generations deep,
+and ostracism does the work fines and prisons do elsewhere. You are born owing what your
+father owed. Same reasoning that made the Mob the guarantor and the Caravans' name their
+armour.
+
+THE LIFE LESSON, never said out loud: you inherit goodwill you did not earn and debts you
+did not run up, and neither one is fair.
+
+COST: one function and one constant (GEN_LOSS 0.45 - less than half survives a handoff, so
+a legend must have been LOUD to cross even one).
+CONTENTS-PAOLO'S HELD: DEED_WEIGHT still EMPTY and the gate proves inheriting invents
+nothing. WHEN the handoff happens is HIS - inherit() is called by whoever runs that beat.
+
+GATE: STANDING 23 -> 29 claims, 10/10 probes. The two new probes are the two ways this
+could quietly break: a secret crossing a generation anyway, and an inherited reputation
+that never fades so a family is damned forever.
+Regression: FACTION MEMBERSHIP 50/0, PEOPLE 152/0, BUILD THE WORLD 10/0, FRONT DOOR 8/0,
+ENGINE SYNC clean.
+
+=== WHAT COMES AFTER (unchanged and now urgent) ===
+1. NOTHING CALLS witness() YET. The whole organ is inert until the run reports deeds into
+   it, and that needs a DEED VOCABULARY, which is his. THE NEXT NON-BLOCKED MOVE IS TO
+   INVENTORY EVERY ACTION THE RUN CAN ALREADY PRODUCE so his ruling is a thumb over a real
+   list instead of a blank page. Do that before asking him anything.
+2. Gap 5 (wearing another faction's colours) - now cheap.
+3. Gaps 6, 8, 9 (agendas, membership, internal politics) all sit on this.
 
 PEOPLE (7h9sfy): 8/4 LATEST — *** NOBODY STANDS IN THE STREET ALL DAY. *** Five of
 this lane's gates were dead on main for their whole visible history, and fixing the

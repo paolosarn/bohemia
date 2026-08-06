@@ -33,6 +33,10 @@ var MODS = ['bohemia_engine','bohemia_scheduler','bohemia_bq','bohemia_quest_run
   'bohemia_desert','bohemia_mountain','bohemia_water','bohemia_rail','bohemia_interchange',
   'bohemia_campus','bohemia_speedway','bohemia_town','bohemia_ballpark',
   // ONE WORLD INTERIORS step 1: rooms loads BEFORE world, which reads BOH_ROOMS.
+  // THE UTILITY LANDMARK FACTORY (8/5) loads BEFORE world.js, which reads BohemiaUtility off
+  // the global for its twelve DISTGEN entries. No require() in a browser bundle, so a module
+  // missing from this list is a throw on load, not a quiet degrade.
+  'bohemia_utility',
   'bohemia_rooms',
   'bohemia_world','bohemia_valleymap','bohemia_loop'];
 
