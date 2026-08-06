@@ -57,3 +57,32 @@ measured, and not acted on unilaterally.
 ---
 
 *Filed under the TRUTH HIERARCHY: on any conflict the newest date wins.*
+
+---
+
+## UPDATE, SAME DAY: THERE ARE **TWO** CAUSES, AND THE SECOND IS A DEADLOCK
+
+`_config.yml` fixed the first one (496 MB published → 170 MB). Watching the deploys
+afterwards surfaced a second, and it is worse because no amount of shrinking fixes it:
+
+| build | started | ended | outcome |
+|---|---|---|---|
+| `6bc728d` (the fix) | 17:44:25 | 17:45:17 | **cancelled** |
+| `53c82ad` | 17:45:14 | 17:50:23 | **cancelled** |
+| `a5a86e8` | 17:50:20 | 17:53:02 | **cancelled** |
+| `d4664e0` | 17:53:00 | 18:08:32 | **cancelled** |
+| `47dedea` | 18:08:28 | 18:21:04 | **cancelled** |
+
+**Every single one killed by the next lane's push.** The lanes are pushing to `main`
+roughly every **13 minutes**, and a Pages build takes longer than that, so the build is
+cancelled and restarted forever and **no build ever reaches the finish line.**
+
+This is named in the 7/20 BUILD STAMP + DEPLOY VERIFY law — *"parallel-session push storms
+make GitHub Pages CANCEL in-flight builds, so the live site can lag many pushes behind"* —
+but it was written as a delay to wait out. It is not a delay any more. At the current push
+cadence it is a **standing deadlock**: the site cannot update while every lane is working.
+
+The size fix makes the build shorter and therefore more likely to fit inside a gap. Whether
+it fits is not something one lane can decide, because it depends on how often the *others*
+push. **The structural answers — a deploy that runs on a schedule instead of on every push,
+or lanes batching their pushes — are repo-wide and above one lane. [PENDING, Paolo's call].**
