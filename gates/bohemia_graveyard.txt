@@ -753,3 +753,20 @@ LIBERTY SPIKES w3| hair | 8/2/26 | same rectangle crest, third strike, closed.
 CORNROWS w3     | hair | 8/2/26 | survived two rounds on the strength of the front view; the profile never read. Its 2:1 texture mechanism LIVES and carries any future weave.
 PONYTAIL w3     | hair | 8/2/26 | second kill, permanent.
 TOP KNOT w3     | hair | 8/2/26 | second kill, permanent.
+
+REVIVED 8/4/26 -- THE LIVING PORTRAIT (JUICE.AU), killed at v36, is back BY HIS REQUEST.
+# This is the first entry in this file that runs the other way, so the trail is written
+# down rather than a flag being quietly flipped.
+# v36 turned JUICE.AU off and no post-mortem was ever recorded -- the only trace of the
+# kill is a gate line asserting AU:false. So nobody knows WHY it died.
+# Paolo, 8/3/26, asked for it back without knowing it had ever existed: "how you have the
+# portrait at the bottom right maybe for like each 10% of health that you don't have...
+# I want you to think some sort of visual of the face." He had never seen it -- AU was the
+# ONE item of 42 in the JUICE table switched off.
+# GRAVEYARD IS FINAL BINDS CLAUDE, NOT PAOLO. He is the only one who can revive his own
+# dead thing, and he did, in his own words, and newest-date-wins.
+# AND IT IS NOT A REMAKE OF THE DEAD THING, which is the part that matters: the killed
+# version was THREE states (a dying-face swap at 40%, a red wash, a red border). What
+# shipped is TEN states to his number, with Doom-style hysteresis so a boundary cannot
+# strobe, the dying face CROSSFADING in instead of popping, and the face leaning toward
+# whoever shot you. If the three-state version is what he hated, that version is still dead.

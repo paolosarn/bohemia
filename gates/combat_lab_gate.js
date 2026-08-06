@@ -515,8 +515,20 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes("e.fleeing?'FLEEING'") &&
     /if\(e\.fleeing\)\{ const fv=L\.flee112&&L\.flee112\[e\._fleeVar\|\|0\]/.test(demo));   /* FLEE/SURRENDER-RUN (round 3): the baked flee clip is now the primary read, walk112 stays as the fallback if the clip never landed */
   // v36: follow-up on v35 (accuracy definition + killed the living-portrait effect)
-  ok('V36 FIRE-BUTTON FACE KILLED: JUICE.AU (dying-face swap / red wash / red border on HP loss) is off',
-    demo.includes('AS:true,AT:true,AU:false,AV:true'));
+  /* SUPERSEDED BY PAOLO 8/3/26, NEWEST DATE WINS, AND THE TRAIL IS SAID OUT
+     LOUD RATHER THAN A FLAG QUIETLY FLIPPED. v36 killed the living portrait
+     (no post-mortem was ever recorded, only this check). He has now asked for
+     it back in his own words: "how you have the portrait at the bottom right
+     maybe for like each 10% of health that you don't have... I want you to
+     think some sort of visual of the face."
+     GRAVEYARD IS FINAL binds ME, not him -- he is the only one who can revive
+     his own dead thing, and he did. AND WHAT HE ASKED FOR IS NOT THE DEAD
+     THING: the killed version was THREE states (a dying-face swap, a red wash,
+     a red border). His ask is TEN, with hysteresis, and the dying face
+     crossfading instead of popping. Registered in gates/bohemia_graveyard.txt. */
+  ok('V36 FIRE-BUTTON FACE, REVIVED BY HIS 8/3 REQUEST: JUICE.AU is on, and it is the TEN-state version he asked for rather than the three-state one that was killed',
+    demo.includes('AS:true,AT:true,AU:true,AV:true') &&
+    demo.includes('const HP_TIERS=10;'));
   // v38: accuracy corrected a third time -- a continuous per-shot proximity score,
   // not a binary zone bucket (v37's kill+vital=100/hit+miss=0 wasn't it either)
   ok('V38 CONTINUOUS PRECISION (formula superseded by V53 banding): the per-shot precisionSum plumbing still feeds the averaged ledger accuracy',
@@ -725,10 +737,15 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
      aim -- so it now names the four buttons that exist, RUN and the thumb
      grenade included. A live-looking button that does nothing is the exact
      complaint that removed the other two. */
-  ok('V54 TOOLKIT UI: four buttons wired, disabled in the aim phase like WAIT, stamina pips shown',
+  /* MIGRATED BY V129: the stamina PIPS are gone from the top row -- stamina is
+     fluid in the fire button now, which is his own ask ("maybe it's like
+     fluid... Warcraft... Diablo"). The read did not disappear, it MOVED, so the
+     check follows it to the orb. */
+  ok('V54 TOOLKIT UI: four buttons wired, disabled in the aim phase like WAIT, and the stamina read exists (as the orb, not pips)',
     demo.includes('id="suppressbtn"') && demo.includes("mk('runbtn','RUN'") &&
     demo.includes("mk('grenbtn2','GREN'") &&
-    demo.includes('id="peekbtn"') && demo.includes('id="stampips"') &&
+    demo.includes('id="peekbtn"') &&
+    demo.includes('const lvl=Math.max(0,Math.min(1,(G.stam||0)/STAM_MAX));') &&
     demo.includes("for(const _id of ['suppressbtn','peekbtn','runbtn','grenbtn2']){"));
   // v55: shuffle the time of day per fight (morning/dusk/night), washing the scene
   ok('V55 DAY PHASE: pickDayPhase rolls morning/dusk/night; applyDayPhase washes the scene per phase and is called from screenOverlays',
@@ -3680,6 +3697,46 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V128 AND THE BOUNDS ARE IN LATERAL TILES, which is what the eye judges: a minimum so it never lands on him, and MISS_MAX converted through asin so the clamp means the same distance at every range',
     /const minDev=0\.35\/d, maxDev=Math\.asin\(Math\.min\(0\.999,MISS_MAX\/d\)\);/.test(demo) &&
     demo.includes('const MISS_MAX=4.0;'));
+}
+
+/* ===== V129 YOUR VITALS LIVE IN THE BUTTON ============================= */
+{
+  ok('V129 THE LIVING PORTRAIT WAS SWITCHED OFF THE ENTIRE TIME. JUICE.AU was the ONE item in a table of 42 set to false, which is why he asked for a face that shows damage: he had never seen the one that already existed',
+    /AU:true/.test(demo) && !/AU:false/.test(demo));
+
+  ok('V129 TEN STATES, HIS NUMBER ("for like each 10% of health that you don\'t have"), where the old one had three',
+    demo.includes('const HP_TIERS=10;') &&
+    demo.includes('function hpTier(){'));
+
+  ok('V129 DOOM\'S HYSTERESIS, because with ten tiers instead of three one point of chip damage on a boundary would strobe the button',
+    demo.includes('const HP_HYST=0.035;') &&
+    /Math\.abs\(f-edge\)>HP_HYST/.test(demo));
+
+  ok('V129 BUT HYSTERESIS MUST NEVER BLOCK REAL MOVEMENT, and the first cut did. MEASURED: a 3-tier drop was REFUSED because it landed exactly on a boundary -- the face would have frozen at "scratched" while he bled out. The margin now applies ONLY to a single-step change, which is the only thing that can strobe',
+    /else if\(Math\.abs\(raw-prev\)>1\)\{ G\._hpTierS=raw; \}/.test(demo));
+
+  ok('V129 DOOM\'S LEAN: the face turns toward whoever hit you. Costs nothing here because the field is POLAR, so the bearing of the man who shot you is already exact -- and it is recorded BEFORE the repaint so the first hurt frame is already leaning',
+    demo.includes('function portraitLean(){') &&
+    demo.includes('function feltHit(fromEa){') &&
+    /if\(fromEa!=null\)\{ G\._hitFromEa=fromEa; G\._hitFromAt=performance\.now\(\); \}/.test(demo) &&
+    /const _sh=G\.e\[inc\.idx\[i\]\]; feltHit\(_sh\?_sh\.ea:null\);/.test(demo));
+
+  ok('V129 THE STAMINA ORB IS IN FRONT OF THE FACE, NOT BEHIND, AND I ONLY KNOW THAT BECAUSE I MEASURED IT: the first cut drew the fluid first and the painted button came out BYTE-IDENTICAL at zero stamina and at full, because his portrait is an opaque 64x64 image that covered every pixel of it',
+    /IN FRONT, NOT BEHIND, AND I ONLY KNOW THAT BECAUSE I MEASURED IT/.test(demo) &&
+    /const lvl=Math\.max\(0,Math\.min\(1,\(G\.stam\|\|0\)\/STAM_MAX\)\);[\s\S]{0,900}if\(stateWash\)/.test(demo));
+
+  ok('V129 AND THE ORB IS QUIET, which I only know because I rendered all twenty states and LOOKED: at 0.34 alpha over the full height, full stamina turned the whole button green and DESTROYED the damage read -- and HP is the more important vital. It also filled to the very top so there was no waterline left to see',
+    demo.includes("g.addColorStop(0,'rgba(120,232,150,0.15)');") &&
+    demo.includes('const top=64-lvl*64*0.86,'));
+
+  ok('V129 THE STA PIPS ARE OFF THE TOP MENU -- the fifth thing removed from that row this week, and updStam repaints the button instead of counting diamonds',
+    !demo.includes('<span id="stampips"') &&
+    /function updStam\(\)\{ \/\* V129: the orb IS the stamina read/.test(demo));
+
+  ok('V129 NOT ONE PIXEL OF HIS FACE IS REDRAWN. Ten hand-painted injury states of his own character is ART and it is his call; this composites his two approved portraits (you + dying) with value and blood, and the dying face CROSSFADES in instead of popping at 40%',
+    demo.includes('x.drawImage(SPR.portraits.you,0,0);') &&
+    /SPR\.portraits\.dying&&_f>0\.45/.test(demo) &&
+    /x\.globalAlpha=Math\.min\(1,\(_f-0\.45\)\/0\.4\)/.test(demo));
 }
 
 /* ===== YOU ALWAYS SHOOT FIRST (Paolo 8/3/26, LOCKED) ==================
