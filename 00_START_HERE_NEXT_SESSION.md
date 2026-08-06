@@ -9619,3 +9619,35 @@ travel pacing consume tiers), COMBAT (danger by territory). CHARACTER/
 SOUNDS/ART/LAB unchanged. Coordinator lore queue: exodus split (asked,
 A/B/C open) then hell-years end, California, faith, the show, kids,
 guarantor seat.
+
+=== 8/3: MEASURE AGAINST HIS PAINTED HAIR, NOT MY GEOMETRY INTUITIONS ===
+He said think outside the box. The box is the LOOP: I cook hair from geometry
+rules, he referees, I fix. Three rounds, 23 styles down to 15, E/W still wrong,
+and every round costs him a judging pass.
+He PAINTED one hairstyle himself - hair/curtain-bob - and it is the ONLY hair asset
+he has never once criticised. So measure mine against HIS, not against a tutorial.
+REUSE-FIRST applied to JUDGEMENT rather than to art.
+
+MEASURED, his curtain-bob, hair pixels against the bare head:
+    S   52px   0 PAST THE SKULL   (head 19 wide)
+    E   31px   2 PAST THE SKULL   (head 11 wide)
+    N   92px   0 PAST THE SKULL   (head 20 wide)
+
+HIS HAIR BARELY LEAVES THE SKULL: zero projection front and back, two pixels on
+the profile, and that is all.
+On 8/2 I read a pixel-art tutorial saying hair in profile 'drapes without following
+the shape of the head' and gave every style 2px of projection on every non-front
+facing - TWICE his profile value and INFINITELY more than his front and back. The
+Oompa Loompa silhouette he named is that number. It was measurable the whole time,
+against art he had already made. Halved on 8/2; it should probably go to HIS
+values: 0 front, 0 back, ~2 profile.
+
+THE LESSON IS BIGGER THAN THE NUMBER: I took a rule from a web tutorial and applied
+it over a body he had already painted. His own approved art is a better ruler than
+any tutorial, it sits in the repo, and nobody had ever used it as one.
+
+NOT ACTED ON, deliberately: changing the projection again would be a FOURTH
+unjudged version of the same thing and three are already waiting on him.
+UNFINISHED: the same comparison across the 15 generated styles. The probe must
+OPEN THE CHARACTER TAB before window.G_WORN composites - garments are not live
+before that - which is why a straight-to-evaluate probe reads 0 pixels.
