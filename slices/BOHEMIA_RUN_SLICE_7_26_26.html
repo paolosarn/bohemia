@@ -2038,8 +2038,35 @@ function sfxWhere(){
     try{ if(typeof SIM!=='undefined' && SIM) min = SIM.turn % 1440; }catch(_e){}
     var night = (min < 6*60 || min >= 19*60);
     if(window.parent&&window.parent!==window)
+      /* WHICH ACOUSTIC SPACE YOU ARE STANDING IN (8/4). No new state: mode is
+         the same flag the footstep classifier uses, isRoad is the same call,
+         and the interior floorplan is the one the run already draws from.
+           OPEN   outdoors and off the road grid: desert, lots, yards
+           STREET outdoors on or beside the road: the canyon
+           ROOM   indoors, small floorplan
+           HALL   indoors, large floorplan (mall, warehouse, parking structure)
+         Small vs large is the interior's own FLOOR CELL COUNT, not a guess at
+         its name -- a name can be wrong and a floor cannot. */
+      var space='STREET';
+      try{
+        if(mode!=='ext'){
+          var cells=0;
+          if(typeof fp!=='undefined' && fp && fp.grid){
+            for(var yy=0;yy<fp.grid.length;yy++)
+              for(var xx=0;xx<fp.grid[yy].length;xx++)
+                if(fp.grid[yy][xx] && fp.grid[yy][xx].g==='floor') cells++;
+          }
+          space=(cells>=140)?'HALL':'ROOM';    /* ~12x12 of walkable floor and up */
+        }else{
+          var near=false, dx2, dy2;
+          for(dx2=-1;dx2<=1&&!near;dx2++) for(dy2=-1;dy2<=1;dy2++){
+            try{ if(typeof isRoad==='function' && isRoad(px+dx2,py+dy2)){ near=true; break; } }catch(_r){}
+          }
+          space=near?'STREET':'OPEN';
+        }
+      }catch(_s){}
       window.parent.postMessage({type:'BOHEMIA_WHERE',
-        inside:(mode!=='ext'), night:night, min:min},'*');
+        inside:(mode!=='ext'), night:night, min:min, space:space},'*');
   }catch(_e){}
 }
 setInterval(sfxWhere, 4000);

@@ -936,7 +936,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/2au - YOUR FATHERS DEBTS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/4f - YOU CAN HEAR WHERE YOU ARE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13679,11 +13679,51 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 
   /* THE ONE ENTRY POINT. when==='beat' fires on the next downbeat of the real
      song (the 120 BPM LAW: a kill lands ON the beat), anything else fires now. */
+  /* === THE ROOM TAKES THE SOUND (8/4) ==================================
+     Measured RT60 from the acoustics literature, mapped onto the four places
+     this game actually has. STREET is 1.0 on every dial ON PURPOSE: it is the
+     commonest place in the run, so his approved sounds are untouched there and
+     only LEAVING the street changes anything.
+       OPEN    open terrain has almost nothing to reflect off
+       STREET  the canyon, and the baseline
+       ROOM    ~0.2s, and darker: furniture and cloth eat the highs
+       HALL    2-3s (a parking basement measures ~3s), bright and long
+     No convolver, no delay, no feedback. These four fields are the engine's
+     OWN finite space machinery: re-struck bodies and a filtered noise tail. */
+  var SPACES={
+    OPEN:   {space:0.30, room:0.45, refl:0.0, dark:1.15},
+    STREET: {space:1.00, room:1.00, refl:1.0, dark:1.00},
+    ROOM:   {space:0.85, room:0.55, refl:1.6, dark:0.72},
+    HALL:   {space:1.70, room:3.00, refl:2.2, dark:1.30}
+  };
+  var SPACE='STREET';
+  window.__sfxSpace=function(){ return SPACE; };
+  /* EXPOSED SO IT CAN BE CHECKED EXACTLY. playSFX picks a RANDOM candidate from
+     his approved set every call, and the difference between two of his
+     candidates is bigger than the difference a room makes -- so measuring the
+     room by playing playSFX twice proves nothing at all, which is exactly what
+     the first measurement of this feature "showed". The transform is
+     deterministic; check the transform, then check ONE fixed vector's audio. */
+  window.__sfxInSpace=function(v,sp){ var k=SPACE; if(sp)SPACE=sp;
+    try{ return inSpace(v); } finally { SPACE=k; } };
+  function inSpace(v){
+    var p=SPACES[SPACE]||SPACES.STREET;
+    if(p.space===1&&p.room===1&&p.refl===1&&p.dark===1) return v;   /* baseline: untouched */
+    var w={},k; for(k in v) w[k]=v[k];
+    /* clamped to the SPEC's own ranges by sanitize inside render; these stay
+       inside them anyway so a profile can never author an illegal vector */
+    w.space=Math.max(0,Math.min(1,(v.space||0)*p.space));
+    w.room =Math.max(0,Math.min(3,(v.room ||0)*p.room));
+    w.refl =Math.max(0,Math.min(4,Math.round((v.refl||0)*p.refl)));
+    w.dark =Math.max(300,Math.min(9000,(v.dark||2600)*p.dark));
+    return w;
+  }
   window.playSFX=function(ev,when){
     try{
       if(typeof BOH_SFX==='undefined')return null;
       var i=pick(ev); if(i==null)return null;
       var v=vec(ev,i); if(!v)return null;
+      v=inSpace(v);
       MUS.audio();
       var AC=MUS.AC;
       /* a footstep goes to the quiet sub-bus; everything else to the master */
@@ -13748,7 +13788,9 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
          this document, so the run tells us one happened and we take the chance
          to start the audio while the browser may still count it as gestured. */
       if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
-      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d); return; }
+      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d);
+        if(d.space && SPACES[d.space]) SPACE=d.space;   /* the run says where you stand */
+        return; }
       if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
       if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
     }catch(e){}

@@ -1,3 +1,43 @@
+SOUND (sound-xk7pjp): 8/4 (f) LATEST - YOU CAN HEAR WHERE YOU ARE. Tab: RUN
+(walk outside, then go indoors and listen to your own footsteps).
+
+THE FLATTEST THING LEFT IN THE AUDIO: every sound played IDENTICALLY everywhere.
+The same footstep in the open desert, in a street between two blocks, in a small
+bedroom, and inside a dead parking structure. A world that sounds the same in
+every place has one place in it.
+
+FOUR ACOUSTIC SPACES, from measured RT60 in the literature (small furnished room
+~0.2s, corridor ~2s, parking basement ~3s; street canyons lengthen the decay
+against open terrain because concrete and glass reflect):
+  OPEN    outdoors, off the road grid. Nothing to reflect off. Drier.
+  STREET  outdoors on/beside the road. THE BASELINE, 1.0 on every dial.
+  ROOM    indoors, small floorplan. Tight, and DARKER (cloth eats the highs).
+  HALL    indoors, large floorplan. Long and bright: a building with nothing in it.
+
+*** STREET RETURNS THE IDENTITY OBJECT, NOT A COPY, AND THE GATE CHECKS ===. ***
+The commonest place in the run is byte-for-byte what he approved; only LEAVING
+the street changes anything. That is what keeps this inside MECHANISM-MINE /
+CONTENTS-PAOLO'S: it never changes WHICH sound plays, only the room it plays in,
+same class as the distance+pan already applied to a neighbour's footstep.
+
+SCREECH LAW SAFE: no convolver, no delay, no feedback. It only turns four
+existing fields of the existing typed spec (space/room/refl/dark), which the
+engine already builds from re-struck bodies and a filtered noise tail.
+
+THE RUN NEEDS NO NEW STATE: mode ext/int is the flag the footstep classifier
+already uses, isRoad() is the same call, and small-vs-large is the interior's own
+FLOOR CELL COUNT (>=140 = HALL) rather than a guess at its name. A name can be
+wrong; a floor cannot.
+
+A MEASUREMENT MISTAKE WORTH KEEPING: the first probe played playSFX twice per
+space and compared. That proves NOTHING - playSFX picks a random candidate from
+his approved set each call, and two of his candidates differ by more than a room
+does. It "showed" open desert as the loudest space in the game. The gate now
+checks the DETERMINISTIC transform exactly, plus ONE FIXED VECTOR's audio
+(hall measured ~60% more energy than open, twice). And it states plainly that
+the meter CANNOT resolve OPEN from STREET - that difference is inside the noise,
+so it is not asserted.
+
 LAB (lab-e2r7sv): 8/4 (e) LATEST -- WHY VALHEIM'S CAMP FELT FAST, AND THE ONE READING OF IT
 THAT WOULD REPEAL A LAW HE ALREADY MADE.
 
@@ -124,7 +164,6 @@ ENGINE SYNC clean.
    list instead of a blank page. Do that before asking him anything.
 2. Gap 5 (wearing another faction's colours) - now cheap.
 3. Gaps 6, 8, 9 (agendas, membership, internal politics) all sit on this.
-
 
 ART (f3eu53): 8/4 (i) LATEST -- *** THE WORK WAS FINISHED AND IT STILL DID NOT
 EXIST, BECAUSE HE COULD NOT REACH IT. IT IS IN THE **ART TAB** NOW. ***

@@ -424,6 +424,45 @@ const METER=`(function(){
       .every(e=>BOH_SFX.cook(e,5).length===5); }catch(e){ return false; }
   });
 
+
+  /* ===== YOU CAN HEAR WHERE YOU ARE (8/4) ================================
+     Checked on the TRANSFORM, which is deterministic, and then on ONE FIXED
+     VECTOR's audio. NOT by playing playSFX twice: it picks a random candidate
+     from his approved set each call, and two of his candidates differ by more
+     than a room does. That measurement proved nothing, and it "showed" open
+     desert as the loudest space in the game before I caught it. */
+  out.hasSpace = await p.evaluate(()=>typeof window.__sfxSpace==='function'
+    && typeof window.__sfxInSpace==='function');
+  out.spaceXform = await p.evaluate(()=>{
+    try{
+      const v=BOH_SFX.cook('step_asphalt',5)[0];
+      const f=o=>({space:+o.space.toFixed(5),room:+o.room.toFixed(5),refl:o.refl,dark:Math.round(o.dark)});
+      return {authored:f(v), OPEN:f(window.__sfxInSpace(v,'OPEN')),
+              STREET:f(window.__sfxInSpace(v,'STREET')),
+              ROOM:f(window.__sfxInSpace(v,'ROOM')),
+              HALL:f(window.__sfxInSpace(v,'HALL')),
+              streetIsIdentity: window.__sfxInSpace(v,'STREET')===v};
+    }catch(e){ return null; }
+  });
+  await p.evaluate(()=>{ window.__E=0;
+    const dst=window.__OUTBUS||MUS.MAST;
+    const an=MUS.AC.createAnalyser(); an.fftSize=2048; dst.connect(an);
+    const buf=new Float32Array(an.fftSize);
+    setInterval(()=>{ an.getFloatTimeDomainData(buf);
+      let s=0; for(let i=0;i<buf.length;i++) s+=Math.abs(buf[i]);
+      window.__E+=s/buf.length; },16); });
+  await p.waitForTimeout(400);
+  async function energyIn(sp){
+    await p.evaluate(()=>{window.__E=0;}); await p.waitForTimeout(250);
+    await p.evaluate(s=>{ const v=BOH_SFX.cook('kill',5)[0];
+      BOH_SFX.render(window.__sfxInSpace(v,s), MUS.AC, window.__OUTBUS||MUS.MAST, null); }, sp);
+    await p.waitForTimeout(3000);
+    return await p.evaluate(()=>window.__E);
+  }
+  await energyIn('STREET');                       /* warm-up, discarded */
+  out.energyOpen = await energyIn('OPEN');
+  out.energyHall = await energyIn('HALL');
+
   console.log(JSON.stringify(out));
   await b.close();
 })();
@@ -988,6 +1027,49 @@ def main():
     jc = d.get('judgeCollapsed') or {}
     print('  judge cards collapsed: %s of %s (this is WHY the board exists)'
           % (jc.get('collapsed'), jc.get('cards')))
+
+    # ---- YOU CAN HEAR WHERE YOU ARE (8/4) ------------------------------
+    # Every sound played identically in the open desert, in a street, in a
+    # bedroom and inside a dead parking structure. A world that sounds the same
+    # everywhere has one place in it. Real RT60: a furnished room is ~0.2s, a
+    # corridor ~2s, a parking basement ~3s, and street canyons lengthen the
+    # decay against open terrain because concrete and glass reflect.
+    chk(d.get('hasSpace'), 'the acoustic spaces are gone; every place sounds the same again')
+    X = d.get('spaceXform') or {}
+    au, op, st = X.get('authored'), X.get('OPEN'), X.get('STREET')
+    rm, hl = X.get('ROOM'), X.get('HALL')
+    chk(bool(au and op and st and rm and hl), 'the space transform did not evaluate')
+    if au and op and st and rm and hl:
+        # HIS SOUND IS UNTOUCHED ON THE STREET, and identity means the SAME
+        # OBJECT and not an equal copy: the commonest place in the run must not
+        # even be rebuilt, let alone re-authored.
+        chk(X.get('streetIsIdentity'),
+            'STREET is no longer the identity, so his approved sound is being '
+            'rewritten in the commonest place in the game')
+        chk(st == au, 'STREET changed the authored vector: %s vs %s' % (st, au))
+        chk(op['space'] < au['space'] and op['refl'] < au['refl'],
+            'OPEN is not drier than the authored sound (%s vs %s)' % (op, au))
+        chk(hl['room'] > au['room'] * 2,
+            'HALL does not hold the sound longer (room %s vs %s)' % (hl['room'], au['room']))
+        chk(rm['dark'] < au['dark'],
+            'ROOM is not darker than the authored sound (%s vs %s)' % (rm['dark'], au['dark']))
+        chk(rm['refl'] > au['refl'],
+            'ROOM has no more early reflections than the open street (%s vs %s)'
+            % (rm['refl'], au['refl']))
+    # AND THE AUDIO, on ONE FIXED VECTOR. The energy meter cannot resolve OPEN
+    # from STREET: that difference is a few percent of a mostly-dry sound and it
+    # sits inside run-to-run noise. Said plainly rather than dressed up. HALL vs
+    # OPEN is the claim that is actually audible, so that is the one asserted.
+    eo, eh = d.get('energyOpen') or 0, d.get('energyHall') or 0
+    chk(eo > 0.5, 'nothing was measured for OPEN (%.4f), so this proves nothing' % eo)
+    chk(eh > eo * 1.2,
+        'A HALL DOES NOT SOUND BIGGER THAN OPEN GROUND: hall %.3f vs open %.3f. '
+        'The room dials are not reaching the renderer.' % (eh, eo))
+    # read from the RUN FILE in python, not from the browser probe: `run` is a
+    # python variable and referencing it inside the injected JS threw at runtime.
+    chk("space:space" in run,
+        'the run never says which space the player is standing in, so the parent '
+        'is guessing')
 
     print('  %d passed, %d FAILED' % (P, F))
     if not F:
