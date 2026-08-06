@@ -539,6 +539,26 @@ Object.keys(xpool.buckets).forEach(function (b) {
 ['street', 'wreck', 'trash', 'crate', 'dead', 'barrier', 'camp'].forEach(function (b) {
   if (!xOut[b] || !xOut[b].length) throw new Error('the exterior pool is missing bucket ' + b);
 });
+/* ---- THE GROUND POOL (8/6). Measured: boughtForTile() only ever answers
+   road / walk / yard, so forty named surfaces collapse to the SUBURB'S dirt and a
+   farm has no field. His own 7/13 sweep approved soil, dirt path, stone path and
+   cracked concrete tiles and none of them had ever drawn. UP-only, same as the
+   others, and the builder refuses the pool rather than trust it. ---- */
+var GPOOL_PATH = 'banks/BOHEMIA_GROUND_POOL_8_6_26.txt';
+var gpool = JSON.parse(fs.readFileSync(GPOOL_PATH, 'utf8'));
+if (!/UP-ONLY/.test(gpool.law || '')) throw new Error(GPOOL_PATH + ' is not the UP-only pool');
+var gOut = {};
+Object.keys(gpool.buckets).forEach(function (b) {
+  gOut[b] = gpool.buckets[b].map(function (e) { return { p: e.pack, b64: e.b64 }; });
+});
+['soil', 'dirt', 'gravel', 'concrete'].forEach(function (b) {
+  if (!gOut[b] || !gOut[b].length) throw new Error('the ground pool is missing bucket ' + b);
+});
+if (html.indexOf('__GROUND_POOL_JSON__') < 0) throw new Error('missing __GROUND_POOL_JSON__ placeholder');
+html = html.replace('__GROUND_POOL_JSON__', JSON.stringify({ version: gpool.version, buckets: gOut }));
+console.log('  GROUND POOL: ' + Object.keys(gOut).reduce(function (n, b) { return n + gOut[b].length; }, 0) +
+            ' ground tiles he approved 7/13, drawing for the first time');
+
 if (html.indexOf('__EXTERIOR_POOL_JSON__') < 0) throw new Error('missing __EXTERIOR_POOL_JSON__ placeholder');
 html = html.replace('__EXTERIOR_POOL_JSON__', JSON.stringify({
   version: xpool.version, buckets: xOut }));
