@@ -22,6 +22,12 @@ os.chdir(REPO_ROOT)
 
 # (name, argv, what it protects, slow?)
 GATES = [
+    # FIRST ON PURPOSE (8/4): it is the gate that makes the OTHER gates able
+    # to run. Nine pixel gates need Pillow+numpy and a fresh container has
+    # neither, so they used to all die at the END of a 700s run looking like
+    # nine real art failures. BACKLOG SOUNDS #5, closed.
+    ('SETUP HOOK',     ['python3', 'gates/setup_hook_gate.py'],
+     'a fresh container installs its own gate image stack and never blocks the session doing it', False),
     ('GDD LINEAGE',    ['node', 'gates/gdd_gate.js'],
      'v2/v3/v4 are LIVE, v5 extends them', False),
     ('CARRY',          ['python3', 'gates/carry_gate.py', '.'],

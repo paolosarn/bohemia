@@ -1,3 +1,44 @@
+SOUND (sound-xk7pjp): 8/4 (i) LATEST - A NULL RESULT I DID NOT SHIP, AND
+BACKLOG SOUNDS #5 CLOSED. Nothing here needs judging.
+
+*** THE NULL RESULT, AND IT IS THE POINT ***
+Hypothesis: the music is eating the sound effects, because everything meets at
+one compressor and one brickwall limiter, so a loud song should squash a
+footstep arriving under it. Research says the fix would be a sidechain duck
+(3-6 dB, attack under 10ms, release 20-150ms).
+MEASURED INSTEAD OF ASSUMED: a fixed kill vector, energy at the output, four
+states (silence / kill / music / music+kill). The kill survives at 99.6% over
+music. THERE IS NO MASKING. So no ducker was built. Building one would have
+quietly changed his mix to solve a problem that does not exist.
+DO NOT "FIX" DUCKING LATER ON A HUNCH. Re-measure first; the probe pattern is
+in the commit.
+
+AND THE FIRST MEASUREMENT WAS INVALID, which is the part to remember. It tapped
+MUS.OUT - a plain gain node, ADDITIVE BY CONSTRUCTION - so it could never see a
+limiter squash and duly reported that nothing was ever masked. A meter that
+cannot see the thing it measures always says everything is fine. The limiter is
+now exposed as window.__LIMITER / MUS.LIM so the END of the chain can be
+measured at all.
+
+TOOL DEFECT FIXED, and it is the same one the combat patch already had:
+bohemia_sound_mix_patch.py bailed out the moment it saw its own routing, so once
+a build carried the 8/2 chain the tool could NEVER upgrade it. The 8/4 limiter
+handle was written into the tool, printed success, and never reached the alpha.
+IDEMPOTENT BY REPLACEMENT, NOT BY REFUSAL. The lesson did not travel because it
+lived in a comment in another file.
+
+*** BACKLOG SOUNDS #5 IS CLOSED (open since 7/29, NON-COOK, fleet-wide) ***
+Nine gates read pixels and need Pillow+numpy; a fresh container has neither, so
+all nine died with ModuleNotFoundError at the END of a ~700s suite run looking
+like nine real art failures. bohemia_gates.py WARNED about it. A warning is not
+a fix. Now: .claude/settings.json SessionStart hook -> tools/bohemia_session_setup.sh.
+It checks first (no-op when the stack is there), NEVER exits non-zero (a session
+that cannot start is worse than a missing library), and prints one line.
+PROVED ON A GENUINELY BROKEN CONTAINER: uninstalled Pillow+numpy, confirmed the
+import failed, ran the hook, import worked, exit 0.
+GATE: gates/setup_hook_gate.py, 12 checks, registered FIRST in the suite because
+it is the gate that makes the other gates able to run. Mutation-tested.
+
 PEOPLE (factions): 8/2 (n) LATEST — WORD TRAVELS: he can finally SEE the reputation system,
 AND BUILDING THE VISIBLE VERSION FOUND TWO REAL BUGS IN AN HOUR.
 Record: records/BOHEMIA_WORD_TRAVELS_8_2_26.md   TAB: LIFE, top card.

@@ -120,6 +120,14 @@ NEW_CHAIN = (
     "   this.MAST.connect(this.MUSVOL); this.MUSVOL.connect(this.OUT);\n"
     "   this.OUT.connect(cmp);cmp.connect(lim);lim.connect(this.AC.destination);\n"
     "   try{ window.__MUSVOL=this.MUSVOL; window.__OUTBUS=this.OUT;\n"
+    "        /* THE END OF THE CHAIN, OBSERVABLE (8/4). The brickwall is the only\n"
+    "           node that can squash one sound because another one is loud, so it\n"
+    "           is the only place a masking question can honestly be asked. It was\n"
+    "           a local, so the first attempt at that measurement tapped OUT --\n"
+    "           a plain gain node, additive by construction -- and duly reported\n"
+    "           that nothing was ever masked. A meter that cannot see the thing it\n"
+    "           is measuring always says everything is fine. */\n"
+    "        window.__LIMITER=lim; this.LIM=lim;\n"
     "        if(window.__applyMix) window.__applyMix(); }catch(_e){}\n"
     "   }catch(e){} },")
 
@@ -393,14 +401,23 @@ def main():
     s = open(ALPHA, encoding='utf8').read()
 
     # ---- 1. the routing ---------------------------------------------------
-    if 'this.MUSVOL=this.AC.createGain()' not in s:
+    # IDEMPOTENT BY REPLACEMENT, NOT BY REFUSAL. This used to bail the moment it
+    # saw its own MUSVOL line, which meant that once a build carried the 8/2
+    # routing this tool could never UPGRADE it -- the 8/4 limiter handle was
+    # written into the tool, printed success, and never reached the alpha. That
+    # is the identical defect the combat patch had and had already fixed; the
+    # lesson did not travel because it lived in a comment in another file.
+    if 'this.MUSVOL=this.AC.createGain()' in s:
+        i = s.index('   /* THE OUTPUT BUS (8/2)')
+        j = s.index('   }catch(e){} },', i) + len('   }catch(e){} },')
+        s = s[:i] + NEW_CHAIN.split('\n', 0)[0] + s[j:] if False else s[:i] + NEW_CHAIN + s[j:]
+        print('  routing UPGRADED in place (limiter handle included)')
+    else:
         if OLD_CHAIN not in s:
             print('FAIL: the music output chain is not the shape this tool expects')
             return 1
         s = s.replace(OLD_CHAIN, NEW_CHAIN, 1)
         print('  MAST is the MUSIC again; MUSVOL + OUT created under it')
-    else:
-        print('  routing already in place')
 
     # ---- 2. the SFX bus stops riding the music master ---------------------
     # It plugged into MUS.MAST when MAST was the only output. Now there is a

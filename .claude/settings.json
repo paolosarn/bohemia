@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh tools/bohemia_session_setup.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
