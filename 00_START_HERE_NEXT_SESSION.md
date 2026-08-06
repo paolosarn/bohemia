@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ART (f3eu53): 8/4 (i) LATEST -- *** THE WORK WAS FINISHED AND IT STILL DID NOT
 EXIST, BECAUSE HE COULD NOT REACH IT. IT IS IN THE **ART TAB** NOW. ***
 
@@ -459,6 +460,63 @@ MEMORY 7/2 is the pre-existing 0-agents red (P-F), same on clean main.
    this supplies "somebody who knows your face sees you in it".
 3. GAPS 6, 8, 9 (agendas, membership, internal politics) all sit on this.
 
+=======
+PEOPLE (factions): 8/2 (m) LATEST — *** YOUR FATHER'S DEBTS. The question the game's own
+premise raises and NOBODY HAD ASKED. ***
+Record: records/BOHEMIA_YOUR_FATHERS_DEBTS_8_2_26.md
+
+Bohemia is a FAMILY ACROSS THREE GENERATIONS (story master) and the handoff happens WHEN
+THE STORY SAYS SO, never on death (DEATH IS A RELOAD 7/26). So there is a canon moment when
+the valley stops judging you and starts judging your child.
+NOBODY HAD EVER ASKED WHAT HAPPENS TO YOUR REPUTATION AT THAT MOMENT. Not on the twelve-gap
+list, not in THE BIG MISSING, not in the GDD, not in a backlog. It was invisible because it
+only appears once a reputation system exists at all - which was three hours old.
+
+*** AND THE ORGAN ALREADY MODELLED IT. *** Thirty years pass and EVERY WITNESS IS DEAD, so
+the only trace of a life is what got REPEATED. The rule writes itself:
+    A QUIET GOOD DEED DIES WITH THE WITNESS.
+    A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR.
+This is not a new system. It is what the witness organ was always going to do if you ran
+the clock forward - which is why gossip had to exist first.
+
+MEASURED:
+  a secret, one witness, never repeated .... 0 carried, 1 died. Child inherits NOTHING.
+  a notorious one that spread to three ..... 2 carried. Child owes -0.767 they never ran up.
+  one generation further ................... grandchild -0.345, still faintly there.
+Three generations and only the loudest thing your grandfather did still registers, which is
+exactly the arc the story master already describes. legendOf() reports what the valley still
+says: the deed, how many still tell it, how many generations back.
+
+GROUNDED, real anthropology not a trope: in stateless societies a family is a CORPORATE
+ENTITY whose reputation carries its economic standing, lineages run 10-12 generations deep,
+and ostracism does the work fines and prisons do elsewhere. You are born owing what your
+father owed. Same reasoning that made the Mob the guarantor and the Caravans' name their
+armour.
+
+THE LIFE LESSON, never said out loud: you inherit goodwill you did not earn and debts you
+did not run up, and neither one is fair.
+
+COST: one function and one constant (GEN_LOSS 0.45 - less than half survives a handoff, so
+a legend must have been LOUD to cross even one).
+CONTENTS-PAOLO'S HELD: DEED_WEIGHT still EMPTY and the gate proves inheriting invents
+nothing. WHEN the handoff happens is HIS - inherit() is called by whoever runs that beat.
+
+GATE: STANDING 23 -> 29 claims, 10/10 probes. The two new probes are the two ways this
+could quietly break: a secret crossing a generation anyway, and an inherited reputation
+that never fades so a family is damned forever.
+Regression: FACTION MEMBERSHIP 50/0, PEOPLE 152/0, BUILD THE WORLD 10/0, FRONT DOOR 8/0,
+ENGINE SYNC clean.
+
+=== WHAT COMES AFTER (unchanged and now urgent) ===
+1. NOTHING CALLS witness() YET. The whole organ is inert until the run reports deeds into
+   it, and that needs a DEED VOCABULARY, which is his. THE NEXT NON-BLOCKED MOVE IS TO
+   INVENTORY EVERY ACTION THE RUN CAN ALREADY PRODUCE so his ruling is a thumb over a real
+   list instead of a blank page. Do that before asking him anything.
+2. Gap 5 (wearing another faction's colours) - now cheap.
+3. Gaps 6, 8, 9 (agendas, membership, internal politics) all sit on this.
+
+<<<<<<< HEAD
+>>>>>>> 8c92264 (YOUR FATHER'S DEBTS - the question the game's own premise raises, and nobody had asked)
 PEOPLE (7h9sfy): 8/4 LATEST — *** NOBODY STANDS IN THE STREET ALL DAY. *** Five of
 this lane's gates were dead on main for their whole visible history, and fixing the
 way they LOOK at the world found two real bugs in the world itself.

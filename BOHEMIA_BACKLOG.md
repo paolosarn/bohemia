@@ -4300,6 +4300,35 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    assert over the set.
    | next PEOPLE turn should take this | 8/2 | no - gate work, nothing to judge.
 
+0G. [SHIPPED 8/2 - OUTSIDE THE BOX: YOUR FATHER'S DEBTS]
+   records/BOHEMIA_YOUR_FATHERS_DEBTS_8_2_26.md
+   THE QUESTION THE GAME'S OWN PREMISE RAISES AND NOBODY HAD ASKED. Bohemia is a
+   family across THREE GENERATIONS and the handoff happens when the STORY says so,
+   never on death (DEATH IS A RELOAD 7/26). So there is a canon moment when the valley
+   stops judging you and starts judging your child - and what happens to your
+   reputation then was on no gap list, in no GDD section, in no backlog. It was
+   invisible because it only appears once a reputation system exists, which was hours
+   old.
+   THE ORGAN ALREADY MODELLED IT: thirty years pass, EVERY WITNESS IS DEAD, so the only
+   trace of a life is what got REPEATED. A QUIET GOOD DEED DIES WITH THE WITNESS; A
+   NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR. Not a new system - what
+   the witness organ was always going to do if you ran the clock forward, which is why
+   gossip had to exist first.
+   MEASURED: a secret nobody repeated -> 0 carried, child inherits nothing. A notorious
+   one that spread -> child owes -0.767 they never ran up; grandchild -0.345. Three
+   generations and only the loudest thing your grandfather did still registers, which
+   is the arc the story master already describes.
+   GROUNDED: stateless-society anthropology - a family is a CORPORATE ENTITY whose
+   reputation carries its economic standing, lineages 10-12 generations deep, ostracism
+   doing the work fines do elsewhere. You are born owing what your father owed.
+   LIFE LESSON, never said out loud: you inherit goodwill you did not earn and debts you
+   did not run up, and neither is fair.
+   COST: one function, one constant. DEED_WEIGHT still EMPTY; the gate proves inheriting
+   invents nothing. WHEN the handoff happens is HIS.
+   | gate: STANDING 23 -> 29 claims, 10/10 probes | 8/2 | no - mechanism.
+   NEXT AND NOT BLOCKED: inventory every action the run can already produce, so his deed
+   vocabulary is a thumb over a real list instead of a blank page.
+
 0F. [SHIPPED 8/2 - GAP 3 BUILT, AND IT TOOK GAPS 4, 7 AND 10 WITH IT]
    records/BOHEMIA_REPUTATION_TRAVELS_8_2_26.md + engine/bohemia_standing.js
    Gap 3 was the documented failure of the whole genre: every NPC instantly knowing

@@ -104,7 +104,7 @@
     var w=DEED_WEIGHT[d.kind];
     if(w==null) return 0;                            // unruled deed = weightless
     var c=MEM ? MEM.clarity(mind, {subject:d.actor, turn:d.turn}, now) : 1;
-    var f=w * c * Math.pow(HEARSAY_LOSS, d.hops||0);
+    var f=w * c * Math.pow(HEARSAY_LOSS, d.hops||0) * Math.pow(GEN_LOSS, d.inherited||0);
     return Math.abs(f)<MIN_FORCE ? 0 : f;
   }
   function opinionOf(mind, actorId, now){
@@ -191,9 +191,89 @@
     return out.slice(0, limit||5);
   }
 
+
+  /* ---- 5. A REPUTATION OUTLIVES THE PERSON WHO EARNED IT ------------------
+     (8/2/26. The thing the twelve-gap list did not have, and the game's own premise.)
+
+     Bohemia is not a game about a hero, it is a FAMILY ACROSS THREE GENERATIONS AND
+     A HUNDRED YEARS (story master), and the handoff happens WHEN THE STORY SAYS SO,
+     never because somebody died (DEATH IS A RELOAD, 7/26). So there is a moment,
+     already canon, when the valley stops judging you and starts judging your child.
+
+     NOBODY HAD ASKED WHAT HAPPENS TO YOUR REPUTATION AT THAT MOMENT. It is the most
+     obvious question the dynasty premise raises and it was not on the gap list, not
+     in the GDD, not in any backlog.
+
+     GROUNDED, and this is the real anthropology rather than a vibe: in stateless
+     societies a family is treated as a CORPORATE ENTITY whose reputation carries its
+     economic viability and social standing; lineages run ten and twelve generations
+     deep, and ostracism does the work that fines and prisons do elsewhere. You are
+     born owing what your father owed. That is not a fantasy mechanic, it is how
+     reputation has worked for most of human history and it is exactly the register
+     of a valley with no courts.
+
+     *** AND THE ORGAN ALREADY MODELLED IT WITHOUT ANYBODY NOTICING. *** Thirty years
+     pass. EVERY PERSON WHO WATCHED YOU DO ANYTHING IS DEAD. The only trace of your
+     life is what got REPEATED - the deeds that travelled, hop by hop, into somebody
+     who is still alive. So the rule writes itself and it is the honest one:
+
+       A QUIET GOOD DEED DIES WITH THE WITNESS.
+       A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR.
+
+     That is why gossip had to exist before this could. Nothing here is a new system;
+     it is what the witness organ was always going to do if you ran the clock forward.
+
+     THE LIFE LESSON UNDERNEATH, and the game never says it out loud: you inherit
+     goodwill you did not earn and debts you did not run up, and neither one is fair. */
+  var GEN_LOSS=0.45;      // what crosses a generation. Less than half, so a legend
+                          // needs to have been LOUD to survive one, and by the third
+                          // generation only the very loudest thing your grandfather
+                          // did still registers at all - which is the arc the story
+                          // master already describes.
+  function inherit(minds, parentId, childId, turn){
+    var carried=0, died=0;
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.deeds) continue;
+      var keep=[];
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==parentId){ keep.push(d); continue; }
+        /* the eyewitness is dead. Only what was RETOLD is still in the valley. */
+        if(!(d.hops>0)){ died++; continue; }
+        keep.push({actor:childId, kind:d.kind, turn:turn, x:d.x, y:d.y,
+                   hops:d.hops, inherited:(d.inherited||0)+1, of:parentId});
+        carried++;
+      }
+      m.deeds=keep;
+    }
+    return {carried:carried, died:died};
+  }
+
+  /* WHAT THE VALLEY STILL SAYS ABOUT YOUR FAMILY. Readable, because a legend you
+     cannot hear is a legend that is not doing any work. */
+  function legendOf(minds, actorId, now){
+    var by={};
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.deeds) continue;
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==actorId||!d.inherited) continue;
+        var f=forceOf(m,d,now);
+        if(!f) continue;
+        var k=d.kind;
+        if(!by[k]) by[k]={kind:k, tellers:0, force:0, generations:d.inherited, of:d.of};
+        by[k].tellers++; by[k].force+=f;
+        by[k].generations=Math.max(by[k].generations, d.inherited);
+      }
+    }
+    return Object.keys(by).map(function(k){return by[k];})
+      .sort(function(a,b){ return Math.abs(b.force)-Math.abs(a.force); });
+  }
+
   var API={ DEED_WEIGHT:DEED_WEIGHT, SEE_RANGE:SEE_RANGE, HEARSAY_LOSS:HEARSAY_LOSS,
     MAX_HOPS:MAX_HOPS, GOSSIP_WINDOW:GOSSIP_WINDOW, RUNGS:RUNGS,
     witness:witness, opinionOf:opinionOf, gossip:gossip, standingOf:standingOf,
-    becauseOf:becauseOf, rungFor:rungFor };
+    becauseOf:becauseOf, rungFor:rungFor,
+    inherit:inherit, legendOf:legendOf, GEN_LOSS:GEN_LOSS };
   if(HASREQ) module.exports=API; else root.BohemiaStanding=API;
 })(typeof globalThis!=='undefined'?globalThis:this);

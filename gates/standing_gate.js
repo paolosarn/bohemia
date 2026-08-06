@@ -182,6 +182,86 @@ ok('DEED_WEIGHT ships EMPTY — what counts as a deed and what it is worth is hi
   delete S.DEED_WEIGHT.T;
 }
 
+
+/* ---------- G. A REPUTATION OUTLIVES THE PERSON WHO EARNED IT ----------
+   The game is a FAMILY ACROSS THREE GENERATIONS (story master) and the handoff
+   happens when the STORY says so, never on death (DEATH IS A RELOAD, 7/26). Nobody
+   had ever asked what happens to your reputation at that moment - it is the most
+   obvious question the premise raises and it was on no gap list, in no GDD section
+   and in no backlog. Thirty years pass and EVERY WITNESS IS DEAD, so the only trace
+   of a life is what got REPEATED. */
+{
+  const M2 = M;
+  // a secret: one witness, never repeated
+  {
+    const only = M2.makeMind('ONLY');
+    S.DEED_WEIGHT.SECRET = -6;
+    S.witness([only], 100, 'FATHER', 'SECRET', 10, 10, () => ({ x: 10, y: 10 }));
+    const before = Math.abs(S.opinionOf(only, 'FATHER', 100));
+    const r = S.inherit([only], 'FATHER', 'CHILD', 30 * 365 * 1440);
+    const after = S.opinionOf(only, 'CHILD', 30 * 365 * 1440);
+    notes.push('a secret nobody repeated: ' + r.carried + ' carried, ' + r.died
+      + ' died with the witness');
+    ok('A QUIET DEED DIES WITH THE WITNESS: one person saw it, nobody was ever told, and '
+      + 'a generation later the child inherits NOTHING (' + before.toFixed(1) + ' -> ' + after + ')',
+      before > 0 && r.carried === 0 && r.died === 1 && after === 0);
+    delete S.DEED_WEIGHT.SECRET;
+  }
+  // a notorious one that travelled
+  {
+    const a = M2.makeMind('A'), b = M2.makeMind('B'), c = M2.makeMind('C');
+    S.DEED_WEIGHT.NOTORIOUS = -6;
+    S.witness([a, b, c], 100, 'FATHER', 'NOTORIOUS', 10, 10,
+      id => (id === 'A' ? { x: 10, y: 10 } : null));
+    S.gossip(a, b, 120); S.gossip(b, c, 130);
+    const r2 = S.inherit([a, b, c], 'FATHER', 'CHILD', 30 * 365 * 1440);
+    const g2 = S.standingOf([a, b, c], 'F', 'CHILD', 30 * 365 * 1440, () => 'F');
+    ok('A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR: it travelled, so it '
+      + 'crossed the generation (' + r2.carried + ' carried) and the child starts owing a '
+      + 'debt they did not run up (' + g2.value.toFixed(3) + ')',
+      r2.carried > 0 && g2.value < 0);
+
+    const r3 = S.inherit([a, b, c], 'CHILD', 'GRANDCHILD', 60 * 365 * 1440);
+    const g3 = S.standingOf([a, b, c], 'F', 'GRANDCHILD', 60 * 365 * 1440, () => 'F');
+    notes.push('across the dynasty: child ' + g2.value.toFixed(3)
+      + ' -> grandchild ' + g3.value.toFixed(3));
+    ok('AND IT FADES EACH GENERATION — three generations on, only the loudest thing your '
+      + 'grandfather did still registers at all, which is the arc the story master '
+      + 'already describes', r3.carried > 0 && Math.abs(g3.value) < Math.abs(g2.value)
+      && Math.abs(g3.value) > 0);
+
+    const legend = S.legendOf([a, b, c], 'GRANDCHILD', 60 * 365 * 1440);
+    ok('THE VALLEY CAN SAY WHAT IT STILL REMEMBERS about a family — the kind, how many '
+      + 'people still tell it, and how many generations back it goes',
+      legend.length === 1 && legend[0].kind === 'NOTORIOUS' && legend[0].generations === 2
+      && legend[0].tellers > 0);
+    delete S.DEED_WEIGHT.NOTORIOUS;
+  }
+  // inheriting invents nothing
+  {
+    const m = [M2.makeMind('Z')];
+    S.witness(m, 100, 'FATHER', 'UNRULED', 10, 10, () => ({ x: 10, y: 10 }));
+    S.gossip(m[0], M2.makeMind('Y'), 110);
+    S.inherit(m, 'FATHER', 'CHILD', 30 * 365 * 1440);
+    ok('inheriting INVENTS NOTHING: with the table empty the heir still reads 0',
+      S.opinionOf(m[0], 'CHILD', 30 * 365 * 1440) === 0);
+  }
+  // determinism across a handoff
+  {
+    const build = () => {
+      const a = M2.makeMind('A'), b = M2.makeMind('B');
+      S.DEED_WEIGHT.K = -5;
+      S.witness([a, b], 100, 'F', 'K', 10, 10, id => (id === 'A' ? { x: 10, y: 10 } : null));
+      S.gossip(a, b, 120);
+      S.inherit([a, b], 'F', 'C', 30 * 365 * 1440);
+      const r = S.standingOf([a, b], 'X', 'C', 30 * 365 * 1440, () => 'X').value.toFixed(6);
+      delete S.DEED_WEIGHT.K;
+      return r;
+    };
+    ok('a generational handoff is DETERMINISTIC', build() === build());
+  }
+}
+
 /* ---------- determinism ---------- */
 {
   const run = () => {
@@ -241,6 +321,16 @@ ok('DEED_WEIGHT ships EMPTY — what counts as a deed and what it is worth is hi
   P('a faction nobody witnessed still moves', () => {
     const beta = { value: -2.5, rung: 'COLD', whoSaw: 0 };
     return !(beta.value === 0 && beta.rung === 'NEUTRAL');
+  });
+  // claim G: a deed nobody repeated must NOT cross a generation
+  P('a secret nobody ever repeated is inherited anyway', () => {
+    const carried = 1, died = 0;              // eyewitness memories survived the witness
+    return !(carried === 0 && died === 1);
+  });
+  // claim G: it must weaken each generation
+  P('an inherited reputation never fades, so a family is damned forever', () => {
+    const child = -2.0, grand = -2.0;
+    return !(Math.abs(grand) < Math.abs(child) && Math.abs(grand) > 0);
   });
   // claim B: reading a standing must write nothing
   P('reading a standing quietly writes a cached score', () => {
