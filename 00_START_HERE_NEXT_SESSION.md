@@ -519,7 +519,8 @@ the next machine and it is bigger.
 5. Did not touch #buildstamp: one gate, one record, one one-character law fix.
    NOTE: another lane reports GitHub Pages has failed three commits running, so the live link
    may be stale -- nothing I shipped today touches the playable surface either way.
-ART (f3eu53): 8/5 (a) LATEST -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
+
+ART (f3eu53): 8/6 (d) LATEST -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
 HAND, AND THE GAME DREW ZERO. THAT IS WHY THE WORLD LOOKS EMPTY. ***
 
 === READ THIS FIRST, EVERY LANE ===
@@ -588,6 +589,52 @@ check while drawing nothing.
 Also fixed two of other lanes' new laws that were genuinely mine: TASTE (every
 standing factory documents a TASTE CHECK) and BANK LAW (a new bank must reach
 records/BOHEMIA_BANK_LAW_INDEX.md the same turn).
+
+=== 8/6: I LOOKED AT THE DISTRICTS I SHIPPED BLIND, AND THEN GOT THE FIX WRONG ===
+My own debt from the turn before: "somebody should LOOK at a railyard". Paid.
+
+WHY NOBODY COULD LOOK, and it was not what I assumed. Black frames every time and
+I had concluded gotoCell does not render. *** IT RENDERS FINE. THE SHOOTER WAS
+STILL INSIDE HIS HOUSE. *** The run opens indoors, so teleporting moves the
+exterior cell under an INTERIOR camera. WALK OUT THE FRONT DOOR FIRST and any
+district can be photographed. Every session has this now; it only needed noticing.
+Recipe: scratchpad seedist.js -- splash, BFS to the interior door, walk out, THEN
+gotoCell, then wait until the canvas is actually painting before shooting.
+
+WHAT I SAW: the farm has no field, the railyard has no track. Both are the
+suburb's cracked concrete with different objects on it.
+
+*** THE FINDING, MEASURED, AND IT STANDS ***
+  FARM      field soil 2116, crop rows 691  ->  yard x3480
+  RAILYARD  ballast / gravel 1243           ->  yard x2013
+  SOLAR     gravel access road 1836         ->  yard x2292
+boughtForTile() answers only road/walk/yard, so FORTY NAMED SURFACES COLLAPSE TO
+THE SUBURB'S DIRT. Ground is most of every frame. Third instance of one bug this
+week: buildings flat until 8/3, zero objects until 8/5, ground still one tile.
+
+*** THE FIX I BUILT WAS WRONG AND THE RENDER CAUGHT IT ***
+Cooked a ground pool from his UP soil/dirt/stone-path tiles and laid it as
+terrain. Broken on sight: those are DECORATIVE PATCHES, 96px with transparent
+margins, made to sit ON ground. As ground they tile with a BLACK GAP between every
+cell and read acid orange.
+*** A VERDICT IS ABOUT THE OBJECT. IT IS NEVER ABOUT WHERE, OR WHAT FOR. ***
+THIRD time today the same error reached a render: the car-sized potion jar (UP as
+loot, used as scenery), the market barrel on a Vegas lawn (UP as goods, used as
+residential dressing), the detail patch used as terrain. ALL THREE PASSED THEIR
+GATES. ALL THREE WERE CAUGHT BY LOOKING. Ask what a tile is FOR, not only whether
+he liked it.
+REVERTED, byte-identical to before. GROUND_ON held false with the post-mortem
+beside it so the next session inherits the finding AND the failed attempt.
+
+*** [PENDING, Paolo's call] HE OWNS NO SEAMLESS DIRT ***
+One seamless set exists (BOHEMIA_GROUND_SEAMLESS_SET_7_10_26, 44px, 456 tiles) and
+it is CONCRETE AND ASPHALT. Nothing seamless for soil, ballast, gravel or turf. So
+a farm reading as a farm is a BUY-OR-COOK decision:
+  A) buy a seamless terrain set (cheapest, how every other surface got here)
+  B) cook seamless terrain to the style target (a real art job)
+  C) accept that every district reads as a lot
+Until he rules, districts differ by OBJECTS only, which does work -- see the ART
+tab card 2.
 
 === NOT DONE / THE QUEUE, IN ORDER ===
 1. *** 6,070 OF HIS TILES WERE NEVER SWEPT. *** The Great Sweep covered 2,604 of
