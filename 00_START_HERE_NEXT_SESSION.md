@@ -1,3 +1,55 @@
+PEOPLE (7h9sfy): 8/6 LATEST — *** SEVENTEEN FINISHED THINGS SHIP TO A FILE NO PLAYER
+CAN SEE, INCLUDING PAOLO'S OWN APPROVED WALLS AND THE ONE-BUTTON VERB SYSTEM. ***
+Record: records/BOHEMIA_WHAT_WE_BUILT_THAT_HE_CANNOT_REACH_8_6_26.md
+Census: records/BOHEMIA_REACHABILITY_CENSUS.md  (re-run: python3 tools/bohemia_reachability_census.py)
+
+SIX TIMES IN THREE DAYS this fleet found the same thing one instance at a time - the
+signal bank reaching nothing for two weeks, the identity card on a page he never sees,
+nineteen gates hunting a moved constant, touch_guard GREEN while checking nothing, five
+hairstyles nobody could wear, my own walk fix landing on the invisible file. THAT IS NOT
+SIX BUGS. It is ONE DISEASE: work lands somewhere he cannot reach and the machine says
+green. Nothing could answer the general question, so nobody asked it. Now something can.
+
+                    reaches him | loaded only | no trace | not-for-players
+    banks    (95)            15 |           8 |       72 | -
+    engine  (110)            72 |           9 |       14 | 15
+
+*** THE BUCKET THAT MATTERS: 17 FINISHED THINGS THAT REACH ONLY
+    slices/BOHEMIA_RUN_CURRENT.html, WHICH THE ALPHA LOADS AND NEVER DISPLAYS ***
+    banks/BOHEMIA_PERIMETER_8_2_26.txt      the 11 walls PAOLO JUDGED AND APPROVED 8/2
+    banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt 3.63 MB of interior dressing
+    engine/bohemia_resolve.js               THE SENTENCE - one button, act, spend, resolve
+    engine/bohemia_quest_runtime.js + _bq   the quest runtime and parser
+    engine/bohemia_loop.js                  the driven engine
+    engine/bohemia_garage.js, _crypt.js     interiors
+    banks/GRIME_8_3, OPENINGS_8_2, CIVIC_OPENINGS_8_3   approved art from the last 4 days
+THIS IS NOT A FAILURE LIST, IT IS A WORK-ALREADY-PAID-FOR LIST, and at the start of an
+11-month run that is the most valuable list there is.
+
+WHAT THE NUMBERS DO NOT SAY, because a census that overclaims is worse than none:
+NO TRACE is strong evidence, NOT PROOF - a bank TRANSFORMED before shipping (re-encoded,
+recoloured, re-tiled) reads as NO TRACE while genuinely reaching him, and the four
+HD_TILE_REPO parts (180 MB, two thirds of the corpus) are almost certainly that. 20 of
+the 72 are CANDIDATE/VERDICT/JUDGE pools where only an approved subset should ever ship.
+A DERIVED bank reads NO TRACE correctly too (WARDROBE_CANON is extracted FROM the alpha).
+And THE MB FIGURE IS NEARLY A TAUTOLOGY - 258 MB of corpus cannot fit in a 29 MB surface.
+THE COUNTS ARE THE FINDING; THE MEGABYTES ARE NOT.
+
+CALIBRATED BEFORE IT WAS BELIEVED. v1 sampled 8 payloads and printed a BINARY, and the
+door-anim bank came out SHOWN on one run and NO TRACE on another OFF THE SAME BYTES - a
+coin flip wearing a claim's name, the exact bug that had four of this lane's gates dead
+for a fortnight. Now 32 samples AND IT REPORTS THE FRACTION, because "2 of 32", "0 of 32"
+and "32 of 32" are three different facts. Then checked against four things verified BY
+HAND on 8/4 before the tool existed - all four agree, and the gate keeps them as
+permanent CALIBRATION claims: if the census ever disagrees with a hand check, THE CENSUS
+IS BROKEN, not the hand check.
+
+THE GATE DOES NOT DEMAND THE NUMBER FALL. Wiring order is Paolo's and the owning lane's
+call; a gate forcing it would be A GATE OUTRANKING A RULING. It demands the number stay
+TRUE: fresh, caveat intact, no ghosts, agrees with the hand checks. 16 claims, 4
+mutations killed.
+
+-----------------------------------------------------------------------------------
 LAB (lab-e2r7sv): 8/4 (f) LATEST -- *** BUILT THE MACHINE THAT FINDS CANON ROT, AND ITS
 FIRST RUN WAS WRONG IN A WAY WORTH READING. *** Nothing to judge.
 

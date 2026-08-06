@@ -425,6 +425,14 @@ GATES = [
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],
      'the run IS the game we built: every system claimed integrated is machine-probed in the shipped run, no unproven claims', False),
+    ('REACHABILITY',   ['node', 'gates/reachability_gate.js'],
+     'of everything we have BUILT, what reaches the surface he taps? 205 sources sampled by '
+     'their own BYTES (not their names -- names are a lane dialect). SEVENTEEN finished things '
+     "ship only into the file the alpha loads and never displays: Paolo's eleven approved "
+     'perimeter walls, the interior pool, the one-button verb system, the quest runtime. The '
+     'gate does not demand that number fall -- wiring order is his call -- it demands the '
+     'census stay FRESH, keep its own false-negative caveat, and agree with what was verified '
+     'by hand', False),
     ('SURFACE TRUTH',  ['node', 'gates/surface_truth_gate.js'],
      'a document that measures the game must say WHICH DOOR it is looking at. The integration '
      'ledger probes BOHEMIA_RUN_CURRENT.html; the RUN tab has shown the CITY frame since 7/28, '

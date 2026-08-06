@@ -3841,6 +3841,37 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-Q. [SHIPPED 8/6 - FLEET-CRITICAL, AND IT IS THE ROADMAP - records/BOHEMIA_WHAT_
+   WE_BUILT_THAT_HE_CANNOT_REACH_8_6_26.md]
+   *** SEVENTEEN FINISHED THINGS SHIP ONLY TO THE FILE NOBODY SEES. ***
+   Six times in three days the fleet found the same thing one instance at a time.
+   That is ONE DISEASE, not six bugs: work lands somewhere he cannot reach and the
+   machine says green. Nothing could answer the general question so nobody asked it.
+   BUILT: tools/bohemia_reachability_census.py - 205 sources, 272 MB, sampled by their
+   own BYTES never their names (names are a lane's dialect; a name-based search on 8/4
+   gave four false alarms out of five).
+       banks  (95):  15 reach him |  8 loaded-only | 72 no trace
+       engine(110):  72 reach him |  9 loaded-only | 14 no trace | 15 not-for-players
+   THE PAID-FOR LIST: PERIMETER_8_2 (the 11 walls HE judged and approved), INTERIOR_POOL,
+   bohemia_resolve.js (THE SENTENCE - one button, act, spend time, resolve), the quest
+   runtime + parser, bohemia_loop.js, garage, crypt, and GRIME/OPENINGS/CIVIC_OPENINGS
+   from the last four days. All shipping into BOHEMIA_RUN_CURRENT.html, which the alpha
+   loads and NEVER DISPLAYS.
+   HONESTY, STATED IN THE REPORT ITSELF: NO TRACE is evidence not proof - transformed art
+   (re-encoded/recoloured/re-tiled) reads NO TRACE while genuinely shipping, and the 4
+   HD_TILE_REPO parts are 180 MB of probably-that. 20 of 72 are CANDIDATE pools where
+   only an approved subset should ship. A DERIVED bank reads NO TRACE correctly. And the
+   MB figure is nearly a tautology (258 MB corpus, 29 MB surface) - THE COUNTS ARE THE
+   FINDING.
+   CALIBRATED FIRST: v1's 8-sample BINARY gave SHOWN and NO TRACE on the same bank off
+   the same bytes. Now 32 samples and it REPORTS THE FRACTION. Checked against 4
+   hand-verified cases from 8/4; the gate keeps them as permanent calibration claims.
+   THE GATE DOES NOT DEMAND THE NUMBER FALL - wiring order is his and the owning lane's,
+   and forcing it would be A GATE OUTRANKING A RULING. It demands it stay TRUE.
+   | gates/reachability_gate.js 16 claims, 4 mutations killed, registered | 8/6 | no -
+   measurement. But the 17-item list is the closest thing this repo has to an 11-month
+   priority order, and it is somebody's to pick from.
+
 P-P. [SHIPPED 8/4 - FLEET-CRITICAL, AND IT STARTS WITH A CORRECTION TO MY OWN
    CLAIM AN HOUR EARLIER - records/BOHEMIA_A_CHECK_POINTED_AT_THE_WRONG_DOOR_8_4_26.md]
    *** A CHECK POINTED AT THE WRONG DOOR. THREE TIMES IN ONE DAY, THE THIRD IN MY

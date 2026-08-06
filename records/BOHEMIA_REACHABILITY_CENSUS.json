@@ -1,0 +1,1852 @@
+{
+ "sources": 205,
+ "total_mb": 272.1,
+ "unreached_mb": 241.5,
+ "rows": [
+  {
+   "path": "banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 2,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 315171
+  },
+  {
+   "path": "banks/BOHEMIA_ACT1_SWEEP_VERDICTS_MASTER.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 84227
+  },
+  {
+   "path": "banks/BOHEMIA_ACT_PLACEMENT_MASTER_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 19062
+  },
+  {
+   "path": "banks/BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 20,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 47575
+  },
+  {
+   "path": "banks/BOHEMIA_ALPHA_SURFACE_UPGRADES_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 4,
+   "hits_loaded": 6,
+   "bytes": 1052497
+  },
+  {
+   "path": "banks/BOHEMIA_ANIM_COOK_VERDICTS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 2,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 873
+  },
+  {
+   "path": "banks/BOHEMIA_ANIM_GAP_COOK_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1409637
+  },
+  {
+   "path": "banks/BOHEMIA_BRIDGE_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 425962
+  },
+  {
+   "path": "banks/BOHEMIA_CIVIC_OPENINGS_8_3_26.txt",
+   "kind": "bank",
+   "verdict": "LOADED ONLY",
+   "samples": 8,
+   "hits_shown": 0,
+   "hits_loaded": 4,
+   "bytes": 12427
+  },
+  {
+   "path": "banks/BOHEMIA_CMU_BLOCK_7_29_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 4,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 2287
+  },
+  {
+   "path": "banks/BOHEMIA_DEMO_PROP_POOL_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 3977288
+  },
+  {
+   "path": "banks/BOHEMIA_DEMO_ROOM_TILESET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 16,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 1085
+  },
+  {
+   "path": "banks/BOHEMIA_DEMO_TILE_BAKE_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 2,
+   "hits_loaded": 2,
+   "bytes": 186739
+  },
+  {
+   "path": "banks/BOHEMIA_DEMO_VERDICTS_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 28267
+  },
+  {
+   "path": "banks/BOHEMIA_DESERT_POOLS_7_18_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1899631
+  },
+  {
+   "path": "banks/BOHEMIA_DIRECTIONAL_VARIANT_BANK_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 990283
+  },
+  {
+   "path": "banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 16,
+   "hits_loaded": 0,
+   "bytes": 1704546
+  },
+  {
+   "path": "banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 9,
+   "hits_loaded": 9,
+   "bytes": 12653640
+  },
+  {
+   "path": "banks/BOHEMIA_DOOR_EW_BANK_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 0,
+   "bytes": 549006
+  },
+  {
+   "path": "banks/BOHEMIA_DOOR_LEAF_COOK_V3_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 25,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 413809
+  },
+  {
+   "path": "banks/BOHEMIA_DOOR_V3_VERDICTS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 5,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 228
+  },
+  {
+   "path": "banks/BOHEMIA_FIRE_FLICKER_BANK_7_13_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 10303721
+  },
+  {
+   "path": "banks/BOHEMIA_FX_STRIPS_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 2642
+  },
+  {
+   "path": "banks/BOHEMIA_GORE_OVERLAY_BANK_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 25,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 156638
+  },
+  {
+   "path": "banks/BOHEMIA_GRAPHICS_VERDICTS_MASTER_7_16_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1898449
+  },
+  {
+   "path": "banks/BOHEMIA_GRIME_8_3_26.txt",
+   "kind": "bank",
+   "verdict": "LOADED ONLY",
+   "samples": 4,
+   "hits_shown": 0,
+   "hits_loaded": 1,
+   "bytes": 113058
+  },
+  {
+   "path": "banks/BOHEMIA_GROUND_MASTER_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 229550
+  },
+  {
+   "path": "banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 5,
+   "bytes": 2971418
+  },
+  {
+   "path": "banks/BOHEMIA_GROUND_VARIANT_BANK_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 7454070
+  },
+  {
+   "path": "banks/BOHEMIA_HD_TILE_REPO_part1.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 45064347
+  },
+  {
+   "path": "banks/BOHEMIA_HD_TILE_REPO_part2.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 44724258
+  },
+  {
+   "path": "banks/BOHEMIA_HD_TILE_REPO_part3.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 44896034
+  },
+  {
+   "path": "banks/BOHEMIA_HD_TILE_REPO_part4.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 45659895
+  },
+  {
+   "path": "banks/BOHEMIA_HD_TYPE_SEED_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 214227
+  },
+  {
+   "path": "banks/BOHEMIA_HOUSE_02_ISO_7_29_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 5216
+  },
+  {
+   "path": "banks/BOHEMIA_HOUSE_FACTORY_BANK_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 25,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 2631225
+  },
+  {
+   "path": "banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt",
+   "kind": "bank",
+   "verdict": "LOADED ONLY",
+   "samples": 31,
+   "hits_shown": 0,
+   "hits_loaded": 21,
+   "bytes": 102624
+  },
+  {
+   "path": "banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt",
+   "kind": "bank",
+   "verdict": "LOADED ONLY",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 15,
+   "bytes": 3630214
+  },
+  {
+   "path": "banks/BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 8,
+   "hits_shown": 3,
+   "hits_loaded": 0,
+   "bytes": 80760
+  },
+  {
+   "path": "banks/BOHEMIA_LOGO_CANDIDATES_8_1_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 24,
+   "hits_shown": 1,
+   "hits_loaded": 0,
+   "bytes": 468762
+  },
+  {
+   "path": "banks/BOHEMIA_MARKING_BANK_7_17_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1371759
+  },
+  {
+   "path": "banks/BOHEMIA_MARKING_BOLD_CANDIDATES_7_17_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 299129
+  },
+  {
+   "path": "banks/BOHEMIA_MARKING_VERDICTS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 3,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 267
+  },
+  {
+   "path": "banks/BOHEMIA_MEGA_VERDICTS_BANKED_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 2,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 246
+  },
+  {
+   "path": "banks/BOHEMIA_MOUNTED_SIGNS_7_13_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 11,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 101347
+  },
+  {
+   "path": "banks/BOHEMIA_MULTICELL_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 561842
+  },
+  {
+   "path": "banks/BOHEMIA_MUSIC_BATCH9_DROPIN.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 23,
+   "hits_shown": 18,
+   "hits_loaded": 0,
+   "bytes": 6464
+  },
+  {
+   "path": "banks/BOHEMIA_MUSIC_REPO.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 0,
+   "bytes": 50582
+  },
+  {
+   "path": "banks/BOHEMIA_OPENINGS_8_2_26.txt",
+   "kind": "bank",
+   "verdict": "LOADED ONLY",
+   "samples": 9,
+   "hits_shown": 0,
+   "hits_loaded": 8,
+   "bytes": 20097
+  },
+  {
+   "path": "banks/BOHEMIA_OVERLAY_BANK_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1117761
+  },
+  {
+   "path": "banks/BOHEMIA_PARTICLE_LOOP_BANK_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 455336
+  },
+  {
+   "path": "banks/BOHEMIA_PARTICLE_LOOP_COOK_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 664965
+  },
+  {
+   "path": "banks/BOHEMIA_PARTICLE_VERDICTS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 259
+  },
+  {
+   "path": "banks/BOHEMIA_PATH_SEAMLESS_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 360498
+  },
+  {
+   "path": "banks/BOHEMIA_PERIMETER_8_2_26.txt",
+   "kind": "bank",
+   "verdict": "LOADED ONLY",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 31,
+   "bytes": 2433200
+  },
+  {
+   "path": "banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 27,
+   "hits_shown": 13,
+   "hits_loaded": 0,
+   "bytes": 158781
+  },
+  {
+   "path": "banks/BOHEMIA_REAL_VEGAS_VERDICTS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 705
+  },
+  {
+   "path": "banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 2,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 813
+  },
+  {
+   "path": "banks/BOHEMIA_ROOF_KIT_EXPANSION_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 206771
+  },
+  {
+   "path": "banks/BOHEMIA_ROOF_SEAMLESS_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 25,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 163079
+  },
+  {
+   "path": "banks/BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 3507155
+  },
+  {
+   "path": "banks/BOHEMIA_SEWER_DEMO_MAP_DATA_7_10_26.json",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 8711
+  },
+  {
+   "path": "banks/BOHEMIA_SFX_APPROVED_7_30_26.json",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 8,
+   "hits_shown": 3,
+   "hits_loaded": 0,
+   "bytes": 537
+  },
+  {
+   "path": "banks/BOHEMIA_SFX_BANK_7_29_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 2495
+  },
+  {
+   "path": "banks/BOHEMIA_STALL_STRIPE_CANDIDATES_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 12,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 72543
+  },
+  {
+   "path": "banks/BOHEMIA_STANDING_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 76795
+  },
+  {
+   "path": "banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 313016
+  },
+  {
+   "path": "banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt",
+   "kind": "bank",
+   "verdict": "LOADED ONLY",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 23,
+   "bytes": 161741
+  },
+  {
+   "path": "banks/BOHEMIA_STREET_ANATOMY_POOL_7_13_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 16,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 92979
+  },
+  {
+   "path": "banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 5,
+   "hits_loaded": 1,
+   "bytes": 2009837
+  },
+  {
+   "path": "banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 458130
+  },
+  {
+   "path": "banks/BOHEMIA_TERRAIN_PICKS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 8,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1525
+  },
+  {
+   "path": "banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt",
+   "kind": "bank",
+   "verdict": "LOADED ONLY",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 23,
+   "bytes": 778016
+  },
+  {
+   "path": "banks/BOHEMIA_TILECAT_BROWN_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 30632
+  },
+  {
+   "path": "banks/BOHEMIA_TILECAT_COOL_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 9199
+  },
+  {
+   "path": "banks/BOHEMIA_TILECAT_GOLD_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 29,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 13135
+  },
+  {
+   "path": "banks/BOHEMIA_TILECAT_GREEN_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 3,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4383
+  },
+  {
+   "path": "banks/BOHEMIA_TILECAT_MASTER_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 924
+  },
+  {
+   "path": "banks/BOHEMIA_TILECAT_NEUTRAL_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 14509
+  },
+  {
+   "path": "banks/BOHEMIA_TILECAT_REDMAG_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 16,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 7034
+  },
+  {
+   "path": "banks/BOHEMIA_TILE_REPO.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 6021450
+  },
+  {
+   "path": "banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 0,
+   "bytes": 6944998
+  },
+  {
+   "path": "banks/BOHEMIA_TRANSITION_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 13,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 75163
+  },
+  {
+   "path": "banks/BOHEMIA_TURN_ARROW_CANDIDATES_7_17_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 297469
+  },
+  {
+   "path": "banks/BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 216245
+  },
+  {
+   "path": "banks/BOHEMIA_V6_VERDICTS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 386
+  },
+  {
+   "path": "banks/BOHEMIA_V7_VERDICTS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 3,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 213
+  },
+  {
+   "path": "banks/BOHEMIA_V8_VERDICTS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 2,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 151
+  },
+  {
+   "path": "banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1074856
+  },
+  {
+   "path": "banks/BOHEMIA_WALL_PICKS_7_14_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1360
+  },
+  {
+   "path": "banks/BOHEMIA_WALL_SEAMLESS_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 622469
+  },
+  {
+   "path": "banks/BOHEMIA_WALL_VARIANT_BANK_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 2599218
+  },
+  {
+   "path": "banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 7378
+  },
+  {
+   "path": "banks/BOHEMIA_WATER_SEAMLESS_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 274313
+  },
+  {
+   "path": "banks/BOHEMIA_WINDOW_SET_7_10_26.txt",
+   "kind": "bank",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 13073
+  },
+  {
+   "path": "engine/BOHEMIA_AGENT_LOOK_7_10_26.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 3,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 861
+  },
+  {
+   "path": "engine/BOHEMIA_AGENT_RAGS_7_10_26.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1126
+  },
+  {
+   "path": "engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 2,
+   "hits_loaded": 16,
+   "bytes": 133951
+  },
+  {
+   "path": "engine/BOHEMIA_SKIN_PALETTES_WORLD_7_10_26.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 966
+  },
+  {
+   "path": "engine/bohemia_agents.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 7,
+   "hits_shown": 6,
+   "hits_loaded": 7,
+   "bytes": 53785
+  },
+  {
+   "path": "engine/bohemia_airfield.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 16974
+  },
+  {
+   "path": "engine/bohemia_apartment.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 10749
+  },
+  {
+   "path": "engine/bohemia_arterial.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 23410
+  },
+  {
+   "path": "engine/bohemia_ballpark.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 19444
+  },
+  {
+   "path": "engine/bohemia_battery.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 9884
+  },
+  {
+   "path": "engine/bohemia_blockgen.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 32,
+   "bytes": 25974
+  },
+  {
+   "path": "engine/bohemia_bodyvar.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 11,
+   "hits_shown": 11,
+   "hits_loaded": 0,
+   "bytes": 32345
+  },
+  {
+   "path": "engine/bohemia_boneyard.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 10515
+  },
+  {
+   "path": "engine/bohemia_bq.js",
+   "kind": "engine",
+   "verdict": "LOADED ONLY",
+   "samples": 22,
+   "hits_shown": 0,
+   "hits_loaded": 22,
+   "bytes": 11970
+  },
+  {
+   "path": "engine/bohemia_bq_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 17,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4731
+  },
+  {
+   "path": "engine/bohemia_campus.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 13820
+  },
+  {
+   "path": "engine/bohemia_cemetery.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 11424
+  },
+  {
+   "path": "engine/bohemia_chapel.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 18119
+  },
+  {
+   "path": "engine/bohemia_cityedit.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 3,
+   "hits_shown": 3,
+   "hits_loaded": 0,
+   "bytes": 7055
+  },
+  {
+   "path": "engine/bohemia_cityhall.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 22718
+  },
+  {
+   "path": "engine/bohemia_commercial.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 21593
+  },
+  {
+   "path": "engine/bohemia_courthouse.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 19241
+  },
+  {
+   "path": "engine/bohemia_crypt.js",
+   "kind": "engine",
+   "verdict": "LOADED ONLY",
+   "samples": 7,
+   "hits_shown": 0,
+   "hits_loaded": 7,
+   "bytes": 3267
+  },
+  {
+   "path": "engine/bohemia_daycycle.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 14,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1251
+  },
+  {
+   "path": "engine/bohemia_desert.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 15267
+  },
+  {
+   "path": "engine/bohemia_district_kit.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 34888
+  },
+  {
+   "path": "engine/bohemia_downtown.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 20181
+  },
+  {
+   "path": "engine/bohemia_dress.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 7,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 20293
+  },
+  {
+   "path": "engine/bohemia_drivein.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 9118
+  },
+  {
+   "path": "engine/bohemia_economy.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 2,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 8689
+  },
+  {
+   "path": "engine/bohemia_encounters.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 7,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 14503
+  },
+  {
+   "path": "engine/bohemia_engine.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 12,
+   "hits_loaded": 32,
+   "bytes": 281738
+  },
+  {
+   "path": "engine/bohemia_engine_graphics_7_14_26.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 23,
+   "bytes": 52801
+  },
+  {
+   "path": "engine/bohemia_farm.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 9341
+  },
+  {
+   "path": "engine/bohemia_firestation.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 11465
+  },
+  {
+   "path": "engine/bohemia_floorplan.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 13,
+   "hits_shown": 13,
+   "hits_loaded": 13,
+   "bytes": 9322
+  },
+  {
+   "path": "engine/bohemia_freeway.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 23126
+  },
+  {
+   "path": "engine/bohemia_garage.js",
+   "kind": "engine",
+   "verdict": "LOADED ONLY",
+   "samples": 4,
+   "hits_shown": 0,
+   "hits_loaded": 4,
+   "bytes": 3996
+  },
+  {
+   "path": "engine/bohemia_golf.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 13209
+  },
+  {
+   "path": "engine/bohemia_graphics_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 14116
+  },
+  {
+   "path": "engine/bohemia_industrial.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 26,
+   "hits_shown": 26,
+   "hits_loaded": 26,
+   "bytes": 9381
+  },
+  {
+   "path": "engine/bohemia_interchange.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 23179
+  },
+  {
+   "path": "engine/bohemia_jail.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 30,
+   "hits_shown": 30,
+   "hits_loaded": 30,
+   "bytes": 9042
+  },
+  {
+   "path": "engine/bohemia_landfill.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 9350
+  },
+  {
+   "path": "engine/bohemia_library.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 18315
+  },
+  {
+   "path": "engine/bohemia_light_pass.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 2594
+  },
+  {
+   "path": "engine/bohemia_light_registry.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 5731
+  },
+  {
+   "path": "engine/bohemia_loop.js",
+   "kind": "engine",
+   "verdict": "LOADED ONLY",
+   "samples": 31,
+   "hits_shown": 0,
+   "hits_loaded": 31,
+   "bytes": 68803
+  },
+  {
+   "path": "engine/bohemia_loop_channel_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 10,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 3586
+  },
+  {
+   "path": "engine/bohemia_loop_clout_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 13,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 5046
+  },
+  {
+   "path": "engine/bohemia_loop_entities_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 5,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 2495
+  },
+  {
+   "path": "engine/bohemia_loop_faction_bridge_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 14,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 8717
+  },
+  {
+   "path": "engine/bohemia_loop_feed_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 8,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 3183
+  },
+  {
+   "path": "engine/bohemia_loop_ledger_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 9,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4860
+  },
+  {
+   "path": "engine/bohemia_loop_profile_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 5,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4406
+  },
+  {
+   "path": "engine/bohemia_loop_quests_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 8,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 3977
+  },
+  {
+   "path": "engine/bohemia_loop_slice_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 14,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 6653
+  },
+  {
+   "path": "engine/bohemia_loop_talk_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 8,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 3470
+  },
+  {
+   "path": "engine/bohemia_mall.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 16503
+  },
+  {
+   "path": "engine/bohemia_medical.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 11719
+  },
+  {
+   "path": "engine/bohemia_memory.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 2,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 5075
+  },
+  {
+   "path": "engine/bohemia_mountain.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 25,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 13672
+  },
+  {
+   "path": "engine/bohemia_overmap.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 72845
+  },
+  {
+   "path": "engine/bohemia_overmap_bridge.js",
+   "kind": "engine",
+   "verdict": "LOADED ONLY",
+   "samples": 14,
+   "hits_shown": 0,
+   "hits_loaded": 14,
+   "bytes": 6879
+  },
+  {
+   "path": "engine/bohemia_park.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 13555
+  },
+  {
+   "path": "engine/bohemia_patrol.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 2,
+   "hits_loaded": 2,
+   "bytes": 6199
+  },
+  {
+   "path": "engine/bohemia_people.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 5,
+   "hits_shown": 5,
+   "hits_loaded": 5,
+   "bytes": 23806
+  },
+  {
+   "path": "engine/bohemia_personlook.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 1,
+   "hits_shown": 1,
+   "hits_loaded": 0,
+   "bytes": 8969
+  },
+  {
+   "path": "engine/bohemia_plotgen.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 17,
+   "hits_shown": 1,
+   "hits_loaded": 3,
+   "bytes": 10628
+  },
+  {
+   "path": "engine/bohemia_policestation.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 10637
+  },
+  {
+   "path": "engine/bohemia_population.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 7,
+   "hits_shown": 7,
+   "hits_loaded": 7,
+   "bytes": 50170
+  },
+  {
+   "path": "engine/bohemia_powergrid.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 2,
+   "hits_shown": 2,
+   "hits_loaded": 2,
+   "bytes": 2231
+  },
+  {
+   "path": "engine/bohemia_prop_scale.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 2,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 5451
+  },
+  {
+   "path": "engine/bohemia_purse.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 8,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 16295
+  },
+  {
+   "path": "engine/bohemia_quest_placement.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 8,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 19000
+  },
+  {
+   "path": "engine/bohemia_quest_runtime.js",
+   "kind": "engine",
+   "verdict": "LOADED ONLY",
+   "samples": 9,
+   "hits_shown": 0,
+   "hits_loaded": 9,
+   "bytes": 10447
+  },
+  {
+   "path": "engine/bohemia_quest_runtime_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 5,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 6012
+  },
+  {
+   "path": "engine/bohemia_rail.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 28316
+  },
+  {
+   "path": "engine/bohemia_railyard.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 9015
+  },
+  {
+   "path": "engine/bohemia_resolve.js",
+   "kind": "engine",
+   "verdict": "LOADED ONLY",
+   "samples": 20,
+   "hits_shown": 0,
+   "hits_loaded": 20,
+   "bytes": 18557
+  },
+  {
+   "path": "engine/bohemia_rooms.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 32,
+   "bytes": 5841
+  },
+  {
+   "path": "engine/bohemia_scheduler.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 2,
+   "hits_loaded": 32,
+   "bytes": 13877
+  },
+  {
+   "path": "engine/bohemia_school.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 28030
+  },
+  {
+   "path": "engine/bohemia_sfx.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 21,
+   "hits_shown": 21,
+   "hits_loaded": 0,
+   "bytes": 49092
+  },
+  {
+   "path": "engine/bohemia_slice_core.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 4498
+  },
+  {
+   "path": "engine/bohemia_slice_engine.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 1,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 8333
+  },
+  {
+   "path": "engine/bohemia_solar.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 29,
+   "hits_shown": 29,
+   "hits_loaded": 29,
+   "bytes": 8452
+  },
+  {
+   "path": "engine/bohemia_speedway.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 16299
+  },
+  {
+   "path": "engine/bohemia_stadium.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 11861
+  },
+  {
+   "path": "engine/bohemia_standing.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 14028
+  },
+  {
+   "path": "engine/bohemia_storage.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 10444
+  },
+  {
+   "path": "engine/bohemia_substation.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 9191
+  },
+  {
+   "path": "engine/bohemia_suburb.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 32204
+  },
+  {
+   "path": "engine/bohemia_swapmeet.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 10709
+  },
+  {
+   "path": "engine/bohemia_terminal.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 17913
+  },
+  {
+   "path": "engine/bohemia_terrain_noise.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 1,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 3463
+  },
+  {
+   "path": "engine/bohemia_tests.js",
+   "kind": "engine",
+   "verdict": "NOT FOR PLAYERS",
+   "samples": 31,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 15587
+  },
+  {
+   "path": "engine/bohemia_tilepool.js",
+   "kind": "engine",
+   "verdict": "LOADED ONLY",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 1,
+   "bytes": 6625
+  },
+  {
+   "path": "engine/bohemia_town.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 17414
+  },
+  {
+   "path": "engine/bohemia_trailer.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 31,
+   "hits_shown": 31,
+   "hits_loaded": 31,
+   "bytes": 8878
+  },
+  {
+   "path": "engine/bohemia_transitions.js",
+   "kind": "engine",
+   "verdict": "NO TRACE",
+   "samples": 4,
+   "hits_shown": 0,
+   "hits_loaded": 0,
+   "bytes": 1648
+  },
+  {
+   "path": "engine/bohemia_truckstop.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 12573
+  },
+  {
+   "path": "engine/bohemia_valleymap.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 10,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 12613
+  },
+  {
+   "path": "engine/bohemia_warehouse.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 9332
+  },
+  {
+   "path": "engine/bohemia_wash.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 12259
+  },
+  {
+   "path": "engine/bohemia_water.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 25,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 11585
+  },
+  {
+   "path": "engine/bohemia_waterpark.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 10137
+  },
+  {
+   "path": "engine/bohemia_watertreat.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 32,
+   "bytes": 10031
+  },
+  {
+   "path": "engine/bohemia_world.js",
+   "kind": "engine",
+   "verdict": "LOADED ONLY",
+   "samples": 32,
+   "hits_shown": 0,
+   "hits_loaded": 32,
+   "bytes": 60269
+  },
+  {
+   "path": "engine/bohemia_world_resolve.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 1,
+   "hits_shown": 1,
+   "hits_loaded": 1,
+   "bytes": 14010
+  }
+ ]
+}
