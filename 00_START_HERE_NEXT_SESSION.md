@@ -1,3 +1,63 @@
+CITY (1eztay): 8/6 (b) LATEST — THE ART BANK LEFT THE WALKED WORLD.
+28.2 MB -> 1.0 MB, AND NO LANE CHANGES ANYTHING.
+
+He was asked to pick between four options for the repo ceiling and said "honestly
+im lazy today", so this turn picked. NONE of the four suited: two change how every
+lane ships, and deleting old big files saves NOTHING (git holds every version
+forever, and history cannot be rewritten under six parallel lanes). So the answer
+came from asking why the file was 28 MB at all:
+
+    line 11021   const TP_TILES = {...}    20.92 MB    74% OF THE FILE
+    + DOOR_ANIM, HERO_SRC, SIG_TILES, SA_TILES, IN_DOOR_B64, JAMB_W, JAMB_E
+    = 27.1 MB of base64 art.  The actual game code is about 1 MB.
+
+THE VOLATILE PART AND THE HUGE STABLE PART WERE WELDED INTO ONE FILE. The art
+almost never changes; the code is patched by string surgery several times a day by
+several lanes, and every edit rewrote all 28 MB. That is why this page was the
+repository's top growth driver at 20.5 MB/day. Same fix the 8/2 lane made on the
+alpha, one level deeper. tools/bohemia_city_split_tile_bank.py.
+
+PATCH TOOLS ARE UNAFFECTED. They still edit the code in the world page; the art
+they never touch simply is not in it. No LFS, no deploy build, no history rewrite.
+
+PROVED BEFORE APPLYING, both loaded side by side in a real browser at 390x844:
+    ORIGINAL  cv 378x819  TP_TILES=24 HERO=59 DOOR=10  px=309582  checksum=981952
+    SPLIT     cv 378x819  TP_TILES=24 HERO=59 DOOR=10  px=309582  checksum=981952
+Identical. Both showed one pre-existing ERR_CONNECTION_RESET -- which is WHY both
+were measured. One reading would have blamed the split.
+
+*** AND IT LEFT THREE CONSUMERS BEHIND ANYWAY, AND THE CAUSE IS THIS MORNING'S BUG
+IN A SECOND FORM. READ THIS IF YOU WRITE A GATE. *** Suite went 10 -> 13 red (DOOR
+SWING, DOOR JAMB, HERO WIRE). Four gates -- dooranim, doorjamb, city_kit_binding,
+run_spawn -- declare cityBlob TWICE:
+    function cityBlob(_a){ ...asks bohemia_city_app.read()... }
+    function cityBlob(a){  ...reads the world file directly...  }
+IN JAVASCRIPT THE LAST FUNCTION DECLARATION WINS, so the resolver was dead in all
+four -- the same "single source of truth that isn't" I removed from thirteen gates
+this morning, wearing a different hat. The split only exposed it.
+FIXED: stale declarations deleted; hero_wire (which kept its own private list of
+where the city lives) routed through the resolver -- it went 61 -> 123 claims,
+having never seen the whole document. bohemia_city_app.read() now returns page +
+bank, so the split is invisible to anything that asks properly.
+
+THE CLOCK, AS A PROJECTION AND NOT A MEASUREMENT: 32.5 MB/day minus the ~20.5 the
+world page contributed should be ~12 MB/day -- about a YEAR of runway instead of
+four months. THE GATE STILL USES THE MEASURED 32.5 ON PURPOSE. A projection that
+flatters the runway is exactly how a limit gets forgotten again. If the next real
+bare-clone measurement does not show the drop, THE SPLIT DID NOT WORK and the
+runway is still ~130 days. Refresh command lives in the budget JSON.
+Records: BOHEMIA_THE_ART_BANK_LEFT_THE_WORLD_8_6_26.md ·
+         BOHEMIA_THE_OTHER_CLOCK_8_6_26.md · BOHEMIA_REPO_BUDGET_8_6_26.json
+
+STILL HIS, AND STILL UNPICKED: whether to go further (deploy-time build, LFS, stop
+committing intermediates) is 0AY option 1/2/3. The split bought the runway to
+decide it calmly instead of at a wall.
+
+NOT MINE TO DECIDE
+- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
+  now"). DO NOT RAISE IT. Backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Still open.
+
 PEOPLE (7h9sfy): 8/6 LATEST — *** SEVENTEEN FINISHED THINGS SHIP TO A FILE NO PLAYER
 CAN SEE, INCLUDING PAOLO'S OWN APPROVED WALLS AND THE ONE-BUTTON VERB SYSTEM. ***
 Record: records/BOHEMIA_WHAT_WE_BUILT_THAT_HE_CANNOT_REACH_8_6_26.md
@@ -130,7 +190,6 @@ the next machine and it is bigger.
 5. Did not touch #buildstamp: one gate, one record, one one-character law fix.
    NOTE: another lane reports GitHub Pages has failed three commits running, so the live link
    may be stale -- nothing I shipped today touches the playable surface either way.
-
 ART (f3eu53): 8/5 (a) LATEST -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
 HAND, AND THE GAME DREW ZERO. THAT IS WHY THE WORLD LOOKS EMPTY. ***
 

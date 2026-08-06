@@ -1724,6 +1724,40 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0AZ. [DONE 8/6 — I PICKED, BECAUSE HE SAID HE WAS LAZY] THE ART BANK LEFT THE
+   WALKED WORLD. 28.2 MB -> 1.0 MB. He declined to pick from the four options in 0AY,
+   and NONE of them suited a lazy day: two change how every lane ships, and deleting
+   old big files saves NOTHING because git holds every version forever and history
+   cannot be rewritten under six parallel lanes. So the answer came from asking why
+   the file was 28 MB at all:
+       line 11021  const TP_TILES = {...}   20.92 MB   74% OF THE FILE
+       + DOOR_ANIM, HERO_SRC, SIG_TILES, SA_TILES, IN_DOOR_B64, JAMB_W, JAMB_E
+       = 27.1 MB of base64 art. The game code is about 1 MB.
+   THE VOLATILE PART AND THE HUGE STABLE PART WERE WELDED TOGETHER. The art almost
+   never changes; the code is patched several times a day by several lanes, and every
+   edit rewrote all 28 MB. Same fix the 8/2 lane made on the alpha, one level deeper.
+   tools/bohemia_city_split_tile_bank.py -> slices/BOHEMIA_CITY_TILES.js. NO LANE
+   CHANGES ANYTHING: patch tools still edit the code, the art just is not in it.
+   PROVED BEFORE APPLYING, both loaded side by side in a real browser: cv 378x819,
+   TP_TILES=24 HERO=59 DOOR=10, drawn px=309582, checksum=981952 -- IDENTICAL. (Both
+   showed one pre-existing ERR_CONNECTION_RESET, which is WHY both were measured.)
+   AND IT LEFT THREE CONSUMERS BEHIND ANYWAY -- suite 10 -> 13 red (DOOR SWING, DOOR
+   JAMB, HERO WIRE). Cause: THIS MORNING'S BUG IN A SECOND FORM. Four gates (dooranim,
+   doorjamb, city_kit_binding, run_spawn) declare cityBlob TWICE -- a resolver
+   one-liner followed by an old direct-file reader -- and in JavaScript THE LAST
+   DECLARATION WINS, so the resolver was dead in all four. The split exposed it.
+   Stale declarations deleted; hero_wire (which kept its own private list of where the
+   city lives) routed through the resolver and went 61 -> 123 claims: it had never
+   been seeing the whole document. bohemia_city_app.read() now returns page + bank, so
+   the split is invisible to any consumer that asks properly.
+   THE CLOCK, AS A PROJECTION NOT A MEASUREMENT: 32.5 MB/day minus ~20.5 should give
+   ~12 MB/day, about a YEAR of runway instead of four months. THE GATE STILL USES THE
+   MEASURED 32.5 ON PURPOSE -- a projection that flatters the runway is how a limit
+   gets forgotten again. If the next bare-clone measurement does not show the drop,
+   the split did not work and the runway is still ~130 days.
+   Record: records/BOHEMIA_THE_ART_BANK_LEFT_THE_WORLD_8_6_26.md
+   | 5 affected gates green standalone, boot proved identical | none | no.
+
 0AY. [MEASURED 8/6 — THE OTHER CLOCK. FLEET-WIDE. THE CHOICE IS PENDING PAOLO.]
    THE REPOSITORY RUNS OUT BEFORE THE 11-MONTH PLAN DOES. On 8/2 a lane caught the
    100 MB PER-FILE cap (~43 days out) and fixed it by moving the world to a sibling

@@ -74,7 +74,12 @@ const BLOBS = [
    surface Paolo opens from a tab. A gate that had refused to follow the
    architecture would have been a gate testing a shape nobody ships. */
 const PAGES = [
-  ['BOHEMIA_CITY_WORLD.html', 19000000],   // the walked world + city builder
+  /* 8/6: the art bank moved to BOHEMIA_CITY_TILES.js and this page went 28.2 MB ->
+     1.0 MB. The floor follows the file, not the memory of it -- a floor left at 19 MB
+     would fail a page that is CORRECT and smaller on purpose, which is the same
+     mistake as a gate insisting on the shape it was born with. */
+  ['BOHEMIA_CITY_WORLD.html', 700000],     // the walked world + city builder (code)
+  ['BOHEMIA_CITY_TILES.js', 19000000],     // its art bank, split out 8/6
   ['BOHEMIA_RUN_CURRENT.html', 100000],
   ['BOHEMIA_CURRENT_SLICE.html', 100000],
   ['BOHEMIA_MAP_CURRENT.html', 100000],

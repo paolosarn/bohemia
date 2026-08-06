@@ -59,6 +59,22 @@ const BODY = 'function renderCity(';
  *   file   the file it was found in, for the failure message
  *   inline true if the source sits in the page as-is, false if it was base64
  */
+/* THE ART BANK LIVES NEXT DOOR NOW (8/6). The walked world is rewritten by string
+   surgery several times a day and was carrying 27 MB of base64 art it never edits,
+   which made it the repository's top growth driver at 20.5 MB/day against a 5 GB
+   GitHub ceiling ~130 days out. The page is 1 MB now; the art is in
+   BOHEMIA_CITY_TILES.js and changes rarely.
+   EVERY CONSUMER STILL SEES THE WHOLE LOGICAL DOCUMENT. Twenty-odd gates ask this
+   resolver for the city source and some of them grep it for tile data; splitting
+   the FILES without splitting the ANSWER is exactly the trap that cost the fleet a
+   day on 8/2 and again on 8/4. So read() glues it back on. The split is a storage
+   decision, not a visible one. */
+function tileBank() {
+  const p = path.join(ROOT, 'slices/BOHEMIA_CITY_TILES.js');
+  try { return fs.existsSync(p) ? '\n' + fs.readFileSync(p, 'utf8') : ''; }
+  catch (e) { return ''; }
+}
+
 function read() {
   for (const rel of FILES) {
     const abs = path.join(ROOT, rel);
@@ -74,7 +90,7 @@ function read() {
     }
 
     /* SHAPE 2: the page IS the renderer (the arrangement since 8/2) */
-    if (txt.indexOf(BODY) >= 0) return { src: txt, file: rel, inline: true };
+    if (txt.indexOf(BODY) >= 0) return { src: txt + tileBank(), file: rel, inline: true };
   }
   return null;
 }

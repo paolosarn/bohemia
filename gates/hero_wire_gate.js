@@ -22,15 +22,17 @@ const districts = bank.heroes.map(h => h.district);
 // being base64 on the way. This gate follows the artefact instead of assuming where it
 // lives or what shape it is -- it went red the moment the city was refactored, which is a
 // gate testing a LOCATION rather than the THING.
-const CITY_FILES = ['slices/BOHEMIA_CITY_WORLD.html', 'slices/BOHEMIA_ALPHA_0_9.html'];
-let dec = null, where = null;
-for (const f of CITY_FILES) {
-  if (!fs.existsSync(f)) continue;
-  const txt = fs.readFileSync(f, 'utf8');
-  const mm = txt.match(/const CITY_B64='([^']+)'/);
-  if (mm) { dec = Buffer.from(mm[1], 'base64').toString('utf8'); where = f; break; }
-  if (txt.indexOf('function renderCity(){') >= 0) { dec = txt; where = f; break; }
-}
+/* ASK THE ONE RESOLVER (8/6). This kept its own copy of "where the city lives",
+   which was right twice and wrong twice: it survived the 8/2 move out of the alpha
+   and then broke the moment the ART BANK was split out of the world page, because
+   HERO_SRC is in BOHEMIA_CITY_TILES.js now. bohemia_city_app.read() returns the
+   whole LOGICAL document -- page plus bank -- so a storage split is invisible here.
+   A gate that keeps a private map of the architecture is a gate that goes red every
+   time the architecture is improved. */
+const CITY_APP = require('./bohemia_city_app.js');
+const _app = CITY_APP.read();
+const dec = _app ? _app.src : null;
+const where = _app ? _app.file : null;
 ok('the CITY APP is findable (' + (where || 'nowhere') + ')', !!dec);
 if (dec) {
   ok('drawHero() is defined in the city render', dec.indexOf('function drawHero(') >= 0);
