@@ -1724,6 +1724,32 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0BA. [CORRECTION 8/6 — I OVERSTATED 0AY BY MORE THAN TWICE. RAN MY OWN TEST; IT
+   REFUTED ME.] 0AY published 32.5 MB/day, a 130-day runway, and named
+   slices/BOHEMIA_CITY_WORLD.html as the top driver at 20.5 MB/day. All three wrong.
+   MEASURED DIFFERENTIALLY (two bare clones 5.1h apart, subtract size-pack, divide by
+   commits): 899.81 MiB -> 905.58 MiB = 5.77 MB over 23 commits = 0.251 MB/COMMIT
+   = 13.8 MB/day at the 7-day fleet rate, 27.1 MB/day at today's pace. Runway 155-305
+   days (5.1-10.0 months), not 130 days.
+   AND THE REAL BREAKDOWN, by packed size across all history: BOHEMIA_ALPHA_0_9.html
+   441.0 MB = 49% OF THE WHOLE REPOSITORY (315 commits of a file that reached 38.7 MB),
+   the four banks/BOHEMIA_HD_TILE_REPO_* 129.9 MB, BOHEMIA_CITY_WORLD.html only 22.7 MB
+   (2.5%). THE WORLD PAGE WAS NEVER THE TOP DRIVER.
+   HOW THE WRONG NUMBER GOT OUT: I summed %(objectsize:disk) over a rev-list window.
+   THE SAME METHOD HAD ALREADY GIVEN 90.5 MB/day over 3 days and 257.7 MB/day over 7,
+   AND I WROTE DOWN THAT THE 7-DAY FIGURE EXCEEDED THE WHOLE REPO AND WAS IMPOSSIBLE --
+   then used it anyway for the per-file attribution because that part looked plausible.
+   NOTICING AN INSTRUMENT IS BROKEN AND THEN TRUSTING IT FOR THE NEXT QUESTION IS WORSE
+   THAN NEVER NOTICING. Git packs far better than a naive sum assumes: 219 MB raw vs
+   22.7 MB packed for the same file, a 10x gap = the exact size of my error.
+   WITHDRAWN: 0AZ's "about a year of runway". The split is still correct and cost
+   almost nothing (git delta-compressed the tiles file against the page it came out of),
+   but it saves ~2.8 MB per world-page commit, not 20.5 MB/day.
+   GATED: repo_budget_gate now REQUIRES _method (differential) and _CORRECTION_8_6 to be
+   present in the JSON, both mutation-proven, so the next refresh cannot quietly
+   re-derive the bad number with the convenient wrong query.
+   | REPO BUDGET 7/0, 2 new claims mutation-proven | 0AY options less urgent than stated | no.
+
 0AZ. [DONE 8/6 — I PICKED, BECAUSE HE SAID HE WAS LAZY] THE ART BANK LEFT THE
    WALKED WORLD. 28.2 MB -> 1.0 MB. He declined to pick from the four options in 0AY,
    and NONE of them suited a lazy day: two change how every lane ships, and deleting

@@ -124,3 +124,59 @@ exists: slices/GONE.html"*.
 ## THE LIFE LESSON UNDERNEATH (never preached in game)
 Everything that kills a project on schedule was on a schedule the whole time.
 Nobody was reading it.
+
+---
+
+# CORRECTION, SAME DAY: I OVERSTATED THIS BY MORE THAN TWICE
+
+Everything above about **which file** and **how fast** was wrong. The finding —
+that the repository ceiling exists, is unwatched, and needed a gate — stands. The
+numbers did not.
+
+| | I published | measured properly |
+|---|---|---|
+| growth | 32.5 MB/day | **0.251 MB/commit → 13.8–27.1 MB/day** |
+| runway to 5 GB | 130 days (4.3 months) | **155–305 days (5.1–10.0 months)** |
+| top driver | `BOHEMIA_CITY_WORLD.html`, 20.5 MB/day | **`BOHEMIA_ALPHA_0_9.html`, 441 MB = 49% of the whole repo** |
+
+## how the wrong number got out
+
+I summed `%(objectsize:disk)` over a `rev-list` window. **That same method had
+already given me 90.5 MB/day over three days and 257.7 MB/day over seven — and I
+wrote down, in this very document, that the seven-day figure was larger than the
+entire repository and therefore impossible.**
+
+Then I used it anyway for the per-file attribution, because that part *looked*
+plausible. **Noticing an instrument is broken and then trusting it for the next
+question is worse than never noticing.**
+
+## the only method that works
+
+**Differential.** Bare-clone, wait, bare-clone again, subtract the `size-pack`
+numbers, divide by the commits in between:
+
+    899.81 MiB  →  905.58 MiB   =  5.77 MB over 23 commits  =  0.251 MB/commit
+
+Anything else estimates how git *might* pack. Git packs far better than a naive sum
+assumes: the world page's whole history is **219 MB raw and 22.7 MB packed**, a 10×
+difference, which is exactly the gap between my claim and reality.
+
+## what this does to yesterday's split
+
+The art-bank split is still **correct** and it cost almost nothing — git delta-
+compressed the new tiles file against the old page it came out of, which is why 23
+commits including it added only 5.77 MB. But it saves ~2.8 MB per world-page commit,
+not 20.5 MB/day. **The "about a year of runway" claim is withdrawn.** The runway is
+5–10 months and always was.
+
+## and the real weight is unreachable
+
+`BOHEMIA_ALPHA_0_9.html` is **441 MB — half the repository** — from 315 commits of a
+file that reached 38.7 MB before it was slimmed. That history is already written.
+Reclaiming it means rewriting history, which is not survivable under six parallel
+lanes. **The heaviest thing in this repo is a bill that has already been paid and
+cannot be refunded.** Everything actionable is about the *rate* from here.
+
+## THE LIFE LESSON UNDERNEATH (never preached in game)
+The most expensive mistakes are not the ones you fail to notice. They are the ones
+you notice, write down, and then walk past because the next answer looked right.

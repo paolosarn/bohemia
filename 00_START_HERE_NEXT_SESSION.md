@@ -1,3 +1,54 @@
+CITY (1eztay): 8/6 (c) LATEST — *** I OVERSTATED THE REPO CEILING BY MORE THAN
+TWICE, AND I AM CORRECTING IT. READ THIS IF YOU READ MY 8/6 (a) OR (b) HEAD. ***
+
+I ran the test I promised. It refuted me.
+
+                     I PUBLISHED            MEASURED PROPERLY
+  growth             32.5 MB/day            0.251 MB/COMMIT = 13.8-27.1 MB/day
+  runway to 5 GB     130 days (4.3 mo)      155-305 days (5.1-10.0 months)
+  top driver         CITY_WORLD 20.5/day    ALPHA_0_9.html 441 MB = 49% OF THE REPO
+
+HOW THE WRONG NUMBER GOT OUT, and this is the part worth taking: I summed
+%(objectsize:disk) over a rev-list window. THAT SAME METHOD HAD ALREADY GIVEN ME
+90.5 MB/day over 3 days and 257.7 MB/day over 7 -- and I WROTE DOWN, in the record,
+that the 7-day figure exceeded the entire repository and was therefore impossible.
+Then I used it anyway for the per-file attribution, because that part looked
+plausible. NOTICING AN INSTRUMENT IS BROKEN AND THEN TRUSTING IT FOR THE NEXT
+QUESTION IS WORSE THAN NEVER NOTICING.
+
+THE ONLY METHOD THAT WORKS IS DIFFERENTIAL: bare-clone, wait, bare-clone again,
+subtract size-pack, divide by commits between.
+    899.81 MiB -> 905.58 MiB = 5.77 MB over 23 commits = 0.251 MB/commit
+Anything else estimates how git MIGHT pack, and git packs far better than a naive
+sum assumes: the world page's history is 219 MB raw and 22.7 MB PACKED, a 10x gap --
+exactly the size of my error. The gate now REQUIRES the method and the correction to
+be present in the JSON, so the next refresh cannot quietly re-derive the bad number.
+
+WHAT SURVIVES: the ceiling is real, it was unwatched, and it needed a gate. REPO
+BUDGET still holds, now at 906 MB, 27.1 MB/day (the fleet's BUSY rate, on purpose --
+a runway should be stated at the busiest pace, not the calmest), 155 days.
+
+WHAT IS WITHDRAWN: the "about a year of runway" claim for yesterday's art-bank
+split. The split is still CORRECT and cost almost nothing (git delta-compressed the
+new tiles file against the old page it came from -- 23 commits including it added
+just 5.77 MB), but it saves ~2.8 MB per world-page commit, not 20.5 MB/day.
+
+AND THE REAL WEIGHT IS UNREACHABLE: BOHEMIA_ALPHA_0_9.html is 441 MB, HALF THE
+REPOSITORY, from 315 commits of a file that reached 38.7 MB before it was slimmed.
+That history is already written and reclaiming it means a history rewrite, which is
+not survivable under six parallel lanes. The heaviest thing in this repo is a bill
+already paid and non-refundable. Everything actionable is about the RATE from here.
+Records: BOHEMIA_THE_OTHER_CLOCK_8_6_26.md (correction at the bottom) ·
+         BOHEMIA_REPO_BUDGET_8_6_26.json (method + correction, both now gated)
+
+STILL HIS AND STILL UNPICKED (0AY options 1/2/3): deploy-time build, Git LFS, or
+stop committing intermediates. Less urgent than I said -- 5 to 10 months, not 4.
+
+NOT MINE TO DECIDE
+- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
+  now"). DO NOT RAISE IT. Backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Still open.
+
 SOUND (sound-xk7pjp): 8/4 (k) LATEST - SEVEN OF HIS SONGS COULD NEVER PLAY,
 INCLUDING THE ONE HE SAID HE LOVES. Tab: RUN (music on, walk through a day).
 
@@ -156,12 +207,6 @@ Records: BOHEMIA_THE_ART_BANK_LEFT_THE_WORLD_8_6_26.md ·
 STILL HIS, AND STILL UNPICKED: whether to go further (deploy-time build, LFS, stop
 committing intermediates) is 0AY option 1/2/3. The split bought the runway to
 decide it calmly instead of at a wall.
-
-NOT MINE TO DECIDE
-- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
-  now"). DO NOT RAISE IT. Backlog 0AO.
-- THE RUN SLICE: SHOW / MERGE / RETIRE. Still open.
-
 PEOPLE (7h9sfy): 8/6 LATEST — *** SEVENTEEN FINISHED THINGS SHIP TO A FILE NO PLAYER
 CAN SEE, INCLUDING PAOLO'S OWN APPROVED WALLS AND THE ONE-BUTTON VERB SYSTEM. ***
 Record: records/BOHEMIA_WHAT_WE_BUILT_THAT_HE_CANNOT_REACH_8_6_26.md

@@ -90,13 +90,22 @@ walk(ROOT);
 ok('no tracked file is near the 100 MB per-file HARD limit (biggest: '
   + biggest.f + ' at ' + biggest.mb.toFixed(1) + ' MB)', biggest.mb < 80);
 
-/* ---- 4. the drivers are still the ones we think they are -----------------
-   If a NEW file starts dominating growth, the recorded plan is aimed at the
-   wrong target and the numbers above quietly stop meaning anything. */
-const named = Object.keys(B.drivers_mb_per_day || {});
-ok('the growth drivers are named, not guessed (' + named.length + ')', named.length >= 1);
-for (const f of named)
-  ok('a named driver still exists: ' + f, fs.existsSync(path.join(ROOT, f)));
+/* ---- 4. THE METHOD IS RECORDED, because the first numbers here were WRONG ---
+   The 8/6 first draft published 32.5 MB/day and a 130-day runway. Both came from
+   summing %(objectsize:disk) over a rev-list window -- the same method that had
+   already returned 90.5 MB/day over three days and 257.7 MB/day over seven, the
+   second larger than the whole repository. The contradiction was noticed, written
+   down, and then the method was used anyway for the per-path attribution. That is
+   how the wrong number shipped, and it named the wrong file as the top driver.
+   MEASURED PROPERLY (two bare clones 5.1 h apart, subtract): 0.251 MB per commit.
+   So the gate now insists the JSON carries the METHOD and the CORRECTION, because
+   the next person to refresh this will reach for the same convenient wrong query. */
+ok('the measurement METHOD is written down (differential, not a windowed sum)',
+  typeof B._method === 'string' && /differential/i.test(B._method));
+ok('the correction is on the record so the bad number is not re-derived',
+  typeof B._CORRECTION_8_6 === 'string' && B._CORRECTION_8_6.length > 80);
+ok('the growth rate is anchored to a PER-COMMIT measurement, not a per-day guess',
+  typeof B.growth_mb_per_commit === 'number' && B.growth_mb_per_commit > 0);
 
 console.log('');
 console.log('  REPO BUDGET, from the ' + B.measured_on + ' bare-clone measurement:');
@@ -106,6 +115,7 @@ console.log('    soft warning (1 GB) in ' + Math.round(daysToSoft) + ' days  · 
   + 'HARD CEILING (5 GB) in ' + Math.round(daysToHard) + ' days ('
   + (daysToHard / 30.4).toFixed(1) + ' months)');
 console.log('    biggest single file: ' + biggest.f + ' ' + biggest.mb.toFixed(1) + ' MB of the 100 MB hard cap');
-console.log('    top driver: ' + named[0] + ' at ' + B.drivers_mb_per_day[named[0]] + ' MB/day');
+console.log('    ' + B.growth_mb_per_commit + ' MB/commit measured differentially · '
+  + 'heaviest path in history: slices/BOHEMIA_ALPHA_0_9.html 441 MB = 49% of the repo');
 console.log('\n=== REPO BUDGET GATE: ' + pass + ' passed, ' + fail + ' failed ===');
 if (fail) process.exit(1);

@@ -3,16 +3,14 @@
  "_how": "git clone --bare --quiet https://github.com/paolosarn/bohemia b.git && cd b.git && git count-objects -vH",
  "_why_not_measured_in_the_gate": "a bare clone is ~54s and ~900MB of network; the suite runs the gate every ship. So the gate holds a RECORDED measurement and fails when it goes stale, rather than pretending it can compute the packed size cheaply. A local `git count-objects` is NOT a substitute: a working session accumulates loose objects (mine held 5.34 GiB of them against a 900 MB real repo) and reports a number 7x too big.",
  "measured_on": "2026-08-06",
- "packed_mb": 900,
+ "packed_mb": 906,
  "clone_seconds": 54,
  "first_commit": "2026-07-26",
  "age_days_at_measurement": 11,
- "growth_mb_per_day": 32.5,
- "_growth_note": "measured post-extraction (8/4 -> 8/6) on the real clone, packed bytes. The 7-day average is 65.6 MB/day but it includes the pre-extraction 38MB alpha versions, which delta-compressed unusually well and flatter the number. 32.5 is the honest current rate.",
+ "growth_mb_per_day": 27.1,
+ "_growth_note": "0.251 MB/commit at TODAY'S pace of ~108 commits/day. The 7-day fleet average of ~55 commits/day gives 13.8 MB/day and 305 days. THE FASTER, LESS FLATTERING NUMBER IS THE ONE IN THIS FIELD ON PURPOSE -- the runway should be stated at the fleet's busiest rate, not its calmest.",
  "drivers_mb_per_day": {
-  "slices/BOHEMIA_CITY_WORLD.html": 20.5,
-  "slices/BOHEMIA_RUN_CURRENT.html": 3.6,
-  "slices/BOHEMIA_ALPHA_0_9.html": 1.9
+  "slices/BOHEMIA_ALPHA_0_9.html": 0
  },
  "limits_mb": {
   "github_soft_warning": 1024,
@@ -21,6 +19,11 @@
  },
  "_limits_source": "docs.github.com repository-limits: per-file 100 MB hard; repository 1 GB recommended ceiling; under 5 GB strongly recommended, above which GitHub makes contact and can restrict the repository.",
  "_split_8_6": "THE ART BANK WAS SPLIT OUT OF THE WALKED WORLD on 8/6 (tools/bohemia_city_split_tile_bank.py). slices/BOHEMIA_CITY_WORLD.html went 28.2 MB -> 1.0 MB; its 27.1 MB of base64 art moved to slices/BOHEMIA_CITY_TILES.js, which changes rarely. The page is the file lanes rewrite daily, so the dominant 20.5 MB/day driver should collapse. THAT IS A PROJECTION, NOT A MEASUREMENT: growth_mb_per_day below is still the MEASURED 8/6 rate and stays that way until somebody re-clones and measures. The gate keeps using the measured number on purpose -- a projection that flatters the runway is exactly how a limit gets forgotten again.",
- "_projected_after_split_mb_per_day": 12.0,
- "_projected_note": "32.5 measured minus ~20.5 that the world page contributed. Confirm or refute with the refresh command in _how. If the next real measurement does NOT show the drop, the split did not do what it was meant to and the runway is still ~130 days."
+ "_projected_after_split_mb_per_day": null,
+ "_projected_note": "WITHDRAWN. It rested on the wrong 20.5 MB/day attribution. The split is still correct -- it cut the world page's per-commit cost and cost almost nothing to make, because git delta-compressed the new tiles file against the old page it came out of -- but the benefit is small, not the year of runway I claimed.",
+ "_CORRECTION_8_6": "THE 32.5 MB/day I PUBLISHED EARLIER TODAY WAS WRONG, and so was the 130-day runway built on it. It came from summing %(objectsize:disk) over a rev-list window -- the same method that had already given 90.5 MB/day over 3 days and 257.7 MB/day over 7, the latter larger than the entire repository. I noticed the contradiction, said so, and then used the method anyway for the per-path attribution. That is how the wrong number shipped.",
+ "_method": "THE ONLY TRUSTWORTHY METHOD IS DIFFERENTIAL: bare-clone the repo, wait, bare-clone again, subtract the two size-pack numbers, divide by commits in between. Everything else is an estimate of how git MIGHT pack, and git packs far better than a naive sum assumes (the world page's whole history is 219 MB raw and 22.7 MB packed, a 10x difference).",
+ "growth_mb_per_commit": 0.251,
+ "_growth_measurement": "two real bare clones 5.1 hours apart: 899.81 MiB -> 905.58 MiB = 5.77 MB over 23 commits = 0.251 MB/commit.",
+ "_drivers_corrected": "MEASURED BY PACKED SIZE ACROSS ALL HISTORY, which is the honest breakdown: slices/BOHEMIA_ALPHA_0_9.html 441.0 MB (49% OF THE WHOLE REPOSITORY, from 315 commits of a file that reached 38.7 MB), the four banks/BOHEMIA_HD_TILE_REPO_* 129.9 MB, slices/BOHEMIA_CITY_WORLD.html only 22.7 MB (2.5%), slices/BOHEMIA_RUN_CURRENT.html 17.6 MB. The world page was NEVER the top driver -- I said it was, and it was not. The alpha's already-written history is half the repo and cannot be reclaimed without a history rewrite, which is not survivable under six parallel lanes."
 }
