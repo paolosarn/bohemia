@@ -10,6 +10,40 @@ plays. This file is the scoreboard, and `gates/integration_gate.js` enforces it:
 Statuses: `INTEGRATED` (really in the run, probed) · `PARTIAL` (some of it, named)
 · `NOT YET` (honestly absent). No other value is legal.
 
+<!-- SURFACE-MEASURED: slices/BOHEMIA_RUN_CURRENT.html -->
+<!-- SURFACE-SHOWN: slices/BOHEMIA_CITY_WORLD.html -->
+
+> ## ⚠ WHAT THIS SCOREBOARD MEASURES, AND WHAT PAOLO SEES, ARE TWO DIFFERENT FILES
+>
+> **Every probe below reads `slices/BOHEMIA_RUN_CURRENT.html`. The RUN tab does not
+> display that file.** Since 7/28 the alpha routes RUN to the city panel — one line,
+> `var PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p;` — so tapping RUN shows
+> `slices/BOHEMIA_CITY_WORLD.html`. Measured on the real alpha 8/4: after tapping RUN
+> the only visible panel is `p-city` at 390x790; `runFrame` exists in the DOM with
+> `src="BOHEMIA_RUN_CURRENT.html"` and is never shown.
+>
+> **This does not mean the rows are lies.** They are true about the file they name.
+> It means *the greens below are not evidence about the surface he plays*, and no
+> reader can tell which ones are, because the scoreboard never said which door it was
+> looking at. Spot-checked 8/4 across 18 systems: most ARE on his surface — the CITY
+> lane ported rig, wardrobe, portraits, walk cycle, body sorting, agents, floorplans,
+> doors, save/load, the resolver, combat and music, each under its own spelling. At
+> least one (**clout / feed / followers**, marked INTEGRATED) has no trace in the city
+> frame at all. And `makeSim(` — the agent simulation — is **defined in the city frame
+> and called zero times**, so schedule-level and sim-level work lands only in the
+> invisible file.
+>
+> Fixing this is the RUN lane's call and it is not mechanical: either the ledger
+> re-points at the shown surface, or the run slice becomes the shown surface again.
+> Both are real decisions with real consequences. **What is NOT optional is that the
+> document says which door it is looking at**, which is what the two comment tags
+> above do and what `gates/surface_truth_gate.js` now enforces.
+>
+> *(Filed by the PEOPLE lane 8/4 after making this exact mistake twice in one day:
+> once on the identity card 8/2, once claiming a walk fix would show on his surface
+> when the sim that uses it never runs there. A check pointed at the wrong door is
+> this repo's most expensive recurring bug.)*
+
 | system | status | probe | note |
 |---|---|---|---|
 | character rig + painted regions | INTEGRATED | cast_bridge | the real baked body, 8 directions, from the RIG/CHARACTER tabs |

@@ -3841,6 +3841,51 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-P. [SHIPPED 8/4 - FLEET-CRITICAL, AND IT STARTS WITH A CORRECTION TO MY OWN
+   CLAIM AN HOUR EARLIER - records/BOHEMIA_A_CHECK_POINTED_AT_THE_WRONG_DOOR_8_4_26.md]
+   *** A CHECK POINTED AT THE WRONG DOOR. THREE TIMES IN ONE DAY, THE THIRD IN MY
+   OWN SHIPPED WORK. ***
+   THE CORRECTION FIRST. I shipped the head-on deadlock fix and told Paolo neighbours
+   in the RUN tab would "walk around each other instead of getting stuck standing in
+   place." MEASURED AFTERWARDS ON THE REAL ALPHA, THAT OVERSTATED IT:
+       slices/BOHEMIA_CITY_WORLD.html   function makeSim( : 1 definition, 0 CALL SITES
+   The walked surface draws people through the OFFLINE PLANE (ask the schedule where
+   somebody is this minute, draw them there) which is the documented two-plane design
+   and is correct. It does not step the sim. The fix is real and correct and live in
+   BOHEMIA_RUN_CURRENT.html, which DOES step it - and which the RUN tab never shows.
+   I should have measured before telling him what he would see.
+   *** THE FLEET-SCALE VERSION OF THE SAME BUG ***
+   records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md is the scoreboard - "THE RUN IS
+   THE GAME: 25/31 systems integrated" - and every probe in integration_gate.js reads
+   BOHEMIA_RUN_CURRENT.html. Since 7/28 the alpha routes RUN to the city panel:
+       var PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p;
+   MEASURED: tap RUN and the only visible panel is p-city at 390x790 running
+   BOHEMIA_CITY_WORLD.html; runFrame exists with src=BOHEMIA_RUN_CURRENT.html and is
+   never shown. THE ROWS ARE NOT WRONG - they are true about the file they name. What
+   is wrong is that THE GREENS ARE NOT EVIDENCE ABOUT THE SURFACE HE PLAYS and no
+   reader can tell which ones are.
+   I CHECKED BEFORE CLAIMING, AND MY FIRST PASS WAS WRONG: I searched the city for the
+   RUN SLICE'S function names and "found" five missing systems. FOUR WERE FALSE ALARMS
+   - doors, save/load, the resolver and combat are all there under their own spellings.
+   The CITY lane ported the great majority. What survived checking: CLOUT/FEED/FOLLOWERS
+   (marked INTEGRATED, no trace in the city under any spelling tried) and the agent sim.
+   BUILT: gates/surface_truth_gate.js, 16 claims, FIVE MUTATIONS KILLED. It does NOT
+   demand the two surfaces match - which file the run lives in is a real design call
+   and it is the RUN LANE'S, and a gate forcing it would be A GATE OUTRANKING A RULING.
+   It demands HONESTY: the ledger declares which file it probes and which the RUN tab
+   shows, both must be true, and a mismatch must be stated ABOVE the table where a
+   reader cannot reach the greens first. THE SHOWN SURFACE IS DERIVED FROM THE ALPHA'S
+   OWN ROUTING LINE, never typed, so it follows whoever re-points the tab.
+   AND IT CAUGHT ME WRITING A BAD CHECKER AGAIN: my first version grepped for the
+   phrase "rows are lies" to police tone and matched it inside my own sentence saying
+   the rows are NOT lies. A checker that cannot tell a mention from a use is the broken
+   one (Paolo 8/1). It now requires the warning to QUOTE the alpha's routing line
+   verbatim - checkable by a reader, and rots loudly instead of quietly.
+   | FOR THE RUN LANE, WHOSE CALL IT IS: either re-point the ledger at the city frame
+   and re-probe every row, or make the run slice the shown surface again. Both are real.
+   Not mechanical, not mine, not urgent - but DECIDED rather than drifted into.
+   | 8/4 | no - a gate and a correction, nothing to judge.
+
 P-O. [SHIPPED 8/4, AND IT CLOSES P-F BELOW - records/BOHEMIA_NOBODY_STANDS_IN_
    THE_STREET_ALL_DAY_8_4_26.md]
    *** FIVE OF THIS LANE'S GATES WERE DEAD, AND FIXING HOW THEY LOOK AT THE WORLD

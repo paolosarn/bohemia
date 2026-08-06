@@ -414,6 +414,12 @@ GATES = [
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],
      'the run IS the game we built: every system claimed integrated is machine-probed in the shipped run, no unproven claims', False),
+    ('SURFACE TRUTH',  ['node', 'gates/surface_truth_gate.js'],
+     'a document that measures the game must say WHICH DOOR it is looking at. The integration '
+     'ledger probes BOHEMIA_RUN_CURRENT.html; the RUN tab has shown the CITY frame since 7/28, '
+     'so its greens are true about a file Paolo never sees. The mismatch is legal and is the RUN '
+     "lane's call -- being quiet about it is not. Derives the shown surface from the alpha's own "
+     'routing line, so it follows whoever re-points the tab', False),
     ('THE RUN',        ['node', 'gates/run_gate.js'],
      'the first connected run plays end to end in a real browser: house -> block -> S01 -> combat handoff -> home -> feed post, loud fork and quiet fork, inside the real alpha', False),
     ('BANKS USED',     ['node', 'gates/banks_used_gate.js'],

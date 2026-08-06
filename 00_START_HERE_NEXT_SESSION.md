@@ -1,3 +1,56 @@
+PEOPLE (7h9sfy): 8/4 LATEST — *** A CHECK POINTED AT THE WRONG DOOR. THREE TIMES IN
+ONE DAY, AND THE THIRD ONE WAS MINE. EVERY LANE READ THIS. ***
+Record: records/BOHEMIA_A_CHECK_POINTED_AT_THE_WRONG_DOOR_8_4_26.md
+
+THE CORRECTION FIRST, BECAUSE IT IS MINE. I shipped the head-on deadlock fix and told
+Paolo neighbours in the RUN tab would "walk around each other instead of getting stuck
+standing in place." MEASURED AFTERWARDS ON THE REAL ALPHA, THAT OVERSTATED IT:
+    slices/BOHEMIA_CITY_WORLD.html   function makeSim( : 1 definition, 0 CALL SITES
+The walked surface draws people through the OFFLINE PLANE - ask the schedule where
+somebody is at this minute, draw them there - which is the documented two-plane design
+and is CORRECT. It does not step the sim. My fix is real and correct and live in
+BOHEMIA_RUN_CURRENT.html, which does step it, and which the RUN tab never shows. I
+should have measured before telling him what he would see.
+
+*** THE FLEET-SCALE VERSION OF THE SAME BUG, AND IT IS ON THE SCOREBOARD ***
+records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md says "THE RUN IS THE GAME: 25/31
+systems integrated". Every probe in integration_gate.js reads BOHEMIA_RUN_CURRENT.html.
+Since 7/28 the alpha routes RUN to the city panel, one line:
+    var PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p;
+MEASURED: tap RUN, the only visible panel is p-city at 390x790 running
+BOHEMIA_CITY_WORLD.html. runFrame exists with src=BOHEMIA_RUN_CURRENT.html and is
+NEVER SHOWN.
+THE ROWS ARE NOT WRONG. They are true about the file they name. What is wrong is that
+THE GREENS ARE NOT EVIDENCE ABOUT THE SURFACE HE PLAYS, and no reader can tell which
+ones are.
+I CHECKED BEFORE CLAIMING AND MY FIRST PASS WAS WRONG - worth knowing, because the
+same trap is waiting for the next person: I searched the city for the RUN SLICE'S
+function names and "found" five missing systems. FOUR WERE FALSE ALARMS. Doors,
+save/load, the resolver and combat are all there under their own spellings; the CITY
+lane ported the great majority of it. What survived checking: CLOUT / FEED / FOLLOWERS
+(marked INTEGRATED, no trace in the city under any spelling tried) and the agent sim.
+
+BUILT: gates/surface_truth_gate.js, 16 claims, FIVE MUTATIONS KILLED.
+It does NOT demand the two surfaces match. Which file the run lives in is a real design
+call with real consequences and IT IS THE RUN LANE'S - a gate forcing it would be A GATE
+OUTRANKING A RULING (Paolo 8/1). It demands HONESTY: the ledger declares which file it
+probes and which the RUN tab shows, both must be true, and a mismatch must be stated
+ABOVE the table where a reader cannot reach the greens first. THE SHOWN SURFACE IS
+DERIVED FROM THE ALPHA'S OWN ROUTING LINE, never typed, so it follows whoever re-points
+the tab and goes stale loudly the day it stops being true.
+
+=== FOR THE RUN LANE, WHOSE CALL THIS IS ===
+Either re-point the ledger at the city frame and re-probe every row against it, or make
+the run slice the shown surface again. Both are real, both cost. Not mechanical, not
+mine, NOT URGENT - but it should be DECIDED rather than drifted into, which is why it
+is now written where the scoreboard is read.
+
+STANDING LESSON, THIRD INSTANCE IN THREE DAYS: a check pointed at the wrong door NEVER
+ANNOUNCES ITSELF, because pointing at the wrong door produces confident GREEN, not red.
+Finding these one at a time has not worked. Before you believe a green, ask what FILE
+it read and whether that is the file he taps.
+
+-----------------------------------------------------------------------------------
 CITY (1eztay): 8/6 LATEST — *** THE REPOSITORY RUNS OUT BEFORE THE 11-MONTH PLAN
 DOES. READ THIS, EVERY LANE. IT CHANGES HOW ALL OF US SHIP. ***
 
