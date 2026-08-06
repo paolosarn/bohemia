@@ -1788,10 +1788,10 @@
   {
    "path": "engine/bohemia_utility.js",
    "kind": "engine",
-   "verdict": "NO TRACE",
+   "verdict": "LOADED ONLY",
    "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 0,
+   "hits_loaded": 32,
    "bytes": 66301
   },
   {

@@ -24,8 +24,8 @@ verbatim.
 |---|---|---|
 | SHOWN (all) | 2 | 48 |
 | SHOWN (part) | 13 | 23 |
-| LOADED ONLY | 12 | 9 |
-| NO TRACE | 69 | 16 |
+| LOADED ONLY | 12 | 10 |
+| NO TRACE | 69 | 15 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
 | **total** | **96** | **111** |
@@ -56,6 +56,7 @@ verbatim.
 | `banks/BOHEMIA_GRIME_8_3_26.txt` | bank | 0.11 |
 | `banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt` | bank | 0.10 |
 | `engine/bohemia_loop.js` | engine | 0.07 |
+| `engine/bohemia_utility.js` | engine | 0.07 |
 | `engine/bohemia_world.js` | engine | 0.06 |
 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | bank | 0.02 |
 | `engine/bohemia_resolve.js` | engine | 0.02 |
@@ -111,7 +112,6 @@ verbatim.
 | `banks/BOHEMIA_STANDING_SET_7_10_26.txt` | bank | 0.08 |
 | `banks/BOHEMIA_TRANSITION_SET_7_10_26.txt` | bank | 0.08 |
 | `banks/BOHEMIA_STALL_STRIPE_CANDIDATES_7_14_26.txt` | bank | 0.07 |
-| `engine/bohemia_utility.js` | engine | 0.07 |
 | `banks/BOHEMIA_ACT_TRIPTYCH_PROOF_7_26_26.txt` | bank | 0.05 |
 | `banks/BOHEMIA_TILECAT_BROWN_7_10_26.txt` | bank | 0.03 |
 | `banks/BOHEMIA_DEMO_VERDICTS_7_10_26.txt` | bank | 0.03 |
@@ -131,8 +131,9 @@ verbatim.
 | `engine/bohemia_light_registry.js` | engine | 0.01 |
 | `engine/bohemia_prop_scale.js` | engine | 0.01 |
 | `banks/BOHEMIA_HOUSE_02_ISO_7_29_26.txt` | bank | 0.01 |
+| `engine/bohemia_memory.js` | engine | 0.01 |
 
-*(25 more, see the .json)*
+*(24 more, see the .json)*
 
 ## REACHES HIM
 

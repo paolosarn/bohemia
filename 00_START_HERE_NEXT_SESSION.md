@@ -23,7 +23,7 @@ green. Nothing could answer the general question, so nobody asked it. Now someth
     engine/bohemia_loop.js                  the driven engine
     engine/bohemia_garage.js, _crypt.js     interiors
     banks/GRIME_8_3, OPENINGS_8_2, CIVIC_OPENINGS_8_3   approved art from the last 4 days
-*** THE NUMBER MOVES: it was 17 when written and 21 after merging the same
+*** THE NUMBER MOVES: it was 17 when written and 22 after merging the same
 day's other lanes. Nobody did anything wrong - new finished work keeps landing in the
 invisible file because NOTHING WAS WATCHING. Re-run the census for the live count. ***
 THIS IS NOT A FAILURE LIST, IT IS A WORK-ALREADY-PAID-FOR LIST, and at the start of an
