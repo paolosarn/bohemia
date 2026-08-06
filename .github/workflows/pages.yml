@@ -1,0 +1,78 @@
+# BOHEMIA — PAGES DEPLOY (8/6/26)
+#
+# THE DEADLOCK THIS EXISTS TO BREAK.
+# GitHub's built-in Pages builder CANCELS an in-flight build the moment another push
+# lands. Measured 8/6: FIVE consecutive builds cancelled, every one killed by the next
+# lane's push, because the lanes push to main roughly every THIRTEEN MINUTES and a build
+# takes longer than that. Start, killed, restart, killed — for over an hour, and NO BUILD
+# EVER REACHED THE FINISH LINE. The push worked every single time, which is exactly why
+# nobody could see it from inside their own lane.
+#
+# The 7/20 BUILD STAMP + DEPLOY VERIFY law names this ("parallel-session push storms make
+# GitHub Pages CANCEL in-flight builds") but writes it as a delay to wait out. At this
+# cadence it is not a delay, it is a standing deadlock: the site cannot update while every
+# lane is working, and every lane is always working.
+#
+# THE ONE LINE THAT FIXES IT is `cancel-in-progress: false` below. A second push QUEUES
+# behind the running deploy instead of killing it, so a build always finishes and the
+# newest one deploys after it. Nothing about how anybody pushes has to change — which
+# matters, because no lane can make the other lanes slow down.
+#
+# AND IT ONLY PUBLISHES WHAT IS SERVED. The built-in builder was copying the entire
+# repository and timing out at thirty minutes. This assembles a site from the three
+# folders a slice actually loads from — the same set `_config.yml` declares, and
+# `gates/pages_publish_gate.js` fails if the two ever disagree. NOTHING IS DELETED from
+# the repo; it is simply not copied into the published site.
+#
+# THE ONE-LINK LAW is unaffected: slices/ lands at the same path, so
+# https://paolosarn.github.io/bohemia/slices/BOHEMIA_ALPHA_0_9.html never changes.
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# THE DEADLOCK FIX. Queue, never cancel.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # PUBLISHED SET — kept in step with _config.yml's exclude list by the gate.
+      #   slices/          the product: the alpha and every tab it opens
+      #   engine/          four un-inlined dev slices load ../engine/*.js as script tags
+      #   records/target/  the ART tab loads its target screens from there
+      - name: assemble the published site
+        run: |
+          set -e
+          mkdir -p _site/records
+          cp -r slices _site/slices
+          cp -r engine _site/engine
+          cp -r records/target _site/records/target
+          touch _site/.nojekyll
+          echo "published $(du -sh _site | cut -f1) out of a $(du -sh --exclude=.git . | cut -f1) tree"
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

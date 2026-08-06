@@ -37,6 +37,8 @@
 # way this file can bite, so it is written down at the top of it.
 
 exclude:
+  - .claude/        # session config -- Jekyll drops dotfolders anyway, but the publish
+                    # gate reads THIS list as the source of truth, so it is named here
   - banks/          # 261 MB of art banks — read by the cook tools, never by a page
   - questbook/      # 8.5 MB of quest study corpus
   - archive/        # superseded files; history, never current

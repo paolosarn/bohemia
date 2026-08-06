@@ -107,6 +107,45 @@ ok('the published surface is under ' + CAP_MB + ' MB (measured ' + mb.toFixed(0)
 const LINK = 'slices/BOHEMIA_ALPHA_0_9.html';
 ok('the one canonical alpha is published', fs.existsSync(LINK) && !excluded(LINK));
 
+// ---- 5: THE DEPLOY WORKFLOW, and it must not become a second source of truth --------
+// Measured 8/6, AFTER the size fix landed: FIVE consecutive Pages builds cancelled, each
+// killed by the next lane's push, because the lanes push about every thirteen minutes and
+// a build takes longer than that. Shrinking the site cannot fix that on its own. The
+// built-in builder cancels in flight; a workflow we own can refuse to, and that single
+// line is the whole fix — so the gate checks the LINE, not the intention.
+const WF = '.github/workflows/pages.yml';
+ok('the deploy workflow exists (' + WF + ')', fs.existsSync(WF));
+if (fs.existsSync(WF)) {
+  const wf = fs.readFileSync(WF, 'utf8');
+  ok('the deploy QUEUES instead of cancelling (cancel-in-progress: false)',
+     /concurrency:[\s\S]{0,160}cancel-in-progress:\s*false/.test(wf));
+  ok('it deploys on a push to main', /branches:\s*\[main\]/.test(wf));
+  ok('it can be fired by hand when a lane needs the link now', /workflow_dispatch:/.test(wf));
+
+  // THE BINDING. _config.yml says what is published; the workflow COPIES what is published.
+  // Two hand-written lists of the same fact is the bug this repo keeps making (the tilespec
+  // list, the grid-dump list, the map-tab list — all of them went stale the same way). So:
+  // every top-level folder the config KEEPS must be copied, and the workflow must copy
+  // nothing the config excludes. Neither list can drift without this going red.
+  const TOP = fs.readdirSync('.', { withFileTypes: true })
+    .filter(e => e.isDirectory() && !['.git', '.github', 'node_modules', '_site'].includes(e.name))
+    .map(e => e.name);
+  const kept = TOP.filter(d => !excluded(d + '/') && !excluded(d));
+  const notCopied = kept.filter(d => !new RegExp('cp -r\\s+' + d + '(\\s|/)').test(wf));
+  ok('every folder _config.yml KEEPS is copied by the workflow' +
+     (notCopied.length ? ' — ' + notCopied.join(', ') : ''), notCopied.length === 0);
+
+  const copies = [...wf.matchAll(/cp -r\s+([A-Za-z0-9_/.-]+)\s/g)].map(m => m[1].replace(/\/$/, ''));
+  const contradicted = copies.filter(c => excluded(c) || excluded(c + '/'));
+  ok('the workflow copies nothing _config.yml EXCLUDES' +
+     (contradicted.length ? ' — ' + contradicted.join(', ') : ''), contradicted.length === 0);
+
+  // and the alpha has to land at the exact path the ONE-LINK LAW pins, or the link is dead
+  ok('the workflow lands slices/ where the one link points',
+     /cp -r\s+slices\s+_site\/slices/.test(wf));
+}
+
 console.log('PAGES PUBLISH GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
-            refs + ' outward refs · published surface ' + mb.toFixed(0) + ' MB / ' + CAP_MB + ' MB cap)');
+            refs + ' outward refs · published surface ' + mb.toFixed(0) + ' MB / ' + CAP_MB +
+            ' MB cap · the deploy queues, never cancels)');
 process.exit(fail ? 1 : 0);
