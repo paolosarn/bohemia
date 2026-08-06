@@ -261,6 +261,51 @@ function bfs(passable, from, to) {
   });
   ok('no prop made a walkable cell impassable (' + blocked + ')', blocked === 0);
 
+  /* ==== 8. EVERY BUILT DISTRICT, NOT JUST THE ONE I STOOD IN =============
+     The suburb is the only district a shot can reach (the run always opens at his
+     house and gotoCell moves the grids without bringing the renderer up), so this
+     asks the game's own propOutside() district by district instead. It is a DATA
+     check and it is labelled as one -- see the record for what is measured versus
+     what is actually seen.
+     IT ALSO HOLDS THE FOUR DELIBERATE BLANKS. crop rows, irrigation, rail track
+     and driveways are left bare ON PURPOSE: a crop is the farm's whole point, a
+     track has to read as a track, and a car has to get up a driveway. A later
+     session "fixing the gap" would be undoing a decision. */
+  const byDistrict = await p.evaluate(async () => {
+    const out = {};
+    for (let cx = 0; cx < 96; cx += 3) for (let cy = 0; cy < 96; cy += 3) {
+      try { window.__RUN.gotoCell(cx, cy); } catch (_e) { continue; }
+      if (typeof CELLNAME !== 'string' || out[CELLNAME] !== undefined) continue;
+      let n = 0, built = 0, never = 0;
+      const H = Math.min(SOLIDG.length, 80), W = Math.min(SOLIDG[0].length, 80);
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+        const nm = (NAMEG[y] && NAMEG[y][x]) || '';
+        if (nm && nm.indexOf('reserved') < 0) built++;
+        if (/crop|irrigation|rail track|driveway/.test(nm.toLowerCase())) {
+          never++;
+          if (propOutside(x, y)) n = -1e6;      /* poisons the count if ever dressed */
+        }
+        if (propOutside(x, y)) n++;
+      }
+      out[CELLNAME] = { props: n, built: built, never: never };
+    }
+    return out;
+  });
+  const districts = Object.keys(byDistrict);
+  const builtOnes = districts.filter(d => byDistrict[d].built > 200);
+  const dressed = builtOnes.filter(d => byDistrict[d].props > 0);
+  ok('the audit reached the districts (' + districts.length + ')', districts.length >= 20);
+  ok('EVERY BUILT district gets objects (' + dressed.length + '/' + builtOnes.length + ')',
+     builtOnes.length > 0 && dressed.length === builtOnes.length);
+  const poisoned = builtOnes.filter(d => byDistrict[d].props < 0);
+  ok('nothing was placed on a crop row, an irrigation line, a rail track or a driveway' +
+     (poisoned.length ? ' (' + poisoned.join(', ') + ')' : ''), poisoned.length === 0);
+  console.log('  built districts dressed: ' +
+    builtOnes.map(d => d + ':' + byDistrict[d].props).sort().join('  '));
+  const bare = districts.filter(d => byDistrict[d].built <= 200);
+  if (bare.length) console.log('  NOT BUILT AT ALL (world lane, not art): ' + bare.length +
+    ' district types are reserved-landmark ground -- ' + bare.slice(0, 8).join(', '));
+
   await b.close();
   ok('the run threw nothing with his objects in it' +
      (errs.length ? ' (' + errs.slice(0, 2).join(' | ') + ')' : ''), errs.length === 0);

@@ -518,6 +518,33 @@ Also fixed two of other lanes' new laws that were genuinely mine: TASTE (every
 standing factory documents a TASTE CHECK) and BANK LAW (a new bank must reach
 records/BOHEMIA_BANK_LAW_INDEX.md the same turn).
 
+=== 8/5 SECOND PASS: THE WHOLE BUILT VALLEY (he said "honestly im lazy today") ===
+The top of the queue was a JUDGE BATCH, which is the wrong thing to hand a man who
+does not want to work. Reordered to the biggest thing needing NOTHING from him.
+I said "the valley" yesterday and had dressed ONE district. Measured, then fixed:
+  downtown 620->663 · stadium 295->553 · farm 100->496 · warehouse 408->459
+  solar 55->421 · railyard 100->404 · suburb 529 · gated 513
+14,500 bare cells were under names nobody had mapped (field soil 3,848, gravel
+access road 3,363, ballast 2,740, dead field turf 1,613, concourse 537). Read out
+of the RUNNING WORLD, never invented -- the third time that method saved this.
+FOUR SURFACES LEFT BARE ON PURPOSE, and the gate POISONS ITS OWN COUNT if a later
+session dresses them: crop rows + irrigation (the crop IS the farm's content), rail
+track (must read as a track), driveway (a car has to get up it).
+
+*** 21 OF 29 DISTRICT TYPES ARE NOT BUILT AT ALL -- WORLD LANE, READ THIS ***
+mountain, freeway, airbase, arterial, desert, water, dam, town, speedway, casino,
+pumpstation, campus, resort, airport, convention, interchange, rail, datafort,
+ballpark, prison, reservoir = 6,400 cells of "reserved landmark ground" each and
+NOTHING ELSE. No surfaces, so they can never be dressed, textured or lit by any
+lane. Filed not fixed (MAP LAW: Claude never designs layouts).
+
+*** SEEN vs MEASURED, stated because the difference matters ***
+SEEN with my own eyes: the SUBURB only. MEASURED but never rendered: the other
+seven built districts -- the run always opens at his house and gotoCell moves the
+grids without bringing the renderer up, so no screenshot can reach them. Mechanism
+is identical and the names came from the live world, so the risk is AESTHETIC, not
+mechanical. Somebody should LOOK at a railyard before calling it finished.
+
 === NOT DONE / THE QUEUE, IN ORDER ===
 1. *** 6,070 OF HIS TILES WERE NEVER SWEPT. *** The Great Sweep covered 2,604 of
    8,674. That is a JUDGE BATCH, not a cook, and it is the cheapest art in this

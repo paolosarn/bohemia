@@ -19997,20 +19997,40 @@ var PROP_BY_SURFACE = {
   waste: ['dead','trash'],                 /* the desert taking a lot back, and what blew into it */
   lot:   ['wreck','barrier','camp','crate'] /* an open lot is where people and their goods end up */
 };
-/* THE NAMES ARE THE WORLD'S OWN, SAMPLED, NOT GUESSED. Two cuts of this matched
-   nothing because I invented the vocabulary twice: first prefixes like 'yard_0'
-   (those are TILE IDS, a different namespace) and then 'yard' as a prefix, when
-   the dossier actually calls it "dead-ground (yard)". Read across eight districts
-   before writing this list. An unlisted surface gets NOTHING -- silence, never a
-   guess -- which is why the driveway is absent on purpose: a car has to get up it.
-   'reserved landmark ground' is absent for the same reason: it is reserved. */
+/* THE NAMES ARE THE WORLD'S OWN, SAMPLED, NOT GUESSED. Three cuts of this matched
+   nothing or the wrong thing because I invented the vocabulary from my own head:
+   first tile ids ('yard_0'), then a prefix ('yard'), when the dossier calls that
+   ground "dead-ground (yard)". Every name below was READ OUT OF THE RUNNING WORLD
+   across every district that exists, then mapped. An unlisted surface gets NOTHING
+   -- silence, never a guess.
+
+   AND FOUR SURFACES ARE LEFT BARE ON PURPOSE, which is a design decision and not
+   an oversight:
+     crop rows / irrigation -- the farm's whole purpose. Scattering rocks through a
+       crop is not dressing a field, it is ruining one. WALKABLE-LAND says
+       purposeful content dominates; the crop IS the content.
+     rail track  -- a track has to read as a track.
+     driveway    -- a car has to get up it. (Same reason the 7/19 access law gives.)
+   =========================================================================== */
 function propSurface(gx,gy){
   var n=(NAMEG[gy]&&NAMEG[gy][gx]||'').toLowerCase();
   if(!n) return null;
-  if(n==='road'||n.indexOf('alley')>=0) return 'road';
-  if(n.indexOf('sidewalk')>=0||n.indexOf('walk')>=0||n.indexOf('setback')>=0) return 'walk';
-  if(n.indexOf('dead-ground')>=0||n.indexOf('vacant')>=0||n.indexOf('landscape island')>=0) return 'waste';
-  if(n.indexOf('lot')>=0||n.indexOf('parking')>=0||n.indexOf('forecourt')>=0) return 'lot';
+  /* NEVER: these have a job, and an object standing on them breaks it */
+  if(n.indexOf('crop')>=0||n.indexOf('irrigation')>=0||n.indexOf('rail track')>=0
+     ||n.indexOf('driveway')>=0||n.indexOf('reserved')>=0) return null;
+  /* the roads of every kind, including the ones outside town */
+  if(n==='road'||n.indexOf('alley')>=0||n.indexOf('street / drive')>=0
+     ||n.indexOf('gravel access')>=0) return 'road';
+  /* anywhere a person walks */
+  if(n.indexOf('sidewalk')>=0||n.indexOf('walk')>=0||n.indexOf('setback')>=0
+     ||n.indexOf('concourse')>=0) return 'walk';
+  /* ground the desert is taking back: yards, vacant parcels, dead fields */
+  if(n.indexOf('dead-ground')>=0||n.indexOf('vacant')>=0||n.indexOf('landscape island')>=0
+     ||n.indexOf('field soil')>=0||n.indexOf('dead field turf')>=0
+     ||n.indexOf('dead weeds')>=0||n.indexOf('weed / brush')>=0) return 'waste';
+  /* open hardstanding: lots, aprons, yards of gravel and ballast */
+  if(n.indexOf('lot')>=0||n.indexOf('parking')>=0||n.indexOf('forecourt')>=0
+     ||n.indexOf('ballast')>=0||n.indexOf('stall marking')>=0) return 'lot';
   return null;
 }
 function propOutside(gx,gy){

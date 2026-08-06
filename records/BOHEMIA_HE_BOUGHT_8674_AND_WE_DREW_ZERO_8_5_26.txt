@@ -140,3 +140,61 @@ WHAT COMES AFTER, IN ORDER
    system to pick them up.
 4. Civic masses still have no CORNERS and no ENDS -- a warehouse reads flat from
    the side.
+
+============================================================================
+8/5 SECOND PASS -- THE WHOLE BUILT VALLEY, AND THE 21 DISTRICTS THAT DO NOT
+EXIST YET
+
+He said "honestly im lazy today". The top of my own queue was a JUDGE BATCH
+(6,070 of his tiles were never swept), which is exactly the wrong thing to hand
+a man who does not want to work. So the queue got reordered to the biggest thing
+that needs NOTHING from him: the other district types.
+
+MEASURED FIRST, BEFORE BELIEVING ANYTHING. I dressed the suburb yesterday and
+said "the valley". That was not true. Driving the run into a cell of every
+district type and asking the game's own propOutside():
+
+                    BEFORE   AFTER
+  downtown            620  ->  663
+  stadium             295  ->  553
+  suburb              529  ->  529
+  gated               513  ->  513
+  farm                100  ->  496
+  warehouse           408  ->  459
+  solar                55  ->  421
+  railyard            100  ->  404
+
+The gain came from surfaces the map did not recognise, and I got them the only
+way that has worked all week: BY READING THEM OUT OF THE RUNNING WORLD instead of
+inventing them. 14,500 bare walkable cells were sitting under names nobody had
+mapped -- field soil (3,848), gravel access road (3,363), ballast/gravel (2,740),
+dead field turf (1,613), concourse (537), street/drive (531).
+
+FOUR SURFACES ARE LEFT BARE ON PURPOSE, and this is a decision, not a gap:
+  crop rows (1,065) and irrigation (414) -- the farm's whole purpose. Scattering
+    rocks through a crop is not dressing a field, it is ruining one. WALKABLE-LAND
+    says purposeful content dominates; the crop IS the content.
+  rail track (222) -- a track has to read as a track.
+  driveway (260) -- a car has to get up it, per the 7/19 access law.
+The gate now POISONS ITS OWN COUNT if anything is ever placed on one of those, so
+a later session cannot "fix the gap" and quietly undo the decision.
+
+*** 21 OF 29 DISTRICT TYPES ARE NOT BUILT AT ALL. *** This is the biggest thing
+this pass found and it is NOT AN ART PROBLEM. mountain, freeway, airbase,
+arterial, desert, water, dam, town, speedway, casino, pumpstation, campus, resort,
+airport, convention, interchange, rail, datafort, ballpark, prison, reservoir --
+every one of them is 6,400 cells of "reserved landmark ground" and nothing else.
+They have no surfaces, so they can never be dressed, textured or lit by anyone.
+WORLD LANE. Filed, not fixed, because MAP LAW says Claude never designs layouts.
+
+WHAT IS MEASURED VERSUS WHAT IS ACTUALLY SEEN -- stated plainly because the
+difference matters:
+  SEEN, on the real surface, with my own eyes: the SUBURB. Three cuts, and each
+    one was caught by looking rather than by a number.
+  MEASURED ONLY: the other seven built districts. The run always opens at his
+    house and gotoCell moves the grids without bringing the renderer up, so no
+    screenshot can reach them. The mechanism is identical everywhere and the
+    surface names were read from the live world, so the risk is AESTHETIC (does a
+    wreck sit right on rail ballast) and not mechanical. I have not seen it. That
+    is a real limit and it is the honest thing to write down rather than to imply
+    a render I never took.

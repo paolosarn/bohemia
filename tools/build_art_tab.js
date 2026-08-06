@@ -79,7 +79,8 @@ const CARDS = [
          'it looked empty, and it was never about texture. Your own thumbs picked ' +
          'this vocabulary: rocks 100 up and 0 down, dead trees 47 up, LIVING trees ' +
          '0 up and 23 down. It is a dead valley because you said so.',
-    num: '126 objects you already approved, outdoors for the first time'
+    num: '126 objects you already approved · every built district now dressed: ' +
+         'downtown 663 · stadium 553 · suburb 529 · gated 513 · farm 496 · warehouse 459 · railyard 404 · solar 421'
   },
   {
     id: 'grime',
