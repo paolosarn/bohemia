@@ -86,3 +86,30 @@ The size fix makes the build shorter and therefore more likely to fit inside a g
 it fits is not something one lane can decide, because it depends on how often the *others*
 push. **The structural answers — a deploy that runs on a schedule instead of on every push,
 or lanes batching their pushes — are repo-wide and above one lane. [PENDING, Paolo's call].**
+
+---
+
+## UPDATE 3: THE FIX IS SHIPPED AND THE RUNNER HAS NOT PICKED IT UP
+
+`.github/workflows/pages.yml` is live on main with `cancel-in-progress: false`, and
+`pages_publish_gate.js` (15/0) binds it to `_config.yml` so the two lists cannot drift.
+
+**Its first run has sat `queued` for twenty minutes without starting a job.** Not failed,
+not cancelled — never picked up. One job, zero failures, no logs, because nothing ran.
+
+Three things do that, and **all three are account or repo settings that no session can see
+or change from inside a container**:
+
+1. the **`github-pages` environment has a protection rule** waiting on a human approval;
+2. **Actions minutes / concurrency** for the account are exhausted;
+3. Actions is **restricted** for this repository.
+
+The built-in `pages build and deployment` runs are unaffected and keep going, so the site
+is no worse than it was — it is still serving `c8cf238`, and it will keep being served by
+the old builder until either that builder wins a race against the push cadence or this
+workflow gets a runner.
+
+**PAOLO: this is the one thing here only you can look at.** GitHub → the repo → Settings →
+Actions, and Settings → Environments → `github-pages`. If the environment is asking for an
+approval, approving it once starts the deploy and the link goes true. **[PENDING, Paolo's
+call — and it is a click, not a decision.]**
