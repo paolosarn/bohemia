@@ -1,3 +1,65 @@
+*** FLEET-WIDE, READ BEFORE YOU PUSH ANYTHING: THE DEPLOY IS WEDGED (8/6) ***
+records/BOHEMIA_THE_DEPLOY_IS_WEDGED_AND_ONE_RUN_IS_MINE_8_6_26.md
+Nothing has published to the live site since ~14:00. The BUILD succeeds every
+time; GitHub's Pages DEPLOYMENT service sits in `deployment_in_progress` until the
+action gives up ("Timeout reached, aborting!"). Verified on two different lanes'
+commits, so it is not any one session's content.
+AND THERE IS EXACTLY ONE WEDGED RUN, WHICH IS MINE: run 31109048696 (sha
+75ae0248) has been `queued` for five and a half hours. It is the re-run I
+triggered after the first timeout. The API refuses to cancel it -- 409 "Cannot
+cancel a workflow re-run that has not yet queued" -- every single time.
+  THE ONE CLICK THAT CLEARS IT, AND ONLY PAOLO CAN DO IT:
+  https://github.com/paolosarn/bohemia/actions/runs/31109048696  -> Cancel
+  It unblocks EVERY lane. Fallback: Settings -> Pages, re-save the source.
+THREE THINGS NO LANE SHOULD DO:
+  1. DO NOT PUSH HARDER TO FORCE A DEPLOY. Every push cancels the run in flight,
+     so a push storm is indistinguishable from the outage and makes it worse.
+  2. DO NOT RE-RUN A FAILED PAGES JOB. That is what wedged this one. Wait for the
+     next real commit to carry the content -- any later commit on main already
+     contains the earlier work.
+  3. DO NOT ADD .github/workflows/pages.yml TO FIX IT. The canonical answer
+     (concurrency group pages, cancel-in-progress:false, so deploys QUEUE) is the
+     right shape for a fleet this size, but it needs the repo's Pages source
+     switched from "Deploy from a branch" to "GitHub Actions" in Settings, which
+     no session can set. Shipping it without that turns an intermittent outage
+     into a permanent one. RIGHT FIX, PAOLO-GATED.
+AND STOP TELLING HIM TO WAIT FOR A BUILD NUMBER. The stamp is ONE shared field
+that every lane overwrites -- I said "wait for 8/4d" twice while main already read
+8/4h from another session. Tell him WHAT TO LOOK AT ("your face is in the fire
+button with green fluid in it"), which no other lane's commit can invalidate.
+
+COMBAT (combat-nfnki9): 8/6 -- THE MISS IS FINISHED, AND YOUR FACE IS YOUR HP BAR.
+All on main, all gate-green (694 checks), NONE of it seen by him yet because of
+the deploy above.
+  v125-v128 THE MISSED ROUND. It never existed -- 42 juice items, 37 on, ZERO
+    firing on a miss, and no bullet was ever created. Now it flies down THE
+    NEEDLE'S OWN BEARING (tgt.ea + G.angle, which is literally what the dial
+    draws), so it cannot disagree with what he saw. Range scaling is free arc
+    length. It sparks off cars, chips stone, kicks dust.
+    v126: the camera used to cut away ON THE EXACT FRAME it landed (volley at
+    170ms, round life 170ms) -- the whole effect played offscreen. The miss now
+    holds one beat.
+    v127: and the camera HOLDS while it flies. The dial is the field zoomed 3.6x,
+    so three easings were dragging the round across the screen as it travelled.
+  v129 YOUR FACE IS YOUR HEALTH BAR + THE STAMINA ORB. The fire button was
+    already a face in a circle under his thumb -- that IS the Diablo globe he
+    asked for. Ten damage tiers (his number) with Doom hysteresis, the face leans
+    toward whoever shot you (free: the field is polar), stamina is fluid in the
+    same button, STA pips off the top row.
+    *** JUICE.AU HAD BEEN KILLED AT v36 *** and was the ONE item of 42 switched
+    off. He asked for it back in his own words on 8/3, so it is REVIVED BY HIM,
+    registered as the first REVIVED entry in gates/bohemia_graveyard.txt. What he
+    asked for (ten states) is not the dead thing (three).
+    NOT ONE PIXEL OF HIS FACE IS REDRAWN -- it composites his two approved
+    portraits. TEN REAL PAINTED DAMAGE FACES IS AN ART REQUEST AND HIS CALL.
+  v130 THE MISS STOP (1/32, 62.5ms, the shortest legal note; the freeze table
+    already allowed 32 and nothing used it) with the shake pointing along YOUR
+    BARREL instead of into your body, plus the gun climbing in proportion to how
+    badly you pulled it.
+  DELIBERATELY NOT BUILT: research proposal #4, misses permanently chipping the
+  world. That is an idea about the ARENA, not the shot, and deserves its own
+  verdict.
+
 CITY (1eztay): 8/6 (b) LATEST — THE ART BANK LEFT THE WALKED WORLD.
 28.2 MB -> 1.0 MB, AND NO LANE CHANGES ANYTHING.
 
