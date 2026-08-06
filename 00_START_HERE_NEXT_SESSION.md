@@ -1,3 +1,39 @@
+SOUND (sound-xk7pjp): 8/4 (k) LATEST - SEVEN OF HIS SONGS COULD NEVER PLAY,
+INCLUDING THE ONE HE SAID HE LOVES. Tab: RUN (music on, walk through a day).
+
+CITYMUS.phase shipped HARDCODED to 'NIGHT', with a comment saying outright:
+"the valley is night until a world clock lands (LIFE session territory);
+whoever builds the clock sets CITYMUS.phase". The clock landed. Nobody set it.
+
+MEASURED BEFORE TOUCHING ANYTHING:
+  pool at the shipped phase ....... 10 songs, all OVERWORLD NIGHT
+  songs he tagged DAY ............. PALE RIDER, PYREFLIES RISE, RATTLESNAKE,
+                                    TAPS FOR THE VALLEY, THE MARKER ON THE DOOR
+  songs he tagged DUSK/DAWN ....... THE WIND LEARNS WORDS, TWO COINS FOR THE FERRYMAN
+  in the pool ..................... NONE OF THEM
+  THE MARKER ON THE DOOR in 200 draws ... ZERO
+That is the one song in this entire project he has ever said he likes ("now one
+of my new favorite songs that you've made great job"), tagged OVERWORLD DAY by
+his own hand, unplayable in the run since the day he tagged it.
+APPROVED-BUT-UNUSED IS A DEFECT - the law this lane already had, sitting in the
+MUSIC instead of the sound effects, where nobody had thought to look.
+
+THE FIX NEEDED NO RULING. The run already posts the world MINUTE to the SFX
+handler every four seconds and that handler already uses it to pick the ambience
+bed. The same number now sets the phase.
+  NIGHT 19:00-06:00 | DAWN 06:00-08:00 | DAY 08:00-17:00 | DUSK 17:00-19:00
+THE WINDOWS NEST INSIDE THE AMBIENCE SPLIT ON PURPOSE (night before 06:00 and
+from 19:00), so the bed and the music can never disagree about whether it is
+dark. One clock, one opinion.
+IT NEVER CUTS A SONG: only the phase moves, and CITYMUS picks again at the end
+of its 64-bar pass, so the change lands on a musical boundary.
+
+GATE: four phases driven through the REAL BOHEMIA_WHERE message, plus - and this
+is the one that matters - the DAY and NIGHT POOLS MUST DIFFER, because a phase
+label that moves while the pool does not would pass everything else and change
+nothing he can hear. Plus: THE MARKER ON THE DOOR must be in the day pool and
+must NOT be in the night pool.
+
 LAB (lab-e2r7sv): 8/5 (a) LATEST -- *** THE MACHINE I PROMISED YESTERDAY CANNOT BE BUILT.
 HERE IS THE PROOF, AND THE THING THAT WORKS INSTEAD. *** Nothing to judge.
 

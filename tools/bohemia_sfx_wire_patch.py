@@ -249,11 +249,50 @@ def parent_block(bank):
          this document, so the run tells us one happened and we take the chance
          to start the audio while the browser may still count it as gestured. */
       if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
-      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d); return; }
+      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d); musicPhase(d); return; }
       if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
       if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
     }catch(e){}
   });
+
+  /* === THE CLOCK FINALLY REACHES THE MUSIC (8/4) ========================
+     CITYMUS.phase shipped hardcoded to 'NIGHT', with a comment that said
+     outright: "the valley is night until a world clock lands; whoever builds
+     the clock sets CITYMUS.phase". The clock landed. Nobody set it.
+     MEASURED before touching anything, because a claim like this has to be a
+     number: at the shipped phase the overworld pool is 10 songs, and the SEVEN
+     songs Paolo tagged OVERWORLD DAY or OVERWORLD DUSK/DAWN are in none of
+     them. Over 200 draws, THE MARKER ON THE DOOR came up ZERO times -- the one
+     song in this entire project he has ever said he likes ("now one of my new
+     favorite songs that you've made"), tagged OVERWORLD DAY by his own hand,
+     unplayable in the run since the day he tagged it.
+     That is APPROVED-BUT-UNUSED, the defect this lane already has a law about,
+     sitting in the music instead of the sound effects.
+     THE FIX NEEDS NO RULING: the run already posts the world MINUTE here every
+     four seconds, and this handler already uses it to choose the ambience bed.
+     The same number now chooses the pool.
+     THE WINDOWS NEST INSIDE THE AMBIENCE SPLIT ON PURPOSE. The bed calls night
+     before 06:00 and from 19:00; DAWN and DUSK sit strictly inside the daylit
+     side of that line, so the two systems can never disagree about whether it
+     is dark. One clock, one opinion.
+     IT NEVER CUTS A SONG. Only the phase moves; CITYMUS picks again at the end
+     of its 64-bar pass, so the change arrives on a musical boundary instead of
+     as a jump-cut. */
+  var LASTPHASE=null;
+  function musicPhase(d){
+    try{
+      if(typeof CITYMUS==='undefined'||!CITYMUS) return;
+      var m=+d.min; if(!isFinite(m)) return;
+      var ph = (m<6*60||m>=19*60) ? 'NIGHT'
+             : (m<8*60)           ? 'DAWN'
+             : (m<17*60)          ? 'DAY'
+                                  : 'DUSK';
+      if(ph===LASTPHASE) return;
+      LASTPHASE=ph;
+      CITYMUS.phase=ph;
+    }catch(e){}
+  }
+  window.__musicPhase=function(){ return (typeof CITYMUS!=='undefined'&&CITYMUS)?CITYMUS.phase:null; };
 
   /* === SOMEBODY ELSE'S FOOTSTEP, PLACED IN SPACE (8/2) ==================
      THE DISTANCE MODEL IS THE RESEARCHED ONE, not a guess: a point source
@@ -673,6 +712,24 @@ def main():
             or "sfx('phone_buzz')" not in built or "sfx('eat')" not in built):
         print('FAIL: the rebuilt run does not carry the wire')
         return 1
+
+    # RE-APPLY THE TOOLS THAT LIVE INSIDE THE BLOCK THIS TOOL OWNS.
+    # THIS IS NOT A CONVENIENCE, IT IS A CORRECTNESS FIX. The parent wire is
+    # removed and re-injected wholesale on every run, and
+    # bohemia_sfx_space_patch.py edits playSFX *inside* it. So running this tool
+    # silently DELETED the acoustic spaces -- no error, no obvious diff, the same
+    # two-tools-one-seam defect that duplicated two songs earlier today. The gate
+    # caught it, which is the only reason it is not still deleted.
+    # Ordering must be ENFORCED, never remembered: whoever owns the seam re-runs
+    # whatever lives inside it.
+    for dep in ('tools/bohemia_sfx_space_patch.py',):
+        if os.path.exists(dep):
+            rr = subprocess.run(['python3', dep], capture_output=True, text=True)
+            if rr.returncode != 0:
+                print('FAIL: %s could not re-apply after the wire:' % dep)
+                print((rr.stdout + rr.stderr)[-500:])
+                return 1
+            print('  re-applied %s (it lives inside the block this tool owns)' % dep)
 
     print('THE APPROVED SOUNDS PLAY NOW.')
     print('  %d approved sounds across %d events, from his 7/30 thumbs' % (n, len(bank)))

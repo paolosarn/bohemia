@@ -463,6 +463,31 @@ const METER=`(function(){
   out.energyOpen = await energyIn('OPEN');
   out.energyHall = await energyIn('HALL');
 
+
+  /* ===== THE CLOCK REACHES THE MUSIC (8/4) ===============================
+     CITYMUS.phase shipped hardcoded to 'NIGHT' with a comment inviting whoever
+     built the world clock to set it. The clock landed and nobody did, so the
+     SEVEN songs Paolo tagged OVERWORLD DAY or DUSK/DAWN could never play --
+     including THE MARKER ON THE DOOR, the only song he has ever said he likes,
+     tagged OVERWORLD DAY by his own hand. Driven through the REAL message the
+     run posts, not by setting the phase directly. */
+  await p.evaluate(()=>{ try{ MUS.build(); }catch(e){} });
+  async function poolAt(min){
+    await p.evaluate(m=>{ window.postMessage({type:'BOHEMIA_WHERE',inside:false,
+      night:(m<360||m>=1140), min:m, space:'STREET'},'*'); }, min);
+    await p.waitForTimeout(320);
+    return await p.evaluate(()=>{
+      try{
+        const nameOf=c=>(c.fi<MFACTIONS.length)?MFACTIONS[c.fi].n:MLOOPS[c.fi-MFACTIONS.length].n;
+        return { phase: window.__musicPhase(), pool: CITYMUS.candidates().map(nameOf) };
+      }catch(e){ return {phase:null,pool:[]}; }
+    });
+  }
+  out.phaseNight = await poolAt(180);
+  out.phaseDawn  = await poolAt(420);
+  out.phaseDay   = await poolAt(720);
+  out.phaseDusk  = await poolAt(1080);
+
   console.log(JSON.stringify(out));
   await b.close();
 })();
@@ -1070,6 +1095,33 @@ def main():
     chk("space:space" in run,
         'the run never says which space the player is standing in, so the parent '
         'is guessing')
+
+    # ---- THE CLOCK REACHES THE MUSIC (8/4) -----------------------------
+    # Measured before it was fixed: at the shipped phase the overworld pool was
+    # 10 songs and the seven he tagged DAY or DUSK/DAWN were in none of them.
+    # THE MARKER ON THE DOOR came up ZERO times in 200 draws -- the one song in
+    # this project he has ever said he likes, tagged OVERWORLD DAY by his own
+    # hand, unplayable in the run since the day he tagged it. That is
+    # APPROVED-BUT-UNUSED sitting in the music instead of the sound effects.
+    ph = {k: (d.get('phase' + k) or {}) for k in ('Night', 'Dawn', 'Day', 'Dusk')}
+    chk(ph['Night'].get('phase') == 'NIGHT', '03:00 is not NIGHT (%s)' % ph['Night'].get('phase'))
+    chk(ph['Dawn'].get('phase') == 'DAWN', '07:00 is not DAWN (%s)' % ph['Dawn'].get('phase'))
+    chk(ph['Day'].get('phase') == 'DAY', '12:00 is not DAY (%s)' % ph['Day'].get('phase'))
+    chk(ph['Dusk'].get('phase') == 'DUSK', '18:00 is not DUSK (%s)' % ph['Dusk'].get('phase'))
+    # THE POOL MUST ACTUALLY CHANGE. A phase string that moves while the pool
+    # does not would pass every check above and change nothing he can hear.
+    pd, pn = set(ph['Day'].get('pool') or []), set(ph['Night'].get('pool') or [])
+    chk(pd and pn and pd != pn,
+        'the DAY and NIGHT pools are identical (%d songs), so the clock moves a '
+        'label and nothing else' % len(pd))
+    # AND THE SONG HE ACTUALLY LIKES HAS TO BE REACHABLE.
+    chk('THE MARKER ON THE DOOR' in pd,
+        'THE MARKER ON THE DOOR is still not in the daytime pool. He tagged it '
+        'OVERWORLD DAY and called it one of his favourite songs; if it cannot '
+        'play, his ruling did not reach the game.')
+    chk('THE MARKER ON THE DOOR' not in pn,
+        'a song he tagged OVERWORLD DAY is in the NIGHT pool, so the categories '
+        'are not being honoured at all')
 
     print('  %d passed, %d FAILED' % (P, F))
     if not F:

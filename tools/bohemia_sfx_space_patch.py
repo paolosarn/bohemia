@@ -136,10 +136,15 @@ P_NEW = """  /* === THE ROOM TAKES THE SOUND (8/4) =============================
       var v=vec(ev,i); if(!v)return null;
       v=inSpace(v);"""
 
-W_OLD = "      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d); return; }"
-W_NEW = ("      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d);\n"
-         "        if(d.space && SPACES[d.space]) SPACE=d.space;   /* the run says where you stand */\n"
-         "        return; }")
+# ANCHOR ON THE ONE CALL THAT IS ALWAYS THERE, not on the whole line.
+# The whole-line anchor broke the moment another feature (the world clock ->
+# music phase wire) added a second call to the same handler: the line no longer
+# matched byte for byte and this tool died with "cannot find the WHERE
+# receiver". An anchor that only recognises the shape it was born with is a
+# tool that breaks every time somebody else touches the same line.
+W_ANCHOR = "AMB.where(d);"
+W_ADD = ("\n        if(d.space && SPACES[d.space]) SPACE=d.space;"
+         "   /* the run says where you stand */")
 
 R_OLD = """      window.parent.postMessage({type:'BOHEMIA_WHERE',
         inside:(mode!=='ext'), night:night, min:min},'*');"""
@@ -183,12 +188,12 @@ def main():
             return 1
         alpha = alpha.replace(P_OLD, P_NEW, 1)
         print('  playSFX now plays into the space you are standing in')
-    if W_OLD in alpha:
-        alpha = alpha.replace(W_OLD, W_NEW, 1)
+    if "if(d.space && SPACES[d.space])" not in alpha:
+        if W_ANCHOR not in alpha:
+            print('FAIL: cannot find the WHERE receiver')
+            return 1
+        alpha = alpha.replace(W_ANCHOR, W_ANCHOR + W_ADD, 1)
         print('  the parent listens for the space')
-    elif "if(d.space && SPACES[d.space])" not in alpha:
-        print('FAIL: cannot find the WHERE receiver')
-        return 1
     open(ALPHA, 'w', encoding='utf8').write(alpha)
 
     run = open(RUN, encoding='utf8').read()

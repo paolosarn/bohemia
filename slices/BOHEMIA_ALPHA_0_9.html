@@ -963,7 +963,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/6e - YOUR SAVE SURVIVES A WEEK OFF</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/4k - THE VALLEY FINALLY PLAYS ITS DAYTIME SONGS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13824,12 +13824,50 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
          to start the audio while the browser may still count it as gestured. */
       if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
       if(d.type==='BOHEMIA_WHERE'){ AMB.where(d);
-        if(d.space && SPACES[d.space]) SPACE=d.space;   /* the run says where you stand */
-        return; }
+        if(d.space && SPACES[d.space]) SPACE=d.space;   /* the run says where you stand */ musicPhase(d); return; }
       if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
       if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
     }catch(e){}
   });
+
+  /* === THE CLOCK FINALLY REACHES THE MUSIC (8/4) ========================
+     CITYMUS.phase shipped hardcoded to 'NIGHT', with a comment that said
+     outright: "the valley is night until a world clock lands; whoever builds
+     the clock sets CITYMUS.phase". The clock landed. Nobody set it.
+     MEASURED before touching anything, because a claim like this has to be a
+     number: at the shipped phase the overworld pool is 10 songs, and the SEVEN
+     songs Paolo tagged OVERWORLD DAY or OVERWORLD DUSK/DAWN are in none of
+     them. Over 200 draws, THE MARKER ON THE DOOR came up ZERO times -- the one
+     song in this entire project he has ever said he likes ("now one of my new
+     favorite songs that you've made"), tagged OVERWORLD DAY by his own hand,
+     unplayable in the run since the day he tagged it.
+     That is APPROVED-BUT-UNUSED, the defect this lane already has a law about,
+     sitting in the music instead of the sound effects.
+     THE FIX NEEDS NO RULING: the run already posts the world MINUTE here every
+     four seconds, and this handler already uses it to choose the ambience bed.
+     The same number now chooses the pool.
+     THE WINDOWS NEST INSIDE THE AMBIENCE SPLIT ON PURPOSE. The bed calls night
+     before 06:00 and from 19:00; DAWN and DUSK sit strictly inside the daylit
+     side of that line, so the two systems can never disagree about whether it
+     is dark. One clock, one opinion.
+     IT NEVER CUTS A SONG. Only the phase moves; CITYMUS picks again at the end
+     of its 64-bar pass, so the change arrives on a musical boundary instead of
+     as a jump-cut. */
+  var LASTPHASE=null;
+  function musicPhase(d){
+    try{
+      if(typeof CITYMUS==='undefined'||!CITYMUS) return;
+      var m=+d.min; if(!isFinite(m)) return;
+      var ph = (m<6*60||m>=19*60) ? 'NIGHT'
+             : (m<8*60)           ? 'DAWN'
+             : (m<17*60)          ? 'DAY'
+                                  : 'DUSK';
+      if(ph===LASTPHASE) return;
+      LASTPHASE=ph;
+      CITYMUS.phase=ph;
+    }catch(e){}
+  }
+  window.__musicPhase=function(){ return (typeof CITYMUS!=='undefined'&&CITYMUS)?CITYMUS.phase:null; };
 
   /* === SOMEBODY ELSE'S FOOTSTEP, PLACED IN SPACE (8/2) ==================
      THE DISTANCE MODEL IS THE RESEARCHED ONE, not a guess: a point source
