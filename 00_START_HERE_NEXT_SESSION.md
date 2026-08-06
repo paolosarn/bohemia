@@ -1,3 +1,186 @@
+LAB (lab-e2r7sv): 8/5 (a) LATEST -- *** THE MACHINE I PROMISED YESTERDAY CANNOT BE BUILT.
+HERE IS THE PROOF, AND THE THING THAT WORKS INSTEAD. *** Nothing to judge.
+
+=== READ THIS BEFORE YOU TRY TO BUILD A SEMANTIC CONTRADICTION SWEEP ===
+Yesterday's CANON ROT gate proved every citation across 757 canon docs RESOLVES, and I closed
+by naming the next machine: proving they AGREE -- no two live files stating different values
+for the same quantity. I BUILT THAT SWEEP TODAY AND IT DOES NOT WORK. It flagged SIX
+disagreements across fourteen quantities and ALL SIX WERE FALSE POSITIVES:
+  valley area, 18 different km2 -> Skyrim's 37, Valheim's 314, our roads 32.9, our on-foot
+    75.7. DIFFERENT SUBJECTS, not conflicts.
+  "FOUR currencies" vs three -> a QUESTBOOK CORPUS QUOTE, Q132.W1 "FOUR DOORS, FOUR
+    CURRENCIES, NO EXCHANGE RATE" -- a studied quest from ANOTHER GAME, not a Bohemia claim.
+  12% lit vs 15% -> "Claude recommendation (10-15% lit" from 7/10, a PRE-RULING
+    RECOMMENDATION, correctly framed as historical.
+  12,288 vs 9,216 vs 3,072 steps -> THREE DIFFERENT MEASUREMENTS IN ONE TABLE in the camp
+    law: across Vegas, one rest's worth, and how far short you come up.
+  tiles per side, eight values -> unrelated grids (chunks, sprites, a 44px cell).
+  district types, ten values -> counts of different SUBSETS on different dates.
+THE ROOT PROBLEM IS NOT THE REGEX. *** PROSE NUMBERS ARE SUBJECT-BLIND. *** "37 km2" is
+Skyrim in one file and our built area in another, and the difference lives in the MEANING, not
+the text. A gate on that sweep would cry wolf every single run. DO NOT SPEND A DAY REBUILDING
+IT. If it is ever worth doing the route is MORE DECLARATIONS, not a cleverer sweep.
+
+=== THE GOOD NEWS: ZERO REAL NUMERIC CONTRADICTIONS IN CANON ===
+Fourteen quantities, 758 documents, six flags, all six explained. The numbers actually agree.
+
+=== WHAT WORKS INSTEAD: DECLARE THE CONSTANTS ===
+records/BOHEMIA_CANON_CONSTANTS.md + gates/canon_constants_gate.js (CANON CONSTANTS, 19
+checks). A DECLARED number carries its subject so a machine can check it; a NARRATED one never
+will. Same shape as the answered-questions index -- a machine block plus a sweep -- which is
+the one pattern in this repo that has actually held.
+FOURTEEN LOCKED NUMBERS, one home: CELLS_PER_SIDE 96 · TILES_PER_CELL_SIDE 128 ·
+FINE_TILES_PER_SIDE 12288 · METRES_PER_TILE 0.75 · VALLEY_KM2 84.9 · BUILT_KM2 37.0 ·
+ONFOOT_KM2 75.7 · STEPS_ACROSS_VALLEY 12288 · SECONDS_PER_STEP 3.52 · BEAT_SECONDS 0.5 ·
+BPM 120 · LIT_PERCENT 12 · CURRENCIES 3 · GENERATIONS 3.
+EVERY VALUE IS PROVED PRESENT IN THE LAW IT CITES, so the registry CANNOT DRIFT IN EITHER
+DIRECTION -- change a law and it goes red, fudge the registry and it goes red. It also checks
+the arithmetic closes (96 x 128 = 12,288; 12,288 x 0.75 squared = 84.9 km2) and sweeps 111
+engine modules for code that declares a different value.
+*** THE REGISTRY IS NEVER THE AUTHORITY. *** The cited law is. It is an index like
+BOHEMIA_CANON_INDEX, and on any conflict the law wins and the registry is what is wrong. The
+gate asserts it keeps saying so.
+LEFT OUT ON PURPOSE (documented so it does not look like an oversight): the phone's 390x844
+(already gated on the real surface -- two machines for one number is worse), 79 district types
+(a COUNT OF A GROWING REGISTRY, not a constant), and the act repair caps (RANGES -- a range is
+not a value).
+
+=== MY OWN BUG AGAIN, AND THE JOKE IS ON THE PREMISE ===
+E1's first run flagged engine/bohemia_engine.js for "BPM=2" -- which is a COMMENT on line 139
+explaining "120 BPM = 2 beats/second", while the real declaration on line 144 is
+const BPM = 120 and AGREES. So the gate built entirely on "a DECLARED number carries its
+subject, a NARRATED one does not" READ NARRATION AS DECLARATION ON ITS FIRST RUN. Tenth bug of
+that family here. Fixed by requiring a const/let/var/property form AND stripping comments.
+MUTATION FOUND WHICH HALF DOES THE WORK: reverting the comment-stripping does NOT bring the
+false positive back -- the DECLARATION-FORM requirement is the actual fix, comment-stripping
+is defence in depth. Noted in the gate so nobody removes the form requirement thinking
+decomment() carries it. Seven mutations, six caught, and the seventh taught me which half
+mattered.
+
+=== NOT DONE / THE QUEUE ===
+1. HIS THUMBS ON THE 18 BOSSES. Not proposing another shape for that ladder.
+2. TASTE-CANON WOMAN-RIG ROT -- [PENDING Paolo / CHARACTER], flagged 8/4, printed by CANON ROT
+   on every run.
+3. WITNESS + STORY-SPREAD -- approved work, but PEOPLE's "REPUTATION HAS TO TRAVEL" overlaps.
+   Coordination first. Untouched.
+4. Semantic contradiction detection: CLOSED AS NOT-BUILDABLE by pattern-matching. See above.
+5. Did not touch #buildstamp: one registry, one gate. Another lane reports Pages failing.
+
+CITY (1eztay): 8/6 (b) LATEST — THE ART BANK LEFT THE WALKED WORLD.
+28.2 MB -> 1.0 MB, AND NO LANE CHANGES ANYTHING.
+
+He was asked to pick between four options for the repo ceiling and said "honestly
+im lazy today", so this turn picked. NONE of the four suited: two change how every
+lane ships, and deleting old big files saves NOTHING (git holds every version
+forever, and history cannot be rewritten under six parallel lanes). So the answer
+came from asking why the file was 28 MB at all:
+
+    line 11021   const TP_TILES = {...}    20.92 MB    74% OF THE FILE
+    + DOOR_ANIM, HERO_SRC, SIG_TILES, SA_TILES, IN_DOOR_B64, JAMB_W, JAMB_E
+    = 27.1 MB of base64 art.  The actual game code is about 1 MB.
+
+THE VOLATILE PART AND THE HUGE STABLE PART WERE WELDED INTO ONE FILE. The art
+almost never changes; the code is patched by string surgery several times a day by
+several lanes, and every edit rewrote all 28 MB. That is why this page was the
+repository's top growth driver at 20.5 MB/day. Same fix the 8/2 lane made on the
+alpha, one level deeper. tools/bohemia_city_split_tile_bank.py.
+
+PATCH TOOLS ARE UNAFFECTED. They still edit the code in the world page; the art
+they never touch simply is not in it. No LFS, no deploy build, no history rewrite.
+
+PROVED BEFORE APPLYING, both loaded side by side in a real browser at 390x844:
+    ORIGINAL  cv 378x819  TP_TILES=24 HERO=59 DOOR=10  px=309582  checksum=981952
+    SPLIT     cv 378x819  TP_TILES=24 HERO=59 DOOR=10  px=309582  checksum=981952
+Identical. Both showed one pre-existing ERR_CONNECTION_RESET -- which is WHY both
+were measured. One reading would have blamed the split.
+
+*** AND IT LEFT THREE CONSUMERS BEHIND ANYWAY, AND THE CAUSE IS THIS MORNING'S BUG
+IN A SECOND FORM. READ THIS IF YOU WRITE A GATE. *** Suite went 10 -> 13 red (DOOR
+SWING, DOOR JAMB, HERO WIRE). Four gates -- dooranim, doorjamb, city_kit_binding,
+run_spawn -- declare cityBlob TWICE:
+    function cityBlob(_a){ ...asks bohemia_city_app.read()... }
+    function cityBlob(a){  ...reads the world file directly...  }
+IN JAVASCRIPT THE LAST FUNCTION DECLARATION WINS, so the resolver was dead in all
+four -- the same "single source of truth that isn't" I removed from thirteen gates
+this morning, wearing a different hat. The split only exposed it.
+FIXED: stale declarations deleted; hero_wire (which kept its own private list of
+where the city lives) routed through the resolver -- it went 61 -> 123 claims,
+having never seen the whole document. bohemia_city_app.read() now returns page +
+bank, so the split is invisible to anything that asks properly.
+
+THE CLOCK, AS A PROJECTION AND NOT A MEASUREMENT: 32.5 MB/day minus the ~20.5 the
+world page contributed should be ~12 MB/day -- about a YEAR of runway instead of
+four months. THE GATE STILL USES THE MEASURED 32.5 ON PURPOSE. A projection that
+flatters the runway is exactly how a limit gets forgotten again. If the next real
+bare-clone measurement does not show the drop, THE SPLIT DID NOT WORK and the
+runway is still ~130 days. Refresh command lives in the budget JSON.
+Records: BOHEMIA_THE_ART_BANK_LEFT_THE_WORLD_8_6_26.md ·
+         BOHEMIA_THE_OTHER_CLOCK_8_6_26.md · BOHEMIA_REPO_BUDGET_8_6_26.json
+
+STILL HIS, AND STILL UNPICKED: whether to go further (deploy-time build, LFS, stop
+committing intermediates) is 0AY option 1/2/3. The split bought the runway to
+decide it calmly instead of at a wall.
+
+NOT MINE TO DECIDE
+- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
+  now"). DO NOT RAISE IT. Backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Still open.
+
+PEOPLE (7h9sfy): 8/6 LATEST — *** SEVENTEEN FINISHED THINGS SHIP TO A FILE NO PLAYER
+CAN SEE, INCLUDING PAOLO'S OWN APPROVED WALLS AND THE ONE-BUTTON VERB SYSTEM. ***
+Record: records/BOHEMIA_WHAT_WE_BUILT_THAT_HE_CANNOT_REACH_8_6_26.md
+Census: records/BOHEMIA_REACHABILITY_CENSUS.md  (re-run: python3 tools/bohemia_reachability_census.py)
+
+SIX TIMES IN THREE DAYS this fleet found the same thing one instance at a time - the
+signal bank reaching nothing for two weeks, the identity card on a page he never sees,
+nineteen gates hunting a moved constant, touch_guard GREEN while checking nothing, five
+hairstyles nobody could wear, my own walk fix landing on the invisible file. THAT IS NOT
+SIX BUGS. It is ONE DISEASE: work lands somewhere he cannot reach and the machine says
+green. Nothing could answer the general question, so nobody asked it. Now something can.
+
+                    reaches him | loaded only | no trace | not-for-players
+    banks    (95)            15 |           8 |       72 | -
+    engine  (110)            72 |           9 |       14 | 15
+
+*** THE BUCKET THAT MATTERS: 17 FINISHED THINGS THAT REACH ONLY
+    slices/BOHEMIA_RUN_CURRENT.html, WHICH THE ALPHA LOADS AND NEVER DISPLAYS ***
+    banks/BOHEMIA_PERIMETER_8_2_26.txt      the 11 walls PAOLO JUDGED AND APPROVED 8/2
+    banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt 3.63 MB of interior dressing
+    engine/bohemia_resolve.js               THE SENTENCE - one button, act, spend, resolve
+    engine/bohemia_quest_runtime.js + _bq   the quest runtime and parser
+    engine/bohemia_loop.js                  the driven engine
+    engine/bohemia_garage.js, _crypt.js     interiors
+    banks/GRIME_8_3, OPENINGS_8_2, CIVIC_OPENINGS_8_3   approved art from the last 4 days
+*** THE NUMBER MOVES: it was 17 when written and 22 after merging the same
+day's other lanes. Nobody did anything wrong - new finished work keeps landing in the
+invisible file because NOTHING WAS WATCHING. Re-run the census for the live count. ***
+THIS IS NOT A FAILURE LIST, IT IS A WORK-ALREADY-PAID-FOR LIST, and at the start of an
+11-month run that is the most valuable list there is.
+
+WHAT THE NUMBERS DO NOT SAY, because a census that overclaims is worse than none:
+NO TRACE is strong evidence, NOT PROOF - a bank TRANSFORMED before shipping (re-encoded,
+recoloured, re-tiled) reads as NO TRACE while genuinely reaching him, and the four
+HD_TILE_REPO parts (180 MB, two thirds of the corpus) are almost certainly that. 20 of
+the 72 are CANDIDATE/VERDICT/JUDGE pools where only an approved subset should ever ship.
+A DERIVED bank reads NO TRACE correctly too (WARDROBE_CANON is extracted FROM the alpha).
+And THE MB FIGURE IS NEARLY A TAUTOLOGY - 258 MB of corpus cannot fit in a 29 MB surface.
+THE COUNTS ARE THE FINDING; THE MEGABYTES ARE NOT.
+
+CALIBRATED BEFORE IT WAS BELIEVED. v1 sampled 8 payloads and printed a BINARY, and the
+door-anim bank came out SHOWN on one run and NO TRACE on another OFF THE SAME BYTES - a
+coin flip wearing a claim's name, the exact bug that had four of this lane's gates dead
+for a fortnight. Now 32 samples AND IT REPORTS THE FRACTION, because "2 of 32", "0 of 32"
+and "32 of 32" are three different facts. Then checked against four things verified BY
+HAND on 8/4 before the tool existed - all four agree, and the gate keeps them as
+permanent CALIBRATION claims: if the census ever disagrees with a hand check, THE CENSUS
+IS BROKEN, not the hand check.
+
+THE GATE DOES NOT DEMAND THE NUMBER FALL. Wiring order is Paolo's and the owning lane's
+call; a gate forcing it would be A GATE OUTRANKING A RULING. It demands the number stay
+TRUE: fresh, caveat intact, no ghosts, agrees with the hand checks. 16 claims, 4
+mutations killed.
+
+-----------------------------------------------------------------------------------
 PEOPLE (7h9sfy): 8/6 LATEST — *** THE SAVE COULD BE DELETED BY THE PHONE AFTER SEVEN
 DAYS AND NOTHING WAS ASKING IT NOT TO. FIXED. *** THE BIG MISSING item 7, filed 7/29,
 never acted on, owned by nobody.

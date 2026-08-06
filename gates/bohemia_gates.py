@@ -709,6 +709,8 @@ GATES = [
      'handoff is shared infrastructure with no owning lane, so no lane gate was ever going to '
      'check it. Sweeps every tracked text file for markers, and asserts a repair kept BOTH '
      "lanes' sections -- a resolution that deletes the other lane is not a resolution", False),
+    ('CANON CONSTANTS', ['node', 'gates/canon_constants_gate.js'],
+     'the fourteen locked numbers nine parallel lanes all build on -- valley grid, beat, BPM, the lit 12 percent, three currencies, three generations -- given ONE declared home, with every value PROVED present in the law it cites so the registry can never drift from canon in either direction. Also records the negative finding that a prose-level numeric contradiction sweep CANNOT work (subject-blind: Skyrim 37 km2 reads as our 37 km2 built), so no session wastes a day rebuilding it', False),
     ('CANON ROT', ['node', 'gates/canon_rot_gate.js'],
      'nine sessions write canon in parallel across 583 law/record files that cite each other constantly, and NOTHING had ever checked those citations resolve -- a law pointing at a file that does not exist is worse than no citation, because a session follows it, finds nothing, and concludes the thing was never built. Hard-fails extension drift, ratchets pre-existing debt so no lane is blocked by another lane, and SELF-TESTS its own regex first because the first run of this audit was wrong in exactly that way', False),
     ('RULINGS', ['node', 'gates/rulings_gate.js'],
