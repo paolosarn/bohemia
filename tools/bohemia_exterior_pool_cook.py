@@ -36,6 +36,23 @@ render smaller / SMALL: render bigger"). Those are rulings about scale and they
 travel with the tile as a draw scale, so a thing he called too big comes in
 smaller instead of being dropped or shipped wrong.
 
+TASTE CHECK (laws/BOHEMIA_PAOLO_TASTE_CANON.md)
+  This file draws NOTHING, so most of the canon's drawing rules cannot be violated
+  here. The ones that CAN be, and were:
+  NEVER ship art he rejected - held by construction. A tile enters this file only
+    if his own Great Sweep says UP, and the gate re-derives that from the sweep
+    rather than trusting this file's word for it. Unjudged is not UP either: only
+    2,604 of 8,674 were ever swept and silence is not approval.
+  NEVER purple outside the Amalgamation - no colour is chosen here; every pixel is
+    a tile he bought and passed, and purity_gate sweeps the images themselves.
+  NEVER a bare undressed rectangle - the whole point of this file is the opposite:
+    it exists because the valley WAS bare, and it dresses it with his own objects.
+  AND THE ONE THIS FILE ACTUALLY BROKE, twice, caught by looking at the render:
+    a VERDICT ON AN OBJECT IS NOT A LICENCE TO RENDER IT AT ANY SIZE OR IN ANY
+    PLACE. He judged every asset "in context"; a jar's context is a shelf and a
+    market barrel's is a market. Shipping them UP-verdicted but two metres tall on
+    a suburban lawn is a taste violation wearing a verdict as cover.
+
 REUSE CHECK: cooks NO new pixels. It is a crossing of two files that already
 exist -- his purchased masters and his own verdicts on them. banks/ opened in
 code: BOHEMIA_HD_TILE_REPO_part1..4 (the images), BOHEMIA_ACT1_CONFIRMED_SET
