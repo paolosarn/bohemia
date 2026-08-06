@@ -1,0 +1,1231 @@
+<meta charset="utf-8">
+<title>BOHEMIA - HOW LOUD YOU WERE</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<body id="bd" style="margin:0;background:#0d0f0a;font-family:-apple-system,sans-serif;color:#ddd">
+<div id="bar" style="position:sticky;top:0;z-index:9;background:#0d0f0a;padding:10px 12px;display:flex;gap:8px;align-items:center;border-bottom:1px solid #2a2a1f">
+  <div style="flex:1;min-width:130px">
+    <div id="hdr" style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">HOW LOUD YOU WERE</div>
+    <div id="sub" style="font:600 11px ui-monospace,monospace;color:#8f8770;margin-top:2px">nothing to judge &middot; just watch it</div>
+  </div>
+  <button id="sun" style="padding:9px 13px;border-radius:8px;border:1px solid #887;background:#222;color:#ddd">&#9728; SUN MODE</button>
+</div>
+
+<div class="wrap">
+  <div class="lede" id="lede">
+    Your quests already say how big a deed was <b>and how loud it was</b>. Until now only the
+    follower count cared about the loud part &mdash; a faction's opinion moved the same amount
+    whether you did it in a back yard or in front of a whole block. It doesn't any more.
+  </div>
+
+  <div class="h" id="h1">THE SAME DEED. TWO VOLUMES.</div>
+  <div class="cap" id="cap1">Same faction, same size of favour, same spot, same crowd. The only difference is
+    how loud you were about it. Watch how many people find out.</div>
+
+  <div class="card">
+    <div class="tag" id="tA">&#9679; QUIETLY</div>
+    <canvas id="cA" width="700" height="300"></canvas>
+    <div class="read" id="rA"></div>
+  </div>
+  <div class="card">
+    <div class="tag hot" id="tB">&#9679; LOUDLY</div>
+    <canvas id="cB" width="700" height="300"></canvas>
+    <div class="read" id="rB"></div>
+  </div>
+
+  <div class="h" id="h2">YOUR QUEST, ALL FOUR WAYS IT CAN END</div>
+  <div class="cap" id="cap2">S17 &mdash; <i>The Seed That Does Not Come Back</i>. Your file, your endings, your numbers.
+    Nothing here was written for this page.</div>
+  <div id="grid"></div>
+
+  <div class="h" id="h3">THIRTY YEARS LATER</div>
+  <div class="cap" id="cap3">Everyone who watched you do it is dead. The bar is <b>who they managed to tell</b> before
+    they went &mdash; that, and only that, is what your kid gets judged for.</div>
+  <div id="gen"></div>
+
+  <div class="foot" id="foot"></div>
+  <div style="padding:0 0 40px"><button class="b" id="again">&#8635; RUN IT AGAIN</button></div>
+</div>
+
+<style>
+.wrap{max-width:720px;margin:0 auto;padding:0 12px}
+.lede{font:13px/1.65 -apple-system,sans-serif;color:#9a9480;padding:14px 2px 2px}
+.h{font:700 13px -apple-system,sans-serif;color:#cdbd8a;letter-spacing:.06em;margin:26px 0 4px}
+.cap{font:12px/1.6 -apple-system,sans-serif;color:#8f8770;margin-bottom:10px}
+.card{background:#141609;border:1px solid #2a2a1f;border-radius:12px;padding:10px;margin-bottom:12px}
+.tag{font:700 11px ui-monospace,monospace;letter-spacing:.1em;color:#7ac87a;margin-bottom:6px}
+.tag.hot{color:#e0a060}
+canvas{display:block;width:100%;background:#0a0c07;border-radius:8px}
+.read{font:12px/1.7 ui-monospace,monospace;color:#9a9480;margin-top:8px;min-height:60px}
+.big{font:700 22px -apple-system,sans-serif;color:#cdbd8a}
+.row{display:flex;align-items:baseline;gap:8px;padding:7px 0;border-bottom:1px solid #23241a}
+.row:last-child{border-bottom:0}
+.q{font:11px/1.55 -apple-system,sans-serif;color:#8f8770;padding:2px 0 8px}
+.b{width:100%;padding:13px;border-radius:10px;border:0;background:#26301c;color:#dfe6d2;font:600 13px -apple-system,sans-serif}
+.b:active{opacity:.7}
+.bar{height:11px;border-radius:3px;background:#6ec06e}
+.foot{font:11px/1.7 -apple-system,sans-serif;color:#6f6a58;margin:26px 0 14px;border-top:1px solid #23241a;padding-top:12px}
+</style>
+
+<script>
+/* ===== THE REAL ENGINE, INLINED VERBATIM ===== */
+/* ---- engine/bohemia_memory.js ---- */
+// BOHEMIA MEMORY — what people remember seeing (7/19/26, LIFE session)
+//
+// The witness organ. Grounded in Shadows of Doubt's citizen memory model:
+// a sighting starts near-accurate and FUZZES with time; how long it lasts
+// scales with FAMILIARITY (you remember your neighbor longer than a
+// stranger). Distinctiveness/alertness modifiers join later when the world
+// has faces and factions (contents Paolo's).
+//
+// WHY THIS EXISTS NOW: the questbook's engine backlog demands THE
+// SETTLEMENT'S MISSING-PERSONS ORGAN (Q133/Q134/Q138). Its seed question,
+// "when did anyone last see H3-2, and how sure are they", is answerable
+// from these minds: sightings recorded during the online sim, clarity
+// decaying afterward, the best witness findable across a settlement.
+// Testimony VERBS, lies, and what factions do with witnesses stay Paolo's.
+//
+// MECHANISM RULES:
+//   - a mind is a RING BUFFER (cap enforced; memory is finite)
+//   - repeat sightings of the same subject REFRESH the record and build
+//     familiarity instead of flooding the buffer
+//   - clarity = 0.5 ^ (age / halflife), halflife grows with familiarity
+//     (base 12h; a face seen often keeps for days)
+//   - deterministic: no wall clock, no randomness; pure f(turn)
+(function(root){
+  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
+
+  var BASE_HALFLIFE=12*60;      // minutes: a stranger's face is fog by tomorrow
+  var REFRESH_WINDOW=30;        // re-seeing within 30min updates, not duplicates
+  var MIN_CLARITY=0.05;         // below this the witness has nothing usable
+
+  function makeMind(ownerId, cap){
+    return {owner:ownerId, cap:cap||64, sightings:[], fam:{}};
+  }
+  function see(mind, turn, subjectId, x, y){
+    if(subjectId===mind.owner) return;               // you are not your own witness
+    var s=mind.sightings, last=null;
+    for(var i=s.length-1;i>=0;i--) if(s[i].subject===subjectId){ last=s[i]; break; }
+    mind.fam[subjectId]=(mind.fam[subjectId]||0)+((!last||turn-last.turn>=5)?1:0);
+    if(last && turn-last.turn<=REFRESH_WINDOW){ last.turn=turn; last.x=x; last.y=y; return; }
+    s.push({subject:subjectId, turn:turn, x:x, y:y});
+    if(s.length>mind.cap) s.shift();                 // ring: oldest memory falls out
+  }
+  function halflife(mind, subjectId){
+    var f=mind.fam[subjectId]||0;
+    return BASE_HALFLIFE*(1+Math.log(1+f)/Math.LN2); // familiarity slows the fog
+  }
+  function clarity(mind, sight, now){
+    var age=Math.max(0, now-sight.turn);
+    return Math.pow(0.5, age/halflife(mind, sight.subject));
+  }
+  function recall(mind, subjectId, now){
+    var best=null;
+    for(var i=mind.sightings.length-1;i>=0;i--){ var s=mind.sightings[i];
+      if(s.subject!==subjectId) continue;
+      var c=clarity(mind,s,now);
+      if(c<MIN_CLARITY) continue;
+      if(!best||s.turn>best.turn) best={subject:s.subject,turn:s.turn,x:s.x,y:s.y,clarity:+c.toFixed(3)};
+    }
+    return best;
+  }
+  // THE ORGAN QUERY: across a settlement's minds, who saw the subject last,
+  // and how clearly. This is "when did anyone last see H3-2".
+  function lastSeenAcross(minds, subjectId, now){
+    var best=null;
+    (minds||[]).forEach(function(m){
+      var r=recall(m, subjectId, now);
+      if(r && (!best || r.turn>best.r.turn || (r.turn===best.r.turn && r.clarity>best.r.clarity)))
+        best={witness:m.owner, r:r};
+    });
+    return best;   // {witness, r:{turn,x,y,clarity}} or null: nobody remembers
+  }
+
+  // ---- SIM ATTACHMENT -------------------------------------------------------
+  // Give every agent in an online sim a mind, and record co-visibility each
+  // world-turn: out-agents see out-agents (and the player) within RADIUS.
+  // Block scale keeps this trivially cheap (n out-bodies is small).
+  var RADIUS=8;
+  function attach(sim, opts){
+    opts=opts||{};
+    var R=opts.radius||RADIUS;
+    sim.agents.forEach(function(a){ if(!a.mind) a.mind=makeMind(a.id, opts.cap); });
+    var step0=sim.step;
+    sim.step=function(){
+      var out=step0.apply(sim, arguments);
+      var vis=sim.outAgents();
+      for(var i=0;i<vis.length;i++){
+        for(var k=0;k<vis.length;k++){
+          if(i===k) continue;
+          var a=vis[i], b=vis[k];
+          if(Math.abs(a.loc.x-b.loc.x)+Math.abs(a.loc.y-b.loc.y)<=R)
+            see(a.mind, sim.turn, b.id, b.loc.x, b.loc.y);
+        }
+        if(sim.playerAt){ var p=sim.playerAt, a2=vis[i];
+          if(Math.abs(a2.loc.x-p[0])+Math.abs(a2.loc.y-p[1])<=R)
+            see(a2.mind, sim.turn, '@', p[0], p[1]); }
+      }
+      return out;
+    };
+    return sim;
+  }
+  function minds(sim){ return sim.agents.map(function(a){return a.mind;}).filter(Boolean); }
+
+  var API={makeMind:makeMind,see:see,clarity:clarity,halflife:halflife,recall:recall,
+    lastSeenAcross:lastSeenAcross,attach:attach,minds:minds,
+    BASE_HALFLIFE:BASE_HALFLIFE,REFRESH_WINDOW:REFRESH_WINDOW,MIN_CLARITY:MIN_CLARITY,RADIUS:RADIUS};
+  if(HASREQ) module.exports=API;
+  root.BohemiaMemory=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
+/* ---- engine/bohemia_standing.js ---- */
+// BOHEMIA STANDING — reputation that has to TRAVEL (8/2/26, PEOPLE lane)
+//
+// Paolo thumbed all twelve faction gaps WANT on 8/2. This is gap 3, and it was the
+// one the research called the documented failure of the entire genre: in most games
+// every NPC instantly knows what you did, anywhere, with no route the news could
+// possibly have taken. The researched fix, from the 2024 FDG faction-systems paper
+// and the NPC belief-formation literature, is that reputation should spread from
+// WITNESSES - people remember what they personally saw, tell each other, form their
+// own subjective opinion, and the story distorts as it goes.
+//
+// WE ALREADY HAD THE HARD HALF. bohemia_memory.js is a real witness organ: minds
+// hold sightings, familiarity slows forgetting, clarity decays as 0.5^(age/halflife),
+// and it is deterministic. What it had no concept of was a DEED, an OPINION, or one
+// person TELLING ANOTHER. That is all this module adds.
+//
+// ===== THE FOUR RULES, AND WHAT EACH ONE BUYS =====
+//
+// 1. A DEED IS WITNESSED, NEVER ANNOUNCED. witness() only records for minds that
+//    were actually near enough to see. Nobody across the valley learns anything.
+//
+// 2. AN OPINION IS DERIVED, NEVER STORED. opinionOf() re-computes from the deeds a
+//    mind still remembers, each weighted by its CLARITY RIGHT NOW. There is no score
+//    to save, so there is nothing to migrate and nothing to desync.
+//    *** THIS IS ALSO THE REDEMPTION PATH, FOR FREE. *** The most-cited flaw in New
+//    Vegas's reputation is that it can never be removed, only buried under a bigger
+//    opposite number - there is no honest road back from hated. Here memories FADE,
+//    so time alone softens what you did, and being seen doing better in front of
+//    enough people is the fast way. Gap 4 falls out of gap 3's mechanism.
+//
+// 3. HEARSAY IS WEAKER THAN EYESIGHT AND IT RUNS OUT. gossip() moves a deed between
+//    two people who are actually together, at a penalty per retelling, with a hop
+//    limit. So news genuinely travels - a street at a time - and a thing everyone
+//    half-heard is worth less than a thing one person watched.
+//
+// 4. A FACTION'S VIEW IS ITS MEMBERS' VIEWS. standingOf() averages the opinions of
+//    the people who actually belong to it. There is no faction ledger anywhere,
+//    which is the whole point: BUILD THE WORLD (7/31) turned "a standing ledger"
+//    off, and this is not one. Nothing is stored, nothing is authored, and a
+//    faction's disposition is an emergent reading of what its people saw.
+//    Zero-sum (gap 7) falls out too: a deed the Cartel watched moves the Cartel and
+//    nobody else, because nobody else was standing there.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S, kept to the letter:
+//   DEED_WEIGHT SHIPS EMPTY. What counts as a deed and what it is worth to whom is
+//   his ruling and it has not been made. With an empty table every opinion is
+//   exactly 0 and every standing is NEUTRAL - the module is inert until he rules,
+//   and the gate asserts that. The MECHANISM (witnessing, decay, gossip, hops,
+//   aggregation) is mine. No faction is named anywhere in this file.
+(function(root){
+  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
+  var MEM = HASREQ ? require('./bohemia_memory.js')
+                   : (root.BohemiaMemory||null);
+
+  // ---- CONTENTS-PAOLO'S: EMPTY ---------------------------------------------
+  // deedKind -> weight. Positive is a good turn, negative is a wrong done.
+  // NOTHING IS IN HERE and nothing in this file invents a row. Until he rules,
+  // opinionOf() returns 0 for everybody and standingOf() returns NEUTRAL.
+  var DEED_WEIGHT={};
+
+  // ---- MECHANISM, and every constant is argued ------------------------------
+  var SEE_RANGE=9;        // tiles. You have to be able to SEE it to have seen it.
+                          // 9 is the block-scale sightline the agent sim already
+                          // uses for "somebody is near you", not a new number.
+  var HEARSAY_LOSS=0.55;  // a retold deed keeps 55% of its force. Two hops and it is
+                          // a third as convincing as watching it, which is about the
+                          // right shape for "I heard that..." versus "I was there".
+  var MAX_HOPS=2;         // eyewitness -> told -> told. After that it stops, and that
+                          // is what makes news travel at the speed of PEOPLE instead
+                          // of teleporting. Without a hop cap a rumour reaches the
+                          // whole valley in one sim day and we are back where we
+                          // started.
+  var GOSSIP_WINDOW=45;   // minutes two people must be co-located to talk at all
+  /* HOW LONG A THING IS STILL WORTH TELLING - and this was the SECOND bug the demo
+     page found in an hour. GOSSIP_WINDOW was documented as a co-location window and
+     then used as a STALENESS window (turn-d.turn > GOSSIP_WINDOW*24), which made news
+     untellable after EIGHTEEN HOURS. A day-step is 1440 minutes, so on any normal
+     clock gossip could never fire even once - the module's whole third rule was dead
+     and every unit test passed, because they all gossiped within minutes of the deed.
+     ONE CONSTANT WAS DOING TWO JOBS AND THE SECOND JOB WAS WRONG. Split, and named
+     for what it actually is: people retell a striking thing for weeks, not overnight. */
+  var NEWS_LIFE=14*24*60; // a fortnight before somebody stops bringing it up unasked
+  var MIN_FORCE=0.02;     // below this a memory is not worth carrying
+
+  /* ---- A DEED IS NOT A FACE, AND THIS WAS A REAL BUG ----------------------
+     Found the day it shipped, by BUILDING THE VISIBLE VERSION. On screen a serious
+     wrong was worth -0.05 after three days and the whole system looked broken.
+     The cause: opinions were decaying on bohemia_memory's SIGHTING half-life, which
+     is twelve hours - correct for "did you see that guy walk past", absurd for "that
+     man burned my neighbour's house down". Reputation that evaporates in two days is
+     not reputation.
+     GROUNDED, and it is the well-documented asymmetry: routine observations fade on
+     the ordinary curve, while SIGNIFICANT events are held far longer and far more
+     vividly - the flashbulb effect. You forget a stranger's face by tomorrow. You
+     remember what somebody did to your family for years.
+     SO A DEED CARRIES ITS OWN CLOCK, and the bigger it was the longer it holds:
+     a base of three weeks, multiplied by the size of the thing. Sightings are
+     untouched - bohemia_memory still owns those and nothing about missing-persons
+     changed.
+     THE LESSON, which is why the demo page exists at all: this was invisible in
+     every unit test, because a test asserts "it went down" and it HAD gone down. It
+     took looking at it to see it had gone down to nothing. */
+  var DEED_HALFLIFE=21*24*60;   // three weeks for an ordinary deed
+  function deedHalflife(w){
+    return DEED_HALFLIFE * (1 + Math.log(1+Math.abs(w||1))/Math.LN2);
+  }
+
+  function makeLedgerFreeMind(mind){
+    // a mind gains ONE array. No score, no totals, no per-faction anything.
+    if(!mind.deeds) mind.deeds=[];
+    return mind;
+  }
+
+  /* ---- 1. A DEED IS WITNESSED ---------------------------------------------
+     Records into every mind that could actually see it. Returns how many people
+     saw, which is the honest answer to "did anybody notice?"
+
+     opts (8/6, all OPTIONAL and every default is the old behaviour exactly, so
+     nothing that already called this changes):
+       range    how far THIS deed carries. A back-yard handshake and a public
+                humiliation are not seen by the same number of people, and until
+                bohemia_deeds.js existed nothing in the game could say so.
+                Defaults to SEE_RANGE.
+       maxHops  how many retellings THIS deed earns, carried ON the deed so
+                gossip() can honour it. This is what finally makes the module's
+                own generational law true instead of decorative: inherit() only
+                carries a deed with hops>0, so a deed that never earned a
+                retelling really does die with the people who watched it.
+                Defaults to MAX_HOPS.
+       only     a predicate on the witness's owner id. One act can mean opposite
+                things to two factions and nothing at all to a third; this is how
+                the third one correctly remembers nothing. Defaults to everybody. */
+  function witness(minds, turn, actorId, deedKind, x, y, where, opts){
+    opts = opts || {};
+    var range = (opts.range==null) ? SEE_RANGE : opts.range;
+    var mh    = opts.maxHops;
+    var only  = opts.only;
+    var n=0;
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m || m.owner===actorId) continue;          // you do not witness yourself
+      if(only && !only(m.owner)) continue;           // it did not mean anything to them
+      var p=where && where(m.owner);
+      if(!p) continue;
+      if(Math.abs(p.x-x)+Math.abs(p.y-y) > range) continue;
+      makeLedgerFreeMind(m);
+      var d={actor:actorId, kind:deedKind, turn:turn, x:x, y:y, hops:0};
+      if(mh!=null) d.maxHops=mh;
+      m.deeds.push(d);
+      if(m.deeds.length>(m.cap||64)) m.deeds.shift();
+      n++;
+    }
+    return n;
+  }
+
+  /* ---- 2. AN OPINION IS DERIVED -------------------------------------------
+     Re-computed every time from what is still remembered. Weight x clarity-now x
+     hearsay-loss. Nothing stored means nothing to migrate and nothing to desync. */
+  function forceOf(mind, d, now){
+    var w=DEED_WEIGHT[d.kind];
+    if(w==null) return 0;                            // unruled deed = weightless
+    /* the deed's own clock, not the sighting clock (see DEED_HALFLIFE above) */
+    var age=Math.max(0, (now|0)-(d.turn|0));
+    var c=Math.pow(0.5, age/deedHalflife(w));
+    var f=w * c * Math.pow(HEARSAY_LOSS, d.hops||0) * Math.pow(GEN_LOSS, d.inherited||0);
+    return Math.abs(f)<MIN_FORCE ? 0 : f;
+  }
+  function opinionOf(mind, actorId, now){
+    if(!mind || !mind.deeds) return 0;
+    var t=0;
+    for(var i=0;i<mind.deeds.length;i++){
+      var d=mind.deeds[i];
+      if(d.actor!==actorId) continue;
+      t+=forceOf(mind, d, now);
+    }
+    return t;
+  }
+
+  /* ---- 3. HEARSAY IS WEAKER AND IT RUNS OUT -------------------------------
+     Two people who are actually together swap what the other has not heard. A
+     retold deed costs a hop; past MAX_HOPS it stops dead. */
+  function gossip(mindA, mindB, turn){
+    if(!mindA||!mindB||mindA===mindB) return 0;
+    makeLedgerFreeMind(mindA); makeLedgerFreeMind(mindB);
+    var moved=0;
+    [[mindA,mindB],[mindB,mindA]].forEach(function(pair){
+      var from=pair[0], to=pair[1];
+      for(var i=0;i<from.deeds.length;i++){
+        var d=from.deeds[i];
+        /* the story has run its course. A deed may carry its OWN budget (set by
+           bohemia_deeds.js from the quest's clout tag) — a thing people cannot
+           stop repeating outlives a thing mentioned once. MAX_HOPS when it doesn't. */
+        if((d.hops||0)>=(d.maxHops==null?MAX_HOPS:d.maxHops)) continue;
+        if(d.actor===to.owner) continue;             // nobody gossips to your face
+        if(turn-d.turn>NEWS_LIFE) continue;          // nobody volunteers ancient news
+        var known=false;
+        for(var j=0;j<to.deeds.length;j++){
+          var e=to.deeds[j];
+          if(e.actor===d.actor&&e.kind===d.kind&&e.turn===d.turn){ known=true; break; }
+        }
+        if(known) continue;
+        var r={actor:d.actor,kind:d.kind,turn:d.turn,x:d.x,y:d.y,hops:(d.hops||0)+1};
+        if(d.maxHops!=null) r.maxHops=d.maxHops;     // the budget travels with the story
+        if(d.inherited) r.inherited=d.inherited;     // so does whose deed it originally was
+        if(d.of) r.of=d.of;
+        to.deeds.push(r);
+        if(to.deeds.length>(to.cap||64)) to.deeds.shift();
+        moved++;
+      }
+    });
+    return moved;
+  }
+
+  /* ---- 4. A FACTION'S VIEW IS ITS MEMBERS' VIEWS ---------------------------
+     No ledger. The average of what its people actually think, and if none of its
+     people have seen you, it has no view of you at all. */
+  var RUNGS=[['HOSTILE',-3],['COLD',-1],['NEUTRAL',1],['WARM',3],['FWU',1e9]];
+  function rungFor(v){
+    for(var i=0;i<RUNGS.length;i++) if(v<RUNGS[i][1]) return RUNGS[i][0];
+    return 'FWU';
+  }
+  function standingOf(minds, faction, actorId, now, factionOfOwner){
+    var sum=0, n=0, seen=0;
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m) continue;
+      if(factionOfOwner(m.owner)!==faction) continue;
+      n++;
+      var o=opinionOf(m, actorId, now);
+      if(o!==0) seen++;
+      sum+=o;
+    }
+    var avg=n? sum/n : 0;
+    return {faction:faction, value:avg, rung:rungFor(avg), members:n, whoSaw:seen};
+  }
+
+  /* WHY ANYBODY FEELS THAT WAY, which is gap 10's actual content: a standing the
+     player cannot read is a standing they cannot play around. Returns the specific
+     remembered deeds driving it, strongest first, and whether each was watched or
+     merely heard. */
+  function becauseOf(minds, faction, actorId, now, factionOfOwner, limit){
+    var out=[];
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m||!m.deeds||factionOfOwner(m.owner)!==faction) continue;
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==actorId) continue;
+        var f=forceOf(m, d, now);
+        if(!f) continue;
+        out.push({who:m.owner, kind:d.kind, turn:d.turn, force:f,
+                  heard:(d.hops||0)>0, hops:d.hops||0});
+      }
+    }
+    out.sort(function(a,b){ return Math.abs(b.force)-Math.abs(a.force); });
+    return out.slice(0, limit||5);
+  }
+
+
+  /* ---- 5. A REPUTATION OUTLIVES THE PERSON WHO EARNED IT ------------------
+     (8/2/26. The thing the twelve-gap list did not have, and the game's own premise.)
+
+     Bohemia is not a game about a hero, it is a FAMILY ACROSS THREE GENERATIONS AND
+     A HUNDRED YEARS (story master), and the handoff happens WHEN THE STORY SAYS SO,
+     never because somebody died (DEATH IS A RELOAD, 7/26). So there is a moment,
+     already canon, when the valley stops judging you and starts judging your child.
+
+     NOBODY HAD ASKED WHAT HAPPENS TO YOUR REPUTATION AT THAT MOMENT. It is the most
+     obvious question the dynasty premise raises and it was not on the gap list, not
+     in the GDD, not in any backlog.
+
+     GROUNDED, and this is the real anthropology rather than a vibe: in stateless
+     societies a family is treated as a CORPORATE ENTITY whose reputation carries its
+     economic viability and social standing; lineages run ten and twelve generations
+     deep, and ostracism does the work that fines and prisons do elsewhere. You are
+     born owing what your father owed. That is not a fantasy mechanic, it is how
+     reputation has worked for most of human history and it is exactly the register
+     of a valley with no courts.
+
+     *** AND THE ORGAN ALREADY MODELLED IT WITHOUT ANYBODY NOTICING. *** Thirty years
+     pass. EVERY PERSON WHO WATCHED YOU DO ANYTHING IS DEAD. The only trace of your
+     life is what got REPEATED - the deeds that travelled, hop by hop, into somebody
+     who is still alive. So the rule writes itself and it is the honest one:
+
+       A QUIET GOOD DEED DIES WITH THE WITNESS.
+       A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR.
+
+     That is why gossip had to exist before this could. Nothing here is a new system;
+     it is what the witness organ was always going to do if you ran the clock forward.
+
+     THE LIFE LESSON UNDERNEATH, and the game never says it out loud: you inherit
+     goodwill you did not earn and debts you did not run up, and neither one is fair. */
+  var GEN_LOSS=0.45;      // what crosses a generation. Less than half, so a legend
+                          // needs to have been LOUD to survive one, and by the third
+                          // generation only the very loudest thing your grandfather
+                          // did still registers at all - which is the arc the story
+                          // master already describes.
+  function inherit(minds, parentId, childId, turn){
+    var carried=0, died=0;
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.deeds) continue;
+      var keep=[];
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==parentId){ keep.push(d); continue; }
+        /* the eyewitness is dead. Only what was RETOLD is still in the valley. */
+        if(!(d.hops>0)){ died++; continue; }
+        keep.push({actor:childId, kind:d.kind, turn:turn, x:d.x, y:d.y,
+                   hops:d.hops, inherited:(d.inherited||0)+1, of:parentId});
+        carried++;
+      }
+      m.deeds=keep;
+    }
+    return {carried:carried, died:died};
+  }
+
+  /* WHAT THE VALLEY STILL SAYS ABOUT YOUR FAMILY. Readable, because a legend you
+     cannot hear is a legend that is not doing any work. */
+  function legendOf(minds, actorId, now){
+    var by={};
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.deeds) continue;
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==actorId||!d.inherited) continue;
+        var f=forceOf(m,d,now);
+        if(!f) continue;
+        var k=d.kind;
+        if(!by[k]) by[k]={kind:k, tellers:0, force:0, generations:d.inherited, of:d.of};
+        by[k].tellers++; by[k].force+=f;
+        by[k].generations=Math.max(by[k].generations, d.inherited);
+      }
+    }
+    return Object.keys(by).map(function(k){return by[k];})
+      .sort(function(a,b){ return Math.abs(b.force)-Math.abs(a.force); });
+  }
+
+  var API={ DEED_WEIGHT:DEED_WEIGHT, SEE_RANGE:SEE_RANGE, HEARSAY_LOSS:HEARSAY_LOSS,
+    MAX_HOPS:MAX_HOPS, GOSSIP_WINDOW:GOSSIP_WINDOW, RUNGS:RUNGS,
+    witness:witness, opinionOf:opinionOf, gossip:gossip, standingOf:standingOf,
+    becauseOf:becauseOf, rungFor:rungFor,
+    inherit:inherit, legendOf:legendOf, GEN_LOSS:GEN_LOSS,
+    DEED_HALFLIFE:DEED_HALFLIFE, deedHalflife:deedHalflife, NEWS_LIFE:NEWS_LIFE };
+  if(HASREQ) module.exports=API; else root.BohemiaStanding=API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+/* ---- engine/bohemia_bq.js ---- */
+/* bohemia_bq.js — Bohemia Quest (.bq) parser, serializer, validator.
+   LAWS ENFORCED IN CODE:
+   - Never crash on a garbled line. Preserve it, flag it. (voice-to-text law)
+   - Round-trip lossless: parse -> serialize -> byte-identical.
+   - No stat/karma gates. The format cannot express them. (CONSCIENCE SYSTEM)
+   - REQ roles must be castable. (Bethesda alias-fill gate)
+   No dependencies. Runs in node and in the browser. */
+(function(root){
+'use strict';
+
+var BANNED_GATES = ['charm','paragon','renegade','karma','speech','morality','intimidate','persuasion'];
+var GATE_KEYS    = ['none','knows','flag','has','role','faction','gen'];
+
+/* ---------- PARSE ---------- */
+function parse(text){
+  var Q = { id:'', title:'', act:null, faction:null, once:true,
+            roles:[], stages:[], objs:[], talks:[], raw:[], warnings:[] };
+  var lines = String(text).replace(/\r\n/g,'\n').split('\n');
+  var curStage=null, curTalk=null;
+
+  for (var i=0;i<lines.length;i++){
+    var raw = lines[i];
+    Q.raw.push(raw);
+    var L = raw.trim();
+    var ln = i+1;
+    if (L==='' || L[0]==='#'){ continue; }
+
+    var m;
+    if ((m=/^@QUEST\s+(\S+)\s*(.*)$/.exec(L))){ Q.id=m[1]; Q.title=m[2].trim(); curStage=null; curTalk=null; continue; }
+    if ((m=/^@ACT\s+(\S+)/.exec(L))){ Q.act=m[1]; continue; }
+    if ((m=/^@FACTION\s+(\S+)/.exec(L))){ Q.faction=m[1]; continue; }
+    if ((m=/^@ONCE\s+(\S+)/.exec(L))){ Q.once = /^true$/i.test(m[1]); continue; }
+
+    if ((m=/^@ROLE\s+(\S+)\s+(REQ|OPT)\s*(.*)$/i.exec(L))){
+      Q.roles.push({ name:m[1], req:/^REQ$/i.test(m[2]), cond:m[3].trim(), line:ln });
+      continue;
+    }
+
+    if ((m=/^@STAGE\s+(\d+)\s*(.*)$/.exec(L))){
+      var flags = m[2].trim().toUpperCase().split(/\s+/).filter(Boolean);
+      curStage = { n:parseInt(m[1],10), log:'', dos:[], flags:flags, tags:tagsOf(raw), line:ln };
+      Q.stages.push(curStage); curTalk=null; continue;
+    }
+    if ((m=/^@LOG\s+(.*)$/.exec(L))){ if(curStage) curStage.log = m[1].trim(); else warn(Q,ln,'@LOG outside a @STAGE'); continue; }
+    if ((m=/^@DO\s+(.*)$/.exec(L))){
+      var d = { text:m[1].trim(), line:ln };
+      if (curStage) curStage.dos.push(d);
+      else if (curTalk) curTalk.trailingDo = d;
+      else warn(Q,ln,'@DO outside a @STAGE or @TALK');
+      continue;
+    }
+    if ((m=/^@OBJ\s+(\d+)\s+"([^"]*)"\s*(?:target=(\S+))?/.exec(L))){
+      Q.objs.push({ n:parseInt(m[1],10), text:m[2], target:m[3]||null, line:ln }); continue;
+    }
+
+    if ((m=/^@TALK\s+(\S+)\s*(.*)$/.exec(L))){
+      var attrs = attrsOf(m[2]);
+      curTalk = { id:m[1], speaker:attrs.speaker||null, entry:attrs.entry||null,
+                  says:[], opts:[], locks:[], noverbs:[], tags:tagsOf(raw), line:ln };
+      Q.talks.push(curTalk); curStage=null; continue;
+    }
+    if ((m=/^@SAY\s+(.*)$/.exec(L))){ if(curTalk) curTalk.says.push({text:stripTags(m[1]).trim(), tags:tagsOf(raw), line:ln}); else warn(Q,ln,'@SAY outside a @TALK'); continue; }
+    if ((m=/^@OPT\s+(.*)$/.exec(L))){
+      if(!curTalk){ warn(Q,ln,'@OPT outside a @TALK'); continue; }
+      var body = m[1];
+      /* CONTINUATION: an @OPT may wrap. Following lines that start with [gate: or -> or @DO
+         belong to it. Voice-to-text wraps long lines; the format must not punish that. */
+      while (i+1 < lines.length && /^\s*(\[gate:|->|@DO\b|TRAP\b|SILENCE\b)/.test(lines[i+1])){
+        i++; Q.raw.push(lines[i]); body += ' ' + lines[i].trim();
+      }
+      var o = parseOpt(body, ln, Q);
+      curTalk.opts.push(o); continue;
+    }
+    if ((m=/^@LOCK\s+(\S+)/.exec(L))){ if(curTalk) curTalk.locks.push({target:m[1], line:ln}); else warn(Q,ln,'@LOCK outside a @TALK'); continue; }
+    if ((m=/^@NOVERB\s+(.*)$/.exec(L))){ if(curTalk) curTalk.noverbs.push({text:m[1].trim(), line:ln}); else warn(Q,ln,'@NOVERB outside a @TALK'); continue; }
+    if (/^@END\b/.test(L)){ curTalk=null; continue; }
+
+    /* UNKNOWN LINE. Never dropped. Never fatal. Voice-to-text law. */
+    warn(Q, ln, 'unrecognized line kept verbatim: ' + L.slice(0,60));
+  }
+  return Q;
+}
+
+function parseOpt(s, ln, Q){
+  var o = { text:'', gate:'none', gateKey:'none', gateVal:null, trap:false, silence:false,
+            to:null, dos:[], line:ln, raw:s };
+  var m;
+  if ((m=/^"([^"]*)"/.exec(s))) o.text = m[1];
+  else if ((m=/^\(([^)]*)\)/.exec(s))) { o.text = '('+m[1]+')'; o.silence = true; }
+  else { warn(Q, ln, '@OPT has no quoted text'); o.text = s.split('[')[0].trim(); }
+
+  if ((m=/\[gate:\s*([^\]]*)\]/i.exec(s))){
+    o.gate = m[1].trim();
+    var parts = o.gate.split(':');
+    o.gateKey = parts[0].trim().split(/[<>=]/)[0].trim().toLowerCase();
+    o.gateVal = parts.slice(1).join(':').trim() || null;
+  }
+  if (/\bTRAP\b/.test(s)) o.trap = true;
+  if (/\bSILENCE\b/.test(s)) o.silence = true;
+  if ((m=/->\s*(\S+)/.exec(s))) o.to = m[1];
+  var dre = /@DO\s+([^@]+)/g, d;
+  while ((d = dre.exec(s))) o.dos.push({ text:d[1].trim(), line:ln });
+  return o;
+}
+
+function tagsOf(s){ var t=[], m, re=/(?:^|\s)#([A-Za-z0-9_]+)/g; while((m=re.exec(s))) t.push(m[1]); return t; }
+function stripTags(s){ return s.replace(/(?:^|\s)#[A-Za-z0-9_]+/g,''); }
+function attrsOf(s){ var a={}, m, re=/(\w+)=([^\s]+)/g; while((m=re.exec(s))) a[m[1]]=m[2]; return a; }
+function warn(Q,line,msg){ Q.warnings.push({line:line, msg:msg}); }
+
+/* ---------- SERIALIZE (lossless round-trip) ---------- */
+function serialize(Q){ return Q.raw.join('\n'); }
+
+/* ---------- VALIDATE ---------- */
+function validate(Q, world){
+  world = world || null;
+  var errs=[], warns=[];
+  function E(c,m){ errs.push({code:c, msg:m}); }
+  function W(c,m){ warns.push({code:c, msg:m}); }
+
+  if(!Q.id) E('NO_ID','quest has no @QUEST id');
+  if(!Q.stages.length) E('NO_STAGES','quest has no @STAGE');
+
+  var roleNames = {}; Q.roles.forEach(function(r){ roleNames[r.name]=r; });
+
+  /* G6 banned gates — CONSCIENCE SYSTEM enforced by the parser */
+  Q.talks.forEach(function(t){ t.opts.forEach(function(o){
+    BANNED_GATES.forEach(function(b){
+      if (new RegExp('\\b'+b+'\\b','i').test(o.gate))
+        E('BANNED_GATE','line '+o.line+': gate "'+o.gate+'" uses '+b.toUpperCase()+'. NO STAT GATES. NO KARMA. Ever.');
+    });
+    if (o.gateKey!=='none' && GATE_KEYS.indexOf(o.gateKey)<0)
+      W('UNKNOWN_GATE','line '+o.line+': gate key "'+o.gateKey+'" not in the vocabulary');
+    if (o.gateKey==='role' && o.gateVal && !roleNames[o.gateVal])
+      E('GATE_NO_ROLE','line '+o.line+': gate role:'+o.gateVal+' is not a declared @ROLE');
+  });});
+
+  /* G3 dead links */
+  var nodeIds={}; Q.talks.forEach(function(t){
+    if(nodeIds[t.id]) E('DUP_NODE','duplicate @TALK id "'+t.id+'" (line '+t.line+')');
+    nodeIds[t.id]=t;
+  });
+  Q.talks.forEach(function(t){
+    t.opts.forEach(function(o){ if(o.to && o.to!=='END' && !nodeIds[o.to])
+      E('DEAD_LINK','line '+o.line+': -> '+o.to+' does not exist'); });
+    t.locks.forEach(function(l){ if(!nodeIds[l.target])
+      E('DEAD_LOCK','line '+l.line+': @LOCK '+l.target+' does not exist'); });
+    if(t.speaker && !roleNames[t.speaker])
+      E('NODE_NO_ROLE','line '+t.line+': @TALK speaker='+t.speaker+' is not a declared @ROLE');
+  });
+
+  /* G2 orphan nodes — theme-in-optional, the ~18x flaw */
+  var reached={}; Q.talks.forEach(function(t){ if(t.entry) reached[t.id]=true; });
+  if(Q.talks.length && !Object.keys(reached).length && Q.talks[0]) reached[Q.talks[0].id]=true;
+  var moved=true;
+  while(moved){ moved=false;
+    Q.talks.forEach(function(t){ if(reached[t.id]) t.opts.forEach(function(o){
+      if(o.to && nodeIds[o.to] && !reached[o.to]){ reached[o.to]=true; moved=true; } }); });
+  }
+  Q.talks.forEach(function(t){ if(!reached[t.id])
+    W('ORPHAN_NODE','@TALK '+t.id+' (line '+t.line+') is unreachable. Theme-in-optional is the ~18x flaw.'); });
+
+  /* G1 alias-fill — the Bethesda lesson, taken for free */
+  if(world){
+    Q.roles.forEach(function(r){
+      if(!r.req) return;
+      if(typeof world.canCast!=='function') return;
+      if(!world.canCast(r)) E('ALIAS_FILL','REQ @ROLE '+r.name+' (line '+r.line+') cannot be cast: '+r.cond+
+        '. An unfilled REQ role fails the WHOLE quest silently. Bethesda shipped a debug flag for this; we fail the build.');
+    });
+  }
+
+  /* G4 hardcoded names. Root-cause heuristic: a proper noun is a capitalized word that is NOT
+     sentence-initial and NOT a declared role. Sentence-initial caps are grammar, not names. */
+  Q.talks.forEach(function(t){ t.says.forEach(function(s){
+    var txt = s.text, m, re=/([.!?]\s+|,\s+|\s+)([A-Z][a-z]{2,})/g;
+    var STOP={The:1,This:1,That:1,They:1,Then:1,There:1,These:1,Those:1,You:1,Your:1,What:1,When:1,Where:1,Which:1,Who:1,Why:1,How:1,And:1,But:1,For:1,Not:1,Now:1,She:1,Her:1,His:1,Him:1,Its:1,Was:1,Were:1,Are:1,Did:1,Does:1,Get:1,Got:1,Had:1,Has:1,Have:1,Just:1,Like:1,Look:1,Make:1,Never:1,Nothing:1,Only:1,Same:1,Say:1,Said:1,Tell:1,Told:1,Take:1,Went:1,Yes:1,Sit:1,Good:1,Play:1,Cleared:1,Six:1,Everyone:1,Welcome:1,Unhoused:1,Bring:1,Write:1,Their:1,One:1,Instead:1,Nobody:1,All:1,Because:1,Before:1,Beyond:1,Every:1,Find:1,Give:1,Sorry:1,Stop:1,Still:1,Ask:1,Come:1,Keep:1,Wait:1,Watch:1,Speak:1,Read:1};
+    while((m=re.exec(txt))){
+      var w=m[2];
+      if(m[1].match(/[.!?]/)) continue;            /* sentence-initial: grammar, not a name */
+      if(STOP[w]) continue;
+      if(roleNames[w.toLowerCase()]) continue;
+      W('HARDCODED_NAME','line '+s.line+': possible hardcoded name "'+w+'". Quests written against names die with the person. Use a @ROLE.');
+    }
+  });});
+
+  /* G7 removed verb */
+  var nv=0; Q.talks.forEach(function(t){ nv+=t.noverbs.length; });
+  if(Q.talks.length && nv===0)
+    W('NO_NOVERB','quest declares zero @NOVERB. A quest where every obvious thing is sayable has not decided what it is about. (Q118/Q122/Q123/Q125)');
+
+  /* G8 NAMED-BODY LAW (Q125) */
+  Q.stages.forEach(function(st){
+    if(st.tags.indexOf('namedbody')>=0){
+      st.dos.forEach(function(d){
+        if(/\b(give|loot|reward|credits|medicine|electricity|resources|item)\b/i.test(d.text))
+          E('NAMED_BODY','line '+d.line+': stage #'+st.n+' is #namedbody and grants loot. NAMED-BODY LAW: no loot in a room with a corpse the player knows by name.');
+      });
+    }
+  });
+
+  /* G9 cross-generation flags need a test */
+  var genReads=[]; Q.talks.forEach(function(t){ t.opts.forEach(function(o){
+    if(o.gateKey==='gen' || /gen\s*>=\s*[23]/.test(o.gate)) genReads.push(o); });});
+  if(genReads.length) W('GEN_FLAG_TEST','quest reads across a generation boundary ('+genReads.length+' gate(s)). FLAW LAW 3: needs a named regression test in bohemia_tests.js. Q116 shipped a flag bugged 25 years.');
+
+  /* G5 branch count (Q117: count branches before scoping volume) */
+  var endings = Q.stages.filter(function(s){ return s.flags.indexOf('COMPLETE')>=0 || s.flags.indexOf('FAIL')>=0; }).length;
+
+  return {
+    ok: errs.length===0,
+    errors: errs, warnings: warns.concat(Q.warnings.map(function(w){ return {code:'PARSE', msg:'line '+w.line+': '+w.msg}; })),
+    stats: { roles:Q.roles.length, reqRoles:Q.roles.filter(function(r){return r.req;}).length,
+             stages:Q.stages.length, objectives:Q.objs.length, nodes:Q.talks.length,
+             options:Q.talks.reduce(function(a,t){return a+t.opts.length;},0),
+             traps:Q.talks.reduce(function(a,t){return a+t.opts.filter(function(o){return o.trap;}).length;},0),
+             silences:Q.talks.reduce(function(a,t){return a+t.opts.filter(function(o){return o.silence;}).length;},0),
+             noverbs:nv, locks:Q.talks.reduce(function(a,t){return a+t.locks.length;},0),
+             endings: endings }
+  };
+}
+
+function roundTrip(text){ return serialize(parse(text)) === String(text).replace(/\r\n/g,'\n'); }
+
+var API = { parse:parse, serialize:serialize, validate:validate, roundTrip:roundTrip,
+            BANNED_GATES:BANNED_GATES, GATE_KEYS:GATE_KEYS, VERSION:'bq-1.0.0' };
+if (typeof module!=='undefined' && module.exports) module.exports = API;
+root.BQ = API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+/* ---- CLOUT table, lifted verbatim from engine/bohemia_loop.js ---- */
+(function(root){
+  /* LIFTED VERBATIM from engine/bohemia_loop.js at build time. This page
+     does not own these numbers and must never be edited to disagree with
+     that file - deed_bridge_gate.js fails if it does. */
+  const CLOUT_TAGS = ['quiet', 'notable', 'risky', 'reckless'];
+  const CLOUT_WEIGHTS = { quiet: 8, notable: 25, risky: 55, reckless: 110 };
+  const CLOUT_NEUTRAL = 15;
+  function cloutWeight(t){ return CLOUT_WEIGHTS.hasOwnProperty(t)?CLOUT_WEIGHTS[t]:CLOUT_NEUTRAL; }
+  function cloutTagFrom(tags){ tags=tags||[];
+    for(var i=0;i<CLOUT_TAGS.length;i++) if(tags.indexOf(CLOUT_TAGS[i])>=0) return CLOUT_TAGS[i];
+    return null; }
+  root.BohemiaLoop={CLOUT_TAGS:CLOUT_TAGS,CLOUT_WEIGHTS:CLOUT_WEIGHTS,
+    CLOUT_NEUTRAL:CLOUT_NEUTRAL,cloutWeight:cloutWeight,cloutTagFrom:cloutTagFrom};
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+/* ---- engine/bohemia_deeds.js ---- */
+// BOHEMIA DEEDS — THE BRIDGE FROM A QUEST OUTCOME TO WHO ACTUALLY SAW IT
+// (8/6/26, PEOPLE lane. Reads canon, invents nothing.)
+//
+// ===== THE HOLE, IN ONE SENTENCE =====
+// Paolo's quest corpus ALREADY writes down how big a deed was (`@DO faction REDS +12`)
+// AND how loud it was (`#quiet` / `#notable` / `#risky` / `#reckless`), and the loud
+// half only ever reached the VANITY FOLLOWER COUNT. The faction standing got applied
+// godlike: the number moved, valley-wide, instantly, and NOBODY HAD SEEN ANYTHING.
+//
+// So today a back-yard handshake and a public humiliation in front of a whole block
+// are worth the same to a faction. They are not the same. His own 7/21 law already
+// says so — RECKLESS BEATS QUIET — it just never got applied to anything except a
+// follower number.
+//
+// THIS MODULE IS THAT LAW, APPLIED TO REPUTATION.
+//   the ±N  ->  HOW MUCH the deed weighs   (already his, already authored)
+//   the tag ->  HOW FAR the news carries   (already his, already authored)
+// One is the deed. The other is the audience. They were never the same axis, and the
+// corpus has always authored them separately (S17 stage 30 is a #quiet +5; stage 33
+// is a #reckless -15). Nothing here is a new decision. It is two of his own columns
+// finally being read by the same organ.
+//
+// ===== REUSE CHECK (REUSE-FIRST, Paolo 7/22) =====
+// Opened, in code, and used:
+//   engine/bohemia_bq.js       — the real .bq parser. Stages, @DO lines, #tags all
+//                                come out of HIS parser. This file does not re-parse
+//                                the quest format and does not own a second copy of it.
+//   engine/bohemia_loop.js     — CLOUT_WEIGHTS {quiet:8,notable:25,risky:55,reckless:110}
+//                                and CLOUT_NEUTRAL:15 are READ FROM THERE, never retyped.
+//                                If he retunes them (the 7/21 law says the numbers are
+//                                tunable and only the ORDERING is locked), reach and
+//                                hops retune with them on the next boot, for free.
+//   engine/bohemia_standing.js — the witness/gossip/decay organ. Already built, already
+//                                gated at 35 claims. This adds NO reputation math.
+//   quests/bq/*.bq             — the 59 authored faction deltas and the 69 clout tags.
+// Nothing was cooked. Every number below is either his, or derived from his with the
+// derivation written down.
+//
+// ===== MECHANISM-MINE / CONTENTS-PAOLO'S, kept to the letter =====
+// bohemia_standing.js STILL SHIPS ITS DEED_WEIGHT TABLE EMPTY and its own gate still
+// asserts that. This module FILLS it at load — by SCANNING HIS FILES. There is not one
+// hand-typed row anywhere in here, and no faction is named in this file either. If the
+// corpus is empty the table is empty and the organ stays inert, exactly as before.
+(function (root) {
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+  var BQ   = HASREQ ? require('./bohemia_bq.js')       : (root.BQ || null);
+  var S    = HASREQ ? require('./bohemia_standing.js') : (root.BohemiaStanding || null);
+  var LOOP = HASREQ ? require('./bohemia_loop.js')     : (root.BohemiaLoop || null);
+
+  /* ---- HIS COLUMN 2: HOW LOUD. Read, never retyped. --------------------- */
+  function cloutWeight(tag) {
+    if (!LOOP) throw new Error('bohemia_deeds needs BohemiaLoop for CLOUT_WEIGHTS; there is no second copy of that table on purpose');
+    return LOOP.cloutWeight(tag);
+  }
+  function neutralWeight() { return cloutWeight(null); }   // his CLOUT_NEUTRAL, 15
+
+  /* ---- REACH: HOW FAR A THING CARRIES ------------------------------------
+     The only genuinely new math in this file, and it is one line with a real
+     reason under it.
+
+     A clout weight is, in effect, HOW MANY PEOPLE CARE. A crowd of that many
+     people does not stand in a line — it occupies an AREA. Area grows with the
+     count, so the RADIUS grows with its SQUARE ROOT. That is not a game-feel
+     knob, it is the geometry of people standing outdoors.
+
+     reach = SEE_RANGE * sqrt(cloutWeight / CLOUT_NEUTRAL)
+
+     THREE THINGS FALL OUT OF IT, AND ALL THREE ARE WHY IT IS THE RIGHT CURVE:
+
+     1. AN UNTAGGED DEED LANDS EXACTLY ON SEE_RANGE. sqrt(15/15) = 1. The default
+        case is bit-for-bit the behaviour standing.js already had, so the tag can
+        only ever move you OFF the old number, never silently redefine it.
+     2. RECKLESS IS ~2.7x THE SIGHTLINE, NOT 13.75x. Straight linear scaling on his
+        weights would have made one loud act visible across 124 tiles — most of the
+        valley — and news would teleport again, which is the exact failure the whole
+        witness organ exists to kill. The square root keeps news travelling at the
+        speed of PEOPLE.
+     3. HIS LOCKED ORDERING SURVIVES. sqrt is monotonic, so reckless > risky >
+        notable > quiet holds no matter how he retunes the weights. The gate checks
+        this against the live table rather than against numbers baked in here. */
+  function reachOf(tag) {
+    return Math.round(S.SEE_RANGE * Math.sqrt(cloutWeight(tag) / neutralWeight()));
+  }
+
+  /* ---- HOPS: HOW MANY TIMES IT GETS RETOLD --------------------------------
+     Same curve, same reason, and this is the half that makes the DYNASTY work.
+
+     standing.js already states the generational law in its own comments:
+       "A QUIET GOOD DEED DIES WITH THE WITNESS.
+        A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR."
+     ...because inherit() only carries a deed forward if hops > 0 — if somebody
+     RETOLD it. But until now NOTHING IN THE GAME PRODUCED THE DIFFERENCE: every
+     deed got the same hop budget, so "quiet" and "notorious" were the same word.
+     The clout tag is the thing that was missing. A #quiet deed gets ONE hop, so
+     it usually dies with the people who watched it. A #reckless one gets five,
+     so it is still being repeated by someone alive in thirty years.
+
+     Untagged lands exactly on MAX_HOPS, same identity guarantee as reach. */
+  function hopsFor(tag) {
+    return Math.round(S.MAX_HOPS * Math.sqrt(cloutWeight(tag) / neutralWeight()));
+  }
+
+  /* ---- THE UNITS CONVERSION, AND WHY IT IS NOT A KNOB ---------------------
+     His quest deltas run on the quest scale (the corpus's biggest single act is
+     |18|). standing.js's rungs run on the opinion scale (HOSTILE/-3, COLD/-1,
+     NEUTRAL/1, WARM/3 — boundaries two apart). Something has to convert, and a
+     conversion factor picked by feel is an invented constant pretending to be
+     mechanism. So it is DERIVED, from a rule you can argue with in English:
+
+       THE BIGGEST THING A QUEST CAN DO, DONE IN FRONT OF THE ENTIRE FACTION,
+       MOVES YOU EXACTLY ONE RUNG.
+
+     divisor = (largest |delta| in the corpus) / (rung step)
+     Today: 18 / 2 = 9. It is measured from his files at load, so if he ever writes
+     a bigger deed the whole scale re-normalises itself and the rule still holds.
+     Nothing to retune by hand, ever. */
+  var RUNG_STEP = (function () {
+    var r = S.RUNGS, best = Infinity;
+    for (var i = 1; i < r.length - 1; i++) best = Math.min(best, r[i][1] - r[i - 1][1]);
+    return best;
+  })();
+
+  /* ---- THE CORPUS SCAN ----------------------------------------------------
+     Every faction delta he has ever authored, with the clout tag of the stage it
+     sits on. This is the whole contents layer and it is entirely read.
+
+     ONE ACT, TWO MEANINGS — and the corpus was already saying this out loud.
+     S17 stage 32 is `faction CARAVANS +12` AND `faction BLUES -6`: taking the
+     credit is a good customer to the traders and a betrayal to the growers. It is
+     ONE thing that happened. So it is recorded as one event with a per-faction
+     face: a Caravanner standing there remembers the version that touched them, a
+     Blue remembers theirs, and a Red standing in the same street remembers NOTHING,
+     because the Reds genuinely do not care who buys seed. That is zero-sum for
+     free, and it is why the deed kind carries the faction in it. */
+  function scanQuest(src, fallbackId) {
+    var q = BQ.parse(src);
+    var out = [];
+    for (var i = 0; i < q.stages.length; i++) {
+      var st = q.stages[i];
+      var tag = LOOP.cloutTagFrom(st.tags);
+      for (var j = 0; j < st.dos.length; j++) {
+        var m = /^faction\s+([A-Za-z_]+)\s+([-+]?\d+)\s*$/.exec(st.dos[j].text);
+        if (!m) continue;
+        out.push({
+          quest: q.id || fallbackId || '?',
+          stage: st.n,
+          faction: m[1],
+          delta: parseInt(m[2], 10),
+          clout: tag,                       // null = untagged, scores CLOUT_NEUTRAL
+          kind: 'q:' + (q.id || fallbackId || '?') + ':' + st.n + '@' + m[1],
+          label: st.log || '',
+        });
+      }
+    }
+    return out;
+  }
+
+  /* Load a whole corpus of already-read sources: [{id, src}, ...]. Kept free of
+     any filesystem call so the same function runs in node and in a browser page
+     with the quests inlined. */
+  function loadCorpus(sources) {
+    var deeds = [];
+    for (var i = 0; i < sources.length; i++) {
+      deeds = deeds.concat(scanQuest(sources[i].src, sources[i].id));
+    }
+    var maxAbs = 0;
+    for (var k = 0; k < deeds.length; k++) maxAbs = Math.max(maxAbs, Math.abs(deeds[k].delta));
+    var divisor = maxAbs ? (maxAbs / RUNG_STEP) : 1;
+
+    /* FILL HIS TABLE. standing.js exports DEED_WEIGHT by reference and ships it
+       empty; this is the only thing in the codebase that puts rows in it, and
+       every row traces to a line number in one of his .bq files. */
+    var labels = {};
+    for (var d = 0; d < deeds.length; d++) {
+      S.DEED_WEIGHT[deeds[d].kind] = deeds[d].delta / divisor;
+      labels[deeds[d].kind] = deeds[d].label;
+    }
+    LABELS = labels;
+    return { deeds: deeds, divisor: divisor, maxAbs: maxAbs, rungStep: RUNG_STEP, count: deeds.length };
+  }
+  var LABELS = {};
+
+  /* ---- PUBLISH: THE ACTUAL BRIDGE ----------------------------------------
+     A quest stage resolved at (x,y). Instead of writing a number into a ledger
+     nobody witnessed, this puts the event into the heads of the people who were
+     standing there — as far as its own loudness carries, with the hop budget its
+     own loudness earned. Returns who saw what, which is the honest answer to the
+     question the old code could not even ask: DID ANYBODY NOTICE?
+
+     Nothing is stored anywhere else. There is still no faction ledger; a faction's
+     view of you remains the average of what its people actually saw. */
+  function publish(minds, turn, actorId, rows, x, y, where, factionOfOwner) {
+    var seen = [], total = 0;
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      var faction = r.faction;
+      var n = S.witness(minds, turn, actorId, r.kind, x, y, where, {
+        range: reachOf(r.clout),
+        maxHops: hopsFor(r.clout),
+        only: function (owner) { return factionOfOwner(owner) === faction; },
+      });
+      seen.push({ faction: faction, kind: r.kind, clout: r.clout, delta: r.delta,
+                  reach: reachOf(r.clout), maxHops: hopsFor(r.clout), witnesses: n });
+      total += n;
+    }
+    return { rows: seen, witnesses: total };
+  }
+
+  /* Resolve one stage of one already-parsed quest straight into the world. The
+     convenience the run lane will actually call. */
+  function publishStage(minds, turn, actorId, questSrc, stageN, x, y, where, factionOfOwner, questId) {
+    var rows = scanQuest(questSrc, questId).filter(function (r) { return r.stage === stageN; });
+    return publish(minds, turn, actorId, rows, x, y, where, factionOfOwner);
+  }
+
+  /* ---- WHY THEY FEEL THAT WAY, IN ENGLISH --------------------------------
+     becauseOf() returns deed KINDS, which are machine ids. A standing the player
+     cannot read is a standing they cannot play around, so the quest's own @LOG
+     line — already written, already in his voice — is what gets shown. */
+  function sayWhy(minds, faction, actorId, now, factionOfOwner, limit) {
+    return S.becauseOf(minds, faction, actorId, now, factionOfOwner, limit)
+      .map(function (b) {
+        return { who: b.who, force: b.force, heard: b.heard, hops: b.hops,
+                 said: LABELS[b.kind] || b.kind };
+      });
+  }
+
+  var API = {
+    reachOf: reachOf, hopsFor: hopsFor, cloutWeight: cloutWeight,
+    scanQuest: scanQuest, loadCorpus: loadCorpus,
+    publish: publish, publishStage: publishStage, sayWhy: sayWhy,
+    RUNG_STEP: RUNG_STEP,
+    labels: function () { return LABELS; },
+  };
+  if (HASREQ) module.exports = API; else root.BohemiaDeeds = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* ===== HIS QUEST, INLINED VERBATIM ===== */
+var QUEST_SRC = "# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)\n# S17 — THE SEED THAT DOES NOT COME BACK\n# Shape: this winter against every winter. Faction wires: BLUES, CARAVANS.\n# Grounded in real agronomy, no invention: hybrid seed yields hard once and its\n# children do not breed true, so a farm that plants it has to buy it again every\n# year forever; open-pollinated seed saved from your own crop yields less and is\n# an inheritance. Worse, pollen does not respect a fence, so a hybrid field\n# planted next to the saved line contaminates the saved line. Both sides are\n# telling the truth: the trader really can get them through this winter, and the\n# grower really is watching her only inheritance get bought out from under her.\n# Systems AS the mechanic: caravans are the valley's only outside trade and a\n# public humiliation of one is a real faction event. No proper names. CLOUT rides\n# the deed: a small sack and an isolated field is #quiet, a signed block-wide\n# plan is #notable, the full load on credit is #risky, telling his buyers in\n# front of him that the sacks do not breed true is #reckless.\n\n# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------\n# The corpus this quest is actually built from. Every id below resolves in\n# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of\n# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies\n# the id AND the quoted law title verbatim. A citation is a claim the machine\n# can check, never a name-drop.\n# @STUDY Q071.P4  W3 (invisibly seeded, 100 hours early — our long-arc + fold seeding\n#   applied: the cost is seeded now and only legible in ten years, when the line that fed her mother is gone.\n# @STUDY Q030.W9  ATTRITION CASCADES\n#   applied: a thin year is survivable; a thin year plus a bought line plus a debt is how a farm stops being a farm.\n# @STUDY Q003.W1  THE DIRTY ERRAND\n#   applied: the trader is honest about everything, which is what makes the credit the dangerous option.\n# ----------------------------------------------------------------------------\n\n@QUEST   bq_seed_no_return   The Seed That Does Not Come Back\n@ACT     2\n@FACTION BLUES\n@ONCE    true\n\n@ROLE grower  REQ  faction=BLUES     keeps_the_saved_seed=true\n@ROLE trader  REQ  faction=CARAVANS  sells_the_sacks=true\n\n@STAGE 10\n  @LOG The farm at the edge is short a winter of food and a caravan is parked in the yard with sacks.\n  @DO show_objective 10\n@STAGE 20\n  @LOG His seed makes twice the crop and its children make nothing. Hers makes less and makes more of itself forever.\n  @DO show_objective 20\n  @DO complete_objective 10\n@STAGE 30 COMPLETE #quiet\n  @LOG One small sack for this winter, planted on the far side of the ridge where the pollen cannot reach her line. Nobody eats well and nobody loses anything permanent.\n  @DO bond grower +18\n  @DO faction BLUES +5\n  @DO complete_objective 20\n@STAGE 31 COMPLETE #notable\n  @LOG Got the whole block to sign a thin year on purpose. All saved seed, smaller plates, and a line that still belongs to them in ten years. Everybody had to agree out loud, which is why it will hold.\n  @DO faction BLUES +12\n  @DO set_flag signed_the_thin_year\n  @DO complete_objective 20\n@STAGE 32 COMPLETE #risky\n  @LOG Took the full load on credit. Best harvest anyone has seen in nine years, a debt to people who travel, and a saved line the pollen got into. Next year we buy again. So does everyone.\n  @DO faction CARAVANS +12\n  @DO faction BLUES -6\n  @DO set_flag owes_the_caravans\n  @DO complete_objective 20\n@STAGE 33 COMPLETE #reckless\n  @LOG Told his buyers, standing in his own yard, that the second generation of what he sells is worthless. True, loud, and it cost him the season and me a road.\n  @DO faction CARAVANS -15\n  @DO faction_posture CARAVANS +1\n  @DO set_flag burned_the_road\n  @DO complete_objective 20\n@STAGE 34 FAIL #quiet\n  @LOG Nothing settled, and the planting window closed while everyone was still being reasonable at each other.\n  @DO bond grower -12\n\n@OBJ 10  \"Hear both sacks out\"        target=grower\n@OBJ 20  \"Decide what gets planted\"   target=trader\n\n# =====================================================================\n# THE ASK. Theme in her first line. She is not against the sacks, she is\n# against what the sacks make you next year.\n# =====================================================================\n@TALK yard  speaker=grower  entry=stage>=10,stage<20\n  @SAY His sacks will feed this block through winter. I want to say that first because everything after it sounds like I am pretending it is not true. #tired\n  @SAY What comes up from his seed does not breed. You save it, you plant its children, you get a field of nothing. So you buy again. Every year. Forever, and forever is a long word to sign.\n  @SAY Mine came off my mother's rows. It yields less. It has never once asked me for anything.\n  @OPT \"Then keep yours and take the thin year.\"   [gate: none]  -> thin\n  @OPT \"People have to eat this winter.\"            [gate: none]  -> eat\n  @OPT \"Can you plant both?\"                        [gate: none]  -> both\n  @OPT (wait for her to say the rest)               [gate: none]  SILENCE -> both\n  @NOVERB \"Tell her the caravan will not come back next year\"\n@END\n\n@TALK thin  speaker=grower\n  @SAY A thin year on purpose. Smaller plates, every house, agreed out loud so nobody thinks they are the only one going short. #tired\n  @SAY That only holds if it is public. A private sacrifice is a rumor by spring and a grudge by summer.\n  @DO set_stage 20\n@END\n\n@TALK eat  speaker=grower\n  @SAY I know. I have counted the block twice this month and I get the same number both times and it is not enough. #dread\n  @SAY So do not let me be noble at other people's expense. Go talk to him. Just do not come back and tell me his seed is a gift.\n  @DO set_stage 20\n@END\n\n@TALK both  speaker=grower\n  @SAY Pollen does not know about fences. Plant his field next to my line and by autumn my line is his line with a worse yield. #tired\n  @SAY Far side of the ridge, wind off it, and it can be done. It is careful work and careful work is exactly what nobody has time for in a bad year.\n  @DO set_stage 20  @DO learn pollen_crosses_fences\n@END\n\n# =====================================================================\n# THE YARD. He is not a swindler. He is a man selling a real thing that\n# really works, and the trap is that everything he says is accurate.\n# =====================================================================\n@TALK sacks  speaker=trader  entry=stage>=20\n  @SAY Twice the yield. I have never once said otherwise and I have never once had to. #flat\n  @SAY She will tell you it does not breed true. She is right. I sell food, not heirlooms, and a family that starves this winter has no heirloom problem next winter.\n  @SAY Small sack, full load on credit, or nothing, and I am parked here until dark either way.\n  @OPT \"One small sack. Far side of the ridge.\"   [gate: none]  -> small\n  @OPT \"The full load. On credit.\"                 [gate: none]  -> credit\n  @OPT \"What happens if the block cannot pay?\"      [gate: none]  TRAP -> cannotpay\n  @OPT \"Your buyers should hear about the second generation.\"  [gate: none]  -> tell\n  @NOVERB \"Ask him where the seed is actually made\"\n@END\n\n@TALK cannotpay  speaker=trader\n  @SAY Then we come back in the spring and we are pleasant about it, and there is a conversation about the water rights or the yard or the road. #flat\n  @SAY Nobody gets hurt. Things simply belong to different people afterward, and everybody agreed to it in a year when agreeing was easy.\n  @OPT \"Small sack. That is all.\"           [gate: none]  -> small   @DO learn credit_buys_the_yard\n  @OPT \"Full load anyway.\"                   [gate: none]  -> credit  @DO learn credit_buys_the_yard\n  @OPT (walk back to the farmhouse)           [gate: none]  SILENCE -> thin\n@END\n\n@TALK small  speaker=trader\n  @SAY One sack. Barely worth unhitching for, and it will get you to spring with a hungry face. #flat\n  @SAY Plant it away from her rows if you are going to be sentimental about her rows. That is honest advice and it costs me a customer next year.\n  @OPT \"One sack. Over the ridge.\"          [gate: none]  -> END  @DO set_stage 30\n  @OPT (load the one sack and go)            [gate: none]  SILENCE -> END  @DO set_stage 30\n  @OPT \"No. The block goes thin instead.\"     [gate: none]  -> plan\n@END\n\n@TALK credit  speaker=trader\n  @SAY The full load. Nine years since anybody around here saw a harvest like the one you are about to have. #flat\n  @SAY And next autumn you will need me, and the autumn after that, and by then it will not feel like a decision anybody made. That is not a threat. That is just how it goes and you can watch it happen from here.\n  @OPT \"The full load.\"                     [gate: none]  -> END  @DO set_stage 32\n  @OPT \"No. One sack, over the ridge.\"       [gate: none]  -> small\n@END\n\n@TALK tell  speaker=trader\n  @SAY In my own yard. In front of the people who were going to buy from me at the next stop. #dread\n  @SAY Say it and it is true and it is finished for me here. Then think about who brings salt and medicine up this road next season, and whether they will bother.\n  @OPT \"Say it loud enough for all of them.\" [gate: none]  -> END  @DO set_stage 33\n  @OPT (turn to his buyers and say it)        [gate: none]  SILENCE -> END  @DO set_stage 33\n  @OPT \"No. One sack, over the ridge.\"        [gate: none]  -> small\n@END\n\n@TALK plan  speaker=grower  entry=stage>=20,knows:pollen_crosses_fences\n  @SAY A thin year, signed by every house, or a small sack over the ridge. Those are the only two that leave anything standing in ten years. #tired\n  @SAY If it is the thin year, it happens in the open or not at all.\n  @OPT \"The whole block signs it.\"          [gate: none]  -> END  @DO set_stage 31\n  @OPT \"Nothing is signed. Let it lie.\"      [gate: none]  -> END  @DO set_stage 34\n  @OPT (go back to the sacks)                [gate: none]  SILENCE -> small\n  @NOVERB \"Promise her the caravan will never come back\"\n@END\n";
+
+(function(){
+var S=BohemiaStanding, M=BohemiaMemory, D=BohemiaDeeds, L=BohemiaLoop;
+
+/* the corpus is one quest here, which is the point: the numbers come out of HIS file */
+var CORPUS = D.loadCorpus([{id:'S17', src:QUEST_SRC}]);
+var ROWS   = D.scanQuest(QUEST_SRC,'S17');
+var TITLE  = (function(){ var m=/^@QUEST\s+\S+\s+(.*)$/m.exec(QUEST_SRC); return m?m[1].trim():'S17'; })();
+
+/* ---- the crowd. A real field of people, not a line. Manhattan distance is what
+   witness() actually uses, so the reach is drawn as the DIAMOND it really is. ---- */
+/* SIZED SO THE ANSWER IS VISIBLE, and this took a measurement to get right. The first
+   version put 323 people in the field, which is a district and not a faction - the loud
+   version reached 170 of them and the average still read NEUTRAL, so the headline claim
+   was true in the numbers and invisible on the screen. A faction is a group you could
+   actually name. At this size the quiet version leaves them NEUTRAL and the loud version
+   moves them a whole rung, which is the thing he is meant to see. */
+var W=44, H=22, CX=22, CY=11;
+function crowd(faction){
+  var minds=[],pos={},fac={},k=0;
+  /* deterministic scatter - no Math.random, so the picture is the same every time
+     he opens it and he can compare two runs honestly */
+  for(var y=0;y<H;y+=3) for(var x=(y/3%2?2:0);x<W;x+=4){
+    var id='C'+(k++);
+    minds.push(M.makeMind(id));
+    pos[id]={x:x,y:y}; fac[id]=faction;
+  }
+  return {minds:minds,pos:pos,fac:fac,where:function(i){return pos[i];},factionOf:function(i){return fac[i];}};
+}
+
+var SUN=false;
+function P(){ return SUN
+  ? {bg:'#efe9d8',dot:'#c3bda6',lit:'#2f7a2f',hot:'#b05a12',ring:'#8a8468',ink:'#3a3320'}
+  : {bg:'#0a0c07',dot:'#2c3122',lit:'#7ac87a',hot:'#e0a060',ring:'#4a4a36',ink:'#cdbd8a'}; }
+
+function draw(cv, w, actorId, reach, prog, hot){
+  var g=cv.getContext('2d'), p=P();
+  var sx=cv.width/W, sy=cv.height/H;
+  g.fillStyle=p.bg; g.fillRect(0,0,cv.width,cv.height);
+  var r=reach*prog;
+  /* the reach diamond, because Manhattan */
+  if(prog>0){
+    g.strokeStyle=p.ring; g.lineWidth=1.5;
+    g.beginPath();
+    g.moveTo((CX+r+.5)*sx,(CY+.5)*sy); g.lineTo((CX+.5)*sx,(CY+r+.5)*sy);
+    g.lineTo((CX-r+.5)*sx,(CY+.5)*sy); g.lineTo((CX+.5)*sx,(CY-r+.5)*sy);
+    g.closePath(); g.stroke();
+  }
+  for(var i=0;i<w.minds.length;i++){
+    var m=w.minds[i], q=w.pos[m.owner];
+    var saw=false, heard=false;
+    if(m.deeds) for(var j=0;j<m.deeds.length;j++){
+      if(m.deeds[j].actor!==actorId) continue;
+      if((m.deeds[j].hops||0)>0) heard=true; else saw=true;
+    }
+    var inside = (Math.abs(q.x-CX)+Math.abs(q.y-CY)) <= r;
+    var on = saw && inside;
+    var told = heard && prog>=1;
+    g.fillStyle = (on||told) ? (hot?p.hot:p.lit) : p.dot;
+    g.globalAlpha = on ? 1 : (told?0.5:0.85);
+    var rad = on?3.2:2.2;
+    g.beginPath(); g.arc((q.x+.5)*sx,(q.y+.5)*sy,rad,0,6.284); g.fill();
+    g.globalAlpha=1;
+  }
+  /* where it happened */
+  g.fillStyle=hot?p.hot:p.lit;
+  g.beginPath(); g.arc((CX+.5)*sx,(CY+.5)*sy,5,0,6.284); g.fill();
+  g.strokeStyle=p.bg; g.lineWidth=2; g.stroke();
+}
+
+/* ---- THE HEADLINE: same delta, same faction, two volumes ---- */
+var FAC='THEM', DELTA=12;
+function runVolume(tag){
+  var w=crowd(FAC);
+  var kind='same:'+tag;
+  S.DEED_WEIGHT[kind]=DELTA/CORPUS.divisor;
+  var res=D.publish(w.minds,1000,'YOU',[{faction:FAC,delta:DELTA,clout:tag,kind:kind}],CX,CY,w.where,w.factionOf);
+  var st=S.standingOf(w.minds,FAC,'YOU',1000,w.factionOf);
+  return {w:w,tag:tag,reach:D.reachOf(tag),hops:D.hopsFor(tag),seen:res.witnesses,st:st};
+}
+
+/* ---- THIRTY YEARS: gossip a lifetime, hand over, see what is left ----------
+   THIS RUNS IN A DIFFERENT, BIGGER WORLD ON PURPOSE, and getting that wrong is what
+   made the first version of this panel lie. The top panel is ONE FACTION - 88 people
+   you could name - which is the right frame for "what do they think of me". The
+   generational question is about THE WHOLE VALLEY, and it has to be, because the
+   thing being measured is whether there was anybody LEFT to tell. Run in the
+   faction-sized field, the loudest deed reached 73 of 88 and so had only 15 strangers
+   left to hear about it - and the bar chart came out saying a reckless deed is
+   forgotten fastest, which is the exact opposite of what the mechanism does. The world
+   was too small for the question, not the mechanism wrong. */
+var VW=140, VH=44, VCX=70, VCY=22;
+function valley(faction){
+  var minds=[],pos={},fac={},k=0;
+  for(var y=0;y<VH;y+=4) for(var x=(y/4%2?2:0);x<VW;x+=4){
+    var id='V'+(k++);
+    minds.push(M.makeMind(id));
+    pos[id]={x:x,y:y}; fac[id]=faction;
+  }
+  /* who is near enough to talk to whom, computed ONCE - all-pairs every round would
+     be 400^2 x 30 on a phone */
+  var near=[];
+  for(var i=0;i<minds.length;i++){
+    near[i]=[];
+    for(var j=i+1;j<minds.length;j++){
+      var a=pos[minds[i].owner], b=pos[minds[j].owner];
+      if(Math.abs(a.x-b.x)+Math.abs(a.y-b.y)<=5) near[i].push(j);
+    }
+  }
+  return {minds:minds,pos:pos,fac:fac,near:near,
+          where:function(i){return pos[i];},factionOf:function(i){return fac[i];}};
+}
+function runGenerations(tag){
+  var w=valley(FAC);
+  var kind='gen:'+tag;
+  S.DEED_WEIGHT[kind]=CORPUS.maxAbs/CORPUS.divisor;
+  var direct=D.publish(w.minds,0,'PARENT',[{faction:FAC,delta:CORPUS.maxAbs,clout:tag,kind:kind}],VCX,VCY,w.where,w.factionOf).witnesses;
+  /* a lifetime of people who are near each other talking */
+  for(var round=0;round<30;round++)
+    for(var i=0;i<w.minds.length;i++)
+      for(var n=0;n<w.near[i].length;n++) S.gossip(w.minds[i],w.minds[w.near[i][n]],round*60);
+  var T=30*365*24*60;
+  var h=S.inherit(w.minds,'PARENT','CHILD',T);
+  return {tag:tag,direct:direct,carried:h.carried,died:h.died,pop:w.minds.length};
+}
+
+/* ---- render ---- */
+var A,B,GEN;
+function paintReads(){
+  var p=P();
+  [[A,'rA','tA','QUIETLY',false],[B,'rB','tB','LOUDLY',true]].forEach(function(e){
+    var r=e[0];
+    document.getElementById(e[2]).innerHTML='&#9679; '+e[3]+
+      ' <span style="opacity:.6">&middot; #'+r.tag+' &middot; carries '+r.reach+' tiles</span>';
+    document.getElementById(e[1]).innerHTML=
+      '<div class="big" style="color:'+(e[4]?p.hot:p.lit)+'">'+r.seen+' people found out</div>'+
+      'out of '+r.w.minds.length+' standing around &middot; retold up to '+r.hops+'x<br>'+
+      'they now read <b style="color:'+p.ink+'">'+r.st.rung+'</b> ('+r.st.value.toFixed(2)+')';
+  });
+}
+function paintGrid(){
+  var p=P(), h='';
+  var byStage={};
+  ROWS.forEach(function(r){ (byStage[r.stage]=byStage[r.stage]||[]).push(r); });
+  Object.keys(byStage).sort(function(a,b){return a-b;}).forEach(function(sn){
+    var rs=byStage[sn], tag=rs[0].clout||'untagged';
+    h+='<div class="card" style="padding:10px 12px">';
+    h+='<div class="tag" style="color:'+(tag==='reckless'||tag==='risky'?p.hot:p.lit)+'">#'+tag.toUpperCase()
+      +' <span style="opacity:.55;letter-spacing:0">carries '+D.reachOf(rs[0].clout)+' tiles &middot; retold '+D.hopsFor(rs[0].clout)+'x</span></div>';
+    h+='<div class="q">&ldquo;'+esc(rs[0].label.slice(0,150))+(rs[0].label.length>150?'&hellip;':'')+'&rdquo;</div>';
+    rs.forEach(function(r){
+      var col=r.delta>0?p.lit:p.hot;
+      h+='<div class="row"><span style="flex:1;color:'+p.ink+';font:600 12px ui-monospace,monospace">'+r.faction+'</span>'
+       +'<span style="color:'+col+';font:700 12px ui-monospace,monospace">'+(r.delta>0?'+':'')+r.delta+'</span></div>';
+    });
+    h+='</div>';
+  });
+  document.getElementById('grid').innerHTML=h;
+}
+function paintGen(){
+  var p=P(), max=0;
+  GEN.forEach(function(g){ max=Math.max(max,g.carried); });
+  var h='<div class="card">';
+  GEN.forEach(function(g){
+    var pc=max?Math.round(g.carried/max*100):0;
+    h+='<div style="padding:7px 0">'
+     +'<div style="display:flex;gap:8px;font:600 11px ui-monospace,monospace;color:'+p.ink+'">'
+     +'<span style="flex:1">#'+g.tag+'</span><span style="opacity:.6">'+g.direct+' saw it &middot; all dead now</span></div>'
+     +'<div style="display:flex;align-items:center;gap:8px;margin-top:4px">'
+     +'<div style="flex:1;background:'+(SUN?'#dcd6c2':'#1c1f14')+';border-radius:3px"><div class="bar" style="width:'+pc+'%;background:'+(g.tag==='reckless'||g.tag==='risky'?p.hot:p.lit)+'"></div></div>'
+     +'<span style="font:700 12px ui-monospace,monospace;color:'+p.ink+';width:88px;text-align:right">'+g.carried+' still say it</span>'
+     +'</div></div>';
+  });
+  h+='</div>';
+  document.getElementById('gen').innerHTML=h;
+}
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function animate(){
+  var t0=null, cA=document.getElementById('cA'), cB=document.getElementById('cB');
+  function step(ts){
+    if(t0===null) t0=ts;
+    var e=(ts-t0)/1100;
+    var pa=Math.min(1,e), pb=Math.min(1,e);
+    draw(cA,A.w,'YOU',A.reach,pa,false);
+    draw(cB,B.w,'YOU',B.reach,pb,true);
+    if(e<1.02) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function run(){
+  A=runVolume('quiet'); B=runVolume('reckless');
+  GEN=L.CLOUT_TAGS.map(runGenerations);
+  paintReads(); paintGrid(); paintGen(); animate();
+  document.getElementById('foot').innerHTML=
+    'Real code, not a mock-up: bohemia_standing.js (who saw it, who retold it, what fades), '
+    +'bohemia_deeds.js (how far a tag carries), bohemia_bq.js (your quest format). '
+    +'Quest: <b>'+esc(TITLE)+'</b> &middot; '+CORPUS.count+' faction deltas read out of it. '
+    +'Your clout table, untouched: '+L.CLOUT_TAGS.map(function(t){return t+' '+L.CLOUT_WEIGHTS[t];}).join(' &middot; ')
+    +'. An untagged deed still carries exactly '+S.SEE_RANGE+' tiles, same as before.';
+}
+
+document.getElementById('again').onclick=function(){ run(); };
+document.getElementById('sun').onclick=function(){
+  SUN=!SUN; var p=P(), b=document.getElementById('bd');
+  b.style.background=SUN?'#efe9d8':'#0d0f0a'; b.style.color=SUN?'#3a3320':'#ddd';
+  document.getElementById('bar').style.background=SUN?'#efe9d8':'#0d0f0a';
+  document.getElementById('hdr').style.color=SUN?'#3a3320':'#cdbd8a';
+  ['lede','cap1','cap2','cap3','sub','foot'].forEach(function(id){
+    document.getElementById(id).style.color=SUN?'#6a6350':'#8f8770'; });
+  ['h1','h2','h3'].forEach(function(id){ document.getElementById(id).style.color=SUN?'#3a3320':'#cdbd8a'; });
+  [].forEach.call(document.querySelectorAll('.card'),function(c){
+    c.style.background=SUN?'#e5dfcc':'#141609'; c.style.borderColor=SUN?'#c9c2ab':'#2a2a1f'; });
+  run();
+};
+run();
+})();
+</script>

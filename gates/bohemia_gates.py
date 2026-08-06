@@ -512,6 +512,19 @@ GATES = [
      "THE ONE LINK OPENS THE GAME. On 8/2 one dropped </div> nested the whole app inside the front splash, so tapping the splash hid the game: 0x0, no tabs, a black screen on the only URL Paolo ever taps. The splash must close before the app opens, and the door is walked through in a real browser", True),
     ('STANDING',       ['node', 'gates/standing_gate.js'],
      "Paolo thumbed all 12 faction gaps WANT: this is gap 3, the documented failure of the whole genre - every NPC instantly knowing what you did with no route the news could take. Reputation now has to TRAVEL: a deed is WITNESSED not announced, an opinion is DERIVED from memories that decay (so redemption is free - gap 4), hearsay is weaker than eyesight and runs out of hops so a rumour cannot cross the valley, and a faction's view is just its members' views - no ledger, no faction named in the module, and zero-sum falls out for free (gap 7). DEED_WEIGHT ships EMPTY and the gate proves the module is inert until he rules", False),
+    ('DEED BRIDGE',    ['node', 'gates/deed_bridge_gate.js'],
+     "RECKLESS BEATS QUIET, FINALLY APPLIED TO REPUTATION. His quest corpus has always written down "
+     "TWO things about an outcome - how big it was (@DO faction REDS +12) and how loud it was "
+     "(#quiet/#notable/#risky/#reckless) - and the loud half only ever reached the vanity follower "
+     "count. Faction standing moved godlike: valley-wide, instantly, with nobody having seen anything, "
+     "so a back-yard handshake and a public humiliation were worth the same. Now the tag decides HOW FAR "
+     "the news carries and HOW MANY TIMES it gets retold, on a square-root curve read off his own live "
+     "CLOUT table (linear would put one loud act in front of 66 tiles of valley and news teleports again). "
+     "Nothing invented: bohemia_standing.js still ships DEED_WEIGHT EMPTY, every row traces to a @DO line "
+     "in a .bq file, no faction is named in the bridge, and the units conversion is DERIVED - the biggest "
+     "act in the corpus, in front of a whole faction, moves exactly one rung. An untagged deed still "
+     "reaches exactly SEE_RANGE and earns exactly MAX_HOPS, so nothing already in the world changed. "
+     "Fifteen planted mistakes self-tested every run", False),
     ('PAYLOAD WALL',   ['python3', 'gates/payload_wall_gate.py'],
      "THE CLIFF NOBODY HAD MEASURED. GitHub REJECTS any file over 100 MB - not a warning, the push fails - and the alpha was 38.7 MB gaining ~1.4-2 MB/day, so every lane in the fleet would have lost the ability to push on an ordinary Tuesday about six weeks out, with no obvious cause. 96% of it was two inlined base64 blobs, and base64 costs 33% on top of what it carries. This measures every tracked file, projects the date off real git history, and fails at a budget well under the wall so somebody sees it with weeks of room", False),
     ('FACTION MEMBERSHIP', ['node', 'gates/faction_membership_gate.js'],

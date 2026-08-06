@@ -112,17 +112,40 @@
 
   /* ---- 1. A DEED IS WITNESSED ---------------------------------------------
      Records into every mind that could actually see it. Returns how many people
-     saw, which is the honest answer to "did anybody notice?" */
-  function witness(minds, turn, actorId, deedKind, x, y, where){
+     saw, which is the honest answer to "did anybody notice?"
+
+     opts (8/6, all OPTIONAL and every default is the old behaviour exactly, so
+     nothing that already called this changes):
+       range    how far THIS deed carries. A back-yard handshake and a public
+                humiliation are not seen by the same number of people, and until
+                bohemia_deeds.js existed nothing in the game could say so.
+                Defaults to SEE_RANGE.
+       maxHops  how many retellings THIS deed earns, carried ON the deed so
+                gossip() can honour it. This is what finally makes the module's
+                own generational law true instead of decorative: inherit() only
+                carries a deed with hops>0, so a deed that never earned a
+                retelling really does die with the people who watched it.
+                Defaults to MAX_HOPS.
+       only     a predicate on the witness's owner id. One act can mean opposite
+                things to two factions and nothing at all to a third; this is how
+                the third one correctly remembers nothing. Defaults to everybody. */
+  function witness(minds, turn, actorId, deedKind, x, y, where, opts){
+    opts = opts || {};
+    var range = (opts.range==null) ? SEE_RANGE : opts.range;
+    var mh    = opts.maxHops;
+    var only  = opts.only;
     var n=0;
     for(var i=0;i<minds.length;i++){
       var m=minds[i];
       if(!m || m.owner===actorId) continue;          // you do not witness yourself
+      if(only && !only(m.owner)) continue;           // it did not mean anything to them
       var p=where && where(m.owner);
       if(!p) continue;
-      if(Math.abs(p.x-x)+Math.abs(p.y-y) > SEE_RANGE) continue;
+      if(Math.abs(p.x-x)+Math.abs(p.y-y) > range) continue;
       makeLedgerFreeMind(m);
-      m.deeds.push({actor:actorId, kind:deedKind, turn:turn, x:x, y:y, hops:0});
+      var d={actor:actorId, kind:deedKind, turn:turn, x:x, y:y, hops:0};
+      if(mh!=null) d.maxHops=mh;
+      m.deeds.push(d);
       if(m.deeds.length>(m.cap||64)) m.deeds.shift();
       n++;
     }
@@ -163,7 +186,10 @@
       var from=pair[0], to=pair[1];
       for(var i=0;i<from.deeds.length;i++){
         var d=from.deeds[i];
-        if((d.hops||0)>=MAX_HOPS) continue;          // the story has run its course
+        /* the story has run its course. A deed may carry its OWN budget (set by
+           bohemia_deeds.js from the quest's clout tag) — a thing people cannot
+           stop repeating outlives a thing mentioned once. MAX_HOPS when it doesn't. */
+        if((d.hops||0)>=(d.maxHops==null?MAX_HOPS:d.maxHops)) continue;
         if(d.actor===to.owner) continue;             // nobody gossips to your face
         if(turn-d.turn>NEWS_LIFE) continue;          // nobody volunteers ancient news
         var known=false;
@@ -172,7 +198,11 @@
           if(e.actor===d.actor&&e.kind===d.kind&&e.turn===d.turn){ known=true; break; }
         }
         if(known) continue;
-        to.deeds.push({actor:d.actor,kind:d.kind,turn:d.turn,x:d.x,y:d.y,hops:(d.hops||0)+1});
+        var r={actor:d.actor,kind:d.kind,turn:d.turn,x:d.x,y:d.y,hops:(d.hops||0)+1};
+        if(d.maxHops!=null) r.maxHops=d.maxHops;     // the budget travels with the story
+        if(d.inherited) r.inherited=d.inherited;     // so does whose deed it originally was
+        if(d.of) r.of=d.of;
+        to.deeds.push(r);
         if(to.deeds.length>(to.cap||64)) to.deeds.shift();
         moved++;
       }

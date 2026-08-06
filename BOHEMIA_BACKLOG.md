@@ -3901,6 +3901,39 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-V. [SHIPPED 8/6 - records/BOHEMIA_HOW_LOUD_YOU_WERE_8_6_26.md]
+   *** HIS QUEST CORPUS ALREADY SAID HOW LOUD EVERY DEED WAS, AND ONLY THE VANITY
+   FOLLOWER COUNT WAS LISTENING. ***
+   Every canon .bq outcome writes TWO numbers: how big (`@DO faction REDS +12`, 59 of
+   them) and how loud (`#quiet`/`#notable`/`#risky`/`#reckless`, 69 of them). The loud
+   half fed defaultFollowerScore() and NOTHING ELSE. Faction standing was applied
+   godlike - valley-wide, instantly, nobody having seen anything - so a back-yard
+   handshake and a public humiliation in front of a whole block moved a faction the
+   SAME AMOUNT, in a game whose own 7/21 law is titled RECKLESS BEATS QUIET.
+   BUILT: engine/bohemia_deeds.js. The tag now decides HOW FAR the news carries and HOW
+   MANY TIMES it gets retold, on reach = SEE_RANGE * sqrt(cloutWeight/CLOUT_NEUTRAL),
+   read off his LIVE table in bohemia_loop.js (a crowd occupies an AREA, so radius goes
+   with the square root of how many people care). Linear would have put one loud act in
+   front of 66 tiles and news teleports again - the exact failure the witness organ
+   exists to kill. AN UNTAGGED DEED STILL REACHES EXACTLY SEE_RANGE AND EARNS EXACTLY
+   MAX_HOPS, so nothing already in the world changed.
+   THE LAW THAT WAS WRITTEN DOWN AND NEVER PRODUCED: bohemia_standing.js has said since
+   day one that "a quiet good deed dies with the witness, a notorious one becomes the
+   thing your child is judged for" - because inherit() only carries a deed somebody
+   RETOLD. Nothing made the difference; every deed had the same hop budget. Now,
+   measured over 30 years in a 385-person valley: 6 / 36 / 64 / 110 still telling it.
+   Monotonic across all four of his tiers, 18x spread.
+   NOTHING INVENTED: DEED_WEIGHT still SHIPS EMPTY (gate measures it before the bridge
+   loads), every row traces to a @DO line by re-grepping the raw text, no faction is
+   named in the bridge's code, and the units conversion is DERIVED - the biggest act in
+   the corpus in front of a whole faction moves exactly ONE RUNG (18/2 = 9, measured
+   off his files, self-renormalising if he ever writes a bigger deed).
+   HE CAN LOOK AT IT: LIFE tab -> HOW LOUD YOU WERE. Auto-runs, nothing to tap.
+   Gate: deed_bridge_gate.js, 27 claims, 15 planted mistakes caught every run.
+   STILL OPEN AND DELIBERATELY NOT MINE: bohemia_loop.js STILL applies @DO faction
+   straight to FactionWorld, the omniscient scalar. Swapping it to publish() is a small
+   change in the QUESTS/RUN lane's file - ONE SYSTEM ONE SESSION says it is not mine to
+   cut. The witnessed organ is proved, gated and watchable; the swap is theirs to make.
 P-R. [SHIPPED 8/6 - THE BIG MISSING ITEM 7, FILED 7/29, OWNED BY NOBODY -
    records/BOHEMIA_A_SAVE_THAT_SURVIVES_A_WEEK_OFF_8_6_26.md]
    *** THE PHONE COULD DELETE THE SAVE AFTER SEVEN DAYS AND NOTHING WAS ASKING IT
