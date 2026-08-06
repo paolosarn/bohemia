@@ -1,3 +1,70 @@
+FACTIONS (factions-ovkjpf): 8/6 (k) LATEST — *** HIS QUEST CORPUS ALREADY SAID HOW
+LOUD EVERY DEED WAS, AND ONLY THE VANITY FOLLOWER COUNT WAS LISTENING. ***
+Tab: LIFE -> HOW LOUD YOU WERE. Nothing to judge, nothing to tap, it auto-runs.
+
+Every canon .bq outcome writes TWO numbers, and has since they were authored:
+  how BIG   `@DO faction REDS +12`                       59 of them
+  how LOUD  `#quiet` `#notable` `#risky` `#reckless`     69 of them
+The loud half fed defaultFollowerScore() and NOTHING ELSE. Faction standing was
+applied godlike -- valley-wide, instantly, with nobody having seen anything -- so a
+back-yard handshake and a public humiliation in front of a whole block moved a
+faction THE SAME AMOUNT. In a game whose own 7/21 law is titled RECKLESS BEATS QUIET.
+
+BUILT: engine/bohemia_deeds.js. The tag now decides how far the news carries and how
+many times it gets retold:
+    reach = SEE_RANGE * sqrt(cloutWeight / CLOUT_NEUTRAL)
+read off his LIVE table in bohemia_loop.js, never copied. A clout weight is how many
+people care; that many people occupy an AREA, so RADIUS goes with its square root.
+    #quiet 7 tiles/1x | untagged 9/2x | #notable 12/3x | #risky 17/4x | #reckless 24/5x
+AN UNTAGGED DEED LANDS ON EXACTLY SEE_RANGE AND EXACTLY MAX_HOPS. sqrt(15/15)=1, so
+the default case is bit-for-bit what the world already did and the tag can only move
+you OFF it. Linear scaling would have put one loud act in front of 66 tiles and news
+teleports again -- the exact failure the witness organ exists to kill.
+
+THE LAW THAT WAS WRITTEN DOWN AND NEVER PRODUCED. bohemia_standing.js has said since
+the day it shipped that "a quiet good deed dies with the witness, a notorious one
+becomes the thing your child is judged for" -- because inherit() only carries a deed
+somebody RETOLD. Nothing made the difference; every deed had the same hop budget, so
+quiet and notorious were literally the same word. Thirty years, 385-person valley:
+    #quiet 6 | #notable 36 | #risky 64 | #reckless 110 still telling it
+Monotonic across all four of his tiers. 18x spread.
+
+NOTHING INVENTED, and the gate measures it rather than believing a comment:
+DEED_WEIGHT still SHIPS EMPTY (checked BEFORE the bridge loads), every row traces to
+a @DO line by re-grepping the raw source, no faction is named in the bridge's code,
+and the units conversion is DERIVED -- the biggest act in the corpus in front of a
+whole faction moves exactly ONE RUNG (18/2 = 9, measured off his files, and it
+re-normalises itself if he ever writes a bigger deed).
+
+THREE THINGS I BUILT WRONG FIRST, written down because they are the transferable part:
+  1. A CLAIM AUTHORED BEFORE ITS MEASUREMENT. The gate asserted a quiet deed carries
+     ZERO across a generation. Measured, it carries a few. Rewrote the claim to what
+     is true (the SPREAD, across all four tiers), not the measurement to the claim.
+  2. A THRESHOLD MASQUERADING AS A LAW. "reckless reach must be under 22 tiles"
+     failed by two tiles and taught me nothing. The property that matters is
+     SUB-LINEARITY -- twice the drama is less than twice the sightline -- which is
+     exact, needs no constant of mine, and is checked against his live table.
+  3. A WORLD TOO SMALL FOR THE QUESTION. The generational panel first ran in the
+     faction-sized field, where the loudest deed reached 73 of 88 people and so had
+     only 15 strangers left to hear about it -- and the chart came out saying a
+     reckless deed is FORGOTTEN FASTEST. The mechanism was right; the frame was
+     wrong. That panel now runs in the valley, because the thing being measured is
+     whether there was anybody LEFT TO TELL.
+
+GATE: deed_bridge_gate.js, 27 claims, 15 planted mistakes caught every run. Registered
+in bohemia_gates.py as DEED BRIDGE. standing_gate still 35/35 after the two surgical
+changes to bohemia_standing.js (per-deed range/maxHops/only on witness(), per-deed hop
+budget honoured in gossip(); every default is the old behaviour exactly).
+
+STILL OPEN AND DELIBERATELY NOT MINE: bohemia_loop.js STILL applies @DO faction
+straight to FactionWorld -- the omniscient scalar. Swapping it to publish() is a small
+change in the QUESTS/RUN lane's file, and ONE SYSTEM ONE SESSION says it is not mine
+to cut. The witnessed organ is proved, gated and watchable; the swap is theirs.
+
+BOUNDARY NOTE: another PEOPLE session (7h9sfy) shipped durable-save the same day.
+Different system inside the same lane -- no overlap, backlog conflict resolved keeping
+both entries.
+
 CITY (1eztay): 8/6 (c) LATEST — *** I OVERSTATED THE REPO CEILING BY MORE THAN
 TWICE, AND I AM CORRECTING IT. READ THIS IF YOU READ MY 8/6 (a) OR (b) HEAD. ***
 
