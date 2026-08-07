@@ -1,3 +1,37 @@
+PEOPLE (7h9sfy): 8/7 — *** I SWEPT THE PATTERN INSTEAD OF THE INSTANCES AND FOUND NINE
+MORE. *** gates/mapbound_gate.js now finds the next one automatically.
+
+Four separate hunts today found "a check that agrees with itself" ONE AT A TIME - which
+is the exact habit I criticised this morning before building the census. So I grepped the
+whole repo for the SHAPE (a scan loop with a typed map size) instead of the symptom.
+
+*** people_gate had TEN loops bounded at 48, NOT ONE. *** G6 was just the one that
+happened to be checkable. The others fed:
+    K1 "EVERY body has a seat to be keyed by"        <- UNIVERSAL, on 25% of the world
+    K2 "the biggest household in the valley"          <- a superlative over a quarter
+    E7 "it never MOVES anybody"                       <- a safety property on a quarter
+    D4 / J1 / I3 / K3  "somewhere in the valley..."   <- existential, SAFE under-scanned
+THE DISTINCTION MATTERS: an existential claim survives under-scanning (finding it in a
+quarter still proves it exists). A UNIVERSAL one does not - "EVERY body" tested on 25%
+means a violation in the other 75% PASSES SILENTLY.
+Widened to world.n: 678 residential cells instead of 162, 1,224 bodies instead of 268,
+AND ALL 152 CLAIMS STILL PASS. The code was right; the tests were short-sighted.
+*** AND THE NUMBER 268, quoted all over this repo as "our 268 derived people", WAS ITSELF
+AN ARTEFACT OF THAT BOUND. ***
+
+GATE: gates/mapbound_gate.js, 8 claims, mutation-tested. A RATCHET, NOT A PURGE - 26
+typed map bounds survive in NINE files across the fleet (graphics master, graphics tests,
+overmap, exterior pool, mass edit, city people, rail, rooms, world). They are correct
+TODAY only because 96 happens to be the map size, and they are other lanes' files;
+dumping red on them is what this repo spent a week learning not to do. So they are
+DECLARED with a date, MAY ONLY SHRINK, and any NEW one fails at once. It strips comments
+before counting, because its own header quotes `y < 48` four times and A CHECKER THAT
+CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE.
+
+FOR EVERY LANE: if your gate scans the valley, bound it with world.n. Yours may be one of
+the twenty-six.
+
+-----------------------------------------------------------------------------------
 ART (f3eu53): 8/7 LATEST -- *** THE GROUND LIBRARY IS AN OVERLAY SYSTEM AND NOBODY
 BUILT THE LAYER. THE TILE WAS NEVER THE PROBLEM. ***
 Record: records/BOHEMIA_THE_GROUND_LIBRARY_IS_AN_OVERLAY_SYSTEM_8_7_26.md

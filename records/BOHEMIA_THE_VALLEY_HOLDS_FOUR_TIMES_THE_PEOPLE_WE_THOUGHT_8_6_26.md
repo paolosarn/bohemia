@@ -125,3 +125,47 @@ Four claims in that block were also pinned to the 48×48 world (area 21.23 km²,
 homes 10–15k, no-apocalypse 20–80k, valley 600–2,000 people). They passed only
 because the tool under-measured to match. Re-pinned to the measured world, with
 the reason recorded at each one.
+
+---
+
+## THEN I SWEPT THE PATTERN INSTEAD OF THE INSTANCES — AND FOUND NINE MORE
+
+Four separate hunts today found this class of bug one at a time. That is the exact
+habit I criticised this morning before building the reachability census, so:
+grep the whole repo for the shape rather than the symptom.
+
+**`people_gate` had TEN loops bounded at 48, not one.** G6 was simply the one that
+happened to be checkable. The others feed:
+
+| bound | the claim it fed |
+|---|---|
+| `y < 48` | **K1 "EVERY body has a seat to be keyed by"** |
+| `y < 48` | **K2 "the biggest household in the valley"** |
+| `y < 48` | **E7 "turning it down thins the valley, it never MOVES anybody"** |
+| `y < 48` | D4, J1, I3, K3 — "somewhere in the valley…" |
+
+The existential ones ("somewhere") are *safe* under-scanned — finding a thing in a
+quarter still proves it exists. **The universal ones are not.** "EVERY body" and
+"never MOVES anybody" tested on 25% of the world means a violation in the other 75%
+passes silently.
+
+Widened to `world.n`, the scan covers **678 residential cells instead of 162** and
+**1,224 bodies instead of 268** — and all 152 claims still pass. **The code was
+right; the tests were short-sighted.** K1 now verifies a universal property over
+every body in the valley instead of a fifth of them.
+
+> And the number **268**, quoted across this repo as "our 268 derived people", was
+> itself an artefact of that bound.
+
+### `gates/mapbound_gate.js` — the machine that finds the next one
+
+A **ratchet, not a purge.** Twenty-six typed map bounds survive in nine files
+across the fleet; they are correct *today* only because 96 happens to be the map
+size, and they belong to other lanes. Dumping red on them is the thing this repo
+spent a week learning not to do. So they are **declared with a date, may only
+shrink, and any NEW one fails immediately** — plus a specific ratchet on the three
+files this cost the most.
+
+It strips comments before counting, because this file's own header quotes `y < 48`
+four times and **a checker that cannot tell a mention from a use is the broken
+one.**

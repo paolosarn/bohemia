@@ -655,7 +655,7 @@ async function partD() {
 
   /* D1-D3: the lie is gone, valley-wide, and the two sources of truth agree. */
   let mismatch = 0, checked = 0, sleepersInShops = 0;
-  for (let y = 0; y < 48; y += 3) for (let x = 0; x < 48; x += 3) {
+  for (let y = 0; y < world.n; y += 3) for (let x = 0; x < world.n; x += 3) {
     const c = world.at(x, y); if (!c || !c.district) continue;
     const res = A.agentsForPlot(world, x, y);
     const cen = A.censusForPlot(world, x, y).people;
@@ -675,7 +675,7 @@ async function partD() {
      "cell 20,3 specifically". */
   let wk = [], home = [], at = null;
   outer:
-  for (let y = 0; y < 48 && !at; y++) for (let x = 0; x < 48; x++) {
+  for (let y = 0; y < world.n && !at; y++) for (let x = 0; x < world.n; x++) {
     const w = A.workersForPlot(world, x, y);
     if (!w.length) continue;
     wk = w; at = [x, y];
@@ -776,7 +776,7 @@ async function partE() {
   global.BohemiaPopulation = POP;
   const world = (global.BohemiaWorld || W).world(7);
   const count = () => { let n = 0, c = 0;
-    for (let y = 0; y < 48; y += 3) for (let x = 0; x < 48; x += 3) {
+    for (let y = 0; y < world.n; y += 3) for (let x = 0; x < world.n; x += 3) {
       const k = A.agentsForPlot(world, x, y).length; n += k; if (k) c++; }
     return { n, c }; };
 
@@ -805,11 +805,11 @@ async function partE() {
      higher up. */
   POP.setDial(1);
   const alive1 = new Set();
-  for (let y = 0; y < 48; y += 3) for (let x = 0; x < 48; x += 3)
+  for (let y = 0; y < world.n; y += 3) for (let x = 0; x < world.n; x += 3)
     if (A.agentsForPlot(world, x, y).length) alive1.add(x + ',' + y);
   POP.setDial(0.5);
   let outside = 0;
-  for (let y = 0; y < 48; y += 3) for (let x = 0; x < 48; x += 3)
+  for (let y = 0; y < world.n; y += 3) for (let x = 0; x < world.n; x += 3)
     if (A.agentsForPlot(world, x, y).length && !alive1.has(x + ',' + y)) outside++;
   ok('E7 turning it down thins the valley, it never MOVES anybody', outside === 0);
 
@@ -1057,7 +1057,7 @@ function partI() {
      A control that cannot move is not a control. */
   let at = null, nb = null;
   outer2:
-  for (let y = 0; y < 48; y++) for (let x = 0; x < 47; x++) {
+  for (let y = 0; y < world.n; y++) for (let x = 0; x < world.n; x++) {
     const c = world.at(x, y), c2 = world.at(x + 1, y);
     if (!c || !c2 || !A.RESIDENTIAL[c.district] || !A.RESIDENTIAL[c2.district]) continue;
     if (A.agentsForPlot(world, x, y).length > 2 && A.agentsForPlot(world, x + 1, y).length > 2) {
@@ -1112,7 +1112,7 @@ function partJ() {
   POP.clearCellDials(); POP.setDial(1);
 
   let at = null, wk = [];
-  for (let y = 0; y < 48 && !at; y++) for (let x = 0; x < 48; x++) {
+  for (let y = 0; y < world.n && !at; y++) for (let x = 0; x < world.n; x++) {
     const k = A.workersForPlot(world, x, y);
     if (k.length) { at = [x, y]; wk = k; break; }
   }
@@ -1198,7 +1198,7 @@ function partK() {
      A fallback to array position would silently reintroduce the whole bug, so
      it is counted rather than trusted. */
   let seatless = 0, bodies = 0, sample = 0;
-  for (let y = 0; y < 48; y += 2) for (let x = 0; x < 48; x += 2) {
+  for (let y = 0; y < world.n; y += 2) for (let x = 0; x < world.n; x += 2) {
     const ag = A.agentsForPlot(world, x, y);
     if (!ag.length) continue;
     sample++; bodies += ag.length; seatless += POP.seatlessIn(ag);
@@ -1211,7 +1211,7 @@ function partK() {
      ever returns more than SLOTS_PER_HOUSE, two different people in different
      houses would share one key and quietly become the same person. */
   let maxSlot = 0;
-  for (let y = 0; y < 48; y += 2) for (let x = 0; x < 48; x += 2)
+  for (let y = 0; y < world.n; y += 2) for (let x = 0; x < world.n; x += 2)
     for (const a of A.agentsForPlot(world, x, y)) {
       const m = /^H(\d+)-(\d+)$/.exec(String(a.id || ''));
       if (m) maxSlot = Math.max(maxSlot, parseInt(m[2], 10));
@@ -1223,7 +1223,7 @@ function partK() {
   /* K3-K5: THE REPAIR ITSELF, on a real cell that really fills up. */
   let cell = null, n0 = 0, n1 = 0;
   outer:
-  for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++) {
+  for (let y = 0; y < world.n; y++) for (let x = 0; x < world.n; x++) {
     POP.clearCellDials();
     const a = A.agentsForPlot(world, x, y).length;
     if (a < 2) continue;

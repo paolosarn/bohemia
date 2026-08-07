@@ -441,6 +441,13 @@ GATES = [
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],
      'the run IS the game we built: every system claimed integrated is machine-probed in the shipped run, no unproven claims', False),
+    ('MAP BOUND',      ['node', 'gates/mapbound_gate.js'],
+     'nothing that scans the valley may decide for itself how big the valley is. A typed `y < 48` '
+     'cost a 4.25x population error, and the CROSS-CHECK BUILT TO CATCH IT HAD THE SAME LINE -- '
+     'both sides measured a quarter of the world and agreed perfectly for weeks. The sweep then '
+     'found NINE MORE in the same file, feeding claims like "EVERY body" and "the biggest '
+     'household in the valley". A RATCHET, not a purge: 26 known bounds are declared and may only '
+     'shrink, any NEW one fails at once, and the three files this cost most must stay clean', False),
     ('SCALE TRUTH',    ['node', 'gates/scale_truth_gate.js'],
      "the population of the game must agree with the map it is derived from. "
      "tools/bohemia_scale_model.js promised its figure 'can never drift away from the world it "

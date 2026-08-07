@@ -4046,6 +4046,29 @@ P-W. [SHIPPED 8/7 - records/BOHEMIA_WHO_YOU_STIRRED_UP_8_7_26.md]
    rather than dodged. If he says no, it is nine lines to revert. If yes, the addendum
    gets written and build_the_world_gate.py should be told.
 
+P-U. [SHIPPED 8/7 - SWEPT THE PATTERN INSTEAD OF THE INSTANCES, FOUND NINE MORE -
+   records/BOHEMIA_THE_VALLEY_HOLDS_FOUR_TIMES_THE_PEOPLE_WE_THOUGHT_8_6_26.md]
+   Four separate hunts today found "a check that agrees with itself" ONE AT A TIME,
+   which is the exact habit I criticised this morning before building the census. So
+   I grepped the repo for the SHAPE - a scan loop with a typed map size.
+   *** people_gate had TEN loops bounded at 48, not one. *** G6 was just the one that
+   happened to be checkable. The others fed K1 "EVERY body has a seat to be keyed by",
+   K2 "the biggest household in the valley", E7 "it never MOVES anybody", and four
+   "somewhere in the valley" claims.
+   THE DISTINCTION THAT MATTERS: an EXISTENTIAL claim survives under-scanning (finding
+   a thing in a quarter still proves it exists). A UNIVERSAL one does NOT - "EVERY
+   body" tested on 25% of the world means a violation in the other 75% passes silently.
+   Widened to world.n: 678 residential cells instead of 162, 1,224 bodies instead of
+   268, ALL 152 CLAIMS STILL PASS. The code was right, the tests were short-sighted.
+   AND THE NUMBER 268, quoted across this repo as "our 268 derived people", WAS ITSELF
+   AN ARTEFACT OF THAT BOUND.
+   | gates/mapbound_gate.js, 8 claims, mutation-tested, registered. A RATCHET NOT A
+   PURGE: 26 typed bounds survive in NINE other files, correct today only because 96
+   happens to be the map size and mostly other lanes' - declared with a date, may only
+   SHRINK, any NEW one fails at once. Strips comments before counting because its own
+   header quotes `y < 48` four times. | 8/7 | no - gate work.
+   FOR EVERY LANE: if your gate scans the valley, bound it with world.n.
+
 P-T. [SHIPPED 8/6 - A NUMBER THE WHOLE GAME RESTS ON WAS 4.25x WRONG -
    records/BOHEMIA_THE_VALLEY_HOLDS_FOUR_TIMES_THE_PEOPLE_WE_THOUGHT_8_6_26.md]
    tools/bohemia_scale_model.js promises in its own header that the valley population
