@@ -1,3 +1,96 @@
+COMBAT (combat-nfnki9): 8/7 LATEST -- SIX FEATURES ARE LIVE AND UNJUDGED, AND I
+STOPPED ON PURPOSE. Deploy recovered ~05:00; verified 200fbdb deployed SUCCESS
+and carries all six; smoke gate green on the shipped build.
+
+*** THE DEPLOY OUTAGE IS OVER. *** It ate most of 8/6: zero successful publishes
+for ~5 hours, every run either cancelled by the next push or timing out in
+GitHub's Pages deployment service. Full post-mortem and the three things no lane
+should do (do not push harder, do not re-run a failed Pages job, do not add a
+custom pages.yml without the Settings change) are in
+records/BOHEMIA_THE_DEPLOY_IS_WEDGED_AND_ONE_RUN_IS_MINE_8_6_26.md. The wedged
+run was MINE, from re-running a failed job; it cleared on its own.
+
+=== WHAT IS LIVE AND WAITING FOR HIS EYES (all gate-green, 694 checks) ===
+  v121 DIFFICULTY FINALLY TOUCHES THE ENEMY. EASY and BOHEMIAN were MEASURED
+       IDENTICAL (6 turns, 16.7 HP/turn) -- G.pkgDiff only ever fed the dial.
+       Now it divides the MISS in distAccuracy. Far-range hit chance .38 -> .61.
+       Also: 4.4% of men spawned inside cars/cover, now 0.
+  v122 RUN is one button on the thumb; DASH + VAULT off the top menu.
+  v123 POP OUT knows WHO it is cover from (it only ever asked "is any stone
+       within 1.8 tiles", never whether it was between you and a living man --
+       wrong since v52). PC verb row wraps again (my v119 phone-only bug).
+       SPRINT off the menu. LAW: YOU ALWAYS SHOOT FIRST, locked + gated.
+  v124 top-row GRENADE off the menu.
+  v125-v128 THE MISSED ROUND, which never existed at all. It flies down THE
+       NEEDLE'S OWN BEARING (tgt.ea + G.angle -- literally what the dial draws),
+       sparks off cars, chips stone, kicks dust. v126: the camera used to cut
+       away ON THE EXACT FRAME it landed. v127: the camera now HOLDS while it
+       flies. v128: the direction was reading the EARLY/LATE flag, so the same
+       needle position threw left or right depending on sweep -- his "sometimes".
+  v129 YOUR FACE IS YOUR HEALTH BAR + THE STAMINA ORB, both in the fire button,
+       which was already a face in a circle under his thumb. Ten tiers with Doom
+       hysteresis, the face leans toward whoever shot you, STA pips off the row.
+       JUICE.AU had been KILLED at v36 and was the one item of 42 switched off;
+       REVIVED BY HIS OWN 8/3 REQUEST, registered in the graveyard.
+  v130 THE MISS STOP (1/32, 62.5ms, shortest legal note) with the shake pointing
+       along YOUR BARREL not into your body, plus the gun climbing in proportion
+       to how badly you pulled it.
+
+=== WHY I STOPPED, AND THE NEXT SESSION SHOULD TOO UNTIL HE JUDGES ===
+SIX FEATURES UNJUDGED IS PAST THE CAP. STOP PRODUCING is explicit that piling
+more on while nothing is judged IS the failure mode -- it is exactly how THE COOK
+happened (a finished grenade minigame he never asked to be shaped that way,
+killed on sight: "that grenade throwing was dogshit").
+He said "im lazy today" five times running and could not see any of it while the
+deploy was down. So I rendered the features as IMAGES from the real build and
+sent them to him directly -- the ten damage faces + stamina orb, and a three-frame
+strip of a real miss. THAT IS THE MOVE WHEN THE DEPLOY IS DOWN OR HE IS TIRED:
+bring the pixels to him, do not ask him to go get them.
+MY OWN HONEST FINDING FROM THAT, TOLD TO HIM UNPROMPTED: the impact dust on a
+missed round still looks too faint. NOT re-tuned, because tuning feel off a
+still frame is guessing -- it needs his eyes in motion.
+
+=== THE TOP UNBLOCKED ITEM, DELIBERATELY NOT STARTED ===
+THE TWO-STOREY OTHER HALF. v113 shipped half the fix (on the lot, the deck
+recedes) and its own record says the other half was owed: ON THE DECK, THE LOT
+SHOULD RECEDE. MEASURED the obstacle again today -- inside drawField the deck
+draws at ~line 85 but the blood (~260), pillars and CARS (~267) and litter (~542)
+all draw AFTER it, so a single scrim cannot work and it needs alpha applied at
+each lot draw site (or a real reorder).
+IT IS THE RIGHT NEXT ITEM: it is his loudest unanswered complaint ("I'm very
+unhappy with your two story system right now", "the two story shit looks like dog
+shit") and it is non-cook plumbing. IT SHOULD NOT SHIP BLIND ON TOP OF SIX
+UNJUDGED THINGS on a system he has already rejected twice.
+
+=== PENDING PAOLO -- DO NOT DECIDE THESE ===
+  1. THE GRENADE MINIGAME'S SHAPE. The cook is graveyarded; no variation on a
+     fuse bar, ever. Build nothing until he says what it IS.
+  2. TEN REAL PAINTED DAMAGE FACES? v129 composites his two approved portraits.
+     Hand-painted injury states are ART and his call.
+  3. THE DIFFICULTY NUMBERS, in units he can judge: a far enemy hits you 38% on
+     EASY and 61% on BOHEMIAN; close range ~97% on everything.
+  4. HOW WIDE A BAD MISS SHOULD GO (MISS_ANGLE_K / MISS_MAX, both [DIAL]).
+  5. Research proposal #4, misses permanently chipping the world -- an idea about
+     the ARENA rather than the shot, deserves its own verdict.
+
+=== AND STOP TELLING HIM TO WAIT FOR A BUILD NUMBER ===
+The stamp is ONE shared field every lane overwrites. I said "wait for 8/4d" twice
+while main already read 8/4h from another session. Tell him WHAT TO LOOK AT
+("your face is in the fire button with green fluid in it") -- no other lane's
+commit can invalidate that.
+
+TOOLS (replay in order after any rebase, all idempotent):
+  bohemia_combat_occupancy_and_threat_patch.py  (v121)
+  bohemia_combat_run_button_patch.py            (v122)
+  bohemia_combat_cover_from_whom_patch.py       (v123)
+  bohemia_combat_grenade_button_off_patch.py    (v124)
+  bohemia_combat_missed_round_patch.py          (v125)
+  bohemia_combat_miss_gets_its_beat_patch.py    (v126)
+  bohemia_combat_hold_the_camera_patch.py       (v127)
+  bohemia_combat_needle_bearing_patch.py        (v128)
+  bohemia_combat_vitals_in_the_button_patch.py  (v129)
+  bohemia_combat_miss_stop_and_climb_patch.py   (v130)
+
 LAB (lab-e2r7sv): 8/7 LATEST -- *** LAB-10: VALHEIM'S BUILD SYSTEM IS PLAYABLE, AND THE
 ANSWER IS ONE DESIGN DECISION, NOT A BUILD MENU. ***
 NOT IN A TAB YET, and by law it never will be -- the lab's own gate forbids any shipped
