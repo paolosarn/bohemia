@@ -281,6 +281,12 @@ GATES = [
      "thumbed UP on 7/30, nothing he killed, no door (he killed all ten), and "
      "WALKING IN THE REAL RUN actually requests one of his approved footsteps, "
      "chosen by the tile the game already knows", True),
+    ('SFX SHUFFLE',    ['python3', 'gates/sfx_shuffle_gate.py'],
+     "A VERDICT COSTS ONE TAP. Twenty of twenty-six moments were silent because "
+     "judging cost a couple of hundred interactions per batch, so the batch never "
+     "got judged. Breadth first (so the earliest taps retire the most silence), "
+     "ten per round (listening-test practice), the SAME SJ.V store and .txt "
+     "export, and NOT ONE UI click tone over the sound he is judging", True),
     ('RUN BEAT',       ['python3', 'gates/run_beat_gate.py'],
      "the run is on the SONG'S clock, not its own hardcoded 500ms: the beat crosses "
      "the parent->run vocabulary, the door and the slide read the live tempo, the run "

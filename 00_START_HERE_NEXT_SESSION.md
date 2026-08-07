@@ -272,6 +272,73 @@ GATE: gates/game_day_gate.js, 12 claims, mutation-tested. A RATCHET, NOT A DEMAN
 closing the links is the RUN lane's charter and blocked on Paolo's rulings, so forcing it
 would be A GATE OUTRANKING A RULING. But WAKING AND WALKING ARE THE ENTIRE GAME RIGHT NOW
 and must never break quietly.
+SOUND (sound-xk7pjp): 8/7 LATEST - *** A VERDICT USED TO COST HIM TWO HUNDRED TAPS.
+NOW IT COSTS ONE. TWENTY OF TWENTY-SIX MOMENTS IN THIS GAME ARE SILENT AND THE
+COOKING WAS NEVER THE BOTTLENECK. ***
+TO JUDGE: the shuffle round itself. MUSIC tab -> the soundboard -> JUDGE 10 SOUNDS.
+
+HE SAID "honestly im lazy today". He was not being lazy, he was declining to pay a
+price, and the price was mine. Judging ONE sound cost him: open MUSIC, scroll past the
+mixer, scroll past the board, find the card (collapsed, because the panel folds
+anything finished), open it, tap PLAY, listen, find the thumb, tap it, tap PLAY on
+candidate 2... Five candidates x six new moments is thirty of those, a couple of
+hundred interactions to clear one batch. So the batch never got cleared, and the gate
+printed the consequence every single run: "judge cards collapsed: 20 of 26".
+
+TWENTY OF TWENTY-SIX MOMENTS MAKE NO SOUND. Not because the sounds do not exist -- the
+factory cooks five candidates for any of them on demand -- but because a verdict is the
+only thing that turns a candidate into a sound, and the verdict surface was too
+expensive to use. COOKING A THIRTY-FIRST CANDIDATE WOULD HAVE MADE IT WORSE. So the
+thing to build was not a sound. It was a cheaper verdict.
+
+SHUFFLE JUDGE. It plays a candidate, shows two enormous buttons, and the instant he
+taps either one it records the verdict and plays the next. No scrolling, no cards, no
+finding, no reading. He can do it lying down.
+
+  BREADTH FIRST, and that is the leverage. A moment stops being silent the moment ONE
+  candidate gets a thumb up, so the queue takes candidate 1 of EVERY unjudged moment
+  before candidate 2 of any of them. SIX TAPS CAN RETIRE SIX SILENCES. Six taps spent
+  finishing one moment retires one.
+  TEN PER ROUND, then it STOPS and says he is finished. Not a limitation -- the whole
+  ergonomics. RESEARCH (MUSHRA/ODAQ listening-test practice, ABX method): formal tests
+  are split into sessions of about ten trials with breaks, because fatigue past that
+  makes the later verdicts worse than the earlier ones. An open-ended queue is one more
+  thing he has to decide when to quit; a round with an end is a thing a lazy man will
+  actually start. GO AGAIN is his call, not the surface nagging him.
+  ONE STORE. SJ.V is the verdicts, SJ.save persists, SJ.exportTxt exports the same
+  .txt through the same share sheet. Judge here, open the old panel, the thumbs are
+  already on the cards. A second store would be a way to lose his work.
+  GRAVEYARD IS FINAL by construction: SJ.done(ev) is true when every candidate carries
+  a thumb, and a done moment never enters the queue.
+
+AND IT DOES NOT TALK OVER THE SOUND IT IS ASKING ABOUT (Paolo 8/4: "I CANT HEAR THE
+SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE A SOUND").
+The overlay carries data-noui, the parent's existing contract for "this click IS a
+sound already". MUTATION TESTED, not assumed: strip the attribute and the gate goes
+red on two checks, because a click tone really does land on the candidate without it.
+Depth-first ordering was mutated too -- also red on two. 25/25 with both restored.
+
+REGISTERED IN THE SHIPPED-TRUTH MANIFEST. The RUN lane shipped that gate on 8/6 and
+the whole sound stack was invisible to it, which is not hypothetical: the SFX bus hung
+off the music master for weeks, so music-off killed every sound in the game, and no
+gate noticed because none of the code was MISSING -- it was wired somewhere else.
+Eight sound claims now, additive, the RUN lane's array untouched.
+
+ALSO THIS TURN: voice limiting. Measured at the limiter output that stacked sounds
+were actively HARMFUL -- 16 copies came out at energy 1.81 against a single shot's
+2.18, quieter than one. 45ms per event, 8 voices per 60ms window. After: flat, and
+the peak identical at every N. Verified the risk did not materialise (a 7-event
+firefight volley dropped ZERO).
+
+WAITING ON HIM, still: the 6 batch-02 moments (30 candidates - THIS is what the
+shuffle round is queued with), the 4 acoustic spaces, the 9 batch-20 songs.
+MENU music is a named waiver: 2 canon songs, no player, his design call.
+HIS OPEN QUESTION, unanswered and re-asked this turn: should eating take real
+world time.
+
+GATES: sfx_shuffle 25/25 (new), sfx_wired 318/318, shipped_truth 19/19,
+run 126/126, music 17/17, music_reach 13/13, alpha_loads 20/20, setup_hook 12/12.
+
 SOUND (sound-xk7pjp): 8/4 (m) LATEST - A GATE THAT ASKS THE ONLY QUESTION HE
 CARES ABOUT: CAN I HEAR IT? Nothing here needs judging.
 
