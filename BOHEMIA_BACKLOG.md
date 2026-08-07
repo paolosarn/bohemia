@@ -1724,6 +1724,26 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0BB. [DONE 8/7 — I STOPPED SHIPPING INFRASTRUCTURE AND WENT AND PLAYED IT]
+   Four turns running ended with "NOT IN A TAB YET". So: opened the game, visited all
+   ELEVEN tabs at 390x844, photographed every one, sent the pictures to him.
+   IT WORKS. All 11 tabs open, render and draw, ZERO page errors. RUN drops into the
+   suburb with D-pad and BIKE live; CLOTHES carries 216 canvases; LIFE is now a hub
+   with green JUST LOOK AT IT / amber NEEDS YOUR THUMB cards.
+   THE DEPLOY OUTAGE IS OVER (not my fix, another lane's find): the custom `pages`
+   workflow SUCCEEDED on e4070a62, first success in 30 runs, and the built-in deployer
+   stopped firing -- the Pages source got switched to GitHub Actions. The link is live.
+   TWO CANDIDATE DEFECTS, BOTH CLEARED BEFORE CLAIMING: (1) a blurry lower band,
+   detail ~16-18 top vs ~8 bottom, fixed to the screen across three districts -- NOT
+   called a defect because the D-pad and caption box sit exactly there and flat dark UI
+   produces that number; the measurement cannot separate the two, and whether it looks
+   wrong is TASTE and his. (2) six tabs past the right edge with scrollLeft refusing to
+   move -- then swiped it like a thumb and it scrolled 0 -> 236. THE BAR IS FINE.
+   SEVENTH INSTRUMENT CATCH OF THE STRETCH. Six caught, one shipped and corrected in
+   public. CHECK THE INSTRUMENT AGAINST SOMETHING KNOWN-GOOD BEFORE BELIEVING IT.
+   Record: records/BOHEMIA_I_WENT_AND_PLAYED_IT_8_7_26.md
+   | 11/11 tabs render, 0 page errors | the blurry band is a LOOK call, one word | no.
+
 0BA. [CORRECTION 8/6 — I OVERSTATED 0AY BY MORE THAN TWICE. RAN MY OWN TEST; IT
    REFUTED ME.] 0AY published 32.5 MB/day, a 130-day runway, and named
    slices/BOHEMIA_CITY_WORLD.html as the top driver at 20.5 MB/day. All three wrong.

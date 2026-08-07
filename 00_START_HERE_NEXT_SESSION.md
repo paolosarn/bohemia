@@ -1,3 +1,50 @@
+CITY (1eztay): 8/7 LATEST — I WENT AND PLAYED IT, AND TOOK PICTURES. IT WORKS.
+
+Four turns running I handed him infrastructure and ended with "NOT IN A TAB YET".
+So this turn: open the game, visit all ELEVEN tabs at 390x844, photograph every
+one, report what is actually there. Screenshots sent to him directly.
+
+ALL ELEVEN TABS OPEN, RENDER AND DRAW. Zero page errors across the whole sweep.
+RUN drops into the suburb with the D-pad and BIKE live; CLOTHES carries 216
+canvases; LIFE is now a hub with green JUST LOOK AT IT cards and amber NEEDS YOUR
+THUMB cards -- somebody built him a queue that respects a lazy day.
+
+THE DEPLOY OUTAGE IS OVER, and it was not my fix. The last 30 Pages runs were 18
+cancelled, 8 failed, ZERO success -- every lane shipping into a void. Measured now:
+the custom `pages` workflow SUCCEEDED on e4070a62 at 22:47, the first success in
+the whole history, and the built-in deployer that was fighting it has stopped
+firing. That only happens once the Pages source is switched to GitHub Actions. THE
+TWO CLICKS GOT MADE. THE LINK IS LIVE.
+
+TWO THINGS THAT LOOKED BROKEN, BOTH CLEARED, AND THIS IS THE PART TO READ:
+  1. A blurry band across the lower screen. Detail measured ~16-18 up top and ~8 at
+     the bottom, and it stayed on the same screen rows across three different
+     districts -- which looks damning. NOT CALLING IT A DEFECT: the bottom of the
+     screen is exactly where the D-pad ring and caption box sit, and flat dark UI
+     produces that number. The measurement cannot separate "soft renderer" from
+     "control pad in the way", and a number that cannot tell those apart is not
+     evidence. Whether that band looks wrong is TASTE, and taste is his.
+  2. Six tabs off the right edge (626px of tabs in a 390px bar). Setting scrollLeft
+     did nothing, which read as SIX TABS UNREACHABLE. Then I swiped it like a thumb:
+     scrollLeft 0 -> 236, LIFE moved x542 -> x306. THE BAR SCROLLS. The programmatic
+     assignment was the broken instrument, not the game.
+
+THE COUNT IS NOW SEVEN. Seven times in this stretch an instrument nearly produced a
+false finding: 6.9 GB of git that was really 900 MB; a growth rate that disagreed
+with itself by 3x; a tag regex that invented three truncated files; a sabotage that
+never applied; a per-file attribution that named the wrong file; and two candidate
+defects in one playthrough. SIX WERE CAUGHT. THE ONE THAT GOT OUT SHIPPED TO MAIN
+AND HAD TO BE CORRECTED IN PUBLIC. The move that works every time is the same:
+CHECK THE INSTRUMENT AGAINST SOMETHING KNOWN-GOOD BEFORE BELIEVING IT.
+Record: records/BOHEMIA_I_WENT_AND_PLAYED_IT_8_7_26.md
+
+NOT MINE TO DECIDE
+- THE POPULATION NUMBER is PARKED ("just worry about the coding and plumbing for
+  now"). DO NOT RAISE IT. Backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Still open.
+- 0AY options 1/2/3 (deploy-time build / LFS / stop committing intermediates).
+  Runway is 5-10 months, not 4 -- see the 8/6 correction. Not urgent.
+
 PEOPLE (7h9sfy): 8/6 LATEST — *** SOMEBODY FINALLY TRIED TO PLAY A DAY. YOU CAN WAKE UP
 AND YOU CAN WALK. THAT IS THE GAME TODAY. *** THE BIG MISSING item 1, ATTEMPTED instead
 of guessed. Record: records/BOHEMIA_HOW_FAR_THE_GAME_GETS_IN_ONE_DAY_8_6_26.md
@@ -157,7 +204,6 @@ eyesight, turning standing into a stored score, and me claiming their work as my
 5. DELETED FROM THIS QUEUE: "witness + story-spread plumbing." DONE, by them, four turns after
    I first listed it. A queue that lists finished work hides the real next thing.
 6. Did not touch #buildstamp: one record, one gate block. Pages still failing per other lanes.
-
 FACTIONS (factions-ovkjpf): 8/6 (k) LATEST — *** HIS QUEST CORPUS ALREADY SAID HOW
 LOUD EVERY DEED WAS, AND ONLY THE VANITY FOLLOWER COUNT WAS LISTENING. ***
 Tab: LIFE -> HOW LOUD YOU WERE. Nothing to judge, nothing to tap, it auto-runs.
