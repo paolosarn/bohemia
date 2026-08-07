@@ -323,6 +323,14 @@ def parent_block(bank):
       if(ph===LASTPHASE) return;
       LASTPHASE=ph;
       CITYMUS.phase=ph;
+      /* AND MAKE IT AUDIBLE (8/7). Setting the phase only changes what the NEXT
+         pick draws from, and the shuffle only picked at the end of a 64-bar
+         pass -- 128 seconds at 120 BPM -- so dawn could break and the night
+         pool would keep playing for over two minutes. onPhaseChange arms a turn
+         at the next 8-bar boundary; it never plays anything itself, so this
+         cannot interrupt a song mid-phrase. Guarded because the hook ships in a
+         separate patch and a missing one must never break the clock. */
+      if(typeof CITYMUS.onPhaseChange==='function') CITYMUS.onPhaseChange();
     }catch(e){}
   }
   window.__musicPhase=function(){ return (typeof CITYMUS!=='undefined'&&CITYMUS)?CITYMUS.phase:null; };

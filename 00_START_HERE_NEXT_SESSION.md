@@ -856,6 +856,62 @@ GATE: gates/game_day_gate.js, 12 claims, mutation-tested. A RATCHET, NOT A DEMAN
 closing the links is the RUN lane's charter and blocked on Paolo's rulings, so forcing it
 would be A GATE OUTRANKING A RULING. But WAKING AND WALKING ARE THE ENTIRE GAME RIGHT NOW
 and must never break quietly.
+SOUND (sound-xk7pjp): 8/7 (b) LATEST - *** HIS DUSK POOL IS TWO SONGS AND THE SHUFFLE
+HAD NO MEMORY, SO DAWN WAS A COIN FLIP ON PLAYING THE SAME TRACK TWICE IN A ROW.
+AND THE WORLD CLOCK WAS INAUDIBLE FOR UP TO TWO MINUTES. ***
+Nothing new to judge. Two mechanism bugs, both found by counting.
+
+MEASURED, off CAT_DEFAULTS and the hardcoded OVERWORLD set:
+    OVERWORLD NIGHT       10 songs
+    OVERWORLD DAY          5 songs
+    OVERWORLD DUSK/DAWN    2 songs      <-- TWO
+    eligible for the overworld at all: 17 of 132
+The pool sizes are HIS (OVERWORLD PLAYLIST LAW 7/7: the overworld plays only the
+creepers, plus however many he has tagged). What was MINE is that pick() drew
+uniformly EVERY pass with no memory of what just played. Chance the next song is
+the one that just ended: dusk 50%, day 20%, night 10%. A pool of two with no
+memory sounds like a pool of one and a half, and it is loudest exactly where the
+pool is thinnest.
+
+FIX 1 NO REPEAT. pick() drops what is currently playing, but ONLY when there is
+something else -- a one-song pool must still play, or the fix defeats the
+failsafe candidates() exists to provide. Two songs now strictly alternate.
+Chooses nothing for him: same pool, same verdict weighting (canon 8x, unjudged
+4x, graveyarded 1x).
+
+FIX 2 THE CLOCK IS AUDIBLE. The shuffle only reconsidered at the END of a 64-bar
+pass, which at 120 BPM is 1024 steps x 0.125s = 128 SECONDS. So the 8/4 phase
+wire would set CITYMUS.phase the instant the clock crossed 06:00 and nothing
+could be heard for over two minutes. A clock you cannot hear is not a clock.
+A phase change now arms a turn at the next 8-BAR line (128 steps, 16 seconds):
+quantized per the 120 BPM LAW so it lands on a phrase end and sounds intended,
+never cutting mid-bar. Worst case 128s -> 16s. Arming never plays by itself, so
+a clock report can never interrupt a song.
+
+MUTATION TESTED, AND THE FIRST GATE WAS A LIE. Removing the no-repeat filter
+turns the gate red on three checks (200 picks per phase, ZERO repeats is the
+assertion, not a tuned threshold). But the FIRST version of the phase check
+re-implemented the tick INSIDE the gate and asserted against its own copy -- it
+was GREEN against a build whose real scheduler had been mutated to wait out the
+whole 64-bar pass. A perfect side-door probe, caught only because the mutation
+was run. Rewritten to start the real shuffle and let the shipped 400ms interval
+decide; it now goes red on three checks under the same mutation.
+A SECOND correction: the gate asserted !CITYMUS.pend after firing and failed on a
+CORRECT build, because the live world clock keeps reporting and a genuine phase
+change RE-ARMS a fresh turn. That is the feature working. Fixed the ruler, not
+the target: count firings, do not read a flag.
+
+REPORTED, NOT RESOLVED: 85 of his 110 canon songs carry NO category, so 115 of
+132 can never reach the overworld. That is NOT a bug to fix here -- most are
+faction and action themes that correctly do not belong in the streets, and
+deciding which of the rest do is the ruling he reserved (MUSIC CATEGORY LAW
+7/19: the list is HIS; MECHANISM-MINE / CONTENTS-PAOLO'S). The thin one is
+DUSK/DAWN at two songs. If he ever wants it fuller, tagging is the lever.
+
+GATES: citymus_rotation 22/22 (new), sfx_shuffle 25/25, sfx_wired 318/318,
+shipped_truth 21/21, run 126/126, music 17/17, music_reach 13/13,
+alpha_loads 20/20, setup_hook 12/12.
+
 SOUND (sound-xk7pjp): 8/7 LATEST - *** A VERDICT USED TO COST HIM TWO HUNDRED TAPS.
 NOW IT COSTS ONE. TWENTY OF TWENTY-SIX MOMENTS IN THIS GAME ARE SILENT AND THE
 COOKING WAS NEVER THE BOTTLENECK. ***

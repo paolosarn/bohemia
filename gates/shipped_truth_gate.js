@@ -64,6 +64,8 @@ const SOUND_CLAIMS = [
   ['sfxSpace',        'a room sounds like a room and the street sounds like the street'],
   ['__musicPhase',    'the clock moves and the music changes with it'],
   ['shufWrap',        '"honestly im lazy today" -- a verdict costs one tap now'],
+  ['onPhaseChange',   'dawn is audible in 16 seconds instead of 128'],
+  ['fresh.length',    'a two-song pool stopped being a coin flip on repeating itself'],
 ];
 
 let blob = '', found = [];
@@ -90,7 +92,7 @@ console.log('    ' + live + '/' + CLAIMS.length + ' of the RUN lane\'s features 
 
 /* the sound manifest cannot be quietly emptied either */
 ok('the manifest still lists the SOUND lane\'s shipped work (' + SOUND_CLAIMS.length + ')',
-   SOUND_CLAIMS.length >= 8);
+   SOUND_CLAIMS.length >= 10);
 let sLive = 0;
 for (const [marker, why] of SOUND_CLAIMS) {
   const n = blob.split(marker).length - 1;

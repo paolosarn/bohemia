@@ -286,6 +286,11 @@ GATES = [
      "thumbed UP on 7/30, nothing he killed, no door (he killed all ten), and "
      "WALKING IN THE REAL RUN actually requests one of his approved footsteps, "
      "chosen by the tile the game already knows", True),
+    ('CITYMUS ROTATION',['python3', 'gates/citymus_rotation_gate.py'],
+     "his DUSK/DAWN pool is TWO songs and pick() drew with no memory, so dawn was "
+     "a coin flip on playing the same track twice in a row; and a phase change "
+     "waited out a 64-bar pass, so the clock was inaudible for up to 128s. ZERO "
+     "repeats in 200 picks, and the turn lands on an 8-bar phrase line", True),
     ('SFX SHUFFLE',    ['python3', 'gates/sfx_shuffle_gate.py'],
      "A VERDICT COSTS ONE TAP. Twenty of twenty-six moments were silent because "
      "judging cost a couple of hundred interactions per batch, so the batch never "
