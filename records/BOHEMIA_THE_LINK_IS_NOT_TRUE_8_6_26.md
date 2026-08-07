@@ -113,3 +113,52 @@ workflow gets a runner.
 Actions, and Settings → Environments → `github-pages`. If the environment is asking for an
 approval, approving it once starts the deploy and the link goes true. **[PENDING, Paolo's
 call — and it is a click, not a decision.]**
+
+---
+
+# UPDATE 4, AND IT IS THE ANSWER: **THE LINK IS TRUE AGAIN.**
+
+    e4070a62  pages                       completed  SUCCESS   22:47:42 -> 23:09:05
+    e4070a62  pages build and deployment  completed  failure   22:17:42 -> 23:08:23
+
+**The custom workflow deployed. The built-in builder failed on the same commit, at the same
+time, exactly as it had all day.** Same sha, same minute, one green and one red — which is
+about as clean a controlled experiment as this repo is ever going to get.
+
+Verified by ancestry, not by hope: `b09f3ab` (the twelve landmarks), `aaf239f` (the deploy
+workflow) and `d32b9c4` are all ancestors of the deployed `e4070a62`. **Everything shipped
+today is on the page Paolo taps**, and it is the first successful deploy since `c8cf238`.
+
+## THE PREDICTION THAT WAS ALREADY ON MAIN
+
+Another lane's `e4070a6` — *"ZERO SUCCESSFUL DEPLOYS IN THIRTY RUNS"* — landed while this
+was still queued, and **its conclusion was overtaken by the thing it was describing.** The
+count was right when they measured it. It is not right now, and a session reading it cold
+would go looking for a broken deploy that is fixed. **That is why this update exists:** a
+record that is correct at the time of writing and wrong an hour later is exactly the rot the
+TRUTH HIERARCHY is for. Newest date wins, and this is the newest.
+
+## WHAT ACTUALLY FIXED IT, IN ORDER
+
+1. **`_config.yml`** — stopped publishing 496 MB when the product is 106 MB. Necessary and
+   not sufficient: the builds got shorter and still lost the race.
+2. **`.github/workflows/pages.yml` with `cancel-in-progress: false`** — the one that
+   mattered. The lanes push every ~13 minutes and a build takes longer than that, so under
+   the built-in builder a build could NEVER finish. Queueing instead of cancelling means the
+   race no longer exists to be lost.
+
+**Nothing about how any lane pushes had to change**, which was the whole design constraint:
+no session can make the other sessions slow down.
+
+## WHAT THE NEXT SESSION SHOULD KNOW
+
+- The published set is `slices/` + `engine/` + `records/target/`. Add a folder to
+  `_config.yml` AND to the workflow's copy list together, or `pages_publish_gate.js` (15/0)
+  goes red — it binds the two lists so neither can drift.
+- The built-in `pages build and deployment` may keep firing and failing for a while. It is
+  **noise now, not a symptom**; the `pages` workflow is the one that publishes.
+- Deploy verification is unchanged in spirit but changed in target: wait for a **`pages`**
+  run whose sha contains your content to conclude SUCCESS. Do not read the built-in one.
+
+*Filed under the TRUTH HIERARCHY: on any conflict the newest date wins. This supersedes
+everything above it in this file.*
