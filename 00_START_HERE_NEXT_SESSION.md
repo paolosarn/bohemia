@@ -1,5 +1,5 @@
-CHARACTER (8/6h): THE SNAP SIZED THE WRONG BOX — THE GATE WAS GREEN AND WRONG FOR
-EIGHT DAYS, AND BOTH HAIR SURFACES WERE THE WORST IN THE GAME.
+CHARACTER (0lurbs): 8/6 (h) LATEST — THE SNAP SIZED THE WRONG BOX: THE GATE WAS
+GREEN AND WRONG FOR EIGHT DAYS, AND BOTH HAIR SURFACES WERE THE WORST IN THE GAME.
 Record: records/BOHEMIA_THE_SNAP_SIZED_THE_WRONG_BOX_8_6_26.md
 Paolo 7/29 said "make those fixes then make those fixes forever please". A session
 sized every character canvas to a tidy multiple (charCv 336, g8c 112, portraitCv 128,
