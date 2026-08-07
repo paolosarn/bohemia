@@ -3901,6 +3901,33 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-S. [SHIPPED 8/6 - THE BIG MISSING ITEM 1, ATTEMPTED INSTEAD OF GUESSED -
+   records/BOHEMIA_HOW_FAR_THE_GAME_GETS_IN_ONE_DAY_8_6_26.md]
+   *** SOMEBODY FINALLY TRIED TO PLAY A DAY. YOU CAN WAKE UP AND YOU CAN WALK.
+   THAT IS THE GAME TODAY. ***
+   Item 1 is the biggest thing on the 11-month list and its blocker list was GUESSED
+   on 7/29 - nobody had ever attempted the day. Measured on the surface RUN opens:
+     1 WAKE OK | 2 QUEST BLOCKED (first stop; only button on screen is TALK) |
+     3 TRAVEL OK | 4 TALK PARTIAL | 4b FIGHT BLOCKED | 5 PAID BLOCKED |
+     6 SPEND BLOCKED | 7 SLEEP/SAVE PARTIAL (save works, SLEEP NEVER ENDS THE DAY)
+   The guess named quests + economy (both confirmed) and MISSED that combat has no
+   entry point here and that sleep never advances the day.
+   SAME FINDING AS P-Q's CENSUS FROM THE OTHER END: BLOCKED means UNREACHABLE HERE,
+   NOT UNBUILT. resolve.js, the quest runtime and the combat bridge are all finished
+   and shipping into BOHEMIA_RUN_CURRENT.html - the file nobody sees. THE ORGANS ARE
+   BUILT, THEY ARE IN THE OTHER FILE.
+   THE INSTRUMENT LIED THREE TIMES FIRST and that is the useful half: v1 scanned
+   window for words and said "it circulates" (/quest/ matched XMLHttpRequest, /dial/
+   matched SVGRadialGradientElement). I wrote a mention-vs-use bug INTO A PROBE ABOUT
+   THAT DISEASE an hour after gating it. v2/v3 subtracted control sets and were still
+   wrong. v4 asked for SPECIFIC symbols. THREE ROUNDS OF TUNING A WORD SEARCH COULD
+   NOT FIX A WORD SEARCH.
+   MEASURED ORDERED BLOCKERS for whoever takes item 1: (1) a quest you can pick up
+   (2) sleep that ends the day (3) a currency to be paid in (4) a way into combat.
+   | gates/game_day_gate.js 12 claims, mutation-tested, registered. A RATCHET not a
+   demand - closing the links is the RUN lane's and blocked on his rulings; waking and
+   walking are the whole game today and must not break quietly. | 8/6 | no.
+
 P-V. [SHIPPED 8/6 - records/BOHEMIA_HOW_LOUD_YOU_WERE_8_6_26.md]
    *** HIS QUEST CORPUS ALREADY SAID HOW LOUD EVERY DEED WAS, AND ONLY THE VANITY
    FOLLOWER COUNT WAS LISTENING. ***

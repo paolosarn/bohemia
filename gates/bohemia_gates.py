@@ -428,6 +428,14 @@ GATES = [
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],
      'the run IS the game we built: every system claimed integrated is machine-probed in the shipped run, no unproven claims', False),
+    ('GAME DAY',       ['node', 'gates/game_day_gate.js'],
+     'THE BIG MISSING item 1 -- "the circulatory system between the organs is the game and it '
+     'has never once circulated" -- ATTEMPTED instead of guessed. Measured on the surface RUN '
+     'opens: wake OK, travel OK, and then it stops. Quest BLOCKED, fight BLOCKED, paid BLOCKED, '
+     'spend BLOCKED, sleep does not end the day. The 7/29 blocker list was a guess and missed '
+     'two of those. A RATCHET, not a demand: closing the links is the RUN lane\'s charter and '
+     'is blocked on his rulings, but waking and walking ARE the game today and must not break '
+     'quietly', False),
     ('DURABLE SAVE',   ['node', 'gates/durable_save_gate.js'],
      'the save survives a week off the game. iOS WebKit DELETES localStorage, IndexedDB and '
      'service worker registrations after SEVEN DAYS with no interaction -- every Bohemia save '

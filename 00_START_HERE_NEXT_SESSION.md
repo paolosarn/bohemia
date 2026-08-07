@@ -1,3 +1,51 @@
+PEOPLE (7h9sfy): 8/6 LATEST — *** SOMEBODY FINALLY TRIED TO PLAY A DAY. YOU CAN WAKE UP
+AND YOU CAN WALK. THAT IS THE GAME TODAY. *** THE BIG MISSING item 1, ATTEMPTED instead
+of guessed. Record: records/BOHEMIA_HOW_FAR_THE_GAME_GETS_IN_ONE_DAY_8_6_26.md
+Re-run any time: node tools/bohemia_game_day_probe.js
+
+Item 1 says "the circulatory system between the organs is the game, and it has never once
+circulated", and it names two blockers - quest placement [PENDING] and economy payout.
+*** THOSE WERE GUESSED ON 7/29 AND NOBODY HAD EVER ATTEMPTED THE DAY. *** Measured now,
+on the surface the RUN tab really opens:
+
+  1  WAKE AT BASE     OK        mode=human, placed at 6205,6271, clock 08:00
+  2  PICK UP A QUEST  BLOCKED   <- THE FIRST THING THAT STOPS THE DAY. No quest symbol
+                                   of any kind; the only button on screen is TALK
+  3  TRAVEL           OK        the d-pad really walks him
+  4  RESOLVE - talk   PARTIAL   4 people reachable, none adjacent where he wakes
+  4b RESOLVE - fight  BLOCKED   no combat entry point at all
+  5  GET PAID         BLOCKED   no currency of any kind exists here
+  6  SPEND            BLOCKED   nothing to spend
+  7  SLEEP, SAVE      PARTIAL   saving works; SLEEP DOES NOT END THE DAY
+                                OK 2 | PARTIAL 2 | BLOCKED 4
+
+THE 7/29 GUESS WAS HALF RIGHT AND MISSED TWO THINGS: it named quests and economy (both
+confirmed) and did NOT know combat has no entry point here, or that sleep never advances
+you to tomorrow.
+
+*** AND IT IS THE SAME FINDING AS TODAY'S CENSUS, FROM THE OTHER END. *** BLOCKED means
+NOT REACHABLE ON THE SURFACE RUN OPENS - it does NOT mean unbuilt. bohemia_resolve.js
+(the one-button verb system), the quest runtime and parser, and the combat bridge are all
+FINISHED and shipping into BOHEMIA_RUN_CURRENT.html, the file the alpha loads and never
+displays. THE ORGANS ARE BUILT. THEY ARE IN THE OTHER FILE. Two instruments, opposite
+directions, same conclusion.
+
+THE INSTRUMENT LIED TO ME THREE TIMES FIRST, and that is the more useful half. v1 scanned
+window for words and reported "nothing - it circulates": /quest/ matched XMLHttpRequest,
+/dial/ matched SVGRadialGradientElement, /scrip/ matched TrustedScript, /cap/ matched
+escape. I WROTE A MENTION-VS-USE BUG INTO A PROBE ABOUT THAT EXACT DISEASE, an hour after
+gating it. v2 subtracted a blank PAGE's globals - wrong, the game is in an IFRAME. v3 used
+a blank iframe - still wrong. v4 stopped discovering by name and asked for the SPECIFIC
+symbols a player's verbs use. *** THREE ROUNDS OF TUNING A WORD SEARCH COULD NOT FIX A
+WORD SEARCH. The fix was a different instrument, not a better regex. ***
+
+FOR WHOEVER TAKES ITEM 1 - a MEASURED, ORDERED blocker list instead of a guessed one:
+  1. a quest you can pick up   2. sleep that ends the day
+  3. a currency to be paid in  4. a way into combat
+GATE: gates/game_day_gate.js, 12 claims, mutation-tested. A RATCHET, NOT A DEMAND -
+closing the links is the RUN lane's charter and blocked on Paolo's rulings, so forcing it
+would be A GATE OUTRANKING A RULING. But WAKING AND WALKING ARE THE ENTIRE GAME RIGHT NOW
+and must never break quietly.
 SOUND (sound-xk7pjp): 8/4 (m) LATEST - A GATE THAT ASKS THE ONLY QUESTION HE
 CARES ABOUT: CAN I HEAR IT? Nothing here needs judging.
 
