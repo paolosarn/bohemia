@@ -259,3 +259,56 @@ BUY-OR-COOK decision and it is his call:
   B) cook seamless terrain to the style target, which is a real art job
   C) leave every district on concrete and accept that a farm reads as a lot
 [PENDING, Paolo's call]
+
+============================================================================
+8/6 -- FOUR ATTEMPTS AT GROUND, FOUR FAILURES, AND I AM STOPPING
+
+STOP PRODUCING (7/26): "writing a fourth version of anything means you already
+failed - stop and say so instead of fixing the attempt." This is that, written
+down instead of hidden.
+
+  ATTEMPT 1  raw HD "soil and dirt tiles" as terrain. They are ~96px DECORATIVE
+             PATCHES with ~10% transparency, made to sit ON ground. As ground they
+             tiled with a BLACK GAP between every cell and read acid orange.
+  ATTEMPT 2  banks/BOHEMIA_DESERT_POOLS_7_18_26 "ground". Its own note calls it
+             "the Mojave floor for the baker" and its provenance claims seam
+             certification. Measured: 92x96, 94x96, 9.5% transparent. THE SAME
+             PATCHES WEARING A BETTER LABEL. A bank's self-description is not
+             evidence; the pixels are.
+  ATTEMPT 3  I told him "you own no seamless dirt, buy or cook is your call" after
+             opening ONE bank -- the assume-instead-of-check error I had spent that
+             same day writing up, committed in the act of writing it up.
+  ATTEMPT 4  banks/BOHEMIA_GROUND_SEAMLESS_SET method='quilt'. This time the art
+             was REAL: 44x44, exactly the art cell, 0.0% transparent, wrap error
+             7-10, his own seam pipeline's output. "3. Stone paths", 10 tiles, 10
+             UP. Laid on railyard ballast it is CREAM COBBLESTONE WITH BRIGHT
+             GREEN GRASS GROWING BETWEEN IT. A garden path. In a dead valley.
+
+*** THE RULE I WROTE THIS WEEK DID NOT STOP ME BREAKING IT A FOURTH TIME ***
+    A VERDICT IS ABOUT THE OBJECT. IT IS NEVER ABOUT WHERE, OR WHAT FOR.
+He liked a stone path. He never said a railyard is paved in one. Four times now:
+the potion jar, the market barrel, the dirt patch, the garden path. Every one
+passed its gate. Every one was caught by looking, and only by looking.
+
+WHAT IS ACTUALLY TRUE ABOUT HIS GROUND ART, measured, finally:
+  1. Cracked contrete tiles ... 34 quilt, 33 UP   already drawing
+  1. Cracked street tiles ..... 20 quilt, 18 UP   already drawing
+  3. Stone paths .............. 10 quilt, 10 UP   real ground, WRONG SUBJECT
+  1. Ground Tiles .............  7 quilt,  0 UP   never judged
+  2. Soil and dirt tiles ......  0 quilt          no seamless version exists
+There is NO seamless art in this repo for BALLAST, FIELD SOIL or DESERT FLOOR.
+The concrete and the asphalt are the whole seamless library, and they are already
+on screen. That is why every district reads as a lot: not a wiring bug, a
+MISSING MATERIAL.
+
+THE FINDING STILL STANDS AND IS STILL THE POINT: boughtForTile() answers only
+road/walk/yard, so forty named surfaces collapse to the suburb's dirt (farm field
+soil 2116 -> yard x3480, railyard ballast 1243 -> yard x2013). The wiring to fix
+it is built, tested, and HELD AT OFF, waiting on art that does not exist.
+
+[PENDING, Paolo's call] and this time I looked before saying it:
+  A) buy a seamless terrain set with ballast / dirt / desert floor
+  B) cook seamless ballast and soil to the style target (a real art job)
+  C) judge "1. Ground Tiles" -- 7 seamless quilt tiles, never swept. Cheapest by
+     far, and it might cover field soil on its own.
+  D) accept that every district reads as a lot

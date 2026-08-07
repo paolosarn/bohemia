@@ -20980,10 +20980,6 @@ function draw(){
            On the suburb the pool is chosen by GRID CODE; everywhere else in the valley
            by the TILE NAME genericTile() already resolved. Same law, same bytes, and
            52 more district types (measured 8/3: every one of them was at zero). */
-        /* HIS SEAMLESS GRAVEL, where the world says gravel and the old
-           three-bucket map could only say "yard". Falls through untouched for
-           every other surface, so this can only add ground that was missing. */
-        if(!isSuburbCell() && drawGround(gx,gy2,X,Y,S)) continue;
         var _bk = isSuburbCell() ? boughtFor(c) : boughtForTile(laid);
         if(_bk && drawBought(_bk,gx,gy2,X,Y,S)) continue;
         if(isSuburbCell() && drawSkin(laid,gx,gy2,X,Y,S)) continue;
