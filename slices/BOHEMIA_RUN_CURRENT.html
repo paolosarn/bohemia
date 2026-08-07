@@ -4332,7 +4332,22 @@ function validate(Q, world){
       if (new RegExp('\\b'+b+'\\b','i').test(o.gate))
         E('BANNED_GATE','line '+o.line+': gate "'+o.gate+'" uses '+b.toUpperCase()+'. NO STAT GATES. NO KARMA. Ever.');
     });
-    if (o.gateKey!=='none' && GATE_KEYS.indexOf(o.gateKey)<0)
+    /* A CHECKER THAT CANNOT TELL A USE FROM AN ERROR IS THE BROKEN ONE (Paolo 8/1),
+       and this was one. GATE_KEYS is the `key:value` vocabulary (flag:, knows:,
+       role:...). But the runtime ALSO resolves a NUMERIC gate whose key is a bond
+       target or a faction id — `_cond` does `else if(key in s.bonds)` and
+       `else if(key in s.faction)` — so `[gate: grower>=10]` genuinely works. It just
+       WARNED, because 'grower' is not in a list it was never supposed to be in.
+       That warning is why 44 authored `@DO bond` lines are gated on ZERO times: the
+       one way to use them tells the author they got it wrong.
+       A numeric gate key is legal when it is stage, gen, or a DECLARED @ROLE of this
+       quest (measured: all 44 bond targets in the corpus are declared roles). Faction
+       ids stay out of it deliberately — those are canon content this parser does not
+       get to enumerate, so a faction-keyed numeric gate is still only warned about. */
+    var numericKey = /[<>=]/.test(o.gate) && o.gate.indexOf(':') < 0;
+    var legalNumeric = numericKey && (o.gateKey === 'stage' || o.gateKey === 'gen'
+                                      || !!roleNames[o.gateKey]);
+    if (o.gateKey!=='none' && GATE_KEYS.indexOf(o.gateKey)<0 && !legalNumeric)
       W('UNKNOWN_GATE','line '+o.line+': gate key "'+o.gateKey+'" not in the vocabulary');
     if (o.gateKey==='role' && o.gateVal && !roleNames[o.gateVal])
       E('GATE_NO_ROLE','line '+o.line+': gate role:'+o.gateVal+' is not a declared @ROLE');
@@ -17078,13 +17093,17 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
               var t=tinfo(xx,yy); return {solid:t.solid,portal:t.layer==='portal'}; });
             return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:dg.zone,story:f.story||1,
             enter:enter, kind:kind, entrance:ent,                  // what this building becomes inside (from the dossier)
-            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent}); },
+            // STORY REACHES THE INTERIOR (8/7). The suburb generator has computed story:2
+            // for two-storey blobs since it was written, world.js has carried it faithfully
+            // ever since, and it DIED HERE -- every two-storey house in the valley had one
+            // floor inside it. The floorplan stacks levels now, so hand it the number.
+            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent,stories:f.story||1}); },
             // INTERIOR (the zoom target): a garage yields multi-deck parking; everything else rooms.
             // INTERIOR always matches the EXTERIOR footprint w x h exactly. decks (vertical
             // levels) is a separate 3D property derived from the seed, not the floor-plate size.
             interior:function(){ if(kind==='garage') return GAR.generate(iseed, {w:f.w,h:f.h,decks:3+(iseed%3)});
               if(kind==='crypt') return CRY.generate(iseed, {w:f.w,h:f.h});
-              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent})}; } }; }),
+              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent,stories:f.story||1})}; } }; }),
           building:function(i){ return this.buildings[i]; } };
         return cachePut(key, dapi);
       }
