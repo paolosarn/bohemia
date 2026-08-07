@@ -12,10 +12,30 @@
  * This measures it. For every canvas on every tab, in every frame:
  *
  *   backing   cv.width x cv.height          (what the game drew into)
- *   css box   getBoundingClientRect()        (what the browser scales it to)
- *   ratio     css / backing                  (non-integer => uneven pixels)
+ *   css box   getBoundingClientRect()        (the BORDER box)
+ *   content   css box minus border+padding   (what the bitmap is scaled into)
+ *   ratio     content / backing              (non-integer => uneven pixels)
  *   filter    computed image-rendering        (`auto` => bilinear mush)
  *   device    ratio * devicePixelRatio        (what the glass actually gets)
+ *
+ * CORRECTION 8/6/26 (character lane). THE RATIO WAS MEASURED AGAINST THE WRONG
+ * BOX, AND canvas_scale_gate.js HAS BEEN ASSERTING ON IT SINCE 7/29.
+ *
+ * v1 divided getBoundingClientRect().width by the backing store. That rect is the
+ * BORDER box, and this alpha sets `*{box-sizing:border-box}` globally while every
+ * character canvas carries a 1-2px border — so the bitmap is really scaled into a
+ * box 2-4px SMALLER than the number being divided.
+ *
+ * It is not a rounding nit, it is the difference between a real fix and a fake
+ * one. A canvas sized to a tidy 336 with a 1px border reports a perfect x3.0000
+ * here while the bitmap actually lands in 334 css px at x2.9821 — still uneven,
+ * now certified green by a gate whose entire job is catching that. Paolo asked on
+ * 7/29 to "make those fixes then make those fixes forever"; forever has to be
+ * measured on the box the pixels actually land in.
+ *
+ * Both are reported: `css`/`cw` stay the border box so nothing that reads those
+ * fields changes meaning, and `kw`/`kh` is the content box that `sx`/`sy` and
+ * every verdict now use.
  *
  * A ratio that is not an integer means source pixels land on the screen at
  * different widths — a 1px outline is 3px here and 4px there, which reads as a
@@ -40,11 +60,23 @@ const SNAP = () => {
     const r = cv.getBoundingClientRect();
     if (r.width < 2 || r.height < 2) continue;          // hidden / collapsed
     if (!cv.width || !cv.height) continue;
+    /* THE BITMAP LANDS IN THE CONTENT BOX, NOT THE BORDER BOX. With
+       box-sizing:border-box the declared width INCLUDES the border, so a
+       bordered canvas scales its backing store into (width - borders -
+       padding). Subtract them or every bordered canvas is measured against a
+       box 2-4px bigger than the one it is actually drawn into. */
+    const cs = getComputedStyle(cv);
+    const n = v => parseFloat(v) || 0;
+    const insetX = n(cs.borderLeftWidth) + n(cs.borderRightWidth) + n(cs.paddingLeft) + n(cs.paddingRight);
+    const insetY = n(cs.borderTopWidth) + n(cs.borderBottomWidth) + n(cs.paddingTop) + n(cs.paddingBottom);
+    const kw = Math.max(0, r.width - insetX), kh = Math.max(0, r.height - insetY);
     out.push({
       id: cv.id || (cv.className && String(cv.className).split(' ')[0]) || '(anon)',
       bw: cv.width, bh: cv.height,
       cw: +r.width.toFixed(3), ch: +r.height.toFixed(3),
-      sx: r.width / cv.width, sy: r.height / cv.height,
+      kw: +kw.toFixed(3), kh: +kh.toFixed(3),
+      inx: +insetX.toFixed(3), iny: +insetY.toFixed(3),
+      sx: kw / cv.width, sy: kh / cv.height,
       filter: getComputedStyle(cv).imageRendering,
       dpr: window.devicePixelRatio,
     });
@@ -119,8 +151,9 @@ const isInt = v => Math.abs(v - Math.round(v)) <= 0.005;
       '  ' + (bad ? 'FRAC ' : '     ') + (mush ? 'SMOOTH ' : '       ') +
       (r.tab + (r.mode === 'walked' ? '/walked' : '')).padEnd(14) +
       r.frame.padEnd(12) + r.id.padEnd(13) +
-      (r.bw + 'x' + r.bh).padEnd(12) + '-> ' + (r.cw + 'x' + r.ch).padEnd(18) +
-      'css x' + r.sx.toFixed(4) + '  glass x' + r.dx.toFixed(4) + '  ' + r.filter);
+      (r.bw + 'x' + r.bh).padEnd(12) + '-> ' + (r.kw + 'x' + r.kh).padEnd(18) +
+      'css x' + r.sx.toFixed(4) + '  glass x' + r.dx.toFixed(4) + '  ' + r.filter +
+      (r.inx ? '  [border ' + r.inx + ']' : ''));
   }
   console.log('  ' + uniq.length + ' visible canvases · ' + frac + ' land on the glass at a fractional scale · ' +
     smooth + ' composited with smoothing');

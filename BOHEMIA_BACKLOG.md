@@ -5127,7 +5127,25 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
    The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not
    wire per-NPC randomisation until he rules on it.
-1b. **DONE 7/30, AND PAOLO COULD NOT SEE IT.** (MEASURED BY THE CITY LANE 7/27, handed over untouched — ONE SYSTEM, ONE
+1b. **NOT DONE AFTER ALL — RE-DONE 8/6, records/BOHEMIA_THE_SNAP_SIZED_THE_WRONG_BOX_8_6_26.md.**
+   The 7/30 fix sized every canvas to a tidy multiple (charCv 336, g8c 112,
+   portraitCv 128, cloBig 168, cloCv 56) and canvas_scale_gate has asserted those
+   ratios green ever since. IT WAS ASSERTING ON THE BORDER BOX. The alpha is
+   box-sizing:border-box and each of these has a 1-2px border, so a declared 336
+   puts the bitmap in 334 — measured on the CONTENT box, every single one was
+   still fractional: charCv x2.9821, portraitCv x1.9375, cloBig x2.9643,
+   cloCv x0.9286, g8c x0.9821. Near-integer survives being looked at, which is
+   how it lasted eight days behind a gate written to catch it. The 7/30 SIZES
+   were right; only the box was wrong, so each declared width now carries its
+   own border (336 -> 338, etc). PLUS the two worst surfaces in the game, both
+   HAIR and both anonymous canvases no gate could name: the picker tiles at glass
+   x1.7143 (one device pixel here, two beside it) and the 8-facing spin bar at
+   x4.5000 (a dead half pixel) — now .hairTile and .hairSpinShot, both integer.
+   18 of 21 fractional -> 4, and all four belong to combat/city. The audit reads
+   the content box now and the gate asserts THAT IT DOES, so a regression in the
+   measurement cannot silently re-green everything.
+   ORIGINAL 7/27 MEASUREMENT (city lane) and the 7/30 attempt, kept as the record:
+   **(WAS: DONE 7/30, AND PAOLO COULD NOT SEE IT.)** (MEASURED BY THE CITY LANE 7/27, handed over untouched — ONE SYSTEM, ONE
    SESSION) EVERY CHARACTER SURFACE IS DISPLAYED AT A FRACTIONAL SCALE. The
    city lane built tools/bohemia_canvas_scale_audit.js to catch its own canvas
    being bilinear-upscaled to the phone screen, and the same sweep measured

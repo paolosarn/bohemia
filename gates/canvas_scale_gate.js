@@ -91,6 +91,30 @@ if (walked) {
    fractional scale makes some art pixels wider than others, and that reads as a
    badly drawn sprite no matter how good the art is.
    A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED, so these are assertions now.
+   ----------------------------------------------------------------------------
+   CORRECTION 8/6/26: THIS GATE WAS GREEN AND WRONG FOR EIGHT DAYS.
+
+   It asserted on `sx`, and until today `sx` was getBoundingClientRect().width
+   divided by the backing store. That rect is the BORDER box. The alpha sets
+   `*{box-sizing:border-box}` globally and every canvas below carries a 1-2px
+   border, so a declared 336 puts the bitmap in 334 -- x2.9821, not x3. Measured
+   on 8/6, on the content box, EVERY ONE of the 7/29 fixes was still fractional:
+
+       charCv 334 x2.9821 · portraitCv 124 x1.9375 · cloBig 166 x2.9643
+       cloCv 52 x0.9286 · g8_* 110 x0.9821
+
+   Near-integer is worse than obviously wrong: it yields one anomalous pixel
+   column every N instead of a visibly broken image, so it survives being looked
+   at. The audit now reports the CONTENT box in sx/sy and each declared width
+   carries its own border. The `want` numbers below did not change and never
+   needed to -- the sizes were right, the box was wrong.
+
+   TWO HAIR SURFACES ADOPTED THE SAME DAY, and they were the worst in the game:
+   the picker tiles at glass x1.7143 (one device pixel here, two beside it, on
+   the tiles used to CHOOSE a hairstyle) and the 8-facing spin bar at x4.5000, a
+   dead half pixel, on the bar built specifically to JUDGE hair. Both were
+   anonymous canvases reporting as `(anon)`; they carry .hairTile and
+   .hairSpinShot now, because a gate cannot hold a surface it cannot address.
    ========================================================================= */
 /* keyed on tab+id: `mode` and `frame` are separate fields on a row and keying on
    the wrong one silently finds nothing, which is a gate that passes by accident */
@@ -102,6 +126,8 @@ const CHAR_SURFACES = [
   ['anim',    'g8_0',       1, 'the 8-facing gallery — the surface animations are JUDGED on'],
   ['anim',    'g8_4',       1, 'the 8-facing gallery (S)'],
   ['rig',     'cv',         1, 'the RIG preview — the body that is LAW'],
+  ['char',    'hairTile',   1, 'the hair PICKER tiles — the surface a hairstyle is CHOSEN on'],
+  ['char',    'hairSpinShot', 2, 'the hair SPIN bar — the surface hair is JUDGED in 8 facings on'],
 ];
 for (const [tab, id, want, what] of CHAR_SURFACES) {
   const r = rows.find(q => q.tab === tab && q.id === id);
@@ -113,6 +139,15 @@ for (const [tab, id, want, what] of CHAR_SURFACES) {
      'pixels wider than others', !!r && isInt(r.dx) && isInt(r.dy));
   ok('CHARACTER: ' + what + ' composites NEAREST-NEIGHBOUR, never bilinear',
      !!r && /pixelated|crisp/.test(r.filter));
+  /* An integer ratio below 1 is still an integer. Scaling a sprite DOWN deletes
+     source rows outright, and no amount of redrawing the art survives that. */
+  ok('CHARACTER: ' + what + ' is not MINIFIED on the glass (x' + (r ? r.dx.toFixed(4) : '?') + ')',
+     !!r && r.dx >= 0.999 && r.dy >= 0.999);
+  /* THE MEASUREMENT ITSELF. If the audit ever goes back to dividing by the
+     border box, every assertion above silently starts checking the wrong number
+     again -- which is exactly how 7/29 stayed green while being wrong. */
+  ok('CHARACTER: ' + what + ' was measured on the CONTENT box, not the border box',
+     !!r && typeof r.kw === 'number' && Math.abs(r.kw - (r.cw - (r.inx || 0))) < 0.01);
 }
 
 // Other lanes: measured, printed, never failed on.

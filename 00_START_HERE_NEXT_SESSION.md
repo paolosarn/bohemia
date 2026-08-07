@@ -1,3 +1,76 @@
+CHARACTER (8/6h): THE SNAP SIZED THE WRONG BOX — THE GATE WAS GREEN AND WRONG FOR
+EIGHT DAYS, AND BOTH HAIR SURFACES WERE THE WORST IN THE GAME.
+Record: records/BOHEMIA_THE_SNAP_SIZED_THE_WRONG_BOX_8_6_26.md
+Paolo 7/29 said "make those fixes then make those fixes forever please". A session
+sized every character canvas to a tidy multiple (charCv 336, g8c 112, portraitCv 128,
+cloBig 168, cloCv 56) and canvas_scale_gate asserted those ratios. GREEN EVERY RUN
+SINCE, AND EVERY ONE STILL FRACTIONAL. It asserted on getBoundingClientRect(), which
+is the BORDER box, and the alpha is box-sizing:border-box with a 1-2px border on all
+of them — so a declared 336 puts the bitmap in 334. Measured on the CONTENT box:
+charCv x2.9821, portraitCv x1.9375, cloBig x2.9643, cloCv x0.9286, g8c x0.9821.
+NEAR-INTEGER IS WORSE THAN OBVIOUSLY WRONG: it makes one anomalous pixel column every
+N instead of a visibly broken image, so it survives being looked at. The 7/29 SIZES
+were right, only the box was wrong — each declared width carries its own border now.
+AND THE TWO WORST SURFACES IN THE GAME WERE BOTH HAIR, neither in the 7/29 list,
+both anonymous canvases reporting as (anon) so no gate could have named them: the
+PICKER tiles at glass x1.7143 (a source pixel is ONE device pixel here and TWO
+beside it, on the tiles used to CHOOSE a hairstyle) and the 8-facing SPIN bar at
+x4.5000 (a dead half pixel, on the bar built to JUDGE hair). They are .hairTile and
+.hairSpinShot now. The spin bar's cause will recur: it sized itself 56*3 assuming a
+56 backing, but drawChar Scale2x's to 112 in HD, so the real ratio was x1.5. It sizes
+off out.width now and cannot drift when the HD toggle moves.
+RESULT: 18 of 21 fractional -> 4, and all four belong to combat and city.
+WHAT IT MEANS FOR THE HAIR: three rounds of "east and west are dogshit" were answered
+by redrawing hair pixels and NOBODY MEASURED THE BOX IT WAS SHOWN IN. The verdicts
+were not wrong — what he saw WAS bad. The FIX was wrong. It claims only that the hair
+is finally shown at the size and sharpness it was drawn at. NO NEW HAIR WAS COOKED;
+three fixes from the last round are still unthumbed and STOP PRODUCING says a fourth
+version is the tell that I already failed.
+GATE: 52 passed, 1 failed. THE FAILURE IS NOT MINE AND I PROVED IT — stashing my whole
+change set and running on clean origin/main gives 28 passed, 1 failed, same failure.
+The CITY lane set the builder overview to `pixelated` while their own gate still
+asserts it must be `auto` (its comment says Paolo approved `auto` and the direction is
+locked). A contradiction between the city lane's code and the city lane's gate. NOT
+MINE TO RESOLVE — flagged, not touched.
+NEW ASSERTION WORTH KNOWING ABOUT: the gate now checks THAT THE AUDIT MEASURED THE
+CONTENT BOX. Without it, every other check silently grades the wrong number, which is
+exactly how 7/29 stayed green.
+LOOK: tools/bohemia_pixel_snap_look.js screenshots the three surfaces and asserts no
+container overflows (seven elements got wider inside flex/wrap boxes on a 390px
+phone). No overflow; PNGs in records/pixelsnap/. Its own first run shot the ALL-8
+gallery with the gallery toggled OFF — it clicked the toggle, which was already open.
+It asserts state now instead of toggling it.
+
+*** A NEAR MISS WORTH WRITING DOWN: I DID ALL OF THIS TWICE. ***
+My checkout was 529 commits behind main and I did not check before starting. The first
+full pass — patch, audit, gate, mutation test, full green suite — ran against an alpha
+missing 4,323 lines of other lanes' work. Pushing it would have destroyed 547 commits.
+Caught by `git diff --stat origin/main HEAD -- slices/...` before any push, then redone
+from scratch on real main, which is where the border-box finding actually came from
+(the stale tree still had the pre-7/29 sizes, so the real bug was invisible on it).
+FETCH AND DIFF THE ALPHA AGAINST origin/main BEFORE THE FIRST EDIT, NOT BEFORE THE PUSH.
+
+*** FLEET: THE DEPLOY IS JAMMED AND IT IS NOT THE REPO SIZE ***
+records/BOHEMIA_THE_JAM_IS_PROVEN_NOT_THE_REPO_SIZE_8_6_26.md (on the session branch)
+plus the combat lane's records/BOHEMIA_THE_DEPLOY_IS_WEDGED_AND_ONE_RUN_IS_MINE_8_6_26.md
+Last Pages run to conclude SUCCESS: c8cf2386, 8/5 18:56. Run 31109048696 has been
+`queued` since 14:05 and the API returns 409 on cancel. PROVEN by dispatching the
+world lane's brand-new pages workflow by hand: one job, fresh runner, first step is
+checkout — it sat at `queued` and was killed at EXACTLY fifteen minutes without ever
+being handed a runner (runner_name empty, started_at never advanced). Fifteen minutes
+is what everything in this repo's Actions queue times out at today, whether it copies
+491 MB or nothing at all — so "15 min = the builder is copying the repo" was wrong.
+ONLY PAOLO CAN CLEAR IT: cancel the run in the web UI, or re-save Settings -> Pages.
+*** AND IT IS FIXED NOW — RE-MEASURED 8/7 04:25Z. *** pages.yml has 12 runs: my 1
+dispatch plus 11 push-triggered, latest FOUR all SUCCESS, newest on current main
+(41564a8, 04:25:36Z). The deploy is healthy and the link is true again.
+I ALSO GOT ONE INFERENCE WRONG AND LEFT BOTH HALVES IN THE RECORD: I measured three
+pushes triggering zero runs and wrote that on:push "does not fire for this fleet".
+It fires fine. Those pushes happened while Pages was still branch-sourced and the
+environment wedged. A workflow that has NEVER RUN is not a workflow that CANNOT RUN,
+and I wrote the second having measured only the first.
+STILL TRUE AS A RULE: until a run concludes SUCCESS, do not paste the play link as if
+it carries your work. Check the run, then paste.
 CITY (1eztay): 8/7 (b) LATEST — THE BLURRY BAND WAS THE GROUND. I ANSWERED MY OWN
 QUESTION, AND THE ASK IS WITHDRAWN.
 

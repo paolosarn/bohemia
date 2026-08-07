@@ -65,8 +65,8 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 #stage{flex:1;position:relative;overflow:hidden;background:#0a0908}
 .panel{position:absolute;inset:0;display:none;overflow:auto;-webkit-overflow-scrolling:touch}
 .panel.on{display:block}
-#charCv,#animCv{display:block;margin:8px auto;background:linear-gradient(#383646,#262430);border:1px solid #241c12;width:336px;max-width:92vw;height:auto}
-.g8c{display:block;width:112px;height:auto;background:linear-gradient(#383646,#262430);border:1px solid #241c12}
+#charCv,#animCv{display:block;margin:8px auto;background:linear-gradient(#383646,#262430);border:1px solid #241c12;width:338px;max-width:92vw;height:auto}
+.g8c{display:block;width:114px;height:auto;background:linear-gradient(#383646,#262430);border:1px solid #241c12}
 .g8l{font-size:10px;text-align:center;opacity:.7;margin-top:2px}
 #p-rig,#p-combat,#p-city{overflow:hidden}
 #rigFrame,#combatFrame,#cityFrame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#0a0908}
@@ -76,7 +76,7 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 button.opt{background:#1a150e;border:1px solid #2e2416;color:#c9bfa8;padding:6px 10px;font-size:11px;border-radius:4px;cursor:pointer}
 button.opt.on{background:#2a1e10;border-color:#c81e8c;color:#fff}
 select,input[type=range]{background:#1a150e;border:1px solid #2e2416;color:#c9bfa8;padding:5px;border-radius:4px;font-size:11px}
-#portraitCv{border-radius:50%;border:2px solid #2e2416;background:#12100c;margin:8px auto;display:block;cursor:pointer;width:128px;height:128px}
+#portraitCv{border-radius:50%;border:2px solid #2e2416;background:#12100c;margin:8px auto;display:block;cursor:pointer;width:132px;height:132px;image-rendering:pixelated}
 .swatch{width:22px;height:22px;border-radius:3px;border:1px solid #0008;cursor:pointer}
 .mini{font-size:10px;color:#6a5a3e;padding:2px 12px;text-align:center}
 .faceEd{padding:8px 12px;display:none}
@@ -963,7 +963,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/7e - ONE TAP PER SOUND</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/7f - PIXEL SNAP: THE SNAP SIZED THE WRONG BOX</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11588,7 +11588,8 @@ function buildUI(){
           cell.style.cssText = 'line-height:0;position:relative';
           var cv = document.createElement('canvas');
           cv.width = 56; cv.height = 56;
-          cv.style.cssText = 'width:66px;height:66px;image-rendering:pixelated;background:#141118;border:1px solid #241c12;border-radius:3px';
+          cv.className = 'hairTile';   /* NAMED so canvas_scale_gate can assert on it: an anonymous canvas reports as (anon) and a gate cannot hold a surface it cannot address */
+          cv.style.cssText = 'width:114px;height:114px;image-rendering:pixelated;background:#141118;border:1px solid #241c12;border-radius:3px';
           cell.appendChild(cv); host.appendChild(cell);
         }
       }
@@ -11699,7 +11700,8 @@ function buildUI(){
       var S = cv.width / 56, ch = Math.round(30 * S);
       var out = document.createElement('canvas');
       out.width = cv.width; out.height = ch;
-      out.style.cssText = 'width:' + (56*px3) + 'px;height:' + (30*px3) +
+      out.className = 'hairSpinShot';   /* NAMED for the same reason as .hairTile: canvas_scale_gate cannot hold an anonymous canvas */
+      out.style.cssText = 'width:' + (out.width*2) + 'px;height:' + (out.height*2) +
         'px;image-rendering:pixelated;background:#0e0c12;border-radius:2px';
       out.getContext('2d').drawImage(cv, 0, 0, cv.width, ch, 0, 0, cv.width, ch);
       return out;
@@ -14333,7 +14335,7 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 #p-clothes .cloSec{border-top:1px solid #241c12;padding:8px 4px}
 #p-clothes .cloTitle{color:#b39ddb;font-weight:800;font-size:12px;letter-spacing:1px;margin-bottom:4px}
 #p-clothes .cloStrip{display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
-#p-clothes .cloBig{width:168px;height:168px;image-rendering:pixelated;background:linear-gradient(#383646,#262430);border:1px solid #241c12;flex:0 0 auto;border-radius:5px}
+#p-clothes .cloBig{width:170px;height:170px;image-rendering:pixelated;background:linear-gradient(#383646,#262430);border:1px solid #241c12;flex:0 0 auto;border-radius:5px}
 #p-clothes .cloHint{font-size:10px;color:#6a5f47;letter-spacing:.5px}
 #p-clothes .cloSection{margin:12px 2px 2px;font:800 12px system-ui;letter-spacing:1px;color:#8a7a52;border-bottom:1px solid #241c12;padding-bottom:4px}
 #p-clothes .cloFold{cursor:pointer;color:#b39ddb;user-select:none}
@@ -14342,8 +14344,8 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 #p-clothes .cloEmpty{color:#6a5f47;font-size:11px;font-style:italic;padding:8px 4px;line-height:1.4}
 #p-clothes.sun .cloSection{color:#5a4a2a}
 #p-clothes.sun .cloFold{color:#5a3fa0}
-#p-clothes .cloCv{width:56px;height:56px;image-rendering:pixelated;background:linear-gradient(#383646,#262430);border:1px solid #241c12;flex:0 0 auto;border-radius:3px;cursor:pointer}
-#p-clothes .cloCv.on{border:2px solid #b39ddb;box-shadow:0 0 0 1px #b39ddb inset}
+#p-clothes .cloCv{width:60px;height:60px;image-rendering:pixelated;background:linear-gradient(#383646,#262430);border:2px solid #241c12;flex:0 0 auto;border-radius:3px;cursor:pointer}
+#p-clothes .cloCv.on{border-color:#b39ddb;box-shadow:0 0 0 1px #b39ddb inset}
 #p-clothes .cloBtns{display:flex;gap:8px;margin-top:6px}
 #p-clothes .cloUp,#p-clothes .cloDn,#p-clothes .cloExport,#p-clothes .cloSun{font:800 12px system-ui;padding:9px 13px;border-radius:9px;border:2px solid #3a3a44;background:#2a2a34;color:#e8e4da;cursor:pointer}
 #p-clothes .cloSun.on{border-color:#b39ddb;background:#2a2138;color:#d9c9f2}
