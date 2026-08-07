@@ -85,12 +85,13 @@ os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'
 
-P_OLD = """  window.playSFX=function(ev,when){
-    try{
-      if(typeof BOH_SFX==='undefined')return null;
-      var i=pick(ev); if(i==null)return null;
-      var v=vec(ev,i); if(!v)return null;"""
-P_NEW = """  /* === THE ROOM TAKES THE SOUND (8/4) ==================================
+# TWO SMALL ANCHORS, NOT ONE BIG ONE. This used to match the whole head of
+# playSFX byte for byte, so it died the moment another feature (voice limiting)
+# added a line inside that function -- the THIRD time today a whole-line anchor
+# broke because somebody else touched the same lines. An anchor should be the
+# smallest thing that is actually stable.
+DEFS_ANCHOR = "  window.playSFX=function(ev,when){"
+DEFS = """  /* === THE ROOM TAKES THE SOUND (8/4) ==================================
      Measured RT60 from the acoustics literature, mapped onto the four places
      this game actually has. STREET is 1.0 on every dial ON PURPOSE: it is the
      commonest place in the run, so his approved sounds are untouched there and
@@ -112,36 +113,25 @@ P_NEW = """  /* === THE ROOM TAKES THE SOUND (8/4) =============================
   /* EXPOSED SO IT CAN BE CHECKED EXACTLY. playSFX picks a RANDOM candidate from
      his approved set every call, and the difference between two of his
      candidates is bigger than the difference a room makes -- so measuring the
-     room by playing playSFX twice proves nothing at all, which is exactly what
-     the first measurement of this feature "showed". The transform is
-     deterministic; check the transform, then check ONE fixed vector's audio. */
+     room by playing playSFX twice proves nothing, which is exactly what the
+     first measurement of this feature "showed". */
   window.__sfxInSpace=function(v,sp){ var k=SPACE; if(sp)SPACE=sp;
     try{ return inSpace(v); } finally { SPACE=k; } };
   function inSpace(v){
     var p=SPACES[SPACE]||SPACES.STREET;
     if(p.space===1&&p.room===1&&p.refl===1&&p.dark===1) return v;   /* baseline: untouched */
     var w={},k; for(k in v) w[k]=v[k];
-    /* clamped to the SPEC's own ranges by sanitize inside render; these stay
-       inside them anyway so a profile can never author an illegal vector */
     w.space=Math.max(0,Math.min(1,(v.space||0)*p.space));
     w.room =Math.max(0,Math.min(3,(v.room ||0)*p.room));
     w.refl =Math.max(0,Math.min(4,Math.round((v.refl||0)*p.refl)));
     w.dark =Math.max(300,Math.min(9000,(v.dark||2600)*p.dark));
     return w;
   }
-  window.playSFX=function(ev,when){
-    try{
-      if(typeof BOH_SFX==='undefined')return null;
-      var i=pick(ev); if(i==null)return null;
-      var v=vec(ev,i); if(!v)return null;
-      v=inSpace(v);"""
+"""
 
-# ANCHOR ON THE ONE CALL THAT IS ALWAYS THERE, not on the whole line.
-# The whole-line anchor broke the moment another feature (the world clock ->
-# music phase wire) added a second call to the same handler: the line no longer
-# matched byte for byte and this tool died with "cannot find the WHERE
-# receiver". An anchor that only recognises the shape it was born with is a
-# tool that breaks every time somebody else touches the same line.
+CALL_ANCHOR = "      var v=vec(ev,i); if(!v)return null;"
+CALL_ADD = "\n      v=inSpace(v);"
+
 W_ANCHOR = "AMB.where(d);"
 W_ADD = ("\n        if(d.space && SPACES[d.space]) SPACE=d.space;"
          "   /* the run says where you stand */")
@@ -183,10 +173,16 @@ def main():
     alpha = open(ALPHA, encoding='utf8').read()
 
     if 'var SPACES={' not in alpha:
-        if P_OLD not in alpha:
-            print('FAIL: playSFX is not the shape this tool expects')
+        if DEFS_ANCHOR not in alpha:
+            print('FAIL: cannot find playSFX to sit above')
             return 1
-        alpha = alpha.replace(P_OLD, P_NEW, 1)
+        alpha = alpha.replace(DEFS_ANCHOR, DEFS + DEFS_ANCHOR, 1)
+        print('  the four spaces are defined')
+    if 'v=inSpace(v);' not in alpha:
+        if CALL_ANCHOR not in alpha:
+            print('FAIL: cannot find the vector line inside playSFX')
+            return 1
+        alpha = alpha.replace(CALL_ANCHOR, CALL_ANCHOR + CALL_ADD, 1)
         print('  playSFX now plays into the space you are standing in')
     if "if(d.space && SPACES[d.space])" not in alpha:
         if W_ANCHOR not in alpha:

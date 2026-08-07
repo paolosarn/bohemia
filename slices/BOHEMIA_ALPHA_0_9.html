@@ -963,7 +963,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/7b - THE TERRITORY AI NEVER MOVED</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/7c - SIXTEEN SOUNDS USED TO BE QUIETER THAN ONE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13714,6 +13714,38 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 
   /* THE ONE ENTRY POINT. when==='beat' fires on the next downbeat of the real
      song (the 120 BPM LAW: a kill lands ON the beat), anything else fires now. */
+  /* === VOICE LIMITING (8/4) =============================================
+     MEASURED at the limiter output, firing N copies of one shot at the same
+     instant:
+        1 copy  energy 2.18    8 copies energy 2.25
+        2       2.18          16       1.81   <- LESS THAN ONE
+     Past the first, a stacked sound adds NOTHING. The brickwall holds the peak
+     at 0.80 either way, so all the extra copies do is push the limiter down --
+     and the limiter pushes EVERYTHING down with it: the music, the footsteps,
+     the ambience. The loudest moment in the game was the moment it went flat.
+     It is not hypothetical. A combat volley resolves several enemies in the same
+     frame, which is why the block sound already needed a hand-rolled guard and
+     the neighbour footstep needed another. Two ad-hoc guards for one defect
+     means the defect belongs one level up.
+     TWO LIMITS, both deliberately generous:
+       PER EVENT, 45ms. Two identical sounds closer together than about 40ms do
+       not read as two sounds; they read as one with a thicker attack. This is
+       the flam threshold, not a gameplay choice.
+       GLOBAL, 8 voices per 60ms. A fight can absolutely fire eight DIFFERENT
+       things at once and should. It cannot usefully fire twenty.
+     THE FIRST SOUND IS NEVER DROPPED, and a lone sound is never touched. */
+  var VOX=[], LASTEV={};
+  var VOX_EVENT_MS=45, VOX_WINDOW_MS=60, VOX_MAX=8;
+  function voiceOK(ev){
+    var now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+    var last=LASTEV[ev];
+    if(last!=null && (now-last)<VOX_EVENT_MS) return false;
+    while(VOX.length && (now-VOX[0])>VOX_WINDOW_MS) VOX.shift();
+    if(VOX.length>=VOX_MAX) return false;
+    LASTEV[ev]=now; VOX.push(now);
+    return true;
+  }
+  window.__voiceStats=function(){ return {perEvent:VOX_EVENT_MS, window:VOX_WINDOW_MS, max:VOX_MAX}; };
   /* === THE ROOM TAKES THE SOUND (8/4) ==================================
      Measured RT60 from the acoustics literature, mapped onto the four places
      this game actually has. STREET is 1.0 on every dial ON PURPOSE: it is the
@@ -13736,17 +13768,14 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
   /* EXPOSED SO IT CAN BE CHECKED EXACTLY. playSFX picks a RANDOM candidate from
      his approved set every call, and the difference between two of his
      candidates is bigger than the difference a room makes -- so measuring the
-     room by playing playSFX twice proves nothing at all, which is exactly what
-     the first measurement of this feature "showed". The transform is
-     deterministic; check the transform, then check ONE fixed vector's audio. */
+     room by playing playSFX twice proves nothing, which is exactly what the
+     first measurement of this feature "showed". */
   window.__sfxInSpace=function(v,sp){ var k=SPACE; if(sp)SPACE=sp;
     try{ return inSpace(v); } finally { SPACE=k; } };
   function inSpace(v){
     var p=SPACES[SPACE]||SPACES.STREET;
     if(p.space===1&&p.room===1&&p.refl===1&&p.dark===1) return v;   /* baseline: untouched */
     var w={},k; for(k in v) w[k]=v[k];
-    /* clamped to the SPEC's own ranges by sanitize inside render; these stay
-       inside them anyway so a profile can never author an illegal vector */
     w.space=Math.max(0,Math.min(1,(v.space||0)*p.space));
     w.room =Math.max(0,Math.min(3,(v.room ||0)*p.room));
     w.refl =Math.max(0,Math.min(4,Math.round((v.refl||0)*p.refl)));
@@ -13756,6 +13785,7 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
   window.playSFX=function(ev,when){
     try{
       if(typeof BOH_SFX==='undefined')return null;
+      if(!voiceOK(ev))return null;
       var i=pick(ev); if(i==null)return null;
       var v=vec(ev,i); if(!v)return null;
       v=inSpace(v);

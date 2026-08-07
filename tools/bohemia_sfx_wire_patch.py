@@ -180,9 +180,42 @@ def parent_block(bank):
 
   /* THE ONE ENTRY POINT. when==='beat' fires on the next downbeat of the real
      song (the 120 BPM LAW: a kill lands ON the beat), anything else fires now. */
+  /* === VOICE LIMITING (8/4) =============================================
+     MEASURED at the limiter output, firing N copies of one shot at the same
+     instant:
+        1 copy  energy 2.18    8 copies energy 2.25
+        2       2.18          16       1.81   <- LESS THAN ONE
+     Past the first, a stacked sound adds NOTHING. The brickwall holds the peak
+     at 0.80 either way, so all the extra copies do is push the limiter down --
+     and the limiter pushes EVERYTHING down with it: the music, the footsteps,
+     the ambience. The loudest moment in the game was the moment it went flat.
+     It is not hypothetical. A combat volley resolves several enemies in the same
+     frame, which is why the block sound already needed a hand-rolled guard and
+     the neighbour footstep needed another. Two ad-hoc guards for one defect
+     means the defect belongs one level up.
+     TWO LIMITS, both deliberately generous:
+       PER EVENT, 45ms. Two identical sounds closer together than about 40ms do
+       not read as two sounds; they read as one with a thicker attack. This is
+       the flam threshold, not a gameplay choice.
+       GLOBAL, 8 voices per 60ms. A fight can absolutely fire eight DIFFERENT
+       things at once and should. It cannot usefully fire twenty.
+     THE FIRST SOUND IS NEVER DROPPED, and a lone sound is never touched. */
+  var VOX=[], LASTEV={};
+  var VOX_EVENT_MS=45, VOX_WINDOW_MS=60, VOX_MAX=8;
+  function voiceOK(ev){
+    var now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+    var last=LASTEV[ev];
+    if(last!=null && (now-last)<VOX_EVENT_MS) return false;
+    while(VOX.length && (now-VOX[0])>VOX_WINDOW_MS) VOX.shift();
+    if(VOX.length>=VOX_MAX) return false;
+    LASTEV[ev]=now; VOX.push(now);
+    return true;
+  }
+  window.__voiceStats=function(){ return {perEvent:VOX_EVENT_MS, window:VOX_WINDOW_MS, max:VOX_MAX}; };
   window.playSFX=function(ev,when){
     try{
       if(typeof BOH_SFX==='undefined')return null;
+      if(!voiceOK(ev))return null;
       var i=pick(ev); if(i==null)return null;
       var v=vec(ev,i); if(!v)return null;
       MUS.audio();
@@ -722,7 +755,16 @@ def main():
     # caught it, which is the only reason it is not still deleted.
     # Ordering must be ENFORCED, never remembered: whoever owns the seam re-runs
     # whatever lives inside it.
-    for dep in ('tools/bohemia_sfx_space_patch.py',):
+    # ORDER MATTERS AND IT IS WRITTEN DOWN, not remembered. The mix patch
+    # reroutes the SFX bus off MUS.MAST (the music OFF button used to mute the
+    # whole game) and the space patch edits playSFX. Both live INSIDE the block
+    # this tool rebuilds, so both are destroyed by it and both must come back.
+    # The first version of this list had only the space patch, and the gate
+    # immediately went red on nine checks because the bus had silently gone back
+    # to riding the music master. A partial dependency list is not a dependency
+    # list.
+    for dep in ('tools/bohemia_sound_mix_patch.py',
+                'tools/bohemia_sfx_space_patch.py'):
         if os.path.exists(dep):
             rr = subprocess.run(['python3', dep], capture_output=True, text=True)
             if rr.returncode != 0:

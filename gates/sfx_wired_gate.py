@@ -488,6 +488,49 @@ const METER=`(function(){
   out.phaseDay   = await poolAt(720);
   out.phaseDusk  = await poolAt(1080);
 
+
+  /* ===== VOICE LIMITING (8/4) ===========================================
+     MEASURED at the limiter output before this existed, firing N copies of one
+     shot at the same instant: 1 copy = 2.18 energy, 16 copies = 1.81. SIXTEEN
+     SOUNDS PRODUCED LESS THAN ONE. Past the first, a stacked sound adds nothing
+     and just pushes the brickwall down -- taking the music, the footsteps and
+     the ambience with it. The loudest moment in the game was the moment it went
+     flat.
+     THE RISK OF FIXING IT IS MUTING A REAL FIGHT, so that is what is checked
+     hardest: a fight fires several DIFFERENT events close together and every one
+     of them must still be heard. Counted from playSFX's return value, and an
+     event with no approved sound is scored separately -- it is silent by HIS
+     verdict, not by this limiter, and confusing the two would hide a real drop. */
+  out.voiceStats = await p.evaluate(()=>{
+    try{ return window.__voiceStats(); }catch(e){ return null; }
+  });
+  out.voiceFight = await p.evaluate(async()=>{
+    const evs=['shot','hit','vital','kill','hurt','step_asphalt','step_gravel'];
+    const A=window.__SFX_APPROVED||{};
+    const played=[], dropped=[], unapproved=[];
+    for(const ev of evs){
+      const n=window.playSFX(ev);
+      if(n) played.push(ev);
+      else if(!(A[ev]&&A[ev].length)) unapproved.push(ev);
+      else dropped.push(ev);
+      await new Promise(r=>setTimeout(r,45));
+    }
+    return {played:played.length, dropped, unapproved};
+  });
+  out.voiceWalk = await p.evaluate(async()=>{
+    let played=0, dropped=0;
+    for(let i=0;i<8;i++){
+      window.playSFX('step_asphalt')?played++:dropped++;
+      await new Promise(r=>setTimeout(r,350));
+    }
+    return {played,dropped};
+  });
+  out.voiceSpam = await p.evaluate(()=>{
+    let played=0, dropped=0;
+    for(let i=0;i<16;i++) window.playSFX('shot')?played++:dropped++;
+    return {played,dropped};
+  });
+
   console.log(JSON.stringify(out));
   await b.close();
 })();
@@ -1122,6 +1165,39 @@ def main():
     chk('THE MARKER ON THE DOOR' not in pn,
         'a song he tagged OVERWORLD DAY is in the NIGHT pool, so the categories '
         'are not being honoured at all')
+
+    # ---- VOICE LIMITING (8/4) ------------------------------------------
+    vs = d.get('voiceStats') or {}
+    chk(bool(vs), 'the voice limiter is gone; sixteen stacked sounds will make '
+                  'less noise than one again')
+    chk((vs.get('perEvent') or 0) <= 60,
+        'the per-event window is %sms. Above about 60ms this starts eating '
+        'sounds a player would actually have heard as separate.' % vs.get('perEvent'))
+    chk((vs.get('max') or 0) >= 6,
+        'the global voice cap is %s. A fight legitimately fires several '
+        'different things at once and must be allowed to.' % vs.get('max'))
+    # THE THING THAT MUST NOT BREAK: a real fight, and walking.
+    vf = d.get('voiceFight') or {}
+    chk(not (vf.get('dropped') or []),
+        'THE LIMITER MUTED A REAL FIGHT SOUND: %s. Different events close '
+        'together are what a firefight IS; only stacked duplicates may be '
+        'dropped.' % ', '.join(vf.get('dropped') or []))
+    chk((vf.get('played') or 0) >= 5,
+        'only %s of a seven-event volley were heard' % vf.get('played'))
+    vw = d.get('voiceWalk') or {}
+    chk((vw.get('dropped') or 0) == 0,
+        'walking lost %s footsteps to the voice limiter -- the most frequent '
+        'sound in the game must never be rate-limited at walking pace'
+        % vw.get('dropped'))
+    # AND THE FIX ITSELF.
+    vsp = d.get('voiceSpam') or {}
+    chk((vsp.get('dropped') or 0) >= 12,
+        'sixteen identical sounds fired at the same instant produced %s voices. '
+        'Past the first they are inaudible and they drag the whole mix down.'
+        % vsp.get('played'))
+    chk((vsp.get('played') or 0) >= 1,
+        'the voice limiter dropped even the FIRST sound; it must never silence a '
+        'lone request')
 
     print('  %d passed, %d FAILED' % (P, F))
     if not F:
