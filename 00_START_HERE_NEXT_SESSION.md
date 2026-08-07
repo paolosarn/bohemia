@@ -1,3 +1,58 @@
+FACTIONS (factions-ovkjpf): 8/7 (c) LATEST — *** A SECOND WAY AUTHORED CONTENT DIES,
+AND IT IS NASTIER: THE MECHANISM WORKS AND THE CHECKER TELLS THE AUTHOR HE IS WRONG. ***
+Nothing to judge.
+
+Chasing yesterday's QUEST-ONLY rows, @DO bond was the suspect: 44 authored rulings,
+the second most-written faction verb after `faction` itself, and the corpus gates on
+it ZERO times.
+
+I first concluded bonds were STRUCTURALLY UNREADABLE. THAT WAS WRONG, and reading the
+code is what caught it. bohemia_quest_runtime.js _cond has a numeric branch:
+    else if(key in s.bonds)   cur=s.bonds[key];
+So `[gate: grower>=10]` genuinely works. Bonds were wired the whole time.
+
+THE REAL DEFECT: bq.js WARNED AT YOU FOR USING IT. GATE_KEYS is the `key:value`
+vocabulary (flag:, knows:, role:, has:). A NUMERIC gate's key is a bond target or a
+faction id, which was never supposed to be in that list -- so the validator flagged
+the one correct way to use 44 authored rulings as a mistake. That is worse than an
+unwired feature: an unwired feature is invisible, but a feature whose only correct use
+is reported as an error actively teaches the author to stop trying. Gating on bonds
+zero times is exactly what you would expect.
+Paolo 8/1 twice over: a checker that cannot tell a use from an error is the broken
+one, and you fix the RULER, never the target.
+
+FIX: a numeric gate key is legal when it is stage, gen, or a DECLARED @ROLE of that
+quest. Measured before writing it: all 44 bond targets in the corpus are declared
+roles, 0 exceptions. Faction ids deliberately stay out -- canon content this parser
+does not get to enumerate -- so a faction-keyed numeric gate is still warned about.
+Corpus revalidated: 21 canon quests, 0 errors.
+
+GATE: authored_unread_gate.py now 11/11, and BOTH halves are measured because a
+validator that stops complaining about something still broken is worse than the
+warning:
+    a numeric gate on a DECLARED @ROLE no longer warns ......... PASS
+    a genuinely unknown gate key STILL warns ................... PASS
+    the bond gate really GATES: hidden before, open after +18 .. PASS
+
+*** THE BIGGER MEASUREMENT, HIS CALL NOT MINE, NO QUEST FILE TOUCHED ***
+    391  [gate: none]
+      2  knows
+      2  flag
+      0  has / role / faction / gen / bond
+    395 gates total, FOUR of them conditional
+Meanwhile the corpus authors 142 pieces of recorded state (62 learn + 36 set_flag +
+44 bond) and conditions on four. It reads two ways and only he can say which: either
+the state is recorded for cross-quest continuity not yet built (correct and early), or
+the branching machinery exists and the writing has not reached for it (in which case
+every playthrough offers the same options no matter what you did). The validator
+warning was a real cause either way and is now gone.
+
+NOTE ON THIS CONTAINER: it was restored from an older snapshot mid-turn and the local
+tree reverted to 8/2. Everything from 8/6-8/7 was already pushed and is intact on
+main (deed bridge, HOW LOUD YOU WERE, posture bridge, WHO YOU STIRRED UP, the
+authored-unread machine). Verified commit by commit before continuing. Only this
+bq.js fix was uncommitted, and it survived as a working-tree edit.
+
 COMBAT (combat-nfnki9): 8/7 LATEST -- SIX FEATURES ARE LIVE AND UNJUDGED, AND I
 STOPPED ON PURPOSE. Deploy recovered ~05:00; verified 200fbdb deployed SUCCESS
 and carries all six; smoke gate green on the shipped build.

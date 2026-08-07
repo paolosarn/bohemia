@@ -129,7 +129,22 @@ function validate(Q, world){
       if (new RegExp('\\b'+b+'\\b','i').test(o.gate))
         E('BANNED_GATE','line '+o.line+': gate "'+o.gate+'" uses '+b.toUpperCase()+'. NO STAT GATES. NO KARMA. Ever.');
     });
-    if (o.gateKey!=='none' && GATE_KEYS.indexOf(o.gateKey)<0)
+    /* A CHECKER THAT CANNOT TELL A USE FROM AN ERROR IS THE BROKEN ONE (Paolo 8/1),
+       and this was one. GATE_KEYS is the `key:value` vocabulary (flag:, knows:,
+       role:...). But the runtime ALSO resolves a NUMERIC gate whose key is a bond
+       target or a faction id — `_cond` does `else if(key in s.bonds)` and
+       `else if(key in s.faction)` — so `[gate: grower>=10]` genuinely works. It just
+       WARNED, because 'grower' is not in a list it was never supposed to be in.
+       That warning is why 44 authored `@DO bond` lines are gated on ZERO times: the
+       one way to use them tells the author they got it wrong.
+       A numeric gate key is legal when it is stage, gen, or a DECLARED @ROLE of this
+       quest (measured: all 44 bond targets in the corpus are declared roles). Faction
+       ids stay out of it deliberately — those are canon content this parser does not
+       get to enumerate, so a faction-keyed numeric gate is still only warned about. */
+    var numericKey = /[<>=]/.test(o.gate) && o.gate.indexOf(':') < 0;
+    var legalNumeric = numericKey && (o.gateKey === 'stage' || o.gateKey === 'gen'
+                                      || !!roleNames[o.gateKey]);
+    if (o.gateKey!=='none' && GATE_KEYS.indexOf(o.gateKey)<0 && !legalNumeric)
       W('UNKNOWN_GATE','line '+o.line+': gate key "'+o.gateKey+'" not in the vocabulary');
     if (o.gateKey==='role' && o.gateVal && !roleNames[o.gateVal])
       E('GATE_NO_ROLE','line '+o.line+': gate role:'+o.gateVal+' is not a declared @ROLE');

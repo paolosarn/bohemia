@@ -97,6 +97,54 @@ ok('at least one verb reaches the REAL world — if none did, the probe is measu
 ok('the method on record is the behavioural one, not a text sweep',
    'behavioural' in r.get('method', ''))
 
+# ---------------------------------------------------------------------------
+# E. THE OTHER WAY AUTHORED CONTENT DIES: THE ONE WAY TO USE IT WARNS AT YOU.
+#
+# @DO bond is wired -- the runtime resolves a numeric gate whose key is a bond
+# target (`else if(key in s.bonds)`), so `[gate: grower>=10]` genuinely works. But
+# bq.js WARNED on it, because 'grower' is not in GATE_KEYS, a list it was never
+# supposed to be in. 44 authored bond rulings, gated on ZERO times, and the one way
+# to use them told the author they had got it wrong.
+# A CHECKER THAT CANNOT TELL A USE FROM AN ERROR IS THE BROKEN ONE (Paolo 8/1), and
+# you fix the ruler, never the target. Both halves are measured here: it must
+# validate clean AND actually open the option at runtime, because a validator that
+# stops complaining about something still broken is worse than the warning.
+# ---------------------------------------------------------------------------
+probe_js = r'''
+const BQ = require('./engine/bohemia_bq.js');
+const L  = require('./engine/bohemia_loop.js');
+const head = ['@QUEST bondgate Bond Gate','@ACT 1','@ONCE true',
+  '@ROLE grower REQ faction=BLUES','@STAGE 10','  @LOG a',
+  '@TALK open speaker=grower entry=stage>=10','  @SAY hi',
+  '  @OPT "needs bond" [gate: grower>=10] -> END  @DO set_stage 20',
+  '  @OPT "raise it" [gate: none] -> open  @DO bond grower +18',
+  '  @OPT "bogus" [gate: nosuchrole>=3] -> END','@END',
+  '@STAGE 20 COMPLETE #quiet','  @LOG done'].join('\n');
+const warns = (BQ.validate(BQ.parse(head)).warnings || []).map(w => w.msg || w);
+const ctx = L.boot({ seed: 'bondgate' });
+const rt = ctx.quests.start(head); rt.begin('open');
+const vis = t => rt.view().options.filter(o => o.text.indexOf(t) >= 0).length > 0;
+const before = vis('needs bond');
+rt.choose(rt.view().options.filter(o => o.text.indexOf('raise it') >= 0)[0].i);
+process.stdout.write(JSON.stringify({
+  roleGateWarns: warns.some(w => /grower/.test(w)),
+  bogusGateWarns: warns.some(w => /nosuchrole/.test(w)),
+  before, after: vis('needs bond'),
+}));
+'''
+bp = subprocess.run(['node', '-e', probe_js], capture_output=True, text=True)
+ok('the bond-gate probe runs', bp.returncode == 0)
+if bp.returncode == 0:
+    b = json.loads(bp.stdout)
+    ok('a numeric gate on a DECLARED @ROLE no longer warns — the one way to use 44 authored bonds stopped telling authors they were wrong',
+       b['roleGateWarns'] is False)
+    ok('and a genuinely unknown gate key STILL warns — the ruler was fixed, not switched off',
+       b['bogusGateWarns'] is True)
+    ok('the bond gate really GATES: the option is hidden before the bond and open after it',
+       b['before'] is False and b['after'] is True)
+else:
+    print(bp.stderr[-600:])
+
 print('')
 print('  NOTE  %d @DO lines authored across the corpus' % r['authored_total'])
 for k, v in r['totals'].items():
