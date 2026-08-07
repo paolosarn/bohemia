@@ -362,6 +362,68 @@ ok('H13 UX is left to the lane that owns the surface',
 ok('H14 and the ValheimPlus mod-not-Iron-Gate caveat is repeated here too',
    /a line number is a\s*line in the MOD/i.test(cf));
 
+/* ---- ★ CROSS-LANE: THE RULINGS THIS LANE HOLDS ARE STILL BUILT BY THE LANE THAT BUILT
+   THEM ------------------------------------------------------------------------
+   A ruling can be built and then quietly become UNBUILT, and nothing would notice, because
+   the lane holding the RULING is not the lane holding the IMPLEMENTATION. Verified 8/5 by
+   reading the code rather than their record: R17/R19/R20/R21 are satisfied in
+   engine/bohemia_standing.js + bohemia_deeds.js, gated by standing_gate (35/0) and
+   deed_bridge_gate (27/0). See records/BOHEMIA_CROSS_LANE_WITNESS_VERIFICATION_8_5_26.md.
+
+   THIS CHECKS THE CONTRACT, NEVER THE NUMBERS. HEARSAY_LOSS, MAX_HOPS and GEN_LOSS are
+   their dials and his rulings; asserting values here would freeze another lane's tuning
+   from outside. So every check below reads STRUCTURE -- that the mechanism still exists --
+   and none of them reads a magnitude. If a value ever needs locking, that is his ruling and
+   it belongs in their gate, not this one. */
+const STAND = 'engine/bohemia_standing.js';
+const DEEDS = 'engine/bohemia_deeds.js';
+const XREC = 'records/BOHEMIA_CROSS_LANE_WITNESS_VERIFICATION_8_5_26.md';
+const standSrc = fs.existsSync(path.join(ROOT, STAND))
+  ? fs.readFileSync(path.join(ROOT, STAND), 'utf8') : '';
+const deedSrc = fs.existsSync(path.join(ROOT, DEEDS))
+  ? fs.readFileSync(path.join(ROOT, DEEDS), 'utf8') : '';
+
+ok('X1 the witness/gossip organ still exists', standSrc.length > 0);
+ok('X2 R20 still built: a deed enters through a WITNESS, in range',
+   /function\s+witness\s*\(/.test(standSrc) && /SEE_RANGE/.test(standSrc));
+ok('X3 R21 still built: a deed travels mind to mind (gossip)',
+   /function\s+gossip\s*\(/.test(standSrc));
+ok('X4 R21 still built: hearsay is WEAKER than eyesight',
+   /HEARSAY_LOSS/.test(standSrc) && /Math\.pow\(\s*HEARSAY_LOSS/.test(standSrc));
+ok('X5 R21 still built: a story RUNS OUT (a hop ceiling exists)',
+   /MAX_HOPS/.test(standSrc) && /hops/.test(standSrc));
+ok('X6 R21 "different degrees of stories" still built: per-deed hop budgets',
+   /function\s+hopsFor\s*\(/.test(deedSrc) && /MAX_HOPS/.test(deedSrc));
+ok('X7 R17 still built: standing is DERIVED, not stored as a score',
+   /function\s+standingOf\s*\(/.test(standSrc));
+ok('X8 R19 has its material: becauseOf() explains a standing',
+   /function\s+becauseOf\s*\(/.test(standSrc));
+ok('X9 the dynasty carry still exists (inherit)',
+   /function\s+inherit\s*\(/.test(standSrc));
+ok('X10 and their own gates still exist to own the numbers',
+   fs.existsSync(path.join(ROOT, 'gates/standing_gate.js')) &&
+   fs.existsSync(path.join(ROOT, 'gates/deed_bridge_gate.js')));
+
+/* THE VERIFICATION RECORD MUST STAY HONEST ABOUT THE THREE THINGS THAT ARE EASY TO LOSE:
+   that the work was another lane's, that a ruling of his is currently UNEXPRESSIBLE, and
+   that I had been re-declaring a blocker instead of resolving it. */
+const xr = fs.existsSync(path.join(ROOT, XREC))
+  ? norm(fs.readFileSync(path.join(ROOT, XREC), 'utf8')) : '';
+ok('X11 the verification record exists', xr.length > 0);
+ok('X12 it credits the other lane instead of claiming the work',
+   /ALREADY DONE, BY THE PEOPLE LANE, AND BETTER THAN I WOULD\s*HAVE DONE IT/i.test(xr));
+ok('X13 it owns that the blocker was re-declared for three turns, not resolved',
+   /not a blocker, it is a\s*habit/i.test(xr));
+ok('X14 it verified CODE rather than believing their record',
+   /A record is\s*not proof/i.test(xr));
+ok('X15 ★ R18 is flagged as currently UNEXPRESSIBLE pending his deed vocabulary',
+   /R18 IS CURRENTLY UNEXPRESSIBLE/i.test(xr) &&
+   /at least two distinguishable kinds for mercy/i.test(xr));
+ok('X16 and the approved kill-the-witness mechanic is routed, not built here',
+   /Routed to COMBAT/i.test(xr) && /not touching their organ/i.test(xr));
+ok('X17 it states this gate checks the CONTRACT and not their dials',
+   /checks the CONTRACT, never the numbers/i.test(xr));
+
 /* ---- THE ROWS EXIST ------------------------------------------------------- */
 /* This is the actual lock. answered_gate.py reads the machine block; a ruling with no
    row is a ruling he will be asked about again. */

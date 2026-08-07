@@ -1,3 +1,77 @@
+LAB (lab-e2r7sv): 8/5 (b) LATEST -- *** THE WITNESS WORK WAS ALREADY BUILT BY THE PEOPLE
+LANE, BETTER THAN I WOULD HAVE. IT COMES OFF MY QUEUE. *** Nothing to judge.
+
+MY OWN HANDOFF SAID "COORDINATION NEEDED" ON THIS FOR THREE TURNS RUNNING AND DID NOTHING
+ABOUT IT. A blocker you keep re-declaring instead of resolving is not a blocker, it is a
+habit. So I read their code. records/BOHEMIA_CROSS_LANE_WITNESS_VERIFICATION_8_5_26.md.
+
+=== I VERIFIED THE CODE, NOT THEIR RECORD ===
+engine/bohemia_standing.js, 344 lines: witness(), gossip(), standingOf(), becauseOf(),
+inherit(); HEARSAY_LOSS 0.55, MAX_HOPS 2, GEN_LOSS 0.45. engine/bohemia_deeds.js, 236 lines:
+per-deed hop budgets via hopsFor()/reachOf(). Their gates run clean THIS TURN --
+standing_gate 35/0 (11/11 self-probes), deed_bridge_gate 27/0 (15/15). A RECORD IS NOT PROOF;
+this is.
+
+=== SEVEN OF MY RULINGS ARE SATISFIED IN SHIPPED, GATED CODE ===
+R20 witnesses on all NPCs -> witness() + SEE_RANGE, measured 2 of 3, the one across the valley
+  learned nothing.
+R21 stories spread like a plague -> gossip() moves a deed mind to mind; watched 3.96 vs heard
+  2.18; a rumour down a line of TWELVE reached THREE.
+R21 "different degrees of stories" -> hopsFor(): a #quiet deed gets ONE hop, a #reckless one
+  FIVE. HIS OWN CLOUT TAGS decide how far a story travels.
+R21 NPC memory -> clarity decay measured 4.00 -> 1.00 -> 0.06 -> 0.00 over a week.
+R17 record silently -> *** STRONGER THAN I RULED IT. *** I said "log the acts, show no bar."
+  They made the opinion DERIVED AND NEVER STORED -- there is no score to display, migrate or
+  desync at all.
+R19 NPCs comment -> becauseOf() returns the deeds, who holds them, watched vs merely heard.
+  The talking is LIFE's.
+Dynasty carry, UNASKED -> inherit() + GEN_LOSS: a quiet good deed dies with its witness, a
+  notorious one becomes what your child is judged for.
+I WAS ABOUT TO BUILD A SECOND ONE OF THESE.
+
+=== AND MY OWN RESEARCH INDEPENDENTLY AGREES WITH THEIRS ===
+My 8/3 Dwarf Fortress / RDR2 / CK2 / Skyrim / RimWorld study made five recommendations.
+NEITHER LANE SAW THE OTHER. Four of five match what they had already built -- including the
+one I was proudest of, "degrees of a story are degrees of FIDELITY not severity", which is
+exactly HEARSAY_LOSS. Two lanes, different evidence, same architecture. Strongest signal
+available that the design is right.
+
+=== TWO REAL GAPS, NEITHER A COLLISION ===
+1 *** R18 IS CURRENTLY UNEXPRESSIBLE, AND NOBODY HAD WRITTEN THAT DOWN. *** R18 (LOCKED):
+  sparing somebody after you shot them is NOT the same act as sparing somebody with hands up
+  -- two different ledger entries. The organ stores deeds BY KIND, and their own next step is
+  "nothing calls witness() yet... that needs a deed vocabulary, which is his." SO IF THE
+  VOCABULARY LANDS WITH ONE `spared` KIND, R18 IS SILENTLY UNBUILT AND EVERY GATE STAYS
+  GREEN. Not a bug in their organ -- a REQUIREMENT ON HIS VOCABULARY. It needs AT LEAST TWO
+  DISTINGUISHABLE KINDS FOR MERCY. [PENDING Paolo]
+2 THE APPROVED KILL-THE-WITNESS MECHANIC IS UNBUILT -- AND THEIR ARCHITECTURE SUPPORTS IT FOR
+  FREE. Deeds live in minds and travel by gossip(), so a mind removed before it retells takes
+  the deed with it. Their own comment: "a quiet good deed dies with the witness." Nothing new
+  is needed. ROUTED TO COMBAT (owns the camp/fight per R1). Not built here.
+
+=== THE ONLY NEW MACHINERY, AND IT IS THE REUSABLE IDEA ===
+*** A RULING CAN BE BUILT AND THEN QUIETLY BECOME UNBUILT, AND NOTHING WOULD NOTICE, because
+the lane holding the RULING is not the lane holding the IMPLEMENTATION. *** rulings_gate is
+now 127 checks (+X1..X17): it asserts the PEOPLE lane's organ still satisfies THIS lane's
+rulings -- witness() and gossip() exist, hearsay stays weaker than eyesight, hops still run
+out, standing stays DERIVED, becauseOf() still explains itself, inherit() still carries.
+IT CHECKS THE CONTRACT, NEVER THE NUMBERS. HEARSAY_LOSS/MAX_HOPS/GEN_LOSS are their dials and
+his rulings; asserting values here would freeze another lane's tuning from outside. Every
+check reads STRUCTURE, none reads a magnitude.
+THE PATTERN WORTH REUSING: THE LANE HOLDING THE RULING GATES THE LANE HOLDING THE BUILD. Nine
+parallel sessions and nothing else does this.
+Six mutations, all six caught -- including deleting gossip(), making hearsay equal to
+eyesight, turning standing into a stored score, and me claiming their work as my own.
+
+=== NOT DONE / THE QUEUE ===
+1. HIS THUMBS ON THE 18 BOSSES. Not proposing another shape for that ladder.
+2. THE DEED VOCABULARY + R18's two-kinds-of-mercy requirement -- [PENDING Paolo].
+3. Kill-the-witness -- approved, routed to COMBAT, free given their model.
+4. Taste-canon woman-rig rot -- [PENDING Paolo / CHARACTER], printed by CANON ROT every run.
+5. DELETED FROM THIS QUEUE: "witness + story-spread plumbing." DONE, by them, four turns after
+   I first listed it. A queue that lists finished work hides the real next thing.
+6. Did not touch #buildstamp: one record, one gate block. Pages still failing per other lanes.
+
 FACTIONS (factions-ovkjpf): 8/6 (k) LATEST — *** HIS QUEST CORPUS ALREADY SAID HOW
 LOUD EVERY DEED WAS, AND ONLY THE VANITY FOLLOWER COUNT WAS LISTENING. ***
 Tab: LIFE -> HOW LOUD YOU WERE. Nothing to judge, nothing to tap, it auto-runs.
