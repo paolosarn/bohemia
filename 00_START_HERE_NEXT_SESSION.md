@@ -969,6 +969,56 @@ the next machine and it is bigger.
    NOTE: another lane reports GitHub Pages has failed three commits running, so the live link
    may be stale -- nothing I shipped today touches the playable surface either way.
 
+ART (f3eu53): 8/6 (g) LATEST -- *** 89.5% OF THE ART IN THIS REPO HAS NEVER DRAWN A
+PIXEL. MEASURED, WITH A PROBE THAT PROVES ITSELF FIRST. ***
+
+  61 banks carry art · 17,179 images · 1,805 live (10.5%)
+  24 BANKS, 4,099 IMAGES, 37 MB: NEVER DRAWN
+  biggest: GROUND_VARIANT_BANK 1,211 · TILE_REPO 875 · WALL_VARIANT 438 ·
+           TRAFFIC_SIGNAL_CANDIDATES 352 · DEMO_PROP_POOL 314 · WALL_SEAMLESS 99
+  records/BOHEMIA_BANK_CONSUMPTION_8_6_26.md · tools/bohemia_bank_consumption_audit.py
+
+WHY IT EXISTS: every win this week came from asking ONE bank "is this drawing?"
+(buildings flat until 8/3; the valley had ZERO objects until 8/5 while 8,674
+purchased tiles and 1,927 of his own thumbs-up sat dark). Nobody had ever asked
+the whole library.
+THE PROBE VALIDATES ITSELF OR REFUSES TO REPORT -- a control bank the gates prove
+is live must come back live (43/400). On 8/3 a broken probe returned zero for
+every district and I believed it for a turn.
+*** 89.5% DARK IS NOT 89.5% WASTE. *** The graveyard is dead by law; candidate
+sheets are meant to be mostly rejected; a master feeding a curated subset should
+be mostly unused. NOTHING HERE IS A LICENCE TO WIRE ANYTHING. The point is that
+TWICE this week a bank was dark for no reason and nobody would have known.
+
+=== IT QUALIFIES SOMETHING I TOLD HIM TODAY, AND I AM SAYING SO ===
+I concluded out loud that "there is NO seamless art in this repo for ballast,
+field soil or desert floor" -- after opening TWO banks. GROUND_VARIANT_BANK is
+1,211 dark images I never opened; TILE_REPO another 875. THAT CONCLUSION IS
+UNSAFE. Same assume-instead-of-check error this audit exists to catch, made by me,
+twice in two days, while documenting it. Not reopening it this turn: ground was
+four attempts and STOP PRODUCING says stop.
+
+=== GROUND: FOUR ATTEMPTS, FOUR FAILURES, STOPPED AND REVERTED ===
+ 1 raw HD soil masters -> 96px patches, 10% transparent, BLACK GAP every cell
+ 2 DESERT_POOLS "ground" -> calls itself the Mojave floor, measured 9.5%
+   transparent patches. A bank's self-description is not evidence; pixels are.
+ 3 told him "you own no seamless dirt, buy or cook" after opening ONE bank
+ 4 GROUND_SEAMLESS quilt tiles -- art finally REAL (44x44, 0% transparent, 10 UP)
+   and still wrong: "stone paths" is a GARDEN PATH, cream cobbles with BRIGHT
+   GREEN GRASS, laid as railway ballast in a dead valley.
+*** A VERDICT IS ABOUT THE OBJECT. NEVER ABOUT WHERE, OR WHAT FOR. *** Four times
+today: potion jar, market barrel, dirt patch, garden path. ALL FOUR PASSED THEIR
+GATES. ALL FOUR WERE CAUGHT ONLY BY LOOKING.
+The wiring is built, tested, HELD AT OFF. [PENDING, Paolo] buy / cook / judge the
+7 never-swept "1. Ground Tiles" quilt tiles / leave it -- and check
+GROUND_VARIANT_BANK first, because I did not.
+
+=== THE DISTRICT CAMERA (any session can use this) ===
+Black frames every time because THE SHOOTER WAS STILL INSIDE HIS HOUSE. The run
+opens indoors, so gotoCell moves the exterior under an INTERIOR camera. WALK OUT
+THE FRONT DOOR FIRST, then teleport, then wait until the canvas is actually
+painting. gotoCell was never broken.
+
 ART (f3eu53): 8/6 (d) LATEST -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
 HAND, AND THE GAME DREW ZERO. THAT IS WHY THE WORLD LOOKS EMPTY. ***
 
