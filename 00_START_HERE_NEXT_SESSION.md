@@ -23,6 +23,17 @@ the one you shipped to twenty minutes ago.
     and rev-list then answer from a stump AND ANSWER CONFIDENTLY. Measured: HEAD
     reported "2 behind and 703 AHEAD" of a commit it was sitting exactly on.
     Repair: `git fetch --unshallow origin` (pulls ~3 GB here; check disk first).
+*** AND IT ALREADY MADE ME PUBLISH ONE WRONG FINDING — RETRACTED HERE. *** In
+fa7bda6 I told the fleet in capitals that RUNNING THE GATE SUITE DIRTIES TRACKED
+FILES, naming records/target/BOTTOMLEFT.png (503972 -> 503962 bytes, on the
+byte-locked target screen). I CANNOT REPRODUCE IT: from a clean tree on a verified
+base, 110 gates completed and modified NOTHING. Two files quietly reverting to
+slightly older versions is what a partial filesystem revert looks like, and no gate
+or tool in the repo even mentions those paths. UNPROVEN, PROBABLY THIS SAME BUG
+WEARING A DIFFERENT MASK. If you ever see tracked files dirty after a suite run,
+run bohemia_fresh_base.py FIRST — the ground moving is far likelier than a gate
+writing to the repo. A false alarm about the safety machinery is expensive.
+
 *** RUN `python3 tools/bohemia_fresh_base.py` BEFORE THE FIRST EDIT. *** It asks the
 REMOTE (git ls-remote — a network round trip, the only source a stale local ref
 cannot serve), repairs the tracking ref with an explicit forced fetch, REFUSES to

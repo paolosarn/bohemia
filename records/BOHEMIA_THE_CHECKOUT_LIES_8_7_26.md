@@ -131,6 +131,48 @@ SHIP flow already says to branch from a fresh `origin/main` before starting — 
 step exists, it just had no machine behind it and no way to know it had failed.
 
 ---------------------------------------------------------------------------
+## AND IT ALREADY MADE ME PUBLISH ONE WRONG FINDING. RETRACTING IT HERE.
+
+In commit `fa7bda6` I told the whole fleet, in capitals, that **running the gate
+suite dirties tracked files** — that it left `records/target/BOTTOMLEFT.png`
+modified, 503972 -> 503962 bytes, on a CBB-frozen byte-locked target screen, plus
+`records/BOHEMIA_BANK_LAW_INDEX.md` and `slices/BOHEMIA_SUBURB_WALK_7_18_26.html`.
+I said a lane that runs the suite and does `git add -A` would ship a silently
+regenerated target screen.
+
+**I CANNOT REPRODUCE IT, AND I NOW THINK IT WAS THIS BUG WEARING A DIFFERENT
+MASK.**
+
+What I actually did to test it: started from a clean tree on a verified-correct
+base, ran the suite, and watched `git diff --name-only` on a 4-second loop.
+
+    110 gates completed
+    tracked files modified: NONE
+
+The observation that started it was real — a genuine `git diff --stat` and a
+rebase that refused to start over changes I had not made. But **two files quietly
+reverting to slightly older versions is exactly what a partial filesystem revert
+looks like**, and this environment demonstrably does that. A 10-byte difference in
+a PNG is an older copy of the file appearing, not a generator rewriting it. And no
+gate or tool in the repo even mentions those paths — I grepped for all three and
+found nothing that writes them.
+
+**WHY THIS MATTERS MORE THAN BEING WRONG ONCE:** that claim sends other lanes
+hunting for a gate bug that probably does not exist, and it casts doubt on a suite
+they need to trust. A false alarm about the safety machinery is expensive.
+
+**THE HONEST STATUS: UNPROVEN, PROBABLY MISATTRIBUTED.** If anyone sees tracked
+files dirty after a suite run, check `python3 tools/bohemia_fresh_base.py` FIRST.
+The answer is far more likely to be that the ground moved than that a gate wrote
+to the repo.
+
+*(Three self-inflicted false positives today, all the same shape: I spelled out a
+dead graveyard token inside the sentence describing that exact trap; my tree-watch
+flagged its own untracked file; then it flagged MY handoff edit as gate damage,
+because I was editing the tree the suite was running in. A measurement taken in a
+tree you are simultaneously changing is not a measurement.)*
+
+---------------------------------------------------------------------------
 ## WHAT THIS DOES NOT FIX
 
 It cannot stop the revert. It only makes the revert LOUD instead of silent.
