@@ -63,6 +63,22 @@ mutation showed a 121-char shrug passes, and the rewritten version -- reason mus
 EXPIRY and cite a real artifact -- immediately failed on my own SECONDS_PER_STEP text. Fixed the
 text, not the check.
 
+*** A GATE WRITES A SCREENSHOT INTO A TRACKED, PAGES-PUBLISHED DIRECTORY, AND IT MAKES
+EVERY LANE COMMIT CHURN FOREVER. *** Not mine to fix, so: named.
+gates/bottomleft_gate.py line 93 does
+    await p.screenshot({path: .../records/target/BOTTOMLEFT.png})
+straight into TRACKED and PAGES-PUBLISHED space (_config.yml keeps records/target because
+the ART tab loads from it). A screenshot is never byte-identical twice, so after ANY suite
+run `git add -A` picks up a 500 KB binary nobody authored. It has already happened three
+times: CITY at 1c50086, and me at 84d6a65 and 0f29534. I checked before assuming the worst
+-- NOTHING AUTHORED WAS LOST, all three versions are just successive screenshots of the
+same screen (503977 / 503921 / 503947 bytes) -- but a half-megabyte binary is rewriting
+itself into the published site on every lane's every ship.
+THE FIX IS THREE LINES AND THE PATTERN IS ALREADY IN THIS REPO: lab_gate.js writes its
+proof shots to a PROOF_DIR under os.tmpdir() (overridable by env), never into the tree.
+bottomleft_gate.py should do the same. Whoever owns it: that gate, line 93.
+AND FOR EVERY LANE MEANWHILE: `git add -A` after a gate run is not safe in this repo.
+
 GATE: canon_constants_gate.js, 33 checks, 0 fail. Also still green: valley_scale_gate (14/0),
 people_gate (152/0), lab_gate (573/0).
 
