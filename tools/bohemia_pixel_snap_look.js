@@ -47,7 +47,9 @@ const BOXES = [
 
   let bad = 0;
   const shot = async (tab, name, prep) => {
-    await page.click('.tab[data-p="' + tab + '"]').catch(() => {});
+    /* a failed tab click must not be swallowed (one_world_tab_gate, 8/2): .catch()
+     here turns "that tab is gone" into a silent measurement of the wrong surface */
+  await page.click('.tab[data-p="' + tab + '"]');
     await page.waitForTimeout(1200);
     if (prep) { await prep(); await page.waitForTimeout(1600); }
     const f = path.join(OUT, name + '.png');

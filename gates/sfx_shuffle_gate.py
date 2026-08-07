@@ -38,8 +38,10 @@ const pw = pwmod();
 
   // GO TO THE TAB HE ACTUALLY TAPS. The board only exists once MUSIC is built.
   await p.evaluate(() => {
+    // a tab that is not there must SAY SO (one_world_tab_gate, 8/2): `if (t)`
+    // swallows the miss and the failure then surfaces far from its cause
     const t = document.querySelector('.tab[data-p="music"]');
-    if (t) t.click();
+    if (!t) throw new Error('that tab is not in the bar'); t.click();
   });
   await p.waitForTimeout(2600);
 

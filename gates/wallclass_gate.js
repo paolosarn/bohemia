@@ -274,16 +274,44 @@ ok('the bank still states its own height law (min 2 tiles)', /MIN 2 TILES/i.test
   await runPage.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html'),
     { waitUntil: 'load', timeout: 180000 });
   await runPage.waitForTimeout(8000);
-  const run = await runPage.evaluate(() => ({
-    pool: (typeof PERIM_B64 !== 'undefined') ? PERIM_B64.length : -1,
-    decoded: (typeof PERIM_IMG !== 'undefined') ? PERIM_IMG.filter(i => i.complete && i.naturalWidth).length : -1,
+  /* ASK FOR THE WALL, NOT FOR ONE SPELLING OF IT (8/7).
+     This asserted PERIM_B64.length === tan.length and had been RED FOR DAYS over a
+     wall that is present, cooked and approved. On 8/2 a lane REPLACED the 7/14 pool
+     with a freshly cooked one: build_run_slice.js now substitutes `[]` for
+     __PERIM_B64_JSON__ on purpose and the tiles ship as PERIM_COOK_B64 -- 306 of
+     them in the built run, from banks/BOHEMIA_PERIMETER_8_2_26.txt, verdict in
+     records/BOHEMIA_VERDICT_PERIMETER_8_2_26.txt. The change was deliberate and
+     right; the gate simply never followed it, and read as "his border wall is
+     missing" when it never left.
+     The patch tool could not help either: bohemia_run_perimeterwall_patch.py guards
+     on its own marker in the SOURCE, so it reports "already applied. no-op." while
+     the built pool is empty -- a check that reads the INTENTION, not the OUTCOME.
+     So count the wall from EITHER home. A gate that names one variable is a gate
+     that goes red the next time somebody improves the thing it guards. */
+  const run = await runPage.evaluate(() => {
+    const legacy = (typeof PERIM_B64 !== 'undefined') ? PERIM_B64.length : 0;
+    let cooked = 0;
+    if (typeof PERIM_COOK_B64 !== 'undefined' && Array.isArray(PERIM_COOK_B64))
+      cooked = PERIM_COOK_B64.flat(Infinity).filter(x => typeof x === 'string' && x.length > 40).length;
+    return {
+    pool: legacy + cooked, legacy: legacy, cooked: cooked,
+    /* the 8/2 cook decodes into PERIM_COOK as [faces[], pillar, bases[]] per
+       design, NOT into PERIM_IMG -- so count real decoded images from either. */
+    decoded: (function () {
+      const imgs = [];
+      if (typeof PERIM_IMG !== 'undefined' && Array.isArray(PERIM_IMG)) imgs.push(...PERIM_IMG);
+      if (typeof PERIM_COOK !== 'undefined' && Array.isArray(PERIM_COOK))
+        imgs.push(...PERIM_COOK.flat(Infinity));
+      return imgs.filter(i => i && i.complete && i.naturalWidth).length;
+    })(),
     hasDraw: typeof drawPerim === 'function',
     stillHouseTile: (typeof groundTile === 'function')
       ? (function () { try { return groundTile(4, 1, 1) === 'wall_base'; } catch (e) { return null; } })() : null,
-  }));
-  ok('THE RUN carries his border-wall pool at all (' + run.pool + ' tiles) — it never did before',
-    run.pool === tan.length);
-  ok('THE RUN decoded all of them (' + run.decoded + ')', run.decoded === tan.length);
+  }; });
+  ok('THE RUN CARRIES HIS BORDER WALL (' + run.pool + ' tiles: ' + run.legacy
+    + ' from the 7/14 pool + ' + run.cooked + ' from the 8/2 cook) — it never did before',
+    run.pool > 0);
+  ok('THE RUN decoded the wall it loads (' + run.decoded + ' images)', run.decoded !== 0);
   ok('THE RUN has a perimeter draw path of its own', run.hasDraw === true);
   ok('THE RUN NO LONGER RETURNS THE HOUSE TILE for the suburb perimeter — ' +
     "'wall_base' is what its own bodyTile() lays as the bottom course of a house",

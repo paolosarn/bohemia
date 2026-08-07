@@ -1818,6 +1818,36 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0BD. [DONE 8/7 — I STOPPED SAYING "NOT MINE". WALL CLASS IS GREEN.] Nine gates have
+   been red for days and every lane's report says "verified as other lanes'". EVERY
+   LANE WRITES THAT SENTENCE -- that is how nine failures became permanent background
+   noise, and a permanently-red alarm is a broken alarm.
+   WALL CLASS: THE GATE WAS STALE, THE GAME WAS FINE. "THE RUN carries his border-wall
+   pool at all (0 tiles)" reads like the 7/27 fix he swore for had regressed. It had
+   not: the wall is there, cooked, approved, 306 TILES. On 8/2 a lane REPLACED the
+   7/14 pool -- build_run_slice.js substitutes [] for __PERIM_B64_JSON__ ON PURPOSE
+   (line 71) and the tiles ship as PERIM_COOK_B64 from banks/BOHEMIA_PERIMETER_8_2_26.
+   txt. The gate still asserted on the retired PERIM_B64.
+   AND THE PATCH TOOL COULD NOT HELP: bohemia_run_perimeterwall_patch.py prints
+   "already draws his border wall. no-op." while the built pool reads []. Its guard
+   checks its own marker in the SOURCE, never the OUTCOME in the built file -- the same
+   shape as pages_publish_gate printing "the deploy queues, never cancels" with 18
+   cancellations in the history.
+   FIXED by asking for THE WALL not one spelling: tiles from the 7/14 pool OR the 8/2
+   cook; decoded images from PERIM_IMG OR PERIM_COOK (the cook decodes to
+   [faces[], pillar, bases[]] per design). 24/0, mutation-proven.
+   DIAGNOSED NOT FIXED, both mine but needing a verdict owner: CANVAS SCALE ("OVERVIEW
+   still composites SMOOTH (pixelated)" -- the claim calls that surface APPROVED SMOOTH
+   and it now measures pixelated, so either a lane changed it against an approval or
+   the approval moved and the gate did not) and INTERIORS ("no painted surfaces: solid
+   colours only as load fallbacks (5)").
+   THE PATTERN: every one of these is an INTENTIONAL IMPROVEMENT WITH A CONSUMER THAT
+   NEVER FOLLOWED IT -- same as the CITY-tab deletion, the world leaving the alpha, the
+   dead resolver, the art-bank split. The improvement is never the bug; something else
+   still points at the old shape and its report ACCUSES THE GAME. ASK FOR THE PROPERTY,
+   NEVER THE SPELLING. Record: records/BOHEMIA_THE_NINE_RED_GATES_8_7_26.md
+   | WALL CLASS 24/0 mutation-proven | CANVAS SCALE + INTERIORS need a verdict owner | no.
+
 0BC. [DONE 8/7 — ANSWERED MY OWN QUESTION; THE ASK IS WITHDRAWN] THE BLURRY BAND
    WAS THE GROUND, NOT A DEFECT. He said "lazy today" a third time and answered
    nothing. That IS an answer: stop asking. So I settled it.

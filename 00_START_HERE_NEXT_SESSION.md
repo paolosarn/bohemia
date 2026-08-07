@@ -1,3 +1,56 @@
+CITY (1eztay): 8/7 (c) LATEST — NINE GATES HAVE BEEN RED FOR DAYS AND EVERY LANE
+SAYS "NOT MINE". I STOPPED SAYING IT. WALL CLASS IS GREEN.
+
+For five turns I ended my report with "9 red, all verified as other lanes'". EVERY
+LANE WRITES THAT SENTENCE. That is how nine failures became permanent background
+noise, and a permanently-red alarm is a broken alarm -- exactly how the black screen
+hid for hours while every gate read green.
+
+WALL CLASS: THE GATE WAS STALE, THE GAME WAS FINE.
+    FAIL: THE RUN carries his border-wall pool at all (0 tiles)
+That reads like his border wall vanished -- the thing he swore about on 7/27 ("the
+suburb border walls are not changed its still the house tiles dumbass"). IT HAD NOT.
+The wall is there, cooked, approved, 306 TILES. On 8/2 a lane REPLACED the 7/14 pool:
+build_run_slice.js substitutes [] for __PERIM_B64_JSON__ ON PURPOSE (line 71) and the
+tiles ship as PERIM_COOK_B64 from banks/BOHEMIA_PERIMETER_8_2_26.txt. Deliberate and
+right. The gate was still asserting on the RETIRED variable and had been red for days
+about a wall that never left.
+AND THE PATCH TOOL COULD NOT HAVE TOLD ANYONE: bohemia_run_perimeterwall_patch.py
+prints "the run already draws his border wall. no-op." while the built pool reads [].
+Its guard checks its own marker in the SOURCE and never looks at the OUTCOME -- the
+same shape another lane named this week when pages_publish_gate printed "the deploy
+queues, never cancels" with eighteen cancellations in the run history.
+FIXED by asking for THE WALL, not one spelling of it: tiles from the 7/14 pool OR the
+8/2 cook, decoded images from PERIM_IMG OR PERIM_COOK (the cook decodes to
+[faces[], pillar, bases[]] per design, not into PERIM_IMG). 24/0, mutation-proven --
+emptying PERIM_COOK_B64 fails two claims by name.
+
+THE OTHER TWO IN MY LANE, DIAGNOSED NOT FIXED (the diagnosis was what was missing):
+  CANVAS SCALE -- "OVERVIEW: still composites SMOOTH (pixelated)". The claim wants
+    the overview SMOOTH and calls that surface APPROVED AS IT IS; it now measures
+    pixelated. So either a lane changed the filter against a recorded approval, or
+    the approval moved and the gate did not. One is true. It needs whoever owns that
+    verdict, not a guess from me.
+  INTERIORS -- "no painted surfaces: solid colours only as load fallbacks (5)".
+
+THE PATTERN, NAMED: every one of these is the same shape as the CITY-tab deletion,
+the world leaving the alpha, the dead shared resolver, and the art-bank split -- AN
+INTENTIONAL IMPROVEMENT AND A CONSUMER THAT NEVER FOLLOWED IT. The improvement is
+never the bug. The bug is that something else still points at the old shape, and the
+report it produces ACCUSES THE GAME. A gate that names one variable is a gate that
+goes red the next time somebody improves the thing it guards. ASK FOR THE PROPERTY,
+NEVER FOR THE SPELLING.
+
+AND THE "NOT MINE" HABIT: "verified as another lane's" is a true sentence that does
+nothing. Said by every lane at once for a week, it is how nine gates stay red.
+Naming the owner only helps if somebody then goes and LOOKS.
+Record: records/BOHEMIA_THE_NINE_RED_GATES_8_7_26.md
+
+NOT MINE TO DECIDE
+- THE POPULATION NUMBER is PARKED. DO NOT RAISE IT. Backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Still open.
+- 0AY options 1/2/3. Runway 5-10 months. Not urgent.
+
 LAB (lab-e2r7sv): 8/7 (b) LATEST -- *** MY OWN GATE WAS VACUOUS FOR 13 OF ITS 14
 CONSTANTS AND HAD BEEN SINCE I BUILT IT. NOW IT MEASURES THE RUNNING WORLD. ***
 Nothing to judge, nothing to tap. NOT IN A TAB YET (a gate has no surface).
@@ -373,7 +426,6 @@ TOOLS (replay in order after any rebase, all idempotent):
   bohemia_combat_needle_bearing_patch.py        (v128)
   bohemia_combat_vitals_in_the_button_patch.py  (v129)
   bohemia_combat_miss_stop_and_climb_patch.py   (v130)
-
 LAB (lab-e2r7sv): 8/7 LATEST -- *** LAB-10: VALHEIM'S BUILD SYSTEM IS PLAYABLE, AND THE
 
 
