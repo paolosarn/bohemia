@@ -76,20 +76,36 @@
   // millions, and then on top of it now we have an apocalypse."
   //   THE THREE STEPS, run against the LIVE MAP by tools/bohemia_scale_model.js so
   //   this number can never drift away from the world it describes:
-  //     THE MAP        48x48 cells x 96 m = 21.23 km2, 12,260 dwellings drawn
-  //     THE SCALE      1:78 by housing (12,260 of Clark County's 958,705 units),
-  //                    1:66 by area (21.2 km2 of the valley's 540 sq mi = 1,398.6).
-  //                    Two independent measures agreeing within 16% is what says
-  //                    the map is a coherent model and not a doodle.
-  //     STEP 1         2050 Vegas is ~2.9 M (UNLV CBER: 3 M in 2055). At 1:78 that
-  //                    is 37,085 people. Millions became tens of thousands purely
-  //                    from the scale model - his whole point.
-  //     STEP 2         then the apocalypse. GDD v5: ~3% remain. 37,085 x 3%
-  //                    = 1,113 PEOPLE IN THE WHOLE VALLEY.
-  //     STEP 3         1,113 / 2.2 per household = 506 occupied homes of 12,260.
+  //   *** CORRECTED 8/6/26. THE NUMBERS BELOW WERE 4.25x WRONG AND THE RATE WAS
+  //   NOT. *** tools/bohemia_scale_model.js promised in its own header that this
+  //   figure "can never drift away from the world it describes", and then measured
+  //   the valley with `for (y = 0; y < 48; ...)` HARDCODED. The valley became 96x96
+  //   and the tool kept measuring a quarter of it - silently, because a small loop
+  //   over a big world does not error, it under-counts.
+  //     THE MAP        96x96 cells x 96 m = 84.9 km2, 55,391 dwellings drawn
+  //                    (it read 48x48, 21.2 km2, 12,259 dwellings)
+  //     THE SCALE      1:17.3 by housing (55,391 of Clark County's 958,705 units),
+  //                    1:16.5 by area (84.9 km2 of the valley's 540 sq mi = 1,398.6).
+  //                    THEY NOW AGREE WITHIN 5% - tighter than the 16% the old
+  //                    numbers managed, which is the sign the correction is real
+  //                    and not a second mistake.
+  //     STEP 1         2050 Vegas is ~2.9 M (UNLV CBER: 3 M in 2055). At 1:17.3
+  //                    that is 167,553 people. Millions became hundreds of
+  //                    thousands purely from the scale model - his whole point,
+  //                    unchanged.
+  //     STEP 2         then the apocalypse. GDD v5: ~3% remain. 167,553 x 3%
+  //                    = ~5,027 PEOPLE IN THE WHOLE VALLEY.  (was: 1,113)
+  //     STEP 3         5,027 / 2.2 per household = 2,285 occupied of 55,391 homes.
+  //     MEASURED       an exact census over all 2,809 residential cells returns
+  //                    4,723 people at 3.91% occupancy - 6% off the prediction,
+  //                    where before the fix the two were 4.25x apart. THE ENGINE
+  //                    WAS ALWAYS RIGHT; ONLY THE ARITHMETIC DESCRIBING IT WAS
+  //                    WRONG, WHICH IS WHY OCCUPIED_RATE DOES NOT CHANGE.
   //                    OCCUPANCY = 4.1% on paper; 0.038 is the value that
   //                    LANDS there on the real map, because occupancy is a per-house
   //                    hash roll and household draws are not exactly the mean.
+  //                    THE RATE IS UNTOUCHED BY THE 8/6 CORRECTION: 3.91% measured
+  //                    against 4.1% derived. It was right the whole time.
   //   THE OLD VALUE WAS 0.30 and its own comment called it a placeholder whose real
   //   number was [PENDING Paolo]. It was 7.3x too many people. This replaces a
   //   self-declared placeholder with arithmetic off his own GDD and public data -

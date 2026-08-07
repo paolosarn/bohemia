@@ -1,3 +1,51 @@
+PEOPLE (7h9sfy): 8/6 LATEST — *** THE VALLEY HOLDS 4x THE PEOPLE WE THOUGHT. A NUMBER
+THE WHOLE GAME RESTS ON WAS WRONG BY 4.25x, INSIDE THE TOOL BUILT TO STOP THAT. ***
+Record: records/BOHEMIA_THE_VALLEY_HOLDS_FOUR_TIMES_THE_PEOPLE_WE_THOUGHT_8_6_26.md
+
+tools/bohemia_scale_model.js keeps one figure honest - how many people are alive in the
+valley - and its own header promises the answer "can never drift away from the world it
+describes". It then measured the world with:
+      for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++)
+      const side = 48 * 96;
+THE VALLEY BECAME 96x96 AND THE TOOL KEPT MEASURING A QUARTER OF IT - silently, because a
+small loop over a big world does not error, IT UNDER-COUNTS.
+
+                      the tool said        the world holds
+    homes             12,259               55,391
+    area              21.2 km2             84.9 km2
+    scale by housing  1 : 78.2             1 : 17.3
+    scale by area     1 : 65.9             1 : 16.5
+    PEOPLE            1,112                ~5,027 derived / 4,723 MEASURED
+
+*** IT IS A FIX AND NOT A SECOND MISTAKE, and the model's own sanity check proves it:
+its two independent measures (homes, area) used to agree within 16% and now agree within
+5%. The correction makes the model TIGHTER. An exact census of all 2,809 residential
+cells returns 4,723 against the derived 5,027 - 6% apart, where before they were 4.25x
+apart and nobody knew. ***
+
+*** WHAT DID NOT CHANGE, AND IT IS THE IMPORTANT PART: OCCUPIED_RATE = 0.038 WAS RIGHT
+THE WHOLE TIME. *** The world produces 3.91% occupancy measured against 4.1% derived.
+NOTHING ABOUT THE WORLD CHANGED - only what we believed about it. No district got emptier
+or fuller, no save is invalid, no ruling of Paolo's is overturned. The people were always
+there; the document describing them was counting a map that no longer existed. That is
+why this needs no decision from him.
+
+IT HAD SPREAD TO TEN FILES. 1,113 was cited in two engine modules, a gate, this lane's
+block fixture, two research records, the handoff and the backlog. A NUMBER IN A COMMENT
+IS DOCUMENTATION RIGHT UP UNTIL SOMEBODY BUILDS AN ECONOMY ON IT - and the economy is BIG
+MISSING item 3, unbuilt, and would have been sized against it. Live code corrected
+(bohemia_agents.js, bohemia_population.js, bohemia_block_fixture.js); dated records left
+as history, which is what records are for.
+
+GATE: gates/scale_truth_gate.js, 8 claims, 3 mutations killed. THE LOAD-BEARING CLAIM IS
+NOT A TEXT CHECK: the sampled estimate and AN EXACT CENSUS OF EVERY RESIDENTIAL CELL must
+agree. Two ways of counting the same thing, one cheap and one exhaustive - A MAP-SIZE BUG
+CANNOT SURVIVE BOTH, because it corrupts one and not the other. That claim would have
+failed the moment the valley outgrew 48x48, many sessions before anybody noticed by hand.
+A TOOL THAT PROMISES IT CANNOT DRIFT IS A CLAIM, AND A CLAIM WITHOUT A MACHINE BEHIND IT
+IS A WISH.
+
+-----------------------------------------------------------------------------------
 FACTIONS (factions-ovkjpf): 8/7 (b) LATEST — *** I FOUND THE SAME BUG BY HAND THREE
 DAYS RUNNING, SO I BUILT THE MACHINE THAT ASKS THE GENERAL QUESTION. ITS FIRST HONEST
 RUN FOUND A FOURTH: THE TERRITORY SYSTEM HAS NEVER MOVED A DISTRICT. ***

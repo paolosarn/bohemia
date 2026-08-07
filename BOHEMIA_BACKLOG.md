@@ -3960,6 +3960,34 @@ P-W. [SHIPPED 8/7 - records/BOHEMIA_WHO_YOU_STIRRED_UP_8_7_26.md]
    rather than dodged. If he says no, it is nine lines to revert. If yes, the addendum
    gets written and build_the_world_gate.py should be told.
 
+P-T. [SHIPPED 8/6 - A NUMBER THE WHOLE GAME RESTS ON WAS 4.25x WRONG -
+   records/BOHEMIA_THE_VALLEY_HOLDS_FOUR_TIMES_THE_PEOPLE_WE_THOUGHT_8_6_26.md]
+   tools/bohemia_scale_model.js promises in its own header that the valley population
+   "can never drift away from the world it describes", then measured the map with
+   `for (y = 0; y < 48; ...)` and `side = 48 * 96` HARDCODED. The valley became 96x96
+   and THE TOOL KEPT MEASURING A QUARTER OF IT - silently, because a small loop over a
+   big world under-counts instead of erroring.
+       homes    12,259 -> 55,391      area  21.2 km2 -> 84.9 km2
+       scale    1:78.2 -> 1:17.3      PEOPLE  1,112 -> ~5,027 derived / 4,723 MEASURED
+   IT IS A FIX NOT A SECOND MISTAKE, by the model's OWN sanity check: its two
+   independent measures (homes, area) agreed within 16% before and agree within 5%
+   now. An exact census of all 2,809 residential cells returns 4,723 vs 5,027 derived
+   - 6% apart, where before they were 4.25x apart.
+   *** OCCUPIED_RATE = 0.038 WAS RIGHT THE WHOLE TIME *** (3.91% measured vs 4.1%
+   derived). NOTHING ABOUT THE WORLD CHANGED, only what we believed about it - no
+   district emptier or fuller, no save invalid, no ruling overturned. Needs no decision
+   from Paolo.
+   SPREAD TO TEN FILES: two engine modules, a gate, this lane's fixture, two research
+   records, handoff, backlog. A NUMBER IN A COMMENT IS DOCUMENTATION UNTIL SOMEBODY
+   BUILDS AN ECONOMY ON IT - and the economy (BIG MISSING item 3) is unbuilt and would
+   have been sized against it. Live code corrected; dated records left as history.
+   | gates/scale_truth_gate.js 8 claims, 3 mutations killed, registered. LOAD-BEARING
+   CLAIM IS NOT A TEXT CHECK: the sampled estimate and an EXACT census of every
+   residential cell must agree - two ways of counting one thing, and a map-size bug
+   cannot survive both. It would have fired the moment the valley outgrew 48x48.
+   | 8/6 | no - a correction. A TOOL THAT PROMISES IT CANNOT DRIFT IS A CLAIM, AND A
+   CLAIM WITHOUT A MACHINE BEHIND IT IS A WISH.
+
 P-S. [SHIPPED 8/6 - THE BIG MISSING ITEM 1, ATTEMPTED INSTEAD OF GUESSED -
    records/BOHEMIA_HOW_FAR_THE_GAME_GETS_IN_ONE_DAY_8_6_26.md]
    *** SOMEBODY FINALLY TRIED TO PLAY A DAY. YOU CAN WAKE UP AND YOU CAN WALK.

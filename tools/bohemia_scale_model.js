@@ -42,7 +42,19 @@ const HOUSEHOLD = 2.2;     // bohemia_agents household weights
 function measure(seed) {
   const world = (global.BohemiaWorld || W).world(seed == null ? 7 : seed);
   let cells = 0, resCells = 0, dwellings = 0;
-  for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++) {
+  /* THE MAP SIZE IS THE MAP'S TO STATE, NOT THIS TOOL'S TO REMEMBER (fixed 8/6/26).
+     This read `y < 48` and `x < 48`, hardcoded, while the header of this very file
+     promises the number "can never drift away from the world it describes". The
+     valley became 96x96 and THIS TOOL KEPT MEASURING A QUARTER OF IT -- silently,
+     because a smaller loop over a bigger world does not error, it just under-counts.
+     WHAT THAT COST, measured before the fix:
+         this tool          12,259 homes over 21.2 km2  -> 1,112 people in the valley
+         the world model    54,932 homes over 84.9 km2  -> 4,723 people (exact census)
+     A 4.25x error in THE POPULATION OF THE GAME, sitting inside the tool built to
+     stop exactly that. `n` comes off the world model now, so the day the valley
+     changes size again this follows it. */
+  const N = world.n;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
     const c = world.at(x, y); if (!c || !c.district) continue;
     cells++;
     if (!A.RESIDENTIAL[c.district]) continue;
@@ -50,8 +62,8 @@ function measure(seed) {
     if (!plot || !plot.buildings) continue;
     resCells++; dwellings += plot.buildings.length;
   }
-  const side = 48 * 96;                      // metres
-  return { cells, resCells, dwellings, km2: Math.pow(side / 1000, 2), side };
+  const side = N * 96;                       // metres -- N from the live map, never typed
+  return { cells, resCells, dwellings, km2: Math.pow(side / 1000, 2), side, n: N };
 }
 
 function derive(m) {
@@ -75,7 +87,7 @@ if (require.main === module) {
   const n = x => Math.round(x).toLocaleString('en-US');
   console.log('=== BOHEMIA SCALE MODEL ===\n');
   console.log('THE MAP, measured live:');
-  console.log('  48 x 48 cells at 96 m      = ' + m.side + ' m per side = ' + m.km2.toFixed(2) + ' km2');
+  console.log('  ' + m.n + ' x ' + m.n + ' cells at 96 m    = ' + m.side + ' m per side = ' + m.km2.toFixed(2) + ' km2');
   console.log('  residential cells          = ' + m.resCells + ' of ' + m.cells);
   console.log('  DWELLINGS ACTUALLY DRAWN   = ' + n(m.dwellings) + '\n');
   console.log('THE SCALE, two independent ways:');

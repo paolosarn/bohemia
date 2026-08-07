@@ -19,7 +19,10 @@
    On 8/1 OCCUPIED_RATE became 0.038 - not a guess and not a regression, but
    arithmetic off Paolo's own question ("now we have the scale model, and on top
    of it an apocalypse"): 2050 Vegas ~2.9 M, scale 1:78, GDD v5's ~3% survival
-   = 1,113 people in the whole valley. THAT NUMBER IS CORRECT AND STAYS.
+   = 1,113 people in the whole valley. (CORRECTED 8/6: that figure was 4.25x low -
+   the scale model had the map size hardcoded at 48x48 after the valley became
+   96x96. The true figure is ~4,723 measured / 5,027 derived. THE RATE ITSELF WAS
+   ALWAYS RIGHT, which is why nothing below changes.)
 
    What it did was turn a safe bet into a coin flip, and seed 7 came up tails.
    A 20-home block now averages 0.76 occupied houses; an empty block is the

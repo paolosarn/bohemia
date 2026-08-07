@@ -430,6 +430,14 @@ GATES = [
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],
      'the run IS the game we built: every system claimed integrated is machine-probed in the shipped run, no unproven claims', False),
+    ('SCALE TRUTH',    ['node', 'gates/scale_truth_gate.js'],
+     "the population of the game must agree with the map it is derived from. "
+     "tools/bohemia_scale_model.js promised its figure 'can never drift away from the world it "
+     "describes' and then measured the valley with the map size HARDCODED at 48x48. The valley "
+     "became 96x96 and the tool kept measuring a quarter of it, silently -- a 4.25x error in the "
+     "valley population (1,112 vs a measured 4,723), cited across ten files. The occupancy RATE "
+     "was right the whole time. Load-bearing claim: the sampled estimate and an EXACT census of "
+     "every residential cell must agree", False),
     ('GAME DAY',       ['node', 'gates/game_day_gate.js'],
      'THE BIG MISSING item 1 -- "the circulatory system between the organs is the game and it '
      'has never once circulated" -- ATTEMPTED instead of guessed. Measured on the surface RUN '

@@ -822,7 +822,9 @@
   // so in the same breath, and WHICH numbers is his call. dialForAct() returns
   // null until he fills it in, and the gate fails if a row lands unruled.
   // MAX RAISED 8/1 from 4 to 32: the scale-model arithmetic says the valley holds
-  // ~1,113 people, and the zone-map path yields 60 at dial 1, so the truthful
+  // ~4,723 people (CORRECTED 8/6: the old 1,113 came from a scale model that
+  // measured a 48x48 valley after the map became 96x96), and the zone-map path
+  // yields 60 at dial 1, so the truthful
   // setting is around 19. A slider that cannot reach the right answer is a broken
   // slider. 32 leaves headroom above it without being meaningless (the map's
   // physical ceiling is 26,972 people - every drawn home full).
