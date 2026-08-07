@@ -1459,7 +1459,38 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/5 (b) LATEST -- *** TWELVE NAMED PLACES BUILT. FLAT DEBT 12 -> 0. ***
+WORLD (world-9lfjtf): 8/6 LATEST -- *** THE LINK WAS DEAD ALL DAY AND IT IS TRUE AGAIN. ***
+records/BOHEMIA_THE_LINK_IS_NOT_TRUE_8_6_26.md (read UPDATE 4 first -- it supersedes the rest).
+
+THE PROOF, ONE COMMIT, ONE MINUTE APART:
+  e4070a62  pages                       completed  SUCCESS   22:47:42 -> 23:09:05
+  e4070a62  pages build and deployment  completed  failure   22:17:42 -> 23:08:23
+b09f3ab (the twelve landmarks), aaf239f (the workflow) and d32b9c4 are all ANCESTORS of the
+deployed e4070a62, checked with merge-base, not eyeballed. Everything today is on the page.
+
+WHAT WAS WRONG, IN ORDER, AND BOTH WERE INVISIBLE BECAUSE THE PUSH KEPT WORKING:
+ 1. Pages was publishing the WHOLE 496 MB repo when the product is 106 MB of slices/.
+    Builds ran thirty minutes and timed out. _config.yml -> 172 MB. Necessary, NOT enough.
+ 2. THE REAL ONE: the built-in builder CANCELS in flight, the lanes push every ~13 minutes,
+    and a build takes longer than that -- so a build could NEVER finish. Five in a row
+    cancelled. .github/workflows/pages.yml with `cancel-in-progress: false` makes a second
+    push QUEUE instead of kill. NOTHING ABOUT HOW ANY LANE PUSHES HAD TO CHANGE, which was
+    the design constraint: no session can make the other sessions slow down.
+
+FOR EVERY SESSION FROM NOW ON (CLAUDE.md ship flow amended):
+  - watch the **pages** workflow (actions_list, resource_id 'pages.yml'), NOT
+    "pages build and deployment" -- that one still fires and still fails and it is NOISE now.
+  - the published set is slices/ + engine/ + records/target. Add a folder to _config.yml AND
+    the workflow's copy list TOGETHER or pages_publish_gate.js (15/0) goes red; it binds the
+    two lists so neither can drift, which is the bug this repo made three times this week.
+
+NOTE FOR WHOEVER READS THE OTHER LANE'S e4070a6 ("ZERO SUCCESSFUL DEPLOYS IN THIRTY RUNS"):
+that was TRUE WHEN THEY MEASURED IT and is not true now -- the deploy they were describing
+succeeded while their commit was landing. Newest date wins.
+
+=== EARLIER 8/5-8/6, SAME LANE ===
+
+WORLD (world-9lfjtf): 8/5 (b) -- *** TWELVE NAMED PLACES BUILT. FLAT DEBT 12 -> 0. ***
 Live on main, BUILD 8/5b. records/BOHEMIA_TWELVE_NAMED_PLACES_8_5_26.md.
 
 He said "think outside the box... do big brain online research if you need to then execute."

@@ -239,11 +239,24 @@ rarely as one mega-session.
   the headline, e.g. "BUILD 7/20a · SHUFFLE ANIMS") so Paolo can SEE which
   build he is on; the gate checks the stamp exists. (2) pushing main is NOT
   shipped: parallel-session push storms make GitHub Pages CANCEL in-flight
-  builds, so the live site can lag many pushes behind. After pushing, CHECK
-  the "pages build and deployment" workflow (GitHub MCP actions_list) until a
-  run whose sha contains your content concludes SUCCESS -- only then is the
-  link true. If your build got cancelled, a LATER sha carries your content;
-  wait for that one.
+  builds, so the live site can lag many pushes behind.
+  AMENDED 8/6/26 -- THE CANCELLING IS FIXED AND THE WORKFLOW TO WATCH HAS CHANGED.
+  Measured 8/6: the lanes push to main about every THIRTEEN MINUTES and a build
+  takes longer than that, so under GitHub's built-in builder a build could NEVER
+  finish -- five in a row cancelled, over an hour, zero successes. That is not a
+  delay to wait out, it is a deadlock. .github/workflows/pages.yml now deploys
+  with `cancel-in-progress: false`, so a second push QUEUES behind the running
+  deploy instead of killing it. Nothing about how anybody pushes had to change.
+  SO: after pushing, check the **`pages`** workflow (GitHub MCP actions_list,
+  resource_id 'pages.yml') until a run whose sha CONTAINS your content concludes
+  SUCCESS -- only then is the link true. Do NOT read "pages build and deployment"
+  any more; it still fires and still fails and it is now NOISE, not a symptom.
+  Confirm containment with `git merge-base --is-ancestor <your-sha> <deployed-sha>`
+  rather than eyeballing it -- a later sha usually carries your content, and that
+  is the run that counts.
+  And the site publishes slices/ + engine/ + records/target ONLY (_config.yml).
+  Add a folder to the config AND the workflow's copy list together, or
+  pages_publish_gate.js goes red -- it binds the two lists so neither can drift.
 
 ## ONE-LINK LAW (Paolo 7/18/26, LOCKED — he was furious about "?v=arms")
 - There is ONE universal alpha URL and it NEVER changes, for ANY session:
