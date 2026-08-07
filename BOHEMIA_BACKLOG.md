@@ -25,6 +25,38 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+2a. [SHIPPED 8/7 — AND IT IS A FIX TO MY OWN 8/5 WORK] MY CANON-CONSTANTS GATE WAS
+   VACUOUS FOR 13 OF ITS 14 CONSTANTS, AND HAD BEEN SINCE THE DAY I BUILT IT.
+   Its check E1 claims "no shipped engine module contradicts a declared constant".
+   Measured: E1 matches a variable whose NAME equals a registry key, the engine never
+   names things that way (the valley is OVER_N x TILE_FINE x CELL_M, not VALLEY_KM2;
+   the currencies are an ARRAY of 3, not a number 3), so it sweeps 112 modules and
+   finds TWO numbers to compare, both BPM. A CHECK THAT CANNOT FAIL IS WORSE THAN NO
+   CHECK, BECAUSE IT REPORTS SAFETY.
+
+   AND THE DRIFT WAS ALREADY THERE: BUILT_KM2 registry 37.0 / world 38.35, ONFOOT_KM2
+   75.7 / 76.09. The map has been growing since the 8/3 measurement and nothing
+   re-counted. Both corrected; the 8/3 record carries the full before/after table.
+
+   FIX: tools/bohemia_canon_measure.js GENERATES the measured rows off the live engine
+   and the gate regenerates and fails if the file moved -- the "regenerating changes
+   nothing" shape run_gate.js already uses. The rows cannot drift because nobody types
+   them. 12 of 14 MEASURED off the running world, 2 declared unmeasurable with reasons.
+   THE ANTI-VACUITY RULE is the real deliverable: every constant is MEASURED or
+   EXEMPT-WITH-A-REASON, and W1 fails if one is in neither.
+
+   [PENDING Paolo] THE COUNT IS RIGHT AND THE CONTENTS ARE WRONG, and only a
+   non-numeric check could find it: the LOCKED law names RESOURCES / ELECTRICITY /
+   CLOUT, the engine ships ELECTRICITY / MEDICINE / CLOUT. Ratcheted, not fixed
+   (identities are CONTENTS-PAOLO'S). Mutation-proved the gate goes green the instant
+   the engine renames it, so the ratchet does not block the fix.
+
+   GATE: canon_constants_gate.js, 33 checks. Eleven planted mistakes, ten caught, one
+   correctly ignored (the FIX). THREE of my own controls did not reproduce the failure
+   they tested -- third turn running for that lesson. And W3 caught me: length is a bad
+   proxy for substance, so an exemption must now NAME ITS OWN EXPIRY, and the rewritten
+   check immediately failed on my own SECONDS_PER_STEP text. Fixed the text, not the check.
+
 1z. [SHIPPED 8/7 — LAB-10, COMMISSIONED BY NAME] VALHEIM'S BUILD SYSTEM, AND THE
    ANSWER IS AN ASYMMETRY RATHER THAN A BUILD MENU.
    Paolo 8/4: "Val Heim's build menu and it's build system to me was the easiest

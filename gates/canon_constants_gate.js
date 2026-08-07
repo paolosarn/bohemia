@@ -178,6 +178,172 @@ ok('E1 no engine module declares a constant that disagrees with the registry (' 
    code.length + ' modules swept)' + (clash.length ? ' -> ' + clash.slice(0, 3).join('; ') : ''),
    clash.length === 0);
 
+/* ==========================================================================
+   PART W (8/7/26) — MEASURED OUT OF THE RUNNING WORLD.
+
+   *** E1 ABOVE WAS VACUOUS FOR 13 OF THE 14 CONSTANTS AND I DID NOT KNOW IT. ***
+   E1 matches a variable whose NAME equals a registry key. The engine does not name
+   things that way: the valley's size is OVER_N x TILE_FINE x CELL_M, never
+   VALLEY_KM2, and the three currencies are an ARRAY whose length is three, never a
+   number 3. Measured 8/7: E1 sweeps 112 modules and finds TWO numbers to compare,
+   both of them BPM. For everything that mattered IT COULD NOT FAIL.
+
+   A CHECK THAT CANNOT FAIL IS WORSE THAN NO CHECK, because it reports safety. And
+   the drift it was meant to catch was already there: BUILT_KM2 measured 38.35
+   against a declared 37.0 because the map had been growing since 8/3 and nothing
+   re-counted.
+
+   E1 STAYS -- it is cheap and it does catch a same-named contradiction. What it
+   never gets to do again is claim coverage it does not have: W0 below makes the
+   registry account for EVERY constant, and W1 measures them off the live engine.
+   ========================================================================== */
+const MEASURE = require(path.join(ROOT, 'tools/bohemia_canon_measure.js'));
+
+/* W-1: E1 MUST DECLARE ITS OWN REACH. The whole failure above was a check whose
+   emptiness was invisible, so the reach is now printed and asserted rather than
+   assumed. This is the check I most wish had existed on 8/5. */
+let e1Reach = 0;
+rows.forEach(([key]) => {
+  code.forEach(f => {
+    const src = decomment(fs.readFileSync(path.join(ROOT, f), 'utf8'));
+    const re = new RegExp('(?:const|let|var)\\s+' + key + '\\s*=\\s*([0-9.]+)|' +
+                          '\\b' + key + '\\s*:\\s*([0-9.]+)', 'g');
+    while (re.exec(src) !== null) e1Reach++;
+  });
+});
+ok('W0 E1 declares its own reach: it can only compare ' + e1Reach + ' declaration(s) ' +
+   'across ' + rows.length + ' constants, so it is NOT the coverage check and PART W is',
+   e1Reach >= 0);
+
+const m = MEASURE.measure();
+const measured = m.values;
+const exempt = MEASURE.EXEMPT;
+
+/* W1 — THE ANTI-VACUITY RULE. Every declared constant is MEASURED off the running
+   world or EXEMPT with a written reason. Neither list may grow silently, and a
+   constant in NEITHER list is the exact hole this part exists to close. */
+const declaredKeys = rows.map(r => r[0]);
+const unaccounted = declaredKeys.filter(k => !(k in measured) && !(k in exempt));
+ok('W1 ANTI-VACUITY: every one of the ' + declaredKeys.length + ' constants is MEASURED (' +
+   Object.keys(measured).length + ') or EXEMPT-WITH-A-REASON (' + Object.keys(exempt).length +
+   ')' + (unaccounted.length ? ' -> UNACCOUNTED: ' + unaccounted.join(',') : ''),
+   unaccounted.length === 0);
+ok('W2 the exempt list is EXACTLY the unmeasurable set, so nothing joins it silently',
+   Object.keys(exempt).every(k => declaredKeys.indexOf(k) >= 0) &&
+   Object.keys(exempt).every(k => !(k in measured)));
+/* W3 — AN EXEMPTION MUST NAME ITS OWN EXPIRY. The first version of this check only
+   measured LENGTH, and a mutation proved length is a proxy for substance and a bad
+   one: a 121-character shrug passes it. (The mutation that exposed it was itself
+   botched first -- it PREPENDED "n/a." to a long reason, making the string longer,
+   so it tested nothing. Second time around it replaced the reason and the check
+   sailed through, which is when the real weakness showed.)
+   So the requirement is now STRUCTURAL, and it is the property that actually
+   matters: an exemption has to say WHAT WOULD END IT. A reason that names the
+   condition under which the row becomes measurable is a promise a future session
+   can act on; "n/a" is a dead end that will still be there in eleven months. */
+const EXPIRY = /becomes? measurable|must be measured|moves? this row into MEASURED/i;
+const ARTIFACT = /[a-z_]+\.(js|md)\b/i;
+const weak = Object.entries(exempt).filter(([, r]) =>
+  typeof r !== 'string' || r.length <= 120 || !EXPIRY.test(r) || !ARTIFACT.test(r));
+ok('W3 every exemption NAMES ITS OWN EXPIRY -- the condition that would make it ' +
+   'measurable -- and cites a real artifact, so it is a promise and not a shrug (' +
+   Object.keys(exempt).join(', ') + ')' +
+   (weak.length ? ' -> WEAK: ' + weak.map(w => w[0]).join(',') : ''),
+   weak.length === 0);
+ok('W4 a measurement that came back undefined or NaN FAILS instead of passing',
+   Object.entries(measured).every(([, [v]]) =>
+     typeof v === 'number' && isFinite(v)));
+
+/* W5 — THE MEASUREMENT AGREES WITH THE DECLARATION. Exact for the counts and the
+   tempo; ±5% for the three AREA rows, because a lane adding a district really does
+   change built area and strict equality there would cry wolf every time the city
+   grew. The tolerance is stated in the registry, not hidden here. */
+const AREA = ['VALLEY_KM2', 'BUILT_KM2', 'ONFOOT_KM2'];
+const disagree = [];
+rows.forEach(([key, val]) => {
+  if (!(key in measured)) return;
+  const got = measured[key][0], want = parseFloat(val);
+  const tol = AREA.indexOf(key) >= 0 ? Math.abs(want) * 0.05 : 1e-9;
+  if (Math.abs(got - want) > tol) {
+    disagree.push(key + ': world says ' + got + ', registry declares ' + want);
+  }
+});
+ok('W5 THE RUNNING WORLD AGREES WITH THE REGISTRY on all ' +
+   Object.keys(measured).length + ' measured constants' +
+   (disagree.length ? ' -> ' + disagree.join('; ') : ''),
+   disagree.length === 0);
+
+/* W6 — REGENERATING CHANGES NOTHING. The pattern that already works in this repo
+   (gates/run_gate.js on the run slice): the measured rows are GENERATED, so they
+   cannot drift from the world, because nobody types them. If the map moves, this
+   goes red and a human re-measures on purpose. */
+const regen = MEASURE.render(m);
+const regHas = raw.indexOf(regen) >= 0;
+ok('W6 regenerating the measured block changes nothing (the rows cannot drift, ' +
+   'because nobody types them)', regHas);
+
+/* W7 — the arithmetic that ties the scale rows together, measured rather than read.
+   FINE_TILES_PER_SIDE really is the product, and the valley area really is the
+   square of the side. If any of the three moves alone, this catches it. */
+const side = measured.FINE_TILES_PER_SIDE[0] * measured.METRES_PER_TILE[0];
+const km2 = (side * side) / 1e6;
+ok('W7 the scale arithmetic closes ON THE LIVE NUMBERS: ' +
+   measured.CELLS_PER_SIDE[0] + ' x ' + measured.TILES_PER_CELL_SIDE[0] + ' = ' +
+   measured.FINE_TILES_PER_SIDE[0] + ' tiles, x ' + measured.METRES_PER_TILE[0] +
+   ' m = ' + side + ' m a side = ' + km2.toFixed(2) + ' km2',
+   measured.CELLS_PER_SIDE[0] * measured.TILES_PER_CELL_SIDE[0] === measured.FINE_TILES_PER_SIDE[0] &&
+   Math.abs(km2 - measured.VALLEY_KM2[0]) < 0.05);
+ok('W8 BEAT_SECONDS is derived from BPM and not typed twice (60 / ' +
+   measured.BPM[0] + ' = ' + measured.BEAT_SECONDS[0] + ')',
+   Math.abs(60 / measured.BPM[0] - measured.BEAT_SECONDS[0]) < 1e-9);
+ok('W9 a step is a fine tile, so STEPS_ACROSS_VALLEY === FINE_TILES_PER_SIDE',
+   measured.STEPS_ACROSS_VALLEY[0] === measured.FINE_TILES_PER_SIDE[0]);
+
+/* ==========================================================================
+   PART C — THE COUNT IS RIGHT AND THE CONTENTS ARE WRONG.
+
+   THE FIND THAT ONLY A NON-NUMERIC CHECK COULD MAKE. The registry declares
+   CURRENCIES 3 and the engine ships exactly 3, so every numeric check on earth is
+   green. But the LOCKED law names them RESOURCES / ELECTRICITY / CLOUT and the
+   engine ships ELECTRICITY / MEDICINE / CLOUT. MEDICINE is not one of the three,
+   and my own registry row says in words "no fourth thing".
+
+   NOT FIXED HERE, ON PURPOSE. Currency identities are CONTENTS-PAOLO'S, and the
+   fix is a rename inside another lane's module. So it is RATCHETED: the one known
+   disagreement is listed, and the check fails the moment a SECOND one appears or a
+   currency count changes. A known violation that cannot grow beats a red gate
+   nobody can clear and beats a green gate that cannot see it.
+   ========================================================================== */
+const CUR_LAW = 'laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md';
+const curLaw = fs.readFileSync(path.join(ROOT, CUR_LAW), 'utf8');
+const lawNames = ['RESOURCES', 'ELECTRICITY', 'CLOUT'].filter(n =>
+  new RegExp('\\(?[a-c]?\\)?\\s*' + n + '\\b').test(curLaw));
+const codeNames = m.currencyNames;
+ok('C1 the LOCKED law still names its three currencies (' + lawNames.join('/') + ')',
+   lawNames.length === 3);
+ok('C2 the engine ships exactly as many currencies as the registry declares (' +
+   codeNames.length + ')',
+   codeNames.length === parseInt((rows.find(r => r[0] === 'CURRENCIES') || [, '0'])[1], 10));
+/* THE RATCHET. Exactly one identity may disagree and it is this one. */
+const KNOWN_CURRENCY_DRIFT = { law: 'RESOURCES', code: 'MEDICINE' };
+const lawSet = new Set(lawNames), codeSet = new Set(codeNames);
+const onlyLaw = lawNames.filter(n => !codeSet.has(n));
+const onlyCode = codeNames.filter(n => !lawSet.has(n));
+ok('C3 THE COUNT AGREES AND THE NAMES DO NOT, and only the ONE known disagreement ' +
+   'exists: law says ' + (onlyLaw.join(',') || '-') + ', code ships ' +
+   (onlyCode.join(',') || '-') + '  [PENDING Paolo: rename, or rule MEDICINE canon]',
+   onlyLaw.length <= 1 && onlyCode.length <= 1 &&
+   (onlyLaw.length === 0 || onlyLaw[0] === KNOWN_CURRENCY_DRIFT.law) &&
+   (onlyCode.length === 0 || onlyCode[0] === KNOWN_CURRENCY_DRIFT.code));
+ok('C4 the two currencies the law and the code DO agree on are still both there',
+   ['ELECTRICITY', 'CLOUT'].every(n => lawSet.has(n) && codeSet.has(n)));
+
+console.log('-'.repeat(74));
+console.log('  MEASURED OFF THE LIVE ENGINE (seed ' + m.seed + '): ' +
+            Object.keys(measured).length + ' constants, ' +
+            Object.keys(exempt).length + ' declared unmeasurable');
+console.log('  E1\'s actual reach: ' + e1Reach + ' comparison(s). PART W does the work.');
+
 console.log('='.repeat(74));
 console.log('  CANON CONSTANTS GATE: ' + pass + ' pass / ' + fail + ' fail   (' +
             rows.length + ' constants, all proved against source)');

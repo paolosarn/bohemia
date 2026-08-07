@@ -89,3 +89,35 @@ mixing lore maps with playable worldspaces is worthless.
 Nothing. This is an answer to a question, not a proposal. **No map size is changed, no
 cut is implied, and `gates/mapsize_gate.js` is the CITY lane's gate — this lane did not
 touch it.**
+
+---
+
+## RE-MEASURED 8/7/26 — THE MAP GREW AND NOBODY RE-COUNTED
+
+The breakdown above was measured on 8/3. On 8/7 `tools/bohemia_canon_measure.js` counted it
+again off the live overmap at the canon seed, and it had moved:
+
+| | 8/3 measured | 8/7 re-measured | |
+|---|---|---|---|
+| total valley | 84.9 km² | **84.93 km²** | unchanged (rounding only) |
+| BUILT | 37.0 km² | **38.35 km²** | **+1.35, the city grew** |
+| roads | 32.9 km² | 31.69 km² | −1.21 |
+| bare desert | 5.7 km² | 6.05 km² | +0.35 |
+| rock / water | 9.3 km² | 8.85 km² | −0.45 |
+| walkable ON FOOT | 75.7 km² | **76.09 km²** | +0.39 |
+
+Nothing broke: a dozen districts landed between those two dates and built area is *supposed*
+to move when the city is built. **What was wrong is that nothing re-counted it**, so the
+number every other lane read stayed frozen at 8/3 while the world moved underneath it — and
+`canon_constants_gate.js`, the machine whose whole job is catching exactly this, stayed green
+because its engine sweep matched on variable NAMES and the engine names none of these.
+
+The definitions are unchanged and are now written down in the tool rather than only in this
+prose: BUILT is everything that is not road, not bare desert, and not rock or water; ON FOOT
+is the total minus rock and water. Those sets live in
+`tools/bohemia_canon_measure.js` (`ROAD_TYPES` / `ROCKWATER_TYPES` / `BARE_TYPES`) so the
+next re-measurement uses the same definition instead of a fresh guess.
+
+**The comparisons in this document are unaffected.** 76.09 km² on foot against Skyrim's
+~37.1 and New Vegas's ~16.5 is the same story 75.7 told. The point of re-measuring was never
+the headline, it was that the registry had drifted and the gate could not see it.

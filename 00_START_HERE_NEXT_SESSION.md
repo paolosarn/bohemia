@@ -1,3 +1,80 @@
+LAB (lab-e2r7sv): 8/7 (b) LATEST -- *** MY OWN GATE WAS VACUOUS FOR 13 OF ITS 14
+CONSTANTS AND HAD BEEN SINCE I BUILT IT. NOW IT MEASURES THE RUNNING WORLD. ***
+Nothing to judge, nothing to tap. NOT IN A TAB YET (a gate has no surface).
+ONE THING PENDING HIM, and it is small: the currency name, below.
+
+WHAT I PROMISED MYSELF LAST TURN AND THEN DID. My 8/5 canon-constants gate proves every
+declared number is really written in the law that cites it. Its check E1 was supposed to close
+the other half -- "no shipped engine module contradicts a declared constant." I measured what
+E1 actually compares:
+    13 OF 14 CONSTANTS HAD ZERO ENGINE DECLARATIONS FOR IT TO COMPARE.
+    It sweeps 112 modules and finds TWO numbers. Both of them BPM.
+E1 matches a variable whose NAME equals a registry key, and the engine never names things that
+way: the valley's size is OVER_N x TILE_FINE x CELL_M, not VALLEY_KM2; the three currencies are
+an ARRAY whose length is 3, not a number 3. *** A CHECK THAT CANNOT FAIL IS WORSE THAN NO
+CHECK, BECAUSE IT REPORTS SAFETY. ***
+
+AND THE DRIFT WAS ALREADY SITTING THERE. First run of the new measurement, canon seed:
+    BUILT_KM2   registry said 37.0   world says 38.35
+    ONFOOT_KM2  registry said 75.7   world says 76.09
+Nothing broke -- a dozen districts landed after the 8/3 measurement and built area is SUPPOSED
+to move when the city gets built. What was wrong is that NOTHING RE-COUNTED, so every lane read
+a frozen number while the world moved, and the machine whose entire job was catching that
+stayed green. Both rows corrected, and the 8/3 record now carries the re-measurement with the
+full before/after table.
+
+THE FIX IS THE PATTERN THAT ALREADY WORKS HERE, not a smarter name match:
+tools/bohemia_canon_measure.js GENERATES the measured rows off the live engine, and the gate
+regenerates and fails if the file moved -- the same "regenerating changes nothing" shape
+run_gate.js uses on the run slice. THE ROWS CANNOT DRIFT BECAUSE NOBODY TYPES THEM.
+    12 of 14 constants now MEASURED off the running world (overmap OVER_N/TILE_FINE/CELL_M,
+       a real buildOvermap(7) census for the three areas, Heartbeat.BPM/MS_PER_BEAT,
+       Generations.GEN_COUNT, the CURRENCIES array).
+    2 declared UNMEASURABLE with a written reason: SECONDS_PER_STEP and LIT_PERCENT.
+THE ANTI-VACUITY RULE, which is the real deliverable: every constant is MEASURED or
+EXEMPT-WITH-A-REASON, and W1 fails if one is in neither. A constant can never again be
+silently unchecked.
+
+*** THE ONE THING PENDING HIM, AND ONLY A NON-NUMERIC CHECK COULD HAVE FOUND IT. ***
+THE COUNT IS RIGHT AND THE CONTENTS ARE WRONG. The registry says CURRENCIES 3, the engine ships
+3, every numeric check is green -- but his LOCKED law names them RESOURCES / ELECTRICITY /
+CLOUT and engine/bohemia_engine.js ships ELECTRICITY / MEDICINE / CLOUT. MEDICINE is not one of
+the three, and my own row says in words "no fourth thing".
+NOT FIXED: currency identities are CONTENTS-PAOLO'S and the change is a rename in another
+lane's module. RATCHETED instead -- the one known disagreement is named and C3 fails the moment
+a SECOND one appears or the count moves. Proven by mutation that the gate goes GREEN the
+instant the engine renames MEDICINE to RESOURCES, so the ratchet does not block the fix.
+    ASK: rename MEDICINE to RESOURCES, or rule MEDICINE canon and amend the law?
+
+*** AND I HAVE TO CORRECT MY OWN LAST HANDOFF. *** It said PEOPLE's G1 was the proof my gate
+had a hole. IT IS NOT, ANY MORE: people_gate.js passes 152/0 on current main. The PEOPLE lane
+pushed its scale-model fix (58f5ef3, 0385420) MINUTES AFTER my suite ran, so I reported a
+failure against a main that was already repaired and left it in the file every lane reads. The
+hole in my gate was real and is now measured independently (13-of-14 vacuous), but the example
+I hung it on was stale. If you read that section, this supersedes it.
+
+VERIFIED BY ELEVEN PLANTED MISTAKES, ten caught, one correctly ignored (the FIX must not be
+blocked). THREE OF MY OWN CONTROLS DID NOT REPRODUCE THE FAILURE THEY TESTED -- one prepended
+text to a long string making it longer, one truncated a sentence but left the property intact,
+one ran against a baseline that was already red so it isolated nothing. Third turn running this
+repo has paid for that lesson, so it is a pattern about how I write mutations, not about a gate.
+AND W3 CAUGHT ME: its first version only measured the LENGTH of an exemption's reason, a
+mutation showed a 121-char shrug passes, and the rewritten version -- reason must NAME ITS OWN
+EXPIRY and cite a real artifact -- immediately failed on my own SECONDS_PER_STEP text. Fixed the
+text, not the check.
+
+GATE: canon_constants_gate.js, 33 checks, 0 fail. Also still green: valley_scale_gate (14/0),
+people_gate (152/0), lab_gate (573/0).
+
+STILL PENDING HIM FROM THIS LANE: the 18 bosses in
+records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md -- which live, which die, order, count.
+And LAB-10's build page from earlier today, still unjudged:
+slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html
+
+
+LAB (lab-e2r7sv): 8/7 (a) -- *** LAB-10: VALHEIM'S BUILD SYSTEM IS PLAYABLE, AND THE
+
+
 CHARACTER (0lurbs): 8/7 (g) LATEST — *** THE CHECKOUT LIES. READ THIS BEFORE YOU
 EDIT ANYTHING. *** records/BOHEMIA_THE_CHECKOUT_LIES_8_7_26.md
 THE WORKING DIRECTORY SILENTLY REVERTED TO A SNAPSHOT ~530 COMMITS BEHIND MAIN,
@@ -45,6 +122,8 @@ suite takes ~30 min here and both reverts landed either side of one.
 AND VERIFY SHIPS AGAINST GITHUB, NEVER THE LOCAL CLONE. When the tree reverted after
 my push, the clone said my commit was "not a valid object". GitHub said it was in
 main's history with a green Pages deploy. GitHub was right; the clone was fiction.
+
+
 PEOPLE (7h9sfy): 8/7 — *** I SWEPT THE PATTERN INSTEAD OF THE INSTANCES AND FOUND NINE
 MORE. *** gates/mapbound_gate.js now finds the next one automatically.
 
@@ -280,6 +359,8 @@ TOOLS (replay in order after any rebase, all idempotent):
   bohemia_combat_miss_stop_and_climb_patch.py   (v130)
 
 LAB (lab-e2r7sv): 8/7 LATEST -- *** LAB-10: VALHEIM'S BUILD SYSTEM IS PLAYABLE, AND THE
+
+
 ANSWER IS ONE DESIGN DECISION, NOT A BUILD MENU. ***
 NOT IN A TAB YET, and by law it never will be -- the lab's own gate forbids any shipped
 surface from linking a lab page, so it is reached by its own file:
