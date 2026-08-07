@@ -26,6 +26,26 @@ were not wrong — what he saw WAS bad. The FIX was wrong. It claims only that t
 is finally shown at the size and sharpness it was drawn at. NO NEW HAIR WAS COOKED;
 three fixes from the last round are still unthumbed and STOP PRODUCING says a fourth
 version is the tell that I already failed.
+SUITE REDS, ALL PROVED PRE-EXISTING EXCEPT ONE THAT WAS MINE:
+  HANDOFF        MINE. handoff_gate wants ^LANE (session-id): and I wrote a DATE in
+                 the parens ("CHARACTER (8/6h)"). A slash is not [a-z0-9-], so the
+                 one file every session reads FIRST went red on the head I had just
+                 written. Fixed to "CHARACTER (0lurbs): 8/6 (h) LATEST".
+  CANVAS SCALE   CITY overview is pixelated, city lane's own gate asserts auto.
+                 Proved: stash everything of mine, run on clean main -> 28/1, same.
+  QUEST PLACEMENT judge page inlines 6 stale engine modules. Proved by DATES: page
+                 regenerated 8/3 (e8ce9d7), modules changed 8/5 (f2f4663) and 8/6
+                 (b09f3ab) by the WORLD lane. My commit has zero engine files.
+                 Fix is mechanical: python3 tools/bohemia_quest_placement_judge.py
+  GRAVEYARD      a dead hair token (the bare 3-letter one, not spelled here ON PURPOSE)
+                 live at line 3019 of ORIGIN/MAIN's handoff, quoted from
+                 git. Prose ABOUT the token-collision problem. 4th time that class
+                 of false positive has bitten.
+  RIG CHECK      three bohemia_music_verdicts_8_2*.py. SOUND lane's.
+  PARTS PAINTED  face empty NE/NW. Proved by replacing my alpha with origin/main's
+                 byte-for-byte and re-running: identical 21/1.
+NONE OF THE FIVE TOUCHED — ONE SYSTEM ONE SESSION. Named here so the owning lanes
+can see them; a red nobody claims is a red everybody learns to scroll past.
 GATE: 52 passed, 1 failed. THE FAILURE IS NOT MINE AND I PROVED IT — stashing my whole
 change set and running on clean origin/main gives 28 passed, 1 failed, same failure.
 The CITY lane set the builder overview to `pixelated` while their own gate still
