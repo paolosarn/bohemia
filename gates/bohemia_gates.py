@@ -28,6 +28,8 @@ GATES = [
     # nine real art failures. BACKLOG SOUNDS #5, closed.
     ('SETUP HOOK',     ['python3', 'gates/setup_hook_gate.py'],
      'a fresh container installs its own gate image stack and never blocks the session doing it', False),
+    ('SHIPPED TRUTH', ['node', 'gates/shipped_truth_gate.js'],
+     'THE CODE MOVED AND NOTHING NOTICED, four times in one week: the renderer left the alpha and 15 gates went silently blind, a rebase against a rewound checkout ate a feature, a working tree rolled back three times, and a session planned to re-land work that already shipped. This asks the one question none of them asked -- is the work we SAY we shipped still in the file he actually taps', False),
     ('GDD LINEAGE',    ['node', 'gates/gdd_gate.js'],
      'v2/v3/v4 are LIVE, v5 extends them', False),
     ('CARRY',          ['python3', 'gates/carry_gate.py', '.'],
