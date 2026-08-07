@@ -1052,6 +1052,69 @@ GATE: gates/game_day_gate.js, 12 claims, mutation-tested. A RATCHET, NOT A DEMAN
 closing the links is the RUN lane's charter and blocked on Paolo's rulings, so forcing it
 would be A GATE OUTRANKING A RULING. But WAKING AND WALKING ARE THE ENTIRE GAME RIGHT NOW
 and must never break quietly.
+SOUND (sound-xk7pjp): 8/7 (c) LATEST - *** HE JUDGED ALL 130. FIRST 130/130 IN THE
+BATCH. EATING HAS A SOUND, HOURS GOING BY HAS FIVE, AND FOUR OTHER MOMENTS ARE DEAD.
+PLUS A LOCKED RULING: EATING TAKES REAL WORLD TIME. ***
+Nothing left to judge in SFX-01. The shuffle round now says EVERY SOUND IS JUDGED.
+
+HIS EXPORT: records/BOHEMIA_SFX_VERDICT_8_7_26.txt
+  eat.2              UP   -> EATING HAS A SOUND
+  time_pass.0 .. .4  UP   -> HOURS GOING BY HAS FIVE
+  sleep / talk_start / go_inside / quest_done, all five each  DOWN  -> 20 dead
+CROSS-CHECK THAT THE TRANSCRIPTION IS RIGHT: rebuilding the bank from his export
+touched exactly TWO families. The other 24 reproduced the existing bank byte for
+byte, which is a stronger check than re-reading it. Bank: 15 events -> 17,
+55 approved sounds -> 61.
+
+*** THE RULING, LOCKED: laws/BOHEMIA_ADDENDUM_EATING_TAKES_TIME_8_7_26.md ***
+  "C if its immediatw danger the player knows about because eating will take up
+   time type shit. The amount of time depends on the food"
+  1. eating consumes real world-clock time
+  2. how much depends on the food (the table is HIS, not recorded here)
+  3. blocked ONLY by danger that is BOTH immediate AND already known to the player
+  The qualifier is the design. A plain "cannot eat when anything is near" would be
+  the game overruling him with information he does not have. Gating on danger he
+  KNOWS about means the refusal is never a surprise and the risk stays his.
+  THIS IS RUN / LIFE WORK, NOT SOUND. Recorded so that lane builds to the ruling
+  instead of re-asking him. Sleeping has NO ruling yet. [PENDING, Paolo]
+
+HIS NOTE IS A RULING (NOTES ARE RULINGS 7/19): "For hours go by have it the amount
+of time that goes by". BUILT: TIME_PASS STRIKES LIKE A CLOCK. One note per hour.
+Four hours is four notes, eight is eight, capped at twelve (past that it stops
+being countable, and twelve is where a clock face stops). You can COUNT it without
+being told. Every strike is one of the five vectors he thumbed, taken in order,
+cycling -- it picks BETWEEN his sounds and never alters one.
+  TRIGGER: a JUMP in the world clock the run already reports every 4 seconds. No
+  new state, no new message. Floor is one hour, so ordinary play can never fire it.
+  Midnight handled: 22:00 -> 06:00 reads as eight hours forward, not minus sixteen.
+  IT SKIPS THE VOICE LIMITER ON PURPOSE, and this is the trap: voiceOK throttles on
+  the WALL CLOCK, and all N strikes are requested in the same millisecond even
+  though they sound a beat apart. Routed through playSFX an 8-hour sleep strikes
+  ONCE. MUTATION PROVED IT: adding voiceOK to the loop turns time_pass_gate red on
+  8 checks. Scheduling is the throttle; the limiter is for pile-ups, and these are
+  the opposite of a pile-up.
+
+THREE OF MY OWN GATE ASSERTIONS WERE OUTRANKED BY HIS VERDICT AND I FIXED THE
+RULER, NOT THE TARGET (A GATE MUST NEVER OUTRANK A RULING):
+  1. sfx_wired asserted the batch-02 moments stay OUT of the bank. Correct while
+     they were unjudged; wrong the moment he thumbed. Replaced with his verdict
+     itself, candidate by candidate -- stricter, because it catches drift both ways.
+  2. sfx_wired inferred "playSFX fell back to a footstep" from two taps sounding
+     the SAME. eat has exactly ONE approved sound, so identical taps are CORRECT.
+     Now it asks the real question: does tapping EAT sound like step_dirt?
+  3. sfx_shuffle drove a tap-through flow that needs a non-empty queue. He emptied
+     it. The empty queue is a real, correct state and now has its own assertions
+     (the launcher says EVERY SOUND IS JUDGED and refuses to open, so he is never
+     re-asked). PROVED I DID NOT JUST DELETE THE TEST: un-baking three verdicts
+     brings the full 25-check flow back green.
+
+GATES: time_pass 21/21 (new, mutation tested), citymus_rotation 22/22,
+sfx_shuffle 9/9 empty + 25/25 populated, shipped_truth 22/22, alpha_loads 20/20,
+music_reach 13/13, sfx_wired re-running against the corrected assertions.
+
+WHAT IS LEFT FOR HIM IN SOUND: the 4 acoustic spaces, the 9 batch-20 songs.
+SFX-01 is CLOSED at 130/130.
+
 SOUND (sound-xk7pjp): 8/7 (b) LATEST - *** HIS DUSK POOL IS TWO SONGS AND THE SHUFFLE
 HAD NO MEMORY, SO DAWN WAS A COIN FLIP ON PLAYING THE SAME TRACK TWICE IN A ROW.
 AND THE WORLD CLOCK WAS INAUDIBLE FOR UP TO TWO MINUTES. ***

@@ -1,0 +1,209 @@
+#!/usr/bin/env python3
+"""
+TIME PASS GATE (8/7/26) - you can hear HOW MANY hours went by.
+
+HIS RULING, written on his own 130/130 verdict export:
+
+    "For hours go by have it the amount of time that goes by"
+
+NOTES ARE RULINGS (7/19). So this is not a preference to honour when convenient,
+it is the spec, and the spec has a number in it: the sound must carry the
+QUANTITY. That makes it machine-checkable in the only way that matters -- fire a
+four-hour skip and a nine-hour skip and count what actually reached the bus. If
+four hours and nine hours produce the same thing, the ruling is not built.
+
+EVERY CHECK COUNTS RENDERS AT THE ENGINE, NOT INTENTIONS AT THE CALL SITE. The
+trap here is specific and it was real: the voice limiter added on 8/4 throttles
+on the WALL CLOCK, and all N strikes are requested in the same millisecond even
+though they sound a beat apart. Routed through playSFX, an eight-hour sleep
+would strike ONCE and every check that only asked "did a sound play" would pass.
+"""
+import json
+import os
+import subprocess
+import sys
+import tempfile
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+JS = r'''
+const path = require('path');
+function pwmod(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modules','/usr/local/lib/node_modules']){try{return require(path.join(g,'playwright'));}catch(e){}}return require('playwright');}
+const pw = pwmod();
+
+(async () => {
+  const { chromium } = pw;
+  const b = await chromium.launch();
+  const p = await b.newPage({ viewport:{width:390,height:844}, hasTouch:true, isMobile:true });
+  const errs = []; p.on('pageerror', e => errs.push(e.message));
+  await p.goto('file://' + path.join(process.argv[2], 'slices', 'BOHEMIA_ALPHA_0_9.html'));
+  await p.waitForTimeout(1500);
+  await p.click('#front', { force:true }).catch(()=>{});
+  await p.waitForTimeout(1100);
+
+  const out = {};
+
+  // HIS THUMBS REACHED THE TABLE THE GAME READS. Not the verdict file, not the
+  // bank on disk -- the object playSFX itself consults.
+  out.approved = await p.evaluate(() => {
+    const A = window.__SFX_APPROVED || {};
+    return { time_pass: A.time_pass || null, eat: A.eat || null,
+             sleep: A.sleep || null, go_inside: A.go_inside || null,
+             talk_start: A.talk_start || null, quest_done: A.quest_done || null };
+  });
+
+  // COUNT RENDERS AT THE ENGINE. BOH_SFX.render is the one place a sound becomes
+  // real, so wrapping it counts what the speaker gets rather than what a
+  // function meant to do.
+  await p.evaluate(() => {
+    window.__rr = [];
+    const orig = BOH_SFX.render.bind(BOH_SFX);
+    BOH_SFX.render = function(v, ac, dest, at){ window.__rr.push(at == null ? -1 : at);
+                                                return orig.apply(null, arguments); };
+    try { MUS.audio(); } catch(e) {}
+  });
+
+  async function strike(h){
+    await p.evaluate(() => { window.__rr = []; });
+    await p.evaluate(n => window.__strikeHours(n), h);
+    await p.waitForTimeout(120);
+    return await p.evaluate(() => window.__rr.slice());
+  }
+
+  out.h1  = await strike(1);
+  out.h4  = await strike(4);
+  out.h9  = await strike(9);
+  out.h30 = await strike(30);     // longer than a clock face: must cap, not spray
+
+  // THE REAL PATH. The run reports the world clock; a JUMP in it is time passing.
+  // Nothing here calls strikeHours: it posts the message the run posts and
+  // watches whether the game works it out.
+  /* SETTLE ON OUR OWN INPUT BEFORE READING. The run posts its own world clock
+     every four seconds once its tab has been opened, and a stray report between
+     the two posts below would itself be a jump and would strike. Sister gate
+     sfx_wired had exactly this race and blamed the phase setter for it. Waiting
+     until the parent's record of the last clock it processed is OUR number
+     removes the whole class instead of shortening the window. */
+  async function settle(min){
+    for (let i = 0; i < 40; i++) {
+      const ok = await p.evaluate(m => {
+        const st = window.__timePassStats ? window.__timePassStats() : null;
+        return !!(st && st.last === m);
+      }, min);
+      if (ok) return true;
+      await p.waitForTimeout(40);
+    }
+    return false;
+  }
+  async function clock(fromMin, toMin){
+    await p.evaluate(a => {
+      window.postMessage({type:'BOHEMIA_WHERE', inside:false, night:false, min:a, space:'STREET'}, '*');
+    }, fromMin);
+    if (!await settle(fromMin)) return -1;
+    await p.evaluate(() => { window.__rr = []; });
+    await p.evaluate(b => {
+      window.postMessage({type:'BOHEMIA_WHERE', inside:false, night:false, min:b, space:'STREET'}, '*');
+    }, toMin);
+    if (!await settle(toMin)) return -1;
+    await p.waitForTimeout(160);
+    return (await p.evaluate(() => window.__rr.slice())).length;
+  }
+
+  out.walk      = await clock(9*60, 9*60 + 3);      // ordinary play: 3 minutes
+  out.sleep8    = await clock(22*60, 22*60 + 480);  // 8 hours, no midnight
+  out.midnight  = await clock(22*60, 6*60);         // 22:00 -> 06:00 IS eight hours
+  out.backwards = await clock(9*60, 9*60);          // no movement at all
+
+  out.stats = await p.evaluate(() => window.__timePassStats ? window.__timePassStats() : null);
+  out.errors = errs.slice(0, 4);
+  console.log(JSON.stringify(out));
+  await b.close();
+})();
+'''
+
+
+def main():
+    with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as f:
+        f.write(JS)
+        js = f.name
+    try:
+        r = subprocess.run(['node', js, ROOT], capture_output=True, text=True, timeout=420)
+    finally:
+        os.unlink(js)
+
+    line = [l for l in r.stdout.strip().split('\n') if l.startswith('{')]
+    if not line:
+        print('=== TIME PASS GATE ===')
+        print('  > FAIL the browser run produced nothing')
+        print(r.stdout[-1200:])
+        print(r.stderr[-1200:])
+        return 1
+    d = json.loads(line[-1])
+
+    print('=== TIME PASS GATE - "have it the amount of time that goes by" ===')
+    p = f = 0
+
+    def ok(name, cond):
+        nonlocal p, f
+        if cond:
+            p += 1
+        else:
+            f += 1
+            print('  > FAIL ' + name)
+
+    a = d.get('approved') or {}
+    ok('his 8/7 thumbs reached the table the GAME reads: time_pass has 5 sounds',
+       a.get('time_pass') == [0, 1, 2, 3, 4])
+    ok('and EAT finally has one (eat.2)', a.get('eat') == [2])
+    # GRAVEYARD IS FINAL: the four he killed must be absent, not present-and-empty
+    for dead in ('sleep', 'talk_start', 'go_inside', 'quest_done'):
+        ok('GRAVEYARD IS FINAL: %s has no sound at all' % dead, not a.get(dead))
+
+    h1, h4, h9, h30 = (d.get('h1') or []), (d.get('h4') or []), (d.get('h9') or []), (d.get('h30') or [])
+    ok('one hour strikes ONCE (%d)' % len(h1), len(h1) == 1)
+    ok('four hours strike FOUR times (%d)' % len(h4), len(h4) == 4)
+    ok('nine hours strike NINE times (%d)' % len(h9), len(h9) == 9)
+    ok('THE COUNT IS THE INFORMATION: four and nine are different (%d vs %d)'
+       % (len(h4), len(h9)), len(h4) != len(h9))
+    ok('and it CAPS instead of spraying: 30 hours -> 12 strikes (%d)' % len(h30),
+       len(h30) == 12)
+
+    # 120 BPM LAW: scheduled ahead in AUDIO time, a beat apart, not fired by a timer.
+    sched = [t for t in h4 if t is not None and t >= 0]
+    ok('every strike is SCHEDULED on the audio clock, not fired by a timer (%d of %d)'
+       % (len(sched), len(h4)), len(sched) == len(h4) and len(h4) > 0)
+    if len(sched) >= 2:
+        gaps = [round(sched[i + 1] - sched[i], 3) for i in range(len(sched) - 1)]
+        ok('they land a BEAT apart, evenly (120 BPM LAW): gaps %s' % gaps,
+           all(abs(g - gaps[0]) < 0.01 for g in gaps) and 0.4 < gaps[0] < 0.6)
+        ok('and they are strictly in order, none stacked on another',
+           all(gaps[i] > 0 for i in range(len(gaps))))
+    else:
+        ok('there are enough strikes to measure the spacing', False)
+        ok('(spacing)', False)
+
+    ok('WALKING AROUND NEVER TRIGGERS IT: a 3-minute tick strikes nothing (%s)'
+       % d.get('walk'), d.get('walk') == 0)
+    ok('a clock that has not moved strikes nothing (%s)' % d.get('backwards'),
+       d.get('backwards') == 0)
+    ok('THE REAL PATH WORKS: an 8-hour sleep reported by the run strikes 8 (%s)'
+       % d.get('sleep8'), d.get('sleep8') == 8)
+    ok('MIDNIGHT IS NOT MINUS SIXTEEN HOURS: 22:00 -> 06:00 strikes 8 (%s)'
+       % d.get('midnight'), d.get('midnight') == 8)
+
+    st = d.get('stats') or {}
+    ok('the floor is an hour, so ordinary play can never reach it',
+       st.get('floorMin') == 60)
+    ok('the cap is 12, where a clock face stops', st.get('max') == 12)
+
+    ok('the page threw nothing: %s' % (d.get('errors') or 'clean'), not d.get('errors'))
+
+    print('  %d passed, %d FAILED' % (p, f))
+    if not f:
+        print('  Four hours sound like four. Nine sound like nine. You can count it '
+              'without being told, which is the whole of what he asked for.')
+    return 1 if f else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())

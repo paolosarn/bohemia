@@ -282,7 +282,7 @@ def parent_block(bank):
          this document, so the run tells us one happened and we take the chance
          to start the audio while the browser may still count it as gestured. */
       if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
-      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d); musicPhase(d); return; }
+      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d); musicPhase(d); timePass(d); return; }
       if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
       if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
     }catch(e){}
@@ -334,6 +334,82 @@ def parent_block(bank):
     }catch(e){}
   }
   window.__musicPhase=function(){ return (typeof CITYMUS!=='undefined'&&CITYMUS)?CITYMUS.phase:null; };
+
+  /* === HOURS GO BY, AND YOU HEAR HOW MANY (8/7) ==========================
+     PAOLO'S RULING, on his own 130/130 export, and NOTES ARE RULINGS (7/19):
+
+        "For hours go by have it the amount of time that goes by"
+
+     He approved all five TIME_PASS candidates and killed all five SLEEP ones in
+     the same breath, which read together is one decision rather than two: the
+     passage of time is THE sound, and sleeping is a QUANTITY of it, not a
+     separate ceremony that needs its own cue.
+
+     SO IT STRIKES LIKE A CLOCK. One note per hour. Four hours is four notes,
+     eight is eight. That is the most literal reading of what he asked for and
+     it is also the only one that carries information: you can COUNT it without
+     being told, the way a bell tower tells a valley what time it is. Nothing
+     announces the number, you just hear it go by.
+
+     IT DOES NOT RE-COOK HIS SOUND. Every strike is one of the five vectors he
+     thumbed up, taken in order, cycling if there are more hours than
+     candidates. The mechanism picks BETWEEN the sounds he picked; it never
+     alters one. Same rule that makes footsteps work.
+
+     ON THE BEAT, per the 120 BPM LAW: strikes land a beat apart in AUDIO time,
+     scheduled ahead on the one AudioContext, not fired by a timer.
+
+     AND IT DELIBERATELY SKIPS THE VOICE LIMITER. voiceOK() throttles on the
+     WALL CLOCK, and every strike here is requested in the same millisecond even
+     though they sound seconds apart -- so the limiter would drop every note
+     after the first and an eight-hour sleep would strike ONCE. The limiter
+     exists to stop simultaneous pile-ups crushing the brickwall (16 at once
+     measured QUIETER than one, 8/4). These are not simultaneous; they are the
+     opposite. Scheduling is the throttle.
+
+     CAPPED AT 12. Past twelve strikes it stops being countable and starts being
+     noise, and twelve is where a clock face stops too. */
+  var STRIKE_MAX=12;
+  function strikeHours(h){
+    h=Math.max(1,Math.min(STRIKE_MAX, h|0));
+    try{
+      var set=(window.__SFX_APPROVED&&window.__SFX_APPROVED.time_pass)||[];
+      if(!set.length) return 0;            /* unjudged is silent, always */
+      if(typeof BOH_SFX==='undefined'||typeof MUS==='undefined') return 0;
+      MUS.audio(); var AC=MUS.AC; if(!AC) return 0;
+      var dest=sfxBus()||MUS.OUT||MUS.MAST||AC.destination;
+      var gap=(BOH_SFX.BEAT||0.5);
+      var t0=AC.currentTime+0.06, fired=0;
+      for(var i=0;i<h;i++){
+        var v=vec('time_pass', set[i%%set.length]); if(!v) continue;
+        /* heard in the room he is standing in, like everything else */
+        var vv=(typeof window.__sfxInSpace==='function')?window.__sfxInSpace(v):v;
+        if(BOH_SFX.render(vv,AC,dest,t0+i*gap)){ fired++; SFX_COUNT++; }
+      }
+      return fired;
+    }catch(e){ return 0; }
+  }
+  window.__strikeHours=strikeHours;
+
+  /* WHAT COUNTS AS TIME GOING BY. The run already reports the world clock every
+     four seconds, so no new state and no new message: a JUMP in that number is
+     time passing, and its size is how much. An hour is the floor -- walking
+     around does not move the clock by an hour in four seconds, so ordinary play
+     can never trigger this, and only a real skip (sleep, a wait, a long
+     journey) can. Midnight is handled: 22:00 -> 06:00 reads as -960, which is
+     eight hours forward, not minus sixteen. */
+  var LASTMIN=null, TP_MIN=60;
+  function timePass(d){
+    try{
+      var m=+d.min; if(!isFinite(m)) return;
+      if(LASTMIN===null){ LASTMIN=m; return; }
+      var jump=m-LASTMIN; if(jump<0) jump+=1440;
+      LASTMIN=m;
+      if(jump<TP_MIN) return;
+      strikeHours(Math.round(jump/60));
+    }catch(e){}
+  }
+  window.__timePassStats=function(){ return {floorMin:TP_MIN, max:STRIKE_MAX, last:LASTMIN}; };
 
   /* === SOMEBODY ELSE'S FOOTSTEP, PLACED IN SPACE (8/2) ==================
      THE DISTANCE MODEL IS THE RESEARCHED ONE, not a guess: a point source

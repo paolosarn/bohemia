@@ -770,3 +770,48 @@ REVIVED 8/4/26 -- THE LIVING PORTRAIT (JUICE.AU), killed at v36, is back BY HIS 
 # shipped is TEN states to his number, with Doom-style hysteresis so a boundary cannot
 # strobe, the dying face CROSSFADING in instead of popping, and the face leaning toward
 # whoever shot you. If the three-state version is what he hated, that version is still dead.
+
+# ============================================================================
+# 8/7/26  SOUND: FOUR MOMENTS DIED IN THE 130/130 SWEEP
+# Paolo judged the last four unruled families of BATCH SFX-01 and killed all five
+# candidates of each. Twenty candidates dead. records/BOHEMIA_SFX_VERDICT_8_7_26.txt
+#
+sleep.0 sleep.1 sleep.2 sleep.3 sleep.4
+talk_start.0 talk_start.1 talk_start.2 talk_start.3 talk_start.4
+go_inside.0 go_inside.1 go_inside.2 go_inside.3 go_inside.4
+quest_done.0 quest_done.1 quest_done.2 quest_done.3 quest_done.4
+#
+# POST-MORTEM, and the four failures are not the same failure.
+#
+# SLEEP (choir, longest decay in the batch). Cooked as "eight hours gone, the
+#   biggest block of time in the game" -- so it was built BIG. That was the error:
+#   a long choral swell announces sleep as an EVENT, and sleeping is not an event,
+#   it is an absence. The same export approved all five TIME_PASS candidates and
+#   attached a note asking that hours-going-by convey HOW MUCH time went by. Read
+#   together those are one ruling: the passage of time is the sound, and sleep is
+#   a quantity of it, not a separate ceremony. Sleep does not need its own cue.
+#
+# TALK_START (wood, deliberately small). The brief was right on paper -- "a person
+#   is not an event" -- and the sound was cooked so small it said nothing at all.
+#   Its first cut also rendered at 0.019 stereo width, effectively mono, which is
+#   why the width floor was raised mid-batch. A cue that must not be an event and
+#   must still be noticed is a narrow target and this batch missed it in both
+#   directions.
+#
+# GO_INSIDE (stone, room-heavy). The brief was "the ROOM is the sound, not the
+#   door" and that idea is still right -- but it is now built somewhere better.
+#   The acoustic SPACES system (8/4) already switches OPEN / STREET / ROOM / HALL
+#   from where the player stands, so crossing a threshold changes how EVERYTHING
+#   sounds. A one-shot announcing the room is redundant next to the room actually
+#   sounding different. Doors were already silent by his 7/30 verdict (all ten
+#   killed); the doorway is now silent too, and the change is heard in the space.
+#
+# QUEST_DONE (bell, most room in the batch). Cooked as "the one moment that earns
+#   the whole room", which is a reward-jingle instinct imported from games this
+#   one is not. Nothing in Bohemia congratulates you. A bell of triumph over a
+#   finished run in a dead valley is tonally wrong no matter how it is voiced,
+#   and no revoicing was going to fix the premise.
+#
+# GRAVEYARD IS FINAL. No remakes of these four. If any of those moments ever gets
+# a sound it answers a FRESH brief -- and for three of them the brief above says
+# the moment may not want a sound at all.

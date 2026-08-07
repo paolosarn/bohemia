@@ -70,6 +70,12 @@ const pw = pwmod();
     BOH_SFX.render = function(){ window.__rendered++; return orig.apply(null, arguments); };
   });
 
+  // AN EMPTY QUEUE IS A REAL, CORRECT STATE. He judged all 130 on 8/7, so the
+  // right behaviour is the launcher saying so and refusing to open -- not a
+  // round with nothing in it. Everything below is conditional on there being
+  // work, and the empty case gets its own assertions instead of being skipped.
+  out.empty = !(out.queue && out.queue.length);
+
   // OPEN IT THE WAY HE DOES: tap the button.
   await p.click('#shufGo', { force:true }).catch(()=>{});
   await p.waitForTimeout(700);
@@ -201,6 +207,26 @@ def main():
     else:
         ok('there is something to judge (or the launcher says there is not)',
            isinstance(q, list))
+
+    if d.get('empty'):
+        # NOTHING LEFT TO JUDGE. This is the state his 130/130 export created and
+        # it has to be asserted, not skipped: the failure it guards against is a
+        # surface that re-asks him for verdicts he already gave, which is the
+        # exact thing he called out on 8/1 ("I can't be judging shit and then you
+        # pretend that I didn't").
+        ok('EVERY SOUND IS JUDGED, and the launcher says so in his words',
+           'EVERY SOUND IS JUDGED' in (d.get('goText') or ''))
+        ok('and it does NOT open a round with nothing in it', not d.get('opened'))
+        ok('so he is never asked again for a verdict he already gave',
+           not d.get('opened') and not d.get('queue'))
+        ok('the page threw nothing: %s' % (d.get('errors') or 'clean'),
+           not d.get('errors'))
+        print('    nothing waiting: all 130 candidates carry a thumb')
+        print('  %d passed, %d FAILED' % (p, f))
+        if not f:
+            print('  The queue is empty because he emptied it. The surface says so '
+                  'and stays shut.')
+        return 1 if f else 0
 
     ok('tapping the launcher opens it', d.get('opened'))
     ok('it carries data-noui so a click tone can never cover the candidate',

@@ -414,10 +414,19 @@ const METER=`(function(){
     const a=await tapBoard(ev), b2=await tapBoard(ev);
     out.newTaps[ev]=[a,b2];
   }
-  out.newUnbanked = await p.evaluate(()=>{
+  /* THE FALLBACK FINGERPRINT, measured rather than assumed. playSFX plays
+     step_dirt for an unbanked event, which is right in the GAME and a lie on a
+     board. The old check inferred the fallback from "two taps sounded the
+     same" -- but eat now has exactly ONE approved sound, so two taps SOUNDING
+     THE SAME IS CORRECT. Ask the real question instead: does tapping EAT sound
+     like a footstep? */
+  out.dirtTap = await tapBoard('step_dirt');
+  out.newBank = await p.evaluate(()=>{
     const A=window.__SFX_APPROVED||{};
-    return ['eat','sleep','talk_start','go_inside','quest_done','time_pass']
-      .every(e=>!(A[e]&&A[e].length));
+    const r={};
+    ['eat','sleep','talk_start','go_inside','quest_done','time_pass']
+      .forEach(e=>{ r[e]=(A[e]&&A[e].length)?A[e]:null; });
+    return r;
   });
   out.newCookable = await p.evaluate(()=>{
     try{ return ['eat','sleep','talk_start','go_inside','quest_done','time_pass']
@@ -472,16 +481,36 @@ const METER=`(function(){
      tagged OVERWORLD DAY by his own hand. Driven through the REAL message the
      run posts, not by setting the phase directly. */
   await p.evaluate(()=>{ try{ MUS.build(); }catch(e){} });
+  /* THE RUN IS ALSO REPORTING, AND THAT WAS A RACE IN THIS GATE.
+     Measured, not guessed: with the run loaded it posts its OWN world clock
+     every four seconds -- min=450, which is DAWN. This function used to post a
+     synthetic time, wait 320ms and read. A real report landing inside that
+     window overwrites the phase, so noon read back as DAWN and the gate blamed
+     the phase setter for a collision it caused itself. The phase logic was fine
+     the whole time; probed at 180/420/720/1080 in isolation it is exactly right.
+
+     THE FIX IS NOT A LONGER WAIT OR A SHORTER ONE. It is to read the state that
+     CORRESPONDS TO OUR INPUT: poll until the parent's own record of the last
+     clock it processed is the number we sent, then read phase and pool in that
+     same evaluate. If our message never becomes the last one processed, that is
+     a real failure and it says so instead of silently sampling somebody else's
+     clock. */
   async function poolAt(min){
     await p.evaluate(m=>{ window.postMessage({type:'BOHEMIA_WHERE',inside:false,
       night:(m<360||m>=1140), min:m, space:'STREET'},'*'); }, min);
-    await p.waitForTimeout(320);
-    return await p.evaluate(()=>{
-      try{
-        const nameOf=c=>(c.fi<MFACTIONS.length)?MFACTIONS[c.fi].n:MLOOPS[c.fi-MFACTIONS.length].n;
-        return { phase: window.__musicPhase(), pool: CITYMUS.candidates().map(nameOf) };
-      }catch(e){ return {phase:null,pool:[]}; }
-    });
+    for(let i=0;i<40;i++){
+      const r = await p.evaluate(m=>{
+        try{
+          const st = window.__timePassStats ? window.__timePassStats() : null;
+          if(!st || st.last !== m) return null;      /* somebody else's clock */
+          const nameOf=c=>(c.fi<MFACTIONS.length)?MFACTIONS[c.fi].n:MLOOPS[c.fi-MFACTIONS.length].n;
+          return { phase: window.__musicPhase(), pool: CITYMUS.candidates().map(nameOf) };
+        }catch(e){ return {phase:null,pool:[]}; }
+      }, min);
+      if(r) return r;
+      await p.waitForTimeout(40);
+    }
+    return { phase:'NEVER-PROCESSED', pool:[] };
   }
   out.phaseNight = await poolAt(180);
   out.phaseDawn  = await poolAt(420);
@@ -961,6 +990,18 @@ def main():
             return True
         if "'%s'" % ev in amb_line:             # the clock picks the world tone
             return True
+        # HOURS GO BY IS NOT PLAYED BY playSFX, DELIBERATELY (8/7). His ruling --
+        # "For hours go by have it the amount of time that goes by" -- means the
+        # moment fires N notes a beat apart, and playSFX's voice limiter throttles
+        # on the WALL CLOCK, so all N are requested in the same millisecond and
+        # only the first survives (measured: an 8-hour sleep struck ONCE). It has
+        # its own scheduled path. NARROW ON PURPOSE, because A MENTION IS NOT A
+        # USE: this demands the bank actually be READ by the strike loop AND the
+        # world clock actually CALL it. Behaviour is proved separately, on the
+        # real message path, by gates/time_pass_gate.py.
+        if ev == 'time_pass':
+            return ('window.__SFX_APPROVED.time_pass' in alpha_src
+                    and 'musicPhase(d); timePass(d);' in alpha_src)
         return False
 
     # PICKUP IS WAIVED, BY HIS OWN RULING, AND THE WAIVER IS NAMED.
@@ -1071,18 +1112,48 @@ def main():
     # ---- 9b: THE NEW BATCH IS AUDIBLE AND IT IS NOT THE FALLBACK (8/2) --
     chk(d.get('newCookable'),
         'batch 02 does not cook five candidates for every new moment')
-    chk(d.get('newUnbanked'),
-        'a batch-02 moment is already in the bank -- MECHANISM-MINE/CONTENTS-'
-        'PAOLO\'S: the bank stays empty until he thumbs one')
+    # HE RULED ON ALL SIX, SO THE SPEC INVERTED (8/7, 130/130).
+    # This used to assert the bank stays EMPTY for batch 02, which was right
+    # while the moments were unjudged: MECHANISM-MINE / CONTENTS-PAOLO'S means
+    # I never bank a sound he has not thumbed. He has now thumbed every one.
+    # A GATE MUST NEVER OUTRANK A RULING -- so the check becomes his verdict
+    # itself, named candidate by named candidate, and it is STRICTER than the
+    # old one because it can catch the bank drifting in either direction.
+    HIS_8_7 = {'eat': [2], 'time_pass': [0, 1, 2, 3, 4],
+               'sleep': None, 'talk_start': None,
+               'go_inside': None, 'quest_done': None}
+    nb = d.get('newBank') or {}
+    for ev, want in sorted(HIS_8_7.items()):
+        got = nb.get(ev)
+        if want is None:
+            chk(not got,
+                'GRAVEYARD IS FINAL: he killed all five %s candidates on 8/7 and '
+                'the bank still holds %s' % (ev, got))
+        else:
+            chk(got == want,
+                'his 8/7 thumbs say %s = %s and the bank says %s' % (ev, want, got))
+
+    dirt = d.get('dirtTap') or 0
     for ev, pair in sorted((d.get('newTaps') or {}).items()):
         a, b2 = (pair + [0, 0])[:2]
-        chk((a or 0) > 0.02 and (b2 or 0) > 0.02,
-            'tapping the new moment %s made no sound (%.4f, %.4f)' % (ev, a or 0, b2 or 0))
-        chk(abs((a or 0) - (b2 or 0)) > 1e-6,
-            'two taps on %s produced the IDENTICAL peak %.4f, which is the '
-            'fingerprint of playSFX falling back to step_dirt. A new moment must '
-            'audition its own candidates or a fresh batch sounds like nothing new.'
-            % (ev, a or 0))
+        approved = HIS_8_7.get(ev) is not None
+        if approved:
+            chk((a or 0) > 0.02 and (b2 or 0) > 0.02,
+                'tapping %s made no sound (%.4f, %.4f)' % (ev, a or 0, b2 or 0))
+            # THE REAL QUESTION, and the old check could not ask it. eat has ONE
+            # approved sound, so two taps being identical is correct; what would
+            # be wrong is EAT sounding like a FOOTSTEP, which is what playSFX
+            # does for an unbanked event and is the complaint that started this
+            # ("Theres no new sounds").
+            chk(abs((a or 0) - dirt) > 1e-6,
+                'tapping %s produced the SAME peak as step_dirt (%.4f). That is '
+                'playSFX falling back to a footstep, so a moment he approved is '
+                'not actually playing its own sound.' % (ev, dirt))
+        else:
+            # he killed every candidate: the board must audition them, never play
+            chk((a or 0) <= 0.005 and (b2 or 0) <= 0.005,
+                'A DEAD MOMENT MADE A SOUND: %s (%.4f, %.4f). He thumbed all five '
+                'DOWN on 8/7 and GRAVEYARD IS FINAL.' % (ev, a or 0, b2 or 0))
 
     taps = d.get('boardTaps') or {}
     for ev, peak in sorted(taps.items()):

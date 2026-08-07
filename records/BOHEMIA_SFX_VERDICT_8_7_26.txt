@@ -1,0 +1,226 @@
+=== BOHEMIA SFX VERDICTS ===
+BATCH SFX-01 (7/29/26) - 26 game moments x 5 candidates
+JUDGED: 130/130
+UP = this IS the sound. DOWN = dead. blank = never judged.
+
+EXPORTED BY PAOLO 8/7/26. This is the export he pasted, verbatim.
+IT IS THE FIRST 130/130. The six moments cooked on 8/4 (eat, sleep, talk_start,
+go_inside, quest_done, time_pass) were the last unjudged families in the batch;
+this closes them, so every one of the 26 game moments now carries a ruling.
+
+WHAT CHANGED FROM THE 7/30 + 8/1 VERDICTS (the delta this file lands):
+  eat.2                 UP    -> EATING HAS A SOUND
+  time_pass.0 .. .4     UP    -> HOURS GOING BY HAS FIVE
+  sleep.0 .. .4         DOWN  -> dead, graveyarded
+  talk_start.0 .. .4    DOWN  -> dead, graveyarded
+  go_inside.0 .. .4     DOWN  -> dead, graveyarded
+  quest_done.0 .. .4    DOWN  -> dead, graveyarded
+Everything else matches what was already baked.
+
+HIS NOTE, AND IT IS A RULING (NOTES ARE RULINGS, 7/19):
+  "For hours go by have it the amount of time that goes by"
+  -> TIME_PASS must convey HOW MUCH time went by, not merely that time went by.
+
+[FOOTSTEP - DIRT]  step_dirt   (every step you take in the desert and the lots)
+  UP   step_dirt.0
+  UP   step_dirt.1
+  UP   step_dirt.2
+  UP   step_dirt.3
+  UP   step_dirt.4
+
+[FOOTSTEP - ASPHALT]  step_asphalt   (the street. the sound you hear most in the game)
+  UP   step_asphalt.0
+  UP   step_asphalt.1
+  UP   step_asphalt.2
+  UP   step_asphalt.3
+  UP   step_asphalt.4
+
+[FOOTSTEP - GRAVEL]  step_gravel   (shoulders, yards, the boneyard)
+  UP   step_gravel.0
+  UP   step_gravel.1
+  UP   step_gravel.2
+  UP   step_gravel.3
+  UP   step_gravel.4
+
+[DOOR OPENS]  door_open   (going INTO a building, every interior in the valley)
+  DOWN door_open.0
+  DOWN door_open.1
+  DOWN door_open.2
+  DOWN door_open.3
+  DOWN door_open.4
+
+[DOOR SHUTS]  door_shut   (the door closing behind you)
+  DOWN door_shut.0
+  DOWN door_shut.1
+  DOWN door_shut.2
+  DOWN door_shut.3
+  DOWN door_shut.4
+
+[PICK SOMETHING UP]  pickup   (loot, items, anything into the bag)
+  UP   pickup.0
+  UP   pickup.1
+  UP   pickup.2
+  UP   pickup.3
+  UP   pickup.4
+
+[YOU LAND A HIT]  hit   (combat contact. this one has to feel like it landed)
+  DOWN hit.0
+  DOWN hit.1
+  UP   hit.2
+  DOWN hit.3
+  UP   hit.4
+
+[BLOCKED]  block   (the hit that did not land)
+  DOWN block.0
+  DOWN block.1
+  UP   block.2
+  DOWN block.3
+  DOWN block.4
+
+[KILL - ON THE BEAT]  kill   (the kill drops exactly on the beat, with the music)
+  UP   kill.0
+  UP   kill.1
+  UP   kill.2
+  UP   kill.3
+  UP   kill.4
+
+[UI TAP]  ui_tap   (every button on the phone)
+  DOWN ui_tap.0
+  UP   ui_tap.1
+  UP   ui_tap.2
+  UP   ui_tap.3
+  DOWN ui_tap.4
+
+[PHONE BUZZES]  phone_buzz   (a new post, a message, the feed)
+  DOWN phone_buzz.0
+  DOWN phone_buzz.1
+  UP   phone_buzz.2
+  DOWN phone_buzz.3
+  UP   phone_buzz.4
+
+[SAVED]  save_chime   (the run recorded what you did)
+  UP   save_chime.0
+  UP   save_chime.1
+  UP   save_chime.2
+  UP   save_chime.3
+  UP   save_chime.4
+
+[YOUR GUN GOES OFF]  shot   (the sound the game makes most in a fight. everything else is judged against it)
+  DOWN shot.0
+  DOWN shot.1
+  DOWN shot.2
+  UP   shot.3
+  DOWN shot.4
+
+[THE SHOT MISSES]  miss   (it went past. you feel it leave without landing)
+  DOWN miss.0
+  DOWN miss.1
+  DOWN miss.2
+  DOWN miss.3
+  DOWN miss.4
+
+[VITAL HIT]  vital   (you hit something that matters. worse than a hit, not yet a kill)
+  DOWN vital.0
+  DOWN vital.1
+  DOWN vital.2
+  DOWN vital.3
+  DOWN vital.4
+
+[YOU TAKE THE HIT]  hurt   (return fire lands on YOU. the only sound in the game that is bad news)
+  DOWN hurt.0
+  DOWN hurt.1
+  UP   hurt.2
+  DOWN hurt.3
+  DOWN hurt.4
+
+[THE FIGHT IS OVER]  clear   (everyone is down and the room goes quiet)
+  DOWN clear.0
+  DOWN clear.1
+  DOWN clear.2
+  DOWN clear.3
+  DOWN clear.4
+
+[THE VALLEY AT MIDDAY]  air_day   (outside, in the heat. what you hear when nothing is happening)
+  UP   air_day.0
+  UP   air_day.1
+  UP   air_day.2
+  UP   air_day.3
+  UP   air_day.4
+
+[THE VALLEY AT NIGHT]  air_night   (outside, after dark. this one is the horror)
+  UP   air_night.0
+  UP   air_night.1
+  UP   air_night.2
+  UP   air_night.3
+  UP   air_night.4
+
+[INSIDE A BUILDING]  air_inside   (a room with nobody in it but you)
+  UP   air_inside.0
+  UP   air_inside.1
+  UP   air_inside.2
+  UP   air_inside.3
+  UP   air_inside.4
+
+[YOU EAT]  eat   (what the room was holding, and you took it. nobody else hears this)
+  DOWN eat.0
+  DOWN eat.1
+  UP   eat.2
+  DOWN eat.3
+  DOWN eat.4
+
+[YOU SLEEP]  sleep   (eight hours gone. the biggest block of time in the game)
+  DOWN sleep.0
+  DOWN sleep.1
+  DOWN sleep.2
+  DOWN sleep.3
+  DOWN sleep.4
+
+[SOMEBODY TURNS TO YOU]  talk_start   (the moment a conversation starts. small: a person is not an event)
+  DOWN talk_start.0
+  DOWN talk_start.1
+  DOWN talk_start.2
+  DOWN talk_start.3
+  DOWN talk_start.4
+
+[YOU STEP INSIDE]  go_inside   (crossing into a building. the ROOM is the sound, not the door)
+  DOWN go_inside.0
+  DOWN go_inside.1
+  DOWN go_inside.2
+  DOWN go_inside.3
+  DOWN go_inside.4
+
+[IT IS DONE]  quest_done   (the run completed. the one moment that earns the whole room)
+  DOWN quest_done.0
+  DOWN quest_done.1
+  DOWN quest_done.2
+  DOWN quest_done.3
+  DOWN quest_done.4
+
+[HOURS GO BY]  time_pass   (time spent standing still. the only sound here that moves in pitch)
+  UP   time_pass.0
+  UP   time_pass.1
+  UP   time_pass.2
+  UP   time_pass.3
+  UP   time_pass.4
+
+NOTE: For hours go by have it the amount of time that goes by
+
+--- THE VECTORS FOR THE TWO NEWLY APPROVED FAMILIES ---
+(the rest are unchanged from BOHEMIA_SFX_VERDICT_7_30_26.txt and
+ BOHEMIA_SFX_VERDICT_8_1_26.txt; a vector is reproducible from its id by
+ BOH_SFX.cook(event,5)[n], which gates/sfx_render_gate.py fingerprints, so the
+ id IS the sound)
+
+  eat.2
+       VECTOR mat=water hz=175.463501 modes=6 bright=0.7 decay=0.3125 damp=2.517432 warble=1.929527 atk=0 slide=0 trans=0.55 transHz=1614.767921 transQ=0.8 grit=0.639664 gritHz=751.884427 space=0.05 room=0.0625 refl=0 dark=800 width=0.317998 drive=0.2 gain=0.3 mkup=1.2 pan=0.26221 hits=0|0.1875
+
+  time_pass.0
+       VECTOR mat=glass hz=340 modes=7 bright=1.3 decay=1.25 damp=1.7 warble=1.6 atk=0.125 slide=-9 trans=0.2 transHz=4600 transQ=2.6 grit=0.08 gritHz=3400 space=0.42 room=0.75 refl=2 dark=2400 width=0.62 drive=0.05 gain=0.24 mkup=1.15 pan=0 hits=0
+  time_pass.1
+       VECTOR mat=glass hz=263.524293 modes=7 bright=1.3 decay=1.375 damp=1.7 warble=1.959513 atk=0.125 slide=-8.237548 trans=0.2 transHz=4600 transQ=2.6 grit=0.08 gritHz=3400 space=0.527278 room=0.8125 refl=2 dark=2952.756941 width=0.62 drive=0.05 gain=0.24 mkup=1.15 pan=0.177159 hits=0
+  time_pass.2
+       VECTOR mat=glass hz=384.503262 modes=7 bright=1.3 decay=1.125 damp=1.7 warble=1.36092 atk=0.1875 slide=-9.730748 trans=0.2 transHz=4600 transQ=2.6 grit=0.08 gritHz=3400 space=0.412248 room=0.9375 refl=2 dark=3258.724505 width=0.62 drive=0.05 gain=0.24 mkup=1.15 pan=-0.271465 hits=0
+  time_pass.3
+       VECTOR mat=glass hz=286.339426 modes=7 bright=1.3 decay=1.125 damp=1.7 warble=1.243017 atk=0.1875 slide=-9.229378 trans=0.2 transHz=4600 transQ=2.6 grit=0.08 gritHz=3400 space=0.314748 room=0.8125 refl=2 dark=2087.232734 width=0.62 drive=0.05 gain=0.24 mkup=1.15 pan=-0.074785 hits=0
+  time_pass.4
+       VECTOR mat=glass hz=352.726487 modes=7 bright=1.3 decay=1.125 damp=1.7 warble=1.657168 atk=0.0625 slide=-6.526839 trans=0.2 transHz=4600 transQ=2.6 grit=0.08 gritHz=3400 space=0.549398 room=0.8125 refl=2 dark=2387.522856 width=0.62 drive=0.05 gain=0.24 mkup=1.15 pan=0.288525 hits=0

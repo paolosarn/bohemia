@@ -291,6 +291,11 @@ GATES = [
      "thumbed UP on 7/30, nothing he killed, no door (he killed all ten), and "
      "WALKING IN THE REAL RUN actually requests one of his approved footsteps, "
      "chosen by the tile the game already knows", True),
+    ('TIME PASS',      ['python3', 'gates/time_pass_gate.py'],
+     "Paolo 8/7 on his own verdict export: \"For hours go by have it the amount of "
+     "time that goes by\". NOTES ARE RULINGS, so the count IS the spec: four hours "
+     "strike four times, nine strike nine, capped at twelve, a beat apart on the "
+     "audio clock, and walking around never triggers it", True),
     ('CITYMUS ROTATION',['python3', 'gates/citymus_rotation_gate.py'],
      "his DUSK/DAWN pool is TWO songs and pick() drew with no memory, so dawn was "
      "a coin flip on playing the same track twice in a row; and a phase change "
