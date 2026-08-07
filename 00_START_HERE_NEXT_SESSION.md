@@ -1,3 +1,39 @@
+CHARACTER (0lurbs): 8/7 (g) LATEST — *** THE CHECKOUT LIES. READ THIS BEFORE YOU
+EDIT ANYTHING. *** records/BOHEMIA_THE_CHECKOUT_LIES_8_7_26.md
+THE WORKING DIRECTORY SILENTLY REVERTED TO A SNAPSHOT ~530 COMMITS BEHIND MAIN,
+TWICE IN ONE SESSION, while GitHub kept every push. Git reports NOTHING: status
+clean, log plausible, every file present. It is simply a different repository than
+the one you shipped to twenty minutes ago.
+  MISS 1: I did an entire job against an alpha missing 4,323 lines of five other
+    lanes' work, with a FULL GREEN SUITE on it. Pushing would have reverted 547
+    commits. Caught only by `git diff --stat origin/main HEAD -- slices/...` out of
+    habit. A GREEN SUITE PROVES NOTHING ABOUT WHICH TREE YOU ARE STANDING IN.
+  MISS 2: after shipping it reverted again on its own and MANUFACTURED EVIDENCE
+    THAT A TRUE FINDING WAS FALSE — records/target/BOTTOMLEFT.png is tracked on
+    main (79 entries in that folder) but on the stale tree `git ls-files` AND
+    `git log --all` both said it had never existed anywhere in history (14
+    entries). One step from retracting something correct. It also voided nine
+    per-gate tests I had just run: the files those gates write do not exist on the
+    stale tree, so every one reported a meaningless "clean".
+  MISS 3: THE WORKAROUND MAKES IT WORSE. `git fetch` times out on this ~500 MB repo
+    and leaves the tracking ref untouched WITH NO ERROR (ls-remote said aa7bf3c
+    while rev-parse origin/main still said c5d4dc6 — the SAME bug as the six
+    phantom "rollbacks" earlier in this lane, which were never rollbacks). So you
+    reach for `git fetch --depth=1`, which grafts a SHALLOW boundary; merge-base
+    and rev-list then answer from a stump AND ANSWER CONFIDENTLY. Measured: HEAD
+    reported "2 behind and 703 AHEAD" of a commit it was sitting exactly on.
+    Repair: `git fetch --unshallow origin` (pulls ~3 GB here; check disk first).
+*** RUN `python3 tools/bohemia_fresh_base.py` BEFORE THE FIRST EDIT. *** It asks the
+REMOTE (git ls-remote — a network round trip, the only source a stale local ref
+cannot serve), repairs the tracking ref with an explicit forced fetch, REFUSES to
+give an ancestry verdict on a shallow clone and names --depth=N as the cause, and
+exits non-zero so it can gate a script. It never resets: you may be mid-rebase or
+holding unpushed work. Before the FIRST EDIT, not before the push — checking at
+push time means the work is already done twice. AND AGAIN AFTER ANY LONG STEP: the
+suite takes ~30 min here and both reverts landed either side of one.
+AND VERIFY SHIPS AGAINST GITHUB, NEVER THE LOCAL CLONE. When the tree reverted after
+my push, the clone said my commit was "not a valid object". GitHub said it was in
+main's history with a green Pages deploy. GitHub was right; the clone was fiction.
 PEOPLE (7h9sfy): 8/7 — *** I SWEPT THE PATTERN INSTEAD OF THE INSTANCES AND FOUND NINE
 MORE. *** gates/mapbound_gate.js now finds the next one automatically.
 
