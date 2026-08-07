@@ -1,207 +1,121 @@
-"""EVERY DISTRICT DRAWS THE SUBURB'S DIRT, AND HE OWNS THE REAL GROUND (8/6/26).
+"""SEAMLESS GRAVEL EXISTS, IS APPROVED, AND HAS NEVER DRAWN (8/6/26).
 
-THE FINDING, and it is the third instance of one bug this week:
+YESTERDAY I PUT A DECISION ON HIS PLATE THAT WAS NOT HIS TO MAKE. I wrote "he
+owns no seamless dirt -- buy or cook is his call" after opening ONE bank. That was
+the same assume-instead-of-check error I had spent the whole day writing up, made
+in the act of writing it up.
 
-  The world model KNOWS what every surface is. The dossier names are specific and
-  correct -- "field soil", "crop rows", "ballast / gravel", "gravel access road",
-  "station yard", "tank pad", "dead field turf", "concourse". Measured across the
-  built valley, ALL OF THEM COLLAPSE TO ONE BUCKET:
+WHAT IS ACTUALLY IN banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt -- his own
+seam pipeline, run library-wide, 1019 tiles. The ones with method='quilt' SHIP
+REAL PIXELS: 44x44, exactly the art cell, 0.0% transparent, wrap error 7-10.
+Crossed with his 7/13 verdicts:
 
-    FARM       field soil 2116, crop rows 691   ->  yard x3480
-    RAILYARD   ballast / gravel 1243            ->  yard x2013
-    SOLAR      gravel access road 1836          ->  yard x2292
-    DATAFORT   data hall 985                    ->  yard x1689
+    3. Stone paths ............ 10 quilt, 10 UP  <- SEAMLESS, APPROVED, NEVER DREW
+    1. Cracked contrete tiles . 34 quilt, 33 UP  (already drawing)
+    1. Cracked street tiles ... 20 quilt, 18 UP  (already drawing)
+    2. Soil and dirt tiles ....  0 quilt         <- no seamless version exists
+    1. Ground Tiles ...........  7 quilt,  0 UP  <- never judged
 
-  boughtForTile() only ever answers road / walk / yard, so forty named surfaces
-  are thrown away and every district gets the SUBURB'S dirt. That is why a farm
-  has no field and a railyard has no track: they are the suburb wearing props.
+SO GRAVEL SHIPS AND SOIL STILL CANNOT. That is the honest split. The railyard's
+ballast and the solar farm's gravel access road are 4,600 cells that have been
+wearing the suburb's concrete and can stop today. The farm's field soil cannot,
+because no seamless soil exists in the repo -- and the remaining ask is now SEVEN
+TILES TO JUDGE ("1. Ground Tiles", quilt, never swept), not "buy a terrain set".
 
-  Ground is most of every frame, so this is the biggest of the three:
-    8/3  buildings were flat starter tile until materials were mapped
-    8/5  the valley had zero objects until the exterior pool was built
-    8/6  the GROUND is one tile because nobody asked the world what it is
-
-HE ALREADY APPROVED THE REAL GROUND, on 7/13, and none of it has ever drawn:
-    soil and dirt tiles ....... 24 UP,  0 DOWN
-    dirt path tiles ........... 46 UP,  2 DOWN
-    stone paths ............... 24 UP,  0 DOWN
-    cracked contrete tiles .... 42 UP,  3 DOWN
-
-NO GRASS BUCKET, DELIBERATELY. "grass and ground tiles" is 47 UP and it is being
-left out on purpose: this is a dead valley by his own ruling (living trees 0 UP /
-23 DOWN), and I have already put one green thing in it today by reading a verdict
-without reading the world. Dead field turf takes SOIL, not grass. If he wants
-green he can say so.
+WHY THE FIRST ATTEMPT FAILED, and it is the same lesson one layer down: I sourced
+the RAW HD MASTERS. Those are decorative patches -- ~96px, 10% transparent, meant
+to sit ON ground -- so laid as terrain they tiled with a black gap between every
+cell. banks/BOHEMIA_DESERT_POOLS_7_18_26 is the same trap: its "ground" pool is
+9.5% transparent patches despite calling itself the Mojave floor. THE SEAM
+PIPELINE'S QUILT OUTPUT IS THE ONLY THING IN THIS REPO THAT IS ACTUALLY GROUND.
 
 TASTE CHECK (laws/BOHEMIA_PAOLO_TASTE_CANON.md)
-  NEVER ship art he rejected - held by construction and re-derived by the gate
-    from his sweep, never trusted from this file.
-  NEVER purple outside the Amalgamation - no colour is chosen here.
-  AND THE ONE THIS CLASS OF FILE KEEPS BREAKING: a verdict on a tile is not a
-    licence to put it anywhere. A green lawn tile is UP and still wrong in a dead
-    valley, which is why there is no grass bucket.
+  NEVER ship art he rejected - UP-only, re-derived by the gate from his sweep.
+  NEVER a bare undressed rectangle - this replaces the suburb's concrete on
+    surfaces the world already names as gravel; it adds identity, never removes it.
+  AND THE RULE ALL OF THIS WEEK'S FAILURES SHARE: a verdict is about the OBJECT,
+    never about where or what-for. Gravel goes on ballast and access roads because
+    the WORLD says those cells are gravel, not because a tile looked nice.
 
-REUSE CHECK: cooks NO new pixels. Crosses two files that already exist -- his
-purchased masters (banks/BOHEMIA_HD_TILE_REPO_part1..4) and his own verdicts on
-them (banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt).
+REUSE CHECK: cooks NO new pixels. Reads banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26
+(his seam pipeline's own output) and banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26 (his
+verdicts) and ships the intersection.
 
   python3 tools/bohemia_ground_pool_cook.py
     -> banks/BOHEMIA_GROUND_POOL_8_6_26.txt
 """
-import base64
-import io
-import json
-import os
-import re
-import sys
+import base64, io, json, os, re, sys
+from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MASTERS = [os.path.join(ROOT, 'banks', 'BOHEMIA_HD_TILE_REPO_part%d.txt' % i) for i in (1, 2, 3, 4)]
+SEAMLESS = os.path.join(ROOT, 'banks', 'BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt')
 VERDICTS = os.path.join(ROOT, 'banks', 'BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt')
-INTERIOR = os.path.join(ROOT, 'banks', 'BOHEMIA_INTERIOR_POOL_7_26_26.txt')
 OUT = os.path.join(ROOT, 'banks', 'BOHEMIA_GROUND_POOL_8_6_26.txt')
 
-# WHAT BELONGS OUTSIDE, and nothing else. Every bucket is a thing you can point at
-# on a real street in this valley. A pack that is not named here does not ship --
-# an unlisted pack is a silence, never a maybe.
-BUCKETS = {
-    'soil':     r'^(soil and dirt tiles)$',
-    'dirt':     r'^(dirt path tiles)$',
-    'gravel':   r'^(stone paths)$',
-    'concrete': r'^(cracked contrete tiles)$',
-}
-
-# NEVER OUTSIDE, whatever their verdict: these are indoor objects and the interior
-# pool already owns them. Duplicating them here would put a sofa on a sidewalk.
-INDOOR_ONLY = re.compile(r'furniture|interior room|floor tile|wall tile|roof tile|'
-                         r'cobblestone|marble|metal floor|wall and floor detail|'
-                         r'special tile|tower floor|floor, walls', re.I)
-# and the things he ruled OUT of the interior pool for story reasons stay out here
-STORY_ONLY = re.compile(r'zombie|blood|gore|skeleton|bone|corpse|bodies', re.I)
-
-# HIS SIZE RULINGS, as a draw scale. "BIG: render smaller / SMALL: render bigger".
-FLAG_SCALE = {'too_big': 0.62, 'too_small': 1.45, None: 1.0}
-PER_BUCKET_CAP = 12          # a phone carries this, and past ~18 nobody can tell them apart
+# ONLY surfaces where the world already says "this is gravel" and the renderer is
+# currently drawing the suburb's concrete instead. Nothing else. An unlisted pack
+# is a silence, never a maybe.
+BUCKETS = {'gravel': r'^3\. stone paths$'}
+GOOD_TIERS = ('S', 'A', 'B')     # seam-readiness, his pipeline's own grading
 
 
 def norm(p):
     return re.sub(r'^\d+\.\s*', '', str(p)).strip().lower()
 
 
-def bucket_of(pack):
-    n = norm(pack)
-    if STORY_ONLY.search(n) or INDOOR_ONLY.search(n):
-        return None
-    for b, rx in BUCKETS.items():
-        if re.match(rx, n):
-            return b
-    return None
-
-
 def main():
-    # ---- his verdicts, keyed the way the sweep recorded them
     vd = json.load(open(VERDICTS))
-    verdict = {}
+    V = {}
     for e in vd['verdicts']:
-        verdict[(norm(e['pack']), e['idx'])] = (e.get('v'), e.get('flag'), e.get('comment'))
-    print('  his Great Sweep: %d judged, %d UP, %d DOWN'
-          % (vd['counts']['total'], vd['counts']['up'], vd['counts']['down']))
+        V[(norm(e['pack']), e['idx'])] = e.get('v')
 
-    # ---- what the interior pool already took, so nothing is shipped twice
-    already = set()
-    try:
-        ip = json.load(open(INTERIOR))
-        for b in ip.get('buckets', {}).values():
-            for e in b:
-                if e.get('b64'):
-                    already.add(e['b64'][:96])
-    except Exception:
-        pass
-    print('  already spoken for indoors: %d tiles' % len(already))
-
-    # ---- the masters, crossed against both
+    g = json.load(open(SEAMLESS))
     out = {b: [] for b in BUCKETS}
-    seen_packs = {}
-    considered = up = down = unjudged = dup = 0
-    for path in MASTERS:
-        d = json.load(open(path))
-        for pack, items in d.get('packs', {}).items():
-            if not isinstance(items, list):
-                continue
-            b = bucket_of(pack)
-            if not b:
-                continue
-            for i, t in enumerate(items):
-                b64 = t.get('b64') if isinstance(t, dict) else None
-                if not b64:
-                    continue
-                considered += 1
-                v, flag, comment = verdict.get((norm(pack), i), (None, None, None))
-                if v is None:
-                    unjudged += 1
-                    continue          # UNJUDGED IS NOT UP. It stays out.
-                if v != 'UP':
-                    down += 1
-                    continue
-                if b64[:96] in already:
-                    dup += 1
-                    continue
-                up += 1
-                seen_packs[norm(pack)] = seen_packs.get(norm(pack), 0) + 1
-                out[b].append({
-                    'pack': norm(pack), 'idx': i,
-                    's': FLAG_SCALE.get(flag, 1.0),
-                    'flag': flag, 'comment': comment, 'b64': b64
-                })
-
-    print('  considered %d outdoor-pack tiles: %d UP, %d DOWN, %d never judged, %d already indoors'
-          % (considered, up, down, unjudged, dup))
-
-    # ---- cap per bucket, spreading across packs so one pack cannot own a bucket
-    capped = {}
-    for b, lst in out.items():
-        by_pack = {}
-        for e in lst:
-            by_pack.setdefault(e['pack'], []).append(e)
-        order, i = [], 0
-        while len(order) < min(PER_BUCKET_CAP, len(lst)):
-            added = False
-            for p in sorted(by_pack):
-                if i < len(by_pack[p]) and len(order) < PER_BUCKET_CAP:
-                    order.append(by_pack[p][i]); added = True
-            if not added:
-                break
-            i += 1
-        capped[b] = order
+    seen = dropped = 0
+    for t in g['tiles']:
+        pack = t.get('pack', '')
+        b = next((k for k, rx in BUCKETS.items() if re.match(rx, norm(pack) and pack.strip().lower())), None)
+        if not b:
+            continue
+        seen += 1
+        if t.get('method') != 'quilt' or not t.get('b64'):
+            dropped += 1; continue          # a crop is a WINDOW, not pixels
+        if t.get('tier') not in GOOD_TIERS:
+            dropped += 1; continue
+        if V.get((norm(pack), t.get('idx'))) != 'UP':
+            dropped += 1; continue          # UNJUDGED IS NOT UP
+        # AND IT MUST ACTUALLY BE GROUND: square, cell-sized, fully opaque.
+        try:
+            im = Image.open(io.BytesIO(base64.b64decode(t['b64']))).convert('RGBA')
+        except Exception:
+            dropped += 1; continue
+        w, h = im.size
+        alpha = im.getchannel('A')
+        if w != h or w != 44 or alpha.getextrema()[0] < 250:
+            dropped += 1; continue          # a patch, not a floor
+        out[b].append({'pack': pack, 'idx': t['idx'], 'tier': t.get('tier'), 'b64': t['b64']})
 
     doc = {
-        'version': 'BOHEMIA_GROUND_POOL_v1',
-        'law': ('UP-ONLY. Every tile here carries a Paolo UP verdict from the Great Sweep '
-                '(banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt, "THE act-1 art authority"). '
-                'A DOWN tile cannot be in this file and neither can an UNJUDGED one. '
-                'Size flags are his rulings too and travel as a draw scale. '
-                'Indoor packs are excluded on purpose -- the interior pool owns those, and a '
-                'sofa does not belong on a sidewalk. Zombie/blood/bone packs are excluded '
-                'for the same reason the interior pool excluded them: bodies are a story '
-                'Paolo places, not decoration.'),
-        'source': {'verdicts': 'banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt',
-                   'masters': [os.path.relpath(m, ROOT) for m in MASTERS],
-                   'deduped_against': 'banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt'},
-        'counts': {b: len(v) for b, v in capped.items()},
-        'eligible': {b: len(out[b]) for b in out},
-        'buckets': capped,
+        'version': 'BOHEMIA_GROUND_POOL_v2',
+        'law': ('UP-ONLY and SEAMLESS-ONLY. Every tile carries a Paolo UP verdict from the '
+                '7/13 Great Sweep AND comes from his own seam pipeline\'s quilt output, which '
+                'is the only thing in this repo that is actually GROUND: 44x44, square, fully '
+                'opaque. The raw HD masters and the desert pools are DECORATIVE PATCHES '
+                '(~96px, ~10% transparent) and laying them as terrain tiles them with a black '
+                'gap between every cell -- that is exactly how the 8/6 first attempt failed.'),
+        'source': {'seamless': 'banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt',
+                   'verdicts': 'banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt'},
+        'not_available': {'soil': 'no quilt tiles exist for "2. Soil and dirt tiles"; '
+                                  '"1. Ground Tiles" has 7 quilt tiles but was NEVER JUDGED'},
+        'counts': {b: len(v) for b, v in out.items()},
+        'buckets': out,
     }
-    with open(OUT, 'w') as f:
-        json.dump(doc, f)
-    print('  %s' % os.path.relpath(OUT, ROOT))
-    for b in sorted(capped):
-        print('    %-8s %3d shipped of %4d eligible UP' % (b, len(capped[b]), len(out[b])))
-    tot = sum(len(v) for v in capped.values())
-    print('  TOTAL %d tiles, %.1f KB' % (tot, os.path.getsize(OUT) / 1024.0))
-    if not tot:
-        print('  NOTHING SHIPPED -- that is a bug, not a result')
-        return 1
-    return 0
+    json.dump(doc, open(OUT, 'w'))
+    print('  considered %d, dropped %d' % (seen, dropped))
+    for b, v in out.items():
+        print('    %-8s %3d seamless UP tiles' % (b, len(v)))
+    print('  %s  %.1f KB' % (os.path.relpath(OUT, ROOT), os.path.getsize(OUT) / 1024.0))
+    return 0 if sum(len(v) for v in out.values()) else 1
 
 
 if __name__ == '__main__':

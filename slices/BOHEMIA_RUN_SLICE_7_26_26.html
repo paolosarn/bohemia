@@ -1641,30 +1641,18 @@ function groundKind(gx,gy){
   if(!GROUND_ON) return null;
   var n=(NAMEG[gy]&&NAMEG[gy][gx]||'').toLowerCase();
   if(!n||n.indexOf('reserved')>=0) return null;
-  if(n.indexOf('field soil')>=0||n.indexOf('crop row')>=0
-     ||n.indexOf('dead field turf')>=0||n.indexOf('soil')>=0) return 'soil';
+  /* GRAVEL ONLY, and that is the honest limit rather than a stopping point.
+     The world names these cells gravel and the renderer has been drawing the
+     suburb's concrete on them: railyard BALLAST 1,243 and solar GRAVEL ACCESS
+     ROAD 1,836 in the sampled cells alone.
+     SOIL IS ABSENT ON PURPOSE: no seamless soil exists in this repo. The raw
+     masters and the desert pools are ~96px patches with ~10% transparency and
+     laying them as terrain tiles them with a black gap between every cell, which
+     is exactly how the first attempt failed. The remaining ask is seven unjudged
+     quilt tiles ("1. Ground Tiles"), not a terrain purchase. */
   if(n.indexOf('ballast')>=0||n.indexOf('gravel')>=0) return 'gravel';
-  if(n.indexOf('dirt path')>=0||n.indexOf('desert dead-ground')>=0) return 'dirt';
-  if(n.indexOf('station yard')>=0||n.indexOf('tank pad')>=0
-     ||n.indexOf('concourse')>=0||n.indexOf('apron')>=0) return 'concrete';
   return null;
 }
-/* *** OFF, AND THAT IS THE RESULT, NOT A TODO. (8/6) ***
-   The FINDING above is real and stands: the world names forty surfaces and the
-   art layer collapses them to three, so a farm has no field. THE FIX I BUILT WAS
-   WRONG AND THE RENDER CAUGHT IT.
-   His "soil and dirt tiles" are 24 UP / 0 DOWN and they are DECORATIVE PATCHES:
-   96px art with transparent margins, meant to sit ON ground. Laid AS ground they
-   tile with black gaps between every cell and read acid orange. I read a verdict
-   on a tile as a licence for a PURPOSE he never judged -- the third time today
-   (the potion jar, the market barrel, now this). A VERDICT IS ABOUT THE OBJECT,
-   NEVER ABOUT WHERE OR WHAT-FOR.
-   The right fix needs SEAMLESS terrain per surface. He owns exactly one seamless
-   set (BOHEMIA_GROUND_SEAMLESS_SET, 44px, concrete and asphalt) and NOTHING
-   seamless for soil, ballast or gravel. That is a real gap and it is a buy-or-cook
-   decision, which is his. Left wired and OFF so the next session can see the whole
-   attempt instead of rediscovering the finding from scratch. */
-var GROUND_ON = false;
 function drawGround(gx,gy,X,Y,S){
   var k=groundKind(gx,gy); if(!k) return false;
   var a=GP[k]; if(!a||!a.length) return false;
@@ -2614,6 +2602,10 @@ function draw(){
            On the suburb the pool is chosen by GRID CODE; everywhere else in the valley
            by the TILE NAME genericTile() already resolved. Same law, same bytes, and
            52 more district types (measured 8/3: every one of them was at zero). */
+        /* HIS SEAMLESS GRAVEL, where the world says gravel and the old
+           three-bucket map could only say "yard". Falls through untouched for
+           every other surface, so this can only add ground that was missing. */
+        if(!isSuburbCell() && drawGround(gx,gy2,X,Y,S)) continue;
         var _bk = isSuburbCell() ? boughtFor(c) : boughtForTile(laid);
         if(_bk && drawBought(_bk,gx,gy2,X,Y,S)) continue;
         if(isSuburbCell() && drawSkin(laid,gx,gy2,X,Y,S)) continue;

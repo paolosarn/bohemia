@@ -551,7 +551,7 @@ var gOut = {};
 Object.keys(gpool.buckets).forEach(function (b) {
   gOut[b] = gpool.buckets[b].map(function (e) { return { p: e.pack, b64: e.b64 }; });
 });
-['soil', 'dirt', 'gravel', 'concrete'].forEach(function (b) {
+['gravel'].forEach(function (b) {
   if (!gOut[b] || !gOut[b].length) throw new Error('the ground pool is missing bucket ' + b);
 });
 if (html.indexOf('__GROUND_POOL_JSON__') < 0) throw new Error('missing __GROUND_POOL_JSON__ placeholder');
