@@ -1724,6 +1724,30 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    states plainly which half it can measure - Chromium does not implement
    -webkit-touch-callout, so user-select is measured on the real controls and the
    callout declaration is asserted in source.
+0BC. [DONE 8/7 — ANSWERED MY OWN QUESTION; THE ASK IS WITHDRAWN] THE BLURRY BAND
+   WAS THE GROUND, NOT A DEFECT. He said "lazy today" a third time and answered
+   nothing. That IS an answer: stop asking. So I settled it.
+   (1) DISPROVED MY OWN EXCUSE: last turn I waved it off as "the D-pad sits there".
+   Hiding every overlay and re-rendering changed the numbers by EXACTLY NOTHING --
+   the sampler reads getImageData off the CANVAS and the D-pad is DOM ON TOP of it.
+   Never in the measurement. One command would have shown that the day I said it.
+   (2) THE CANVAS ALONE via toDataURL: crisp asphalt above, big soft dirt below, an
+   apparently razor-straight seam. Reads exactly like a render defect.
+   (3) THE DECIDING TEST -- a render boundary is fixed to the SCREEN, content moves
+   with the WORLD. Sharpest detail-drop row: cell 37,22 -> y=205, 48,48 -> y=25,
+   20,70 -> y=29; HC=22 -> y=293, HC=44 -> y=205, HC=88 -> y=31. MOVES WITH BOTH.
+   NOT A DEFECT -- it is the paved edge meeting open dirt.
+   WHY I NEARLY GOT IT BACKWARDS: the earlier test used TEN BANDS OF 76 PX. The dirt
+   region is bigger than one band, so the dullest BANDS stayed at the bottom while the
+   real SEAM moved hundreds of pixels. A RESOLUTION TOO COARSE TO SEE THE THING YOU
+   ARE TESTING FOR WILL ANSWER ANYWAY, AND WRONG.
+   Eighth instrument catch of the stretch, and the second in two turns pointing the
+   OPPOSITE way: wrong in both directions about the same band.
+   LEFT AS AN ART OBSERVATION, NOT A BUG: the dirt tiles do read softer than the road
+   tiles at walk zoom. Real, visible in the canvas export, ART lane's, not worth a
+   question. Record: records/BOHEMIA_THE_BLURRY_BAND_WAS_THE_GROUND_8_7_26.md
+   | seam moves with position AND zoom, 6 measurements | none — ask withdrawn | no.
+
 0BB. [DONE 8/7 — I STOPPED SHIPPING INFRASTRUCTURE AND WENT AND PLAYED IT]
    Four turns running ended with "NOT IN A TAB YET". So: opened the game, visited all
    ELEVEN tabs at 390x844, photographed every one, sent the pictures to him.

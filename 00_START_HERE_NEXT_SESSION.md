@@ -1,3 +1,56 @@
+CITY (1eztay): 8/7 (b) LATEST — THE BLURRY BAND WAS THE GROUND. I ANSWERED MY OWN
+QUESTION, AND THE ASK IS WITHDRAWN.
+
+Last turn I photographed the game, saw a soft band across the lower screen, could
+not tell if it was a defect, and ASKED HIM TO JUDGE IT. He said "honestly im lazy
+today" for the third turn running and answered nothing. THAT IS AN ANSWER. A man who
+will not answer three questions in a row is telling you to stop asking. So I settled
+it myself, and every lane should take the method:
+
+1. I DISPROVED MY OWN EXCUSE FIRST. Last turn I waved the band off with "the D-pad
+   sits exactly there and flat dark UI produces that number". Hiding every overlay
+   and re-rendering changed the numbers by EXACTLY NOTHING, identical to the decimal
+   -- because the sampler reads getImageData off the CANVAS and the D-pad is a DOM
+   element ON TOP of it. It was never in the measurement. My comfortable explanation
+   could not have been true and one command would have shown it.
+2. THE CANVAS ALONE, via toDataURL, no UI: crisp asphalt up top, big soft dirt
+   below, an apparently razor-straight seam. Reads exactly like a render defect.
+3. THE TEST THAT DECIDES IT: a render boundary is FIXED TO THE SCREEN; content MOVES
+   WITH THE WORLD. Sharpest detail-drop row, three positions and three zooms:
+       cell 37,22 -> y=205    cell 48,48 -> y=25    cell 20,70 -> y=29
+       HC=22 -> y=293         HC=44 -> y=205        HC=88 -> y=31
+   IT MOVES WITH BOTH. NOT A DEFECT. It is the paved edge meeting open dirt.
+
+WHY I NEARLY GOT IT BACKWARDS: my earlier test measured TEN BANDS OF 76 PX and asked
+which bands were dullest. The dirt region is bigger than one band, so the dullest
+BANDS stayed at the bottom in every district while the actual SEAM moved hundreds of
+pixels. A RESOLUTION TOO COARSE TO SEE THE THING YOU ARE TESTING FOR WILL ANSWER
+YOUR QUESTION ANYWAY, AND IT WILL ANSWER IT WRONG.
+
+EIGHTH INSTRUMENT CATCH of this stretch, and the second in two turns running the
+OPPOSITE direction: I have now been wrong both ways about the same band -- first
+excusing a real drop with a false cause, then nearly publishing a defect that does
+not exist.
+
+WHAT IS ACTUALLY THERE: no render defect, the world draws at one scale everywhere at
+every zoom. The dirt tiles DO read softer than the road tiles at walk zoom -- real,
+visible in the canvas export, and an ART observation rather than a bug. Filed, not
+fixed, and not worth a question.
+
+THE ASK IS WITHDRAWN. Last turn's "one word: wrong or fine?" was me outsourcing a
+MEASUREMENT as a taste call. TASTE IS HIS. MEASUREMENT IS MINE. I had them the wrong
+way round.
+Record: records/BOHEMIA_THE_BLURRY_BAND_WAS_THE_GROUND_8_7_26.md
+
+STILL TRUE FROM 8/7 (a): all ELEVEN tabs open, render and draw, zero page errors.
+The deploy outage is over (custom `pages` workflow succeeded, first in 30 runs, the
+built-in deployer stopped fighting it). The link is live.
+
+NOT MINE TO DECIDE
+- THE POPULATION NUMBER is PARKED. DO NOT RAISE IT. Backlog 0AO.
+- THE RUN SLICE: SHOW / MERGE / RETIRE. Still open.
+- 0AY options 1/2/3. Runway 5-10 months, not 4. Not urgent.
+
 PEOPLE (7h9sfy): 8/6 LATEST — *** THE VALLEY HOLDS 4x THE PEOPLE WE THOUGHT. A NUMBER
 THE WHOLE GAME RESTS ON WAS WRONG BY 4.25x, INSIDE THE TOOL BUILT TO STOP THAT. ***
 Record: records/BOHEMIA_THE_VALLEY_HOLDS_FOUR_TIMES_THE_PEOPLE_WE_THOUGHT_8_6_26.md
@@ -175,7 +228,6 @@ Cleared once the Pages source was switched to GitHub Actions.
 
 NOTE FOR WHOEVER OWNS THE BUILD STAMP: commit 1593f8e set it to "BUILD 8/4m", a date
 older than work already on main. Not adjudicating it; I set 8/7a for today.
-
 
 CITY (1eztay): 8/7 LATEST — I WENT AND PLAYED IT, AND TOOK PICTURES. IT WORKS.
 
