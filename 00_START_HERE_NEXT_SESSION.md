@@ -1,3 +1,74 @@
+FACTIONS (factions-ovkjpf): 8/7 (a) LATEST — *** THE THIRD QUEST EFFECT, AUTHORED
+SINCE 7/25, PARSED CORRECTLY, AND READ BY NOTHING. ***
+Tab: LIFE -> WHO YOU STIRRED UP. Nothing to judge, nothing to tap.
+
+engine/bohemia_quest_runtime.js line 117 has parsed `@DO faction_posture CARTEL +1`
+into rt.state.posture since 7/25. The world bridge in bohemia_loop.js carried the
+OTHER TWO quest effects all the way to the real FactionWorld -- standing and
+@DO advance_territory -- and walked straight past that one. SEVENTEEN authored
+rulings, parsed correctly, written to a real field, read by nothing. Same disease as
+yesterday's clout tags, one layer up: this is how factions move on EACH OTHER.
+
+POSTURE IS NOT STANDING, AND HIS FILES PROVE IT RATHER THAN ME ASSERTING IT. Authored
+stages write BOTH on the SAME faction in one breath:
+    @DO faction CARAVANS -15          <- what they think of YOU
+    @DO faction_posture CARAVANS +1   <- something else entirely
+(S17.33, and S13.33 does it on REDS.) If posture meant "toward the player" those are
+duplicate lines. Read against the quest carrying it -- "a public humiliation of one is
+a real faction event" -- it is HOW MOBILISED a faction becomes. Every authored value is
++1 or +2: nobody has ever written a faction CALMER, so the mechanism cannot invent one.
+
+IT MOVES A KNOB THAT ALREADY EXISTS. Faction.quota is already, in the engine's own
+words, "districts it WANTS to hold", and already the appetite term scoreClaim() reads.
+Nine lines inside an existing bridge function. No new field, no new module, no second
+appetite system, and the territory AI is untouched.
+
+PACING LAW HELD (Paolo 7/24: factions are not at war 24/7). Appetite is not a turn. A
+posture line moves NOT ONE DISTRICT on its own -- only @DO advance_territory still
+shakes the map, and the gate proves it by asserting the owner map is byte-identical
+after a posture quest resolves.
+
+WHAT IT DOES TO THE VALLEY. Same seed, same map, same AI, same 12 rounds, the only
+difference being whether his rulings applied:
+    18 of 32 districts came out under a different flag
+    Network 1 -> 6 (+5)   his corpus stirs it up most: +1 +1 +1 +2
+    Reds    1 -> 5 (+4)   Blues/Cartel/Remnants 1 -> 3
+    every faction with NO posture ruling stayed at 1
+The map redraws itself entirely out of content he already wrote, and the biggest winner
+being the Network is lore-consistent with his 8/2 ruling that it is the Amalgamation's
+pawn.
+
+*** THE ONE THING PENDING HIM, AND I NAMED IT RATHER THAN DODGING IT ***
+laws/BOHEMIA_ADDENDUM_BUILD_THE_WORLD_7_31_26.md says "FACTIONS ARE OFF. No standing
+ledger, no territory model, no faction beats." THERE IS NO WRITTEN LIFT IN /laws. I
+built on his NEWER verbal direction -- he opened this session with the single word
+"factions", said "lets do some faction shit", and said "execute" three turns running --
+over a written law he has not formally retracted. TRUTH HIERARCHY: newest ruling wins.
+Paolo 8/1: a gate must never outrank a ruling. What made it sit right rather than being
+the legal-way-to-ship-a-frozen-thing STOP PRODUCING names as itself the violation:
+  - NO new faction machinery. No file matching bohemia_faction*.js; the footprint
+    build_the_world_gate.py froze is untouched and still shrinking-only.
+  - NOTHING was authored. Every number is a line he already wrote.
+  - IT IS VISIBLE. The 7/31 law's actual complaint was invisible plumbing -- "a turn in
+    this lane that has nothing to look at is a turn that missed." This ships a page.
+IF HE SAYS THE FREEZE STANDS, it is nine lines to revert. If he lifts it, write the
+addendum and tell build_the_world_gate.py.
+
+GATE: faction_posture_gate.js, 8 claims, 7 planted mistakes caught. Worth knowing: its
+FIRST version drove the bridge through an export that does not exist, nothing ran, and
+the claim FAILED rather than passing vacuously -- because it measures the WORLD ("the
+quota moved") and not the CODE ("the function was called"). Rewritten to drive the real
+route bohemia_loop_faction_bridge_tests.js already proves (boot, start a quest, walk a
+real dialogue choice). Those 56 tests still pass.
+
+ALSO FIXED YESTERDAY, ALREADY ON MAIN: the deploy. The link had not published since 8/5
+-- 30 runs, 18 cancelled, 8 failed, zero success -- because two deployers were fighting.
+Cleared once the Pages source was switched to GitHub Actions.
+
+NOTE FOR WHOEVER OWNS THE BUILD STAMP: commit 1593f8e set it to "BUILD 8/4m", a date
+older than work already on main. Not adjudicating it; I set 8/7a for today.
+
+
 CITY (1eztay): 8/7 LATEST — I WENT AND PLAYED IT, AND TOOK PICTURES. IT WORKS.
 
 Four turns running I handed him infrastructure and ended with "NOT IN A TAB YET".

@@ -1,0 +1,152 @@
+<meta charset="utf-8">
+<title>BOHEMIA - WHO YOU STIRRED UP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<body id="bd" style="margin:0;background:#0d0f0a;font-family:-apple-system,sans-serif;color:#ddd">
+<div id="bar" style="position:sticky;top:0;z-index:9;background:#0d0f0a;padding:10px 12px;display:flex;gap:8px;align-items:center;border-bottom:1px solid #2a2a1f">
+  <div style="flex:1;min-width:130px">
+    <div id="hdr" style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">WHO YOU STIRRED UP</div>
+    <div id="sub" style="font:600 11px ui-monospace,monospace;color:#8f8770;margin-top:2px">nothing to judge &middot; just look at it</div>
+  </div>
+  <button id="sun" style="padding:9px 13px;border-radius:8px;border:1px solid #887;background:#222;color:#ddd">&#9728; SUN MODE</button>
+</div>
+
+<div class="wrap">
+  <div class="lede" id="lede">
+    Your quests have a third effect nobody was reading. <b>@DO faction_posture</b> &mdash; you
+    wrote <b>17</b> of them &mdash; got parsed correctly into the quest's own state and then
+    thrown away. It never reached the world. It does now, and the valley comes out different.
+  </div>
+
+  <div class="h" id="h1">THE SAME VALLEY, RUN TWICE</div>
+  <div class="cap" id="cap1">Same seed, same map, same faction AI, same 12 rounds. The only difference
+    is whether your posture rulings were applied. <b>18 districts</b> end up with a different owner.</div>
+
+  <div class="card">
+    <div class="tag" id="tA">&#9679; NOBODY STIRRED UP</div>
+    <canvas id="cA" width="700" height="300"></canvas>
+  </div>
+  <div class="card">
+    <div class="tag hot" id="tB">&#9679; YOUR RULINGS APPLIED</div>
+    <canvas id="cB" width="700" height="300"></canvas>
+    <div class="read" id="rB"></div>
+  </div>
+
+  <div class="h" id="h2">WHO GAINED, WHO LOST</div>
+  <div class="cap" id="cap2">Districts held after 12 rounds, both ways.</div>
+  <div id="held"></div>
+
+  <div class="h" id="h3">YOUR 17 RULINGS</div>
+  <div class="cap" id="cap3">Every one of these is a line in a quest file you wrote. Nothing here was invented.</div>
+  <div id="rules"></div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<style>
+.wrap{max-width:720px;margin:0 auto;padding:0 12px}
+.lede{font:13px/1.65 -apple-system,sans-serif;color:#9a9480;padding:14px 2px 2px}
+.h{font:700 13px -apple-system,sans-serif;color:#cdbd8a;letter-spacing:.06em;margin:26px 0 4px}
+.cap{font:12px/1.6 -apple-system,sans-serif;color:#8f8770;margin-bottom:10px}
+.card{background:#141609;border:1px solid #2a2a1f;border-radius:12px;padding:10px;margin-bottom:12px}
+.tag{font:700 11px ui-monospace,monospace;letter-spacing:.1em;color:#7ac87a;margin-bottom:6px}
+.tag.hot{color:#e0a060}
+canvas{display:block;width:100%;background:#0a0c07;border-radius:8px}
+.read{font:12px/1.7 ui-monospace,monospace;color:#9a9480;margin-top:8px}
+.row{display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:1px solid #23241a;font:12px ui-monospace,monospace}
+.row:last-child{border-bottom:0}
+.foot{font:11px/1.7 -apple-system,sans-serif;color:#6f6a58;margin:26px 0 40px;border-top:1px solid #23241a;padding-top:12px}
+</style>
+
+<script>
+var DATA = {"calm": {"owner": {"21,3": "Anarchists", "83,11": "Blues", "0,19": "Caravans", "38,26": "Cartel", "88,31": "Church", "19,38": "Colorful", "64,43": "Custom", "19,49": "Homeless", "68,55": "Mob", "11,61": "Network", "39,66": "Reds", "75,71": "Remnants", "93,77": "Trades", "61,83": "Volunteers"}, "held": {"Reds": 1, "Blues": 1, "Anarchists": 1, "Colorful": 1, "Church": 1, "Network": 1, "Trades": 1, "Caravans": 1, "Volunteers": 1, "Remnants": 1, "Cartel": 1, "Mob": 1, "Homeless": 1, "Custom": 1}, "quota": {"Reds": 1, "Blues": 1, "Anarchists": 1, "Colorful": 1, "Church": 1, "Network": 1, "Trades": 1, "Caravans": 1, "Volunteers": 1, "Remnants": 1, "Cartel": 1, "Mob": 1, "Homeless": 1, "Custom": 1}}, "stirred": {"owner": {"21,3": "Anarchists", "83,11": "Blues", "0,19": "Caravans", "38,26": "Cartel", "88,31": "Church", "19,38": "Colorful", "64,43": "Custom", "19,49": "Homeless", "68,55": "Mob", "11,61": "Network", "39,66": "Reds", "75,71": "Remnants", "93,77": "Trades", "61,83": "Volunteers", "83,10": "Blues", "0,18": "Caravans", "39,26": "Cartel", "69,55": "Mob", "12,61": "Network", "38,66": "Reds", "76,71": "Remnants", "92,77": "Trades", "83,12": "Blues", "37,26": "Cartel", "10,61": "Network", "39,67": "Reds", "76,70": "Remnants", "10,60": "Network", "39,65": "Reds", "11,60": "Network", "38,67": "Reds", "10,62": "Network"}, "held": {"Reds": 5, "Blues": 3, "Anarchists": 1, "Colorful": 1, "Church": 1, "Network": 6, "Trades": 2, "Caravans": 2, "Volunteers": 1, "Remnants": 3, "Cartel": 3, "Mob": 2, "Homeless": 1, "Custom": 1}, "quota": {"Reds": 5, "Blues": 3, "Anarchists": 1, "Colorful": 1, "Church": 1, "Network": 6, "Trades": 2, "Caravans": 2, "Volunteers": 1, "Remnants": 3, "Cartel": 3, "Mob": 2, "Homeless": 1, "Custom": 1}}, "changed": 18, "cells": 32, "factions": ["Anarchists", "Blues", "Caravans", "Cartel", "Church", "Colorful", "Custom", "Homeless", "Mob", "Network", "Reds", "Remnants", "Trades", "Volunteers"]};
+var RULES = [{"quest": "S01_THE_METER_READER", "stage": "32", "faction": "NETWORK", "delta": 1}, {"quest": "S02_THE_SAME_CRATE_TWICE", "stage": "30", "faction": "BLUES", "delta": 1}, {"quest": "S02_THE_SAME_CRATE_TWICE", "stage": "31", "faction": "REDS", "delta": 1}, {"quest": "S02_THE_SAME_CRATE_TWICE", "stage": "32", "faction": "REDS", "delta": 1}, {"quest": "S02_THE_SAME_CRATE_TWICE", "stage": "32", "faction": "BLUES", "delta": 1}, {"quest": "S08_THE_TOLL_ROAD", "stage": "32", "faction": "CARTEL", "delta": 1}, {"quest": "S08_THE_TOLL_ROAD", "stage": "33", "faction": "CARTEL", "delta": 1}, {"quest": "S10_THE_COUNT_THAT_DOES_NOT_ADD", "stage": "32", "faction": "NETWORK", "delta": 1}, {"quest": "S13_THE_PAPER_THAT_SAYS_SO", "stage": "33", "faction": "REDS", "delta": 1}, {"quest": "S14_WHAT_THE_DOG_KNOWS", "stage": "32", "faction": "REMNANTS", "delta": 1}, {"quest": "S15_THE_LIGHTS_GO_OUT_AT_NINE", "stage": "32", "faction": "MOB", "delta": 1}, {"quest": "S16_THE_VOICE_AT_THREE", "stage": "32", "faction": "NETWORK", "delta": 1}, {"quest": "S16_THE_VOICE_AT_THREE", "stage": "33", "faction": "NETWORK", "delta": 2}, {"quest": "S17_THE_SEED_THAT_DOES_NOT_COME_BACK", "stage": "33", "faction": "CARAVANS", "delta": 1}, {"quest": "S18_THE_PATCH_UNDER_THE_COLLAR", "stage": "33", "faction": "TRADES", "delta": 1}, {"quest": "S20_THE_NAME_ON_THE_COUNTERFEIT", "stage": "33", "faction": "REDS", "delta": 1}, {"quest": "S21_THE_ONE_WHO_CAME_BACK", "stage": "33", "faction": "REMNANTS", "delta": 1}];
+(function(){
+var SUN=false;
+function P(){ return SUN
+  ? {bg:'#efe9d8',grid:'#dcd6c2',ink:'#3a3320',dim:'#6a6350',hot:'#b05a12',lit:'#2f7a2f'}
+  : {bg:'#0a0c07',grid:'#1c1f14',ink:'#cdbd8a',dim:'#8f8770',hot:'#e0a060',lit:'#7ac87a'}; }
+
+/* one stable colour per faction, spread around the wheel by INDEX so it is
+   deterministic and never two neighbours the same. This is a data view, not the
+   game's palette -- his ruled faction colours are canon and live in the alpha. */
+var FAC=DATA.factions, COL={};
+FAC.forEach(function(f,i){ COL[f]='hsl('+Math.round(i*360/FAC.length)+',52%,55%)'; });
+
+function bounds(){
+  var xs=[],ys=[];
+  Object.keys(DATA.calm.owner).concat(Object.keys(DATA.stirred.owner)).forEach(function(k){
+    var p=k.split(','); xs.push(+p[0]); ys.push(+p[1]);
+  });
+  return {x0:Math.min.apply(null,xs), x1:Math.max.apply(null,xs),
+          y0:Math.min.apply(null,ys), y1:Math.max.apply(null,ys)};
+}
+var B=bounds();
+
+function draw(cv, owner, other){
+  var g=cv.getContext('2d'), p=P();
+  g.fillStyle=p.bg; g.fillRect(0,0,cv.width,cv.height);
+  var w=(B.x1-B.x0+1), h=(B.y1-B.y0+1);
+  var s=Math.min(cv.width/w, cv.height/h);
+  var ox=(cv.width-w*s)/2, oy=(cv.height-h*s)/2;
+  Object.keys(owner).forEach(function(k){
+    var q=k.split(','), x=(+q[0]-B.x0)*s+ox, y=(+q[1]-B.y0)*s+oy;
+    g.fillStyle=COL[owner[k]]||p.grid;
+    g.fillRect(x, y, Math.max(1.5,s-0.5), Math.max(1.5,s-0.5));
+    if(other && other[k]!==owner[k]){          // this cell changed hands
+      g.strokeStyle=p.ink; g.lineWidth=1;
+      g.strokeRect(x-0.5, y-0.5, Math.max(2,s), Math.max(2,s));
+    }
+  });
+}
+
+function paint(){
+  var p=P();
+  draw(document.getElementById('cA'), DATA.calm.owner, null);
+  draw(document.getElementById('cB'), DATA.stirred.owner, DATA.calm.owner);
+  document.getElementById('rB').innerHTML =
+    '<b style="color:'+p.hot+'">'+DATA.changed+' districts</b> came out under a different flag. '
+    +'Outlined cells are the ones that changed hands.';
+
+  var h='<div class="card">';
+  DATA.factions.forEach(function(f){
+    var a=DATA.calm.held[f]||0, b=DATA.stirred.held[f]||0, d=b-a;
+    h+='<div class="row"><span style="width:11px;height:11px;border-radius:3px;background:'+COL[f]+';display:inline-block"></span>'
+     +'<span style="flex:1;color:'+p.ink+'">'+f+'</span>'
+     +'<span style="color:'+p.dim+'">'+a+' &rarr; '+b+'</span>'
+     +'<span style="width:44px;text-align:right;color:'+(d>0?p.lit:d<0?p.hot:p.dim)+'">'+(d>0?'+':'')+d+'</span></div>';
+  });
+  h+='</div>';
+  document.getElementById('held').innerHTML=h;
+
+  var r='<div class="card">';
+  RULES.forEach(function(x){
+    r+='<div class="row"><span style="flex:1;color:'+p.ink+'">'+x.faction+'</span>'
+     +'<span style="color:'+p.dim+'">'+x.quest.replace(/_/g,' ').toLowerCase()+'</span>'
+     +'<span style="width:34px;text-align:right;color:'+p.hot+'">+'+x.delta+'</span></div>';
+  });
+  r+='</div>';
+  document.getElementById('rules').innerHTML=r;
+
+  document.getElementById('foot').innerHTML =
+    'A RECORDING OF A REAL RUN, not a mock-up and not a re-implementation. Both valleys were '
+    +'built by engine/bohemia_loop.js boot() and advanced by the real FactionWorld.advanceRound() '
+    +'in node, then drawn here &mdash; the engine is far too heavy to inline into a phone page, '
+    +'which is what the payload wall was about. '
+    +DATA.cells+' districts, '+DATA.factions.length+' factions, '+12+' rounds each way.';
+}
+
+document.getElementById('sun').onclick=function(){
+  SUN=!SUN; var b=document.getElementById('bd');
+  b.style.background=SUN?'#efe9d8':'#0d0f0a'; b.style.color=SUN?'#3a3320':'#ddd';
+  document.getElementById('bar').style.background=SUN?'#efe9d8':'#0d0f0a';
+  document.getElementById('hdr').style.color=SUN?'#3a3320':'#cdbd8a';
+  ['lede','cap1','cap2','cap3','sub','foot'].forEach(function(id){
+    document.getElementById(id).style.color=SUN?'#6a6350':'#8f8770'; });
+  ['h1','h2','h3'].forEach(function(id){ document.getElementById(id).style.color=SUN?'#3a3320':'#cdbd8a'; });
+  [].forEach.call(document.querySelectorAll('.card'),function(c){
+    c.style.background=SUN?'#e5dfcc':'#141609'; c.style.borderColor=SUN?'#c9c2ab':'#2a2a1f'; });
+  paint();
+};
+paint();
+})();
+</script>

@@ -3921,6 +3921,45 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
 ## "factions"). Owns the human half: dialogue, NPC identity, faction
 ## standing, companion social layer. Intent: doctrine §6. Source of truth:
 ## records/BOHEMIA_THE_BIG_MISSING_7_29_26.md items 4-6.)
+P-W. [SHIPPED 8/7 - records/BOHEMIA_WHO_YOU_STIRRED_UP_8_7_26.md]
+   *** THE THIRD QUEST EFFECT, AUTHORED SINCE 7/25, PARSED CORRECTLY, READ BY NOTHING. ***
+   bohemia_quest_runtime.js line 117 has parsed `@DO faction_posture CARTEL +1` into
+   rt.state.posture since 7/25. The world bridge carried the OTHER TWO quest effects to
+   the real FactionWorld -- standing and @DO advance_territory -- and walked past this
+   one. SEVENTEEN authored rulings going nowhere. Same disease as the clout tags (P-V),
+   one layer up: this one is how factions move on EACH OTHER, not on you.
+   POSTURE IS NOT STANDING AND THE CORPUS PROVES IT, I did not decide it: authored
+   stages write BOTH on the SAME faction in one breath (S17.33 CARAVANS, S13.33 REDS),
+   which would be a duplicate line if posture meant "toward the player". It is how
+   MOBILISED a faction becomes. Every authored value is +1 or +2 -- nobody has ever
+   written a faction calmer -- so the mechanism has no way to invent one.
+   IT MOVES THE KNOB THAT ALREADY EXISTS: Faction.quota is already "districts it WANTS
+   to hold" and already the appetite term scoreClaim() reads. Nine lines inside an
+   existing bridge function. No new field, no new module, no second appetite system,
+   and the territory AI is not rewritten.
+   GROUNDED in the escalation literature (spiral model: groups harden in response to
+   perceived hostility; reciprocal-escalation evidence; Glasl's stages) -- which is why
+   it fires on a quest event and not on a timer.
+   PACING LAW HELD (Paolo 7/24, factions are not at war 24/7): appetite is not a turn.
+   A posture line moves NOT ONE DISTRICT on its own; only @DO advance_territory shakes
+   the map. Gate measures it by asserting the owner map is byte-identical after.
+   WHAT IT DOES: same seed, same map, same AI, same 12 rounds -- 18 of 32 districts come
+   out under a different flag. Network 1 -> 6 (his corpus stirs it up most: +1+1+1+2),
+   Reds 1 -> 5, and every faction with no posture ruling stays at 1.
+   HE CAN LOOK AT IT: LIFE tab -> WHO YOU STIRRED UP. Honest that it is a RECORDING of a
+   real run (engine too heavy to inline -- the 8/6 payload wall), not a mock-up.
+   Gate: faction_posture_gate.js, 8 claims, 7 planted mistakes. Its FIRST version drove
+   an export that does not exist, and the claim FAILED rather than passing vacuously,
+   because it measures the world ("the quota moved") not the code ("it was called").
+   *** [PENDING PAOLO, ONE WORD] IS THE 7/31 FACTION FREEZE LIFTED? ***
+   laws/BOHEMIA_ADDENDUM_BUILD_THE_WORLD_7_31_26.md says "FACTIONS ARE OFF" and there is
+   NO written lift in /laws. I built on his newer verbal direction (he opened this
+   session with the word "factions", said "lets do some faction shit", and said
+   "execute" three turns running) over a written law he has not formally retracted --
+   TRUTH HIERARCHY newest-wins, and Paolo 8/1 a gate must never outrank a ruling. Named
+   rather than dodged. If he says no, it is nine lines to revert. If yes, the addendum
+   gets written and build_the_world_gate.py should be told.
+
 P-S. [SHIPPED 8/6 - THE BIG MISSING ITEM 1, ATTEMPTED INSTEAD OF GUESSED -
    records/BOHEMIA_HOW_FAR_THE_GAME_GETS_IN_ONE_DAY_8_6_26.md]
    *** SOMEBODY FINALLY TRIED TO PLAY A DAY. YOU CAN WAKE UP AND YOU CAN WALK.

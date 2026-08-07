@@ -523,6 +523,21 @@ GATES = [
      "THE ONE LINK OPENS THE GAME. On 8/2 one dropped </div> nested the whole app inside the front splash, so tapping the splash hid the game: 0x0, no tabs, a black screen on the only URL Paolo ever taps. The splash must close before the app opens, and the door is walked through in a real browser", True),
     ('STANDING',       ['node', 'gates/standing_gate.js'],
      "Paolo thumbed all 12 faction gaps WANT: this is gap 3, the documented failure of the whole genre - every NPC instantly knowing what you did with no route the news could take. Reputation now has to TRAVEL: a deed is WITNESSED not announced, an opinion is DERIVED from memories that decay (so redemption is free - gap 4), hearsay is weaker than eyesight and runs out of hops so a rumour cannot cross the valley, and a faction's view is just its members' views - no ledger, no faction named in the module, and zero-sum falls out for free (gap 7). DEED_WEIGHT ships EMPTY and the gate proves the module is inert until he rules", False),
+    ('FACTION POSTURE', ['node', 'gates/faction_posture_gate.js'],
+     "THE THIRD EFFECT, AUTHORED SINCE 7/25 AND READ BY NOTHING. bohemia_quest_runtime.js has "
+     "always parsed @DO faction_posture CARTEL +1 into rt.state.posture -- 17 of them across the "
+     "canon corpus -- and the world bridge carried the OTHER TWO quest effects to the real "
+     "FactionWorld and dropped that one on the floor. Posture is NOT standing and the corpus proves "
+     "it rather than me asserting it: an authored stage writes BOTH on the SAME faction in one "
+     "breath (S13.33 REDS), which would be a duplicate line if posture meant 'toward the player'. It "
+     "is how MOBILISED a faction becomes, so it moves Faction.quota -- 'districts it WANTS to hold', "
+     "the appetite term scoreClaim() already reads -- rather than adding a second appetite system. "
+     "Grounded in the escalation literature: groups harden in response to perceived hostility. THE "
+     "PACING LAW HELD (Paolo 7/24, factions are not at war 24/7): appetite is not a turn, a posture "
+     "line moves NOT ONE DISTRICT on its own, and only @DO advance_territory still shakes the map -- "
+     "measured by asserting the owner map is byte-identical after a posture quest. Every value is "
+     "positive because every authored one is; nobody ever writes a faction calmer. Seven planted "
+     "mistakes self-tested every run", False),
     ('DEED BRIDGE',    ['node', 'gates/deed_bridge_gate.js'],
      "RECKLESS BEATS QUIET, FINALLY APPLIED TO REPUTATION. His quest corpus has always written down "
      "TWO things about an outcome - how big it was (@DO faction REDS +12) and how loud it was "
