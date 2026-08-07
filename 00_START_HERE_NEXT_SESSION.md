@@ -1,3 +1,30 @@
+PEOPLE (7h9sfy): 8/7 — *** AND HERE IS WHY IT SURVIVED: THE CROSS-CHECK HAD THE SAME
+BUG. *** Read this one even if you skip the rest; it is worth more than the number.
+
+There WAS a gate on the valley population. people_gate G6 - "THE SIM HOLDS WHAT THE
+ARITHMETIC SAYS" - counts the live sim and compares it to the derived figure, and its
+own comment says it exists to go red "if somebody edits the occupancy rate back to a
+round guess". It counted the sim like this:
+      for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++)
+THE IDENTICAL HARDCODED 48 THAT THE TOOL HAD. The sim side measured a quarter of the
+world, the model side measured a quarter of the world, and THE TWO AGREED PERFECTLY
+while both were wrong by 4.25x. G6 reported "0% off" for weeks.
+
+*** A CROSS-CHECK WHOSE TWO SIDES SHARE AN ERROR IS NOT A CROSS-CHECK. IT IS ONE
+MEASUREMENT WRITTEN TWICE, AND IT WILL AGREE WITH ITSELF FOREVER. ***
+
+Both sides read world.n now. Four more claims in that block were pinned to the 48x48
+world (area 21.23 km2, homes 10-15k, no-apocalypse 20-80k, valley 600-2,000 people) and
+passed only because the tool under-measured to match; re-pinned to the measured world
+with the reason recorded at each. gates/scale_truth_gate.js is immune BY CONSTRUCTION -
+its exhaustive census walks w.n and cannot inherit a stale bound from anywhere.
+
+I ALSO BROKE TWO GATES AND FIXED THEM: correcting the engine comment made the committed
+run slice stale (INTEGRATION's agents_module probe + THE RUN). Rebuilt; INTEGRATION
+112/0, RUN 126/0. The reachability census re-ran against the new slice: the
+work-already-paid-for list is 28 now.
+
+-----------------------------------------------------------------------------------
 CHARACTER (0lurbs): 8/7 (f) LATEST — THE SNAP SIZED THE WRONG BOX: THE GATE WAS
 GREEN AND WRONG FOR EIGHT DAYS, AND BOTH HAIR SURFACES WERE THE WORST IN THE GAME.
 Record: records/BOHEMIA_THE_SNAP_SIZED_THE_WRONG_BOX_8_6_26.md
@@ -913,7 +940,7 @@ green. Nothing could answer the general question, so nobody asked it. Now someth
     engine/bohemia_loop.js                  the driven engine
     engine/bohemia_garage.js, _crypt.js     interiors
     banks/GRIME_8_3, OPENINGS_8_2, CIVIC_OPENINGS_8_3   approved art from the last 4 days
-*** THE NUMBER MOVES: it was 17 when written and 22 after merging the same
+*** THE NUMBER MOVES: it was 17 when written and 28 after merging the same
 day's other lanes. Nobody did anything wrong - new finished work keeps landing in the
 invisible file because NOTHING WAS WATCHING. Re-run the census for the live count. ***
 THIS IS NOT A FAILURE LIST, IT IS A WORK-ALREADY-PAID-FOR LIST, and at the start of an
@@ -1138,7 +1165,7 @@ green. Nothing could answer the general question, so nobody asked it. Now someth
     engine/bohemia_loop.js                  the driven engine
     engine/bohemia_garage.js, _crypt.js     interiors
     banks/GRIME_8_3, OPENINGS_8_2, CIVIC_OPENINGS_8_3   approved art from the last 4 days
-*** THE NUMBER MOVES: it was 17 when written and 22 after merging the same
+*** THE NUMBER MOVES: it was 17 when written and 28 after merging the same
 day's other lanes. Nobody did anything wrong - new finished work keeps landing in the
 invisible file because NOTHING WAS WATCHING. Re-run the census for the live count. ***
 THIS IS NOT A FAILURE LIST, IT IS A WORK-ALREADY-PAID-FOR LIST, and at the start of an

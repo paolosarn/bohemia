@@ -96,3 +96,32 @@ measured one.
 **A tool that promises it cannot drift is a claim, and a claim without a machine
 behind it is a wish.** That is the oldest law in this repo, and this is the third
 thing today it caught.
+
+---
+
+## WHY IT SURVIVED: THE CROSS-CHECK HAD THE SAME BUG
+
+There *was* a gate on this. `people_gate` G6 — **"THE SIM HOLDS WHAT THE
+ARITHMETIC SAYS"** — counts the live sim and compares it to the derived figure.
+It is the one claim in that block designed to be independent, and its comment says
+it exists to go red "if somebody edits the occupancy rate back to a round guess."
+
+It counted the sim like this:
+
+    for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++)
+
+**The identical hardcoded 48.** The sim side measured a quarter of the world, the
+model side measured a quarter of the world, and the two agreed *perfectly* while
+both were wrong by 4.25x — G6 reported "0% off" for weeks.
+
+> **A cross-check whose two sides share an error is not a cross-check. It is one
+> measurement written twice, and it will agree with itself forever.**
+
+That is the real lesson here, and it is worth more than the number. Both sides now
+read `world.n`. And the new `scale_truth_gate` is immune by construction: its
+exhaustive census walks `w.n`, so it cannot inherit a stale bound from anywhere.
+
+Four claims in that block were also pinned to the 48×48 world (area 21.23 km²,
+homes 10–15k, no-apocalypse 20–80k, valley 600–2,000 people). They passed only
+because the tool under-measured to match. Re-pinned to the measured world, with
+the reason recorded at each one.

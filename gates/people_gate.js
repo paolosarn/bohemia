@@ -924,9 +924,13 @@ function partG() {
   const m = SM.measure(7), d = SM.derive(m);
 
   ok('G1 the map is the size the valley-scale law says (' + m.km2.toFixed(2) + ' km2)',
-    Math.abs(m.km2 - 21.23) < 0.05);
+    /* RE-PINNED 8/6: was 21.23 km2, the area of a 48x48 valley that has not existed
+       for some time. The map is 96x96 = 84.93 km2 (MAP SIZE gate agrees). */
+    Math.abs(m.km2 - 84.93) < 0.2);
   ok('G2 the map really contains the homes the model counts (' + m.dwellings + ')',
-    m.dwellings > 10000 && m.dwellings < 15000);
+    /* RE-PINNED 8/6: was 10,000-15,000, the home count of the 48x48 quarter.
+       The whole valley draws ~55,391. */
+    m.dwellings > 45000 && m.dwellings < 70000);
 
   /* G3 IS THE ONE THAT MATTERS. Two independent scales - area and housing - have
      to agree, or the map is not a model of anything and the whole derivation is
@@ -937,9 +941,16 @@ function partG() {
 
   ok('G4 step 1: full 2050 Vegas at this scale is tens of thousands, not millions (' +
     Math.round(d.noApocalypse).toLocaleString('en-US') + ')',
-    d.noApocalypse > 20000 && d.noApocalypse < 80000);
-  ok('G5 step 2: after the 3% survival the valley holds about a thousand people (' +
-    Math.round(d.afterCrash) + ')', d.afterCrash > 600 && d.afterCrash < 2000);
+    /* RE-PINNED 8/6: the scale is 1:17.3 now, not 1:78.2, so 2.9M lands on
+       ~167,553 rather than ~37,082. "Tens of thousands, not millions" is still
+       the claim and is still true -- hundreds of thousands, not millions. */
+    d.noApocalypse > 100000 && d.noApocalypse < 300000);
+  /* RE-PINNED 8/6: "about a thousand" was an artefact of measuring a quarter of the
+     valley. An exact census of every residential cell returns 4,723 people; the
+     corrected arithmetic derives ~5,027. THE OCCUPANCY RATE DID NOT CHANGE -- only
+     the count of the world it is applied to. */
+  ok('G5 step 2: after the 3% survival the valley holds a few thousand people (' +
+    Math.round(d.afterCrash) + ')', d.afterCrash > 3000 && d.afterCrash < 8000);
 
   /* G6: the SIM has to actually hold that many. This is the claim that goes red
      if somebody edits the occupancy rate back to a round guess. */
@@ -947,7 +958,18 @@ function partG() {
   global.window = global;
   const world = (global.BohemiaWorld || W2).world(7);
   let live = 0;
-  for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++) {
+  /* *** THE COMMON-MODE BUG, FOUND 8/6/26, AND IT IS THE WHOLE REASON THE 4.25x
+     POPULATION ERROR SURVIVED. *** G6 is the ONE claim in this block that is
+     supposed to be INDEPENDENT: it counts the live sim and compares it to the
+     arithmetic. It counted the sim with `y < 48` HARDCODED -- the exact same
+     literal that tools/bohemia_scale_model.js had.
+     So the sim side measured a quarter of the world, the model side measured a
+     quarter of the world, and the two agreed PERFECTLY while both were wrong by
+     4.25x. A cross-check whose two sides share an error is not a cross-check; it
+     is one measurement written twice, and it will agree with itself forever.
+     `world.n` now, on both sides, so the check is finally what it says it is. */
+  const N = world.n;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
     const c = world.at(x, y);
     if (c && A.RESIDENTIAL[c.district]) live += A.agentsForPlot(world, x, y).length;
   }

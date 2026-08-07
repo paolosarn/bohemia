@@ -22,15 +22,15 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 2 | 48 |
-| SHOWN (part) | 13 | 23 |
-| LOADED ONLY | 12 | 10 |
-| NO TRACE | 69 | 15 |
+| SHOWN (all) | 1 | 48 |
+| SHOWN (part) | 6 | 24 |
+| LOADED ONLY | 18 | 10 |
+| NO TRACE | 72 | 15 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **96** | **111** |
+| **total** | **97** | **112** |
 
-**244.2 MB of 275.1 MB** sampled does not reach the shown surface.
+**272.7 MB of 275.2 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -46,16 +46,22 @@ verbatim.
 | source | kind | MB |
 |---|---|---|
 | `banks/BOHEMIA_HD_TILE_REPO_part1.txt` | bank | 45.06 |
+| `banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt` | bank | 12.65 |
 | `banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt` | bank | 3.63 |
+| `banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt` | bank | 2.97 |
 | `banks/BOHEMIA_EXTERIOR_POOL_8_5_26.txt` | bank | 2.62 |
 | `banks/BOHEMIA_PERIMETER_8_2_26.txt` | bank | 2.43 |
+| `banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt` | bank | 2.01 |
 | `banks/BOHEMIA_DESERT_POOLS_7_18_26.txt` | bank | 1.90 |
+| `banks/BOHEMIA_ALPHA_SURFACE_UPGRADES_7_10_26.txt` | bank | 1.05 |
 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | bank | 0.78 |
 | `banks/BOHEMIA_STREET_PROP_POOLS_7_18_26.txt` | bank | 0.46 |
+| `banks/BOHEMIA_DEMO_TILE_BAKE_7_10_26.txt` | bank | 0.19 |
 | `banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt` | bank | 0.16 |
 | `banks/BOHEMIA_GRIME_8_3_26.txt` | bank | 0.11 |
 | `banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt` | bank | 0.10 |
 | `engine/bohemia_loop.js` | engine | 0.07 |
+| `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
 | `engine/bohemia_utility.js` | engine | 0.07 |
 | `engine/bohemia_world.js` | engine | 0.06 |
 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | bank | 0.02 |
@@ -77,11 +83,13 @@ verbatim.
 | `banks/BOHEMIA_HD_TILE_REPO_part2.txt` | bank | 44.72 |
 | `banks/BOHEMIA_FIRE_FLICKER_BANK_7_13_26.txt` | bank | 10.30 |
 | `banks/BOHEMIA_GROUND_VARIANT_BANK_7_10_26.txt` | bank | 7.45 |
+| `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | bank | 6.94 |
 | `banks/BOHEMIA_TILE_REPO.txt` | bank | 6.02 |
 | `banks/BOHEMIA_DEMO_PROP_POOL_7_10_26.txt` | bank | 3.98 |
 | `banks/BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt` | bank | 3.51 |
 | `banks/BOHEMIA_HOUSE_FACTORY_BANK_7_14_26.txt` | bank | 2.63 |
 | `banks/BOHEMIA_WALL_VARIANT_BANK_7_10_26.txt` | bank | 2.60 |
+| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 2.04 |
 | `banks/BOHEMIA_GRAPHICS_VERDICTS_MASTER_7_16_26.txt` | bank | 1.90 |
 | `banks/BOHEMIA_ANIM_GAP_COOK_7_14_26.txt` | bank | 1.41 |
 | `banks/BOHEMIA_MARKING_BANK_7_17_26.txt` | bank | 1.37 |
@@ -91,6 +99,7 @@ verbatim.
 | `banks/BOHEMIA_PARTICLE_LOOP_COOK_7_14_26.txt` | bank | 0.66 |
 | `banks/BOHEMIA_WALL_SEAMLESS_SET_7_10_26.txt` | bank | 0.62 |
 | `banks/BOHEMIA_MULTICELL_SET_7_10_26.txt` | bank | 0.56 |
+| `banks/BOHEMIA_DOOR_EW_BANK_7_10_26.txt` | bank | 0.55 |
 | `banks/BOHEMIA_PARTICLE_LOOP_BANK_7_14_26.txt` | bank | 0.46 |
 | `banks/BOHEMIA_BRIDGE_SET_7_10_26.txt` | bank | 0.43 |
 | `banks/BOHEMIA_DOOR_LEAF_COOK_V3_7_14_26.txt` | bank | 0.41 |
@@ -129,17 +138,13 @@ verbatim.
 | `banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt` | bank | 0.01 |
 | `banks/BOHEMIA_TILECAT_REDMAG_7_10_26.txt` | bank | 0.01 |
 | `engine/bohemia_light_registry.js` | engine | 0.01 |
-| `engine/bohemia_prop_scale.js` | engine | 0.01 |
-| `banks/BOHEMIA_HOUSE_02_ISO_7_29_26.txt` | bank | 0.01 |
-| `engine/bohemia_memory.js` | engine | 0.01 |
 
-*(24 more, see the .json)*
+*(27 more, see the .json)*
 
 ## REACHES HIM
 
 | source | kind | samples found |
 |---|---|---|
-| `banks/BOHEMIA_DOOR_EW_BANK_7_10_26.txt` | bank | 32/32 |
 | `banks/BOHEMIA_MUSIC_REPO.txt` | bank | 32/32 |
 | `engine/bohemia_apartment.js` | engine | 32/32 |
 | `engine/bohemia_battery.js` | engine | 32/32 |
@@ -181,21 +186,22 @@ verbatim.
 | `engine/bohemia_industrial.js` | engine | 26/26 |
 | `engine/bohemia_sfx.js` | engine | 21/21 |
 | `banks/BOHEMIA_MUSIC_BATCH9_DROPIN.txt` | bank | 18/23 |
-| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 17/32 |
 | `banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt` | bank | 13/27 |
 | `engine/bohemia_floorplan.js` | engine | 13/13 |
 | `engine/bohemia_engine.js` | engine | 12/32 |
 | `engine/bohemia_bodyvar.js` | engine | 11/11 |
-| `banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt` | bank | 9/32 |
 | `engine/bohemia_population.js` | engine | 7/7 |
 | `engine/bohemia_agents.js` | engine | 6/7 |
-| `banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt` | bank | 5/32 |
 | `engine/bohemia_people.js` | engine | 5/5 |
-| `banks/BOHEMIA_ALPHA_SURFACE_UPGRADES_7_10_26.txt` | bank | 4/32 |
 | `banks/BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt` | bank | 3/8 |
 | `banks/BOHEMIA_SFX_APPROVED_7_30_26.json` | bank | 3/8 |
 | `engine/bohemia_cityedit.js` | engine | 3/3 |
-| `banks/BOHEMIA_DEMO_TILE_BAKE_7_10_26.txt` | bank | 2/32 |
 | `engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js` | engine | 2/32 |
 | `engine/bohemia_patrol.js` | engine | 2/32 |
 | `engine/bohemia_powergrid.js` | engine | 2/2 |
+| `engine/bohemia_scheduler.js` | engine | 2/32 |
+| `banks/BOHEMIA_DEMO_ROOM_TILESET_7_10_26.txt` | bank | 1/16 |
+| `banks/BOHEMIA_LOGO_CANDIDATES_8_1_26.txt` | bank | 1/24 |
+| `engine/bohemia_airfield.js` | engine | 1/32 |
+| `engine/bohemia_arterial.js` | engine | 1/32 |
+| `engine/bohemia_ballpark.js` | engine | 1/32 |
