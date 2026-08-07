@@ -17954,6 +17954,41 @@ var XP = {}, XP_LOADED = 0;
       for (const real of factions.factions.keys()) if (real.toUpperCase() === upper) return real;
       return null;
     }
+    /* ---- POSTURE: THE THIRD EFFECT, AUTHORED SINCE 7/25 AND READ BY NOTHING ----
+       (8/7, FACTIONS lane.) The quest runtime has always parsed `@DO faction_posture
+       CARTEL +1` into rt.state.posture — 17 of them across the canon corpus — and
+       this bridge carried the OTHER TWO effects to the real world and dropped that
+       one on the floor. Same disease as the clout tags: authored content nothing
+       reads.
+
+       POSTURE IS NOT STANDING, and the corpus says so itself rather than me deciding
+       it. S17 stage 33 writes BOTH on the same faction in the same breath:
+           @DO faction CARAVANS -15        <- what they think of YOU
+           @DO faction_posture CARAVANS +1 <- something else entirely
+       If posture meant "toward the player" that line would be a duplicate. It is not.
+       Read against the quest that carries it ("a public humiliation of one is a real
+       faction event"), posture is HOW MOBILISED THAT FACTION BECOMES — agitated,
+       hardened, moving. Every authored value is +1 or +2: nobody ever writes a
+       faction calmer, only stirred up.
+
+       WHAT MOBILISATION MEANS IN THE MODEL WE ALREADY HAVE: Faction.quota is
+       literally "districts it WANTS to hold", and it is already the appetite term
+       scoreClaim() reads. A stirred-up faction wants more ground. So posture moves
+       the knob that already exists rather than adding a parallel one — no new field,
+       no new system, no new module. The territory AI is unchanged.
+
+       GROUNDED, and this is the escalation literature rather than a game feel: the
+       spiral model holds that groups escalate in response to PERCEIVED hostility,
+       and the reciprocal-escalation evidence is that hostility from one side reliably
+       raises the other's. Which is why this belongs on the same clock as the rest of
+       the quest bridge and not on a timer: a faction hardens because something
+       HAPPENED, and the quest author already said what and how much.
+
+       IT STILL CANNOT SHAKE THE MAP BY ITSELF. The PACING LAW (Paolo 7/24: factions
+       are not at war 24/7) is untouched — appetite is not a turn. advanceRound still
+       fires only on an explicit @DO advance_territory, so a quest that stirs somebody
+       up changes what they'd reach for NEXT TIME the narrative calls a round, never
+       this instant. */
     function applyWorldEffects(rt) {
       if (!factions) return;
       const s = rt.state;
@@ -17961,6 +17996,13 @@ var XP = {}, XP_LOADED = 0;
         const delta = s.faction[fid];
         const real = resolveFactionId(fid);
         if (delta && real) factions.shiftStanding(real, 'player', delta, false);
+      });
+      Object.keys(s.posture || {}).forEach(function (fid) {
+        const delta = s.posture[fid];
+        const real = resolveFactionId(fid);
+        if (!delta || !real) return;
+        const f = factions.factions.get(real);
+        if (f) f.quota = Math.max(0, f.quota + delta);
       });
       // advanceRound wants adjacency as a FUNCTION (id -> [neighborIds]); the
       // stored ctx.factionAdjacency is the Map that function reads (same
