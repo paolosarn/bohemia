@@ -1,0 +1,85 @@
+{
+ "rows": [
+  {
+   "verb": "advance_territory",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 4
+  },
+  {
+   "verb": "bond",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 44
+  },
+  {
+   "verb": "cast",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 9
+  },
+  {
+   "verb": "complete_objective",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 86
+  },
+  {
+   "verb": "faction",
+   "verdict": "WORLD",
+   "why": "the real FactionWorld differs with this verb present",
+   "authored": 59
+  },
+  {
+   "verb": "faction_posture",
+   "verdict": "WORLD",
+   "why": "the real FactionWorld differs with this verb present",
+   "authored": 17
+  },
+  {
+   "verb": "give",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 0
+  },
+  {
+   "verb": "have",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 0
+  },
+  {
+   "verb": "learn",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 62
+  },
+  {
+   "verb": "play",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 4
+  },
+  {
+   "verb": "set_flag",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 36
+  },
+  {
+   "verb": "show_objective",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 39
+  }
+ ],
+ "totals": {
+  "WORLD": 2,
+  "QUEST-ONLY": 10,
+  "INERT": 0,
+  "UNPARSED": 0,
+  "ERROR": 0
+ },
+ "authored_total": 515,
+ "method": "behavioural: real boot, real runtime, quest run with and without each verb, worlds diffed"
+}

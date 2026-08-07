@@ -1,3 +1,63 @@
+FACTIONS (factions-ovkjpf): 8/7 (b) LATEST — *** I FOUND THE SAME BUG BY HAND THREE
+DAYS RUNNING, SO I BUILT THE MACHINE THAT ASKS THE GENERAL QUESTION. ITS FIRST HONEST
+RUN FOUND A FOURTH: THE TERRITORY SYSTEM HAS NEVER MOVED A DISTRICT. ***
+Nothing to judge. Machine + finding.
+
+ONE DISEASE, FOUR COSTUMES, all four found by a human noticing:
+  7/30  an approved bank that never draws a pixel
+  8/4   17 finished things shipping where no player looks
+  8/6   69 clout tags read only by a vanity follower count
+  8/7   17 @DO faction_posture rulings parsed into a real field and dropped
+Every gate in the repo was green through all four, because nothing could ask the
+general question. A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED -- and this one did not
+even have a law.
+
+TWO WRONG VERSIONS BEFORE THE RIGHT ONE, and both failure modes are worth carrying:
+  v1 grepped the VERB NAME -> called advance_territory dead, because the verb is
+     snake_case and the field it writes is camelCase. The 8/4 census already had this
+     exact scar ("four false alarms out of five").
+  v2 grepped the STATE FIELD (read from the runtime's own switch, never typed) ->
+     called EVERYTHING alive, because two judge pages re-implement the runtime for
+     preview and a simulator looks identical to a consumer.
+A third heuristic would have had its own blind spot, so per Paolo 7/26 ("a fourth
+version means you already failed") the APPROACH changed:
+    DO NOT ASK WHO READS IT. ASK WHETHER IT CHANGES ANYTHING.
+Boot a real world, snapshot, resolve a quest carrying exactly one @DO verb through the
+real runtime, boot again without it, diff. It never reads a character of source.
+
+*** THE FIND: @DO advance_territory HAS NEVER MOVED A DISTRICT. ***
+It fires -- bohemia_loop.js really does call advanceRound(), and the existing bridge
+test proves the call happens. THE CALL HAPPENS AND THE AI DECLINES. Measured:
+    default quotas, 1 round   -> changed: false
+    default quotas, 13 rounds -> changed: false
+    every faction boots 1 district / quota 1
+scoreClaim has an explicit gate for exactly that: `if (deficit <= 0 && !owner) return
+-1;  // sated: ignore empty land`. Deficit is zero for everybody, so every faction
+declines every target every round, forever. A correctly-implemented no-op since it
+shipped, with four authored rulings firing an engine that always says no.
+    quota+1, 1 round -> changed: TRUE
+FACTION_POSTURE IS THE MISSING HALF OF ADVANCE_TERRITORY. One says "shake the map
+now", the other says "and here is who is hungry enough to move". Both authored,
+neither connected to the other. Wiring posture in 8/7(a) is what makes the territory
+system do anything at all -- which I did not know when I wrote it.
+
+WHY THE FIX IS NOT "RAISE THE DEFAULT QUOTA": quota is CONTENT. How much ground a
+faction wants is a canon question about who they are, and his posture rulings already
+answer it, per quest, in his numbers, on the narrative beat where it belongs. The
+system was designed right; only the wire between its two halves was missing.
+
+GATE: gates/authored_unread_gate.py, registered as AUTHORED UNREAD, 7/7. Fails if any
+@DO verb is INERT (changes nothing anywhere) or UNPARSED (he writes it, the runtime
+has no case). Vocabulary is read out of the runtime's own switch so it follows a
+rename automatically. THE FIFTH INSTANCE OF THIS BUG CANNOT HAPPEN SILENTLY -- that is
+the actual deliverable; advance_territory is what it caught on the way out.
+
+NAMED, NOT LEFT TO BE INSTANCE FIVE: this sweeps the @DO vocabulary ONLY. The same
+disease can live in @STUDY citations, @ROLE REQ keys, and [gate: ...] conditions,
+none of which are swept. And QUEST-ONLY is a coarse verdict -- @DO play "changes
+state" only because it appends a line to a log, which means THE SOUND STILL NEVER
+PLAYS. The gate is currently too generous to fail on that.
+
 FACTIONS (factions-ovkjpf): 8/7 (a) LATEST — *** THE THIRD QUEST EFFECT, AUTHORED
 SINCE 7/25, PARSED CORRECTLY, AND READ BY NOTHING. ***
 Tab: LIFE -> WHO YOU STIRRED UP. Nothing to judge, nothing to tap.

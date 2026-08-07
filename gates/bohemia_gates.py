@@ -525,6 +525,20 @@ GATES = [
      "THE ONE LINK OPENS THE GAME. On 8/2 one dropped </div> nested the whole app inside the front splash, so tapping the splash hid the game: 0x0, no tabs, a black screen on the only URL Paolo ever taps. The splash must close before the app opens, and the door is walked through in a real browser", True),
     ('STANDING',       ['node', 'gates/standing_gate.js'],
      "Paolo thumbed all 12 faction gaps WANT: this is gap 3, the documented failure of the whole genre - every NPC instantly knowing what you did with no route the news could take. Reputation now has to TRAVEL: a deed is WITNESSED not announced, an opinion is DERIVED from memories that decay (so redemption is free - gap 4), hearsay is weaker than eyesight and runs out of hops so a rumour cannot cross the valley, and a faction's view is just its members' views - no ledger, no faction named in the module, and zero-sum falls out for free (gap 7). DEED_WEIGHT ships EMPTY and the gate proves the module is inert until he rules", False),
+    ('AUTHORED UNREAD', ['python3', 'gates/authored_unread_gate.py'],
+     "FOUR TIMES IN NINE DAYS this project shipped content Paolo authored that nothing ever read "
+     "-- an approved bank that never draws a pixel (7/30), 17 finished things shipping where no "
+     "player looks (8/4), 69 clout tags read only by a vanity counter (8/6), 17 @DO faction_posture "
+     "rulings parsed into a real field and dropped (8/7). Every gate in the repo was green through "
+     "all four, because nothing could ask the general question. This asks it, and it asks it "
+     "BEHAVIOURALLY: boot a real world, resolve a real quest carrying exactly one @DO verb through "
+     "the real runtime, boot again without it, diff the worlds. Two TEXT-sweep versions were built "
+     "first and both were wrong in opposite directions -- one grepped verb names and called "
+     "advance_territory dead because its state field is camelCase, the other grepped state fields "
+     "and called everything alive because two judge pages re-implement the runtime and a simulator "
+     "looks exactly like a consumer. This one never reads a character of source, so a comment, a "
+     "coincidence or a 26 MB generated slice cannot fool it. The vocabulary is read out of the "
+     "runtime's own switch, never typed here", False),
     ('FACTION POSTURE', ['node', 'gates/faction_posture_gate.js'],
      "THE THIRD EFFECT, AUTHORED SINCE 7/25 AND READ BY NOTHING. bohemia_quest_runtime.js has "
      "always parsed @DO faction_posture CARTEL +1 into rt.state.posture -- 17 of them across the "
