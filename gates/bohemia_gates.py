@@ -197,6 +197,11 @@ GATES = [
      'build was copying the whole 496 MB repo. _config.yml publishes slices/ (+ engine/ + records/target, '
      'which slices actually load) and this proves every outward ref still ships and the surface stays '
      'under what the builder can finish', False),
+    ('INTERIOR LEVELS',['node', 'gates/interior_levels_gate.js'],
+     'three interiors disagreed about the word "levels" -- an ARRAY in the floorplan, a COUNT in the '
+     'garage, absent in the crypt -- and neither mistake throws, so a walker would have read undefined '
+     'in silence. One reader now answers for all three, and this WALKS every storey of each through it',
+     False),
     ('VERTICALITY',   ['node', 'gates/verticality_gate.js'],
      "Paolo's direction is 2-3 storey buildings with climbable stairs. story:2 was computed by the "
      "suburb generator, carried all the way down the world model, and DIED at the floorplan -- every "

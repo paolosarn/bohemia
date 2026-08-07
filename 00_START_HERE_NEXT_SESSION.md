@@ -2648,7 +2648,47 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/7 LATEST -- *** BUILDINGS HAVE SECOND FLOORS NOW, AND YOU CAN WALK UP. ***
+WORLD (world-9lfjtf): 8/7 (b) LATEST -- *** ONE LEVEL CONTRACT: THE WORD "LEVELS" MEANT TWO
+DIFFERENT THINGS. *** records/BOHEMIA_ONE_LEVEL_CONTRACT_8_7_26.md. Gate: interior_levels_gate 12/0.
+
+Buildings got stairs earlier today. The next thing anybody does with that is write a WALKER,
+and the moment they do they step on this:
+    bohemia_floorplan.js   levels = an ARRAY of plates    .levels.length -> a number
+    bohemia_garage.js      levels = a NUMBER of decks     .levels.length -> undefined
+    bohemia_crypt.js       no levels at all               .levels        -> undefined
+Same word, two meanings, plus a third interior that does not use it. NEITHER MISTAKE THROWS --
+a walker written against the floorplan reads undefined off a garage and quietly walks zero
+decks. Same shape as the district list kept by hand in three places. It had not bitten only
+because no walker existed, so it is defused BEFORE it is load-bearing.
+
+engine/bohemia_interior_levels.js is ONE READER and it renames nothing (both existing shapes
+are read by the shipped city app). It answers the four questions a walker asks: how many
+storeys, what is on storey i, can a body stand here, where does this storey connect to the
+next. THE LINK IS THE POINT: a floorplan joins storeys with a STAIR; a garage joins decks with
+a RAMP a car drives AND a stair/elevator CORE a person walks; a crypt joins nothing. walk() is
+the flood a renderer or an actor needs, written once here instead of three times in three lanes.
+
+PROVED BY WALKING: one code path over all three kinds plus world.js's WRAPPED floorplan; every
+storey 100% reached through the links; 391 links each standable on BOTH storeys it joins; 52
+real valley interiors walked, 8 multi-storey. And the gate asserts each module STILL HAS THE
+SHAPE THE READER EXPECTS, so a later 'tidy-up' of garage.levels into an array cannot pass silently.
+
+THE GARAGE WAS ALREADY CORRECT, which is worth recording because I expected otherwise: walked
+across five configurations from 12x10/2-deck to 60x44/6-deck, every stall, ramp and core
+reachable on every deck, zero unreachable cells. It has just been generating into a void since
+7/19 with nothing able to read it.
+
+*** FOR RUN / CITY: the RENDER half of verticality is yours and this is the piece you need --
+a single gated way to ask an interior how tall it is and how you get up it, so neither lane has
+to guess which meaning of `levels` it was handed. Not this lane's to render. ***
+
+SUITE: 11 red. Ten are the day's baseline; ONE WORLD TAB is the eleventh and it fails on
+gates/sfx_shuffle_gate.py (MUSIC) and tools/bohemia_pixel_snap_look.js (ART) -- neither touched
+by this lane, both unmodified in this tree.
+
+=== EARLIER, SAME SESSION ===
+
+WORLD (world-9lfjtf): 8/7 (a) -- *** BUILDINGS HAVE SECOND FLOORS NOW, AND YOU CAN WALK UP. ***
 records/BOHEMIA_THE_SECOND_FLOOR_8_7_26.md. Gate: verticality_gate.js 12/0.
 
 THE GAP: Paolo's direction is 2-3 storey buildings with climbable stairs. bohemia_suburb.js
