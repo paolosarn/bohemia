@@ -26,6 +26,23 @@ were not wrong — what he saw WAS bad. The FIX was wrong. It claims only that t
 is finally shown at the size and sharpness it was drawn at. NO NEW HAIR WAS COOKED;
 three fixes from the last round are still unthumbed and STOP PRODUCING says a fourth
 version is the tell that I already failed.
+FINAL SUITE ON THE REBASED TREE: 261 GREEN, 13 RED, AND ALL THIRTEEN ARE PRE-EXISTING
+ON origin/main. Proved by CHECKING OUT origin/main DETACHED and re-running each one --
+not by reading the diff and deciding they looked unrelated:
+  GRAVEYARD RIG-CHECK PARTS-PAINTED BODY-VARIATION SQUINT QUEST-PLACEMENT
+  INTEGRATION THE-RUN PEOPLE ONE-WORLD-TAB WALL-CLASS CANVAS-SCALE INTERIORS
+INTEGRATION fails on the same probe (agents_module). THE RUN fails on the same stale
+build_run_slice regeneration. PEOPLE fails on the same five scale checks (G1 G2 G4 G5
+G6, 1047 people vs 5027 derived). CANVAS SCALE is MINE and is 52 passed / 1 failed --
+main runs 28 assertions there, I added 24 and the single failure is the city lane's.
+TWO FIXED THEMSELVES while I worked (SFX WIRED, BANK LAW) -- the sound lane shipped.
+*** AND A FLEET BUG NOBODY HAS NAMED: RUNNING THE GATE SUITE DIRTIES TRACKED FILES. ***
+Three separate times a gate run left records/target/BOTTOMLEFT.png modified (503972 ->
+503962 bytes, on a BYTE-LOCKED target screen), plus records/BOHEMIA_BANK_LAW_INDEX.md
+and slices/BOHEMIA_SUBURB_WALK_7_18_26.html. I discarded them every time rather than
+commit them, but a lane that runs the suite and then does `git add -A` SHIPS A SILENTLY
+REGENERATED TARGET SCREEN. That is one `git commit -a` away from happening.
+
 SUITE REDS, ALL PROVED PRE-EXISTING EXCEPT ONE THAT WAS MINE:
   HANDOFF        MINE. handoff_gate wants ^LANE (session-id): and I wrote a DATE in
                  the parens ("CHARACTER (8/6h)"). A slash is not [a-z0-9-], so the
