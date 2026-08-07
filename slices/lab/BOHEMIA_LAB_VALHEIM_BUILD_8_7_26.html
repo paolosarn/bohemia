@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>LAB 10 — VALHEIM'S BUILD SYSTEM (REFERENCE MODEL)</title>
+<!--
+  ===========================================================================
+  BOHEMIA REFERENCE LAB 10 — VALHEIM'S BUILD SYSTEM: PLACING A CAMP
+  Paolo 8/4/26, commissioned by name:
+    "Val Heim's build menu and it's build system to me was the easiest to work
+     with among the games I've played it really felt like you could just set up
+     fucking camp anywhere quickly like very quickly"
+
+  THE FINDING, AND IT IS ONE DESIGN DECISION RATHER THAN A BUILD MENU:
+
+    A WORKBENCH NEEDS A ROOF AND 70% COVER TO *CRAFT*. IT NEEDS NEITHER TO
+    CLAIM ITS RADIUS OR TO STOP MONSTERS SPAWNING.
+
+  So the instant the bench hits bare dirt you already own the two things that
+  make a camp a camp -- somewhere you may build, and somewhere nothing spawns.
+  The house is an OPTIONAL LATER IMPROVEMENT, not a prerequisite. You are not
+  building a camp, you are PLACING one. That asymmetry is the whole feeling he
+  is describing, and everything else on this page is downstream of it.
+
+  THE SECOND FINDING, WHICH IS WHY IT FEELS FAST RATHER THAN JUST BEING FAST:
+  taking a piece down refunds what it cost. There is no punishment for being
+  wrong, so nobody hesitates -- and hesitation, not menu depth, is what makes a
+  build system feel slow.
+
+  WHAT THIS PAGE IS FOR. Bohemia's mobile camp already exists as a ruling, and
+  clause 11 of its law says SETTING UP CAMP TAKES TIME. He has now said camp
+  setup should be very quick. Those are two different currencies and this page
+  exists to make the difference tappable:
+      CHEAP IN TAPS. NEVER FREE IN TIME.
+  Nothing here makes camping free. Every number on this page is Valheim's or is
+  declared ours; not one is a Bohemia number.
+
+  A REFERENCE MODEL, NOT A MEASUREMENT. Valheim ships compiled Unity
+  assemblies, so its logic cannot be read. Twenty of the constants below ARE
+  genuinely sourced, off real open-source C# -- ValheimPlus, a HarmonyX mod that
+  patches the live game and therefore names its real fields, methods and
+  vanilla defaults. The rest are tagged [DOC ...] and two are declared ours.
+  Every one is listed with its tag in
+  records/lab/BOHEMIA_LAB_VALHEIM_BUILD_TEARDOWN_8_7_26.txt.
+
+  WHAT IT DELIBERATELY DOES NOT MODEL: snapping, rotation, roof-piece geometry,
+  wall-by-wall architecture. Valheim has TWO systems inside one hammer and only
+  one of them is the reference. PLACING A CAMP is what he praised. CONSTRUCTING
+  A BUILDING is the half with a Steam thread called "Building Feels Terrible"
+  and a manual-snapping feature added in 2023 to apologise for it. A page that
+  copied the second one would be answering a question nobody asked.
+
+  NOT BOHEMIA. Touches no engine module, no art bank, no alpha. Placeholder art
+  only: flat rectangles and one white circle. The camp is ANOTHER LANE'S system
+  (COMBAT owns the camp, RUN owns the surface) -- this page claims nothing and
+  is ported only on Paolo's word.
+  ===========================================================================
+-->
+<style>
+  :root{
+    --ink:#e8e4dc; --dim:#8b8578; --bg:#141310; --panel:#1e1c17; --line:#332f27;
+    --good:#7fae5a; --bad:#c05a4a; --warn:#c9a227; --claim:#efeae0;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font:12px/1.45 ui-monospace,Menlo,Consolas,monospace}
+  body{max-width:390px;margin:0 auto;padding:0 0 40px}
+  .band{background:#000;border-bottom:1px solid var(--line);padding:7px 10px}
+  .band h1{margin:0;font-size:12px;letter-spacing:.06em}
+  .band .sub{color:var(--warn);font-size:9.5px;letter-spacing:.05em;margin-top:3px}
+  .band .sub b{color:var(--bad)}
+  #stage{display:block;width:390px;height:495px;background:#0e0d0b;touch-action:manipulation}
+  .row{display:flex;gap:5px;padding:5px 8px;flex-wrap:wrap;align-items:center}
+  .chip{background:var(--panel);border:1px solid var(--line);color:var(--ink);
+    padding:6px 8px;font:11px/1 ui-monospace,monospace;border-radius:3px}
+  .chip.on{background:var(--claim);color:#111;border-color:var(--claim)}
+  .chip.verb{min-width:60px;text-align:center}
+  .pad{display:grid;grid-template-columns:repeat(3,36px);gap:4px}
+  .pad .chip{padding:8px 0;text-align:center}
+  .read{padding:4px 10px;color:var(--dim);font-size:10.5px}
+  .read b{color:var(--ink)}
+  .read .y{color:var(--good)} .read .n{color:var(--bad)}
+  #log{padding:5px 10px;min-height:34px;color:var(--warn);font-size:10.5px;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .note{padding:10px;color:var(--dim);font-size:10.5px;border-top:1px solid var(--line)}
+  .note h2{color:var(--ink);font-size:11px;margin:12px 0 4px;letter-spacing:.05em}
+  .note b{color:var(--ink)} .note .k{color:var(--warn)}
+  .lgd{display:flex;gap:8px;flex-wrap:wrap;padding:3px 10px;font-size:9.5px;color:var(--dim)}
+  .sw{display:inline-block;width:9px;height:9px;margin-right:3px;vertical-align:-1px}
+</style>
+</head>
+<body>
+
+<div class="band">
+  <h1>LAB 10 · VALHEIM'S BUILD SYSTEM · PLACING A CAMP</h1>
+  <div class="sub">REFERENCE MODEL — <b>NOT BOHEMIA</b> — PLACEHOLDER ART — THIS IS A
+  MODEL AND <b>NOT A MEASUREMENT</b></div>
+</div>
+
+<canvas id="stage" width="780" height="990"></canvas>
+
+<div class="lgd">
+  <span><i class="sw" style="background:#6b5a3e"></i>ground</span>
+  <span><i class="sw" style="background:#8a7550"></i>roof</span>
+  <span><i class="sw" style="background:#c9a227"></i>station</span>
+  <span><i class="sw" style="background:#5b6f8a"></i>extension</span>
+  <span><i class="sw" style="background:#c05a4a"></i>unsupported</span>
+  <span><i class="sw" style="background:#4a3f55"></i>no-build</span>
+  <span><i class="sw" style="background:#efeae0"></i>the claim</span>
+  <span><i class="sw" style="background:#e07a3c;border-radius:50%"></i>monster spawned</span>
+  <span><i class="sw" style="background:#7fae5a;border-radius:50%"></i>roll the circle ate</span>
+</div>
+
+<div class="row" id="verbs"></div>
+<div class="row" id="pieces"></div>
+<div class="row" style="justify-content:space-between">
+  <div class="pad" id="pad"></div>
+  <div style="display:flex;flex-direction:column;gap:5px">
+    <button class="chip" id="btnCraft">CRAFT</button>
+    <button class="chip" id="btnRoll">SPAWN ROLL</button>
+    <button class="chip" id="btnReset">RESET</button>
+  </div>
+</div>
+
+<div class="read" id="readout"></div>
+<div id="log">Equip the hammer. Left of this is the whole build system.</div>
+
+<div class="note">
+<h2>THE ONE THING TO TAKE</h2>
+A workbench requires <b>a roof and 70% cover to CRAFT</b>. It requires
+<b>no roof and no cover at all</b> to claim its build radius or to suppress
+spawns. Drop it on bare dirt and you already have a camp. The house is
+improvement, never prerequisite. <span class="k">You do not build a camp, you
+place one.</span>
+
+<h2>THE FIVE MECHANICS, EACH PLAYABLE END TO END</h2>
+<b>1 · BUILDING.</b> The hammer <i>is</i> the menu — one tool, three verbs, no
+build mode to enter or leave. In the real game those three verbs share one
+stamina hook keyed on the hammer, which is how we know they are one system.
+Placement answers with a <b>status</b>, not a yes/no.<br>
+<b>2 · CRAFTING.</b> Stand in a bench's range, under a roof, with 7 of the 9
+tiles overhead covered. Craft, and the materials leave your pack.<br>
+<b>3 · DECONSTRUCTING.</b> Take it down and get <b>all of it</b> back — but
+only for pieces <i>you</i> placed. Tear down the ruin and you get nothing.
+Being wrong is free, so nobody hesitates.<br>
+<b>4 · UPGRADING.</b> Park an extension within 5 m of the bench. Level goes up,
+the white circle grows by 4 m, five levels, 20 m to 36 m.<br>
+<b>5 · SPAWN SUPPRESSION.</b> Roll for monsters. Inside the circle nothing
+comes. Take the bench away and roll again — that is what the circle was
+actually for.
+
+<h2>AND IT IS STILL PHYSICAL</h2>
+Support has to reach the ground. A wall floating off the end of nothing draws
+red and says so. Fast to use is not the same as weightless, and that is why it
+reads as real rather than as a menu.
+
+<h2>WHAT IS NOT HERE, ON PURPOSE</h2>
+Snapping, rotation, roof geometry, wall-by-wall architecture, and every real
+number of Bohemia's. This page models the half of Valheim's hammer he praised
+and skips the half its own players complain about.
+</div>
+
+<script>
+'use strict';
+/* ==========================================================================
+   VB — THE SOURCED CONSTANT BLOCK.
+   Every key below appears in
+   records/lab/BOHEMIA_LAB_VALHEIM_BUILD_TEARDOWN_8_7_26.txt with a tag:
+   [SOURCED <file:line>] off real open-source C#, [DOC ...] where only
+   documentation carries it, or "ours (declared)". Valheim is a compiled Unity
+   assembly, so THIS IS A MODEL AND NOT A MEASUREMENT, and an untagged number
+   is a build failure by law.
+   ========================================================================== */
+var VB = {
+  /* --- the radius, and the two things it does --- */
+  WORKBENCH_RANGE: 20,
+  WORKBENCH_SCALE_BASE: 20,
+  ATTACH_RANGE: 5,
+  MAX_PLACE_DIST: 8,
+  COMFORT_RADIUS: 10,
+  AREA_REPAIR_RADIUS: 7.5,
+  ENEMY_SPAWN_RANGE_SENTINEL: 0,
+  SPAWN_AREA_IS_BUILD_AREA: 1,
+  RADIUS_MARKER_IS_BUILD_RANGE: 1,
+  /* --- the hammer --- */
+  HAMMER_VERB_COUNT: 3,
+  PLACEMENT_STATUS_COUNT: 3,
+  /* --- the refund --- */
+  REFUND_FLOOR: 1,
+  RECOVER_IS_PER_MATERIAL: 1,
+  REFUND_REQUIRES_PLAYER_PLACED: 1,
+  /* --- structural integrity --- */
+  INTEGRITY_LOSS_AXES: 2,
+  INTEGRITY_CLAMP_MIN: 0,
+  INTEGRITY_CLAMP_MAX: 100,
+  LOSS_PCT_DIVISOR: 100,
+  MATERIAL_TYPE_COUNT: 7,
+  SUPPORT_REQUIRES_GROUND: 1,
+  /* --- the levels --- */
+  WORKBENCH_LEVEL_MAX: 5,
+  WORKBENCH_UPGRADE_COUNT: 4,
+  RADIUS_PER_LEVEL: 4,
+  WORKBENCH_RANGE_MAX: 36,
+  /* --- THE ASYMMETRY, as four numbers --- */
+  CRAFT_ROOF_REQUIRED: 1,
+  CRAFT_COVER_FRACTION: 0.7,
+  BUILD_ROOF_REQUIRED: 0,
+  BUILD_COVER_FRACTION: 0,
+  /* --- recipes: build pieces --- */
+  WORKBENCH_WOOD: 10,
+  CHOPBLOCK_WOOD: 10,
+  CHOPBLOCK_FLINT: 10,
+  TANRACK_WOOD: 10,
+  TANRACK_FLINT: 15,
+  ADZE_WOOD: 10,
+  ADZE_BRONZE: 3,
+  SHELF_WOOD: 10,
+  SHELF_IRON: 4,
+  WALL_WOOD: 2,
+  FLOOR_WOOD: 2,
+  ROOF_WOOD: 2,
+  POLE_WOOD: 1,
+  CAMPFIRE_STONE: 5,
+  /* --- recipes: things crafted AT the bench --- */
+  HAMMER_WOOD: 3,
+  HAMMER_STONE: 2,
+  CLUB_WOOD: 6,
+  ARROW_WOOD: 8,
+  ARROW_YIELD: 20,
+  /* --- ours (declared): the page's own scale, not Valheim's --- */
+  CELL_METRES: 2.5,
+  BASE_LOSS_PER_STEP: 0.15
+};
+
+/* ==========================================================================
+   THE WORLD. Placeholder art, a flat grid, one white circle.
+   ========================================================================== */
+/* GRID SIZE IS A RENDER DECISION AND IT WAS WRONG THE FIRST TIME. At 15x19 with
+   26px cells a 20 m radius was 8 cells and a 36 m radius was 14.4 -- so THE WHITE
+   CLAIM CIRCLE FELL ENTIRELY OFF THE CANVAS, and "you can see your claim" is the
+   finding. Nothing in the gate noticed; it showed up in the rendered pixels. The
+   same undersized grid is also why the claimed-cell count saturated at the whole
+   board and made a healthy growing radius read as broken. Root cause, one number,
+   two symptoms. 26x33 at 15px is the same 390px wide and holds the circle. */
+var COLS = 26, ROWS = 33, CELL = 15;          /* 390 x 495 css px */
+
+/* EVERY DRAW SIZE IS DERIVED FROM CELL, because none of them were and the grid
+   changed underneath them. At 15px cells the roof squares came out 3px, the
+   spawn dots swamped the terrain, and the player marker was computed as
+   CELL-16 = MINUS ONE PIXEL WIDE and drew nothing -- you were invisible on your
+   own screen. Three separate literals tuned for 26px cells, all silently wrong,
+   none of them caught by 572 passing checks. A magic number that happens to look
+   right is a magic number that breaks the moment anything moves. */
+var ROOF_PAD    = Math.max(2, Math.round(CELL * 0.22));
+var GROUND_PAD  = Math.max(1, Math.round(CELL * 0.09));
+var DOT_SPAWN   = Math.max(3, CELL * 0.26);
+var DOT_QUIET   = Math.max(1.5, CELL * 0.13);
+var PC_INSET_X  = Math.max(2, Math.round(CELL * 0.30));
+var PC_INSET_Y  = Math.max(2, Math.round(CELL * 0.22));
+var START = { wood: 90, stone: 30, flint: 40, bronze: 6, iron: 8 };
+
+/* Valheim's own placement enum has THREE values (Valid / Invalid / NoBuildZone).
+   Our finer reasons all MAP ONTO those three -- the enum is sourced, the reasons
+   are ours, and the gate checks that we did not invent a fourth status. */
+var STATUS = { VALID: 'Valid', INVALID: 'Invalid', NOBUILD: 'NoBuildZone' };
+
+/* PIECES. layer 'ground' occupies the floor of a cell; layer 'roof' sits above
+   it, so one cell can hold both. station:true is the whole point of the page --
+   a station may be placed with no station already in range. */
+var PIECES = [
+  { id:'workbench', name:'WORKBENCH', layer:'ground', station:true,  ext:null,
+    cost:{ wood:VB.WORKBENCH_WOOD }, mat:'Wood', grounded:true },
+  { id:'campfire',  name:'CAMPFIRE',  layer:'ground', station:false, ext:null,
+    cost:{ stone:VB.CAMPFIRE_STONE }, mat:'Stone', grounded:true, anywhere:true },
+  { id:'floor',     name:'FLOOR',     layer:'ground', station:false, ext:null,
+    cost:{ wood:VB.FLOOR_WOOD }, mat:'Wood', grounded:true },
+  { id:'wall',      name:'WALL',      layer:'ground', station:false, ext:null,
+    cost:{ wood:VB.WALL_WOOD }, mat:'Wood', grounded:false },
+  { id:'pole',      name:'POLE',      layer:'ground', station:false, ext:null,
+    cost:{ wood:VB.POLE_WOOD }, mat:'Wood', grounded:true },
+  { id:'roof',      name:'ROOF',      layer:'roof',   station:false, ext:null,
+    cost:{ wood:VB.ROOF_WOOD }, mat:'Wood', grounded:false },
+  { id:'chopblock', name:'CHOP BLOCK', layer:'ground', station:false, ext:'chopblock',
+    cost:{ wood:VB.CHOPBLOCK_WOOD, flint:VB.CHOPBLOCK_FLINT }, mat:'Wood', grounded:true },
+  { id:'tanrack',   name:'TAN RACK',  layer:'ground', station:false, ext:'tanrack',
+    cost:{ wood:VB.TANRACK_WOOD, flint:VB.TANRACK_FLINT }, mat:'Wood', grounded:true },
+  { id:'adze',      name:'ADZE',      layer:'ground', station:false, ext:'adze',
+    cost:{ wood:VB.ADZE_WOOD, bronze:VB.ADZE_BRONZE }, mat:'Wood', grounded:true },
+  { id:'shelf',     name:'TOOL SHELF', layer:'ground', station:false, ext:'shelf',
+    cost:{ wood:VB.SHELF_WOOD, iron:VB.SHELF_IRON }, mat:'Iron', grounded:true }
+];
+
+/* Crafted AT a station -- the loop that needs the roof. */
+var RECIPES = [
+  { id:'hammer', name:'HAMMER', cost:{ wood:VB.HAMMER_WOOD, stone:VB.HAMMER_STONE }, yield:1 },
+  { id:'club',   name:'CLUB',   cost:{ wood:VB.CLUB_WOOD }, yield:1 },
+  { id:'arrow',  name:'ARROWS', cost:{ wood:VB.ARROW_WOOD }, yield:VB.ARROW_YIELD }
+];
+
+/* The seven material types WearNTear scales integrity loss by. Sourced as a
+   SET; the multipliers are the mod's own defaults, which are all zero -- i.e.
+   vanilla loss, unmodified. */
+var MATERIALS = ['Wood','Stone','Iron','HardWood','Marble','Ashstone','Ancient'];
+var MATERIAL_MULT = { Wood:0, Stone:0, Iron:0, HardWood:0, Marble:0, Ashstone:0, Ancient:0 };
+
+var W = null;    /* the world */
+var verb = 'PLACE', sel = 'workbench', craftSel = 'club';
+
+function pieceDef(id){ for (var i=0;i<PIECES.length;i++) if (PIECES[i].id===id) return PIECES[i]; return null; }
+function recipeDef(id){ for (var i=0;i<RECIPES.length;i++) if (RECIPES[i].id===id) return RECIPES[i]; return null; }
+
+function reset(){
+  W = {
+    inv: { wood:START.wood, stone:START.stone, flint:START.flint,
+           bronze:START.bronze, iron:START.iron },
+    made: {},
+    px: 13, py: 24,
+    pieces: [],          /* {id,cx,cy,layer,mat,placedByPlayer,recover} */
+    /* A NO-BUILD ZONE, because Valheim's placement enum has a third value and a
+       page with only two would be quietly dropping a third of the mechanism. */
+    noBuild: [[2,2],[3,2],[4,2],[2,3],[3,3],[4,3]],
+    /* A RUIN NOBODY PLACED. This exists to prove the IsPlacedByPlayer branch of
+       the refund: tearing it down gives you nothing back. */
+    rolls: []
+  };
+  W.pieces.push({ id:'wall', cx:11, cy:3, layer:'ground', mat:'Wood',
+                  placedByPlayer:false, recover:true, ruin:true });
+  return W;
+}
+
+/* --------------------------------------------------------------------------
+   GEOMETRY. Distances are in METRES, because every sourced number is in metres
+   and converting at the edge is how you avoid a unit bug in the middle.
+   -------------------------------------------------------------------------- */
+function metres(ax, ay, bx, by){
+  var dx = (ax - bx) * VB.CELL_METRES, dy = (ay - by) * VB.CELL_METRES;
+  return Math.sqrt(dx*dx + dy*dy);
+}
+function isNoBuild(cx, cy){
+  for (var i=0;i<W.noBuild.length;i++) if (W.noBuild[i][0]===cx && W.noBuild[i][1]===cy) return true;
+  return false;
+}
+function at(cx, cy, layer){
+  for (var i=0;i<W.pieces.length;i++){
+    var p = W.pieces[i];
+    if (p.cx===cx && p.cy===cy && p.layer===layer) return p;
+  }
+  return null;
+}
+
+/* --------------------------------------------------------------------------
+   MECHANIC 4 — UPGRADING. Level is 1 plus the number of DISTINCT extensions
+   parked within ATTACH_RANGE. Radius grows RADIUS_PER_LEVEL per level and stops
+   at WORKBENCH_RANGE_MAX, which the base plus four upgrades lands on exactly.
+   -------------------------------------------------------------------------- */
+function stations(){
+  var out = [];
+  for (var i=0;i<W.pieces.length;i++){
+    var d = pieceDef(W.pieces[i].id);
+    if (d && d.station) out.push(W.pieces[i]);
+  }
+  return out;
+}
+function benchLevel(st){
+  if (!st) return 0;
+  var seen = {};
+  for (var i=0;i<W.pieces.length;i++){
+    var p = W.pieces[i], d = pieceDef(p.id);
+    if (!d || !d.ext) continue;
+    if (metres(p.cx, p.cy, st.cx, st.cy) <= VB.ATTACH_RANGE) seen[d.ext] = 1;
+  }
+  var n = 0; for (var k in seen) if (seen.hasOwnProperty(k)) n++;
+  return Math.min(VB.WORKBENCH_LEVEL_MAX, 1 + n);
+}
+function benchRadius(st){
+  if (!st) return 0;
+  var r = VB.WORKBENCH_RANGE + (benchLevel(st) - 1) * VB.RADIUS_PER_LEVEL;
+  return Math.min(VB.WORKBENCH_RANGE_MAX, r);
+}
+function stationCovering(cx, cy){
+  var sts = stations();
+  for (var i=0;i<sts.length;i++){
+    if (metres(cx, cy, sts[i].cx, sts[i].cy) <= benchRadius(sts[i])) return sts[i];
+  }
+  return null;
+}
+
+/* --------------------------------------------------------------------------
+   MECHANIC 5 — SPAWN SUPPRESSION. The station's effect area IS its build area:
+   ValheimPlus resizes the PlayerBase EffectArea to the build range and says in
+   its own comment that enemy spawning queries that collider. So one radius does
+   both jobs and there is no second number to tune.
+   -------------------------------------------------------------------------- */
+function spawnRadius(st){
+  return VB.ENEMY_SPAWN_RANGE_SENTINEL > 0 ? VB.ENEMY_SPAWN_RANGE_SENTINEL : benchRadius(st);
+}
+function suppressedAt(cx, cy){
+  var sts = stations();
+  for (var i=0;i<sts.length;i++){
+    if (metres(cx, cy, sts[i].cx, sts[i].cy) <= spawnRadius(sts[i])) return true;
+  }
+  return false;
+}
+function spawnRoll(cells){
+  var out = [];
+  for (var i=0;i<cells.length;i++){
+    var c = cells[i], sup = suppressedAt(c[0], c[1]);
+    out.push({ cx:c[0], cy:c[1], suppressed:sup, spawned:!sup });
+  }
+  W.rolls = out;
+  return out;
+}
+
+/* --------------------------------------------------------------------------
+   STRUCTURAL INTEGRITY. The STRUCTURE is sourced: support must reach the
+   ground (WearNTear.HaveSupport), loss has TWO axes, and a per-material
+   multiplier is clamped 0..100 and applied as loss -= loss/100*mult. The base
+   loss per step is declared OURS -- the vanilla per-material figures are not
+   readable and this page will not pretend otherwise.
+   -------------------------------------------------------------------------- */
+function materialLoss(mat){
+  var mult = Math.max(VB.INTEGRITY_CLAMP_MIN,
+             Math.min(VB.INTEGRITY_CLAMP_MAX,
+             MATERIAL_MULT.hasOwnProperty(mat) ? MATERIAL_MULT[mat] : 0));
+  var horizontal = VB.BASE_LOSS_PER_STEP;
+  var vertical   = VB.BASE_LOSS_PER_STEP;
+  horizontal -= horizontal / VB.LOSS_PCT_DIVISOR * mult;
+  vertical   -= vertical   / VB.LOSS_PCT_DIVISOR * mult;
+  return { horizontal:horizontal, vertical:vertical, mult:mult };
+}
+/* Breadth-first out from every ground-connected piece, losing support each step.
+   A piece nothing reaches has no support, which is HaveSupport returning false. */
+function integrityMap(){
+  var key = function(p){ return p.layer + ':' + p.cx + ',' + p.cy; };
+  var support = {}, queue = [];
+  for (var i=0;i<W.pieces.length;i++){
+    var p = W.pieces[i], d = pieceDef(p.id);
+    if (d && d.grounded && p.layer === 'ground'){ support[key(p)] = 1; queue.push(p); }
+  }
+  var guard = 0;
+  while (queue.length && guard++ < 4000){
+    var cur = queue.shift(), have = support[key(cur)];
+    for (var j=0;j<W.pieces.length;j++){
+      var q = W.pieces[j];
+      if (q === cur) continue;
+      var dx = Math.abs(q.cx - cur.cx), dy = Math.abs(q.cy - cur.cy);
+      var adjacent = (dx + dy === 1 && q.layer === cur.layer);
+      var stacked  = (dx === 0 && dy === 0 && q.layer !== cur.layer);
+      var leaning  = (dx + dy === 1 && q.layer !== cur.layer);
+      if (!adjacent && !stacked && !leaning) continue;
+      var L = materialLoss(q.mat);
+      var next = have - (stacked ? L.vertical : L.horizontal);
+      if (next <= 0) continue;
+      if (!(key(q) in support) || support[key(q)] < next){
+        support[key(q)] = next; queue.push(q);
+      }
+    }
+  }
+  return support;
+}
+function integrity(cx, cy, layer){
+  var p = at(cx, cy, layer || 'ground');
+  if (!p) return null;
+  var map = integrityMap(), k = p.layer + ':' + p.cx + ',' + p.cy;
+  var s = map.hasOwnProperty(k) ? map[k] : 0;
+  return { support:s, supported:s > 0, mat:p.mat, loss:materialLoss(p.mat) };
+}
+
+/* --------------------------------------------------------------------------
+   MECHANIC 1 — BUILDING. Placement answers with a STATUS plus a finer reason.
+   The status is one of Valheim's own three; the reason is ours.
+   THE ASYMMETRY LIVES HERE: a station needs no station in range, so the first
+   thing you ever put down is always legal on bare dirt.
+   -------------------------------------------------------------------------- */
+function affordable(cost){
+  for (var k in cost) if (cost.hasOwnProperty(k) && (W.inv[k] || 0) < cost[k]) return false;
+  return true;
+}
+/* ignoreReach exists for ONE reason: asymmetry() asks a question about the
+   RADIUS, and if it also asked about the player's arm length the answer would
+   change depending on where you happen to be standing. A measurement that moves
+   when the observer moves is not a measurement. */
+function status(cx, cy, id, ignoreReach){
+  var d = pieceDef(id || sel);
+  if (!d) return { status:STATUS.INVALID, reason:'no such piece' };
+  if (cx < 0 || cy < 0 || cx >= COLS || cy >= ROWS)
+    return { status:STATUS.INVALID, reason:'off the map' };
+  if (isNoBuild(cx, cy)) return { status:STATUS.NOBUILD, reason:'no-build zone' };
+  if (at(cx, cy, d.layer)) return { status:STATUS.INVALID, reason:'occupied' };
+  if (!ignoreReach && metres(cx, cy, W.px, W.py) > VB.MAX_PLACE_DIST)
+    return { status:STATUS.INVALID, reason:'out of reach' };
+  if (!affordable(d.cost)) return { status:STATUS.INVALID, reason:'no materials' };
+  /* THE ONE LINE THAT IS THE WHOLE FINDING */
+  if (!d.station && !d.anywhere && !stationCovering(cx, cy))
+    return { status:STATUS.INVALID, reason:'needs a station in range' };
+  return { status:STATUS.VALID, reason:'ok' };
+}
+function placeAt(cx, cy, id){
+  var d = pieceDef(id || sel);
+  var s = status(cx, cy, id || sel);
+  if (s.status !== STATUS.VALID) return { ok:false, status:s.status, reason:s.reason };
+  for (var k in d.cost) if (d.cost.hasOwnProperty(k)) W.inv[k] -= d.cost[k];
+  W.pieces.push({ id:d.id, cx:cx, cy:cy, layer:d.layer, mat:d.mat,
+                  placedByPlayer:true, recover:true });
+  return { ok:true, status:s.status, reason:'placed', id:d.id };
+}
+
+/* --------------------------------------------------------------------------
+   MECHANIC 3 — DECONSTRUCTING. IsPlacedByPlayer gates the refund and m_recover
+   is per-material. Vanilla returns what it cost -- REFUND_FLOOR is 1 -- and
+   that is why nobody hesitates.
+   -------------------------------------------------------------------------- */
+function removeAt(cx, cy, layer){
+  var p = at(cx, cy, layer || 'ground');
+  if (!p) return { ok:false, reason:'nothing there', refund:{} };
+  var d = pieceDef(p.id), refund = {};
+  if (p.placedByPlayer && p.recover){
+    for (var k in d.cost) if (d.cost.hasOwnProperty(k)){
+      var back = Math.floor(d.cost[k] * VB.REFUND_FLOOR);
+      refund[k] = back; W.inv[k] += back;
+    }
+  }
+  W.pieces.splice(W.pieces.indexOf(p), 1);
+  return { ok:true, reason: p.placedByPlayer ? 'refunded' : 'not yours, nothing back',
+           refund:refund, wasPlayers:!!p.placedByPlayer };
+}
+
+/* --------------------------------------------------------------------------
+   MECHANIC 2 — CRAFTING. The half of the asymmetry that DOES want a house:
+   in range of a station, m_craftRequireRoof satisfied, and 70% cover. Cover is
+   the nine tiles centred on the station, so the fraction becomes legible:
+   seven of nine is 0.78 and passes, six of nine is 0.67 and does not.
+   -------------------------------------------------------------------------- */
+function coverOf(st){
+  var roofed = 0, total = 0;
+  for (var dx=-1; dx<=1; dx++) for (var dy=-1; dy<=1; dy++){
+    total++;
+    if (at(st.cx+dx, st.cy+dy, 'roof')) roofed++;
+  }
+  return { roofed:roofed, total:total, fraction:roofed/total };
+}
+function usableStation(){
+  var sts = stations();
+  for (var i=0;i<sts.length;i++){
+    if (metres(W.px, W.py, sts[i].cx, sts[i].cy) <= benchRadius(sts[i])) return sts[i];
+  }
+  return null;
+}
+function canCraft(){
+  var st = usableStation();
+  if (!st) return { ok:false, reason:'no station in range', roof:false, cover:0 };
+  var c = coverOf(st);
+  var roof = !!at(st.cx, st.cy, 'roof');
+  if (VB.CRAFT_ROOF_REQUIRED && !roof)
+    return { ok:false, reason:'the bench needs a roof over it', roof:false, cover:c.fraction, station:st.id };
+  if (c.fraction < VB.CRAFT_COVER_FRACTION)
+    return { ok:false, reason:'only ' + c.roofed + '/' + c.total + ' covered, needs ' +
+             Math.ceil(VB.CRAFT_COVER_FRACTION * c.total) + '/' + c.total,
+             roof:roof, cover:c.fraction, station:st.id };
+  return { ok:true, reason:'usable', roof:roof, cover:c.fraction, station:st.id,
+           level:benchLevel(st) };
+}
+/* THE ASYMMETRY, ASKED AS ONE QUESTION. Same station, same bare dirt: what may
+   you do? This function exists so the finding is testable and not just prose. */
+function asymmetry(){
+  var st = stations()[0] || null;
+  var buildOk = false;
+  if (st){
+    /* can we build a non-station piece in the radius with no roof at all? */
+    for (var cx=0; cx<COLS && !buildOk; cx++) for (var cy=0; cy<ROWS && !buildOk; cy++){
+      if (metres(cx, cy, st.cx, st.cy) > benchRadius(st)) continue;
+      if (status(cx, cy, 'floor', true).status === STATUS.VALID) buildOk = true;
+    }
+  }
+  var craft = canCraft();
+  return {
+    hasStation: !!st,
+    roofOverStation: st ? !!at(st.cx, st.cy, 'roof') : false,
+    coverOverStation: st ? coverOf(st).fraction : 0,
+    mayBuildInRadius: buildOk,
+    maySuppressSpawns: st ? suppressedAt(st.cx, st.cy) : false,
+    mayCraft: craft.ok,
+    buildRoofRequired: !!VB.BUILD_ROOF_REQUIRED,
+    craftRoofRequired: !!VB.CRAFT_ROOF_REQUIRED
+  };
+}
+function craft(id){
+  var c = canCraft();
+  if (!c.ok) return { ok:false, reason:c.reason };
+  var r = recipeDef(id || craftSel);
+  if (!r) return { ok:false, reason:'no such recipe' };
+  if (!affordable(r.cost)) return { ok:false, reason:'no materials' };
+  for (var k in r.cost) if (r.cost.hasOwnProperty(k)) W.inv[k] -= r.cost[k];
+  W.made[r.id] = (W.made[r.id] || 0) + r.yield;
+  return { ok:true, made:r.id, count:W.made[r.id], yield:r.yield };
+}
+
+/* --------------------------------------------------------------------------
+   MOVEMENT. Plumbing, not a deliverable -- it exists only so MAX_PLACE_DIST
+   means something. Nobody studies another game's walk for us.
+   -------------------------------------------------------------------------- */
+function moveTo(cx, cy){
+  W.px = Math.max(0, Math.min(COLS-1, cx));
+  W.py = Math.max(0, Math.min(ROWS-1, cy));
+  return { px:W.px, py:W.py };
+}
+function step(dx, dy){ return moveTo(W.px + dx, W.py + dy); }
+
+/* ==========================================================================
+   DRAW. Placeholder art: rectangles, and one white circle for the claim.
+   ========================================================================== */
+var cv = document.getElementById('stage'), cx2 = cv.getContext('2d');
+function draw(){
+  var S = CELL * 2;                                    /* DPR 2 backing store */
+  cx2.setTransform(1,0,0,1,0,0);
+  cx2.fillStyle = '#0e0d0b'; cx2.fillRect(0,0,cv.width,cv.height);
+  cx2.scale(2,2);
+
+  /* dirt */
+  for (var x=0;x<COLS;x++) for (var y=0;y<ROWS;y++){
+    cx2.fillStyle = ((x+y)%2) ? '#171511' : '#1a1814';
+    cx2.fillRect(x*CELL, y*CELL, CELL, CELL);
+  }
+  /* no-build zone */
+  cx2.fillStyle = '#4a3f55';
+  for (var i=0;i<W.noBuild.length;i++)
+    cx2.fillRect(W.noBuild[i][0]*CELL+1, W.noBuild[i][1]*CELL+1, CELL-2, CELL-2);
+
+  /* THE CLAIM. One white circle per station, which in the real game is the same
+     variable as the build range and the same collider as the spawn area. */
+  var sts = stations();
+  for (var s=0;s<sts.length;s++){
+    var st = sts[s], rC = benchRadius(st) / VB.CELL_METRES;
+    cx2.beginPath();
+    cx2.arc(st.cx*CELL + CELL/2, st.cy*CELL + CELL/2, rC*CELL, 0, Math.PI*2);
+    cx2.strokeStyle = 'rgba(239,234,224,0.85)'; cx2.lineWidth = 1.5; cx2.stroke();
+    cx2.fillStyle = 'rgba(239,234,224,0.045)'; cx2.fill();
+    /* the attach ring: where an upgrade has to sit */
+    cx2.beginPath();
+    cx2.arc(st.cx*CELL + CELL/2, st.cy*CELL + CELL/2,
+            (VB.ATTACH_RANGE/VB.CELL_METRES)*CELL, 0, Math.PI*2);
+    cx2.strokeStyle = 'rgba(91,111,138,0.75)';
+    cx2.setLineDash([3,3]); cx2.lineWidth = 1; cx2.stroke(); cx2.setLineDash([]);
+  }
+
+  /* pieces */
+  var map = integrityMap();
+  for (var p=0;p<W.pieces.length;p++){
+    var pc = W.pieces[p], d = pieceDef(pc.id);
+    var k = pc.layer + ':' + pc.cx + ',' + pc.cy;
+    var sup = map.hasOwnProperty(k) ? map[k] : 0;
+    var col = '#6b5a3e';
+    if (pc.layer === 'roof') col = '#8a7550';
+    if (d && d.station) col = '#c9a227';
+    if (d && d.ext) col = '#5b6f8a';
+    if (sup <= 0) col = '#c05a4a';
+    if (pc.ruin) col = '#4d4a44';
+    var pad = pc.layer === 'roof' ? ROOF_PAD : GROUND_PAD;
+    cx2.fillStyle = col;
+    cx2.fillRect(pc.cx*CELL+pad, pc.cy*CELL+pad, CELL-pad*2, CELL-pad*2);
+    if (pc.layer === 'roof'){
+      cx2.strokeStyle = 'rgba(232,228,220,0.5)'; cx2.lineWidth = 1;
+      cx2.strokeRect(pc.cx*CELL+pad+.5, pc.cy*CELL+pad+.5, CELL-pad*2-1, CELL-pad*2-1);
+    }
+  }
+
+  /* last spawn roll */
+  for (var r=0;r<W.rolls.length;r++){
+    var rr = W.rolls[r];
+    /* MONSTERS GET THEIR OWN COLOUR. They were drawn in the same red as an
+       unsupported piece, so two unrelated meanings shared one swatch and the
+       legend explained neither -- it listed 'unsupported' and never mentioned
+       the dots at all, which is a legend lying by omission. */
+    cx2.fillStyle = rr.spawned ? '#e07a3c' : 'rgba(127,174,90,0.7)';
+    cx2.beginPath();
+    cx2.arc(rr.cx*CELL + CELL/2, rr.cy*CELL + CELL/2,
+            rr.spawned ? DOT_SPAWN : DOT_QUIET, 0, Math.PI*2);
+    cx2.fill();
+  }
+
+  /* reach ring + you */
+  cx2.beginPath();
+  cx2.arc(W.px*CELL + CELL/2, W.py*CELL + CELL/2,
+          (VB.MAX_PLACE_DIST/VB.CELL_METRES)*CELL, 0, Math.PI*2);
+  cx2.strokeStyle = 'rgba(201,162,39,0.4)'; cx2.lineWidth = 1; cx2.stroke();
+  cx2.fillStyle = '#e8e4dc';
+  cx2.fillRect(W.px*CELL + PC_INSET_X, W.py*CELL + PC_INSET_Y,
+               CELL - PC_INSET_X*2, CELL - PC_INSET_Y*2);
+}
+
+/* ==========================================================================
+   UI. The tool IS the menu: one bar, three verbs, the pieces inline. There is
+   no build mode to enter and none to leave.
+   ========================================================================== */
+function say(m){ document.getElementById('log').textContent = m; }
+function el(tag, cls, txt){
+  var e = document.createElement(tag); if (cls) e.className = cls;
+  if (txt !== undefined) e.textContent = txt; return e;
+}
+function buildUI(){
+  var vb = document.getElementById('verbs'); vb.innerHTML = '';
+  vb.appendChild(el('span','read','HAMMER'));
+  ['PLACE','REPAIR','REMOVE'].forEach(function(v){
+    var b = el('button','chip verb' + (verb===v?' on':''), v);
+    b.onclick = function(){ verb = v; buildUI(); refresh();
+      say(v === 'REPAIR'
+        ? 'REPAIR is the third verb of the same tool — tap a piece.'
+        : 'Tap the ground. No mode to enter, no screen to leave.'); };
+    vb.appendChild(b);
+  });
+  var pb = document.getElementById('pieces'); pb.innerHTML = '';
+  PIECES.forEach(function(d){
+    var b = el('button','chip' + (sel===d.id?' on':''), d.name);
+    b.onclick = function(){ sel = d.id; verb = 'PLACE'; buildUI(); refresh(); };
+    pb.appendChild(b);
+  });
+  var pad = document.getElementById('pad'); pad.innerHTML = '';
+  var keys = [['','↑',''],['←','·','→'],['','↓','']];
+  var dirs = { '↑':[0,-1], '↓':[0,1], '←':[-1,0], '→':[1,0] };
+  keys.forEach(function(row){ row.forEach(function(k){
+    var b = el('button','chip', k || ' ');
+    if (dirs[k]) b.onclick = function(){ step(dirs[k][0], dirs[k][1]); refresh(); };
+    else b.style.visibility = k === '·' ? 'hidden' : 'hidden';
+    pad.appendChild(b);
+  }); });
+}
+function refresh(){
+  draw();
+  var st = stations()[0] || null;
+  var c = canCraft(), a = asymmetry();
+  var inv = W.inv;
+  document.getElementById('readout').innerHTML =
+    'wood <b>' + inv.wood + '</b> · stone <b>' + inv.stone + '</b> · flint <b>' +
+    inv.flint + '</b> · bronze <b>' + inv.bronze + '</b> · iron <b>' + inv.iron + '</b><br>' +
+    (st
+      ? 'bench L<b>' + benchLevel(st) + '</b>/' + VB.WORKBENCH_LEVEL_MAX +
+        ' · radius <b>' + benchRadius(st) + 'm</b>' +
+        ' · may build here <span class="' + (a.mayBuildInRadius?'y':'n') + '">' +
+        (a.mayBuildInRadius?'YES':'no') + '</span>' +
+        ' · spawns off <span class="' + (a.maySuppressSpawns?'y':'n') + '">' +
+        (a.maySuppressSpawns?'YES':'no') + '</span>' +
+        ' · may craft <span class="' + (c.ok?'y':'n') + '">' +
+        (c.ok?'YES':'no — ' + c.reason) + '</span>'
+      : 'no station placed · <b>put the WORKBENCH on bare dirt</b>') +
+    (Object.keys(W.made).length
+      ? '<br>made: ' + Object.keys(W.made).map(function(k){ return k + ' x' + W.made[k]; }).join(', ')
+      : '');
+}
+cv.addEventListener('click', function(e){
+  var r = cv.getBoundingClientRect();
+  var gx = Math.floor((e.clientX - r.left) / (r.width / COLS));
+  var gy = Math.floor((e.clientY - r.top) / (r.height / ROWS));
+  if (verb === 'PLACE'){
+    var res = placeAt(gx, gy);
+    say(res.ok
+      ? 'placed ' + res.id + ' — one tap, no menu depth'
+      : res.status + ': ' + res.reason);
+  } else if (verb === 'REMOVE'){
+    var top = at(gx, gy, 'roof') ? 'roof' : 'ground';
+    var rem = removeAt(gx, gy, top);
+    if (!rem.ok) say('nothing there');
+    else if (!rem.wasPlayers) say('you did not place that — NOTHING comes back');
+    else {
+      var got = Object.keys(rem.refund).map(function(k){ return '+' + rem.refund[k] + ' ' + k; });
+      say('taken down, ' + (got.length ? got.join(' ') : 'nothing') + ' — being wrong is free');
+    }
+  } else {
+    var top2 = at(gx, gy, 'roof') ? 'roof' : 'ground';
+    var i = integrity(gx, gy, top2);
+    say(i ? (i.supported
+        ? 'supported, ' + i.support.toFixed(2) + ' left of 1 — chain reaches the ground'
+        : 'UNSUPPORTED — nothing connects this to the ground')
+      : 'nothing there to repair');
+  }
+  refresh();
+});
+document.getElementById('btnCraft').onclick = function(){
+  var r = craft();
+  say(r.ok ? 'crafted ' + r.made + ' x' + r.yield + ' — this is the half that wanted a roof'
+           : 'cannot craft: ' + r.reason);
+  refresh();
+};
+document.getElementById('btnRoll').onclick = function(){
+  var cells = [];
+  for (var i=0;i<90;i++) cells.push([ (i*11+3) % COLS, (i*7+1) % ROWS ]);
+  var out = spawnRoll(cells);
+  var spawned = out.filter(function(o){ return o.spawned; }).length;
+  say(spawned + ' of ' + out.length + ' rolls produced a monster. Green dots are ' +
+      'rolls the circle ate.');
+  refresh();
+};
+document.getElementById('btnReset').onclick = function(){
+  reset(); buildUI(); refresh(); say('reset. Bare dirt and a hammer.');
+};
+
+/* ==========================================================================
+   THE HARNESS. The gate drives THESE functions, so it tests the shipped code
+   path and never a second copy of the maths.
+   ========================================================================== */
+window.LAB = {
+  kind: 'MODEL',
+  mechanics: ['building', 'crafting', 'deconstructing', 'upgrading', 'spawn suppression'],
+  VB: VB,
+  STATUS: STATUS,
+  PIECES: PIECES,
+  RECIPES: RECIPES,
+  MATERIALS: MATERIALS,
+  reset: function(){ reset(); buildUI(); refresh(); return W; },
+  world: function(){ return W; },
+  inv: function(){ return W.inv; },
+  made: function(){ return W.made; },
+  pieces: function(){ return W.pieces; },
+  select: function(id){ sel = id; buildUI(); refresh(); return sel; },
+  verb: function(v){ verb = v; buildUI(); return verb; },
+  moveTo: function(x,y){ var r = moveTo(x,y); refresh(); return r; },
+  metres: metres,
+  status: status,
+  cellsInRadius: function(){
+    var st = stations()[0], n = 0;
+    if (!st) return 0;
+    for (var x=0;x<COLS;x++) for (var y=0;y<ROWS;y++)
+      if (metres(x, y, st.cx, st.cy) <= benchRadius(st)) n++;
+    return n;
+  },
+  cellsSuppressed: function(){
+    var n = 0;
+    for (var x=0;x<COLS;x++) for (var y=0;y<ROWS;y++) if (suppressedAt(x,y)) n++;
+    return n;
+  },
+  allCells: function(){
+    var out = [];
+    for (var x=0;x<COLS;x++) for (var y=0;y<ROWS;y++) out.push([x,y]);
+    return out;
+  },
+  dims: function(){ return { cols:COLS, rows:ROWS }; },
+  /* the actual pixel sizes the draw uses, so a check can ask whether a thing is
+     big enough to SEE rather than only whether the model agrees with itself. */
+  drawSizes: function(){
+    return { cell:CELL,
+             playerW: CELL - PC_INSET_X*2, playerH: CELL - PC_INSET_Y*2,
+             roofW: CELL - ROOF_PAD*2, groundW: CELL - GROUND_PAD*2,
+             dotSpawn: DOT_SPAWN, dotQuiet: DOT_QUIET };
+  },
+  placeAt: function(x,y,id){ var r = placeAt(x,y,id); refresh(); return r; },
+  removeAt: function(x,y,l){ var r = removeAt(x,y,l); refresh(); return r; },
+  stations: stations,
+  benchLevel: function(){ return benchLevel(stations()[0]); },
+  benchRadius: function(){ return benchRadius(stations()[0]); },
+  stationCovering: stationCovering,
+  coverOf: function(){ var s = stations()[0]; return s ? coverOf(s) : null; },
+  canCraft: canCraft,
+  craft: function(id){ var r = craft(id); refresh(); return r; },
+  asymmetry: asymmetry,
+  suppressedAt: suppressedAt,
+  spawnRoll: function(c){ var r = spawnRoll(c); refresh(); return r; },
+  spawnRadius: function(){ return spawnRadius(stations()[0]); },
+  integrity: integrity,
+  materialLoss: materialLoss,
+  /* nothing on this page animates or ticks, so there is nothing to stop. The
+     harness calls these on every lab page; they are honest no-ops here. */
+  freeze: function(){}, thaw: function(){},
+  /* place a piece with no distance limit -- the tests are about the BUILD
+     rules, and walking there one cell at a time is the plumbing, not the
+     mechanic. It still obeys every other rule. */
+  teleportPlace: function(x,y,id){ moveTo(x,y); var r = placeAt(x,y,id); refresh(); return r; },
+  /* roof the nine tiles over the bench, which is what CRAFTING wants and
+     BUILDING never did. */
+  /* n is the TARGET NUMBER OF ROOFED CELLS out of the nine, not a number of new
+     placements. It was the latter for one run of the gate and the difference is
+     silent and total: roofTheBench(1) then roofTheBench(6) gave SEVEN roofs, so
+     the 6-of-9 case was really testing 7-of-9 and both cover checks agreed with
+     each other while both were wrong. A cumulative call that reads like an
+     absolute one is exactly the shape of bug a passing test hides. */
+  roofTheBench: function(n){
+    var st = stations()[0]; if (!st) return 0;
+    var order = [[0,0],[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]];
+    var want = (n === undefined) ? 9 : n;
+    var have = coverOf(st).roofed;
+    for (var i=0;i<order.length && have<want;i++){
+      var x = st.cx + order[i][0], y = st.cy + order[i][1];
+      if (at(x, y, 'roof')) continue;
+      moveTo(x, y);
+      if (placeAt(x, y, 'roof').ok) have++;
+    }
+    refresh(); return have;
+  }
+};
+
+reset(); buildUI(); refresh();
+</script>
+</body>
+</html>

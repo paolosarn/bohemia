@@ -1,0 +1,432 @@
+BOHEMIA REFERENCE LAB 10 — VALHEIM'S BUILD SYSTEM — MECHANICS TEARDOWN
+8/7/26. LAB lane. Commissioned by name.
+
+PAGE: slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html
+PATTERN NOTE: records/lab/BOHEMIA_LAB_VALHEIM_BUILD_PATTERN_NOTE_8_7_26.md
+PRIOR RESEARCH THIS SUPERSEDES IN DETAIL (not in status):
+  records/BOHEMIA_RESEARCH_VALHEIM_BUILD_FEEL_8_4_26.md
+
+PAOLO, 8/4/26, VERBATIM:
+  "Val Heim's build menu and it's build system to me was the easiest to work with
+   among the games I've played it really felt like you could just set up fucking
+   camp anywhere quickly like very quickly"
+
+FIVE MECHANICS, ALL FIVE PLAYABLE END TO END ON THE PAGE:
+  building · crafting · deconstructing · upgrading · spawn suppression
+
+
+================================================================================
+THE FINDING
+================================================================================
+
+A WORKBENCH NEEDS A ROOF AND 70% COVER TO CRAFT. IT NEEDS NEITHER TO CLAIM ITS
+BUILD RADIUS OR TO SUPPRESS ENEMY SPAWNS.
+
+That is one design decision and it is the entire feeling he described. The moment
+the bench touches bare dirt you own the two properties that make a camp a camp --
+a zone you may build in, and a zone nothing spawns in. The house is an optional
+later improvement. YOU DO NOT BUILD A CAMP, YOU PLACE ONE.
+
+The second finding, which is why it feels fast rather than merely being fast:
+DECONSTRUCTION REFUNDS WHAT IT COST, so being wrong is free, so nobody hesitates.
+Hesitation is what actually makes a build system feel slow -- not menu depth.
+
+
+================================================================================
+THIS IS A MODEL, NOT A MEASUREMENT — AND WHY
+================================================================================
+
+NO SOURCE EXISTS FOR VALHEIM. The game ships as compiled Unity assemblies (a
+managed DLL, IL only, no published C#). Iron Gate has never released source.
+There is therefore no line of Valheim's own code to cite for anything, and any
+page claiming otherwise is lying.
+
+WHAT WAS ACTUALLY TRIED THIS TURN, AND WHAT HAPPENED:
+  - github.com/Grantapher/ValheimPlus, raw.githubusercontent.com    200 OK
+      ValheimPlus/GameClasses/Piece.cs                              200 (61 lines)
+      ValheimPlus/GameClasses/CraftingStation.cs                     200 (55 lines)
+      ValheimPlus/GameClasses/WearNTear.cs                          200 (121 lines)
+      ValheimPlus/GameClasses/Player.cs                             200 (1294 lines)
+      ValheimPlus/Configurations/Sections/WorkbenchConfiguration.cs  200
+      ValheimPlus/Configurations/Sections/BuildingConfiguration.cs   200
+      ValheimPlus/Configurations/Sections/StructuralIntegrityConfiguration.cs 200
+  - ValheimPlus/GameClasses/Build.cs                                404 (no such file)
+  - ValheimPlus/GameClasses/SpawnSystem.cs                          404 (no such file)
+  - ValheimPlus/GameClasses/EffectArea.cs                           404 (no such file)
+  - ValheimPlus/GameClasses/PrivateArea.cs                          404 (no such file)
+  - ValheimPlus/Helper.cs and GameClasses/Helper.cs                  404 (no such file)
+  - valheim.fandom.com, the official wiki, Steam discussions        403 FAILED
+      (every primary documentation page 403s through this environment's proxy, so
+       every [DOC ...] tag below rests on search-index summaries of those pages,
+       not on the pages themselves)
+
+WHY VALHEIMPLUS COUNTS AS A SOURCE AT ALL: it is a HarmonyX mod that patches the
+live game's own classes by name. Its [HarmonyPatch(typeof(X), "Y")] attributes,
+its field and property references, and its per-setting DEFAULTS are the real
+game's field names and the real game's vanilla values -- a mod that got them
+wrong would not load. So a name or a vanilla default read off ValheimPlus is
+genuinely sourced. A FORMULA read off ValheimPlus is the MOD'S formula, and where
+that distinction matters it is stated on the row.
+
+WHAT THE 8/4 RESEARCH RECORD GOT WRONG, AND IT UNDERSOLD ITSELF:
+records/BOHEMIA_RESEARCH_VALHEIM_BUILD_FEEL_8_4_26.md filed the 20 m radius and
+the visible white circle as "Wiki/community, not code". Both are actually
+SOURCED, and by the same two lines:
+    ___m_rangeBuild = Configuration.Current.Workbench.workbenchRange;
+    ___m_areaMarker.GetComponent<CircleProjector>().m_radius = ___m_rangeBuild;
+      /* ValheimPlus/GameClasses/CraftingStation.cs:21-22 */
+with workbenchRange defaulting to 20 in WorkbenchConfiguration.cs:5. The circle
+and the build range are THE SAME VARIABLE, in code, and the number is 20. That
+record is corrected by this one on those two claims and stands on the rest.
+
+
+================================================================================
+MECHANISM vs CONTENT
+================================================================================
+
+MECHANISM (copied exactly, and what a port would take):
+  - the asymmetry: roof+cover gate CRAFTING only, never building or suppression
+  - one radius doing both jobs, so there is no second number to tune
+  - the visible circle being the same variable as the build range
+  - placement answering with a three-value STATUS, not a boolean
+  - one tool, three verbs, no build mode
+  - refund gated on "did you place it", and the refund being the full cost
+  - level = 1 + distinct extensions in attach range; radius grows per level
+  - support having to reach the ground, with loss on two axes
+
+CONTENT (Valheim's, standing in as ours, and replaceable wholesale):
+  - every recipe (what a workbench, a wall, a club costs)
+  - the piece list and the extension list
+  - the material names
+  - the starting inventory (not in the constant block at all -- page furniture)
+
+WHAT IS NOT HERE, ON PURPOSE:
+  - snapping, rotation, roof-piece geometry, wall-by-wall architecture. Valheim
+    has TWO systems inside one hammer. PLACING A CAMP is the one he praised;
+    CONSTRUCTING A BUILDING is the one with a Steam thread titled "Building Feels
+    Terrible" and a manual-snapping feature added in 2023 to apologise for it.
+    A page that modelled the second would answer a question nobody asked.
+  - real-time swing timing, stamina drain per placement, durability decay over
+    days, weather damage, and the ward/PrivateArea permission system.
+  - the vanilla per-material integrity figures. The STRUCTURE of integrity is
+    sourced; the per-step base loss is declared ours because those numbers are
+    not readable and this page will not pretend otherwise.
+  - ANY Bohemia number. Not one. NO DAMAGE BEFORE THE DIAL is intact.
+
+
+================================================================================
+THE CONSTANTS. Every key in the page's VB block, its value, and its tag.
+[SOURCED file:line] = read off real open-source C# this turn.
+[DOC ...]           = only documentation carries it (and those pages 403'd, so
+                      it is a search-index summary).
+ours (declared)     = the page's own scale, not Valheim's.
+================================================================================
+
+--- THE RADIUS, AND THE TWO JOBS IT DOES ---
+
+WORKBENCH_RANGE               20      [SOURCED ValheimPlus/Configurations/Sections/WorkbenchConfiguration.cs:5]
+                                      public float workbenchRange { get; internal set; } = 20;
+                                      The mod's default IS the vanilla build radius in metres.
+WORKBENCH_SCALE_BASE          20      [SOURCED ValheimPlus/GameClasses/CraftingStation.cs:23]
+                                      float scaleIncrease = (workbenchRange) / 20f;
+                                      An independent second appearance of the same vanilla 20 --
+                                      the mod divides by it to rescale the marker, which only
+                                      works if 20 is what the game shipped.
+ATTACH_RANGE                  5       [SOURCED WorkbenchConfiguration.cs:7]
+                                      workbenchAttachmentRange = 5.0f -- how close an upgrade
+                                      extension must sit to count.
+MAX_PLACE_DIST                8       [SOURCED ValheimPlus/Configurations/Sections/BuildingConfiguration.cs:8]
+                                      maximumPlacementDistance = 8f, written into the game's own
+                                      m_maxPlaceDistance at ValheimPlus/GameClasses/Player.cs:46.
+COMFORT_RADIUS                10      [SOURCED BuildingConfiguration.cs:9]
+                                      pieceComfortRadius = 10f. Not used by any mechanic on this
+                                      page; recorded because it is the third radius in the same
+                                      config and a reader should know the game has three.
+AREA_REPAIR_RADIUS            7.5     [SOURCED BuildingConfiguration.cs:13]
+                                      areaRepairRadius = 7.5f, the reach of the hammer's REPAIR
+                                      verb -- evidence that repair is a radius, not a click.
+ENEMY_SPAWN_RANGE_SENTINEL    0       [SOURCED WorkbenchConfiguration.cs:6]
+                                      workbenchEnemySpawnRange = 0, and CraftingStation.cs:28
+                                      reads it as "0 means use workbenchRange". THE SENTINEL IS
+                                      THE PROOF: vanilla has ONE radius, and the mod had to invent
+                                      a second setting to split them apart.
+SPAWN_AREA_IS_BUILD_AREA      1       [SOURCED ValheimPlus/GameClasses/CraftingStation.cs:26-28]
+                                      Their own comment: "Apply this change to the child
+                                      GameObject's EffectArea collision. Various other systems
+                                      query this collision instead of the PrivateArea radius for
+                                      permissions (notably, enemy spawning)." Resized to
+                                      EffectArea.Type.PlayerBase. This is the code proof that the
+                                      workbench circle is what stops monsters spawning.
+RADIUS_MARKER_IS_BUILD_RANGE  1       [SOURCED CraftingStation.cs:21-22]
+                                      m_rangeBuild is assigned, then CircleProjector.m_radius is
+                                      assigned FROM IT. The white circle on the ground and the
+                                      build range are one variable. You can see your claim because
+                                      the claim draws itself.
+
+--- THE HAMMER ---
+
+HAMMER_VERB_COUNT             3       [SOURCED ValheimPlus/GameClasses/Player.cs:396]
+                                      methodName.Contains(nameof(Player.UpdatePlacement)) ||
+                                      ...(Player.Repair)) || ...(Player.RemovePiece))
+                                      then gated on itemName == "$item_hammer" (Player.cs:399).
+                                      Place, repair and remove are THREE VERBS OF ONE TOOL sharing
+                                      one stamina hook. That is the "tool is the menu" finding, in
+                                      code, rather than as a feeling about a UI.
+PLACEMENT_STATUS_COUNT        3       [SOURCED Player.cs:502, 504, 517]
+                                      Player.PlacementStatus.Invalid / .Valid / .NoBuildZone.
+                                      Placement answers with an ENUM, not a boolean, which is why
+                                      the game can tell you WHY. The page's finer reasons all map
+                                      onto these three and it never invents a fourth.
+
+--- THE REFUND ---
+
+REFUND_FLOOR                  1       [SOURCED ValheimPlus/GameClasses/Piece.cs:19-21]
+                                      "ensuring the resources that drop are never less than the
+                                      resources it cost to build the piece in the first place."
+                                      Full cost back. A multiplier of 1, not a generosity setting.
+RECOVER_IS_PER_MATERIAL       1       [SOURCED Piece.cs:14]
+                                      AccessTools.Field(typeof(Piece.Requirement),
+                                      nameof(Piece.Requirement.m_recover)) -- m_recover is a flag
+                                      on each REQUIREMENT, so refunds are decided per material,
+                                      not per piece.
+REFUND_REQUIRES_PLAYER_PLACED 1       [SOURCED Piece.cs:13]
+                                      Piece.IsPlacedByPlayer, patched inside DropResources. Only
+                                      what YOU built pays you back. The page ships one ruin
+                                      nobody placed to prove that branch is real.
+
+--- STRUCTURAL INTEGRITY (structure sourced, base loss ours) ---
+
+INTEGRITY_LOSS_AXES           2       [SOURCED ValheimPlus/GameClasses/WearNTear.cs:102]
+                                      Postfix(..., ref float horizontalLoss, ref float
+                                      verticalLoss). Integrity is TWO losses, not one number.
+INTEGRITY_CLAMP_MIN           0       [SOURCED WearNTear.cs:116]
+                                      Helper.Clamp(multiplier(), 0, 100).
+INTEGRITY_CLAMP_MAX           100     [SOURCED WearNTear.cs:116]
+                                      Same line, upper bound.
+LOSS_PCT_DIVISOR              100     [SOURCED WearNTear.cs:117-118]
+                                      verticalLoss -= verticalLoss / 100 * clampedMultiplier;
+                                      horizontalLoss -= horizontalLoss / 100 * clampedMultiplier;
+                                      The multiplier is a PERCENTAGE REDUCTION of the loss. Note
+                                      the honest caveat: the reduction is the MOD'S formula. The
+                                      thing it reduces is vanilla's.
+MATERIAL_TYPE_COUNT           7       [SOURCED WearNTear.cs:92-98]
+                                      WearNTear.MaterialType: Wood, Stone, Iron, HardWood,
+                                      Marble, Ashstone, Ancient. Vanilla's own enum, seven values.
+SUPPORT_REQUIRES_GROUND       1       [SOURCED WearNTear.cs:29-31]
+                                      "Removes the integrity check for having a connected piece to
+                                      the ground." [HarmonyPatch(typeof(WearNTear),
+                                      "HaveSupport")]. The check they had to REMOVE is the proof
+                                      the check exists: support must reach the ground.
+
+--- THE LEVELS ---
+
+WORKBENCH_LEVEL_MAX           5       [DOC Valheim wiki, Workbench: five levels]
+WORKBENCH_UPGRADE_COUNT       4       [DOC same page: levels 2-5 are four extensions]
+RADIUS_PER_LEVEL              4       [DOC same page: +4 m of build radius per level]
+WORKBENCH_RANGE_MAX           36      [DOC same page: 36 m fully upgraded]
+                                      AND THE ARITHMETIC CLOSES ON THE SOURCED NUMBER:
+                                      20 + 4 x 4 = 36. The one DOC block on this page is checked
+                                      against the one SOURCED radius, which is the only reason to
+                                      half-trust it.
+
+--- THE ASYMMETRY, AS FOUR NUMBERS. THIS IS THE FINDING. ---
+
+CRAFT_ROOF_REQUIRED           1       [SOURCED ValheimPlus/GameClasses/CraftingStation.cs:48]
+                                      __instance.m_craftRequireRoof = false;  <- the mod sets it
+                                      false to disable the check, under a method it names
+                                      "Disable roof requirement on workbench" (CraftingStation.cs:
+                                      38-42), patching CraftingStation.CheckUsable. So vanilla
+                                      requires a roof, the requirement is a field on the STATION,
+                                      and it lives on the CRAFT path only.
+CRAFT_COVER_FRACTION          0.7     [DOC Valheim wiki, Workbench: requires a roof and 70% cover]
+                                      On this page that becomes 7 of the 9 tiles over the bench,
+                                      which is 0.78 and passes; 6 of 9 is 0.67 and does not.
+BUILD_ROOF_REQUIRED           0       [SOURCED CraftingStation.cs:41-48 by ABSENCE, and it is a
+                                      real reading, not a shrug: m_craftRequireRoof is consulted
+                                      inside CheckUsable, the method that decides whether you may
+                                      CRAFT. Nothing on the build-range path (m_rangeBuild,
+                                      CraftingStation.cs:21) or the spawn-area path
+                                      (EffectArea.Type.PlayerBase, CraftingStation.cs:28) touches
+                                      it. Two different code paths off one object, one gated by a
+                                      roof and two not.]
+BUILD_COVER_FRACTION          0       [SOURCED same: no cover term exists outside CheckUsable.]
+
+--- CONTENT: BUILD PIECE RECIPES (Valheim's, standing in as ours) ---
+
+WORKBENCH_WOOD                10      [DOC Valheim wiki, Workbench: 10 Wood]
+CHOPBLOCK_WOOD                10      [DOC Chopping block: 10 Wood, 10 Flint]
+CHOPBLOCK_FLINT               10      [DOC Chopping block: 10 Wood, 10 Flint]
+TANRACK_WOOD                  10      [DOC Tanning rack: 10 Wood, 15 Flint (its leather-scrap and
+                                      deer-hide terms are CONTENT this page omits)]
+TANRACK_FLINT                 15      [DOC Tanning rack, same page]
+ADZE_WOOD                     10      [DOC Adze: 10 Wood, 3 Bronze]
+ADZE_BRONZE                   3       [DOC Adze, same page]
+SHELF_WOOD                    10      [DOC Tool shelf: 10 Wood, 4 Iron]
+SHELF_IRON                    4       [DOC Tool shelf, same page]
+WALL_WOOD                     2       [DOC Wood wall: 2 Wood]
+FLOOR_WOOD                    2       [DOC Wood floor: 2 Wood]
+ROOF_WOOD                     2       [DOC Wood roof 45 degree: 2 Wood]
+POLE_WOOD                     1       [DOC Wood pole: 1 Wood]
+CAMPFIRE_STONE                5       [DOC Campfire: 5 Stone]
+
+--- CONTENT: WHAT YOU CRAFT AT THE BENCH (closes the crafting loop) ---
+
+HAMMER_WOOD                   3       [DOC Hammer: 3 Wood, 2 Stone]
+HAMMER_STONE                  2       [DOC Hammer, same page]
+CLUB_WOOD                     6       [DOC Club: 6 Wood]
+ARROW_WOOD                    8       [DOC Wood arrow: 8 Wood yields 20]
+ARROW_YIELD                   20      [DOC Wood arrow, same page]
+
+--- OURS (declared). Two of them, and neither is a mechanism number. ---
+
+CELL_METRES                   2.5     ours (declared) -- the page's grid scale. Valheim is
+                                      continuous 3D; a 2.5 m cell is what makes a 20 m radius
+                                      eight cells and therefore visible on a 390px phone. Nothing
+                                      about the mechanism depends on it.
+BASE_LOSS_PER_STEP            0.15    ours (declared) -- support lost per step away from the
+                                      ground. The vanilla per-material figures are not readable
+                                      (see NO SOURCE above), so the STRUCTURE is sourced and this
+                                      one magnitude is declared rather than invented-and-claimed.
+
+
+================================================================================
+THE FIVE LOOPS, AND HOW EACH ONE CLOSES
+================================================================================
+
+1. BUILDING. Select a piece, tap the ground. Status answers Valid / Invalid /
+   NoBuildZone with a reason. Cost leaves the pack, the piece exists, repeat.
+   The loop's real content is the ONE LINE that is the finding:
+       if (!d.station && !d.anywhere && !stationCovering(cx, cy)) -> Invalid
+   A station is exempt from needing a station. That exemption is the reason your
+   first tap on bare dirt always works.
+
+2. CRAFTING. Stand in a bench's range, roof the bench, cover 7 of the 9 tiles
+   over it, press CRAFT. Materials leave, the item lands in "made", repeat. With
+   fewer than 7 roofed it refuses and says the count, so the 70% is legible
+   instead of mysterious.
+
+3. DECONSTRUCTING. Place anything, switch to REMOVE, tap it: the full cost comes
+   back and the inventory returns to exactly where it started. Tap the ruin
+   instead and nothing comes back, because IsPlacedByPlayer is false.
+
+4. UPGRADING. Park CHOP BLOCK / TAN RACK / ADZE / TOOL SHELF inside the dashed
+   5 m ring. Level goes 1 -> 5, radius goes 20 -> 36, and the white circle grows
+   on screen each time. Level caps and radius caps together.
+
+5. SPAWN SUPPRESSION. Press SPAWN ROLL. Rolls inside the circle produce nothing
+   (green dots), rolls outside produce a monster (red dots). Take the bench down
+   and roll again: the same cells now spawn. That is what the circle was for.
+
+AND STILL PHYSICAL: switch to REPAIR and tap a piece to read its support. A wall
+with no chain to the ground draws red and reads UNSUPPORTED. Fast to use is not
+weightless, and that is why it reads as real instead of as a menu.
+
+
+================================================================================
+HOW THIS WAS VERIFIED — TEN PLANTED MISTAKES, TEN CAUGHT
+================================================================================
+
+lab_gate.js runs 573 checks with LAB-10's row added, 35 of them B0-B32 driving
+this page's own functions in a real browser at 390x844. Green is not evidence, so
+every claim above was mutation-tested by breaking the page on purpose and
+checking the gate noticed:
+
+  M1  a station stops being exempt from needing a station     -> B1, B3, B4, B7
+  M2  the BUILD path starts requiring a roof                  -> B27, B28, B30 (+10)
+  M3  spawn radius decoupled from build radius (two knobs)    -> B24
+  M4  refund halved                                          -> A16, B14, B16
+  M5  the ruin becomes player-placed                          -> B15
+  M6  NoBuildZone collapsed into plain Invalid                -> B4, B5
+  M7  extensions attach from any distance                     -> B21
+  M8  cover requirement dropped to 0.6                        -> A16, B10
+  M9  roofTheBench's redundant skip removed                   -> NOTHING. Correctly.
+  M9b roofTheBench counts new placements (the REAL bug)       -> B9a, B10, B11
+
+TWO OF THOSE ROWS ARE THE ONLY REASON THIS SECTION IS WORTH READING.
+
+M9 IS A CONTROL THAT FAILED TO BE A CONTROL. It was meant to reproduce a bug this
+page really had -- roofTheBench(n) treating n as "place n more roofs" instead of
+"reach n roofed cells", which made the 6-of-9 case silently test 7-of-9 so the
+cover checks agreed with each other while both were wrong. M9 removed the wrong
+line and the gate stayed green, and a green run against a mutation is either a
+weak check or a bad mutation. It was a bad mutation: the fix was seeding the count
+from the roofs already there, not the skip. M9b broke the right line and B9a
+caught it. A CONTROL THAT DOES NOT REPRODUCE THE FAILURE PROVES NOTHING, and the
+only way to find that out is to check which line the fix actually lives on.
+
+M2 FIRST RAN AS A CRASH, NOT AS A FAILURE. It made pieces unplaceable, so B8 read
+a null piece, threw, and killed the run at check 8 of 32 -- which meant B27, B28
+and B30, the three checks that measure the actual finding, never executed and
+could not be shown to catch anything. B8 was hardened to return nulls instead of
+throwing and M2 was re-run: all three then failed loudly, and B28's failure
+message names the tell by itself ("Build false->true, spawns-off true->true,
+craft false->true" -- roofing moved TWO answers where the finding says it moves
+exactly one). A GATE THAT DIES EARLY IS A GATE WHOSE LATER CHECKS ARE UNPROVEN.
+
+AND THE MUTATION HARNESS ITSELF WAS BROKEN THE FIRST TIME. It reverted each
+mutation with `git checkout -- <page>` on a file that had never been committed, so
+nothing ever reverted, eight mutations stacked on top of each other, and every
+result after the first was garbage that still looked like a clean table of
+FAILs. Caught by the revert printing "did not match any file(s) known to git" and
+by the failure lists being identical run to run. Fixed by committing the page
+first and asserting the revert with `git diff --quiet`. THE TOOL THAT CHECKS THE
+WORK NEEDS ITS OWN CHECK, and "the output looked plausible" is not one.
+
+
+================================================================================
+THEN I OPENED THE PNG, AND FOUND FOUR THINGS 572 GREEN CHECKS COULD NOT SEE
+================================================================================
+
+VERIFY ON THE REAL SURFACE (7/18) says look at the rendered pixels before
+shipping. Every one of these was invisible to the model checks, because every one
+of them is about SIZE, and not one check asked about a size.
+
+1. *** THE WHITE CLAIM CIRCLE WAS NOT ON THE SCREEN AT ALL. *** "The claim draws
+   itself" is one of the five findings, and the grid was 15x33 at 26px cells, so a
+   20 m radius was 8 cells and a 36 m radius was 14.4 -- the circle fell entirely
+   off a 15-cell-wide board. The only ring visible was the player's 8 m reach, in
+   the wrong colour, reading as the claim to anybody looking at it. THIRTY CHECKS
+   WERE GREEN AND THE CENTRAL VISUAL WAS MISSING.
+   Fixed by the grid, not by the shot: 26x33 at 15px, same 390px wide.
+   New checks B31/B31b measure the circle's diameter against the canvas.
+
+2. AND THAT UNDERSIZED GRID WAS THE ROOT CAUSE OF SOMETHING I HAD ALREADY
+   "FIXED" THE WRONG WAY. B20 originally asserted the claimed CELL COUNT grows
+   each level and failed at 195->257->281->285->285, saturating on the whole
+   board. I changed the CHECK to measure area in m2 instead. That was papering:
+   the count was right and the BOARD was too small. On the real grid the original
+   assertion passes, and B20b now asserts it never swallows the board. FIX THE
+   TARGET, NOT THE RULER -- and I did it backwards first.
+
+3. *** THE PLAYER WAS INVISIBLE. *** The marker drew at CELL-16 wide, a literal
+   tuned for 26px cells. At 15px that is MINUS ONE PIXEL and the canvas drew
+   nothing. Two more literals in the same family: roof squares came out 3px, and
+   the spawn dots were sized to swamp the terrain. Every draw size is now derived
+   from CELL, and B32 asserts each stays visible.
+
+4. THE LEGEND WAS LYING BY OMISSION. Spawned monsters were drawn in the same red
+   as an unsupported piece, so two unrelated meanings shared one swatch, and the
+   legend listed "unsupported" while never mentioning the dots at all. Monsters
+   got their own colour and both dot states got legend entries.
+
+WHAT LINKS ALL FOUR: the gate tested whether the MODEL agreed with itself, and it
+did, perfectly. Nothing tested whether the model was VISIBLE. A finding about what
+a player can see cannot be verified by a check about what a function returns.
+
+
+================================================================================
+WHAT THIS DOES NOT DECIDE
+================================================================================
+
+Everything about Bohemia. This page is a reference artifact. It does not repeal
+clause 11 of the mobile-camp law -- SETTING UP CAMP TAKES TIME -- and the
+distinction that keeps both of his rulings true is:
+
+    CHEAP IN TAPS. NEVER FREE IN TIME.
+
+The camp belongs to the COMBAT lane and the surface belongs to the RUN lane.
+Ported only on Paolo's word.
+
+[PENDING Paolo] whether Bohemia's camp is one object or a small set; how many
+taps "quick" means; whether Bohemia draws the circle at all; the refund rate on
+picking a camp back up; and every number.

@@ -1,3 +1,162 @@
+LAB (lab-e2r7sv): 8/7 LATEST -- *** LAB-10: VALHEIM'S BUILD SYSTEM IS PLAYABLE, AND THE
+ANSWER IS ONE DESIGN DECISION, NOT A BUILD MENU. ***
+NOT IN A TAB YET, and by law it never will be -- the lab's own gate forbids any shipped
+surface from linking a lab page, so it is reached by its own file:
+  slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html
+JUDGE THIS: 1. play it and rule on the camp feel. That is the only ask.
+
+WHY THIS AND NOT SOMETHING ELSE. He commissioned it BY NAME on 8/4 ("Val Heim's build menu
+and it's build system to me was the easiest to work with among the games I've played it
+really felt like you could just set up fucking camp anywhere quickly like very quickly") and
+this lane wrote a RESEARCH FILE and never built the page. The lane's own law says an
+emulation is three-plus named mechanics playable end to end. Between 7/31 and 8/6 this lane
+shipped only .md files and gates. The item was not a new question; it was the deliverable the
+last commission was still owed. I also tested a hypothesis first and it was WRONG -- I
+guessed the 152-quest corpus was unreachable or ungated, and quest_study_gate.js came back
+303 pass / 0 fail with 3672 laws indexed. It is live, cited and gated. Said so and moved on.
+
+THE FINDING. A workbench needs A ROOF AND 70% COVER TO CRAFT and needs NEITHER to claim its
+build radius or to stop monsters spawning. So the instant the bench hits bare dirt you own
+the two properties that make a camp a camp. THE HOUSE IS AN IMPROVEMENT, NEVER A
+PREREQUISITE -- you do not build a camp, you PLACE one. That is the whole feeling he
+described and it is one line of code.
+SECOND FINDING: taking a piece down refunds the FULL cost, so being wrong is free, so nobody
+hesitates -- and hesitation, not menu depth, is what actually makes a build system feel slow.
+On a 390px phone a misplaced object is guaranteed, so the refund is structural, not generous.
+
+IT DOES NOT REPEAL HIS CLAUSE 11 (setting up camp takes time). Two different currencies:
+*** CHEAP IN TAPS. NEVER FREE IN TIME. *** Nobody may read this as camping becoming free.
+
+FIVE MECHANICS, EVERY LOOP CLOSING: building (a station is exempt from needing a station --
+that exemption is the finding), crafting (7 of the 9 tiles over your head, which is how the
+sourced 70% becomes legible), deconstructing (full refund, but only for what YOU placed --
+one ruin on the page proves the IsPlacedByPlayer branch), upgrading (an extension inside the
+5 m ring, 20 m -> 36 m over five levels), spawn suppression (roll for monsters; the circle
+eats them; take the bench away and they come back).
+
+TWENTY SOURCED CONSTANTS, the most of any row in lab_gate.js, off real open-source C#.
+AND IT CORRECTED OUR OWN RECORD: BOHEMIA_RESEARCH_VALHEIM_BUILD_FEEL_8_4_26.md filed the
+20 m radius and the visible white circle as "wiki, not code". BOTH ARE SOURCED, by two
+adjacent lines that assign the circle's radius FROM the build range. A claim filed as
+unverifiable is a claim nobody went back and tried.
+
+GATE: lab_gate.js grew the row + 32 live checks (B0-B30) + the VB block. 570 pass / 0 fail.
+TEN PLANTED MISTAKES, TEN CAUGHT, and the two that did not go smoothly are the real record:
+  - one mutation stayed GREEN because it broke the wrong line. A CONTROL THAT DOES NOT
+    REPRODUCE THE FAILURE PROVES NOTHING. Re-aimed at the real line and it was caught.
+  - one mutation CRASHED the gate at check 8 of 32, so B27/B28/B30 -- the three checks that
+    measure the actual finding -- never ran and could not be shown to catch anything. A GATE
+    THAT DIES EARLY IS A GATE WHOSE LATER CHECKS ARE UNPROVEN. Hardened, re-run, all three
+    caught it.
+  - and the mutation HARNESS itself was broken: it reverted with git checkout on a file that
+    had never been committed, so nothing reverted, eight mutations stacked, and every result
+    after the first was garbage that still printed as a clean table of FAILs. Fixed by
+    committing first and asserting the revert.
+
+BUILD STAMP DELIBERATELY NOT TOUCHED. A lab page is not reachable from the alpha, so bumping
+the stamp would tell him the build changed when nothing he can see did. FACTIONS set 8/7a.
+
+STILL PENDING HIM FROM THIS LANE (nothing new added): the 18 bosses in
+records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md -- which live, which die, order, count.
+I committed not to propose another shape for that ladder and I have not.
+
+*** THE SHIP FLOW'S STEP 4 IS UNSATISFIABLE AND EVERY LANE SHOULD KNOW IT. ***
+Step 4 says: if main moved, rebase and RE-RUN THE FULL SUITE. Measured today: the suite
+takes 2226s (37 MINUTES) and the lanes push to main about every THIRTEEN. So main has
+ALWAYS moved by the time a suite finishes -- I hit it twice in one turn, rebasing onto a
+new head both times. Re-running a 37-minute suite to chase a 13-minute interval never
+converges. *** IT IS THE SAME ARITHMETIC THAT DEADLOCKED PAGES ON 8/6 *** (builds longer
+than the gap between pushes, five cancelled in a row, "a build could NEVER finish"), and
+that one got fixed by changing the MACHINE, not by asking lanes to push less.
+WHAT I DID INSTEAD, STATED PLAINLY RATHER THAN CLAIMED AS A FULL PASS: one full suite on
+the first rebase (2226s, my own gate green inside it), then after the second rebase a
+TARGETED re-run of exactly the gates that could see the merge -- my own lane's gate plus
+every gate that reads the two shared prose docs my commit touches. All green on the merged
+tree: NO MARKERS 6/0, HANDOFF 5/0, CANON ROT 13/0, ANSWERED 13/0, LAB GATE 573/0. My other
+four files are new files under slices/lab/ and records/lab/ that no other lane can reach,
+so there is no third file where a semantic conflict could hide. I did NOT re-run the other
+~165 gates and I am not pretending I did.
+THE FIX IS SOMEBODY'S TO MAKE AND IT IS NOT A PROSE FIX: either the suite gets a fast
+subset keyed to the diff, or step 4 gets amended to say what re-verification actually has
+to cover. A law that cannot be obeyed gets quietly ignored by every lane, which is worse
+than a law that admits its own limit.
+
+*** THE FULL SUITE SAID 14 GATES FAILED. THIRTEEN ARE RED ON CLEAN MAIN AND NONE ***
+*** OF THEM ARE MINE. THE FOURTEENTH WAS MY OWN FAULT AND NOT A REAL FAILURE.     ***
+MY OWN GATE IS GREEN INSIDE THE FULL SUITE: REFERENCE LAB, 573 pass / 0 fail.
+I did not reason ANY of the thirteen from my file list -- I ran every one of them in a
+detached worktree at origin/main with LAB-10 absent and got the identical failure text.
+  *** AND THE FOURTEENTH IS THE LESSON OF THIS TURN'S VERIFICATION: *** FRONT DOOR
+  "failed" in the suite with `ReferenceError: om is not defined` inside a frame.evaluate.
+  It PASSES 8/0 on clean main AND 8/0 in my own tree when run alone. I BROKE IT MYSELF:
+  I was running playwright gates in the clean worktree TO VERIFY THE OTHERS while the
+  suite was still running, and the CPU contention let the gate evaluate the page before
+  its modules finished defining `om`. *** DO NOT RUN PLAYWRIGHT GATES CONCURRENTLY WITH
+  THE SUITE. *** A gate run you polluted yourself reports a bug that does not exist, and
+  it looks exactly like a real one -- I nearly filed it against another lane. It was also
+  nearly missed in the other direction: my first clean-main check grepped for "FAIL" and
+  found none, because a CRASH prints no FAIL line. Grepping for the failure word misses
+  the failures that die instead of asserting.
+
+*** AND TWO OF THE EIGHT ARE THE SAME DISEASE, WHICH IS THE FINDING WORTH READING: ***
+*** MAIN'S GENERATED SURFACES ARE STALE. THE ALPHA HE TAPS IS RUNNING OLDER CODE   ***
+*** THAN THE ENGINE. Two independent "regenerate me" gates are red at the same     ***
+*** time -- QUEST PLACEMENT (three drifted engine modules) and THE RUN (the whole  ***
+*** committed run slice). Neither is a subtle bug and both print their own fix.    ***
+*** ENGINE SYNC PASSED IN THE SAME RUN, so "ENGINE SYNC green" is NOT proof the    ***
+*** inlined copies match canon -- that is the trap that let this sit.              ***
+
+I did not reason this from my file list, I MEASURED it: a detached worktree at origin/main
+with LAB-10 absent fails all of them identically. My whole commit is six files (two prose
+docs, my own gate, three lab deliverables) and touches no engine module, no slice outside
+slices/lab/, no rig, no district, no bank.
+  GRAVEYARD       1 live ref: 00_START_HERE...md:3413 on main, a handoff line ABOUT
+                  HAIR AFRO being dead. Probably a tombstone the gate reads as a use.
+  RIG CHECK       bohemia_music_verdicts_8_2{,b,c}.py carry no RIG CHECK block. SOUNDS lane.
+  PARTS PAINTED   a part is empty on NE/2 and NW/2. CHARACTER lane.
+  BODY VARIATION  a dial extreme loses a part set. CHARACTER lane.
+  SQUINT          *** NEW TODAY, and it is a real regression, not old rot. *** Six district
+                  pairs now share a silhouette at map zoom: arsenal=rail, boneyard=speedway,
+                  gypsum=speedway, reclaim=storage, ballpark=radio, cemetery=fueldepot.
+                  Paolo 7/28: EVERY DISTRICT IS ITS OWN LANDMARK, and that law says the twin
+                  list ONLY SHRINKS. Whichever lane added the arsenal owns this.
+  QUEST PLACEMENT *** THE ONE ANY LANE CAN FIX IN ONE COMMAND, AND IT IS THE MOST
+                  DANGEROUS. *** Three inlined engine modules have DRIFTED from their canon
+                  bodies in the quest-placement judge: bohemia_mountain.js, bohemia_water.js,
+                  bohemia_world.js. So that page renders OLD world code while the engine has
+                  moved. Worth knowing: ENGINE SYNC passed in the same run -- its stricter
+                  sibling is what caught this, which means "ENGINE SYNC green" is NOT proof
+                  the inlined copies match. The gate prints its own fix:
+                      python3 tools/bohemia_quest_placement_judge.py
+  INTEGRATION     PROBE agents_module: "neighbours (agents, homed + scheduled)" is not
+                  provably wired into the shipped run.
+  THE RUN         *** THE SECOND HALF OF THE STALE-SURFACE DISEASE, AND THE WORST ONE,
+                  BECAUSE THIS IS THE FILE HE ACTUALLY PLAYS. *** "regenerating via
+                  tools/build_run_slice.js changes nothing (the committed run is current)"
+                  is FAILING, i.e. regenerating DOES change it, i.e. the committed run
+                  slice is NOT current. Verified on clean main, 89s, same failure. Fix the
+                  gate names itself:
+                      node tools/build_run_slice.js
+                  Pair this with QUEST PLACEMENT above and do both in one turn -- they are
+                  one problem wearing two gate names.
+  PEOPLE          5 red (G1,G2,G4,G5,G6). Verified identical on clean main. And G1 IS A
+                  HOLE IN MY OWN 8/4 WORK, so I am naming it against myself: it says the map
+                  is NOT the 84.93 km2 the valley-scale law declares, while my
+                  canon_constants_gate.js sits there GREEN with VALLEY_KM2 84.9. Both are
+                  right. *** MY GATE PROVES A NUMBER IS DECLARED IN ITS LAW. IT DOES NOT
+                  PROVE THE ENGINE PRODUCES IT. *** That is a real gap and PEOPLE's G1 is
+                  the proof it matters -- the law and the map disagree and my checker cannot
+                  see it. Closing it means measuring the constant OUT OF the running world,
+                  not out of the prose. Next LAB turn, and it is mine, not theirs.
+  ONE WORLD TAB   a tab that was not found is silently skipped (gates/sfx_shuffle_gate.py).
+  WALL CLASS      wall taxonomy. Long-standing, on my 8/5 pre-existing list.
+
+I DID NOT FIX ANY OF THEM ON PURPOSE. One system one session, and FACTIONS is rebuilding the
+slices right now (200fbdb) -- rerunning their generator mid-flight is exactly the boundary
+crossing the parallel-sessions law is for. Named, measured, and handed over instead. The ONE
+exception is PEOPLE's G1, which is a hole in MY gate and therefore my job.
+
+
 PEOPLE (7h9sfy): 8/7 — *** AND HERE IS WHY IT SURVIVED: THE CROSS-CHECK HAD THE SAME
 BUG. *** Read this one even if you skip the rest; it is worth more than the number.
 
@@ -135,6 +294,8 @@ environment wedged. A workflow that has NEVER RUN is not a workflow that CANNOT 
 and I wrote the second having measured only the first.
 STILL TRUE AS A RULE: until a run concludes SUCCESS, do not paste the play link as if
 it carries your work. Check the run, then paste.
+
+
 CITY (1eztay): 8/7 (b) LATEST — THE BLURRY BAND WAS THE GROUND. I ANSWERED MY OWN
 QUESTION, AND THE ASK IS WITHDRAWN.
 
@@ -566,7 +727,7 @@ MENU is a NAMED WAIVER, printed every run: 2 canon MENU songs, no menu music
 player exists. Putting music on the front splash is a DESIGN decision about what
 the game does when you open it - his call, not a wiring fix.
 
-LAB (lab-e2r7sv): 8/5 (b) LATEST -- *** THE WITNESS WORK WAS ALREADY BUILT BY THE PEOPLE
+LAB (lab-e2r7sv): 8/5 (b) -- *** THE WITNESS WORK WAS ALREADY BUILT BY THE PEOPLE
 LANE, BETTER THAN I WOULD HAVE. IT COMES OFF MY QUEUE. *** Nothing to judge.
 
 MY OWN HANDOFF SAID "COORDINATION NEEDED" ON THIS FOR THREE TURNS RUNNING AND DID NOTHING

@@ -25,6 +25,68 @@
    Bohemia's movement in the same breath
    (laws/BOHEMIA_ADDENDUM_TIME_IS_SPENT_BY_ACTIONS_7_26_26.md): the world moves
    when you spend time taking an action. That closed LAB-1's open question.
+1z. [SHIPPED 8/7 — LAB-10, COMMISSIONED BY NAME] VALHEIM'S BUILD SYSTEM, AND THE
+   ANSWER IS AN ASYMMETRY RATHER THAN A BUILD MENU.
+   Paolo 8/4: "Val Heim's build menu and it's build system to me was the easiest
+   to work with among the games I've played it really felt like you could just
+   set up fucking camp anywhere quickly like very quickly."
+   THAT WAS RECORDED AS RESEARCH ON 8/4 AND THE PLAYABLE PAGE WAS NEVER BUILT.
+   The lane's own law says an emulation is three or more named mechanics playable
+   end to end; between 7/31 and 8/6 this lane shipped only .md files and gates. So
+   the item was not a new question, it was the deliverable the last commission was
+   still owed.
+
+   THE FINDING, AND IT IS ONE DESIGN DECISION: a workbench needs A ROOF AND 70%
+   COVER TO CRAFT and needs NEITHER to claim its build radius or to suppress enemy
+   spawns. So the moment the bench touches bare dirt you already own the two
+   properties that make a camp a camp. THE HOUSE IS AN IMPROVEMENT, NEVER A
+   PREREQUISITE — you do not build a camp, you place one. Second finding:
+   deconstruction refunds the full cost, so being wrong is free, so nobody
+   hesitates, and HESITATION is what actually makes a build system feel slow.
+
+   IT DOES NOT REPEAL HIS CLAUSE 11 (setting up camp takes time). Two different
+   currencies: CHEAP IN TAPS, NEVER FREE IN TIME.
+
+   PAGE (NOT IN A TAB, and by lab_gate clause 3 it never can be — no shipped
+   surface may link a lab page):
+   slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html — five mechanics, each loop
+   closing: building / crafting / deconstructing / upgrading / spawn suppression.
+   Records: records/lab/BOHEMIA_LAB_VALHEIM_BUILD_TEARDOWN_8_7_26.txt +
+   ..._PATTERN_NOTE_8_7_26.md
+   GATE: lab_gate.js grew the row, 35 live checks (B0-B32) and learned the VB
+   block. 573 pass / 0 fail.
+
+   AND THEN I OPENED THE PNG AND FOUND FOUR THINGS 572 GREEN CHECKS COULD NOT SEE,
+   including the two that matter most: THE WHITE CLAIM CIRCLE WAS NOT ON THE SCREEN
+   AT ALL (the grid was too small to hold a 20 m radius, and "the claim draws
+   itself" is one of the five findings), and THE PLAYER WAS INVISIBLE (its marker
+   computed to minus one pixel wide after the cell size changed). Also: I had
+   already "fixed" the undersized grid the WRONG WAY EARLIER THE SAME TURN by
+   changing the check instead of the board. FIX THE TARGET, NOT THE RULER. B31/B32
+   now measure pixels, because nothing did.
+
+   TWENTY OF ITS CONSTANTS ARE GENUINELY SOURCED, the most of any row in the file,
+   because the build system is the part of Valheim ValheimPlus patches hardest.
+   AND IT CORRECTED OUR OWN RECORD: BOHEMIA_RESEARCH_VALHEIM_BUILD_FEEL_8_4_26.md
+   filed the 20 m radius and the visible white circle as "wiki, not code". Both
+   are SOURCED, by two adjacent lines of CraftingStation.cs that assign the
+   circle's radius FROM the build range. A claim filed as unverifiable is a claim
+   nobody went back and tried.
+
+   TEN PLANTED MISTAKES, TEN CAUGHT, and two of them are the whole lesson: one
+   mutation stayed green because it broke the wrong line (a control that does not
+   reproduce the failure proves nothing), and one crashed the gate at check 8 of
+   32 so the three checks that measure the actual finding never ran and could not
+   be shown to catch anything. Both written up in the teardown. The mutation
+   HARNESS was also broken first time out — it reverted with git checkout on an
+   untracked file, so eight mutations stacked and every result after the first was
+   garbage that still printed as a clean table of FAILs.
+
+   [PENDING Paolo] he plays it and rules. Whether Bohemia's camp is one object or
+   a small set; how many taps "quick" means; whether we draw the circle at all;
+   the refund rate; every number. Routed to COMBAT (owns the camp) and RUN (owns
+   the surface); this lane ports nothing.
+
 1w. [MY OWN FIX WAS INCOMPLETE, AND MY OWN GATE SAID GREEN — 7/31]
    THE DEAD MECHANIC WAS STILL LIVE IN THE MORE AUTHORITATIVE FILE.
    This morning I struck the upkeep/bankruptcy clause in laws/BOHEMIA_ADDENDUM_

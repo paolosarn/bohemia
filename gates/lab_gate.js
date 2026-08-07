@@ -78,6 +78,30 @@ const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collis
 
 const EMULATIONS = [
   {
+    /* LAB-10, commissioned by name. Paolo 8/4: "Val Heim's build menu and it's
+       build system to me was the easiest to work with among the games I've
+       played it really felt like you could just set up fucking camp anywhere
+       quickly like very quickly."
+       The THIRD Valheim MODEL row, and the one with the most SOURCED numbers of
+       any row in this file (20), because the build system is the part of Valheim
+       that ValheimPlus patches hardest -- its Piece / CraftingStation /
+       WearNTear / Player patches name the real fields and carry the real vanilla
+       defaults. The finding is an ASYMMETRY, not a menu: a bench needs a roof
+       and 70% cover to CRAFT and needs neither to claim its radius or suppress
+       spawns, so the house is optional and you PLACE a camp rather than
+       building one. */
+    id: 'VALHEIM BUILD',
+    game: 'Valheim',
+    kind: 'MODEL',
+    mechanics: ['building', 'crafting', 'deconstructing', 'upgrading', 'spawn suppression'],
+    minConsts: 40,
+    page: 'slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html',
+    record: 'records/lab/BOHEMIA_LAB_VALHEIM_BUILD_TEARDOWN_8_7_26.txt',
+    pattern: 'records/lab/BOHEMIA_LAB_VALHEIM_BUILD_PATTERN_NOTE_8_7_26.md',
+    live: liveValheimBuild,
+    shot: { name: 'BOHEMIA_LAB_VALHEIM_BUILD_PROOF_8_7_26.png', setup: shotValheimBuild }
+  },
+  {
     /* LAB-09. Built because he corrected LAB-08 out of existence and then named
        what he actually wanted: "modern economic crash valheim project zomboid
        FALLOUT NEW VEGAS THAT ALSO DOUBLES AS A CITY BUILDER COOK IT UP".
@@ -279,7 +303,8 @@ function partA(em) {
   const note = fs.readFileSync(path.join(ROOT, em.pattern), 'utf8');
 
   /* --- clause 5: the numbers are sourced --- */
-  const block = src.match(/var (?:SDV|PZ|ADR|VH|CDDA|VW|CR|TY) = \{([\s\S]*?)\n\};/);
+  /* VB added 8/7 for LAB-10 (Valheim's build system). */
+  const block = src.match(/var (?:SDV|PZ|ADR|VH|CDDA|VW|CR|TY|VB) = \{([\s\S]*?)\n\};/);
   ok('A13 page declares a sourced-constant block', !!block);
   if (block) {
     const keys = [];
@@ -1444,6 +1469,480 @@ async function liveCDDA(page) {
    five random mechanics can be measured exactly. That parameter exists FOR this,
    and the page defaults it to random for play.
    ========================================================================== */
+/* ==========================================================================
+   LAB-10 — VALHEIM'S BUILD SYSTEM. Five loops, all five played to completion
+   through the page's own functions.
+
+   THE ONE CHECK THAT MATTERS IS B28. Everything else proves a loop closes; B28
+   proves the FINDING, and it proves it the only way a finding can be proved:
+   by changing one thing and measuring that exactly one of three answers moved.
+   ========================================================================== */
+async function liveValheimBuild(page) {
+  const V = await page.evaluate(() => window.LAB.VB);
+  await page.evaluate(() => window.LAB.reset());
+
+  const declared = await page.evaluate(() => window.LAB.mechanics);
+  ok('B0 the page declares the five mechanics the record declares',
+     JSON.stringify(declared) === JSON.stringify(
+       ['building', 'crafting', 'deconstructing', 'upgrading', 'spawn suppression']));
+  ok('B0b and declares itself a MODEL', await page.evaluate(() => window.LAB.kind) === 'MODEL');
+
+  /* ---------------- 1. BUILDING: and the exemption that is the finding ------ */
+  const build = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.stationsAtStart = L.stations().length;
+    /* a NON-station piece on bare dirt, standing right on the cell */
+    L.moveTo(7, 9);
+    o.floorBefore = L.status(7, 9, 'floor');
+    /* the station itself, on the same bare dirt */
+    o.benchPlaced = L.teleportPlace(7, 9, 'workbench');
+    /* the SAME non-station piece, one cell over, now that a bench exists */
+    o.floorAfter = L.status(8, 9, 'floor');
+    o.floorPlaced = L.teleportPlace(8, 9, 'floor');
+    return o;
+  });
+  ok('B1 building: A STATION IS PLACEABLE ON BARE DIRT with no station in range — ' +
+     'the exemption that makes your first tap always work',
+     build.stationsAtStart === 0 && build.benchPlaced.ok === true);
+  ok('B2 building: and a NON-station piece on that same dirt is refused for exactly ' +
+     'that reason ("' + build.floorBefore.reason + '")',
+     build.floorBefore.status === 'Invalid' &&
+     build.floorBefore.reason === 'needs a station in range');
+  ok('B3 building: THE LOOP CLOSES — the refused piece becomes legal the moment the ' +
+     'bench exists, and places',
+     build.floorAfter.status === 'Valid' && build.floorPlaced.ok === true);
+
+  const statuses = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.teleportPlace(7, 9, 'workbench');
+    L.moveTo(7, 9);
+    o.set = [
+      L.status(8, 9, 'floor').status,        /* valid */
+      L.status(7, 9, 'floor').status,        /* occupied */
+      L.status(-1, 9, 'floor').status,       /* off the map */
+      L.status(99, 99, 'floor').status,      /* off the map */
+      L.status(3, 3, 'campfire').status,     /* the no-build zone */
+      L.status(7, 18, 'campfire').status     /* out of reach */
+    ];
+    o.noBuild = L.status(3, 3, 'campfire');
+    /* MAX_PLACE_DIST is 8 m and a cell is 2.5 m, so 3 cells (7.5 m) is in reach
+       and 4 cells (10 m) is not. The boundary is a metre boundary, not a cell
+       count, which is the whole reason the page converts at the edge. */
+    o.threeCells = L.status(7, 12, 'campfire');
+    o.fourCells  = L.status(7, 13, 'campfire');
+    o.d3 = L.metres(7, 12, 7, 9);
+    o.d4 = L.metres(7, 13, 7, 9);
+    return o;
+  });
+  ok('B4 building: placement answers with VALHEIM\'S THREE STATUSES and never invents ' +
+     'a fourth (' + Array.from(new Set(statuses.set)).join('/') + ')',
+     new Set(statuses.set).size === V.PLACEMENT_STATUS_COUNT &&
+     ['Valid', 'Invalid', 'NoBuildZone'].every(s => statuses.set.indexOf(s) >= 0));
+  ok('B5 building: the no-build zone is the THIRD status, not a flavour of Invalid',
+     statuses.noBuild.status === 'NoBuildZone');
+  ok('B6 building: reach is the SOURCED ' + V.MAX_PLACE_DIST + ' m, measured in metres — ' +
+     statuses.d3 + ' m reaches, ' + statuses.d4 + ' m does not',
+     statuses.d3 <= V.MAX_PLACE_DIST && statuses.d4 > V.MAX_PLACE_DIST &&
+     statuses.threeCells.status === 'Valid' &&
+     statuses.fourCells.reason === 'out of reach');
+
+  const cost = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.wood0 = L.inv().wood;
+    L.teleportPlace(7, 9, 'workbench');
+    o.wood1 = L.inv().wood;
+    L.teleportPlace(8, 9, 'floor');
+    L.teleportPlace(9, 9, 'floor');
+    L.teleportPlace(10, 9, 'floor');
+    o.wood2 = L.inv().wood;
+    o.count = L.pieces().length;
+    return o;
+  });
+  ok('B7 building: the cost actually leaves the pack (' + cost.wood0 + ' -> ' +
+     cost.wood1 + ' -> ' + cost.wood2 + ')',
+     cost.wood1 === cost.wood0 - V.WORKBENCH_WOOD &&
+     cost.wood2 === cost.wood1 - 3 * V.FLOOR_WOOD);
+
+  const integ = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.teleportPlace(7, 9, 'workbench');
+    L.teleportPlace(8, 9, 'floor');
+    L.teleportPlace(2, 14, 'wall');       /* nothing adjacent, nothing beneath */
+    /* NEVER LET A MISSING PIECE THROW. A mutation that stops pieces being
+        placeable used to crash the whole gate here, which meant B27-B30 -- the
+        checks that measure the actual finding -- never ran and could not be
+        shown to catch anything. A gate that dies early is a gate whose later
+        checks are unproven. */
+    const nul = { supported: null, support: null };
+    o.floor = L.integrity(8, 9, 'ground') || nul;
+    o.orphan = L.integrity(2, 14, 'ground') || nul;
+    o.loss = L.materialLoss('Wood');
+    o.materials = L.MATERIALS.length;
+    return o;
+  });
+  ok('B8 building: IT IS STILL PHYSICAL — a grounded floor is supported and an ' +
+     'orphaned wall is not (' + integ.floor.support + ' vs ' + integ.orphan.support + ')',
+     integ.floor.supported === true && integ.orphan.supported === false);
+  ok('B8b building: integrity has the sourced TWO axes and the sourced seven material ' +
+     'types', integ.loss.horizontal > 0 && integ.loss.vertical > 0 &&
+     integ.materials === V.MATERIAL_TYPE_COUNT);
+
+  /* ---------------- 2. CRAFTING: the half that wants a house --------------- */
+  const craft = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.teleportPlace(7, 9, 'workbench');
+    L.moveTo(7, 9);
+    o.bare = L.canCraft();
+    o.n1 = L.roofTheBench(1); o.roofed1 = L.canCraft();
+    o.n6 = L.roofTheBench(6); o.roofed6 = L.canCraft();
+    o.n7 = L.roofTheBench(7); o.roofed7 = L.canCraft();
+    o.cover6 = 6 / 9; o.cover7 = 7 / 9;
+    return o;
+  });
+  ok('B9a crafting: the roof helper hits the exact cover it was asked for (' +
+     craft.n1 + '/' + craft.n6 + '/' + craft.n7 + ' of 9) — a cumulative helper ' +
+     'reading as an absolute one made B10 and B11 agree with each other while both ' +
+     'tested 7 of 9',
+     craft.n1 === 1 && craft.n6 === 6 && craft.n7 === 7 &&
+     Math.abs(craft.roofed6.cover - 6 / 9) < 0.001 &&
+     Math.abs(craft.roofed7.cover - 7 / 9) < 0.001);
+  ok('B9 crafting: a bare bench REFUSES TO CRAFT and says it wants a roof ("' +
+     craft.bare.reason + '")',
+     craft.bare.ok === false && /roof/.test(craft.bare.reason));
+  ok('B10 crafting: a roof alone is not enough — 6 of 9 covered is ' +
+     craft.cover6.toFixed(2) + ' and the requirement is ' + V.CRAFT_COVER_FRACTION,
+     craft.roofed1.ok === false && craft.roofed6.ok === false &&
+     craft.cover6 < V.CRAFT_COVER_FRACTION);
+  ok('B11 crafting: 7 of 9 is ' + craft.cover7.toFixed(2) + ' and IT OPENS — the ' +
+     'sourced 70% becomes "seven of the nine tiles over your head"',
+     craft.roofed7.ok === true && craft.cover7 >= V.CRAFT_COVER_FRACTION &&
+     Math.abs(craft.roofed7.cover - craft.cover7) < 0.001);
+
+  const craftLoop = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.teleportPlace(7, 9, 'workbench');
+    L.roofTheBench(9);
+    L.moveTo(7, 9);
+    o.wood0 = L.inv().wood;
+    o.first = L.craft('club');
+    o.wood1 = L.inv().wood;
+    o.second = L.craft('club');
+    o.wood2 = L.inv().wood;
+    o.arrows = L.craft('arrow');
+    o.made = L.made();
+    /* walk out of range and it shuts */
+    L.moveTo(7, 18);
+    o.outOfRange = L.canCraft();
+    o.dist = L.metres(7, 18, 7, 9);
+    o.radius = L.benchRadius();
+    return o;
+  });
+  ok('B12 crafting: THE LOOP CLOSES AND REPEATS — two clubs, materials leave both ' +
+     'times, and arrows yield ' + V.ARROW_YIELD,
+     craftLoop.first.ok === true && craftLoop.second.ok === true &&
+     craftLoop.wood1 === craftLoop.wood0 - V.CLUB_WOOD &&
+     craftLoop.wood2 === craftLoop.wood1 - V.CLUB_WOOD &&
+     craftLoop.made.club === 2 && craftLoop.made.arrow === V.ARROW_YIELD);
+  ok('B13 crafting: and it is the STATION\'S range, so walking ' + craftLoop.dist +
+     ' m out of a ' + craftLoop.radius + ' m circle shuts it ("' +
+     craftLoop.outOfRange.reason + '")',
+     craftLoop.outOfRange.ok === false && craftLoop.dist > craftLoop.radius &&
+     /no station in range/.test(craftLoop.outOfRange.reason));
+
+  /* ---------------- 3. DECONSTRUCTING: being wrong is free ----------------- */
+  const decon = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    o.start = JSON.parse(JSON.stringify(L.inv()));
+    L.teleportPlace(7, 9, 'workbench');
+    o.spent = JSON.parse(JSON.stringify(L.inv()));
+    o.removed = L.removeAt(7, 9, 'ground');
+    o.back = JSON.parse(JSON.stringify(L.inv()));
+    /* the ruin nobody placed */
+    o.ruinBefore = JSON.parse(JSON.stringify(L.inv()));
+    o.ruin = L.removeAt(11, 3, 'ground');
+    o.ruinAfter = JSON.parse(JSON.stringify(L.inv()));
+    return o;
+  });
+  ok('B14 deconstructing: FULL REFUND — ' + decon.start.wood + ' -> ' + decon.spent.wood +
+     ' -> ' + decon.back.wood + ', back to exactly where it started',
+     decon.spent.wood === decon.start.wood - V.WORKBENCH_WOOD &&
+     JSON.stringify(decon.back) === JSON.stringify(decon.start) &&
+     decon.removed.refund.wood === V.WORKBENCH_WOOD * V.REFUND_FLOOR);
+  ok('B15 deconstructing: BUT ONLY WHAT YOU PLACED — the ruin refunds nothing, which ' +
+     'is the IsPlacedByPlayer branch and not a special case',
+     decon.ruin.ok === true && decon.ruin.wasPlayers === false &&
+     Object.keys(decon.ruin.refund).length === 0 &&
+     JSON.stringify(decon.ruinAfter) === JSON.stringify(decon.ruinBefore));
+
+  const drift = await page.evaluate(() => {
+    const L = window.LAB, seen = [];
+    L.reset();
+    for (let i = 0; i < 4; i++) {
+      L.teleportPlace(7, 9, 'workbench');
+      L.teleportPlace(8, 9, 'floor');
+      L.removeAt(8, 9, 'ground');
+      L.removeAt(7, 9, 'ground');
+      seen.push(L.inv().wood);
+    }
+    return seen;
+  });
+  ok('B16 deconstructing: AND IT NEVER DRIFTS over four place/remove cycles (' +
+     drift.join(',') + ') — no free wood, no lost wood, so hesitating is pointless',
+     new Set(drift).size === 1);
+
+  /* ---------------- 4. UPGRADING: the circle grows ------------------------- */
+  const up = await page.evaluate(() => {
+    const L = window.LAB, o = { levels: [], radii: [], cells: [] };
+    L.reset();
+    o.grid = L.dims().cols * L.dims().rows;
+    L.teleportPlace(7, 9, 'workbench');
+    const snap = () => {
+      o.levels.push(L.benchLevel()); o.radii.push(L.benchRadius());
+      o.cells.push(L.cellsInRadius());
+      o.area.push(Math.PI * L.benchRadius() * L.benchRadius());
+    };
+    o.area = [];
+    snap();
+    /* all four inside the sourced 5 m attach ring */
+    [['chopblock', 6, 9], ['tanrack', 8, 9], ['adze', 7, 8], ['shelf', 7, 10]]
+      .forEach(([id, x, y]) => { L.teleportPlace(x, y, id); snap(); });
+    o.attachDist = L.metres(6, 9, 7, 9);
+    return o;
+  });
+  ok('B17 upgrading: a fresh bench is level 1 at the sourced ' + V.WORKBENCH_RANGE + ' m',
+     up.levels[0] === 1 && up.radii[0] === V.WORKBENCH_RANGE);
+  ok('B18 upgrading: each extension inside the ' + V.ATTACH_RANGE + ' m ring adds a level ' +
+     'and ' + V.RADIUS_PER_LEVEL + ' m (levels ' + up.levels.join('->') + ', radii ' +
+     up.radii.join('->') + ')',
+     up.levels.join(',') === '1,2,3,4,5' &&
+     up.radii.every((r, i) => r === V.WORKBENCH_RANGE + i * V.RADIUS_PER_LEVEL) &&
+     up.attachDist <= V.ATTACH_RANGE);
+  ok('B19 upgrading: THE DOC ARITHMETIC CLOSES ON THE SOURCED RADIUS — ' +
+     V.WORKBENCH_RANGE + ' + ' + V.WORKBENCH_UPGRADE_COUNT + ' x ' + V.RADIUS_PER_LEVEL +
+     ' = ' + V.WORKBENCH_RANGE_MAX + ', and the page lands on it exactly',
+     V.WORKBENCH_RANGE + V.WORKBENCH_UPGRADE_COUNT * V.RADIUS_PER_LEVEL === V.WORKBENCH_RANGE_MAX &&
+     1 + V.WORKBENCH_UPGRADE_COUNT === V.WORKBENCH_LEVEL_MAX &&
+     up.radii[up.radii.length - 1] === V.WORKBENCH_RANGE_MAX &&
+     up.levels[up.levels.length - 1] === V.WORKBENCH_LEVEL_MAX);
+  /* THE FIRST VERSION OF B20 ASKED THE GRID, NOT THE MECHANISM, and the grid ran
+     out: 195 -> 257 -> 281 -> 285 -> 285 cells, saturating at the whole 15x19
+     board, so a real growing radius read as a broken one. The claimed AREA is the
+     mechanism; the flat tail is the page's window being too small to hold a
+     36 m circle, which is not a fault, it is the point. Both get asserted, and
+     the saturation gets asserted as SATURATION so nobody later "fixes" it. */
+  ok('B20 upgrading: YOU CAN SEE IT — the CLAIMED AREA grows every single level (' +
+     up.area.map(a => Math.round(a) + 'm2').join(' -> ') + ')',
+     up.area.every((a, i) => i === 0 || a > up.area[i - 1]));
+  ok('B20b upgrading: and the CLAIMED CELL COUNT grows every level too, without ' +
+     'ever swallowing the whole ' + up.grid + '-cell board (' + up.cells.join('->') + ')',
+     up.cells.every((c, i) => i === 0 || c > up.cells[i - 1]) &&
+     up.cells[up.cells.length - 1] < up.grid);
+
+  const far = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.teleportPlace(7, 9, 'workbench');
+    L.teleportPlace(7, 13, 'chopblock');   /* inside the 20 m build radius, outside 5 m */
+    o.dist = L.metres(7, 13, 7, 9);
+    o.level = L.benchLevel();
+    o.radius = L.benchRadius();
+    return o;
+  });
+  ok('B21 upgrading: an extension ' + far.dist + ' m out is inside the build radius but ' +
+     'OUTSIDE the ' + V.ATTACH_RANGE + ' m attach ring, and does not count',
+     far.dist > V.ATTACH_RANGE && far.dist <= V.WORKBENCH_RANGE &&
+     far.level === 1 && far.radius === V.WORKBENCH_RANGE);
+
+  /* ---------------- 5. SPAWN SUPPRESSION: what the circle was for ---------- */
+  const spawn = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    const cells = L.allCells();
+    o.bare = L.spawnRoll(cells).filter(r => r.spawned).length;
+    o.total = cells.length;
+    L.teleportPlace(7, 9, 'workbench');
+    const withBench = L.spawnRoll(cells);
+    o.withBench = withBench.filter(r => r.spawned).length;
+    o.inside = L.suppressedAt(7, 9);
+    o.corner = L.suppressedAt(0, 0);
+    o.cornerDist = L.metres(0, 0, 7, 9);
+    o.radius = L.benchRadius();
+    o.spawnRadius = L.spawnRadius();
+    o.suppressed1 = L.cellsSuppressed();
+    /* upgrade it and the quiet gets bigger, because it is ONE radius */
+    [['chopblock', 6, 9], ['tanrack', 8, 9], ['adze', 7, 8], ['shelf', 7, 10]]
+      .forEach(([id, x, y]) => L.teleportPlace(x, y, id));
+    o.radius5 = L.benchRadius();
+    o.spawnRadius5 = L.spawnRadius();
+    o.suppressed5 = L.cellsSuppressed();
+    /* take it away and the same cells come back */
+    L.removeAt(7, 9, 'ground');
+    o.afterRemoval = L.spawnRoll(cells).filter(r => r.spawned).length;
+    o.suppressedAfter = L.cellsSuppressed();
+    return o;
+  });
+  ok('B22 spawn suppression: with no station EVERY roll produces a monster (' +
+     spawn.bare + '/' + spawn.total + ')', spawn.bare === spawn.total);
+  ok('B23 spawn suppression: one bench on bare dirt eats ' +
+     (spawn.total - spawn.withBench) + ' of those ' + spawn.total + ' rolls, with NO ' +
+     'roof and NO cover anywhere on it',
+     spawn.withBench < spawn.bare && spawn.inside === true);
+  ok('B24 spawn suppression: and it is the SAME RADIUS doing both jobs at every level (' +
+     spawn.radius + '=' + spawn.spawnRadius + ', ' + spawn.radius5 + '=' +
+     spawn.spawnRadius5 + ') — one knob, so it can never disagree with itself',
+     spawn.radius === spawn.spawnRadius && spawn.radius5 === spawn.spawnRadius5 &&
+     spawn.corner === false && spawn.cornerDist > spawn.radius);
+  ok('B25 spawn suppression: UPGRADING THE BENCH QUIETS MORE GROUND (' +
+     spawn.suppressed1 + ' -> ' + spawn.suppressed5 + ' cells) — the coupling is real ' +
+     'and not decorative', spawn.suppressed5 > spawn.suppressed1);
+  ok('B26 spawn suppression: THE LOOP CLOSES — take the bench away and all ' +
+     spawn.total + ' cells spawn again',
+     spawn.afterRemoval === spawn.total && spawn.suppressedAfter === 0);
+
+  /* ---------------- THE FINDING, MEASURED ---------------------------------- */
+  const asym = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.teleportPlace(7, 9, 'workbench');
+    L.moveTo(7, 9);
+    o.bare = L.asymmetry();
+    L.roofTheBench(7);
+    L.moveTo(7, 9);
+    o.roofed = L.asymmetry();
+    return o;
+  });
+  ok('B27 THE FINDING: on bare dirt with no roof and 0% cover, one bench ALREADY ' +
+     'gives you a build zone and a no-spawn zone, and gives you NO crafting',
+     asym.bare.hasStation === true &&
+     asym.bare.roofOverStation === false && asym.bare.coverOverStation === 0 &&
+     asym.bare.mayBuildInRadius === true &&
+     asym.bare.maySuppressSpawns === true &&
+     asym.bare.mayCraft === false);
+  ok('B28 THE FINDING, THE OTHER HALF: roofing it changes EXACTLY ONE of those three ' +
+     'answers. Build ' + asym.bare.mayBuildInRadius + '->' + asym.roofed.mayBuildInRadius +
+     ', spawns-off ' + asym.bare.maySuppressSpawns + '->' + asym.roofed.maySuppressSpawns +
+     ', craft ' + asym.bare.mayCraft + '->' + asym.roofed.mayCraft +
+     '. THE HOUSE IS AN IMPROVEMENT, NEVER A PREREQUISITE.',
+     asym.roofed.mayCraft === true &&
+     asym.roofed.mayBuildInRadius === asym.bare.mayBuildInRadius &&
+     asym.roofed.maySuppressSpawns === asym.bare.maySuppressSpawns &&
+     asym.roofed.coverOverStation >= V.CRAFT_COVER_FRACTION);
+  ok('B29 THE FINDING, in the constants: the craft path requires a roof and cover and ' +
+     'the build path requires neither',
+     V.CRAFT_ROOF_REQUIRED === 1 && V.CRAFT_COVER_FRACTION > 0 &&
+     V.BUILD_ROOF_REQUIRED === 0 && V.BUILD_COVER_FRACTION === 0);
+
+  /* A ROOF MUST NOT SECRETLY HELP THE BUILD PATH. Two objects, one roofed and one
+     not, asked the identical build question. This is the check that would catch
+     the asymmetry being quietly collapsed by a later edit -- B27/B28 measure the
+     page's own summary function, and a summary can be wrong in the same
+     direction as the thing it summarises. */
+  const roofIrrelevant = await page.evaluate(() => {
+    const L = window.LAB, o = {};
+    L.reset();
+    L.teleportPlace(7, 9, 'workbench');
+    o.dry = L.status(10, 9, 'floor', true);
+    L.roofTheBench(9);
+    o.wet = L.status(10, 9, 'floor', true);
+    o.coverNow = L.coverOf().fraction;
+    return o;
+  });
+  ok('B30 and a roof changes NOTHING about whether you may build (' +
+     roofIrrelevant.dry.status + ' at 0% cover, ' + roofIrrelevant.wet.status + ' at ' +
+     Math.round(roofIrrelevant.coverNow * 100) + '%) — asked of the build path directly, ' +
+     'not of the page\'s own summary',
+     roofIrrelevant.dry.status === 'Valid' && roofIrrelevant.wet.status === 'Valid' &&
+     roofIrrelevant.coverNow === 1);
+
+  /* CAN YOU ACTUALLY SEE YOUR CLAIM? "The claim draws itself" is one of the five
+     findings and the gate had NOTHING that could tell whether the circle lands on
+     the canvas. It did not: at the first grid size a 20 m radius was 8 cells and a
+     36 m one was 14.4, so the white circle fell off the board entirely and the
+     only ring on screen was the player's reach. Thirty checks were green and the
+     central visual was missing. A finding about what you can SEE needs a check
+     about geometry on the canvas, not another check about the model. */
+  const visible = await page.evaluate(() => {
+    const L = window.LAB, o = {}, d = L.dims();
+    L.reset();
+    const cx = Math.floor(d.cols / 2), cy = Math.floor(d.rows / 2);
+    L.teleportPlace(cx, cy, 'workbench');
+    const cnv = document.getElementById('stage').getBoundingClientRect();
+    o.cellW = cnv.width / d.cols;
+    o.canvasW = cnv.width; o.canvasH = cnv.height;
+    o.r1 = L.benchRadius() / L.VB.CELL_METRES * o.cellW;    /* css px */
+    [['chopblock', cx - 1, cy], ['tanrack', cx + 1, cy]]
+      .forEach(([id, x, y]) => L.teleportPlace(x, y, id));
+    o.r3 = L.benchRadius() / L.VB.CELL_METRES * o.cellW;
+    o.centreX = (cx + 0.5) * o.cellW;
+    return o;
+  });
+  ok('B31 THE CLAIM IS ON SCREEN: a centred bench\'s level-1 circle is ' +
+     Math.round(visible.r1) + 'px across a ' + Math.round(visible.canvasW) +
+     'px canvas and FITS (' + Math.round(visible.centreX - visible.r1) + 'px to ' +
+     Math.round(visible.centreX + visible.r1) + 'px)',
+     visible.centreX - visible.r1 > 0 &&
+     visible.centreX + visible.r1 < visible.canvasW);
+  ok('B31b and it is still on screen after two upgrades (' + Math.round(visible.r3) +
+     'px) — the growth is watchable, not just true',
+     visible.r3 > visible.r1 &&
+     visible.centreX - visible.r3 > 0 &&
+     visible.centreX + visible.r3 < visible.canvasW);
+
+  /* AND EVERY DRAWN THING IS BIG ENOUGH TO SEE. Three draw sizes were literals
+     tuned for a 26px cell; when the grid changed to 15px the roofs became 3px,
+     the spawn dots swamped the board, and THE PLAYER MARKER WAS COMPUTED AS
+     CELL-16 = -1px WIDE and vanished. 572 checks were green with the player
+     invisible, because not one of them looked at a size. */
+  const sizes = await page.evaluate(() => window.LAB.drawSizes());
+  ok('B32 every draw size is derived from the cell and stays visible at ' +
+     sizes.cell + 'px cells (player ' + sizes.playerW + 'x' + sizes.playerH +
+     ', roof ' + sizes.roofW + 'px, dots ' + sizes.dotSpawn.toFixed(1) + '/' +
+     sizes.dotQuiet.toFixed(1) + ')',
+     sizes.playerW >= 4 && sizes.playerH >= 4 &&
+     sizes.roofW >= 4 && sizes.groundW > sizes.roofW &&
+     sizes.dotSpawn >= 2.5 && sizes.dotQuiet >= 1 &&
+     sizes.dotSpawn < sizes.cell / 2 && sizes.dotSpawn > sizes.dotQuiet);
+}
+
+async function shotValheimBuild(page) {
+  /* THE SHOT HAS TO SHOW THE FINDING, and the FIRST VERSION OF IT DID NOT.
+     It put a fully-upgraded bench off-centre, so its 36 m claim circle fell
+     entirely outside the canvas and the proof shot of a page about a visible
+     claim contained NO VISIBLE CLAIM -- the only circle on screen was the
+     player's reach ring, in the wrong colour, reading as the claim to anybody
+     looking. Found by opening the PNG, which is the only place it shows up, and
+     it also exposed the real bug underneath: the grid was too small to hold the
+     mechanic at all.
+     So: a CENTRED bench at level 3, whose circle fits with room to spare, two
+     extensions inside the dashed attach ring, the roofed core that has already
+     crafted, an orphaned wall drawn red, and a spawn roll with green dots inside
+     the circle and red ones outside it. Every claim the page makes, at once. */
+  await page.evaluate(() => {
+    const L = window.LAB;
+    L.reset();
+    const cx = 13, cy = 16;
+    L.teleportPlace(cx, cy, 'workbench');
+    [['chopblock', cx - 1, cy], ['tanrack', cx + 1, cy]]
+      .forEach(([id, x, y]) => L.teleportPlace(x, y, id));
+    L.roofTheBench(9);
+    L.teleportPlace(3, 29, 'wall');          /* orphaned, draws red */
+    L.teleportPlace(6, 29, 'floor');
+    L.moveTo(cx, cy);
+    L.craft('club');
+    L.craft('arrow');
+    L.spawnRoll(L.allCells());
+    L.verb('PLACE');
+    L.select('workbench');
+  });
+}
+
 async function liveValheimWeapons(page) {
   const V = await page.evaluate(() => window.LAB.VW);
   await page.evaluate(() => window.LAB.reset());
