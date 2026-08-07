@@ -641,13 +641,17 @@
               var t=tinfo(xx,yy); return {solid:t.solid,portal:t.layer==='portal'}; });
             return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:dg.zone,story:f.story||1,
             enter:enter, kind:kind, entrance:ent,                  // what this building becomes inside (from the dossier)
-            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent}); },
+            // STORY REACHES THE INTERIOR (8/7). The suburb generator has computed story:2
+            // for two-storey blobs since it was written, world.js has carried it faithfully
+            // ever since, and it DIED HERE -- every two-storey house in the valley had one
+            // floor inside it. The floorplan stacks levels now, so hand it the number.
+            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent,stories:f.story||1}); },
             // INTERIOR (the zoom target): a garage yields multi-deck parking; everything else rooms.
             // INTERIOR always matches the EXTERIOR footprint w x h exactly. decks (vertical
             // levels) is a separate 3D property derived from the seed, not the floor-plate size.
             interior:function(){ if(kind==='garage') return GAR.generate(iseed, {w:f.w,h:f.h,decks:3+(iseed%3)});
               if(kind==='crypt') return CRY.generate(iseed, {w:f.w,h:f.h});
-              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent})}; } }; }),
+              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent,stories:f.story||1})}; } }; }),
           building:function(i){ return this.buildings[i]; } };
         return cachePut(key, dapi);
       }

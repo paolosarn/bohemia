@@ -12167,7 +12167,10 @@ const BOH_FLOORPLAN=(function(){
     const find=i=>{while(p[i]!==i){p[i]=p[p[i]];i=p[i];}return i;};
     return {find,union:(a,b)=>{const ra=find(a),rb=find(b);if(ra!==rb){p[ra]=rb;return true;}return false;}};}
 
-  function generate(seed,W,H,opts){
+  // ONE PLATE = ONE FLOOR. This is the original generator, renamed and otherwise
+  // untouched, because everything in the engine already reads what it returns and a
+  // rewrite here would be a rewrite of the whole enterable rung.
+  function plate(seed,W,H,opts){
     const o=opts||{}; const r=rng(seed);
     const Z=ZONES[o.zone]||ZONES['default'];
     const entrance=o.entrance||'S';   // street-facing side
@@ -12263,7 +12266,118 @@ const BOH_FLOORPLAN=(function(){
     return {W,H,grid,rooms,doors,meta:{type:'floorplan',zone:o.zone||'default',rooms:rooms.length,doors:doors.length,entrance,
       pending:['wall/floor/door art per zone','furniture per role','multi-floor stacking']}};
   }
-  return {generate,ZONES};
+
+  /* ===================================================================================
+   * VERTICALITY, THE ENGINE HALF (8/7/26, WORLD lane).
+   *
+   * Paolo's stated direction is two-and-three-storey buildings with climbable stairs.
+   * What existed: floor/wall/door and NOTHING ELSE. `story:2` was computed by the suburb
+   * generator, carried faithfully through the world model, and then DIED UNUSED at the
+   * bottom rung -- every two-storey house in the valley had exactly one floor inside it.
+   * bohemia_garage.js already generates real 2-6 deck structures with ramps and stair
+   * cores that nothing renders and nothing walks. The generation was never the missing
+   * half; the FLOORPLAN was.
+   *
+   * WHAT A STORY IS HERE: another full plate. INTERIOR-MATCHES-EXTERIOR (Paolo 7/19,
+   * LOCKED, "not having it any other way") applies per level -- every floor of a building
+   * is EXACTLY the footprint w x h, never clamped, never grown. Decks and levels are a
+   * separate axis; each one still equals the footprint.
+   *
+   * THE STAIR IS THE ONLY WAY UP, and it is placed where BOTH plates already have floor.
+   * That is the whole trick and it is derived, not authored: generate the upper plate
+   * first, intersect the two floor sets, and put the stair in the middle of the biggest
+   * shared room. A stair chosen on one floor and forced through the other is how you get
+   * a staircase arriving inside a wall.
+   *
+   * BACKWARDS COMPATIBLE ON PURPOSE, and this is not timidity -- world_gate, interiors_gate
+   * and the run all read `.grid`, `.rooms` and `.doors` off the returned object today. The
+   * ground floor IS the returned object, exactly as before; the stack hangs off it as
+   * `.levels`. And a stair cell keeps `g:'floor'` and gains `kind:'stair'` rather than
+   * replacing g, because every consumer in the repo tests `g==='floor'||g==='door'` for
+   * passability and a new g value would have made stairs IMPASSABLE the day they shipped.
+   *
+   * NO STREET DOOR UPSTAIRS. An upper plate's perimeter door is removed -- a door on the
+   * second storey opening onto thin air is exactly the class of thing this repo keeps
+   * shipping and then finding in a render. Rooms up there stay mutually reachable because
+   * the door graph is a spanning tree over rooms, which never depended on the street door.
+   */
+  function floorCells(P){
+    const out=[];
+    for(let y=0;y<P.H;y++)for(let x=0;x<P.W;x++){
+      const c=P.grid[y][x];
+      if(c.g==='floor'&&c.room>=0) out.push([x,y,c.room]);
+    }
+    return out;
+  }
+  function sealPerimeterDoors(P){
+    // an upper floor has no street entrance. Put its perimeter doors back to wall.
+    const keep=[];
+    for(const d of P.doors){
+      const [x,y]=d;
+      if(x===0||y===0||x===P.W-1||y===P.H-1){ const c=P.grid[y][x]; c.g='wall'; c.door=false; c.room=-1; }
+      else keep.push(d);
+    }
+    P.doors=keep; P.meta.doors=keep.length; P.meta.entrance=null;
+  }
+  function sharedStair(lower,upper){
+    // cells that are FLOOR on both plates; pick the one deepest inside the biggest
+    // shared room, so the stair is never jammed against a wall or across a doorway.
+    const up=new Set(floorCells(upper).map(c=>c[0]+','+c[1]));
+    const both=floorCells(lower).filter(c=>up.has(c[0]+','+c[1]));
+    if(!both.length) return null;
+    const byRoom={};
+    for(const c of both){ (byRoom[c[2]]=byRoom[c[2]]||[]).push(c); }
+    let best=null,bn=0;
+    for(const k in byRoom) if(byRoom[k].length>bn){bn=byRoom[k].length;best=byRoom[k];}
+    // the cell of that set with the most room-neighbours also in the set = its middle
+    const inSet=new Set(best.map(c=>c[0]+','+c[1]));
+    let pick=best[0],pn=-1;
+    for(const c of best){
+      let n=0;
+      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]])
+        if(inSet.has((c[0]+dx)+','+(c[1]+dy))) n++;
+      if(n>pn){pn=n;pick=c;}
+    }
+    return pick;
+  }
+  function generate(seed,W,H,opts){
+    const o=opts||{};
+    const stories=Math.max(1,Math.min(6,(o.stories|0)||1));
+    const ground=plate(seed,W,H,o);
+    // A FLOORPLAN HAS TO STAY JSON-SERIALISABLE. `levels=[ground]` made level 0 a pointer
+    // back to the object holding the array, and floorplan_gate died on
+    // "Converting circular structure to JSON" the first time it ran. Anything that
+    // serialises an interior -- a save, a payload, a gate comparing two plans -- would have
+    // died the same way. So level 0 is a VIEW: the same grid, rooms and doors arrays by
+    // reference (no copy, no second source of truth), in an object that does not contain
+    // the level list. The cycle is gone and the identity of the data is not.
+    const view=P=>({W:P.W,H:P.H,grid:P.grid,rooms:P.rooms,doors:P.doors,meta:P.meta});
+    ground.levels=[view(ground)];
+    ground.stairs=[];
+    ground.meta.stories=1;
+    if(stories<2){ ground.meta.pending=(ground.meta.pending||[]).filter(x=>x!=='multi-floor stacking'); return ground; }
+
+    for(let L=1;L<stories;L++){
+      // a different seed per level or every floor is the same floor
+      const up=plate((seed>>>0)+L*7919,W,H,o);
+      sealPerimeterDoors(up);
+      const cell=sharedStair(ground.levels[L-1],up);
+      if(!cell) break;                      // no shared floor: this building stops here
+      const [sx,sy]=cell;
+      const below=ground.levels[L-1].grid[sy][sx], above=up.grid[sy][sx];
+      below.kind='stair'; below.stair={dir:'up',to:L};
+      above.kind='stair'; above.stair={dir:'down',to:L-1};
+      up.meta.level=L;
+      ground.levels.push(up);
+      ground.stairs.push({x:sx,y:sy,from:L-1,to:L});
+    }
+    ground.meta.stories=ground.levels.length;
+    ground.meta.stairs=ground.stairs.length;
+    ground.meta.pending=(ground.meta.pending||[]).filter(x=>x!=='multi-floor stacking');
+    return ground;
+  }
+
+  return {generate,plate,ZONES};
 })();
 if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
 
@@ -17477,13 +17591,17 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
               var t=tinfo(xx,yy); return {solid:t.solid,portal:t.layer==='portal'}; });
             return {index:i,x:f.x,y:f.y,w:f.w,h:f.h,zone:dg.zone,story:f.story||1,
             enter:enter, kind:kind, entrance:ent,                  // what this building becomes inside (from the dossier)
-            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent}); },
+            // STORY REACHES THE INTERIOR (8/7). The suburb generator has computed story:2
+            // for two-storey blobs since it was written, world.js has carried it faithfully
+            // ever since, and it DIED HERE -- every two-storey house in the valley had one
+            // floor inside it. The floorplan stacks levels now, so hand it the number.
+            floorplan:function(){ return FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent,stories:f.story||1}); },
             // INTERIOR (the zoom target): a garage yields multi-deck parking; everything else rooms.
             // INTERIOR always matches the EXTERIOR footprint w x h exactly. decks (vertical
             // levels) is a separate 3D property derived from the seed, not the floor-plate size.
             interior:function(){ if(kind==='garage') return GAR.generate(iseed, {w:f.w,h:f.h,decks:3+(iseed%3)});
               if(kind==='crypt') return CRY.generate(iseed, {w:f.w,h:f.h});
-              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent})}; } }; }),
+              return {kind:'floorplan', floorplan:FP.generate(iseed, f.w, f.h, {zone:dg.zone,entrance:ent,stories:f.story||1})}; } }; }),
           building:function(i){ return this.buildings[i]; } };
         return cachePut(key, dapi);
       }

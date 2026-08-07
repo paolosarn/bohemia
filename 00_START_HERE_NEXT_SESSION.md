@@ -2311,7 +2311,49 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/6 LATEST -- *** THE LINK WAS DEAD ALL DAY AND IT IS TRUE AGAIN. ***
+WORLD (world-9lfjtf): 8/7 LATEST -- *** BUILDINGS HAVE SECOND FLOORS NOW, AND YOU CAN WALK UP. ***
+records/BOHEMIA_THE_SECOND_FLOOR_8_7_26.md. Gate: verticality_gate.js 12/0.
+
+THE GAP: Paolo's direction is 2-3 storey buildings with climbable stairs. bohemia_suburb.js
+has computed story:2 for two-storey blobs since it was written, world.js carried it faithfully
+all the way down the ladder, and it DIED at the floorplan -- which knew floor/wall/door and
+nothing else, with 'multi-floor stacking' in its own pending list. Every two-storey house in
+the valley had ONE floor inside it. bohemia_garage.js meanwhile generates real 2-6 deck
+structures with ramps and stair cores that nothing walks. Generation was never the missing
+half; the FLOORPLAN was.
+  A STOREY IS ANOTHER FULL PLATE. INTERIOR-MATCHES-EXTERIOR applies PER LEVEL: every floor is
+  exactly the footprint w x h. THE STAIR IS DERIVED, not authored -- generate the upper plate,
+  intersect the two floor sets, take the cell deepest inside the biggest shared room. A stair
+  picked on one floor and forced through the other arrives inside a wall.
+  NO STREET DOOR UPSTAIRS: the upper plate's perimeter door goes back to wall.
+  A STAIR KEEPS g:'floor' and gains kind:'stair', because every consumer tests
+  g==='floor'||g==='door' for passability -- a new g value makes stairs IMPASSABLE on day one.
+  THE GROUND FLOOR IS STILL THE RETURNED OBJECT, so nothing that reads a floorplan changed.
+  MY BUG, CAUGHT IN ONE RUN: levels=[ground] made level 0 point back at its own container and
+  floorplan_gate died on 'Converting circular structure to JSON' -- as would any save or
+  payload that serialises an interior. Level 0 is a VIEW now (same arrays by reference).
+  MEASURED: 13 storeys climbed, 71 of 207 sampled valley buildings multi-storey.
+
+AND THE LESSON FROM EARLIER THE SAME DAY, LEARNED PROPERLY. Changing a canonical engine module
+leaves every carrier holding the old body (nine here). This morning I refreshed a built slice
+by REGENERATING it and broke THIRTY gates, because BOHEMIA_RUN_CURRENT.html is a built artefact
+other lanes patch by hand. This time: RE-INLINE THE MODULE BODY AND NOTHING ELSE -- find the
+module's span by its first and last line, swap it for canon byte-for-byte, leave every other
+byte alone. Five carriers refreshed INCLUDING the run slice, every other lane's patches intact,
+ENGINE SYNC LAW HOLDS: 17 modules, zero drift.
+*** RE-INLINING A MODULE IS NOT THE SAME OPERATION AS REBUILDING SOMEBODY ELSE'S PAGE. ***
+
+ALSO CLOSED: tools/bohemia_city_interiors_patch.py had thrown ValueError since the 8/2 payload
+pass moved the city app -- it hand-wrote the path instead of asking gates/bohemia_city_app.py.
+Its zone map was 12 districts behind; it is rebuilt from DISTGEN itself now, the same slice the
+gate reads, so it cannot drift.
+
+SUITE: 11 red, and that is the 10-item baseline the day opened with plus SFX WIRED, which is
+wall-clock dependent ('03:00 is not NIGHT') and passes on re-run.
+
+=== EARLIER, SAME SESSION ===
+
+WORLD (world-9lfjtf): 8/6 -- *** THE LINK WAS DEAD ALL DAY AND IT IS TRUE AGAIN. ***
 records/BOHEMIA_THE_LINK_IS_NOT_TRUE_8_6_26.md (read UPDATE 4 first -- it supersedes the rest).
 
 THE PROOF, ONE COMMIT, ONE MINUTE APART:

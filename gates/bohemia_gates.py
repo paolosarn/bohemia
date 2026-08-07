@@ -197,6 +197,11 @@ GATES = [
      'build was copying the whole 496 MB repo. _config.yml publishes slices/ (+ engine/ + records/target, '
      'which slices actually load) and this proves every outward ref still ships and the surface stays '
      'under what the builder can finish', False),
+    ('VERTICALITY',   ['node', 'gates/verticality_gate.js'],
+     "Paolo's direction is 2-3 storey buildings with climbable stairs. story:2 was computed by the "
+     "suburb generator, carried all the way down the world model, and DIED at the floorplan -- every "
+     "two-storey house had ONE floor inside it. This WALKS it: in off the street, to the stair, up, "
+     "and every room on every floor reachable", False),
     ('VALLEY CENSUS', ['node', 'gates/valley_census_gate.js'],
      'Paolo 8/4: "know what comes after" -- measured across three seeds instead of guessed. Every '
      'district type that puts NOTHING on the ground is either flat BY FORM (a road, a ridge), '
