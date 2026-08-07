@@ -49,6 +49,22 @@ const CLAIMS = [
   ['__XRAY_WHOLE_BUILDING__',       '"the building should be absolutely transparent"'],
 ];
 
+/* THE SOUND LANE'S CLAIMS. Same contract, different lane: every marker here was
+   measured on the real bus the day it landed, and every one of them is a thing
+   that has ALREADY broken once by a file moving underneath it. The SFX bus hung
+   off the music master for weeks -- turning music off killed every sound in the
+   game and no gate noticed, because the code was all still there. It was WIRED
+   somewhere else. That is exactly the failure this file exists for. */
+const SOUND_CLAIMS = [
+  ['__OUTBUS',        'turning the music off no longer mutes every sound in the game'],
+  ['setSFXVolume',    'music, sounds and master are three separate knobs'],
+  ['sbWrap',          '"every sfx should be in the sfx in the music menu"'],
+  ['__SFX_APPROVED',  'only the sounds he thumbed up ever play'],
+  ['voiceOK',         'sixteen sounds at once used to come out quieter than one'],
+  ['sfxSpace',        'a room sounds like a room and the street sounds like the street'],
+  ['__musicPhase',    'the clock moves and the music changes with it'],
+];
+
 let blob = '', found = [];
 for (const s of SURFACES) {
   const p = path.join(ROOT, s);
@@ -70,5 +86,16 @@ for (const [marker, why] of CLAIMS) {
   ok('STILL SHIPPED: ' + marker + '  -- ' + why, n > 0);
 }
 console.log('    ' + live + '/' + CLAIMS.length + ' of the RUN lane\'s features are live in the surface he plays.');
+
+/* the sound manifest cannot be quietly emptied either */
+ok('the manifest still lists the SOUND lane\'s shipped work (' + SOUND_CLAIMS.length + ')',
+   SOUND_CLAIMS.length >= 7);
+let sLive = 0;
+for (const [marker, why] of SOUND_CLAIMS) {
+  const n = blob.split(marker).length - 1;
+  if (n > 0) sLive++;
+  ok('STILL SHIPPED: ' + marker + '  -- ' + why, n > 0);
+}
+console.log('    ' + sLive + '/' + SOUND_CLAIMS.length + ' of the SOUND lane\'s features are live in the surface he hears.');
 console.log('SHIPPED TRUTH GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);
