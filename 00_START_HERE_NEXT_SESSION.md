@@ -1,3 +1,55 @@
+ART (f3eu53): 8/7 LATEST -- *** THE GROUND LIBRARY IS AN OVERLAY SYSTEM AND NOBODY
+BUILT THE LAYER. THE TILE WAS NEVER THE PROBLEM. ***
+Record: records/BOHEMIA_THE_GROUND_LIBRARY_IS_AN_OVERLAY_SYSTEM_8_7_26.md
+
+=== I WAS WRONG TWICE AND ONLY FOUND OUT BY LOOKING ===
+I told him "there is no seamless art in this repo for ballast, field soil or
+desert floor" and handed him a BUY-OR-COOK decision. I had opened TWO banks.
+The 8/6 consumption audit found BOHEMIA_TILE_REPO.txt dark with 875 images and its
+own counts reading DIRT 104, GRAVEL 71, GRASS 103 -- the exact things I said did
+not exist. Wrong as stated, and worse: it put a PURCHASE on his plate he does not
+need to make. He owns the art.
+
+=== WHAT THE PIXELS SAY (measured, nothing wired) ===
+  concrete 293  20.1% transparent   FULLY OPAQUE: 0
+  street    47  27.1%               FULLY OPAQUE: 0
+  grass    103  29.4%               FULLY OPAQUE: 0
+  dirt     104  32.1%               FULLY OPAQUE: 0
+  burnt     66  43.1%               FULLY OPAQUE: 0
+  gravel    71  75.5%               FULLY OPAQUE: 0
+*** NOT ONE FULLY OPAQUE TILE IN ANY CATEGORY. *** Every ground tile he owns is an
+OVERLAY -- a patch with a feathered transparent border, drawn to be scattered ON a
+base. Tiled four across, the dirt is square patches with BLACK GAPS and grassy edges.
+
+=== THE REAL FINDING: A MECHANISM GAP, NOT AN ART GAP ===
+The game has NO base-plus-scatter ground layer. It draws one tile per cell and
+stops. That is why FIVE attempts to make a farm look like a farm failed -- four of
+which I blamed on picking the wrong tile.
+*** THE TILE WAS NEVER THE PROBLEM. THE LAYER DOES NOT EXIST. ***
+It also explains concrete: at 20% transparency the feathering blends into its
+neighbours, so it works today. Dirt at 32% shows gaps. Gravel at 75% is pure
+scatter. The library is internally consistent -- it always assumed something under it.
+
+=== AND ONE DARK BANK IS DARK CORRECTLY ===
+GROUND_VARIANT_BANK 1,211 images, and its own note says "UNJUDGED -- banked for a
+future mega-judging session ... nothing here is canon until Paolo sweeps it." That
+is not a miss. The 8/6 audit lists it; the audit's own warning ("89.5% dark is not
+89.5% waste") is why that matters.
+
+=== [PENDING, Paolo] AND THE OPTIONS ARE FINALLY HONEST ===
+The old question (buy / cook / accept) was the WRONG QUESTION. The real one:
+  A) build the TWO-LAYER GROUND (base fill + scatter overlay). No new art, no
+     purchase. Unlocks 875 dark images immediately.
+  B) leave it -- every district keeps reading as a lot.
+  C) sweep GROUND_VARIANT_BANK first (1,211 tiles waiting on a judging session) so
+     the scatter has judged variety when the layer lands.
+
+=== NOT WIRED, DELIBERATELY ===
+Ground is four failed attempts deep. STOP PRODUCING says a fifth is not a fix, it
+is a symptom. THE FINDING IS THE DELIVERABLE. Whoever builds the layer: read the
+record first, and render-and-look before believing any number.
+
+
 FACTIONS (factions-ovkjpf): 8/7 (c) LATEST — *** A SECOND WAY AUTHORED CONTENT DIES,
 AND IT IS NASTIER: THE MECHANISM WORKS AND THE CHECKER TELLS THE AUTHOR HE IS WRONG. ***
 Nothing to judge.
