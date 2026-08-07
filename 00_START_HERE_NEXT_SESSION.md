@@ -1,3 +1,41 @@
+SOUND (sound-xk7pjp): 8/4 (m) LATEST - A GATE THAT ASKS THE ONLY QUESTION HE
+CARES ABOUT: CAN I HEAR IT? Nothing here needs judging.
+
+WHY IT EXISTS: on 8/4 I found BY HAND that CITYMUS.phase was pinned to 'NIGHT',
+which made every song he tagged OVERWORLD DAY or DUSK/DAWN unplayable - seven
+songs, including the only one he has ever said he likes. Nothing caught it
+because nothing was ASKING. Every music gate checks songs parse, voices exist,
+verdicts are baked. None asked whether his tagging REACHES him.
+
+gates/music_reach_gate.js (13 checks, static, fast) sweeps every category he has
+tagged and asserts each one has a player. There are exactly three ways:
+  1. OVERWORLD DAY/NIGHT/DUSK-DAWN -> the CITYMUS shuffle, but ONLY if something
+     can actually MOVE CITYMUS.phase. That is the check that would have caught
+     the original bug.
+  2. a category whose name is an MFACTIONS slot -> combat's encounter rotation
+     via out.pools (Paolo 7/19: "it just enters the pool")
+  3. nothing else.
+Graveyarded songs are skipped - a song he thumbed DOWN is SUPPOSED to be
+unreachable, and demanding a player for one would be demanding a corpse be heard.
+
+TWO CORRECTIONS I HAD TO MAKE TO MYSELF WHILE BUILDING IT:
+1. My first audit reported 15 categories DEAD including all the factions. WRONG.
+   Faction-tagged songs reach COMBAT through out.pools, a path my audit never
+   checked. Verified in the code before claiming. The real gap is MENU only.
+2. *** THE GATE BROKE ITS OWN LAW AND I ONLY FOUND IT BY MUTATION TESTING. ***
+   The phase check tested the RAW SOURCE, and the raw source contains the COMMENT
+   that describes the bug ("whoever builds the clock sets CITYMUS.phase = 'DAY'|
+   'DUSK'|..."). The regex matched the COMMENT. It passed on the exact build
+   where the phase was pinned - it would have caught NOTHING while reading like
+   the thing that catches everything. A MENTION IS NOT A USE. It strips comments
+   first now, and deleting the real assignment turns it red.
+   IF YOU ADD A CHECK, MUTATE IT. A green check you have never seen fail is a
+   decoration.
+
+MENU is a NAMED WAIVER, printed every run: 2 canon MENU songs, no menu music
+player exists. Putting music on the front splash is a DESIGN decision about what
+the game does when you open it - his call, not a wiring fix.
+
 LAB (lab-e2r7sv): 8/5 (b) LATEST -- *** THE WITNESS WORK WAS ALREADY BUILT BY THE PEOPLE
 LANE, BETTER THAN I WOULD HAVE. IT COMES OFF MY QUEUE. *** Nothing to judge.
 

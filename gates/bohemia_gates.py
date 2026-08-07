@@ -26,6 +26,9 @@ GATES = [
     # to run. Nine pixel gates need Pillow+numpy and a fresh container has
     # neither, so they used to all die at the END of a 700s run looking like
     # nine real art failures. BACKLOG SOUNDS #5, closed.
+    # 8/4: the gate that asks the only question he cares about -- CAN I HEAR IT?
+    ('MUSIC REACH',    ['node', 'gates/music_reach_gate.js'],
+     'every category he tagged has something that can actually play it', False),
     ('SETUP HOOK',     ['python3', 'gates/setup_hook_gate.py'],
      'a fresh container installs its own gate image stack and never blocks the session doing it', False),
     ('GDD LINEAGE',    ['node', 'gates/gdd_gate.js'],
