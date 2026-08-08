@@ -28,7 +28,7 @@ for the indoor pass and land on the same tile there (INTERIOR-MATCHES-EXTERIOR
 LAW does the mapping). Husks sealed in CARS draw outdoors -- you can see into a
 car, and a car in the Mojave is the most reliable mummifier in the valley.
 
-REUSE CHECK (REUSE-FIRST, Paolo 7/22): COOKS ZERO PIXELS. Every remain drawn is
+REUSE CHECK: COOKS ZERO PIXELS (REUSE-FIRST, Paolo 7/22). Every remain drawn is
 one of Paolo's own tiles.
   opened slices/BOHEMIA_CITY_TILES.js -> TP_TILES.gore (73 tiles) and reads
     TP_IMG.gore, the decoded images the page already builds at boot. Consumption

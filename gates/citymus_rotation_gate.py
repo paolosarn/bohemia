@@ -39,7 +39,13 @@ const pw = pwmod();
   await p.click('#front', { force:true }).catch(()=>{});
   await p.waitForTimeout(900);
   // the studio has to have built once for MUS.cats to be loaded (the 7/6 fix)
-  await p.evaluate(() => { const t=document.querySelector('.tab[data-p="music"]'); if(t)t.click(); });
+  /* A TAB THAT IS NOT THERE IS A FAILURE, NOT A SKIP (8/8, the ONE WORLD TAB rule).
+     `if(t)t.click()` walked on when the button was missing and then measured
+     whatever panel happened to be open -- the exact shape that hid three gate
+     failures behind a click that never happened when the CITY tab was removed. */
+  await p.evaluate(() => { const t=document.querySelector('.tab[data-p="music"]');
+    if(!t) throw new Error('no MUSIC tab to open: the surface this gate measures is not reachable');
+    t.click(); });
   await p.waitForTimeout(2400);
 
   const out = {};
