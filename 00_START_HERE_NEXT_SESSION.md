@@ -2939,7 +2939,38 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/7 (b) LATEST -- *** ONE LEVEL CONTRACT: THE WORD "LEVELS" MEANT TWO
+WORLD (world-9lfjtf): 8/7 (c) LATEST -- *** THERE IS A VOTE TAB NOW, AND IT IS TAB #1. ***
+records/BOHEMIA_THE_VOTING_TAB_8_7_26.md. Gate: vote_tab_gate.js 20/0. BUILD 8/7v.
+
+"Are u gonna have me hunt for the changes or ur gonna put them in a voting tab" -- Paolo, 8/7.
+HE IS RIGHT AND IT WAS MY FAILURE: five turns running I ended by telling him to open the CITY
+tab and thumb new icons. The CITY tab is the BUILDER -- a map, at play size, no thumbs, no way
+to say anything about one. That is a scavenger hunt with my work hidden in it. Sixteen judge
+pages already existed and every one is LIFE tab -> hub -> page; three taps and a hub is still
+hunting.
+  VOTE is a TOP-LEVEL tab, FIRST in the row, opening on ONLY what has no verdict, newest
+  first, judged ones below so he can change his mind. Thumbs + per-item comment + global
+  comment + SUN MODE + .txt export. No pixels cooked: every sprite is the baked hero the CITY
+  tab already plants, so a thumb here is a thumb on what he actually sees.
+  *** 55 WAITING, NOT 31. *** Only FOUR districts have ever been judged in their current form
+  (his 8/4 civics). I had been quoting "31 new" because that is what I built this week.
+
+A VERDICT IS DECLARED, NOT NARRATED -- learned the hard way twice in one hour. Parsing his
+prose marked 48 of 59 "judged" off names in paragraphs (hides work from him -- the dangerous
+direction). Tightening to "a token on the same line" STILL missed "Chapel - 85 both" (no
+percent sign) AND invented rulings for mountain and suburb out of "70.1% of every mountain
+plot", a sentence about a BUG that reads like a score. Plus a plain regex bug: \b after %
+never matches, so every percent verdict he ever gave was invisible.
+  THE GRAMMAR IS NOW:  @VERDICT <district> <whatever he said>
+  One line per ruling, any file in records/. His 8/4 approvals are declared that way, and the
+  VOTE page EXPORTS THE SAME SHAPE -- his .txt drops back into records/ and the queue shrinks
+  by itself. The loop closes without me in it.
+  (Another lane reached the identical "declared, not narrated" conclusion today from a
+  completely different direction. Worth noticing.)
+
+=== EARLIER, SAME SESSION ===
+
+WORLD (world-9lfjtf): 8/7 (b) -- *** ONE LEVEL CONTRACT: THE WORD "LEVELS" MEANT TWO
 DIFFERENT THINGS. *** records/BOHEMIA_ONE_LEVEL_CONTRACT_8_7_26.md. Gate: interior_levels_gate 12/0.
 
 Buildings got stairs earlier today. The next thing anybody does with that is write a WALKER,

@@ -84,3 +84,17 @@ If it can be derived, derive it. A hand-written fact is a fact that goes stale s
 Not one point came from redrawing. Every point came from finding the mechanism that was
 wrong and fixing it once, for all 47. That is the FACTORY LAW working: a fix to the
 factory is a fix to everything the factory has ever made.
+
+=============================================================================
+MACHINE BLOCK -- the four rulings, declared. Added 8/7/26.
+=============================================================================
+Parsing his prose for verdicts does not work and today proved it twice: "Chapel - 85 both"
+carries no percent sign, and "70.1% of every mountain plot" is a sentence about a BUG that
+reads exactly like a ruling on the mountain icon. A DECLARED number carries its subject; a
+narrated one never will. Every future verdict adds one line here and the VOTE tab's export
+already emits this shape, so his .txt drops straight in.
+
+@VERDICT cityhall 85 both
+@VERDICT courthouse 85 both
+@VERDICT terminal 85 both
+@VERDICT chapel 85 both

@@ -197,6 +197,12 @@ GATES = [
      'build was copying the whole 496 MB repo. _config.yml publishes slices/ (+ engine/ + records/target, '
      'which slices actually load) and this proves every outward ref still ships and the surface stays '
      'under what the builder can finish', False),
+    ('VOTE TAB',      ['node', 'gates/vote_tab_gate.js'],
+     'Paolo 8/7: "are u gonna have me hunt for the changes or ur gonna put them in a voting tab" -- '
+     'five turns running I told him to go find new icons in the CITY tab, which is a map, not a '
+     'judging surface. VOTE is tab #1, opens on what has no verdict, thumbs + comments + SUN + .txt, '
+     'and the queue is derived from DECLARED @VERDICT lines rather than parsed out of his prose',
+     False),
     ('INTERIOR LEVELS',['node', 'gates/interior_levels_gate.js'],
      'three interiors disagreed about the word "levels" -- an ARRAY in the floorplan, a COUNT in the '
      'garage, absent in the crypt -- and neither mistake throws, so a walker would have read undefined '
