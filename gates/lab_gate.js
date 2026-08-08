@@ -77,30 +77,15 @@ const NOT_A_MECHANIC = ['walk', 'walking', 'movement', 'move', 'camera', 'collis
    note survive as records of what was measured, marked dead at the top. */
 
 const EMULATIONS = [
-  {
-    /* LAB-10, commissioned by name. Paolo 8/4: "Val Heim's build menu and it's
-       build system to me was the easiest to work with among the games I've
-       played it really felt like you could just set up fucking camp anywhere
-       quickly like very quickly."
-       The THIRD Valheim MODEL row, and the one with the most SOURCED numbers of
-       any row in this file (20), because the build system is the part of Valheim
-       that ValheimPlus patches hardest -- its Piece / CraftingStation /
-       WearNTear / Player patches name the real fields and carry the real vanilla
-       defaults. The finding is an ASYMMETRY, not a menu: a bench needs a roof
-       and 70% cover to CRAFT and needs neither to claim its radius or suppress
-       spawns, so the house is optional and you PLACE a camp rather than
-       building one. */
-    id: 'VALHEIM BUILD',
-    game: 'Valheim',
-    kind: 'MODEL',
-    mechanics: ['building', 'crafting', 'deconstructing', 'upgrading', 'spawn suppression'],
-    minConsts: 40,
-    page: 'slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html',
-    record: 'records/lab/BOHEMIA_LAB_VALHEIM_BUILD_TEARDOWN_8_7_26.txt',
-    pattern: 'records/lab/BOHEMIA_LAB_VALHEIM_BUILD_PATTERN_NOTE_8_7_26.md',
-    live: liveValheimBuild,
-    shot: { name: 'BOHEMIA_LAB_VALHEIM_BUILD_PROOF_8_7_26.png', setup: shotValheimBuild }
-  },
+    /* LAB-10 IS DEAD. Paolo 8/7: "That valheim sample was so dogshit". Its page is
+       graveyarded (gates/bohemia_graveyard.txt) and DELETED. Its row is gone and there is
+       NO V2 -- and this one is not a content miss, it is the NINTH lab deliverable killed,
+       so the post-mortem is about the FORMAT and not about Valheim:
+       records/BOHEMIA_LAB_VALHEIM_BUILD_KILL_8_7_26.md.
+       liveValheimBuild / shotValheimBuild stay in this file deliberately, the same way
+       liveTheCrash did: B31/B32 (does the claimed thing actually LAND ON THE CANVAS, is
+       every drawn size big enough to see) are the most reusable checks the row produced,
+       and they are the only two in 573 that were about what a human can SEE. */
   {
     /* LAB-09. Built because he corrected LAB-08 out of existence and then named
        what he actually wanted: "modern economic crash valheim project zomboid

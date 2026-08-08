@@ -1,7 +1,13 @@
+*** DEAD 8/7/26. KILLED by Paolo the same day it shipped: "That valheim sample was so
+*** dogshit". The PAGE is graveyarded and deleted. This teardown survives ONLY as the
+*** record of what was measured; nothing in it is a live deliverable. The sourced finding
+*** (roof+cover gate CRAFTING only, never the radius or the spawn suppression) stands as a
+*** reference ruling. Post-mortem: records/BOHEMIA_LAB_VALHEIM_BUILD_KILL_8_7_26.md
+
 BOHEMIA REFERENCE LAB 10 — VALHEIM'S BUILD SYSTEM — MECHANICS TEARDOWN
 8/7/26. LAB lane. Commissioned by name.
 
-PAGE: slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html
+PAGE: slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html  [DEAD, graveyarded 8/7/26]
 PATTERN NOTE: records/lab/BOHEMIA_LAB_VALHEIM_BUILD_PATTERN_NOTE_8_7_26.md
 PRIOR RESEARCH THIS SUPERSEDES IN DETAIL (not in status):
   records/BOHEMIA_RESEARCH_VALHEIM_BUILD_FEEL_8_4_26.md

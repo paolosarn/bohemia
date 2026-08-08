@@ -1,3 +1,8 @@
+> **DEAD 8/7/26.** KILLED by Paolo the same day it shipped: *"That valheim sample was so
+> dogshit"*. The page is graveyarded and deleted. This note survives only as a record. The
+> sourced finding it carries stands as a reference ruling; the page does not.
+> Post-mortem: `records/BOHEMIA_LAB_VALHEIM_BUILD_KILL_8_7_26.md`
+
 # LAB 10 PATTERN NOTE — VALHEIM'S BUILD SYSTEM (8/7/26)
 
 **A MODEL, not a measurement.** Valheim ships compiled Unity assemblies and Iron

@@ -1,3 +1,64 @@
+LAB (lab-e2r7sv): 8/7 (c) LATEST -- *** LAB-10 IS DEAD, AND THE NINTH KILL IS ABOUT THE
+FORMAT, NOT ABOUT VALHEIM. THIS LANE'S DELIVERABLE SHAPE IS THE PROBLEM. ***
+Paolo, 8/7: "That valheim sample was so dogshit". Page DELETED and graveyarded, gate row
+gone, NO V2. Nothing to judge. Post-mortem: records/BOHEMIA_LAB_VALHEIM_BUILD_KILL_8_7_26.md
+
+*** MY OWN LANE ALREADY WROTE THIS POST-MORTEM ON 7/27 AND I DID NOT READ IT. ***
+The A Dark Room kill, eleven days ago, in the graveyard registry, in this lane's own words:
+    "it was a paragraph and one button in a modal, OVER PLACEHOLDER GREY TILES, while the
+     fleet-wide look problem is exactly what he cannot judge past."
+I shipped placeholder grey rectangles again. Same lane, same failure, eleven days later, with
+the diagnosis already sitting in the file the graveyard gate reads on every single run.
+
+THE COUNT IS THE FINDING. Lab deliverables he has killed: CONDUCTOR, PROMISE, DANCE, QUEUE,
+DUEL (all 7/20), the Zomboid house (7/26 "really bad and not fun"), the A Dark Room scavenge
+(7/27 "really bad so bad so bad"), LAB-08 the crash (7/31), and now LAB-10. *** NINE. ***
+Everything else this lane made -- the Stardew pages, the CDDA/weapons/cold models -- was
+never verdicted at all, which under UNJUDGED IS DEAD is not a win either.
+A LANE WHOSE DELIVERABLE FORMAT HAS BEEN KILLED NINE TIMES DOES NOT HAVE A CONTENT PROBLEM.
+I treated every one of those as "wrong game, pick better next time" and wrote nine
+post-mortems about the SUBJECT. The subject was never it.
+
+*** AND THE LAW MANDATES THE THING THAT KEEPS KILLING IT. THIS IS THE BLOCKER. ***
+laws/BOHEMIA_ADDENDUM_LAB_IS_WHOLE_MECHANICS_7_26_26.md clause 6 requires lab pages ship
+"with placeholder art". His standing position is that he cannot approve anything until the
+world looks consistent. And the live finding on main is that 4,099 images he bought and
+judged have never drawn a pixel.
+    A lab page is, BY LAW, grey rectangles.
+    Grey rectangles are, BY HIS REPEATED VERDICT, unjudgeable.
+Both cannot stand. Only he can break that tie, so this turn is a STOP and not a tenth
+attempt. I am not building a v2, and I am not re-pitching the same format with better art --
+that is the "legal way to ship the frozen thing" that STOP PRODUCING names as itself the
+violation.
+
+WHAT SURVIVES, AND IT IS THE PART HE ASKED FOR:
+records/BOHEMIA_RESEARCH_VALHEIM_BUILD_FEEL_8_4_26.md. He commissioned that research by name
+and its finding is sourced off real open-source C#: A WORKBENCH NEEDS A ROOF AND 70% COVER TO
+CRAFT AND NEEDS NEITHER TO CLAIM ITS RADIUS OR SUPPRESS SPAWNS, so the house is improvement
+and never prerequisite, and you PLACE a camp rather than building one. Plus: deconstruction
+refunds the full cost, so being wrong is free, so nobody hesitates. That is a reference ruling
+for the camp (COMBAT owns it, RUN owns the surface) and it needs no page to be true. CHEAP IN
+TAPS, NEVER FREE IN TIME still holds his clause 11.
+Teardown and pattern note survive marked DEAD at the top. Two gate checks survive in
+lab_gate.js and they are the only two of 573 that asked what a HUMAN CAN SEE: B31 (does the
+thing the page claims actually land on the canvas -- it did not, the claim circle fell
+off-screen) and B32 (is every drawn size big enough to see -- the player marker computed to
+MINUS ONE PIXEL wide). Those two are worth stealing by any lane that renders anything.
+
+GATES: graveyard gate green on my work (the one remaining live ref, HAIR AFRO at line ~4342,
+is pre-existing and not mine). lab_gate 486/0 with the row removed.
+
+THE LESSON: READ YOUR OWN GRAVEYARD BEFORE YOU BUILD, NOT AFTER HE KILLS THE NEXT ONE. It is
+not an archive, it is a list of things that already failed, and a gate reads it every run
+while nobody does.
+
+*** THE ONE QUESTION FOR HIM, AND THE LANE IS STOPPED UNTIL IT IS ANSWERED: ***
+IS THE PLAYABLE REFERENCE PAGE DEAD AS THIS LANE'S FORMAT? If yes, LAB ships research and
+findings only, and clause 6 gets amended. If no, then placeholder art has to go and this lane
+draws from his 4,099 unused judged tiles like everyone else.
+STILL PENDING HIM (unchanged): the 18 bosses; and the MEDICINE-vs-RESOURCES currency name.
+
+
 CITY (1eztay): 8/7 (c) LATEST — NINE GATES HAVE BEEN RED FOR DAYS AND EVERY LANE
 SAYS "NOT MINE". I STOPPED SAYING IT. WALL CLASS IS GREEN.
 
@@ -51,7 +112,7 @@ NOT MINE TO DECIDE
 - THE RUN SLICE: SHOW / MERGE / RETIRE. Still open.
 - 0AY options 1/2/3. Runway 5-10 months. Not urgent.
 
-LAB (lab-e2r7sv): 8/7 (b) LATEST -- *** MY OWN GATE WAS VACUOUS FOR 13 OF ITS 14
+LAB (lab-e2r7sv): 8/7 (b) -- *** MY OWN GATE WAS VACUOUS FOR 13 OF ITS 14
 CONSTANTS AND HAD BEEN SINCE I BUILT IT. NOW IT MEASURES THE RUNNING WORLD. ***
 Nothing to judge, nothing to tap. NOT IN A TAB YET (a gate has no surface).
 ONE THING PENDING HIM, and it is small: the currency name, below.
@@ -138,7 +199,7 @@ people_gate (152/0), lab_gate (573/0).
 STILL PENDING HIM FROM THIS LANE: the 18 bosses in
 records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md -- which live, which die, order, count.
 And LAB-10's build page from earlier today, still unjudged:
-slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html
+slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html  [DEAD, graveyarded 8/7/26]
 
 
 LAB (lab-e2r7sv): 8/7 (a) -- *** LAB-10: VALHEIM'S BUILD SYSTEM IS PLAYABLE, AND THE
@@ -450,7 +511,7 @@ LAB (lab-e2r7sv): 8/7 LATEST -- *** LAB-10: VALHEIM'S BUILD SYSTEM IS PLAYABLE, 
 ANSWER IS ONE DESIGN DECISION, NOT A BUILD MENU. ***
 NOT IN A TAB YET, and by law it never will be -- the lab's own gate forbids any shipped
 surface from linking a lab page, so it is reached by its own file:
-  slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html
+  slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html  [DEAD, graveyarded 8/7/26]
 JUDGE THIS: 1. play it and rule on the camp feel. That is the only ask.
 
 WHY THIS AND NOT SOMETHING ELSE. He commissioned it BY NAME on 8/4 ("Val Heim's build menu

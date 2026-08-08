@@ -57,7 +57,11 @@
    proxy for substance, so an exemption must now NAME ITS OWN EXPIRY, and the rewritten
    check immediately failed on my own SECONDS_PER_STEP text. Fixed the text, not the check.
 
-1z. [SHIPPED 8/7 — LAB-10, COMMISSIONED BY NAME] VALHEIM'S BUILD SYSTEM, AND THE
+1z. [*** KILLED 8/7, SAME DAY IT SHIPPED — "That valheim sample was so dogshit". THE PAGE
+   IS DEAD AND GRAVEYARDED. NO V2. NINTH lab deliverable killed, so the post-mortem is
+   about the FORMAT: records/BOHEMIA_LAB_VALHEIM_BUILD_KILL_8_7_26.md. The RESEARCH he
+   asked for survives and its sourced finding stands as a reference ruling. ***]
+   LAB-10, COMMISSIONED BY NAME] VALHEIM'S BUILD SYSTEM, AND THE
    ANSWER IS AN ASYMMETRY RATHER THAN A BUILD MENU.
    Paolo 8/4: "Val Heim's build menu and it's build system to me was the easiest
    to work with among the games I've played it really felt like you could just
@@ -81,7 +85,7 @@
 
    PAGE (NOT IN A TAB, and by lab_gate clause 3 it never can be — no shipped
    surface may link a lab page):
-   slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html — five mechanics, each loop
+   slices/lab/BOHEMIA_LAB_VALHEIM_BUILD_8_7_26.html — five mechanics, each loop  [DEAD, graveyarded 8/7/26]
    closing: building / crafting / deconstructing / upgrading / spawn suppression.
    Records: records/lab/BOHEMIA_LAB_VALHEIM_BUILD_TEARDOWN_8_7_26.txt +
    ..._PATTERN_NOTE_8_7_26.md
