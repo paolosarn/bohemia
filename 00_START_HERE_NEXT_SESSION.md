@@ -1,3 +1,58 @@
+ART (f3eu53): 8/7 (s) LATEST -- *** ATTEMPT SIX AT THE GROUND FAILED AND WAS BINNED
+BY MACHINERY, NOT BY PAOLO'S EYE. THAT IS THE WIN. ***
+Record: records/BOHEMIA_ATTEMPT_SIX_FAILED_AND_WHAT_IT_FOUND_8_7_26.md
+
+Paolo chose option A (two-layer ground) and said "ultracode go". Eleven agents:
+3 researchers, 2 designs + a judge, 1 implementer, THREE SKEPTICS EACH TOLD TO
+REFUTE IT, 1 decision agent with a hard ship rule.
+RESULT: gates green, ALL THREE SKEPTICS REFUTED, reverted byte-clean.
+*** Five previous ground attempts passed every gate and were killed by LOOKING.
+This one was killed before he ever saw it. Keep this shape. ***
+
+=== WHAT THEY MEASURED ON THE LIVE CANVAS ===
+  saturation 52-57% vs his shipping ground at 16-18%   apricot, not Mojave
+  RED CHANNEL CLIPPED: 65% of railyard pixels R>=250 (concrete clips 0.8%)
+  the farm read as a BARCODE: 30 hard orange/grey alternations per screen
+  DOWNTOWN, already correct, became a BEACH: 82.8% of the frame changed
+  building shadows became hard orange staircases (delta 43 -> 109, per cell)
+  a visible GRID at the 44px cell pitch (2.0-3.2x edge energy at cell period)
+  detail DELETED not layered: -59% downtown, -37% farm. Cracks, joints, manholes
+    and weed tufts overwritten by flat colour.
+  and 44.8% of railyard ballast NEVER CHANGED -- the actual target stayed grey.
+
+=== ROOT CAUSE, SAME ONE SIX TIMES ===
+*** ONLY LAYER ONE WAS BUILT. *** Option A was base FIRST then scatter overlays ON
+TOP; no scatter pool was ever cooked, so the base landed as a flat plane with
+nothing to break it up. And the pack was certified on LUMINANCE ONLY -- never
+saturation, never hue, never the value AFTER look()'s warm sun push, which is what
+drove red past 255. VERIFY ON THE REAL SURFACE, failed identically to 1-5.
+*** A VERDICT IS ABOUT THE OBJECT. NEVER ABOUT WHERE, OR WHAT FOR. *** The soil
+pack is genuinely 24 UP / 0 DOWN. That is not a defence.
+
+=== THE REAL PRIZE: THEY FOUND A LIVE LAW BREACH IN THE SHIPPED BUILD ===
+*** PURPLE-AND-WHITE STRIPED MARKET AWNINGS were standing on railyard ballast in
+the game he plays, from my own 8/5 props work. *** Verified independently:
+"port market" idx5 is 19.6% purple by opaque pixel, idx20 also over. BOTH CARRY
+REAL UP VERDICTS AND THAT IS NOT A DEFENCE -- purity is a law about the WORLD.
+FIXED: the cook now measures every tile's purple share and drops anything over 2%
+regardless of verdict; exterior_pool_gate re-derives it so the cook cannot quietly
+stop. 2 dropped, 0 remain, 37/37.
+
+=== [PENDING, Paolo] THE CAMP BUCKET ===
+It puts a medieval cauldron over a lit campfire, conical pavilion tents, a bakery
+cart with bread and fresh produce under awnings into a dead Las Vegas. He thumbed
+"market stalls" 19 UP and "port market" 29 UP -- AS MARKET STALLS. I put them in a
+railyard. Flagged, not decided.
+
+=== GROUND IS NOT GETTING A SEVENTH ATTEMPT FROM ME ===
+What a seventh would need, in order:
+ 1. BUILD LAYER TWO FIRST. The scatter pool is the half never made and the half
+    the whole plan rested on.
+ 2. Gate the tile on what the SCREEN shows -- saturation, hue, and the value AFTER
+    the colour grade -- not on raw luminance.
+ 3. Look at DOWNTOWN and the SUBURB before believing any farm.
+
+
 LAB (lab-e2r7sv): 8/7 (c) LATEST -- *** LAB-10 IS DEAD, AND THE NINTH KILL IS ABOUT THE
 FORMAT, NOT ABOUT VALHEIM. THIS LANE'S DELIVERABLE SHAPE IS THE PROBLEM. ***
 Paolo, 8/7: "That valheim sample was so dogshit". Page DELETED and graveyarded, gate row

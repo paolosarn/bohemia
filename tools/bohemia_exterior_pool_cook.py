@@ -69,6 +69,8 @@ import os
 import re
 import sys
 
+from PIL import Image
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MASTERS = [os.path.join(ROOT, 'banks', 'BOHEMIA_HD_TILE_REPO_part%d.txt' % i) for i in (1, 2, 3, 4)]
 VERDICTS = os.path.join(ROOT, 'banks', 'BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt')
@@ -124,6 +126,32 @@ INDOOR_ONLY = re.compile(r'furniture|interior room|floor tile|wall tile|roof til
 # and the things he ruled OUT of the interior pool for story reasons stay out here
 STORY_ONLY = re.compile(r'zombie|blood|gore|skeleton|bone|corpse|bodies', re.I)
 
+# PURPLE RESERVATION IS A HARD LAW AND ONE SHIPPED TILE BROKE IT (8/7).
+# Paolo's law: purple belongs to the Amalgamation ALONE. An adversarial render
+# review on 8/7 found "purple-and-white striped market awnings" standing on
+# railyard ballast in the SHIPPED build. Measured: banks "port market" idx 5 is
+# 19.6% purple by opaque pixel. His UP verdict on it is real and is not the point
+# -- purity is a law about the WORLD, not a question of taste, and a verdict
+# cannot licence a law breach. Every tile is now measured and any tile carrying
+# meaningful purple is dropped no matter what its verdict says.
+PURPLE_MAX = 0.02          # fraction of opaque pixels allowed in the purple band
+
+
+def purple_share(b64):
+    """What fraction of this tile's solid pixels sit in the reserved purple band."""
+    import colorsys
+    im = Image.open(io.BytesIO(base64.b64decode(b64))).convert('RGBA')
+    px = [q for q in im.getdata() if q[3] > 200]
+    if not px:
+        return 0.0
+    n = 0
+    for r, g, bl, _a in px:
+        h, sat, v = colorsys.rgb_to_hsv(r / 255.0, g / 255.0, bl / 255.0)
+        if sat > 0.25 and v > 0.25 and 0.72 < h < 0.88:
+            n += 1
+    return n / float(len(px))
+
+
 # HIS SIZE RULINGS, as a draw scale. "BIG: render smaller / SMALL: render bigger".
 FLAG_SCALE = {'too_big': 0.62, 'too_small': 1.45, None: 1.0}
 PER_BUCKET_CAP = 18          # a phone carries this, and past ~18 nobody can tell them apart
@@ -168,6 +196,7 @@ def main():
     out = {b: [] for b in BUCKETS}
     seen_packs = {}
     considered = up = down = unjudged = dup = 0
+    purple_dropped = []
     for path in MASTERS:
         d = json.load(open(path))
         for pack, items in d.get('packs', {}).items():
@@ -191,6 +220,9 @@ def main():
                 if b64[:96] in already:
                     dup += 1
                     continue
+                if purple_share(b64) > PURPLE_MAX:
+                    purple_dropped.append('%s#%d' % (norm(pack), i))
+                    continue          # PURPLE RESERVATION. A verdict cannot licence it.
                 up += 1
                 seen_packs[norm(pack)] = seen_packs.get(norm(pack), 0) + 1
                 out[b].append({
@@ -201,6 +233,9 @@ def main():
 
     print('  considered %d outdoor-pack tiles: %d UP, %d DOWN, %d never judged, %d already indoors'
           % (considered, up, down, unjudged, dup))
+    if purple_dropped:
+        print('  PURPLE RESERVATION dropped %d UP tile(s): %s'
+              % (len(purple_dropped), ', '.join(purple_dropped)))
 
     # ---- cap per bucket, spreading across packs so one pack cannot own a bucket
     capped = {}

@@ -125,6 +125,21 @@ ok('NO LIVING TREES -- he voted that pack down 0 UP / 23 DOWN',
 ok('but the DEAD ones are here, which is the same ruling read correctly',
    packs.some(p => /dead trees/.test(p)));
 
+/* ==== 2b. PURPLE RESERVATION, AND A VERDICT CANNOT LICENCE A LAW ========== */
+/* An adversarial render review on 8/7 found PURPLE-AND-WHITE STRIPED MARKET
+   AWNINGS standing on railyard ballast IN THE SHIPPED BUILD. Measured: "port
+   market" idx 5 and idx 20 are 19.6% and 12%+ purple by opaque pixel, and both
+   carry a real Paolo UP verdict. THAT IS NOT A DEFENCE. Purple belongs to the
+   Amalgamation alone; purity is a law about the WORLD, not a matter of taste, and
+   an UP on an object cannot licence a law breach any more than it licences a
+   car-sized potion jar. The cook now measures every tile and drops any that
+   carries meaningful purple; this re-derives it so the cook cannot quietly stop. */
+ok('the cook enforces PURPLE RESERVATION by measuring pixels, not by trusting a verdict',
+   /PURPLE_MAX/.test(fs.readFileSync(path.join(ROOT, 'tools/bohemia_exterior_pool_cook.py'), 'utf8')) &&
+   /purple_share/.test(fs.readFileSync(path.join(ROOT, 'tools/bohemia_exterior_pool_cook.py'), 'utf8')));
+ok('the two purple market awnings are OUT of the shipped pool',
+   !all.some(([, e]) => /port market/.test(norm(e.pack)) && (e.idx === 5 || e.idx === 20)));
+
 /* ==== 3. IT IS CONSUMED, NOT MERELY PRESENT ============================== */
 ok('the builder loads the pool', /BOHEMIA_EXTERIOR_POOL/.test(fs.readFileSync(
    path.join(ROOT, 'tools/build_run_slice.js'), 'utf8')));
