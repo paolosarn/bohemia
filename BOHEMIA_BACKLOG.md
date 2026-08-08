@@ -1257,6 +1257,20 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    the blob's export flow made one-tap; true cloud lands with the ship-
    vehicle ruling [PENDING Paolo ~month 8]. | eviction scenario simulated +
    survived via persisted storage, gated | — | no.
+0g. GDD MECHANICS ROUTED 8/4 (records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md):
+   (a) HEALTH & STAMINA, THE ONE BAR (v2 §15, LOCKED, Valheim philosophy —
+   his named favorite): one combined bar, stamina range capped by current
+   health, injuries take DAYS (field medicine stabilizes, never heals),
+   wounds degrade aim (feeds the dial's wounded-shake law already built).
+   COMBAT co-owns the wound->aim coupling. | bar live on the real surface +
+   headless recovery-over-days test | exact numbers tunable, his feel |
+   yes (the bar's look/feel is judgeable).
+   (b) FAST TRAVEL + SUPPLEMENT COSTS + CONVOY TRAVEL (v2 §11/§13): always
+   available, always priced (time + supplements per method, the locked
+   travel table); convoy = ride with Caravans/allies, safe-but-slow.
+   Composes with time-is-spent + the bike (0v). WORLD supplies the pricing
+   hooks. | travel menu on the real surface, costs shown before commit |
+   supplement table detail = PENDING Paolo (GDD's own list) | no.
 0v. THE BIKE (big-missing item 8, assigned 7/31 to complete the dispatch —
    the design is LOCKED in GDD v5: man-powered ladder, bike ~4 cells/beat,
    valley crossing 1.7h walk -> ~26min bike; nothing on any surface rides).
@@ -1426,6 +1440,32 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+GM. GDD MECHANICS ROUTED 8/4 (from records/BOHEMIA_GDD_MECHANICS_LEDGER_
+   8_4_26.md — designed-and-LOCKED in the GDD, in nobody's queue until now;
+   all mechanism-first, tables empty per mechanism-mine):
+   (a) THE SUCCESSION SYSTEM SKELETON (v4's "signature mechanic", was
+   falling through the cracks): roles-not-pointers registry + vacancy-as-
+   contested-event + anti-soft-lock fallback/graceful-close. Ships EMPTY of
+   named leaders (PEOPLE's dossiers supply them). Kill-anyone is already
+   ruled; this makes it mean something. | headless: kill a role-holder,
+   watch a deterministic struggle resolve, gated | who wins where = his
+   verdicts later | no.
+   (b) BROWNOUTS/BLACKOUTS (v3 LOCKED): act-1-frequent power instability
+   events on the world state (composes with daycycle wiring + clustered
+   power + LIGHT=TERRITORY); RUN consumes the visible moment; BLACKOUT-AS-
+   ESCAPE is a story beat for later, note it. | event fires headless + seen
+   on the real surface | — | no.
+   (c) FUSED CONSEQUENCES (v4 LOCKED): planted events with fire-turn +
+   warning-lead on the resolver/scheduler ("you're gonna wanna pull up
+   soon"). | headless fuse + warning, gated | warning specificity = PENDING
+   Paolo | no.
+   (d) ACT-1 TRADING HUBS (v2): 2-3 hubs on the map as the economy
+   skeleton's physical home — placement mechanism only, which buildings =
+   the overmap's existing hub canon. | hubs queryable + reachable | — | no.
+   (e) folded into the braid skeleton: INFRASTRUCTURE TAXATION (patrol ->
+   passive income -> lose patrol lose income) + MAYOR-ARC RUNGS (territory
+   -> ~49% mandate -> pseudo-mayor) — both keystone-native. | with the
+   braid gates | numbers = his | no.
 EC. THE ECONOMY SKELETON (assigned 7/29 off Paolo's big-missing dispatch —
    records/BOHEMIA_THE_BIG_MISSING_7_29_26.md item 3): the three ruled
    currencies (medicine/electricity/resources, GDD v5 LOCKED) get a running
@@ -5126,6 +5166,19 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    garble. Ask, never fill. | one judge sheet, all factions side by side |
    standing ledger (below) is the mechanism half, ships empty regardless |
    yes (the dossiers ARE the judgeable).
+0sc. GDD MECHANICS ROUTED 8/4 (records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md
+   — v4 LOCKED base, newly CHEAP): SCRIPTED SCENES. The Bethesda method:
+   condition met -> scene (camera move, actors posed via the rig, dialogue
+   through the runtime this lane already owns). v4's own note: "cutscenes
+   cost almost nothing once the rig is locked" — the rig is locked and the
+   dialogue player exists, so this is assembly, not invention. FIRST
+   CONSUMER: the Act-1 cold open (the 7/19 family-defense opening vision)
+   and quest beats. CONTENTS-PAOLO'S: the runtime ships; every actual scene
+   is authored from his rulings. ALSO NOTED into the companion items: the
+   v2 §16 detail spec travels with them (3 roles, party cap 4 = car
+   capacity, base assignments, permanent death + one-revival-per-act rescue
+   quest, thresholds, honesty tracking). | one scene plays end to end on
+   the real surface, gated | scene content = his | no (runtime).
 0. [MOSTLY ALREADY BUILT — verified 7/31, do NOT rebuild it] THE DIALOGUE
    SYSTEM v1. REUSE-FIRST found it: engine/bohemia_quest_runtime.js plus the
    run's own TALK sheet already play .bq conversations end to end on the real
@@ -5234,6 +5287,19 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    judged. | judge page live + vector bank + regression gate | one
    AudioContext (the parent's) — no second audio engine | yes (the batches
    are the judging).
+0s. GDD MECHANICS ROUTED 8/4 (records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md
+   — v2 §22, LOCKED, and it is this lane's gift): THE CD SYSTEM + RADIO.
+   No streaming exists in-world: music is FOUND (CDs as collectibles that
+   grow the base's library — looted apartments, Caravan traders, faction
+   milestone gifts; play at the compound and in vehicles) and BROADCAST
+   (faction radio: propaganda + lore + music; the Remnants' emergency
+   channel, the Anarchists' pirate station, Church hymns — each faction a
+   voice). Plus FACTION SONIC SIGNATURES: each territory its own ambient
+   bed. MECHANISM-MINE: the player/radio systems + slots ship; WHICH tracks
+   and what any station says are Paolo's (the existing approved music pool
+   is the day-one library — reuse-first). | CD found->library->played on
+   the real surface; one radio station audible | track lists + station
+   content = his | yes (stations/ambience are listen-and-thumb).
 1. (carried from the reality map) THE RUN HAS NO BEAT: the walk's BEAT=500
    is a hardcoded constant; no tempo/beat index crosses the postMessage
    vocabulary while combat gets full song data + HERO BEAT. Hand the run the
