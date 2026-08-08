@@ -197,11 +197,6 @@ GATES = [
      'build was copying the whole 496 MB repo. _config.yml publishes slices/ (+ engine/ + records/target, '
      'which slices actually load) and this proves every outward ref still ships and the surface stays '
      'under what the builder can finish', False),
-    ('THE DEAD',      ['node', 'gates/dead_gate.js'],
-     'Paolo 8/8: "skeletons in the open, husks in sealed places, realistic mix, story-via-placement". '
-     'Real forensics: scavengers scatter and strip outdoors, dry heat mummifies behind a shut door. '
-     'Walks the valley and proves the ruling holds with zero exceptions, nobody is in a wall, and not '
-     'one body carries a gore field -- TRAUMATIC NOT GORY, a corpse is a fact of a place', False),
     ('BROWNOUT',      ['node', 'gates/brownout_gate.js'],
      "GDD v3 LOCKED, act-1 power instability, routed off the 8/4 mechanics ledger where it sat in "
      "nobody's queue. The grid had no TIME axis: a valley whose lit 12% never flickers is one where "
@@ -276,7 +271,10 @@ GATES = [
     ('WALKABLE LAND',  ['node', 'gates/walkable_gate.js'],
      'no district is mostly parking/driveway: content dominates pavement (vehicular venues exempt)', False),
     ('THE DEAD',       ['node', 'gates/dead_gate.js'],
-     "Paolo 7/31 LOCKED: skeletons in the open, husks in the sealed places, and the valley holds what the death math says", False),
+     'Paolo 7/31 LOCKED (laws/BOHEMIA_ADDENDUM_LORE_SITTING_7_31_26.md sec 2), commissioned 8/8: '
+     'skeletons in the open, husks in the sealed places, realistic mix, story-via-placement. '
+     'Real forensics -- scavengers strip and scatter outdoors, dry heat mummifies behind a shut door -- '
+     'plus the valley holding what the death math says, and not one body carrying a gore field', False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],
