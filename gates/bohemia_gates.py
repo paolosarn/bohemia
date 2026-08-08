@@ -197,6 +197,11 @@ GATES = [
      'build was copying the whole 496 MB repo. _config.yml publishes slices/ (+ engine/ + records/target, '
      'which slices actually load) and this proves every outward ref still ships and the surface stays '
      'under what the builder can finish', False),
+    ('THE DEAD',      ['node', 'gates/dead_gate.js'],
+     'Paolo 8/8: "skeletons in the open, husks in sealed places, realistic mix, story-via-placement". '
+     'Real forensics: scavengers scatter and strip outdoors, dry heat mummifies behind a shut door. '
+     'Walks the valley and proves the ruling holds with zero exceptions, nobody is in a wall, and not '
+     'one body carries a gore field -- TRAUMATIC NOT GORY, a corpse is a fact of a place', False),
     ('BROWNOUT',      ['node', 'gates/brownout_gate.js'],
      "GDD v3 LOCKED, act-1 power instability, routed off the 8/4 mechanics ledger where it sat in "
      "nobody's queue. The grid had no TIME axis: a valley whose lit 12% never flickers is one where "

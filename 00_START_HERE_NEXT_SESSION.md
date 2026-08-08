@@ -2939,7 +2939,51 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/8 LATEST -- *** THE GRID GETS A CLOCK: BROWNOUTS + BLACKOUTS. ***
+WORLD (world-9lfjtf): 8/8 (b) LATEST -- *** THE DEAD ARE PLACED: SKELETONS IN THE OPEN,
+HUSKS BEHIND SHUT DOORS. *** records/BOHEMIA_THE_DEAD_8_8_26.md. Gate: dead_gate.js 20/0.
+
+RULING (Paolo 8/8): "skeletons in the open, husks in sealed places, realistic mix,
+story-via-placement." IT WAS CITED TO ME AS AN 8/4 RULING AND THERE IS NO 8/4 RECORD OF IT --
+searched every law/record/addendum; the only corpse-adjacent settled item points the other way
+(7/31 "gore is never the mechanism, a hurt body is a CLOCK not a corpse"). So it is filed as an
+8/8 ruling rather than back-dated to a document that does not exist. Nothing was blocked.
+
+IT IS REAL FORENSICS, cited in the module not remembered: open ground -> a Mojave scavenger
+guild disarticulates and SCATTERS over the 49+ days surface skeletonisation takes. Sealed ->
+no scavenger access + dry heat mummifies from ~day 6 and ARRESTS decay, leaving an intact husk
+where it lay. Under a roof but open to air is the honest middle, not an invented category.
+SCAVENGER ACCESS IS THE VARIABLE AND A SHUT DOOR REMOVES IT -- which falls straight out of the
+tile layering every district already declares.
+
+TRAUMATIC NOT GORY, gate-enforced: no wound/blood/injury/damage/cause-of-death field exists in
+the module OR in any body it emits. What should land is that somebody shut a door and stayed.
+
+STORY-VIA-PLACEMENT, measured and fixed THREE times: the flat pick made `queue` 72% of the open
+dead (a striking sentence only works if rare) -> weighted. The two DOOR arrangements, the most
+affecting in the set, came out 1.7% and 0.4% -> so WALK THE DOORS, do not hope to sample near
+one. Then I OVERCORRECTED TO 93% because I asked for `portal || enter` and `enter` is set on
+EVERY TILE of an enterable building -> the fix was the right DEFINITION (portal tiles only, a
+contiguous run is ONE door). Final: alone 59% queue 16% pair 14% huddle 7% inside_door 2%
+threshold 1%. Nineteen bodies per 96 m block.
+
+*** THE BUG WORTH THE MOST: `queue` had an 8.7% weight and was chosen ZERO TIMES IN THE WHOLE
+VALLEY. The placement draw and the arrangement draw shared a hash with a weak tail, so the
+streams stayed CORRELATED -- every cell passing the density check landed 0.382-0.634 on the
+arrangement draw, never above 0.909. Full avalanche finaliser fixes it. PLACEMENT THAT LOOKS
+RANDOM AND IS NOT IS WORSE THAN PLACEMENT THAT IS OBVIOUSLY REGULAR, because nothing about it
+looks wrong -- it would have shipped as "the valley just doesn't have many of those". ***
+
+ALSO: not every plot publishes tileInfo (reserved/unbuilt types). A cell whose layering is not
+published gets NO dead and says why, rather than bodies placed on a guess.
+
+*** NOT DONE, AND SAY IT PLAINLY: YOU CANNOT SEE THEM YET. This is the placement system --
+where every body is, what shape it is in, what its arrangement means. DRAWING them is RUN/CITY
+and the art is ART. The data is in the shape those lanes already read
+(DEAD.placePlot(plot,seed) and DEAD.placeInterior(interiorLevelsReader,seed)). ***
+
+=== EARLIER, SAME SESSION ===
+
+WORLD (world-9lfjtf): 8/8 (a) -- *** THE GRID GETS A CLOCK: BROWNOUTS + BLACKOUTS. ***
 records/BOHEMIA_THE_GRID_GETS_A_CLOCK_8_8_26.md. Gate: brownout_gate.js 20/0.
 
 GDD v3 LOCKED, routed off the 8/4 mechanics ledger where it sat in nobody's queue.
