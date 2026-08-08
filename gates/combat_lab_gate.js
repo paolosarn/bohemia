@@ -3819,6 +3819,31 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     /_dmgSet\[Math\.max\(0,Math\.min\(_dmgSet\.length-1,_t\)\)\]\|\|SPR\.portraits\.you/.test(demo));
 }
 
+/* ===== V133 THE GAME SPEAKS AGAIN ===================================== */
+{
+  ok('V133 EVERY INSTRUCTION IN THE FIGHT WAS INVISIBLE, AND THE FILE SAID SO ITSELF. Paolo: "No minigame plays when i click grenade bro" -- tapping GREN calls setRead("TAP WHERE IT LANDS") and MEASURED on the live build that read came back EMPTY AND NOT VISIBLE, so the label changed to TILE and nothing told him to tap a tile. The cause was a known defect flagged by an earlier version of me and never fixed: "#cread was retired and never replaced -- every message since has written to memory and shown NOBODY anything"',
+    demo.includes('V133 THE GAME SPEAKS AGAIN') &&
+    demo.includes('function _speak(t,sub,col){') &&
+    /function setRead\(t,s,col\)\{ G\.lastRead=\{[^}]*\}; _speak\(t,s,col\);/.test(demo));
+
+  ok('V133 IT IS NOT A GRENADE FIX, IT IS THE WHOLE GAME SPEAKING: setRead is the single choke point every message in the fight already used, so TAP WHERE IT LANDS, RUN ARMED, NO STAMINA, BLOCKED, THE EDGE, ALREADY ON IT and MISS all come back with one wire',
+    (demo.match(/setRead\(/g) || []).length > 40);
+
+  ok('V133 AND IT COMES BACK AS A TRANSIENT, NOT AS A HUD LINE. #cread was retired for a reason worth respecting -- it was permanent chrome in a stack this lane has spent the week emptying at his instruction (the logo, the chip board, DASH, VAULT, SPRINT, the top-row GRENADE, the STA pips). This costs ZERO height when the game has nothing to say',
+    /e\.style\.cssText='position:fixed;left:8px;right:8px;bottom:214px;[\s\S]{0,120}display:none;/.test(demo) &&
+    demo.includes("e.style.display='block'"));
+
+  ok('V133 TWO BEATS AND GONE, on the grid like everything else in this fight, because a message that outstays the beat is noise',
+    /G\._sayF=setTimeout\([\s\S]{0,140}BPM_MS\*2\)/.test(demo) &&
+    /G\._sayT=setTimeout\([\s\S]{0,140}BPM_MS\*2\+200\)/.test(demo));
+
+  ok('V133 A SPOKEN LINE NEVER SURVIVES A RESET, the same rule the cook timer and the camera hold had to obey',
+    /if\(G\._sayT\)clearTimeout\(G\._sayT\); if\(G\._sayF\)clearTimeout\(G\._sayF\);/.test(demo));
+
+  ok('V133 AND #cread STAYS RETIRED -- the old permanent line is still hidden, so this adds a transient and does not undo the thing that was deliberately removed',
+    /const r=D\('cread'\); if\(r&&r\.style\.display!=='none'\)r\.style\.display='none';/.test(demo));
+}
+
 /* ===== YOU ALWAYS SHOOT FIRST (Paolo 8/3/26, LOCKED) ==================
    laws/BOHEMIA_ADDENDUM_YOU_ALWAYS_SHOOT_FIRST_8_3_26.md. I surfaced the
    opening turn as an open question because it looked like a standing advantage
