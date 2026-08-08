@@ -48,5 +48,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#7a7266` | inlet header | structure | the header feeding every pond off one line | structure | yes | — | 171 |
 | 14 | `#8a8478` | vent stack | structure | the vent stack on the blower house | structure | yes | — | — |
 
-**Gate:** `gates/reclaim_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

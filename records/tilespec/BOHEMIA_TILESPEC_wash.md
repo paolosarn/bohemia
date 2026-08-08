@@ -47,5 +47,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 11 | `#8a7a5a` | homeless camp debris | prop | shopping cart, milk crates, mattress — a tunnel camp at the mouth | prop | yes | — | 121 |
 | 14 | `#3f6a8c` | camp tarp | prop | a blue poly tarp lashed over the camp against the wall, sun-bleached along every fold — the one thing down here with a colour in it | prop | yes | — | 70 |
 
-**Gate:** `gates/wash_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/wash_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

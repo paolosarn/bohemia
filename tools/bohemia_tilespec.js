@@ -128,7 +128,17 @@ for (const d of DISTRICTS) {
           ' | ' + ly.layer + ' | ' + (ly.solid ? 'yes' : 'no') + ' | ' + (ly.enter || '—') +
           ' | ' + (present[c] ? present[c] : '—') + ' |\n';
   }
-  md += '\n**Gate:** `gates/' + d.name + '_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).\n';
+  // CITE THE GATE THAT EXISTS, NOT THE ONE THE NAME IMPLIES. This line assumed every
+  // district has a gates/<name>_gate.js, which was true while every district was hand-built
+  // and stopped being true the moment a FACTORY registered twelve of them at once. canon_rot
+  // caught the dead citations (town, water) the first run after this file learned to sweep
+  // the registry. A citation is a claim a machine can check -- so only make the ones that hold.
+  const own = 'gates/' + d.name + '_gate.js';
+  const hasOwn = fs.existsSync(path.join(ROOT, own));
+  md += '\n**Gate:** ' + (hasOwn ? '`' + own + '` (+ ' : '') +
+        'the street-aware/drivable law via `gates/district_kit_gate.js`' + (hasOwn ? ')' : '') +
+        ', the walkable-land law via `gates/walkable_gate.js`, and this dossier via ' +
+        '`gates/tilespec_gate.js`.\n';
   md += '**Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.\n';
   fs.writeFileSync(path.join(OUT, 'BOHEMIA_TILESPEC_' + d.name + '.md'), md);
   index.push({ name: d.name, cat, codes: codes.length, drivable });

@@ -197,6 +197,11 @@ GATES = [
      'build was copying the whole 496 MB repo. _config.yml publishes slices/ (+ engine/ + records/target, '
      'which slices actually load) and this proves every outward ref still ships and the surface stays '
      'under what the builder can finish', False),
+    ('BROWNOUT',      ['node', 'gates/brownout_gate.js'],
+     "GDD v3 LOCKED, act-1 power instability, routed off the 8/4 mechanics ledger where it sat in "
+     "nobody's queue. The grid had no TIME axis: a valley whose lit 12% never flickers is one where "
+     "LIGHT=TERRITORY never has a bad night. Every number is HIS -- unruled means it runs, changes "
+     "NOTHING and says NO_RULING by name -- and an outage can only ever take light away", False),
     ('VOTE TAB',      ['node', 'gates/vote_tab_gate.js'],
      'Paolo 8/7: "are u gonna have me hunt for the changes or ur gonna put them in a voting tab" -- '
      'five turns running I told him to go find new icons in the CITY tab, which is a map, not a '

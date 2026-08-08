@@ -47,5 +47,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 11 | `#c9c1aa` | aisle marking / curb | marking | faded aisle centre-line / curb paint | ground | no | — | 53 |
 | 12 | `#6f665a` | office | building | the storage office on the public side of the gate, window smashed, ledger gone | structure | yes | office interior: the counter + a wall of gate-code files, a back room | 250 |
 
-**Gate:** `gates/storage_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/storage_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

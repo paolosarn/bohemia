@@ -2939,7 +2939,39 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/7 (c) LATEST -- *** THERE IS A VOTE TAB NOW, AND IT IS TAB #1. ***
+WORLD (world-9lfjtf): 8/8 LATEST -- *** THE GRID GETS A CLOCK: BROWNOUTS + BLACKOUTS. ***
+records/BOHEMIA_THE_GRID_GETS_A_CLOCK_8_8_26.md. Gate: brownout_gate.js 20/0.
+
+GDD v3 LOCKED, routed off the 8/4 mechanics ledger where it sat in nobody's queue.
+bohemia_powergrid.js answered at(x,y) with the SAME THING FOREVER -- a constant. A valley
+whose lit 12% never flickers is one where LIGHT=TERRITORY never has a bad night and CLUSTERED
+POWER is scenery. engine/bohemia_brownout.js adds a TIME AXIS and nothing else: it does not
+decide ownership, move territory or touch the light pass. One new question: IS THIS CIRCUIT
+UP RIGHT NOW.
+  EVERY NUMBER IS HIS. Five dials, all null. With none set the module RUNS, CHANGES NOTHING
+  and reports NO_RULING BY NAME, listing which dials are missing (the world_resolve contract).
+  No defaults -- a default here is me designing the pace of the apocalypse.
+  A BROWNOUT IS NOT A SMALL BLACKOUT: it stays LIVE and OWNED and reports dim, so
+  LIGHT=TERRITORY decides what a dim circuit is worth. Collapsing it to "off" was the easy
+  thing and would have thrown away the whole distinction the GDD drew.
+  THE INVARIANT: an outage can ONLY EVER TAKE LIGHT AWAY -- never lights a dark cell, the lit
+  set never grows, a dead circuit stays dead. Walked over the real valley, 144 turns, zero
+  violations. If that broke, territory could be GAINED by the grid failing.
+  Deterministic: a pure function of (seed, day, turn). No Date, no Math.random.
+
+THREE MACHINES CAUGHT ME IN ONE RUN AND ALL THREE WERE RIGHT:
+  my own gate matched its own COMMENT saying "no Math.random" -- a checker that cannot tell a
+    mention from a use is the broken one (craft law 8/1). Strips comments, looks for a call.
+  map_bound_gate caught me HARD-CODING 96 to scan the valley. The world knows its own size.
+  canon_rot_gate caught TWO DEAD CITATIONS: tilespec ends every dossier with "Gate:
+    gates/<name>_gate.js", true while every district was hand-built and FALSE the moment a
+    factory registered twelve at once. It cites only gates that exist now.
+  *** The twelve-landmark factory was correct and it broke a CITATION CONVENTION two files
+  away that nobody would have thought to check. A citation is a claim a machine can check. ***
+
+=== EARLIER, SAME SESSION ===
+
+WORLD (world-9lfjtf): 8/7 (c) -- *** THERE IS A VOTE TAB NOW, AND IT IS TAB #1. ***
 records/BOHEMIA_THE_VOTING_TAB_8_7_26.md. Gate: vote_tab_gate.js 20/0. BUILD 8/7v.
 
 "Are u gonna have me hunt for the changes or ur gonna put them in a voting tab" -- Paolo, 8/7.

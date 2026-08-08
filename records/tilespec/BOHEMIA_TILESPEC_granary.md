@@ -49,5 +49,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#7a7266` | conveyor run | structure | the conveyor between the silo battery and the annex bin | structure | yes | — | 15 |
 | 14 | `#b0a894` | headhouse | structure | THE HEADHOUSE — the bucket elevator straddling the silos, and everything below it is gravity | structure | yes | — | 310 |
 
-**Gate:** `gates/granary_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

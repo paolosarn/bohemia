@@ -61,5 +61,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 21 | `#6f6a5e` | roof joint | structure | the joint line between two roof plates on the head house, sealant gone chalky and lifted out in runs | structure | yes | — | 427 |
 | 22 | `#57575f` | lane line | marking | the dashed lane line down the apron, showing a coach the through route past the bays. PAINT IS NOT A WALL | ground | no | — | 111 |
 
-**Gate:** `gates/terminal_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/terminal_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

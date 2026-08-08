@@ -49,5 +49,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#a86a4a` | stall canopy / tent (red) | overhead | a faded red vendor canopy over a stall row — the market navigated by tent color (you walk UNDER it) | overhead | no | — | 1024 |
 | 14 | `#5f7a72` | stall canopy / tent (teal) | overhead | a faded teal vendor canopy over a stall row — the market navigated by tent color (you walk UNDER it) | overhead | no | — | 576 |
 
-**Gate:** `gates/swapmeet_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/swapmeet_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

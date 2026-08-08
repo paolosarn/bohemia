@@ -47,5 +47,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#6a6a72` | perimeter wall | structure | the double secure perimeter wall, concrete | structure | yes | — | 869 |
 | 13 | `#2a2824` | cell detail | structure | the individual cell-door rhythm on a block face, doors sprung | structure | yes | — | 131 |
 
-**Gate:** `gates/jail_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/jail_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

@@ -62,5 +62,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 16 | `#4a4842` | storm drain inlet | ground | curb inlet to the flood system, grate half choked with silt | ground | no | — | — |
 | 17 | `#b09a3a` | yellow turn-pocket line | marking | yellow line bordering the left-turn bay where the median opens | ground | no | — | — |
 
-**Gate:** `gates/arterial_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

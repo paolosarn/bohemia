@@ -44,5 +44,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 10 | `#c9c1aa` | parking stall | marking | faded stall stripe on asphalt | ground | no | — | 1100 |
 | 11 | `#5a5a64` | parked vehicle | vehicle | abandoned car / dead ambulance, dust-caked | prop | yes | — | 1077 |
 
-**Gate:** `gates/medical_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/medical_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

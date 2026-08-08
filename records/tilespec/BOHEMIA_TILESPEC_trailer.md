@@ -46,5 +46,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#6a6a72` | fence | structure | the park perimeter fence, chain-link sagging | structure | yes | — | 503 |
 | 13 | `#a86a3a` | propane tank | prop | a rusted propane tank at a trailer corner | prop | yes | — | 28 |
 
-**Gate:** `gates/trailer_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/trailer_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

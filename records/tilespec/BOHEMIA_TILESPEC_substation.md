@@ -47,5 +47,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#6a6a72` | perimeter fence | structure | the double security fence of the switchyard (grounded), wire sagging | structure | yes | — | 896 |
 | 13 | `#33302a` | cable trench | ground | a covered cable trench threading the yard between the structures | ground | no | — | 570 |
 
-**Gate:** `gates/substation_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/substation_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

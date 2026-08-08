@@ -42,5 +42,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 10 | `#6b5a3a` | container | prop | rusted shipping container, dented, stacked | prop | yes | — | 72 |
 | 11 | `#9a8a6a` | guard shack | building | small guard booth at the gate, dark | structure | yes | tiny guard-booth interior (one room) | 25 |
 
-**Gate:** `gates/industrial_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/industrial_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

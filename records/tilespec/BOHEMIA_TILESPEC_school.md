@@ -66,5 +66,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 19 | `#241f1a` | doorway | portal | a way in — the school's main and side entrances, the gym's field doors, a portable's step-up door, the shop's roll-up bays standing open | portal | no | — | 38 |
 | 20 | `#3d5570` | auto shop (CTE) | building | the vocational shop under its sawtooth roof, roll-up bay doors buckled open, and the parts containers in the yard | structure | yes | auto shop interior: four bays over drive-on lifts, benches and a tool crib down the back wall, the parts containers still chained | 339 |
 
-**Gate:** `gates/school_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/school_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

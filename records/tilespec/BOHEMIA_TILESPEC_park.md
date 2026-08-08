@@ -50,5 +50,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#41414a` | driveway / parking aisle | drive | cracked asphalt drive surface (car-drivable) | ground | no | — | 741 |
 | 13 | `#8f8676` | site furniture | prop | weathered bench / picnic table / trash can | prop | yes | — | 130 |
 
-**Gate:** `gates/park_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/park_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

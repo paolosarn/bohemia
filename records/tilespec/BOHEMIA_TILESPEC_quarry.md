@@ -49,5 +49,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#6b6154` | conveyor run | structure | the conveyor from the pit to the stockpiles, belt slack and gone brittle | structure | yes | — | 253 |
 | 14 | `#8a8478` | screen tower | structure | the screen tower over the crusher, the tallest thing on the site | structure | yes | — | 99 |
 
-**Gate:** `gates/quarry_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

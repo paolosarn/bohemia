@@ -64,5 +64,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 22 | `#3a3630` | sally port | portal | the sally port — the sealed vehicle door prisoners came in through, one leaf standing open | portal | no | — | 85 |
 | 23 | `#7a7263` | plaza planter | structure | a low limestone planter across the plaza, bed gone to hardpan with a dead tree still in it, coping cracked where people sat on it waiting to be called | structure | yes | — | 266 |
 
-**Gate:** `gates/courthouse_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/courthouse_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

@@ -55,5 +55,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 18 | `#241f1a` | doorway | portal | a way in — the plaza doors under the reading wing, the museum entrance, the tower stair core | portal | no | — | 77 |
 | 19 | `#6a6e72` | dead car | vehicle | a car left in the lot, flat and sun-bleached, nobody came back for it | prop | yes | — | 88 |
 
-**Gate:** `gates/library_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/library_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

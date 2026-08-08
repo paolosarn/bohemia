@@ -59,5 +59,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 19 | `#6a6e72` | dead car | vehicle | a car left exactly where it was parked, flat and sun-bleached, on a deck or out in the lot | prop | yes | — | 304 |
 | 20 | `#8c3f38` | storefront awning | structure | the awning over the shopfront walk, canvas split back to its frame, and you pass under it | overhead | no | — | 154 |
 
-**Gate:** `gates/downtown_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/downtown_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

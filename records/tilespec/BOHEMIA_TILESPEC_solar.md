@@ -37,5 +37,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 6 | `#8a8a92` | substation switchgear | structure | switchyard racks, breakers, bus — intact, live | structure | yes | — | 320 |
 | 7 | `#2e3440` | solar panel | panel | PV panel row, dark blue-black glass, clean (still generating) | structure | yes | — | 4248 |
 
-**Gate:** `gates/solar_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/solar_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

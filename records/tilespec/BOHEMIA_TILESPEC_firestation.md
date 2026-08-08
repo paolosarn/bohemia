@@ -48,5 +48,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#b0863a` | flagpole / plaza | prop | the empty flagpole at the station entry, halyard slapping | prop | yes | — | 1 |
 | 13 | `#625d51` | training yard | ground | the concrete drill / training yard — hose racks, wreck cars for extrication, drill marks, all weathered | ground | no | — | 1771 |
 
-**Gate:** `gates/firestation_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/firestation_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

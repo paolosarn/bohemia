@@ -46,5 +46,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 11 | `#c9c1aa` | marking | marking | faded hazard / valve paint on the deck | ground | no | — | — |
 | 12 | `#6a6a72` | perimeter fence | structure | the chain-link plant perimeter fence, wire sagging | structure | yes | — | 503 |
 
-**Gate:** `gates/watertreat_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/watertreat_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

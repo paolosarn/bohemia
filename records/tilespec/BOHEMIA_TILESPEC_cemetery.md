@@ -47,5 +47,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#55555f` | parked car | vehicle | abandoned dust-caked car (hearse / visitor) | prop | yes | — | 54 |
 | 13 | `#8f8676` | site furniture | prop | weathered memorial bench / urn planter | prop | yes | — | 10 |
 
-**Gate:** `gates/cemetery_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/cemetery_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

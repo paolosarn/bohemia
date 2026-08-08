@@ -57,5 +57,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#6d6455` | bullpen | building | the bullpen beyond the baseline, mound and bench under a shade roof | structure | yes | bullpen interior: a shaded bench run with a warm-up mound at one end | 132 |
 | 14 | `#8a6a48` | pitcher's mound | ground | the mound at the middle of the diamond, rubber still set in it | ground | no | — | 49 |
 
-**Gate:** `gates/ballpark_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

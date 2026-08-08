@@ -55,5 +55,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 9 | `#4a5230` | dead brush | tree-dead | brush that colonised the new ground and then died too | prop | no | — | 6 |
 | 10 | `#6a6458` | mooring debris | prop | cleats, cable and dock section left where the marina was | prop | yes | — | 10 |
 
-**Gate:** `gates/water_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

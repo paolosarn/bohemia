@@ -54,5 +54,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 16 | `#3a3a42` | blast pad | ground | the chevroned blast pad off the runway threshold | ground | no | — | 564 |
 | 17 | `#6f6a5e` | revetment | structure | a concrete blast revetment around an alert pad | structure | yes | — | — |
 
-**Gate:** `gates/airport_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

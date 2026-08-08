@@ -61,5 +61,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 22 | `#8e8474` | roof ridge | structure | the ridge line down the nave and the transept arms, tiles gone off it in runs and the battens showing | structure | yes | — | 427 |
 | 23 | `#7b7361` | orchard bed | ground | the granite bed round an orchard tree, its drip line long since cut off at the main | ground | no | — | 688 |
 
-**Gate:** `gates/chapel_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/chapel_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

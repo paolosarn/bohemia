@@ -59,5 +59,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 15 | `#57544a` | shed / outbuilding | building | a tin shed on the back lot, door hanging, whatever was in it gone | structure | yes | shed interior: one room, a dirt floor, a bench along one wall | 103 |
 | 16 | `#8e8a7c` | fuel canopy | overhead | the canopy over the pumps at the town's mouth, panels blown out of it | overhead | no | — | 85 |
 
-**Gate:** `gates/town_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

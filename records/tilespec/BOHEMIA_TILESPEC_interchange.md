@@ -59,5 +59,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 19 | `#4f4b3e` | retention basin | ground | the drainage basin the whole structure sheds into, dry and cracked | ground | no | — | 702 |
 | 20 | `#6e6552` | maintenance track | drive | the dirt track the crews used to reach the basin and the pier bases | ground | no | — | 797 |
 
-**Gate:** `gates/interchange_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/interchange_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

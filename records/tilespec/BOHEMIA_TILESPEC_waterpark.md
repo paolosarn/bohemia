@@ -49,5 +49,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 14 | `#4a463c` | sun deck | ground | the concrete sun deck between the pools, cracked, weeds through the joints | ground | no | — | 8422 |
 | 15 | `#726a5c` | ticket booth | structure | a ticket booth / turnstile post, glass broken | structure | yes | — | 2 |
 
-**Gate:** `gates/waterpark_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/waterpark_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

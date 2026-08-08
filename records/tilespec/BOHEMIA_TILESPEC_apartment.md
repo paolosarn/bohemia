@@ -49,5 +49,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 14 | `#463f36` | dumpster enclosure | structure | a block-wall trash enclosure, gate off its hinges | structure | yes | — | 48 |
 | 15 | `#847c6c` | exterior stair | structure | a breezeway stair to the upper units, rust-streaked | structure | yes | — | 54 |
 
-**Gate:** `gates/apartment_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/apartment_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

@@ -53,5 +53,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 18 | `#565440` | landscaped median | ground | a kerbed planting median dividing the parking fields — the shrubs died first, then the kerb cracked, and the sand has half-buried it | ground | no | — | 620 |
 | 19 | `#8d949a` | cart corral | prop | a steel cart corral, rails bent outward where something drove through it, two trolleys still nested inside | prop | yes | — | 203 |
 
-**Gate:** `gates/mall_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/mall_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

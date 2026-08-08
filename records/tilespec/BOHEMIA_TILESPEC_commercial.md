@@ -61,5 +61,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 21 | `#6e6a5c` | garden centre wall | fence | the block wall round the garden centre yard — open to the sky, which is why it has no roof, gate hanging off its hinge | structure | yes | — | 97 |
 | 22 | `#46442f` | setback ground | ground | the unpaved property setback between the kerb and the pavement — hardpan dirt that was decorative gravel once, split by weeds, with the drift sand banked against every kerb face | ground | no | — | 2246 |
 
-**Gate:** `gates/commercial_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/commercial_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

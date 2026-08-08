@@ -60,5 +60,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 20 | `#7a7266` | dock wall | building | the loading dock and the blank back wall of the shed behind it | structure | yes | — | 590 |
 | 21 | `#7b7263` | material yard | ground | the graded yard where the railway keeps its own steel, gate hanging open | ground | no | — | 1504 |
 
-**Gate:** `gates/rail_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/rail_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

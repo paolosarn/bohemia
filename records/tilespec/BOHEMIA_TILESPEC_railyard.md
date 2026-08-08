@@ -47,5 +47,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 12 | `#6a6a72` | perimeter fence | structure | the yard perimeter fence, wire sagging | structure | yes | — | 503 |
 | 13 | `#9a948a` | gantry crane | structure | the container gantry crane spanning the stack — rails, legs, a seized hoist trolley | structure | yes | — | 137 |
 
-**Gate:** `gates/railyard_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/railyard_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

@@ -48,5 +48,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#7f776a` | transmission main | structure | sixty-six-inch steel lined with concrete mortar — the pipe is the station | structure | yes | — | 288 |
 | 14 | `#8a8478` | standpipe | structure | the standpipe beside the surge tank, open at the top the way a standpipe has to be | structure | yes | — | 75 |
 
-**Gate:** `gates/pumpstation_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

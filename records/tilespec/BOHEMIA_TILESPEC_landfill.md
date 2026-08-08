@@ -49,5 +49,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 14 | `#4a5560` | debris (plastic/appliance) | ground | faded blue-grey junk in the fill — bags, an appliance carcass, sheeting | ground | no | — | 310 |
 | 15 | `#8a5540` | debris (rust/wood) | ground | rusted + rotted junk in the fill — metal, pallet wood, drums | ground | no | — | 297 |
 
-**Gate:** `gates/landfill_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/landfill_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

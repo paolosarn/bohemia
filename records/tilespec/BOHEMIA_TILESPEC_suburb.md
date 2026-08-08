@@ -45,5 +45,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 9 | `#9a938a` | house upper floor | building | 2-story house upper mass (taller top-down read) | structure | yes | the house floorplan upper story (bedrooms), reached by interior stairs | 615 |
 | 10 | `#57575f` | sidewalk | walk | cracked concrete sidewalk, one grid wide, hugging the kerb; weeds in the joints, no vegetation | ground | no | — | 815 |
 
-**Gate:** `gates/suburb_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

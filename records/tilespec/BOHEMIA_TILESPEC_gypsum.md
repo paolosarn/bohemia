@@ -49,5 +49,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#6b6154` | conveyor run | structure | the mobile conveyor that carried ore straight from the quarry into the plant | structure | yes | — | 364 |
 | 14 | `#8a8478` | calciner stack / dome crown | structure | the calciner stack, and the crown vent at the top of the storage dome | structure | yes | — | 180 |
 
-**Gate:** `gates/gypsum_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

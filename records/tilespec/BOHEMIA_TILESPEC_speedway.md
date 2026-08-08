@@ -52,5 +52,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#2b2b31` | tunnel mouth | portal | the spectator tunnel under the track — the only way into the infield | portal | no | tunnel interior: a concrete underpass beneath the banking, water at the low point | 245 |
 | 14 | `#5c5c66` | dead race car | vehicle | a car still sitting on the grid where the race stopped, tyres flat, numbers faded | prop | yes | — | 43 |
 
-**Gate:** `gates/speedway_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

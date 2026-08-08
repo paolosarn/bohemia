@@ -48,5 +48,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 13 | `#6b6458` | ground radial | structure | a buried copper radial, its trench line still readable in the dirt | structure | yes | — | 161 |
 | 14 | `#b0a894` | guyed mast | structure | A GUYED MAST — the tallest thing for miles, and the reason nobody built anything else up here | structure | yes | — | 45 |
 
-**Gate:** `gates/radio_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.

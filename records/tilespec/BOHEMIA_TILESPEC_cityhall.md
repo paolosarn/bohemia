@@ -68,5 +68,5 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 26 | `#5c5952` | bike rack | structure | a staple rack by the doors, two of the hoops cut through with a grinder and whatever was locked to them long gone | structure | yes | — | 42 |
 | 27 | `#55524a` | inverter cabinet | structure | a string inverter at the head of a panel row, door hanging, the copper busbars inside cut out clean | structure | yes | — | 24 |
 
-**Gate:** `gates/cityhall_gate.js` (+ the street-aware/drivable law via `district_kit_gate.js`).
+**Gate:** `gates/cityhall_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.
