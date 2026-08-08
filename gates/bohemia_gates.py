@@ -275,6 +275,8 @@ GATES = [
      'dead enclosed mall: dumbbell concourse + two anchors, food court, loading docks, drive ring', False),
     ('WALKABLE LAND',  ['node', 'gates/walkable_gate.js'],
      'no district is mostly parking/driveway: content dominates pavement (vehicular venues exempt)', False),
+    ('THE DEAD',       ['node', 'gates/dead_gate.js'],
+     "Paolo 7/31 LOCKED: skeletons in the open, husks in the sealed places, and the valley holds what the death math says", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],

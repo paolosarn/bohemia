@@ -52,6 +52,20 @@ a corpse lies is a story he places, not decoration a tool scatters
 (MECHANISM-MINE / CONTENTS-PAOLO'S). When the ART lane assembles this pool into
 a judged scene, THAT batch is a candidate and runs the filter.
 
+AMENDED 8/8/26 - HALF OF (b) IS SUPERSEDED, AND NEWEST DATE WINS.
+Paolo RULED the placement on 7/31 ("ofc i want a realistic mix of skeletons and
+husks... where a body lies determines what a decade made of it") and commissioned
+the system 8/8. So "where a corpse lies" is no longer an unwritten story - it is
+HIS law, and engine/bohemia_dead.js implements it. Bodies are no longer withheld
+from the world; they are placed BY THAT RULING, gated by gates/dead_gate.js.
+WHAT DOES NOT CHANGE, and this file is still right about it:
+  - this pool stays body-free. Interior dressing scatters furniture; the DEAD are
+    placed by exposure and story, which is a different question with its own pass.
+  - GORE stays out, everywhere. Blood is fresh-kill canon and is still on hold
+    ("story-placed by Paolo" - approved asset index). Ten-year dead do not bleed.
+  - NAMED dead (the tower die-off, the exodus road, the hospital order) are still
+    entirely his. The dead pass lays down the ambient dead and nothing else.
+
 REUSE CHECK: this tool cooks ZERO pixels. It is pure selection: it opens the
 banks below, keeps only tiles Paolo marked UP, and downscales the masters to
 the interior draw size. Every pixel that ships came from his approved corpus.

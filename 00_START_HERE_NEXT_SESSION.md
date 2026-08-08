@@ -1,3 +1,68 @@
+CITY (1eztay): 8/8 (a) LATEST — THE DEAD ARE IN THE STREETS. PAOLO'S 7/31 CORPSE
+RULING IS BUILT ACROSS ALL 61 DISTRICTS, AND THE ART WAS ALREADY HIS.
+
+TAB: RUN. Walk anywhere and the dead are there. Build stamp 8/8a.
+
+HIS RULING, LOCKED 7/31 and commissioned direct 8/8: "a lot more corpses a lot more
+skeletons... ofc i want a realistic mix of skeletons and husks", bleached scattered
+SKELETONS in the open, mummified HUSKS in the sealed places, "where a body lies
+determines what a decade made of it".
+
+WHAT SHIPPED
+  engine/bohemia_dead.js   the placement pass. Reads each district's OWN legend as an
+    exposure map (ground+not-solid = open -> skeleton; vehicle or a building tile that
+    declares an interior = sealed -> husk). ONE file, all 61 registered districts, zero
+    district files edited, and any district added tomorrow works for free.
+  tools/bohemia_city_dead_patch.py   wires it into the walked world: outdoor pass after
+    tpDraw (under every wall, shadow, resident and the player) + indoor pass in
+    renderInside.
+  gates/dead_gate.js  suite THE DEAD, 42 claims, 61 districts, 2,657 bodies. EIGHT
+    planted mistakes, EIGHT caught by name.
+  tools/bohemia_dead_look.js  drives the REAL page at iPhone portrait and counts what
+    reached the glass. 6 of 6 sampled districts drew remains.
+  records/BOHEMIA_THE_DEAD_TELL_YOU_WHERE_THEY_DIED_8_8_26.md   the full dossier.
+
+THE NUMBERS, DERIVED FROM CANON NOT TYPED IN
+  2.34M real / 17.3 model scale = 135,260 pre-crash; GDD v5's 3% remain -> 131,202 dead;
+  60% still readable as remains at ten years -> 78,721 in the valley. The 60% is an
+  argument, not a taste: 4,000 survivors were left holding 131,000 bodies, THIRTY-THREE
+  DEAD PER LIVING PERSON. Nobody cleared them. What ten years took is LEGIBILITY, not
+  count, and that is carried by form and scatter.
+  [PENDING Paolo] the death-math disposal fork (a/b/c) moves that ONE number, nothing else.
+
+REUSE-FIRST: COOKS ZERO PIXELS. TP_TILES.gore is 73 tiles at ZERO draws -- the biggest
+never-drawn approved bank in the game. Proved by aspect-sequence match against the HD
+repo that it is his Great Sweep packs "skeletons and bones" (39, all UP) + "10. Zombie
+bodies and bones" (34). 62 carry his UP; the 11 DOWN are locked out with a +/-1 index
+safety margin. BLOOD/GORE STAYS OUT PERMANENTLY: fresh-kill canon, still on hold, and
+ten-year dead do not bleed.
+
+FOUR THINGS WENT WRONG, ALL FOUR CAUGHT BEFORE SHIPPING
+  1. BohemiaDistrictKit.get('suburb') returns NULL in the running app (the 8/3 finding,
+     deliberately left that way). 2,582 cells of suburb silently held ZERO dead. Found by
+     measuring coverage in a real browser, not by reading code. Legend now resolves via
+     module fallback.
+  2. The renderer re-derived the scatter direction from the tile index while the pass
+     picked it from a hash -- bones validated running north, drawn running east through
+     walls. The direction now SHIPS WITH THE BODY.
+  3. First render drew them at 0.55 of a cell in a forced square: two pale specks, and
+     his portrait tiles squashed by a third. A tile is 0.75m, an adult is 1.7m. Height
+     carries the scale now, width follows each tile's own aspect.
+  4. My own gate invented 51 violations by reconstructing the scatter direction, and a
+     second check went red on the module's own REUSE line saying gore was NOT used.
+     Fixed the ruler, not the target.
+
+NAMED, NOT HIDDEN
+  - NO ABANDONED CARS ON ROAD CELLS (dead cars are district lot tiles only), so the
+    "sealed in the cars" half of the exodus has no surface. NOT re-routed into the open
+    to pad the count. A car layer on the roads is a world job, still open.
+  - mountain + water hold nobody on purpose: realizeCell marks both unwalkable.
+  - NAMED dead (tower die-off, exodus road, hospital order) stay Paolo's. Every
+    placement carries a `story` field so an authored beat can override a site later.
+
+STILL PENDING HIM FROM THIS LANE: nothing new. CANVAS SCALE + INTERIORS are still red
+and still need their verdict owner (diagnosed 8/7, not mine to guess).
+
 ART (f3eu53): 8/7 (s) LATEST -- *** ATTEMPT SIX AT THE GROUND FAILED AND WAS BINNED
 BY MACHINERY, NOT BY PAOLO'S EYE. THAT IS THE WIN. ***
 Record: records/BOHEMIA_ATTEMPT_SIX_FAILED_AND_WHAT_IT_FOUND_8_7_26.md

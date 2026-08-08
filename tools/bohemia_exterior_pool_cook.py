@@ -123,7 +123,16 @@ BUCKETS = {
 INDOOR_ONLY = re.compile(r'furniture|interior room|floor tile|wall tile|roof tile|'
                          r'cobblestone|marble|metal floor|wall and floor detail|'
                          r'special tile|tower floor|floor, walls', re.I)
-# and the things he ruled OUT of the interior pool for story reasons stay out here
+# and the things he ruled OUT of the interior pool for story reasons stay out here.
+#
+# STILL CORRECT AFTER 8/8, FOR A DIFFERENT REASON THAN IT WAS WRITTEN.
+# Paolo ruled the dead's placement on 7/31 and the system shipped 8/8, so the
+# bodies are no longer waiting on a story - engine/bohemia_dead.js places them by
+# EXPOSURE (open -> skeleton, sealed -> husk) and by district story. That is
+# exactly why they must stay out of THIS pool: a generic exterior scatter would
+# drop a skeleton anywhere, which is the wallpaper the ruling exists to prevent.
+# One pass owns the dead. Blood/gore stays out permanently (fresh-kill canon, on
+# hold). Cross-reference: gates/dead_gate.js.
 STORY_ONLY = re.compile(r'zombie|blood|gore|skeleton|bone|corpse|bodies', re.I)
 
 # PURPLE RESERVATION IS A HARD LAW AND ONE SHIPPED TILE BROKE IT (8/7).
