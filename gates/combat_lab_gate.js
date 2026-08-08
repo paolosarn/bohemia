@@ -3733,10 +3733,23 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     !demo.includes('<span id="stampips"') &&
     /function updStam\(\)\{ \/\* V129: the orb IS the stamina read/.test(demo));
 
-  ok('V129 NOT ONE PIXEL OF HIS FACE IS REDRAWN. Ten hand-painted injury states of his own character is ART and it is his call; this composites his two approved portraits (you + dying) with value and blood, and the dying face CROSSFADES in instead of popping at 40%',
-    demo.includes('x.drawImage(SPR.portraits.you,0,0);') &&
-    /SPR\.portraits\.dying&&_f>0\.45/.test(demo) &&
-    /x\.globalAlpha=Math\.min\(1,\(_f-0\.45\)\/0\.4\)/.test(demo));
+  /* SUPERSEDED BY PAOLO 8/7/26: "Pretty dogshit all u did was change the opacity
+     of the nose bleed. U need to do better and it needs to work with
+     customizable faces."
+     THIS CHECK WAS PROTECTING THE WRONG THING, TWICE OVER. It guarded the
+     crossfade, which he rejected -- and correctly, because `dying` is the same
+     face with blood:true and blood:true is six pixels, so the crossfade could
+     only ever change that bleed's opacity.
+     AND ITS HEADLINE CLAIM IS NOW FALSE ON PURPOSE. v129 refused to author face
+     pixels on the grounds that injury states are ART and his call. HE THEN
+     CALLED IT AND SAID DO BETTER, so v131 authors real wounds -- in the
+     GENERATOR, placed on each face's own anatomy, which is the only way it can
+     satisfy "must work with customizable faces". The refusal was right until he
+     ruled; the ruling is newer. */
+  ok('V129/V131 THE DAMAGE IS DRAWN, NOT FILTERED, AND IT IS DRAWN ON THE BONES: he ordered "do better" and "it needs to work with customizable faces", so the wounds are authored in the face generator against each face\'s own anatomy instead of composited over two fixed portraits',
+    demo.includes('x.drawImage(_face,0,0);') &&
+    alpha.includes('V131 REAL DAMAGE ON THE BONES') &&
+    !/SPR\.portraits\.dying&&_f>0\.45/.test(demo));
 }
 
 /* ===== V130 A MISS IS THE WORLD NOT WAITING FOR YOU ==================== */
@@ -3761,6 +3774,49 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
   ok('V130 AND IT CHANGES NO ODDS: G.recoil is a render value that decays on the following frames and is read by nothing that decides a hit -- not accuracy, not the dial, not damage',
     !/distAccuracy[\s\S]{0,200}G\.recoil/.test(demo) &&
     /if\(G\.recoil>0\) G\.recoil=Math\.max\(0,G\.recoil-dt\/JUICEMS\.recoil\);/.test(demo));
+}
+
+/* ===== V131/V132 REAL DAMAGE ON THE BONES ============================== */
+{
+  ok('V131 THE OLD DAMAGE WAS SIX PIXELS OF NOSEBLEED AND HE SAID SO EXACTLY. Paolo: "Pretty dogshit all u did was change the opacity of the nose bleed." He was LITERALLY right -- `dying` is the same generated face with blood:true, and blood:true is six pixels at the nose and lip, so a crossfade between `you` and `dying` could only ever change that bleed\'s opacity',
+    alpha.includes('V131 REAL DAMAGE ON THE BONES') &&
+    /dying:packIdx\(renderFace\(buildSpec\(\),\{ramp:portraitRamp\(\),blood:true\}\),64,64\)/.test(alpha));
+
+  ok('V131 THE WOUNDS ARE PLACED ON THE SPEC\'S OWN ANATOMY, which is what "it needs to work with customizable faces" demands: a fixed overlay lands in the wrong place the moment the forehead is taller or the eyes are closer, so every wound reads f.browY / f.cheekY / f.cheekW / f.noseY / f.mouthY / f.eyeY and the eye gap and width',
+    /const bx0=cx\+side\*\(cw-3\), by0=chY-1;/.test(alpha) &&
+    /const bxr=cx\+side\*\(b\.gap\+2\), byr=by-1;/.test(alpha) &&
+    /const exs=cx\+side\*e\.gap;/.test(alpha) &&
+    /P\(lx,my-1,wound\)/.test(alpha));
+
+  ok('V131 THE RESEARCH CHOSE THE PLACES: ringside trauma sources say cuts come from the BONY PROMINENCES -- eyebrows, cheekbones, nose, lips -- because skin over bone is compressed until it ruptures, and vessels bursting under intact skin give swelling instead of a cut. The progression follows that, ending in the eye swelling SHUT',
+    alpha.includes('THE CHEEKBONE GOES FIRST') &&
+    alpha.includes('THE BROW RIDGE SPLITS') &&
+    alpha.includes('THE EYE SWELLS SHUT') &&
+    alpha.includes('GRAVITY. Everything runs DOWNWARD'));
+
+  ok('V131 IT IS A POST-PASS, so at dmg 0 every face he has ever approved renders byte-identical -- not one existing line of renderFace changed, and the old blood flag still behaves exactly as it did',
+    /if\(blood\)\{for\(const p of \[\[cx\+1,ny1\]/.test(alpha) &&
+    /const dmg=Math\.max\(0,Math\.min\(1,\+opts\.dmg\|\|0\)\);/.test(alpha));
+
+  ok('V131 COLOURS COME FROM THE FACE\'S OWN RAMP so a pale and a dark character each bruise in their own range, and the bruise sits on the red/ochre side because PURPLE BELONGS TO THE AMALGAMATION ALONE',
+    /const wound=\[Math\.min\(255,Sh\[0\]\*0\.55\+96\|0\)/.test(alpha) &&
+    /const bruise=\[Math\.min\(255,Mn\[0\]\*0\.62\+22\|0\)/.test(alpha));
+
+  ok('V131 TEN FRAMES, EACH RENDERED FROM buildSpec(), so changing the character changes all ten by construction -- that is the customisation guarantee, not a promise',
+    /dmg:\(function\(\)\{ const a=\[\];/.test(alpha) &&
+    /renderFace\(buildSpec\(\),\s*\{ramp:portraitRamp\(\),dmg:i\/9,dmgSide:_sd\}\)/.test(alpha));
+
+  ok('V132 THE CROSSFADE IS DELETED, NOT TUNED. There was nothing in it to save: it could only ever change the nosebleed\'s opacity',
+    !/SPR\.portraits\.dying&&_f>0\.45/.test(demo) &&
+    demo.includes('V132 THE BUTTON USES THE TEN REAL FACES'));
+
+  ok('V132 AND THE FILTER GOES WITH IT -- the multiply-darken and the red radial were the other half of what he called dogshit. A filter is what you reach for when the art underneath is not doing the work; the art does the work now',
+    !/x\.globalCompositeOperation='multiply'[\s\S]{0,200}fillRect\(0,0,64,64\)/.test(demo) &&
+    !/g2\.addColorStop\(1,'rgba\(150,20,15,'/.test(demo));
+
+  ok('V132 THE TIER IS THE INDEX: hpTier() already returns 0..9 with hysteresis and there are exactly ten frames, so no blending is needed -- and an older parent that never sends the frames falls back to the CLEAN face rather than to a half-broken effect',
+    /const _dmgSet=\(JUICE\.AU&&SPR\.portraits\.dmg&&SPR\.portraits\.dmg\.length\)\?SPR\.portraits\.dmg:null;/.test(demo) &&
+    /_dmgSet\[Math\.max\(0,Math\.min\(_dmgSet\.length-1,_t\)\)\]\|\|SPR\.portraits\.you/.test(demo));
 }
 
 /* ===== YOU ALWAYS SHOOT FIRST (Paolo 8/3/26, LOCKED) ==================
