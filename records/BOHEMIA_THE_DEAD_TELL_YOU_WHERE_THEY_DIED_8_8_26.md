@@ -227,3 +227,80 @@ result from the wrong tree is worse than no result.
 ## THE LIFE LESSON UNDERNEATH (never preached in game)
 Where a person ends up says more about what happened to them than anything they
 were carrying.
+
+---
+
+# TWO SESSIONS BUILT THIS ON THE SAME DAY. HERE IS THE COLLISION, IN FULL.
+
+While I was building, **another session shipped the same feature to main** —
+`b4cd0b9 SKELETONS IN THE OPEN, HUSKS BEHIND SHUT DOORS`, its own
+`engine/bohemia_dead.js`, its own `gates/dead_gate.js` (20 claims), its own
+record (`BOHEMIA_THE_DEAD_8_8_26.md`). Same global name, same file paths, same
+ruling. **That is the ONE SYSTEM, ONE SESSION boundary being crossed**, and the
+law says a conflict there means stop and check before pushing. I stopped.
+
+**ENGINE SYNC LAW allows exactly one canonical body per module**, so leaving both
+was never an option. I kept mine, and the reason is one measurable fact rather
+than a preference:
+
+| | theirs | mine |
+|---|---|---|
+| draws in the walked world | **no references, in any surface** | outdoor + indoor pass |
+| reaches the player | no | reachability census: **14/14** |
+| valley total vs the death math | density dial | calibrated, ratio 1.03 |
+| gate | 20 claims | 44 claims, 8 mutations proven |
+
+Their module is correct code that **draws nothing** — zero `BohemiaDead`
+references in `BOHEMIA_CITY_WORLD.html` or `BOHEMIA_RUN_CURRENT.html`. That is
+the exact pattern this repo named two days ago (*"SEVENTEEN FINISHED THINGS SHIP
+TO A FILE NO PLAYER CAN SEE"*) and built the SHIPPED TRUTH gate to catch. **A
+thing Paolo cannot reach does not exist to him.**
+
+**Nothing of theirs was destroyed.** Their record stays on disk, their handoff
+head stays in the handoff (I merged both heads rather than dropping either), and
+their module body is permanent in git history at `b4cd0b9`. **This is reversible
+on one word from Paolo.**
+
+## WHAT THEY GOT RIGHT THAT I DID NOT HAVE, AND I TESTED IT RATHER THAN ASSUMED
+
+They found a **stream-correlation bug**: their placement draw and their
+arrangement draw shared entropy, so measured on the real valley one arrangement
+(`queue`, 8.7% weight) **was selected zero times in the entire world**. Placement
+that looks random and is not is worse than placement that is obviously regular.
+They fixed it with a murmur3 avalanche finaliser. That is a genuinely good catch.
+
+**I ran their test against my hash instead of taking it on faith — in both
+directions.** Over 59,172 survivors of the placement draw, my second stream's
+deciles came out **9.8% – 10.3%** across a full 0.000–1.000 range. Their bug does
+not reproduce in my code, so there was nothing to port. Had it reproduced, I
+would have taken their finaliser and said so.
+
+**Their `ARRANGEMENTS` idea (how a body is posed, not just where) is a real axis
+mine does not have.** It is not folded in here because half-implementing another
+session's design from its diff is how you get a fourth version of something. It
+is named as follow-up work, with their file in history to build from.
+
+## AND A CITATION CORRECTION, BOTH WAYS
+
+Their commit states, in bold: *"This was cited to me as an 8/4 ruling and THERE IS
+NO 8/4 RECORD OF IT — I searched every law, record and addendum for skeletons,
+husks, corpses and remains."*
+
+**They were right that it is not an 8/4 ruling, and wrong that it does not
+exist.** It is **7/31**, and it is verbatim:
+
+> `laws/BOHEMIA_ADDENDUM_LORE_SITTING_7_31_26.md`, section 2, *MORE CORPSES, MORE
+> SKELETONS (LOCKED as direction)* — *"We need a lot more corpses a lot more
+> skeletons in the game."* … *"ofc i want a realistic mix of skeletons and
+> husks."* … bleached scattered SKELETONS in the open, mummified HUSKS in the
+> sealed places, *"where a body lies determines what a decade made of it."*
+
+Their instinct was the right one — a citation that does not resolve is rot, and
+saying so out loud is correct. **The search missed one file, and the consequence
+was a LOCKED ruling being filed as an unsourced work order.** Worth recording
+precisely because the discipline was right and the result was still wrong.
+
+## THE LIFE LESSON UNDERNEATH (never preached in game)
+Two people doing the same job well is not twice the work done. It is one job done
+and one job wasted, and the only thing that decides which is which is who
+bothered to check whether anyone else was already on it.
