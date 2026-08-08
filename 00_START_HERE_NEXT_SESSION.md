@@ -12571,3 +12571,18 @@ unjudged version of the same thing and three are already waiting on him.
 UNFINISHED: the same comparison across the 15 generated styles. The probe must
 OPEN THE CHARACTER TAB before window.G_WORN composites - garments are not live
 before that - which is why a straight-to-evaluate probe reads 0 pixels.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/4 (e) — THE GDD MECHANICS LEDGER (Paolo: "read the gdd
+and find game mechanics we have to implement"). All four GDDs read end to
+end; records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md is the full status table
+(BUILT / PARTIAL / ROUTED / UNROUTED / PARKED / PENDING / DEAD). THE
+HEADLINE: TEN designed-and-LOCKED mechanics were in NOBODY'S queue — worst,
+THE SUCCESSION SYSTEM (v4's own "signature mechanic") had zero backlog
+presence. Routed: WORLD GM (succession skeleton, brownouts/blackouts, fused
+consequences, act-1 trading hubs, taxation+mayor rungs with the braid), RUN
+0g (health/stamina one-bar + injury realism, fast travel/supplements/
+convoy), SOUNDS 0s (CD system + faction radio + sonic signatures), PEOPLE
+0sc (scripted scenes; Act-1 cold open is the first consumer; companion
+detail spec noted in). FLAGGED FOR PAOLO: Ghost Time Layer priority. DEAD
+confirmed: oscillating arrow, daily-upkeep economy.
