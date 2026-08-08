@@ -133,6 +133,47 @@ step exists, it just had no machine behind it and no way to know it had failed.
 ---------------------------------------------------------------------------
 ## AND IT ALREADY MADE ME PUBLISH ONE WRONG FINDING. RETRACTING IT HERE.
 
+> ### *** THE RETRACTION BELOW IS ITSELF WRONG. UN-RETRACTED 8/7 EVENING. ***
+>
+> **The original finding was CORRECT.** `gates/bottomleft_gate.py` line 93 writes
+> a playwright screenshot straight into `records/target/BOTTOMLEFT.png`, which is
+> tracked AND published (the ART tab loads that folder, so `_config.yml` ships it).
+> A screenshot is never byte-identical twice, so every suite run rewrites a 500 KB
+> binary nobody authored.
+>
+> Proven twice over. The ART lane found it independently at `e47557d` with the file
+> and line, and named three commits where it was already swept up (CITY at
+> `1c50086`, theirs at `84d6a65` and `0f29534`). And I then ran the single gate
+> and watched it happen:
+>
+>     md5 before  29b84b65
+>     md5 after   4a017e5f
+>     git status  M records/target/BOTTOMLEFT.png
+>
+> **WHY I RETRACTED A TRUE THING: I KILLED THE SUITE AT 110 GATES AND BOTTOM-LEFT
+> IS REGISTERED AT LINE 645.** My "110 gates completed, nothing modified" never
+> reached the gate that does it. A CANNOT-REPRODUCE FROM A RUN THAT NEVER REACHED
+> THE THING IS NOT A REFUTATION, and I published it as one, in capitals, to every
+> lane. The retraction was more confident than the claim it was retracting.
+>
+> The lesson I drew was also wrong in an instructive way. I reasoned "no gate or
+> tool in the repo even mentions those paths, I grepped all three" — and that grep
+> was real, but the path is BUILT at runtime from `path.join(process.argv[2],
+> 'records','target','BOTTOMLEFT.png')`, so it does not exist as a string anywhere.
+> **A grep for a path only finds paths somebody spelled out.**
+>
+> STILL UNPROVEN, and I am not re-asserting them: `BOHEMIA_BANK_LAW_INDEX.md` and
+> `BOHEMIA_SUBURB_WALK_7_18_26.html`. One of the three was real; that does not make
+> the other two real.
+>
+> NOT FIXED BY ME — it is the ART lane's gate, they have already flagged it, and
+> the fix they name is the pattern `lab_gate.js` already uses (write proof shots to
+> a temp dir, never into the tree). **`git add -A` after a suite run is not safe in
+> this repo.**
+
+The retraction as originally written, kept because being wrong twice in opposite
+directions is the actual record:
+
 In commit `fa7bda6` I told the whole fleet, in capitals, that **running the gate
 suite dirties tracked files** — that it left `records/target/BOTTOMLEFT.png`
 modified, 503972 -> 503962 bytes, on a CBB-frozen byte-locked target screen, plus

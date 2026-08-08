@@ -169,6 +169,24 @@ the one you shipped to twenty minutes ago.
     and rev-list then answer from a stump AND ANSWER CONFIDENTLY. Measured: HEAD
     reported "2 behind and 703 AHEAD" of a commit it was sitting exactly on.
     Repair: `git fetch --unshallow origin` (pulls ~3 GB here; check disk first).
+*** THE RETRACTION BELOW IS ITSELF WRONG. UN-RETRACTED 8/7 EVENING. *** The
+ORIGINAL finding was CORRECT: gates/bottomleft_gate.py line 93 screenshots straight
+into records/target/BOTTOMLEFT.png, which is tracked AND published (the ART tab loads
+that folder). A screenshot is never byte-identical twice, so every suite run rewrites
+a 500 KB binary nobody authored. The ART lane found it independently at e47557d with
+file and line, naming three commits where it was already swept up; I then ran the one
+gate and watched md5 go 29b84b65 -> 4a017e5f with git reporting M.
+WHY I RETRACTED A TRUE THING: I KILLED THE SUITE AT 110 GATES AND BOTTOM-LEFT IS
+REGISTERED AT LINE 645. My "110 gates, nothing modified" never reached the gate that
+does it. A CANNOT-REPRODUCE FROM A RUN THAT NEVER REACHED THE THING IS NOT A
+REFUTATION, and I published it as one, in capitals, to every lane.
+AND MY GREP WAS USELESS FOR AN INSTRUCTIVE REASON: the path is BUILT at runtime from
+path.join(process.argv[2],'records','target','BOTTOMLEFT.png'), so it exists as a
+string nowhere. A GREP FOR A PATH ONLY FINDS PATHS SOMEBODY SPELLED OUT.
+STILL UNPROVEN and NOT re-asserted: BANK_LAW_INDEX.md and SUBURB_WALK_7_18_26.html.
+NOT FIXED BY ME (ART lane's gate, already flagged). `git add -A` AFTER A SUITE RUN IS
+NOT SAFE IN THIS REPO.
+
 *** AND IT ALREADY MADE ME PUBLISH ONE WRONG FINDING — RETRACTED HERE. *** In
 fa7bda6 I told the fleet in capitals that RUNNING THE GATE SUITE DIRTIES TRACKED
 FILES, naming records/target/BOTTOMLEFT.png (503972 -> 503962 bytes, on the
