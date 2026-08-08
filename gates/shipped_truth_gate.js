@@ -47,6 +47,7 @@ const CLAIMS = [
   ['__EW_FACING_DOORS__',           '"i never saw your eastern west facing doors"'],
   ['__SUBURB_EW_DOORS__',           '...and in the district he actually spawns in'],
   ['__XRAY_WHOLE_BUILDING__',       '"the building should be absolutely transparent"'],
+  ['__HOUSE_FLOORS__',              '"Tile wood and carpet" -- no room renders on the street'],
 ];
 
 /* THE SOUND LANE'S CLAIMS. Same contract, different lane: every marker here was
