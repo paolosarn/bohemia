@@ -1369,6 +1369,65 @@ GATE: gates/game_day_gate.js, 12 claims, mutation-tested. A RATCHET, NOT A DEMAN
 closing the links is the RUN lane's charter and blocked on Paolo's rulings, so forcing it
 would be A GATE OUTRANKING A RULING. But WAKING AND WALKING ARE THE ENTIRE GAME RIGHT NOW
 and must never break quietly.
+SOUND (sound-xk7pjp): 8/9 (b) LATEST - *** SLEEPING THE NIGHT ALREADY STRIKES EIGHT
+TIMES, PROVED THROUGH THE REAL BUTTON. AND HIS 8/7 TIME COSTS DO NOT REACH THE GAME:
+THE RUN STILL PRICES EAT AT NOTHING AND SLEEP AT A FLAT 8. ***
+Nothing new to judge. A proof, a finding, and a flag for the RUN / LIFE lane.
+
+I AUDITED WHAT THE GAME ACTUALLY MAKES A NOISE FOR, instead of guessing what to
+cook next. The run has exactly FIVE player actions and FOUR sfx call sites:
+    CHECK YOUR PHONE        -> phone_buzz   OK
+    EAT WHAT YOU FOUND      -> eat          OK (his 8/7 thumb)
+    SLEEP (8 HOURS, SAVES)  -> ??? was never tested
+    TALK TO THE ...         -> silent, he killed all five talk_start
+    WALK OUT THE DOOR       -> silent, he killed doors AND go_inside
+plus footsteps by ground. The parent adds ui_tap, the three world tones, and
+time_pass. So the two silences left are silences HE CHOSE, and the only untested
+thing was sleep.
+
+*** IT WORKS, AND IT IS NOW A GATE CHECK. *** Pressed the REAL contextual action
+button in the REAL run (not a synthetic postMessage -- VERIFY ON THE REAL
+SURFACE): clock 450 -> 930, and the parent struck EIGHT times. That is the only
+in-game trigger this sound has today and it had never been driven end to end.
+gates/time_pass_gate.py 26 -> 31 checks.
+
+AND THE COUNTER WAS FLAKY, WHICH I ONLY SAW BECAUSE IT FAILED ONCE: it counted
+EVERY render, so "one hour" struck twice when an unrelated sound landed in the
+window. TIME_PASS is the only family in his bank cooked from GLASS (the rest are
+ash/stone/bone/metal/crystal/bell/water/choir/wood), so the material is an exact
+discriminator -- and the gate now PROVES that discriminator instead of assuming
+it (every approved time_pass is glass, no other approved sound is). Two clean
+runs at 31/31.
+
+*** THE FLAG: records/BOHEMIA_FLAG_TIME_COSTS_NOT_WIRED_8_9_26.md ***
+The run's action-cost table still reads:
+    var MOMENTS = [ {name:'SLEEP',spends:8}, {name:'HANGOUT',spends:1},
+                    {name:'EAT',spends:null} ];
+with a comment saying "He did not price EAT, so EAT is declared with NO spend".
+HE PRICED IT ON 8/7. That lane did the right thing leaving the slot empty; the
+blocker it named is now gone and the table has not caught up. Two live things
+disagree, which the TRUTH HIERARCHY calls a bug.
+
+I DID NOT FIX IT, AND NOT FOR LANE POLITICS. Both his numbers are RANGES and
+neither has anything in the game to hang a range on:
+  EAT has NO FOOD TYPES. "Depends on the food" needs a food; there is no item, no
+    inventory, no food category -- the action is literally "EAT WHAT YOU FOUND"
+    off propAt(). Pricing it flat at 10 min collapses a six-to-one spread he
+    stated on purpose into one number.
+  SLEEP has NO WAY TO CHOOSE A LENGTH. 6 to 12 is someone's decision and there is
+    no UI, prompt or state that settles it. Hardcoding 6, or 12, or a random draw
+    is three different game designs and none of them is his.
+So: the ruling is ready and the MECHANISM IT NEEDS DOES NOT EXIST. Real work, not
+a one-line edit. Also the label "SLEEP (8 HOURS, SAVES)" is a promise to the
+player and has to move with the number.
+
+THE SOUND IS NOT BLOCKING ANY OF IT. The strike reads a jump in the world clock
+the run already reports; it never reads MOMENTS. Change spends and the sound
+follows for free -- the moment EAT gets a real cost, an hour-long meal strikes
+once with zero sound work.
+
+GATES: time_pass 31/31 (twice, stable). The alpha was NOT touched this turn.
+
 SOUND (sound-xk7pjp): 8/9 LATEST - *** HIS NUMBERS: SNACK 10 MIN, FIVE STAR MEAL
 1 HOUR, SLEEP 6 TO 12 HOURS. SLEEPING IS RULED, THE [PENDING] IS CLOSED, AND THE
 SOUND ALREADY LINES UP WITH ALL FOUR WITHOUT A CODE CHANGE. ***

@@ -55,12 +55,33 @@ const pw = pwmod();
   // COUNT RENDERS AT THE ENGINE. BOH_SFX.render is the one place a sound becomes
   // real, so wrapping it counts what the speaker gets rather than what a
   // function meant to do.
+  // COUNT THE THING, NOT EVERYTHING. The first version counted every render and
+  // went flaky the moment anything else made a noise in the same window -- one
+  // hour "struck twice" because an unrelated sound landed in it. TIME_PASS is
+  // the only family in his approved bank cooked from GLASS (the others are ash,
+  // stone, bone, metal, crystal, bell, water, choir, wood), so the material is
+  // an exact discriminator and nothing else can be mistaken for a strike.
   await p.evaluate(() => {
     window.__rr = [];
     const orig = BOH_SFX.render.bind(BOH_SFX);
-    BOH_SFX.render = function(v, ac, dest, at){ window.__rr.push(at == null ? -1 : at);
-                                                return orig.apply(null, arguments); };
+    BOH_SFX.render = function(v, ac, dest, at){
+      if (v && v.mat === 'glass') window.__rr.push(at == null ? -1 : at);
+      return orig.apply(null, arguments);
+    };
     try { MUS.audio(); } catch(e) {}
+  });
+  // and prove that discriminator is real rather than assumed
+  out.glassIsOnlyTimePass = await p.evaluate(() => {
+    try {
+      const A = window.__SFX_APPROVED || {};
+      const bad = [];
+      for (const ev in A) {
+        if (ev === 'time_pass') continue;
+        for (const i of A[ev]) { if (BOH_SFX.cook(ev,5)[i].mat === 'glass') bad.push(ev+'.'+i); }
+      }
+      const good = A.time_pass ? A.time_pass.every(i => BOH_SFX.cook('time_pass',5)[i].mat === 'glass') : false;
+      return { bad, good };
+    } catch(e) { return { bad:['ERR'], good:false }; }
   });
 
   async function strike(h){
@@ -124,6 +145,32 @@ const pw = pwmod();
   out.sleepMin  = await clock(22*60, 22*60 + 360);  // 6 hours, his floor
   out.sleepMax  = await clock(20*60, 20*60 + 720);  // 12 hours, his ceiling
 
+  // ================= THE REAL BUTTON, IN THE REAL RUN =====================
+  // Everything above drives the clock with a synthetic message. That proves the
+  // rule and proves nothing about the GAME: VERIFY ON THE REAL SURFACE (7/18)
+  // says a side-door probe is a lie, and the only in-game trigger this sound
+  // has today is the SLEEP action. So open the RUN tab, press the actual
+  // contextual action button the player presses, and count what reaches the
+  // engine. Nothing here posts a message or calls strikeHours.
+  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); });
+  await p.waitForTimeout(8000);
+  const fr = p.frames().find(f => f.url().includes('RUN_CURRENT')) || p.frames()[1];
+  if (fr) {
+    const before = await fr.evaluate(() => ({
+      label: (document.getElementById('actlbl') || {}).textContent,
+      min: window.__RUN_PEOPLE ? window.__RUN_PEOPLE.minute() : -1
+    })).catch(() => null);
+    out.sleepLabel = before && before.label;
+    out.sleepBefore = before && before.min;
+    await p.evaluate(() => { window.__rr = []; });
+    await fr.evaluate(() => { const a = document.getElementById('act'); if (a) a.click(); })
+            .catch(() => {});
+    await p.waitForTimeout(9000);            // the run reports its clock every 4s
+    out.sleepAfter = await fr.evaluate(() => window.__RUN_PEOPLE ? window.__RUN_PEOPLE.minute() : -1)
+                             .catch(() => -1);
+    out.sleepStrikes = await p.evaluate(() => window.__rr.length);
+  }
+
   out.stats = await p.evaluate(() => window.__timePassStats ? window.__timePassStats() : null);
   out.errors = errs.slice(0, 4);
   console.log(JSON.stringify(out));
@@ -160,6 +207,12 @@ def main():
         else:
             f += 1
             print('  > FAIL ' + name)
+
+    g = d.get('glassIsOnlyTimePass') or {}
+    ok('the strike counter measures TIME_PASS and nothing else: every approved '
+       'time_pass sound is glass', g.get('good'))
+    ok('and NO other approved sound is glass, so nothing can be miscounted as a '
+       'strike (%s)' % (g.get('bad') or 'none'), not g.get('bad'))
 
     a = d.get('approved') or {}
     ok('his 8/7 thumbs reached the table the GAME reads: time_pass has 5 sounds',
@@ -215,6 +268,20 @@ def main():
        'night (%s)' % d.get('sleepMax'), d.get('sleepMax') == 12)
     ok('and you can TELL THEM APART: 6 and 12 are different counts',
        d.get('sleepMin') != d.get('sleepMax'))
+
+    # ---- THE REAL BUTTON ------------------------------------------------
+    # The one in-game trigger this sound actually has. Everything else in this
+    # file is a message the gate invented.
+    lab = d.get('sleepLabel') or ''
+    ok('the run offers SLEEP as its own contextual action (%r)' % lab,
+       'SLEEP' in lab.upper())
+    adv = (d.get('sleepAfter') or 0) - (d.get('sleepBefore') or 0)
+    if adv < 0:
+        adv += 1440
+    ok('PRESSING IT MOVES THE WORLD CLOCK by 8 hours (%d minutes)' % adv, adv == 480)
+    ok('AND THE GAME STRIKES EIGHT TIMES FOR IT (%s) -- no synthetic message, '
+       'the button the player actually presses' % d.get('sleepStrikes'),
+       d.get('sleepStrikes') == 8)
 
     st = d.get('stats') or {}
     ok('the floor is an hour, so ordinary play can never reach it',
