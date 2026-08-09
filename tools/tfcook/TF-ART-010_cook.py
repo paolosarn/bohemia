@@ -235,21 +235,38 @@ def torus_noise(rg, shape, k=5, passes=2):
 
 
 def degreen_to_straw(a):
-    """DEAD VALLEY treatment for rail_ballast_0: living green -> straw."""
+    """DEAD VALLEY treatment for rail_ballast_0: the lichen dies COMPLETELY.
+    v1 only re-hued the green, which left the lichen SHAPES as strobing
+    yellow-khaki clumps (seen in the v1 proof, called wrong). v2 INPAINTS:
+    every lichen pixel is replaced by a non-green pixel sampled from its own
+    wrapped neighbourhood, so the stone texture grows over the shape and
+    nothing of the plant survives. Deterministic."""
     out = a.copy()
     h, w, _ = out.shape
     flat = out.reshape(-1, 3) / 255.0
     hsv = np.array([colorsys.rgb_to_hsv(*p) for p in flat])
     hue = hsv[:, 0] * 360
-    green = (hue >= 70) & (hue <= 170) & (hsv[:, 1] > 0.20) & (hsv[:, 2] > 0.22)
-    if green.any():
-        g = flat[green]
-        L = 0.299 * g[:, 0] + 0.587 * g[:, 1] + 0.114 * g[:, 2]
-        straw = np.stack([np.clip(L * 1.28, 0, 0.86),
-                          np.clip(L * 1.14, 0, 0.78),
-                          np.clip(L * 0.72, 0, 0.60)], axis=1)
-        flat[green] = straw
-    return (flat.reshape(h, w, 3) * 255.0).clip(0, 255)
+    green = ((hue >= 55) & (hue <= 175) & (hsv[:, 1] > 0.14) &
+             (hsv[:, 2] > 0.18)).reshape(h, w)
+    # dilate one step: lichen edge px are half-green and keep the outline
+    gd = green.copy()
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            gd |= np.roll(np.roll(green, dy, 0), dx, 1)
+    rg = np.random.default_rng(SEED + 41)
+    ys, xs = np.where(gd)
+    order = np.argsort(lum(out[ys, xs]))          # darkest first (shadow core)
+    for i in order:
+        y, x = int(ys[i]), int(xs[i])
+        for _ in range(40):
+            dy, dx = int(rg.integers(-4, 5)), int(rg.integers(-4, 5))
+            sy, sx = (y + dy) % h, (x + dx) % w
+            if not gd[sy, sx]:
+                out[y, x] = out[sy, sx]
+                break
+        else:
+            out[y, x] = np.array([118., 112., 100.])
+    return out
 
 
 # ---------------------------------------------------------------- fields
@@ -258,12 +275,13 @@ def ballast_field(rg, h, w, pop, dark=1.0):
     wrapped rank field indexes his own sorted pixels (same palette, same
     density), then 2-4px ANGULAR CLUSTERS (never single-pixel noise, never
     countable boulders) with sky-lit top pixels and shaded down-right feet."""
-    g = (torus_noise(rg, (h, w), 3, 2) * 0.50 +
-         torus_noise(rg, (h, w), 9, 2) * 0.22 + rg.random((h, w)) * 0.28)
+    g = (torus_noise(rg, (h, w), 3, 2) * 0.27 +
+         torus_noise(rg, (h, w), 9, 2) * 0.11 + rg.random((h, w)) * 0.64)
     g = (g - g.min()) / (g.max() - g.min() + 1e-9)
     idx = (g * (len(pop) - 1)).astype(int)
     out = pop[idx] * dark
-    n_cl = (h * w) // 34
+    out = out * (0.88 + 0.24 * rg.random((h, w)))[..., None]  # stone facet jitter
+    n_cl = (h * w) // 18
     lo_q, hi_q = pop[:len(pop) // 4], pop[3 * len(pop) // 4:]
     for _ in range(n_cl):
         cy, cx = int(rg.integers(h)), int(rg.integers(w))
@@ -288,7 +306,8 @@ def silt_blend(rg, field, mask_gain, silt_col):
     h, w, _ = field.shape
     m = torus_noise(rg, (h, w), 7, 2)
     m = np.clip((m - 0.35) * 1.6, 0, 1) * mask_gain
-    return field * (1 - m[..., None]) + silt_col[None, None, :] * m[..., None]
+    sj = (0.90 + 0.20 * rg.random((h, w)))[..., None]   # fines are grainy too
+    return field * (1 - m[..., None]) + (silt_col[None, None, :] * sj) * m[..., None]
 
 
 # ---------------------------------------------------------------- the corridor
@@ -301,8 +320,16 @@ def draw_tie(rg, canvas, x0, wood_pop, plate_col, terra_mid, y0=TIE_Y0, y1=TIE_Y
     skew shifts the south end sideways (a lifted-yard tie kicked loose)."""
     h, w, _ = canvas.shape
     n = y1 - y0
-    g = (torus_noise(rg, (n, TIE_W - 2), 3, 1) * 0.6 + rg.random((n, TIE_W - 2)) * 0.4)
-    idx = (g * (len(wood_pop) - 1)).astype(int)
+    # LONGITUDINAL grain: smoothed along the tie's length, near-independent
+    # across it — wood, not static (and the straddling tie stops shouting on
+    # the seam column it deliberately crosses)
+    n0 = rg.standard_normal((n, TIE_W - 2))
+    for _ in range(2):
+        n0 = (np.roll(n0, 1, 0) + n0 + np.roll(n0, -1, 0)) / 3
+    n0 = (np.roll(n0, 1, 1) + 2 * n0 + np.roll(n0, -1, 1)) / 4
+    g = (n0 - n0.min()) / (n0.max() - n0.min() + 1e-9)
+    g = g * 0.70 + rg.random((n, TIE_W - 2)) * 0.30
+    idx = (np.clip(g, 0, 1) * (len(wood_pop) - 1)).astype(int)
     top = wood_pop[idx] * weather
     split_x = int(rg.integers(3, 8))
     sy = 0
@@ -316,12 +343,28 @@ def draw_tie(rg, canvas, x0, wood_pop, plate_col, terra_mid, y0=TIE_Y0, y1=TIE_Y
         if rg.random() < 0.8:
             ex = int(rg.integers(1, TIE_W - 4))
             top[ey, ex:ex + 2] *= 0.66
+    top[:, 0] = np.clip(top[:, 0] * 1.08, 0, 255)   # lit west arris (UL light)
+    side_mod = rg.random(n)
+    for _ in range(2):
+        side_mod = (np.roll(side_mod, 1) + side_mod + np.roll(side_mod, -1)) / 3
+    silt_break = rg.random(n)
     for yy in range(n):
         xs = x0 + (skew * (yy - n // 2)) // max(n, 1)
         for xx in range(TIE_W - 2):
             canvas[y0 + yy, (xs + xx) % w] = top[yy, xx]
-        canvas[y0 + yy, (xs + TIE_W - 2) % w] = np.array([52., 46., 40.]) * weather
-        canvas[y0 + yy, (xs + TIE_W - 1) % w] = np.array([38., 34., 30.]) * weather
+        # creosote side, BROKEN not ruled: value wanders, silt interrupts —
+        # never a straight drawn border (craft law 8)
+        sv = (0.80 + 0.55 * side_mod[yy]) * weather
+        c1 = np.array([54., 48., 42.]) * sv
+        c2 = np.array([40., 36., 32.]) * sv
+        if silt_break[yy] > 0.87:                   # crib silt laps over the side
+            old1 = canvas[y0 + yy, (xs + TIE_W - 2) % w]
+            old2 = canvas[y0 + yy, (xs + TIE_W - 1) % w]
+            canvas[y0 + yy, (xs + TIE_W - 2) % w] = old1 * 0.55 + c1 * 0.45
+            canvas[y0 + yy, (xs + TIE_W - 1) % w] = old2 * 0.7 + c2 * 0.3
+        else:
+            canvas[y0 + yy, (xs + TIE_W - 2) % w] = c1
+            canvas[y0 + yy, (xs + TIE_W - 1) % w] = c2
     canvas[y1 - 1, x0 % w:(x0 + TIE_W - 2) % w if (x0 + TIE_W - 2) % w > x0 % w else w] *= 0.7
     for rail_c in rails:                            # tie plates (or their ghosts)
         py0, py1 = int(rail_c) - 10, int(rail_c) + 11
@@ -334,8 +377,8 @@ def draw_tie(rg, canvas, x0, wood_pop, plate_col, terra_mid, y0=TIE_Y0, y1=TIE_Y
             continue
         for yy in range(py0, py1):
             for xx in range(px0, px1):
-                f = 0.92 if yy in (py0, py1 - 1) else 1.0
-                canvas[yy, xx % w] = plate_col * rg.uniform(0.92, 1.08) * f
+                f = 1.18 if yy == py0 else (0.76 if yy == py1 - 1 else 1.0)
+                canvas[yy, xx % w] = plate_col * rg.uniform(0.90, 1.10) * f
         halo = terra_mid                              # the ONLY saturated colour
         for yy in range(py0 - 3, py1 + 3):
             for xx in range(px0 - 3, px1 + 3):
@@ -357,24 +400,35 @@ def draw_tie(rg, canvas, x0, wood_pop, plate_col, terra_mid, y0=TIE_Y0, y1=TIE_Y
                 canvas[yy, sx % w] = c * 0.7 + halo * 0.3 * (1 - k * 0.15)
 
 
-def draw_rail(rg, canvas, rail_c, crown_col, web_cols, w):
-    """The rail: 4px matte crown (lightest in the family, per-x modulated —
-    nothing gleams), 3px shaded web on the down-light side, 1px base flare,
-    1px contact shading on the up-light side."""
+def draw_rail(rg, canvas, rail_c, crown_col, web_cols, w, x0=0):
+    """The rail: 4px matte crown (lightest in the family), 3px shaded web on
+    the down-light side, 1px base flare, 1px contact shading up-light. v2:
+    the crown carries LONG-WAVE rust mottling plus short facet grit and
+    occasional darker rust patch runs — a thirty-year matte bar, never tape,
+    never a gleam. The web is genuinely dark so the 11px of true height
+    reads as a section, not an underline."""
     c0 = int(rail_c) - 2                        # crown rows: c0..c0+3
-    mod = torus_noise(rg, (1, w), 5, 2)[0]      # wraps at the tile period
-    for xx in range(w):
-        m = 0.94 + 0.12 * mod[xx]
+    slow = torus_noise(rg, (1, w), 13, 3)[0]    # rust weather, long wave
+    fast = torus_noise(rg, (1, w), 3, 1)[0]     # facet grit
+    patch = np.ones(w)
+    n_pat = max(1, w // 44)
+    for _ in range(n_pat):                      # darker rust patch runs
+        px0 = int(rg.integers(w))
+        ln = int(rg.integers(6, 15))
+        for k in range(ln):
+            patch[(px0 + k) % w] = 0.82 + 0.06 * np.sin(np.pi * k / ln)
+    for xx in range(x0, w):
+        m = (0.86 + 0.20 * slow[xx] + 0.08 * (fast[xx] - 0.5)) * patch[xx]
         canvas[c0 - 2, xx] = canvas[c0 - 2, xx] * 0.55 + crown_col * 0.24 * m  # flare N
-        canvas[c0 - 1, xx] *= 0.78                                            # contact
-        canvas[c0 + 0, xx] = crown_col * 1.04 * m
-        canvas[c0 + 1, xx] = crown_col * 1.00 * m
-        canvas[c0 + 2, xx] = crown_col * 0.96 * m
-        canvas[c0 + 3, xx] = crown_col * 0.88 * m
-        canvas[c0 + 4, xx] = web_cols[0] * (0.95 + 0.1 * mod[xx])              # web
-        canvas[c0 + 5, xx] = web_cols[1] * (0.95 + 0.1 * mod[xx])
-        canvas[c0 + 6, xx] = web_cols[2] * (0.95 + 0.1 * mod[xx])
-        canvas[c0 + 7, xx] = canvas[c0 + 7, xx] * 0.6 + web_cols[2] * 0.4      # base flare
+        canvas[c0 - 1, xx] *= 0.72                                            # contact
+        canvas[c0 + 0, xx] = crown_col * 1.00 * m
+        canvas[c0 + 1, xx] = crown_col * 1.06 * m
+        canvas[c0 + 2, xx] = crown_col * 0.94 * m
+        canvas[c0 + 3, xx] = crown_col * 0.80 * m           # head shade to the web
+        canvas[c0 + 4, xx] = web_cols[0] * (0.72 + 0.16 * fast[xx])            # web
+        canvas[c0 + 5, xx] = web_cols[0] * (0.86 + 0.14 * slow[xx])
+        canvas[c0 + 6, xx] = web_cols[1] * (0.92 + 0.14 * fast[xx])
+        canvas[c0 + 7, xx] = canvas[c0 + 7, xx] * 0.52 + web_cols[2] * 0.48    # base flare
 
 
 def shoulder_shade(rg, canvas, w, silt_col):
@@ -398,16 +452,24 @@ def shoulder_shade(rg, canvas, w, silt_col):
 
 
 def cook_corridor_unit(seed, pop, wood_pop, plate_col, terra_mid, crown_col,
-                       web_cols, silt_col, lifted=False):
+                       web_cols, silt_col, lifted=False, yard=False):
     """One 88x220 corridor unit (2 cells of the declared tie phase) — split
     into phase tiles A|B by the caller. lifted=True: steel gone, ties stay,
-    plate ghosts, heavier silt, the pale ghost line where the rail sat."""
+    plate ghosts, heavier silt, the pale ghost line where the rail sat.
+    yard=True: NO PRISM — the yard-vs-mainline distinction the form makes
+    (in a yard the tracks share one continuous ballast plate, no shoulders),
+    so the stack's outer rows stay flat plate and the unit sits seamlessly
+    in the plate field."""
     rg = np.random.default_rng(SEED + seed)
     canvas = ballast_field(rg, STACK, PERIOD, pop)
-    canvas = silt_blend(rg, canvas, 0.65 if lifted else 0.45, silt_col)
+    canvas = silt_blend(rg, canvas, 0.65 if lifted else (0.40 if yard else 0.45),
+                        silt_col)
     ties = []
     for i, off in enumerate(TIE_OFFS):
-        jit = int(rg.integers(-1, 2)) if i == 1 else 0   # the declared 1px jitter
+        # the declared 1px jitter (29/30 gaps) — only +1, never -1, so the
+        # middle tie's dark creosote side column can never land on the cell
+        # boundary column (a dark edge ON the seam is the M10 border failure)
+        jit = int(rg.integers(0, 2)) if i == 1 else 0
         ties.append(off + jit)
     drop = int(rg.integers(0, 6)) if lifted else -1       # a lifted yard loses a tie
     for i, x0 in enumerate(ties):
@@ -431,7 +493,8 @@ def cook_corridor_unit(seed, pop, wood_pop, plate_col, terra_mid, crown_col,
     else:
         for rail_c in (RAIL_N, RAIL_S):
             draw_rail(rg, canvas, rail_c, crown_col, web_cols, PERIOD)
-    shoulder_shade(rg, canvas, PERIOD, silt_col)
+    if not yard:
+        shoulder_shade(rg, canvas, PERIOD, silt_col)
     return np.clip(canvas, 0, 255)
 
 
@@ -458,58 +521,83 @@ def cook_turnout(seed, pop, wood_pop, plate_col, terra_mid, crown_col,
     for rail_c in (RAIL_N, RAIL_S):               # straight stock rails
         draw_rail(rg, canvas, rail_c, crown_col, web_cols, W)
 
-    def steel_px(xx, yy, f=1.0):
-        if 0 <= yy < STACK and 0 <= xx < W:
-            canvas[yy, xx] = np.clip(web_cols[1] * 1.25 * f, 0, 255)
+    slow = torus_noise(rg, (1, 4 * W), 13, 3)[0]
 
-    def crownish(xx, yy, f=1.0):
-        if 0 <= yy < STACK and 0 <= xx < W:
-            canvas[yy, xx] = np.clip(crown_col * 0.9 * f, 0, 255)
-
-    # (1) switch blades: north seated against its stock rail, south AJAR
-    for xx in range(10, 50):
-        t = (xx - 10) / 40.0
-        by = int(round(70 + t * 2))               # north blade: seated, tapering
-        crownish(xx, by, 0.8 + 0.2 * t)
-        if t > 0.4:
-            steel_px(xx, by + 1, 0.8)
-        by2 = int(round(146 - t * 4))             # south blade: 3px ajar mid-throw
-        crownish(xx, by2, 0.8 + 0.2 * t)
-        if t > 0.4:
-            steel_px(xx, by2 + 1, 0.8)
-    # (2) diverging pair to the bottom-right exit
-    fx = 104                                       # frog x on the south rail
-    for xx in range(48, W):
-        t = (xx - 48) / (W - 48.0)
-        y1 = 72 + (xx - 48) * (219 - 72) / (W - 48.0) * 0.98      # inner diverging rail
-        y2 = 150 + (xx - 48) * (219 - 150) / (W - 48.0) * 1.30    # outer diverging rail
-        for yv, tag in ((y1, 1), (y2, 2)):
+    def rail_seg(path, taper_from=None):
+        """A CONTINUOUS diverging rail: 2px matte crown + 1-2px web shadow
+        below, vertical gaps between steps filled (v1's dotted scratch was
+        called wrong in its own proof). taper_from: blade mode — width goes
+        1px and darker toward the tip end."""
+        for i, (xx, yv) in enumerate(path):
+            if not (0 <= xx < W):
+                continue
             yi = int(round(yv))
-            if yi > 216:
-                continue
-            if tag == 2 and yi > 219:
-                continue
-            crownish(xx, yi, 0.85 + 0.15 * t)
-            steel_px(xx, yi + 1, 0.9)
-    # (3) the FROG: dark manganese casting, crown interrupted
-    for yy in range(int(RAIL_S) - 4, int(RAIL_S) + 6):
-        for xx in range(fx - 7, fx + 8):
-            dx, dy = abs(xx - fx), abs(yy - int(RAIL_S))
-            if dx + dy < 10:
-                canvas[yy, xx] = np.array([58., 56., 58.]) * rg.uniform(0.9, 1.1)
-    for xx in range(fx - 7, fx + 8):              # flangeway gaps through the frog
-        canvas[int(RAIL_S) - 2, xx] = np.array([34., 33., 34.])
-        canvas[int(RAIL_S) + 2, xx] = np.array([34., 33., 34.])
-    # (4) the switch stand, north shoulder, connected to the blades' throw rod
-    sx, sy = 22, 12
-    for yy in range(sy + 6, 70):                  # throw rod down to the blade
-        if yy % 2 == 0:
-            steel_px(sx + 1, yy, 0.7)
-    for yy in range(sy, sy + 7):
-        for xx in range(sx, sx + 4):
-            canvas[yy, xx] = np.array([64., 58., 52.]) * (1.25 - 0.06 * (yy - sy))
-    canvas[sy, sx:sx + 4] = np.array([132., 116., 96.])       # sky-lit cap
-    canvas[sy + 1, sx:sx + 2] = terra_mid * 0.9               # faded target plate
+            y_next = int(round(path[i + 1][1])) if i + 1 < len(path) else yi
+            m = 0.80 + 0.18 * slow[(xx * 2) % (4 * W)]
+            tip = 1.0
+            thin = False
+            if taper_from is not None:
+                t = i / max(len(path) - 1, 1)
+                tip = 0.66 + 0.34 * t
+                thin = t < 0.45
+            lo, hi = sorted((yi, y_next))
+            for yy in range(lo, hi + 1):
+                if 0 <= yy < STACK - 1:
+                    canvas[yy, xx] = np.clip(crown_col * 1.02 * m * tip, 0, 255)
+                    if not thin:
+                        canvas[yy + 1, xx] = np.clip(crown_col * 0.82 * m * tip, 0, 255)
+                        if yy + 2 < STACK:
+                            canvas[yy + 2, xx] = web_cols[0] * (0.85 + 0.1 * m)
+
+    def curve(x0, y0, x1, y1, bend=0.35):
+        pts = []
+        for xx in range(x0, x1 + 1):
+            t = (xx - x0) / max(x1 - x0, 1)
+            tt = (1 - bend) * t + bend * t * t          # eases into the diverge
+            pts.append((xx, y0 + (y1 - y0) * tt))
+        return pts
+
+    fx = 104                                      # frog x on the south stock rail
+    # (2) the diverging pair, CONTINUOUS, easing to the bottom-right exit
+    rail_seg(curve(46, 71, W - 4, 196))           # inner: crosses at the frog
+    rail_seg(curve(46, 149, 100, 219))            # outer: exits the bottom edge
+    # (1) the switch blades: tapered points INSIDE the gauge. North blade
+    # SEATED against its stock rail; south blade AJAR 3px — frozen mid-throw
+    rail_seg([(xx, 71 - min(2, (xx - 10) // 8)) for xx in range(10, 47)],
+             taper_from=10)
+    rail_seg([(xx, 145 + min(4, (xx - 10) // 6)) for xx in range(10, 47)],
+             taper_from=10)
+    for xx in range(12, 40):                      # the ajar gap reads as shadow
+        canvas[143, xx] = canvas[143, xx] * 0.66
+    # (3) the FROG: dark manganese wedge where the diverging rail crosses the
+    # stock rail — crown interrupted, flangeway gaps through the casting,
+    # sky-lit top edge so it reads as a solid block, not a smudge
+    for yy in range(int(RAIL_S) - 5, int(RAIL_S) + 7):
+        for xx in range(fx - 8, fx + 9):
+            dx, dy = abs(xx - fx), abs(yy - int(RAIL_S) - 1)
+            if dx + dy * 2 < 13:
+                mg = np.array([62., 60., 63.]) * (0.92 + 0.16 * rg.random())
+                canvas[yy, xx] = mg
+    for xx in range(fx - 8, fx + 9):
+        canvas[int(RAIL_S) - 5, xx] = np.array([88., 86., 90.])   # lit top edge
+        canvas[int(RAIL_S) - 2, xx] = np.array([34., 33., 36.])   # flangeway gaps
+        canvas[int(RAIL_S) + 3, xx] = np.array([34., 33., 36.])
+    # (4) the switch stand on the north shoulder + its throw rod to the blades
+    sx, sy = 20, 8
+    for yy in range(sy + 10, 68):                 # throw rod: broken dark dashes
+        if yy % 3 != 0:
+            canvas[yy, sx + 2] = web_cols[1] * 0.9
+    for yy in range(sy, sy + 10):                 # the stand: a squat post with
+        for xx in range(sx, sx + 6):              # mass, lit cap, dark east side
+            f = 1.0 - 0.05 * (yy - sy)
+            canvas[yy, xx] = np.array([70., 63., 56.]) * f * rg.uniform(0.92, 1.08)
+        canvas[yy, sx + 5] = np.array([44., 40., 36.]) * (1.0 - 0.04 * (yy - sy))
+    canvas[sy, sx:sx + 6] = np.array([138., 122., 102.])          # sky-lit cap
+    canvas[sy + 1, sx:sx + 6] = np.array([108., 96., 82.])
+    for yy in range(sy + 2, sy + 5):              # the faded target, rust-dull
+        for xx in range(sx + 1, sx + 4):
+            canvas[yy, xx] = terra_mid * 0.92
+    canvas[sy + 10, sx:sx + 6] = canvas[sy + 10, sx:sx + 6] * 0.72   # foot shadow
     return np.clip(canvas, 0, 255)
 
 
@@ -535,9 +623,12 @@ def cook_crossing(seed, pop, conc_pop, street_tiles, wood_pop, plate_col,
     for yy in range(180, STACK):
         canvas[yy] = np.clip(canvas[yy] * (1.10 - 0.13 * ((yy - 180) / 39.0)), 0, 255)
     # concrete panel field (his concrete population), joints parallel to rails
-    g = torus_noise(rg, (140, W), 5, 2) * 0.6 + rg.random((140, W)) * 0.4
+    g = torus_noise(rg, (140, W), 5, 2) * 0.45 + rg.random((140, W)) * 0.55
     g = (g - g.min()) / (g.max() - g.min() + 1e-9)
-    panel = conc_pop[(g * (len(conc_pop) - 1)).astype(int)]
+    # rank clamped to the concrete's mid band + light desat: grey panels,
+    # not tan (v1 read warm-bright against the bed)
+    panel = conc_pop[((0.06 + g * 0.80) * (len(conc_pop) - 1)).astype(int)]
+    panel = desat(panel, 0.16) * (0.89 + 0.22 * rg.random((140, W)))[..., None]
     canvas[40:180] = panel
     for jy in (40, 100, 179):                     # panel joints, PARALLEL to rails
         canvas[jy, :] *= 0.62
@@ -592,40 +683,33 @@ def cook_buffer(seed, pop, wood_pop, plate_col, terra_mid, crown_col,
     draw_tie(rg2, canvas, tie_x, wood_pop, plate_col, terra_mid,
              y0=4, y1=H - 4, weather=1.0,
              rails=(rail_ys[0] + 0.5, rail_ys[1] + 0.5))
-    bx = 14                                                    # beam column
+    bx = 15                                                    # beam column
     for rail_y in rail_ys:                                     # rails run in, stop
-        c0 = rail_y - 2
-        mod = torus_noise(rg, (1, W), 5, 2)[0]
-        for xx in range(0, bx):
-            m = 0.94 + 0.12 * mod[xx]
-            canvas[c0 - 1, xx] *= 0.78
-            canvas[c0 + 0, xx] = crown_col * 1.04 * m
-            canvas[c0 + 1, xx] = crown_col * 1.00 * m
-            canvas[c0 + 2, xx] = crown_col * 0.96 * m
-            canvas[c0 + 3, xx] = crown_col * 0.88 * m
-            canvas[c0 + 4, xx] = web_cols[0]
-            canvas[c0 + 5, xx] = web_cols[1]
-            canvas[c0 + 6, xx] = web_cols[2]
+        draw_rail(rg, canvas, rail_y + 0.5, crown_col, web_cols, bx - 2, x0=0)
     by0, by1 = rail_ys[0] - 11, rail_ys[1] + 12                # beam spans the gauge
-    beam = np.array([96., 78., 62.])
+    beam = np.array([84., 68., 56.])                           # rusted heavy steel
+    wob_n = torus_noise(rg, (by1 - by0 + 2, 1), 5, 2)[:, 0]
     for yy in range(by0, by1):
-        wob = 1.0 + 0.08 * np.sin(yy * 0.7) * rg.uniform(0.6, 1.0)
-        canvas[yy, bx - 2] = np.clip(beam * 1.42 * wob, 0, 255)    # lit strike edge
-        canvas[yy, bx - 1] = np.clip(beam * 1.22 * wob, 0, 255)
-        canvas[yy, bx + 0] = beam * 1.02 * wob
-        canvas[yy, bx + 1] = beam * 0.94 * wob
-        canvas[yy, bx + 2] = beam * 0.86 * wob
-        canvas[yy, bx + 3] = beam * 0.62 * wob                     # down-light edge
-    canvas[by0 - 1, bx - 2:bx + 4] = np.clip(beam * 1.5, 0, 255)   # sky-lit top cap
-    canvas[by0, bx - 2:bx + 4] = np.clip(beam * 1.3, 0, 255)
-    canvas[by1, bx - 2:bx + 4] = beam * 0.55                       # ground shadow foot
-    for rail_y, drift in ((rail_ys[0], -1), (rail_ys[1], 1)):      # raked braces
-        for k in range(0, 18):
-            xx = bx + 4 + k
-            yy = rail_y + drift * (k // 3)
-            if 0 <= xx < W:
-                canvas[yy, xx] = web_cols[1] * 1.3
-                canvas[yy - 1, xx] = np.clip(web_cols[0] * 1.5, 0, 255)
+        wob = 0.88 + 0.24 * wob_n[yy - by0]
+        canvas[yy, bx - 3] = np.clip(beam * 1.55 * wob, 0, 255)    # lit strike edge
+        canvas[yy, bx - 2] = np.clip(beam * 1.30 * wob, 0, 255)
+        canvas[yy, bx - 1] = beam * 1.06 * wob
+        canvas[yy, bx + 0] = beam * 0.98 * wob
+        canvas[yy, bx + 1] = beam * 0.92 * wob
+        canvas[yy, bx + 2] = beam * 0.84 * wob
+        canvas[yy, bx + 3] = beam * 0.70 * wob
+        canvas[yy, bx + 4] = beam * 0.52 * wob                     # down-light edge
+    canvas[by0 - 1, bx - 3:bx + 5] = np.clip(beam * 1.6, 0, 255)   # sky-lit top cap
+    canvas[by0, bx - 3:bx + 5] = np.clip(beam * 1.35, 0, 255)
+    canvas[by1, bx - 3:bx + 5] = beam * 0.5                        # ground shadow foot
+    for rail_y, drift in ((rail_ys[0], -1), (rail_ys[1], 1)):      # raked rail braces
+        for k in range(0, 20):                                     # behind the beam
+            xx = bx + 5 + k
+            yy = rail_y + drift * (k // 2)
+            if 0 <= xx < W and 1 <= yy < H - 1:
+                canvas[yy, xx] = web_cols[1] * 1.15
+                canvas[yy + (1 if drift > 0 else -1), xx] = web_cols[0] * 0.9
+                canvas[yy - drift, xx] = np.clip(crown_col * 0.72, 0, 255)  # lit top
     for rail_y in rail_ys:                                     # rust bleed at bolts
         for yy in range(rail_y - 2, rail_y + 3):
             for xx in range(bx - 2, bx + 4):
@@ -717,6 +801,9 @@ def labeled_sheet(entries, cols, scale=2, pad=8, label_h=14, bg=(24, 24, 28)):
 def main():
     os.makedirs(os.path.dirname(BANK_OUT), exist_ok=True)
     os.makedirs(PROOF_DIR, exist_ok=True)
+    for f in os.listdir(PROOF_DIR):               # no stale proofs survive a rerun
+        if f.endswith('.png'):
+            os.remove(os.path.join(PROOF_DIR, f))
     assert_nothing_bought_covers_rail()
 
     tm = load_texture_match()
@@ -796,6 +883,22 @@ def main():
                 'silver band; steel: steel_rusted ramp desaturated; rust halo: '
                 'approved roof_tile_terra')
 
+    # ---- (1b) YARD corridor: same track, NO PRISM — the yard-vs-mainline
+    # read the form demands (yard tracks share one continuous plate; the v1
+    # proof showed prism shoulders stranded on the plate and it was wrong)
+    yardcor_units = [cook_corridor_unit(150 + v, bal_pop, wood_pop, plate_col,
+                                        terra_mid, crown_col, web_cols, silt_col,
+                                        yard=True) for v in range(3)]
+    for v, unit in enumerate(yardcor_units):
+        for p, ph in enumerate('AB'):
+            t = unit[:, p * CELL:(p + 1) * CELL]
+            add(f'rail_yard_corridor_{v}{ph}', t,
+                f'YARD corridor, phase {ph}: the same 5-slice track with NO '
+                'prism — flat plate to both outer edges, so classification '
+                'tracks sit in one continuous bed (that is what makes a yard '
+                'a yard)',
+                'same harvest set as the running corridor')
+
     # ---- (6) lifted-rail alignment: 2 variants x 2 phases
     lifted_units = [cook_corridor_unit(200 + v, bal_pop, wood_pop, plate_col,
                                        terra_mid, crown_col, web_cols, silt_col,
@@ -850,14 +953,49 @@ def main():
     unit = corridor_units[0]
     seam['corridor_same_unit_3periods'] = run_seam(
         [unit[:, 0:CELL], unit[:, CELL:PERIOD]] * 3)
+    # the two junction classes, separated: the 88px PERIOD WRAP (the real
+    # seam contract) vs the within-unit cell boundary (which the straddling
+    # tie deliberately crosses — A|B is a slice of one authored unit, so any
+    # step there is the tie's own texture, not a discontinuity)
+    strip = np.concatenate([unit[:, 0:CELL], unit[:, CELL:PERIOD]] * 3, axis=1)
+    Ls = lum(strip)
+    steps = np.abs(np.diff(Ls, axis=1))
+    wrap_cols = [k * PERIOD - 1 for k in range(1, 3)]
+    mid_cols = [k * CELL - 1 for k in range(1, 6) if (k * CELL) % PERIOD]
+    seam['corridor_88px_period_wrap'] = (
+        round(float(np.mean([steps[:, c].mean() for c in wrap_cols])), 3),
+        round(float(np.delete(steps, wrap_cols + mid_cols, axis=1).mean()), 3))
+    seam['corridor_within_unit_tie_column_info'] = round(
+        float(np.mean([steps[:, c].mean() for c in mid_cols])), 3)
     seam['corridor_mixed_variants'] = run_seam(
         [corridor_units[v][:, p * CELL:(p + 1) * CELL]
          for v, p in ((0, 0), (0, 1), (1, 0), (1, 1), (2, 0), (2, 1))])
     seam['corridor_BROKEN_phase_for_contrast'] = run_seam(
         [unit[:, 0:CELL]] * 6)                     # A|A|A: the phase law violated
+    yunit = yardcor_units[0]
+    stripY = np.concatenate([yunit, yardcor_units[1]], axis=1)
+    LsY = lum(stripY)
+    stepsY = np.abs(np.diff(LsY, axis=1))
+    seam['yard_corridor_cross_unit_wrap'] = (
+        round(float(stepsY[:, PERIOD - 1].mean()), 3),
+        round(float(np.delete(stepsY, [CELL - 1, PERIOD - 1,
+                                       PERIOD + CELL - 1], axis=1).mean()), 3))
+    seam['yard_corridor_vs_plate_edge'] = run_seam(
+        [np.swapaxes(plate_arrs[1], 0, 1),
+         np.swapaxes(yunit[:, 0:CELL], 0, 1)[0:CELL]])
     seam['lifted_mixed'] = run_seam(
         [lifted_units[v][:, p * CELL:(p + 1) * CELL]
          for v, p in ((0, 0), (0, 1), (1, 0), (1, 1))])
+    # same split for lifted: the only REAL junction in [0A,0B,1A,1B] is the
+    # cross-unit wrap at col 88 — cols 44/132 are inside authored units
+    # (skewed ties deliberately cross them; a slice has no seam)
+    stripL = np.concatenate([lifted_units[0], lifted_units[1]], axis=1)
+    LsL = lum(stripL)
+    stepsL = np.abs(np.diff(LsL, axis=1))
+    seam['lifted_cross_unit_wrap'] = (
+        round(float(stepsL[:, PERIOD - 1].mean()), 3),
+        round(float(np.delete(stepsL, [CELL - 1, PERIOD - 1,
+                                       PERIOD + CELL - 1], axis=1).mean()), 3))
     seam['corridor_into_turnout'] = run_seam([unit[:, 0:CELL], unit[:, CELL:PERIOD],
                                               turnout])
     seam['corridor_into_crossing'] = run_seam([unit[:, 0:CELL], unit[:, CELL:PERIOD],
@@ -865,7 +1003,7 @@ def main():
 
     # value order + separation, measured off the cooked corridor
     field_rows = unit[100:130]                     # four-foot ballast, no rail rows
-    crown_rows = np.concatenate([unit[64:68], unit[152:156]])
+    crown_rows = np.concatenate([unit[63:67], unit[151:155]])
     lit_shoulder = unit[10:24]
     tie_side_samples = []
     for x0 in TIE_OFFS:
@@ -892,9 +1030,14 @@ def main():
     def plate_row(n, y_off=0):
         return np.concatenate([plate_arrs[(i + y_off) % 3] for i in range(n)], axis=1)
 
-    cor6 = np.concatenate([unit] * 3, axis=1)
-    bed = np.concatenate([plate_row(6), cor6, plate_row(6, 1)], axis=0)
-    save(bed, 'TILED_RUN_corridor_3periods_on_plate.png', 3)
+    ycor6 = np.concatenate(yardcor_units, axis=1)
+    bed = np.concatenate([plate_row(6), ycor6, plate_row(6, 1)], axis=0)
+    save(bed, 'TILED_RUN_yard_corridor_on_plate.png', 3)
+    des6 = np.concatenate([desert_tiles[i % len(desert_tiles)]
+                           for i in range(6)], axis=1)
+    cor6 = np.concatenate(corridor_units, axis=1)
+    save(np.concatenate([des6, cor6, des6], axis=0),
+         'TILED_RUN_mainline_in_desert.png', 3)
     lif4 = np.concatenate([lifted_units[0], lifted_units[1]], axis=1)
     bedl = np.concatenate([plate_row(4), lif4, plate_row(4, 1)], axis=0)
     save(bedl, 'TILED_RUN_lifted_2periods_on_plate.png', 3)
@@ -928,9 +1071,9 @@ def main():
     save(np.concatenate([ok, pad, broken], axis=0), 'OFFSET_TEST_88px.png', 3)
 
     # (d) assembled specials
-    tp = np.concatenate([unit[:, 0:CELL], unit[:, CELL:PERIOD], turnout,
-                         corridor_units[1][:, 0:CELL],
-                         corridor_units[1][:, CELL:PERIOD]], axis=1)
+    tp = np.concatenate([yunit[:, 0:CELL], yunit[:, CELL:PERIOD], turnout,
+                         yardcor_units[1][:, 0:CELL],
+                         yardcor_units[1][:, CELL:PERIOD]], axis=1)
     tp = np.concatenate([plate_row(7), tp, plate_row(7, 1)], axis=0)
     save(tp, 'TURNOUT_ASSEMBLED.png', 3)
     cr = np.concatenate([unit[:, 0:CELL], unit[:, CELL:PERIOD], crossing,
@@ -946,8 +1089,8 @@ def main():
     ctx_bot[:, 2 * CELL:5 * CELL] = np.concatenate(
         [street_tiles[(i + 3) % len(street_tiles)] for i in range(3)], axis=1)
     save(np.concatenate([ctx_top, cr, ctx_bot], axis=0), 'CROSSING_ASSEMBLED.png', 3)
-    bf = np.concatenate([unit[:, 0:CELL], unit[:, CELL:PERIOD],
-                         corridor_units[1][:, 0:CELL]], axis=1)
+    bf = np.concatenate([yunit[:, 0:CELL], yunit[:, CELL:PERIOD],
+                         yardcor_units[1][:, 0:CELL]], axis=1)
     stub = np.zeros((STACK, CELL, 3))
     stub[0:CELL] = plate_arrs[0]
     stub[CELL:4 * CELL] = buffer_stop
@@ -963,7 +1106,7 @@ def main():
     dirt_panel = np.concatenate(
         [np.concatenate([st['dirt']] * n_w, axis=1)] * 5, axis=0)
     dressed = np.concatenate([plate_row(n_w),
-                              np.concatenate([corridor_units[i % 3] for i in
+                              np.concatenate([yardcor_units[i % 3] for i in
                                               range((n_w + 1) // 2)], axis=1)[:, :n_w * CELL],
                               plate_row(n_w, 1)], axis=0)
     yard_strip = np.concatenate([st[f'yard_{i % 3}'] for i in range(n_w)], axis=1)
@@ -989,8 +1132,10 @@ def main():
         ('rail_plate_0 degreened', plate_arrs[0]),
         ('rail_plate_1 verbatim', plate_arrs[1]),
         ('rail_plate_2 verbatim', plate_arrs[2]),
-        ('corridor_0A', sheets['rail_corridor_0A']),
-        ('corridor_0B', sheets['rail_corridor_0B']),
+        ('corridor_0A mainline', sheets['rail_corridor_0A']),
+        ('corridor_0B mainline', sheets['rail_corridor_0B']),
+        ('yard_corridor_0A', sheets['rail_yard_corridor_0A']),
+        ('yard_corridor_0B', sheets['rail_yard_corridor_0B']),
         ('lifted_0A', sheets['rail_lifted_0A']),
         ('turnout 3x5', turnout), ('crossing 3x5', crossing),
         ('buffer 1x3', buffer_stop),
