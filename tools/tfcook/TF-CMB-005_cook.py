@@ -54,9 +54,11 @@ TASTE CHECK:
     anchors it must sit beside.
   - NO baked shadow: the foot shadow is the separate pass (mock draws it as
     that pass, the sprites do not carry it).
-  - JOIN CONTRACT (the shipped bug, the kill condition): top pixel rows of
-    the run ARE the landing tile's bottom nosing rows (identical pixels),
-    bottom pixel row butts the threshold pad's joint row. Measured in the
+  - JOIN CONTRACT (the shipped bug, the kill condition): the run carries the
+    deck-edge lip itself (walk_kerb's pale band), so its top row sits flush
+    against ANY deck-plane tile with no doubled nosing; its bottom row is
+    the last riser's foot butting the threshold pad's joint row. Both rows
+    fully opaque = zero empty pixels between the floors, measured in the
     proofs; a floating decal is dead on arrival.
 
 UNJUDGED. Nothing here is canon until Paolo sweeps it.
@@ -626,7 +628,8 @@ def main():
     scale(assembly, 3).save(os.path.join(PROOF, 'assembly_on_lot_3x.png'))
 
     # 5. arena mock, full + auto-frame zoom, NO chevron
-    mock = build_arena_mock(landing, run_a, threshold, street, deck_h=geo_a['storey_px'])
+    mock = build_arena_mock(landing, run_a, threshold, street,
+                            deck_h=geo_a['storey_px'], plate=c0)
     scale(mock, 2).save(os.path.join(PROOF, 'arena_mock_full_2x.png'))
     zoom = mock.resize((int(mock.width * 0.55), int(mock.height * 0.55)), Image.BILINEAR)
     zoom.resize((zoom.width * 2, zoom.height * 2), Image.NEAREST).save(
