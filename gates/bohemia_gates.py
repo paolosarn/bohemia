@@ -658,6 +658,12 @@ GATES = [
      "the TILE REQUEST FORM law's own gate, which the law names and nobody had written: every form filled, its caption parseable and ingestable, its shopping check and anchor pointing at files that exist, and the board and the forms unable to drift apart", False),
     ('BANK LAW',       ['python3', 'gates/banklaw_gate.py'],
      "Paolo's rulings that live INSIDE banks, not /laws: indexed, current, and named — the class of miss that hit three times on 7/28", False),
+    ('SUN MODE',       ['node', 'tools/bohemia_sun_mode_look.js'],
+     'Paolo 8/7 "make it light... I\'m working outside and it\'s sunny as shit": the CHARACTER and ANIMATION panels '
+     'and EVERY hair-bearing canvas go daylight-readable, measured by luminance on the real surface, and the choice '
+     'survives a reload. The canvases carry their dark background INLINE, so the failure this catches is a light '
+     'panel with every hairstyle still on its own black square -- which reads as fixed in a diff and is useless to him',
+     True),
     ('WALL CLASS',     ['node', 'gates/wallclass_gate.js'],
      'WALL TAXONOMY (Paolo 7/17) enforced in the DRAW: the suburb community wall stands 2 tiles from its OWN 13-key pool at its judged 44x44, never a building wall', True),
     ('NAV CLUSTER',    ['node', 'gates/navcluster_gate.js'],

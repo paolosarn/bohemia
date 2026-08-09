@@ -79,6 +79,25 @@ select,input[type=range]{background:#1a150e;border:1px solid #2e2416;color:#c9bf
 #portraitCv{border-radius:50%;border:2px solid #2e2416;background:#12100c;margin:8px auto;display:block;cursor:pointer;width:132px;height:132px;image-rendering:pixelated}
 .swatch{width:22px;height:22px;border-radius:3px;border:1px solid #0008;cursor:pointer}
 .mini{font-size:10px;color:#6a5a3e;padding:2px 12px;text-align:center}
+/* ===== SUN MODE, CHARACTER + ANIMATION (Paolo 8/7: "make it light... I'm
+   working outside and it's sunny as shit"). Same two colours the clothing
+   factory and the SFX judge already use; nothing new invented. ===== */
+#p-char.sun,#p-anim.sun{background:#d9d4c8;color:#1a1712}
+#p-char.sun .row b,#p-anim.sun .row b{color:#5a4a2a}
+/* .mini carries an INLINE colour on the hair rows (`color:#c8b98a`, set in JS),
+   and inline beats the stylesheet -- without !important every hairstyle NAME
+   stays pale tan on cream, which is his exact complaint moved from the pictures
+   onto the labels. Same trap as the canvas backgrounds below; found by LOOKING
+   at the rendered page, not by reading the rule. */
+#p-char.sun .mini,#p-anim.sun .mini{color:#4a3f2c!important}
+#p-char.sun .opt,#p-anim.sun .opt{background:#efe9dc;color:#1a1712;border-color:#b8ad95}
+#p-char.sun .sunBtn.on,#p-anim.sun .sunBtn.on{border-color:#8a6d1f;background:#f7efd2}
+/* THE CANVASES CARRY THEIR DARK BACKGROUND INLINE (built in JS), and an inline
+   style beats a stylesheet rule -- without !important the panel goes light and
+   every hairstyle keeps its own black square, which is the exact complaint. */
+#p-char.sun #charCv,#p-char.sun #portraitCv,
+#p-char.sun .hairTile,#p-char.sun .hairSpinShot,
+#p-anim.sun #animCv,#p-anim.sun .g8c{background:#efe9dc!important}
 .faceEd{padding:8px 12px;display:none}
 .faceEd.on{display:block}
 </style><script type="application/json" id="sfxApproved">{"step_dirt": [0, 1, 2, 3, 4], "step_asphalt": [0, 1, 2, 3, 4], "step_gravel": [0, 1, 2, 3, 4]}</script>
@@ -963,7 +982,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/9c - A BOND THAT CROSSES QUESTS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/9d - SUN MODE: THE CHARACTER SCREEN GOES LIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3012,6 +3031,46 @@ function renderFace(spec,opts){
  if(cig){let cyx=cx+(m.w>>1),cyy=my+1;for(let i=0;i<7;i++)P(cyx+i,cyy+(i/3|0),[236,232,222]);P(cyx+7,cyy+2,[214,150,70]);P(cyx+8,cyy+2,[214,150,70]);P(cyx,cyy-1,[120,120,120]);P(cyx+1,cyy-2,[150,150,150]);}
  return buf;
 }
+
+/* ===== SUN MODE (Paolo 8/7) =================================================
+   One state, two panels, remembered. The clothing factory's SUN is per-visit;
+   this one persists, because "I'm working outside" is a condition that lasts
+   longer than one tab switch and re-tapping it every time would be its own
+   small insult. */
+var SUN_KEY = 'BOH_SUN_CHAR';
+var SUN_PANELS = ['p-char', 'p-anim'];
+function sunGet(){ try { return localStorage.getItem(SUN_KEY) === '1'; } catch(e){ return false; } }
+function sunApply(on){
+    for (var i = 0; i < SUN_PANELS.length; i++) {
+      var p = document.getElementById(SUN_PANELS[i]);
+      if (p) p.classList.toggle('sun', !!on);
+    }
+    var b = document.querySelectorAll('.sunBtn');
+    for (var j = 0; j < b.length; j++) {
+      b[j].classList.toggle('on', !!on);
+      b[j].textContent = on ? '\u2600 SUN ON' : '\u2600 SUN';
+    }
+  }
+function sunSet(on){ try { localStorage.setItem(SUN_KEY, on ? '1' : '0'); } catch(e){} sunApply(on); }
+function sunMount(){
+    for (var i = 0; i < SUN_PANELS.length; i++) {
+      var p = document.getElementById(SUN_PANELS[i]);
+      if (!p || p.querySelector('.sunBtn')) continue;
+      var row = document.createElement('div');
+      row.className = 'row';
+      row.style.cssText = 'justify-content:center;padding-top:6px;padding-bottom:0';
+      var btn = document.createElement('button');
+      btn.className = 'opt sunBtn';
+      btn.title = 'daylight-readable background';
+      btn.onclick = function(){ sunSet(!sunGet()); };
+      row.appendChild(btn);
+      p.insertBefore(row, p.firstChild);
+    }
+    sunApply(sunGet());
+  }
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sunMount);
+else sunMount();
+
 
 function paintPortrait(canvas){const buf=renderFace(buildSpec(),{ramp:portraitRamp(),blood:pface._blood,cig:pface._cig});const cc=document.createElement('canvas');cc.width=64;cc.height=64;const c2=cc.getContext('2d');const idd=c2.createImageData(64,64);idd.data.set(buf);c2.putImageData(idd,0,0);
   const x=canvas.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,canvas.width,canvas.height);x.save();x.beginPath();x.arc(canvas.width/2,canvas.height/2,canvas.width/2,0,7);x.clip();x.drawImage(cc,0,0,64,64,0,0,canvas.width,canvas.height);x.restore();}
