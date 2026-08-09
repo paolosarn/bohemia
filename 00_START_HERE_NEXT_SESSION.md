@@ -1301,6 +1301,53 @@ GATE: gates/game_day_gate.js, 12 claims, mutation-tested. A RATCHET, NOT A DEMAN
 closing the links is the RUN lane's charter and blocked on Paolo's rulings, so forcing it
 would be A GATE OUTRANKING A RULING. But WAKING AND WALKING ARE THE ENTIRE GAME RIGHT NOW
 and must never break quietly.
+SOUND (sound-xk7pjp): 8/9 LATEST - *** HIS NUMBERS: SNACK 10 MIN, FIVE STAR MEAL
+1 HOUR, SLEEP 6 TO 12 HOURS. SLEEPING IS RULED, THE [PENDING] IS CLOSED, AND THE
+SOUND ALREADY LINES UP WITH ALL FOUR WITHOUT A CODE CHANGE. ***
+Nothing new to judge. A ruling + the gate that holds it.
+
+HIS WORDS: "Eating a snack might take 10 minutes eating a five star meal might
+take an hour. I'm going to sleep could take six through 12 hours."
+
+    snack            10 minutes
+    five star meal   1 hour
+    sleep            6 to 12 hours
+
+THE EATING SPREAD IS SIX TO ONE, and the ratio is the design, not the endpoints.
+A snack is cheap enough to take standing up in the open; an hour is long enough
+that eating well is somewhere you GO. Food stops being a stat top-up and becomes
+a decision about where you are. Intermediate foods are HIS and interpolate.
+SLEEP IS A RANGE, NOT A CONSTANT -- so its length is settled by the player or the
+situation, not by a fixed animation. It is EATING'S RULE WITH A BIGGER RANGE,
+not a separate system. That closes the [PENDING] the addendum carried for exactly
+one turn.
+
+THE SOUND ALREADY FITS, and I changed no code to make it fit -- I checked:
+    snack     10 min  -> SILENT   (the strike floor is an hour; 10 min is not "hours")
+    meal      1 hour  -> ONE strike, exactly the floor
+    sleep 6h          -> SIX strikes
+    sleep 12h         -> TWELVE strikes
+The 12-strike cap was chosen yesterday because past twelve you cannot count them
+and a clock face stops there. His maximum sleep landing on exactly 12 is a
+COINCIDENCE, not a design I get to claim -- but it means the cap can never
+truncate a real night, which matters before somebody "fixes" it.
+
+A CLAIM IN A LAW FILE THAT NOTHING CHECKS IS HOW THIS REPO LOSES THINGS. So all
+four of his numbers are now GATE CASES driven through the real clock message,
+not round numbers I picked: time_pass_gate 21 -> 26 checks.
+
+THE ALPHA IS BYTE-IDENTICAL THIS TURN and the build stamp was deliberately NOT
+bumped. Another lane owns 8/9a (TILE BOARD: 15 FAMILIES TO JUDGE) and that is a
+real headline he may be looking for; overwriting it to announce a build with
+nothing visible in it would hide their work and tell him to go look at nothing.
+
+LAW: laws/BOHEMIA_ADDENDUM_EATING_TAKES_TIME_8_7_26.md (amended same day, canon
+index regenerated). STILL RUN / LIFE WORK, NOT SOUND: the eat action, the
+per-food table, the sleep action, and the "immediate danger the player knows
+about" state. Recorded so that lane builds to the ruling instead of re-asking him.
+
+GATES: time_pass 26/26. Nothing else was touched.
+
 SOUND (sound-xk7pjp): 8/7 (c) LATEST - *** HE JUDGED ALL 130. FIRST 130/130 IN THE
 BATCH. EATING HAS A SOUND, HOURS GOING BY HAS FIVE, AND FOUR OTHER MOMENTS ARE DEAD.
 PLUS A LOCKED RULING: EATING TAKES REAL WORLD TIME. ***

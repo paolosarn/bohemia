@@ -114,6 +114,16 @@ const pw = pwmod();
   out.midnight  = await clock(22*60, 6*60);         // 22:00 -> 06:00 IS eight hours
   out.backwards = await clock(9*60, 9*60);          // no movement at all
 
+  // HIS OWN NUMBERS, 8/7: "Eating a snack might take 10 minutes eating a five
+  // star meal might take an hour. I'm going to sleep could take six through 12
+  // hours." Those are the acts this sound actually has to serve, so they are
+  // the cases the gate runs -- not round numbers I chose. The addendum makes
+  // claims about what each one sounds like; these turn the claims into facts.
+  out.snack     = await clock(12*60, 12*60 + 10);   // 10 minutes
+  out.meal      = await clock(12*60, 13*60);        // one hour
+  out.sleepMin  = await clock(22*60, 22*60 + 360);  // 6 hours, his floor
+  out.sleepMax  = await clock(20*60, 20*60 + 720);  // 12 hours, his ceiling
+
   out.stats = await p.evaluate(() => window.__timePassStats ? window.__timePassStats() : null);
   out.errors = errs.slice(0, 4);
   console.log(JSON.stringify(out));
@@ -190,6 +200,21 @@ def main():
        % d.get('sleep8'), d.get('sleep8') == 8)
     ok('MIDNIGHT IS NOT MINUS SIXTEEN HOURS: 22:00 -> 06:00 strikes 8 (%s)'
        % d.get('midnight'), d.get('midnight') == 8)
+
+    # ---- HIS 8/7 NUMBERS, checked as behaviour -------------------------
+    # laws/BOHEMIA_ADDENDUM_EATING_TAKES_TIME_8_7_26.md claims each of these
+    # sounds a particular way. A claim in a law file that nothing checks is how
+    # this repo has lost things before.
+    ok('A SNACK IS SILENT: 10 minutes is not "hours going by" (%s strikes)'
+       % d.get('snack'), d.get('snack') == 0)
+    ok('A FIVE STAR MEAL STRIKES ONCE: his hour is exactly the floor (%s)'
+       % d.get('meal'), d.get('meal') == 1)
+    ok('HIS SHORTEST SLEEP STRIKES SIX (%s)' % d.get('sleepMin'),
+       d.get('sleepMin') == 6)
+    ok('HIS LONGEST SLEEP STRIKES TWELVE, so the cap never truncates a real '
+       'night (%s)' % d.get('sleepMax'), d.get('sleepMax') == 12)
+    ok('and you can TELL THEM APART: 6 and 12 are different counts',
+       d.get('sleepMin') != d.get('sleepMax'))
 
     st = d.get('stats') or {}
     ok('the floor is an hour, so ordinary play can never reach it',

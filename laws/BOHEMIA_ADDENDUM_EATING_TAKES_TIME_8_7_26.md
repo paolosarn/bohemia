@@ -22,15 +22,59 @@ world time:
 
 2. **HOW MUCH TIME DEPENDS ON THE FOOD.** *"The amount of time depends on the
    food."* One number per food, not one number for eating. A scavenged snack is
-   not a cooked meal. (Real world, for whoever sets the table: a full sit-down
-   meal is 20 to 30 minutes, a snack is 2 to 5. The table itself is HIS —
-   MECHANISM-MINE / CONTENTS-PAOLO'S — this addendum records the rule, not the
-   numbers.)
+   not a cooked meal. **HE SET THE ANCHORS HIMSELF, 8/7 (see below).**
 
 3. **IT IS BLOCKED ONLY BY IMMEDIATE DANGER THE PLAYER KNOWS ABOUT.** This is
    the qualifier and it is the whole design. Not "danger exists". Not "something
    hostile is somewhere on the map". The gate is danger that is BOTH
    **immediate** AND **already known to the player**.
+
+## HIS NUMBERS (Paolo 8/7/26, same day, LOCKED)
+
+> "Eating a snack might take 10 minutes eating a five star meal might take an
+> hour. I'm going to sleep could take six through 12 hours."
+
+| act | world-clock cost |
+|---|---|
+| snack | **10 minutes** |
+| five star meal | **1 hour** |
+| sleep | **6 to 12 hours** |
+
+**THE EATING SPREAD IS SIX TO ONE**, and that ratio is the design, not the two
+endpoints. A snack is cheap enough to take standing up in the open; an hour is
+long enough that eating well is a thing you go somewhere safe to do. Food stops
+being a stat top-up and becomes a decision about where you are and what you can
+afford to stop doing. The intermediate foods are HIS — MECHANISM-MINE /
+CONTENTS-PAOLO'S — but they interpolate between these two anchors.
+
+**SLEEP IS A RANGE, NOT A CONSTANT.** Six to twelve hours. That is the one thing
+in this ruling that closes a [PENDING]: the first version of this addendum said
+sleeping had no ruling. It does now, and it is deliberately not a single number,
+which means the length is a thing the player or the situation settles rather
+than a fixed animation. Sleep is therefore the same rule as eating with a bigger
+range, not a separate system.
+
+**GROUNDED, because everything in Bohemia is grounded in the real.** A real
+snack is 5 to 10 minutes and a real sit-down meal runs 45 to 90; a real night is
+6 to 9 hours with 12 being the long end of catching up on debt. He picked the
+true numbers, and the game does not have to explain any of them.
+
+### WHAT THAT ALREADY MEANS FOR THE SOUND, TODAY
+
+TIME_PASS strikes once per hour (his other 8/7 ruling: *"For hours go by have it
+the amount of time that goes by"*). Laid against these numbers it lines up
+without a single change:
+
+- **snack, 10 minutes → SILENT.** The strike floor is one hour, and ten minutes
+  is not "hours going by". You hear the eat sound and nothing else.
+- **five star meal, 1 hour → ONE strike.** Exactly the floor.
+- **sleep, 6 to 12 hours → SIX TO TWELVE strikes,** and you can count them.
+
+The cap on strikes is 12. That was chosen before these numbers existed, for the
+reason that past twelve you cannot count them and a clock face stops there. His
+maximum sleep landing on exactly 12 is a coincidence, not a design I can claim —
+but it means the cap can never actually truncate a real night, which is worth
+knowing before anyone "fixes" it.
 
 ## WHY THE QUALIFIER IS THE ENTIRE POINT
 
@@ -59,8 +103,9 @@ are told.**
   "does the player currently know about this threat", that question has to be
   built before the block can be built. A block that guesses is the failure mode
   this addendum exists to prevent.
-- It says nothing about sleeping. Sleep is a separate, bigger block of time and
-  has no ruling yet. [PENDING, Paolo's call]
+- SLEEPING IS RULED: 6 to 12 hours (his 8/7 numbers above). It is the same rule
+  as eating with a bigger range, not a separate system. The [PENDING] that stood
+  here for one turn is CLOSED.
 
 ## WHAT IT ALREADY CHANGED, THE SAME DAY
 
