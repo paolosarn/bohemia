@@ -584,6 +584,18 @@ GATES = [
      "THE ONE LINK OPENS THE GAME. On 8/2 one dropped </div> nested the whole app inside the front splash, so tapping the splash hid the game: 0x0, no tabs, a black screen on the only URL Paolo ever taps. The splash must close before the app opens, and the door is walked through in a real browser", True),
     ('STANDING',       ['node', 'gates/standing_gate.js'],
      "Paolo thumbed all 12 faction gaps WANT: this is gap 3, the documented failure of the whole genre - every NPC instantly knowing what you did with no route the news could take. Reputation now has to TRAVEL: a deed is WITNESSED not announced, an opinion is DERIVED from memories that decay (so redemption is free - gap 4), hearsay is weaker than eyesight and runs out of hops so a rumour cannot cross the valley, and a faction's view is just its members' views - no ledger, no faction named in the module, and zero-sum falls out for free (gap 7). DEED_WEIGHT ships EMPTY and the gate proves the module is inert until he rules", False),
+    ('CONTINUITY',     ['node', 'gates/continuity_gate.js'],
+     "Paolo 8/7 answered A: 'a bond built in one quest opens a door in another. Continuity is the "
+     "dynasty.' Quest state is PER-QUEST by construction, so 44 authored @DO bond rulings could never "
+     "have mattered to a later story. The identity key is what made it possible with NO new authoring: "
+     "a quest's LABEL for someone is not a person -- 43 role names, 5 used by more than one quest, and "
+     "those five settle it (S06/S09 write the neighbour's REQ conditions VERBATIM twice, while S02 and "
+     "S12 have two different `runner`s). He has been declaring identity in the @ROLE conditions since "
+     "before anything could read it, so the key is the CONDITION SET, never the label -- 46 distinct "
+     "people across the 21 canon quests. Holds: a bond crosses and opens a gated option; a different "
+     "person sharing a label inherits NOTHING; it survives a reload; it does not double-count inside "
+     "its own quest; a runtime built without the ledger is bit-for-bit unchanged; the ledger SHIPS "
+     "EMPTY. Eight planted mistakes caught every run", False),
     ('AUTHORED UNREAD', ['python3', 'gates/authored_unread_gate.py'],
      "FOUR TIMES IN NINE DAYS this project shipped content Paolo authored that nothing ever read "
      "-- an approved bank that never draws a pixel (7/30), 17 finished things shipping where no "

@@ -50,15 +50,58 @@ function freshState(Q){
   return s;
 }
 
-function Runtime(Q, state){
-  if(!(this instanceof Runtime)) return new Runtime(Q, state);
+/* ---- WHO A ROLE ACTUALLY IS (Paolo 8/7, ruling A: "a bond built in one quest opens
+   a door in another. Continuity is the dynasty.") ---------------------------------
+   A bond has to attach to a PERSON, and a quest's LABEL for someone is not a person.
+   Measured across the corpus before designing anything: 43 distinct role names, 5 used
+   by more than one quest, and those five settle it without anybody deciding anything.
+
+     neighbor  S06 `is=the_neighbor household=behind_fence`
+               S09 `is=the_neighbor household=behind_fence`   IDENTICAL. Same person.
+     runner    S02 `faction_any knows_the_load=true`
+               S12 `faction=CARTEL moves_medicine=true`       DIFFERENT. Two people.
+
+   THE AUTHOR ALREADY DECLARES IDENTITY, in the REQ conditions, and has been doing it
+   since before anything could read it. Writing the neighbour's conditions verbatim
+   twice IS him saying it is the same neighbour. So the key is the CONDITION SET, never
+   the label: continuity needs no new authoring, and two different `runner`s can never
+   be silently merged into one person.
+
+   GROUNDED: in small-scale societies people interact with the same individuals over and
+   over, and cooperation runs on DYADIC reciprocity - tracking, one-on-one, who helped
+   you. A valley with no courts remembers people, not job titles. */
+function personKey(Q, roleName){
+  var r=(Q.roles||[]).filter(function(x){ return x.name===roleName; })[0];
+  if(!r) return null;
+  var toks=String(r.cond||'').trim().toLowerCase().split(/\s+/).filter(Boolean).sort();
+  return roleName.toLowerCase()+'|'+toks.join(' ');
+}
+
+function Runtime(Q, state, shared){
+  if(!(this instanceof Runtime)) return new Runtime(Q, state, shared);
   this.Q=Q;
   this.state=state||freshState(Q);
+  /* THE CROSS-QUEST LEDGER. Optional, and null is EXACTLY the old behaviour, so a
+     runtime built the old way is bit-for-bit unchanged. When present, bonds are written
+     here as well as into the quest's own state, and read back by any later quest that
+     names the same person. */
+  this.shared=shared||null;
   this.node=null;
   this._stageById={}; (Q.stages||[]).forEach(function(st){ this._stageById[st.n]=st; },this);
   this._talkById={};  (Q.talks ||[]).forEach(function(t){ this._talkById[t.id]=t; },this);
   this._nodeDos=hydrateNodeDos(Q);
 }
+
+/* what this quest knows about a person, counting what OTHER quests already built */
+Runtime.prototype.bondWith=function(roleName){
+  var here=(this.state.bonds||{})[roleName];
+  var k=personKey(this.Q, roleName);
+  var there=(this.shared && this.shared.bonds && k!=null) ? this.shared.bonds[k] : undefined;
+  if(here==null && there==null) return null;
+  /* the carried bond IS the bond - the local number is this quest's contribution to it,
+     already included. Never add them or a bond counts twice inside its own quest. */
+  return there!=null ? there : here;
+};
 
 /* ---- conditions. entry= and [gate:] use the same vocabulary. ----
    isGate: an unrecognized/unparseable GATE is safe-FALSE (never offer a broken option);
@@ -75,6 +118,7 @@ Runtime.prototype._cond=function(expr, isGate){
     var key=m[1].toLowerCase(), op=m[2], val=m[3], cur;
     if(key==='stage')       cur=(s.stage==null?-Infinity:s.stage);
     else if(key==='gen')    cur=s.gen;
+    else if(this.bondWith(key)!=null) cur=this.bondWith(key);   /* carried across quests */
     else if(key in s.bonds) cur=s.bonds[key];
     else if(key in s.faction) cur=s.faction[key];
     else cur=0;
@@ -112,7 +156,13 @@ Runtime.prototype._exec=function(text){
     case 'show_objective':     this._obj(p[1],'active'); break;
     case 'complete_objective': this._obj(p[1],'done');   break;
     case 'cast': p.slice(1).forEach(function(r){ s.roles[r]=true; }); break;
-    case 'bond':    if(p[1]) s.bonds[p[1]]=(s.bonds[p[1]]||0)+num(p[2]); break;
+    case 'bond':    if(p[1]){ s.bonds[p[1]]=(s.bonds[p[1]]||0)+num(p[2]);
+                      /* and into the valley's memory of that person, so the next quest
+                         that names them starts from what you already did */
+                      var bk=personKey(this.Q,p[1]);
+                      if(this.shared&&bk!=null){ if(!this.shared.bonds) this.shared.bonds={};
+                        this.shared.bonds[bk]=(this.shared.bonds[bk]||0)+num(p[2]); } }
+                    break;
     case 'faction': if(p[1]) s.faction[p[1]]=(s.faction[p[1]]||0)+num(p[2]); break;
     case 'faction_posture': if(p[1]) s.posture[p[1]]=(s.posture[p[1]]||0)+num(p[2]); break;
     /* PACING LAW (Paolo 7/24): the territory AI's advanceRound is never a tick —
@@ -213,9 +263,9 @@ Runtime.prototype.objectives=function(){
 };
 
 Runtime.prototype.serialize=function(){ return JSON.stringify(this.state); };
-Runtime.load=function(Q, json){ return new Runtime(Q, typeof json==='string'?JSON.parse(json):json); };
+Runtime.load=function(Q, json, shared){ return new Runtime(Q, typeof json==='string'?JSON.parse(json):json, shared); };
 
-var API={ Runtime:Runtime, freshState:freshState, hydrateNodeDos:hydrateNodeDos, VERSION:'bqrt-1.0.0' };
+var API={ Runtime:Runtime, freshState:freshState, personKey:personKey, hydrateNodeDos:hydrateNodeDos, VERSION:'bqrt-1.0.0' };
 if(typeof module!=='undefined' && module.exports) module.exports=API;
 root.BQRuntime=API;
 })(typeof globalThis!=='undefined'?globalThis:this);

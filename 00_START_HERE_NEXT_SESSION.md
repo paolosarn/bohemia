@@ -1,3 +1,56 @@
+FACTIONS (factions-ovkjpf): 8/7 (p) LATEST — *** PAOLO RULED A: "A BOND BUILT IN ONE
+QUEST OPENS A DOOR IN ANOTHER. CONTINUITY IS THE DYNASTY." BUILT THE SAME TURN. ***
+Law: laws/BOHEMIA_ADDENDUM_CONTINUITY_IS_THE_DYNASTY_8_7_26.md. Nothing to judge.
+
+WHAT WAS IN THE WAY: quest state is PER-QUEST by construction -- freshState(Q) hands
+every runtime its own object -- so `@DO bond grower +18` was invisible to every other
+quest. 44 authored bond rulings with no mechanism by which one could EVER have
+mattered to a later story.
+
+THE IDENTITY PROBLEM, AND HIS OWN FILES SOLVE IT. A bond attaches to a PERSON, and a
+quest's LABEL for someone is not a person. Measured BEFORE designing anything: 43
+distinct role names, 5 used by more than one quest, and those five settle it:
+    neighbor  S06 `is=the_neighbor household=behind_fence`
+              S09 `is=the_neighbor household=behind_fence`   IDENTICAL -> one person
+    runner    S02 `faction_any knows_the_load=true`
+              S12 `faction=CARTEL moves_medicine=true`       DIFFERENT -> two people
+HE HAS BEEN DECLARING IDENTITY IN THE @ROLE CONDITIONS SINCE BEFORE ANYTHING COULD
+READ IT. Writing the neighbour's conditions verbatim twice IS him saying it is the
+same neighbour. So the key is the CONDITION SET, never the label -- continuity needed
+NO new authoring, and two different `runner`s can never be silently merged.
+46 distinct people are identified across the 21 canon quests this way.
+
+MECHANISM: one ledger per quest manager, handed to every runtime it makes. @DO bond
+writes the quest's own state AND the ledger, keyed by person. A numeric gate
+([gate: neighbor>=10]) reads the CARRIED bond. It is in the save. It SHIPS EMPTY. A
+runtime built without a ledger is bit-for-bit what it was, so nothing existing moved.
+
+GATE: continuity_gate.js 7/7, 8 planted mistakes caught. Holds the crossing, the
+identity discrimination (different person sharing a label inherits NOTHING), reload
+survival, no double-counting, and the untouched old behaviour. Registered as
+CONTINUITY. Re-verified after the change: runtime 33, bq 29, loop quests 16, faction
+bridge 56, ledger 16, clout 18, canon quests 426, quest study 303, authored unread 11,
+current slice 6, RUN GATE 126.
+
+SLICES REBUILT: the loop changed, and CURRENT_SLICE + RUN_CURRENT inline it. That is
+the same trap that went red on me earlier today -- rebuild them or those two gates
+fail with "the committed slice is stale".
+
+NAMED SO IT IS NOT ASSUMED:
+  - `learn` and `set_flag` do NOT carry yet. Same shape, same fix available, unbuilt.
+  - 391 of 395 dialogue options are still [gate: none]. The machinery is real now;
+    whether the WRITING reaches for it is authoring, and authoring is his.
+  - Nothing binds a quest role to one of the 268 derived world people. Identity here
+    is the author's condition set -- stable and correct, but not the same thing as
+    pointing at a body standing in a district.
+
+CONTAINER WARNING FOR THE NEXT SESSION: this container reverted to an 8/2 snapshot
+TWICE mid-turn, silently, losing the local checkout both times. Everything already
+pushed was fine; only uncommitted work was at risk. COMMIT AND PUSH EARLY. Also, the
+revert wipes Pillow/numpy even though the SessionStart hook installs them, and
+tools/build_run_slice.js hard-fails without PIL -- rerun
+`python3 -m pip install -r gates/requirements.txt` if a build dies on ModuleNotFound.
+
 ART (f3eu53): 8/9 (t) LATEST -- *** VERDICTS IN: ALL FOUR ART CARDS UP, AND THE
 DIRT SHIPS AT HIS 0.30. ***
 Records: records/BOHEMIA_ART_VERDICT_8_5_BUILD_8_9_26.txt +

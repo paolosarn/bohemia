@@ -440,6 +440,14 @@
   function makeQuestManager(opts) {
     opts = opts || {};
     const active = {};   // questId -> { text, rt }
+    /* THE CROSS-QUEST LEDGER (Paolo 8/7, ruling A: "a bond built in one quest opens a
+       door in another. Continuity is the dynasty."). ONE object, handed to every
+       runtime this manager makes, so a bond earned in S06 is already there when S09
+       asks. Keyed by WHO the person is (the role's own REQ conditions), never by the
+       quest's label for them -- the corpus has two different `runner`s and one
+       `neighbor` written identically twice, and the author's conditions are what tell
+       them apart. SHIPS EMPTY: it holds only what his quests actually award. */
+    const shared = { bonds: {} };
     const placed = {};   // questId -> { x, y, layer, speaker }  (world binding: see placeQuest)
     const sink = typeof opts.record === 'function' ? opts.record : null;
     const factions = opts.factions || null;                 // ctx.factions — real FactionWorld, or null (bare/legacy boot)
@@ -653,7 +661,7 @@
       // starts fresh each call. This keeps a done errand from re-offering forever.
       const prior = active[Q.id];
       if (prior && prior.rt.state.done && Q.once !== false) return prior.rt;
-      const rt = _wire(Q.id, new BQRT.Runtime(Q).start());
+      const rt = _wire(Q.id, new BQRT.Runtime(Q, null, shared).start());
       active[Q.id] = { text: text, rt: rt };
       return rt;
     }
@@ -738,7 +746,8 @@
     }
 
     function serialize() {
-      const out = {};
+      const out = { _shared: shared };   // THE CROSS-QUEST LEDGER (8/7 ruling A)
+
       for (const id in active) {
         out[id] = { text: active[id].text, state: active[id].rt.state };
         if (placed[id]) out[id].at = placed[id];   // keep the NPC binding across reload
@@ -747,9 +756,16 @@
     }
     function restore(blob) {
       if (!blob || !BQ || !BQRT) return;
+      /* CONTINUITY HAS TO SURVIVE A RELOAD or it is not continuity. Restored IN PLACE
+         so every already-wired runtime keeps pointing at the same object. */
+      if (blob._shared && blob._shared.bonds) {
+        shared.bonds = shared.bonds || {};
+        for (const k in blob._shared.bonds) shared.bonds[k] = blob._shared.bonds[k];
+      }
       for (const id in blob) {
+        if (id === '_shared') continue;
         const Q = BQ.parse(blob[id].text);
-        active[id] = { text: blob[id].text, rt: _wire(id, BQRT.Runtime.load(Q, blob[id].state)) };
+        active[id] = { text: blob[id].text, rt: _wire(id, BQRT.Runtime.load(Q, blob[id].state, shared)) };
         if (blob[id].at) placed[id] = blob[id].at;
       }
     }
