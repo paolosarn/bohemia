@@ -1,0 +1,70 @@
+{
+  "version": "BOHEMIA_ART_REQUEST_QUEUE_v1",
+  "law": "A LANE THAT NEEDS ART FILES A REQUEST. IT DOES NOT COOK IT AND IT DOES NOT BLOCK.",
+  "how_it_works": [
+    "ANY lane files a request here the moment it hits missing art. It keeps building around it.",
+    "The ART lane picks requests up, cooks candidates, and Paolo thumbs them.",
+    "A request is CLOSED only when the art is MEASURED in the surface he plays -- not when it is cooked, not when it is approved. gates/art_request_gate.js checks the marker.",
+    "That closes the loop that failed seven times in one month: approved art sitting in banks/ while the game drew something else."
+  ],
+  "status_values": ["OPEN", "COOKING", "JUDGING", "SHIPPED", "KILLED"],
+  "requests": [
+    {
+      "id": "AR-001",
+      "status": "OPEN",
+      "filed": "8/6/26",
+      "by": "RUN",
+      "what": "WOOD FLOOR TILES, interior",
+      "why_paolo": "\"Tile wood and carpet bro ofc bro wtf\" (8/6). A house is floored like a house.",
+      "measured_gap": "Fifteen floor packs across HD_TILE_REPO parts 1-4 and INTERIOR_POOL_7_26_26: tile, concrete, cobblestone, metal, rusted metal, stone path, dirt, soil, burnt ground. ZERO wood.",
+      "spec": {
+        "size_px": 44,
+        "why_44": "the corpus cell. 48->44 is a 0.917 resample the MOBILE RENDER CONTRACT bans; ship 44 native or croppable to 44.",
+        "seamless": true,
+        "count_wanted": "8-16 variants so a room reads as a surface, not a repeat",
+        "rooms": "living, hall, bedrooms",
+        "act": "ACT 1 IS A DEAD WORLD -- worn, dusty, sun-bleached boards. Not glossy, not new.",
+        "bought_first": "BOUGHT BEATS PAINTED. Check the purchased library FIRST; only cook if nothing bought fits."
+      },
+      "blocks": "living rooms and bedrooms currently sit on TILE as a named interim",
+      "marker_when_shipped": "__HOUSE_FLOOR_WOOD__"
+    },
+    {
+      "id": "AR-002",
+      "status": "OPEN",
+      "filed": "8/6/26",
+      "by": "RUN",
+      "what": "CARPET FLOOR TILES, interior",
+      "why_paolo": "\"Tile wood and carpet bro ofc bro wtf\" (8/6).",
+      "measured_gap": "Same sweep as AR-001. ZERO carpet in anything he owns.",
+      "spec": {
+        "size_px": 44,
+        "seamless": true,
+        "count_wanted": "8-16 variants",
+        "rooms": "bedrooms first",
+        "act": "ACT 1: stained, flattened, filthy. Ten years cold.",
+        "bought_first": "check the purchased library FIRST"
+      },
+      "blocks": "bedrooms sit on TILE as a named interim",
+      "marker_when_shipped": "__HOUSE_FLOOR_CARPET__"
+    },
+    {
+      "id": "AR-003",
+      "status": "OPEN",
+      "filed": "8/6/26",
+      "by": "RUN",
+      "what": "SIDE DOOR (east/west facing wall) -- RECOOK, the old one is KILLED",
+      "why_paolo": "\"Your side doors were dogshit\" (8/6). KILL on the look, NOT the feature -- he asked for east/west doors four separate times.",
+      "measured_gap": "The shipped treatment was a 7px edge-on sliver from BOHEMIA_DOOR_EW_BANK_7_10_26. That bank flagged itself: \"7px was approved for the demo doors ONLY -- these are CANDIDATES; widths adjustable per doorway when judged.\" It was never judged. 7px of dark stone on a tan wall reads as a smudge.",
+      "spec": {
+        "problem_to_solve": "a fixed 3/4 camera cannot show a full door on an east or west wall -- that face points away from the viewer. The old answer was a thin sliver on the mass edge and it did not read as a door.",
+        "size_px": 44,
+        "must_read_as": "A DOOR, at a glance, from across the street, on the LEFT or RIGHT wall of a house",
+        "geometry_is_done": "placement, reachability and entry all work and are gated -- ewdoor_gate 7/0. ONLY the art changes.",
+        "45_law": "seen from the world's three-quarter 45 view like the corpus, never flat side-on"
+      },
+      "blocks": "nothing -- side doors still function, they just look wrong",
+      "marker_when_shipped": "__EW_DOOR_ART_V2__"
+    }
+  ]
+}

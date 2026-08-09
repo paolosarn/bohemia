@@ -33,6 +33,8 @@ GATES = [
      'a fresh container installs its own gate image stack and never blocks the session doing it', False),
     ('SHIPPED TRUTH', ['node', 'gates/shipped_truth_gate.js'],
      'THE CODE MOVED AND NOTHING NOTICED, four times in one week -- the renderer left the alpha and 15 gates went silently blind, a rebase against a rewound checkout ate a feature, the working tree rolled back three times, and a session planned to re-land work that already shipped. This asks the one question none of them asked: is the work we SAY we shipped still in the file he actually taps', False),
+    ('ART REQUEST',   ['node', 'gates/art_request_gate.js'],
+     'Paolo 8/6: "you need to make tile request forms... we already have a chat that handles the art". A lane that needs art FILES A REQUEST and keeps working; the ART lane cooks. A request closes ONLY when its marker is measurably in the surface he plays -- because the cook-to-shipped handoff has failed seven times in one month, every time with the art approved and sitting in banks/', False),
     ('GDD LINEAGE',    ['node', 'gates/gdd_gate.js'],
      'v2/v3/v4 are LIVE, v5 extends them', False),
     ('CARRY',          ['python3', 'gates/carry_gate.py', '.'],
