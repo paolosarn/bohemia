@@ -152,7 +152,13 @@ const pw = pwmod();
   // has today is the SLEEP action. So open the RUN tab, press the actual
   // contextual action button the player presses, and count what reaches the
   // engine. Nothing here posts a message or calls strikeHours.
-  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); });
+  /* A TAB THAT IS NOT THERE IS A FAILURE, NOT A SKIP (ONE WORLD TAB, 8/2).
+     `if (t) t.click()` walks on when the button is missing and then measures
+     whatever panel happened to be open -- the shape that hid three gate failures
+     behind a click that never happened when the CITY tab was removed. */
+  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]');
+    if (!t) throw new Error('no RUN tab to open: the surface this gate measures is not reachable');
+    t.click(); });
   await p.waitForTimeout(8000);
   const fr = p.frames().find(f => f.url().includes('RUN_CURRENT')) || p.frames()[1];
   if (fr) {

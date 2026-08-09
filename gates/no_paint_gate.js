@@ -273,8 +273,25 @@ if (GRIME_IMPL.length) {
      RUNS.length > 0 && (hot.length === 0 || verdict));
   const gg = fs.existsSync(path.join(ROOT, 'gates/grime_gate.py'))
     ? fs.readFileSync(path.join(ROOT, 'gates/grime_gate.py'), 'utf8') : '';
-  ok('E9.3 and their gate asserts the literal too, so two gates read one source of truth',
-     /GRIME_STRENGTH\s*=\s*0\.0/.test(gg));
+  /* A GATE MUST NEVER OUTRANK A RULING (Paolo 8/1, LOCKED). This line asserted the
+     literal `GRIME_STRENGTH = 0.0` in grime_gate.py, and on 8/9 PAOLO RULED THE
+     DIAL AT 0.30 ("RULED 8/9 - SHIPS AT 0.30", records/BOHEMIA_BANK_LAW_INDEX.md).
+     The dial shipped, their gate followed him, and this one stayed red demanding
+     the number his ruling replaced -- the gate telling the director he is wrong.
+     E9.2 above got this right: it has an escape hatch for exactly this. E9.3 did
+     not, so it is fixed to check the PROPERTY it was always for -- that both gates
+     pin the SAME number, whatever he has ruled it to be -- instead of one spelling
+     of a value that was only ever true until he decided otherwise. */
+  const mine = /GRIME_STRENGTH\s*=\s*([0-9.]+)/.exec(gg);
+  const ruledIn = /RULED\s*=\s*([0-9.]+)/.exec(gg);
+  const pinned = ruledIn ? parseFloat(ruledIn[1]) : (mine ? parseFloat(mine[1]) : null);
+  const shipped = RUNS.map(f => {
+    const m = /GRIME_STRENGTH\s*=\s*([0-9.]+)/.exec(fs.readFileSync(path.join(ROOT, f), 'utf8'));
+    return m ? parseFloat(m[1]) : null;
+  }).filter(v => v !== null);
+  ok('E9.3 their gate pins a number and the shipped surfaces carry that SAME number' +
+     ' (gate ' + pinned + ', shipped ' + (shipped.join('/') || 'none') + ')',
+     pinned !== null && shipped.length > 0 && shipped.every(v => Math.abs(v - pinned) < 1e-6));
 } else {
   ok('E9 no grime implementation yet, which clause 2A permits', true);
 }
