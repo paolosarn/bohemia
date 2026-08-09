@@ -1,3 +1,53 @@
+ART (f3eu53): 8/9 (s) LATEST -- *** THE TILE BOARD SITTING IS LIVE: 15 FAMILIES,
+525 CANDIDATE TILES, ONE JUDGE PAGE IN THE ART TAB. NOTHING IS IN THE GAME. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md
+
+Paolo 8/8: "ultracode go: swarm the tile request board... don't stop until the
+board or the clock runs out." The clock ran out: the board's 67 forms were
+triaged and deduplicated into 49 merged jobs; 15 cooked (14 by the swarm, the
+landfill finished inline after two crash fixes). Every bank is
+banks/tileforms/*_CANDIDATES_8_8_26.json with law "UNJUDGED", proofs in
+records/tileforms_proofs/. Not one tile draws in the game.
+
+=== THE SWARM'S VERIFY STAGE NEVER RAN, AND DO NOT MISREPORT IT ===
+The session usage limit killed every verify agent. The run result's "killed 13"
+were verify agents dying with NULL verdicts, NOT skeptic refutations. Zero
+swarm verdicts exist. Verification was redone inline: measured sweep of all 15
+banks (purple 0.0% everywhere, saturated green max 0.4%, sat 0.14-0.30),
+render-and-look on the big proofs, and the real surface (judge page inside the
+alpha's ART tab, 52/52 shots painting, export works, art_tab_gate 28/28).
+
+=== WHERE IT IS (NAME THE TAB) ===
+The ART tab, the gold TILE BOARD banner at the top -> the sitting: 15 cards,
+money shot first, tap to step, thumbs, export .txt. Page:
+slices/BOHEMIA_TILEFORMS_JUDGE_8_9_26.html, built by
+tools/build_tileforms_judge.js. The 52 curated shots are COPIED into
+records/target/tileforms/ (10.2 MB) because Pages publishes ONLY
+slices/ + engine/ + records/target -- referencing records/tileforms_proofs/
+directly would 404 in production while working on disk.
+
+=== 34 OF 49 JOBS NEVER COOKED (the clock, not a choice) ===
+Every CITY, WORLD, RUN, CHAR, LAB form and most of CMB is still OPEN on the
+board. The workflow can resume with cached results:
+  Workflow({scriptPath: "/root/.claude/projects/-home-user-bohemia/ad310906-a596-54ea-ba26-48ee058a1e63/workflows/scripts/bohemia-tileform-swarm-wf_3a9f9748-72a.js",
+            resumeFromRunId: "wf_3a9f9748-72a"})
+BUT ultracode is OFF and Paolo interrupted resume three times on 8/9. DO NOT
+relaunch without him saying so, in his words.
+
+=== DO-NOT-COOK HONOURED ===
+TF-ART-017's parapet corner was never cooked. TF-ART-012 filed the parapet
+WANG-16 ring FIRST and owns it in its own spec; the 012 bank includes its
+corners legally. The 012-vs-017 ownership call stays [PENDING, coordinator].
+
+=== PENDING PAOLO (unchanged from 8/7, plus the sitting) ===
+1. The TILE BOARD sitting itself (15 thumbs, ART tab).
+2. ART tab cards 1-4: THE LIGHT, THE SHADOWS, THINGS IN THE WORLD, grime amount.
+3. The camp bucket's medieval items in the exterior pool: keep or kill.
+4. Ground: option A failed at attempt six; a seventh needs layer two (scatter
+   pool) built FIRST, tiles gated on post-look() screen values, downtown checked
+   before any farm. Not being attempted without his word.
+
+
 CITY (1eztay): 8/8 (a) LATEST — THE DEAD ARE IN THE STREETS. PAOLO'S 7/31 CORPSE
 RULING IS BUILT ACROSS ALL 61 DISTRICTS, AND THE ART WAS ALREADY HIS.
 
@@ -63,7 +113,7 @@ NAMED, NOT HIDDEN
 STILL PENDING HIM FROM THIS LANE: nothing new. CANVAS SCALE + INTERIORS are still red
 and still need their verdict owner (diagnosed 8/7, not mine to guess).
 
-ART (f3eu53): 8/7 (s) LATEST -- *** ATTEMPT SIX AT THE GROUND FAILED AND WAS BINNED
+ART (f3eu53): 8/7 (s) -- *** ATTEMPT SIX AT THE GROUND FAILED AND WAS BINNED
 BY MACHINERY, NOT BY PAOLO'S EYE. THAT IS THE WIN. ***
 Record: records/BOHEMIA_ATTEMPT_SIX_FAILED_AND_WHAT_IT_FOUND_8_7_26.md
 
@@ -426,7 +476,7 @@ FOR EVERY LANE: if your gate scans the valley, bound it with world.n. Yours may 
 the twenty-six.
 
 -----------------------------------------------------------------------------------
-ART (f3eu53): 8/7 LATEST -- *** THE GROUND LIBRARY IS AN OVERLAY SYSTEM AND NOBODY
+ART (f3eu53): 8/7 -- *** THE GROUND LIBRARY IS AN OVERLAY SYSTEM AND NOBODY
 BUILT THE LAYER. THE TILE WAS NEVER THE PROBLEM. ***
 Record: records/BOHEMIA_THE_GROUND_LIBRARY_IS_AN_OVERLAY_SYSTEM_8_7_26.md
 

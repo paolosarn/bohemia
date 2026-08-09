@@ -181,6 +181,12 @@ const html = `<!doctype html>
            background:transparent; color:var(--ink); border:1px solid var(--line);
            border-radius:4px; }
   .lede{ font-size:12px; color:var(--faint); margin:0 0 14px; line-height:1.55; }
+  .board{ display:block; background:var(--card); border:1px solid var(--gold);
+          border-radius:8px; padding:14px 12px; margin:0 0 16px; color:var(--gold);
+          font-size:13px; letter-spacing:1px; line-height:1.5; text-decoration:none; }
+  .boardtag{ display:inline-block; background:var(--gold); color:#14120c;
+             border-radius:3px; padding:2px 7px; font-size:10px; letter-spacing:1.5px;
+             margin-right:8px; }
   .card{ background:var(--card); border:1px solid var(--line); border-radius:8px;
          padding:12px; margin-bottom:16px; }
   h2{ font-size:13px; letter-spacing:1.5px; margin:0 0 6px; display:flex; gap:8px; align-items:center; }
@@ -225,6 +231,11 @@ const html = `<!doctype html>
 </header>
 <p class="lede">Everything this lane made, in one place. Four things to judge.
 Tap a picture to flip it. Thumbs, then EXPORT at the bottom and send me the file.</p>
+
+<a class="board" href="BOHEMIA_TILEFORMS_JUDGE_8_9_26.html">
+  <span class="boardtag">NEW &middot; 8/9</span>
+  TILE BOARD &mdash; 15 tile families, 525 candidate tiles, one sitting. TAP TO JUDGE &rarr;
+</a>
 
 ${cardHtml}
 

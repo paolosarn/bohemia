@@ -108,6 +108,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: CANDIDATES COOKED 8/9/26 (was OPEN; bank: banks/tileforms/TF-ART-005_CANDIDATES_8_8_26.json, proofs: records/tileforms_proofs/TF-ART-005/, judge: the ART tab, TILE BOARD card). UNJUDGED until Paolo thumbs it. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/28/26 | PRIORITY: MED
 - BOARD ROW #: 14 | VERDICT: —

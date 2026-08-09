@@ -438,6 +438,10 @@ def measure(tile, alpha=None):
     edge = float(d[pair].mean()) if pair.any() else 0.0
     grain = float((d[pair] > 8).mean() * 100) if pair.any() else 0.0
     flat = a[vis].reshape(-1, 3) / 255.0
+    if flat.shape[0] == 0:
+        # a tile whose visible mask is empty measures as nothing, not a crash
+        return dict(colours=0, edge=0.0, grain=0.0, sat=0.0, lum_mean=0.0,
+                    lum_sd=0.0, purple_pct=0.0, green_pct=0.0)
     hsv = np.array([colorsys.rgb_to_hsv(*p) for p in flat])
     sat = float(hsv[:, 1].mean())
     hue = hsv[:, 0] * 360
@@ -1153,7 +1157,7 @@ def main():
               for t in tiles if t['name'].startswith(fam)]
         seam[fam] = dict(junction=j, internal=internal,
                          ratio=round(j / max(internal, 1e-9), 3),
-                         wrap_max=round(max(max(w) for w in ws), 3))
+                         wrap_max=round(max((max(w) for w in ws), default=0.0), 3))
     j, internal = run_seam([washA, washB, washA, washB, washA, washB])
     seam['wash_AB'] = dict(junction=j, internal=internal,
                            ratio=round(j / max(internal, 1e-9), 3),

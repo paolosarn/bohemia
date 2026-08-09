@@ -1,0 +1,481 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — TILE BOARD</title>
+<style>
+  :root{ --bg:#0d0d12; --ink:#e8e0cc; --faint:#8a8070; --line:#2a2620;
+         --gold:#d8b24a; --card:#15151c; }
+  body.sun{ --bg:#e9e4d6; --ink:#1a1710; --faint:#5c5446; --line:#b8ae98; --card:#f4f0e4; }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+        font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;
+        padding:10px 10px 40px; }
+  header{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+  h1{ font-size:13px; letter-spacing:2px; margin:0; flex:1; color:var(--gold); }
+  .sunbtn{ font:11px ui-monospace,monospace; letter-spacing:1px; padding:7px 10px;
+           background:transparent; color:var(--ink); border:1px solid var(--line);
+           border-radius:4px; }
+  .back{ font:11px ui-monospace,monospace; letter-spacing:1px; padding:7px 10px;
+         color:var(--ink); border:1px solid var(--line); border-radius:4px;
+         text-decoration:none; flex:none; }
+  .lede{ font-size:12px; color:var(--faint); margin:0 0 14px; line-height:1.55; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:8px;
+         padding:12px; margin-bottom:16px; }
+  h2{ font-size:13px; letter-spacing:1.5px; margin:0 0 6px; display:flex; gap:8px; align-items:center; }
+  .n{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px;
+      border-radius:50%; background:var(--gold); color:#14120c; font-size:11px; flex:none; }
+  .ask{ font-size:13px; margin:0 0 10px; }
+  .shotwrap{ position:relative; line-height:0; border:1px solid var(--line);
+             border-radius:6px; overflow:hidden; background:#000; cursor:pointer; }
+  .shotwrap img{ width:100%; display:none; image-rendering:pixelated; }
+  .shotwrap img.on{ display:block; }
+  .flag{ position:absolute; left:8px; top:8px; font:11px ui-monospace,monospace;
+         letter-spacing:1px; background:rgba(12,10,8,.82); color:#e8e0cc;
+         border:1px solid #3a3020; border-radius:3px; padding:4px 8px; line-height:1; }
+  .taphint{ position:absolute; right:8px; bottom:8px; font:10px ui-monospace,monospace;
+            letter-spacing:2px; background:rgba(12,10,8,.82); color:#d8b24a;
+            border:1px solid #3a3020; border-radius:3px; padding:4px 8px; line-height:1; }
+  .why{ font-size:12px; color:var(--faint); margin:10px 0 4px; line-height:1.55; }
+  .num{ font-size:11px; color:var(--gold); margin:0 0 10px; letter-spacing:.5px; }
+  .verdict{ display:flex; gap:8px; }
+  .thumb{ flex:1; font:12px ui-monospace,monospace; letter-spacing:1px; padding:12px 4px;
+          background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:5px; }
+  .thumb.on.up{ background:#2f5d34; border-color:#4a8a52; color:#eaffea; }
+  .thumb.on.down{ background:#5d2f2f; border-color:#8a4a4a; color:#ffeaea; }
+  textarea{ width:100%; margin-top:8px; min-height:44px; background:transparent;
+            color:var(--ink); border:1px solid var(--line); border-radius:5px;
+            padding:8px; font:12px ui-monospace,monospace; resize:vertical; }
+  .bottom{ border-top:1px solid var(--line); padding-top:14px; }
+  .bottom h3{ font-size:12px; letter-spacing:1.5px; margin:0 0 8px; color:var(--gold); }
+  .bottom textarea{ min-height:110px; }
+  .exp{ width:100%; margin-top:10px; font:12px ui-monospace,monospace; letter-spacing:2px;
+        padding:15px; background:var(--gold); color:#14120c; border:0; border-radius:6px; }
+  .done{ font-size:11px; color:var(--faint); text-align:center; margin-top:8px; min-height:14px; }
+</style>
+
+<header>
+  <a class="back" href="BOHEMIA_ART_CURRENT.html">&larr; ART</a>
+  <h1>TILE BOARD &middot; 8/9 &middot; 15 FAMILIES, 525 TILES</h1>
+  <button class="sunbtn" id="sunbtn">SUN MODE</button>
+</header>
+<p class="lede">The tile request board, cooked. 15 tile families, 525 candidate
+tiles, every one measured against your palette laws before it got here, NONE of it in
+the game yet. A thumbs up unlocks a family for real use; a thumbs down kills it. Tap
+each picture to step through the shots. EXPORT at the bottom and send me the file.</p>
+
+
+  <section class="card" data-id="TF-ART-001">
+    <h2><span class="n">1</span>THE GREY BLOCK WALL</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-001">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-001__WALL_ASSEMBLY_cap_vent_field.png" alt="WALL ASSEMBLED" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-001__ANCHOR_COMPOSITE_beside_block_grey_and_starter.png" alt="BESIDE YOUR APPROVED WALL" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-001__CONTACT_SHEET_all_variants.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-001">WALL ASSEMBLED · 1/3</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">the concrete block wall that rings half of Vegas: the field you already approved, plus the cap beam and the vent block it never had.</p>
+    <p class="num">6 candidate tiles · TF-ART-001 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-001" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-001" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-001" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-002">
+    <h2><span class="n">2</span>CORRUGATED METAL + ROLL-UP DOORS</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-002">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-002__WAREHOUSE_FACE_10TILE_4COURSE.png" alt="WAREHOUSE FACE ASSEMBLED" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-002__STORAGE_ROW_vs_STUCCO_PASS_vs_HOUSE.png" alt="BESIDE STORAGE + HOUSE" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-002__DOORS_pried_and_surround_in_wall.png" alt="THE DOORS" loading="lazy">
+      <img class="cycimg" data-j="3"
+           src="../records/target/tileforms/TF-ART-002__CONTACT_SHEET_all_variants.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-002">WAREHOUSE FACE ASSEMBLED · 1/4</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">warehouse skin: ribbed metal in four paints, rust runs, the under-eave shadow course, and roll-up doors including one pried half open.</p>
+    <p class="num">26 candidate tiles · TF-ART-002 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-002" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-002" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-002" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-003">
+    <h2><span class="n">3</span>PARKING LOT LINES</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-003">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-003__ASSEMBLED_STALL_ROW_with_bank_arrow.png" alt="STALL ROW ASSEMBLED" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-003__ANCHOR_COMPOSITE_beside_road_crossing.png" alt="BESIDE YOUR ROAD" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-003__RAIN_STATE_same_row_palette_only.png" alt="SAME ROW, RAIN" loading="lazy">
+      <img class="cycimg" data-j="3"
+           src="../records/target/tileforms/TF-ART-003__CONTACT_SHEET_all_variants.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-003">STALL ROW ASSEMBLED · 1/4</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">stall stripes, double lines, the ADA hatch and the painted arrow, all washed down to 30 years of sun per your street-bank rulings.</p>
+    <p class="num">49 candidate tiles · TF-ART-003 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-003" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-003" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-003" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-004">
+    <h2><span class="n">4</span>CHAIN-LINK FENCE</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-004">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-004__proof_anchor_composite.png" alt="IN PLACE" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-004__proof_transparency_bright_dark_day_night.png" alt="SEE-THROUGH TEST" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-004__proof_3x3_run_rail.png" alt="RUN WITH TOP RAIL" loading="lazy">
+      <img class="cycimg" data-j="3"
+           src="../records/target/tileforms/TF-ART-004__proof_contact_sheet_all.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-004">IN PLACE · 1/4</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">see-through chain-link with posts, gates, slat and razor-wire variants. It stays transparent so the world shows through the mesh.</p>
+    <p class="num">31 candidate tiles · TF-ART-004 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-004" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-004" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-004" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-005">
+    <h2><span class="n">5</span>DEAD SPORTS FIELDS + TRACK</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-005">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-005__STADIUM_IN_PLACE_1x.png" alt="STADIUM IN PLACE" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-005__FIELD_CORNER_LINE_STOPS_beside_yard_desert.png" alt="FIELD CORNER VS DESERT" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-005__CONTACT_SHEET_all.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-005">STADIUM IN PLACE · 1/3</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">the school and stadium ground set: dead turf with faded lines, the oxide running track, the cracked court, infield, bunkers, banking.</p>
+    <p class="num">60 candidate tiles · TF-ART-005 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-005" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-005" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-005" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-006">
+    <h2><span class="n">6</span>EMPTY POOLS</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-006">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-006__POOL_ASSEMBLY_ANCHOR.png" alt="POOL ASSEMBLED" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-006__CLARIFIER_ANCHOR.png" alt="THE CLARIFIER" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-006__RING_CLOSURE.png" alt="THE RING CLOSES" loading="lazy">
+      <img class="cycimg" data-j="3"
+           src="../records/target/tileforms/TF-ART-006__CONTACT_SHEET.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-006">POOL ASSEMBLED · 1/4</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">the drained backyard pool and the concrete basin: ring band, deep end shadow, silt floor, and the treatment-plant clarifier.</p>
+    <p class="num">38 candidate tiles · TF-ART-006 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-006" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-006" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-006" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-008">
+    <h2><span class="n">7</span>STOREFRONT GLASS</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-008">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-008__SHOPRUN_IN_PLACE_2x.png" alt="SHOP RUN IN PLACE" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-008__ANCHOR_COMPOSITE.png" alt="BESIDE APPROVED ART" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-008__CONTACT_SHEET_all.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-008">SHOP RUN IN PLACE · 1/3</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">the shop fronts: dead dark act-1 glass, boarded and shuttered bays, the sign band, awnings over the walk. Nothing glows; power is territory.</p>
+    <p class="num">34 candidate tiles · TF-ART-008 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-008" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-008" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-008" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-009">
+    <h2><span class="n">8</span>BRICK</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-009">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-009__RUN_6WIDE_3TALL.png" alt="WALL RUN ASSEMBLED" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-009__ANCHOR_COMPOSITE_3x.png" alt="BESIDE APPROVED ART" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-009__CONTACT_SHEET_all.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-009">WALL RUN ASSEMBLED · 1/3</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">running bond brick, the soldier course, the corner stack, and the painted-over wall, in the tan-wall world you locked.</p>
+    <p class="num">10 candidate tiles · TF-ART-009 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-009" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-009" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-009" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-010">
+    <h2><span class="n">9</span>TRAIN TRACKS</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-010">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-010__CONTINUITY_20CELL_with_freeway.png" alt="20 CELLS UNDER THE FREEWAY" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-010__CROSSING_ASSEMBLED.png" alt="THE ROAD CROSSING" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-010__TURNOUT_ASSEMBLED.png" alt="THE TURNOUT" loading="lazy">
+      <img class="cycimg" data-j="3"
+           src="../records/target/tileforms/TF-ART-010__CONTACT_SHEET_all.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-010">20 CELLS UNDER THE FREEWAY · 1/4</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">ballast, ties and rail that run seamless for twenty cells, plus the road crossing, the turnout and the buffer stop for the railyard.</p>
+    <p class="num">22 candidate tiles · TF-ART-010 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-010" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-010" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-010" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-011">
+    <h2><span class="n">10</span>THE FREEWAY</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-011">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-011__proof_deck_daylight.png" alt="THE DECK IN DAYLIGHT" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-011__proof_phase_barrier_20cells.png" alt="BARRIER RUNS 20 CELLS" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-011__proof_contact_sheet_all.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-011">THE DECK IN DAYLIGHT · 1/3</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">wide-lane asphalt with drifted sand, the concrete barrier, guardrail, shoulder and the elevated deck edge.</p>
+    <p class="num">16 candidate tiles · TF-ART-011 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-011" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-011" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-011" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-012">
+    <h2><span class="n">11</span>FLAT ROOFS</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-012">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-012__P08_warehouse_plate_galv.png" alt="WAREHOUSE ROOF ASSEMBLED" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-012__P09_civic_plate_bone.png" alt="CIVIC ROOF ASSEMBLED" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-012__P10_anchor_composite.png" alt="BESIDE APPROVED ART" loading="lazy">
+      <img class="cycimg" data-j="3"
+           src="../records/target/tileforms/TF-ART-012__P11_contact_sheet.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-012">WAREHOUSE ROOF ASSEMBLED · 1/4</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">what you see from above every store: gravel and cap-sheet roof fields, the parapet ring in three colourways, dead AC units, hatches, ducts.</p>
+    <p class="num">86 candidate tiles · TF-ART-012 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-012" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-012" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-012" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-013">
+    <h2><span class="n">12</span>MOBILE HOMES</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-013">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-013__SINGLEWIDE_ASSEMBLED_16CELL.png" alt="SINGLE-WIDE ASSEMBLED" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-013__TRAILER_ROW_vs_SUBURB_STREET.png" alt="TRAILER ROW VS SUBURB" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-013__BURNED_ROW_DEADLEVEL_RAILS.png" alt="THE BURNED ROW" loading="lazy">
+      <img class="cycimg" data-j="3"
+           src="../records/target/tileforms/TF-ART-013__CONTACT_SHEET_all_variants.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-013">SINGLE-WIDE ASSEMBLED · 1/4</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">the trailer park set: ribbed siding in the real park colours, skirt, awning, hitch, and the burned-out row.</p>
+    <p class="num">45 candidate tiles · TF-ART-013 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-013" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-013" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-013" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-014">
+    <h2><span class="n">13</span>DEAD CROP FIELDS</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-014">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-014__FARM_BLOCK_IN_PLACE_1x.png" alt="FARM BLOCK IN PLACE" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-014__EDGE_RING_vs_desert.png" alt="FIELD EDGE VS DESERT" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-014__CONTACT_SHEET_all.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-014">FARM BLOCK IN PLACE · 1/3</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">the farm ground: dead furrowed field, bare plot, the field edge ring against desert, berms, ditches and the dirt track.</p>
+    <p class="num">43 candidate tiles · TF-ART-014 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-014" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-014" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-014" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-ART-015">
+    <h2><span class="n">14</span>THE LANDFILL</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-ART-015">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-ART-015__SCENE_12x12.png" alt="THE WHOLE CELL ASSEMBLED" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-ART-015__ANCHOR_COMPOSITE.png" alt="BESIDE APPROVED ART" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-ART-015__CONTACT_SHEET.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-ART-015">THE WHOLE CELL ASSEMBLED · 1/3</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">refuse ground, the caliche cover cap, the pond edge, the haul road and litter drift on the fence line.</p>
+    <p class="num">55 candidate tiles · TF-ART-015 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-ART-015" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-ART-015" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-ART-015" placeholder="say anything about this one"></textarea>
+  </section>
+
+  <section class="card" data-id="TF-CMB-005">
+    <h2><span class="n">15</span>THE DECK STAIRS</h2>
+    <p class="ask">Tap the picture to step through. Does this belong in your world?</p>
+    <div class="shotwrap cyc" data-card="TF-CMB-005">
+      <img class="cycimg on" data-j="0"
+           src="../records/target/tileforms/TF-CMB-005__arena_mock_full_2x.png" alt="IN THE ARENA MOCK" loading="lazy">
+      <img class="cycimg" data-j="1"
+           src="../records/target/tileforms/TF-CMB-005__anchor_composite_3x.png" alt="BESIDE APPROVED ART" loading="lazy">
+      <img class="cycimg" data-j="2"
+           src="../records/target/tileforms/TF-CMB-005__contact_sheet_3x.png" alt="EVERY TILE" loading="lazy">
+      <div class="flag" id="flag_TF-CMB-005">IN THE ARENA MOCK · 1/3</div>
+      <div class="taphint">TAP FOR NEXT</div>
+    </div>
+    <p class="why">the stair run from the parking deck down to the lot, for the combat arena approaches.</p>
+    <p class="num">4 candidate tiles · TF-CMB-005 · UNJUDGED until you thumb it</p>
+    <div class="verdict">
+      <button class="thumb up"   data-card="TF-CMB-005" data-v="UP">&#128077; YES</button>
+      <button class="thumb down" data-card="TF-CMB-005" data-v="DOWN">&#128078; NO</button>
+    </div>
+    <textarea class="note" data-card="TF-CMB-005" placeholder="say anything about this one"></textarea>
+  </section>
+
+<div class="bottom">
+  <h3>ANYTHING ELSE</h3>
+  <textarea id="all" placeholder="whatever you want to say"></textarea>
+  <button class="exp" id="exp">EXPORT MY VERDICT</button>
+  <div class="done" id="done"></div>
+</div>
+
+<script>
+var FORMS = [{"id":"TF-ART-001","title":"THE GREY BLOCK WALL","labels":["WALL ASSEMBLED","BESIDE YOUR APPROVED WALL","EVERY TILE"]},{"id":"TF-ART-002","title":"CORRUGATED METAL + ROLL-UP DOORS","labels":["WAREHOUSE FACE ASSEMBLED","BESIDE STORAGE + HOUSE","THE DOORS","EVERY TILE"]},{"id":"TF-ART-003","title":"PARKING LOT LINES","labels":["STALL ROW ASSEMBLED","BESIDE YOUR ROAD","SAME ROW, RAIN","EVERY TILE"]},{"id":"TF-ART-004","title":"CHAIN-LINK FENCE","labels":["IN PLACE","SEE-THROUGH TEST","RUN WITH TOP RAIL","EVERY TILE"]},{"id":"TF-ART-005","title":"DEAD SPORTS FIELDS + TRACK","labels":["STADIUM IN PLACE","FIELD CORNER VS DESERT","EVERY TILE"]},{"id":"TF-ART-006","title":"EMPTY POOLS","labels":["POOL ASSEMBLED","THE CLARIFIER","THE RING CLOSES","EVERY TILE"]},{"id":"TF-ART-008","title":"STOREFRONT GLASS","labels":["SHOP RUN IN PLACE","BESIDE APPROVED ART","EVERY TILE"]},{"id":"TF-ART-009","title":"BRICK","labels":["WALL RUN ASSEMBLED","BESIDE APPROVED ART","EVERY TILE"]},{"id":"TF-ART-010","title":"TRAIN TRACKS","labels":["20 CELLS UNDER THE FREEWAY","THE ROAD CROSSING","THE TURNOUT","EVERY TILE"]},{"id":"TF-ART-011","title":"THE FREEWAY","labels":["THE DECK IN DAYLIGHT","BARRIER RUNS 20 CELLS","EVERY TILE"]},{"id":"TF-ART-012","title":"FLAT ROOFS","labels":["WAREHOUSE ROOF ASSEMBLED","CIVIC ROOF ASSEMBLED","BESIDE APPROVED ART","EVERY TILE"]},{"id":"TF-ART-013","title":"MOBILE HOMES","labels":["SINGLE-WIDE ASSEMBLED","TRAILER ROW VS SUBURB","THE BURNED ROW","EVERY TILE"]},{"id":"TF-ART-014","title":"DEAD CROP FIELDS","labels":["FARM BLOCK IN PLACE","FIELD EDGE VS DESERT","EVERY TILE"]},{"id":"TF-ART-015","title":"THE LANDFILL","labels":["THE WHOLE CELL ASSEMBLED","BESIDE APPROVED ART","EVERY TILE"]},{"id":"TF-CMB-005","title":"THE DECK STAIRS","labels":["IN THE ARENA MOCK","BESIDE APPROVED ART","EVERY TILE"]}];
+var V = {}, NOTE = {}, AT = {};
+
+/* tap steps through the shots; the flag names what you are on */
+document.querySelectorAll('.shotwrap.cyc').forEach(function(w){
+  var id = w.getAttribute('data-card');
+  AT[id] = 0;
+  w.addEventListener('click', function(){
+    var imgs = w.querySelectorAll('.cycimg');
+    AT[id] = (AT[id] + 1) % imgs.length;
+    imgs.forEach(function(im, j){ im.classList.toggle('on', j === AT[id]); });
+    var f = FORMS.filter(function(x){ return x.id === id; })[0];
+    document.getElementById('flag_' + id).textContent =
+      f.labels[AT[id]] + ' \u00b7 ' + (AT[id] + 1) + '/' + imgs.length;
+  });
+});
+
+document.querySelectorAll('.thumb').forEach(function(bt){
+  bt.addEventListener('click', function(){
+    var id = bt.getAttribute('data-card'), v = bt.getAttribute('data-v');
+    V[id] = (V[id] === v) ? null : v;
+    document.querySelectorAll('.thumb[data-card="' + id + '"]').forEach(function(o){
+      o.classList.toggle('on', V[id] === o.getAttribute('data-v'));
+    });
+  });
+});
+document.querySelectorAll('textarea.note').forEach(function(t){
+  t.addEventListener('input', function(){ NOTE[t.getAttribute('data-card')] = t.value; });
+});
+
+/* warm the hidden frames after paint so every tap lands instantly */
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    document.querySelectorAll('img').forEach(function(im){
+      if (im.naturalWidth) return;
+      var w = new Image(); w.src = im.getAttribute('src');
+    });
+  }, 400);
+});
+
+document.getElementById('sunbtn').addEventListener('click', function(){
+  document.body.classList.toggle('sun');
+});
+
+/* .txt, NEVER .json (verdict workflow, standing) */
+document.getElementById('exp').addEventListener('click', function(){
+  var L = ['BOHEMIA TILE BOARD VERDICT', 'sitting 8/9 - 15 FAMILIES', ''];
+  FORMS.forEach(function(f){
+    L.push(f.id + ' ' + f.title);
+    L.push('  verdict: ' + (V[f.id] || 'NO ANSWER'));
+    if (NOTE[f.id]) L.push('  note: ' + NOTE[f.id]);
+    L.push('');
+  });
+  var all = document.getElementById('all').value;
+  if (all) { L.push('ANYTHING ELSE'); L.push(all); L.push(''); }
+  var blob = new Blob([L.join('\n')], { type: 'text/plain' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'BOHEMIA_TILE_BOARD_VERDICT.txt';
+  document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById('done').textContent = 'exported. send me the file.';
+});
+</script>
