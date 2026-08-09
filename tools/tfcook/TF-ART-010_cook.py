@@ -293,7 +293,7 @@ def silt_blend(rg, field, mask_gain, silt_col):
 
 # ---------------------------------------------------------------- the corridor
 def draw_tie(rg, canvas, x0, wood_pop, plate_col, terra_mid, y0=TIE_Y0, y1=TIE_Y1,
-             weather=1.0, ghost_plates=False, skew=0):
+             weather=1.0, ghost_plates=False, skew=0, rails=(RAIL_N, RAIL_S)):
     """One tie: silver-grey checked top from the wood_fence population, ONE
     grain split, end checks, 2px creosote-black down-light side. Tie plates
     21x12 under each rail with the family's only saturated rust halo.
@@ -323,7 +323,7 @@ def draw_tie(rg, canvas, x0, wood_pop, plate_col, terra_mid, y0=TIE_Y0, y1=TIE_Y
         canvas[y0 + yy, (xs + TIE_W - 2) % w] = np.array([52., 46., 40.]) * weather
         canvas[y0 + yy, (xs + TIE_W - 1) % w] = np.array([38., 34., 30.]) * weather
     canvas[y1 - 1, x0 % w:(x0 + TIE_W - 2) % w if (x0 + TIE_W - 2) % w > x0 % w else w] *= 0.7
-    for rail_c in (RAIL_N, RAIL_S):                 # tie plates (or their ghosts)
+    for rail_c in rails:                            # tie plates (or their ghosts)
         py0, py1 = int(rail_c) - 10, int(rail_c) + 11
         px0, px1 = x0, x0 + TIE_W - 1
         if ghost_plates:
@@ -590,7 +590,8 @@ def cook_buffer(seed, pop, wood_pop, plate_col, terra_mid, crown_col,
     tie_x = 2
     rg2 = np.random.default_rng(SEED + seed + 7)
     draw_tie(rg2, canvas, tie_x, wood_pop, plate_col, terra_mid,
-             y0=4, y1=H - 4, weather=1.0)
+             y0=4, y1=H - 4, weather=1.0,
+             rails=(rail_ys[0] + 0.5, rail_ys[1] + 0.5))
     bx = 14                                                    # beam column
     for rail_y in rail_ys:                                     # rails run in, stop
         c0 = rail_y - 2
