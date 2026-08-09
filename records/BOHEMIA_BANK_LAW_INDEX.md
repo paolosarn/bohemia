@@ -36,7 +36,7 @@ bank cannot quietly add a rule nobody checks.
 | 14 | `banks/BOHEMIA_GRAPHICS_VERDICTS_MASTER_7_16_26.txt` | `law` | pool membership is a Paolo verdict; pools carry the seamless bank pixels verbatim |
 | 15 | `banks/BOHEMIA_GRAPHICS_VERDICTS_MASTER_7_16_26.txt` | `paolo_direction` | 85% of Vegas walls are desert yellow tan brick vibes — create tan versions, keep originals; pool weighted 85% tan / 15% original |
 | 16 | `banks/BOHEMIA_GRIME_8_3_26.txt` | `ruling` | Paolo 8/3, on Machine Party: "I really love machine parties aesthetic." Klubnika, on his own texturing: he "added dirty and grimy leaks to every corner, which blends everything together rather than having different objects." |
-| 17 | `banks/BOHEMIA_GRIME_8_3_26.txt` | `status` | MACHINE ONLY - NOTHING FOR HIM TO JUDGE YET |
+| 17 | `banks/BOHEMIA_GRIME_8_3_26.txt` | `status` | RULED 8/9 - SHIPS AT 0.30 |
 | 18 | `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | `law` | UP-ONLY and SEAMLESS-ONLY. Every tile carries a Paolo UP verdict from the 7/13 Great Sweep AND comes from his own seam pipeline's quilt output, which is the only thing in this repo that is actually GROUND: 44x44, square, fully opaque. The raw HD masters and the desert pools are DECORATIVE PATCHES (~96px, ~10% transparent) and laying them as terrain tiles them with a black gap between every cell -- that is exactly ... |
 | 19 | `banks/BOHEMIA_GROUND_SEAMLESS_SET_7_10_26.txt` | `ruling` | seam FAILED Paolo eye 7/10/26 despite sal 0.1 — metric blind spot, demoted from S |
 | 20 | `banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt` | `status` | CANON (Paolo verdict 7/21/26, all 30 UP - records/BOHEMIA_HOUSE_SKIN_VERDICT_7_21_26.txt) |
