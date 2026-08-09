@@ -1,0 +1,183 @@
+{
+ "form": "TF-CMB-005",
+ "cooked": "2026-08-09",
+ "mode": "MIXED",
+ "reuse": "HARVESTED: approved starter concrete_0/1 pixel distribution (ramp-indexed, re-levelled) for treads/landing/threshold; walk_kerb lip treatment for every nosing. PAINTED: the stair structure (no approved stair pixels exist; HD stair tiles are TILECAT_BROWN catalogue only, VERIFIED DEAD for reuse 8/9).",
+ "stated_step_count": "A: 7 risers x 7px identical rise = 49px storey (DECK_H at 44px pitch is 50.6; the live placer computes DECK_H at runtime and scales uniformly). B: 6 risers x 8px = 48px. Real-code 16-18 steps is mush at 44px; 5 was the rejected diagram.",
+ "geometry": {
+  "A": {
+   "risers": 7,
+   "riser_px": [
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
+   ],
+   "identical": true,
+   "storey_px": 49
+  },
+  "B": {
+   "risers": 6,
+   "riser_px": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "identical": true,
+   "storey_px": 48
+  }
+ },
+ "joins": {
+  "top_join_lum_delta": 14.82,
+  "bottom_join_lum_delta": 38.52,
+  "note": "top join is 0 by construction (shared nosing pixels); bottom is riser foot against the near-black joint row"
+ },
+ "anchors_measured": {
+  "concrete_0": {
+   "colours": 6,
+   "edge": 11.28,
+   "grain": 43.23,
+   "sat": 0.2643,
+   "lum_mean": 111.8,
+   "lum_sd": 22.3,
+   "purple_px": 0,
+   "purple_pct": 0.0,
+   "green_px": 0,
+   "green_pct": 0.0
+  },
+  "concrete_1": {
+   "colours": 8,
+   "edge": 16.98,
+   "grain": 42.92,
+   "sat": 0.2555,
+   "lum_mean": 112.6,
+   "lum_sd": 38.7,
+   "purple_px": 0,
+   "purple_pct": 0.0,
+   "green_px": 0,
+   "green_pct": 0.0
+  },
+  "walk_kerb": {
+   "colours": 8,
+   "edge": 14.04,
+   "grain": 38.42,
+   "sat": 0.2469,
+   "lum_mean": 112.3,
+   "lum_sd": 41.4,
+   "purple_px": 0,
+   "purple_pct": 0.0,
+   "green_px": 0,
+   "green_pct": 0.0
+  }
+ },
+ "orientation": "descends toward the viewer ONLY (v92: the other three orientations are deleted at the source)",
+ "caption": {
+  "id": "TF-CMB-005",
+  "name": "deck stair run",
+  "layer": "portal",
+  "solid": false,
+  "enter": true,
+  "edge_contract": "single placement",
+  "acts": [
+   1
+  ],
+  "anim": null
+ },
+ "tiles": [
+  {
+   "name": "stair_run_A_7risers",
+   "kind": "object/portal",
+   "px": [
+    44,
+    75
+   ],
+   "b64": "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",
+   "metrics": {
+    "colours": 12,
+    "edge": 6.8,
+    "grain": 31.49,
+    "sat": 0.3365,
+    "lum_mean": 59.7,
+    "lum_sd": 56.1,
+    "purple_px": 0,
+    "purple_pct": 0.0,
+    "green_px": 0,
+    "green_pct": 0.0
+   }
+  },
+  {
+   "name": "stair_run_B_6risers",
+   "kind": "object/portal",
+   "px": [
+    44,
+    75
+   ],
+   "b64": "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",
+   "metrics": {
+    "colours": 12,
+    "edge": 6.51,
+    "grain": 31.11,
+    "sat": 0.3359,
+    "lum_mean": 61.0,
+    "lum_sd": 56.2,
+    "purple_px": 0,
+    "purple_pct": 0.0,
+    "green_px": 0,
+    "green_pct": 0.0
+   }
+  },
+  {
+   "name": "stair_top_landing",
+   "kind": "tile/deck-plane",
+   "px": [
+    44,
+    44
+   ],
+   "b64": "iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAIAAACR5s1WAAAFaUlEQVR4nK1YPWsjVxR9HlQIMaBhCrFgJAvhwsIQVJjgIpjgYuuoSuMFVymCi1QuU4TEv8BFSOttAoGkDC6WEFQsQYUIBKkwwpJQo2KYgUGoTHGko6P7RkqTizFv3tx3v+95d3T0cH+b5ivnXBSWsVCKwjLX5q3yg42PreP4w8dRp93Qg1FYjqsVV0SBPlycN15ni9fZwihO8xUVgMdIUQYlaI3CMp1JsuV4npABj4Fxt9cf9fojo8CX/jpbFO5TWq8/enx63mfleJ6M50mSLfFYgr0M1E33SmXRG0PNeq11HEMcFvSM62/vvsDxJFuSh7rAeXpSWxuB5zRfxVHo68NbnDSR1IU6Glcrn12c+Wbper2T5s65QMPwMlmgJjRBfjCQL5YbNjXx+1Tuo4BqjIhC0sjrmgRTNGDqgDqsr0qF9g6GUzaY282Ic46hdrtZQNPCmWa9ZpTBMi0OMpT4kGTLwXDqG7SPYBm6P8mWtEbTRMVJtsSOqSRo3+IELTAtSsOTbIk/BMl0HXQU5mg8T0w/Iy/0P/DPKPlgYHSn+Qo60nwFobCD8Wgdxyh2PWhqoMTdTrsBpma9ZkATXiIYrF/uUzQwYzxPfIxBiZA/CsuawcB5dQcaDKcEXVcEBn5zsi/ARoHXl+tCfnx6JowyVFFYLqliVFCarzQYpuKMiyxn42uar7DfaTfiauV1tmCpvf/1TyfQvE0HJTq5Hj98HMEaVaCcIK1T8sAHvCpEAV6qSbZc3x0sYAZWg8GapzjoM0fwil1G49ym4+7evXVSTDsXmNvFGSXYobrdbjX4LqICeCQKyzDrpnu17+LdpsNIROYIjjCRRUM2XWtPsddACrIktJszsK1dd9O9wroQRtViHkHpwJTBcNqs16Kw/Pj0rDWophOv1jXhu0WbmvXaYDi9vjwDXGqzsGYhAfyIAQLJjlBEMejinDt6uL898BrEOKPfkmyJWqYCc33wiF5jfgHB9DgKg0ILDBB12g2U+mA4RR999/gbfOVFpcNAFJZ7/VGn3VDFTCvxG6F1BieUFGJhMluOgfGRg73AStShXCcEevsyWWyN0BY17Yr4u00pwQiqwSaMQD0WxhX7hcAfYPfAFE/01LewAK8wOvMRovTOHAyn2mLmq8KZdDDUsJogD3EQhIK/6V5RVrNeI6j0+qO7d2/3gQfWkNDrjxjLox9/+NrJRYrI+2j/6SetJMu/+f49IwFcR44xuTvnfvm9T5hiNVycr+sAszWJw31xYfp2/PTzH/oIbwAecbXyMlm4TcsBVJwgd/+fdS78OwjrdSR0CmXH62yCK/urLz/3DdKRWEnRzLcAKnAP7ESCQ5H/BZHmq+vLs7/+HmOHol9nC9N4ehZshYMntcTVSuB2v6sMYb6Kq5WL84Y/r0INcF17wfAQlEA6sIFKvqWFM8jLZPtZZsCYk1hhXjgkMAuKRlsjFPb92UR/aaAUlcXPcOC0qUr13swl20gQbnVXQ7rPP0pHg9x0r6AJsIZ7nMzg+Y+hRiOhg6u+Zc36Q435lPXP+t4XGHGYqFhRSG+H8TxhTQCsDnxeqzVwOIAfreOYx64vz5BXFdQ6jnkY+Ki3g+IBBxw6YMYw/OkNUnKbFiX3gd8VEAODvihG9rl+pRnX90HIzrTtdq9gt0E0GsrgG844Cg+0mP/ZYihALvAA+OM7nT0VSfVixMjzMlnwDoNuTVah+jVcRuF6vGOXalW7DdLRApSF2gFNQNIkzf30d9oNI5Ne7Qy6vMr3tZDpSYMQ+s1+AP79X/i0v0qnJ2+SLD89eeOfTLI8roYHdsyjEcK3vhxu4v/Rw/0tfNKkblnTvPB3xf+F0GVxFP4LwQLCEaHHfXMAAAAASUVORK5CYII=",
+   "metrics": {
+    "colours": 7,
+    "edge": 11.42,
+    "grain": 45.51,
+    "sat": 0.2674,
+    "lum_mean": 114.4,
+    "lum_sd": 23.4,
+    "purple_px": 0,
+    "purple_pct": 0.0,
+    "green_px": 0,
+    "green_pct": 0.0,
+    "wrap_lr_seam": 14.59,
+    "wrap_lr_interior": 11.42
+   }
+  },
+  {
+   "name": "stair_bottom_threshold",
+   "kind": "tile/lot-pad",
+   "px": [
+    44,
+    44
+   ],
+   "b64": "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",
+   "metrics": {
+    "colours": 19,
+    "edge": 18.73,
+    "grain": 46.56,
+    "sat": 0.255,
+    "lum_mean": 111.4,
+    "lum_sd": 39.8,
+    "purple_px": 0,
+    "purple_pct": 0.0,
+    "green_px": 0,
+    "green_pct": 0.0,
+    "wrap_lr_seam": 18.96,
+    "wrap_lr_interior": 18.73
+   }
+  }
+ ],
+ "law": "UNJUDGED. Nothing here is canon until Paolo sweeps it."
+}
