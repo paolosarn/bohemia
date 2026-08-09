@@ -3376,7 +3376,66 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/8 (b) LATEST -- *** THE DEAD ARE PLACED: SKELETONS IN THE OPEN,
+WORLD (world-9lfjtf): 8/9 (a) LATEST -- *** EVERYTHING IS ON A SQUARE. ALL 59 ICONS, ONE
+468x468 SQUARE, NOTHING CLIPPED, ONE GROUND LINE. *** BUILD 8/9c.
+Record: records/BOHEMIA_EVERYTHING_ON_A_SQUARE_8_8_26.md. Gate: square_icons_gate.js 12/0.
+
+RULING (Paolo 8/8): "all the icons should be on a square, everything should be on a square.
+It looks like they're just taking fucking free shapes rectangles and shit like that."
+
+HE IS RIGHT AND IT WAS MY DOING. On 8/2 I fixed the icon pad being a HAND-GUESSED rectangle by
+fitting it to the real contents. Correct as far as it went, and it left every icon with ITS OWN
+rectangle -- 313x171, 351x272, 380x219, fifty-nine different aspects. Each individually well
+framed, and as a SET a jumble. That is what he was looking at in the VOTE tab.
+
+A SQUARE IS NOT A STYLE CHOICE HERE, IT IS WHAT THE THING IS. A district cell is 96 m x 96 m,
+128 x 128 tiles, square. An icon standing for one cell stands on a square or it is lying about
+the ground it occupies. So: the pad is squared in WORLD space (longer side, centred), one canvas
+for the whole set, and one shared ground line -- every hero's feet within 3 px -- so a tall
+building reads as TALLER instead of merely drawn in a taller box.
+
+AND EVERY ICON FILLS IT, WHICH TURNED OUT TO BE REQUIRED AND NOT OPTIONAL. One square without
+rescaling left the small ones standing in a wide grey field -- the 8/2 complaint ("it just needs
+to fill up the square") coming straight back. Not opinion, MEASURED: the arsenal went monochrome
+and two icons dropped below the flat-fill floor purely because the frame grew around unchanged
+art. Both gates were right. Each hero now gets its own scale from its own span.
+THE COST, PLAINLY: relative size between districts is gone -- a chapel fills its square as
+completely as downtown fills its. That is what a city-builder tile set does and it is what he
+asked for, but it IS a trade and it is in writing.
+
+*** I MADE THE SAME MISTAKE INSIDE THE FIX FOR IT. I picked 384 for the square BY HAND and wrote
+a comment claiming it was measured. NINETEEN of the fifty-nine were then clipped by their own
+frame -- city hall, downtown, the mall, every big one. Worse than the rectangles it replaced,
+with a comment covering for it. THE HOUSE BUG, sighting eleven: A VALUE PASSED BY HAND WHERE A
+VALUE COULD BE DERIVED. It is a two-pass build now -- build every scene, measure what the set
+actually needs, then bake. It came out at 468. Then it clipped six more, because THE DROP SHADOW
+IS PART OF THE SPRITE: bake() draws a ground ellipse past the geometry and I measured only the
+geometry. ***
+
+THE ONE GATE LEFT RED ON PURPOSE, AND THE QUESTION IT PUTS BACK TO HIM: squint_gate. SIX FLAT
+DISTRICTS NOW SHARE SILHOUETTES -- cemetery / reclaim / wash / arterial / golf / rail / trailer.
+The cause is the ruling itself: a cemetery, a pond field, a flood channel and a six-lane road are
+ALL FLAT. While each was framed to its own contents their differing proportions did the
+distinguishing; fill them all to the same square and that difference is gone. THIS IS THE SAME
+TRADE HE HAS NOT ANSWERED SINCE 8/4, now with evidence attached: should an icon stop resembling
+its real subject in order to stay distinct at map size? I am not deciding it by quietly making
+the cemetery taller than a cemetery is. One thing did improve: the declared-twin list is EMPTY --
+swapmeet/truckstop came apart on its own, and a declared twin that is already distinct is a lie
+the gate refuses to hold.
+
+AND WIRING THEM INTO THE CITY TAB PUT 3 MB BACK IN ANOTHER LANE'S FILE. On 8/6 that lane
+moved every big pixel payload out of BOHEMIA_CITY_WORLD.html into BOHEMIA_CITY_TILES.js
+("this page is rewritten daily and was carrying 27 MB of art it never edits") and left a
+comment where the data used to be. bohemia_city_hero_wire_patch.py never noticed, because it
+ALWAYS wrote the art inline -- re-running it silently undid their extraction, 1.28 MB -> 4.26
+MB. Its own docstring already had the answer from the last time this happened: FOLLOW THE
+ARTEFACT. It reads the page's own <script src=> tags now, finds where HERO_SRC actually lives
+and writes THERE. Not specific to that filename, so the next lane to move a payload is safe.
+
+WHERE HE SEES IT: THE VOTE TAB (tab #1 in the alpha). 55 icons waiting, 4 already judged.
+Also the CITY tab, rewired via tools/bohemia_city_hero_wire_patch.py (hero_wire_gate 123/0).
+
+WORLD (world-9lfjtf): 8/8 (b) -- *** THE DEAD ARE PLACED: SKELETONS IN THE OPEN,
 HUSKS BEHIND SHUT DOORS. *** records/BOHEMIA_THE_DEAD_8_8_26.md. Gate: dead_gate.js 20/0.
 
 RULING (Paolo 8/8): "skeletons in the open, husks in sealed places, realistic mix,

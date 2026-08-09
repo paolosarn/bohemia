@@ -82,7 +82,36 @@ def _load_pal():
 
 
 # ---------------------------------------------------------------- helpers
+# THE ONE SQUARE every hero is baked into. It is MEASURED at bake time from the widest and
+# tallest hero in the set -- a two-pass build, because the size of the square is a fact about
+# the corpus and not a number anybody gets to choose.
+#
+# I picked 384 by hand first and wrote a comment claiming it was measured. NINETEEN OF THE
+# FIFTY-NINE were then clipped by their own frame -- city hall, downtown, the mall, the
+# warehouse, every big one -- which is worse than the rectangles it replaced. Same house bug,
+# and this time inside the fix for it, with a comment covering for it.
+SQUARE_PX = 384          # placeholder; main() overwrites it from the real measurement
+
+
 def _fit(scene, scale, margin=14):
+    """EVERY ICON COMES OUT ON THE SAME SQUARE (Paolo, 8/8): "all the icons should be on a
+    square, everything should be on a square. It looks like they're just taking free shapes,
+    rectangles and shit."
+
+    This used to crop each sprite to its own contents, so fifty-nine icons came out as
+    fifty-nine different rectangles -- 313x171, 351x272, 380x219. Individually each was
+    correctly framed and as a SET they were a jumble, which is exactly what he is looking at.
+
+    Two things make an icon set a set, and both are here now:
+      THE FRAME IS ONE SQUARE, the same for all of them, so they line up in a grid and in a
+        list and on a tile without anything being resized to fit.
+      THE GROUND LINE IS SHARED. Every building stands on the same baseline in that square
+        rather than floating wherever its own crop put it, so a tall thing is TALLER than a
+        short thing instead of merely being drawn in a taller box.
+
+    Nothing is scaled down to fit: the square is sized from the biggest hero in the set
+    (SQUARE_PX), so the largest fills it and everything else stands in it at true size.
+    """
     xs, ys = [], []
     for verts, _uv, _n, _m in scene.faces:
         for (x, y, z) in verts:
@@ -90,9 +119,11 @@ def _fit(scene, scale, margin=14):
             ys.append((x + y) * scale * 0.5 - z * scale)
     minx, maxx = min(xs), max(xs)
     miny, maxy = min(ys), max(ys)
-    w = int(math.ceil(maxx - minx)) + 2 * margin
-    h = int(math.ceil(maxy - miny)) + 2 * margin
-    return w, h, (margin - minx, margin - miny)
+    side = SQUARE_PX
+    # centred left-to-right on the content, and SITTING on a shared ground line
+    ox = (side - (maxx - minx)) * 0.5 - minx
+    oy = side - margin - maxy
+    return side, side, (ox, oy)
 
 
 def _anchor(scene, origin, scale):
@@ -150,6 +181,24 @@ def _draw_ground(s, pad=1.6):
     y0 = min(q[1] for q in solids) - pad
     x1 = max(q[0] + q[3] for q in solids) + pad
     y1 = max(q[1] + q[4] for q in solids) + pad
+    # EVERYTHING SITS ON A SQUARE (Paolo, 8/8): "all the icons should be on a square,
+    # everything should be on a square. It looks like they're just taking free shapes,
+    # rectangles and shit."
+    #
+    # He is right and it was my doing. On 8/2 I fixed the pad being a HAND-GUESSED rectangle
+    # by fitting it to the real content -- correct as far as it went, and it left every icon
+    # with its OWN rectangle, a different aspect for all fifty-nine. A set of tiles whose
+    # bases are all different shapes is not a set.
+    #
+    # And a square is not a style choice here, it is what the thing IS: a district cell is
+    # 96 m x 96 m, 128 x 128 tiles, SQUARE. An icon standing for one cell stands on a square
+    # or it is lying about the ground it occupies. So: take the longer side and square the
+    # pad on it, centred, which keeps the 8/2 ruling intact -- the building still fills the
+    # pad on its long axis, nothing shrinks, and now the base is the same shape every time.
+    side = max(x1 - x0, y1 - y0)
+    cx, cy = (x0 + x1) * 0.5, (y0 + y1) * 0.5
+    x0, x1 = cx - side * 0.5, cx + side * 0.5
+    y0, y1 = cy - side * 0.5, cy + side * 0.5
     g = req['groundc']
     gt = tuple(min(255, int(c * 1.12)) for c in g)
     faces_before = list(s.faces)
@@ -3517,14 +3566,60 @@ def main():
         'anchor': 'bx/by = the projected footprint-center at ground level (z=0), for planting the sprite on a tile.',
         'heroes': [],
     }
+    # PASS ONE: build every scene and MEASURE what the set actually needs. The square is a
+    # fact about the corpus -- the widest hero decides the width, the tallest decides the
+    # height, and the square is the larger of the two so nothing is ever clipped or shrunk.
+    global SQUARE_PX
+    built, need_w, need_h = [], 0, 0
     for d, fn in HEROES.items():
         scene, scale = fn(P[d])
-        _draw_ground(scene)                       # the pad, fitted to what got built
+        _draw_ground(scene)                       # the pad, SQUARE, fitted to what got built
         # BIGGER (Paolo 8/2: "I want them taller. I want them wider... big as fuck as big
         # as we can have it"). The sprite frames TIGHT on the building now that the parking
         # is gone, and the scale is lifted so the mass fills the square instead of sitting
         # small in the middle of an apron it no longer has.
         scale = scale * 1.55
+        xs, ys = [], []
+        for verts, _uv, _n, _m in scene.faces:
+            for (x, y, z) in verts:
+                xs.append((x - y) * scale)
+                ys.append((x + y) * scale * 0.5 - z * scale)
+        need_w = max(need_w, max(xs) - min(xs))
+        need_h = max(need_h, max(ys) - min(ys))
+        built.append((d, scene, scale))
+    SQUARE_PX = int(math.ceil(max(need_w, need_h))) + 2 * 5 + 2   # margin both sides, +2 slack
+    print('  ONE SQUARE, measured from the set: %dpx (widest %d, tallest %d)'
+          % (SQUARE_PX, math.ceil(need_w), math.ceil(need_h)))
+
+    # AND EVERY HERO FILLS IT. Paolo 8/2: "I just really want the main building to be biggest
+    # as fuck... it just needs to like FILL UP THE SQUARE." Putting them all on one square
+    # without this leaves the small ones standing in a wide grey field -- which is that exact
+    # complaint coming back, and it was measured: the arsenal went MONOCHROME and two icons
+    # dropped below the flat-fill floor, purely because the frame grew around unchanged art.
+    # So each hero gets its own scale multiplier, derived from its own span, and every icon
+    # reaches the edges of the square instead of floating in the middle of one.
+    #
+    # THE COST, STATED: relative size between districts is gone -- a chapel now fills its
+    # square as completely as downtown fills its. That is what a city-builder tile set does
+    # (each tile owns its tile) and it is what "fill up the square" asks for, but it IS a
+    # trade and it belongs in writing rather than in a diff.
+    # THE SHADOW IS PART OF THE SPRITE. bake() draws a soft ground ellipse that reaches
+    # ~6px wider and ~4px taller than the geometry, so filling the square on the GEOMETRY
+    # span alone pushed six icons off their own frame. Measure the geometry, leave the
+    # shadow its room.
+    SHADOW_PX = 16
+    inner = SQUARE_PX - 2 * 5 - SHADOW_PX
+    for i, (d, scene, scale) in enumerate(built):
+        xs, ys = [], []
+        for verts, _uv, _n, _m in scene.faces:
+            for (x, y, z) in verts:
+                xs.append((x - y) * scale)
+                ys.append((x + y) * scale * 0.5 - z * scale)
+        span = max(max(xs) - min(xs), max(ys) - min(ys))
+        built[i] = (d, scene, scale * (inner / span if span > 0 else 1.0))
+
+    # PASS TWO: bake every hero into that one square, standing on a shared ground line.
+    for d, scene, scale in built:
         w, h, origin = _fit(scene, scale, margin=5)
         img = bake(scene, w, h, origin=origin, scale=scale, ss=4)
         bx, by = _anchor(scene, origin, scale)

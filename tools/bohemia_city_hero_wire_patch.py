@@ -68,11 +68,38 @@ def main():
         print('no city app found in: ' + ', '.join(CITY_FILES)); sys.exit(1)
     dec = alpha if inline else base64.b64decode(m.group(1)).decode('utf8')
 
+    # ---- 0. WHERE DOES THE ART LIVE? (8/9) On 8/6 another lane moved every big pixel
+    # payload out of this page into a sibling script -- "this page is rewritten daily and
+    # was carrying 27 MB of art it never edits" -- and this tool did not notice, because it
+    # ALWAYS wrote HERO_SRC inline. Re-running it silently undid their extraction and put
+    # 3 MB back in the page. Same class of bug the docstring above already warns about, so
+    # the answer is the same: FOLLOW THE ARTEFACT. Read the page's own <script src=> tags,
+    # and if one of those files is where HERO_SRC actually lives, write it THERE.
+    extern = None
+    for s in re.findall(r'<script src="([^"]+\.js)"', alpha):
+        cand = os.path.join(os.path.dirname(target), s)
+        if os.path.exists(cand) and re.search(r'^var HERO_SRC=', open(cand, encoding='utf8').read(2048), re.M):
+            extern = cand
+            break
+
+    src_js = "var HERO_SRC=" + json.dumps(src, separators=(',', ':')) + ";"
+    if extern:
+        lines = open(extern, encoding='utf8').read().split('\n')
+        for i, ln in enumerate(lines):
+            if ln.startswith('var HERO_SRC='):
+                lines[i] = src_js
+                break
+        open(extern, 'w', encoding='utf8').write('\n'.join(lines))
+        src_line = ('/* HERO_SRC lives in ' + os.path.basename(extern) + ' (8/6, repo budget: this page '
+                    'is rewritten daily and was carrying 27 MB of art it never edits) */\n')
+    else:
+        src_line = src_js + '\n'
+
     # ---- 1. the HERO block: sprite images + anchors + drawHero(), before renderCity
     block = (
         "/*HERO_WIRE_START*/\n"
         "var HERO_ANCH=" + json.dumps(anch, separators=(',', ':')) + ";\n"
-        "var HERO_SRC=" + json.dumps(src, separators=(',', ':')) + ";\n"
+        + src_line +
         "var HERO_IMG={};(function(){for(var k in HERO_SRC){var im=new Image();im.src=HERO_SRC[k];HERO_IMG[k]=im;}})();\n"
         "function drawHero(name,p){var im=HERO_IMG[name];if(!im||!im.complete||!im.naturalWidth)return false;"
         "var plate=im.naturalWidth-28,sc=TW/plate,a=HERO_ANCH[name];"

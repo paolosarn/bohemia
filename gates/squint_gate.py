@@ -60,7 +60,10 @@ KNOWN_TWINS = {
     # core, the gym its height, storage its office, solar its switchgear stack, rail its
     # signal mast, commercial its pylon, the park its stand of dead crowns.
     # Debt 13 -> 9 (8/2 morning) -> 2 here. This list may ONLY shrink.
-    frozenset(('swapmeet', 'truckstop')),
+    #
+    # 8/8: AND IT SHRANK TO ZERO. swapmeet/truckstop came apart on its own when every icon
+    # was rebaked onto one square and scaled to fill it -- the list is empty and stays empty,
+    # because a declared twin that is already distinct is a lie the gate refuses to hold.
 }
 
 
