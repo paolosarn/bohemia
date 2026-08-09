@@ -277,6 +277,10 @@ GATES = [
      'skeletons in the open, husks in the sealed places, realistic mix, story-via-placement. '
      'Real forensics -- scavengers strip and scatter outdoors, dry heat mummifies behind a shut door -- '
      'plus the valley holding what the death math says, and not one body carrying a gore field', False),
+    ('LOOK',           ['node', 'gates/look_gate.js'],
+     "Paolo 8/8 LOCKED: 'just give me pictures and put it in a tab'. Every new thing is "
+     "PHOTOGRAPHED off the real screen and shown in the LOOK tab, captioned, naming its own tab -- "
+     "because a feature he has to walk 84.9 km2 to find is a feature he never judges", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],

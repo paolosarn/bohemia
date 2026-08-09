@@ -1,0 +1,57 @@
+{
+ "built": "8/8/26",
+ "shots": [
+  {
+   "id": "dead-suburb",
+   "title": "THE DEAD: a suburban street",
+   "caption": "Bones lying in the open on a suburb street, bleached and scattered by ten years of scavengers. RUN tab.",
+   "file": "look/dead-suburb.png",
+   "at": {
+    "x": 4572,
+    "y": 3586,
+    "zoom": 44
+   },
+   "kb": 213.2,
+   "stamp": "8/8/26"
+  },
+  {
+   "id": "dead-road",
+   "title": "THE DEAD: the road out",
+   "caption": "The exodus road. Remains on the asphalt where people stopped walking. RUN tab.",
+   "file": "look/dead-road.png",
+   "at": {
+    "x": 3542,
+    "y": 3137,
+    "zoom": 44
+   },
+   "kb": 283.2,
+   "stamp": "8/8/26"
+  },
+  {
+   "id": "dead-desert",
+   "title": "THE DEAD: the walk-out",
+   "caption": "Open desert. The ones who walked out and did not make it, thin and scattered, no mummified bodies because nothing out here is sealed. RUN tab.",
+   "file": "look/dead-desert.png",
+   "at": {
+    "x": 2713,
+    "y": 2954,
+    "zoom": 44
+   },
+   "kb": 328.5,
+   "stamp": "8/8/26"
+  },
+  {
+   "id": "dead-density",
+   "title": "THE DEAD: how thick they lie",
+   "caption": "A wider view of the same ground, so the density reads. Too many, too few, or about right is the only call needed. RUN tab.",
+   "file": "look/dead-density.png",
+   "at": {
+    "x": 5712,
+    "y": 5248,
+    "zoom": 22
+   },
+   "kb": 499.9,
+   "stamp": "8/8/26"
+  }
+ ]
+}

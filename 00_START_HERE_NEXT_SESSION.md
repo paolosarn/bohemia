@@ -1,3 +1,43 @@
+CITY (1eztay): 8/9 (e) LATEST — THE LOOK TAB. HE STOPS HUNTING FOR WHAT WE BUILD.
+
+HIS RULING, 8/8, LOCKED: "don't say play the run so I can see the art assets and what's
+wrong ... show me pictures put it in one of the tabs ... I can't be exploring and hunting
+your new additions ... just give me pictures and put it in a tab". He also KILLED the
+obvious alternative himself -- "unless you're gonna spawn me right in front of it and don't
+do it" -- so NOBODY BUILDS A SPAWN-TELEPORT. Law: laws/BOHEMIA_ADDENDUM_SHOW_ME_PICTURES_
+IN_A_TAB_8_8_26.md.
+
+WHY HE SAID IT: I ended THREE replies in one session telling him to go walk the RUN tab and
+find the dead. The valley is 84.9 km2. That is asking the director to do a search the
+machine can do in seconds, and an unshown feature is an unjudged one, which is a dead one.
+
+TAB: LOOK, first in the bar, right next to RUN. Four pictures in it today, all of the dead.
+
+WHAT SHIPPED
+  tools/bohemia_look_shots.js   drives the REAL page in a real browser at iPhone portrait,
+    HUNTS THE LIVE WORLD for an actual instance of each subject, frames the camera on it and
+    photographs it. A subject that cannot be found writes NO picture and says why -- a shot
+    of the wrong place would tell him the feature does not work.
+  tools/bohemia_look_build.py   builds slices/BOHEMIA_LOOK_CURRENT.html, newest first, each
+    picture captioned in plain English AND naming the tab it lives in (NAME THE TAB).
+  tools/bohemia_alpha_look_tab_patch.py   adds the LOOK tab. Same lazy-iframe mechanism as
+    ART/MAP/LIFE, so nothing about how tabs work had to change.
+  gates/look_gate.js  suite LOOK, 23 claims. FOUR planted mistakes, FOUR caught by name.
+
+THREE THINGS I HAD TO FIX BY LOOKING AT THE PICTURE, NOT THE CODE
+  1. The D-pad was sitting on the art. Hiding #pad/#hud/#topbar by NAME still left the CITY
+     button, the BIKE button and a toast on it -- a blocklist of today's element names goes
+     stale the moment a lane adds a button. It now hides EVERYTHING that overlays the canvas,
+     by asking what overlays it. Ask for the property, never the spelling.
+  2. The player was standing ON the body in every shot, because the camera centres on him.
+     The camera now stands off five tiles so the subject sits in clear air.
+  3. My own tool reported four clean MISSes and told me nothing, because the catch threw the
+     reason away. A miss must say WHY it missed.
+
+STANDING RULE FOR EVERY LANE FROM NOW ON: if it can be looked at, it ships a PICTURE in the
+LOOK tab the same turn. If it cannot be photographed, say "NOT IN A TAB YET" in those words.
+No reply may end by asking him to go find something.
+
 FACTIONS (factions-ovkjpf): 8/7 (p) LATEST — *** PAOLO RULED A: "A BOND BUILT IN ONE
 QUEST OPENS A DOOR IN ANOTHER. CONTINUITY IS THE DYNASTY." BUILT THE SAME TURN. ***
 Law: laws/BOHEMIA_ADDENDUM_CONTINUITY_IS_THE_DYNASTY_8_7_26.md. Nothing to judge.
