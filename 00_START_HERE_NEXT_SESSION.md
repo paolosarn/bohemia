@@ -1,3 +1,42 @@
+PEOPLE (7h9sfy): 8/9 — *** PAOLO PICKED A AND B. *** A = wire the already-finished work
+into what he plays. B = the day loop (needs two rulings from him; first one is asked).
+Record: records/BOHEMIA_HIS_APPROVED_WALLS_ARE_NOT_IN_THE_WORLD_HE_WALKS_8_9_26.md
+
+*** CITY LANE, THIS ONE IS YOURS AND IT IS ONE STEP. *** His ELEVEN APPROVED PERIMETER
+WALLS (banks/BOHEMIA_PERIMETER_8_2_26.txt, 330 tiles, judged 8/2 - all thirteen of his
+own 7/14 walls thumbed DOWN, eleven of eighteen cooked ones UP) are NOT in the world he
+walks. Sampling 24 tile payloads by BYTES:
+    BOHEMIA_RUN_CURRENT.html   (loaded, NEVER displayed)   21/24
+    BOHEMIA_CITY_WORLD.html    (the walked world)           0/24
+    BOHEMIA_CITY_TILES.js      (its 28.4 MB art bank)       0/24
+MEASURED TWICE ON PURPOSE: the first pass tested only CITY_WORLD.html, and hours earlier
+that file's art was moved out to CITY_TILES.js. A test that missed the art file would
+have been the exact WRONG DOOR bug we have paid for all week. Re-run including it, the
+answer is unchanged. The only perimeter-pool mentions in the walked world are two
+COMMENTS citing the July pool his 8/2 verdict superseded. Nothing loads it.
+THE PRECEDENT IS WORKING CODE: tools/build_run_slice.js line 85 `var PERIM_COOK =
+'banks/BOHEMIA_PERIMETER_8_2_26.txt'` inlines it, draws it, and perimeter_gate.py keeps
+the killed bytes out. The walked world needs the same three things (tiles reachable, the
+wall draw pointed at them with face/base variants shuffled PER CELL - one tile per design
+stamped the same crack everywhere at 44px, which is what he meant by "looks like it's
+glitching out" - and a gate on the seven he killed).
+WHY I DID NOT DO IT: CITY_TILES.js was extracted HOURS ago and that lane is mid-swarm in
+it right now (seven TILEFORM commits in the last hour, 525 candidate tiles). Two sessions
+built the same city resolver on 8/4 and the same dead-body system on 8/8. Making it a
+one-step job beats a rushed edit that costs them a rebase.
+
+=== B: THE FIRST RULING IS ASKED (quest placement) ===
+Researched against how work is ACTUALLY found in a collapsed economy, not RPG habit:
+informal hiring sites form at fixed, predictable, high-traffic spots - outside hardware
+stores and gas stations, along thoroughfares, at freeway on-ramps, in parks and parking
+lots - wages are negotiated at the spot, and employers DRIVE THROUGH AND PICK PEOPLE UP.
+Worker centres/hiring halls then form near the informal corners. Every one of those
+places already exists in this valley, and the drivable network is already built.
+Options put to him: A THE CORNER (places, realistic, leads) / B THE PERSON (word of
+mouth, plugs into the name+memory system already built) / C BOTH, corners first because
+you start as nobody. AWAITING HIS LETTER.
+
+-----------------------------------------------------------------------------------
 ART (f3eu53): 8/9 (s) LATEST -- *** THE TILE BOARD SITTING IS LIVE: 15 FAMILIES,
 525 CANDIDATE TILES, ONE JUDGE PAGE IN THE ART TAB. NOTHING IS IN THE GAME. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md
