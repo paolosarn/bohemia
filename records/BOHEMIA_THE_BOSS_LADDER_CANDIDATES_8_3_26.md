@@ -1,4 +1,4 @@
-# BOHEMIA — THE BOSS LADDER: 18 CANDIDATES (v1 RESTORED, 8/4/26)
+# BOHEMIA — THE BOSS LADDER: 22 CANDIDATES (v1 RESTORED 8/4/26, EXTENDED ON HIS ASK 8/7/26)
 
 > "that kinda sucks too i liked your first version the best cant we build off that"
 > — Paolo, 8/4/26
@@ -6,6 +6,36 @@
 **VERSION 1 IS BACK, VERBATIM. The thirteen below are byte-for-byte the ones he liked**,
 recovered out of git (commit `7da7c89`) rather than rewritten from memory. Five more are
 added at the end in the same voice. Nothing is reframed.
+
+## *** HIS RULING, 8/7/26 — THE TEST EVERY BOSS HAS TO PASS ***
+
+> "we had an original prompt and needed pretty decent with it and then it just kind of got
+> out of control again each boss should help you build an explorer the world reasonable to
+> the act that we are in maybe there's more than 18 bosses"
+> — Paolo, 8/7/26
+
+Three things, and all three are LOCKED:
+
+1. **THE ORIGINAL 13 WERE RIGHT.** "We had an original prompt and you did pretty decent with
+   it." v1 stays. It has already been restored byte-identical once and nobody rewrites it.
+2. **★ THE TEST: EVERY BOSS MUST GRANT A POWER THAT HELPS YOU BUILD OR EXPLORE THE WORLD,
+   SIZED TO THE ACT YOU ARE IN.** This is the filter the ladder was missing, and it is what
+   "it got out of control" is naming. A boss whose power is only social — leverage over
+   people, standing, permission — is not a bad idea, it is just not a BOSS on this ladder.
+3. **MORE THAN 18 IS ALLOWED.** "Maybe there's more than 18 bosses." His words, so the
+   self-imposed stop from 8/4 ("then I stop proposing shapes for the ladder") **IS LIFTED BY HIM**,
+   on this ladder only. It was a stop after a rejection; he re-opened it. It is
+   not quietly dropped and it was not lifted by me.
+
+**APPLYING HIS TEST TO THE 18 THAT EXISTED: FOUR FAIL.** THE VOICE (broadcast), THE BOOK
+(call in a debt), THE JUDGE (pardon or condemn) and THE BROKER (get two enemies in a room)
+are all LEVERAGE OVER PEOPLE. None of them lets you build a thing or reach a place. Three of
+those four are v1's, which he liked, so **I am not cutting them — flagged for his call.** The
+fourth, THE BROKER, is mine, and it is the weakest thing on the ladder.
+
+**AND HE ALREADY NAMED THE BIGGEST GAP HIMSELF, ON 8/3:** *"Maybe there's like a water BOSS
+maybe there's like a light boss maybe there's like a concrete boss you know."* Water is THE
+TAP. Light is THE LIGHTS. **CONCRETE WAS NEVER BUILT.** That is entry 19.
 
 ## WHAT WENT WRONG TWICE, IN ONE SENTENCE
 
@@ -42,26 +72,33 @@ He asked for one cohesive numbered list, so here it is in one place, **re-sorted
 order for reading.** Every entry: **who they are · what they hold · what beating them lets
 you do anywhere.**
 
-| # | THE BOSS | HOLDS | YOU CAN THEN | ACT |
-|---|---|---|---|---|
-| 1 | **THE TAP** | a live water main | draw water anywhere there is pipe | 1 |
-| 2 | **THE BURN** | fuel, and who gets warm | make fire anywhere, heat a building | 1 |
-| 3 | **THE TOLL** | a chokepoint | permanently clear a blocked road | 1 |
-| 4 | **THE STRIPPER** | what may be taken apart | strip any building for materials | 1 |
-| 5 | **THE WRECKER** | demolition | take a building down | 1 |
-| 6 | **THE LIGHTS** | a lit block | switch on any street in the valley | 2 |
-| 7 | **THE WARD** | the last working clinic | treat wounds anywhere | 2 |
-| 8 | **THE VOICE** | the one transmitter | broadcast to the whole valley | 2 |
-| 9 | **THE DRAIN** | where the waste goes | make a district habitable | 2 |
-| 10 | **THE BOOK** | who owes whom | call in a debt anywhere | 2 |
-| 11 | **THE FOREMAN** | the working hands | put a crew to work without you | 2 |
-| 12 | **THE OPERATOR** | the heavy machines | run the heavy stuff (costs fuel forever) | 2 |
-| 13 | **THE FIXER** | where the one working part is | repair instead of replace | 2 |
-| 14 | **THE JUDGE** | what counts as a crime | pardon or condemn anyone | 3 |
-| 15 | **THE SCHOOL** | who gets taught | teach a skill to somebody else | 3 |
-| 16 | **THE SOIL** | the last living ground | make things grow again | 3 |
-| 17 | **THE GRID** | the whole network | move power between districts | 3 |
-| 18 | **THE BROKER** | the only line all factions still use | get two enemies into one room | 3 |
+**The number is the ENTRY number in the body below, so every boss has exactly ONE number.**
+Sorted by act, weakest first.
+
+| # | THE BOSS | HOLDS | YOU CAN THEN | ACT | HIS TEST: BUILD OR EXPLORE? |
+|---|---|---|---|---|---|
+| 1 | **THE TAP** | a live water main | draw water anywhere there is pipe | 1 | BOTH |
+| 2 | **THE BURN** | fuel, and who gets warm | make fire anywhere, heat a building | 1 | BOTH |
+| 3 | **THE TOLL** | a chokepoint | permanently clear a blocked road | 1 | EXPLORE |
+| 4 | **THE STRIPPER** | what may be taken apart | strip any building for materials | 1 | BUILD |
+| 14 | **THE WRECKER** | demolition | take a building down | 1 | BUILD |
+| 20 | **THE CHANNEL** | the flood washes under the city | move under the valley, so a blocked street is no longer a wall | 1 | EXPLORE  <- new |
+| 5 | **THE LIGHTS** | a lit block | switch on any street in the valley | 2 | EXPLORE |
+| 6 | **THE WARD** | the last working clinic | treat wounds anywhere | 2 | EXPLORE |
+| 8 | **THE DRAIN** | where the waste goes | make a district habitable | 2 | BUILD |
+| 15 | **THE FOREMAN** | the working hands | put a crew to work without you | 2 | BUILD |
+| 16 | **THE OPERATOR** | the heavy machines | run the heavy stuff (costs fuel forever) | 2 | BUILD |
+| 17 | **THE FIXER** | where the one working part is | repair instead of replace | 2 | BUILD |
+| 19 | **THE POUR** | the last working batch plant | pour a foundation, so you build PERMANENT not patched | 2 | BUILD  <- new, HIS idea |
+| 21 | **THE CLIMB** | the one hoist that still lifts | get up: roofs, upper floors, the towers | 2 | EXPLORE  <- new |
+| 7 | **THE VOICE** | the one transmitter | broadcast to the whole valley | 2 | *** neither - HIS CALL *** |
+| 9 | **THE BOOK** | who owes whom | call in a debt anywhere | 2 | *** neither - HIS CALL *** |
+| 11 | **THE SCHOOL** | who gets taught | teach a skill to somebody else | 3 | BUILD |
+| 12 | **THE SOIL** | the last living ground | make things grow again | 3 | BUILD |
+| 13 | **THE GRID** | the whole network | move power between districts | 3 | BUILD |
+| 22 | **THE ENGINE** | the last vehicle that still runs | drive the valley instead of walking it | 3 | EXPLORE  <- new |
+| 10 | **THE JUDGE** | what counts as a crime | pardon or condemn anyone | 3 | *** neither - HIS CALL *** |
+| 18 | **THE BROKER** | the only line all factions still use | get two enemies into one room | 3 | *** neither - MINE, weakest *** |
 
 **FIVE IN ACT 1, EIGHT IN ACT 2, FIVE IN ACT 3.** Act 2 carries the most because it has the
 biggest rebuild delta to cover (~15% up to ~33-40% under
@@ -273,6 +310,36 @@ yourself — you get the sixteen factions to agree and they lay it.** `records/f
 already holds all sixteen dossiers. It is the strongest boss in the game to *beat* and the
 only one you cannot beat by force, which is exactly what "least possible loss of life as the
 desired outcome" has been pointing at the whole time.
+
+## THE FOUR ADDED (8/7/26) — on his ask, and every one is BUILD or EXPLORE
+
+Numbered 19-22 in body order. Same voice, same shape: a person who owns a thing, and killing
+them hands you what they were hoarding. Four, not fourteen, because "it got out of control"
+was the note.
+
+**19. THE POUR — concrete.**
+*HIS OWN IDEA, 8/3, and it was the one missing.* Sits on the last batch plant that still
+turns. Everything you have built so far is patched, propped, tied and temporary. **POWER: you
+can pour a foundation — so you can build something PERMANENT.** This is the boss that turns
+scavenging into construction, and it is why act 2 can reach 33-40% instead of stalling at
+"nicely repaired shacks."
+
+**20. THE CHANNEL — the underside.**
+Vegas is cut through by concrete flood washes, and in the real city people live in them.
+Somebody owns them and charges to pass. **POWER: you can move under the valley.** A blocked
+street, a wall, a hostile district: none of them are the edge of the map any more. This is the
+act 1 explore power, and it pairs with THE TOLL — one clears the surface, one goes beneath it.
+
+**21. THE CLIMB — up.**
+Holds the one hoist that still lifts. Everything above the first floor is currently scenery.
+**POWER: you can get up — roofs, upper floors, the towers.** The whole second axis of a city
+opens, and it lands straight on the second-floor interiors another lane just built.
+
+**22. THE ENGINE — the last thing that runs.**
+Somebody has the last vehicle that still starts, and they are not sharing the key. **POWER:
+you can drive the valley instead of walking it.** The strongest explore power in the game, and
+it belongs in act 3 because of R9: fast travel unlocks by having WALKED it. You earn the car
+by having earned the map on foot.
 
 ## WHERE THE ADDED FIVE SIT AGAINST THE ACT CAPS
 

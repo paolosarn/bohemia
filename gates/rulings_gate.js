@@ -297,6 +297,23 @@ ok('G10 the entries run 1..N with no duplicates or gaps',
 ok('G11 the five additions are marked as additions, not smuggled into v1',
    /THE FIVE ADDED \(8\/4\/26\)/.test(lad));
 
+/* G11b-G11e (8/7) — HE RE-OPENED THE LADDER, SO THE STOP HAD TO BE LIFTED BY HIM AND SAID SO.
+   G8 above holds the 8/4 self-imposed stop ("then I stop proposing shapes"). On 8/7 he asked
+   for the list again and said "maybe there's more than 18 bosses", which under
+   laws/BOHEMIA_LAW_HOW_HAIR_AND_SHAPE_WORK_8_1_26.md (A GATE MUST NEVER OUTRANK A RULING)
+   lifts it. The danger is a future session reading the extension and treating the ladder as
+   open season, so the lift has to name WHO did it, and his TEST has to be enforced. */
+ok('G11b the 8/7 lift is recorded and attributed to HIM, not taken by the session',
+   /IS LIFTED BY\s*HIM/i.test(lad) && /not quietly dropped and it was not lifted by me/i.test(lad));
+ok('G11c his BUILD-OR-EXPLORE test is stated as the filter every boss must pass',
+   /MUST GRANT A POWER THAT HELPS YOU BUILD OR EXPLORE THE WORLD/i.test(lad) &&
+   /SIZED TO THE ACT YOU ARE IN/i.test(lad));
+ok('G11d the four bosses that FAIL his test are flagged for his call and NOT cut by me',
+   /FOUR FAIL/i.test(lad) && /I am not cutting them/i.test(lad) &&
+   ['THE VOICE','THE BOOK','THE JUDGE','THE BROKER'].every(n => lad.indexOf(n) > 0));
+ok('G11e the four additions are marked as additions too, with their own date',
+   /THE FOUR ADDED \(8\/7\/26\)/.test(lad));
+
 /* WHAT SURVIVES FROM THE DEAD PASSES -- mechanism he never rejected. */
 ok('G12 a biome is a MISSING FUNCTION, not a place',
    /BIOME"? IS A MISSING FUNCTION, NOT A PLACE/i.test(lad));
