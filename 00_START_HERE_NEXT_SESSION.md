@@ -4695,7 +4695,7 @@ verdict is the gate being wrong.
 
 === THREE GRAVEYARD TOKEN COLLISIONS ===
 AFRO inside a base64 blob, LOCS inside 'VOTING BLOCS', DESERT CURL 2 inside
-'DESERT CURL 29 off-skull pixels'. Suffix tokens (HAIR AFRO, w3) when the bare
+'DESERT CURL 29 off-skull pixels'. Suffix tokens (HAIR AFRO, DEAD in the graveyard, and w3) when the bare
 name is an English word or a possible numeric prefix.
 
 
