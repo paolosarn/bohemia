@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 """
-BOHEMIA — GRIME GATE (8/3/26). THE MACHINE IS BUILT AND THE DIAL IS HELD AT ZERO.
+BOHEMIA — GRIME GATE (8/3/26; AMENDED 8/9/26 — HE RULED, THE DIAL IS 0.30).
+
+8/9: the ART tab dial came back "UP, amount picked: 0.30" with the note "Some my
+fav dirty can be good too" (records/BOHEMIA_GRIME_VERDICT_8_9_26.txt). The pick
+is the ruling. This gate now pins the RULED amount the same way it pinned zero:
+the run, the bank and the builder must all say 0.30, and moving the dial in
+EITHER direction needs a new verdict file plus a matching edit here. The note's
+warmth toward 0.55 is interest, not licence — shipping 0.55 off that sentence
+is exactly the 8/3 "do what you want is not a ruling on an AMOUNT" mistake.
 
 FACTORY LAW: every system gets its own regression gate the same turn. This one is
 unusual, because half of what it protects is a DECISION NOT TO BUILD YET.
@@ -85,15 +93,19 @@ def main():
 
     print('GRIME GATE')
 
-    # ---- THE DIAL IS ZERO UNTIL HE RULES ON IT
+    # ---- THE DIAL IS THE RULED AMOUNT, AND ONLY WITH THE VERDICT ON FILE
+    RULED = 0.30  # Paolo 8/9, ART tab card 4; new number = new verdict + this line
     ruled = any('GRIME' in f.upper() and 'VERDICT' in f.upper()
                 for f in os.listdir(RECORDS))
-    ck('the bank declares it ships at zero', bank.get('ships_at') == 0 or ruled,
-       'ships_at=%r with no recorded verdict' % bank.get('ships_at'))
-    ck('the run draws it at strength 0', 'var GRIME_STRENGTH = 0.0;' in src or ruled,
-       'the dial moved with no verdict in records/')
-    ck('the builder REFUSES a non-zero bank',
-       "grime.ships_at !== 0" in builder and 'ZERO until Paolo rules' in builder)
+    ck('the verdict that moved the dial is on file in records/', ruled,
+       'GRIME_STRENGTH is ruled 0.30 but no GRIME*VERDICT file exists')
+    ck('the bank declares the ruled amount', bank.get('ships_at') == RULED,
+       'ships_at=%r, ruled %r' % (bank.get('ships_at'), RULED))
+    ck('the run draws it at the ruled strength',
+       'var GRIME_STRENGTH = %.2f;' % RULED in src,
+       'the dial does not match the 8/9 ruling')
+    ck('the builder REFUSES a bank that disagrees with the ruling',
+       "grime.ships_at !== %.2f" % RULED in builder and 'ZERO until Paolo rules' in builder)
     ck('the bank says in writing WHY it is zero', 'why_zero' in bank
        and 'twenty-seven' in bank['why_zero'])
 

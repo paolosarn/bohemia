@@ -84,8 +84,8 @@ const CARDS = [
   },
   {
     id: 'grime',
-    title: 'THE DIRT — PICK A NUMBER',
-    ask: 'Three amounts of grime. Which one? NONE, SOME, or DIRTY.',
+    title: 'THE DIRT — ANSWERED: 0.30 SHIPS',
+    ask: 'You picked SOME (0.30) on 8/9 and that is what the game ships now. The dial stays here to look at, not to re-answer.',
     dial: [
       { k: '0',    lbl: 'NONE',  img: 'ART_LIGHT_ON.png' },   /* grime 0 IS the shipped frame; a second identical 1.4MB file is dead weight */
       { k: '0.30', lbl: 'SOME',  img: 'ART_GRIME_030.png' },
@@ -93,10 +93,10 @@ const CARDS = [
     ],
     why: 'One grime pass over everything is the Machine Party trick you liked: it ' +
          'blends separate objects into one world instead of a pile of different ' +
-         'art. The machine is built and the game currently ships it at ZERO, ' +
-         'because you have never seen a dirty frame and picking the amount is ' +
-         'yours, not mine.',
-    num: 'shipping at 0 until you pick'
+         'art. Your 8/9 verdict picked 0.30 and noted "dirty can be good too" - ' +
+         '0.30 is live in the game, and 0.55 stays on the shelf as interest, not ' +
+         'a ruling. Say the word if you ever want it turned up.',
+    num: 'RULED 8/9: ships at 0.30, your pick · verdict in records/'
   }
 ];
 
@@ -229,8 +229,9 @@ const html = `<!doctype html>
   <h1>ART &middot; 8/5 &middot; THE WORLD HAS THINGS IN IT</h1>
   <button class="sunbtn" id="sunbtn">SUN MODE</button>
 </header>
-<p class="lede">Everything this lane made, in one place. Four things to judge.
-Tap a picture to flip it. Thumbs, then EXPORT at the bottom and send me the file.</p>
+<p class="lede">Verdicts in, 8/9: all four cards UP, and the dirt ships at your 0.30.
+Nothing below needs your thumb again. The gold TILE BOARD banner above is what
+does: 15 new tile families waiting on you.</p>
 
 <a class="board" href="BOHEMIA_TILEFORMS_JUDGE_8_9_26.html">
   <span class="boardtag">NEW &middot; 8/9</span>

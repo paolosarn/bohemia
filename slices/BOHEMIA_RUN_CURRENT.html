@@ -21362,7 +21362,12 @@ function draw(){
      stated three lines up has not changed: one district of twenty-seven is finished.
      Back to zero. It goes up when he rules on the number, and the side-by-side to
      rule on is in records/target/. */
-  var GRIME_STRENGTH = 0.0;
+  /* 8/9, HE RULED: the ART tab dial came back "UP, amount picked: 0.30, note:
+     Some my fav dirty can be good too" (records/BOHEMIA_GRIME_VERDICT_8_9_26.txt).
+     The pick is 0.30 and that is what ships. The note keeps 0.55 as live interest,
+     not a ruling - do not turn it up off that sentence. grime_gate now pins 0.30
+     WITH the verdict file, instead of pinning zero. */
+  var GRIME_STRENGTH = 0.30;
   if(mode==='ext' && GRIME_STRENGTH>0 && grimeReady()){
     ctx.save(); ctx.globalAlpha=GRIME_STRENGTH;
     for(var _gy=-halfH; _gy<=halfH; _gy++) for(var _gx=-halfW; _gx<=halfW; _gx++){

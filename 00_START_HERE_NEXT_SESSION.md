@@ -1,3 +1,32 @@
+ART (f3eu53): 8/9 (t) LATEST -- *** VERDICTS IN: ALL FOUR ART CARDS UP, AND THE
+DIRT SHIPS AT HIS 0.30. ***
+Records: records/BOHEMIA_ART_VERDICT_8_5_BUILD_8_9_26.txt +
+records/BOHEMIA_GRIME_VERDICT_8_9_26.txt
+
+Paolo exported the ART tab verdict 8/9: THE LIGHT UP, THE SHADOWS UP, THINGS IN
+THE WORLD UP, THE DIRT UP with "amount picked: 0.30" and the note "Some my fav
+dirty can be good too". The first three were already shipping; approval locks
+them and unlocks volume. The dial was the buildable half:
+
+- GRIME_STRENGTH 0.0 -> 0.30 in the run canon (RUN_SLICE template), rebuilt
+  through tools/build_run_slice.js into RUN_CURRENT.
+- The whole refusal chain re-aimed, not removed: the bank says ships_at 0.30,
+  the builder throws on any OTHER number, and gates/grime_gate.py (24/24) pins
+  0.30 + requires the verdict file on disk. Moving the dial in EITHER direction
+  now needs a new verdict, same as it needed one to leave zero.
+- 0.55 IS NOT LICENSED. His note is interest, not a ruling on an amount - the
+  8/3 mistake is not being repeated off a warmer sentence. [If he ever says
+  "turn it up", that is the ruling; ship it that turn.]
+- VERIFIED ON THE REAL SURFACE: walked out the front door of the rebuilt
+  RUN_CURRENT at iPhone portrait; the staining draws IN the world across cell
+  boundaries, light + props intact. run_gate 126, light_gate 41, exterior_pool
+  37, alpha_loads 20, art_tab 28, name_the_tab 24, grime 24 - all green.
+- The ART tab card 4 is re-titled ANSWERED so the tab never asks him to
+  re-thumb his own words (NOTES ARE RULINGS). Tab lede now points his thumb at
+  the TILE BOARD banner, which is the open sitting.
+
+ART (f3eu53): 8/9 (s) -- *** THE TILE BOARD SITTING IS LIVE: 15 FAMILIES,
+
 PEOPLE (7h9sfy): 8/9 — *** PAOLO PICKED A AND B. *** A = wire the already-finished work
 into what he plays. B = the day loop (needs two rulings from him; first one is asked).
 Record: records/BOHEMIA_HIS_APPROVED_WALLS_ARE_NOT_IN_THE_WORLD_HE_WALKS_8_9_26.md

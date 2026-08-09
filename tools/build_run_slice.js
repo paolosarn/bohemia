@@ -162,8 +162,12 @@ console.log('  PERIMETER: ' + perimDesigns.length + ' designs he approved 8/2, '
 var GRIME_BANK = 'banks/BOHEMIA_GRIME_8_3_26.txt';
 var grime = JSON.parse(fs.readFileSync(GRIME_BANK, 'utf8'));
 if (!grime.b64 || grime.patch_cells < 4) throw new Error('the grime sheet is missing from ' + GRIME_BANK);
-if (grime.ships_at !== 0) throw new Error('GRIME: the bank says it ships at ' + grime.ships_at
-  + '. The machine ships at ZERO until Paolo rules on the amount.');
+/* ZERO until Paolo rules -- and on 8/9 he ruled: 0.30, from the ART tab dial
+   (records/BOHEMIA_GRIME_VERDICT_8_9_26.txt). The refusal stays, re-aimed: the
+   bank must say exactly the RULED amount, so nobody can quietly move the dial
+   in either direction without a new verdict file and a matching edit here. */
+if (grime.ships_at !== 0.30) throw new Error('GRIME: the bank says it ships at ' + grime.ships_at
+  + '. Paolo ruled 0.30 on 8/9; a different number needs a NEW verdict, not an edit.');
 ['__GRIME_B64__', '__GRIME_CELLS__'].forEach(function (ph) {
   if (html.indexOf(ph) < 0) throw new Error('missing ' + ph + ' placeholder');
 });

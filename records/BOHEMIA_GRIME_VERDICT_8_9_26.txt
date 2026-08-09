@@ -1,0 +1,15 @@
+BOHEMIA GRIME VERDICT (8/9/26, exported from the ART tab, card 4)
+
+THE DIRT - PICK A NUMBER
+  verdict: UP
+  amount picked: 0.30
+  his note: "Some my fav dirty can be good too"
+
+THE RULING: grime ships at 0.30. His note keeps interest in 0.55 alive but the
+PICK is 0.30 and that is what ships; 0.55 is not to be shipped off this note
+(NOTES ARE RULINGS covers what he SAID he likes - he picked SOME, said DIRTY
+can also be good, and the pick is the ruling on the amount).
+
+The full sitting (all four cards UP) is records/BOHEMIA_ART_VERDICT_8_5_BUILD_8_9_26.txt.
+Machinery: the sheet + world-keyed sampling shipped 8/3 (banks/BOHEMIA_GRIME_8_3_26.txt),
+held at zero by gates/grime_gate.py until this file existed.
