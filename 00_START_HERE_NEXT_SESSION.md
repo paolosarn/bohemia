@@ -1,3 +1,42 @@
+FACTIONS (factions-ovkjpf): 8/12 (e) LATEST — *** THE WITNESS ORGAN IS FINALLY RUNNING
+IN THE GAME. Four days of it (STANDING 35 claims, DEED BRIDGE 27) had never been CALLED
+by anything. *** Nothing to judge.
+
+WHAT WAS WRONG: the consequence card said "WORD CARRIED 24 TILES" -- a DERIVED radius,
+the distance a thing of that loudness travels. True, and not the same claim as "these
+people saw you". The run had no minds at all and called witness() zero times.
+
+NOW: at the moment a quest resolves, the deed is published at the player's tile -- not
+when the phone opens, because who saw a thing depends on where everyone was WHEN IT
+HAPPENED. The block's own people ARE the minds (no new population; they just get the one
+array bohemia_standing asks for), and DEED_WEIGHT is filled from HIS corpus at first use,
+so every weight traces to a @DO faction line he wrote.
+
+TWO NUMBERS, AND THE CARD MUST NOT CONFUSE THEM -- the first cut did:
+  publish() is FACTION-SCOPED on purpose (a Red genuinely does not care who buys seed),
+  so it counts who FORMED A VIEW, and on this block that is honestly zero.
+  "N people saw it" is a PHYSICAL claim: who was close enough. Counted separately, as
+  everyone within the reach the deed's own clout tag earned.
+The first version printed the opinion count under the words PEOPLE SAW IT and read as
+broken while the mechanism was right.
+
+MEASURED AT THE TILE WHERE THE QUEST REALLY RESOLVES (the lineman's, not spawn):
+    quiet 0 / notable 0 / risky 0 / reckless 1
+The nearest resident is 54 TILES AWAY -- everybody is home and indoors at that hour. That
+is NOT a bug: the run already narrates the quiet fork as "Done, and nobody heard it", so
+the system agrees with the story. But a printed 0 reads like a broken counter, so the
+card says NOBODY SAW IT in words.
+
+THE GEOMETRY FINDING, same family as the faction dead zone: the demo block's people are
+far from where its quest resolves, so the loudness axis barely discriminates there (it
+does work -- reach 7/12/17/24 -- there is simply nobody standing in it). Two honest ways
+to change that and BOTH ARE SOMEBODY ELSE'S: where the quest is placed (run lane) and
+when it resolves (a quest that ends at 3am has no audience by definition). Not tuned.
+
+GATES: RUN 126, CURRENT SLICE 6, STANDING 35, DEED BRIDGE 27. The current slice went red
+first -- it embeds the loop and I had rebuilt only the run. Same trap as 8/9; rebuild
+BOTH slices whenever engine or run source changes.
+
 ART (f3eu53): 8/11 (g) LATEST -- *** HIS VERDICT ON THE WIRED WORK: "LOOKS GOOD
 THE PLACEMENT WAS SHIT BUT INDIVIDUALLY THE TILES ARE GOOD." THREE PLACEMENT
 FAULTS FIXED SAME TURN, CARDS RE-SHOT. ***

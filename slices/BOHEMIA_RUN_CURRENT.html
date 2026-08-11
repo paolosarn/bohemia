@@ -24686,6 +24686,10 @@ function afterTalk(){
   if(RT && RT.state.done && !RUN.outcome){
     RUN.outcome = RT.state.outcome;
     RUN.clout = BohemiaLoop.cloutTagFrom(RT.state.doneTags) || null;
+    /* AND THE BLOCK SEES IT. Published at the moment it resolves, at the tile the
+       player is standing on, because who witnessed a thing depends on where everyone
+       was WHEN IT HAPPENED - not where they are when you open your phone later. */
+    witnessResolution();
     /* LOUD DEEDS DRAW PEOPLE. The run reads the completing stage's own CLOUT tag
        (canon: #quiet #notable #risky #reckless, loudness = exposure) — a risky or
        reckless resolution hands off into the REAL combat frame. A quiet fix does
@@ -24760,6 +24764,83 @@ window.addEventListener('message', function(ev){
 
 /* ---- 14. THE PHONE. The post is BUILT BY THE ENGINE (buildFeed over the real
    ledger the quest wrote), never hand-written here. ---- */
+/* ---- WHO ACTUALLY SAW IT (8/12) ---------------------------------------------
+   The witness organ - bohemia_standing.js (35 gated claims) and bohemia_deeds.js (27) -
+   has been built, gated and inlined in this page since 8/9, and NOTHING HAS EVER CALLED
+   IT. The consequence card showed WORD CARRIED n TILES, which is a derived radius: the
+   distance the clout tag says a thing of that loudness travels. True, and not the same
+   claim as "these people saw you".
+
+   So the block gets minds. Not a new population - THE PEOPLE ALREADY STANDING THERE are
+   the minds, keyed by their own id, given the one array bohemia_standing asks for. The
+   deed is published at the resolving tile with the reach and the retelling budget the
+   quest's own clout tag earned, and only the faction the act actually touched records
+   it, which is how a Red standing in the same street correctly remembers nothing.
+
+   DEED_WEIGHT is filled from HIS OWN CORPUS at first use (loadCorpus over the canon
+   quests this page already carries), so every weight traces to a @DO faction line he
+   wrote. Nothing is invented and nothing is authored here. */
+var MINDS = null, DEEDS_READY = false;
+function blockMinds(){
+  var roster = (SIM && SIM.agents) ? SIM.agents : [];
+  if(!MINDS || MINDS.length !== roster.length){
+    MINDS = roster.map(function(a){ return { owner:a.id, deeds:[] }; });
+  }
+  return MINDS;
+}
+function whereOf(id){
+  var roster = (SIM && SIM.agents) ? SIM.agents : [];
+  for(var i=0;i<roster.length;i++) if(roster[i].id===id) return roster[i].loc||null;
+  return null;
+}
+function factionOfOwner(id){
+  var roster = (SIM && SIM.agents) ? SIM.agents : [];
+  for(var i=0;i<roster.length;i++){
+    if(roster[i].id!==id) continue;
+    var a=roster[i];
+    var f = authoredFactionFor(a);
+    if(f) return String(f).toUpperCase();
+    try { f = BohemiaAgents.factionOf(a, CELL, CTX.factionBases); } catch(_e){ f=null; }
+    return f ? String(f).toUpperCase() : null;
+  }
+  return null;
+}
+function witnessResolution(){
+  if(typeof BohemiaDeeds==='undefined' || typeof BohemiaStanding==='undefined') return;
+  if(!RT || !RT.Q) return;
+  try{
+    if(!DEEDS_READY){
+      BohemiaDeeds.loadCorpus((window.CANON_QUESTS||[]).map(function(src,i){
+        return { id:'C'+i, src:src }; }));
+      DEEDS_READY = true;
+    }
+    var st = RT.Q.stages.filter(function(x){ return x.n===RT.state.stage; })[0];
+    if(!st) return;
+    var rows = BohemiaDeeds.scanQuest(BQ.serialize(RT.Q), RT.Q.id)
+                 .filter(function(r){ return r.stage===st.n; });
+    if(!rows.length) return;
+    var res = BohemiaDeeds.publish(blockMinds(), SIM.turn|0, 'PLAYER', rows,
+                                   px, py, whereOf, factionOfOwner);
+    /* TWO DIFFERENT NUMBERS, AND THE CARD MUST NOT CONFUSE THEM. publish() is
+       faction-scoped ON PURPOSE - a Red standing in the street genuinely does not care
+       who buys seed, so only the faction an act actually touched records an opinion of
+       it. That is who FORMED A VIEW, and on this block it can honestly be zero.
+       "N people saw it" is a different, physical claim: who was close enough. So it is
+       counted as what the English actually says - everybody within the reach the deed's
+       own clout tag earned - and the faction lines underneath carry the opinion half.
+       The first cut printed the opinion count under the words "PEOPLE SAW IT" and read
+       as broken when the mechanism was right. */
+    var reach = BohemiaDeeds.reachOf(rows[0].clout || null);
+    var eyes = 0, roster = (SIM && SIM.agents) ? SIM.agents : [];
+    for(var i=0;i<roster.length;i++){
+      var q = roster[i].loc; if(!q) continue;
+      if(Math.abs(q.x-px)+Math.abs(q.y-py) <= reach) eyes++;
+    }
+    RUN.witnesses = eyes;
+    RUN.opinions  = res.witnesses;
+  }catch(_e){ /* a demo must never die because nobody was looking */ }
+}
+
 /* ---- THE CONSEQUENCE LINE (8/9, closes the integration ledger's oldest PARTIAL) ----
    "factions / world bridge | PARTIAL | quest outcomes really move faction standing,
    but nothing in the run SHOWS it" has sat in records/BOHEMIA_RUN_INTEGRATION_LEDGER
@@ -24803,7 +24884,16 @@ function questConsequence(rt, cloutTag){
   if(reach!=null){
     var r=document.createElement('div');
     r.style.cssText='font:10px ui-monospace,monospace;color:#6c614f;letter-spacing:.5px';
-    r.textContent='WORD CARRIED '+reach+' TILES';
+    /* ZERO IS A REAL ANSWER HERE, NOT A BROKEN COUNTER. Resolve something quietly on
+       an empty street at an hour when the block is asleep and the honest count IS
+       nobody - which is exactly what the run already tells the player in its own words
+       ("Done, and nobody heard it"). So it says NOBODY rather than printing a 0 that
+       reads like a bug. */
+    r.textContent = (RUN.witnesses==null)
+      ? ('WORD CARRIED '+reach+' TILES')
+      : ((RUN.witnesses===0 ? 'NOBODY SAW IT'
+          : RUN.witnesses + (RUN.witnesses===1?' PERSON SAW IT':' PEOPLE SAW IT'))
+         + ' \u00b7 IT CARRIED ' + reach + ' TILES');
     box.appendChild(r);
   }
   bits.forEach(function(bt){
