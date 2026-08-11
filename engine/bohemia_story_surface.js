@@ -65,9 +65,20 @@
      It is also the shot the match-cut needs, because "you still take the same
      chair" has to be about a chair the camera can see. */
   var SEATS = [
-    { id: 'far_l',  x: 100, y: 236, dir: 'S', side: 'far',  bodyY: 334, scale: 1.42 },
-    { id: 'far_c',  x: 158, y: 232, dir: 'S', side: 'far',  bodyY: 330, scale: 1.42 },
-    { id: 'far_r',  x: 216, y: 236, dir: 'S', side: 'far',  bodyY: 334, scale: 1.42 },
+    /* *** PAOLO 8/11 ON v1: "mfs were standing ontop of table." *** They were
+       drawn at full height with their feet ABOVE the table's top plane, so three
+       people appeared to be standing on the furniture. A person seated at a
+       table is cut off by it at the ribs -- so the far row's feet now land BELOW
+       the table's top edge, the table is drawn over them, and only chest and
+       head clear it. The scale came down too: a body as tall as the table is
+       wide is a body standing behind a counter.
+       Second pass, because the first correction overshot and buried them
+       entirely: the feet land just below the table's TOP PLANE, not below the
+       table. Chest and head clear it and the rest is behind furniture, which is
+       what sitting at a table looks like. */
+    { id: 'far_l',  x: 104, y: 244, dir: 'S', side: 'far',  bodyY: 344, scale: 1.24 },
+    { id: 'far_c',  x: 158, y: 240, dir: 'S', side: 'far',  bodyY: 340, scale: 1.24 },
+    { id: 'far_r',  x: 212, y: 244, dir: 'S', side: 'far',  bodyY: 344, scale: 1.24 },
     /* the near pair are turned a notch off dead-on. A body drawn at exactly N is
        a back and the back of a head, which at this crop reads as an egg on a
        shoulder; one step to NE/NW gives the silhouette an edge and a cheek and
@@ -174,6 +185,19 @@
     if (im && im.width) this.cx.drawImage(im, x, y, s, s);
   };
 
+  /* A BODY WITH NO SHADOW FLOATS, and floating is most of what "glitchy" looks
+     like from across a room. One soft ellipse on the floor under each person. */
+  Story.prototype.shadow = function (x, footY, w) {
+    var c = this.cx;
+    c.save();
+    c.translate(x, footY); c.scale(1, 0.26);
+    var g = c.createRadialGradient(0, 0, 0, 0, 0, w);
+    g.addColorStop(0, 'rgba(0,0,0,0.55)'); g.addColorStop(0.65, 'rgba(0,0,0,0.24)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    c.fillStyle = g; c.beginPath(); c.arc(0, 0, w, 0, 6.2832); c.fill();
+    c.restore();
+  };
+
   Story.prototype.body = function (key, clip, x, footY, scale, hot) {
     var set = this.frames[key];
     if (!set) return;
@@ -208,21 +232,26 @@
        is the wall's plank turned a quarter and darkened -- boards running across
        the floor, boards running up the wall, one approved tile, no new pixel
        cooked during a freeze. */
-    var x, y, FT = 64;                                 // floor boards read bigger up close
-    for (y = -TILE; y < HORIZON; y += TILE) for (x = 0; x < W; x += TILE) this.tile('wall', x, y, TILE);
-    c.save();
-    c.beginPath(); c.rect(0, HORIZON, W, H - HORIZON); c.clip();
-    c.translate(0, HORIZON);
-    c.rotate(-Math.PI / 2);                            // boards now run ACROSS the floor
-    for (y = 0; y < W + FT; y += FT) for (x = -(H - HORIZON) - FT; x < FT; x += FT) this.tile('wall', x, y, FT);
-    c.restore();
-    /* value separation, not a new texture: the same boards, in the room's shade.
-       Without this the wall and the floor are one wooden box and the horizon
-       disappears -- which kills the depth the whole 45-degree read depends on. */
-    c.fillStyle = 'rgba(6,4,2,0.46)';
+    /* BIGGER TILES, AND EVERY OTHER ROW OFFSET. At 48px the wall is eight
+       identical cracks across and four down, and a repeat that regular reads as
+       WALLPAPER, not as a wall -- the eye finds the grid before it finds the
+       room. Drawing them larger and running each row half a tile over breaks the
+       lattice with no new pixel and no extra cost. */
+    var x, y, r, WT = 72, FT = 62;
+    for (y = -WT, r = 0; y < HORIZON; y += WT, r++)
+      for (x = -WT + (r % 2 ? WT / 2 : 0); x < W + WT; x += WT) this.tile('wall', x, y, WT);
+    for (y = HORIZON, r = 0; y < H + FT; y += FT, r++)
+      for (x = -FT + (r % 2 ? FT / 2 : 0); x < W + FT; x += FT) this.tile('floor', x, y, FT);
+    /* the floor sits in the room's shade -- value separation, or the wall and
+       the floor merge and the horizon disappears with them. */
+    c.fillStyle = 'rgba(8,6,4,0.34)';
     c.fillRect(0, HORIZON, W, H - HORIZON);
-    c.fillStyle = 'rgba(0,0,0,0.55)';
-    c.fillRect(0, HORIZON - 5, W, 7);                  // where the wall meets it
+    /* THE BASEBOARD. The cheapest thing in this whole file and the one that says
+       "somebody's house" rather than "a room in a dungeon" -- every American
+       interior has one and no ruin tileset ships one. */
+    c.fillStyle = 'rgba(232,224,206,0.80)'; c.fillRect(0, HORIZON - 9, W, 9);
+    c.fillStyle = 'rgba(0,0,0,0.30)';       c.fillRect(0, HORIZON - 10, W, 2);
+    c.fillStyle = 'rgba(0,0,0,0.45)';       c.fillRect(0, HORIZON, W, 4);
 
     /* THE WINDOW. One tile swap carries ten years, and it is the only thing in
        the room that a viewer can point at and say what happened. */
@@ -270,6 +299,7 @@
     SEATS.forEach(function (s) {
       if (s.side !== 'far') return;
       var who = self.cast[s.id]; if (!who) return;
+      self.shadow(s.x + 38, s.bodyY - 2, 26);
       self.body(who.key, 'sit-chair', s.x + 38, s.bodyY, s.scale, who.clip === 'talk');
     });
 
@@ -295,8 +325,11 @@
     });
 
     /* anyone on their feet */
-    if (this.standing) this.body(this.standing.key, this.standing.clip, STANDING.x, STANDING.y + 88,
-      STANDING.scale, this.standing.clip === 'talk');
+    if (this.standing) {
+      this.shadow(STANDING.x, STANDING.y + 88, 30);
+      this.body(this.standing.key, this.standing.clip, STANDING.x, STANDING.y + 88,
+        STANDING.scale, this.standing.clip === 'talk');
+    }
 
     /* LIGHT. The only thing that says "ten years" out loud. */
     if (E.amb > 0) {
@@ -354,6 +387,13 @@
       }
     } else if (b.kind === 'say') {
       this.line = { speaker: b.speaker, text: b.text || '', draft: b.draft === true, cites: b.study || [] };
+      /* *** PAOLO 8/11 ON v1: "there was no squiggle voices." *** The alpha has
+         had a seeded gibberish-speech engine since 8/9 (BOH_VOICE, six voices he
+         approved on the 11th) and the cold open played SILENT, which is the
+         second time this lane has shipped a finished system nobody could reach.
+         The surface does not synthesise anything -- it hands the line to an
+         injected speaker, so this module still owns no audio. */
+      if (this.o.speak) { try { this.o.speak(b.speaker, this.line.text); } catch (e) {} }
       /* whoever speaks is HERE. A speaker with no seat is on their feet — the
          father, after the cut, waking you. */
       var ck = ROLE_TO_CAST[b.speaker];

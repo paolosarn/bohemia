@@ -8,11 +8,15 @@
  * kind of green there is: it reads like the work is done. NAME THE TAB (7/28):
  * a thing he cannot reach does not exist to him.
  *
- * So scene_gate keeps proving the STORY is the shape he ruled, and this gate
- * proves the STORY IS ON A SCREEN. The two do not overlap on purpose.
+ * So scene_gate keeps proving the SCENE is the shape he ruled, and this gate
+ * proves it IS ON A SCREEN. The two do not overlap on purpose.
+ *
+ * The tab is CUTSCENE. It shipped as STORY on 8/11 and he renamed it within the
+ * hour ("change it from story to either cutscene or scene or something"), so
+ * every identifier the tab reaches through follows his word rather than mine.
  *
  * WHAT IT PROVES
- *   1) STORY is a real tab in the alpha with a real canvas behind it
+ *   1) CUTSCENE is a real tab in the alpha with a real canvas behind it
  *   2) every inlined module is BYTE-IDENTICAL to its canonical file, and there
  *      is exactly ONE copy of each (an insert tool run twice is a duplication
  *      tool — the CHARACTER lane's 8/11 lesson, checked rather than trusted)
@@ -50,9 +54,9 @@ const ALPHA_PATH = 'slices/BOHEMIA_ALPHA_0_9.html';
 const alpha = fs.readFileSync(ALPHA_PATH, 'utf8');
 
 /* ---- 1. THE TAB EXISTS AND LEADS SOMEWHERE ------------------------------- */
-ok(/data-p="story"[^>]*>STORY</.test(alpha), 'STORY is a real tab in the alpha tab bar');
-ok(/id="p-story"/.test(alpha), 'and it has a panel');
-ok(/id="storyCv"/.test(alpha) && /id="storyCap"/.test(alpha) && /id="storyPlay"/.test(alpha),
+ok(/data-p="cutscene"[^>]*>CUTSCENE</.test(alpha), 'CUTSCENE is a real tab in the alpha tab bar');
+ok(/id="p-cutscene"/.test(alpha), 'and it has a panel');
+ok(/id="cutCv"/.test(alpha) && /id="cutCap"/.test(alpha) && /id="cutPlay"/.test(alpha),
   'the panel holds a canvas, a caption and a play control');
 
 /* ---- 2. ONE CANONICAL BODY, INLINED VERBATIM ----------------------------- */
@@ -68,12 +72,18 @@ const INLINED = [
 INLINED.forEach(function (m) {
   const src = fs.readFileSync(m[0], 'utf8');
   ok(alpha.indexOf(src) >= 0, m[0] + ' is inlined in the alpha BYTE-IDENTICAL '
-    + '(re-run: python3 tools/bohemia_story_tab_patch.py)');
+    + '(re-run: python3 tools/bohemia_cutscene_tab_patch.py)');
   const n = alpha.split(m[1]).length - 1;
   ok(n === 1, m[0] + ' appears EXACTLY ONCE in the alpha (found ' + n +
     ' — an insert tool run twice is a duplication tool)');
 });
 const canonTxt = fs.readFileSync('records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json', 'utf8').trim();
+/* HOW MANY LINES THE SCENE HAS IS READ OFF THE SCENE, NEVER TYPED HERE. The
+   first cut hardcoded 4 and went red the moment three more were written, which
+   is a gate reporting its own staleness as a defect in the work. */
+const SAY_N = JSON.parse(canonTxt).beats.filter(function (b) {
+  return b.kind === 'say' && b.text;
+}).length;
 ok(alpha.indexOf('var BOHEMIA_COLD_OPEN = ' + canonTxt) >= 0,
   'the authored scene is inlined verbatim from records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json');
 ok((alpha.split('var BOHEMIA_COLD_OPEN =').length - 1) === 1,
@@ -129,7 +139,7 @@ if (fs.existsSync(POOL_PATH) && tiles.length) {
 
 /* ---- 5. ONE-LINK LAW ----------------------------------------------------- */
 ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
-   !fs.existsSync('slices/BOHEMIA_STORY_CURRENT.html'),
+   !fs.existsSync('slices/BOHEMIA_CUTSCENE_CURRENT.html'),
   'the cold open did NOT ship its own page (ONE-LINK LAW: it lives inside the alpha)');
 
 /* ---- 6/7/8. IT PLAYS, ON THE SURFACE HE ACTUALLY TAPS -------------------- */
@@ -149,10 +159,10 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
     await page.waitForTimeout(1200);
 
     const tapped = await page.evaluate(function () {
-      const t = document.querySelector('.tab[data-p="story"]');
+      const t = document.querySelector('.tab[data-p="cutscene"]');
       if (!t) return false; t.click(); return true;
     });
-    ok(tapped, 'the STORY tab is tappable in the running alpha');
+    ok(tapped, 'the CUTSCENE tab is tappable in the running alpha');
 
     /* headless replay first: cheap, and it answers the two structural claims
        without waiting on wall clock. */
@@ -197,41 +207,52 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
     ok(headless.maxCastAfter <= 1,
       'AFTER THE CUT the surface places the player and NOBODY ELSE (max ' +
       headless.maxCastAfter + ') — who survived is Paolo\'s ruling, not the renderer\'s');
-    ok(headless.lines.length === 4,
-      'all four drafted lines reach the surface (' + headless.lines.length + ')');
+    ok(headless.lines.length === SAY_N,
+      'every drafted line in the scene reaches the surface (' + headless.lines.length +
+      ' of ' + SAY_N + ')');
     ok(headless.ended === true, 'the scene reaches its `end` beat and returns control');
 
     /* now the real thing, on the real canvas */
     const played = await page.evaluate(function () {
       return new Promise(function (resolve) {
         const cap = [];
-        storyBoot(function () {
-          const cv = document.getElementById('storyCv');
+        /* *** PAOLO 8/11: "there was no squiggle voices." *** He had to tell us
+           that a finished engine was not being called. So the call is COUNTED
+           now, not assumed: spy on BOH_VOICE.say and require one per spoken
+           line. A wired feature nobody measured is how this happened twice. */
+        let voiced = 0;
+        if (typeof BOH_VOICE !== 'undefined' && BOH_VOICE.say) {
+          const realSay = BOH_VOICE.say.bind(BOH_VOICE);
+          BOH_VOICE.say = function () { voiced++; try { return realSay.apply(null, arguments); } catch (e) { return null; } };
+        }
+        cutBoot(function () {
+          const cv = document.getElementById('cutCv');
           const g = cv.getContext('2d');
           const frames = {};
-          const orig = STORY.apply.bind(STORY);
-          STORY.apply = function (b) {
+          const orig = CUTSCENE.apply.bind(CUTSCENE);
+          CUTSCENE.apply = function (b) {
             orig(b);
             if (b && (b.kind === 'cut')) frames.atCut = true;
           };
-          STORY.start();
+          CUTSCENE.start();
           const t = setInterval(function () {
-            if (STORY.line && STORY.line.text) cap.push(STORY.line.text);
+            if (CUTSCENE.line && CUTSCENE.line.text) cap.push(CUTSCENE.line.text);
             /* sample the canvas either side of the cut at the SAME rows, which is
                where a framing drift would show */
             const strip = g.getImageData(0, 168, cv.width, 10).data;
             let ink = 0;
             for (let i = 3; i < strip.length; i += 4) if (strip[i] > 8) ink++;
-            if (STORY.era === 'pre_collapse') frames.preInk = ink;
+            if (CUTSCENE.era === 'pre_collapse') frames.preInk = ink;
             else frames.postInk = ink;
-            if (STORY.ended) {
+            if (CUTSCENE.ended) {
               clearInterval(t);
               resolve({
+                voiced: voiced,
                 caps: cap.filter(function (v, i, a) { return a.indexOf(v) === i; }),
                 preInk: frames.preInk, postInk: frames.postInk,
                 sawCut: !!frames.atCut,
-                handoff: STORY.handoff, ended: STORY.ended,
-                capHtml: document.getElementById('storyCap').textContent
+                handoff: CUTSCENE.handoff, ended: CUTSCENE.ended,
+                capHtml: document.getElementById('cutCap').textContent
               });
             }
           }, 120);
@@ -242,10 +263,13 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
 
     ok(!played.timeout, 'the cold open PLAYS TO THE END on the real canvas' +
       (played.timeout ? ' — it did not finish in 40s' : ''));
-    ok(played.caps && played.caps.length === 4,
-      'and every one of the four lines is ON SCREEN while it plays (' +
-      ((played.caps || []).length) + ')');
+    ok(played.caps && played.caps.length === SAY_N,
+      'and every one of them is ON SCREEN while it plays (' +
+      ((played.caps || []).length) + ' of ' + SAY_N + ')');
     ok(played.sawCut === true, 'the cut beat reached the surface');
+    ok(played.voiced >= SAY_N,
+      'HIS SQUIGGLE VOICES SPEAK EVERY LINE (' + played.voiced + ' calls into BOH_VOICE for ' +
+      SAY_N + ' lines) -- v1 played silent with the engine already in the build');
     /* THE FRAMING IS THE MATCH-CUT. The wall/floor horizon row must carry the
        same amount of drawn pixel either side; a surface that shifted the camera
        would change this and turn the cut into a scene change. */

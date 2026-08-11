@@ -1,3 +1,118 @@
+PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
+FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
+
+HIS VERDICT ON v1: "Okay that was mad decent... That was fire. The house looked
+like some medieval japanese shit there was no squiggle voices it was short
+glitchy mfs were standing ontop of table but i appreciated it."
+NOTES ARE RULINGS. Five defects, five fixes, in his order:
+
+1. RENAMED. STORY -> CUTSCENE. "change it from story to either cutscene or
+   scene or something." Tab, panel, every DOM id and every gate claim follow his
+   word; the engine module keeps its filename and says why in its header.
+
+2. "MEDIEVAL JAPANESE SHIT" -- he was right and the cause was one decision:
+   orange vertical wood planks on the wall AND the floor. Vertical timber on
+   every surface reads shoji. THE REALISTIC ANSWER WAS ALSO THE RIGHT-LOOKING
+   ONE: a Las Vegas house is STUCCO AND TILE (pale skim coat, hard tile floors,
+   because the Mojave runs 40C+ and nobody carpets a Vegas living room). Plus a
+   BASEBOARD, which is the cheapest thing in the file and the one that says
+   "somebody's house" instead of "a room in a dungeon", and bigger tiles with
+   every other row offset so the wall stops reading as WALLPAPER.
+   *** AND I GOT IT WRONG ONCE ON THE WAY: v2 picked its tiles off a thumbnail
+   sheet and shipped plaster-peeling-off-brick over mossy cobblestone -- a
+   Japanese temple traded for a dungeon. Fixed by rendering ALL 48 walls and ALL
+   28 floors at full size and looking. A tile you have not seen full size is a
+   tile you have not chosen. ***
+
+3. "NO SQUIGGLE VOICES" -- the engine (engine/bohemia_voice.js, six voices he
+   approved 8/11) was already in the build and the cutscene never called it.
+   Wired, and CAUGHT AGAIN BY THE GATE ON THE FIRST TRY: my first wiring called
+   the alpha's bus() helper, which is declared inside another closure and is NOT
+   on window, so it returned on line two and played silent a second time. The
+   gate now SPIES ON BOH_VOICE.say AND COUNTS THE CALLS -- 7 for 7 lines. A
+   wired feature nobody measured is exactly how this happened twice.
+
+4. "IT WAS SHORT" -- 4 lines / 13.5s -> 7 lines / 26.5s. Three new lines, each
+   with its catalogue citations per the 8/11 rule: the father at the table
+   ("the water district's hiring again, I'll go down Monday" -- Q001.W1
+   TRANSACTION-CARRIES-EMOTION: never open with the sad story, open with the
+   errand), the older sibling before the cut so the voice after it is one you
+   have already heard (Q043.W4 AMBIENT BANTER), and the father's second half
+   after it (Q006.W4 ROLE-ASSIGNMENT AS CHARACTER-KNOWLEDGE, Q007.N3 alibi verb
+   still removed). Plus two longer holds.
+
+5. "GLITCHY" -- THE ANIMATION WAS FINE, THE CROP WAS MOVING. Every frame was
+   trimmed to ITS OWN painted bounds, so an arm two pixels wider on frame 3 got
+   a two-pixel-wider canvas, and since the surface plants a sprite by its own
+   width and height the whole person jumped six times a second. Bounds are now
+   measured across EVERY frame of a clip and the same box cut from all of them.
+   A shared crop is the difference between an animation and a seizure.
+
+6. "STANDING ONTOP OF TABLE" -- their feet were ABOVE the table's top plane.
+   Feet now land just below it and the table is drawn over them, so chest and
+   head clear it and the rest is behind furniture, which is what sitting is.
+   (Overcorrected once and buried them entirely; second pass fixed it.)
+
+TAB: CUTSCENE (fourth along, after WORDS). Tap PLAY THE OPEN.
+GATE: coldopen_gate.js, now 33 claims, registered as COLD OPEN. It boots the
+real alpha, taps the real tab, presses the real button, reads the real canvas,
+counts the voice calls, and re-hashes all 12 tiles against the approved interior
+pool -- NO NEW ART is measured, not promised, and the freeze holds.
+
+*** NEXT (the GO list, in order):
+ 1. MORE WORDS. 941 lines in the WORDS tab now. The rule, the machine and the
+    surface all exist; the demo needs hundreds more and nothing blocks writing.
+ 2. A SECOND CUTSCENE COSTS A JSON FILE AND NOTHING ELSE. The tab, the room, the
+    voices and the gate are built. Cheapest story content in the repo.
+ 3. The player's body from behind is a featureless pale head -- it is HIS
+    character so the surface is right to draw it, but a default fit with hair
+    would sell it. Small, and it is a CHARACTER-lane call.
+ 4. The cutscene plays in CUTSCENE but not yet as the walked game's actual
+    opening; that touches the RUN surface, which is CITY's. Coordinate first.
+ 5. Not this lane: 60 tools still crash on CITY_B64; his 11 perimeter walls. ***
+
+FACTIONS (factions-ovkjpf): 8/12 (c) LATEST — *** HE CLOSED THE ENTRANCE'S SCOPE THE
+SAME DAY HE OPENED IT: ONE MAIN QUEST, FOURTEEN DRESSINGS. NOT FOURTEEN GAMES. ***
+laws/BOHEMIA_ADDENDUM_THE_CUSTOMIZABLE_ENTRANCE_8_12_26.md (updated)
+Gate: ENTRANCE SCOPE, 10/10, BLOCKING. Tab: LIFE -> THE ENTRANCE (opens on it).
+
+HIS WORDS, asked whether the faction choice changes the main quest's CONTENT or only
+where it opens: "It only changes the location and possible vibe and colors possible
+dialogue but yeah it's not day and night. It's just with different clothes on."
+
+    MOVES: location, vibe, colours, some dialogue
+    DOES NOT MOVE: the story, the family, the beats (fight / sibling / dinner / burial),
+                   the arc, the ending, the structure
+
+THE SECOND HALF IS THE ONE A BUILD QUIETLY LOSES, which is why it is gated. A
+customizable entrance is exactly the feature that becomes fourteen games: the Cartel
+opening should REALLY be different so it gets its own quest file, then the Church one
+does, and now there are fourteen main quests to write, test and keep in sync forever --
+for a difference he says outright is NOT day and night.
+    FOURTEEN DRESSINGS IS A WEEK. FOURTEEN QUESTS IS THE REST OF THE YEAR.
+
+THE DRESSING PATH ALREADY EXISTS AND IS PROVEN, so nobody has an excuse to fork: the .bq
+format gates an option on the player's faction TODAY. Measured by the gate --
+`[gate: faction:REDS]` validates clean, is HIDDEN by default, and OPENS for the faction
+raised on it. No format change, no second file.
+
+GATE (ratchet, nothing is forked today): bans a per-faction FORK of a canon quest
+(S01_REDS.bq beside S01_THE_METER_READER.bq) while leaving quests legitimately ABOUT a
+faction alone -- the corpus is full of those and they are the point. Self-tests by
+feeding itself both shapes. 21 canon quests, 21 distinct ids, 0 forked.
+
+STILL [PENDING PAOLO] from the same law: are all 14 available at the door (CUSTOM has no
+ground by definition, NETWORK is the Amalgamation's manufactured protection); what
+"faction neighborhood housing" is architecturally; whether other factions know from
+minute one what you were raised as.
+
+STILL TRUE AND STILL HIS: 9 of 14 factions sit on a district you could live in. Anarchists
+and Blues are on a solar farm, Cartel and Homeless in retail, Church on a farm -- and
+canon puts the Homeless HQ in the sewer under the King Hobo. Base placement is worldgen
+and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left alone.
+
+
+
 LAB (lab-e2r7sv): 8/7 (d) LATEST -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
 THREE BOSSES WERE THE SAME BOSS. THE LADDER IS REBUILT AND THE BUG IS NOW MACHINE-HELD. ***
 JUDGE THIS: 1. the 17 bosses in records/BOHEMIA_THE_BOSS_LADDER_v2_8_7_26.md. NOT IN A TAB.

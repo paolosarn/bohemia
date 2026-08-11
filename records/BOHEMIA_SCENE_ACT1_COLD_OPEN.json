@@ -2,7 +2,7 @@
   "id": "act1_cold_open",
   "title": "THE MATCH-CUT OPEN",
   "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - THE MATCH-CUT OPEN (7/19, Paolo, locked shape) and OPENING SEQUENCE CRYSTALLIZED beat 1 (NIGHT RAID)",
-  "note": "AUTHORED FROM THE LOCKED SHAPE. Every beat traces to a line of his 7/19 addendum, quoted in `why`. ALWAYS MAKE AN ATTEMPT (Paolo 8/11, LOCKED): every line below is a REAL attempt at the words, written as if it ships, and tagged draft:true so he can find and edit every one. The previous version shipped these beats SILENT under the old empty-contents reading, and his own diagnosis was that the blank page is what stopped the quests. STRUCTURE IS STILL HIS: who dies, who lives, the casualties, the dials -- none of that is decided here.",
+  "note": "AUTHORED FROM THE LOCKED SHAPE. Every beat traces to a line of his 7/19 addendum, quoted in `why`. ALWAYS MAKE AN ATTEMPT (Paolo 8/11, LOCKED): every line below is a REAL attempt at the words, written as if it ships, and tagged draft:true so he can find and edit every one. The previous version shipped these beats SILENT under the old empty-contents reading, and his own diagnosis was that the blank page is what stopped the quests. STRUCTURE IS STILL HIS: who dies, who lives, the casualties, the dials -- none of that is decided here. LENGTHENED 8/11 after Paolo watched v1 and said \"it was short\": +3 lines (father at the table, the older sibling before the cut, the father's second half after it) and +2 holds. Every added line carries its catalogue citations per the same day's DIALOGUE ALWAYS REFERS TO THE CATALOGUE ruling. No new DECISION is taken: nobody new is placed, nobody dies, nothing is named that he reserved.",
   "beats": [
     {
       "kind": "set",
@@ -110,9 +110,51 @@
       ]
     },
     {
+      "kind": "say",
+      "id": "before_father_line",
+      "speaker": "father",
+      "beats": 2,
+      "text": "They're saying the water district's hiring again. I'll go down Monday.",
+      "draft": true,
+      "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The pre-collapse half was two lines long, so the warmth had no time to become a place. This is the father whole, ten years before he is the man in the dark: a guy with a Monday and a job to go ask about. It also puts the ECONOMY in the first thirty seconds without a word of exposition, which is the game's own subject. EDIT FREELY.",
+      "study": [
+        {
+          "id": "Q001.W1",
+          "title": "TRANSACTION-CARRIES-EMOTION",
+          "applied": "the corpus is blunt about it: do not open with 'here's a sad story', open with the errand and let the weight sneak in under it. The first thing this family talks about is WORK, which is the instrumental frame, and every ounce of grief the scene later earns arrives underneath it."
+        },
+        {
+          "id": "Q069.W9",
+          "title": "CARTOONY SURFACE, REAL DRAMA UNDER",
+          "applied": "a warm surface makes the drama land HARDER. A man cheerful about a hiring notice is the warmest thing in the scene and it is thirty seconds from being the last normal Monday anybody in this room gets."
+        }
+      ]
+    },
+    {
+      "kind": "say",
+      "id": "before_brother_line",
+      "speaker": "sibling_older",
+      "beats": 2,
+      "text": "Can I take the truck Saturday? I'll put gas in it, I swear.",
+      "draft": true,
+      "why": "ATTEMPT (8/11 rule): the older sibling gets a line BEFORE the cut so the voice that speaks after it is one you have already heard, which is the only reason the after-line lands. A teenager negotiating for the car is the most ordinary sentence a teenager has ever said. EDIT FREELY.",
+      "study": [
+        {
+          "id": "Q043.W4",
+          "title": "AMBIENT BANTER AS CHARACTERIZATION",
+          "applied": "the corpus calls overheard, ordinary talk the cheapest and highest-impact characterisation there is, and names it solo-dev gold. Nobody in this exchange is telling the player anything; they are just a family at a table, and that is what makes them one."
+        },
+        {
+          "id": "Q032.P4",
+          "title": "W4 (fair-play seeding — MANDATORY",
+          "applied": "seed relentlessly from the start so the later beat is inevitable-in-hindsight. He asks for the truck and gas; both of those become currency in about ten years, and neither is remarked on here."
+        }
+      ]
+    },
+    {
       "kind": "wait",
       "id": "let_it_be_warm",
-      "beats": 6,
+      "beats": 8,
       "why": "the warmth has to land before it is taken, or the cut costs nothing."
     },
     {
@@ -151,6 +193,12 @@
       "sky": "fireworks",
       "beats": 2,
       "why": "'the 10-YEAR ANNIVERSARY OF THE FOURTH OF JULY... the one night you see recreational FIREWORKS'. It also sets up the raid: 'you can't always tell a firework from a muzzle flash'."
+    },
+    {
+      "kind": "wait",
+      "id": "let_the_room_sit",
+      "beats": 5,
+      "why": "PAOLO 8/11 ON v1: \"it was short\". The after-room got two beats before somebody spoke. A room that has been lived in for ten years needs to be LOOKED at before it is explained, and silence is the only thing that makes a boarded window mean anything."
     },
     {
       "kind": "say",
@@ -201,6 +249,27 @@
           "id": "Q033.P8",
           "title": "W7 (one crystallizing line",
           "applied": "the ports master asks for ONE line that crystallizes the theme and implicates. Seven words set every rule of the night: move now, obey, and light is what kills you. The rest of Act 1 runs on those three."
+        }
+      ]
+    },
+    {
+      "kind": "say",
+      "id": "father_gives_the_order",
+      "speaker": "father",
+      "beats": 2,
+      "text": "Back door. Behind me, and don't run until I say run.",
+      "draft": true,
+      "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The father had one line and then the scene ended, so the tutorial arrived from nowhere. This is the second half of the same breath: it hands the player the shape of the fight before the fight, which is what a tutorial's first line is for. Still no explanation and still no comfort. EDIT FREELY.",
+      "study": [
+        {
+          "id": "Q006.W4",
+          "title": "ROLE-ASSIGNMENT AS CHARACTER-KNOWLEDGE",
+          "applied": "competence-casting: a man who knows his people puts each one where they belong. He assigns a door, an order of march and a trigger word in eleven words, which tells you he has thought about this night before it came without one line of him saying so."
+        },
+        {
+          "id": "Q007.N3",
+          "title": "NODE SURVIVOR_COMFORT",
+          "applied": "REMOVE THE ALIBI VERB, held for a second line. The easiest sentence to write here is a reassurance, and the corpus's whole finding is that the reassurance is a pressure valve. He gives instructions instead, and the player is never told it will be alright because nobody in the room knows that."
         }
       ]
     },

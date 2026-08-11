@@ -4,9 +4,9 @@
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
   "sources": 22,
-  "lines": 938,
-  "cited": 938,
-  "fingerprint": "69f89772836665ba",
+  "lines": 941,
+  "cited": 941,
+  "fingerprint": "99986ee7843290cc",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -31620,6 +31620,56 @@
     },
     {
      "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json#before_father_line",
+     "src": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json",
+     "beat": "before_father_line",
+     "speaker": "father",
+     "node": "before_father_line",
+     "text": "They're saying the water district's hiring again. I'll go down Monday.",
+     "draft": true,
+     "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The pre-collapse half was two lines long, so the warmth had no time to become a place. This is the father whole, ten years before he is the man in the dark: a guy with a Monday and a job to go ask about. It also puts the ECONOMY in the first thirty seconds without a word of exposition, which is the game's own subject. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q001.W1",
+       "title": "TRANSACTION-CARRIES-EMOTION",
+       "applied": "the corpus is blunt about it: do not open with 'here's a sad story', open with the errand and let the weight sneak in under it. The first thing this family talks about is WORK, which is the instrumental frame, and every ounce of grief the scene later earns arrives underneath it."
+      },
+      {
+       "id": "Q069.W9",
+       "title": "CARTOONY SURFACE, REAL DRAMA UNDER",
+       "applied": "a warm surface makes the drama land HARDER. A man cheerful about a hiring notice is the warmest thing in the scene and it is thirty seconds from being the last normal Monday anybody in this room gets."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE MATCH-CUT OPEN"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json#before_brother_line",
+     "src": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json",
+     "beat": "before_brother_line",
+     "speaker": "sibling_older",
+     "node": "before_brother_line",
+     "text": "Can I take the truck Saturday? I'll put gas in it, I swear.",
+     "draft": true,
+     "why": "ATTEMPT (8/11 rule): the older sibling gets a line BEFORE the cut so the voice that speaks after it is one you have already heard, which is the only reason the after-line lands. A teenager negotiating for the car is the most ordinary sentence a teenager has ever said. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus calls overheard, ordinary talk the cheapest and highest-impact characterisation there is, and names it solo-dev gold. Nobody in this exchange is telling the player anything; they are just a family at a table, and that is what makes them one."
+      },
+      {
+       "id": "Q032.P4",
+       "title": "W4 (fair-play seeding — MANDATORY",
+       "applied": "seed relentlessly from the start so the later beat is inevitable-in-hindsight. He asks for the truck and gas; both of those become currency in about ten years, and neither is remarked on here."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE MATCH-CUT OPEN"
+    },
+    {
+     "kind": "say",
      "id": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json#after_table_quiet",
      "src": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json",
      "beat": "after_table_quiet",
@@ -31673,6 +31723,31 @@
        "id": "Q033.P8",
        "title": "W7 (one crystallizing line",
        "applied": "the ports master asks for ONE line that crystallizes the theme and implicates. Seven words set every rule of the night: move now, obey, and light is what kills you. The rest of Act 1 runs on those three."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE MATCH-CUT OPEN"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json#father_gives_the_order",
+     "src": "records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json",
+     "beat": "father_gives_the_order",
+     "speaker": "father",
+     "node": "father_gives_the_order",
+     "text": "Back door. Behind me, and don't run until I say run.",
+     "draft": true,
+     "why": "ATTEMPT (8/11 rule). PAOLO 8/11 ON v1: \"it was short\". The father had one line and then the scene ended, so the tutorial arrived from nowhere. This is the second half of the same breath: it hands the player the shape of the fight before the fight, which is what a tutorial's first line is for. Still no explanation and still no comfort. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q006.W4",
+       "title": "ROLE-ASSIGNMENT AS CHARACTER-KNOWLEDGE",
+       "applied": "competence-casting: a man who knows his people puts each one where they belong. He assigns a door, an order of march and a trigger word in eleven words, which tells you he has thought about this night before it came without one line of him saying so."
+      },
+      {
+       "id": "Q007.N3",
+       "title": "NODE SURVIVOR_COMFORT",
+       "applied": "REMOVE THE ALIBI VERB, held for a second line. The easiest sentence to write here is a reassurance, and the corpus's whole finding is that the reassurance is a pressure valve. He gives instructions instead, and the player is never told it will be alright because nobody in the room knows that."
       }
      ],
      "citeLevel": "line",

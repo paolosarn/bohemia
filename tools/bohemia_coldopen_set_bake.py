@@ -42,16 +42,32 @@ OUT = os.path.join(ROOT, 'engine', 'bohemia_coldopen_set.js')
 
 # name -> (bucket, pack, idx, what it is doing in the scene)
 PICKS = [
-    # NO SEPARATE FLOOR TILE, AND THAT IS A DECISION MADE BY LOOKING. Every wood
-    # floor in the pool has weeds growing through it -- they are outdoor tiles,
-    # and a family kitchen ten years before the collapse does not have grass in
-    # it. Rather than cook a clean one during an art freeze, the surface lays the
-    # SAME approved plank tile on the floor, turned a quarter and darkened, so
-    # the boards run across the floor and up the wall. Rotating and dimming at
-    # draw time changes no pixel in the bank, and the gate still hashes it.
-    ('wall',      'walls',     'Floor, walls',                       1,
-     'vertical wood planking. THE WALL AND THE FLOOR BOTH. Same both eras, '
-     'dimmed after; the room is the constant that makes the cut land.'),
+    # *** PAOLO 8/11, ON SEEING v1: "The house looked like some medieval japanese
+    # shit." He was right and the cause was one decision: orange vertical wood
+    # planks on the wall AND the floor. Vertical timber on every surface reads
+    # shoji, temple, tea house -- anywhere but Nevada.
+    #
+    # THE REALISTIC ANSWER IS ALSO THE RIGHT-LOOKING ONE (REALISM FIRST). A Las
+    # Vegas house is STUCCO AND TILE: exterior and interior walls skim-coated
+    # pale, and hard tile floors instead of carpet because the Mojave runs 40C+
+    # and tile is what people actually put down there. So the room is pale
+    # plaster walls over a grey-tan tile floor, with a baseboard drawn where they
+    # meet -- and a baseboard is the single cheapest thing that says "somebody's
+    # house" instead of "a room in a dungeon".
+    # CHOSEN BY RENDERING ALL 48 WALLS AND ALL 28 FLOORS AT FULL SIZE AND
+    # LOOKING. The first attempt at this fix was picked off a thumbnail sheet and
+    # was WRONG TWICE: 'Wall tiles (1)' 1 is plaster PEELING OFF BRICK and
+    # 'Floor tiles (1)' 5 is mossy cobblestone, so v2 traded a Japanese temple for
+    # a dungeon. A tile you have not looked at full size is a tile you have not
+    # chosen (VERIFY ON THE REAL SURFACE, in spirit: look at the pixels).
+    ('wall',      'walls',     'Wall tiles (1)',                     0,
+     'flat pale skim-coat plaster, hairline cracks, NO masonry showing through. '
+     'The nearest thing this bank has to American drywall, and cracked stucco is '
+     'what Vegas actually looks like. Same both eras; the room is the constant.'),
+    ('floor',     'floors',    '1. Cracked contrete tiles',          1,
+     'a grid of square hard tiles. Vegas floors are tile, not carpet, because '
+     'the Mojave runs 40C+ -- the realistic answer and the one that killed the '
+     'temple read in the same pick.'),
     ('table',     'furniture', 'Furniture and fixtures',             7,
      'THE TABLE. Same tile both eras. "The SAME table, ~10 years later" is the beat.'),
     ('chair',     'furniture', 'Furniture and fixtures',            16,
