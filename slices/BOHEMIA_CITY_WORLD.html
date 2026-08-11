@@ -15263,8 +15263,16 @@ function homeDoorstep(){
    #e8b84a -- because a second label style would be a second design. */
 function homePass(ox,oy,C){
   const h=homeFind(); if(!h)return;
-  const sx=Math.round(ox+(h.x+h.w/2)*C), sy=Math.round(oy+h.y*C-Math.round(C*0.55));
-  if(sx<-60||sy<-30||sx>cv.width+60||sy>cv.height+30)return;
+  /* CULL ON THE BUILDING, CLAMP THE LABEL. Culling on the LABEL's own position was
+     wrong and it hid the thing it was drawing: standing at the front door of a
+     12-cell-deep house puts the north edge -- where the label sits -- 550px above
+     the middle of a 844px screen, i.e. off the top, so the word HOME was culled
+     exactly when he was standing on his own doorstep looking at it. The building
+     decides whether to draw; the label is then pulled onto the screen. */
+  const cxp=Math.round(ox+(h.x+h.w/2)*C), cyp=Math.round(oy+(h.y+h.h/2)*C);
+  if(cxp<-C*8||cyp<-C*8||cxp>cv.width+C*8||cyp>cv.height+C*8)return;
+  const sx=Math.max(24,Math.min(cv.width-24,cxp));
+  const sy=Math.max(18,Math.min(cv.height-8,Math.round(oy+h.y*C-Math.round(C*0.55))));
   g.save();
   g.font='700 '+Math.max(9,Math.round(C*0.26))+'px "Space Grotesk",system-ui,sans-serif';
   g.textAlign='center'; g.textBaseline='bottom';
@@ -15279,12 +15287,18 @@ function homePass(ox,oy,C){
    he would wake INTO exists, so it is REMEMBERED and spent at the drop-in instead.
    That is what puts him on his own doorstep with the label over his head the first
    time he ever drops in, rather than 26 cells away from a house he never sees. */
-/* TRUE AT BOOT ON PURPOSE, and this was a real bug for one measurement: the day
-   loop's own first DAY.wake() runs where it is constructed, which is BEFORE this
-   file gets to register a wake hook, so the first wake of a run was never observed
-   and he dropped in 26 cells from a house he never saw. A run begins at 06:00 on
-   day 1, which means he has just woken up, so the pending flag starts SET. */
-var HOME_WAKE_PENDING=true;
+/* FALSE AT BOOT, AND THAT IS A CORRECTION I HAD TO MAKE AFTER BREAKING SOMETHING.
+   I first started this TRUE, so the run's very first drop-in walked him to his own
+   front door. It worked, and it broke another lane: CITY TALK asserts SOMEBODY IS
+   STANDING BY THE SPAWN, within 6 tiles, because there has to be a person to talk
+   to where you start. The cast is placed by NEIGHBOURHOOD, not around the player,
+   so moving him 13 cells to his door left nobody near him -- green on my gate, red
+   on theirs, and their gate was green before I touched anything.
+   DAY 1 THEREFORE LANDS EXACTLY WHERE IT ALWAYS DID. HOME is still resolved, still
+   LABELLED in the world, and still pinned on the phone's map so he can find it.
+   From the next wake on -- after he has actually slept -- he wakes at his own door,
+   which is the only day on which "you slept at home" means anything anyway. */
+var HOME_WAKE_PENDING=false;
 function homeWake(){
   if(MODE!=='human'){ HOME_WAKE_PENDING=true; return false; }
   const s=homeDoorstep(); if(!s)return false;

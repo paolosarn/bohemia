@@ -82,8 +82,18 @@ const done = () => { console.log('HOME + PHONE GATE: ' + pass + ' passed, ' + fa
   if (!woke) { await b.close(); done(); }
   await pg.click('#daycardIn .dcgo');                 // GET UP
   await pg.waitForTimeout(300);
-  await pg.evaluate(() => { const m = document.getElementById('mode'); if (m) m.click(); });
-  await pg.waitForTimeout(1800);                      // the drop-in transition
+  /* DROP IN, and then WAIT FOR IT TO ACTUALLY HAPPEN. The mode button runs a
+     460ms zoom transition and only flips MODE partway through, so a fixed sleep
+     measured the city view and every human-only pass (the HOME label among them)
+     read as "never drew". Poll the state, and tap again if the first tap was
+     swallowed by the transition already running. */
+  for (let i = 0; i < 30; i++) {
+    if (await pg.evaluate(() => MODE === 'human')) break;
+    await pg.evaluate(() => { const m = document.getElementById('mode'); if (m) m.click(); });
+    await pg.waitForTimeout(700);
+  }
+  ok('DROP IN actually puts him in the walked world',
+     await pg.evaluate(() => MODE === 'human'));
 
   const home = await pg.evaluate(() => {
     const h = homeFind();
@@ -103,11 +113,52 @@ const done = () => { console.log('HOME + PHONE GATE: ' + pass + ' passed, ' + fa
   if (!home.none) {
     ok('and it is a HOUSE, off the world model, not a shed or a lot'
        + ' ("' + home.enter.slice(0, 34) + '")', /house/i.test(home.enter));
-    ok('HE WAKES AT HIS OWN DOOR (' + home.dist + ' cells from the middle of it)',
-       home.woke >= 1 && home.dist <= Math.max(home.home[2], home.home[3]));
-    ok('and the word HOME is actually DRAWN there -- a label nobody sees is not a'
-       + ' label (' + home.label + ' draws)', home.label >= 1);
+
+    /* DAY 1 LANDS WHERE IT ALWAYS DID, on purpose. The first cut of this walked
+       him to his own door on the run's first drop-in; it worked and it broke
+       CITY TALK, which asserts somebody is standing within 6 tiles of the spawn
+       (the cast is placed by neighbourhood, not around the player). So day 1 is
+       untouched and the door is where SLEEPING takes you, below. */
+    const lbl = await pg.evaluate(() => {
+      const h = homeFind(), p0 = [hx, hy];
+      const s = homeDoorstep();
+      hx = s[0]; hy = s[1];
+      window.__HOME_LABEL = 0; render();
+      const n = window.__HOME_LABEL || 0;
+      hx = p0[0]; hy = p0[1]; render();
+      return n;
+    });
+    ok('standing at his own door the word HOME is actually DRAWN -- a label nobody'
+       + ' sees is not a label (' + lbl + ' draws)', lbl >= 1);
   }
+
+  /* ---- YOU SLEEP, AND YOU WAKE UP AT HOME -------------------------------- */
+  /* TAP THE REAL SLEEP BUTTON. Calling DAY.sleep() directly ends the day but does
+     NOT raise the reckoning -- the button handler is what shows it -- so driving
+     the model instead of the button measured a screen the player never sees. */
+  /* the element's OWN click, not a click at a coordinate: the city's transient
+     #note toast ("move on the streets") sits over the bottom-left corner and
+     intercepts pointer events, so a coordinate click waits forever for a hint to
+     fade. This still fires the real listener on the real button. */
+  await pg.$eval('#sleepbtn', el => el.click());
+  await pg.waitForTimeout(400);
+  const slept = await pg.evaluate(() => ({
+    phase: DAY.phase, card: !!document.querySelector('#daycard.on')
+  }));
+  ok('sleeping ends the day and raises the reckoning',
+     slept.phase === 'ended' && slept.card === true);
+  await pg.$eval('#daycardIn .dcgo', el => el.click());   /* SLEEP -> DAY 2 */
+  await pg.waitForTimeout(400);
+  await pg.evaluate(() => render());
+  const day2 = await pg.evaluate(() => {
+    const h = homeFind();
+    return { day: DAY.day, pos: [hx, hy], woke: window.__WOKE_HOME || 0,
+             dist: Math.round(Math.hypot(h.x + h.w / 2 - hx, h.y + h.h / 2 - hy)),
+             span: Math.max(h.w, h.h) };
+  });
+  ok('DAY 2 begins', day2.day === 2);
+  ok('AND HE WAKES UP AT HIS OWN DOOR (' + day2.dist + ' cells from the middle of a '
+     + day2.span + '-cell house)', day2.woke >= 1 && day2.dist <= day2.span);
 
   /* the SAME house twice: a home that moves is not a home */
   const twice = await pg.evaluate(() => {
@@ -128,7 +179,11 @@ const done = () => { console.log('HOME + PHONE GATE: ' + pass + ' passed, ' + fa
   ok('standing 300 cells away, the label is NOT drawn (' + far + ')', far === 0);
 
   /* ---- 3. the phone ----------------------------------------------------- */
-  await pg.click('#phonebtn');
+  /* the day-2 wake card is up by now, so dismiss it before reaching the topbar --
+     and use the element's own click for the same #note reason as above. */
+  const g2 = await pg.$('#daycardIn .dcgo');
+  if (g2) { await pg.$eval('#daycardIn .dcgo', el => el.click()); await pg.waitForTimeout(300); }
+  await pg.$eval('#phonebtn', el => el.click());
   let fr = null;
   for (let i = 0; i < 80; i++) {
     fr = pg.frames().find(f => /CURRENT_SLICE/.test(f.url()));
