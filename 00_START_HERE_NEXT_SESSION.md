@@ -1,3 +1,53 @@
+FACTIONS (factions-ovkjpf): 8/11 (z) LATEST — *** FACTION MEMBERSHIP HAS BEEN DEAD IN
+THE REAL GAME SINCE IT SHIPPED, AND ITS 50-CLAIM GATE WAS GREEN THE WHOLE TIME. ***
+records/BOHEMIA_NOBODY_HAS_EVER_BELONGED_8_11_26.md. Nothing to judge.
+
+HOW IT WAS FOUND: "we have a demo to ship", so I went to the integration ledger and
+asked what a player actually SEES. Two things in this lane were zero -- the run does not
+react to standing, and his 13 faction COLOURS + 14 MARKS (picked 8/2, sitting in
+bohemia_dress.js ever since) had never been loaded by the run. Went to wire the colours.
+Nothing rendered.
+
+THE BUG:
+    function factionOf(agent, cell, bases){
+      if(!agent||!bases||!bases.length||!cell) return null;   <-- ARRAY expected
+The ONLY caller is bohemia_loop.js's boot:
+    ctx.factionBases[fid] = { x:..., y:... };                 <-- OBJECT, no name, no length
+First line returned null for every person in the valley, every time. Measured against
+real boot data: 0 of 60 affiliated standing ON a base. After the fix: 13 of 60,
+returning real ids. NOBODY HAS EVER BELONGED TO ANYTHING IN A REAL RUN.
+
+WHY THE GATE MISSED IT, and this is the transferable part: it fed factionOf a FIXTURE
+    const BASES = [{ name:'REMNANTS', x:20, y:20 }, ...];
+A FIXTURE IS NOT THE CALLER. Fifty claims, including a 4,033-agent split measured at
+29.9% and called even -- all true about the fixture, all irrelevant to the world. A new
+variant of the disease this lane keeps hitting: not authored-and-unread, not
+readable-but-discouraged, but GATED AGAINST THE WRONG SHAPE, which is worse because the
+green is louder.
+
+FIX: normalizeBases() accepts both forms. Normalised in factionOf and NOT in the loop on
+purpose -- the loop's object form is what other code already reads, and changing that
+contract would move the breakage instead of fixing it. Gate now boots the REAL loop and
+hands it the REAL ctx.factionBases: 55/55, "14 bases, 18/80 of a crowd standing on one
+affiliated". Two guards added so it cannot rot: an empty bases object must still yield
+nobody, and the array form must still work (this ADDED a shape, it did not swap one).
+
+ON SCREEN NOW: the run loads bohemia_dress.js and the person you walk up to says who
+they run with, in HIS colour with HIS mark -- "RUNS WITH THE TRADES - PLATE". Derived,
+never assigned; keyed to the seat so it survives a save; somebody who runs with nobody
+says NOTHING, because most of the valley is unaffiliated and a label on all of them is
+noise. The street bodies are real baked characters and RE-COSTUMING THEM IS THE CLOTHES
+LANE'S PIPELINE -- not cut into. This is NPC identity, which is this lane's own.
+
+*** THE DEMO BLOCK IS IN A FACTION DEAD ZONE -- [PENDING], AND NOT MINE TO TUNE ***
+    demo block [37,22] | nearest base Caravans 20 cells | REACH_CELLS 12
+    within reach: 0 of 14 bases | affiliated on the block: 0 of 11 people
+The mechanism is right; the block is genuinely outside every faction's pull, so the
+allegiance line shows NOTHING in the demo as it stands. Two ways to change that and both
+belong to somebody else: MOVE THE BLOCK nearer a base (MAP LAW: Claude never designs map
+layouts) or RAISE REACH_CELLS/AFFILIATED_RATE (both marked [PENDING Paolo] in source).
+Tuning them so a demo looks busier is fitting the world to the screenshot.
+
 RUN (run-eak241): 8/11 LATEST -- TWO DEMO ROWS SHIPPED, AND THE GATES WERE LYING.
 
 THE DAY LOOP CLOSES. The city had a TIMER, not a day: minutes piled up, rolled past

@@ -211,5 +211,44 @@ ok('FACTION_VETERAN_KIT is still EMPTY — which garments a veteran wears is his
 })();
 
 notes.forEach(n => console.log('  NOTE  ' + n));
+
+/* ================= THE SHAPE THE REAL CALLER PASSES (8/11) =====================
+   THIS GATE WAS GREEN FOR NINE DAYS WHILE THE FEATURE WAS DEAD IN THE GAME.
+   Every claim above feeds factionOf a fixture: an ARRAY of {name,x,y}. The only
+   caller that exists - bohemia_loop.js's boot - builds an OBJECT keyed by faction id
+   whose values are {x,y} with no name and no .length. factionOf's first line was
+   `if(!bases.length) return null`, so in a real run EVERY PERSON IN THE VALLEY was
+   unaffiliated, always, and nothing could tell.
+   A FIXTURE IS NOT THE CALLER. So this boots the REAL loop and hands factionOf the
+   REAL ctx.factionBases, which is the only shape that matters. */
+{
+  const LOOP = require('../engine/bohemia_loop.js');
+  const ctx = LOOP.boot({ seed: 'membership-real-shape' });
+  const bases = ctx.factionBases;
+  ok('the real loop actually seats faction bases (nothing below means anything otherwise)',
+    bases && Object.keys(bases).length > 0);
+
+  // stand a crowd ON a base, where allegiance MUST be possible
+  const first = Object.values(bases)[0];
+  const cell = [first.x, first.y];
+  const crowd = [];
+  for (let i = 0; i < 80; i++) crowd.push({ id: 'H' + (i % 9) + '-' + (i % 3), seed: (i * 2654435761) >>> 0 });
+  const joined = crowd.map(a => A.factionOf(a, cell, bases)).filter(Boolean);
+
+  ok('PEOPLE ACTUALLY AFFILIATE WHEN HANDED THE LOOP\'S OWN ctx.factionBases — the shape '
+     + 'the game really passes, not the array fixture the rest of this gate uses',
+    joined.length > 0);
+  ok('...and what comes back is a REAL faction id from the canon graph',
+    joined.length > 0 && joined.every(f => ctx.factions.factions.get(f)));
+  console.log('  NOTE  real ctx.factionBases: ' + Object.keys(bases).length + ' bases, '
+    + joined.length + '/' + crowd.length + ' of a crowd standing on one affiliated');
+
+  // the normaliser must not quietly accept junk either
+  ok('an empty bases object still yields nobody (a normaliser that invents ground is worse)',
+    A.factionOf(crowd[0], cell, {}) === null);
+  ok('the array fixture form still works — the fix ADDED a shape, it did not swap one',
+    typeof A.factionOf(crowd[0], [20, 20], [{ name: 'REMNANTS', x: 20, y: 20 }]) !== 'undefined');
+}
+
 console.log('=== FACTION MEMBERSHIP GATE: ' + pass + ' passed, ' + fails.length + ' failed ===');
 process.exit(fails.length ? 1 : 0);

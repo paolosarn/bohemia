@@ -453,6 +453,10 @@ var XP = {}, XP_LOADED = 0;
      since 7/26. Both modules are built and gated (STANDING 35, DEED BRIDGE 27);
      the run simply never loaded them. Order matters: deeds reads the loop's
      clout table and standing's ranges, so both come after the loop. -->
+<!-- HIS 13 FACTION COLOURS + 14 MARKS (chosen 8/2, FACTION_LOOK / FACTION_MOTIF).
+     They have existed in the engine since the day he picked them and the run has
+     never loaded the module, so nobody in the valley wears anything. -->
+<script src="../engine/bohemia_dress.js"></script>
 <script src="../engine/bohemia_standing.js"></script>
 <script src="../engine/bohemia_deeds.js"></script>
 <script>
@@ -3491,6 +3495,44 @@ function openPerson(agent){
   PEOPLE_MET.meet(who.key, worldDay());
   drawPerson(agent);
 }
+/* ---- WHO THEY RUN WITH (8/11) ------------------------------------------------
+   Paolo picked 13 faction colours and 14 marks on 8/2 (FACTION_LOOK / FACTION_MOTIF),
+   and the integration ledger has said "bodies are random colourways, not rank-dressed"
+   ever since. The bodies on the street are REAL BAKED CHARACTERS -- re-costuming them
+   is the clothes lane's pipeline, not mine to cut into. But the person you WALK UP TO
+   can tell you, and that is NPC identity, which is this lane's own.
+
+   NOTHING IS INVENTED AND NOTHING IS ASSIGNED HERE. Allegiance is derived by
+   BohemiaAgents.factionOf() -- keyed to the SEAT so it survives a save, most people
+   belong to nobody (AFFILIATED_RATE), and the split is even (gated, 50 claims). The
+   colour and the mark are read out of his tables. If he retunes either, this follows.
+
+   A person who runs with nobody says NOTHING rather than "unaffiliated": most of the
+   valley is unaffiliated and a label on all of them is noise, not information. */
+function showAllegiance(agent){
+  var el=document.getElementById('idcard'); if(!el) return;
+  el.textContent=''; el.removeAttribute('style');
+  if(typeof BohemiaAgents==='undefined' || typeof BohemiaDress==='undefined') return;
+  if(!CTX || !CTX.factionBases || typeof CELL==='undefined' || !CELL) return;
+  var fid=null;
+  try { fid = BohemiaAgents.factionOf(agent, CELL, CTX.factionBases); } catch(_e){ return; }
+  if(!fid) return;                       /* runs with nobody: say nothing */
+  var key=String(fid).toUpperCase();
+  var look=BohemiaDress.FACTION_LOOK[key];
+  var mark=BohemiaDress.FACTION_MOTIF[key];
+  var col=(look&&look.color)||'#cdbd8a';
+  el.style.cssText='display:flex;align-items:center;gap:7px;margin-top:5px;'
+    +'font:700 11px ui-monospace,monospace;letter-spacing:.06em;color:'+col;
+  var dot=document.createElement('span');
+  dot.style.cssText='width:10px;height:10px;border-radius:3px;flex:none;background:'
+    +(look&&look.mode==='rainbow'
+      ? 'linear-gradient(90deg,#dc2820,#d9a441,#5aae6a,#2e6fae,#c026a0)' : col);
+  el.appendChild(dot);
+  var t=document.createElement('span');
+  t.textContent='RUNS WITH THE '+key+(mark?(' \u00b7 '+String(mark).toUpperCase()):'');
+  el.appendChild(t);
+}
+
 function drawPerson(agent){
   var who = personFor(agent);
   if(!who) return;
@@ -3500,6 +3542,7 @@ function drawPerson(agent){
   SPK.textContent = BohemiaPeople.headingOf(who);
   var seat=document.getElementById('seat');
   if(seat) seat.textContent = BohemiaPeople.seatLineOf(who);
+  showAllegiance(agent);
   /* THE FACE IS THE BODY. portraits.looks[i] is baked as the face of looks[i]
      (one index, one person), and the walking body is drawn with
      looks[agent.seed % n] — so the same seed here IS the person you walked up

@@ -209,8 +209,30 @@
   // A person's allegiance is keyed to their SEAT, never to their place in a list -
   // the 8/2 law this lane learned the hard way when repairing a district silently
   // swapped every neighbour's personality.
+  /* ACCEPT THE SHAPE THE REAL CALLER ACTUALLY PASSES. Found 8/11, and it is the
+     worst kind of bug: this function took an ARRAY of {name,x,y}, its gate proved it
+     with exactly that fixture across 50 claims, and the ONLY caller in the game -
+     bohemia_loop.js's boot - builds `ctx.factionBases[fid] = {x,y}`: an OBJECT keyed
+     by faction id, with no `name` and no `.length`. So the very first line returned
+     null for every person in the valley, every time, and NOBODY HAS EVER BELONGED TO
+     ANYTHING in a real run. Green the whole way, because the gate fed it a shape the
+     caller never produces.
+     Normalised here rather than in the loop: the loop's object form is what other
+     code already reads, and changing that contract to suit this function would move
+     the breakage instead of fixing it. */
+  function normalizeBases(bases){
+    if(!bases) return [];
+    if(Array.isArray(bases)) return bases;
+    var out=[];
+    Object.keys(bases).sort().forEach(function(k){
+      var b=bases[k]; if(!b||b.x==null||b.y==null) return;
+      out.push({ name: b.name||k, x: b.x, y: b.y });
+    });
+    return out;
+  }
   function factionOf(agent, cell, bases){
-    if(!agent||!bases||!bases.length||!cell) return null;
+    bases = normalizeBases(bases);
+    if(!agent||!bases.length||!cell) return null;
     /* THE SEAT IS THE BLOCK PLUS THE ID, NEVER THE ID ALONE. Ids are 'H3-1',
        'H8-2' - they repeat on every block in the valley, so hashing the id by
        itself made every H3-1 anywhere the same faction and collapsed the whole
@@ -924,7 +946,7 @@
     deviate:deviate,DEVIATION_CAP:DEVIATION_CAP,
     jobsNear:jobsNear,workersForPlot:workersForPlot,peopleForPlot:peopleForPlot,
     makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash,
-    factionOf:factionOf,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS};
+    factionOf:factionOf,normalizeBases:normalizeBases,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS};
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
