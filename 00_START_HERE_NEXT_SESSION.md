@@ -297,6 +297,56 @@ VISION 7/19: father wakes you, sister is lost, older brother survives, it ends s
 the mother, with the sibling mirrored by player gender). I build the four, put them
 in the game, and he corrects them. Names stay his.
 
+COMBAT (nfnki9): 8/11 (d) LATEST -- *** I SHIPPED GIANTS AND HE CAUGHT IT.
+READ "THE ONE THAT BIT ME" BELOW BEFORE TOUCHING THE BOARD SCALE. ***
+Records: records/BOHEMIA_COMBAT_THE_GIANTS_WERE_MY_BUG_8_11_26.md +
+records/BOHEMIA_COMBAT_GUN_RANGES_AND_A_BIG_BOARD_8_11_26.md
+
+TAB: COMBAT. Four ships today, all measured on the real surface:
+ 1. THE GUNS MOVE (v136). coverSeekAI opened with `if(e.gcov)continue;` so every
+    shooter ran to one rock and froze for the rest of the fight. Only 7/19 blades
+    ever advanced. pressAI scores every reachable tile: an angle on the player is
+    the big prize, closing is worth what the range table says, ending behind
+    stone beats the open. Half the line bounds per turn.
+ 2. HOLD THE LINE (v137). v135 shipped the cold open's defend contract and never
+    SENT it, so a defence could not be lost. Now: ignore them -> 77/80 lost at
+    100/100 HP; kill them -> 0/80.
+ 3. GUN RANGES + A BIG BOARD (v138). There was NO per-weapon range in this game
+    at all. shotgun 5/14, pistol 6/16, smg 10/26, rifle 20/44, sniper 30/64
+    (eff/max, tiles). Past MAX the gun does not fire. What your gun can reach at
+    spawn: shotgun 36%, pistol 41%, smg 63%, rifle 87% -- that gradient IS the
+    mobility.
+ 4. THE PEOPLE SCALE WITH THE BOARD (v139) -- the fix for the failure below.
+
+*** THE ONE THAT BIT ME, AND THE RULE THAT CAME OUT OF IT ***
+v138 zoomed the board out by shrinking the tile pitch. The FLOOR obeyed. THE
+PEOPLE DID NOT: every human is blitted from a 112x112 canvas at a HARDCODED size
+that does not know the board exists. A man went from ~3 tiles tall to ~6.9 and I
+shipped it. Paolo: "characters look like fucking Giants... that was a failure."
+AND I HAD LOOKED STRAIGHT AT IT. I rendered four pitches, SAW the bodies were not
+shrinking, and wrote "bodies stay readable at every pitch" as a PASS.
+  LOOKING IS NOT VERIFYING IF YOU DO NOT KNOW WHAT WOULD COUNT AS FAILURE.
+  Before you eyeball a render, write down the NUMBER that would prove it wrong.
+gates/combat_scale_gate.js is that number now: a man must be the same tiles tall
+as before the zoom. Proven by reintroducing the bug -- it fails.
+FIELD_ZOOM is a WHOLE NUMBER (pixel art only scales by integers; fractional
+scaling makes some pixels twice as wide as their neighbours). FIELD_PITCH and
+bodyScale() both derive from it. ONE number, so they cannot disagree.
+THE SAME BUG WORE THREE COSTUMES -- all were "two numbers that should be one":
+  * cover stopped at a hardcoded 28 while the visible radius moved with the zoom
+    -> a bare ring at the board edge BY CONSTRUCTION. contentR() is derived now.
+  * my v138 density arithmetic was WRONG and the record claimed the opposite: I
+    thinned cover 2.7x (1 per 45 tiles^2 -> 1 per 123) while writing that I held
+    it. That is why the big board read as empty sand. ~55 pieces now.
+  * MASS_DY (the chest every hit marker hangs off) is half drawHuman's 84px
+    offset -- CAUGHT BY THE V101 GATE, not by me.
+
+STILL OPEN IN COMBAT: shotgun spread does not widen with distance (research is
+in, pellets are still one number); enemies only carry pistol/rifle/sniper; blades
+ignore the defend objective (3/80 defences survive on it, and melee's 7/19 turn
+is LOCKED -- do not open it for that); the two-storey deck draw order; the
+grenade minigame is PARKED at his instruction and its 8/5 version is graveyarded.
+
 # START HERE — NEXT SESSION
 
 **Last written: 8/11/26, COMBAT lane.**
