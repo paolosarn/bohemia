@@ -634,7 +634,9 @@ function drawStallform(gx,gy,X,Y,S){
     case 14: name='stall_tee_S_'+th(gx,gy,2); break;      /* bar E-W, arm S */
     case 15: name='stall_cross_0'; break;
     case 7: case 13: name='stall_v_'+th(gx,gy,6); break;  /* v-line + side arm: no piece, keep the line */
-    default: name='stall_v_'+th(gx,gy,6);                 /* an isolated painted stripe */
+    default: return false;   /* PLACEMENT FIX (Paolo 8/11): an isolated marking
+      cell drew a lone floating stripe - scattered fragments all over the lot.
+      A stripe with no line to belong to draws NOTHING now. */
   }
   var im=TILEFORM_IMG[name];
   if(!im||!im.complete||!im.naturalWidth) return false;
@@ -870,7 +872,7 @@ function loadCell(cx,cy){
   }
   feet = BohemiaSuburb.homeFootprints({ g:G, W:T, H:T });
   if(typeof deriveDoors==='function') deriveDoors();
-  _fpc = {}; _garage = null; _depth = null; _top = null; _path = null;  /* all per-cell */
+  _fpc = {}; _garage = null; _depth = null; _top = null; _path = null; _cmass = null;  /* all per-cell */
   /* TELL THE REST OF THE GAME WHERE YOU ARE (Paolo 7/28: "I want that reflected
      when I'm in the city menu"). The only run->shell traffic used to be the
      CAST - his sprite - so the city opened on the Strip every single time
@@ -1986,11 +1988,41 @@ function civicPool(kind){
   var d=CIVIC_SKIN.d[CELLNAME];
   return (d&&d.length)?d:CIVIC_SKIN.def;
 }
+var _cmass = null;
+function _civicMassKey(gx,gy){
+  /* the anchor cell of this building's solid mass; ground cells (roof pool
+     asks too) fall back to their own 8x8 block, which is fine for a FIELD */
+  if(!civicSolidAt(gx,gy)) return [gx>>3,gy>>3];
+  if(!_cmass) _cmass={};
+  var k=gx+','+gy;
+  if(_cmass[k]) return _cmass[k];
+  var st=[[gx,gy]], seen={}, cells=[], minx=gx, miny=gy;
+  seen[k]=1;
+  while(st.length){
+    var p=st.pop(); cells.push(p);
+    if(p[0]<minx)minx=p[0]; if(p[1]<miny)miny=p[1];
+    var D=[[1,0],[-1,0],[0,1],[0,-1]];
+    for(var i=0;i<4;i++){
+      var nx=p[0]+D[i][0], ny=p[1]+D[i][1], nk=nx+','+ny;
+      if(seen[nk]||!civicSolidAt(nx,ny)) continue;
+      seen[nk]=1; st.push([nx,ny]);
+    }
+  }
+  var key=[minx,miny];
+  for(var j=0;j<cells.length;j++) _cmass[cells[j][0]+','+cells[j][1]]=key;
+  return key;
+}
 function civicImg(kind,gx,gy){
   var pool=civicPool(kind); if(!pool||!pool.length) return null;
   /* ONE MATERIAL PER BUILDING: the seed is the 8x8-cell block plus the district and
      the cell, so the warehouse next door is a different warehouse. */
-  var bx=gx>>3, by=gy>>3;
+  /* PLACEMENT FIX (Paolo 8/11, "the placement was shit but individually the
+     tiles are good"): the old seed was a blind 8x8 block, so ONE building mass
+     straddling a block boundary wore TWO different skins - a patchwork on a
+     single warehouse. The seed is now the building MASS itself (flood-filled
+     over the solid cells), so one building is one material, whole. */
+  var mk=_civicMassKey(gx,gy);
+  var bx=mk[0], by=mk[1];
   var h=(Math.imul(bx,2654435761)^Math.imul(by,40503)
         ^Math.imul((CELL&&CELL[0])|0,2246822519)^Math.imul((CELL&&CELL[1])|0,668265263))>>>0;
   var mat=pool[h%pool.length]; if(!mat||!mat.length) return null;

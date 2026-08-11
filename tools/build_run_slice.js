@@ -460,7 +460,25 @@ var CORR_MATS = [
   if (civicWall[d]) CORR_MATS.forEach(function (m) { civicWall[d].push(m); });
 });
 console.log('  TILEFORMS: TF-ART-002 corrugated joins 10 metal districts as 4 materials (fourth wired family)');
-var civicPayload = { d: civicWall, def: texMats(CIVIC_DEFAULT), roof: texMats(CIVIC_ROOF) };
+/* PLACEMENT FIX (Paolo 8/11, 'the placement was shit but individually the
+   tiles are good'): the roof INTERIOR drew the old 8/1 pool while the new
+   coping ring is TF-ART-012 - a brick-textured field against a gravel-rim
+   coping read as two different roofs. The roof pool is now the APPROVED
+   family's own fields, so ring and field are one roof. */
+function roofMat(names) {
+  return names.map(function (n) {
+    var t = roofBank.tiles.filter(function (x) { return x.name === n; })[0];
+    if (!t) throw new Error('TILEFORM: roof field "' + n + '" missing from ' + ROOF_BANK);
+    return t.b64;
+  });
+}
+var civicRoofPool = [
+  roofMat(['bur_gravel_0', 'bur_gravel_1', 'bur_gravel_2']),
+  roofMat(['capsheet_grey_0', 'capsheet_grey_1']),
+  roofMat(['capsheet_tan_0', 'capsheet_tan_1']),
+];
+console.log('  TILEFORMS: TF-ART-012 fields replace the civic roof pool (ring and field are one roof now)');
+var civicPayload = { d: civicWall, def: texMats(CIVIC_DEFAULT), roof: civicRoofPool };
 if (html.indexOf('__CIVIC_SKIN_JSON__') < 0) throw new Error('missing __CIVIC_SKIN_JSON__ placeholder');
 html = html.replace('__CIVIC_SKIN_JSON__', JSON.stringify(civicPayload));
 console.log('  DISTRICT MATERIALS: ' + civicOrder.length + ' district types mapped to real '

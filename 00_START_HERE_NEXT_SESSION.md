@@ -1,3 +1,22 @@
+ART (f3eu53): 8/11 (g) LATEST -- *** HIS VERDICT ON THE WIRED WORK: "LOOKS GOOD
+THE PLACEMENT WAS SHIT BUT INDIVIDUALLY THE TILES ARE GOOD." THREE PLACEMENT
+FAULTS FIXED SAME TURN, CARDS RE-SHOT. ***
+Record: records/BOHEMIA_PLACEMENT_RULING_8_11_26.txt
+
+The tiles stay; the placement logic was the fault, and the three faults visible
+in the exact frames he judged are fixed: (1) civic material seed is the
+flood-filled building MASS, not a blind 8x8 block - one building one skin;
+(2) isolated stall-marking cells draw nothing instead of floating stripes;
+(3) the civic roof pool is now TF-ART-012's own fields so ring and field are
+one roof. All re-shot live; the ART tab WIRED cards show the fixed frames.
+
+PLACEMENT IS NOW THE LANE'S QUALITY BAR: before wiring the next family, look
+at the PLACEMENT (mass boundaries, orientation, what neighbours what) as hard
+as the tiles. NEXT: chain-link overlays (TF-ART-004), brick + mobile-home pool
+joins, then the volume ledger.
+
+ART (f3eu53): 8/11 (f) -- *** NEW LAW, HIS, LOCKED: SHOW IT IN A TAB,
+
 LAB (lab-e2r7sv): 8/7 (e) LATEST -- *** BESTING IS NOT KILLING. 34 BOSSES, AND EVERY ONE CAN
 BE KILLED **OR** SPARED FOR A DIFFERENT GRANT. ***
 JUDGE THIS: 1. the 34 in records/BOHEMIA_THE_BOSS_LADDER_v3_8_7_26.md. NOT IN A TAB.

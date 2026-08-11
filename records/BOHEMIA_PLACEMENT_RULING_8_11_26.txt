@@ -1,0 +1,15 @@
+PAOLO 8/11 (after seeing the four wired cards in the ART tab):
+"COOL. LOOKS GOOD THE PLACEMENT WAS SHIT BUT INDIVIDUALLY THE TILES ARE GOOD."
+
+READ AS A RULING (NOTES ARE RULINGS): the tiles stay; the PLACEMENT logic was
+the fault. Three placement faults identified in the exact frames he judged and
+fixed the same turn:
+1. ONE BUILDING, TWO SKINS: the civic material seed was a blind 8x8 block, so
+   a mass straddling a block boundary wore two materials. Seed is now the
+   flood-filled building MASS itself.
+2. FLOATING STRIPES: an isolated stall-marking cell drew a lone stripe with no
+   line to belong to. Isolated cells draw nothing now.
+3. TWO ROOFS ON ONE ROOF: the ring was TF-ART-012 while the interior field was
+   the old 8/1 pool (brick against gravel coping). The civic roof pool is now
+   the approved family's own fields; ring and field are one roof.
+All three re-shot live and the ART tab WIRED cards now show the FIXED frames.
