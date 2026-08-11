@@ -13276,6 +13276,15 @@ function setZoomAt(z,pvx,pvy){
      closest zoom and still pinching in means he is asking to walk. Same swapMode(),
      same transition, so the round button and the pinch always agree. */
   if(z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&typeof swapMode==='function'){ swapMode(); return; }
+  /* __ONE_ZOOM_TO_THE_MOON__ -- THE SEAM RUNS THE OTHER WAY TOO (Paolo 8/12: "you could
+     keep zooming out and zooming out until it showed the moon... that's my flavor").
+     zmax already had a seam: pinch in at the closest city zoom and you become your
+     character. zmin had a WALL -- the valley fit the screen and that was the end of
+     the world. This is the same seam, outward: keep pulling out and the camera
+     leaves the valley behind. The 7/25 law called this the third zoom band and
+     parked it; the moonshot law (7/19) says the camera levels ARE street / city /
+     planetary, so this axis is the game's spine, not a flourish. */
+  if(z<zmin&&Math.abs(CZOOM-zmin)<1e-3){ skyEnter(); return; }
   z=Math.max(zmin,Math.min(zmax,z));
   if(pvx===undefined){ pvx=cv.width/2; pvy=cv.height/2; }
   const k=z/CZOOM;                                   // keep the pivot point fixed
@@ -15048,6 +15057,7 @@ function screenFilter(mode){
   SCRFILT=want; cv.style.imageRendering=want;
 }
 function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
+  if(SKY){ screenFilter('city'); renderSky(); return; }   /* __ONE_ZOOM_TO_THE_MOON__ */
   /* __YOUR_HOUSE__: you slept at home, so the day starts at your own door.
      CONSUMED HERE AND NOT IN swapMode, which is where the first draft put it.
      swapMode sits ~500 lines earlier than this glue and the city has two
@@ -15064,6 +15074,15 @@ function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
   try{ if(PHONE_ON)phonePush(false); }catch(_e){}   /* __PHONE_IN_POCKET__ */
   if(MODE==='city'){ screenFilter('city'); renderCity(); } else { screenFilter('human'); renderHuman(); } }
 function updHud(){
+  if(typeof SKY!=='undefined'&&SKY){   /* __ONE_ZOOM_TO_THE_MOON__ */
+    try{
+      document.getElementById('hmode').textContent=skyBand();
+      document.getElementById('hslot').textContent='ZOOM OUT';
+      document.getElementById('hclock').textContent=clockStr();
+      const ml=document.getElementById('modeLbl'); if(ml)ml.textContent='\u2193 BACK';
+    }catch(_e){}
+    return;
+  }
   document.getElementById('hclock').textContent=clockStr()+(isNight()?' 🌙':'');
   const t=om.at(city.x,city.y);
   document.getElementById('hslot').textContent=MODE==='city'?(t?t.district.toUpperCase():''):(()=>{const ft=om.at((hx/FN)|0,(hy/FN)|0);return (ft?ft.district.toUpperCase()+' · ':'')+(typeof RIDING!=='undefined'&&RIDING?'RIDING':'ON FOOT');})();
@@ -15227,6 +15246,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
   cv.addEventListener('pointercancel',up);
   cv.addEventListener('wheel',e=>{
     if(MODE==='human'){ e.preventDefault(); if(!transing){ const i=HLEVELS.indexOf(HZOOM); const j=Math.max(0,Math.min(HLEVELS.length-1,i+(e.deltaY<0?1:-1))); setHZoom(HLEVELS[j]); } return; }
+    if(SKY){ e.preventDefault(); skyZoom(e.deltaY<0?1:-1); return; }   /* __ONE_ZOOM_TO_THE_MOON__ */
     if(MODE!=='city')return; e.preventDefault();
     const c=toCv(e);
     setZoomAt(CZOOM*(e.deltaY<0?1.14:0.877), c.x, c.y);
@@ -15234,6 +15254,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
 })();
 // WHOLE MAP button: toggle between full-valley fit and normal 1x centered
 document.getElementById('fitbtn').addEventListener('click',()=>{
+  if(SKY){ skyExit(); return; }   /* __ONE_ZOOM_TO_THE_MOON__: one tap back down to the valley */
   if(MODE!=='city')return;
   const [zmin]=zoomBounds();
   if(Math.abs(CZOOM-zmin)<0.02) recenter(); else fitMap();
@@ -15680,6 +15701,26 @@ function phonePush(force){
   const w=document.getElementById('phonewhere');
   if(w)w.textContent=(st.district?st.district.toUpperCase()+' \u00b7 ':'')+'DAY '+st.day+' \u00b7 '+st.clock;
 }
+/* __PHONE_JUMP__ -- THE PHONE'S MAP IS A DOOR (Paolo 8/12: "how do we combine the
+   city builder map with the map in the phone"). Not by merging renderers -- a
+   phone's map should look like a phone's map -- but by sharing the CAMERA. GO on
+   the phone posts a cell; the run moves the CITY MARKER to it, which is exactly
+   what tapping a plot in the builder does. IT NEVER MOVES HIS BODY: moving the
+   player away from where the world put him is how I turned CITY TALK red on 8/11,
+   and his feet are not the phone's business. */
+window.addEventListener('message',function(ev){
+  var d=ev&&ev.data; if(!d||!d.bohemiaPhoneGo)return;
+  var x=d.bohemiaPhoneGo.x|0, y=d.bohemiaPhoneGo.y|0;
+  try{
+    city.x=Math.max(0,Math.min(om.n-1,x));
+    city.y=Math.max(0,Math.min(om.n-1,y));
+    if(SKY) skyExit();
+    if(MODE!=='city'){ /* the marker moved; the overview is what shows it */ MODE='city'; }
+    panX=0; panY=0;
+    window.__PHONE_GO=(window.__PHONE_GO||0)+1;
+    updHud(); render(); reportState();
+  }catch(_e){}
+});
 function phoneOpen(){
   const wrap=document.getElementById('phonewrap');
   if(!PHONE_FR){
@@ -15692,6 +15733,141 @@ function phoneOpen(){
   PHONE_ON=true; wrap.classList.add('on'); phonePush(true);
 }
 function phoneClose(){ PHONE_ON=false; document.getElementById('phonewrap').classList.remove('on'); }
+
+
+/* __ONE_ZOOM_TO_THE_MOON__ -- THE THIRD BAND, and then two more.
+   ONE SCALAR. SKYU runs 0 (the valley exactly fits the screen, which is where the
+   city builder already lived) to 1 (the moon is up in frame). Every band is the
+   SAME iso projection with a smaller tile, so the diamond never breaks -- that is
+   his 7/25 law, "keep it all on this diamond isometric 45 degree angle view",
+   and it is why this is a zoom rather than a cut to a different picture. */
+var SKY=false, SKYU=0;
+var SKY_BANDS=[[0.25,'REGION'],[0.55,'PLANET'],[1.01,'MOON']];
+function skyBand(){ for(var i=0;i<SKY_BANDS.length;i++) if(SKYU<SKY_BANDS[i][0]) return SKY_BANDS[i][1]; return 'MOON'; }
+function skyEnter(){ if(SKY)return; SKY=true; SKYU=0; window.__SKY_ENTER=(window.__SKY_ENTER||0)+1; updHud(); render(); }
+function skyExit(){ if(!SKY)return; SKY=false; SKYU=0; window.__SKY_EXIT=(window.__SKY_EXIT||0)+1; updHud(); render(); }
+/* one step of the same gesture that got him here. OUT raises SKYU; IN lowers it,
+   and at 0 it hands back to the city builder, which hands back to his feet. */
+function skyZoom(dir){
+  if(!SKY)return;
+  SKYU=Math.max(0,Math.min(1,SKYU+(dir>0?-0.06:0.06)));
+  if(SKYU<=0&&dir>0){ skyExit(); return; }
+  updHud(); render();
+}
+
+/* a star field that is the SAME stars every time -- a sky that reshuffles when you
+   breathe on it reads as noise, not as a sky. Seeded off the valley's own seed. */
+var SKY_STARS=null;
+function skyStars(){
+  if(SKY_STARS)return SKY_STARS;
+  var s=(seed^0x5EED)>>>0, out=[];
+  function r(){ s=(s*1103515245+12345)>>>0; return s/4294967296; }
+  for(var i=0;i<220;i++) out.push([r(),r(),0.35+r()*0.65]);
+  SKY_STARS=out; return out;
+}
+
+/* THE EARTH AND THE MOON ARE PLACEHOLDERS AND THEY SAY SO ON SCREEN.
+   No bank in this repository has a planet in it, because nobody has ever cooked
+   one -- ART REQUEST AR-005 is filed for the real thing. These two functions are
+   where it drops in. Drawn from this file's own palette, nothing new invented. */
+function skyDisc(cx,cy,r,lit,dark,rim){
+  var gd=g.createRadialGradient(cx-r*0.35,cy-r*0.4,r*0.1,cx,cy,r);
+  gd.addColorStop(0,lit); gd.addColorStop(1,dark);
+  g.fillStyle=gd; g.beginPath(); g.arc(cx,cy,r,0,7); g.fill();
+  if(rim){ g.strokeStyle=rim; g.lineWidth=Math.max(1,r*0.02); g.stroke(); }
+}
+
+function renderSky(){
+  var W=cv.width,H=cv.height,u=SKYU,band=skyBand();
+  var night=isNight();
+  /* THE GROUND FALLS AWAY. Below u=0.25 you are still over the Mojave: the desert
+     floor fills the frame and the valley sits in it. Past that the horizon curves
+     and the sky darkens toward space. */
+  var t=Math.min(1,u/0.55);                       /* 0 = atmosphere, 1 = space */
+  var skyTop=mixHex(night?'#101826':'#3a6a8a','#05060b',t);
+  var skyLow=mixHex(night?'#1a2436':'#7fa8c8','#05060b',Math.min(1,t*1.15));
+  var gd=g.createLinearGradient(0,0,0,H);
+  gd.addColorStop(0,skyTop); gd.addColorStop(1,skyLow);
+  g.fillStyle=gd; g.fillRect(0,0,W,H);
+
+  /* stars fade in as the air thins */
+  var sa=Math.max(0,(u-0.18)/0.40); if(sa>0){
+    var st=skyStars(); g.save(); g.globalAlpha=Math.min(1,sa);
+    for(var i=0;i<st.length;i++){ g.fillStyle='rgba(232,226,207,'+st[i][2].toFixed(2)+')';
+      g.fillRect(Math.round(st[i][0]*W),Math.round(st[i][1]*H*0.82),1,1); }
+    g.restore(); }
+
+  if(band==='MOON'){
+    /* SPACE. The earth is a disc below and the moon comes up into frame -- the
+       place Act 3 goes, and the place the dynasty ends looking back from. */
+    var mu=(u-0.55)/0.45;
+    var er=Math.max(28,H*0.62*(1-mu*0.72));
+    skyDisc(W*0.5,H*0.98+er*0.55,er,'#7fa8c8','#16283a','rgba(180,220,255,0.35)');
+    var mr=18+mu*Math.min(W,H)*0.16;
+    var my=H*0.30-mu*H*0.06;
+    skyDisc(W*0.5,my,mr,'#e8e2d4','#7a7466',null);
+    /* three seas, so it reads as THE moon and not as a coin */
+    g.fillStyle='rgba(90,88,80,0.35)';
+    g.beginPath(); g.arc(W*0.5-mr*0.30,my-mr*0.22,mr*0.30,0,7); g.fill();
+    g.beginPath(); g.arc(W*0.5+mr*0.22,my+mr*0.10,mr*0.22,0,7); g.fill();
+    g.beginPath(); g.arc(W*0.5-mr*0.05,my+mr*0.42,mr*0.16,0,7); g.fill();
+  } else {
+    /* still over the world: the desert floor, and the valley drawn on it by the
+       CITY's own renderer at a smaller tile, so this is the same picture the city
+       builder draws -- not a second map of the same place. */
+    var horizon=H*(0.42+u*0.36);
+    g.fillStyle=mixHex('#8a7a58','#3a3226',Math.min(1,u/0.5));
+    g.fillRect(0,horizon,W,H-horizon);
+    g.save(); g.globalAlpha=Math.max(0,0.55-u); g.fillStyle='#d8c08a';
+    g.fillRect(0,horizon-3,W,3); g.restore();
+    var k=Math.max(0.06,1-u*3.2);
+    var tw=TW,th=TH; TW=TW0*zoomBounds()[0]*k; TH=TH0*zoomBounds()[0]*k;
+    try{ skyValley(horizon); }catch(_e){}
+    TW=tw; TH=th;
+  }
+
+  /* THE LABEL, and the honest one about the art. */
+  g.save();
+  g.font='700 10px "Space Grotesk",system-ui,sans-serif'; g.textAlign='center';
+  g.fillStyle='rgba(12,14,10,0.85)'; g.fillText(band,W/2+1,19);
+  g.fillStyle='#b89a6a'; g.fillText(band,W/2,18);
+  if(band==='MOON'||band==='PLANET'){
+    g.font='600 8px "Space Grotesk",system-ui,sans-serif';
+    g.fillStyle='rgba(184,154,106,0.55)';
+    g.fillText('placeholder sky \u00b7 art request AR-005',W/2,H-8);
+  }
+  g.restore();
+  window.__SKY_DRAWN=(window.__SKY_DRAWN||0)+1;
+}
+/* the valley, drawn small, by the city's own projection */
+function skyValley(horizon){
+  var N=om.n;
+  var ox=Math.round(cv.width/2-(city.x-city.y)*TW/2);
+  var oy=Math.round(horizon-((city.x+city.y)*TH/2)+ (N*TH)/2*0 );
+  for(var y=0;y<N;y++)for(var x=0;x<N;x++){
+    var t=om.at(x,y); if(!t)continue;
+    var p=iso(x,y,ox,oy);
+    if(p.sx<-8||p.sy<-8||p.sx>cv.width+8||p.sy>cv.height+8)continue;
+    g.fillStyle=skyTone(t.district);
+    g.fillRect(p.sx-TW/2,p.sy,Math.max(1,TW),Math.max(1,TH));
+  }
+}
+function skyTone(d){
+  d=String(d||'');
+  if(/strip|downtown/.test(d))return '#d8a742';
+  if(/mountain/.test(d))return '#3b352b';
+  if(/water|reservoir|lake/.test(d))return '#2f4a5e';
+  if(/desert|wash|gypsum/.test(d))return '#8a7a58';
+  if(/freeway|arterial|beltway|interchange|rail/.test(d))return '#33333c';
+  return '#6a6258';
+}
+function mixHex(a,b,t){
+  t=Math.max(0,Math.min(1,t));
+  function h(s){ return [parseInt(s.slice(1,3),16),parseInt(s.slice(3,5),16),parseInt(s.slice(5,7),16)]; }
+  var A=h(a),B=h(b),o='#';
+  for(var i=0;i<3;i++){ var v=Math.round(A[i]+(B[i]-A[i])*t); o+=('0'+v.toString(16)).slice(-2); }
+  return o;
+}
 
 function applyRestore(st){
   if(!st||st.v!==1)return false;

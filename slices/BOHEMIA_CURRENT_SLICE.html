@@ -20174,6 +20174,10 @@ var CANON_QUESTS = ["# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
   border:1px solid #2a2418}
 .lv-top{font-size:10px;font-weight:700;letter-spacing:2px;color:#b89a6a}
 .lv-obj{margin-top:4px;font-size:12px;line-height:1.4;color:#e7d8bb}
+/* __PHONE_JUMP__ -- GO sits in the cell readout, in the app's own type. */
+.mapgo{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:5px;
+  background:#2a2418;border:1px solid #b89a6a;color:#e8b84a;font-weight:700;
+  font-size:10px;letter-spacing:1px}
 </style>
 
 <div id="phone" class="view-home">
@@ -20733,8 +20737,15 @@ function renderMap(){
     var real=ctx.worldMap&&ctx.worldMap.real;
     var d=(VM&&real)?VM.describe(real,mx,my):null;
     var box=document.getElementById('mapcell'); if(!box) return;
+    /* __PHONE_JUMP__ -- THE MAP IS A DOOR. Paolo 8/12: "how do we combine the city
+       builder map with the map in the phone". Not by merging two renderers -- a
+       phone's map should look like a phone's map -- but by sharing the CAMERA. The
+       ONE MAP law (7/27) already made both surfaces read the same world; this makes
+       the phone a way INTO it instead of a picture of it. GO moves the city marker,
+       exactly as tapping a plot in the builder does. It never moves your body. */
     box.innerHTML = d ? ('<b>X'+d.x+' Y'+d.y+'</b> · '+esc(String(d.district).toUpperCase())+
-      (d.category?(' · '+esc(d.category)):'')+(d.surface?' · surface':'')+(d.built?'':' · reserved'))
+      (d.category?(' · '+esc(d.category)):'')+(d.surface?' · surface':'')+(d.built?'':' · reserved')+
+      (LIVE?('<span class="mapgo" onclick="phoneGo('+d.x+','+d.y+')">GO \u2192</span>'):''))
       : 'off the map';
   };
   var ph='';
@@ -20877,5 +20888,16 @@ window.addEventListener('message', function(ev){
   }catch(e){}
   try{ rerender(); }catch(e){}
 });
+
+
+/* __PHONE_JUMP__ -- hand the cell to the run. The phone only ASKS; the world
+   decides what to do with it, which is why this posts a message rather than
+   reaching into another document. */
+function phoneGo(x,y){
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaPhoneGo:{x:x,y:y}},'*'); }catch(e){}
+  var box=document.getElementById('mapcell');
+  if(box) box.innerHTML='<b>X'+x+' Y'+y+'</b> · the run is looking at it \u00b7 close the phone';
+}
 
 </script>

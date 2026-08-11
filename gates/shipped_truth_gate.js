@@ -55,6 +55,8 @@ const CLAIMS = [
   ['__COLD_BOOT__',                 'the game starts in 3s on a dead signal, not 16s of white screen'],
   ['__YOUR_HOUSE__',                '"my house isn\'t labeled" -- HOME is a real house, and you wake in it'],
   ['__PHONE_IN_POCKET__',           '"the Phone app we worked so hard for isn\'t implemented" -- it is now, in the run'],
+  ['__ONE_ZOOM_TO_THE_MOON__',      '"keep zooming out until it showed the moon" -- his feet to the moon, one camera'],
+  ['__PHONE_JUMP__',                '...and the phone map is a DOOR into the run, not a second map'],
 ];
 
 /* THE SOUND LANE'S CLAIMS. Same contract, different lane: every marker here was

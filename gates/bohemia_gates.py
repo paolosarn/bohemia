@@ -141,6 +141,18 @@ GATES = [
      'inside somebody else\'s EMPTY srcdoc frame and crashed on "om is not defined", three of '
      'them red on main for over a week. The ordering is pinned here because what broke was a '
      'SHARED RESOLVER and nothing owned it', True),
+    ('ONE ZOOM',       ['node', 'gates/onezoom_gate.js'],
+     'Paolo 8/12: "you could keep zooming out and zooming out until it showed the moon you '
+     'know. that was my original philosophy and i want to stick with that thats my flavor". '
+     'The 7/25 law LOCKED that continuum in his words and shipped two of its three bands; its '
+     'last line parked the third and nothing was blocking it but a note, for eighteen days. '
+     'And it is the SPINE: 7/19 says the camera levels ARE street/city/planetary and Act 3 '
+     'ends "looking down at the planet". What stood in the way was one line -- setZoomAt '
+     'clamped at zmin, a wall that made the valley the whole world. Now the chain runs '
+     'human -> city -> REGION -> PLANET -> MOON and all the way back to his feet, every band '
+     'paints, the pixels DIFFER band to band (a state machine that renders the same frame is '
+     'not a zoom), the REGION band still uses the city\'s own iso so the diamond never breaks, '
+     'and the phone\'s GO moves the camera WITHOUT moving his body', True),
     ('HOME + PHONE',   ['node', 'gates/home_phone_gate.js'],
      'Paolo 8/11: "how was this a run when my house isn\'t labeled and the Phone app that we '
      'worked so hard for isn\'t even implemented yet". Both were THE WORK EXISTS AND IS NOT IN '
