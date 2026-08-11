@@ -1,3 +1,11 @@
+> **★ SUPERSEDED 8/7/26 (same day) — THE LIVE LADDER IS NOW
+> `records/BOHEMIA_THE_BOSS_LADDER_v3_8_7_26.md`.**
+> He read v2 and changed the shape: *"its the emphasis that killing or defeating peacfully that
+> boss unlocks a way to build the game in whatever direction customize or better equipment"* and
+> *"i need you to think of way more bosses… like 10 through 20 more"*. v3 keeps v2's one-lock
+> rule (he said "ur kinda right"), adds a KILL-or-SPARE route to every boss with DIFFERENT
+> grants, adds GEAR and LOOK as grant kinds, and goes to 34. **Build from v3.**
+
 # BOHEMIA — THE BOSS LADDER v2: 17 BOSSES, ONE LOCK EACH (8/7/26)
 
 **THIS IS THE LIVE LADDER.** It supersedes the table in

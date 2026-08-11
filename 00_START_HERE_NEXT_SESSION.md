@@ -1,3 +1,67 @@
+LAB (lab-e2r7sv): 8/7 (e) LATEST -- *** BESTING IS NOT KILLING. 34 BOSSES, AND EVERY ONE CAN
+BE KILLED **OR** SPARED FOR A DIFFERENT GRANT. ***
+JUDGE THIS: 1. the 34 in records/BOHEMIA_THE_BOSS_LADDER_v3_8_7_26.md. NOT IN A TAB.
+ONE THING PENDING HIM: THE VOICE, still not approved.
+
+HIS RULING: "its the emphasis that killing or defeating peacfully that boss unlocks a way to
+build the game in whatever direction customize or better equipment or... i need you to think of
+way more bosses. like way more. like 10 through 20 more. think bout what besting them grants
+you." He said "ur kinda right" about v2's one-lock rule, so that SURVIVES. Two things changed.
+
+*** 1. EVERY BOSS HAS TWO ROUTES AND THEY GRANT DIFFERENT THINGS. That IS the "whatever
+direction", and it doubles the ladder without doubling the bosses. ***
+    KILL  -> YOU TAKE THE THING.   The forge, the valve, the keys, the vehicle. Immediate,
+                                    certain, permanent, yours.
+    SPARE -> YOU GAIN THE PERSON.  They make what you cannot, teach what dies with them, run it
+                                    while you are elsewhere, or become a debt you spend later.
+                                    Better, but they have to survive.
+THE CLEAREST CASE IS #25 THE MIDWIFE: kill her and you inherit her instruments; spare her and
+the line survives three generations. *** THE KILL ROUTE IS NOT THE STRONG ROUTE BY DEFAULT ***
+and that is what stops kill-first being the obvious play. And #29 THE BOOK: killing VOIDS every
+debt in the valley (a real scorched-earth play), while SPARING is where HIS SUMMON LIVES.
+
+*** 2. MY LOCK/KEY RULE WAS TOO NARROW. *** v2's grants were all world-verbs. He named the
+missing ones: "customize or better equipment". So every boss declares a KIND, and the gate
+fails if any is unused: WORLD 16 (a thing you can do) / GEAR 6 (equipment that can exist at
+all) / LOOK 5 (how you and your city are shaped) / PEOPLE 7 (crews, specialists, summons).
+GEAR front-loads to act 1 because equipment is a body problem; PEOPLE back-loads to act 3
+because a city that runs itself is act 3's subject. Acts: 11 / 14 / 9.
+
+THE 17 NEW ONES, and several exist because his own canon already had the hole: THE SMITH (a
+forge), THE NEEDLE (216 clothing canvases and nothing to make them with), THE BOOT (12,288
+steps and no cobbler), THE BARBER (a whole hair law and no way to choose), THE DOGS (his own
+WHAT THE DOG KNOWS quest), THE LOCKSMITH, THE STILL, THE MACHINIST, THE PLATE, THE ARCHITECT,
+THE SIGN (the SIGN and BONEYARD districts exist), THE COLD, THE MIDWIFE (his own MIDWIFE'S HOUR
+quest), THE SURVEYOR, THE PRESS (his own THE PAPER THAT SAYS SO), THE BONES (the CEMETERY
+district), THE WATCH (one universal clock, R8).
+
+RESEARCH: SIFU is the shipped model -- sparing unlocks one Talisman per boss, a whole parallel
+track you only get by NOT killing. The general pattern is that spared bosses "pay tribute in
+items usually superior to what you would get by killing them", so THE SPARE ROUTE PAYS BETTER
+AND COSTS MORE SKILL, which is the balance lever and is his. BG3: sparing gains a party member.
+Nemesis: dominating makes an enemy captain YOURS. *** WHAT WE ARE NOT COPYING: A MORALITY
+METER. *** No karma bar, no good/evil axis -- the choice is economic, and the gate fails if a
+karma bar appears.
+
+GATE: boss_ladder_gate.js, 39 checks, registered in the suite. It holds the one-lock rule across
+all 34 (34 distinct locks, 34 distinct kill verbs), and NEW: it fails if a SPARE route is the
+kill route reworded (the fake choice), if a spare route is an object rather than a person, if a
+grant kind is unused, or if a karma meter appears.
+IT CAUGHT REAL DEFECTS IN MY OWN DRAFT: two bosses sharing a kill verb, EIGHT locks written as
+nouns instead of impossibilities, and one spare route with no person in it. Ten planted
+mistakes, ten caught -- though TWO of my mutations had to be redone because they did not
+actually change the quantity being measured (renaming a row does not delete it). That is the
+sixth time this session; it is a pattern in how I write controls, not in the gates.
+ALSO FIXED: two prose checks were matching against raw text and failed on a hard-wrapped
+"IT IS\nMETROID". Prose does not respect line endings and a check on prose must not either --
+lab_gate learned this same lesson in July. All prose assertions now run on collapsed text.
+
+STILL PENDING HIM: THE VOICE (not approved, second pass did not change that); whether clout is
+the summon's mana; how you actually spare somebody (COMBAT/PEOPLE lanes' feel, his call);
+whether the spare route pays better and by how much; and the MEDICINE-vs-RESOURCES currency
+name from earlier today.
+
+
 ART (f3eu53): 8/11 (f) LATEST -- *** NEW LAW, HIS, LOCKED: SHOW IT IN A TAB,
 NEVER A HUNT. "Never ever ever again tell me hey check this out by opening the
 run tab." READ laws/BOHEMIA_ADDENDUM_SHOW_IT_IN_A_TAB_NEVER_A_HUNT_8_11_26.md
@@ -186,6 +250,7 @@ STILL TRUE AND STILL HIS: 9 of 14 factions sit on a district you could live in. 
 and Blues are on a solar farm, Cartel and Homeless in retail, Church on a farm -- and
 canon puts the Homeless HQ in the sewer under the King Hobo. Base placement is worldgen
 and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left alone.
+
 
 
 
