@@ -111,6 +111,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-ART-008_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt). Volume unlocked, wiring open. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26, WIRING BUILT BUT DISABLED 8/11/26: two real-surface probes never caught the pieces on screen (the 'storefront' cells may draw through a different layer than the structure branch). Unverified placement does not ship. Next: find the actual layer, hook there, verify, then wire. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/28/26 | PRIORITY: MED
 - BOARD ROW #: 17 | VERDICT: —

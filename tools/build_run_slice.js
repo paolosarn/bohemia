@@ -325,6 +325,30 @@ cropBank.tiles.forEach(function (t) {
 });
 if (cropCount !== CROP_PIECES.length)
   throw new Error('TILEFORM: only ' + cropCount + ' crop pieces matched in ' + CROP_BANK);
+/* ninth family: TF-ART-005 sports surfaces (line WANGs, lanes and banking are
+   volume). tenth family: TF-ART-008 storefronts (signbands, pilasters, ends
+   and the smashed pair are volume). */
+function grabPieces(bankPath, names) {
+  var bank = JSON.parse(fs.readFileSync(bankPath, 'utf8'));
+  if (String(bank.law || '').indexOf('APPROVED') !== 0)
+    throw new Error('TILEFORM: ' + bankPath + ' law line is not APPROVED - nothing unjudged draws');
+  var got = 0;
+  bank.tiles.forEach(function (t) {
+    if (names.indexOf(t.name) >= 0) { tileformOut[t.name] = t.b64; got++; }
+  });
+  if (got !== names.length)
+    throw new Error('TILEFORM: only ' + got + ' of ' + names.length + ' pieces matched in ' + bankPath);
+}
+grabPieces('banks/tileforms/TF-ART-005_CANDIDATES_8_8_26.json',
+  ['turf_stripe_a0', 'turf_stripe_b0', 'turf_stripe_a1', 'turf_stripe_b1',
+   'turf_stripe_a2', 'turf_stripe_b2', 'court_0', 'court_1', 'court_2',
+   'track_0', 'track_1', 'track_2', 'infield_0', 'infield_1', 'infield_2',
+   'putting_0', 'putting_1', 'bunker_0', 'bunker_1', 'bunker_2']);
+grabPieces('banks/tileforms/TF-ART-008_CANDIDATES_8_8_26.json',
+  ['sf_bay_tall_0', 'sf_bay_tall_1', 'sf_boarded_0', 'sf_boarded_1', 'sf_boarded_2',
+   'sf_shutter_down_0', 'sf_shutter_down_1', 'sf_grille_half_0', 'sf_grille_half_1',
+   'sf_awning_rust_0', 'sf_awning_rust_1', 'sf_awning_teal_0', 'sf_awning_teal_1',
+   'sf_awning_sand_stripe_0', 'sf_awning_sand_stripe_1', 'sf_awning_sage_0', 'sf_awning_sage_1']);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('

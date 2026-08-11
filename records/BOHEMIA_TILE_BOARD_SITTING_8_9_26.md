@@ -232,3 +232,17 @@ Remaining unwired (6): CMU courses (cap/vent, needs material-aware course
 logic), sports fields + pools + storefronts (assembly logic), freeway (render
 path is not district cells - needs its own research), deck stairs (blocked on
 the TF-CMB-004 slab cook).
+
+## 8/11 TENTH PASS: NINTH FAMILY WIRED (DEAD SPORTS TURF), AND AN HONEST HOLD
+
+TF-ART-005 draws on every 'dead turf' surface: the park's open lawn (3,067
+cells), the school field, the stadium turf - mow stripes alternating per row so
+the lawn reads mown-then-died - plus courts, tracks, infields, putting and
+bunkers keyed on their own names. Looked at live in the park.
+THE HOLD: TF-ART-008 storefronts got its draw rule and pieces BUILT, but two
+real-surface probes at downtown shop runs never caught the pieces on screen -
+the 'storefront' cells likely draw through a different layer than the structure
+branch. Unverified placement does not ship (his 8/11 bar), so the hook is
+DISABLED with the reason in the code, the family stays counted as unwired, and
+the next turn's first job is finding the real layer.
+NINE OF FOURTEEN FAMILIES ARE IN THE GAME.

@@ -1,3 +1,22 @@
+ART (f3eu53): 8/11 (k) LATEST -- *** NINE OF FOURTEEN FAMILIES ARE IN THE
+GAME. THE PARK LAWNS DIED MOWN. STOREFRONTS ARE BUILT BUT HELD - UNVERIFIED
+PLACEMENT DOES NOT SHIP. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (tenth-pass section)
+
+TAB: ART, WIRED IN THE GAME - nine live-frame cards (rail, stripes, ring,
+metal, mesh, brick, mobile homes, crop fields, turf).
+
+THE HOLD, honestly: TF-ART-008's rule + pieces are in the build but DISABLED -
+two real-surface probes at downtown shop runs never caught the pieces
+painting; the 'storefront' cells likely draw through a different layer than
+the structure branch. FIRST JOB NEXT TURN: probe the layer/solid of downtown's
+'storefront (green)' cells, hook where they actually draw, verify, wire, card.
+Remaining after that: CMU courses, freeway (own render path), pools (basin
+assembly), deck stairs (blocked on TF-CMB-004). Then the volume ledger.
+Pages surface 239 of 260 MB - COMPRESS new shots or start swapping old ones.
+
+ART (f3eu53): 8/11 (j) -- *** EIGHT OF FOURTEEN FAMILIES ARE IN THE
+
 CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE CHIN LAW IS LOCKED AND GATED.
 HE APPROVED THE FIX; THIS IS THE PART THAT MAKES IT NEVER COME BACK. ***
 

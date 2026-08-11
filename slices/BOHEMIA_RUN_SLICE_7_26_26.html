@@ -638,6 +638,54 @@ function drawFenceform(gx,gy,X,Y,S){
   ctx.drawImage(look(im),sx,0,44,44,X,Y-S,S,S);
   return true;
 }
+/* NINTH WIRED FAMILY (8/11): TF-ART-005 dead sports surfaces. The park's open
+   lawn (3,067 cells), the school field and the stadium turf are 'dead turf' by
+   name; mow stripes alternate a/b per ROW so the lawn reads as a mown-then-
+   died field, courts and tracks and infields key on their own names. The line
+   WANG sets (turf lines, court lines, track lanes) and banking are volume. */
+function drawTurfform(gx,gy,X,Y,S){
+  var n=String(NAMEG[gy][gx]||'').toLowerCase(), name=null;
+  if(n.indexOf('turf')>=0 && n.indexOf('dead')>=0){
+    name='turf_stripe_'+((gy%2===0)?'a':'b')+th(0,gy>>1,3);
+  } else if(n.indexOf('court')>=0 && n.indexOf('wall')<0){
+    name='court_'+th(gx,gy,3);
+  } else if(n.indexOf('running track')>=0){
+    name='track_'+th(gx,gy,3);
+  } else if(n.indexOf('infield')>=0){ name='infield_'+th(gx,gy,3); }
+  else if(n.indexOf('putting')>=0){ name='putting_'+th(gx,gy,2); }
+  else if(n.indexOf('bunker')>=0 || n.indexOf('sand trap')>=0){ name='bunker_'+th(gx,gy,3); }
+  if(!name) return false;
+  var im=TILEFORM_IMG[name];
+  if(!im||!im.complete||!im.naturalWidth) return false;
+  ctx.drawImage(look(im),X,Y,S,S);
+  return true;
+}
+/* TENTH WIRED FAMILY (8/11): TF-ART-008 storefront glass, on downtown's own
+   'storefront' facade cells. A street reads in SEGMENTS: two or three glazed
+   bays, then a boarded one, a shutter, a grille - the segment (2 cells) picks
+   the treatment so fronts read as shops, not confetti. Awning cells wear one
+   colourway per run. Signbands, pilasters, ends and the smashed 2-tall pair
+   are volume. Act 1: every pane is dead dark; nothing glows. */
+function drawSfform(gx,gy,X,Y,S){
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  if(n.indexOf('storefront')<0) return false;
+  var name;
+  if(n.indexOf('awning')>=0){
+    var cw=['rust','teal','sand_stripe','sage'][th(0,gx>>2,4)];
+    name='sf_awning_'+cw+'_'+th(gx,gy,2);
+  } else {
+    var seg=th(gy,gx>>1,8);
+    name = seg<=3 ? 'sf_bay_tall_'+(seg%2)
+         : seg===4 ? 'sf_boarded_'+th(gx,gy,3)
+         : seg===5 ? 'sf_shutter_down_'+th(gx,gy,2)
+         : seg===6 ? 'sf_grille_half_'+th(gx,gy,2)
+         : 'sf_bay_tall_'+th(gx,gy,2);
+  }
+  var im=TILEFORM_IMG[name];
+  if(!im||!im.complete||!im.naturalWidth) return false;
+  ctx.drawImage(look(im),X,Y,S,S);
+  return true;
+}
 /* EIGHTH WIRED FAMILY (8/11): TF-ART-014 the dead crop fields. The farm names
    its own ground - 'field soil' (fallow), 'crop rows' (furrowed), 'irrigation'
    (the dead channels) - and these were the DELIBERATE blanks of the 8/5 prop
@@ -2858,6 +2906,7 @@ function draw(){
         if(!isSuburbCell() && !body && drawRailform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && !body && drawStallform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && !body && drawCropform(gx,gy2,X,Y,S)) continue;
+        if(!isSuburbCell() && !body && drawTurfform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
           : genericTile(gx,gy2);
@@ -2876,6 +2925,12 @@ function draw(){
            and the dossier already drew the line - the mask only reads it */
         if(!isSuburbCell() && drawFenceform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && drawRoofform(gx,gy2,X,Y,S)) continue;
+        /* drawSfform is built but DISABLED (8/11): two real-surface probes at
+           downtown shop runs never caught the pieces on screen - the
+           'storefront' cells may live on a different layer than this structure
+           branch. Unverified placement does not ship (his 8/11 bar). The next
+           turn's job: find the layer those cells actually draw through, hook
+           there, verify, THEN count the family as wired. */
         if(!isSuburbCell() && drawCivicSkin(laid,gx,gy2,X,Y,S)) continue;
         if(!tput(laid,X,Y,S) && !body){
           /* only ever reached in the first frames while the bank decodes */
