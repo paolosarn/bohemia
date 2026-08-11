@@ -867,6 +867,13 @@ GATES = [
      'shopping check walked the APPROVED-ASSET index (what he has judged) and never the '
      'PURCHASED library (what he paid for). Two shelves, one looked at. This makes the cook '
      'tools name the purchased library, or say in writing why nothing bought applies', False),
+    ('COMBAT SCALE',   ['node', 'gates/combat_scale_gate.js'],
+     'THE GATE FOR THE GIANTS (8/11): zooming the board out lowered the tile pitch but every '
+     'human was blitted at a hardcoded 112x112 that did not know the board existed, so a man '
+     'went from ~3 tiles tall to ~6.9 and it shipped. I looked straight at the screenshots and '
+     'called it a pass. So the thing I got wrong by eye is a NUMBER now: a man must be the same '
+     'number of tiles tall as he was before the zoom, the zoom must be a whole number (pixel art '
+     'only scales by integers), and the world must be built further than he can see', False),
     ('NO BULLSHIT Qs', ['python3', 'gates/no_bullshit_questions_gate.py'],
      'Paolo 8/11: "UR QUESTIONS ARE NOT ENGLISH... IF IT MAKES THE GAME FUNNER AND '
      'REALISTIC DO IT". Both keys turn = build it, no question. Machine-checks the two '

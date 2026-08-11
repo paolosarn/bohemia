@@ -161,7 +161,7 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
        rebuild G.pillars from empty, which is more of what this was asking for. */
     demo.includes('G.pillars=[];') &&
     demo.includes("G.arenaKind='street';") &&   /* V110 RE-POINTED: one kind now, see the warehouse rejection below */
-    demo.includes('const NP=6+Math.floor(Math.random()*30);') &&
+    demo.includes('const NP=20+Math.floor(Math.random()*70);') &&
     demo.includes('function buildWarehouse(){'));
   ok('my cover is geometry-aware (pillar on the shooter line, distance-honest)',
     demo.includes('function myCoverAgainst(ang,dist,lvl)') &&
@@ -242,7 +242,7 @@ ok('STREET FLOOR: world-anchored tile board with median + lane markings (V94: th
     !demo.includes('drawPose(ctx,pcx,pcy,ang,S,1,false)'));
   ok('the arm lives at board scale (reads the aim zoom). V138: the scale is ONE dial (FIELD_PITCH) instead of five scattered copies of 0.085 that could drift apart',
     demo.includes("Math.min(W,H)*FIELD_PITCH*(G._zb||2)*1.05") &&
-    /const FIELD_PITCH=[0-9.]+;/.test(demo) &&
+    /const FIELD_PITCH=0\.085\/FIELD_ZOOM;/.test(demo) &&
     !/Math\.min\(W,H\)\*0\.085/.test(demo));
   ok('AIM CAM PIN: no stale killshot offsets, scene biased toward the target',
     demo.includes('AIM CAM PIN V12'));
@@ -543,7 +543,7 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes('let sniperIdx=-1; if(N>=4)') &&
     demo.includes("while(sniperIdx===closeIdx&&sp++<20)") &&
     demo.includes("if(i===sniperIdx)arch='sniper';") &&
-    /\(i===sniperIdx\) \? 30\+Math\.random\(\)\*10/.test(demo));   /* V138: 13.5-16.5 -> 30-40 tiles. Still always the farthest, still never the close guy, and now genuinely outside everything you own */
+    /\(i===sniperIdx\) \? contentR\(\)\*0\.86/.test(demo));   /* V139: the far gun sits at the edge of the WORLD, wherever that edge is, instead of a hardcoded 30 that goes stale the moment the zoom moves */   /* V138: 13.5-16.5 -> 30-40 tiles. Still always the farthest, still never the close guy, and now genuinely outside everything you own */
   // v40: streak momentum joins the real JUICE verdict menu, AU's dead toggle retired
   ok('V40 STREAK MOMENTUM IS A REAL JUICE TOGGLE: gated by JUICE.AW in the same slot the visible band formula reads, so on/off never lies',
     demo.includes('V40 JUICE MENU') &&
@@ -2299,7 +2299,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
   ok('V138 WHO IS CARRYING WHAT: a GOON has a pistol (walk him down), a SEC-BOT has a rifle (he outranges you), and the sniper is the reason the board is this big',
     /const ARCH_WEAPON=\{human:'pistol',bot:'rifle',sniper:'sniper'\};/.test(demo));
   ok('V138 THE SPAWN BAND OPENS: it was 6.5-14.5 tiles, which at 1.5m a tile is a fight inside 10-22 METRES -- a parking space with people in it, and it made every weapon range moot because everything spawned inside every gun\'s reach',
-    /e\.edist = \(i===sniperIdx\)/.test(demo) && /: 6\+Math\.random\(\)\*20;/.test(demo));
+    /e\.edist = \(i===sniperIdx\)/.test(demo) && /: 6\+Math\.random\(\)\*\(contentR\(\)\*0\.80-6\);/.test(demo));
   ok('AUDIT PINNED: cover is a BINARY predicate and incoming fire FILTERS on it -- an enemy you have cover against is removed from the volley entirely, 0% or 100%, never a modifier',
     demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
     demo.includes('!myCoverAgainst(e.ea,e.edist,e.lvl)'));   /* V90: still a FILTER, now level-aware. The audit's "0% or 100%" finding is unchanged -- a floor simply turns the whole predicate off. */
@@ -2429,13 +2429,15 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
   const gen = (i > 0 && j > i) ? demo.slice(i, j) : '';
   ok('V89: the pillar generator carries the vocabulary as one readable block', gen.length > 0);
 
-  ok('DENSITY IS A REAL RANGE, AND V138 SCALED IT WITH THE BOARD: 6-35 pieces, not 2-15 and never the original 5-7. A five-to-seven swing is a rounding error the eye cannot see, which is exactly what he could not see',
-    gen.includes('const NP=6+Math.floor(Math.random()*30);') &&
+  ok('DENSITY IS A REAL RANGE. V138 CLAIMED IT SCALED WITH THE BOARD AND THE ARITHMETIC WAS WRONG: before was 1 piece per ~45 tiles^2 (avg 8.5 inside radius 11) and v138 gave 1 per ~123 (avg 20 inside radius 28), so it THINNED cover 2.7x while saying it held it. That is why the bigger board read as empty desert. Holding the original density needs ~55 pieces',
+    gen.includes('const NP=20+Math.floor(Math.random()*70);') &&
     !demo.includes('const NP=5+Math.floor(Math.random()*3);') &&
-    !demo.includes('const NP=2+Math.floor(Math.random()*14);'));
-  ok('V138 A BIGGER BOARD WITH THE SAME COVER IS NOT A BIGGER FIGHT, it is the same fight with empty sand around it -- the WALKABLE-LAND failure in a different costume. Cover scattered 2.2-9.7 tiles and was HARD CAPPED at 11, so on a 26-tile spawn band the outer two thirds would have been bare desert. Count AND radius both scale, so density per square tile stays where the generator already had it',
-    gen.includes('d0=2.2+Math.random()*22;') &&
-    gen.includes('if(Math.hypot(nx2,ny2)>28)continue;') &&
+    !demo.includes('const NP=2+Math.floor(Math.random()*14);') &&
+    !demo.includes('const NP=6+Math.floor(Math.random()*30);'));
+  ok('V139 THE WORLD IS BUILT AS FAR AS HE CAN SEE, AND THAT IS ONE NUMBER NOT TWO: cover used to stop at a hardcoded 28 while the visible board moved with the zoom, so a ring of bare desert appeared at the edge BY CONSTRUCTION the moment the zoom passed it. contentR() is derived from the pitch, so they cannot drift apart -- the giants bug in a third costume, closed',
+    gen.includes('d0=2.2+Math.random()*(contentR()-2.2);') &&
+    gen.includes('if(Math.hypot(nx2,ny2)>contentR())continue;') &&
+    demo.includes('function contentR(){ return 0.85/FIELD_PITCH + 2; }') &&
     !gen.includes('d0=2.2+Math.random()*7.5;'));
   ok('COVER HAS A SIZE: r was 0.55 for EVERY piece ever placed. Now 0.45-1.15, so some is a crate you duck behind and some is a block you go around',
     gen.includes('const r=Math.max(0.45,Math.min(1.15,bulk+(Math.random()-0.5)*0.30));') &&
@@ -2456,7 +2458,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
 
   ok('THE PLACEMENT STILL LANDS ON TILES and still refuses to build on top of the player or off the far edge, so a denser arena can never wall him in at spawn',
     gen.includes('if(Math.hypot(nx2,ny2)<1.5)continue;') &&
-    gen.includes('if(Math.hypot(nx2,ny2)>28)continue;') &&
+    gen.includes('if(Math.hypot(nx2,ny2)>contentR())continue;') &&
     gen.includes('return Math.abs(q[0]-nx2)<0.9&&Math.abs(q[1]-ny2)<0.9;'));
   ok('and the retry budget grew with the density so a 15-piece arena cannot quietly come out half-built',
     gen.includes('pg++<240'));
@@ -2948,8 +2950,17 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
   /* ===== 35. V101 HIT IN THE CHEST + THE APPROVED STREET BANK =========== */
   ok('V101 BODIES ARE MARKED AT THE CHEST, NOT THE FEET (Paolo 7/29: "on a second story you just have the location of them wrong... its like their feet"). drawHuman blits 84px ABOVE the point it is handed, so every position in this file is a man\'s FEET',
     demo.includes('V101 HIT IN THE CHEST') &&
-    demo.includes('const MASS_DY=-42;') &&
-    demo.includes('x.drawImage(cv112,Math.round(ex-56),Math.round(ey-84));'));
+    demo.includes('const MASS_DY=-42*bodyScale();') &&
+    /x\.drawImage\(cv112,0,0,112,112,Math\.round\(ex-56\*S\),Math\.round\(ey-84\*S\),w,w\);/.test(demo));
+
+/* V139: THIS GATE CAUGHT A REAL ONE I MISSED. MASS_DY is half of drawHuman's own
+   84px offset -- the CHEST, which every hit marker and cover ring hangs off. I
+   scaled the sprite and would have left the marker at a flat 42px, floating it
+   above a body a third that tall: the giants bug, inverted, on the reticle. The
+   gate's own words were "a sprite-height change has ONE number to follow", and
+   this was that change. */
+  ok('V139 AND THE CHEST MARKER RIDES THE BODY: MASS_DY scales with bodyScale(), so the mark stays on his chest at every zoom instead of floating above a shrunken man',
+    demo.includes('const MASS_DY=-42*bodyScale();'));
 
   ok('V101 MASS_DY IS DERIVED FROM THE DRAW CALL, not eyeballed: it is half of drawHuman\'s own 84px offset, so a sprite-height change has one number to follow',
     /MASS_DY=-42/.test(demo) && demo.includes('ey-84'));
