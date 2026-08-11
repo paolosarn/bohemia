@@ -13298,14 +13298,14 @@ function texKindFor(col,isStruct){
 
 /* ==== STREET ART (7/20): the approved V11/V12 street pools, on the ground.
    Source: banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt (judged art, 30-yr weathering). Gate-locked. ==== */
-/* SA_TILES lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* SA_TILES lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 
 /* __TRAFFIC_SIGNALS__ -- HIS 7/17 TRAFFIC SIGNALS, ON THE INTERSECTIONS.
    Verbatim from banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt; this
    file chooses WHICH of his sprites stands where and nothing else. DEAD only
    (act-1 default; grid power is his call), every wreckage kind included
    because 'broken and on the floor' is what he asked for by name. */
-/* SIG_TILES lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* SIG_TILES lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const SIG_IMG={};
 for(const k in SIG_TILES){ const im=new Image();
   im.onload=()=>{ try{ render(); }catch(_e){} };
@@ -13507,7 +13507,7 @@ function chunkCanvas(cx,cy){
    district (roads->street, industrial->metal, parks/desert->burnt, built->concrete).
    Bigger+overlap+feather => seams dissolve. Click ANY tile => judge ART DIRECTION
    globally. Manual PLACE stays. City view untouched. Persists. --------------- */
-/* TP_TILES lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* TP_TILES lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const TP_TYPE = {"concrete": "ground", "misc": "object", "industrial": "object", "gore": "overlay", "container": "object", "foliage": "object", "sign": "object", "furniture": "object", "weapon": "object", "trash": "overlay", "wall": "object", "hazard": "overlay", "fence": "object", "door": "object", "window": "object", "grass": "ground", "light": "object", "monument": "object", "vehicle": "object", "street": "ground", "roof": "object", "rubble": "overlay", "dirt": "ground", "burnt": "ground"};
 const TP_IMG = {};
 for(const k in TP_TILES){ TP_IMG[k]=TP_TILES[k].map(b=>{const im=new Image();im.src='data:image/png;base64,'+b;return im;}); }
@@ -13979,8 +13979,8 @@ function shadowPass(ox,oy,C){
    AND IT DRAWS LAST IN THE ROW, because facadePass walks gx ascending and the
    cell to the door's right is drawn AFTER the door -- its wall buried the east
    jamb every time. Trim stands proud of the wall beside it. */
-/* JAMB_W lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
-/* JAMB_E lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* JAMB_W lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* JAMB_E lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const JAMB_WI=JAMB_W.map(function(b){const i=new Image();i.src='data:image/png;base64,'+b;return i;});
 const JAMB_EI=JAMB_E.map(function(b){const i=new Image();i.src='data:image/png;base64,'+b;return i;});
 const JAMB_PX=7;            /* his locked strip width, in 44px corpus pixels */
@@ -15807,7 +15807,7 @@ stepOnce=function(di){
    door at the same size with no scaling and no geometry change.
    HIS TIMING, from the bank: 9 frames / 2 beats / 120 BPM. BEAT is 500ms, so the
    swing runs 1000ms off the same clock everything else quantises to. */
-/* DOOR_ANIM lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* DOOR_ANIM lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const DOOR_ANIM_IMG=DOOR_ANIM.map(function(cl){ return cl.map(function(b){
   const im=new Image(); im.src='data:image/png;base64,'+b; return im; }); });
 let DOORSWING=null;   /* {clip, t0, gx, gy} while a door is opening */
@@ -15830,7 +15830,7 @@ function doorSwingDraw(ox,oy,C){
   window.__DOOR_SWING_FRAMES=(window.__DOOR_SWING_FRAMES||0)+1;
   return 1;
 }
-/* IN_DOOR_B64 lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* IN_DOOR_B64 lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const IN_DOOR_IMG=IN_DOOR_B64.map(function(b){ const im=new Image(); im.src='data:image/png;base64,'+b; return im; });
 FACADE_DOOR_BANK=IN_DOOR_IMG;   /* ONE DOOR, INSIDE AND OUT: the facade pass and the interior now blit the same approved 88x176 plate. */
 
@@ -15841,7 +15841,7 @@ const IN_FLOORPOOL={
   stockroom:'hyard', records:'hyard', service:'hyard', floor_open:'hyard',
   dock:'hyard', locker:'hyard'
 };
-/* __HOUSE_FLOORS__ (Paolo 8/11: "Tile wood and carpet bro ofc bro wtf").
+/* __HOUSE_FLOORS__ (Paolo 8/6: "Tile wood and carpet bro ofc bro wtf").
    A HOUSE IS FLOORED LIKE A HOUSE. What it did instead: inFloorPool returned 'side' for
    every role but six, and 'side' IS pools.side of the harmonized STREET pool -- the
    OUTDOOR SIDEWALK CONCRETE, cracks and weeds included. A living room, a kitchen, two

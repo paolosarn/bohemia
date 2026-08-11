@@ -5,7 +5,7 @@
   forever -- no ?v= cache-busters, ever. This worker makes the plain URL always
   serve the newest deploy (network-first), killing the stale-cache reason the
   query strings existed. Silent, URL stays pristine. */
-/* __BOH_DURABLE__ (8/11/26): ASK THE BROWSER TO KEEP THE SAVE.
+/* __BOH_DURABLE__ (8/6/26): ASK THE BROWSER TO KEEP THE SAVE.
    iOS WebKit deletes localStorage, IndexedDB AND service worker registrations
    after SEVEN DAYS with no interaction with the origin. Every Bohemia save lives
    in localStorage (measured: bohemia.save.v1, 9,351 bytes), and sw.js - the
