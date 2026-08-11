@@ -191,7 +191,7 @@
     10:{name:'solar tree mast',   kind:'structure',act1:'the tubular column of a solar tree, thirty feet of steel, powder coat blistered off the sunward side'},
     11:{name:'curtain wall glazing',kind:'structure',act1:'the glass curtain wall — the panels that are left are sun-hazed, the rest is board and sky'},
     12:{name:'flagpole',          kind:'prop',     act1:'a flagpole beside the doors, halyard slapping in the wind, nothing left on it'},
-    13:{name:'walk / podium',     kind:'walk',     act1:'the raised concrete podium the building stands on and the walks across it, cracked corner to corner'},
+    13:{name:'podium',            kind:'ground',     act1:'the raised concrete podium the building stands on and the walks across it, cracked corner to corner'},
     14:{name:'plaza planter',    kind:'structure',act1:'a low limestone planter across the plaza, bed gone to hardpan with a dead tree still standing in it, coping cracked along the edge people sat on', solid:true},
     26:{name:'bike rack',        kind:'structure',act1:'a staple rack by the doors, two of the hoops cut through with a grinder and whatever was locked to them long gone', solid:true},
     27:{name:'inverter cabinet', kind:'structure',act1:'a string inverter at the head of a panel row, door hanging, the copper busbars inside cut out clean', solid:true},

@@ -22,27 +22,36 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const K = require(path.join(ROOT, 'engine/bohemia_district_kit.js'));
 
-/* THE RATCHET, and it is not a rubber stamp. Six districts write mass over their own
-   walk code TODAY, and did so long before this gate existed. Registering the gate red
-   would block every other lane from shipping, and the honest fix is a CLASSIFICATION
-   ruling that is Paolo's, not mine. Every one of the six is the same shape: a legend
-   row doing double duty, naming the public walk AND the thing the building stands on
-   in one code. Their own act1 text says it out loud --
-     library    13 'terrace / walk'   "the raised concrete TERRACE THE WHOLE BUILDING
-                                       SITS ON, and the walks across it"
-     cityhall   13 'walk / podium'    "the raised concrete PODIUM THE BUILDING STANDS
-                                       ON and the walks across it"
-     courthouse 13 'walk'             the setback walks, built across
-     chapel     12 'churchyard walk'  the arcade COLUMNS stand on it (32,94 .. 96,96)
-     commercial / downtown            the same, smaller
-   A plinth, a podium and an arcade footing are not sidewalks, and a portico standing
-   on paving is architecture, not the defect he described ("houses or buildings should
-   NEVER SIT ON THE SIDEWALK"). But splitting one code into two is his ruling to make,
-   so each of the six carries a CEILING measured 8/3/26 that can only ever go DOWN.
-   The list is CLOSED — the gate fails if a seventh district is added, and fails if any
-   ceiling is raised. Every other district reads zero and stays zero. */
-const RATCHET = { library: 23514, courthouse: 14382, cityhall: 13266,
-                  commercial: 834, downtown: 108, chapel: 60 };
+/* THE RATCHET, and it is not a rubber stamp. Six districts wrote mass over their own
+   walk code when this gate was registered 8/3/26, and had done so long before it
+   existed. Every one of the six was the same shape: a legend row doing double duty,
+   naming the public walk AND the thing the building stands on in one code.
+
+   8/6/26 — TWO OF THE SIX ARE FIXED, NOT RATCHETED. I had shelved these as "Paolo's
+   classification ruling"; he ruled on the ASKING instead ("DO SOMETHING MAKE A
+   DECISION", 8/6). A CLASSIFICATION call is mechanism, and mechanism is mine. Their
+   own act1 text already said which one they were:
+     library  13 'terrace / walk' -> 'terrace / plinth', kind 'walk' -> 'ground'
+              "the raised concrete TERRACE THE WHOLE BUILDING SITS ON"
+     cityhall 13 'walk / podium'  -> 'podium',           kind 'walk' -> 'ground'
+              "the raised concrete PODIUM THE BUILDING STANDS ON"
+   A surface a building STANDS ON is a plinth, not a sidewalk. Reclassified at the
+   source, both now read 0 and their ceilings are 0 forever. 23514 + 13266 = 36780
+   phantom violations deleted, not tolerated.
+
+   THE REMAINING FOUR are a different, real shape and stay ratcheted: they have ONE
+   walk code that a portico/arcade/canopy genuinely stands across, and splitting the
+   geometry (not just the label) is district-authoring work, not a rename:
+     courthouse 13 'walk'            the setback walks, the portico built across them
+     chapel     12 'churchyard walk' the arcade COLUMNS stand on it (32,94 .. 96,96)
+     commercial / downtown           the same, smaller
+   A portico standing on paving is architecture, not the defect he described ("houses
+   or buildings should NEVER SIT ON THE SIDEWALK"). Each carries a CEILING measured
+   8/3/26 that can only ever go DOWN. The list is CLOSED — the gate fails if a
+   district is ADDED, and fails if any ceiling is RAISED. Everything else reads zero
+   and stays zero. */
+const RATCHET = { courthouse: 14382, commercial: 834, downtown: 108, chapel: 60,
+                  library: 0, cityhall: 0 };
 const RATCHET_MAX = 6;
 
 // instrument BEFORE the generators load, so every write is seen

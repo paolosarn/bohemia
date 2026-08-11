@@ -174,7 +174,7 @@
     10:{name:'rooftop lantern / plant',kind:'structure',act1:'the drum\'s rooftop lantern and the mechanical plant on the tower and the wings, ducting collapsed, one unit stripped for its copper'},
     11:{name:'clerestory glazing',kind:'structure',act1:'the clerestory teeth running the length of the reading wing — the glass that lit the stacks, now mostly sky'},
     12:{name:'courtyard',         kind:'ground',   act1:'a walled reading courtyard between the masses, its paving cracked, the planting dead in place'},
-    13:{name:'terrace / walk',    kind:'walk',     act1:'the raised concrete terrace the whole building sits on, and the walks across it, cracked corner to corner'},
+    13:{name:'terrace / plinth',  kind:'ground',     act1:'the raised concrete terrace the whole building sits on, and the walks across it, cracked corner to corner'},
     14:{name:'oculus ring',       kind:'structure',act1:'the ring of the drum\'s oculus — the round clerestory that dropped daylight into the middle of the reading room, its glazing gone'},
     15:{name:'plaza planter',    kind:'structure',act1:'a low sandstone planter wall across the plaza, its bed gone to hardpan with a dead tree still standing in it, coping cracked where people sat on it for thirty years', solid:true},
     17:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping missing in runs'},
