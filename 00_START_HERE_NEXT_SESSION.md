@@ -15974,3 +15974,18 @@ Continuous checkpoint + save-on-pagehide + resume-in-place + device info in
 the feedback export (the soft opening doubles as our device matrix). Save
 machinery exists; this is wiring. Ledger + new mark in records/BOHEMIA_
 COORDINATOR_SWEEP_LEDGER.md.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/12 (b) — THE TONE CANON + RESEARCH ROUND 1 (Paolo:
+Undertale, Deltarune, Fear & Hunger, Termina — "funny uncanny traumatizing
+and fun"; a STANDING research series, rounds on his word). Record:
+records/BOHEMIA_TONE_RESEARCH_R1_8_12_26.md. The spine: comedy is the
+attachment machine the darkness runs on (Undertale's genocide route
+devastates BECAUSE pacifist was funny); dread = anticipated permanence
+(F&H); funny/scary are ONE safety-distance dial (benign violation theory,
+peer-reviewed). We already own the mercy/witness/kill-anyone spine — the
+missing half is characters funny enough to mourn. ROUTED: PEOPLE 0t (one
+endearing surface per character, the name-ask beat is the delivery slot),
+SOUNDS 0v note (funny voice classes, test by laugh). Tone is TERRITORIAL:
+comedy in the light, dread in the dark — rides LIGHT=TERRITORY, no new
+system.

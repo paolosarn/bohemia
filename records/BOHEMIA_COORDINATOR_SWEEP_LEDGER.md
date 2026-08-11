@@ -118,3 +118,14 @@ DELTA: 2 commits (one mine). Boss roster at 63 candidates; Paolo caught a
 lane overselling a research finding — honesty culture holding. All catches
 delegated or parked. No collisions, nothing to route, nothing needed.
 HIGH-WATER MARK: swept through main @ c4f2857af229497702d174927ca20c695d85075c
+
+## TONE RESEARCH R1 — 8/12/26 (standing series opened by Paolo; not a sweep)
+Tone canon recorded (Undertale/Deltarune/F&H/Termina — funny, uncanny,
+traumatizing, fun). R1 findings: comedy is the attachment machine trauma
+runs on; dread = anticipated permanence; funny and scary are ONE
+safety-distance dial. Challenge finding: "grounded" is not the opposite of
+"goofy" — a bleak-only Bohemia produces players who feel nothing when the
+sister dies. Routed: PEOPLE 0t attachment pattern (quirk per character via
+the name-ask slot), SOUNDS note (funny voice classes), lab R2 candidates
+logged. Record: records/BOHEMIA_TONE_RESEARCH_R1_8_12_26.md
+HIGH-WATER MARK unchanged (research turn, not a sweep): main @ 56b0f4a885a439f8a657097e55e59ae7af4a9d02

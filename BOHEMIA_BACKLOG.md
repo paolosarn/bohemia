@@ -5262,6 +5262,20 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    garble. Ask, never fill. | one judge sheet, all factions side by side |
    standing ledger (below) is the mechanism half, ships empty regardless |
    yes (the dossiers ARE the judgeable).
+0t. THE ATTACHMENT PATTERN (tone research R1, 8/12 — records/BOHEMIA_TONE_
+   RESEARCH_R1_8_12_26.md; Paolo's tone canon: Undertale/Deltarune/F&H/
+   Termina — funny, uncanny, traumatizing, fun): EVERY character, named or
+   generic, carries ONE endearing or funny surface reachable through
+   dialogue — and the ask-their-name beat is the built-in delivery slot
+   (what they say when asked = the first laugh; Undertale's craft chain:
+   comedy -> attachment -> consequence lands). Words ship as drafts per
+   ALWAYS-MAKE-AN-ATTEMPT, cited to the questbook corpus per the catalogue
+   law. Trauma = attachment first: a character nobody laughed with is a
+   character nobody mourns — and our mercy states + witnesses + kill-anyone
+   already carry the consequence half. | quirk surfaces live on the real
+   run surface through the name-ask; drafts tagged | tone-zoning rides
+   LIGHT=TERRITORY (comedy in the safe light, dread in the dark) — no new
+   system | no (drafts, he edits live).
 0sc. GDD MECHANICS ROUTED 8/4 (records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md
    — v4 LOCKED base, newly CHEAP): SCRIPTED SCENES. The Bethesda method:
    condition met -> scene (camera move, actors posed via the rig, dialogue
