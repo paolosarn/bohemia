@@ -1,3 +1,390 @@
+PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
+FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
+PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
+NOT A DIORAMA. A SECOND SCENE COSTS A JSON FILE AND ZERO NEW CODE. ***
+PEOPLE (7h9sfy): 8/12 (f) LATEST -- *** THE SECOND CUTSCENE SHIPPED, AND IT COST
+ONE JSON FILE. THE GRIEF DINNER IS IN THE CUTSCENE TAB. ***
+PEOPLE (7h9sfy): 8/12 (h) LATEST -- *** NEW LAW, HIS, AND IT IS ABOUT US:
+HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
+laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
+
+HIS WORDS: "Bro this is the same fucking problem we had with the questing shit!
+I CANT DIRECT QUESTS OR CUTSCENES RN WTF IS WRONG WITH YOU."
+
+HE IS RIGHT AND IT IS THE SECOND TIME. WORDS (8/11) let him change what somebody
+SAYS. It did NOT let him change who is in a scene, what order it happens in,
+where it happens, whether a beat exists at all, or where a choice leads -- which
+is the entire job of a director. He watched two cutscenes, had structural notes
+about both, and his only channel was typing a paragraph at me and waiting.
+
+*** AND IT PUT THE APPROVALS QUEUE BACK THROUGH THE SIDE DOOR. My previous turn
+ended with "does the father live?" -- a structural decision I had no way to
+RECEIVE except as an answer to a question. EVERYTHING IS A THUMB (8/9) banned the
+queue; it came back because the INSTRUMENT was missing. Build the instrument and
+the question disappears. ***
+
+THE LAW: every system he has to make decisions about ships with an INSTRUMENT for
+making them, IN A TAB, THE SAME TURN. THE TEST, before shipping anything he must
+rule on: "WHERE DOES HE CHANGE THIS HIMSELF?" If the answer is "he tells me and I
+edit a file", it is not shipped.
+
+TAB: DIRECT (after CUTSCENE). Two modes, CUTSCENES and QUESTS -- both things he
+named. Over 2 scenes and all 21 canon quests (1,111 directable rows):
+  SEE       every beat / line / choice in order, in plain words
+  ADD       a line, a person by name (RAY / DENISE / MARCO / NINA / YOU), a
+            pause, a time cut, a quest choice
+  DELETE    any of them
+  MOVE      any of them up or down
+  RETARGET  who speaks, who appears, and WHERE A CHOICE LEADS
+  RELOCATE  the zone, the room, and which house (seed) the scene stands in
+  PLAY      what HE built, right there, not a preview of a plan
+  KEEP      saved to his device, survives a reload, EXPORT .TXT
+His edits live in localStorage keyed by scene/quest id. NOTHING A LANE SHIPPED IS
+OVERWRITTEN -- he can wreck a scene at 2am and the repo does not move until he
+exports and a lane lands it.
+
+GATE: direct_gate.js, 33 claims, registered as DIRECT. It does NOT read the
+source for the word "delete". It boots the real alpha, taps the tab and PERFORMS
+EVERY VERB: adds the father to the grief dinner and asserts he is in the scene,
+moves a beat and asserts the order changed, deletes one, retargets a speaker,
+walks to another house and asserts THE ROOM ACTUALLY MOVED, presses play and
+asserts a line HE added reached the screen while the shipped scene stayed
+untouched. An editor that renders but does nothing is exactly the invisible
+failure he is angry about, twice.
+
+ALSO FIXED WHILE TESTING: quest rows were offering the FAMILY cast as speakers.
+A quest's speakers are roles cast at runtime (the lineman, the fixer), so
+offering DENISE for them is nonsense; quest rows show their node instead.
+
+*** NEXT (the GO list, in order):
+ 1. NO MORE ASKING HIM STRUCTURAL QUESTIONS. The father, the empty chair, who
+    survives -- he has the controls now. Watch DIRECT exports, land them as canon.
+ 2. APPLY THE TEST TO EVERYTHING ELSE THIS LANE OWNS. Anywhere a lane is waiting
+    on a ruling, ask "where does he change this himself?" and build that instead
+    of asking.
+ 3. THE DIRECTOR CANNOT YET: add a whole NEW scene from nothing, or rename a
+    quest node. Both are small; neither was needed to unblock him tonight.
+ 4. Quests do not PLAY in the director (they play in the run). Editing + export
+    works; playing a quest in the tab is the next honest upgrade.
+ 5. Not this lane: 60 tools still crash on CITY_B64; his 11 perimeter walls. ***
+
+FACTIONS (factions-ovkjpf): 8/12 (c) LATEST — *** HE CLOSED THE ENTRANCE'S SCOPE THE
+SAME DAY HE OPENED IT: ONE MAIN QUEST, FOURTEEN DRESSINGS. NOT FOURTEEN GAMES. ***
+laws/BOHEMIA_ADDENDUM_THE_CUSTOMIZABLE_ENTRANCE_8_12_26.md (updated)
+Gate: ENTRANCE SCOPE, 10/10, BLOCKING. Tab: LIFE -> THE ENTRANCE (opens on it).
+
+HIS WORDS, asked whether the faction choice changes the main quest's CONTENT or only
+where it opens: "It only changes the location and possible vibe and colors possible
+dialogue but yeah it's not day and night. It's just with different clothes on."
+
+    MOVES: location, vibe, colours, some dialogue
+    DOES NOT MOVE: the story, the family, the beats (fight / sibling / dinner / burial),
+                   the arc, the ending, the structure
+
+THE SECOND HALF IS THE ONE A BUILD QUIETLY LOSES, which is why it is gated. A
+customizable entrance is exactly the feature that becomes fourteen games: the Cartel
+opening should REALLY be different so it gets its own quest file, then the Church one
+does, and now there are fourteen main quests to write, test and keep in sync forever --
+for a difference he says outright is NOT day and night.
+    FOURTEEN DRESSINGS IS A WEEK. FOURTEEN QUESTS IS THE REST OF THE YEAR.
+
+THE DRESSING PATH ALREADY EXISTS AND IS PROVEN, so nobody has an excuse to fork: the .bq
+format gates an option on the player's faction TODAY. Measured by the gate --
+`[gate: faction:REDS]` validates clean, is HIDDEN by default, and OPENS for the faction
+raised on it. No format change, no second file.
+
+GATE (ratchet, nothing is forked today): bans a per-faction FORK of a canon quest
+(S01_REDS.bq beside S01_THE_METER_READER.bq) while leaving quests legitimately ABOUT a
+faction alone -- the corpus is full of those and they are the point. Self-tests by
+feeding itself both shapes. 21 canon quests, 21 distinct ids, 0 forked.
+
+STILL [PENDING PAOLO] from the same law: are all 14 available at the door (CUSTOM has no
+ground by definition, NETWORK is the Amalgamation's manufactured protection); what
+"faction neighborhood housing" is architecturally; whether other factions know from
+minute one what you were raised as.
+
+STILL TRUE AND STILL HIS: 9 of 14 factions sit on a district you could live in. Anarchists
+and Blues are on a solar farm, Cartel and Homeless in retail, Church on a farm -- and
+canon puts the Homeless HQ in the sewer under the King Hobo. Base placement is worldgen
+and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left alone.
+
+
+
+
+LAB (lab-e2r7sv): 8/7 (d) LATEST -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
+THREE BOSSES WERE THE SAME BOSS. THE LADDER IS REBUILT AND THE BUG IS NOW MACHINE-HELD. ***
+JUDGE THIS: 1. the 17 bosses in records/BOHEMIA_THE_BOSS_LADDER_v2_8_7_26.md. NOT IN A TAB.
+ONE THING PENDING HIM: THE VOICE, which he explicitly did not approve.
+
+HIS WORDS: "THE STRIPPER / THE WRECKER / THE TOLL -- these are the exact same bro". He was
+right. Strip a building for materials / take a building down / clear a blocked road: THREE
+BOSSES, ONE VERB. It sat there four days past a 131-check gate, because every check asked
+whether the ladder was well-FORMED (count matches, numbers run 1..N, additions marked) and NOT
+ONE asked whether two entries were THE SAME THING.
+WHY IT HAPPENED: I generated bosses from NOUNS -- water, fuel, salvage, demolition, passage --
+and asked "who would own this?" Owning a noun does not make a distinct power. Three nouns
+produced one verb.
+
+THE RULE, AND IT IS NOW A GATE: *** ONE BOSS = ONE LOCK = ONE THING THAT WAS IMPOSSIBLE AND
+NOW IS NOT. NO TWO BOSSES MAY OPEN THE SAME LOCK. *** Every boss declares its LOCK stated as
+an IMPOSSIBILITY, never a noun. gates/boss_ladder_gate.js, 27 checks, fails on a duplicate
+lock, a duplicate key verb, a lock written as a noun, or a killed boss coming back.
+
+*** AND IT CAUGHT ME COMMITTING THE IDENTICAL DUPLICATE INSIDE THE FIX FOR IT, ON ITS FIRST
+RUN. *** My rebuild added THE MULE ("you can only take what your arms hold") which is THE
+OPERATOR's lock ("some mass is too heavy for hands") in a different coat. Same defect he had
+just finished pointing at, four minutes later. THE MULE is cut and THE GRID was reworded for
+sharing a verb. 18 -> 17. The rule paid for itself before it shipped.
+
+ALL TEN OF HIS RULINGS ARE RECORDED VERBATIM: records/BOHEMIA_HIS_BOSS_RULINGS_8_7_26.md.
+*** THE ONE HE TOLD ME TO WRITE DOWN, AND IT IS HIS INVENTION: *** on THE BOOK, "can this be
+like a final fantasy summon. actually thats a fire idea. mark that down some where. maybe
+clout is the mana?" CALLING IN A DEBT IS A SUMMON -- you spend something and a PERSON arrives
+and does what you cannot. Clout as the cost is flagged [PENDING] because he said "idk". It is
+the first real sink clout would have, and it makes a debt a thing you HOLD AND SPEND instead
+of a number that colours a conversation -- the same move the reputation research already made.
+
+WHAT DIED: THE WRECKER and THE TOLL (folded into THE STRIPPER, same verb). THE CHANNEL ("this
+is ass bro" -- mine, dead inside one message). THE JUDGE (he said "sounds like it would be a
+spreadsheet simulator" and he is citing his OWN law back at me: clause 2 of the three-
+currencies addendum BANS the Civ-5 spreadsheet feel). THE BROKER (mine, weakest, undefended).
+
+WHAT CHANGED ON HIS RULINGS: THE CLIMB -> act 1. THE SOIL -> first boss of act 2. THE VOICE
+rebuilt around THE PHONE with people ARRIVING instead of broadcasting (Fallout 4's beacon, and
+the part worth stealing is that it only works if the place already has food/water/beds), marked
+NOT APPROVED. And HABITABLE is DEFINED because he asked: every district carries a FILTH level,
+and while it is high its population cap is ZERO -- habitable means A SETTLER WILL ACCEPT A BED
+THERE. One concrete sentence, which the old wording could not manage.
+
+*** THE RESEARCH CORRECTED MY OWN FRAMING OF FOUR DAYS, AND EVERY LANE SHOULD KNOW: ***
+I have been calling this "Valheim's boss progression". VALHEIM'S FORSAKEN POWERS ARE PASSIVE
+BUFFS, NOT KEYS -- Eikthyr is -60% stamina, Bonemass is -25% damage taken, Moder is a sailing
+tailwind. Not one makes an impossible thing possible. WHAT ACTUALLY GATES VALHEIM IS THE
+BIOME'S ORE, which he killed on 8/3 as "material vibes". So this ladder is NOT Valheim's
+mechanism, IT IS METROID'S: lock-and-key ability gating, where each ability answers a DIFFERENT
+class of obstacle. Naming it right is what gave us the rule. Sources cited in the record.
+
+GATES: boss_ladder_gate 27/0 (eight planted mistakes, eight caught), rulings_gate 131/0.
+
+STILL PENDING HIM: THE VOICE (not approved); whether clout is the summon's mana; and the
+MEDICINE-vs-RESOURCES currency name from earlier today.
+
+
+FACTIONS (factions-ovkjpf): 8/12 (c) LATEST — *** HE CLOSED THE ENTRANCE'S SCOPE THE
+SAME DAY HE OPENED IT: ONE MAIN QUEST, FOURTEEN DRESSINGS. NOT FOURTEEN GAMES. ***
+laws/BOHEMIA_ADDENDUM_THE_CUSTOMIZABLE_ENTRANCE_8_12_26.md (updated)
+Gate: ENTRANCE SCOPE, 10/10, BLOCKING. Tab: LIFE -> THE ENTRANCE (opens on it).
+
+HIS WORDS, asked whether the faction choice changes the main quest's CONTENT or only
+where it opens: "It only changes the location and possible vibe and colors possible
+dialogue but yeah it's not day and night. It's just with different clothes on."
+
+    MOVES: location, vibe, colours, some dialogue
+    DOES NOT MOVE: the story, the family, the beats (fight / sibling / dinner / burial),
+                   the arc, the ending, the structure
+
+THE SECOND HALF IS THE ONE A BUILD QUIETLY LOSES, which is why it is gated. A
+customizable entrance is exactly the feature that becomes fourteen games: the Cartel
+opening should REALLY be different so it gets its own quest file, then the Church one
+does, and now there are fourteen main quests to write, test and keep in sync forever --
+for a difference he says outright is NOT day and night.
+    FOURTEEN DRESSINGS IS A WEEK. FOURTEEN QUESTS IS THE REST OF THE YEAR.
+
+THE DRESSING PATH ALREADY EXISTS AND IS PROVEN, so nobody has an excuse to fork: the .bq
+format gates an option on the player's faction TODAY. Measured by the gate --
+`[gate: faction:REDS]` validates clean, is HIDDEN by default, and OPENS for the faction
+raised on it. No format change, no second file.
+
+GATE (ratchet, nothing is forked today): bans a per-faction FORK of a canon quest
+(S01_REDS.bq beside S01_THE_METER_READER.bq) while leaving quests legitimately ABOUT a
+faction alone -- the corpus is full of those and they are the point. Self-tests by
+feeding itself both shapes. 21 canon quests, 21 distinct ids, 0 forked.
+
+STILL [PENDING PAOLO] from the same law: are all 14 available at the door (CUSTOM has no
+ground by definition, NETWORK is the Amalgamation's manufactured protection); what
+"faction neighborhood housing" is architecturally; whether other factions know from
+minute one what you were raised as.
+
+STILL TRUE AND STILL HIS: 9 of 14 factions sit on a district you could live in. Anarchists
+and Blues are on a solar farm, Cartel and Homeless in retail, Church on a farm -- and
+canon puts the Homeless HQ in the sewer under the King Hobo. Base placement is worldgen
+and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left alone.
+
+
+
+FACTIONS (factions-ovkjpf): 8/12 (f) LATEST — *** THE ENTRANCE NOW SHOWS WHAT EACH
+OPENING IS ACTUALLY LIKE — AND I NEARLY SHIPPED SEED NOISE AS CANON. ***
+Tab: LIFE -> THE ENTRANCE (opens on it). Nothing to judge.
+
+FIRST, TWO CORRECTIONS OF MY OWN MEASUREMENTS, both caught before shipping:
+
+1. "THE NEAREST RESIDENT IS 54 TILES AWAY" (8/12 e) WAS MY BUG, not the world's. I was
+   counting SLEEPING agents at their houses. Corrected: the run is at 07:30, FOUR of
+   eleven are outdoors, and ONE is within earshot of the quest tile. SIM.outAgents is a
+   FUNCTION and I read its arity as a count. The world is alive; the witness numbers
+   were honest all along.
+
+2. "MONOCULTURE vs CONTESTED IS A FACT ABOUT THE FACTION" — WRONG, and it looked
+   beautiful, which is why it needed checking. Standing a fixed sample of 60 people on
+   each faction's ground and asking the real allegiance function who they run with gives
+   two clean kinds of opening: everyone around you is yours, or you grow up among other
+   people's factions. My first read said this matched his canon notes (Colorful is
+   "community-based not territorial" and came out contested). ACROSS FIVE WORLD SEEDS
+   ONLY 3 OF 14 KEEP THE SAME CHARACTER. It is a fact about THE MAP, not the faction.
+   The page now says MONOCULTURE HERE / CONTESTED HERE and states plainly that a new
+   world re-rolls it — which is the genuinely interesting version, and a real reason to
+   replay.
+
+BUILT: each of the 14 entrance cards now carries what the opening is LIKE — how many of
+the people around you would run with you versus with somebody else, measured the same
+way for every faction so the comparison is fair. Labelled as a probe of the world at that
+spot, not a census.
+
+STILL TRUE AND STILL HIS: 9 of 14 sit on a district you could live in (Anarchists and
+Blues on a solar farm, Cartel and Homeless in retail, Church on a farm; canon puts the
+Homeless HQ in the sewer under the King Hobo). Base placement is worldgen and where a
+faction lives is MAP CONTENT.
+
+STATE OF THIS LANE: the people layer is wired end to end and visible — allegiance on the
+person you talk to, the consequence on the phone card, real witness counts at the moment
+a quest resolves. The integration ledger's remaining gaps (district art, day cycle,
+economy, dress-by-rank, vehicles) all belong to other lanes.
+
+
+CHARACTER (character-0lurbs): 8/11 LATEST -- I BUILT THE WRONG FACE FIRST. THE
+OVERWORLD FACE IS SIX PIXELS AND THE MOUTH IS TWO.
+
+PAOLO: "BRO I MEANT THE TINY PIXEL OVERWORLD FACES. NOT THE DOOM FACES SHIT MAN."
+I had scaled renderFace(), the 64x64 PORTRAIT. The face he actually looks at is on the
+56px BODY: PD.layers['facial/punk-face'], painted pixels drawn through the rest-grid path.
+
+MEASURED, IN FULL:
+    S    eyes 6px (5x2)   nose 3px (8x1)   lips 2px (2x1)
+    SE   eyes 6px         nose 2px         lips 2px
+    E    eyes 3px         nose 1px         lips 2px
+    N NE NW W SW   NOTHING PAINTED AT ALL
+The mouth is TWO PIXELS. That is the whole mouth.
+
+SHIPPED: window.BOH_SPRITE_FACE, DEFAULT 1, and at 1 spriteFaceScaled returns HIS PIXEL
+OBJECT BY IDENTITY -- not an equal copy -- so the draw path provably cannot differ by one
+pixel until he picks a setting. RIG LAW says nobody reshapes his painted regions; HE is the
+one asking, so this is a ruling, and it still ships as opt-in.
+
+*** PER CONNECTED COMPONENT, NEVER PER FEATURE, and that is the design. *** The "eyes"
+pixels span BOTH EYES AND THE GAP. Scaling that box as one region slides them apart across
+the head instead of growing them. Each feature is split into components and each grows about
+its own centre. (I made exactly that mistake on the portrait hours earlier and had to hold
+the eye gap to 35% of the scale to survive it.)
+
+*** THE HONEST CEILING: A FLAT x2 FUSES THE TWO EYES INTO ONE BAR. *** Each eye is 2px with
+exactly ONE pixel between them on a head about 10px wide. No scale fixes that -- more room
+would have to come from a REPAINT, and that is his art. So the knob takes a number OR
+{eyes,nose,lips}, and the setting that actually works ({eyes:1,nose:2,lips:2}: grow the
+mouth, leave the eyes) is something he can say. records/OVERWORLD_FACE_SCALE_8_11.png is
+all four side by side on S/SE/E.
+
+AND x1.5 IS A MATHEMATICAL NO-OP HERE -- a 1.5 scale of a 2px box rounds back to the same
+2px box, ZERO rendered pixels changed. I only found that because the gate COUNTS CHANGED
+RENDERED PIXELS instead of trusting the dial. At this size the scale is effectively integer.
+
+NEW GATE: OVERWORLD FACE (gates/sprite_face_scale_gate.js), registered. Identity at 1,
+every step moves real rendered pixels, monotonic, and the per-feature form is reachable and
+renders as its own third thing.
+
+STILL TRUE FROM EARLIER TODAY: the portrait knob (window.BOH_FACE_FEAT + FACE FEAT DIAL
+gate) is also in, also default 1. It was the wrong surface for his ask but it is inert and
+gated; rip it out if he ever says so.
+
+--------------------------------------------------------------------------------
+
+FACTIONS (factions-ovkjpf): 8/12 (e) LATEST — *** THE WITNESS ORGAN IS FINALLY RUNNING
+IN THE GAME. Four days of it (STANDING 35 claims, DEED BRIDGE 27) had never been CALLED
+by anything. *** Nothing to judge.
+
+WHAT WAS WRONG: the consequence card said "WORD CARRIED 24 TILES" -- a DERIVED radius,
+the distance a thing of that loudness travels. True, and not the same claim as "these
+people saw you". The run had no minds at all and called witness() zero times.
+
+NOW: at the moment a quest resolves, the deed is published at the player's tile -- not
+when the phone opens, because who saw a thing depends on where everyone was WHEN IT
+HAPPENED. The block's own people ARE the minds (no new population; they just get the one
+array bohemia_standing asks for), and DEED_WEIGHT is filled from HIS corpus at first use,
+so every weight traces to a @DO faction line he wrote.
+
+TWO NUMBERS, AND THE CARD MUST NOT CONFUSE THEM -- the first cut did:
+  publish() is FACTION-SCOPED on purpose (a Red genuinely does not care who buys seed),
+  so it counts who FORMED A VIEW, and on this block that is honestly zero.
+  "N people saw it" is a PHYSICAL claim: who was close enough. Counted separately, as
+  everyone within the reach the deed's own clout tag earned.
+The first version printed the opinion count under the words PEOPLE SAW IT and read as
+broken while the mechanism was right.
+
+MEASURED AT THE TILE WHERE THE QUEST REALLY RESOLVES (the lineman's, not spawn):
+    quiet 0 / notable 0 / risky 0 / reckless 1
+The nearest resident is 54 TILES AWAY -- everybody is home and indoors at that hour. That
+is NOT a bug: the run already narrates the quiet fork as "Done, and nobody heard it", so
+the system agrees with the story. But a printed 0 reads like a broken counter, so the
+card says NOBODY SAW IT in words.
+
+THE GEOMETRY FINDING, same family as the faction dead zone: the demo block's people are
+far from where its quest resolves, so the loudness axis barely discriminates there (it
+does work -- reach 7/12/17/24 -- there is simply nobody standing in it). Two honest ways
+to change that and BOTH ARE SOMEBODY ELSE'S: where the quest is placed (run lane) and
+when it resolves (a quest that ends at 3am has no audience by definition). Not tuned.
+
+GATES: RUN 126, CURRENT SLICE 6, STANDING 35, DEED BRIDGE 27. The current slice went red
+first -- it embeds the loop and I had rebuilt only the run. Same trap as 8/9; rebuild
+BOTH slices whenever engine or run source changes.
+
+
+CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE HEAD IS FIXED. IT WAS ONE
+CONDITION, AND IT HAD BEEN WRONG FOR EVERY CHARACTER IN THE GAME. ***
+
+PAOLO, chin circled: "this is not how the rig has my head and my neck line... there needs to
+be more head underneath the mouth following how the rig has it. fix it"
+
+THE BASE BODY DOES NOT USE PAINTED COLOUR -- IT SHADES ITSELF FROM THE PART GRID. Every body
+part gets one base tone and an edge pixel gets `shade=1`, the darker anatomy tone. That is
+what draws every limb line and every silhouette on the body. And the whole pass was wrapped
+in one condition:
+
+    const g = GROUP[pid];
+    if (g !== 0) { ...border detection... if (border) shade = 1; }
+                ^^^^^^^^   GROUP = {1:0, 2:0, ...}  -- group 0 IS THE HEAD AND FACE
+
+THE HEAD WAS THE ONE PART OF THE BODY EXCLUDED FROM HAVING AN EDGE. Every head pixel came
+out the same flat tone, forever, on everybody.
+
+AND HE HAD PAINTED THE JAW. His body art puts the dark anatomy index on BOTH sides of every
+head row and walks it inward -- x7..x16, then x8..x15, then x9..x14 -- which is the egg.
+Measured on the render: those columns came out 191,175,166, THE EXACT SAME COLOUR AS THE
+CHEEK BESIDE THEM. His jawline was being painted as face. The head read as a barrel and the
+chin dissolved into the shelf under the mouth he circled. tools/bohemia_head_edge_patch.py.
+
+DELIBERATELY NARROW -- only the SILHOUETTE edge. No line between head and face (one form,
+same group), no line where a limb meets the head (his 7/2 ruling, untouched), no line at the
+neck join (that one is HIS call). NOT ONE PAINTED PIXEL MOVES: this is a tone on cells his
+rig already owns, so RIG LAW (which is about geometry) is untouched.
+
+*** THE RULER FAILED TWICE ON THIS ONE FIX AND BOTH FAILURES ARE THE SAME MISTAKE. ***
+  1. The width ruler is BLIND to it. The fix is a TONE; both tones are skin; "how wide is
+     the skin" reads identically before and after. It did, and I nearly shipped believing
+     nothing had happened.
+  2. The edge ruler I wrote to replace it took the outermost NON-TRANSPARENT pixel -- the
+     sprite's own black outline, darker than everything -- so it PASSED with the fix ripped
+     back out. Mutation-tested, caught, fixed to compare outermost SKIN to the skin inside
+     it. Now: 0 of 20 without the fix, 20 of 20 with it.
+ASK FOR THE THING THAT CHANGED, and mutation-test every assertion you write.
+
+GATE: HEAD FOLLOWS RIG (gates/head_follows_rig_gate.js) -- the width ratchet (deviation may
+only shrink) PLUS the jaw-line assertion. Registered in the suite.
+
+STILL OPEN AND STILL HIS: BAKED part 2 has no pixels on NE/NW, which is why PARTS PAINTED
+and BODY VARIATION are red (identical on main, verified on a clean tree). Those two facings
+have no face painted at all.
+
+--------------------------------------------------------------------------------
+
 ART (f3eu53): 8/11 (j) LATEST -- *** EIGHT OF FOURTEEN FAMILIES ARE IN THE
 GAME. THE FARM GROUND WAS THE DAY'S LAST WIRING: THE DELIBERATE BLANKS FINALLY
 GOT THEIR FAMILY. ***

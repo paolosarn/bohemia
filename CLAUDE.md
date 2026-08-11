@@ -99,6 +99,19 @@ research partner. He DECIDES, you PRODUCE.
   map layouts. THE TEST: is it WORDS, or is it a DECISION? Words get an attempt;
   decisions wait. Full law: laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md
   Gate: attempt_gate.js
+- HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT (Paolo 8/12, LOCKED): "this is
+  the same fucking problem we had with the questing shit! I CANT DIRECT QUESTS OR
+  CUTSCENES RN." EVERY system he has to make decisions about ships with an
+  INSTRUMENT for making them, IN A TAB, THE SAME TURN. WORDS (8/11) let him change
+  what somebody SAYS; it did not let him change who is in a scene, what order it
+  happens in, where it happens, whether a beat exists, or where a choice leads --
+  which is the whole job of a director. Without the instrument the approvals queue
+  comes back through the side door: the turn before this one ended with "does the
+  father live?", a structural decision I had no way to receive except as an answer.
+  THE TEST, before shipping anything he must rule on: "WHERE DOES HE CHANGE THIS
+  HIMSELF?" If the answer is "he tells me and I edit a file", it is not shipped.
+  Tab: DIRECT. Full law: laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md
+  Gate: direct_gate.js
 - DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED, same day, hours
   later): "I HAVE A WHOLE 170 QUEST FILE WITH DIALOGUE I DONT HAVE TIME TO
   APPROVE THE DIALOGUE THIS SLOW LIKE THIS I WILL EDIT IT LATER JUST DIALOGUE

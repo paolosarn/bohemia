@@ -600,6 +600,18 @@ GATES = [
      'Every player-facing line now ships a REAL attempt tagged draft:true so he can find and '
      'edit it; filler and stubs FAIL. The other half is unchanged and still checked: who dies, '
      'who holds what ground, numbers and dials stay HIS and stay empty', False),
+    ('DIRECT',         ['node', 'gates/direct_gate.js'],
+     'HE CAN DIRECT IT, NOT JUST WATCH IT. Paolo 8/12: "this is the same fucking problem we '
+     'had with the questing shit! I CANT DIRECT QUESTS OR CUTSCENES RN." WORDS let him change '
+     'what somebody SAYS; nothing let him change who is in a scene, what order it happens in, '
+     'where it happens, whether a beat exists, or where a choice leads -- and without that the '
+     'approvals queue came back through the side door as questions from me. The DIRECT tab is '
+     'the instrument, and this gate PERFORMS every verb on the real alpha rather than reading '
+     'the source for the word "delete": it adds a person and asserts they are in the scene, '
+     'moves a beat and asserts the order changed, deletes one, retargets a speaker, walks to '
+     'another house and asserts THE ROOM MOVED, presses play and asserts a line HE added '
+     'reached the screen while the shipped scene stayed untouched. An editor that renders but '
+     'does nothing is the exact invisible failure he is angry about twice', False),
     ('STAGE',          ['node', 'gates/stage_gate.js'],
      'THE CUTSCENE PLUMBING IS A MACHINE, NOT A DIORAMA. Paolo 8/12: "it should be seemless '
      'and not need to be so handcrafted everytime... From location. To it being the actual '
