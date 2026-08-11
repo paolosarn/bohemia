@@ -1,3 +1,74 @@
+RUN (run-eak241): 8/11 LATEST -- TWO DEMO ROWS SHIPPED, AND THE GATES WERE LYING.
+
+THE DAY LOOP CLOSES. The city had a TIMER, not a day: minutes piled up, rolled past
+midnight, bumped a number, and nothing in the world knew a day had happened. Meanwhile a
+finished .bq parser, a full quest runtime, a loop engine and 21 canon quests were sitting
+in engine/ and in NEITHER file the player loads. Now: WAKE 06:00, sixteen waking hours,
+NIGHTFALL 22:00, a RECKONING card, day+1 carrying everything, all of it riding the save.
+Day 1 is THE METER READER, day 2 THE BACK DOOR, day 3 THE SAME CRATE TWICE.
+EVERY RESOLUTION BUTTON IS THE QUEST'S OWN @LOG LINE, VERBATIM -- dayloop_gate diffs each
+button against quests/bq/*.bq byte for byte, so no lane can quietly put non-canon prose on
+a choice. NIGHTFALL on an unresolved quest fires THE QUEST AUTHOR'S OWN FAIL STAGE, so the
+day has teeth without one invented number.
+LEFT EMPTY ON PURPOSE: the STAKES table (what a day COSTS to live -- hunger, exhaustion,
+rent, a debt clock). NO DAMAGE BEFORE THE DIAL; the gate goes red if anyone fills it.
+SCAFFOLD, said plainly: the CASTING. Stages bind to world events, not to @ROLE cast
+against real people. engine/bohemia_demoquests.js says so in its filename and banner.
+
+THE SAVE IS IPHONE-PROOF. CITYSAVE v1 lost the run to four things Safari really does. The
+worst: its own comment promised "never a time machine" and it built one -- a failed write
+dropped to memory and LEFT THE OLD SAVE ON DISK, so the next launch silently resumed an
+older run. Now: two slots with a generation counter (the newest good save is never the
+write target), length + FNV-1a checksum verified on load, a SIZED probe instead of the old
+one-byte lie, and the disk copy is killed the moment live state can no longer reach it.
+The gate found two bugs reading the code did not: a session that STARTS in memory mode
+strands the same stale save, and on a full device that refuses removeItem the only kill
+that fits is overwriting each slot with a tiny DEAD marker.
+
+*** FOR EVERY LANE, THE PART THAT IS NOT MINE ALONE ***
+THE BROWSER GATES WERE MEASURING A BLANK DOCUMENT. Five crashed with the same signature,
+`ReferenceError: om is not defined`, and THREE WERE ALREADY RED ON MAIN. Callers write
+    page.frames().find(fr => CITY.isFrame(fr, page))
+and find() takes the FIRST match. isFrame still matched bare /srcdoc/, which was true of
+how the city loaded before 8/2 and means nothing now, and the alpha carries more than one
+srcdoc frame. Measured: [about:srcdoc {om:undefined, cv.width:0}] came back before
+[BOHEMIA_CITY_WORLD {om:object, cv.width:378}], every single time. srcdoc is a LAST RESORT
+now, used only when the page has no named city frame. xray_gate was the last file still
+carrying its own inline copy of that regex and now calls the shared predicate.
+TURNED GREEN BY THAT ONE FIX: TRAFFIC SIGNAL, FULL RES, RUN SPAWN, SUN SHADOWS, DOORWAY,
+ZOOM SEAM, INTERIOR WALL, DOOR JAMB, SEE THROUGH, E/W DOOR, EVERY DOOR, STEP INSIDE, KIT
+BINDING. TRAFFIC SIGNAL and FULL RES had been written off in an earlier handoff as "still
+reading the city bytes from the old container". They were this, for over a week.
+IF YOUR LANE HAS A BROWSER GATE THAT REACHES INTO THE CITY FRAME, use CITY_APP.isFrame and
+never a local regex. A local copy of a shared rule is a rule that stopped being shared.
+
+*** AND THE GAME HUNG 16 SECONDS ON A BAD SIGNAL. *** A render-blocking <link> to
+fonts.googleapis.com sat on a connection timeout. Measured: 16.0s to world-ready with the
+host unreachable, 3.1s with requests failing fast. Thirteen seconds of dead socket, not
+world. Paolo demos on a phone, and a phone on cellular or a captive portal IS the
+unreachable case. media=print + onload swap: 16.0s -> 3.2s, good network still gets the
+typeface. Gate: cold_boot_gate.js boots the city with the network dead.
+I HAD TO CORRECT MYSELF ON THIS ONE: I first wrote the 15s down as a streaming-engine
+problem and had to strike it. A symptom that survives a content change is a PIPELINE
+symptom, and only measuring it a second way caught the wrong conclusion.
+
+TWO PENDINGS CLOSED BY DECIDING THEM, after Paolo 8/11 ("DO SOMETHING MAKE A DECISION",
+"STOP PAUSING TO ASK ME SOME BULLSHIT"): a surface a building STANDS ON is a PLINTH, not a
+sidewalk (library + cityhall legend code 13 walk -> ground; 36,780 phantom D1 violations
+deleted, their ratchet ceilings 0 forever), and a private aisle / truck court / parking
+field is NOT a public street. Standing rule recorded: an ART question is an ART REQUEST,
+never a question to him; a MECHANISM or CLASSIFICATION call is mine to make and record.
+
+STILL RED AND NOT MINE, verified by running each at origin/main: TIME PASS, SFX RENDER,
+RIG CHECK, ONE WORLD TAB (voice_gate.py swallows a missing tab), SQUINT, PARTS PAINTED,
+BODY VARIATION, CANVAS SCALE, INTERIORS, REUSE FIRST (bohemia_sun_mode_char_patch.py has
+no REUSE CHECK block). All ten are red on main too. SOUND, CHARACTER and ART lanes.
+
+NEXT IN THIS LANE: the streaming row proper (district CROSSING cost, now that the cold
+boot turned out to be a font), then consuming the vista as it lands. The cold open already
+landed and plays.
+Records: BOHEMIA_THE_DAY_CLOSES_8_11_26.md, BOHEMIA_I_DECIDE_THE_MECHANISM_8_11_26.md
+
 PEOPLE (7h9sfy): 8/11 (w) LATEST -- *** DIALOGUE IS OFF THE APPROVAL QUEUE.
 "I DONT HAVE TIME TO APPROVE THE DIALOGUE THIS SLOW LIKE THIS I WILL EDIT IT
 LATER JUST DIALOGUE ALWAYS REFER TO THE BEST QUESTS EVER CATALOGUE." READ
@@ -75,6 +146,20 @@ him. THE MACHINE THAT STOPS IT: records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md
 (59 settled questions, each with the ruling that settles it) enforced by
 gates/answered_gate.py -- read the index BEFORE you put anything on a JUDGE
 THIS list.
+
+RESTORED BY RUN 8/11: the PEOPLE section below carries a LOCKED fleet-wide law and
+was dropped from this file somewhere in main's last 26 commits (the law FILE survives,
+laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md, but the banner every session
+reads first did not). Putting it back: a resolution that deletes another lane is not a
+resolution.
+
+PEOPLE (7h9sfy): 8/11 *** NEW LAW, EVERY LANE READ THIS: ALWAYS MAKE AN ATTEMPT. ***
+Paolo 8/11, LOCKED: "BRO FOR ANY TEXT JUST HAVE PLACEHOLDING GOOD ESTIMATES OF SPEECH
+BRO I WILL EDIT IT LIVE THATS WHY I HAVENT DONE QUESTS YET JUST MAKE AN ATTEMPT MAKE
+THIS A RULE"
+Law: laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md | Gate: attempt_gate.js
+CLAUDE.md AMENDED (a contradiction between two live files is a bug, and this one was
+costing him quests).
 
 ART (f3eu53): 8/11 (c) LATEST -- *** SECOND FAMILY WIRED: THE PARKING LOTS HAVE
 THEIR PAINTED LINES. A BAY-VS-LINE MISS WAS CAUGHT BY A/B BEFORE IT SHIPPED. ***
