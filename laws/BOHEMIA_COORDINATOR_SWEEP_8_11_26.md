@@ -91,14 +91,16 @@ THE CYCLE (in order, every time — subject to the cost law above):
    English, the horizon catch, what he can look at (NAME THE TAB), then
    WHAT I NEED FROM YOU (almost always "Nothing"), then the TLDR.
 
-HIS TEXT-REPLACEMENT PROMPT (v2, 8/11 — stored here so it never gets lost;
-the short word alone works identically because this law defines it):
-"sweep: full coordinator cycle. read the whole fleet, audit collisions and
-drift, check the demo path, then look past it at the whole game. find at
-least one important thing nobody has started that I have not thought of,
-and research it like the lane maker: start from a real question, three
-real sources minimum, practitioner postmortems over listicles, look
-outside the games industry too, and include at least one finding that
-challenges what we currently believe. end the research as a decision or a
-routed work order, never as trivia. do not re-surface old findings.
-report bottom-up. surprise me."
+HIS TEXT-REPLACEMENT PROMPT (v3 FINAL, 8/11, his ambition in it — stored
+here so it never gets lost; the short word "sweep" alone works identically
+because this law defines it):
+"sweep: we are making the best fucking video game of all time. nothing
+like it has ever been made, so act like it. full coordinator cycle: read
+what changed since your last mark, audit collisions and drift, guard the
+demo path, then look past it at the whole game. find or advance the one
+important thing nobody has started that I have not thought of, and
+research it like the lane maker: a real question, three real sources,
+practitioner postmortems over listicles, look outside the games industry,
+and bring me at least one finding that challenges what we believe. end it
+as a decision or a routed work order, never trivia. no re-surfacing, no
+ritual reading, no wasted credits. report bottom-up. surprise me."
