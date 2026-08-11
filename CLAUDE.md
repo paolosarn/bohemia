@@ -87,6 +87,18 @@ research partner. He DECIDES, you PRODUCE.
 - PURPLE RESERVATION: purple belongs to the Amalgamation alone. Purity gate sweeps.
 - MECHANISM-MINE / CONTENTS-PAOLO'S: build tables and whitelists EMPTY except
   what has a ruling. Never fill in canon he reserved.
+  AMENDED 8/11 FOR WORDS (Paolo, LOCKED): "FOR ANY TEXT JUST HAVE PLACEHOLDING
+  GOOD ESTIMATES OF SPEECH BRO I WILL EDIT IT LIVE THATS WHY I HAVENT DONE
+  QUESTS YET JUST MAKE AN ATTEMPT MAKE THIS A RULE." This law was read as "ship
+  no words at all", and THAT READING COST HIM THE QUESTS -- an empty field is a
+  BLANK PAGE, and he does not write from nothing, HE EDITS. So: EVERY piece of
+  player-facing text (dialogue, quest text, descriptions, names, UI copy) ships
+  with a REAL attempt, written as if it ships, tagged `draft:true` so he can
+  find and edit every word he has not approved. The other half is UNCHANGED and
+  still empty until he rules: who dies, who holds what ground, numbers, dials,
+  map layouts. THE TEST: is it WORDS, or is it a DECISION? Words get an attempt;
+  decisions wait. Full law: laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md
+  Gate: attempt_gate.js
 - 45 DEGREE ART LAW (7/17): every original art Claude draws is seen from the
   world's three-quarter 45 view like the corpus, NEVER flat side-on like a 2D
   scroller. Ellipse cross-sections, sky-lit visible tops, bands bow toward the

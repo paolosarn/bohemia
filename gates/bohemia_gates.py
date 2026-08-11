@@ -493,6 +493,14 @@ GATES = [
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],
      'the run IS the game we built: every system claimed integrated is machine-probed in the shipped run, no unproven claims', False),
+    ('ATTEMPT',        ['node', 'gates/attempt_gate.js'],
+     'ALWAYS MAKE AN ATTEMPT (Paolo 8/11, LOCKED): "FOR ANY TEXT JUST HAVE PLACEHOLDING GOOD '
+     'ESTIMATES OF SPEECH I WILL EDIT IT LIVE THATS WHY I HAVENT DONE QUESTS YET". '
+     "CONTENTS-PAOLO'S was read fleet-wide as ship-no-words, and THAT READING COST HIM THE "
+     'QUESTS -- an empty field is a BLANK PAGE and he edits rather than writes from nothing. '
+     'Every player-facing line now ships a REAL attempt tagged draft:true so he can find and '
+     'edit it; filler and stubs FAIL. The other half is unchanged and still checked: who dies, '
+     'who holds what ground, numbers and dials stay HIS and stay empty', False),
     ('SCENE',          ['node', 'gates/scene_gate.js'],
      'DEMO-CRITICAL (Paolo 8/9). The scripted-scene runtime, backlog 0sc, and its first '
      'consumer: the Act 1 cold open in the LOCKED 7/19 shape -- warm pre-collapse family '

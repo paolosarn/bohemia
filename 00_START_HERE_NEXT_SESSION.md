@@ -1,3 +1,51 @@
+PEOPLE (7h9sfy): 8/11 *** NEW LAW, EVERY LANE READ THIS: ALWAYS MAKE AN ATTEMPT. ***
+Paolo 8/11, LOCKED: "BRO FOR ANY TEXT JUST HAVE PLACEHOLDING GOOD ESTIMATES OF SPEECH
+BRO I WILL EDIT IT LIVE THATS WHY I HAVENT DONE QUESTS YET JUST MAKE AN ATTEMPT MAKE
+THIS A RULE"
+Law: laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md | Gate: attempt_gate.js
+CLAUDE.md AMENDED (a contradiction between two live files is a bug, and this one was
+costing him quests).
+
+*** WE WERE PROTECTING HIM FROM THE WRONG THING. *** CONTENTS-PAOLO'S was read fleet-wide
+as "ship no words at all" and every lane obeyed: LINES empty, NAMED_CAST empty, the cold
+open's say beats SILENT, and this lane wrote a gate on 8/9 that went RED if anybody put a
+word in his family's mouth. HIS OWN DIAGNOSIS: "THATS WHY I HAVENT DONE QUESTS YET."
+AN EMPTY FIELD IS NOT A RESPECTFUL BLANK CANVAS. IT IS A BLANK PAGE, AND HE DOES NOT
+WRITE FROM NOTHING - HE EDITS. Handing him nothing to edit stopped the work.
+
+THE LINE, DRAWN EXACTLY - this is what makes the rule safe:
+   WORDS get an attempt, always, written AS IF IT SHIPS: dialogue, quest text,
+     objectives, descriptions, item/place names, UI copy, character names.
+   DECISIONS still wait for him and are UNCHANGED: who dies, who lives, which faction
+     holds which ground, numbers, dials, rates, prices, map layouts.
+   THE TEST: is it WORDS or is it a DECISION? "Up. Now. Don't turn the light on." for
+     the father is an attempt at words. Deciding the father dies is not.
+EVERY attempt is tagged `draft:true` so he can list every word he has not approved;
+absent/false means the words are HIS and no lane may touch them. FILLER FAILS - "good
+estimates" is the ask, and a lazy draft makes him rewrite from scratch, which is the
+blank page all over again.
+
+APPLIED THE SAME TURN. The Act 1 cold open now SPEAKS, four lines, all draft:true:
+   mother        "Sit down, both of you. It's getting cold."
+   sibling_lost  "I'm not eating the green ones."
+   sibling_older "Same chair. Ten years and you still take the same chair."
+   father        "Up. Now. Don't turn the light on."
+The two before the cut are deliberately the most ordinary sentences in the world - the
+cut has to take something SMALL and real, not a speech. The line after the cut makes you
+look at the table again and names the empty seat without naming it.
+
+AND I INVERTED MY OWN GATE, NOT DELETED IT. scene_gate's 8/9 claim failed if any text
+appeared; it now fails if a line is SILENT. A GATE MUST NEVER OUTRANK A RULING (8/1) - a
+gate written two days ago does not outlive the ruling that replaced it. SCENE 35 -> 40.
+FOURTH MENTION-VS-USE BUG THIS SESSION, caught in my own new gate: the "no casualty
+decided here" check grepped the whole beat for /dies|death/ and went red on the `why`
+fields, which QUOTE his addendum. It flagged the CITATION of a ruling as a violation of
+it. Now it checks the DATA (does a beat carry a death field), never the prose.
+
+FOR EVERY LANE: if your system ships empty text, FILL IT with a real attempt and tag it
+draft:true. LINES, NAMED_CAST, quest text, UI copy - all of it. He is waiting to edit.
+
+-----------------------------------------------------------------------------------
 ART (f3eu53): 8/9 (u) LATEST -- *** BOARD RESUMED INLINE: +2 COOKS (THE THREE
 MONEY ICONS + THE CONTACT SHADOW), +10 DUPLICATE FORMS CLOSED. THE SITTING IS
 NOW 17 FAMILIES / 537 TILES. ***

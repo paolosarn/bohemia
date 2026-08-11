@@ -4161,6 +4161,36 @@ P-W. [SHIPPED 8/7 - records/BOHEMIA_WHO_YOU_STIRRED_UP_8_7_26.md]
    rather than dodged. If he says no, it is nine lines to revert. If yes, the addendum
    gets written and build_the_world_gate.py should be told.
 
+P-W. [SHIPPED 8/11 - NEW LAW, FLEET-WIDE, HE ORDERED IT: "MAKE THIS A RULE" -
+   laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md]
+   *** ALWAYS MAKE AN ATTEMPT. WE WERE PROTECTING HIM FROM THE WRONG THING AND IT
+   COST HIM THE QUESTS. ***
+   Paolo 8/11: "FOR ANY TEXT JUST HAVE PLACEHOLDING GOOD ESTIMATES OF SPEECH BRO I
+   WILL EDIT IT LIVE THATS WHY I HAVENT DONE QUESTS YET JUST MAKE AN ATTEMPT."
+   CONTENTS-PAOLO'S was read fleet-wide as "ship no words at all" and every lane
+   obeyed faithfully - LINES empty, NAMED_CAST empty, cold open silent, and THIS LANE
+   WROTE A GATE ON 8/9 THAT WENT RED IF ANYBODY PUT A WORD IN HIS FAMILY'S MOUTH.
+   AN EMPTY FIELD IS NOT A RESPECTFUL BLANK CANVAS, IT IS A BLANK PAGE, and he edits
+   rather than writes from nothing.
+   THE LINE, DRAWN EXACTLY (this is what makes it safe): WORDS get an attempt always,
+   written as if it ships - dialogue, quest text, objectives, descriptions, names, UI
+   copy. DECISIONS are UNCHANGED and still his - who dies, who holds what ground,
+   numbers, dials, map layouts. TEST: is it WORDS or a DECISION?
+   Every attempt tagged draft:true so he can find and edit each one; absent/false =
+   HIS words, untouchable. FILLER FAILS - a lazy draft is the blank page again.
+   APPLIED SAME TURN: the cold open speaks, 4 lines, all draft:true. CLAUDE.md
+   amended (a contradiction between two live files is a bug). Canon index regenerated.
+   AND I INVERTED MY OWN 8/9 GATE RATHER THAN DELETING IT - a gate written two days
+   ago does not outlive the ruling that replaced it (A GATE MUST NEVER OUTRANK A
+   RULING, 8/1). SCENE 35 -> 40 claims.
+   FOURTH MENTION-VS-USE BUG THIS SESSION, in my own new gate: the "no casualty
+   decided here" check grepped the beat for /dies|death/ and went red on the `why`
+   fields, which QUOTE his addendum - it flagged the CITATION of a ruling as a
+   violation of it. Checks the DATA now, never the prose.
+   | gates/attempt_gate.js 14 claims, 4 mutations killed, registered | 8/11 | YES -
+   four lines of speech to read and edit.
+   *** FOR EVERY LANE: if your system ships empty text, FILL IT and tag draft:true. ***
+
 P-V. [SHIPPED 8/9 - DEMO-CRITICAL, HE ASKED BY NAME. Closes backlog 0sc's runtime half]
    *** THE SCRIPTED-SCENE RUNTIME SHIPS AND THE ACT 1 COLD OPEN PLAYS END TO END. ***
    engine/bohemia_scene.js + records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json.

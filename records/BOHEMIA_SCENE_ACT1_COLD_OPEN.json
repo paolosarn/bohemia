@@ -2,7 +2,7 @@
   "id": "act1_cold_open",
   "title": "THE MATCH-CUT OPEN",
   "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - THE MATCH-CUT OPEN (7/19, Paolo, locked shape) and OPENING SEQUENCE CRYSTALLIZED beat 1 (NIGHT RAID)",
-  "note": "AUTHORED FROM THE LOCKED SHAPE, NOT INVENTED. Every beat below traces to a line of his 7/19 addendum, quoted in `why`. The match-cut is deliberately the first consumer of the scene runtime because his ruling says it works WITHOUT A WORD - 'The single cut shows the entire apocalypse without a word' - so it needs no dialogue this lane would have to make up. The say beats that follow the cut carry NO text on purpose: the words are his and LINES ships empty. A silent say beat is what an unwritten line looks like, and it is legal.",
+  "note": "AUTHORED FROM THE LOCKED SHAPE. Every beat traces to a line of his 7/19 addendum, quoted in `why`. ALWAYS MAKE AN ATTEMPT (Paolo 8/11, LOCKED): every line below is a REAL attempt at the words, written as if it ships, and tagged draft:true so he can find and edit every one. The previous version shipped these beats SILENT under the old empty-contents reading, and his own diagnosis was that the blank page is what stopped the quests. STRUCTURE IS STILL HIS: who dies, who lives, the casualties, the dials -- none of that is decided here.",
   "beats": [
     {
       "kind": "set",
@@ -63,6 +63,24 @@
       "why": "the one taken on night one sits at this table first, so the empty chair later has a memory attached. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] and is NOT built here."
     },
     {
+      "kind": "say",
+      "id": "before_table_talk",
+      "speaker": "mother",
+      "beats": 2,
+      "text": "Sit down, both of you. It's getting cold.",
+      "draft": true,
+      "why": "'a warm happy moment at the table' (7/19). ATTEMPT (8/11 rule): the most ordinary sentence in the world, on purpose -- the cut has to take something SMALL and real, not a speech. 'Both of you' quietly establishes two siblings before one of them is gone. EDIT FREELY."
+    },
+    {
+      "kind": "say",
+      "id": "before_child_line",
+      "speaker": "sibling_lost",
+      "beats": 2,
+      "text": "I'm not eating the green ones.",
+      "draft": true,
+      "why": "ATTEMPT (8/11 rule): the sibling who is taken on night one gets one line, and it is a child being a child about vegetables. Nothing portentous. The whole weight of this scene depends on her being unremarkable here. WHICH sibling is lost is HIS ruling (7/19 leaning) -- this speaks whoever the surface casts. EDIT FREELY."
+    },
+    {
       "kind": "wait",
       "id": "let_it_be_warm",
       "beats": 6,
@@ -107,11 +125,21 @@
     },
     {
       "kind": "say",
+      "id": "after_table_quiet",
+      "speaker": "sibling_older",
+      "beats": 2,
+      "text": "Same chair. Ten years and you still take the same chair.",
+      "draft": true,
+      "why": "ATTEMPT (8/11 rule): the first line after the cut has to make the audience LOOK at the table again and understand what happened without narration. It also names the empty seat without naming it. Sits on the [PENDING] EMPTY CHAIR motif seed WITHOUT building it. EDIT FREELY."
+    },
+    {
+      "kind": "say",
       "id": "father_wakes_you",
       "speaker": "father",
       "bq": null,
-      "text": null,
-      "why": "'Your FATHER wakes you: bandits/raiders are attacking the home.' HIS WORDS, UNWRITTEN. Silent on purpose - this lane does not put words in his family's mouths."
+      "text": "Up. Now. Don't turn the light on.",
+      "why": "'Your FATHER wakes you: bandits/raiders are attacking the home.' ATTEMPT (8/11 rule): low and flat, not shouted -- a man who has thought about this night before it came. The third sentence does the work: it tells you they are close enough to see a window, without a word of exposition. EDIT FREELY.",
+      "draft": true
     },
     {
       "kind": "handoff",

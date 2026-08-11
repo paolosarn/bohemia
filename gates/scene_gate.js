@@ -114,16 +114,55 @@ ok('the scene\'s handoff names the encounter COMBAT ACTUALLY EXPOSES (scene says
 ok('and it names the function COMBAT exposes, so the join is callable',
   !!handoff && handoff.call === 'startColdOpen' && combatSrc.indexOf('function startColdOpen(') >= 0);
 
-/* ---- 3. THE WORDS ARE HIS ------------------------------------------------- */
-/* THE CHECK THAT MATTERS MOST IN THIS FILE. LINES ships empty; the cold open's
-   say beats are silent ON PURPOSE. If text ever appears in one, somebody put
-   words in his family's mouths. */
-const spoke = cold.beats.filter(b => b.kind === 'say' && b.text);
-ok('NO WORDS WERE INVENTED for the family — every say beat is his to fill' +
-  (spoke.length ? ' — FOUND: ' + spoke.map(b => b.id).join(', ') : ''),
-  spoke.length === 0);
-/* and every beat traces to his addendum */
-ok('every beat records WHY it exists, quoting the ruling it came from',
+/* ---- 3. EVERY LINE MAKES AN ATTEMPT (Paolo 8/11, LOCKED) ------------------
+   *** THIS SECTION USED TO ASSERT THE EXACT OPPOSITE, AND IT WAS INVERTED, NOT
+   DELETED. *** On 8/9 it failed if ANY text appeared in a say beat, because
+   CONTENTS-PAOLO'S was read as "ship no words at all". On 8/11 he overturned
+   that reading for words:
+
+     "FOR ANY TEXT JUST HAVE PLACEHOLDING GOOD ESTIMATES OF SPEECH BRO I WILL
+      EDIT IT LIVE THATS WHY I HAVENT DONE QUESTS YET JUST MAKE AN ATTEMPT"
+
+   The old claim was not merely wrong, it was ACTIVELY COSTING HIM THE QUESTS: an
+   empty field is a blank page, and he edits rather than writes from nothing.
+   A GATE MUST NEVER OUTRANK A RULING (Paolo 8/1). Law:
+   laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md */
+const says = cold.beats.filter(b => b.kind === 'say');
+ok('the cold open actually SPEAKS (' + says.length + ' spoken beats)', says.length > 0);
+const silent = says.filter(b => !b.text || !String(b.text).trim());
+ok('EVERY spoken beat makes an attempt at the words — a silent line is the failure now' +
+  (silent.length ? ' — SILENT: ' + silent.map(b => b.id).join(', ') : ''),
+  silent.length === 0);
+/* he has to be able to FIND every word he has not approved */
+const untagged = says.filter(b => b.text && b.draft !== true);
+ok('every attempt is tagged draft:true so he can find and edit it' +
+  (untagged.length ? ' — UNTAGGED: ' + untagged.map(b => b.id).join(', ') : ''),
+  untagged.length === 0);
+/* "GOOD ESTIMATES" was the ask. A draft is not an excuse for filler: if it is
+   lazy he rewrites from scratch, which is the blank page all over again. */
+const FILLER = /\b(TODO|TBD|FIXME|lorem|ipsum|placeholder|XXX|\.\.\.)\b/i;
+const lazy = says.filter(b => b.text && FILLER.test(b.text));
+ok('no attempt is filler — "good estimates" means written as if it ships' +
+  (lazy.length ? ' — FILLER: ' + lazy.map(b => b.id).join(', ') : ''), lazy.length === 0);
+const stub = says.filter(b => b.text && String(b.text).trim().length < 8);
+ok('no attempt is a stub too short to be edited', stub.length === 0);
+
+/* STRUCTURE IS STILL HIS. The 8/11 rule freed the WORDS and changed nothing
+   else: who dies, who holds what, the dials. This is the half that must not
+   drift now that the other half is open. */
+/* THIS CHECK WAS WRITTEN WRONG FIRST, and the way it was wrong is the point.
+   v1 grepped the whole beat for /dies|death|kill/ and went red -- on the `why`
+   fields, which QUOTE his addendum ("the sibling's death are COMBAT's and his to
+   author"). It flagged the citation of a ruling as a violation of it. A CHECKER
+   THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE (Paolo 8/1), and that
+   is the fourth time this session. So: check the DATA, never the prose. A scene
+   decides a casualty by carrying a field that says so, not by quoting him. */
+const decidesDeath = cold.beats.filter(b =>
+  b.dies === true || b.casualty || b.kills || (b.kind === 'actor' && b.state === 'dead'));
+ok('the casualty is still NOT decided here — no beat carries a death (structure stays his)' +
+  (decidesDeath.length ? ' — ' + decidesDeath.map(b => b.id).join(', ') : ''),
+  decidesDeath.length === 0);
+ok('every beat still records WHY it exists, quoting the ruling it came from',
   cold.beats.every(b => typeof b.why === 'string' && b.why.length > 10));
 
 /* ---- 4. IT PLAYS END TO END ----------------------------------------------- */
