@@ -313,6 +313,18 @@ GATES = [
      'dead enclosed mall: dumbbell concourse + two anchors, food court, loading docks, drive ring', False),
     ('WALKABLE LAND',  ['node', 'gates/walkable_gate.js'],
      'no district is mostly parking/driveway: content dominates pavement (vehicular venues exempt)', False),
+    # BEFORE THE DEAD ON PURPOSE (8/11): it is the gate that tells you whether
+    # any of the gates below are looking at the shipped page at all. THE DEAD
+    # was 48/0 green for a whole round while the app carried a build-old copy
+    # of engine/bohemia_dead.js, because every tools/*_patch.py is one-shot and
+    # no-ops forever after its first run. A gate on a file nobody ships is a
+    # gate on nothing.
+    ('INLINED FRESH',  ['node', 'gates/inlined_fresh_gate.js'],
+     'the app carries ~43 engine modules INLINED, and a copy goes stale without a word: '
+     'every inlined body must still be its engine canon byte for byte. The one-shot patch '
+     'tools cannot catch this and dead_gate/vista_gate stayed green through it -- a FALSE '
+     'GREEN, which this repo ranks worse than a false red. Fix: '
+     'python3 tools/bohemia_city_module_resync.py', False),
     ('THE DEAD',       ['node', 'gates/dead_gate.js'],
      'Paolo 7/31 LOCKED (laws/BOHEMIA_ADDENDUM_LORE_SITTING_7_31_26.md sec 2), commissioned 8/8: '
      'skeletons in the open, husks in the sealed places, realistic mix, story-via-placement. '

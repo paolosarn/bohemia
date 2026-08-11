@@ -1,3 +1,52 @@
+WORLD (city-1eztay): 8/11 (zg) LATEST -- *** THE DEAD COME IN CLUSTERS AND THE
+CEMETERY IS A PIT -- PLUS THE DRIFT BUG THAT HID IT: THE APP CARRIES INLINED
+COPIES AND MY PATCH TOOL IS ONE-SHOT. ***
+Tab: LOOK -> 7 cards, all real frames. Nothing to hunt.
+
+HIS RULING (8/11, direct): "especially in act one I wanna see lots of corpses ...
+in abandoned parts of streets and abandoned buildings in abandoned houses
+clusters where it's really creepy. The cemetery can become like a body dumping
+pit. I'm sure a faction or two is trying to turn people into fertilizer."
+
+BUILT, in engine/bohemia_dead.js:
+  - CLUSTERS, NOT A SPRINKLE. emitClusters() seeds a group and grows it ring by
+    ring outward (62% take per ring). You walk into a GROUP of dead, not one
+    body per tile.
+  - SEEDS PICK THE LONELY PLACES. pickSeed() takes 6 candidates and keeps the
+    one most REMOTE from the drive network (8 probes, Chebyshev). Clusters land
+    off the road. That is "abandoned parts" made mechanical, not decorative.
+  - ACT 1 IS THE THICK ONE. ACT_DENSITY {1:2.2, 2:1.0, 3:0.35}.
+  - THE CEMETERY IS A DUMPING PIT (cluster:34). Measured live on cell (40,17):
+    68 bodies, 34 of them outdoors, in ONE heap.
+  - THE FERTILIZER LINE, UNNAMED. farm cluster:18 "the intake line, they are
+    turning people into soil here"; landfill cluster:26. NO FACTION IS NAMED
+    anywhere -- MECHANISM-MINE / CONTENTS-PAOLO'S. Who runs it is his to rule.
+  - HOME IS A FAMILY (cluster:5, sealed 9.0). "Died at home, together, in the
+    room they shut themselves into."
+
+*** THE BUG EVERY LANE SHOULD KNOW ABOUT, because it is not mine alone. ***
+The world page carries ~43 engine modules INLINED. bohemia_city_dead_patch.py,
+like every other _patch.py in tools/, checks a marker and NO-OPS FOREVER after
+the first run. So I edited engine/bohemia_dead.js, ran the patch tool, got "no
+op", and shipped nothing -- the engine file and the GATE were both current while
+the APP was a build behind. dead_gate.js was 48/0 green the entire time because
+it reads the engine file, not the app.
+  THE TOOL THAT FIXES IT ALREADY EXISTS AND NOBODY RUNS IT:
+      python3 tools/bohemia_city_module_resync.py --check
+  It found bohemia_dead.js AND bohemia_vista.js both stale (43 embedded, 41
+  fresh). Resynced both. Live probe before: 4 bodies in the cemetery cell.
+  After: 68. IF YOU EDIT AN engine/ MODULE, RUN THE RESYNC. A green gate on an
+  engine file proves nothing about the surface Paolo taps (VERIFY ON THE REAL
+  SURFACE, 7/18 -- this is that law biting a lane again).
+
+LOOK TAB: 7 pictures, every one re-shot against the re-patched page.
+  vista, dead-suburb, dead-road, dead-desert, dead-pit, dead-cluster,
+  dead-density. dead-pit and dead-cluster are new.
+  dead-pit MISSed on its first run and the cause was NOT the realization guard
+  I assumed. Measured instead of guessing: this seed puts exactly THREE cemetery
+  cells on the whole board -- (40,17), (57,67), (58,67) -- and the shot's 20..80
+  scan window could not see the first one. A rare district needs the full 96.
+
 RUN (run-eak241): 8/12 LATEST -- YOUR HOUSE IS YOURS, AND THE PHONE IS IN YOUR POCKET.
 
 Paolo: "How was this a run when my house isn't labeled and the Phone app that we worked
