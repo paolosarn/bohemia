@@ -79,6 +79,23 @@ select,input[type=range]{background:#1a150e;border:1px solid #2e2416;color:#c9bf
 #portraitCv{border-radius:50%;border:2px solid #2e2416;background:#12100c;margin:8px auto;display:block;cursor:pointer;width:132px;height:132px;image-rendering:pixelated}
 .swatch{width:22px;height:22px;border-radius:3px;border:1px solid #0008;cursor:pointer}
 .mini{font-size:10px;color:#6a5a3e;padding:2px 12px;text-align:center}
+/* ===== THE FAMILY CAST (8/11). Two stacked canvases per member: shadow under,
+   sprite over. SHADOWS ARE A SEPARATE LAYER is structural here, not a promise. */
+#familyCast{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:6px auto;max-width:min(94vw,440px)}
+#familyCast .famCard{flex:0 0 auto;text-align:center;line-height:1.2}
+/* THE STAGE HAS A GROUND, and it has to. A contact shadow is black; on the
+   near-black panel it was painted, counted by the gate, and INVISIBLE -- a
+   shadow you cannot see is not a shadow, it is a passing test. The floor
+   lifts toward the feet so the shadow has something to fall on. */
+#familyCast .famStage{position:relative;width:114px;height:114px;border:1px solid #241c12;border-radius:3px;
+  background:linear-gradient(#1a1622 0%,#1a1622 62%,#39323f 88%,#453d4c 100%)}
+#familyCast .famShadow,#familyCast .famBody{position:absolute;left:0;top:0;width:112px;height:112px;image-rendering:pixelated}
+#familyCast .famRole{font:800 10px ui-monospace,monospace;letter-spacing:2px;color:#c8b98a;margin-top:3px}
+#familyCast .famName{font:600 10px ui-monospace,monospace;color:#8a7a5a}
+#familyCast .famDraft{font-size:8px;letter-spacing:1px;color:#6a5a3e}
+#p-char.sun #familyCast .famStage{background:linear-gradient(#efe9dc 0%,#efe9dc 62%,#d3cbbb 88%,#c4bba7 100%)!important}
+#p-char.sun #familyCast .famRole{color:#3a3020!important}
+#p-char.sun #familyCast .famName,#p-char.sun #familyCast .famDraft{color:#5a4a2a!important}
 /* ===== SUN MODE, CHARACTER + ANIMATION (Paolo 8/7: "make it light... I'm
    working outside and it's sunny as shit"). Same two colours the clothing
    factory and the SFX judge already use; nothing new invented. ===== */
@@ -982,7 +999,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/11f - BIGGER, EDGE TO EDGE, NO CARS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/11g - THE FAMILY IS ON THE RIG</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -1034,6 +1051,8 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
       <div class="row"><b>JUDGE HAIR</b><span class="mini">every shape, front and back &mdash; thumb each one</span></div>
       <div class="row"><button id="hairExport" class="opt" style="border-color:#6f6">EXPORT VERDICTS</button><span id="hairStat" class="mini" style="margin-left:6px"></span></div>
       <div id="hairJudge"></div>
+      <div class="row"><b>THE FAMILY</b><span class="mini">father, mother, brother, sister &mdash; the cold open cast, on the one rig. tap any one to turn it.</span></div>
+      <div id="familyCast"></div>
       <div id="rampEditor"></div>
     </div>
     <div class="panel" id="p-clothes"></div>
@@ -3072,6 +3091,94 @@ function sunMount(){
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sunMount);
 else sunMount();
 
+
+/* ===== THE FAMILY CAST ======================================================
+   Canon, not invention: ACT1 OPENING VISION (7/19) fixes all four roles and the
+   gender mirror. Bodies are BODYVAR dials on the ONE rig. Every garment is
+   already st==='canon'. Names are DRAFTS under the 8/11 make-an-attempt rule --
+   four strings in one place, edit them here.
+   `survivesIf` is the mirror: male player keeps the older BROTHER, female keeps
+   the older SISTER. Both are always IN the cold open; only who walks out moves. */
+var FAMILY_CAST = [
+  { role:'FATHER', name:'RAY',    draft:true, survivesIf:'always',
+    why:'gets between the door and his kids; woken, never dressed for it',
+    dials:{height:0.30,belly:0.35,arms:0.35,shoulders:0.50,hips:0.10},
+    worn:{hair:'SALT CROWN',base:'COPPER WORK SHIRT',legs:'PATCHED WORK PANTS',
+          feet:'BROWN BOOTS',waist:'LEATHER BELT',gear:'WORK SUSPENDERS'} },
+  { role:'MOTHER', name:'DENISE', draft:true, survivesIf:'always',
+    why:'you reach her at the end; doing something ordinary an hour ago',
+    dials:{height:0.00,belly:0.10,arms:-0.15,shoulders:-0.20,hips:0.35},
+    worn:{hair:'SHOULDER LENGTH',base:'SAGE FLANNEL',legs:'DUST TROUSERS',
+          feet:'GREY SNEAKERS',neck:'DUST SCARF'} },
+  { role:'BROTHER',name:'MARCO',  draft:true, survivesIf:'male',
+    why:'survives and becomes a co-founder; already dressed to move',
+    dials:{height:0.15,belly:-0.20,arms:0.10,shoulders:0.20,hips:-0.10},
+    worn:{hair:'TEMPLE TAPER',base:'BLACK TANK',legs:'BLACK CARGOS',
+          feet:'WHITE SNEAKERS',gear:'WORN BRACERS'} },
+  { role:'SISTER', name:'NINA',   draft:true, survivesIf:'female',
+    why:'the one who is lost; smallest silhouette in the room, dressed for nothing',
+    dials:{height:-0.35,belly:-0.25,arms:-0.30,shoulders:-0.35,hips:0.00},
+    worn:{hair:'FRINGE',base:'WHITE TEE',legs:'BLUE JEANS',
+          feet:'BONE SNEAKERS'} }
+];
+window.FAMILY_CAST = FAMILY_CAST;
+
+/* THE SHADOW IS ITS OWN CANVAS AND THAT IS FORCED, NOT STYLISTIC. drawChar ends
+   in putImageData, which REPLACES destination pixels including alpha: a shadow
+   painted onto the sprite canvas before the body is wiped, and after the body it
+   covers it. A separate element is the only place it can be visible AND provably
+   outside the garment's pixels. One light direction, soft contact ellipse. */
+function famPaintShadow(cv){
+  var x = cv.getContext('2d'); x.clearRect(0,0,cv.width,cv.height);
+  var cx = cv.width*0.5, cy = cv.height-9, rx = cv.width*0.30, ry = cv.height*0.052;
+  var g = x.createRadialGradient(cx,cy,0,cx,cy,rx);
+  g.addColorStop(0,'rgba(0,0,0,0.62)'); g.addColorStop(0.6,'rgba(0,0,0,0.30)'); g.addColorStop(1,'rgba(0,0,0,0)');
+  x.save(); x.translate(cx,cy); x.scale(1,ry/rx); x.translate(-cx,-cy);
+  x.fillStyle=g; x.beginPath(); x.arc(cx,cy,rx,0,Math.PI*2); x.fill(); x.restore();
+}
+
+function famPaintBody(cv, member, dir){
+  var keepW = window.G_WORN, keepDials = G.bodyVar;
+  try {
+    window.G_WORN = member.worn;
+    G.bodyVar = member.dials;
+    if (typeof BOH_BODYVAR !== 'undefined' && typeof BAKED !== 'undefined') BOH_BODYVAR.apply(BAKED, G.bodyVar);
+    drawChar(cv, dir, 'idle', 0);
+  } catch(e) {
+  } finally {
+    window.G_WORN = keepW; G.bodyVar = keepDials;
+    try { if (typeof BOH_BODYVAR !== 'undefined' && typeof BAKED !== 'undefined') BOH_BODYVAR.apply(BAKED, G.bodyVar); } catch(e2){}
+  }
+}
+
+function famBuild(){
+  var host = document.getElementById('familyCast');
+  if (!host || !window.drawChar) return;
+  host.innerHTML = '';
+  var DIRS8 = ['S','SE','E','NE','N','NW','W','SW'];
+  FAMILY_CAST.forEach(function(m){
+    var card = document.createElement('div'); card.className = 'famCard';
+    var stage = document.createElement('div'); stage.className = 'famStage';
+    var sh = document.createElement('canvas'); sh.className='famShadow'; sh.width=112; sh.height=112;
+    var bd = document.createElement('canvas'); bd.className='famBody';   bd.width=112; bd.height=112;
+    bd.setAttribute('data-famrole', m.role);
+    stage.appendChild(sh); stage.appendChild(bd);
+    famPaintShadow(sh);
+    famPaintBody(bd, m, 'S');
+    /* tap to turn: every member walks all eight facings, because a cast you can
+       only see from the front is a cast you cannot judge for a fight */
+    var d = 0;
+    stage.onclick = function(){ d = (d+1) % 8; famPaintBody(bd, m, DIRS8[d]); lbl.textContent = m.role + ' \u00b7 ' + DIRS8[d]; };
+    var lbl = document.createElement('div'); lbl.className='famRole'; lbl.textContent = m.role + ' \u00b7 S';
+    var nm  = document.createElement('div'); nm.className='famName';
+    nm.textContent = m.name + (m.draft ? '' : '');
+    var dr  = document.createElement('div'); dr.className='famDraft';
+    dr.textContent = m.draft ? 'draft name' : '';
+    card.appendChild(stage); card.appendChild(lbl); card.appendChild(nm); card.appendChild(dr);
+    host.appendChild(card);
+  });
+}
+window.famBuild = famBuild;
 
 function paintPortrait(canvas){const buf=renderFace(buildSpec(),{ramp:portraitRamp(),blood:pface._blood,cig:pface._cig});const cc=document.createElement('canvas');cc.width=64;cc.height=64;const c2=cc.getContext('2d');const idd=c2.createImageData(64,64);idd.data.set(buf);c2.putImageData(idd,0,0);
   const x=canvas.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,canvas.width,canvas.height);x.save();x.beginPath();x.arc(canvas.width/2,canvas.height/2,canvas.width/2,0,7);x.clip();x.drawImage(cc,0,0,64,64,0,0,canvas.width,canvas.height);x.restore();}
@@ -12064,6 +12171,7 @@ function buildUI(){
       try { window.hairJudgeBuild(); } catch(e){}
     };
     setTimeout(function(){ try { window.hairJudgeBuild(); } catch(e){} }, 1200);
+    setTimeout(function(){ try { window.famBuild(); } catch(e){} }, 1300);
   })();
 
   /* --- JUDGE ALL: "i want to judge all the animations in bulk now" ------- */

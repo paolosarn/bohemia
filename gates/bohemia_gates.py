@@ -725,6 +725,12 @@ GATES = [
      'survives a reload. The canvases carry their dark background INLINE, so the failure this catches is a light '
      'panel with every hairstyle still on its own black square -- which reads as fixed in a diff and is useless to him',
      True),
+    ('FAMILY CAST',    ['node', 'gates/family_cast_gate.js'],
+     'the cold open cast on the ONE rig: father, mother, brother, sister all RENDER (painted pixels, not '
+     'element-exists), they are four DIFFERENT people, every garment is already st==canon, every one wears '
+     'legs (a bare shin paints the dark under-body, not skin), and the contact shadow lives in its own '
+     'canvas with NONE of it in the sprite -- SHADOWS ARE A SEPARATE LAYER, 7/26 LOCKED',
+     True),
     ('WALL CLASS',     ['node', 'gates/wallclass_gate.js'],
      'WALL TAXONOMY (Paolo 7/17) enforced in the DRAW: the suburb community wall stands 2 tiles from its OWN 13-key pool at its judged 44x44, never a building wall', True),
     ('NAV CLUSTER',    ['node', 'gates/navcluster_gate.js'],

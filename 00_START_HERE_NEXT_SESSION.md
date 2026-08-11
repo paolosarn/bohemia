@@ -1,3 +1,43 @@
+CHARACTER (0lurbs): 8/11 (o) LATEST — THE FAMILY CAST IS ON THE RIG AND IN THE GAME.
+CHARACTER tab, under THE FAMILY. Father, mother, brother, sister, tap any one to turn
+it through all eight facings.
+DECIDED, NOT ASKED. Under EVERYTHING IS A THUMB (8/9) I withdrew my own question
+("do I show you candidates or do you describe them first") as exactly the process
+question that law bans, and built them.
+THE CAST WAS ALREADY CANON, not invented: ACT1 OPENING VISION 7/19 fixes all four
+roles and the gender mirror (male keeps the older BROTHER, female keeps the older
+SISTER). survivesIf carries the mirror per role instead of baking one gender's cast.
+BODIES are BODYVAR dials on the ONE rig, all well inside the measured height cap.
+WARDROBE is 100% st==='canon' -- NOT ONE NEW GARMENT WAS COOKED. NAMES are drafts
+(RAY / DENISE / MARCO / NINA) tagged draft:true per CLAUDE.md's 8/11
+make-an-attempt amendment: four strings in one place, edit them, no blank page.
+SHADOWS ARE SEPARATE, STRUCTURALLY. Each member is TWO STACKED CANVASES, shadow
+under, sprite over. That is forced, not stylistic: drawChar ends in putImageData
+which REPLACES destination pixels, so a shadow on the sprite canvas is either wiped
+(before) or painted over the body (after). A separate element is the only place it
+can be visible AND provably outside the garment pixels.
+*** TWO THINGS I ONLY FOUND BY LOOKING AT IT, AFTER THE GATE WAS ALREADY GREEN ***
+1. THE SHADOW WAS INVISIBLE. Black at 42% on a near-black stage: painted, counted
+   by my own gate, and impossible to see. A shadow you cannot see is not a shadow,
+   it is a passing test. The stage has a floor now (gradient lifting toward the
+   feet) so the shadow has something to fall on.
+2. AN EXPOSED SHIN PAINTS THE DARK UNDER-BODY, NOT SKIN. The sister was in CUTOFF
+   DENIM SHORTS. Measured: her shin band is 31,31,36 x188 with shorts, which is
+   BYTE-FOR-BYTE identical to wearing NO leg garment (noLegs 31,31,36 x188), while
+   BLUE JEANS gives 64,80,110 x253. The same body paints bare ARMS as skin under a
+   short sleeve. *** THAT IS A REAL PRE-EXISTING BUG IN THE BODY RENDER, NOT MINE,
+   AND NOT FIXED HERE *** -- any character in shorts has grey shins. She wears jeans
+   now (a kid woken at night reads better than shorts anyway) so the demo does not
+   wait on it, and the gate holds the cast to clothed legs WITH THE REASON WRITTEN
+   IN so nobody mistakes the workaround for the fix. NEXT SESSION: fix bare-leg skin.
+GATE: gates/family_cast_gate.js, registered as FAMILY CAST. 18/0. MUTATION TESTED
+TWICE -- the first mutation was too crude (famPaintShadow clears, so it erased the
+bodies and collapsed the four to one signature), so I redid it as the realistic
+"someone merged the layers" version: bodies intact, shadow drawn into the sprite
+canvas, and all four members fail by name on the shadow-separation claim.
+ALPHA LOADS 20/0, SUN MODE green, CANVAS SCALE unchanged at 52/1 (city lane's).
+Shot: records/familycast/cast.png
+
 ART (f3eu53): 8/11 (a) LATEST -- *** THE TILE BOARD VERDICT IS IN: 14 FAMILIES
 APPROVED (475 TILES), 3 KILLED. "Im so impressed." WIRING IS NOW THE LANE'S
 WHOLE JOB. ***
