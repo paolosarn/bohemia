@@ -999,7 +999,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/11za - FOUR FAMILIES WIRED: RAIL, LINES, RING, METAL</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/12d - THE COLD OPEN TALKS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13766,10 +13766,37 @@ drawLogoBig();requestAnimationFrame(loop);
      recognisable is that THEIR voice never changes, not that nobody else has
      it. Assigning a specific person to a specific voice is still his ruling and
      is not made here -- this is the fallback for everyone he has not ruled on. */
-  function speakerVoice(id, approved) {
+  function speakerVoice(id, approved, group) {
     var pool = (approved && approved.length) ? approved : ['cand-1'];
     var k = hash('bohemia-speaker:' + String(id == null ? '' : id));
-    return voiceOf(pool[k % pool.length]);
+    var want = k % pool.length;
+    /* A SCENE'S CAST MUST NOT SHARE A VOICE.
+       Measured on the real cold open: the MOTHER and the small CHILD both
+       landed on cand-1. With six voices and four family members a collision is
+       close to a coin flip, and two of the four most important people in the
+       game sounding identical in the demo's opening fifteen seconds is the
+       worst place for it to happen.
+       Sharing is correct for a CROWD -- Animal Crossing runs hundreds of
+       villagers off a handful of types, and what makes somebody recognisable is
+       that THEIR voice never changes, not that nobody else has it. It is wrong
+       for a CAST, where the people are few, named, and on screen together.
+       So a group deals without replacement: the hash still chooses, and a
+       collision walks to the next free voice. Deterministic wherever
+       first-appearance order is deterministic, which a scripted scene
+       guarantees -- and it is NOT applied to the open world, where you meet
+       people in whatever order you wander into them and an order-dependent
+       voice would stop being theirs. */
+    if (group && typeof group === 'object') {
+      group.by = group.by || {};
+      if (group.by[id] != null) return voiceOf(pool[group.by[id]]);
+      var taken = {}, key;
+      for (key in group.by) taken[group.by[key]] = 1;
+      var pick = want, tries = 0;
+      while (taken[pick] && tries < pool.length) { pick = (pick + 1) % pool.length; tries++; }
+      group.by[id] = pick;
+      return voiceOf(pool[pick]);
+    }
+    return voiceOf(pool[want]);
   }
 
   /* THE FIRST SENTENCE, WHICH IS WHAT YOU ACTUALLY HEAR SOMEONE START TO SAY.
@@ -14010,19 +14037,34 @@ drawLogoBig();requestAnimationFrame(loop);
 
     ONE VOICE AT A TIME. A new line CUTS the one still talking -- two people
     babbling over each other is not two people, it is a fault. */
- var TALKING = null;
+ var TALKING = null, LASTSAID = null, LASTAT = 0;
+ /* A CAST SHARES A GROUP; A CROWD DOES NOT. Only ids that name a scene get
+    distinct-voice dealing -- see the engine for why the open world must not. */
+ var GROUPS = {};
  window.speakLine = function(speaker, text){
   try{
    if(typeof BOH_VOICE==='undefined') return null;
    var d = bus(); if(!d) return null;
    var line = BOH_VOICE.opener(text); if(!line) return null;
+   /* A REPAINT IS NOT A NEW LINE. Measured on the real cold open: every beat
+      called this THREE times, because the caption repaints. Speaking a line
+      once per repaint is a stutter and a waste of three renders. A genuine
+      repeat later still speaks -- only the immediate echo is dropped. */
+   var now = (performance&&performance.now)?performance.now():Date.now();
+   var sig = String(speaker)+'|'+line;
+   if(sig===LASTSAID && (now-LASTAT)<1500) return null;
+   LASTSAID = sig; LASTAT = now;
    if(TALKING && TALKING.stop) { try{ TALKING.stop(); }catch(e){} }
    var approved = window.__VOICES_APPROVED || [];
-   var v = BOH_VOICE.speakerVoice(speaker, approved);
+   var sp = String(speaker||'');
+   var gk = (sp.indexOf('story:')===0) ? 'story' : null;
+   if(gk && !GROUPS[gk]) GROUPS[gk] = {};
+   var v = BOH_VOICE.speakerVoice(sp, approved, gk?GROUPS[gk]:null);
    TALKING = BOH_VOICE.say(line, v, MUS.AC, d, null);
    return TALKING;
   }catch(e){ return null; }
  };
+ window.__voiceGroups = function(){ return GROUPS; };
  window.__lastSpoken = function(){ return TALKING; };
  window.addEventListener('message', function(e){
   var m = e && e.data; if(!m || m.type!=='BOHEMIA_VOICE') return;
@@ -18802,6 +18844,11 @@ function storyCaption(s, ended){
   cap.innerHTML='<span style="color:#9a8a5e;font-size:11px;letter-spacing:1px">'+
     storySpeakerName(L.speaker)+(L.draft?' <span style="color:#6f6552">&middot; draft, edit in WORDS</span>':'')+
     '</span><br>'+L.text.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  /* THE COLD OPEN TALKS (8/11, SOUNDS lane). onBeat fires once per beat,
+     so a line speaks once and a repaint cannot repeat it. Beats with no
+     text return above and stay silent, which is right: an era card is not
+     somebody talking. */
+  try{ if(window.speakLine) window.speakLine('story:'+(L.speaker||''), L.text); }catch(_v){}
 }
 (function(){
   var t=document.getElementById('tabs'); if(!t) return;

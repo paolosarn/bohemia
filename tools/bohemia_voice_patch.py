@@ -249,19 +249,34 @@ PANEL = r'''
 
     ONE VOICE AT A TIME. A new line CUTS the one still talking -- two people
     babbling over each other is not two people, it is a fault. */
- var TALKING = null;
+ var TALKING = null, LASTSAID = null, LASTAT = 0;
+ /* A CAST SHARES A GROUP; A CROWD DOES NOT. Only ids that name a scene get
+    distinct-voice dealing -- see the engine for why the open world must not. */
+ var GROUPS = {};
  window.speakLine = function(speaker, text){
   try{
    if(typeof BOH_VOICE==='undefined') return null;
    var d = bus(); if(!d) return null;
    var line = BOH_VOICE.opener(text); if(!line) return null;
+   /* A REPAINT IS NOT A NEW LINE. Measured on the real cold open: every beat
+      called this THREE times, because the caption repaints. Speaking a line
+      once per repaint is a stutter and a waste of three renders. A genuine
+      repeat later still speaks -- only the immediate echo is dropped. */
+   var now = (performance&&performance.now)?performance.now():Date.now();
+   var sig = String(speaker)+'|'+line;
+   if(sig===LASTSAID && (now-LASTAT)<1500) return null;
+   LASTSAID = sig; LASTAT = now;
    if(TALKING && TALKING.stop) { try{ TALKING.stop(); }catch(e){} }
    var approved = window.__VOICES_APPROVED || [];
-   var v = BOH_VOICE.speakerVoice(speaker, approved);
+   var sp = String(speaker||'');
+   var gk = (sp.indexOf('story:')===0) ? 'story' : null;
+   if(gk && !GROUPS[gk]) GROUPS[gk] = {};
+   var v = BOH_VOICE.speakerVoice(sp, approved, gk?GROUPS[gk]:null);
    TALKING = BOH_VOICE.say(line, v, MUS.AC, d, null);
    return TALKING;
   }catch(e){ return null; }
  };
+ window.__voiceGroups = function(){ return GROUPS; };
  window.__lastSpoken = function(){ return TALKING; };
  window.addEventListener('message', function(e){
   var m = e && e.data; if(!m || m.type!=='BOHEMIA_VOICE') return;
@@ -333,6 +348,41 @@ CITY_OPEN_NEW = """function ctOpen(){
 }"""
 
 
+# THE COLD OPEN IS THE THIRD SURFACE, AND IT IS THE DEMO'S FIRST FIFTEEN SECONDS.
+# Found by auditing the demo day rather than by being told: storyCaption() paints
+# a SPEAKER and a LINE for every beat of the cold open, and made no sound at all.
+#
+# THE DISCOVERY SWEEP DID NOT CATCH IT EITHER, and that is the more useful
+# finding. The sweep looks for "TALK TO THE" -- and A CUTSCENE HAS NO TALK VERB.
+# One SHAPE of surface was covered and a second shape was invisible to it. A
+# manifest can only find the shapes it already knows about.
+#
+# It lives in the ALPHA, which IS the parent, so it calls speakLine directly:
+# there is no frame boundary to cross here and posting a message to yourself
+# would be ceremony.
+STORY_ANCHOR = "    '</span><br>'+L.text.replace(/&/g,'&amp;').replace(/</g,'&lt;');"
+STORY_ADD = (
+    "\n  /* THE COLD OPEN TALKS (8/11, SOUNDS lane). onBeat fires once per beat,"
+    "\n     so a line speaks once and a repaint cannot repeat it. Beats with no"
+    "\n     text return above and stay silent, which is right: an era card is not"
+    "\n     somebody talking. */"
+    "\n  try{ if(window.speakLine) window.speakLine('story:'+(L.speaker||''), L.text); }catch(_v){}"
+)
+
+
+def patch_story(s):
+    """The cold open caption -- the demo's opening, and it was silent."""
+    if "speakLine('story:" in s:
+        print('  the cold open already speaks')
+        return s
+    if STORY_ANCHOR not in s:
+        print('  NOTE cold open caption not found; skipped')
+        return s
+    s = s.replace(STORY_ANCHOR, STORY_ANCHOR + STORY_ADD, 1)
+    print('  the COLD OPEN speaks now (storyCaption, once per beat)')
+    return s
+
+
 def patch_city():
     """The city talk card, which is where he actually was."""
     if not os.path.exists(CITY):
@@ -391,6 +441,7 @@ def main():
              + engine + '\n</script>\n' + panel + END + '\n')
     s = s.replace(anchor, block + anchor, 1)
 
+    s = patch_story(s)
     open(ALPHA, 'w', encoding='utf8').write(s)
     if not patch_city():
         return 1

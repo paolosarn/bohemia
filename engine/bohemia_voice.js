@@ -309,10 +309,37 @@
      recognisable is that THEIR voice never changes, not that nobody else has
      it. Assigning a specific person to a specific voice is still his ruling and
      is not made here -- this is the fallback for everyone he has not ruled on. */
-  function speakerVoice(id, approved) {
+  function speakerVoice(id, approved, group) {
     var pool = (approved && approved.length) ? approved : ['cand-1'];
     var k = hash('bohemia-speaker:' + String(id == null ? '' : id));
-    return voiceOf(pool[k % pool.length]);
+    var want = k % pool.length;
+    /* A SCENE'S CAST MUST NOT SHARE A VOICE.
+       Measured on the real cold open: the MOTHER and the small CHILD both
+       landed on cand-1. With six voices and four family members a collision is
+       close to a coin flip, and two of the four most important people in the
+       game sounding identical in the demo's opening fifteen seconds is the
+       worst place for it to happen.
+       Sharing is correct for a CROWD -- Animal Crossing runs hundreds of
+       villagers off a handful of types, and what makes somebody recognisable is
+       that THEIR voice never changes, not that nobody else has it. It is wrong
+       for a CAST, where the people are few, named, and on screen together.
+       So a group deals without replacement: the hash still chooses, and a
+       collision walks to the next free voice. Deterministic wherever
+       first-appearance order is deterministic, which a scripted scene
+       guarantees -- and it is NOT applied to the open world, where you meet
+       people in whatever order you wander into them and an order-dependent
+       voice would stop being theirs. */
+    if (group && typeof group === 'object') {
+      group.by = group.by || {};
+      if (group.by[id] != null) return voiceOf(pool[group.by[id]]);
+      var taken = {}, key;
+      for (key in group.by) taken[group.by[key]] = 1;
+      var pick = want, tries = 0;
+      while (taken[pick] && tries < pool.length) { pick = (pick + 1) % pool.length; tries++; }
+      group.by[id] = pick;
+      return voiceOf(pool[pick]);
+    }
+    return voiceOf(pool[want]);
   }
 
   /* THE FIRST SENTENCE, WHICH IS WHAT YOU ACTUALLY HEAR SOMEONE START TO SAY.

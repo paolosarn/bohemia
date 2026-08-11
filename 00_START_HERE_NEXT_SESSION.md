@@ -14691,3 +14691,43 @@ doing the job a human had to do this time.
 Gates: voice_surfaces 17/17 (new), voice 41/41, sfx_wired 373/373,
 city_talk 18/18 (the CITY lane's own, unbroken), run 126/126,
 shipped_truth 31/31.
+
+### 8/11 (d) — THE DEMO'S FIRST FIFTEEN SECONDS WERE SILENT. THEY TALK NOW.
+
+Audited the demo day (wake → quests → walk → talk → fight → GET PAID → spend →
+sleep) for silence instead of waiting to be told, and found the worst one: **the
+COLD OPEN.** `storyCaption()` paints a speaker and a line for every beat of the
+demo's opening scene, and it made no sound at all.
+
+**AND MY OWN DISCOVERY GATE MISSED IT** — that is the more useful finding. The
+sweep looked for `TALK TO THE`, and **a cutscene has no talk verb.** It covered
+one SHAPE of surface and was blind to a second. It now knows three shapes, and
+the gate says out loud that its list is the honest limit of what it can find:
+assuming there are no more shapes is exactly what cost this turn.
+
+**TWO REAL DEFECTS, BOTH FOUND BY DRIVING THE REAL BUTTON:**
+
+1. **THE MOTHER AND THE SMALL CHILD HAD THE SAME VOICE.** Both landed on
+   `cand-1`. With six voices and four family members a collision is close to a
+   coin flip, and two of the four most important people in the game sounding
+   identical in the opening fifteen seconds is the worst possible place for it.
+   **Sharing is right for a CROWD and wrong for a CAST** — Animal Crossing runs
+   hundreds of villagers off a handful of types, and what makes somebody
+   recognisable is that THEIR voice never changes, not that nobody else has it.
+   So a *group* now deals without replacement: the hash still chooses and a
+   collision walks to the next free voice. Deterministic wherever
+   first-appearance order is (a scripted scene), and deliberately **NOT** applied
+   to the open world, where you meet people in any order and an order-dependent
+   voice would stop being theirs. Result: cand-1/2/3/4, four people, four voices.
+2. **EVERY LINE SPOKE THREE TIMES.** The caption repaints three times per beat.
+   A repaint is not a new line; the immediate echo is dropped and a genuine
+   repeat later still speaks. 10 utterances → 4.
+
+Mutation tested: remove the cast grouping and the gate goes red naming the exact
+collision. `every_voice_surface_gate` 17 → **25**.
+
+**ALSO CHECKED AND CORRECTLY LEFT ALONE:** PICKUP still has five approved sounds
+and no moment. The payday engine is inlined in the run but **nothing calls
+`payForQuest`** yet, so getting paid does not fire — wiring a sound to a function
+nobody calls would be theatre. That is WORLD/RUN work; the sound is ready the day
+it fires.

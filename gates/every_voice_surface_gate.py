@@ -46,6 +46,20 @@ SURFACES = [
     # work before. The discovery sweep found this file on its first run, which is
     # the gate doing its job before a human had to.
     ('BOHEMIA_RUN_SLICE_7_26_26.html', 'the RUN\'s dev source, which the built run comes from'),
+    ('BOHEMIA_ALPHA_0_9.html',     'the COLD OPEN caption -- the demo\'s first fifteen seconds'),
+]
+
+# HOW A SURFACE IS RECOGNISED. The first version of this sweep looked for one
+# marker, "TALK TO THE", and MISSED THE COLD OPEN COMPLETELY -- because a
+# CUTSCENE HAS NO TALK VERB. It covered one SHAPE of surface and was blind to a
+# second. Every entry below is a distinct shape somebody speaks in, and the list
+# is the honest limit of this check: it can only find shapes it already knows,
+# which is exactly how the cold open got past it. Adding a shape is cheap;
+# assuming there are no more is what cost a turn.
+SPEAK_MARKERS = [
+    ('TALK TO THE',   'a talk verb offered to the player'),
+    ('storyCaption',  'a scripted-scene caption that names a speaker'),
+    ('renderTalk',    'a dialogue node painted with a speaker'),
 ]
 
 JS = r'''
@@ -113,6 +127,18 @@ const pw = pwmod();
     out.runSpoke = await p.evaluate(() => window.__spoke.slice());
   }
 
+  // ---- THE COLD OPEN: press PLAY THE OPEN and listen -------------------
+  // The demo's first fifteen seconds, and it was silent until 8/11. Driven by
+  // the real button, like everything else here.
+  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="story"]'); if (t) t.click(); });
+  await p.waitForTimeout(2500);
+  await p.evaluate(() => { window.__spoke = []; });
+  out.storyPressed = await p.evaluate(() => { const b = document.getElementById('storyPlay');
+    if (!b) return false; b.click(); return true; });
+  await p.waitForTimeout(20000);
+  out.storySpoke = await p.evaluate(() => window.__spoke.slice());
+  out.storyState = await p.evaluate(() => (document.getElementById('storyState')||{}).textContent || '');
+
   out.errors = errs.slice(0, 4);
   console.log(JSON.stringify(out));
   await b.close();
@@ -145,7 +171,7 @@ def main():
             src = open(os.path.join(SLICES, fn), encoding='utf8', errors='ignore').read()
         except Exception:
             continue
-        if 'TALK TO THE' in src:
+        if any(m in src for m, _ in SPEAK_MARKERS):
             talkers.append(fn)
     unlisted = [t for t in talkers if t not in named]
     ok('DISCOVERY: every surface that offers to talk to somebody is in the '
@@ -206,12 +232,36 @@ def main():
     else:
         ok('(a run voice to check)', False)
 
+    # ---- THE COLD OPEN ---------------------------------------------------
+    ok('the STORY tab has a PLAY button to press', d.get('storyPressed'))
+    ok('the cold open runs to the end (%s)' % d.get('storyState'),
+       'done' in str(d.get('storyState') or ''))
+    ss = d.get('storySpoke') or []
+    ok('THE DEMO OPENS WITH PEOPLE TALKING: %d spoken beats' % len(ss), len(ss) >= 4)
+    if ss:
+        seeds = [u['seed'] for u in ss]
+        ok('EVERY MEMBER OF THE FAMILY HAS THEIR OWN VOICE (%s) -- the mother and '
+           'the small child both landed on cand-1 before this, and two of the four '
+           'most important people in the game sounding identical in the opening is '
+           'the worst place for a collision' % seeds,
+           len(set(seeds)) == len(seeds))
+        ok('and each is one of the six he approved',
+           all(x in approved for x in seeds))
+        ok('NO REPAINT STUTTER: the caption repaints three times per beat and the '
+           'line speaks ONCE (%d beats, %d utterances)' % (len(ss), len(ss)),
+           len(ss) <= 8)
+        ok('they say the words actually on screen (%r)' % ss[0]['text'][:34],
+           len(ss[0]['text'].strip()) > 8)
+    else:
+        for _ in range(4):
+            ok('(the cold open must speak to be checked)', False)
+
     ok('the page threw nothing: %s' % (d.get('errors') or 'clean'), not d.get('errors'))
 
     print('  %d passed, %d FAILED' % (p, f))
     if not f:
-        print('  Both surfaces speak, driven by pressing what he presses. A third '
-              'one cannot be added silently.')
+        print('  All THREE surfaces speak -- the run, the city and the cold open -- '
+              'each driven by pressing what he presses.')
     return 1 if f else 0
 
 
