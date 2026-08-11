@@ -467,6 +467,12 @@ GATES = [
      'an icon ships with every build (Paolo 7/27): new work adds no debt, the debt only shrinks, and an icon is real art', False),
     ('TOOLS RUN',      ['python3', 'gates/tools_run_gate.py'],
      'the tools actually run: every tool and gate parses, and the hero bank is reproducible from its source (a syntax error shipped green on 7/28 because nothing ever ran the factory)', False),
+    ('DEMO BLOCKERS',  ['node', 'gates/demo_blockers_gate.js'],
+     'Paolo 8/9: "First: DEMO BLOCKERS -- numbered, thumbable." Every blocker EXISTS only '
+     'because the machine can still see the hole (an engine table shipping empty with '
+     '[PENDING Paolo], a HELD backlog row, the live unjudged count) -- so ruling one removes '
+     'it by itself and he is never asked twice for something he already gave. Nothing is '
+     'silently dropped, and he answers it in the VOTE tab ABOVE the art, one tap', False),
     ('SQUARE ICONS',   ['node', 'gates/square_icons_gate.js'],
      'EVERYTHING IS ON A SQUARE (Paolo 8/8): one measured square for all 59 icons, nothing clipped, '
      'nothing shrunk to fit, one shared ground line, the pad squared in world space too -- and the '

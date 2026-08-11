@@ -110,6 +110,46 @@ def card(h, idx, judged_already):
 cards_new = '\n'.join(card(h, i, False) for i, h in enumerate(queue))
 cards_old = '\n'.join(card(h, i, True) for i, h in enumerate(done))
 
+# ---- DEMO BLOCKERS, ABOVE THE ICONS (8/9) -----------------------------------------
+# Paolo 8/9: "First: DEMO BLOCKERS -- numbered, thumbable." A thumb is a verdict on a
+# PICTURE; a blocker is a DECISION, and the ruled shape for a decision is the 8/4
+# question format -- one question, two or three conclusions, answered with one letter,
+# realistic option first and winning by default. So they render as lettered buttons in
+# the same one-tap shell, ABOVE the art, because BOTTOM-UP says the thing he must not
+# miss cannot be something he scrolls past.
+# The list is DERIVED by tools/bohemia_demo_blockers.py -- rule one and it disappears
+# from here on its own. This file only draws what that tool measured.
+BLOCKERS = 'records/target/BOHEMIA_DEMO_BLOCKERS.json'
+blockers = []
+if os.path.exists(BLOCKERS):
+    blockers = json.load(open(BLOCKERS, encoding='utf8')).get('blockers', [])
+
+
+def blocker_card(b):
+    opts = '\n'.join(
+        '<button class="ob" data-o="%s"><b>%s.</b> %s<span class="obw">%s</span></button>'
+        % (letter, letter, head, body)
+        for letter, head, body in b.get('opts', []))
+    why = ('<p class="why">%s</p>' % b['why']) if b.get('why') else ''
+    return '''
+<div class="blk" data-b="%s">
+  <div class="blkhead"><span class="num">%d</span><span class="q">%s</span></div>
+  %s
+  <div class="opts">%s</div>
+  <textarea class="bnote" rows="2" placeholder="or say it in your own words"></textarea>
+  <div class="proof">%s</div>
+</div>''' % (b['key'], b['n'], b['q'], why, opts, b.get('proof', ''))
+
+
+blockers_html = ''
+if blockers:
+    blockers_html = ('<h2 class="blkh">DEMO BLOCKERS &mdash; %d things only you can decide'
+                     '</h2><p class="blksub">Everything in flight in the WORLD lane that '
+                     'needs you to finish it. One tap each. The first option is the '
+                     'realistic one and wins if you say nothing.</p>%s'
+                     '<h2>THE ICONS &mdash; thumb what you like</h2>'
+                     % (len(blockers), '\n'.join(blocker_card(b) for b in blockers)))
+
 HTML = '''<!doctype html><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>BOHEMIA &mdash; VOTE</title>
@@ -147,6 +187,22 @@ HTML = '''<!doctype html><meta charset="utf-8">
   footer textarea{flex:1;background:transparent;color:var(--ink);border:1px solid var(--line);
     border-radius:5px;padding:6px;font:inherit;resize:none}
   .empty{opacity:.6;padding:20px 0;text-align:center}
+  .blkh{color:var(--gold);opacity:1;border-top:0;margin-top:4px}
+  .blksub{opacity:.7;font-size:12px;margin:0 0 12px}
+  .blk{background:var(--card);border:1px solid var(--gold);border-radius:8px;margin:0 0 12px;padding:10px}
+  .blkhead{display:flex;gap:8px;align-items:flex-start;margin-bottom:6px}
+  .num{color:#0d0d12;background:var(--gold);border-radius:3px;padding:1px 7px;font-size:12px;flex:none}
+  body.sun .num{color:#f4efdf}
+  .q{font-size:13px;line-height:1.35}
+  .why{font-size:12px;opacity:.72;margin:0 0 8px}
+  .opts{display:flex;flex-direction:column;gap:6px;margin-bottom:6px}
+  .ob{text-align:left;padding:9px 10px;font-size:12px;line-height:1.35}
+  .ob.on{background:#2f6b3a;border-color:#3f8b4a;color:#fff}
+  .obw{display:block;opacity:.72;font-size:11px;margin-top:3px}
+  .ob.on .obw{opacity:.9}
+  .bnote{width:100%;background:transparent;color:var(--ink);border:1px solid var(--line);
+    border-radius:5px;padding:6px;font:inherit;resize:vertical}
+  .proof{font-size:10px;opacity:.4;margin-top:6px;word-break:break-all}
 </style>
 <header>
   <h1>VOTE</h1>
@@ -155,6 +211,7 @@ HTML = '''<!doctype html><meta charset="utf-8">
   <button id="exp">EXPORT</button>
 </header>
 <div class="wrap">
+  <div id="blockers">__BLOCKERS__</div>
   <div id="newlist">__NEW__</div>
   <div id="oldwrap"><h2>ALREADY JUDGED &mdash; here so you can change your mind</h2>__OLD__</div>
 </div>
@@ -164,14 +221,23 @@ HTML = '''<!doctype html><meta charset="utf-8">
 </footer>
 <script>
 (function(){
-  var V={}, N={};
+  var V={}, N={}, B={}, BN={};
   document.addEventListener('click',function(e){
+    var ob=e.target.closest('.ob');
+    if(ob){
+      var blk=ob.closest('.blk'), k=blk.getAttribute('data-b');
+      blk.querySelectorAll('.ob').forEach(function(t){t.classList.remove('on');});
+      ob.classList.add('on'); B[k]=ob.getAttribute('data-o'); tally(); return;
+    }
     var b=e.target.closest('.tb'); if(!b) return;
     var card=b.closest('.card'), d=card.getAttribute('data-d');
     card.querySelectorAll('.tb').forEach(function(t){t.classList.remove('on');});
     b.classList.add('on'); V[d]=b.getAttribute('data-v'); tally();
   });
   document.addEventListener('input',function(e){
+    if(e.target.classList.contains('bnote')){
+      BN[e.target.closest('.blk').getAttribute('data-b')]=e.target.value; return;
+    }
     if(!e.target.classList.contains('note')) return;
     N[e.target.closest('.card').getAttribute('data-d')]=e.target.value;
   });
@@ -179,12 +245,30 @@ HTML = '''<!doctype html><meta charset="utf-8">
     var total=document.querySelectorAll('#newlist .card').length;
     var done=Object.keys(V).filter(function(k){
       return document.querySelector('#newlist .card[data-d="'+k+'"]'); }).length;
-    document.getElementById('count').textContent=done+' / '+total+' voted';
+    var bt=document.querySelectorAll('.blk').length, bd=Object.keys(B).length;
+    document.getElementById('count').textContent=
+      (bt? bd+' / '+bt+' decided  \\u00b7  ' : '')+done+' / '+total+' voted';
   }
   document.getElementById('sun').onclick=function(){document.body.classList.toggle('sun');};
   function exp(){
     var L=['BOHEMIA - VOTE, DISTRICT MAP ICONS','__STAMP__','',
            'YES = ship it.  COULD BE BETTER = ships frozen, fix later.  NO = kill it.',''];
+    var blks=document.querySelectorAll('.blk');
+    if(blks.length){
+      L.push('DEMO BLOCKERS -- your answers:','');
+      blks.forEach(function(b){
+        var k=b.getAttribute('data-b'), a=B[k], n=(BN[k]||'').trim();
+        if(!a && !n) return;
+        var q=b.querySelector('.q').textContent.trim();
+        L.push('@RULING '+k+' '+(a||'-')+'   ('+q+')');
+        if(a){
+          var on=b.querySelector('.ob.on');
+          if(on) L.push('    = '+on.querySelector('b').nextSibling.nodeValue.trim());
+        }
+        if(n) L.push('    '+n);
+      });
+      L.push('');
+    }
     document.querySelectorAll('.card').forEach(function(c){
       var d=c.getAttribute('data-d'), v=V[d], n=(N[d]||'').trim();
       if(!v && !n) return;
@@ -205,6 +289,7 @@ HTML = '''<!doctype html><meta charset="utf-8">
 </script>
 '''
 
+HTML = HTML.replace('__BLOCKERS__', blockers_html)
 HTML = HTML.replace('__NEW__', cards_new or '<div class="empty">Nothing waiting. You are all caught up.</div>')
 HTML = HTML.replace('__OLD__', cards_old)
 HTML = HTML.replace('__STAMP__', '%d waiting, %d already judged' % (len(queue), len(done)))

@@ -35,6 +35,22 @@
   footer textarea{flex:1;background:transparent;color:var(--ink);border:1px solid var(--line);
     border-radius:5px;padding:6px;font:inherit;resize:none}
   .empty{opacity:.6;padding:20px 0;text-align:center}
+  .blkh{color:var(--gold);opacity:1;border-top:0;margin-top:4px}
+  .blksub{opacity:.7;font-size:12px;margin:0 0 12px}
+  .blk{background:var(--card);border:1px solid var(--gold);border-radius:8px;margin:0 0 12px;padding:10px}
+  .blkhead{display:flex;gap:8px;align-items:flex-start;margin-bottom:6px}
+  .num{color:#0d0d12;background:var(--gold);border-radius:3px;padding:1px 7px;font-size:12px;flex:none}
+  body.sun .num{color:#f4efdf}
+  .q{font-size:13px;line-height:1.35}
+  .why{font-size:12px;opacity:.72;margin:0 0 8px}
+  .opts{display:flex;flex-direction:column;gap:6px;margin-bottom:6px}
+  .ob{text-align:left;padding:9px 10px;font-size:12px;line-height:1.35}
+  .ob.on{background:#2f6b3a;border-color:#3f8b4a;color:#fff}
+  .obw{display:block;opacity:.72;font-size:11px;margin-top:3px}
+  .ob.on .obw{opacity:.9}
+  .bnote{width:100%;background:transparent;color:var(--ink);border:1px solid var(--line);
+    border-radius:5px;padding:6px;font:inherit;resize:vertical}
+  .proof{font-size:10px;opacity:.4;margin-top:6px;word-break:break-all}
 </style>
 <header>
   <h1>VOTE</h1>
@@ -43,6 +59,54 @@
   <button id="exp">EXPORT</button>
 </header>
 <div class="wrap">
+  <div id="blockers"><h2 class="blkh">DEMO BLOCKERS &mdash; 5 things only you can decide</h2><p class="blksub">Everything in flight in the WORLD lane that needs you to finish it. One tap each. The first option is the realistic one and wins if you say nothing.</p>
+<div class="blk" data-b="PAYOUT">
+  <div class="blkhead"><span class="num">1</span><span class="q">A day of quests ends and the player gets paid. Paid WHAT?</span></div>
+  <p class="why">The payout hook is built and connected -- engine/bohemia_purse.js payQuest() fires on every quest outcome and credits the purse. It pays ZERO today, because what a quest is worth is your ruling and the table ships empty by the mechanism-mine law. This is the one thing standing between the day loop and PAYING.</p>
+  <div class="opts"><button class="ob" data-o="A"><b>A.</b> CLOUT ONLY for the demo<span class="obw">Word gets around that you did the job. No goods change hands. This is what actually happens in a barter economy where a stranger has nothing to give you yet, it is the smallest ruling that closes the loop, and it keeps the three-currency law clean.</span></button>
+<button class="ob" data-o="B"><b>B.</b> You give me the numbers<span class="obw">Say what a quiet / notable / risky / reckless job pays in resources, electricity and clout, and I wire exactly that.</span></button>
+<button class="ob" data-o="C"><b>C.</b> Demo-only placeholders, marked and disposable<span class="obw">I seed numbers that are labelled DEMO in the ledger and can never become canon. Fastest, and the honest risk is that a placeholder that ships is a number nobody ruled.</span></button></div>
+  <textarea class="bnote" rows="2" placeholder="or say it in your own words"></textarea>
+  <div class="proof">engine/bohemia_purse.js: var PAYOUT = {} [PENDING Paolo], edge wired and returning NO_RULING</div>
+</div>
+
+<div class="blk" data-b="PRICES">
+  <div class="blkhead"><span class="num">2</span><span class="q">You walk into the trading hub with a full purse. What is on the shelf, and what does it cost?</span></div>
+  <p class="why">spend() is built and connected. A hub is reachable today and NOT spendable, because the price table ships empty. "Reachable and spendable" needs one shelf with real tags on it.</p>
+  <div class="opts"><button class="ob" data-o="A"><b>A.</b> Three goods, priced off the scarcity sim we already have<span class="obw">Water, food, meds -- the three things a Mojave collapse actually trades. engine/bohemia_economy.js ALREADY prices them hyperbolically against remaining supply from real siege data. I read the price off the sim instead of inventing one, so the tag on the shelf moves when the valley gets thirstier. Most realistic and nothing is invented.</span></button>
+<button class="ob" data-o="B"><b>B.</b> You name the goods and the prices<span class="obw">Your shelf, your numbers, I wire it verbatim.</span></button>
+<button class="ob" data-o="C"><b>C.</b> Barter only for the demo<span class="obw">No prices at all -- you trade a thing for a thing. Truest to a dead economy and it means the purse buys nothing in the demo.</span></button></div>
+  <textarea class="bnote" rows="2" placeholder="or say it in your own words"></textarea>
+  <div class="proof">engine/bohemia_purse.js: var PRICES = {} [PENDING Paolo], edge wired and returning NO_RULING</div>
+</div>
+
+<div class="blk" data-b="PRODUCTION">
+  <div class="blkhead"><span class="num">3</span><span class="q">Do buildings produce anything during the demo?</span></div>
+  <p class="why">produce() is built and connected and the yield table is empty. This one is city-builder territory, and the demo cut is THE ORIGIN + ONE GOOD DAY.</p>
+  <div class="opts"><button class="ob" data-o="A"><b>A.</b> NO -- out of the demo cut<span class="obw">A day-in-the-life demo never sees a production tick. Leave it empty and honest; it costs the demo nothing.</span></button>
+<button class="ob" data-o="B"><b>B.</b> Yes, and you give me the yields<span class="obw">Say what a building makes per day and I wire it.</span></button></div>
+  <textarea class="bnote" rows="2" placeholder="or say it in your own words"></textarea>
+  <div class="proof">engine/bohemia_purse.js: var PRODUCTION = {} [PENDING Paolo], edge wired and returning NO_RULING</div>
+</div>
+
+<div class="blk" data-b="ICONS">
+  <div class="blkhead"><span class="num">4</span><span class="q">55 district map icons have never been judged.</span></div>
+  <p class="why">APPROVAL UNLOCKS VOLUME and STALE UNJUDGED IS DEAD -- both your laws. Every one of these is finished, on a square, wired into the CITY tab and sitting in this same tab below. Nothing downstream of the icons moves until they are thumbed.</p>
+  <div class="opts"><button class="ob" data-o="A"><b>A.</b> Thumb them here<span class="obw">Scroll down in this tab. One tap each, and you can stop whenever you want -- a partial pass still counts.</span></button>
+<button class="ob" data-o="B"><b>B.</b> Bulk-approve the lot<span class="obw">They all ship and I fix only what you complain about later.</span></button></div>
+  <textarea class="bnote" rows="2" placeholder="or say it in your own words"></textarea>
+  <div class="proof">55 of 59 heroes carry no @VERDICT line under records/</div>
+</div>
+
+<div class="blk" data-b="I1">
+  <div class="blkhead"><span class="num">5</span><span class="q">Should an airfield map icon DROP the runway and just show the terminal and the aeroplane, big?</span></div>
+  <p class="why">Both builders are written and correct. Baked alone the aeroplane reads unmistakably as an aeroplane -- the problem is SIZE. Every other district icon is a BUILDING, which survives shrinking to one map tile; an airfield's signature is an AIRCRAFT, and a plot holding a runway plus a taxiway plus a terminal leaves no room to make it legible. Four attempts are written up so nobody re-walks them. This is a composition ruling, not a code fix.</p>
+  <div class="opts"><button class="ob" data-o="A"><b>A.</b> Keep the runway, accept it reads small<span class="obw">An airport IS mostly runway seen from above, and that is what the cell really holds. Truest to the place; the icon stays busy at map size.</span></button>
+<button class="ob" data-o="B"><b>B.</b> Drop the runway, big aeroplane and terminal<span class="obw">Reads instantly at one tile. It is a deliberate lie about the ground -- the same lie every city-builder tells -- and it makes the airfield a landmark.</span></button>
+<button class="ob" data-o="C"><b>C.</b> No airfield icon at all<span class="obw">Two cells of the valley stay generic. Cheapest, and it breaks the ICON LAW you locked on 7/27.</span></button></div>
+  <textarea class="bnote" rows="2" placeholder="or say it in your own words"></textarea>
+  <div class="proof">BOHEMIA_BACKLOG.md WORLD I1 [HELD -- needs Paolo's ruling]</div>
+</div><h2>THE ICONS &mdash; thumb what you like</h2></div>
   <div id="newlist">
 <div class="card" data-d="intake">
   <div class="cardhead"><span class="nm">INTAKE</span><span class="tag new">NEW</span></div>
@@ -699,14 +763,23 @@
 </footer>
 <script>
 (function(){
-  var V={}, N={};
+  var V={}, N={}, B={}, BN={};
   document.addEventListener('click',function(e){
+    var ob=e.target.closest('.ob');
+    if(ob){
+      var blk=ob.closest('.blk'), k=blk.getAttribute('data-b');
+      blk.querySelectorAll('.ob').forEach(function(t){t.classList.remove('on');});
+      ob.classList.add('on'); B[k]=ob.getAttribute('data-o'); tally(); return;
+    }
     var b=e.target.closest('.tb'); if(!b) return;
     var card=b.closest('.card'), d=card.getAttribute('data-d');
     card.querySelectorAll('.tb').forEach(function(t){t.classList.remove('on');});
     b.classList.add('on'); V[d]=b.getAttribute('data-v'); tally();
   });
   document.addEventListener('input',function(e){
+    if(e.target.classList.contains('bnote')){
+      BN[e.target.closest('.blk').getAttribute('data-b')]=e.target.value; return;
+    }
     if(!e.target.classList.contains('note')) return;
     N[e.target.closest('.card').getAttribute('data-d')]=e.target.value;
   });
@@ -714,12 +787,30 @@
     var total=document.querySelectorAll('#newlist .card').length;
     var done=Object.keys(V).filter(function(k){
       return document.querySelector('#newlist .card[data-d="'+k+'"]'); }).length;
-    document.getElementById('count').textContent=done+' / '+total+' voted';
+    var bt=document.querySelectorAll('.blk').length, bd=Object.keys(B).length;
+    document.getElementById('count').textContent=
+      (bt? bd+' / '+bt+' decided  \u00b7  ' : '')+done+' / '+total+' voted';
   }
   document.getElementById('sun').onclick=function(){document.body.classList.toggle('sun');};
   function exp(){
     var L=['BOHEMIA - VOTE, DISTRICT MAP ICONS','55 waiting, 4 already judged','',
            'YES = ship it.  COULD BE BETTER = ships frozen, fix later.  NO = kill it.',''];
+    var blks=document.querySelectorAll('.blk');
+    if(blks.length){
+      L.push('DEMO BLOCKERS -- your answers:','');
+      blks.forEach(function(b){
+        var k=b.getAttribute('data-b'), a=B[k], n=(BN[k]||'').trim();
+        if(!a && !n) return;
+        var q=b.querySelector('.q').textContent.trim();
+        L.push('@RULING '+k+' '+(a||'-')+'   ('+q+')');
+        if(a){
+          var on=b.querySelector('.ob.on');
+          if(on) L.push('    = '+on.querySelector('b').nextSibling.nodeValue.trim());
+        }
+        if(n) L.push('    '+n);
+      });
+      L.push('');
+    }
     document.querySelectorAll('.card').forEach(function(c){
       var d=c.getAttribute('data-d'), v=V[d], n=(N[d]||'').trim();
       if(!v && !n) return;
