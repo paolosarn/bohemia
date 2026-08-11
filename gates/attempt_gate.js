@@ -65,14 +65,26 @@ const scenes = fs.readdirSync('records')
   .map(f => ({ f: 'records/' + f, d: JSON.parse(fs.readFileSync('records/' + f, 'utf8')) }));
 ok('there is at least one authored scene to hold to the rule', scenes.length > 0);
 
-let silent = [], untagged = [], lazy = [], stubs = [], spoken = 0;
+let silent = [], untagged = [], lazy = [], stubs = [], unsourced = [], spoken = 0;
 scenes.forEach(s => {
   (s.d.beats || []).filter(b => b.kind === 'say').forEach(b => {
     spoken++;
     const t = (b.text == null) ? '' : String(b.text).trim();
     if (!t) silent.push(s.f + '#' + b.id);
     else {
-      if (b.draft !== true) untagged.push(s.f + '#' + b.id);
+      /* draft:true  = a lane's attempt, his to edit freely.
+         draft:false = HIS OWN WORDS, quoted, and no lane may touch them.
+         Anything else is a line with no owner, which is the failure.
+         A GATE MUST NEVER OUTRANK A RULING (Paolo 8/1): the 8/11 law says
+         "Absent or false means the words came from Paolo", so a gate that
+         demanded draft:true on everything would have made it impossible to
+         ship a line he wrote himself. It went red the first time somebody
+         tried, which is exactly when a gate is supposed to be re-read against
+         the law rather than the law bent around the gate. */
+      if (b.draft !== true && b.draft !== false) untagged.push(s.f + '#' + b.id);
+      /* and his words must SAY WHERE THEY CAME FROM, or a lane could launder
+         its own writing as his simply by tagging it false. */
+      if (b.draft === false && !b.source) unsourced.push(s.f + '#' + b.id);
       if (FILLER.test(t)) lazy.push(s.f + '#' + b.id);
       if (t.length < 8) stubs.push(s.f + '#' + b.id);
     }
@@ -80,8 +92,12 @@ scenes.forEach(s => {
 });
 ok('every spoken beat across every scene makes an attempt (' + spoken + ' lines)' +
   (silent.length ? ' — SILENT: ' + silent.join(', ') : ''), silent.length === 0);
-ok('every attempt is tagged draft:true so he can find and edit it' +
-  (untagged.length ? ' — UNTAGGED: ' + untagged.join(', ') : ''), untagged.length === 0);
+ok('every line declares whose it is — draft:true (a lane\'s, editable) or ' +
+  'draft:false (HIS, untouchable)' +
+  (untagged.length ? ' — UNOWNED: ' + untagged.join(', ') : ''), untagged.length === 0);
+ok('and every line marked HIS names the ruling it was quoted from, so no lane ' +
+  'can launder its own writing as his' +
+  (unsourced.length ? ' — UNSOURCED: ' + unsourced.join(', ') : ''), unsourced.length === 0);
 ok('no attempt is filler — a lazy draft puts him back at the blank page' +
   (lazy.length ? ' — ' + lazy.join(', ') : ''), lazy.length === 0);
 ok('no attempt is a stub too short to edit' + (stubs.length ? ' — ' + stubs.join(', ') : ''),

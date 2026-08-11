@@ -133,13 +133,19 @@ bqFiles.forEach(function (f) {
 /* Scenes cite PER LINE. A scene is four lines and each one is its own craft
    decision, so a file-level citation would not say which finding produced
    which line — and that is the whole thing the citation is for. */
-var sceneLineCount = 0, sceneUncited = [], sceneSpanFail = [];
+var sceneLineCount = 0, hisOwn = 0, sceneUncited = [], sceneSpanFail = [];
 sceneFiles.forEach(function (f) {
   var d = JSON.parse(fs.readFileSync(f, 'utf8'));
   var says = (d.beats || []).filter(function (b) { return b.kind === 'say'; });
   var studies = {}, masters = {};
   says.forEach(function (b) {
     sceneLineCount++;
+    /* HIS OWN WORDS DO NOT CITE THE CATALOGUE, and requiring it would be the
+       gate outranking the ruling. The corpus exists to hold a LANE'S writing to
+       a standard in his place; a line he wrote himself needs no stand-in for his
+       judgement, it IS his judgement. draft:false lines carry a `source` naming
+       the ruling they were quoted from instead, which attempt_gate checks. */
+    if (b.draft === false) { hisOwn++; return; }
     var cs = b.study || [];
     if (!cs.length) { sceneUncited.push(f + '#' + b.id); return; }
     cs.forEach(function (c) {
@@ -250,5 +256,6 @@ ok(judged.length === 0, 'no dialogue line is sitting on a JUDGE surface awaiting
 
 console.log('DIALOGUE CATALOGUE GATE: ' + pass + ' passed, ' + fail + ' failed  (' +
   (BOOK ? BOOK._meta.lines : '?') + ' lines across ' + SRC.length +
-  ' sources, all sourced to the catalogue; ' + sceneLineCount + ' cited per line)');
+  ' sources, all sourced to the catalogue; ' + (sceneLineCount - hisOwn) +
+  ' cited per line, ' + hisOwn + ' are HIS OWN WORDS and cite nothing)');
 process.exit(fail ? 1 : 0);

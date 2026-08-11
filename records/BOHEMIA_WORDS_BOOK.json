@@ -3,10 +3,10 @@
   "what": "Every authored player-facing line in Bohemia, with the questbook catalogue laws each was written from.",
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
-  "sources": 22,
-  "lines": 941,
-  "cited": 941,
-  "fingerprint": "99986ee7843290cc",
+  "sources": 23,
+  "lines": 946,
+  "cited": 944,
+  "fingerprint": "c9257a2e1d4c77c5",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -31752,6 +31752,117 @@
      ],
      "citeLevel": "line",
      "title": "THE MATCH-CUT OPEN"
+    }
+   ]
+  },
+  {
+   "src": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json",
+   "title": "THE GRIEF DINNER",
+   "kind": "scene",
+   "cites": [],
+   "lines": [
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json#grief_open",
+     "src": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json",
+     "beat": "grief_open",
+     "speaker": "mother",
+     "node": "grief_open",
+     "text": "Eat. It's the last of the good stuff and it doesn't keep.",
+     "draft": true,
+     "why": "ATTEMPT (8/11 rule). The scene does NOT open on grief. It opens on a mother telling her family to eat, which is the only thing she can still do for them, and the grief arrives underneath it three lines later. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q001.W1",
+       "title": "TRANSACTION-CARRIES-EMOTION",
+       "applied": "the corpus is blunt: do not open with 'here's a sad story', open with the errand and let the weight sneak in under the instrumental frame. So the first line of the grief dinner is about FOOD SPOILING, and every sad thing after it lands on a table somebody was trying to be practical at."
+      },
+      {
+       "id": "Q138.X8",
+       "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
+       "applied": "that study's failure is a family home with no domestic texture. 'The last of the good stuff' is a pantry, a week's planning and a household economy in seven words, on the day none of it matters."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE GRIEF DINNER"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json#hate_this",
+     "src": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json",
+     "beat": "hate_this",
+     "speaker": "sibling_older",
+     "node": "hate_this",
+     "text": "I hate this.",
+     "draft": false,
+     "why": "*** PAOLO'S OWN LINE. draft:false — NO LANE MAY EDIT THIS. *** He wrote it into the 7/19 addendum himself as one of the two lines that define this beat. Three words, no object, no explanation of what 'this' is, which is exactly how somebody talks the day after.",
+     "cites": [],
+     "citeLevel": "line",
+     "title": "THE GRIEF DINNER"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json#cant",
+     "src": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json",
+     "beat": "cant",
+     "speaker": "mother",
+     "node": "cant",
+     "text": "I miss them so much, I can't.",
+     "draft": false,
+     "why": "*** PAOLO'S OWN LINE. draft:false — NO LANE MAY EDIT THIS. *** The sentence breaks in the middle and never finishes, which is the whole reason it works. 'Bohemia commits to grief most games flinch from' (7/19) is this line.",
+     "cites": [],
+     "citeLevel": "line",
+     "title": "THE GRIEF DINNER"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json#no_comfort",
+     "src": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json",
+     "beat": "no_comfort",
+     "speaker": "sibling_older",
+     "node": "no_comfort",
+     "text": "I know. Don't say it back to me, I know.",
+     "draft": true,
+     "why": "ATTEMPT (8/11 rule): the answer to his mother is NOT comfort. He stops her from being comforted at him, which is a real thing people do the day after and is the opposite of what a game usually writes here. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q007.N3",
+       "title": "NODE SURVIVOR_COMFORT",
+       "applied": "that node's banked rule is REMOVE THE ALIBI VERB — the game withholds the sentence that would let the pressure out. Here the CHARACTER removes it himself, out loud, which does the same job and tells you who he is becoming in one line."
+      },
+      {
+       "id": "Q022.W8",
+       "title": "THE ATTENTIVE UNEARTH THE GRIEF",
+       "applied": "the corpus rewards the player who digs into long-buried loss rather than being handed it. Nobody in this scene explains the loss to the player; it is already in the room, and the writing's whole job is to not narrate it."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE GRIEF DINNER"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json#the_ridge",
+     "src": "records/BOHEMIA_SCENE_ACT1_GRIEF_DINNER.json",
+     "beat": "the_ridge",
+     "speaker": "mother",
+     "node": "the_ridge",
+     "text": "We go up in the morning. Wear something you don't mind ruining.",
+     "draft": true,
+     "why": "ATTEMPT (8/11 rule): the scene ends by pointing at beat 3 (THE BURIAL ON THE RIDGE, 7/19) without doing it, and it points with a LOGISTICAL instruction rather than a sad one — clothes you can dig in. Deliberately does not say who walks up, because that is his ruling. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q001.W6",
+       "title": "PEREGRINATION (duration AS emotion)",
+       "applied": "the corpus banks duration itself as an emotional instrument — the botchling carry is slow ON PURPOSE. This line's job is to promise the walk, so the burial's climb up the ridge arrives already weighted rather than starting cold."
+      },
+      {
+       "id": "Q012.P9",
+       "title": "W9 (regret as the answer / change costs",
+       "applied": "the spine banked from Planescape is regret borne rather than undone. The last thing said at this table is a plan for the morning: the family carries it and keeps moving, which is the only answer the game is ever going to give."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE GRIEF DINNER"
     }
    ]
   }

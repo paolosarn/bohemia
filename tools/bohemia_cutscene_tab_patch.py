@@ -47,14 +47,15 @@ PANEL = PANEL_BEGIN + '''
         <canvas id="cutCv" width="360" height="470"
           style="width:100%;height:auto;display:block;background:#0a0806;border:1px solid #241c12;border-radius:4px;image-rendering:pixelated"></canvas>
         <div id="cutCap" style="min-height:66px;margin-top:7px;padding:8px 10px;border:1px solid #241c12;border-radius:4px;background:#100c07;font:13px/1.5 ui-monospace,monospace;color:#e8dfc8"></div>
+        <div class="row" id="cutPick" style="margin-top:7px;gap:6px;display:flex;flex-wrap:wrap"></div>
         <div class="row" style="margin-top:7px;gap:6px;display:flex;align-items:center;flex-wrap:wrap">
-          <button id="cutPlay" class="opt">&#9654; PLAY THE OPEN</button>
+          <button id="cutPlay" class="opt">&#9654; PLAY</button>
           <button id="cutAgain" class="opt">&#8635; AGAIN</button>
           <span id="cutState" class="mini" style="flex:1;text-align:right"></span>
         </div>
         <div class="mini" style="margin-top:6px;line-height:1.55">
-          The opening of the game. One cut carries ten years.
-          Every line is a draft you can rewrite in the WORDS tab.
+          The opening of Bohemia, scene by scene.
+          Lines marked draft are yours to rewrite in the WORDS tab; the ones marked YOUR WORDS are already yours.
         </div>
       </div>
     </div>
@@ -177,14 +178,54 @@ function cutVoice(role, text, windowMs){
   }catch(e){}
 }
 
-var CUTSCENE=null, CUT_READY=false;
+var CUTSCENE=null, CUT_READY=false, CUT_PICK=0, CUT_FRAMES=null;
+/* THE PICKER. There are two scenes now and there will be more, so the tab lists
+   whatever shipped rather than hardcoding one. NAME THE TAB: a scene he cannot
+   reach is a scene that does not exist to him, and that was the whole reason
+   the cold open sat in a terminal for two days. */
+function cutChips(){
+  var host=document.getElementById('cutPick'); if(!host) return;
+  host.innerHTML='';
+  BOHEMIA_CUTSCENES.forEach(function(s,i){
+    var b=document.createElement('button');
+    b.className='opt'+(i===CUT_PICK?' on':'');
+    b.textContent=s.title;
+    if(i===CUT_PICK){ b.style.background='#d8b45a'; b.style.color='#191308'; }
+    b.onclick=function(){ if(i===CUT_PICK) return; CUT_PICK=i; cutSwap(); };
+    host.appendChild(b);
+  });
+}
+function cutSwap(){
+  if(CUTSCENE) CUTSCENE.stop();
+  var cv=document.getElementById('cutCv'); if(!cv) return;
+  var st=document.getElementById('cutState');
+  var next=new BohemiaStorySurface.Story({
+    canvas:cv, set:BohemiaColdOpenSet, scene:BOHEMIA_CUTSCENES[CUT_PICK].scene,
+    runtime:BohemiaScene, stage:BOH_STAGE, floorplan:BOH_FLOORPLAN,
+    paintBody:cutPaintBody, speak:cutVoice,
+    onBeat:function(r,s){ cutCaption(s); },
+    onEnd:function(s){ cutCaption(s, true); }
+  });
+  /* THE BODIES ARE BAKED ONCE FOR THE WHOLE TAB. Re-baking seven rigs on every
+     scene change would cost 140ms of frozen tab for nothing -- the cast does not
+     change between scenes, only who the beats place. */
+  if(CUT_FRAMES) next.frames=CUT_FRAMES;
+  next.loadTiles(function(){
+    function go(){ CUTSCENE=next; CUT_FRAMES=next.frames; CUTSCENE.draw();
+      if(st) st.textContent='ready'; cutChips();
+      var cap=document.getElementById('cutCap');
+      if(cap) cap.innerHTML='<span style="color:#6f6552">'+BOHEMIA_CUTSCENES[CUT_PICK].title+'</span>'; }
+    if(CUT_FRAMES) go(); else next.bake(go);
+  });
+}
 function cutBoot(done){
   if(CUT_READY){ if(done)done(); return; }
   var cv=document.getElementById('cutCv'); if(!cv) return;
   var st=document.getElementById('cutState');
   if(st) st.textContent='building the family...';
   CUTSCENE=new BohemiaStorySurface.Story({
-    canvas:cv, set:BohemiaColdOpenSet, scene:BOHEMIA_COLD_OPEN, runtime:BohemiaScene,
+    canvas:cv, set:BohemiaColdOpenSet, scene:BOHEMIA_CUTSCENES[CUT_PICK].scene,
+    runtime:BohemiaScene,
     stage:BOH_STAGE, floorplan:BOH_FLOORPLAN,
     paintBody:cutPaintBody,
     speak:cutVoice,
@@ -193,8 +234,9 @@ function cutBoot(done){
   });
   CUTSCENE.loadTiles(function(){
     CUTSCENE.bake(function(){
-      CUT_READY=true;
+      CUT_READY=true; CUT_FRAMES=CUTSCENE.frames;
       CUTSCENE.draw();
+      cutChips();
       if(st) st.textContent='ready';
       if(done)done();
     });
@@ -220,7 +262,9 @@ function cutCaption(s, ended){
   if(!L || !L.text){ cap.innerHTML='<span style="color:#6f6552">'+
       (s.era==='pre_collapse'?'before':'ten years later')+'</span>'; return; }
   cap.innerHTML='<span style="color:#9a8a5e;font-size:11px;letter-spacing:1px">'+
-    cutSpeakerName(L.speaker)+(L.draft?' <span style="color:#6f6552">&middot; draft, edit in WORDS</span>':'')+
+    cutSpeakerName(L.speaker)+(L.draft
+      ?' <span style="color:#6f6552">&middot; draft, edit in WORDS</span>'
+      :' <span style="color:#8ab07f">&middot; YOUR WORDS</span>')+
     '</span><br>'+L.text.replace(/&/g,'&amp;').replace(/</g,'&lt;');
 }
 (function(){
@@ -243,8 +287,15 @@ def main():
     stage_js = read('engine/bohemia_stage.js')
     floor_js = read('engine/bohemia_floorplan.js')
     surface = read('engine/bohemia_story_surface.js')
-    canon = read('records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json')
-    json.loads(canon)                                   # it must be legal before it ships
+    # EVERY authored scene, DISCOVERED. A hardcoded list is how a third scene
+    # gets written and never reaches the tab.
+    scenes = []
+    for fn in sorted(os.listdir(os.path.join(ROOT, 'records'))):
+        if re.match(r'^BOHEMIA_SCENE_.*\.json$', fn):
+            txt = read('records/' + fn)
+            d = json.loads(txt)                         # legal before it ships
+            scenes.append((fn, d.get('id'), d.get('title') or d.get('id'), txt))
+    canon = [t for (f, i, ttl, t) in scenes if i == 'act1_cold_open'][0]
 
     block = (BEGIN + '\n<script>\n'
              '/* INLINED VERBATIM from engine/bohemia_scene.js -- gates/coldopen_gate.js\n'
@@ -264,6 +315,11 @@ def main():
              '\n/* THE AUTHORED SCENE, verbatim from records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json.\n'
              '   It lives in records/ because it is Paolo canon, not engine code. */\n'
              'var BOHEMIA_COLD_OPEN = ' + canon.strip() + ';\n'
+             + 'var BOHEMIA_CUTSCENES = [\n'
+             + ',\n'.join('  {file:%s, title:%s, scene:%s}'
+                           % (json.dumps(f), json.dumps(ttl), t.strip())
+                           for (f, i, ttl, t) in scenes)
+             + '\n];\n'
              + GLUE +
              '\n</script>\n' + END)
 

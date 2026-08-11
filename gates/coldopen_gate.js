@@ -137,6 +137,38 @@ if (fs.existsSync(POOL_PATH) && tiles.length) {
     (gore.length ? ' — ' + gore.map(function (g) { return g.name; }).join(', ') : ''));
 }
 
+/* ---- 4b. EVERY SCENE IS REACHABLE, AND THE PICKER IS NOT A HARDCODED LIST -- */
+/* NAME THE TAB: a scene he cannot reach does not exist to him, and that is
+   exactly how the cold open sat in a terminal for two days. The tab lists what
+   SHIPPED, discovered off disk by the patch tool, so a third scene reaches him
+   without anybody remembering to add a button. */
+var sceneFiles = fs.readdirSync('records')
+  .filter(function (f) { return /^BOHEMIA_SCENE_.*\.json$/.test(f); }).sort();
+ok(sceneFiles.length >= 2, 'more than one authored scene exists (' + sceneFiles.length + ')');
+var missingFromTab = [];
+sceneFiles.forEach(function (f) {
+  var d = JSON.parse(fs.readFileSync('records/' + f, 'utf8'));
+  var title = d.title || d.id;
+  if (alpha.indexOf('title:' + JSON.stringify(title)) < 0) missingFromTab.push(f);
+});
+ok(missingFromTab.length === 0, 'EVERY authored scene is in the CUTSCENE tab\'s picker' +
+  (missingFromTab.length ? ' — UNREACHABLE: ' + missingFromTab.join(', ') : ''));
+ok(/id="cutPick"/.test(alpha), 'and the picker is on the panel');
+/* HIS OWN WORDS ARE MARKED AS HIS ON SCREEN, so he can tell at a glance which
+   lines are a lane's draft and which are the ones he wrote himself. */
+var hisLines = 0;
+sceneFiles.forEach(function (f) {
+  var d = JSON.parse(fs.readFileSync('records/' + f, 'utf8'));
+  (d.beats || []).forEach(function (b) {
+    if (b.kind === 'say' && b.draft === false) {
+      hisLines++;
+      ok(!!b.source, f + '#' + b.id + ' is marked HIS and names the ruling it was quoted from');
+    }
+  });
+});
+ok(hisLines === 0 || /your words/i.test(alpha),
+  'his own lines are labelled YOUR WORDS on screen, never "draft" (' + hisLines + ' of them)');
+
 /* ---- 5. ONE-LINK LAW ----------------------------------------------------- */
 ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
    !fs.existsSync('slices/BOHEMIA_CUTSCENE_CURRENT.html'),
