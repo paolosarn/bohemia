@@ -10842,6 +10842,208 @@ function isNight(){ return T.min>=19*60||T.min<6*60; }
 function clockStr(){ const h=(T.min/60)|0, m=Math.floor(T.min%60); return 'DAY '+T.day+' · '+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
 
 // ---- modes ----
+/* ==== engine/bohemia_vista.js (inlined verbatim) ==== */
+// BOHEMIA VISTA — THE MOUNTAIN OVERLOOK (8/9/26, CITY lane, co-owned with RUN)
+//
+// Paolo 8/4, THE DEMO PLAN row 2 and row 11, and again 8/9 ("demo-critical"):
+//   "I want that main quest origin in it when ur sibling dies and you get to see
+//    the outlook in the city type shit"
+//   THE VISTA: the mountain overlook where you SEE the whole valley for the first
+//   time -- the BotW-style outlook, canon as a RETURN point that upgrades per act.
+//   THE DEMO'S MONEY SHOT.
+//
+// THE PLAN'S OWN CONSTRAINT, AND IT IS THE WHOLE DESIGN:
+//   "the city view machinery already renders the valley; this is a camera moment
+//    + a walkable overlook spur, NOT A NEW RENDERER."
+// So nothing here draws. It answers three questions and hands them to the camera:
+//   WHERE do you stand      -> overlook(world)
+//   WHAT can you see        -> survey(world, from)
+//   HOW is it framed        -> framing(world, from)
+//
+// ============================================================================
+// MAP LAW: CLAUDE NEVER DESIGNS MAP LAYOUTS. PLUMBING ONLY. PAOLO PLACES CANON.
+// ============================================================================
+// So the overlook is NOT authored. It is DERIVED from the map the seed already
+// made, by measuring every mountain cell that touches the valley and scoring what
+// it can actually see. If Paolo ever places THE overlook himself, CANON below
+// takes it and the derivation stops -- the mechanism is mine, the location is his
+// the moment he wants it to be.
+//
+// WHY A MOUNTAIN CELL ON THE RIM, and this is real Las Vegas geography: the valley
+// is a basin ringed by mountains (Spring Mountains west, Frenchman and Sunrise
+// east, McCullough south). Every real overlook into Vegas is exactly this -- you
+// are on the rim looking down the bowl. The derivation looks for the same thing
+// the geography already produces: high ground with the most built valley in front
+// of it and open sightlines across it.
+(function(root){
+  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
+  var OM=HASREQ ? require('./bohemia_overmap.js')
+                : (typeof BohemiaOvermap!=='undefined'?BohemiaOvermap:root.BohemiaOvermap);
+
+  var VERSION='8/9/26';
+
+  /* CONTENTS-PAOLO'S. Empty until he places one. A cell here wins over every
+     derived candidate, and nothing in this file guesses at it. */
+  var CANON=null;               // e.g. {x:12,y:44,name:'...'} when he rules it
+
+  /* the rim: high ground you cannot walk through, which is what you stand ON */
+  var HIGH={mountain:1};
+  /* what counts as VALLEY you came to look at -- built land and the roads that
+     stitch it. Bare desert is not a view, it is the gap between views. */
+  var EMPTY={desert:1, mountain:1, water:1, wash:1, basin:1};
+
+  function at(world,x,y){
+    if(x<0||y<0||x>=OM.OVER_N||y>=OM.OVER_N) return null;
+    return world.at(x,y);
+  }
+  function isHigh(t){ return !!(t&&HIGH[t.district]); }
+  function isValley(t){ return !!(t&&!EMPTY[t.district]); }
+
+  /* ========================================================================
+     WHERE YOU STAND — derived, deterministic, never authored
+     ========================================================================
+     A candidate is a mountain cell with at least one non-mountain neighbour (it
+     is ON the rim, not buried in the range). Its score is what it can SEE:
+     rays are cast across the basin and every built cell they reach counts, with
+     nearer cells worth more, because a vista is a foreground of city that fades
+     into distance -- not a far-off smudge. A ray STOPS at high ground, so a peak
+     behind another peak scores what it actually sees and not what is behind it. */
+  var RAYS=24, REACH=46;
+  function seenFrom(world,x,y){
+    var total=0, cells=0, i, k;
+    for(i=0;i<RAYS;i++){
+      var a=(i/RAYS)*Math.PI*2, dx=Math.cos(a), dy=Math.sin(a);
+      for(k=2;k<=REACH;k++){
+        var nx=Math.round(x+dx*k), ny=Math.round(y+dy*k);
+        var t=at(world,nx,ny);
+        if(!t) break;
+        if(isHigh(t)) break;                       // the ridge blocks the ray
+        if(isValley(t)){ cells++; total+=1/(1+k/12); }   // nearer reads stronger
+      }
+    }
+    return {score:total, cells:cells};
+  }
+  function onRim(world,x,y){
+    var d=[[1,0],[-1,0],[0,1],[0,-1]], i;
+    for(i=0;i<4;i++){ var t=at(world,x+d[i][0],y+d[i][1]); if(t&&!isHigh(t)) return true; }
+    return false;
+  }
+
+  /* overlook(world) -> {x,y,score,cells,derived,why}
+     Scans every cell once. 9,216 cells x 24 rays is cheap and runs at boot, but
+     the result is memoised per world because the answer cannot change for a seed. */
+  var _cache={};
+  function overlook(world){
+    if(CANON) return {x:CANON.x, y:CANON.y, derived:false, why:'placed by Paolo', score:null, cells:null};
+    var key=String(world&&world.seed);
+    if(_cache[key]) return _cache[key];
+    var best=null, x, y;
+    for(y=0;y<OM.OVER_N;y++)for(x=0;x<OM.OVER_N;x++){
+      var t=at(world,x,y);
+      if(!isHigh(t)) continue;
+      if(!onRim(world,x,y)) continue;
+      var s=seenFrom(world,x,y);
+      if(s.cells<40) continue;                     // a ledge over nothing is not a vista
+      if(!best||s.score>best.score) best={x:x,y:y,score:s.score,cells:s.cells};
+    }
+    if(!best) return null;
+    best.derived=true;
+    best.why='highest-scoring rim cell: ' + best.cells + ' built cells in sight';
+    _cache[key]=best;
+    return best;
+  }
+
+  /* ========================================================================
+     WHAT YOU CAN SEE — the survey behind the caption
+     ========================================================================
+     Not decoration: the vista has to be able to SAY what you are looking at, and
+     a caption that names real districts is the difference between a map screen
+     and a moment. Returns the districts in view by weight, nearest first. */
+  function survey(world,from){
+    if(!from) return null;
+    var seen={}, cells=0, i, k, nearest=null;
+    for(i=0;i<RAYS;i++){
+      var a=(i/RAYS)*Math.PI*2, dx=Math.cos(a), dy=Math.sin(a);
+      for(k=2;k<=REACH;k++){
+        var nx=Math.round(from.x+dx*k), ny=Math.round(from.y+dy*k);
+        var t=at(world,nx,ny);
+        if(!t) break;
+        if(isHigh(t)) break;
+        if(!isValley(t)) continue;
+        cells++;
+        seen[t.district]=(seen[t.district]||0)+1;
+        if(!nearest||k<nearest.d) nearest={d:k,district:t.district,x:nx,y:ny};
+      }
+    }
+    var order=Object.keys(seen).sort(function(a,b){return seen[b]-seen[a];});
+    return {cells:cells, districts:order, counts:seen, nearest:nearest,
+            /* the real distance you are looking across, in metres, off the canon
+               cell size -- so the caption can be true rather than impressive */
+            reachM: REACH*OM.CELL_M*OM.TILE_FINE};
+  }
+
+  /* ========================================================================
+     HOW IT IS FRAMED — a camera moment, not a renderer
+     ========================================================================
+     The valley view is isometric and already exists. All this says is: put the
+     camera cell at the overlook, and zoom out far enough that the basin in front
+     of you fills the frame. `tw` is the iso tile width the caller should use;
+     everything else about drawing stays exactly as it was. */
+  function framing(world,from,screenW,screenH){
+    from=from||overlook(world);
+    if(!from) return null;
+    var s=survey(world,from);
+    /* fit the sighted depth across the shorter screen axis, then clamp to the
+       zoom range the existing view already supports. Never a fractional tile:
+       the mobile render contract bans non-integer scale. */
+    var span=Math.max(12,Math.min(REACH,Math.ceil(Math.sqrt(s?s.cells:100))+8));
+    var tw=Math.max(6,Math.floor(Math.min(screenW||390,screenH||844)/span));
+    if(tw%2) tw--;                                  // even width keeps the iso diamond whole
+
+    /* YOU LOOK ACROSS A VALLEY, YOU DO NOT HOVER OVER A LEDGE.
+       The first cut centred the camera on the overlook cell itself. The overlook
+       is by definition on the RIM, so half the frame came back empty sky and the
+       city sat squashed in one corner -- a map screen, not a money shot. I only
+       saw it by looking at the render.
+       The camera looks at a point most of the way toward the CENTRE OF WHAT IS
+       VISIBLE, which puts the rim at the near edge and lays the basin out in
+       front of you: the BotW outlook composition, and the one real overlooks
+       have, because you are standing at the edge of the bowl looking in. */
+    var look={x:from.x, y:from.y};
+    if(s&&s.cells) {
+      var c=centroid(world,from);
+      if(c){ look={ x:Math.round(from.x+(c.x-from.x)*LOOK_BIAS),
+                    y:Math.round(from.y+(c.y-from.y)*LOOK_BIAS) }; }
+    }
+    return {cx:look.x, cy:look.y, tw:tw, th:Math.max(3,tw>>1), span:span,
+            standingAt:{x:from.x,y:from.y}, from:from, survey:s};
+  }
+  /* where the visible valley actually sits, so the camera has something true to
+     aim at rather than a guessed offset in some compass direction */
+  var LOOK_BIAS=0.72;
+  function centroid(world,from){
+    var sx=0, sy=0, n=0, i, k;
+    for(i=0;i<RAYS;i++){
+      var a=(i/RAYS)*Math.PI*2, dx=Math.cos(a), dy=Math.sin(a);
+      for(k=2;k<=REACH;k++){
+        var nx=Math.round(from.x+dx*k), ny=Math.round(from.y+dy*k);
+        var t=at(world,nx,ny);
+        if(!t) break;
+        if(isHigh(t)) break;
+        if(isValley(t)){ sx+=nx; sy+=ny; n++; }
+      }
+    }
+    return n? {x:sx/n, y:sy/n} : null;
+  }
+
+  var API={VERSION:VERSION, overlook:overlook, survey:survey, framing:framing, centroid:centroid,
+           CANON:CANON, setCanon:function(c){ CANON=c; _cache={}; },
+           RAYS:RAYS, REACH:REACH, HIGH:HIGH, EMPTY:EMPTY,
+           isHigh:isHigh, isValley:isValley, onRim:onRim, seenFrom:seenFrom};
+  if(HASREQ) module.exports=API;
+  root.BohemiaVista=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
 let MODE='city';                       // 'city' | 'human'
 const city={x:0,y:0};                  // marker on overmap slots
 /* __WORKING_DISTRICT__ (Paolo 8/2: "it keeps opening up in the very center of the map
@@ -13177,6 +13379,99 @@ function deadDraw(ox,oy){
   }
 }
 
+
+/* ==== THE VISTA (8/9, CITY lane, co-owned with RUN) =========================
+   Paolo: "you get to see the outlook in the city type shit". THE DEMO'S MONEY
+   SHOT, and by the demo plan's own rule it is a CAMERA MOVE, not a renderer:
+   the isometric valley view has drawn this map since 7/6, so the vista points it
+   at the overlook and gets out of the way.
+   THE OVERLOOK IS DERIVED, NEVER AUTHORED (MAP LAW). BohemiaVista scores every
+   mountain cell on the valley rim by what it can actually see, and the winner is
+   wherever this seed happened to put the best vantage. ==== */
+let VISTA=null;            // {returnTo:{hx,hy,mode}, card, at} while it is open
+function vistaWhere(){ try{ return BohemiaVista.overlook(WORLDREF||om); }catch(e){ return null; } }
+let WORLDREF=null;
+try{ WORLDREF={ seed:om.seed, at:function(x,y){ return om.at(x,y); } }; }catch(e){}
+
+/* the card: what you are looking at, in his words not a stat line */
+function vistaCard(s){
+  if(!s||!s.districts||!s.districts.length) return 'THE VALLEY';
+  const NAME={strip:'the Strip', downtown:'downtown', resort:'the resorts',
+    casino:'the casinos', suburb:'the neighbourhoods', estate:'the big houses',
+    apartment:'the towers', freeway:'the freeway', arterial:'the boulevards',
+    industrial:'the yards', airport:'the airport', solar:'the solar fields',
+    farm:'the farms', cemetery:'the cemetery', downtown_:'downtown'};
+  const named=s.districts.map(d=>NAME[d]).filter(Boolean).slice(0,3);
+  const km=(s.reachM/1000);
+  if(!named.length) return 'THE VALLEY · ' + s.cells + ' blocks of it';
+  return named.join(', ') + ' · ' + km.toFixed(1) + ' km of it';
+}
+
+/* vistaOpen(): stand the camera on the overlook and frame the basin.
+   Returns false and changes NOTHING if this seed has no rim vantage -- a moment
+   that silently plays on an empty ledge is worse than one that does not play. */
+function vistaOpen(){
+  if(VISTA) return true;
+  let o=null, f=null;
+  try{ o=BohemiaVista.overlook(WORLDREF); f=o&&BohemiaVista.framing(WORLDREF,o,cv.width,cv.height); }catch(e){ return false; }
+  if(!o||!f) return false;
+  VISTA={ returnTo:{hx:hx, hy:hy, mode:MODE}, at:o,
+          card:vistaCard(f.survey), survey:f.survey };
+  MODE='city'; city.x=f.cx; city.y=f.cy; panX=0;
+  /* LIFT THE HORIZON. Dead-centring the look-at left a third of the frame as
+     empty sky, which is a screenshot of nothing. A tenth of a screen of pan puts
+     the basin where the eye goes and keeps sky above it, which is what an
+     overlook actually looks like. */
+  panY=-Math.round(cv.height*0.10);
+  TW=f.tw; TH=f.th;
+  render();
+  vistaCardDraw();
+  window.__VISTA_OPEN=(window.__VISTA_OPEN||0)+1;
+  return true;
+}
+function vistaClose(){
+  if(!VISTA) return false;
+  const r=VISTA.returnTo; VISTA=null;
+  const el=document.getElementById('vistaCard'); if(el) el.remove();
+  hx=r.hx; hy=r.hy; MODE=r.mode;
+  TW=18; TH=9;                                   /* the view's own default zoom */
+  render();
+  return true;
+}
+/* the card is DOM, not painted into the canvas: the art underneath is the shot,
+   and text burned into the frame would be text burned into every screenshot of
+   it forever. */
+function vistaCardDraw(){
+  if(!VISTA) return;
+  let el=document.getElementById('vistaCard');
+  if(!el){ el=document.createElement('div'); el.id='vistaCard';
+    el.style.cssText='position:absolute;left:0;right:0;top:64px;z-index:45;text-align:center;'
+      +'pointer-events:none;font:12px ui-monospace,monospace;letter-spacing:2px';
+    (document.getElementById('wrap')||document.body).appendChild(el); }
+  el.innerHTML='<div style="display:inline-block;background:rgba(12,10,8,.74);border:1px solid #3a3020;'
+    +'border-radius:8px;padding:8px 14px;color:#e6d9b8">THE VALLEY<br>'
+    +'<span style="color:#c8a848;font-size:11px">'+VISTA.card+'</span></div>';
+}
+
+/* ARMED IN THE WALKED WORLD: step onto the overlook and it fires, once.
+   Checked on the beat rather than every frame -- it is a cell test, and the 120
+   BPM law already gives every lane one tick to hang cheap checks on. */
+let VISTA_SEEN=false;
+function vistaCheck(){
+  if(VISTA||VISTA_SEEN||MODE!=='human') return;
+  const o=vistaWhere(); if(!o) return;
+  const cx=(hx/FN)|0, cy=(hy/FN)|0;
+  if(cx===o.x&&cy===o.y){ VISTA_SEEN=true; vistaOpen(); }
+}
+
+/* THE SEAM THE RUN LANE CONSUMES. The vista is demo row 11 and it is co-owned:
+   RUN plays it from the day loop and the cold open, CITY owns where it is and
+   what it looks like. This is the whole interface, so neither lane has to reach
+   into the other's file. */
+window.__VISTA={ open:vistaOpen, close:vistaClose, where:vistaWhere,
+  isOpen:function(){ return !!VISTA; },
+  survey:function(){ try{ return BohemiaVista.survey(WORLDREF, vistaWhere()); }catch(e){ return null; } } };
+
 function renderHuman(){
   const C=HC;
   const ox=Math.round(cv.width/2-hx*C), oy=Math.round(cv.height/2-hy*C);   /* PIXEL FIX: whole-pixel camera - an odd canvas height put every tile on a half pixel */
@@ -13213,6 +13508,7 @@ function renderHuman(){
     }
   }
   tpDraw(ox,oy);
+  vistaCheck();   /* __THE_VISTA__ */
   deadDraw(ox,oy);   /* __THE_DEAD__ */
   /* SUN: the masses throw their shadows on the GROUND -- after the baked ground
      and the tile scatter, before any wall, any resident and the player. A shadow

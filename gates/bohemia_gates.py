@@ -281,6 +281,11 @@ GATES = [
      "Paolo 8/8 LOCKED: 'just give me pictures and put it in a tab'. Every new thing is "
      "PHOTOGRAPHED off the real screen and shown in the LOOK tab, captioned, naming its own tab -- "
      "because a feature he has to walk 84.9 km2 to find is a feature he never judges", False),
+    ('VISTA',          ['node', 'gates/vista_gate.js'],
+     "DEMO ROW 11, the money shot: the mountain overlook where you see the whole valley. "
+     "The overlook is DERIVED from the seed's own rim (MAP LAW), the camera LOOKS ACROSS the "
+     "basin instead of hovering over the ledge, and it stays a CAMERA MOVE -- the plan's own "
+     "rule is 'not a new renderer', so a bespoke draw loop in the vista block fails here", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],

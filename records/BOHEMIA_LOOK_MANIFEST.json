@@ -37,7 +37,7 @@
     "y": 2954,
     "zoom": 44
    },
-   "kb": 328.5,
+   "kb": 328.9,
    "stamp": "8/8/26"
   },
   {
@@ -51,6 +51,15 @@
     "zoom": 22
    },
    "kb": 499.9,
+   "stamp": "8/8/26"
+  },
+  {
+   "id": "vista",
+   "title": "THE VISTA: the mountain overlook",
+   "caption": "THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.",
+   "file": "look/vista.png",
+   "at": null,
+   "kb": 426,
    "stamp": "8/8/26"
   }
  ]

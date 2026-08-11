@@ -41,6 +41,12 @@ const STAMP = process.env.BOHEMIA_LOOK_STAMP || '8/8/26';
  * ------------------------------------------------------------------------- */
 const SUBJECTS = [
   {
+    id: 'vista',
+    title: 'THE VISTA: the mountain overlook',
+    caption: 'THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.',
+    open: `(() => { if (!window.__VISTA) return null; return window.__VISTA.open() ? {vista:true} : null; })()`,
+  },
+  {
     id: 'dead-suburb',
     title: 'THE DEAD: a suburban street',
     caption: 'Bones lying in the open on a suburb street, bleached and scattered by ten years of scavengers. RUN tab.',
@@ -110,6 +116,41 @@ function ensureDir(d) { fs.mkdirSync(d, { recursive: true }); }
   const shots = [];
   for (const s of SUBJECTS) {
     if (ONLY && s.id !== ONLY) continue;
+    /* A SUBJECT MAY OPEN ITSELF. The vista is a camera MOMENT, not a thing lying
+       on the ground, so it has no world position to hunt for -- it has a trigger.
+       Same contract either way: it either produces a real frame or it writes no
+       picture and says why. */
+    if (s.open) {
+      let got = null, err = '';
+      try { got = await page.evaluate(s.open); } catch (e) { err = ' — ' + String(e.message || e).split('\n')[0].slice(0, 120); }
+      if (!got) { console.log('  MISS  ' + s.id.padEnd(16) + 'the moment did not open' + err); continue; }
+      await page.waitForTimeout(1400);
+      await page.evaluate(() => {
+        window.__LOOK_HIDDEN = [];
+        const cv = document.getElementById('cv');
+        for (const el of document.body.querySelectorAll('*')) {
+          if (el === cv || el.contains(cv)) continue;
+          if (el.id === 'vistaCard' || el.closest('#vistaCard')) continue;   // the card IS part of the moment
+          const cs = getComputedStyle(el);
+          if (cs.position !== 'absolute' && cs.position !== 'fixed') continue;
+          if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+          const r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) continue;
+          window.__LOOK_HIDDEN.push([el, el.style.visibility]); el.style.visibility = 'hidden';
+        }
+      });
+      const file2 = path.join(OUTDIR, s.id + '.png');
+      await page.screenshot({ path: file2 });
+      await page.evaluate(() => {
+        for (const [el, v] of (window.__LOOK_HIDDEN || [])) { try { el.style.visibility = v; } catch (e) {} }
+        window.__LOOK_HIDDEN = [];
+        try { window.__VISTA && window.__VISTA.close(); } catch (e) {}
+      });
+      const kb2 = fs.statSync(file2).size / 1024;
+      shots.push({ id: s.id, title: s.title, caption: s.caption, file: 'look/' + s.id + '.png',
+                   at: null, kb: +kb2.toFixed(1), stamp: STAMP });
+      console.log('  SHOT  ' + s.id.padEnd(16) + kb2.toFixed(0).padStart(5) + ' KB   (a moment, not a place)');
+      continue;
+    }
     let spot = null, why = '';
     /* DO NOT SWALLOW THE REASON. The first run of this tool reported four clean
        MISSes and told me nothing, because the catch threw the error away -- the
