@@ -645,6 +645,17 @@ GATES = [
      "THE ONE LINK OPENS THE GAME. On 8/2 one dropped </div> nested the whole app inside the front splash, so tapping the splash hid the game: 0x0, no tabs, a black screen on the only URL Paolo ever taps. The splash must close before the app opens, and the door is walked through in a real browser", True),
     ('STANDING',       ['node', 'gates/standing_gate.js'],
      "Paolo thumbed all 12 faction gaps WANT: this is gap 3, the documented failure of the whole genre - every NPC instantly knowing what you did with no route the news could take. Reputation now has to TRAVEL: a deed is WITNESSED not announced, an opinion is DERIVED from memories that decay (so redemption is free - gap 4), hearsay is weaker than eyesight and runs out of hops so a rumour cannot cross the valley, and a faction's view is just its members' views - no ledger, no faction named in the module, and zero-sum falls out for free (gap 7). DEED_WEIGHT ships EMPTY and the gate proves the module is inert until he rules", False),
+    ('NO HUNTING',     ['python3', 'gates/no_hunting_gate.py'],
+     "Paolo 8/11: 'you can't have me test shit out in the run app for real like unless you're gonna "
+     "place me right in front of it every time... I'm not hunting bro like how the fuck am I supposed "
+     "to find what you want me to find.' A turn shipped a real feature INTO the run (correct - that "
+     "is where a player meets it) and then told him to reach it by playing the block quest and "
+     "opening the phone. That is minutes of navigation to confirm one readout, and if a trigger does "
+     "not fire he concludes the work is broken, so a hunting instruction turns good work into a FALSE "
+     "NEGATIVE. Fires only on the exact costly shape - a look-here pointer whose route is the run, "
+     "with chained steps - never on the word 'run' and never on shipping into it. Also holds: every "
+     "hub card points at a page that exists, and a surface shipped for judgement RUNS ITSELF on load "
+     "instead of waiting for a tap. Self-tests by feeding itself the sentence that earned the law", True),
     ('CONTINUITY',     ['node', 'gates/continuity_gate.js'],
      "Paolo 8/7 answered A: 'a bond built in one quest opens a door in another. Continuity is the "
      "dynasty.' Quest state is PER-QUEST by construction, so 44 authored @DO bond rulings could never "

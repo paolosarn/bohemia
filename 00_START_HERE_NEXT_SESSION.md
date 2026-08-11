@@ -1,3 +1,37 @@
+FACTIONS (factions-ovkjpf): 8/11 (s) LATEST — *** NEW LAW, HIS: NEVER MAKE HIM HUNT. ***
+laws/BOHEMIA_ADDENDUM_NEVER_MAKE_HIM_HUNT_8_11_26.md. Gate: NO HUNTING, 7/7, BLOCKING.
+Tab: LIFE -> WHAT IT COST YOU (top card, opens on it, nothing to tap).
+
+HIS WORDS: "you can't have me test shit out in the run app for real like unless you're
+gonna place me right in front of it every time... I'm not hunting bro like how the fuck
+am I supposed to find what you want me to find so put a new rule somewhere never tell
+me to check something out by checking the run app"
+
+WHAT EARNED IT WAS MINE, the turn before. I shipped the faction consequence line INTO
+the run -- correct, that is where a player meets it -- and then told him to reach it by
+playing the block quest and opening the phone. Minutes of navigation to confirm one
+readout, and if a trigger does not fire he concludes the work is broken. A HUNTING
+INSTRUCTION TURNS GOOD WORK INTO A FALSE NEGATIVE, which is worse than not surfacing it.
+
+THE RULE: never route him through the run to inspect something. Place him right in
+front of it, every time. If it needs steps to reach, it is not shipped for judgement.
+The run is for PLAYING, never for INSPECTING. Shipping INTO the run stays correct and
+encouraged -- the ban is on using it as an inspection route.
+
+FIXED THE SAME TURN: slices/BOHEMIA_WHAT_IT_COST_8_11_26.html, top card in LIFE. All
+89 endings across his 21 canon quests, each showing the exact card the phone gives him
+-- follower count, then WORD CARRIED n TILES, which factions moved and to what rung,
+who got stirred up. Renders on load. Same modules and same reachOf()/rungOf() calls the
+run makes, so the page cannot drift into showing something the game does not do.
+
+GATE: no_hunting_gate.py, BLOCKING. Fires only on the exact costly shape (a look-here
+pointer + the run as the route + chained steps), never on the word "run" and never on
+shipping into it. Self-tests by feeding itself the sentence that earned the law. Also
+holds: every hub card points at a page that EXISTS, and a judged surface RUNS ITSELF on
+load. Its first cut had a VACUOUS claim -- it looked for page filenames inside the
+handoff, found zero, and passed green -- so it was turned around to sweep the hubs,
+where the set can never be empty. That trap has now been caught three times in two days.
+
 ART (f3eu53): 8/11 (b) LATEST -- *** THE FIRST APPROVED FAMILY IS IN THE GAME:
 THE RAILYARD DRAWS HIS APPROVED TRACKS. CORRECT-AFTER, AS THE NEW LAW ORDERS. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (third-pass section)
@@ -20,7 +54,10 @@ ART (f3eu53): 8/11 (a) -- *** THE TILE BOARD VERDICT IS IN: 14 FAMILIES
 
 FACTIONS (factions-ovkjpf): 8/11 (r) LATEST — *** THE RUN FINALLY SHOWS WHAT A QUEST
 COST YOU. THE INTEGRATION LEDGER'S OLDEST PARTIAL IS CLOSED. ***
-Tab: RUN -> play the block quest -> the phone. 27/32 systems now integrated (was 25/31).
+Tab: LIFE -> WHAT IT COST YOU (opens on it, nothing to tap). It ALSO landed in the
+RUN's phone where a player meets it, but NEVER send him into the run to check it --
+laws/BOHEMIA_ADDENDUM_NEVER_MAKE_HIM_HUNT_8_11_26.md, which this line earned.
+27/32 systems now integrated (was 25/31).
 
 "WE HAVE A DEMO TO SHIP" changed the target, so I went to the integration ledger
 instead of building another system. The oldest PARTIAL, sitting there since 7/26:
