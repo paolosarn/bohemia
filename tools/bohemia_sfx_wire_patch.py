@@ -404,7 +404,7 @@ def parent_block(bank):
      can never trigger this, and only a real skip (sleep, a wait, a long
      journey) can. Midnight is handled: 22:00 -> 06:00 reads as -960, which is
      eight hours forward, not minus sixteen. */
-  var LASTMIN=null, LASTJUMP=null, TP_MIN=60;
+  var LASTMIN=null, LASTJUMP=null, TP_MIN=60, TP_LOG=[];
   function timePass(d){
     try{
       var m=+d.min; if(!isFinite(m)) return;
@@ -412,8 +412,20 @@ def parent_block(bank):
       var jump=m-LASTMIN; if(jump<0) jump+=1440;
       LASTMIN=m;
       LASTJUMP=jump;
-      if(jump<TP_MIN) return;
-      strikeHours(Math.round(jump/60));
+      var struck=0;
+      if(jump>=TP_MIN) struck=strikeHours(Math.round(jump/60));
+      /* ONE ROW PER CLOCK MOVE, AND THE ROW OWNS ITS OWN STRIKES (8/12).
+         Reporting only the LAST jump was not enough to tell a test's clock move
+         from the run's. postMessage is asynchronous: the run's own four-second
+         report can be DELIVERED between a test clearing its counter and the
+         test's own message arriving, so its twelve strikes land in the test's
+         count while the final jump still reads as the test's. Third time this
+         class of bug has been shortened instead of closed. A per-call row
+         closes it: a measurement asks for the row whose jump is the one it
+         asked for, and somebody else's row is simply not that row. COUNT THE
+         THING, NOT EVERYTHING. */
+      TP_LOG.push({jump:jump, strikes:struck});
+      if(TP_LOG.length>200) TP_LOG.shift();
     }catch(e){}
   }
   /* jump is reported so a test can tell ITS OWN clock move from somebody
@@ -422,7 +434,9 @@ def parent_block(bank):
      real strikes -- indistinguishable from the test's own unless the game says
      what it actually computed. */
   window.__timePassStats=function(){
-    return {floorMin:TP_MIN, max:STRIKE_MAX, last:LASTMIN, jump:LASTJUMP}; };
+    return {floorMin:TP_MIN, max:STRIKE_MAX, last:LASTMIN, jump:LASTJUMP,
+            rows:TP_LOG.length}; };
+  window.__timePassLog=function(from){ return TP_LOG.slice(from||0); };
 
   /* === SOMEBODY ELSE'S FOOTSTEP, PLACED IN SPACE (8/2) ==================
      THE DISTANCE MODEL IS THE RESEARCHED ONE, not a guess: a point source

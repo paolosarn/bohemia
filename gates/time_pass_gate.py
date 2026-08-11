@@ -130,26 +130,35 @@ const pw = pwmod();
   // one we asked for. Interference is now detected rather than averaged over,
   // and if it cannot get a clean run in five tries it says so instead of
   // reporting somebody else's clock as ours.
+  // ASK THE GAME FOR THE ROW THAT IS MINE (8/12). Clearing a counter and
+  // posting in one evaluate closed the gap between those two statements, but
+  // postMessage is ASYNCHRONOUS: the run's own four-second report can be
+  // DELIVERED between the clear and the arrival of this test's message, so its
+  // twelve strikes land in the count while the final jump still reads as the
+  // test's and the assertion below waves it through. Third time this class was
+  // shortened rather than closed, and the flake came back both times.
+  //
+  // The wire now keeps ONE ROW PER CLOCK MOVE, each owning the strikes it
+  // caused. A measurement takes the rows added since it started and asks for
+  // the one whose jump is the jump it asked for. Somebody else's clock move is
+  // its own row and is simply not this row -- there is no window left to land
+  // in. COUNT THE THING, NOT EVERYTHING.
   async function clockOnce(fromMin, toMin){
     await p.evaluate(a => {
       window.postMessage({type:'BOHEMIA_WHERE', inside:false, night:false, min:a, space:'STREET'}, '*');
     }, fromMin);
     if (!await settle(fromMin)) return null;
-    // CLEAR AND POST IN ONE CALL. Two separate evaluates leave a real gap
-    // between them, and the run's own four-second clock report lands in that
-    // gap -- a genuine nineteen-hour jump that strikes twelve and gets counted
-    // as the ten-minute snack's. Closing the window to zero is the fix; the
-    // jump assertion below stays as the backstop for anything that still slips.
+    const base = await p.evaluate(() => window.__timePassStats().rows);
     await p.evaluate(b => {
-      window.__rr = [];
       window.postMessage({type:'BOHEMIA_WHERE', inside:false, night:false, min:b, space:'STREET'}, '*');
     }, toMin);
     if (!await settle(toMin)) return null;
     await p.waitForTimeout(160);
-    const st = await p.evaluate(() => window.__timePassStats());
     let want = toMin - fromMin; if (want < 0) want += 1440;
-    if (st.jump !== want) return null;          // somebody else's clock got in
-    return (await p.evaluate(() => window.__rr.slice())).length;
+    const rows = await p.evaluate(n => window.__timePassLog(n), base);
+    const mine = rows.filter(r => r.jump === want);
+    if (mine.length !== 1) return null;         // nothing of mine, or ambiguous
+    return mine[0].strikes;
   }
   async function clock(fromMin, toMin){
     for (let i = 0; i < 5; i++) {
@@ -198,13 +207,20 @@ const pw = pwmod();
     })).catch(() => null);
     out.sleepLabel = before && before.label;
     out.sleepBefore = before && before.min;
-    await p.evaluate(() => { window.__rr = []; });
+    // SAME ROW RULE ON THE REAL PATH. Here the clock move IS the game's own --
+    // that is the point of this leg -- so "mine vs theirs" is not the question;
+    // the question is WHICH move, and a second report inside the nine-second
+    // wait would otherwise be added to the sleep's count.
+    const base = await p.evaluate(() => window.__timePassStats().rows);
     await fr.evaluate(() => { const a = document.getElementById('act'); if (a) a.click(); })
             .catch(() => {});
     await p.waitForTimeout(9000);            // the run reports its clock every 4s
     out.sleepAfter = await fr.evaluate(() => window.__RUN_PEOPLE ? window.__RUN_PEOPLE.minute() : -1)
                              .catch(() => -1);
-    out.sleepStrikes = await p.evaluate(() => window.__rr.length);
+    let want = out.sleepAfter - out.sleepBefore; if (want < 0) want += 1440;
+    const rows = await p.evaluate(n => window.__timePassLog(n), base);
+    const mine = rows.filter(r => r.jump === want);
+    out.sleepStrikes = mine.length === 1 ? mine[0].strikes : -1;
   }
 
   out.stats = await p.evaluate(() => window.__timePassStats ? window.__timePassStats() : null);
