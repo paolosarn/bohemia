@@ -648,6 +648,13 @@ STILL RED, NOT MINE, AND IDENTICAL ON MAIN (verified by stashing to a clean tree
     regions, so this is not something a lane may "fix" -- it needs HIS call on whether
     those two facings ever get a face painted.
 
+TWO GATES GO RED UNDER MACHINE LOAD AND ARE NOT BROKEN. Do not spend a turn on these:
+  RUN BEAT -- "one second of wall clock moved the run 2.370 beats, not 2 (120 BPM)". It
+    measures WALL CLOCK. Red with a gate suite plus browsers running beside it, GREEN on
+    the same tree the moment the box is quiet (load 2.3). Verified both ways 8/11.
+  THE CROWD -- 15/1 on one tree and 16/0 on another with no relevant diff between them.
+  If either goes red, re-run it ALONE before believing it.
+
 NEW GATE: FACE FEAT DIAL (gates/face_feature_scale_gate.js), registered in the suite.
 
 --------------------------------------------------------------------------------
