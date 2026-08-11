@@ -16174,6 +16174,24 @@ function ctRow(k,v){ return '<div class="r"><div class="k">'+k+'</div><div class
 function ctOpen(){
   var p=ctAdjacent(); if(!p) return;
   CT_OPEN=p; ctDraw();
+  /* THE PERSON YOU JUST MET HAS A VOICE (8/11, SOUNDS lane). A MEETING speaks;
+     a redraw does not, which is why this is here and not in ctDraw. The parent
+     owns the voice, the AudioContext and the limiter -- this only reports who
+     and what, exactly like every other sound in this game. */
+  try{
+    var w=ctPerson(p), a=ctAt(p);
+    /* THE SAME FALLBACK CHAIN THE CARD ITSELF DISPLAYS, so she babbles what is
+       literally written about her on screen. Taking the role word instead gave
+       a ONE-WORD utterance ("WATCH"), and one word is not somebody talking, it
+       is a grunt -- the same finding as the dialogue opener. */
+    var line=BohemiaPeople.nowLineOf(w, T.min|0) ||
+             (a[0]===p.home[0] ? 'Standing outside' : 'Out on the block');
+    var nm=BohemiaPeople.nameOf(w);
+    if(nm) line = nm + '. ' + line;   /* once you know it, they lead with it */
+    if(window.parent&&window.parent!==window)
+      window.parent.postMessage({type:'BOHEMIA_VOICE',
+        speaker:'city:'+(w.key||w.role||''), text:line},'*');
+  }catch(_v){}
 }
 /* SPLIT ON PURPOSE: opening a card is a MEETING, redrawing one is not. Counting
    a redraw as a meeting was a real bug on the run surface on 7/31. */

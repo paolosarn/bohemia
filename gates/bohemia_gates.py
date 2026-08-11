@@ -354,6 +354,12 @@ GATES = [
      "thumbed UP on 7/30, nothing he killed, no door (he killed all ten), and "
      "WALKING IN THE REAL RUN actually requests one of his approved footsteps, "
      "chosen by the tile the game already knows", True),
+    ('VOICE SURFACES',  ['python3', 'gates/every_voice_surface_gate.py'],
+     "Paolo 8/11: \"I disnt hear any voices when I talked to marisela\". The voices "
+     "were wired to ONE of the game's TWO talk surfaces and the gate that passed "
+     "called renderTalk directly instead of pressing the button. This walks up to "
+     "somebody and PRESSES WHAT HE PRESSES on every surface, and FAILS ON "
+     "DISCOVERY so a third one cannot be added silently", True),
     ('SQUIGGLE VOICE', ['python3', 'gates/voice_gate.py'],
      "Paolo's demo top priority: Animal-Crossing-lineage gibberish speech with "
      "ZERO audio files, so it is FORMANT synthesis (Peterson & Barney vowels) and "

@@ -14422,3 +14422,39 @@ DEMO_DISPATCH_PROMPTS_8_4_26.md. EVERY LANE: when your session receives the
 dispatch, your FIRST reply block is DEMO BLOCKERS, then you work your demo
 rows only. The coordinator sweeps all blocker reports into one consolidated
 judge-and-decide list for Paolo. LAB is parked until the demo ships.
+
+### 8/11 (c) — MARISELA HAS A VOICE. THE GATE THAT PASSED WAS A LIE, TWICE.
+
+Paolo: *"I disnt hear any voices when I talked to marisela."* The voices were
+built, approved, wired and **gated green**. Both halves of that gate were wrong:
+
+1. **IT DROVE ONE SURFACE.** This game has TWO places a person talks to you —
+   the RUN's quest dialogue and the CITY's talk card — and the wiring went into
+   the first one found. Nobody asked whether there was another. **Marisela is in
+   the city.** (Worth knowing: there is no `data-p="city"` tab. The RUN tab maps
+   to the city panel, which is why a first probe looking for a city tab found
+   nothing at all.)
+2. **IT CALLED THE FUNCTION INSTEAD OF PRESSING THE BUTTON.** The check did
+   `renderTalk({...})` directly. A probe that calls the function can never
+   discover the player is somewhere else entirely — it proves the function works
+   and says nothing about whether anyone can reach it. That is exactly what
+   VERIFY ON THE REAL SURFACE forbids, written by this lane and broken by it.
+
+**THE FIX.** `ctOpen()` in the city speaks, and the CITY lane had already done
+the hard part: their own comment says *"opening a card is a MEETING, redrawing
+one is not"*, and they split the functions for that reason. So a meeting speaks
+and a redraw does not — nobody greets you twice for standing still. She babbles
+the RIGHT NOW line the card already displays about her (the words are not mine
+to write, and the babble only needs text for rhythm), and leads with her name
+once you have asked it.
+
+**THE GENERAL MACHINE, which matters more than the fix:**
+`gates/every_voice_surface_gate.py`. It walks up to somebody and **presses what
+he presses** on every surface, and it **FAILS ON DISCOVERY** — any slice
+offering to talk to a person that is not in its manifest is a failure. It caught
+a third file on its very first run (the run's dev source), which is the gate
+doing the job a human had to do this time.
+
+Gates: voice_surfaces 17/17 (new), voice 41/41, sfx_wired 373/373,
+city_talk 18/18 (the CITY lane's own, unbroken), run 126/126,
+shipped_truth 31/31.

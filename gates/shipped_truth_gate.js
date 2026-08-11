@@ -75,6 +75,7 @@ const SOUND_CLAIMS = [
   ['__strikeHours',   '"have it the amount of time that goes by" -- four hours strike four times'],
   ['BOH_VOICE',       'squiggle voices: people who sound like themselves, out of arithmetic'],
   ['door_clack',      'a door cooked from the materials that beat the ten he killed'],
+  ['speakLine',       'people talk on BOTH surfaces -- Marisela included'],
 ];
 
 let blob = '', found = [];
@@ -101,7 +102,7 @@ console.log('    ' + live + '/' + CLAIMS.length + ' of the RUN lane\'s features 
 
 /* the sound manifest cannot be quietly emptied either */
 ok('the manifest still lists the SOUND lane\'s shipped work (' + SOUND_CLAIMS.length + ')',
-   SOUND_CLAIMS.length >= 13);
+   SOUND_CLAIMS.length >= 14);
 let sLive = 0;
 for (const [marker, why] of SOUND_CLAIMS) {
   const n = blob.split(marker).length - 1;

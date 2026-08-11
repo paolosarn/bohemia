@@ -286,6 +286,71 @@ PANEL = r'''
 '''
 
 
+CITY = os.path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html')
+
+# THE CITY IS THE OTHER PLACE PEOPLE TALK, AND IT WAS SILENT.
+# Paolo, 8/11: "I disnt hear any voices when I talked to marisela." He was in the
+# CITY tab. This lane wired the RUN's quest dialogue and never swept for a SECOND
+# dialogue surface -- and the gate that "proved" it called renderTalk directly
+# instead of walking up and pressing TALK, which is precisely the side-door probe
+# VERIFY ON THE REAL SURFACE exists to forbid. A probe that calls the function
+# can never discover that the player is somewhere else entirely.
+#
+# ctOpen() is the right hook and the CITY lane already did the hard part: their
+# own comment says "opening a card is a MEETING, redrawing one is not", and they
+# split the two functions for exactly that reason. So a meeting speaks, a redraw
+# does not, and nobody greets you twice for standing still.
+#
+# WHAT SHE SAYS IS ALREADY ON THE CARD. The words are not mine to write
+# (CONTENTS-PAOLO'S), and they do not need to be: the babble takes its rhythm
+# from text, and the card already carries the game's own RIGHT NOW line about
+# that person. Asking their name speaks their name back.
+CITY_OPEN_OLD = """function ctOpen(){
+  var p=ctAdjacent(); if(!p) return;
+  CT_OPEN=p; ctDraw();
+}"""
+CITY_OPEN_NEW = """function ctOpen(){
+  var p=ctAdjacent(); if(!p) return;
+  CT_OPEN=p; ctDraw();
+  /* THE PERSON YOU JUST MET HAS A VOICE (8/11, SOUNDS lane). A MEETING speaks;
+     a redraw does not, which is why this is here and not in ctDraw. The parent
+     owns the voice, the AudioContext and the limiter -- this only reports who
+     and what, exactly like every other sound in this game. */
+  try{
+    var w=ctPerson(p), a=ctAt(p);
+    /* THE SAME FALLBACK CHAIN THE CARD ITSELF DISPLAYS, so she babbles what is
+       literally written about her on screen. Taking the role word instead gave
+       a ONE-WORD utterance ("WATCH"), and one word is not somebody talking, it
+       is a grunt -- the same finding as the dialogue opener. */
+    var line=BohemiaPeople.nowLineOf(w, T.min|0) ||
+             (a[0]===p.home[0] ? 'Standing outside' : 'Out on the block');
+    var nm=BohemiaPeople.nameOf(w);
+    if(nm) line = nm + '. ' + line;   /* once you know it, they lead with it */
+    if(window.parent&&window.parent!==window)
+      window.parent.postMessage({type:'BOHEMIA_VOICE',
+        speaker:'city:'+(w.key||w.role||''), text:line},'*');
+  }catch(_v){}
+}"""
+
+
+def patch_city():
+    """The city talk card, which is where he actually was."""
+    if not os.path.exists(CITY):
+        print('  NOTE no city world file; skipped')
+        return True
+    c = open(CITY, encoding='utf8').read()
+    if 'BOHEMIA_VOICE' in c:
+        print('  city already speaks')
+        return True
+    if CITY_OPEN_OLD not in c:
+        print('FAIL: cannot find ctOpen in the city to give it a voice')
+        return False
+    c = c.replace(CITY_OPEN_OLD, CITY_OPEN_NEW, 1)
+    open(CITY, 'w', encoding='utf8').write(c)
+    print('  the city talk card speaks now (ctOpen, a MEETING)')
+    return True
+
+
 def main():
     if not os.path.exists(ALPHA):
         print('FAIL: no alpha at %s' % ALPHA)
@@ -327,7 +392,10 @@ def main():
     s = s.replace(anchor, block + anchor, 1)
 
     open(ALPHA, 'w', encoding='utf8').write(s)
-    print('SQUIGGLE VOICES ARE IN THE MUSIC TAB.')
+    if not patch_city():
+        return 1
+
+    print('SQUIGGLE VOICES ARE IN THE MUSIC TAB, AND PEOPLE TALK ON BOTH SURFACES.')
     print('  formant synthesis, Peterson & Barney vowels, seeded per character')
     print('  8 candidates, one shared line at a time, thumb + note + .txt export')
     print('  no samples, no second bus, no second exporter, nothing assigned')
