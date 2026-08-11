@@ -1,3 +1,51 @@
+CHARACTER (character-0lurbs): 8/11 LATEST -- *** HE IS RIGHT ABOUT THE HEAD. THE
+GAME DRAWS A BARREL WHERE HIS RIG PAINTED AN EGG. MEASURED. ***
+
+PAOLO, chin circled on a screenshot: "this is not how the rig has my head and my neck line.
+Why does it look so fucked up... there needs to be more head underneath the mouth following
+how the rig has it."
+
+SKIN WIDTH PER ROW, S facing, hair removed. His painted FACE (BAKED part 2) against the skin
+the game actually paints:
+
+      row     y6  y7  y8  y9  y10 y11 y12 y13 y14 y15
+      RIG      6   8   8   8   10  10   8   8   6   4     <- an EGG: narrows above the
+      GAME     7   9  10  10   10  10  10  10   9   5        cheekbones, then a jaw to a
+                       +2  +2            +2  +2  +3  +1      4px chin
+The rig tapers both ways off the cheekbones. The game draws SIX STRAIGHT ROWS at full width
+and then falls off a cliff. WORST ROW IS y14, THE JAW: three pixels too wide, and y14 is
+exactly the flat shelf under the mouth he circled. His read was correct and specific.
+
+MEASURE APPLES TO APPLES OR YOU WILL CHASE THE OUTLINE. My first comparison put the rig's
+part-1 OUTLINE against the game's full silhouette and reported every row off by 2 -- that is
+just the sprite's outline pass being a 1px ring. The signal is SKIN vs SKIN: rig part 2
+against the skin the game paints. Same trap as the head-ratio and shoulder rulers earlier
+today. FIX THE RULER, NEVER THE TARGET.
+
+NOT THE HAIR, and I checked before blaming it: with every hair layer deleted the game still
+draws 10-10-10-9-5 where the rig says 8-8-6-4. The hair costs 2 more pixels of jaw at y14 on
+top of that, but the flattening is underneath it.
+
+WHAT I DID NOT DO: guess at a fix. The cause is in the SKINNER -- the shared engine every
+body on screen goes through, and RIG LAW makes it the most dangerous code in the repo to
+poke at on a hunch. Instead:
+  tools/bohemia_head_vs_rig.js       three panels (rig as painted / game hair-off / game as
+                                     he sees it) plus the per-row numbers.
+                                     records/HEAD_VS_RIG_8_11.png
+  gates/head_follows_rig_gate.js     A RATCHET, like MAP BOUND does with typed map bounds.
+                                     Total deviation pinned at 14, worst row at 3. They may
+                                     only SHRINK. Nobody can make the head follow his rig
+                                     less well than it does today, and the day somebody
+                                     fixes the skinner this is the check that proves it --
+                                     the gate PRINTS the new numbers to pin.
+
+NEXT SESSION ON THIS: the suspects are the head branch of skinColorLayer and the COVER FILL
+pass ("solid coverage on covered part-ids"), which is exactly the shape of a bug that squares
+off a tapered part. Confirm on the real surface before touching anything: VERIFY ON THE REAL
+SURFACE, and a symptom that survives content changes is a PIPELINE bug.
+
+--------------------------------------------------------------------------------
+
 FACTIONS (factions-ovkjpf): 8/12 (g) LATEST — *** THE WORLD SAYS IT BACK TO YOU NOW.
 AND I FOUND A BUG OF MY OWN THAT MADE THE 8/11 ALLEGIANCE LINE INVISIBLE THE WHOLE TIME. ***
 Nothing to judge.
@@ -36,6 +84,7 @@ indoors -- because the probe caught a card reading ASLEEP AT HOME above "they sa
 
 GATES: RUN 126, CURRENT SLICE 6, STANDING 35, DEED BRIDGE 27, MEMBERSHIP 55,
 INTEGRATION 116 (27/32), NO HUNTING 7.
+
 
 ART (f3eu53): 8/11 (h) LATEST -- *** FIFTH FAMILY WIRED: THE FENCES ARE REAL
 SEE-THROUGH CHAIN-LINK IN THIRTEEN DISTRICTS. ***
@@ -309,6 +358,7 @@ STATE OF THIS LANE: the people layer is wired end to end and visible — allegia
 person you talk to, the consequence on the phone card, real witness counts at the moment
 a quest resolves. The integration ledger's remaining gaps (district art, day cycle,
 economy, dress-by-rank, vehicles) all belong to other lanes.
+
 
 CHARACTER (character-0lurbs): 8/11 LATEST -- I BUILT THE WRONG FACE FIRST. THE
 OVERWORLD FACE IS SIX PIXELS AND THE MOUTH IS TWO.

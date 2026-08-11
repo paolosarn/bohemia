@@ -828,6 +828,14 @@ GATES = [
      'legs (a bare shin paints the dark under-body, not skin), and the contact shadow lives in its own '
      'canvas with NONE of it in the sprite -- SHADOWS ARE A SEPARATE LAYER, 7/26 LOCKED',
      True),
+    ('HEAD FOLLOWS RIG', ['node', 'gates/head_follows_rig_gate.js'],
+     'Paolo 8/11, chin circled on a screenshot: "this is not how the rig has my head and my neck line... there '
+     'needs to be more head underneath the mouth following how the rig has it." Measured, skin width per row, '
+     'his painted face vs the skin the game paints: rig 6-8-8-8-10-10-8-8-6-4 (an EGG), game 7-9-10-10-10-10-10-'
+     '10-9-5 (a BARREL), worst at y14 the jaw, three pixels too wide -- the flat shelf under the mouth. The '
+     'cause is in the SKINNER so this is a RATCHET, not a pass/fail: the deviation may only SHRINK, the debt is '
+     'visible in the suite instead of somebody memory, and this is the check that proves the fix when it lands',
+     True),
     ('OVERWORLD FACE', ['node', 'gates/sprite_face_scale_gate.js'],
      'Paolo 8/11 "BRO I MEANT THE TINY PIXEL OVERWORLD FACES": his face on the 56px BODY is six pixels of '
      'eyes, three of nose and a TWO PIXEL mouth. The scale is a knob defaulting to 1 that returns HIS PIXELS '
