@@ -474,7 +474,7 @@ _Arterial — THE RUN: the sidewalks are the two ends and the street fills every
 - lane dashes — three lanes each way, running clean off both ends (code 2 "lane line")
 - streetlights — on their stems (code 9 "streetlight")
 
-## ARTERIAL_X  (451x263, anchor 234,352)
+## ARTERIAL_X  (451x290, anchor 234,352)
 _Arterial Intersection — THE CROSSING, and a different item from the run (Paolo 8/11): FOUR SIDEWALK CORNERS with the junction box opening between them, ladder CROSSWALKS on all four legs, the median stopped short for the left-turn opening, and the SIGNAL MASTS reaching their arms out over the lanes. The corners say intersection before you can see a single signal head._
 
 - roadway — the junction box, paved past the frame on all four legs (code 1 "asphalt roadway")

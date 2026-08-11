@@ -2487,62 +2487,88 @@ def build_arterial(P):
 
 
 def build_arterial_x(P):
-    """engine/bohemia_arterial.js, THE CROSSING. Paolo 8/11:
+    """engine/bohemia_arterial.js, THE INTERSECTION -- and it is THE BOX ITSELF.
 
-        "for the intersection i dont needs to see streets intersecting. when they combine
-         with the other streets it will look liek that. what i need to see is crosswalks
-         and traffic lights brother cmon"
+    Paolo 8/11, after I put a crossing in it three times:
 
-    THAT IS THE WHOLE TILE AND IT IS THE CITY-BUILDER ANSWER. This cell is the SAME street
-    as the run -- it does not draw a second road crossing it, because the crossing is what
-    HAPPENS when this tile sits next to the street tiles on its other sides. Drawing the
-    junction into the tile paints the neighbours, which is the mistake this whole set just
-    came out of. What this tile owns, and the only thing that makes it an intersection, is
-    the CROSSWALKS and the TRAFFIC LIGHTS.
+        "BRO THE INTERSECTION ONE SHOULD JUST BE CROSSWALK AND STREET LIGHTS YOU KEEP
+         WANTING TO PUT THE 4 streets meeting eachother in the intersection grid itself and
+         its really bad bro... LOOK AT A TOP VIEW MAP OF AN INTERSECTION I NEED YOU TO MAKE
+         THAT SQUARE. THE BORDERS OF THE SQUARE SHOULD BE BARELY SIDEWALK, CROSSWALK AND
+         TRAFFIC SIGN THATS IT. NO LANES!!!"
 
-    REUSE CHECK: no new pixels; same palette and primitives as the run."""
-    ROAD, LINE, MEDIAN, WALK, LIGHT, MAST, PALM = P[1], P[2], P[4], P[6], P[9], P[12], P[11]
+    THIS CELL IS THE JUNCTION BOX. Not a crossing, not four roads meeting -- the square of
+    asphalt in the middle where they meet, which is its own tile. The streets arrive from
+    the neighbouring cells; drawing them in here is drawing the neighbours, which is the one
+    thing a one-cell tile must never do, and it is the fourth time I have done it.
+
+    AND NO LANES IS ALSO WHAT IS REAL. You do not stripe lane lines through an intersection
+    box -- markings STOP at the stop bar and pick up on the far side, because inside the box
+    vehicles are turning across each other and a lane line there would be a lie. So the tile
+    is: bare asphalt, a barely-there sidewalk at the four borders, ladder CROSSWALKS just
+    inside each edge with their stop bars, and the SIGNALS. That is the whole thing.
+
+    REUSE CHECK: cooks no new graphic pixels; the arterial district's own palette pulled
+    live from engine/bohemia_arterial.js through the shared iso primitives."""
+    ROAD, LINE, WALK, LIGHT, MAST, YELLOW = P[1], P[2], P[6], P[9], P[12], P[17]
     s = Scene()
     X0, Y0, X1, Y1 = -3.0, -3.0, 15.0, 15.0
-    s.box((X0, Y0, 0.0), (X1 - X0, Y1 - Y0, 0.08), {'c': ROAD})
-    SIDE = 1.5
+    s.box((X0, Y0, 0.0), (X1 - X0, Y1 - Y0, 0.08), {'c': ROAD})       # the box IS the cell
+    # BARELY SIDEWALK: a thin walk on all four borders and nothing behind it.
+    SIDE = 1.0
     for sy in (Y0, Y1 - SIDE):
         s.box((X0, sy, 0.09), (X1 - X0, SIDE, 0.07), {'c': WALK})
-        s.box((X0, sy + (SIDE if sy < 0 else -0.18), 0.09), (X1 - X0, 0.18, 0.16),
+        s.box((X0, sy + (SIDE if sy < 0 else -0.16), 0.09), (X1 - X0, 0.16, 0.16),
               {'c': _dark(WALK, 0.8)['c']})
-    CY = (Y0 + Y1) * 0.5
-    # the median stops short of the stop bar for the left-turn opening
-    s.box((X0, CY - 0.5, 0.15), (5.4, 1.0, 0.35), {'c': MEDIAN})
-    s.box((X1 - 5.4, CY - 0.5, 0.15), (5.4, 1.0, 0.35), {'c': MEDIAN})
-    # THE DEAD PALMS IN WHAT IS LEFT OF THE MEDIAN. Dropping them when the crossing stopped
-    # drawing a second road took this tile's only hue with it and hue_gate measured it flat
-    # MONOCHROME -- mud, not a style. A Vegas arterial median really does carry them, and
-    # they are what tells you the two stubs are a median and not a kerb.
-    for px in (-1.2, 1.6, 10.4, 13.0):
-        s.box((px, CY - 0.15, 0.5), (0.3, 0.3, 3.4), {'c': PALM})
-        s.box((px - 0.45, CY - 0.6, 3.9), (1.2, 1.2, 0.26), {'c': _dark(PALM, 0.82)['c']})
-    # THE CROSSWALKS -- ladder bars right across the cell, both approaches
-    for bx in (3.4, 8.6):
-        for k in range(11):
-            s.box((bx, Y0 + 1.6 + k * 1.35, 0.15), (1.5, 0.62, 0.03), {'c': LINE})
-    for bx in (2.6, 9.8):                                                  # the stop bars
-        s.box((bx, Y0 + 1.5, 0.15), (0.4, (Y1 - Y0) - 3.0, 0.03), {'c': LINE})
-    # approach lane dashes, stopping AT the bars instead of running through
-    for off in (2.4, 5.0):
-        for sgn in (-1, 1):
-            ly = CY + sgn * off
-            for k in range(3):
-                s.box((X0 + 0.4 + k * 1.6, ly, 0.14), (0.95, 0.16, 0.03), {'c': LINE})
-                s.box((X1 - 2.0 - k * 1.6, ly, 0.14), (0.95, 0.16, 0.03), {'c': LINE})
-    # THE TRAFFIC LIGHTS: mast arms reaching out over the lanes. The only street cell with
-    # them, and the reason a player knows this one is a junction.
-    for (mx, sgn) in [(2.2, -1), (10.2, 1)]:
-        my = CY + sgn * 7.4
-        s.box((mx, my, 0.16), (0.4, 0.4, 6.4), {'c': _dark(MAST, 0.88)['c']})
-        s.box((mx, my - sgn * 5.2, 6.1), (0.34, 5.2, 0.34), {'c': MAST})
+    for sx in (X0, X1 - SIDE):
+        s.box((sx, Y0, 0.09), (SIDE, Y1 - Y0, 0.07), {'c': WALK})
+        s.box((sx + (SIDE if sx < 0 else -0.16), Y0, 0.09), (0.16, Y1 - Y0, 0.16),
+              {'c': _dark(WALK, 0.8)['c']})
+    # RED KERB at the four corners. Painting the kerb red through an intersection approach is
+    # universal here -- it is how "no parking, no stopping" is signed on a street with no
+    # signs left standing -- and it is the other genuinely coloured thing on a junction box.
+    # Painted concrete, not a light: nothing about act-1 dead glass changes.
+    REDK = (150, 62, 48)
+    for (rx, ry, rw, rh) in [(X0, Y0, 5.0, 0.22), (X1 - 5.0, Y0, 5.0, 0.22),
+                             (X0, Y1 - 0.22, 5.0, 0.22), (X1 - 5.0, Y1 - 0.22, 5.0, 0.22)]:
+        s.box((rx, ry + (SIDE - 0.22 if ry < 0 else -SIDE + 0.22), 0.17), (rw, rh, 0.14), {'c': REDK})
+    for (rx, ry, rw, rh) in [(X0, Y0, 0.22, 5.0), (X0, Y1 - 5.0, 0.22, 5.0),
+                             (X1 - 0.22, Y0, 0.22, 5.0), (X1 - 0.22, Y1 - 5.0, 0.22, 5.0)]:
+        s.box((rx + (SIDE - 0.22 if rx < 0 else -SIDE + 0.22), ry, 0.17), (rw, rh, 0.14), {'c': REDK})
+
+    # THE CROSSWALKS, one ladder just inside each of the four borders, with its stop bar.
+    IN = SIDE + 0.5
+    BARW, BARL = 0.9, 1.5
+    for k in range(9):
+        t = Y0 + IN + 1.1 + k * 1.65
+        s.box((X0 + IN, t, 0.15), (BARL, BARW, 0.03), {'c': LINE})              # west leg
+        s.box((X1 - IN - BARL, t, 0.15), (BARL, BARW, 0.03), {'c': LINE})       # east leg
+        u = X0 + IN + 1.1 + k * 1.65
+        s.box((u, Y0 + IN, 0.15), (BARW, BARL, 0.03), {'c': LINE})              # south leg
+        s.box((u, Y1 - IN - BARL, 0.15), (BARW, BARL, 0.03), {'c': LINE})       # north leg
+    for (bx, by, bw, bh) in [(X0 + IN + BARL + 0.5, Y0 + IN, 0.4, (Y1 - Y0) - 2 * IN),
+                             (X1 - IN - BARL - 0.9, Y0 + IN, 0.4, (Y1 - Y0) - 2 * IN),
+                             (X0 + IN, Y0 + IN + BARL + 0.5, (X1 - X0) - 2 * IN, 0.4),
+                             (X0 + IN, Y1 - IN - BARL - 0.9, (X1 - X0) - 2 * IN, 0.4)]:
+        s.box((bx, by, 0.15), (bw, bh, 0.03), {'c': LINE})                      # the stop bars
+    # THE TRAFFIC SIGNALS, on two opposite corners, arms reaching in over the box. With no
+    # lanes and no median these and the crosswalks are the entire tile, which is the point.
+    for (mx, my, ax, ay) in [(X0 + 1.4, Y0 + 1.4, 0.0, 5.4), (X1 - 1.8, Y1 - 1.8, 0.0, -5.4)]:
+        s.box((mx, my, 0.16), (0.42, 0.42, 6.6), {'c': _dark(MAST, 0.88)['c']})
+        s.box((mx, my + (0.42 if ay > 0 else ay), 6.3), (0.36, abs(ay), 0.36), {'c': MAST})
         for k in range(3):
-            hy = my - sgn * (1.4 + k * 1.5)
-            s.box((mx + 0.03, hy, 5.1), (0.36, 0.38, 0.95), {'c': _dark(MAST, 0.66)['c']})
+            hy = my + (1.5 + k * 1.6) * (1 if ay > 0 else -1)
+            # THE YELLOW BACKPLATE behind each head. It is the one coloured thing on a
+            # junction box and it is real: a signal backplate is high-visibility yellow so
+            # the heads read against the sky. It is also the tile's only second hue -- with
+            # no median there is no vegetation here, and hue_gate measured the box flat
+            # MONOCHROME without it. Unlit, like everything in act 1: a backplate is painted
+            # metal, not a lamp, so this breaks nothing about dead glass.
+            s.box((mx - 0.09, hy - 0.30, 4.95), (0.14, 1.00, 1.75), {'c': YELLOW})
+            s.box((mx + 0.03, hy, 5.3), (0.38, 0.4, 1.0), {'c': _dark(MAST, 0.66)['c']})
+    for (lx, ly) in [(X0 + 1.4, Y1 - 1.8), (X1 - 1.8, Y0 + 1.4)]:               # the other two corners
+        s.box((lx, ly, 0.16), (0.26, 0.26, 5.4), {'c': LIGHT})
+        s.box((lx, ly + (1.3 if ly < 5 else -1.3), 5.2), (0.24, 1.3, 0.24), {'c': LIGHT})
     return s, 5.6
 
 def build_mountain(P):
