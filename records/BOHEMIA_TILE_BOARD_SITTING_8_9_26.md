@@ -155,3 +155,17 @@ lattice over the bays' own row art. Bay names are excluded by measurement now,
 and the drive-in's arc markings stay a deliberate blank (no curved piece in
 the family; a straight tile on an arc is a lie). Gates re-run green after the
 fix (run 126, light 41, alpha loads 20, grime 24, bought 20, exterior pool 37).
+
+## 8/11 FIFTH PASS: THIRD FAMILY WIRED (THE PARAPET RING)
+
+TF-ART-012's coping ring is live: 'roof edge' cells (the dossiers already
+traced the line - downtown 194, chapel 380, courthouse 168, library 596) pick
+run/out-corner/in-corner/end pieces from which sides face open air, a/b phase
+along the run, colourway by district family (downtown oxide, civic bone, the
+rest galv). 'rooftop plant' cells wear the duct pieces. The RTUs are 88x86 -
+NOT a whole number of cells - so they stay unwired by the no-resample law and
+are named as volume, not skipped silently. Verified standing at the library
+ring on the real surface: coping runs both edges and turns its corner.
+Gates: run 126, light 41, alpha loads 20, bought 20, grime 24.
+
+THREE OF FOURTEEN FAMILIES ARE NOW IN THE GAME: rail, stripes, the ring.

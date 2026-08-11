@@ -1,3 +1,22 @@
+ART (f3eu53): 8/11 (d) LATEST -- *** THIRD FAMILY WIRED: THE ROOFS HAVE THEIR
+PARAPET RING. THREE OF HIS FOURTEEN APPROVED FAMILIES NOW DRAW IN THE GAME. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fifth-pass section)
+
+TAB: RUN. The library, chapel, courthouse and downtown building tops now wear
+the approved coping ring ('roof edge' cells pick pieces by which sides face
+open air; colourway by district: downtown oxide, civic bone, industrial galv).
+Rooftop plant cells wear the ducts. RTUs stay unwired (88x86 is not a whole
+number of cells; no-resample law) - named volume.
+
+WIRED SO FAR: TF-ART-010 rail (railyard fan + plates), TF-ART-003 stripes
+(six districts' lots, line names only - bays excluded by A/B measurement),
+TF-ART-012 ring. NEXT: corrugated skins (TF-ART-002 into the civic wall pools
+for warehouse/industrial/storage), chain-link (TF-ART-004, multi-cell overlay
+pass), then rail + stall + roof volume (turnout/crossing/buffer, wheel stops/
+ADA, RTU anchoring at cell-integer scale).
+
+ART (f3eu53): 8/11 (c) -- *** SECOND FAMILY WIRED: THE PARKING LOTS HAVE
+
 FACTIONS (factions-ovkjpf): 8/11 (z) LATEST — *** FACTION MEMBERSHIP HAS BEEN DEAD IN
 THE REAL GAME SINCE IT SHIPPED, AND ITS 50-CLAIM GATE WAS GREEN THE WHOLE TIME. ***
 records/BOHEMIA_NOBODY_HAS_EVER_BELONGED_8_11_26.md. Nothing to judge.

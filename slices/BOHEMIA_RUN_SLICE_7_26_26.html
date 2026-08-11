@@ -538,6 +538,68 @@ function drawRailform(gx,gy,X,Y,S){
   }
   return false;
 }
+/* THIRD WIRED FAMILY (8/11): TF-ART-012 the flat-roof parapet ring. The vocab
+   sweep found the dossiers already encode the ring: 'roof edge' cells trace the
+   coping line (downtown 194, chapel 380, courthouse 168, library 596) and
+   'rooftop plant / lantern' cells mark the dead mechanical. A ring piece is
+   picked by which sides face OPEN air (not roof, not building mass): coping on
+   the open side, out-corners where two open sides meet, in-corners read off the
+   diagonals, a/b phase alternating along the run. Colourway by district family:
+   civic wears bone, downtown wears oxide, everything else galv. The RTUs are
+   88x86 multi-cell art (not a whole number of cells) and stay UNWIRED as
+   volume; plant cells wear the duct pieces so the mechanical still reads. */
+function roofEdgeAt(gx,gy){
+  if(gy<0||gx<0||gy>=NAMEG.length||gx>=NAMEG[0].length) return false;
+  return String(NAMEG[gy][gx]||'').toLowerCase().indexOf('roof edge')>=0;
+}
+function roofMassAt(gx,gy){
+  if(gy<0||gx<0||gy>=NAMEG.length||gx>=NAMEG[0].length) return false;
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  return n.indexOf('roof edge')>=0 || n.indexOf('rooftop')>=0 || civicSolidAt(gx,gy);
+}
+function roofColourway(){
+  var n=CELLNAME;
+  if(n==='downtown') return 'oxide';
+  if(n==='courthouse'||n==='library'||n==='chapel'||n==='school'||n==='policestation'||n==='firestation'||n==='jail') return 'bone';
+  return 'galv';
+}
+function drawRoofform(gx,gy,X,Y,S){
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  var cw=roofColourway(), name=null;
+  if(n.indexOf('rooftop')>=0){
+    name = ['duct_straight_0','duct_straight_1','duct_elbow_0'][th(gx,gy,3)];
+  } else if(n.indexOf('roof edge')>=0){
+    var oN=!roofMassAt(gx,gy-1), oE=!roofMassAt(gx+1,gy), oS=!roofMassAt(gx,gy+1), oW=!roofMassAt(gx-1,gy);
+    var open=(oN?1:0)+(oE?1:0)+(oS?1:0)+(oW?1:0);
+    var ab=((gx+gy)%2===0)?'_a':'_b';
+    if(open===1){
+      name='parapet_'+cw+'_run_'+(oN?'n':oE?'e':oS?'s':'w')+ab;
+    } else if(open===2){
+      if(oN&&oE) name='parapet_'+cw+'_out_ne';
+      else if(oN&&oW) name='parapet_'+cw+'_out_nw';
+      else if(oS&&oE) name='parapet_'+cw+'_out_se';
+      else if(oS&&oW) name='parapet_'+cw+'_out_sw';
+      else name='parapet_'+cw+'_run_'+(oN?'n':'e')+ab;   /* opposite sides: a 1-wide wall */
+    } else if(open===3){
+      name = !oS?'parapet_'+cw+'_end_openn' : !oN?'parapet_'+cw+'_end_opens'
+           : !oW?'parapet_'+cw+'_end_opene' : 'parapet_'+cw+'_run_w'+ab;
+    } else if(open===0){
+      /* fully enclosed: an INSIDE corner where a diagonal opens, else roof field */
+      if(!roofMassAt(gx+1,gy-1)) name='parapet_'+cw+'_in_ne';
+      else if(!roofMassAt(gx-1,gy-1)) name='parapet_'+cw+'_in_nw';
+      else if(!roofMassAt(gx+1,gy+1)) name='parapet_'+cw+'_in_se';
+      else if(!roofMassAt(gx-1,gy+1)) name='parapet_'+cw+'_in_sw';
+      else name='bur_gravel_'+th(gx,gy,3);
+    } else {
+      name='parapet_'+cw+'_end_opene';                    /* an isolated stub */
+    }
+  }
+  if(!name) return false;
+  var im=TILEFORM_IMG[name];
+  if(!im||!im.complete||!im.naturalWidth) return false;
+  ctx.drawImage(look(im),X,Y,S,S);
+  return true;
+}
 /* SECOND WIRED FAMILY (8/11): TF-ART-003 parking-lot striping. Nine built
    districts name their painted stall lines ('stall marking', 'parking stall',
    'lane / stall marking', 'trailer stall stripe' - measured world-wide, not
@@ -2716,6 +2778,9 @@ function draw(){
         if(isSuburbCell() && drawSkin(laid,gx,gy2,X,Y,S)) continue;
         /* and every OTHER district's buildings, in the material that district is
            really built out of (8/3). Ground already fell through above. */
+        /* the flat-roof ring first (8/11): a 'roof edge' cell is the coping,
+           and the dossier already drew the line - the mask only reads it */
+        if(!isSuburbCell() && drawRoofform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && drawCivicSkin(laid,gx,gy2,X,Y,S)) continue;
         if(!tput(laid,X,Y,S) && !body){
           /* only ever reached in the first frames while the bank decodes */

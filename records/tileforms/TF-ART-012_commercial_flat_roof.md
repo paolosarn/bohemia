@@ -454,6 +454,6 @@
       runtime shadow pass, and no prop layer above roofs in the run
 
 ## J. ADMIN
-- STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-ART-012_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt). Volume unlocked, wiring open. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: the parapet ring is live on every 'roof edge' cell (downtown oxide, civic bone, industrial galv - library/chapel/courthouse/downtown read their coping now) and 'rooftop plant' cells wear the duct pieces, in the RUN tab. The RTUs (88x86, not cell-integer) and hatches are the open volume; the roof FIELDS still come from the 8/1 civic pool. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/29/26 | PRIORITY: HIGH
 - BOARD ROW #: 21 | VERDICT: —

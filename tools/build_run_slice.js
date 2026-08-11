@@ -282,6 +282,20 @@ stallBank.tiles.forEach(function (t) {
   }
 });
 if (stallCount < 30) throw new Error('TILEFORM: only ' + stallCount + ' stall pieces matched in ' + STALL_BANK);
+/* third family: TF-ART-012 flat-roof ring + field + single-cell duct pieces.
+   The RTUs are 88x86 (NOT a whole number of 44px cells) and are deliberately
+   NOT injected - the no-resample law forbids a fractional blit. */
+var ROOF_BANK = 'banks/tileforms/TF-ART-012_CANDIDATES_8_8_26.json';
+var roofBank = JSON.parse(fs.readFileSync(ROOF_BANK, 'utf8'));
+if (String(roofBank.law || '').indexOf('APPROVED') !== 0)
+  throw new Error('TILEFORM: ' + ROOF_BANK + ' law line is not APPROVED - nothing unjudged draws');
+var roofCount = 0;
+roofBank.tiles.forEach(function (t) {
+  if (/^(parapet_(galv|bone|oxide)_(run_[nesw]_[ab]|out_[ns][ew]|in_[ns][ew]|end_open[nse]|scupper)|bur_gravel_\d|duct_straight_\d|duct_elbow_0)$/.test(t.name)) {
+    tileformOut[t.name] = t.b64; roofCount++;
+  }
+});
+if (roofCount !== 66) throw new Error('TILEFORM: only ' + roofCount + ' roof pieces matched in ' + ROOF_BANK);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('
