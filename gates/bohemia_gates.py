@@ -130,6 +130,17 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('COLD BOOT',      ['node', 'gates/cold_boot_gate.js'],
+     'TWO regressions no gate could see. (1) A render-blocking <link> to fonts.googleapis.com '
+     'sat on a connection timeout: the city took 16.0s to become playable with the host '
+     'unreachable and 3.1s with requests failing fast -- thirteen seconds of dead socket, not '
+     'world. Paolo demos on a phone, and a phone on cellular or a captive portal IS the '
+     'unreachable case, so the city is booted here WITH THE NETWORK DEAD. (2) The shared frame '
+     'predicate still matched bare /srcdoc/ from before the city moved out of the alpha, and '
+     'find() takes the FIRST match -- so a dozen browser gates ran their whole measurement '
+     'inside somebody else\'s EMPTY srcdoc frame and crashed on "om is not defined", three of '
+     'them red on main for over a week. The ordering is pinned here because what broke was a '
+     'SHARED RESOLVER and nothing owned it', True),
     ('DAY LOOP',       ['node', 'gates/dayloop_gate.js'],
      'Paolo\'s demo row: "close the game day loop end to end (hardcode the demo quests, '
      'scaffolding is legal)". The city had a TIMER, not a day: minutes accumulated, rolled '

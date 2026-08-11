@@ -52,6 +52,7 @@ const CLAIMS = [
   ['__SAVE_FLUSH_IOS__',            '...and switching apps mid-run no longer eats the last move'],
   ['__DAY_LOOP__',                  '"close the game day loop end to end" -- wake, sixteen hours, nightfall, reckon'],
   ['DEMO_BQ=',                      '...and the canon quests are IN it, in their own words'],
+  ['__COLD_BOOT__',                 'the game starts in 3s on a dead signal, not 16s of white screen'],
 ];
 
 /* THE SOUND LANE'S CLAIMS. Same contract, different lane: every marker here was

@@ -165,19 +165,80 @@ measurement not taken where he is standing is not a measurement of what he sees.
 
 ---
 
-## MEASURED, AND IT BELONGS TO THE NEXT ROW
+## MEASURED — AND THEN CORRECTED, WHICH IS THE POINT
 
-Driving the RUN tab exposed a number worth writing down: **the city frame's
-script does not begin executing until ~15 seconds after the RUN tap** on a cold
-local load — 1.35MB of inline world plus generation, on a desktop, off a local
-file. My first attempt at that check used a fixed 6-second wait and reported the
-day loop DEAD when it was merely not born yet. A gate that lies in the same
-direction as a bug is worse than no gate, so it now waits on the CONDITION.
+Driving the RUN tab exposed a number I wrote down wrong the first time.
 
-That 15 seconds is the streaming row's problem, and it is now a measured one
-rather than a suspicion.
+The city frame took **~15 seconds** to become playable after the RUN tap. I put
+that in this record as a streaming-engine problem and moved on. Then I measured
+it properly instead of believing my own note:
 
----
+| | to world-ready |
+|---|---|
+| network normal (this sandbox is offline) | **16.0s** |
+| every http(s) request aborted instantly | **3.1s** |
+
+**The world was never slow. The page was waiting on a font.** A render-blocking
+`<link>` to `fonts.googleapis.com` sitting on a connection timeout. Thirteen of
+those sixteen seconds were a dead socket.
+
+So the streaming row does NOT own this, and I have struck the claim that it did.
+What it turned out to be is a real demo defect of a different kind: Paolo demos
+on an iPhone, and a phone on cellular, a captive-portal wifi, or a basement IS
+the unreachable-host case — sixteen seconds of white screen reads as broken, on
+first impression. Fixed with `media="print"` + an onload swap: **16.0s → 3.2s**
+with the host unreachable, and a good network still gets the typeface. The CSS
+already fell back to `system-ui`, so nothing is lost.
+
+The lesson is the standing one: a symptom that survives a content change is a
+PIPELINE symptom. I had the number and drew the wrong conclusion from it, and the
+only thing that caught it was measuring the same thing a second way.
+
+## AND THE GATES WERE MEASURING A BLANK DOCUMENT
+
+The suite came back with 28 red. Five crashed with the same signature —
+`ReferenceError: om is not defined` — and **three of those five were already red
+on origin/main before this session touched anything.** Baselining first, rather
+than assuming I had broken them, is what made the rest of this findable.
+
+Callers select the city frame with:
+
+```js
+page.frames().find(fr => CITY.isFrame(fr, page))
+```
+
+`find()` takes the FIRST match in frame order, and `isFrame` still matched bare
+`/srcdoc/` — a fact about how the city was loaded before 8/2, not about what it
+is. The alpha now carries more than one srcdoc frame. Measured:
+
+```
+about:srcdoc            { fit:undefined, om:undefined, cv.width:0   }   <- find() returned THIS
+BOHEMIA_CITY_WORLD.html { fit:function,  om:object,    cv.width:378 }
+```
+
+The gates ran their entire measurement inside a blank document and reported the
+city broken. `srcdoc` is now a last resort, accepted only when the page has no
+named city frame at all. `xray_gate` was the last file in the fleet still
+carrying its own inline copy of that regex — the exact "shadow" the shared
+resolver warns about — and now calls the shared predicate.
+
+**Turned green by those two fixes:** TRAFFIC SIGNAL, FULL RES, RUN SPAWN, SUN
+SHADOWS, DOORWAY, ZOOM SEAM, INTERIOR WALL, DOOR JAMB, SEE THROUGH, E/W DOOR,
+EVERY DOOR, STEP INSIDE, KIT BINDING. TRAFFIC SIGNAL and FULL RES had been
+written off in an earlier handoff as "still reading the city's bytes from the old
+container." They were this, and they had been for over a week.
+
+**Mine, and fixed here:** `library_gate` asserted the terrace is `walk`; the
+plinth ruling made it `ground`, so the gate follows the ruling. MAP TAB, CURRENT
+SLICE, THE RUN and QUEST PLACEMENT carried stale inlined copies of
+library/cityhall and were rebuilt.
+
+**Not mine, and verified not mine by running them at origin/main:** TIME PASS,
+SFX RENDER, RIG CHECK, SQUINT, PARTS PAINTED, BODY VARIATION, CANVAS SCALE,
+INTERIORS, ONE WORLD TAB (it is `voice_gate.py` swallowing a missing tab) and
+REUSE FIRST (`bohemia_sun_mode_char_patch.py` has no REUSE CHECK block). All ten
+are red on origin/main as well. They belong to SOUND, CHARACTER and ART, and
+ONE SYSTEM / ONE SESSION says they are not mine to edit.
 
 ## THE PATTERN, FOR THE THIRD TIME THIS WEEK
 
