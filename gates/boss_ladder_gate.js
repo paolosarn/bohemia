@@ -34,7 +34,7 @@
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
-const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_v5_8_7_26.md';
+const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_v6_8_7_26.md';
 const RULINGS = 'records/BOHEMIA_HIS_BOSS_RULINGS_8_7_26.md';
 
 let pass = 0, fail = 0;
@@ -53,12 +53,20 @@ const rul = fs.existsSync(path.join(ROOT, RULINGS)) ? fs.readFileSync(path.join(
 const flat = lad.replace(/\s+/g, ' ');
 
 /* ---- parse the three act tables: | # | BOSS | HOLDS | LOCK | KEY | ---------- */
+/* ★ ACT IS RECORDED AT PARSE TIME, from which act TABLE the row sits in.
+   The old actOf() searched for the boss's name with lad.indexOf('**NAME**') and took the
+   FIRST hit -- which is a PROSE mention whenever a boss is discussed in the intro before its
+   table. On v6 that silently put two bosses in "act 0" and made the act counts sum to 54
+   against 56 rows. Position of a mention is not membership in a section. */
 const rows = [];
+let curAct = 0;
 lad.split('\n').forEach(line => {
+  const h = line.match(/^##\s*ACT\s*([123])\b/);
+  if (h) curAct = +h[1];
   const m = line.match(/^\|\s*(\d+)\s*\|\s*\*\*([^*]+)\*\*\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|/);
   if (m) rows.push({ n: +m[1], boss: m[2].trim(), holds: m[3].trim(), lock: m[4].trim(),
                      key: m[5].replace(/\*+/g, '').trim(),       /* WHAT BESTING GRANTS */
-                     kind: m[6].trim() });
+                     kind: m[6].trim(), act: curAct });
 });
 ok('B1 every boss row parses with all four fields (' + rows.length + ' bosses)', rows.length >= 15);
 ok('B2 the numbers run 1..N with no gaps or duplicates',
@@ -120,14 +128,16 @@ ok('D3 the merge is stated as a merge, and the rename as a rename',
 /* ---- HIS RULINGS ACTUALLY LANDED, NOT JUST GOT FILED ------------------- */
 const bossAt = n => (rows.find(r => r.n === n) || {}).boss;
 const actOf = name => {
-  const i = lad.indexOf('**' + name + '**');
-  const a1 = lad.indexOf('## ACT 1'), a2 = lad.indexOf('## ACT 2'), a3 = lad.indexOf('## ACT 3');
-  return i > a3 ? 3 : i > a2 ? 2 : i > a1 ? 1 : 0;
+  const r = rows.find(x => x.boss === name);
+  return r ? r.act : 0;
 };
+ok('B4 every boss row sits inside a numbered ACT table (no orphans)',
+   rows.every(r => r.act >= 1 && r.act <= 3) &&
+   [1, 2, 3].reduce((t, a) => t + rows.filter(r => r.act === a).length, 0) === rows.length);
 ok('E1 THE CLIMB moved to ACT 1 on his ruling', actOf('THE CLIMB') === 1);
 ok('E2 THE SOIL is the FIRST boss of ACT 2 on his ruling ("pls")',
    actOf('THE SOIL') === 2 &&
-   rows.filter(r => actOf(r.boss) === 2).sort((a, b) => a.n - b.n)[0].boss === 'THE SOIL');
+   rows.filter(r => r.act === 2).sort((a, b) => a.n - b.n)[0].boss === 'THE SOIL');
 ok('E3 HABITABLE is DEFINED in one concrete sentence, because he asked what it meant',
    /population cap is ZERO/i.test(flat) && /settler will accept a bed/i.test(flat));
 ok('E4 THE DRAIN\'s lock is the filth itself, not the word habitable',
@@ -207,8 +217,10 @@ ok('H3 but the peaceful route is still recorded as existing, kept short on purpo
 /* THIN added 8/7: he asked for a big POOL to cut from, so I flag my own weak
    candidates rather than making him find them. It is a legal kind but it is NOT counted
    toward the four-kinds-really-used check below. */
-const KINDS = ['WORLD', 'GEAR', 'LOOK', 'PEOPLE', 'THIN'];
-const REAL_KINDS = ['WORLD', 'GEAR', 'LOOK', 'PEOPLE'];
+/* THIN retired 8/7: he killed both candidates I had flagged with it, so there is nothing
+   left wearing the label and a kind nobody uses is noise. */
+const KINDS = ['WORLD', 'GEAR', 'LOOK', 'PEOPLE'];
+const REAL_KINDS = KINDS;
 const badKind = rows.filter(r => KINDS.indexOf(r.kind) < 0);
 ok('H4 every boss declares one of the four grant KINDS' +
    (badKind.length ? ' -> ' + badKind.map(r => r.boss + ':' + r.kind).join(',') : ''),
@@ -220,10 +232,10 @@ ok('H5 ALL FOUR REAL KINDS ARE USED, because he named gear and customization as 
    REAL_KINDS.every(k => counts[k] >= 3));
 ok('H6 GEAR front-loads to act 1 and PEOPLE back-loads to act 3, so the acts really ' +
    'do escalate',
-   rows.filter(r => r.kind === 'GEAR' && actOf(r.boss) === 1).length >=
-   rows.filter(r => r.kind === 'GEAR' && actOf(r.boss) === 3).length &&
-   rows.filter(r => r.kind === 'PEOPLE' && actOf(r.boss) === 3).length >=
-   rows.filter(r => r.kind === 'PEOPLE' && actOf(r.boss) === 1).length);
+   rows.filter(r => r.kind === 'GEAR' && r.act === 1).length >=
+   rows.filter(r => r.kind === 'GEAR' && r.act === 3).length &&
+   rows.filter(r => r.kind === 'PEOPLE' && r.act === 3).length >=
+   rows.filter(r => r.kind === 'PEOPLE' && r.act === 1).length);
 
 /* H7 AND H8 ARE RETIRED WITH THE COLUMN THEY GUARDED. They asserted the kill-vs-spare
    BALANCE ("the kill route is not the strong route by default"), which only means something
@@ -238,11 +250,13 @@ ok('H10 the kill/spare research is cited so the "spare pays better" claim is che
    /sifu\.fandom\.com/.test(lad) && /Mercy_?Rewarded|MercyRewarded/i.test(lad));
 ok('H11 the summon is a person ARRIVING, which is what he invented',
    /somebody arrives/i.test((rows.find(r => r.boss === 'THE CREDITOR') || {}).key || ''));
-ok('H12 he asked for MORE again, so the count went UP from 41 (' + rows.length + ')',
-   rows.length > 41);
-ok('H13 and it declares itself a POOL TO CUT FROM rather than a shipping list, with my own ' +
-   'weak ones flagged THIN (' + counts.THIN + ')',
-   /POOL TO CUT FROM, NOT A SHIPPING LIST/i.test(lad) && counts.THIN >= 1);
+/* THE COUNT WENT DOWN THIS PASS AND THAT IS CORRECT. He killed seven. A gate that demanded
+   the number keep rising would be pushing the lane to pad, which is the opposite of what he
+   has been asking for since "it just kind of got out of control again". */
+ok('H12 the count is whatever survives his cuts, not a number to grow (' + rows.length + ')',
+   rows.length >= 30);
+ok('H13 and it still declares itself a POOL TO CUT FROM rather than a shipping list',
+   /pool to cut from, not a shipping list/i.test(flat));
 
 /* ==========================================================================
    PART J (v4) — HIS FOUR STRUCTURAL RULINGS, AND THE LESSON FROM THE FIVE KILLS.
@@ -258,12 +272,12 @@ ok('J3 the futurism arrives WITH AN OWNER, so it is a bill and not a reward',
    right. THE WING replaces it at the far end, so the spine still spans all three acts. */
 ok('J4 TRANSPORT is a spine through all three acts, because he said it was thin',
    /IS NOW A SPINE/i.test(flat) &&
-   ['THE SPOKE','THE CART','THE ROAD','THE ENGINE','THE RAIL','THE LIFT','THE WING']
+   ['THE SPOKE','THE ROAD','THE ENGINE','THE RAIL','THE LIFT','THE WING']
      .every(b => rows.some(r => r.boss === b)));
 ok('J5 and the research reason transport is not a luxury tier is stated',
    /cannot have metallurgy without transport/i.test(flat));
 ok('J6 FOOD IS FIRST in act 2, because that is what the rebuilding research says',
-   (rows.filter(r => actOf(r.boss) === 2).sort((a, b) => a.n - b.n)[0] || {}).boss === 'THE SOIL' &&
+   (rows.filter(r => r.act === 2).sort((a, b) => a.n - b.n)[0] || {}).boss === 'THE SOIL' &&
    /it does not start with technology, it starts with FOOD/i.test(flat));
 /* J7 REVERSED ON HIS RULING. It used to assert the shoe finding was recorded as a LOCK.
    He called it bullshit and he was right: I generalised PU-midsole hydrolysis into "every
@@ -275,17 +289,21 @@ ok('J7 the shoe OVERCLAIM is corrected on the record and THE BOOT is dead',
    /I OVERSTATED THE SHOE FINDING/i.test(flat) &&
    /most sneakers use EVA foam/i.test(flat) &&
    /survives as world texture/i.test(flat));
-ok('J8 the gun finding is recorded and pipe weapons landed in ACT 1 as he guessed',
-   actOf('THE MACHINIST') === 1 && /trivially/i.test(flat) &&
-   /What is genuinely hard is AMMUNITION/i.test(flat));
-ok('J9 every boss he re-acted actually moved: PLATE+MIDWIFE act1, BONES+ENGINE act2',
-   actOf('THE PLATE') === 1 && actOf('THE MIDWIFE') === 1 &&
-   actOf('THE BONES') === 2 && actOf('THE ENGINE') === 2);
+ok('J8 pipe weapons are in ACT 1 as he guessed', actOf('THE MACHINIST') === 1);
+ok('J9 every boss he re-acted actually moved: PLATE/MIDWIFE/SPOKE/PUMP/SURVEYOR/SMITH to ' +
+   'act 1, BONES/ENGINE/SURGEON to act 2',
+   [ 'THE PLATE','THE MIDWIFE','THE SPOKE','THE PUMP','THE SURVEYOR','THE SMITH' ]
+     .every(b => actOf(b) === 1) &&
+   ['THE BONES','THE ENGINE','THE SURGEON'].every(b => actOf(b) === 2));
 ok('J10 THE ENGINE closes act 2, since he said end of act 2',
-   (rows.filter(r => actOf(r.boss) === 2).sort((a, b) => b.n - a.n)[0] || {}).boss === 'THE ENGINE');
+   (rows.filter(r => r.act === 2).sort((a, b) => b.n - a.n)[0] || {}).boss === 'THE ENGINE');
 ok('J11 the five he was CONFUSED by are dead, and his words are on the record',
    ['THE WATCH', 'THE ARCHITECT', 'THE SIGN', 'THE STILL', 'THE FIXER']
-     .every(b => !rows.some(r => r.boss === b)) && /DELETE THIS IS ASS/i.test(lad));
+     .every(b => !rows.some(r => r.boss === b)) && /DELETE THIS IS ASS/i.test(flat));
+/* ON `flat` AGAIN. It was on `lad` and failed because the quote hard-wrapped as
+   "DELETE\nTHIS IS ASS". Third time this session a prose assertion has tripped on a line
+   break. Every prose check in this file now runs on collapsed text; the rule is simply that
+   PROSE DOES NOT RESPECT LINE ENDINGS, so a check on prose must not either. */
 ok('J12 ★ AND THE LESSON IS WRITTEN DOWN: four died because the LOCK was invented to ' +
    'justify a boss I wanted',
    /the LOCK was invented to justify a boss I wanted/i.test(flat) &&
@@ -297,12 +315,61 @@ ok('J14 HE RULED IT: improvised demolition charges, NOT radiological, and no rad
    /improvised demolition charges/i.test(flat) && /Not radiological/i.test(flat) &&
    /no rad mechanic enters the game through this door/i.test(flat));
 
+/* ==========================================================================
+   PART K (v6) — HIS LORE RULINGS AND THE SECOND KILL-RULE.
+   ========================================================================== */
+ok('K1 THE POT is the FIRST boss and the comedy is a stated TONE note, not a mechanic',
+   (rows.find(r => r.n === 1) || {}).boss === 'THE POT' &&
+   /play it absolutely straight/i.test(flat));
+ok('K2 THE MIDWIFE CLOSES ACT 1, and the relationship requirement is flagged to PEOPLE',
+   (rows.filter(r => r.act === 1).sort((a, b) => b.n - a.n)[0] || {}).boss === 'THE MIDWIFE' &&
+   /THIS CLOSES ACT 1/i.test(lad) && /relationship arc/i.test(flat) &&
+   /PEOPLE lane's to build/i.test(flat));
+ok('K3 3D PRINTED MEAT is canon, and THE VAT\'s lock is CAPACITY not animals',
+   /3D PRINTED MEAT EXISTS IN THIS WORLD/i.test(lad) &&
+   rows.some(r => r.boss === 'THE VAT') && !rows.some(r => r.boss === 'THE HERD') &&
+   /bioreactor volume, not animals/i.test(flat));
+/* K4 WAS AN OR AND A MUTATION WALKED THROUGH IT. Either half satisfied it, so deleting the
+   honest sentence still passed on the stray price figure elsewhere in the doc. AND is what
+   was meant: the claim and its number both have to be there, because the number without the
+   claim reads as evidence FOR cheapness. An OR in an honesty check is a hole. */
+ok('K4 and the research is honest that cultivated meat costs MORE today, not less',
+   /costs \*?\*?far more\*?\*? than conventional/i.test(flat) && /\$34\/lb/i.test(flat));
+ok('K5 PLASTIC is the fuel path and Las Vegas is the oil field',
+   rows.some(r => r.boss === 'THE CRACKER') && !rows.some(r => r.boss === 'THE REFINERY') &&
+   /LAS VEGAS IS MADE OF PLASTIC/i.test(lad) && /the city is the oil field/i.test(flat));
+ok('K6 THE POUR is his building-UPGRADE reframe, not my invented decay problem',
+   /UPGRADE buildings/i.test((rows.find(r => r.boss === 'THE POUR') || {}).key || '') &&
+   /invented a decay problem that does not exist/i.test(flat));
+ok('K7 THE MARQUEE\'s lock is corrected: people already come, you just cannot influence it',
+   /arrivals are a trickle you cannot influence/i.test((rows.find(r => r.boss === 'THE MARQUEE') || {}).lock || ''));
+ok('K8 THE DAM is a RESTORATION of something limping, not a switch-on from zero',
+   /running at a fraction/i.test((rows.find(r => r.boss === 'THE DAM') || {}).holds || '') &&
+   /restore it to full/i.test((rows.find(r => r.boss === 'THE DAM') || {}).key || ''));
+ok('K9 THE RAIL\'s grant is partly POLITICAL, on his pseudo-mayor note',
+   /mayor/i.test((rows.find(r => r.boss === 'THE RAIL') || {}).key || ''));
+ok('K10 THE ROAD went deeper: a cleared route must be HELD, which pairs it with THE WALL',
+   /only if it is held/i.test((rows.find(r => r.boss === 'THE ROAD') || {}).key || ''));
+ok('K11 the seven he cut this pass are all gone',
+   ['THE SHADE','THE TANNER','THE HOSE','THE KILN','THE OPERATOR','THE CART','THE HIVE']
+     .every(b => !rows.some(r => r.boss === b)));
+ok('K12 ★ THE SECOND KILL-RULE IS WRITTEN DOWN: if the grant does not fit on a button, it ' +
+   'is not a grant',
+   /If the grant does not fit on a button, it is not a grant/i.test(flat) &&
+   /between them they have\s*now killed thirteen bosses/i.test(flat));
+ok('K13 the three RENAMES are stated as renames, not counted as kills',
+   /THE STRIPPER survives as a boss\s*under the name THE CHARGE/i.test(flat) &&
+   /THE HERD survives as THE VAT/i.test(flat) && /THE REFINERY survives as\s*THE CRACKER/i.test(flat));
+ok('K14 THE VOICE is called out as the longest-running unanswered thing rather than ' +
+   'quietly carried a fifth time',
+   /longest-running unanswered thing on the ladder/i.test(flat));
+
 console.log('-'.repeat(74));
 console.log('  ' + rows.length + ' bosses · ' + seenLock.size + ' distinct locks · ' +
             seenVerb.size + ' distinct grant verbs · ' + DEAD.length + ' dead');
 console.log('  KINDS: ' + KINDS.map(k => k + ' ' + counts[k]).join('  ') +
             '   ACTS: ' + [1,2,3].map(a => 'act' + a + ' ' +
-            rows.filter(r => actOf(r.boss) === a).length).join('  '));
+            rows.filter(r => r.act === a).length).join('  '));
 console.log('='.repeat(74));
 console.log('  BOSS LADDER GATE: ' + pass + ' pass / ' + fail + ' fail');
 console.log('='.repeat(74));

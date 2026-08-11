@@ -1,3 +1,75 @@
+LAB (lab-e2r7sv): 8/7 (h) LATEST -- *** 56 BOSSES. ACT 1 NEARLY DOUBLED, IT NOW OPENS ON A JOKE
+AND CLOSES ON A BIRTH, AND THREE OF HIS LORE RULINGS ARE NOW WORLD FACTS. ***
+JUDGE THIS: 1. the 56 in records/BOHEMIA_THE_BOSS_LADDER_v6_8_7_26.md. NOT IN A TAB.
+
+HIS THREE LORE RULINGS, RECORDED AS WORLD FACTS BECAUSE THAT IS WHAT THEY ARE:
+1. *** 3D PRINTED MEAT EXISTS IN THIS WORLD. *** So the ruins contain BIOREACTORS. Research says
+   the bottleneck is not animals, it is VOLUME: 1% of the protein market needs 220-440M litres of
+   bioreactor capacity against ~200M in existence worldwide, and cultivated meat costs MORE today
+   (~$34/lb vs under $5/lb) until the vessels are big. So he is right that it gets cheaper -- AT
+   SCALE -- which makes it a city-builder mechanic. AND IT INVERTS THE OBVIOUS: real meat becomes
+   the LUXURY (herds are gone) and vat protein becomes the staple. A real steak is a high-roller
+   item in a city that runs on printed protein, which is about as Vegas as an economy gets.
+   THE HERD is replaced by THE VAT and its lock is capacity.
+2. *** PLASTIC IS THE FUEL SOURCE, AND LAS VEGAS IS THE OIL FIELD. *** Pyrolysis converts 60-85%
+   of waste plastic into diesel-equivalent oil, works at SMALL scale, and needs a CATALYST for
+   consistent quality. That splits exactly as he called it: act 1 crude and low-yield, act 2
+   mass-produced once THE CHEMIST supplies the catalyst. Every sign face, slot housing and hotel
+   fitting in this city is feedstock. THE REFINERY is renamed THE CRACKER.
+3. PEOPLE ALREADY COME TO VEGAS. Corrects THE MARQUEE, whose lock was flat wrong -- it is not
+   "nobody comes", it is that arrivals are a trickle you cannot INFLUENCE.
+
+*** AND A STRUCTURAL REQUIREMENT ON ACT 1, WHICH IS THE PEOPLE LANE'S TO BUILD: *** THE MIDWIFE
+CLOSES ACT 1, and he ruled "must have a relationship and shit to before act 1 closes". So act 1 is
+not a checklist of tools -- IT HAS TO CONTAIN A RELATIONSHIP ARC THAT MATTERS or its ending is
+unearned. Flagged to PEOPLE. Not designed here, no numbers.
+
+THE POT IS THE FIRST BOSS AND IT IS A JOKE, ON HIS RULING: "overdramatize it and itd be funny...
+right off the bat". The game's first Forsaken-power moment is somebody's grip on a saucepan, staged
+like the end of the world, and what you win is COOKING. TONE NOTE, not a mechanic note: PLAY IT
+ABSOLUTELY STRAIGHT. The joke dies if the game winks.
+
+SEVEN KILLED ON HIS WORD: THE SHADE ("delete"), THE TANNER and THE HOSE ("weak sauce"), THE KILN
+("idk what game mechanic this will implement"), THE OPERATOR and THE CART ("im confused"), THE HIVE
+(my own THIN flag, undefended).
+*** AND THE SECOND KILL-RULE FELL OUT OF THOSE: IF THE GRANT DOES NOT FIT ON A BUTTON, IT IS NOT A
+GRANT. *** "Shift what hands cannot" sounds like a mechanic and is not one. Compare his own fix to
+THE POUR -- "upgrade buildings and unlock advanced ones" is a verb you can put on a button. With
+the first rule (if you cannot name the wall without inventing it, there is no boss) that is
+THIRTEEN BOSSES KILLED between them.
+
+SIX MOVED INTO ACT 1 on his rulings (SPOKE, PUMP, SURVEYOR, TOOTH, LENS, and SMITH at the END as
+the hinge -- the first thing you own that keeps working while you are not there). SURGEON to the
+second half of act 2. THE POUR is his reframe and it is much better than mine: it opens BUILDING
+UPGRADE TIERS instead of the decay problem I invented. THE ROAD went deeper -- a cleared route is a
+chokepoint somebody was TAXING, so clearing means HOLDING it, which pairs it with THE WALL. THE DAM
+is a RESTORATION of something limping, not a switch-on from zero. THE RAIL's grant is partly
+POLITICAL (pseudo-mayor standing), his note.
+
+GATE: boss_ladder_gate.js, 67 checks. 56 bosses, 56 DISTINCT LOCKS, 56 DISTINCT GRANT VERBS.
+*** AND THE GATE HAD A REAL BUG I FIXED AT THE ROOT: *** actOf() located a boss by
+lad.indexOf('**NAME**') and took the FIRST hit, which is a PROSE mention whenever a boss is
+discussed before its table. On v6 that silently put two bosses in "act 0" and made the act counts
+sum to 54 against 56 rows. Position of a mention is not membership in a section. The act is now
+recorded AT PARSE TIME from which table the row sits in, and a new check asserts no orphans.
+ALSO: K4 was an OR and a mutation walked straight through it -- deleting the honest sentence about
+printed-meat cost still passed on a stray price figure elsewhere. AN OR IN AN HONESTY CHECK IS A
+HOLE; it is an AND now.
+
+ELEVEN PLANTED MISTAKES, ELEVEN CAUGHT -- but THREE of my mutations had to be redone, and the last
+one is worth writing down because it fooled me into thinking the GATE was broken: the doc
+hard-wraps, so "if the grant does not fit on a\nbutton" was invisible to my exact-match re.sub AND
+to my grep, while the gate's collapsed-text regex matched it correctly. I spent four tool calls
+suspecting a live check before finding my own edit had never applied. *** WHEN YOU MUTATE PROSE,
+MUTATE WHITESPACE-AWARE, OR YOU WILL ACCUSE A WORKING GATE. *** Sixth mutation-tooling failure
+this session and the most instructive one.
+
+STILL PENDING HIM: THE VOICE (54) -- FIVE PASSES UNANSWERED and I would rather he killed it than
+left it; whether the valley should EVER reconnect (56 THE UPLINK, close to the spine of the story);
+the act-1 relationship arc (PEOPLE lane); whether clout is the summon's mana; which of the 56 live;
+and the MEDICINE-vs-RESOURCES currency name.
+
+
 PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
 PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
@@ -397,6 +469,8 @@ assembly logic), deck stairs (blocked on TF-CMB-004 slab cook). Then the
 volume ledger. Pages surface at 232 of 260 MB - compress future shots.
 
 ART (f3eu53): 8/11 (h) -- *** FIFTH FAMILY WIRED: THE FENCES ARE REAL
+
+
 
 LAB (lab-e2r7sv): 8/7 (g) LATEST -- *** 63 BOSS CANDIDATES ACROSS THREE ACTS, AND HE CAUGHT ME
 OVERSELLING A RESEARCH FINDING. IT IS A POOL TO CUT FROM, NOT A SHIPPING LIST. ***

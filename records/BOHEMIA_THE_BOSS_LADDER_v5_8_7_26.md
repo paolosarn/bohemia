@@ -1,3 +1,10 @@
+> **★ SUPERSEDED 8/7/26 (same day) — THE LIVE LADDER IS NOW
+> `records/BOHEMIA_THE_BOSS_LADDER_v6_8_7_26.md`.**
+> He went through v5 boss by boss: seven killed, six moved into act 1, THE POT made the comedic
+> FIRST boss, THE MIDWIFE made the act-1 closer with a relationship requirement, and three lore
+> rulings landed (3D printed meat is canon, plastic is the fuel source, people already come to
+> Vegas). 63 -> 56. **Build from v6.**
+
 # BOHEMIA — THE BOSS LADDER v5: 63 CANDIDATES ACROSS THREE ACTS (8/7/26)
 
 **THIS IS THE LIVE LADDER.** Supersedes v4. v1-v4 stays as the history, and v1's thirteen remain
