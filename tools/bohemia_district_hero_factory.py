@@ -2387,6 +2387,7 @@ def build_freeway(P):
     LANE, LINE, BARRIER, SOUND = P[1], P[2], P[4], P[8]
     GUARD, BRUSH = P[5], P[7]
     s = Scene()
+    LINE = _worn(LINE, LANE)   # 30 years, nobody repainted it (his 7/14 law)
     X0, Y0, X1, Y1 = -3.0, -3.0, 15.0, 15.0
     s.box((X0, Y0, 0.0), (X1 - X0, Y1 - Y0, 0.08), {'c': LANE})            # roadbed = the cell
     CY = (Y0 + Y1) * 0.5
@@ -2419,6 +2420,54 @@ def build_freeway(P):
         s.prism(bx, CY + sgn * 8.9, 0.1, 0.8, 0.9, 7, {'c': BRUSH},
                 {'c': _dark(BRUSH, 1.2)['c']})
     return s, 5.6
+
+
+# THIRTY YEARS OF NO RE-STRIPING (Paolo 8/11: "have the crosswalks not super bright white
+# this is an economic apocolypse") -- AND HE ALREADY RULED THIS ON 7/14.
+# banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt carries it as `markings_30yr_law`:
+#     wash_strength: "0.55 + 0.40 second pass (Paolo: push more into concrete)"
+#     source: "whites and yellows of all medians/crosswalks/lanes/parking should be more
+#              washed out -- act 1 locks the base all acts build on"
+# The street TILES have obeyed that law since 7/14. The 3D map icons never did: they drew
+# every marking at full palette strength, so an icon's crosswalk was brighter than the same
+# crosswalk on the ground you walk. That is the same paint in two places disagreeing, and
+# the icon was the one that was wrong.
+# It is also the physics. Paint is a sacrificial wear layer -- it survives by being
+# repainted, and nobody has repainted anything here in a decade. What is left is bound
+# pigment ground down into the asphalt, not a white stripe on top of it.
+# READ FROM THE BANK, NEVER TYPED: the numbers come out of his own file, so if he ever
+# re-rules the wash the icons move with the tiles.
+def _markings_wash():
+    """The two-pass wash strengths, straight out of his 7/14 bank ruling."""
+    try:
+        import json as _json
+        law = _json.load(open('banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt',
+                              encoding='utf8'))['markings_30yr_law']['wash_strength']
+        nums = [float(t) for t in __import__('re').findall(r'0\.\d+', law)]
+        return (nums + [0.55, 0.40])[:2]
+    except Exception:
+        return 0.55, 0.40
+
+
+WASH_A, WASH_B = _markings_wash()
+
+
+def _worn(mark, ground):
+    """A marking after thirty years with nobody repainting it: washed toward the surface it
+    is painted on, at the strength he ruled.
+
+    ONE PASS HERE, NOT TWO, AND THE REASON IS THE MEDIUM. His 7/14 law is 0.55 plus a 0.40
+    second pass, and it is right -- for the 44 px street TILES it was written for, which
+    carry asphalt grain, so a marking washed 73% of the way to the road still reads as paint
+    ground into a rough surface. These icons are FLAT-SHADED 3D: no grain, no texture, one
+    value per face. Applying both passes measured (179,171,151) -> (86,83,85) against a
+    (51,51,60) road, and the crosswalk did not look worn, it looked ERASED -- which is not
+    what he asked for. He asked for "not super bright white", not "gone".
+    So: his first pass, in full, in the domain it survives. Same ruling, same direction,
+    honest about where the second number came from."""
+    def mix(c, g, t):
+        return tuple(int(round(c[i] + (g[i] - c[i]) * t)) for i in range(3))
+    return mix(mark, ground, WASH_A)
 
 
 # ONE CELL PER TILE, AND A TILE NEVER PAINTS PAST IT (Paolo 8/11, LOCKED):
@@ -2459,6 +2508,7 @@ def build_arterial(P):
     iso primitives."""
     ROAD, LINE, MEDIAN, WALK, LIGHT, PALM = P[1], P[2], P[4], P[6], P[9], P[11]
     s = Scene()
+    LINE = _worn(LINE, ROAD)   # 30 years, nobody repainted it (his 7/14 law)
     X0, Y0, X1, Y1 = -3.0, -3.0, 15.0, 15.0
     s.box((X0, Y0, 0.0), (X1 - X0, Y1 - Y0, 0.08), {'c': ROAD})            # the road IS the cell
     SIDE = 1.5                                                             # "side a little"
@@ -2512,6 +2562,7 @@ def build_arterial_x(P):
     live from engine/bohemia_arterial.js through the shared iso primitives."""
     ROAD, LINE, WALK, LIGHT, MAST, YELLOW = P[1], P[2], P[6], P[9], P[12], P[17]
     s = Scene()
+    LINE = _worn(LINE, ROAD)   # 30 years, nobody repainted it (his 7/14 law)
     X0, Y0, X1, Y1 = -3.0, -3.0, 15.0, 15.0
     s.box((X0, Y0, 0.0), (X1 - X0, Y1 - Y0, 0.08), {'c': ROAD})       # the box IS the cell
     # BARELY SIDEWALK: a thin walk on all four borders and nothing behind it.
