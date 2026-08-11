@@ -1,3 +1,57 @@
+PEOPLE (7h9sfy): 8/9 — *** DEMO-CRITICAL, HE ASKED FOR IT BY NAME: THE SCRIPTED-SCENE
+RUNTIME (backlog 0sc) SHIPS, AND THE ACT 1 COLD OPEN PLAYS END TO END. ***
+Paolo 8/9: "the scripted-scene runtime whose first consumer is the Act 1 cold open
+(family defense, the locked 7/19 shape), and dialogue playing clean through the one
+contextual verb so the family can speak."
+
+BUILT: engine/bohemia_scene.js + records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json
+GATE:  gates/scene_gate.js, 32 claims, FOUR MUTATIONS KILLED, registered.
+
+THE FIRST CONSUMER IS THE MATCH-CUT, and that was a deliberate choice: his 7/19 ruling
+says the cut "shows the entire apocalypse WITHOUT A WORD", so the runtime's first job
+needs ZERO dialogue this lane would have to invent. Warm pre-collapse family table ->
+identical framing -> ONE CUT across ten years -> the same table dingy, you 20-something
+-> fireworks (the 10-year 4th of July) -> the father wakes you -> handoff to the
+family-defense tutorial -> control returns. 15 beats, 27 steps, 13.5s at 120 BPM,
+deterministic.
+
+*** THE WORDS ARE HIS AND THE GATE ENFORCES IT. *** Every say beat in the cold open is
+SILENT ON PURPOSE (LINES ships empty; a silent say beat is what an unwritten line looks
+like). The gate FAILS if any text appears in one - mutation-tested by putting a line in
+the father's mouth, and it went red. It also FAILS if a scene cites no ruling, and every
+beat carries a `why` quoting the addendum line it came from.
+
+DIALOGUE PLAYS CLEAN THROUGH THE EXISTING RUNTIME (REUSE-FIRST, no second dialogue
+system - that duplication cost this repo twice in one week). Proved on a REAL .bq
+(S02): speaker red_boss, "Batteries. Real ones, charged, not the swollen junk...",
+three options INCLUDING A SILENCE, and choosing advances to the next node.
+*** THE BUG THAT WOULD HAVE HIDDEN FOREVER: *** opening a conversation is THREE calls
+(start -> available -> begin). v1 made one, so view() answered {ended:true, says:[]} and
+the beat played SILENT - which looks EXACTLY like a line he has not written yet. It
+would have hidden behind the empty-lines-are-legal rule indefinitely. The gate now opens
+a real .bq and asserts WORDS COME OUT.
+AND THE GATE CRASHED ON ITS OWN MUTATION TEST before it failed cleanly (p.dialogue was
+null and .choose() threw). A CRASH ASSERTS NOTHING - the same lesson DEVIATION taught
+this lane on 8/4. Guarded; it now reports "NO CONVERSATION WAS OPEN".
+
+STILL NOT ON THE WALKED SURFACE. The runtime is engine-side and gate-proved; inlining it
+into slices/BOHEMIA_CITY_WORLD.html (the surface RUN shows) is the next step, following
+the bohemia_city_people_patch.py precedent this lane already owns.
+
+=== DEMO BLOCKERS, MEASURED 8/9 (not copied from the plan) ===
+ 1. the day loop stops at "pick up a quest" - wake and walk work, nothing after   (RUN)
+ 2. dialogue does not exist on the surface RUN shows; it plays only in the invisible file
+ 3. no scripted-scene runtime existed anywhere -> FIXED THIS TURN (engine-side)
+ 4. no way into combat from the walked world - the family-defense tutorial has no handoff
+ 5. no currency on the walked world, so nothing can pay you   (needs his economy ruling)
+ 6. sleep does not end the day, so "sleep-save holds" cannot be demoed   (RUN)
+ 7. his 11 approved perimeter walls are not in the walked world   (CITY, one step, proven)
+ 8. no squiggle voices anywhere - every line lands silent, which he ruled reads dead
+ 9. the family cast (father/mother/brother/sister) does not exist as bodies  (CHARACTER)
+10. the vista/overlook moment is not built   (RUN + CITY)
+11. 28 finished things still ship only to the file nobody sees   (fleet)
+
+-----------------------------------------------------------------------------------
 CITY (1eztay): 8/9 (e) LATEST — THE LOOK TAB. HE STOPS HUNTING FOR WHAT WE BUILD.
 
 HIS RULING, 8/8, LOCKED: "don't say play the run so I can see the art assets and what's

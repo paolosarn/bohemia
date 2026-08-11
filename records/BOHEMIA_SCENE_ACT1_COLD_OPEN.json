@@ -1,0 +1,131 @@
+{
+  "id": "act1_cold_open",
+  "title": "THE MATCH-CUT OPEN",
+  "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - THE MATCH-CUT OPEN (7/19, Paolo, locked shape) and OPENING SEQUENCE CRYSTALLIZED beat 1 (NIGHT RAID)",
+  "note": "AUTHORED FROM THE LOCKED SHAPE, NOT INVENTED. Every beat below traces to a line of his 7/19 addendum, quoted in `why`. The match-cut is deliberately the first consumer of the scene runtime because his ruling says it works WITHOUT A WORD - 'The single cut shows the entire apocalypse without a word' - so it needs no dialogue this lane would have to make up. The say beats that follow the cut carry NO text on purpose: the words are his and LINES ships empty. A silent say beat is what an unwritten line looks like, and it is legal.",
+  "beats": [
+    {
+      "kind": "set",
+      "id": "before",
+      "place": "family_table",
+      "era": "pre_collapse",
+      "mood": "warm",
+      "light": "warm_interior",
+      "beats": 2,
+      "why": "'The game opens on a PRE-APOCALYPSE family dinner... the family whole, the world intact, a warm happy moment at the table.'"
+    },
+    {
+      "kind": "camera",
+      "id": "table_frame",
+      "framing": "table_wide",
+      "hold": true,
+      "why": "the framing must be IDENTICAL either side of the cut or the match-cut does not read as the same table."
+    },
+    {
+      "kind": "actor",
+      "id": "you_child",
+      "actor": "player",
+      "age": "child",
+      "at": "table_seat_player",
+      "pose": "seated",
+      "why": "'You are a CHILD, the family whole.'"
+    },
+    {
+      "kind": "actor",
+      "id": "father_before",
+      "actor": "father",
+      "at": "table_seat_father",
+      "pose": "seated",
+      "why": "'the family whole' at the pre-collapse table. He is the one who wakes you ten years later, so the player must have seen him whole first."
+    },
+    {
+      "kind": "actor",
+      "id": "mother_before",
+      "actor": "mother",
+      "at": "table_seat_mother",
+      "pose": "seated",
+      "why": "'the family whole' at the pre-collapse table. The cold open ends saving her, so she is established here before she is at risk."
+    },
+    {
+      "kind": "actor",
+      "id": "brother_before",
+      "actor": "sibling_older",
+      "at": "table_seat_sibling_older",
+      "pose": "seated",
+      "why": "the older sibling is the SAME GENDER as the player (7/19 RESOLVED); the surface picks which body from creation."
+    },
+    {
+      "kind": "actor",
+      "id": "lost_before",
+      "actor": "sibling_lost",
+      "at": "table_seat_sibling_lost",
+      "pose": "seated",
+      "why": "the one taken on night one sits at this table first, so the empty chair later has a memory attached. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] and is NOT built here."
+    },
+    {
+      "kind": "wait",
+      "id": "let_it_be_warm",
+      "beats": 6,
+      "why": "the warmth has to land before it is taken, or the cut costs nothing."
+    },
+    {
+      "kind": "cut",
+      "id": "the_blink",
+      "from": "pre_collapse",
+      "to": "post_collapse",
+      "keepFraming": true,
+      "years": 10,
+      "why": "'Then a blink / match-cut: the SAME table, ~10 years later, now in a dingy post-apocalypse house, you are 20-something. The single cut shows the entire apocalypse without a word.' THIS BEAT IS THE WHOLE OPENING."
+    },
+    {
+      "kind": "set",
+      "id": "after",
+      "place": "family_table",
+      "era": "post_collapse",
+      "mood": "dingy",
+      "light": "dim_interior",
+      "beats": 2,
+      "why": "same place, ten years on. What the world was, what it became."
+    },
+    {
+      "kind": "actor",
+      "id": "you_adult",
+      "actor": "player",
+      "age": "adult",
+      "at": "table_seat_player",
+      "pose": "seated",
+      "why": "'you are 20-something' - same seat, same framing, different person."
+    },
+    {
+      "kind": "set",
+      "id": "fireworks",
+      "place": "family_table",
+      "era": "post_collapse",
+      "sky": "fireworks",
+      "beats": 2,
+      "why": "'the 10-YEAR ANNIVERSARY OF THE FOURTH OF JULY... the one night you see recreational FIREWORKS'. It also sets up the raid: 'you can't always tell a firework from a muzzle flash'."
+    },
+    {
+      "kind": "say",
+      "id": "father_wakes_you",
+      "speaker": "father",
+      "bq": null,
+      "text": null,
+      "why": "'Your FATHER wakes you: bandits/raiders are attacking the home.' HIS WORDS, UNWRITTEN. Silent on purpose - this lane does not put words in his family's mouths."
+    },
+    {
+      "kind": "handoff",
+      "id": "family_defense",
+      "to": "combat",
+      "tier": "tutorial",
+      "encounter": "family_defense",
+      "returns": true,
+      "why": "'The tutorial IS the family-defense fight. You learn the (fun) combat by fending them off room to room.' COMBAT supplies the encounter; this beat only hands over and takes control back."
+    },
+    {
+      "kind": "end",
+      "id": "cold_open_ends",
+      "why": "'It ends when you save your MOTHER from a raider. The assault is INFERRED, never shown or dwelt on.' The saving beat and the sibling's death are COMBAT's and his to author; the scene returns control here rather than dramatising something he has not ruled."
+    }
+  ]
+}

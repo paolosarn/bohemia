@@ -4161,6 +4161,30 @@ P-W. [SHIPPED 8/7 - records/BOHEMIA_WHO_YOU_STIRRED_UP_8_7_26.md]
    rather than dodged. If he says no, it is nine lines to revert. If yes, the addendum
    gets written and build_the_world_gate.py should be told.
 
+P-V. [SHIPPED 8/9 - DEMO-CRITICAL, HE ASKED BY NAME. Closes backlog 0sc's runtime half]
+   *** THE SCRIPTED-SCENE RUNTIME SHIPS AND THE ACT 1 COLD OPEN PLAYS END TO END. ***
+   engine/bohemia_scene.js + records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json.
+   0sc's acceptance verbatim was "one scene plays end to end on the real surface,
+   gated | scene content = his". The runtime and the scene are done and gated; the
+   SURFACE half (inlining into BOHEMIA_CITY_WORLD.html) is the next step.
+   FIRST CONSUMER = THE MATCH-CUT, chosen deliberately: his 7/19 ruling says the cut
+   "shows the entire apocalypse WITHOUT A WORD", so the runtime's first job needs zero
+   dialogue this lane would have to invent. 15 beats, 13.5s at 120 BPM, deterministic.
+   THE WORDS ARE HIS AND THE GATE ENFORCES IT: every say beat is silent on purpose and
+   the gate goes RED if text appears (mutation-tested by putting a line in the father's
+   mouth). A scene with no citation is refused; every beat carries a `why` quoting the
+   addendum.
+   DIALOGUE VIA THE EXISTING BQ RUNTIME (REUSE-FIRST, no second dialogue system).
+   *** THE BUG THAT WOULD HAVE HIDDEN FOREVER: *** opening a conversation is THREE calls
+   (start -> available -> begin); v1 made one, so the beat played SILENT - which looks
+   exactly like an unwritten line and would have hidden behind the empty-lines-are-legal
+   rule indefinitely. Gate now opens a real .bq (S02) and asserts words, choices, a
+   silence, and that choosing advances.
+   AND THE GATE CRASHED ON ITS OWN MUTATION before failing cleanly - a crash asserts
+   nothing, the DEVIATION lesson from 8/4. Guarded.
+   | gates/scene_gate.js 32 claims, 4 mutations killed, registered | 8/9 | no - runtime.
+   Scene CONTENT is his: the cold open's lines are empty and waiting.
+
 P-U. [SHIPPED 8/7 - SWEPT THE PATTERN INSTEAD OF THE INSTANCES, FOUND NINE MORE -
    records/BOHEMIA_THE_VALLEY_HOLDS_FOUR_TIMES_THE_PEOPLE_WE_THOUGHT_8_6_26.md]
    Four separate hunts today found "a check that agrees with itself" ONE AT A TIME,

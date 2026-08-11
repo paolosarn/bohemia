@@ -482,6 +482,15 @@ GATES = [
      'the live phone (SLICE tab) never drifts from the real loop/world model — regen is a no-op', False),
     ('INTEGRATION',    ['node', 'gates/integration_gate.js'],
      'the run IS the game we built: every system claimed integrated is machine-probed in the shipped run, no unproven claims', False),
+    ('SCENE',          ['node', 'gates/scene_gate.js'],
+     'DEMO-CRITICAL (Paolo 8/9). The scripted-scene runtime, backlog 0sc, and its first '
+     'consumer: the Act 1 cold open in the LOCKED 7/19 shape -- warm pre-collapse family '
+     'table, identical framing, ONE MATCH-CUT across ten years, the same table dingy, '
+     'fireworks, the father waking you, handoff to the family-defense tutorial. Plays end to '
+     'end, deterministic, 13.5s at 120 BPM. Dialogue drives the EXISTING BQ runtime (REUSE-'
+     "FIRST) and is proved on a real .bq: speaker, words, choices, a silence, and a choice "
+     'that advances. THE WORDS ARE HIS -- the gate FAILS if anybody writes a line for his '
+     'family, and if a scene cites no ruling', False),
     ('MAP BOUND',      ['node', 'gates/mapbound_gate.js'],
      'nothing that scans the valley may decide for itself how big the valley is. A typed `y < 48` '
      'cost a 4.25x population error, and the CROSS-CHECK BUILT TO CATCH IT HAD THE SAME LINE -- '
