@@ -3951,6 +3951,62 @@ ok('V135 TUTORIAL TIER: two hostiles on the EASY dial, so the dead-shot dial is 
 ok('V135 MECHANISM MINE, CONTENTS HIS, AND THE CONTENTS SHIP EMPTY: who the family is, what the place is and what anyone says are NOT invented. The opening of his game is the most seductive place to write his lore for him, so cast is empty, place is null, the hostiles are unnamed archetypes and there is not one line of dialogue',
   /cast:\[\],/.test(alpha) && /place:null,/.test(alpha) &&
   /roster\.push\(\{name:'hostile_'\+i,hp:55,arch:'human'\}\)/.test(alpha));
+/* ===== V136 THEY COME FOR YOU =====================================
+   Paolo 8/8: "right now kinda just feels like I could stand still and kill
+   everybody right now it's kind of weird". He was right and it was one line:
+   coverSeekAI opened with `if(e.gcov)continue;`, so every gun ran to the
+   nearest rock ONCE and then never moved again for the whole fight. Nothing on
+   the board had ever had a reason to make him leave his tile.
+   MEASURED on the real build, 40 arenas x 6 turns of standing perfectly still:
+     guns the player is COVERED from   3.00  ->  0.68
+     average range                    10.22  ->  6.92 tiles
+     expected damage per volley        79.0  ->  132.0   (+67%)
+     guns with a clean line on him     4.00  ->  6.00 of 6
+   movers per turn 2.20, longest single step 1.80 (= PRESS_STEP, nobody
+   teleports), 0 men standing inside a pillar, 0 inside the standoff. */
+ok('V136 THE GUNS MOVE AT ALL, WHICH THEY NEVER DID: coverSeekAI ran a shooter to the nearest rock exactly once and then `if(e.gcov)continue;` froze him there for the rest of the fight. Only the 7/19 blades ever advanced. pressAI is the other half, and it runs on the turn AFTER the scramble so a man caught in the open still gets his stone first',
+  demo.includes('V136 THEY COME FOR YOU') &&
+  demo.includes('function pressAI(){') &&
+  demo.includes('function pressScore(e,x,y){') &&
+  /pressAI\(\); updateGeomCover\(\);/.test(demo) &&
+  /function tickTurnEnd\(\)\{ meleeTurnRun\(\); updateGeomCover\(\); coverSeekAI\(\); updateGeomCover\(\);/.test(demo));
+
+ok('V136 ONE MAN, ONE MOVE: coverSeekAI stamps whoever it moved with the turn number and the press skips him, so nobody ever gets a scramble AND a bound in the same turn (4 tiles from a 2.2 and a 1.8)',
+  /e\._movedTurn=G\.mTurn\|\|0;/.test(demo) &&
+  /e\._movedTurn!==turn/.test(demo));
+
+ok('V136 AN ANGLE IS THE BIG PRIZE, AND IT IS WHY HIS TILE DECAYS: a shooter the stone blocks does not have a reduced hit chance, he has NONE, so walking around your cover is worth more than anything else he can do with his feet. That single term is what makes standing still cost something',
+  /if\(!coverAtXY\(x,y,e\.lvl\)\)s\+=3\.0;/.test(demo) &&
+  demo.includes('function coverAtXY(x,y,lvl){'));
+
+ok('V136 IT ASKS THE GAME\'S OWN FUNCTIONS AND NEVER RESTATES THEM: the scorer calls distT for range and myCoverAgainst for cover -- the same two the volley uses -- so a shooter can never disagree with the volley about who is covered from whom or how far is far',
+  /s\+=2\.2\*\(distT\(\{edist:e\.edist\}\)-distT\(\{edist:d\}\)\)/.test(demo) &&
+  /return myCoverAgainst\(Math\.atan2\(y,x\),d,lvl\)/.test(demo));
+
+ok('V136 FIRE AND MOVEMENT, NOT A CAVALRY CHARGE: at most half the line bounds in a turn and the men with the most to gain go first, while the rest hold their angle and shoot. A board that slides all at once is noise, not pressure',
+  /const PRESS_FRAC=0\.5;/.test(demo) &&
+  /plans\.sort\(\(a,b\)=>b\.gain-a\.gain\);/.test(demo) &&
+  /Math\.max\(1,Math\.ceil\(pool\.length\*PRESS_FRAC\)\)/.test(demo));
+
+ok('V136 THEY ARE STILL SHOOTERS, NOT BLADES: PRESS_STANDOFF holds them at a shooter\'s distance so nobody walks into your lap, and no candidate tile is ever inside a pillar or on top of another body',
+  /const PRESS_STANDOFF=3\.2;/.test(demo) &&
+  /if\(Math\.hypot\(nx,ny\)<PRESS_STANDOFF-0\.01\)continue;/.test(demo) &&
+  /if\(Math\.hypot\(ox-nx,oy-ny\)<0\.9\)\{bad=true;break;\}/.test(demo) &&
+  /if\(Math\.hypot\(q\[0\]-nx,q\[1\]-ny\)<\(P\.r\|\|0\.5\)\*0\.8\)\{bad=true;break;\}/.test(demo));
+
+ok('V136 A MOVE HAS TO BE WORTH SOMETHING: PRESS_WORTH is the margin a tile must beat standing put by, so nobody shuffles sideways for nothing, and a bound is capped at PRESS_STEP so no shooter ever teleports across the lot',
+  /const PRESS_WORTH=0\.18;/.test(demo) &&
+  /const PRESS_STEP=1\.8;/.test(demo) &&
+  /if\(Math\.hypot\(nx-ex,ny-ey\)>PRESS_STEP\*1\.02\)continue;/.test(demo));
+
+ok('V136 IT DOES NOT STEAL THE DAMAGE LINE: "RETURN FIRE, 3 of 5 hit you" is the most important thing on screen and a movement notice must never overwrite it, so setRead remembers its own colour and the press APPENDS to the line already there, in that line\'s colour',
+  /G\.lastRead=\{t:t,s:s\|\|'',at:Date\.now\(\),c:col\|\|''\}/.test(demo) &&
+  /setRead\(L\.t\|\|'THEY MOVE',\(L\.s\?L\.s\+/.test(demo) &&
+  /L\.c\|\|'#e8a04a'\)/.test(demo));
+
+ok('V136 AND THE V133 INVARIANT SURVIVED IT: setRead still calls _speak IMMEDIATELY after stamping lastRead. The colour note went ABOVE the line rather than inside it, because a gate is never worked around -- the comment moves',
+  /function setRead\(t,s,col\)\{ G\.lastRead=\{[^}]*\}; _speak\(t,s,col\);/.test(demo));
+
 ok('V66 PARENT: the outcome settles exactly once per encounter, and a broken handoff lands in the combat log instead of falling on the floor',
   alpha.includes('if(enc&&!enc.settled){') &&
   alpha.includes('enc.over=true; enc.settled=true; enc.live=false;') &&

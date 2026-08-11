@@ -825,6 +825,11 @@ GATES = [
      'shopping check walked the APPROVED-ASSET index (what he has judged) and never the '
      'PURCHASED library (what he paid for). Two shelves, one looked at. This makes the cook '
      'tools name the purchased library, or say in writing why nothing bought applies', False),
+    ('NO BULLSHIT Qs', ['python3', 'gates/no_bullshit_questions_gate.py'],
+     'Paolo 8/11: "UR QUESTIONS ARE NOT ENGLISH... IF IT MAKES THE GAME FUNNER AND '
+     'REALISTIC DO IT". Both keys turn = build it, no question. Machine-checks the two '
+     'shapes he named: no lettered option menus handed to him, and no build-language '
+     'words inside anything ending in a question mark', False),
     ('TASTE',          ['python3', 'gates/taste_gate.py'],
      'the Paolo taste canon: every NEVER cites a source, factories document a TASTE CHECK, the pre-judge kill-filter works', False),
     ('QUESTBOOK',      ['python3', 'gates/questbook_gate.py'],
