@@ -86,10 +86,13 @@ const SUBJECTS = [
     /* SCAN THE WHOLE MAP, NOT A COMFORTABLE MIDDLE. Measured 8/11: this seed puts
        exactly three cemetery cells on the board -- (40,17), (57,67), (58,67) -- and
        the old 20..80 window could not see the first one. A rare district needs the
-       full 96, or the tool reports "no instance in the live world" about a world
-       that has one. */
+       whole valley, or the tool reports "no instance in the live world" about a
+       world that has one.
+       om.n, NEVER A TYPED 96 (MAP BOUND ratchet): the map size is the overmap's to
+       state, and a literal here is a file that goes quietly wrong the day the
+       valley changes size. */
     find: `(() => {
-      for (let ty = 0; ty < 96; ty++) for (let tx = 0; tx < 96; tx++) {
+      for (let ty = 0; ty < om.n; ty++) for (let tx = 0; tx < om.n; tx++) {
         const t = om.at(tx, ty); if (!t || t.district !== 'cemetery') continue;
         tileMeta(tx, ty); const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
         if (o.length >= 10) return { hx: tx*FN + o[0].x, hy: ty*FN + o[0].y, zoom: 30 };
