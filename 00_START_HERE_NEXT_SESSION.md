@@ -321,3 +321,15 @@ goes red on three.
 settings in the batch (0.97 and 1.73 Hz), and every survivor sits at or below
 0.73 Hz. n=2 of 8 and both differ in other ways too, so it is recorded in the
 graveyard as something to watch in the next batch, not as a finding.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07) — THE DNA FORMULA RULED + LAB UN-PARKED (Paolo: "the combat
+is bigger map rogue fable 4. the game is valheim pocket city 2 fallout new
+vegas" — laws/BOHEMIA_ADDENDUM_THE_DNA_FORMULA_8_4_26.md, the north-star
+shorthand every lane checks on feel questions; FNV elevated to STRUCTURAL
+reference). The LAB is un-parked with a demo-serving charter: study the DNA
+trio's first hours (Goodsprings above all) and ship one pattern note for
+the demo's first five minutes + day pacing (dispatch appended to records/
+BOHEMIA_DEMO_DISPATCH_PROMPTS_8_4_26.md). WHAT COMES AFTER: blocker reports
+-> one consolidated Paolo sitting -> art wiring lands -> demo assembles in
+RUN -> demo gate + deploy -> he playtests the day.
