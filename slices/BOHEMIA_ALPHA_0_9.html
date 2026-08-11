@@ -5694,12 +5694,23 @@ const CHAR_OUTLINE = { on: true, color: [0,0,0] };
    it never moves with a light and never changes per facing. mul is his own face
    tone scaled on all three channels, so it stays on his ramp's line: same hue,
    a hair darker. One line to tune. */
-const NECK_TONE = { on: true, part: 3, mul: 0.93, throatRows: 2,
-  /* ONE TILE ON E AND W (Paolo 7/28: "Make the neck one tile less facing east
-     and west... towards the chin"). In profile there is far less throat between
-     the jaw and the collar than there is head-on, so two rows reached up into the
-     chin. One row there, two everywhere else. */
-  throatRowsByDir: { E: 1, W: 1 } };
+const NECK_TONE = { on: true, part: 3, mul: 0.93, throatRows: 1,
+  /* ONE TILE, EVERY DIRECTION (Paolo 7/28 -> 8/11).
+     7/28: "Make the neck one tile less facing east and west... towards the chin"
+     -- two rows reached up into the chin, so E and W went to one and everywhere
+     else stayed at two.
+     8/11, zoomed all the way in on the mouth with everything under it circled:
+     "THIS IS NOT FIXED." Measured on S, the rig has face at y13 w8 (the mouth
+     row), y14 w6 (the JAW) and y15 w4 (the CHIN) -- and the render painted BOTH
+     y14 and y15 as throat, 177,162,154, the same tone as the neck. His chin and
+     his neck came out one continuous slab with the mouth sitting on top of it.
+     IT WAS THE SAME DEFECT ON THE FRONT ALL ALONG. He caught it in profile in
+     July and head-on in August; the July ruling just never got applied past the
+     two facings he happened to be looking at. So this is that ruling finishing,
+     not a new call.
+     The throat KEEPS a row -- his 7/27 "the neck is not a different color" still
+     holds and the tone still shows. It just stops claiming his jaw. */
+  throatRowsByDir: null };
 function buildFrame(d,clip,ph){
   if(typeof window!=='undefined')window.RG_HEADROT=(clip==='headshot-2')?1:0;
   const _hp=poseHoldAt(d,clip,ph);

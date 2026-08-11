@@ -1,3 +1,49 @@
+CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE THROAT WAS EATING HIS CHIN.
+BOTH ROWS OF IT. HE CAUGHT THE SAME DEFECT TWICE, THREE WEEKS APART. ***
+
+PAOLO, zoomed all the way in with everything under the mouth circled: "THIS IS NOT FIXED
+ARE YOU RETARDED BRO ARE YOU FUCKING FR." He was right. The jaw EDGE fix earlier today was
+real and is still in; this is the OTHER half and it is the half he had been circling.
+
+NECK_TONE does not only tint the neck. Its own comment says why: part 3 is 100% cloth on
+every facing he looks at, so a tone there can never appear -- so it also takes "the lowest
+rows of visible FACE skin", `throatRows: 2`.
+
+    RIG (S)   y13 face w8   the mouth row
+              y14 face w6   the JAW
+              y15 face w4   the CHIN
+    RENDER    y13  191,175,166   his face tone
+              y14  177,162,154   THROAT
+              y15  177,162,154   THROAT
+
+BOTH ROWS OF HIS CHIN CAME OUT THE NECK'S TONE, so chin and neck read as one slab with the
+mouth sitting on top of it. That slab is what he circled, twice.
+
+*** AND HE HAD ALREADY RULED ON IT. *** 7/28: "Make the neck one tile less facing east and
+west... towards the chin" -- the note in the code even says two rows "reached up into the
+chin". That correction went to E and W ONLY; every other facing was left at two. It was the
+same defect on the front the whole time. He caught it in profile in July and head-on in
+August. Now: ONE ROW, EVERY DIRECTION. tools/bohemia_throat_row_patch.py.
+The throat KEEPS a row, so his 7/27 "the neck is not a different color" still holds.
+
+A GATE MUST NEVER OUTRANK A RULING (8/1), AND ONE JUST DID. neck_tone_gate asserted the
+literal `throatRowsByDir: { E: 1, W: 1 }` AND `throatRows: 2` -- it had frozen the
+HALF-APPLIED version of his 7/28 ruling as if the split were the point, so finishing that
+ruling read as a regression. It asks for the PROPERTY now: the throat never takes more than
+one row in any direction. Mutation-tested both ways.
+
+Anchor: records/CHIN_UNDER_THE_MOUTH_8_11.png (before/after at his zoom).
+
+TWO SEPARATE BUGS UNDER ONE COMPLAINT, and I shipped a claim after fixing only the first:
+  1. the head was the ONE body part excluded from silhouette edging (`if (g !== 0)`, and
+     GROUP puts head+face in group 0) -- his painted jawline rendered as cheek. FIXED.
+  2. the throat took two rows of face -- his chin rendered as neck. FIXED NOW.
+If a complaint survives your fix, you fixed a different thing. Measure the exact rows he
+circled before saying it is done.
+
+--------------------------------------------------------------------------------
+
+
 LAB (lab-e2r7sv): 8/7 (h) LATEST -- *** 56 BOSSES. ACT 1 NEARLY DOUBLED, IT NOW OPENS ON A JOKE
 AND CLOSES ON A BIRTH, AND THREE OF HIS LORE RULINGS ARE NOW WORLD FACTS. ***
 JUDGE THIS: 1. the 56 in records/BOHEMIA_THE_BOSS_LADDER_v6_8_7_26.md. NOT IN A TAB.
@@ -405,6 +451,7 @@ when it resolves (a quest that ends at 3am has no audience by definition). Not t
 GATES: RUN 126, CURRENT SLICE 6, STANDING 35, DEED BRIDGE 27. The current slice went red
 first -- it embeds the loop and I had rebuilt only the run. Same trap as 8/9; rebuild
 BOTH slices whenever engine or run source changes.
+
 
 CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE HEAD IS FIXED. IT WAS ONE
 CONDITION, AND IT HAD BEEN WRONG FOR EVERY CHARACTER IN THE GAME. ***

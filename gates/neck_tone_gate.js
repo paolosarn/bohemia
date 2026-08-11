@@ -150,12 +150,28 @@ if (armM) {
 
 
 
-/* ONE TILE ON E AND W (Paolo 7/28: "Make the neck one tile less facing east and
-   west... towards the chin"). In profile there is far less throat between jaw and
-   collar than head-on, so two rows reached up into the chin. */
+/* ONE TILE, EVERY DIRECTION (Paolo 7/28 -> 8/11), AND THIS GATE WAS ENCODING THE
+   HALF-APPLIED VERSION.
+   7/28: "Make the neck one tile less facing east and west... towards the chin" --
+   two rows reached up into the chin, so E and W went to one and every other facing
+   was left at two. This line then FROZE that split as if the split were the point.
+   8/11, zoomed all the way in on the mouth with everything under it circled: "THIS
+   IS NOT FIXED." Measured on S, the rig has face at y13 w8 (the mouth row), y14 w6
+   (the JAW) and y15 w4 (the CHIN), and the render painted BOTH y14 and y15 as
+   throat -- 177,162,154, the neck's own tone. His chin and his neck came out one
+   slab with the mouth sitting on top of it.
+   IT WAS THE SAME DEFECT ON THE FRONT THE WHOLE TIME. He caught it in profile in
+   July and head-on in August; the July ruling simply never got applied past the two
+   facings he happened to be looking at.
+   A GATE MUST NEVER OUTRANK A RULING (8/1). This asserted a NUMBER, so when the
+   ruling that number came from finally finished applying, the gate called it a
+   regression. It asks for the PROPERTY now: the throat never takes more than one
+   row, in any direction. */
 ok('the throat row count is per-facing', /throatRowsByDir/.test(src));
-ok('E and W take ONE row; every other facing keeps two',
-  /throatRowsByDir: \{ E: 1, W: 1 \}/.test(src) && /throatRows: 2,/.test(src));
+ok('THE THROAT NEVER TAKES MORE THAN ONE ROW, any facing — two rows reach up into ' +
+   'his chin and paint it the neck\'s tone, which he has now caught twice',
+  /throatRows: 1,/.test(src) &&
+  !/throatRowsByDir: \{[^}]*[2-9][^}]*\}/.test(src));
 ok('the per-facing override is actually read by the pass',
   /NECK_TONE\.throatRowsByDir\[d\]!=null/.test(pass));
 ok('a zero row count is honoured rather than underflowing into the whole face',
