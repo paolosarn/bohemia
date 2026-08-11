@@ -1,3 +1,70 @@
+RUN (run-eak241): 8/12 LATEST -- YOUR HOUSE IS YOURS, AND THE PHONE IS IN YOUR POCKET.
+
+Paolo: "How was this a run when my house isn't labeled and the Phone app that we worked
+so hard for isn't even implemented yet." Right twice, and both are the same defect this
+lane keeps repeating: THE WORK EXISTS AND IS NOT IN THE SURFACE HE TAPS.
+
+THE PHONE WAS NEVER MISSING. slices/BOHEMIA_CURRENT_SLICE.html is a FINISHED phone --
+1.6 MB: the Network feed with DMs inside it, the ONE MAP over the real generated valley,
+Wallet, Profile, quest offers -- parked behind the alpha's SLICE tab, a DEVELOPER tab.
+The backlog said so on 7/27 and filed it [PENDING Paolo] on WHOSE LANE IT WAS. That was
+never his question. REACHABILITY IS MECHANISM. Two weeks sat on something I should have
+decided myself. Now: a PHONE button in the run opens THE REAL SLICE (never a second copy,
+so every future phone improvement lands in the run for free) and the city posts his cell,
+district, day, clock, live objective and HOME into it on open and on every change. The
+map needed almost no new code to show him -- it already drew "you" from player.tile and
+was drawing a demo actor parked at a start tile.
+
+YOUR HOUSE. HOME is the enterable house nearest where he actually LANDS, labelled in the
+world in the type the city already uses for names, pinned on the phone's map, and he
+wakes at his own door. MAP LAW held: nothing placed or moved, a house the generator
+already built is NAMED by a rule, and that rule steps aside the moment he authors one.
+
+*** THE PART EVERY LANE SHOULD READ: I BROKE ANOTHER LANE AND THE SUITE CAUGHT IT. ***
+Walking him to his front door on the run's FIRST drop-in worked, and turned CITY TALK
+red -- that gate asserts SOMEBODY IS STANDING WITHIN 6 TILES OF THE SPAWN, and the cast
+is placed by NEIGHBOURHOOD, not around the player, so moving him 13 cells left nobody to
+talk to. It was green before I touched anything. Day 1 now lands exactly where it always
+did; he wakes at his door from the NEXT wake on. IF YOU MOVE THE PLAYER, YOU HAVE MOVED
+HIM AWAY FROM EVERY SYSTEM THAT WAS PLACED AROUND WHERE HE USED TO BE.
+(Their gate also has a latent bug my change exposed: city_talk_gate calls
+window.__proof.step(dx,dy) with SIGNS where stepOnce takes a direction INDEX, so it
+throws "undefined is not iterable" the moment the player is far enough to need a walk.
+Green again now, but it will bite the next lane that moves the spawn. Not my lane.)
+
+FIVE WRONG ANSWERS THAT ALL LOOKED LIKE SUCCESS, worth carrying:
+  1. anchored HOME on the cell CENTRE -> 55 cells from the drop-in, off screen the whole
+     time he stood in his own neighbourhood.
+  2. cached a "not yet" as an answer: asked during boot the scan finds no house, and the
+     first draft cached that nothing forever. A NULL IS NOT AN ANSWER.
+  3. THE TEMPORAL DEAD ZONE, INTO A SILENT CATCH I WROTE MYSELF. The hook sat in
+     swapMode, ~500 lines earlier than my declarations, so it threw "Cannot access
+     'LANDED' before initialization" into try{}catch(_e){} and the ONLY symptom was a
+     feature quietly not working. `var` fixed mine and exposed two PRE-EXISTING faults of
+     the same shape in the city: updHud reads RIDING, the footprint walk reads IN_D4,
+     both `let`s declared after the code that uses them. IF YOU HOOK CODE THAT RUNS
+     EARLIER IN THE FILE THAN YOUR DECLARATIONS, USE var, AND NEVER SWALLOW THE CATCH.
+  4. the label was CULLED EXACTLY WHEN HE WAS LOOKING AT IT -- culling on the LABEL's
+     position, which sits above the house's north edge, hid it from the front door of a
+     12-cell-deep house. Cull on the BUILDING, clamp the label onto the screen.
+  5. my gate slept a fixed 1800ms after DROP IN, but the mode button runs a 460ms
+     transition and flips MODE partway, so it measured the CITY view and every human-only
+     pass read as "never drew". Poll the state, never the clock. And tap elements' own
+     .click(): the transient #note toast intercepts coordinate clicks bottom-left.
+
+Gate: home_phone_gate.js, 24 assertions, all by TAPPING GET UP / DROP IN / SLEEP / PHONE
+in a real browser with the network dead. Registered in shipped_truth (RUN 16/16 live).
+
+STILL RED AND NOT MINE (each verified red on origin/main too): ROUND + DOORS (arterial_x,
+new from ART), SFX RENDER, RIG IS LAW, RIG CHECK, CLOTHES FOLLOW, PARTS PAINTED, BODY
+VARIATION, ONE WORLD TAB (voice_gate.py swallows a missing tab), INTERIORS, REUSE FIRST
+(bohemia_sun_mode_char_patch.py has no REUSE CHECK block).
+
+NEXT IN THIS LANE: THE PHONE DOES NOT RING YET. The pipe runs world -> phone; the return
+leg (accept a job ON the phone and the day loop picks it up, a DM landing because of
+something that happened in the world) is the next thing. Then the streaming row proper.
+Records: BOHEMIA_YOUR_HOUSE_AND_THE_PHONE_8_11_26.md, BOHEMIA_THE_DAY_CLOSES_8_11_26.md
+
 CHARACTER (character-0lurbs): 8/11 LATEST -- *** HE IS RIGHT ABOUT THE HEAD. THE
 GAME DRAWS A BARREL WHERE HIS RIG PAINTED AN EGG. MEASURED. ***
 
