@@ -92,25 +92,40 @@ LABEL = {h['district']: (h.get('label') or h['district']) for h in heroes}
 
 
 def card(h, idx, judged_already):
+    """ONLY THE SQUARE GRID IT WILL BE IN. THAT IS IT. (Paolo 8/11)
+
+        "you're doing this weird shit while you're trying to present to me in a way.
+         I'm not asking for -- when you show it to me only show me the square grid
+         that it will be in that is it"
+
+    He is right and it was my presentation, not the art. Every icon was sitting in a
+    CARD: a bordered panel, a header row, a name chip, a NEW badge, inset padding and a
+    tinted letterbox behind the sprite -- eight things that do not exist in the game,
+    wrapped around the one thing that does. Judging art inside a frame the art will never
+    have means judging the frame. It also hid the thing he has ruled on twice now: whether
+    the tile FILLS ITS BOX and whether it BUTTS UP against its neighbour, which you
+    physically cannot see when every tile is floated in its own padded card.
+
+    So the surface IS the grid. Square cells, edge to edge, no gap, no padding, no
+    border, no letterbox -- the map. The name is laid over the tile and only shows up
+    when he needs it; the vote is the tile itself.
+    """
     d = h['district']
-    lab = (LABEL.get(d) or d)
-    lab = lab.split('\u2014')[0].split(' - ')[0].strip()[:46]
-    tag = 'JUDGED' if judged_already else 'NEW'
-    return '''
-<div class="card" data-d="%s">
-  <div class="cardhead"><span class="nm">%s</span><span class="tag %s">%s</span></div>
-  <div class="shot"><img alt="%s" src="data:image/png;base64,%s"></div>
-  <div class="thumbs">
-    <button class="tb up"   data-v="up">&#128077; YES</button>
-    <button class="tb cbb"  data-v="cbb">&#128260; COULD BE BETTER</button>
-    <button class="tb down" data-v="down">&#128078; NO</button>
-  </div>
-  <textarea class="note" rows="2" placeholder="what is wrong with %s (optional)"></textarea>
-</div>''' % (d, d.upper(), tag.lower(), tag, d, h['b64'], d)
+    tag = 'judged' if judged_already else 'new'
+    # THE CELL PAINTS ITS OWN GROUND, from the colour the factory measured off this very
+    # tile's pad. That is what removes the black holes in the four corners of every
+    # isometric diamond, and it is how the real renderer works: ground layer down, hero
+    # stamped on top. Baking it into the sprite instead would blind every gate that reads
+    # the alpha for geometry -- tried, and caught in one run.
+    pad = h.get('pad') or '#1a1815'
+    return ('<button class="cel %s" data-d="%s" title="%s" style="background:%s">'
+            '<img alt="%s" src="data:image/png;base64,%s">'
+            '<span class="cn">%s</span><span class="mark"></span></button>'
+            % (tag, d, d, pad, d, h['b64'], d))
 
 
-cards_new = '\n'.join(card(h, i, False) for i, h in enumerate(queue))
-cards_old = '\n'.join(card(h, i, True) for i, h in enumerate(done))
+cards_new = '<div class="grid">' + ''.join(card(h, i, False) for i, h in enumerate(queue)) + '</div>'
+cards_old = '<div class="grid">' + ''.join(card(h, i, True) for i, h in enumerate(done)) + '</div>'
 
 # ---- DEMO BLOCKERS, ABOVE THE ICONS (8/9) -----------------------------------------
 # Paolo 8/9: "First: DEMO BLOCKERS -- numbered, thumbable." A thumb is a verdict on a
@@ -167,6 +182,27 @@ HTML = '''<!doctype html><meta charset="utf-8">
   button{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);
     border-radius:5px;padding:7px 10px;cursor:pointer}
   .wrap{padding:10px 12px 120px;max-width:640px;margin:0 auto}
+  /* THE GRID IS THE SURFACE. Square cells, edge to edge, no gap and no border, so he is
+     looking at the map and not at fifty-nine picture frames. */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin:0 0 4px;
+        border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .cel{position:relative;display:block;padding:0;margin:0;border:0;border-radius:0;
+       background:#11110f;aspect-ratio:1/1;overflow:hidden;cursor:pointer;line-height:0}
+  .cel img{width:100%;height:100%;display:block;image-rendering:pixelated}
+  .cel .cn{position:absolute;left:0;right:0;bottom:0;font-size:9px;letter-spacing:1px;
+           color:#e8e0cc;background:rgba(0,0,0,.55);padding:2px 4px;text-align:left;
+           opacity:0;transition:opacity .12s;line-height:1.2}
+  .cel:hover .cn,.cel.on .cn{opacity:1}
+  .cel .mark{position:absolute;top:0;right:0;width:0;height:0;border-style:solid;
+             border-width:0 22px 22px 0;border-color:transparent transparent transparent transparent}
+  .cel.v-up   .mark{border-color:transparent #3f8b4a transparent transparent}
+  .cel.v-cbb  .mark{border-color:transparent #a5871f transparent transparent}
+  .cel.v-down .mark{border-color:transparent #8b3f3f transparent transparent}
+  .cel.v-up,.cel.v-cbb,.cel.v-down{outline:2px solid rgba(255,255,255,.25);outline-offset:-2px}
+  .cel.sel{outline:2px solid var(--gold);outline-offset:-2px;z-index:1}
+  #notebar{margin:0 0 14px;padding:8px;border:1px solid var(--line);border-radius:6px;
+           background:var(--card)}
+  #notefor{display:block;font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:5px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:8px;margin:0 0 12px;padding:10px}
   .cardhead{display:flex;align-items:center;gap:8px;margin-bottom:6px}
   .nm{letter-spacing:2px;font-size:13px;flex:1}
@@ -214,6 +250,13 @@ HTML = '''<!doctype html><meta charset="utf-8">
 </header>
 <div class="wrap">
   <div id="blockers">__BLOCKERS__</div>
+  <!-- THE COMMENT STAYS, THE CHROME GOES. The verdict-workflow law wants a comment per
+       item; Paolo 8/11 wants nothing around the art but the square it lives in. So the
+       note is not a box under every tile -- it is ONE field under the grid that follows
+       whichever tile he last touched, named so he can see whose it is. -->
+  <div id="notebar" hidden><span id="notefor"></span>
+    <textarea class="note" id="tilenote" rows="2" placeholder="what is wrong with it (optional)"></textarea>
+  </div>
   <div id="newlist">__NEW__</div>
   <div id="oldwrap"><h2>ALREADY JUDGED &mdash; here so you can change your mind</h2>__OLD__</div>
 </div>
@@ -223,7 +266,7 @@ HTML = '''<!doctype html><meta charset="utf-8">
 </footer>
 <script>
 (function(){
-  var V={}, N={}, B={}, BN={};
+  var V={}, N={}, B={}, BN={}, SEL=null;
   document.addEventListener('click',function(e){
     var ob=e.target.closest('.ob');
     if(ob){
@@ -231,22 +274,34 @@ HTML = '''<!doctype html><meta charset="utf-8">
       blk.querySelectorAll('.ob').forEach(function(t){t.classList.remove('on');});
       ob.classList.add('on'); B[k]=ob.getAttribute('data-o'); tally(); return;
     }
-    var b=e.target.closest('.tb'); if(!b) return;
-    var card=b.closest('.card'), d=card.getAttribute('data-d');
-    card.querySelectorAll('.tb').forEach(function(t){t.classList.remove('on');});
-    b.classList.add('on'); V[d]=b.getAttribute('data-v'); tally();
+    // THE TILE IS THE VOTE. One tap cycles yes -> could be better -> no -> unvoted, so a
+    // pass over sixty icons is sixty taps in the grid instead of a scroll through sixty
+    // panels. A corner flag shows where he is; nothing is added around the art.
+    var cel=e.target.closest('.cel'); if(!cel) return;
+    var d=cel.getAttribute('data-d');
+    var order=['up','cbb','down',null], cur=V[d]||null;
+    var nxt=order[(order.indexOf(cur)+1)%order.length];
+    cel.classList.remove('v-up','v-cbb','v-down');
+    if(nxt){cel.classList.add('v-'+nxt); V[d]=nxt;} else {delete V[d];}
+    document.querySelectorAll('.cel.sel').forEach(function(x){x.classList.remove('sel');});
+    cel.classList.add('sel');
+    var nb=document.getElementById('notebar');
+    document.getElementById('notefor').textContent=d.toUpperCase();
+    document.getElementById('tilenote').value=N[d]||'';
+    nb.removeAttribute('hidden'); SEL=d;
+    tally();
   });
   document.addEventListener('input',function(e){
     if(e.target.classList.contains('bnote')){
       BN[e.target.closest('.blk').getAttribute('data-b')]=e.target.value; return;
     }
+    if(e.target.id==='tilenote'){ if(SEL) N[SEL]=e.target.value; return; }
     if(!e.target.classList.contains('note')) return;
-    N[e.target.closest('.card').getAttribute('data-d')]=e.target.value;
   });
   function tally(){
-    var total=document.querySelectorAll('#newlist .card').length;
+    var total=document.querySelectorAll('#newlist .cel').length;
     var done=Object.keys(V).filter(function(k){
-      return document.querySelector('#newlist .card[data-d="'+k+'"]'); }).length;
+      return document.querySelector('#newlist .cel[data-d="'+k+'"]'); }).length;
     var bt=document.querySelectorAll('.blk').length, bd=Object.keys(B).length;
     document.getElementById('count').textContent=
       (bt? bd+' / '+bt+' decided  \\u00b7  ' : '')+done+' / '+total+' voted';
@@ -271,7 +326,7 @@ HTML = '''<!doctype html><meta charset="utf-8">
       });
       L.push('');
     }
-    document.querySelectorAll('.card').forEach(function(c){
+    document.querySelectorAll('.cel').forEach(function(c){
       var d=c.getAttribute('data-d'), v=V[d], n=(N[d]||'').trim();
       if(!v && !n) return;
       L.push('@VERDICT '+d+' '+(v?({up:'YES',cbb:'COULD BE BETTER',down:'NO'})[v]:'no-vote'));

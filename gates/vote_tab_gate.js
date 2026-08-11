@@ -71,9 +71,17 @@ if (m) {
 }
 
 // ---- 3: the whole verdict workflow, per the law ------------------------------------
-ok('thumbs on every item (yes / could be better / no)',
-   /data-v="up"/.test(page) && /data-v="cbb"/.test(page) && /data-v="down"/.test(page));
-ok('a comment box per item', /class="note"/.test(page));
+// THE SURFACE IS THE GRID NOW (Paolo 8/11: "only show me the square grid that it will be
+// in that is it"). The three verdicts are still reachable and a comment is still available
+// per item -- what changed is that neither is a panel wrapped around the art. The tile IS
+// the vote (one tap cycles), and the note is one field under the grid that follows the
+// tile he last touched.
+ok('all three verdicts are reachable on a tile (yes / could be better / no)',
+   /'up','cbb','down'/.test(page) && /v-up/.test(page) && /v-cbb/.test(page) && /v-down/.test(page));
+ok('a comment is available per item, without a box around every tile',
+   /id="tilenote"/.test(page) && /N\[SEL\]/.test(page));
+ok('and nothing is drawn around the art itself: no card, no header, no letterbox',
+   !/class="cardhead"/.test(page) && !/class="shot"/.test(page));
 ok('a GLOBAL comment box at the bottom', /id="global"/.test(page) && /<footer/.test(page));
 ok('SUN MODE for daylight', /id="sun"/.test(page) && /body\.sun/.test(page));
 ok('it exports .txt and never .json',
@@ -86,7 +94,7 @@ const districts = [...new Set(bank.heroes.filter(h => h.b64).map(h => h.district
 // counted 59 of 60 -- and worse, the same class of pattern in the tool and in
 // bohemia_demo_blockers.py would have read "@VERDICT arterial_x YES" as a verdict on
 // `arterial`, silently attaching his ruling to the wrong district. Names are [a-z0-9_].
-const onPage = [...page.matchAll(/class="card" data-d="([a-z0-9_]+)"/g)].map(x => x[1]);
+const onPage = [...page.matchAll(/class="cel [a-z]*" data-d="([a-z0-9_]+)"/g)].map(x => x[1]);
 const missing = districts.filter(d => !onPage.includes(d));
 const dupes = onPage.filter((d, i) => onPage.indexOf(d) !== i);
 ok('every district in the hero bank is on the page (' + onPage.length + '/' + districts.length + ')' +
@@ -99,7 +107,7 @@ ok('and none of them twice' + (dupes.length ? ' — ' + [...new Set(dupes)].join
 // EVERYTHING IS A THUMB (8/9) forbids. What must hold is that the page tells the TRUTH
 // about which state it is in: work waiting, or caught up and saying so.
 ok('the page is honest about the queue: either work is waiting, or it says he is caught up',
-   /class="tag new"/.test(page) || /You are all caught up/.test(page));
+   /class="cel new"/.test(page) || /You are all caught up/.test(page));
 
 // ---- 5 + 6: declared verdicts in, declared verdicts out ------------------------------
 const tool = fs.readFileSync('tools/bohemia_vote_tab.py', 'utf8');
@@ -113,12 +121,12 @@ const civics = 'records/BOHEMIA_VERDICTS_CIVICS_8_4_26.txt';
 ok('his 8/4 approvals are declared where the tab can read them', fs.existsSync(civics) &&
    ['cityhall', 'courthouse', 'terminal', 'chapel']
      .every(d => new RegExp('@VERDICT\\s+' + d + '\\b').test(fs.readFileSync(civics, 'utf8'))));
-const judgedOnPage = [...page.matchAll(/data-d="([a-z0-9_]+)"[\s\S]{0,220}?tag judged/g)].map(x => x[1]);
+const judgedOnPage = [...page.matchAll(/class="cel judged" data-d="([a-z0-9_]+)"/g)].map(x => x[1]);
 ok('and they show as already judged rather than back in the queue (' +
    judgedOnPage.sort().join(' ') + ')',
    ['chapel', 'cityhall', 'courthouse', 'terminal'].every(d => judgedOnPage.includes(d)));
 
-const waiting = (page.match(/class="tag new"/g) || []).length;
+const waiting = (page.match(/class="cel new"/g) || []).length;
 console.log('VOTE TAB GATE: ' + pass + ' passed, ' + fail + ' failed  (VOTE is tab #1 · ' +
             waiting + ' waiting on him · ' + judgedOnPage.length + ' already judged)');
 process.exit(fail ? 1 : 0);

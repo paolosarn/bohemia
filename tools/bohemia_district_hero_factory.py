@@ -134,6 +134,30 @@ def _fit(scene, scale, margin=14):
     return side, side, (ox, oy)
 
 
+def _pad_colour(sprite):
+    """The tile's own ground colour, MEASURED off its pad rather than declared.
+
+    Samples the horizontal band where an isometric pad's widest point always falls (just
+    below centre) and takes the most common opaque pixel. That is the pad, every time,
+    for every district -- desert dirt, lot asphalt, dead grass, roadway -- so the corners
+    a district fills with are the same ground it actually stands on, and a palette change
+    carries into the fill with nothing to remember."""
+    w, h = sprite.size
+    px = sprite.load()
+    tally = {}
+    for y in range(int(h * 0.52), int(h * 0.78)):
+        for x in range(0, w, 2):
+            r, g, b, a = px[x, y]
+            if a < 250:
+                continue
+            k = (r, g, b)
+            tally[k] = tally.get(k, 0) + 1
+    if not tally:
+        return (36, 34, 30, 255)
+    r, g, b = max(tally, key=tally.get)
+    return (r, g, b, 255)
+
+
 def _anchor(scene, origin, scale):
     xs, ys = [], []
     for verts, _uv, _n, _m in scene.faces:
@@ -3805,9 +3829,27 @@ def main():
         w, h, origin = _fit(scene, scale, margin=5)
         img = bake(scene, w, h, origin=origin, scale=scale, ss=4)
         bx, by = _anchor(scene, origin, scale)
-        buf = io.BytesIO(); Image.fromarray(img, 'RGBA').save(buf, 'PNG')
+        sprite = Image.fromarray(img, 'RGBA')
+        # EVERY CELL IS PAINTED, CORNER TO CORNER -- BUT THE CELL PAINTS IT, NOT THE SPRITE.
+        # Seen as a GRID instead of as sixty separate pictures (Paolo 8/11: "only show me the
+        # square grid that it will be in"), the defect is obvious and it is not the buildings:
+        # an isometric pad is a DIAMOND, so all four corners of every tile are transparent and
+        # read as black holes between neighbours. No city builder has holes between its cells.
+        #
+        # I FIXED THAT THE WRONG WAY FIRST and the gates caught it in one run: compositing the
+        # ground INTO the sprite made every tile 100% opaque, which duplicates the renderer's
+        # own ground layer and blinds every measurement that reads the alpha -- squint's
+        # silhouette went solid for all sixty, and art_45 read a full-width top row as a
+        # flat-90 rectangle instead of an iso diamond. The sprite must stay honest geometry.
+        # So the colour is PUBLISHED and the surface paints the cell behind it, exactly the
+        # way the real renderer lays ground and stamps the hero on top.
+        # SAMPLED, NEVER TYPED: the tile's own most common opaque ground pixel, so a
+        # district fills with its OWN dirt/asphalt/grass and a palette change carries in.
+        pr, pg, pb, _pa = _pad_colour(sprite)
+        buf = io.BytesIO(); sprite.save(buf, 'PNG')
         out['heroes'].append({'district': d, 'variant': 'iconic', 'label': LABEL[d],
                               'w': int(w), 'h': int(h), 'bx': bx, 'by': by,
+                              'pad': '#%02x%02x%02x' % (pr, pg, pb),
                               'b64': base64.b64encode(buf.getvalue()).decode()})
     json.dump(out, open(OUT, 'w'))
     _write_dossier(out['heroes'])   # DOSSIER-OR-DON'T: write up every part of every hero

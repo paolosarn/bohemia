@@ -179,6 +179,25 @@ ok('and the CROSSING breaks them into four corners with the junction box between
    /four corners|FOUR SIDEWALK CORNERS/i.test(xSrc));
 ok('the freeway draws no crosswalk at all', !/crosswalk/i.test(freewayCode));
 
+// ---- EVERY CELL IS PAINTED, CORNER TO CORNER (Paolo 8/11) ---------------------------
+//   "when you show it to me only show me the square grid that it will be in that is it"
+// Shown as a GRID instead of as sixty separate pictures, the defect was obvious and it was
+// not the buildings: an isometric pad is a DIAMOND, so all four corners of every tile were
+// TRANSPARENT and read as black holes between neighbours. No city builder has holes between
+// its cells -- the ground runs under everything and the buildings sit on it.
+const bank2 = JSON.parse(fs.readFileSync(BANK, 'utf8')).heroes.filter(h => h.b64);
+const noPad = bank2.filter(h => !/^#[0-9a-f]{6}$/.test(h.pad || ''));
+ok('every tile publishes the ground colour its cell is painted with' +
+   (noPad.length ? ' — missing ' + noPad.slice(0, 5).map(h => h.district).join(', ') : ''),
+   noPad.length === 0);
+ok('the colour is SAMPLED off each tile\'s own pad, never typed', /def _pad_colour/.test(SRC0));
+const tabSrc = fs.readFileSync('tools/bohemia_vote_tab.py', 'utf8');
+ok('and the surface actually paints the cell with it, so the grid has no holes between tiles',
+   /h\.get\('pad'\)/.test(tabSrc) && /background:%s/.test(tabSrc));
+ok('the sprite itself is NOT pre-filled -- geometry stays honest for every gate that reads ' +
+   'the alpha (compositing it in blinded squint and art_45 in one run)',
+   /THE CELL PAINTS IT, NOT THE SPRITE/.test(SRC0));
+
 // 4. one ground line
 // buildings only -- a bleeding street is centred on purpose and has no baseline to share
 const bases = px.filter(p => ROADS.indexOf(p.d) < 0).map(p => p.bb[3]);
