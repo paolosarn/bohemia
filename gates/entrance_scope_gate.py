@@ -160,6 +160,39 @@ if p.returncode == 0:
 else:
     print(p.stderr[-500:])
 
+# ---------------------------------------------------------------------------
+# THE EVIDENCE FOR THE RULING, MEASURED AND PRINTED - DELIBERATELY NOT ENFORCED.
+#
+# Paolo 8/12 corrected "different clothes" from a scope limit to a claim about what a
+# faction IS: the same people doing the same things, wearing different stories about
+# why. His corpus already backs it - every faction that moves spans more than one
+# loudness tier, so no faction is "the quiet one" or "the reckless one".
+#
+# THAT IS EVIDENCE, NOT A RULE. Turning it into a failing claim would put authoring
+# pressure on HIM - write a new faction with one ending and the gate calls it a
+# violation. So it is counted and printed, and a human decides whether a drift matters.
+# ---------------------------------------------------------------------------
+TIERS = ['quiet', 'notable', 'risky', 'reckless']
+spread = {}
+for f in files:
+    tag = None
+    for line in open(os.path.join(BQDIR, f), encoding='utf-8'):
+        m = re.match(r'\s*@STAGE\s+\d+\s*(.*)', line)
+        if m:
+            t = [x for x in TIERS if '#' + x in m.group(1)]
+            tag = t[0] if t else None
+        m = re.match(r'\s*@DO\s+faction\s+([A-Z_]+)\s+[-+]\d+', line)
+        if m and tag:
+            spread.setdefault(m.group(1), set()).add(tag)
+if spread:
+    multi = sum(1 for v in spread.values() if len(v) >= 2)
+    notes.append('same body, different clothes: %d of %d factions span 2+ volumes '
+                 '(evidence for the ruling, not enforced)' % (multi, len(spread)))
+
+ok('the surface that shows it is on disk and linked from a hub',
+   os.path.exists('slices/BOHEMIA_SAME_BODY_8_12_26.html')
+   and 'BOHEMIA_SAME_BODY_8_12_26.html' in open('slices/BOHEMIA_LIFE_CURRENT.html', encoding='utf-8').read())
+
 for n in notes:
     print('  NOTE  ' + n)
 print('=== ENTRANCE SCOPE GATE: %d passed, %d failed ===' % (passed, len(fails)))

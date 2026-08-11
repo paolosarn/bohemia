@@ -86,6 +86,87 @@ it opens. Verbatim:
 **"It's just with different clothes on."** Same body. Different clothes. That is the
 whole scope of the feature and it is the sentence to check any future work against.
 
+### WHAT "DIFFERENT CLOTHES" ACTUALLY MEANS (Paolo 8/12, correcting my reading)
+
+I first read "different clothes on" as a SCOPE limit — one quest, many dressings. He
+corrected it:
+
+> "when I said different clothes, I meant it kind of in a philosophical way as well like
+> it's just dressed differently. I didn't of course they will wear a different clothes
+> but it's bigger than that."
+
+**It is a statement about what a faction IS.** The factions are not different kinds of
+people doing different things. They are the same people, doing the same small set of
+things, wearing different stories about why.
+
+**GROUNDED, and it is the well-documented finding rather than a mood.** Organizations in
+the same field converge on the same structures **not because it is efficient but because
+it is LEGITIMATE** — DiMaggio and Powell's institutional isomorphism, through coercive,
+mimetic and normative pressure. Convergence shows up hardest in the *governance* layer —
+the procedures, the sign-offs, the public account of oneself — while the justifying
+narrative stays distinct. Same behaviour. Different legitimating story. That is exactly
+what he is describing, and it is why a valley of fourteen factions is not fourteen
+different animals.
+Sources: [Isomorphism (sociology)](https://en.wikipedia.org/wiki/Isomorphism_(sociology)) ·
+[Institutional isomorphism, DiMaggio & Powell](https://sk.sagepub.com/ency/edvol/organization/chpt/institutional-isomorphism) ·
+[Understanding institutional isomorphism](https://www.numberanalytics.com/blog/ultimate-guide-institutional-isomorphism-comparative-public-policy)
+
+### *** AND HIS OWN CORPUS ALREADY DOES IT. MEASURED. ***
+
+Not asserted — counted, across every faction-moving ending he has written:
+
+```
+              QUIET NOTABLE RISKY RECKLESS
+TRADES          4      4      1      1
+REDS            3      3      2      2
+BLUES           1      2      2      1
+REMNANTS        .      1      2      3
+CARAVANS        1      2      1      2
+VOLUNTEERS      3      1      2      .
+HOMELESS        1      .      1      1
+CHURCH          .      2      1      .
+MOB             .      1      1      1
+COLORFUL        .      1      1      .
+CARTEL          .      1      1      .
+ANARCHISTS      .      1      .      1
+ALL            13     19     15     12
+
+factions spanning 2+ loudness tiers: 12 of 12
+```
+
+**Every faction that moves at all spans multiple tiers, and the distribution is almost
+flat.** No faction is the quiet one. No faction is the reckless one.
+
+And at the SAME tier, across opposite ideologies, the acts read as the same act:
+
+> **QUIET** — HOMELESS *"talked them up out of the deep, slow, in the dark"* · CARAVANS
+> *"paid the toll out of my own pocket... quiet, forgettable"* · VOLUNTEERS *"gave the
+> true number, plainly"* · REDS *"brokered it in a stairwell... no witnesses"*
+>
+> **RECKLESS** — HOMELESS *"ended it loud in the deep, for the bounty"* · REMNANTS *"took
+> the ugly name for the double pay"* · CARAVANS *"broke the checkpoint loud, guns and
+> fire and a crowd"* · BLUES *"broke the grate off the culvert mouth with a crowd
+> watching"*
+
+Underground, trade, charity and capital all do the same thing at QUIET: **handle it
+without a crowd and absorb the cost yourself.** All four do the same thing at RECKLESS:
+**do it in front of everybody and take what comes.**
+
+### THE CONSEQUENCE FOR THE BUILD
+
+**THE AXIS THAT ACTUALLY VARIES IS HOW LOUD YOU WERE, NOT WHO YOU ARE.** That axis is
+already his (`#quiet` / `#notable` / `#risky` / `#reckless`, 7/21) and already wired to
+reach, retelling and standing (8/6).
+
+So a faction is a **DIALECT**, not a behaviour set: the same act, justified in that
+faction's own vocabulary. Which is why one quest with fourteen dressings is not a
+compromise for scope — **it is the accurate model.** Fourteen forked quests would state
+something about the world that is false.
+
+**THE LIFE LESSON UNDERNEATH, and the game never says it out loud:** everybody is doing
+roughly the same things to get through. What separates them is the story they tell about
+why — and that story is worn, not born.
+
 ### WHY THIS IS THE IMPORTANT HALF OF THE RULING
 
 A customizable entrance is the kind of feature that quietly becomes fourteen games. The

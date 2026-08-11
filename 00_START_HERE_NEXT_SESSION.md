@@ -1,3 +1,55 @@
+FACTIONS (factions-ovkjpf): 8/12 (d) LATEST — *** "DIFFERENT CLOTHES" IS A CLAIM ABOUT
+WHAT A FACTION IS, NOT A SCOPE LIMIT — AND HIS OWN CORPUS ALREADY PROVES IT. ***
+Tab: LIFE -> SAME BODY, DIFFERENT CLOTHES (opens on it, nothing to tap).
+
+I READ HIM TOO LITERALLY AND HE CORRECTED IT: "when I said different clothes, I meant it
+kind of in a philosophical way as well like it's just dressed differently. I didn't of
+course they will wear a different clothes but it's bigger than that."
+
+THE CLAIM: the factions are not different kinds of people doing different things. They
+are the SAME people doing the SAME small set of things, wearing different stories about
+why. GROUNDED in institutional isomorphism (DiMaggio & Powell): organizations in a field
+converge on the same structures because it is LEGITIMATE, not because it is efficient,
+while the justifying narrative stays distinct. Same behaviour, different legitimating
+story.
+
+*** HIS OWN CORPUS ALREADY DOES IT. MEASURED, NOT ASSERTED. ***
+Across every faction-moving ending he has written:
+                QUIET NOTABLE RISKY RECKLESS
+    TRADES        4      4      1      1
+    REDS          3      3      2      2
+    REMNANTS      .      1      2      3
+    VOLUNTEERS    3      1      2      .      ... (12 factions)
+    ALL          13     19     15     12
+    FACTIONS SPANNING 2+ TIERS: 12 of 12
+No faction is the quiet one. No faction is the reckless one. And at the SAME tier,
+opposite ideologies read as the SAME ACT:
+  QUIET     HOMELESS "talked them up out of the deep, slow, in the dark" / CARAVANS
+            "paid the toll out of my own pocket... quiet, forgettable" / VOLUNTEERS
+            "gave the true number, plainly" / REDS "brokered it in a stairwell"
+            = handle it without a crowd and absorb the cost yourself
+  RECKLESS  HOMELESS "ended it loud in the deep, for the bounty" / CARAVANS "broke the
+            checkpoint loud, guns and fire and a crowd" / BLUES "broke the grate off the
+            culvert mouth with a crowd watching"
+            = do it in front of everybody and take what comes
+
+THE CONSEQUENCE FOR THE BUILD: THE AXIS THAT VARIES IS HOW LOUD YOU WERE, NOT WHO YOU
+ARE — and that axis is already his (#quiet/#notable/#risky/#reckless, 7/21) and already
+wired to reach, retelling and standing (8/6). A faction is a DIALECT over a shared act,
+not a different behaviour set. So one main quest with fourteen dressings is not a
+compromise for scope, IT IS THE ACCURATE MODEL; fourteen forked quests would state
+something about this world that is false.
+
+BUILT: slices/BOHEMIA_SAME_BODY_8_12_26.html. All 59 of his faction endings sorted by
+HOW LOUD instead of by WHO — every other faction view in this project sorts by faction,
+which is the exact framing he is arguing against. Nothing edited; the only thing added is
+the sort order.
+
+GATE: ENTRANCE SCOPE now 11/11 and carries the measurement as a printed NOTE, DELIBERATELY
+NOT AS A FAILING CLAIM. Turning "every faction spans 2+ tiers" into a rule would put
+authoring pressure on HIM — write a new faction with one ending and the gate calls it a
+violation. It is evidence, and a human decides whether a drift matters.
+
 PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
 
