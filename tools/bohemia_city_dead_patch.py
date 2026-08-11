@@ -119,6 +119,18 @@ function deadLegendFor(m){
 }
 function deadForCell(tx,ty){
   const key=tx+','+ty; let e=DEAD_CACHE.get(key); if(e)return e;
+  /* NEVER MAKE THE RENDERER GENERATE A DISTRICT IT HAS NOT ASKED FOR (8/11).
+     MEASURED, after the first optimisation missed: on a cold cell tileMeta costs
+     7-15 ms and the placement costs 0.8-3.4 ms. THE DEAD WERE NOT EXPENSIVE --
+     they were FORCING DISTRICT REALIZATION, early and wide, because deadDraw
+     sweeps every district cell in view and tileMeta generates a whole 128x128
+     plot to answer. That is why a first crossing cost 45 ms and folding my three
+     passes into one barely moved it: I optimised the 3 ms and left the 15.
+     So the dead now only fill in for cells the renderer HAS ALREADY realized.
+     A cell it has not reached yet is skipped and NOT cached, so the bodies
+     appear the moment the ground under them does -- which is the only moment
+     they could have been seen anyway. */
+  if(typeof metaCache!=='undefined' && !metaCache.has(key)) return {list:[],byTile:new Map(),why:'not realized yet'};
   e={list:[],byTile:new Map(),why:''};
   try{
     const m=tileMeta(tx,ty);
