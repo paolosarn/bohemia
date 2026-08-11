@@ -6,13 +6,25 @@ converges on. Every lane weighs its queue against ONE question: does this
 block the demo? Demo-critical work outranks lane-local wants; everything
 else keeps grinding autonomously but never at demo work's expense.
 
-## THE PROPOSED CUT — "ONE GOOD DAY" [PENDING Paolo's pick, options below]
-20-30 minutes on a phone, one link, no explanation needed:
-wake at the base -> a real morning (weather, neighbors moving, Marco-class
-door knock) -> pick up 2-3 quests -> walk real streets that LOOK finished
--> one talk resolution, one fight on the dial -> GET PAID -> spend
-something at a trading hub -> camp/sleep -> save survives. The whole game
-in one day, small and dense, everything at quality.
+## THE CUT — RULED 8/4 (Paolo: "I want that main quest origin in it when ur
+## sibling dies and you get to see the outlook in the city type shit")
+THE ORIGIN + ONE GOOD DAY:
+1. THE COLD OPEN (the locked 7/19 opening vision): night, the family home
+   under attack, the combat tutorial IS the family-defense fight, the
+   SIBLING DIES, it ends saving your mother. Implied, never graphic.
+   Fireworks night (the 10-year anniversary of the 4th of July).
+2. THE VISTA: the mountain overlook where you SEE the whole valley for the
+   first time — the BotW-style outlook, already locked canon as a RETURN
+   point that upgrades per act. The demo's money shot.
+3. THEN ONE GOOD DAY: wake -> 2-3 quests -> walk finished-looking streets
+   -> one talk, one dial fight -> GET PAID -> spend at a trading hub ->
+   camp -> sleep-save holds.
+ALSO RULED 8/4: SQUIGGLE VOICES for all characters — Animal-Crossing-class
+gibberish speech (synthesized babble per dialogue line; each character's
+voice = a few synth parameters derived from their identity seed, so every
+person sounds like themselves with ZERO voice acting and zero audio files).
+Demo-critical: dialogue that makes sound reads alive; silent portraits
+read dead.
 
 ## THE CRITICAL PATH (owner — status)
 1. THE GAME DAY loop closes (RUN 00 — top of queue). The spine.
@@ -35,6 +47,19 @@ in one day, small and dense, everything at quality.
    crossings don't hitch on a phone; frame-time probe rides along.
 9. DEMO GATE: one integration test that plays the whole day headless +
    deploy-verified on the real link. The demo is a BUILD, not a vibe.
+10. THE COLD OPEN SCENE (PEOPLE 0sc scripted-scene runtime + RUN consumes +
+   COMBAT supplies a tutorial-tier family-defense encounter). Casualty
+   specifics stay his "leaning" per the 7/19 addendum — build the locked
+   shape.
+11. THE VISTA (RUN + CITY): the overlook moment rendering the whole valley
+   from the mountain — the city view machinery already renders the valley;
+   this is a camera moment + a walkable overlook spur, not a new renderer.
+12. THE FAMILY CAST (CHARACTER): father, mother, brother, sister on the
+   rig with looks fit for the cold open — the demo's first named bodies
+   beside the player. Rig law, approved wardrobe, shadows separate.
+13. SQUIGGLE VOICES (SOUNDS): the babble-voice synth on the existing audio
+   stack — per-character parameters, speaks per dialogue line through the
+   dialogue runtime. Judged by ear like the SFX batches.
 
 ## WHAT DOES NOT BLOCK THE DEMO (keeps cooking, ships when ready)
 City-builder gameplay (design in flight), the faction standing system,

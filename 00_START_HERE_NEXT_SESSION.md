@@ -13224,3 +13224,18 @@ companions, verticality, weather, vehicles, quest volume. Honest timeline
 3-5 weeks. ALSO ANSWERED: no dedicated ITEMS chat yet (inventory engine
 built, rosters all [PENDING Paolo], demo items = economy goods WORLD owns;
 revisit at demo ship).
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/4 (g) — THE DEMO CUT IS RULED + SQUIGGLE VOICES. Paolo:
+"wrap up all these chats for the demo immediately... squiggle voices for all
+the characters... I want that main quest origin in it when ur sibling dies
+and you get to see the outlook in the city." THE DEMO = THE ORIGIN (the
+locked 7/19 cold open: family defense tutorial, the sibling dies, fireworks
+night) + THE VISTA (the overlook money shot, canon since 7/19) + ONE GOOD
+DAY. records/BOHEMIA_THE_DEMO_PLAN_8_4_26.md updated: critical path now
+rows 1-13 incl. the cold-open scene (PEOPLE+RUN+COMBAT), the vista
+(RUN+CITY), the FAMILY CAST (CHARACTER — father/mother/brother/sister on
+the rig), and SQUIGGLE VOICES (SOUNDS 0v: seeded gibberish speech synth,
+Animalese lineage, zero recordings — demo-critical, judged by ear). EVERY
+LANE: your demo rows outrank everything; the banner atop this backlog
+governs.

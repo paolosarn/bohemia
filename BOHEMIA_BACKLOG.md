@@ -5300,6 +5300,19 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    judged. | judge page live + vector bank + regression gate | one
    AudioContext (the parent's) — no second audio engine | yes (the batches
    are the judging).
+0v. SQUIGGLE VOICES (Paolo direct ruling 8/4, DEMO-CRITICAL: "I know we
+   still need squiggle voices for all the characters"): Animal-Crossing-
+   class gibberish speech, synthesized on the existing Web Audio stack —
+   no recordings, no files. Each character's voice = a few synth params
+   (pitch, speed, timbre) derived from their identity seed, so everyone
+   sounds like THEMSELVES, forever, for free. Speaks per dialogue line/
+   syllable through the dialogue runtime (PEOPLE's system consumes).
+   Named outside refs: Animal Crossing's Animalese, Undertale's per-
+   character beeps, Celeste's warbles — study the lineage, pick the read.
+   MECHANISM ships + a voice batch judge page (listen-and-thumb, like the
+   SFX factory); which voice class any named character gets is his ear's
+   call. | a conversation on the real RUN surface SPEAKS + judge page live
+   | dialogue runtime already built | yes (voices are judgeable by ear).
 0s. GDD MECHANICS ROUTED 8/4 (records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md
    — v2 §22, LOCKED, and it is this lane's gift): THE CD SYSTEM + RADIO.
    No streaming exists in-world: music is FOUND (CDs as collectibles that
