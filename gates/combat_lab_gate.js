@@ -2361,8 +2361,19 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
    That gap IS the approach phase the fight never had. */
 ok('V140 THE SPAWN BAND IS MEASURED IN **YOUR GUN**, NEVER IN TILES: a fixed tile number cannot be right for five weapons with five reaches, and the dark HALVES every range, so the only honest unit is a multiple of the range actually in effect',
   /const _R=maxRange\(myRange\(\)\);/.test(demo) &&
-  /const SPAWN_NEAR=1\.80, SPAWN_FAR=2\.60;/.test(demo) &&
+  /const SPAWN_NEAR=1\.15, SPAWN_FAR=1\.65;/.test(demo) &&
   /const _lo=Math\.min\(contentR\(\), Math\.max\(PT_BLANK\+2, _R\*SPAWN_NEAR\)\);/.test(demo));
+
+/* ===== V145 THE GAP WAS TOO WIDE, MEASURED ========================
+   60 arenas pressing only WAIT: 14.9 TURNS before anything was shootable and
+   49.3 damage taken getting there. Waiting was never free -- it costs half his
+   health -- but fifteen turns is the complaint. V140 set the band to 1.8-2.6x
+   while fixing "everybody is already in range" and OVERCORRECTED. 1.30 is still
+   outside 1.00, so NOBODY IS IN RANGE AT THE BELL survives untouched. */
+ok('V145 A LINE UNDER NO FIRE ADVANCES WHOLE: PRESS_FRAC=0.5 is fire and movement and it is right UNDER FIRE, but when not one man on the field can reach anybody there is nothing to cover and nothing to be covered from. Half the line was holding a firing position against a threat that does not exist yet, which doubled the walk. The instant ONE gun can reach ONE man it snaps back',
+  /const _noFire=!anyInMyRange\(\) && !\(G\.e\|\|\[\]\)\.some\(/.test(demo) &&
+  /const budget=_noFire\?plans\.length:Math\.max\(1,Math\.ceil\(pool\.length\*PRESS_FRAC\)\);/.test(demo) &&
+  demo.includes('const PRESS_FRAC=0.5;'));
 
 ok('V140 THE GUARANTEED CLOSE SPAWN IS DEAD: the generator had always put one man at PT_BLANK+0..2.5 -- "in your face" -- which handed over a free target on turn one every single fight no matter how big the board got',
   !/PT_BLANK\+Math\.random\(\)\*2\.5/.test(demo) &&
