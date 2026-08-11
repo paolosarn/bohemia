@@ -815,6 +815,13 @@ GATES = [
      'legs (a bare shin paints the dark under-body, not skin), and the contact shadow lives in its own '
      'canvas with NONE of it in the sprite -- SHADOWS ARE A SEPARATE LAYER, 7/26 LOCKED',
      True),
+    ('FACE FEAT DIAL', ['node', 'gates/face_feature_scale_gate.js'],
+     'Paolo 8/11 "maybe all eyes eyebrows and mouths should be twice the size idk": the feature scale is a '
+     'RENDER-TIME KNOB defaulting to 1, and at 1 the face is BYTE-IDENTICAL to no knob at all because PUNK is '
+     'marked do-not-remake -- plus the ANTI-NO-OP half, that every step up the dial changes real pixels and '
+     'changes more of them the further it goes (two "fixes" shipped 8/11 moved the render by 0 and 1 pixels '
+     'with every gate green, because no gate asked whether the pixels moved)',
+     True),
     ('WALL CLASS',     ['node', 'gates/wallclass_gate.js'],
      'WALL TAXONOMY (Paolo 7/17) enforced in the DRAW: the suburb community wall stands 2 tiles from its OWN 13-key pool at its judged 44x44, never a building wall', True),
     ('NAV CLUSTER',    ['node', 'gates/navcluster_gate.js'],

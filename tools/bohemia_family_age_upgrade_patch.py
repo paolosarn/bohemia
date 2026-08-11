@@ -42,6 +42,14 @@ WHAT IT CHANGES, and why each one is required for Paolo's correction:
    in the game, and it would look like a rendering bug somewhere else entirely.
 
     python3 tools/bohemia_family_age_upgrade_patch.py
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): the cast is FOUR SETTINGS OF ONE RIG, never four
+  rigs. Each member is BAKED resolved through BOH_AGE.apply (stage) and then
+  BOH_BODYVAR (dials); the card renders by setting G.age, calling rebuildFromRig and
+  drawing the same drawChar every other surface uses. Nothing here paints a joint, a
+  bone or a pixel of anatomy.
+  built on: BAKED, BOH_AGE, BOH_BODYVAR, rebuildFromRig, drawChar
+  joints: none named
+  parts: none
 """
 import sys
 

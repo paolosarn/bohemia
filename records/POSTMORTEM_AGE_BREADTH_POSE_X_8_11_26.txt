@@ -1,0 +1,104 @@
+BOHEMIA POST-MORTEM -- SCALING THE SKELETON SIDEWAYS (8/11/26, CHARACTER lane)
+KILLED THE SAME DAY IT WAS WRITTEN. Recorded so nobody rebuilds it.
+
+PAOLO: "also the tinier people looked weird look into that"
+
+===============================================================================
+WHAT HE SAW, IN NUMBERS
+===============================================================================
+Measured on the real famBody canvas, shoulder span over figure height:
+
+    FATHER  shoulder 44 / height 106 = 0.415
+    SISTER  shoulder 37 / height  84 = 0.440
+
+Close enough to identical that the child was, proportionally, her father. The
+age axis (BOH_AGE) scaled the pose in Y and ONLY in Y:
+
+    for (const j in P) n[j] = [ P[j][0] , ground + (P[j][1]-ground)*S.h ];
+                               ^^^^^^^^
+                               X passed straight through, every joint
+
+So an 84px child stood with a grown man's shoulder span, a grown man's stance,
+and arms hanging a grown man's distance off the ribs. That is not a child, that
+is an adult who has been stepped on. HIS READ WAS CORRECT AND THE CAUSE WAS ONE
+UNSCALED COORDINATE.
+
+===============================================================================
+THE FIX THAT WAS WORSE THAN THE BUG
+===============================================================================
+Added a `wide` factor per stage and scaled every joint's X about the pelvis.
+This is the obvious fix and it is what the anthropometry asks for (biacromial
+breadth falls to ~0.70 of adult while stature only falls to ~0.73, so a child is
+genuinely narrower than a scaled-down adult).
+
+Rendered it. Zoomed the child to 5x. LOOKED. She was destroyed:
+  - her arms had FUSED into her torso, no outline between them
+  - her jeans had collapsed to a blob with a hole in it
+  - her sneakers had DETACHED into a tan brick wider than her legs
+
+Worse art than the squashed adult it was replacing. Deleted, not softened.
+
+*** THE RIG FACT WORTH KEEPING ***
+HANDS (7/8) AND FEET (11/12) ARE RIGID STAMPS BOUND TO BONES, NOT SKINNED
+GEOMETRY. Narrowing the SKELETON drags the limb bones inboard, but the
+adult-sized stamps hanging off them do not narrow with the stance. So the arms
+merge into the ribs while the shoes stay where they were and stick out past the
+hips. A POSE-SPACE X SCALE CAN NEVER BE RIGHT ON THIS RIG, at any amplitude.
+Softening the number would only have made the tearing subtler.
+
+===============================================================================
+WHAT REPLACED IT
+===============================================================================
+BODYVAR's `shoulders` / `arms` / `hips` dials. They narrow a body by remapping
+REST PIXELS row by row and letting the skinner rebind -- so the stamps come
+along and nothing detaches. Already built, already gated (bodyvar_gate.js). The
+age stage now carries a dial BIAS merged under the character's own dials
+(BOH_AGE.bias), which is the supported road to the same place.
+
+===============================================================================
+AND THE HONEST RESIDUAL -- READ THIS BEFORE PICKING THIS UP AGAIN
+===============================================================================
+The dial bias is a REAL but SMALL improvement. Measured, the child's shoulder
+span moved 37 -> 36 (one pixel); by eye her waist, the gap between her legs, and
+the separation between her two shoes all improved visibly. It is better. It is
+not solved.
+
+THE REMAINING CHUNK IS NOT THE FEET AND NOT THE STANCE, and I chased both before
+measuring properly:
+
+  - scaled the FOOT STAMPS (limb factor): rest-grid feet went 13px -> 11px wide
+    on the child. Render moved ZERO pixels.
+  - scaled the STANCE: broke the art (above).
+  - measured the rendered sole line: 28px on ALL FOUR cast members, before and
+    after everything.
+
+BECAUSE THE BOTTOM BAND IS NOT THE FEET. It is the SHOE, and genShoes generates
+over the UNION of parts 9/10/11/12 -- legs plus feet -- painting a sole on every
+row where the silhouette ends. The legs sit 11 sprite px apart in the rest pose
+at every age, so the union is ~14 sprite px wide on a child and on her father
+alike. Nothing in the age axis touches leg SPACING, and leg spacing is what sets
+that number.
+
+SO THE NEXT PERSON'S QUESTION IS: should the rest pose's leg spacing vary with
+age, and if so is that a BODYVAR dial (hips already exists) or a rig-level
+change? THAT IS A PAOLO CALL, not a thing to keep guessing at. I stopped here
+rather than write a fifth version -- STOP PRODUCING, 7/26: "writing a fourth
+version of anything means you already failed."
+
+===============================================================================
+SHIPPED, NOT SHIPPED
+===============================================================================
+SHIPPED   BOH_AGE.bias -- per-stage BODYVAR dial bias (child/teen/youngadult)
+SHIPPED   limb stamp scale, X ONLY (see below)
+DELETED   the `wide` pose-X scale. tools/bohemia_age_breadth_patch.py removed.
+
+The limb stamp scale also had a wrong first version worth recording: it scaled
+the stamps in Y as well as X, which took a 4-row foot down to 3 and opened gaps
+between shin, ankle and sole. genShoes paints a SOLE on any row where the
+silhouette ends (`if(!inG(x,y+1))`), so row after row read as "the bottom row"
+and the child's whole lower leg came out STRIPED sole/midsole/sole -- her jeans
+and sneakers were a stack of pancakes. The banding was the generator correctly
+describing a leg with holes in it. Fixed by scaling X only: in the 45 view a
+foot's LENGTH is horizontal extent, its vertical extent is the thickness of the
+shoe (a shoe fact, not an age fact), and Y is the axis welded at BOTH ends --
+the ankle above, the ground line below.

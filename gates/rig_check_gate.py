@@ -46,7 +46,20 @@ os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 LAW = 'laws/BOHEMIA_ADDENDUM_THE_RIG_IS_LAW_7_26_26.md'
 
-RIG = re.compile(r'\bBAKED\b|posedSkel|SKINNERS?\b|SKINNER_API|rigSkel|BODY_PKG|BOH_BODYVAR|bakedFor')
+# `BAKED` IS ALSO AN ENGLISH WORD, and that cost three false positives (8/11).
+# tools/bohemia_music_verdicts_8_2*.py print the sentence "HIS 8/2 VERDICTS ARE
+# BAKED." -- a print() string, so code_only() (which only strips docstrings and
+# comments) kept it, the bare \bBAKED\b matched, and three music tools were
+# demanded to file a RIG CHECK block about a rig they never touch. They were red
+# on main for over a week because of one word.
+# THE FIX IS NOT TO STRIP STRINGS. Patch tools legitimately carry their rig
+# references INSIDE string literals -- that is what a string-surgery patch IS --
+# so blanket-stripping quotes would blind the gate to the tools it exists for.
+# Instead BAKED only counts when it is used as an OBJECT: BAKED. / BAKED, /
+# BAKED) / BAKED] / BAKED= / BAKED bound to a name. Prose ends a sentence with
+# "BAKED." too, so the dot form additionally requires a real member after it.
+RIG = re.compile(r'\bBAKED\.[A-Za-z_]|\bBAKED\s*[,)\]=]|=\s*BAKED\b|'
+                 r'posedSkel|SKINNERS?\b|SKINNER_API|rigSkel|BODY_PKG|BOH_BODYVAR|bakedFor')
 JOINTS = ['neck', 'shL', 'shR', 'elL', 'elR', 'waA', 'waB', 'waC', 'knA', 'knB',
           'headTop', 'handL', 'handR', 'footA', 'footB']
 API = ['BAKED.pose', 'BAKED.layers', 'BAKED.skeleton', 'BAKED.layerOverride', 'BAKED',
@@ -204,8 +217,27 @@ if m:
 # ------------------------------------- 3. CLIPS RESOLVE THROUGH THE RIG
 check('the render base IS BAKED.pose (not a private skeleton)',
       bool(re.search(r'let\s+RIG\s*=\s*BAKED\.pose', src)))
+# ASK FOR THE PROPERTY, NEVER FOR THE SPELLING (8/11). This asserted the literal
+# `BOH_BODYVAR.apply(BAKED,` and went red the moment the AGE AXIS composed on top:
+# `BOH_BODYVAR.apply(BOH_AGE.apply(BAKED, stage), dials)` still derives from BAKED
+# -- BAKED is the innermost argument and is still never written to -- but the
+# regex could only see one spelling of that. It was red on main for a day and the
+# thing it was guarding had never actually broken.
+# THE PROPERTY IS: the dials resolve an expression whose ROOT is BAKED. So BAKED
+# must appear inside the BOH_BODYVAR.apply(...) argument list, at any nesting, and
+# (checked separately below) nothing may assign to BAKED from it.
+# AND IT HAS TO BE THE REAL ONE. Mutation-tested 8/11: pointing rebuildFromRig at
+# a different body still passed, because the alpha carries OTHER
+# BOH_BODYVAR.apply(...BAKED...) text (the embedded rig tool, doc comments) and an
+# unanchored search happily found one of those instead. A gate that can be
+# satisfied by a comment is not a gate. Anchored to rebuildFromRig's own body.
+_rfr = re.search(r'function rebuildFromRig\(\)\s*\{[\s\S]{0,4000}?\n\}', src)
+check('rebuildFromRig is findable to check inside', bool(_rfr))
+_rfr_body = _rfr.group(0) if _rfr else ''
 check('the variation dials DERIVE from BAKED rather than replacing it',
-      bool(re.search(r'BOH_BODYVAR\.apply\(BAKED\s*,', src)))
+      bool(re.search(r'BOH_BODYVAR\.apply\([^;\n]{0,200}?\bBAKED\b', _rfr_body)))
+check('and BAKED is never overwritten by the resolved package',
+      not re.search(r'\bBAKED\s*=\s*(?:BODY_PKG|BOH_BODYVAR|BOH_AGE)\b', src))
 check('the rest grid the art was painted at is BAKED.skeleton',
       bool(re.search(r'skeleton\s*:\s*BAKED\.skeleton', src)))
 

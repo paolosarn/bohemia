@@ -999,7 +999,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/12d - SAME BODY, DIFFERENT CLOTHES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/12g - CHILD PROPORTIONS + FACE FEATURE DIAL</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -1863,12 +1863,87 @@ const BOH_BODYVAR = (function () {
    the knees half as far. Without it a child is just a small adult. */
 const BOH_AGE = (function () {
   const STAGES = {
-    child:      { h: 0.77, legBias: -0.06, label: 'CHILD' },
-    teen:       { h: 0.90, legBias: -0.02, label: 'TEEN' },
-    youngadult: { h: 0.97, legBias:  0.00, label: 'YOUNG ADULT' },
-    adult:      { h: 1.00, legBias:  0.00, label: 'ADULT' },
-    elder:      { h: 0.97, legBias:  0.00, label: 'ELDER' }
+    /* limb = the HAND and FOOT stamp scale. It tracks `h` almost exactly, because
+       foot and hand length track STATURE almost linearly in real growth (an 8yo
+       foot is ~20cm against an adult ~26cm = 0.77, the same number as the body).
+       The HEAD is the one thing that does NOT scale -- that asymmetry is the
+       entire reason a child reads as a child rather than as a small adult. */
+    /* bias = BODYVAR dials the stage adds UNDER the character's own, because
+       breadth falls faster than height in real growth (biacromial 0.70 against
+       stature 0.73) and a body that only shrank vertically read as a squashed
+       adult -- measured shoulder/height 0.476 on the child against 0.472 on her
+       father, the same ratio. Dials, never a pose X scale: dials remap REST
+       pixels and let the skinner rebind, so the rigid hand and foot stamps come
+       along with the body. Scaling the SKELETON in X instead fused her arms into
+       her ribs and left her shoes behind as a detached brick.
+       The ELDER narrows nothing: old age compresses the spine, it does not
+       narrow the shoulders. */
+    child:      { h: 0.77, legBias: -0.06, limb: 0.78, label: 'CHILD',
+                  bias: { shoulders: -0.32, arms: -0.18, hips: -0.12 } },
+    teen:       { h: 0.90, legBias: -0.02, limb: 0.91, label: 'TEEN',
+                  bias: { shoulders: -0.14, arms: -0.08, hips: -0.05 } },
+    youngadult: { h: 0.97, legBias:  0.00, limb: 0.98, label: 'YOUNG ADULT',
+                  bias: { shoulders: -0.05, arms: -0.03, hips:  0.00 } },
+    adult:      { h: 1.00, legBias:  0.00, limb: 1.00, label: 'ADULT' },
+    elder:      { h: 0.97, legBias:  0.00, limb: 1.00, label: 'ELDER' }
   };
+
+  /* HANDS 7/8, FEET 11/12. These have no PART_SPEC anywhere in the system, so
+     nothing has ever been able to resize them -- measured before this: foot band
+     34px wide on a 106px father AND on an 84px child, identical.
+     INVERSE SAMPLE, target -> source, exactly as warpPart does: a forward map
+     leaves holes the moment the scale moves, and a hole in a foot reads as
+     shot-through art. */
+  function scaleStamp(list, W, s, anchor) {
+    if (!list || !list.length || !s || Math.abs(s - 1) < 0.001) return list;
+    let x0 = 1e9, x1 = -1, y0 = 1e9, y1 = -1;
+    for (let i = 0; i < list.length; i++) {
+      const x = list[i] % W, y = (list[i] / W) | 0;
+      if (x < x0) x0 = x; if (x > x1) x1 = x;
+      if (y < y0) y0 = y; if (y > y1) y1 = y;
+    }
+    const set = new Set(list);
+    /* X ONLY, AND THAT IS THE WHOLE FIX. The first version scaled Y as well and
+       it visibly destroyed the child: a 4-row foot became 3, gaps opened between
+       the shin, the ankle and the sole, and genShoes -- which paints a SOLE on
+       any row where the silhouette ends (`if(!inG(x,y+1))`) -- correctly striped
+       the whole lower leg sole/midsole/sole. Her jeans and sneakers read as a
+       stack of pancakes.
+       In the 45 view a foot's LENGTH is horizontal extent; its vertical extent is
+       the thickness of the shoe, which is a shoe fact and not an age fact -- a
+       kid's sole is not 22% thinner rubber. And Y is the axis welded at BOTH
+       ends, the ankle above and the ground line below, so it is the one axis that
+       cannot move. Narrowing X alone shrinks the foot the way a child's foot is
+       really smaller and touches neither joint.
+       `anchor` still decides where X pivots so a stamp cannot drift off its own
+       limb. */
+    const ax = (x0 + x1) / 2;
+    const out = [];
+    const tx0 = Math.floor(ax - (ax - x0) * s), tx1 = Math.ceil(ax + (x1 - ax) * s);
+    for (let ty = y0; ty <= y1; ty++) {
+      for (let tx = tx0; tx <= tx1; tx++) {
+        if (tx < 0 || ty < 0) continue;
+        const sx = Math.round(ax + (tx - ax) / s);
+        if (sx < x0 || sx > x1) continue;
+        if (set.has(ty * W + sx)) out.push(ty * W + tx);
+      }
+    }
+    return out.length ? out : list;
+  }
+  const HAND_PARTS = { 7: 'top', 8: 'top' }, FOOT_PARTS = { 11: 'bottom', 12: 'bottom' };
+  function scaleLimbs(layers, W, s) {
+    if (!layers || !s || Math.abs(s - 1) < 0.001) return layers;
+    const out = {};
+    for (const d in layers) {
+      const src = layers[d], dst = {};
+      for (const p in src) {
+        const anchor = HAND_PARTS[p] || FOOT_PARTS[p];
+        dst[p] = anchor ? scaleStamp(src[p], W, s, anchor) : src[p];
+      }
+      out[d] = dst;
+    }
+    return out;
+  }
   function apply(baked, stage) {
     const S = STAGES[stage];
     /* ADULT RETURNS THE PACKAGE BY IDENTITY. bodyvar_gate asserts neutral is
@@ -1894,11 +1969,24 @@ const BOH_AGE = (function () {
       }
       pose[d] = n;
     }
-    return { W: baked.W, H: baked.H, skeleton: baked.skeleton, layers: baked.layers,
+    return { W: baked.W, H: baked.H, skeleton: baked.skeleton,
+             layers: scaleLimbs(baked.layers, baked.W || 56, S.limb),
              pose: pose, layerOverride: baked.layerOverride, swingAmt: baked.swingAmt,
              age: stage };
   }
-  return { apply: apply, STAGES: STAGES, NAMES: Object.keys(STAGES) };
+  /* THE STAGE'S DIALS, MERGED UNDER THE CHARACTER'S OWN. Added, not replaced:
+     the sister already carries shoulders -0.40 because of who she is, and the
+     stage says a child of any build is narrower still. BODYVAR clamps to
+     [-1,1] itself, so nothing here can drive a dial out of range. */
+  function bias(dials, stage) {
+    const S = STAGES[stage], b = S && S.bias;
+    if (!b) return dials || null;
+    const o = {};
+    for (const k in (dials || {})) o[k] = dials[k];
+    for (const k in b) o[k] = (+o[k] || 0) + b[k];
+    return o;
+  }
+  return { apply: apply, bias: bias, STAGES: STAGES, NAMES: Object.keys(STAGES) };
 })();
 window.BOH_AGE = BOH_AGE;
 const BONES={head:['neck','headTop'],torso:['waC','neck'],uArmA:['shL','elL'],fArmA:['elL','handL'],uArmB:['shR','elR'],fArmB:['elR','handR'],thighA:['waA','knA'],shinA:['knA','footA'],thighB:['waB','knB'],shinB:['knB','footB']};
@@ -3029,8 +3117,37 @@ let eyeColor = null;   /* [r,g,b] iris; null = default. Modular, independent of 
 function faceOffset(dir,feat){ return (FACE_OFFSETS[dir]&&FACE_OFFSETS[dir][feat])||[0,0]; }
 function setFaceOffset(dir,feat,dx,dy){ FACE_OFFSETS[dir]=FACE_OFFSETS[dir]||{}; FACE_OFFSETS[dir][feat]=[dx,dy]; }
 function buildSpec(){const sp=JSON.parse(JSON.stringify(pface));if(hairColor){sp.hair.color=hairColor;sp.hair.roots=hairColor.map(c=>c*0.4|0);}return sp;}
+/* FEATURE SCALE (Paolo 8/11: "maybe all eyes eyebrows and mouths should be twice
+   the size idk"). A RENDER-TIME KNOB, never an edit to his authored spec: PUNK is
+   marked do-not-remake, so at scale 1 this returns the spec object by identity and
+   every approved face is byte-for-byte what it was.
+   THE FEATURES GROW; THE SPACING BARELY MOVES. At eyeY the head is ~28px wide, so
+   there are 14px from the centre line to the cheek edge and an eye sits at
+   `gap + (w>>1)`. Double BOTH and the outer corner lands 4px off the side of his
+   head; double only the feature and hold the gap near where it was and the eye
+   grows into the face it already lives on. 2.0 is the hard ceiling of this
+   geometry -- 13px eyes, corners exactly on the cheek edge, a 2px nose bridge.
+   opts.feat wins over the global so a comparison strip can render every step at
+   once without stomping what the game is set to. */
+function faceFeatScale(spec, s) {
+  if (!spec || !s || Math.abs(s - 1) < 0.001) return spec;
+  const up = v => Math.max(1, Math.round((+v || 0) * s));
+  /* the gap creeps rather than scales -- see the geometry note above */
+  const creep = (v, share) => Math.max(1, Math.round((+v || 0) * (1 + (s - 1) * share)));
+  const o = {};
+  for (const k in spec) o[k] = spec[k];
+  if (spec.eyes)  o.eyes  = Object.assign({}, spec.eyes,
+    { w: up(spec.eyes.w), h: up(spec.eyes.h), gap: creep(spec.eyes.gap, 0.35) });
+  if (spec.brows) o.brows = Object.assign({}, spec.brows,
+    { len: up(spec.brows.len), thick: up(spec.brows.thick), gap: creep(spec.brows.gap, 0.20) });
+  if (spec.mouth) o.mouth = Object.assign({}, spec.mouth,
+    { w: up(spec.mouth.w), fullLower: up(spec.mouth.fullLower) });
+  return o;
+}
+if (typeof window !== 'undefined' && typeof window.BOH_FACE_FEAT === 'undefined') window.BOH_FACE_FEAT = 1;
 function renderFace(spec,opts){
  opts=opts||{}; const blood=opts.blood,cig=opts.cig,bald=opts.bald; const N=64,buf=new Uint8ClampedArray(N*N*4);
+ spec=faceFeatScale(spec,(typeof opts.feat==='number')?opts.feat:((typeof window!=='undefined'&&window.BOH_FACE_FEAT)||1));
  const ramp=opts.ramp||SKR[spec.skin]; const L=ramp[0],Mn=ramp[1],Sh=ramp[2],Ln=ramp[3];
  const f=spec.face,cx=32;
  const P=(x,y,c)=>{x|=0;y|=0;if(x<0||x>=N||y<0||y>=N)return;const i=(y*N+x)*4;buf[i]=c[0];buf[i+1]=c[1];buf[i+2]=c[2];buf[i+3]=255;};
@@ -4680,7 +4797,8 @@ function rebuildFromRig(){
   /* AGE UNDER, DIALS OVER: age sets the PROPORTION, the dials still shape the
      build on top of it. G.age is undefined for the player, and BOH_AGE returns
      the package by identity for 'adult', so nothing that existed before moves. */
-  const src=BODY_PKG=BOH_BODYVAR.apply(BOH_AGE.apply(BAKED,G.age||'adult'),G.bodyVar);
+  const _stage=G.age||'adult';
+  const src=BODY_PKG=BOH_BODYVAR.apply(BOH_AGE.apply(BAKED,_stage),BOH_AGE.bias(G.bodyVar,_stage));
   try{buildClothesFit();}catch(_e){CLOTHES_FIT={};window._CLOTHFIT_ERR=String(_e&&_e.message||_e);}   /* CLOTHES FOLLOW THE BODY: refit the cloth to the body the dials just made */
   exp.layers=src.layers;exp.skeleton=src.skeleton;
   RIG=src.pose;

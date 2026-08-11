@@ -58,8 +58,14 @@ ok('the closure-scope trap is recorded at the code',
   /CW lives inside the SKINNER_API closure/.test(src));
 
 /* ---- the fit itself ------------------------------------------------------ */
+/* ASK FOR THE PROPERTY, NEVER FOR THE SPELLING (8/11, second time in one day).
+   This spelled out `BOH_BODYVAR.apply(BAKED,G.bodyVar);` and went red the moment
+   the AGE AXIS composed under it. The PROPERTY is ordering: the clothes refit has
+   to run in the same breath as the body package being rebuilt, whatever is
+   wrapped around the baked package or the dials. So: the BODY_PKG assignment,
+   then buildClothesFit, with nothing but whitespace between them. */
 ok('the map is rebuilt whenever the body package is rebuilt',
-  /BOH_BODYVAR\.apply\(BAKED,G\.bodyVar\);\s*\n\s*try\{buildClothesFit\(\);\}/.test(src));
+  /BODY_PKG\s*=\s*BOH_BODYVAR\.apply\([\s\S]{0,200}?\);\s*try\{buildClothesFit\(\);\}/.test(src));
 ok('it is driven by the BODY\'s own measured extents, canon vs warped',
   /const warped = pkg\.layers\[d\], canon = BAKED\.layers\[d\];/.test(src));
 ok('the torso and BOTH arms drive their own cloth', /for\(const part of \[4,5,6\]\)/.test(src));

@@ -64,7 +64,12 @@ ok('BOH_BODYVAR is inlined in the alpha', src.indexOf('const BOH_BODYVAR') >= 0)
    the real question: does rebuildFromRig assign BODY_PKG from BOH_BODYVAR.apply
    with the dials, whatever is wrapped around the baked package. */
 ok('rebuildFromRig resolves the dials through BOH_BODYVAR (however the baked package is composed)',
-   /BODY_PKG\s*=\s*BOH_BODYVAR\.apply\([\s\S]{0,120}?G\.bodyVar\s*\)/.test(src));
+   /* AND IT WENT RED AGAIN THE VERY NEXT EDIT, for the same reason one layer in.
+      `G\.bodyVar\s*\)` demanded the dials be the LAST thing in the call, so
+      passing them through a stage bias -- BOH_AGE.bias(G.bodyVar, stage) -- broke
+      it, because now a comma follows. The dials are still the dials and they
+      still go through BODYVAR. Word boundary, not a closing paren. */
+   /BODY_PKG\s*=\s*BOH_BODYVAR\.apply\([\s\S]{0,160}?\bG\.bodyVar\b/.test(src));
 /* WINDOW WIDENED 7/31, and the reason matters. This asserts the dials are in the
    frame-cache hash -- true then, true now. It failed because a comment was added
    inside frameLookHash (explaining that G_WORN had to join the hash, the bug that

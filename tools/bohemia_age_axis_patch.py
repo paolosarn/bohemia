@@ -85,6 +85,16 @@ deliberately. It composes UNDER the dials: age sets the proportion, dials still
 shape the build on top of it.
 
     python3 tools/bohemia_age_axis_patch.py
+RIG CHECK (RIG IS LAW, Paolo 7/26/26): the age axis NEVER makes a second body. Every
+  stage is a re-map of the ONE painted rig: BOH_AGE.apply(BAKED, stage) scales the
+  POSE about the ground line and hands the SAME layers and the SAME skeleton back,
+  and 'adult' returns the package by identity. The HEAD keeps its authored bone --
+  headTop is re-derived from neck by the painted offset -- because the head is a
+  rigid stamp and a child's skull is nearly adult size, which is the whole reason a
+  child reads as a child. No new anatomy, no second rig.
+  built on: BAKED, BAKED.pose, BODY_PKG, BOH_BODYVAR
+  joints: neck, headTop, footA, footB, waC, waA, waB, kneeA, kneeB
+  parts: none
 """
 import sys
 

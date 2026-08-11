@@ -82,7 +82,23 @@ ok('a rig edit still rebuilds the character (the rig drives the game, not the re
 ok('rebuildFromRig is what redraws everything off the body', /function rebuildFromRig\(\)/.test(src));
 
 /* the body sliders read the rig and never overwrite it */
+/* ASK FOR THE PROPERTY, NEVER FOR THE SPELLING (8/11). This wanted the literal
+   `BOH_BODYVAR.apply(BAKED,G.bodyVar)` and went red the moment the AGE AXIS
+   composed on top of it -- BOH_BODYVAR.apply(BOH_AGE.apply(BAKED,stage), dials)
+   still resolves FROM BAKED and still leaves it untouched, which is the thing
+   this line is here to protect, but the regex could only recognise one way of
+   writing it. Red on main for a day guarding something that never broke.
+   The PROPERTY: BAKED is the root of what the dials resolve (it appears inside
+   the apply call at any nesting), and nothing ever writes the resolved package
+   back onto BAKED. */
+/* AND IT HAS TO BE THE REAL ONE. Mutation-tested 8/11: pointing rebuildFromRig at
+   a different body still passed this, because the alpha carries OTHER
+   BOH_BODYVAR.apply(...BAKED...) text (the embedded rig tool, doc comments) and an
+   unanchored search found one of those instead. A check a comment can satisfy is
+   not a check. Anchored to rebuildFromRig's own body. */
+const _rfr = (src.match(/function rebuildFromRig\(\)\s*\{[\s\S]{0,4000}?\n\}/) || [''])[0];
 ok('the variation sliders resolve FROM the rig body, leaving it untouched',
-  /BOH_BODYVAR\.apply\(BAKED,G\.bodyVar\)/.test(src));
+  /BOH_BODYVAR\.apply\([^;\n]{0,200}?\bBAKED\b/.test(_rfr) &&
+  !/\bBAKED\s*=\s*(?:BODY_PKG|BOH_BODYVAR|BOH_AGE)\b/.test(src));
 
 done();

@@ -549,6 +549,86 @@ belong to somebody else: MOVE THE BLOCK nearer a base (MAP LAW: Claude never des
 layouts) or RAISE REACH_CELLS/AFFILIATED_RATE (both marked [PENDING Paolo] in source).
 Tuning them so a demo looks busier is fitting the world to the screenshot.
 
+CHARACTER (character-0lurbs): 8/11 LATEST -- THE AGE AXIS GOT ITS PROPORTIONS, AND
+I SHIPPED TWO FIXES THAT MOVED THE RENDER BY ZERO PIXELS BEFORE I NOTICED.
+
+PAOLO: "also the tinier people looked weird look into that" -- and separately, "maybe all
+eyes eyebrows and mouths should be twice the size idk".
+
+HE WAS RIGHT ABOUT THE KIDS AND THE CAUSE WAS ONE UNSCALED COORDINATE. BOH_AGE scaled the
+pose in Y and only in Y (`n[j] = [P[j][0], ...]`), so the child had her father's shoulder
+ratio exactly: 0.440 against his 0.415. She was not a child, she was an adult who had been
+stepped on. FIXED through BODYVAR's dials (BOH_AGE.bias, per stage, merged UNDER the
+character's own) plus a hand/foot stamp scale, X ONLY.
+
+*** READ records/POSTMORTEM_AGE_BREADTH_POSE_X_8_11_26.txt BEFORE TOUCHING THE AGE AXIS ***
+The obvious fix -- scale every joint's X about the pelvis -- DESTROYED THE CHILD. Her arms
+fused into her torso and her sneakers detached into a brick wider than her legs. HANDS AND
+FEET ARE RIGID STAMPS BOUND TO BONES, NOT SKINNED GEOMETRY: narrowing the skeleton drags
+the bones inboard and leaves the adult-sized stamps behind. A pose-space X scale can never
+be right on this rig, at any amplitude. The patch was DELETED, not softened. The first
+limb-stamp version scaled Y too, which opened gaps between shin, ankle and sole, and
+genShoes paints a SOLE on every row where the silhouette ends -- her jeans and sneakers
+came out STRIPED, a stack of pancakes.
+
+*** AND THE HONEST PART: TWO OF TODAY'S FIXES BARELY MOVED THE PIXELS. *** The stamp scale
+narrowed the rest grid 13px -> 11px and changed the RENDER by ZERO. The dial bias moved her
+shoulder by ONE pixel (visibly better in the interior -- waist, leg gap, two separate shoes
+-- but one pixel on the silhouette). EVERY GATE IN THE REPO WAS GREEN THROUGH BOTH, because
+no gate ever asked whether the pixels moved. gates/face_feature_scale_gate.js now asks
+exactly that on the face knob; the same assertion belongs anywhere a dial ships.
+THE REMAINING CHUNK IS THE SHOE, NOT THE FOOT: genShoes generates over the UNION of parts
+9/10/11/12, and the legs sit 11 sprite px apart in the rest pose at EVERY age, so the sole
+line is 28px on the father and on the child alike. Whether leg SPACING should vary with age
+is a PAOLO CALL (BODYVAR hips dial, or rig-level) -- I stopped rather than write a fifth
+version. STOP PRODUCING, 7/26.
+
+FACE FEATURES: a render-time knob, `window.BOH_FACE_FEAT`, DEFAULT 1. PUNK is marked
+do-not-remake so nothing is baked into his spec -- at 1 the face is BYTE-IDENTICAL to no
+knob at all, gated. The features scale; the SPACING barely moves (eye gap at 35% of the
+scale, brow gap at 20%), because at eyeY the head is ~28px wide and doubling gap AND width
+puts the outer eye corner 4px off the side of his head.
+PENDING PAOLO, one number: records/FACE_FEATURE_SCALE_8_11.png is his face rendered at
+x1.0 / x1.25 / x1.50 / x1.75 / x2.00. x1.50 reads best to me; at x2.00 the mouth is wider
+than the jaw. `node tools/bohemia_face_feature_strip.js` regenerates it.
+
+AND I FOUND TWO GATES I HAD ALREADY BROKEN AND SHIPPED. RIG IS LAW and RIG CHECK were RED
+ON MAIN before this turn touched anything -- I broke them when the age axis landed and did
+not look. Both asserted the LITERAL string `BOH_BODYVAR.apply(BAKED,G.bodyVar)`, which the
+age composition rewrote; the thing they guard had never actually broken. ASK FOR THE
+PROPERTY, NEVER FOR THE SPELLING: they now check that BAKED is the ROOT of what the dials
+resolve, ANCHORED TO rebuildFromRig's OWN BODY, plus a new assertion that nothing writes the
+resolved package back onto BAKED. Mutation-tested both ways -- and the first anchored-less
+version PASSED a mutation that pointed rebuildFromRig at a different body entirely, because
+the alpha carries other BOH_BODYVAR.apply(...BAKED...) text in comments and in the embedded
+rig tool. A check a comment can satisfy is not a check.
+ALSO FIXED, and it was not mine to break: `BAKED` IS AN ENGLISH WORD. rig_check_gate's
+detector was a bare \bBAKED\b, so the three tools/bohemia_music_verdicts_8_2*.py -- which
+print the sentence "HIS 8/2 VERDICTS ARE BAKED." -- were being ordered to file RIG CHECK
+blocks about a rig they never touch, red for over a week. BAKED now only counts when used
+as an OBJECT (BAKED. / BAKED, / BAKED) / = BAKED). Strings are NOT stripped, deliberately:
+patch tools carry their real rig references inside string literals, which is what string
+surgery IS.
+
+AND TWO MORE OF THE SAME, one edit later: CLOTHES FOLLOW spelled out
+`BOH_BODYVAR.apply(BAKED,G.bodyVar);` and BODY VARIATION demanded `G.bodyVar` be the LAST
+argument (`G\.bodyVar\s*\)`), so routing the dials through a stage bias broke it on a
+COMMA. bodyvar_gate's own comment already tells this exact story from earlier the same day.
+Four gates, one root cause, one afternoon: A GATE THAT NAMES A SPELLING GOES RED THE NEXT
+TIME SOMEBODY IMPROVES THE THING IT GUARDS.
+
+STILL RED, NOT MINE, AND IDENTICAL ON MAIN (verified by stashing to a clean tree):
+  SFX RENDER      -- audio lane
+  PARTS PAINTED / BODY VARIATION -- both are the SAME fact: BAKED part 2 (face) has no
+    pixels on NE and NW. That is Paolo's painted rig. RIG LAW says never reshape his
+    regions, so this is not something a lane may "fix" -- it needs HIS call on whether
+    those two facings ever get a face painted.
+
+NEW GATE: FACE FEAT DIAL (gates/face_feature_scale_gate.js), registered in the suite.
+
+--------------------------------------------------------------------------------
+
+
 RUN (run-eak241): 8/11 LATEST -- TWO DEMO ROWS SHIPPED, AND THE GATES WERE LYING.
 
 THE DAY LOOP CLOSES. The city had a TIMER, not a day: minutes piled up, rolled past
