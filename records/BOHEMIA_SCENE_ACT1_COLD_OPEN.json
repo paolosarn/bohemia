@@ -118,9 +118,10 @@
       "id": "family_defense",
       "to": "combat",
       "tier": "tutorial",
-      "encounter": "family_defense",
+      "encounter": "cold_open",
       "returns": true,
-      "why": "'The tutorial IS the family-defense fight. You learn the (fun) combat by fending them off room to room.' COMBAT supplies the encounter; this beat only hands over and takes control back."
+      "why": "'The tutorial IS the family-defense fight. You learn the (fun) combat by fending them off room to room.' NAMED TO COMBAT'S OWN CONTRACT (8/11, tools/bohemia_alpha_cold_open_patch.py): they expose startColdOpen(onEnd) with encounterId 'cold_open'. My first version said 'family_defense' and the two halves WOULD NOT HAVE MET -- two lanes building complementary pieces that never connect is this repo's most expensive recurring bug, so the gate now checks the name against theirs instead of trusting it.",
+      "call": "startColdOpen"
     },
     {
       "kind": "end",

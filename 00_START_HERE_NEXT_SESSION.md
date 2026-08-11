@@ -34,6 +34,18 @@ AND THE GATE CRASHED ON ITS OWN MUTATION TEST before it failed cleanly (p.dialog
 null and .choose() threw). A CRASH ASSERTS NOTHING - the same lesson DEVIATION taught
 this lane on 8/4. Guarded; it now reports "NO CONVERSATION WAS OPEN".
 
+*** AND THE TWO HALVES DID NOT MEET UNTIL I CHECKED. *** COMBAT shipped the family-defence
+FIGHT the same day this lane shipped the SCENE that hands off to it - complementary by the
+demo plan's own routing (item 10), no collision. BUT my handoff beat said `family_defense`
+and COMBAT named it `cold_open` (tools/bohemia_alpha_cold_open_patch.py exposes
+startColdOpen(onEnd), encounterId 'cold_open'). THE PIECES WOULD HAVE PASSED IN THE NIGHT.
+TWO LANES BUILDING HALVES THAT NEVER CONNECT IS THIS REPO'S MOST EXPENSIVE RECURRING BUG,
+and a name agreed by eye is not agreed - so scene_gate now READS COMBAT'S CONTRACT and
+fails if the two names drift apart (mutation-tested). SCENE GATE 32 -> 35 claims.
+COMBAT kept his contents empty too, independently: "the opening of his game is the most
+seductive place to write his lore for him, so this writes none of it." Same discipline,
+two lanes, no coordination needed.
+
 STILL NOT ON THE WALKED SURFACE. The runtime is engine-side and gate-proved; inlining it
 into slices/BOHEMIA_CITY_WORLD.html (the surface RUN shows) is the next step, following
 the bohemia_city_people_patch.py precedent this lane already owns.

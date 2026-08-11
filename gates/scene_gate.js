@@ -95,8 +95,24 @@ ok('FIREWORKS: the 10-year anniversary of the 4th of July is set',
 ok('the FATHER wakes you (his ruling: the father raises the alarm)',
   cold.beats.some(b => b.kind === 'say' && b.speaker === 'father'));
 ok('it hands off to COMBAT for the family-defense tutorial, and comes back',
-  cold.beats.some(b => b.kind === 'handoff' && b.to === 'combat' &&
-    b.encounter === 'family_defense' && b.returns === true));
+  cold.beats.some(b => b.kind === 'handoff' && b.to === 'combat' && b.returns === true));
+/* *** THE TWO HALVES MUST ACTUALLY MEET. ***
+   COMBAT shipped the family-defense fight on 8/11 while this lane shipped the scene
+   that hands off to it -- complementary by the demo plan's own routing (item 10).
+   But my handoff beat originally said `family_defense` and COMBAT named it
+   `cold_open`, so the pieces would have passed in the night. TWO LANES BUILDING
+   HALVES THAT NEVER CONNECT IS THIS REPO'S MOST EXPENSIVE RECURRING BUG, and a
+   name agreed by eye is not agreed. So: read THEIR contract and compare. */
+const handoff = cold.beats.find(b => b.kind === 'handoff');
+const combatSrc = fs.existsSync('tools/bohemia_alpha_cold_open_patch.py')
+  ? fs.readFileSync('tools/bohemia_alpha_cold_open_patch.py', 'utf8') : '';
+ok('COMBAT really exposes a cold-open encounter to hand off to', /function startColdOpen\(/.test(combatSrc));
+const theirId = (/encounterId:'([a-z_]+)'/.exec(combatSrc) || [])[1];
+ok('the scene\'s handoff names the encounter COMBAT ACTUALLY EXPOSES (scene says "' +
+  (handoff && handoff.encounter) + '", combat says "' + theirId + '")',
+  !!handoff && !!theirId && handoff.encounter === theirId);
+ok('and it names the function COMBAT exposes, so the join is callable',
+  !!handoff && handoff.call === 'startColdOpen' && combatSrc.indexOf('function startColdOpen(') >= 0);
 
 /* ---- 3. THE WORDS ARE HIS ------------------------------------------------- */
 /* THE CHECK THAT MATTERS MOST IN THIS FILE. LINES ships empty; the cold open's
