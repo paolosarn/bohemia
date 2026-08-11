@@ -1,3 +1,55 @@
+FACTIONS (factions-ovkjpf): 8/11 (r) LATEST — *** THE RUN FINALLY SHOWS WHAT A QUEST
+COST YOU. THE INTEGRATION LEDGER'S OLDEST PARTIAL IS CLOSED. ***
+Tab: RUN -> play the block quest -> the phone. 27/32 systems now integrated (was 25/31).
+
+"WE HAVE A DEMO TO SHIP" changed the target, so I went to the integration ledger
+instead of building another system. The oldest PARTIAL, sitting there since 7/26:
+    factions / world bridge | PARTIAL | quest outcomes really move faction standing,
+                                        but nothing in the run SHOWS it
+Four days of reputation machinery moving real numbers a player never sees. For a demo
+that is fatal -- the entire faction layer was invisible.
+
+THE RUN LANE'S JOB IS INTEGRATION, NOT FEATURES (Paolo 7/26): "the measure of the lane
+is not what did you add, it is what is finally IN it that we already made." NOTHING NEW
+WAS COMPUTED. The run simply never loaded two modules that were already built and
+already gated (bohemia_standing 35 claims, bohemia_deeds 27) and never read the
+FactionWorld its own world bridge had already moved.
+
+THE FEED CARD now carries the consequence under the vanity follower count:
+    WORD CARRIED 24 TILES      the clout tag's real reach (#quiet 7, #reckless 24)
+    CARAVANS +10 - NEUTRAL     which factions moved + the rung they now sit on, read
+                               off the LIVE FactionWorld, never the quest's scratch
+    CARTEL STIRRED UP          @DO faction_posture, wired 8/7
+
+VERIFIED ON THE REAL SURFACE, not by the build succeeding: driven in a real browser to
+the phone, zero page errors, rendering
+    'The Toll Road - COMPLETE / +110 followers / WORD CARRIED 24 TILES /
+     CARAVANS +10 - NEUTRAL / CARTEL STIRRED UP'
+
+CLOSING THE ROW NEEDED A PROBE FOR THE SHOWING, NOT THE MOVING. Otherwise the ledger
+would read INTEGRATED because a number changed in memory where no player can see it --
+the exact class of claim that gate exists to refuse. New probe world_bridge_shown
+checks the run really renders off standingWith('player'), rungOf() and
+BohemiaDeeds.reachOf(). INTEGRATION 116 passed. RUN GATE 126 passed.
+
+WHAT IS STILL NOT IN THE RUN, from the same ledger (none of it mine):
+    district heroes + district art (21 types) .. PARTIAL, material pass only
+    day cycle / light / LIGHT=TERRITORY ....... NOT YET, block is one fixed hour
+    economy .................................. NOT YET, off by his 7/31 ruling
+    dress-by-rank ............................ NOT YET, bodies are random colourways
+    vehicles ................................. NOT YET, driveways empty
+If the demo needs one more thing after this, DAY CYCLE is the one a player feels
+hardest -- a fixed noon reads as a prototype.
+
+CONTAINER WARNING, THIRD TIME TODAY: this container silently reverted to an 8/2
+snapshot mid-turn three separate times, losing the local checkout each time. Everything
+pushed survived; only uncommitted work was at risk. COMMIT AND PUSH EARLY AND OFTEN.
+The revert also wipes Pillow/numpy despite the SessionStart hook, and
+tools/build_run_slice.js hard-fails without PIL -- rerun
+`python3 -m pip install -r gates/requirements.txt` when a build dies on ModuleNotFound.
+A restored run-slice source can also be STALE (mine was missing a placeholder the
+current builder needs) -- always re-apply edits to main's version, never restore a copy.
+
 CHARACTER (0lurbs): 8/11 (o) LATEST — THE FAMILY CAST IS ON THE RIG AND IN THE GAME.
 CHARACTER tab, under THE FAMILY. Father, mother, brother, sister, tap any one to turn
 it through all eight facings.
