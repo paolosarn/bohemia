@@ -16500,3 +16500,18 @@ endearing surface per character, the name-ask beat is the delivery slot),
 SOUNDS 0v note (funny voice classes, test by laugh). Tone is TERRITORIAL:
 comedy in the light, dread in the dark — rides LIGHT=TERRITORY, no new
 system.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/12 (c) — TONE RESEARCH R2, DEEP (records/BOHEMIA_TONE_
+RESEARCH_R2_8_12_26.md). THE DIALOGUE CRAFT CARD is now a citable pattern
+for EVERY lane writing draft words (extends PEOPLE 0t, composes with
+make-an-attempt + the catalogue law): specificity (never the generic
+noun), character over jokes (one quirk, deep), rule of three + MECHANICAL
+callbacks (the witness/memory systems can perform the callback), Marco is
+the cast straight man, PROTECT THE HIT (no jokes where trauma lands,
+broken only on purpose), write short for Paolo's red pen. PLUS the
+layered-silence pattern: EXPLAIN THE HANDS, NEVER THE GHOSTS (normie-easy
+controls, F&H silence on lore/uncanny — restates the GDD's permanent
+ambiguity; wiki culture is the intended outcome; death teaches
+world-truths). SOUNDS: squiggle timing syncs to the text beat. R3
+candidates queued on his word.

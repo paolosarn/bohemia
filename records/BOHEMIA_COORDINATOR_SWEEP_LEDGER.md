@@ -129,3 +129,17 @@ sister dies. Routed: PEOPLE 0t attachment pattern (quirk per character via
 the name-ask slot), SOUNDS note (funny voice classes), lab R2 candidates
 logged. Record: records/BOHEMIA_TONE_RESEARCH_R1_8_12_26.md
 HIGH-WATER MARK unchanged (research turn, not a sweep): main @ 56b0f4a885a439f8a657097e55e59ae7af4a9d02
+
+## TONE RESEARCH R2 — 8/12/26 (deep round, his order)
+Findings: protect-the-hit + rewrite-forever (Toby Fox: serious scenes
+guarded from jokes, broken only on purpose; dialog rewritten 10,000
+times); every-death-is-a-lesson + obscurity births community (F&H);
+craft science: specificity wins, character over jokes, rule of three,
+the straight man. CHALLENGE FINDING: our normie-easy ruling and F&H's
+withholding only conflict if applied to the same layer — EXPLAIN THE
+HANDS, NEVER THE GHOSTS (controls get clarity, lore/uncanny get silence;
+already matches the GDD's permanent-ambiguity canon). ROUTED: the
+Dialogue Craft Card (6 rules, all draft-writing lanes, extends PEOPLE
+0t); SOUNDS voice-timing note. Record: records/BOHEMIA_TONE_RESEARCH_
+R2_8_12_26.md
+HIGH-WATER MARK unchanged (research turn): main @ 29a8d7d08d903d7554669ad0fed55e3970d207a8
