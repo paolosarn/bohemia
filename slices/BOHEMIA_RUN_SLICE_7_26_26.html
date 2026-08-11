@@ -500,6 +500,40 @@ var CIVIC_OPEN_IMG = {}, CIVIC_OPEN_BY = (CIVIC_OPEN_B64&&CIVIC_OPEN_B64.by)||{}
 (function(){ var t=(CIVIC_OPEN_B64&&CIVIC_OPEN_B64.t)||{};
   Object.keys(t).forEach(function(k){ var i=new Image(); i.src='data:image/png;base64,'+t[k];
     CIVIC_OPEN_IMG[k]=i; }); })();
+/* THE APPROVED TILE FAMILIES (8/11). Paolo swept the TILE BOARD sitting and
+   approved 14 families (records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt); the
+   builder injects the pieces a wired family actually draws, and REFUSES a bank
+   whose law line is not APPROVED - an unjudged tile can never reach this map.
+   First wiring: TF-ART-010 rail. The yard corridor is a FIXED 5-slice column
+   (shoulder/rail/four-foot/rail/shoulder) whose track row is the world's own
+   'rail track' cell; the rails land on the ballast rows either side, which the
+   railyard's fan leaves 7 rows apart, so corridors can never collide. Phase
+   A/B alternates per cell along the run (the bank's own 88px tie contract:
+   never A|A). */
+var TILEFORM_B64 = __TILEFORM_B64_JSON__;
+var TILEFORM_IMG = {};
+(function(){ Object.keys(TILEFORM_B64||{}).forEach(function(k){
+  var i=new Image(); i.src='data:image/png;base64,'+TILEFORM_B64[k]; TILEFORM_IMG[k]=i; }); })();
+function drawRailform(gx,gy,X,Y,S){
+  var order=[0,1,-1,2,-2];
+  for(var i=0;i<5;i++){
+    var dyt=order[i], ty=gy+dyt;
+    if(ty<0||!NAMEG[ty]) continue;
+    if(String(NAMEG[ty][gx]||'').toLowerCase().indexOf('rail track')<0) continue;
+    var slice=2-dyt;                       /* track row = the four-foot, centre slice */
+    var v=th(0,ty,3), ph=(gx%2===0)?'A':'B';
+    var im=TILEFORM_IMG['rail_yard_corridor_'+v+ph];
+    if(!im||!im.complete||!im.naturalWidth) return false;
+    ctx.drawImage(look(im),0,slice*44,44,44,X,Y,S,S);
+    return true;
+  }
+  /* the yard's continuous bed between tracks: his approved plate, not paint */
+  if(String(NAMEG[gy][gx]||'').toLowerCase().indexOf('ballast')>=0){
+    var pm=TILEFORM_IMG['rail_plate_'+th(gx,gy,3)];
+    if(pm&&pm.complete&&pm.naturalWidth){ ctx.drawImage(look(pm),X,Y,S,S); return true; }
+  }
+  return false;
+}
 var CIVIC_SKIN_B64 = __CIVIC_SKIN_JSON__;
 var CIVIC_SKIN = { d:{}, def:[], roof:[] };
 (function(){
@@ -2618,6 +2652,9 @@ function draw(){
           tput(groundTile(0,gx,gy2),X,Y,S);
           if(drawGateMouth(X,Y,S,gx,gy2)) continue;
         }
+        /* APPROVED FAMILIES FIRST (8/11): a specific approved surface beats a
+           generic bought one - a rail corridor is not 'dirt'. */
+        if(!isSuburbCell() && !body && drawRailform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
           : genericTile(gx,gy2);

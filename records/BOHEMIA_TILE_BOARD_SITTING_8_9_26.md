@@ -121,3 +121,22 @@ Still open on the board: 22 merged jobs (the biggest: deck slab + covers for
 CMB, kerb/apron TF-ART-018, signs TF-WORLD-010, camp TF-LAB-001, tilt-up
 TF-RUN-005, desert ground TF-RUN-001 - the ground half needs Paolo's seventh-
 attempt ruling first).
+
+## 8/11 THIRD PASS: THE FIRST APPROVED FAMILY IS IN THE GAME
+
+TF-ART-010 rail is WIRED (the first of the 14). The run's draw path gained an
+approved-families hook that outranks the generic bought-ground override (a rail
+corridor is not 'dirt'): every 'rail track' cell in the railyard centres a
+5-slice yard corridor (rails landing on the ballast rows either side - the fan
+spaces tracks 7 rows apart so corridors can never collide), phase A/B
+alternating per cell per the bank's own 88px tie contract, and the yard's
+'ballast / gravel' bed draws the approved plates. The builder REFUSES any bank
+whose law line is not APPROVED, so nothing unjudged can ever reach the map.
+Verified standing in the yard on the real surface: ties, rails, plates,
+continuity, boxcars sitting on their tracks. Gates: run 126, light 41, exterior
+pool 37, grime 24, alpha loads 20, bought beats painted 20.
+
+Remaining rail volume: turnout, crossing, buffer stop, the vertical mainline.
+Next families to wire, in order of surface: flat roofs, corrugated skins,
+parking stalls (needs stall-name probe per district), chain-link (multi-cell
+overlay, own pass).

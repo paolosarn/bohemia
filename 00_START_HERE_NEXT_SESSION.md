@@ -1,3 +1,23 @@
+ART (f3eu53): 8/11 (b) LATEST -- *** THE FIRST APPROVED FAMILY IS IN THE GAME:
+THE RAILYARD DRAWS HIS APPROVED TRACKS. CORRECT-AFTER, AS THE NEW LAW ORDERS. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (third-pass section)
+
+TAB: RUN. Walk the railyard (cell 55,29): the classification fan now draws the
+approved TF-ART-010 yard corridors and ballast plates instead of generic dirt.
+The mechanism is the reusable part: an approved-families hook in the run's
+ground draw that beats the generic bought override, fed by the builder, which
+REFUSES any bank whose law line is not APPROVED. Wiring the next family is now
+mostly builder-list + one draw rule.
+
+NEXT WIRINGS, in order of visible surface: flat roofs (TF-ART-012, every
+commercial building top, needs mass-edge parapet logic), corrugated skins
+(TF-ART-002, warehouse walls via civic-skin path), parking stalls (TF-ART-003,
+needs a stall-name probe per district first), chain-link (TF-ART-004,
+multi-cell see-through overlays, its own pass). Rail volume still open:
+turnout, crossing, buffer stop, vertical mainline.
+
+ART (f3eu53): 8/11 (a) -- *** THE TILE BOARD VERDICT IS IN: 14 FAMILIES
+
 FACTIONS (factions-ovkjpf): 8/11 (r) LATEST — *** THE RUN FINALLY SHOWS WHAT A QUEST
 COST YOU. THE INTEGRATION LEDGER'S OLDEST PARTIAL IS CLOSED. ***
 Tab: RUN -> play the block quest -> the phone. 27/32 systems now integrated (was 25/31).

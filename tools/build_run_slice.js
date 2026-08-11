@@ -249,6 +249,30 @@ html = html.replace('__BOUGHT_YARD_JSON__', JSON.stringify(boughtYard));
 console.log('  BOUGHT GROUND: ' + boughtWalk.length + ' concrete + ' + boughtRoad.length
             + ' street + ' + boughtYard.length + ' dirt/yard, his own, verbatim');
 
+/* ---- THE APPROVED TILE FAMILIES (Paolo 8/11, TILE BOARD sitting) ------------
+   records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt: 14 families UP. Only pieces a
+   wiring actually draws are injected, and ONLY from a bank whose law line says
+   APPROVED - an unjudged or dead bank can never reach the map. First wiring:
+   TF-ART-010 rail (the railyard's classification fan). */
+var RAIL_BANK = 'banks/tileforms/TF-ART-010_CANDIDATES_8_8_26.json';
+var railBank = JSON.parse(fs.readFileSync(RAIL_BANK, 'utf8'));
+if (String(railBank.law || '').indexOf('APPROVED') !== 0)
+  throw new Error('TILEFORM: ' + RAIL_BANK + ' law line is not APPROVED - nothing unjudged draws');
+var tileformOut = {};
+var RAIL_PIECES = ['rail_yard_corridor_0A', 'rail_yard_corridor_0B', 'rail_yard_corridor_1A',
+                   'rail_yard_corridor_1B', 'rail_yard_corridor_2A', 'rail_yard_corridor_2B',
+                   'rail_plate_0', 'rail_plate_1', 'rail_plate_2'];
+railBank.tiles.forEach(function (t) {
+  if (RAIL_PIECES.indexOf(t.name) >= 0) tileformOut[t.name] = t.b64;
+});
+if (Object.keys(tileformOut).length !== RAIL_PIECES.length)
+  throw new Error('TILEFORM: rail pieces missing from ' + RAIL_BANK + ' (have '
+    + Object.keys(tileformOut).length + ' of ' + RAIL_PIECES.length + ')');
+if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
+html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
+console.log('  TILEFORMS: ' + Object.keys(tileformOut).length
+            + ' approved rail pieces (TF-ART-010), first family on the map');
+
 /* ---- THE APPROVED TEXTURE-MATCH WALLS AND ROOFS (Paolo 8/1, TWICE) ----------
    "Holy shit so fucking good ... the graphics tiles that you made are fucking
    fantastic thank you" (36 tiles), then "I approve of them all! Dont be scared to

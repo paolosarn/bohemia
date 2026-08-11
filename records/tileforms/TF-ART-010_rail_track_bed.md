@@ -161,6 +161,6 @@
 - [ ] Caption JSON parses and matches sections C and D
 
 ## J. ADMIN
-- STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-ART-010_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt). Volume unlocked, wiring open. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: the railyard's classification fan draws the yard corridors (5-slice, phase A/B per the bank's 88px contract) and the ballast bed draws the plates, live in the RUN tab. Turnout/crossing/buffer and the mainline corridor are the remaining volume. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/29/26 | PRIORITY: HIGH
 - BOARD ROW #: 19 | VERDICT: none yet
