@@ -1,3 +1,42 @@
+FACTIONS (factions-ovkjpf): 8/12 (a) LATEST — *** THE FACTION LAYER IS VISIBLE IN THE
+DEMO, WITH NO KNOB TOUCHED. *** Tab: LIFE -> WHAT IT COST YOU (opens on it). In the run
+it is on the person you walk up to; NEVER send him into the run to check that
+(laws/BOHEMIA_ADDENDUM_NEVER_MAKE_HIM_HUNT_8_11_26.md).
+
+He left the A/B call to me -- leave the demo blank, or crank a faction's pull 12 -> 24
+cells -- and said "maybe we can halfway implement them in other ways". B is fitting the
+world to a screenshot. So neither; two REAL channels instead.
+
+1. AUTHORED BEATS DERIVED. The people the demo puts in front of you are the quest CAST,
+   and their faction was never a dice roll -- he wrote it into the role:
+       @ROLE lineman  REQ  faction=TRADES  block=browned
+   A person standing on a placed quest's speaker tile takes that AUTHORED faction;
+   derived allegiance only answers for the ambient crowd. VERIFIED IN A REAL BROWSER:
+   the lineman reads "RUNS WITH THE TRADES - PLATE" in rgb(208,122,42) = #d07a2a, his
+   Trades colour byte for byte, zero page errors. This is also what makes the layer
+   immune to WHERE THE BLOCK LANDED, which was the real reason the demo was blank.
+
+2. YOU RUN WITH WHOEVER YOUR LIVING DEPENDS ON. Allegiance was a pure function of where
+   a person SLEEPS, the weakest real channel. Weak-state conflict literature is
+   consistent: armed groups' political capital comes from sponsoring access to JOBS and
+   basic services, and economic dependence through livelihood is what ties people to
+   them -- patron-client ties follow the work, not the address. The agent already
+   carries a job site scanned off the real overmap, so a working person's allegiance now
+   also weighs whoever holds ground near WHERE THEY WORK.
+   HONEST LIMIT (in the source too): job sites are within 3 cells, so this widens the net
+   a little, not a lot. It does NOT rescue a block 20 cells from everything.
+
+STILL [PENDING PAOLO], UNTOUCHED: REACH_CELLS 12, AFFILIATED_RATE 0.30. The demo block
+[37,22] is still 20 cells from the nearest base, so its AMBIENT crowd shows nothing --
+correctly. The cast carries the demo.
+
+GATES: RUN 126, CURRENT SLICE 6, MEMBERSHIP 55, DRESS 46, INTEGRATION 116 (27/32).
+
+CARRIED FORWARD, STILL TRUE: yesterday's find that factionOf took an ARRAY while the
+loop passes an OBJECT, so NOBODY had ever belonged to anything in a real run while a
+50-claim gate stayed green on a fixture. A FIXTURE IS NOT THE CALLER. The gate now boots
+the real loop.
+
 PEOPLE (7h9sfy): 8/11 (y) LATEST -- *** THE COLD OPEN IS IN A TAB AND IT PLAYS.
 STORY tab, in the alpha. Fifteen seconds, one match-cut, four spoken lines,
 zero new art. ***
