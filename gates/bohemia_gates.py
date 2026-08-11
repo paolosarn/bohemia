@@ -141,6 +141,17 @@ GATES = [
      'inside somebody else\'s EMPTY srcdoc frame and crashed on "om is not defined", three of '
      'them red on main for over a week. The ordering is pinned here because what broke was a '
      'SHARED RESOLVER and nothing owned it', True),
+    ('HOME + PHONE',   ['node', 'gates/home_phone_gate.js'],
+     'Paolo 8/11: "how was this a run when my house isn\'t labeled and the Phone app that we '
+     'worked so hard for isn\'t even implemented yet". Both were THE WORK EXISTS AND IS NOT IN '
+     'THE SURFACE HE TAPS: the phone was FINISHED (1.6 MB -- Network feed with DMs, the ONE MAP '
+     'over the real generated valley, Wallet, Profile) and parked behind the alpha\'s SLICE tab, '
+     'a developer tab, while the day loop woke him nowhere in a valley where nothing was his. '
+     'Now HOME is a real house he wakes at with the word drawn over it, and the PHONE button in '
+     'the run opens THE REAL SLICE and is told where he is, what day it is and what the job is. '
+     'Driven by TAPPING THE BUTTONS in a real browser -- calling swapMode() from a harness '
+     'measures a half-executed page, because the city has two pre-existing temporal-dead-zone '
+     'faults on that path', True),
     ('DAY LOOP',       ['node', 'gates/dayloop_gate.js'],
      'Paolo\'s demo row: "close the game day loop end to end (hardcode the demo quests, '
      'scaffolding is legal)". The city had a TIMER, not a day: minutes accumulated, rolled '

@@ -53,6 +53,8 @@ const CLAIMS = [
   ['__DAY_LOOP__',                  '"close the game day loop end to end" -- wake, sixteen hours, nightfall, reckon'],
   ['DEMO_BQ=',                      '...and the canon quests are IN it, in their own words'],
   ['__COLD_BOOT__',                 'the game starts in 3s on a dead signal, not 16s of white screen'],
+  ['__YOUR_HOUSE__',                '"my house isn\'t labeled" -- HOME is a real house, and you wake in it'],
+  ['__PHONE_IN_POCKET__',           '"the Phone app we worked so hard for isn\'t implemented" -- it is now, in the run'],
 ];
 
 /* THE SOUND LANE'S CLAIMS. Same contract, different lane: every marker here was

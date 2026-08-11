@@ -20168,6 +20168,12 @@ var CANON_QUESTS = ["# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
   .pushbanner .tx{ flex:1; min-width:0; } .pushbanner .nm{ font-weight:700; font-size:13px; }
   .pushbanner .bd{ font-size:12.5px; color:var(--dim); margin-top:1px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .pushbanner .app{ font-family:var(--mono); font-size:9px; color:var(--gold); letter-spacing:.6px; text-transform:uppercase; }
+/* __PHONE_LIVE__ -- the live strip. Sits above the phone's own header and
+   uses its type, so it reads as part of the phone and not as a HUD bolted on. */
+.live-strip{margin:0 0 8px;padding:8px 10px;border-radius:8px;background:#161310;
+  border:1px solid #2a2418}
+.lv-top{font-size:10px;font-weight:700;letter-spacing:2px;color:#b89a6a}
+.lv-obj{margin-top:4px;font-size:12px;line-height:1.4;color:#e7d8bb}
 </style>
 
 <div id="phone" class="view-home">
@@ -20563,6 +20569,7 @@ function renderHome(){
   /* Feed + Messages are ONE app now (Paolo 7/21: whatsapp+instagram combined —
      the feed IS the DMs too). One tile, one combined badge. */
   el('home').innerHTML =
+    liveStrip()+
     '<div class="home-hd"><b>the phone</b>@founder_gen1 · '+pr.reach+' followers on the Network</div>'+
     '<div class="apps">'+
       tile('feed','Network', ICON.feed, pr.posts+' posts', offersN+unreadCount())+
@@ -20692,6 +20699,9 @@ function drawMap(cv){
     if(c.count>1){ g.fillStyle='#1a1610'; g.font='bold '+Math.max(8,r)+'px ui-monospace,monospace';
       g.textBaseline='middle'; g.fillText(String(c.count),x,y+r*0.15); g.textBaseline='alphabetic'; }
   });
+  /* __PHONE_LIVE__ -- HOME, if the run has told us where it is. Same glyph+label
+     helper the DAM and the SOLAR field already use, so it reads as one map. */
+  if(LIVE&&LIVE.home&&LIVE.home.cell) land([LIVE.home.cell.x,LIVE.home.cell.y],'\u2302','#e8b84a','HOME',12);
   // you. Clamped into the valley: the demo player starts at tile 128,128 on a
   // 96-cell map, which drew the blip permanently off the edge of the canvas.
   var pxc=Math.max(0,Math.min(N-1,player.tile.x)), pyc=Math.max(0,Math.min(N-1,player.tile.y));
@@ -20838,4 +20848,34 @@ function finishBoot(){ var b=el('boot'); if(!b || b.classList.contains('off')) r
 el('boot').addEventListener('click', finishBoot);
 el('lock').addEventListener('click', unlockPhone);
 setTimeout(finishBoot, 1600);
+
+/* __PHONE_LIVE__ -- THE PHONE KNOWS WHERE YOU ARE (8/11/26, Paolo: "the Phone app
+   that we worked so hard for isn't even implemented yet"). The phone was finished and
+   sitting behind a developer tab; the run opens it now, and this is the half that makes
+   it a phone rather than a demo pinned on top of a live world. The city posts its state
+   on open and on every change -- the 7/27 backlog entry's second clause, "doesn't
+   progress as I walk", is this. */
+var LIVE = null;
+function liveStrip(){
+  if(!LIVE) return '';
+  var where = LIVE.district ? String(LIVE.district).toUpperCase() : 'THE VALLEY';
+  var h = '<div class="live-strip"><div class="lv-top">'+esc(where)+
+          ' \u00b7 DAY '+LIVE.day+' \u00b7 '+esc(LIVE.clock)+(LIVE.night?' \u00b7 dark':'')+'</div>';
+  if(LIVE.objective) h += '<div class="lv-obj">'+esc(LIVE.objective)+'</div>';
+  return h+'</div>';
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data;
+  if(!d || !d.bohemiaPhoneWhere) return;
+  LIVE = d.bohemiaPhoneWhere;
+  /* THE MAP NEEDED NO NEW CODE TO SHOW HIM: it already drew "you" from
+     player.tile and was drawing a demo actor parked at a start cell. */
+  try{
+    if(LIVE.cell && player && player.tile){
+      player.tile.x = LIVE.cell.x; player.tile.y = LIVE.cell.y;
+    }
+  }catch(e){}
+  try{ rerender(); }catch(e){}
+});
+
 </script>

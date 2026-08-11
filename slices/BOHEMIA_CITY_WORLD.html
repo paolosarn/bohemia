@@ -126,17 +126,35 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
     <div id="savebtn">💾</div>
     <div id="reroll">↻ REROLL</div>
     <div id="underbtn">⬇ UNDER</div>
+    <div id="phonebtn">📱 PHONE</div>
     <div id="keybtn">🔑 KEY</div>
   </div>
   <div id="qline"></div>
   <div id="daycard"><div id="daycardIn"></div></div>
   <div id="sleepbtn">🛏 SLEEP</div>
+  <div id="phonewrap"><div id="phonebar"><span id="phonewhere"></span><span id="phoneclose">✕</span></div><div id="phoneslot"></div></div>
   <div id="savepanel"></div>
   <div id="keypanel"></div>
   <div id="pfpanel"></div>
   <div id="nav"><div id="pad"></div><div id="mode"><canvas id="modeFace" width="64" height="64"></canvas><span id="modeLbl">⤓ DROP IN</span></div></div>
 </div>
 </div>
+<style id="homePhoneCss">
+/* __PHONE_IN_POCKET__ / __YOUR_HOUSE__ -- the phone button reuses the topbar
+   button face already defined for #keybtn; nothing new is designed here. */
+#phonebtn{padding:7px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);
+  color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px}
+#phonebtn:active{border-color:var(--acc);color:#fff}
+#phonewrap{position:absolute;inset:0;z-index:30;display:none;flex-direction:column;
+  background:#070605}
+#phonewrap.on{display:flex}
+#phonebar{flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;
+  padding:7px 11px;background:var(--face);border-bottom:1px solid var(--line);
+  color:var(--acc);font-size:10px;font-weight:700;letter-spacing:1px}
+#phoneclose{padding:0 6px;font-size:14px;color:var(--ink)}
+#phoneslot{flex:1;min-height:0;position:relative}
+#phoneslot iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+</style>
 <style id="dayloopCss">
 /* __DAY_LOOP__ -- the day loop's surface, in the app's own palette. No new
    art: this is the Dead Eye Dial language the whole city already speaks. */
@@ -14624,6 +14642,7 @@ function renderHuman(){
   peoplePass(ox,oy,C);
   sigPass(ox,oy,C);   /* __TRAFFIC_SIGNALS__ */
   ewDoorPass(ox,oy,C);   /* __EW_FACING_DOORS__ */
+  try{ homePass(ox,oy,C); }catch(_e){}   /* __YOUR_HOUSE__ */
   // player: the REAL character, animating walk/run on the 120 grid
   const px=ox+hx*C, py=oy+hy*C;
   const set=PLAYER_CV&&(PLAYER_CV[HFACE]||PLAYER_CV.S);
@@ -14685,6 +14704,20 @@ function screenFilter(mode){
   SCRFILT=want; cv.style.imageRendering=want;
 }
 function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
+  /* __YOUR_HOUSE__: you slept at home, so the day starts at your own door.
+     CONSUMED HERE AND NOT IN swapMode, which is where the first draft put it.
+     swapMode sits ~500 lines earlier than this glue and the city has two
+     PRE-EXISTING temporal-dead-zone faults on that path (updHud reads RIDING,
+     the footprint walk reads IN_D4, both `let`s declared later), so anything
+     hooked there runs before those are initialised and throws. render() runs
+     after the whole script, every frame, so the first human frame spends it.
+     The spiral still decides where the neighbourhood lets you in; this only
+     walks the last few cells to your own doorstep, which is a walkable cell
+     touching your own footprint -- and every house's walk/driveway reaches the
+     street by construction (D1 KERB + STREET-AWARE ACCESS, both gated), so it
+     cannot strand you. NO DISTRICT IS A PRISON still holds. */
+  try{ if(HOME_WAKE_PENDING&&MODE==='human') homeWake(); }catch(_e){}   /* __YOUR_HOUSE__ */
+  try{ if(PHONE_ON)phonePush(false); }catch(_e){}   /* __PHONE_IN_POCKET__ */
   if(MODE==='city'){ screenFilter('city'); renderCity(); } else { screenFilter('human'); renderHuman(); } }
 function updHud(){
   document.getElementById('hclock').textContent=clockStr()+(isNight()?' 🌙':'');
@@ -14741,6 +14774,7 @@ function swapMode(){
       if(!_best) _best=_any;
     }
     if(_best){ hx=_best[0]; hy=_best[1]; }
+    LANDED=[hx,hy];   /* __YOUR_HOUSE__: HOME is the house nearest where you LAND */
     MODE='human';
   } else {
     // SURFACE: the marker follows your feet, the walk WAS the travel
@@ -15158,6 +15192,148 @@ function showReckoning(){
   cardShow(h,function(){ cardHide(); DAY.nextDay(); daySync(); _lastDistrict=null;
     showWake(); updHud(); render(); reportState(); });
 }
+
+
+/* __YOUR_HOUSE__ -- YOUR HOUSE (Paolo 8/11: "how was this a run when my house
+   isn't labeled"). HOME is the enterable house nearest the middle of the district he
+   spawns in, resolved from the world model and cached per (seed, cell) so it is the
+   SAME house every load. MAP LAW holds: nothing is placed or moved here, a house the
+   generator already built is NAMED by a rule. */
+/* var, NOT let, AND THAT IS LOAD-BEARING. swapMode() sits ~500 lines EARLIER in
+   this file than this glue, and it writes LANDED and reads HOME_WAKE_PENDING. A
+   top-level `let` lives in the temporal dead zone until its own line executes, so
+   on the boot path swapMode threw "Cannot access 'LANDED' before initialization"
+   INTO A SILENT CATCH -- the drop-in branch died halfway, and the only symptom was
+   that he never woke up at home. `var` is hoisted and initialised to undefined, so
+   earlier code can touch these safely. A silent catch around a TDZ error is a bug
+   that looks exactly like a feature quietly not working, which is what it did. */
+var HOME=null, HOME_KEY=null, LANDED=null;
+function homeFind(){
+  const key=seed+':'+city.x+','+city.y;
+  if(HOME_KEY===key) return HOME;
+  const bx=city.x*FN, by=city.y*FN;
+  /* ANCHORED ON WHERE HE LANDS, NOT ON THE CENTRE OF THE CELL. Measured 8/11:
+     centre-of-cell put HOME 55 cells north of the drop-in, so his own house was
+     off screen the entire time he was standing in his own neighbourhood, which
+     is indistinguishable from not having one. The drop-in point is itself
+     deterministic (same seed -> same spiral -> same landing), so anchoring here
+     keeps HOME the same house every load AND puts it in front of him. */
+  const anchor=(LANDED&&((LANDED[0]/FN)|0)===city.x&&((LANDED[1]/FN)|0)===city.y)
+    ? LANDED : [bx+(FN>>1), by+(FN>>1)];
+  const cx=anchor[0], cy=anchor[1];
+  let best=null, bd=1e9;
+  for(let ly=0;ly<FN;ly++)for(let lx=0;lx<FN;lx++){
+    const c=cellAt(bx+lx,by+ly);
+    if(!c||c.walk||!c.enter)continue;
+    if(!/house/i.test(c.enter))continue;      /* a house, not a garage or a shed */
+    const dx=bx+lx-cx, dy=by+ly-cy, d=dx*dx+dy*dy;
+    if(d<bd){ bd=d; best=[bx+lx,by+ly]; }
+  }
+  /* A NULL IS NOT AN ANSWER, IT IS "NOT YET", AND CACHING IT COST A MEASUREMENT.
+     Asked during boot -- before the cell's fine data exists -- the scan finds no
+     house and returns nothing. The first draft wrote that nothing into the cache
+     under the cell's key, so every later call returned it and he dropped in beside
+     a house the game had already decided he did not have. Only a REAL find is
+     cached; a miss leaves the key unset so the next caller tries again. */
+  if(!best)return null;
+  const f=inFootprint(best[0],best[1]);
+  if(!f)return null;
+  HOME_KEY=key;
+  /* the front door, so waking puts you at your own doorstep and not in a wall */
+  let door=null;
+  for(let y=f.y;y<f.y+f.h&&!door;y++)for(let x=f.x;x<f.x+f.w&&!door;x++){
+    const c=cellAt(x,y);
+    if(c&&c.artPool_face==='hdoor')door=[x,y];
+  }
+  HOME={x:f.x,y:f.y,w:f.w,h:f.h,door:door,cell:{x:city.x,y:city.y}};
+  return HOME;
+}
+/* the cell you STAND on to be at your front door: one south of the door if that is
+   walkable, else any walkable neighbour of the footprint. */
+function homeDoorstep(){
+  const h=homeFind(); if(!h)return null;
+  const tries=[];
+  if(h.door)tries.push([h.door[0],h.door[1]+1],[h.door[0],h.door[1]-1],
+                       [h.door[0]-1,h.door[1]],[h.door[0]+1,h.door[1]]);
+  for(let x=h.x-1;x<=h.x+h.w;x++){ tries.push([x,h.y+h.h]); tries.push([x,h.y-1]); }
+  for(const t of tries){ const c=cellAt(t[0],t[1]); if(c&&c.walk)return t; }
+  return null;
+}
+/* THE LABEL. Same treatment as the CITY TALK name pass -- dark outline then
+   #e8b84a -- because a second label style would be a second design. */
+function homePass(ox,oy,C){
+  const h=homeFind(); if(!h)return;
+  const sx=Math.round(ox+(h.x+h.w/2)*C), sy=Math.round(oy+h.y*C-Math.round(C*0.55));
+  if(sx<-60||sy<-30||sx>cv.width+60||sy>cv.height+30)return;
+  g.save();
+  g.font='700 '+Math.max(9,Math.round(C*0.26))+'px "Space Grotesk",system-ui,sans-serif';
+  g.textAlign='center'; g.textBaseline='bottom';
+  g.fillStyle='rgba(12,14,10,0.85)';
+  for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++)if(dx||dy)g.fillText('HOME',sx+dx,sy+dy);
+  g.fillStyle='#e8b84a'; g.fillText('HOME',sx,sy);
+  g.restore();
+  window.__HOME_LABEL=(window.__HOME_LABEL||0)+1;
+}
+/* YOU WAKE UP AT HOME. A day that starts nowhere is not a day.
+   The first wake of a run fires while he is still on the city view, before the world
+   he would wake INTO exists, so it is REMEMBERED and spent at the drop-in instead.
+   That is what puts him on his own doorstep with the label over his head the first
+   time he ever drops in, rather than 26 cells away from a house he never sees. */
+/* TRUE AT BOOT ON PURPOSE, and this was a real bug for one measurement: the day
+   loop's own first DAY.wake() runs where it is constructed, which is BEFORE this
+   file gets to register a wake hook, so the first wake of a run was never observed
+   and he dropped in 26 cells from a house he never saw. A run begins at 06:00 on
+   day 1, which means he has just woken up, so the pending flag starts SET. */
+var HOME_WAKE_PENDING=true;
+function homeWake(){
+  if(MODE!=='human'){ HOME_WAKE_PENDING=true; return false; }
+  const s=homeDoorstep(); if(!s)return false;
+  hx=s[0]; hy=s[1]; INSIDE=null;
+  HOME_WAKE_PENDING=false;
+  window.__WOKE_HOME=(window.__WOKE_HOME||0)+1;
+  return true;
+}
+DAY.on('wake',function(){ try{ homeWake(); }catch(_e){} });
+
+/* __PHONE_IN_POCKET__ -- THE PHONE IS IN YOUR POCKET (Paolo 8/11: "the Phone app
+   that we worked so hard for isn't even implemented yet"). It was finished and it was
+   behind a developer tab. This opens THE REAL SLICE, not a copy, so every future phone
+   improvement lands in the run for free -- and it PROGRESSES AS HE WALKS, which is the
+   half the 7/27 backlog entry actually complained about: the city posts where he is,
+   the day, the clock and the live objective into it on open and on every change. */
+var PHONE_ON=false, PHONE_FR=null, PHONE_LAST='';   /* var: same reason as HOME above */
+function phoneState(){
+  let d=null; try{ d=dayWhere(); }catch(_e){}
+  const h=(function(){ try{ return homeFind(); }catch(_e){ return null; } })();
+  let obj=''; try{ obj=DQ.hudLine()||''; }catch(_e){}
+  return { where:d||'', district:d||'', day:DAY.day, clock:DAY.hhmm(DAY.min),
+           night:isNight(), mode:MODE,
+           cell:{x:(MODE==='human')?((hx/FN)|0):city.x, y:(MODE==='human')?((hy/FN)|0):city.y},
+           home:h?{cell:h.cell}:null, objective:obj,
+           quest:(function(){ try{ return DQ.spec?DQ.spec.id:null; }catch(_e){ return null; } })(),
+           done:(function(){ try{ return DQ.done(); }catch(_e){ return false; } })() };
+}
+function phonePush(force){
+  if(!PHONE_ON||!PHONE_FR||!PHONE_FR.contentWindow)return;
+  const st=phoneState(), key=JSON.stringify(st);
+  if(!force&&key===PHONE_LAST)return;
+  PHONE_LAST=key;
+  try{ PHONE_FR.contentWindow.postMessage({bohemiaPhoneWhere:st},'*'); }catch(_e){}
+  const w=document.getElementById('phonewhere');
+  if(w)w.textContent=(st.district?st.district.toUpperCase()+' \u00b7 ':'')+'DAY '+st.day+' \u00b7 '+st.clock;
+}
+function phoneOpen(){
+  const wrap=document.getElementById('phonewrap');
+  if(!PHONE_FR){
+    PHONE_FR=document.createElement('iframe');
+    PHONE_FR.setAttribute('title','the phone');
+    PHONE_FR.src='BOHEMIA_CURRENT_SLICE.html';
+    PHONE_FR.addEventListener('load',function(){ setTimeout(function(){ phonePush(true); },400); });
+    document.getElementById('phoneslot').appendChild(PHONE_FR);
+  }
+  PHONE_ON=true; wrap.classList.add('on'); phonePush(true);
+}
+function phoneClose(){ PHONE_ON=false; document.getElementById('phonewrap').classList.remove('on'); }
 
 function applyRestore(st){
   if(!st||st.v!==1)return false;
@@ -16309,6 +16485,13 @@ document.getElementById('sleepbtn').addEventListener('click',function(){
   if(DAY.phase!=='awake')return; DAY.sleep(); daySync(); onNightfall(); updHud();
 });
 setTimeout(function(){ if(!DAY_RESTORED) showWake(); else updQline(); },60);
+
+
+/* __PHONE_IN_POCKET__ BOOT */
+document.getElementById('phonebtn').addEventListener('click',function(){
+  if(PHONE_ON)phoneClose(); else phoneOpen();
+});
+document.getElementById('phoneclose').addEventListener('click',phoneClose);
 
 </script>
 </body></html>
