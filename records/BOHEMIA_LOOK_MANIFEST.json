@@ -7,11 +7,11 @@
    "caption": "Bones lying in the open on a suburb street, bleached and scattered by ten years of scavengers. RUN tab.",
    "file": "look/dead-suburb.png",
    "at": {
-    "x": 4572,
-    "y": 3586,
+    "x": 4171,
+    "y": 3434,
     "zoom": 44
    },
-   "kb": 213.2,
+   "kb": 322.9,
    "stamp": "8/8/26"
   },
   {
@@ -20,11 +20,11 @@
    "caption": "The exodus road. Remains on the asphalt where people stopped walking. RUN tab.",
    "file": "look/dead-road.png",
    "at": {
-    "x": 3542,
-    "y": 3137,
+    "x": 3456,
+    "y": 3140,
     "zoom": 44
    },
-   "kb": 283.2,
+   "kb": 525.4,
    "stamp": "8/8/26"
   },
   {
@@ -33,11 +33,11 @@
    "caption": "Open desert. The ones who walked out and did not make it, thin and scattered, no mummified bodies because nothing out here is sealed. RUN tab.",
    "file": "look/dead-desert.png",
    "at": {
-    "x": 2713,
-    "y": 2954,
+    "x": 2688,
+    "y": 3028,
     "zoom": 44
    },
-   "kb": 328.9,
+   "kb": 511.9,
    "stamp": "8/8/26"
   },
   {
@@ -46,11 +46,11 @@
    "caption": "A wider view of the same ground, so the density reads. Too many, too few, or about right is the only call needed. RUN tab.",
    "file": "look/dead-density.png",
    "at": {
-    "x": 5712,
-    "y": 5248,
+    "x": 7356,
+    "y": 8608,
     "zoom": 22
    },
-   "kb": 499.9,
+   "kb": 354.5,
    "stamp": "8/8/26"
   },
   {
@@ -59,7 +59,33 @@
    "caption": "THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.",
    "file": "look/vista.png",
    "at": null,
-   "kb": 424,
+   "kb": 390.4,
+   "stamp": "8/8/26"
+  },
+  {
+   "id": "dead-pit",
+   "title": "THE PIT: the cemetery",
+   "caption": "They stopped digging graves and dug one hole. The cemetery is a dumping pit now, about 34 bodies in a single heap. RUN tab.",
+   "file": "look/dead-pit.png",
+   "at": {
+    "x": 5242,
+    "y": 2183,
+    "zoom": 30
+   },
+   "kb": 351,
+   "stamp": "8/8/26"
+  },
+  {
+   "id": "dead-cluster",
+   "title": "A CLUSTER: they died together",
+   "caption": "The dead come in groups now, not sprinkled one by one. This is what you find in an abandoned block. RUN tab.",
+   "file": "look/dead-cluster.png",
+   "at": {
+    "x": 7387,
+    "y": 3331,
+    "zoom": 30
+   },
+   "kb": 243.4,
    "stamp": "8/8/26"
   }
  ]

@@ -5378,17 +5378,21 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   // AT HOME. `open` is not zero and must not be: people still died in the yard,
   // in the driveway, on the street they were walking down. It is just dwarfed by
   // indoors, which is what the ratio says.
-  var HOME={open:1.4, sealed:9.0, story:'died at home, indoors, in the rooms they shut themselves into'};
+  /* AT HOME, AND THE GROUP IS A FAMILY (Paolo 8/11: "abandoned houses
+     clusters where it's really creepy"). A household is the natural cluster
+     size and it is why an abandoned house is the creepiest room in the game:
+     you do not find A body, you find THE FAMILY, in one room, together. */
+  var HOME={open:1.4, sealed:9.0, cluster:5, story:'died at home, together, in the room they shut themselves into'};
   var STORY={
     suburb:    HOME, gated:HOME, trailer:HOME, town:HOME,
-    apartment: {open:0.8, sealed:12.0, story:'stacked dead: a tower of sealed rooms, everyone home at once'},
-    medical:   {open:6.0, sealed:16.0, story:'the wards filled, then the corridors, then the line outside never got in'},
-    jail:      {open:0.3, sealed:15.0, story:'locked in. nobody opened the doors and nobody could leave'},
+    apartment: {open:0.8, sealed:12.0, cluster:7, story:'stacked dead: a tower of sealed rooms, everyone home at once'},
+    medical:   {open:6.0, sealed:16.0, cluster:14, story:'the wards filled, then the corridors, then the line outside never got in'},
+    jail:      {open:0.3, sealed:15.0, cluster:12, story:'locked in. nobody opened the doors and nobody could leave'},
     policestation:{open:2.0, sealed:6.0, story:'holding cells and a last stand at the counter'},
-    stadium:   {open:7.0, sealed:5.0, story:'a shelter point: the city gathered here and then did not leave'},
+    stadium:   {open:7.0, sealed:5.0, cluster:16, story:'a shelter point: the city gathered here and then did not leave'},
     campus:    {open:3.0, sealed:7.0, story:'dorms and halls used as shelter'},
     school:    {open:3.0, sealed:7.0, story:'gym shelter, classrooms after'},
-    terminal:  {open:5.0, sealed:6.0, story:'they waited for transport that never came'},
+    terminal:  {open:5.0, sealed:6.0, cluster:12, story:'they waited for transport that never came'},
     airport:   {open:4.0, sealed:6.0, story:'the concourse queue that never boarded'},
     airbase:   {open:2.0, sealed:3.0, story:'evacuated, then not'},
     mall:      {open:3.5, sealed:6.0, story:'shelter, then a supply riot, then quiet'},
@@ -5396,7 +5400,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     cityhall:  {open:3.0, sealed:5.0, story:'the last administration, at their desks'},
     courthouse:{open:2.0, sealed:4.0, story:'sealed chambers, a queue at the steps'},
     library:   {open:1.5, sealed:4.5, story:'a cool stone building people slept in'},
-    freeway:   {open:5.0, sealed:11.0, story:'the exodus: sealed in the cars, bones on the shoulder'},
+    freeway:   {open:5.0, sealed:11.0, cluster:8, story:'the exodus: sealed in the cars, bones on the shoulder'},
     arterial:  {open:4.0, sealed:8.0, story:'the road out, stopped'},
     interchange:{open:4.5, sealed:10.0, story:'the jam that never cleared'},
     rail:      {open:2.5, sealed:3.0, story:'walked the line out of town'},
@@ -5416,8 +5420,17 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     waterpark: {open:4.5, sealed:1.5, story:'they came for water and found empty concrete'},
     ballpark:  {open:3.5, sealed:2.5, story:'another shelter point'},
     speedway:  {open:2.5, sealed:2.0, story:'the infield camp'},
-    cemetery:  {open:1.2, sealed:2.0, story:'the overflow that never got a plot, at the gate'},
-    farm:      {open:2.0, sealed:2.5, story:'stayed for the food, died for it'},
+    /* THE DUMPING PIT (his 8/11 ruling). Was 1.2/2.0 -- the lowest in the
+       table -- on the reading that the dead were meant to go here and did
+       not. He ruled the opposite and history agrees: when disposal fails,
+       burial ground is exactly where the bodies get dumped. FEW, HUGE
+       clusters: one pit you can stand at the edge of. */
+    cemetery:  {open:16.0, sealed:2.0, cluster:34, story:'the pit. they stopped digging graves and started digging one hole'},
+    /* THE FERTILIZER WORKS (his 8/11 ruling). Somebody is turning the dead
+       into soil, and a farm is where the soil goes. Big clusters because a
+       processing line is a QUEUE of bodies, not a scatter. */
+    farm:      {open:9.0, sealed:2.5, cluster:18, story:'the intake line. they are turning people into soil here'},
+    landfill:  {open:11.0, sealed:1.0, cluster:26, story:'where the city put what it would not look at, and then put its dead'},
     granary:   {open:1.5, sealed:3.5, story:'guarded the grain to the end'},
     swapmeet:  {open:3.0, sealed:1.5, story:'the last market, and the crush at it'},
     commercial:{open:2.5, sealed:3.5, story:'looted, then slept in'},
@@ -5425,7 +5438,6 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     industrial:{open:1.0, sealed:1.5, story:'work emptied: people went home to die'},
     warehouse: {open:1.0, sealed:2.0, story:'a raid on the stock, ten years ago'},
     storage:   {open:0.8, sealed:3.0, story:'people lived in the units. some never opened again'},
-    landfill:  {open:2.0, sealed:1.0, story:'where the city put what it would not look at'},
     quarry:    {open:1.2, sealed:0.5, story:'walked out this way'},
     gypsum:    {open:1.0, sealed:0.4, story:'walked out this way'},
     fueldepot: {open:1.5, sealed:2.0, story:'the fuel fight'},
@@ -5444,7 +5456,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     /* THE VEGAS-ONLY ROWS. These are recipe landmarks rather than kit districts,
        and the valley is full of them (resort 118 cells, strip 81), so leaving
        them on the default row would flatten the loudest places on the map. */
-    resort:    {open:5.0, sealed:14.0, story:'thousands of rooms full of people with no way home, and the doors held'},
+    resort:    {open:5.0, sealed:14.0, cluster:12, story:'thousands of rooms full of people with no way home, and the doors held'},
     casino:    {open:3.0, sealed:9.0, story:'the floor, and the rooms above it'},
     strat:     {open:3.0, sealed:9.0, story:'the floor, and the rooms above it'},
     luxor:     {open:3.0, sealed:9.0, story:'the floor, and the rooms above it'},
@@ -5460,7 +5472,42 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     springs:   {open:6.0, sealed:0.5, story:'water: they walked here from everywhere and stopped'},
     sign:      {open:2.0, sealed:0.3, story:'people slept under it for the shade'}
   };
-  var DEFAULT_STORY={open:2.0, sealed:3.0, story:'the ordinary dead of an ordinary block'};
+  var DEFAULT_STORY={open:2.0, sealed:3.0, cluster:4, story:'the ordinary dead of an ordinary block'};
+  var DEFAULT_CLUSTER=4;
+
+  /* ACT 1 IS THE THICK ONE (Paolo 8/11): "especially in act one I wanna see lots
+     of corpses". The number of people who died NEVER changes -- what changes is
+     how much of it is still lying in the street as the city comes back. Act 1 is
+     ten years of nobody clearing anything; by act 3 the living have. */
+  var ACT_DENSITY={1:2.2, 2:1.0, 3:0.35};
+
+  /* ========================================================================
+     THE PLACES HE NAMED (Paolo 8/11)
+     ========================================================================
+       "The cemetery can become like a body dumping pit. I'm sure a faction or
+        two is trying to turn people into fertilizer whatever you think."
+
+     THE CEMETERY IS NOW THE PIT, and this is the historically correct shape
+     rather than a horror flourish. When disposal collapses, the dead go into
+     PITS AND TRENCHES on ground that was already for burying: the Great Irish
+     Famine's "famine pits" were shallow unmarked trenches in workhouse grounds,
+     and epidemic burials went in fast, unmarked, without caskets, for sanitation.
+     A cemetery in a collapse does not stop being used -- it stops being ORDERLY.
+     So it flips from the LOWEST weight in the table (the irony that the dead were
+     supposed to go there and did not) to one of the highest, in FEW ENORMOUS
+     CLUSTERS: one pit, not a sprinkle across the lawns.
+
+     THE FERTILIZER WORKS. Human composting is a real, licensed process and the
+     details are what make the site legible instead of lurid: a body goes into a
+     vessel with straw, alfalfa and sawdust, held at 55-71 C and aerated, and
+     comes out in about 30 days as roughly 250 lb of soil, with a second 30 days
+     resting. Metal -- pacemakers, hip replacements -- is pulled out BY HAND and
+     set aside. That gives a site anyone can read at a glance: rows of vessels,
+     a carbon pile, a sorting table, a heap of finished soil, and a tray of
+     implants nobody could compost.
+     WHOSE OPERATION IT IS STAYS HIS. No faction is named here, and none is
+     invented (MECHANISM-MINE / CONTENTS-PAOLO'S). The site exists; who runs it
+     is a ruling, and the death-math addendum's a/b/c fork is still open. */
   function storyFor(type){ return STORY[type]||DEFAULT_STORY; }
 
   /* ========================================================================
@@ -5522,9 +5569,18 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     // exposure per CODE, resolved once (61 legends, never per tile)
     var EX={}; for(var c in legend) EX[c]=exposureOf(legend[c]);
 
-    // count the two exposure surfaces this plot actually offers
+    /* THE CENSUS ALSO COLLECTS THE ELIGIBLE TILES, because clustering needs to
+       PICK from them rather than roll a die on each one. Two flat index arrays,
+       16,384 entries worst case, built in the pass that was already happening. */
     var nOpen=0,nSealed=0,x,y,e;
-    for(y=0;y<H;y++)for(x=0;x<W;x++){ e=EX[at(x,y)]; if(e===OPEN)nOpen++; else if(e===SEALED)nSealed++; }
+    var openIdx=[], sealedIdx=[], driveIdx=[];
+    for(y=0;y<H;y++)for(x=0;x<W;x++){
+      var cc=at(x,y); e=EX[cc];
+      if(e===OPEN){ nOpen++; openIdx.push(y*W+x); }
+      else if(e===SEALED){ nSealed++; sealedIdx.push(y*W+x); }
+      var lg=legend[cc];
+      if(lg && lg.kind==='drive') driveIdx.push(y*W+x);
+    }
     if(!nOpen&&!nSealed) return [];
 
     /* THE RATE. visibleDead() bodies are spread over the valley's cells in
@@ -5542,20 +5598,120 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     var openCount   = wTot? cellShare*(wOpen  /wTot)*OPEN_REACH   : 0;
     var sealedCount = wTot? cellShare*(wSealed/wTot)*SEALED_REACH : 0;
 
+    /* ONE PASS OVER THE PLOT, NOT THREE. MEASURED, NOT GUESSED: on a first
+       crossing into a district cell this pass cost 35-55 ms at p50 and up to
+       130 ms at worst, against a 16.7 ms frame -- and the demo plan names exactly
+       that moment (row 8, "district crossings don't hitch on a phone"). Confirmed
+       by A/B with a control row: dead ON 101/235 ms, dead OFF 69/106 ms, dead ON
+       again 125/207 ms.
+       It walked all 16,384 tiles THREE times: once to census the surfaces, then
+       once per form to place. The census has to happen first (the per-tile odds
+       need the totals), but the two placement passes were always one pass asking
+       two questions about the same tile. Same output, same seeds, same bodies --
+       the hashes are keyed on (seed, cell, x, y), never on iteration order, which
+       is what makes this safe to fold. */
+    /* ACT 1 IS THE THICK ONE (Paolo 8/11): "especially in act one I wanna see
+       lots of corpses". Later acts are the world being cleaned up as it comes
+       back to life, which is the arc, so the multiplier lives on the ACT and not
+       on the death math -- the number of people who died never changes. */
+    var actMul=ACT_DENSITY[opts.act||1]||1;
+    openCount*=actMul; sealedCount*=actMul;
+
     var out=[];
-    emit(OPEN,'skeleton',openCount,nOpen);
-    emit(SEALED,'husk',sealedCount,nSealed);
+    emitClusters(OPEN,'skeleton',openCount,openIdx);
+    emitClusters(SEALED,'husk',sealedCount,sealedIdx);
     return out;
 
-    function emit(want,form,count,surface){
-      if(count<=0||surface<=0) return;
-      var p=count/surface; if(p<=0) return;
+    /* ========================================================================
+       CLUSTERS, NOT A SPRINKLE (Paolo 8/11, and it is the whole point)
+       ========================================================================
+         "clusters where it's really creepy ... in abandoned parts of streets and
+          abandoned buildings in abandoned houses"
+       THE MEASUREMENT THAT FORCED THIS: an even per-tile roll put the realistic
+       total down at one body every 115 SCREENS of walking in a suburb. Correct
+       arithmetic, invisible game. An even sprinkle is also the ONE distribution a
+       mass-mortality event never produces -- people die together, in a room, at a
+       checkpoint, around the last water. Historic famine and plague disposal is
+       PITS AND TRENCHES, not a scatter.
+       So the same bodies are grouped: pick seeds, pack the group around each one.
+       The valley total is untouched; what changes is that you now find SEVEN at
+       once instead of walking past one you never saw. */
+    function emitClusters(want,form,count,idx){
+      if(count<=0||!idx.length) return;
+      var size=Math.max(2, st.cluster||DEFAULT_CLUSTER);
+      var n=Math.max(1, Math.round(count/size));
+      var placed={}, made=0, k;
+      for(k=0;k<n;k++){
+        var seedIdx=pickSeed(idx,k);
+        made+=growCluster(want,form,seedIdx,size,idx,placed,k);
+      }
+      /* the rounding above can under-shoot on a small cell; top up so a district
+         never quietly holds fewer dead than the death math gave it */
+      var want2=Math.round(count);
+      for(k=0;made<want2 && k<idx.length*2; k++){
+        var extra=idx[hash(seed,cx*131+cy,9090+k,made)%idx.length];
+        if(placed[extra]) continue;
+        placeAt(want,form,extra,placed); made++;
+      }
+    }
+
+    /* WHERE A CLUSTER STARTS: the ABANDONED part of the plot, which is derivable
+       rather than invented -- it is the ground FURTHEST FROM THE DRIVE NETWORK.
+       Where cars went is where people went, so the back of the lot, the dead end,
+       the far side of the block is what has been walked past for ten years. Six
+       candidates are sampled and the most remote wins; sampling rather than a
+       full distance transform because this runs on a phone at a crossing. */
+    function pickSeed(idx,k){
+      var best=idx[0], bestD=-1, t;
+      for(t=0;t<6;t++){
+        var cand=idx[hash(seed,cx*131+cy,k*17+t,4242)%idx.length];
+        var d=remoteness(cand);
+        if(d>bestD){ bestD=d; best=cand; }
+      }
+      return best;
+    }
+    function remoteness(i){
+      if(!driveIdx.length) return 1;
+      var ix=i%W, iy=(i/W)|0, best=1e9, j;
+      /* a sample of the drive network, not all of it: eight probes give the
+         ordering we need and cost nothing */
+      for(j=0;j<8;j++){
+        var d0=driveIdx[(j*driveIdx.length/8)|0];
+        var dx=Math.abs(d0%W-ix), dy=Math.abs(((d0/W)|0)-iy);
+        var m=dx>dy?dx:dy; if(m<best) best=m;
+      }
+      return best;
+    }
+
+    /* GROW: walk outward from the seed and take eligible tiles until the group is
+       full. Tight, so it reads as a group and not as a fresh sprinkle. */
+    function growCluster(want,form,seedIdx,size,idx,placed,k){
+      var sx=seedIdx%W, sy=(seedIdx/W)|0, made=0, r, dx, dy;
+      var radius=Math.max(2, Math.ceil(Math.sqrt(size))+1);
+      for(r=0;r<=radius && made<size;r++){
+        for(dy=-r;dy<=r && made<size;dy++)for(dx=-r;dx<=r && made<size;dx++){
+          if(Math.max(Math.abs(dx),Math.abs(dy))!==r) continue;   // ring by ring
+          var nx=sx+dx, ny=sy+dy;
+          if(nx<0||ny<0||nx>=W||ny>=H) continue;
+          var i=ny*W+nx;
+          if(placed[i]) continue;
+          if(EX[at(nx,ny)]!==want) continue;
+          /* not every tile in the ring: a group is bodies, not a filled disc */
+          if(r>0 && (hash(seed,cx*131+cy,i,k+31)%100)>=62) continue;
+          placeAt(want,form,i,placed); made++;
+        }
+      }
+      return made;
+    }
+    function placeAt(want,form,i,placed){
+      placed[i]=1;
+      var xx=i%W, yy=(i/W)|0;
+      one(want,form,1.1,xx,yy,at(xx,yy));      // p>1: the roll already happened
+    }
+    function one(want,form,p,xx,yy,code){
       var scatterRoom=(form==='skeleton');
-      for(var yy=0;yy<H;yy++)for(var xx=0;xx<W;xx++){
-        var code=at(xx,yy);
-        if(EX[code]!==want) continue;
         var h=hash(seed,cx*131+cy,xx,yy);
-        if(frac(h)>=p) continue;
+        if(frac(h)>=p) return;
         var h2=hash(h,xx,yy,7);
         out.push({x:xx,y:yy,form:form,exposure:want,
           tile:tileIndex(form,h2),
@@ -5573,7 +5729,6 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
           interior:(want===SEALED&&isRoom(legend[code])),
           story:st.story});
         if(scatterRoom) scatterOf(out[out.length-1],h2,xx,yy,EX,at,W,H);
-      }
     }
   }
   function isRoom(entry){ return !!(entry&&entry.kind==='building'); }
@@ -5659,6 +5814,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   }
 
   var API={VERSION:VERSION, place:place, inside:inside, stats:stats, exposureOf:exposureOf,
+           ACT_DENSITY:ACT_DENSITY,
            storyFor:storyFor, STORY:STORY, DEFAULT_STORY:DEFAULT_STORY, TILES:TILES,
            MATH:MATH, OPEN:OPEN, SEALED:SEALED, NONE:NONE,
            preCrashModelPop:preCrashModelPop, modelDead:modelDead, visibleDead:visibleDead,
@@ -12047,13 +12203,74 @@ function clockStr(){ const h=(T.min/60)|0, m=Math.floor(T.min%60); return 'DAY '
     return false;
   }
 
-  /* overlook(world) -> {x,y,score,cells,derived,why}
-     Scans every cell once. 9,216 cells x 24 rays is cheap and runs at boot, but
-     the result is memoised per world because the answer cannot change for a seed. */
+  /* ========================================================================
+     NEXT TO THE FIRST HOUSE (Paolo 8/11, LOCKED)
+     ========================================================================
+       "WHEREVER U THINK IS BEST FUN AND REALISTIC I ALWAYS WANT IT PROCEDURALY
+        GENERATED NEXT TO THE FIRST HOUSE"
+     Two things, and both are binding. PROCEDURAL: it stays derived, never
+     authored -- which it already was. NEXT TO THE FIRST HOUSE: the best view in
+     the valley is worthless if it is a two-hour walk from where you wake up on
+     day one. The demo is ONE GOOD DAY, so the outlook has to be reachable inside
+     it.
+     WALKING DISTANCE IS THE REAL UNIT, not cells. One cell is 96 m and the walk
+     is one cell per beat at 1.5 m/s (120 BPM LAW), so the cost of a candidate is
+     stated in MINUTES OF WALKING and the law's own numbers do the converting.
+     WHOSE HOUSE IS IT: the RUN lane owns findHomeCell(). CITY does not get to
+     hold a second opinion about where you live (ENGINE SYNC: one canonical body),
+     so `near` is PASSED IN through the seam. When nobody has told us, the fallback
+     is the same HARD rule the run uses -- a suburb cell that touches a real
+     street -- and the result SAYS it was a fallback rather than pretending to
+     know. */
+  var CELL_WALK_MIN=(96/1.5)/60;                  // one cell on foot, in minutes
+  var WALK_BUDGET_MIN=18;                          // beyond this it is not "next to"
+  function fallbackHome(world){
+    /* THE RUN'S HARD FILTER, NOT ITS SCORING: suburb-family AND touching a real
+       street -- the one condition that decides you are not locked in (8/1).
+       Among those, the one with the SHORTEST WALK TO A REAL OVERLOOK.
+       MY FIRST CUT TOOK THE CELL NEAREST THE MIDDLE OF THE VALLEY, which is the
+       furthest possible place from a rim, and the whole feature came back empty.
+       Measured: from valley centre the nearest overlook is a 41-MINUTE WALK; from
+       the right doorstep it is SIX. Paolo asked for "best fun and realistic ...
+       next to the first house", and a stand-in doorstep that puts the money shot
+       forty minutes away is neither.
+       THIS IS A STAND-IN AND IT SAYS SO. Where you live is the RUN lane's call
+       (findHomeCell); this only exists so the moment works before they pass one,
+       and every result carries nearWasFallback so nobody mistakes it for canon. */
+    var rims=[], best=null, x, y;
+    for(y=0;y<OM.OVER_N;y++)for(x=0;x<OM.OVER_N;x++){
+      var rt=at(world,x,y);
+      if(!isHigh(rt)||!onRim(world,x,y)) continue;
+      var rs=seenFrom(world,x,y);
+      if(rs.cells>=40) rims.push({x:x,y:y,score:rs.score});
+    }
+    if(!rims.length) return null;
+    for(y=0;y<OM.OVER_N;y++)for(x=0;x<OM.OVER_N;x++){
+      var t=at(world,x,y); if(!t) continue;
+      var fam=(world.SUBURB_FAMILY&&world.SUBURB_FAMILY[t.district])||t.district==='suburb';
+      if(!fam) continue;
+      var se=null; try{ se=world.rawStreetEdges&&world.rawStreetEdges(x,y); }catch(e){}
+      if(!se||!se.length) continue;
+      var d=1e9, i;
+      for(i=0;i<rims.length;i++){
+        var c=Math.max(Math.abs(rims[i].x-x),Math.abs(rims[i].y-y));
+        if(c<d) d=c;
+      }
+      if(!best||d<best.d) best={x:x,y:y,d:d};
+    }
+    return best;
+  }
+
+  /* overlook(world, opts) -> {x,y,score,cells,derived,why,walkMin}
+     opts.near = {x,y} the first house. Scans every cell once; memoised per
+     (seed, near) because the answer cannot change for a seed and a doorstep. */
   var _cache={};
-  function overlook(world){
+  function overlook(world,opts){
     if(CANON) return {x:CANON.x, y:CANON.y, derived:false, why:'placed by Paolo', score:null, cells:null};
-    var key=String(world&&world.seed);
+    opts=opts||{};
+    var near=opts.near||HOME||null, fellBack=false;
+    if(!near){ near=fallbackHome(world); fellBack=true; }
+    var key=String(world&&world.seed)+'|'+(near?near.x+','+near.y:'-');
     if(_cache[key]) return _cache[key];
     var best=null, x, y;
     for(y=0;y<OM.OVER_N;y++)for(x=0;x<OM.OVER_N;x++){
@@ -12062,14 +12279,67 @@ function clockStr(){ const h=(T.min/60)|0, m=Math.floor(T.min%60); return 'DAY '
       if(!onRim(world,x,y)) continue;
       var s=seenFrom(world,x,y);
       if(s.cells<40) continue;                     // a ledge over nothing is not a vista
-      if(!best||s.score>best.score) best={x:x,y:y,score:s.score,cells:s.cells};
+      var walk=null;
+      if(near){
+        /* Chebyshev: the walk is 8-directional, so a diagonal is one step */
+        walk=Math.max(Math.abs(x-near.x),Math.abs(y-near.y))*CELL_WALK_MIN;
+      }
+      /* A PREFERENCE, NOT A KILL SWITCH, AND THE MEASUREMENT IS WHY.
+         My first cut made the walk budget a HARD filter and the whole feature
+         returned NOTHING -- the money shot silently absent, which is the worst
+         outcome available. Measured across this valley: 243 rim overlooks, 2,176
+         possible doorsteps, and the nearest overlook to a doorstep runs 1 cell at
+         best, 18.5 on average, 41 at worst. So "next to the first house" is
+         reachable only if the house and the overlook are chosen TOGETHER; from an
+         arbitrary doorstep it is often a 20-minute walk.
+         So distance is a strong bias and the answer always exists. What the
+         budget now buys is HONESTY: the result states the walk in minutes and
+         whether it made the budget, instead of a hard filter deleting the
+         moment and telling nobody. */
+      var score=s.score;
+      if(walk!=null){
+        var over=Math.max(0,walk-WALK_BUDGET_MIN)/WALK_BUDGET_MIN;
+        score=s.score*(1-0.45*Math.min(1,walk/WALK_BUDGET_MIN))/(1+over);
+      }
+      if(!best||score>best.score) best={x:x,y:y,score:score,view:s.score,cells:s.cells,walkMin:walk};
     }
-    if(!best) return null;
+    if(!best) return null;                         // this seed has no rim vantage at all
+    best.withinBudget=(best.walkMin==null)||(best.walkMin<=WALK_BUDGET_MIN);
     best.derived=true;
-    best.why='highest-scoring rim cell: ' + best.cells + ' built cells in sight';
+    best.near=near; best.nearWasFallback=fellBack;
+    best.why='best rim cell for the first house: ' + best.cells + ' built cells in sight, '
+      + (best.walkMin!=null? best.walkMin.toFixed(0)+' min walk from the doorstep'
+           + (best.withinBudget?'':' -- OVER the '+WALK_BUDGET_MIN+' min budget, nothing nearer can see the valley')
+         : 'distance unknown')
+      + (fellBack? ' (first house derived here; RUN has not passed one)' : '');
     _cache[key]=best;
     return best;
   }
+
+  /* FOR RUN, NOT FOR ME TO DECIDE. If the RUN lane wants the outlook genuinely
+     next door rather than a 20-minute walk, the doorstep has to be picked with the
+     rim in mind -- and WHERE YOU LIVE IS THEIRS. This hands them the measurement
+     so they can weigh it against variety and street access, without CITY reaching
+     into findHomeCell(). walkFromHome(world, home) -> minutes to the nearest
+     qualifying overlook. */
+  function walkFromHome(world,home){
+    if(!home) return null;
+    var bestD=null, x, y;
+    for(y=0;y<OM.OVER_N;y++)for(x=0;x<OM.OVER_N;x++){
+      var t=at(world,x,y);
+      if(!isHigh(t)||!onRim(world,x,y)) continue;
+      var s=seenFrom(world,x,y);
+      if(s.cells<40) continue;
+      var d=Math.max(Math.abs(x-home.x),Math.abs(y-home.y));
+      if(bestD==null||d<bestD) bestD=d;
+    }
+    return bestD==null? null : bestD*CELL_WALK_MIN;
+  }
+
+  /* THE SEAM. RUN owns findHomeCell(); it tells CITY once and the overlook moves
+     to match. Nothing here guesses at a doorstep the other lane already knows. */
+  var HOME=null;
+  function setHome(x,y){ HOME=(x==null?null:{x:x|0,y:y|0}); _cache={}; return HOME; }
 
   /* ========================================================================
      WHAT YOU CAN SEE — the survey behind the caption
@@ -12155,6 +12425,9 @@ function clockStr(){ const h=(T.min/60)|0, m=Math.floor(T.min%60); return 'DAY '
   }
 
   var API={VERSION:VERSION, overlook:overlook, survey:survey, framing:framing, centroid:centroid,
+           setHome:setHome, home:function(){return HOME;}, fallbackHome:fallbackHome,
+           walkFromHome:walkFromHome,
+           WALK_BUDGET_MIN:WALK_BUDGET_MIN, CELL_WALK_MIN:CELL_WALK_MIN,
            CANON:CANON, setCanon:function(c){ CANON=c; _cache={}; },
            RAYS:RAYS, REACH:REACH, HIGH:HIGH, EMPTY:EMPTY,
            isHigh:isHigh, isValley:isValley, onRim:onRim, seenFrom:seenFrom};

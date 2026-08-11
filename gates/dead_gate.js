@@ -183,8 +183,26 @@ ok('and REUSE-FIRST is still satisfied: the docstring says it looked and why it 
     (heavy / light).toFixed(1) + 'x)', heavy / light >= 4);
   ok('custody kills everyone inside: the jail is nearly all sealed',
     D.storyFor('jail').sealed / (D.storyFor('jail').open + D.storyFor('jail').sealed) > 0.9);
-  ok('the cemetery holds almost no loose dead -- it is where they were meant to go',
-    (D.storyFor('cemetery').open + D.storyFor('cemetery').sealed) < 4);
+  /* HIS RULING REPLACED MINE, AND THE GATE FOLLOWS HIM (Paolo 8/11): "The
+     cemetery can become like a body dumping pit." I had it as the lowest weight
+     in the table on the irony that the dead were meant to go there and did not.
+     He ruled the opposite and history is on his side -- when disposal collapses,
+     burial ground is exactly where bodies get dumped, in pits and trenches
+     (the Irish famine pits were unmarked trenches in workhouse grounds).
+     A GATE MUST NEVER OUTRANK A RULING (8/1), so the claim is now HIS: the
+     cemetery is heavy, and it is ONE PIT rather than a sprinkle across the lawns. */
+  ok('THE CEMETERY IS A DUMPING PIT, not a tidy graveyard (weight ' +
+    (D.storyFor('cemetery').open + D.storyFor('cemetery').sealed) + ')',
+    (D.storyFor('cemetery').open + D.storyFor('cemetery').sealed) > 10);
+  ok('and it is ONE PIT, not a scatter: the cemetery has the biggest group in the table',
+    D.storyFor('cemetery').cluster >= 20 &&
+    D.storyFor('cemetery').cluster >= Math.max(...Object.keys(D.STORY).map(k => D.STORY[k].cluster || 0)));
+  ok('somebody is turning the dead into soil: the farm and the landfill are heavy too',
+    (D.storyFor('farm').open > 5) && (D.storyFor('landfill').open > 5));
+  ok('ACT 1 IS THE THICK ONE (he asked for it by name), and later acts thin out',
+    D.ACT_DENSITY && D.ACT_DENSITY[1] > 1.5 && D.ACT_DENSITY[3] < D.ACT_DENSITY[1]);
+  ok('the dead arrive in GROUPS, not a sprinkle: every story row names a cluster size',
+    Object.keys(D.STORY).every(k => !D.STORY[k].cluster || D.STORY[k].cluster >= 2));
   ok('open desert has NO husks: nothing out there is sealed', D.storyFor('desert').sealed === 0);
   ok('most people died AT HOME: the suburb is overwhelmingly sealed',
     D.storyFor('suburb').sealed > D.storyFor('suburb').open * 4);

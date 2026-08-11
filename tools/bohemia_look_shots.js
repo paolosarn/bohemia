@@ -53,7 +53,7 @@ const SUBJECTS = [
     find: `(() => {
       for (let ty = 26; ty < 74; ty++) for (let tx = 26; tx < 74; tx++) {
         const t = om.at(tx, ty); if (!t || t.district !== 'suburb') continue;
-        const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
+        tileMeta(tx, ty); const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
         if (o.length >= 3) return { hx: tx*FN + o[0].x, hy: ty*FN + o[0].y, zoom: 44 };
       } return null; })()`,
   },
@@ -64,7 +64,7 @@ const SUBJECTS = [
     find: `(() => {
       for (let ty = 24; ty < 76; ty++) for (let tx = 24; tx < 76; tx++) {
         const t = om.at(tx, ty); if (!t || (t.district !== 'freeway' && t.district !== 'arterial')) continue;
-        const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
+        tileMeta(tx, ty); const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
         if (o.length >= 3) return { hx: tx*FN + o[0].x, hy: ty*FN + o[0].y, zoom: 44 };
       } return null; })()`,
   },
@@ -75,9 +75,39 @@ const SUBJECTS = [
     find: `(() => {
       for (let ty = 20; ty < 80; ty++) for (let tx = 20; tx < 80; tx++) {
         const t = om.at(tx, ty); if (!t || t.district !== 'desert') continue;
-        const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
+        tileMeta(tx, ty); const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
         if (o.length >= 2) return { hx: tx*FN + o[0].x, hy: ty*FN + o[0].y, zoom: 44 };
       } return null; })()`,
+  },
+  {
+    id: 'dead-pit',
+    title: 'THE PIT: the cemetery',
+    caption: 'They stopped digging graves and dug one hole. The cemetery is a dumping pit now, about 34 bodies in a single heap. RUN tab.',
+    /* SCAN THE WHOLE MAP, NOT A COMFORTABLE MIDDLE. Measured 8/11: this seed puts
+       exactly three cemetery cells on the board -- (40,17), (57,67), (58,67) -- and
+       the old 20..80 window could not see the first one. A rare district needs the
+       full 96, or the tool reports "no instance in the live world" about a world
+       that has one. */
+    find: `(() => {
+      for (let ty = 0; ty < 96; ty++) for (let tx = 0; tx < 96; tx++) {
+        const t = om.at(tx, ty); if (!t || t.district !== 'cemetery') continue;
+        tileMeta(tx, ty); const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
+        if (o.length >= 10) return { hx: tx*FN + o[0].x, hy: ty*FN + o[0].y, zoom: 30 };
+      } return null; })()`,
+  },
+  {
+    id: 'dead-cluster',
+    title: 'A CLUSTER: they died together',
+    caption: 'The dead come in groups now, not sprinkled one by one. This is what you find in an abandoned block. RUN tab.',
+    find: `(() => {
+      let best=null, bn=0;
+      for (let ty = 26; ty < 74; ty++) for (let tx = 26; tx < 74; tx++) {
+        tileMeta(tx, ty); const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
+        if (o.length > bn && o.length < 25) { bn = o.length; best = { tx, ty, d: o[0] }; }
+      }
+      if (!best) return null;
+      return { hx: best.tx*FN + best.d.x, hy: best.ty*FN + best.d.y, zoom: 30 };
+    })()`,
   },
   {
     id: 'dead-density',
@@ -86,7 +116,7 @@ const SUBJECTS = [
     find: `(() => {
       let best = null, bestN = 0;
       for (let ty = 26; ty < 74; ty++) for (let tx = 26; tx < 74; tx++) {
-        const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
+        tileMeta(tx, ty); const e = deadForCell(tx, ty); const o = e.list.filter(z => !z.interior);
         if (o.length > bestN) { bestN = o.length; best = { tx, ty, d: o[0] }; }
       }
       if (!best) return null;
