@@ -1355,6 +1355,80 @@ SURFACE, and a symptom that survives content changes is a PIPELINE bug.
 
 --------------------------------------------------------------------------------
 
+FACTIONS (factions-ovkjpf): 8/12 (h) LATEST — *** SIXTEEN AUTHORED INTRODUCTION
+MECHANICS HAD BEEN SITTING UNREAD FOR TEN DAYS. THEY ARE IN THE GAME NOW. ***
+Nothing to judge.
+
+HE SAID: "lets do more than faction memeory please." Fair — six turns of this lane went into
+what a faction REMEMBERS about you. So I went looking for the other half and found it already
+written, by him, and read by nothing.
+
+*** EVERY ONE OF THE 16 FACTION DOSSIERS HE THUMBED UP ON 8/2 HAS A SECTION CALLED "WHEN YOU
+ASK THEIR NAME", AND EVERY ONE OF THEM IS A DIFFERENT MECHANIC. *** Half of them say the word
+out loud: TRADES "the earned-name mechanic is earned with WORK instead of words", CARTEL "the
+one faction where the name mechanic runs backwards", BLUES "gated by REPUTATION rather than by
+conversation", MOB "ask directly and you get a small permanent mark against you". 1,089 lines
+of approved canon, and the ONLY TWO FILES IN THE REPO THAT HAD EVER OPENED THEM were the
+generator that wrote them and the gate that checks they exist. Meanwhile the game did one thing
+for all sixteen: press "Ask their name", get a full name, everybody, forever.
+
+THIS IS THE PHILOSOPHICAL CLOTHES HE CORRECTED ME ON. Meeting a stranger is the most repeated
+act in the game; sixteen sets of clothes on that one act is sixteen different games of the same
+scene. The Church takes your name before you can ask for theirs and never forgets it. The Trades
+hand you a trade and you buy the name with two jobs. The Mob will not be asked at all. The
+Cartel greets you by a name you never gave anyone. The Amalgamation does the same and NOTHING ON
+SCREEN MAY EXPLAIN IT (his words, and the flag is in the data so a surface cannot forget).
+
+WHAT SHIPPED:
+- engine/bohemia_introductions.js — the organ. GENERATED from records/factions/*.md by
+  tools/bohemia_introductions.py. Four axes express all sixteen with no special cases: opener
+  (who moves first) / first (what the first contact leaves you holding) / earn (what turns a
+  handle into a name) / cost (what getting it wrong costs, and WHICH wrong move is charged).
+- *** THE ANCHOR. *** Every rule declares a verbatim fragment of its own dossier sentence and
+  the generator REFUSES TO RUN if that fragment moved. Reword a dossier and the build dies until
+  a human re-reads it. The mechanic can never quietly drift off his words.
+- WIRED INTO THE RUN. The card's NAME row is REWRITTEN from the organ (never printed beside
+  people.js's answer, which hands over the full name the second the ledger says you asked — that
+  would put two answers to one question on one card, the exact bug I shipped 8/11). The one
+  button's label AND outcome come from the organ. Three of the sixteen correctly have NO button,
+  and in all three his canon says the name was never the transaction.
+- THE LEDGER GAINED ONE BIT: `honest`. The Homeless do not want your name, they want to know
+  where you sleep, so answering honestly is a real pressable move and it survives a save.
+- *** THE BLUES MECHANIC COMPLETES IN PLAY TODAY. *** standing was the one unbuilt earning
+  condition whose system already existed. groupHasAnOpinion() reads the REAL FactionWorld the
+  quest-consequence line already reads. An OPINION means off neutral EITHER WAY — his sentence
+  does not say they have to like you.
+
+GATE: gates/introductions_gate.js, 44 claims, 0 failed. Distinctness is MEASURED (15 distinct
+behavioural signatures; NETWORK=REDS are canon twins and get NAMED in the output). Part C opens
+the REAL built run in a REAL browser, presses the REAL button and reads the REAL card row by row
+— because this lane already shipped advance_territory "wired" by name-grep and dead in fact
+(8/9) and an allegiance line invisible for a day because the check used a side door (8/11).
+TWO OF MY OWN PROBES WERE WRONG FIRST AND I FIXED THE PROBES, NOT THE TARGETS: one asked a
+different agent than the one it had asked the question of, and one grepped for the word
+"verdict" and failed on the page's own sentence "Nothing here needs a verdict".
+
+INTEGRATION LEDGER: 27/32 -> 28/33.
+
+WHERE HE LOOKS: *** LIFE TAB -> THE SIXTEEN INTRODUCTIONS. *** All sixteen, his canon paragraph
+at the top of each card, the mechanic underneath, and the meeting played out in three steps by
+the REAL module inlined. Nothing to tap, nothing to judge, and he is never sent into the RUN app
+to find it.
+
+STILL UNBUILT, NAMED SO NOBODY CLAIMS IT: work (hire count — needs the jobs loop), vouch (a
+third party introduces you — needs the companion/social layer), overheard (needs ambient
+speech). The organ treats every unanswered condition as FALSE, never assumed. Until they land a
+Trades member stays SCAVENGER, which is the correct answer, not a gap.
+
+WHAT COMES AFTER: the three unbuilt conditions are the three doors. `vouch` is the most
+interesting and the most missing — nothing in the game can introduce you to anybody, which is
+also why the Mob currently has only the punishing half of its mechanic.
+
+STILL [PENDING PAOLO], unchanged: REACH_CELLS 12 and AFFILIATED_RATE 0.30; whether all 14
+factions are available at the door; what "faction neighbourhood housing" is architecturally.
+
+--------------------------------------------------------------------------------
+
 FACTIONS (factions-ovkjpf): 8/12 (g) LATEST — *** THE WORLD SAYS IT BACK TO YOU NOW.
 AND I FOUND A BUG OF MY OWN THAT MADE THE 8/11 ALLEGIANCE LINE INVISIBLE THE WHOLE TIME. ***
 Nothing to judge.

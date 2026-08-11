@@ -845,6 +845,24 @@ GATES = [
      "measured by asserting the owner map is byte-identical after a posture quest. Every value is "
      "positive because every authored one is; nobody ever writes a faction calmer. Seven planted "
      "mistakes self-tested every run", False),
+    ('INTRODUCTIONS',  ['node', 'gates/introductions_gate.js'],
+     "SIXTEEN AUTHORED MECHANICS, ONE UNIFORM BUTTON. Every faction dossier Paolo thumbed UP on "
+     "8/2 carries a WHEN YOU ASK THEIR NAME section and every one of them is a different MECHANIC "
+     "-- half of them say the word out loud (TRADES 'the earned-name mechanic is earned with WORK', "
+     "CARTEL 'the name mechanic runs backwards', BLUES 'gated by REPUTATION'). They sat in "
+     "records/factions/ for ten days and the only two files in the repo that had ever opened them "
+     "were the generator that wrote them and the gate that checks they exist, while the game gave "
+     "every one of the sixteen the same full name for the same press. THE ORGAN IS GENERATED FROM "
+     "HIS CANON AND PINNED TO IT: each rule declares a verbatim ANCHOR out of its own dossier and "
+     "the generator REFUSES TO RUN if the anchor moved, so a reworded dossier fails the build "
+     "rather than shipping a stale reading. Distinctness is MEASURED not asserted (15 distinct "
+     "behavioural signatures; NETWORK=REDS are canon twins and get named in the output), the ~85%% "
+     "who run with nobody are pinned to Paolo's 7/31 YOU HAVE TO ASK byte-for-byte, and no "
+     "earn:never faction leaks the name under any combination of state. Part C opens the REAL "
+     "built run in a REAL browser, presses the REAL button and reads the REAL card row by row -- "
+     "this lane already shipped advance_territory 'wired' by name-grep and dead in fact (8/9), and "
+     "an allegiance line that was invisible for a day because the check used a side door (8/11). "
+     "Four earning conditions have no system yet and are treated as FALSE, never assumed", False),
     ('DEED BRIDGE',    ['node', 'gates/deed_bridge_gate.js'],
      "RECKLESS BEATS QUIET, FINALLY APPLIED TO REPUTATION. His quest corpus has always written down "
      "TWO things about an outcome - how big it was (@DO faction REDS +12) and how loud it was "

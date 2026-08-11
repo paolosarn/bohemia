@@ -459,6 +459,7 @@ var XP = {}, XP_LOADED = 0;
 <script src="../engine/bohemia_dress.js"></script>
 <script src="../engine/bohemia_standing.js"></script>
 <script src="../engine/bohemia_deeds.js"></script>
+<script src="../engine/bohemia_introductions.js"></script>
 <script>
 /* the approved art banks repaint via draw() on image load, and a data: URI can
    finish loading before the run's own script has parsed. A no-op placeholder
@@ -3791,6 +3792,108 @@ function authoredFactionFor(agent){
   }
   return null;
 }
+/* WHO THIS PERSON RUNS WITH, in one place. Authored beats derived: if a quest
+   placed them, the quest's own @ROLE faction= IS their faction; otherwise the
+   ambient crowd answers from where they live and work. Two callers now depend on
+   this (the allegiance line and the introduction), and two copies of it would
+   have been two chances to disagree about the same person. */
+function factionForPerson(agent){
+  var fid = authoredFactionFor(agent);
+  if(fid) return fid;
+  if(typeof BohemiaAgents==='undefined' || !CTX || !CTX.factionBases) return null;
+  if(typeof CELL==='undefined' || !CELL) return null;
+  try { return BohemiaAgents.factionOf(agent, CELL, CTX.factionBases); }
+  catch(_e){ return null; }
+}
+/* ---- THE SIXTEEN INTRODUCTIONS (8/12) ---------------------------------------
+   Every faction dossier Paolo thumbed up on 8/2 has a WHEN YOU ASK THEIR NAME
+   section and every one is a DIFFERENT MECHANIC. Until now the game did the same
+   thing for all sixteen: one button, one full name, everybody. This is where his
+   canon finally reaches the surface he plays.
+
+   NOT ONE WORD OF IT IS WRITTEN HERE. engine/bohemia_introductions.js is baked
+   from records/factions/*.md and refuses to build if a rule drifts off its
+   dossier sentence. This function only supplies what the ENGINE already knows
+   about the person -- their generated name, their role word, their work line --
+   and asks the organ what the player has actually learned. */
+function introCtxFor(who){
+  /* THE NAME BEHIND THE DOOR. The organ has to know the whole name to hand back a
+     PIECE of it (a surname, a given name), so it is derived here whether or not
+     the player has earned it -- exactly the same deterministic stream the card
+     already uses, never a second pool. Nothing derived here is displayed unless
+     the organ says the player learned it. */
+  return { full:  who.name || BohemiaPeople.generatedName(who.key),
+           trade: BohemiaPeople.ROLE_WORDS[who.role] || null,
+           work:  (BohemiaPeople.workLineOf && BohemiaPeople.workLineOf(who)) || null };
+}
+/* HAS THE GROUP FORMED AN OPINION ABOUT YOU? The Blues rule, and the ONE unbuilt
+   earning condition whose system already exists: "The personal name arrives only
+   once you have done something the group has an opinion about - which means with
+   the Blues the earned-name mechanic is gated by REPUTATION rather than by
+   conversation" (records/factions/BOHEMIA_FACTION_BLUES.md, canon 8/2).
+
+   AN OPINION, NOT AN APPROVAL. His sentence does not say they have to LIKE you, so
+   this is standing OFF NEUTRAL in either direction -- a Blue who thinks you are a
+   problem knows exactly who you are. Read off the same real FactionWorld the quest
+   consequence line already reads; nothing new is computed. */
+function groupHasAnOpinion(fid){
+  if(!fid || !CTX || !CTX.factions) return false;
+  var real=null, up=String(fid).toUpperCase();
+  if(CTX.factions.factions.get(fid)) real=fid;
+  else { var it=CTX.factions.factions.keys(), k;
+         while(!(k=it.next()).done){ if(String(k.value).toUpperCase()===up){ real=k.value; break; } } }
+  if(!real) return false;
+  try { return CTX.factions.factions.get(real).standingWith('player') !== 0; }
+  catch(_e){ return false; }
+}
+function introStateFor(who, fid){
+  /* THREE of the eight earning conditions are honestly answerable today, and the
+     organ treats every unanswered one as FALSE rather than assuming it met.
+     hires/vouch/overheard arrive with the systems that own them; until then a
+     Trades member stays SCAVENGER, which is the correct answer, not a gap. */
+  return { asked:    !!PEOPLE_MET.asked(who.key),
+           honest:   !!PEOPLE_MET.honest(who.key),
+           standing: groupHasAnOpinion(fid) };
+}
+function introFor(agent, who){
+  if(typeof BohemiaIntros==='undefined') return null;
+  var fid = factionForPerson(agent);
+  var rule = BohemiaIntros.ruleOf(fid);
+  var ctx = introCtxFor(who), st = introStateFor(who, fid);
+  return { rule:rule, ctx:ctx, st:st, m:BohemiaIntros.meeting(rule, ctx, st) };
+}
+/* WHAT THE CARD SAYS YOU KNOW. bohemia_people.js's NAME row is the old uniform
+   answer -- asked, therefore named -- and once the organ can hand back a SURNAME
+   or a TRADE instead, leaving that row alone would put two different answers to
+   the same question on the same card. That is the exact class of bug this lane
+   shipped on 8/11 (two numbers, both right, one card), so the row is rewritten
+   from the organ rather than sat next to it. */
+function applyIntroToCard(rows, intro){
+  if(!intro) return rows;
+  var m=intro.m, out=[];
+  rows.forEach(function(r){
+    if(r.label!=='NAME'){ out.push(r); return; }
+    if(m.isName){ out.push({label:'NAME', value:m.shown}); return; }
+    if(m.shown){ out.push({label:'KNOWN AS', value:m.shown, soft:true}); return; }
+    /* FROM HERE THE PLAYER HAS NOTHING, and the row must never fall back to
+       people.js's answer: it hands over the full name the moment the ledger says
+       you asked, and with the Cartel you asked and were refused. Printing it would
+       show the exact name the organ just said you will never get. */
+    if(m.used){ out.push({label:'NAME', value:'THEY USED YOURS. YOU NEVER GAVE IT.', soft:true}); return; }
+    if(m.opener==='third-party'){ out.push({label:'NAME', value:'NOBODY HAS INTRODUCED YOU', soft:true}); return; }
+    out.push({label:'NAME', soft:true,
+              value: intro.st.asked ? 'YOU ASKED. YOU DID NOT GET IT.' : 'YOU HAVE NOT ASKED'});
+  });
+  if(m.asks) out.push({label:'THEY ASKED YOU', value:m.asks});
+  if(m.blocked) out.push({label:'WILL NOT SAY', value:m.blocked});
+  if(m.cost) out.push({label:'AND', value:m.cost});
+  if(m.remembers) out.push({label:'AND', value:'THEY WILL NOT FORGET YOU'});
+  /* canon, AMALGAMATION: it must land as a haunting and NOTHING ON SCREEN MAY
+     EXPLAIN IT. The organ blanks its own why; the hint line is suppressed here
+     for the same reason, because a route out would be an explanation too. */
+  if(!m.isName && m.next && m.explain) out.push({label:'HOW YOU GET THE REST', value:m.next});
+  return out;
+}
 function showAllegiance(agent){
   /* IT OWNS ITS OWN NODE NOW, and that is a bug fix. This wrote straight into #idcard
      and was called BEFORE BohemiaPeople.cardFor(), which opens with
@@ -3815,10 +3918,7 @@ function showAllegiance(agent){
      This is also what makes the layer visible in a demo whose block happens to sit
      outside every base's reach: the cast is authored, so it never depends on where the
      block landed. */
-  var fid = authoredFactionFor(agent);
-  if(!fid){
-    try { fid = BohemiaAgents.factionOf(agent, CELL, CTX.factionBases); } catch(_e){ return; }
-  }
+  var fid = factionForPerson(agent);
   if(!fid) return;                       /* runs with nobody: say nothing */
   var key=String(fid).toUpperCase();
   var look=BohemiaDress.FACTION_LOOK[key];
@@ -3842,7 +3942,16 @@ function drawPerson(agent){
   var met = PEOPLE_MET.get(who.key);
   PERSON_OPEN = who;
   RUN.phase='talking'; TALKEL.style.display='flex';
-  SPK.textContent = BohemiaPeople.headingOf(who);
+  /* WHAT THE GAME CALLS THEM TO YOUR FACE. headingOf gives a first name the moment
+     the ledger says you asked, which is the right answer for a stranger who runs
+     with nobody and the WRONG one for a Trades member you only know as SCAVENGER.
+     The organ has the true answer, so the heading is taken from it when there is
+     one, and falls straight back to people.js otherwise. */
+  var introHead = introFor(agent, who);
+  SPK.textContent = (introHead && introHead.m.shown)
+    ? String(introHead.m.shown).split(' \u00b7 ')[0].split(' ')[0].toUpperCase()
+    : (introHead ? (BohemiaPeople.ROLE_WORDS[who.role] || 'SOMEBODY')
+                 : BohemiaPeople.headingOf(who));
   var seat=document.getElementById('seat');
   if(seat) seat.textContent = BohemiaPeople.seatLineOf(who);
   /* THE FACE IS THE BODY. portraits.looks[i] is baked as the face of looks[i]
@@ -3860,9 +3969,9 @@ function drawPerson(agent){
   }
   var card=document.getElementById('idcard');
   card.style.display='block'; card.innerHTML='';
-  BohemiaPeople.cardFor(who, agent, SIM?SIM.turn:0, met).forEach(function(row){
+  applyIntroToCard(BohemiaPeople.cardFor(who, agent, SIM?SIM.turn:0, met), introHead).forEach(function(row){
     var d=document.createElement('div');
-    d.className = 'r' + (row.label==='NAME' && !who.name ? ' unnamed' : '');
+    d.className = 'r' + (row.soft || (row.label==='NAME' && !who.name) ? ' unnamed' : '');
     var k=document.createElement('div'); k.className='k'; k.textContent=row.label;
     var v=document.createElement('div'); v.className='v'; v.textContent=row.value;
     d.appendChild(k); d.appendChild(v); card.appendChild(d);
@@ -3881,15 +3990,35 @@ function drawPerson(agent){
      know everyone's name off the bat." So this is the only door to a name, and
      the game remembers you walked through it: re-opening the card, walking away
      and coming back, and loading a save all show them named from here on. */
-  if(!BohemiaPeople.nameOf(who)){
+  /* SIXTEEN MECHANICS, ONE BUTTON (8/12). The organ decides what the button says,
+     whether it exists at all, and what pressing it actually gets you. For the ~85%
+     of the valley that runs with nobody this is byte-for-byte the old behaviour
+     (DEFAULT: you-ask -> full-name), so nothing regressed for a stranger. */
+  var intro = introHead;      /* one call per draw: two would be two chances to disagree */
+  var label = intro ? BohemiaIntros.buttonFor(intro.rule, intro.ctx, intro.st)
+                    : (BohemiaPeople.nameOf(who) ? null : 'Ask their name');
+  if(label){
     var ask=document.createElement('button');
-    ask.id='pplask'; ask.textContent='Ask their name';
+    ask.id='pplask'; ask.textContent=label;
     ask.addEventListener('click', function(){
       PEOPLE_MET.ask(who.key, worldDay());
       autoSave('asked');
-      drawPerson(agent);          /* they are named from this second onward */
+      drawPerson(agent);          /* what you now know is recomputed from the organ */
     });
     OPTS.appendChild(ask);
+  }
+  /* THE OTHER MOVE. The Homeless asked YOU something; answering it honestly is the
+     unlock, so it has to be pressable or the mechanic is decoration. */
+  var answer = intro && BohemiaIntros.answerFor(intro.rule, intro.ctx, intro.st);
+  if(answer){
+    var ansBtn=document.createElement('button');
+    ansBtn.id='pplanswer'; ansBtn.textContent=answer.label;
+    ansBtn.addEventListener('click', function(){
+      PEOPLE_MET.answer(who.key, worldDay(), true);
+      autoSave('answered');
+      drawPerson(agent);
+    });
+    OPTS.appendChild(ansBtn);
   }
   var hang=document.createElement('button');
   hang.id='pplhang'; hang.textContent='Hang out for an hour';
@@ -4482,6 +4611,16 @@ window.__RUN = {
       return { key:p.key, id:a.id, role:p.role, tier:p.tier, name:BohemiaPeople.nameOf(p),
                asked:PEOPLE_MET.asked(p.key),
                heading:BohemiaPeople.headingOf(p), seat:BohemiaPeople.seatLineOf(p),
+               /* THE SIXTEEN INTRODUCTIONS, as the surface actually resolves them.
+                  Reported, never acted on: this is the only honest way a gate can
+                  check that the organ reaches the player, because a gate that
+                  greps the file for a function name proves nothing (8/9, this
+                  lane: advance_territory was 'wired' by name and dead in fact). */
+               faction:factionForPerson(a),
+               intro:(function(){ var ix=introFor(a,p); if(!ix) return null;
+                 return { rule:ix.rule.key, tier:ix.m.tier, shown:ix.m.shown,
+                          isName:ix.m.isName, asks:ix.m.asks, next:ix.m.next,
+                          button:BohemiaIntros.buttonFor(ix.rule,ix.ctx,ix.st) }; })(),
                lookSeed:p.lookSeed, outside:(a.loc.mode==='out'),
                x:a.loc.x, y:a.loc.y, house:p.household.house,
                card:BohemiaPeople.cardFor(p, a, SIM.turn, PEOPLE_MET.get(p.key)) };

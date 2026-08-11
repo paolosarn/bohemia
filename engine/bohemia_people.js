@@ -381,7 +381,7 @@
         var v = data[k];
         if (!v || typeof v !== 'object') return;
         m[k] = { times: v.times | 0, first: v.first | 0, last: v.last | 0,
-               asked: v.asked ? 1 : 0 };
+               asked: v.asked ? 1 : 0, honest: v.honest ? 1 : 0 };
       });
     }
     return {
@@ -393,7 +393,7 @@
         if (!key) return null;
         day = day | 0;
         var r = m[key];
-        if (!r) { r = m[key] = { times: 0, first: day, last: day, asked: 0 }; }
+        if (!r) { r = m[key] = { times: 0, first: day, last: day, asked: 0, honest: 0 }; }
         r.times++; r.last = day;
         return r;
       },
@@ -401,11 +401,24 @@
          "really cool". One bit, because the name is derived from it. */
       ask: function (key, day) {
         if (!key) return null;
-        var r = m[key] || (m[key] = { times: 1, first: day | 0, last: day | 0, asked: 0 });
+        var r = m[key] || (m[key] = { times: 1, first: day | 0, last: day | 0, asked: 0, honest: 0 });
         r.asked = 1; r.last = day | 0;
         return r;
       },
       asked: function (key) { return !!(m[key] && m[key].asked); },
+      /* THE SECOND BIT, and it exists because the Homeless do not want your name,
+         they want to know where you sleep (records/factions/BOHEMIA_FACTION_
+         HOMELESS.md, canon 8/2). Answering honestly is what earns THEIR name, so
+         the honest answer has to survive a save exactly the way asking does, or
+         the mechanic resets every time he reloads. Still one bit: what you told
+         them is derived, only THAT you told them the truth is stored. */
+      answer: function (key, day, honest) {
+        if (!key) return null;
+        var r = m[key] || (m[key] = { times: 1, first: day | 0, last: day | 0, asked: 0, honest: 0 });
+        r.honest = honest ? 1 : 0; r.last = day | 0;
+        return r;
+      },
+      honest: function (key) { return !!(m[key] && m[key].honest); },
       namesKnown: function () {
         var n = 0; for (var k in m) if (m[k].asked) n++; return n;
       },

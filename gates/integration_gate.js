@@ -271,6 +271,16 @@ const PROBES = {
     RUN.indexOf('BohemiaDeeds.reachOf(') >= 0 &&
     RUN.indexOf("standingWith('player')") >= 0 &&
     RUN.indexOf('F.rungOf(') >= 0,
+
+  /* THE SIXTEEN INTRODUCTIONS (8/12). The organ has to be inlined, the card's NAME
+     row has to be REWRITTEN from it (not printed beside people.js's answer), and the
+     one button's label has to come from the organ. A file-shape probe is the weakest
+     of the three checks this feature has -- gates/introductions_gate.js part C opens
+     the real built run in a real browser, presses the real button and reads the real
+     row -- so this one only has to catch the row silently going stale. */
+  introductions_shown: () => RUN.indexOf('BohemiaIntros.buttonFor(') >= 0 &&
+    RUN.indexOf('applyIntroToCard(BohemiaPeople.cardFor(') >= 0 &&
+    RUN.indexOf('function groupHasAnOpinion(') >= 0,
 };
 
 const LEGAL = ['INTEGRATED', 'PARTIAL', 'NOT YET'];
