@@ -562,6 +562,19 @@ GATES = [
      'Every player-facing line now ships a REAL attempt tagged draft:true so he can find and '
      'edit it; filler and stubs FAIL. The other half is unchanged and still checked: who dies, '
      'who holds what ground, numbers and dials stay HIS and stay empty', False),
+    ('STAGE',          ['node', 'gates/stage_gate.js'],
+     'THE CUTSCENE PLUMBING IS A MACHINE, NOT A DIORAMA. Paolo 8/12: "it should be seemless '
+     'and not need to be so handcrafted everytime... From location. To it being the actual '
+     'house. To mfs not glitching into furniture. To understanding how long voices should '
+     'play compared to how long their text shit is." Four complaints, four measured answers: '
+     'a line\'s hold is computed from its own text at a PUBLISHED reading speed (Netflix 20 '
+     'cps / 5-6s floor / 7s ceiling, BBC 17 cps) and the babble is trimmed to end inside it; '
+     'the room comes out of the walked world\'s OWN floorplan generator at a seed, checked '
+     'against it directly; 120 generated houses are swept and no two bodies ever share a cell '
+     'and nobody ever stands inside furniture; and the deciding test -- a SECOND scene, in a '
+     'different building, with seat names the engine has never seen, stages with ZERO new '
+     'code. Mutation-tested both ways: fixed-duration lines and an occupancy-blind solver each '
+     'take it red', False),
     ('COLD OPEN',      ['node', 'gates/coldopen_gate.js'],
      'THE FIRST FIFTEEN SECONDS OF THE GAME ARE IN A TAB AND THEY PLAY. scene_gate has '
      'proved the cold open beat-by-beat against the locked 7/19 shape since 8/9 -- 40 green '

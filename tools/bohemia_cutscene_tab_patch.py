@@ -149,7 +149,7 @@ function cutSpeakerName(role){
    else is the drift the one-bus rule exists to stop. A speaker keeps the SAME
    voice every time because speakerVoice() hashes the role, which is the whole
    point of the feature: you learn to recognise people. */
-function cutVoice(role, text){
+function cutVoice(role, text, windowMs){
   try{
     if(typeof BOH_VOICE==='undefined' || !text) return;
     /* THE SAME BUS THE VOICE JUDGE USES, RESOLVED THE SAME WAY. The first cut
@@ -166,7 +166,14 @@ function cutVoice(role, text){
     var pool = (window.__VOICES_APPROVED && window.__VOICES_APPROVED.length)
       ? window.__VOICES_APPROVED : null;
     var v = BOH_VOICE.speakerVoice('coldopen:'+role, pool);
-    BOH_VOICE.say(BOH_VOICE.opener(text), v, MUS.AC, d, null);
+    /* HOW LONG THE VOICE PLAYS vs HOW LONG THE TEXT IS UP -- his 8/12 note. The
+       babble emits one letter per 1/rate seconds, so a 51-letter line at rate
+       10.7 runs 4.8s; under a one-second caption it talked straight over the
+       next beat. The caption's length is set by READING SPEED and the spoken
+       line is trimmed on whole words to fit inside it. */
+    var say = (windowMs && BOH_STAGE) ? BOH_STAGE.voiceFit(text, windowMs, v.rate)
+                                      : BOH_VOICE.opener(text);
+    if(say) BOH_VOICE.say(say, v, MUS.AC, d, null);
   }catch(e){}
 }
 
@@ -178,6 +185,7 @@ function cutBoot(done){
   if(st) st.textContent='building the family...';
   CUTSCENE=new BohemiaStorySurface.Story({
     canvas:cv, set:BohemiaColdOpenSet, scene:BOHEMIA_COLD_OPEN, runtime:BohemiaScene,
+    stage:BOH_STAGE, floorplan:BOH_FLOORPLAN,
     paintBody:cutPaintBody,
     speak:cutVoice,
     onBeat:function(r,s){ cutCaption(s); },
@@ -232,6 +240,8 @@ def main():
 
     scene_rt = read('engine/bohemia_scene.js')
     set_js = read('engine/bohemia_coldopen_set.js')
+    stage_js = read('engine/bohemia_stage.js')
+    floor_js = read('engine/bohemia_floorplan.js')
     surface = read('engine/bohemia_story_surface.js')
     canon = read('records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json')
     json.loads(canon)                                   # it must be legal before it ships
@@ -242,6 +252,13 @@ def main():
              + scene_rt +
              '\n/* INLINED VERBATIM from engine/bohemia_coldopen_set.js */\n'
              + set_js +
+             '\n/* INLINED VERBATIM from engine/bohemia_floorplan.js -- the SAME room\n'
+             '   generator the walked world uses. This is what makes the cutscene stand\n'
+             '   in the actual house rather than in a hand-typed rectangle. */\n'
+             + floor_js +
+             '\n/* INLINED VERBATIM from engine/bohemia_stage.js -- the plumbing: reading\n'
+             '   speed, room, furniture, occupancy, camera. */\n'
+             + stage_js +
              '\n/* INLINED VERBATIM from engine/bohemia_story_surface.js */\n'
              + surface +
              '\n/* THE AUTHORED SCENE, verbatim from records/BOHEMIA_SCENE_ACT1_COLD_OPEN.json.\n'
@@ -283,6 +300,8 @@ def main():
     print('  tab      : %d' % alpha.count('data-p="cutscene"'))
     print('  panel    : %d' % alpha.count('id="p-cutscene"'))
     print('  runtime  : %d' % alpha.count('root.BohemiaScene = API'))
+    print('  stage    : %d' % alpha.count('root.BOH_STAGE = API'))
+    print('  floorplan: %d' % alpha.count('const BOH_FLOORPLAN='))
     print('  set      : %d' % alpha.count('root.BohemiaColdOpenSet = API'))
     print('  surface  : %d' % alpha.count('root.BohemiaStorySurface = API'))
     print('  canon    : %d' % alpha.count('var BOHEMIA_COLD_OPEN ='))

@@ -1,3 +1,223 @@
+PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
+FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
+PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
+NOT A DIORAMA. A SECOND SCENE COSTS A JSON FILE AND ZERO NEW CODE. ***
+
+HIS NOTE: "im more concerned of the natural wiring and plumbing of the cutscenes
+as well. Like it should be seemless and not need to be so handcrafted everytime
+if that makes sense. From location. To it being the actual house. To mfs not
+glitching into furniture. To understanding how long voices should play compared
+to how long their text shit is."
+
+HE WAS DESCRIBING THE DIFFERENCE BETWEEN A DIORAMA AND A SYSTEM, and v1 was a
+diorama: five hand-typed seat coordinates, a hand-typed table rect, and a
+`bodyY` per chair found by taking screenshots until nobody looked like they were
+standing on the furniture. That makes exactly one scene. NEW: engine/
+bohemia_stage.js, and every typed number is gone.
+
+1. LOCATION -> THE ACTUAL HOUSE. A scene names a PLACE
+   ({zone:'residential', role:'living', seed:7}) and the room comes out of
+   engine/bohemia_floorplan.js -- THE SAME generator the walked world uses, the
+   one floorplan_gate proves every room of is reachable. It really hands back a
+   10x9 living room with rects, roles and doors. Different role -> different
+   room; different seed -> different house; same place -> same house forever.
+   The gate checks the room against the generator directly, so "the actual
+   house" is a measurement and not a claim.
+
+2. NO GLITCHING INTO FURNITURE. Props declare SOLID CELLS; the seat solver
+   refuses a solid cell and refuses a taken one, and somebody with no chair
+   STANDS instead of not being drawn (v1 could not express that at all -- the
+   fifth person just vanished). Draw order is ONE list sorted by cell depth, so
+   a body behind the table is drawn before the table and the table covers it.
+   Swept over 120 GENERATED HOUSES across five zones: 600 seatings, ZERO
+   collisions, ZERO bodies inside furniture.
+
+3. VOICE vs TEXT, AND THE NUMBERS ARE THE INDUSTRY'S. A line's hold is computed
+   from its own text at a published reading speed -- Netflix 20 cps adult with a
+   5/6-second floor and a 7-second ceiling, BBC 17 cps, general practice 12-14 --
+   at the comfortable end (14 cps) because a phone with animation on it is worse
+   for reading than television, then rounded UP to a whole beat (120 BPM LAW).
+   The BABBLE is then trimmed on whole words to end inside that window. Both
+   halves were wrong before: every line held a hand-typed 1 second while a
+   51-letter line babbled for 4.8 seconds straight over the next beat.
+   Cold open: 26.5s -> 46s, and nobody timed a single line.
+
+4. THE CAMERA FRAMES THE ACTION, NOT THE FLOORPLAN. One cell->pixel transform;
+   props, bodies, shadows and dressing all go through it, so a body lands on a
+   chair because the arithmetic says so. First cut fitted the whole room and put
+   a four-cell table in the corner with 200px of empty tile under it -- it takes
+   a FOCUS (the furniture's bounding box, computed, never typed) and pushes in.
+
+GATE: stage_gate.js, 42 claims, registered as STAGE. Mutation-tested BOTH ways
+(fixed-duration lines; an occupancy-blind solver) -- each takes it red.
+*** ITS DECIDING CLAIM: a SECOND scene, in a different BUILDING, with a
+different cast and seat names the engine has never seen ("chair_by_the_window"),
+stages correctly with ZERO NEW CODE. That fixture is deliberately NOT canon: a
+second real cutscene needs rulings from Paolo (who is in it, what happens) and
+words are the only half of that a lane may write. ***
+COLD OPEN gate is 34 now; its "player and nobody else after the cut" claim was
+restated properly -- a headcount threshold went red the moment the father was
+correctly drawn speaking, so it now forbids the actual thing (a body no beat
+asked for) instead of standing in for it.
+
+TAB: CUTSCENE. Tap PLAY THE OPEN.
+
+*** NEXT (the GO list, in order):
+ 1. A SECOND CUTSCENE IS NOW CHEAP -- one JSON file, no code. It needs his
+    ruling on WHO and WHAT, which is why the proof shipped as a fixture. Ask for
+    one beat of Act 1 and it stages the same day.
+ 2. MORE WORDS. 941 lines in the WORDS tab; the demo needs hundreds more and
+    nothing blocks writing them.
+ 3. FURNISH KITS. Only 'dining' exists. A bed/desk/counter kit is a row in
+    furnish() and every scene set in a bedroom or a shop then stages for free.
+ 4. The room still reads grey -- it is the approved interior pool's palette and
+    the freeze is on. A warmer domestic wall would need an ART request.
+ 5. Not this lane: 60 tools still crash on CITY_B64; his 11 perimeter walls. ***
+
+FACTIONS (factions-ovkjpf): 8/12 (c) LATEST — *** HE CLOSED THE ENTRANCE'S SCOPE THE
+SAME DAY HE OPENED IT: ONE MAIN QUEST, FOURTEEN DRESSINGS. NOT FOURTEEN GAMES. ***
+laws/BOHEMIA_ADDENDUM_THE_CUSTOMIZABLE_ENTRANCE_8_12_26.md (updated)
+Gate: ENTRANCE SCOPE, 10/10, BLOCKING. Tab: LIFE -> THE ENTRANCE (opens on it).
+
+HIS WORDS, asked whether the faction choice changes the main quest's CONTENT or only
+where it opens: "It only changes the location and possible vibe and colors possible
+dialogue but yeah it's not day and night. It's just with different clothes on."
+
+    MOVES: location, vibe, colours, some dialogue
+    DOES NOT MOVE: the story, the family, the beats (fight / sibling / dinner / burial),
+                   the arc, the ending, the structure
+
+THE SECOND HALF IS THE ONE A BUILD QUIETLY LOSES, which is why it is gated. A
+customizable entrance is exactly the feature that becomes fourteen games: the Cartel
+opening should REALLY be different so it gets its own quest file, then the Church one
+does, and now there are fourteen main quests to write, test and keep in sync forever --
+for a difference he says outright is NOT day and night.
+    FOURTEEN DRESSINGS IS A WEEK. FOURTEEN QUESTS IS THE REST OF THE YEAR.
+
+THE DRESSING PATH ALREADY EXISTS AND IS PROVEN, so nobody has an excuse to fork: the .bq
+format gates an option on the player's faction TODAY. Measured by the gate --
+`[gate: faction:REDS]` validates clean, is HIDDEN by default, and OPENS for the faction
+raised on it. No format change, no second file.
+
+GATE (ratchet, nothing is forked today): bans a per-faction FORK of a canon quest
+(S01_REDS.bq beside S01_THE_METER_READER.bq) while leaving quests legitimately ABOUT a
+faction alone -- the corpus is full of those and they are the point. Self-tests by
+feeding itself both shapes. 21 canon quests, 21 distinct ids, 0 forked.
+
+STILL [PENDING PAOLO] from the same law: are all 14 available at the door (CUSTOM has no
+ground by definition, NETWORK is the Amalgamation's manufactured protection); what
+"faction neighborhood housing" is architecturally; whether other factions know from
+minute one what you were raised as.
+
+STILL TRUE AND STILL HIS: 9 of 14 factions sit on a district you could live in. Anarchists
+and Blues are on a solar farm, Cartel and Homeless in retail, Church on a farm -- and
+canon puts the Homeless HQ in the sewer under the King Hobo. Base placement is worldgen
+and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left alone.
+
+
+
+
+LAB (lab-e2r7sv): 8/7 (d) LATEST -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
+THREE BOSSES WERE THE SAME BOSS. THE LADDER IS REBUILT AND THE BUG IS NOW MACHINE-HELD. ***
+JUDGE THIS: 1. the 17 bosses in records/BOHEMIA_THE_BOSS_LADDER_v2_8_7_26.md. NOT IN A TAB.
+ONE THING PENDING HIM: THE VOICE, which he explicitly did not approve.
+
+HIS WORDS: "THE STRIPPER / THE WRECKER / THE TOLL -- these are the exact same bro". He was
+right. Strip a building for materials / take a building down / clear a blocked road: THREE
+BOSSES, ONE VERB. It sat there four days past a 131-check gate, because every check asked
+whether the ladder was well-FORMED (count matches, numbers run 1..N, additions marked) and NOT
+ONE asked whether two entries were THE SAME THING.
+WHY IT HAPPENED: I generated bosses from NOUNS -- water, fuel, salvage, demolition, passage --
+and asked "who would own this?" Owning a noun does not make a distinct power. Three nouns
+produced one verb.
+
+THE RULE, AND IT IS NOW A GATE: *** ONE BOSS = ONE LOCK = ONE THING THAT WAS IMPOSSIBLE AND
+NOW IS NOT. NO TWO BOSSES MAY OPEN THE SAME LOCK. *** Every boss declares its LOCK stated as
+an IMPOSSIBILITY, never a noun. gates/boss_ladder_gate.js, 27 checks, fails on a duplicate
+lock, a duplicate key verb, a lock written as a noun, or a killed boss coming back.
+
+*** AND IT CAUGHT ME COMMITTING THE IDENTICAL DUPLICATE INSIDE THE FIX FOR IT, ON ITS FIRST
+RUN. *** My rebuild added THE MULE ("you can only take what your arms hold") which is THE
+OPERATOR's lock ("some mass is too heavy for hands") in a different coat. Same defect he had
+just finished pointing at, four minutes later. THE MULE is cut and THE GRID was reworded for
+sharing a verb. 18 -> 17. The rule paid for itself before it shipped.
+
+ALL TEN OF HIS RULINGS ARE RECORDED VERBATIM: records/BOHEMIA_HIS_BOSS_RULINGS_8_7_26.md.
+*** THE ONE HE TOLD ME TO WRITE DOWN, AND IT IS HIS INVENTION: *** on THE BOOK, "can this be
+like a final fantasy summon. actually thats a fire idea. mark that down some where. maybe
+clout is the mana?" CALLING IN A DEBT IS A SUMMON -- you spend something and a PERSON arrives
+and does what you cannot. Clout as the cost is flagged [PENDING] because he said "idk". It is
+the first real sink clout would have, and it makes a debt a thing you HOLD AND SPEND instead
+of a number that colours a conversation -- the same move the reputation research already made.
+
+WHAT DIED: THE WRECKER and THE TOLL (folded into THE STRIPPER, same verb). THE CHANNEL ("this
+is ass bro" -- mine, dead inside one message). THE JUDGE (he said "sounds like it would be a
+spreadsheet simulator" and he is citing his OWN law back at me: clause 2 of the three-
+currencies addendum BANS the Civ-5 spreadsheet feel). THE BROKER (mine, weakest, undefended).
+
+WHAT CHANGED ON HIS RULINGS: THE CLIMB -> act 1. THE SOIL -> first boss of act 2. THE VOICE
+rebuilt around THE PHONE with people ARRIVING instead of broadcasting (Fallout 4's beacon, and
+the part worth stealing is that it only works if the place already has food/water/beds), marked
+NOT APPROVED. And HABITABLE is DEFINED because he asked: every district carries a FILTH level,
+and while it is high its population cap is ZERO -- habitable means A SETTLER WILL ACCEPT A BED
+THERE. One concrete sentence, which the old wording could not manage.
+
+*** THE RESEARCH CORRECTED MY OWN FRAMING OF FOUR DAYS, AND EVERY LANE SHOULD KNOW: ***
+I have been calling this "Valheim's boss progression". VALHEIM'S FORSAKEN POWERS ARE PASSIVE
+BUFFS, NOT KEYS -- Eikthyr is -60% stamina, Bonemass is -25% damage taken, Moder is a sailing
+tailwind. Not one makes an impossible thing possible. WHAT ACTUALLY GATES VALHEIM IS THE
+BIOME'S ORE, which he killed on 8/3 as "material vibes". So this ladder is NOT Valheim's
+mechanism, IT IS METROID'S: lock-and-key ability gating, where each ability answers a DIFFERENT
+class of obstacle. Naming it right is what gave us the rule. Sources cited in the record.
+
+GATES: boss_ladder_gate 27/0 (eight planted mistakes, eight caught), rulings_gate 131/0.
+
+STILL PENDING HIM: THE VOICE (not approved); whether clout is the summon's mana; and the
+MEDICINE-vs-RESOURCES currency name from earlier today.
+
+
+FACTIONS (factions-ovkjpf): 8/12 (c) LATEST — *** HE CLOSED THE ENTRANCE'S SCOPE THE
+SAME DAY HE OPENED IT: ONE MAIN QUEST, FOURTEEN DRESSINGS. NOT FOURTEEN GAMES. ***
+laws/BOHEMIA_ADDENDUM_THE_CUSTOMIZABLE_ENTRANCE_8_12_26.md (updated)
+Gate: ENTRANCE SCOPE, 10/10, BLOCKING. Tab: LIFE -> THE ENTRANCE (opens on it).
+
+HIS WORDS, asked whether the faction choice changes the main quest's CONTENT or only
+where it opens: "It only changes the location and possible vibe and colors possible
+dialogue but yeah it's not day and night. It's just with different clothes on."
+
+    MOVES: location, vibe, colours, some dialogue
+    DOES NOT MOVE: the story, the family, the beats (fight / sibling / dinner / burial),
+                   the arc, the ending, the structure
+
+THE SECOND HALF IS THE ONE A BUILD QUIETLY LOSES, which is why it is gated. A
+customizable entrance is exactly the feature that becomes fourteen games: the Cartel
+opening should REALLY be different so it gets its own quest file, then the Church one
+does, and now there are fourteen main quests to write, test and keep in sync forever --
+for a difference he says outright is NOT day and night.
+    FOURTEEN DRESSINGS IS A WEEK. FOURTEEN QUESTS IS THE REST OF THE YEAR.
+
+THE DRESSING PATH ALREADY EXISTS AND IS PROVEN, so nobody has an excuse to fork: the .bq
+format gates an option on the player's faction TODAY. Measured by the gate --
+`[gate: faction:REDS]` validates clean, is HIDDEN by default, and OPENS for the faction
+raised on it. No format change, no second file.
+
+GATE (ratchet, nothing is forked today): bans a per-faction FORK of a canon quest
+(S01_REDS.bq beside S01_THE_METER_READER.bq) while leaving quests legitimately ABOUT a
+faction alone -- the corpus is full of those and they are the point. Self-tests by
+feeding itself both shapes. 21 canon quests, 21 distinct ids, 0 forked.
+
+STILL [PENDING PAOLO] from the same law: are all 14 available at the door (CUSTOM has no
+ground by definition, NETWORK is the Amalgamation's manufactured protection); what
+"faction neighborhood housing" is architecturally; whether other factions know from
+minute one what you were raised as.
+
+STILL TRUE AND STILL HIS: 9 of 14 factions sit on a district you could live in. Anarchists
+and Blues are on a solar farm, Cartel and Homeless in retail, Church on a farm -- and
+canon puts the Homeless HQ in the sewer under the King Hobo. Base placement is worldgen
+and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left alone.
+
+
+
 FACTIONS (factions-ovkjpf): 8/12 (f) LATEST — *** THE ENTRANCE NOW SHOWS WHAT EACH
 OPENING IS ACTUALLY LIKE — AND I NEARLY SHIPPED SEED NOISE AS CANON. ***
 Tab: LIFE -> THE ENTRANCE (opens on it). Nothing to judge.

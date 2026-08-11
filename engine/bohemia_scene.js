@@ -103,6 +103,16 @@
     /* the dialogue player, injected rather than required, so this module has no
        hard dependency and a gate can drive it with the real BQRuntime. */
     this.bq = opts.bq || (root.BQRuntime || null);
+    /* HOW LONG A LINE HOLDS IS A POLICY, NOT A NUMBER IN THE SCENE FILE.
+       Paolo 8/12: "understanding how long voices should play compared to how
+       long their text shit is." Every say beat used to carry a hand-typed
+       `beats: 2`, so a six-word line and a twelve-word line held for exactly
+       one second each and the voice ran past both. Injecting the policy keeps
+       this module owning ORDER only -- it still knows nothing about reading
+       speed, and a scene file never has to be re-timed by hand again.
+       engine/bohemia_stage.js supplies the real one (subtitle reading speed,
+       quantized up to the beat). */
+    this.time = opts.time || null;
     this.dialogue = null;
   }
 
@@ -114,6 +124,10 @@
   Scene.prototype._hold = function (b) {
     if (!b) return 0;
     if (b.kind === 'wait') return b.beats | 0;
+    if (b.kind === 'say' && this.time) {
+      var n = this.time(b) | 0;
+      if (n > 0) return n;
+    }
     if (typeof b.beats === 'number') return b.beats | 0;
     return 0;                    // instantaneous beats resolve the turn they enter
   };

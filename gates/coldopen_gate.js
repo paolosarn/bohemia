@@ -170,6 +170,7 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
       const s = new BohemiaStorySurface.Story({
         canvas: document.createElement('canvas'),
         set: BohemiaColdOpenSet, scene: BOHEMIA_COLD_OPEN, runtime: BohemiaScene,
+        stage: BOH_STAGE, floorplan: BOH_FLOORPLAN,
         paintBody: function () { return {}; }
       });
       const log = s.playAll();
@@ -179,6 +180,7 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
       const st = new BohemiaStorySurface.Story({
         canvas: document.createElement('canvas'),
         set: BohemiaColdOpenSet, scene: BOHEMIA_COLD_OPEN, runtime: BohemiaScene,
+        stage: BOH_STAGE, floorplan: BOH_FLOORPLAN,
         paintBody: function () { return {}; }
       });
       st.playAll();
@@ -187,8 +189,30 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
         eraBefore: cutAt > 0 ? log[cutAt - 1].era : null,
         eraAtCut: cutAt >= 0 ? log[cutAt].era : null,
         castJustBefore: cutAt > 0 ? log[cutAt - 1].cast : -1,
+        /* NOBODY EVER SHARES A CELL, measured on the real scene rather than only
+           in the stage gate's synthetic sweep. */
+        maxDupCells: Math.max.apply(null, log.map(function (r) {
+          var seen = {}, dup = 0;
+          (r.cells || []).forEach(function (c) { if (seen[c]) dup++; seen[c] = 1; });
+          return dup;
+        })),
         castJustAfter: cutAt >= 0 && log[cutAt + 1] ? log[cutAt + 1].cast : -1,
-        maxCastAfter: Math.max.apply(null, log.slice(cutAt + 1).map(function (r) { return r.cast; })),
+        /* THE CLAIM THAT PROTECTS HIS RULING, stated exactly. After the cut the
+           only bodies allowed in the room are the PLAYER and whoever the beats
+           give a LINE to. A surface that carried the family across would put a
+           body in the room that no beat asked for -- that is the thing to
+           forbid, not a headcount. (The first cut of this asserted "at most 1"
+           and went red the moment the father was correctly drawn speaking; a
+           threshold standing in for a rule is a gate measuring the wrong thing.) */
+        unasked: (function () {
+          var allowed = { player: 1, PLAYER_child: 1, PLAYER_adult: 1 }, bad = [];
+          var CAST = BohemiaStorySurface.ROLE_TO_CAST;
+          log.slice(cutAt).forEach(function (r) {
+            if (r.speaker) { allowed[r.speaker] = 1; if (CAST[r.speaker]) allowed[CAST[r.speaker]] = 1; }
+            (r.who || []).forEach(function (k) { if (!allowed[k]) bad.push(k); });
+          });
+          return bad.filter(function (v, i, a) { return a.indexOf(v) === i; });
+        })(),
         lines: log.map(function (r) { return r.line; }).filter(Boolean)
           .filter(function (v, i, a) { return a.indexOf(v) === i; }),
         ended: st.ended
@@ -204,9 +228,13 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
     /* THE CLAIM THAT PROTECTS HIS RULING. Nothing but the player may be standing
        in that room after the cut, because who survived ten years is his call and
        a helpful surface carrying the family across would have made it. */
-    ok(headless.maxCastAfter <= 1,
-      'AFTER THE CUT the surface places the player and NOBODY ELSE (max ' +
-      headless.maxCastAfter + ') — who survived is Paolo\'s ruling, not the renderer\'s');
+    ok(headless.unasked.length === 0,
+      'AFTER THE CUT the room holds the player and only whoever the beats give a LINE to' +
+      (headless.unasked.length ? ' — UNASKED BODY: ' + headless.unasked.join(', ') : '') +
+      ' — who survived ten years is Paolo\'s ruling, not the renderer\'s');
+    ok(headless.maxDupCells === 0,
+      'NOBODY IS EVER STANDING IN ANYBODY ELSE (max duplicate cells ' +
+      headless.maxDupCells + ') — occupancy, on the real scene');
     ok(headless.lines.length === SAY_N,
       'every drafted line in the scene reaches the surface (' + headless.lines.length +
       ' of ' + SAY_N + ')');
@@ -256,7 +284,7 @@ ok(!fs.existsSync('slices/BOHEMIA_COLD_OPEN_CURRENT.html') &&
               });
             }
           }, 120);
-          setTimeout(function () { clearInterval(t); resolve({ timeout: true, caps: cap }); }, 40000);
+          setTimeout(function () { clearInterval(t); resolve({ timeout: true, caps: cap }); }, 90000);
         });
       });
     });
