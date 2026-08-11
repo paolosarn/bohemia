@@ -84,13 +84,74 @@
     return false;
   }
 
-  /* overlook(world) -> {x,y,score,cells,derived,why}
-     Scans every cell once. 9,216 cells x 24 rays is cheap and runs at boot, but
-     the result is memoised per world because the answer cannot change for a seed. */
+  /* ========================================================================
+     NEXT TO THE FIRST HOUSE (Paolo 8/11, LOCKED)
+     ========================================================================
+       "WHEREVER U THINK IS BEST FUN AND REALISTIC I ALWAYS WANT IT PROCEDURALY
+        GENERATED NEXT TO THE FIRST HOUSE"
+     Two things, and both are binding. PROCEDURAL: it stays derived, never
+     authored -- which it already was. NEXT TO THE FIRST HOUSE: the best view in
+     the valley is worthless if it is a two-hour walk from where you wake up on
+     day one. The demo is ONE GOOD DAY, so the outlook has to be reachable inside
+     it.
+     WALKING DISTANCE IS THE REAL UNIT, not cells. One cell is 96 m and the walk
+     is one cell per beat at 1.5 m/s (120 BPM LAW), so the cost of a candidate is
+     stated in MINUTES OF WALKING and the law's own numbers do the converting.
+     WHOSE HOUSE IS IT: the RUN lane owns findHomeCell(). CITY does not get to
+     hold a second opinion about where you live (ENGINE SYNC: one canonical body),
+     so `near` is PASSED IN through the seam. When nobody has told us, the fallback
+     is the same HARD rule the run uses -- a suburb cell that touches a real
+     street -- and the result SAYS it was a fallback rather than pretending to
+     know. */
+  var CELL_WALK_MIN=(96/1.5)/60;                  // one cell on foot, in minutes
+  var WALK_BUDGET_MIN=18;                          // beyond this it is not "next to"
+  function fallbackHome(world){
+    /* THE RUN'S HARD FILTER, NOT ITS SCORING: suburb-family AND touching a real
+       street -- the one condition that decides you are not locked in (8/1).
+       Among those, the one with the SHORTEST WALK TO A REAL OVERLOOK.
+       MY FIRST CUT TOOK THE CELL NEAREST THE MIDDLE OF THE VALLEY, which is the
+       furthest possible place from a rim, and the whole feature came back empty.
+       Measured: from valley centre the nearest overlook is a 41-MINUTE WALK; from
+       the right doorstep it is SIX. Paolo asked for "best fun and realistic ...
+       next to the first house", and a stand-in doorstep that puts the money shot
+       forty minutes away is neither.
+       THIS IS A STAND-IN AND IT SAYS SO. Where you live is the RUN lane's call
+       (findHomeCell); this only exists so the moment works before they pass one,
+       and every result carries nearWasFallback so nobody mistakes it for canon. */
+    var rims=[], best=null, x, y;
+    for(y=0;y<OM.OVER_N;y++)for(x=0;x<OM.OVER_N;x++){
+      var rt=at(world,x,y);
+      if(!isHigh(rt)||!onRim(world,x,y)) continue;
+      var rs=seenFrom(world,x,y);
+      if(rs.cells>=40) rims.push({x:x,y:y,score:rs.score});
+    }
+    if(!rims.length) return null;
+    for(y=0;y<OM.OVER_N;y++)for(x=0;x<OM.OVER_N;x++){
+      var t=at(world,x,y); if(!t) continue;
+      var fam=(world.SUBURB_FAMILY&&world.SUBURB_FAMILY[t.district])||t.district==='suburb';
+      if(!fam) continue;
+      var se=null; try{ se=world.rawStreetEdges&&world.rawStreetEdges(x,y); }catch(e){}
+      if(!se||!se.length) continue;
+      var d=1e9, i;
+      for(i=0;i<rims.length;i++){
+        var c=Math.max(Math.abs(rims[i].x-x),Math.abs(rims[i].y-y));
+        if(c<d) d=c;
+      }
+      if(!best||d<best.d) best={x:x,y:y,d:d};
+    }
+    return best;
+  }
+
+  /* overlook(world, opts) -> {x,y,score,cells,derived,why,walkMin}
+     opts.near = {x,y} the first house. Scans every cell once; memoised per
+     (seed, near) because the answer cannot change for a seed and a doorstep. */
   var _cache={};
-  function overlook(world){
+  function overlook(world,opts){
     if(CANON) return {x:CANON.x, y:CANON.y, derived:false, why:'placed by Paolo', score:null, cells:null};
-    var key=String(world&&world.seed);
+    opts=opts||{};
+    var near=opts.near||HOME||null, fellBack=false;
+    if(!near){ near=fallbackHome(world); fellBack=true; }
+    var key=String(world&&world.seed)+'|'+(near?near.x+','+near.y:'-');
     if(_cache[key]) return _cache[key];
     var best=null, x, y;
     for(y=0;y<OM.OVER_N;y++)for(x=0;x<OM.OVER_N;x++){
@@ -99,14 +160,67 @@
       if(!onRim(world,x,y)) continue;
       var s=seenFrom(world,x,y);
       if(s.cells<40) continue;                     // a ledge over nothing is not a vista
-      if(!best||s.score>best.score) best={x:x,y:y,score:s.score,cells:s.cells};
+      var walk=null;
+      if(near){
+        /* Chebyshev: the walk is 8-directional, so a diagonal is one step */
+        walk=Math.max(Math.abs(x-near.x),Math.abs(y-near.y))*CELL_WALK_MIN;
+      }
+      /* A PREFERENCE, NOT A KILL SWITCH, AND THE MEASUREMENT IS WHY.
+         My first cut made the walk budget a HARD filter and the whole feature
+         returned NOTHING -- the money shot silently absent, which is the worst
+         outcome available. Measured across this valley: 243 rim overlooks, 2,176
+         possible doorsteps, and the nearest overlook to a doorstep runs 1 cell at
+         best, 18.5 on average, 41 at worst. So "next to the first house" is
+         reachable only if the house and the overlook are chosen TOGETHER; from an
+         arbitrary doorstep it is often a 20-minute walk.
+         So distance is a strong bias and the answer always exists. What the
+         budget now buys is HONESTY: the result states the walk in minutes and
+         whether it made the budget, instead of a hard filter deleting the
+         moment and telling nobody. */
+      var score=s.score;
+      if(walk!=null){
+        var over=Math.max(0,walk-WALK_BUDGET_MIN)/WALK_BUDGET_MIN;
+        score=s.score*(1-0.45*Math.min(1,walk/WALK_BUDGET_MIN))/(1+over);
+      }
+      if(!best||score>best.score) best={x:x,y:y,score:score,view:s.score,cells:s.cells,walkMin:walk};
     }
-    if(!best) return null;
+    if(!best) return null;                         // this seed has no rim vantage at all
+    best.withinBudget=(best.walkMin==null)||(best.walkMin<=WALK_BUDGET_MIN);
     best.derived=true;
-    best.why='highest-scoring rim cell: ' + best.cells + ' built cells in sight';
+    best.near=near; best.nearWasFallback=fellBack;
+    best.why='best rim cell for the first house: ' + best.cells + ' built cells in sight, '
+      + (best.walkMin!=null? best.walkMin.toFixed(0)+' min walk from the doorstep'
+           + (best.withinBudget?'':' -- OVER the '+WALK_BUDGET_MIN+' min budget, nothing nearer can see the valley')
+         : 'distance unknown')
+      + (fellBack? ' (first house derived here; RUN has not passed one)' : '');
     _cache[key]=best;
     return best;
   }
+
+  /* FOR RUN, NOT FOR ME TO DECIDE. If the RUN lane wants the outlook genuinely
+     next door rather than a 20-minute walk, the doorstep has to be picked with the
+     rim in mind -- and WHERE YOU LIVE IS THEIRS. This hands them the measurement
+     so they can weigh it against variety and street access, without CITY reaching
+     into findHomeCell(). walkFromHome(world, home) -> minutes to the nearest
+     qualifying overlook. */
+  function walkFromHome(world,home){
+    if(!home) return null;
+    var bestD=null, x, y;
+    for(y=0;y<OM.OVER_N;y++)for(x=0;x<OM.OVER_N;x++){
+      var t=at(world,x,y);
+      if(!isHigh(t)||!onRim(world,x,y)) continue;
+      var s=seenFrom(world,x,y);
+      if(s.cells<40) continue;
+      var d=Math.max(Math.abs(x-home.x),Math.abs(y-home.y));
+      if(bestD==null||d<bestD) bestD=d;
+    }
+    return bestD==null? null : bestD*CELL_WALK_MIN;
+  }
+
+  /* THE SEAM. RUN owns findHomeCell(); it tells CITY once and the overlook moves
+     to match. Nothing here guesses at a doorstep the other lane already knows. */
+  var HOME=null;
+  function setHome(x,y){ HOME=(x==null?null:{x:x|0,y:y|0}); _cache={}; return HOME; }
 
   /* ========================================================================
      WHAT YOU CAN SEE — the survey behind the caption
@@ -192,6 +306,9 @@
   }
 
   var API={VERSION:VERSION, overlook:overlook, survey:survey, framing:framing, centroid:centroid,
+           setHome:setHome, home:function(){return HOME;}, fallbackHome:fallbackHome,
+           walkFromHome:walkFromHome,
+           WALK_BUDGET_MIN:WALK_BUDGET_MIN, CELL_WALK_MIN:CELL_WALK_MIN,
            CANON:CANON, setCanon:function(c){ CANON=c; _cache={}; },
            RAYS:RAYS, REACH:REACH, HIGH:HIGH, EMPTY:EMPTY,
            isHigh:isHigh, isValley:isValley, onRim:onRim, seenFrom:seenFrom};

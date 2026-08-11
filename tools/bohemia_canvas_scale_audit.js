@@ -114,6 +114,23 @@ const isInt = v => Math.abs(v - Math.round(v)) <= 0.005;
     const BUTTON = (t === 'city') ? 'run' : t;
     await page.click('.tab[data-p="' + BUTTON + '"]');
     await page.waitForTimeout(t === 'city' ? 14000 : 4000);
+    /* THE 'default' SAMPLE HAS TO ACTUALLY BE THE OVERVIEW (fixed 8/11).
+       This assumed opening the world lands you in the builder overview. It does
+       not any more: RUN drops you straight into the WALKED world, which is the
+       entire point of the 8/2 one-world-tab change. So the 'overview' row was
+       really a second measurement of the walked world -- and canvas_scale_gate
+       has been red ever since, reporting `pixelated` for a surface that is
+       correctly `auto` the moment you are actually standing in it. Measured:
+       after load MODE='human' filter='pixelated'; forced to city, filter='auto'.
+       THE GAME WAS RIGHT AND THE PROBE WAS LOOKING AT THE WRONG SCREEN. */
+    if (t === 'city') {
+      const f0 = page.frames().find(fr => fr.name() === 'cityFrame') || page.mainFrame();
+      await f0.evaluate(() => {
+        if (typeof MODE !== 'undefined' && MODE !== 'city' && typeof swapMode === 'function') { swapMode(); }
+        if (typeof render === 'function') render();
+      }).catch(() => {});
+      await page.waitForTimeout(2500);
+    }
     await collect(t, 'default');
     // the CITY tab has two completely different surfaces behind one canvas: the
     // builder overview and the walked world. They are allowed different filters,

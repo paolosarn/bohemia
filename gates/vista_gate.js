@@ -109,6 +109,39 @@ if (shot) {
   ok('and its caption names the tab it lives in', /RUN tab/.test(shot.caption || ''));
 }
 
+/* ============================================================================
+   SMOOTH BUT DEFINITE (Paolo 8/11, LOCKED)
+   ============================================================================
+   Asked whether the city overview should be smooth or sharp, he ruled three
+   words: "SMOOTH BUT DEFINITE". Both halves are binding and only one of them was
+   already checked.
+   SMOOTH is settled and canvas_scale_gate owns it (the heroes land as ~13:1
+   minifications up there and nearest-neighbour would alias them into noise).
+   DEFINITE is the half that had no machine behind it, and "definite" is exactly
+   the thing smoothing destroys: soften a minified image enough and every building
+   becomes the same grey suggestion of a building. So it is measured rather than
+   asserted -- EDGE ENERGY on the frame the vista actually produces, mean absolute
+   Laplacian over the luma of the lower two thirds, where the city is.
+   The floor is set well under the measured value rather than snug against it: a
+   tripwire for the overview going to mush, not a pin on today's exact art. */
+const DEFINITE_FLOOR = 24;
+try {
+  const out = require('child_process').execSync(
+    'node ' + path.join(__dirname, 'vista_definite_probe.js'), { encoding: 'utf8', timeout: 300000 });
+  const m = /EDGE=([0-9.]+)\s+FILTER=(\S+)/.exec(out);
+  ok('SMOOTH BUT DEFINITE: the overview was measured on the real canvas', !!m);
+  if (m) {
+    const edge = parseFloat(m[1]), filt = m[2];
+    ok('SMOOTH: the overview still composites smooth, as it is approved (' + filt + ')',
+      !/pixelated|crisp/.test(filt));
+    ok('DEFINITE: the smoothed overview keeps its edges (edge energy ' + edge.toFixed(1) +
+      ', floor ' + DEFINITE_FLOOR + ') — soften a 13:1 minification enough and every ' +
+      'building becomes the same grey suggestion of a building', edge >= DEFINITE_FLOOR);
+  }
+} catch (e) {
+  ok('SMOOTH BUT DEFINITE: the probe ran (' + String(e.message).split('\n')[0].slice(0, 80) + ')', false);
+}
+
 console.log('THE VISTA GATE: ' + pass + ' passed, ' + fail + ' failed' +
   (o ? '  (overlook ' + o.x + ',' + o.y + ', ' + o.cells + ' cells in sight)' : ''));
 process.exit(fail ? 1 : 0);
