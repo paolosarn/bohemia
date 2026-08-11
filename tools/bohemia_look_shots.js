@@ -131,6 +131,32 @@ const SUBJECTS = [
 /* ------------------------------------------------------------------ helpers */
 function ensureDir(d) { fs.mkdirSync(d, { recursive: true }); }
 
+/* THE ALPHA HAS CHROME OF ITS OWN. The world frame hides its own d-pad; the
+   shell's tab bar and splash sit on top of the frame and would band every
+   picture. Same rule as inside: ask what OVERLAYS the frame, never a blocklist
+   of today's element ids. */
+async function hideShellChrome(shell) {
+  await shell.evaluate(() => {
+    window.__LOOK_SHELL_HIDDEN = [];
+    const fr = document.getElementById('cityFrame'); if (!fr) return;
+    for (const el of document.body.querySelectorAll('*')) {
+      if (el === fr || el.contains(fr)) continue;
+      const cs = getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+      const r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) continue;
+      window.__LOOK_SHELL_HIDDEN.push([el, el.style.visibility]);
+      el.style.visibility = 'hidden';
+    }
+    fr.style.visibility = 'visible';
+  });
+}
+async function restoreShellChrome(shell) {
+  await shell.evaluate(() => {
+    for (const [el, v] of (window.__LOOK_SHELL_HIDDEN || [])) { try { el.style.visibility = v; } catch (e) {} }
+    window.__LOOK_SHELL_HIDDEN = [];
+  });
+}
+
 (async () => {
   ensureDir(OUTDIR);
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome' });
@@ -140,11 +166,65 @@ function ensureDir(d) { fs.mkdirSync(d, { recursive: true }); }
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   const errs = [];
   page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
-  await page.goto('file://' + path.resolve(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'),
+  /* ---- DRIVE THE ALPHA, NOT THE WORLD PAGE (8/11) -------------------------
+     Paolo 8/11: "anything thats human decay please make the art with a person
+     next to it so u get the real scale and size."
+     He could not have got scale off these pictures before today, and that was my
+     bug and not his eye. The player's body reaches the world page by postMessage
+     from the ALPHA's character bake (citySendPlayer). Open
+     BOHEMIA_CITY_WORLD.html on its own -- exactly what this tool used to do --
+     and PLAYER_CV stays null forever, so the man renders as a BLANK WHITE
+     RECTANGLE. Every LOOK picture shipped before today stood a featureless box
+     next to the bodies and called it a person.
+     So the tool now opens the alpha and taps RUN the way he does. `shell` is the
+     alpha; `ctx` is the city frame inside it. World globals (hx, HC, om,
+     deadForCell) live in ctx; the chrome and the screenshot live in shell.
+     VERIFY ON THE REAL SURFACE, taken literally: the surface is the thing he
+     taps, not the file it happens to load. */
+  const shell = page;
+  await shell.goto('file://' + path.resolve(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'),
     { waitUntil: 'load', timeout: 240000 });
-  await page.waitForTimeout(7000);
-  await page.evaluate(() => { try { if (typeof MODE !== 'undefined' && MODE === 'city') swapMode(); } catch (e) {} });
-  await page.waitForTimeout(2500);
+  await shell.waitForTimeout(6000);
+  /* TAP TO ENTER FIRST, THE WAY HE DOES. Measured 8/11: clicking the RUN tab
+     while the front splash is still up loads the city frame BEHIND it, and the
+     frame lays out at 0x0 -- so the screenshot came back solid black at 7 KB.
+     The splash is a real door, not decoration; the tool has to open it. */
+  await shell.evaluate(() => {
+    const f = document.getElementById('front');
+    if (f) { f.click(); const t = document.getElementById('fronttap'); if (t) t.click(); }
+  });
+  await shell.waitForTimeout(3000);
+  await shell.evaluate(() => {
+    const t = [...document.querySelectorAll('.tab')].find(e => /RUN/i.test(e.textContent || ''));
+    if (t) t.click();
+  });
+  await shell.waitForTimeout(14000);
+  const ctx = shell.frames().find(f => /CITY_WORLD/.test(f.url()));
+  if (!ctx) { console.log('LOOK: the alpha never opened the world frame. No pictures taken.'); process.exit(1); }
+  /* ASK MORE THAN ONCE, AND FAIL LOUD IF HE NEVER SHOWS UP. citySendPlayer can
+     fire before the frame's listener exists. A picture with no human in it is
+     the bug this change exists to end, so it is never shipped quietly. */
+  let hasBody = false;
+  for (let k = 0; k < 8 && !hasBody; k++) {
+    await shell.evaluate(() => { try { citySendPlayer(); } catch (e) {} });
+    await shell.waitForTimeout(2500);
+    hasBody = await ctx.evaluate(() => !!PLAYER_CV);
+  }
+  if (!hasBody) { console.log('LOOK: the player body never arrived -- refusing to shoot a blank box.'); process.exit(1); }
+  /* AND THE FRAME MUST ACTUALLY HAVE SIZE. A 0x0 iframe still loads, still
+     answers evaluate(), still reports a player -- and photographs as solid
+     black. Every check above passed while the picture was empty, so this asks
+     the one question that catches it. */
+  const frameBox = await shell.evaluate(() => {
+    const fr = document.getElementById('cityFrame'); if (!fr) return [0, 0];
+    const r = fr.getBoundingClientRect(); return [Math.round(r.width), Math.round(r.height)];
+  });
+  if (frameBox[0] < 100 || frameBox[1] < 100) {
+    console.log('LOOK: the city frame laid out at ' + frameBox.join('x') + ' -- the app never entered. No pictures.');
+    process.exit(1);
+  }
+  await ctx.evaluate(() => { try { if (typeof MODE !== 'undefined' && MODE === 'city') swapMode(); } catch (e) {} });
+  await shell.waitForTimeout(2500);
 
   const shots = [];
   for (const s of SUBJECTS) {
@@ -155,10 +235,10 @@ function ensureDir(d) { fs.mkdirSync(d, { recursive: true }); }
        picture and says why. */
     if (s.open) {
       let got = null, err = '';
-      try { got = await page.evaluate(s.open); } catch (e) { err = ' — ' + String(e.message || e).split('\n')[0].slice(0, 120); }
+      try { got = await ctx.evaluate(s.open); } catch (e) { err = ' — ' + String(e.message || e).split('\n')[0].slice(0, 120); }
       if (!got) { console.log('  MISS  ' + s.id.padEnd(16) + 'the moment did not open' + err); continue; }
-      await page.waitForTimeout(1400);
-      await page.evaluate(() => {
+      await shell.waitForTimeout(1400);
+      await ctx.evaluate(() => {
         window.__LOOK_HIDDEN = [];
         const cv = document.getElementById('cv');
         for (const el of document.body.querySelectorAll('*')) {
@@ -172,8 +252,10 @@ function ensureDir(d) { fs.mkdirSync(d, { recursive: true }); }
         }
       });
       const file2 = path.join(OUTDIR, s.id + '.png');
-      await page.screenshot({ path: file2 });
-      await page.evaluate(() => {
+      await hideShellChrome(shell);
+      await shell.screenshot({ path: file2 });
+      await restoreShellChrome(shell);
+      await ctx.evaluate(() => {
         for (const [el, v] of (window.__LOOK_HIDDEN || [])) { try { el.style.visibility = v; } catch (e) {} }
         window.__LOOK_HIDDEN = [];
         try { window.__VISTA && window.__VISTA.close(); } catch (e) {}
@@ -189,7 +271,7 @@ function ensureDir(d) { fs.mkdirSync(d, { recursive: true }); }
        MISSes and told me nothing, because the catch threw the error away -- the
        same swallow-the-failure bug this repo has now been bitten by four times.
        A miss must say WHY it missed. */
-    try { spot = await page.evaluate(s.find); }
+    try { spot = await ctx.evaluate(s.find); }
     catch (e) { why = ' — ' + String(e.message || e).split('\n')[0].slice(0, 120); }
     if (!spot) {
       /* A MISS IS REPORTED, NEVER PAPERED OVER. Writing a shot of wherever the
@@ -204,7 +286,7 @@ function ensureDir(d) { fs.mkdirSync(d, { recursive: true }); }
        centre, in clear air, with nothing invented -- this is still the real
        surface, just photographed from a step away instead of from on top. */
     const STAND_OFF = 5;
-    await page.evaluate(({ hxv, hyv, z }) => {
+    await ctx.evaluate(({ hxv, hyv, z }) => {
       hx = hxv; hy = hyv;
       if (typeof HC !== 'undefined' && z) HC = z;
       /* GET THE CHROME OFF THE ART. His words: "so I can see the art assets and
@@ -234,13 +316,18 @@ function ensureDir(d) { fs.mkdirSync(d, { recursive: true }); }
       }
       if (typeof render === 'function') render();
     }, { hxv: spot.hx, hyv: spot.hy - STAND_OFF, z: spot.zoom });
-    await page.waitForTimeout(1100);
+    await hideShellChrome(shell);
+    await shell.waitForTimeout(1100);
 
     /* Photograph the CANVAS, not the chrome. He is judging the art. */
-    const el = await page.$('#cv');
+    /* THE WHOLE PHONE FRAME. The canvas lives inside the alpha's city iframe
+       now, so reaching for '#cv' would reach into the frame and throw away the
+       fact that this is the real app he taps. The alpha's own chrome is hidden
+       above and restored below. */
     const file = path.join(OUTDIR, s.id + '.png');
-    if (el) await el.screenshot({ path: file }); else await page.screenshot({ path: file });
-    await page.evaluate(() => {
+    await shell.screenshot({ path: file });
+    await restoreShellChrome(shell);
+    await ctx.evaluate(() => {
       for (const [el, v] of (window.__LOOK_HIDDEN || [])) { try { el.style.visibility = v; } catch (e) {} }
       window.__LOOK_HIDDEN = [];
     });

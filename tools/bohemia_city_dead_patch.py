@@ -159,8 +159,17 @@ function deadForCell(tx,ty){
   return e;
 }
 const DEAD_ROAD_FLAT=new Uint8Array(FN*FN);   // all zeros: all open roadway
-function deadTile(im,dx,dy,C,scale){
+function deadTile(im,dx,dy,C,idx,shrink){
   if(!im||!im.complete||!im.naturalWidth)return;
+  /* SIZE COMES OFF REAL ANATOMY NOW, PER TILE (Paolo 8/11, LOCKED).
+     "make sure any bones or skulls are always the same size as our humans."
+     This used to take ONE draw height for all 62 judged tiles, so a lone skull
+     and a whole skeleton both came out 1.75 m long. Measured against the real
+     baked body (1.74 m) on slices/look/bone-scale.png it was wrong in BOTH
+     directions: skulls at 0.92-1.31 m, articulated skeletons at 0.64 m.
+     BohemiaDead.tileMetres(idx) is the single ruler. The LONG axis of the tile
+     gets the metres; the short axis follows the tile's own ratio, so a judged
+     sprite is never reshaped (that rule predates this and still holds). */
   /* A BODY IS PERSON-SIZED, AND IT KEEPS ITS OWN SHAPE.
      First cut drew these at 0.55 of a cell in a forced SQUARE and I looked at the
      screenshot: two pale specks on the asphalt. Two things were wrong and both
@@ -174,7 +183,11 @@ function deadTile(im,dx,dy,C,scale){
      ASPECT. These tiles are portrait (17x28, 16x28 -- a figure), and forcing
      them into a square squashed his art by a third. NEVER reshape a judged tile.
      Height carries the scale; width follows the tile's own ratio. */
-  const h=C*scale, w=h*(im.naturalWidth/im.naturalHeight);
+  const nw=im.naturalWidth, nh=im.naturalHeight;
+  const M=BohemiaDead.tileMetres(idx)*(shrink||1);
+  const long=M*(C/OM.CELL_M);
+  const w = nw>=nh ? long : long*(nw/nh);
+  const h = nw>=nh ? long*(nh/nw) : long;
   g.drawImage(im, Math.round(dx+(C-w)/2), Math.round(dy+(C-h)/2),
                   Math.max(1,Math.round(w)), Math.max(1,Math.round(h)));
 }
@@ -193,7 +206,7 @@ function deadDraw(ox,oy){
       if(d.interior)continue;                       // behind a wall: indoors draws it
       const fx=bx+d.x, fy=by+d.y;
       if(fx<fx0||fx>fx1||fy<fy0||fy>fy1)continue;
-      deadTile(bank[d.tile%bank.length], ox+fx*C, oy+fy*C, C, d.scale);
+      deadTile(bank[d.tile%bank.length], ox+fx*C, oy+fy*C, C, d.tile%bank.length);
       /* SCATTER: canid dispersal runs along ONE line and stops. The trailing
          cells carry a smaller fragment of the same remains, not a second body.
          THE DIRECTION COMES OFF THE BODY (d.dir). It used to be re-derived here
@@ -203,7 +216,7 @@ function deadDraw(ox,oy){
       const dd=d.dir||[0,0];
       for(let k=1;k<=d.scatter;k++){
         deadTile(bank[(d.tile+k*7)%bank.length],
-                 ox+(fx+dd[0]*k)*C, oy+(fy+dd[1]*k)*C, C, d.scale*0.62);
+                 ox+(fx+dd[0]*k)*C, oy+(fy+dd[1]*k)*C, C, d.tile%bank.length, 0.62);
       }
     }
   }
@@ -246,11 +259,12 @@ INDOOR = r'''  /* ==== THE DEAD, INDOORS (8/8) =================================
         for(const d of inn){
           const sx=ox+d.x*C, sy=oy+d.y*C;
           if(sx<-C||sy<-C||sx>cv.width||sy>cv.height)continue;
-          const im=bank[d.tile%bank.length];
-          if(im&&im.complete&&im.naturalWidth){
-            const w=C*d.scale;
-            g.drawImage(im, Math.round(sx+(C-w)/2), Math.round(sy+(C-w)/2), Math.round(w), Math.round(w));
-          }
+          /* ONE RULER INDOORS TOO (8/11). This drew its own square at C*d.scale --
+             both bugs the outdoor pass had already fixed, still living in here:
+             a FORCED SQUARE squashes a judged sprite, and a single scale makes a
+             skull the size of a man. A husk indoors is the same body it would be
+             outdoors, so it goes through the same function. */
+          deadTile(bank[d.tile%bank.length], sx, sy, C, d.tile%bank.length);
         }
       }
     }

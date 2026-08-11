@@ -270,8 +270,33 @@ ok('and REUSE-FIRST is still satisfied: the docstring says it looked and why it 
     D.TILES.scale.husk > D.TILES.scale.skeleton);
   ok('a body is roughly 1.7 m on 0.75 m tiles, not a prop-flag guess',
     D.TILES.scale.husk * 0.75 > 1.2 && D.TILES.scale.husk * 0.75 < 2.2);
-  ok('the draw keeps each judged tile\'s own aspect (never reshaped into a square)',
-    /naturalWidth\s*\/\s*im\.naturalHeight/.test(page));
+  /* ASK FOR THE PROPERTY, NEVER THE SPELLING (8/11). This used to match the
+     literal string `naturalWidth / im.naturalHeight`, so when the draw moved to
+     per-tile metres and spelled the same ratio `nw >= nh ? long*(nh/nw) : ...`
+     the gate went red on code that obeys the law perfectly. A checker that
+     tests today's phrasing instead of the rule is the broken one -- fix the
+     ruler, never the target (8/1). THE RULE is: both natural dimensions are
+     read, and no drawImage is handed the same value for width and height. */
+  const draw = page.replace(/\/\*[\s\S]*?\*\//g, '');
+  ok('the draw reads BOTH natural dimensions, so a judged tile keeps its aspect',
+    /naturalWidth/.test(draw) && /naturalHeight/.test(draw));
+  ok('no body is drawn into a forced square',
+    !/drawImage\([^)]*\b(\w+)\s*\)\s*,\s*\1\s*\)/.test(draw) &&
+    !/Math\.round\((\w)\),\s*Math\.round\(\1\)\)/.test(draw));
+}
+
+/* ============================================================================
+   AND EVERY TILE IS THE SIZE OF THE THING IT DEPICTS (Paolo 8/11)
+   ============================================================================
+   The scale numbers above are the OLD blanket ones and they are kept because a
+   husk still reads longer than a scattered partial. What they can no longer do
+   is decide how big a drawn tile is -- that is BohemiaDead.tileMetres(), per
+   tile, off real anatomy. gates/bone_scale_gate.js owns that in full; this is
+   just the hand-off, so nobody reading THE DEAD thinks scale lives here. */
+{
+  ok('per-tile real-world sizing exists and is the ruler the renderer uses',
+    typeof D.tileMetres === 'function' && D.tileMetres(44) < D.tileMetres(35),
+    'a skull must not measure a whole skeleton — see gates/bone_scale_gate.js');
 }
 
 console.log('THE DEAD GATE: ' + pass + ' passed, ' + fail + ' failed  (' +

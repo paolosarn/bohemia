@@ -69,10 +69,17 @@ const DEAD_IMG=(function(){
   const down={}; (BohemiaDead.TILES.down||[]).forEach(i=>{down[i]=1;});
   return bank.map((im,i)=>down[i]?null:im);
 })();
+/* WHICH SLOT THE POOL ACTUALLY LANDS ON. deadImg walks forward past Paolo's
+   DOWN tiles, so the index that gets DRAWN is not always the index asked for.
+   Size is now per-tile (BohemiaDead.tileMetres), so the caller has to be able
+   to ask the same question the image answered -- otherwise a skull could be
+   drawn at a skeleton's length again, which is the whole bug being fixed.
+   ONE RESOLVER, used by both. */
+function deadIdx(i){ const a=DEAD_IMG; if(!a||!a.length)return 0;
+  for(let k=0;k<a.length;k++){ const j=(i+k)%a.length; if(a[j]) return j; }
+  return 0; }
 function deadImg(i){ const a=DEAD_IMG; if(!a||!a.length)return null;
-  /* walk forward off a killed slot rather than modulo onto one */
-  for(let k=0;k<a.length;k++){ const im=a[(i+k)%a.length]; if(im) return im; }
-  return null; }
+  return a[deadIdx(i)]||null; }
 '''
 
 # put the pool immediately before the outdoor pass, which is already outside the

@@ -325,6 +325,14 @@ GATES = [
      'tools cannot catch this and dead_gate/vista_gate stayed green through it -- a FALSE '
      'GREEN, which this repo ranks worse than a false red. Fix: '
      'python3 tools/bohemia_city_module_resync.py', False),
+    # Paolo 8/11: "make sure any bones or skulls are always the same size as our
+    # humans". One draw height served all 62 judged tiles, so a lone skull and a
+    # whole skeleton both came out 1.75 m. He caught it by eye off a picture.
+    ('BONE SCALE',     ['node', 'gates/bone_scale_gate.js'],
+     'nothing human out-measures the human: every dead tile is drawn the size the thing it '
+     'depicts actually is (a skull 0.20 m, a femur 0.45 m, a laid-out adult 1.70 m, against a '
+     'measured 1.74 m man), one ruler shared by the renderer/sheet/gate, and the reference '
+     'picture with a person beside every bone exists', False),
     ('THE DEAD',       ['node', 'gates/dead_gate.js'],
      'Paolo 7/31 LOCKED (laws/BOHEMIA_ADDENDUM_LORE_SITTING_7_31_26.md sec 2), commissioned 8/8: '
      'skeletons in the open, husks in the sealed places, realistic mix, story-via-placement. '

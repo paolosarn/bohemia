@@ -333,8 +333,59 @@
        (The first cut used 0.55 off the sweep's "BIG: render smaller" prop flag
        and rendered two pale specks on the asphalt. That flag is about props
        standing in a room; a femur is not a sofa.) */
-    scale:{skeleton:1.5, husk:1.9}
+    scale:{skeleton:1.5, husk:1.9},
+
+    /* ---- HOW LONG EACH TILE ACTUALLY IS, IN METRES (Paolo 8/11, LOCKED) ----
+       "i would challenge you to make sure any bones or skulls are always the
+        same size as our humans ... anything thats human decay please make the
+        art with a person next to it so u get the real scale and size"
+
+       He was right and one number for 62 different things was the bug. The
+       scale above is a single DRAW HEIGHT applied to every tile in the bank,
+       so the game drew a lone skull and a whole skeleton at the SAME 1.75 m.
+       Measured on the reference sheet (tools/bohemia_bone_scale_sheet.js,
+       slices/look/bone-scale.png): the man is 1.74 m, and it was wrong in BOTH
+       directions -- single skulls at 0.92-1.31 m (a skull is 0.20 m), while
+       fully articulated skeletons like #34 drew at 0.64 m, child-sized.
+
+       These are REAL ANATOMY, not taste: an adult skull is ~20 cm, a femur
+       ~45 cm, a ribcage ~35 cm, a laid-out adult ~1.7 m. That makes the table
+       MECHANISM (measurable fact), never CONTENTS -- nothing here judges his
+       art, it only states how big the thing it depicts is in the world.
+       The value is the LONG AXIS on screen; the other axis follows the tile's
+       own ratio, so a judged sprite is still never reshaped. */
+    metres:{
+      /* single skull */
+      44:0.20, 45:0.20, 46:0.20, 47:0.20, 48:0.20, 14:0.25, 10:0.30,
+      /* jaw, ribcage, single long bone */
+      53:0.22, 51:0.40, 49:0.45, 56:0.45, 16:0.45, 54:0.35, 55:0.40,
+      /* a few bones together / crossed */
+      50:0.55, 52:0.55, 58:0.60, 27:0.70, 28:0.60, 13:0.45, 17:0.40, 26:0.45,
+      /* skulls stacked, small clusters */
+      41:0.50, 42:0.50, 22:0.55, 24:0.55, 32:0.50, 64:0.55, 65:0.60,
+      59:0.60, 62:0.60, 43:0.80, 66:0.90,
+      /* a body's worth of remains, lying */
+      9:0.90, 63:0.90, 31:1.10, 20:1.20, 21:1.30, 60:1.20, 33:1.20, 15:1.20,
+      8:1.30, 11:1.30, 29:1.30, 23:1.40, 61:1.40, 12:1.50, 30:1.60,
+      /* a FULL articulated skeleton is a person, so it is person-length */
+      34:1.70, 35:1.70, 36:1.70, 37:1.70, 39:1.70, 40:1.70, 38:1.30,
+      /* heaped bone: legitimately bigger than one body */
+      57:1.10, 67:1.10, 68:1.10, 69:1.10, 70:1.10, 71:1.10, 72:1.20
+    },
+    /* anything the table has not ruled on falls back to a body's remains, which
+       is the safe middle: never a man-sized skull, never a doll-sized corpse. */
+    metresDefault:1.20,
+    /* NOTHING HUMAN OUT-MEASURES THE HUMAN. A heap may; a body part may not.
+       The gate holds this line so a future tile cannot quietly go giant. */
+    humanMetres:1.74
   };
+  /* THE LONG AXIS OF A TILE, IN METRES. One place, so the renderer and the gate
+     cannot disagree about how big a thing is (the 8/9 scatter bug was two
+     rulers for one measurement). */
+  function tileMetres(i){
+    var m=TILES.metres[i];
+    return (typeof m==='number' && m>0) ? m : TILES.metresDefault;
+  }
   function tileIndex(form,h){
     if(form==='skeleton'){ var n=TILES.skel.to-TILES.skel.from+1; return TILES.skel.from+(h%n); }
     var spans=TILES.husk, total=0, i;
@@ -617,7 +668,7 @@
   var API={VERSION:VERSION, place:place, inside:inside, stats:stats, exposureOf:exposureOf,
            ACT_DENSITY:ACT_DENSITY,
            storyFor:storyFor, STORY:STORY, DEFAULT_STORY:DEFAULT_STORY, TILES:TILES,
-           MATH:MATH, OPEN:OPEN, SEALED:SEALED, NONE:NONE,
+           MATH:MATH, OPEN:OPEN, SEALED:SEALED, NONE:NONE, tileMetres:tileMetres,
            preCrashModelPop:preCrashModelPop, modelDead:modelDead, visibleDead:visibleDead,
            avgWeight:function(){return AVG_WEIGHT;}, cellsPerSide:function(){return CELLS_PER_SIDE;},
            AVG_WEIGHT_MEASURED:AVG_WEIGHT_MEASURED};

@@ -5532,8 +5532,59 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
        (The first cut used 0.55 off the sweep's "BIG: render smaller" prop flag
        and rendered two pale specks on the asphalt. That flag is about props
        standing in a room; a femur is not a sofa.) */
-    scale:{skeleton:1.5, husk:1.9}
+    scale:{skeleton:1.5, husk:1.9},
+
+    /* ---- HOW LONG EACH TILE ACTUALLY IS, IN METRES (Paolo 8/11, LOCKED) ----
+       "i would challenge you to make sure any bones or skulls are always the
+        same size as our humans ... anything thats human decay please make the
+        art with a person next to it so u get the real scale and size"
+
+       He was right and one number for 62 different things was the bug. The
+       scale above is a single DRAW HEIGHT applied to every tile in the bank,
+       so the game drew a lone skull and a whole skeleton at the SAME 1.75 m.
+       Measured on the reference sheet (tools/bohemia_bone_scale_sheet.js,
+       slices/look/bone-scale.png): the man is 1.74 m, and it was wrong in BOTH
+       directions -- single skulls at 0.92-1.31 m (a skull is 0.20 m), while
+       fully articulated skeletons like #34 drew at 0.64 m, child-sized.
+
+       These are REAL ANATOMY, not taste: an adult skull is ~20 cm, a femur
+       ~45 cm, a ribcage ~35 cm, a laid-out adult ~1.7 m. That makes the table
+       MECHANISM (measurable fact), never CONTENTS -- nothing here judges his
+       art, it only states how big the thing it depicts is in the world.
+       The value is the LONG AXIS on screen; the other axis follows the tile's
+       own ratio, so a judged sprite is still never reshaped. */
+    metres:{
+      /* single skull */
+      44:0.20, 45:0.20, 46:0.20, 47:0.20, 48:0.20, 14:0.25, 10:0.30,
+      /* jaw, ribcage, single long bone */
+      53:0.22, 51:0.40, 49:0.45, 56:0.45, 16:0.45, 54:0.35, 55:0.40,
+      /* a few bones together / crossed */
+      50:0.55, 52:0.55, 58:0.60, 27:0.70, 28:0.60, 13:0.45, 17:0.40, 26:0.45,
+      /* skulls stacked, small clusters */
+      41:0.50, 42:0.50, 22:0.55, 24:0.55, 32:0.50, 64:0.55, 65:0.60,
+      59:0.60, 62:0.60, 43:0.80, 66:0.90,
+      /* a body's worth of remains, lying */
+      9:0.90, 63:0.90, 31:1.10, 20:1.20, 21:1.30, 60:1.20, 33:1.20, 15:1.20,
+      8:1.30, 11:1.30, 29:1.30, 23:1.40, 61:1.40, 12:1.50, 30:1.60,
+      /* a FULL articulated skeleton is a person, so it is person-length */
+      34:1.70, 35:1.70, 36:1.70, 37:1.70, 39:1.70, 40:1.70, 38:1.30,
+      /* heaped bone: legitimately bigger than one body */
+      57:1.10, 67:1.10, 68:1.10, 69:1.10, 70:1.10, 71:1.10, 72:1.20
+    },
+    /* anything the table has not ruled on falls back to a body's remains, which
+       is the safe middle: never a man-sized skull, never a doll-sized corpse. */
+    metresDefault:1.20,
+    /* NOTHING HUMAN OUT-MEASURES THE HUMAN. A heap may; a body part may not.
+       The gate holds this line so a future tile cannot quietly go giant. */
+    humanMetres:1.74
   };
+  /* THE LONG AXIS OF A TILE, IN METRES. One place, so the renderer and the gate
+     cannot disagree about how big a thing is (the 8/9 scatter bug was two
+     rulers for one measurement). */
+  function tileMetres(i){
+    var m=TILES.metres[i];
+    return (typeof m==='number' && m>0) ? m : TILES.metresDefault;
+  }
   function tileIndex(form,h){
     if(form==='skeleton'){ var n=TILES.skel.to-TILES.skel.from+1; return TILES.skel.from+(h%n); }
     var spans=TILES.husk, total=0, i;
@@ -5816,7 +5867,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   var API={VERSION:VERSION, place:place, inside:inside, stats:stats, exposureOf:exposureOf,
            ACT_DENSITY:ACT_DENSITY,
            storyFor:storyFor, STORY:STORY, DEFAULT_STORY:DEFAULT_STORY, TILES:TILES,
-           MATH:MATH, OPEN:OPEN, SEALED:SEALED, NONE:NONE,
+           MATH:MATH, OPEN:OPEN, SEALED:SEALED, NONE:NONE, tileMetres:tileMetres,
            preCrashModelPop:preCrashModelPop, modelDead:modelDead, visibleDead:visibleDead,
            avgWeight:function(){return AVG_WEIGHT;}, cellsPerSide:function(){return CELLS_PER_SIDE;},
            AVG_WEIGHT_MEASURED:AVG_WEIGHT_MEASURED};
@@ -14643,10 +14694,17 @@ const DEAD_IMG=(function(){
   const down={}; (BohemiaDead.TILES.down||[]).forEach(i=>{down[i]=1;});
   return bank.map((im,i)=>down[i]?null:im);
 })();
+/* WHICH SLOT THE POOL ACTUALLY LANDS ON. deadImg walks forward past Paolo's
+   DOWN tiles, so the index that gets DRAWN is not always the index asked for.
+   Size is now per-tile (BohemiaDead.tileMetres), so the caller has to be able
+   to ask the same question the image answered -- otherwise a skull could be
+   drawn at a skeleton's length again, which is the whole bug being fixed.
+   ONE RESOLVER, used by both. */
+function deadIdx(i){ const a=DEAD_IMG; if(!a||!a.length)return 0;
+  for(let k=0;k<a.length;k++){ const j=(i+k)%a.length; if(a[j]) return j; }
+  return 0; }
 function deadImg(i){ const a=DEAD_IMG; if(!a||!a.length)return null;
-  /* walk forward off a killed slot rather than modulo onto one */
-  for(let k=0;k<a.length;k++){ const im=a[(i+k)%a.length]; if(im) return im; }
-  return null; }
+  return a[deadIdx(i)]||null; }
 
 /* ==== THE DEAD, OUTDOORS (8/8, WORLD lane) ==================================
    Paolo 7/31 LOCKED: bleached scattered SKELETONS in the open, mummified HUSKS
@@ -14720,8 +14778,17 @@ function deadForCell(tx,ty){
   return e;
 }
 const DEAD_ROAD_FLAT=new Uint8Array(FN*FN);   // all zeros: all open roadway
-function deadTile(im,dx,dy,C,scale){
+function deadTile(im,dx,dy,C,idx,shrink){
   if(!im||!im.complete||!im.naturalWidth)return;
+  /* SIZE COMES OFF REAL ANATOMY NOW, PER TILE (Paolo 8/11, LOCKED).
+     "make sure any bones or skulls are always the same size as our humans."
+     One draw height used to serve all 62 judged tiles, so a lone skull and a
+     whole skeleton both came out 1.75 m long. Measured against the real baked
+     body (1.74 m) on slices/look/bone-scale.png it was wrong in BOTH
+     directions: skulls at 0.92-1.31 m, articulated skeletons at 0.64 m.
+     BohemiaDead.tileMetres(idx) is the single ruler; the LONG axis gets the
+     metres and the short axis follows the tile's own ratio, so a judged sprite
+     is still never reshaped. */
   /* A BODY IS PERSON-SIZED, AND IT KEEPS ITS OWN SHAPE.
      First cut drew these at 0.55 of a cell in a forced SQUARE and I looked at the
      screenshot: two pale specks on the asphalt. Two things were wrong and both
@@ -14735,7 +14802,11 @@ function deadTile(im,dx,dy,C,scale){
      ASPECT. These tiles are portrait (17x28, 16x28 -- a figure), and forcing
      them into a square squashed his art by a third. NEVER reshape a judged tile.
      Height carries the scale; width follows the tile's own ratio. */
-  const h=C*scale, w=h*(im.naturalWidth/im.naturalHeight);
+  const nw=im.naturalWidth, nh=im.naturalHeight;
+  const M=BohemiaDead.tileMetres(idx)*(shrink||1);
+  const long=M*(C/OM.CELL_M);
+  const w = nw>=nh ? long : long*(nw/nh);
+  const h = nw>=nh ? long*(nh/nw) : long;
   g.drawImage(im, Math.round(dx+(C-w)/2), Math.round(dy+(C-h)/2),
                   Math.max(1,Math.round(w)), Math.max(1,Math.round(h)));
 }
@@ -14754,7 +14825,7 @@ function deadDraw(ox,oy){
       if(d.interior)continue;                       // behind a wall: indoors draws it
       const fx=bx+d.x, fy=by+d.y;
       if(fx<fx0||fx>fx1||fy<fy0||fy>fy1)continue;
-      deadTile(deadImg(d.tile), ox+fx*C, oy+fy*C, C, d.scale);
+      deadTile(deadImg(d.tile), ox+fx*C, oy+fy*C, C, deadIdx(d.tile));
       /* SCATTER: canid dispersal runs along ONE line and stops. The trailing
          cells carry a smaller fragment of the same remains, not a second body.
          THE DIRECTION COMES OFF THE BODY (d.dir). It used to be re-derived here
@@ -14764,7 +14835,7 @@ function deadDraw(ox,oy){
       const dd=d.dir||[0,0];
       for(let k=1;k<=d.scatter;k++){
         deadTile(deadImg(d.tile+k*7),
-                 ox+(fx+dd[0]*k)*C, oy+(fy+dd[1]*k)*C, C, d.scale*0.62);
+                 ox+(fx+dd[0]*k)*C, oy+(fy+dd[1]*k)*C, C, deadIdx(d.tile+k*7), 0.62);
       }
     }
   }
@@ -16437,11 +16508,12 @@ function renderInside(){
         for(const d of inn){
           const sx=ox+d.x*C, sy=oy+d.y*C;
           if(sx<-C||sy<-C||sx>cv.width||sy>cv.height)continue;
-          const im=deadImg(d.tile);
-          if(im&&im.complete&&im.naturalWidth){
-            const w=C*d.scale;
-            g.drawImage(im, Math.round(sx+(C-w)/2), Math.round(sy+(C-w)/2), Math.round(w), Math.round(w));
-          }
+          /* ONE RULER INDOORS TOO (8/11). This drew its own square at C*d.scale --
+             both bugs the outdoor pass had already fixed, still living in here:
+             a FORCED SQUARE squashes a judged sprite, and a single scale makes a
+             skull the size of a man. A husk indoors is the same body it would be
+             outdoors, so it goes through the same function. */
+          deadTile(deadImg(d.tile), sx, sy, C, deadIdx(d.tile));
         }
       }
     }
