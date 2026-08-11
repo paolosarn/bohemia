@@ -237,7 +237,17 @@ const BOH_SFX = (function () {
     { ev: 'talk_start', label: 'SOMEBODY TURNS TO YOU', why: 'the moment a conversation starts. small: a person is not an event' },
     { ev: 'go_inside',  label: 'YOU STEP INSIDE',    why: 'crossing into a building. the ROOM is the sound, not the door' },
     { ev: 'quest_done', label: 'IT IS DONE',         why: 'the run completed. the one moment that earns the whole room' },
-    { ev: 'time_pass',  label: 'HOURS GO BY',        why: 'time spent standing still. the only sound here that moves in pitch' }
+    { ev: 'time_pass',  label: 'HOURS GO BY',        why: 'time spent standing still. the only sound here that moves in pitch' },
+    /* ---- DOORS, FRESH COOK (8/9/26) -----------------------------------
+       He killed all ten metal/wood doors on 7/30 and named DOORS in the minimum
+       demo sound set on 8/9. GRAVEYARD IS FINAL binds me, not him -- and the
+       7/30 post-mortem already wrote the brief for the replacement: ash and
+       stone won 25 UP / 0 DOWN while metal and wood lost, and the survivors
+       were brighter, shorter, harder-driven. NEW IDS so the dead ten stay dead
+       and stay findable. */
+    { ev: 'door_drag',  label: 'THE DOOR DRAGS OPEN', why: 'thirty years of sand in the sill. it hauls, it does not creak' },
+    { ev: 'door_clack', label: 'THE DOOR STOPS DEAD', why: 'latch and frame at the same instant. the sound that CUTS and STOPS' }
+    /* ---- end fresh doors events ---- */
     /* ---- end batch 02 events ---- */
   ];
 
@@ -579,7 +589,35 @@ const BOH_SFX = (function () {
               space: [0.3, 0.55], room: [0.5, 1], dark: [1700, 3400],
               warble: [1.1, 2.4], atk: [0.0625, 0.1875] }
     }
-    /* ---- end batch 02 recipes ---- */
+    /* ---- end batch 02 recipes ---- */,
+    /* ---- FRESH DOOR RECIPES (8/9/26) ----
+       ASH and STONE only. Metal and wood are a documented dead end here, not an
+       untried idea, and the numbers behind that are in the graveyard. Both are
+       cooked BRIGHTER, SHORTER and HARDER-DRIVEN than the ten that died, per
+       the same post-mortem. */
+    door_drag: {
+      base: { mat: 'ash', hz: 174, modes: 5, bright: 1.15, decay: 0.1875, damp: 2.5,
+              warble: 0.45, atk: 0, slide: -2, trans: 0.88, transHz: 3600,
+              transQ: 1.8, grit: 0.92, gritHz: 2600, space: 0.14, room: 0.1875,
+              refl: 1, dark: 2900, width: 0.5, drive: 0.62, mkup: 1.05, gain: 0.34,
+              hits: [0, 0.0625, 0.125] },
+      jit:  { hz: [138, 232], bright: [0.95, 1.35], decay: [0.125, 0.25],
+              transHz: [2800, 5200], grit: [0.82, 0.98], gritHz: [1900, 3600],
+              drive: [0.5, 0.78], dark: [2200, 3800], damp: [2.1, 2.9],
+              width: [0.4, 0.62] },
+      hitSets: [[0, 0.0625, 0.125], [0, 0.0625], [0, 0.0625, 0.125, 0.1875],
+                [0, 0.125], [0, 0.0625, 0.125]]
+    },
+    door_clack: {
+      base: { mat: 'stone', hz: 232, modes: 4, bright: 1.3, decay: 0.0625, damp: 2.8,
+              warble: 0.3, atk: 0, slide: -6, trans: 0.98, transHz: 5200,
+              transQ: 2.2, grit: 0.55, gritHz: 3400, space: 0.1, room: 0.125,
+              refl: 1, dark: 3200, width: 0.42, drive: 0.75, mkup: 1.12, gain: 0.4 },
+      jit:  { hz: [186, 296], bright: [1.1, 1.55], decay: [0.0625, 0.125],
+              transHz: [4200, 7000], grit: [0.42, 0.7], drive: [0.62, 0.9],
+              dark: [2600, 4200], slide: [-9, -3], damp: [2.4, 3.2] }
+    }
+    /* ---- end fresh door recipes ---- */
   };
 
   /* ---- THE GENERATOR --------------------------------------------------- */

@@ -313,6 +313,17 @@ GATES = [
      "thumbed UP on 7/30, nothing he killed, no door (he killed all ten), and "
      "WALKING IN THE REAL RUN actually requests one of his approved footsteps, "
      "chosen by the tile the game already knows", True),
+    ('SQUIGGLE VOICE', ['python3', 'gates/voice_gate.py'],
+     "Paolo's demo top priority: Animal-Crossing-lineage gibberish speech with "
+     "ZERO audio files, so it is FORMANT synthesis (Peterson & Barney vowels) and "
+     "the character knob is the vocal tract, not pitch. Seeded so a person sounds "
+     "like themselves forever; voiced and unvoiced alternate or it is a tune, not "
+     "speech; pitch declines across a statement and rises at a question", True),
+    ('FRESH DOORS',    ['python3', 'gates/doors_fresh_gate.py'],
+     "he killed all ten doors on 7/30 (metal 3-12, wood 0-5) and named DOORS in "
+     "the demo set on 8/9. GRAVEYARD IS FINAL binds Claude, not Paolo -- so the "
+     "replacement is a FRESH cook from ash and stone, brighter/shorter/harder "
+     "than every door that died, new ids, and nothing banked until he thumbs", True),
     ('TIME PASS',      ['python3', 'gates/time_pass_gate.py'],
      "Paolo 8/7 on his own verdict export: \"For hours go by have it the amount of "
      "time that goes by\". NOTES ARE RULINGS, so the count IS the spec: four hours "

@@ -1551,6 +1551,68 @@ GATE: gates/game_day_gate.js, 12 claims, mutation-tested. A RATCHET, NOT A DEMAN
 closing the links is the RUN lane's charter and blocked on Paolo's rulings, so forcing it
 would be A GATE OUTRANKING A RULING. But WAKING AND WALKING ARE THE ENTIRE GAME RIGHT NOW
 and must never break quietly.
+SOUND (sound-xk7pjp): 8/9 (c) LATEST - *** SQUIGGLE VOICES ARE BUILT AND JUDGEABLE,
+AND THE DOOR IS BACK FROM THE DEAD, COOKED FROM THE MATERIALS THAT BEAT IT. ***
+TO JUDGE: MUSIC tab -> SQUIGGLE VOICES (8), then the shuffle round (10 fresh doors).
+BLOCKERS REPORT: records/BOHEMIA_SOUND_DEMO_BLOCKERS_8_9_26.md
+
+=== SQUIGGLE VOICES (demo row 13, his top priority) ===
+engine/bohemia_voice.js + tools/bohemia_voice_patch.py + gates/voice_gate.py.
+NOT ANIMALESE'S METHOD, AND IT COULD NOT BE. Animalese is a SAMPLE PLAYER:
+Nintendo recorded a human saying every letter, then re-times and pitch-shifts
+those clips, which is how a few files become hundreds of villagers. The demo
+ruling says ZERO audio files, so samples are unavailable and the perceptual
+object has to be made from nothing.
+=> FORMANT SYNTHESIS. A vowel is not a waveform, it is two or three resonant
+peaks; bandpass a buzzy source at F1/F2/F3 and the ear hears a vowel with no
+recording anywhere. Frequencies are Peterson & Barney (1952), the standard
+reference set (76 speakers, ten monophthongs, /h_d/ context).
+=> THE CHARACTER KNOB IS THE VOCAL TRACT, NOT PITCH. Formants are resonances of
+a tube: male ~17cm, female ~14.5cm, so female/child formants run 10-20% above
+male ones for the SAME vowel with F1/F2 preserved. Pitch alone (Animalese's
+knob) only makes a chipmunk; tract scale makes a different PERSON.
+=> THREE THINGS MAKE IT READ AS TALKING, none optional: voiced/unvoiced
+ALTERNATION (unvoiced consonants are filtered noise with no pitch -- pitch every
+letter and you get a TUNE, the classic failure), DECLINATION (pitch falls across
+a statement, rises at a question), and consonants SHORTER than vowels.
+=> SEEDED off (character, line, letter) and never Math.random, so a person sounds
+like themselves forever and the player can learn to recognise them.
+MUTATION CAUGHT MY OWN GATE TWICE, both worth carrying:
+  1. it filtered oscillators on frequency.value and found ZERO voiced blips in a
+     line of 60 -- the engine pitches with setValueAtTime, which does not move
+     .value until the scheduled moment. Capturing the SCHEDULED value also
+     separates carrier from vibrato LFO for free.
+  2. it counted every createBufferSource as "unvoiced" -- but the BREATH on a
+     voiced blip is a buffer source too, so a build with every consonant pitched
+     (a tune, the exact failure) still passed. A checker that cannot tell a
+     breath from a hiss is the broken one. Now: unvoiced = spoken - carriers,
+     exact, and the mutation goes red.
+28/28. Nothing is assigned to any character -- that is his ruling, not mine.
+
+=== THE DOOR, FRESH (his 8/9 minimum demo set) ===
+He killed all ten doors 7/30 and named DOORS demo-critical 8/9. GRAVEYARD IS
+FINAL BINDS CLAUDE, NOT PAOLO (precedent: the health-bar face, 8/3) -- and it
+must not be a REMAKE. The 7/30 post-mortem had already written the brief before
+anyone knew he would ask: metal 3 UP/12 DOWN and wood 0 UP/5 DOWN while ash +
+stone + bell went 25 UP/0 DOWN, and survivors were BRIGHTER, SHORTER,
+HARDER-DRIVEN -- "sounds that CUT and STOP".
+  door_drag   ash    the swollen door hauled over thirty years of sand, articulated
+  door_clack  stone  latch and frame at one instant. it cuts and it stops
+NEW IDS on purpose: re-cooking under door_open.N would put a new sound behind a
+registered dead id and corrupt the registry the whole no-remake law rests on.
+Gate asserts the brief as NUMBERS (min bright 0.98 vs their max 0.85, max decay
+0.25 vs their min 0.50, min drive 0.55 vs their max 0.35), that the dead ids
+STILL cook metal and wood, and that nothing is banked. 17/17.
+
+=== THE MINIMUM DEMO SOUND SET IS 4/5 LIVE ===
+footsteps by ground LIVE / hit+kill on beat LIVE (combat already places them on
+the beat; re-quantising would push them OFF it) / UI tap LIVE / save chime LIVE /
+doors COOKED, waiting on his ear.
+
+GATES: sfx_wired 360/360, voice 28/28 (new), doors_fresh 17/17 (new),
+time_pass 31/31, sfx_shuffle 25/25, citymus_rotation 22/22, shipped_truth 25/25,
+music 17/17, music_reach 13/13, alpha_loads 20/20. Stamp 8/9f (past CITY's 8/9e).
+
 SOUND (sound-xk7pjp): 8/9 (b) LATEST - *** SLEEPING THE NIGHT ALREADY STRIKES EIGHT
 TIMES, PROVED THROUGH THE REAL BUTTON. AND HIS 8/7 TIME COSTS DO NOT REACH THE GAME:
 THE RUN STILL PRICES EAT AT NOTHING AND SLEEP AT A FLAT 8. ***
