@@ -161,7 +161,7 @@ ok('V67 A PINNED MAN THREATENS NOBODY: every threat filter in the demo (exposure
        rebuild G.pillars from empty, which is more of what this was asking for. */
     demo.includes('G.pillars=[];') &&
     demo.includes("G.arenaKind='street';") &&   /* V110 RE-POINTED: one kind now, see the warehouse rejection below */
-    demo.includes('const NP=2+Math.floor(Math.random()*14);') &&
+    demo.includes('const NP=6+Math.floor(Math.random()*30);') &&
     demo.includes('function buildWarehouse(){'));
   ok('my cover is geometry-aware (pillar on the shooter line, distance-honest)',
     demo.includes('function myCoverAgainst(ang,dist,lvl)') &&
@@ -240,8 +240,10 @@ ok('STREET FLOOR: world-anchored tile board with median + lane markings (V94: th
     demo.includes('BOARD BODY V11') && demo.includes('function drawArmNeedle(') &&
     !demo.includes('drawPose(ctx,cx,cy,ga,S,0.005*i,true)') &&
     !demo.includes('drawPose(ctx,pcx,pcy,ang,S,1,false)'));
-  ok('the arm lives at board scale (reads the aim zoom)',
-    demo.includes("Math.min(W,H)*0.085*(G._zb||2)*1.05"));
+  ok('the arm lives at board scale (reads the aim zoom). V138: the scale is ONE dial (FIELD_PITCH) instead of five scattered copies of 0.085 that could drift apart',
+    demo.includes("Math.min(W,H)*FIELD_PITCH*(G._zb||2)*1.05") &&
+    /const FIELD_PITCH=[0-9.]+;/.test(demo) &&
+    !/Math\.min\(W,H\)\*0\.085/.test(demo));
   ok('AIM CAM PIN: no stale killshot offsets, scene biased toward the target',
     demo.includes('AIM CAM PIN V12'));
   ok('floor bounds expand for zoom-out shots (no floating board)',
@@ -541,7 +543,7 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes('let sniperIdx=-1; if(N>=4)') &&
     demo.includes("while(sniperIdx===closeIdx&&sp++<20)") &&
     demo.includes("if(i===sniperIdx)arch='sniper';") &&
-    demo.includes('(i===sniperIdx) ? (PT_BLANK+9.5)+Math.random()*3'));
+    /\(i===sniperIdx\) \? 30\+Math\.random\(\)\*10/.test(demo));   /* V138: 13.5-16.5 -> 30-40 tiles. Still always the farthest, still never the close guy, and now genuinely outside everything you own */
   // v40: streak momentum joins the real JUICE verdict menu, AU's dead toggle retired
   ok('V40 STREAK MOMENTUM IS A REAL JUICE TOGGLE: gated by JUICE.AW in the same slot the visible band formula reads, so on/off never lies',
     demo.includes('V40 JUICE MENU') &&
@@ -2275,10 +2277,29 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
      swing; it is now the BASE the difficulty divides the miss out of, so the
      literal one-line form this pinned no longer exists. The number it was
      actually guarding is asserted below, unchanged. */
-  ok('AUDIT PINNED: the enemy accuracy BASE curve is 0.97 - distT*0.60, i.e. 0.97 at point blank down to 0.37 at long range, a 2.6x swing',
-    demo.includes('const base=0.97 - distT(e)*0.60;'));
-  ok('AUDIT PINNED: the distance bands are PT_BLANK=4 / FAR_TILE=26 / MAX_RANGE=42, which is what makes that curve mean anything on the board',
-    demo.includes('const PT_BLANK=4, FAR_TILE=26, MAX_RANGE=42;'));
+  ok('AUDIT PINNED: the enemy accuracy BASE curve is unchanged in SHAPE -- 0.97 at point blank down to 0.37 at long range, a 2.6x swing -- but V138 reads it off distTFrom, HIS gun, because one curve was serving both my shot at him and his shot at me',
+    demo.includes('const base=0.97 - distTFrom(e)*0.60;'));
+  ok('V138 AND PAST HIS MAX IT IS ZERO, NOT A PENALTY: an accuracy taper that never reaches zero is just a worse hit chance, and a worse hit chance has never made anybody walk anywhere. The hard wall is the entire feature',
+    /if\(!inHisRange\(e\)\)return 0;/.test(demo) &&
+    demo.includes('function inMyRange(e){') && demo.includes('function inHisRange(e){'));
+  ok('AUDIT PINNED: the distance bands are PT_BLANK=4 / FAR_TILE=26 / MAX_RANGE=64. V138 raised the ceiling from 42 because a sniper now really does sit out at 30-40 tiles, where 42 was a number nothing ever reached',
+    demo.includes('const PT_BLANK=4, FAR_TILE=26, MAX_RANGE=64;'));
+  ok('V138 EVERY GUN HAS A RANGE, WHICH IS THE TABLE THAT NEVER EXISTED: WEAPON_LETHAL, WEAPON_CAP, WEAPON_WIDTH and WEAPON_ID all shipped long ago and range did not, so a pistol and a rifle were the same gun with different dial widths',
+    /const WEAPON_RANGE=\{/.test(demo) &&
+    /shotgun:\{eff:5,  max:14\}/.test(demo) && /pistol :\{eff:6,  max:16\}/.test(demo) &&
+    /smg    :\{eff:10, max:26\}/.test(demo) && /rifle  :\{eff:20, max:44\}/.test(demo) &&
+    /const SNIPER_RANGE=\{eff:30,max:64\};/.test(demo));
+  ok('V138 THE ORDER IS THE RESEARCH AND IT NEVER INVERTS: shotgun < pistol < SMG < rifle < sniper, on both numbers, because that ordering is the one thing about real gun ranges that survives being squeezed onto a board',
+    (function(){ const m=demo.match(/const WEAPON_RANGE=\{[\s\S]*?\n\};/); if(!m)return false;
+      const g=[...m[0].matchAll(/(\w+)\s*:\{eff:(\d+),\s*max:(\d+)\}/g)].map(x=>[x[1],+x[2],+x[3]]);
+      const order=['shotgun','pistol','smg','rifle'];
+      if(g.length!==4||g.some((x,i)=>x[0]!==order[i]))return false;
+      for(let i=1;i<4;i++)if(g[i][1]<=g[i-1][1]||g[i][2]<=g[i-1][2])return false;
+      return g[3][1]<30 && g[3][2]<64; })());
+  ok('V138 WHO IS CARRYING WHAT: a GOON has a pistol (walk him down), a SEC-BOT has a rifle (he outranges you), and the sniper is the reason the board is this big',
+    /const ARCH_WEAPON=\{human:'pistol',bot:'rifle',sniper:'sniper'\};/.test(demo));
+  ok('V138 THE SPAWN BAND OPENS: it was 6.5-14.5 tiles, which at 1.5m a tile is a fight inside 10-22 METRES -- a parking space with people in it, and it made every weapon range moot because everything spawned inside every gun\'s reach',
+    /e\.edist = \(i===sniperIdx\)/.test(demo) && /: 6\+Math\.random\(\)\*20;/.test(demo));
   ok('AUDIT PINNED: cover is a BINARY predicate and incoming fire FILTERS on it -- an enemy you have cover against is removed from the volley entirely, 0% or 100%, never a modifier',
     demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
     demo.includes('!myCoverAgainst(e.ea,e.edist,e.lvl)'));   /* V90: still a FILTER, now level-aware. The audit's "0% or 100%" finding is unchanged -- a floor simply turns the whole predicate off. */
@@ -2408,9 +2429,14 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
   const gen = (i > 0 && j > i) ? demo.slice(i, j) : '';
   ok('V89: the pillar generator carries the vocabulary as one readable block', gen.length > 0);
 
-  ok('DENSITY IS A REAL RANGE NOW: 2-15 pieces, not 5-7. A five-to-seven swing is a rounding error the eye cannot see, which is exactly what he could not see',
-    gen.includes('const NP=2+Math.floor(Math.random()*14);') &&
-    !demo.includes('const NP=5+Math.floor(Math.random()*3);'));
+  ok('DENSITY IS A REAL RANGE, AND V138 SCALED IT WITH THE BOARD: 6-35 pieces, not 2-15 and never the original 5-7. A five-to-seven swing is a rounding error the eye cannot see, which is exactly what he could not see',
+    gen.includes('const NP=6+Math.floor(Math.random()*30);') &&
+    !demo.includes('const NP=5+Math.floor(Math.random()*3);') &&
+    !demo.includes('const NP=2+Math.floor(Math.random()*14);'));
+  ok('V138 A BIGGER BOARD WITH THE SAME COVER IS NOT A BIGGER FIGHT, it is the same fight with empty sand around it -- the WALKABLE-LAND failure in a different costume. Cover scattered 2.2-9.7 tiles and was HARD CAPPED at 11, so on a 26-tile spawn band the outer two thirds would have been bare desert. Count AND radius both scale, so density per square tile stays where the generator already had it',
+    gen.includes('d0=2.2+Math.random()*22;') &&
+    gen.includes('if(Math.hypot(nx2,ny2)>28)continue;') &&
+    !gen.includes('d0=2.2+Math.random()*7.5;'));
   ok('COVER HAS A SIZE: r was 0.55 for EVERY piece ever placed. Now 0.45-1.15, so some is a crate you duck behind and some is a block you go around',
     gen.includes('const r=Math.max(0.45,Math.min(1.15,bulk+(Math.random()-0.5)*0.30));') &&
     !demo.includes('edist:Math.hypot(nx2,ny2),r:0.55,tall:'));
@@ -2430,7 +2456,7 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
 
   ok('THE PLACEMENT STILL LANDS ON TILES and still refuses to build on top of the player or off the far edge, so a denser arena can never wall him in at spawn',
     gen.includes('if(Math.hypot(nx2,ny2)<1.5)continue;') &&
-    gen.includes('if(Math.hypot(nx2,ny2)>11)continue;') &&
+    gen.includes('if(Math.hypot(nx2,ny2)>28)continue;') &&
     gen.includes('return Math.abs(q[0]-nx2)<0.9&&Math.abs(q[1]-ny2)<0.9;'));
   ok('and the retry budget grew with the density so a 15-piece arena cannot quietly come out half-built',
     gen.includes('pg++<240'));
@@ -2814,7 +2840,11 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
     demo.includes('V98 THE DARK SHRINKS THE RANGE') &&
     demo.includes('const NIGHT_RANGE={morning:1.00,dusk:0.72,night:0.50};') &&
     demo.includes('function farTile(){ return Math.max(PT_BLANK+2, FAR_TILE*rangeMult()); }') &&
-    /function distT\(e\)\{[\s\S]{0,140}farTile\(\)/.test(demo));
+    /function rangeT\(d,R\)\{[\s\S]{0,120}rangeMult\(\)/.test(demo));
+  ok('V98 GOT STRONGER, NOT WEAKER, WHEN GUNS GAINED RANGES: it used to run through ONE shared far end because there was only ever one range in the game. Now the SAME NIGHT_RANGE number scales every weapon individually -- a shotgun\'s reach shortens after dark too, which a single shared far end could never express. And the MAX shrinks with it, so lit really does mean hittable from across the lot and dark really does mean they have to come to you',
+    /const F=Math\.max\(PT_BLANK\+2,R\.eff\*1\.6\*rangeMult\(\)\);/.test(demo) &&
+    /function maxRange\(R\)\{ return Math\.max\(PT_BLANK\+2, R\.max\*rangeMult\(\)\); \}/.test(demo) &&
+    /inMyRange\(e\)\{ return !!e && \(e\.edist\|\|0\) <= maxRange\(myRange\(\)\); \}/.test(demo));
 
   ok('V98 AND POINT BLANK IS EXACTLY UNTOUCHED AT NIGHT, not approximately: distT subtracts PT_BLANK before dividing, so it is 0 for any d <= PT_BLANK whatever the far end is. His 7/27 point-blank ruling gets LOUDER after dark rather than taxed flat',
     demo.includes('return Math.min(1,Math.max(0,(d-PT_BLANK)/(F-PT_BLANK))); }') &&
@@ -2822,7 +2852,7 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
 
   ok('V98 IT MOVES BOTH SIDES OFF ONE NUMBER: my dial (distPkg), their hit chance (distAccuracy) and the range words+colour all read distT, so there is no second accuracy system to keep in step',
     demo.includes('function distPkg(e){ return Math.round(distT(e)*(G.userPkg||0)); }') &&
-    demo.includes('const base=0.97 - distT(e)*0.60;') &&   /* MIGRATED BY V121: still one number, distT; the difficulty divides the miss out of it */
+    demo.includes('const base=0.97 - distTFrom(e)*0.60;') &&   /* MIGRATED BY V121: the difficulty divides the miss out of it. MIGRATED AGAIN BY V138: still ONE curve and one shape, but read off HIS gun instead of a global one, because a pistol and a rifle were never the same range */
     demo.includes('function rangeTier(e){ const t=distT(e);'));
 
   ok('V98 AND THE READ SAYS WHY: a man who reads LONG RANGE at night when he read MID RANGE at noon is explained, not mysterious',
@@ -3979,9 +4009,21 @@ ok('V136 AN ANGLE IS THE BIG PRIZE, AND IT IS WHY HIS TILE DECAYS: a shooter the
   /if\(!coverAtXY\(x,y,e\.lvl\)\)s\+=(3\.0|G\.hold\?HOLD_ANGLE:3\.0);/.test(demo) &&
   demo.includes('function coverAtXY(x,y,lvl){'));
 
-ok('V136 IT ASKS THE GAME\'S OWN FUNCTIONS AND NEVER RESTATES THEM: the scorer calls distT for range and myCoverAgainst for cover -- the same two the volley uses -- so a shooter can never disagree with the volley about who is covered from whom or how far is far',
-  /s\+=2\.2\*\(distT\(\{edist:e\.edist\}\)-distT\(\{edist:d\}\)\)/.test(demo) &&
+ok('V136 IT ASKS THE GAME\'S OWN FUNCTIONS AND NEVER RESTATES THEM: the scorer calls the game\'s own range and cover functions -- the same ones the volley uses -- so a shooter can never disagree with the volley about who is covered from whom or how far is far',
+  /const R=foeRange\(e\), mx=Math\.max\(1,maxRange\(R\)\);/.test(demo) &&
   /return myCoverAgainst\(Math\.atan2\(y,x\),d,lvl\)/.test(demo));
+
+/* V138 CAUGHT ITS OWN TRAP, AND THE MEASUREMENT IS WHY. V136's closing term was
+   2.2*(distT(now)-distT(there)), and distT is MY weapon -- so once guns had
+   ranges, every enemy on the board was deciding whether to walk by consulting
+   the range of the gun in the PLAYER'S hands. With a pistol that curve
+   saturates near 9.6 tiles, so out on a 16-tile board the gradient was FLAT:
+   movers/turn fell 1.93 -> 0.42 and they closed 0.61 tiles in six turns. The
+   board got bigger and the fight got emptier. Gated so it cannot come back. */
+ok('V138 THE PRESS READS **HIS** GUN, NEVER MINE: a man wants to be inside HIS OWN effective range, and past his own max he is holding a brick -- the worst tile on the board to stand on. Both terms are monotonic at every distance, so there is no flat stretch to stall in (the V137 cliff lesson, applied before it could bite twice)',
+  /s-=2\.2\*Math\.max\(0,d-R\.eff\)\/mx;/.test(demo) &&
+  /if\(d>mx\)s-=2\.5;/.test(demo) &&
+  !/s\+=2\.2\*\(distT\(\{edist:e\.edist\}\)-distT\(\{edist:d\}\)\)/.test(demo));
 
 ok('V136 FIRE AND MOVEMENT, NOT A CAVALRY CHARGE: at most half the line bounds in a turn and the men with the most to gain go first, while the rest hold their angle and shoot. A board that slides all at once is noise, not pressure',
   /const PRESS_FRAC=0\.5;/.test(demo) &&
