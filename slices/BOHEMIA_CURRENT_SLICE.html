@@ -12644,9 +12644,13 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   var MEDIAN = 2;      // 0..2   raised median island
   var PAVE = 44;       // 3..44  6 travel lanes + turn lanes + parking + shoulder
   var CURB = 46;       // 45..46 curb + gutter
-  var AMEN = 49;       // 47..49 amenity strip (streetlights live here)
-  var WALK = 55;       // 50..55 DETACHED sidewalk, and a generous one
-  var SET = 63;        // 56..63 a NARROW margin of decomposed granite out to the cell edge
+  var AMEN = 52;       // 47..52 amenity strip (streetlights live here)
+  // SIDE A LITTLE, THEN STREET (Paolo 8/11, his words exactly): "THE STREET WILL TAKE UP
+  // THE full fucking square not just most of it... side a little then street!" The walk
+  // runs to the cell boundary and there is no margin behind it at all -- the neighbouring
+  // district's own edge is what starts on the other side of the line.
+  var WALK = 63;       // 53..63 DETACHED sidewalk, out to the cell edge
+  var SET = 63;        // no margin: the street owns the cell
   // AND NO BLOCK WALL. A street is public ground all the way to the boundary, so the
   // neighbouring district's own edge starts exactly where this cell stops.
 
