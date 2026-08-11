@@ -113,8 +113,63 @@ ok('NOTHING WAS SHRUNK TO FIT: the biggest hero still fills the square (' +
 ok('no vehicles are drawn on an icon (Paolo 8/2 and again 8/11), by one reversible switch',
    /SHOW_VEHICLES = False/.test(SRC0));
 
+// ---- STREETS FILL THE WHOLE BOX (Paolo 8/11, LOCKED) --------------------------------
+//   "the streets should FILL THE WHOLE FUCKING BOX ABSOLUTELY... THE STREETS DONT HAVE
+//    WALLS, THE FREEWAYS CAN HAVE WALLS, AND STREETS CROSSING AND STREETS NO CROSSING
+//    ARE DIFFERENT. Intersections should be smartly made with the lights."
+// A street cell is not a lot with a road on it -- it IS the road, kerb to kerb to kerb.
+// The old icons drew a narrow band on a desert pad, so a street read as asphalt lying in
+// the dirt with four bare tan corners, and fenced it with block walls down both sides.
+const ROADS = ['arterial', 'freeway'];
+const probe2 = `
+import json,base64,io
+from PIL import Image
+b=json.load(open('${BANK}'))
+out={}
+for h in b['heroes']:
+    if h['district'] not in ${JSON.stringify(ROADS)} or not h.get('b64'): continue
+    a=Image.open(io.BytesIO(base64.b64decode(h['b64']))).convert('RGBA').getchannel('A')
+    d=list(a.getdata())
+    out[h['district']]=sum(1 for p in d if p>200)/float(len(d))
+print(json.dumps(out))
+`;
+let cov = {};
+try { cov = JSON.parse(execFileSync('python3', ['-c', probe2], { maxBuffer: 1 << 28 }).toString()); }
+catch (e) { ok('the road icons decode', false); }
+for (const r of ROADS) {
+  ok('the ' + r + ' fills the whole box (' + Math.round((cov[r] || 0) * 1000) / 10 + '% paved)',
+     (cov[r] || 0) >= 0.985);
+}
+ok('a street cell is paved PAST the frame, which is the only way an iso cell has no bare corners',
+   /ROAD_OVERSIZE/.test(SRC0) && /_street_bed/.test(SRC0));
+ok('and a bleeding cell is excluded from the square VOTE, so it cannot drag the set out ' +
+   'with it (it did: 468 -> 776)', /bleed/.test(SRC0) && /776/.test(SRC0));
+ok('a street is CENTRED, not seated on the building baseline -- a street IS the ground',
+   /A STREET HAS NO GROUND LINE/.test(SRC0));
+// THE STREETS DON'T HAVE WALLS. THE FREEWAYS CAN.
+// A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE (8/1, learned here
+// again): the first version of these two failed because the freeway's OWN COMMENT says
+// "no crosswalks, no signals". Match the CODE; read prose only where prose is the point.
+const cut = (name) => (SRC0.split('def build_' + name)[1] || '').split('\ndef ')[0];
+const codeOnly = (t) => t.replace(/"""[\s\S]*?"""/g, '')
+                         .split('\n').filter(l => !/^\s*#/.test(l)).join('\n');
+const arterialSrc = cut('arterial');
+const freewaySrc = cut('freeway');
+const arterialCode = codeOnly(arterialSrc);
+const freewayCode = codeOnly(freewaySrc);
+ok('the ARTERIAL has no wall on it (Paolo 8/11: the streets dont have walls)',
+   !/WALL/.test(arterialCode));
+ok('the FREEWAY keeps its sound walls (Paolo 8/11: the freeways can have walls)',
+   /SOUND WALLS/.test(freewaySrc));
+ok('the INTERSECTION is the one with the signals, and the freeway draws none',
+   /MAST/.test(arterialCode) && !/MAST/.test(freewayCode));
+ok('and the crossing legs say it IS an intersection: the arterial draws crosswalk\n' +
+   '     ladders, the freeway draws none',
+   /crosswalk/i.test(arterialCode) && !/crosswalk/i.test(freewayCode));
+
 // 4. one ground line
-const bases = px.map(p => p.bb[3]);
+// buildings only -- a bleeding street is centred on purpose and has no baseline to share
+const bases = px.filter(p => ROADS.indexOf(p.d) < 0).map(p => p.bb[3]);
 const spread = Math.max(...bases) - Math.min(...bases);
 ok('they all stand on the SAME ground line (spread ' + spread + 'px)', spread <= 12);
 

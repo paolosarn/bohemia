@@ -453,7 +453,7 @@ _Flood channel — matched, on the LAS VEGAS WASH: a lined TRAPEZOIDAL CHANNEL c
 - staff gauge — the graduated mast on the wall, the only flood warning anybody down there gets (code 2)
 - dead brush — tumbleweed caught on the banks (code 3 "dead brush / tumbleweed")
 
-## FREEWAY  (468x468, anchor 234,290)
+## FREEWAY  (468x468, anchor 234,234)
 _Freeway — matched: the ELEVATED DECK on its columns crossing the lanes, a SIGN GANTRY over them with its panels blank, sound walls the length of both embankments, the median barrier and a dead semi in the slow lane. The deck and the gantry are SPANS, not canopies (8/2) — infrastructure carrying something across a gap._
 
 - travel lanes — the roadbed with its lane lines (code 1 "travel lane", code 2 "white lane line")
@@ -464,7 +464,7 @@ _Freeway — matched: the ELEVATED DECK on its columns crossing the lanes, a SIG
 - dead semi — in the slow lane (code 11 "dead semi")
 - dead cars — where they stopped (code 10 "dead car")
 
-## ARTERIAL  (468x468, anchor 234,280)
+## ARTERIAL  (468x468, anchor 234,234)
 _Arterial — matched: the INTERSECTION, with SIGNAL MASTS reaching their long arms out over the lanes and the heads hanging off them, crosswalk ladders on all four legs, the raised MEDIAN with its dead palms, sidewalk and block wall behind, and streetlights. The mast arm is the vertical; everything else is flat by nature._
 
 - roadway — six lanes plus the cross street (code 1 "asphalt roadway")

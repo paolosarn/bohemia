@@ -102,8 +102,18 @@ for h in bank['heroes']:
 ok('every district icon produced a silhouette (%d)' % len(sil), len(sil) > 0)
 
 # ---- 1. IS THERE A SHAPE AT ALL? -------------------------------------------
+# A STREET *IS* A FILLED BOX, AND THAT IS THE RULING (Paolo 8/11): "the streets should
+# FILL THE WHOLE FUCKING BOX ABSOLUTELY." A road cell is not a landmark standing on
+# ground, it is the ground -- paved kerb to kerb to kerb, running off all four edges so
+# tiles butt together. Failing it for having no silhouette is this gate telling him his
+# own ruling is a defect, which A GATE MUST NEVER OUTRANK A RULING (8/1) forbids outright.
+# They are still held to the twin test below, where they separate on what is PAINTED on
+# them -- an intersection with signals and crosswalk ladders against a walled freeway run.
+FULL_BLEED = {'arterial', 'freeway'}
 blobs = []
 for d, s in sorted(sil.items()):
+    if d in FULL_BLEED:
+        continue
     ink = sum(s) / float(CELLS)
     if ink < MIN_INK or ink > MAX_INK:
         blobs.append('%s %.0f%%' % (d, ink * 100))

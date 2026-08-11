@@ -123,6 +123,14 @@ def _fit(scene, scale, margin=14):
     # centred left-to-right on the content, and SITTING on a shared ground line
     ox = (side - (maxx - minx)) * 0.5 - minx
     oy = side - margin - maxy
+    # A STREET HAS NO GROUND LINE, IT *IS* THE GROUND (Paolo 8/11: the streets fill the
+    # whole box). Seating a bleeding road cell on the shared baseline puts its far kerb
+    # inside the frame and leaves the bottom quarter of the square empty -- measured, and
+    # it is the last bare corner. A bleeding scene is CENTRED instead, so pavement runs off
+    # all four edges. The shared baseline still governs every building, which is what it
+    # was for: making a tall thing read as taller than a short one.
+    if getattr(scene, 'bleed', False):
+        oy = (side - (maxy - miny)) * 0.5 - miny
     return side, side, (ox, oy)
 
 
@@ -2317,15 +2325,18 @@ def build_freeway(P):
     something across a gap, which is the distinction the no-canopies law draws itself."""
     LANE, LINE, BARRIER, SOUND, DECK, COL, GANTRY, SEMI, VEH = P[1], P[2], P[4], P[8], P[12], P[13], P[14], P[11], P[10]
     s = Scene()
-    _ground(s, (-3, -3, 15, 15), groundc=(104, 96, 80), lotc=(58, 58, 62))
-    s.box((-3.0, 1.0, 0.01), (17.0, 9.0, 0.09), {'c': LANE})                                   # the roadbed
-    for ly in (3.0, 4.9, 6.8):                                                                 # the lane lines
-        for k in range(11):
-            s.box((-2.6 + k * 1.55, ly, 0.11), (0.85, 0.14, 0.03), {'c': LINE})
-    s.box((-3.0, 5.4, 0.1), (17.0, 0.5, 0.85), {'top': _dark(BARRIER, 1.14), 'px': _dark(BARRIER, 1.0),
+    # PAVED CORNER TO CORNER, same as the arterial -- a freeway cell is roadbed, not a
+    # strip of tarmac lying in the dirt. THE DIFFERENCE HE NAMED: a freeway KEEPS its
+    # walls (a sound wall is what a freeway actually has) and it has NO CROSSING -- no
+    # crosswalks, no signals, nothing stops. The lanes run straight off both ends.
+    o = _street_bed(s, LANE, SOUND)
+    for ly in (3.0, 4.9, 6.8):                                                                 # the lane lines, running off both edges
+        for k in range(int((17.0 + 2 * o) / 1.55)):
+            s.box((-2.6 - o + k * 1.55, ly, 0.11), (0.85, 0.14, 0.03), {'c': LINE})
+    s.box((-3.0 - o, 5.4, 0.1), (17.0 + 2 * o, 0.5, 0.85), {'top': _dark(BARRIER, 1.14), 'px': _dark(BARRIER, 1.0),
           'py': _dark(BARRIER, 0.84), 'nx': _dark(BARRIER, 1.0), 'ny': _dark(BARRIER, 0.84)})  # median barrier
-    for (sy, ) in [(0.5, ), (10.2, )]:                                                         # THE SOUND WALLS
-        s.box((-3.0, sy, 0), (17.0, 0.45, 3.4), {'top': _dark(SOUND, 1.16), 'px': _dark(SOUND, 1.0),
+    for (sy, ) in [(0.5, ), (10.2, )]:                                                         # THE SOUND WALLS -- allowed here, and only here
+        s.box((-3.0 - o, sy, 0), (17.0 + 2 * o, 0.45, 3.4), {'top': _dark(SOUND, 1.16), 'px': _dark(SOUND, 1.0),
               'py': _dark(SOUND, 0.82), 'nx': _dark(SOUND, 1.0), 'ny': _dark(SOUND, 0.82)})
     # THE OVERPASS DECK on its columns -- a SPAN, crossing the lanes
     for cy in (2.2, 8.6):
@@ -2349,55 +2360,102 @@ def build_freeway(P):
                        (-1.0, 11.4), (3.4, 11.8), (7.8, 11.2), (12.2, 11.6)]:
         s.prism(bx3, by3, 0, 0.72, 0.85, 7, {'c': BRUSHC}, {'c': _dark(BRUSHC, 1.2)['c']})
     GUARD = P[5]
-    for k in range(9):
-        s.box((-2.6 + k * 1.9, 1.05, 0.1), (1.5, 0.16, 0.16), {'c': GUARD})
-        s.box((-2.6 + k * 1.9, 9.8, 0.1), (1.5, 0.16, 0.16), {'c': GUARD})
-        s.box((-2.2 + k * 1.9, 1.0, 0.28), (0.22, 0.1, 0.22), {'c': _dark(GUARD, 1.45)['c']})
-        s.box((-2.2 + k * 1.9, 9.9, 0.28), (0.22, 0.1, 0.22), {'c': _dark(GUARD, 1.45)['c']})
+    for k in range(int((17.0 + 2 * o) / 1.9)):
+        gx = -2.6 - o + k * 1.9
+        s.box((gx, 1.05, 0.1), (1.5, 0.16, 0.16), {'c': GUARD})
+        s.box((gx, 9.8, 0.1), (1.5, 0.16, 0.16), {'c': GUARD})
+        s.box((gx + 0.4, 1.0, 0.28), (0.22, 0.1, 0.22), {'c': _dark(GUARD, 1.45)['c']})
+        s.box((gx + 0.4, 9.9, 0.28), (0.22, 0.1, 0.22), {'c': _dark(GUARD, 1.45)['c']})
     _vehicle(s, 0.4, 3.3, TRAILER, SEMI, along='x')
     _vehicle(s, 8.6, 7.2, CAR, VEH, along='x')
     _vehicle(s, 2.6, 8.2, CAR, _dark(VEH, 0.84)['c'], along='x')
     return s, 5.6
 
 
+# A STREET CELL IS PAVED CORNER TO CORNER (Paolo 8/11, LOCKED):
+#   "the streets should FILL THE WHOLE FUCKING BOX ABSOLUTELY. REMEMBER ITS A REASONABLE
+#    FUN INTERPRETATION OF THE ACTUALLY WALKABLE GRID. THE STREETS DONT HAVE WALLS, THE
+#    FREEWAYS CAN HAVE WALLS, AND STREETS CROSSING AND STREETS NO CROSSING ARE DIFFERENT.
+#    Intersections should be smartly made with the lights... IF ITS NOT AN INTERSECTION."
+#
+# He is right on every count and the old road icons broke all four. They drew a narrow
+# roadway band on a big DESERT pad, so a street cell read as a patch of asphalt lying in
+# the dirt with bare tan corners -- and a street cell is not a lot with a road on it, it
+# IS the road, kerb to kerb to kerb. Then they fenced it: BLOCK WALLS down both sides of a
+# public arterial, which is a back-of-house detail from a subdivision, not a street.
+#
+# ROAD_OVERSIZE is why the box fills. The framing scales an icon until its SHORTER span
+# fits the square, so a pad drawn at plot size always leaves the diamond's four corners
+# bare. Drawing the paved surface well past the plot pushes those corners outside the
+# frame entirely and the square comes out solid street. It is the same trick a tileset
+# uses for a full-bleed tile, and it is the only way "fill the whole box" and "isometric"
+# are both true at once.
+ROAD_OVERSIZE = 22.0        # world units of pavement drawn beyond the plot on every side
+
+
+def _street_bed(s, road, walk, x0=-3.0, y0=-3.0, x1=15.0, y1=15.0):
+    """The paved bed every road cell stands on: asphalt to the horizon, with the walk laid
+    ON it rather than a strip of desert showing between them. Nothing here is a wall.
+
+    MARKS THE SCENE AS BLEEDING, and that mark is load-bearing. The square is MEASURED from
+    the set (the widest hero decides it), so a pad drawn deliberately past the frame would
+    otherwise vote in that measurement and drag every other icon's square out with it --
+    measured, 468 -> 776 the first time, which shrank all fifty-nine to fit a bleed nobody
+    was meant to see. A bleeding scene fills the square BY CONSTRUCTION, so it has no
+    opinion about how big the square should be and is excluded from the vote."""
+    s.bleed = True
+    o = ROAD_OVERSIZE
+    s.box((x0 - o, y0 - o, 0.0), (x1 - x0 + 2 * o, y1 - y0 + 2 * o, 0.08), {'c': road})
+    return o
+
+
 def build_arterial(P):
-    """engine/bohemia_arterial.js: a six-lane Vegas arterial, and the icon is the
-    INTERSECTION -- the signal masts reaching out over the lanes on their long arms,
-    the crosswalk ladders, the raised median with its dead palms, and the block wall
-    behind the sidewalk. The mast arm is the vertical; everything else is flat."""
-    ROAD, LINE, MEDIAN, WALK, WALL, LIGHT, MAST, PALM, VEH = P[1], P[2], P[4], P[6], P[8], P[9], P[12], P[11], P[14]
+    """engine/bohemia_arterial.js: a six-lane Vegas arterial, and the icon is THE
+    INTERSECTION -- signal masts reaching their arms out over the lanes, crosswalk ladders
+    on all four legs, the raised median with its dead palms. Paved corner to corner and
+    NO WALLS (Paolo 8/11): a street is public ground, and the thing that tells you this
+    cell is a crossing rather than a run is the SIGNALS. The freeway keeps its walls
+    because a sound wall is what a freeway actually has."""
+    # WALL and VEH are deliberately NOT unpacked any more: Paolo 8/11 ruled the streets
+    # have no walls, and the no-cars ruling took the traffic. A binding nobody uses is how a
+    # dead detail creeps back in, so the name goes with the geometry.
+    ROAD, LINE, MEDIAN, WALK, LIGHT, MAST, PALM = P[1], P[2], P[4], P[6], P[9], P[12], P[11]
     s = Scene()
-    _ground(s, (-3, -3, 15, 15), groundc=(106, 98, 82), lotc=(58, 58, 62))
-    s.box((-3.0, 1.4, 0.01), (17.0, 8.4, 0.09), {'c': ROAD})                                   # the roadway
-    s.box((3.6, -3.0, 0.02), (4.6, 17.0, 0.09), {'c': ROAD})                                   # the cross street
-    s.box((-3.0, 5.2, 0.1), (6.4, 0.9, 0.35), {'c': MEDIAN})                                   # the raised median
-    s.box((8.4, 5.2, 0.1), (5.8, 0.9, 0.35), {'c': MEDIAN})
+    _street_bed(s, ROAD, WALK)
+    o = ROAD_OVERSIZE
+    # THE FOUR SIDEWALKS, framing the junction and running off all four edges. They sit on
+    # the asphalt, so there is never a seam of bare ground between kerb and road.
+    for (sy) in (0.4, 10.0):
+        s.box((-3.0 - o, sy, 0.09), (17.0 + 2 * o, 1.0, 0.06), {'c': WALK})
+    for (sx) in (2.6, 8.2):
+        s.box((sx, -3.0 - o, 0.09), (1.0, 17.0 + 2 * o, 0.06), {'c': WALK})
+    # the raised median, broken at the junction for the left-turn opening
+    s.box((-3.0 - o, 5.2, 0.15), (6.4 + o, 0.9, 0.35), {'c': MEDIAN})
+    s.box((8.4, 5.2, 0.15), (5.8 + o, 0.9, 0.35), {'c': MEDIAN})
     for (px, py) in [(-1.6, 5.5), (1.4, 5.5), (9.6, 5.5), (12.4, 5.5)]:                        # dead palms in it
-        s.box((px, py, 0.35), (0.26, 0.26, 3.2), {'c': PALM})
-        s.box((px - 0.4, py - 0.4, 3.55), (1.06, 1.06, 0.24), {'c': _dark(PALM, 0.82)['c']})
+        s.box((px, py, 0.5), (0.26, 0.26, 3.2), {'c': PALM})
+        s.box((px - 0.4, py - 0.4, 3.7), (1.06, 1.06, 0.24), {'c': _dark(PALM, 0.82)['c']})
     for k in range(9):                                                                         # the crosswalk ladders
-        s.box((3.2, 1.7 + k * 0.85, 0.11), (0.5, 0.42, 0.03), {'c': LINE})
-        s.box((8.2, 1.7 + k * 0.85, 0.11), (0.5, 0.42, 0.03), {'c': LINE})
+        s.box((3.2, 1.7 + k * 0.85, 0.15), (0.5, 0.42, 0.03), {'c': LINE})
+        s.box((8.2, 1.7 + k * 0.85, 0.15), (0.5, 0.42, 0.03), {'c': LINE})
     for k in range(6):
-        s.box((3.9 + k * 0.75, 1.1, 0.11), (0.42, 0.5, 0.03), {'c': LINE})
-        s.box((3.9 + k * 0.75, 9.5, 0.11), (0.42, 0.5, 0.03), {'c': LINE})
-    for (sy, ) in [(0.4, ), (10.0, )]:                                                         # sidewalk + block wall
-        s.box((-3.0, sy, 0.02), (17.0, 1.0, 0.1), {'c': WALK})
-        s.box((-3.0, sy + (1.0 if sy < 5 else -0.35), 0), (17.0, 0.35, 2.2),
-              {'top': _dark(WALL, 1.14), 'px': _dark(WALL, 1.0), 'py': _dark(WALL, 0.84),
-               'nx': _dark(WALL, 1.0), 'ny': _dark(WALL, 0.84)})
-    # THE SIGNAL MASTS, arms reaching out over the lanes -- the vertical of the whole plot
+        s.box((3.9 + k * 0.75, 1.1, 0.15), (0.42, 0.5, 0.03), {'c': LINE})
+        s.box((3.9 + k * 0.75, 9.5, 0.15), (0.42, 0.5, 0.03), {'c': LINE})
+    # lane lines running out of the junction on all four legs, so the cell reads CROSSING
+    for k in range(9):
+        s.box((-3.0 - o + k * 1.9, 3.3, 0.14), (1.05, 0.16, 0.03), {'c': LINE})
+        s.box((5.0, -3.0 - o + k * 1.9, 0.14), (0.16, 1.05, 0.03), {'c': LINE})
+    # THE SIGNAL MASTS -- the one vertical, and the whole reason this cell is an
+    # intersection and not a run. Nothing else on a street stands up like this.
     for (mx, my, arm) in [(3.0, 0.9, 1.0), (8.8, 10.2, -1.0)]:
-        s.box((mx, my, 0), (0.36, 0.36, 6.2), {'c': _dark(MAST, 0.88)['c']})
+        s.box((mx, my, 0.08), (0.36, 0.36, 6.2), {'c': _dark(MAST, 0.88)['c']})
         s.box((mx, my + (0.36 if arm > 0 else -4.6), 5.9), (0.3, 4.6, 0.3), {'c': MAST})
         for k in range(3):
             hy = my + arm * (1.1 + k * 1.2)
             s.box((mx + 0.02, hy, 5.0), (0.32, 0.34, 0.85), {'c': _dark(MAST, 0.66)['c']})
     for (lx, ly) in [(-1.0, 0.6), (6.0, 10.4), (12.0, 0.6)]:                                   # streetlights
-        s.box((lx, ly, 0), (0.2, 0.2, 4.4), {'c': LIGHT})
+        s.box((lx, ly, 0.08), (0.2, 0.2, 4.4), {'c': LIGHT})
         s.box((lx, ly + 0.2, 4.25), (0.18, 1.1, 0.18), {'c': LIGHT})
-    _vehicle(s, 0.2, 2.6, CAR, VEH, along='x')
-    _vehicle(s, 10.6, 7.6, CAR, _dark(VEH, 0.84)['c'], along='x')
     return s, 5.6
 
 
@@ -3606,8 +3664,11 @@ def main():
             for (x, y, z) in verts:
                 xs.append((x - y) * scale)
                 ys.append((x + y) * scale * 0.5 - z * scale)
-        need_w = max(need_w, max(xs) - min(xs))
-        need_h = max(need_h, max(ys) - min(ys))
+        # a bleeding road cell is paved past the frame on purpose; it does not get a vote
+        # on how big the square is (see _street_bed).
+        if not getattr(scene, 'bleed', False):
+            need_w = max(need_w, max(xs) - min(xs))
+            need_h = max(need_h, max(ys) - min(ys))
         built.append((d, scene, scale))
     SQUARE_PX = int(math.ceil(max(need_w, need_h))) + 2 * 5 + 2   # margin both sides, +2 slack
     print('  ONE SQUARE, measured from the set: %dpx (widest %d, tallest %d)'
@@ -3662,6 +3723,14 @@ def main():
                     mxs.append(px); mys.append(py)
         span_w, span_h = max(xs) - min(xs), max(ys) - min(ys)
         fill = inner / max(min(span_w, span_h), 1e-6)          # touch all four edges
+        if getattr(scene, 'bleed', False):
+            # A STREET FILLS THE WHOLE BOX (Paolo 8/11). Scale on the SHORTER span of the
+            # PLOT, not of the bleed, and let the pavement run off every edge -- which is
+            # the only way an isometric cell has no bare corners. The clamp below is for
+            # buildings; a road has no mass to protect, so it does not apply.
+            fill = inner / max(min(span_w, span_h) - 2 * ROAD_OVERSIZE * scale * 0.5, 1e-6)
+            built[i] = (d, scene, scale * fill)
+            continue
         if mxs:
             mass = max(max(mxs) - min(mxs), max(mys) - min(mys))
             fill = min(fill, inner / max(mass, 1e-6))          # never cut a building
