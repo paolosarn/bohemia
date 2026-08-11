@@ -1,3 +1,20 @@
+ART (f3eu53): 8/11 (c) LATEST -- *** SECOND FAMILY WIRED: THE PARKING LOTS HAVE
+THEIR PAINTED LINES. A BAY-VS-LINE MISS WAS CAUGHT BY A/B BEFORE IT SHIPPED. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fourth-pass section)
+
+TAB: RUN. Courthouse / commercial / chapel / industrial / warehouse / downtown
+lots draw the approved TF-ART-003 stripes by line topology. Medical + park name
+whole BAYS ('parking stall') and are excluded ON PURPOSE - the A/B showed line
+pieces make a lattice there. Drive-in arcs stay blank (no curved piece).
+Two of 14 families are now in the game (rail, stripes); the hook + builder
+refusal machinery is proven twice. NEXT: corrugated skins (TF-ART-002, civic
+skin pool swap for warehouse/industrial), then roofs (TF-ART-012, needs the
+roof-cell probe: 'roof edge'/'rooftop plant' names exist in downtown, chapel,
+courthouse, library per the 8/11 vocab sweep). Rail volume + stall volume
+(wheel stops, ADA) open behind those.
+
+ART (f3eu53): 8/11 (b) -- *** THE FIRST APPROVED FAMILY IS IN THE GAME:
+
 CHARACTER (0lurbs): 8/11 (r) LATEST — *** THE AGE AXIS: CHILD / TEEN / YOUNG ADULT /
 ADULT / ELDER ON THE ONE RIG. A CHILD WAS NOT EXPRESSIBLE BEFORE TODAY. ***
 Paolo killed my family cast on sight: "we have to assign the different heights in the

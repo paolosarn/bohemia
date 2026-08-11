@@ -140,3 +140,18 @@ Remaining rail volume: turnout, crossing, buffer stop, the vertical mainline.
 Next families to wire, in order of surface: flat roofs, corrugated skins,
 parking stalls (needs stall-name probe per district), chain-link (multi-cell
 overlay, own pass).
+
+## 8/11 FOURTH PASS: SECOND FAMILY WIRED (PARKING LINES), AND A MISS CAUGHT BY A/B
+
+TF-ART-003 striping is live wherever the world NAMES its painted lines: 'stall
+marking' / 'stall stripe' cells (courthouse, commercial, chapel, industrial,
+warehouse, downtown) pick line pieces by 4-neighbour topology (runs, ends,
+corners, tees, cross - same WANG idea as the parapet ring).
+
+THE MISS, CAUGHT ON THE REAL SURFACE BEFORE SHIPPING: the first cut also keyed
+on 'parking stall', and medical's 289 such cells are whole BAYS, not lines - an
+in-page A/B (same frame, pieces stripped) showed my line pieces painting a
+lattice over the bays' own row art. Bay names are excluded by measurement now,
+and the drive-in's arc markings stay a deliberate blank (no curved piece in
+the family; a straight tile on an arc is a lie). Gates re-run green after the
+fix (run 126, light 41, alpha loads 20, grime 24, bought 20, exterior pool 37).

@@ -268,10 +268,24 @@ railBank.tiles.forEach(function (t) {
 if (Object.keys(tileformOut).length !== RAIL_PIECES.length)
   throw new Error('TILEFORM: rail pieces missing from ' + RAIL_BANK + ' (have '
     + Object.keys(tileformOut).length + ' of ' + RAIL_PIECES.length + ')');
+/* second family: TF-ART-003 parking striping - the 44px stall-line pieces the
+   WANG mask in the run actually asks for (wheel stops and ADA marks are later
+   volume; they are single placements, not line pieces) */
+var STALL_BANK = 'banks/tileforms/TF-ART-003_CANDIDATES_8_8_26.json';
+var stallBank = JSON.parse(fs.readFileSync(STALL_BANK, 'utf8'));
+if (String(stallBank.law || '').indexOf('APPROVED') !== 0)
+  throw new Error('TILEFORM: ' + STALL_BANK + ' law line is not APPROVED - nothing unjudged draws');
+var stallCount = 0;
+stallBank.tiles.forEach(function (t) {
+  if (/^stall_(v_\d|h_\d|v_end[NS]_\d|h_end[EW]_\d|corner_[NS][EW]_\d|tee_[NS]_\d|cross_0)$/.test(t.name)) {
+    tileformOut[t.name] = t.b64; stallCount++;
+  }
+});
+if (stallCount < 30) throw new Error('TILEFORM: only ' + stallCount + ' stall pieces matched in ' + STALL_BANK);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
-console.log('  TILEFORMS: ' + Object.keys(tileformOut).length
-            + ' approved rail pieces (TF-ART-010), first family on the map');
+console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('
+            + RAIL_PIECES.length + ' rail TF-ART-010 + ' + stallCount + ' stall TF-ART-003)');
 
 /* ---- THE APPROVED TEXTURE-MATCH WALLS AND ROOFS (Paolo 8/1, TWICE) ----------
    "Holy shit so fucking good ... the graphics tiles that you made are fucking

@@ -534,6 +534,47 @@ function drawRailform(gx,gy,X,Y,S){
   }
   return false;
 }
+/* SECOND WIRED FAMILY (8/11): TF-ART-003 parking-lot striping. Nine built
+   districts name their painted stall lines ('stall marking', 'parking stall',
+   'lane / stall marking', 'trailer stall stripe' - measured world-wide, not
+   guessed). The marking cells form line segments; each cell picks its piece
+   from which 4-neighbours are also marking cells, the same WANG idea as the
+   parapet ring. The drive-in's arc markings are a DELIBERATE blank: the family
+   has no curved piece and a straight tile on an arc would be a lie. */
+function stallAt(gx,gy){
+  if(gy<0||gx<0||gy>=NAMEG.length||gx>=NAMEG[0].length) return false;
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  /* LINE names only. 'parking stall' AREA cells (medical, park) are whole bays
+     with their own row art - measured 8/11 by A/B in the medical lot: painting
+     line pieces on bay cells makes a lattice, so bays are excluded on purpose. */
+  return n.indexOf('stall')>=0 && (n.indexOf('marking')>=0||n.indexOf('stripe')>=0);
+}
+function drawStallform(gx,gy,X,Y,S){
+  if(!stallAt(gx,gy)) return false;
+  var m=(stallAt(gx,gy-1)?1:0)|(stallAt(gx+1,gy)?2:0)|(stallAt(gx,gy+1)?4:0)|(stallAt(gx-1,gy)?8:0);
+  var name;
+  switch(m){
+    case 5:  name='stall_v_'+th(gx,gy,6); break;          /* runs N-S */
+    case 10: name='stall_h_'+th(gx,gy,6); break;          /* runs E-W */
+    case 1:  name='stall_v_endS_'+th(gx,gy,3); break;     /* continues N, ends S */
+    case 4:  name='stall_v_endN_'+th(gx,gy,3); break;
+    case 2:  name='stall_h_endW_'+th(gx,gy,2); break;     /* continues E, ends W */
+    case 8:  name='stall_h_endE_'+th(gx,gy,2); break;
+    case 6:  name='stall_corner_NW_'+th(gx,gy,2); break;  /* turns E+S */
+    case 12: name='stall_corner_NE_'+th(gx,gy,2); break;  /* turns S+W */
+    case 3:  name='stall_corner_SW_'+th(gx,gy,2); break;  /* turns N+E */
+    case 9:  name='stall_corner_SE_'+th(gx,gy,2); break;  /* turns N+W */
+    case 11: name='stall_tee_N_'+th(gx,gy,2); break;      /* bar E-W, arm N */
+    case 14: name='stall_tee_S_'+th(gx,gy,2); break;      /* bar E-W, arm S */
+    case 15: name='stall_cross_0'; break;
+    case 7: case 13: name='stall_v_'+th(gx,gy,6); break;  /* v-line + side arm: no piece, keep the line */
+    default: name='stall_v_'+th(gx,gy,6);                 /* an isolated painted stripe */
+  }
+  var im=TILEFORM_IMG[name];
+  if(!im||!im.complete||!im.naturalWidth) return false;
+  ctx.drawImage(look(im),X,Y,S,S);
+  return true;
+}
 var CIVIC_SKIN_B64 = __CIVIC_SKIN_JSON__;
 var CIVIC_SKIN = { d:{}, def:[], roof:[] };
 (function(){
@@ -2653,8 +2694,10 @@ function draw(){
           if(drawGateMouth(X,Y,S,gx,gy2)) continue;
         }
         /* APPROVED FAMILIES FIRST (8/11): a specific approved surface beats a
-           generic bought one - a rail corridor is not 'dirt'. */
+           generic bought one - a rail corridor is not 'dirt', a stall line is
+           not bare concrete. */
         if(!isSuburbCell() && !body && drawRailform(gx,gy2,X,Y,S)) continue;
+        if(!isSuburbCell() && !body && drawStallform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
           : genericTile(gx,gy2);
