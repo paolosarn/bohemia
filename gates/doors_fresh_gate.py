@@ -83,7 +83,14 @@ const pw = pwmod();
   // signature rather than on "a sound happened" means a footstep or an ambience
   // tick in the same window cannot be mistaken for a door, which is the exact
   // ruler mistake the time_pass gate had to be corrected for.
-  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); });
+  /* A TAB THAT IS NOT THERE IS A FAILURE, NOT A SKIP (ONE WORLD TAB, 8/2).
+     `if (t) t.click()` walks on when the button is missing and then measures
+     whatever panel happened to be open. FIFTH file with this shape -- the pattern
+     check keeps finding them as new gates land, which is the argument for
+     checking the pattern rather than the instances. */
+  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]');
+    if (!t) throw new Error('no RUN tab to open: the surface this gate measures is not reachable');
+    t.click(); });
   await p.waitForTimeout(8000);
   await p.evaluate(() => { window.__dd = 0; try { MUS.audio(); } catch(e) {}
     const o = BOH_SFX.render.bind(BOH_SFX);

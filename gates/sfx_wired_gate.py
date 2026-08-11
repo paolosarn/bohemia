@@ -329,7 +329,7 @@ const METER=`(function(){
      calling playSFX behind its back, because a side door would let the board
      look healthy while the button is dead. */
   await p.evaluate(()=>{ const t=[...document.querySelectorAll('.tab')]
-    .find(x=>x.getAttribute('data-p')==='music'); if(t)t.click(); });
+    .find(x=>x.getAttribute('data-p')==='music'); if(!t) throw new Error('the tab this gate measures is not reachable: a missing tab is a FAILURE, not a skip (ONE WORLD TAB, 8/2)'); t.click(); });
   await p.waitForTimeout(2500);
   out.boardPresent = await p.evaluate(()=>!!document.getElementById('sbWrap'));
   out.boardCovers = await p.evaluate(()=>{

@@ -69,7 +69,7 @@ ok('it restores his look in a finally block (an exception must not strand him as
 
   await pg.evaluate(() => { const fr = document.getElementById('front'); if (fr) fr.click(); });
   await pg.waitForTimeout(400);
-  await pg.evaluate(() => { const t = [...document.querySelectorAll('.tab')].find(x => x.dataset.p === 'char'); if (t) t.click(); });
+  await pg.evaluate(() => { const t = [...document.querySelectorAll('.tab')].find(x => x.dataset.p === 'char'); if (!t) throw new Error('the tab this gate measures is not reachable: a missing tab is a FAILURE, not a skip (ONE WORLD TAB, 8/2)'); t.click(); });
   await pg.waitForTimeout(1600);
 
   /* one shared helper: read a canvas as a compact signature + ink count */

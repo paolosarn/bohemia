@@ -122,8 +122,17 @@ function sweepNavigators(BAR) {
          its own failure. This holds for tab names that do not exist yet. */
       ok('a failed tab click is not swallowed by .catch (' + dir + '/' + g + ')',
         !/\.tab\[data-p=[^;]{0,80}?\)\s*\.catch\s*\(/.test(body));
+      /* THE DETECTOR HAD A BLIND SPOT AND IT IS WHY THESE KEPT ARRIVING ONE AT A
+         TIME (widened 8/11). It only matched a `data-p` selector followed by the
+         guard, so it never saw the OTHER shape half the fleet uses:
+             [...document.querySelectorAll('.tab')].find(x => x.dataset.p === 'char')
+         Eight live instances across six files were sitting behind that gap, and I
+         found them by grepping by hand after this gate declared one file clean --
+         which is the gate being wrong, not the files being sneaky.
+         It now matches the GUARD ITSELF near any tab lookup, in either spelling. */
+      const NEARTAB = /(data-p|dataset\.p|querySelectorAll\(['"]\.tab)[\s\S]{0,200}?if\s*\(\s*(\w+)\s*\)\s*\2\.click\(\)/;
       ok('a tab that was not found is not silently skipped (' + dir + '/' + g + ')',
-        !/data-p[\s\S]{0,120}?if\s*\(\s*(\w+)\s*\)\s*\1\.click\(\)/.test(body));
+        !NEARTAB.test(body));
     }
   }
 }

@@ -203,7 +203,7 @@ const pw = pwmod();
   // the game is APPROVED-BUT-UNUSED, the defect this lane exists to kill. So
   // this opens the RUN and drives its OWN renderTalk -- the function that paints
   // a line of dialogue -- and listens for what the parent does about it.
-  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); });
+  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (!t) throw new Error('the tab this gate measures is not reachable: a missing tab is a FAILURE, not a skip (ONE WORLD TAB, 8/2)'); t.click(); });
   await p.waitForTimeout(8000);
   await p.evaluate(() => { window.__spoke = [];
     const o = BOH_VOICE.say.bind(BOH_VOICE);

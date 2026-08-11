@@ -50,7 +50,7 @@ const ok = (n, c) => { c ? pass++ : fails.push(n); };
        why the data-p sweep did not catch it. The world is reached through RUN;
        both buttons opened the same panel since 7/28. */
       const t = [...document.querySelectorAll('.tab,button')].find(e => e.textContent.trim() === 'RUN');
-    if (t) t.click();
+    if (!t) throw new Error('the tab this gate measures is not reachable: a missing tab is a FAILURE, not a skip (ONE WORLD TAB, 8/2)'); t.click();
   });
   await p.waitForTimeout(22000);
 
