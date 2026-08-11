@@ -293,7 +293,8 @@ const METER=`(function(){
       if(e&&e.data&&e.data.type==='BOHEMIA_NPCSTEP')
         window.__NPC.push({dx:e.data.dx,dist:e.data.dist}); }catch(_){}}); });
   async function neighbourAt(off){
-    await p.evaluate(()=>{ window.__BPEAK=0; window.__NPC=[]; });
+    await p.evaluate(()=>{ window.__BPEAK=0; window.__NPC=[];
+      window.__NP0 = window.__npcPlayed ? window.__npcPlayed() : 0; });
     await fr.evaluate(async(o)=>{
       var a=SIM.outAgents()[0]; if(!a) return;
       a.loc.x=px+o; a.loc.y=py; await new Promise(r=>setTimeout(r,350));
@@ -302,6 +303,14 @@ const METER=`(function(){
     await p.waitForTimeout(1200);
     return { peak: await p.evaluate(()=>window.__BPEAK),
              msgs: await p.evaluate(()=>window.__NPC.length),
+             /* WHAT THE NEIGHBOUR ACTUALLY PLAYED. The bus peak cannot answer
+                this: ambience shares that bus and fires a one-shot every 40-95
+                seconds, so in a 2.25s window it lands about 3% of the time and
+                gets counted as a neighbour thirty tiles away. Measured green on
+                clean main and red on the next run with no relevant change --
+                a flake, and an unsound ruler. */
+             played: (await p.evaluate(()=>window.__npcPlayed?window.__npcPlayed():0))
+                     - (await p.evaluate(()=>window.__NP0||0)),
              pan:  await p.evaluate(()=>window.__NPC.length?window.__NPC[0].dx:null) };
   }
   out.npcNear = await neighbourAt(3);
@@ -856,9 +865,13 @@ def main():
         'still silent' % (near.get('peak') or 0))
     chk((near.get('peak') or 0) < 0.5, 'a neighbour is as loud as the game (%.3f)'
         % (near.get('peak') or 0))
-    chk((far.get('msgs') or 0) == 0 and (far.get('peak') or 0) <= 0.005,
-        'a neighbour THIRTY tiles away was audible (%.4f) -- the range cutoff is '
-        'not working, and a sound you cannot place is noise' % (far.get('peak') or 0))
+    chk((far.get('msgs') or 0) == 0 and (far.get('played') or 0) == 0,
+        'a neighbour THIRTY tiles away was audible (%s reports, %s sounds played) '
+        '-- the range cutoff is not working, and a sound you cannot place is noise'
+        % (far.get('msgs'), far.get('played')))
+    chk((near.get('played') or 0) > 0,
+        'a neighbour 3 tiles away played NOTHING (%s) -- the near case has to be '
+        'positive or the far case proves nothing' % (near.get('played')))
     # "is one bigger than the other" is NOT a distance test. Footstep candidates
     # vary by ~10% peak between picks, so with attenuation removed entirely the
     # louder one still wins half the time -- measured: that exact sabotage passed

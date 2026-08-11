@@ -999,7 +999,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/11s - NEVER MAKE HIM HUNT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/11u - PEOPLE TALK NOW</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12748,6 +12748,599 @@ drawLogoBig();requestAnimationFrame(loop);
 })();
 </script>
 <!-- /BOHEMIA SOUND MIX -->
+<!-- BOHEMIA SQUIGGLE VOICES (8/9/26) -->
+<script>
+/* engine/bohemia_voice.js, inlined verbatim */
+/* ============================================================================
+   BOHEMIA SQUIGGLE VOICES  (8/9/26, SOUNDS lane)
+
+   Paolo ruled it 8/4 and made it top priority 8/9: Animal-Crossing-class
+   gibberish speech, one voice per character, derived from that character's
+   identity seed. "Dialogue that makes sound reads alive; silent portraits read
+   dead."
+
+   === WHY THIS IS NOT ANIMALESE'S METHOD, AND HAD TO NOT BE =================
+
+   RESEARCH. Animalese is a sample player: Nintendo recorded a human saying
+   every letter, then re-times and pitch-shifts those clips as the text scrolls,
+   which is how a handful of files becomes hundreds of villagers (and why a
+   happy villager is simply pitched up). That is the lineage and the feel to hit.
+
+   It is also unavailable to us. The demo ruling is explicit -- "ZERO voice
+   acting and zero audio files" -- and this repo has no sample pipeline, no
+   recording, and a hard rule that everything is synthesised on the one
+   AudioContext. So the samples have to be replaced by something that produces
+   the same perceptual object from nothing.
+
+   THAT SOMETHING IS FORMANT SYNTHESIS. A vowel is not a waveform, it is two or
+   three resonant peaks: shape a buzzy source with bandpass filters at F1/F2/F3
+   and the ear hears a vowel, with no recording anywhere. The frequencies below
+   are the Peterson & Barney (1952) adult-male measurements -- the standard
+   reference set, 76 speakers, ten American-English monophthongs in /h_d/
+   context. /i/ really does sit at F1 270 / F2 2290.
+
+   AND THE VOCAL TRACT IS WHY EVERYBODY SOUNDS DIFFERENT. Formants are
+   resonances of a tube, so a shorter tube resonates higher: adult male ~17cm,
+   adult female ~14.5cm, and female/child formants run 10-20% above male ones
+   for the SAME vowel, with the F1/F2 pattern preserved so the vowel is still
+   recognisable. That is one multiplier, and it is the single most powerful
+   character knob here -- it changes WHO is speaking without changing WHAT the
+   vowel is. Pitch alone (Animalese's knob) only makes a chipmunk; tract scale
+   makes a different person.
+
+   === WHAT MAKES IT READ AS TALKING RATHER THAN AS A TUNE ==================
+
+   Three things, and none of them is optional:
+
+   1. VOICED / UNVOICED ALTERNATION. Real speech is a buzz interrupted by
+      hisses. If every letter is a pitched blip the result is a melody, which is
+      the classic failure of naive babble synths. So unvoiced consonants
+      (p t k f s h c x q) are a filtered NOISE burst with no pitch at all, and
+      that alternation is most of the illusion.
+   2. DECLINATION. Pitch drifts DOWN across a sentence in every human language,
+      and rises at a question. A flat contour reads as a robot immediately.
+   3. CONSONANTS ARE SHORTER THAN VOWELS. Roughly half. Even timing reads as
+      morse code.
+
+   === SEEDED, WHICH IS THE WHOLE POINT ======================================
+
+   A character's voice is a pure function of their identity seed: same person,
+   same voice, forever, on any device, with nothing stored. And the same person
+   saying the same line produces the same babble every time -- the jitter is
+   seeded off (character, line, letter index), never off Math.random. A voice
+   that changes between two plays of one line is a voice the player cannot learn
+   to recognise, and recognising people is the entire reason to do this.
+
+   SCREECH LAW (7/8, absolute): no delay, no convolver, no feedback path
+   anywhere in this file. A blip is source -> bandpass -> gain -> out and it is
+   over. Nothing can ring.
+
+   MECHANISM-MINE / CONTENTS-PAOLO'S: this cooks CANDIDATE voices and assigns
+   none. Which voice belongs to which character is his ruling, and the bank
+   stays empty until he thumbs one.
+   ========================================================================== */
+(function (root) {
+  'use strict';
+
+  /* Peterson & Barney (1952), adult male, Hz. F3 matters less than F1/F2 but
+     leaving it out makes everything sound like a kazoo. */
+  var VOWELS = {
+    i: [270, 2290, 3010],    /* beet */
+    I: [390, 1990, 2550],    /* bit  */
+    e: [530, 1840, 2480],    /* bet  */
+    a: [660, 1720, 2410],    /* bat  */
+    A: [730, 1090, 2440],    /* father */
+    O: [570,  840, 2410],    /* bought */
+    U: [440, 1020, 2240],    /* foot */
+    u: [300,  870, 2240],    /* boot */
+    V: [640, 1190, 2390],    /* but  */
+    R: [490, 1350, 1690]     /* bird */
+  };
+  var VKEYS = ['i', 'I', 'e', 'a', 'A', 'O', 'U', 'u', 'V', 'R'];
+
+  /* which vowel colour each letter carries. Vowels get the obvious one;
+     voiced consonants borrow a colour so they still sound like the mouth is
+     somewhere, and unvoiced ones are noise and need none. */
+  var LETTER = {
+    a: 'a', e: 'e', i: 'I', o: 'O', u: 'V', y: 'i',
+    b: 'A', d: 'e', g: 'A', j: 'i', l: 'e', m: 'u', n: 'I',
+    r: 'R', v: 'e', w: 'u', z: 'i',
+    p: null, t: null, k: null, f: null, s: null, h: null,
+    c: null, x: null, q: null
+  };
+  var VOICED = { b:1, d:1, g:1, j:1, l:1, m:1, n:1, r:1, v:1, w:1, z:1 };
+
+  /* ---- seeded randomness. Deterministic, tiny, and never Math.random ---- */
+  function hash(str) {
+    var h = 2166136261 >>> 0, i;
+    str = String(str);
+    for (i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 16777619) >>> 0;
+    }
+    return h >>> 0;
+  }
+  function rng(seed) {                      /* mulberry32 */
+    var t = seed >>> 0;
+    return function () {
+      t = (t + 0x6D2B79F5) >>> 0;
+      var r = Math.imul(t ^ (t >>> 15), 1 | t);
+      r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
+      return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  /* ---- A PERSON'S VOICE, from their identity seed and nothing else ------ */
+  function voiceOf(seed) {
+    var r = rng(hash('bohemia-voice:' + seed));
+    /* TRACT is the character knob, not pitch. 0.82 is a big chest, 1.30 is a
+       child. Formants scale by it; the vowel survives because F1 and F2 move
+       together (that is why a child saying "beet" is still "beet"). */
+    var tract = 0.82 + r() * 0.48;
+    /* f0 tracks the tract loosely -- a big tube usually comes with long folds --
+       but not rigidly, because the mismatches are where the memorable people
+       are. 78Hz is a very low man, 300Hz is a small child. */
+    var f0 = Math.round((250 / tract) * (0.62 + r() * 0.72));
+    f0 = Math.max(78, Math.min(300, f0));
+    return {
+      seed: String(seed),
+      f0: f0,
+      tract: +tract.toFixed(3),
+      rate: +(7.5 + r() * 7.5).toFixed(2),      /* letters per second */
+      wave: ['sawtooth', 'square', 'triangle'][(r() * 3) | 0],
+      gruff: +(r() * 0.55).toFixed(3),          /* breath mixed into the buzz */
+      vib: +(r() * 5.5).toFixed(2),             /* Hz of wobble */
+      vibA: +(0.004 + r() * 0.022).toFixed(4),  /* how deep the wobble goes */
+      tilt: +(0.55 + r() * 0.9).toFixed(3),     /* bright vs dark overall */
+      drop: +(0.10 + r() * 0.22).toFixed(3)     /* how hard the pitch declines */
+    };
+  }
+
+  function serialize(v) {
+    return 'f0=' + v.f0 + ' tract=' + v.tract + ' rate=' + v.rate +
+           ' wave=' + v.wave + ' gruff=' + v.gruff + ' vib=' + v.vib +
+           ' vibA=' + v.vibA + ' tilt=' + v.tilt + ' drop=' + v.drop;
+  }
+
+  /* ---- one blip: either a vowel-shaped buzz or an unvoiced hiss --------- */
+  function blip(AC, dest, v, colour, t0, dur, f0, amp, noisy, rand) {
+    var g = AC.createGain();
+    /* THE ENVELOPE IS WHERE THE CLICKING WAS (Paolo 8/11: "I LIKE IT ALL JUST
+       REMOVE THE CLICKING"). Two faults, both here, both measured offline:
+
+       1. THE OLD RELEASE ENDED AT 0.0001 AND THEN stop() CUT THE SOURCE. That
+          leaves a real step at the end of every single blip. Ramping to TRUE
+          zero before the stop removes it entirely -- exponential cannot reach
+          zero, so it hands over to a short linear ramp that can.
+       2. AN UNVOICED BURST GOT THE SAME 6ms ATTACK AS A VOWEL. On a 40ms hiss
+          that is an EDGE, and an edge on broadband noise is exactly what a
+          click is. A hiss needs a shape: roughly a third of its length rising.
+
+       Attack and release scale with the blip so a short consonant is not given
+       a vowel's envelope, which was the whole mistake. */
+    var atk = noisy ? Math.max(0.005, dur * 0.32) : Math.min(0.006, dur * 0.3);
+    var knee = Math.max(atk + 0.002, dur * 0.88);
+    g.gain.setValueAtTime(0, t0);
+    g.gain.linearRampToValueAtTime(amp, t0 + atk);
+    g.gain.exponentialRampToValueAtTime(Math.max(0.0001, amp * 0.03), t0 + knee);
+    g.gain.linearRampToValueAtTime(0, t0 + dur);   /* TRUE zero before stop() */
+    g.connect(dest);
+
+    var src, i;
+    if (noisy) {
+      /* UNVOICED: filtered noise, no pitch. This is half of why it reads as
+         speech instead of as a tune. */
+      var n = Math.max(1, Math.floor(AC.sampleRate * dur));
+      var buf = AC.createBuffer(1, n, AC.sampleRate);
+      var d = buf.getChannelData(0);
+      for (i = 0; i < n; i++) d[i] = rand() * 2 - 1;
+      src = AC.createBufferSource();
+      src.buffer = buf;
+      var bp = AC.createBiquadFilter();
+      bp.type = 'bandpass';
+      bp.frequency.value = (2600 + rand() * 3200) * v.tract;
+      bp.Q.value = 0.7;
+      src.connect(bp); bp.connect(g);
+      src.start(t0); src.stop(t0 + dur);
+      return src;
+    }
+
+    /* VOICED: a buzzy source through F1/F2/F3. The formants ARE the vowel. */
+    var F = VOWELS[colour] || VOWELS.V;
+    src = AC.createOscillator();
+    src.type = v.wave;
+    src.frequency.setValueAtTime(f0, t0);
+    if (v.vib > 0.1) {
+      /* the wobble is a real oscillator, not a delay: SCREECH LAW */
+      var lfo = AC.createOscillator(), lg = AC.createGain();
+      lfo.frequency.value = v.vib;
+      lg.gain.value = f0 * v.vibA;
+      lfo.connect(lg); lg.connect(src.frequency);
+      lfo.start(t0); lfo.stop(t0 + dur);
+    }
+    var sum = AC.createGain(); sum.gain.value = 1;
+    for (i = 0; i < 3; i++) {
+      var bq = AC.createBiquadFilter();
+      bq.type = 'bandpass';
+      bq.frequency.value = F[i] * v.tract;
+      bq.Q.value = [7, 9, 11][i];
+      var fg = AC.createGain();
+      fg.gain.value = [1, 0.62 * v.tilt, 0.28 * v.tilt][i];
+      src.connect(bq); bq.connect(fg); fg.connect(sum);
+    }
+    sum.connect(g);
+    if (v.gruff > 0.02) {
+      /* breath ON TOP of the buzz, never instead of it */
+      var nn = Math.max(1, Math.floor(AC.sampleRate * dur));
+      var nb = AC.createBuffer(1, nn, AC.sampleRate);
+      var nd = nb.getChannelData(0);
+      for (i = 0; i < nn; i++) nd[i] = rand() * 2 - 1;
+      var ns = AC.createBufferSource(); ns.buffer = nb;
+      var nf = AC.createBiquadFilter();
+      nf.type = 'bandpass';
+      nf.frequency.value = F[1] * v.tract;
+      nf.Q.value = 1.2;
+      var ng = AC.createGain(); ng.gain.value = v.gruff * 0.25;
+      ns.connect(nf); nf.connect(ng); ng.connect(g);
+      ns.start(t0); ns.stop(t0 + dur);
+    }
+    src.start(t0); src.stop(t0 + dur);
+    return src;
+  }
+
+  /* ---- SAY A LINE ------------------------------------------------------
+     Returns the schedule it built (count + seconds) so a gate can count what
+     was actually produced instead of trusting that something happened. */
+  function say(text, v, AC, dest, when) {
+    text = String(text == null ? '' : text);
+    var letters = text.toLowerCase().replace(/[^a-z .,!?']/g, '');
+    var t0 = (when != null ? when : AC.currentTime + 0.02);
+    /* SEEDED PER LINE: the same person saying the same words is identical every
+       time. Recognising a person is the whole point, and Math.random would make
+       that impossible. */
+    var rand = rng(hash(v.seed + '|' + text));
+    var step = 1 / v.rate;
+    var t = t0, n = 0, i, ch, live = [];
+    /* how far through the sentence, for declination */
+    var speakable = letters.replace(/[^a-z]/g, '').length || 1;
+    var said = 0;
+    var q = /\?\s*$/.test(text);
+    for (i = 0; i < letters.length; i++) {
+      ch = letters[i];
+      if (ch === ' ') { t += step * 0.9; continue; }          /* a real gap between words */
+      if (ch === ',') { t += step * 1.4; continue; }
+      if (ch === '.' || ch === '!' || ch === '?' || ch === "'") { continue; }
+      if (!(ch in LETTER)) { t += step * 0.5; continue; }
+
+      var frac = said / speakable;
+      /* DECLINATION: down across the line, up at the end of a question. Every
+         language does this and its absence is instantly a robot. */
+      var f0 = v.f0 * (1 - v.drop * frac);
+      if (q && frac > 0.72) f0 = v.f0 * (1 + 0.16 * (frac - 0.72) / 0.28);
+      f0 *= 0.97 + rand() * 0.06;
+
+      var colour = LETTER[ch];
+      var noisy = (colour === null);
+      /* CONSONANTS ARE SHORTER THAN VOWELS. Even timing reads as morse. */
+      var isVowel = 'aeiouy'.indexOf(ch) >= 0;
+      var dur = step * (isVowel ? 0.95 : (VOICED[ch] ? 0.6 : 0.42));
+      /* CONSONANTS ARE QUIETER THAN VOWELS, AND MINE WERE LOUDER.
+         MEASURED before the fix: vowels peaked at 0.046 and the unvoiced bursts
+         at 0.115 -- the hisses were EIGHT DECIBELS ABOVE the voice. The cause is
+         structural rather than careless: a vowel is squeezed through three
+         narrow bandpasses (Q 7/9/11) that throw most of a sawtooth away, while a
+         hiss goes through one wide one (Q 0.7) that passes nearly everything, so
+         the numbers below did not mean what they looked like.
+         RESEARCH: in real speech the consonant-vowel intensity ratio averages
+         about -7.4 dB and the fricative-to-vowel contrast runs 7 to 14 dB, with
+         sibilants strongest (-2.4 dB) and dentals weakest (-21 dB). So the
+         target is roughly EIGHT DB DOWN, and the old value was about sixteen dB
+         the wrong side of it. */
+      var amp = (isVowel ? 0.30 : (noisy ? 0.021 : 0.20)) * (0.85 + rand() * 0.3);
+
+      var node = blip(AC, dest, v, colour, t, Math.max(0.012, dur), f0, amp, noisy, rand);
+      if (node) live.push(node);
+      t += step * (isVowel ? 1 : 0.78);
+      said++; n++;
+    }
+    /* A HANDLE, so a new line can CUT the one still talking. Two people
+       babbling over each other is not two people, it is a fault. */
+    return { blips: n, seconds: +(t - t0).toFixed(3), start: t0,
+             stop: function(){ for (var k = 0; k < live.length; k++) {
+               try { live[k].stop(); } catch (e) {} } } };
+  }
+
+  /* ---- WHICH OF HIS VOICES A PERSON HAS ------------------------------
+     MECHANISM-MINE / CONTENTS-PAOLO'S, and the split matters here. The RULE --
+     a person's voice is a pure function of their identity, so they sound like
+     themselves forever -- is mechanism and it is the whole point of the
+     feature. WHICH voices exist is HIS: he judged eight on 8/11 and kept six.
+     So this maps an identity onto HIS approved set and never generates a fresh
+     voice, because a fresh voice is one he has not heard.
+     PEOPLE SHARING A VOICE IS CORRECT, not a shortcut. Animal Crossing runs
+     hundreds of villagers off a handful of voice types; what makes someone
+     recognisable is that THEIR voice never changes, not that nobody else has
+     it. Assigning a specific person to a specific voice is still his ruling and
+     is not made here -- this is the fallback for everyone he has not ruled on. */
+  function speakerVoice(id, approved) {
+    var pool = (approved && approved.length) ? approved : ['cand-1'];
+    var k = hash('bohemia-speaker:' + String(id == null ? '' : id));
+    return voiceOf(pool[k % pool.length]);
+  }
+
+  /* THE FIRST SENTENCE, WHICH IS WHAT YOU ACTUALLY HEAR SOMEONE START TO SAY.
+     Animalese speaks the whole line because the TEXT SCROLLS at babble speed.
+     Ours appears instantly, so babbling a twenty-word line over text he has
+     already finished reading would be a drone rather than a person. A sentence
+     is the natural unit -- not an arbitrary letter count -- and the cap only
+     catches the runaway case. */
+  function opener(text, cap) {
+    text = String(text == null ? '' : text).trim();
+    cap = cap || 70;
+    /* KEEP TAKING SENTENCES UNTIL IT IS WORTH HEARING. One sentence alone is
+       often a single word -- "Batteries." -- and one word is not somebody
+       talking, it is a grunt. Sentences accumulate to a floor and then stop,
+       so a short opener borrows the next clause and a long one still gets cut. */
+    var parts = text.match(/[^.!?]+[.!?]?/g) || [text];
+    var out = '';
+    for (var pi = 0; pi < parts.length; pi++) {
+      var nxt = (out + parts[pi]).trim();
+      if (out && nxt.length > cap) break;
+      out = nxt;
+      if (out.replace(/[^a-z]/gi, '').length >= 22) break;   /* enough to hear */
+    }
+    out = out.trim() || text;
+    if (out.length > cap) {
+      out = out.slice(0, cap);
+      var sp = out.lastIndexOf(' ');
+      if (sp > 20) out = out.slice(0, sp);
+    }
+    return out;
+  }
+
+  /* ---- a batch of candidate voices, cooked from an index --------------- */
+  function cook(count) {
+    var out = [], i;
+    for (i = 0; i < (count || 8); i++) out.push(voiceOf('cand-' + i));
+    return out;
+  }
+
+  root.BOH_VOICE = {
+    VOWELS: VOWELS, VKEYS: VKEYS, LETTER: LETTER,
+    hash: hash, rng: rng,
+    voiceOf: voiceOf, serialize: serialize, say: say, cook: cook,
+    speakerVoice: speakerVoice, opener: opener
+  };
+})(typeof window !== 'undefined' ? window : this);
+
+</script>
+
+<style id="vxCSS">
+#vxWrap{margin:0 0 10px 0;padding:10px 12px;border:1px solid #3a3350;border-radius:10px;
+ background:#141020}
+#vxWrap h4{margin:0 0 4px 0;font:800 10.5px ui-monospace,monospace;letter-spacing:2px;
+ color:#c9b6ff;text-align:center}
+#vxWrap .vxNote{font:600 9.5px ui-monospace,monospace;color:#8a7f9a;text-align:center;
+ line-height:1.5;margin:0 0 8px 0}
+#vxWrap .vxLines{display:flex;gap:6px;margin:0 0 9px 0}
+#vxWrap .vxLine{flex:1;padding:7px 4px;border:1px solid #3a3350;border-radius:8px;
+ background:#1a1626;color:#8a7f9a;font:700 9px ui-monospace,monospace;letter-spacing:1px;
+ cursor:pointer;text-align:center}
+#vxWrap .vxLine.on{border-color:#c9b6ff;color:#c9b6ff;background:#221a38}
+#vxWrap .vxRow{display:flex;align-items:center;gap:6px;margin:0 0 6px 0}
+#vxWrap .vxPlay{flex:1;padding:11px 8px;border:1px solid #4a4060;border-radius:9px;
+ background:#1d1830;color:#efe6d2;font:800 11px ui-monospace,monospace;letter-spacing:1px;
+ cursor:pointer;text-align:left}
+#vxWrap .vxPlay b{color:#c9b6ff}
+#vxWrap .vxPlay span{display:block;margin-top:3px;font:600 8.5px ui-monospace,monospace;
+ color:#7a7090;letter-spacing:0}
+#vxWrap .vxPlay.hot{background:#2c2448}
+#vxWrap .vxUp,#vxWrap .vxDn{width:44px;padding:11px 0;border-radius:9px;cursor:pointer;
+ font-size:16px;border:1px solid #3a3350;background:#1a1626}
+#vxWrap .vxUp.on{border-color:#2f7a45;background:#0f2416}
+#vxWrap .vxDn.on{border-color:#7a2f2f;background:#241012}
+#vxWrap .vxCmt{width:100%;box-sizing:border-box;margin:0 0 10px 0;padding:7px;
+ border:1px solid #3a3350;border-radius:8px;background:#100d1a;color:#cfc3a8;
+ font:600 10px ui-monospace,monospace}
+#vxWrap .vxOut{width:100%;padding:12px;border:1px solid #6a5a2e;border-radius:10px;
+ background:#2a2414;color:#ffd98a;font:800 11px ui-monospace,monospace;letter-spacing:2px;
+ cursor:pointer}
+</style>
+<script>
+/* SQUIGGLE VOICES, JUDGED BY EAR (8/9/26).
+   The engine is inlined above this block. Everything here is surface: it cooks
+   no sound of its own, it only asks BOH_VOICE to speak and records the thumb. */
+(function(){
+ 'use strict';
+ var N_VOICES = 8;
+ /* SHAPES, NOT CONTENT. The text only drives the babble's rhythm and contour,
+    so these are deliberately plain: none of them asserts a line of canon, which
+    is not mine to write. The question is here because it is the only one that
+    exercises the rising end-of-sentence contour. */
+ var LINES = [
+   ['SHORT',    "I already told you no."],
+   ['LONG',     "You want to come in here and act like the last three months never happened, and I am supposed to just let that go."],
+   ['QUESTION', "Are you going to pay me or not?"]
+ ];
+ var LINE = 0;
+ var V = {}, C = {};                       /* his thumbs and his notes */
+ var NOTE = '';
+ /* HIS VERDICTS ARE A REPO FILE, NOT A COOKIE (Paolo 8/1: "I can't be judging
+    shit and then you pretend that I didn't"). SETTLED is baked in at build time
+    from banks/BOHEMIA_VOICES_APPROVED_*.json -- his committed thumbs -- so a
+    cleared cache or a second device falls back to what he already decided
+    instead of asking him again. localStorage only holds CHANGES on top. */
+ var SETTLED = {"cand-0": -1, "cand-1": 1, "cand-2": 1, "cand-3": 1, "cand-4": 1, "cand-5": -1, "cand-6": 1, "cand-7": 1};
+ try{ window.__VOICES_APPROVED = Object.keys(SETTLED).filter(function(k){ return SETTLED[k]===1; }); }catch(e){}
+
+ function load(){
+  var k; for(k in SETTLED) V[k]=SETTLED[k];
+  try{ var d=JSON.parse(localStorage.getItem('bohemia_voices')||'null');
+       if(d){ if(d.V) for(k in d.V) V[k]=d.V[k];    /* he may change his mind */
+              C=d.C||{}; NOTE=d.note||''; } }catch(e){}
+ }
+ function save(){
+  try{ localStorage.setItem('bohemia_voices',JSON.stringify({V:V,C:C,note:NOTE})); }catch(e){}
+ }
+
+ function bus(){
+  try{
+   if(typeof MUS==='undefined') return null;
+   MUS.audio(); if(!MUS.AC) return null;
+   /* THE EFFECTS SLIDER ALREADY OWNS THIS. Routing voices anywhere else would
+      mean a fourth thing a volume knob has to know about, which is the exact
+      drift the one-bus rule was written to stop. And never MUS.MAST: that is
+      the MUSIC master and MUS.stop() ducks it to zero. */
+   return window.__SFXBUS || MUS.OUT || MUS.MAST || MUS.AC.destination;
+  }catch(e){ return null; }
+ }
+
+ function speak(v){
+  try{
+   var d=bus(); if(!d||typeof BOH_VOICE==='undefined') return null;
+   return BOH_VOICE.say(LINES[LINE][1], v, MUS.AC, d, null);
+  }catch(e){ return null; }
+ }
+ window.__vxSpeak = speak;
+ window.__vxLine = function(i){ if(i!=null) LINE=i; return LINE; };
+ window.__vxVerdicts = function(){ return V; };
+
+ function el(t,c,x){ var e=document.createElement(t); if(c)e.className=c;
+   if(x!=null)e.textContent=x; return e; }
+
+ function build(){
+  var w=document.createElement('div'); w.id='vxWrap';
+  /* the UI must not click over the voice it is asking him about (Paolo 8/4) */
+  w.setAttribute('data-noui','1');
+  w.appendChild(el('h4',null,'SQUIGGLE VOICES'));
+  var n=el('div','vxNote');
+  n.textContent='Eight candidate voices, all saying the SAME line so you are '
+    +'judging the voice and not the sentence. Nothing here is assigned to '
+    +'anybody yet.';
+  w.appendChild(n);
+
+  var lw=el('div','vxLines');
+  LINES.forEach(function(L,i){
+   var b=el('div','vxLine'+(i===LINE?' on':''),L[0]);
+   b.addEventListener('click',function(){
+    LINE=i;
+    [].forEach.call(lw.children,function(c,j){ c.className='vxLine'+(j===i?' on':''); });
+   });
+   lw.appendChild(b);
+  });
+  w.appendChild(lw);
+
+  var voices = BOH_VOICE.cook(N_VOICES);
+  voices.forEach(function(v,i){
+   var row=el('div','vxRow');
+   var p=el('button','vxPlay');
+   p.innerHTML='<b>VOICE '+(i+1)+'</b><span>'+BOH_VOICE.serialize(v)+'</span>';
+   p.addEventListener('click',function(){
+    speak(v);
+    p.classList.add('hot'); setTimeout(function(){ p.classList.remove('hot'); },260);
+   });
+   var up=el('button','vxUp'+(V[v.seed]===1?' on':'')); up.innerHTML='&#128077;';
+   var dn=el('button','vxDn'+(V[v.seed]===-1?' on':'')); dn.innerHTML='&#128078;';
+   function paint(){
+    up.className='vxUp'+(V[v.seed]===1?' on':'');
+    dn.className='vxDn'+(V[v.seed]===-1?' on':'');
+   }
+   up.addEventListener('click',function(){ V[v.seed]=(V[v.seed]===1)?0:1; save(); paint(); });
+   dn.addEventListener('click',function(){ V[v.seed]=(V[v.seed]===-1)?0:-1; save(); paint(); });
+   row.appendChild(p); row.appendChild(dn); row.appendChild(up);
+   w.appendChild(row);
+
+   var c=document.createElement('input');
+   c.className='vxCmt'; c.type='text'; c.placeholder='note on voice '+(i+1);
+   c.value=C[v.seed]||'';
+   c.addEventListener('input',function(){ C[v.seed]=c.value; save(); });
+   w.appendChild(c);
+  });
+
+  /* THE COMMENT SECTION AT THE BOTTOM, ALWAYS (verdict workflow law) */
+  var big=document.createElement('input');
+  big.className='vxCmt'; big.type='text'; big.id='vxNote';
+  big.placeholder='ANYTHING ELSE ABOUT THE VOICES (rides the export)';
+  big.value=NOTE;
+  big.addEventListener('input',function(){ NOTE=big.value; save(); });
+  w.appendChild(big);
+
+  var ex=el('button','vxOut','SEND ME THE FILE');
+  ex.addEventListener('click',function(){ exportTxt(voices); });
+  w.appendChild(ex);
+  return w;
+ }
+
+ function exportTxt(voices){
+  var L=['=== BOHEMIA SQUIGGLE VOICE VERDICTS ==='];
+  L.push('BATCH VOICE-01 (8/9/26) - '+voices.length+' candidate voices');
+  L.push('UP = this is a voice a person in this game has. DOWN = dead.');
+  L.push('The line judged last: '+LINES[LINE][0]);
+  L.push('');
+  voices.forEach(function(v,i){
+   var m=V[v.seed]===1?'UP  ':(V[v.seed]===-1?'DOWN':'--  ');
+   L.push(m+' VOICE '+(i+1)+'   seed='+v.seed);
+   L.push('     '+BOH_VOICE.serialize(v));
+   if(C[v.seed]) L.push('     "'+C[v.seed]+'"');
+  });
+  L.push('');
+  L.push('NOTE: '+(NOTE||'(none)'));
+  var t=L.join('\n');
+  /* COMMENTS CLEAR ON EXPORT (Paolo 7/19): once they ride an export they are
+     delivered, and the repo is the memory rather than the box. */
+  NOTE=''; var nb=document.getElementById('vxNote'); if(nb)nb.value=''; save();
+  try{ G._expName='bohemia_voices.txt'; }catch(e){}
+  document.getElementById('expText').value=t;
+  document.getElementById('expStat').textContent='VOICE EXPORT: SHARE FILE into the chat';
+  document.getElementById('exportModal').style.display='block';
+ }
+
+ /* ===== PEOPLE ACTUALLY TALK (8/11) ==================================
+    Demo row 13 says the voices "speak per dialogue line through the dialogue
+    runtime". Six approved voices that never say a word in the game is
+    APPROVED-BUT-UNUSED, which is the defect this whole lane exists to kill.
+
+    ARCHITECTURE, and it is the same one every sound in this game uses: the run
+    is an iframe with no AudioContext, so it POSTS who spoke and what they said,
+    and the parent does the rest. The run never learns what a voice is.
+
+    ONE VOICE AT A TIME. A new line CUTS the one still talking -- two people
+    babbling over each other is not two people, it is a fault. */
+ var TALKING = null;
+ window.speakLine = function(speaker, text){
+  try{
+   if(typeof BOH_VOICE==='undefined') return null;
+   var d = bus(); if(!d) return null;
+   var line = BOH_VOICE.opener(text); if(!line) return null;
+   if(TALKING && TALKING.stop) { try{ TALKING.stop(); }catch(e){} }
+   var approved = window.__VOICES_APPROVED || [];
+   var v = BOH_VOICE.speakerVoice(speaker, approved);
+   TALKING = BOH_VOICE.say(line, v, MUS.AC, d, null);
+   return TALKING;
+  }catch(e){ return null; }
+ };
+ window.__lastSpoken = function(){ return TALKING; };
+ window.addEventListener('message', function(e){
+  var m = e && e.data; if(!m || m.type!=='BOHEMIA_VOICE') return;
+  window.speakLine(m.speaker, m.text);
+ });
+
+ function mount(){
+  var P=document.getElementById('p-music'); if(!P) return;
+  if(document.getElementById('vxWrap')) return;
+  if(typeof BOH_VOICE==='undefined') return;
+  load();
+  /* above the SFX judge, below the soundboard: voices are the newest thing to
+     rule on and the top of the tab is where he actually looks */
+  var sb=document.getElementById('sbWrap');
+  var w=build();
+  if(sb && sb.parentNode) sb.parentNode.insertBefore(w, sb.nextSibling);
+  else P.insertBefore(w, P.firstChild);
+ }
+ setInterval(mount, 1300);
+})();
+</script>
+<!-- /BOHEMIA SQUIGGLE VOICES -->
 <!-- BOHEMIA SFX SHUFFLE JUDGE (8/7/26) -->
 <style id="shufCSS">
 #shufGo{display:block;width:100%;margin:0 0 10px 0;padding:12px 10px;cursor:pointer;
@@ -13015,514 +13608,6 @@ drawLogoBig();requestAnimationFrame(loop);
 })();
 </script>
 <!-- /BOHEMIA SFX SHUFFLE JUDGE -->
-<!-- BOHEMIA SQUIGGLE VOICES (8/9/26) -->
-<script>
-/* engine/bohemia_voice.js, inlined verbatim */
-/* ============================================================================
-   BOHEMIA SQUIGGLE VOICES  (8/9/26, SOUNDS lane)
-
-   Paolo ruled it 8/4 and made it top priority 8/9: Animal-Crossing-class
-   gibberish speech, one voice per character, derived from that character's
-   identity seed. "Dialogue that makes sound reads alive; silent portraits read
-   dead."
-
-   === WHY THIS IS NOT ANIMALESE'S METHOD, AND HAD TO NOT BE =================
-
-   RESEARCH. Animalese is a sample player: Nintendo recorded a human saying
-   every letter, then re-times and pitch-shifts those clips as the text scrolls,
-   which is how a handful of files becomes hundreds of villagers (and why a
-   happy villager is simply pitched up). That is the lineage and the feel to hit.
-
-   It is also unavailable to us. The demo ruling is explicit -- "ZERO voice
-   acting and zero audio files" -- and this repo has no sample pipeline, no
-   recording, and a hard rule that everything is synthesised on the one
-   AudioContext. So the samples have to be replaced by something that produces
-   the same perceptual object from nothing.
-
-   THAT SOMETHING IS FORMANT SYNTHESIS. A vowel is not a waveform, it is two or
-   three resonant peaks: shape a buzzy source with bandpass filters at F1/F2/F3
-   and the ear hears a vowel, with no recording anywhere. The frequencies below
-   are the Peterson & Barney (1952) adult-male measurements -- the standard
-   reference set, 76 speakers, ten American-English monophthongs in /h_d/
-   context. /i/ really does sit at F1 270 / F2 2290.
-
-   AND THE VOCAL TRACT IS WHY EVERYBODY SOUNDS DIFFERENT. Formants are
-   resonances of a tube, so a shorter tube resonates higher: adult male ~17cm,
-   adult female ~14.5cm, and female/child formants run 10-20% above male ones
-   for the SAME vowel, with the F1/F2 pattern preserved so the vowel is still
-   recognisable. That is one multiplier, and it is the single most powerful
-   character knob here -- it changes WHO is speaking without changing WHAT the
-   vowel is. Pitch alone (Animalese's knob) only makes a chipmunk; tract scale
-   makes a different person.
-
-   === WHAT MAKES IT READ AS TALKING RATHER THAN AS A TUNE ==================
-
-   Three things, and none of them is optional:
-
-   1. VOICED / UNVOICED ALTERNATION. Real speech is a buzz interrupted by
-      hisses. If every letter is a pitched blip the result is a melody, which is
-      the classic failure of naive babble synths. So unvoiced consonants
-      (p t k f s h c x q) are a filtered NOISE burst with no pitch at all, and
-      that alternation is most of the illusion.
-   2. DECLINATION. Pitch drifts DOWN across a sentence in every human language,
-      and rises at a question. A flat contour reads as a robot immediately.
-   3. CONSONANTS ARE SHORTER THAN VOWELS. Roughly half. Even timing reads as
-      morse code.
-
-   === SEEDED, WHICH IS THE WHOLE POINT ======================================
-
-   A character's voice is a pure function of their identity seed: same person,
-   same voice, forever, on any device, with nothing stored. And the same person
-   saying the same line produces the same babble every time -- the jitter is
-   seeded off (character, line, letter index), never off Math.random. A voice
-   that changes between two plays of one line is a voice the player cannot learn
-   to recognise, and recognising people is the entire reason to do this.
-
-   SCREECH LAW (7/8, absolute): no delay, no convolver, no feedback path
-   anywhere in this file. A blip is source -> bandpass -> gain -> out and it is
-   over. Nothing can ring.
-
-   MECHANISM-MINE / CONTENTS-PAOLO'S: this cooks CANDIDATE voices and assigns
-   none. Which voice belongs to which character is his ruling, and the bank
-   stays empty until he thumbs one.
-   ========================================================================== */
-(function (root) {
-  'use strict';
-
-  /* Peterson & Barney (1952), adult male, Hz. F3 matters less than F1/F2 but
-     leaving it out makes everything sound like a kazoo. */
-  var VOWELS = {
-    i: [270, 2290, 3010],    /* beet */
-    I: [390, 1990, 2550],    /* bit  */
-    e: [530, 1840, 2480],    /* bet  */
-    a: [660, 1720, 2410],    /* bat  */
-    A: [730, 1090, 2440],    /* father */
-    O: [570,  840, 2410],    /* bought */
-    U: [440, 1020, 2240],    /* foot */
-    u: [300,  870, 2240],    /* boot */
-    V: [640, 1190, 2390],    /* but  */
-    R: [490, 1350, 1690]     /* bird */
-  };
-  var VKEYS = ['i', 'I', 'e', 'a', 'A', 'O', 'U', 'u', 'V', 'R'];
-
-  /* which vowel colour each letter carries. Vowels get the obvious one;
-     voiced consonants borrow a colour so they still sound like the mouth is
-     somewhere, and unvoiced ones are noise and need none. */
-  var LETTER = {
-    a: 'a', e: 'e', i: 'I', o: 'O', u: 'V', y: 'i',
-    b: 'A', d: 'e', g: 'A', j: 'i', l: 'e', m: 'u', n: 'I',
-    r: 'R', v: 'e', w: 'u', z: 'i',
-    p: null, t: null, k: null, f: null, s: null, h: null,
-    c: null, x: null, q: null
-  };
-  var VOICED = { b:1, d:1, g:1, j:1, l:1, m:1, n:1, r:1, v:1, w:1, z:1 };
-
-  /* ---- seeded randomness. Deterministic, tiny, and never Math.random ---- */
-  function hash(str) {
-    var h = 2166136261 >>> 0, i;
-    str = String(str);
-    for (i = 0; i < str.length; i++) {
-      h ^= str.charCodeAt(i);
-      h = Math.imul(h, 16777619) >>> 0;
-    }
-    return h >>> 0;
-  }
-  function rng(seed) {                      /* mulberry32 */
-    var t = seed >>> 0;
-    return function () {
-      t = (t + 0x6D2B79F5) >>> 0;
-      var r = Math.imul(t ^ (t >>> 15), 1 | t);
-      r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
-      return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
-    };
-  }
-
-  /* ---- A PERSON'S VOICE, from their identity seed and nothing else ------ */
-  function voiceOf(seed) {
-    var r = rng(hash('bohemia-voice:' + seed));
-    /* TRACT is the character knob, not pitch. 0.82 is a big chest, 1.30 is a
-       child. Formants scale by it; the vowel survives because F1 and F2 move
-       together (that is why a child saying "beet" is still "beet"). */
-    var tract = 0.82 + r() * 0.48;
-    /* f0 tracks the tract loosely -- a big tube usually comes with long folds --
-       but not rigidly, because the mismatches are where the memorable people
-       are. 78Hz is a very low man, 300Hz is a small child. */
-    var f0 = Math.round((250 / tract) * (0.62 + r() * 0.72));
-    f0 = Math.max(78, Math.min(300, f0));
-    return {
-      seed: String(seed),
-      f0: f0,
-      tract: +tract.toFixed(3),
-      rate: +(7.5 + r() * 7.5).toFixed(2),      /* letters per second */
-      wave: ['sawtooth', 'square', 'triangle'][(r() * 3) | 0],
-      gruff: +(r() * 0.55).toFixed(3),          /* breath mixed into the buzz */
-      vib: +(r() * 5.5).toFixed(2),             /* Hz of wobble */
-      vibA: +(0.004 + r() * 0.022).toFixed(4),  /* how deep the wobble goes */
-      tilt: +(0.55 + r() * 0.9).toFixed(3),     /* bright vs dark overall */
-      drop: +(0.10 + r() * 0.22).toFixed(3)     /* how hard the pitch declines */
-    };
-  }
-
-  function serialize(v) {
-    return 'f0=' + v.f0 + ' tract=' + v.tract + ' rate=' + v.rate +
-           ' wave=' + v.wave + ' gruff=' + v.gruff + ' vib=' + v.vib +
-           ' vibA=' + v.vibA + ' tilt=' + v.tilt + ' drop=' + v.drop;
-  }
-
-  /* ---- one blip: either a vowel-shaped buzz or an unvoiced hiss --------- */
-  function blip(AC, dest, v, colour, t0, dur, f0, amp, noisy, rand) {
-    var g = AC.createGain();
-    /* THE ENVELOPE IS WHERE THE CLICKING WAS (Paolo 8/11: "I LIKE IT ALL JUST
-       REMOVE THE CLICKING"). Two faults, both here, both measured offline:
-
-       1. THE OLD RELEASE ENDED AT 0.0001 AND THEN stop() CUT THE SOURCE. That
-          leaves a real step at the end of every single blip. Ramping to TRUE
-          zero before the stop removes it entirely -- exponential cannot reach
-          zero, so it hands over to a short linear ramp that can.
-       2. AN UNVOICED BURST GOT THE SAME 6ms ATTACK AS A VOWEL. On a 40ms hiss
-          that is an EDGE, and an edge on broadband noise is exactly what a
-          click is. A hiss needs a shape: roughly a third of its length rising.
-
-       Attack and release scale with the blip so a short consonant is not given
-       a vowel's envelope, which was the whole mistake. */
-    var atk = noisy ? Math.max(0.005, dur * 0.32) : Math.min(0.006, dur * 0.3);
-    var knee = Math.max(atk + 0.002, dur * 0.88);
-    g.gain.setValueAtTime(0, t0);
-    g.gain.linearRampToValueAtTime(amp, t0 + atk);
-    g.gain.exponentialRampToValueAtTime(Math.max(0.0001, amp * 0.03), t0 + knee);
-    g.gain.linearRampToValueAtTime(0, t0 + dur);   /* TRUE zero before stop() */
-    g.connect(dest);
-
-    var src, i;
-    if (noisy) {
-      /* UNVOICED: filtered noise, no pitch. This is half of why it reads as
-         speech instead of as a tune. */
-      var n = Math.max(1, Math.floor(AC.sampleRate * dur));
-      var buf = AC.createBuffer(1, n, AC.sampleRate);
-      var d = buf.getChannelData(0);
-      for (i = 0; i < n; i++) d[i] = rand() * 2 - 1;
-      src = AC.createBufferSource();
-      src.buffer = buf;
-      var bp = AC.createBiquadFilter();
-      bp.type = 'bandpass';
-      bp.frequency.value = (2600 + rand() * 3200) * v.tract;
-      bp.Q.value = 0.7;
-      src.connect(bp); bp.connect(g);
-      src.start(t0); src.stop(t0 + dur);
-      return;
-    }
-
-    /* VOICED: a buzzy source through F1/F2/F3. The formants ARE the vowel. */
-    var F = VOWELS[colour] || VOWELS.V;
-    src = AC.createOscillator();
-    src.type = v.wave;
-    src.frequency.setValueAtTime(f0, t0);
-    if (v.vib > 0.1) {
-      /* the wobble is a real oscillator, not a delay: SCREECH LAW */
-      var lfo = AC.createOscillator(), lg = AC.createGain();
-      lfo.frequency.value = v.vib;
-      lg.gain.value = f0 * v.vibA;
-      lfo.connect(lg); lg.connect(src.frequency);
-      lfo.start(t0); lfo.stop(t0 + dur);
-    }
-    var sum = AC.createGain(); sum.gain.value = 1;
-    for (i = 0; i < 3; i++) {
-      var bq = AC.createBiquadFilter();
-      bq.type = 'bandpass';
-      bq.frequency.value = F[i] * v.tract;
-      bq.Q.value = [7, 9, 11][i];
-      var fg = AC.createGain();
-      fg.gain.value = [1, 0.62 * v.tilt, 0.28 * v.tilt][i];
-      src.connect(bq); bq.connect(fg); fg.connect(sum);
-    }
-    sum.connect(g);
-    if (v.gruff > 0.02) {
-      /* breath ON TOP of the buzz, never instead of it */
-      var nn = Math.max(1, Math.floor(AC.sampleRate * dur));
-      var nb = AC.createBuffer(1, nn, AC.sampleRate);
-      var nd = nb.getChannelData(0);
-      for (i = 0; i < nn; i++) nd[i] = rand() * 2 - 1;
-      var ns = AC.createBufferSource(); ns.buffer = nb;
-      var nf = AC.createBiquadFilter();
-      nf.type = 'bandpass';
-      nf.frequency.value = F[1] * v.tract;
-      nf.Q.value = 1.2;
-      var ng = AC.createGain(); ng.gain.value = v.gruff * 0.25;
-      ns.connect(nf); nf.connect(ng); ng.connect(g);
-      ns.start(t0); ns.stop(t0 + dur);
-    }
-    src.start(t0); src.stop(t0 + dur);
-  }
-
-  /* ---- SAY A LINE ------------------------------------------------------
-     Returns the schedule it built (count + seconds) so a gate can count what
-     was actually produced instead of trusting that something happened. */
-  function say(text, v, AC, dest, when) {
-    text = String(text == null ? '' : text);
-    var letters = text.toLowerCase().replace(/[^a-z .,!?']/g, '');
-    var t0 = (when != null ? when : AC.currentTime + 0.02);
-    /* SEEDED PER LINE: the same person saying the same words is identical every
-       time. Recognising a person is the whole point, and Math.random would make
-       that impossible. */
-    var rand = rng(hash(v.seed + '|' + text));
-    var step = 1 / v.rate;
-    var t = t0, n = 0, i, ch;
-    /* how far through the sentence, for declination */
-    var speakable = letters.replace(/[^a-z]/g, '').length || 1;
-    var said = 0;
-    var q = /\?\s*$/.test(text);
-    for (i = 0; i < letters.length; i++) {
-      ch = letters[i];
-      if (ch === ' ') { t += step * 0.9; continue; }          /* a real gap between words */
-      if (ch === ',') { t += step * 1.4; continue; }
-      if (ch === '.' || ch === '!' || ch === '?' || ch === "'") { continue; }
-      if (!(ch in LETTER)) { t += step * 0.5; continue; }
-
-      var frac = said / speakable;
-      /* DECLINATION: down across the line, up at the end of a question. Every
-         language does this and its absence is instantly a robot. */
-      var f0 = v.f0 * (1 - v.drop * frac);
-      if (q && frac > 0.72) f0 = v.f0 * (1 + 0.16 * (frac - 0.72) / 0.28);
-      f0 *= 0.97 + rand() * 0.06;
-
-      var colour = LETTER[ch];
-      var noisy = (colour === null);
-      /* CONSONANTS ARE SHORTER THAN VOWELS. Even timing reads as morse. */
-      var isVowel = 'aeiouy'.indexOf(ch) >= 0;
-      var dur = step * (isVowel ? 0.95 : (VOICED[ch] ? 0.6 : 0.42));
-      /* CONSONANTS ARE QUIETER THAN VOWELS, AND MINE WERE LOUDER.
-         MEASURED before the fix: vowels peaked at 0.046 and the unvoiced bursts
-         at 0.115 -- the hisses were EIGHT DECIBELS ABOVE the voice. The cause is
-         structural rather than careless: a vowel is squeezed through three
-         narrow bandpasses (Q 7/9/11) that throw most of a sawtooth away, while a
-         hiss goes through one wide one (Q 0.7) that passes nearly everything, so
-         the numbers below did not mean what they looked like.
-         RESEARCH: in real speech the consonant-vowel intensity ratio averages
-         about -7.4 dB and the fricative-to-vowel contrast runs 7 to 14 dB, with
-         sibilants strongest (-2.4 dB) and dentals weakest (-21 dB). So the
-         target is roughly EIGHT DB DOWN, and the old value was about sixteen dB
-         the wrong side of it. */
-      var amp = (isVowel ? 0.30 : (noisy ? 0.021 : 0.20)) * (0.85 + rand() * 0.3);
-
-      blip(AC, dest, v, colour, t, Math.max(0.012, dur), f0, amp, noisy, rand);
-      t += step * (isVowel ? 1 : 0.78);
-      said++; n++;
-    }
-    return { blips: n, seconds: +(t - t0).toFixed(3), start: t0 };
-  }
-
-  /* ---- a batch of candidate voices, cooked from an index --------------- */
-  function cook(count) {
-    var out = [], i;
-    for (i = 0; i < (count || 8); i++) out.push(voiceOf('cand-' + i));
-    return out;
-  }
-
-  root.BOH_VOICE = {
-    VOWELS: VOWELS, VKEYS: VKEYS, LETTER: LETTER,
-    hash: hash, rng: rng,
-    voiceOf: voiceOf, serialize: serialize, say: say, cook: cook
-  };
-})(typeof window !== 'undefined' ? window : this);
-
-</script>
-
-<style id="vxCSS">
-#vxWrap{margin:0 0 10px 0;padding:10px 12px;border:1px solid #3a3350;border-radius:10px;
- background:#141020}
-#vxWrap h4{margin:0 0 4px 0;font:800 10.5px ui-monospace,monospace;letter-spacing:2px;
- color:#c9b6ff;text-align:center}
-#vxWrap .vxNote{font:600 9.5px ui-monospace,monospace;color:#8a7f9a;text-align:center;
- line-height:1.5;margin:0 0 8px 0}
-#vxWrap .vxLines{display:flex;gap:6px;margin:0 0 9px 0}
-#vxWrap .vxLine{flex:1;padding:7px 4px;border:1px solid #3a3350;border-radius:8px;
- background:#1a1626;color:#8a7f9a;font:700 9px ui-monospace,monospace;letter-spacing:1px;
- cursor:pointer;text-align:center}
-#vxWrap .vxLine.on{border-color:#c9b6ff;color:#c9b6ff;background:#221a38}
-#vxWrap .vxRow{display:flex;align-items:center;gap:6px;margin:0 0 6px 0}
-#vxWrap .vxPlay{flex:1;padding:11px 8px;border:1px solid #4a4060;border-radius:9px;
- background:#1d1830;color:#efe6d2;font:800 11px ui-monospace,monospace;letter-spacing:1px;
- cursor:pointer;text-align:left}
-#vxWrap .vxPlay b{color:#c9b6ff}
-#vxWrap .vxPlay span{display:block;margin-top:3px;font:600 8.5px ui-monospace,monospace;
- color:#7a7090;letter-spacing:0}
-#vxWrap .vxPlay.hot{background:#2c2448}
-#vxWrap .vxUp,#vxWrap .vxDn{width:44px;padding:11px 0;border-radius:9px;cursor:pointer;
- font-size:16px;border:1px solid #3a3350;background:#1a1626}
-#vxWrap .vxUp.on{border-color:#2f7a45;background:#0f2416}
-#vxWrap .vxDn.on{border-color:#7a2f2f;background:#241012}
-#vxWrap .vxCmt{width:100%;box-sizing:border-box;margin:0 0 10px 0;padding:7px;
- border:1px solid #3a3350;border-radius:8px;background:#100d1a;color:#cfc3a8;
- font:600 10px ui-monospace,monospace}
-#vxWrap .vxOut{width:100%;padding:12px;border:1px solid #6a5a2e;border-radius:10px;
- background:#2a2414;color:#ffd98a;font:800 11px ui-monospace,monospace;letter-spacing:2px;
- cursor:pointer}
-</style>
-<script>
-/* SQUIGGLE VOICES, JUDGED BY EAR (8/9/26).
-   The engine is inlined above this block. Everything here is surface: it cooks
-   no sound of its own, it only asks BOH_VOICE to speak and records the thumb. */
-(function(){
- 'use strict';
- var N_VOICES = 8;
- /* SHAPES, NOT CONTENT. The text only drives the babble's rhythm and contour,
-    so these are deliberately plain: none of them asserts a line of canon, which
-    is not mine to write. The question is here because it is the only one that
-    exercises the rising end-of-sentence contour. */
- var LINES = [
-   ['SHORT',    "I already told you no."],
-   ['LONG',     "You want to come in here and act like the last three months never happened, and I am supposed to just let that go."],
-   ['QUESTION', "Are you going to pay me or not?"]
- ];
- var LINE = 0;
- var V = {}, C = {};                       /* his thumbs and his notes */
- var NOTE = '';
- /* HIS VERDICTS ARE A REPO FILE, NOT A COOKIE (Paolo 8/1: "I can't be judging
-    shit and then you pretend that I didn't"). SETTLED is baked in at build time
-    from banks/BOHEMIA_VOICES_APPROVED_*.json -- his committed thumbs -- so a
-    cleared cache or a second device falls back to what he already decided
-    instead of asking him again. localStorage only holds CHANGES on top. */
- var SETTLED = {"cand-0": -1, "cand-1": 1, "cand-2": 1, "cand-3": 1, "cand-4": 1, "cand-5": -1, "cand-6": 1, "cand-7": 1};
- try{ window.__VOICES_APPROVED = Object.keys(SETTLED).filter(function(k){ return SETTLED[k]===1; }); }catch(e){}
-
- function load(){
-  var k; for(k in SETTLED) V[k]=SETTLED[k];
-  try{ var d=JSON.parse(localStorage.getItem('bohemia_voices')||'null');
-       if(d){ if(d.V) for(k in d.V) V[k]=d.V[k];    /* he may change his mind */
-              C=d.C||{}; NOTE=d.note||''; } }catch(e){}
- }
- function save(){
-  try{ localStorage.setItem('bohemia_voices',JSON.stringify({V:V,C:C,note:NOTE})); }catch(e){}
- }
-
- function bus(){
-  try{
-   if(typeof MUS==='undefined') return null;
-   MUS.audio(); if(!MUS.AC) return null;
-   /* THE EFFECTS SLIDER ALREADY OWNS THIS. Routing voices anywhere else would
-      mean a fourth thing a volume knob has to know about, which is the exact
-      drift the one-bus rule was written to stop. And never MUS.MAST: that is
-      the MUSIC master and MUS.stop() ducks it to zero. */
-   return window.__SFXBUS || MUS.OUT || MUS.MAST || MUS.AC.destination;
-  }catch(e){ return null; }
- }
-
- function speak(v){
-  try{
-   var d=bus(); if(!d||typeof BOH_VOICE==='undefined') return null;
-   return BOH_VOICE.say(LINES[LINE][1], v, MUS.AC, d, null);
-  }catch(e){ return null; }
- }
- window.__vxSpeak = speak;
- window.__vxLine = function(i){ if(i!=null) LINE=i; return LINE; };
- window.__vxVerdicts = function(){ return V; };
-
- function el(t,c,x){ var e=document.createElement(t); if(c)e.className=c;
-   if(x!=null)e.textContent=x; return e; }
-
- function build(){
-  var w=document.createElement('div'); w.id='vxWrap';
-  /* the UI must not click over the voice it is asking him about (Paolo 8/4) */
-  w.setAttribute('data-noui','1');
-  w.appendChild(el('h4',null,'SQUIGGLE VOICES'));
-  var n=el('div','vxNote');
-  n.textContent='Eight candidate voices, all saying the SAME line so you are '
-    +'judging the voice and not the sentence. Nothing here is assigned to '
-    +'anybody yet.';
-  w.appendChild(n);
-
-  var lw=el('div','vxLines');
-  LINES.forEach(function(L,i){
-   var b=el('div','vxLine'+(i===LINE?' on':''),L[0]);
-   b.addEventListener('click',function(){
-    LINE=i;
-    [].forEach.call(lw.children,function(c,j){ c.className='vxLine'+(j===i?' on':''); });
-   });
-   lw.appendChild(b);
-  });
-  w.appendChild(lw);
-
-  var voices = BOH_VOICE.cook(N_VOICES);
-  voices.forEach(function(v,i){
-   var row=el('div','vxRow');
-   var p=el('button','vxPlay');
-   p.innerHTML='<b>VOICE '+(i+1)+'</b><span>'+BOH_VOICE.serialize(v)+'</span>';
-   p.addEventListener('click',function(){
-    speak(v);
-    p.classList.add('hot'); setTimeout(function(){ p.classList.remove('hot'); },260);
-   });
-   var up=el('button','vxUp'+(V[v.seed]===1?' on':'')); up.innerHTML='&#128077;';
-   var dn=el('button','vxDn'+(V[v.seed]===-1?' on':'')); dn.innerHTML='&#128078;';
-   function paint(){
-    up.className='vxUp'+(V[v.seed]===1?' on':'');
-    dn.className='vxDn'+(V[v.seed]===-1?' on':'');
-   }
-   up.addEventListener('click',function(){ V[v.seed]=(V[v.seed]===1)?0:1; save(); paint(); });
-   dn.addEventListener('click',function(){ V[v.seed]=(V[v.seed]===-1)?0:-1; save(); paint(); });
-   row.appendChild(p); row.appendChild(dn); row.appendChild(up);
-   w.appendChild(row);
-
-   var c=document.createElement('input');
-   c.className='vxCmt'; c.type='text'; c.placeholder='note on voice '+(i+1);
-   c.value=C[v.seed]||'';
-   c.addEventListener('input',function(){ C[v.seed]=c.value; save(); });
-   w.appendChild(c);
-  });
-
-  /* THE COMMENT SECTION AT THE BOTTOM, ALWAYS (verdict workflow law) */
-  var big=document.createElement('input');
-  big.className='vxCmt'; big.type='text'; big.id='vxNote';
-  big.placeholder='ANYTHING ELSE ABOUT THE VOICES (rides the export)';
-  big.value=NOTE;
-  big.addEventListener('input',function(){ NOTE=big.value; save(); });
-  w.appendChild(big);
-
-  var ex=el('button','vxOut','SEND ME THE FILE');
-  ex.addEventListener('click',function(){ exportTxt(voices); });
-  w.appendChild(ex);
-  return w;
- }
-
- function exportTxt(voices){
-  var L=['=== BOHEMIA SQUIGGLE VOICE VERDICTS ==='];
-  L.push('BATCH VOICE-01 (8/9/26) - '+voices.length+' candidate voices');
-  L.push('UP = this is a voice a person in this game has. DOWN = dead.');
-  L.push('The line judged last: '+LINES[LINE][0]);
-  L.push('');
-  voices.forEach(function(v,i){
-   var m=V[v.seed]===1?'UP  ':(V[v.seed]===-1?'DOWN':'--  ');
-   L.push(m+' VOICE '+(i+1)+'   seed='+v.seed);
-   L.push('     '+BOH_VOICE.serialize(v));
-   if(C[v.seed]) L.push('     "'+C[v.seed]+'"');
-  });
-  L.push('');
-  L.push('NOTE: '+(NOTE||'(none)'));
-  var t=L.join('\n');
-  /* COMMENTS CLEAR ON EXPORT (Paolo 7/19): once they ride an export they are
-     delivered, and the repo is the memory rather than the box. */
-  NOTE=''; var nb=document.getElementById('vxNote'); if(nb)nb.value=''; save();
-  try{ G._expName='bohemia_voices.txt'; }catch(e){}
-  document.getElementById('expText').value=t;
-  document.getElementById('expStat').textContent='VOICE EXPORT: SHARE FILE into the chat';
-  document.getElementById('exportModal').style.display='block';
- }
-
- function mount(){
-  var P=document.getElementById('p-music'); if(!P) return;
-  if(document.getElementById('vxWrap')) return;
-  if(typeof BOH_VOICE==='undefined') return;
-  load();
-  /* above the SFX judge, below the soundboard: voices are the newest thing to
-     rule on and the top of the tab is where he actually looks */
-  var sb=document.getElementById('sbWrap');
-  var w=build();
-  if(sb && sb.parentNode) sb.parentNode.insertBefore(w, sb.nextSibling);
-  else P.insertBefore(w, P.firstChild);
- }
- setInterval(mount, 1300);
-})();
-</script>
-<!-- /BOHEMIA SQUIGGLE VOICES -->
 <!-- BOHEMIA SFX FACTORY MOUNT (7/29/26) -->
 <script>
 /* ENGINE SYNC LAW: this body is engine/bohemia_sfx.js, inlined verbatim.
@@ -15157,6 +15242,8 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
      game does not have.
      CUTOFF, not fade-to-nothing: below a hearable gain it plays NOTHING rather
      than a sound too quiet to identify. A sound you cannot place is noise. */
+  var NPC_PLAYED=0;
+  window.__npcPlayed=function(){ return NPC_PLAYED; };
   function npcStep(d){
     try{
       var r=Math.max(0.5, +d.dist||0);
@@ -15175,6 +15262,11 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
          it 0.0095, which is a number, not a sound. Distance is the only thing
          that should quieten this. */
       var out=sfxBus(); if(!out)return;
+      NPC_PLAYED++;   /* what the neighbour ACTUALLY played, for anything that
+                         needs to ask. A test cannot get this from the bus peak:
+                         the ambience bed shares that bus and fires one-shots
+                         every 40-95s, so "the bus made a noise" attributes
+                         somebody else's sound to the neighbour. */
       var at=MUS.AC.createGain(); at.gain.value=g; at.connect(out);
       /* the vector is HIS and is never edited -- a copy carries the position */
       var w={}, k; for(k in v) w[k]=v[k];

@@ -189,7 +189,7 @@
       bp.Q.value = 0.7;
       src.connect(bp); bp.connect(g);
       src.start(t0); src.stop(t0 + dur);
-      return;
+      return src;
     }
 
     /* VOICED: a buzzy source through F1/F2/F3. The formants ARE the vowel. */
@@ -232,6 +232,7 @@
       ns.start(t0); ns.stop(t0 + dur);
     }
     src.start(t0); src.stop(t0 + dur);
+    return src;
   }
 
   /* ---- SAY A LINE ------------------------------------------------------
@@ -246,7 +247,7 @@
        that impossible. */
     var rand = rng(hash(v.seed + '|' + text));
     var step = 1 / v.rate;
-    var t = t0, n = 0, i, ch;
+    var t = t0, n = 0, i, ch, live = [];
     /* how far through the sentence, for declination */
     var speakable = letters.replace(/[^a-z]/g, '').length || 1;
     var said = 0;
@@ -284,11 +285,64 @@
          the wrong side of it. */
       var amp = (isVowel ? 0.30 : (noisy ? 0.021 : 0.20)) * (0.85 + rand() * 0.3);
 
-      blip(AC, dest, v, colour, t, Math.max(0.012, dur), f0, amp, noisy, rand);
+      var node = blip(AC, dest, v, colour, t, Math.max(0.012, dur), f0, amp, noisy, rand);
+      if (node) live.push(node);
       t += step * (isVowel ? 1 : 0.78);
       said++; n++;
     }
-    return { blips: n, seconds: +(t - t0).toFixed(3), start: t0 };
+    /* A HANDLE, so a new line can CUT the one still talking. Two people
+       babbling over each other is not two people, it is a fault. */
+    return { blips: n, seconds: +(t - t0).toFixed(3), start: t0,
+             stop: function(){ for (var k = 0; k < live.length; k++) {
+               try { live[k].stop(); } catch (e) {} } } };
+  }
+
+  /* ---- WHICH OF HIS VOICES A PERSON HAS ------------------------------
+     MECHANISM-MINE / CONTENTS-PAOLO'S, and the split matters here. The RULE --
+     a person's voice is a pure function of their identity, so they sound like
+     themselves forever -- is mechanism and it is the whole point of the
+     feature. WHICH voices exist is HIS: he judged eight on 8/11 and kept six.
+     So this maps an identity onto HIS approved set and never generates a fresh
+     voice, because a fresh voice is one he has not heard.
+     PEOPLE SHARING A VOICE IS CORRECT, not a shortcut. Animal Crossing runs
+     hundreds of villagers off a handful of voice types; what makes someone
+     recognisable is that THEIR voice never changes, not that nobody else has
+     it. Assigning a specific person to a specific voice is still his ruling and
+     is not made here -- this is the fallback for everyone he has not ruled on. */
+  function speakerVoice(id, approved) {
+    var pool = (approved && approved.length) ? approved : ['cand-1'];
+    var k = hash('bohemia-speaker:' + String(id == null ? '' : id));
+    return voiceOf(pool[k % pool.length]);
+  }
+
+  /* THE FIRST SENTENCE, WHICH IS WHAT YOU ACTUALLY HEAR SOMEONE START TO SAY.
+     Animalese speaks the whole line because the TEXT SCROLLS at babble speed.
+     Ours appears instantly, so babbling a twenty-word line over text he has
+     already finished reading would be a drone rather than a person. A sentence
+     is the natural unit -- not an arbitrary letter count -- and the cap only
+     catches the runaway case. */
+  function opener(text, cap) {
+    text = String(text == null ? '' : text).trim();
+    cap = cap || 70;
+    /* KEEP TAKING SENTENCES UNTIL IT IS WORTH HEARING. One sentence alone is
+       often a single word -- "Batteries." -- and one word is not somebody
+       talking, it is a grunt. Sentences accumulate to a floor and then stop,
+       so a short opener borrows the next clause and a long one still gets cut. */
+    var parts = text.match(/[^.!?]+[.!?]?/g) || [text];
+    var out = '';
+    for (var pi = 0; pi < parts.length; pi++) {
+      var nxt = (out + parts[pi]).trim();
+      if (out && nxt.length > cap) break;
+      out = nxt;
+      if (out.replace(/[^a-z]/gi, '').length >= 22) break;   /* enough to hear */
+    }
+    out = out.trim() || text;
+    if (out.length > cap) {
+      out = out.slice(0, cap);
+      var sp = out.lastIndexOf(' ');
+      if (sp > 20) out = out.slice(0, sp);
+    }
+    return out;
   }
 
   /* ---- a batch of candidate voices, cooked from an index --------------- */
@@ -301,6 +355,7 @@
   root.BOH_VOICE = {
     VOWELS: VOWELS, VKEYS: VKEYS, LETTER: LETTER,
     hash: hash, rng: rng,
-    voiceOf: voiceOf, serialize: serialize, say: say, cook: cook
+    voiceOf: voiceOf, serialize: serialize, say: say, cook: cook,
+    speakerVoice: speakerVoice, opener: opener
   };
 })(typeof window !== 'undefined' ? window : this);

@@ -437,6 +437,8 @@ def parent_block(bank):
      game does not have.
      CUTOFF, not fade-to-nothing: below a hearable gain it plays NOTHING rather
      than a sound too quiet to identify. A sound you cannot place is noise. */
+  var NPC_PLAYED=0;
+  window.__npcPlayed=function(){ return NPC_PLAYED; };
   function npcStep(d){
     try{
       var r=Math.max(0.5, +d.dist||0);
@@ -455,6 +457,11 @@ def parent_block(bank):
          it 0.0095, which is a number, not a sound. Distance is the only thing
          that should quieten this. */
       var out=sfxBus(); if(!out)return;
+      NPC_PLAYED++;   /* what the neighbour ACTUALLY played, for anything that
+                         needs to ask. A test cannot get this from the bus peak:
+                         the ambience bed shares that bus and fires one-shots
+                         every 40-95s, so "the bus made a noise" attributes
+                         somebody else's sound to the neighbour. */
       var at=MUS.AC.createGain(); at.gain.value=g; at.connect(out);
       /* the vector is HIS and is never edited -- a copy carries the position */
       var w={}, k; for(k in v) w[k]=v[k];

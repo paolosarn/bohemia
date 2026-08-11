@@ -23838,6 +23838,13 @@ function openTalk(){
 function renderTalk(v){
   if(!v || v.ended){ closeTalk(); return; }
   SPK.textContent = (v.speaker||'').replace(/_/g,' ');
+  /* THE PERSON IN FRONT OF YOU HAS A VOICE (8/11, SOUNDS lane). The run says
+     WHO spoke and WHAT; the parent owns the voice, the AudioContext and the
+     limiter, exactly as every other sound in this game works. Nothing here
+     knows what a voice is. */
+  try{ if(window.parent&&window.parent!==window&&v.says&&v.says.length)
+    window.parent.postMessage({type:'BOHEMIA_VOICE', speaker:v.speaker||'',
+                               text:v.says.join(' ')},'*'); }catch(_e){}
   /* THE FACE YOU ARE TALKING TO: the real face system's render, the same 64x64
      portrait combat and the city tab already show. Not an avatar letter. */
   var pf = CAST && CAST.portraits.looks[NPC_LOOK_SEED % Math.max(1,CAST.portraits.looks.length)];

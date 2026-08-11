@@ -238,6 +238,36 @@ PANEL = r'''
   document.getElementById('exportModal').style.display='block';
  }
 
+ /* ===== PEOPLE ACTUALLY TALK (8/11) ==================================
+    Demo row 13 says the voices "speak per dialogue line through the dialogue
+    runtime". Six approved voices that never say a word in the game is
+    APPROVED-BUT-UNUSED, which is the defect this whole lane exists to kill.
+
+    ARCHITECTURE, and it is the same one every sound in this game uses: the run
+    is an iframe with no AudioContext, so it POSTS who spoke and what they said,
+    and the parent does the rest. The run never learns what a voice is.
+
+    ONE VOICE AT A TIME. A new line CUTS the one still talking -- two people
+    babbling over each other is not two people, it is a fault. */
+ var TALKING = null;
+ window.speakLine = function(speaker, text){
+  try{
+   if(typeof BOH_VOICE==='undefined') return null;
+   var d = bus(); if(!d) return null;
+   var line = BOH_VOICE.opener(text); if(!line) return null;
+   if(TALKING && TALKING.stop) { try{ TALKING.stop(); }catch(e){} }
+   var approved = window.__VOICES_APPROVED || [];
+   var v = BOH_VOICE.speakerVoice(speaker, approved);
+   TALKING = BOH_VOICE.say(line, v, MUS.AC, d, null);
+   return TALKING;
+  }catch(e){ return null; }
+ };
+ window.__lastSpoken = function(){ return TALKING; };
+ window.addEventListener('message', function(e){
+  var m = e && e.data; if(!m || m.type!=='BOHEMIA_VOICE') return;
+  window.speakLine(m.speaker, m.text);
+ });
+
  function mount(){
   var P=document.getElementById('p-music'); if(!P) return;
   if(document.getElementById('vxWrap')) return;

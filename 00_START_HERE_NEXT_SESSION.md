@@ -453,3 +453,60 @@ combat; Valheim + PC2 + FNV + normie-easy PZ) is the LAB's study list only.
 NO other lane cites it; feel questions resolve through the actual standing
 laws as before. Lab's first-hours study stands, now with PZ onboarding as
 the anti-reference for normie-easy.
+### 8/11 (b) — PEOPLE ACTUALLY TALK NOW. DEMO ROW 13 IS CLOSED.
+
+Row 13 was never "a voice engine exists", it was **"speaks per dialogue line
+through the dialogue runtime"**. Six approved voices that never said a word in
+the game was APPROVED-BUT-UNUSED — the exact defect this lane exists to kill.
+
+**THE WIRE.** `renderTalk()` in the run already had the speaker and the lines,
+so the run posts `BOHEMIA_VOICE {speaker, text}` and the parent speaks it. Same
+architecture as every other sound here: the run says WHO spoke and WHAT, the
+parent owns the AudioContext and the limiter. The run never learns what a voice
+is.
+
+**WHICH VOICE A PERSON HAS** is `hash(identity) -> one of HIS SIX`. The RULE (a
+person's voice is a pure function of their identity, so they sound like
+themselves forever) is mechanism and is the whole point. WHICH voices exist is
+his — so it draws only from the six he approved and **never generates a fresh
+voice he has not heard**. People sharing a voice is correct, not a shortcut:
+Animal Crossing runs hundreds of villagers off a handful of types. What makes
+someone recognisable is that THEIR voice never changes, not that nobody else has
+it. Assigning a named character to a specific voice is still his ruling and has
+not been made.
+
+**IT SPEAKS AN OPENER, NOT THE WALL.** Animalese speaks the whole line because
+the TEXT SCROLLS at babble speed; ours appears instantly, so babbling twenty
+words over text he has already read is a drone, not a person. It takes whole
+sentences until it has about 22 letters, then stops (cap 70). "Batteries." alone
+is a grunt; "Batteries. Real ones, not the swollen ones you sold my brother."
+is somebody talking.
+
+**ONE VOICE AT A TIME.** A new line CUTS the one still speaking. `say()` returns
+a stop handle for exactly this — two people babbling over each other is not two
+people, it is a fault.
+
+Proved by driving the run's OWN `renderTalk` with three lines: red_boss →
+cand-4, stranger → cand-6, red_boss again → cand-4. Different people differ, the
+same person repeats, every voice is one he approved. Mutation tested: cut the
+run's report and the gate goes red on five.
+
+`voice_gate.py` 35 → **41**.
+
+**AND A FLAKY GATE OF MINE, DIAGNOSED PROPERLY RATHER THAN RE-RUN UNTIL GREEN.**
+`sfx_wired` went red on "a neighbour THIRTY tiles away was audible (0.0748)".
+Before touching anything: stashed my work, ran the gate on clean main → 372/372
+green. Restored my work, ran again → 372/372 green. **It did not reproduce.**
+
+Reading the code settled it. At 30 tiles the RUN never reports at all
+(`d > NPC_RANGE`), so the `msgs` half of that check is zero by construction and
+only the PEAK half can ever fail — and the peak is measured on the shared SFX
+bus, which the AMBIENCE BED also uses. Ambience fires a one-shot every 40-95
+seconds, so in a 2.25-second measurement window it lands about 3% of the time
+and gets attributed to a neighbour thirty tiles away.
+
+Fixed the ruler, not the target: `npcStep` now reports what it ACTUALLY PLAYED
+(`window.__npcPlayed()`), and the gate asks that instead of asking the bus what
+it heard. A near-case positive assertion was added too, so the far case cannot
+pass by everything being broken. **Same lesson as time_pass and the door drag,
+three times in one week: COUNT THE THING, NOT EVERYTHING.**

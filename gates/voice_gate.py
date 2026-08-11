@@ -190,6 +190,35 @@ const pw = pwmod();
     return { vow, uns, real, consonantDB:+dB.toFixed(2) };
   });
 
+  // ============ PEOPLE ACTUALLY TALK, IN THE REAL RUN ==================
+  // Demo row 13 is not "a voice engine exists", it is "speaks per dialogue line
+  // through the dialogue runtime". Six approved voices that never say a word in
+  // the game is APPROVED-BUT-UNUSED, the defect this lane exists to kill. So
+  // this opens the RUN and drives its OWN renderTalk -- the function that paints
+  // a line of dialogue -- and listens for what the parent does about it.
+  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); });
+  await p.waitForTimeout(8000);
+  await p.evaluate(() => { window.__spoke = [];
+    const o = BOH_VOICE.say.bind(BOH_VOICE);
+    BOH_VOICE.say = function(t, v){ window.__spoke.push({seed: v.seed, text: t});
+                                    return o.apply(null, arguments); }; });
+  const fr2 = p.frames().find(f => f.url().includes('RUN_CURRENT')) || p.frames()[1];
+  if (fr2) {
+    out.runReports = await fr2.evaluate(() => typeof renderTalk === 'function').catch(() => false);
+    await fr2.evaluate(() => { try { renderTalk({speaker:'red_boss',
+      says:['Batteries. Real ones, not the swollen ones you sold my brother.'],
+      noverbs:[], options:[]}); } catch(e) {} }).catch(() => {});
+    await p.waitForTimeout(600);
+    await fr2.evaluate(() => { try { renderTalk({speaker:'stranger',
+      says:['I already told you no.'], noverbs:[], options:[]}); } catch(e) {} }).catch(() => {});
+    await p.waitForTimeout(600);
+    // same person again -> must be the same voice as the first time
+    await fr2.evaluate(() => { try { renderTalk({speaker:'red_boss',
+      says:['You heard me.'], noverbs:[], options:[]}); } catch(e) {} }).catch(() => {});
+    await p.waitForTimeout(600);
+    out.spoke = await p.evaluate(() => window.__spoke.slice());
+  }
+
   out.net = net.slice(0, 5);
   out.netOther = Array.from(new Set(netOther)).slice(0, 4);
   out.errors = errs.slice(0, 4);
@@ -351,6 +380,27 @@ def main():
         print('    NOTE  the alpha fetches %d non-audio external(s), not this '
               'lane\'s: %s' % (len(d['netOther']), ', '.join(
                   u.split('/')[2] for u in d['netOther'])))
+    # ---- PEOPLE ACTUALLY TALK -------------------------------------------
+    sp = d.get('spoke') or []
+    ok('the run has a dialogue paint to speak from', d.get('runReports'))
+    ok('PAINTING A LINE OF DIALOGUE MAKES A NOISE: %d utterances from 3 lines'
+       % len(sp), len(sp) == 3)
+    if len(sp) == 3:
+        ok('it speaks the WORDS on screen, not a placeholder (%r)'
+           % (sp[0]['text'][:28] + '...'), 'Batteries' in sp[0]['text'])
+        ok('TWO DIFFERENT PEOPLE GET TWO DIFFERENT VOICES (%s vs %s)'
+           % (sp[0]['seed'], sp[1]['seed']), sp[0]['seed'] != sp[1]['seed'])
+        ok('AND THE SAME PERSON GETS THE SAME VOICE AGAIN (%s) -- without this '
+           'nobody can be recognised and the feature is pointless'
+           % sp[2]['seed'], sp[0]['seed'] == sp[2]['seed'])
+        approved = ['cand-1', 'cand-2', 'cand-3', 'cand-4', 'cand-6', 'cand-7']
+        ok('every voice used is one HE APPROVED, never a fresh one he has not '
+           'heard (%s)' % sorted({u['seed'] for u in sp}),
+           all(u['seed'] in approved for u in sp))
+    else:
+        for _ in range(4):
+            ok('(three utterances needed to check voice identity)', False)
+
     # ---- THE CLICKING (Paolo 8/11) --------------------------------------
     c = d.get('click') or {}
     real, vow, uns = c.get('real') or {}, c.get('vow') or {}, c.get('uns') or {}
