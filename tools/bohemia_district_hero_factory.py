@@ -1385,16 +1385,22 @@ def build_interchange(P):
     CARC, SEMIC, DECK, PIER = P[10], P[11], P[12], P[13]
     DEBRIS, RAMP, GORE, BASIN = P[15], P[16], P[18], P[19]
     s = Scene()
-    # the sound wall goes to the BACK for the same depth reason as the other three
-    _ground(s, (-3, -3, 15, 15), patches=[(-3, 10.0, 5.4, 15, BASIN)], groundc=EMBANK, lotc=SHLD)
-    # THE LOWER CARRIAGEWAY, at grade, running east-west
-    s.box((-3, 3.4, 0.02), (18, 5.2, 0.10), {'c': LANE})
-    s.box((-3, 3.1, 0.02), (18, 0.34, 0.11), {'c': SHLD})
-    s.box((-3, 8.5, 0.02), (18, 0.34, 0.11), {'c': SHLD})
+    # AN INTERCHANGE IS A ROAD CELL, SO IT FILLS THE BOX LIKE THE OTHER THREE (Paolo 8/11).
+    # Seen for the first time beside the street, the crossing and the freeway as a MAP GRID,
+    # this one was the odd one out and obviously so: a small object sitting on a big tan
+    # desert pad while its three neighbours ran pavement corner to corner. A freeway stack
+    # is not a thing standing in the desert, it is roadway on roadway -- the graded
+    # embankment IS the cell.
+    o = _street_bed(s, EMBANK, SHLD)
+    s.box((-3.0 - o, 10.0, 0.01), (8.4 + o, 5.0 + o, 0.02), {'c': BASIN})   # the retention basin
+    # THE LOWER CARRIAGEWAY, at grade, running east-west, off both edges
+    s.box((-3 - o, 3.4, 0.02), (18 + 2 * o, 5.2, 0.10), {'c': LANE})
+    s.box((-3 - o, 3.1, 0.02), (18 + 2 * o, 0.34, 0.11), {'c': SHLD})
+    s.box((-3 - o, 8.5, 0.02), (18 + 2 * o, 0.34, 0.11), {'c': SHLD})
     for ly in (4.7, 7.3):
-        for seg in range(9):
-            s.box((-2.6 + seg * 2.0, ly, 0.13), (1.1, 0.13, 0.03), {'c': LINE})          # dashed lane lines
-    s.box((-3, 5.9, 0.12), (18, 0.30, 0.34), {'c': BARRIER})                             # median barrier
+        for seg in range(int((18 + 2 * o) / 2.0)):
+            s.box((-2.6 - o + seg * 2.0, ly, 0.13), (1.1, 0.13, 0.03), {'c': LINE})      # dashed lane lines
+    s.box((-3 - o, 5.9, 0.12), (18 + 2 * o, 0.30, 0.34), {'c': BARRIER})                 # median barrier
     _vehicle(s, 1.2, 4.2, CAR, CARC, along='x')
     _vehicle(s, 3.4, 7.0, TRAILER, SEMIC, along='x')
     _vehicle(s, 11.0, 4.3, CAR, CARC, along='x')

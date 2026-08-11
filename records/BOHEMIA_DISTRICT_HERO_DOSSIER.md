@@ -211,7 +211,7 @@ _Railway — matched to the walkable corridor: two ballasted TRACKS with a dead 
 - right-of-way fence x4 — the fence line along the corridor (code 7 "ROW fence")
 - ground — the walking cess either side of the ballast (code 4 "cess"), the material yard (code 21) and the gravel maintenance road (code 6 "service road")
 
-## INTERCHANGE  (468x468, anchor 234,294)
+## INTERCHANGE  (468x468, anchor 234,234)
 _Interchange — matched: two carriageways crossing on TWO LEVELS, the upper one on a piered DECK, with a connector RAMP curving up to it + a HIGH-MAST light + the sound wall + the retention basin + the jam that never moved._
 
 - lower carriageway — the at-grade interstate running east-west (code 1 "travel lane") with its paved shoulders (code 3 "shoulder")

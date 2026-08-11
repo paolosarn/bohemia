@@ -109,7 +109,11 @@ ok('every district icon produced a silhouette (%d)' % len(sil), len(sil) > 0)
 # own ruling is a defect, which A GATE MUST NEVER OUTRANK A RULING (8/1) forbids outright.
 # They are still held to the twin test below, where they separate on what is PAINTED on
 # them -- an intersection with signals and crosswalk ladders against a walled freeway run.
-FULL_BLEED = {'arterial', 'arterial_x', 'freeway'}
+# interchange joined 8/11: it is a ROAD CELL like the other three and now fills the box
+# the same way. It was the odd one out in the map grid -- a small stack sitting on a big
+# tan desert pad beside three neighbours running pavement corner to corner -- which is
+# exactly the defect seeing them AS A GRID was meant to surface.
+FULL_BLEED = {'arterial', 'arterial_x', 'freeway', 'interchange'}
 blobs = []
 for d, s in sorted(sil.items()):
     if d in FULL_BLEED:
