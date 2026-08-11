@@ -174,10 +174,24 @@ PANEL = r'''
   w.appendChild(lw);
 
   var voices = BOH_VOICE.cook(N_VOICES);
+  /* VOICE-02: A BATCH FROM THE ENVELOPE HIS OWN VERDICTS DESCRIBE.
+     He has heard the eight above. He has NOT heard these, and that matters --
+     they are what the valley's strangers now sound like, generated inside the
+     hull of what he approved with his one hard rule (no wobble) enforced. They
+     are here so the ENVELOPE gets judged, not just the eight originals: if
+     these are right, 192 distinct voices are right, and that is the volume he
+     asked for. */
+  try{
+   if(BOH_VOICE.castVoice){
+    for(var ci=0; ci<12; ci++) voices.push(BOH_VOICE.castVoice('cast-'+ci));
+   }
+  }catch(e){}
   voices.forEach(function(v,i){
    var row=el('div','vxRow');
    var p=el('button','vxPlay');
-   p.innerHTML='<b>VOICE '+(i+1)+'</b><span>'+BOH_VOICE.serialize(v)+'</span>';
+   var isCast = String(v.seed).indexOf('cast-')===0;
+   p.innerHTML='<b>'+(isCast?'FROM THE ENVELOPE '+(i-N_VOICES+1):'VOICE '+(i+1))
+     +'</b><span>'+BOH_VOICE.serialize(v)+'</span>';
    p.addEventListener('click',function(){
     speak(v);
     p.classList.add('hot'); setTimeout(function(){ p.classList.remove('hot'); },260);
@@ -249,7 +263,7 @@ PANEL = r'''
 
     ONE VOICE AT A TIME. A new line CUTS the one still talking -- two people
     babbling over each other is not two people, it is a fault. */
- var TALKING = null, LASTSAID = null, LASTAT = 0;
+ var TALKING = null, LASTSAID = null;
  /* A CAST SHARES A GROUP; A CROWD DOES NOT. Only ids that name a scene get
     distinct-voice dealing -- see the engine for why the open world must not. */
  var GROUPS = {};
@@ -262,16 +276,36 @@ PANEL = r'''
       called this THREE times, because the caption repaints. Speaking a line
       once per repaint is a stutter and a waste of three renders. A genuine
       repeat later still speaks -- only the immediate echo is dropped. */
-   var now = (performance&&performance.now)?performance.now():Date.now();
+   /* NO TIME WINDOW. The first version dropped an echo only within 1500ms and
+      still stuttered six times once the cold open grew to forty beats, because
+      a beat can sit on screen longer than that and repaint again. The honest
+      rule needs no clock: THE SAME PERSON SAYING THE SAME LINE TWICE IN A ROW
+      IS A REPAINT. Any other line in between clears it, so a genuine repeat
+      later still speaks. */
    var sig = String(speaker)+'|'+line;
-   if(sig===LASTSAID && (now-LASTAT)<1500) return null;
-   LASTSAID = sig; LASTAT = now;
+   if(sig===LASTSAID) return null;
+   LASTSAID = sig;
    if(TALKING && TALKING.stop) { try{ TALKING.stop(); }catch(e){} }
    var approved = window.__VOICES_APPROVED || [];
    var sp = String(speaker||'');
-   var gk = (sp.indexOf('story:')===0) ? 'story' : null;
-   if(gk && !GROUPS[gk]) GROUPS[gk] = {};
-   var v = BOH_VOICE.speakerVoice(sp, approved, gk?GROUPS[gk]:null);
+   /* THE CROWD IS CAST FROM HIS ENVELOPE; THE CAST USES VOICES HE HAS HEARD.
+      Paolo 8/12: "we may need way more voices". Six shared voices is right for
+      four people in a room and wrong for a valley -- so an unnamed stranger in
+      the city gets their OWN voice, generated inside the envelope his eight
+      verdicts describe (192 perceptually distinct cells, vibrato hard-capped at
+      what he accepted).
+      NAMED PEOPLE STILL GET VOICES HE ACTUALLY HEARD AND THUMBED. The cold open
+      family and quest speakers draw from the approved six and deal without
+      replacement, because those are the people who carry the story and they are
+      not the place to use a voice he has never been played. */
+   var v, gk = null;
+   if(sp.indexOf('city:')===0 && BOH_VOICE.castVoice){
+     v = BOH_VOICE.castVoice(sp);
+   } else {
+     gk = (sp.indexOf('story:')===0) ? 'story' : null;
+     if(gk && !GROUPS[gk]) GROUPS[gk] = {};
+     v = BOH_VOICE.speakerVoice(sp, approved, gk?GROUPS[gk]:null);
+   }
    TALKING = BOH_VOICE.say(line, v, MUS.AC, d, null);
    return TALKING;
   }catch(e){ return null; }
@@ -361,13 +395,53 @@ CITY_OPEN_NEW = """function ctOpen(){
 # there is no frame boundary to cross here and posting a message to yourself
 # would be ceremony.
 STORY_ANCHOR = "    '</span><br>'+L.text.replace(/&/g,'&amp;').replace(/</g,'&lt;');"
-STORY_ADD = (
-    "\n  /* THE COLD OPEN TALKS (8/11, SOUNDS lane). onBeat fires once per beat,"
-    "\n     so a line speaks once and a repaint cannot repeat it. Beats with no"
-    "\n     text return above and stay silent, which is right: an era card is not"
-    "\n     somebody talking. */"
-    "\n  try{ if(window.speakLine) window.speakLine('story:'+(L.speaker||''), L.text); }catch(_v){}"
-)
+# WITHDRAWN 8/12. The CUTSCENE lane built their own cutVoice() the same day, so
+# this call made every line of the cold open speak TWICE, in two different
+# voices, because their assignment and mine disagreed. Measured: 26 renders for
+# 7 lines. Their surface decides WHEN somebody speaks -- that is theirs. HOW a
+# line speaks has one owner, and the fix is to join them, not to add a second.
+STORY_ADD = ""
+
+
+# ONE OWNER FOR "A LINE SPEAKS". The CUTSCENE lane wired cutVoice() straight
+# into the engine -- reasonably, the engine was sitting there -- but that made a
+# SECOND voice system on one surface: no dedupe against caption repaints, no
+# cast grouping, and its own idea of who sounds like what. Two systems on one
+# surface is how the cold open ended up saying every line twice in two voices.
+#
+# THEIR FUNCTION AND THEIR CALL SITES ARE UNTOUCHED. Only the body changes, to
+# hand off to speakLine -- which owns the dedupe, the deal-without-replacement
+# for a named cast, the envelope overflow when a scene has more people than he
+# has approved voices, and the single-utterance-at-a-time rule. WHEN somebody
+# speaks stays theirs; HOW is this lane's.
+CUTVOICE_OLD = """    var pool = (window.__VOICES_APPROVED && window.__VOICES_APPROVED.length)
+      ? window.__VOICES_APPROVED : null;
+    var v = BOH_VOICE.speakerVoice('coldopen:'+role, pool);
+    BOH_VOICE.say(BOH_VOICE.opener(text), v, MUS.AC, d, null);"""
+CUTVOICE_NEW = """    /* ONE OWNER (8/12, SOUNDS lane). This used to call the engine directly,
+       which made a SECOND voice system on this surface: every line spoke twice,
+       in two different voices, because two assignments disagreed. speakLine
+       owns the dedupe against caption repaints, the deal-without-replacement so
+       a named cast never shares a voice, and the overflow into his approved
+       envelope when a scene has more speakers than he has approved voices. */
+    if(window.speakLine){ window.speakLine('story:'+role, text); return; }
+    var pool = (window.__VOICES_APPROVED && window.__VOICES_APPROVED.length)
+      ? window.__VOICES_APPROVED : null;
+    var v = BOH_VOICE.speakerVoice('coldopen:'+role, pool);
+    BOH_VOICE.say(BOH_VOICE.opener(text), v, MUS.AC, d, null);"""
+
+
+def patch_cutvoice(s):
+    """Join the cutscene lane's voice call to the single owner."""
+    if 'ONE OWNER (8/12, SOUNDS lane)' in s:
+        print('  cutVoice already delegates')
+        return s
+    if CUTVOICE_OLD not in s:
+        print('  NOTE cutVoice not found; skipped')
+        return s
+    s = s.replace(CUTVOICE_OLD, CUTVOICE_NEW, 1)
+    print('  cutVoice now delegates to speakLine (one owner, one voice per line)')
+    return s
 
 
 def patch_story(s):
@@ -442,6 +516,7 @@ def main():
     s = s.replace(anchor, block + anchor, 1)
 
     s = patch_story(s)
+    s = patch_cutvoice(s)
     open(ALPHA, 'w', encoding='utf8').write(s)
     if not patch_city():
         return 1

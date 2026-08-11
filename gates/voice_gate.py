@@ -278,7 +278,9 @@ def main():
     ok('the judge page is in the MUSIC tab', d.get('hasPanel'))
     ok('it carries data-noui so a click tone cannot cover the voice (Paolo 8/4)',
        d.get('noui'))
-    ok('eight candidate voices to judge (%s)' % d.get('rows'), d.get('rows') == 8)
+    # 8 originals + 12 from the envelope his own verdicts describe (8/12).
+    ok('twenty voices to judge: his eight, plus twelve from the envelope (%s)'
+       % d.get('rows'), d.get('rows') == 20)
 
     ap = d.get('approvedList') or []
     ok('HIS 8/11 VERDICT IS IN THE GAME: six voices approved (%d)' % len(ap),

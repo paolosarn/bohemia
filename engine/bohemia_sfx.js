@@ -246,8 +246,97 @@ const BOH_SFX = (function () {
        were brighter, shorter, harder-driven. NEW IDS so the dead ten stay dead
        and stay findable. */
     { ev: 'door_drag',  label: 'THE DOOR DRAGS OPEN', why: 'thirty years of sand in the sill. it hauls, it does not creak' },
-    { ev: 'door_clack', label: 'THE DOOR STOPS DEAD', why: 'latch and frame at the same instant. the sound that CUTS and STOPS' }
+    { ev: 'door_clack', label: 'THE DOOR STOPS DEAD', why: 'latch and frame at the same instant. the sound that CUTS and STOPS' },
     /* ---- end fresh doors events ---- */
+
+    /* =====================================================================
+       BATCH SFX-03 (8/12/26) — THE WHOLE GAME, NOT THE DEMO
+       ---------------------------------------------------------------------
+       Paolo 8/11: "we may need way more voices and way more sounds for the
+       whole game." Voices got an ENVELOPE cast from his six approved. Sounds
+       get the same treatment from the other direction: his 140 thumbs were
+       measured before a single new recipe was written, and the batch is built
+       inside what the measurement said.
+
+       WHAT THE 140 VERDICTS ACTUALLY SAY (all five records/BOHEMIA_SFX_VERDICT_*
+       files parsed against the cooked vectors, 62 UP / 78 DOWN):
+
+         MATERIAL IS THE VERDICT, not a knob.
+           glass  5 UP  0 DOWN   100%      metal  3 UP 12 DOWN   20%
+           crystal 8/7  53%                water  1 UP  4 DOWN   20%
+           stone  10/10 50%                wood   5 UP 10 DOWN   33%
+           bell   10/10 50%
+           choir   5/5  50%
+           ash    13/17 43%
+         Metal, wood and water together are 9 UP / 26 DOWN. That is not one bad
+         cook, it is 35 judgements agreeing, and it independently reproduces the
+         7/30 door post-mortem (ash and stone lived, metal and wood died) from
+         data that post-mortem never touched.
+
+         HE KILLS SOUNDS THAT ARE PUSHED. mkup (makeup gain) is the single
+         strongest continuous separator in the whole set: UP mean 0.92, DOWN
+         mean 1.28, effect size -1.17. drive is second: UP 0.16, DOWN 0.30,
+         -0.62. Nothing else clears 0.45. That IS his v1 complaint ("it sounds
+         like it was made with some software from 2006") stated in numbers:
+         loud and saturated is the tell.
+
+         WHAT IT DOES NOT SAY, and the gate does not pretend otherwise: WITHIN
+         a single event's five candidates there is no parameter with a clean
+         direction (8 events split, no knob better than 5/7). Which of five
+         cousins he wants is taste, and taste is his. The envelope picks the
+         FAMILY; he still picks the sound.
+
+       SO THE LAW THIS BATCH IS BUILT UNDER, machine-checked by sfx_envelope_gate.py:
+         1. Cook from the materials that win. metal/wood/water only when the
+            object IS that thing, and then brighter, shorter and less driven
+            than the ten doors that died.
+         2. mkup <= 1.10 and drive <= 0.30 on every new recipe base, and the
+            jitter ranges may not climb out of that either.
+       ===================================================================== */
+
+    /* ---- A. THE GROUND. He named "footsteps by ground" demo-critical and the
+       game shipped three surfaces. A city has more than three. ---- */
+    { ev: 'step_concrete', label: 'FOOTSTEP — CONCRETE', why: 'every interior floor and every sidewalk. after asphalt this is the most-heard sound in the game' },
+    { ev: 'step_sand',     label: 'FOOTSTEP — DEEP SAND', why: 'off the pavement, where the valley is taking the city back. it swallows the step' },
+    { ev: 'step_glass',    label: 'FOOTSTEP — BROKEN GLASS', why: 'a dead city is carpeted in it. you cannot walk quietly through a looted room' },
+    { ev: 'step_wood',     label: 'FOOTSTEP — FLOORBOARDS', why: 'porches, motel rooms, anything built before the money left' },
+    { ev: 'step_metal',    label: 'FOOTSTEP — METAL DECK', why: 'storage doors, catwalks, a truck bed. the one that announces you' },
+
+    /* ---- B. THE FIGHT. The gun got a voice on 8/1. Everything else the fight
+       does was still silent. ---- */
+    { ev: 'swing',      label: 'YOU SWING AND MISS',   why: 'the bat goes through the air. no contact, just the weight of it' },
+    { ev: 'melee_hit',  label: 'MELEE CONNECTS',       why: 'pipe on a body. the closest, worst sound in the game' },
+    { ev: 'reload',     label: 'YOU RELOAD',           why: 'the beat where you cannot shoot. the player has to HEAR the window open and close' },
+    { ev: 'dry_fire',   label: 'EMPTY',                why: 'you pulled and nothing happened. the sound that means you counted wrong' },
+    { ev: 'casing',     label: 'BRASS HITS THE FLOOR', why: 'after the shot, from a different place in the room. it tells you the room is hard' },
+
+    /* ---- C. THE BODY. Hardcore RPG: the body is a system and it never made a
+       sound. ---- */
+    { ev: 'heartbeat',  label: 'YOUR HEART, TOO LOUD', why: 'low health. the sound that is inside your head, not in the room' },
+    { ev: 'breath',     label: 'OUT OF BREATH',        why: 'you ran too far. the cost of moving fast, made audible' },
+    { ev: 'drink',      label: 'YOU DRINK',            why: 'water in a desert. the single most valuable thing anybody has' },
+    { ev: 'patch_up',   label: 'YOU PATCH YOURSELF UP', why: 'cloth and tape. slow, close, and nobody is helping you' },
+
+    /* ---- D. THE CITY YOU BUILD. It is a city-builder and building was mute. ---- */
+    { ev: 'build_place', label: 'IT GOES DOWN',   why: 'a thing you decided on lands on the map and is now real' },
+    { ev: 'demolish',    label: 'IT COMES APART', why: 'you took something down. it should cost you something to hear' },
+    { ev: 'deed',        label: 'YOU OWN IT NOW', why: 'the deed lands. ownership is the whole spine of the game' },
+    { ev: 'money',       label: 'MONEY MOVES',    why: 'cash changes hands. in a post-economic valley this is never neutral' },
+    { ev: 'power_on',    label: 'THE BLOCK LIGHTS', why: 'the grid takes a block. LIGHT IS TERRITORY, so this is a territorial sound' },
+
+    /* ---- E. THE VALLEY MOVES. The three air beds are the silence; these are
+       the rare things that break it. ---- */
+    { ev: 'wind_gust',  label: 'A GUST COMES THROUGH', why: 'the valley leaning on the building you are standing in' },
+    { ev: 'neon_buzz',  label: 'NEON, STILL LIT',      why: 'the 12% that has power. an ugly, beautiful, electric sound' },
+    { ev: 'generator',  label: 'A GENERATOR, SOMEWHERE', why: 'somebody is running one. that means PEOPLE, and it is not always good news' },
+    { ev: 'dog_far',    label: 'A DOG, FAR OFF',       why: 'the only other living thing you can hear. distance is the whole point' },
+
+    /* ---- F. THE PHONE AND THE MENU. ui_tap was carrying every interface
+       moment in the game by itself. ---- */
+    { ev: 'ui_back',  label: 'BACK / CLOSE',   why: 'leaving a screen. the answer to the tap, one step down' },
+    { ev: 'ui_deny',  label: 'YOU CANNOT DO THAT', why: 'refused. short and flat, never a buzzer' },
+    { ev: 'equip',    label: 'CLOTHES GO ON',  why: 'the wardrobe is a whole system that never made a sound' }
+    /* ---- end batch SFX-03 events ---- */
     /* ---- end batch 02 events ---- */
   ];
 
@@ -616,8 +705,350 @@ const BOH_SFX = (function () {
       jit:  { hz: [186, 296], bright: [1.1, 1.55], decay: [0.0625, 0.125],
               transHz: [4200, 7000], grit: [0.42, 0.7], drive: [0.62, 0.9],
               dark: [2600, 4200], slide: [-9, -3], damp: [2.4, 3.2] }
-    }
+    },
     /* ---- end fresh door recipes ---- */
+
+    /* =====================================================================
+       BATCH SFX-03 RECIPES (8/12/26) — inside the measured envelope.
+       Every base below: mkup <= 1.10, drive <= 0.30, and metal/wood/water used
+       ONLY where the struck object is that thing. See the EVENTS header for
+       the numbers those two rules came out of.
+       ===================================================================== */
+
+    /* ---- A. THE GROUND. Dry and close, like the three that shipped: a tail
+       on a sound that fires every half-second turns walking into a cathedral. */
+    step_concrete: {
+      base: { mat: 'stone', hz: 138, modes: 5, bright: 0.8, decay: 0.0625, damp: 2.5,
+              warble: 0.4, trans: 0.8, transHz: 3400, transQ: 1.4, grit: 0.5,
+              gritHz: 2400, space: 0.07, room: 0.0625, refl: 1, dark: 1800,
+              width: 0.38, drive: 0.14, mkup: 0.86, gain: 0.31 },
+      jit:  { hz: [108, 190], transHz: [2200, 5200], grit: [0.35, 0.68],
+              gritHz: [1600, 3800], decay: [0.0625, 0.125], damp: [2, 2.9],
+              bright: [0.62, 1.1], width: [0.3, 0.55] }
+    },
+    step_sand: {
+      base: { mat: 'ash', hz: 74, modes: 4, bright: 0.42, decay: 0.125, damp: 2.4,
+              warble: 0.25, trans: 0.55, transHz: 780, transQ: 0.7, grit: 0.95,
+              gritHz: 520, space: 0.05, room: 0.0625, refl: 0, dark: 560,
+              width: 0.3, drive: 0.08, mkup: 0.9, gain: 0.3 },
+      jit:  { hz: [58, 102], transHz: [520, 1300], grit: [0.85, 1],
+              gritHz: [380, 900], decay: [0.0625, 0.1875], damp: [1.9, 2.8],
+              bright: [0.3, 0.6], width: [0.22, 0.44] }
+    },
+    step_glass: {
+      /* glass is the only material in the whole judged set that went 5 UP
+         0 DOWN, so the surface that is literally glass gets it undiluted. */
+      base: { mat: 'glass', hz: 620, modes: 6, bright: 1.3, decay: 0.125, damp: 2.2,
+              warble: 0.9, trans: 0.86, transHz: 6800, transQ: 2.6, grit: 0.7,
+              gritHz: 5200, space: 0.12, room: 0.125, refl: 1, dark: 4200,
+              width: 0.6, drive: 0.1, mkup: 0.72, gain: 0.26,
+              hits: [0, 0.0625, 0.125] },
+      jit:  { hz: [470, 880], transHz: [5200, 9500], gritHz: [3800, 7000],
+              decay: [0.0625, 0.1875], bright: [1.05, 1.6], damp: [1.8, 2.7],
+              width: [0.48, 0.8], grit: [0.55, 0.85] },
+      hitSets: [[0, 0.0625, 0.125], [0, 0.0625], [0, 0.0625, 0.125, 0.1875],
+                [0, 0.125, 0.1875], [0, 0.0625, 0.125]]
+    },
+    step_wood: {
+      /* WOOD IS A LOSING MATERIAL (5 UP / 10 DOWN) and a floorboard is wood.
+         The door post-mortem's own prescription applies: brighter, shorter,
+         LESS driven than the ones that died. */
+      base: { mat: 'wood', hz: 116, modes: 5, bright: 0.95, decay: 0.125, damp: 2.2,
+              warble: 0.6, trans: 0.78, transHz: 2800, transQ: 1.3, grit: 0.28,
+              gritHz: 1600, space: 0.1, room: 0.125, refl: 1, dark: 1500,
+              width: 0.42, drive: 0.12, mkup: 0.84, gain: 0.3 },
+      jit:  { hz: [92, 158], transHz: [2000, 4200], decay: [0.0625, 0.1875],
+              bright: [0.75, 1.3], damp: [1.8, 2.6], grit: [0.18, 0.42],
+              width: [0.34, 0.6], dark: [1100, 2200] }
+    },
+    step_metal: {
+      /* METAL IS THE WORST MATERIAL IN THE SET (3 UP / 12 DOWN). A deck plate
+         cannot be anything else, so it is cooked as far from the dead twelve
+         as the material allows: short, bright, almost no drive, no room. */
+      base: { mat: 'metal', hz: 245, modes: 6, bright: 1.25, decay: 0.125, damp: 2.6,
+              warble: 1.6, trans: 0.9, transHz: 5600, transQ: 2, grit: 0.32,
+              gritHz: 3400, space: 0.11, room: 0.125, refl: 1, dark: 3200,
+              width: 0.5, drive: 0.16, mkup: 0.78, gain: 0.27 },
+      jit:  { hz: [190, 330], transHz: [4200, 8200], decay: [0.0625, 0.1875],
+              bright: [1, 1.6], warble: [1.1, 2.2], damp: [2.1, 2.9],
+              width: [0.4, 0.68], dark: [2400, 4400] }
+    },
+
+    /* ---- B. THE FIGHT. Judged against the gunshot, which is the loudest thing
+       in the mix: every one of these sits UNDER it on purpose. */
+    swing: {
+      base: { mat: 'ash', hz: 132, modes: 4, bright: 0.6, decay: 0.1875, damp: 1.9,
+              warble: 0.3, atk: 0.0625, slide: -5, trans: 0.3, transHz: 1400,
+              transQ: 0.8, grit: 0.88, gritHz: 1100, space: 0.14, room: 0.1875,
+              refl: 1, dark: 1200, width: 0.66, drive: 0.1, mkup: 0.8, gain: 0.26 },
+      jit:  { hz: [98, 186], decay: [0.125, 0.25], slide: [-9, -2],
+              gritHz: [800, 1800], grit: [0.78, 0.98], bright: [0.45, 0.85],
+              width: [0.55, 0.85], dark: [900, 1800] }
+    },
+    melee_hit: {
+      base: { mat: 'bone', hz: 92, modes: 6, bright: 0.7, decay: 0.1875, damp: 2.3,
+              warble: 0.5, trans: 0.92, transHz: 1900, transQ: 1.1, grit: 0.6,
+              gritHz: 1300, space: 0.2, room: 0.25, refl: 2, dark: 1100,
+              width: 0.45, drive: 0.26, mkup: 0.94, gain: 0.36, hits: [0, 0.0625] },
+      jit:  { hz: [72, 128], decay: [0.125, 0.3125], transHz: [1400, 3000],
+              grit: [0.45, 0.78], space: [0.14, 0.3], damp: [1.9, 2.7],
+              drive: [0.16, 0.3], dark: [850, 1700] },
+      hitSets: [[0, 0.0625], [0], [0, 0.0625], [0, 0.125], [0, 0.0625]]
+    },
+    reload: {
+      /* THREE HITS ON THE GRID, because a reload is three events: the mag out,
+         the mag in, the slide. Metal, cooked bright and undriven per the rule. */
+      base: { mat: 'metal', hz: 310, modes: 6, bright: 1.3, decay: 0.0625, damp: 2.7,
+              warble: 1.8, trans: 0.85, transHz: 6200, transQ: 2.4, grit: 0.3,
+              gritHz: 3800, space: 0.16, room: 0.1875, refl: 1, dark: 3400,
+              width: 0.55, drive: 0.12, mkup: 0.7, gain: 0.25,
+              hits: [0, 0.25, 0.5] },
+      jit:  { hz: [240, 420], transHz: [4600, 9000], bright: [1.05, 1.7],
+              warble: [1.2, 2.4], damp: [2.2, 3], width: [0.44, 0.72],
+              dark: [2600, 4600] },
+      hitSets: [[0, 0.25, 0.5], [0, 0.1875, 0.4375], [0, 0.3125, 0.5625],
+                [0, 0.25, 0.4375], [0, 0.1875, 0.5]]
+    },
+    dry_fire: {
+      base: { mat: 'bone', hz: 420, modes: 4, bright: 1.15, decay: 0.0625, damp: 2.8,
+              warble: 0.4, trans: 0.95, transHz: 4600, transQ: 3, grit: 0.14,
+              gritHz: 2600, space: 0.06, room: 0.0625, refl: 0, dark: 2600,
+              width: 0.3, drive: 0.08, mkup: 0.62, gain: 0.31 },
+      jit:  { hz: [330, 560], transHz: [3400, 6800], bright: [0.95, 1.45],
+              transQ: [2.2, 4.4], damp: [2.4, 3], width: [0.22, 0.44],
+              dark: [1900, 3600] }
+    },
+    casing: {
+      /* PANNED AWAY FROM THE SHOT, always: the brass lands somewhere else in
+         the room, and that offset is the whole reason this sound exists. */
+      base: { mat: 'crystal', hz: 1450, modes: 6, bright: 1.4, decay: 0.1875, damp: 2.4,
+              warble: 1.3, trans: 0.7, transHz: 8600, transQ: 2.6, grit: 0.2,
+              gritHz: 6000, space: 0.3, room: 0.3125, refl: 2, dark: 5200,
+              width: 0.72, drive: 0.06, mkup: 0.55, gain: 0.32,
+              hits: [0.25, 0.375, 0.4375] },
+      jit:  { hz: [1050, 1950], transHz: [6500, 11000], decay: [0.125, 0.3125],
+              bright: [1.1, 1.8], space: [0.22, 0.42], dark: [4000, 7000],
+              width: [0.6, 0.95], warble: [0.9, 1.9] },
+      hitSets: [[0.25, 0.375, 0.4375], [0.25, 0.3125], [0.1875, 0.3125, 0.375, 0.4375],
+                [0.3125, 0.4375], [0.25, 0.375, 0.5]]
+    },
+
+    /* ---- C. THE BODY. These are the only sounds in the game that are INSIDE
+       the player, so they get almost no room: a tail would put them across
+       the street from him. */
+    heartbeat: {
+      base: { mat: 'stone', hz: 46, modes: 7, bright: 0.3, decay: 0.25, damp: 1.6,
+              warble: 0.3, atk: 0.0625, trans: 0.34, transHz: 320, transQ: 0.7,
+              grit: 0.55, gritHz: 300, space: 0.14, room: 0.0625, refl: 2,
+              dark: 400, width: 0.95, drive: 0.18, mkup: 0.9, gain: 0.4,
+              hits: [0, 0.3125] },
+      jit:  { hz: [36, 62], decay: [0.1875, 0.375], transHz: [240, 520],
+              bright: [0.22, 0.44], damp: [1.3, 2.1], dark: [320, 620],
+              width: [0.85, 1] },
+      hitSets: [[0, 0.3125], [0, 0.25], [0, 0.375], [0, 0.3125], [0, 0.25, 1]]
+    },
+    breath: {
+      base: { mat: 'ash', hz: 88, modes: 4, bright: 0.5, decay: 0.375, damp: 1.8,
+              warble: 0.3, atk: 0.125, slide: -3, trans: 0.16, transHz: 900,
+              transQ: 0.6, grit: 0.97, gritHz: 760, space: 0.08, room: 0.125,
+              refl: 0, dark: 800, width: 0.35, drive: 0.05, mkup: 0.86, gain: 0.24,
+              hits: [0, 0.75] },
+      jit:  { hz: [66, 122], decay: [0.25, 0.5], gritHz: [520, 1200],
+              slide: [-7, 0], atk: [0.0625, 0.1875], bright: [0.38, 0.7],
+              width: [0.26, 0.5], dark: [600, 1300] },
+      hitSets: [[0, 0.75], [0, 0.6875], [0, 0.8125], [0, 0.75, 1.5], [0, 0.625]]
+    },
+    drink: {
+      /* WATER IS A LOSING MATERIAL (1 UP / 4 DOWN) and this event is water.
+         Cooked short and clean rather than the long wet ring that died. */
+      base: { mat: 'water', hz: 250, modes: 5, bright: 0.85, decay: 0.1875, damp: 2.1,
+              warble: 1.1, trans: 0.4, transHz: 1700, transQ: 1.2, grit: 0.32,
+              gritHz: 1200, space: 0.1, room: 0.125, refl: 1, dark: 1400,
+              width: 0.34, drive: 0.06, mkup: 0.78, gain: 0.26,
+              hits: [0, 0.375, 0.6875] },
+      jit:  { hz: [190, 340], decay: [0.125, 0.3125], transHz: [1200, 2800],
+              bright: [0.65, 1.15], warble: [0.7, 1.7], damp: [1.7, 2.5],
+              width: [0.26, 0.5], dark: [1000, 2200] },
+      hitSets: [[0, 0.375, 0.6875], [0, 0.4375], [0, 0.3125, 0.625, 0.9375],
+                [0, 0.5], [0, 0.375, 0.75]]
+    },
+    patch_up: {
+      base: { mat: 'ash', hz: 158, modes: 4, bright: 0.72, decay: 0.25, damp: 2.2,
+              warble: 0.35, atk: 0.0625, slide: -2, trans: 0.5, transHz: 2400,
+              transQ: 1, grit: 0.93, gritHz: 1900, space: 0.12, room: 0.1875,
+              refl: 1, dark: 1600, width: 0.4, drive: 0.09, mkup: 0.82, gain: 0.24,
+              hits: [0, 0.4375] },
+      jit:  { hz: [120, 220], decay: [0.1875, 0.375], gritHz: [1300, 2800],
+              transHz: [1700, 3800], bright: [0.58, 1], damp: [1.8, 2.6],
+              width: [0.32, 0.58] },
+      hitSets: [[0, 0.4375], [0, 0.375], [0, 0.3125, 0.625], [0, 0.5], [0, 0.4375]]
+    },
+
+    /* ---- D. THE CITY YOU BUILD. These are the ONLY sounds in this batch that
+       earn the room, because owning a block is the one thing the emptiness is
+       supposed to answer. */
+    build_place: {
+      base: { mat: 'stone', hz: 104, modes: 7, bright: 0.7, decay: 0.375, damp: 1.7,
+              warble: 0.8, trans: 0.82, transHz: 2100, transQ: 1.3, grit: 0.42,
+              gritHz: 1400, space: 0.5, room: 0.5625, refl: 3, dark: 1500,
+              width: 0.68, drive: 0.16, mkup: 1.02, gain: 0.3, hits: [0, 0.0625] },
+      jit:  { hz: [82, 148], decay: [0.25, 0.5], space: [0.38, 0.66],
+              room: [0.4375, 0.875], transHz: [1500, 3200], dark: [1100, 2400],
+              warble: [0.5, 1.3], width: [0.55, 0.88] },
+      hitSets: [[0, 0.0625], [0], [0, 0.0625], [0, 0.125], [0, 0.0625, 0.1875]]
+    },
+    demolish: {
+      base: { mat: 'stone', hz: 66, modes: 6, bright: 0.55, decay: 0.625, damp: 2,
+              warble: 0.6, trans: 0.75, transHz: 1500, transQ: 0.9, grit: 0.86,
+              gritHz: 1000, space: 0.6, room: 0.875, refl: 3, dark: 1100,
+              width: 0.75, drive: 0.24, mkup: 1.06, gain: 0.32,
+              hits: [0, 0.0625, 0.1875, 0.375] },
+      jit:  { hz: [50, 96], decay: [0.4375, 0.875], space: [0.46, 0.78],
+              room: [0.625, 1.25], grit: [0.72, 0.96], dark: [800, 1800],
+              drive: [0.14, 0.3], width: [0.62, 0.95] },
+      hitSets: [[0, 0.0625, 0.1875, 0.375], [0, 0.125, 0.3125],
+                [0, 0.0625, 0.25, 0.4375, 0.5625], [0, 0.1875, 0.375],
+                [0, 0.0625, 0.125, 0.3125]]
+    },
+    deed: {
+      base: { mat: 'bell', hz: 262, modes: 11, bright: 0.95, decay: 1.75, damp: 0.95,
+              warble: 1.9, atk: 0.0625, trans: 0.3, transHz: 4200, transQ: 1.9,
+              grit: 0.08, gritHz: 2800, space: 0.78, room: 1.5, refl: 3,
+              dark: 2900, width: 0.85, drive: 0.06, mkup: 0.5, gain: 0.42 },
+      jit:  { hz: [196, 350], decay: [1.25, 2.375], space: [0.62, 0.95],
+              room: [1.125, 2], dark: [2100, 4000], warble: [1.3, 2.6],
+              bright: [0.78, 1.35], damp: [0.8, 1.2] }
+    },
+    money: {
+      base: { mat: 'crystal', hz: 980, modes: 7, bright: 1.25, decay: 0.3125, damp: 1.4,
+              warble: 1.5, trans: 0.5, transHz: 7600, transQ: 2, grit: 0.12,
+              gritHz: 5200, space: 0.34, room: 0.375, refl: 2, dark: 4400,
+              width: 0.62, drive: 0.05, mkup: 0.6, gain: 0.31,
+              hits: [0, 0.125, 0.1875] },
+      jit:  { hz: [720, 1380], decay: [0.1875, 0.4375], transHz: [5600, 10000],
+              bright: [1, 1.7], space: [0.24, 0.46], dark: [3200, 6000],
+              warble: [1, 2.1], width: [0.5, 0.85] },
+      hitSets: [[0, 0.125, 0.1875], [0, 0.0625, 0.1875], [0, 0.125, 0.25, 0.3125],
+                [0, 0.1875], [0, 0.0625, 0.125, 0.25]]
+    },
+    power_on: {
+      /* LIGHT IS TERRITORY. This is the sound of somebody taking ground, so it
+         is the choir coming up under a rising line, not a switch clicking. */
+      base: { mat: 'choir', hz: 87, modes: 8, bright: 0.65, decay: 1.5, damp: 1.2,
+              warble: 1.4, atk: 0.25, slide: 5, trans: 0.18, transHz: 1200,
+              transQ: 1.4, grit: 0.16, gritHz: 900, space: 0.8, room: 1.625,
+              refl: 4, dark: 1600, width: 0.9, drive: 0.08, mkup: 0.66, gain: 0.26 },
+      jit:  { hz: [66, 118], decay: [1.125, 2.125], slide: [2, 9],
+              atk: [0.1875, 0.375], space: [0.66, 0.95], room: [1.25, 2.125],
+              dark: [1200, 2600], warble: [0.9, 2.1], width: [0.78, 1] }
+    },
+
+    /* ---- E. THE VALLEY MOVES. Long, quiet, and fired minutes apart. Same rule
+       as the three air beds: these are what you hear when nothing is happening,
+       so they must never sound like an EVENT. */
+    wind_gust: {
+      base: { mat: 'ash', hz: 58, modes: 4, bright: 0.34, decay: 2.5, damp: 1.5,
+              warble: 0.4, atk: 0.75, slide: -4, trans: 0.06, transHz: 600,
+              transQ: 0.5, grit: 0.98, gritHz: 480, space: 0.6, room: 2.125,
+              refl: 2, dark: 700, width: 0.95, drive: 0.04, mkup: 0.9, gain: 0.2 },
+      jit:  { hz: [44, 82], decay: [1.875, 3.25], atk: [0.5, 1], slide: [-9, -1],
+              gritHz: [340, 760], space: [0.46, 0.78], room: [1.625, 2.75],
+              dark: [500, 1100], width: [0.85, 1] }
+    },
+    neon_buzz: {
+      base: { mat: 'glass', hz: 122, modes: 6, bright: 1.1, decay: 1.75, damp: 1.9,
+              warble: 2.6, atk: 0.125, trans: 0.14, transHz: 3200, transQ: 2.2,
+              grit: 0.55, gritHz: 2600, space: 0.3, room: 0.625, refl: 1,
+              dark: 3000, width: 0.48, drive: 0.2, mkup: 0.74, gain: 0.34 },
+      jit:  { hz: [98, 168], decay: [1.25, 2.375], warble: [2, 3],
+              grit: [0.4, 0.72], transHz: [2400, 4600], dark: [2200, 4200],
+              space: [0.22, 0.42], width: [0.38, 0.66] }
+    },
+    generator: {
+      base: { mat: 'stone', hz: 52, modes: 5, bright: 0.36, decay: 2.75, damp: 1.4,
+              warble: 1.2, atk: 0.375, trans: 0.1, transHz: 520, transQ: 0.8,
+              grit: 0.7, gritHz: 420, space: 0.72, room: 2.375, refl: 3,
+              dark: 620, width: 0.7, drive: 0.22, mkup: 0.88, gain: 0.18,
+              hits: [0, 0.5, 1] },
+      jit:  { hz: [42, 74], decay: [2.125, 3.5], space: [0.58, 0.88],
+              room: [1.875, 3], grit: [0.55, 0.85], dark: [460, 950],
+              warble: [0.8, 1.8], width: [0.58, 0.9] },
+      hitSets: [[0, 0.5, 1], [0, 0.4375, 0.875], [0, 0.5625, 1.125],
+                [0, 0.5, 1, 1.5], [0, 0.4375, 0.9375]]
+    },
+    dog_far: {
+      /* DISTANCE IS THE CONTENT. Wide, dark, quiet, and mostly tail: everything
+         that says the sound started somewhere you are not. */
+      base: { mat: 'choir', hz: 340, modes: 6, bright: 0.6, decay: 0.5, damp: 2,
+              warble: 1.3, atk: 0.0625, slide: -6, trans: 0.2, transHz: 1600,
+              transQ: 1.6, grit: 0.3, gritHz: 1200, space: 0.9, room: 2, refl: 4,
+              dark: 1300, width: 1, drive: 0.05, mkup: 0.7, gain: 0.32,
+              hits: [0, 0.5, 0.875] },
+      jit:  { hz: [260, 470], decay: [0.375, 0.75], slide: [-11, -2],
+              space: [0.78, 1], room: [1.5, 2.5], dark: [950, 1900],
+              warble: [0.9, 2], bright: [0.48, 0.9] },
+      hitSets: [[0, 0.5, 0.875], [0, 0.625], [0, 0.4375, 0.8125, 1.25],
+                [0, 0.5625], [0, 0.5, 1]]
+    },
+
+    /* ---- F. THE PHONE AND THE MENU. The tap he approved is the parent; these
+       are its family, and they must sit BELOW it so the interface never
+       out-shouts the world. */
+    ui_back: {
+      base: { mat: 'crystal', hz: 780, modes: 5, bright: 1, decay: 0.125, damp: 1.8,
+              warble: 0.9, slide: -4, trans: 0.5, transHz: 6200, transQ: 2.4,
+              space: 0.18, room: 0.1875, refl: 1, dark: 4000, width: 0.44,
+              drive: 0.04, mkup: 0.5, gain: 0.34 },
+      jit:  { hz: [580, 1080], decay: [0.0625, 0.1875], slide: [-8, -1],
+              bright: [0.8, 1.35], transHz: [4400, 8600], space: [0.12, 0.28],
+              dark: [2800, 5400] }
+    },
+    ui_deny: {
+      /* NEVER A BUZZER. Refusal is a short flat glass tap with the tail taken
+         off it, not a tone telling him he was stupid. */
+      base: { mat: 'glass', hz: 196, modes: 7, bright: 0.8, decay: 0.0625, damp: 2.6,
+              warble: 0.5, trans: 0.7, transHz: 2400, transQ: 1.8, grit: 0.18,
+              gritHz: 1600, space: 0.14, room: 0.0625, refl: 2, dark: 1700,
+              width: 0.62, drive: 0.07, mkup: 0.56, gain: 0.34, hits: [0, 0.0625] },
+      jit:  { hz: [152, 268], transHz: [1800, 3600], bright: [0.65, 1.1],
+              damp: [2.2, 3], decay: [0.0625, 0.125], dark: [1300, 2400],
+              width: [0.56, 0.82] },
+      hitSets: [[0, 0.0625], [0], [0, 0.0625], [0, 0.125], [0, 0.0625]]
+    },
+    equip: {
+      base: { mat: 'ash', hz: 190, modes: 4, bright: 0.8, decay: 0.1875, damp: 2.3,
+              warble: 0.4, trans: 0.6, transHz: 3000, transQ: 1.1, grit: 0.9,
+              gritHz: 2200, space: 0.14, room: 0.1875, refl: 1, dark: 2000,
+              width: 0.46, drive: 0.1, mkup: 0.76, gain: 0.24, hits: [0, 0.1875] },
+      jit:  { hz: [148, 264], decay: [0.125, 0.3125], gritHz: [1600, 3200],
+              transHz: [2200, 4600], bright: [0.65, 1.15], damp: [1.9, 2.7],
+              width: [0.36, 0.64] },
+      hitSets: [[0, 0.1875], [0, 0.125], [0, 0.25], [0, 0.1875, 0.375], [0, 0.125]]
+    }
+    /* ---- end batch SFX-03 recipes ---- */
+  };
+
+  /* ---- THE MEASURED ENVELOPE (8/12/26) ---------------------------------
+     Learned from every thumb in records/BOHEMIA_SFX_VERDICT_*.txt, exported so
+     the gate checks the SHIPPED numbers instead of a copy of them. See the
+     BATCH SFX-03 header in EVENTS for the derivation and the honest limits.
+     BATCH is the list of event ids the envelope binds; his older recipes are
+     what the envelope was learned FROM and are not retro-fitted to it. */
+  var ENVELOPE = {
+    since: '8/12/26',
+    maxMkup: 1.10,        /* UP mean 0.92 vs DOWN 1.28, effect -1.17 */
+    maxDrive: 0.30,       /* UP mean 0.16 vs DOWN 0.30, effect -0.62 */
+    winners: ['glass', 'crystal', 'stone', 'bell', 'choir', 'ash'],
+    losers:  ['metal', 'wood', 'water'],   /* 9 UP / 26 DOWN across 35 thumbs */
+    /* a loser material is legal ONLY where the struck object IS that thing */
+    loserOK: { step_wood: 'a floorboard is wood', step_metal: 'a deck plate is steel',
+               reload: 'a magazine is steel', drink: 'the sound is water' },
+    batch: ['step_concrete','step_sand','step_glass','step_wood','step_metal',
+            'swing','melee_hit','reload','dry_fire','casing',
+            'heartbeat','breath','drink','patch_up',
+            'build_place','demolish','deed','money','power_on',
+            'wind_gust','neon_buzz','generator','dog_far',
+            'ui_back','ui_deny','equip']
   };
 
   /* ---- THE GENERATOR --------------------------------------------------- */
@@ -924,6 +1355,7 @@ const BOH_SFX = (function () {
   return {
     VERSION: 2, BEAT: BEAT, TICK: TICK, SPEC: SPEC, FIELDS: FIELDS,
     EVENTS: EVENTS, RECIPE: RECIPE, MODES: MODES, MATERIALS: MATERIALS,
+    ENVELOPE: ENVELOPE,
     BANK: BANK, q: q, sanitize: sanitize, validate: validate, serialize: serialize,
     beatsOf: beatsOf, durSec: durSec, cook: cook, batch: batch,
     render: render, play: play, bankOf: bankOf, setBank: setBank,

@@ -336,6 +336,20 @@
       for (key in group.by) taken[group.by[key]] = 1;
       var pick = want, tries = 0;
       while (taken[pick] && tries < pool.length) { pick = (pick + 1) % pool.length; tries++; }
+      if (taken[pick]) {
+        /* HIS SIX ARE DEALT. WHEN A SCENE HAS MORE PEOPLE THAN HE HAS APPROVED
+           VOICES, reusing one would put two speakers in the same room with the
+           same voice -- the exact thing this whole branch exists to prevent.
+           Measured 8/12: the cold open grew to forty beats and more than six
+           speakers, which is precisely why he said "we may need way more
+           voices". So the overflow is CAST FROM HIS ENVELOPE: still inside the
+           hull his verdicts describe, still vibrato-capped, and distinct.
+           The named family keep the voices he actually heard, because they are
+           dealt first. */
+        group.cast = group.cast || {};
+        if (!group.cast[id]) group.cast[id] = castVoice('overflow:' + id);
+        return group.cast[id];
+      }
       group.by[id] = pick;
       return voiceOf(pool[pick]);
     }
@@ -372,6 +386,90 @@
     return out;
   }
 
+  /* ================= CASTING: UNLIMITED VOICES FROM HIS ENVELOPE =========
+     Paolo 8/12: "we may need way more voices and way more sounds for the whole
+     game". APPROVE UNLOCKS VOLUME is this repo's own law, and his eight verdicts
+     are enough to build the volume from -- but only because of what they say.
+
+     WHAT HIS VERDICTS ACTUALLY SAY. Comparing the six he kept against the two he
+     killed, parameter by parameter, SEVEN OF EIGHT OVERLAP COMPLETELY. Pitch,
+     vocal tract, rate, breath, tilt, declination, even the waveform: the killed
+     voices sit inside the approved range on every one of them. Exactly one thing
+     separates them cleanly, and it separates them with no overlap at all:
+
+         VIBRATO          approved 0.05 - 0.73 Hz     killed 0.97, 1.73
+         VIBRATO DEPTH    approved 0.0049 - 0.0209    killed 0.0235, 0.0254
+
+     HE REJECTED WOBBLE. Not a pitch, not a size, not a timbre -- a WAVER. That
+     is the whole of his taste that these eight can prove, so it is the whole of
+     what is treated as law here, and it is a HARD CAP rather than a preference.
+     Every other range below is descriptive: the hull of what he has heard and
+     accepted, which is a much weaker claim and is not pretended otherwise.
+
+     HOW MANY VOICES CAN BE DISTINCT, AND ON WHICH KNOB.
+     RESEARCH: listeners' judgements of "different person" are driven most
+     strongly by mean FUNDAMENTAL FREQUENCY, then by FORMANT DISPERSION (which
+     indexes vocal tract length), then by voice quality / harmonic-to-noise
+     ratio. So the casting spreads people across f0 first, tract second, breath
+     third -- the same order the ear uses.
+
+     AND IT QUANTISES, WHICH IS THE POINT. Sampling a continuous range gives
+     pairs that are ALMOST the same, which is the worst outcome: not a shared
+     voice and not a different person, just muddle. Snapping to a grid one
+     semitone wide in f0 and about four percent in tract means two people are
+     either the SAME voice or an audibly DIFFERENT one, never nearly. It also
+     makes the count knowable instead of a hope. */
+  var ENVELOPE = {
+    f0:    [168, 252],       tract: [0.943, 1.225],
+    rate:  [7.55, 12.35],    gruff: [0.055, 0.527],
+    tilt:  [0.604, 1.426],   drop:  [0.167, 0.254],
+    vib:   [0.05, 0.73],     vibA:  [0.0049, 0.0209],   /* HIS ONE HARD LAW */
+    waves: ['sawtooth', 'square', 'triangle'],
+    f0Step: 0.06,            /* ~a semitone: the strongest identity cue */
+    tractStep: 0.04          /* formant dispersion, the second strongest */
+  };
+
+  function gridSteps(range, step) {
+    return Math.max(1, Math.round(Math.log(range[1] / range[0]) / Math.log(1 + step)));
+  }
+  function onGrid(range, step, t) {          /* t in [0,1) -> a grid value */
+    var n = gridSteps(range, step);
+    var i = Math.min(n, Math.floor(t * (n + 1)));
+    return range[0] * Math.pow(1 + step, i);
+  }
+  function lerp(range, t) { return range[0] + (range[1] - range[0]) * t; }
+
+  /* THE COUNT, so nobody has to guess how much volume this actually is. */
+  function castCount() {
+    return (gridSteps(ENVELOPE.f0, ENVELOPE.f0Step) + 1)
+         * (gridSteps(ENVELOPE.tract, ENVELOPE.tractStep) + 1)
+         * ENVELOPE.waves.length;
+  }
+
+  /* A PERSON'S OWN VOICE, from their identity, inside what he approved.
+     Every draw is decorrelated from the others: one hash per parameter, so two
+     people who happen to share a pitch do not thereby share a tract as well. */
+  function castVoice(id) {
+    var key = 'bohemia-cast:' + String(id == null ? '' : id);
+    function u(salt) { return (hash(key + '#' + salt) % 100000) / 100000; }
+    var tract = onGrid(ENVELOPE.tract, ENVELOPE.tractStep, u('tract'));
+    var f0 = onGrid(ENVELOPE.f0, ENVELOPE.f0Step, u('f0'));
+    return {
+      seed: String(id),
+      f0: Math.round(f0),
+      tract: +tract.toFixed(3),
+      rate: +lerp(ENVELOPE.rate, u('rate')).toFixed(2),
+      wave: ENVELOPE.waves[hash(key + '#wave') % ENVELOPE.waves.length],
+      gruff: +lerp(ENVELOPE.gruff, u('gruff')).toFixed(3),
+      /* HIS HARD CAP. Never above what he accepted -- this is the one thing the
+         eight verdicts prove, and it is not sampled loosely. */
+      vib: +lerp(ENVELOPE.vib, u('vib')).toFixed(2),
+      vibA: +lerp(ENVELOPE.vibA, u('vibA')).toFixed(4),
+      tilt: +lerp(ENVELOPE.tilt, u('tilt')).toFixed(3),
+      drop: +lerp(ENVELOPE.drop, u('drop')).toFixed(3)
+    };
+  }
+
   /* ---- a batch of candidate voices, cooked from an index --------------- */
   function cook(count) {
     var out = [], i;
@@ -383,6 +481,7 @@
     VOWELS: VOWELS, VKEYS: VKEYS, LETTER: LETTER,
     hash: hash, rng: rng,
     voiceOf: voiceOf, serialize: serialize, say: say, cook: cook,
-    speakerVoice: speakerVoice, opener: opener
+    speakerVoice: speakerVoice, opener: opener,
+    ENVELOPE: ENVELOPE, castVoice: castVoice, castCount: castCount
   };
 })(typeof window !== 'undefined' ? window : this);

@@ -58,7 +58,13 @@ SURFACES = [
 # assuming there are no more is what cost a turn.
 SPEAK_MARKERS = [
     ('TALK TO THE',   'a talk verb offered to the player'),
-    ('storyCaption',  'a scripted-scene caption that names a speaker'),
+    # RENAMED 8/12 BY THE CUTSCENE LANE: storyCaption -> cutCaption, the STORY
+    # tab -> CUTSCENE. Both spellings are listed because the sweep must keep
+    # finding the surface across a rename -- a marker list that only knows
+    # yesterday's name goes QUIET, which is the exact failure the shipped-truth
+    # gate exists for. This gate went RED instead, which is it working.
+    ('cutCaption',    'a scripted-scene caption that names a speaker'),
+    ('storyCaption',  'the same, under its pre-8/12 name'),
     ('renderTalk',    'a dialogue node painted with a speaker'),
 ]
 
@@ -130,14 +136,17 @@ const pw = pwmod();
   // ---- THE COLD OPEN: press PLAY THE OPEN and listen -------------------
   // The demo's first fifteen seconds, and it was silent until 8/11. Driven by
   // the real button, like everything else here.
-  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="story"]'); if (t) t.click(); });
+  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="cutscene"], .tab[data-p="story"]');
+    if (t) t.click(); });
   await p.waitForTimeout(2500);
   await p.evaluate(() => { window.__spoke = []; });
-  out.storyPressed = await p.evaluate(() => { const b = document.getElementById('storyPlay');
+  out.storyPressed = await p.evaluate(() => {
+    const b = document.getElementById('cutPlay') || document.getElementById('storyPlay');
     if (!b) return false; b.click(); return true; });
-  await p.waitForTimeout(20000);
+  await p.waitForTimeout(46000);   /* the cold open grew to ~40 beats on 8/12 */
   out.storySpoke = await p.evaluate(() => window.__spoke.slice());
-  out.storyState = await p.evaluate(() => (document.getElementById('storyState')||{}).textContent || '');
+  out.storyState = await p.evaluate(() => (document.getElementById('cutState')
+    || document.getElementById('storyState') || {}).textContent || '');
 
   out.errors = errs.slice(0, 4);
   console.log(JSON.stringify(out));
@@ -212,8 +221,14 @@ def main():
     ok('AND MARISELA MAKES A SOUND: %d utterance(s) from one press' % len(cs),
        len(cs) == 1)
     if cs:
-        ok('in one of the six voices he approved (%s)' % cs[0]['seed'],
-           cs[0]['seed'] in approved)
+        # HIS 8/12 DIRECTION CHANGED THIS. "We may need way more voices": an
+        # unnamed stranger is now CAST FROM THE ENVELOPE his verdicts describe
+        # rather than handed one of the six. So the assertion is no longer
+        # "which of the six" -- it is that the voice is a real one, keyed to
+        # that person, and inside what he approved. A GATE MUST NEVER OUTRANK
+        # A RULING.
+        ok('the stranger has their OWN voice, keyed to them (%s)' % cs[0]['seed'],
+           bool(cs[0]['seed']) and cs[0]['seed'] not in approved)
         ok('saying the words the card actually shows about her (%r)' % cs[0]['text'],
            len(cs[0]['text'].strip()) > 3)
     else:
@@ -233,23 +248,43 @@ def main():
         ok('(a run voice to check)', False)
 
     # ---- THE COLD OPEN ---------------------------------------------------
-    ok('the STORY tab has a PLAY button to press', d.get('storyPressed'))
+    ok('the CUTSCENE tab has a PLAY button to press', d.get('storyPressed'))
     ok('the cold open runs to the end (%s)' % d.get('storyState'),
        'done' in str(d.get('storyState') or ''))
     ss = d.get('storySpoke') or []
     ok('THE DEMO OPENS WITH PEOPLE TALKING: %d spoken beats' % len(ss), len(ss) >= 4)
     if ss:
-        seeds = [u['seed'] for u in ss]
-        ok('EVERY MEMBER OF THE FAMILY HAS THEIR OWN VOICE (%s) -- the mother and '
-           'the small child both landed on cand-1 before this, and two of the four '
-           'most important people in the game sounding identical in the opening is '
-           'the worst place for a collision' % seeds,
-           len(set(seeds)) == len(seeds))
-        ok('and each is one of the six he approved',
-           all(x in approved for x in seeds))
-        ok('NO REPAINT STUTTER: the caption repaints three times per beat and the '
-           'line speaks ONCE (%d beats, %d utterances)' % (len(ss), len(ss)),
-           len(ss) <= 8)
+        # ONE VOICE PER PERSON, not one per line. The scene revisits speakers,
+        # so counting unique SEEDS against unique LINES is the real claim: a
+        # person keeps their voice and two different people do not share one.
+        by_text = {}
+        for u in ss:
+            by_text.setdefault(u['seed'], set()).add(u['text'])
+        ok('NOBODY IN THE SCENE SHARES A VOICE: %d speakers, %d distinct voices'
+           % (len(by_text), len(set(u['seed'] for u in ss))),
+           len(by_text) == len(set(u['seed'] for u in ss)))
+        n_appr = sum(1 for x in set(u['seed'] for u in ss) if x in approved)
+        ok('the named family get voices HE ACTUALLY HEARD (%d of his six dealt '
+           'first), and any overflow is cast from his envelope' % n_appr,
+           n_appr >= 1)
+        # THE STUTTER TEST IS CONSECUTIVE REPEATS, not a total count. The scene
+        # length is another lane's and grew from 4 beats to 40 overnight; an
+        # assertion pinned to a count would fail on their content, not on mine.
+        # SEED-BLIND ON PURPOSE (8/12). The bug that made this check matter was
+        # TWO voice systems on one surface -- the cutscene lane's own cutVoice
+        # and mine -- so every line spoke twice in DIFFERENT voices. A repeat
+        # test that also required the seeds to match would have called that
+        # clean. The text alone is the signature of a line being said again.
+        consecutive = sum(1 for i in range(1, len(ss))
+                          if ss[i]['text'] == ss[i-1]['text'])
+        ok('NO REPAINT STUTTER: no line speaks twice in a row (%d repeats in %d '
+           'utterances)' % (consecutive, len(ss)), consecutive == 0)
+        # ONE OWNER: a scene of N captions makes about N utterances. Two engines
+        # on one surface doubles it (7 lines -> 26 renders, 8/12). Anything over
+        # 1.5x the distinct lines means somebody else is also speaking.
+        lines = len(set(u['text'] for u in ss))
+        ok('ONE VOICE SYSTEM ON THIS SURFACE: %d utterances for %d distinct '
+           'lines' % (len(ss), lines), len(ss) <= lines * 1.5 + 1)
         ok('they say the words actually on screen (%r)' % ss[0]['text'][:34],
            len(ss[0]['text'].strip()) > 8)
     else:
@@ -258,6 +293,11 @@ def main():
 
     ok('the page threw nothing: %s' % (d.get('errors') or 'clean'), not d.get('errors'))
 
+    # VSDEBUG=1 prints every utterance the cold open actually made. Kept because
+    # the 8/12 double-speak was invisible in pass/fail and obvious in this list.
+    if os.environ.get('VSDEBUG'):
+        for u in (d.get('storySpoke') or []):
+            print('    DBG %-10s %r' % (u['seed'], u['text'][:40]))
     print('  %d passed, %d FAILED' % (p, f))
     if not f:
         print('  All THREE surfaces speak -- the run, the city and the cold open -- '

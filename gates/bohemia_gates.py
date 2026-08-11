@@ -394,6 +394,13 @@ GATES = [
      "the demo set on 8/9. GRAVEYARD IS FINAL binds Claude, not Paolo -- so the "
      "replacement is a FRESH cook from ash and stone, brighter/shorter/harder "
      "than every door that died, new ids, and nothing banked until he thumbs", True),
+    ('SFX ENVELOPE',   ['python3', 'gates/sfx_envelope_gate.py'],
+     "Paolo 8/11: \"we may need way more voices and way more sounds for the whole "
+     "game\". 28 moments became 54, and the 26 new ones were built out of a "
+     "measurement of his 140 thumbs instead of taste: material IS the verdict "
+     "(glass 100%, metal 20%, wood 33%, water 20%) and he kills sounds that are "
+     "PUSHED (approved makeup gain 0.92 vs rejected 1.28). The gate RE-DERIVES "
+     "that from his verdict files every run, so his thumbs stay upstream of it", True),
     ('TIME PASS',      ['python3', 'gates/time_pass_gate.py'],
      "Paolo 8/7 on his own verdict export: \"For hours go by have it the amount of "
      "time that goes by\". NOTES ARE RULINGS, so the count IS the spec: four hours "
