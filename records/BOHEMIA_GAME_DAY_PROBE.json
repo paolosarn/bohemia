@@ -27,13 +27,13 @@
   },
   {
    "n": "5 GET PAID (three currencies)",
-   "state": "BLOCKED",
-   "detail": "currency on the walked surface: NONE AT ALL"
+   "state": "PARTIAL",
+   "detail": "currency on the walked surface: BohemiaEconomy"
   },
   {
    "n": "6 SPEND SOMETHING",
-   "state": "BLOCKED",
-   "detail": "nothing to spend: no currency exists here"
+   "state": "PARTIAL",
+   "detail": "there is something to spend"
   },
   {
    "n": "7 SLEEP, SAVE",

@@ -15,7 +15,7 @@ icons. One tap per row, then EXPORT.
 
 ## 1. A day of quests ends and the player gets paid. Paid WHAT?
 
-The payout hook is built and connected -- engine/bohemia_purse.js payQuest() fires on every quest outcome and credits the purse. It pays ZERO today, because what a quest is worth is your ruling and the table ships empty by the mechanism-mine law. This is the one thing standing between the day loop and PAYING.
+The payout hook is built, connected, and LIVE IN THE WORLD YOU WALK as of 8/9 -- a finished quest reaches the purse, and the purse is loaded on the page the RUN tab opens. It pays ZERO, because what a quest is worth is your ruling and the table ships empty by the mechanism-mine law. That is now the only thing between the day loop and PAYING.
 
 - **A. CLOUT ONLY for the demo** -- Word gets around that you did the job. No goods change hands. This is what actually happens in a barter economy where a stranger has nothing to give you yet, it is the smallest ruling that closes the loop, and it keeps the three-currency law clean.
 - **B. You give me the numbers** -- Say what a quiet / notable / risky / reckless job pays in resources, electricity and clout, and I wire exactly that.
@@ -25,7 +25,7 @@ The payout hook is built and connected -- engine/bohemia_purse.js payQuest() fir
 
 ## 2. You walk into the trading hub with a full purse. What is on the shelf, and what does it cost?
 
-spend() is built and connected. A hub is reachable today and NOT spendable, because the price table ships empty. "Reachable and spendable" needs one shelf with real tags on it.
+The hubs are found and REACHABLE as of 8/9 -- the swap meet and the truckstop the overmap already sited, with the drive network reaching them from the curb, and the shelf is stocked with the four goods the economy sim already models. They are not SPENDABLE, because the price table ships empty. One shelf with real tags on it is the whole remaining distance.
 
 - **A. Three goods, priced off the scarcity sim we already have** -- Water, food, meds -- the three things a Mojave collapse actually trades. engine/bohemia_economy.js ALREADY prices them hyperbolically against remaining supply from real siege data. I read the price off the sim instead of inventing one, so the tag on the shelf moves when the valley gets thirstier. Most realistic and nothing is invented.
 - **B. You name the goods and the prices** -- Your shelf, your numbers, I wire it verbatim.

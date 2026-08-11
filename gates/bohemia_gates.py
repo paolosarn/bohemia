@@ -467,6 +467,14 @@ GATES = [
      'an icon ships with every build (Paolo 7/27): new work adds no debt, the debt only shrinks, and an icon is real art', False),
     ('TOOLS RUN',      ['python3', 'gates/tools_run_gate.py'],
      'the tools actually run: every tool and gate parses, and the hero bank is reproducible from its source (a syntax error shipped green on 7/28 because nothing ever ran the factory)', False),
+    ('PAYDAY',         ['node', 'gates/payday_gate.js'],
+     'Paolo 8/9, demo-critical: the day loop can PAY and a hub is reachable. The purse, the '
+     'scarcity economy and the quest runtime were three finished organs and NOTHING joined '
+     'them -- the probe measured "currency on the walked surface: NONE AT ALL". This proves '
+     'the money is in the page the RUN tab actually opens (not the run slice, which is loaded '
+     'and never displayed), that a finished quest really reaches the purse, that the hubs are '
+     'READ off the overmap and not placed, and that every amount is STILL empty and refuses '
+     'out loud by name -- the pipe is finished, the valve is his', False),
     ('DEMO BLOCKERS',  ['node', 'gates/demo_blockers_gate.js'],
      'Paolo 8/9: "First: DEMO BLOCKERS -- numbered, thumbable." Every blocker EXISTS only '
      'because the machine can still see the hole (an engine table shipping empty with '

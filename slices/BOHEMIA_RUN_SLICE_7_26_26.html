@@ -354,6 +354,22 @@
 <script src="../engine/bohemia_utility.js"></script>
 <script src="../engine/bohemia_rooms.js"></script>
 <script src="../engine/bohemia_world.js"></script>
+<!-- THE DAY HAS TO BE ABLE TO PAY (8/9, WORLD lane). tools/bohemia_game_day_probe.js
+     walks this very surface and reported, link by link:
+         [BLOCKED] 5 GET PAID       currency on the walked surface: NONE AT ALL
+         [BLOCKED] 6 SPEND SOMETHING    nothing to spend: no currency exists here
+     Not because the organs were missing -- the purse (three ruled currencies, one
+     ledger, six verbs, an audit) and the scarcity economy were both finished and
+     BOTH WERE ISLANDS: nothing in the repo imported either one, so neither existed
+     anywhere a player stands. bohemia_payday.js is the joint between them and the
+     quest runtime's own finished-quest shape. Every amount is still [PENDING Paolo]
+     and says NO_RULING by name; the pipe reaches the surface, the valve is his. -->
+<script src="../engine/bohemia_economy.js"></script>
+<script src="../engine/bohemia_purse.js"></script>
+<script src="../engine/bohemia_payday.js"></script>
+<!-- THE DEAD (8/8): where every body is and what shape it is in, so the valley the
+     vista shows tells its story. Placement only -- drawing them is RUN/CITY's. -->
+<script src="../engine/bohemia_dead.js"></script>
 <script>
 /* the real canon faction graph (GDD v2 §9). Must be a real JS value before
    bohemia_loop.js runs — loop.js's DEFAULT_GRAPH reads root.BOHEMIA_FACTION_GRAPH. */

@@ -68,11 +68,11 @@ EMPTY_TABLE = re.compile(
 QUESTIONS = {
     'PAYOUT': {
         'q': 'A day of quests ends and the player gets paid. Paid WHAT?',
-        'why': ('The payout hook is built and connected -- engine/bohemia_purse.js '
-                'payQuest() fires on every quest outcome and credits the purse. It pays '
-                'ZERO today, because what a quest is worth is your ruling and the table '
-                'ships empty by the mechanism-mine law. This is the one thing standing '
-                'between the day loop and PAYING.'),
+        'why': ('The payout hook is built, connected, and LIVE IN THE WORLD YOU WALK as of '
+                '8/9 -- a finished quest reaches the purse, and the purse is loaded on the '
+                'page the RUN tab opens. It pays ZERO, because what a quest is worth is '
+                'your ruling and the table ships empty by the mechanism-mine law. That is '
+                'now the only thing between the day loop and PAYING.'),
         'opts': [
             ('A', 'CLOUT ONLY for the demo',
              'Word gets around that you did the job. No goods change hands. This is what '
@@ -90,9 +90,11 @@ QUESTIONS = {
     },
     'PRICES': {
         'q': 'You walk into the trading hub with a full purse. What is on the shelf, and what does it cost?',
-        'why': ('spend() is built and connected. A hub is reachable today and NOT '
-                'spendable, because the price table ships empty. "Reachable and spendable" '
-                'needs one shelf with real tags on it.'),
+        'why': ('The hubs are found and REACHABLE as of 8/9 -- the swap meet and the '
+                'truckstop the overmap already sited, with the drive network reaching them '
+                'from the curb, and the shelf is stocked with the four goods the economy '
+                'sim already models. They are not SPENDABLE, because the price table ships '
+                'empty. One shelf with real tags on it is the whole remaining distance.'),
         'opts': [
             ('A', 'Three goods, priced off the scarcity sim we already have',
              'Water, food, meds -- the three things a Mojave collapse actually trades. '

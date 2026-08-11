@@ -3575,7 +3575,56 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/9 (a) LATEST -- *** EVERYTHING IS ON A SQUARE. ALL 59 ICONS, ONE
+WORLD (world-9lfjtf): 8/9 (b) LATEST -- *** THE DAY CAN PAY NOW, AND FIVE BLOCKERS ARE
+IN THE VOTE TAB. *** BUILD 8/9g. Record: records/BOHEMIA_THE_DAY_CAN_PAY_8_9_26.md.
+Gates: payday_gate.js 26/0, demo_blockers_gate.js 27/0.
+
+Paolo 8/9: "First: DEMO BLOCKERS -- numbered, thumbable. Then: demo-critical -- the quest
+payout hook so the day loop PAYS, one act-1 trading hub reachable and spendable, and the
+dead pass so the valley the vista shows tells its story."
+
+BLOCKERS FIRST, AND THEIR EXISTENCE IS DERIVED, NEVER TYPED. Five things only he can decide,
+in the VOTE tab ABOVE the art, one tap each, realistic option leading. A hand-written list is
+stale the moment he rules a row and then asks him again for what he already gave -- STALE
+UNJUDGED and NOTES ARE RULINGS in one. So a blocker exists only while the machine can still
+see the hole: an engine table shipping empty with [PENDING Paolo] in its own source AND an
+edge returning NO_RULING, a [HELD] backlog row, the live unjudged count. Rule one and it
+leaves by itself. The question is authored; the fact that it is OPEN is measured.
+
+*** THE FINDING: THE PURSE WAS AN ISLAND, AND SO WAS THE ECONOMY. *** Three ruled currencies,
+one ledger, six verbs, an audit; scarcity pricing anchored in real siege data. Both finished.
+NEITHER WAS IMPORTED BY A SINGLE FILE IN THIS REPO. Nothing ever called payQuest. The probe
+had already said so: "currency on the walked surface: NONE AT ALL".
+
+AND I WROTE THE OPPOSITE, IN A SURFACE HE READS, EARLIER THE SAME DAY -- the first blocker
+text claimed payQuest fired on every quest outcome. False, unchecked, and exactly what the
+8/1 law names. engine/bohemia_payday.js is that claim made TRUE rather than retracted: the
+joint between the quest runtime's own finished-quest shape, the purse, and the hubs.
+
+I ALMOST FIXED THE WRONG DOOR AGAIN. Rebuilt the run slice; the probe DID NOT MOVE. Tapping
+RUN swaps in #cityFrame -- RUN_CURRENT.html is loaded and NEVER DISPLAYED, the wrong-door bug
+this repo has paid for four times. The walked world is the CITY page. Then the same lesson
+again inside an hour: hubs() needed the full world model and the walked page has NO world
+model, only the overmap -- it returned an empty list on the one surface that mattered while
+looking fine everywhere I tested. Takes either shape now; the gate proves both return the
+identical set.
+
+MEASURED ON HIS SURFACE, before -> after: GET PAID BLOCKED -> PARTIAL, SPEND BLOCKED ->
+PARTIAL, the day overall OK2/PARTIAL2/BLOCKED4 -> OK2/PARTIAL4/BLOCKED2. Live in the running
+world: swapmeet 44,10 + truckstop 56,88, purse with resources/electricity/clout, shelf of
+water/food/meds/fuel, zero console errors. Hubs are READ off the overmap, never placed (MAP
+LAW); measured across five seeds, 1-2 hubs and every one reachable from the curb.
+
+AND IT PAYS NOTHING, OUT LOUD, BY NAME. PAYOUT/PRICES/PRODUCTION all still empty,
+PRICE_SOURCE null. No balance readout ships -- three zeroes on screen reads as a BROKEN
+economy rather than an UNRULED one. The gate fails if a number appears AND fails if the
+refusal goes quiet.
+
+THE THIRD ROW WAS ALREADY DONE: the dead are placed AND drawn in the walked world
+(city_dead_patch 8/8, dead_gate 44/0, 2,657 bodies over 61 districts). My own handoff still
+said "you cannot see them yet" -- true when written, false by the end of that day.
+
+WORLD (world-9lfjtf): 8/9 (a) -- *** EVERYTHING IS ON A SQUARE. ALL 59 ICONS, ONE
 468x468 SQUARE, NOTHING CLIPPED, ONE GROUND LINE. *** BUILD 8/9c.
 Record: records/BOHEMIA_EVERYTHING_ON_A_SQUARE_8_8_26.md. Gate: square_icons_gate.js 12/0.
 
