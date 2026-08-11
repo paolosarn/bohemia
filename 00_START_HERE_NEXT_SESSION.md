@@ -405,3 +405,14 @@ the demo's first five minutes + day pacing (dispatch appended to records/
 BOHEMIA_DEMO_DISPATCH_PROMPTS_8_4_26.md). WHAT COMES AFTER: blocker reports
 -> one consolidated Paolo sitting -> art wiring lands -> demo assembles in
 RUN -> demo gate + deploy -> he playtests the day.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07) — CORRECTION, SAME SITTING: THE DNA FORMULA IS NOT FLEET
+LAW. Paolo: "Im not putting this in every chat. its not law law law. this
+was more for the reference chat. were experimenting and learning. theres
+also a normie easy version of project zomboid mixed in." The addendum is
+REWRITTEN as THE LAB'S DNA BRIEF (same file): the formula (RF4-bigger-map
+combat; Valheim + PC2 + FNV + normie-easy PZ) is the LAB's study list only.
+NO other lane cites it; feel questions resolve through the actual standing
+laws as before. Lab's first-hours study stands, now with PZ onboarding as
+the anti-reference for normie-easy.
