@@ -543,7 +543,7 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes('let sniperIdx=-1; if(N>=4)') &&
     demo.includes("while(sniperIdx===closeIdx&&sp++<20)") &&
     demo.includes("if(i===sniperIdx)arch='sniper';") &&
-    /\(i===sniperIdx\) \? contentR\(\)\*0\.86/.test(demo));   /* V139: the far gun sits at the edge of the WORLD, wherever that edge is, instead of a hardcoded 30 that goes stale the moment the zoom moves */   /* V138: 13.5-16.5 -> 30-40 tiles. Still always the farthest, still never the close guy, and now genuinely outside everything you own */
+    /\(i===sniperIdx\) \? Math\.min\(contentR\(\), Math\.max\(_hi, contentR\(\)\*0\.90\)\)/.test(demo));   /* V140: still always the farthest and never the close man -- now pinned to the edge of the world AND to the far end of the spawn band, whichever is further out */   /* V138: 13.5-16.5 -> 30-40 tiles. Still always the farthest, still never the close guy, and now genuinely outside everything you own */
   // v40: streak momentum joins the real JUICE verdict menu, AU's dead toggle retired
   ok('V40 STREAK MOMENTUM IS A REAL JUICE TOGGLE: gated by JUICE.AW in the same slot the visible band formula reads, so on/off never lies',
     demo.includes('V40 JUICE MENU') &&
@@ -2299,7 +2299,32 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
   ok('V138 WHO IS CARRYING WHAT: a GOON has a pistol (walk him down), a SEC-BOT has a rifle (he outranges you), and the sniper is the reason the board is this big',
     /const ARCH_WEAPON=\{human:'pistol',bot:'rifle',sniper:'sniper'\};/.test(demo));
   ok('V138 THE SPAWN BAND OPENS: it was 6.5-14.5 tiles, which at 1.5m a tile is a fight inside 10-22 METRES -- a parking space with people in it, and it made every weapon range moot because everything spawned inside every gun\'s reach',
-    /e\.edist = \(i===sniperIdx\)/.test(demo) && /: 6\+Math\.random\(\)\*\(contentR\(\)\*0\.80-6\);/.test(demo));
+    /e\.edist = \(i===sniperIdx\)/.test(demo) && /: _lo\+Math\.random\(\)\*\(_hi-_lo\);/.test(demo));
+
+/* ===== V140 NOBODY IS IN RANGE WHEN THE BELL RINGS =================
+   Paolo 8/11: "how dare you make a range of weapons that have a maximum range
+   and then don't even set the Enemies that far away from me... I literally can
+   just stand there. Shoot out everyone kill them."
+   MY OWN V138 MEASUREMENT SAID IT AND I FILED IT AS A FEATURE: "pistol 41% of
+   the board in range". Forty-one percent in range IS stand-there-and-kill-
+   everyone. A maximum range means nothing if there is never a moment when
+   nothing is inside it.
+   MEASURED AFTER, 80 arenas per gun, standing perfectly still:
+     shotgun  0% in range at the bell, nearest 17.8 tiles, 5.8 turns to a target
+     pistol   0%                       nearest 20.7 tiles, 6.3 turns
+     smg      0%                       nearest 28.0 tiles, 6.3 turns
+   That gap IS the approach phase the fight never had. */
+ok('V140 THE SPAWN BAND IS MEASURED IN **YOUR GUN**, NEVER IN TILES: a fixed tile number cannot be right for five weapons with five reaches, and the dark HALVES every range, so the only honest unit is a multiple of the range actually in effect',
+  /const _R=maxRange\(myRange\(\)\);/.test(demo) &&
+  /const SPAWN_NEAR=1\.80, SPAWN_FAR=2\.60;/.test(demo) &&
+  /const _lo=Math\.min\(contentR\(\), Math\.max\(PT_BLANK\+2, _R\*SPAWN_NEAR\)\);/.test(demo));
+
+ok('V140 THE GUARANTEED CLOSE SPAWN IS DEAD: the generator had always put one man at PT_BLANK+0..2.5 -- "in your face" -- which handed over a free target on turn one every single fight no matter how big the board got',
+  !/PT_BLANK\+Math\.random\(\)\*2\.5/.test(demo) &&
+  /\(i===closeIdx\) \? _lo/.test(demo));
+
+ok('V140 AND THE DECK MAY NOT TELEPORT A MAN BACK INTO RANGE: V90B took shooters who spawned correctly out in the band and dropped them on deck tiles near the player, which silently undid the opening distance -- 6-8% of men were shootable at the bell purely because of that one line. A later pass overwriting an earlier pass is the same shape as the giants: two things deciding one number',
+  /if\(\(T\.edist\|\|0\) < _lo\) continue;/.test(demo));
   ok('AUDIT PINNED: cover is a BINARY predicate and incoming fire FILTERS on it -- an enemy you have cover against is removed from the volley entirely, 0% or 100%, never a modifier',
     demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
     demo.includes('!myCoverAgainst(e.ea,e.edist,e.lvl)'));   /* V90: still a FILTER, now level-aware. The audit's "0% or 100%" finding is unchanged -- a floor simply turns the whole predicate off. */
