@@ -1296,6 +1296,23 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    protocol is the coordinator's to write at demo-gate green; PUBLIC demo
    timing is Paolo's call at that point, not now. | card live on the real
    surface + export parses | — | no.
+0h. RELOAD RESILIENCE (sweep 3 catch, 8/12 — records/BOHEMIA_COORDINATOR_
+   SWEEP_LEDGER.md; demo-critical class): on iOS the page reload is a WHEN,
+   not an if — jetsam limits are inconsistent per device and even per
+   reboot, and backgrounding the tab (checking Messages mid-session) can
+   reload it regardless of how good our memory number is. Today a reload =
+   front splash + progress since last sleep lost; for a demo player that is
+   a quit. THE FIX, both aisles agree (mobile app lifecycle practice +
+   webgame practitioner reports): (a) lightweight CONTINUOUS CHECKPOINT
+   (reuse the save-blob machinery; write on cell crossing/verb AND on the
+   visibilitychange/pagehide lifecycle events — save the moment the OS
+   says you are being backgrounded); (b) on load with a live checkpoint,
+   RESUME IN PLACE — "welcome back", one tap, no splash, standing where
+   you stood; (c) the telemetry/feedback export records device model +
+   reload count so the soft-opening round doubles as our device matrix.
+   | kill the tab mid-walk in a real browser, reopen, prove you stand
+   where you stood, gated | save machinery exists — this is wiring, not a
+   new system | no.
 0v. THE BIKE (big-missing item 8, assigned 7/31 to complete the dispatch —
    the design is LOCKED in GDD v5: man-powered ladder, bike ~4 cells/beat,
    valley crossing 1.7h walk -> ~26min bike; nothing on any surface rides).

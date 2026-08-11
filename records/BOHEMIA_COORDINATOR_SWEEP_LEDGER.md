@@ -81,3 +81,34 @@ missing half is now written — records/BOHEMIA_CLOSED_PLAYTEST_PROTOCOL_
 EYES only, public decision gated on round 2 + audience-to-amplify).
 Ready the day the demo gate goes green. No Paolo action needed.
 HIGH-WATER MARK: swept through main @ 9615667e0f901496b4e4dca42754235509eea588
+
+## SWEEP 3 — 8/12/26
+DELTA: 15 commits, real motion. Verified NOT drift: the act-3/41-bosses
+commit executes PAOLO'S OWN line-by-line rulings (Night City act 3, spare
+column demoted, boot killed by hydrolysis research). His reported freeze
+("pressed wait hella") found + fixed at root: music clock replayed every
+missed tick after a stall. Fifth approved family wired (see-through
+chain-link); the dead ship in clusters + cemetery pit; your-house-is-yours
++ phone-in-pocket landed; WORLD hardened gates (conflict markers caught
+twice — the gate works). No collisions.
+PRIOR CATCHES: title parked by design; soft-opening kit fully delegated
+(protocol written, RUN 0f pending its lane) — nothing left to advance, so
+fresh hunt legal.
+THE CATCH (lens: weak devices; both aisles, 4 sources incl. our own
+measured record):
+QUESTION: what actually kills a phone web-game session on the devices our
+friends-and-family round will bring?
+FINDINGS: typical iOS page budget 300-450MB (we sit ~97.5MB = fine), BUT
+jetsam kill limits are INCONSISTENT per device and even per reboot (same
+iPhone 1.5GB vs 3GB across days; newer phones sometimes crash where an
+iPhone 7 does not) — a green memory number on one phone proves little.
+And the kill mechanism is a PAGE RELOAD, which iOS also fires routinely on
+tab backgrounding. CHALLENGE FINDING (vs our belief "memory inside the
+224MB floor = phones fine"): the number is fine, the UNHANDLED RELOAD is
+the real risk — today it means splash + lost progress = a demo player
+quits. ROUTED: RUN 0h RELOAD RESILIENCE (continuous checkpoint + save on
+pagehide + resume-in-place "welcome back" + device/reload info in the
+feedback export so the soft opening doubles as the device matrix).
+[Confidence: budget numbers practitioner-reported empirics; the
+reload-routineness is WebKit-documented consensus.]
+HIGH-WATER MARK: swept through main @ 673f63282e5fbfaab42bee63e7f272927f4ecfe5

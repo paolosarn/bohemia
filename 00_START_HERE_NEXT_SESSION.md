@@ -15947,3 +15947,14 @@ is pre-written and ready for demo-gate green — friends+family instrumented
 round, revise, FRESH-EYES round 2, public decision only after (and only
 with an audience to amplify). RUN lane: the 0f feedback card is what this
 protocol runs on.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/12 — SWEEP 3 (15 commits, no collisions; act-3 commit
+verified as Paolo's own rulings, not drift; his freeze fixed at root).
+CATCH ROUTED: RUN 0h RELOAD RESILIENCE — on iOS the page reload is a WHEN
+not an if (jetsam inconsistent per device/reboot; backgrounding reloads
+routinely); today reload = splash + lost progress = a demo player quits.
+Continuous checkpoint + save-on-pagehide + resume-in-place + device info in
+the feedback export (the soft opening doubles as our device matrix). Save
+machinery exists; this is wiring. Ledger + new mark in records/BOHEMIA_
+COORDINATOR_SWEEP_LEDGER.md.
