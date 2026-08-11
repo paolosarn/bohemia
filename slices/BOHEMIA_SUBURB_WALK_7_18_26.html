@@ -916,8 +916,6 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     });
     return out;
   }
-<<<<<<< HEAD
-=======
   /* where a person actually works, from the job site the generator already scanned:
      a compass direction and a distance in cells off their own block. */
   function jobCell(agent, cell){
@@ -926,7 +924,6 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     var d={N:[0,-1],S:[0,1],W:[-1,0],E:[1,0]}[j.dir];
     return d ? [cell[0]+d[0]*j.dist, cell[1]+d[1]*j.dist] : null;
   }
->>>>>>> 4ee8e39 (THE GATE THAT CATCHES A GREEN GATE ON A FILE NOBODY SHIPS (8/11, WORLD lane))
   function factionOf(agent, cell, bases){
     bases = normalizeBases(bases);
     if(!agent||!bases.length||!cell) return null;
@@ -1660,11 +1657,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     deviate:deviate,DEVIATION_CAP:DEVIATION_CAP,
     jobsNear:jobsNear,workersForPlot:workersForPlot,peopleForPlot:peopleForPlot,
     makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash,
-<<<<<<< HEAD
-    factionOf:factionOf,normalizeBases:normalizeBases,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS};
-=======
     factionOf:factionOf,normalizeBases:normalizeBases,jobCell:jobCell,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS};
->>>>>>> 4ee8e39 (THE GATE THAT CATCHES A GREEN GATE ON A FILE NOBODY SHIPS (8/11, WORLD lane))
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
