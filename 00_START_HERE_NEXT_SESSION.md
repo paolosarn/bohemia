@@ -1,3 +1,57 @@
+LAB (lab-e2r7sv): 8/7 (g) LATEST -- *** 63 BOSS CANDIDATES ACROSS THREE ACTS, AND HE CAUGHT ME
+OVERSELLING A RESEARCH FINDING. IT IS A POOL TO CUT FROM, NOT A SHIPPING LIST. ***
+JUDGE THIS: 1. the 63 in records/BOHEMIA_THE_BOSS_LADDER_v5_8_7_26.md. NOT IN A TAB.
+
+*** HE CALLED BULLSHIT ON MY SHOE FINDING AND HE WAS RIGHT. *** "UR TELLING ME SHOES HAVE A TEN
+YEAR LIFE CYCLE BEFORE THEY ARE UNWEARABLE. THATS BULLSHIT LMAO." I generalised a real, sourced
+fact about POLYURETHANE midsoles (5-10 year clock from manufacture, rots in the box) into "every
+shoe in the valley is dead". THAT DOES NOT FOLLOW: most sneakers are EVA foam, which hardens and
+flattens but does not crumble; leather welted boots last decades and are the one kind you can
+re-sole. In a valley that had millions of pairs you would find wearable shoes.
+THE BOOT IS KILLED, and it dies BY MY OWN RULE FROM THE PREVIOUS PASS: if you cannot name the
+wall without inventing it, there is no boss. I invented the wall, then DEFENDED it with a
+half-true citation, and he knocked it over in one line. *** THAT IS THE SECOND TIME IN TWO
+PASSES *** (THE FIXER went the same way), which makes it the pattern to watch in this lane. The
+PU fact survives as WORLD TEXTURE -- a crate of unworn boots that turns to chalk in your hands is
+a great five-second beat -- and never as a progression gate.
+
+HIS RULING, SETTLED: THE CHARGE is IMPROVISED DEMOLITION CHARGES, not radiological. No rad
+mechanic enters the game through that door.
+
+19 NEW CANDIDATES, and the two I would fight for filled a GLARING hole: *** THIS IS LAS VEGAS AND
+THE LADDER HAD 41 BOSSES WITHOUT ONE ABOUT THE CASINO OR ABOUT DRAWING STRANGERS IN. *** #54 THE
+HOUSE (take the floor, and Vegas earns the way Vegas ACTUALLY earned) and #55 THE MARQUEE (pull
+strangers in, so the city grows from OUTSIDE instead of only from births). Those two hand act 3
+its growth engine without a spreadsheet. The casino/strip/sign/highroller districts already exist
+in the overmap. Also #47 THE DAM, which is the reason Las Vegas can exist at all and is already a
+district; #56 THE WING (airport/airbase districts); #49 THE RECLAIM (reclaim district).
+Others new: THE FILTER, THE POT, THE SHADE (you cannot cross open ground at midday in Vegas), THE
+TOOTH, THE LENS, THE INK, THE SEED, THE HERD, THE PUMP, THE KILN, THE GLASS, THE LOOM, THE HOSE
+(fire station district), THE WALL, THE BOARD, THE SURGEON.
+
+*** I FLAGGED MY OWN WEAK ONES `THIN` SO HE CAN CUT FAST *** (THE TANNER, THE HIVE). Flagging my
+own weak work is cheaper than making him find it, and the gate now accepts THIN as a kind while
+refusing to count it toward the four-real-kinds check.
+
+AND I SAID IT OUT LOUD IN THE DOC: 63 IS FAR TOO MANY BOSSES FOR ONE GAME. He asked for a lot to
+compare across acts, so it is a POOL. Cutting is the next job and it is his.
+
+*** MY HAND COUNT WAS WRONG TWICE IN ONE FILE. *** I wrote 59 in the title and the summary table;
+the gate counted the rows and said 63, with act 2 at 27 not 25 and act 3 at 18 not 16. Corrected,
+and the doc now says the gate counts and I do not. This is the third counting error of the
+session and the reason every count in this repo should be machine-derived.
+
+GATE: boss_ladder_gate.js, 52 checks. 63 bosses, 63 DISTINCT LOCKS, 63 DISTINCT GRANT VERBS. It
+caught SIX verb collisions and TWO nouny locks in my own draft before this shipped. Two checks
+were REVERSED on his ruling rather than defended: J7 used to assert the shoe overclaim was
+recorded as a lock and now asserts the CORRECTION is on the record, and J14 went from "the dirty
+bomb reading is flagged" to "he ruled it: demolition charges". A GATE MUST NEVER OUTRANK A RULING.
+
+STILL PENDING HIM: which of the 63 live (the real next job); THE VOICE (61, four passes, still not
+approved); whether the valley should EVER reconnect (63 THE UPLINK, close to the spine of the
+story); whether clout is the summon's mana; and the MEDICINE-vs-RESOURCES currency name.
+
+
 LAB (lab-e2r7sv): 8/7 (f) LATEST -- *** 41 BOSSES, AND ACT 3 IS EARLY NIGHT CITY. THE REBUILD
 IS THE TAKEOVER, AND THE PLAYER BUILDS THE TRAP THEMSELVES. ***
 JUDGE THIS: 1. the 41 in records/BOHEMIA_THE_BOSS_LADDER_v4_8_7_26.md. NOT IN A TAB.

@@ -34,7 +34,7 @@
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
-const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_v4_8_7_26.md';
+const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_v5_8_7_26.md';
 const RULINGS = 'records/BOHEMIA_HIS_BOSS_RULINGS_8_7_26.md';
 
 let pass = 0, fail = 0;
@@ -204,16 +204,20 @@ ok('H3 but the peaceful route is still recorded as existing, kept short on purpo
    /every boss can be bested without killing them/i.test(flat) &&
    /KEPT SHORT ON PURPOSE/i.test(lad));
 
-const KINDS = ['WORLD', 'GEAR', 'LOOK', 'PEOPLE'];
+/* THIN added 8/7: he asked for a big POOL to cut from, so I flag my own weak
+   candidates rather than making him find them. It is a legal kind but it is NOT counted
+   toward the four-kinds-really-used check below. */
+const KINDS = ['WORLD', 'GEAR', 'LOOK', 'PEOPLE', 'THIN'];
+const REAL_KINDS = ['WORLD', 'GEAR', 'LOOK', 'PEOPLE'];
 const badKind = rows.filter(r => KINDS.indexOf(r.kind) < 0);
 ok('H4 every boss declares one of the four grant KINDS' +
    (badKind.length ? ' -> ' + badKind.map(r => r.boss + ':' + r.kind).join(',') : ''),
    badKind.length === 0);
 const counts = {};
 KINDS.forEach(k => counts[k] = rows.filter(r => r.kind === k).length);
-ok('H5 ALL FOUR KINDS ARE REALLY USED, because he named gear and customization as ' +
-   'the missing ones (' + KINDS.map(k => k + ' ' + counts[k]).join(', ') + ')',
-   KINDS.every(k => counts[k] >= 3));
+ok('H5 ALL FOUR REAL KINDS ARE USED, because he named gear and customization as the ' +
+   'missing ones (' + KINDS.map(k => k + ' ' + counts[k]).join(', ') + ')',
+   REAL_KINDS.every(k => counts[k] >= 3));
 ok('H6 GEAR front-loads to act 1 and PEOPLE back-loads to act 3, so the acts really ' +
    'do escalate',
    rows.filter(r => r.kind === 'GEAR' && actOf(r.boss) === 1).length >=
@@ -234,8 +238,11 @@ ok('H10 the kill/spare research is cited so the "spare pays better" claim is che
    /sifu\.fandom\.com/.test(lad) && /Mercy_?Rewarded|MercyRewarded/i.test(lad));
 ok('H11 the summon is a person ARRIVING, which is what he invented',
    /somebody arrives/i.test((rows.find(r => r.boss === 'THE CREDITOR') || {}).key || ''));
-ok('H12 he asked for MORE again, so the count went UP from 34 (' + rows.length + ')',
-   rows.length > 34);
+ok('H12 he asked for MORE again, so the count went UP from 41 (' + rows.length + ')',
+   rows.length > 41);
+ok('H13 and it declares itself a POOL TO CUT FROM rather than a shipping list, with my own ' +
+   'weak ones flagged THIN (' + counts.THIN + ')',
+   /POOL TO CUT FROM, NOT A SHIPPING LIST/i.test(lad) && counts.THIN >= 1);
 
 /* ==========================================================================
    PART J (v4) — HIS FOUR STRUCTURAL RULINGS, AND THE LESSON FROM THE FIVE KILLS.
@@ -247,18 +254,27 @@ ok('J2 and it records WHY Night City is the right reference: the rebuild WAS the
    /supplying the rebuild is how they came to own it/i.test(flat));
 ok('J3 the futurism arrives WITH AN OWNER, so it is a bill and not a reward',
    /owner attached/i.test(flat) || /name on the invoice/i.test(flat));
+/* THE BOOT DROPS OUT OF THE SPINE because he killed it ("THATS BULLSHIT LMAO") and he was
+   right. THE WING replaces it at the far end, so the spine still spans all three acts. */
 ok('J4 TRANSPORT is a spine through all three acts, because he said it was thin',
    /IS NOW A SPINE/i.test(flat) &&
-   ['THE BOOT','THE SPOKE','THE CART','THE ROAD','THE ENGINE','THE RAIL','THE LIFT']
+   ['THE SPOKE','THE CART','THE ROAD','THE ENGINE','THE RAIL','THE LIFT','THE WING']
      .every(b => rows.some(r => r.boss === b)));
 ok('J5 and the research reason transport is not a luxury tier is stated',
    /cannot have metallurgy without transport/i.test(flat));
 ok('J6 FOOD IS FIRST in act 2, because that is what the rebuilding research says',
    (rows.filter(r => actOf(r.boss) === 2).sort((a, b) => a.n - b.n)[0] || {}).boss === 'THE SOIL' &&
    /it does not start with technology, it starts with FOOD/i.test(flat));
-ok('J7 the shoe finding is recorded, because it answers his "hella shoes everywhere"',
-   /HYDROLYSIS/i.test(lad) && /FROM THE DATE OF MANUFACTURE/i.test(lad) &&
-   /no shoe in the valley has a sole left on it/i.test(lad));
+/* J7 REVERSED ON HIS RULING. It used to assert the shoe finding was recorded as a LOCK.
+   He called it bullshit and he was right: I generalised PU-midsole hydrolysis into "every
+   shoe", which does not follow (most sneakers are EVA, leather welts last decades). So the
+   check now asserts the CORRECTION is on the record and THE BOOT is really gone -- a gate
+   that kept demanding the overclaim would be outranking the ruling. */
+ok('J7 the shoe OVERCLAIM is corrected on the record and THE BOOT is dead',
+   !rows.some(r => r.boss === 'THE BOOT') &&
+   /I OVERSTATED THE SHOE FINDING/i.test(flat) &&
+   /most sneakers use EVA foam/i.test(flat) &&
+   /survives as world texture/i.test(flat));
 ok('J8 the gun finding is recorded and pipe weapons landed in ACT 1 as he guessed',
    actOf('THE MACHINIST') === 1 && /trivially/i.test(flat) &&
    /What is genuinely hard is AMMUNITION/i.test(flat));
@@ -276,8 +292,10 @@ ok('J12 ★ AND THE LESSON IS WRITTEN DOWN: four died because the LOCK was inven
    /If you cannot name the wall without inventing it, there is no boss/i.test(flat));
 ok('J13 THE SCHOOL now has a real mechanical stake, because he said he could not see one',
    /your heir starts at zero/i.test(lad));
-ok('J14 the "dirty bomb" reading is flagged for him rather than assumed',
-   /as improvised demolition charges, not radiological/i.test(flat));
+ok('J14 HE RULED IT: improvised demolition charges, NOT radiological, and no rad mechanic ' +
+   'enters through this door',
+   /improvised demolition charges/i.test(flat) && /Not radiological/i.test(flat) &&
+   /no rad mechanic enters the game through this door/i.test(flat));
 
 console.log('-'.repeat(74));
 console.log('  ' + rows.length + ' bosses · ' + seenLock.size + ' distinct locks · ' +

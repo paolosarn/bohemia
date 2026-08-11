@@ -1,3 +1,10 @@
+> **★ SUPERSEDED 8/7/26 (same day) — THE LIVE LADDER IS NOW
+> `records/BOHEMIA_THE_BOSS_LADDER_v5_8_7_26.md`.**
+> He ruled the demolition charges are IMPROVISED, not radiological, called bullshit on my shoe
+> finding (correctly — I generalised PU-midsole hydrolysis into "every shoe", so THE BOOT is
+> dead), and asked for a lot more to compare across acts. v5 is 63 candidates, explicitly a POOL
+> TO CUT FROM. **Build from v5.**
+
 # BOHEMIA — THE BOSS LADDER v4: 41 BOSSES, AND ACT 3 IS EARLY NIGHT CITY (8/7/26)
 
 **THIS IS THE LIVE LADDER.** Supersedes v3. v1-v3 stays as the history, and v1's thirteen
