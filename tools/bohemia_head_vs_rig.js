@@ -19,6 +19,14 @@
  * something anyone can act on; "the rig tapers 10-8-8-6-4 and the game drew
  * 10-10-10-9-5" is.
  *
+ * RIG CHECK (RIG IS LAW, Paolo 7/26/26): READS the rig, writes nothing. It draws
+ *   BAKED.layers.S parts 1/2/3 flat to compare against the render and never touches
+ *   BAKED, a joint, a bone or a pixel of his art -- the whole point is to report
+ *   whether the renderer is honouring the shape he already painted.
+ *   built on: BAKED, BAKED.layers
+ *   joints: none named
+ *   parts: 1=head outline, 2=face, 3=neck
+ *
  * REUSE CHECK: cooks no new graphic pixels. The RIG panel is BAKED's own pixel
  * lists drawn with the live skin ramp; the GAME panels are drawChar output from
  * the booted alpha. Nothing here invents or redraws a pixel of anybody's art.
