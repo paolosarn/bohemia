@@ -69,7 +69,6 @@ boot turned out to be a font), then consuming the vista as it lands. The cold op
 landed and plays.
 Records: BOHEMIA_THE_DAY_CLOSES_8_11_26.md, BOHEMIA_I_DECIDE_THE_MECHANISM_8_11_26.md
 
-<<<<<<< HEAD
 PEOPLE (7h9sfy): 8/11 (w) LATEST -- *** DIALOGUE IS OFF THE APPROVAL QUEUE.
 "I DONT HAVE TIME TO APPROVE THE DIALOGUE THIS SLOW LIKE THIS I WILL EDIT IT
 LATER JUST DIALOGUE ALWAYS REFER TO THE BEST QUESTS EVER CATALOGUE." READ
@@ -155,7 +154,6 @@ over the side, and ANSWERED went red on main until it came back. Not second-gues
 the prune -- a 13,558-line handoff needed cutting and CLAUDE.md says piles rot -- but
 this file is shared infrastructure with no owning lane, which is exactly why a prune
 here can drop another lane's LOCKED law and nothing notices.
->>>>>>> 45ce662 (HANDOFF: restore the answered-questions record the truncation took with it)
 
 RESTORED BY RUN 8/11: the PEOPLE section below carries a LOCKED fleet-wide law and
 was dropped from this file somewhere in main's last 26 commits (the law FILE survives,
