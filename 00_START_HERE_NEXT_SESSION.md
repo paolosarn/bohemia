@@ -14947,3 +14947,15 @@ and no moment. The payday engine is inlined in the run but **nothing calls
 `payForQuest`** yet, so getting paid does not fire — wiring a sound to a function
 nobody calls would be theatre. That is WORLD/RUN work; the sound is ready the day
 it fires.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/11 — THE SWEEP IS THE COORDINATOR'S GO WORD (law: laws/
+BOHEMIA_COORDINATOR_SWEEP_8_11_26.md). In the coordinator chat, "sweep" (or
+any single word) runs the full cycle: pull the fleet, cross-lane audit, demo
+path, THE HORIZON (>=1 not-yet-started catch per sweep, rotating lenses,
+researched), decide-and-route under everything-is-a-thumb, append-only
+ledger (records/BOHEMIA_COORDINATOR_SWEEP_LEDGER.md — no re-surfacing),
+bottom-up report. SWEEP 0 logged; horizon catch: the TITLE "Bohemia"
+collides with Bohemia Interactive (Arma/DayZ) — fine for the private demo,
+must be cleared or re-titled before any PUBLIC store presence [PENDING
+Paolo awareness, decision by public release].
