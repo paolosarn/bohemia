@@ -1,3 +1,19 @@
+ART (f3eu53): 8/11 (i) LATEST -- *** SEVEN OF FOURTEEN FAMILIES ARE IN THE
+GAME: RAIL, STRIPES, RING, METAL, MESH, BRICK, MOBILE HOMES. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (eighth-pass section)
+
+TAB: ART, WIRED IN THE GAME - seven live-frame cards now. The brick card was
+held until a mass that actually hashed to brick was found and shot; a card
+that lies is a card that lies. Placement bar held everywhere (mass-seeded
+materials, one home one colour).
+
+REMAINING UNWIRED (7): CMU wall (easy pool join), freeway (corridor logic like
+rail), crop fields (farm rows), sports fields + pools + storefronts (need
+assembly logic), deck stairs (blocked on TF-CMB-004 slab cook). Then the
+volume ledger. Pages surface at 232 of 260 MB - compress future shots.
+
+ART (f3eu53): 8/11 (h) -- *** FIFTH FAMILY WIRED: THE FENCES ARE REAL
+
 LAB (lab-e2r7sv): 8/7 (g) LATEST -- *** 63 BOSS CANDIDATES ACROSS THREE ACTS, AND HE CAUGHT ME
 OVERSELLING A RESEARCH FINDING. IT IS A POOL TO CUT FROM, NOT A SHIPPING LIST. ***
 JUDGE THIS: 1. the 63 in records/BOHEMIA_THE_BOSS_LADDER_v5_8_7_26.md. NOT IN A TAB.

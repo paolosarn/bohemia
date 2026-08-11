@@ -144,6 +144,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-ART-013_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt). Volume unlocked, wiring open. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: three park colourways (field + stripe) joined the trailer district's wall pool, one colour per home, live in the RUN tab. Skirt, roof set, awning, hitch and the burned row are the named volume. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/29/26 | PRIORITY: HIGH
 - BOARD ROW #: 22 | VERDICT: —

@@ -114,6 +114,10 @@ const WIRED = [
     what: 'Downtown, chapel, courthouse and library building tops wear your coping ring: oxide downtown, bone on civic, turning its corners. Live frame at the library. The dead AC units come later; they need a recook at cell size.' },
   { id: 'TF-ART-004', title: 'THE FENCES ARE REAL CHAIN-LINK', img: 'ART_WIRED_TF-ART-004.png',
     what: 'Thirteen districts that name their fence lines (solar, storage, battery, landfill, boneyard, radio, the trailer park and more) now draw see-through chain-link: the mesh shows the world behind it, posts land at corners and junctions, and about one segment in seventeen is breached. One fence line wears one style. Live frame at the solar farm. The jail keeps its razor-wire wall; that is a different object.' },
+  { id: 'TF-ART-013', title: 'THE TRAILER PARK HAS ITS COLOURS', img: 'ART_WIRED_TF-ART-013.png',
+    what: 'The mobile homes wear your park colourways now: ribbed cream, white and that faded turquoise, one colour per home with its stripe course. Live frame in the trailer park. Skirts, awnings, hitches and the burned row are coming as volume.' },
+  { id: 'TF-ART-009', title: 'DOWNTOWN IS OLD PAINTED BRICK', img: 'ART_WIRED_TF-ART-009.png',
+    what: 'The oldest buildings (downtown, chapel, school, courthouse, library, commercial) can wear your painted-over ghost brick now: whitewash with the old wall bleeding through, above the dead storefront glass. Live frame downtown.' },
   { id: 'TF-ART-002', title: 'THE WAREHOUSES WEAR REAL METAL', img: 'ART_WIRED_TF-ART-002.png',
     what: 'Ten industrial districts pick from your corrugated skins now: bare metal with rust runs, and three real paints. One material per building so nothing patchworks. Live frame in the warehouse district.' },
 ];

@@ -474,6 +474,38 @@ var CORR_MATS = [
   if (civicWall[d]) CORR_MATS.forEach(function (m) { civicWall[d].push(m); });
 });
 console.log('  TILEFORMS: TF-ART-002 corrugated joins 10 metal districts as 4 materials (fourth wired family)');
+/* sixth family: TF-ART-009 brick - the painted-over ghost-sign wall field joins
+   the old-brick districts as a material (soldier courses + corners are course
+   volume). seventh family: TF-ART-013 mobile home - three real park colourways
+   (field + stripe courses) join the trailer pool; skirt, roofs, awning, hitch
+   and the burned row are placement volume. Same APPROVED refusal as all. */
+function bankMat(bank, bankPath, names) {
+  return names.map(function (n) {
+    var t = bank.tiles.filter(function (x) { return x.name === n; })[0];
+    if (!t) throw new Error('TILEFORM: piece "' + n + '" missing from ' + bankPath);
+    return t.b64;
+  });
+}
+var BRICK_BANK = 'banks/tileforms/TF-ART-009_CANDIDATES_8_8_26.json';
+var brickBank = JSON.parse(fs.readFileSync(BRICK_BANK, 'utf8'));
+if (String(brickBank.law || '').indexOf('APPROVED') !== 0)
+  throw new Error('TILEFORM: ' + BRICK_BANK + ' law line is not APPROVED - nothing unjudged draws');
+var brickGhost = bankMat(brickBank, BRICK_BANK,
+  ['brick_painted_ghost_0', 'brick_painted_ghost_1', 'brick_painted_ghost_2']);
+['downtown', 'chapel', 'school', 'commercial', 'courthouse', 'library'].forEach(function (d) {
+  if (civicWall[d]) civicWall[d].push(brickGhost);
+});
+var MH_BANK = 'banks/tileforms/TF-ART-013_CANDIDATES_8_8_26.json';
+var mhBank = JSON.parse(fs.readFileSync(MH_BANK, 'utf8'));
+if (String(mhBank.law || '').indexOf('APPROVED') !== 0)
+  throw new Error('TILEFORM: ' + MH_BANK + ' law line is not APPROVED - nothing unjudged draws');
+['cream', 'white', 'turq'].forEach(function (cw) {
+  var m = bankMat(mhBank, MH_BANK,
+    ['mh_field_' + cw + '_0', 'mh_field_' + cw + '_1', 'mh_field_' + cw + '_2',
+     'mh_stripe_' + cw + '_0', 'mh_stripe_' + cw + '_1', 'mh_stripe_' + cw + '_2']);
+  if (civicWall.trailer) civicWall.trailer.push(m);
+});
+console.log('  TILEFORMS: TF-ART-009 ghost brick joins 6 old-brick districts; TF-ART-013 adds 3 park colourways to the trailer pool (sixth + seventh wired families)');
 /* PLACEMENT FIX (Paolo 8/11, 'the placement was shit but individually the
    tiles are good'): the roof INTERIOR drew the old 8/1 pool while the new
    coping ring is TF-ART-012 - a brick-textured field against a gravel-rim

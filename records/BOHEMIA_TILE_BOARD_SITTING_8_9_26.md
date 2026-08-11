@@ -198,3 +198,22 @@ in seventeen is breached. Looked at live at the solar farm: the E-W mesh runs
 read like the approved proofs; N-S columns are thinner but continuous. Gates,
 toppers, slats, sag/lean are named volume.
 FIVE OF FOURTEEN FAMILIES ARE IN THE GAME: rail, stripes, ring, metal, mesh.
+
+## 8/11 EIGHTH PASS: SIXTH + SEVENTH FAMILIES WIRED (GHOST BRICK, MOBILE HOMES)
+
+Both are pool joins through the one-material-per-building machinery (which now
+seeds on the flood-filled MASS per his placement ruling): TF-ART-009's
+painted-over ghost-brick field joined six old-brick districts; TF-ART-013's
+three park colourways (field + stripe courses) joined the trailer pool. Both
+looked at live: one home one colour in the park; whitewashed brick with the
+old wall bleeding through above downtown's dead storefront glass (the brick
+card was NOT shipped until a mass that actually hashed to brick was found and
+shot - a card that lies is a card that lies). Course volume named: soldier
+rows, corners, skirts, mh roofs, awnings, hitch, burned row.
+SEVEN OF FOURTEEN FAMILIES ARE IN THE GAME:
+rail, stripes, ring, metal, mesh, brick, mobile homes.
+Remaining unwired: CMU block wall (TF-ART-001), sports fields (TF-ART-005,
+needs field assembly logic), pools (TF-ART-006, basin assembly), storefront
+glass (TF-ART-008, facade course logic), freeway (TF-ART-011, corridor like
+rail), crop fields (TF-ART-014, farm rows), deck stairs (TF-CMB-005, blocked
+on the TF-CMB-004 slab cook).

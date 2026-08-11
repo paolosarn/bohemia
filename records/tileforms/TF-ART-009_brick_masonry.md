@@ -385,6 +385,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-ART-009_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt). Volume unlocked, wiring open. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: the painted-over ghost-brick field joined six old-brick districts' wall pools (downtown, chapel, school, courthouse, library, commercial), live in the RUN tab. Soldier courses and corner stacks are the course volume. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/29/26 | PRIORITY: HIGH
 - BOARD ROW #: 18 | VERDICT: —
