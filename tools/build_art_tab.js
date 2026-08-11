@@ -112,6 +112,8 @@ const WIRED = [
     what: 'Courthouse, commercial, chapel, industrial, warehouse and downtown lots draw your washed stripes, each cell reading the painted line’s own shape. Live frame from the courthouse lot. The medical lot names whole bays, not lines, and is left alone on purpose.' },
   { id: 'TF-ART-012', title: 'THE ROOFS HAVE THEIR EDGE', img: 'ART_WIRED_TF-ART-012.png',
     what: 'Downtown, chapel, courthouse and library building tops wear your coping ring: oxide downtown, bone on civic, turning its corners. Live frame at the library. The dead AC units come later; they need a recook at cell size.' },
+  { id: 'TF-ART-004', title: 'THE FENCES ARE REAL CHAIN-LINK', img: 'ART_WIRED_TF-ART-004.png',
+    what: 'Thirteen districts that name their fence lines (solar, storage, battery, landfill, boneyard, radio, the trailer park and more) now draw see-through chain-link: the mesh shows the world behind it, posts land at corners and junctions, and about one segment in seventeen is breached. One fence line wears one style. Live frame at the solar farm. The jail keeps its razor-wire wall; that is a different object.' },
   { id: 'TF-ART-002', title: 'THE WAREHOUSES WEAR REAL METAL', img: 'ART_WIRED_TF-ART-002.png',
     what: 'Ten industrial districts pick from your corrugated skins now: bare metal with rust runs, and three real paints. One material per building so nothing patchworks. Live frame in the warehouse district.' },
 ];

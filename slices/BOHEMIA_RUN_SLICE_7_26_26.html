@@ -600,6 +600,44 @@ function drawRoofform(gx,gy,X,Y,S){
   ctx.drawImage(look(im),X,Y,S,S);
   return true;
 }
+/* FIFTH WIRED FAMILY (8/11): TF-ART-004 chain-link. 13 districts name their
+   fence lines ('fence' / 'perimeter fence' / 'chain-link fence', ~2,300 cells:
+   solar, storage, battery, landfill, boneyard, radio, farm, trailer,
+   apartment, industrial, granary, reservoir, wash + the railyard) and every
+   one is honestly chain-link in the real Sun Belt. 'wall' names are EXCLUDED:
+   the jail's razor-wire wall and the suburb's community wall are different
+   objects. PLACEMENT (his 8/11 bar): one fence LINE wears one style (variant
+   keyed per row/column, not per cell); the E-W run art is a 4-cell sheet
+   sliced per cell so the mesh weave never restarts; the fence is TWO cells
+   tall in the three-quarter view, so the upper half overlays the cell behind
+   it and the world stays visible through the mesh; the fence cell's own
+   ground is painted under the mesh first (a see-through fence over nothing
+   would show the void). Posts land at junctions, corners and isolated stubs;
+   a breach interrupts roughly one segment in seventeen. */
+function fenceAt(gx,gy){
+  if(gy<0||gx<0||gy>=NAMEG.length||gx>=NAMEG[0].length) return false;
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  return n.indexOf('fence')>=0 && n.indexOf('wall')<0;
+}
+function drawFenceform(gx,gy,X,Y,S){
+  if(!fenceAt(gx,gy)) return false;
+  var E=fenceAt(gx+1,gy), W2=fenceAt(gx-1,gy), N=fenceAt(gx,gy-1), S2=fenceAt(gx,gy+1);
+  var horiz=E||W2, vert=N||S2;
+  var im, sx=0;
+  if(horiz&&vert){ im=TILEFORM_IMG['post_hub']; }
+  else if(vert){ im=TILEFORM_IMG['ns_run_'+th(0,gx,2)]; }
+  else if(horiz){
+    var pick=['run_plain_0','run_plain_1','run_plain_2','run_rail_0','run_rail_1','run_rail_2'][th(0,gy,6)];
+    if(th(gx>>2,gy,17)===0) pick='run_breach';
+    im=TILEFORM_IMG[pick]; sx=(((gx%4)+4)%4)*44;
+  } else { im=TILEFORM_IMG['post_hub']; }
+  if(!im||!im.complete||!im.naturalWidth) return false;
+  /* ground under the mesh first: see-through means the world shows through */
+  if(!drawBought('yard',gx,gy,X,Y,S)) tput('dirt',X,Y,S);
+  ctx.drawImage(look(im),sx,44,44,44,X,Y,S,S);
+  ctx.drawImage(look(im),sx,0,44,44,X,Y-S,S,S);
+  return true;
+}
 /* SECOND WIRED FAMILY (8/11): TF-ART-003 parking-lot striping. Nine built
    districts name their painted stall lines ('stall marking', 'parking stall',
    'lane / stall marking', 'trailer stall stripe' - measured world-wide, not
@@ -2812,6 +2850,7 @@ function draw(){
            really built out of (8/3). Ground already fell through above. */
         /* the flat-roof ring first (8/11): a 'roof edge' cell is the coping,
            and the dossier already drew the line - the mask only reads it */
+        if(!isSuburbCell() && drawFenceform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && drawRoofform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && drawCivicSkin(laid,gx,gy2,X,Y,S)) continue;
         if(!tput(laid,X,Y,S) && !body){

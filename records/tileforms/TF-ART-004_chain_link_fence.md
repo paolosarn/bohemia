@@ -115,6 +115,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-ART-004_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt). Volume unlocked, wiring open. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: thirteen fence-naming districts draw the see-through runs, N-S columns and post hubs (one line one style, ground painted under the mesh, breach 1-in-17 segments); the jail's razor-wire WALL is excluded as a different object. Gates, toppers, slats and the sag/lean variants are the named volume. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/28/26 | PRIORITY: HIGH
 - BOARD ROW #: 13 | VERDICT: —

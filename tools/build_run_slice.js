@@ -296,6 +296,20 @@ roofBank.tiles.forEach(function (t) {
   }
 });
 if (roofCount !== 66) throw new Error('TILEFORM: only ' + roofCount + ' roof pieces matched in ' + ROOF_BANK);
+/* fifth family: TF-ART-004 chain-link - the run sheets, N-S columns and the
+   post hub. Gates, toppers and slat variants are named volume. */
+var FENCE_BANK = 'banks/tileforms/TF-ART-004_CANDIDATES_8_8_26.json';
+var fenceBank = JSON.parse(fs.readFileSync(FENCE_BANK, 'utf8'));
+if (String(fenceBank.law || '').indexOf('APPROVED') !== 0)
+  throw new Error('TILEFORM: ' + FENCE_BANK + ' law line is not APPROVED - nothing unjudged draws');
+var FENCE_PIECES = ['run_plain_0', 'run_plain_1', 'run_plain_2', 'run_rail_0', 'run_rail_1',
+                    'run_rail_2', 'run_breach', 'ns_run_0', 'ns_run_1', 'post_hub'];
+var fenceCount = 0;
+fenceBank.tiles.forEach(function (t) {
+  if (FENCE_PIECES.indexOf(t.name) >= 0) { tileformOut[t.name] = t.b64; fenceCount++; }
+});
+if (fenceCount !== FENCE_PIECES.length)
+  throw new Error('TILEFORM: only ' + fenceCount + ' fence pieces matched in ' + FENCE_BANK);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('

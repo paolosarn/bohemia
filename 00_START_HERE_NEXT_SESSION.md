@@ -1,3 +1,18 @@
+ART (f3eu53): 8/11 (h) LATEST -- *** FIFTH FAMILY WIRED: THE FENCES ARE REAL
+SEE-THROUGH CHAIN-LINK IN THIRTEEN DISTRICTS. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (seventh-pass section)
+
+TAB: ART, WIRED IN THE GAME, five cards now (rail, stripes, ring, metal, mesh),
+each a live frame. Placement bar held: one line one style, weave never
+restarts, ground under the mesh, posts at junctions, 1-in-17 breach. Jail
+razor-wire wall excluded as a different object.
+
+NEXT: brick (TF-ART-009) + mobile homes (TF-ART-013) as pool joins, then the
+volume ledger (rail turnout/crossing/buffer, wheel stops/ADA, RTU recook at
+cell size, roll-up doors, fence gates/toppers, deck stairs after TF-CMB-004).
+
+ART (f3eu53): 8/11 (g) -- *** HIS VERDICT ON THE WIRED WORK: "LOOKS GOOD
+
 PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
 PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,

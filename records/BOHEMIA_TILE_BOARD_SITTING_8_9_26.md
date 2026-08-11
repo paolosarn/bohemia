@@ -183,3 +183,18 @@ date-letter shape the gate rightly demands), alpha loads 20, light 41,
 grime 24, bought 20.
 
 FOUR OF FOURTEEN FAMILIES ARE IN THE GAME: rail, stripes, ring, metal.
+
+## 8/11 SEVENTH PASS: FIFTH FAMILY WIRED (CHAIN-LINK)
+
+TF-ART-004 is live in every district that NAMES its fence line ('fence' /
+'perimeter fence' / 'chain-link fence' - thirteen districts, ~2,300 cells) and
+excluded from every 'wall' (the jail's razor wire and the suburb community
+wall are different objects). Placement per his 8/11 bar: one fence LINE wears
+one style (variant keyed per row/column), the E-W run art is a 4-cell sheet
+sliced per cell so the weave never restarts, the fence stands two cells tall
+with the mesh overlaying what is behind it, the fence cell's own ground paints
+under the see-through mesh, posts land at junctions/corners/stubs, one segment
+in seventeen is breached. Looked at live at the solar farm: the E-W mesh runs
+read like the approved proofs; N-S columns are thinner but continuous. Gates,
+toppers, slats, sag/lean are named volume.
+FIVE OF FOURTEEN FAMILIES ARE IN THE GAME: rail, stripes, ring, metal, mesh.
