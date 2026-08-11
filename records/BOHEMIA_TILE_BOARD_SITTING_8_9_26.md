@@ -217,3 +217,18 @@ needs field assembly logic), pools (TF-ART-006, basin assembly), storefront
 glass (TF-ART-008, facade course logic), freeway (TF-ART-011, corridor like
 rail), crop fields (TF-ART-014, farm rows), deck stairs (TF-CMB-005, blocked
 on the TF-CMB-004 slab cook).
+
+## 8/11 NINTH PASS: EIGHTH FAMILY WIRED (THE CROP FIELDS)
+
+TF-ART-014 draws on the farm's own named ground: 'field soil' (2,184 cells) is
+fallow bare plot, 'crop rows' (513) are the furrow fields with ONE furrow style
+per plot, 'irrigation' (211) is silted earth ditch. These were the deliberate
+blanks of the 8/5 prop pass - held empty until the right family existed rather
+than dressed wrong. Looked at live: the farm reads as one continuous dead
+fallow field with furrow bands. Edge WANG set, berms, concrete ditches and the
+dirt track are named volume.
+EIGHT OF FOURTEEN FAMILIES ARE IN THE GAME.
+Remaining unwired (6): CMU courses (cap/vent, needs material-aware course
+logic), sports fields + pools + storefronts (assembly logic), freeway (render
+path is not district cells - needs its own research), deck stairs (blocked on
+the TF-CMB-004 slab cook).

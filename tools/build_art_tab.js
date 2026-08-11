@@ -118,6 +118,8 @@ const WIRED = [
     what: 'The mobile homes wear your park colourways now: ribbed cream, white and that faded turquoise, one colour per home with its stripe course. Live frame in the trailer park. Skirts, awnings, hitches and the burned row are coming as volume.' },
   { id: 'TF-ART-009', title: 'DOWNTOWN IS OLD PAINTED BRICK', img: 'ART_WIRED_TF-ART-009.png',
     what: 'The oldest buildings (downtown, chapel, school, courthouse, library, commercial) can wear your painted-over ghost brick now: whitewash with the old wall bleeding through, above the dead storefront glass. Live frame downtown.' },
+  { id: 'TF-ART-014', title: 'THE FARM IS DEAD REAL DIRT', img: 'ART_WIRED_TF-ART-014.png',
+    what: 'The farm names its own ground and now draws your family on it: fallow soil across the plots, furrow rows where crops once ran (each plot holds one furrow style), silted earth in the dead irrigation channels. These were the cells left deliberately blank by the props pass, waiting for the right family instead of getting dressed wrong. Live frame in the farm. Field edges, berms and the dirt track are coming as volume.' },
   { id: 'TF-ART-002', title: 'THE WAREHOUSES WEAR REAL METAL', img: 'ART_WIRED_TF-ART-002.png',
     what: 'Ten industrial districts pick from your corrugated skins now: bare metal with rust runs, and three real paints. One material per building so nothing patchworks. Live frame in the warehouse district.' },
 ];

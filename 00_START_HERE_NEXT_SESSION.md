@@ -1,3 +1,23 @@
+ART (f3eu53): 8/11 (j) LATEST -- *** EIGHT OF FOURTEEN FAMILIES ARE IN THE
+GAME. THE FARM GROUND WAS THE DAY'S LAST WIRING: THE DELIBERATE BLANKS FINALLY
+GOT THEIR FAMILY. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (ninth-pass section)
+
+TAB: ART, WIRED IN THE GAME - eight live-frame cards. Wired today: rail,
+stripes, ring, metal, mesh, brick, mobile homes, crop fields. Placement bar
+held (one plot one furrow style; field soil as fallow bare plot; irrigation as
+silted ditch).
+
+REMAINING UNWIRED (6) BY WHAT THEY NEED: CMU cap/vent courses (material-aware
+course logic in drawCivicSkin), sports fields + pools + storefronts (assembly
+logic per venue), freeway (NOT district cells - the overlay render path needs
+its own research first), deck stairs (blocked on the TF-CMB-004 slab cook).
+Then the volume ledger (rail turnout/crossing/buffer, wheel stops/ADA, RTU
+recook at cell size, roll-up doors, fence gates/toppers, mh skirts/roofs,
+field edges/berms/track). Pages surface 236 of 260 MB - compress new shots.
+
+ART (f3eu53): 8/11 (i) -- *** SEVEN OF FOURTEEN FAMILIES ARE IN THE
+
 CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE THROAT WAS EATING HIS CHIN.
 BOTH ROWS OF IT. HE CAUGHT THE SAME DEFECT TWICE, THREE WEEKS APART. ***
 

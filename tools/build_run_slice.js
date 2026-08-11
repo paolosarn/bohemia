@@ -310,6 +310,21 @@ fenceBank.tiles.forEach(function (t) {
 });
 if (fenceCount !== FENCE_PIECES.length)
   throw new Error('TILEFORM: only ' + fenceCount + ' fence pieces matched in ' + FENCE_BANK);
+/* eighth family: TF-ART-014 crop fields - the farm's own named ground. Edge
+   WANG set, berms, concrete ditches and the dirt track are named volume. */
+var CROP_BANK = 'banks/tileforms/TF-ART-014_CANDIDATES_8_8_26.json';
+var cropBank = JSON.parse(fs.readFileSync(CROP_BANK, 'utf8'));
+if (String(cropBank.law || '').indexOf('APPROVED') !== 0)
+  throw new Error('TILEFORM: ' + CROP_BANK + ' law line is not APPROVED - nothing unjudged draws');
+var CROP_PIECES = ['field_plain_0', 'field_plain_1', 'field_plain_2', 'field_windrow_0',
+                   'field_windrow_1', 'field_bald_0', 'field_bald_1', 'bare_plot_0',
+                   'bare_plot_1', 'ditch_earth_silted', 'ditch_earth_scoured'];
+var cropCount = 0;
+cropBank.tiles.forEach(function (t) {
+  if (CROP_PIECES.indexOf(t.name) >= 0) { tileformOut[t.name] = t.b64; cropCount++; }
+});
+if (cropCount !== CROP_PIECES.length)
+  throw new Error('TILEFORM: only ' + cropCount + ' crop pieces matched in ' + CROP_BANK);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('

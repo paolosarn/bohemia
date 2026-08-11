@@ -638,6 +638,29 @@ function drawFenceform(gx,gy,X,Y,S){
   ctx.drawImage(look(im),sx,0,44,44,X,Y-S,S,S);
   return true;
 }
+/* EIGHTH WIRED FAMILY (8/11): TF-ART-014 the dead crop fields. The farm names
+   its own ground - 'field soil' (fallow), 'crop rows' (furrowed), 'irrigation'
+   (the dead channels) - and these were the DELIBERATE blanks of the 8/5 prop
+   pass, waiting for their family instead of getting dressed wrong. Placement:
+   the furrow FAMILY (plain / windrow / bald) holds per PLOT (coarse block) so
+   a field reads as one field, the colour variant shuffles per cell so nothing
+   stamps. Edges, berms, concrete ditch runs and the dirt track are volume. */
+function drawCropform(gx,gy,X,Y,S){
+  var n=String(NAMEG[gy][gx]||'').toLowerCase(), name=null;
+  if(n==='crop rows'){
+    var fam=['plain','windrow','bald'][th(gx>>3,gy>>3,3)];
+    name='field_'+fam+'_'+th(gx,gy,fam==='plain'?3:2);
+  } else if(n==='field soil'){
+    name='bare_plot_'+th(gx,gy,2);
+  } else if(n==='irrigation'){
+    name=['ditch_earth_silted','ditch_earth_scoured'][th(gx,gy,2)];
+  }
+  if(!name) return false;
+  var im=TILEFORM_IMG[name];
+  if(!im||!im.complete||!im.naturalWidth) return false;
+  ctx.drawImage(look(im),X,Y,S,S);
+  return true;
+}
 /* SECOND WIRED FAMILY (8/11): TF-ART-003 parking-lot striping. Nine built
    districts name their painted stall lines ('stall marking', 'parking stall',
    'lane / stall marking', 'trailer stall stripe' - measured world-wide, not
@@ -2834,6 +2857,7 @@ function draw(){
            not bare concrete. */
         if(!isSuburbCell() && !body && drawRailform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && !body && drawStallform(gx,gy2,X,Y,S)) continue;
+        if(!isSuburbCell() && !body && drawCropform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
           : genericTile(gx,gy2);
