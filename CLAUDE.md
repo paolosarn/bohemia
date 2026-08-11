@@ -198,6 +198,18 @@ The moment something LOCKS mid-conversation, write the addendum and commit it
 the same turn, then keep talking. One bold question max, always.
 
 ## VERDICT WORKFLOW
+- *** EVERYTHING IS A THUMB (Paolo 8/9/26, LOCKED, and it AMENDS everything
+  below): "Thumb thumb thumb everything is a thumb." We turned him into an
+  approvals queue. THE DEFAULT FLIPS FROM APPROVE-BEFORE TO CORRECT-AFTER:
+  Claude DECIDES, builds it, and puts it in the game where he meets it while
+  playing; he corrects what he hates. Only three things still go to him —
+  IDENTITY/NAMES he reserved, a genuine fork with no defensible default (pick
+  one, say why, build it), and anything he asked to see. BANNED: a numbered
+  queue of pending verdicts in a reply, asking him HOW to do the work, and
+  blocking on a thumb. The judge pages stay and stay good, but they are a thing
+  he MAY open, never a gate the work waits behind. The bar goes UP, not down:
+  whatever you decide is what he plays. Full law:
+  laws/BOHEMIA_ADDENDUM_EVERYTHING_IS_A_THUMB_8_9_26.md ***
 Paolo judges art via interactive HTML tools (tap thumbs, per-item comments,
 comment section at the bottom always, SUN MODE daylight-readable, export button,
 exports as .txt never .json). Verdicts land as .txt repo files in /records the

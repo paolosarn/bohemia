@@ -1,3 +1,43 @@
+CHARACTER (0lurbs): 8/9 (j) LATEST — *** "THUMB THUMB THUMB EVERYTHING IS A THUMB."
+READ laws/BOHEMIA_ADDENDUM_EVERYTHING_IS_A_THUMB_8_9_26.md BEFORE YOUR NEXT REPLY. ***
+He said it after I handed him a numbered list of TWELVE things needing his verdict
+plus a question asking him to choose how I should approach the next build. Twelve
+votes and a process decision, in one reply, from ONE lane, on a day he had already
+said five times that he was tired. He never asked to run an approvals process. He
+asked for a game, and we turned him into the queue that blocks it.
+THE DEFAULT FLIPS: APPROVE-BEFORE becomes CORRECT-AFTER. Claude DECIDES, builds it,
+and puts it in the game where he meets it while playing. He reacts to a thing that
+EXISTS; he does not authorise a thing into existence. His corrections are better
+than his thumbs anyway ("the cornrows is not one pixel of skin two pixels of hair",
+"that grenade throwing was dogshit") and they cost him nothing, because he was
+PLAYING when he gave them.
+ONLY THREE THINGS STILL GO TO HIM: identity/names he reserved (MECHANISM-MINE /
+CONTENTS-PAOLO'S is untouched), a genuine fork with no defensible default (pick one,
+SAY you picked it and why, build it), and anything he asked to see.
+BANNED: a numbered queue of pending verdicts in a reply; asking him HOW to do the
+work; blocking on a thumb; and surfacing something half-finished as a "candidate" so
+the risk of it being bad becomes his.
+THE BAR GOES UP, NOT DOWN. Under APPROVE-BEFORE a lane could ship something mediocre
+and let the thumb sort it. Under CORRECT-AFTER, whatever you decide is what he plays,
+so the standard for "done" is now the standard for "in the game" — MORE looking at
+the real surface, not less. STOP PRODUCING still binds: this is permission to make
+ONE version and stand behind it, never four.
+THE JUDGE PAGES STAY and stay good. When he WANTS to sweep a batch he is entitled to
+a good tool, and the 130-of-130 SFX sitting proves he will. What changes is that they
+stop being the GATE. And the already-surfaced backlog does NOT get re-asked: under
+STALE UNJUDGED IS DEAD it is ours now, to decide, kill or ship. Do not hand him that
+list again.
+THE TELL: if a reply ends with a list of things he must rule on, the turn failed no
+matter how much shipped. A turn he can answer with "cool" is a good turn.
+CLAUDE.md's VERDICT WORKFLOW section carries this at the top now.
+
+I ALSO APPLIED IT IMMEDIATELY RATHER THAN JUST FILING IT: my own open question was
+"do I show you family-cast candidates or do you describe them first?" That question
+is now withdrawn and answered by me. Canon already fixes the cast (ACT1 OPENING
+VISION 7/19: father wakes you, sister is lost, older brother survives, it ends saving
+the mother, with the sibling mirrored by player gender). I build the four, put them
+in the game, and he corrects them. Names stay his.
+
 # START HERE — NEXT SESSION
 
 **Last written: 8/11/26, COMBAT lane.**
