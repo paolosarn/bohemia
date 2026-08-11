@@ -3644,6 +3644,32 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes("'position:absolute;left:-100px;top:'") &&
     !demo.includes("'position:absolute;left:-56px;top:'"));
 
+/* ===== V144 THE MUSIC SCHEDULER COULD HANG THE WHOLE GAME =========
+   Paolo 8/12: "i pressed wait hella and when i went to shoot someone the game
+   froze bro." IT WAS REAL AND IT WAS THE AUDIO CLOCK. seqTick is a lookahead
+   scheduler on a 25ms setInterval -- the right shape -- with NO RECOVERY: it
+   caught up to the audio clock one 0.125s step at a time, REPLAYING EVERY STEP
+   IT MISSED. setInterval fires late whenever the tab is backgrounded, the phone
+   locks, or the OS is busy, and the audio clock never stops.
+   MEASURED ON THE SHIPPING BUILD, steps scheduled in ONE tick after a stall:
+       10s -> 81      60s -> 481      300s -> 2,401
+   and every one of those builds real audio nodes. With the fix: 1, 1, and 1.
+   It reads as a freeze rather than a crash because nothing throws -- the main
+   thread is simply inside a while loop, scheduling music that already happened. */
+ok('V144 THE SCHEDULER RESYNCS INSTEAD OF CATCHING UP: steps missed during a stall are in the PAST and can never be heard, so the counter jumps to where the music WOULD be. Silence during a stall is correct; a stampede of stale notes is not',
+  demo.includes('const SEQ_RESYNC=0.5;') &&
+  /if\(_seq\.next<now-SEQ_RESYNC\)\{/.test(demo) &&
+  /_seq\.step\+=miss; _seq\.next\+=miss\*sd;/.test(demo));
+
+ok('V144 AND THE LOOP IS BOUNDED ANYWAY: a tick only ever needs one or two steps, so 64 is a hundred times real headroom and still makes hanging impossible. The resync fixes the cause I can name; the cap fixes the ones I cannot. An unbounded loop inside a 25ms timer is a hang waiting for an excuse',
+  demo.includes('const SEQ_MAX_STEPS=64;') &&
+  /while\(_seq\.next<ahead&&guard\+\+<SEQ_MAX_STEPS\)/.test(demo) &&
+  !/while\(_seq\.next<ahead\)\{ playStep/.test(demo));
+
+ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, and a broken step length can never spin: both are explicit',
+  /if\(guard>=SEQ_MAX_STEPS\)_seq\.next=ahead;/.test(demo) &&
+  /if\(!\(sd>0\)\)return;/.test(demo));
+
 /* ===== V143 SUPERSEDES V122'S COVER-SEEKING RUN ====================
    Paolo 8/12: "IT KEEPS TRYING TO SNAP ME TO COVER LIKE 5 TILES AWAY AN IT
    PREVENTS ME FROM RUNNING IN A CERTAIN DIRECTION AND ITS SO CONFUSING."
