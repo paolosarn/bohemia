@@ -1,3 +1,62 @@
+LAB (lab-e2r7sv): 8/7 (d) LATEST -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
+THREE BOSSES WERE THE SAME BOSS. THE LADDER IS REBUILT AND THE BUG IS NOW MACHINE-HELD. ***
+JUDGE THIS: 1. the 17 bosses in records/BOHEMIA_THE_BOSS_LADDER_v2_8_7_26.md. NOT IN A TAB.
+ONE THING PENDING HIM: THE VOICE, which he explicitly did not approve.
+
+HIS WORDS: "THE STRIPPER / THE WRECKER / THE TOLL -- these are the exact same bro". He was
+right. Strip a building for materials / take a building down / clear a blocked road: THREE
+BOSSES, ONE VERB. It sat there four days past a 131-check gate, because every check asked
+whether the ladder was well-FORMED (count matches, numbers run 1..N, additions marked) and NOT
+ONE asked whether two entries were THE SAME THING.
+WHY IT HAPPENED: I generated bosses from NOUNS -- water, fuel, salvage, demolition, passage --
+and asked "who would own this?" Owning a noun does not make a distinct power. Three nouns
+produced one verb.
+
+THE RULE, AND IT IS NOW A GATE: *** ONE BOSS = ONE LOCK = ONE THING THAT WAS IMPOSSIBLE AND
+NOW IS NOT. NO TWO BOSSES MAY OPEN THE SAME LOCK. *** Every boss declares its LOCK stated as
+an IMPOSSIBILITY, never a noun. gates/boss_ladder_gate.js, 27 checks, fails on a duplicate
+lock, a duplicate key verb, a lock written as a noun, or a killed boss coming back.
+
+*** AND IT CAUGHT ME COMMITTING THE IDENTICAL DUPLICATE INSIDE THE FIX FOR IT, ON ITS FIRST
+RUN. *** My rebuild added THE MULE ("you can only take what your arms hold") which is THE
+OPERATOR's lock ("some mass is too heavy for hands") in a different coat. Same defect he had
+just finished pointing at, four minutes later. THE MULE is cut and THE GRID was reworded for
+sharing a verb. 18 -> 17. The rule paid for itself before it shipped.
+
+ALL TEN OF HIS RULINGS ARE RECORDED VERBATIM: records/BOHEMIA_HIS_BOSS_RULINGS_8_7_26.md.
+*** THE ONE HE TOLD ME TO WRITE DOWN, AND IT IS HIS INVENTION: *** on THE BOOK, "can this be
+like a final fantasy summon. actually thats a fire idea. mark that down some where. maybe
+clout is the mana?" CALLING IN A DEBT IS A SUMMON -- you spend something and a PERSON arrives
+and does what you cannot. Clout as the cost is flagged [PENDING] because he said "idk". It is
+the first real sink clout would have, and it makes a debt a thing you HOLD AND SPEND instead
+of a number that colours a conversation -- the same move the reputation research already made.
+
+WHAT DIED: THE WRECKER and THE TOLL (folded into THE STRIPPER, same verb). THE CHANNEL ("this
+is ass bro" -- mine, dead inside one message). THE JUDGE (he said "sounds like it would be a
+spreadsheet simulator" and he is citing his OWN law back at me: clause 2 of the three-
+currencies addendum BANS the Civ-5 spreadsheet feel). THE BROKER (mine, weakest, undefended).
+
+WHAT CHANGED ON HIS RULINGS: THE CLIMB -> act 1. THE SOIL -> first boss of act 2. THE VOICE
+rebuilt around THE PHONE with people ARRIVING instead of broadcasting (Fallout 4's beacon, and
+the part worth stealing is that it only works if the place already has food/water/beds), marked
+NOT APPROVED. And HABITABLE is DEFINED because he asked: every district carries a FILTH level,
+and while it is high its population cap is ZERO -- habitable means A SETTLER WILL ACCEPT A BED
+THERE. One concrete sentence, which the old wording could not manage.
+
+*** THE RESEARCH CORRECTED MY OWN FRAMING OF FOUR DAYS, AND EVERY LANE SHOULD KNOW: ***
+I have been calling this "Valheim's boss progression". VALHEIM'S FORSAKEN POWERS ARE PASSIVE
+BUFFS, NOT KEYS -- Eikthyr is -60% stamina, Bonemass is -25% damage taken, Moder is a sailing
+tailwind. Not one makes an impossible thing possible. WHAT ACTUALLY GATES VALHEIM IS THE
+BIOME'S ORE, which he killed on 8/3 as "material vibes". So this ladder is NOT Valheim's
+mechanism, IT IS METROID'S: lock-and-key ability gating, where each ability answers a DIFFERENT
+class of obstacle. Naming it right is what gave us the rule. Sources cited in the record.
+
+GATES: boss_ladder_gate 27/0 (eight planted mistakes, eight caught), rulings_gate 131/0.
+
+STILL PENDING HIM: THE VOICE (not approved); whether clout is the summon's mana; and the
+MEDICINE-vs-RESOURCES currency name from earlier today.
+
+
 FACTIONS (factions-ovkjpf): 8/12 (c) LATEST — *** HE CLOSED THE ENTRANCE'S SCOPE THE
 SAME DAY HE OPENED IT: ONE MAIN QUEST, FOURTEEN DRESSINGS. NOT FOURTEEN GAMES. ***
 laws/BOHEMIA_ADDENDUM_THE_CUSTOMIZABLE_ENTRANCE_8_12_26.md (updated)
@@ -37,6 +96,8 @@ STILL TRUE AND STILL HIS: 9 of 14 factions sit on a district you could live in. 
 and Blues are on a solar farm, Cartel and Homeless in retail, Church on a farm -- and
 canon puts the Homeless HQ in the sewer under the King Hobo. Base placement is worldgen
 and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left alone.
+
+
 
 ART (f3eu53): 8/11 (e) LATEST -- *** FOURTH FAMILY WIRED: THE METAL DISTRICTS
 WEAR HIS CORRUGATED SKINS. FOUR OF FOURTEEN APPROVED FAMILIES NOW DRAW. ***

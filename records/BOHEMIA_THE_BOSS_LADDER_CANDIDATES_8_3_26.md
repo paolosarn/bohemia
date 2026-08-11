@@ -1,3 +1,11 @@
+> **★ SUPERSEDED 8/7/26 — THE LIVE LADDER IS NOW
+> `records/BOHEMIA_THE_BOSS_LADDER_v2_8_7_26.md`.**
+> He read this table and found the defect: *"THE STRIPPER / THE WRECKER / THE TOLL — these are
+> the exact same bro."* Three bosses, one verb. v2 rebuilds it on ONE BOSS = ONE LOCK, merges
+> those three into one, kills five, and is machine-held by `gates/boss_ladder_gate.js`.
+> **THIS FILE STAYS AS THE HISTORY**: v1's thirteen byte-identical (he liked them), the 8/4
+> five, and his 8/7 rulings. Do not build from the table below — build from v2.
+
 # BOHEMIA — THE BOSS LADDER: 22 CANDIDATES (v1 RESTORED 8/4/26, EXTENDED ON HIS ASK 8/7/26)
 
 > "that kinda sucks too i liked your first version the best cant we build off that"
