@@ -15585,3 +15585,12 @@ revise -> fresh eyes -> public only when there is an audience to amplify)
 + SHARED 6a load-sensitive gates isolate themselves (RUN BEAT + THE CROWD
 red under load = third of the class; a gate that reds at random gets
 ignored). Public-demo timing = Paolo's call AT demo-gate green, not now.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/11 (e) — SWEEP 2 (quiet fleet, 3 commits; cutscene
+machine RUNS = cold-open plumbing exists). Open catch advanced instead of
+fresh hunt (cost law): records/BOHEMIA_CLOSED_PLAYTEST_PROTOCOL_8_11_26.md
+is pre-written and ready for demo-gate green — friends+family instrumented
+round, revise, FRESH-EYES round 2, public decision only after (and only
+with an audience to amplify). RUN lane: the 0f feedback card is what this
+protocol runs on.

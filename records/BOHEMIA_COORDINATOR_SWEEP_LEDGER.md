@@ -70,3 +70,14 @@ playtest returns data+feelings in one paste). Coordinator writes the
 closed-playtest protocol when the demo gate goes green. Public-timing
 decision goes to Paolo AT demo-gate time, not now.
 HIGH-WATER MARK: swept through main @ fa43cf46b905e0cea56a839b307f91ef9ee3a9fa
+
+## SWEEP 2 — 8/11/26 (quiet-fleet sweep, cost law honored)
+DELTA: 3 commits. Real news: THE CUTSCENE MACHINE RUNS (real rooms, derived
+seats, reading-speed lines — the cold open's plumbing exists); a lane
+self-caught a four-turn one-cell-per-tile inversion. No collisions.
+OPEN CATCH ADVANCED (no fresh hunt per cost law): the soft-opening kit's
+missing half is now written — records/BOHEMIA_CLOSED_PLAYTEST_PROTOCOL_
+8_11_26.md (round 1 friends+family instrumented, revise, round 2 FRESH
+EYES only, public decision gated on round 2 + audience-to-amplify).
+Ready the day the demo gate goes green. No Paolo action needed.
+HIGH-WATER MARK: swept through main @ 9615667e0f901496b4e4dca42754235509eea588
