@@ -130,6 +130,14 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('SAVE IPHONE',    ['node', 'gates/save_iphone_gate.js'],
+     'Paolo\'s demo row: "make the save iPhone-proof". CITYSAVE v1 had a ONE-BYTE probe '
+     '(so it reported "disk" and then lost every autosave to memory in silence), ONE slot '
+     '(so the write that fails destroys the only copy), no integrity check (so a torn save '
+     'read as no save and the game quietly started over), and a stale-save TIME MACHINE '
+     'under a comment promising there was none. Driven against a hostile fake browser -- '
+     'full device, silent write, torn write, refused delete, ITP eviction, no localStorage '
+     'at all -- and then driven again on the real alpha in a real browser', True),
     ('EVERY DOOR',     ['node', 'gates/everydoor_gate.js'],
      'Paolo: "WY IS IT WHEN IM IN THE OUTSIDE OF A BUILDING I CAN ENTER IT FROM JUST WALKING TO ANY WALL" -- the 8/2 rule was right and covered 11% of buildings because buildings had no doors; a RATCHET on real door coverage, measured in a browser, that cannot be won by deleting buildings', True),
     ('STEP INSIDE',    ['node', 'gates/stepinside_gate.js'],

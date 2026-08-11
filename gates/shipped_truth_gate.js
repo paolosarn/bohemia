@@ -48,6 +48,8 @@ const CLAIMS = [
   ['__SUBURB_EW_DOORS__',           '...and in the district he actually spawns in'],
   ['__XRAY_WHOLE_BUILDING__',       '"the building should be absolutely transparent"'],
   ['__HOUSE_FLOORS__',              '"Tile wood and carpet" -- no room renders on the street'],
+  ['__SAVE_V2__',                   '"make the save iPhone-proof" -- no one-byte probe, no time machine'],
+  ['__SAVE_FLUSH_IOS__',            '...and switching apps mid-run no longer eats the last move'],
 ];
 
 /* THE SOUND LANE'S CLAIMS. Same contract, different lane: every marker here was
