@@ -999,7 +999,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/12g - SECOND CUTSCENE: THE GRIEF DINNER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/12a - 26 NEW SOUNDS, ONE VOICE PER PERSON</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13151,270 +13151,6 @@ drawLogoBig();requestAnimationFrame(loop);
 })();
 </script>
 <!-- /BOHEMIA RUN BEAT BRIDGE -->
-<!-- BOHEMIA SOUND MIX (8/2/26) -->
-<script>
-/* === THE SOUND MIX (8/2/26, SOUNDS lane) =================================
-   Three knobs, and the routing that makes them mean anything. See
-   tools/bohemia_sound_mix_patch.py for why the music OFF button used to mute
-   the entire game. */
-(function(){
- 'use strict';
- if(window.__SOUND_MIX) return; window.__SOUND_MIX=true;
-
- /* DEFAULTS IN CODE, NOT ONLY IN A COOKIE. Same rule his verdicts live under:
-    a cleared phone falls back to a mix somebody chose on purpose, never to
-    whatever a fresh object happens to be. */
- var MIX_DEFAULTS={master:1, music:0.75, sfx:1};
- var MIX={master:MIX_DEFAULTS.master, music:MIX_DEFAULTS.music, sfx:MIX_DEFAULTS.sfx};
- try{ var d=JSON.parse(localStorage.getItem('bohemia_mix')||'null');
-   if(d){ for(var k in MIX) if(typeof d[k]==='number') MIX[k]=Math.max(0,Math.min(1,d[k])); }
- }catch(e){}
-
- /* PERCEPTUAL TAPER. Loudness is roughly logarithmic, so a slider wired
-    straight to gain wastes its bottom two thirds and then jumps. p^2.5 is
-    close to a dB taper: the halfway point lands near 18% gain, which is what
-    "half volume" actually sounds like. Zero is EXACT silence. */
- function taper(p){ p=Math.max(0,Math.min(1,+p||0)); return p<=0?0:Math.pow(p,2.5); }
- window.__mixTaper=taper;
-
- function save(){ try{ localStorage.setItem('bohemia_mix',JSON.stringify(MIX)); }catch(e){} }
-
- function apply(){
-  try{ if(window.__OUTBUS) window.__OUTBUS.gain.value=taper(MIX.master); }catch(e){}
-  try{ if(window.__MUSVOL) window.__MUSVOL.gain.value=taper(MIX.music); }catch(e){}
-  /* EFFECTS goes through the existing setSFXVolume so there is still exactly
-     ONE place that owns the SFX bus gain. Two owners is how a knob silently
-     stops working. */
-  try{ if(window.setSFXVolume) window.setSFXVolume(taper(MIX.sfx));
-       else if(window.__SFXBUS) window.__SFXBUS.gain.value=taper(MIX.sfx); }catch(e){}
- }
- window.__applyMix=apply;
- window.getMix=function(){ return {master:MIX.master, music:MIX.music, sfx:MIX.sfx}; };
- window.setMasterVolume=function(v){ MIX.master=Math.max(0,Math.min(1,+v||0)); save(); apply(); return MIX.master; };
- window.setMusicVolume =function(v){ MIX.music =Math.max(0,Math.min(1,+v||0)); save(); apply(); return MIX.music; };
- window.setEffectsVolume=function(v){ MIX.sfx  =Math.max(0,Math.min(1,+v||0)); save(); apply(); return MIX.sfx; };
- /* THE RE-APPLY TICK ONLY FIRES WHEN THE NODES ARE NEW, and that distinction
-    cost a gate failure the first time this shipped. The audio context can be
-    built long after this code runs and it can be REBUILT, so the knobs cannot
-    be a one-shot at boot -- but a blind setInterval(apply) makes this the
-    SECOND owner of the SFX gain, and it stomped every direct setSFXVolume()
-    call about a second later. That is the exact defect the comment above warns
-    about, written by the same hand, one function apart.
-    So: remember the node identities we last wrote to, and only write again when
-    they actually change. Re-applies after a context rebuild, never fights
-    anybody in steady state. */
- var seen={out:null, mus:null, sfx:null};
- function applyIfNew(){
-  var o=window.__OUTBUS||null, m=window.__MUSVOL||null, x=window.__SFXBUS||null;
-  if(o===seen.out && m===seen.mus && x===seen.sfx) return;
-  seen.out=o; seen.mus=m; seen.sfx=x;
-  apply();
- }
- setInterval(applyIfNew, 1200);
- apply(); applyIfNew();
-
- /* ---- THE PANEL (MUSIC tab, above everything else) --------------------- */
- var CSS='#mixWrap{margin:0 0 10px 0;padding:10px 12px;border:1px solid #3a3350;'
-  +'border-radius:10px;background:linear-gradient(180deg,#160f22,#0d0913)}'
-  +'#mixWrap h4{margin:0 0 8px 0;font:800 10.5px ui-monospace,monospace;letter-spacing:2px;'
-  +'color:#c9b6ea;text-transform:uppercase}'
-  +'.mixRow{display:flex;align-items:center;gap:10px;margin:9px 0}'
-  +'.mixRow label{flex:0 0 74px;font:700 10px ui-monospace,monospace;letter-spacing:1px;color:#9d90b8}'
-  +'.mixRow input[type=range]{flex:1 1 auto;height:34px;accent-color:#8f6fd0;background:transparent}'
-  +'.mixVal{flex:0 0 42px;text-align:right;font:700 11px ui-monospace,monospace;color:#e6dcff}'
-  +'.mixNote{margin-top:6px;font:400 9.5px ui-monospace,monospace;color:#6d6386;line-height:1.45}'
-  +'#sbWrap{margin:0 0 10px 0;padding:10px 12px;border:1px solid #3a3350;border-radius:10px;'
-  +'background:linear-gradient(180deg,#141020,#0b0810)}'
-  +'#sbWrap h4{margin:0 0 4px 0;font:800 10.5px ui-monospace,monospace;letter-spacing:2px;'
-  +'color:#c9b6ea;text-transform:uppercase}'
-  +'.sbGroup{margin:9px 0 0 0}'
-  +'.sbGL{font:700 9px ui-monospace,monospace;letter-spacing:2px;color:#6d6386;margin:0 0 5px 2px}'
-  +'.sbRow{display:flex;flex-wrap:wrap;gap:6px}'
-  +'.sbBtn{flex:1 1 46%;min-height:46px;padding:6px 8px;border:1px solid #463d63;border-radius:8px;'
-  +'background:#1d1730;color:#e6dcff;text-align:left;display:flex;flex-direction:column;'
-  +'justify-content:center;gap:2px;cursor:pointer}'
-  +'.sbBtn .sbName{font:700 10px ui-monospace,monospace;letter-spacing:.6px;line-height:1.2}'
-  +'.sbBtn .sbN{font:400 8.5px ui-monospace,monospace;color:#8d81ab;letter-spacing:.5px}'
-  +'.sbBtn.sbHot{background:#3a2c66;border-color:#8f6fd0}'
-  +'.sbBtn.sbDead{opacity:.45}'
-  +'.sbBtn.sbNew{border-color:#8f6fd0;background:#241a3d}'
-  +'.sbBtn.sbNew .sbN{color:#c2a6f5}';
- try{ var st=document.createElement('style'); st.textContent=CSS; document.head.appendChild(st); }catch(e){}
-
- function row(key,label,onDone){
-  var r=document.createElement('div'); r.className='mixRow';
-  var l=document.createElement('label'); l.textContent=label;
-  var i=document.createElement('input'); i.type='range'; i.min='0'; i.max='100'; i.step='1';
-  i.value=String(Math.round(MIX[key]*100)); i.id='mix_'+key;
-  var v=document.createElement('span'); v.className='mixVal'; v.textContent=i.value+'%';
-  i.addEventListener('input',function(){
-    MIX[key]=(+i.value)/100; v.textContent=i.value+'%'; apply();
-  });
-  /* SAVE ON RELEASE, not on every pixel of the drag: a slider fires input on
-     each step and writing localStorage 100 times per swipe is a stutter he
-     would feel on a phone. */
-  ['change','pointerup','touchend'].forEach(function(t){
-    i.addEventListener(t,function(){ save(); if(onDone)onDone(); });
-  });
-  r.appendChild(l); r.appendChild(i); r.appendChild(v);
-  return r;
- }
-
- /* ---- THE SOUNDBOARD ---------------------------------------------------
-    Paolo 8/2: "every sfx should be in the sfx in the music menu not for me to
-    find in the game". Every game moment, one button, always visible, and the
-    tap plays what the GAME plays -- window.playSFX is the same entry point the
-    run and combat use, so this is the sound and not a preview of one. */
- var BOARD=[
-  ['WALKING',  ['step_asphalt','step_dirt','step_gravel']],
-  ['THE FIGHT',['shot','hit','vital','block','hurt','kill','clear','miss']],
-  ['THE WORLD',['air_day','air_night','air_inside','go_inside','door_open','door_shut']],
-  ['A DAY',    ['eat','sleep','time_pass','talk_start','quest_done']],
-  ['YOU',      ['pickup','phone_buzz','save_chime','ui_tap']]
- ];
- function labelOf(ev){
-  try{ var E=BOH_SFX.EVENTS; for(var i=0;i<E.length;i++) if(E[i].ev===ev) return E[i].label; }catch(e){}
-  return ev;
- }
- function approvedCount(ev){
-  try{ return (window.__SFX_APPROVED && window.__SFX_APPROVED[ev] || []).length; }catch(e){ return 0; }
- }
- /* THREE STATES, AND THE THIRD ONE IS THE GRAVEYARD.
-      LIVE  he approved at least one  -> play the GAME's sound
-      NEW   cooked, not fully judged  -> audition the candidates in turn
-      DEAD  every candidate thumbed and none survived -> PLAY NOTHING
-    That last one is not styling. He judged all ten door candidates DOWN, and
-    GRAVEYARD IS FINAL: a board that auditions them is putting dead art back in
-    front of him. Dead buttons say so and stay silent. */
- function stateOf(ev){
-  if(approvedCount(ev)>0) return 'live';
-  var cookable=0; try{ cookable=BOH_SFX.cook(ev,5).length; }catch(e){}
-  if(!cookable) return 'dead';
-  try{ if(window.BOH_SFX_JUDGE && window.BOH_SFX_JUDGE.done(ev)) return 'dead'; }catch(e){}
-  return 'new';
- }
- function boardBlock(){
-  var b=document.createElement('div'); b.id='sbWrap';
-  var h=document.createElement('h4'); h.textContent='EVERY SOUND IN THE GAME';
-  b.appendChild(h);
-  var sub=document.createElement('div'); sub.className='mixNote';
-  sub.style.marginTop='0'; sub.style.marginBottom='8px';
-  sub.textContent='Tap one and you hear exactly what the game plays. Nothing here '
-   +'needs judging and nothing needs finding in a run.';
-  b.appendChild(sub);
-  /* ANY MOMENT NO GROUP LISTS STILL GETS A BUTTON. His complaint was that a
-     sound existed and he could not reach it; a hand-written group list is
-     exactly how that happens again the next time somebody cooks a batch and
-     forgets this file. The leftovers group is the backstop, not the plan. */
-  try{
-   var listed={}; BOARD.forEach(function(g){ g[1].forEach(function(e){ listed[e]=1; }); });
-   var extra=BOH_SFX.EVENTS.map(function(E){ return E.ev; }).filter(function(e){ return !listed[e]; });
-   if(extra.length) BOARD.push(['ALSO IN THE GAME', extra]);
-  }catch(e){}
-  BOARD.forEach(function(grp){
-   var g=document.createElement('div'); g.className='sbGroup';
-   var gl=document.createElement('div'); gl.className='sbGL'; gl.textContent=grp[0];
-   g.appendChild(gl);
-   var row=document.createElement('div'); row.className='sbRow';
-   grp[1].forEach(function(ev){
-    var n=approvedCount(ev), st=stateOf(ev);
-    var btn=document.createElement('button');
-    btn.className='sbBtn'+(st==='dead'?' sbDead':'')+(st==='new'?' sbNew':'');
-    btn.id='sb_'+ev;
-    btn.setAttribute('data-ev',ev);
-    btn.innerHTML='<span class="sbName">'+labelOf(ev)+'</span>'
-      +'<span class="sbN">'
-      +(st==='live' ? n+(n===1?' sound':' sounds')
-        : st==='new' ? 'NEW - tap to hear all 5'
-        : 'nothing survived judging')+'</span>';
-    var turn=0;
-    btn.addEventListener('click',function(){
-     var st2=stateOf(ev);
-     if(st2==='dead') return;   /* GRAVEYARD IS FINAL: nothing to play, on purpose */
-     if(st2==='live'){
-      /* THE GAME'S OWN CALL for a moment he has already ruled. Not a private
-         preview path -- a side door would let the board sound healthy while the
-         game is silent, which is a lie this lane has shipped once already. */
-      try{ if(window.playSFX) window.playSFX(ev); }catch(e){}
-     }else{
-      /* AND A MOMENT HE HAS NOT RULED YET MUST AUDITION ITS CANDIDATES.
-         playSFX falls back to step_dirt for an unbanked event, which is correct
-         inside the GAME (better a footstep than a hole) and a disaster on a
-         board: tapping EAT played a footstep, so a freshly cooked batch sounded
-         like nothing new at all. That is literally the complaint that started
-         this - "Theres no new sounds". Each tap plays the NEXT candidate, so
-         five taps is the whole set and the button says which one. */
-      try{
-       var c=BOH_SFX.cook(ev,5), v=c[turn%c.length]; turn++;
-       if(window.BOH_SFX_JUDGE) window.BOH_SFX_JUDGE.hear(v);
-       else BOH_SFX.render(v, MUS.AC, (window.__SFXBUS||MUS.OUT||MUS.MAST));
-       var n=btn.querySelector('.sbN');
-       if(n) n.textContent='candidate '+(((turn-1)%c.length)+1)+' of '+c.length+' - not judged';
-      }catch(e){}
-     }
-     btn.classList.add('sbHot'); setTimeout(function(){ btn.classList.remove('sbHot'); },220);
-    });
-    row.appendChild(btn);
-   });
-   g.appendChild(row); b.appendChild(g);
-  });
-  return b;
- }
-
- function build(){
-  var w=document.createElement('div'); w.id='mixWrap';
-  var h=document.createElement('h4'); h.textContent='SOUND';
-  w.appendChild(h);
-  w.appendChild(row('master','MASTER'));
-  w.appendChild(row('music','MUSIC'));
-  /* letting go of the EFFECTS slider plays one of his approved taps, so the
-     level he just chose is a thing he HEARS instead of a number he reads */
-  w.appendChild(row('sfx','EFFECTS',function(){
-    try{ if(window.playSFX) window.playSFX('ui_tap'); }catch(e){}
-  }));
-  var n=document.createElement('div'); n.className='mixNote';
-  n.textContent='These are the game’s volumes, not the studio’s. They persist on this '
-   +'phone and they reach everything: songs, footsteps, combat, ambience, taps.';
-  w.appendChild(n);
-  return w;
- }
-
- /* The studio rebuilds #p-music from scratch whenever a song is tagged, so a
-    one-shot mount would quietly disappear the first time he uses the CAT
-    button. Same pattern the SFX judge already uses: wrap build, plus a slow
-    re-adopt as the backstop. */
- function mount(){
-  var P=document.getElementById('p-music'); if(!P) return;
-  if(document.getElementById('mixWrap') && document.getElementById('sbWrap')) return;
-  if(document.getElementById('mixWrap')){
-   if(!document.getElementById('sbWrap')){
-    var mw=document.getElementById('mixWrap');
-    P.insertBefore(boardBlock(), mw.nextSibling);
-   }
-   return;
-  }
-  P.insertBefore(build(), P.firstChild);
-  if(!document.getElementById('sbWrap')){
-   var m=document.getElementById('mixWrap');
-   P.insertBefore(boardBlock(), m ? m.nextSibling : P.firstChild);
-  }
- }
- function hook(){
-  if(typeof MUS==='undefined'||!MUS.build) return false;
-  if(MUS._mixHooked) return true;
-  MUS._mixHooked=true;
-  var prev=MUS.build.bind(MUS);
-  MUS.build=function(){ prev(); try{ mount(); }catch(e){} };
-  setInterval(function(){ var P=document.getElementById('p-music');
-    if(P&&P.children.length&&(!document.getElementById('mixWrap')||!document.getElementById('sbWrap'))){
-      try{ mount(); }catch(e){} } },1500);
-  if(MUS.built){ try{ mount(); }catch(e){} }
-  return true;
- }
- if(!hook()){ var tries=0, iv=setInterval(function(){ if(hook()||++tries>40)clearInterval(iv); },250); }
-})();
-</script>
-<!-- /BOHEMIA SOUND MIX -->
 <!-- BOHEMIA SFX SHUFFLE JUDGE (8/7/26) -->
 <style id="shufCSS">
 #shufGo{display:block;width:100%;margin:0 0 10px 0;padding:12px 10px;cursor:pointer;
@@ -14450,546 +14186,270 @@ drawLogoBig();requestAnimationFrame(loop);
 })();
 </script>
 <!-- /BOHEMIA SQUIGGLE VOICES -->
-<!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->
+<!-- BOHEMIA SOUND MIX (8/2/26) -->
 <script>
-/* === SFX WIRE, PARENT SIDE (7/30/26) ====================================
-   Paolo's 38 approved sounds, from his 7/30 thumbs. The table below is INDEXES
-   into the shipped generator, not copied audio: candidate n of event e is
-   BOH_SFX.cook(e,5)[n], which gates/sfx_render_gate.py fingerprints. So what
-   plays is byte-for-byte the thing he heard when he thumbed it.
-   Verdict: records/BOHEMIA_SFX_VERDICT_7_30_26.txt
-   Bank:    banks/BOHEMIA_SFX_APPROVED_7_30_26.json
-   ONE AUDIOCONTEXT: everything below plays on the MUSIC studio's context and
-   its brickwall limiter. The run posts an event name; nothing else. */
+/* === THE SOUND MIX (8/2/26, SOUNDS lane) =================================
+   Three knobs, and the routing that makes them mean anything. See
+   tools/bohemia_sound_mix_patch.py for why the music OFF button used to mute
+   the entire game. */
 (function(){
-  'use strict';
-  if(window.__SFX_WIRE)return; window.__SFX_WIRE=true;
-  var APPROVED={"air_day":[0,1,2,3,4],"air_inside":[0,1,2,3,4],"air_night":[0,1,2,3,4],"block":[2],"door_drag":[0],"eat":[2],"hit":[2,4],"hurt":[2],"kill":[0,1,2,3,4],"phone_buzz":[2,4],"pickup":[0,1,2,3,4],"save_chime":[0,1,2,3,4],"shot":[3],"step_asphalt":[0,1,2,3,4],"step_dirt":[0,1,2,3,4],"step_gravel":[0,1,2,3,4],"time_pass":[0,1,2,3,4],"ui_tap":[1,2,3]};
-  /* THE BOARD HAS TO KNOW WHICH MOMENTS ACTUALLY HAVE A SOUND (8/2), and it
-     must read the SAME table playSFX reads. A second copy of his thumbs is a
-     second thing that can be wrong. */
-  try{ window.__SFX_APPROVED=APPROVED; }catch(_e){}
-  var last={};                       /* per event: what played last, never twice */
-  var SFX_COUNT=0;                   /* what the status line in the MUSIC tab reports */
-  function pick(ev){
-    var set=APPROVED[ev]; if(!set||!set.length)return null;   /* unjudged = silent */
-    if(set.length===1)return set[0];
-    var i, guard=0;
-    do{ i=set[(Math.random()*set.length)|0]; }while(i===last[ev] && ++guard<8);
-    last[ev]=i; return i;
-  }
-  var cache={};
-  function vec(ev,i){
-    var k=ev+'.'+i;
-    if(!cache[k]){ try{ cache[k]=BOH_SFX.cook(ev,5)[i]; }catch(e){ return null; } }
-    return cache[k];
-  }
-  /* ===== ONE BUS FOR EVERY SOUND EFFECT (8/2) ==========================
-     Paolo 8/2: "when we have a menu and it's gonna have Settings and then we
-     can change the volume of all sound effects or whatever so yeah just keep
-     that in mind."
-     Effects were reaching the output THREE different ways: footsteps on their
-     own quiet bus, ambience on another, and everything else straight into the
-     music master. A volume slider would have had to know about all three and
-     would have drifted the moment a fourth appeared. So there is one node now.
-     Everything an effect makes goes through SFXBUS -> MUS.MAST, and the whole
-     settings hook is setSFXVolume().
-     IT DOES NOT FLATTEN THE MIX HE APPROVED: the footstep bus and the ambience
-     bus keep their own gains and simply feed this one instead of the master, so
-     every level he judged stays exactly where it was relative to everything
-     else. This is a place to put a knob, not a re-mix. */
-  var SFXBUS=null, SFXVOL=1;
-  try{ var sv=parseFloat(localStorage.getItem('bohemia_sfxvol'));
-       if(sv>=0 && sv<=1) SFXVOL=sv; }catch(e){}
-  function sfxBus(){
-    try{
-      if(SFXBUS) return SFXBUS;
-      if(typeof MUS==='undefined' || !MUS.AC) return null;
-      SFXBUS=MUS.AC.createGain(); SFXBUS.gain.value=SFXVOL;
-      SFXBUS.connect(MUS.OUT||MUS.MAST||MUS.AC.destination);  /* 8/2: the OUTPUT bus, never the music master -- MUS.stop() ducks MAST to zero and that used to mute the whole game */
-      window.__SFXBUS=SFXBUS;
-    }catch(e){ SFXBUS=null; }
-    return SFXBUS;
-  }
-  /* THE WHOLE SETTINGS HOOK. When the menu exists it calls this and nothing
-     else. 0 is silent, 1 is the mix he judged. */
-  window.setSFXVolume=function(v){
-    v=Math.max(0,Math.min(1,+v||0)); SFXVOL=v;
-    try{ localStorage.setItem('bohemia_sfxvol',String(v)); }catch(e){}
-    try{ if(SFXBUS) SFXBUS.gain.value=v; }catch(e){}
-    return v;
-  };
-  window.getSFXVolume=function(){ return SFXVOL; };
+ 'use strict';
+ if(window.__SOUND_MIX) return; window.__SOUND_MIX=true;
 
-  /* FOOTSTEPS SIT WAY UNDER EVERYTHING (Paolo 8/1): "relative to like the music
-     it should be like a lot quieter like A LOT A LOT quieter -- the noise that
-     makes for me stepping in different terrain should be quieter."
-     ANOTHER SESSION BUILT THIS RULING AND IT NEVER FIRED. Their stepSfx() hangs
-     off a BOHEMIA_STEP message that the run does not post -- measured live:
-     stepSfx called 0 times across a walk, while playSFX handled every footstep.
-     So the 0.12 they set was dead code and his ruling was being dropped on the
-     floor while everyone assumed it had shipped. It is applied HERE, on the
-     path that actually runs.
-     A SUB-BUS, not an edit to his vectors: the verdict is on the SOUND, never
-     on how loud the game chooses to play it. STEPS -> SFXBUS -> master, so the
-     settings knob still reaches them. */
-  var STEPBUS=null, STEP_GAIN=0.12;      /* ~-18 dB under everything else */
-  function stepBus(){
-    try{
-      if(STEPBUS) return STEPBUS;
-      var out=sfxBus(); if(!out) return null;
-      STEPBUS=MUS.AC.createGain(); STEPBUS.gain.value=STEP_GAIN;
-      STEPBUS.connect(out); window.__STEPBUS=STEPBUS;
-    }catch(e){ STEPBUS=null; }
-    return STEPBUS;
-  }
+ /* DEFAULTS IN CODE, NOT ONLY IN A COOKIE. Same rule his verdicts live under:
+    a cleared phone falls back to a mix somebody chose on purpose, never to
+    whatever a fresh object happens to be. */
+ var MIX_DEFAULTS={master:1, music:0.75, sfx:1};
+ var MIX={master:MIX_DEFAULTS.master, music:MIX_DEFAULTS.music, sfx:MIX_DEFAULTS.sfx};
+ try{ var d=JSON.parse(localStorage.getItem('bohemia_mix')||'null');
+   if(d){ for(var k in MIX) if(typeof d[k]==='number') MIX[k]=Math.max(0,Math.min(1,d[k])); }
+ }catch(e){}
 
-  /* THE ONE ENTRY POINT. when==='beat' fires on the next downbeat of the real
-     song (the 120 BPM LAW: a kill lands ON the beat), anything else fires now. */
-  /* === VOICE LIMITING (8/4) =============================================
-     MEASURED at the limiter output, firing N copies of one shot at the same
-     instant:
-        1 copy  energy 2.18    8 copies energy 2.25
-        2       2.18          16       1.81   <- LESS THAN ONE
-     Past the first, a stacked sound adds NOTHING. The brickwall holds the peak
-     at 0.80 either way, so all the extra copies do is push the limiter down --
-     and the limiter pushes EVERYTHING down with it: the music, the footsteps,
-     the ambience. The loudest moment in the game was the moment it went flat.
-     It is not hypothetical. A combat volley resolves several enemies in the same
-     frame, which is why the block sound already needed a hand-rolled guard and
-     the neighbour footstep needed another. Two ad-hoc guards for one defect
-     means the defect belongs one level up.
-     TWO LIMITS, both deliberately generous:
-       PER EVENT, 45ms. Two identical sounds closer together than about 40ms do
-       not read as two sounds; they read as one with a thicker attack. This is
-       the flam threshold, not a gameplay choice.
-       GLOBAL, 8 voices per 60ms. A fight can absolutely fire eight DIFFERENT
-       things at once and should. It cannot usefully fire twenty.
-     THE FIRST SOUND IS NEVER DROPPED, and a lone sound is never touched. */
-  var VOX=[], LASTEV={};
-  var VOX_EVENT_MS=45, VOX_WINDOW_MS=60, VOX_MAX=8;
-  function voiceOK(ev){
-    var now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
-    var last=LASTEV[ev];
-    if(last!=null && (now-last)<VOX_EVENT_MS) return false;
-    while(VOX.length && (now-VOX[0])>VOX_WINDOW_MS) VOX.shift();
-    if(VOX.length>=VOX_MAX) return false;
-    LASTEV[ev]=now; VOX.push(now);
-    return true;
-  }
-  window.__voiceStats=function(){ return {perEvent:VOX_EVENT_MS, window:VOX_WINDOW_MS, max:VOX_MAX}; };
-  /* === THE ROOM TAKES THE SOUND (8/4) ==================================
-     Measured RT60 from the acoustics literature, mapped onto the four places
-     this game actually has. STREET is 1.0 on every dial ON PURPOSE: it is the
-     commonest place in the run, so his approved sounds are untouched there and
-     only LEAVING the street changes anything.
-       OPEN    open terrain has almost nothing to reflect off
-       STREET  the canyon, and the baseline
-       ROOM    ~0.2s, and darker: furniture and cloth eat the highs
-       HALL    2-3s (a parking basement measures ~3s), bright and long
-     No convolver, no delay, no feedback. These four fields are the engine's
-     OWN finite space machinery: re-struck bodies and a filtered noise tail. */
-  var SPACES={
-    OPEN:   {space:0.30, room:0.45, refl:0.0, dark:1.15},
-    STREET: {space:1.00, room:1.00, refl:1.0, dark:1.00},
-    ROOM:   {space:0.85, room:0.55, refl:1.6, dark:0.72},
-    HALL:   {space:1.70, room:3.00, refl:2.2, dark:1.30}
-  };
-  var SPACE='STREET';
-  window.__sfxSpace=function(){ return SPACE; };
-  /* EXPOSED SO IT CAN BE CHECKED EXACTLY. playSFX picks a RANDOM candidate from
-     his approved set every call, and the difference between two of his
-     candidates is bigger than the difference a room makes -- so measuring the
-     room by playing playSFX twice proves nothing, which is exactly what the
-     first measurement of this feature "showed". */
-  window.__sfxInSpace=function(v,sp){ var k=SPACE; if(sp)SPACE=sp;
-    try{ return inSpace(v); } finally { SPACE=k; } };
-  function inSpace(v){
-    var p=SPACES[SPACE]||SPACES.STREET;
-    if(p.space===1&&p.room===1&&p.refl===1&&p.dark===1) return v;   /* baseline: untouched */
-    var w={},k; for(k in v) w[k]=v[k];
-    w.space=Math.max(0,Math.min(1,(v.space||0)*p.space));
-    w.room =Math.max(0,Math.min(3,(v.room ||0)*p.room));
-    w.refl =Math.max(0,Math.min(4,Math.round((v.refl||0)*p.refl)));
-    w.dark =Math.max(300,Math.min(9000,(v.dark||2600)*p.dark));
-    return w;
-  }
-  window.playSFX=function(ev,when){
-    try{
-      if(typeof BOH_SFX==='undefined')return null;
-      if(!voiceOK(ev))return null;
-      var i=pick(ev); if(i==null)return null;
-      var v=vec(ev,i); if(!v)return null;
-      v=inSpace(v);
-      MUS.audio();
-      var AC=MUS.AC;
-      /* a footstep goes to the quiet sub-bus; everything else to the master */
-      var dest=(ev.indexOf('step_')===0 ? (stepBus()||sfxBus()) : sfxBus())
-               || MUS.OUT || MUS.MAST || AC.destination;
-      var at=null;
-      if(when==='beat' && MUS.playing && MUS.nextT){
-        /* the next 16th that is also a beat boundary */
-        var sd=MUS.stepDur(), s=MUS.step||0, ahead=(4-(s%4))%4;
-        at=MUS.nextT+ahead*sd;
-      }
-      var node=BOH_SFX.render(v,AC,dest,at);
-      if(node) SFX_COUNT++;         /* counted where it RENDERS, not where it is asked for */
-      return node;
-    }catch(e){ return null; }
-  };
-  /* UNLOCK ON THE FIRST TOUCH, ANY TOUCH (7/31 -- "I didnt hear ur sounds").
-     An AudioContext may only be STARTED inside a real user gesture. iOS is
-     strict about it: build one outside a gesture and it is born suspended, and
-     resume() from a postMessage handler is refused for the whole session.
-     The old wire only ever reached MUS.audio() from inside playSFX, and the
-     only gesture that could get there was a tap on a button/.tab/.opt. The
-     splash is <div id="front">, so THE FIRST THING HE EVER TOUCHES matched
-     nothing. Land straight in the RUN tab, walk, and every footstep arrives by
-     postMessage with no gesture behind it: silence, permanently, and the sound
-     is "working" the whole time. So: unlock on the first interaction of ANY
-     kind, anywhere, before anything needs to make noise. */
-  /* THE RING/SILENT SWITCH (7/31, second report of silence).
-     On iPhone, a page that makes sound ONLY through WebAudio is muted by the
-     physical switch on the side of the phone, with no error, no warning and
-     nothing in the page to see. Every check can pass and the phone stays quiet.
-     Safari 16.4+ lets a page say it is playback rather than ambient audio,
-     which opts out of that switch. Set it before the context starts, because it
-     decides the category the context is born into. Absent everywhere else, so
-     the guard is the whole compatibility story. */
-  function claimPlayback(){
-    try{ if(navigator.audioSession) navigator.audioSession.type='playback'; }catch(e){}
-  }
-  claimPlayback();
-  function unlock(){
-    claimPlayback();
-    try{ MUS.audio(); if(MUS.AC && MUS.AC.state==='suspended') MUS.AC.resume(); }catch(e){}
-    /* BUILD THE SFX MASTER THE INSTANT AUDIO EXISTS. Lazily is not good enough:
-       the footstep bus is built on the first footstep and reads window.__SFXBUS
-       to decide what to plug into, so if a step happens before any other sound
-       it wires itself to the music master FOREVER and the volume slider cannot
-       reach it. Measured exactly that: muted everything and footsteps still
-       came out at 0.27. Order of creation is not something to leave to luck. */
-    try{ sfxBus(); }catch(e){}
-  }
-  ['pointerdown','touchend','mousedown','click','keydown'].forEach(function(t){
-    document.addEventListener(t, unlock, {capture:true, passive:true});
+ /* PERCEPTUAL TAPER. Loudness is roughly logarithmic, so a slider wired
+    straight to gain wastes its bottom two thirds and then jumps. p^2.5 is
+    close to a dB taper: the halfway point lands near 18% gain, which is what
+    "half volume" actually sounds like. Zero is EXACT silence. */
+ function taper(p){ p=Math.max(0,Math.min(1,+p||0)); return p<=0?0:Math.pow(p,2.5); }
+ window.__mixTaper=taper;
+
+ function save(){ try{ localStorage.setItem('bohemia_mix',JSON.stringify(MIX)); }catch(e){} }
+
+ function apply(){
+  try{ if(window.__OUTBUS) window.__OUTBUS.gain.value=taper(MIX.master); }catch(e){}
+  try{ if(window.__MUSVOL) window.__MUSVOL.gain.value=taper(MIX.music); }catch(e){}
+  /* EFFECTS goes through the existing setSFXVolume so there is still exactly
+     ONE place that owns the SFX bus gain. Two owners is how a knob silently
+     stops working. */
+  try{ if(window.setSFXVolume) window.setSFXVolume(taper(MIX.sfx));
+       else if(window.__SFXBUS) window.__SFXBUS.gain.value=taper(MIX.sfx); }catch(e){}
+ }
+ window.__applyMix=apply;
+ window.getMix=function(){ return {master:MIX.master, music:MIX.music, sfx:MIX.sfx}; };
+ window.setMasterVolume=function(v){ MIX.master=Math.max(0,Math.min(1,+v||0)); save(); apply(); return MIX.master; };
+ window.setMusicVolume =function(v){ MIX.music =Math.max(0,Math.min(1,+v||0)); save(); apply(); return MIX.music; };
+ window.setEffectsVolume=function(v){ MIX.sfx  =Math.max(0,Math.min(1,+v||0)); save(); apply(); return MIX.sfx; };
+ /* THE RE-APPLY TICK ONLY FIRES WHEN THE NODES ARE NEW, and that distinction
+    cost a gate failure the first time this shipped. The audio context can be
+    built long after this code runs and it can be REBUILT, so the knobs cannot
+    be a one-shot at boot -- but a blind setInterval(apply) makes this the
+    SECOND owner of the SFX gain, and it stomped every direct setSFXVolume()
+    call about a second later. That is the exact defect the comment above warns
+    about, written by the same hand, one function apart.
+    So: remember the node identities we last wrote to, and only write again when
+    they actually change. Re-applies after a context rebuild, never fights
+    anybody in steady state. */
+ var seen={out:null, mus:null, sfx:null};
+ function applyIfNew(){
+  var o=window.__OUTBUS||null, m=window.__MUSVOL||null, x=window.__SFXBUS||null;
+  if(o===seen.out && m===seen.mus && x===seen.sfx) return;
+  seen.out=o; seen.mus=m; seen.sfx=x;
+  apply();
+ }
+ setInterval(applyIfNew, 1200);
+ apply(); applyIfNew();
+
+ /* ---- THE PANEL (MUSIC tab, above everything else) --------------------- */
+ var CSS='#mixWrap{margin:0 0 10px 0;padding:10px 12px;border:1px solid #3a3350;'
+  +'border-radius:10px;background:linear-gradient(180deg,#160f22,#0d0913)}'
+  +'#mixWrap h4{margin:0 0 8px 0;font:800 10.5px ui-monospace,monospace;letter-spacing:2px;'
+  +'color:#c9b6ea;text-transform:uppercase}'
+  +'.mixRow{display:flex;align-items:center;gap:10px;margin:9px 0}'
+  +'.mixRow label{flex:0 0 74px;font:700 10px ui-monospace,monospace;letter-spacing:1px;color:#9d90b8}'
+  +'.mixRow input[type=range]{flex:1 1 auto;height:34px;accent-color:#8f6fd0;background:transparent}'
+  +'.mixVal{flex:0 0 42px;text-align:right;font:700 11px ui-monospace,monospace;color:#e6dcff}'
+  +'.mixNote{margin-top:6px;font:400 9.5px ui-monospace,monospace;color:#6d6386;line-height:1.45}'
+  +'#sbWrap{margin:0 0 10px 0;padding:10px 12px;border:1px solid #3a3350;border-radius:10px;'
+  +'background:linear-gradient(180deg,#141020,#0b0810)}'
+  +'#sbWrap h4{margin:0 0 4px 0;font:800 10.5px ui-monospace,monospace;letter-spacing:2px;'
+  +'color:#c9b6ea;text-transform:uppercase}'
+  +'.sbGroup{margin:9px 0 0 0}'
+  +'.sbGL{font:700 9px ui-monospace,monospace;letter-spacing:2px;color:#6d6386;margin:0 0 5px 2px}'
+  +'.sbRow{display:flex;flex-wrap:wrap;gap:6px}'
+  +'.sbBtn{flex:1 1 46%;min-height:46px;padding:6px 8px;border:1px solid #463d63;border-radius:8px;'
+  +'background:#1d1730;color:#e6dcff;text-align:left;display:flex;flex-direction:column;'
+  +'justify-content:center;gap:2px;cursor:pointer}'
+  +'.sbBtn .sbName{font:700 10px ui-monospace,monospace;letter-spacing:.6px;line-height:1.2}'
+  +'.sbBtn .sbN{font:400 8.5px ui-monospace,monospace;color:#8d81ab;letter-spacing:.5px}'
+  +'.sbBtn.sbHot{background:#3a2c66;border-color:#8f6fd0}'
+  +'.sbBtn.sbDead{opacity:.45}'
+  +'.sbBtn.sbNew{border-color:#8f6fd0;background:#241a3d}'
+  +'.sbBtn.sbNew .sbN{color:#c2a6f5}';
+ try{ var st=document.createElement('style'); st.textContent=CSS; document.head.appendChild(st); }catch(e){}
+
+ function row(key,label,onDone){
+  var r=document.createElement('div'); r.className='mixRow';
+  var l=document.createElement('label'); l.textContent=label;
+  var i=document.createElement('input'); i.type='range'; i.min='0'; i.max='100'; i.step='1';
+  i.value=String(Math.round(MIX[key]*100)); i.id='mix_'+key;
+  var v=document.createElement('span'); v.className='mixVal'; v.textContent=i.value+'%';
+  i.addEventListener('input',function(){
+    MIX[key]=(+i.value)/100; v.textContent=i.value+'%'; apply();
   });
-  document.addEventListener('visibilitychange',function(){
-    if(!document.hidden) unlock();      /* coming back from the lock screen */
+  /* SAVE ON RELEASE, not on every pixel of the drag: a slider fires input on
+     each step and writing localStorage 100 times per swipe is a stutter he
+     would feel on a phone. */
+  ['change','pointerup','touchend'].forEach(function(t){
+    i.addEventListener(t,function(){ save(); if(onDone)onDone(); });
   });
-  /* the run asks; the parent plays */
-  window.addEventListener('message',function(ev){
-    try{
-      var d=ev&&ev.data; if(!d)return;
-      /* A TOUCH INSIDE THE IFRAME IS STILL A TOUCH. It does not bubble out to
-         this document, so the run tells us one happened and we take the chance
-         to start the audio while the browser may still count it as gestured. */
-      if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
-      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d);
-        if(d.space && SPACES[d.space]) SPACE=d.space;   /* the run says where you stand */ musicPhase(d); timePass(d); return; }
-      if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
-      if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
-    }catch(e){}
-  });
+  r.appendChild(l); r.appendChild(i); r.appendChild(v);
+  return r;
+ }
 
-  /* === THE CLOCK FINALLY REACHES THE MUSIC (8/4) ========================
-     CITYMUS.phase shipped hardcoded to 'NIGHT', with a comment that said
-     outright: "the valley is night until a world clock lands; whoever builds
-     the clock sets CITYMUS.phase". The clock landed. Nobody set it.
-     MEASURED before touching anything, because a claim like this has to be a
-     number: at the shipped phase the overworld pool is 10 songs, and the SEVEN
-     songs Paolo tagged OVERWORLD DAY or OVERWORLD DUSK/DAWN are in none of
-     them. Over 200 draws, THE MARKER ON THE DOOR came up ZERO times -- the one
-     song in this entire project he has ever said he likes ("now one of my new
-     favorite songs that you've made"), tagged OVERWORLD DAY by his own hand,
-     unplayable in the run since the day he tagged it.
-     That is APPROVED-BUT-UNUSED, the defect this lane already has a law about,
-     sitting in the music instead of the sound effects.
-     THE FIX NEEDS NO RULING: the run already posts the world MINUTE here every
-     four seconds, and this handler already uses it to choose the ambience bed.
-     The same number now chooses the pool.
-     THE WINDOWS NEST INSIDE THE AMBIENCE SPLIT ON PURPOSE. The bed calls night
-     before 06:00 and from 19:00; DAWN and DUSK sit strictly inside the daylit
-     side of that line, so the two systems can never disagree about whether it
-     is dark. One clock, one opinion.
-     IT NEVER CUTS A SONG. Only the phase moves; CITYMUS picks again at the end
-     of its 64-bar pass, so the change arrives on a musical boundary instead of
-     as a jump-cut. */
-  var LASTPHASE=null;
-  function musicPhase(d){
-    try{
-      if(typeof CITYMUS==='undefined'||!CITYMUS) return;
-      var m=+d.min; if(!isFinite(m)) return;
-      var ph = (m<6*60||m>=19*60) ? 'NIGHT'
-             : (m<8*60)           ? 'DAWN'
-             : (m<17*60)          ? 'DAY'
-                                  : 'DUSK';
-      if(ph===LASTPHASE) return;
-      LASTPHASE=ph;
-      CITYMUS.phase=ph;
-      /* AND MAKE IT AUDIBLE (8/7). Setting the phase only changes what the NEXT
-         pick draws from, and the shuffle only picked at the end of a 64-bar
-         pass -- 128 seconds at 120 BPM -- so dawn could break and the night
-         pool would keep playing for over two minutes. onPhaseChange arms a turn
-         at the next 8-bar boundary; it never plays anything itself, so this
-         cannot interrupt a song mid-phrase. Guarded because the hook ships in a
-         separate patch and a missing one must never break the clock. */
-      if(typeof CITYMUS.onPhaseChange==='function') CITYMUS.onPhaseChange();
-    }catch(e){}
-  }
-  window.__musicPhase=function(){ return (typeof CITYMUS!=='undefined'&&CITYMUS)?CITYMUS.phase:null; };
-
-  /* === HOURS GO BY, AND YOU HEAR HOW MANY (8/7) ==========================
-     PAOLO'S RULING, on his own 130/130 export, and NOTES ARE RULINGS (7/19):
-
-        "For hours go by have it the amount of time that goes by"
-
-     He approved all five TIME_PASS candidates and killed all five SLEEP ones in
-     the same breath, which read together is one decision rather than two: the
-     passage of time is THE sound, and sleeping is a QUANTITY of it, not a
-     separate ceremony that needs its own cue.
-
-     SO IT STRIKES LIKE A CLOCK. One note per hour. Four hours is four notes,
-     eight is eight. That is the most literal reading of what he asked for and
-     it is also the only one that carries information: you can COUNT it without
-     being told, the way a bell tower tells a valley what time it is. Nothing
-     announces the number, you just hear it go by.
-
-     IT DOES NOT RE-COOK HIS SOUND. Every strike is one of the five vectors he
-     thumbed up, taken in order, cycling if there are more hours than
-     candidates. The mechanism picks BETWEEN the sounds he picked; it never
-     alters one. Same rule that makes footsteps work.
-
-     ON THE BEAT, per the 120 BPM LAW: strikes land a beat apart in AUDIO time,
-     scheduled ahead on the one AudioContext, not fired by a timer.
-
-     AND IT DELIBERATELY SKIPS THE VOICE LIMITER. voiceOK() throttles on the
-     WALL CLOCK, and every strike here is requested in the same millisecond even
-     though they sound seconds apart -- so the limiter would drop every note
-     after the first and an eight-hour sleep would strike ONCE. The limiter
-     exists to stop simultaneous pile-ups crushing the brickwall (16 at once
-     measured QUIETER than one, 8/4). These are not simultaneous; they are the
-     opposite. Scheduling is the throttle.
-
-     CAPPED AT 12. Past twelve strikes it stops being countable and starts being
-     noise, and twelve is where a clock face stops too. */
-  var STRIKE_MAX=12;
-  function strikeHours(h){
-    h=Math.max(1,Math.min(STRIKE_MAX, h|0));
-    try{
-      var set=(window.__SFX_APPROVED&&window.__SFX_APPROVED.time_pass)||[];
-      if(!set.length) return 0;            /* unjudged is silent, always */
-      if(typeof BOH_SFX==='undefined'||typeof MUS==='undefined') return 0;
-      MUS.audio(); var AC=MUS.AC; if(!AC) return 0;
-      var dest=sfxBus()||MUS.OUT||MUS.MAST||AC.destination;
-      var gap=(BOH_SFX.BEAT||0.5);
-      var t0=AC.currentTime+0.06, fired=0;
-      for(var i=0;i<h;i++){
-        var v=vec('time_pass', set[i%set.length]); if(!v) continue;
-        /* heard in the room he is standing in, like everything else */
-        var vv=(typeof window.__sfxInSpace==='function')?window.__sfxInSpace(v):v;
-        if(BOH_SFX.render(vv,AC,dest,t0+i*gap)){ fired++; SFX_COUNT++; }
-      }
-      return fired;
-    }catch(e){ return 0; }
-  }
-  window.__strikeHours=strikeHours;
-
-  /* WHAT COUNTS AS TIME GOING BY. The run already reports the world clock every
-     four seconds, so no new state and no new message: a JUMP in that number is
-     time passing, and its size is how much. An hour is the floor -- walking
-     around does not move the clock by an hour in four seconds, so ordinary play
-     can never trigger this, and only a real skip (sleep, a wait, a long
-     journey) can. Midnight is handled: 22:00 -> 06:00 reads as -960, which is
-     eight hours forward, not minus sixteen. */
-  var LASTMIN=null, LASTJUMP=null, TP_MIN=60;
-  function timePass(d){
-    try{
-      var m=+d.min; if(!isFinite(m)) return;
-      if(LASTMIN===null){ LASTMIN=m; return; }
-      var jump=m-LASTMIN; if(jump<0) jump+=1440;
-      LASTMIN=m;
-      LASTJUMP=jump;
-      if(jump<TP_MIN) return;
-      strikeHours(Math.round(jump/60));
-    }catch(e){}
-  }
-  /* jump is reported so a test can tell ITS OWN clock move from somebody
-     else's. The run reports the world clock every four seconds on its own, and
-     a stray report landing between a test's two posts is a real jump that makes
-     real strikes -- indistinguishable from the test's own unless the game says
-     what it actually computed. */
-  window.__timePassStats=function(){
-    return {floorMin:TP_MIN, max:STRIKE_MAX, last:LASTMIN, jump:LASTJUMP}; };
-
-  /* === SOMEBODY ELSE'S FOOTSTEP, PLACED IN SPACE (8/2) ==================
-     THE DISTANCE MODEL IS THE RESEARCHED ONE, not a guess: a point source
-     follows the inverse law, amplitude proportional to 1/r, dropping about 6 dB
-     every time the distance doubles, and inverse is the recommended default
-     when in doubt. So 1/(1+k*r), not a linear fade -- linear is for ambient
-     zones and UI, and it makes everything sound like it is the same distance
-     away until it abruptly is not.
-     PAN is the crude, correct tool for a top-down 2D game: left is left. It is
-     taken from the x offset only, because a top-down view has no front/back to
-     confuse and faking one with filters would be inventing information the
-     game does not have.
-     CUTOFF, not fade-to-nothing: below a hearable gain it plays NOTHING rather
-     than a sound too quiet to identify. A sound you cannot place is noise. */
-  var NPC_PLAYED=0;
-  window.__npcPlayed=function(){ return NPC_PLAYED; };
-  function npcStep(d){
-    try{
-      var r=Math.max(0.5, +d.dist||0);
-      var g=1/(1+0.55*r);                    /* ~0.65 next to you, ~0.25 at 5 tiles */
-      if(g<0.06) return;                     /* too far to be information */
-      var pan=Math.max(-1,Math.min(1,(+d.dx||0)/6));
-      var ev='step_'+(({asphalt:'asphalt',dirt:'dirt',gravel:'gravel'})[d.surface]
-                      ||String(d.surface||'').replace('step_','')||'dirt');
-      if(!APPROVED[ev]) ev='step_dirt';
-      var i=pick(ev); if(i==null)return;
-      var v=vec(ev,i); if(!v)return;
-      if(typeof MUS==='undefined')return; MUS.audio(); if(!MUS.AC)return;
-      /* NOT through the player's footstep bus. That bus is at 0.12 because HIS
-         OWN steps fire constantly and would be fatiguing -- a neighbour's step
-         is rare and is INFORMATION, and stacking 0.12 on top of distance made
-         it 0.0095, which is a number, not a sound. Distance is the only thing
-         that should quieten this. */
-      var out=sfxBus(); if(!out)return;
-      NPC_PLAYED++;   /* what the neighbour ACTUALLY played, for anything that
-                         needs to ask. A test cannot get this from the bus peak:
-                         the ambience bed shares that bus and fires one-shots
-                         every 40-95s, so "the bus made a noise" attributes
-                         somebody else's sound to the neighbour. */
-      var at=MUS.AC.createGain(); at.gain.value=g; at.connect(out);
-      /* the vector is HIS and is never edited -- a copy carries the position */
-      var w={}, k; for(k in v) w[k]=v[k];
-      w.pan=pan;
-      BOH_SFX.render(w,MUS.AC,at,null);
-      SFX_COUNT++;
-    }catch(e){}
-  }
-
-  /* === THE WORLD TONE (8/1) ==============================================
-     He approved all 15. It is one of the ambient noises: a rare sound so the
-     valley is not dead air. It is NOT a clock -- something that fires a minute
-     apart tells you nothing about the time, and the music already handles time
-     of day. What it does is make the place feel occupied by nothing.
-
-     THREE RULES, boring on purpose:
-       WHICH  indoors -> air_inside. Outdoors -> air_night before 06:00 or from
-              19:00, else air_day. The run reports both facts every 4s.
-       WHEN   a random gap of 40 to 95 seconds. That is MY DEFAULT and nothing
-              decided it but taste. One word from him changes it.
-       QUIET  its own bus at 0.4 of the level he judged it at. He judged these
-              loud enough to hear on a phone; under the game they sit below
-              everything. He was told that before he thumbed them, so this is
-              the plan he approved rather than a change to it.
-
-     IT ONLY RUNS WHILE THE RUN IS ON SCREEN. If the reports stop, the ambience
-     stops, so it can never play over him judging sounds in the MUSIC tab. */
-  var AMB={
-    kind:null, next:0, bus:null, seen:0,
-    where:function(d){
-      this.seen=Date.now();
-      this.kind = d.inside ? 'air_inside' : (d.night ? 'air_night' : 'air_day');
-    },
-    gap:function(){ return 40 + Math.random()*55; },
-    tick:function(){
-      if(!this.kind) return;
-      /* IS THE RUN ACTUALLY ON SCREEN? Message recency does NOT answer this:
-         a hidden iframe keeps its timers running, so the run keeps reporting
-         from the MUSIC tab and the ambience would play over him judging
-         sounds. Ask the DOM whether the run panel is visible instead. */
-      if(Date.now()-this.seen > 12000) return;      /* the run is not even loaded */
-      /* ASK THE TAB, not the panel. Two wrong guesses before this one:
-         offsetParent is null under any position:fixed ancestor even when the
-         thing is plainly on screen, and #p-run is display:none the whole time
-         because the RUN tab actually shows the p-city panel
-         (PANEL = t.dataset.p==='run' ? 'city' : ...). The tab carrying class
-         'on' is what the alpha itself uses to mean "this is the open tab", so
-         use the app's own answer instead of inventing a third one. */
-      var tab=document.querySelector('.tab[data-p="run"]');
-      if(!tab || !tab.classList.contains('on')) return;
-      var now=Date.now();
-      if(!this.next){ this.next = now + this.gap()*1000; return; }
-      if(now < this.next) return;
-      this.next = now + this.gap()*1000;
+ /* ---- THE SOUNDBOARD ---------------------------------------------------
+    Paolo 8/2: "every sfx should be in the sfx in the music menu not for me to
+    find in the game". Every game moment, one button, always visible, and the
+    tap plays what the GAME plays -- window.playSFX is the same entry point the
+    run and combat use, so this is the sound and not a preview of one. */
+ var BOARD=[
+  ['WALKING',  ['step_asphalt','step_dirt','step_gravel']],
+  ['THE FIGHT',['shot','hit','vital','block','hurt','kill','clear','miss']],
+  ['THE WORLD',['air_day','air_night','air_inside','go_inside','door_open','door_shut']],
+  ['A DAY',    ['eat','sleep','time_pass','talk_start','quest_done']],
+  ['YOU',      ['pickup','phone_buzz','save_chime','ui_tap']]
+ ];
+ function labelOf(ev){
+  try{ var E=BOH_SFX.EVENTS; for(var i=0;i<E.length;i++) if(E[i].ev===ev) return E[i].label; }catch(e){}
+  return ev;
+ }
+ function approvedCount(ev){
+  try{ return (window.__SFX_APPROVED && window.__SFX_APPROVED[ev] || []).length; }catch(e){ return 0; }
+ }
+ /* THREE STATES, AND THE THIRD ONE IS THE GRAVEYARD.
+      LIVE  he approved at least one  -> play the GAME's sound
+      NEW   cooked, not fully judged  -> audition the candidates in turn
+      DEAD  every candidate thumbed and none survived -> PLAY NOTHING
+    That last one is not styling. He judged all ten door candidates DOWN, and
+    GRAVEYARD IS FINAL: a board that auditions them is putting dead art back in
+    front of him. Dead buttons say so and stay silent. */
+ function stateOf(ev){
+  if(approvedCount(ev)>0) return 'live';
+  var cookable=0; try{ cookable=BOH_SFX.cook(ev,5).length; }catch(e){}
+  if(!cookable) return 'dead';
+  try{ if(window.BOH_SFX_JUDGE && window.BOH_SFX_JUDGE.done(ev)) return 'dead'; }catch(e){}
+  return 'new';
+ }
+ function boardBlock(){
+  var b=document.createElement('div'); b.id='sbWrap';
+  var h=document.createElement('h4'); h.textContent='EVERY SOUND IN THE GAME';
+  b.appendChild(h);
+  var sub=document.createElement('div'); sub.className='mixNote';
+  sub.style.marginTop='0'; sub.style.marginBottom='8px';
+  sub.textContent='Tap one and you hear exactly what the game plays. Nothing here '
+   +'needs judging and nothing needs finding in a run.';
+  b.appendChild(sub);
+  /* ANY MOMENT NO GROUP LISTS STILL GETS A BUTTON. His complaint was that a
+     sound existed and he could not reach it; a hand-written group list is
+     exactly how that happens again the next time somebody cooks a batch and
+     forgets this file. The leftovers group is the backstop, not the plan. */
+  try{
+   var listed={}; BOARD.forEach(function(g){ g[1].forEach(function(e){ listed[e]=1; }); });
+   var extra=BOH_SFX.EVENTS.map(function(E){ return E.ev; }).filter(function(e){ return !listed[e]; });
+   if(extra.length) BOARD.push(['ALSO IN THE GAME', extra]);
+  }catch(e){}
+  BOARD.forEach(function(grp){
+   var g=document.createElement('div'); g.className='sbGroup';
+   var gl=document.createElement('div'); gl.className='sbGL'; gl.textContent=grp[0];
+   g.appendChild(gl);
+   var row=document.createElement('div'); row.className='sbRow';
+   grp[1].forEach(function(ev){
+    var n=approvedCount(ev), st=stateOf(ev);
+    var btn=document.createElement('button');
+    btn.className='sbBtn'+(st==='dead'?' sbDead':'')+(st==='new'?' sbNew':'');
+    btn.id='sb_'+ev;
+    btn.setAttribute('data-ev',ev);
+    btn.innerHTML='<span class="sbName">'+labelOf(ev)+'</span>'
+      +'<span class="sbN">'
+      +(st==='live' ? n+(n===1?' sound':' sounds')
+        : st==='new' ? 'NEW - tap to hear all 5'
+        : 'nothing survived judging')+'</span>';
+    var turn=0;
+    btn.addEventListener('click',function(){
+     var st2=stateOf(ev);
+     if(st2==='dead') return;   /* GRAVEYARD IS FINAL: nothing to play, on purpose */
+     if(st2==='live'){
+      /* THE GAME'S OWN CALL for a moment he has already ruled. Not a private
+         preview path -- a side door would let the board sound healthy while the
+         game is silent, which is a lie this lane has shipped once already. */
+      try{ if(window.playSFX) window.playSFX(ev); }catch(e){}
+     }else{
+      /* AND A MOMENT HE HAS NOT RULED YET MUST AUDITION ITS CANDIDATES.
+         playSFX falls back to step_dirt for an unbanked event, which is correct
+         inside the GAME (better a footstep than a hole) and a disaster on a
+         board: tapping EAT played a footstep, so a freshly cooked batch sounded
+         like nothing new at all. That is literally the complaint that started
+         this - "Theres no new sounds". Each tap plays the NEXT candidate, so
+         five taps is the whole set and the button says which one. */
       try{
-        if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return;
-        MUS.audio(); if(!MUS.AC) return;
-        if(!this.bus){
-          this.bus = MUS.AC.createGain();
-          this.bus.gain.value = 0.4;
-          /* MUS.OUT before MUS.MAST: nothing that is not music may fall back
-             to the MUSIC master, because MUS.stop() ducks it to zero. */
-          this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
-        }
-        var set=APPROVED[this.kind]; if(!set||!set.length) return;
-        var i=set[(Math.random()*set.length)|0];
-        var v=vec(this.kind,i); if(!v) return;
-        BOH_SFX.render(v,MUS.AC,this.bus,null);
-        SFX_COUNT++;
+       var c=BOH_SFX.cook(ev,5), v=c[turn%c.length]; turn++;
+       if(window.BOH_SFX_JUDGE) window.BOH_SFX_JUDGE.hear(v);
+       else BOH_SFX.render(v, MUS.AC, (window.__SFXBUS||MUS.OUT||MUS.MAST));
+       var n=btn.querySelector('.sbN');
+       if(n) n.textContent='candidate '+(((turn-1)%c.length)+1)+' of '+c.length+' - not judged';
       }catch(e){}
-    }
-  };
-  window.__AMB=AMB;
-  setInterval(function(){ AMB.tick(); }, 1000);
-  /* the parent's own surfaces: every button on the phone is a UI TAP.
-     EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR
-     THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE
-     A SOUND WHEN I CLICK PLAY ON A NEW SOUND IM TESTING"). He is right, and it
-     made the entire soundboard useless: the tap fired on the SAME CLICK as the
-     candidate, so his own approved UI tick played on top of every sound he was
-     trying to judge. A judging surface has to be silent except for the thing
-     being judged.
-     MARKED BY CONTAINER, never by guessing at labels: anything inside the SFX
-     judge, the soundboard, the mix panel or the music studio's transport is
-     auditioning audio and never gets a tap over it. data-noui is the escape
-     hatch for any panel built later, so the next audition surface does not have
-     to rediscover this the hard way. */
-  var NOUI='#sfxWrap,#sbWrap,#mixWrap,.mus-play,.mus-cell,[data-noui]';
-  document.addEventListener('click',function(e){
-    var t=e&&e.target; if(!t)return;
-    if(t.closest&&t.closest(NOUI)) return;   /* this click IS a sound already */
-    if(t.closest&&(t.closest('button')||t.closest('.tab')||t.closest('.opt')))
-      window.playSFX('ui_tap');
-  },true);
-  /* SAY WHAT THE AUDIO IS DOING (7/31). He reported silence twice and both
-     times I had to guess at his phone from here, because a muted iPhone and a
-     broken wire look exactly the same from the outside: nothing. This is one
-     line in the MUSIC tab that turns "I hear nothing" into something he can
-     read back to me. It reports the three things that can each cause silence
-     on their own: whether audio ever STARTED, whether the ring/silent switch
-     opt-out took, and how many sounds have actually been fired. */
-  function statusLine(){
-    var el=document.getElementById('sfxStatus');
-    if(!el){
-      var host=document.getElementById('p-music'); if(!host)return;
-      el=document.createElement('div'); el.id='sfxStatus';
-      el.style.cssText='font:11px ui-monospace,monospace;padding:7px 9px;margin:6px 0;'+
-        'border:1px solid #3a3a30;border-radius:6px;letter-spacing:.5px;line-height:1.5';
-      host.insertBefore(el, host.firstChild);
-    }
-    var on=false, st='never started';
-    try{ if(typeof MUS!=='undefined'&&MUS.AC){ st=MUS.AC.state; on=(st==='running'); } }catch(e){}
-    var claim='n/a on this browser';
-    try{ if(navigator.audioSession) claim=navigator.audioSession.type||'unset'; }catch(e){}
-    el.style.borderColor = on ? '#4d6b45' : '#7a3a30';
-    el.style.background  = on ? 'rgba(60,90,55,0.16)' : 'rgba(120,50,40,0.16)';
-    el.style.color       = on ? '#a8c69c' : '#e8a08f';
-    el.innerHTML =
-      '<b>SOUND: '+(on?'ON':'NOT PLAYING')+'</b><br>'+
-      'audio engine: '+st+'<br>'+
-      'silent-switch opt-out: '+claim+'<br>'+
-      'sounds fired: '+SFX_COUNT+
-      (on?'':'<br>if this stays red after you tap the screen, it is the phone, not the game');
+     }
+     btn.classList.add('sbHot'); setTimeout(function(){ btn.classList.remove('sbHot'); },220);
+    });
+    row.appendChild(btn);
+   });
+   g.appendChild(row); b.appendChild(g);
+  });
+  return b;
+ }
+
+ function build(){
+  var w=document.createElement('div'); w.id='mixWrap';
+  var h=document.createElement('h4'); h.textContent='SOUND';
+  w.appendChild(h);
+  w.appendChild(row('master','MASTER'));
+  w.appendChild(row('music','MUSIC'));
+  /* letting go of the EFFECTS slider plays one of his approved taps, so the
+     level he just chose is a thing he HEARS instead of a number he reads */
+  w.appendChild(row('sfx','EFFECTS',function(){
+    try{ if(window.playSFX) window.playSFX('ui_tap'); }catch(e){}
+  }));
+  var n=document.createElement('div'); n.className='mixNote';
+  n.textContent='These are the game’s volumes, not the studio’s. They persist on this '
+   +'phone and they reach everything: songs, footsteps, combat, ambience, taps.';
+  w.appendChild(n);
+  return w;
+ }
+
+ /* The studio rebuilds #p-music from scratch whenever a song is tagged, so a
+    one-shot mount would quietly disappear the first time he uses the CAT
+    button. Same pattern the SFX judge already uses: wrap build, plus a slow
+    re-adopt as the backstop. */
+ function mount(){
+  var P=document.getElementById('p-music'); if(!P) return;
+  if(document.getElementById('mixWrap') && document.getElementById('sbWrap')) return;
+  if(document.getElementById('mixWrap')){
+   if(!document.getElementById('sbWrap')){
+    var mw=document.getElementById('mixWrap');
+    P.insertBefore(boardBlock(), mw.nextSibling);
+   }
+   return;
   }
-  setInterval(statusLine, 700);
-  if(document.readyState!=='loading') statusLine();
-  else document.addEventListener('DOMContentLoaded', statusLine);
+  P.insertBefore(build(), P.firstChild);
+  if(!document.getElementById('sbWrap')){
+   var m=document.getElementById('mixWrap');
+   P.insertBefore(boardBlock(), m ? m.nextSibling : P.firstChild);
+  }
+ }
+ function hook(){
+  if(typeof MUS==='undefined'||!MUS.build) return false;
+  if(MUS._mixHooked) return true;
+  MUS._mixHooked=true;
+  var prev=MUS.build.bind(MUS);
+  MUS.build=function(){ prev(); try{ mount(); }catch(e){} };
+  setInterval(function(){ var P=document.getElementById('p-music');
+    if(P&&P.children.length&&(!document.getElementById('mixWrap')||!document.getElementById('sbWrap'))){
+      try{ mount(); }catch(e){} } },1500);
+  if(MUS.built){ try{ mount(); }catch(e){} }
+  return true;
+ }
+ if(!hook()){ var tries=0, iv=setInterval(function(){ if(hook()||++tries>40)clearInterval(iv); },250); }
 })();
 </script>
-<!-- /BOHEMIA SFX WIRE PARENT -->
+<!-- /BOHEMIA SOUND MIX -->
 <!-- BOHEMIA SFX FACTORY MOUNT (7/29/26) -->
 <script>
 /* ENGINE SYNC LAW: this body is engine/bohemia_sfx.js, inlined verbatim.
@@ -16671,6 +16131,546 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 })();
 </script>
 <!-- /BOHEMIA SFX FACTORY MOUNT -->
+<!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->
+<script>
+/* === SFX WIRE, PARENT SIDE (7/30/26) ====================================
+   Paolo's 38 approved sounds, from his 7/30 thumbs. The table below is INDEXES
+   into the shipped generator, not copied audio: candidate n of event e is
+   BOH_SFX.cook(e,5)[n], which gates/sfx_render_gate.py fingerprints. So what
+   plays is byte-for-byte the thing he heard when he thumbed it.
+   Verdict: records/BOHEMIA_SFX_VERDICT_7_30_26.txt
+   Bank:    banks/BOHEMIA_SFX_APPROVED_7_30_26.json
+   ONE AUDIOCONTEXT: everything below plays on the MUSIC studio's context and
+   its brickwall limiter. The run posts an event name; nothing else. */
+(function(){
+  'use strict';
+  if(window.__SFX_WIRE)return; window.__SFX_WIRE=true;
+  var APPROVED={"air_day":[0,1,2,3,4],"air_inside":[0,1,2,3,4],"air_night":[0,1,2,3,4],"block":[2],"door_drag":[0],"eat":[2],"hit":[2,4],"hurt":[2],"kill":[0,1,2,3,4],"phone_buzz":[2,4],"pickup":[0,1,2,3,4],"save_chime":[0,1,2,3,4],"shot":[3],"step_asphalt":[0,1,2,3,4],"step_dirt":[0,1,2,3,4],"step_gravel":[0,1,2,3,4],"time_pass":[0,1,2,3,4],"ui_tap":[1,2,3]};
+  /* THE BOARD HAS TO KNOW WHICH MOMENTS ACTUALLY HAVE A SOUND (8/2), and it
+     must read the SAME table playSFX reads. A second copy of his thumbs is a
+     second thing that can be wrong. */
+  try{ window.__SFX_APPROVED=APPROVED; }catch(_e){}
+  var last={};                       /* per event: what played last, never twice */
+  var SFX_COUNT=0;                   /* what the status line in the MUSIC tab reports */
+  function pick(ev){
+    var set=APPROVED[ev]; if(!set||!set.length)return null;   /* unjudged = silent */
+    if(set.length===1)return set[0];
+    var i, guard=0;
+    do{ i=set[(Math.random()*set.length)|0]; }while(i===last[ev] && ++guard<8);
+    last[ev]=i; return i;
+  }
+  var cache={};
+  function vec(ev,i){
+    var k=ev+'.'+i;
+    if(!cache[k]){ try{ cache[k]=BOH_SFX.cook(ev,5)[i]; }catch(e){ return null; } }
+    return cache[k];
+  }
+  /* ===== ONE BUS FOR EVERY SOUND EFFECT (8/2) ==========================
+     Paolo 8/2: "when we have a menu and it's gonna have Settings and then we
+     can change the volume of all sound effects or whatever so yeah just keep
+     that in mind."
+     Effects were reaching the output THREE different ways: footsteps on their
+     own quiet bus, ambience on another, and everything else straight into the
+     music master. A volume slider would have had to know about all three and
+     would have drifted the moment a fourth appeared. So there is one node now.
+     Everything an effect makes goes through SFXBUS -> MUS.MAST, and the whole
+     settings hook is setSFXVolume().
+     IT DOES NOT FLATTEN THE MIX HE APPROVED: the footstep bus and the ambience
+     bus keep their own gains and simply feed this one instead of the master, so
+     every level he judged stays exactly where it was relative to everything
+     else. This is a place to put a knob, not a re-mix. */
+  var SFXBUS=null, SFXVOL=1;
+  try{ var sv=parseFloat(localStorage.getItem('bohemia_sfxvol'));
+       if(sv>=0 && sv<=1) SFXVOL=sv; }catch(e){}
+  function sfxBus(){
+    try{
+      if(SFXBUS) return SFXBUS;
+      if(typeof MUS==='undefined' || !MUS.AC) return null;
+      SFXBUS=MUS.AC.createGain(); SFXBUS.gain.value=SFXVOL;
+      SFXBUS.connect(MUS.OUT||MUS.MAST||MUS.AC.destination);  /* 8/2: the OUTPUT bus, never the music master -- MUS.stop() ducks MAST to zero and that used to mute the whole game */
+      window.__SFXBUS=SFXBUS;
+    }catch(e){ SFXBUS=null; }
+    return SFXBUS;
+  }
+  /* THE WHOLE SETTINGS HOOK. When the menu exists it calls this and nothing
+     else. 0 is silent, 1 is the mix he judged. */
+  window.setSFXVolume=function(v){
+    v=Math.max(0,Math.min(1,+v||0)); SFXVOL=v;
+    try{ localStorage.setItem('bohemia_sfxvol',String(v)); }catch(e){}
+    try{ if(SFXBUS) SFXBUS.gain.value=v; }catch(e){}
+    return v;
+  };
+  window.getSFXVolume=function(){ return SFXVOL; };
+
+  /* FOOTSTEPS SIT WAY UNDER EVERYTHING (Paolo 8/1): "relative to like the music
+     it should be like a lot quieter like A LOT A LOT quieter -- the noise that
+     makes for me stepping in different terrain should be quieter."
+     ANOTHER SESSION BUILT THIS RULING AND IT NEVER FIRED. Their stepSfx() hangs
+     off a BOHEMIA_STEP message that the run does not post -- measured live:
+     stepSfx called 0 times across a walk, while playSFX handled every footstep.
+     So the 0.12 they set was dead code and his ruling was being dropped on the
+     floor while everyone assumed it had shipped. It is applied HERE, on the
+     path that actually runs.
+     A SUB-BUS, not an edit to his vectors: the verdict is on the SOUND, never
+     on how loud the game chooses to play it. STEPS -> SFXBUS -> master, so the
+     settings knob still reaches them. */
+  var STEPBUS=null, STEP_GAIN=0.12;      /* ~-18 dB under everything else */
+  function stepBus(){
+    try{
+      if(STEPBUS) return STEPBUS;
+      var out=sfxBus(); if(!out) return null;
+      STEPBUS=MUS.AC.createGain(); STEPBUS.gain.value=STEP_GAIN;
+      STEPBUS.connect(out); window.__STEPBUS=STEPBUS;
+    }catch(e){ STEPBUS=null; }
+    return STEPBUS;
+  }
+
+  /* THE ONE ENTRY POINT. when==='beat' fires on the next downbeat of the real
+     song (the 120 BPM LAW: a kill lands ON the beat), anything else fires now. */
+  /* === VOICE LIMITING (8/4) =============================================
+     MEASURED at the limiter output, firing N copies of one shot at the same
+     instant:
+        1 copy  energy 2.18    8 copies energy 2.25
+        2       2.18          16       1.81   <- LESS THAN ONE
+     Past the first, a stacked sound adds NOTHING. The brickwall holds the peak
+     at 0.80 either way, so all the extra copies do is push the limiter down --
+     and the limiter pushes EVERYTHING down with it: the music, the footsteps,
+     the ambience. The loudest moment in the game was the moment it went flat.
+     It is not hypothetical. A combat volley resolves several enemies in the same
+     frame, which is why the block sound already needed a hand-rolled guard and
+     the neighbour footstep needed another. Two ad-hoc guards for one defect
+     means the defect belongs one level up.
+     TWO LIMITS, both deliberately generous:
+       PER EVENT, 45ms. Two identical sounds closer together than about 40ms do
+       not read as two sounds; they read as one with a thicker attack. This is
+       the flam threshold, not a gameplay choice.
+       GLOBAL, 8 voices per 60ms. A fight can absolutely fire eight DIFFERENT
+       things at once and should. It cannot usefully fire twenty.
+     THE FIRST SOUND IS NEVER DROPPED, and a lone sound is never touched. */
+  var VOX=[], LASTEV={};
+  var VOX_EVENT_MS=45, VOX_WINDOW_MS=60, VOX_MAX=8;
+  function voiceOK(ev){
+    var now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+    var last=LASTEV[ev];
+    if(last!=null && (now-last)<VOX_EVENT_MS) return false;
+    while(VOX.length && (now-VOX[0])>VOX_WINDOW_MS) VOX.shift();
+    if(VOX.length>=VOX_MAX) return false;
+    LASTEV[ev]=now; VOX.push(now);
+    return true;
+  }
+  window.__voiceStats=function(){ return {perEvent:VOX_EVENT_MS, window:VOX_WINDOW_MS, max:VOX_MAX}; };
+  /* === THE ROOM TAKES THE SOUND (8/4) ==================================
+     Measured RT60 from the acoustics literature, mapped onto the four places
+     this game actually has. STREET is 1.0 on every dial ON PURPOSE: it is the
+     commonest place in the run, so his approved sounds are untouched there and
+     only LEAVING the street changes anything.
+       OPEN    open terrain has almost nothing to reflect off
+       STREET  the canyon, and the baseline
+       ROOM    ~0.2s, and darker: furniture and cloth eat the highs
+       HALL    2-3s (a parking basement measures ~3s), bright and long
+     No convolver, no delay, no feedback. These four fields are the engine's
+     OWN finite space machinery: re-struck bodies and a filtered noise tail. */
+  var SPACES={
+    OPEN:   {space:0.30, room:0.45, refl:0.0, dark:1.15},
+    STREET: {space:1.00, room:1.00, refl:1.0, dark:1.00},
+    ROOM:   {space:0.85, room:0.55, refl:1.6, dark:0.72},
+    HALL:   {space:1.70, room:3.00, refl:2.2, dark:1.30}
+  };
+  var SPACE='STREET';
+  window.__sfxSpace=function(){ return SPACE; };
+  /* EXPOSED SO IT CAN BE CHECKED EXACTLY. playSFX picks a RANDOM candidate from
+     his approved set every call, and the difference between two of his
+     candidates is bigger than the difference a room makes -- so measuring the
+     room by playing playSFX twice proves nothing, which is exactly what the
+     first measurement of this feature "showed". */
+  window.__sfxInSpace=function(v,sp){ var k=SPACE; if(sp)SPACE=sp;
+    try{ return inSpace(v); } finally { SPACE=k; } };
+  function inSpace(v){
+    var p=SPACES[SPACE]||SPACES.STREET;
+    if(p.space===1&&p.room===1&&p.refl===1&&p.dark===1) return v;   /* baseline: untouched */
+    var w={},k; for(k in v) w[k]=v[k];
+    w.space=Math.max(0,Math.min(1,(v.space||0)*p.space));
+    w.room =Math.max(0,Math.min(3,(v.room ||0)*p.room));
+    w.refl =Math.max(0,Math.min(4,Math.round((v.refl||0)*p.refl)));
+    w.dark =Math.max(300,Math.min(9000,(v.dark||2600)*p.dark));
+    return w;
+  }
+  window.playSFX=function(ev,when){
+    try{
+      if(typeof BOH_SFX==='undefined')return null;
+      if(!voiceOK(ev))return null;
+      var i=pick(ev); if(i==null)return null;
+      var v=vec(ev,i); if(!v)return null;
+      v=inSpace(v);
+      MUS.audio();
+      var AC=MUS.AC;
+      /* a footstep goes to the quiet sub-bus; everything else to the master */
+      var dest=(ev.indexOf('step_')===0 ? (stepBus()||sfxBus()) : sfxBus())
+               || MUS.OUT || MUS.MAST || AC.destination;
+      var at=null;
+      if(when==='beat' && MUS.playing && MUS.nextT){
+        /* the next 16th that is also a beat boundary */
+        var sd=MUS.stepDur(), s=MUS.step||0, ahead=(4-(s%4))%4;
+        at=MUS.nextT+ahead*sd;
+      }
+      var node=BOH_SFX.render(v,AC,dest,at);
+      if(node) SFX_COUNT++;         /* counted where it RENDERS, not where it is asked for */
+      return node;
+    }catch(e){ return null; }
+  };
+  /* UNLOCK ON THE FIRST TOUCH, ANY TOUCH (7/31 -- "I didnt hear ur sounds").
+     An AudioContext may only be STARTED inside a real user gesture. iOS is
+     strict about it: build one outside a gesture and it is born suspended, and
+     resume() from a postMessage handler is refused for the whole session.
+     The old wire only ever reached MUS.audio() from inside playSFX, and the
+     only gesture that could get there was a tap on a button/.tab/.opt. The
+     splash is <div id="front">, so THE FIRST THING HE EVER TOUCHES matched
+     nothing. Land straight in the RUN tab, walk, and every footstep arrives by
+     postMessage with no gesture behind it: silence, permanently, and the sound
+     is "working" the whole time. So: unlock on the first interaction of ANY
+     kind, anywhere, before anything needs to make noise. */
+  /* THE RING/SILENT SWITCH (7/31, second report of silence).
+     On iPhone, a page that makes sound ONLY through WebAudio is muted by the
+     physical switch on the side of the phone, with no error, no warning and
+     nothing in the page to see. Every check can pass and the phone stays quiet.
+     Safari 16.4+ lets a page say it is playback rather than ambient audio,
+     which opts out of that switch. Set it before the context starts, because it
+     decides the category the context is born into. Absent everywhere else, so
+     the guard is the whole compatibility story. */
+  function claimPlayback(){
+    try{ if(navigator.audioSession) navigator.audioSession.type='playback'; }catch(e){}
+  }
+  claimPlayback();
+  function unlock(){
+    claimPlayback();
+    try{ MUS.audio(); if(MUS.AC && MUS.AC.state==='suspended') MUS.AC.resume(); }catch(e){}
+    /* BUILD THE SFX MASTER THE INSTANT AUDIO EXISTS. Lazily is not good enough:
+       the footstep bus is built on the first footstep and reads window.__SFXBUS
+       to decide what to plug into, so if a step happens before any other sound
+       it wires itself to the music master FOREVER and the volume slider cannot
+       reach it. Measured exactly that: muted everything and footsteps still
+       came out at 0.27. Order of creation is not something to leave to luck. */
+    try{ sfxBus(); }catch(e){}
+  }
+  ['pointerdown','touchend','mousedown','click','keydown'].forEach(function(t){
+    document.addEventListener(t, unlock, {capture:true, passive:true});
+  });
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden) unlock();      /* coming back from the lock screen */
+  });
+  /* the run asks; the parent plays */
+  window.addEventListener('message',function(ev){
+    try{
+      var d=ev&&ev.data; if(!d)return;
+      /* A TOUCH INSIDE THE IFRAME IS STILL A TOUCH. It does not bubble out to
+         this document, so the run tells us one happened and we take the chance
+         to start the audio while the browser may still count it as gestured. */
+      if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
+      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d);
+        if(d.space && SPACES[d.space]) SPACE=d.space;   /* the run says where you stand */ musicPhase(d); timePass(d); return; }
+      if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
+      if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
+    }catch(e){}
+  });
+
+  /* === THE CLOCK FINALLY REACHES THE MUSIC (8/4) ========================
+     CITYMUS.phase shipped hardcoded to 'NIGHT', with a comment that said
+     outright: "the valley is night until a world clock lands; whoever builds
+     the clock sets CITYMUS.phase". The clock landed. Nobody set it.
+     MEASURED before touching anything, because a claim like this has to be a
+     number: at the shipped phase the overworld pool is 10 songs, and the SEVEN
+     songs Paolo tagged OVERWORLD DAY or OVERWORLD DUSK/DAWN are in none of
+     them. Over 200 draws, THE MARKER ON THE DOOR came up ZERO times -- the one
+     song in this entire project he has ever said he likes ("now one of my new
+     favorite songs that you've made"), tagged OVERWORLD DAY by his own hand,
+     unplayable in the run since the day he tagged it.
+     That is APPROVED-BUT-UNUSED, the defect this lane already has a law about,
+     sitting in the music instead of the sound effects.
+     THE FIX NEEDS NO RULING: the run already posts the world MINUTE here every
+     four seconds, and this handler already uses it to choose the ambience bed.
+     The same number now chooses the pool.
+     THE WINDOWS NEST INSIDE THE AMBIENCE SPLIT ON PURPOSE. The bed calls night
+     before 06:00 and from 19:00; DAWN and DUSK sit strictly inside the daylit
+     side of that line, so the two systems can never disagree about whether it
+     is dark. One clock, one opinion.
+     IT NEVER CUTS A SONG. Only the phase moves; CITYMUS picks again at the end
+     of its 64-bar pass, so the change arrives on a musical boundary instead of
+     as a jump-cut. */
+  var LASTPHASE=null;
+  function musicPhase(d){
+    try{
+      if(typeof CITYMUS==='undefined'||!CITYMUS) return;
+      var m=+d.min; if(!isFinite(m)) return;
+      var ph = (m<6*60||m>=19*60) ? 'NIGHT'
+             : (m<8*60)           ? 'DAWN'
+             : (m<17*60)          ? 'DAY'
+                                  : 'DUSK';
+      if(ph===LASTPHASE) return;
+      LASTPHASE=ph;
+      CITYMUS.phase=ph;
+      /* AND MAKE IT AUDIBLE (8/7). Setting the phase only changes what the NEXT
+         pick draws from, and the shuffle only picked at the end of a 64-bar
+         pass -- 128 seconds at 120 BPM -- so dawn could break and the night
+         pool would keep playing for over two minutes. onPhaseChange arms a turn
+         at the next 8-bar boundary; it never plays anything itself, so this
+         cannot interrupt a song mid-phrase. Guarded because the hook ships in a
+         separate patch and a missing one must never break the clock. */
+      if(typeof CITYMUS.onPhaseChange==='function') CITYMUS.onPhaseChange();
+    }catch(e){}
+  }
+  window.__musicPhase=function(){ return (typeof CITYMUS!=='undefined'&&CITYMUS)?CITYMUS.phase:null; };
+
+  /* === HOURS GO BY, AND YOU HEAR HOW MANY (8/7) ==========================
+     PAOLO'S RULING, on his own 130/130 export, and NOTES ARE RULINGS (7/19):
+
+        "For hours go by have it the amount of time that goes by"
+
+     He approved all five TIME_PASS candidates and killed all five SLEEP ones in
+     the same breath, which read together is one decision rather than two: the
+     passage of time is THE sound, and sleeping is a QUANTITY of it, not a
+     separate ceremony that needs its own cue.
+
+     SO IT STRIKES LIKE A CLOCK. One note per hour. Four hours is four notes,
+     eight is eight. That is the most literal reading of what he asked for and
+     it is also the only one that carries information: you can COUNT it without
+     being told, the way a bell tower tells a valley what time it is. Nothing
+     announces the number, you just hear it go by.
+
+     IT DOES NOT RE-COOK HIS SOUND. Every strike is one of the five vectors he
+     thumbed up, taken in order, cycling if there are more hours than
+     candidates. The mechanism picks BETWEEN the sounds he picked; it never
+     alters one. Same rule that makes footsteps work.
+
+     ON THE BEAT, per the 120 BPM LAW: strikes land a beat apart in AUDIO time,
+     scheduled ahead on the one AudioContext, not fired by a timer.
+
+     AND IT DELIBERATELY SKIPS THE VOICE LIMITER. voiceOK() throttles on the
+     WALL CLOCK, and every strike here is requested in the same millisecond even
+     though they sound seconds apart -- so the limiter would drop every note
+     after the first and an eight-hour sleep would strike ONCE. The limiter
+     exists to stop simultaneous pile-ups crushing the brickwall (16 at once
+     measured QUIETER than one, 8/4). These are not simultaneous; they are the
+     opposite. Scheduling is the throttle.
+
+     CAPPED AT 12. Past twelve strikes it stops being countable and starts being
+     noise, and twelve is where a clock face stops too. */
+  var STRIKE_MAX=12;
+  function strikeHours(h){
+    h=Math.max(1,Math.min(STRIKE_MAX, h|0));
+    try{
+      var set=(window.__SFX_APPROVED&&window.__SFX_APPROVED.time_pass)||[];
+      if(!set.length) return 0;            /* unjudged is silent, always */
+      if(typeof BOH_SFX==='undefined'||typeof MUS==='undefined') return 0;
+      MUS.audio(); var AC=MUS.AC; if(!AC) return 0;
+      var dest=sfxBus()||MUS.OUT||MUS.MAST||AC.destination;
+      var gap=(BOH_SFX.BEAT||0.5);
+      var t0=AC.currentTime+0.06, fired=0;
+      for(var i=0;i<h;i++){
+        var v=vec('time_pass', set[i%set.length]); if(!v) continue;
+        /* heard in the room he is standing in, like everything else */
+        var vv=(typeof window.__sfxInSpace==='function')?window.__sfxInSpace(v):v;
+        if(BOH_SFX.render(vv,AC,dest,t0+i*gap)){ fired++; SFX_COUNT++; }
+      }
+      return fired;
+    }catch(e){ return 0; }
+  }
+  window.__strikeHours=strikeHours;
+
+  /* WHAT COUNTS AS TIME GOING BY. The run already reports the world clock every
+     four seconds, so no new state and no new message: a JUMP in that number is
+     time passing, and its size is how much. An hour is the floor -- walking
+     around does not move the clock by an hour in four seconds, so ordinary play
+     can never trigger this, and only a real skip (sleep, a wait, a long
+     journey) can. Midnight is handled: 22:00 -> 06:00 reads as -960, which is
+     eight hours forward, not minus sixteen. */
+  var LASTMIN=null, LASTJUMP=null, TP_MIN=60;
+  function timePass(d){
+    try{
+      var m=+d.min; if(!isFinite(m)) return;
+      if(LASTMIN===null){ LASTMIN=m; return; }
+      var jump=m-LASTMIN; if(jump<0) jump+=1440;
+      LASTMIN=m;
+      LASTJUMP=jump;
+      if(jump<TP_MIN) return;
+      strikeHours(Math.round(jump/60));
+    }catch(e){}
+  }
+  /* jump is reported so a test can tell ITS OWN clock move from somebody
+     else's. The run reports the world clock every four seconds on its own, and
+     a stray report landing between a test's two posts is a real jump that makes
+     real strikes -- indistinguishable from the test's own unless the game says
+     what it actually computed. */
+  window.__timePassStats=function(){
+    return {floorMin:TP_MIN, max:STRIKE_MAX, last:LASTMIN, jump:LASTJUMP}; };
+
+  /* === SOMEBODY ELSE'S FOOTSTEP, PLACED IN SPACE (8/2) ==================
+     THE DISTANCE MODEL IS THE RESEARCHED ONE, not a guess: a point source
+     follows the inverse law, amplitude proportional to 1/r, dropping about 6 dB
+     every time the distance doubles, and inverse is the recommended default
+     when in doubt. So 1/(1+k*r), not a linear fade -- linear is for ambient
+     zones and UI, and it makes everything sound like it is the same distance
+     away until it abruptly is not.
+     PAN is the crude, correct tool for a top-down 2D game: left is left. It is
+     taken from the x offset only, because a top-down view has no front/back to
+     confuse and faking one with filters would be inventing information the
+     game does not have.
+     CUTOFF, not fade-to-nothing: below a hearable gain it plays NOTHING rather
+     than a sound too quiet to identify. A sound you cannot place is noise. */
+  var NPC_PLAYED=0;
+  window.__npcPlayed=function(){ return NPC_PLAYED; };
+  function npcStep(d){
+    try{
+      var r=Math.max(0.5, +d.dist||0);
+      var g=1/(1+0.55*r);                    /* ~0.65 next to you, ~0.25 at 5 tiles */
+      if(g<0.06) return;                     /* too far to be information */
+      var pan=Math.max(-1,Math.min(1,(+d.dx||0)/6));
+      var ev='step_'+(({asphalt:'asphalt',dirt:'dirt',gravel:'gravel'})[d.surface]
+                      ||String(d.surface||'').replace('step_','')||'dirt');
+      if(!APPROVED[ev]) ev='step_dirt';
+      var i=pick(ev); if(i==null)return;
+      var v=vec(ev,i); if(!v)return;
+      if(typeof MUS==='undefined')return; MUS.audio(); if(!MUS.AC)return;
+      /* NOT through the player's footstep bus. That bus is at 0.12 because HIS
+         OWN steps fire constantly and would be fatiguing -- a neighbour's step
+         is rare and is INFORMATION, and stacking 0.12 on top of distance made
+         it 0.0095, which is a number, not a sound. Distance is the only thing
+         that should quieten this. */
+      var out=sfxBus(); if(!out)return;
+      NPC_PLAYED++;   /* what the neighbour ACTUALLY played, for anything that
+                         needs to ask. A test cannot get this from the bus peak:
+                         the ambience bed shares that bus and fires one-shots
+                         every 40-95s, so "the bus made a noise" attributes
+                         somebody else's sound to the neighbour. */
+      var at=MUS.AC.createGain(); at.gain.value=g; at.connect(out);
+      /* the vector is HIS and is never edited -- a copy carries the position */
+      var w={}, k; for(k in v) w[k]=v[k];
+      w.pan=pan;
+      BOH_SFX.render(w,MUS.AC,at,null);
+      SFX_COUNT++;
+    }catch(e){}
+  }
+
+  /* === THE WORLD TONE (8/1) ==============================================
+     He approved all 15. It is one of the ambient noises: a rare sound so the
+     valley is not dead air. It is NOT a clock -- something that fires a minute
+     apart tells you nothing about the time, and the music already handles time
+     of day. What it does is make the place feel occupied by nothing.
+
+     THREE RULES, boring on purpose:
+       WHICH  indoors -> air_inside. Outdoors -> air_night before 06:00 or from
+              19:00, else air_day. The run reports both facts every 4s.
+       WHEN   a random gap of 40 to 95 seconds. That is MY DEFAULT and nothing
+              decided it but taste. One word from him changes it.
+       QUIET  its own bus at 0.4 of the level he judged it at. He judged these
+              loud enough to hear on a phone; under the game they sit below
+              everything. He was told that before he thumbed them, so this is
+              the plan he approved rather than a change to it.
+
+     IT ONLY RUNS WHILE THE RUN IS ON SCREEN. If the reports stop, the ambience
+     stops, so it can never play over him judging sounds in the MUSIC tab. */
+  var AMB={
+    kind:null, next:0, bus:null, seen:0,
+    where:function(d){
+      this.seen=Date.now();
+      this.kind = d.inside ? 'air_inside' : (d.night ? 'air_night' : 'air_day');
+    },
+    gap:function(){ return 40 + Math.random()*55; },
+    tick:function(){
+      if(!this.kind) return;
+      /* IS THE RUN ACTUALLY ON SCREEN? Message recency does NOT answer this:
+         a hidden iframe keeps its timers running, so the run keeps reporting
+         from the MUSIC tab and the ambience would play over him judging
+         sounds. Ask the DOM whether the run panel is visible instead. */
+      if(Date.now()-this.seen > 12000) return;      /* the run is not even loaded */
+      /* ASK THE TAB, not the panel. Two wrong guesses before this one:
+         offsetParent is null under any position:fixed ancestor even when the
+         thing is plainly on screen, and #p-run is display:none the whole time
+         because the RUN tab actually shows the p-city panel
+         (PANEL = t.dataset.p==='run' ? 'city' : ...). The tab carrying class
+         'on' is what the alpha itself uses to mean "this is the open tab", so
+         use the app's own answer instead of inventing a third one. */
+      var tab=document.querySelector('.tab[data-p="run"]');
+      if(!tab || !tab.classList.contains('on')) return;
+      var now=Date.now();
+      if(!this.next){ this.next = now + this.gap()*1000; return; }
+      if(now < this.next) return;
+      this.next = now + this.gap()*1000;
+      try{
+        if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return;
+        MUS.audio(); if(!MUS.AC) return;
+        if(!this.bus){
+          this.bus = MUS.AC.createGain();
+          this.bus.gain.value = 0.4;
+          /* MUS.OUT before MUS.MAST: nothing that is not music may fall back
+             to the MUSIC master, because MUS.stop() ducks it to zero. */
+          this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
+        }
+        var set=APPROVED[this.kind]; if(!set||!set.length) return;
+        var i=set[(Math.random()*set.length)|0];
+        var v=vec(this.kind,i); if(!v) return;
+        BOH_SFX.render(v,MUS.AC,this.bus,null);
+        SFX_COUNT++;
+      }catch(e){}
+    }
+  };
+  window.__AMB=AMB;
+  setInterval(function(){ AMB.tick(); }, 1000);
+  /* the parent's own surfaces: every button on the phone is a UI TAP.
+     EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR
+     THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE
+     A SOUND WHEN I CLICK PLAY ON A NEW SOUND IM TESTING"). He is right, and it
+     made the entire soundboard useless: the tap fired on the SAME CLICK as the
+     candidate, so his own approved UI tick played on top of every sound he was
+     trying to judge. A judging surface has to be silent except for the thing
+     being judged.
+     MARKED BY CONTAINER, never by guessing at labels: anything inside the SFX
+     judge, the soundboard, the mix panel or the music studio's transport is
+     auditioning audio and never gets a tap over it. data-noui is the escape
+     hatch for any panel built later, so the next audition surface does not have
+     to rediscover this the hard way. */
+  var NOUI='#sfxWrap,#sbWrap,#mixWrap,.mus-play,.mus-cell,[data-noui]';
+  document.addEventListener('click',function(e){
+    var t=e&&e.target; if(!t)return;
+    if(t.closest&&t.closest(NOUI)) return;   /* this click IS a sound already */
+    if(t.closest&&(t.closest('button')||t.closest('.tab')||t.closest('.opt')))
+      window.playSFX('ui_tap');
+  },true);
+  /* SAY WHAT THE AUDIO IS DOING (7/31). He reported silence twice and both
+     times I had to guess at his phone from here, because a muted iPhone and a
+     broken wire look exactly the same from the outside: nothing. This is one
+     line in the MUSIC tab that turns "I hear nothing" into something he can
+     read back to me. It reports the three things that can each cause silence
+     on their own: whether audio ever STARTED, whether the ring/silent switch
+     opt-out took, and how many sounds have actually been fired. */
+  function statusLine(){
+    var el=document.getElementById('sfxStatus');
+    if(!el){
+      var host=document.getElementById('p-music'); if(!host)return;
+      el=document.createElement('div'); el.id='sfxStatus';
+      el.style.cssText='font:11px ui-monospace,monospace;padding:7px 9px;margin:6px 0;'+
+        'border:1px solid #3a3a30;border-radius:6px;letter-spacing:.5px;line-height:1.5';
+      host.insertBefore(el, host.firstChild);
+    }
+    var on=false, st='never started';
+    try{ if(typeof MUS!=='undefined'&&MUS.AC){ st=MUS.AC.state; on=(st==='running'); } }catch(e){}
+    var claim='n/a on this browser';
+    try{ if(navigator.audioSession) claim=navigator.audioSession.type||'unset'; }catch(e){}
+    el.style.borderColor = on ? '#4d6b45' : '#7a3a30';
+    el.style.background  = on ? 'rgba(60,90,55,0.16)' : 'rgba(120,50,40,0.16)';
+    el.style.color       = on ? '#a8c69c' : '#e8a08f';
+    el.innerHTML =
+      '<b>SOUND: '+(on?'ON':'NOT PLAYING')+'</b><br>'+
+      'audio engine: '+st+'<br>'+
+      'silent-switch opt-out: '+claim+'<br>'+
+      'sounds fired: '+SFX_COUNT+
+      (on?'':'<br>if this stays red after you tap the screen, it is the phone, not the game');
+  }
+  setInterval(statusLine, 700);
+  if(document.readyState!=='loading') statusLine();
+  else document.addEventListener('DOMContentLoaded', statusLine);
+})();
+</script>
+<!-- /BOHEMIA SFX WIRE PARENT -->
 <div id="exportModal" style="display:none;position:fixed;inset:8px;background:#111;border:2px solid #6f6;z-index:99;padding:8px"><div style="margin-bottom:6px"><b>EXPORT</b> <span id="expStat"></span> <button id="expShare" class="opt" style="border-color:#6f6"><b>SHARE FILE</b></button> <button id="expCopy" class="opt">COPY</button> <button id="expDownload" class="opt">DOWNLOAD FILE</button> <button id="expClose" class="opt">CLOSE</button></div><textarea id="expText" style="width:100%;height:82%;background:#000;color:#9f9;font:11px monospace" readonly></textarea></div>
 <style>
 #p-clothes .cloHdr{font-size:11px;letter-spacing:1px;color:#7a6a4a;padding:6px 2px 2px;text-align:center}

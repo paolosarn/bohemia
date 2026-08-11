@@ -750,6 +750,58 @@ volume ledger (rail turnout/crossing/buffer, wheel stops/ADA, RTU recook at
 cell size, roll-up doors, fence gates/toppers, deck stairs after TF-CMB-004).
 
 ART (f3eu53): 8/11 (g) -- *** HIS VERDICT ON THE WIRED WORK: "LOOKS GOOD
+SOUND (sound-xk7pjp): 8/12 (a) LATEST -- *** THE GAME HAS 54 SOUND MOMENTS NOW,
+NOT 28, AND THE 26 NEW ONES WERE BUILT OUT OF A MEASUREMENT OF HIS OWN 140
+THUMBS. TAB: MUSIC. ***
+
+HIS ASK (8/11): "we may need way more voices and way more sounds for the whole
+game." The voices half shipped the same day (envelope cast from his six
+approved speakers, 192 distinct people). THIS IS THE SOUNDS HALF, built in the
+same order: MEASURE HIS VERDICTS FIRST, WRITE RECIPES SECOND.
+
+WHAT THE 140 THUMBS SAY (62 UP / 78 DOWN, every verdict file joined to the
+cooked vector behind its id -- records/BOHEMIA_SFX_ENVELOPE_8_12_26.md):
+  MATERIAL IS THE VERDICT. glass 100%, crystal 53%, stone 50%, bell 50%,
+    choir 50%, ash 43% -- and metal 20%, wood 33%, water 20%, which is
+    9 UP / 26 DOWN across 35 judgements. That independently reproduces the
+    7/30 door post-mortem out of data that post-mortem never looked at.
+  HE KILLS SOUNDS THAT ARE PUSHED. Makeup gain is the strongest continuous
+    separator in the whole set (approved 0.92 vs rejected 1.28, effect -1.17);
+    drive is second (0.16 vs 0.30); nothing else clears 0.45. That is his v1
+    complaint -- "made with some software from 2006" -- stated as a number.
+  AND WHAT IT DOES NOT SAY, which the gate refuses to fake: WITHIN one moment's
+    five candidates no knob has a clean direction. The envelope picks the
+    FAMILY. HE STILL PICKS THE SOUND.
+
+BATCH SFX-03, IN THE MUSIC TAB, WAITING FOR THUMBS (nothing banked -- unjudged
+is silent, on purpose):
+  the ground     step_concrete step_sand step_glass step_wood step_metal
+  the fight      swing melee_hit reload dry_fire casing
+  the body       heartbeat breath drink patch_up
+  the city       build_place demolish deed money power_on
+  the valley     wind_gust neon_buzz generator dog_far
+  the interface  ui_back ui_deny equip
+
+GATE: sfx_envelope_gate.py, 160 checks, registered as SFX ENVELOPE, mutation-
+tested. IT RE-DERIVES THE ENVELOPE FROM HIS VERDICT FILES ON EVERY RUN, so if
+his future thumbs reverse a direction the gate goes red and the recipes get
+rebuilt from the new data. A gate never outranks a ruling; this one reads it.
+
+ALSO FIXED THIS TURN, AND IT WAS A CROSS-LANE COLLISION: the CUTSCENE lane had
+independently built its own cutVoice() calling the voice engine directly. With
+my wire also live, EVERY LINE IN THE COLD OPEN SPOKE TWICE IN TWO DIFFERENT
+VOICES -- 26 renders for 7 lines. cutVoice now delegates to speakLine (one
+owner), and every_voice_surface_gate's repeat test was made SEED-BLIND, because
+a repeat test that also required matching seeds called two voice systems clean.
+
+WHAT IS WAITING ON PAOLO FROM THIS LANE (all in the MUSIC tab):
+  1. the 26 new sound moments above (shuffle mode deals them unjudged)
+  2. the 12 envelope voices (VOICE-02)
+  3. the 4 acoustic spaces
+  4. the 9 batch-20 songs
+NOT DONE, AND DELIBERATELY: none of the 26 is wired to a call site yet. They
+are silent until he thumbs them, so wiring first would be wiring to nothing --
+the wire lands the turn the bank does.
 
 PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
