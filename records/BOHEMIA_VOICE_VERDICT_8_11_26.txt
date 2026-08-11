@@ -1,0 +1,59 @@
+=== BOHEMIA SQUIGGLE VOICE VERDICTS ===
+BATCH VOICE-01 (8/9/26) - 8 candidate voices
+UP = this is a voice a person in this game has. DOWN = dead.
+The line judged last: QUESTION
+
+EXPORTED BY PAOLO 8/11/26, verbatim.
+
+DOWN VOICE 1   seed=cand-0
+     f0=198 tract=1.299 rate=7.5 wave=square gruff=0.386 vib=0.97 vibA=0.0235 tilt=1.14 drop=0.212
+UP   VOICE 2   seed=cand-1
+     f0=252 tract=1.07 rate=10.74 wave=triangle gruff=0.302 vib=0.73 vibA=0.0181 tilt=1.426 drop=0.221
+UP   VOICE 3   seed=cand-2
+     f0=212 tract=1.225 rate=8.82 wave=triangle gruff=0.155 vib=0.38 vibA=0.017 tilt=1.404 drop=0.24
+UP   VOICE 4   seed=cand-3
+     f0=168 tract=1.032 rate=10.13 wave=square gruff=0.055 vib=0.43 vibA=0.0078 tilt=0.895 drop=0.22
+UP   VOICE 5   seed=cand-4
+     f0=195 tract=0.963 rate=7.55 wave=sawtooth gruff=0.44 vib=0.05 vibA=0.0079 tilt=0.718 drop=0.249
+DOWN VOICE 6   seed=cand-5
+     f0=147 tract=1.186 rate=11.65 wave=triangle gruff=0.477 vib=1.73 vibA=0.0254 tilt=0.77 drop=0.213
+UP   VOICE 7   seed=cand-6
+     f0=226 tract=0.996 rate=9.16 wave=sawtooth gruff=0.17 vib=0.17 vibA=0.0209 tilt=0.939 drop=0.167
+UP   VOICE 8   seed=cand-7
+     f0=229 tract=0.943 rate=12.35 wave=sawtooth gruff=0.527 vib=0.73 vibA=0.0049 tilt=0.604 drop=0.254
+
+NOTE: I LIKE IT ALL JUST REMOVE THE CLICKING BROTHER
+
+--- WHAT THIS LANDED ---
+
+SIX OF EIGHT UP. First batch this lane has ever put up on the first showing.
+
+HIS NOTE IS A RULING (NOTES ARE RULINGS, 7/19) AND IT WAS A REAL DEFECT, not a
+preference. Rendered offline and measured on the samples:
+
+    BEFORE   max sample-to-sample jump 0.109 against a peak of 0.136
+             307 jumps over 0.03 in one spoken line
+             unvoiced bursts peaked at 0.115, vowels at 0.046  -> +8 dB
+    AFTER    max jump 0.0165, ZERO jumps over 0.03
+             unvoiced 8.1 dB BELOW the vowels
+
+TWO FAULTS, BOTH IN THE ENVELOPE, AND THE SECOND ONE WAS STRUCTURAL:
+  1. Every blip's release ended at 0.0001 and then stop() cut the source, so
+     there was a step at the end of EVERY sound. Exponential ramps cannot reach
+     zero; it now hands over to a short linear ramp that can.
+  2. An unvoiced burst was given a vowel's 6ms attack. On a 40ms hiss that is an
+     EDGE, and an edge on broadband noise IS a click. Attack and release now
+     scale with the blip.
+  And the levels were inverted for a reason worth remembering: a vowel is
+  squeezed through three NARROW bandpasses (Q 7/9/11) that throw most of the
+  source away, while a hiss goes through one WIDE one (Q 0.7) that passes nearly
+  everything -- so the amplitude numbers in the recipe did not mean what they
+  looked like. Real speech runs consonants about -7.4 dB against vowels
+  (fricative contrast 7-14 dB, sibilants strongest at -2.4, dentals weakest at
+  -21). Mine ran +8. Sixteen dB the wrong side.
+
+Gate: gates/voice_gate.py, 28 -> 32 checks. Mutation tested: restoring the loud
+hiss turns it red on three.
+
+NOTHING IS ASSIGNED. Which of his six belongs to the father, the mother, the
+brother, the sister or anyone else is his ruling and has not been made.

@@ -70,6 +70,12 @@ const pw = pwmod();
   out.noui      = await p.evaluate(() => { const w=document.getElementById('vxWrap');
                                            return !!(w && w.hasAttribute('data-noui')); });
   out.rows      = await p.evaluate(() => document.querySelectorAll('#vxWrap .vxPlay').length);
+  // HIS 8/11 THUMBS MUST BE ON THE SURFACE, not just in a file. Six up, two
+  // down -- and he must never be asked for a verdict he already gave.
+  out.approvedList = await p.evaluate(() => window.__VOICES_APPROVED || null);
+  out.thumbsShown  = await p.evaluate(() => ({
+    up:   document.querySelectorAll('#vxWrap .vxUp.on').length,
+    down: document.querySelectorAll('#vxWrap .vxDn.on').length }));
 
   // SEEDED: a voice is a pure function of its seed.
   out.seeded = await p.evaluate(() => {
@@ -144,6 +150,46 @@ const pw = pwmod();
   out.say3 = await say('mother', STMT);      // different person
   out.sayQ = await say('father', QUES);
 
+  // ============ THE CLICKING, MEASURED ON THE SAMPLES ==================
+  // Paolo 8/11: "I LIKE IT ALL JUST REMOVE THE CLICKING". A click is not a
+  // matter of taste, it is a DISCONTINUITY, so it is rendered offline and the
+  // sample-to-sample jumps are counted. Two separate faults were found this way
+  // and both are guarded here:
+  //   the release ended at 0.0001 and then stop() cut the source, leaving a
+  //     step at the end of EVERY blip;
+  //   an unvoiced burst got a vowel's 6ms attack, which on a 40ms hiss is an
+  //     edge, and the bursts were EIGHT DB ABOVE the vowels instead of below.
+  // Measured before the fix: max jump 0.109 against a peak of 0.136, and 307
+  // jumps over 0.03 in one line. After: 0.0165 and zero.
+  //
+  // IT ALSO MEASURES THE BALANCE, because that is what made the edge audible.
+  // Real speech runs consonants about -7.4 dB against vowels (fricative
+  // contrast 7-14 dB); mine ran +8, which is sixteen dB the wrong side.
+  out.click = await p.evaluate(async () => {
+    const SR = 48000;
+    async function render(text){
+      const oc = new OfflineAudioContext(1, SR * 5, SR);
+      const v = BOH_VOICE.voiceOf('cand-1');          // one he approved
+      BOH_VOICE.say(text, v, oc, oc.destination, 0.05);
+      return (await oc.startRendering()).getChannelData(0);
+    }
+    function stats(d){
+      let maxJ = 0, peak = 0, over = 0;
+      for (let i = 1; i < d.length; i++) {
+        const j = Math.abs(d[i] - d[i-1]);
+        if (Math.abs(d[i]) > peak) peak = Math.abs(d[i]);
+        if (j > maxJ) maxJ = j;
+        if (j > 0.03) over++;
+      }
+      return { peak:+peak.toFixed(5), maxJump:+maxJ.toFixed(5), over03:over };
+    }
+    const vow = stats(await render("aeiou aeiou aeiou aeiou"));
+    const uns = stats(await render("psstk psstk psstk psstk"));
+    const real= stats(await render("Are you going to pay me or not?"));
+    const dB = 20 * Math.log10((uns.peak || 1e-6) / (vow.peak || 1e-6));
+    return { vow, uns, real, consonantDB:+dB.toFixed(2) };
+  });
+
   out.net = net.slice(0, 5);
   out.netOther = Array.from(new Set(netOther)).slice(0, 4);
   out.errors = errs.slice(0, 4);
@@ -197,6 +243,16 @@ def main():
     ok('it carries data-noui so a click tone cannot cover the voice (Paolo 8/4)',
        d.get('noui'))
     ok('eight candidate voices to judge (%s)' % d.get('rows'), d.get('rows') == 8)
+
+    ap = d.get('approvedList') or []
+    ok('HIS 8/11 VERDICT IS IN THE GAME: six voices approved (%d)' % len(ap),
+       sorted(ap) == ['cand-1', 'cand-2', 'cand-3', 'cand-4', 'cand-6', 'cand-7'])
+    ok('GRAVEYARD IS FINAL: the two he killed are not in the approved set',
+       'cand-0' not in ap and 'cand-5' not in ap)
+    th = d.get('thumbsShown') or {}
+    ok('and the judge OPENS showing his thumbs (%s up, %s down), so he is never '
+       'asked twice' % (th.get('up'), th.get('down')),
+       th.get('up') == 6 and th.get('down') == 2)
 
     s = d.get('seeded') or {}
     ok('SEEDED: the same character is the same voice every time', s.get('same'))
@@ -295,6 +351,20 @@ def main():
         print('    NOTE  the alpha fetches %d non-audio external(s), not this '
               'lane\'s: %s' % (len(d['netOther']), ', '.join(
                   u.split('/')[2] for u in d['netOther'])))
+    # ---- THE CLICKING (Paolo 8/11) --------------------------------------
+    c = d.get('click') or {}
+    real, vow, uns = c.get('real') or {}, c.get('vow') or {}, c.get('uns') or {}
+    ok('NO CLICKING: a spoken line has zero sample jumps over 0.03 (was 307), '
+       'max %.4f (was 0.109)' % (real.get('maxJump') or 9),
+       real.get('over03') == 0 and (real.get('maxJump') or 9) < 0.03)
+    ok('the vowels were never the problem and still are not (max jump %.4f)'
+       % (vow.get('maxJump') or 9), (vow.get('maxJump') or 9) < 0.02)
+    ok('the unvoiced bursts no longer step (max jump %.4f, was 0.0966)'
+       % (uns.get('maxJump') or 9), (uns.get('maxJump') or 9) < 0.03)
+    ok('CONSONANTS SIT BELOW VOWELS, as real speech does: %.1f dB (research says '
+       'about -7.4 dB; this was +8 before the fix)' % (c.get('consonantDB') or 99),
+       -22.0 < (c.get('consonantDB') or 99) < -2.0)
+
     ok('the page threw nothing: %s' % (d.get('errors') or 'clean'), not d.get('errors'))
 
     print('  %d passed, %d FAILED' % (p, f))

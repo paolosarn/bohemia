@@ -241,3 +241,43 @@ game — `records/BOHEMIA_FLAG_TIME_COSTS_NOT_WIRED_8_9_26.md`.
 
 Gates: `sfx_wired` 372, `doors_fresh` 23, `voice` 28, `time_pass` 31,
 `sfx_shuffle` 25, `citymus_rotation` 22.
+
+### 8/11 UPDATE — VOICE VERDICTS IN, AND THE CLICKING WAS REAL
+
+**6 of 8 UP on the first showing** (`records/BOHEMIA_VOICE_VERDICT_8_11_26.txt`).
+Killed: cand-0, cand-5. Banked: `banks/BOHEMIA_VOICES_APPROVED_8_11_26.json`,
+six approved, **nothing assigned to any character** — that is still his ruling.
+His thumbs are baked into the judge, so it opens showing them and never asks
+twice.
+
+**"I LIKE IT ALL JUST REMOVE THE CLICKING" was a real defect, not a preference.**
+Rendered offline and measured on the samples:
+
+```
+BEFORE  max sample-to-sample jump 0.109 against a peak of 0.136
+        307 jumps over 0.03 in one line
+        unvoiced bursts peaked 0.115, vowels 0.046   ->  +8 dB
+AFTER   max jump 0.0165, ZERO over 0.03,  consonants -8.1 dB
+```
+
+Two faults, both in the envelope:
+1. Every blip's release ended at 0.0001 and then `stop()` cut the source — a step
+   at the end of **every** sound. Exponential ramps cannot reach zero; it now
+   hands off to a linear ramp that can.
+2. An unvoiced burst was given a vowel's 6ms attack. On a 40ms hiss that is an
+   EDGE, and an edge on broadband noise **is** a click.
+
+**AND THE LEVELS WERE INVERTED FOR A STRUCTURAL REASON WORTH REMEMBERING.** A
+vowel is squeezed through three NARROW bandpasses (Q 7/9/11) that throw most of
+the source away; a hiss goes through one WIDE one (Q 0.7) that passes nearly
+everything. So the amplitude numbers in the recipe did not mean what they looked
+like — the hisses were louder than the voice. Real speech runs consonants about
+**-7.4 dB** against vowels (fricative contrast 7-14 dB). Mine ran +8.
+
+Gate `voice_gate.py` 28 → **35**, mutation tested: restore the loud hiss and it
+goes red on three.
+
+**LEAD, NOT A LAW:** both killed voices carry the two most extreme vibrato
+settings in the batch (0.97 and 1.73 Hz), and every survivor sits at or below
+0.73 Hz. n=2 of 8 and both differ in other ways too, so it is recorded in the
+graveyard as something to watch in the next batch, not as a finding.

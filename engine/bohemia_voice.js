@@ -152,9 +152,25 @@
   /* ---- one blip: either a vowel-shaped buzz or an unvoiced hiss --------- */
   function blip(AC, dest, v, colour, t0, dur, f0, amp, noisy, rand) {
     var g = AC.createGain();
+    /* THE ENVELOPE IS WHERE THE CLICKING WAS (Paolo 8/11: "I LIKE IT ALL JUST
+       REMOVE THE CLICKING"). Two faults, both here, both measured offline:
+
+       1. THE OLD RELEASE ENDED AT 0.0001 AND THEN stop() CUT THE SOURCE. That
+          leaves a real step at the end of every single blip. Ramping to TRUE
+          zero before the stop removes it entirely -- exponential cannot reach
+          zero, so it hands over to a short linear ramp that can.
+       2. AN UNVOICED BURST GOT THE SAME 6ms ATTACK AS A VOWEL. On a 40ms hiss
+          that is an EDGE, and an edge on broadband noise is exactly what a
+          click is. A hiss needs a shape: roughly a third of its length rising.
+
+       Attack and release scale with the blip so a short consonant is not given
+       a vowel's envelope, which was the whole mistake. */
+    var atk = noisy ? Math.max(0.005, dur * 0.32) : Math.min(0.006, dur * 0.3);
+    var knee = Math.max(atk + 0.002, dur * 0.88);
     g.gain.setValueAtTime(0, t0);
-    g.gain.linearRampToValueAtTime(amp, t0 + Math.min(0.006, dur * 0.3));
-    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    g.gain.linearRampToValueAtTime(amp, t0 + atk);
+    g.gain.exponentialRampToValueAtTime(Math.max(0.0001, amp * 0.03), t0 + knee);
+    g.gain.linearRampToValueAtTime(0, t0 + dur);   /* TRUE zero before stop() */
     g.connect(dest);
 
     var src, i;
@@ -254,7 +270,19 @@
       /* CONSONANTS ARE SHORTER THAN VOWELS. Even timing reads as morse. */
       var isVowel = 'aeiouy'.indexOf(ch) >= 0;
       var dur = step * (isVowel ? 0.95 : (VOICED[ch] ? 0.6 : 0.42));
-      var amp = (isVowel ? 0.30 : (noisy ? 0.13 : 0.20)) * (0.85 + rand() * 0.3);
+      /* CONSONANTS ARE QUIETER THAN VOWELS, AND MINE WERE LOUDER.
+         MEASURED before the fix: vowels peaked at 0.046 and the unvoiced bursts
+         at 0.115 -- the hisses were EIGHT DECIBELS ABOVE the voice. The cause is
+         structural rather than careless: a vowel is squeezed through three
+         narrow bandpasses (Q 7/9/11) that throw most of a sawtooth away, while a
+         hiss goes through one wide one (Q 0.7) that passes nearly everything, so
+         the numbers below did not mean what they looked like.
+         RESEARCH: in real speech the consonant-vowel intensity ratio averages
+         about -7.4 dB and the fricative-to-vowel contrast runs 7 to 14 dB, with
+         sibilants strongest (-2.4 dB) and dentals weakest (-21 dB). So the
+         target is roughly EIGHT DB DOWN, and the old value was about sixteen dB
+         the wrong side of it. */
+      var amp = (isVowel ? 0.30 : (noisy ? 0.021 : 0.20)) * (0.85 + rand() * 0.3);
 
       blip(AC, dest, v, colour, t, Math.max(0.012, dur), f0, amp, noisy, rand);
       t += step * (isVowel ? 1 : 0.78);

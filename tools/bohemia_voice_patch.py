@@ -46,6 +46,7 @@ Idempotent by REPLACEMENT, never by refusal.
 
   python3 tools/bohemia_voice_patch.py
 """
+import json
 import os
 import sys
 
@@ -107,10 +108,19 @@ PANEL = r'''
  var LINE = 0;
  var V = {}, C = {};                       /* his thumbs and his notes */
  var NOTE = '';
+ /* HIS VERDICTS ARE A REPO FILE, NOT A COOKIE (Paolo 8/1: "I can't be judging
+    shit and then you pretend that I didn't"). SETTLED is baked in at build time
+    from banks/BOHEMIA_VOICES_APPROVED_*.json -- his committed thumbs -- so a
+    cleared cache or a second device falls back to what he already decided
+    instead of asking him again. localStorage only holds CHANGES on top. */
+ var SETTLED = __VOICE_SETTLED__;
+ try{ window.__VOICES_APPROVED = Object.keys(SETTLED).filter(function(k){ return SETTLED[k]===1; }); }catch(e){}
 
  function load(){
+  var k; for(k in SETTLED) V[k]=SETTLED[k];
   try{ var d=JSON.parse(localStorage.getItem('bohemia_voices')||'null');
-       if(d){ V=d.V||{}; C=d.C||{}; NOTE=d.note||''; } }catch(e){}
+       if(d){ if(d.V) for(k in d.V) V[k]=d.V[k];    /* he may change his mind */
+              C=d.C||{}; NOTE=d.note||''; } }catch(e){}
  }
  function save(){
   try{ localStorage.setItem('bohemia_voices',JSON.stringify({V:V,C:C,note:NOTE})); }catch(e){}
@@ -256,6 +266,19 @@ def main():
     engine = open(ENGINE, encoding='utf8').read()
     s = open(ALPHA, encoding='utf8').read()
 
+    # HIS COMMITTED THUMBS, baked into the surface so the judge opens showing
+    # what he already ruled rather than asking twice.
+    settled = {}
+    vb = os.path.join(ROOT, 'banks', 'BOHEMIA_VOICES_APPROVED_8_11_26.json')
+    if os.path.exists(vb):
+        d = json.load(open(vb, encoding='utf8'))
+        for k in d.get('approved', []):
+            settled[k] = 1
+        for k in d.get('killed', []):
+            settled[k] = -1
+    panel = PANEL.replace('__VOICE_SETTLED__', json.dumps(settled, sort_keys=True))
+    print('  thumbs: %d committed voice verdicts baked in' % len(settled))
+
     if BEGIN in s:
         i = s.index(BEGIN)
         j = s.index(END) + len(END)
@@ -270,7 +293,7 @@ def main():
         return 1
 
     block = (BEGIN + '\n<script>\n/* engine/bohemia_voice.js, inlined verbatim */\n'
-             + engine + '\n</script>\n' + PANEL + END + '\n')
+             + engine + '\n</script>\n' + panel + END + '\n')
     s = s.replace(anchor, block + anchor, 1)
 
     open(ALPHA, 'w', encoding='utf8').write(s)

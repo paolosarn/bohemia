@@ -869,3 +869,21 @@ door_clack.0 door_clack.1 door_clack.2 door_clack.3 door_clack.4
 # is now a documented dead end alongside metal and wood. If the door SHUTTING
 # ever gets a sound it answers a fresh brief, and that brief has to start from
 # mass and articulation rather than from brightness and drive.
+
+# ============================================================================
+# 8/11/26  SOUND: TWO OF THE EIGHT SQUIGGLE VOICES
+# records/BOHEMIA_VOICE_VERDICT_8_11_26.txt -- 6 UP, 2 DOWN, first showing.
+#
+voice.cand-0  voice.cand-5
+#
+# cand-0  f0=198 tract=1.299 square  gruff=0.386 vib=0.97 vibA=0.0235
+# cand-5  f0=147 tract=1.186 triangle gruff=0.477 vib=1.73 vibA=0.0254
+#
+# POST-MORTEM. Six of eight passed, so there is no sweeping cause here -- but the
+# two that died share the two most extreme VIBRATO settings in the batch (0.97
+# and 1.73 Hz at depths 0.0235 and 0.0254, against 0.05-0.73 Hz and 0.005-0.021
+# among the survivors). Every voice he kept has a vibrato at or below 0.73 Hz.
+# READ IT CAUTIOUSLY: n=2 out of 8, and cand-0 is also the widest tract in the
+# batch while cand-5 is the lowest pitch, so vibrato is a correlation and not a
+# proven cause. It is recorded as a lead for the next batch, not as a law.
+# GRAVEYARD IS FINAL: these two seeds do not come back.
