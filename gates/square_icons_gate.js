@@ -102,8 +102,9 @@ ok('no tile carries a band of padding -- each one IS its cell, cropped to what i
 ok('the crop is measured from the sprite, never typed', /sprite\.getbbox\(\)/.test(SRC0));
 
 // ONE CELL ONLY: never paint the neighbours in
-ok('a tile never paints past its own cell (ROAD_OVERSIZE 0 -- the neighbour is the ' +
-   'neighbour\'s job)', /ROAD_OVERSIZE = 0\.0/.test(SRC0));
+ok('a tile never paints past its own cell -- the road bed IS the plot, and the helper that ' +
+   'used to paint beyond it is gone entirely',
+   !/ROAD_OVERSIZE/.test(SRC0) && !/_street_bed/.test(SRC0));
 ok('and the factory says out loud why painting past it was wrong',
    /I dont need to see them with other streets|I DONT NEED TO SEE THEM WITH OTHER STREETS/i.test(SRC0));
 
@@ -168,8 +169,13 @@ ok('only the CROSSING has crosswalks, because nothing stops on a run',
 ok('the RUN puts the sidewalks on the two ends and lets the street fill the rest ' +
    '(his words), with an UNBROKEN median', /sidewalk/i.test(arterialSrc) &&
    /unbroken|UNBROKEN/.test(arterialSrc));
-ok('and the CROSSING breaks them into four corners with the junction box between',
-   /four corners|FOUR SIDEWALK CORNERS/i.test(xSrc));
+// Paolo 8/11: "for the intersection i dont needs to see streets intersecting... what i need
+// to see is crosswalks and traffic lights". So the crossing is the SAME street as the run,
+// and the only things that make it a junction are the markings and the signals.
+ok('the CROSSING draws no second road -- the junction happens when it tiles with its ' +
+   'neighbours', !/cross street|crossing road/i.test(xCode));
+ok('what makes it an intersection is CROSSWALKS and LIGHTS, and it has both',
+   /CROSSWALK/i.test(xSrc) && /MAST/.test(xCode));
 ok('the freeway draws no crosswalk at all', !/crosswalk/i.test(freewayCode));
 
 // ---- EVERY CELL IS PAINTED, CORNER TO CORNER (Paolo 8/11) ---------------------------

@@ -99,6 +99,12 @@ LOW_BY_NATURE = {
     # street IS. Forcing a tower back onto it would be a lie about the map and would
     # undo his ruling. The CROSSING keeps its masts and is NOT exempt.
     'arterial',
+    # 8/11, same turn: the FREEWAY RUN too. Paolo killed the overpass on this tile ("the
+    # freeway overpass underpass shit... its looking god awfully terrible") and sent it to
+    # the INTERCHANGE, which keeps its deck and is NOT exempt. What is left on a freeway run
+    # is lanes, barrier, guardrail and sound wall -- flat by nature, which is what a freeway
+    # between interchanges actually is.
+    'freeway',
 }
 
 small, empty, squat = [], [], []

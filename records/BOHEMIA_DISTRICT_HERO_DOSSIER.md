@@ -453,7 +453,7 @@ _Flood channel — matched, on the LAS VEGAS WASH: a lined TRAPEZOIDAL CHANNEL c
 - staff gauge — the graduated mast on the wall, the only flood warning anybody down there gets (code 2)
 - dead brush — tumbleweed caught on the banks (code 3 "dead brush / tumbleweed")
 
-## FREEWAY  (451x249, anchor 234,352)
+## FREEWAY  (451x287, anchor 235,353)
 _Freeway — matched: the ELEVATED DECK on its columns crossing the lanes, a SIGN GANTRY over them with its panels blank, sound walls the length of both embankments, the median barrier and a dead semi in the slow lane. The deck and the gantry are SPANS, not canopies (8/2) — infrastructure carrying something across a gap._
 
 - travel lanes — the roadbed with its lane lines (code 1 "travel lane", code 2 "white lane line")
@@ -464,7 +464,7 @@ _Freeway — matched: the ELEVATED DECK on its columns crossing the lanes, a SIG
 - dead semi — in the slow lane (code 11 "dead semi")
 - dead cars — where they stopped (code 10 "dead car")
 
-## ARTERIAL  (459x278, anchor 283,362)
+## ARTERIAL  (451x276, anchor 234,352)
 _Arterial — THE RUN: the sidewalks are the two ends and the street fills everything between them (Paolo 8/11), an unbroken raised MEDIAN with its dead palms down the middle, three lanes each way running clean off both ends, streetlights. No crosswalks, no signals, no walls — nothing stops on a run._
 
 - roadway — six lanes filling the cell end to end, paved past the frame so the box has no bare corner (code 1 "asphalt roadway")
@@ -474,7 +474,7 @@ _Arterial — THE RUN: the sidewalks are the two ends and the street fills every
 - lane dashes — three lanes each way, running clean off both ends (code 2 "lane line")
 - streetlights — on their stems (code 9 "streetlight")
 
-## ARTERIAL_X  (451x246, anchor 234,352)
+## ARTERIAL_X  (451x263, anchor 234,352)
 _Arterial Intersection — THE CROSSING, and a different item from the run (Paolo 8/11): FOUR SIDEWALK CORNERS with the junction box opening between them, ladder CROSSWALKS on all four legs, the median stopped short for the left-turn opening, and the SIGNAL MASTS reaching their arms out over the lanes. The corners say intersection before you can see a single signal head._
 
 - roadway — the junction box, paved past the frame on all four legs (code 1 "asphalt roadway")
