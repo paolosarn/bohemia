@@ -39,6 +39,7 @@ RUNNER = r"""
 'use strict';
 const L = require('./engine/bohemia_loop.js');
 const D = require('./engine/bohemia_dress.js');
+const A = require('./engine/bohemia_agents.js');
 const G = require('./engine/BOHEMIA_faction_graph.json');
 
 const ctx = L.boot({ seed: 'the-entrance' });
@@ -57,6 +58,31 @@ for (const [id, f] of Object.entries(G.factions)) {
     const c = world.districts.find(d => d.pos && d.pos[0] === seat.x && d.pos[1] === seat.y);
     if (c) { district = c.kind || null; zone = c.zone || null; }
   }
+  /* WHAT THE OPENING IS LIKE, derived not decided. Stand the SAME fixed sample of
+     sixty people on each faction's ground and ask the real allegiance function who
+     they would run with. It is a probe of the world at that spot, not a census of
+     real residents - the point is that every faction is measured the same way, so the
+     comparison is fair.
+     Two genuinely different openings fall out of the geography alone: on MONOCULTURE
+     ground everyone affiliated around you is yours; on CONTESTED ground you grow up
+     among other people's factions.
+
+     AND IT IS A FACT ABOUT THIS WORLD, NOT ABOUT THE FACTION - checked before it was
+     written down, because the first read of it was wrong. Across five different world
+     seeds only THREE of the fourteen keep the same character; the rest flip. So
+     "Colorful is contested" is not true of Colorful, it was true of one map. What IS
+     true, and is the interesting part, is that a new world re-rolls whether your people
+     are the majority where you were born. */
+  let own = 0, other = 0;
+  if (seat) {
+    for (let i = 0; i < 60; i++) {
+      const a = { id: 'H' + (i % 9) + '-' + (i % 3), seed: (i * 2654435761) >>> 0,
+                  job: { kind: 'scav' } };
+      const f = A.factionOf(a, [seat.x, seat.y], ctx.factionBases);
+      if (!f) continue;
+      if (f === id) own++; else other++;
+    }
+  }
   const look = D.FACTION_LOOK[key] || null;
   rows.push({
     id: id, key: key,
@@ -71,6 +97,7 @@ for (const [id, f] of Object.entries(G.factions)) {
     /* HIS RULING SAYS "the faction neighborhood HOUSING". So the honest question this
        page has to answer is not just WHERE each faction sits, but whether that place is
        somewhere a family could live at all. Measured, not assumed. */
+    own: own, other: other,
     housing: ['suburb','trailer','apartment','estate','gated'].indexOf(String(district)) >= 0,
     holds: (ctx.factions.factions.get(id) || { territory: new Set() }).territory.size,
   });
@@ -145,6 +172,12 @@ function paint(){
       +(f.zone?(' / '+esc(String(f.zone).toUpperCase())):'')
       +(f.seat?(' ['+f.seat[0]+','+f.seat[1]+']'):'')+'</span>';
     h+='<span>MARK &middot; '+(f.mark?esc(String(f.mark).toUpperCase()):'&mdash;')+'</span>';
+    var aff=f.own+f.other;
+    if(aff) h+='<span>AMONG &middot; '+(f.other===0
+        ? ('ALL YOUR OWN ('+f.own+'/60)')
+        : (f.own+' YOURS, '+f.other+' OTHER FACTIONS'))+'</span>';
+    if(aff && f.other===0) h+='<span style="color:#7ac87a">MONOCULTURE HERE</span>';
+    else if(aff) h+='<span style="color:#e0a060">CONTESTED HERE</span>';
     if(!f.housing) h+='<span style="color:#e0a060;font-weight:700">NO HOUSING HERE YET</span>';
     if(!f.color && f.mode!=='rainbow') h+='<span style="opacity:.8">NO COLOUR YET &middot; IT EMERGES</span>';
     if(f.act1!=null) h+='<span>ACT1 '+f.act1+(f.act3!=null?(' → ACT3 '+f.act3):'')+'</span>';
@@ -161,7 +194,18 @@ function paint(){
     +' of '+DATA.total+' have nowhere to be born yet.</b> You said the game starts at the faction '
     +'neighbourhood HOUSING, and the world currently seats those on a solar farm, a shop or a '
     +'field. Where a faction lives is map content, which is yours, not mine \u2014 so it is '
-    +'measured here and left alone.';
+    +'measured here and left alone.'
+    +'<br><br>AMONG is the same fixed sample of sixty people stood on each faction\'s '
+    +'ground and asked, by the real allegiance function, who they would run with \u2014 a '
+    +'probe of the world at that spot, not a census, so every faction is measured the '
+    +'same way. Two kinds of opening fall out of the geography alone and neither was '
+    +'decided by anyone: on MONOCULTURE ground everyone affiliated around you is yours; '
+    +'on CONTESTED ground you grow up among other people\'s factions. '
+    +'<br><br><b>THIS IS A FACT ABOUT THIS WORLD, NOT ABOUT THE FACTION.</b> Checked '
+    +'across five different world seeds: only THREE of the fourteen keep the same '
+    +'character, the rest flip. A new world re-rolls whether your people are the '
+    +'majority where you were born \u2014 which is a real reason to play it again, and '
+    +'is why the label says HERE.';
 }
 document.getElementById('sun').onclick=function(){
   SUN=!SUN; var b=document.getElementById('bd');

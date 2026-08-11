@@ -1,3 +1,41 @@
+FACTIONS (factions-ovkjpf): 8/12 (f) LATEST — *** THE ENTRANCE NOW SHOWS WHAT EACH
+OPENING IS ACTUALLY LIKE — AND I NEARLY SHIPPED SEED NOISE AS CANON. ***
+Tab: LIFE -> THE ENTRANCE (opens on it). Nothing to judge.
+
+FIRST, TWO CORRECTIONS OF MY OWN MEASUREMENTS, both caught before shipping:
+
+1. "THE NEAREST RESIDENT IS 54 TILES AWAY" (8/12 e) WAS MY BUG, not the world's. I was
+   counting SLEEPING agents at their houses. Corrected: the run is at 07:30, FOUR of
+   eleven are outdoors, and ONE is within earshot of the quest tile. SIM.outAgents is a
+   FUNCTION and I read its arity as a count. The world is alive; the witness numbers
+   were honest all along.
+
+2. "MONOCULTURE vs CONTESTED IS A FACT ABOUT THE FACTION" — WRONG, and it looked
+   beautiful, which is why it needed checking. Standing a fixed sample of 60 people on
+   each faction's ground and asking the real allegiance function who they run with gives
+   two clean kinds of opening: everyone around you is yours, or you grow up among other
+   people's factions. My first read said this matched his canon notes (Colorful is
+   "community-based not territorial" and came out contested). ACROSS FIVE WORLD SEEDS
+   ONLY 3 OF 14 KEEP THE SAME CHARACTER. It is a fact about THE MAP, not the faction.
+   The page now says MONOCULTURE HERE / CONTESTED HERE and states plainly that a new
+   world re-rolls it — which is the genuinely interesting version, and a real reason to
+   replay.
+
+BUILT: each of the 14 entrance cards now carries what the opening is LIKE — how many of
+the people around you would run with you versus with somebody else, measured the same
+way for every faction so the comparison is fair. Labelled as a probe of the world at that
+spot, not a census.
+
+STILL TRUE AND STILL HIS: 9 of 14 sit on a district you could live in (Anarchists and
+Blues on a solar farm, Cartel and Homeless in retail, Church on a farm; canon puts the
+Homeless HQ in the sewer under the King Hobo). Base placement is worldgen and where a
+faction lives is MAP CONTENT.
+
+STATE OF THIS LANE: the people layer is wired end to end and visible — allegiance on the
+person you talk to, the consequence on the phone card, real witness counts at the moment
+a quest resolves. The integration ledger's remaining gaps (district art, day cycle,
+economy, dress-by-rank, vehicles) all belong to other lanes.
+
 CHARACTER (character-0lurbs): 8/11 LATEST -- I BUILT THE WRONG FACE FIRST. THE
 OVERWORLD FACE IS SIX PIXELS AND THE MOUTH IS TWO.
 
