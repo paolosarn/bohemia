@@ -1,3 +1,50 @@
+FACTIONS (factions-ovkjpf): 8/12 (b) LATEST — *** NEW LAW, HIS: THE CUSTOMIZABLE
+ENTRANCE. YOU PICK THE FACTION YOU ARE BORN UNDER; YOUR FAMILY IS THE SAME EITHER WAY. ***
+laws/BOHEMIA_ADDENDUM_THE_CUSTOMIZABLE_ENTRANCE_8_12_26.md
+Tab: LIFE -> THE ENTRANCE (top card, opens on it, nothing to tap).
+
+HIS WORDS: "i want the factions and the way the main quest starts with the faction ypu
+chose at the faction neighborhood housing or whatever. wer decided your family will be
+the same and shit so yeah. customizable entrance to the game type shit"
+
+THE SPLIT THAT MAKES IT WORK, and it is the whole design: THE EMOTIONAL SPINE IS FIXED,
+THE POLITICAL SPINE IS CHOSEN. The ACT 1 OPENING (7/19) is untouched -- cold open, the
+family-defense fight IS the tutorial, the opening loss is the SIBLING, then the grief
+dinner, then the burial on the ridge. What the player picks is WHOSE GROUND they open
+their eyes on. A customizable entrance that changed the FAMILY would make the opening a
+character sheet; changing only the WHERE keeps it a story about one specific family and
+makes a second playthrough a different world rather than a different protagonist.
+
+IT ALSO DISSOLVES A PROBLEM ALREADY ON THE TABLE. 8/11 flagged that the demo block sits
+20 cells from any base with reach 12, so nobody around you belongs to anybody and the
+faction layer reads as absent; the only fixes were moving the block (MAP LAW) or widening
+the reach (fitting the world to a screenshot). Under this ruling the game never starts you
+at an arbitrary block -- it starts you inside your chosen faction's ground. The dead zone
+was an artifact of a block nobody had chosen.
+
+BUILT: slices/BOHEMIA_THE_ENTRANCE_8_12_26.html. All 14 selectable factions, every field
+read from canon -- alignment and the one-line note straight out of BOHEMIA_faction_graph
+.json, colour and mark out of FACTION_LOOK/FACTION_MOTIF (his 8/2 tables), and HOME is the
+district the REAL loop actually seats that faction on. CUSTOM correctly shows a mark and
+NO COLOUR ("identity emerges from play") instead of being handed a swatch.
+
+*** THE ONE CONCRETE THING BETWEEN THE RULING AND REALITY, MEASURED ***
+He said the game starts at the faction neighbourhood HOUSING. NINE OF FOURTEEN sit on a
+district you could actually live in. The other five do not:
+    ANARCHISTS  solar / office      BLUES     solar / office
+    CARTEL      commercial / retail HOMELESS  commercial / retail
+    CHURCH      farm / default
+HOMELESS is the loudest: canon says their HQ is the SEWER/TUNNEL under the King Hobo, and
+the world seats them in a shop. Base placement is worldgen (the loop zips sorted faction
+ids to an evenly-strided sample of districts) and WHERE A FACTION LIVES IS MAP CONTENT --
+MAP LAW: Claude never designs map layouts. So it is measured on the page and left alone.
+
+[PENDING PAOLO], in the law: does the choice change the main quest's CONTENT or only where
+it opens (his words read as the opening); are all 14 available at the door (CUSTOM has no
+ground by definition, NETWORK is the Amalgamation's manufactured protection); what
+"faction neighborhood housing" is architecturally; and whether other factions know from
+minute one what you were raised as.
+
 FACTIONS (factions-ovkjpf): 8/12 (a) LATEST — *** THE FACTION LAYER IS VISIBLE IN THE
 DEMO, WITH NO KNOB TOUCHED. *** Tab: LIFE -> WHAT IT COST YOU (opens on it). In the run
 it is on the person you walk up to; NEVER send him into the run to check that

@@ -1,0 +1,94 @@
+<meta charset="utf-8">
+<title>BOHEMIA - THE ENTRANCE</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<body id="bd" style="margin:0;background:#0d0f0a;font-family:-apple-system,sans-serif;color:#ddd">
+<div id="bar" style="position:sticky;top:0;z-index:9;background:#0d0f0a;padding:10px 12px;display:flex;gap:8px;align-items:center;border-bottom:1px solid #2a2a1f">
+  <div style="flex:1;min-width:130px">
+    <div id="hdr" style="font:700 15px -apple-system,sans-serif;color:#cdbd8a">THE ENTRANCE</div>
+    <div id="sub" style="font:600 11px ui-monospace,monospace;color:#8f8770;margin-top:2px">pick who you were born under</div>
+  </div>
+  <button id="sun" style="padding:9px 13px;border-radius:8px;border:1px solid #887;background:#222;color:#ddd">&#9728; SUN MODE</button>
+</div>
+
+<div class="wrap">
+  <div class="lede" id="lede">
+    <b>Your family is the same either way.</b> The fight, the sibling, the dinner, the
+    burial on the ridge &mdash; none of that moves. What you are choosing here is
+    <b>whose ground you open your eyes on</b>, and who is standing around you when it
+    happens. Fourteen of them, all already yours.
+  </div>
+  <div id="grid"></div>
+  <div class="foot" id="foot"></div>
+</div>
+
+<style>
+.wrap{max-width:720px;margin:0 auto;padding:0 12px 40px}
+.lede{font:13px/1.65 -apple-system,sans-serif;color:#9a9480;padding:14px 2px 12px}
+.card{background:#141609;border:1px solid #2a2a1f;border-left-width:5px;border-radius:10px;
+      padding:11px 12px;margin-bottom:9px}
+.top{display:flex;align-items:center;gap:8px}
+.nm{font:700 14px -apple-system,sans-serif;letter-spacing:.02em}
+.al{font:600 10px ui-monospace,monospace;letter-spacing:.09em;opacity:.75;margin-left:auto}
+.note{font:12px/1.55 -apple-system,sans-serif;color:#9a9480;margin:6px 0 7px}
+.meta{display:flex;flex-wrap:wrap;gap:5px 14px;font:11px ui-monospace,monospace;color:#6c614f}
+.foot{font:11px/1.7 -apple-system,sans-serif;color:#6f6a58;margin-top:22px;border-top:1px solid #23241a;padding-top:12px}
+</style>
+
+<script>
+var DATA = {"rows": [{"id": "Anarchists", "key": "ANARCHISTS", "align": "anti-establishment", "note": "Absorbed Rockstar faction. Culturally huge, territorially inconsistent. Overwhelming when provoked.", "act1": 6, "act3": 4, "color": "#c026a0", "mode": "family", "mark": "shard", "seat": [7, 0], "district": "solar", "zone": "office", "housing": false, "holds": 1}, {"id": "Blues", "key": "BLUES", "align": "socialist", "note": "Environmentalist. Large headcount. Collective decision-making = strength and tactical liability.", "act1": 7, "act3": 6, "color": "#2e6fae", "mode": "family", "mark": "grid", "seat": [49, 3], "district": "solar", "zone": "office", "housing": false, "holds": 1}, {"id": "Caravans", "key": "CARAVANS", "align": "neutral", "note": "Neutral outside-world trade. Everyone but Cartel wants them alive. Neutrality is survival, not philosophy.", "act1": 10, "act3": 8, "color": "#caa05a", "mode": "family", "mark": "dust", "seat": [70, 11], "district": "suburb", "zone": "residential", "housing": true, "holds": 1}, {"id": "Cartel", "key": "CARTEL", "align": "predatory", "note": "Organized human predation. Supply chains mirror Caravan routes. Only faction the game frames as evil.", "act1": 12, "act3": 9, "color": "#5c302a", "mode": "family", "mark": "hazard", "seat": [55, 19], "district": "commercial", "zone": "retail", "housing": false, "holds": 1}, {"id": "Church", "key": "CHURCH", "align": "evangelical", "note": "Best crisis organization. More powerful act1 than act3, ceiling drops as world heals.", "act1": 9, "act3": 5, "color": "#ffd75c", "mode": "family", "mark": "aisle", "seat": [37, 26], "district": "farm", "zone": "default", "housing": false, "holds": 1}, {"id": "Colorful", "key": "COLORFUL", "align": "community", "note": "LGBTQ faction. Smallest selectable. Community-based not territorial. Members across friendly factions.", "act1": 1, "act3": 1, "color": null, "mode": "rainbow", "mark": "confetti", "seat": [35, 33], "district": "suburb", "zone": "residential", "housing": true, "holds": 1}, {"id": "Custom", "key": "CUSTOM", "align": "emergent", "note": "Player faction. No preset philosophy. Identity emerges from three generations of action.", "act1": 4, "act3": null, "color": null, "mode": null, "mark": "plain", "seat": [48, 39], "district": "suburb", "zone": "residential", "housing": true, "holds": 1}, {"id": "Homeless", "key": "HOMELESS", "align": "underground", "note": "Sewer/tunnel HQ under the King Hobo. Most Amalgamation-resistant (barely use feed, talk face-to-face in tunnels). Live directly above the Network's secret servers without knowing. KEY act3 liberation ally.", "act1": 2, "act3": 2, "color": "#b8642a", "mode": "family", "mark": "cracked", "seat": [35, 46], "district": "commercial", "zone": "retail", "housing": false, "holds": 1}, {"id": "Mob", "key": "MOB", "align": "territorial", "note": "Controls the Strip. Ownership/protection/tribute. Historic early-police DNA, honor code = stability.", "act1": 13, "act3": 12, "color": "#b08a2a", "mode": "stripe", "mark": "check", "seat": [17, 52], "district": "suburb", "zone": "residential", "housing": true, "holds": 1}, {"id": "Network", "key": "NETWORK", "align": "psyop", "note": "The Amalgamation's manufactured protection. Only faction with a manufactured origin. Most dangerous by act3. Strongest national/international ties.", "act1": 11, "act3": 13, "color": "#1fbf9c", "mode": "family", "mark": "circuit", "seat": [12, 59], "district": "suburb", "zone": "residential", "housing": true, "holds": 1}, {"id": "Reds", "key": "REDS", "align": "capitalist", "note": "Economic engine, compound-interest faction. Not military.", "act1": 8, "act3": 11, "color": "#dc2820", "mode": "family", "mark": "stripe", "seat": [6, 65], "district": "suburb", "zone": "residential", "housing": true, "holds": 1}, {"id": "Remnants", "key": "REMNANTS", "align": "military", "note": "Military/law-enforcement survivors incl Nellis. The floor of civilization. Refuses to be a government. Biggest act1 head start. Military drones.", "act1": 14, "act3": 10, "color": "#9aa23a", "mode": "family", "mark": "stencil", "seat": [79, 70], "district": "gated", "zone": "residential", "housing": true, "holds": 1}, {"id": "Trades", "key": "TRADES", "align": "neutral", "note": "Skilled-worker guild. Never takes a public position. Best for vehicle/solar/construction. Most capable civilian drones.", "act1": 5, "act3": 7, "color": "#d07a2a", "mode": "family", "mark": "plate", "seat": [52, 76], "district": "suburb", "zone": "residential", "housing": true, "holds": 1}, {"id": "Volunteers", "key": "VOLUNTEERS", "align": "nonprofit", "note": "Healthcare/education/food/knowledge. Resource-poor by design. Nobody wants to be seen attacking them, even Cartel stays hands-off.", "act1": 3, "act3": 3, "color": "#5aae6a", "mode": "family", "mark": "cross", "seat": [53, 83], "district": "suburb", "zone": "residential", "housing": true, "holds": 1}], "total": 14};
+(function(){
+var SUN=false;
+function P(){ return SUN
+  ? {card:'#e5dfcc',line:'#c9c2ab',ink:'#3a3320',dim:'#6a6350'}
+  : {card:'#141609',line:'#2a2a1f',ink:'#cdbd8a',dim:'#8f8770'}; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+var RAINBOW='linear-gradient(90deg,#dc2820,#d9a441,#5aae6a,#2e6fae,#c026a0)';
+
+function paint(){
+  var p=P(), h='';
+  DATA.rows.forEach(function(f){
+    var col = f.color || (f.mode==='rainbow' ? '#9a9480' : null);
+    var edge = col || (SUN?'#c9c2ab':'#3a3a2c');
+    h+='<div class="card" style="background:'+p.card+';border-color:'+p.line+';border-left-color:'+edge+'">';
+    h+='<div class="top">';
+    h+='<span style="width:13px;height:13px;border-radius:4px;flex:none;background:'
+      +(f.mode==='rainbow'?RAINBOW:(f.color||'transparent'))
+      +(f.color||f.mode==='rainbow'?'':';border:1px dashed '+(SUN?'#9a927c':'#5a5443'))+'"></span>';
+    h+='<span class="nm" style="color:'+(col||p.ink)+'">'+esc(f.key)+'</span>';
+    h+='<span class="al" style="color:'+p.dim+'">'+esc(f.align)+'</span>';
+    h+='</div>';
+    h+='<div class="note" style="color:'+(SUN?'#5c5647':'#9a9480')+'">'+esc(f.note)+'</div>';
+    h+='<div class="meta" style="color:'+p.dim+'">';
+    h+='<span>HOME &middot; '+(f.district?esc(String(f.district).toUpperCase()):'NO GROUND YET')
+      +(f.zone?(' / '+esc(String(f.zone).toUpperCase())):'')
+      +(f.seat?(' ['+f.seat[0]+','+f.seat[1]+']'):'')+'</span>';
+    h+='<span>MARK &middot; '+(f.mark?esc(String(f.mark).toUpperCase()):'&mdash;')+'</span>';
+    if(!f.housing) h+='<span style="color:#e0a060;font-weight:700">NO HOUSING HERE YET</span>';
+    if(!f.color && f.mode!=='rainbow') h+='<span style="opacity:.8">NO COLOUR YET &middot; IT EMERGES</span>';
+    if(f.act1!=null) h+='<span>ACT1 '+f.act1+(f.act3!=null?(' → ACT3 '+f.act3):'')+'</span>';
+    h+='</div></div>';
+  });
+  document.getElementById('grid').innerHTML=h;
+  document.getElementById('foot').innerHTML =
+    DATA.total+' selectable factions, every one of them read straight out of your canon graph '
+    +'— the alignment and the sentence under each name are yours, the colour and the mark are '
+    +'the tables you picked on 8/2, and HOME is the district the real world generator actually '
+    +'seats that faction on. Nothing here was written for this page, and nothing here starts a '
+    +'game yet: it is the entrance made visible so you can see whether the shape is right. '
+    +'<br><br><b style="color:#e0a060">'+DATA.rows.filter(function(r){return !r.housing;}).length
+    +' of '+DATA.total+' have nowhere to be born yet.</b> You said the game starts at the faction '
+    +'neighbourhood HOUSING, and the world currently seats those on a solar farm, a shop or a '
+    +'field. Where a faction lives is map content, which is yours, not mine \u2014 so it is '
+    +'measured here and left alone.';
+}
+document.getElementById('sun').onclick=function(){
+  SUN=!SUN; var b=document.getElementById('bd');
+  b.style.background=SUN?'#efe9d8':'#0d0f0a'; b.style.color=SUN?'#3a3320':'#ddd';
+  document.getElementById('bar').style.background=SUN?'#efe9d8':'#0d0f0a';
+  document.getElementById('hdr').style.color=SUN?'#3a3320':'#cdbd8a';
+  ['lede','sub','foot'].forEach(function(id){ document.getElementById(id).style.color=SUN?'#6a6350':'#8f8770'; });
+  paint();
+};
+paint();
+})();
+</script>
