@@ -34,13 +34,21 @@
   var C = 64;
   var BARRIER = 1;    // 0..1   concrete F-shape median barrier
   var INSHLD = 3;     // 2..3   inside shoulder
-  var LANES = 23;     // 4..23  four 12 ft lanes each way
-  var OUTSHLD = 28;   // 24..28 outside shoulder
-  var RAIL = 30;      // 29..30 guardrail
-  var EMBANK = 61;    // 31..61 graded embankment
-  var ROW = 63;       // 62..63 sound wall, sitting on the cell boundary
-  var LANE_LINES = [8, 13, 18];
-  var EDGE = 23;
+  // THE FREEWAY FILLS THE BOX TOO (Paolo 8/11: "the streets should FILL THE WHOLE FUCKING
+  // BOX ABSOLUTELY... THE FREEWAYS CAN HAVE WALLS"). Same defect the arterial had and it
+  // only became visible as a real top-down grid: 23 of 63 tiles each side were travelling
+  // lanes and THIRTY-ONE were graded embankment, so a freeway cell read as a thin ribbon
+  // of asphalt lying in a field. A real urban freeway is 8 lanes, shoulders, ramps and
+  // gore areas edge to edge; the deep embankment belongs to the parcels beside it.
+  // THE WALL STAYS. It is the one thing he said a freeway may keep, and a sound wall is
+  // what a real one actually has.
+  var LANES = 40;     // 4..40  four lanes each way + auxiliary/ramp lanes
+  var OUTSHLD = 46;   // 41..46 outside shoulder
+  var RAIL = 48;      // 47..48 guardrail
+  var EMBANK = 59;    // 49..59 graded embankment, narrowed to a real verge
+  var ROW = 63;       // 60..63 SOUND WALL, sitting on the cell boundary
+  var LANE_LINES = [8, 16, 24, 32];
+  var EDGE = 40;
 
   function bandCode(b) {
     if (b <= BARRIER) return 4;
@@ -355,7 +363,16 @@
   };
 
   K.register('freeway', {
-    generate: generate, body: function (c) { return c === 8 || c === 4; },
+    // A FREEWAY CELL ALWAYS RUNS THROUGH. Callers pass {streets:['S']} meaning "fronts a
+    // street on its south side" -- meaningless for a freeway, and it is why the top third
+    // of the freeway grid was bare dirt with a hard edge across it: one leg stopped the
+    // roadbed half a cell short. Nothing dead-ends on a freeway.
+    generate: function (seed, opts) {
+      var o = {}; for (var k in (opts || {})) o[k] = opts[k];
+      o.same = o.links = o.streets = ['N', 'S'];
+      return generate(seed, o);
+    },
+    body: function (c) { return c === 8 || c === 4; },
     category: K.category('freeway') || 'infrastructure',
     palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
   });

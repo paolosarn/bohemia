@@ -135,9 +135,24 @@ function nearestOpen(gx, gy) {
   const opened = ART.generate(5, { links: ['N', 'S'], access: ['E', 'W'] });
   const wallOf = g => { let n = 0; g.forEach(r => r.forEach(v => { if (v === 8) n++; })); return n; };
   const sealedWall = wallOf(sealed.g), openedWall = wallOf(opened.g);
-  ok('access cuts a break in the wall (' + sealedWall + ' -> ' + openedWall + ')',
-     openedWall < sealedWall);
-  ok('and it is a break, not the loss of the wall', openedWall > sealedWall * 0.6);
+  // A GATE MUST NEVER OUTRANK A RULING (8/1). This asserted that a street's BLOCK WALL has
+  // a break cut in it for access -- and on 8/11 Paolo ruled the street has no wall at all:
+  // "THE STREETS DONT HAVE WALLS. THE FREEWAYS CAN HAVE WALLS." So the corridor now runs
+  // public ground to the cell boundary and the neighbouring district's edge starts there.
+  // WHAT THIS CHECK IS ACTUALLY FOR is that a body can get from the district onto the
+  // street, and a frontage with NO wall is the strongest possible version of that -- every
+  // tile of it is a break. So: either there is a wall and access opens it, or there is no
+  // wall and the whole frontage is open. What is never allowed is a wall with no way through.
+  if (sealedWall > 0) {
+    ok('access cuts a break in the wall (' + sealedWall + ' -> ' + openedWall + ')',
+       openedWall < sealedWall);
+    ok('and it is a break, not the loss of the wall', openedWall > sealedWall * 0.6);
+  } else {
+    ok('the street has no wall to break (Paolo 8/11), so the whole frontage is open',
+       openedWall === 0);
+    ok('and the frontage really is walkable ground, not a sealed edge',
+       (() => { const row = sealed.g[2]; return row.some(v => v === 6 || v === 7 || v === 1); })());
+  }
   // the mountain is still the edge of the world
   let rock = null;
   for (let y = 0; y < w.n && !rock; y++) for (let x = 0; x < w.n; x++) {
