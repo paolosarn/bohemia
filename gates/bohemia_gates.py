@@ -815,6 +815,13 @@ GATES = [
      'legs (a bare shin paints the dark under-body, not skin), and the contact shadow lives in its own '
      'canvas with NONE of it in the sprite -- SHADOWS ARE A SEPARATE LAYER, 7/26 LOCKED',
      True),
+    ('OVERWORLD FACE', ['node', 'gates/sprite_face_scale_gate.js'],
+     'Paolo 8/11 "BRO I MEANT THE TINY PIXEL OVERWORLD FACES": his face on the 56px BODY is six pixels of '
+     'eyes, three of nose and a TWO PIXEL mouth. The scale is a knob defaulting to 1 that returns HIS PIXELS '
+     'BY IDENTITY at 1 (RIG LAW -- painted regions are his), every step changes real RENDERED pixels, and the '
+     'per-feature form works, because at a flat x2 the two eyes fuse into one bar (2px eyes, 1px gap, 10px head) '
+     'and growing only the mouth is the setting that actually reads',
+     True),
     ('FACE FEAT DIAL', ['node', 'gates/face_feature_scale_gate.js'],
      'Paolo 8/11 "maybe all eyes eyebrows and mouths should be twice the size idk": the feature scale is a '
      'RENDER-TIME KNOB defaulting to 1, and at 1 the face is BYTE-IDENTICAL to no knob at all because PUNK is '

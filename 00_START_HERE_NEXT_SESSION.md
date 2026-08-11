@@ -1,3 +1,49 @@
+CHARACTER (character-0lurbs): 8/11 LATEST -- I BUILT THE WRONG FACE FIRST. THE
+OVERWORLD FACE IS SIX PIXELS AND THE MOUTH IS TWO.
+
+PAOLO: "BRO I MEANT THE TINY PIXEL OVERWORLD FACES. NOT THE DOOM FACES SHIT MAN."
+I had scaled renderFace(), the 64x64 PORTRAIT. The face he actually looks at is on the
+56px BODY: PD.layers['facial/punk-face'], painted pixels drawn through the rest-grid path.
+
+MEASURED, IN FULL:
+    S    eyes 6px (5x2)   nose 3px (8x1)   lips 2px (2x1)
+    SE   eyes 6px         nose 2px         lips 2px
+    E    eyes 3px         nose 1px         lips 2px
+    N NE NW W SW   NOTHING PAINTED AT ALL
+The mouth is TWO PIXELS. That is the whole mouth.
+
+SHIPPED: window.BOH_SPRITE_FACE, DEFAULT 1, and at 1 spriteFaceScaled returns HIS PIXEL
+OBJECT BY IDENTITY -- not an equal copy -- so the draw path provably cannot differ by one
+pixel until he picks a setting. RIG LAW says nobody reshapes his painted regions; HE is the
+one asking, so this is a ruling, and it still ships as opt-in.
+
+*** PER CONNECTED COMPONENT, NEVER PER FEATURE, and that is the design. *** The "eyes"
+pixels span BOTH EYES AND THE GAP. Scaling that box as one region slides them apart across
+the head instead of growing them. Each feature is split into components and each grows about
+its own centre. (I made exactly that mistake on the portrait hours earlier and had to hold
+the eye gap to 35% of the scale to survive it.)
+
+*** THE HONEST CEILING: A FLAT x2 FUSES THE TWO EYES INTO ONE BAR. *** Each eye is 2px with
+exactly ONE pixel between them on a head about 10px wide. No scale fixes that -- more room
+would have to come from a REPAINT, and that is his art. So the knob takes a number OR
+{eyes,nose,lips}, and the setting that actually works ({eyes:1,nose:2,lips:2}: grow the
+mouth, leave the eyes) is something he can say. records/OVERWORLD_FACE_SCALE_8_11.png is
+all four side by side on S/SE/E.
+
+AND x1.5 IS A MATHEMATICAL NO-OP HERE -- a 1.5 scale of a 2px box rounds back to the same
+2px box, ZERO rendered pixels changed. I only found that because the gate COUNTS CHANGED
+RENDERED PIXELS instead of trusting the dial. At this size the scale is effectively integer.
+
+NEW GATE: OVERWORLD FACE (gates/sprite_face_scale_gate.js), registered. Identity at 1,
+every step moves real rendered pixels, monotonic, and the per-feature form is reachable and
+renders as its own third thing.
+
+STILL TRUE FROM EARLIER TODAY: the portrait knob (window.BOH_FACE_FEAT + FACE FEAT DIAL
+gate) is also in, also default 1. It was the wrong surface for his ask but it is inert and
+gated; rip it out if he ever says so.
+
+--------------------------------------------------------------------------------
+
 FACTIONS (factions-ovkjpf): 8/12 (e) LATEST — *** THE WITNESS ORGAN IS FINALLY RUNNING
 IN THE GAME. Four days of it (STANDING 35 claims, DEED BRIDGE 27) had never been CALLED
 by anything. *** Nothing to judge.
@@ -118,6 +164,7 @@ STILL PENDING HIM: THE VOICE (not approved, second pass did not change that); wh
 the summon's mana; how you actually spare somebody (COMBAT/PEOPLE lanes' feel, his call);
 whether the spare route pays better and by how much; and the MEDICINE-vs-RESOURCES currency
 name from earlier today.
+
 
 
 ART (f3eu53): 8/11 (f) LATEST -- *** NEW LAW, HIS, LOCKED: SHOW IT IN A TAB,

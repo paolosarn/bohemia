@@ -3115,6 +3115,94 @@ let FACE_OFFSETS = (function(){ const o={}; FACE_DIRS.forEach(d=>{o[d]={}; FACE_
   return o; })();
 let eyeColor = null;   /* [r,g,b] iris; null = default. Modular, independent of skinTone. */
 function faceOffset(dir,feat){ return (FACE_OFFSETS[dir]&&FACE_OFFSETS[dir][feat])||[0,0]; }
+
+/* ===== THE OVERWORLD FACE FEATURE SCALE (Paolo 8/11) ========================
+   "BRO I MEANT THE TINY PIXEL OVERWORLD FACES." His face on the 56px body is
+   PD.layers['facial/punk-face'] -- and measured, in full, it is six pixels of
+   eyes, three of nose and a TWO PIXEL MOUTH, painted on S/SE/E only.
+
+   PER COMPONENT, NEVER PER FEATURE, and that distinction is the entire design.
+   The "eyes" pixels on S span x 10..14, which is BOTH EYES AND THE GAP BETWEEN
+   THEM. Scaling that as one box by 2 gives a 10px span on a head about 10px
+   wide: the eyes slide apart onto the ears instead of getting bigger. So each
+   feature is split into connected components and each component is scaled about
+   ITS OWN centre -- left eye grows in place, right eye grows in place, the gap
+   between them never moves. (I made exactly this mistake on the portrait earlier
+   today and had to hold the eye gap back to 35% of the scale to survive it. Here
+   the components make it structurally impossible.)
+
+   INVERSE SAMPLE, target -> source, like warpPart and the age stamps: a forward
+   map leaves holes, and a hole in a two-pixel mouth is the mouth.
+   CLAMPED to the source grid so a grown feature cannot spill off the head plate.
+   ========================================================================== */
+if (typeof window !== 'undefined' && typeof window.BOH_SPRITE_FACE === 'undefined') window.BOH_SPRITE_FACE = 1;
+/* PER FEATURE, because one number cannot express the thing that actually works.
+   Measured on the real render: at x2 the MOUTH finally reads (it is two pixels at
+   x1 -- there is nothing there), but the two EYES MERGE INTO ONE BAR, because each
+   eye is 2px with exactly ONE pixel between them on a head about 10px wide. No
+   scale fixes that; more room would have to come from a repaint, and that is his
+   art. So the knob takes a number OR {eyes,nose,lips}, and the useful setting --
+   grow the mouth, leave the eyes alone -- is something he can actually say. */
+function spriteFaceScale(){
+  const v = (typeof window!=='undefined') ? window.BOH_SPRITE_FACE : 1;
+  if (v && typeof v === 'object') {
+    const g = k => { const n = +v[k]; return (n>0)?n:1; };
+    return { eyes: g('eyes'), nose: g('nose'), lips: g('lips') };
+  }
+  const n = +v; const s = (n>0)?n:1;
+  return { eyes: s, nose: s, lips: s };
+}
+const _SFACE_CACHE = new Map();
+function spriteFaceScaled(L, GW, s){
+  if (!L || !L.px || !s) return L.px;
+  if (typeof s === 'number') s = { eyes: s, nose: s, lips: s };
+  if (Math.abs(s.eyes-1)<0.001 && Math.abs(s.nose-1)<0.001 && Math.abs(s.lips-1)<0.001) return L.px;
+  const H = L.h || 50;
+  const key = GW+'x'+H+'@'+s.eyes+','+s.nose+','+s.lips+'#'+Object.keys(L.px).length+':'+Object.keys(L.px)[0];
+  const hit = _SFACE_CACHE.get(key); if (hit) return hit;
+  const featOf = pi => (pi<=1)?'eyes':(pi===2)?'lips':'nose';
+  /* group by feature, then split each feature into 8-connected components */
+  const byFeat = {};
+  for (const idx in L.px){ const f = featOf(L.px[idx]); (byFeat[f]=byFeat[f]||[]).push(+idx); }
+  const out = {};
+  for (const f in byFeat){
+    const fs = (+s[f] > 0) ? +s[f] : 1;
+    if (Math.abs(fs-1) < 0.001) { for (const i of byFeat[f]) out[i] = L.px[i]; continue; }
+    const set = new Set(byFeat[f]), seen = new Set();
+    for (const start of byFeat[f]){
+      if (seen.has(start)) continue;
+      const comp = [], stack = [start]; seen.add(start);
+      while (stack.length){
+        const i = stack.pop(); comp.push(i);
+        const x = i%GW, y = (i/GW)|0;
+        for (let dy=-1; dy<=1; dy++) for (let dx=-1; dx<=1; dx++){
+          if (!dx && !dy) continue;
+          const nx = x+dx, ny = y+dy; if (nx<0||nx>=GW||ny<0) continue;
+          const ni = ny*GW+nx;
+          if (set.has(ni) && !seen.has(ni)){ seen.add(ni); stack.push(ni); }
+        }
+      }
+      /* scale this component about its own centre */
+      let x0=1e9,x1=-1,y0=1e9,y1=-1;
+      for (const i of comp){ const x=i%GW, y=(i/GW)|0;
+        if(x<x0)x0=x; if(x>x1)x1=x; if(y<y0)y0=y; if(y>y1)y1=y; }
+      const ax=(x0+x1)/2, ay=(y0+y1)/2;
+      const tx0=Math.round(ax-(ax-x0)*fs), tx1=Math.round(ax+(x1-ax)*fs);
+      const ty0=Math.round(ay-(ay-y0)*fs), ty1=Math.round(ay+(y1-ay)*fs);
+      for (let ty=ty0; ty<=ty1; ty++) for (let tx=tx0; tx<=tx1; tx++){
+        if (tx<0||tx>=GW||ty<0||ty>=H) continue;                    /* stay on the plate */
+        const sx=Math.round(ax+(tx-ax)/fs), sy=Math.round(ay+(ty-ay)/fs);
+        const si=sy*GW+sx;
+        if (L.px[si]!==undefined && set.has(si)) out[ty*GW+tx]=L.px[si];
+      }
+    }
+  }
+  /* anything the scale did not reach keeps its painted pixel */
+  for (const idx in L.px) if (out[idx]===undefined) out[idx]=L.px[idx];
+  _SFACE_CACHE.set(key, out);
+  return out;
+}
+if (typeof window !== 'undefined') { window.spriteFaceScaled = spriteFaceScaled; window.spriteFaceScale = spriteFaceScale; }
 function setFaceOffset(dir,feat,dx,dy){ FACE_OFFSETS[dir]=FACE_OFFSETS[dir]||{}; FACE_OFFSETS[dir][feat]=[dx,dy]; }
 function buildSpec(){const sp=JSON.parse(JSON.stringify(pface));if(hairColor){sp.hair.color=hairColor;sp.hair.roots=hairColor.map(c=>c*0.4|0);}return sp;}
 /* FEATURE SCALE (Paolo 8/11: "maybe all eyes eyebrows and mouths should be twice
@@ -5866,19 +5954,25 @@ function buildFrame(d,clip,ph){
        face editor, persisted with the look. All-zero offsets = pixel-identical
        to the unwired render. Painted pixels are MOVED, never reshaped (RIG LAW). */
     const isFacial=(slot==='facial');
-    for(const idx in L.px){const li=+idx;let lx=li%GW,ly=(li/GW)|0;
+    /* THE OVERWORLD FACE, SCALED (Paolo 8/11: "I MEANT THE TINY PIXEL OVERWORLD
+       FACES"). His whole face out here is six pixels of eyes, three of nose and a
+       TWO PIXEL MOUTH; at the size a person stands in the world there is nothing
+       to read. Identity at 1, so every approved look is byte-for-byte itself
+       until he picks a number. */
+    const FSRC = isFacial ? spriteFaceScaled(L, GW, spriteFaceScale()) : L.px;
+    for(const idx in FSRC){const li=+idx;let lx=li%GW,ly=(li/GW)|0;
       if(isMir)lx=(GW-1-lx);
       let sx=lx+G24_OX, sy=ly+G24_OY;
       /* CLOTHES FOLLOW THE BODY: fit this pixel to the body the dials made. The
          head slots (hair/hat/glasses/facial) sit above the torso, so their rows
          are never in the map and this is a no-op for them. */
       if(CLOTHES_FOLLOW.on) sx = fitClothX(d,sx,sy);
-      if(isFacial){const pi=L.px[idx];const feat=(pi<=1)?'eyes':(pi===2)?'lips':'nose';
+      if(isFacial){const pi=FSRC[idx];const feat=(pi<=1)?'eyes':(pi===2)?'lips':'nose';
         const off=faceOffset(d,feat); sx+=off[0]; sy+=off[1];
         if(sx<0||sx>=CW||sy<0||sy>=CH)continue;}
       const si=sy*CW+sx;
       if(si<0||si>=restCol.length)continue;
-      restCol[si]=ramp[L.px[idx]]||ramp[ramp.length-1];}
+      restCol[si]=ramp[FSRC[idx]]||ramp[ramp.length-1];}
     const HEAD_SLOTS={hair:1,hat:1,glasses:1,facial:1};
     SKINNER_API.garmentContactLaw(slot,restCol,REST_GRID[d],rigSkel(d),{neckOK:NECK_OK[key],hatMaxY:HAT_MAX_Y[gdir]});  // GARMENT CONTACT LAW
     const res=SKINNERS[d].skinColorLayer(P,restCol,HEAD_SLOTS[slot]?'head':null,REST_GRID[d]);
