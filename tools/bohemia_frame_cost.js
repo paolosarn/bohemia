@@ -80,6 +80,40 @@ function stats(t) {
   const without = off ? await page.evaluate(n => window.__MEASURE(n), FRAMES) : null;
   await page.evaluate(() => { if (window.__realDeadDraw) deadDraw = window.__realDeadDraw; });
 
+  /* THE DISTRICT CROSSING, WHICH IS THE RISK THE DEMO PLAN ACTUALLY NAMES (row 8:
+     "district crossings don't hitch on a phone") AND THE ONE MY FIRST CUT MISSED.
+     Research on canvas cost pointed at the right thing: per-frame drawImage
+     overhead is O(N) and only bites at hundreds of calls a frame, which the dead
+     pass never makes. The expensive moment is COLD, not steady -- deadForCell runs
+     a full 128x128 exposure census and a placement pass for a cell it has never
+     seen, and the cache is only 64 deep. Standing still measures the cheap case
+     and passes; the hitch is at the boundary.
+     So: warm the cache, then step into UNVISITED cells and time the first frame in
+     each. That is the frame the player feels. */
+  const crossing = await page.evaluate(async () => {
+    const cold = [];
+    for (let k = 0; k < 8; k++) {
+      const tx = 30 + k * 5, ty = 41;                 // eight cells never visited yet
+      const t0 = performance.now();
+      hx = tx * FN + 64; hy = ty * FN + 64;
+      render();
+      cold.push(performance.now() - t0);
+      await new Promise(r => requestAnimationFrame(r));
+    }
+    /* and the same cells AGAIN, now that the cache holds them: the gap between the
+       two is exactly what a first crossing costs. */
+    const warm = [];
+    for (let k = 0; k < 8; k++) {
+      const tx = 30 + k * 5, ty = 41;
+      const t0 = performance.now();
+      hx = tx * FN + 64; hy = ty * FN + 64;
+      render();
+      warm.push(performance.now() - t0);
+      await new Promise(r => requestAnimationFrame(r));
+    }
+    return { cold, warm };
+  });
+
   /* AND THE VISTA, which is a one-off camera move rather than a per-frame cost --
      what matters there is how long the MOMENT takes to appear. */
   const vistaMs = await page.evaluate(() => {
@@ -105,8 +139,20 @@ function stats(t) {
     console.log('  (could not switch the dead pass off — cost not isolated)');
   }
   if (vistaMs != null) console.log('  the vista opens in ' + vistaMs.toFixed(0) + ' ms (a one-off camera move)');
+  let crossWorst = 0;
+  if (crossing) {
+    const C = stats(crossing.cold), Wm = stats(crossing.warm);
+    crossWorst = C.max;
+    console.log('  --- THE DISTRICT CROSSING (the hitch the demo plan names) ---');
+    console.log('  first frame in a NEW cell   ' + f(C.p50) + '  ' + f(C.p95) + '  ' + f(C.max));
+    console.log('  same cells, cache warm      ' + f(Wm.p50) + '  ' + f(Wm.p95) + '  ' + f(Wm.max));
+    console.log('  A FIRST CROSSING COSTS      ' + (C.p50 - Wm.p50).toFixed(1) + ' ms at p50, worst ' +
+      (C.max - Wm.max).toFixed(1) + ' ms');
+  }
 
-  const bad = A.p95 > BUDGET * 1.5 || (B && (A.p50 - B.p50) > 4);
+  /* a hitch is judged on the crossing, not the average: 100 ms is six dropped
+     frames in a row and that is what reads as broken. */
+  const bad = A.p95 > BUDGET * 1.5 || (B && (A.p50 - B.p50) > 4) || crossWorst > 100;
   console.log(bad ? '  VERDICT: this lane is costing the phone real frames.'
                   : '  VERDICT: within budget on this hardware.');
   process.exit(0);
