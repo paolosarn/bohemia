@@ -111,6 +111,8 @@ function searched() { return FILES.slice(); }
  * @param {object} fr    a Playwright Frame
  * @param {object} page  the Page it belongs to (its main frame is never the city)
  */
+const NAMED = /BOHEMIA_CITY_WORLD|BOHEMIA_CITY_CURRENT/;
+
 function isFrame(fr, page) {
   if (!fr || (page && fr === page.mainFrame())) return false;
   const u = String(fr.url() || '');
@@ -118,7 +120,36 @@ function isFrame(fr, page) {
      overwrote the result on the next line with their own regex, which also
      matched CITY_CURRENT. Removing that shadow without widening here would have
      quietly NARROWED what the fleet finds. Superset first, then the shadow goes. */
-  return /srcdoc/.test(u) || /BOHEMIA_CITY_WORLD/.test(u) || /BOHEMIA_CITY_CURRENT/.test(u);
+  if (NAMED.test(u)) return true;
+
+  /* SRCDOC IS A LAST RESORT NOW, AND THAT IS THE WHOLE FIX (8/11/26).
+     FIVE gates were crashing with `ReferenceError: om is not defined` -- three of
+     them already red on origin/main -- and every diagnosis called it a timing
+     race against a slow boot. It was not timing. The alpha carries MORE THAN ONE
+     srcdoc frame now, and callers do
+
+         page.frames().find(fr => CITY.isFrame(fr, page))
+
+     which takes the FIRST match in frame order. That first match was somebody
+     else's EMPTY about:srcdoc frame, so the gates ran their whole measurement
+     inside a blank document and reported the city broken. Measured 8/11: two
+     frames matched, [about:srcdoc {fit:undefined, om:undefined, cv.width:0}] and
+     [BOHEMIA_CITY_WORLD {fit:function, om:object, cv.width:378}], and find()
+     returned the first one every single time.
+
+     The /srcdoc/ test was right when the city WAS srcdoc'd from a base64 blob.
+     It is a sibling src page now, so a bare srcdoc match is no longer evidence of
+     anything. It stays only as a fallback for a surface that still srcdocs the
+     app -- and ONLY when this page has no named city frame at all, so it can
+     never again outrank the real thing. Same disease as the comment above: a
+     predicate that keeps matching the shape the code used to have. */
+  if (!/srcdoc/.test(u)) return false;
+  if (page && typeof page.frames === 'function') {
+    try {
+      if (page.frames().some(f => NAMED.test(String(f.url() || '')))) return false;
+    } catch (e) { /* fall through: a bare srcdoc match is better than none */ }
+  }
+  return true;
 }
 
 module.exports = { read, searched, isFrame, FILES, BODY };

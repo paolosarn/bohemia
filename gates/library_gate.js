@@ -55,10 +55,19 @@ ok('CORNER: pedestrian gate on the side street', cornerPed);
 ok('PURPLE RESERVATION: no swatch reads purple', purpleFree(D.palette));
 ok('library registered + civic', !!K.get('library') && K.category('library') === 'civic');
 ok('library enterable + footprints', D.generate(7, { streets: ['S'] }).footprints.length >= 1 && /interior/i.test(D.legend[2].enter || ''));
+/* THE TERRACE IS GROUND, NOT WALK (8/11/26). It was `walk`, and that one field
+   made D1 KERB read 23,514 mass-on-sidewalk violations here -- because a code
+   doing double duty as both the public walk AND the plinth the building stands on
+   means the building legally stands on a sidewalk. The legend's own act1 text
+   settled it: "the raised concrete TERRACE THE WHOLE BUILDING SITS ON". A surface
+   a building stands on is ground. Renamed 'terrace / walk' -> 'terrace / plinth'
+   and reclassified at the source; the d1_kerb ratchet for library is 0 forever,
+   so flipping it back goes red there as well as here.
+   Full reasoning: records/BOHEMIA_I_DECIDE_THE_MECHANISM_8_11_26.md */
 ok('the library(2) is ENTERABLE, the plaza(7) and courtyard(12) are ground, the terrace(13) ' +
-   'is walk, the lot(1) is drive, and the doorway(18) is a PORTAL',
+   'is GROUND (a plinth is not a sidewalk), the lot(1) is drive, and the doorway(18) is a PORTAL',
    /interior/i.test((D.legend[2] || {}).enter || '') && D.legend[7].kind === 'ground' &&
-   D.legend[12].kind === 'ground' && D.legend[13].kind === 'walk' &&
+   D.legend[12].kind === 'ground' && D.legend[13].kind === 'ground' &&
    D.legend[1].kind === 'drive' && D.legend[18].kind === 'portal');
 ok('deterministic', JSON.stringify(D.generate(70, { streets: ['S'] }).g) === JSON.stringify(D.generate(70, { streets: ['S'] }).g));
 console.log('LIBRARY GATE: ' + pass + ' passed, ' + fail + ' failed  (' + CONFIGS.length + ' configs)');

@@ -24,6 +24,7 @@
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
+const CITY_APP = require(path.join(ROOT, 'gates/bohemia_city_app.js'));
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  > FAIL ' + n)); };
 function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
@@ -44,9 +45,17 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
     let f = null;
     for (let i = 0; i < 20; i++) {
       await page.waitForTimeout(3000);
-      f = page.frames().find(fr => (/srcdoc|CITY_WORLD|CITY_CURRENT/.test(fr.url())) && fr !== page.mainFrame());
+      /* USE THE SHARED PREDICATE. This line used to carry its own copy of the
+         regex, and it was the last one in the fleet still doing so -- the exact
+         "shadow" gates/bohemia_city_app.js warns about. It cost real time on
+         8/11: the alpha now has more than one srcdoc frame, /srcdoc/ matched
+         somebody else's EMPTY one first, and this gate spent the whole run
+         measuring a blank document and crashing on `om is not defined`. A local
+         copy of a shared rule is a rule that stops being shared. */
+      f = page.frames().find(fr => CITY_APP.isFrame(fr, page));
       if (!f) continue;
       const up = await f.evaluate(() => typeof fit === 'function' &&
+        typeof om !== 'undefined' &&                 /* the WORLD, not just the canvas */
         document.getElementById('cv').width > 300).catch(() => false);
       if (up) break;
     }

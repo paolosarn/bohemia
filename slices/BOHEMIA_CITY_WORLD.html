@@ -2,7 +2,16 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>Bohemia — Dual Traversal Proof</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- __COLD_BOOT__ -- THE FONT NO LONGER HOLDS THE GAME HOSTAGE (8/11/26).
+     Measured: with this link render-blocking and the host unreachable, the city
+     took 16.0s to become playable. With requests failing fast: 3.1s. The
+     thirteen seconds were a connection timeout, not the world. Paolo demos on a
+     phone, and a phone on cellular or a captive-portal wifi IS the unreachable
+     case. media="print" makes the fetch non-blocking; onload swaps it in the
+     moment it lands, so a good network still gets the typeface. A dead one gets
+     the game, in system-ui, which the CSS already falls back to anyway. -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
 <style>
 /* COMBAT UI LANGUAGE (Paolo 7/6/26): the city speaks the same visual dialect
    as the Dead Eye Dial. Same button faces (#141210), same borders (#2a2418),
