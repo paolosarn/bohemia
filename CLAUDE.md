@@ -99,6 +99,24 @@ research partner. He DECIDES, you PRODUCE.
   map layouts. THE TEST: is it WORDS, or is it a DECISION? Words get an attempt;
   decisions wait. Full law: laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md
   Gate: attempt_gate.js
+- DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED, same day, hours
+  later): "I HAVE A WHOLE 170 QUEST FILE WITH DIALOGUE I DONT HAVE TIME TO
+  APPROVE THE DIALOGUE THIS SLOW LIKE THIS I WILL EDIT IT LATER JUST DIALOGUE
+  ALWAYS REFER TO THE BEST QUESTS EVER CATALOGUE... READ THE QUEST SHIT AND GET
+  INSPIRED." Making the attempt and then QUEUEING IT FOR HIS THUMB reinstates the
+  bottleneck the morning's rule killed (and breaks EVERYTHING IS A THUMB, 8/9).
+  So: (1) NO line of dialogue is ever put to him for approval -- not a JUDGE THIS
+  row, not an A/B, not a bolded question; it ships written and playable and he
+  edits later. (2) WHAT REPLACES THE THUMB IS THE CORPUS: questbook/ is 152 of
+  the best-written quests ever shipped, 3,672 citable findings, and EVERY authored
+  line cites the laws it is built on in the QUEST STUDY vocabulary (`@STUDY
+  Q013.W7  TITLE VERBATIM` + an `applied:` sentence). Id must resolve, title must
+  be verbatim, a scene spans >=2 studies and >=2 masters. REUSE-FIRST, for words.
+  (3) "I WILL EDIT IT LATER" NEEDS A PLACE: every drafted line appears in the
+  WORDS tab of the alpha -- speaker, scene, citation, editable in place, export.
+  A line he cannot reach is a line he cannot edit. Full law:
+  laws/BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md
+  Gate: dialogue_catalogue_gate.js. Harvester: tools/bohemia_words_book.py
 - 45 DEGREE ART LAW (7/17): every original art Claude draws is seen from the
   world's three-quarter 45 view like the corpus, NEVER flat side-on like a 2D
   scroller. Ellipse cross-sections, sky-lit visible tops, bands bow toward the

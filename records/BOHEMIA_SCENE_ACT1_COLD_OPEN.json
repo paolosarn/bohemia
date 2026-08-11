@@ -69,7 +69,19 @@
       "beats": 2,
       "text": "Sit down, both of you. It's getting cold.",
       "draft": true,
-      "why": "'a warm happy moment at the table' (7/19). ATTEMPT (8/11 rule): the most ordinary sentence in the world, on purpose -- the cut has to take something SMALL and real, not a speech. 'Both of you' quietly establishes two siblings before one of them is gone. EDIT FREELY."
+      "why": "'a warm happy moment at the table' (7/19). ATTEMPT (8/11 rule): the most ordinary sentence in the world, on purpose -- the cut has to take something SMALL and real, not a speech. 'Both of you' quietly establishes two siblings before one of them is gone. EDIT FREELY.",
+      "study": [
+        {
+          "id": "Q013.W7",
+          "title": "THE BLINDSIDE (mundane -> devastating)",
+          "applied": "the corpus is explicit that the setup's LIGHTNESS is what makes the drop land, so the opening line of the game is deliberately the least remarkable sentence in the house. A portentous first line spends the match-cut before the match-cut happens."
+        },
+        {
+          "id": "Q138.X8",
+          "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
+          "applied": "that study's named failure is a siege-home with no domestic texture, where 'the family exists in two character models and a closet'. Food going cold and a mother counting heads IS the domestic texture, bought in one sentence before the same house gets besieged."
+        }
+      ]
     },
     {
       "kind": "say",
@@ -78,7 +90,24 @@
       "beats": 2,
       "text": "I'm not eating the green ones.",
       "draft": true,
-      "why": "ATTEMPT (8/11 rule): the sibling who is taken on night one gets one line, and it is a child being a child about vegetables. Nothing portentous. The whole weight of this scene depends on her being unremarkable here. WHICH sibling is lost is HIS ruling (7/19 leaning) -- this speaks whoever the surface casts. EDIT FREELY."
+      "why": "ATTEMPT (8/11 rule): the sibling who is taken on night one gets one line, and it is a child being a child about vegetables. Nothing portentous. The whole weight of this scene depends on her being unremarkable here. WHICH sibling is lost is HIS ruling (7/19 leaning) -- this speaks whoever the surface casts. EDIT FREELY.",
+      "study": [
+        {
+          "id": "Q063.W2",
+          "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+          "applied": "the only bond the player will ever get with this sibling has to form in one line, and the corpus says the bond forms through quiet ordinary emotionally-available moments, the everyday IS the attachment, not melodrama. So she gets vegetables, not a goodbye."
+        },
+        {
+          "id": "Q010.W8",
+          "title": "FORESHADOW-IN-HINDSIGHT",
+          "applied": "a line that only lands LATER, so the scene plays differently in memory than in the moment. Petty refusal of a vegetable is the last ordinary thing she says, and the player only learns that afterwards, which is the entire mechanism that study describes."
+        },
+        {
+          "id": "Q138.X8",
+          "title": "THE HOUSE'S INTERIOR IS ONE ROOM DEEP",
+          "applied": "'no child's drawings' is one of the three absences that study names by hand. This is the child's drawing, in audio, and it costs six words."
+        }
+      ]
     },
     {
       "kind": "wait",
@@ -130,7 +159,24 @@
       "beats": 2,
       "text": "Same chair. Ten years and you still take the same chair.",
       "draft": true,
-      "why": "ATTEMPT (8/11 rule): the first line after the cut has to make the audience LOOK at the table again and understand what happened without narration. It also names the empty seat without naming it. Sits on the [PENDING] EMPTY CHAIR motif seed WITHOUT building it. EDIT FREELY."
+      "why": "ATTEMPT (8/11 rule): the first line after the cut has to make the audience LOOK at the table again and understand what happened without narration. It also names the empty seat without naming it. Sits on the [PENDING] EMPTY CHAIR motif seed WITHOUT building it. EDIT FREELY.",
+      "study": [
+        {
+          "id": "Q009.W2",
+          "title": "THE MUNDANE HOOK -> COSMIC DREAD",
+          "applied": "the ordinary frame makes the reveal land harder. The first thing said after ten years of apocalypse is about SEATING, so the player's own eye does the reveal instead of a narrator doing it for them."
+        },
+        {
+          "id": "Q068.X3",
+          "title": "EXPOSITION-HEAVY / LORE-DUMP LATE",
+          "applied": "that study's failure is unloading the world's truth in big talky chunks, and its lesson is DRIP-FEED. The collapse therefore gets zero words here. The line points at the furniture and lets the player count the chairs."
+        },
+        {
+          "id": "Q010.W9",
+          "title": "THE HAUNTED SPACE",
+          "applied": "the shack tells its story environmentally without exposition. Here the TABLE is the haunted space: same frame, same seats, one of them empty, and nobody explains it."
+        }
+      ]
     },
     {
       "kind": "say",
@@ -139,7 +185,24 @@
       "bq": null,
       "text": "Up. Now. Don't turn the light on.",
       "why": "'Your FATHER wakes you: bandits/raiders are attacking the home.' ATTEMPT (8/11 rule): low and flat, not shouted -- a man who has thought about this night before it came. The third sentence does the work: it tells you they are close enough to see a window, without a word of exposition. EDIT FREELY.",
-      "draft": true
+      "draft": true,
+      "study": [
+        {
+          "id": "Q007.N3",
+          "title": "NODE SURVIVOR_COMFORT",
+          "applied": "that node's banked rule is REMOVE THE ALIBI VERB: the game withholds the sentence that would let the pressure out. The father is given no comfort verb. He does not say it will be okay and he does not explain what is outside, because either one is a pressure valve on the scene the tutorial is about to be."
+        },
+        {
+          "id": "Q039.W3",
+          "title": "DREAD, NOT JUMPSCARES",
+          "applied": "glimpse, withhold, imply, never show the monster. The raiders are not named, counted, or described. 'Don't turn the light on' tells you they are close enough to see a window, and that is the only fact the player gets."
+        },
+        {
+          "id": "Q033.P8",
+          "title": "W7 (one crystallizing line",
+          "applied": "the ports master asks for ONE line that crystallizes the theme and implicates. Seven words set every rule of the night: move now, obey, and light is what kills you. The rest of Act 1 runs on those three."
+        }
+      ]
     },
     {
       "kind": "handoff",

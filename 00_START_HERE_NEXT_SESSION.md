@@ -1,3 +1,81 @@
+PEOPLE (7h9sfy): 8/11 (w) LATEST -- *** DIALOGUE IS OFF THE APPROVAL QUEUE.
+"I DONT HAVE TIME TO APPROVE THE DIALOGUE THIS SLOW LIKE THIS I WILL EDIT IT
+LATER JUST DIALOGUE ALWAYS REFER TO THE BEST QUESTS EVER CATALOGUE." READ
+laws/BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md BEFORE YOU
+WRITE A LINE. ***
+
+WHAT TRIGGERED IT: this lane made the attempt (the 8/11 morning rule) and then
+ended the turn asking him to approve four lines of family dialogue. That
+reinstated the exact bottleneck the morning's rule killed, and it also broke
+EVERYTHING IS A THUMB (8/9), which already banned it. He is not asking for a
+shorter queue. He removed dialogue from the queue.
+
+THE RULE, THREE PARTS:
+ 1. NO line of dialogue ever goes to him for approval. Not a JUDGE THIS row,
+    not an A/B, not a bolded question. It ships written and playable.
+ 2. THE THUMB WAS THE QUALITY CONTROL, so the CORPUS replaces it. questbook/
+    is 152 of the best-written quests ever shipped, 3,672 citable findings.
+    Every authored line now CITES the findings it was built on, in the QUEST
+    STUDY vocabulary: `@STUDY Q013.W7  TITLE VERBATIM` + an `applied:` line.
+    Id must resolve, title must be verbatim, a scene spans >=2 studies and
+    >=2 masters. REUSE-FIRST, for words. "READ THE QUEST SHIT AND GET
+    INSPIRED" is a precondition of writing a line now, and it is checkable.
+ 3. "I WILL EDIT IT LATER" NEEDS A PLACE FOR LATER. He does not dig in files,
+    so a line in records/*.json is a line he cannot edit and the rule would
+    rot into "Claude writes the dialogue", which is NOT what he said.
+
+SHIPPED THIS TURN:
+- THE WORDS TAB (alpha, third tab, after LOOK). 938 lines: 377 spoken, 394
+  player replies, 128 journal, 39 objectives, across 21 quests + the cold open.
+  Editable in place, saves to localStorage, survives reload, search, SUN mode,
+  EXPORT .TXT (was/now per line). The catalogue law each line came from sits
+  under it. Verified in Chromium at 390x844 inside the alpha: tab loads, 938
+  boxes, 0 console errors, an edit survived a reload.
+- tools/bohemia_words_book.py -- harvests EVERY dialogue-bearing artifact
+  (DISCOVERED, not a hardcoded list) and BAKES the tab. Payload is INLINED, not
+  fetched: _config.yml publishes slices/ only, so a records/ fetch would 404
+  live and work perfectly on disk (the 8/6 bug). Re-run it after ANY dialogue
+  edit or the gate goes red.
+- gates/dialogue_catalogue_gate.js -- 30 claims, registered as DIALOGUE
+  CATALOGUE. Proven red-able: staleness (3 claims), invented id, wrong title.
+  Notable claim: a sha256 SOURCE FINGERPRINT over the exact bytes the tab was
+  baked from, recomputed in JS off the same files. A stale tab is the same
+  failure as no tab, wearing a green.
+- The cold open's four family lines now carry per-line citations: Q013.W7 THE
+  BLINDSIDE + Q138.X8 (mother), Q063.W2 + Q010.W8 + Q138.X8 (the lost sibling),
+  Q009.W2 + Q068.X3 + Q010.W9 (after the cut), Q007.N3 REMOVE THE ALIBI VERB +
+  Q039.W3 DREAD-NOT-JUMPSCARES + Q033.P8 (the father). Nine studies, all four
+  masters.
+
+*** NEXT (the GO list, in order):
+ 1. THE COLD OPEN IS NOT IN A TAB YET. engine/bohemia_scene.js + the scene JSON
+    are complete and gated (SCENE, 40 claims) but appear in ZERO slices, so the
+    demo's first fifteen seconds and all four family lines cannot be played.
+    That is this lane's #1 demo blocker. It needs a surface INSIDE the alpha
+    (ONE-LINK LAW: never its own link) and it must not cook new art while the
+    freeze holds -- so it plays on what already exists, or it waits.
+ 2. MORE WORDS. The rule is written and the machine holds the bar; the demo
+    needs hundreds more lines and nothing blocks writing them now.
+ 3. Not this lane: 60 tools still crash on CITY_B64; his 11 perimeter walls
+    need CITY lane wiring. ***
+
+RESTORED THIS TURN (it fell out of the handoff in a rewrite and took the
+ANSWERED gate red with it -- the handoff is shared infrastructure with no
+owning lane, so nobody's lane gate was ever going to catch it):
+
+NEVER ASK HIM A SETTLED QUESTION. A lane once asked what happens to standing
+"when the run ends" and he answered "BROTHER FOR BOHEMIA ITS NOT A ONE LIFE RUN
+IVE ANSWERED THIS LIKE 50 TIMESS!!!!!" THE QUESTION IS WITHDRAWN AND STAYS
+WITHDRAWN: Bohemia is a DYNASTY, not a one-life run -- three generations
+(Animal/Human/Angel) across ~100 years, dynasty saves spanning all three, heirs
+inheriting the choice log, companions do not die. It was settled in five law
+files before he had to say it again, so standing CARRIES; the only open part is
+HOW an heir inherits it, and that is a lane's design work, never a question for
+him. THE MACHINE THAT STOPS IT: records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md
+(59 settled questions, each with the ruling that settles it) enforced by
+gates/answered_gate.py -- read the index BEFORE you put anything on a JUDGE
+THIS list.
+
 ART (f3eu53): 8/11 (c) LATEST -- *** SECOND FAMILY WIRED: THE PARKING LOTS HAVE
 THEIR PAINTED LINES. A BAY-VS-LINE MISS WAS CAUGHT BY A/B BEFORE IT SHIPPED. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fourth-pass section)

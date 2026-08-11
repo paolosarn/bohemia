@@ -526,6 +526,18 @@ GATES = [
      'Every player-facing line now ships a REAL attempt tagged draft:true so he can find and '
      'edit it; filler and stubs FAIL. The other half is unchanged and still checked: who dies, '
      'who holds what ground, numbers and dials stay HIS and stay empty', False),
+    ('DIALOGUE CATALOGUE', ['node', 'gates/dialogue_catalogue_gate.js'],
+     'DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED): "I DONT HAVE TIME TO '
+     'APPROVE THE DIALOGUE THIS SLOW LIKE THIS I WILL EDIT IT LATER JUST DIALOGUE ALWAYS '
+     'REFER TO THE BEST QUESTS EVER CATALOGUE... READ THE QUEST SHIT AND GET INSPIRED." He '
+     'took dialogue OFF the approval queue, and the thumb WAS the quality control -- so the '
+     'questbook corpus (152 studied quests, 3,672 findings) holds the bar in his place. Every '
+     'authored line cites the findings it was built on: id resolves, title VERBATIM, applied '
+     'says what it did, a scene spans >=2 studies and >=2 masters. Sources are DISCOVERED, '
+     'never a hardcoded list. And the other half of his ruling is checked too: "I will edit '
+     'it later" needs a place for later, so the WORDS tab must exist, be wired into the '
+     'alpha, live where Pages publishes, fetch nothing, and be CURRENT with its sources by '
+     'fingerprint -- a stale tab is the same failure wearing a green', False),
     ('SCENE',          ['node', 'gates/scene_gate.js'],
      'DEMO-CRITICAL (Paolo 8/9). The scripted-scene runtime, backlog 0sc, and its first '
      'consumer: the Act 1 cold open in the LOCKED 7/19 shape -- warm pre-collapse family '
