@@ -15572,3 +15572,16 @@ only commits after it. Depth scales to the delta (quiet fleet = minutes;
 busy or >3 days = fuller read). ONE open horizon catch at a time — no fresh
 research hunt while the last catch sits unaddressed. A one-breath "fleet
 quiet, nothing needed" is a legal, complete sweep.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/11 (d) — SWEEP 1 RAN (full cycle, ledger: records/
+BOHEMIA_COORDINATOR_SWEEP_LEDGER.md). Delta 11 commits, no collisions;
+demo assembling well (lab openings study shipped + self-corrected, witness
+organ live, 34 bosses kill-or-spare, placement ruling fixed same turn).
+ROUTED: RUN 0f THE SOFT OPENING KIT (in-demo feedback card exported like
+the save blob; the demo is an INSTRUMENT before it is a LAUNCH — film
+test-screening + Next Fest data both aisles: closed instrumented round ->
+revise -> fresh eyes -> public only when there is an audience to amplify)
++ SHARED 6a load-sensitive gates isolate themselves (RUN BEAT + THE CROWD
+red under load = third of the class; a gate that reds at random gets
+ignored). Public-demo timing = Paolo's call AT demo-gate green, not now.

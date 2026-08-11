@@ -1284,6 +1284,18 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    Composes with time-is-spent + the bike (0v). WORLD supplies the pricing
    hooks. | travel menu on the real surface, costs shown before commit |
    supplement table detail = PENDING Paolo (GDD's own list) | no.
+0f. THE SOFT OPENING KIT (sweep 1 catch, 8/11 — records/BOHEMIA_
+   COORDINATOR_SWEEP_LEDGER.md; demo-ADJACENT, never demo-blocking): an
+   end-of-day in-demo FEEDBACK CARD — three taps (fun? / confusing? / play
+   again?) + optional text — exported exactly like the save blob so any
+   playtester can paste their reaction into a chat; folds with telemetry
+   (0e) so one paste returns data + feelings together. Grounded both
+   aisles: film test screenings (structured cards, revise, re-screen fresh
+   eyes) + Next Fest data (a public demo with no audience converts ~nothing
+   — the demo is an instrument before it is a launch). The closed-playtest
+   protocol is the coordinator's to write at demo-gate green; PUBLIC demo
+   timing is Paolo's call at that point, not now. | card live on the real
+   surface + export parses | — | no.
 0v. THE BIKE (big-missing item 8, assigned 7/31 to complete the dispatch —
    the design is LOCKED in GDD v5: man-powered ladder, bike ~4 cells/beat,
    valley crossing 1.7h walk -> ~26min bike; nothing on any surface rides).
@@ -5614,6 +5626,14 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    exemplar anchored each cook). | reusefirst-style gate extension | — | no.
 3. DRIFT CANARY harness: re-render fixed approved anchors, diff vs blessed.
    | canary gate registered | — | no.
+6a. LOAD-SENSITIVE GATES ISOLATE THEMSELVES (sweep 1 audit, 8/11 — third
+   occurrence of the class: RUN BEAT wall-clock assert + THE CROWD flip
+   under machine load, after COMBAT's 7/26 render-pixel note): any gate
+   that measures wall-clock or live-render behavior must detect load (or
+   run isolated / re-run-alone-on-red automatically) so a busy box cannot
+   red-flag an innocent lane. A gate that reds at random gets ignored,
+   which is worse than no gate. | the flaky trio pass under a saturated
+   box or self-report LOAD, gated | fix the ruler never the target | no.
 4. (discovered 7/28, ENGINE REALITY AUDIT) FPS/FRAME-TIME INSTRUMENTATION IS
    MISSING on both walk surfaces — step latency is gated (streaming_gate),
    render latency is measured nowhere. A perf claim without a gauge is a
