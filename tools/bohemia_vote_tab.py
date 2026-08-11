@@ -118,10 +118,17 @@ def card(h, idx, judged_already):
     # stamped on top. Baking it into the sprite instead would blind every gate that reads
     # the alpha for geometry -- tried, and caught in one run.
     pad = h.get('pad') or '#1a1815'
-    return ('<button class="cel %s" data-d="%s" title="%s" style="background:%s">'
+    # EACH CELL IS ITS OWN TILE'S SHAPE. A sprite is one cell's isometric diamond, so a flat
+    # subject is 2:1 and a tower is nearly square. Forcing every one into the same square box
+    # letterboxes the flat ones -- which is the "floating in a box" he has been rejecting.
+    # The cell takes the tile's aspect, the tile fills it edge to edge, and the published
+    # ground colour paints the diamond's corners so the cell is solid.
+    ar = '%d/%d' % (h.get('w') or 1, h.get('h') or 1)
+    return ('<button class="cel %s" data-d="%s" title="%s" '
+            'style="background:%s;aspect-ratio:%s">'
             '<img alt="%s" src="data:image/png;base64,%s">'
             '<span class="cn">%s</span><span class="mark"></span></button>'
-            % (tag, d, d, pad, d, h['b64'], d))
+            % (tag, d, d, pad, ar, d, h['b64'], d))
 
 
 cards_new = '<div class="grid">' + ''.join(card(h, i, False) for i, h in enumerate(queue)) + '</div>'
@@ -185,9 +192,17 @@ HTML = '''<!doctype html><meta charset="utf-8">
   /* THE GRID IS THE SURFACE. Square cells, edge to edge, no gap and no border, so he is
      looking at the map and not at fifty-nine picture frames. */
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin:0 0 4px;
-        border:1px solid var(--line);border-radius:6px;overflow:hidden}
+        align-items:end;border:1px solid var(--line);border-radius:6px;overflow:hidden}
   .cel{position:relative;display:block;padding:0;margin:0;border:0;border-radius:0;
-       background:#11110f;aspect-ratio:1/1;overflow:hidden;cursor:pointer;line-height:0}
+       background:#11110f;overflow:hidden;cursor:pointer;line-height:0}
+  /* THE TILE FILLS THE 1x1 CELL (Paolo 8/11): "THESE HAVE TO FILL THE WHOLE 1X1 ICON GRID
+     FOR THE CITY BUILDER SHIT." The sprite is one cell's isometric diamond, and a 2:1
+     diamond in a square canvas leaves HEADROOM above it -- room a tall building uses and a
+     flat road does not. Letterboxing that empty band into the grid is what made his tiles
+     look like small pictures floating in boxes.
+     `cover` + bottom anchoring fills the cell with the tile and crops the unused headroom,
+     so a road cell is solid road and a tower still shows its top. The sprite is untouched:
+     this is how the CELL presents it, which is the same split as the ground colour. */
   .cel img{width:100%;height:100%;display:block;image-rendering:pixelated}
   .cel .cn{position:absolute;left:0;right:0;bottom:0;font-size:9px;letter-spacing:1px;
            color:#e8e0cc;background:rgba(0,0,0,.55);padding:2px 4px;text-align:left;

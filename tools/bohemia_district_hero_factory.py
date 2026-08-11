@@ -1999,8 +1999,13 @@ def build_landfill(P):
     for (wx, wy, wz) in [(1.4, 1.8, 2.4), (2.6, 3.0, 4.6), (4.0, 4.2, 6.6), (9.2, 8.0, 0.0), (1.0, 9.0, 0.0)]:
         s.box((wx, wy, wz), (0.22, 0.22, 1.1), {'c': GAS})
     s.box((12.4, 1.0, 0), (1.4, 1.4, 1.2), {'c': _dark(GAS, 0.8)['c']})
-    s.box((12.75, 1.35, 1.2), (0.7, 0.7, 7.4), {'c': GAS})
-    s.box((12.55, 1.15, 8.6), (1.1, 1.1, 0.7), {'c': _dark(GAS, 1.2)['c']})               # the flare head
+    # THE FLARE IS THE LANDFILL'S ONE VERTICAL and it was too short to be one -- at map zoom
+    # the mound alone read the same as the arsenal's row of earth-covered magazines (squint
+    # measured them twins). A real landfill gas flare stands ~40 ft clear of the working
+    # face so the flame is nowhere near the fill; the stack is now that, and nothing else in
+    # the valley has a lit pipe on top of a terraced mountain.
+    s.box((12.75, 1.35, 1.2), (0.7, 0.7, 12.6), {'c': GAS})
+    s.box((12.55, 1.15, 13.8), (1.1, 1.1, 0.9), {'c': _dark(GAS, 1.2)['c']})              # the flare head
     s.box((-2.4, 8.6, 0), (3.0, 2.6, 3.0), {'top': _dark(BLDG, 0.9), 'px': _win(BLDG, 3, 2, 5),
           'py': _dark(BLDG, 0.86), 'nx': _dark(BLDG), 'ny': _dark(BLDG)})                 # the scale house
     _door_face(s, (-2.4, 8.6, 0), (3.0, 2.6, 3.0), width=1.0, ztop=2.0)
@@ -2280,6 +2285,14 @@ def build_wash(P):
     CONC, INVERT, BANK, RIP, TUNNEL, FENCE, BRUSH = P[2], P[6], P[4], P[9], P[8], P[10], P[3]
     s = Scene()
     _ground(s, (-3, -3, 15, 15), groundc=(112, 102, 82), lotc=(70, 68, 62))
+    # THE LIP AND THE FENCE, which every lined channel in this valley has and this icon did
+    # not: a raised concrete edge beam with chain-link standing on it, because a channel that
+    # will drown you is fenced. It is also the wash's only skyline -- without it the icon was
+    # a flat trough that squint measured as a twin of the reclamation pond field.
+    for ly in (1.0, 9.4):
+        s.box((-3.0, ly - 0.2, 2.2), (17.0, 0.45, 0.5), {'c': _dark(CONC, 1.12)['c']})
+        for fx in range(-2, 15, 2):
+            s.box((fx, ly - 0.05, 2.7), (0.14, 0.14, 1.7), {'c': FENCE})
     # THE TRAPEZOIDAL CHANNEL: sloped walls cut down to a flat invert
     for side, (wy, ny) in enumerate([(1.2, 1.0), (9.2, -1.0)]):
         s.quad((-3.0, wy, 2.2), (14.0, wy, 2.2), (14.0, wy + ny * 2.0, -1.4),
@@ -2402,41 +2415,38 @@ def build_freeway(P):
     return s, 5.6
 
 
-# A STREET CELL IS PAVED CORNER TO CORNER (Paolo 8/11, LOCKED):
-#   "the streets should FILL THE WHOLE FUCKING BOX ABSOLUTELY. REMEMBER ITS A REASONABLE
-#    FUN INTERPRETATION OF THE ACTUALLY WALKABLE GRID. THE STREETS DONT HAVE WALLS, THE
-#    FREEWAYS CAN HAVE WALLS, AND STREETS CROSSING AND STREETS NO CROSSING ARE DIFFERENT.
-#    Intersections should be smartly made with the lights... IF ITS NOT AN INTERSECTION."
+# ONE CELL. THE 1x1 TILE. NOTHING ELSE IN IT. (Paolo 8/11, LOCKED)
+#   "THESE HAVE TO FILL THE WHOLE 1X1 ICON GRID FOR THE CITY BUILDER SHIT... I DONT NEED TO
+#    SEE THEM WITH OTHER STREETS. JUST THE 1X1 GRID CITYBUILDER SHIT"
 #
-# He is right on every count and the old road icons broke all four. They drew a narrow
-# roadway band on a big DESERT pad, so a street cell read as a patch of asphalt lying in
-# the dirt with bare tan corners -- and a street cell is not a lot with a road on it, it
-# IS the road, kerb to kerb to kerb. Then they fenced it: BLOCK WALLS down both sides of a
-# public arterial, which is a back-of-house detail from a subdivision, not a street.
+# I HAD THIS WRONG FOR FOUR TURNS AND THIS IS THE CORRECTION. Trying to make a street "fill
+# the whole box" I drew the pavement WELL PAST the plot -- 22 world units past it on every
+# side -- so the square came out solid road. It did, and it was the wrong thing: a city
+# builder tile is ONE CELL. Painting past the cell edge means painting the NEIGHBOURS into
+# this tile, so every street icon carried three cells' worth of road and a grid of them read
+# as one continuous highway that no longer belonged to any single cell. That is precisely
+# what he means by "I dont need to see them with other streets".
 #
-# ROAD_OVERSIZE is why the box fills. The framing scales an icon until its SHORTER span
-# fits the square, so a pad drawn at plot size always leaves the diamond's four corners
-# bare. Drawing the paved surface well past the plot pushes those corners outside the
-# frame entirely and the square comes out solid street. It is the same trick a tileset
-# uses for a full-bleed tile, and it is the only way "fill the whole box" and "isometric"
-# are both true at once.
-ROAD_OVERSIZE = 22.0        # world units of pavement drawn beyond the plot on every side
+# HOW A CITY BUILDER ACTUALLY DOES IT, and it is the whole trick: the tile IS the cell's
+# isometric diamond, drawn edge to edge, and CONTINUITY IS AN EMERGENT PROPERTY OF TILING --
+# the road meets the cell boundary at the same offset and width on every side, so when two
+# cells sit next to each other their roads line up and the street runs. Each tile draws
+# only itself. The neighbour is the neighbour's job.
+#
+# So the bed is EXACTLY the plot, and the cell's own ground colour fills the square behind
+# the diamond (published per tile as `pad`, painted by the surface) so the 1x1 grid cell is
+# solid with no hole in its corners.
+ROAD_OVERSIZE = 0.0        # ONE CELL. Never paint past the boundary; the neighbour does that.
 
 
 def _street_bed(s, road, walk, x0=-3.0, y0=-3.0, x1=15.0, y1=15.0):
-    """The paved bed every road cell stands on: asphalt to the horizon, with the walk laid
-    ON it rather than a strip of desert showing between them. Nothing here is a wall.
+    """The paved bed of ONE road cell: asphalt over the whole plot and not one tile past it,
+    with the walk laid ON it rather than a strip of desert showing between them. No walls.
 
-    MARKS THE SCENE AS BLEEDING, and that mark is load-bearing. The square is MEASURED from
-    the set (the widest hero decides it), so a pad drawn deliberately past the frame would
-    otherwise vote in that measurement and drag every other icon's square out with it --
-    measured, 468 -> 776 the first time, which shrank all fifty-nine to fit a bleed nobody
-    was meant to see. A bleeding scene fills the square BY CONSTRUCTION, so it has no
-    opinion about how big the square should be and is excluded from the vote."""
-    s.bleed = True
-    o = ROAD_OVERSIZE
-    s.box((x0 - o, y0 - o, 0.0), (x1 - x0 + 2 * o, y1 - y0 + 2 * o, 0.08), {'c': road})
-    return o
+    Roads meet the cell boundary at a fixed offset and width, so two of these side by side
+    make a continuous street WITHOUT either tile having drawn the other."""
+    s.box((x0, y0, 0.0), (x1 - x0, y1 - y0, 0.08), {'c': road})
+    return 0.0
 
 
 def build_arterial(P):
@@ -3787,48 +3797,27 @@ def main():
     SHADOW_PX = 16
     inner = SQUARE_PX - 2 * 5 - SHADOW_PX
     for i, (d, scene, scale) in enumerate(built):
-        # TWO SPANS, NOT ONE, AND THIS IS THE WHOLE 8/11 FIX. Paolo, judging all 59:
-        # "Everything needs to be bigger touching the edges side by side of the square grid
-        #  fr bro... Things should be so big theres [not] cars or parking lots on it."
-        #
-        # Filling on max(w,h) CANNOT EVER TOUCH THE TOP EDGE and the reason is geometry, not
-        # taste: the pad is a 2:1 isometric diamond, so its WIDTH is always about twice its
-        # height. Fit the width and the height uses half the square by construction --
-        # measured, every icon left the top 195 of 468 px empty and sat jammed in the bottom.
-        # I had fitted THE PAD, and a 2:1 pad can never fill a square. That is why he was
-        # looking at small buildings in big frames after I "made them fill the square".
-        #
-        # So fill on the SMALLER span -- the pad's height becomes the square and its width
-        # runs off both sides. Everything gets bigger, the art reaches all four edges so
-        # tiles butt together, and the parking aprons at the pad's left and right corners
-        # go off-canvas ON THEIR OWN. That is his "so big there's no cars or parking lots
-        # on it": a consequence of the zoom, not forty deletions.
-        #
-        # CLAMPED BY THE BUILT MASS, because the one thing that must never be cut is the
-        # building. The pad may bleed; a roof may not.
-        xs, ys, mxs, mys = [], [], [], []
+        # EVERY CELL IS THE SAME CELL, SO EVERY TILE IS THE SAME WIDTH.
+        # A district cell is 96 m x 96 m everywhere in the valley, so its isometric diamond
+        # must come out the SAME WIDTH on every tile -- that is what makes a set of these a
+        # TILE SET rather than sixty unrelated pictures, and it is what lets two of them sit
+        # side by side and line up.
+        # Scaling each hero to fit a fixed square broke exactly that: a tall subject had to
+        # shrink to get its tower inside, so downtown's cell came out 401 px wide while a
+        # flat street's came out 448. Same ground, different size, which is a lie about the
+        # map. So the GROUND PLATE sets the scale and the height goes where it goes -- a
+        # tower is simply a taller tile, the way it is in every city builder.
+        gx = []
         for verts, _uv, _n, _m in scene.faces:
-            standing = max(v[2] for v in verts) > 0.9
+            if max(v[2] for v in verts) > 0.15:
+                continue                       # not the ground plate
             for (x, y, z) in verts:
-                px = (x - y) * scale
-                py = (x + y) * scale * 0.5 - z * scale
-                xs.append(px); ys.append(py)
-                if standing:
-                    mxs.append(px); mys.append(py)
-        span_w, span_h = max(xs) - min(xs), max(ys) - min(ys)
-        fill = inner / max(min(span_w, span_h), 1e-6)          # touch all four edges
-        if getattr(scene, 'bleed', False):
-            # A STREET FILLS THE WHOLE BOX (Paolo 8/11). Scale on the SHORTER span of the
-            # PLOT, not of the bleed, and let the pavement run off every edge -- which is
-            # the only way an isometric cell has no bare corners. The clamp below is for
-            # buildings; a road has no mass to protect, so it does not apply.
-            fill = inner / max(min(span_w, span_h) - 2 * ROAD_OVERSIZE * scale * 0.5, 1e-6)
-            built[i] = (d, scene, scale * fill)
-            continue
-        if mxs:
-            mass = max(max(mxs) - min(mxs), max(mys) - min(mys))
-            fill = min(fill, inner / max(mass, 1e-6))          # never cut a building
-        built[i] = (d, scene, scale * fill)
+                gx.append((x - y) * scale)
+        plate = (max(gx) - min(gx)) if gx else 0
+        if plate <= 0:                          # no plate: fall back to the whole content
+            xs = [(x - y) * scale for verts, _u, _n, _m in scene.faces for (x, y, z) in verts]
+            plate = max(xs) - min(xs)
+        built[i] = (d, scene, scale * (inner / plate))
 
     # PASS TWO: bake every hero into that one square, standing on a shared ground line.
     for d, scene, scale in built:
@@ -3852,6 +3841,22 @@ def main():
         # SAMPLED, NEVER TYPED: the tile's own most common opaque ground pixel, so a
         # district fills with its OWN dirt/asphalt/grass and a palette change carries in.
         pr, pg, pb, _pa = _pad_colour(sprite)
+        # A TILE IS ITS CELL, WITH NO DEAD BAND ON TOP (Paolo 8/11: "THESE HAVE TO FILL THE
+        # WHOLE 1X1 ICON GRID FOR THE CITY BUILDER SHIT").
+        # A cell's isometric diamond is 2:1, so in a fixed square canvas the top half is
+        # empty on every FLAT cell -- a street, a wash, a lot -- while a tower fills it. The
+        # square was sized from the tallest hero in the set, so the flatter the subject the
+        # more dead band it carried, and in a grid that band reads as the tile floating in a
+        # box. It is not art, it is padding, and padding cannot be judged.
+        # So the sprite is cropped to its own content. Every tile then FILLS whatever cell
+        # shows it, and the cell's published ground colour still paints behind it.
+        # THE SHARED GROUND LINE SURVIVES because the crop is measured from the bottom: all
+        # of them still stand on their own base, and w/h are published so a surface can lay
+        # them out honestly instead of guessing.
+        bb = sprite.getbbox()
+        if bb:
+            sprite = sprite.crop(bb)
+        w, h = sprite.size
         buf = io.BytesIO(); sprite.save(buf, 'PNG')
         out['heroes'].append({'district': d, 'variant': 'iconic', 'label': LABEL[d],
                               'w': int(w), 'h': int(h), 'bx': bx, 'by': by,

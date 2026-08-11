@@ -46,22 +46,22 @@ if (!fs.existsSync(BANK)) { console.log('SQUARE ICONS GATE: 0 passed, 1 failed')
 const heroes = JSON.parse(fs.readFileSync(BANK, 'utf8')).heroes.filter(h => h.b64);
 ok('there are heroes to check (' + heroes.length + ')', heroes.length > 40);
 
-// ---- 1: every icon is the SAME square -----------------------------------------------
-const sizes = new Set(heroes.map(h => h.w + 'x' + h.h));
-const nonSquare = heroes.filter(h => h.w !== h.h);
-ok('every icon is SQUARE (width == height)' +
-   (nonSquare.length ? ' — ' + nonSquare.slice(0, 5).map(h => h.district + ' ' + h.w + 'x' + h.h).join(', ') : ''),
-   nonSquare.length === 0);
-ok('and they are all the SAME square, so the set lines up (' + [...sizes].join(', ') + ')',
-   sizes.size === 1);
-
-// ---- 2 + 3 + 4: decode the pixels and measure -----------------------------------------
-// PNG header is enough for the frame; the content box needs the alpha, so use the same
-// decoder the rest of the repo uses rather than trusting the recorded w/h.
-const SRC0 = fs.readFileSync('tools/bohemia_district_hero_factory.py', 'utf8');
+// ---- 1: every icon is the SAME CELL ---------------------------------------------------
+// A GATE MUST NEVER OUTRANK A RULING (8/1), and this one has been re-aimed twice by his own
+// words. 8/8 was "everything should be on a square" and it shipped one fixed square canvas.
+// 8/11 is "THESE HAVE TO FILL THE WHOLE 1X1 ICON GRID FOR THE CITY BUILDER SHIT... I DONT
+// NEED TO SEE THEM WITH OTHER STREETS", which the fixed square cannot satisfy: a cell's
+// isometric diamond is 2:1, so a flat subject carried a dead band of padding on top and a
+// tall one did not, and padding is what he kept seeing as "floating in a box".
+//
+// WHAT MAKES A TILE SET A TILE SET IS NOT ONE CANVAS, IT IS ONE CELL. Every district cell in
+// the valley is 96 m x 96 m, so every tile's ground diamond must come out the SAME WIDTH --
+// that is what lets two of them sit side by side and line up. Height is then free: a tower
+// is simply a taller tile, exactly as in every city builder.
 const { execFileSync } = require('child_process');
+const SRC0 = fs.readFileSync('tools/bohemia_district_hero_factory.py', 'utf8');
 const probe = `
-import json,base64,io,sys
+import json,base64,io
 from PIL import Image
 b=json.load(open('${BANK}'))
 out=[]
@@ -69,8 +69,12 @@ for h in b['heroes']:
     if not h.get('b64'): continue
     a=Image.open(io.BytesIO(base64.b64decode(h['b64']))).convert('RGBA')
     bb=a.getbbox()
+    al=a.getchannel('A')
+    d=list(al.getdata())
     out.append({'d':h['district'],'w':a.size[0],'h':a.size[1],
-                'bb':list(bb) if bb else None})
+                'bb':list(bb) if bb else None,
+                'opq':sum(1 for p in d if p>200)/float(len(d)),
+                'pad':h.get('pad')})
 print(json.dumps(out))
 `;
 let px;
@@ -78,38 +82,41 @@ try { px = JSON.parse(execFileSync('python3', ['-c', probe], { maxBuffer: 1 << 2
 catch (e) { ok('the sprites decode', false); px = []; }
 ok('every sprite decodes and has content', px.length === heroes.length && px.every(p => p.bb));
 
-const realSizes = new Set(px.map(p => p.w + 'x' + p.h));
-ok('the real PIXELS are one square too, not just the recorded numbers (' +
-   [...realSizes].join(', ') + ')', realSizes.size === 1 && px.every(p => p.w === p.h));
+// the cell width, taken as the mode: what the overwhelming majority of tiles measure
+const tally = {};
+px.forEach(p => { tally[p.w] = (tally[p.w] || 0) + 1; });
+const CELL = +Object.keys(tally).sort((a, b) => tally[b] - tally[a])[0];
+const offCell = px.filter(p => Math.abs(p.w - CELL) > CELL * 0.05);
+ok('EVERY TILE IS THE SAME CELL WIDTH (' + CELL + 'px, ' + (tally[CELL] || 0) + '/' +
+   px.length + ' exact)' + (offCell.length ? ' — ' + offCell.slice(0, 5).map(p => p.d + ' ' +
+   p.w).join(', ') : ''), offCell.length === 0);
+ok('and the scale comes off the GROUND PLATE, so a tall subject cannot shrink its own cell',
+   /GROUND PLATE sets the scale/.test(SRC0));
 
-// A GATE MUST NEVER OUTRANK A RULING (8/1). This check used to read "NOTHING IS CLIPPED",
-// and on 8/11 Paolo judged all 59 and ruled the opposite: "Everything needs to be bigger
-// TOUCHING THE EDGES side by side of the square grid fr bro... Things should be so big
-// theres [not] cars or parking lots on it." Art that touches the edge is now the REQUIREMENT,
-// and the pad running off the sides is how the parking goes away. So the check is re-aimed
-// rather than deleted: THE PAD MAY BLEED, A BUILDING MAY NOT.
-const side = px.length ? px[0].w : 1;
-const small = px.filter(p => (p.bb[2] - p.bb[0]) < p.w * 0.92 && (p.bb[3] - p.bb[1]) < p.h * 0.92);
-ok('EVERY ICON REACHES ITS EDGES (Paolo 8/11: bigger, touching the edges, side by side)' +
-   (small.length ? ' — ' + small.slice(0, 6).map(p => p.d + ' ' +
-      (p.bb[2] - p.bb[0]) + 'x' + (p.bb[3] - p.bb[1])).join(', ') : ''), small.length === 0);
+// NO DEAD BAND: the tile is its cell, cropped to what is drawn
+const padded = px.filter(p => p.bb[0] > 1 || p.bb[1] > 1 ||
+                              p.bb[2] < p.w - 1 || p.bb[3] < p.h - 1);
+ok('no tile carries a band of padding -- each one IS its cell, cropped to what is drawn' +
+   (padded.length ? ' — ' + padded.slice(0, 5).map(p => p.d).join(', ') : ''),
+   padded.length === 0);
+ok('the crop is measured from the sprite, never typed', /sprite\.getbbox\(\)/.test(SRC0));
 
-// and the fill is derived from the SMALLER span, which is the only way a 2:1 iso pad can
-// ever touch a square's top edge -- fitting the larger span left the top 42% empty, by
-// construction, on all fifty-nine.
-ok('the fill is measured off the SMALLER span, because a 2:1 iso pad can never fill a ' +
-   'square on its wider one', /min\(span_w, span_h\)/.test(SRC0));
-ok('and it is CLAMPED by the built mass, so the pad bleeds but a building is never cut',
-   /never cut a building/.test(SRC0));
+// ONE CELL ONLY: never paint the neighbours in
+ok('a tile never paints past its own cell (ROAD_OVERSIZE 0 -- the neighbour is the ' +
+   'neighbour\'s job)', /ROAD_OVERSIZE = 0\.0/.test(SRC0));
+ok('and the factory says out loud why painting past it was wrong',
+   /I dont need to see them with other streets|I DONT NEED TO SEE THEM WITH OTHER STREETS/i.test(SRC0));
 
-// 3. the biggest must still nearly fill it, or everything was shrunk to fit
-const widest = Math.max(...px.map(p => p.bb[2] - p.bb[0]));
-const tallest = Math.max(...px.map(p => p.bb[3] - p.bb[1]));
-ok('NOTHING WAS SHRUNK TO FIT: the biggest hero still fills the square (' +
-   widest + 'x' + tallest + ' in ' + side + ')',
-   widest >= side * 0.90 || tallest >= side * 0.90);
+// the ground colour that fills the diamond's corners in whatever cell shows it
+const noPad = px.filter(p => !/^#[0-9a-f]{6}$/.test(p.pad || ''));
+ok('every tile publishes the ground colour its cell is painted with' +
+   (noPad.length ? ' — ' + noPad.slice(0, 5).map(p => p.d).join(', ') : ''), noPad.length === 0);
+ok('the colour is SAMPLED off each tile\'s own pad, never typed', /def _pad_colour/.test(SRC0));
+const tabSrc = fs.readFileSync('tools/bohemia_vote_tab.py', 'utf8');
+ok('and the surface paints the cell with it, at the tile\'s own aspect, so nothing is ' +
+   'letterboxed', /h\.get\('pad'\)/.test(tabSrc) && /aspect-ratio:%s/.test(tabSrc));
 
-// 3b. NO CARS ON AN ICON -- his ruling, twice (8/2 and 8/11).
+// NO CARS ON AN ICON -- his ruling, twice (8/2 and 8/11).
 ok('no vehicles are drawn on an icon (Paolo 8/2 and again 8/11), by one reversible switch',
    /SHOW_VEHICLES = False/.test(SRC0));
 
@@ -123,32 +130,18 @@ ok('no vehicles are drawn on an icon (Paolo 8/2 and again 8/11), by one reversib
 // arterial_x joined the list 8/11 when Paolo split the run from the crossing:
 // "FIX THAT ARTERIAL AND ARTERIAL INTERSECTION ARE DIFFERENT! 2 DIFFERENT ITEMS AND
 // ICONS!!" Both are streets, so both must fill the box.
-const ROADS = ['arterial', 'arterial_x', 'freeway'];
-const probe2 = `
-import json,base64,io
-from PIL import Image
-b=json.load(open('${BANK}'))
-out={}
-for h in b['heroes']:
-    if h['district'] not in ${JSON.stringify(ROADS)} or not h.get('b64'): continue
-    a=Image.open(io.BytesIO(base64.b64decode(h['b64']))).convert('RGBA').getchannel('A')
-    d=list(a.getdata())
-    out[h['district']]=sum(1 for p in d if p>200)/float(len(d))
-print(json.dumps(out))
-`;
-let cov = {};
-try { cov = JSON.parse(execFileSync('python3', ['-c', probe2], { maxBuffer: 1 << 28 }).toString()); }
-catch (e) { ok('the road icons decode', false); }
-for (const r of ROADS) {
-  ok('the ' + r + ' fills the whole box (' + Math.round((cov[r] || 0) * 1000) / 10 + '% paved)',
-     (cov[r] || 0) >= 0.985);
-}
-ok('a street cell is paved PAST the frame, which is the only way an iso cell has no bare corners',
-   /ROAD_OVERSIZE/.test(SRC0) && /_street_bed/.test(SRC0));
-ok('and a bleeding cell is excluded from the square VOTE, so it cannot drag the set out ' +
-   'with it (it did: 468 -> 776)', /bleed/.test(SRC0) && /776/.test(SRC0));
-ok('a street is CENTRED, not seated on the building baseline -- a street IS the ground',
-   /A STREET HAS NO GROUND LINE/.test(SRC0));
+const ROADS = ['arterial', 'arterial_x', 'freeway', 'interchange'];
+// A DIAMOND FILLS HALF ITS BOUNDING BOX -- that is geometry, not a defect. The old check
+// measured the opaque fraction of a fixed square and demanded 98%, which only ever passed
+// because the tile was painting its NEIGHBOURS past the cell edge. Under one-cell tiles the
+// right question is: does the street run the full width and the full depth of ITS OWN cell,
+// edge to edge, so two of them tile into a continuous road?
+const roadPx = px.filter(p => ROADS.indexOf(p.d) >= 0);
+ok('the road tiles are all present (' + roadPx.map(p => p.d).join(', ') + ')',
+   roadPx.length === ROADS.length);
+const short = roadPx.filter(p => (p.bb[2] - p.bb[0]) < p.w - 1 || (p.bb[3] - p.bb[1]) < p.h - 1);
+ok('every street runs edge to edge across its own cell, so two of them tile into one road' +
+   (short.length ? ' — ' + short.map(p => p.d).join(', ') : ''), short.length === 0);
 // THE STREETS DON'T HAVE WALLS. THE FREEWAYS CAN.
 // A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE (8/1, learned here
 // again): the first version of these two failed because the freeway's OWN COMMENT says
@@ -185,27 +178,16 @@ ok('the freeway draws no crosswalk at all', !/crosswalk/i.test(freewayCode));
 // not the buildings: an isometric pad is a DIAMOND, so all four corners of every tile were
 // TRANSPARENT and read as black holes between neighbours. No city builder has holes between
 // its cells -- the ground runs under everything and the buildings sit on it.
-const bank2 = JSON.parse(fs.readFileSync(BANK, 'utf8')).heroes.filter(h => h.b64);
-const noPad = bank2.filter(h => !/^#[0-9a-f]{6}$/.test(h.pad || ''));
-ok('every tile publishes the ground colour its cell is painted with' +
-   (noPad.length ? ' — missing ' + noPad.slice(0, 5).map(h => h.district).join(', ') : ''),
-   noPad.length === 0);
-ok('the colour is SAMPLED off each tile\'s own pad, never typed', /def _pad_colour/.test(SRC0));
-const tabSrc = fs.readFileSync('tools/bohemia_vote_tab.py', 'utf8');
-ok('and the surface actually paints the cell with it, so the grid has no holes between tiles',
-   /h\.get\('pad'\)/.test(tabSrc) && /background:%s/.test(tabSrc));
-ok('the sprite itself is NOT pre-filled -- geometry stays honest for every gate that reads ' +
-   'the alpha (compositing it in blinded squint and art_45 in one run)',
-   /THE CELL PAINTS IT, NOT THE SPRITE/.test(SRC0));
-
-// 4. one ground line
-// buildings only -- a bleeding street is centred on purpose and has no baseline to share
-const bases = px.filter(p => ROADS.indexOf(p.d) < 0).map(p => p.bb[3]);
-const spread = Math.max(...bases) - Math.min(...bases);
-ok('they all stand on the SAME ground line (spread ' + spread + 'px)', spread <= 12);
+// 4. THE GROUND LINE. Every tile is cropped to its own content now, so each one ends ON
+// its base by construction -- the check that survives is that nothing floats: the bottom
+// row of every tile has ink in it.
+const floating = px.filter(p => p.bb[3] < p.h - 1);
+ok('nothing floats: every tile ends on its own ground' +
+   (floating.length ? ' — ' + floating.slice(0, 5).map(p => p.d).join(', ') : ''),
+   floating.length === 0);
 
 // ---- 5 + 6: the pad is square in world space, and the size is derived ------------------
-const SRC = fs.readFileSync('tools/bohemia_district_hero_factory.py', 'utf8');
+const SRC = SRC0;
 ok('the PAD under the building is squared in world space, not just the frame',
    /side = max\(x1 - x0, y1 - y0\)/.test(SRC));
 ok('the square size is MEASURED from the set at bake time, not typed as a constant',
@@ -214,6 +196,5 @@ ok('and the factory says out loud that the hand-picked number clipped nineteen o
    /clipped/i.test(SRC) && /NINETEEN|nineteen/.test(SRC));
 
 console.log('SQUARE ICONS GATE: ' + pass + ' passed, ' + fail + ' failed  (' + heroes.length +
-            ' icons, one ' + side + 'x' + side + ' square, 0 clipped, ground line within ' +
-            spread + 'px)');
+            ' tiles, one cell ' + CELL + 'px wide, cropped to the cell, nothing floating)');
 process.exit(fail ? 1 : 0);
