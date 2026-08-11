@@ -1,6 +1,6 @@
-# I DECIDE THE MECHANISM — 8/6/26
+# I DECIDE THE MECHANISM — 8/11/26
 
-Paolo, 8/6/26, verbatim:
+Paolo, 8/11/26, verbatim:
 
 > BRO WE HAVE ALL THE TOOLS NEVER ASK ME AGAIN OUT IN A TILE REQUEST FORM FOR
 > THE ART CHAT MAN
@@ -13,7 +13,7 @@ reaches him again.
 
 ---
 
-## THE STANDING RULE (8/6/26, LOCKED)
+## THE STANDING RULE (8/11/26, LOCKED)
 
 **An ART question is never a question. It is a REQUEST.**
 If the answer would be a drawn pixel — a material, a colorway, a tile, a
@@ -105,7 +105,7 @@ pavement is correct behavior, not a missing flag.
 ## DECISION 3 — THE FLOOR MATERIALS
 
 Not a question. Filed as art requests AR-001 (wood) and AR-002 (carpet) on
-8/6 per his ruling "Tile wood and carpet bro ofc bro wtf", and AR-003 (side
+8/11 per his ruling "Tile wood and carpet bro ofc bro wtf", and AR-003 (side
 door recook) after "Your side doors were dogshit." The queue is the channel.
 `art_request_gate.js` holds each one open until its marker is measurably in the
 surface he plays.

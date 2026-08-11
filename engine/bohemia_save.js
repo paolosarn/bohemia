@@ -1,4 +1,4 @@
-// BOHEMIA SAVE (8/6/26) — THE IPHONE-PROOF SAVE. One canonical body; the alpha
+// BOHEMIA SAVE (8/11/26) — THE IPHONE-PROOF SAVE. One canonical body; the alpha
 // inlines it, gates/save_iphone_gate.js drives it against a hostile fake browser.
 //
 // WHY THIS EXISTS. CITYSAVE v1 (7/7/26) was one key, one write, no verify, and a
@@ -227,7 +227,7 @@
       S.mem = blob;                                  // memory copy, unconditionally
       S.lastLen = blob.length;
 
-      /* THE SECOND ROUTE TO THE TIME MACHINE, found by the gate on 8/6 and not
+      /* THE SECOND ROUTE TO THE TIME MACHINE, found by the gate on 8/11 and not
          by reading the code. It is not only a FAILED write that strands a stale
          save on disk. A session that came up in MEMORY mode because the device
          was already full plays on, never writes, and leaves the old save sitting

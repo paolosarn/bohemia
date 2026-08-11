@@ -1,5 +1,5 @@
 /* ============================================================================
-   SHIPPED TRUTH GATE (8/6/26)
+   SHIPPED TRUTH GATE (8/11/26)
 
    THE CLASS OF FAILURE THIS EXISTS FOR, four times in one week:
 
@@ -50,6 +50,8 @@ const CLAIMS = [
   ['__HOUSE_FLOORS__',              '"Tile wood and carpet" -- no room renders on the street'],
   ['__SAVE_V2__',                   '"make the save iPhone-proof" -- no one-byte probe, no time machine'],
   ['__SAVE_FLUSH_IOS__',            '...and switching apps mid-run no longer eats the last move'],
+  ['__DAY_LOOP__',                  '"close the game day loop end to end" -- wake, sixteen hours, nightfall, reckon'],
+  ['DEMO_BQ=',                      '...and the canon quests are IN it, in their own words'],
 ];
 
 /* THE SOUND LANE'S CLAIMS. Same contract, different lane: every marker here was

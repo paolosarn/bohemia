@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-MAKE THE SAVE IPHONE-PROOF (8/6/26).
+MAKE THE SAVE IPHONE-PROOF (8/11/26).
 
 Paolo's demo row, verbatim: "make the save iPhone-proof". The demo is played on a
 phone, in Safari, and CITYSAVE v1 (7/7/26) loses the run to four things Safari
@@ -87,7 +87,7 @@ FLUSH_ANCHOR = """window.addEventListener('pagehide',()=>{ if(_svT){clearTimeout
     riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM
   }},'*'); }catch(_e){} });"""
 
-FLUSH_NEW = """/* """ + FLUSH_MARKER + """ -- THE FLUSH IOS ACTUALLY DELIVERS (8/6/26).
+FLUSH_NEW = """/* """ + FLUSH_MARKER + """ -- THE FLUSH IOS ACTUALLY DELIVERS (8/11/26).
    This was `pagehide` alone. Inside an iframe on iOS that is the event least
    likely to ever run: Safari backgrounds and then reaps a tab through
    visibilitychange and freeze, and those go to the top document, not to the
@@ -121,7 +121,7 @@ def patch_alpha():
     j += len(OLD_END)
 
     mod = open(MODULE, encoding='utf-8').read()
-    new = ('/* ' + MARKER + ' -- THE IPHONE-PROOF SAVE (8/6/26). The whole body is\n'
+    new = ('/* ' + MARKER + ' -- THE IPHONE-PROOF SAVE (8/11/26). The whole body is\n'
            '   engine/bohemia_save.js, inlined here verbatim by tools/bohemia_save_v2_patch.py\n'
            '   and driven against a hostile fake browser by gates/save_iphone_gate.js. It\n'
            '   replaces CITYSAVE v1 (7/7/26), which had a one-byte probe, one slot, no\n'

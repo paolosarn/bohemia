@@ -5,7 +5,7 @@
   forever -- no ?v= cache-busters, ever. This worker makes the plain URL always
   serve the newest deploy (network-first), killing the stale-cache reason the
   query strings existed. Silent, URL stays pristine. */
-/* __BOH_DURABLE__ (8/6/26): ASK THE BROWSER TO KEEP THE SAVE.
+/* __BOH_DURABLE__ (8/11/26): ASK THE BROWSER TO KEEP THE SAVE.
    iOS WebKit deletes localStorage, IndexedDB AND service worker registrations
    after SEVEN DAYS with no interaction with the origin. Every Bohemia save lives
    in localStorage (measured: bohemia.save.v1, 9,351 bytes), and sw.js - the
@@ -11002,13 +11002,13 @@ window.CITYMUS=CITYMUS;   /* same-origin iframes call this DIRECTLY inside the t
    only. Backend PROBED at boot per the iOS STORAGE LAW (7/2 research):
    file:// launchers throw on setItem, so we fall back to in-memory and the
    EXPORT blob becomes the real line. Never a time machine. ---- */
-/* __SAVE_V2__ -- THE IPHONE-PROOF SAVE (8/6/26). The whole body is
+/* __SAVE_V2__ -- THE IPHONE-PROOF SAVE (8/11/26). The whole body is
    engine/bohemia_save.js, inlined here verbatim by tools/bohemia_save_v2_patch.py
    and driven against a hostile fake browser by gates/save_iphone_gate.js. It
    replaces CITYSAVE v1 (7/7/26), which had a one-byte probe, one slot, no
    integrity check, and a stale-save time machine under a comment promising
    there was none. */
-// BOHEMIA SAVE (8/6/26) — THE IPHONE-PROOF SAVE. One canonical body; the alpha
+// BOHEMIA SAVE (8/11/26) — THE IPHONE-PROOF SAVE. One canonical body; the alpha
 // inlines it, gates/save_iphone_gate.js drives it against a hostile fake browser.
 //
 // WHY THIS EXISTS. CITYSAVE v1 (7/7/26) was one key, one write, no verify, and a
@@ -11237,7 +11237,7 @@ window.CITYMUS=CITYMUS;   /* same-origin iframes call this DIRECTLY inside the t
       S.mem = blob;                                  // memory copy, unconditionally
       S.lastLen = blob.length;
 
-      /* THE SECOND ROUTE TO THE TIME MACHINE, found by the gate on 8/6 and not
+      /* THE SECOND ROUTE TO THE TIME MACHINE, found by the gate on 8/11 and not
          by reading the code. It is not only a FAILED write that strands a stale
          save on disk. A session that came up in MEMORY mode because the device
          was already full plays on, never writes, and leaves the old save sitting

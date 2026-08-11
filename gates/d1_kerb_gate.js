@@ -27,7 +27,7 @@ const K = require(path.join(ROOT, 'engine/bohemia_district_kit.js'));
    existed. Every one of the six was the same shape: a legend row doing double duty,
    naming the public walk AND the thing the building stands on in one code.
 
-   8/6/26 — TWO OF THE SIX ARE FIXED, NOT RATCHETED. I had shelved these as "Paolo's
+   8/11/26 — TWO OF THE SIX ARE FIXED, NOT RATCHETED. I had shelved these as "Paolo's
    classification ruling"; he ruled on the ASKING instead ("DO SOMETHING MAKE A
    DECISION", 8/6). A CLASSIFICATION call is mechanism, and mechanism is mine. Their
    own act1 text already said which one they were:

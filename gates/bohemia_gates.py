@@ -130,6 +130,17 @@ GATES = [
      'Paolo 8/3 ruling: "Ofcourse the building should become see through to reflect characters items or the player or doors" -- the old fade was correct and could NEVER fire (312 facades in the spawn cell, 0 walkable cells behind any of them); walls now go to glass around him, proved by DIFFING the pixels, and it stays a halo so the street does not shimmer', True),
     ('E/W DOOR',       ['node', 'gates/ewdoor_gate.js'],
      'Paolo: "I never saw your eastern west facing doors, bro what\'s up with that?" -- 368 cells approach from the east and 336 from the west against 324 from the south, and the side ones had ZERO doors because every door test read the cell BELOW. His 7/10 edge-on art, finally drawing, and no side door may be unreachable', True),
+    ('DAY LOOP',       ['node', 'gates/dayloop_gate.js'],
+     'Paolo\'s demo row: "close the game day loop end to end (hardcode the demo quests, '
+     'scaffolding is legal)". The city had a TIMER, not a day: minutes accumulated, rolled '
+     'past midnight, and nothing in the world knew a day had happened -- while a finished .bq '
+     'parser, quest runtime and 21 canon quests sat in engine/ and in NEITHER file the player '
+     'loads. Now: wake 06:00, sixteen hours, NIGHTFALL 22:00, a reckoning, day+1 carrying '
+     'everything. Every resolution button is the destination stage\'s own @LOG line VERBATIM '
+     '(the gate diffs each one against quests/bq/*.bq), nightfall on an unresolved quest fires '
+     'THE QUEST AUTHOR\'S OWN FAIL STAGE, and the STAKES table is EMPTY because what a day costs '
+     'to live is Paolo\'s ruling. Played wake-to-nightfall-to-next-wake in a real browser, and '
+     'again through the alpha\'s RUN tab where he actually stands', True),
     ('SAVE IPHONE',    ['node', 'gates/save_iphone_gate.js'],
      'Paolo\'s demo row: "make the save iPhone-proof". CITYSAVE v1 had a ONE-BYTE probe '
      '(so it reported "disk" and then lost every autosave to memory in silence), ONE slot '

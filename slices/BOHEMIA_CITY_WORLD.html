@@ -119,12 +119,46 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
     <div id="underbtn">⬇ UNDER</div>
     <div id="keybtn">🔑 KEY</div>
   </div>
+  <div id="qline"></div>
+  <div id="daycard"><div id="daycardIn"></div></div>
+  <div id="sleepbtn">🛏 SLEEP</div>
   <div id="savepanel"></div>
   <div id="keypanel"></div>
   <div id="pfpanel"></div>
   <div id="nav"><div id="pad"></div><div id="mode"><canvas id="modeFace" width="64" height="64"></canvas><span id="modeLbl">⤓ DROP IN</span></div></div>
 </div>
 </div>
+<style id="dayloopCss">
+/* __DAY_LOOP__ -- the day loop's surface, in the app's own palette. No new
+   art: this is the Dead Eye Dial language the whole city already speaks. */
+#qline{position:absolute;left:6px;right:6px;top:6px;z-index:7;pointer-events:none;
+  font-size:11px;font-weight:700;letter-spacing:1px;color:var(--acc);
+  text-shadow:0 1px 4px #000,0 0 10px #000;line-height:1.35}
+#sleepbtn{position:absolute;left:6px;bottom:6px;z-index:7;padding:7px 11px;border-radius:9px;
+  background:var(--face);border:1px solid var(--line);color:var(--acc);
+  font-size:11px;font-weight:700;letter-spacing:1px}
+#sleepbtn:active{border-color:var(--acc);color:#fff}
+#daycard{position:absolute;inset:0;z-index:20;display:none;align-items:center;justify-content:center;
+  background:rgba(6,5,4,.86);padding:14px}
+#daycard.on{display:flex}
+#daycardIn{width:100%;max-width:420px;max-height:100%;overflow-y:auto;touch-action:pan-y;
+  background:var(--face);border:1px solid var(--line);border-radius:12px;padding:16px 15px;
+  box-shadow:0 18px 50px rgba(0,0,0,.7)}
+#daycardIn h2{font-size:13px;letter-spacing:3px;color:var(--acc);margin-bottom:4px}
+#daycardIn h3{font-size:11px;letter-spacing:2px;color:#8d7c5e;margin:12px 0 5px}
+#daycardIn p{font-size:13px;line-height:1.5;color:var(--ink);margin-bottom:8px}
+#daycardIn .sub{font-size:11px;color:#8d7c5e;letter-spacing:1px;margin-bottom:10px}
+#daycardIn ul{list-style:none;margin-bottom:6px}
+#daycardIn li{font-size:12px;line-height:1.5;color:var(--ink);padding-left:12px;position:relative;margin-bottom:3px}
+#daycardIn li:before{content:'\00b7';position:absolute;left:2px;color:var(--acc)}
+.dcbtn{display:block;width:100%;text-align:left;margin-top:9px;padding:11px 12px;border-radius:9px;
+  background:#1b1813;border:1px solid var(--line);color:var(--ink);font-size:13px;line-height:1.45}
+.dcbtn:active{border-color:var(--acc);color:#fff}
+.dcbtn .tag{display:block;font-size:10px;letter-spacing:2px;color:var(--acc);margin-bottom:3px}
+.dcgo{margin-top:14px;padding:12px;border-radius:9px;background:#1b1813;border:1px solid var(--acc);
+  color:var(--acc);font-size:12px;font-weight:700;letter-spacing:2px;text-align:center}
+.dcgo:active{background:#2a251d;color:#fff}
+</style>
 <style id="tjScrollFix">#tjPanel,#tjPanel *{touch-action:pan-y !important}#tjPanel img[data-place]{touch-action:manipulation !important}#tjPanel textarea{touch-action:auto !important}</style>
 <script src="BOHEMIA_CITY_TILES.js"></script>
 <script>
@@ -7855,7 +7889,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     10:{name:'rooftop lantern / plant',kind:'structure',act1:'the drum\'s rooftop lantern and the mechanical plant on the tower and the wings, ducting collapsed, one unit stripped for its copper'},
     11:{name:'clerestory glazing',kind:'structure',act1:'the clerestory teeth running the length of the reading wing — the glass that lit the stacks, now mostly sky'},
     12:{name:'courtyard',         kind:'ground',   act1:'a walled reading courtyard between the masses, its paving cracked, the planting dead in place'},
-    13:{name:'terrace / walk',    kind:'walk',     act1:'the raised concrete terrace the whole building sits on, and the walks across it, cracked corner to corner'},
+    13:{name:'terrace / plinth',  kind:'ground',     act1:'the raised concrete terrace the whole building sits on, and the walks across it, cracked corner to corner'},
     14:{name:'oculus ring',       kind:'structure',act1:'the ring of the drum\'s oculus — the round clerestory that dropped daylight into the middle of the reading room, its glazing gone'},
     15:{name:'plaza planter',    kind:'structure',act1:'a low sandstone planter wall across the plaza, its bed gone to hardpan with a dead tree still standing in it, coping cracked where people sat on it for thirty years', solid:true},
     17:{name:'roof edge',         kind:'structure',act1:'the parapet line where a roof meets its wall, coping missing in runs'},
@@ -10314,7 +10348,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     10:{name:'solar tree mast',   kind:'structure',act1:'the tubular column of a solar tree, thirty feet of steel, powder coat blistered off the sunward side'},
     11:{name:'curtain wall glazing',kind:'structure',act1:'the glass curtain wall — the panels that are left are sun-hazed, the rest is board and sky'},
     12:{name:'flagpole',          kind:'prop',     act1:'a flagpole beside the doors, halyard slapping in the wind, nothing left on it'},
-    13:{name:'walk / podium',     kind:'walk',     act1:'the raised concrete podium the building stands on and the walks across it, cracked corner to corner'},
+    13:{name:'podium',            kind:'ground',     act1:'the raised concrete podium the building stands on and the walks across it, cracked corner to corner'},
     14:{name:'plaza planter',    kind:'structure',act1:'a low limestone planter across the plaza, bed gone to hardpan with a dead tree still standing in it, coping cracked along the edge people sat on', solid:true},
     26:{name:'bike rack',        kind:'structure',act1:'a staple rack by the doors, two of the hoops cut through with a grinder and whatever was locked to them long gone', solid:true},
     27:{name:'inverter cabinet', kind:'structure',act1:'a string inverter at the head of a panel row, door hanging, the copper busbars inside cut out clean', solid:true},
@@ -10906,9 +10940,995 @@ function CBpanel(){
 window.__CITY={power:function(){return POWER;},night:function(){return isNight();},rerender:function(){render();},state:function(){return {seed:seed,TW:TW,TH:TH,cx:city.x,cy:city.y,panX:panX,panY:panY,mode:MODE};},isoAt:function(x,y){var ox=cv.width/2-(city.x-city.y)*TW/2+panX,oy=cv.height/2-(city.x+city.y)*TH/2+panY;return iso(x,y,ox,oy);},district:function(x,y){var c=om.at(x,y);return c&&c.district;},wallArtReady:function(){var t=saTex('perimeter',0);return !!(t&&t.width);}};
 
 
+/* ==== engine/bohemia_bq.js ==== */   /* __DAY_LOOP__ */
+/* bohemia_bq.js — Bohemia Quest (.bq) parser, serializer, validator.
+   LAWS ENFORCED IN CODE:
+   - Never crash on a garbled line. Preserve it, flag it. (voice-to-text law)
+   - Round-trip lossless: parse -> serialize -> byte-identical.
+   - No stat/karma gates. The format cannot express them. (CONSCIENCE SYSTEM)
+   - REQ roles must be castable. (Bethesda alias-fill gate)
+   No dependencies. Runs in node and in the browser. */
+(function(root){
+'use strict';
+
+var BANNED_GATES = ['charm','paragon','renegade','karma','speech','morality','intimidate','persuasion'];
+var GATE_KEYS    = ['none','knows','flag','has','role','faction','gen'];
+
+/* ---------- PARSE ---------- */
+function parse(text){
+  var Q = { id:'', title:'', act:null, faction:null, once:true,
+            roles:[], stages:[], objs:[], talks:[], raw:[], warnings:[] };
+  var lines = String(text).replace(/\r\n/g,'\n').split('\n');
+  var curStage=null, curTalk=null;
+
+  for (var i=0;i<lines.length;i++){
+    var raw = lines[i];
+    Q.raw.push(raw);
+    var L = raw.trim();
+    var ln = i+1;
+    if (L==='' || L[0]==='#'){ continue; }
+
+    var m;
+    if ((m=/^@QUEST\s+(\S+)\s*(.*)$/.exec(L))){ Q.id=m[1]; Q.title=m[2].trim(); curStage=null; curTalk=null; continue; }
+    if ((m=/^@ACT\s+(\S+)/.exec(L))){ Q.act=m[1]; continue; }
+    if ((m=/^@FACTION\s+(\S+)/.exec(L))){ Q.faction=m[1]; continue; }
+    if ((m=/^@ONCE\s+(\S+)/.exec(L))){ Q.once = /^true$/i.test(m[1]); continue; }
+
+    if ((m=/^@ROLE\s+(\S+)\s+(REQ|OPT)\s*(.*)$/i.exec(L))){
+      Q.roles.push({ name:m[1], req:/^REQ$/i.test(m[2]), cond:m[3].trim(), line:ln });
+      continue;
+    }
+
+    if ((m=/^@STAGE\s+(\d+)\s*(.*)$/.exec(L))){
+      var flags = m[2].trim().toUpperCase().split(/\s+/).filter(Boolean);
+      curStage = { n:parseInt(m[1],10), log:'', dos:[], flags:flags, tags:tagsOf(raw), line:ln };
+      Q.stages.push(curStage); curTalk=null; continue;
+    }
+    if ((m=/^@LOG\s+(.*)$/.exec(L))){ if(curStage) curStage.log = m[1].trim(); else warn(Q,ln,'@LOG outside a @STAGE'); continue; }
+    if ((m=/^@DO\s+(.*)$/.exec(L))){
+      var d = { text:m[1].trim(), line:ln };
+      if (curStage) curStage.dos.push(d);
+      else if (curTalk) curTalk.trailingDo = d;
+      else warn(Q,ln,'@DO outside a @STAGE or @TALK');
+      continue;
+    }
+    if ((m=/^@OBJ\s+(\d+)\s+"([^"]*)"\s*(?:target=(\S+))?/.exec(L))){
+      Q.objs.push({ n:parseInt(m[1],10), text:m[2], target:m[3]||null, line:ln }); continue;
+    }
+
+    if ((m=/^@TALK\s+(\S+)\s*(.*)$/.exec(L))){
+      var attrs = attrsOf(m[2]);
+      curTalk = { id:m[1], speaker:attrs.speaker||null, entry:attrs.entry||null,
+                  says:[], opts:[], locks:[], noverbs:[], tags:tagsOf(raw), line:ln };
+      Q.talks.push(curTalk); curStage=null; continue;
+    }
+    if ((m=/^@SAY\s+(.*)$/.exec(L))){ if(curTalk) curTalk.says.push({text:stripTags(m[1]).trim(), tags:tagsOf(raw), line:ln}); else warn(Q,ln,'@SAY outside a @TALK'); continue; }
+    if ((m=/^@OPT\s+(.*)$/.exec(L))){
+      if(!curTalk){ warn(Q,ln,'@OPT outside a @TALK'); continue; }
+      var body = m[1];
+      /* CONTINUATION: an @OPT may wrap. Following lines that start with [gate: or -> or @DO
+         belong to it. Voice-to-text wraps long lines; the format must not punish that. */
+      while (i+1 < lines.length && /^\s*(\[gate:|->|@DO\b|TRAP\b|SILENCE\b)/.test(lines[i+1])){
+        i++; Q.raw.push(lines[i]); body += ' ' + lines[i].trim();
+      }
+      var o = parseOpt(body, ln, Q);
+      curTalk.opts.push(o); continue;
+    }
+    if ((m=/^@LOCK\s+(\S+)/.exec(L))){ if(curTalk) curTalk.locks.push({target:m[1], line:ln}); else warn(Q,ln,'@LOCK outside a @TALK'); continue; }
+    if ((m=/^@NOVERB\s+(.*)$/.exec(L))){ if(curTalk) curTalk.noverbs.push({text:m[1].trim(), line:ln}); else warn(Q,ln,'@NOVERB outside a @TALK'); continue; }
+    if (/^@END\b/.test(L)){ curTalk=null; continue; }
+
+    /* UNKNOWN LINE. Never dropped. Never fatal. Voice-to-text law. */
+    warn(Q, ln, 'unrecognized line kept verbatim: ' + L.slice(0,60));
+  }
+  return Q;
+}
+
+function parseOpt(s, ln, Q){
+  var o = { text:'', gate:'none', gateKey:'none', gateVal:null, trap:false, silence:false,
+            to:null, dos:[], line:ln, raw:s };
+  var m;
+  if ((m=/^"([^"]*)"/.exec(s))) o.text = m[1];
+  else if ((m=/^\(([^)]*)\)/.exec(s))) { o.text = '('+m[1]+')'; o.silence = true; }
+  else { warn(Q, ln, '@OPT has no quoted text'); o.text = s.split('[')[0].trim(); }
+
+  if ((m=/\[gate:\s*([^\]]*)\]/i.exec(s))){
+    o.gate = m[1].trim();
+    var parts = o.gate.split(':');
+    o.gateKey = parts[0].trim().split(/[<>=]/)[0].trim().toLowerCase();
+    o.gateVal = parts.slice(1).join(':').trim() || null;
+  }
+  if (/\bTRAP\b/.test(s)) o.trap = true;
+  if (/\bSILENCE\b/.test(s)) o.silence = true;
+  if ((m=/->\s*(\S+)/.exec(s))) o.to = m[1];
+  var dre = /@DO\s+([^@]+)/g, d;
+  while ((d = dre.exec(s))) o.dos.push({ text:d[1].trim(), line:ln });
+  return o;
+}
+
+function tagsOf(s){ var t=[], m, re=/(?:^|\s)#([A-Za-z0-9_]+)/g; while((m=re.exec(s))) t.push(m[1]); return t; }
+function stripTags(s){ return s.replace(/(?:^|\s)#[A-Za-z0-9_]+/g,''); }
+function attrsOf(s){ var a={}, m, re=/(\w+)=([^\s]+)/g; while((m=re.exec(s))) a[m[1]]=m[2]; return a; }
+function warn(Q,line,msg){ Q.warnings.push({line:line, msg:msg}); }
+
+/* ---------- SERIALIZE (lossless round-trip) ---------- */
+function serialize(Q){ return Q.raw.join('\n'); }
+
+/* ---------- VALIDATE ---------- */
+function validate(Q, world){
+  world = world || null;
+  var errs=[], warns=[];
+  function E(c,m){ errs.push({code:c, msg:m}); }
+  function W(c,m){ warns.push({code:c, msg:m}); }
+
+  if(!Q.id) E('NO_ID','quest has no @QUEST id');
+  if(!Q.stages.length) E('NO_STAGES','quest has no @STAGE');
+
+  var roleNames = {}; Q.roles.forEach(function(r){ roleNames[r.name]=r; });
+
+  /* G6 banned gates — CONSCIENCE SYSTEM enforced by the parser */
+  Q.talks.forEach(function(t){ t.opts.forEach(function(o){
+    BANNED_GATES.forEach(function(b){
+      if (new RegExp('\\b'+b+'\\b','i').test(o.gate))
+        E('BANNED_GATE','line '+o.line+': gate "'+o.gate+'" uses '+b.toUpperCase()+'. NO STAT GATES. NO KARMA. Ever.');
+    });
+    /* A CHECKER THAT CANNOT TELL A USE FROM AN ERROR IS THE BROKEN ONE (Paolo 8/1),
+       and this was one. GATE_KEYS is the `key:value` vocabulary (flag:, knows:,
+       role:...). But the runtime ALSO resolves a NUMERIC gate whose key is a bond
+       target or a faction id — `_cond` does `else if(key in s.bonds)` and
+       `else if(key in s.faction)` — so `[gate: grower>=10]` genuinely works. It just
+       WARNED, because 'grower' is not in a list it was never supposed to be in.
+       That warning is why 44 authored `@DO bond` lines are gated on ZERO times: the
+       one way to use them tells the author they got it wrong.
+       A numeric gate key is legal when it is stage, gen, or a DECLARED @ROLE of this
+       quest (measured: all 44 bond targets in the corpus are declared roles). Faction
+       ids stay out of it deliberately — those are canon content this parser does not
+       get to enumerate, so a faction-keyed numeric gate is still only warned about. */
+    var numericKey = /[<>=]/.test(o.gate) && o.gate.indexOf(':') < 0;
+    var legalNumeric = numericKey && (o.gateKey === 'stage' || o.gateKey === 'gen'
+                                      || !!roleNames[o.gateKey]);
+    if (o.gateKey!=='none' && GATE_KEYS.indexOf(o.gateKey)<0 && !legalNumeric)
+      W('UNKNOWN_GATE','line '+o.line+': gate key "'+o.gateKey+'" not in the vocabulary');
+    if (o.gateKey==='role' && o.gateVal && !roleNames[o.gateVal])
+      E('GATE_NO_ROLE','line '+o.line+': gate role:'+o.gateVal+' is not a declared @ROLE');
+  });});
+
+  /* G3 dead links */
+  var nodeIds={}; Q.talks.forEach(function(t){
+    if(nodeIds[t.id]) E('DUP_NODE','duplicate @TALK id "'+t.id+'" (line '+t.line+')');
+    nodeIds[t.id]=t;
+  });
+  Q.talks.forEach(function(t){
+    t.opts.forEach(function(o){ if(o.to && o.to!=='END' && !nodeIds[o.to])
+      E('DEAD_LINK','line '+o.line+': -> '+o.to+' does not exist'); });
+    t.locks.forEach(function(l){ if(!nodeIds[l.target])
+      E('DEAD_LOCK','line '+l.line+': @LOCK '+l.target+' does not exist'); });
+    if(t.speaker && !roleNames[t.speaker])
+      E('NODE_NO_ROLE','line '+t.line+': @TALK speaker='+t.speaker+' is not a declared @ROLE');
+  });
+
+  /* G2 orphan nodes — theme-in-optional, the ~18x flaw */
+  var reached={}; Q.talks.forEach(function(t){ if(t.entry) reached[t.id]=true; });
+  if(Q.talks.length && !Object.keys(reached).length && Q.talks[0]) reached[Q.talks[0].id]=true;
+  var moved=true;
+  while(moved){ moved=false;
+    Q.talks.forEach(function(t){ if(reached[t.id]) t.opts.forEach(function(o){
+      if(o.to && nodeIds[o.to] && !reached[o.to]){ reached[o.to]=true; moved=true; } }); });
+  }
+  Q.talks.forEach(function(t){ if(!reached[t.id])
+    W('ORPHAN_NODE','@TALK '+t.id+' (line '+t.line+') is unreachable. Theme-in-optional is the ~18x flaw.'); });
+
+  /* G1 alias-fill — the Bethesda lesson, taken for free */
+  if(world){
+    Q.roles.forEach(function(r){
+      if(!r.req) return;
+      if(typeof world.canCast!=='function') return;
+      if(!world.canCast(r)) E('ALIAS_FILL','REQ @ROLE '+r.name+' (line '+r.line+') cannot be cast: '+r.cond+
+        '. An unfilled REQ role fails the WHOLE quest silently. Bethesda shipped a debug flag for this; we fail the build.');
+    });
+  }
+
+  /* G4 hardcoded names. Root-cause heuristic: a proper noun is a capitalized word that is NOT
+     sentence-initial and NOT a declared role. Sentence-initial caps are grammar, not names. */
+  Q.talks.forEach(function(t){ t.says.forEach(function(s){
+    var txt = s.text, m, re=/([.!?]\s+|,\s+|\s+)([A-Z][a-z]{2,})/g;
+    var STOP={The:1,This:1,That:1,They:1,Then:1,There:1,These:1,Those:1,You:1,Your:1,What:1,When:1,Where:1,Which:1,Who:1,Why:1,How:1,And:1,But:1,For:1,Not:1,Now:1,She:1,Her:1,His:1,Him:1,Its:1,Was:1,Were:1,Are:1,Did:1,Does:1,Get:1,Got:1,Had:1,Has:1,Have:1,Just:1,Like:1,Look:1,Make:1,Never:1,Nothing:1,Only:1,Same:1,Say:1,Said:1,Tell:1,Told:1,Take:1,Went:1,Yes:1,Sit:1,Good:1,Play:1,Cleared:1,Six:1,Everyone:1,Welcome:1,Unhoused:1,Bring:1,Write:1,Their:1,One:1,Instead:1,Nobody:1,All:1,Because:1,Before:1,Beyond:1,Every:1,Find:1,Give:1,Sorry:1,Stop:1,Still:1,Ask:1,Come:1,Keep:1,Wait:1,Watch:1,Speak:1,Read:1};
+    while((m=re.exec(txt))){
+      var w=m[2];
+      if(m[1].match(/[.!?]/)) continue;            /* sentence-initial: grammar, not a name */
+      if(STOP[w]) continue;
+      if(roleNames[w.toLowerCase()]) continue;
+      W('HARDCODED_NAME','line '+s.line+': possible hardcoded name "'+w+'". Quests written against names die with the person. Use a @ROLE.');
+    }
+  });});
+
+  /* G7 removed verb */
+  var nv=0; Q.talks.forEach(function(t){ nv+=t.noverbs.length; });
+  if(Q.talks.length && nv===0)
+    W('NO_NOVERB','quest declares zero @NOVERB. A quest where every obvious thing is sayable has not decided what it is about. (Q118/Q122/Q123/Q125)');
+
+  /* G8 NAMED-BODY LAW (Q125) */
+  Q.stages.forEach(function(st){
+    if(st.tags.indexOf('namedbody')>=0){
+      st.dos.forEach(function(d){
+        if(/\b(give|loot|reward|credits|medicine|electricity|resources|item)\b/i.test(d.text))
+          E('NAMED_BODY','line '+d.line+': stage #'+st.n+' is #namedbody and grants loot. NAMED-BODY LAW: no loot in a room with a corpse the player knows by name.');
+      });
+    }
+  });
+
+  /* G9 cross-generation flags need a test */
+  var genReads=[]; Q.talks.forEach(function(t){ t.opts.forEach(function(o){
+    if(o.gateKey==='gen' || /gen\s*>=\s*[23]/.test(o.gate)) genReads.push(o); });});
+  if(genReads.length) W('GEN_FLAG_TEST','quest reads across a generation boundary ('+genReads.length+' gate(s)). FLAW LAW 3: needs a named regression test in bohemia_tests.js. Q116 shipped a flag bugged 25 years.');
+
+  /* G5 branch count (Q117: count branches before scoping volume) */
+  var endings = Q.stages.filter(function(s){ return s.flags.indexOf('COMPLETE')>=0 || s.flags.indexOf('FAIL')>=0; }).length;
+
+  return {
+    ok: errs.length===0,
+    errors: errs, warnings: warns.concat(Q.warnings.map(function(w){ return {code:'PARSE', msg:'line '+w.line+': '+w.msg}; })),
+    stats: { roles:Q.roles.length, reqRoles:Q.roles.filter(function(r){return r.req;}).length,
+             stages:Q.stages.length, objectives:Q.objs.length, nodes:Q.talks.length,
+             options:Q.talks.reduce(function(a,t){return a+t.opts.length;},0),
+             traps:Q.talks.reduce(function(a,t){return a+t.opts.filter(function(o){return o.trap;}).length;},0),
+             silences:Q.talks.reduce(function(a,t){return a+t.opts.filter(function(o){return o.silence;}).length;},0),
+             noverbs:nv, locks:Q.talks.reduce(function(a,t){return a+t.locks.length;},0),
+             endings: endings }
+  };
+}
+
+function roundTrip(text){ return serialize(parse(text)) === String(text).replace(/\r\n/g,'\n'); }
+
+var API = { parse:parse, serialize:serialize, validate:validate, roundTrip:roundTrip,
+            BANNED_GATES:BANNED_GATES, GATE_KEYS:GATE_KEYS, VERSION:'bq-1.0.0' };
+if (typeof module!=='undefined' && module.exports) module.exports = API;
+root.BQ = API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+/* ==== engine/bohemia_quest_runtime.js ==== */   /* __DAY_LOOP__ */
+/* bohemia_quest_runtime.js — plays a parsed .bq quest. UI-AGNOSTIC.
+   Consumes the AST from bohemia_bq.js (BQ.parse) and actually RUNS it: stages,
+   talk nodes, option gates, and @DO verbs; tracks state, objectives, flags,
+   knowledge, bonds, faction rep, locks, and the COMPLETE/FAIL outcome.
+
+   This is the missing brick: the .bq format was parse-only until now. The runtime
+   returns plain data (current speaker/says/options/objectives) that ANY ui renders,
+   so it can be tested headless and later wired to the walkable slice + save.
+
+   LAWS HONORED:
+   - Never crash on an unknown @DO verb; log it, keep going. (voice-to-text spirit)
+   - No stat/karma gates exist to evaluate (the parser already bans them).
+   - State is plain JSON: serialize -> localStorage -> load, for the quest-aware save.
+
+   No dependencies. Node + browser. Pairs with bohemia_bq.js. */
+(function(root){
+'use strict';
+
+function num(x){ if(x==null) return 0; var n=parseInt(x,10); return isNaN(n)?0:n; }
+function cmp(a,op,b){ a=+a; b=+b;
+  switch(op){ case '>=':return a>=b; case '>':return a>b; case '<=':return a<=b;
+              case '<':return a<b; case '==': case '=':return a===b; } return false; }
+
+/* Recover ALL node-level @DO verbs. The parser keeps only the last one on a talk
+   (trailingDo is a single field), so we re-walk the raw lines with the parser's own
+   state rules and collect every @DO that belongs to a talk node (not a stage, not an
+   @OPT continuation). Non-invasive: the parser is left untouched. */
+function hydrateNodeDos(Q){
+  var map={}, lines=Q.raw||[], curTalk=null, inStage=false, m;
+  for(var i=0;i<lines.length;i++){
+    var L=String(lines[i]).trim();
+    if(/^@STAGE\b/.test(L)){ inStage=true; curTalk=null; continue; }
+    if(/^@(QUEST|ACT|FACTION|ONCE|ROLE|OBJ|LOG)\b/.test(L)){ if(!/^@LOG/.test(L)){ curTalk=null; inStage=false; } continue; }
+    if((m=/^@TALK\s+(\S+)/.exec(L))){ curTalk=m[1]; inStage=false; map[curTalk]=map[curTalk]||[]; continue; }
+    if(/^@END\b/.test(L)){ curTalk=null; continue; }
+    if(/^@OPT\b/.test(L)){ /* an @OPT swallows its continuation lines, incl. its @DOs */
+      while(i+1<lines.length && /^\s*(\[gate:|->|@DO\b|TRAP\b|SILENCE\b)/.test(lines[i+1])) i++;
+      continue;
+    }
+    if((m=/^@DO\s+(.*)$/.exec(L))){ if(curTalk && !inStage){ map[curTalk].push(m[1].trim()); } continue; }
+  }
+  return map;
+}
+
+function freshState(Q){
+  var s={ stage:null, flags:{}, knows:{}, has:{}, roles:{}, faction:{}, bonds:{},
+          posture:{}, gen:1, objectives:{}, locked:{}, log:[], done:false, outcome:null,
+          doneTags:[], advanceTerritory:false };
+  (Q.roles||[]).forEach(function(r){ s.roles[r.name]=!!r.req; }); /* REQ present, OPT absent */
+  return s;
+}
+
+/* ---- WHO A ROLE ACTUALLY IS (Paolo 8/7, ruling A: "a bond built in one quest opens
+   a door in another. Continuity is the dynasty.") ---------------------------------
+   A bond has to attach to a PERSON, and a quest's LABEL for someone is not a person.
+   Measured across the corpus before designing anything: 43 distinct role names, 5 used
+   by more than one quest, and those five settle it without anybody deciding anything.
+
+     neighbor  S06 `is=the_neighbor household=behind_fence`
+               S09 `is=the_neighbor household=behind_fence`   IDENTICAL. Same person.
+     runner    S02 `faction_any knows_the_load=true`
+               S12 `faction=CARTEL moves_medicine=true`       DIFFERENT. Two people.
+
+   THE AUTHOR ALREADY DECLARES IDENTITY, in the REQ conditions, and has been doing it
+   since before anything could read it. Writing the neighbour's conditions verbatim
+   twice IS him saying it is the same neighbour. So the key is the CONDITION SET, never
+   the label: continuity needs no new authoring, and two different `runner`s can never
+   be silently merged into one person.
+
+   GROUNDED: in small-scale societies people interact with the same individuals over and
+   over, and cooperation runs on DYADIC reciprocity - tracking, one-on-one, who helped
+   you. A valley with no courts remembers people, not job titles. */
+function personKey(Q, roleName){
+  var r=(Q.roles||[]).filter(function(x){ return x.name===roleName; })[0];
+  if(!r) return null;
+  var toks=String(r.cond||'').trim().toLowerCase().split(/\s+/).filter(Boolean).sort();
+  return roleName.toLowerCase()+'|'+toks.join(' ');
+}
+
+function Runtime(Q, state, shared){
+  if(!(this instanceof Runtime)) return new Runtime(Q, state, shared);
+  this.Q=Q;
+  this.state=state||freshState(Q);
+  /* THE CROSS-QUEST LEDGER. Optional, and null is EXACTLY the old behaviour, so a
+     runtime built the old way is bit-for-bit unchanged. When present, bonds are written
+     here as well as into the quest's own state, and read back by any later quest that
+     names the same person. */
+  this.shared=shared||null;
+  this.node=null;
+  this._stageById={}; (Q.stages||[]).forEach(function(st){ this._stageById[st.n]=st; },this);
+  this._talkById={};  (Q.talks ||[]).forEach(function(t){ this._talkById[t.id]=t; },this);
+  this._nodeDos=hydrateNodeDos(Q);
+}
+
+/* what this quest knows about a person, counting what OTHER quests already built */
+Runtime.prototype.bondWith=function(roleName){
+  var here=(this.state.bonds||{})[roleName];
+  var k=personKey(this.Q, roleName);
+  var there=(this.shared && this.shared.bonds && k!=null) ? this.shared.bonds[k] : undefined;
+  if(here==null && there==null) return null;
+  /* the carried bond IS the bond - the local number is this quest's contribution to it,
+     already included. Never add them or a bond counts twice inside its own quest. */
+  return there!=null ? there : here;
+};
+
+/* ---- conditions. entry= and [gate:] use the same vocabulary. ----
+   isGate: an unrecognized/unparseable GATE is safe-FALSE (never offer a broken option);
+   an unrecognized ENTRY token is treated as an available named trigger (TRUE). */
+Runtime.prototype._cond=function(expr, isGate){
+  if(expr==null) return true;
+  expr=String(expr).trim();
+  if(expr===''||expr.toLowerCase()==='none') return true;
+  var self=this, s=this.state, m;
+  var parts=expr.split(/\s*(?:,|&&|\band\b)\s*/i).filter(Boolean);
+  if(parts.length>1) return parts.every(function(p){ return self._cond(p,isGate); });
+
+  if((m=/^(\w+)\s*(>=|<=|==|=|>|<)\s*(-?\d+)$/.exec(expr))){
+    var key=m[1].toLowerCase(), op=m[2], val=m[3], cur;
+    if(key==='stage')       cur=(s.stage==null?-Infinity:s.stage);
+    else if(key==='gen')    cur=s.gen;
+    else if(this.bondWith(key)!=null) cur=this.bondWith(key);   /* carried across quests */
+    else if(key in s.bonds) cur=s.bonds[key];
+    else if(key in s.faction) cur=s.faction[key];
+    else cur=0;
+    return cmp(cur,op,val);
+  }
+  if((m=/^(\w+)\s*:\s*(\S+)$/.exec(expr))){
+    var k=m[1].toLowerCase(), v=m[2];
+    if(k==='flag')    return !!s.flags[v];
+    if(k==='knows')   return !!s.knows[v];
+    if(k==='has')     return !!s.has[v];
+    if(k==='role')    return !!s.roles[v];
+    if(k==='faction') return !!s.faction[v];
+    if(k==='gen')     return cmp(s.gen,'>=',v);
+    return false; /* a real but unknown key:val condition never silently passes */
+  }
+  return !isGate; /* bare token: an ENTRY named-trigger is available; a GATE is not */
+};
+
+Runtime.prototype._exec=function(text){
+  if(!text) return;
+  var s=this.state, p=String(text).trim().split(/\s+/), verb=p[0];
+  switch(verb){
+    case 'set_flag': if(p[1]) s.flags[p[1]]=true; break;
+    case 'learn':    if(p[1]) s.knows[p[1]]=true; break;
+    case 'have': case 'give': if(p[1]) s.has[p[1]]=true; break;
+    /* call the PROTOTYPE method directly, not this.setStage: a host (the loop's
+       ledger pipe) may have installed an own-property wrapper on this instance's
+       setStage to observe EXTERNAL calls. If an internal @DO set_stage went through
+       that wrapper too, a choice that completes a quest in one step would fire the
+       OUTCOME event recursively mid-choice, before the CHOICE event itself was even
+       recorded — a chronological bug in the ledger, not a stylistic one. Bypassing
+       the wrapper here keeps internal transitions on the canonical logic only, so
+       the host always sees choice-then-outcome in the order they actually happened. */
+    case 'set_stage': if(p[1]!=null) Runtime.prototype.setStage.call(this, parseInt(p[1],10)); break;
+    case 'show_objective':     this._obj(p[1],'active'); break;
+    case 'complete_objective': this._obj(p[1],'done');   break;
+    case 'cast': p.slice(1).forEach(function(r){ s.roles[r]=true; }); break;
+    case 'bond':    if(p[1]){ s.bonds[p[1]]=(s.bonds[p[1]]||0)+num(p[2]);
+                      /* and into the valley's memory of that person, so the next quest
+                         that names them starts from what you already did */
+                      var bk=personKey(this.Q,p[1]);
+                      if(this.shared&&bk!=null){ if(!this.shared.bonds) this.shared.bonds={};
+                        this.shared.bonds[bk]=(this.shared.bonds[bk]||0)+num(p[2]); } }
+                    break;
+    case 'faction': if(p[1]) s.faction[p[1]]=(s.faction[p[1]]||0)+num(p[2]); break;
+    case 'faction_posture': if(p[1]) s.posture[p[1]]=(s.posture[p[1]]||0)+num(p[2]); break;
+    /* PACING LAW (Paolo 7/24): the territory AI's advanceRound is never a tick —
+       it fires when "the narrative calls for it — a quest resolves, a story beat
+       lands." This is that lever, opt-in per quest: an author marks the ONE
+       resolution stage that's a real story beat, everyday errands never touch it. */
+    case 'advance_territory': s.advanceTerritory=true; break;
+    case 'play': s.log.push('play '+p.slice(1).join(' ')); break;
+    default: s.log.push('UNHANDLED_DO: '+text);
+  }
+};
+
+Runtime.prototype._obj=function(n,status){
+  n=parseInt(n,10); if(isNaN(n)) return;
+  var def=(this.Q.objs||[]).filter(function(o){ return o.n===n; })[0];
+  this.state.objectives[n]={ n:n, text:def?def.text:('objective '+n),
+                             target:def?def.target:null, status:status };
+};
+
+Runtime.prototype.start=function(stageN){
+  var ns=(this.Q.stages||[]).map(function(s){return s.n;}).sort(function(a,b){return a-b;});
+  var first=(stageN!=null)?stageN:(ns.length?ns[0]:null);
+  if(first!=null) this.setStage(first);
+  return this;
+};
+
+Runtime.prototype.setStage=function(n){
+  var st=this._stageById[n], self=this;
+  this.state.stage=n;
+  if(st){
+    if(st.log) this.state.log.push('[stage '+n+'] '+st.log);
+    (st.dos||[]).forEach(function(d){ self._exec(d.text); });
+    /* doneTags: the completing stage's raw #hashtags (e.g. #reckless), carried
+       verbatim so the LOOP layer can classify the outcome (CLOUT weighting) without
+       this UI-agnostic runtime knowing anything about followers or feeds. */
+    if(st.flags.indexOf('COMPLETE')>=0){ this.state.done=true; this.state.outcome='COMPLETE'; this.state.doneTags=(st.tags||[]).slice(); }
+    if(st.flags.indexOf('FAIL')>=0){ this.state.done=true; this.state.outcome='FAIL'; this.state.doneTags=(st.tags||[]).slice(); }
+  }
+  return this;
+};
+
+/* which talk nodes can be STARTED right now: those with an entry condition that
+   passes and are not locked. (Nodes without entry are sub-nodes reached via ->.) */
+Runtime.prototype.available=function(){
+  var self=this, out=[];
+  (this.Q.talks||[]).forEach(function(t){
+    if(!t.entry) return;
+    if(self.state.locked[t.id]) return;
+    if(self._cond(t.entry,false)) out.push(t.id);
+  });
+  return out;
+};
+
+Runtime.prototype._enter=function(t){
+  this.node=t;
+  var self=this;
+  (this._nodeDos[t.id]||[]).forEach(function(d){ self._exec(d); });
+  (t.locks||[]).forEach(function(l){ self.state.locked[l.target]=true; });
+  return this.view();
+};
+
+Runtime.prototype.begin=function(id){
+  var t=this._talkById[id];
+  if(!t) return null;
+  return this._enter(t);
+};
+
+Runtime.prototype.view=function(){
+  var t=this.node, self=this;
+  if(!t) return { ended:true, node:null, done:this.state.done, outcome:this.state.outcome };
+  var opts=[];
+  (t.opts||[]).forEach(function(o,i){
+    if(self._cond(o.gate,true)) opts.push({ i:i, text:o.text, silence:!!o.silence, trap:!!o.trap, to:o.to });
+  });
+  return { node:t.id, speaker:t.speaker,
+           says:t.says.map(function(s){return s.text;}),
+           noverbs:t.noverbs.map(function(n){return n.text;}),
+           options:opts, ended:false, done:this.state.done, outcome:this.state.outcome };
+};
+
+Runtime.prototype.choose=function(i){
+  var t=this.node; if(!t) return this.view();
+  var o=t.opts[i]; if(!o) return this.view();
+  if(!this._cond(o.gate,true)) return this.view();   /* gate must still hold */
+  var self=this;
+  (o.dos||[]).forEach(function(d){ self._exec(d.text); });
+  if(!o.to || o.to==='END'){ this.node=null; return this.view(); }
+  var nt=this._talkById[o.to];
+  if(!nt){ this.node=null; return this.view(); }
+  return this._enter(nt);
+};
+
+Runtime.prototype.objectives=function(){
+  var s=this.state, out=[];
+  Object.keys(s.objectives).forEach(function(k){ out.push(s.objectives[k]); });
+  out.sort(function(a,b){ return a.n-b.n; });
+  return out;
+};
+
+Runtime.prototype.serialize=function(){ return JSON.stringify(this.state); };
+Runtime.load=function(Q, json, shared){ return new Runtime(Q, typeof json==='string'?JSON.parse(json):json, shared); };
+
+var API={ Runtime:Runtime, freshState:freshState, personKey:personKey, hydrateNodeDos:hydrateNodeDos, VERSION:'bqrt-1.0.0' };
+if(typeof module!=='undefined' && module.exports) module.exports=API;
+root.BQRuntime=API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+/* ==== engine/bohemia_dayloop.js ==== */   /* __DAY_LOOP__ */
+// BOHEMIA DAY LOOP (8/11/26) — the day has a SHAPE. Canonical body; the city
+// inlines it, gates/dayloop_gate.js drives it in Node and on the real surface.
+//
+// WHAT WAS MISSING. The city had a clock -- T={day,min}, advance(mins) rolling
+// past midnight into day+1 -- and that is a TIMER, not a day. Nothing woke you,
+// nothing ended, nothing was accounted for, and day 2 was indistinguishable from
+// day 1 except for a number in the corner. Paolo's demo row is "close the game
+// day loop end to end", and a loop has to CLOSE: you wake, you act, the light
+// goes, something is reckoned, you wake again carrying it.
+//
+// THE SHAPE, and every number here is MECHANISM, which is mine to set:
+//
+//   WAKE 06:00 ---- 16 waking hours ---- NIGHTFALL 22:00 ---- THE RECKONING
+//     ^                                                              |
+//     +------------------ day + 1, everything carried ---------------+
+//
+//   * you wake at 06:00 because the world is a desert and the light is the
+//     resource -- the sun is the thing you are racing, which is the whole point
+//     of LIGHT=TERRITORY and of nobody patrolling the dark.
+//   * NIGHTFALL at 22:00 ends the day whether you like it or not. It is not a
+//     punishment, it is the clock: sixteen hours is what a day is.
+//   * you may SLEEP early and give the hours back. The loop records that you
+//     chose to, because choosing to end a day early is a decision worth seeing
+//     in the ledger later.
+//   * THE RECKONING is a card that tells you what the day was: where you went,
+//     what you went into, what moved on your quests, and what did not.
+//
+// WHAT THIS DELIBERATELY DOES NOT DO, and it is not an oversight:
+//   NO DAMAGE BEFORE THE DIAL. The reckoning REPORTS; it does not starve you,
+//   drain you, or kill you. Hunger, exhaustion, rent, a debt clock and every
+//   other stake are CONTENTS, and contents are Paolo's. The loop is built so
+//   that any of them drops in as one entry in a STAKES table that is empty on
+//   purpose. MECHANISM-MINE / CONTENTS-PAOLO'S: I built the day, he sets what
+//   it costs to live one.
+//
+// THE LEDGER is the honest part. It counts only things that actually happened in
+// the world -- steps taken, districts stood in, buildings entered, quest stages
+// that really fired -- so the card can never congratulate you for a day you did
+// not have.
+//
+// REUSE CHECK: cooks no graphic pixels of any kind. This is loop plumbing; it
+// opens no bank because there is nothing to draw.
+(function (root) {
+  'use strict';
+
+  var WAKE_MIN = 6 * 60;         // 06:00
+  var NIGHT_MIN = 22 * 60;       // 22:00
+  var DAY_MIN = 24 * 60;
+
+  function hhmm(min) {
+    min = ((min % DAY_MIN) + DAY_MIN) % DAY_MIN;
+    var h = Math.floor(min / 60), m = Math.floor(min % 60);
+    return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
+  }
+
+  function freshLedger() {
+    return {
+      steps: 0,
+      districts: {},        // name -> minutes stood in it
+      entered: [],          // buildings gone INTO
+      stages: [],           // quest stages that actually fired
+      notes: [],            // @LOG lines the quest itself wrote
+      sleptEarly: false,
+      endedAt: null,
+      reason: null
+    };
+  }
+
+  function make(opts) {
+    opts = opts || {};
+
+    var L = {
+      V: 1,
+      day: 1,
+      min: WAKE_MIN,
+      phase: 'wake',                 // 'wake' | 'awake' | 'ended'
+      WAKE_MIN: WAKE_MIN,
+      NIGHT_MIN: NIGHT_MIN,
+      ledger: freshLedger(),
+      history: [],                   // one closed ledger per day lived
+      /* THE STAKES TABLE. Empty ON PURPOSE and it is not a stub to fill in:
+         what a day costs to live is Paolo's ruling, not mine. Each entry would
+         be {name, apply(ledger, state)} and the reckoning would list it. Until
+         he rules, a day costs nothing but the light. */
+      STAKES: []
+    };
+
+    var hooks = { wake: [], end: [], stage: [] };
+    function fire(k, a, b) { for (var i = 0; i < hooks[k].length; i++) { try { hooks[k][i](a, b); } catch (e) {} } }
+
+    L.on = function (k, fn) { if (hooks[k]) hooks[k].push(fn); return L; };
+
+    /* ---- WAKE ------------------------------------------------------------ */
+    L.wake = function () {
+      L.phase = 'awake';
+      L.min = WAKE_MIN;
+      L.ledger = freshLedger();
+      fire('wake', L.day);
+      return L;
+    };
+
+    /* ---- THE DAY RUNS ----------------------------------------------------
+       Called by whatever moves time. Returns 'ended' the tick nightfall lands,
+       so the caller can put the reckoning up without polling for it.
+       The clamp matters: a single expensive action must never SKIP nightfall
+       and silently spend hours of a day that already ended. */
+    L.tick = function (mins, where) {
+      if (L.phase !== 'awake') return L.phase;
+      mins = Math.max(0, mins | 0);
+      if (L.min + mins >= NIGHT_MIN) {
+        var spent = NIGHT_MIN - L.min;
+        if (where) L.ledger.districts[where] = (L.ledger.districts[where] || 0) + spent;
+        L.min = NIGHT_MIN;
+        return L.endDay('nightfall');
+      }
+      L.min += mins;
+      if (where) L.ledger.districts[where] = (L.ledger.districts[where] || 0) + mins;
+      return L.phase;
+    };
+
+    L.step = function (where) { if (L.phase === 'awake') L.ledger.steps++; return L.tick(0, where); };
+    L.entered = function (what) {
+      if (L.phase !== 'awake' || !what) return L;
+      if (L.ledger.entered.indexOf(what) < 0) L.ledger.entered.push(what);
+      return L;
+    };
+    /* a quest stage that ACTUALLY fired, with the quest's own @LOG line */
+    L.stage = function (questId, stageN, log, tag) {
+      if (L.phase !== 'awake') return L;
+      L.ledger.stages.push({ q: questId, n: stageN, tag: tag || null });
+      if (log) L.ledger.notes.push(log);
+      fire('stage', questId, stageN);
+      return L;
+    };
+
+    /* ---- THE RECKONING --------------------------------------------------- */
+    L.endDay = function (reason) {
+      if (L.phase === 'ended') return L.phase;
+      L.phase = 'ended';
+      L.ledger.reason = reason || 'nightfall';
+      L.ledger.sleptEarly = (reason === 'slept');
+      L.ledger.endedAt = L.min;
+      for (var i = 0; i < L.STAKES.length; i++) {         // empty until he rules
+        try { L.STAKES[i].apply(L.ledger, L); } catch (e) {}
+      }
+      fire('end', L.summary());
+      return L.phase;
+    };
+
+    L.sleep = function () {
+      if (L.phase !== 'awake') return L.phase;
+      return L.endDay('slept');
+    };
+
+    /* ---- THE NEXT DAY, CARRYING EVERYTHING ------------------------------- */
+    L.nextDay = function () {
+      if (L.phase !== 'ended') L.endDay('nightfall');
+      L.history.push(L.ledger);
+      if (L.history.length > 30) L.history.shift();   // a month of nights is plenty
+      L.day++;
+      L.wake();
+      return L.day;
+    };
+
+    /* ---- what the card reads --------------------------------------------- */
+    L.summary = function () {
+      var d = [], k;
+      for (k in L.ledger.districts) d.push({ name: k, mins: L.ledger.districts[k] });
+      d.sort(function (a, b) { return b.mins - a.mins; });
+      return {
+        day: L.day,
+        /* while the day is still running there IS no reason yet. Defaulting it
+           to 'nightfall' made a mid-day summary claim the day had ended, which
+           is a report telling a small lie about the world. */
+        reason: L.ledger.reason || (L.phase === 'ended' ? 'nightfall' : null),
+        sleptEarly: !!L.ledger.sleptEarly,
+        endedAt: hhmm(L.ledger.endedAt == null ? L.min : L.ledger.endedAt),
+        hoursLived: Math.round(((L.ledger.endedAt == null ? L.min : L.ledger.endedAt) - WAKE_MIN) / 6) / 10,
+        hoursGivenBack: L.ledger.sleptEarly
+          ? Math.round((NIGHT_MIN - (L.ledger.endedAt == null ? L.min : L.ledger.endedAt)) / 6) / 10 : 0,
+        steps: L.ledger.steps,
+        districts: d,
+        entered: L.ledger.entered.slice(),
+        stages: L.ledger.stages.slice(),
+        notes: L.ledger.notes.slice(),
+        stakes: L.STAKES.map(function (s) { return s.name; })   // [] until he rules
+      };
+    };
+
+    L.clock = function () { return 'DAY ' + L.day + ' · ' + hhmm(L.min); };
+    L.hhmm = hhmm;
+    L.isNight = function () { return L.min >= 19 * 60 || L.min < 6 * 60; };
+    L.left = function () { return Math.max(0, NIGHT_MIN - L.min); };
+
+    /* ---- persistence: plain JSON, so it rides the existing save ---------- */
+    L.serialize = function () {
+      return { v: 1, day: L.day, min: L.min, phase: L.phase, ledger: L.ledger, history: L.history };
+    };
+    L.restore = function (st) {
+      if (!st || st.v !== 1) return false;
+      L.day = st.day || 1;
+      L.min = (typeof st.min === 'number') ? st.min : WAKE_MIN;
+      L.phase = st.phase || 'awake';
+      L.ledger = st.ledger || freshLedger();
+      L.history = st.history || [];
+      return true;
+    };
+
+    if (opts.onWake) L.on('wake', opts.onWake);
+    if (opts.onEnd) L.on('end', opts.onEnd);
+    return L;
+  }
+
+  var API = { make: make, WAKE_MIN: WAKE_MIN, NIGHT_MIN: NIGHT_MIN, hhmm: hhmm, VERSION: 'dayloop-1.0.0' };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  root.BohemiaDayLoop = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== engine/bohemia_demoquests.js ==== */   /* __DAY_LOOP__ */
+// BOHEMIA DEMO QUESTS (8/11/26) — SCAFFOLDING, AND IT SAYS SO.
+//
+// Paolo's demo row, verbatim: "close the game day loop end to end (hardcode the
+// demo quests, scaffolding is legal)". This is the hardcoding. It is named
+// scaffolding in the filename, in this banner, on the marker in the city, and in
+// the gate, so nobody six weeks from now mistakes it for the real placement
+// system.
+//
+// WHAT IS REAL HERE AND WHAT IS SCAFFOLD:
+//
+//   REAL — the quests. Three canon .bq files, parsed by the real BQ parser and
+//   played by the real BQRuntime, executing their real @DO verbs (bond, faction,
+//   faction_posture, objectives). Not one word of quest content is invented.
+//   MECHANISM-MINE / CONTENTS-PAOLO'S: I wired it, he wrote it.
+//
+//   REAL — the outcomes. A stage that fires really writes bonds and faction
+//   standing into quest state, and that state really rides the save.
+//
+//   SCAFFOLD — the casting. The real system (engine/bohemia_quest_placement.js)
+//   casts @ROLE against people who actually exist in the world and places the
+//   quest where they are. This binds stages to WORLD EVENTS instead: where you
+//   walked, what you walked into, whether the block had power. One quest per day,
+//   in a fixed order. That is a demo, not a game, and it is the honest way to
+//   have a playable day before the casting layer is wired.
+//
+// EVERY BUTTON IS THE QUEST'S OWN WORDS. A resolution option's label is the
+// verbatim @LOG line of the stage it leads to -- not prose I wrote about it.
+// Inventing choice text would be filling in canon Paolo reserved, and it would be
+// unverifiable; taking his line makes each button a claim the gate can check
+// against the .bq byte for byte, which is what gates/dayloop_gate.js does.
+//
+// NIGHTFALL IS THE STAKE, AND IT IS HIS STAKE, NOT ONE I INVENTED. Each of these
+// quests already ships a FAIL stage its author wrote for exactly this: you did
+// not resolve it in time. So when the day ends with the quest unresolved, the
+// quest's own FAIL branch fires and its own line goes in the reckoning. The day
+// loop gets real teeth without a single invented number, and NO DAMAGE BEFORE
+// THE DIAL still holds.
+//
+// REUSE CHECK: cooks no graphic pixels of any kind. It draws nothing; it binds
+// existing canon quest text to existing world events, and opens no bank.
+(function (root) {
+  'use strict';
+
+  /* THE THREE DEMO DAYS. Chosen because the world can actually satisfy them
+     today, which is the only honest reason to pick a quest for a demo:
+       day 1  the block browns out       -> the world HAS a 12% clustered power
+                                            grid, so an unlit block is real
+       day 2  make his place solid       -> the world HAS houses with doors you
+                                            can now walk into
+       day 3  move the crate by dark     -> the world HAS districts to cross
+     Stage numbers, tags and every line of text come from the .bq files. */
+  var DAYS = [
+    {
+      day: 1, id: 'bq_meter_reader', file: 'S01_THE_METER_READER',
+      brief: 'The block loses half its light at the same hour every night.',
+      open: 10,
+      advance: { stage: 20, on: 'enter_building', require: 'dark' },
+      choiceAt: 20, choices: [30, 31, 32], fail: 33
+    },
+    {
+      day: 2, id: 'bq_back_door', file: 'S09_THE_BACK_DOOR',
+      brief: 'The man behind the fence wants his place solid before dark.',
+      open: 10,
+      advance: null,
+      choiceAt: 10, choiceOn: 'enter_building', choices: [20, 21], fail: 22
+    },
+    {
+      day: 3, id: 'bq_same_crate', file: 'S02_THE_SAME_CRATE_TWICE',
+      brief: 'Move a crate of salvaged batteries to the red block by dark.',
+      open: 10,
+      advance: { stage: 20, on: 'enter_district', require: 'new' },
+      choiceAt: 20, choices: [30, 31, 32], fail: 33
+    }
+  ];
+
+  /* the @LOG line of a stage, verbatim, straight off the parsed quest */
+  function stageLog(Q, n) {
+    var st = (Q.stages || []).filter(function (s) { return s.n === n; })[0];
+    return st ? (st.log || '') : '';
+  }
+  function stageTags(Q, n) {
+    var st = (Q.stages || []).filter(function (s) { return s.n === n; })[0];
+    return st ? (st.tags || []).slice() : [];
+  }
+
+  function make(cfg) {
+    cfg = cfg || {};
+    var BQ = cfg.BQ || root.BQ;
+    var RT = cfg.BQRuntime || root.BQRuntime;
+    var SRC = cfg.sources || {};          // file stem -> raw .bq text
+    var loop = cfg.loop || null;
+    var shared = cfg.shared || { bonds: {} };
+
+    var D = { V: 1, shared: shared, active: null, spec: null, Q: null, rt: null, pending: null, seenDistricts: {} };
+
+    D.specForDay = function (day) {
+      if (!DAYS.length) return null;
+      return DAYS[(Math.max(1, day) - 1) % DAYS.length];
+    };
+
+    /* open the day's quest. Returns the brief, or null if its text is missing
+       (a demo with a quest that will not parse must SAY so, never pretend). */
+    D.openDay = function (day) {
+      D.pending = null;
+      var spec = D.specForDay(day);
+      D.spec = spec; D.active = null; D.Q = null; D.rt = null;
+      if (!spec) return null;
+      var text = SRC[spec.file];
+      if (!text || !BQ || !RT) return null;
+      var Q;
+      try { Q = BQ.parse(text); } catch (e) { return null; }
+      D.Q = Q;
+      D.rt = new RT.Runtime(Q, null, shared);
+      D.rt.start(spec.open);
+      D.active = spec.id;
+      if (loop) loop.stage(spec.id, spec.open, stageLog(Q, spec.open), null);
+      if (spec.choiceAt === spec.open) D.pending = D.choiceCard();
+      return { id: spec.id, title: Q.title || spec.id, brief: spec.brief,
+               objectives: D.rt.objectives(), log: stageLog(Q, spec.open) };
+    };
+
+    /* THE CARD: every option is the destination stage's own @LOG, verbatim. */
+    D.choiceCard = function () {
+      if (!D.spec || !D.Q) return null;
+      var Q = D.Q;
+      return {
+        id: D.spec.id,
+        title: Q.title || D.spec.id,
+        options: D.spec.choices.map(function (n) {
+          return { stage: n, text: stageLog(Q, n), tags: stageTags(Q, n) };
+        })
+      };
+    };
+
+    /* a world event. `what` carries {district, dark, building}. */
+    D.event = function (kind, what) {
+      what = what || {};
+      if (!D.rt || !D.spec || D.rt.state.done) return null;
+      var sp = D.spec;
+
+      if (kind === 'enter_district' && what.district) {
+        var isNew = !D.seenDistricts[what.district];
+        D.seenDistricts[what.district] = true;
+        if (sp.advance && sp.advance.on === 'enter_district' &&
+            (sp.advance.require !== 'new' || isNew) && D.rt.state.stage < sp.advance.stage) {
+          return D._toStage(sp.advance.stage);
+        }
+        return null;
+      }
+
+      if (kind === 'enter_building') {
+        if (sp.choiceOn === 'enter_building' && D.rt.state.stage === sp.choiceAt && !D.pending) {
+          D.pending = D.choiceCard();
+          return { card: D.pending };
+        }
+        if (sp.advance && sp.advance.on === 'enter_building' &&
+            (sp.advance.require !== 'dark' || what.dark === true) &&
+            D.rt.state.stage < sp.advance.stage) {
+          return D._toStage(sp.advance.stage);
+        }
+      }
+      return null;
+    };
+
+    D._toStage = function (n) {
+      D.rt.setStage(n);
+      var log = stageLog(D.Q, n);
+      if (loop) loop.stage(D.spec.id, n, log, (stageTags(D.Q, n)[0] || null));
+      var out = { stage: n, log: log, objectives: D.rt.objectives() };
+      if (D.spec.choiceAt === n) { D.pending = D.choiceCard(); out.card = D.pending; }
+      return out;
+    };
+
+    /* the player picks a resolution */
+    D.resolve = function (stageN) {
+      if (!D.rt || !D.spec) return null;
+      if (D.spec.choices.indexOf(stageN) < 0) return null;
+      D.pending = null;
+      return D._toStage(stageN);
+    };
+
+    /* NIGHTFALL on an unresolved quest fires the quest's OWN fail stage. */
+    D.nightfall = function () {
+      if (!D.rt || !D.spec || D.rt.state.done) return null;
+      D.pending = null;
+      return D._toStage(D.spec.fail);
+    };
+
+    D.objectives = function () { return D.rt ? D.rt.objectives() : []; };
+    D.done = function () { return !!(D.rt && D.rt.state.done); };
+    D.outcome = function () { return D.rt ? D.rt.state.outcome : null; };
+    D.tags = function () { return D.rt ? (D.rt.state.doneTags || []) : []; };
+
+    /* the one line the HUD shows: the live objective, or the outcome */
+    D.hudLine = function () {
+      if (!D.rt) return '';
+      if (D.rt.state.done) return (D.rt.state.outcome === 'COMPLETE' ? 'DONE · ' : 'FAILED · ') + (D.Q.title || '');
+      var objs = D.rt.objectives().filter(function (o) { return o.status === 'active'; });
+      if (objs.length) return objs[0].text;
+      return D.spec ? D.spec.brief : '';
+    };
+
+    D.serialize = function () {
+      return { v: 1, day: D.spec ? D.spec.day : 0, id: D.active,
+               state: D.rt ? D.rt.state : null, seen: D.seenDistricts, shared: shared };
+    };
+    D.restore = function (st, day) {
+      if (!st || st.v !== 1) return false;
+      D.seenDistricts = st.seen || {};
+      if (st.shared) { shared = st.shared; D.shared = shared; }
+      var spec = D.specForDay(day || 1);
+      if (!spec || !SRC[spec.file] || !BQ || !RT) return false;
+      D.spec = spec; D.Q = BQ.parse(SRC[spec.file]);
+      D.rt = new RT.Runtime(D.Q, st.state || null, shared);
+      D.active = spec.id;
+      if (!st.state) D.rt.start(spec.open);
+      return true;
+    };
+
+    return D;
+  }
+
+  var API = { make: make, DAYS: DAYS, VERSION: 'demoquests-1.0.0' };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  root.BohemiaDemoQuests = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* __DAY_LOOP__ -- the three canon .bq quests, VERBATIM. Every
+   resolution button in the game is one of these files' own @LOG lines. */
+const DEMO_BQ={"S01_THE_METER_READER": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S01 \u2014 THE METER READER\n# Shape: economy-as-morality (electricity). Faction wires: TRADES, NETWORK.\n# Systems used AS the mechanic (W9): the ELECTRICITY economy is the whole puzzle;\n# the resolution actually shifts NETWORK posture. Grounded in the house-of-cards\n# power canon (the grid has no owner; the network skims covertly) and the\n# Amalgamation blind-spot canon (the skim runs DOWN toward the water \u2014 the deep\n# tunnel / reclaim plant where the secret sleeps; looking under it is the danger,\n# not player strength). No proper names anywhere (W8). CLOUT rides HOW you resolve\n# it, never a label (Paolo 7/21): quiet fix -> #quiet, public patch -> #notable,\n# loud spectacle -> #reckless. The player does not pick a clout number; the\n# loudness of the DEED sets it.\n\n# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------\n# The corpus this quest is actually built from. Every id below resolves in\n# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of\n# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies\n# the id AND the quoted law title verbatim. A citation is a claim the machine\n# can check, never a name-drop.\n# @STUDY Q003.W1  THE DIRTY ERRAND\n#   applied: the ask is compromised before you leave: the lineman needs it quiet because he has a family and you are cheaper to lose, and he says so.\n# @STUDY Q092.W2  THE INSTITUTION IS THE MONSTER\n#   applied: the thing drinking the current is not a man, it is an arrangement nobody can name, and looking for the name is what costs.\n# @STUDY Q002.W2  THE BRANCH-ROUTER NPC\n#   applied: the fixer at the tap is the single node the whole quest forks through: quiet fix, public patch, or spectacle.\n# @STUDY Q003.P1  W1 (dirty errand\n#   applied: the ports master asks for exactly this: seed the moral weight in the HIRE, so the lineman admits up front that you are the cheaper person to lose.\n# ----------------------------------------------------------------------------\n\n@QUEST   bq_meter_reader   The Meter Reader\n@ACT     1\n@FACTION NONE\n@ONCE    true\n\n# ---- ROLES. Cast at runtime against whoever exists. Never a hardcoded name.\n@ROLE lineman  REQ  faction=TRADES  block=browned\n@ROLE fixer    OPT  faction=NETWORK met_before=false\n\n@STAGE 10\n  @LOG The block loses half its light at the same hour every night.\n  @DO show_objective 10\n@STAGE 20\n  @LOG The line tests clean. A clean line that browns out is a shared one. Found the split.\n  @DO show_objective 20\n  @DO complete_objective 10\n@STAGE 30 COMPLETE #quiet\n  @LOG Put the current back myself. The block has light tonight. Nobody was told.\n  @DO bond lineman +15\n  @DO complete_objective 20\n@STAGE 31 COMPLETE #notable\n  @LOG Handed the tap to the trades. They patched it in daylight, names on the work order.\n  @DO faction TRADES +8\n  @DO complete_objective 20\n@STAGE 32 COMPLETE #reckless\n  @LOG Cut the skim line in front of the whole block. Sparks, a crowd, and a message sent up.\n  @DO faction_posture NETWORK +1\n  @DO complete_objective 20\n@STAGE 33 FAIL #quiet\n  @LOG Left it alone. The block goes dark again tonight, same hour.\n\n@OBJ 10  \"Find why the block browns out\"   target=lineman\n@OBJ 20  \"Follow the skimmed line\"         target=fixer\n\n# =====================================================================\n# THE ASK. The theme is in the FIRST line, not a missable node (W3).\n# =====================================================================\n@TALK open  speaker=lineman  entry=stage>=10\n  @SAY Every night, same hour, this block loses half its light. #tired\n  @SAY The line tests clean. A clean line that browns out is not a broken line. It is a shared one.\n  @SAY Somebody upstream is drinking before we do. Walk it back for me. Quiet, if you can manage quiet.\n  @OPT \"I will walk it back.\"          [gate: none]  -> walk  @DO learn line_is_clean\n  @OPT \"Why not walk it yourself?\"     [gate: none]  -> why\n  @OPT \"Not my block.\"                 [gate: none]  -> refuse\n  @OPT (say nothing, just go)          [gate: none]  SILENCE -> walk  @DO learn line_is_clean\n  @NOVERB \"Tell me who runs the network\"\n@END\n\n@TALK why  speaker=lineman\n  @SAY Because I have a name and a face and a family on this block. #dread\n  @SAY Whoever is drinking that current does not like to be looked at. You are new here. You are cheaper to lose.\n  @OPT \"Comforting.\"                   [gate: none]  -> walk  @DO learn line_is_clean\n  @OPT \"Who does not like to be looked at?\"  [gate: none]  -> why2\n@END\n\n@TALK why2  speaker=lineman\n  @SAY If I knew that, I would not need you. Nobody who drinks that quiet keeps a name that stays put.\n  @SAY Follow the split. Do not make a show of it.\n  @DO set_stage 20\n@END\n\n@TALK refuse  speaker=lineman\n  @SAY Fair. It is nobody's job out here, which is why it is always nobody's job. #tired\n  @OPT \"Maybe another night.\"          [gate: none]  -> END  @DO set_stage 33\n  @OPT \"Fine. I will look.\"            [gate: none]  -> walk  @DO learn line_is_clean\n@END\n\n@TALK walk  speaker=lineman\n  @SAY Good. It splits somewhere past the dead storefronts. Follow the cable that runs warm. #tired\n  @DO set_stage 20\n@END\n\n# =====================================================================\n# THE SPLIT. You catch the skimmer. They are not a monster (W7) \u2014 they are\n# faster than the meter. The fork is loudness, and loudness is the cost.\n# =====================================================================\n@TALK split  speaker=fixer  entry=stage>=20\n  @SAY Easy. You found the tap. Most people never look at a warm cable twice. #wary\n  @SAY I move a little current where it is needed. The grid has no owner. I am just faster than the meter.\n  @SAY Put it back and go home a quiet hero. Or make this loud. Loud is where it gets expensive for both of us.\n  @OPT \"Put it back. Nobody hears it.\"  [gate: none]  SILENCE -> put     @DO set_flag saw_the_skim\n  @OPT \"The trades should see this.\"     [gate: none]  -> report          @DO set_flag saw_the_skim\n  @OPT \"Whose current is it, really?\"    [gate: none]  TRAP -> whose      @DO set_flag saw_the_skim\n  @OPT (cut the tap, right now)          [gate: none]  -> cut             @DO set_flag saw_the_skim\n  @NOVERB \"Turn them in for a bounty\"\n@END\n\n# THE TRAP OPTION (W-craft): asking the wrong question near the secret costs.\n# It goes DOWN, toward the water \u2014 the reclaim plant, per canon. Looking is the\n# danger, not fighting. This sets the unrecorded flag the fold reads later.\n@TALK whose  speaker=fixer\n  @SAY See, that is the question that costs. I do not know whose. #dread\n  @SAY I know it goes down, not up. Toward the water. I do not follow it down and neither should you.\n  @SAY I gave you nothing. Put it back, or do not. Your block, your name.\n  @OPT \"Put it back. Quietly.\"          [gate: none]  SILENCE -> put  @DO learn it_goes_down\n  @OPT \"Cut it. Let them all see.\"       [gate: none]  -> cut          @DO learn it_goes_down  @DO set_flag looked_under_the_rock\n@END\n\n@TALK put  speaker=lineman\n  @SAY Light is back. I did not ask how. #tired\n  @SAY You did not make a show of it. That is worth more out here than you will understand for a few years.\n  @OPT \"Just fixed a line.\"             [gate: none]  -> END  @DO set_stage 30\n  @NOVERB \"It was the network\"\n@END\n\n@TALK report  speaker=lineman\n  @SAY You brought it to us instead of eating it yourself. Good. We patch it in the open. #tired\n  @SAY They will know a crew looked, and looked together. That is its own kind of loud, but it is ours.\n  @OPT \"Do it in daylight.\"             [gate: none]  -> END  @DO set_stage 31\n@END\n\n@TALK cut  speaker=lineman\n  @SAY You cut it in front of everyone. Half the block cheered and the other half went very quiet. #dread\n  @SAY They felt that upstream. Whoever drinks that current now knows your face. I hope the light was worth it.\n  @OPT \"Let them know my face.\"          [gate: none]  -> END  @DO set_stage 32\n  @OPT (say nothing)                     [gate: none]  SILENCE -> END  @DO set_stage 32\n@END\n", "S09_THE_BACK_DOOR": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S09 \u2014 THE BACK DOOR  (the PRE-WALL trust quest \u2014 sets up S06's reveal)\n# One of the \"couple of quests for Marco\" that happen BEFORE the wall comes down and\n# BEFORE you know he has a daughter (reveal timing locked 7/23, Paolo). Marco asks you\n# to help him make his place solid, and is strangely, absolutely immovable that the\n# back is his alone \u2014 do not go around back, the back he does himself. You do not know\n# why yet. Honoring a boundary you do not understand is how you earn the trust that\n# eventually brings the wall down; prying fails. When S06 later reveals the daughter,\n# THIS is what recontextualizes \u2014 he was guarding her the whole time. Cast Marco against\n# @ROLE neighbor; never named in a spoken line (W8). CLOUT: a quiet neighborly deed is\n# #quiet; drawing a crowd to his door is #notable (and rattles him \u2014 eyes on his place\n# is the opposite of what he asked).\n\n# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------\n# The corpus this quest is actually built from. Every id below resolves in\n# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of\n# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies\n# the id AND the quoted law title verbatim. A citation is a claim the machine\n# can check, never a name-drop.\n# @STUDY Q001.W8  REWARD THE LISTENER\n#   applied: honoring the boundary is only possible if you actually listened to how he said it; prying is what an inattentive player does.\n# @STUDY Q001.W1  TRANSACTION-CARRIES-EMOTION\n#   applied: making his place solid is the job; earning the wall coming down is what is really happening.\n# @STUDY Q021.W2  \"YOU CAN'T SAVE EVERYONE\" AS THE THESIS\n#   applied: you cannot fix his situation, only be trustworthy inside it.\n# @STUDY Q001.P8  W8 (reward the listener\n#   applied: the port form of rewarding attention: the solution is gated behind having actually heard how he said the back is his alone.\n# ----------------------------------------------------------------------------\n\n@QUEST   bq_back_door   The Back Door\n@ACT     1\n@FACTION NONE\n@ONCE    true\n\n@ROLE neighbor  REQ  is=the_neighbor  household=behind_fence\n\n@STAGE 10\n  @LOG The man behind the fence wants help making his place solid before dark. He is odd about the back.\n  @DO show_objective 10\n@STAGE 20 COMPLETE #quiet\n  @LOG Boarded the front and side and let him keep the back to himself, no questions. He will not forget it. The wall feels closer.\n  @DO bond neighbor +20\n  @DO complete_objective 10\n@STAGE 21 COMPLETE #notable\n  @LOG Got the job done but drew a crowd to his door doing it. Solid house, rattled man. Eyes on his place is the one thing he did not want.\n  @DO bond neighbor +4\n  @DO complete_objective 10\n@STAGE 22 FAIL #quiet\n  @LOG Pushed to see the back room. He shut down hard. Whatever trust was building took a step back tonight.\n  @DO bond neighbor -10\n\n@OBJ 10  \"Help the neighbor make his place solid\"   target=neighbor\n\n@TALK ask  speaker=neighbor  entry=stage>=10\n  @SAY Before dark I need the front and the side made solid. Boards, nails, whatever you have got. #tired\n  @SAY The back I do myself. Always the back myself. Do not go around back. I am not being rude. I am being careful. Just take the front for me.\n  @OPT \"Front and side. You have got it.\"   [gate: none]  -> work  @DO learn respects_the_boundary\n  @OPT \"What is in the back?\"               [gate: none]  -> back\n  @OPT (head around back to look)           [gate: none]  -> pry\n  @NOVERB \"Ask what he is protecting\"\n@END\n\n@TALK back  speaker=neighbor\n  @SAY The back is mine. That is the whole answer and it is going to stay the whole answer. #dread\n  @SAY You want to earn something real out here, earn this: a man tells you a door is his, and you let it be his.\n  @OPT \"Fair. Front and side.\"             [gate: none]  -> work  @DO learn respects_the_boundary\n  @OPT (go look anyway)                     [gate: none]  -> pry\n@END\n\n@TALK work  speaker=neighbor\n  @SAY (you board the front and the side while he works the back alone, and neither of you talks much, and it is a good kind of quiet.)\n  @SAY Solid. First time in a long time this place feels solid. I will not forget that you did this and did not ask twice about the back.\n  @OPT \"That is what neighbors are for.\"    [gate: none]  -> END  @DO set_stage 20\n  @OPT \"Someday you will tell me.\"          [gate: none]  -> END  @DO set_stage 20\n  @OPT \"Let us make it a whole thing, get some others out here.\"  [gate: none]  -> loud\n@END\n\n@TALK pry  speaker=neighbor\n  @SAY STOP. I told you the back was mine. I told you plain. Get away from that door. #dread\n  @OPT \"Okay. Okay. I am backing off.\"      [gate: none]  -> work\n  @OPT \"What are you so scared of?\"         [gate: none]  -> fold\n@END\n\n@TALK fold  speaker=neighbor\n  @SAY Scared. Yeah. You do not get to see a man scared and keep it for free. Go home. #dread\n  @OPT \"I am sorry. I crossed a line.\"      [gate: none]  -> END  @DO set_stage 22\n@END\n\n@TALK loud  speaker=neighbor\n  @SAY No crowd. I said front and side, not a block party at my door. #tired\n  @SAY You did good work. But eyes on my place is the exact opposite of what I asked for. Let it go now.\n  @OPT \"Right. Sorry. Just us.\"             [gate: none]  -> END  @DO set_stage 21\n@END\n", "S02_THE_SAME_CRATE_TWICE": "# BOHEMIA SIDE QUEST \u2014 PLAYABLE .bq (canon machine layer)\n# S02 \u2014 THE SAME CRATE TWICE\n# Shape: double-agent / reputation-travels (Killian + Alpha Protocol). Faction\n# wires: REDS, BLUES. Systems AS mechanic (W9): the resolution genuinely shifts\n# both gangs' posture toward the player, and reputation TRAVELS \u2014 whatever you do,\n# the other side hears it. The crate is salvaged batteries (the ELECTRICITY\n# economy), so both blocks want it for the same real reason: to keep the lights on.\n# No proper names (W8). CLOUT rides loudness of the deed, never a label: a clean\n# hand-off is #notable, a quiet double-cross is #risky, keeping it for your own\n# block in the open is #reckless.\n\n# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------\n# The corpus this quest is actually built from. Every id below resolves in\n# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of\n# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies\n# the id AND the quoted law title verbatim. A citation is a claim the machine\n# can check, never a name-drop.\n# @STUDY Q002.W2  THE BRANCH-ROUTER NPC\n#   applied: one crate, one conversation, and every resolution routes through which side you tell it to.\n# @STUDY Q001.W11  NO CLEAN WIN\n#   applied: both gangs hear whatever you do; there is no route where nobody learns your name.\n# @STUDY Q007.W2  EASY TO COMPLETE, HARD TO MASTER\n#   applied: finishing is easy, finishing without either side hearing it is the real game, and it is self-imposed.\n# @STUDY Q002.P4  W5 (fully-built villain route\n#   applied: both betrayals are authored end to end; the double-cross is a designed route with its own scenes, not a punishment branch.\n# ----------------------------------------------------------------------------\n\n@QUEST   bq_same_crate   The Same Crate Twice\n@ACT     1\n@FACTION NONE\n@ONCE    true\n\n@ROLE red_boss   REQ  faction=REDS   holds_block=true\n@ROLE blue_boss  REQ  faction=BLUES  holds_block=true\n@ROLE runner     OPT  faction_any    knows_the_load=true\n\n@STAGE 10\n  @LOG The reds are paying to move a crate of salvaged batteries to their block by dark.\n  @DO show_objective 10\n@STAGE 20\n  @LOG The blues stopped me on the way. They know what is in the crate. They are offering more.\n  @DO show_objective 20\n  @DO complete_objective 10\n@STAGE 30 COMPLETE #notable\n  @LOG Delivered to the reds, clean, as promised. The blues heard I kept my word to someone else.\n  @DO faction REDS +10\n  @DO faction_posture BLUES +1\n  @DO complete_objective 20\n@STAGE 31 COMPLETE #risky\n  @LOG Doubled it to the blues. Quiet money. The reds will spend a year finding out it was me.\n  @DO faction BLUES +12\n  @DO faction_posture REDS +1\n  @DO complete_objective 20\n@STAGE 32 COMPLETE #reckless\n  @LOG Kept the crate for my own block and told both gangs to their faces. Two enemies, one night.\n  @DO faction_posture REDS +1\n  @DO faction_posture BLUES +1\n  @DO complete_objective 20\n@STAGE 33 FAIL #quiet\n  @LOG Put the crate down and walked. Both sides remember the ones who flinch.\n\n@OBJ 10  \"Move the crate to the red block\"   target=red_boss\n@OBJ 20  \"Decide who gets the batteries\"      target=blue_boss\n\n@TALK hire  speaker=red_boss  entry=stage>=10\n  @SAY Batteries. Real ones, charged, not the swollen junk. My block has been dark four nights. #tired\n  @SAY Carry that crate to my door by dark and you eat well for a month. Do not open it. Do not weigh it.\n  @OPT \"It is already moving.\"          [gate: none]  -> road  @DO learn carrying_batteries\n  @OPT \"What is really in it?\"          [gate: none]  -> what\n  @OPT (pick it up and go)              [gate: none]  SILENCE -> road  @DO learn carrying_batteries\n  @NOVERB \"Swear I will not double you\"\n@END\n\n@TALK what  speaker=red_boss\n  @SAY Light. That is what is in it. The only thing anybody fights over anymore is who gets to see at night.\n  @SAY Now stop asking and start walking.\n  @OPT \"Walking.\"                       [gate: none]  -> road  @DO learn carrying_batteries\n@END\n\n# THE INTERCEPT. The other buyer. Reputation is about to start traveling.\n@TALK road  speaker=blue_boss  entry=stage>=10 and knows:carrying_batteries\n  @SAY Heavy crate. Charged cells hum a little. I can hear it from here. #wary\n  @SAY Those were promised to a block that lets its own elders freeze to look tough. Bring them to mine instead.\n  @SAY I pay better, and I pay now. Nobody has to know it was you. That is the beautiful part. Nobody ever knows.\n  @OPT \"A deal is a deal. This goes to the reds.\"   [gate: none]  -> deliver_red   @DO set_flag chose\n  @OPT \"Fine. Your block gets the light.\"           [gate: none]  TRAP -> deliver_blue  @DO set_flag chose\n  @OPT \"Neither. My block has elders too.\"          [gate: none]  -> keep_it       @DO set_flag chose\n  @OPT (set the crate down between you)              [gate: none]  SILENCE -> walk_off\n  @NOVERB \"Ask what nobody knowing is worth to me\"\n@END\n\n@TALK deliver_red  speaker=red_boss\n  @SAY On time and closed. I watched you pass a better offer and I know you passed it. #tired\n  @SAY That is worth more than the cells. Word travels. The blues will know you are a person who finishes.\n  @OPT \"Just a delivery.\"               [gate: none]  -> END  @DO set_stage 30\n@END\n\n@TALK deliver_blue  speaker=blue_boss\n  @SAY Smart. Quiet money spends the same as loud money and lives longer. #wary\n  @SAY But hear me: the ones you crossed tonight will spend a year learning your face. Quiet has a bill too.\n  @OPT \"I will pay it when it comes.\"   [gate: none]  -> END  @DO set_stage 31\n  @OPT (take the money, say nothing)    [gate: none]  SILENCE -> END  @DO set_stage 31\n@END\n\n@TALK keep_it  speaker=blue_boss\n  @SAY You will keep it. For your own block. And you are telling us both, to our faces, in the open. #dread\n  @SAY That is either the bravest thing I have seen this year or the last dumb thing you do. Two enemies in one night.\n  @OPT \"My block. My light.\"            [gate: none]  -> END  @DO set_stage 32\n@END\n\n@TALK walk_off  speaker=blue_boss\n  @SAY You are going to set it down and walk. I can see it. #wary\n  @OPT \"Not my fight.\"                  [gate: none]  -> END  @DO set_stage 33\n  @OPT \"No. I am choosing.\"             [gate: none]  -> road\n@END\n"};
+let DAY_RESTORED=false;
 // ---- game clock: I MOVE YOU MOVE. steps advance time. ----
-const T={day:1, min:8*60};
-function advance(mins){ T.min+=mins; while(T.min>=24*60){T.min-=24*60;T.day++;} updHud(); }
+/* __DAY_LOOP__ -- THE DAY HAS A SHAPE NOW (8/11/26). This was a bare timer:
+   minutes accumulated, rolled past midnight, incremented a number, and nothing
+   else in the world knew a day had happened. advance() now runs the real day
+   loop (engine/bohemia_dayloop.js): it wakes you at 06:00, spends your sixteen
+   hours, ends the day at NIGHTFALL 22:00 whether you like it or not, and hands
+   the reckoning to the card. T is kept in step because the renderer, the HUD and
+   the save all read it, and none of them should have to know the loop exists. */
+const T={day:1, min:6*60};
+const DAY=BohemiaDayLoop.make();
+DAY.wake();
+function daySync(){ T.day=DAY.day; T.min=DAY.min; }
+function advance(mins){
+  const was=DAY.phase;
+  DAY.tick(mins, dayWhere());
+  daySync();
+  if(was==='awake'&&DAY.phase==='ended') onNightfall();
+  updHud();
+}
 function isNight(){ return T.min>=19*60||T.min<6*60; }
 function clockStr(){ const h=(T.min/60)|0, m=Math.floor(T.min%60); return 'DAY '+T.day+' · '+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); }
 
@@ -12269,14 +13289,14 @@ function texKindFor(col,isStruct){
 
 /* ==== STREET ART (7/20): the approved V11/V12 street pools, on the ground.
    Source: banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt (judged art, 30-yr weathering). Gate-locked. ==== */
-/* SA_TILES lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* SA_TILES lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 
 /* __TRAFFIC_SIGNALS__ -- HIS 7/17 TRAFFIC SIGNALS, ON THE INTERSECTIONS.
    Verbatim from banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt; this
    file chooses WHICH of his sprites stands where and nothing else. DEAD only
    (act-1 default; grid power is his call), every wreckage kind included
    because 'broken and on the floor' is what he asked for by name. */
-/* SIG_TILES lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* SIG_TILES lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const SIG_IMG={};
 for(const k in SIG_TILES){ const im=new Image();
   im.onload=()=>{ try{ render(); }catch(_e){} };
@@ -12478,7 +13498,7 @@ function chunkCanvas(cx,cy){
    district (roads->street, industrial->metal, parks/desert->burnt, built->concrete).
    Bigger+overlap+feather => seams dissolve. Click ANY tile => judge ART DIRECTION
    globally. Manual PLACE stays. City view untouched. Persists. --------------- */
-/* TP_TILES lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* TP_TILES lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const TP_TYPE = {"concrete": "ground", "misc": "object", "industrial": "object", "gore": "overlay", "container": "object", "foliage": "object", "sign": "object", "furniture": "object", "weapon": "object", "trash": "overlay", "wall": "object", "hazard": "overlay", "fence": "object", "door": "object", "window": "object", "grass": "ground", "light": "object", "monument": "object", "vehicle": "object", "street": "ground", "roof": "object", "rubble": "overlay", "dirt": "ground", "burnt": "ground"};
 const TP_IMG = {};
 for(const k in TP_TILES){ TP_IMG[k]=TP_TILES[k].map(b=>{const im=new Image();im.src='data:image/png;base64,'+b;return im;}); }
@@ -12950,8 +13970,8 @@ function shadowPass(ox,oy,C){
    AND IT DRAWS LAST IN THE ROW, because facadePass walks gx ascending and the
    cell to the door's right is drawn AFTER the door -- its wall buried the east
    jamb every time. Trim stands proud of the wall beside it. */
-/* JAMB_W lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
-/* JAMB_E lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* JAMB_W lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* JAMB_E lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const JAMB_WI=JAMB_W.map(function(b){const i=new Image();i.src='data:image/png;base64,'+b;return i;});
 const JAMB_EI=JAMB_E.map(function(b){const i=new Image();i.src='data:image/png;base64,'+b;return i;});
 const JAMB_PX=7;            /* his locked strip width, in 44px corpus pixels */
@@ -13655,7 +14675,8 @@ function screenFilter(mode){
   if(SCRFILT===want)return;                 /* style writes are layout-adjacent; only on change */
   SCRFILT=want; cv.style.imageRendering=want;
 }
-function render(){ if(MODE==='city'){ screenFilter('city'); renderCity(); } else { screenFilter('human'); renderHuman(); } }
+function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
+  if(MODE==='city'){ screenFilter('city'); renderCity(); } else { screenFilter('human'); renderHuman(); } }
 function updHud(){
   document.getElementById('hclock').textContent=clockStr()+(isNight()?' 🌙':'');
   const t=om.at(city.x,city.y);
@@ -14004,11 +15025,12 @@ function reportState(){
   if(_svT)return; _svT=setTimeout(()=>{ _svT=null;
     try{ if(window.parent&&window.parent!==window)window.parent.postMessage({bohemiaCityState:{
       v:1,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
-      riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM
+      riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
+      loop:DAY.serialize(),quest:DQ.serialize()      /* __DAY_LOOP__ */
     }},'*'); }catch(_e){}
   },800);
 }
-/* __SAVE_FLUSH_IOS__ -- THE FLUSH IOS ACTUALLY DELIVERS (8/6/26).
+/* __SAVE_FLUSH_IOS__ -- THE FLUSH IOS ACTUALLY DELIVERS (8/11/26).
    This was `pagehide` alone. Inside an iframe on iOS that is the event least
    likely to ever run: Safari backgrounds and then reaps a tab through
    visibilitychange and freeze, and those go to the top document, not to the
@@ -14019,16 +15041,126 @@ function reportState(){
 function flushState(){ if(_svT){clearTimeout(_svT);_svT=null;}
   try{ if(window.parent&&window.parent!==window)window.parent.postMessage({bohemiaCityState:{
     v:1,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
-    riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM
+    riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
+    loop:DAY.serialize(),quest:DQ.serialize()        /* __DAY_LOOP__ */
   }},'*'); }catch(_e){} }
 window.addEventListener('pagehide',flushState);
 window.addEventListener('freeze',flushState);
 window.addEventListener('blur',flushState);
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden')flushState(); });
+
+/* __DAY_LOOP__ GLUE -- the day loop, the demo quests, and the three cards.
+   SCAFFOLDING WHERE IT SAYS SCAFFOLDING (engine/bohemia_demoquests.js): the
+   quests and every word in them are canon, the CASTING is not wired yet. */
+const DQ=BohemiaDemoQuests.make({BQ:BQ,BQRuntime:BQRuntime,sources:DEMO_BQ,loop:DAY});
+let DAYOPEN=null;
+
+function dayWhere(){
+  try{
+    const t=(MODE==='human')?om.at((hx/FN)|0,(hy/FN)|0):om.at(city.x,city.y);
+    return t?t.district:null;
+  }catch(_e){ return null; }
+}
+/* is the block you are standing on dark? The world's real 12% clustered power
+   grid answers this, so "an unlit block" is a place you can actually find. */
+function dayDark(){
+  try{ const p=POWER.at((hx/FN)|0,(hy/FN)|0); return !(p&&p.live); }catch(_e){ return true; }
+}
+let _lastDistrict=null;
+function dayDistrictCheck(){
+  const d=dayWhere();
+  if(!d||d===_lastDistrict)return;
+  _lastDistrict=d;
+  const r=DQ.event('enter_district',{district:d});
+  if(r)dayAfterQuest(r);
+}
+function dayEnteredBuilding(label){
+  DAY.entered(label||'a building');
+  const r=DQ.event('enter_building',{district:dayWhere(),dark:dayDark(),building:label});
+  if(r)dayAfterQuest(r);
+}
+function dayAfterQuest(r){
+  updQline();
+  if(r&&r.card){ showChoice(r.card); }
+}
+function updQline(){
+  const el=document.getElementById('qline'); if(!el)return;
+  el.textContent=DQ.hudLine()||'';
+}
+
+/* ---- the cards ---------------------------------------------------------- */
+function cardShow(html,onTap){
+  const c=document.getElementById('daycard'), i=document.getElementById('daycardIn');
+  i.innerHTML=html; c.classList.add('on');
+  i.onclick=function(ev){ const b=ev.target.closest('[data-act]'); if(b&&onTap)onTap(b.dataset.act); };
+}
+function cardHide(){ document.getElementById('daycard').classList.remove('on'); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+function showWake(){
+  DAYOPEN=DQ.openDay(DAY.day);
+  updQline();
+  const o=DAYOPEN;
+  let h='<h2>DAY '+DAY.day+'</h2><div class="sub">'+esc(DAY.hhmm(DAY.WAKE_MIN))
+       +' \u00b7 light until '+esc(DAY.hhmm(DAY.NIGHT_MIN))+'</div>';
+  if(o){ h+='<h3>'+esc((o.title||'').toUpperCase())+'</h3><p>'+esc(o.log||o.brief)+'</p>';
+    const ob=(o.objectives||[]).filter(x=>x.status==='active');
+    if(ob.length){ h+='<ul>'+ob.map(x=>'<li>'+esc(x.text)+'</li>').join('')+'</ul>'; } }
+  h+='<div class="dcgo" data-act="go">GET UP</div>';
+  cardShow(h,function(){ cardHide(); if(DQ.pending)showChoice(DQ.pending); });
+}
+
+function showChoice(card){
+  if(!card)return;
+  let h='<h2>'+esc((card.title||'').toUpperCase())+'</h2>'
+      +'<div class="sub">'+esc(DAY.hhmm(DAY.min))+' \u00b7 '
+      +(DAY.left()/60).toFixed(1)+'h of light left</div>';
+  card.options.forEach(function(o,i){
+    h+='<div class="dcbtn" data-act="'+o.stage+'">'
+      +(o.tags&&o.tags.length?'<span class="tag">'+esc(o.tags[0].toUpperCase())+'</span>':'')
+      +esc(o.text)+'</div>';
+  });
+  cardShow(h,function(act){
+    const r=DQ.resolve(parseInt(act,10));
+    cardHide(); if(r)dayAfterQuest(r);
+  });
+}
+
+function onNightfall(){
+  const r=DQ.nightfall();        /* unresolved -> the quest's OWN fail stage */
+  if(r)updQline();
+  showReckoning();
+}
+function showReckoning(){
+  const s=DAY.summary();
+  let h='<h2>DAY '+s.day+' \u00b7 '+(s.reason==='slept'?'TURNED IN':'NIGHTFALL')+'</h2>'
+       +'<div class="sub">'+esc(s.endedAt)+' \u00b7 '+s.hoursLived+'h lived'
+       +(s.hoursGivenBack?' \u00b7 '+s.hoursGivenBack+'h given back':'')+'</div>';
+  if(s.notes.length){ h+='<h3>WHAT HAPPENED</h3><ul>'+s.notes.map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul>'; }
+  h+='<h3>THE DAY</h3><ul>';
+  h+='<li>'+s.steps+' steps</li>';
+  if(s.districts.length)h+='<li>'+esc(s.districts.map(d=>d.name).join(', '))+'</li>';
+  if(s.entered.length)h+='<li>went into '+esc(s.entered.join(', '))+'</li>';
+  const oc=DQ.outcome();
+  if(oc)h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': '+esc(oc)
+        +(DQ.tags().length?' ('+esc(DQ.tags()[0])+')':'')+'</li>';
+  h+='</ul>';
+  h+='<div class="dcgo" data-act="next">SLEEP \u2192 DAY '+(s.day+1)+'</div>';
+  cardShow(h,function(){ cardHide(); DAY.nextDay(); daySync(); _lastDistrict=null;
+    showWake(); updHud(); render(); reportState(); });
+}
+
 function applyRestore(st){
   if(!st||st.v!==1)return false;
   if(typeof st.seed==='number'&&st.seed!==seed){ seed=st.seed; om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed); metaCache.clear(); chunkCache.clear(); }
   T.day=st.day||1; T.min=(typeof st.min==='number')?st.min:8*60;
+  /* __DAY_LOOP__ -- a day loop that does not survive a reload is a session
+     toy, not a loop. The quest's own state (stage, bonds, faction, objectives)
+     rides with it, so resuming puts you back mid-job, not back at the wake. */
+  if(st.loop&&DAY.restore(st.loop)){ daySync(); DAY_RESTORED=true;
+    if(st.quest)DQ.restore(st.quest,DAY.day); else DQ.openDay(DAY.day);
+    try{ updQline(); }catch(_e){}
+    if(DAY.phase==='ended')try{ showReckoning(); }catch(_e){} }
   city.x=st.cx; city.y=st.cy;
   if(typeof st.hzoom==='number'){ HZOOM=st.hzoom; }
   if(typeof RIDING!=='undefined'){ RIDING=!!st.riding; document.getElementById('bikebtn').classList.toggle('on',RIDING); }
@@ -14615,6 +15747,7 @@ function inEnter(tgtX,tgtY,fromX,fromY,portal){
   /* __DOOR_SWINGS__ -- inEnter is the ONE place a body goes through a door,
      which is exactly what the 8/2 doorway rule funnels every entry through. */
   try{ doorSwing((tgtX*73856093)^(tgtY*19349663),tgtX,tgtY); }catch(_e){}
+  try{ dayEnteredBuilding(INSIDE&&INSIDE.label); }catch(_e){}   /* __DAY_LOOP__ */
   advance(0.5); return true;
 }
 function inPassable(x,y){
@@ -14665,7 +15798,7 @@ stepOnce=function(di){
    door at the same size with no scaling and no geometry change.
    HIS TIMING, from the bank: 9 frames / 2 beats / 120 BPM. BEAT is 500ms, so the
    swing runs 1000ms off the same clock everything else quantises to. */
-/* DOOR_ANIM lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* DOOR_ANIM lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const DOOR_ANIM_IMG=DOOR_ANIM.map(function(cl){ return cl.map(function(b){
   const im=new Image(); im.src='data:image/png;base64,'+b; return im; }); });
 let DOORSWING=null;   /* {clip, t0, gx, gy} while a door is opening */
@@ -14688,7 +15821,7 @@ function doorSwingDraw(ox,oy,C){
   window.__DOOR_SWING_FRAMES=(window.__DOOR_SWING_FRAMES||0)+1;
   return 1;
 }
-/* IN_DOOR_B64 lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
+/* IN_DOOR_B64 lives in BOHEMIA_CITY_TILES.js (8/11, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const IN_DOOR_IMG=IN_DOOR_B64.map(function(b){ const im=new Image(); im.src='data:image/png;base64,'+b; return im; });
 FACADE_DOOR_BANK=IN_DOOR_IMG;   /* ONE DOOR, INSIDE AND OUT: the facade pass and the interior now blit the same approved 88x176 plate. */
 
@@ -14699,7 +15832,7 @@ const IN_FLOORPOOL={
   stockroom:'hyard', records:'hyard', service:'hyard', floor_open:'hyard',
   dock:'hyard', locker:'hyard'
 };
-/* __HOUSE_FLOORS__ (Paolo 8/6: "Tile wood and carpet bro ofc bro wtf").
+/* __HOUSE_FLOORS__ (Paolo 8/11: "Tile wood and carpet bro ofc bro wtf").
    A HOUSE IS FLOORED LIKE A HOUSE. What it did instead: inFloorPool returned 'side' for
    every role but six, and 'side' IS pools.side of the harmonized STREET pool -- the
    OUTDOOR SIDEWALK CONCRETE, cracks and weeds included. A living room, a kitchen, two
@@ -15142,6 +16275,13 @@ window.__CT={ everyone:function(){ return ctEveryone().map(function(p){
 
 window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot:INSIDE.foot,
   rooms:INSIDE.fp.rooms.length,zone:INSIDE.zone,label:INSIDE.label}:null; };
+
+
+/* __DAY_LOOP__ BOOT -- open day 1 once the world is up. */
+document.getElementById('sleepbtn').addEventListener('click',function(){
+  if(DAY.phase!=='awake')return; DAY.sleep(); daySync(); onNightfall(); updHud();
+});
+setTimeout(function(){ if(!DAY_RESTORED) showWake(); else updQline(); },60);
 
 </script>
 </body></html>

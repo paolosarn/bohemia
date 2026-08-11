@@ -1,5 +1,5 @@
 /* ============================================================================
-   SAVE IPHONE GATE (8/6/26) — the demo is played on an iPhone, so the save is
+   SAVE IPHONE GATE (8/11/26) — the demo is played on an iPhone, so the save is
    driven against a HOSTILE BROWSER, not a friendly one.
 
    A save that round-trips in Node proves nothing. Every failure below is one iOS
