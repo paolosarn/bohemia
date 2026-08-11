@@ -38,8 +38,8 @@
 <!-- engine-md5:engine/bohemia_cityhall.js:686e13572714e74fb8e0cd27c9496eb3 -->
 <!-- engine-md5:engine/bohemia_battery.js:d27eaae65f319afcae2b5e4eeff987fd -->
 <!-- engine-md5:engine/bohemia_terminal.js:ce047c09c723242b13f75789f82c8d6e -->
-<!-- engine-md5:engine/bohemia_arterial.js:ecf56697aaaa4c160ee04ace9617cf61 -->
-<!-- engine-md5:engine/bohemia_freeway.js:bf988f2c962ce363308573b72d411de0 -->
+<!-- engine-md5:engine/bohemia_arterial.js:5883b84e3331e0c306c67ae9bcf8b621 -->
+<!-- engine-md5:engine/bohemia_freeway.js:3aeeaf2dae63e7deb6461117cf89fe7c -->
 <!-- engine-md5:engine/bohemia_terrain_noise.js:504a0a8b9db9ba1c15f08f951c9203e6 -->
 <!-- engine-md5:engine/bohemia_airfield.js:4e2fd12f16f7044e02f5e6571eeae884 -->
 <!-- engine-md5:engine/bohemia_rail.js:96cad54411fbf0ff9657177de66bec31 -->
@@ -6107,7 +6107,8 @@
         : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
 
   var C = 64;          // cell centre (128x128)
-  var BOX = 23;        // half-width of the curb-to-curb pavement box at an intersection
+  var BOX = 46;        // half-width of the curb-to-curb pavement box at an intersection
+                       // (tracks CURB: the junction is as wide as the road that makes it)
   // WALL TO WALL, EDGE TO EDGE (fixed 7/26 after looking at the real map render). The
   // corridor first stopped at a 42-tile half-width and left 20 tiles of bare dirt out to
   // the cell edge, so on the map every street floated in a black moat between the
@@ -6118,13 +6119,30 @@
   var ROW = 63;        // half-width of the whole corridor: the wall sits on the cell edge
 
   // cross-section, as distance OUT from the road's centreline (in tiles, 0.75 m each)
-  var MEDIAN = 2;      // 0..2   raised median island (5 tiles ~ 3.75 m)
-  var PAVE = 21;       // 3..21  6 travel lanes + shoulder
-  var CURB = 23;       // 22..23 curb + gutter
-  var AMEN = 25;       // 24..25 amenity strip (streetlights live here)
-  var WALK = 28;       // 26..28 DETACHED sidewalk
-  var SET = 61;        // 29..61 landscape setback (deep, the way an arterial frontage reads)
-  // 62..63 block wall, sitting on the cell boundary
+  // THE STREET FILLS THE BOX (Paolo 8/11, LOCKED): "the streets should FILL THE WHOLE
+  // FUCKING BOX ABSOLUTELY... THE STREETS DONT HAVE WALLS."
+  //
+  // WHAT WAS ACTUALLY WRONG, seen for the first time as a real top-down grid: the corridor
+  // already ran wall to wall (ROW 63), but only 21 of those 63 tiles each side were PAVED.
+  // The other 33 were LANDSCAPE SETBACK -- twenty-five metres of dead lawn per side, wider
+  // than the road itself -- and then a BLOCK WALL sat on the cell boundary. So a street
+  // cell was a thin ribbon of asphalt in a field, fenced. That is what he has been looking
+  // at and shouting about, and no drawing or reframing was ever going to fix it, because
+  // the defect was in the GENERATED GRID, not in the picture of it.
+  //
+  // A REASONABLE FUN INTERPRETATION OF THE ACTUALLY WALKABLE GRID (his words). Grounded:
+  // a real Vegas arterial right-of-way is roughly 100-120 ft of pavement, curb and walk,
+  // and the deep setback belongs to the PARCEL NEXT DOOR -- it is that district's ground,
+  // not the street's. This cell is the street, so the street gets the cell: travel lanes,
+  // turn lanes and parking out to the curb, then amenity and walk, then a narrow margin.
+  var MEDIAN = 2;      // 0..2   raised median island
+  var PAVE = 44;       // 3..44  6 travel lanes + turn lanes + parking + shoulder
+  var CURB = 46;       // 45..46 curb + gutter
+  var AMEN = 49;       // 47..49 amenity strip (streetlights live here)
+  var WALK = 55;       // 50..55 DETACHED sidewalk, and a generous one
+  var SET = 63;        // 56..63 a NARROW margin of decomposed granite out to the cell edge
+  // AND NO BLOCK WALL. A street is public ground all the way to the boundary, so the
+  // neighbouring district's own edge starts exactly where this cell stops.
 
   var LANE_A = 8, LANE_B = 13;   // white lane lines between same-direction lanes
   var EDGE = 21;                 // solid white edge line
@@ -6136,7 +6154,7 @@
     if (b <= CURB) return 5;
     if (b <= AMEN) return 7;
     if (b <= WALK) return 6;
-    if (b <= SET) return 7;
+    if (b <= SET) return 7;   // margin, not a setback -- and never a wall (Paolo 8/11)
     if (b <= ROW) return 8;
     return 0;
   }
@@ -6188,7 +6206,12 @@
     function laneLine(alongAxis) {
       for (var t = 0; t < 128; t++) {
         var oa = t - C;
-        if (Math.abs(oa) <= BOX) continue;                  // never stripe through the box
+        // NEVER STRIPE THROUGH THE JUNCTION -- BUT ONLY IF THERE IS ONE. A cell with legs
+        // in one axis only is a RUN: no junction, nothing to keep clear, and the dashes
+        // must carry the whole length or the road reads as two stubs with a blank middle.
+        // (Which is exactly what it did the moment BOX widened with the pavement: a 46-tile
+        // box swallowed 72 of the 128 rows and the middle of every street went unstriped.)
+        if (vert && horiz && Math.abs(oa) <= BOX) continue;
         if (alongAxis === 'v' && !coverV(oa)) continue;
         if (alongAxis === 'h' && !coverH(oa)) continue;
         var dash = (Math.floor((t % 12) / 6) === 0);
@@ -6456,9 +6479,14 @@
   K.register('arterial', {
     generate: function (seed, opts) {
       opts = opts || {};
-      // THE RUN. If a caller says nothing, this is a through street and not a junction.
+      // THE RUN, AND IT ALWAYS RUNS THROUGH. Callers pass {streets:['S']} to mean "this
+      // district fronts onto a street on its south side" -- correct for a LOT, nonsense for
+      // a street CELL, and it is why the top third of every arterial grid was bare dirt with
+      // a hard edge across it: one leg meant the roadway stopped half a cell short. A street
+      // that dead-ends inside a block is not a street. Both legs, always.
       var o = {}; for (var k in opts) o[k] = opts[k];
-      if (!o.links && !o.streets) o.links = ['N', 'S'];
+      o.links = ['N', 'S'];
+      o.streets = o.links;
       return generate(seed, o);
     },
     body: function (c) { return c === 8 || c === 13; },
@@ -6525,13 +6553,21 @@
   var C = 64;
   var BARRIER = 1;    // 0..1   concrete F-shape median barrier
   var INSHLD = 3;     // 2..3   inside shoulder
-  var LANES = 23;     // 4..23  four 12 ft lanes each way
-  var OUTSHLD = 28;   // 24..28 outside shoulder
-  var RAIL = 30;      // 29..30 guardrail
-  var EMBANK = 61;    // 31..61 graded embankment
-  var ROW = 63;       // 62..63 sound wall, sitting on the cell boundary
-  var LANE_LINES = [8, 13, 18];
-  var EDGE = 23;
+  // THE FREEWAY FILLS THE BOX TOO (Paolo 8/11: "the streets should FILL THE WHOLE FUCKING
+  // BOX ABSOLUTELY... THE FREEWAYS CAN HAVE WALLS"). Same defect the arterial had and it
+  // only became visible as a real top-down grid: 23 of 63 tiles each side were travelling
+  // lanes and THIRTY-ONE were graded embankment, so a freeway cell read as a thin ribbon
+  // of asphalt lying in a field. A real urban freeway is 8 lanes, shoulders, ramps and
+  // gore areas edge to edge; the deep embankment belongs to the parcels beside it.
+  // THE WALL STAYS. It is the one thing he said a freeway may keep, and a sound wall is
+  // what a real one actually has.
+  var LANES = 40;     // 4..40  four lanes each way + auxiliary/ramp lanes
+  var OUTSHLD = 46;   // 41..46 outside shoulder
+  var RAIL = 48;      // 47..48 guardrail
+  var EMBANK = 59;    // 49..59 graded embankment, narrowed to a real verge
+  var ROW = 63;       // 60..63 SOUND WALL, sitting on the cell boundary
+  var LANE_LINES = [8, 16, 24, 32];
+  var EDGE = 40;
 
   function bandCode(b) {
     if (b <= BARRIER) return 4;
@@ -6846,7 +6882,16 @@
   };
 
   K.register('freeway', {
-    generate: generate, body: function (c) { return c === 8 || c === 4; },
+    // A FREEWAY CELL ALWAYS RUNS THROUGH. Callers pass {streets:['S']} meaning "fronts a
+    // street on its south side" -- meaningless for a freeway, and it is why the top third
+    // of the freeway grid was bare dirt with a hard edge across it: one leg stopped the
+    // roadbed half a cell short. Nothing dead-ends on a freeway.
+    generate: function (seed, opts) {
+      var o = {}; for (var k in (opts || {})) o[k] = opts[k];
+      o.same = o.links = o.streets = ['N', 'S'];
+      return generate(seed, o);
+    },
+    body: function (c) { return c === 8 || c === 4; },
     category: K.category('freeway') || 'infrastructure',
     palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
   });
