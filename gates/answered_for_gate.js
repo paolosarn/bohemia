@@ -38,6 +38,17 @@ for (const f of fs.readdirSync(path.join(ROOT, 'engine'))) {
   try { require(path.join(ROOT, 'engine', f)); } catch (e) { /* not a district */ }
 }
 
+/* SPLITTING ONE TYPE IN TWO IS NOT NEW DEBT (8/11). Paolo ruled the street RUN and the
+   street CROSSING are two different items with two different icons, so bohemia_arterial.js
+   now registers `arterial` and `arterial_x` -- the SAME generator, the SAME palette, the
+   SAME legend, asked whether this cell is a junction. Both ratchets below are named lists
+   that MAY ONLY SHRINK, and adding a second name for a cell already on them would grow the
+   count while nothing about the valley got worse, which is exactly the laundering a ratchet
+   exists to prevent. So the lookup RESOLVES the alias instead: arterial_x is checked as
+   arterial, the counts are unchanged, and a genuinely new district still cannot slip on. */
+const DEBT_ALIAS = { arterial_x: 'arterial' };
+const debtName = (d) => DEBT_ALIAS[d] || d;
+
 let pass = 0; const fails = [];
 const ok = (n, c) => { c ? pass++ : fails.push(n); };
 
@@ -88,9 +99,9 @@ for (const name of K.types()) {
   const pct = 100 * counts[codes[0]] / area;
   const over = pct >= MONO_CAP;
   if (over) monoNow.push(name);
-  if (over && !MONOBLOCK_DEBT.has(name))
+  if (over && !MONOBLOCK_DEBT.has(debtName(name)))
     regressed.push(name + ' (' + pct.toFixed(1) + '% "' + (d.legend[codes[0]] || {}).name + '")');
-  if (!over && MONOBLOCK_DEBT.has(name)) fixed.push(name);
+  if (!over && MONOBLOCK_DEBT.has(debtName(name))) fixed.push(name);
 }
 
 ok(`every registered district is swept (${swept})`, swept >= 40);
@@ -166,7 +177,7 @@ const hsv = (hex) => {
       if (v.h >= 65 && v.h <= 170 && v.s > 0.35 && DEAD_WORDS.test(text) && !LIVING_WORDS.test(e.name || '')) {
         const key = name + ':' + c;
         greenNow.push(key);
-        if (!GREENWASH_DEBT.has(key))
+        if (!GREENWASH_DEBT.has(debtName(name) + ':' + c))
           greenNew.push(key + ' "' + (e.name || '') + '" ' + d.palette[c]);
       }
     }

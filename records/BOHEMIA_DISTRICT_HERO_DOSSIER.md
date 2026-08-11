@@ -465,15 +465,26 @@ _Freeway — matched: the ELEVATED DECK on its columns crossing the lanes, a SIG
 - dead cars — where they stopped (code 10 "dead car")
 
 ## ARTERIAL  (468x468, anchor 234,234)
-_Arterial — matched: the INTERSECTION, with SIGNAL MASTS reaching their long arms out over the lanes and the heads hanging off them, crosswalk ladders on all four legs, the raised MEDIAN with its dead palms, sidewalk and block wall behind, and streetlights. The mast arm is the vertical; everything else is flat by nature._
+_Arterial — THE RUN: the sidewalks are the two ends and the street fills everything between them (Paolo 8/11), an unbroken raised MEDIAN with its dead palms down the middle, three lanes each way running clean off both ends, streetlights. No crosswalks, no signals, no walls — nothing stops on a run._
 
-- roadway — six lanes plus the cross street (code 1 "asphalt roadway")
-- crosswalk ladders — on all four legs of the intersection (code 3 "crosswalk")
-- raised median — with its dead palms (code 4 "raised median", code 11 "dead palm / shrub")
-- signal masts — long arms out over the lanes with the heads hanging off them (code 12 "signal mast")
+- roadway — six lanes filling the cell end to end, paved past the frame so the box has no bare corner (code 1 "asphalt roadway")
+- sidewalks — the two ENDS, one down each long edge with its kerb face, the street filling everything between them (code 6 "sidewalk")
+- raised median — UNBROKEN down the middle, because nothing turns across a run (code 4 "raised median")
+- dead palms — standing in the median (code 11 "dead palm / shrub")
+- lane dashes — three lanes each way, running clean off both ends (code 2 "lane line")
 - streetlights — on their stems (code 9 "streetlight")
-- sidewalk and block wall — behind the kerb (code 6 "sidewalk", code 8 "block wall")
-- dead cars — left in the lanes (code 14 "dead car")
+
+## ARTERIAL_X  (468x468, anchor 234,234)
+_Arterial Intersection — THE CROSSING, and a different item from the run (Paolo 8/11): FOUR SIDEWALK CORNERS with the junction box opening between them, ladder CROSSWALKS on all four legs, the median stopped short for the left-turn opening, and the SIGNAL MASTS reaching their arms out over the lanes. The corners say intersection before you can see a single signal head._
+
+- roadway — the junction box, paved past the frame on all four legs (code 1 "asphalt roadway")
+- four sidewalk corners — an L wrapping each corner of the junction, the gap between them IS the intersection (code 6 "sidewalk")
+- ladder crosswalks — on all four legs (code 3 "crosswalk")
+- raised median — STOPPED SHORT both sides for the left-turn opening (code 4 "raised median")
+- dead palms — in what is left of the median (code 11 "dead palm / shrub")
+- signal masts — long arms out over the lanes with the heads hanging off them; the only street cell that has them (code 12 "signal mast")
+- approach lane dashes — stopping AT the box instead of running through it (code 2 "lane line")
+- streetlights — on their stems (code 9 "streetlight")
 
 ## MOUNTAIN  (468x468, anchor 234,287)
 _Mountain — matched: a limestone RIDGE on the valley rim, a stepped massif rising to one summit with CLIFF BANDS across its sunward face, TALUS fans off the foot, a ravine cut into the flank and boulders on the apron. The tallest thing in the valley and it reads that way at map zoom._

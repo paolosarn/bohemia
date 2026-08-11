@@ -65,7 +65,9 @@ heroes = [h for h in bank['heroes'] if h.get('b64')]
 # One line per ruling, in any file under records/. That is the whole grammar. The VOTE
 # tab's own export emits this shape, so his .txt drops straight back in and the queue
 # shrinks by itself.
-DECLARED = re.compile(r'^\s*@VERDICT\s+([a-z]+)\b', re.I | re.M)
+# [a-z]+ cannot see an underscore, so `@VERDICT arterial_x YES` would have been read
+# as a verdict on `arterial` -- his ruling silently attached to the wrong district.
+DECLARED = re.compile(r'^\s*@VERDICT\s+([a-z0-9_]+)\b', re.I | re.M)
 
 judged = set()
 names = {h['district'] for h in heroes}

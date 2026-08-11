@@ -92,6 +92,13 @@ LOW_BY_NATURE = {
     # that IS the form. They are named here, never silently exempt, and they still have
     # to pass the area and fill tests like everything else.
     'desert', 'wash', 'golf', 'suburb', 'trailer',
+    # 8/11: THE STREET RUN, named the same way and for the same reason. Paolo split the
+    # run from the crossing and ruled the run has no crossing and no lights -- so the
+    # signal mast, which was this cell's only tall thing, correctly went with the
+    # crossing. What is left is streetlights on a flat road, which is what a mid-block
+    # street IS. Forcing a tower back onto it would be a lie about the map and would
+    # undo his ruling. The CROSSING keeps its masts and is NOT exempt.
+    'arterial',
 }
 
 small, empty, squat = [], [], []

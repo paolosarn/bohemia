@@ -183,7 +183,9 @@ HELD_QUESTIONS = {
 # His own export writes `@RULING <KEY> <letter>`; that line IS the retirement, in the
 # same grammar @VERDICT already uses for art. One line in any records/ file.
 RULED = re.compile(r'^\s*@RULING\s+([A-Za-z0-9_]+)\b', re.M)
-DECLARED = re.compile(r'^\s*@VERDICT\s+([a-z]+)\b', re.I | re.M)
+# [a-z]+ cannot see an underscore, so `@VERDICT arterial_x YES` would have been read
+# as a verdict on `arterial` -- his ruling silently attached to the wrong district.
+DECLARED = re.compile(r'^\s*@VERDICT\s+([a-z0-9_]+)\b', re.I | re.M)
 bank = json.load(open(BANK, encoding='utf8'))
 heroes = [h for h in bank['heroes'] if h.get('b64')]
 names = {h['district'] for h in heroes}

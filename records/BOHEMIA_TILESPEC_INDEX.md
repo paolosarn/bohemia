@@ -56,6 +56,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [ballpark](tilespec/BOHEMIA_TILESPEC_ballpark.md) | leisure | 15 | yes |
 | [airbase](tilespec/BOHEMIA_TILESPEC_airbase.md) | infrastructure | 18 | yes |
 | [arsenal](tilespec/BOHEMIA_TILESPEC_arsenal.md) | industrial | 15 | yes |
+| [arterial_x](tilespec/BOHEMIA_TILESPEC_arterial_x.md) | (uncategorized) | 18 | yes |
 | [basin](tilespec/BOHEMIA_TILESPEC_basin.md) | infrastructure | 15 | yes |
 | [datafort](tilespec/BOHEMIA_TILESPEC_datafort.md) | infrastructure | 15 | yes |
 | [fueldepot](tilespec/BOHEMIA_TILESPEC_fueldepot.md) | industrial | 15 | yes |

@@ -2410,54 +2410,107 @@ def _street_bed(s, road, walk, x0=-3.0, y0=-3.0, x1=15.0, y1=15.0):
 
 
 def build_arterial(P):
-    """engine/bohemia_arterial.js: a six-lane Vegas arterial, and the icon is THE
-    INTERSECTION -- signal masts reaching their arms out over the lanes, crosswalk ladders
-    on all four legs, the raised median with its dead palms. Paved corner to corner and
-    NO WALLS (Paolo 8/11): a street is public ground, and the thing that tells you this
-    cell is a crossing rather than a run is the SIGNALS. The freeway keeps its walls
-    because a sound wall is what a freeway actually has."""
-    # WALL and VEH are deliberately NOT unpacked any more: Paolo 8/11 ruled the streets
-    # have no walls, and the no-cars ruling took the traffic. A binding nobody uses is how a
-    # dead detail creeps back in, so the name goes with the geometry.
+    """engine/bohemia_arterial.js, THE RUN -- and it is a different item from the crossing
+    (Paolo 8/11: "ARTERIAL AND ARTERIAL INTERSECTION ARE DIFFERENT! 2 DIFFERENT ITEMS AND
+    ICONS!!").
+
+    HIS RULE FOR THE LAYOUT, verbatim: "Depending on the direction of the road the sidewalks
+    should be on the end and the street fills the rest." So the cell is THREE BANDS along
+    the direction of travel -- walk, roadway, walk -- and the roadway takes everything
+    between them. No desert margin, no bare corner, and NO WALLS: a street is public ground.
+
+    NOTHING STOPS ON A RUN. No crosswalk ladders, no stop bars, no signal masts. Those are
+    what make the other cell an intersection, and giving both to both is exactly why the map
+    could not tell them apart.
+
+    REUSE CHECK (REUSE-FIRST, 7/22): cooks no new graphic pixels -- composes the arterial
+    district's OWN palette (P, pulled live from engine/bohemia_arterial.js via the grid
+    dump) through the shared iso primitives. STREETS ARE THE HARMONIZED POOL (7/31) governs
+    the TILE pixels the walked world lays; this is the 3D map icon, built from the same
+    palette the walked cell uses so the two read as one place."""
+    ROAD, LINE, MEDIAN, WALK, LIGHT, PALM = P[1], P[2], P[4], P[6], P[9], P[11]
+    s = Scene()
+    o = _street_bed(s, ROAD, WALK)
+    # THE SIDEWALKS ARE THE TWO ENDS, and the street fills everything between them. They
+    # run off both ends of the cell because a street does not begin or end inside a block.
+    for sy in (0.0, 10.6):
+        s.box((-3.0 - o, sy, 0.09), (17.0 + 2 * o, 1.4, 0.07), {'c': WALK})
+        s.box((-3.0 - o, sy + (1.4 if sy < 5 else -0.16), 0.09), (17.0 + 2 * o, 0.16, 0.14),
+              {'c': _dark(WALK, 0.82)['c']})                                   # the kerb face
+    # the continuous raised median -- unbroken, because nothing turns across a run
+    s.box((-3.0 - o, 5.5, 0.15), (17.0 + 2 * o, 0.9, 0.35), {'c': MEDIAN})
+    for k in range(9):
+        px = -2.0 - o + k * 4.2
+        s.box((px, 5.75, 0.5), (0.26, 0.26, 3.2), {'c': PALM})
+        s.box((px - 0.4, 5.35, 3.7), (1.06, 1.06, 0.24), {'c': _dark(PALM, 0.82)['c']})
+    # three lanes each way, dashes running clean off both ends
+    for ly in (2.4, 3.9, 7.9, 9.4):
+        for k in range(int((17.0 + 2 * o) / 1.9)):
+            s.box((-2.6 - o + k * 1.9, ly, 0.14), (1.05, 0.16, 0.03), {'c': LINE})
+    # STREETLIGHTS, and they are the tallest thing on a run by design now that the signal
+    # mast went with the crossing. A Vegas arterial light is 30-40 ft on a mast arm -- taller
+    # than the 4.4 the old icon used, which was sized when a 6.2 signal mast stood beside it
+    # and made everything else look right by comparison. Corrected to the real proportion.
+    for (lx, ly) in [(-1.0, 0.9), (6.2, 11.1), (13.4, 0.9)]:
+        s.box((lx, ly, 0.09), (0.22, 0.22, 6.1), {'c': LIGHT})
+        s.box((lx, ly + (0.2 if ly < 5 else -1.5), 5.9), (0.2, 1.5, 0.2), {'c': LIGHT})
+    return s, 5.6
+
+
+def build_arterial_x(P):
+    """engine/bohemia_arterial.js, THE CROSSING -- the second of the two items Paolo split
+    on 8/11, and the one that gets the lights: "Intersections should be smartly made with
+    the lights."
+
+    THE FOUR SIDEWALK CORNERS ARE THE TELL. On a run the walks are two straight bands; at a
+    crossing they break into four quadrant corners with the roadway opening between them,
+    and that shape alone says intersection at map zoom before you can see a single signal
+    head. Then: ladder crosswalks on all four legs, the median stopped short for the
+    left-turn opening, and mast arms reaching out over the lanes.
+
+    Paved corner to corner, and NO WALLS -- same law as the run.
+
+    REUSE CHECK: cooks no new graphic pixels; same palette, same primitives as the run."""
     ROAD, LINE, MEDIAN, WALK, LIGHT, MAST, PALM = P[1], P[2], P[4], P[6], P[9], P[12], P[11]
     s = Scene()
-    _street_bed(s, ROAD, WALK)
-    o = ROAD_OVERSIZE
-    # THE FOUR SIDEWALKS, framing the junction and running off all four edges. They sit on
-    # the asphalt, so there is never a seam of bare ground between kerb and road.
-    for (sy) in (0.4, 10.0):
-        s.box((-3.0 - o, sy, 0.09), (17.0 + 2 * o, 1.0, 0.06), {'c': WALK})
-    for (sx) in (2.6, 8.2):
-        s.box((sx, -3.0 - o, 0.09), (1.0, 17.0 + 2 * o, 0.06), {'c': WALK})
-    # the raised median, broken at the junction for the left-turn opening
-    s.box((-3.0 - o, 5.2, 0.15), (6.4 + o, 0.9, 0.35), {'c': MEDIAN})
-    s.box((8.4, 5.2, 0.15), (5.8 + o, 0.9, 0.35), {'c': MEDIAN})
-    for (px, py) in [(-1.6, 5.5), (1.4, 5.5), (9.6, 5.5), (12.4, 5.5)]:                        # dead palms in it
-        s.box((px, py, 0.5), (0.26, 0.26, 3.2), {'c': PALM})
-        s.box((px - 0.4, py - 0.4, 3.7), (1.06, 1.06, 0.24), {'c': _dark(PALM, 0.82)['c']})
-    for k in range(9):                                                                         # the crosswalk ladders
-        s.box((3.2, 1.7 + k * 0.85, 0.15), (0.5, 0.42, 0.03), {'c': LINE})
-        s.box((8.2, 1.7 + k * 0.85, 0.15), (0.5, 0.42, 0.03), {'c': LINE})
-    for k in range(6):
-        s.box((3.9 + k * 0.75, 1.1, 0.15), (0.42, 0.5, 0.03), {'c': LINE})
-        s.box((3.9 + k * 0.75, 9.5, 0.15), (0.42, 0.5, 0.03), {'c': LINE})
-    # lane lines running out of the junction on all four legs, so the cell reads CROSSING
+    o = _street_bed(s, ROAD, WALK)
+    # THE FOUR CORNERS. Each quadrant walk is an L wrapping its corner of the junction, and
+    # the gap between them IS the intersection box.
+    for (qx, qy, ex, ey) in [(-3.0 - o, 0.0, 6.0 + o, 1.4), (8.8, 0.0, 6.2 + o, 1.4),
+                             (-3.0 - o, 10.6, 6.0 + o, 1.4), (8.8, 10.6, 6.2 + o, 1.4)]:
+        s.box((qx, qy, 0.09), (ex, ey, 0.07), {'c': WALK})
+    for (qx, qy, ex, ey) in [(1.6, -3.0 - o, 1.4, 4.4 + o), (7.4, -3.0 - o, 1.4, 4.4 + o),
+                             (1.6, 10.6, 1.4, 4.4 + o), (7.4, 10.6, 1.4, 4.4 + o)]:
+        s.box((qx, qy, 0.09), (ex, ey, 0.07), {'c': WALK})
+    # the median, STOPPED SHORT both sides for the left-turn opening
+    s.box((-3.0 - o, 5.5, 0.15), (5.6 + o, 0.9, 0.35), {'c': MEDIAN})
+    s.box((9.4, 5.5, 0.15), (5.6 + o, 0.9, 0.35), {'c': MEDIAN})
+    for px in (-1.8, 1.2, 10.4, 13.2):
+        s.box((px, 5.75, 0.5), (0.26, 0.26, 3.2), {'c': PALM})
+        s.box((px - 0.4, 5.35, 3.7), (1.06, 1.06, 0.24), {'c': _dark(PALM, 0.82)['c']})
+    # LADDER CROSSWALKS on all four legs
     for k in range(9):
-        s.box((-3.0 - o + k * 1.9, 3.3, 0.14), (1.05, 0.16, 0.03), {'c': LINE})
-        s.box((5.0, -3.0 - o + k * 1.9, 0.14), (0.16, 1.05, 0.03), {'c': LINE})
-    # THE SIGNAL MASTS -- the one vertical, and the whole reason this cell is an
-    # intersection and not a run. Nothing else on a street stands up like this.
-    for (mx, my, arm) in [(3.0, 0.9, 1.0), (8.8, 10.2, -1.0)]:
-        s.box((mx, my, 0.08), (0.36, 0.36, 6.2), {'c': _dark(MAST, 0.88)['c']})
+        s.box((2.6, 1.5 + k * 1.05, 0.15), (0.5, 0.5, 0.03), {'c': LINE})
+        s.box((8.4, 1.5 + k * 1.05, 0.15), (0.5, 0.5, 0.03), {'c': LINE})
+    for k in range(7):
+        s.box((3.2 + k * 0.85, 1.0, 0.15), (0.5, 0.5, 0.03), {'c': LINE})
+        s.box((3.2 + k * 0.85, 10.0, 0.15), (0.5, 0.5, 0.03), {'c': LINE})
+    # approach lane lines, stopping AT the box rather than running through it
+    for ly in (2.4, 3.9, 7.9, 9.4):
+        for k in range(int((5.2 + o) / 1.9)):
+            s.box((-2.6 - o + k * 1.9, ly, 0.14), (1.05, 0.16, 0.03), {'c': LINE})
+            s.box((9.8 + k * 1.9, ly, 0.14), (1.05, 0.16, 0.03), {'c': LINE})
+    # THE SIGNALS, on the four corners, arms out over the lanes. Only this cell has them.
+    for (mx, my, arm) in [(2.4, 0.7, 1.0), (9.0, 10.6, -1.0)]:
+        s.box((mx, my, 0.09), (0.36, 0.36, 6.2), {'c': _dark(MAST, 0.88)['c']})
         s.box((mx, my + (0.36 if arm > 0 else -4.6), 5.9), (0.3, 4.6, 0.3), {'c': MAST})
         for k in range(3):
             hy = my + arm * (1.1 + k * 1.2)
             s.box((mx + 0.02, hy, 5.0), (0.32, 0.34, 0.85), {'c': _dark(MAST, 0.66)['c']})
-    for (lx, ly) in [(-1.0, 0.6), (6.0, 10.4), (12.0, 0.6)]:                                   # streetlights
-        s.box((lx, ly, 0.08), (0.2, 0.2, 4.4), {'c': LIGHT})
-        s.box((lx, ly + 0.2, 4.25), (0.18, 1.1, 0.18), {'c': LIGHT})
+    for (lx, ly) in [(-1.4, 0.9), (12.6, 11.1)]:
+        s.box((lx, ly, 0.09), (0.2, 0.2, 4.4), {'c': LIGHT})
+        s.box((lx, ly + (0.2 if ly < 5 else -1.1), 4.25), (0.18, 1.1, 0.18), {'c': LIGHT})
     return s, 5.6
-
 
 def build_mountain(P):
     """engine/bohemia_mountain.js: a limestone ridge on the valley rim. The icon is the
@@ -2960,6 +3013,7 @@ HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': buil
           'watertreat': build_watertreat, 'waterpark': build_waterpark,
           'golf': build_golf, 'drivein': build_drivein, 'boneyard': build_boneyard,
           'wash': build_wash, 'freeway': build_freeway, 'arterial': build_arterial,
+          'arterial_x': build_arterial_x,
           'mountain': build_mountain, 'desert': build_desert, 'water': build_water}
 
 # THE TWELVE UTILITY LANDMARKS, appended LAST on purpose: art_45_gate samples heroes[0]
@@ -3019,7 +3073,8 @@ LABEL = {
     'school': 'High school — matched to the walkable district (Paolo ruled it HIGH SCHOOL, 7/28): the STADIUM as the landmark — an obround running TRACK with the football FIELD inside it, raked BLEACHERS down both sidelines, a press box and four LIGHT TOWERS standing close in at the corners of the bowl — plus the academic spine with its second storey and two forward wings, TWO entryways (main doors and the gym doors), the GYM in school colours, the AUTO SHOP under its sawtooth roof with a roll-up bay standing open over an oiled yard (Paolo 7/30 killed the tennis courts and gave the ground to it), and the STUDENT LOT with the cars still in it, which is the tell that it is a high school and not a middle school. No playground and no tennis: both were rulings, both are held at zero by the gate.',
     'courthouse': 'Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + grand STEPS + a DOME.',
     'apartment': 'Garden apartments — matched: three walk-up BLOCKS around a court, their circulation on the OUTSIDE the way Sun Belt walk-ups build it (open WALKWAY DECKS on two levels and the stair run at the end), the DRAINED POOL in the middle of the court, the clubhouse, and the perimeter fence.',
-    'arterial': 'Arterial — matched: the INTERSECTION, with SIGNAL MASTS reaching their long arms out over the lanes and the heads hanging off them, crosswalk ladders on all four legs, the raised MEDIAN with its dead palms, sidewalk and block wall behind, and streetlights. The mast arm is the vertical; everything else is flat by nature.',
+    'arterial': 'Arterial — THE RUN: the sidewalks are the two ends and the street fills everything between them (Paolo 8/11), an unbroken raised MEDIAN with its dead palms down the middle, three lanes each way running clean off both ends, streetlights. No crosswalks, no signals, no walls — nothing stops on a run.',
+    'arterial_x': 'Arterial Intersection — THE CROSSING, and a different item from the run (Paolo 8/11): FOUR SIDEWALK CORNERS with the junction box opening between them, ladder CROSSWALKS on all four legs, the median stopped short for the left-turn opening, and the SIGNAL MASTS reaching their arms out over the lanes. The corners say intersection before you can see a single signal head.',
     'boneyard': 'Wrecking yard — matched: six CRUSHED-CAR STACKS, flattened bodies piled six and eight high in leaning towers — a shape nothing else makes — with the CRANE and its grapple standing over them, loose wrecks in three faded colours filling the dirt aisles, tyre piles and the parts office.',
     'cemetery': 'Memorial park — matched: the MAUSOLEUM with its colonnade front (the only building with height on a cemetery), the HEADSTONE FIELD gridded around it, the OBELISK monument, a columbarium wall and the dead trees in their grates.',
     'desert': "Open desert — LOW BY NATURE and named as such: there is no building in open Mojave and inventing one would be a lie about the map. What it has is TEXTURE — varnished desert pavement, rock lag, CREOSOTE in its evenly spaced grid (they poison each other's roots, which is why the spacing is even), bursage between them, a dry rill, rock outcrops, dead yucca, dumped debris and a burned car.",
@@ -3175,13 +3230,22 @@ PARTS = {
         'perimeter fence posts — the corner posts of the property fence (code 12 "fence")',
     ],
     'arterial': [
-        'roadway — six lanes plus the cross street (code 1 "asphalt roadway")',
-        'crosswalk ladders — on all four legs of the intersection (code 3 "crosswalk")',
-        'raised median — with its dead palms (code 4 "raised median", code 11 "dead palm / shrub")',
-        'signal masts — long arms out over the lanes with the heads hanging off them (code 12 "signal mast")',
+        'roadway — six lanes filling the cell end to end, paved past the frame so the box has no bare corner (code 1 "asphalt roadway")',
+        'sidewalks — the two ENDS, one down each long edge with its kerb face, the street filling everything between them (code 6 "sidewalk")',
+        'raised median — UNBROKEN down the middle, because nothing turns across a run (code 4 "raised median")',
+        'dead palms — standing in the median (code 11 "dead palm / shrub")',
+        'lane dashes — three lanes each way, running clean off both ends (code 2 "lane line")',
         'streetlights — on their stems (code 9 "streetlight")',
-        'sidewalk and block wall — behind the kerb (code 6 "sidewalk", code 8 "block wall")',
-        'dead cars — left in the lanes (code 14 "dead car")',
+    ],
+    'arterial_x': [
+        'roadway — the junction box, paved past the frame on all four legs (code 1 "asphalt roadway")',
+        'four sidewalk corners — an L wrapping each corner of the junction, the gap between them IS the intersection (code 6 "sidewalk")',
+        'ladder crosswalks — on all four legs (code 3 "crosswalk")',
+        'raised median — STOPPED SHORT both sides for the left-turn opening (code 4 "raised median")',
+        'dead palms — in what is left of the median (code 11 "dead palm / shrub")',
+        'signal masts — long arms out over the lanes with the heads hanging off them; the only street cell that has them (code 12 "signal mast")',
+        'approach lane dashes — stopping AT the box instead of running through it (code 2 "lane line")',
+        'streetlights — on their stems (code 9 "streetlight")',
     ],
     'boneyard': [
         'crushed-car stacks — flattened bodies six and eight high in leaning towers (code 7 "crushed-car stack")',

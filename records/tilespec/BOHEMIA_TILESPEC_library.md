@@ -48,7 +48,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 10 | `#8e8a7c` | rooftop lantern / plant | structure | the drum's rooftop lantern and the mechanical plant on the tower and the wings, ducting collapsed, one unit stripped for its copper | structure | yes | — | 507 |
 | 11 | `#93a2a8` | clerestory glazing | structure | the clerestory teeth running the length of the reading wing — the glass that lit the stacks, now mostly sky | structure | yes | — | 627 |
 | 12 | `#6f6a5c` | courtyard | ground | a walled reading courtyard between the masses, its paving cracked, the planting dead in place | ground | no | — | 775 |
-| 13 | `#7d7a71` | terrace / walk | walk | the raised concrete terrace the whole building sits on, and the walks across it, cracked corner to corner | ground | no | — | 2373 |
+| 13 | `#7d7a71` | terrace / plinth | ground | the raised concrete terrace the whole building sits on, and the walks across it, cracked corner to corner | ground | no | — | 2373 |
 | 14 | `#c2b48c` | oculus ring | structure | the ring of the drum's oculus — the round clerestory that dropped daylight into the middle of the reading room, its glazing gone | structure | yes | — | 509 |
 | 15 | `#7a6f57` | plaza planter | structure | a low sandstone planter wall across the plaza, its bed gone to hardpan with a dead tree still standing in it, coping cracked where people sat on it for thirty years | structure | yes | — | 516 |
 | 17 | `#bfa87f` | roof edge | structure | the parapet line where a roof meets its wall, coping missing in runs | structure | yes | — | 2414 |

@@ -120,7 +120,10 @@ ok('no vehicles are drawn on an icon (Paolo 8/2 and again 8/11), by one reversib
 // A street cell is not a lot with a road on it -- it IS the road, kerb to kerb to kerb.
 // The old icons drew a narrow band on a desert pad, so a street read as asphalt lying in
 // the dirt with four bare tan corners, and fenced it with block walls down both sides.
-const ROADS = ['arterial', 'freeway'];
+// arterial_x joined the list 8/11 when Paolo split the run from the crossing:
+// "FIX THAT ARTERIAL AND ARTERIAL INTERSECTION ARE DIFFERENT! 2 DIFFERENT ITEMS AND
+// ICONS!!" Both are streets, so both must fill the box.
+const ROADS = ['arterial', 'arterial_x', 'freeway'];
 const probe2 = `
 import json,base64,io
 from PIL import Image
@@ -157,15 +160,24 @@ const arterialSrc = cut('arterial');
 const freewaySrc = cut('freeway');
 const arterialCode = codeOnly(arterialSrc);
 const freewayCode = codeOnly(freewaySrc);
-ok('the ARTERIAL has no wall on it (Paolo 8/11: the streets dont have walls)',
-   !/WALL/.test(arterialCode));
+ok('neither street draws a wall (Paolo 8/11: the streets dont have walls)',
+   !/WALL/.test(arterialCode) && !/WALL/.test(codeOnly(cut('arterial_x'))));
 ok('the FREEWAY keeps its sound walls (Paolo 8/11: the freeways can have walls)',
    /SOUND WALLS/.test(freewaySrc));
-ok('the INTERSECTION is the one with the signals, and the freeway draws none',
-   /MAST/.test(arterialCode) && !/MAST/.test(freewayCode));
-ok('and the crossing legs say it IS an intersection: the arterial draws crosswalk\n' +
-   '     ladders, the freeway draws none',
-   /crosswalk/i.test(arterialCode) && !/crosswalk/i.test(freewayCode));
+const xSrc = cut('arterial_x');
+const xCode = codeOnly(xSrc);
+ok('the RUN and the CROSSING are two different builders (Paolo 8/11: 2 different items ' +
+   'and icons)', xSrc.length > 200 && arterialSrc.length > 200);
+ok('only the CROSSING has signals -- not the run, not the freeway',
+   /MAST/.test(xCode) && !/MAST/.test(arterialCode) && !/MAST/.test(freewayCode));
+ok('only the CROSSING has crosswalks, because nothing stops on a run',
+   /crosswalk/i.test(xCode) || /LINE/.test(xCode));
+ok('the RUN puts the sidewalks on the two ends and lets the street fill the rest ' +
+   '(his words), with an UNBROKEN median', /sidewalk/i.test(arterialSrc) &&
+   /unbroken|UNBROKEN/.test(arterialSrc));
+ok('and the CROSSING breaks them into four corners with the junction box between',
+   /four corners|FOUR SIDEWALK CORNERS/i.test(xSrc));
+ok('the freeway draws no crosswalk at all', !/crosswalk/i.test(freewayCode));
 
 // 4. one ground line
 // buildings only -- a bleeding street is centred on purpose and has no baseline to share

@@ -82,7 +82,11 @@ ok('it exports .txt and never .json',
 // ---- 4: not empty, not stale -- every hero appears exactly once ----------------------
 const bank = JSON.parse(fs.readFileSync(BANK, 'utf8'));
 const districts = [...new Set(bank.heroes.filter(h => h.b64).map(h => h.district))];
-const onPage = [...page.matchAll(/class="card" data-d="([a-z]+)"/g)].map(x => x[1]);
+// [a-z]+ COULD NOT SEE AN UNDERSCORE. arterial_x was on the page all along and this
+// counted 59 of 60 -- and worse, the same class of pattern in the tool and in
+// bohemia_demo_blockers.py would have read "@VERDICT arterial_x YES" as a verdict on
+// `arterial`, silently attaching his ruling to the wrong district. Names are [a-z0-9_].
+const onPage = [...page.matchAll(/class="card" data-d="([a-z0-9_]+)"/g)].map(x => x[1]);
 const missing = districts.filter(d => !onPage.includes(d));
 const dupes = onPage.filter((d, i) => onPage.indexOf(d) !== i);
 ok('every district in the hero bank is on the page (' + onPage.length + '/' + districts.length + ')' +
@@ -109,7 +113,7 @@ const civics = 'records/BOHEMIA_VERDICTS_CIVICS_8_4_26.txt';
 ok('his 8/4 approvals are declared where the tab can read them', fs.existsSync(civics) &&
    ['cityhall', 'courthouse', 'terminal', 'chapel']
      .every(d => new RegExp('@VERDICT\\s+' + d + '\\b').test(fs.readFileSync(civics, 'utf8'))));
-const judgedOnPage = [...page.matchAll(/data-d="([a-z]+)"[\s\S]{0,220}?tag judged/g)].map(x => x[1]);
+const judgedOnPage = [...page.matchAll(/data-d="([a-z0-9_]+)"[\s\S]{0,220}?tag judged/g)].map(x => x[1]);
 ok('and they show as already judged rather than back in the queue (' +
    judgedOnPage.sort().join(' ') + ')',
    ['chapel', 'cityhall', 'courthouse', 'terminal'].every(d => judgedOnPage.includes(d)));

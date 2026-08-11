@@ -368,9 +368,51 @@
     ]
   };
 
+  /* A STRAIGHT RUN AND A CROSSING ARE TWO DIFFERENT THINGS (Paolo 8/11, LOCKED):
+     "FIX THAT ARTERIAL AND ARTERIAL INTERSECTION ARE DIFFERENT! 2 DIFFERENT ITEMS AND
+      ICONS!!  ...  Depending on the direction of the road the sidewalks should be on the
+      end and the street fills the rest."
+
+     THE GENERATOR ALREADY KNEW. `generate` has always branched on `links`: give it N/S and
+     it lays a straight six-lane run with a continuous raised median; give it all four and
+     the median stops short for a left-turn bay, ladder crosswalks and stop bars land on
+     every approach, and signal mast arms stand on the four corners. That code is untouched.
+
+     WHAT WAS WRONG IS THAT BOTH SHAPES SHARED ONE REGISTERED TYPE, so the ICON LAW gave the
+     pair a single icon and the map drew a crossing where a straight road was, and a
+     straight road where a crossing was. He is looking at a city builder that SMART-SNAPS
+     the two and he is right that ours could not, because ours did not have two things to
+     snap between.
+
+     So the crossing is its own registered type with its own legend and its own icon. It is
+     the SAME generator and the SAME palette -- one canonical body, per ENGINE SYNC LAW --
+     asked the other question. `arterial` is now unambiguously THE RUN: sidewalks down the
+     two long edges, roadway filling everything between them, no crosswalks, no signals. */
   K.register('arterial', {
-    generate: generate, body: function (c) { return c === 8 || c === 13; },
+    generate: function (seed, opts) {
+      opts = opts || {};
+      // THE RUN. If a caller says nothing, this is a through street and not a junction.
+      var o = {}; for (var k in opts) o[k] = opts[k];
+      if (!o.links && !o.streets) o.links = ['N', 'S'];
+      return generate(seed, o);
+    },
+    body: function (c) { return c === 8 || c === 13; },
     category: K.category('arterial') || 'infrastructure',
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  });
+
+  K.register('arterial_x', {
+    generate: function (seed, opts) {
+      opts = opts || {};
+      // THE CROSSING. All four legs, always -- that is what makes it an intersection, and
+      // it is the one cell that gets the lights.
+      var o = {}; for (var k in opts) o[k] = opts[k];
+      o.links = ['N', 'S', 'E', 'W'];
+      o.streets = o.links;
+      return generate(seed, o);
+    },
+    body: function (c) { return c === 8 || c === 13; },
+    category: K.category('arterial_x') || 'infrastructure',
     palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
   });
 

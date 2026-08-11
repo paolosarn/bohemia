@@ -52,7 +52,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 10 | `#6e6a60` | solar tree mast | structure | the tubular column of a solar tree, thirty feet of steel, powder coat blistered off the sunward side | structure | yes | — | 33 |
 | 11 | `#8fa2ad` | curtain wall glazing | structure | the glass curtain wall — the panels that are left are sun-hazed, the rest is board and sky | structure | yes | — | 761 |
 | 12 | `#8a7f5e` | flagpole | prop | a flagpole beside the doors, halyard slapping in the wind, nothing left on it | prop | yes | — | 3 |
-| 13 | `#7d7a71` | walk / podium | walk | the raised concrete podium the building stands on and the walks across it, cracked corner to corner | ground | no | — | 3346 |
+| 13 | `#7d7a71` | podium | ground | the raised concrete podium the building stands on and the walks across it, cracked corner to corner | ground | no | — | 3346 |
 | 14 | `#a79a7f` | plaza planter | structure | a low limestone planter across the plaza, bed gone to hardpan with a dead tree still standing in it, coping cracked along the edge people sat on | structure | yes | — | 138 |
 | 15 | `#a89c86` | entry pier | structure | one of the squat piers marking the main entrance, concrete, a corner knocked off the sunward one | structure | yes | — | 120 |
 | 16 | `#b3a78d` | roof edge | structure | the parapet line where a roof meets its wall, coping missing in runs | structure | yes | — | 457 |
