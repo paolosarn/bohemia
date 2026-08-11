@@ -143,3 +143,29 @@ Dialogue Craft Card (6 rules, all draft-writing lanes, extends PEOPLE
 0t); SOUNDS voice-timing note. Record: records/BOHEMIA_TONE_RESEARCH_
 R2_8_12_26.md
 HIGH-WATER MARK unchanged (research turn): main @ 29a8d7d08d903d7554669ad0fed55e3970d207a8
+
+## SWEEP 5 — 8/12/26
+DELTA: 18 commits, strong week. EIGHT of 14 approved families now wired
+(farm dirt, downtown brick, trailer colours...); 56 bosses with act 1
+nearly doubled and — the tone canon already landing — it "OPENS ON A JOKE
+AND CLOSES ON A BIRTH"; the SECOND cutscene shipped (the grief dinner,
+two of Paolo's own lines); travel tightened (15 turns down to 4, an
+approach not a commute); intersections got crosswalks + signals; the
+character head/jaw fixed per his corrections; TIME PASS async race closed
+properly. SOUNDS: 26 new sound moments cast from a measurement of his 140
+thumbs — WAITING ON HIS EAR. No collisions.
+PRIOR CATCHES: all delegated/parked; fresh hunt legal.
+THE CATCH (lens: the door; own measurements + web-performance data):
+QUESTION: what happens in the first 30 seconds after a friend taps the
+link on cellular? MEASURED: alpha shell 1.3MB gzipped (fine) but the RUN
+slice is ~11MB on the wire — 10-30+ seconds of blank on LTE. Google data:
+53% of mobile users abandon at 3s, 70%+ by 5s. CHALLENGE FINDING (vs
+"the one link is the door"): the link is the door but the WAIT is the
+doorman, and nobody has measured or dressed it — the demo's biggest
+drop-off is before the first tile renders. ROUTED: RUN 0i TIME TO FIRST
+PLAY (measure time-to-playable into telemetry; INSTANT SHELL with a real
+progress bar from the fast alpha while the run streams; diet options only
+after measurement; one-link law untouched).
+[Confidence: our sizes measured locally; abandonment numbers are
+Google-published mobile aggregates.]
+HIGH-WATER MARK: swept through main @ a547d1c396cf00db97afb8f05a18f379710085d4

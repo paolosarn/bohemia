@@ -1313,6 +1313,21 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    | kill the tab mid-walk in a real browser, reopen, prove you stand
    where you stood, gated | save machinery exists — this is wiring, not a
    new system | no.
+0i. TIME TO FIRST PLAY (sweep 5 catch, 8/12 — MEASURED on our own tree:
+   the alpha shell is 1.3MB gzipped (fine, ~1-3s on LTE) but the RUN slice
+   it loads is ~11MB ON THE WIRE (16MB raw, base64 banks gzip poorly) =
+   10-30+ seconds of nothing on cellular. Google's data: 53% of mobile
+   users abandon at 3 seconds, 70%+ by 5 — the demo's door is currently
+   its biggest drop-off risk before one tile renders. THE ORDER, measure
+   first then dress the wait: (a) time-to-first-pixel and time-to-playable
+   recorded into telemetry on real devices; (b) THE INSTANT SHELL — the
+   fast alpha shows splash + a REAL progress bar immediately while the run
+   slice streams (a visible % changes wait psychology completely — people
+   wait for progress they can see); (c) diet options AFTER measurement
+   (which banks dominate the wire; defer/lazy candidates listed with
+   numbers, one-file law respected — options to the lane, no premature
+   surgery). | measured numbers in a record + progress bar on the real
+   surface over throttled network | ONE-LINK law untouched | no.
 0v. THE BIKE (big-missing item 8, assigned 7/31 to complete the dispatch —
    the design is LOCKED in GDD v5: man-powered ladder, bike ~4 cells/beat,
    valley crossing 1.7h walk -> ~26min bike; nothing on any surface rides).

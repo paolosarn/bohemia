@@ -16582,3 +16582,14 @@ controls, F&H silence on lore/uncanny — restates the GDD's permanent
 ambiguity; wiki culture is the intended outcome; death teaches
 world-truths). SOUNDS: squiggle timing syncs to the text beat. R3
 candidates queued on his word.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/12 (d) — SWEEP 5 (18 commits, no collisions; 8/14
+families wired, 56 bosses with act 1 opening on a joke and closing on a
+birth, the grief dinner cutscene shipped, travel is an approach not a
+commute; SOUNDS has 26 moments waiting on Paolo's ear). CATCH ROUTED: RUN
+0i TIME TO FIRST PLAY — measured: the RUN slice is ~11MB on the wire =
+10-30+s blank on cellular while 53% of mobile users abandon at 3s; the
+link is the door but the wait is the doorman. Measure time-to-playable,
+INSTANT SHELL + real progress bar from the 1.3MB alpha while the run
+streams, diet options only after measurement. Ledger + mark advanced.
