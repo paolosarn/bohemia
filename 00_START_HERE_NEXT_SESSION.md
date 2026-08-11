@@ -1,3 +1,27 @@
+ART (f3eu53): 8/11 (f) LATEST -- *** NEW LAW, HIS, LOCKED: SHOW IT IN A TAB,
+NEVER A HUNT. "Never ever ever again tell me hey check this out by opening the
+run tab." READ laws/BOHEMIA_ADDENDUM_SHOW_IT_IN_A_TAB_NEVER_A_HUNT_8_11_26.md
+BEFORE TELLING HIM WHERE ANYTHING IS. ***
+
+The ART lane wired four families in one day and closed every reply with "walk
+the RUN tab" - a hunt across a valley with no door. NAME THE TAB was obeyed in
+letter and broken in spirit. THE LAW, all lanes: anything shipped that can be
+seen gets PUT IN FRONT OF HIM the same turn - a card in the lane's tab with a
+REAL screenshot of it live, captioned plainly. He observes; he never searches.
+"Walk the RUN tab and find it" is BANNED as a deliverable.
+
+BUILT SAME TURN: the ART tab now opens with WIRED IN THE GAME - four cards,
+each a live frame (the railyard tracks, the courthouse lot lines, the library
+roof ring, the warehouse metal). GATE same turn:
+gates/wired_in_tab_gate.js (in the suite): every form whose STATUS says AND
+WIRED must have its ART_WIRED_<ID>.png published and on the ART tab, and the
+tab may never say "walk the RUN tab". 10/10.
+
+NOTE FOR EVERY LANE: published surface is at 222 of the 260 MB Pages cap;
+future tab screenshots should be quality-compressed before records/target/.
+
+ART (f3eu53): 8/11 (e) -- *** FOURTH FAMILY WIRED: THE METAL DISTRICTS
+
 FACTIONS (factions-ovkjpf): 8/12 (d) LATEST — *** "DIFFERENT CLOTHES" IS A CLAIM ABOUT
 WHAT A FACTION IS, NOT A SCOPE LIMIT — AND HIS OWN CORPUS ALREADY PROVES IT. ***
 Tab: LIFE -> SAME BODY, DIFFERENT CLOTHES (opens on it, nothing to tap).

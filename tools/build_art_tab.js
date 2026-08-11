@@ -100,10 +100,29 @@ const CARDS = [
   }
 ];
 
+/* WIRED IN THE GAME (8/11, SHOW IT IN A TAB NEVER A HUNT - his ruling, LOCKED):
+   every family wired into the walked world gets a card HERE with a real
+   screenshot of it live, captioned in plain words. He observes; he never
+   searches. gates/wired_in_tab_gate.js goes red if a wiring ships without its
+   card. */
+const WIRED = [
+  { id: 'TF-ART-010', title: 'THE RAILYARD RUNS ON YOUR TRACKS', img: 'ART_WIRED_TF-ART-010.png',
+    what: 'The classification fan draws your approved ties, rails and ballast plates now. This is a live frame from the game, standing in the yard: the boxcars sit on real track instead of dirt.' },
+  { id: 'TF-ART-003', title: 'THE LOTS HAVE THEIR PAINTED LINES', img: 'ART_WIRED_TF-ART-003.png',
+    what: 'Courthouse, commercial, chapel, industrial, warehouse and downtown lots draw your washed stripes, each cell reading the painted line’s own shape. Live frame from the courthouse lot. The medical lot names whole bays, not lines, and is left alone on purpose.' },
+  { id: 'TF-ART-012', title: 'THE ROOFS HAVE THEIR EDGE', img: 'ART_WIRED_TF-ART-012.png',
+    what: 'Downtown, chapel, courthouse and library building tops wear your coping ring: oxide downtown, bone on civic, turning its corners. Live frame at the library. The dead AC units come later; they need a recook at cell size.' },
+  { id: 'TF-ART-002', title: 'THE WAREHOUSES WEAR REAL METAL', img: 'ART_WIRED_TF-ART-002.png',
+    what: 'Ten industrial districts pick from your corrugated skins now: bare metal with rust runs, and three real paints. One material per building so nothing patchworks. Live frame in the warehouse district.' },
+];
+
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
 /* a card that is missing its picture is a card that lies. Fail loudly instead. */
 const missing = [];
+for (const w of WIRED) {
+  if (!fs.existsSync(path.join(SHOTS, w.img))) missing.push(w.img);
+}
 for (const c of CARDS) {
   for (const f of (c.dial ? c.dial.map(d => d.img) : [c.a, c.b])) {
     if (!fs.existsSync(path.join(SHOTS, f))) missing.push(f);
@@ -237,6 +256,15 @@ room asks you anything right now; the banner opens the board record.</p>
   <span class="boardtag">ANSWERED 8/11</span>
   TILE BOARD &mdash; VERDICTS IN 8/11: you approved 14 families (475 tiles), 3 died. Tap for the record &rarr;
 </a>
+
+<h3 style="font-size:12px;letter-spacing:1.5px;margin:4px 0 10px;color:var(--gold)">WIRED IN THE GAME &middot; 8/11 &middot; JUST LOOK, NOTHING TO ANSWER</h3>
+${WIRED.map((w) => `
+  <section class="card" data-id="wired_${w.id}">
+    <h2>${esc(w.title)}</h2>
+    <div class="shotwrap"><img class="on" src="../records/target/${w.img}" alt="${esc(w.title)}" loading="lazy" style="display:block"></div>
+    <p class="why">${esc(w.what)}</p>
+    <p class="num">${esc(w.id)} &middot; live in the game right now</p>
+  </section>`).join('\n')}
 
 ${cardHtml}
 

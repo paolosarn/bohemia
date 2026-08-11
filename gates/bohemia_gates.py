@@ -975,6 +975,10 @@ GATES = [
     ('NAME THE TAB',   ['python3', 'gates/name_the_tab_gate.py'],
      'Paolo 7/28: every reply names the TAB a thing is in — and a judging surface no tab '
      'links to fails the build, because you cannot name a tab for a thing not in one', False),
+    ('WIRED IN A TAB', ['node', 'gates/wired_in_tab_gate.js'],
+     'Paolo 8/11: "never ever ever again tell me hey check this out by opening the run '
+     'tab" — every wired tile family must be VISIBLE as a screenshot card in the ART tab; '
+     'shipping a wiring without putting it in front of him is the hunt, and it goes red', False),
     ('PIXEL BIBLE',    ['python3', 'gates/pixel_bible_gate.py'],
      'the ART lane\'s master document cannot drift: all 32 laws still in it, the three '
      'honesty clauses intact, the ten-failure record un-rewritten, and the ignorance list '
