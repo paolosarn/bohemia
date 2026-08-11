@@ -132,24 +132,24 @@ JS_NEW = """
    `survivesIf` is the mirror: male player keeps the older BROTHER, female keeps
    the older SISTER. Both are always IN the cold open; only who walks out moves. */
 var FAMILY_CAST = [
-  { role:'FATHER', name:'RAY',    draft:true, survivesIf:'always',
+  { role:'FATHER', age:'adult', name:'RAY',    draft:true, survivesIf:'always',
     why:'gets between the door and his kids; woken, never dressed for it',
-    dials:{height:0.30,belly:0.35,arms:0.35,shoulders:0.50,hips:0.10},
+    dials:{height:0.60,belly:0.35,arms:0.35,shoulders:0.55,hips:0.10},
     worn:{hair:'SALT CROWN',base:'COPPER WORK SHIRT',legs:'PATCHED WORK PANTS',
           feet:'BROWN BOOTS',waist:'LEATHER BELT',gear:'WORK SUSPENDERS'} },
-  { role:'MOTHER', name:'DENISE', draft:true, survivesIf:'always',
+  { role:'MOTHER', age:'adult', name:'DENISE', draft:true, survivesIf:'always',
     why:'you reach her at the end; doing something ordinary an hour ago',
-    dials:{height:0.00,belly:0.10,arms:-0.15,shoulders:-0.20,hips:0.35},
+    dials:{height:-0.45,belly:0.10,arms:-0.15,shoulders:-0.25,hips:0.35},
     worn:{hair:'SHOULDER LENGTH',base:'SAGE FLANNEL',legs:'DUST TROUSERS',
           feet:'GREY SNEAKERS',neck:'DUST SCARF'} },
-  { role:'BROTHER',name:'MARCO',  draft:true, survivesIf:'male',
+  { role:'BROTHER', age:'teen',name:'MARCO',  draft:true, survivesIf:'male',
     why:'survives and becomes a co-founder; already dressed to move',
-    dials:{height:0.15,belly:-0.20,arms:0.10,shoulders:0.20,hips:-0.10},
+    dials:{height:0.20,belly:-0.35,arms:-0.05,shoulders:-0.05,hips:-0.15},
     worn:{hair:'TEMPLE TAPER',base:'BLACK TANK',legs:'BLACK CARGOS',
           feet:'WHITE SNEAKERS',gear:'WORN BRACERS'} },
-  { role:'SISTER', name:'NINA',   draft:true, survivesIf:'female',
+  { role:'SISTER', age:'child', name:'NINA',   draft:true, survivesIf:'female',
     why:'the one who is lost; smallest silhouette in the room, dressed for nothing',
-    dials:{height:-0.35,belly:-0.25,arms:-0.30,shoulders:-0.35,hips:0.00},
+    dials:{height:-0.30,belly:-0.20,arms:-0.35,shoulders:-0.40,hips:0.00},
     worn:{hair:'FRINGE',base:'WHITE TEE',legs:'BLUE JEANS',
           feet:'BONE SNEAKERS'} }
 ];
@@ -170,16 +170,28 @@ function famPaintShadow(cv){
 }
 
 function famPaintBody(cv, member, dir){
-  var keepW = window.G_WORN, keepDials = G.bodyVar;
+  var keepW = window.G_WORN, keepDials = G.bodyVar, keepAge = G.age;
   try {
     window.G_WORN = member.worn;
     G.bodyVar = member.dials;
-    if (typeof BOH_BODYVAR !== 'undefined' && typeof BAKED !== 'undefined') BOH_BODYVAR.apply(BAKED, G.bodyVar);
+    G.age = member.age || 'adult';
+    /* THE BODY IS REBUILT, NOT JUST RE-DRAWN, and this is the whole reason my
+       first cast was four of the same man. rebuildFromRig() runs ONCE at boot and
+       sets the global RIG; age and dials reach the renderer ONLY through it, so
+       setting G.bodyVar and calling drawChar changes nothing at all. This is the
+       exact path the body sliders already use (set the global, rebuild, redraw).
+       The frame caches are keyed on facing/clip/look and know nothing about the
+       BODY, so they hand back the previous person unless cleared. */
+    rebuildFromRig();
+    try { HD_CACHE.map.clear(); } catch(e) {}
     drawChar(cv, dir, 'idle', 0);
   } catch(e) {
   } finally {
-    window.G_WORN = keepW; G.bodyVar = keepDials;
-    try { if (typeof BOH_BODYVAR !== 'undefined' && typeof BAKED !== 'undefined') BOH_BODYVAR.apply(BAKED, G.bodyVar); } catch(e2){}
+    /* PUT THE PLAYER'S BODY BACK. These are GLOBALS -- leaving a child rig
+       installed would silently reshape every other surface in the game. */
+    window.G_WORN = keepW; G.bodyVar = keepDials; G.age = keepAge;
+    try { rebuildFromRig(); } catch(e2) {}
+    try { HD_CACHE.map.clear(); } catch(e3) {}
   }
 }
 

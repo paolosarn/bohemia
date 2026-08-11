@@ -1,3 +1,58 @@
+CHARACTER (0lurbs): 8/11 (r) LATEST — *** THE AGE AXIS: CHILD / TEEN / YOUNG ADULT /
+ADULT / ELDER ON THE ONE RIG. A CHILD WAS NOT EXPRESSIBLE BEFORE TODAY. ***
+Paolo killed my family cast on sight: "we have to assign the different heights in the
+different body sizing... you're just gonna create a family without fucking with the
+skeleton like are we even able to make character a kid child characters ... teenagers
+... young adults". He was right and it was four of the same man.
+WHY IT WAS: BODYVAR's PART_SPEC covers parts 4/5/6/9/10 -- torso, arms, legs -- and
+NEVER TOUCHES THE HEAD. AMP.height is 0.05, about 2.3px on a 44px body. Every dial in
+the system is a WIDTH dial plus a 2px nudge, so four people built from them are four
+people the same height with the same head.
+THE MECHANISM WAS ALREADY THERE, CLAMPED. warpPose says "HEAD KEEPS ITS AUTHORED BONE,
+EXACTLY... the head is a rigid stamp". For a TALLER ADULT that is correct and is why
+height is capped. FOR A CHILD IT IS THE ENTIRE MECHANISM: shrink the body about the
+ground, leave the head stamp alone, and head-to-body ratio rises by itself. And
+SHRINKING IS FRAME-SAFE -- the 5% cap exists because his body already paints ROW 0 in
+nine clips, so GROWING runs out of frame; going down never did.
+NUMBERS MEASURED OFF BAKED.pose.S, NOT AN ANATOMY BOOK: head bone 9px, stand 44px,
+so HIS ADULT IS A 4.89-HEAD FIGURE (real humans are 7.5-8). His rig is stylised and
+that is HIS ART, so the axis scales the RATIO OF CHANGE into his proportions rather
+than importing real head-counts and "correcting" him. child 0.77, teen 0.90,
+youngadult 0.97, adult 1.00 (identity), elder 0.97. Cross-checked two ways that agree:
+head-count ratio (6.0/7.75) and real stature (128cm/175cm).
+*** THE REAL BUG, AND IT WOULD HAVE BITTEN ANY LANE: rebuildFromRig() RUNS ONCE AT
+BOOT. *** G.bodyVar and G.age reach the renderer ONLY through it. Setting the globals
+and calling drawChar changes NOTHING -- measured: painted height 50px at adult, teen
+AND child alike, while the transform correctly moved the pose 44px -> 36px. My v1 cast
+set dials and drew, so all four rendered the SAME BODY and only their CLOTHES differed.
+The body sliders always did it right (set global -> rebuildFromRig -> redraw); the cast
+uses that path now, clears HD_CACHE (keyed on facing/clip/look, knows nothing about the
+BODY), and PUTS THE PLAYER'S BODY BACK afterwards because these are globals.
+RESULT, measured on the real canvas: FATHER 106, MOTHER 98, BROTHER 94, SISTER 84 px.
+Four distinct heights, 22px spread. Before: 104/100/100/100, spread 4.
+GATE: family_cast_gate.js, registered as FAMILY CAST, 23/0. It asserts four DIFFERENT
+heights, a spread >= 14px (the dials alone cannot reach it), father tallest and child
+shortest, teen between, and the CHILD's head-to-body ratio above BOTH adults.
+MUTATION TESTED, AND MY FIRST MUTATION WAS FAKE: removing the `stage==='adult'` early
+return neuters nothing (adult just runs at scale 1.0) and the gate stayed green, which
+I nearly reported as a passing gate. The real mutation sets child+teen to h:1.0 -- the
+exact state v1 shipped in -- and the gate goes 20/3: spread collapses 22px -> 8px and
+the child's head ratio stops exceeding the adults'. THAT is the proof the axis is
+load-bearing.
+ALSO FIXED, ANOTHER LANE'S LESSON APPLIED TO MINE: bodyvar_gate asserted the exact
+string BOH_BODYVAR.apply(BAKED,G.bodyVar) and went red when the age axis composed
+underneath it. The dials were still resolved through BODYVAR -- only the spelling
+moved. ASK FOR THE PROPERTY, NEVER FOR THE SPELLING. Widened; 40/1, and that 1 is the
+same pre-existing "every dial extreme" failure clean main has.
+AND I NEARLY SHIPPED A DUPLICATE: re-running the family INSERT patch on a tree that
+already contained its own output produced TWO `var FAMILY_CAST` and TWO `famBuild`.
+It measured correctly because the later declaration wins. AN INSERT TOOL RUN TWICE IS
+A DUPLICATION TOOL -- anything editing shipped code must REPLACE, not ADD. Redone as
+tools/bohemia_family_age_upgrade_patch.py.
+STILL OPEN (measured 8/11, NOT mine to hide): an EXPOSED SHIN paints the dark
+under-body instead of skin -- byte-identical to wearing no leg garment -- while the
+same body paints bare ARMS as skin. Any character in shorts has grey legs. Next job.
+Shot: records/familycast/cast.png
 FACTIONS (factions-ovkjpf): 8/11 (s) LATEST — *** NEW LAW, HIS: NEVER MAKE HIM HUNT. ***
 laws/BOHEMIA_ADDENDUM_NEVER_MAKE_HIM_HUNT_8_11_26.md. Gate: NO HUNTING, 7/7, BLOCKING.
 Tab: LIFE -> WHAT IT COST YOU (top card, opens on it, nothing to tap).

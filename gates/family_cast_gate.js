@@ -63,7 +63,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     const cards = document.querySelectorAll('#familyCast .famCard');
     cards.forEach(card => {
       const bd = card.querySelector('.famBody'), sh = card.querySelector('.famShadow');
-      const rec = { role: bd ? bd.getAttribute('data-famrole') : '?', body: 0, shadow: 0, bodyLowDark: 0, sig: '' };
+      const rec = { role: bd ? bd.getAttribute('data-famrole') : '?', body: 0, shadow: 0, bodyLowDark: 0, sig: '', top: 1e9, bot: -1, pxH: 0, headH: 0, neckY: 0, neckW: 0 };
       if (bd) {
         const d = bd.getContext('2d').getImageData(0, 0, bd.width, bd.height).data;
         const h = {};
@@ -76,6 +76,28 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
           if (y > bd.height - 12 && d[i + 3] < 200 && d[i] < 40 && d[i + 1] < 40 && d[i + 2] < 40) rec.bodyLowDark++;
           const k = (d[i] >> 4) + ',' + (d[i + 1] >> 4) + ',' + (d[i + 2] >> 4);
           h[k] = (h[k] || 0) + 1;
+          if (d[i + 3] > 40) { if (y < rec.top) rec.top = y; if (y > rec.bot) rec.bot = y; }
+        }
+        rec.pxH = rec.bot - rec.top + 1;
+        /* HEAD HEIGHT VIA THE NECK PINCH, and the first version of this was wrong.
+           I measured "widest row in the top quarter", which on the father catches
+           his HAIR and his SHOULDERS and reported the child as having the smaller
+           head -- the exact inversion of the truth. The head is the narrow blob
+           ABOVE the shoulders, so the honest landmark is the narrowest row between
+           the crown and the shoulder line. Search from 15% to 45% of the figure:
+           starting at the very top would pick the crown itself, which is narrow
+           because it is round. FIX THE RULER, NEVER THE TARGET. */
+        {
+          const a = rec.top + Math.max(2, Math.round(rec.pxH * 0.15));
+          const b2 = rec.top + Math.max(4, Math.round(rec.pxH * 0.45));
+          let best = 1e9, bestY = a;
+          for (let y = a; y <= b2 && y < bd.height; y++) {
+            let w = 0;
+            for (let x = 0; x < bd.width; x++) if (d[((y * bd.width) + x) * 4 + 3] > 40) w++;
+            if (w > 0 && w < best) { best = w; bestY = y; }
+          }
+          rec.neckY = bestY; rec.neckW = best;
+          rec.headH = bestY - rec.top + 1;
         }
         rec.sig = Object.keys(h).sort().map(k => k + '=' + h[k]).join('|');
       }
@@ -118,6 +140,46 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   ok('every cast member wears a LEG garment (' + (bareLegs.length ? 'BARE: ' + bareLegs.join(', ') :
     'none bare') + ') — an exposed shin currently paints the dark under-body, not skin',
     bareLegs.length === 0);
+
+  /* ===== PAOLO 8/11: "we have to assign the different heights in the different
+     body sizing ... are we even able to make character a kid child characters".
+     My first cast was four of the same man, because BODYVAR is width dials plus a
+     2px height nudge and nothing in it touches the head. These are the assertions
+     that would have caught it, so it cannot come back. */
+  const H = {};
+  R.members.forEach(m => { H[m.role] = m; });
+  const heights = R.members.map(m => m.pxH);
+  const spread = Math.max.apply(null, heights) - Math.min.apply(null, heights);
+  ok('the four are FOUR DIFFERENT HEIGHTS (' + R.members.map(m => m.role + ' ' + m.pxH).join(', ') + ')',
+    new Set(heights).size === 4);
+  ok('the height spread is real, not a 2px dial nudge (' + spread + 'px) — BODYVAR height is ' +
+    'only +-5%, so a spread this size can ONLY come from the age axis', spread >= 14);
+  ok('the FATHER is the tallest and the CHILD is the shortest (' +
+    (H.FATHER ? H.FATHER.pxH : '?') + ' vs ' + (H.SISTER ? H.SISTER.pxH : '?') + ')',
+    !!(H.FATHER && H.SISTER) && H.FATHER.pxH === Math.max.apply(null, heights) &&
+    H.SISTER.pxH === Math.min.apply(null, heights));
+  ok('the BROTHER (teen) sits BETWEEN the child and the adults (' + (H.BROTHER ? H.BROTHER.pxH : '?') + ')',
+    !!(H.BROTHER && H.SISTER && H.FATHER) && H.BROTHER.pxH > H.SISTER.pxH && H.BROTHER.pxH < H.FATHER.pxH);
+  /* THE ACTUAL CHILD TEST. Not height -- head-to-body ratio, which is the thing
+     that makes a child read as a child rather than as a small adult. */
+  {
+    const ratio = m => (m && m.pxH) ? m.headH / m.pxH : 0;
+    const row = R.members.map(m => m.role + ' ' + ratio(m).toFixed(3)).join(', ');
+    const adults = R.members.filter(m => m.role === 'FATHER' || m.role === 'MOTHER').map(ratio);
+    const kid = ratio(H.SISTER);
+    /* DIRECTION, NOT A TUNED MARGIN. The head-fraction should rise by ~1.29x on
+       the arithmetic (4.89 heads adult -> 3.79 child), and it measures ~1.11x --
+       because the CROWN is hair, not skull, and the four wear different hair, so
+       the measured "top" carries a garment. Rather than tune a threshold until it
+       passes, this asserts the thing that cannot be faked and is what the law
+       actually needs: THE CHILD'S HEAD FRACTION IS LARGER THAN BOTH ADULTS'. If
+       the age axis is ever removed the child collapses to a small adult and this
+       inverts immediately. The residual gap between 1.29 and 1.11 is hair, and it
+       is written down here rather than hidden in a constant. */
+    ok('head-to-body ratio rises toward the CHILD (' + row + ') — a small adult is ' +
+      'not a child, and this ratio is the whole difference',
+      kid > 0 && adults.length === 2 && adults.every(a => kid > a));
+  }
 
   ok('every garment on every cast member is APPROVED canon (' + R.catalogue + ' canon garments; ' +
     (R.unapproved.length ? 'OFFENDERS: ' + R.unapproved.join(', ') : 'no offenders') + ')',

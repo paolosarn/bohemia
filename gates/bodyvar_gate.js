@@ -54,7 +54,17 @@ ok('rigSkel still feeds the nipple row, the shoulder blend and the garment conta
    2. ONE CANONICAL BODY (ENGINE SYNC LAW) + it is actually wired
    --------------------------------------------------------------------------- */
 ok('BOH_BODYVAR is inlined in the alpha', src.indexOf('const BOH_BODYVAR') >= 0);
-ok('rebuildFromRig resolves the dials through it', /BODY_PKG=BOH_BODYVAR\.apply\(BAKED,G\.bodyVar\)/.test(src));
+/* ASK FOR THE PROPERTY, NEVER FOR THE SPELLING. This matched the exact string
+   BOH_BODYVAR.apply(BAKED,G.bodyVar) and went red on 8/11 the moment the AGE
+   AXIS was composed underneath it -- BOH_BODYVAR.apply(BOH_AGE.apply(BAKED,
+   G.age||'adult'),G.bodyVar). The dials were still resolved through BODYVAR,
+   which is the property this exists to protect; only the spelling moved. A gate
+   that names one spelling goes red the next time somebody improves the thing it
+   guards, and then a lane spends a turn proving the game is fine. Now it asks
+   the real question: does rebuildFromRig assign BODY_PKG from BOH_BODYVAR.apply
+   with the dials, whatever is wrapped around the baked package. */
+ok('rebuildFromRig resolves the dials through BOH_BODYVAR (however the baked package is composed)',
+   /BODY_PKG\s*=\s*BOH_BODYVAR\.apply\([\s\S]{0,120}?G\.bodyVar\s*\)/.test(src));
 /* WINDOW WIDENED 7/31, and the reason matters. This asserts the dials are in the
    frame-cache hash -- true then, true now. It failed because a comment was added
    inside frameLookHash (explaining that G_WORN had to join the hash, the bug that
