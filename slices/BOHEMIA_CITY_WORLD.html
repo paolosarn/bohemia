@@ -13034,6 +13034,27 @@ function peoplePass(ox, oy, C) {
 }
 
 
+
+/* THE DEAD'S OWN JUDGED POOL (8/9). INTERIORS LAW: "the interior NEVER samples the
+   raw un-swept cut corpus (TP_TILES/TP_IMG)" -- it exists because an early interior
+   pulled unjudged art into a house. My indoor husk pass read TP_IMG directly and
+   broke it. This is the pool that law asks for: built ONCE, out here, with every
+   tile Paolo thumbed DOWN replaced by null.
+   STRICTLY SAFER THAN WHAT IT REPLACES. The UP filter used to live only in the
+   module's index arithmetic, so a future bug in tileIndex() could have surfaced a
+   killed tile. The pool cannot hold one. The verdict is enforced by the data. */
+const DEAD_IMG=(function(){
+  if(typeof BohemiaDead==='undefined') return [];
+  const bank=(typeof TP_IMG!=='undefined')&&TP_IMG[BohemiaDead.TILES.bank];
+  if(!bank||!bank.length) return [];
+  const down={}; (BohemiaDead.TILES.down||[]).forEach(i=>{down[i]=1;});
+  return bank.map((im,i)=>down[i]?null:im);
+})();
+function deadImg(i){ const a=DEAD_IMG; if(!a||!a.length)return null;
+  /* walk forward off a killed slot rather than modulo onto one */
+  for(let k=0;k<a.length;k++){ const im=a[(i+k)%a.length]; if(im) return im; }
+  return null; }
+
 /* ==== THE DEAD, OUTDOORS (8/8, WORLD lane) ==================================
    Paolo 7/31 LOCKED: bleached scattered SKELETONS in the open, mummified HUSKS
    in the sealed places. BohemiaDead decides which and where off each district's
@@ -13127,7 +13148,7 @@ function deadTile(im,dx,dy,C,scale){
 }
 function deadDraw(ox,oy){
   if(typeof BohemiaDead==='undefined')return;
-  const bank=TP_IMG&&TP_IMG[BohemiaDead.TILES.bank]; if(!bank||!bank.length)return;
+  if(!DEAD_IMG.length)return;
   const C=HC;
   const fx0=Math.floor(-ox/C)-1, fy0=Math.floor(-oy/C)-1;
   const fx1=fx0+Math.ceil(cv.width/C)+2, fy1=fy0+Math.ceil(cv.height/C)+2;
@@ -13140,7 +13161,7 @@ function deadDraw(ox,oy){
       if(d.interior)continue;                       // behind a wall: indoors draws it
       const fx=bx+d.x, fy=by+d.y;
       if(fx<fx0||fx>fx1||fy<fy0||fy>fy1)continue;
-      deadTile(bank[d.tile%bank.length], ox+fx*C, oy+fy*C, C, d.scale);
+      deadTile(deadImg(d.tile), ox+fx*C, oy+fy*C, C, d.scale);
       /* SCATTER: canid dispersal runs along ONE line and stops. The trailing
          cells carry a smaller fragment of the same remains, not a second body.
          THE DIRECTION COMES OFF THE BODY (d.dir). It used to be re-derived here
@@ -13149,7 +13170,7 @@ function deadDraw(ox,oy){
          through walls. Read what was validated; never recompute it. */
       const dd=d.dir||[0,0];
       for(let k=1;k<=d.scatter;k++){
-        deadTile(bank[(d.tile+k*7)%bank.length],
+        deadTile(deadImg(d.tile+k*7),
                  ox+(fx+dd[0]*k)*C, oy+(fy+dd[1]*k)*C, C, d.scale*0.62);
       }
     }
@@ -14416,8 +14437,7 @@ function renderInside(){
      before the player, so he is never hidden by one. ==== */
   try{
     if(typeof BohemiaDead!=='undefined'&&INSIDE.foot){
-      const bank=TP_IMG&&TP_IMG[BohemiaDead.TILES.bank];
-      if(bank&&bank.length){
+      if(DEAD_IMG.length){
         /* THE FOOTPRINT IS IN WORLD-FINE COORDINATES AND THE DEAD LIST IS IN
            DISTRICT-LOCAL ONES. Rebase, or every husk lands thousands of tiles
            off the plate and silently none of them ever draw -- a whole feature
@@ -14433,7 +14453,7 @@ function renderInside(){
         for(const d of inn){
           const sx=ox+d.x*C, sy=oy+d.y*C;
           if(sx<-C||sy<-C||sx>cv.width||sy>cv.height)continue;
-          const im=bank[d.tile%bank.length];
+          const im=deadImg(d.tile);
           if(im&&im.complete&&im.naturalWidth){
             const w=C*d.scale;
             g.drawImage(im, Math.round(sx+(C-w)/2), Math.round(sy+(C-w)/2), Math.round(w), Math.round(w));
