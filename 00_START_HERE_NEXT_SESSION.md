@@ -13239,3 +13239,13 @@ the rig), and SQUIGGLE VOICES (SOUNDS 0v: seeded gibberish speech synth,
 Animalese lineage, zero recordings — demo-critical, judged by ear). EVERY
 LANE: your demo rows outrank everything; the banner atop this backlog
 governs.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/4 (h) — FULL STEAM DEMO DISPATCH. Paolo ordered all
+chats wrapped onto the demo immediately + each chat must report DEMO
+BLOCKERS (in-flight work needing HIS verdict/pick/playtest to finish,
+numbered, thumbable) BEFORE working. Prompts of record: records/BOHEMIA_
+DEMO_DISPATCH_PROMPTS_8_4_26.md. EVERY LANE: when your session receives the
+dispatch, your FIRST reply block is DEMO BLOCKERS, then you work your demo
+rows only. The coordinator sweeps all blocker reports into one consolidated
+judge-and-decide list for Paolo. LAB is parked until the demo ships.
