@@ -15135,3 +15135,12 @@ finding that challenges a current assumption or a direction Paolo did not
 originate — confirmation-only research must say so); research terminates as
 an A/B/C set, a routed work order, or a citable pattern note, never trivia;
 confidence labeled. Text-replacement prompt v2 stored in the law.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/11 (c) — THE SWEEP COST LAW (Paolo: "U DONT NEED TO
+CHECK EVERY 5 MINUTES THE GAME FILES"). Sweeps bill by the DELTA: every
+ledger entry records a high-water mark (main SHA); the next sweep reads
+only commits after it. Depth scales to the delta (quiet fleet = minutes;
+busy or >3 days = fuller read). ONE open horizon catch at a time — no fresh
+research hunt while the last catch sits unaddressed. A one-breath "fleet
+quiet, nothing needed" is a legal, complete sweep.

@@ -22,3 +22,6 @@ store presence. Options when Paolo wants them: keep as working title and
 clear it legally, or subtitle armor ("Bohemia: <name>"), or a distinct
 final title. FLAGGED [PENDING Paolo awareness, decision by public release,
 not now]. No lane action yet.
+
+## SWEEP 0 HIGH-WATER MARK (retrofit 8/11): swept through main @ c6b8317de08889b3b02d36524b511faa52748846.
+## Next sweep delta-reads from here only, per the cost law.

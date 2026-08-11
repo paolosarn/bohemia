@@ -14,9 +14,25 @@ below. No sweep is ever a status-only turn; every sweep must DECIDE, ROUTE,
 or SURFACE something, or say explicitly that the fleet is optimally loaded
 and why.
 
-THE CYCLE (in order, every time):
-1. PULL THE FLEET. Fetch main; read every lane's newest handoff entries,
-   backlog deltas, and gate/deploy health since the last sweep.
+THE COST LAW (Paolo 8/11: "U DONT NEED TO CHECK EVERY 5 MINUTES THE GAME
+FILES BRO" — a sweep bills by the DELTA, never by ritual):
+- THE HIGH-WATER MARK: every ledger entry records the main commit it swept
+  up to. The next sweep reads ONLY what landed after that mark (a git
+  delta — one cheap command), never the whole fleet again.
+- DEPTH SCALES TO THE DELTA: quiet fleet (a handful of commits) = a
+  minutes-long delta scan, then straight to thinking; busy fleet or >3
+  days since last mark = the fuller read. The sweep decides, not habit.
+- ONE OPEN CATCH AT A TIME: if the previous horizon catch is still
+  unaddressed, the new sweep does NOT hunt a fresh one — it advances or
+  escalates the open catch. Research fires when there is something new to
+  research, not per invocation.
+- A QUIET SWEEP SAYS SO IN ONE BREATH: "fleet quiet since the mark, no
+  collisions, catch X still open, nothing needed" is a LEGAL and complete
+  sweep result — cheap on his time and credits by design.
+
+THE CYCLE (in order, every time — subject to the cost law above):
+1. PULL THE FLEET. Fetch main; delta-read from the high-water mark (full
+   read only when the cost law says so).
 2. CROSS-LANE AUDIT. Collisions, contradictions between live files (a
    contradiction is a BUG), stalled or silent lanes, duplicated work,
    drift between a law and what shipped.
