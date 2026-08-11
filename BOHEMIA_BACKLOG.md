@@ -1270,7 +1270,18 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    the blob's export flow made one-tap; true cloud lands with the ship-
    vehicle ruling [PENDING Paolo ~month 8]. | eviction scenario simulated +
    survived via persisted storage, gated | — | no.
-0g. GDD MECHANICS ROUTED 8/4 (records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md):
+0g. GDD MECHANICS ROUTED 8/4 (records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md)
+   *** AMENDED 8/12 BY PAOLO'S HEALING RULING (laws/BOHEMIA_ADDENDUM_
+   HEALING_IS_A_BIG_DEAL_8_12_26.md, LOCKED): the one-bar system now
+   carries CONVALESCENCE — serious injury = stay at a spot ~a week of game
+   time minimum; recovery plays as a FAST-FORWARD MONTAGE cutscene you
+   watch (the cutscene machine + resolver moments + sleep-save = assembly,
+   not invention); LEAVING EARLY is legal and costs the CALM DEEP DEBUFF
+   (lower max HP + slowed stamina regen, Valheim-wet calibration: never a
+   wall, decisive in the hardest content, numbers tuned by his playtest).
+   PAIN PILLS (2-3 tiers MAX, WORLD supplies via the Cartel) manage the
+   wounded state, never speed true healing. Demo needs at most the light
+   version: an injury that costs rest + a pill that helps. ***
    (a) HEALTH & STAMINA, THE ONE BAR (v2 §15, LOCKED, Valheim philosophy —
    his named favorite): one combined bar, stamina range capped by current
    health, injuries take DAYS (field medicine stabilizes, never heals),

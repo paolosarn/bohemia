@@ -17185,3 +17185,20 @@ commute; SOUNDS has 26 moments waiting on Paolo's ear). CATCH ROUTED: RUN
 link is the door but the wait is the doorman. Measure time-to-playable,
 INSTANT SHELL + real progress bar from the 1.3MB alpha while the run
 streams, diet options only after measurement. Ledger + mark advanced.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/12 (e) — HEALING IS A BIG DEAL (Paolo, LOCKED, spoken
+watching his sister recover from surgery — laws/BOHEMIA_ADDENDUM_HEALING_
+IS_A_BIG_DEAL_8_12_26.md). Serious injury = CONVALESCENCE (~a week of game
+time minimum at a spot); recovery = a FAST-FORWARD MONTAGE you watch (the
+anti-Pokemon-Center; cutscene machine + resolver = assembly not invention);
+leaving early is legal and costs the CALM DEEP DEBUFF (Valheim-wet
+calibration — never a wall, decisive in the hardest content); PAIN PILLS
+are maybe the most valuable good in the valley (2-3 tiers MAX, funny
+questionable-provenance descriptions as drafts, pills manage the wounded
+state and never speed true healing — chemically honest, pills outlive the
+cold chain); THE CARTEL'S CROWN = the pain pill supply, the number one
+thing they do, the reason everyone deals with them. ROUTED: RUN 0g
+amended (convalescence + montage + debuff), WORLD (pills as premium goods,
+Cartel source), COMBAT (wound->debuff), PEOPLE (Cartel dossier leads with
+the crown). NO new session needed — his question answered.
