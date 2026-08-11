@@ -1,0 +1,24 @@
+BOHEMIA TILE BOARD VERDICT (received 8/11/26, exported from the ART tab TILE BOARD)
+sitting 8/9 - 17 FAMILIES (the export header says 15; the page grew to 17 before
+he sat, and all 17 rows are in the file)
+
+UP (14): TF-ART-001 grey block wall, TF-ART-002 corrugated metal + roll-up
+doors, TF-ART-003 parking lot lines, TF-ART-004 chain-link fence, TF-ART-005
+dead sports fields + track, TF-ART-006 empty pools, TF-ART-008 storefront
+glass, TF-ART-009 brick, TF-ART-010 train tracks, TF-ART-011 the freeway,
+TF-ART-012 flat roofs, TF-ART-013 mobile homes, TF-ART-014 dead crop fields,
+TF-CMB-005 the deck stairs.
+
+DOWN (3): TF-ART-015 the landfill, TF-RUN-008/009/010 the three money icons,
+TF-CHAR-001 the shadow under your feet.
+
+ANYTHING ELSE: "Im so impressed"
+
+RULINGS READ FROM THIS:
+- The 14 UP banks are APPROVED. Approval unlocks volume and real use; wiring
+  into the walked world is the lane's next work.
+- The 3 DOWN banks are DEAD (GRAVEYARD IS FINAL, no remakes). The SLOTS the
+  forms describe stay real (a landfill district still needs ground, the HUD
+  still needs marks, bodies still float) - a fresh cook answers a dead slot,
+  never a remake of these candidates. Post-mortem:
+  records/BOHEMIA_TILE_BOARD_KILLS_POST_MORTEM_8_11_26.md

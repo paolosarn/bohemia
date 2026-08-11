@@ -1,3 +1,41 @@
+ART (f3eu53): 8/11 (a) LATEST -- *** THE TILE BOARD VERDICT IS IN: 14 FAMILIES
+APPROVED (475 TILES), 3 KILLED. "Im so impressed." WIRING IS NOW THE LANE'S
+WHOLE JOB. ***
+Records: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt +
+records/BOHEMIA_TILE_BOARD_KILLS_POST_MORTEM_8_11_26.md
+
+UP (14, banks now carry the APPROVED law line, volume unlocked): block wall,
+corrugated+roll-ups, parking lines, chain-link, sports fields, empty pools,
+storefronts, brick, train tracks, freeway, flat roofs, mobile homes, crop
+fields, deck stairs. The 9 duplicate forms covered by these banks inherit the
+approval.
+
+DOWN (3, GRAVEYARD FINAL, banks + cooks removed, proofs kept as evidence):
+- The landfill (55 tiles). TF-WORLD-012's coverage died with it - REOPENED.
+- The three money icons: measured laws all passed and he killed them anyway;
+  green is never the argument. Fresh cook sources from BOUGHT art.
+- The contact shadow: a motion feature judged as a still. A fresh answer gets
+  judged WIRED and WALKING. The slot (bodies float) stays real.
+Graveyard lines added for all three bank names.
+
+SURFACES: the TILE BOARD page is now the RECORD (14 cards, APPROVED badges, no
+thumbs, no export); ART tab banner says VERDICTS IN; the LIFE hub card is
+removed (answered questions fall off the to-do list) with the ANSWERED
+exemption recorded in name_the_tab_gate.
+
+*** NEXT (the GO list, in order): WIRE THE APPROVED FAMILIES INTO THE WALKED
+WORLD. Biggest wins first: flat roofs (86 tiles, every commercial building top),
+corrugated skins (warehouse district), chain-link + parking lines (every lot),
+train tracks (railyard), deck stairs (needs TF-CMB-004 slab cooked to join).
+Each wiring is per-district legend work + its district gate; interior=exterior
+and occupancy laws apply. Then fresh cooks for the two live dead slots (icons
+from bought art, shadow wired-and-walking). ***
+
+ART (f3eu53): 8/9 (u) -- *** BOARD RESUMED INLINE: +2 COOKS (THE THREE
+MONEY ICONS + THE CONTACT SHADOW), +10 DUPLICATE FORMS CLOSED. THE SITTING IS
+NOW 17 FAMILIES / 537 TILES. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (second-pass section)
+
 CHARACTER (0lurbs): 8/9 (j) LATEST — *** "THUMB THUMB THUMB EVERYTHING IS A THUMB."
 READ laws/BOHEMIA_ADDENDUM_EVERYTHING_IS_A_THUMB_8_9_26.md BEFORE YOUR NEXT REPLY. ***
 He said it after I handed him a numbered list of TWELVE things needing his verdict

@@ -113,27 +113,11 @@ const FORMS = [
     shots: [['FARM_BLOCK_IN_PLACE_1x.png', 'FARM BLOCK IN PLACE'],
             ['EDGE_RING_vs_desert.png', 'FIELD EDGE VS DESERT'],
             ['CONTACT_SHEET_all.png', 'EVERY TILE']] },
-  { id: 'TF-ART-015', tiles: 55, title: 'THE LANDFILL',
-    what: 'refuse ground, the caliche cover cap, the pond edge, the haul road and litter drift on the fence line.',
-    shots: [['SCENE_12x12.png', 'THE WHOLE CELL ASSEMBLED'],
-            ['ANCHOR_COMPOSITE.png', 'BESIDE APPROVED ART'],
-            ['CONTACT_SHEET.png', 'EVERY TILE']] },
   { id: 'TF-CMB-005', tiles: 4, title: 'THE DECK STAIRS',
     what: 'the stair run from the parking deck down to the lot, for the combat arena approaches.',
     shots: [['arena_mock_full_2x.png', 'IN THE ARENA MOCK'],
             ['anchor_composite_3x.png', 'BESIDE APPROVED ART'],
             ['contact_sheet_3x.png', 'EVERY TILE']] },
-  { id: 'TF-RUN-008', tiles: 6, title: 'THE THREE MONEY ICONS',
-    what: 'the game’s first UI marks, for the Wallet and the ME tab: RESOURCES is a duct-tape roll with a hammer behind it and an apple at the base, ENERGY is a dented jerrycan with a bolt across it and a scavenged battery, CLOUT is a crowd merged into one shape with a speech bubble. Each also ships a dimmed can’t-afford version. Never on a feed post (you killed that badge 7/21).',
-    shots: [['PHONE_CHROME_MOCK.png', 'ON PHONE CHROME, BOTH THEMES'],
-            ['CONTACT_32_64_96.png', 'THREE SIZES'],
-            ['SOLID_BLACK_TEST.png', 'THE SILHOUETTE TEST'],
-            ['DIMMED_ROW.png', 'CANT-AFFORD STATE']] },
-  { id: 'TF-CHAR-001', tiles: 6, title: 'THE SHADOW UNDER YOUR FEET',
-    what: 'a soft warm oval that darkens whatever ground you stand on, so the body stops floating like a sticker. Three sizes (standing, walking, crouched), a faint version for unlit cells. It has no colour of its own: on pale dirt it reads, on dark asphalt it nearly disappears, which is how real Vegas shade works.',
-    shots: [['REAL_FRAME_AB.png', 'REAL FRAME, WITHOUT / WITH'],
-            ['GROUND_RESPONSE_ALL_SURFACES.png', 'ON EVERY GROUND YOU APPROVED'],
-            ['STAMPS_2X_ON_FLAT.png', 'ALL SIX STAMPS']] },
 ];
 
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
@@ -170,12 +154,8 @@ const cardHtml = FORMS.map((f, i) => `
       <div class="taphint">TAP FOR NEXT</div>
     </div>
     <p class="why">${esc(f.what)}</p>
-    <p class="num">${f.tiles} candidate tiles · ${esc(f.id)} · UNJUDGED until you thumb it</p>
-    <div class="verdict">
-      <button class="thumb up"   data-card="${f.id}" data-v="UP">&#128077; YES</button>
-      <button class="thumb down" data-card="${f.id}" data-v="DOWN">&#128078; NO</button>
-    </div>
-    <textarea class="note" data-card="${f.id}" placeholder="say anything about this one"></textarea>
+    <p class="num">${f.tiles} tiles · ${esc(f.id)} · APPROVED by you, 8/11</p>
+    <div class="badge">&#128077; APPROVED &middot; volume unlocked</div>
   </section>`).join('\n');
 
 const META = JSON.stringify(FORMS.map(f => ({
@@ -221,6 +201,9 @@ const html = `<!doctype html>
   .why{ font-size:12px; color:var(--faint); margin:10px 0 4px; line-height:1.55; }
   .num{ font-size:11px; color:var(--gold); margin:0 0 10px; letter-spacing:.5px; }
   .verdict{ display:flex; gap:8px; }
+  .badge{ font:12px ui-monospace,monospace; letter-spacing:1px; padding:10px;
+          border:1px solid #4a8a52; border-radius:5px; background:#2f5d34; color:#eaffea;
+          text-align:center; }
   .thumb{ flex:1; font:12px ui-monospace,monospace; letter-spacing:1px; padding:12px 4px;
           background:transparent; color:var(--ink); border:1px solid var(--line); border-radius:5px; }
   .thumb.on.up{ background:#2f5d34; border-color:#4a8a52; color:#eaffea; }
@@ -238,21 +221,21 @@ const html = `<!doctype html>
 
 <header>
   <a class="back" href="BOHEMIA_ART_CURRENT.html">&larr; ART</a>
-  <h1>TILE BOARD &middot; 8/9 &middot; ${FORMS.length} FAMILIES, ${totalTiles} TILES</h1>
+  <h1>TILE BOARD &middot; VERDICTS IN 8/11 &middot; ${FORMS.length} APPROVED</h1>
   <button class="sunbtn" id="sunbtn">SUN MODE</button>
 </header>
-<p class="lede">The tile request board, cooked. ${FORMS.length} tile families, ${totalTiles} candidate
-tiles, every one measured against your palette laws before it got here, NONE of it in
-the game yet. A thumbs up unlocks a family for real use; a thumbs down kills it. Tap
-each picture to step through the shots. EXPORT at the bottom and send me the file.</p>
+<p class="lede">VERDICTS IN, 8/11: you approved all ${FORMS.length} families below (${totalTiles} tiles,
+volume unlocked, wiring is my next job). Three families died at this sitting and are
+in the graveyard: the landfill, the money icons, the foot shadow. This page is now
+the record; nothing here asks you anything.</p>
 
 ${cardHtml}
 
 <div class="bottom">
-  <h3>ANYTHING ELSE</h3>
-  <textarea id="all" placeholder="whatever you want to say"></textarea>
-  <button class="exp" id="exp">EXPORT MY VERDICT</button>
-  <div class="done" id="done"></div>
+  <h3>THE RECORD</h3>
+  <p class="lede">Your verdict lives in records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt.
+  The three kills and their post-mortems: records/BOHEMIA_TILE_BOARD_KILLS_POST_MORTEM_8_11_26.md.
+  "Im so impressed" - noted, and thank you.</p>
 </div>
 
 <script>
@@ -273,18 +256,6 @@ document.querySelectorAll('.shotwrap.cyc').forEach(function(w){
   });
 });
 
-document.querySelectorAll('.thumb').forEach(function(bt){
-  bt.addEventListener('click', function(){
-    var id = bt.getAttribute('data-card'), v = bt.getAttribute('data-v');
-    V[id] = (V[id] === v) ? null : v;
-    document.querySelectorAll('.thumb[data-card="' + id + '"]').forEach(function(o){
-      o.classList.toggle('on', V[id] === o.getAttribute('data-v'));
-    });
-  });
-});
-document.querySelectorAll('textarea.note').forEach(function(t){
-  t.addEventListener('input', function(){ NOTE[t.getAttribute('data-card')] = t.value; });
-});
 
 /* warm the hidden frames after paint so every tap lands instantly */
 window.addEventListener('load', function(){
@@ -298,25 +269,6 @@ window.addEventListener('load', function(){
 
 document.getElementById('sunbtn').addEventListener('click', function(){
   document.body.classList.toggle('sun');
-});
-
-/* .txt, NEVER .json (verdict workflow, standing) */
-document.getElementById('exp').addEventListener('click', function(){
-  var L = ['BOHEMIA TILE BOARD VERDICT', 'sitting 8/9 - 15 FAMILIES', ''];
-  FORMS.forEach(function(f){
-    L.push(f.id + ' ' + f.title);
-    L.push('  verdict: ' + (V[f.id] || 'NO ANSWER'));
-    if (NOTE[f.id]) L.push('  note: ' + NOTE[f.id]);
-    L.push('');
-  });
-  var all = document.getElementById('all').value;
-  if (all) { L.push('ANYTHING ELSE'); L.push(all); L.push(''); }
-  var blob = new Blob([L.join('\\n')], { type: 'text/plain' });
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'BOHEMIA_TILE_BOARD_VERDICT.txt';
-  document.body.appendChild(a); a.click(); a.remove();
-  document.getElementById('done').textContent = 'exported. send me the file.';
 });
 </script>
 `;

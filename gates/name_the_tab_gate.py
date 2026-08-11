@@ -48,6 +48,11 @@ JUDGE_GLOB = re.compile(r'BOHEMIA_.*JUDGE.*\.html$')
 # is allowed to fall off the hub - the hub is a to-do list for his thumb, not an
 # archive. Anything exempted says which page replaced it and when.
 SUPERSEDED = {
+    'BOHEMIA_TILEFORMS_JUDGE_8_9_26.html':
+        'ANSWERED 8/11: Paolo swept the whole sitting (14 UP, 3 DOWN, verdict in '
+        'records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt). The hub is a to-do list '
+        'for his thumb and this page asks nothing any more; it stays reachable as '
+        'the record via the ART tab banner, which is a door and not a question.',
     'BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html':
         'kept on the hub as the CBB record; still linked, listed here only so a '
         'future cleanup knows it is deliberate',

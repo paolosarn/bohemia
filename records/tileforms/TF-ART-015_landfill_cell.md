@@ -178,6 +178,6 @@
 - [ ] Caption JSON parses and matches sections C and D
 
 ## J. ADMIN
-- STATUS: CANDIDATES COOKED 8/9/26 (was OPEN; bank: banks/tileforms/TF-ART-015_CANDIDATES_8_8_26.json, proofs: records/tileforms_proofs/TF-ART-015/, judge: the ART tab, TILE BOARD card). UNJUDGED until Paolo thumbs it. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: CANDIDATES KILLED by Paolo 8/11/26 (TILE BOARD sitting, bare DOWN; bank and cook removed, DEAD in the graveyard). The landfill SLOT stays real: a fresh cook answers it, never a remake. Post-mortem: records/BOHEMIA_TILE_BOARD_KILLS_POST_MORTEM_8_11_26.md | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/29/26 | PRIORITY: HIGH
 - BOARD ROW #: 24 | VERDICT: none yet

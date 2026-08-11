@@ -181,7 +181,7 @@
 - [ ] caption JSON parses and matches sections C and D
 
 ## J. ADMIN
-- STATUS: CANDIDATES COOKED 8/9/26 (was OPEN; bank: banks/tileforms/TF-CMB-005_CANDIDATES_8_8_26.json, proofs: records/tileforms_proofs/TF-CMB-005/, judge: the ART tab, TILE BOARD card). UNJUDGED until Paolo thumbs it. | REQUESTED BY: COMBAT lane | DATE: 7/28/26 | PRIORITY: HIGH
+- STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-CMB-005_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt). Volume unlocked, wiring open. | REQUESTED BY: COMBAT lane | DATE: 7/28/26 | PRIORITY: HIGH
   (highest in this lane: it is the only asset Paolo has verbally rejected)
 - BOARD ROW #: 54 | VERDICT: — | RELATED: board row 1 is the INTERIOR half.
   One batch, one judging, no cooking stairs twice.
