@@ -1,3 +1,9 @@
+> **★ SUPERSEDED 8/7/26 (same day) — THE LIVE LADDER IS NOW
+> `records/BOHEMIA_THE_BOSS_LADDER_v4_8_7_26.md`.**
+> He went through v3 line by line. The SPARE column is DEMOTED (*"its slop"*), act 3 is now
+> SLIGHTLY FUTURISTIC / early Night City, transport became a seven-boss spine, five bosses died,
+> five moved act, and it went to 41. **Build from v4.**
+
 # BOHEMIA — THE BOSS LADDER v3: 34 BOSSES, AND EVERY ONE CAN BE KILLED **OR** SPARED (8/7/26)
 
 **THIS IS THE LIVE LADDER.** Supersedes v2 (`..._v2_8_7_26.md`), which supersedes the 8/3

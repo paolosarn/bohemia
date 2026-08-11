@@ -1,3 +1,82 @@
+LAB (lab-e2r7sv): 8/7 (f) LATEST -- *** 41 BOSSES, AND ACT 3 IS EARLY NIGHT CITY. THE REBUILD
+IS THE TAKEOVER, AND THE PLAYER BUILDS THE TRAP THEMSELVES. ***
+JUDGE THIS: 1. the 41 in records/BOHEMIA_THE_BOSS_LADDER_v4_8_7_26.md. NOT IN A TAB.
+PENDING HIM: THE VOICE (39), and whether "dirty bomb" meant radiological.
+
+HE WENT THROUGH v3 LINE BY LINE. Every note landed. Five rulings:
+1. THE SPARE COLUMN IS DEMOTED -- "ITS SLOP". Gone from the tables; the peaceful route survives
+   as ONE PARAGRAPH because he never said it did not exist. TWO GATE CHECKS RETIRED WITH IT
+   (H7/H8 asserted the kill-vs-spare BALANCE, which only means something while spare is a
+   co-equal reward tree). A GATE MUST NEVER OUTRANK A RULING.
+2. ACT 3 IS SLIGHTLY FUTURISTIC, NOT JUST RECOVERY. "HOW DID NIGHT CITY BECOME NIGHT CITY."
+3. TRANSPORT WAS THIN. Now a SEVEN-BOSS SPINE across all three acts.
+4. RESEARCH THE STAGES OF REBUILDING AND GAMIFY IT. Done, and it restructured the acts.
+5. MORE BOSSES. 34 -> 41 after killing five.
+
+*** THE RESEARCH FIND OF THE SESSION, AND IT CAME OUT OF HIM SAYING I WAS WRONG. ***
+He said THE BOOT made no sense: "IM ASSUMING THERE WOULD BE ENOUGH SHOES AROUND... HELLA SHOES
+EVERYWHERE IM CONFUSED." He is right, and it is WORSE than either of us had. HYDROLYSIS:
+polyurethane midsoles have a 5-10 year life FROM THE DATE OF MANUFACTURE, NOT FROM FIRST WEAR.
+They rot in the box. Accelerated by WARMTH. And it happens FROM THE INSIDE so nothing looks
+wrong until the sole comes apart under you. BOHEMIA OPENS TEN YEARS AFTER THE CRASH, IN LAS
+VEGAS. So the valley IS full of shoes and every one is dead, and the warehouse of pristine
+unworn sneakers is the WORST find in the game. What is scarce is a sole that has not crumbled.
+*** AND IT IS THE WHOLE GAME'S THEME AS PHYSICS: everything looks intact and is quietly dead
+inside. *** That is worth more than the boss is.
+
+*** HOW NIGHT CITY BECAME NIGHT CITY, AND IT IS THE AMALGAMATION EXACTLY. ***
+Arasaka was blamed for levelling its own tower, spent DECADES clawing back, sided with the city
+in the Unification War, and was INVITED to rebuild its headquarters -- and the new tower became
+the tallest thing in the skyline. NOBODY CONQUERED NIGHT CITY. IT WAS REBUILT, BY THE PEOPLE WHO
+SUPPLIED THE REBUILD, AND SUPPLYING THE REBUILD IS HOW THEY CAME TO OWN IT.
+So act 3's futurism is not a reward, it is a BILL: #40 THE IMPLANT (fit chrome, and whoever
+supplied it knows where you are) and #41 THE UPLINK (reconnect the valley, and something
+answers). Neither is refusable if you want the city finished. The player builds the trap
+themselves, one useful upgrade at a time, and the game never says it out loud.
+HIS OWN INSTINCT FOUND THE COUNTER: #28 THE PRESS, because print is not scrapable data. In a
+game whose antagonist eats data, PAPER IS A STEALTH TECHNOLOGY.
+
+GUNS: he asked and he was right. A slam-fire pipe shotgun is "two pieces of pipe and an end cap
+with a nail" -- trivial. So pipe weapons are ACT 1 as he guessed. WHAT IS ACTUALLY HARD IS
+AMMUNITION: primers need real chemistry, so the firearm bottleneck is act 2 chemistry, not
+metalwork.
+
+REBUILDING STAGES: it does not start with technology, IT STARTS WITH FOOD (so THE SOIL opens act
+2, which is also his ruling). And metallurgy requires mining + fuel + TRANSPORT + machine tools
++ chemistry -- five prerequisites, five bosses that were missing, and the reason transport is
+not a luxury tier.
+
+DEAD ON HIS WORD: THE WATCH ("DELETE THIS IS ASS"), THE ARCHITECT, THE SIGN, THE STILL, THE
+FIXER (all "IM CONFUSED"). *** AND THE LESSON, WHICH IS THE REAL TAKEAWAY: FOUR OF THOSE FIVE
+DIED BECAUSE THE LOCK WAS INVENTED TO JUSTIFY A BOSS I WANTED. *** THE FIXER's lock was a
+straight lie -- nothing in the game replaces parts, so there was no wall to knock down. THE POUR
+nearly went the same way and only lived because there IS a real wall (you can only reoccupy what
+still stands). IF YOU CANNOT NAME THE WALL WITHOUT INVENTING IT, THERE IS NO BOSS. I do not yet
+know how to machine-check that one and I am saying so instead of pretending.
+
+MOVED ON HIS RULINGS: THE PLATE and THE MIDWIFE to act 1, THE MACHINIST to act 1, THE BONES to
+mid act 2, THE ENGINE to CLOSE act 2. REFRAMED: THE CHARGE is his dirty-bomb idea (blow a
+PERMANENT hole where YOU choose, so you pick which direction you enter from -- the city keeps a
+record of how you played); THE LOCKSMITH is his lockpick/kick/mould-and-walk-home idea, three
+ways through one door; THE SMITH is his WORKSHOP (resource currency at your base + weapon
+customisation); THE CREDITOR replaces THE BOOK because he asked "HOW DOES A BOOK DICTATE THIS"
+and he is right, a ledger is paper -- what makes a debt real is a person everybody owes.
+THE SCHOOL now has the biggest mechanical stake on the ladder, because he said he could not see
+one: without it YOUR HEIR STARTS AT ZERO, every generation.
+
+GATE: boss_ladder_gate.js, 51 checks. 41 bosses, 41 DISTINCT LOCKS, 41 DISTINCT GRANT VERBS.
+Ten planted mistakes, ten caught. It caught real defects in my own draft AGAIN: three verb
+collisions and ELEVEN locks written as nouns instead of impossibilities.
+AND MY OWN GREP HID A CRASH: I filtered gate output on "FAIL|GATE:" and the gate was actually
+THROWING (a retired field), which prints neither. Same lesson as this morning's FRONT DOOR --
+GREPPING FOR THE FAILURE WORD MISSES FAILURES THAT DIE INSTEAD OF ASSERTING. Read the tail.
+
+STILL PENDING HIM: THE VOICE (39, third pass, still not approved); whether "dirty bomb" meant
+RADIOLOGICAL (I read it as demolition charges and flagged it rather than assuming); whether the
+valley should EVER reconnect (41 -- close to the spine of the story); whether clout is the
+summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
+
+
 WORLD (city-1eztay): 8/11 (zg) LATEST -- *** THE DEAD COME IN CLUSTERS AND THE
 CEMETERY IS A PIT -- PLUS THE DRIFT BUG THAT HID IT: THE APP CARRIES INLINED
 COPIES AND MY PATCH TOOL IS ONE-SHOT. ***

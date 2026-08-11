@@ -34,7 +34,7 @@
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
-const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_v3_8_7_26.md';
+const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_v4_8_7_26.md';
 const RULINGS = 'records/BOHEMIA_HIS_BOSS_RULINGS_8_7_26.md';
 
 let pass = 0, fail = 0;
@@ -55,11 +55,10 @@ const flat = lad.replace(/\s+/g, ' ');
 /* ---- parse the three act tables: | # | BOSS | HOLDS | LOCK | KEY | ---------- */
 const rows = [];
 lad.split('\n').forEach(line => {
-  const m = line.match(/^\|\s*(\d+)\s*\|\s*\*\*([^*]+)\*\*\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|/);
+  const m = line.match(/^\|\s*(\d+)\s*\|\s*\*\*([^*]+)\*\*\s*\|([^|]*)\|([^|]*)\|([^|]*)\|([^|]*)\|/);
   if (m) rows.push({ n: +m[1], boss: m[2].trim(), holds: m[3].trim(), lock: m[4].trim(),
-                     key: m[5].replace(/\*/g, '').trim(),        /* KILL: take the thing  */
-                     spare: m[6].replace(/\*/g, '').trim(),      /* SPARE: gain the person */
-                     kind: m[7].trim() });
+                     key: m[5].replace(/\*+/g, '').trim(),       /* WHAT BESTING GRANTS */
+                     kind: m[6].trim() });
 });
 ok('B1 every boss row parses with all four fields (' + rows.length + ' bosses)', rows.length >= 15);
 ok('B2 the numbers run 1..N with no gaps or duplicates',
@@ -111,8 +110,12 @@ ok('D1 none of the five killed bosses is back on the ladder' +
    resurrected.length === 0);
 ok('D2 and each of the five is accounted for by name with a reason',
    DEAD.every(d => new RegExp(d.replace(/ /g, '\\s+') + '[\\s\\S]{0,400}?(KILLED|folded)', 'i').test(lad)));
-ok('D3 the merge is stated as a merge, not a quiet deletion',
-   /folded into THE STRIPPER/i.test(flat) && /Same verb/i.test(flat));
+/* D3's TARGET RENAMED. He redefined THE STRIPPER into demolition, so it is THE CHARGE now.
+   The check follows the ruling: the merge must still be stated AS a merge, and the rename
+   must be stated as a rename rather than looking like a sixth kill. */
+ok('D3 the merge is stated as a merge, and the rename as a rename',
+   /folded into the breaching boss/i.test(flat) && /Same verb/i.test(flat) &&
+   /THE STRIPPER IS GONE AS A NAME\*?\*?, not as a boss/i.test(flat));
 
 /* ---- HIS RULINGS ACTUALLY LANDED, NOT JUST GOT FILED ------------------- */
 const bossAt = n => (rows.find(r => r.n === n) || {}).boss;
@@ -129,9 +132,8 @@ ok('E3 HABITABLE is DEFINED in one concrete sentence, because he asked what it m
    /population cap is ZERO/i.test(flat) && /settler will accept a bed/i.test(flat));
 ok('E4 THE DRAIN\'s lock is the filth itself, not the word habitable',
    /filth/i.test((rows.find(r => r.boss === 'THE DRAIN') || {}).lock || ''));
-ok('E5 THE VOICE is rebuilt around THE PHONE and people ARRIVING',
-   /phone/i.test((rows.find(r => r.boss === 'THE VOICE') || {}).key || '') &&
-   /calls people IN/i.test((rows.find(r => r.boss === 'THE VOICE') || {}).key || ''));
+ok('E5 THE VOICE is still built around THE PHONE and people arriving',
+   /phone calls people IN/i.test((rows.find(r => r.boss === 'THE VOICE') || {}).key || ''));
 ok('E6 and THE VOICE is marked NOT APPROVED, because he said he was not saying he liked it',
    /explicitly did NOT approve/i.test(flat));
 ok('E7 THE SUMMON is recorded as HIS invention with clout-as-mana flagged PENDING',
@@ -140,9 +142,11 @@ ok('E7 THE SUMMON is recorded as HIS invention with clout-as-mana flagged PENDIN
 /* E8 MOVED WITH THE RULING. In v2 the summon was THE BOOK's only grant; in v3 it is
    specifically the SPARE route, and killing THE BOOK voids every debt instead. The
    check follows the ruling rather than pinning the old one. */
-ok('E8 THE BOOK\'s KILL route voids debts and the SUMMON is the SPARE route',
-   /voids/i.test((rows.find(r => r.boss === 'THE BOOK') || {}).key || '') &&
-   /ARRIVES/i.test((rows.find(r => r.boss === 'THE BOOK') || {}).spare || ''));
+/* THE BOOK IS NOW THE CREDITOR. Paolo: "HOW DOES A BOOK DICTATE THIS" -- a ledger is
+   paper, so the holder was wrong. The summon survives, on a person who is owed. */
+ok('E8 the summon lives on THE CREDITOR, not on a book',
+   !rows.some(r => r.boss === 'THE BOOK') &&
+   /call a debt in/i.test((rows.find(r => r.boss === 'THE CREDITOR') || {}).key || ''));
 
 /* ---- THE RESEARCH CORRECTION IS KEPT, BECAUSE IT IS LOAD-BEARING -------- */
 ok('F1 it records that Valheim\'s forsaken powers are BUFFS and not keys',
@@ -183,22 +187,22 @@ ok('G4 v1 is preserved as history rather than overwritten',
    back to one grant per boss wearing two names -- the same disease as
    strip/wreck/toll, one level up.
    ========================================================================== */
-ok('H1 every boss declares BOTH a kill route and a spare route',
-   rows.every(r => r.key.length > 8 && r.spare.length > 8));
+/* H1 NO LONGER ASKS FOR TWO ROUTES. The spare column is gone on his ruling, so the only
+   thing every boss must still declare is WHAT BESTING IT GRANTS. */
+ok('H1 every boss declares what besting it grants',
+   rows.every(r => r.key.length > 8));
 
-const sameRoute = rows.filter(r => norm(r.key) === norm(r.spare) ||
-                                   verbOf(r.key) === verbOf(r.spare));
-ok('H2 NO BOSS\'S SPARE ROUTE IS ITS KILL ROUTE REWORDED — if sparing gave the ' +
-   'same capability the choice would be fake' +
-   (sameRoute.length ? ' -> ' + sameRoute.map(r => r.boss).join(',') : ''),
-   sameRoute.length === 0);
-
-/* THE SPLIT ITSELF: kill takes a THING, spare gains a PERSON. Checked structurally
-   -- a spare route has to be about somebody DOING something, so it names a person. */
-const noPerson = rows.filter(r => !/\b(he|she|they|his|her|their|somebody)\b/i.test(r.spare));
-ok('H3 every SPARE route is about a PERSON doing something, not an object acquired' +
-   (noPerson.length ? ' -> ' + noPerson.map(r => r.boss).join(',') : ''),
-   noPerson.length === 0);
+/* H2/H3 ARE RETIRED BECAUSE HE KILLED WHAT THEY GUARDED. They held the SPARE column
+   distinct from the KILL column. Paolo 8/7: "I DONT WANT TO FOCUS TOO MUCH ON THE SPARE
+   YOU GAIN THE PERSON SHIT BECAUSE ITS SLOP BUT". A GATE MUST NEVER OUTRANK A RULING, so
+   the column is gone and these two retire with it. What replaces them is narrower and
+   matches what he actually said: the peaceful route STILL EXISTS -- he never said it did
+   not -- it is simply no longer a per-boss column. */
+ok('H2 the SPARE column is GONE from the tables, because he called it slop',
+   rows.every(r => r.spare === undefined) && !/SPARE → YOU GAIN THE PERSON/.test(lad));
+ok('H3 but the peaceful route is still recorded as existing, kept short on purpose',
+   /every boss can be bested without killing them/i.test(flat) &&
+   /KEPT SHORT ON PURPOSE/i.test(lad));
 
 const KINDS = ['WORLD', 'GEAR', 'LOOK', 'PEOPLE'];
 const badKind = rows.filter(r => KINDS.indexOf(r.kind) < 0);
@@ -217,23 +221,67 @@ ok('H6 GEAR front-loads to act 1 and PEOPLE back-loads to act 3, so the acts rea
    rows.filter(r => r.kind === 'PEOPLE' && actOf(r.boss) === 3).length >=
    rows.filter(r => r.kind === 'PEOPLE' && actOf(r.boss) === 1).length);
 
-ok('H7 the ladder states that besting is not killing and every boss is sparable',
-   /BESTING IS NOT KILLING/i.test(flat) && /EVERY BOSS CAN BE DEFEATED PEACEFULLY/i.test(flat));
-ok('H8 and that the kill route is NOT the strong route by default, or the choice is fake',
-   /the kill route is not the strong route by default/i.test(flat));
+/* H7 AND H8 ARE RETIRED WITH THE COLUMN THEY GUARDED. They asserted the kill-vs-spare
+   BALANCE ("the kill route is not the strong route by default"), which only means something
+   while the spare route is a co-equal reward tree. He called that slop. H3 above holds the
+   part that survives -- the peaceful route still exists, kept short. A GATE MUST NEVER
+   OUTRANK A RULING, so these retire rather than forcing the doc to keep arguing a closed
+   case. */
 ok('H9 NO MORALITY METER — the choice is economic, not a karma bar',
    /NOT COPYING: a morality meter/i.test(flat) && !/karma (bar|meter|points)/i.test(
      flat.replace(/no karma bar/i, '')));
 ok('H10 the kill/spare research is cited so the "spare pays better" claim is checkable',
    /sifu\.fandom\.com/.test(lad) && /Mercy_?Rewarded|MercyRewarded/i.test(lad));
-ok('H11 THE BOOK\'s summon lives on the SPARE route, which is the whole argument',
-   /ARRIVES/i.test((rows.find(r => r.boss === 'THE BOOK') || {}).spare || ''));
-ok('H12 and he asked for 10-20 more than 17, so the count landed in range (' +
-   rows.length + ')', rows.length >= 27 && rows.length <= 37);
+ok('H11 the summon is a person ARRIVING, which is what he invented',
+   /somebody arrives/i.test((rows.find(r => r.boss === 'THE CREDITOR') || {}).key || ''));
+ok('H12 he asked for MORE again, so the count went UP from 34 (' + rows.length + ')',
+   rows.length > 34);
+
+/* ==========================================================================
+   PART J (v4) — HIS FOUR STRUCTURAL RULINGS, AND THE LESSON FROM THE FIVE KILLS.
+   ========================================================================== */
+ok('J1 ACT 3 IS SLIGHTLY FUTURISTIC AND NOT JUST RECOVERY, on his Night City ruling',
+   /EARLY NIGHT CITY/i.test(lad) && /slightly futuristic/i.test(flat));
+ok('J2 and it records WHY Night City is the right reference: the rebuild WAS the takeover',
+   /THE REBUILD \*?WAS\*? THE TAKEOVER/i.test(flat) &&
+   /supplying the rebuild is how they came to own it/i.test(flat));
+ok('J3 the futurism arrives WITH AN OWNER, so it is a bill and not a reward',
+   /owner attached/i.test(flat) || /name on the invoice/i.test(flat));
+ok('J4 TRANSPORT is a spine through all three acts, because he said it was thin',
+   /IS NOW A SPINE/i.test(flat) &&
+   ['THE BOOT','THE SPOKE','THE CART','THE ROAD','THE ENGINE','THE RAIL','THE LIFT']
+     .every(b => rows.some(r => r.boss === b)));
+ok('J5 and the research reason transport is not a luxury tier is stated',
+   /cannot have metallurgy without transport/i.test(flat));
+ok('J6 FOOD IS FIRST in act 2, because that is what the rebuilding research says',
+   (rows.filter(r => actOf(r.boss) === 2).sort((a, b) => a.n - b.n)[0] || {}).boss === 'THE SOIL' &&
+   /it does not start with technology, it starts with FOOD/i.test(flat));
+ok('J7 the shoe finding is recorded, because it answers his "hella shoes everywhere"',
+   /HYDROLYSIS/i.test(lad) && /FROM THE DATE OF MANUFACTURE/i.test(lad) &&
+   /no shoe in the valley has a sole left on it/i.test(lad));
+ok('J8 the gun finding is recorded and pipe weapons landed in ACT 1 as he guessed',
+   actOf('THE MACHINIST') === 1 && /trivially/i.test(flat) &&
+   /What is genuinely hard is AMMUNITION/i.test(flat));
+ok('J9 every boss he re-acted actually moved: PLATE+MIDWIFE act1, BONES+ENGINE act2',
+   actOf('THE PLATE') === 1 && actOf('THE MIDWIFE') === 1 &&
+   actOf('THE BONES') === 2 && actOf('THE ENGINE') === 2);
+ok('J10 THE ENGINE closes act 2, since he said end of act 2',
+   (rows.filter(r => actOf(r.boss) === 2).sort((a, b) => b.n - a.n)[0] || {}).boss === 'THE ENGINE');
+ok('J11 the five he was CONFUSED by are dead, and his words are on the record',
+   ['THE WATCH', 'THE ARCHITECT', 'THE SIGN', 'THE STILL', 'THE FIXER']
+     .every(b => !rows.some(r => r.boss === b)) && /DELETE THIS IS ASS/i.test(lad));
+ok('J12 ★ AND THE LESSON IS WRITTEN DOWN: four died because the LOCK was invented to ' +
+   'justify a boss I wanted',
+   /the LOCK was invented to justify a boss I wanted/i.test(flat) &&
+   /If you cannot name the wall without inventing it, there is no boss/i.test(flat));
+ok('J13 THE SCHOOL now has a real mechanical stake, because he said he could not see one',
+   /your heir starts at zero/i.test(lad));
+ok('J14 the "dirty bomb" reading is flagged for him rather than assumed',
+   /as improvised demolition charges, not radiological/i.test(flat));
 
 console.log('-'.repeat(74));
 console.log('  ' + rows.length + ' bosses · ' + seenLock.size + ' distinct locks · ' +
-            seenVerb.size + ' distinct kill verbs · ' + DEAD.length + ' dead');
+            seenVerb.size + ' distinct grant verbs · ' + DEAD.length + ' dead');
 console.log('  KINDS: ' + KINDS.map(k => k + ' ' + counts[k]).join('  ') +
             '   ACTS: ' + [1,2,3].map(a => 'act' + a + ' ' +
             rows.filter(r => actOf(r.boss) === a).length).join('  '));
