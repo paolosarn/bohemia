@@ -78,22 +78,22 @@ the gate goes red and the recipes get rebuilt from the new data.
 
 ## WHAT SHIPPED: BATCH SFX-03, 26 NEW MOMENTS (28 -> 54)
 
-**A. THE GROUND** (he named footsteps-by-ground demo-critical and the game had three)
+**THE GROUND** (he named footsteps-by-ground demo-critical and the game had three)
 `step_concrete` `step_sand` `step_glass` `step_wood` `step_metal`
 
-**B. THE FIGHT** (the gun got a voice on 8/1; nothing else in the fight did)
+**THE FIGHT** (the gun got a voice on 8/1; nothing else in the fight did)
 `swing` `melee_hit` `reload` `dry_fire` `casing`
 
-**C. THE BODY** (a hardcore RPG whose body system was silent)
+**THE BODY** (a hardcore RPG whose body system was silent)
 `heartbeat` `breath` `drink` `patch_up`
 
-**D. THE CITY YOU BUILD** (it is a city-builder and building was mute)
+**THE CITY YOU BUILD** (it is a city-builder and building was mute)
 `build_place` `demolish` `deed` `money` `power_on`
 
-**E. THE VALLEY MOVES** (the rare thing that breaks the three air beds)
+**THE VALLEY MOVES** (the rare thing that breaks the three air beds)
 `wind_gust` `neon_buzz` `generator` `dog_far`
 
-**F. THE PHONE AND THE MENU** (`ui_tap` was carrying every interface moment alone)
+**THE PHONE AND THE MENU** (`ui_tap` was carrying every interface moment alone)
 `ui_back` `ui_deny` `equip`
 
 All 26 x 5 candidates render, measure, go silent on time and come out identical
