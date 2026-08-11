@@ -60,12 +60,16 @@ THE CYCLE (in order, every time — subject to the cost law above):
        listicle is never the terminal source. Minimum THREE independent
        sources per catch; where they disagree, the disagreement is the
        finding.
-   (c) LEAVE THE GAMES AISLE. The lane chats research games; the LANE
-       MAKER is required to also look where the problem actually lives —
-       film production for pipelines, urban planning for districts,
-       logistics for caravans, restaurants for service loops, live events
-       for launches. Cross-domain transfer is the coordinator's edge
-       because no lane will ever do it.
+   (c) BOTH AISLES, ALWAYS (Paolo 8/11: "OKAY WHY NOT BOTH" — explicit):
+       every research pass covers TWO lanes and reports both: what the
+       best GAMES did with this problem (the craft answer), AND where the
+       problem actually lives in the REAL WORLD — film production for
+       pipelines, urban planning for districts, logistics for caravans,
+       restaurants for service loops, live events for launches (the truth
+       answer). The catch comes from whichever aisle held the better
+       truth, and the best catches come from where the two AGREE.
+       Cross-domain transfer stays the coordinator's edge because no lane
+       will ever do it.
    (d) THE ANTI-YES-MAN CLAUSE (his 7/26 complaint made law: "you kind of
        just do yes man research... never told me a direction I didn't
        originally think of"): every research pass must surface at least
@@ -100,7 +104,8 @@ what changed since your last mark, audit collisions and drift, guard the
 demo path, then look past it at the whole game. find or advance the one
 important thing nobody has started that I have not thought of, and
 research it like the lane maker: a real question, three real sources,
-practitioner postmortems over listicles, look outside the games industry,
-and bring me at least one finding that challenges what we believe. end it
-as a decision or a routed work order, never trivia. no re-surfacing, no
-ritual reading, no wasted credits. report bottom-up. surprise me."
+practitioner postmortems over listicles, and BOTH aisles every time: what
+the best games did with it AND where the problem lives in the real world.
+bring me at least one finding that challenges what we believe. end it as a
+decision or a routed work order, never trivia. no re-surfacing, no ritual
+reading, no wasted credits. report bottom-up. surprise me."
