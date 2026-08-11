@@ -667,13 +667,45 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
     demo.includes('_crowdThresh=Math.max(2,4-Math.floor((aliveEnemies().length-1)/3))') &&
     demo.includes('outN>=_crowdThresh'));
   // v48: green is a lock for the whole popped action, not a snapshot that can be undone mid-aim
-  ok('V48 GREEN IS A LOCK: doPop() snapshots the green verdict and the known-threats set at commit time; a green pop\'s return-fire pool only answers to threats visible at that moment, and the lock is single-use',
-    demo.includes('V48 GREEN IS A LOCK') &&
+/* ===== V146 SUPERSEDES V48'S HOLLOW GREEN LOCK =====================
+   Paolo 8/12: "even when I popped out and it was green, I still took damage,
+   which is literally the opposite of popping out when it's green."
+   HE WAS RIGHT AND THE GUARANTEE WAS HOLLOW BY CONSTRUCTION. V48 filtered the
+   volley to threats ALREADY VISIBLE at commit time -- but GREEN is precisely
+   the state where peekers exist and none have fired yet, so every man green
+   ever has is already visible. The filter removed NOBODY. It never once
+   stopped a bullet, while the button painted itself green and told him this
+   was the moment he had waited for. A rare lie is still a lie. */
+  ok('V146 A GREEN POP TAKES NO RETURN FIRE -- not filtered, not softened, none. That is what the colour has promised since V48 and it is the entire reward for reading the peek cycle. The commit-time snapshot and the single-use consume both survive; only the hollow filter is gone',
+    demo.includes('V146 GREEN MEANS SAFE') &&
     demo.includes('G._greenNow=green;') &&
     demo.includes('G._poppedGreen=!!G._greenNow;') &&
     demo.includes('G._popKnownThreats=new Set(G.e.filter(e=>!e.dead&&(peeking(e)||firing(e))).map(e=>e.i));') &&
-    demo.includes('if(G._poppedGreen)pool=pool.filter(e=>G._popKnownThreats&&G._popKnownThreats.has(e.i));') &&
+    demo.includes('if(G._poppedGreen)pool=[];') &&
+    !demo.includes('if(G._poppedGreen)pool=pool.filter(e=>G._popKnownThreats&&G._popKnownThreats.has(e.i));') &&
     demo.includes('G._poppedGreen=false;   /* V48: single-use'));
+
+  ok('V146 AND GREEN CANNOT LIE ABOUT A BLADE: return fire is what POPPING costs you, so nulling the volley cannot honestly cover a man who swings whether you popped or not. The button stops claiming a lull that is not one -- a knife inside its own reach reads BLADE ON YOU and is never green',
+    /const _blade=\(G\.e\|\|\[\]\)\.some\(/.test(demo) &&
+    /\(e\.edist\|\|99\)<=\(\(e\.reach\|\|1\.8\)\+1\.0\)/.test(demo) &&
+    demo.includes("' \\u00b7 BLADE ON YOU'"));
+
+  ok('V146 AND NO STALE GREEN: V141\'s OUT OF RANGE early return cleared `G._green`, a name that exists NOWHERE ELSE in the file. The real flag is G._greenNow and doPop reads it to decide whether the promise applies, so every out-of-range turn left the previous verdict standing and the lock could be granted on a stale reading. A typo\'d assignment is invisible to a string check that never looks for the right name',
+    demo.includes('G._greenNow=false; try{updMoveUI();}catch(_e){}') &&
+    !/G\._green=false/.test(demo));
+
+/* ===== V146 THE TEN DAMAGE FACES WERE DECODED AND THROWN AWAY =====
+   Paolo, same message: "when my health was getting reduced, my character's face
+   didn't look like it was taking damage the way it was supposed to."
+   IT IS THE inMyRange BUG AGAIN, IN THE ART PIPE. The alpha builds ten damage
+   frames and sends them; the receiver decoded them into SPR._dmgRaw; and
+   _dmgRaw was ASSIGNED ONCE AND READ NOWHERE. The consumer reads
+   SPR.portraits.dmg, which nothing ever filled. Every frame arrived, was
+   decoded, and was dropped on the floor. Built, sent, decoded, never connected
+   -- the second time this week. */
+  ok('V146 THE DAMAGE FACES ACTUALLY LAND: the decoded frames go into SPR.portraits.dmg, which is the name the consumer reads, instead of into a _dmgRaw nothing ever looked at',
+    /SPR\.portraits\.dmg=d\.portraits\.dmg\.map\(fr=>mkAt\(fr,64,64\)\)/.test(demo) &&
+    demo.includes('const _dmgSet=(JUICE.AU&&SPR.portraits.dmg&&SPR.portraits.dmg.length)'));
   // v49: the comment box wraps instead of scrolling sideways off-screen
   // v50 supersedes v49's box-growth attempt entirely -- Paolo: "I did not tell you to
   // make a bigger multi box... there was no export copy button... all of my shit went away"
