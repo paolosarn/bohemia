@@ -175,5 +175,5 @@
 - [ ] Caption JSON parses and matches C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: CHARACTER lane | DATE: 7/28/26 | PRIORITY: HIGH
+- STATUS: CANDIDATES COOKED 8/9/26, inline (bank: banks/tileforms/TF-CHAR-001_CANDIDATES_8_9_26.json, proofs: records/tileforms_proofs/TF-CHAR-001/, judge: the ART tab, TILE BOARD card). UNJUDGED until Paolo thumbs it. | REQUESTED BY: CHARACTER lane | DATE: 7/28/26 | PRIORITY: HIGH
 - BOARD ROW #: 7 | VERDICT: —

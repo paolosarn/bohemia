@@ -235,7 +235,7 @@ does: 15 new tile families waiting on you.</p>
 
 <a class="board" href="BOHEMIA_TILEFORMS_JUDGE_8_9_26.html">
   <span class="boardtag">NEW &middot; 8/9</span>
-  TILE BOARD &mdash; 15 tile families, 525 candidate tiles, one sitting. TAP TO JUDGE &rarr;
+  TILE BOARD &mdash; 17 tile families, 537 candidate tiles, one sitting. TAP TO JUDGE &rarr;
 </a>
 
 ${cardHtml}

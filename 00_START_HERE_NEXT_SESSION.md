@@ -1,3 +1,26 @@
+ART (f3eu53): 8/9 (u) LATEST -- *** BOARD RESUMED INLINE: +2 COOKS (THE THREE
+MONEY ICONS + THE CONTACT SHADOW), +10 DUPLICATE FORMS CLOSED. THE SITTING IS
+NOW 17 FAMILIES / 537 TILES. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (second-pass section)
+
+The swarm's dedup map was recovered from the workflow journal (49 merged jobs,
+consumers listed per job) - so 10 "OPEN" forms that were declared consumers of
+already-cooked banks got closed as paperwork, not re-cooked. Then two real
+cooks, both inline, both looked at before banking:
+- TF-RUN-008/009/010 one batch: first UI marks ever (wallet/ME only, NEVER a
+  feed post - that badge died 7/21). Solid-black test passed, no glow (energy
+  reads STORED), no purple, dimmed states included.
+- TF-CHAR-001: contact shadow as pure alpha multiply stamps, measured on every
+  approved starter ground; nearly vanishes on asphalt BY DESIGN. Real-frame A/B
+  in the proofs. Wiring is NOT done (that needs the body draw call; one stamp
+  per body at the feet row, strength by cell light) - the stamps are UNJUDGED
+  candidates first.
+Still open: 22 merged jobs. Deck slab (TF-CMB-004) unlocks the cooked stairs;
+kerb/apron (TF-ART-018) feeds three consumers; TF-RUN-001 desert ground is
+GATED on Paolo's seventh-attempt ground ruling - do not cook it without him.
+
+ART (f3eu53): 8/9 (t) -- *** VERDICTS IN: ALL FOUR ART CARDS UP, AND THE
+
 PEOPLE (7h9sfy): 8/9 — *** DEMO-CRITICAL, HE ASKED FOR IT BY NAME: THE SCRIPTED-SCENE
 RUNTIME (backlog 0sc) SHIPS, AND THE ACT 1 COLD OPEN PLAYS END TO END. ***
 Paolo 8/9: "the scripted-scene runtime whose first consumer is the Act 1 cold open

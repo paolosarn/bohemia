@@ -131,5 +131,5 @@
 - [ ] Caption JSON parses and matches C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: WORLD | DATE: 7/28/26 | PRIORITY: HIGH
+- STATUS: COVERED BY MERGED COOK 8/9/26: the swarm's dedup merged this form into TF-ART-005's job (this form is a declared consumer). Candidates: banks/tileforms/TF-ART-005_CANDIDATES_8_8_26.json, judge: the ART tab, TILE BOARD. UNJUDGED. | REQUESTED BY: WORLD | DATE: 7/28/26 | PRIORITY: HIGH
 - BOARD ROW #: 34 | VERDICT: —

@@ -123,6 +123,17 @@ const FORMS = [
     shots: [['arena_mock_full_2x.png', 'IN THE ARENA MOCK'],
             ['anchor_composite_3x.png', 'BESIDE APPROVED ART'],
             ['contact_sheet_3x.png', 'EVERY TILE']] },
+  { id: 'TF-RUN-008', tiles: 6, title: 'THE THREE MONEY ICONS',
+    what: 'the game’s first UI marks, for the Wallet and the ME tab: RESOURCES is a duct-tape roll with a hammer behind it and an apple at the base, ENERGY is a dented jerrycan with a bolt across it and a scavenged battery, CLOUT is a crowd merged into one shape with a speech bubble. Each also ships a dimmed can’t-afford version. Never on a feed post (you killed that badge 7/21).',
+    shots: [['PHONE_CHROME_MOCK.png', 'ON PHONE CHROME, BOTH THEMES'],
+            ['CONTACT_32_64_96.png', 'THREE SIZES'],
+            ['SOLID_BLACK_TEST.png', 'THE SILHOUETTE TEST'],
+            ['DIMMED_ROW.png', 'CANT-AFFORD STATE']] },
+  { id: 'TF-CHAR-001', tiles: 6, title: 'THE SHADOW UNDER YOUR FEET',
+    what: 'a soft warm oval that darkens whatever ground you stand on, so the body stops floating like a sticker. Three sizes (standing, walking, crouched), a faint version for unlit cells. It has no colour of its own: on pale dirt it reads, on dark asphalt it nearly disappears, which is how real Vegas shade works.',
+    shots: [['REAL_FRAME_AB.png', 'REAL FRAME, WITHOUT / WITH'],
+            ['GROUND_RESPONSE_ALL_SURFACES.png', 'ON EVERY GROUND YOU APPROVED'],
+            ['STAMPS_2X_ON_FLAT.png', 'ALL SIX STAMPS']] },
 ];
 
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
@@ -227,10 +238,10 @@ const html = `<!doctype html>
 
 <header>
   <a class="back" href="BOHEMIA_ART_CURRENT.html">&larr; ART</a>
-  <h1>TILE BOARD &middot; 8/9 &middot; 15 FAMILIES, ${totalTiles} TILES</h1>
+  <h1>TILE BOARD &middot; 8/9 &middot; ${FORMS.length} FAMILIES, ${totalTiles} TILES</h1>
   <button class="sunbtn" id="sunbtn">SUN MODE</button>
 </header>
-<p class="lede">The tile request board, cooked. 15 tile families, ${totalTiles} candidate
+<p class="lede">The tile request board, cooked. ${FORMS.length} tile families, ${totalTiles} candidate
 tiles, every one measured against your palette laws before it got here, NONE of it in
 the game yet. A thumbs up unlocks a family for real use; a thumbs down kills it. Tap
 each picture to step through the shots. EXPORT at the bottom and send me the file.</p>

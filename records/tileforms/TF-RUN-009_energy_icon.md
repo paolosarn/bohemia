@@ -160,6 +160,6 @@ untouched and still in D. If you want the caption to span acts, that needs a cit
 ruling, because ACT ONE ONLY is locked (laws/BOHEMIA_ADDENDUM_EVERY_DISTRICT_IS_A_LANDMARK_7_28_26.md).
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: Paolo direct (7/28 pick + composition ruling)
+- STATUS: CANDIDATES COOKED 8/9/26, inline (one batch with 008+009+010 per the forms own law; bank: banks/tileforms/TF-RUN-008_CANDIDATES_8_9_26.json, proofs: records/tileforms_proofs/TF-RUN-008/, judge: the ART tab, TILE BOARD card). UNJUDGED until Paolo thumbs it. | REQUESTED BY: Paolo direct (7/28 pick + composition ruling)
   | DATE: 7/28/26 | PRIORITY: HIGH
 - BOARD ROW #: 100 | VERDICT: —

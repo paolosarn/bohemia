@@ -171,6 +171,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: RUN lane (0b district-material survey, 7/28)
+- STATUS: COVERED BY MERGED COOK 8/9/26: the swarm's dedup merged this form into TF-ART-013's job (this form is a declared consumer). Candidates: banks/tileforms/TF-ART-013_CANDIDATES_8_8_26.json, judge: the ART tab, TILE BOARD. UNJUDGED. | REQUESTED BY: RUN lane (0b district-material survey, 7/28)
   | DATE: 7/28/26 | PRIORITY: MED
 - BOARD ROW #: 13 | VERDICT: —

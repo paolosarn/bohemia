@@ -94,3 +94,30 @@ saying so.**
 - Same cook, seam stats: a tile family whose names did not prefix-match its
   seam group produced an empty wrap list and `max()` threw. Empty list now
   reports wrap_max 0.0.
+
+## 8/9 SECOND PASS (the GO after the verdict): +2 COOKS, +10 CLOSURES
+
+Paolo's GO ("get this demo rolling") resumed the board inline. Recovered the
+swarm's dedup map from the workflow journal instead of re-deriving it:
+
+- **10 duplicate forms closed by the merged cooks** (their status lines now
+  point at the bank that covers them): TF-RUN-003/TF-WORLD-003 -> chain-link,
+  TF-RUN-004 -> corrugated, TF-WORLD-005 -> sports, TF-WORLD-004 -> pools,
+  TF-WORLD-008 -> storefront, TF-WORLD-006 -> rail, TF-RUN-006 -> mobile home,
+  TF-WORLD-007 -> flat roofs, TF-WORLD-012 -> landfill.
+- **TF-RUN-008/009/010 cooked as one batch** (the forms' own law): the game's
+  first UI marks. Resources = tape roll + hammer + apple, energy = jerrycan +
+  bolt + battery, clout = merged crowd + speech bubble. 32px native, master-ramp
+  snapped, no keyline/glow/purple, solid-black silhouette test passed, normal +
+  dimmed states, phone-chrome mock both themes. 6 marks.
+- **TF-CHAR-001 cooked**: the character contact shadow. 6 alpha stamps
+  (standing/walk/crouched x lit/unlit), multiply model, measured step-down on
+  every approved starter ground (dirt 25, gravel 30, sidewalk 23, asphalt 12,
+  interior 4.5 - the fade on dark ground is the design), real-frame A/B from
+  the shipped build. SHADOWS ARE SEPARATE honoured: never baked into sprites.
+
+The sitting is now **17 families, 537 candidate tiles**, all UNJUDGED, one page.
+Still open on the board: 22 merged jobs (the biggest: deck slab + covers for
+CMB, kerb/apron TF-ART-018, signs TF-WORLD-010, camp TF-LAB-001, tilt-up
+TF-RUN-005, desert ground TF-RUN-001 - the ground half needs Paolo's seventh-
+attempt ruling first).
