@@ -92,8 +92,38 @@ const pw = PD.price(purse, null, 'water');
 ok('and so does a price', pw.reason === 'NO_RULING' && pw.table === 'PRICES');
 ok('nothing was credited: every balance is still zero',
    PURSE.CURRENCIES.every(c => PURSE.balance(purse, c) === 0));
-ok('the price valve is SHUT until he answers a letter (PRICE_SOURCE null)',
-   PD.PRICE_SOURCE === null);
+// A GATE MUST NEVER OUTRANK A RULING (8/1). This read "the valve is SHUT" until he
+// answered: @RULING PRICES A (8/11) = "Three goods, priced off the scarcity sim we already
+// have." So the valve is OPEN, and what the gate must now hold is that the price is READ
+// off the sim rather than typed, and that his own table still beats it.
+ok('the price comes off the scarcity sim, as he ruled 8/11 (PRICE_SOURCE economy)',
+   PD.PRICE_SOURCE === 'economy');
+const ECON = require(path.join(ROOT, 'engine/bohemia_economy.js'));
+const led = ECON.makeLedger(12345, 900, 300);
+const pw2 = PD.price(purse, led, 'water');
+ok('and it really prices off it, moving with scarcity instead of a typed constant',
+   pw2.source === 'economy' && typeof pw2.price === 'number' && pw2.price > 0);
+ok('the shelf is priced end to end (' +
+   PD.shelf().map(s => s.good + ' ' + PD.price(purse, led, s.good).price).join(', ') + ')',
+   PD.shelf().every(s => typeof PD.price(purse, led, s.good).price === 'number'));
+// buying is a HARD SINK, which is the half of a faucet-and-drain economy that fights inflation
+const buyer = PURSE.create({});
+ok('you cannot buy what you cannot afford', PD.buy(buyer, null, 'water', 1, led).reason === 'CANNOT_AFFORD');
+PURSE.credit(buyer, 'resources', 20, 'test', 't', 1);
+const bought = PD.buy(buyer, null, 'water', 1, led);
+ok('and with a purse you can: the hub is SPENDABLE', bought.applied === true && bought.paid > 0);
+ok('the spend is recorded as a HARD SINK, not a transfer', PURSE.flow(buyer).resources.drain > 0);
+
+// WHAT A QUEST PAYS IS THE QUEST'S OWN BUSINESS -- ruled 8/11: "Whatever currency the quest
+// decida to give." Not a global table keyed on outcome tier; the reward rides with the job.
+const rq = PURSE.create({});
+const declared = PD.payForQuest(rq, { done: true, outcome: 'COMPLETE',
+                                      reward: { resources: 6, clout: 2 } }, 1, 'S01');
+ok('a quest that declares its own reward is paid exactly that (Paolo 8/11)',
+   declared.applied === true && declared.source === 'quest' &&
+   PURSE.balance(rq, 'resources') === 6 && PURSE.balance(rq, 'clout') === 2);
+ok('and a quest that declares nothing still refuses out loud, table empty as ever',
+   PD.payForQuest(PURSE.create({}), { done: true, outcome: 'COMPLETE' }, 1).reason === 'NO_RULING');
 // a default number smuggled in as "sensible" is the whole failure mode
 const code = payBody.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
 ok('the bridge contains NO payout or price number of its own',

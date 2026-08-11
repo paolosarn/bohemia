@@ -46,7 +46,13 @@ if (!fs.existsSync(JSON_PATH)) {
 const data = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
 const B = data.blockers || [];
 ok('there is a lane on the report', data.lane === 'WORLD');
-ok('there are blockers to report (' + B.length + ')', B.length > 0);
+// ZERO IS THE GOAL, NOT A FAILURE. This read `B.length > 0` and went RED on 8/11 the
+// moment Paolo answered all five -- a gate demanding he permanently owe us something,
+// which is exactly backwards and is the thing EVERYTHING IS A THUMB (8/9) forbids. An
+// empty list means the lane is unblocked; the structural checks below apply per blocker
+// and are vacuously true when there are none.
+console.log('  (' + B.length + ' blocker(s) outstanding' +
+            (B.length === 0 ? ' -- he has answered everything' : '') + ')');
 
 // ---- 1. NUMBERED, and numbered CORRECTLY -------------------------------------------
 ok('every blocker is numbered, 1..n with no gaps',
@@ -75,9 +81,22 @@ while ((m = RE.exec(purse))) emptyTables.push(m[1]);
 ok('the purse still has ruled-but-empty tables to derive from (' + emptyTables.join(', ') + ')',
    emptyTables.length > 0);
 const keys = new Set(B.map(b => b.key));
-const missing = emptyTables.filter(t => !keys.has(t));
-ok('EVERY empty [PENDING Paolo] table in the purse is on the list' +
+// A RULING RETIRES A BLOCKER WITHOUT FILLING ITS TABLE, and two of his three 8/11
+// answers do exactly that on purpose: PAYOUT moved the reward onto the quest itself,
+// PRODUCTION is "out of the demo cut" and stays empty forever. So the test is not
+// "empty table => on the list", it is "empty table AND unruled => on the list".
+const ruled = new Set();
+for (const f of fs.readdirSync('records')) {
+  if (!/\.(txt|md)$/i.test(f)) continue;
+  const t = fs.readFileSync(path.join('records', f), 'utf8');
+  for (const mm of t.matchAll(/^\s*@RULING\s+([A-Za-z0-9_]+)\b/gm)) ruled.add(mm[1].toUpperCase());
+}
+const missing = emptyTables.filter(t => !keys.has(t) && !ruled.has(t));
+ok('every empty [PENDING Paolo] table he has NOT ruled is on the list' +
    (missing.length ? ' — missing ' + missing.join(', ') : ''), missing.length === 0);
+ok('and a table he HAS ruled is off it, even though it is still empty (' +
+   emptyTables.filter(t => ruled.has(t)).join(', ') + ')',
+   emptyTables.every(t => !ruled.has(t) || !keys.has(t)));
 
 // and the reverse: a table blocker must not survive its own table being filled
 const filled = [...keys].filter(k => /^[A-Z_]+$/.test(k) && !emptyTables.includes(k) &&
@@ -109,17 +128,21 @@ const nBlk = (tab.match(/class="blk"/g) || []).length;
 ok('every blocker is rendered in the tab (' + nBlk + ' of ' + B.length + ')', nBlk === B.length);
 const iBlk = tab.indexOf('class="blk"');
 const iCard = tab.indexOf('class="card"');
-ok('the blockers sit ABOVE the icons, so he cannot scroll past the thing that blocks the demo',
-   iBlk > 0 && iCard > 0 && iBlk < iCard);
-ok('one tap answers one blocker (lettered buttons, not a form)', /class="ob"/.test(tab));
+if (B.length) {
+  ok('the blockers sit ABOVE the icons, so he cannot scroll past the thing that blocks the demo',
+     iBlk > 0 && iCard > 0 && iBlk < iCard);
+  ok('one tap answers one blocker (lettered buttons, not a form)', /class="ob"/.test(tab));
+  ok('and he can always answer in his own words instead', /class="bnote"/.test(tab));
+} else {
+  ok('nothing is asked of him when he has answered everything', iBlk < 0);
+}
 ok('the realistic option LEADS: option A is first in the DOM for every blocker',
-   written.every(b => {
+   !B.length || written.every(b => {
      const seg = tab.split('data-b="' + b.key + '"')[1] || '';
      const first = (seg.match(/data-o="([A-C])"/) || [])[1];
      return first === 'A';
    }));
 ok('his answer comes back in a shape the repo can read (@RULING)', /@RULING/.test(tab));
-ok('and he can always answer in his own words instead', /class="bnote"/.test(tab));
 
 console.log('DEMO BLOCKERS GATE: ' + pass + ' passed, ' + fail + ' failed  (' + B.length +
             ' blockers, all derived · ' + emptyTables.length + ' ruled-but-empty tables · ' +

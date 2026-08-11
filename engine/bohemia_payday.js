@@ -86,10 +86,46 @@
   /* Pay for a finished quest. Returns the purse's own answer verbatim, INCLUDING its
      refusal -- a caller must be able to tell "paid nothing because it is worth nothing"
      from "paid nothing because nobody has ruled what it is worth". */
-  function payForQuest(purse, questState, day, questId) {
+  /* WHAT A QUEST PAYS IS THE QUEST'S OWN BUSINESS -- RULED 8/11.
+     Asked what a day's work should pay, Paolo answered: "Whatever currency the quest decida
+     to give." That is not a number, it is a DESIGN RULING, and it is a better one than the
+     option I offered him. I had proposed a global PAYOUT table keyed on the outcome tier --
+     every #notable job in the valley worth the same thing forever. He put the reward back
+     where the job is: a water run pays water, a courier job pays clout, a salvage job pays
+     salvage, and each quest says so itself.
+     SO THE MECHANISM CHANGED SHAPE, not just its contents. The quest declares `reward` and
+     the bridge pays exactly that. The AMOUNTS stay contents -- they live in the .bq quest
+     files with the rest of that quest's canon, which is where he just put them.
+     His global table still works and is still empty: a quest that declares nothing falls
+     through to PURSE.PAYOUT and gets the same honest refusal as before. */
+  function questReward(questState, quest) {
+    var r = (questState && questState.reward) || (quest && quest.reward) || null;
+    if (!r) return null;
+    var out = {}, any = false;
+    for (var i = 0; i < CURRENCIES().length; i++) {
+      var c = CURRENCIES()[i];
+      if (typeof r[c] === 'number' && r[c] !== 0) { out[c] = r[c]; any = true; }
+    }
+    return any ? out : null;
+  }
+
+  function CURRENCIES() { return PURSE ? PURSE.CURRENCIES : []; }
+
+  function payForQuest(purse, questState, day, questId, quest) {
     if (!PURSE) return { applied: false, reason: 'NO_PURSE' };
     var ev = questEvent(questState, questId);
     if (!ev) return { applied: false, reason: 'NOT_FINISHED' };
+    var reward = questReward(questState, quest);
+    if (reward) {
+      var done = [];
+      for (var c in reward) {
+        if (!Object.prototype.hasOwnProperty.call(reward, c)) continue;
+        done.push(PURSE.credit(purse, c, reward[c], 'quest:' + (ev.outcome || 'done'),
+                               ev.questId, day));
+      }
+      return { applied: true, source: 'quest', paid: reward,
+               balances: PURSE.balances(purse) };
+    }
     return PURSE.payQuest(purse, ev, day);
   }
 
@@ -185,7 +221,15 @@
      A DEFAULT HERE WOULD BE CANON NOBODY RULED, which is the one thing the mechanism/
      contents split exists to prevent -- and the 8/3 mistake this repo already paid for
      once, off a sentence that sounded warm. */
-  var PRICE_SOURCE = null;   // [PENDING Paolo: demo blocker 2]
+  /* HE OPENED IT. @RULING PRICES A (Paolo 8/11): "Three goods, priced off the scarcity sim
+     we already have." records/BOHEMIA_VERDICT_ICONS_AND_DEMO_BLOCKERS_8_11_26.txt
+     So the tag on the shelf is READ, never typed: bohemia_economy.js prices every good
+     hyperbolically against how many days of it are left, anchored in real siege data
+     (Sarajevo 92-95, staples moved 10-100x not 2x). The price MOVES when the valley gets
+     thirstier, which is why this is the realistic answer and not merely the convenient one.
+     HIS OWN TABLE STILL WINS: PURSE.PRICES is checked first and is still empty, so if he
+     ever names a price it beats the sim for that good and nothing else changes. */
+  var PRICE_SOURCE = 'economy';   // RULED 8/11 by Paolo, blocker 2 = A
 
   function price(purse, ledger, goodId) {
     if (!PURSE) return { reason: 'NO_PURSE' };
@@ -204,9 +248,34 @@
   /* Buy. Goes through the purse's own debit so the ledger records a HARD SINK -- the
      thing that actually fights inflation, and the reason the purse is a ledger and not
      three counters. */
-  function buy(purse, hubOrNull, goodId, day) {
+  /* WHICH CURRENCY A GOOD IS BOUGHT WITH. The economy quotes everything in SALVAGE-KG --
+     "the one thing everyone on a dead grid can produce and everyone needs" (its own words,
+     7/19) -- and of his three ruled currencies that IS resources: physical goods you carry.
+     Electricity is a service off the 12% live grid and clout is reputation; neither buys a
+     litre of water. This is a mapping between two things he already ruled, not a new table. */
+  var SALVAGE_CURRENCY = 'resources';
+
+  function buy(purse, hubOrNull, goodId, day, ledger) {
     if (!PURSE) return { applied: false, reason: 'NO_PURSE' };
-    return PURSE.spend(purse, goodId, day);
+    // his own named price wins, and his table is still empty
+    if (PURSE.PRICES && Object.prototype.hasOwnProperty.call(PURSE.PRICES, goodId)) {
+      return PURSE.spend(purse, goodId, day);
+    }
+    var p = price(purse, ledger, goodId);
+    if (p.reason) return { applied: false, reason: p.reason, table: p.table, key: goodId,
+                           about: p.about };
+    if (p.source === 'barter') return { applied: false, reason: 'BARTER_ONLY', key: goodId };
+    if (p.price == null) return { applied: false, reason: 'NO_PRICE', key: goodId };
+    if (PURSE.balance(purse, SALVAGE_CURRENCY) < p.price) {
+      return { applied: false, reason: 'CANNOT_AFFORD', key: goodId, price: p.price,
+               have: PURSE.balance(purse, SALVAGE_CURRENCY) };
+    }
+    /* A HARD SINK, on purpose: the goods leave the world when you consume them, so the
+       value is DESTROYED rather than moved. That is the half of a faucet-and-drain economy
+       that actually fights inflation, and the reason the purse is a ledger not a counter. */
+    var e = PURSE.debit(purse, SALVAGE_CURRENCY, p.price, 'buy:' + goodId, goodId, day);
+    return { applied: true, good: goodId, paid: p.price, source: p.source,
+             currency: SALVAGE_CURRENCY, entry: e, balances: PURSE.balances(purse) };
   }
 
   /* ---------------------------------------------------------------------------

@@ -89,7 +89,13 @@ ok('every district in the hero bank is on the page (' + onPage.length + '/' + di
    (missing.length ? ' — missing ' + missing.slice(0, 5).join(', ') : ''), missing.length === 0);
 ok('and none of them twice' + (dupes.length ? ' — ' + [...new Set(dupes)].join(', ') : ''),
    dupes.length === 0);
-ok('there is actually something waiting on him', /class="tag new"/.test(page));
+// AN EMPTY QUEUE IS THE GOAL, NOT A FAILURE. This read "there is actually something
+// waiting on him" and went RED on 8/11 the moment he judged all 59 -- a gate that
+// demands he permanently owe us a verdict, which is backwards and is exactly what
+// EVERYTHING IS A THUMB (8/9) forbids. What must hold is that the page tells the TRUTH
+// about which state it is in: work waiting, or caught up and saying so.
+ok('the page is honest about the queue: either work is waiting, or it says he is caught up',
+   /class="tag new"/.test(page) || /You are all caught up/.test(page));
 
 // ---- 5 + 6: declared verdicts in, declared verdicts out ------------------------------
 const tool = fs.readFileSync('tools/bohemia_vote_tab.py', 'utf8');

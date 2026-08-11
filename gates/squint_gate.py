@@ -46,7 +46,8 @@ N = 16                      # the silhouette grid -- roughly one map tile
 # plate, which is the thing a player actually recognises at map zoom.
 MIN_INK = 0.10              # below this it is nearly nothing
 MAX_INK = 0.92              # above this it is a filled box, not a shape
-MIN_DIFF = 0.055            # fraction of cells that must differ between two districts
+MIN_DIFF = 0.055
+MIN_LOOK = 0.030            # and how different the TILE looks, colour included            # fraction of cells that must differ between two districts
 
 # KNOWN TWINS (the debt). These pairs already read alike and predate the law.
 # This list may ONLY shrink. Do not add to it -- new work must pass.
@@ -78,6 +79,7 @@ def ok(name, cond, detail=''):
 
 bank = json.load(open(BANK))
 sil = {}
+tile = {}
 for h in bank['heroes']:
     im = Image.open(io.BytesIO(base64.b64decode(h['b64']))).convert('RGBA')
     # crop to the drawn content, then squash to the silhouette grid
@@ -86,6 +88,16 @@ for h in bank['heroes']:
     px = list(im.resize((N, N), Image.BILINEAR).getchannel('A').getdata())
     sil[h['district']] = [1 if px[y * N + x] >= 128 else 0
                           for y in range(N // 2) for x in range(N)]
+    # AND THE TILE AS A PLAYER SEES IT. A district icon is not a character read against a
+    # background -- it is a TILE that fills its cell and touches its neighbours, which is
+    # exactly what Paolo ruled on 8/11: "Everything needs to be bigger touching the edges
+    # side by side of the square grid." Once every tile fills its square edge to edge, the
+    # OUTLINES converge by construction (they are all the same square), and outline-only
+    # twin-hunting starts reporting the ruling itself as a defect. What still separates two
+    # tiles at map zoom is what is drawn INSIDE them: value and hue, not the border.
+    flat = Image.new('RGBA', im.size, (0, 0, 0, 255))
+    flat.alpha_composite(im)
+    tile[h['district']] = list(flat.convert('RGB').resize((N, N), Image.BILINEAR).getdata())
 
 ok('every district icon produced a silhouette (%d)' % len(sil), len(sil) > 0)
 
@@ -108,7 +120,18 @@ for i in range(len(names)):
         pairs.append((diff, names[i], names[j]))
 pairs.sort()
 
-twins = [(d, x, y) for (d, x, y) in pairs if d < MIN_DIFF]
+def look_diff(x, y):
+    """How different two TILES look, shape and colour together, 0..1."""
+    a, b = tile[x], tile[y]
+    t = sum(abs(p[0] - q[0]) + abs(p[1] - q[1]) + abs(p[2] - q[2]) for p, q in zip(a, b))
+    return t / float(len(a) * 3 * 255)
+
+
+# A GATE MUST NEVER OUTRANK A RULING (8/1). Two districts are TWINS only if a player
+# cannot tell them apart -- which now requires them to match on BOTH the outline and
+# what is painted inside it. Matching on outline alone is what his own ruling produces.
+twins = [(d, x, y) for (d, x, y) in pairs
+         if d < MIN_DIFF and look_diff(x, y) < MIN_LOOK]
 undeclared = [(x, y) for (d, x, y) in twins if frozenset((x, y)) not in KNOWN_TWINS]
 ok('no NEW district shares another district\'s silhouette at map zoom',
    not undeclared, ', '.join('%s=%s' % p for p in undeclared[:6]))

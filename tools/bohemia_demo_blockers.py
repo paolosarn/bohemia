@@ -170,6 +170,19 @@ HELD_QUESTIONS = {
 # ---------------------------------------------------------------------------
 # 3. THE LIVE VERDICT QUEUE, read exactly the way the VOTE tab reads it.
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# A RULING RETIRES ITS BLOCKER, AND THE EMPTY TABLE IS NOT THE ONLY PROOF.
+# 8/11 exposed the hole: he ruled all three money questions and every one of them
+# stayed on the list, because the tool only watched for the table filling up. But
+# two of his three answers deliberately DO NOT fill a table --
+#     PAYOUT     "Whatever currency the quest decida to give"  -> the quest declares it
+#     PRODUCTION "NO -- out of the demo cut"                    -> stays empty ON PURPOSE
+# so waiting for contents would have re-asked him forever. That is precisely the
+# STALE UNJUDGED / NOTES ARE RULINGS failure, and under EVERYTHING IS A THUMB (8/9)
+# handing him a question he already answered is the turn failing outright.
+# His own export writes `@RULING <KEY> <letter>`; that line IS the retirement, in the
+# same grammar @VERDICT already uses for art. One line in any records/ file.
+RULED = re.compile(r'^\s*@RULING\s+([A-Za-z0-9_]+)\b', re.M)
 DECLARED = re.compile(r'^\s*@VERDICT\s+([a-z]+)\b', re.I | re.M)
 bank = json.load(open(BANK, encoding='utf8'))
 heroes = [h for h in bank['heroes'] if h.get('b64')]
@@ -187,14 +200,25 @@ for fn in sorted(os.listdir(RECORDS)):
             judged.add(m.group(1).lower())
 unjudged = sorted(names - judged)
 
+ruled = set()
+for fn in sorted(os.listdir(RECORDS)):
+    if not fn.lower().endswith(('.txt', '.md')):
+        continue
+    try:
+        txt = open(os.path.join(RECORDS, fn), encoding='utf8', errors='ignore').read()
+    except Exception:
+        continue
+    for mm in RULED.finditer(txt):
+        ruled.add(mm.group(1).upper())
+
 # ---------------------------------------------------------------------------
 # BUILD THE NUMBERED LIST. Order: the things that stop the demo dead, first.
 # ---------------------------------------------------------------------------
 blockers = []
 
 for t in ['PAYOUT', 'PRICES', 'PRODUCTION']:
-    if t not in empty_tables:
-        continue                      # he ruled it; the blocker is gone, automatically
+    if t not in empty_tables or t in ruled:
+        continue          # filled, or he ruled it -- either way it leaves the list itself
     q = QUESTIONS.get(t)
     if not q:
         blockers.append({'key': t, 'q': '[UNWRITTEN BLOCKER] %s ships empty and nothing '
@@ -207,7 +231,7 @@ for t in ['PAYOUT', 'PRICES', 'PRODUCTION']:
             PURSE, t, ', edge wired and returning NO_RULING' if wired.get(t) else ''),
     })
 
-if unjudged:
+if unjudged and 'ICONS' not in ruled:
     blockers.append({
         'key': 'ICONS',
         'q': '%d district map icons have never been judged.' % len(unjudged),
@@ -226,6 +250,8 @@ if unjudged:
     })
 
 for key, rest in held:
+    if key.upper() in ruled:
+        continue          # ruled; the backlog row is now work, not a question
     q = HELD_QUESTIONS.get(key)
     if not q:
         blockers.append({'key': key, 'q': '[UNWRITTEN BLOCKER] backlog WORLD %s is HELD on '

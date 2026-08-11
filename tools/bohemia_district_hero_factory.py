@@ -275,10 +275,26 @@ BUS = (3.9, 1.0, 1.18)
 TRAILER = (3.9, 1.0, 1.05)
 
 
+# NO CARS ON AN ICON (Paolo, and he has now said it TWICE).
+#   8/2  "if we from all the icons, we remove all the parking lots cause I honestly...
+#         I just really want the main building to be biggest as fuck"
+#   8/11 "Things should be so big theres [not] cars or parking lots on it."
+# The 8/2 pass removed the parking APRONS and left the vehicles standing on them, so at
+# the new zoom they read as scattered dark crumbs around the building -- which is the
+# glitching-out he is looking at as much as anything. A car is 1.5 m against a 20 m
+# building: at one map tile it is never a car, it is noise on the silhouette.
+# ONE SWITCH, not forty deletions, so this is reversible in a word if he ever wants them
+# back. THE WALKED WORLD IS UNTOUCHED -- this file bakes ICONS only; the dead cars you
+# walk past in the districts are a different system and still there.
+SHOW_VEHICLES = False
+
+
 def _vehicle(s, x, y, size, color, along='x'):
     """A consistent dead vehicle: a body box + a slightly-inset lighter roof so it
     reads as a car/bus, never a plain block. Same helper for every hero."""
     assert size in (CAR, BUS, TRAILER), 'vehicle must use a CANON size (CAR/BUS/TRAILER), got %r' % (size,)
+    if not SHOW_VEHICLES:
+        return
     L, W, H = size
     dx, dy = (L, W) if along == 'x' else (W, L)
     s.box((x, y, 0), (dx, dy, H * 0.6), {'top': _dark(color, 1.06), 'px': _dark(color, 1.0),
@@ -1048,9 +1064,15 @@ def build_policestation(P):
     _door(s, 7.0, 1.0, 3.0, 2.6, doorc=_dark(STN, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in STN))
     s.box((-0.5, -0.8, 6.0), (0.16, 0.16, 2.6), {'c': ANT})                             # roof antenna mast
     s.prism(-0.42, -0.72, 8.6, 0.6, 0.18, 10, {'c': ANT})                               # dish
-    for cx in (0.5, 3.0, 5.5):
-        _vehicle(s, cx, 8.5, CAR, PATROL, along='x')                                    # patrol fleet
-    _vehicle(s, 8.5, 8.5, CAR, IMPOUND, along='x')                                      # impound wreck
+    # THE ONE ICON THE NO-CARS RULING COST A COLOUR. Its second hue family was the PATROL
+    # FLEET; with the cruisers gone hue_gate measured it MONOCHROME, which is mud and not a
+    # style. So the department colour goes where a real area command actually carries it --
+    # the SIGNAGE BAND over the entry and the light bar on the sally-port canopy, both of
+    # which stay when the fleet is gone because they are bolted to the building.
+    s.box((-2.0, -1.15, 4.6), (9.0, 0.35, 0.85), {'top': _dark(PATROL, 1.05),
+          'py': _dark(PATROL, 1.0), 'px': _dark(PATROL, 0.9),
+          'nx': _dark(PATROL), 'ny': _dark(PATROL)})                                    # signage band
+    s.box((8.2, -0.7, 4.4), (1.6, 0.3, 0.3), {'c': _dark(IMPOUND, 1.1)['c']})           # canopy light bar
     for (fx, fy) in [(-2.5, -2.5), (13.5, -2.5), (13.5, 6.5), (-2.5, 6.5)]:
         s.box((fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.0), {'c': FENCE})
     return s, 6.6
@@ -3610,13 +3632,40 @@ def main():
     SHADOW_PX = 16
     inner = SQUARE_PX - 2 * 5 - SHADOW_PX
     for i, (d, scene, scale) in enumerate(built):
-        xs, ys = [], []
+        # TWO SPANS, NOT ONE, AND THIS IS THE WHOLE 8/11 FIX. Paolo, judging all 59:
+        # "Everything needs to be bigger touching the edges side by side of the square grid
+        #  fr bro... Things should be so big theres [not] cars or parking lots on it."
+        #
+        # Filling on max(w,h) CANNOT EVER TOUCH THE TOP EDGE and the reason is geometry, not
+        # taste: the pad is a 2:1 isometric diamond, so its WIDTH is always about twice its
+        # height. Fit the width and the height uses half the square by construction --
+        # measured, every icon left the top 195 of 468 px empty and sat jammed in the bottom.
+        # I had fitted THE PAD, and a 2:1 pad can never fill a square. That is why he was
+        # looking at small buildings in big frames after I "made them fill the square".
+        #
+        # So fill on the SMALLER span -- the pad's height becomes the square and its width
+        # runs off both sides. Everything gets bigger, the art reaches all four edges so
+        # tiles butt together, and the parking aprons at the pad's left and right corners
+        # go off-canvas ON THEIR OWN. That is his "so big there's no cars or parking lots
+        # on it": a consequence of the zoom, not forty deletions.
+        #
+        # CLAMPED BY THE BUILT MASS, because the one thing that must never be cut is the
+        # building. The pad may bleed; a roof may not.
+        xs, ys, mxs, mys = [], [], [], []
         for verts, _uv, _n, _m in scene.faces:
+            standing = max(v[2] for v in verts) > 0.9
             for (x, y, z) in verts:
-                xs.append((x - y) * scale)
-                ys.append((x + y) * scale * 0.5 - z * scale)
-        span = max(max(xs) - min(xs), max(ys) - min(ys))
-        built[i] = (d, scene, scale * (inner / span if span > 0 else 1.0))
+                px = (x - y) * scale
+                py = (x + y) * scale * 0.5 - z * scale
+                xs.append(px); ys.append(py)
+                if standing:
+                    mxs.append(px); mys.append(py)
+        span_w, span_h = max(xs) - min(xs), max(ys) - min(ys)
+        fill = inner / max(min(span_w, span_h), 1e-6)          # touch all four edges
+        if mxs:
+            mass = max(max(mxs) - min(mxs), max(mys) - min(mys))
+            fill = min(fill, inner / max(mass, 1e-6))          # never cut a building
+        built[i] = (d, scene, scale * fill)
 
     # PASS TWO: bake every hero into that one square, standing on a shared ground line.
     for d, scene, scale in built:

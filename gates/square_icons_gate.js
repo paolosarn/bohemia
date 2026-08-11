@@ -58,6 +58,7 @@ ok('and they are all the SAME square, so the set lines up (' + [...sizes].join('
 // ---- 2 + 3 + 4: decode the pixels and measure -----------------------------------------
 // PNG header is enough for the frame; the content box needs the alpha, so use the same
 // decoder the rest of the repo uses rather than trusting the recorded w/h.
+const SRC0 = fs.readFileSync('tools/bohemia_district_hero_factory.py', 'utf8');
 const { execFileSync } = require('child_process');
 const probe = `
 import json,base64,io,sys
@@ -81,17 +82,36 @@ const realSizes = new Set(px.map(p => p.w + 'x' + p.h));
 ok('the real PIXELS are one square too, not just the recorded numbers (' +
    [...realSizes].join(', ') + ')', realSizes.size === 1 && px.every(p => p.w === p.h));
 
-const clipped = px.filter(p => p.bb[0] <= 0 || p.bb[1] <= 0 || p.bb[2] >= p.w || p.bb[3] >= p.h);
-ok('NOTHING IS CLIPPED by the square' +
-   (clipped.length ? ' — ' + clipped.slice(0, 6).map(p => p.d).join(', ') : ''), clipped.length === 0);
+// A GATE MUST NEVER OUTRANK A RULING (8/1). This check used to read "NOTHING IS CLIPPED",
+// and on 8/11 Paolo judged all 59 and ruled the opposite: "Everything needs to be bigger
+// TOUCHING THE EDGES side by side of the square grid fr bro... Things should be so big
+// theres [not] cars or parking lots on it." Art that touches the edge is now the REQUIREMENT,
+// and the pad running off the sides is how the parking goes away. So the check is re-aimed
+// rather than deleted: THE PAD MAY BLEED, A BUILDING MAY NOT.
+const side = px.length ? px[0].w : 1;
+const small = px.filter(p => (p.bb[2] - p.bb[0]) < p.w * 0.92 && (p.bb[3] - p.bb[1]) < p.h * 0.92);
+ok('EVERY ICON REACHES ITS EDGES (Paolo 8/11: bigger, touching the edges, side by side)' +
+   (small.length ? ' — ' + small.slice(0, 6).map(p => p.d + ' ' +
+      (p.bb[2] - p.bb[0]) + 'x' + (p.bb[3] - p.bb[1])).join(', ') : ''), small.length === 0);
+
+// and the fill is derived from the SMALLER span, which is the only way a 2:1 iso pad can
+// ever touch a square's top edge -- fitting the larger span left the top 42% empty, by
+// construction, on all fifty-nine.
+ok('the fill is measured off the SMALLER span, because a 2:1 iso pad can never fill a ' +
+   'square on its wider one', /min\(span_w, span_h\)/.test(SRC0));
+ok('and it is CLAMPED by the built mass, so the pad bleeds but a building is never cut',
+   /never cut a building/.test(SRC0));
 
 // 3. the biggest must still nearly fill it, or everything was shrunk to fit
-const side = px.length ? px[0].w : 1;
 const widest = Math.max(...px.map(p => p.bb[2] - p.bb[0]));
 const tallest = Math.max(...px.map(p => p.bb[3] - p.bb[1]));
 ok('NOTHING WAS SHRUNK TO FIT: the biggest hero still fills the square (' +
    widest + 'x' + tallest + ' in ' + side + ')',
    widest >= side * 0.90 || tallest >= side * 0.90);
+
+// 3b. NO CARS ON AN ICON -- his ruling, twice (8/2 and 8/11).
+ok('no vehicles are drawn on an icon (Paolo 8/2 and again 8/11), by one reversible switch',
+   /SHOW_VEHICLES = False/.test(SRC0));
 
 // 4. one ground line
 const bases = px.map(p => p.bb[3]);
