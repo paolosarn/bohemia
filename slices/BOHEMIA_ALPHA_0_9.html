@@ -5935,7 +5935,30 @@ function buildFrame(d,clip,ph){
     }
     const _tRows=(NECK_TONE.throatRowsByDir&&NECK_TONE.throatRowsByDir[d]!=null)
       ?NECK_TONE.throatRowsByDir[d]:NECK_TONE.throatRows;
-    const _throatTop=(_throatY<0||_tRows<=0)?1e9:(_throatY-(_tRows-1));
+    let _throatTop=(_throatY<0||_tRows<=0)?1e9:(_throatY-(_tRows-1));
+    /* THE CHIN IS NEVER THE THROAT (Paolo 8/11, LOCKED: "make sure we never have
+       this chin issue ever again"). The row count above was tuned per facing by
+       eye and was corrected three times in three weeks -- 7/28 two rows reached
+       the chin in profile, 8/11 two rows reached it head-on, and 8/11 again ONE
+       row was still too many on E, where his rig paints exactly one face row below
+       the mouth so the throat ate the whole chin. A NUMBER TUNED PER FACING IS
+       ALWAYS WRONG ON THE NEXT FACING SOMEBODY OPENS.
+       So the count stops being the rule and the chin becomes the rule: at least
+       one FACE row must survive between the mouth and the throat, whatever the
+       count says. Read off his own facial art for the facing being drawn, so it is
+       right on a facing that does not exist yet. */
+    {let _mouthY=-1;
+     try{const _fk=G.equipped&&G.equipped.facial;
+       /* NOT `gdir` -- it is a `const` declared LATER in buildFrame, so reading it
+          here is a temporal-dead-zone ReferenceError that this try/catch swallows
+          silently, leaving _mouthY at -1 and the clamp switched off. That is
+          exactly how the E facing stayed broken after this fix "landed". */
+       const _gd=(typeof MIRROR!=='undefined'&&MIRROR[d])?MIRROR[d]:d;
+       const _FL=_fk&&PD.layers[_fk]&&PD.layers[_fk][_gd];
+       if(_FL)for(const _i in _FL.px){ if(_FL.px[_i]!==2)continue;
+         const _y=((+_i/(_FL.w||24))|0)+G24_OY; if(_y>_mouthY)_mouthY=_y; }
+     }catch(_e){}
+     if(_mouthY>=0&&_throatTop<_mouthY+2)_throatTop=1e9;}
     for(let i=0;i<grid.length;i++){
       const _q=grid[i];
       const _isThroat=(_q===2)&&(((i/CW)|0)>=_throatTop);

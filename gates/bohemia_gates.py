@@ -878,6 +878,15 @@ GATES = [
      'legs (a bare shin paints the dark under-body, not skin), and the contact shadow lives in its own '
      'canvas with NONE of it in the sprite -- SHADOWS ARE A SEPARATE LAYER, 7/26 LOCKED',
      True),
+    ('CHIN LAW',       ['node', 'gates/chin_law_gate.js'],
+     'THE CHIN LAW (Paolo 8/11, LOCKED: "make sure we never have this chin issue ever again"). He caught the '
+     'same defect FOUR times from TWO unrelated mechanisms -- the head was the one body part excluded from '
+     'silhouette edging so his painted jawline rendered as cheek, and the throat tone took the lowest TWO rows '
+     'of face, which are his jaw and his chin. Properties, not numbers: there is always head under the mouth, '
+     'the throat never takes more than one row of face, the head has an edge, EVERY painted facing with the '
+     'hair off. And the throat may never claim the LAST face row under the mouth -- a row count tuned per '
+     'facing was corrected three times by eye and was still wrong on E',
+     True),
     ('HEAD FOLLOWS RIG', ['node', 'gates/head_follows_rig_gate.js'],
      'Paolo 8/11, chin circled on a screenshot: "this is not how the rig has my head and my neck line... there '
      'needs to be more head underneath the mouth following how the rig has it." Measured, skin width per row, '

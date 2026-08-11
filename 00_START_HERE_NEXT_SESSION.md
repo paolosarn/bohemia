@@ -1,3 +1,51 @@
+CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE CHIN LAW IS LOCKED AND GATED.
+HE APPROVED THE FIX; THIS IS THE PART THAT MAKES IT NEVER COME BACK. ***
+
+PAOLO: "It looks like u fixed it make sure we never have this chin issue ever again."
+
+FOUR INSTANCES, TWO UNRELATED MECHANISMS, ONE SYMPTOM. That is a missing law, not a bug:
+  7/28  "one tile less facing east and west... towards the chin"  -> fixed on E and W ONLY
+  8/11  chin circled                                              -> found the missing head EDGE, shipped, called it done
+  8/11  "THIS IS NOT FIXED"                                       -> found the THROAT eating both chin rows
+  8/11  writing the gate for the law                              -> ITS FIRST RUN FOUND IT STILL LIVE ON E
+laws/BOHEMIA_ADDENDUM_THE_CHIN_LAW_8_11_26.md. Canon index regenerated.
+
+THE LAW, as properties so it does not care which pass breaks it next:
+  A  there is always HEAD UNDER THE MOUTH wherever his rig paints face rows below it
+  B  the throat never takes more than ONE row of face
+  C  the head HAS AN EDGE, like every other body part
+  D  EVERY painted facing, hair off (a hairstyle may cover a jaw; the body must still draw one)
+
+*** THE IMPLEMENTATION RULE THAT MATTERS MOST: A NUMBER TUNED PER FACING WILL ALWAYS BE
+WRONG ON THE NEXT FACING SOMEBODY OPENS. *** throatRows was corrected three times by eye and
+was STILL wrong on E, where his rig paints exactly one face row below the mouth so even one
+throat row ate the whole chin. The count stopped being the rule and the chin became the rule:
+THE THROAT MAY NEVER CLAIM THE LAST FACE ROW UNDER THE MOUTH. The pass reads the mouth row
+off his own facial art for the facing being drawn. No per-direction table, nothing to
+re-tune, correct on a facing that does not exist yet. tools/bohemia_chin_law_patch.py.
+
+AND THAT PATCH SHIPPED BROKEN THE FIRST TIME, silently, in the way CLAUDE.md already warns
+about: it read `gdir`, which is a `const` declared LATER in buildFrame, so the read was a
+temporal-dead-zone ReferenceError that its own try/catch swallowed -- clamp off, E still
+broken, no error anywhere. The gate caught it. Use `d` + MIRROR, never a const from further
+down the function.
+
+GATE: CHIN LAW (gates/chin_law_gate.js), registered. Mutation-tested: remove the chin clamp
+and it fails, remove the head edge and it fails three times over.
+
+THE PROCESS LESSON, and it cost him three rounds: IF A COMPLAINT SURVIVES YOUR FIX, YOU
+FIXED A DIFFERENT THING. Measure the exact rows he circled before saying it is done.
+
+VERIFIED: CHIN LAW 10/0, HEAD FOLLOWS RIG 5/0, NECK TONE 58/0, RIG IS LAW 12/0, RIG CHECK
+168/0, RENDER LIKE THE RIG 23/0, STRUCTURE 134/0, ANIM FABRICATION 26/0, FAMILY CAST 23/0,
+CLOTHES FOLLOW 63/0, FACE CANON 9/0, OVERWORLD FACE 10/0, HOODIE 11/0.
+
+STILL PENDING HIM: the overworld face size (he never picked a column --
+records/OVERWORLD_FACE_SCALE_8_11.png), and NE/NW have no face painted at all.
+
+--------------------------------------------------------------------------------
+
+
 PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
 PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
@@ -404,6 +452,7 @@ recook at cell size, roll-up doors, fence gates/toppers, mh skirts/roofs,
 field edges/berms/track). Pages surface 236 of 260 MB - compress new shots.
 
 ART (f3eu53): 8/11 (i) -- *** SEVEN OF FOURTEEN FAMILIES ARE IN THE
+
 
 CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE THROAT WAS EATING HIS CHIN.
 BOTH ROWS OF IT. HE CAUGHT THE SAME DEFECT TWICE, THREE WEEKS APART. ***
