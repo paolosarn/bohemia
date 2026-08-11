@@ -230,6 +230,14 @@
     });
     return out;
   }
+  /* where a person actually works, from the job site the generator already scanned:
+     a compass direction and a distance in cells off their own block. */
+  function jobCell(agent, cell){
+    var j=agent&&agent.job;
+    if(!j||j.kind!=='site'||!j.dir||!j.dist) return null;
+    var d={N:[0,-1],S:[0,1],W:[-1,0],E:[1,0]}[j.dir];
+    return d ? [cell[0]+d[0]*j.dist, cell[1]+d[1]*j.dist] : null;
+  }
   function factionOf(agent, cell, bases){
     bases = normalizeBases(bases);
     if(!agent||!bases.length||!cell) return null;
@@ -255,11 +263,28 @@
     // among the bases actually within reach, pick deterministically by seat. The
     // NEAREST is not automatically it: people are not iron filings, and a valley
     // where allegiance is a pure distance function reads as a heat map.
-    var near=[];
+    /* YOU RUN WITH WHOEVER YOUR LIVING DEPENDS ON, not just whoever is nearest your
+       bed. (8/11.) Allegiance was a pure function of where a person SLEEPS, which is
+       the weakest of the real channels. The conflict literature on weak-state settings
+       is consistent: armed groups' political capital comes from sponsoring access to
+       JOBS and basic services, and it is ECONOMIC DEPENDENCE through livelihood that
+       ties people to them - patron-client ties follow the work, not the address.
+       The agent already carries a job site (district + dir + dist, scanned off the real
+       overmap), so a working person's allegiance now also weighs whoever holds ground
+       near WHERE THEY WORK. No new data, no tuned knob.
+       HONEST LIMIT, stated so nobody mistakes it for a fix: job sites are found within
+       3 cells, so this widens the net a little, not a lot. It does NOT rescue a block
+       20 cells from everything - that is a fact about the map, and papering over it
+       here would be fitting the world to a screenshot. */
+    var origins=[cell];
+    var jc=jobCell(agent, cell); if(jc) origins.push(jc);
+    var near=[], seen={};
     for(var i=0;i<bases.length;i++){
       var b=bases[i]; if(!b||b.x==null||b.y==null) continue;
-      var d=Math.abs(b.x-cell[0])+Math.abs(b.y-cell[1]);
-      if(d<=REACH_CELLS) near.push(b);
+      for(var o=0;o<origins.length;o++){
+        var d=Math.abs(b.x-origins[o][0])+Math.abs(b.y-origins[o][1]);
+        if(d<=REACH_CELLS && !seen[b.name]){ seen[b.name]=1; near.push(b); break; }
+      }
     }
     if(!near.length) return null;
     near.sort(function(a,b){ return String(a.name||'')<String(b.name||'')?-1:1; });
@@ -946,7 +971,7 @@
     deviate:deviate,DEVIATION_CAP:DEVIATION_CAP,
     jobsNear:jobsNear,workersForPlot:workersForPlot,peopleForPlot:peopleForPlot,
     makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash,
-    factionOf:factionOf,normalizeBases:normalizeBases,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS};
+    factionOf:factionOf,normalizeBases:normalizeBases,jobCell:jobCell,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS};
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));

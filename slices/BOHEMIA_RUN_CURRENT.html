@@ -14081,6 +14081,14 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     });
     return out;
   }
+  /* where a person actually works, from the job site the generator already scanned:
+     a compass direction and a distance in cells off their own block. */
+  function jobCell(agent, cell){
+    var j=agent&&agent.job;
+    if(!j||j.kind!=='site'||!j.dir||!j.dist) return null;
+    var d={N:[0,-1],S:[0,1],W:[-1,0],E:[1,0]}[j.dir];
+    return d ? [cell[0]+d[0]*j.dist, cell[1]+d[1]*j.dist] : null;
+  }
   function factionOf(agent, cell, bases){
     bases = normalizeBases(bases);
     if(!agent||!bases.length||!cell) return null;
@@ -14106,11 +14114,28 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     // among the bases actually within reach, pick deterministically by seat. The
     // NEAREST is not automatically it: people are not iron filings, and a valley
     // where allegiance is a pure distance function reads as a heat map.
-    var near=[];
+    /* YOU RUN WITH WHOEVER YOUR LIVING DEPENDS ON, not just whoever is nearest your
+       bed. (8/11.) Allegiance was a pure function of where a person SLEEPS, which is
+       the weakest of the real channels. The conflict literature on weak-state settings
+       is consistent: armed groups' political capital comes from sponsoring access to
+       JOBS and basic services, and it is ECONOMIC DEPENDENCE through livelihood that
+       ties people to them - patron-client ties follow the work, not the address.
+       The agent already carries a job site (district + dir + dist, scanned off the real
+       overmap), so a working person's allegiance now also weighs whoever holds ground
+       near WHERE THEY WORK. No new data, no tuned knob.
+       HONEST LIMIT, stated so nobody mistakes it for a fix: job sites are found within
+       3 cells, so this widens the net a little, not a lot. It does NOT rescue a block
+       20 cells from everything - that is a fact about the map, and papering over it
+       here would be fitting the world to a screenshot. */
+    var origins=[cell];
+    var jc=jobCell(agent, cell); if(jc) origins.push(jc);
+    var near=[], seen={};
     for(var i=0;i<bases.length;i++){
       var b=bases[i]; if(!b||b.x==null||b.y==null) continue;
-      var d=Math.abs(b.x-cell[0])+Math.abs(b.y-cell[1]);
-      if(d<=REACH_CELLS) near.push(b);
+      for(var o=0;o<origins.length;o++){
+        var d=Math.abs(b.x-origins[o][0])+Math.abs(b.y-origins[o][1]);
+        if(d<=REACH_CELLS && !seen[b.name]){ seen[b.name]=1; near.push(b); break; }
+      }
     }
     if(!near.length) return null;
     near.sort(function(a,b){ return String(a.name||'')<String(b.name||'')?-1:1; });
@@ -14797,7 +14822,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     deviate:deviate,DEVIATION_CAP:DEVIATION_CAP,
     jobsNear:jobsNear,workersForPlot:workersForPlot,peopleForPlot:peopleForPlot,
     makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash,
-    factionOf:factionOf,normalizeBases:normalizeBases,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS};
+    factionOf:factionOf,normalizeBases:normalizeBases,jobCell:jobCell,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS};
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
@@ -24475,13 +24500,40 @@ function openPerson(agent){
 
    A person who runs with nobody says NOTHING rather than "unaffiliated": most of the
    valley is unaffiliated and a label on all of them is noise, not information. */
+/* the faction a QUEST declares for the person standing on its placed tile. Read out
+   of the quest's own @ROLE line; nothing is assigned here. */
+function authoredFactionFor(agent){
+  if(!agent||!agent.loc||!CTX||!CTX.quests) return null;
+  var pl=[]; try{ pl=CTX.quests.placements()||[]; }catch(_e){ return null; }
+  for(var i=0;i<pl.length;i++){
+    var p=pl[i];
+    if(p.x!==agent.loc.x||p.y!==agent.loc.y) continue;
+    var rt=CTX.quests.get(p.questId);
+    var Q=rt&&rt.Q; if(!Q) continue;
+    var role=(Q.roles||[]).filter(function(r){ return r.name===p.speaker; })[0];
+    if(!role) continue;
+    var m=/faction\s*=\s*([A-Za-z_]+)/.exec(role.cond||'');
+    if(m) return m[1];
+  }
+  return null;
+}
 function showAllegiance(agent){
   var el=document.getElementById('idcard'); if(!el) return;
   el.textContent=''; el.removeAttribute('style');
   if(typeof BohemiaAgents==='undefined' || typeof BohemiaDress==='undefined') return;
   if(!CTX || !CTX.factionBases || typeof CELL==='undefined' || !CELL) return;
-  var fid=null;
-  try { fid = BohemiaAgents.factionOf(agent, CELL, CTX.factionBases); } catch(_e){ return; }
+  /* AUTHORED BEATS DERIVED. The people the demo actually puts in front of you are the
+     quest's CAST, and their faction is not a dice roll -- Paolo wrote it into the role:
+         @ROLE lineman  REQ  faction=TRADES  block=browned
+     So if this person is standing on a placed quest's speaker tile, that authored
+     faction IS their faction. Derived allegiance only answers for the ambient crowd.
+     This is also what makes the layer visible in a demo whose block happens to sit
+     outside every base's reach: the cast is authored, so it never depends on where the
+     block landed. */
+  var fid = authoredFactionFor(agent);
+  if(!fid){
+    try { fid = BohemiaAgents.factionOf(agent, CELL, CTX.factionBases); } catch(_e){ return; }
+  }
   if(!fid) return;                       /* runs with nobody: say nothing */
   var key=String(fid).toUpperCase();
   var look=BohemiaDress.FACTION_LOOK[key];
