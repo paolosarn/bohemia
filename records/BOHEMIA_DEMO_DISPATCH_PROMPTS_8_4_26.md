@@ -30,3 +30,15 @@ The blocks (also delivered to Paolo in-chat for direct pasting):
   renderer.
 - ART: continue the swarm; deliver by discipline; no new scope.
 - LAB: parked until the demo ships (Paolo's full-steam order).
+
+## AMENDED 8/4 LATER — THE LAB IS UN-PARKED (Paolo: "help the reference lab
+## chat rn"; laws/BOHEMIA_ADDENDUM_THE_DNA_FORMULA_8_4_26.md). Its dispatch:
+> First: DEMO BLOCKERS — numbered, thumbable, one line each. Then, demo-
+> serving study per the DNA formula (combat = RF4 bigger map; game =
+> Valheim + Pocket City 2 + FNV): study the trio's FIRST HOURS — FNV's
+> Goodsprings above all (tutorial woven into a real place; every player
+> choice rewarded in the first town; tone before systems), Valheim's first
+> meadow hour, PC2's first minutes. Ship ONE pattern note: what our demo's
+> first five minutes and day pacing must feel like, concrete and citable,
+> for the RUN and PEOPLE chats to consume. Placeholder art, never touch the
+> alpha.
