@@ -225,9 +225,54 @@ ok('STREET FLOOR: world-anchored tile board with median + lane markings (V94: th
   ok('blades are always targetable when visible (melee joins the shoot pool)',
     demo.includes('exposedToMe().concat(mel)'));
   ok('stunned/prone men are targets (the easy dial you manufactured), and V67 keeps the PINNED in the pool too -- suppressing must never delete your own shots',
-    demo.includes('return G.e.filter(e=>!e.dead&&(peeking(e)||pinned(e))); }') &&
+    demo.includes('return _inRange(G.e.filter(e=>!e.dead&&(peeking(e)||pinned(e)))); }') &&
     demo.includes('const pin=G.e.filter(e=>!e.dead&&pinned(e));') &&
-    demo.includes('return exposedToMe().concat(mel).concat(pin);'));
+    demo.includes('return _inRange(exposedToMe().concat(mel).concat(pin));'));
+
+/* ===== V141 THE RANGE WAS NEVER WIRED TO HIS GUN ==================
+   Paolo, THREE TIMES: "I can personally just stand still and shoot and kill
+   everyone on screen." He was right every time. V138 wrote inMyRange() and
+   NOTHING EVER CALLED IT -- two hits in the whole demo, one the definition and
+   one a comment. The player's maximum range was never enforced once, and my two
+   "fixes" moved spawn points further out, which does nothing when the gun has
+   no limit to be outside of.
+   AND MY MEASUREMENTS WERE MEASURING inMyRange. I reported "0% in range at the
+   bell" three times: true, and completely meaningless, because it described a
+   predicate the game ignores. A measurement that does not touch the code path
+   the player touches is not evidence. Second time this week; the giants first. */
+ok('V141 RANGE IS A FILTER ON WHO YOU CAN FIGHT, AND IT IS SYMMETRIC: my reach bounds my TARGETS (modePool), his reach bounds his THREAT (exposedToMe, posExposed). Those three predicates decide the whole fight and not one of them knew range existed',
+  /const _inRange=a=>a\.filter\(e=>inMyRange\(e\)\);/.test(demo) &&
+  /function exposedToMe\(\)\{[^}]*inHisRange\(e\)\)/.test(demo) &&
+  /function posExposed\(\)\{[^}]*inHisRange\(e\)\)/.test(demo));
+
+ok('V141 AND A BLOCKED SHOT EXPLAINS ITSELF: an unresponsive button is a bug to the person holding the phone however correct the rule behind it is. The button reads OUT OF RANGE, and popping is refused with the only two numbers that matter -- how far the nearest man is and how far this gun goes',
+  /txt='OUT OF RANGE';/.test(demo) &&
+  demo.includes('function anyInMyRange(){') &&
+  demo.includes("setRead('OUT OF RANGE','nearest is '+Math.round(_n)+' tiles, this gun reaches '"));
+
+/* ===== V142 NO ACTION MUSIC WITHOUT ACTION =========================
+   Paolo 8/11: "The game should always start off with overworld music and not
+   some bullshit action music that I thought we removed a long time ago."
+   audio() is the generic wake-the-sound-up call -- first tap, RUN, a grenade,
+   the calibrate tool -- and it started the FIGHT loop unconditionally, so
+   combat's music began the moment the frame was TOUCHED. Warming the frame at
+   app open (8/8) made that easier to hit. The overworld playlist was never the
+   problem: CITYMUS already filters to the creepers only (7/7 law). */
+ok('V142 THE FIGHT THEME PLAYS WHEN THERE IS A FIGHT, and nowhere else: waking the sound up is not the same as starting one. The 7/3 fix it carried is KEPT -- the loop still restarts after the death-stop -- but with the condition that was missing, that a fight is actually live',
+  demo.includes('function fightLive(){') &&
+  /if\(AC\.state==='suspended'\)AC\.resume\(\); if\(fightLive\(\)\)startFactionLoop\(\); return;/.test(demo) &&
+  /if\(AC\.state==='suspended'\)AC\.resume\(\); if\(fightLive\(\)\)startFactionLoop\(\);\}catch\(e\)\{\} \}/.test(demo));
+
+ok('V142 AND IT STAYS IN ITS LANE: the combat frame\'s own loop only. No playlist, category, track or verdict weighting is touched, and nothing in CITYMUS or MUS -- those belong to the music lane',
+  /* A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE
+     (HOW HAIR AND SHAPE WORK, 8/1). The first version of this line was
+     !/CITYMUS/ and it failed on the WORD CITYMUS inside the comment explaining
+     that CITYMUS is not touched. What matters is that the combat frame never
+     CALLS into the music lane's object. */
+  !/CITYMUS\s*\./.test(demo) && demo.includes('function startFactionLoop(){'));
+
+ok('V141 THE RED STAYS WHEN YOU ARE BEING OUTRANGED: a rifleman stops at his own effective range and shoots while your pistol says OUT OF RANGE. That is the moment the whole feature exists to create -- you are being hit, you cannot answer, and the only solution is your feet',
+  /const _hot=exp\.length>0;/.test(demo));
   ok('the chosen man wears the selection ring', demo.includes('your chosen man'));
   // v10 ONE SCENE: the zoomed board IS the aim stage, no duplicates
   ok('ONE SCENE: exact zoom, full opacity, aim opts into drawField',
