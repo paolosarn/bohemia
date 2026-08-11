@@ -1,3 +1,43 @@
+FACTIONS (factions-ovkjpf): 8/12 (c) LATEST — *** HE CLOSED THE ENTRANCE'S SCOPE THE
+SAME DAY HE OPENED IT: ONE MAIN QUEST, FOURTEEN DRESSINGS. NOT FOURTEEN GAMES. ***
+laws/BOHEMIA_ADDENDUM_THE_CUSTOMIZABLE_ENTRANCE_8_12_26.md (updated)
+Gate: ENTRANCE SCOPE, 10/10, BLOCKING. Tab: LIFE -> THE ENTRANCE (opens on it).
+
+HIS WORDS, asked whether the faction choice changes the main quest's CONTENT or only
+where it opens: "It only changes the location and possible vibe and colors possible
+dialogue but yeah it's not day and night. It's just with different clothes on."
+
+    MOVES: location, vibe, colours, some dialogue
+    DOES NOT MOVE: the story, the family, the beats (fight / sibling / dinner / burial),
+                   the arc, the ending, the structure
+
+THE SECOND HALF IS THE ONE A BUILD QUIETLY LOSES, which is why it is gated. A
+customizable entrance is exactly the feature that becomes fourteen games: the Cartel
+opening should REALLY be different so it gets its own quest file, then the Church one
+does, and now there are fourteen main quests to write, test and keep in sync forever --
+for a difference he says outright is NOT day and night.
+    FOURTEEN DRESSINGS IS A WEEK. FOURTEEN QUESTS IS THE REST OF THE YEAR.
+
+THE DRESSING PATH ALREADY EXISTS AND IS PROVEN, so nobody has an excuse to fork: the .bq
+format gates an option on the player's faction TODAY. Measured by the gate --
+`[gate: faction:REDS]` validates clean, is HIDDEN by default, and OPENS for the faction
+raised on it. No format change, no second file.
+
+GATE (ratchet, nothing is forked today): bans a per-faction FORK of a canon quest
+(S01_REDS.bq beside S01_THE_METER_READER.bq) while leaving quests legitimately ABOUT a
+faction alone -- the corpus is full of those and they are the point. Self-tests by
+feeding itself both shapes. 21 canon quests, 21 distinct ids, 0 forked.
+
+STILL [PENDING PAOLO] from the same law: are all 14 available at the door (CUSTOM has no
+ground by definition, NETWORK is the Amalgamation's manufactured protection); what
+"faction neighborhood housing" is architecturally; whether other factions know from
+minute one what you were raised as.
+
+STILL TRUE AND STILL HIS: 9 of 14 factions sit on a district you could live in. Anarchists
+and Blues are on a solar farm, Cartel and Homeless in retail, Church on a farm -- and
+canon puts the Homeless HQ in the sewer under the King Hobo. Base placement is worldgen
+and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left alone.
+
 ART (f3eu53): 8/11 (e) LATEST -- *** FOURTH FAMILY WIRED: THE METAL DISTRICTS
 WEAR HIS CORRUGATED SKINS. FOUR OF FOURTEEN APPROVED FAMILIES NOW DRAW. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (sixth-pass section)

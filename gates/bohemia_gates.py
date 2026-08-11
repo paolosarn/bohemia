@@ -704,6 +704,20 @@ GATES = [
      "THE ONE LINK OPENS THE GAME. On 8/2 one dropped </div> nested the whole app inside the front splash, so tapping the splash hid the game: 0x0, no tabs, a black screen on the only URL Paolo ever taps. The splash must close before the app opens, and the door is walked through in a real browser", True),
     ('STANDING',       ['node', 'gates/standing_gate.js'],
      "Paolo thumbed all 12 faction gaps WANT: this is gap 3, the documented failure of the whole genre - every NPC instantly knowing what you did with no route the news could take. Reputation now has to TRAVEL: a deed is WITNESSED not announced, an opinion is DERIVED from memories that decay (so redemption is free - gap 4), hearsay is weaker than eyesight and runs out of hops so a rumour cannot cross the valley, and a faction's view is just its members' views - no ledger, no faction named in the module, and zero-sum falls out for free (gap 7). DEED_WEIGHT ships EMPTY and the gate proves the module is inert until he rules", False),
+    ('ENTRANCE SCOPE', ['python3', 'gates/entrance_scope_gate.py'],
+     "Paolo 8/12 opened the customizable entrance and CLOSED ITS SCOPE the same day: 'It only "
+     "changes the location and possible vibe and colors possible dialogue but yeah it's not day "
+     "and night. It's just with different clothes on.' ONE MAIN QUEST, FOURTEEN DRESSINGS -- and "
+     "the second half is the one a build quietly loses. A customizable entrance is exactly the "
+     "feature that becomes fourteen games: the Cartel opening should REALLY be different so it "
+     "gets its own file, then the Church one does, and now there are fourteen main quests to "
+     "write, test and keep in sync forever for a difference he says is NOT day and night. "
+     "Fourteen dressings is a week; fourteen quests is the rest of the year. Nothing is forked "
+     "today, so this is a RATCHET not a cleanup. Bans a per-faction FORK (S01_REDS.bq beside "
+     "S01_THE_METER_READER.bq) while leaving quests legitimately ABOUT a faction alone, and "
+     "proves the dressing path exists so nobody has an excuse: a [gate: faction:REDS] option is "
+     "legal in the format he already has and really is hidden by default and open to the faction "
+     "raised on it -- no format change, no second file", True),
     ('NO HUNTING',     ['python3', 'gates/no_hunting_gate.py'],
      "Paolo 8/11: 'you can't have me test shit out in the run app for real like unless you're gonna "
      "place me right in front of it every time... I'm not hunting bro like how the fuck am I supposed "

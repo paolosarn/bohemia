@@ -66,12 +66,49 @@ you in your chosen faction's neighbourhood — inside their ground, surrounded b
 people, wearing the choice you just made. The dead zone was an artifact of a demo block
 nobody had chosen.
 
+## HOW FAR THE CHOICE REACHES — ANSWERED (Paolo 8/12, same day, LOCKED)
+
+Asked directly whether picking a faction changes the main quest's CONTENT or only where
+it opens. Verbatim:
+
+> "It only changes the location and possible vibe and colors possible dialogue but yeah
+> it's not day and night. It's just with different clothes on."
+
+**THERE IS ONE MAIN QUEST. NOT FOURTEEN.** What the choice moves:
+
+| moves | does not move |
+|---|---|
+| **location** — whose ground you start on | the story |
+| **vibe** — what the place feels like | the family |
+| **colours** — his 13 faction colours + 14 marks | the beats: fight, sibling, dinner, burial |
+| **some dialogue** — lines coloured by who raised you | the arc, the ending, the structure |
+
+**"It's just with different clothes on."** Same body. Different clothes. That is the
+whole scope of the feature and it is the sentence to check any future work against.
+
+### WHY THIS IS THE IMPORTANT HALF OF THE RULING
+
+A customizable entrance is the kind of feature that quietly becomes fourteen games. The
+natural drift is: the Cartel opening should *really* be different, so it gets its own
+quest file; then the Church one does; and now there are fourteen main quests to write,
+fourteen to test, and fourteen to keep in sync forever — for a difference he explicitly
+says is **not day and night**.
+
+He closed that door on the same day he opened the feature. **Fourteen dressings on one
+quest is a week of work. Fourteen quests is the rest of the year.**
+
+### WHAT THIS MEANS FOR THE BUILD, CONCRETELY
+
+- **One canon main quest.** No per-faction quest file, ever. No `S01_REDS.bq`.
+- Faction difference is a **DRESSING LAYER** over shared content: where it is placed,
+  what colours and marks are on the people, and variant lines inside the one script —
+  which the .bq format already supports through `[gate: faction:X]` on an @OPT, with no
+  format change and no second file.
+- Gate: `entrance_scope_gate.py` fails if a per-faction fork of a canon quest appears.
+
 ## [PENDING PAOLO] — not decided, not guessed
 
-1. **Does the choice change the main quest's CONTENT, or only where it opens?** His words
-   are "the way the main quest starts", which reads as the opening, not a fork of the
-   whole arc. Recorded as the opening until he says otherwise.
-2. **Are all fourteen available at the door, or a subset for Act 1?** Some are structurally
+1. **Are all fourteen available at the door, or a subset for Act 1?** Some are structurally
    odd as a starting home — CUSTOM has no ground yet by definition, and NETWORK is the
    Amalgamation's manufactured protection, which is a very different game to be born into.
 3. **What "faction neighborhood housing" is architecturally** — a district type, a block
