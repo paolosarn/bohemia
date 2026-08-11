@@ -447,6 +447,14 @@ var XP = {}, XP_LOADED = 0;
     im.src='data:image/png;base64,'+e.b64; return { im:im, s:e.s||1, p:e.p||e.pack||'' }; }); }); })();
 </script>
 <script src="../engine/bohemia_loop.js"></script>
+<!-- THE REPUTATION LAYER, so the run can SHOW what a quest actually cost. The
+     integration ledger has carried "factions / world bridge - PARTIAL - quest
+     outcomes really move faction standing, but nothing in the run SHOWS it"
+     since 7/26. Both modules are built and gated (STANDING 35, DEED BRIDGE 27);
+     the run simply never loaded them. Order matters: deeds reads the loop's
+     clout table and standing's ranges, so both come after the loop. -->
+<script src="../engine/bohemia_standing.js"></script>
+<script src="../engine/bohemia_deeds.js"></script>
 <script>
 /* the approved art banks repaint via draw() on image load, and a data: URI can
    finish loading before the run's own script has parsed. A no-op placeholder
@@ -3572,6 +3580,62 @@ window.addEventListener('message', function(ev){
 
 /* ---- 14. THE PHONE. The post is BUILT BY THE ENGINE (buildFeed over the real
    ledger the quest wrote), never hand-written here. ---- */
+/* ---- THE CONSEQUENCE LINE (8/9, closes the integration ledger's oldest PARTIAL) ----
+   "factions / world bridge | PARTIAL | quest outcomes really move faction standing,
+   but nothing in the run SHOWS it" has sat in records/BOHEMIA_RUN_INTEGRATION_LEDGER
+   since 7/26. Four days of reputation work move real numbers a player never sees.
+   NOTHING NEW IS COMPUTED HERE. Three things the run already had and never rendered:
+     - which factions this quest moved, and the rung they now sit on, read straight off
+       the REAL FactionWorld that the world bridge already moved when it resolved
+     - who it stirred up (@DO faction_posture, wired 8/7)
+     - HOW FAR THE WORD CARRIED, from the clout tag the quest tagged ITSELF with
+       (bohemia_deeds, 8/6): #quiet reaches 7 tiles, #reckless 24
+   THE RUN LANE'S JOB IS INTEGRATION, NOT FEATURES (Paolo 7/26): "the measure of the
+   lane is what is finally IN it that we already made." */
+function questConsequence(rt, cloutTag){
+  if(!rt || !rt.state || !CTX || !CTX.factions) return null;
+  var F = BohemiaEngine.Factions, bits = [];
+  function realId(fid){
+    if(CTX.factions.factions.get(fid)) return fid;
+    var up=String(fid).toUpperCase(), it=CTX.factions.factions.keys(), k;
+    while(!(k=it.next()).done){ if(String(k.value).toUpperCase()===up) return k.value; }
+    return null;
+  }
+  var fac = rt.state.faction || {};
+  Object.keys(fac).forEach(function(fid){
+    var d = fac[fid]; if(!d) return;
+    var real = realId(fid); if(!real) return;
+    var now = CTX.factions.factions.get(real).standingWith('player');
+    bits.push({ txt: real.toUpperCase()+' '+(d>0?'+':'')+d+' \u00b7 '+F.rungOf(now), good: d>0 });
+  });
+  var post = rt.state.posture || {};
+  Object.keys(post).forEach(function(fid){
+    if(!post[fid]) return;
+    var real = realId(fid); if(!real) return;
+    bits.push({ txt: real.toUpperCase()+' STIRRED UP', good:false });
+  });
+  var reach = null;
+  try { reach = BohemiaDeeds.reachOf(cloutTag||null); } catch(_e){}
+  if(!bits.length && reach==null) return null;
+
+  var box=document.createElement('div');
+  box.style.cssText='border-top:1px solid rgba(255,255,255,.06);margin-top:5px;padding-top:5px';
+  if(reach!=null){
+    var r=document.createElement('div');
+    r.style.cssText='font:10px ui-monospace,monospace;color:#6c614f;letter-spacing:.5px';
+    r.textContent='WORD CARRIED '+reach+' TILES';
+    box.appendChild(r);
+  }
+  bits.forEach(function(bt){
+    var d=document.createElement('div');
+    d.style.cssText='font:600 11px ui-monospace,monospace;margin-top:2px;color:'
+      +(bt.good?'var(--good)':'#e0a060');
+    d.textContent=bt.txt;
+    box.appendChild(d);
+  });
+  return box;
+}
+
 var PHONE=document.getElementById('phone');
 function openPhone(){
   var feed = BohemiaLoop.buildFeed(CTX, { limit:8 });
@@ -3596,7 +3660,12 @@ function openPhone(){
     var g=document.createElement('span'); g.className='g';
     g.textContent = '+' + BohemiaLoop.cloutWeight(p.clout) + ' followers';
     e.appendChild(lab); e.appendChild(g);
-    card.appendChild(w); card.appendChild(b); card.appendChild(e); wrap.appendChild(card);
+    card.appendChild(w); card.appendChild(b); card.appendChild(e);
+    /* WHAT IT ACTUALLY COST YOU. The follower count is vanity; this is the
+       consequence, and the ledger's PARTIAL since 7/26 is that nothing showed it. */
+    var fx = questConsequence(rt, p.clout);
+    if (fx) card.appendChild(fx);
+    wrap.appendChild(card);
   });
   PHONE.style.display='flex';
   RUN.phase='done'; refresh();

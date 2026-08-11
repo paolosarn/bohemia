@@ -17996,10 +17996,46 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
   /* Pay for a finished quest. Returns the purse's own answer verbatim, INCLUDING its
      refusal -- a caller must be able to tell "paid nothing because it is worth nothing"
      from "paid nothing because nobody has ruled what it is worth". */
-  function payForQuest(purse, questState, day, questId) {
+  /* WHAT A QUEST PAYS IS THE QUEST'S OWN BUSINESS -- RULED 8/11.
+     Asked what a day's work should pay, Paolo answered: "Whatever currency the quest decida
+     to give." That is not a number, it is a DESIGN RULING, and it is a better one than the
+     option I offered him. I had proposed a global PAYOUT table keyed on the outcome tier --
+     every #notable job in the valley worth the same thing forever. He put the reward back
+     where the job is: a water run pays water, a courier job pays clout, a salvage job pays
+     salvage, and each quest says so itself.
+     SO THE MECHANISM CHANGED SHAPE, not just its contents. The quest declares `reward` and
+     the bridge pays exactly that. The AMOUNTS stay contents -- they live in the .bq quest
+     files with the rest of that quest's canon, which is where he just put them.
+     His global table still works and is still empty: a quest that declares nothing falls
+     through to PURSE.PAYOUT and gets the same honest refusal as before. */
+  function questReward(questState, quest) {
+    var r = (questState && questState.reward) || (quest && quest.reward) || null;
+    if (!r) return null;
+    var out = {}, any = false;
+    for (var i = 0; i < CURRENCIES().length; i++) {
+      var c = CURRENCIES()[i];
+      if (typeof r[c] === 'number' && r[c] !== 0) { out[c] = r[c]; any = true; }
+    }
+    return any ? out : null;
+  }
+
+  function CURRENCIES() { return PURSE ? PURSE.CURRENCIES : []; }
+
+  function payForQuest(purse, questState, day, questId, quest) {
     if (!PURSE) return { applied: false, reason: 'NO_PURSE' };
     var ev = questEvent(questState, questId);
     if (!ev) return { applied: false, reason: 'NOT_FINISHED' };
+    var reward = questReward(questState, quest);
+    if (reward) {
+      var done = [];
+      for (var c in reward) {
+        if (!Object.prototype.hasOwnProperty.call(reward, c)) continue;
+        done.push(PURSE.credit(purse, c, reward[c], 'quest:' + (ev.outcome || 'done'),
+                               ev.questId, day));
+      }
+      return { applied: true, source: 'quest', paid: reward,
+               balances: PURSE.balances(purse) };
+    }
     return PURSE.payQuest(purse, ev, day);
   }
 
@@ -18095,7 +18131,15 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
      A DEFAULT HERE WOULD BE CANON NOBODY RULED, which is the one thing the mechanism/
      contents split exists to prevent -- and the 8/3 mistake this repo already paid for
      once, off a sentence that sounded warm. */
-  var PRICE_SOURCE = null;   // [PENDING Paolo: demo blocker 2]
+  /* HE OPENED IT. @RULING PRICES A (Paolo 8/11): "Three goods, priced off the scarcity sim
+     we already have." records/BOHEMIA_VERDICT_ICONS_AND_DEMO_BLOCKERS_8_11_26.txt
+     So the tag on the shelf is READ, never typed: bohemia_economy.js prices every good
+     hyperbolically against how many days of it are left, anchored in real siege data
+     (Sarajevo 92-95, staples moved 10-100x not 2x). The price MOVES when the valley gets
+     thirstier, which is why this is the realistic answer and not merely the convenient one.
+     HIS OWN TABLE STILL WINS: PURSE.PRICES is checked first and is still empty, so if he
+     ever names a price it beats the sim for that good and nothing else changes. */
+  var PRICE_SOURCE = 'economy';   // RULED 8/11 by Paolo, blocker 2 = A
 
   function price(purse, ledger, goodId) {
     if (!PURSE) return { reason: 'NO_PURSE' };
@@ -18114,9 +18158,34 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
   /* Buy. Goes through the purse's own debit so the ledger records a HARD SINK -- the
      thing that actually fights inflation, and the reason the purse is a ledger and not
      three counters. */
-  function buy(purse, hubOrNull, goodId, day) {
+  /* WHICH CURRENCY A GOOD IS BOUGHT WITH. The economy quotes everything in SALVAGE-KG --
+     "the one thing everyone on a dead grid can produce and everyone needs" (its own words,
+     7/19) -- and of his three ruled currencies that IS resources: physical goods you carry.
+     Electricity is a service off the 12% live grid and clout is reputation; neither buys a
+     litre of water. This is a mapping between two things he already ruled, not a new table. */
+  var SALVAGE_CURRENCY = 'resources';
+
+  function buy(purse, hubOrNull, goodId, day, ledger) {
     if (!PURSE) return { applied: false, reason: 'NO_PURSE' };
-    return PURSE.spend(purse, goodId, day);
+    // his own named price wins, and his table is still empty
+    if (PURSE.PRICES && Object.prototype.hasOwnProperty.call(PURSE.PRICES, goodId)) {
+      return PURSE.spend(purse, goodId, day);
+    }
+    var p = price(purse, ledger, goodId);
+    if (p.reason) return { applied: false, reason: p.reason, table: p.table, key: goodId,
+                           about: p.about };
+    if (p.source === 'barter') return { applied: false, reason: 'BARTER_ONLY', key: goodId };
+    if (p.price == null) return { applied: false, reason: 'NO_PRICE', key: goodId };
+    if (PURSE.balance(purse, SALVAGE_CURRENCY) < p.price) {
+      return { applied: false, reason: 'CANNOT_AFFORD', key: goodId, price: p.price,
+               have: PURSE.balance(purse, SALVAGE_CURRENCY) };
+    }
+    /* A HARD SINK, on purpose: the goods leave the world when you consume them, so the
+       value is DESTROYED rather than moved. That is the half of a faucet-and-drain economy
+       that actually fights inflation, and the reason the purse is a ledger not a counter. */
+    var e = PURSE.debit(purse, SALVAGE_CURRENCY, p.price, 'buy:' + goodId, goodId, day);
+    return { applied: true, good: goodId, paid: p.price, source: p.source,
+             currency: SALVAGE_CURRENCY, entry: e, balances: PURSE.balances(purse) };
   }
 
   /* ---------------------------------------------------------------------------
@@ -20254,6 +20323,600 @@ var XP = {}, XP_LOADED = 0;
     makeQuestManager,
   };
 });
+
+</script>
+<!-- THE REPUTATION LAYER, so the run can SHOW what a quest actually cost. The
+     integration ledger has carried "factions / world bridge - PARTIAL - quest
+     outcomes really move faction standing, but nothing in the run SHOWS it"
+     since 7/26. Both modules are built and gated (STANDING 35, DEED BRIDGE 27);
+     the run simply never loaded them. Order matters: deeds reads the loop's
+     clout table and standing's ranges, so both come after the loop. -->
+<script>
+/* inlined: engine/bohemia_standing.js */
+// BOHEMIA STANDING — reputation that has to TRAVEL (8/2/26, PEOPLE lane)
+//
+// Paolo thumbed all twelve faction gaps WANT on 8/2. This is gap 3, and it was the
+// one the research called the documented failure of the entire genre: in most games
+// every NPC instantly knows what you did, anywhere, with no route the news could
+// possibly have taken. The researched fix, from the 2024 FDG faction-systems paper
+// and the NPC belief-formation literature, is that reputation should spread from
+// WITNESSES - people remember what they personally saw, tell each other, form their
+// own subjective opinion, and the story distorts as it goes.
+//
+// WE ALREADY HAD THE HARD HALF. bohemia_memory.js is a real witness organ: minds
+// hold sightings, familiarity slows forgetting, clarity decays as 0.5^(age/halflife),
+// and it is deterministic. What it had no concept of was a DEED, an OPINION, or one
+// person TELLING ANOTHER. That is all this module adds.
+//
+// ===== THE FOUR RULES, AND WHAT EACH ONE BUYS =====
+//
+// 1. A DEED IS WITNESSED, NEVER ANNOUNCED. witness() only records for minds that
+//    were actually near enough to see. Nobody across the valley learns anything.
+//
+// 2. AN OPINION IS DERIVED, NEVER STORED. opinionOf() re-computes from the deeds a
+//    mind still remembers, each weighted by its CLARITY RIGHT NOW. There is no score
+//    to save, so there is nothing to migrate and nothing to desync.
+//    *** THIS IS ALSO THE REDEMPTION PATH, FOR FREE. *** The most-cited flaw in New
+//    Vegas's reputation is that it can never be removed, only buried under a bigger
+//    opposite number - there is no honest road back from hated. Here memories FADE,
+//    so time alone softens what you did, and being seen doing better in front of
+//    enough people is the fast way. Gap 4 falls out of gap 3's mechanism.
+//
+// 3. HEARSAY IS WEAKER THAN EYESIGHT AND IT RUNS OUT. gossip() moves a deed between
+//    two people who are actually together, at a penalty per retelling, with a hop
+//    limit. So news genuinely travels - a street at a time - and a thing everyone
+//    half-heard is worth less than a thing one person watched.
+//
+// 4. A FACTION'S VIEW IS ITS MEMBERS' VIEWS. standingOf() averages the opinions of
+//    the people who actually belong to it. There is no faction ledger anywhere,
+//    which is the whole point: BUILD THE WORLD (7/31) turned "a standing ledger"
+//    off, and this is not one. Nothing is stored, nothing is authored, and a
+//    faction's disposition is an emergent reading of what its people saw.
+//    Zero-sum (gap 7) falls out too: a deed the Cartel watched moves the Cartel and
+//    nobody else, because nobody else was standing there.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S, kept to the letter:
+//   DEED_WEIGHT SHIPS EMPTY. What counts as a deed and what it is worth to whom is
+//   his ruling and it has not been made. With an empty table every opinion is
+//   exactly 0 and every standing is NEUTRAL - the module is inert until he rules,
+//   and the gate asserts that. The MECHANISM (witnessing, decay, gossip, hops,
+//   aggregation) is mine. No faction is named anywhere in this file.
+(function(root){
+  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
+  var MEM = HASREQ ? require('./bohemia_memory.js')
+                   : (root.BohemiaMemory||null);
+
+  // ---- CONTENTS-PAOLO'S: EMPTY ---------------------------------------------
+  // deedKind -> weight. Positive is a good turn, negative is a wrong done.
+  // NOTHING IS IN HERE and nothing in this file invents a row. Until he rules,
+  // opinionOf() returns 0 for everybody and standingOf() returns NEUTRAL.
+  var DEED_WEIGHT={};
+
+  // ---- MECHANISM, and every constant is argued ------------------------------
+  var SEE_RANGE=9;        // tiles. You have to be able to SEE it to have seen it.
+                          // 9 is the block-scale sightline the agent sim already
+                          // uses for "somebody is near you", not a new number.
+  var HEARSAY_LOSS=0.55;  // a retold deed keeps 55% of its force. Two hops and it is
+                          // a third as convincing as watching it, which is about the
+                          // right shape for "I heard that..." versus "I was there".
+  var MAX_HOPS=2;         // eyewitness -> told -> told. After that it stops, and that
+                          // is what makes news travel at the speed of PEOPLE instead
+                          // of teleporting. Without a hop cap a rumour reaches the
+                          // whole valley in one sim day and we are back where we
+                          // started.
+  var GOSSIP_WINDOW=45;   // minutes two people must be co-located to talk at all
+  /* HOW LONG A THING IS STILL WORTH TELLING - and this was the SECOND bug the demo
+     page found in an hour. GOSSIP_WINDOW was documented as a co-location window and
+     then used as a STALENESS window (turn-d.turn > GOSSIP_WINDOW*24), which made news
+     untellable after EIGHTEEN HOURS. A day-step is 1440 minutes, so on any normal
+     clock gossip could never fire even once - the module's whole third rule was dead
+     and every unit test passed, because they all gossiped within minutes of the deed.
+     ONE CONSTANT WAS DOING TWO JOBS AND THE SECOND JOB WAS WRONG. Split, and named
+     for what it actually is: people retell a striking thing for weeks, not overnight. */
+  var NEWS_LIFE=14*24*60; // a fortnight before somebody stops bringing it up unasked
+  var MIN_FORCE=0.02;     // below this a memory is not worth carrying
+
+  /* ---- A DEED IS NOT A FACE, AND THIS WAS A REAL BUG ----------------------
+     Found the day it shipped, by BUILDING THE VISIBLE VERSION. On screen a serious
+     wrong was worth -0.05 after three days and the whole system looked broken.
+     The cause: opinions were decaying on bohemia_memory's SIGHTING half-life, which
+     is twelve hours - correct for "did you see that guy walk past", absurd for "that
+     man burned my neighbour's house down". Reputation that evaporates in two days is
+     not reputation.
+     GROUNDED, and it is the well-documented asymmetry: routine observations fade on
+     the ordinary curve, while SIGNIFICANT events are held far longer and far more
+     vividly - the flashbulb effect. You forget a stranger's face by tomorrow. You
+     remember what somebody did to your family for years.
+     SO A DEED CARRIES ITS OWN CLOCK, and the bigger it was the longer it holds:
+     a base of three weeks, multiplied by the size of the thing. Sightings are
+     untouched - bohemia_memory still owns those and nothing about missing-persons
+     changed.
+     THE LESSON, which is why the demo page exists at all: this was invisible in
+     every unit test, because a test asserts "it went down" and it HAD gone down. It
+     took looking at it to see it had gone down to nothing. */
+  var DEED_HALFLIFE=21*24*60;   // three weeks for an ordinary deed
+  function deedHalflife(w){
+    return DEED_HALFLIFE * (1 + Math.log(1+Math.abs(w||1))/Math.LN2);
+  }
+
+  function makeLedgerFreeMind(mind){
+    // a mind gains ONE array. No score, no totals, no per-faction anything.
+    if(!mind.deeds) mind.deeds=[];
+    return mind;
+  }
+
+  /* ---- 1. A DEED IS WITNESSED ---------------------------------------------
+     Records into every mind that could actually see it. Returns how many people
+     saw, which is the honest answer to "did anybody notice?"
+
+     opts (8/6, all OPTIONAL and every default is the old behaviour exactly, so
+     nothing that already called this changes):
+       range    how far THIS deed carries. A back-yard handshake and a public
+                humiliation are not seen by the same number of people, and until
+                bohemia_deeds.js existed nothing in the game could say so.
+                Defaults to SEE_RANGE.
+       maxHops  how many retellings THIS deed earns, carried ON the deed so
+                gossip() can honour it. This is what finally makes the module's
+                own generational law true instead of decorative: inherit() only
+                carries a deed with hops>0, so a deed that never earned a
+                retelling really does die with the people who watched it.
+                Defaults to MAX_HOPS.
+       only     a predicate on the witness's owner id. One act can mean opposite
+                things to two factions and nothing at all to a third; this is how
+                the third one correctly remembers nothing. Defaults to everybody. */
+  function witness(minds, turn, actorId, deedKind, x, y, where, opts){
+    opts = opts || {};
+    var range = (opts.range==null) ? SEE_RANGE : opts.range;
+    var mh    = opts.maxHops;
+    var only  = opts.only;
+    var n=0;
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m || m.owner===actorId) continue;          // you do not witness yourself
+      if(only && !only(m.owner)) continue;           // it did not mean anything to them
+      var p=where && where(m.owner);
+      if(!p) continue;
+      if(Math.abs(p.x-x)+Math.abs(p.y-y) > range) continue;
+      makeLedgerFreeMind(m);
+      var d={actor:actorId, kind:deedKind, turn:turn, x:x, y:y, hops:0};
+      if(mh!=null) d.maxHops=mh;
+      m.deeds.push(d);
+      if(m.deeds.length>(m.cap||64)) m.deeds.shift();
+      n++;
+    }
+    return n;
+  }
+
+  /* ---- 2. AN OPINION IS DERIVED -------------------------------------------
+     Re-computed every time from what is still remembered. Weight x clarity-now x
+     hearsay-loss. Nothing stored means nothing to migrate and nothing to desync. */
+  function forceOf(mind, d, now){
+    var w=DEED_WEIGHT[d.kind];
+    if(w==null) return 0;                            // unruled deed = weightless
+    /* the deed's own clock, not the sighting clock (see DEED_HALFLIFE above) */
+    var age=Math.max(0, (now|0)-(d.turn|0));
+    var c=Math.pow(0.5, age/deedHalflife(w));
+    var f=w * c * Math.pow(HEARSAY_LOSS, d.hops||0) * Math.pow(GEN_LOSS, d.inherited||0);
+    return Math.abs(f)<MIN_FORCE ? 0 : f;
+  }
+  function opinionOf(mind, actorId, now){
+    if(!mind || !mind.deeds) return 0;
+    var t=0;
+    for(var i=0;i<mind.deeds.length;i++){
+      var d=mind.deeds[i];
+      if(d.actor!==actorId) continue;
+      t+=forceOf(mind, d, now);
+    }
+    return t;
+  }
+
+  /* ---- 3. HEARSAY IS WEAKER AND IT RUNS OUT -------------------------------
+     Two people who are actually together swap what the other has not heard. A
+     retold deed costs a hop; past MAX_HOPS it stops dead. */
+  function gossip(mindA, mindB, turn){
+    if(!mindA||!mindB||mindA===mindB) return 0;
+    makeLedgerFreeMind(mindA); makeLedgerFreeMind(mindB);
+    var moved=0;
+    [[mindA,mindB],[mindB,mindA]].forEach(function(pair){
+      var from=pair[0], to=pair[1];
+      for(var i=0;i<from.deeds.length;i++){
+        var d=from.deeds[i];
+        /* the story has run its course. A deed may carry its OWN budget (set by
+           bohemia_deeds.js from the quest's clout tag) — a thing people cannot
+           stop repeating outlives a thing mentioned once. MAX_HOPS when it doesn't. */
+        if((d.hops||0)>=(d.maxHops==null?MAX_HOPS:d.maxHops)) continue;
+        if(d.actor===to.owner) continue;             // nobody gossips to your face
+        if(turn-d.turn>NEWS_LIFE) continue;          // nobody volunteers ancient news
+        var known=false;
+        for(var j=0;j<to.deeds.length;j++){
+          var e=to.deeds[j];
+          if(e.actor===d.actor&&e.kind===d.kind&&e.turn===d.turn){ known=true; break; }
+        }
+        if(known) continue;
+        var r={actor:d.actor,kind:d.kind,turn:d.turn,x:d.x,y:d.y,hops:(d.hops||0)+1};
+        if(d.maxHops!=null) r.maxHops=d.maxHops;     // the budget travels with the story
+        if(d.inherited) r.inherited=d.inherited;     // so does whose deed it originally was
+        if(d.of) r.of=d.of;
+        to.deeds.push(r);
+        if(to.deeds.length>(to.cap||64)) to.deeds.shift();
+        moved++;
+      }
+    });
+    return moved;
+  }
+
+  /* ---- 4. A FACTION'S VIEW IS ITS MEMBERS' VIEWS ---------------------------
+     No ledger. The average of what its people actually think, and if none of its
+     people have seen you, it has no view of you at all. */
+  var RUNGS=[['HOSTILE',-3],['COLD',-1],['NEUTRAL',1],['WARM',3],['FWU',1e9]];
+  function rungFor(v){
+    for(var i=0;i<RUNGS.length;i++) if(v<RUNGS[i][1]) return RUNGS[i][0];
+    return 'FWU';
+  }
+  function standingOf(minds, faction, actorId, now, factionOfOwner){
+    var sum=0, n=0, seen=0;
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m) continue;
+      if(factionOfOwner(m.owner)!==faction) continue;
+      n++;
+      var o=opinionOf(m, actorId, now);
+      if(o!==0) seen++;
+      sum+=o;
+    }
+    var avg=n? sum/n : 0;
+    return {faction:faction, value:avg, rung:rungFor(avg), members:n, whoSaw:seen};
+  }
+
+  /* WHY ANYBODY FEELS THAT WAY, which is gap 10's actual content: a standing the
+     player cannot read is a standing they cannot play around. Returns the specific
+     remembered deeds driving it, strongest first, and whether each was watched or
+     merely heard. */
+  function becauseOf(minds, faction, actorId, now, factionOfOwner, limit){
+    var out=[];
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i];
+      if(!m||!m.deeds||factionOfOwner(m.owner)!==faction) continue;
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==actorId) continue;
+        var f=forceOf(m, d, now);
+        if(!f) continue;
+        out.push({who:m.owner, kind:d.kind, turn:d.turn, force:f,
+                  heard:(d.hops||0)>0, hops:d.hops||0});
+      }
+    }
+    out.sort(function(a,b){ return Math.abs(b.force)-Math.abs(a.force); });
+    return out.slice(0, limit||5);
+  }
+
+
+  /* ---- 5. A REPUTATION OUTLIVES THE PERSON WHO EARNED IT ------------------
+     (8/2/26. The thing the twelve-gap list did not have, and the game's own premise.)
+
+     Bohemia is not a game about a hero, it is a FAMILY ACROSS THREE GENERATIONS AND
+     A HUNDRED YEARS (story master), and the handoff happens WHEN THE STORY SAYS SO,
+     never because somebody died (DEATH IS A RELOAD, 7/26). So there is a moment,
+     already canon, when the valley stops judging you and starts judging your child.
+
+     NOBODY HAD ASKED WHAT HAPPENS TO YOUR REPUTATION AT THAT MOMENT. It is the most
+     obvious question the dynasty premise raises and it was not on the gap list, not
+     in the GDD, not in any backlog.
+
+     GROUNDED, and this is the real anthropology rather than a vibe: in stateless
+     societies a family is treated as a CORPORATE ENTITY whose reputation carries its
+     economic viability and social standing; lineages run ten and twelve generations
+     deep, and ostracism does the work that fines and prisons do elsewhere. You are
+     born owing what your father owed. That is not a fantasy mechanic, it is how
+     reputation has worked for most of human history and it is exactly the register
+     of a valley with no courts.
+
+     *** AND THE ORGAN ALREADY MODELLED IT WITHOUT ANYBODY NOTICING. *** Thirty years
+     pass. EVERY PERSON WHO WATCHED YOU DO ANYTHING IS DEAD. The only trace of your
+     life is what got REPEATED - the deeds that travelled, hop by hop, into somebody
+     who is still alive. So the rule writes itself and it is the honest one:
+
+       A QUIET GOOD DEED DIES WITH THE WITNESS.
+       A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR.
+
+     That is why gossip had to exist before this could. Nothing here is a new system;
+     it is what the witness organ was always going to do if you ran the clock forward.
+
+     THE LIFE LESSON UNDERNEATH, and the game never says it out loud: you inherit
+     goodwill you did not earn and debts you did not run up, and neither one is fair. */
+  var GEN_LOSS=0.45;      // what crosses a generation. Less than half, so a legend
+                          // needs to have been LOUD to survive one, and by the third
+                          // generation only the very loudest thing your grandfather
+                          // did still registers at all - which is the arc the story
+                          // master already describes.
+  function inherit(minds, parentId, childId, turn){
+    var carried=0, died=0;
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.deeds) continue;
+      var keep=[];
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==parentId){ keep.push(d); continue; }
+        /* the eyewitness is dead. Only what was RETOLD is still in the valley. */
+        if(!(d.hops>0)){ died++; continue; }
+        keep.push({actor:childId, kind:d.kind, turn:turn, x:d.x, y:d.y,
+                   hops:d.hops, inherited:(d.inherited||0)+1, of:parentId});
+        carried++;
+      }
+      m.deeds=keep;
+    }
+    return {carried:carried, died:died};
+  }
+
+  /* WHAT THE VALLEY STILL SAYS ABOUT YOUR FAMILY. Readable, because a legend you
+     cannot hear is a legend that is not doing any work. */
+  function legendOf(minds, actorId, now){
+    var by={};
+    for(var i=0;i<minds.length;i++){
+      var m=minds[i]; if(!m||!m.deeds) continue;
+      for(var j=0;j<m.deeds.length;j++){
+        var d=m.deeds[j];
+        if(d.actor!==actorId||!d.inherited) continue;
+        var f=forceOf(m,d,now);
+        if(!f) continue;
+        var k=d.kind;
+        if(!by[k]) by[k]={kind:k, tellers:0, force:0, generations:d.inherited, of:d.of};
+        by[k].tellers++; by[k].force+=f;
+        by[k].generations=Math.max(by[k].generations, d.inherited);
+      }
+    }
+    return Object.keys(by).map(function(k){return by[k];})
+      .sort(function(a,b){ return Math.abs(b.force)-Math.abs(a.force); });
+  }
+
+  var API={ DEED_WEIGHT:DEED_WEIGHT, SEE_RANGE:SEE_RANGE, HEARSAY_LOSS:HEARSAY_LOSS,
+    MAX_HOPS:MAX_HOPS, GOSSIP_WINDOW:GOSSIP_WINDOW, RUNGS:RUNGS,
+    witness:witness, opinionOf:opinionOf, gossip:gossip, standingOf:standingOf,
+    becauseOf:becauseOf, rungFor:rungFor,
+    inherit:inherit, legendOf:legendOf, GEN_LOSS:GEN_LOSS,
+    DEED_HALFLIFE:DEED_HALFLIFE, deedHalflife:deedHalflife, NEWS_LIFE:NEWS_LIFE };
+  if(HASREQ) module.exports=API; else root.BohemiaStanding=API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
+</script>
+<script>
+/* inlined: engine/bohemia_deeds.js */
+// BOHEMIA DEEDS — THE BRIDGE FROM A QUEST OUTCOME TO WHO ACTUALLY SAW IT
+// (8/6/26, PEOPLE lane. Reads canon, invents nothing.)
+//
+// ===== THE HOLE, IN ONE SENTENCE =====
+// Paolo's quest corpus ALREADY writes down how big a deed was (`@DO faction REDS +12`)
+// AND how loud it was (`#quiet` / `#notable` / `#risky` / `#reckless`), and the loud
+// half only ever reached the VANITY FOLLOWER COUNT. The faction standing got applied
+// godlike: the number moved, valley-wide, instantly, and NOBODY HAD SEEN ANYTHING.
+//
+// So today a back-yard handshake and a public humiliation in front of a whole block
+// are worth the same to a faction. They are not the same. His own 7/21 law already
+// says so — RECKLESS BEATS QUIET — it just never got applied to anything except a
+// follower number.
+//
+// THIS MODULE IS THAT LAW, APPLIED TO REPUTATION.
+//   the ±N  ->  HOW MUCH the deed weighs   (already his, already authored)
+//   the tag ->  HOW FAR the news carries   (already his, already authored)
+// One is the deed. The other is the audience. They were never the same axis, and the
+// corpus has always authored them separately (S17 stage 30 is a #quiet +5; stage 33
+// is a #reckless -15). Nothing here is a new decision. It is two of his own columns
+// finally being read by the same organ.
+//
+// ===== REUSE CHECK (REUSE-FIRST, Paolo 7/22) =====
+// Opened, in code, and used:
+//   engine/bohemia_bq.js       — the real .bq parser. Stages, @DO lines, #tags all
+//                                come out of HIS parser. This file does not re-parse
+//                                the quest format and does not own a second copy of it.
+//   engine/bohemia_loop.js     — CLOUT_WEIGHTS {quiet:8,notable:25,risky:55,reckless:110}
+//                                and CLOUT_NEUTRAL:15 are READ FROM THERE, never retyped.
+//                                If he retunes them (the 7/21 law says the numbers are
+//                                tunable and only the ORDERING is locked), reach and
+//                                hops retune with them on the next boot, for free.
+//   engine/bohemia_standing.js — the witness/gossip/decay organ. Already built, already
+//                                gated at 35 claims. This adds NO reputation math.
+//   quests/bq/*.bq             — the 59 authored faction deltas and the 69 clout tags.
+// Nothing was cooked. Every number below is either his, or derived from his with the
+// derivation written down.
+//
+// ===== MECHANISM-MINE / CONTENTS-PAOLO'S, kept to the letter =====
+// bohemia_standing.js STILL SHIPS ITS DEED_WEIGHT TABLE EMPTY and its own gate still
+// asserts that. This module FILLS it at load — by SCANNING HIS FILES. There is not one
+// hand-typed row anywhere in here, and no faction is named in this file either. If the
+// corpus is empty the table is empty and the organ stays inert, exactly as before.
+(function (root) {
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+  var BQ   = HASREQ ? require('./bohemia_bq.js')       : (root.BQ || null);
+  var S    = HASREQ ? require('./bohemia_standing.js') : (root.BohemiaStanding || null);
+  var LOOP = HASREQ ? require('./bohemia_loop.js')     : (root.BohemiaLoop || null);
+
+  /* ---- HIS COLUMN 2: HOW LOUD. Read, never retyped. --------------------- */
+  function cloutWeight(tag) {
+    if (!LOOP) throw new Error('bohemia_deeds needs BohemiaLoop for CLOUT_WEIGHTS; there is no second copy of that table on purpose');
+    return LOOP.cloutWeight(tag);
+  }
+  function neutralWeight() { return cloutWeight(null); }   // his CLOUT_NEUTRAL, 15
+
+  /* ---- REACH: HOW FAR A THING CARRIES ------------------------------------
+     The only genuinely new math in this file, and it is one line with a real
+     reason under it.
+
+     A clout weight is, in effect, HOW MANY PEOPLE CARE. A crowd of that many
+     people does not stand in a line — it occupies an AREA. Area grows with the
+     count, so the RADIUS grows with its SQUARE ROOT. That is not a game-feel
+     knob, it is the geometry of people standing outdoors.
+
+     reach = SEE_RANGE * sqrt(cloutWeight / CLOUT_NEUTRAL)
+
+     THREE THINGS FALL OUT OF IT, AND ALL THREE ARE WHY IT IS THE RIGHT CURVE:
+
+     1. AN UNTAGGED DEED LANDS EXACTLY ON SEE_RANGE. sqrt(15/15) = 1. The default
+        case is bit-for-bit the behaviour standing.js already had, so the tag can
+        only ever move you OFF the old number, never silently redefine it.
+     2. RECKLESS IS ~2.7x THE SIGHTLINE, NOT 13.75x. Straight linear scaling on his
+        weights would have made one loud act visible across 124 tiles — most of the
+        valley — and news would teleport again, which is the exact failure the whole
+        witness organ exists to kill. The square root keeps news travelling at the
+        speed of PEOPLE.
+     3. HIS LOCKED ORDERING SURVIVES. sqrt is monotonic, so reckless > risky >
+        notable > quiet holds no matter how he retunes the weights. The gate checks
+        this against the live table rather than against numbers baked in here. */
+  function reachOf(tag) {
+    return Math.round(S.SEE_RANGE * Math.sqrt(cloutWeight(tag) / neutralWeight()));
+  }
+
+  /* ---- HOPS: HOW MANY TIMES IT GETS RETOLD --------------------------------
+     Same curve, same reason, and this is the half that makes the DYNASTY work.
+
+     standing.js already states the generational law in its own comments:
+       "A QUIET GOOD DEED DIES WITH THE WITNESS.
+        A NOTORIOUS ONE BECOMES THE THING YOUR CHILD IS JUDGED FOR."
+     ...because inherit() only carries a deed forward if hops > 0 — if somebody
+     RETOLD it. But until now NOTHING IN THE GAME PRODUCED THE DIFFERENCE: every
+     deed got the same hop budget, so "quiet" and "notorious" were the same word.
+     The clout tag is the thing that was missing. A #quiet deed gets ONE hop, so
+     it usually dies with the people who watched it. A #reckless one gets five,
+     so it is still being repeated by someone alive in thirty years.
+
+     Untagged lands exactly on MAX_HOPS, same identity guarantee as reach. */
+  function hopsFor(tag) {
+    return Math.round(S.MAX_HOPS * Math.sqrt(cloutWeight(tag) / neutralWeight()));
+  }
+
+  /* ---- THE UNITS CONVERSION, AND WHY IT IS NOT A KNOB ---------------------
+     His quest deltas run on the quest scale (the corpus's biggest single act is
+     |18|). standing.js's rungs run on the opinion scale (HOSTILE/-3, COLD/-1,
+     NEUTRAL/1, WARM/3 — boundaries two apart). Something has to convert, and a
+     conversion factor picked by feel is an invented constant pretending to be
+     mechanism. So it is DERIVED, from a rule you can argue with in English:
+
+       THE BIGGEST THING A QUEST CAN DO, DONE IN FRONT OF THE ENTIRE FACTION,
+       MOVES YOU EXACTLY ONE RUNG.
+
+     divisor = (largest |delta| in the corpus) / (rung step)
+     Today: 18 / 2 = 9. It is measured from his files at load, so if he ever writes
+     a bigger deed the whole scale re-normalises itself and the rule still holds.
+     Nothing to retune by hand, ever. */
+  var RUNG_STEP = (function () {
+    var r = S.RUNGS, best = Infinity;
+    for (var i = 1; i < r.length - 1; i++) best = Math.min(best, r[i][1] - r[i - 1][1]);
+    return best;
+  })();
+
+  /* ---- THE CORPUS SCAN ----------------------------------------------------
+     Every faction delta he has ever authored, with the clout tag of the stage it
+     sits on. This is the whole contents layer and it is entirely read.
+
+     ONE ACT, TWO MEANINGS — and the corpus was already saying this out loud.
+     S17 stage 32 is `faction CARAVANS +12` AND `faction BLUES -6`: taking the
+     credit is a good customer to the traders and a betrayal to the growers. It is
+     ONE thing that happened. So it is recorded as one event with a per-faction
+     face: a Caravanner standing there remembers the version that touched them, a
+     Blue remembers theirs, and a Red standing in the same street remembers NOTHING,
+     because the Reds genuinely do not care who buys seed. That is zero-sum for
+     free, and it is why the deed kind carries the faction in it. */
+  function scanQuest(src, fallbackId) {
+    var q = BQ.parse(src);
+    var out = [];
+    for (var i = 0; i < q.stages.length; i++) {
+      var st = q.stages[i];
+      var tag = LOOP.cloutTagFrom(st.tags);
+      for (var j = 0; j < st.dos.length; j++) {
+        var m = /^faction\s+([A-Za-z_]+)\s+([-+]?\d+)\s*$/.exec(st.dos[j].text);
+        if (!m) continue;
+        out.push({
+          quest: q.id || fallbackId || '?',
+          stage: st.n,
+          faction: m[1],
+          delta: parseInt(m[2], 10),
+          clout: tag,                       // null = untagged, scores CLOUT_NEUTRAL
+          kind: 'q:' + (q.id || fallbackId || '?') + ':' + st.n + '@' + m[1],
+          label: st.log || '',
+        });
+      }
+    }
+    return out;
+  }
+
+  /* Load a whole corpus of already-read sources: [{id, src}, ...]. Kept free of
+     any filesystem call so the same function runs in node and in a browser page
+     with the quests inlined. */
+  function loadCorpus(sources) {
+    var deeds = [];
+    for (var i = 0; i < sources.length; i++) {
+      deeds = deeds.concat(scanQuest(sources[i].src, sources[i].id));
+    }
+    var maxAbs = 0;
+    for (var k = 0; k < deeds.length; k++) maxAbs = Math.max(maxAbs, Math.abs(deeds[k].delta));
+    var divisor = maxAbs ? (maxAbs / RUNG_STEP) : 1;
+
+    /* FILL HIS TABLE. standing.js exports DEED_WEIGHT by reference and ships it
+       empty; this is the only thing in the codebase that puts rows in it, and
+       every row traces to a line number in one of his .bq files. */
+    var labels = {};
+    for (var d = 0; d < deeds.length; d++) {
+      S.DEED_WEIGHT[deeds[d].kind] = deeds[d].delta / divisor;
+      labels[deeds[d].kind] = deeds[d].label;
+    }
+    LABELS = labels;
+    return { deeds: deeds, divisor: divisor, maxAbs: maxAbs, rungStep: RUNG_STEP, count: deeds.length };
+  }
+  var LABELS = {};
+
+  /* ---- PUBLISH: THE ACTUAL BRIDGE ----------------------------------------
+     A quest stage resolved at (x,y). Instead of writing a number into a ledger
+     nobody witnessed, this puts the event into the heads of the people who were
+     standing there — as far as its own loudness carries, with the hop budget its
+     own loudness earned. Returns who saw what, which is the honest answer to the
+     question the old code could not even ask: DID ANYBODY NOTICE?
+
+     Nothing is stored anywhere else. There is still no faction ledger; a faction's
+     view of you remains the average of what its people actually saw. */
+  function publish(minds, turn, actorId, rows, x, y, where, factionOfOwner) {
+    var seen = [], total = 0;
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      var faction = r.faction;
+      var n = S.witness(minds, turn, actorId, r.kind, x, y, where, {
+        range: reachOf(r.clout),
+        maxHops: hopsFor(r.clout),
+        only: function (owner) { return factionOfOwner(owner) === faction; },
+      });
+      seen.push({ faction: faction, kind: r.kind, clout: r.clout, delta: r.delta,
+                  reach: reachOf(r.clout), maxHops: hopsFor(r.clout), witnesses: n });
+      total += n;
+    }
+    return { rows: seen, witnesses: total };
+  }
+
+  /* Resolve one stage of one already-parsed quest straight into the world. The
+     convenience the run lane will actually call. */
+  function publishStage(minds, turn, actorId, questSrc, stageN, x, y, where, factionOfOwner, questId) {
+    var rows = scanQuest(questSrc, questId).filter(function (r) { return r.stage === stageN; });
+    return publish(minds, turn, actorId, rows, x, y, where, factionOfOwner);
+  }
+
+  /* ---- WHY THEY FEEL THAT WAY, IN ENGLISH --------------------------------
+     becauseOf() returns deed KINDS, which are machine ids. A standing the player
+     cannot read is a standing they cannot play around, so the quest's own @LOG
+     line — already written, already in his voice — is what gets shown. */
+  function sayWhy(minds, faction, actorId, now, factionOfOwner, limit) {
+    return S.becauseOf(minds, faction, actorId, now, factionOfOwner, limit)
+      .map(function (b) {
+        return { who: b.who, force: b.force, heard: b.heard, hops: b.hops,
+                 said: LABELS[b.kind] || b.kind };
+      });
+  }
+
+  var API = {
+    reachOf: reachOf, hopsFor: hopsFor, cloutWeight: cloutWeight,
+    scanQuest: scanQuest, loadCorpus: loadCorpus,
+    publish: publish, publishStage: publishStage, sayWhy: sayWhy,
+    RUNG_STEP: RUNG_STEP,
+    labels: function () { return LABELS; },
+  };
+  if (HASREQ) module.exports = API; else root.BohemiaDeeds = API;
+})(typeof globalThis !== 'undefined' ? globalThis : this);
 
 </script>
 <script>
@@ -23391,6 +24054,62 @@ window.addEventListener('message', function(ev){
 
 /* ---- 14. THE PHONE. The post is BUILT BY THE ENGINE (buildFeed over the real
    ledger the quest wrote), never hand-written here. ---- */
+/* ---- THE CONSEQUENCE LINE (8/9, closes the integration ledger's oldest PARTIAL) ----
+   "factions / world bridge | PARTIAL | quest outcomes really move faction standing,
+   but nothing in the run SHOWS it" has sat in records/BOHEMIA_RUN_INTEGRATION_LEDGER
+   since 7/26. Four days of reputation work move real numbers a player never sees.
+   NOTHING NEW IS COMPUTED HERE. Three things the run already had and never rendered:
+     - which factions this quest moved, and the rung they now sit on, read straight off
+       the REAL FactionWorld that the world bridge already moved when it resolved
+     - who it stirred up (@DO faction_posture, wired 8/7)
+     - HOW FAR THE WORD CARRIED, from the clout tag the quest tagged ITSELF with
+       (bohemia_deeds, 8/6): #quiet reaches 7 tiles, #reckless 24
+   THE RUN LANE'S JOB IS INTEGRATION, NOT FEATURES (Paolo 7/26): "the measure of the
+   lane is what is finally IN it that we already made." */
+function questConsequence(rt, cloutTag){
+  if(!rt || !rt.state || !CTX || !CTX.factions) return null;
+  var F = BohemiaEngine.Factions, bits = [];
+  function realId(fid){
+    if(CTX.factions.factions.get(fid)) return fid;
+    var up=String(fid).toUpperCase(), it=CTX.factions.factions.keys(), k;
+    while(!(k=it.next()).done){ if(String(k.value).toUpperCase()===up) return k.value; }
+    return null;
+  }
+  var fac = rt.state.faction || {};
+  Object.keys(fac).forEach(function(fid){
+    var d = fac[fid]; if(!d) return;
+    var real = realId(fid); if(!real) return;
+    var now = CTX.factions.factions.get(real).standingWith('player');
+    bits.push({ txt: real.toUpperCase()+' '+(d>0?'+':'')+d+' \u00b7 '+F.rungOf(now), good: d>0 });
+  });
+  var post = rt.state.posture || {};
+  Object.keys(post).forEach(function(fid){
+    if(!post[fid]) return;
+    var real = realId(fid); if(!real) return;
+    bits.push({ txt: real.toUpperCase()+' STIRRED UP', good:false });
+  });
+  var reach = null;
+  try { reach = BohemiaDeeds.reachOf(cloutTag||null); } catch(_e){}
+  if(!bits.length && reach==null) return null;
+
+  var box=document.createElement('div');
+  box.style.cssText='border-top:1px solid rgba(255,255,255,.06);margin-top:5px;padding-top:5px';
+  if(reach!=null){
+    var r=document.createElement('div');
+    r.style.cssText='font:10px ui-monospace,monospace;color:#6c614f;letter-spacing:.5px';
+    r.textContent='WORD CARRIED '+reach+' TILES';
+    box.appendChild(r);
+  }
+  bits.forEach(function(bt){
+    var d=document.createElement('div');
+    d.style.cssText='font:600 11px ui-monospace,monospace;margin-top:2px;color:'
+      +(bt.good?'var(--good)':'#e0a060');
+    d.textContent=bt.txt;
+    box.appendChild(d);
+  });
+  return box;
+}
+
 var PHONE=document.getElementById('phone');
 function openPhone(){
   var feed = BohemiaLoop.buildFeed(CTX, { limit:8 });
@@ -23415,7 +24134,12 @@ function openPhone(){
     var g=document.createElement('span'); g.className='g';
     g.textContent = '+' + BohemiaLoop.cloutWeight(p.clout) + ' followers';
     e.appendChild(lab); e.appendChild(g);
-    card.appendChild(w); card.appendChild(b); card.appendChild(e); wrap.appendChild(card);
+    card.appendChild(w); card.appendChild(b); card.appendChild(e);
+    /* WHAT IT ACTUALLY COST YOU. The follower count is vanity; this is the
+       consequence, and the ledger's PARTIAL since 7/26 is that nothing showed it. */
+    var fx = questConsequence(rt, p.clout);
+    if (fx) card.appendChild(fx);
+    wrap.appendChild(card);
   });
   PHONE.style.display='flex';
   RUN.phase='done'; refresh();

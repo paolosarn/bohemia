@@ -260,6 +260,17 @@ const PROBES = {
     ALPHA.indexOf('function runEncounterIn(') >= 0 && ALPHA.indexOf('startEncounter({packageId:d.packageId') >= 0,
   world_bridge: () => RUN.indexOf('BohemiaLoop.boot(') >= 0 &&
     engine('bohemia_loop.js').indexOf('function applyWorldEffects(') >= 0,
+  /* 8/9: the row above was PARTIAL for six weeks with the note "quest outcomes really
+     move faction standing, but nothing in the run SHOWS it". Moving it to INTEGRATED
+     needs a probe for the SHOWING, not just the moving -- otherwise the ledger says
+     integrated because a number changed in memory where no player can see it, which is
+     the exact class of claim this gate exists to refuse. So: the run must carry the
+     reputation modules, and must actually render the consequence off the REAL
+     FactionWorld (the rung) and the REAL clout reach. */
+  world_bridge_shown: () => RUN.indexOf('function questConsequence(') >= 0 &&
+    RUN.indexOf('BohemiaDeeds.reachOf(') >= 0 &&
+    RUN.indexOf("standingWith('player')") >= 0 &&
+    RUN.indexOf('F.rungOf(') >= 0,
 };
 
 const LEGAL = ['INTEGRATED', 'PARTIAL', 'NOT YET'];
