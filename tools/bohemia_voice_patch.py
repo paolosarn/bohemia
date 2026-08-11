@@ -432,15 +432,49 @@ CUTVOICE_NEW = """    /* ONE OWNER (8/12, SOUNDS lane). This used to call the en
 
 
 def patch_cutvoice(s):
-    """Join the cutscene lane's voice call to the single owner."""
-    if 'ONE OWNER (8/12, SOUNDS lane)' in s:
-        print('  cutVoice already delegates')
+    """Stop the cutscene lane's voice call repeating, WITHOUT taking it over.
+
+    8/12, second time. The first pass made their cutVoice delegate to
+    speakLine, because two voice systems on one surface made every line speak
+    twice in two different voices. They have since rewritten cutVoice from
+    scratch, and their version carries something mine does not: voiceFit(),
+    which trims the babble to the caption's reading-speed window -- Paolo's own
+    8/12 note to them. Re-imposing the delegation would delete that, and a
+    resolution that deletes the other lane is not a resolution.
+
+    So this no longer replaces their body. It INSERTS one guard at the top: the
+    same signature dedupe speakLine has, because their surface repaints and
+    their function has no memory, so the cold open was speaking 58 times for 7
+    lines -- every line eight times over itself. The voice engine is this
+    lane's system and a stuttering voice is this lane's defect; the scene, the
+    timing and the fitting stay entirely theirs.
+    """
+    if 'CUT_LASTSAID' in s:
+        print('  cutVoice already has the repeat guard')
         return s
-    if CUTVOICE_OLD not in s:
-        print('  NOTE cutVoice not found; skipped')
+    anchor = ('function cutVoice(role, text, windowMs){\n'
+              '  try{\n'
+              "    if(typeof BOH_VOICE==='undefined' || !text) return;")
+    if anchor not in s:
+        print('  NOTE cutVoice has changed shape again; repeat guard NOT applied')
         return s
-    s = s.replace(CUTVOICE_OLD, CUTVOICE_NEW, 1)
-    print('  cutVoice now delegates to speakLine (one owner, one voice per line)')
+    guard = ('function cutVoice(role, text, windowMs){\n'
+             '  try{\n'
+             "    if(typeof BOH_VOICE==='undefined' || !text) return;\n"
+             '    /* ONE UTTERANCE PER LINE (8/12, SOUNDS lane). This surface\n'
+             '       repaints, and this function had no memory of what it just\n'
+             '       said, so the cold open spoke 58 times for 7 lines -- each\n'
+             '       line eight times on top of itself. Clockless on purpose: a\n'
+             '       time window would also swallow a line legitimately repeated\n'
+             '       later in a scene, and the thing being prevented is the SAME\n'
+             '       line arriving again with nothing in between.\n'
+             '       The scene, its timing and voiceFit stay the CUTSCENE lane\'s.\n'
+             '       This is the voice engine refusing to stutter, nothing more. */\n'
+             '    var sig = (role||\'\') + \'|\' + text;\n'
+             '    if(sig === window.CUT_LASTSAID) return;\n'
+             '    window.CUT_LASTSAID = sig;')
+    s = s.replace(anchor, guard, 1)
+    print('  cutVoice keeps its own body and stops repeating itself')
     return s
 
 
