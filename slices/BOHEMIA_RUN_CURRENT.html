@@ -18007,15 +18007,39 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
      2. THE HUBS. Read out of the world, never placed here.
      --------------------------------------------------------------------------- */
 
+  /* TAKES EITHER SHAPE, BECAUSE THE VALLEY HAS TWO AND I CHECKED WHICH IS WHERE.
+     Headless and in the run slice there is a full world model with districtsOfType().
+     In the CITY page -- the surface Paolo actually walks -- there is no world model at
+     all; that page inlines the OVERMAP and nothing else, so the first version of this
+     returned an empty hub list on the one surface that mattered and looked fine
+     everywhere I happened to test it. Follow the artefact, do not assume its shape. */
+  function overmapOf(w) {
+    if (!w) return null;
+    if (typeof w.at === 'function' && w.n) return w;           // a raw overmap
+    if (w.m && typeof w.m.at === 'function') return w.m;       // one wrapping an overmap
+    return null;
+  }
+
   function hubs(w) {
-    if (!w || typeof w.districtsOfType !== 'function') return [];
-    var out = [];
-    for (var i = 0; i < HUB_TYPES.length; i++) {
-      var t = HUB_TYPES[i];
-      var cells = w.districtsOfType(t) || [];
-      for (var j = 0; j < cells.length; j++) {
-        var c = cells[j];
-        out.push({ id: t + ':' + c.x + ',' + c.y, kind: t, x: c.x, y: c.y });
+    var out = [], i, j, t;
+    if (w && typeof w.districtsOfType === 'function') {
+      for (i = 0; i < HUB_TYPES.length; i++) {
+        t = HUB_TYPES[i];
+        var cells = w.districtsOfType(t) || [];
+        for (j = 0; j < cells.length; j++) {
+          out.push({ id: t + ':' + cells[j].x + ',' + cells[j].y, kind: t,
+                     x: cells[j].x, y: cells[j].y });
+        }
+      }
+      return out;
+    }
+    var m = overmapOf(w);
+    if (!m) return out;
+    for (var y = 0; y < m.n; y++) {
+      for (var x = 0; x < m.n; x++) {
+        var c = m.at(x, y);
+        if (!c || HUB_TYPES.indexOf(c.district) < 0) continue;
+        out.push({ id: c.district + ':' + x + ',' + y, kind: c.district, x: x, y: y });
       }
     }
     return out;
@@ -18023,9 +18047,11 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
 
   /* REACHABLE means a body can get to it, and the honest test of that is the one the
      district kit already applies to every plot: the drivable/walkable network reaches
-     the curb. Ask the plot itself rather than asserting it from up here. */
+     the curb. Ask the plot itself rather than asserting it from up here.
+     RETURNS NULL WHEN IT CANNOT BE TESTED -- on a surface with no plot API there is no
+     answer, and reporting `false` there would be a guess dressed as a measurement. */
   function reachable(w, hub) {
-    if (!w || !hub) return false;
+    if (!w || !hub || typeof w.plot !== 'function') return null;
     var p = null;
     try { p = w.plot(hub.x, hub.y); } catch (e) { return false; }
     if (!p) return false;
@@ -18099,8 +18125,11 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
      --------------------------------------------------------------------------- */
   function dayReport(w, purse, ledger) {
     var hs = hubs(w);
-    var reach = [];
-    for (var i = 0; i < hs.length && i < 8; i++) if (reachable(w, hs[i])) reach.push(hs[i]);
+    var reach = [], untested = 0;
+    for (var i = 0; i < hs.length && i < 8; i++) {
+      var r = reachable(w, hs[i]);
+      if (r === null) untested++; else if (r) reach.push(hs[i]);
+    }
     var sh = shelf();
     var priced = [], unruled = [];
     for (var j = 0; j < sh.length; j++) {
@@ -18110,7 +18139,7 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
     return {
       purseExists: !!PURSE,
       currencies: PURSE ? PURSE.CURRENCIES.slice() : [],
-      hubs: hs.length, hubsReachable: reach.length,
+      hubs: hs.length, hubsReachable: reach.length, hubsUntestable: untested,
       shelf: sh.length, priced: priced, unruled: unruled,
       payoutRuled: !!(PURSE && Object.keys(PURSE.PAYOUT || {}).length),
       priceSource: PRICE_SOURCE,
@@ -22157,6 +22186,7 @@ var DOORTICKING=false;
 function openDoor(k){ var d=doorState(k);
   if(d.state==='open'||d.state==='opening') return d;
   d.state='opening'; d.t0=Date.now();
+  sfx('door_drag');   /* his 8/9 thumb. the SHUT stays silent: he killed all five clacks */
   if(!DOORTICKING){ DOORTICKING=true; requestAnimationFrame(doorTick); }
   return d; }
 /* the contract's own collision rule: passable once the leaf is really open */

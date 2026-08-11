@@ -30,10 +30,16 @@ WHAT IS BUILT BUT NOT YET TRIGGERED, stated plainly rather than implied:
   COMBAT surface, which is a separate lane's iframe. Those are wiring jobs on
   systems that are not this lane's to reach into, not missing audio.
 
-WHAT IT DOES NOT WIRE: doors. door_open and door_shut have ZERO approved sounds
--- he killed all ten candidates -- so the game makes no door sound, on purpose,
-until he rules on one. Wiring a door to a sound he rejected would be the exact
-thing MECHANISM-MINE / CONTENTS-PAOLO'S forbids.
+DOORS, AND THE HALF OF THEM THAT IS STILL SILENT (updated 8/9). He killed all
+ten metal/wood candidates on 7/30, so this tool wired nothing. He named DOORS in
+the minimum demo sound set on 8/9, a fresh cook from ash and stone answered it,
+and he thumbed door_drag.0 UP and all five door_clack candidates DOWN.
+  THE DOOR DRAGGING OPEN now sounds, from openDoor() -- the moment it starts
+    moving, already guarded against re-entry so one opening is one sound.
+  THE DOOR SHUTTING IS STILL SILENT, and that is his ruling, not an omission.
+    Reversing the drag or reusing it for the close would put a sound on a moment
+    he ruled has none, which is exactly what MECHANISM-MINE / CONTENTS-PAOLO'S
+    forbids. door_open and door_shut remain at zero approved and stay unwired.
 
 HE APPROVED SETS, NOT SINGLES, and that is the whole reason walking works. Five
 dirt footsteps, five asphalt, five gravel: the player fires one of HIS approved
@@ -398,18 +404,25 @@ def parent_block(bank):
      can never trigger this, and only a real skip (sleep, a wait, a long
      journey) can. Midnight is handled: 22:00 -> 06:00 reads as -960, which is
      eight hours forward, not minus sixteen. */
-  var LASTMIN=null, TP_MIN=60;
+  var LASTMIN=null, LASTJUMP=null, TP_MIN=60;
   function timePass(d){
     try{
       var m=+d.min; if(!isFinite(m)) return;
       if(LASTMIN===null){ LASTMIN=m; return; }
       var jump=m-LASTMIN; if(jump<0) jump+=1440;
       LASTMIN=m;
+      LASTJUMP=jump;
       if(jump<TP_MIN) return;
       strikeHours(Math.round(jump/60));
     }catch(e){}
   }
-  window.__timePassStats=function(){ return {floorMin:TP_MIN, max:STRIKE_MAX, last:LASTMIN}; };
+  /* jump is reported so a test can tell ITS OWN clock move from somebody
+     else's. The run reports the world clock every four seconds on its own, and
+     a stray report landing between a test's two posts is a real jump that makes
+     real strikes -- indistinguishable from the test's own unless the game says
+     what it actually computed. */
+  window.__timePassStats=function(){
+    return {floorMin:TP_MIN, max:STRIKE_MAX, last:LASTMIN, jump:LASTJUMP}; };
 
   /* === SOMEBODY ELSE'S FOOTSTEP, PLACED IN SPACE (8/2) ==================
      THE DISTANCE MODEL IS THE RESEARCHED ONE, not a guess: a point source
@@ -819,6 +832,27 @@ def main():
                           "   /* HIS EAT (8/2 ruling: \"eat will be a different sound\") */\n"
                           "                            spendTime('EAT','You ate.'); } };", 1)
 
+    # ---- THE DOOR DRAGGING OPEN (8/9) --------------------------------
+    # He killed all ten metal/wood doors on 7/30, named DOORS in the minimum
+    # demo sound set on 8/9, and thumbed door_drag.0 UP the same day. So the
+    # door finally makes a noise, and openDoor() is the honest place for it:
+    # it is the moment a door STARTS opening and it is already guarded against
+    # re-entry ("if open or opening, return"), so one real opening is one
+    # sound rather than one per animation frame.
+    #
+    # THE SHUT STAYS SILENT, ON PURPOSE. He killed all five door_clack
+    # candidates in the same export. Playing the drag backwards, or reusing it
+    # for the close, would be putting a sound on a moment he ruled has none.
+    door_anchor = "  d.state='opening'; d.t0=Date.now();"
+    if "sfx('door_drag')" not in run:
+        if door_anchor not in run:
+            print('FAIL: cannot find openDoor to wire the door sound')
+            return 1
+        run = run.replace(door_anchor,
+                          door_anchor
+                          + "\n  sfx('door_drag');   /* his 8/9 thumb. the SHUT stays silent: he killed all five clacks */",
+                          1)
+
     open(RUN, 'w', encoding='utf8').write(run)
     r = subprocess.run(['node', 'tools/build_run_slice.js'], capture_output=True, text=True)
     if r.returncode != 0:
@@ -826,7 +860,8 @@ def main():
         return 1
     built = open(BUILT, encoding='utf8').read()
     if ('SFX WIRE, RUN SIDE' not in built or 'sfxGround(px,py)' not in built
-            or "sfx('phone_buzz')" not in built or "sfx('eat')" not in built):
+            or "sfx('phone_buzz')" not in built or "sfx('eat')" not in built
+            or "sfx('door_drag')" not in built):
         print('FAIL: the rebuilt run does not carry the wire')
         return 1
 
@@ -861,7 +896,7 @@ def main():
     print('  %d approved sounds across %d events, from his 7/30 thumbs' % (n, len(bank)))
     print('  footsteps chosen by the tile the game already knows')
     print('  phone buzz on a real post, EAT on the thing the room held (his 8/2 ruling)')
-    print('  doors: SILENT, on purpose -- he killed all ten door candidates')
+    print('  the door DRAGS open (his 8/9 thumb); the SHUT stays silent, also his')
     return 0
 
 

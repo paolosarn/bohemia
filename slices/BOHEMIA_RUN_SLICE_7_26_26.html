@@ -2367,6 +2367,7 @@ var DOORTICKING=false;
 function openDoor(k){ var d=doorState(k);
   if(d.state==='open'||d.state==='opening') return d;
   d.state='opening'; d.t0=Date.now();
+  sfx('door_drag');   /* his 8/9 thumb. the SHUT stays silent: he killed all five clacks */
   if(!DOORTICKING){ DOORTICKING=true; requestAnimationFrame(doorTick); }
   return d; }
 /* the contract's own collision rule: passable once the leaf is really open */

@@ -173,3 +173,71 @@ to main. No pull requests, ever.
 `COMBAT_B64` uses SINGLE quotes: `r"const COMBAT_B64\s*=\s*'([^']+)'"`. And the
 markers live INSIDE the base64 — grepping the raw HTML for them finds nothing
 and means nothing. Decode first.
+
+---
+
+## WHERE THE SOUND LANE IS (8/11/26)
+
+### 140/140, AND THE DOOR MAKES A NOISE
+His second full sweep in three days. `records/BOHEMIA_SFX_VERDICT_8_9_26.txt`:
+`door_drag.0` UP, `door_drag.1-4` DOWN, `door_clack.0-4` **all five DOWN**.
+Rebuilding the bank from his export changed exactly ONE family; the other 27
+reproduced it byte for byte, which is a stronger transcription check than
+re-reading it.
+
+**WIRED, NOT JUST BANKED.** `openDoor()` in the run — the moment a door starts
+moving, already guarded against re-entry so one opening is one sound. Proved by
+calling the game's own `openDoor` and counting ONE render carrying the approved
+vector's signature (ash, three strikes, hz 174). Matching the SIGNATURE and not
+"a sound happened" means a footstep in the same window cannot be mistaken for a
+door. **The SHUT stays silent and that is HIS ruling**, not an omission.
+
+**THE MINIMUM DEMO SOUND SET IS 5/5 LIVE**: footsteps by ground, the door
+opening, hit+kill on the beat, UI tap, save chime.
+
+### THE FINDING WORTH CARRYING: CLASSES GET SETS, OBJECTS GET ONE ANSWER
+All five dirt footsteps passed. All five asphalt. All five gravel. Of five door
+drags, **one** passed — the unjittered base, with `.4` dead despite carrying the
+same three-strike pattern and differing only in jitter.
+
+A FOOTSTEP IS A CLASS AND A DOOR IS AN OBJECT. Five footsteps are five different
+steps and the variant set is the feature. Five doors are five DIFFERENT DOORS,
+which is wrong, because it is the same door every time you walk through it.
+Variation reads as inconsistency the moment the thing making the sound is
+singular. **Cook variant sets for classes. Cook one right answer for objects.**
+
+Also corrected: the 7/30 material finding (ash+stone 25-0) was necessary and NOT
+sufficient. The ash drag lived; the stone clack went 0 for 5. Stone wins as a
+footstep and as the valley's midday air and loses as a door.
+
+## THREE MEASUREMENT TRAPS THIS LANE PAID FOR. DO NOT REPEAT THEM.
+
+**COUNT THE THING, NOT EVERYTHING.** A strike counter that counted every render
+went flaky the moment anything else made a noise. Match on a signature the
+family owns (time_pass is the only glass; the door drag is ash + 3 hits + 174Hz).
+
+**THE RUN REPORTS ITS OWN CLOCK EVERY FOUR SECONDS.** Since a cold open started
+booting the run at load, those reports land between a test's two posts and make
+REAL strikes — a ten-minute snack "struck twelve". Settling on your own value
+cannot see it, because the final value is still yours. `window.__timePassStats()`
+now returns the JUMP the game computed; assert that it is the one you asked for
+and retry when it is not.
+
+**A CHECKER THAT CANNOT TELL A MENTION FROM A USE.** The voice gate counted every
+buffer source as an unvoiced consonant — but the breath on a VOICED blip is a
+buffer source too, so a build where every letter was pitched (a tune: the exact
+failure) passed clean. Exact count needs no node inspection: unvoiced = letters
+spoken − carrier oscillators.
+
+## STILL OPEN — ALL OF IT NEEDS HIS EAR, NONE OF IT BLOCKS ANYONE
+1. **THE 8 SQUIGGLE VOICES.** Built 8/9, untouched. MUSIC tab, top.
+2. **THE 4 ACOUSTIC SPACES.** Live since 8/4, never thumbed.
+3. **THE 9 BATCH-20 SONGS.** Cooked, shown, never ruled.
+4. **MENU MUSIC: does the front splash play?** Two canon MENU songs, no player.
+
+Blockers report: `records/BOHEMIA_SOUND_DEMO_BLOCKERS_8_9_26.md`
+Not this lane's, but flagged: his 8/7 eat/sleep time costs still do not reach the
+game — `records/BOHEMIA_FLAG_TIME_COSTS_NOT_WIRED_8_9_26.md`.
+
+Gates: `sfx_wired` 372, `doors_fresh` 23, `voice` 28, `time_pass` 31,
+`sfx_shuffle` 25, `citymus_rotation` 22.

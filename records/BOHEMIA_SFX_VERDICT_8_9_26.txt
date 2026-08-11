@@ -1,0 +1,215 @@
+=== BOHEMIA SFX VERDICTS ===
+BATCH SFX-01 (7/29/26) - 28 game moments x 5 candidates
+JUDGED: 140/140
+UP = this IS the sound. DOWN = dead. blank = never judged.
+
+EXPORTED BY PAOLO 8/9/26. Second consecutive full sweep: he closed the six
+batch-02 moments on 8/7 at 130/130, and this closes the two fresh door moments
+cooked the same day he asked for doors back.
+
+THE DELTA THIS FILE LANDS (everything else matches BOHEMIA_SFX_VERDICT_8_7_26.txt):
+  door_drag.0            UP    -> THE DOOR DRAGGING OPEN HAS A SOUND
+  door_drag.1 .. .4      DOWN
+  door_clack.0 .. .4     DOWN  -> the stone clack is dead, all five
+
+READ IT STRAIGHT: the ASH DRAG lived and the STONE CLACK did not. One survivor
+out of ten, and it is the UNJITTERED BASE recipe.
+
+[FOOTSTEP - DIRT]  step_dirt
+  UP   step_dirt.0
+  UP   step_dirt.1
+  UP   step_dirt.2
+  UP   step_dirt.3
+  UP   step_dirt.4
+
+[FOOTSTEP - ASPHALT]  step_asphalt
+  UP   step_asphalt.0
+  UP   step_asphalt.1
+  UP   step_asphalt.2
+  UP   step_asphalt.3
+  UP   step_asphalt.4
+
+[FOOTSTEP - GRAVEL]  step_gravel
+  UP   step_gravel.0
+  UP   step_gravel.1
+  UP   step_gravel.2
+  UP   step_gravel.3
+  UP   step_gravel.4
+
+[DOOR OPENS]  door_open
+  DOWN door_open.0
+  DOWN door_open.1
+  DOWN door_open.2
+  DOWN door_open.3
+  DOWN door_open.4
+
+[DOOR SHUTS]  door_shut
+  DOWN door_shut.0
+  DOWN door_shut.1
+  DOWN door_shut.2
+  DOWN door_shut.3
+  DOWN door_shut.4
+
+[PICK SOMETHING UP]  pickup
+  UP   pickup.0
+  UP   pickup.1
+  UP   pickup.2
+  UP   pickup.3
+  UP   pickup.4
+
+[YOU LAND A HIT]  hit
+  DOWN hit.0
+  DOWN hit.1
+  UP   hit.2
+  DOWN hit.3
+  UP   hit.4
+
+[BLOCKED]  block
+  DOWN block.0
+  DOWN block.1
+  UP   block.2
+  DOWN block.3
+  DOWN block.4
+
+[KILL - ON THE BEAT]  kill
+  UP   kill.0
+  UP   kill.1
+  UP   kill.2
+  UP   kill.3
+  UP   kill.4
+
+[UI TAP]  ui_tap
+  DOWN ui_tap.0
+  UP   ui_tap.1
+  UP   ui_tap.2
+  UP   ui_tap.3
+  DOWN ui_tap.4
+
+[PHONE BUZZES]  phone_buzz
+  DOWN phone_buzz.0
+  DOWN phone_buzz.1
+  UP   phone_buzz.2
+  DOWN phone_buzz.3
+  UP   phone_buzz.4
+
+[SAVED]  save_chime
+  UP   save_chime.0
+  UP   save_chime.1
+  UP   save_chime.2
+  UP   save_chime.3
+  UP   save_chime.4
+
+[YOUR GUN GOES OFF]  shot
+  DOWN shot.0
+  DOWN shot.1
+  DOWN shot.2
+  UP   shot.3
+  DOWN shot.4
+
+[THE SHOT MISSES]  miss
+  DOWN miss.0
+  DOWN miss.1
+  DOWN miss.2
+  DOWN miss.3
+  DOWN miss.4
+
+[VITAL HIT]  vital
+  DOWN vital.0
+  DOWN vital.1
+  DOWN vital.2
+  DOWN vital.3
+  DOWN vital.4
+
+[YOU TAKE THE HIT]  hurt
+  DOWN hurt.0
+  DOWN hurt.1
+  UP   hurt.2
+  DOWN hurt.3
+  DOWN hurt.4
+
+[THE FIGHT IS OVER]  clear
+  DOWN clear.0
+  DOWN clear.1
+  DOWN clear.2
+  DOWN clear.3
+  DOWN clear.4
+
+[THE VALLEY AT MIDDAY]  air_day
+  UP   air_day.0
+  UP   air_day.1
+  UP   air_day.2
+  UP   air_day.3
+  UP   air_day.4
+
+[THE VALLEY AT NIGHT]  air_night
+  UP   air_night.0
+  UP   air_night.1
+  UP   air_night.2
+  UP   air_night.3
+  UP   air_night.4
+
+[INSIDE A BUILDING]  air_inside
+  UP   air_inside.0
+  UP   air_inside.1
+  UP   air_inside.2
+  UP   air_inside.3
+  UP   air_inside.4
+
+[YOU EAT]  eat
+  DOWN eat.0
+  DOWN eat.1
+  UP   eat.2
+  DOWN eat.3
+  DOWN eat.4
+
+[YOU SLEEP]  sleep
+  DOWN sleep.0
+  DOWN sleep.1
+  DOWN sleep.2
+  DOWN sleep.3
+  DOWN sleep.4
+
+[SOMEBODY TURNS TO YOU]  talk_start
+  DOWN talk_start.0
+  DOWN talk_start.1
+  DOWN talk_start.2
+  DOWN talk_start.3
+  DOWN talk_start.4
+
+[YOU STEP INSIDE]  go_inside
+  DOWN go_inside.0
+  DOWN go_inside.1
+  DOWN go_inside.2
+  DOWN go_inside.3
+  DOWN go_inside.4
+
+[IT IS DONE]  quest_done
+  DOWN quest_done.0
+  DOWN quest_done.1
+  DOWN quest_done.2
+  DOWN quest_done.3
+  DOWN quest_done.4
+
+[HOURS GO BY]  time_pass
+  UP   time_pass.0
+  UP   time_pass.1
+  UP   time_pass.2
+  UP   time_pass.3
+  UP   time_pass.4
+
+[THE DOOR DRAGS OPEN]  door_drag
+  UP   door_drag.0
+       VECTOR mat=ash hz=174 modes=5 bright=1.15 decay=0.1875 damp=2.5 warble=0.45 atk=0 slide=-2 trans=0.88 transHz=3600 transQ=1.8 grit=0.92 gritHz=2600 space=0.14 room=0.1875 refl=1 dark=2900 width=0.5 drive=0.62 gain=0.34 mkup=1.05 pan=0 hits=0|0.0625|0.125
+  DOWN door_drag.1
+  DOWN door_drag.2
+  DOWN door_drag.3
+  DOWN door_drag.4
+
+[THE DOOR STOPS DEAD]  door_clack
+  DOWN door_clack.0
+  DOWN door_clack.1
+  DOWN door_clack.2
+  DOWN door_clack.3
+  DOWN door_clack.4
+
+NOTE: (none)

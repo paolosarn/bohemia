@@ -821,3 +821,51 @@ BOHEMIA_LAB_VALHEIM_BUILD_8_7_26\.html | 8/7/26 | KILLED by Paolo ("That valheim
 TF-ART-015_CANDIDATES_8_8_26 | 8/11/26 | DEAD (bare DOWN, TILE BOARD sitting). The 55 landfill candidates are killed; bank + cook removed, proofs stay as evidence. The landfill SLOT stays real - a fresh cook answers it (no lum waiver, no procedural stripe). POST-MORTEM: records/BOHEMIA_TILE_BOARD_KILLS_POST_MORTEM_8_11_26.md
 TF-RUN-008_CANDIDATES_8_9_26 | 8/11/26 | DEAD (bare DOWN, TILE BOARD sitting). The six primitive-drawn money icons are killed; bank + cook removed. Gates were green and he killed them anyway - green is never the argument. The Wallet/ME SLOT stays real; a fresh cook sources from BOUGHT art. POST-MORTEM: records/BOHEMIA_TILE_BOARD_KILLS_POST_MORTEM_8_11_26.md
 TF-CHAR-001_CANDIDATES_8_9_26 | 8/11/26 | DEAD (bare DOWN, TILE BOARD sitting). The six contact-shadow stamps are killed; bank + cook removed. A shadow is a motion feature and was judged as a still - a fresh answer gets judged wired and walking. POST-MORTEM: records/BOHEMIA_TILE_BOARD_KILLS_POST_MORTEM_8_11_26.md
+# ============================================================================
+# 8/9/26  SOUND: NINE OF THE TEN FRESH DOORS
+# The fresh cook he greenlit on 8/9, judged the same day. One survivor.
+# records/BOHEMIA_SFX_VERDICT_8_9_26.txt
+#
+door_drag.1 door_drag.2 door_drag.3 door_drag.4
+door_clack.0 door_clack.1 door_clack.2 door_clack.3 door_clack.4
+#
+# ALIVE: door_drag.0 -- ash, hz 174, bright 1.15, decay 0.1875, drive 0.62,
+#        hits [0, 0.0625, 0.125]. The UNJITTERED BASE recipe.
+#
+# POST-MORTEM, and it corrects something I got half right.
+#
+# 1. THE MATERIAL FINDING WAS NECESSARY AND NOT SUFFICIENT. The 7/30 sweep said
+#    ash and stone went 25 UP / 0 DOWN while metal and wood lost, and I read that
+#    as "build the door from ash or stone". The ash drag lived. THE STONE CLACK
+#    WENT 0 FOR 5. So material is not destiny: stone wins as a footstep and as
+#    the valley's midday air, and loses as a door. What a material is RIGHT FOR
+#    is narrower than what it is good at, and the 7/30 finding cannot be carried
+#    across contexts the way I carried it.
+#
+# 2. WHY THE CLACK DIED, and it is not the material. I built it to the phrase the
+#    7/30 post-mortem ends on -- "sounds that CUT and STOP" -- as a single, very
+#    short, very bright, very driven transient with NO hits array at all. That is
+#    a TICK. A door arriving in its frame has MASS behind it, and mass is heard as
+#    articulation: more than one thing happening inside one event. The drag has
+#    three strikes and lived; the clack has one and died five times out of five.
+#    "Cuts and stops" describes the ENVELOPE, and I applied it to the STRUCTURE.
+#
+# 3. THE SINGULAR-OBJECT FINDING, which is the useful one and is new.
+#    Every one of the five dirt footsteps passed. Every one of the five asphalt.
+#    Every one of the five gravel. Of five door drags, ONE passed -- the base,
+#    with every jittered variant dead, including .4 which carries the SAME three-
+#    strike pattern as the survivor and differs only in the jitter.
+#    A FOOTSTEP IS A CLASS AND A DOOR IS AN OBJECT. Five footsteps are five
+#    different steps, which is exactly what you want, and the variant set is the
+#    feature. Five doors are FIVE DIFFERENT DOORS, which is wrong, because it is
+#    the same door every time you walk through it. Variation reads as inconsistency
+#    the moment the thing making the sound is singular.
+#    => Cook variant SETS for classes (footsteps, impacts, ambience). Cook ONE
+#       right answer for objects. Jittering a singular object is asking him to
+#       approve four wrong doors, and he correctly refused.
+#
+# GRAVEYARD IS FINAL. No remake of these nine. Specifically: door_clack does not
+# come back under new numbers, and "a single hard transient for a door closing"
+# is now a documented dead end alongside metal and wood. If the door SHUTTING
+# ever gets a sound it answers a fresh brief, and that brief has to start from
+# mass and articulation rather than from brightness and drive.

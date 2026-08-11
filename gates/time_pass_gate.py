@@ -116,18 +116,48 @@ const pw = pwmod();
     }
     return false;
   }
-  async function clock(fromMin, toMin){
+  // ASK THE GAME WHAT JUMP IT ACTUALLY COMPUTED, AND RETRY IF IT IS NOT MINE.
+  //
+  // Settling on our own clock value was not enough. The run reports the world
+  // clock every four seconds ON ITS OWN, and once a cold open started booting
+  // the run at load, one of those reports began landing BETWEEN the two posts
+  // below. That is a real jump -- 12:00 to 07:30 is nineteen hours the long way
+  // round -- so it makes real strikes, and a ten-minute snack "struck twelve".
+  // Settling could not see it because the final value was still ours.
+  //
+  // The fix is not a longer wait or a tighter window: it is to ask the game
+  // what jump it computed and only accept a measurement where that jump is the
+  // one we asked for. Interference is now detected rather than averaged over,
+  // and if it cannot get a clean run in five tries it says so instead of
+  // reporting somebody else's clock as ours.
+  async function clockOnce(fromMin, toMin){
     await p.evaluate(a => {
       window.postMessage({type:'BOHEMIA_WHERE', inside:false, night:false, min:a, space:'STREET'}, '*');
     }, fromMin);
-    if (!await settle(fromMin)) return -1;
-    await p.evaluate(() => { window.__rr = []; });
+    if (!await settle(fromMin)) return null;
+    // CLEAR AND POST IN ONE CALL. Two separate evaluates leave a real gap
+    // between them, and the run's own four-second clock report lands in that
+    // gap -- a genuine nineteen-hour jump that strikes twelve and gets counted
+    // as the ten-minute snack's. Closing the window to zero is the fix; the
+    // jump assertion below stays as the backstop for anything that still slips.
     await p.evaluate(b => {
+      window.__rr = [];
       window.postMessage({type:'BOHEMIA_WHERE', inside:false, night:false, min:b, space:'STREET'}, '*');
     }, toMin);
-    if (!await settle(toMin)) return -1;
+    if (!await settle(toMin)) return null;
     await p.waitForTimeout(160);
+    const st = await p.evaluate(() => window.__timePassStats());
+    let want = toMin - fromMin; if (want < 0) want += 1440;
+    if (st.jump !== want) return null;          // somebody else's clock got in
     return (await p.evaluate(() => window.__rr.slice())).length;
+  }
+  async function clock(fromMin, toMin){
+    for (let i = 0; i < 5; i++) {
+      const n = await clockOnce(fromMin, toMin);
+      if (n !== null) return n;
+      await p.waitForTimeout(400);
+    }
+    return -1;                                   // never got a clean measurement
   }
 
   out.walk      = await clock(9*60, 9*60 + 3);      // ordinary play: 3 minutes

@@ -70,11 +70,35 @@ const pw = pwmod();
     r.total = all.length;
     // and NOTHING may be banked -- he has not thumbed one
     const A = window.__SFX_APPROVED || {};
-    r.banked = ['door_drag','door_clack','door_open','door_shut'].filter(e => A[e] && A[e].length);
+    r.bank = {};
+    ['door_drag','door_clack','door_open','door_shut'].forEach(e => { r.bank[e] = A[e] || null; });
     // they must be reachable to judge, or the batch may as well not exist
     r.cookable = r.dragN === 5 && r.clackN === 5;
     return r;
   });
+  // ============ OPEN A REAL DOOR AND COUNT WHAT COMES OUT ==============
+  // Everything above reads tables. This walks the surface he plays: load the
+  // RUN, call the game's own openDoor(), and count renders that carry the
+  // APPROVED vector's signature -- ash, three strikes, hz 174. Matching on the
+  // signature rather than on "a sound happened" means a footstep or an ambience
+  // tick in the same window cannot be mistaken for a door, which is the exact
+  // ruler mistake the time_pass gate had to be corrected for.
+  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); });
+  await p.waitForTimeout(8000);
+  await p.evaluate(() => { window.__dd = 0; try { MUS.audio(); } catch(e) {}
+    const o = BOH_SFX.render.bind(BOH_SFX);
+    BOH_SFX.render = function(v){
+      if (v && v.mat === 'ash' && v.hits && v.hits.length === 3 && Math.abs(v.hz - 174) < 1) window.__dd++;
+      return o.apply(null, arguments); }; });
+  const fr = p.frames().find(f => f.url().includes('RUN_CURRENT')) || p.frames()[1];
+  if (fr) {
+    const b0 = await p.evaluate(() => window.__dd);
+    out.openCalled = await fr.evaluate(() => { try { openDoor('gate-probe-door'); return true; }
+                                               catch(e) { return false; } }).catch(() => false);
+    await p.waitForTimeout(1200);
+    out.dragFired = (await p.evaluate(() => window.__dd)) - b0;
+  }
+
   out.errors = errs.slice(0, 3);
   console.log(JSON.stringify(out));
   await b.close();
@@ -108,6 +132,12 @@ def main():
         return 1
     d = json.loads(line[-1])
 
+    # THE CALL SITE IS IN THE RUN, NOT THE ALPHA, so it is read where it lives.
+    run = open(os.path.join(ROOT, 'slices', 'BOHEMIA_RUN_CURRENT.html'),
+               encoding='utf8').read()
+    d['wired'] = "sfx('door_drag')" in run
+    d['wiredShut'] = "sfx('door_clack')" in run
+
     ok('the drag exists', d.get('hasDrag'))
     ok('the clack exists', d.get('hasClack'))
     ok('five candidates each (%s, %s)' % (d.get('dragN'), d.get('clackN')), d.get('cookable'))
@@ -131,8 +161,27 @@ def main():
     ok('HARDER-DRIVEN than every door that died (min %.2f vs their max 0.35)'
        % (d.get('minDrive') or 0), (d.get('minDrive') or 0) > 0.35)
 
-    ok('NOTHING IS BANKED: the game still makes no door sound until he thumbs one '
-       '(%s)' % (d.get('banked') or 'none'), not d.get('banked'))
+    # HE RULED, SO THE SPEC INVERTED (8/9, 140/140). This asserted that NOTHING
+    # was banked, which was right for exactly as long as the batch was unjudged.
+    # A GATE MUST NEVER OUTRANK A RULING, so it becomes his verdict itself --
+    # and it is stricter, because it pins the survivor by index and catches the
+    # bank drifting in either direction.
+    bank = d.get('bank') or {}
+    ok('HIS 8/9 THUMB IS IN THE GAME: door_drag = [0], the unjittered base (%s)'
+       % bank.get('door_drag'), bank.get('door_drag') == [0])
+    ok('GRAVEYARD IS FINAL: the stone clack went 0 for 5 and is banked nowhere (%s)'
+       % bank.get('door_clack'), not bank.get('door_clack'))
+    ok('and the ten he killed on 7/30 are still banked nowhere',
+       not bank.get('door_open') and not bank.get('door_shut'))
+    ok('THE DOOR ACTUALLY MAKES A NOISE NOW: openDoor fires it in the real run '
+       '-- approved-but-unused is the defect this lane exists for', d.get('wired'))
+    ok('and the SHUT is still silent, which is his ruling and not an omission',
+       not d.get('wiredShut'))
+    ok('the run exposes openDoor to drive', d.get('openCalled'))
+    ok('OPENING A REAL DOOR IN THE REAL RUN SOUNDS HIS APPROVED DRAG, EXACTLY '
+       'ONCE (%s) -- matched on the vector signature, so a footstep in the same '
+       'window cannot be mistaken for it' % d.get('dragFired'),
+       d.get('dragFired') == 1)
     ok('the fresh cook uses NEW ids, so the dead ten stay dead and findable',
        d.get('freshIdsAreNew'))
     ok('and the dead ids STILL COOK METAL AND WOOD -- nothing new has been slipped '
@@ -148,8 +197,8 @@ def main():
     ok('the page threw nothing: %s' % (d.get('errors') or 'clean'), not d.get('errors'))
     print('  %d passed, %d FAILED' % (p, f))
     if not f:
-        print('  A door that drags on thirty years of sand and then stops dead. '
-              'Cooked from what won, not from what he already refused.')
+        print('  The door drags on thirty years of sand and it is heard in the run. '
+              'The stone clack went 0 for 5 and the shut stays silent, his call.')
     return 1 if f else 0
 
 
