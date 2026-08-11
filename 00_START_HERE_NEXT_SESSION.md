@@ -1,3 +1,113 @@
+PEOPLE (7h9sfy): 8/11 (y) LATEST -- *** THE COLD OPEN IS IN A TAB AND IT PLAYS.
+STORY tab, in the alpha. Fifteen seconds, one match-cut, four spoken lines,
+zero new art. ***
+
+WHAT WAS WRONG. engine/bohemia_scene.js has played the Act 1 cold open
+correctly since 8/9 and scene_gate.js proved it beat by beat against the locked
+7/19 shape -- 40 green claims, every one HEADLESS, about a scene that appeared
+in ZERO slices. Forty greens on something he cannot open is the most expensive
+kind of green there is: it reads like the work is done. NAME THE TAB: a thing he
+cannot reach does not exist to him.
+
+TAB: STORY (fourth along, after WORDS). Tap PLAY THE OPEN.
+ - warm pre-collapse table, five at it, the window lit from outside
+ - the mother's line, the child's line about the green ones (and the green ones
+   are ON THE TABLE, so the line points at something)
+ - ONE CUT. Same room, same framing, same table, same chairs, boarded window,
+   flowers gone, a lantern instead. Ten years, no words.
+ - the player in the SAME chair, older; the father on his feet; his line
+ - hands off to COMBAT's own contract name (cold_open) and says so on screen
+
+NO NEW ART, AND IT IS MEASURED NOT PROMISED. The freeze is on. 11 tiles lifted
+byte-identical out of banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt (every tile there
+carries a Paolo UP verdict from the Great Sweep) and re-hashed against the bank
+by the gate. The PEOPLE are the alpha's own drawChar over his painted rig,
+wearing FAMILY_CAST's wardrobe, aged on the CHARACTER lane's 8/11 age axis -- so
+the family at the table is the game's family, not a lookalike drawn for a
+cutscene. Change a garment in CLOTHES and the table changes.
+Every wood floor in the pool has weeds growing through it (outdoor tiles), so
+rather than cook a clean one under a freeze the floor is the WALL's plank turned
+a quarter and darkened. Same approved pixels, no new one.
+
+*** THE CLAIM THAT PROTECTS HIS RULING: after the cut the surface places the
+PLAYER AND NOBODY ELSE. Five actor beats fill the table before; nothing places
+anyone after. A surface that helpfully carried the family across the cut would
+have decided who survived ten years of collapse, which is his. Chairs belong to
+the room, bodies belong to the beats -- so the empty chairs after the cut are a
+fact about furniture, not a claim about a casualty, and the [PENDING] EMPTY
+CHAIR motif gets its shape without being built. gates/coldopen_gate.js asserts
+max cast after the cut <= 1. ***
+
+FILES: tools/bohemia_coldopen_set_bake.py -> engine/bohemia_coldopen_set.js;
+engine/bohemia_story_surface.js (the room); tools/bohemia_story_tab_patch.py
+(REPLACES a fenced block, never appends -- CHARACTER lane's 8/11 lesson; proved
+idempotent by md5). gates/coldopen_gate.js, 32 claims, registered as COLD OPEN.
+Proven red-able twice: editing a module without re-patching (byte-identity), and
+repainting one tile (NO NEW ART). It boots the real alpha, taps the real tab,
+presses the real button and reads the real canvas -- including measuring the
+horizon row ink either side of the cut, because identical framing IS the
+match-cut and a four-pixel drift turns it into a scene change.
+
+ALSO THIS TURN -- DIALOGUE IS OFF THE APPROVAL QUEUE (his ruling, same day):
+laws/BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md. READ IT
+BEFORE YOU WRITE A LINE. (1) No line of dialogue ever goes to him for approval.
+(2) The thumb WAS the quality control, so the CORPUS replaces it: every authored
+line cites the questbook findings it was built on, id resolving, title verbatim,
+>=2 studies and >=2 masters per scene. (3) "I will edit it later" needs a place:
+the WORDS tab, 938 lines, editable, EXPORT .TXT. Gate: DIALOGUE CATALOGUE, 30
+claims, with a sha256 source fingerprint so a stale tab goes red.
+
+*** NEXT (the GO list, in order):
+ 1. MORE WORDS. The rule is written, the machine holds the bar, the surface
+    exists. The demo needs hundreds more lines and nothing blocks writing them.
+ 2. THE SCENE RUNTIME HAS ONE CONSUMER. A second scene (any beat of Act 1) now
+    costs a JSON file and nothing else -- the tab, the room and the gate are
+    built. Cheapest story content in the repo.
+ 3. The cold open plays in STORY but NOT yet in the walked RUN. Wiring it as the
+    game's actual opening touches the RUN surface, which is the CITY lane's --
+    coordinate before crossing.
+ 4. Not this lane: 60 tools still crash on CITY_B64; his 11 perimeter walls need
+    CITY lane wiring. ***
+
+RESTORED EARLIER THIS TURN (it fell out of the handoff in a rewrite and took the
+ANSWERED gate red with it -- the handoff is shared infrastructure with no owning
+lane, so nobody's lane gate was ever going to catch it):
+
+NEVER ASK HIM A SETTLED QUESTION. A lane once asked what happens to standing
+"when the run ends" and he answered "BROTHER FOR BOHEMIA ITS NOT A ONE LIFE RUN
+IVE ANSWERED THIS LIKE 50 TIMESS!!!!!" THE QUESTION IS WITHDRAWN AND STAYS
+WITHDRAWN: Bohemia is a DYNASTY, not a one-life run -- three generations
+(Animal/Human/Angel) across ~100 years, dynasty saves spanning all three, heirs
+inheriting the choice log, companions do not die. It was settled in five law
+files before he had to say it again, so standing CARRIES; the only open part is
+HOW an heir inherits it, and that is a lane's design work, never a question for
+him. THE MACHINE THAT STOPS IT: records/BOHEMIA_ANSWERED_QUESTIONS_INDEX.md
+(59 settled questions, each with the ruling that settles it) enforced by
+gates/answered_gate.py -- read the index BEFORE you put anything on a JUDGE
+THIS list.
+
+FOOTNOTE FROM RUN 8/11, because nobody else has written it down: THIS FILE WAS
+TRUNCATED FROM 13,558 LINES TO 97 in commit 0d4f3f4, and every commit since has been
+regrowing it from that stump. That is what took the answered-questions record above
+over the side, and ANSWERED went red on main until it came back. Not second-guessing
+the prune -- a 13,558-line handoff needed cutting and CLAUDE.md says piles rot -- but
+this file is shared infrastructure with no owning lane, which is exactly why a prune
+here can drop another lane's LOCKED law and nothing notices.
+
+RESTORED BY RUN 8/11: the PEOPLE section below carries a LOCKED fleet-wide law and
+was dropped from this file somewhere in main's last 26 commits (the law FILE survives,
+laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md, but the banner every session
+reads first did not). Putting it back: a resolution that deletes another lane is not a
+resolution.
+
+PEOPLE (7h9sfy): 8/11 *** NEW LAW, EVERY LANE READ THIS: ALWAYS MAKE AN ATTEMPT. ***
+Paolo 8/11, LOCKED: "BRO FOR ANY TEXT JUST HAVE PLACEHOLDING GOOD ESTIMATES OF SPEECH
+BRO I WILL EDIT IT LIVE THATS WHY I HAVENT DONE QUESTS YET JUST MAKE AN ATTEMPT MAKE
+THIS A RULE"
+Law: laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md | Gate: attempt_gate.js
+CLAUDE.md AMENDED (a contradiction between two live files is a bug, and this one was
+costing him quests).
+
 ART (f3eu53): 8/11 (d) LATEST -- *** THIRD FAMILY WIRED: THE ROOFS HAVE THEIR
 PARAPET RING. THREE OF HIS FOURTEEN APPROVED FAMILIES NOW DRAW IN THE GAME. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fifth-pass section)

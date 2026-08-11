@@ -308,7 +308,9 @@ body.sun .note{border-color:#bcae90;color:#6a5f4a}
 </header>
 <div id="list"></div>
 <div class="note">Nothing here needs your approval. It ships as written and you change whatever you
-  want, whenever you want. If a line is wrong, just fix it in the box.</div>
+  want, whenever you want. If a line is wrong, just fix it in the box.<br><br>
+  The four lines from THE MATCH-CUT OPEN are the ones you hear in the <b>STORY</b> tab,
+  where the cold open plays.</div>
 <footer><span id="cnt"></span><button id="exp">EXPORT .TXT</button></footer>
 <script>
 /* SOURCE FINGERPRINT __FINGERPRINT__ over __LINECOUNT__ lines -- sha256 of the

@@ -562,6 +562,17 @@ GATES = [
      'Every player-facing line now ships a REAL attempt tagged draft:true so he can find and '
      'edit it; filler and stubs FAIL. The other half is unchanged and still checked: who dies, '
      'who holds what ground, numbers and dials stay HIS and stay empty', False),
+    ('COLD OPEN',      ['node', 'gates/coldopen_gate.js'],
+     'THE FIRST FIFTEEN SECONDS OF THE GAME ARE IN A TAB AND THEY PLAY. scene_gate has '
+     'proved the cold open beat-by-beat against the locked 7/19 shape since 8/9 -- 40 green '
+     'claims, all HEADLESS, about a scene that appeared in ZERO slices. Forty greens on '
+     'something he cannot open is the most expensive kind of green there is. STORY tab: the '
+     'match-cut plays on the real alpha, all four drafted lines reach the screen, the framing '
+     'is measured IDENTICAL either side of the cut (that identity IS the match-cut), and it '
+     'hands off to COMBAT\'s own contract name. Also the freeze claim: every one of the 11 '
+     'tiles is re-hashed against the approved interior pool, so NO NEW ART is measured rather '
+     'than promised -- and after the cut the surface places the player and NOBODY ELSE, '
+     'because who survived ten years is Paolo\'s ruling, not the renderer\'s', False),
     ('DIALOGUE CATALOGUE', ['node', 'gates/dialogue_catalogue_gate.js'],
      'DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED): "I DONT HAVE TIME TO '
      'APPROVE THE DIALOGUE THIS SLOW LIKE THIS I WILL EDIT IT LATER JUST DIALOGUE ALWAYS '
