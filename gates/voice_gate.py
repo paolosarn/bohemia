@@ -61,7 +61,14 @@ const pw = pwmod();
   await p.waitForTimeout(1500);
   await p.click('#front', { force:true }).catch(()=>{});
   await p.waitForTimeout(900);
-  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="music"]'); if (t) t.click(); });
+  /* A TAB THAT IS NOT THERE IS A FAILURE, NOT A SKIP (ONE WORLD TAB, 8/2).
+     `if (t) t.click()` walks on when the button is missing and then measures
+     whatever panel happened to be open -- the shape that hid three gate failures
+     behind a click that never happened when the CITY tab was removed. This is the
+     FOURTH file with it; the pattern check is what keeps finding them. */
+  await p.evaluate(() => { const t = document.querySelector('.tab[data-p="music"]');
+    if (!t) throw new Error('no MUSIC tab to open: the surface this gate measures is not reachable');
+    t.click(); });
   await p.waitForTimeout(2600);
 
   const out = {};

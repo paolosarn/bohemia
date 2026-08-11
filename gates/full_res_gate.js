@@ -114,11 +114,23 @@ function cityBlob(_alpha) { const a = CITY_APP.read(); return a ? a.src : null; 
       /* FIND THE FRAME BY WHAT IT IS, NOT BY HOW IT WAS LOADED (8/4). It was a
          srcdoc frame until the payload-wall pass; it is a sibling src frame now.
          One predicate knows: gates/bohemia_city_app.js. */
-      f = page.frames().find(fr => CITY_APP.isFrame(fr, page));
-      if (!f) continue;
-      const up = await f.evaluate(() => typeof fit === 'function' &&
-        document.getElementById('cv').width > 300).catch(() => false);
-      if (up) break;
+      /* AND TAKE THE ONE THAT IS ACTUALLY UP, not the first that matches (8/11).
+         The alpha now carries TEN frames, and BOHEMIA_RUN_CURRENT.html is one of
+         them -- a retired surface that is never shown, so its canvas stays 0 wide
+         and it never defines MODE. isFrame() matched it, this loop kept it, and
+         the gate then reported "the probe is measuring the WALKED world, not the
+         overview" plus zero draws: a true statement about the wrong screen.
+         Measured on the real alpha: after tapping RUN the only VISIBLE panel is
+         p-city -> BOHEMIA_CITY_WORLD.html, 390x790, MODE human. That is the one. */
+      const cands = page.frames().filter(fr => CITY_APP.isFrame(fr, page));
+      f = null;
+      for (const c of cands) {
+        const up = await c.evaluate(() => typeof fit === 'function' &&
+          document.getElementById('cv') && document.getElementById('cv').width > 300 &&
+          typeof MODE !== 'undefined').catch(() => false);
+        if (up) { f = c; break; }
+      }
+      if (f) break;
     }
     ok('the world frame booted', !!f);
     if (f) {
