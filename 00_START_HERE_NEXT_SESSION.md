@@ -15115,3 +15115,16 @@ bottom-up report. SWEEP 0 logged; horizon catch: the TITLE "Bohemia"
 collides with Bohemia Interactive (Arma/DayZ) — fine for the private demo,
 must be cleared or re-titled before any PUBLIC store presence [PENDING
 Paolo awareness, decision by public release].
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/11 (b) — THE RESEARCH DOCTRINE added to the sweep law
+(Paolo: "i need something wayyy better than me telling you do online
+research... you are the lane maker"). Sweep section 4b, MANDATORY per
+horizon catch: falsifiable question before search; sources ladder
+(postmortems/named developers/real numbers, 3+ independent sources,
+disagreement is the finding); LEAVE THE GAMES AISLE (cross-domain transfer
+is the lane maker's edge); the ANTI-YES-MAN clause (every pass surfaces >=1
+finding that challenges a current assumption or a direction Paolo did not
+originate — confirmation-only research must say so); research terminates as
+an A/B/C set, a routed work order, or a citable pattern note, never trivia;
+confidence labeled. Text-replacement prompt v2 stored in the law.
