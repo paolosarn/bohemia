@@ -999,7 +999,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <!-- BUILD STAMP LAW (Paolo 7/20, "I didn't see nothing new" twice): the build
        identifies ITSELF so stale-vs-fresh is never a guess. Every ship updates
        this line (CLAUDE.md ship flow); the gate checks it exists. -->
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/11zq - ZOOM OUT TO THE MOON</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/12b - HIS 270 THUMBS, 97 SOUNDS LIVE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -15544,21 +15544,87 @@ const BOH_SFX = (function () {
     /* ---- end batch SFX-03 recipes ---- */
   };
 
-  /* ---- THE MEASURED ENVELOPE (8/12/26) ---------------------------------
-     Learned from every thumb in records/BOHEMIA_SFX_VERDICT_*.txt, exported so
-     the gate checks the SHIPPED numbers instead of a copy of them. See the
-     BATCH SFX-03 header in EVENTS for the derivation and the honest limits.
-     BATCH is the list of event ids the envelope binds; his older recipes are
-     what the envelope was learned FROM and are not retro-fitted to it. */
+  /* ---- THE MEASURED ENVELOPE (rewritten 8/12/26, SAME DAY, from 270) ----
+     THE FIRST VERSION OF THIS BLOCK WAS WRONG AND HIS OWN THUMBS PROVED IT.
+
+     It was derived from 140 verdicts and it claimed two things: that MATERIAL is
+     the verdict (glass 100%, metal 20%, wood 33%, water 20%) and that he kills
+     sounds that are PUSHED (makeup gain effect -1.17, drive -0.62). The gate was
+     built to RE-DERIVE both from his verdict files on every run, precisely so
+     that his data stays upstream of the law. Hours later he judged all 270 and
+     the re-derivation went red. Read what happened straight:
+
+       material   140 thumbs        270 thumbs
+       water      1 UP / 4  (20%)   6 UP / 4   (60%)   <- best in the game now
+       glass      5 UP / 0  (100%)  8 UP / 12  (40%)
+       ash       13 UP / 17 (43%)  16 UP / 44  (27%)   <- near worst now
+       choir      5 UP / 5  (50%)   7 UP / 13  (35%)
+       metal      3 UP / 12 (20%)   3 UP / 22  (12%)   <- the ONE that held
+
+     Glass was five samples. Water was five samples. Every ranking except metal
+     was small-sample noise that read like a finding, and a full sweep flattened
+     it. The knobs went the same way: makeup gain fell from -1.17 to -0.36 and
+     drive from -0.62 to -0.23, and the approved and rejected medians now nearly
+     touch (mkup 0.880 vs 0.900). The direction survives; the strength does not.
+
+     SO THE LAW IS CUT DOWN TO WHAT 270 JUDGEMENTS ACTUALLY SUPPORT:
+       1. METAL IS DEAD. 3 UP / 22 DOWN across 25 judgements, consistent in both
+          sweeps, and both metal moments in the new batch died whole (step_metal
+          0/5, reload 0/5). No new recipe cooks from it.
+       2. CONTAINMENT, NOT DIRECTION. Nothing predicts WHICH of five cousins he
+          wants, so the envelope no longer pretends to. What it can honestly say
+          is WHERE his yeses live: REGION below is the bounding box of all 97
+          approved candidates, and a new cook has to land inside it. That is a
+          claim about coverage, which the data supports, instead of a claim about
+          taste, which it does not.
+     The weak direction is REPORTED by the gate and asserted only as the sign it
+     still has -- approved mkup below rejected mkup -- never as a cap, because a
+     cap tight enough to mean anything would be red on sounds HE APPROVED, and a
+     gate that outranks a ruling is the failure this whole lane has a law about.
+
+     HIS 8/12 SCOREBOARD ON THE NEW BATCH: 14 of 26 moments live, 12 died whole
+     (step_glass step_metal swing reload breath patch_up build_place deed money
+     neon_buzz dog_far equip). Those 60 candidates are in the graveyard. */
   var ENVELOPE = {
     since: '8/12/26',
-    maxMkup: 1.10,        /* UP mean 0.92 vs DOWN 1.28, effect -1.17 */
-    maxDrive: 0.30,       /* UP mean 0.16 vs DOWN 0.30, effect -0.62 */
-    winners: ['glass', 'crystal', 'stone', 'bell', 'choir', 'ash'],
-    losers:  ['metal', 'wood', 'water'],   /* 9 UP / 26 DOWN across 35 thumbs */
-    /* a loser material is legal ONLY where the struck object IS that thing */
-    loserOK: { step_wood: 'a floorboard is wood', step_metal: 'a deck plate is steel',
-               reload: 'a magazine is steel', drink: 'the sound is water' },
+    judged: 270, approved: 97,
+    dead: ['metal'],              /* 3 UP / 22 DOWN. the only stable finding */
+    /* kept as history, NOT as law: the direction that survived, and its real
+       strength once the whole game was judged */
+    mkupUp: 0.879, mkupDown: 0.992, driveUp: 0.151, driveDown: 0.194,
+    /* the bounding box of every candidate he has ever said yes to */
+    REGION: {
+    hz: [46, 1922.1723311021924],
+    modes: [4, 11],
+    bright: [0.23236137816216795, 1.6733269621850924],
+    decay: [0.0625, 3.25],
+    damp: [0.7152495026588439, 2.725041580479592],
+    warble: [0.25, 2.9784293750301005],
+    atk: [0, 0.75],
+    slide: [-13.554722697474062, 5],
+    trans: [0.04, 1],
+    transHz: [320, 8600],
+    transQ: [0.5, 4.3834795102477075],
+    grit: [0, 0.98],
+    gritHz: [300, 6000],
+    space: [0.05, 0.9671123819425702],
+    room: [0.0625, 2.75],
+    refl: [0, 4],
+    dark: [348.55567762162536, 6587.331252684817],
+    width: [0.2664250782504678, 1],
+    drive: [0, 0.7355879963259213],
+    gain: [0.18, 0.72],
+    mkup: [0.25, 1.765]
+    },
+    /* WHICH RECIPES THE REGION BINDS. Empty on purpose, and the reason is the
+       whole discipline of this lane: a candidate is a pure function of (event,
+       index) through the recipe, so narrowing a jitter range CHANGES WHAT
+       casing.1 IS -- and 130 of his thumbs are attached to those exact vectors.
+       Re-cooking SFX-03 to fit the box would silently invalidate judgements he
+       already made. So the region binds FORWARD: any recipe added after 8/12
+       goes in this list and must cook entirely inside it. The existing batch is
+       measured and REPORTED against the box, never failed on it. */
+    regionBinds: [],
     batch: ['step_concrete','step_sand','step_glass','step_wood','step_metal',
             'swing','melee_hit','reload','dry_fire','casing',
             'heartbeat','breath','drink','patch_up',
@@ -15883,7 +15949,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BOH_SFX;
 <script>
 /* HIS COMMITTED THUMBS, baked in from records/BOHEMIA_SFX_VERDICT_*.txt. localStorage only holds CHANGES on top of
    this, so a wiped phone falls back to what he already decided. */
-var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"step_dirt.4":1,"step_asphalt.0":1,"step_asphalt.1":1,"step_asphalt.2":1,"step_asphalt.3":1,"step_asphalt.4":1,"step_gravel.0":1,"step_gravel.1":1,"step_gravel.2":1,"step_gravel.3":1,"step_gravel.4":1,"door_open.0":-1,"door_open.1":-1,"door_open.2":-1,"door_open.3":-1,"door_open.4":-1,"door_shut.0":-1,"door_shut.1":-1,"door_shut.2":-1,"door_shut.3":-1,"door_shut.4":-1,"pickup.0":1,"pickup.1":1,"pickup.2":1,"pickup.3":1,"pickup.4":1,"hit.0":-1,"hit.1":-1,"hit.2":1,"hit.3":-1,"hit.4":1,"block.0":-1,"block.1":-1,"block.2":1,"block.3":-1,"block.4":-1,"kill.0":1,"kill.1":1,"kill.2":1,"kill.3":1,"kill.4":1,"ui_tap.0":-1,"ui_tap.1":1,"ui_tap.2":1,"ui_tap.3":1,"ui_tap.4":-1,"phone_buzz.0":-1,"phone_buzz.1":-1,"phone_buzz.2":1,"phone_buzz.3":-1,"phone_buzz.4":1,"save_chime.0":1,"save_chime.1":1,"save_chime.2":1,"save_chime.3":1,"save_chime.4":1,"shot.0":-1,"shot.1":-1,"shot.2":-1,"shot.3":1,"shot.4":-1,"miss.0":-1,"miss.1":-1,"miss.2":-1,"miss.3":-1,"miss.4":-1,"vital.0":-1,"vital.1":-1,"vital.2":-1,"vital.3":-1,"vital.4":-1,"hurt.0":-1,"hurt.1":-1,"hurt.2":1,"hurt.3":-1,"hurt.4":-1,"clear.0":-1,"clear.1":-1,"clear.2":-1,"clear.3":-1,"clear.4":-1,"air_day.0":1,"air_day.1":1,"air_day.2":1,"air_day.3":1,"air_day.4":1,"air_night.0":1,"air_night.1":1,"air_night.2":1,"air_night.3":1,"air_night.4":1,"air_inside.0":1,"air_inside.1":1,"air_inside.2":1,"air_inside.3":1,"air_inside.4":1,"eat.0":-1,"eat.1":-1,"eat.2":1,"eat.3":-1,"eat.4":-1,"sleep.0":-1,"sleep.1":-1,"sleep.2":-1,"sleep.3":-1,"sleep.4":-1,"talk_start.0":-1,"talk_start.1":-1,"talk_start.2":-1,"talk_start.3":-1,"talk_start.4":-1,"go_inside.0":-1,"go_inside.1":-1,"go_inside.2":-1,"go_inside.3":-1,"go_inside.4":-1,"quest_done.0":-1,"quest_done.1":-1,"quest_done.2":-1,"quest_done.3":-1,"quest_done.4":-1,"time_pass.0":1,"time_pass.1":1,"time_pass.2":1,"time_pass.3":1,"time_pass.4":1,"door_drag.0":1,"door_drag.1":-1,"door_drag.2":-1,"door_drag.3":-1,"door_drag.4":-1,"door_clack.0":-1,"door_clack.1":-1,"door_clack.2":-1,"door_clack.3":-1,"door_clack.4":-1};
+var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"step_dirt.4":1,"step_asphalt.0":1,"step_asphalt.1":1,"step_asphalt.2":1,"step_asphalt.3":1,"step_asphalt.4":1,"step_gravel.0":1,"step_gravel.1":1,"step_gravel.2":1,"step_gravel.3":1,"step_gravel.4":1,"door_open.0":-1,"door_open.1":-1,"door_open.2":-1,"door_open.3":-1,"door_open.4":-1,"door_shut.0":-1,"door_shut.1":-1,"door_shut.2":-1,"door_shut.3":-1,"door_shut.4":-1,"pickup.0":1,"pickup.1":1,"pickup.2":1,"pickup.3":1,"pickup.4":1,"hit.0":-1,"hit.1":-1,"hit.2":1,"hit.3":-1,"hit.4":1,"block.0":-1,"block.1":-1,"block.2":1,"block.3":-1,"block.4":-1,"kill.0":1,"kill.1":1,"kill.2":1,"kill.3":1,"kill.4":1,"ui_tap.0":-1,"ui_tap.1":1,"ui_tap.2":1,"ui_tap.3":1,"ui_tap.4":-1,"phone_buzz.0":-1,"phone_buzz.1":-1,"phone_buzz.2":1,"phone_buzz.3":-1,"phone_buzz.4":1,"save_chime.0":1,"save_chime.1":1,"save_chime.2":1,"save_chime.3":1,"save_chime.4":1,"shot.0":-1,"shot.1":-1,"shot.2":-1,"shot.3":1,"shot.4":-1,"miss.0":-1,"miss.1":-1,"miss.2":-1,"miss.3":-1,"miss.4":-1,"vital.0":-1,"vital.1":-1,"vital.2":-1,"vital.3":-1,"vital.4":-1,"hurt.0":-1,"hurt.1":-1,"hurt.2":1,"hurt.3":-1,"hurt.4":-1,"clear.0":-1,"clear.1":-1,"clear.2":-1,"clear.3":-1,"clear.4":-1,"air_day.0":1,"air_day.1":1,"air_day.2":1,"air_day.3":1,"air_day.4":1,"air_night.0":1,"air_night.1":1,"air_night.2":1,"air_night.3":1,"air_night.4":1,"air_inside.0":1,"air_inside.1":1,"air_inside.2":1,"air_inside.3":1,"air_inside.4":1,"eat.0":-1,"eat.1":-1,"eat.2":1,"eat.3":-1,"eat.4":-1,"sleep.0":-1,"sleep.1":-1,"sleep.2":-1,"sleep.3":-1,"sleep.4":-1,"talk_start.0":-1,"talk_start.1":-1,"talk_start.2":-1,"talk_start.3":-1,"talk_start.4":-1,"go_inside.0":-1,"go_inside.1":-1,"go_inside.2":-1,"go_inside.3":-1,"go_inside.4":-1,"quest_done.0":-1,"quest_done.1":-1,"quest_done.2":-1,"quest_done.3":-1,"quest_done.4":-1,"time_pass.0":1,"time_pass.1":1,"time_pass.2":1,"time_pass.3":1,"time_pass.4":1,"door_drag.0":1,"door_drag.1":-1,"door_drag.2":-1,"door_drag.3":-1,"door_drag.4":-1,"door_clack.0":-1,"door_clack.1":-1,"door_clack.2":-1,"door_clack.3":-1,"door_clack.4":-1,"step_concrete.0":-1,"step_concrete.1":-1,"step_concrete.2":1,"step_concrete.3":-1,"step_concrete.4":-1,"step_sand.0":-1,"step_sand.1":-1,"step_sand.2":-1,"step_sand.3":-1,"step_sand.4":1,"step_glass.0":-1,"step_glass.1":-1,"step_glass.2":-1,"step_glass.3":-1,"step_glass.4":-1,"step_wood.0":-1,"step_wood.1":-1,"step_wood.2":1,"step_wood.3":-1,"step_wood.4":1,"step_metal.0":-1,"step_metal.1":-1,"step_metal.2":-1,"step_metal.3":-1,"step_metal.4":-1,"swing.0":-1,"swing.1":-1,"swing.2":-1,"swing.3":-1,"swing.4":-1,"melee_hit.0":1,"melee_hit.1":-1,"melee_hit.2":1,"melee_hit.3":1,"melee_hit.4":1,"reload.0":-1,"reload.1":-1,"reload.2":-1,"reload.3":-1,"reload.4":-1,"dry_fire.0":-1,"dry_fire.1":1,"dry_fire.2":-1,"dry_fire.3":-1,"dry_fire.4":-1,"casing.0":1,"casing.1":-1,"casing.2":-1,"casing.3":-1,"casing.4":-1,"heartbeat.0":1,"heartbeat.1":1,"heartbeat.2":-1,"heartbeat.3":1,"heartbeat.4":-1,"breath.0":-1,"breath.1":-1,"breath.2":-1,"breath.3":-1,"breath.4":-1,"drink.0":1,"drink.1":1,"drink.2":1,"drink.3":1,"drink.4":1,"patch_up.0":-1,"patch_up.1":-1,"patch_up.2":-1,"patch_up.3":-1,"patch_up.4":-1,"build_place.0":-1,"build_place.1":-1,"build_place.2":-1,"build_place.3":-1,"build_place.4":-1,"demolish.0":1,"demolish.1":-1,"demolish.2":1,"demolish.3":-1,"demolish.4":1,"deed.0":-1,"deed.1":-1,"deed.2":-1,"deed.3":-1,"deed.4":-1,"money.0":-1,"money.1":-1,"money.2":-1,"money.3":-1,"money.4":-1,"power_on.0":1,"power_on.1":-1,"power_on.2":-1,"power_on.3":-1,"power_on.4":1,"wind_gust.0":1,"wind_gust.1":1,"wind_gust.2":-1,"wind_gust.3":-1,"wind_gust.4":-1,"neon_buzz.0":-1,"neon_buzz.1":-1,"neon_buzz.2":-1,"neon_buzz.3":-1,"neon_buzz.4":-1,"generator.0":1,"generator.1":1,"generator.2":1,"generator.3":1,"generator.4":-1,"dog_far.0":-1,"dog_far.1":-1,"dog_far.2":-1,"dog_far.3":-1,"dog_far.4":-1,"ui_back.0":-1,"ui_back.1":-1,"ui_back.2":1,"ui_back.3":1,"ui_back.4":1,"ui_deny.0":1,"ui_deny.1":-1,"ui_deny.2":1,"ui_deny.3":-1,"ui_deny.4":1,"equip.0":-1,"equip.1":-1,"equip.2":-1,"equip.3":-1,"equip.4":-1};
 
 /* =========================================================================
    THE SFX JUDGE — MUSIC TAB (Paolo 7/29, the SOUNDS lane)
@@ -16194,18 +16260,18 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 <!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->
 <script>
 /* === SFX WIRE, PARENT SIDE (7/30/26) ====================================
-   Paolo's 38 approved sounds, from his 7/30 thumbs. The table below is INDEXES
+   Paolo's 97 approved sounds, from his 8/12 full sweep. The table below is INDEXES
    into the shipped generator, not copied audio: candidate n of event e is
    BOH_SFX.cook(e,5)[n], which gates/sfx_render_gate.py fingerprints. So what
    plays is byte-for-byte the thing he heard when he thumbed it.
-   Verdict: records/BOHEMIA_SFX_VERDICT_7_30_26.txt
-   Bank:    banks/BOHEMIA_SFX_APPROVED_7_30_26.json
+   Verdict: records/BOHEMIA_SFX_VERDICT_8_12_26.txt
+   Bank:    banks/BOHEMIA_SFX_APPROVED_8_12_26.json
    ONE AUDIOCONTEXT: everything below plays on the MUSIC studio's context and
    its brickwall limiter. The run posts an event name; nothing else. */
 (function(){
   'use strict';
   if(window.__SFX_WIRE)return; window.__SFX_WIRE=true;
-  var APPROVED={"air_day":[0,1,2,3,4],"air_inside":[0,1,2,3,4],"air_night":[0,1,2,3,4],"block":[2],"door_drag":[0],"eat":[2],"hit":[2,4],"hurt":[2],"kill":[0,1,2,3,4],"phone_buzz":[2,4],"pickup":[0,1,2,3,4],"save_chime":[0,1,2,3,4],"shot":[3],"step_asphalt":[0,1,2,3,4],"step_dirt":[0,1,2,3,4],"step_gravel":[0,1,2,3,4],"time_pass":[0,1,2,3,4],"ui_tap":[1,2,3]};
+  var APPROVED={"air_day":[0,1,2,3,4],"air_inside":[0,1,2,3,4],"air_night":[0,1,2,3,4],"block":[2],"casing":[0],"demolish":[0,2,4],"door_drag":[0],"drink":[0,1,2,3,4],"dry_fire":[1],"eat":[2],"generator":[0,1,2,3],"heartbeat":[0,1,3],"hit":[2,4],"hurt":[2],"kill":[0,1,2,3,4],"melee_hit":[0,2,3,4],"phone_buzz":[2,4],"pickup":[0,1,2,3,4],"power_on":[0,4],"save_chime":[0,1,2,3,4],"shot":[3],"step_asphalt":[0,1,2,3,4],"step_concrete":[2],"step_dirt":[0,1,2,3,4],"step_gravel":[0,1,2,3,4],"step_sand":[4],"step_wood":[2,4],"time_pass":[0,1,2,3,4],"ui_back":[2,3,4],"ui_deny":[0,2,4],"ui_tap":[1,2,3],"wind_gust":[0,1]};
   /* THE BOARD HAS TO KNOW WHICH MOMENTS ACTUALLY HAVE A SOUND (8/2), and it
      must read the SAME table playSFX reads. A second copy of his thumbs is a
      second thing that can be wrong. */
@@ -16646,7 +16712,28 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
     kind:null, next:0, bus:null, seen:0,
     where:function(d){
       this.seen=Date.now();
+      this.inside = !!d.inside;
       this.kind = d.inside ? 'air_inside' : (d.night ? 'air_night' : 'air_day');
+    },
+    /* THE RARE THING THAT BREAKS THE EMPTINESS (8/12). His 270-thumb sweep
+       approved A GUST COMES THROUGH (2 of 5) and A GENERATOR, SOMEWHERE (4 of
+       5), and both were written for exactly this slot: not a wall of wind, but
+       the occasional thing you hear when nothing is happening. They ride the
+       ambience clock instead of getting one of their own, so the valley still
+       makes ONE sound at a time and the gaps stay long.
+       OUTDOORS ONLY: a gust and a distant generator both say "out there", and
+       air_inside is the sound of a room with nobody in it but you.
+       THE FREQUENCIES ARE MY DEFAULT AND NOTHING DECIDED THEM BUT TASTE --
+       one gust in four, one generator in eight, so seven of eight are still the
+       bed he approved first. One word from him changes either number.
+       A GENERATOR MEANS PEOPLE, so it is rarer than weather on purpose. */
+    pick:function(){
+      if(this.inside) return this.kind;
+      var A=(window.__SFX_APPROVED||{});
+      var r=Math.random();
+      if(r<0.125 && (A.generator||[]).length) return 'generator';
+      if(r<0.375 && (A.wind_gust||[]).length) return 'wind_gust';
+      return this.kind;
     },
     gap:function(){ return 40 + Math.random()*55; },
     tick:function(){
@@ -16679,11 +16766,12 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
              to the MUSIC master, because MUS.stop() ducks it to zero. */
           this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
         }
-        var set=APPROVED[this.kind]; if(!set||!set.length) return;
+        var ev=this.pick();
+        var set=APPROVED[ev]; if(!set||!set.length) return;
         var i=set[(Math.random()*set.length)|0];
-        var v=vec(this.kind,i); if(!v) return;
+        var v=vec(ev,i); if(!v) return;
         BOH_SFX.render(v,MUS.AC,this.bus,null);
-        SFX_COUNT++;
+        this.last=ev; SFX_COUNT++;
       }catch(e){}
     }
   };
@@ -16706,8 +16794,27 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
   document.addEventListener('click',function(e){
     var t=e&&e.target; if(!t)return;
     if(t.closest&&t.closest(NOUI)) return;   /* this click IS a sound already */
-    if(t.closest&&(t.closest('button')||t.closest('.tab')||t.closest('.opt')))
-      window.playSFX('ui_tap');
+    var btn = t.closest && (t.closest('button')||t.closest('.tab')||t.closest('.opt'));
+    if(!btn) return;
+    /* BACK IS NOT FORWARD (8/12). ui_tap was carrying every interface moment in
+       the game by itself. His sweep approved BACK/CLOSE (3 of 5) and YOU CANNOT
+       DO THAT (3 of 5), so the interface finally answers in more than one way:
+       leaving a screen is a step DOWN from the tap, and a refusal is short and
+       flat and never a buzzer -- his own brief, in his own row.
+       READ OFF WHAT THE BUTTON ALREADY SAYS, never a new attribute nobody sets:
+       a disabled control is a refusal, and a control whose text or aria-label is
+       back/close/cancel/x is a way out. If neither, it is a tap, exactly as
+       before -- this can only ever narrow ui_tap, never silence it. */
+    var A = window.__SFX_APPROVED || {};
+    var lab = ((btn.getAttribute&&(btn.getAttribute('aria-label')||''))+' '+
+               (btn.textContent||'')).trim().toLowerCase();
+    var refused = btn.disabled === true
+               || (btn.classList && (btn.classList.contains('off')
+                                  || btn.classList.contains('disabled')));
+    if(refused && (A.ui_deny||[]).length) return window.playSFX('ui_deny');
+    if((A.ui_back||[]).length &&
+       /^(back|close|cancel|done|x|<|‹|×|←)$/.test(lab)) return window.playSFX('ui_back');
+    window.playSFX('ui_tap');
   },true);
   /* SAY WHAT THE AUDIO IS DOING (7/31). He reported silence twice and both
      times I had to guess at his phone from here, because a muted iPhone and a

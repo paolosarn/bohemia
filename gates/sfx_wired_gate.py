@@ -38,7 +38,9 @@ os.chdir(REPO)
 
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_CURRENT.html'
-BANK = 'banks/BOHEMIA_SFX_APPROVED_7_30_26.json'
+# 8/12: he swept all 270 and the bank grew 38 -> 97. The wire and this gate
+# must read the SAME file or one of them is checking a bank nobody plays.
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_12_26.json'
 VERDICT = 'records/BOHEMIA_SFX_VERDICT_7_30_26.txt'
 
 JS = r"""
@@ -797,8 +799,13 @@ def main():
     steps = [a for a in asked if a.startswith('step_')]
     chk(len(steps) > 0, 'the player walked and NOT ONE footstep was requested -- '
                         'approved-but-unused is a defect')
-    legal = {'step_dirt', 'step_asphalt', 'step_gravel'}
-    chk(set(steps) <= legal, 'the ground asked for a sound that is not one of his three: %s'
+    # THE LEGAL SET IS HIS BANK, NOT A TYPED LIST (8/12). This was three names
+    # written into the gate, so the day he approved step_concrete, step_sand and
+    # step_wood, the correct behaviour -- the ground asking for a finer surface
+    # -- read as a violation. A gate that has to be edited every time he says yes
+    # is a gate that will one day be edited the wrong way. It now asks the bank.
+    legal = {e for e in bank if e.startswith('step_')}
+    chk(set(steps) <= legal, 'the ground asked for a footstep he never approved: %s'
         % (set(steps) - legal))
     chk(not [a for a in asked if a.startswith('door_')],
         'walking requested a DOOR sound, and he approved none')
@@ -982,13 +989,17 @@ def main():
     combat_src = demo
     chk(len(combat_src) > 100000, 'could not decode COMBAT_B64, so combat was unchecked')
 
+    # THE WINDOWS HAVE TO COVER THE WHOLE CHOOSER, NOT ITS FIRST LINE. Both of
+    # these grew on 8/12 -- the ambience gained a pick() that can return the gust
+    # or the generator, and the ground classifier went from three surfaces to six
+    # -- and a 200-character window silently stopped containing the answer.
     AMB = "this.kind = d.inside ?"
     amb_line = ''
     if AMB in alpha_src:
-        amb_line = alpha_src[alpha_src.index(AMB):alpha_src.index(AMB) + 200]
+        amb_line = alpha_src[alpha_src.index(AMB):alpha_src.index(AMB) + 1400]
     ground = ''
     if 'function sfxGround(' in run:
-        ground = run[run.index('function sfxGround('):][:900]
+        ground = run[run.index('function sfxGround('):][:2200]
 
     def wired(ev):
         """Every shape a real request for `ev` can take. A MENTION IS NOT A USE:
@@ -1027,8 +1038,33 @@ def main():
     # WAIVER and not a deletion: the five sounds he approved stay in the bank,
     # the debt is printed every run, and the list is CLOSED so nothing else can
     # quietly join it.
-    WAIVED = {'pickup': 'Paolo 8/2 ruled EAT is its own sound; pickup waits for '
-                        'an inventory to exist'}
+    # THE 8/12 SWEEP ADDED SEVEN MORE, AND EVERY ONE IS NAMED SEPARATELY.
+    # He approved 14 new moments in one sitting. Seven were wired the same day
+    # (the three new ground surfaces through sfxGround, the gust and the
+    # generator through the ambience clock, back and refused through the
+    # chrome). The other seven have no moment in the run to fire from, and the
+    # reason is different for each -- so each says its own, because "no call
+    # site" as a single blanket line is how a real omission hides inside a
+    # legitimate one. A WAIVER IS NOT A DELETION: his sounds stay in the bank,
+    # the debt prints every run, and the list is CLOSED.
+    WAIVED = {
+        'pickup': 'Paolo 8/2 ruled EAT is its own sound; pickup waits for '
+                  'an inventory to exist',
+        'melee_hit': 'the fight lives in the COMBAT surface, another lane\'s '
+                     'iframe. ONE SYSTEM ONE SESSION: this lane does not reach in',
+        'casing':    'same iframe as the shot it follows -- the brass cannot '
+                     'land before the fight is this lane\'s to touch',
+        'dry_fire':  'needs an ammo count to be empty, and the run has no '
+                     'weapon state outside the combat frame',
+        'heartbeat': 'needs the player\'s HP inside the RUN. Today hp exists '
+                     'only in the encounter payload the run hands to combat',
+        'drink':     'there is no drink action anywhere in the run. EAT is a '
+                     'verb; thirst is not one yet',
+        'demolish':  'the city-builder can place nothing and remove nothing '
+                     'yet; the verb this sound belongs to is unbuilt',
+        'power_on':  'LIGHT IS TERRITORY, but taking a block is not a move a '
+                     'player can make in the run today',
+    }
     silent = sorted(ev for ev in bank if not wired(ev))
     unexpected = [ev for ev in silent if ev not in WAIVED]
     chk(not unexpected,

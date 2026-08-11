@@ -1028,21 +1028,87 @@ const BOH_SFX = (function () {
     /* ---- end batch SFX-03 recipes ---- */
   };
 
-  /* ---- THE MEASURED ENVELOPE (8/12/26) ---------------------------------
-     Learned from every thumb in records/BOHEMIA_SFX_VERDICT_*.txt, exported so
-     the gate checks the SHIPPED numbers instead of a copy of them. See the
-     BATCH SFX-03 header in EVENTS for the derivation and the honest limits.
-     BATCH is the list of event ids the envelope binds; his older recipes are
-     what the envelope was learned FROM and are not retro-fitted to it. */
+  /* ---- THE MEASURED ENVELOPE (rewritten 8/12/26, SAME DAY, from 270) ----
+     THE FIRST VERSION OF THIS BLOCK WAS WRONG AND HIS OWN THUMBS PROVED IT.
+
+     It was derived from 140 verdicts and it claimed two things: that MATERIAL is
+     the verdict (glass 100%, metal 20%, wood 33%, water 20%) and that he kills
+     sounds that are PUSHED (makeup gain effect -1.17, drive -0.62). The gate was
+     built to RE-DERIVE both from his verdict files on every run, precisely so
+     that his data stays upstream of the law. Hours later he judged all 270 and
+     the re-derivation went red. Read what happened straight:
+
+       material   140 thumbs        270 thumbs
+       water      1 UP / 4  (20%)   6 UP / 4   (60%)   <- best in the game now
+       glass      5 UP / 0  (100%)  8 UP / 12  (40%)
+       ash       13 UP / 17 (43%)  16 UP / 44  (27%)   <- near worst now
+       choir      5 UP / 5  (50%)   7 UP / 13  (35%)
+       metal      3 UP / 12 (20%)   3 UP / 22  (12%)   <- the ONE that held
+
+     Glass was five samples. Water was five samples. Every ranking except metal
+     was small-sample noise that read like a finding, and a full sweep flattened
+     it. The knobs went the same way: makeup gain fell from -1.17 to -0.36 and
+     drive from -0.62 to -0.23, and the approved and rejected medians now nearly
+     touch (mkup 0.880 vs 0.900). The direction survives; the strength does not.
+
+     SO THE LAW IS CUT DOWN TO WHAT 270 JUDGEMENTS ACTUALLY SUPPORT:
+       1. METAL IS DEAD. 3 UP / 22 DOWN across 25 judgements, consistent in both
+          sweeps, and both metal moments in the new batch died whole (step_metal
+          0/5, reload 0/5). No new recipe cooks from it.
+       2. CONTAINMENT, NOT DIRECTION. Nothing predicts WHICH of five cousins he
+          wants, so the envelope no longer pretends to. What it can honestly say
+          is WHERE his yeses live: REGION below is the bounding box of all 97
+          approved candidates, and a new cook has to land inside it. That is a
+          claim about coverage, which the data supports, instead of a claim about
+          taste, which it does not.
+     The weak direction is REPORTED by the gate and asserted only as the sign it
+     still has -- approved mkup below rejected mkup -- never as a cap, because a
+     cap tight enough to mean anything would be red on sounds HE APPROVED, and a
+     gate that outranks a ruling is the failure this whole lane has a law about.
+
+     HIS 8/12 SCOREBOARD ON THE NEW BATCH: 14 of 26 moments live, 12 died whole
+     (step_glass step_metal swing reload breath patch_up build_place deed money
+     neon_buzz dog_far equip). Those 60 candidates are in the graveyard. */
   var ENVELOPE = {
     since: '8/12/26',
-    maxMkup: 1.10,        /* UP mean 0.92 vs DOWN 1.28, effect -1.17 */
-    maxDrive: 0.30,       /* UP mean 0.16 vs DOWN 0.30, effect -0.62 */
-    winners: ['glass', 'crystal', 'stone', 'bell', 'choir', 'ash'],
-    losers:  ['metal', 'wood', 'water'],   /* 9 UP / 26 DOWN across 35 thumbs */
-    /* a loser material is legal ONLY where the struck object IS that thing */
-    loserOK: { step_wood: 'a floorboard is wood', step_metal: 'a deck plate is steel',
-               reload: 'a magazine is steel', drink: 'the sound is water' },
+    judged: 270, approved: 97,
+    dead: ['metal'],              /* 3 UP / 22 DOWN. the only stable finding */
+    /* kept as history, NOT as law: the direction that survived, and its real
+       strength once the whole game was judged */
+    mkupUp: 0.879, mkupDown: 0.992, driveUp: 0.151, driveDown: 0.194,
+    /* the bounding box of every candidate he has ever said yes to */
+    REGION: {
+    hz: [46, 1922.1723311021924],
+    modes: [4, 11],
+    bright: [0.23236137816216795, 1.6733269621850924],
+    decay: [0.0625, 3.25],
+    damp: [0.7152495026588439, 2.725041580479592],
+    warble: [0.25, 2.9784293750301005],
+    atk: [0, 0.75],
+    slide: [-13.554722697474062, 5],
+    trans: [0.04, 1],
+    transHz: [320, 8600],
+    transQ: [0.5, 4.3834795102477075],
+    grit: [0, 0.98],
+    gritHz: [300, 6000],
+    space: [0.05, 0.9671123819425702],
+    room: [0.0625, 2.75],
+    refl: [0, 4],
+    dark: [348.55567762162536, 6587.331252684817],
+    width: [0.2664250782504678, 1],
+    drive: [0, 0.7355879963259213],
+    gain: [0.18, 0.72],
+    mkup: [0.25, 1.765]
+    },
+    /* WHICH RECIPES THE REGION BINDS. Empty on purpose, and the reason is the
+       whole discipline of this lane: a candidate is a pure function of (event,
+       index) through the recipe, so narrowing a jitter range CHANGES WHAT
+       casing.1 IS -- and 130 of his thumbs are attached to those exact vectors.
+       Re-cooking SFX-03 to fit the box would silently invalidate judgements he
+       already made. So the region binds FORWARD: any recipe added after 8/12
+       goes in this list and must cook entirely inside it. The existing batch is
+       measured and REPORTED against the box, never failed on it. */
+    regionBinds: [],
     batch: ['step_concrete','step_sand','step_glass','step_wood','step_metal',
             'swing','melee_hit','reload','dry_fire','casing',
             'heartbeat','breath','drink','patch_up',

@@ -1,0 +1,393 @@
+=== BOHEMIA SFX VERDICTS ===
+BATCH SFX-01 + SFX-03 (8/12/26) - 54 game moments x 5 candidates
+JUDGED: 270/270
+UP = this IS the sound. DOWN = dead. blank = never judged.
+
+EXPORTED BY PAOLO 8/12/26. THE WHOLE GAME IN ONE SITTING: he closed all 26
+moments of BATCH SFX-03 the same day they shipped, and re-confirmed every
+earlier moment with them. 97 UP / 173 DOWN.
+
+THE VECTORS ARE NOT COPIED HERE ON PURPOSE. A candidate is a pure function of
+(event, index) through BOH_SFX.cook, and records/BOHEMIA_SFX_FINGERPRINTS pins
+what each one measures as. An id IS the sound; a pasted vector is a second copy
+that can drift from it.
+
+[FOOTSTEP - DIRT]  step_dirt   (every step you take in the desert and the lots)
+  UP   step_dirt.0
+  UP   step_dirt.1
+  UP   step_dirt.2
+  UP   step_dirt.3
+  UP   step_dirt.4
+
+[FOOTSTEP - ASPHALT]  step_asphalt   (the street. the sound you hear most in the game)
+  UP   step_asphalt.0
+  UP   step_asphalt.1
+  UP   step_asphalt.2
+  UP   step_asphalt.3
+  UP   step_asphalt.4
+
+[FOOTSTEP - GRAVEL]  step_gravel   (shoulders, yards, the boneyard)
+  UP   step_gravel.0
+  UP   step_gravel.1
+  UP   step_gravel.2
+  UP   step_gravel.3
+  UP   step_gravel.4
+
+[DOOR OPENS]  door_open   (going INTO a building, every interior in the valley)
+  DOWN door_open.0
+  DOWN door_open.1
+  DOWN door_open.2
+  DOWN door_open.3
+  DOWN door_open.4
+
+[DOOR SHUTS]  door_shut   (the door closing behind you)
+  DOWN door_shut.0
+  DOWN door_shut.1
+  DOWN door_shut.2
+  DOWN door_shut.3
+  DOWN door_shut.4
+
+[PICK SOMETHING UP]  pickup   (loot, items, anything into the bag)
+  UP   pickup.0
+  UP   pickup.1
+  UP   pickup.2
+  UP   pickup.3
+  UP   pickup.4
+
+[YOU LAND A HIT]  hit   (combat contact. this one has to feel like it landed)
+  DOWN hit.0
+  DOWN hit.1
+  UP   hit.2
+  DOWN hit.3
+  UP   hit.4
+
+[BLOCKED]  block   (the hit that did not land)
+  DOWN block.0
+  DOWN block.1
+  UP   block.2
+  DOWN block.3
+  DOWN block.4
+
+[KILL - ON THE BEAT]  kill   (the kill drops exactly on the beat, with the music)
+  UP   kill.0
+  UP   kill.1
+  UP   kill.2
+  UP   kill.3
+  UP   kill.4
+
+[UI TAP]  ui_tap   (every button on the phone)
+  DOWN ui_tap.0
+  UP   ui_tap.1
+  UP   ui_tap.2
+  UP   ui_tap.3
+  DOWN ui_tap.4
+
+[PHONE BUZZES]  phone_buzz   (a new post, a message, the feed)
+  DOWN phone_buzz.0
+  DOWN phone_buzz.1
+  UP   phone_buzz.2
+  DOWN phone_buzz.3
+  UP   phone_buzz.4
+
+[SAVED]  save_chime   (the run recorded what you did)
+  UP   save_chime.0
+  UP   save_chime.1
+  UP   save_chime.2
+  UP   save_chime.3
+  UP   save_chime.4
+
+[YOUR GUN GOES OFF]  shot   (the sound the game makes most in a fight. everything else is judged against it)
+  DOWN shot.0
+  DOWN shot.1
+  DOWN shot.2
+  UP   shot.3
+  DOWN shot.4
+
+[THE SHOT MISSES]  miss   (it went past. you feel it leave without landing)
+  DOWN miss.0
+  DOWN miss.1
+  DOWN miss.2
+  DOWN miss.3
+  DOWN miss.4
+
+[VITAL HIT]  vital   (you hit something that matters. worse than a hit, not yet a kill)
+  DOWN vital.0
+  DOWN vital.1
+  DOWN vital.2
+  DOWN vital.3
+  DOWN vital.4
+
+[YOU TAKE THE HIT]  hurt   (return fire lands on YOU. the only sound in the game that is bad news)
+  DOWN hurt.0
+  DOWN hurt.1
+  UP   hurt.2
+  DOWN hurt.3
+  DOWN hurt.4
+
+[THE FIGHT IS OVER]  clear   (everyone is down and the room goes quiet)
+  DOWN clear.0
+  DOWN clear.1
+  DOWN clear.2
+  DOWN clear.3
+  DOWN clear.4
+
+[THE VALLEY AT MIDDAY]  air_day   (outside, in the heat. what you hear when nothing is happening)
+  UP   air_day.0
+  UP   air_day.1
+  UP   air_day.2
+  UP   air_day.3
+  UP   air_day.4
+
+[THE VALLEY AT NIGHT]  air_night   (outside, after dark. this one is the horror)
+  UP   air_night.0
+  UP   air_night.1
+  UP   air_night.2
+  UP   air_night.3
+  UP   air_night.4
+
+[INSIDE A BUILDING]  air_inside   (a room with nobody in it but you)
+  UP   air_inside.0
+  UP   air_inside.1
+  UP   air_inside.2
+  UP   air_inside.3
+  UP   air_inside.4
+
+[YOU EAT]  eat   (what the room was holding, and you took it. nobody else hears this)
+  DOWN eat.0
+  DOWN eat.1
+  UP   eat.2
+  DOWN eat.3
+  DOWN eat.4
+
+[YOU SLEEP]  sleep   (eight hours gone. the biggest block of time in the game)
+  DOWN sleep.0
+  DOWN sleep.1
+  DOWN sleep.2
+  DOWN sleep.3
+  DOWN sleep.4
+
+[SOMEBODY TURNS TO YOU]  talk_start   (the moment a conversation starts. small: a person is not an event)
+  DOWN talk_start.0
+  DOWN talk_start.1
+  DOWN talk_start.2
+  DOWN talk_start.3
+  DOWN talk_start.4
+
+[YOU STEP INSIDE]  go_inside   (crossing into a building. the ROOM is the sound, not the door)
+  DOWN go_inside.0
+  DOWN go_inside.1
+  DOWN go_inside.2
+  DOWN go_inside.3
+  DOWN go_inside.4
+
+[IT IS DONE]  quest_done   (the run completed. the one moment that earns the whole room)
+  DOWN quest_done.0
+  DOWN quest_done.1
+  DOWN quest_done.2
+  DOWN quest_done.3
+  DOWN quest_done.4
+
+[HOURS GO BY]  time_pass   (time spent standing still. the only sound here that moves in pitch)
+  UP   time_pass.0
+  UP   time_pass.1
+  UP   time_pass.2
+  UP   time_pass.3
+  UP   time_pass.4
+
+[THE DOOR DRAGS OPEN]  door_drag   (thirty years of sand in the sill. it hauls, it does not creak)
+  UP   door_drag.0
+  DOWN door_drag.1
+  DOWN door_drag.2
+  DOWN door_drag.3
+  DOWN door_drag.4
+
+[THE DOOR STOPS DEAD]  door_clack   (latch and frame at the same instant. the sound that CUTS and STOPS)
+  DOWN door_clack.0
+  DOWN door_clack.1
+  DOWN door_clack.2
+  DOWN door_clack.3
+  DOWN door_clack.4
+
+[FOOTSTEP - CONCRETE]  step_concrete   (every interior floor and every sidewalk. after asphalt this is the most-heard sound in the game)
+  DOWN step_concrete.0
+  DOWN step_concrete.1
+  UP   step_concrete.2
+  DOWN step_concrete.3
+  DOWN step_concrete.4
+
+[FOOTSTEP - DEEP SAND]  step_sand   (off the pavement, where the valley is taking the city back. it swallows the step)
+  DOWN step_sand.0
+  DOWN step_sand.1
+  DOWN step_sand.2
+  DOWN step_sand.3
+  UP   step_sand.4
+
+[FOOTSTEP - BROKEN GLASS]  step_glass   (a dead city is carpeted in it. you cannot walk quietly through a looted room)
+  DOWN step_glass.0
+  DOWN step_glass.1
+  DOWN step_glass.2
+  DOWN step_glass.3
+  DOWN step_glass.4
+
+[FOOTSTEP - FLOORBOARDS]  step_wood   (porches, motel rooms, anything built before the money left)
+  DOWN step_wood.0
+  DOWN step_wood.1
+  UP   step_wood.2
+  DOWN step_wood.3
+  UP   step_wood.4
+
+[FOOTSTEP - METAL DECK]  step_metal   (storage doors, catwalks, a truck bed. the one that announces you)
+  DOWN step_metal.0
+  DOWN step_metal.1
+  DOWN step_metal.2
+  DOWN step_metal.3
+  DOWN step_metal.4
+
+[YOU SWING AND MISS]  swing   (the bat goes through the air. no contact, just the weight of it)
+  DOWN swing.0
+  DOWN swing.1
+  DOWN swing.2
+  DOWN swing.3
+  DOWN swing.4
+
+[MELEE CONNECTS]  melee_hit   (pipe on a body. the closest, worst sound in the game)
+  UP   melee_hit.0
+  DOWN melee_hit.1
+  UP   melee_hit.2
+  UP   melee_hit.3
+  UP   melee_hit.4
+
+[YOU RELOAD]  reload   (the beat where you cannot shoot. the player has to HEAR the window open and close)
+  DOWN reload.0
+  DOWN reload.1
+  DOWN reload.2
+  DOWN reload.3
+  DOWN reload.4
+
+[EMPTY]  dry_fire   (you pulled and nothing happened. the sound that means you counted wrong)
+  DOWN dry_fire.0
+  UP   dry_fire.1
+  DOWN dry_fire.2
+  DOWN dry_fire.3
+  DOWN dry_fire.4
+
+[BRASS HITS THE FLOOR]  casing   (after the shot, from a different place in the room. it tells you the room is hard)
+  UP   casing.0
+  DOWN casing.1
+  DOWN casing.2
+  DOWN casing.3
+  DOWN casing.4
+
+[YOUR HEART, TOO LOUD]  heartbeat   (low health. the sound that is inside your head, not in the room)
+  UP   heartbeat.0
+  UP   heartbeat.1
+  DOWN heartbeat.2
+  UP   heartbeat.3
+  DOWN heartbeat.4
+
+[OUT OF BREATH]  breath   (you ran too far. the cost of moving fast, made audible)
+  DOWN breath.0
+  DOWN breath.1
+  DOWN breath.2
+  DOWN breath.3
+  DOWN breath.4
+
+[YOU DRINK]  drink   (water in a desert. the single most valuable thing anybody has)
+  UP   drink.0
+  UP   drink.1
+  UP   drink.2
+  UP   drink.3
+  UP   drink.4
+
+[YOU PATCH YOURSELF UP]  patch_up   (cloth and tape. slow, close, and nobody is helping you)
+  DOWN patch_up.0
+  DOWN patch_up.1
+  DOWN patch_up.2
+  DOWN patch_up.3
+  DOWN patch_up.4
+
+[IT GOES DOWN]  build_place   (a thing you decided on lands on the map and is now real)
+  DOWN build_place.0
+  DOWN build_place.1
+  DOWN build_place.2
+  DOWN build_place.3
+  DOWN build_place.4
+
+[IT COMES APART]  demolish   (you took something down. it should cost you something to hear)
+  UP   demolish.0
+  DOWN demolish.1
+  UP   demolish.2
+  DOWN demolish.3
+  UP   demolish.4
+
+[YOU OWN IT NOW]  deed   (the deed lands. ownership is the whole spine of the game)
+  DOWN deed.0
+  DOWN deed.1
+  DOWN deed.2
+  DOWN deed.3
+  DOWN deed.4
+
+[MONEY MOVES]  money   (cash changes hands. in a post-economic valley this is never neutral)
+  DOWN money.0
+  DOWN money.1
+  DOWN money.2
+  DOWN money.3
+  DOWN money.4
+
+[THE BLOCK LIGHTS]  power_on   (the grid takes a block. LIGHT IS TERRITORY, so this is a territorial sound)
+  UP   power_on.0
+  DOWN power_on.1
+  DOWN power_on.2
+  DOWN power_on.3
+  UP   power_on.4
+
+[A GUST COMES THROUGH]  wind_gust   (the valley leaning on the building you are standing in)
+  UP   wind_gust.0
+  UP   wind_gust.1
+  DOWN wind_gust.2
+  DOWN wind_gust.3
+  DOWN wind_gust.4
+
+[NEON, STILL LIT]  neon_buzz   (the 12% that has power. an ugly, beautiful, electric sound)
+  DOWN neon_buzz.0
+  DOWN neon_buzz.1
+  DOWN neon_buzz.2
+  DOWN neon_buzz.3
+  DOWN neon_buzz.4
+
+[A GENERATOR, SOMEWHERE]  generator   (somebody is running one. that means PEOPLE, and it is not always good news)
+  UP   generator.0
+  UP   generator.1
+  UP   generator.2
+  UP   generator.3
+  DOWN generator.4
+
+[A DOG, FAR OFF]  dog_far   (the only other living thing you can hear. distance is the whole point)
+  DOWN dog_far.0
+  DOWN dog_far.1
+  DOWN dog_far.2
+  DOWN dog_far.3
+  DOWN dog_far.4
+
+[BACK / CLOSE]  ui_back   (leaving a screen. the answer to the tap, one step down)
+  DOWN ui_back.0
+  DOWN ui_back.1
+  UP   ui_back.2
+  UP   ui_back.3
+  UP   ui_back.4
+
+[YOU CANNOT DO THAT]  ui_deny   (refused. short and flat, never a buzzer)
+  UP   ui_deny.0
+  DOWN ui_deny.1
+  UP   ui_deny.2
+  DOWN ui_deny.3
+  UP   ui_deny.4
+
+[CLOTHES GO ON]  equip   (the wardrobe is a whole system that never made a sound)
+  DOWN equip.0
+  DOWN equip.1
+  DOWN equip.2
+  DOWN equip.3
+  DOWN equip.4
+
+NOTE: (none)

@@ -887,3 +887,106 @@ voice.cand-0  voice.cand-5
 # batch while cand-5 is the lowest pitch, so vibrato is a correlation and not a
 # proven cause. It is recorded as a lead for the next batch, not as a law.
 # GRAVEYARD IS FINAL: these two seeds do not come back.
+
+==========================================================================
+BATCH SFX-03, THE TWELVE MOMENTS THAT DIED WHOLE (Paolo 8/12/26)
+==========================================================================
+He judged all 270 candidates in one sitting -- 97 UP, 173 DOWN -- and of the 26
+new moments, TWELVE came back with all five candidates dead. Sixty sounds.
+
+WHAT THE POST-MORTEM ACTUALLY SHOWS, and it is not what the morning claimed:
+  THE MORNING LAW WAS WRONG AND HIS SWEEP KILLED IT. glass was 5 UP / 0 DOWN at
+  140 thumbs and is 8 UP / 12 DOWN at 270; water was 20% and is now 60%; ash was
+  43% and is now 27%. The batch was built to favour glass and ash and to treat
+  water as a dead end -- and step_glass died 0/5 while drink, the only water
+  moment, swept 5/5. Material was never the predictor. Five samples were.
+  METAL IS THE ONE FINDING THAT HELD. 3 UP / 22 DOWN lifetime, and both metal
+  moments here (step_metal, reload) died whole. It is now the only material this
+  lane treats as dead, and it is the only one the gate asserts.
+  THE DEAD SHARE A SHAPE THE LIVE ONES DO NOT: nine of the twelve are the
+  moments with no PHYSICAL EVENT behind them -- an abstraction being announced
+  (build_place, deed, money, equip) or a texture with no strike (breath,
+  neon_buzz, dog_far). What lived was almost entirely things HITTING things:
+  melee_hit 4/5, generator 4/5, demolish 3/5, heartbeat 3/5, drink 5/5. Read
+  cautiously, n=26, but it is the strongest pattern in the sweep and it is the
+  brief for whatever answers these slots.
+
+GRAVEYARD IS FINAL: these sixty ids do not come back. A fresh cook answering any
+of these moments takes a NEW id, the way door_drag answered door_open.
+
+  [step_glass] all five dead
+  step_glass.0       mat=glass    hz=  620.0 bright=1.30 decay=0.1250 drive=0.10 space=0.12
+  step_glass.1       mat=glass    hz=  813.9 bright=1.37 decay=0.0625 drive=0.10 space=0.12
+  step_glass.2       mat=glass    hz=  648.3 bright=1.45 decay=0.1875 drive=0.10 space=0.12
+  step_glass.3       mat=glass    hz=  825.4 bright=1.13 decay=0.1875 drive=0.10 space=0.12
+  step_glass.4       mat=glass    hz=  619.7 bright=1.50 decay=0.1875 drive=0.10 space=0.12
+  [step_metal] all five dead
+  step_metal.0       mat=metal    hz=  245.0 bright=1.25 decay=0.1250 drive=0.16 space=0.11
+  step_metal.1       mat=metal    hz=  273.5 bright=1.23 decay=0.1250 drive=0.16 space=0.11
+  step_metal.2       mat=metal    hz=  190.6 bright=1.37 decay=0.1875 drive=0.16 space=0.11
+  step_metal.3       mat=metal    hz=  287.5 bright=1.44 decay=0.1250 drive=0.16 space=0.11
+  step_metal.4       mat=metal    hz=  234.1 bright=1.60 decay=0.1250 drive=0.16 space=0.11
+  [swing] all five dead
+  swing.0            mat=ash      hz=  132.0 bright=0.60 decay=0.1875 drive=0.10 space=0.14
+  swing.1            mat=ash      hz=  182.0 bright=0.63 decay=0.1250 drive=0.10 space=0.14
+  swing.2            mat=ash      hz=  133.0 bright=0.51 decay=0.1250 drive=0.10 space=0.14
+  swing.3            mat=ash      hz=  167.0 bright=0.72 decay=0.2500 drive=0.10 space=0.14
+  swing.4            mat=ash      hz=  176.6 bright=0.49 decay=0.2500 drive=0.10 space=0.14
+  [reload] all five dead
+  reload.0           mat=metal    hz=  310.0 bright=1.30 decay=0.0625 drive=0.12 space=0.16
+  reload.1           mat=metal    hz=  281.2 bright=1.18 decay=0.0625 drive=0.12 space=0.16
+  reload.2           mat=metal    hz=  286.8 bright=1.45 decay=0.0625 drive=0.12 space=0.16
+  reload.3           mat=metal    hz=  304.6 bright=1.30 decay=0.0625 drive=0.12 space=0.16
+  reload.4           mat=metal    hz=  350.4 bright=1.48 decay=0.0625 drive=0.12 space=0.16
+  [breath] all five dead
+  breath.0           mat=ash      hz=   88.0 bright=0.50 decay=0.3750 drive=0.05 space=0.08
+  breath.1           mat=ash      hz=  121.3 bright=0.59 decay=0.5000 drive=0.05 space=0.08
+  breath.2           mat=ash      hz=   70.2 bright=0.64 decay=0.4375 drive=0.05 space=0.08
+  breath.3           mat=ash      hz=  120.9 bright=0.60 decay=0.3125 drive=0.05 space=0.08
+  breath.4           mat=ash      hz=   83.9 bright=0.58 decay=0.3750 drive=0.05 space=0.08
+  [patch_up] all five dead
+  patch_up.0         mat=ash      hz=  158.0 bright=0.72 decay=0.2500 drive=0.09 space=0.12
+  patch_up.1         mat=ash      hz=  134.6 bright=0.83 decay=0.1875 drive=0.09 space=0.12
+  patch_up.2         mat=ash      hz=  191.6 bright=0.88 decay=0.3125 drive=0.09 space=0.12
+  patch_up.3         mat=ash      hz=  213.4 bright=0.58 decay=0.1875 drive=0.09 space=0.12
+  patch_up.4         mat=ash      hz=  151.7 bright=0.96 decay=0.3125 drive=0.09 space=0.12
+  [build_place] all five dead
+  build_place.0      mat=stone    hz=  104.0 bright=0.70 decay=0.3750 drive=0.16 space=0.50
+  build_place.1      mat=stone    hz=  121.6 bright=0.70 decay=0.3750 drive=0.16 space=0.42
+  build_place.2      mat=stone    hz=   93.0 bright=0.70 decay=0.3750 drive=0.16 space=0.58
+  build_place.3      mat=stone    hz=   98.2 bright=0.70 decay=0.2500 drive=0.16 space=0.62
+  build_place.4      mat=stone    hz=  129.1 bright=0.70 decay=0.3750 drive=0.16 space=0.39
+  [deed] all five dead
+  deed.0             mat=bell     hz=  262.0 bright=0.95 decay=1.7500 drive=0.06 space=0.78
+  deed.1             mat=bell     hz=  227.4 bright=1.19 decay=2.1250 drive=0.06 space=0.93
+  deed.2             mat=bell     hz=  280.0 bright=0.80 decay=2.3125 drive=0.06 space=0.86
+  deed.3             mat=bell     hz=  308.4 bright=1.34 decay=1.5000 drive=0.06 space=0.91
+  deed.4             mat=bell     hz=  320.2 bright=0.82 decay=1.5625 drive=0.06 space=0.76
+  [money] all five dead
+  money.0            mat=crystal  hz=  980.0 bright=1.25 decay=0.3125 drive=0.05 space=0.34
+  money.1            mat=crystal  hz= 1294.3 bright=1.21 decay=0.1875 drive=0.05 space=0.36
+  money.2            mat=crystal  hz=  810.5 bright=1.20 decay=0.1875 drive=0.05 space=0.24
+  money.3            mat=crystal  hz=  780.0 bright=1.55 decay=0.3750 drive=0.05 space=0.39
+  money.4            mat=crystal  hz=  819.5 bright=1.25 decay=0.2500 drive=0.05 space=0.33
+  [neon_buzz] all five dead
+  neon_buzz.0        mat=glass    hz=  122.0 bright=1.10 decay=1.7500 drive=0.20 space=0.30
+  neon_buzz.1        mat=glass    hz=  105.8 bright=1.10 decay=1.7500 drive=0.20 space=0.30
+  neon_buzz.2        mat=glass    hz=  122.7 bright=1.10 decay=1.7500 drive=0.20 space=0.25
+  neon_buzz.3        mat=glass    hz=  108.4 bright=1.10 decay=1.4375 drive=0.20 space=0.31
+  neon_buzz.4        mat=glass    hz=  160.0 bright=1.10 decay=2.0000 drive=0.20 space=0.40
+  [dog_far] all five dead
+  dog_far.0          mat=choir    hz=  340.0 bright=0.60 decay=0.5000 drive=0.05 space=0.90
+  dog_far.1          mat=choir    hz=  381.0 bright=0.80 decay=0.6875 drive=0.05 space=0.89
+  dog_far.2          mat=choir    hz=  293.6 bright=0.81 decay=0.4375 drive=0.05 space=0.90
+  dog_far.3          mat=choir    hz=  298.5 bright=0.85 decay=0.5000 drive=0.05 space=0.85
+  dog_far.4          mat=choir    hz=  349.9 bright=0.82 decay=0.6250 drive=0.05 space=0.93
+  [equip] all five dead
+  equip.0            mat=ash      hz=  190.0 bright=0.80 decay=0.1875 drive=0.10 space=0.14
+  equip.1            mat=ash      hz=  219.4 bright=0.90 decay=0.1875 drive=0.10 space=0.14
+  equip.2            mat=ash      hz=  157.2 bright=0.74 decay=0.1875 drive=0.10 space=0.14
+  equip.3            mat=ash      hz=  260.6 bright=1.10 decay=0.2500 drive=0.10 space=0.14
+  equip.4            mat=ash      hz=  216.9 bright=0.81 decay=0.1875 drive=0.10 space=0.14
+
+ALSO DEAD THIS SWEEP, individually (the moments themselves lived):
+  the 95 other DOWN candidates across the 14 surviving new moments and
+  the 28 older ones. Every id and thumb: records/BOHEMIA_SFX_VERDICT_8_12_26.txt

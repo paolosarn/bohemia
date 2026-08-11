@@ -1,35 +1,43 @@
 #!/usr/bin/env python3
 """
-SFX ENVELOPE GATE (8/12/26) - the new sounds are built out of what he approved,
-and the law stays tied to his thumbs instead of to a paragraph somebody wrote.
+SFX ENVELOPE GATE (8/12/26) - the new sounds stay inside what he approved, and
+the LAW stays tied to his thumbs instead of to a paragraph somebody wrote.
 
-Paolo 8/11: "we may need way more voices and way more sounds for the whole game."
-The voices lane answered that by casting from an ENVELOPE derived from his six
-approved voices. Sounds get the same treatment: before a single recipe in BATCH
-SFX-03 was written, all 140 thumbs in records/BOHEMIA_SFX_VERDICT_*.txt were
-joined against the cooked vectors and measured.
+THIS GATE ALREADY DID ITS JOB ONCE, AND IT COST ME MY OWN FINDING.
 
-WHAT THE MEASUREMENT SAID (62 UP / 78 DOWN):
-  MATERIAL IS THE VERDICT.  glass 100%, crystal 53%, stone 50%, bell 50%,
-  choir 50%, ash 43%  --  and metal 20%, wood 33%, water 20%, which is
-  9 UP / 26 DOWN across 35 separate judgements. That independently reproduces
-  the 7/30 door post-mortem out of data the post-mortem never looked at.
-  HE KILLS SOUNDS THAT ARE PUSHED.  mkup is the strongest continuous separator
-  in the whole set (UP 0.92 / DOWN 1.28, effect -1.17); drive is second
-  (UP 0.16 / DOWN 0.30, -0.62). Nothing else clears 0.45. That is his v1
-  complaint -- "it sounds like it was made with some software from 2006" --
-  restated as a number.
+Built in the morning off 140 verdicts, it asserted two things: MATERIAL IS THE
+VERDICT (glass 100%, metal 20%, wood 33%, water 20%) and HE KILLS SOUNDS THAT
+ARE PUSHED (makeup gain effect -1.17, drive -0.62). Both were re-derived from
+his verdict files on every run rather than pasted in, specifically so his data
+would stay upstream of the law. Hours later Paolo judged all 270 and the
+re-derivation went RED:
 
-WHAT IT DID NOT SAY, and this gate refuses to pretend otherwise: WITHIN one
-event's five candidates no parameter has a clean direction (8 events split, best
-knob 5/7). Which cousin he wants is taste. The envelope picks the FAMILY; he
-still picks the sound. A gate that claimed more than the data supports would be
-the exact failure the craft law names -- fix the ruler, never the target.
+    material   140 thumbs        270 thumbs
+    water      1 UP / 4  (20%)   6 UP / 4   (60%)   <- best in the game now
+    glass      5 UP / 0  (100%)  8 UP / 12  (40%)
+    ash       13 UP / 17 (43%)  16 UP / 44  (27%)   <- near worst now
+    metal      3 UP / 12 (20%)   3 UP / 22  (12%)   <- the ONE that held
 
-THE ORDER OF AUTHORITY IS ALSO CHECKED, NOT ASSUMED. Checks 1-3 RE-DERIVE the
-envelope from the verdict files every run. If Paolo's future thumbs flip the
-direction, this gate goes red and the LAW gets rewritten from his data -- the
-gate never outranks the ruling, it reads it.
+Glass was five samples. Water was five samples. Every material ranking except
+metal was small-sample noise that read like a finding. The knobs went the same
+way: mkup -1.17 -> -0.36, drive -0.62 -> -0.23, and the approved and rejected
+medians now nearly touch (0.880 vs 0.900).
+
+The right move when a gate goes red on new data from the person whose taste it
+encodes is to REWRITE THE LAW, never to loosen the check until the old claim
+fits. So this gate now asserts only what 270 judgements support:
+
+  1. METAL IS DEAD -- 3 UP / 22 DOWN, consistent across both sweeps, and both
+     metal moments in the new batch died whole. No new recipe cooks from it.
+  2. CONTAINMENT, NOT DIRECTION -- nothing predicts WHICH of five cousins he
+     wants, so the gate stops pretending. It checks that every new candidate
+     lands inside REGION, the bounding box of all 97 candidates he has ever
+     approved. A coverage claim the data supports, instead of a taste claim it
+     does not.
+  3. The surviving weak direction is REPORTED and asserted only as a SIGN
+     (approved mkup below rejected mkup). Never as a cap: a cap tight enough to
+     mean anything would be red on sounds HE APPROVED, and a gate that outranks
+     a ruling is the failure this lane already has a law about.
 """
 import json
 import os
@@ -64,33 +72,47 @@ for(const c of up){ (mat[c.mat]=mat[c.mat]||[0,0])[0]++; }
 for(const c of down){ (mat[c.mat]=mat[c.mat]||[0,0])[1]++; }
 const rate={}; for(const m in mat) rate[m]=mat[m][0]/(mat[m][0]+mat[m][1]);
 
-/* THE BATCH ITSELF, read off the shipped recipes. A jitter range that climbs
-   out of the envelope is the same violation as a base that does -- the sound he
-   would actually hear is the jittered one. */
+/* THE BATCH ITSELF, read off the SHIPPED recipes. Every candidate is checked
+   against REGION, not the base recipe: the sound he would actually hear is the
+   jittered one, so a jitter range that walks out of the approved box is exactly
+   as much a violation as a base that starts outside it. */
 const E=S.ENVELOPE, batch={};
 for(const ev of E.batch){
   const r=S.RECIPE[ev];
   if(!r){ batch[ev]={missing:true}; continue; }
-  const jitTop=k => (r.jit && r.jit[k]) ? Math.max(r.jit[k][0],r.jit[k][1]) : null;
   const c1=S.cook(ev,5), c2=S.cook(ev,5);
+  const outside=[];
+  for(const v of c1) for(const k in E.REGION){
+    const lo=E.REGION[k][0], hi=E.REGION[k][1], x=+v[k];
+    if(x < lo-1e-6 || x > hi+1e-6) outside.push(v.id+'.'+k+'='+(+x.toFixed(3)));
+  }
   batch[ev]={
-    mat:r.base.mat, mkup:r.base.mkup, drive:r.base.drive,
-    jitMkup:jitTop('mkup'), jitDrive:jitTop('drive'),
-    n:c1.length,
+    mat:r.base.mat, n:c1.length,
     invalid:c1.reduce((a,v)=>a+(S.validate(v).length?1:0),0),
     distinct:new Set(c1.map(v=>JSON.stringify(v))).size,
     deterministic:JSON.stringify(c1)===JSON.stringify(c2),
-    maxCookMkup:Math.max.apply(null,c1.map(v=>v.mkup)),
-    maxCookDrive:Math.max.apply(null,c1.map(v=>v.drive)),
-    mats:Array.from(new Set(c1.map(v=>v.mat)))
+    mats:Array.from(new Set(c1.map(v=>v.mat))),
+    outside:outside.slice(0,4), outsideN:outside.length,
+    up:c1.reduce((a,v)=>a+(V[v.id]===1?1:0),0),
+    judged:c1.reduce((a,v)=>a+(V[v.id]!==undefined?1:0),0)
   };
+}
+/* THE REGION MUST BE THE REAL ONE. If the shipped box is not the bounding box
+   of his approvals it is a number somebody typed, which is the whole thing this
+   gate exists to prevent. */
+const realBox={}, boxOff=[];
+for(const k in E.REGION){
+  const v=up.map(x=>+x[k]);
+  realBox[k]=[Math.min.apply(null,v),Math.max.apply(null,v)];
+  if(Math.abs(realBox[k][0]-E.REGION[k][0])>0.01 || Math.abs(realBox[k][1]-E.REGION[k][1])>0.01)
+    boxOff.push(k+': shipped ['+E.REGION[k]+'] vs measured ['+realBox[k].map(n=>+n.toFixed(3))+']');
 }
 console.log(JSON.stringify({
   judged:Object.keys(V).length, orphan:orphan.slice(0,5), orphanN:orphan.length,
   up:up.length, down:down.length,
   upMkup:mean(up,'mkup'), dnMkup:mean(down,'mkup'),
   upDrive:mean(up,'drive'), dnDrive:mean(down,'drive'),
-  rate:rate, counts:mat,
+  rate:rate, counts:mat, boxOff:boxOff,
   env:E, batch:batch,
   events:S.EVENTS.length, recipes:Object.keys(S.RECIPE).length
 }));
@@ -123,8 +145,12 @@ const pw=pwmod();
        cannot judge, and an unjudgeable sound may as well not have been cooked. */
     r.allLabelled = E.batch.every(ev=>{ const x=BOH_SFX.EVENTS.find(y=>y.ev===ev);
       return x && x.label && x.label.length>3 && x.why && x.why.length>18; });
-    /* NOT BANKED. He has not thumbed one of these, and unjudged is silent -- that
-       is the mechanism-mine/contents-his line, checked rather than trusted. */
+    /* HIS 8/12 THUMBS REACHED THE TABLE THE GAME READS. This check was the
+       opposite way round this morning -- nothing may be banked, because he had
+       not judged them. He judged all 26 the same day, so the defect flipped
+       from "banked without a verdict" to APPROVED-BUT-UNUSED, which is this
+       lane's own law: 14 of the 26 moments have a sound he chose and every one
+       of them has to be in the table playSFX consults. */
     const A=window.__SFX_APPROVED||{};
     r.banked=E.batch.filter(ev=>A[ev]&&A[ev].length);
     /* AUDIBLE ON THE REAL RENDER PATH. Offline, through BOH_SFX.render itself,
@@ -168,7 +194,7 @@ def run(js, timeout):
 
 
 def main():
-    print('=== SFX ENVELOPE GATE - the new sounds come out of his 140 thumbs ===')
+    print('=== SFX ENVELOPE GATE - what 270 of his thumbs actually support ===')
     p = f = 0
 
     def ok(name, cond):
@@ -191,62 +217,80 @@ def main():
     ok('the judged set is still split enough to learn from (%d UP / %d DOWN)'
        % (d['up'], d['down']), d['up'] >= 40 and d['down'] >= 40)
 
-    # ---- 2. THE TWO DIRECTIONS THE DATA GAVE -------------------------------
-    # These are the LAW being re-derived, not re-asserted. If his future thumbs
-    # reverse either one, this goes red and the recipes get rebuilt from the
-    # new data. The ruling is upstream of the gate, always.
-    ok('QUIETER STILL WINS: approved mkup %.2f is below rejected %.2f'
-       % (d['upMkup'], d['dnMkup']), d['upMkup'] < d['dnMkup'])
-    ok('CLEANER STILL WINS: approved drive %.2f is below rejected %.2f'
-       % (d['upDrive'], d['dnDrive']), d['upDrive'] < d['dnDrive'])
+    # ---- 2. THE ONE DIRECTION THAT SURVIVED 270 --------------------------
+    # Asserted as a SIGN, never as a cap. At 140 thumbs makeup gain looked
+    # decisive (-1.17); at 270 it is -0.36 and the medians nearly touch. A cap
+    # tight enough to mean anything would be red on sounds HE APPROVED.
     env = d['env']
-    ok('the shipped mkup cap %.2f sits between what he keeps and what he kills'
-       % env['maxMkup'], d['upMkup'] <= env['maxMkup'] <= d['dnMkup'] * 1.05)
-    ok('the shipped drive cap %.2f sits between what he keeps and what he kills'
-       % env['maxDrive'], d['upDrive'] <= env['maxDrive'] <= d['dnDrive'] * 1.05)
+    ok('QUIETER STILL WINS, WEAKLY: approved mkup %.3f is below rejected %.3f'
+       % (d['upMkup'], d['dnMkup']), d['upMkup'] < d['dnMkup'])
+    ok('CLEANER STILL WINS, WEAKLY: approved drive %.3f is below rejected %.3f'
+       % (d['upDrive'], d['dnDrive']), d['upDrive'] < d['dnDrive'])
+    ok('the engine records the REAL strength of that direction, not the '
+       'inflated one it was first written with (mkup %.3f/%.3f)'
+       % (env['mkupUp'], env['mkupDown']),
+       abs(env['mkupUp'] - d['upMkup']) < 0.02
+       and abs(env['mkupDown'] - d['dnMkup']) < 0.02)
 
-    # ---- 3. THE MATERIAL SPLIT IS STILL WHERE THE LAW SAYS ------------------
+    # ---- 3. THE ONE MATERIAL FINDING THAT SURVIVED 270 ---------------------
+    # Every other ranking was small-sample noise and his full sweep flattened
+    # it: water went 20% -> 60%, glass 100% -> 40%, ash 43% -> 27%. Only metal
+    # held, and it held hard -- then the new batch drove it home, because BOTH
+    # metal moments in it died whole.
     rate, counts = d['rate'], d['counts']
-    for m in env['losers']:
+    for m in env['dead']:
         got = rate.get(m)
-        ok('%s is still a losing material (%s UP / %s DOWN)'
+        ok('%s IS DEAD and stayed dead through the full sweep (%s UP / %s DOWN)'
            % (m, counts.get(m, [0, 0])[0], counts.get(m, [0, 0])[1]),
-           got is not None and got < 0.40)
-    for m in env['winners']:
-        got = rate.get(m)
-        ok('%s still earns its place (%s UP / %s DOWN)'
-           % (m, counts.get(m, [0, 0])[0], counts.get(m, [0, 0])[1]),
-           got is not None and got >= 0.40)
-    lw = sum(counts.get(m, [0, 0])[0] for m in env['losers'])
-    ld = sum(counts.get(m, [0, 0])[1] for m in env['losers'])
-    ok('metal + wood + water together are still the dead end (%d UP / %d DOWN)'
-       % (lw, ld), ld >= lw * 2)
-
-    # ---- 4. EVERY RECIPE IN THE BATCH OBEYS IT -----------------------------
+           got is not None and got < 0.25)
+    n_dead = sum(counts.get(m, [0, 0])[0] + counts.get(m, [0, 0])[1] for m in env['dead'])
+    ok('and it is dead by weight of evidence, not a coin flip (%d judgements)'
+       % n_dead, n_dead >= 20)
     B = d['batch']
+    metal_moments = [e for e in env['batch'] if not B[e].get('missing')
+                     and B[e]['mat'] in env['dead']]
+    ok('the new batch tested the finding and confirmed it: every metal moment '
+       'in it died whole (%s)'
+       % ', '.join('%s %d/5' % (e, B[e]['up']) for e in metal_moments),
+       bool(metal_moments) and all(B[e]['up'] == 0 for e in metal_moments))
+    # AND THE GATE NO LONGER CLAIMS MORE THAN THAT. Nothing is asserted about
+    # the materials that merely happen to be ahead today: that is the exact
+    # mistake this whole block is a correction for.
+    ok('no material outside `dead` is asserted as good (the 140-thumb rankings '
+       'were noise and are not law)', 'winners' not in env)
+
+    # ---- 4. THE REGION IS MEASURED, AND IT BINDS FORWARD -------------------
+    ok('the shipped REGION is the real bounding box of his %d approvals (%s)'
+       % (d['up'], '; '.join(d['boxOff'][:2]) or 'exact'), not d['boxOff'])
     ok('all %d moments in the batch have a recipe' % len(env['batch']),
        all(not B[e].get('missing') for e in env['batch']))
+    # THE BINDING LIST IS FORWARD-ONLY AND THE GATE SAYS SO OUT LOUD. Narrowing
+    # a jitter range changes what casing.1 IS, and 130 of his thumbs are
+    # attached to those exact vectors -- so SFX-03 is measured against the box,
+    # never failed on it. Anything added after 8/12 goes in regionBinds.
+    for ev in env.get('regionBinds', []):
+        b = B.get(ev) or {}
+        ok('%s is bound to the region and lands inside it (%s)'
+           % (ev, ', '.join(b.get('outside', [])) or 'all inside'),
+           not b.get('outsideN'))
+    strays = sum(B[e]['outsideN'] for e in env['batch'] if not B[e].get('missing'))
+    print('  NOTE  %d of 130 SFX-03 candidate values sit outside the approved '
+          'box; not a failure, and not re-cooked, because his thumbs are '
+          'attached to these exact vectors' % strays)
+
+    # ---- 4b. BATCH INTEGRITY ----------------------------------------------
     for ev in env['batch']:
         b = B[ev]
         if b.get('missing'):
             continue
-        ok('%s: makeup gain stays inside the envelope (%.2f, jitter to %s)'
-           % (ev, b['mkup'], b['jitMkup']),
-           b['maxCookMkup'] <= env['maxMkup'] + 1e-9)
-        ok('%s: drive stays inside the envelope (%.2f, jitter to %s)'
-           % (ev, b['drive'], b['jitDrive']),
-           b['maxCookDrive'] <= env['maxDrive'] + 1e-9)
-        if b['mat'] in env['losers']:
-            # A LOSING MATERIAL NEEDS A REASON ON THE RECORD, not permission.
-            ok('%s uses %s and says in the engine why the object has to be that '
-               '("%s")' % (ev, b['mat'], env['loserOK'].get(ev, '')),
-               ev in env['loserOK'] and len(env['loserOK'][ev]) > 8)
         ok('%s cooks five distinct candidates that all validate' % ev,
            b['n'] == 5 and b['distinct'] == 5 and b['invalid'] == 0)
         ok('%s cooks the same five every time (seeded, so a thumb keeps meaning '
            'the sound he heard)' % ev, b['deterministic'])
         ok('%s does not drift material across its own candidates' % ev,
            len(b['mats']) == 1)
+        ok('%s was actually put to him and judged (%d of 5)' % (ev, b['judged']),
+           b['judged'] == 5)
 
     # ---- 5. THE BATCH ACTUALLY GREW THE GAME -------------------------------
     ok('the game has far more moments than the demo set (%d, was 28)'
@@ -265,9 +309,10 @@ def main():
         ok('all %d new moments are listed on the surface' % s['batch'], s['allListed'])
         ok('all %d new moments cook on the surface' % s['batch'], s['allCook'])
         ok('every new moment tells him what it is and why it matters', s['allLabelled'])
-        ok('nothing new is banked yet -- unjudged is silent, and that is his call '
-           'to make (%s)' % (', '.join(s['banked']) or 'none banked'),
-           not s['banked'])
+        ok('HIS 8/12 THUMBS REACHED THE GAME: %d of the new moments now have a '
+           'sound the run can actually play (%s)'
+           % (len(s['banked']), ', '.join(s['banked'][:6])),
+           len(s['banked']) >= 14)
         ok('EVERY NEW SOUND ACTUALLY MAKES SOUND on the real render path (%s)'
            % (', '.join(s['silent']) or 'none silent'), not s['silent'])
         ok('the page threw nothing: %s' % (s.get('errors') or 'clean'),
@@ -275,8 +320,8 @@ def main():
 
     print('  %d passed, %d FAILED' % (p, f))
     if not f:
-        print('  %d new game moments, every one built inside what his 140 thumbs '
-              'said he keeps.' % len(env['batch']))
+        print('  26 new moments put to him, 14 came back with a sound, and the '
+              'law was rewritten from 270 thumbs instead of defended.')
     return 1 if f else 0
 
 

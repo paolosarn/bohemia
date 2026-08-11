@@ -65,7 +65,15 @@ const pw = pwmod();
     window.__rr = [];
     const orig = BOH_SFX.render.bind(BOH_SFX);
     BOH_SFX.render = function(v, ac, dest, at){
-      if (v && v.mat === 'glass') window.__rr.push(at == null ? -1 : at);
+      // GLASS ALONE STOPPED BEING EXACT (8/12). It was a true discriminator when
+      // time_pass was the only approved glass sound in the game; then Paolo's
+      // full 270-thumb sweep approved ui_deny, which is also glass, and this
+      // counter started counting refusals as hours. A signature is only exact
+      // against the bank it was measured on, and the bank grows.
+      // HIS OWN WORDS NAME THE SIGNATURE THAT CANNOT DRIFT: time_pass is "the
+      // only sound here that MOVES IN PITCH". Its five approved candidates
+      // slide -6.5 to -9.7 semitones; ui_deny slides zero. Glass AND falling.
+      if (v && v.mat === 'glass' && v.slide < -3) window.__rr.push(at == null ? -1 : at);
       return orig.apply(null, arguments);
     };
     try { MUS.audio(); } catch(e) {}
@@ -77,9 +85,11 @@ const pw = pwmod();
       const bad = [];
       for (const ev in A) {
         if (ev === 'time_pass') continue;
-        for (const i of A[ev]) { if (BOH_SFX.cook(ev,5)[i].mat === 'glass') bad.push(ev+'.'+i); }
+        for (const i of A[ev]) { const c = BOH_SFX.cook(ev,5)[i];
+          if (c.mat === 'glass' && c.slide < -3) bad.push(ev+'.'+i); }
       }
-      const good = A.time_pass ? A.time_pass.every(i => BOH_SFX.cook('time_pass',5)[i].mat === 'glass') : false;
+      const good = A.time_pass ? A.time_pass.every(i => { const c = BOH_SFX.cook('time_pass',5)[i];
+        return c.mat === 'glass' && c.slide < -3; }) : false;
       return { bad, good };
     } catch(e) { return { bad:['ERR'], good:false }; }
   });
@@ -262,9 +272,9 @@ def main():
 
     g = d.get('glassIsOnlyTimePass') or {}
     ok('the strike counter measures TIME_PASS and nothing else: every approved '
-       'time_pass sound is glass', g.get('good'))
-    ok('and NO other approved sound is glass, so nothing can be miscounted as a '
-       'strike (%s)' % (g.get('bad') or 'none'), not g.get('bad'))
+       'time_pass sound is glass AND falls in pitch', g.get('good'))
+    ok('and NO other approved sound is glass AND falling, so nothing can be '
+       'miscounted as a strike (%s)' % (g.get('bad') or 'none'), not g.get('bad'))
 
     a = d.get('approved') or {}
     ok('his 8/7 thumbs reached the table the GAME reads: time_pass has 5 sounds',

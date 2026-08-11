@@ -83,8 +83,8 @@ os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'
 BUILT = 'slices/BOHEMIA_RUN_CURRENT.html'
-BANK = 'banks/BOHEMIA_SFX_APPROVED_7_30_26.json'
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_7_30_26.txt'
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_12_26.json'   # 8/12: he judged all 270
+VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_12_26.txt'
 
 P_BEGIN = '<!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->'
 P_END = '<!-- /BOHEMIA SFX WIRE PARENT -->'
@@ -93,7 +93,7 @@ P_END = '<!-- /BOHEMIA SFX WIRE PARENT -->'
 def parent_block(bank):
     return """
 /* === SFX WIRE, PARENT SIDE (7/30/26) ====================================
-   Paolo's 38 approved sounds, from his 7/30 thumbs. The table below is INDEXES
+   Paolo's 97 approved sounds, from his 8/12 full sweep. The table below is INDEXES
    into the shipped generator, not copied audio: candidate n of event e is
    BOH_SFX.cook(e,5)[n], which gates/sfx_render_gate.py fingerprints. So what
    plays is byte-for-byte the thing he heard when he thumbed it.
@@ -507,7 +507,28 @@ def parent_block(bank):
     kind:null, next:0, bus:null, seen:0,
     where:function(d){
       this.seen=Date.now();
+      this.inside = !!d.inside;
       this.kind = d.inside ? 'air_inside' : (d.night ? 'air_night' : 'air_day');
+    },
+    /* THE RARE THING THAT BREAKS THE EMPTINESS (8/12). His 270-thumb sweep
+       approved A GUST COMES THROUGH (2 of 5) and A GENERATOR, SOMEWHERE (4 of
+       5), and both were written for exactly this slot: not a wall of wind, but
+       the occasional thing you hear when nothing is happening. They ride the
+       ambience clock instead of getting one of their own, so the valley still
+       makes ONE sound at a time and the gaps stay long.
+       OUTDOORS ONLY: a gust and a distant generator both say "out there", and
+       air_inside is the sound of a room with nobody in it but you.
+       THE FREQUENCIES ARE MY DEFAULT AND NOTHING DECIDED THEM BUT TASTE --
+       one gust in four, one generator in eight, so seven of eight are still the
+       bed he approved first. One word from him changes either number.
+       A GENERATOR MEANS PEOPLE, so it is rarer than weather on purpose. */
+    pick:function(){
+      if(this.inside) return this.kind;
+      var A=(window.__SFX_APPROVED||{});
+      var r=Math.random();
+      if(r<0.125 && (A.generator||[]).length) return 'generator';
+      if(r<0.375 && (A.wind_gust||[]).length) return 'wind_gust';
+      return this.kind;
     },
     gap:function(){ return 40 + Math.random()*55; },
     tick:function(){
@@ -540,11 +561,12 @@ def parent_block(bank):
              to the MUSIC master, because MUS.stop() ducks it to zero. */
           this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
         }
-        var set=APPROVED[this.kind]; if(!set||!set.length) return;
+        var ev=this.pick();
+        var set=APPROVED[ev]; if(!set||!set.length) return;
         var i=set[(Math.random()*set.length)|0];
-        var v=vec(this.kind,i); if(!v) return;
+        var v=vec(ev,i); if(!v) return;
         BOH_SFX.render(v,MUS.AC,this.bus,null);
-        SFX_COUNT++;
+        this.last=ev; SFX_COUNT++;
       }catch(e){}
     }
   };
@@ -567,8 +589,27 @@ def parent_block(bank):
   document.addEventListener('click',function(e){
     var t=e&&e.target; if(!t)return;
     if(t.closest&&t.closest(NOUI)) return;   /* this click IS a sound already */
-    if(t.closest&&(t.closest('button')||t.closest('.tab')||t.closest('.opt')))
-      window.playSFX('ui_tap');
+    var btn = t.closest && (t.closest('button')||t.closest('.tab')||t.closest('.opt'));
+    if(!btn) return;
+    /* BACK IS NOT FORWARD (8/12). ui_tap was carrying every interface moment in
+       the game by itself. His sweep approved BACK/CLOSE (3 of 5) and YOU CANNOT
+       DO THAT (3 of 5), so the interface finally answers in more than one way:
+       leaving a screen is a step DOWN from the tap, and a refusal is short and
+       flat and never a buzzer -- his own brief, in his own row.
+       READ OFF WHAT THE BUTTON ALREADY SAYS, never a new attribute nobody sets:
+       a disabled control is a refusal, and a control whose text or aria-label is
+       back/close/cancel/x is a way out. If neither, it is a tap, exactly as
+       before -- this can only ever narrow ui_tap, never silence it. */
+    var A = window.__SFX_APPROVED || {};
+    var lab = ((btn.getAttribute&&(btn.getAttribute('aria-label')||''))+' '+
+               (btn.textContent||'')).trim().toLowerCase();
+    var refused = btn.disabled === true
+               || (btn.classList && (btn.classList.contains('off')
+                                  || btn.classList.contains('disabled')));
+    if(refused && (A.ui_deny||[]).length) return window.playSFX('ui_deny');
+    if((A.ui_back||[]).length &&
+       /^(back|close|cancel|done|x|<|\u2039|\u00d7|\u2190)$/.test(lab)) return window.playSFX('ui_back');
+    window.playSFX('ui_tap');
   },true);
   /* SAY WHAT THE AUDIO IS DOING (7/31). He reported silence twice and both
      times I had to guess at his phone from here, because a muted iPhone and a
@@ -693,16 +734,33 @@ setInterval(npcSteps, 200);
     try{ document.addEventListener(t, gesture, {capture:true, passive:true}); }catch(_e){}
   });
 })();
+/* THE GROUND GOT FINER (8/12). Paolo approved step_concrete, step_sand and
+   step_wood in his 270-thumb sweep, and this classifier only knew three
+   surfaces -- so a sidewalk, a motel floor and deep desert sand all came out as
+   the same footstep he had already heard. Sidewalks and interior slabs are
+   CONCRETE, not roadway; a floorboard is not a road; open desert away from any
+   named surface is SAND, not the packed dirt of a lot.
+   ORDER IS THE SPEC: the more specific name wins, and the road test still runs
+   first because a drivable surface is asphalt whatever the tile is called.
+   step_glass and step_metal are NOT here: he killed all ten. */
 function sfxGround(gx,gy){
   try{
-    if(mode!=='ext') return 'step_asphalt';        /* indoors is a hard floor */
-    if(typeof isRoad==='function' && isRoad(gx,gy)) return 'step_asphalt';
     var n='';
     try{ n=(NAMEG&&NAMEG[gy]&&NAMEG[gy][gx]||'').toLowerCase(); }catch(_e){}
+    if(mode!=='ext'){                              /* indoors is a hard floor */
+      if(/wood|board|plank|porch|deck|parquet/.test(n)) return 'step_wood';
+      return 'step_concrete';
+    }
+    if(typeof isRoad==='function' && isRoad(gx,gy)) return 'step_asphalt';
     if(/gravel|shoulder|rock|caliche|lag|track/.test(n)) return 'step_gravel';
-    if(/asphalt|roadway|lane|street|sidewalk|walk|path|concrete|apron|pad|slab|lot|parking|platform|court/.test(n))
+    if(/wood|board|plank|porch|deck|boardwalk/.test(n)) return 'step_wood';
+    if(/sidewalk|walk|concrete|apron|pad|slab|platform|court|patio|curb/.test(n))
+      return 'step_concrete';
+    if(/asphalt|roadway|lane|street|path|lot|parking/.test(n))
       return 'step_asphalt';
-    return 'step_dirt';                            /* desert, yards, everything else */
+    if(/sand|dune|wash|desert|scrub|playa/.test(n)) return 'step_sand';
+    if(!n) return 'step_sand';                     /* open valley: the ground is sand */
+    return 'step_dirt';                            /* named yards and lots */
   }catch(_e){ return 'step_dirt'; }
 }
 """
@@ -914,7 +972,7 @@ def main():
             print('  re-applied %s (it lives inside the block this tool owns)' % dep)
 
     print('THE APPROVED SOUNDS PLAY NOW.')
-    print('  %d approved sounds across %d events, from his 7/30 thumbs' % (n, len(bank)))
+    print('  %d approved sounds across %d events, from his 8/12 full sweep' % (n, len(bank)))
     print('  footsteps chosen by the tile the game already knows')
     print('  phone buzz on a real post, EAT on the thing the room held (his 8/2 ruling)')
     print('  the door DRAGS open (his 8/9 thumb); the SHUT stays silent, also his')

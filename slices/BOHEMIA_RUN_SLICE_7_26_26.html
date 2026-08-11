@@ -2570,16 +2570,33 @@ setInterval(npcSteps, 200);
     try{ document.addEventListener(t, gesture, {capture:true, passive:true}); }catch(_e){}
   });
 })();
+/* THE GROUND GOT FINER (8/12). Paolo approved step_concrete, step_sand and
+   step_wood in his 270-thumb sweep, and this classifier only knew three
+   surfaces -- so a sidewalk, a motel floor and deep desert sand all came out as
+   the same footstep he had already heard. Sidewalks and interior slabs are
+   CONCRETE, not roadway; a floorboard is not a road; open desert away from any
+   named surface is SAND, not the packed dirt of a lot.
+   ORDER IS THE SPEC: the more specific name wins, and the road test still runs
+   first because a drivable surface is asphalt whatever the tile is called.
+   step_glass and step_metal are NOT here: he killed all ten. */
 function sfxGround(gx,gy){
   try{
-    if(mode!=='ext') return 'step_asphalt';        /* indoors is a hard floor */
-    if(typeof isRoad==='function' && isRoad(gx,gy)) return 'step_asphalt';
     var n='';
     try{ n=(NAMEG&&NAMEG[gy]&&NAMEG[gy][gx]||'').toLowerCase(); }catch(_e){}
+    if(mode!=='ext'){                              /* indoors is a hard floor */
+      if(/wood|board|plank|porch|deck|parquet/.test(n)) return 'step_wood';
+      return 'step_concrete';
+    }
+    if(typeof isRoad==='function' && isRoad(gx,gy)) return 'step_asphalt';
     if(/gravel|shoulder|rock|caliche|lag|track/.test(n)) return 'step_gravel';
-    if(/asphalt|roadway|lane|street|sidewalk|walk|path|concrete|apron|pad|slab|lot|parking|platform|court/.test(n))
+    if(/wood|board|plank|porch|deck|boardwalk/.test(n)) return 'step_wood';
+    if(/sidewalk|walk|concrete|apron|pad|slab|platform|court|patio|curb/.test(n))
+      return 'step_concrete';
+    if(/asphalt|roadway|lane|street|path|lot|parking/.test(n))
       return 'step_asphalt';
-    return 'step_dirt';                            /* desert, yards, everything else */
+    if(/sand|dune|wash|desert|scrub|playa/.test(n)) return 'step_sand';
+    if(!n) return 'step_sand';                     /* open valley: the ground is sand */
+    return 'step_dirt';                            /* named yards and lots */
   }catch(_e){ return 'step_dirt'; }
 }
 /* === RUN BEAT RECEIVER (7/29/26, SOUNDS lane) ============================
