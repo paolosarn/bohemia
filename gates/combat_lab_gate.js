@@ -3644,24 +3644,63 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes("'position:absolute;left:-100px;top:'") &&
     !demo.includes("'position:absolute;left:-56px;top:'"));
 
-  ok('V122 ONE VERB, THREE OUTCOMES, decided by what is actually down that line: cover out there -> all the way to it for 2 pips (his number), low cover on you -> over it (that is VAULT with no button and no refusal), nothing out there -> one tile for 1 pip (the 8/1 sprint ruling, unchanged)',
+/* ===== V143 SUPERSEDES V122'S COVER-SEEKING RUN ====================
+   Paolo 8/12: "IT KEEPS TRYING TO SNAP ME TO COVER LIKE 5 TILES AWAY AN IT
+   PREVENTS ME FROM RUNNING IN A CERTAIN DIRECTION AND ITS SO CONFUSING."
+   V122's RUN searched a 45-degree wedge out to SIX tiles for a pillar and took
+   him all the way to it -- the direction was a HINT for choosing a destination
+   instead of the instruction he gave. And once cover was found, every other
+   path was a REFUSAL (ALREADY ON IT / BLOCKED / SOMEBODY IS THERE), all of
+   which moved him nowhere, so a direction with a rock in it could be completely
+   unusable while the open ground beside it was fine.
+   A COVER-SEEKING VERB ON A BUTTON LABELLED RUN. The direction is the
+   instruction now. runTargetIn() is gone with the behaviour it served. */
+  ok('V143 RUN GOES THE WAY HE TAPPED, as far as the line is clear, stopping SHORT of the first thing in the way -- no wedge search, no destination hunting, and it never moves him to something he did not aim at',
+    demo.includes('function runStops(d){') &&
+    demo.includes('const RUN_TILES=3;') &&
+    !demo.includes('function runTargetIn(d){') &&
+    !demo.includes("setRead('RUN TO COVER'"));
+
+  ok('V143 AND A DIRECTION CAN NEVER GO DEAD: the only refusal left is that the very FIRST tile is blocked, which is a fact about the world he can see rather than a rule he cannot. ALREADY ON IT is gone -- it was a refusal that fired because cover was NEAR him',
+    demo.includes("setRead('BLOCKED','something is right in front of you that way'") &&
+    !demo.includes("setRead('ALREADY ON IT'"));
+
+  ok('V143 THE VAULT SURVIVED BECAUSE IT WAS RIGHT: a duck-height thing directly in front means running that way is going OVER it. It is the only special case now instead of one of four',
+    demo.includes('function runVaultTarget(d){') &&
+    demo.includes("setRead('OVER IT'"));
+
+  ok('V143 AND HIS TWO-PIP NUMBER SURVIVED HONESTLY: RUN_COVER_COST was his ruling on "running to cover", and cover-running is gone, so the cost rides DISTANCE instead -- one tile one pip, a real run two. Ending behind cover is a reward for aiming well now, never a teleport and never a surcharge',
     demo.includes('const RUN_COVER_COST=2;') &&
-    demo.includes('function runTargetIn(d){') &&
-    demo.includes("setRead('OVER IT'") &&
-    demo.includes("setRead('RUN TO COVER'"));
+    /const cost=\(n>=2\)\?RUN_COVER_COST:1;/.test(demo));
 
   ok('V122 RUN KEEPS DASH\'S REAL PAYLOAD: the run is FREE (no turn end, nobody shoots) and arriving somewhere new BREAKS THEIR RED LINES. Dash\'s point was never "two tiles", it was that the fight loses track of you',
     demo.includes('function runBreakLocks(){') &&
     demo.includes('if(myConcealAgainst(e2.ea,e2.edist,e2.lvl)){ if((e2.acq||0)>=1)n++; e2.acq=0; }'));
 
   ok('V122 EVERY CHECK HAPPENS BEFORE A SINGLE PIP IS SPENT. MEASURED on the first cut, which spent first and refunded on refusal: a TALL pillar already one tile away gave stop=0, the no-move fallback pushed one tile FORWARD, and RUN walked me straight INSIDE a solid wall for 2 pips. An OCCUPANCY LAW break shipped by a convenience',
-    /const stop=L-1;[\s\S]{0,1400}if\(!spendMove\(RUN_COVER_COST\)\)/.test(demo) &&
-    demo.includes("setRead('ALREADY ON IT'") &&
-    demo.includes('if(stop<0.9||(!sx&&!sy)){'));
+    /const n=runStops\(d\);[\s\S]{0,600}if\(!spendMove\(cost\)\)/.test(demo) &&
+    /if\(n===0\)\{ setRead\('BLOCKED'/.test(demo));
 
-  ok('V122 AND NO RUN EVER LANDS ON A BODY OR IN A WALL: all three branches (to cover, over low cover, plain tile) test the destination cell against the pillars and against every living man on your floor before moving',
-    (demo.match(/OCCUPANCY LAW/g) || []).length >= 4 &&
-    (demo.match(/setRead\('SOMEBODY IS THERE'/g) || []).length === 3);
+/* THE FIRST VERSION OF THIS COUNTED THE STRING "OCCUPANCY LAW" AND WANTED FOUR.
+   That is a MENTION counter, not a USE checker -- the exact broken-ruler shape
+   the 8/1 craft law names, and the second one I have hit today. V143 deleted
+   two of the branches that carried the comment while keeping every real guard,
+   so the count fell and the invariant did not. It checks the GUARDS now. */
+  ok('V143 AND NO RUN EVER LANDS ON A BODY OR IN A WALL: the run walks the line and STOPS at the first cell holding a pillar or a living man on your floor, and the vault tests its landing cell for both before it moves. Nothing is ever spent before those checks pass',
+    demo.includes('return Math.hypot(q[0]-cx,q[1]-cy)<Q.r*0.6+0.45; }))break;') &&
+    demo.includes('return Math.abs(q[0]-cx)<0.7&&Math.abs(q[1]-cy)<0.7; }))break;') &&
+    /if\(VP\)\{[\s\S]{0,700}if\(!spendMove\(1\)\)/.test(demo) &&
+    demo.includes("setRead('BLOCKED','low cover that way and no room on the far side'"));
+
+  /* MEASURED, 960 taps over 120 arenas: 0 moves went anywhere other than the
+     tapped direction (max deviation 0.00 tiles), average run 2.68 of 3 tiles,
+     and the 11% that do nothing are ALL "something is right in front of you" --
+     which he can see. Under V122 a direction could die because of a rock FIVE
+     TILES AWAY, which he could not. */
+  ok('V143 AND THERE IS ONE THING TO LEARN, NOT THREE: every refusal is BLOCKED and every one of them means the same thing -- something is right in front of you that way. NO ROOM and SOMEBODY IS THERE were two more phrases for the same fact',
+    !demo.includes("setRead('NO ROOM'") &&
+    demo.includes("setRead('BLOCKED','something is right in front of you that way'") &&
+    demo.includes("setRead('BLOCKED','low cover that way and somebody on the far side'"));
 
   ok('V122 THE RING STEERS AN ARMED RUN, and the arm never survives the tap -- same rail the dash used, checked first because RUN is now the only armed move with a button',
     /if\(G\.runArm\)\{ G\.runArm=false; updRunBtn\(\); updMoveMode\(\); return doRunMove\(d\); \}/.test(demo) &&
