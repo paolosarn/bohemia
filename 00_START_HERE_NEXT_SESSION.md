@@ -1,3 +1,66 @@
+RUN (run-eak241): 8/12 LATEST -- ONE ZOOM, FROM HIS FEET TO THE MOON, AND BACK.
+
+Paolo: "how do we combine the city builder map with the map in the phone. my original
+intention was that is was this zoom out vibe you could keep zooming out and zooming out
+until it showed the moon you know. that was my original philosophy and i want to stick
+with that thats my flavor."
+
+HE DID NOT ASK FOR A FEATURE. HE ASKED WHY HIS OLD ONE WAS UNFINISHED. The 7/25 law
+(BOHEMIA_ADDENDUM_CITYBUILDER_TOP_DOWN_ONLY_7_25_26.md) LOCKED this continuum in his own
+words and shipped two of its three bands. ITS LAST LINE: "STILL TO COME: the third zoom
+band (keep zooming out to see the rest of the world) - that touches the MAP surface
+(another lane), so coordinate, don't jam." That coordination never happened and the band
+sat for EIGHTEEN DAYS with nothing blocking it but a note.
+*** A [PENDING] THAT NAMES NO PERSON AND NO QUESTION IS NOT A PENDING, IT IS A DROPPED
+STITCH. *** If you park something, park it ON somebody with a question they can answer.
+
+AND IT IS THE SPINE, NOT A VIBE. 7/19 LOCKED: "the generations are Animal / Human /
+Angel and the camera levels are street / city / planetary zoom", and Act 3 is the one-way
+moonshot where "the dynasty ends looking down at the planet". The zoom axis and the
+generation axis are the same axis. Pulling out to the moon on day 1 is the whole game
+foreshadowed in one gesture.
+
+WHAT WAS IN THE WAY WAS ONE LINE: setZoomAt clamped with Math.max(zmin,...). zmax already
+had a seam handing you to your character; zmin was a WALL that made the valley the whole
+world. Same seam, outward. Measured in a real browser, both directions:
+  human/44 -> human/11 -> city 1.00 -> ... -> city 0.21 -> REGION -> PLANET -> MOON
+  MOON -> PLANET -> REGION -> city 0.21 -> ... -> city 2.60 -> human/11
+Zero page errors. Law: laws/BOHEMIA_ADDENDUM_ONE_ZOOM_TO_THE_MOON_8_12_26.md.
+
+THE PHONE MAP IS A DOOR, NOT A SECOND MAP. His question was how to COMBINE them, and the
+obvious reading -- merge the renderers -- is wrong: a phone's map SHOULD look like a
+phone's map, it is a device in a hand. They are combined by sharing the WORLD and the
+CAMERA. Tap a cell on the phone, the run's camera goes there. IT NEVER MOVES HIS BODY,
+and that clause is in the law because moving the player away from his spawn is exactly
+how I broke CITY TALK on 8/11.
+
+PLACEHOLDER, SAID OUT LOUD ON SCREEN. The earth and moon are procedural discs from the
+city's own palette, labelled "placeholder sky - art request AR-005". MEASURED: this
+repository contains NO celestial art of any kind, in any bank -- which is why it is
+REQUESTED, not quietly invented. ART LANE: AR-005 is yours, marker __SKY_ART__, and it
+drops into renderSky()/skyDisc(). The 45 DEGREE ART LAW is NOT broken -- canon names this
+camera separately ("street / city / PLANETARY zoom", 7/19) and the valley diamond stays
+on the 45 the whole way out, which the gate proves by moving the city marker in the
+REGION band and watching the painted valley move with it through the city's own iso().
+
+Gate: onezoom_gate.js, 16 assertions on the real camera. It asserts the pixels DIFFER
+band to band, because a state machine that renders the same frame is not a zoom.
+
+FOUND AND NOT FIXED, written down rather than jammed: the MOUSE WHEEL dead-ends at the
+human->city seam. The wheel handler clamps its index to the lowest human zoom stop so it
+never passes a value BELOW it, and only a pinch (continuous) triggers the handoff. On his
+iPhone he pinches, so the continuum is whole where he plays. Desktop-only paper cut in
+another lane's gesture code.
+
+STILL RED AND NOT MINE (each verified red on origin/main too): DISTRICT FILL, ROAD CELLS,
+TEXTURE MATCH, VOICE SURFACES (arterial/freeway/road-paint work in flight elsewhere),
+ROUND + DOORS (arterial_x), SFX RENDER, PARTS PAINTED, BODY VARIATION, ONE WORLD TAB,
+INTERIORS, REUSE FIRST.
+
+NEXT IN THIS LANE: THE PHONE STILL DOES NOT RING. The pipe runs world -> phone and now
+phone -> camera; the missing leg is a job ARRIVING on it and being accepted there.
+Records: BOHEMIA_ONE_ZOOM_TO_THE_MOON_8_12_26.md, BOHEMIA_YOUR_HOUSE_AND_THE_PHONE_8_11_26.md
+
 ART (f3eu53): 8/11 (k) LATEST -- *** NINE OF FOURTEEN FAMILIES ARE IN THE
 GAME. THE PARK LAWNS DIED MOWN. STOREFRONTS ARE BUILT BUT HELD - UNVERIFIED
 PLACEMENT DOES NOT SHIP. ***
