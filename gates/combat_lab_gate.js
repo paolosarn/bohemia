@@ -3920,10 +3920,37 @@ ok('V66 PARENT: startEncounter carries the quest context onto the bus and takes 
   alpha.includes('onEnd:(typeof spec.onEnd===\'function\')?spec.onEnd:null};') &&
   alpha.includes('G.lastEncounter=enc.outcome;') &&
   alpha.includes('if(enc.onEnd)try{enc.onEnd(enc.outcome);}catch(_e){}'));
-ok('THE PRE-WARM STAYS DEAD (Paolo 7/26: the fight showed the wrong character with no clothing). Building the combat frame at app open also pre-BAKES the player sprites, so any part of his look that restores late gets baked stale and the fight wears it. The frame is built ON DEMAND, always.',
-  !alpha.includes('requestIdleCallback(warm') &&
-  !alpha.includes('warm the combat frame in the background') &&
-  alpha.includes('WARM THE FIGHT: REVERTED 7/26'));
+/* SUPERSEDED BY PAOLO 8/8: "re-land the handoff warming without the
+   stale-clothing bug (first fight can't stall)."
+   THE 7/26 REVERT KILLED TWO THINGS THAT WERE WELDED TOGETHER: warming (build
+   the iframe -- expensive, nothing to do with clothes) and baking (render his
+   look -- cheap to redo, the only half that can go stale). Warming is safe iff
+   every door into a fight re-checks the look. The COMBAT tab already did since
+   7/20; THE HANDOFF DID NOT, which means startEncounter could serve a stale look
+   TODAY, warming or not -- the revert never closed that, it only made it rare.
+   So the guard moves to where it belongs and the warm returns. */
+ok('V134 THE FIGHT WARMS, AND NO DOOR CAN SERVE A STALE LOOK: the handoff gets the same lookKey() re-check the COMBAT tab has had since 7/20, so the warm bake is only ever a HEAD START and the stale bake is unreachable rather than unlikely',
+  alpha.includes('V134 WARM, AND IT CANNOT WEAR THE WRONG CLOTHES') &&
+  /function startEncounter\(spec\)\{[\s\S]{0,900}if\(G\._sentLook!==_lk&&document\.getElementById\('combatFrame'\)\)/.test(alpha) &&
+  alpha.includes('(function warmTheFight(){') &&
+  alpha.includes("requestIdleCallback(warm,{timeout:4000})"));
+
+ok('V134 AND IT NEVER COMPETES WITH THE FIRST PAINT: it waits for the front splash to be dismissed and then runs on idle, once only, with a timeout fallback for browsers without requestIdleCallback',
+  /f\.addEventListener\('click',\(\)=>setTimeout\(kick,600\),\{once:true\}\)/.test(alpha) &&
+  alpha.includes('else setTimeout(warm,1500);'));
+
+ok('V135 THE COLD OPEN IS A DEFENCE, WHICH NEEDS A SECOND LOSE CONDITION: every fight in this game has exactly one (you die), which makes every encounter a duel however it is dressed. A place behind you that a hostile can reach is what turns it into a defence -- and it is the first thing here that makes STANDING STILL WRONG',
+  alpha.includes('V135 THE COLD OPEN') &&
+  alpha.includes('function coldOpenSpec(onEnd){') &&
+  alpha.includes('function startColdOpen(onEnd){') &&
+  /defend:spec\.defend\|\|null,/.test(alpha));
+
+ok('V135 TUTORIAL TIER: two hostiles on the EASY dial, so the dead-shot dial is met once and cleanly, and the fail state reads without text because they got past you',
+  /hostiles:2,/.test(alpha) && /packageId:0,/.test(alpha) && /holdLine:6/.test(alpha));
+
+ok('V135 MECHANISM MINE, CONTENTS HIS, AND THE CONTENTS SHIP EMPTY: who the family is, what the place is and what anyone says are NOT invented. The opening of his game is the most seductive place to write his lore for him, so cast is empty, place is null, the hostiles are unnamed archetypes and there is not one line of dialogue',
+  /cast:\[\],/.test(alpha) && /place:null,/.test(alpha) &&
+  /roster\.push\(\{name:'hostile_'\+i,hp:55,arch:'human'\}\)/.test(alpha));
 ok('V66 PARENT: the outcome settles exactly once per encounter, and a broken handoff lands in the combat log instead of falling on the floor',
   alpha.includes('if(enc&&!enc.settled){') &&
   alpha.includes('enc.over=true; enc.settled=true; enc.live=false;') &&
