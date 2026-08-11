@@ -64,23 +64,34 @@ and if he did, he is done for the turn.
 
 ## MEASURED ON THE REAL BUILD, NOT ASSERTED
 
-40 arenas, 6 turns each, player standing perfectly still the whole time:
+**120 different arenas**, 6 turns each, player standing perfectly still the whole
+time. Average 6.27 guns per fight:
 
 | | turn 0 | after 6 turns of not moving |
 |---|---|---|
-| guns you are COVERED from | 3.00 | **0.68** |
-| average range | 10.22 tiles | **6.92 tiles** |
-| guns with a clean line on you | 4.00 of 6 | **6.00 of 6** |
-| damage per volley coming at you | 79.0 | **132.0 (+67%)** |
+| guns you are COVERED from | 1.86 | **0.78** |
+| average range | 10.35 tiles | **7.74 tiles** |
+| guns with a clean line on you | 4.41 | **5.49 of 6.27** |
+| damage per volley coming at you | 83.2 | **120.7 (+45%)** |
 
-**In plain words: stand still for six turns and every gun on the board ends up
-with a clean shot at you, from closer, hitting two thirds harder.** Move and you
-reset it. That is the whole point.
+**In plain words: stand still for six turns and you lose more than half the
+cover you had, they walk two and a half tiles closer, nearly every gun ends up
+with a clean shot, and the incoming goes up by about half.** Move and you reset
+it. That is the whole point.
 
-Safety numbers from the same run: 2.20 men move per turn (half the line, as
-designed), the longest single step was 1.80 tiles (exactly the cap, so nobody
-teleports), **0** men ended up standing inside a rock, **0** got closer than the
-standoff. Zero errors.
+Safety numbers from the same run: 1.65 men move per turn (never the whole
+board), the longest single step was 1.83 tiles (the cap, so nobody teleports),
+**0** men ended up standing inside a rock, **0** got closer than the standoff.
+Zero errors.
+
+**A CORRECTION, BECAUSE THE FIRST NUMBERS I TOOK WERE NOT REAL.** The first pass
+ran 120 samples and reported clean whole numbers like "3.00 guns" and "5.00
+guns", which is not something 120 random arenas do. The arena dice are seeded
+once per page load, so every one of those 120 arenas was **the same arena
+measured 120 times.** The table above re-seeds before each one and is 120
+genuinely different fights. The direction and the size of the effect held up;
+the precision did not, and a number I cannot stand behind is worse than no
+number.
 
 ---
 

@@ -3916,7 +3916,7 @@ ok('V66 PARENT: an encounter posted before the demo is listening is QUEUED and f
   alpha.includes("G._combatQ=G._combatQ.filter(m=>m.type!==msg.type);"));
 ok('V66 PARENT: startEncounter carries the quest context onto the bus and takes an onEnd callback; the run reads the settled outcome off G.encounter.outcome / G.lastEncounter',
   alpha.includes('const ctx={encounterId:spec.encounterId||') &&
-  alpha.includes('objective:ctx.objective,faction:ctx.faction,reason:ctx.reason,mercy:ctx.mercy});') &&
+  alpha.includes('objective:ctx.objective,faction:ctx.faction,reason:ctx.reason,mercy:ctx.mercy,') &&
   alpha.includes('onEnd:(typeof spec.onEnd===\'function\')?spec.onEnd:null};') &&
   alpha.includes('G.lastEncounter=enc.outcome;') &&
   alpha.includes('if(enc.onEnd)try{enc.onEnd(enc.outcome);}catch(_e){}'));
@@ -3976,7 +3976,7 @@ ok('V136 ONE MAN, ONE MOVE: coverSeekAI stamps whoever it moved with the turn nu
   /e\._movedTurn!==turn/.test(demo));
 
 ok('V136 AN ANGLE IS THE BIG PRIZE, AND IT IS WHY HIS TILE DECAYS: a shooter the stone blocks does not have a reduced hit chance, he has NONE, so walking around your cover is worth more than anything else he can do with his feet. That single term is what makes standing still cost something',
-  /if\(!coverAtXY\(x,y,e\.lvl\)\)s\+=3\.0;/.test(demo) &&
+  /if\(!coverAtXY\(x,y,e\.lvl\)\)s\+=(3\.0|G\.hold\?HOLD_ANGLE:3\.0);/.test(demo) &&
   demo.includes('function coverAtXY(x,y,lvl){'));
 
 ok('V136 IT ASKS THE GAME\'S OWN FUNCTIONS AND NEVER RESTATES THEM: the scorer calls distT for range and myCoverAgainst for cover -- the same two the volley uses -- so a shooter can never disagree with the volley about who is covered from whom or how far is far',
@@ -3990,7 +3990,8 @@ ok('V136 FIRE AND MOVEMENT, NOT A CAVALRY CHARGE: at most half the line bounds i
 
 ok('V136 THEY ARE STILL SHOOTERS, NOT BLADES: PRESS_STANDOFF holds them at a shooter\'s distance so nobody walks into your lap, and no candidate tile is ever inside a pillar or on top of another body',
   /const PRESS_STANDOFF=3\.2;/.test(demo) &&
-  /if\(Math\.hypot\(nx,ny\)<PRESS_STANDOFF-0\.01\)continue;/.test(demo) &&
+  /if\(Math\.hypot\(nx,ny\)<standoff-0\.01\)continue;/.test(demo) &&
+  /const standoff=G\.hold\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
   /if\(Math\.hypot\(ox-nx,oy-ny\)<0\.9\)\{bad=true;break;\}/.test(demo) &&
   /if\(Math\.hypot\(q\[0\]-nx,q\[1\]-ny\)<\(P\.r\|\|0\.5\)\*0\.8\)\{bad=true;break;\}/.test(demo));
 
@@ -4006,6 +4007,82 @@ ok('V136 IT DOES NOT STEAL THE DAMAGE LINE: "RETURN FIRE, 3 of 5 hit you" is the
 
 ok('V136 AND THE V133 INVARIANT SURVIVED IT: setRead still calls _speak IMMEDIATELY after stamping lastRead. The colour note went ABOVE the line rather than inside it, because a gate is never worked around -- the comment moves',
   /function setRead\(t,s,col\)\{ G\.lastRead=\{[^}]*\}; _speak\(t,s,col\);/.test(demo));
+
+/* ===== V137 HOLD THE LINE ==========================================
+   V135 wrote the cold open as a spec with a `defend` block, said in its own
+   docstring that a second lose condition is THE thing that turns a duel into a
+   defence, and then shipped the contract without the fight: the block reached
+   G.encounter in the parent and stopped there. Never sent, never read, never
+   able to lose anybody anything. A defence you cannot fail is a duel with a
+   label on it, and these checks are what stops that shipping twice. */
+ok('V137 THE DEFEND BLOCK ACTUALLY LEAVES THE PARENT: v135 put it on G.encounter and never sent it, so the fight could not read it and nothing could be lost by letting a man walk past',
+  /defend:G\.encounter\.defend\|\|null\}\);/.test(alpha) &&
+  /defend:spec\.defend\|\|null,/.test(alpha));
+
+ok('V137 AND THE FIGHT INSTALLS IT AFTER SETUP, because the place is positioned relative to where the threat actually turned out to be -- and it is typeof-guarded so the handoff core still loads headless in node where the demo functions do not exist',
+  demo.includes('V137 HOLD THE LINE') &&
+  demo.includes('function placeHoldLine(spec){') &&
+  /if\(d\.defend&&typeof placeHoldLine==='function'\)/.test(demo));
+
+ok('V137 THE PLACE IS WORLD STATE, LIKE A PILLAR AND THE BLOOD: worldShift carries it, so stepping back really does put you between them and it. If it moved with you, every step would drag the thing you are defending along behind you and there would be nothing to defend',
+  /if\(G\.hold\)mv\(G\.hold,0\.02\);/.test(demo));
+
+ok('V137 IT IS DERIVED, NOT DESIGNED: the place sits OPPOSITE the bearing the threat arrives on, holdLine tiles out. MAP LAW is untouched because nothing here authors a layout -- the position is read off where they already are',
+  /const threat=n\?Math\.atan2\(sy,sx\):0;/.test(demo) &&
+  /G\.hold=\{ea:threat\+Math\.PI,edist:spec\.holdLine,r:HOLD_R\}/.test(demo));
+
+ok('V137 THEY WANT IT: the V136 scorer gains a pull toward the place, and an absolute distance term IS the progress gradient because every candidate is scored against where he stands now',
+  /if\(G\.hold\)\{ const h=pXY\(G\.hold\); s-=HOLD_PULL\*Math\.hypot\(x-h\[0\],y-h\[1\]\); \}/.test(demo) &&
+  /const HOLD_PULL=0\.9;/.test(demo));
+
+/* THE CLIFF, AND WHY THERE IS A CHECK AGAINST IT: the first version scored a
+   "committed" bonus inside a radius, which meant stepping INTO that radius COST
+   a man the angle term -- a cliff that repelled instead of attracting. Measured
+   over 60 distinct arenas it made things worse, not better: 5 of 60 ignored
+   defences lost, with every single stall sitting exactly on the 2.6 boundary.
+   A flat scale has no boundary to stall on and the gradient runs all the way in:
+   57 of 60. The lesson is the gate: measure the thing, never add a second number
+   on top of a broken one. */
+ok('V137 A MAN HERE FOR THE PLACE IS NOT HERE FOR YOU: an assault force pushes an objective, it does not stop to shop for firing positions. His feet go to the place and his gun still fires on the way, because the volley happens every turn regardless of where anybody stands',
+  /const HOLD_ANGLE=0\.9;/.test(demo) && /const HOLD_STONE=0\.25;/.test(demo) &&
+  /if\(!coverAtXY\(x,y,e\.lvl\)\)s\+=G\.hold\?HOLD_ANGLE:3\.0;/.test(demo) &&
+  /if\(pillarAtXY\(x,y,e\.lvl\)\)s\+=G\.hold\?HOLD_STONE:0\.8;/.test(demo));
+
+ok('V137 AND IT IS A CLIFF NO LONGER: no "committed" radius survives in the scorer, because a boundary that costs a man his angle for crossing it is a wall he stands against forever',
+  !/HOLD_COMMIT/.test(demo) && !/let committed=/.test(demo) && !/committed&&/.test(demo));
+
+ok('V137 A DUEL IS COMPLETELY UNCHANGED: with no place to defend G.hold is null, so the angle is worth 3.0 and stone is worth 0.8 exactly as V136 shipped them. The defence scales the duel; it never rewrites it',
+  /s\+=G\.hold\?HOLD_ANGLE:3\.0;/.test(demo) && /s\+=G\.hold\?HOLD_STONE:0\.8;/.test(demo));
+
+ok('V137 AND THEY ARE ALLOWED PAST, which is the number the whole feature lives on: at PRESS_STANDOFF 3.2 a man can never get around you to something 6 tiles behind, so a defence would have been geometrically impossible while still LOOKING like it worked. A man running an objective is not trying to shoot you, he is trying to get by',
+  /const HOLD_PASS=1\.8;/.test(demo) &&
+  /const standoff=G\.hold\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+  /e\.edist=Math\.max\(G\.hold\?HOLD_PASS:PRESS_STANDOFF,nd\);/.test(demo));
+
+ok('V137 THE ARC ALONE COULD NEVER CARRY HIM ROUND IN TIME (0.9 rad at range 6 is a 5.4-tile walk against a 1.8-tile step), so a defending fight also offers the straight line at the place -- and those candidates run the SAME body and pillar rejections as every other one, with no shortcuts',
+  /for\(const g of \[PRESS_STEP,PRESS_STEP\*0\.6\]\)extra\.push/.test(demo) &&
+  /for\(const c of extra\)\{ const nx=c\[0\],ny=c\[1\];/.test(demo) &&
+  /if\(Math\.hypot\(ox-nx,oy-ny\)<0\.9\)\{bad=true;break;\} \}\n      if\(!bad\)for\(const P of \(G\.pillars\|\|\[\]\)\)/.test(demo));
+
+ok('V137 A MAN WHO REACHED IT ENDS THE FIGHT, AND IT IS NOT A DEATH: you are still up, you just lost the only thing the fight was about. It is checked on the turn, right after the line bounds',
+  demo.includes('function holdCheck(){') &&
+  demo.includes('function loseHold(){') &&
+  /if\(holdCheck\(\)\)return;/.test(demo) &&
+  /setRead\('THEY GOT PAST YOU'/.test(demo) &&
+  !/function loseHold\(\)\{ if\(G\.ledger\)G\.ledger\.deaths/.test(demo));
+
+ok('V137 HE CAN SEE WHAT HE IS HOLDING, and the marker is REUSED not invented: the same fieldPos call, pulsing disc, dashed ring and label geometry as the grenade tile, turning red when somebody is nearly on it',
+  /if\(!aimo&&G\.hold\)\{/.test(demo) &&
+  /const hp=fieldPos\(G\.hold,W,H,cx,cy\)/.test(demo) &&
+  /x\.setLineDash\(\[7,5\]\);/.test(demo) &&
+  /x\.fillText\('HOLD',hp\[0\],hp\[1\]\)/.test(demo));
+
+ok('V137 MECHANISM MINE, CONTENTS HIS, STILL: the marker carries a MECHANIC word and never a name, a relationship or a reason. The opening of his game is the most seductive place to write his lore for him, so cast stays empty and place stays null',
+  /cast:\[\],/.test(alpha) && /place:null,/.test(alpha) &&
+  !/G\.hold=\{[^}]*name:/.test(demo));
+
+ok('V137 A DEFENCE NEVER LEAKS INTO THE NEXT FIGHT: the place, the contract and the lost flag are all cleared on setup alongside the grenade state',
+  /G\.hold=null; G\.defend=null; G\._defLost=false;/.test(demo));
 
 ok('V66 PARENT: the outcome settles exactly once per encounter, and a broken handoff lands in the combat log instead of falling on the floor',
   alpha.includes('if(enc&&!enc.settled){') &&
