@@ -169,3 +169,17 @@ ring on the real surface: coping runs both edges and turns its corner.
 Gates: run 126, light 41, alpha loads 20, bought 20, grime 24.
 
 THREE OF FOURTEEN FAMILIES ARE NOW IN THE GAME: rail, stripes, the ring.
+
+## 8/11 SIXTH PASS: FOURTH FAMILY WIRED (CORRUGATED METAL)
+
+TF-ART-002 joined ten metal districts' wall pools as four materials of its own
+(bare + rust runs, offwhite, sand, bluegrey paints) through the 8/3
+one-material-per-building machinery - pure builder wiring, no new draw rule.
+Verified standing in the warehouse: rust-run mass, plate mass and a paint mass
+on adjacent buildings, per-cell shuffle, no stamping. The under-eave course,
+end jambs and 110px roll-up doors need course/multi-cell placement and are
+named volume. Gates: run 126 (after fixing my own buildstamp to the
+date-letter shape the gate rightly demands), alpha loads 20, light 41,
+grime 24, bought 20.
+
+FOUR OF FOURTEEN FAMILIES ARE IN THE GAME: rail, stripes, ring, metal.

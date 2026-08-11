@@ -1,3 +1,21 @@
+ART (f3eu53): 8/11 (e) LATEST -- *** FOURTH FAMILY WIRED: THE METAL DISTRICTS
+WEAR HIS CORRUGATED SKINS. FOUR OF FOURTEEN APPROVED FAMILIES NOW DRAW. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (sixth-pass section)
+
+TAB: RUN. Warehouse / industrial / storage / railyard (+6 more metal districts)
+buildings now pick from four new corrugated materials (bare with rust runs,
+offwhite, sand, bluegrey paints) through the existing one-material-per-building
+pool machinery. Builder-only wiring; the APPROVED-law refusal covers it.
+
+WIRED: rail, stripes, parapet ring, corrugated. NEXT: chain-link (TF-ART-004,
+multi-cell see-through overlay pass - the biggest remaining read), then brick
+(TF-ART-009 pool join like corrugated), mobile homes (TF-ART-013 into the
+trailer pools), then the volume ledger (rail turnout/crossing/buffer, wheel
+stops/ADA, RTU recook at cell-integer, under-eave/roll-ups, deck stairs need
+TF-CMB-004 slab cooked).
+
+ART (f3eu53): 8/11 (d) -- *** THIRD FAMILY WIRED: THE ROOFS HAVE THEIR
+
 FACTIONS (factions-ovkjpf): 8/12 (b) LATEST — *** NEW LAW, HIS: THE CUSTOMIZABLE
 ENTRANCE. YOU PICK THE FACTION YOU ARE BORN UNDER; YOUR FAMILY IS THE SAME EITHER WAY. ***
 laws/BOHEMIA_ADDENDUM_THE_CUSTOMIZABLE_ENTRANCE_8_12_26.md

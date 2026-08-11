@@ -430,6 +430,36 @@ var CIVIC_ROOF = ['gravel_roof', 'tar_paper'];
 
 var civicWall = {}, civicOrder = Object.keys(CIVIC).sort();
 civicOrder.forEach(function (d) { civicWall[d] = texMats(CIVIC[d]); });
+/* THE APPROVED CORRUGATED FAMILY (TF-ART-002, Paolo's 8/11 TILE BOARD verdict):
+   the fourth wired family. Three real paint colourways + the bare ribbed metal
+   with its rust runs join the metal districts' pools as MATERIALS of their own,
+   through the same one-material-per-building machinery the 8/3 pools use. The
+   under-eave course, the end jambs and the 110px roll-up doors need course/
+   multi-cell placement and stay as named volume. Same refusal as every wired
+   family: the bank's law line must say APPROVED. */
+var CORR_BANK = 'banks/tileforms/TF-ART-002_CANDIDATES_8_8_26.json';
+var corrBank = JSON.parse(fs.readFileSync(CORR_BANK, 'utf8'));
+if (String(corrBank.law || '').indexOf('APPROVED') !== 0)
+  throw new Error('TILEFORM: ' + CORR_BANK + ' law line is not APPROVED - nothing unjudged draws');
+function corrMat(names) {
+  return names.map(function (n) {
+    var t = corrBank.tiles.filter(function (x) { return x.name === n; })[0];
+    if (!t) throw new Error('TILEFORM: piece "' + n + '" missing from ' + CORR_BANK);
+    return t.b64;
+  });
+}
+var CORR_MATS = [
+  corrMat(['metal_base_0', 'metal_base_1', 'metal_base_2',
+           'metal_rust_run_0', 'metal_rust_run_1', 'metal_rust_run_2']),
+  corrMat(['metal_paint_offwhite_0', 'metal_paint_offwhite_1', 'metal_paint_offwhite_base']),
+  corrMat(['metal_paint_sand_0', 'metal_paint_sand_1', 'metal_paint_sand_base']),
+  corrMat(['metal_paint_bluegrey_0', 'metal_paint_bluegrey_1', 'metal_paint_bluegrey_base']),
+];
+['industrial', 'warehouse', 'storage', 'railyard', 'granary', 'battery',
+ 'reclaim', 'landfill', 'swapmeet', 'farm'].forEach(function (d) {
+  if (civicWall[d]) CORR_MATS.forEach(function (m) { civicWall[d].push(m); });
+});
+console.log('  TILEFORMS: TF-ART-002 corrugated joins 10 metal districts as 4 materials (fourth wired family)');
 var civicPayload = { d: civicWall, def: texMats(CIVIC_DEFAULT), roof: texMats(CIVIC_ROOF) };
 if (html.indexOf('__CIVIC_SKIN_JSON__') < 0) throw new Error('missing __CIVIC_SKIN_JSON__ placeholder');
 html = html.replace('__CIVIC_SKIN_JSON__', JSON.stringify(civicPayload));
