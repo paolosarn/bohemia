@@ -1,5 +1,5 @@
 {
- "sources": 212,
+ "sources": 213,
  "total_mb": 275.3,
  "unreached_mb": 272.7,
  "rows": [
@@ -199,7 +199,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 32,
-   "bytes": 2619330
+   "bytes": 2618366
   },
   {
    "path": "banks/BOHEMIA_FIRE_FLICKER_BANK_7_13_26.txt",
@@ -241,10 +241,10 @@
    "path": "banks/BOHEMIA_GRIME_8_3_26.txt",
    "kind": "bank",
    "verdict": "LOADED ONLY",
-   "samples": 4,
+   "samples": 5,
    "hits_shown": 0,
    "hits_loaded": 1,
-   "bytes": 113058
+   "bytes": 113251
   },
   {
    "path": "banks/BOHEMIA_GROUND_MASTER_SET_7_10_26.txt",
@@ -1339,10 +1339,10 @@
    "path": "engine/bohemia_loop.js",
    "kind": "engine",
    "verdict": "LOADED ONLY",
-   "samples": 31,
+   "samples": 32,
    "hits_shown": 0,
-   "hits_loaded": 31,
-   "bytes": 71473
+   "hits_loaded": 32,
+   "bytes": 72567
   },
   {
    "path": "engine/bohemia_loop_channel_tests.js",
@@ -1594,7 +1594,7 @@
    "samples": 9,
    "hits_shown": 0,
    "hits_loaded": 9,
-   "bytes": 10447
+   "bytes": 13521
   },
   {
    "path": "engine/bohemia_quest_runtime_tests.js",
@@ -1847,6 +1847,15 @@
    "hits_shown": 1,
    "hits_loaded": 1,
    "bytes": 12613
+  },
+  {
+   "path": "engine/bohemia_vista.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 1,
+   "hits_shown": 1,
+   "hits_loaded": 0,
+   "bytes": 10080
   },
   {
    "path": "engine/bohemia_warehouse.js",

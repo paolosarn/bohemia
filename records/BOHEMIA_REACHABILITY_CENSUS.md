@@ -22,13 +22,13 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 49 |
+| SHOWN (all) | 1 | 50 |
 | SHOWN (part) | 6 | 24 |
 | LOADED ONLY | 18 | 10 |
 | NO TRACE | 72 | 17 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **97** | **115** |
+| **total** | **97** | **116** |
 
 **272.7 MB of 275.3 MB** sampled does not reach the shown surface.
 
@@ -66,9 +66,9 @@ verbatim.
 | `engine/bohemia_world.js` | engine | 0.06 |
 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | bank | 0.02 |
 | `engine/bohemia_resolve.js` | engine | 0.02 |
+| `engine/bohemia_quest_runtime.js` | engine | 0.01 |
 | `engine/bohemia_bq.js` | engine | 0.01 |
 | `banks/BOHEMIA_CIVIC_OPENINGS_8_3_26.txt` | bank | 0.01 |
-| `engine/bohemia_quest_runtime.js` | engine | 0.01 |
 | `engine/bohemia_overmap_bridge.js` | engine | 0.01 |
 | `engine/bohemia_tilepool.js` | engine | 0.01 |
 | `engine/bohemia_garage.js` | engine | 0.00 |
