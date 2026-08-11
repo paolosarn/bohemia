@@ -1,5 +1,14 @@
 # BOHEMIA BACKLOG (the fleet's queue — read via THE GO PROCEDURE)
 
+## *** DEMO ASAP (Paolo 8/4, direction-class: "I really want to have a demo
+## for this game out like asap bro"). THE FLEET CONVERGES ON THE DEMO. Read
+## records/BOHEMIA_THE_DEMO_PLAN_8_4_26.md before popping your next item:
+## if your lane owns a demo-critical-path row (RUN 00/00b/0d, ART board,
+## SOUNDS minimum set, COMBAT warming, PEOPLE 0sc cold open), IT OUTRANKS
+## everything else in your queue. Non-demo work continues only when your
+## demo-critical items are done or blocked. Demo scope pick pending Paolo
+## (ONE GOOD DAY proposed); the critical path is valid under any scope. ***
+
 ## *** FLEET-WIDE FREEZE (7/26, ART-FIRST RESET — read laws/BOHEMIA_ADDENDUM_
 ## ART_FIRST_RESET_7_26_26.md). *** BOTH FREEZES ARE LIFTED AS OF 7/26. ***
 ## Paolo verdicted the target screen CBB, so the visual constitution EXISTS:

@@ -13209,3 +13209,18 @@ convoy), SOUNDS 0s (CD system + faction radio + sonic signatures), PEOPLE
 0sc (scripted scenes; Act-1 cold open is the first consumer; companion
 detail spec noted in). FLAGGED FOR PAOLO: Ghost Time Layer priority. DEAD
 confirmed: oscillating arrow, daily-upkeep economy.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/4 (f) — DEMO ASAP RULED. Paolo: "I really want to have a
+demo for this game out like asap bro." records/BOHEMIA_THE_DEMO_PLAN_8_4_26.md
+is the plan of record: proposed cut = ONE GOOD DAY (20-30 min: wake -> quests
+-> talk + fight -> paid -> spend -> sleep-save, everything at quality);
+critical path = RUN game day + ART board landing + SOUNDS minimum set +
+COMBAT warming + save durability + streaming perf + a first-five-minutes +
+a DEMO GATE (headless full-day + deploy-verified). Backlog now carries a
+DEMO ASAP banner at the top: demo-critical rows outrank lane-local wants.
+NOT demo-blocking (keeps cooking): city-builder, factions system,
+companions, verticality, weather, vehicles, quest volume. Honest timeline
+3-5 weeks. ALSO ANSWERED: no dedicated ITEMS chat yet (inventory engine
+built, rosters all [PENDING Paolo], demo items = economy goods WORLD owns;
+revisit at demo ship).
