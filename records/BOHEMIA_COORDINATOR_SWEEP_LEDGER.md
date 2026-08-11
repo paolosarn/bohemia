@@ -112,3 +112,9 @@ feedback export so the soft opening doubles as the device matrix).
 [Confidence: budget numbers practitioner-reported empirics; the
 reload-routineness is WebKit-documented consensus.]
 HIGH-WATER MARK: swept through main @ 673f63282e5fbfaab42bee63e7f272927f4ecfe5
+
+## SWEEP 4 — 8/12/26 (one breath, per the cost law)
+DELTA: 2 commits (one mine). Boss roster at 63 candidates; Paolo caught a
+lane overselling a research finding — honesty culture holding. All catches
+delegated or parked. No collisions, nothing to route, nothing needed.
+HIGH-WATER MARK: swept through main @ c4f2857af229497702d174927ca20c695d85075c
