@@ -1,3 +1,51 @@
+CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE HEAD IS FIXED. IT WAS ONE
+CONDITION, AND IT HAD BEEN WRONG FOR EVERY CHARACTER IN THE GAME. ***
+
+PAOLO, chin circled: "this is not how the rig has my head and my neck line... there needs to
+be more head underneath the mouth following how the rig has it. fix it"
+
+THE BASE BODY DOES NOT USE PAINTED COLOUR -- IT SHADES ITSELF FROM THE PART GRID. Every body
+part gets one base tone and an edge pixel gets `shade=1`, the darker anatomy tone. That is
+what draws every limb line and every silhouette on the body. And the whole pass was wrapped
+in one condition:
+
+    const g = GROUP[pid];
+    if (g !== 0) { ...border detection... if (border) shade = 1; }
+                ^^^^^^^^   GROUP = {1:0, 2:0, ...}  -- group 0 IS THE HEAD AND FACE
+
+THE HEAD WAS THE ONE PART OF THE BODY EXCLUDED FROM HAVING AN EDGE. Every head pixel came
+out the same flat tone, forever, on everybody.
+
+AND HE HAD PAINTED THE JAW. His body art puts the dark anatomy index on BOTH sides of every
+head row and walks it inward -- x7..x16, then x8..x15, then x9..x14 -- which is the egg.
+Measured on the render: those columns came out 191,175,166, THE EXACT SAME COLOUR AS THE
+CHEEK BESIDE THEM. His jawline was being painted as face. The head read as a barrel and the
+chin dissolved into the shelf under the mouth he circled. tools/bohemia_head_edge_patch.py.
+
+DELIBERATELY NARROW -- only the SILHOUETTE edge. No line between head and face (one form,
+same group), no line where a limb meets the head (his 7/2 ruling, untouched), no line at the
+neck join (that one is HIS call). NOT ONE PAINTED PIXEL MOVES: this is a tone on cells his
+rig already owns, so RIG LAW (which is about geometry) is untouched.
+
+*** THE RULER FAILED TWICE ON THIS ONE FIX AND BOTH FAILURES ARE THE SAME MISTAKE. ***
+  1. The width ruler is BLIND to it. The fix is a TONE; both tones are skin; "how wide is
+     the skin" reads identically before and after. It did, and I nearly shipped believing
+     nothing had happened.
+  2. The edge ruler I wrote to replace it took the outermost NON-TRANSPARENT pixel -- the
+     sprite's own black outline, darker than everything -- so it PASSED with the fix ripped
+     back out. Mutation-tested, caught, fixed to compare outermost SKIN to the skin inside
+     it. Now: 0 of 20 without the fix, 20 of 20 with it.
+ASK FOR THE THING THAT CHANGED, and mutation-test every assertion you write.
+
+GATE: HEAD FOLLOWS RIG (gates/head_follows_rig_gate.js) -- the width ratchet (deviation may
+only shrink) PLUS the jaw-line assertion. Registered in the suite.
+
+STILL OPEN AND STILL HIS: BAKED part 2 has no pixels on NE/NW, which is why PARTS PAINTED
+and BODY VARIATION are red (identical on main, verified on a clean tree). Those two facings
+have no face painted at all.
+
+--------------------------------------------------------------------------------
+
 ART (f3eu53): 8/11 (i) LATEST -- *** SEVEN OF FOURTEEN FAMILIES ARE IN THE
 GAME: RAIL, STRIPES, RING, METAL, MESH, BRICK, MOBILE HOMES. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (eighth-pass section)
@@ -262,6 +310,7 @@ NEXT IN THIS LANE: THE PHONE DOES NOT RING YET. The pipe runs world -> phone; th
 leg (accept a job ON the phone and the day loop picks it up, a DM landing because of
 something that happened in the world) is the next thing. Then the streaming row proper.
 Records: BOHEMIA_YOUR_HOUSE_AND_THE_PHONE_8_11_26.md, BOHEMIA_THE_DAY_CLOSES_8_11_26.md
+
 
 CHARACTER (character-0lurbs): 8/11 LATEST -- *** HE IS RIGHT ABOUT THE HEAD. THE
 GAME DRAWS A BARREL WHERE HIS RIG PAINTED AN EGG. MEASURED. ***

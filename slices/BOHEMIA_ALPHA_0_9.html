@@ -5782,6 +5782,23 @@ function buildFrame(d,clip,ph){
       }
       if(border)shade=1;                                      // the ONE darker tone, never black
     }
+    /* THE HEAD HAS AN EDGE TOO (Paolo 8/11: "this is not how the rig has my head
+       and my neck line... there needs to be more head underneath the mouth").
+       Group 0 is the head and the face, and it was the ONE part of the body that
+       never reached the border test above -- so every head pixel came out the same
+       flat tone, on every character in the game, forever.
+       HE PAINTED THE JAW AND IT HAD NOWHERE TO GO. His body art puts the dark
+       anatomy index on both sides of every head row and walks it inward -- x7..x16,
+       then x8..x15, then x9..x14 -- which is the egg. Measured before this, those
+       columns rendered 191,175,166: the same colour as the cheek beside them. The
+       jawline was being painted as face, the head read as a barrel, and the chin
+       dissolved into the shelf under the mouth that he circled.
+       ONLY THE SILHOUETTE EDGE. Not head-vs-face (one form, same group), not
+       limb-vs-head (his 7/2 ruling, still keyed on ng===0 above), not the neck
+       join -- that one is a separate question and it is his to make. */
+    else { const hx=i%CW, hy=(i/CW)|0;
+      if((hx+1>=CW||!grid[i+1])||(hx<=0||!grid[i-1])||
+         (hy+1>=CH||!grid[i+CW])||(hy<=0||!grid[i-CW])) shade=1; }
     /* NECK SHADOW LAW (Paolo 7/2/26): the neck skin is very subtly darker
        than the body skin, the head's shadow living on it. 10% darker, applied
        to the neck's base tone everywhere, every clip, every direction. Border

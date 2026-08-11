@@ -89,7 +89,35 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
       total += dv;
       if (dv > worst) { worst = dv; worstY = ys; }
     }
-    return { rows: rows, total: total, worst: worst, worstY: worstY, rigRows: Object.keys(rig).length };
+    /* THE EDGE ITSELF, because the width ruler above is BLIND TO IT. The fix was
+       a TONE, not a geometry change: the head/face now takes the darker anatomy
+       shade on its silhouette edge like every other body part, so his painted jaw
+       finally draws. Both tones are skin, so a "how wide is the skin" ruler reads
+       exactly the same before and after -- it did, and I nearly shipped believing
+       nothing had happened. ASK FOR THE THING THAT CHANGED.
+       Measured: on the rows his art puts the dark anatomy index on, is the EDGE
+       pixel darker than the pixel beside it? */
+    /* SKIN ONLY, and the first version of this was worthless because of it. It
+       took the outermost NON-TRANSPARENT pixel, which is the sprite's own black
+       outline -- obviously darker than anything -- so it passed with the fix
+       ripped back out. Mutation-tested, caught, fixed. The question is whether the
+       outermost SKIN pixel is darker than the SKIN pixel inside it. */
+    let edged = 0, checked = 0;
+    const lum = c => c[0] * 0.299 + c[1] * 0.587 + c[2] * 0.114;
+    for (const ys of Object.keys(rig).map(Number).sort((a, b) => a - b)) {
+      const xs = [];
+      for (let x = 0; x < 56; x++) if (isSkin(at(x, ys))) xs.push(x);
+      if (xs.length < 4) continue;
+      const a = xs[0], b = xs[xs.length - 1];
+      for (const [e, inn] of [[a, a + 1], [b, b - 1]]) {
+        const ce = at(e, ys), ci = at(inn, ys);
+        if (!isSkin(ce) || !isSkin(ci)) continue;
+        checked++;
+        if (lum(ce) < lum(ci) - 4) edged++;
+      }
+    }
+    return { rows: rows, total: total, worst: worst, worstY: worstY,
+             rigRows: Object.keys(rig).length, edged: edged, checked: checked };
   });
 
   if (R.err) { console.log('  FAIL: ' + R.err); console.log('HEAD FOLLOWS RIG GATE: 0 passed, 1 failed'); await browser.close(); process.exit(1); }
@@ -108,6 +136,16 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   if (R.total < PINNED_TOTAL || R.worst < PINNED_WORST)
     console.log('  *** THE HEAD FOLLOWS THE RIG BETTER THAN THE PIN. Lower PINNED_TOTAL to ' +
       R.total + ' and PINNED_WORST to ' + R.worst + ' in this file so it can never slide back. ***');
+
+  /* THE JAW LINE EXISTS AT ALL. Before 8/11 the head was the ONE body part
+     excluded from the border test (`if (g !== 0)`, and GROUP puts head and face in
+     group 0), so every head pixel came out one flat tone and his painted jaw had
+     nowhere to render -- measured, the columns he painted the dark anatomy index
+     on came out 191,175,166, the same colour as the cheek beside them. */
+  ok('THE HEAD HAS A JAW LINE: ' + R.edged + ' of ' + R.checked + ' head edge pixels read ' +
+     'darker than the face beside them — the head used to be the ONE body part with no ' +
+     'silhouette edge at all, which is why his painted jaw rendered as cheek',
+     R.checked >= 10 && R.edged >= Math.round(R.checked * 0.6));
 
   console.log('HEAD FOLLOWS RIG GATE: ' + pass + ' passed, ' + fail + ' failed');
   await browser.close();
