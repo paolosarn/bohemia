@@ -1,3 +1,42 @@
+FACTIONS (factions-ovkjpf): 8/12 (g) LATEST — *** THE WORLD SAYS IT BACK TO YOU NOW.
+AND I FOUND A BUG OF MY OWN THAT MADE THE 8/11 ALLEGIANCE LINE INVISIBLE THE WHOLE TIME. ***
+Nothing to judge.
+
+"THE BEST FUNNEST DEEPEST" REFRAMED IT. This lane has built a lot of depth -- reputation
+that travels, decays, gets retold, outlives you -- and every bit of it surfaced as a
+READOUT. A count, a rung, a colour. Information, not experience. Nothing in the world
+ever ACTED differently because of what it knew.
+
+*** MY OWN BUG, AND IT IS THE EXACT LAW I KEEP CITING AT OTHER PEOPLE ***
+showAllegiance() wrote straight into #idcard and was called BEFORE
+BohemiaPeople.cardFor(), which opens with `card.innerHTML=''`. So "RUNS WITH THE TRADES"
+was WIPED EVERY SINGLE TIME and has been invisible in the real talk panel since it
+shipped on 8/11. My verification called showAllegiance() DIRECTLY instead of going
+through drawPerson(), so it passed a test that never touched the real path. VERIFY ON
+THE REAL SURFACE (7/18) means the surface, not a side door into the same function.
+Fixed: it owns its own node and runs after the card is built. Confirmed through
+drawPerson() this time -- a stranger's card now really shows RUNS WITH THE CHURCH - AISLE.
+
+BUILT: THEY SAW YOU DO IT. Somebody who was standing there when you resolved a quest now
+says so, and the line they repeat is THE QUEST'S OWN @LOG -- his sentence, his voice, the
+same text the feed card shows. Not one word is written by me. It is weightless by
+construction (a record of who was in reach; moves no standing, touches no faction) so it
+cannot disturb zero-sum, which the faction-scoped deed records depend on.
+
+THREE CUTS TO GET WHO-KNOWS RIGHT, and each was caught by looking at the card:
+  1. everyone within reach  -> a "witness" whose own card read ASLEEP AT HOME
+  2. only SIM.outAgents()   -> honest, and too strict: cut a live line with sparks at
+                               half seven and the neighbour in bed knows
+  3. OUTDOORS AT FULL REACH, INDOORS AT HALF -- one uniform physical rule (a wall
+     weakens sound, it does not block it) instead of a list of which tiers wake people,
+     and it lets the loudness axis do work it already earned. #quiet (reach 7) barely
+     carries indoors; #reckless (24) gets through walls twelve tiles out.
+And the words follow the fact: THEY SAW YOU DO IT outdoors, THEY HEARD IT FROM INSIDE
+indoors -- because the probe caught a card reading ASLEEP AT HOME above "they saw you".
+
+GATES: RUN 126, CURRENT SLICE 6, STANDING 35, DEED BRIDGE 27, MEMBERSHIP 55,
+INTEGRATION 116 (27/32), NO HUNTING 7.
+
 ART (f3eu53): 8/11 (h) LATEST -- *** FIFTH FAMILY WIRED: THE FENCES ARE REAL
 SEE-THROUGH CHAIN-LINK IN THIRTEEN DISTRICTS. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (seventh-pass section)

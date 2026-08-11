@@ -24557,6 +24557,39 @@ function openPerson(agent){
   PEOPLE_MET.meet(who.key, worldDay());
   drawPerson(agent);
 }
+/* ---- THEY SAW YOU DO IT (8/12) -----------------------------------------------
+   The whole point of a witness system, and the game has never once used it: somebody
+   who was standing there when you did a thing should SAY SO. Everything this lane has
+   built until now surfaces as a readout - a count, a rung, a colour. Information, not
+   experience. This is the moment it becomes something that happens TO you.
+
+   NOT ONE WORD OF IT IS WRITTEN HERE. The line they repeat is the quest's own @LOG for
+   the stage you resolved - his sentence, in his voice, the same text the feed card
+   shows. All this does is put it in the mouth of somebody who was close enough to have
+   seen it happen.
+
+   Weightless by construction: it reads RUN.sawList, which is a record of who was in
+   reach, and moves no standing and touches no faction. */
+function showRecognition(agent){
+  var host=document.getElementById('idcard'); if(!host) return;
+  var el=document.getElementById('recog');
+  if(!el){ el=document.createElement('div'); el.id='recog'; }
+  el.textContent=''; el.removeAttribute('style');
+  if(el.parentNode!==host) host.appendChild(el);
+  if(!RUN.sawList || !RUN.sawWhat) return;
+  var w=null;
+  for(var i=0;i<RUN.sawList.length;i++) if(RUN.sawList[i].id===agent.id){ w=RUN.sawList[i]; break; }
+  if(!w) return;
+  el.style.cssText='margin-top:7px;padding-top:6px;border-top:1px solid rgba(255,255,255,.07)';
+  var t=document.createElement('div');
+  t.style.cssText='font:700 10px ui-monospace,monospace;letter-spacing:.08em;color:#e0a060';
+  t.textContent = w.saw ? 'THEY SAW YOU DO IT' : 'THEY HEARD IT FROM INSIDE';
+  var q=document.createElement('div');
+  q.style.cssText='font:italic 12px/1.5 -apple-system,sans-serif;color:#cdbd8a;margin-top:3px';
+  q.textContent='\u201c'+RUN.sawWhat+'\u201d';
+  el.appendChild(t); el.appendChild(q);
+}
+
 /* ---- WHO THEY RUN WITH (8/11) ------------------------------------------------
    Paolo picked 13 faction colours and 14 marks on 8/2 (FACTION_LOOK / FACTION_MOTIF),
    and the integration ledger has said "bodies are random colourways, not rank-dressed"
@@ -24589,8 +24622,19 @@ function authoredFactionFor(agent){
   return null;
 }
 function showAllegiance(agent){
-  var el=document.getElementById('idcard'); if(!el) return;
+  /* IT OWNS ITS OWN NODE NOW, and that is a bug fix. This wrote straight into #idcard
+     and was called BEFORE BohemiaPeople.cardFor(), which opens with
+     `card.innerHTML=''` - so the allegiance line was wiped every single time and has
+     been invisible in the real talk panel since it shipped. My verification called
+     showAllegiance() directly instead of going through drawPerson(), so it passed a
+     test that never touched the real path. VERIFY ON THE REAL SURFACE (7/18) means the
+     surface, not a side door into the same function. */
+  showRecognition(agent);
+  var host=document.getElementById('idcard'); if(!host) return;
+  var el=document.getElementById('alleg');
+  if(!el){ el=document.createElement('div'); el.id='alleg'; }
   el.textContent=''; el.removeAttribute('style');
+  if(el.parentNode!==host) host.appendChild(el);
   if(typeof BohemiaAgents==='undefined' || typeof BohemiaDress==='undefined') return;
   if(!CTX || !CTX.factionBases || typeof CELL==='undefined' || !CELL) return;
   /* AUTHORED BEATS DERIVED. The people the demo actually puts in front of you are the
@@ -24631,7 +24675,6 @@ function drawPerson(agent){
   SPK.textContent = BohemiaPeople.headingOf(who);
   var seat=document.getElementById('seat');
   if(seat) seat.textContent = BohemiaPeople.seatLineOf(who);
-  showAllegiance(agent);
   /* THE FACE IS THE BODY. portraits.looks[i] is baked as the face of looks[i]
      (one index, one person), and the walking body is drawn with
      looks[agent.seed % n] — so the same seed here IS the person you walked up
@@ -24654,6 +24697,7 @@ function drawPerson(agent){
     var v=document.createElement('div'); v.className='v'; v.textContent=row.value;
     d.appendChild(k); d.appendChild(v); card.appendChild(d);
   });
+  showAllegiance(agent);   /* AFTER cardFor, which clears #idcard - see the note on it */
   /* WHAT THEY SAY IS EMPTY AND STAYS EMPTY. This lane builds the mouth, not the
      words (doctrine section 6); LINES is Paolo's table and people_gate fails if
      anything fills it. An empty conversation is honest; a placeholder line
@@ -24870,13 +24914,42 @@ function witnessResolution(){
        The first cut printed the opinion count under the words "PEOPLE SAW IT" and read
        as broken when the mechanism was right. */
     var reach = BohemiaDeeds.reachOf(rows[0].clout || null);
+    /* WHO COULD ACTUALLY HAVE KNOWN, and it took two wrong cuts to get here.
+       CUT 1 counted every agent within reach, including everybody ASLEEP AT HOME - the
+       probe caught a "witness" whose own card read ASLEEP AT HOME quoting what they had
+       just seen. Obviously wrong.
+       CUT 2 counted only SIM.outAgents(), which is honest and too strict: if you cut a
+       live line with sparks and a crowd at half seven, the neighbour in bed knows. A
+       wall does not block that, it WEAKENS it.
+       SO: outdoors hears it at full reach, indoors at HALF - one uniform physical rule
+       rather than a list of which tiers wake people, and it lets the loudness axis do
+       the work it already earned. A #quiet fix (reach 7) barely carries indoors at all;
+       a #reckless one (24) gets through walls twelve tiles out. */
+    var out = (SIM && SIM.outAgents) ? SIM.outAgents() : [];
+    var outIds = {}; for(var oi=0; oi<out.length; oi++) outIds[out[oi].id]=1;
     var eyes = 0, roster = (SIM && SIM.agents) ? SIM.agents : [];
-    for(var i=0;i<roster.length;i++){
-      var q = roster[i].loc; if(!q) continue;
-      if(Math.abs(q.x-px)+Math.abs(q.y-py) <= reach) eyes++;
+    function heard(a){
+      var q=a.loc; if(!q) return false;
+      var d=Math.abs(q.x-px)+Math.abs(q.y-py);
+      return d <= (outIds[a.id] ? reach : reach/2);
     }
+    for(var i=0;i<roster.length;i++) if(heard(roster[i])) eyes++;
     RUN.witnesses = eyes;
     RUN.opinions  = res.witnesses;
+    /* WHO, not just how many. The deed records inside publish() are faction-scoped on
+       purpose, so they cannot answer "were YOU there" for a bystander whose faction the
+       act never touched. This is the physical fact and nothing else: the ids of everyone
+       close enough to see it, and the quest's own @LOG line for what they saw. It is
+       weightless - it moves no standing and touches no faction - so recording it cannot
+       disturb zero-sum. */
+    RUN.sawList = [];
+    /* and remember WHICH, because "they saw you" is the wrong sentence for somebody who
+       was asleep inside and heard it through a wall. The probe caught exactly that card. */
+    for(var k=0;k<roster.length;k++){
+      if(!heard(roster[k])) continue;
+      RUN.sawList.push({ id: roster[k].id, saw: !!outIds[roster[k].id] });
+    }
+    RUN.sawWhat = (st.log||'').replace(/^\[stage \d+\]\s*/,'');
   }catch(_e){ /* a demo must never die because nobody was looking */ }
 }
 
