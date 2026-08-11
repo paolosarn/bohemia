@@ -51,7 +51,12 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
 os.chdir(REPO)
 
 FP = 'records/BOHEMIA_SFX_FINGERPRINTS_7_29_26.txt'
-SHOT = 'slices/BOHEMIA_SFX_JUDGE_PROOF_7_29_26.png'
+# THE PROOF SHOT GOES TO A TEMP DIR, NEVER INTO THE REPO (8/9). This wrote into
+# slices/ -- tracked AND PAGES-PUBLISHED -- on every suite run, so the tree came back
+# dirty for whichever lane happened to be shipping and `git add -A` swept up a 500 KB
+# binary nobody authored. Nothing asserts on it and no page loads it; it is printed for
+# a human to open. Same fix, same reasoning as tools/bohemia_sun_mode_look.js.
+SHOT = os.path.join(tempfile.gettempdir(), 'BOHEMIA_SFX_JUDGE_PROOF.png')
 
 # tolerances. Loose enough that a different Chromium build's float noise cannot
 # fail the gate, tight enough that a recipe edit cannot slip past it.

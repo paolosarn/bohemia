@@ -286,6 +286,12 @@ GATES = [
      "The overlook is DERIVED from the seed's own rim (MAP LAW), the camera LOOKS ACROSS the "
      "basin instead of hovering over the ledge, and it stays a CAMERA MOVE -- the plan's own "
      "rule is 'not a new renderer', so a bespoke draw loop in the vista block fails here", False),
+    ('NO SHOTS IN REPO',['node', 'gates/no_shots_in_repo_gate.js'],
+     "a lane flagged it 8/7 and fixed its own tool while two gates kept doing it: every suite "
+     "run rewrote ~500 KB of screenshot inside slices/ and records/target/, so whichever lane "
+     "was shipping came back to a dirty tree and either committed a picture nobody authored or "
+     "hand-discarded it. Neither shot is read, asserted on, or loaded by a page -- they are "
+     "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
     ('GARAGE',         ['node', 'gates/garage_gate.js'],

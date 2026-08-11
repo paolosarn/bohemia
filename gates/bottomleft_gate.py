@@ -90,7 +90,13 @@ function pw(){for(const g of ['/opt/node22/lib/node_modules','/usr/lib/node_modu
             tpScatter:(typeof TP!=='undefined')?!!TP.scatter:null};
   });
   fs.writeFileSync(process.argv[3],JSON.stringify(r));
-  await p.screenshot({path:path.join(process.argv[2],'records','target','BOTTOMLEFT.png')});
+  /* THE PROOF SHOT GOES TO A TEMP DIR, NEVER INTO THE REPO (8/9).
+     This wrote a 500 KB binary into records/target/ -- TRACKED and PAGES-PUBLISHED --
+     on every single suite run, so every lane's `git add -A` swept up a picture nobody
+     authored and nothing reads. The verdict comes from the JSON on argv[3]; this file
+     is never read back and no slice references it. Diagnosed and fixed the same way in
+     tools/bohemia_sun_mode_look.js; this is that fix reaching the gate that caused it. */
+  await p.screenshot({path:path.join(require('os').tmpdir(),'BOHEMIA_BOTTOMLEFT.png')});
   await b.close();
 })();
 """
