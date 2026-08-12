@@ -126,7 +126,7 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
     <div id="savebtn">💾</div>
     <div id="reroll">↻ REROLL</div>
     <div id="underbtn">⬇ UNDER</div>
-    <div id="phonebtn">📱 PHONE</div>
+    <div id="phonebtn">📱 PHONE<span id="phonebadge"></span></div>
     <div id="keybtn">🔑 KEY</div>
   </div>
   <div id="qline"></div>
@@ -145,6 +145,11 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
 #phonebtn{padding:7px 11px;border-radius:5px;background:var(--face);border:1px solid var(--line);
   color:var(--acc);font-weight:500;font-size:10px;letter-spacing:1px}
 #phonebtn:active{border-color:var(--acc);color:#fff}
+/* __THE_PHONE_RINGS__ -- the badge. Reuses the button's own face; nothing new drawn. */
+#phonebtn{position:relative}
+#phonebadge{display:none;position:absolute;top:-5px;right:-5px;min-width:14px;height:14px;
+  border-radius:7px;background:#c8503a;color:#fff;font-size:9px;font-weight:700;
+  line-height:14px;text-align:center;padding:0 3px}
 #phonewrap{position:absolute;inset:0;z-index:30;display:none;flex-direction:column;
   background:#070605}
 #phonewrap.on{display:flex}
@@ -11356,7 +11361,8 @@ function CBpanel(){
 window.__CITY={power:function(){return POWER;},night:function(){return isNight();},rerender:function(){render();},state:function(){return {seed:seed,TW:TW,TH:TH,cx:city.x,cy:city.y,panX:panX,panY:panY,mode:MODE};},isoAt:function(x,y){var ox=cv.width/2-(city.x-city.y)*TW/2+panX,oy=cv.height/2-(city.x+city.y)*TH/2+panY;return iso(x,y,ox,oy);},district:function(x,y){var c=om.at(x,y);return c&&c.district;},wallArtReady:function(){var t=saTex('perimeter',0);return !!(t&&t.width);}};
 
 
-/* ==== engine/bohemia_bq.js ==== */   /* __DAY_LOOP__ */
+/* __DAY_LOOP__ */
+/* ==== engine/bohemia_bq.js ==== */
 /* bohemia_bq.js — Bohemia Quest (.bq) parser, serializer, validator.
    LAWS ENFORCED IN CODE:
    - Never crash on a garbled line. Preserve it, flag it. (voice-to-text law)
@@ -11602,7 +11608,8 @@ if (typeof module!=='undefined' && module.exports) module.exports = API;
 root.BQ = API;
 })(typeof globalThis!=='undefined'?globalThis:this);
 
-/* ==== engine/bohemia_quest_runtime.js ==== */   /* __DAY_LOOP__ */
+/* __DAY_LOOP__ */
+/* ==== engine/bohemia_quest_runtime.js ==== */
 /* bohemia_quest_runtime.js — plays a parsed .bq quest. UI-AGNOSTIC.
    Consumes the AST from bohemia_bq.js (BQ.parse) and actually RUNS it: stages,
    talk nodes, option gates, and @DO verbs; tracks state, objectives, flags,
@@ -11875,7 +11882,8 @@ if(typeof module!=='undefined' && module.exports) module.exports=API;
 root.BQRuntime=API;
 })(typeof globalThis!=='undefined'?globalThis:this);
 
-/* ==== engine/bohemia_dayloop.js ==== */   /* __DAY_LOOP__ */
+/* __DAY_LOOP__ */
+/* ==== engine/bohemia_dayloop.js ==== */
 // BOHEMIA DAY LOOP (8/11/26) — the day has a SHAPE. Canonical body; the city
 // inlines it, gates/dayloop_gate.js drives it in Node and on the real surface.
 //
@@ -12002,9 +12010,16 @@ root.BQRuntime=API;
       if (L.ledger.entered.indexOf(what) < 0) L.ledger.entered.push(what);
       return L;
     };
-    /* a quest stage that ACTUALLY fired, with the quest's own @LOG line */
+    /* a quest stage that ACTUALLY fired, with the quest's own @LOG line.
+       ACCEPTED WHILE THE DAY IS CLOSING TOO, and that is not a loophole -- it is
+       the whole point of nightfall having teeth. Measured 8/12: an unresolved job
+       takes the quest author's own FAIL stage AT nightfall, which happens after
+       endDay() has already set phase='ended', so an 'awake'-only guard silently
+       dropped the one line the reckoning existed to show. The consequence of a day
+       belongs to that day. After nextDay() the ledger is fresh, so a late stage can
+       only ever belong to the day that just ended. */
     L.stage = function (questId, stageN, log, tag) {
-      if (L.phase !== 'awake') return L;
+      if (L.phase !== 'awake' && L.phase !== 'ended') return L;
       L.ledger.stages.push({ q: questId, n: stageN, tag: tag || null });
       if (log) L.ledger.notes.push(log);
       fire('stage', questId, stageN);
@@ -12094,7 +12109,8 @@ root.BQRuntime=API;
   root.BohemiaDayLoop = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
-/* ==== engine/bohemia_demoquests.js ==== */   /* __DAY_LOOP__ */
+/* __DAY_LOOP__ */
+/* ==== engine/bohemia_demoquests.js ==== */
 // BOHEMIA DEMO QUESTS (8/11/26) — SCAFFOLDING, AND IT SAYS SO.
 //
 // Paolo's demo row, verbatim: "close the game day loop end to end (hardcode the
@@ -15765,17 +15781,52 @@ function cardShow(html,onTap){
 function cardHide(){ document.getElementById('daycard').classList.remove('on'); }
 function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 
+/* __THE_PHONE_RINGS__ -- THE DAY NO LONGER STARTS WITH A JOB, IT STARTS WITH A
+   PHONE. showWake used to call DQ.openDay() and hand him the objective on the wake
+   card, which made the phone decorative: the work reached him whether he opened it
+   or not. Now the day's job is an OFFER sitting on the phone, in the 'feed' channel
+   the loop engine has modelled since it was written ("the quests you can pick up
+   OVER THE PHONE right now"). No objective exists until he accepts it. */
 function showWake(){
-  DAYOPEN=DQ.openDay(DAY.day);
+  DAYOPEN=null;
+  offerRing();
   updQline();
-  const o=DAYOPEN;
+  const o=OFFER;
   let h='<h2>DAY '+DAY.day+'</h2><div class="sub">'+esc(DAY.hhmm(DAY.WAKE_MIN))
        +' \u00b7 light until '+esc(DAY.hhmm(DAY.NIGHT_MIN))+'</div>';
-  if(o){ h+='<h3>'+esc((o.title||'').toUpperCase())+'</h3><p>'+esc(o.log||o.brief)+'</p>';
-    const ob=(o.objectives||[]).filter(x=>x.status==='active');
-    if(ob.length){ h+='<ul>'+ob.map(x=>'<li>'+esc(x.text)+'</li>').join('')+'</ul>'; } }
+  if(o){ h+='<p>Something came in on your phone overnight.</p>'
+          +'<h3>'+esc((o.title||'').toUpperCase())+'</h3>'
+          +'<div class="sub">on the network \u00b7 not taken</div>'; }
   h+='<div class="dcgo" data-act="go">GET UP</div>';
-  cardShow(h,function(){ cardHide(); if(DQ.pending)showChoice(DQ.pending); });
+  cardShow(h,function(){ cardHide(); });
+}
+
+/* THE OFFER. Its words are the quest's own -- the same law the resolution buttons
+   live under: nothing here is prose I wrote about the job. */
+function offerRing(){
+  OFFER=null; OFFER_TAKEN=false;
+  var spec=DQ.specForDay(DAY.day); if(!spec)return;
+  var Q=null; try{ Q=BQ.parse(DEMO_BQ[spec.file]); }catch(_e){ return; }
+  var st=(Q.stages||[]).filter(function(s){ return s.n===spec.open; })[0];
+  OFFER={ id:spec.id, title:Q.title||spec.id, text:(st&&st.log)||spec.brief, day:DAY.day };
+  window.__OFFER_RANG=(window.__OFFER_RANG||0)+1;
+  phoneBadge();
+  phonePush(true);
+}
+/* he took it: NOW the quest exists, and the objective is live. */
+function offerAccept(){
+  if(!OFFER||OFFER_TAKEN)return false;
+  OFFER_TAKEN=true;
+  DAYOPEN=DQ.openDay(DAY.day);
+  window.__OFFER_TAKEN=(window.__OFFER_TAKEN||0)+1;
+  phoneBadge(); updQline(); phonePush(true);
+  if(DQ.pending){ phoneClose(); showChoice(DQ.pending); }
+  return true;
+}
+function phoneBadge(){
+  var el=document.getElementById('phonebadge'); if(!el)return;
+  var n=(OFFER&&!OFFER_TAKEN)?1:0;
+  el.textContent=n?String(n):''; el.style.display=n?'block':'none';
 }
 
 function showChoice(card){
@@ -15795,8 +15846,12 @@ function showChoice(card){
 }
 
 function onNightfall(){
-  const r=DQ.nightfall();        /* unresolved -> the quest's OWN fail stage */
-  if(r)updQline();
+  /* __THE_PHONE_RINGS__ -- NOT TAKING A JOB IS NOT FAILING IT. The old code could not
+     say this: a quest that started itself could only ever be resolved or FAILED at
+     nightfall. If he never accepted the offer, no quest ever ran, so there is
+     nothing to fail -- the day was his. Only an ACCEPTED job that ran out of light
+     takes the quest author's own FAIL stage. */
+  if(OFFER_TAKEN){ const r=DQ.nightfall(); if(r)updQline(); }
   showReckoning();
 }
 function showReckoning(){
@@ -15809,9 +15864,11 @@ function showReckoning(){
   h+='<li>'+s.steps+' steps</li>';
   if(s.districts.length)h+='<li>'+esc(s.districts.map(d=>d.name).join(', '))+'</li>';
   if(s.entered.length)h+='<li>went into '+esc(s.entered.join(', '))+'</li>';
-  const oc=DQ.outcome();
+  const oc=OFFER_TAKEN?DQ.outcome():null;
   if(oc)h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': '+esc(oc)
         +(DQ.tags().length?' ('+esc(DQ.tags()[0])+')':'')+'</li>';
+  /* __THE_PHONE_RINGS__ */
+  else if(OFFER&&!OFFER_TAKEN)h+='<li>'+esc(OFFER.title)+': never taken</li>';
   h+='</ul>';
   h+='<div class="dcgo" data-act="next">SLEEP \u2192 DAY '+(s.day+1)+'</div>';
   cardShow(h,function(){ cardHide(); DAY.nextDay(); daySync(); _lastDistrict=null;
@@ -15950,7 +16007,8 @@ function phoneState(){
            cell:{x:(MODE==='human')?((hx/FN)|0):city.x, y:(MODE==='human')?((hy/FN)|0):city.y},
            home:h?{cell:h.cell}:null, objective:obj,
            quest:(function(){ try{ return DQ.spec?DQ.spec.id:null; }catch(_e){ return null; } })(),
-           done:(function(){ try{ return DQ.done(); }catch(_e){ return false; } })() };
+           done:(function(){ try{ return DQ.done(); }catch(_e){ return false; } })(),
+           offer:(OFFER&&!OFFER_TAKEN)?OFFER:null, taken:!!OFFER_TAKEN };   /* __THE_PHONE_RINGS__ */
 }
 function phonePush(force){
   if(!PHONE_ON||!PHONE_FR||!PHONE_FR.contentWindow)return;
@@ -16128,6 +16186,17 @@ function mixHex(a,b,t){
   for(var i=0;i<3;i++){ var v=Math.round(A[i]+(B[i]-A[i])*t); o+=('0'+v.toString(16)).slice(-2); }
   return o;
 }
+
+
+/* __THE_PHONE_RINGS__ -- the offer's state, and the phone's half of the handshake.
+   var, not let: offerRing() is reached from showWake, which the boot timer can run
+   before this line would have executed under `let` (the temporal dead zone that
+   silently killed the wake-at-home hook on 8/11). */
+var OFFER=null, OFFER_TAKEN=false;
+window.addEventListener('message',function(ev){
+  var d=ev&&ev.data; if(!d||!d.bohemiaPhoneAccept)return;
+  try{ offerAccept(); }catch(_e){}
+});
 
 function applyRestore(st){
   if(!st||st.v!==1)return false;

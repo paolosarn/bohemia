@@ -300,7 +300,13 @@ def main():
         # the ==== engine/x.js ==== banner is what tools/bohemia_city_module_resync.py
         # scans for, so these four modules join the ENGINE SYNC sweep and cannot
         # silently drift a week behind their canon bodies.
-        bodies.append('/* ==== engine/' + os.path.basename(m) + ' ==== */   /* ' + MARKER + ' */\n'
+        # THE BANNER MUST END WITH '==== */' AND NOTHING ELSE. The resync's own
+        # scanner is `s.startswith('/* ==== engine/') and s.endswith('==== */')`,
+        # so the marker comment that used to trail this line put all four of these
+        # modules OUTSIDE the ENGINE SYNC sweep -- silently, for a day, while the
+        # 8/11 commit message claimed they had joined it. A claimed reuse that the
+        # machine does not actually perform is worse than no claim.
+        bodies.append('/* ' + MARKER + ' */\n/* ==== engine/' + os.path.basename(m) + ' ==== */\n'
                       + open(m, encoding='utf-8').read())
     src = {}
     for q in QUESTS:

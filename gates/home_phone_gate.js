@@ -209,8 +209,14 @@ const done = () => { console.log('HOME + PHONE GATE: ' + pass + ' passed, ' + fa
     ok('and it shows him, on the phone, not just in a variable ("'
        + live.strip.slice(0, 40) + '")',
        live.strip.toUpperCase().indexOf(String(live.live.district).toUpperCase()) >= 0);
-    ok('it carries TODAY\'S JOB in the quest\'s own words',
-       !!live.live.objective && live.strip.indexOf(live.live.objective) >= 0);
+    /* SINCE 8/12 (__THE_PHONE_RINGS__) the day's job ARRIVES as an offer and is
+       taken on the phone, so before he takes it the strip carries the OFFER, not an
+       objective. Either is today's job in the quest's own words; what this gate
+       refuses to allow is the strip carrying NEITHER. */
+    ok('it carries TODAY\'S JOB in the quest\'s own words -- as an offer before he'
+       + ' takes it, as the objective after',
+       (!!live.live.offer && live.strip.indexOf(live.live.offer.text) >= 0)
+       || (!!live.live.objective && live.strip.indexOf(live.live.objective) >= 0));
     ok('the map\'s "you" blip is HIS cell, not a demo actor parked at a start tile',
        !!live.tile && live.tile[0] === live.live.cell.x && live.tile[1] === live.live.cell.y);
     ok('and the phone knows where HOME is, so it can draw it',

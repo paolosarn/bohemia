@@ -141,6 +141,17 @@ GATES = [
      'inside somebody else\'s EMPTY srcdoc frame and crashed on "om is not defined", three of '
      'them red on main for over a week. The ordering is pinned here because what broke was a '
      'SHARED RESOLVER and nothing owned it', True),
+    ('PHONE RINGS',    ['node', 'gates/phone_rings_gate.js'],
+     'The phone was in his pocket and knew where he was, and was still a VIEWER: nothing '
+     'ever arrived on it and nothing he did on it changed the day. engine/bohemia_loop.js '
+     'has modelled the answer since it was written -- "THE FEED OFFERS: the quests you can '
+     'pick up OVER THE PHONE right now" -- and the demo was skipping the channel by handing '
+     'him the day\'s job on the wake card, done deal. Now the day starts with NO objective, '
+     'the job arrives on the phone in the quest\'s OWN words, and taking it THERE is what '
+     'makes it real in the run. And NOT TAKING A JOB IS NOT FAILING IT -- a distinction the '
+     'old auto-start could not express. Driven by tapping the real buttons, both scenarios: '
+     'he takes it and runs out of light (the author\'s own FAIL stage fires), and he never '
+     'takes it (nothing runs, and the reckoning says "never taken")', True),
     ('ONE ZOOM',       ['node', 'gates/onezoom_gate.js'],
      'Paolo 8/12: "you could keep zooming out and zooming out until it showed the moon you '
      'know. that was my original philosophy and i want to stick with that thats my flavor". '

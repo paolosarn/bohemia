@@ -184,14 +184,22 @@ for (const f of ['S01_THE_METER_READER', 'S09_THE_BACK_DOOR', 'S02_THE_SAME_CRAT
   ok('the day loop is alive in the real page', boot.alive === true);
   ok('a WAKE card is up at 06:00 on day 1',
      boot.day === 1 && boot.min === 360 && /DAY 1/.test(boot.card));
-  ok('and it states the day\'s quest in the quest\'s own words',
-     /THE METER READER/.test(boot.card) &&
-     /loses half its light at the same hour/.test(boot.card));
-  ok('the live objective is on the HUD', /Find why the block browns out/.test(boot.qline));
+  ok('and it names the day\'s quest in the quest\'s own words',
+     /THE METER READER/.test(boot.card));
+  /* THE DAY STARTS WITH NO JOB SINCE 8/12 (__THE_PHONE_RINGS__): the work ARRIVES
+     on the phone and is taken there, so there is deliberately no objective yet.
+     That handshake is gates/phone_rings_gate.js's subject; THIS gate is about the
+     LOOP, so it takes the job the run-side way and gets on with the day. */
+  ok('and there is NO objective yet -- the job has not been taken ("' + boot.qline + '")',
+     boot.qline === '');
 
-  // GET UP, then walk into a dark building the way the game does
+  // GET UP, take the job, then walk into a dark building the way the game does
   await pg.click('#daycardIn .dcgo');
   await pg.waitForTimeout(120);
+  await pg.evaluate(() => offerAccept());
+  await pg.waitForTimeout(200);
+  ok('once taken, the live objective is on the HUD',
+     await pg.evaluate(() => /Find why the block browns out/.test(document.getElementById('qline').textContent)));
   const played = await pg.evaluate(() => {
     dayEnteredBuilding('a house');            // the same call inEnter makes
     const up = !!document.querySelector('#daycard.on');
@@ -234,11 +242,17 @@ for (const f of ['S01_THE_METER_READER', 'S09_THE_BACK_DOOR', 'S02_THE_SAME_CRAT
     document.querySelector('#daycardIn .dcgo').click();
     return { day: DAY.day, min: DAY.min, phase: DAY.phase,
              txt: document.getElementById('daycardIn').textContent,
-             qline: document.getElementById('qline').textContent };
+             qline: document.getElementById('qline').textContent,
+             /* the BRIEF lives on the phone now, so read the offer the run built
+                rather than the wake card that no longer carries it */
+             offer: (typeof OFFER !== 'undefined' && OFFER) ? OFFER : null };
   });
   ok('SLEEP starts DAY 2 at 06:00, awake', next.day === 2 && next.min === 360 && next.phase === 'awake');
-  ok('and DAY 2 opens a DIFFERENT canon quest',
-     /THE BACK DOOR/.test(next.txt) && /behind the fence/.test(next.txt));
+  ok('and DAY 2 offers a DIFFERENT canon quest -- named on the card, briefed on the'
+     + ' phone (__THE_PHONE_RINGS__)',
+     /THE BACK DOOR/.test(next.txt)
+     && !!next.offer && next.offer.title === 'The Back Door'
+     && /behind the fence/.test(next.offer.text));
 
   await b.close();
   ok('no page error at any point in a full played day' + (errs.length ? ' -- ' + errs[0] : ''),
@@ -290,8 +304,8 @@ for (const f of ['S01_THE_METER_READER', 'S09_THE_BACK_DOOR', 'S02_THE_SAME_CRAT
     ok('the RUN tab really loads the city frame', inFrame.reached === true);
     ok('THE DAY LOOP IS ALIVE WHERE HE ACTUALLY PLAYS (alpha -> RUN -> city frame)',
        inFrame.alive === true && inFrame.day === 1 && inFrame.min === 360);
-    ok('and the wake card and objective are on his screen, in canon words',
-       /THE METER READER/.test(inFrame.card) && /browns out/.test(inFrame.qline));
+    ok('and the wake card is on his screen, in canon words',
+       /THE METER READER/.test(inFrame.card));
   }
   await b2.close();
   ok('the alpha raises no page error with the day loop in it'

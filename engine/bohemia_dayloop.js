@@ -124,9 +124,16 @@
       if (L.ledger.entered.indexOf(what) < 0) L.ledger.entered.push(what);
       return L;
     };
-    /* a quest stage that ACTUALLY fired, with the quest's own @LOG line */
+    /* a quest stage that ACTUALLY fired, with the quest's own @LOG line.
+       ACCEPTED WHILE THE DAY IS CLOSING TOO, and that is not a loophole -- it is
+       the whole point of nightfall having teeth. Measured 8/12: an unresolved job
+       takes the quest author's own FAIL stage AT nightfall, which happens after
+       endDay() has already set phase='ended', so an 'awake'-only guard silently
+       dropped the one line the reckoning existed to show. The consequence of a day
+       belongs to that day. After nextDay() the ledger is fresh, so a late stage can
+       only ever belong to the day that just ended. */
     L.stage = function (questId, stageN, log, tag) {
-      if (L.phase !== 'awake') return L;
+      if (L.phase !== 'awake' && L.phase !== 'ended') return L;
       L.ledger.stages.push({ q: questId, n: stageN, tag: tag || null });
       if (log) L.ledger.notes.push(log);
       fire('stage', questId, stageN);

@@ -20182,6 +20182,9 @@ var CANON_QUESTS = ["# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
 .mapgo{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:5px;
   background:#2a2418;border:1px solid #b89a6a;color:#e8b84a;font-weight:700;
   font-size:10px;letter-spacing:1px}
+/* __PHONE_OFFER__ -- the offer state of the live strip. */
+.lv-offer{margin-top:6px;font-size:9px;font-weight:700;letter-spacing:2px;color:#e8b84a}
+.lv-take{margin-top:8px;margin-left:0;display:inline-block}
 </style>
 
 <div id="phone" class="view-home">
@@ -20876,8 +20879,30 @@ function liveStrip(){
   var where = LIVE.district ? String(LIVE.district).toUpperCase() : 'THE VALLEY';
   var h = '<div class="live-strip"><div class="lv-top">'+esc(where)+
           ' \u00b7 DAY '+LIVE.day+' \u00b7 '+esc(LIVE.clock)+(LIVE.night?' \u00b7 dark':'')+'</div>';
-  if(LIVE.objective) h += '<div class="lv-obj">'+esc(LIVE.objective)+'</div>';
+  /* __PHONE_OFFER__ -- THE JOB ARRIVES HERE AND IS TAKEN HERE. The loop engine has
+     always modelled this as a channel ("the quests you can pick up OVER THE PHONE
+     right now"), and a channel you cannot answer on is not a channel. Its words are
+     the quest's own -- the same law the resolution buttons in the run live under.
+     ONE component, two states: an offer is simply the state before the job is his,
+     so this is the live strip rather than a second thing beside it. */
+  if(LIVE.offer){
+    h += '<div class="lv-offer">A JOB CAME IN</div>'
+      +  '<div class="lv-obj"><b>'+esc(LIVE.offer.title)+'</b></div>'
+      +  '<div class="lv-obj">'+esc(LIVE.offer.text)+'</div>'
+      +  '<div class="mapgo lv-take" onclick="phoneTake()">TAKE IT</div>';
+  } else if(LIVE.objective){
+    h += '<div class="lv-obj">'+esc(LIVE.objective)+'</div>';
+  }
   return h+'</div>';
+}
+
+/* __PHONE_OFFER__ -- the yes. The phone only ASKS; the run decides what a yes
+   means, which is why this posts a message rather than reaching into the world. */
+function phoneTake(){
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaPhoneAccept:true},'*'); }catch(e){}
+  if(LIVE){ LIVE.offer=null; LIVE.taken=true; }
+  try{ rerender(); }catch(e){}
 }
 window.addEventListener('message', function(ev){
   var d = ev && ev.data;
