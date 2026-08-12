@@ -246,3 +246,18 @@ branch. Unverified placement does not ship (his 8/11 bar), so the hook is
 DISABLED with the reason in the code, the family stays counted as unwired, and
 the next turn's first job is finding the real layer.
 NINE OF FOURTEEN FAMILIES ARE IN THE GAME.
+
+## 8/11 ELEVENTH PASS: TENTH FAMILY WIRED (STOREFRONTS), AND THE MYSTERY WAS THE PROBE
+
+TF-ART-008 is live on downtown's 'storefront (green)' structure cells: dead
+dark glazed bays with boarded/shutter/grille treatments per 2-cell segment, no
+glow (power is territory). THE LESSON, recorded because it cost a held ship:
+the "layer mystery" was never a layer problem - both failed probes stood at
+AWNING clusters because the loose /storefront/i test matched 'storefront
+awning' (overhead) cells too. The checker was the broken thing, again. The
+structure hook now explicitly refuses overhead cells so an awning can never
+pull a glass bay onto the canopy layer; awnings themselves are canopy-layer
+volume with the signbands, pilasters, ends and the smashed pair.
+TEN OF FOURTEEN FAMILIES ARE IN THE GAME. Remaining four: CMU courses,
+freeway (own render path), pools (basin assembly), deck stairs (blocked on
+the TF-CMB-004 slab cook).

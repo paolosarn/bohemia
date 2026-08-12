@@ -1,3 +1,21 @@
+ART (f3eu53): 8/11 (l) LATEST -- *** TEN OF FOURTEEN FAMILIES ARE IN THE GAME.
+THE STOREFRONT "LAYER MYSTERY" WAS THE PROBE STANDING AT THE AWNINGS. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (eleventh-pass section)
+
+TAB: ART, WIRED IN THE GAME - ten live-frame cards. Downtown's shop faces are
+dead dark glass with boarded/shutter/grille segments now. The held wiring
+turned out correct all along: both failed probes matched 'storefront awning'
+(overhead) cells with a loose regex and stood under the canopy - fix the
+ruler, never the target. The hook refuses overhead cells explicitly now.
+
+REMAINING FOUR: CMU cap/vent courses (material-aware course logic), freeway
+(own render path research), pool basins (assembly), deck stairs (blocked on
+TF-CMB-004 slab). Then the volume ledger (awnings on the canopy layer joined
+it). Pages surface 242 of 260 MB - the NEXT shot must replace an old one or
+compress; the ceiling is real now.
+
+ART (f3eu53): 8/11 (k) -- *** NINE OF FOURTEEN FAMILIES ARE IN THE
+
 PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
 PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,

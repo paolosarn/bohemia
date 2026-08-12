@@ -111,6 +111,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: APPROVED 8/11/26, WIRING BUILT BUT DISABLED 8/11/26: two real-surface probes never caught the pieces on screen (the 'storefront' cells may draw through a different layer than the structure branch). Unverified placement does not ship. Next: find the actual layer, hook there, verify, then wire. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: downtown's 'storefront (green)' structure cells draw the family (glazed bays with boarded/shutter/grille segments, one treatment per 2-cell segment); the earlier 'never caught on screen' was the PROBE standing at awning clusters, not a layer problem, and the awning overhead cells are explicitly refused by the structure hook. Awnings on the canopy layer, signbands, pilasters, ends and the smashed pair are the named volume. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/28/26 | PRIORITY: MED
 - BOARD ROW #: 17 | VERDICT: —

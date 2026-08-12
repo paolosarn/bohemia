@@ -22273,6 +22273,9 @@ function drawSfform(gx,gy,X,Y,S){
   if(n.indexOf('storefront')<0) return false;
   var name;
   if(n.indexOf('awning')>=0){
+    /* awning cells are OVERHEAD layer and draw in the ground branch; the
+       structure branch must never claim them */
+    if(LAYERG[gy][gx]==='overhead') return false;
     var cw=['rust','teal','sand_stripe','sage'][th(0,gx>>2,4)];
     name='sf_awning_'+cw+'_'+th(gx,gy,2);
   } else {
@@ -24544,12 +24547,13 @@ function draw(){
            and the dossier already drew the line - the mask only reads it */
         if(!isSuburbCell() && drawFenceform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && drawRoofform(gx,gy2,X,Y,S)) continue;
-        /* drawSfform is built but DISABLED (8/11): two real-surface probes at
-           downtown shop runs never caught the pieces on screen - the
-           'storefront' cells may live on a different layer than this structure
-           branch. Unverified placement does not ship (his 8/11 bar). The next
-           turn's job: find the layer those cells actually draw through, hook
-           there, verify, THEN count the family as wired. */
+        /* the storefront mystery, SOLVED (8/11, second look): the two probes
+           that "never caught the pieces" were standing at AWNING clusters -
+           overhead-layer cells the loose /storefront/i test also matched. The
+           'storefront (green)' GLASS cells are ordinary structure+solid and
+           this hook was right all along; drawSfform now refuses overhead cells
+           so an awning can never pull a glass bay onto the canopy layer. */
+        if(!isSuburbCell() && drawSfform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && drawCivicSkin(laid,gx,gy2,X,Y,S)) continue;
         if(!tput(laid,X,Y,S) && !body){
           /* only ever reached in the first frames while the bank decodes */

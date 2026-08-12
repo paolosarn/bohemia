@@ -122,6 +122,8 @@ const WIRED = [
     what: 'The farm names its own ground and now draws your family on it: fallow soil across the plots, furrow rows where crops once ran (each plot holds one furrow style), silted earth in the dead irrigation channels. These were the cells left deliberately blank by the props pass, waiting for the right family instead of getting dressed wrong. Live frame in the farm. Field edges, berms and the dirt track are coming as volume.' },
   { id: 'TF-ART-005', title: 'THE PARK LAWNS DIED MOWN', img: 'ART_WIRED_TF-ART-005.png',
     what: 'Every dead lawn in the valley draws your turf now: the park (three thousand cells of it), the school field and the stadium turf, with the old mowing stripes still readable in the dead grass. Courts, tracks, infields and bunkers key on their own names where districts have them. Live frame in the park. The painted line sets are coming as volume.' },
+  { id: 'TF-ART-008', title: 'THE SHOPS ARE DEAD DARK GLASS', img: 'ART_WIRED_TF-ART-008.png',
+    what: 'Downtown storefront faces draw your family now: dead dark glazed bays with boarded, shuttered and grilled fronts mixed in real segments, and nothing glows because power is territory. The first hunt for this one stood at the awnings by mistake; the glass was here all along. Live frame downtown. Signbands, pilasters and the smashed pair are volume.' },
   { id: 'TF-ART-002', title: 'THE WAREHOUSES WEAR REAL METAL', img: 'ART_WIRED_TF-ART-002.png',
     what: 'Ten industrial districts pick from your corrugated skins now: bare metal with rust runs, and three real paints. One material per building so nothing patchworks. Live frame in the warehouse district.' },
 ];
