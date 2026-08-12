@@ -160,7 +160,41 @@ const BOH_SFX = (function () {
     drive:   { kind: 'num',  min: 0,   max: 1,    d: 0 },
     gain:    { kind: 'num',  min: 0,   max: 1,    d: 0.5 },
     mkup:    { kind: 'num',  min: 0.25, max: 24,  d: 1 },
-    pan:     { kind: 'num',  min: -1,  max: 1,    d: 0 }
+    pan:     { kind: 'num',  min: -1,  max: 1,    d: 0 },
+
+    /* ---- HOW THE SOUND IS MADE AT ALL (8/12, BATCH SFX-04) --------------
+       Paolo: "you need more diverse sounds bro its getting stale at this
+       point." He is right and the cause is structural, not a shortage of
+       moments. Everything this engine has ever made is A STRUCK RESONANT
+       OBJECT: transient, modal bank, room. Fifty-four moments built one way
+       are fifty-four cousins, and no number of new events fixes that -- the
+       family resemblance IS the topology. He heard the topology.
+       So the method becomes a parameter. Each one below is a different
+       physics, not a different preset, and none of them can ring, loop or
+       feed back (SCREECH LAW, 7/8, absolute -- no delay line, no convolver,
+       which rules out Karplus-Strong and every waveguide, a real cost paid).
+         modal     the original. a struck material. UNCHANGED, so all 97 of
+                   his approved sounds render byte-identical.
+         fm        Chowning 1973. a carrier modulated at audio rate with the
+                   INDEX on its own falling envelope. Integer ratios give
+                   brass and reed; non-integer (1.41, 2.17, 1/sqrt2) give
+                   bells, metal and quasi-pitched drums -- a whole inharmonic
+                   family no fixed modal table can reach.
+         particle  Cook's PhISEM, 1996. A cloud of many tiny collisions under
+                   one exponentially decaying SYSTEM ENERGY. This is what
+                   gravel, coins, ice, keys, chain and breaking glass actually
+                   are -- Cook's own examples -- and one strike can never
+                   sound like a hundred small ones.
+         friction  stick-slip. Noise through a resonance, amplitude-driven at
+                   the slip rate. Drags, scrapes, hinges, rope: sound that is
+                   CONTINUOUS and has no attack at all.
+         air       turbulence. Noise through a band that MOVES. Wind, breath,
+                   gas, hiss: sound with no body and no strike. */
+    synth:   { kind: 'enum', of: ['modal', 'fm', 'particle', 'friction', 'air'], d: 'modal' },
+    ratio:   { kind: 'num',  min: 0.1, max: 12,  d: 2 },    /* fm  carrier:modulator */
+    index:   { kind: 'num',  min: 0,   max: 20,  d: 3 },    /* fm  modulation index */
+    grains:  { kind: 'num',  min: 2,   max: 64,  d: 12 },   /* particle  collisions */
+    rough:   { kind: 'num',  min: 0.5, max: 40,  d: 6 }     /* friction/air  rate Hz */
   };
   var FIELDS = Object.keys(SPEC);
 
@@ -335,8 +369,50 @@ const BOH_SFX = (function () {
        moment in the game by itself. ---- */
     { ev: 'ui_back',  label: 'BACK / CLOSE',   why: 'leaving a screen. the answer to the tap, one step down' },
     { ev: 'ui_deny',  label: 'YOU CANNOT DO THAT', why: 'refused. short and flat, never a buzzer' },
-    { ev: 'equip',    label: 'CLOTHES GO ON',  why: 'the wardrobe is a whole system that never made a sound' }
+    { ev: 'equip',    label: 'CLOTHES GO ON',  why: 'the wardrobe is a whole system that never made a sound' },
     /* ---- end batch SFX-03 events ---- */
+
+    /* =====================================================================
+       BATCH SFX-04 (8/12/26) — THE TWELVE THAT DIED, ANSWERED BY A DIFFERENT
+       PHYSICS
+       ---------------------------------------------------------------------
+       Paolo: "you need more diverse sounds bro its getting stale at this
+       point." He judged 270 and killed 173, and TWELVE of the 26 new moments
+       died with all five candidates dead. The post-mortem blamed material.
+       IT WAS NOT MATERIAL. It was that every sound in this engine was a
+       STRUCK RESONANT OBJECT -- and the twelve that died are, almost to a
+       one, the moments that are not a strike: breaking glass is a hundred
+       collisions, a swing is turbulence, a drag is friction, neon is
+       electrical, breath has no body at all. A strike-shaped engine was
+       being asked to imitate things that never get struck, and he heard it.
+       So these are NOT re-cooks. Every one is a new id (GRAVEYARD IS FINAL:
+       the sixty dead candidates stay dead and stay findable) built on a
+       method the engine did not have this morning. The moment survives, the
+       sound is made a different way.
+       WHAT ANSWERS WHAT, and why that physics:
+         PARTICLE (Cook's PhISEM)   many small collisions under one decaying
+           energy: broken glass underfoot, a magazine and slide, coins, a
+           deck plate ringing under a boot.
+         FRICTION (stick-slip)      continuous, no attack: a bat through the
+           air catching, cloth and tape, a thing being dragged apart.
+         AIR (turbulence)           no body, no strike: breath, a dog's cry
+           carried on distance, wind through a gap.
+         FM (Chowning)              inharmonic and electrical, or clean and
+           bell-like: neon, money, a deed landing, the wardrobe.
+       ===================================================================== */
+    { ev: 'glass_crunch', label: 'FOOTSTEP — BROKEN GLASS', why: 'a hundred small collisions under your boot, not one struck pane. the old one died because it was a struck pane' },
+    { ev: 'deck_ring',    label: 'FOOTSTEP — METAL DECK',   why: 'the plate rings and the grit on it scatters. metal died as a struck bar; this is the boot AND the grit' },
+    { ev: 'swing_air',    label: 'YOU SWING AND MISS',      why: 'the bat catching air. there is nothing to strike in a miss, which is exactly why the struck version died' },
+    { ev: 'mag_clack',    label: 'YOU RELOAD',              why: 'three metal parts finding each other. a cloud of small collisions, not one bell' },
+    { ev: 'breath_out',   label: 'OUT OF BREATH',           why: 'turbulence through a throat. it has no body at all, and the old one gave it one' },
+    { ev: 'tape_pull',    label: 'YOU PATCH YOURSELF UP',   why: 'cloth and tape dragging apart. friction, slow and close, with no attack anywhere in it' },
+    { ev: 'set_down',     label: 'IT GOES DOWN',            why: 'the weight arriving and settling. a low landing with the grit of it, not a chime' },
+    { ev: 'deed_stamp',   label: 'YOU OWN IT NOW',          why: 'ownership lands like a stamp and rings after. clean and inharmonic, the FF cursor grown up' },
+    { ev: 'cash_count',   label: 'MONEY MOVES',             why: 'paper and coin counted off. many small events, never one tone' },
+    { ev: 'neon_hum',     label: 'NEON, STILL LIT',         why: 'gas and current, which is electrical and never a struck body. the 12% that has power' },
+    { ev: 'dog_cry',      label: 'A DOG, FAR OFF',          why: 'a cry with the air of the distance in it. the only other living thing you can hear' },
+    { ev: 'cloth_on',     label: 'CLOTHES GO ON',           why: 'fabric moving over a body. friction, quiet, and over before you place it' }
+    /* ---- end batch SFX-04 events ---- */
     /* ---- end batch 02 events ---- */
   ];
 
@@ -1025,7 +1101,151 @@ const BOH_SFX = (function () {
               width: [0.36, 0.64] },
       hitSets: [[0, 0.1875], [0, 0.125], [0, 0.25], [0, 0.1875, 0.375], [0, 0.125]]
     }
-    /* ---- end batch SFX-03 recipes ---- */
+    /* ---- end batch SFX-03 recipes ---- */,
+
+    /* =====================================================================
+       BATCH SFX-04 RECIPES (8/12/26). Every one declares a `synth` that is
+       NOT modal -- that is the whole point of the batch. Materials still set
+       the resonance the method excites, and metal is still dead as a BODY
+       (the envelope's one surviving law) but is legal as a particle
+       resonance, because a cloud of collisions is not a struck bar and the
+       thing his 25 metal judgements killed was the struck bar.
+       ===================================================================== */
+
+    /* --- PARTICLE: many small collisions under one decaying energy --- */
+    glass_crunch: {
+      base: { synth: 'particle', mat: 'glass', hz: 900, grains: 26, modes: 6,
+              bright: 1.2, decay: 0.1875, damp: 2.1, warble: 0.4, trans: 0.6,
+              transHz: 6200, transQ: 2.2, grit: 0.5, gritHz: 4800, space: 0.1,
+              room: 0.125, refl: 1, dark: 4200, width: 0.7, drive: 0.08,
+              mkup: 0.8, gain: 0.34 },
+      jit:  { hz: [680, 1250], grains: [16, 40], decay: [0.125, 0.25],
+              bright: [0.95, 1.5], damp: [1.7, 2.6], width: [0.55, 0.9],
+              transHz: [4800, 8200], gritHz: [3400, 6200] }
+    },
+    deck_ring: {
+      base: { synth: 'particle', mat: 'metal', hz: 420, grains: 14, modes: 6,
+              bright: 1.05, decay: 0.1875, damp: 1.5, warble: 1.4, trans: 0.82,
+              transHz: 4400, transQ: 1.8, grit: 0.35, gritHz: 2800, space: 0.14,
+              room: 0.1875, refl: 1, dark: 3000, width: 0.6, drive: 0.12,
+              mkup: 0.82, gain: 0.33 },
+      jit:  { hz: [320, 600], grains: [8, 24], decay: [0.125, 0.3125],
+              bright: [0.85, 1.35], damp: [1.1, 2.1], width: [0.48, 0.8],
+              transHz: [3400, 6200] }
+    },
+    mag_clack: {
+      base: { synth: 'particle', mat: 'metal', hz: 520, grains: 9, modes: 6,
+              bright: 1.15, decay: 0.375, damp: 2, warble: 1.6, trans: 0.7,
+              transHz: 5200, transQ: 2, grit: 0.22, gritHz: 3200, space: 0.16,
+              room: 0.1875, refl: 1, dark: 3400, width: 0.55, drive: 0.1,
+              mkup: 0.76, gain: 0.32, hits: [0, 0.25, 0.5] },
+      jit:  { hz: [400, 720], grains: [5, 15], decay: [0.25, 0.5],
+              bright: [0.95, 1.45], damp: [1.5, 2.5], width: [0.44, 0.74] },
+      hitSets: [[0, 0.25, 0.5], [0, 0.1875, 0.4375], [0, 0.3125, 0.5625],
+                [0, 0.25, 0.4375], [0, 0.1875, 0.5]]
+    },
+    cash_count: {
+      base: { synth: 'particle', mat: 'ash', hz: 1150, grains: 18, modes: 4,
+              bright: 1.25, decay: 0.25, damp: 2.4, warble: 0.5, trans: 0.4,
+              transHz: 6800, transQ: 1.6, grit: 0.4, gritHz: 5200, space: 0.18,
+              room: 0.1875, refl: 1, dark: 4600, width: 0.62, drive: 0.05,
+              mkup: 0.66, gain: 0.55 },
+      jit:  { hz: [820, 1600], grains: [10, 30], decay: [0.1875, 0.375],
+              bright: [1, 1.6], damp: [2, 2.7], width: [0.5, 0.85],
+              transHz: [5200, 8400] }
+    },
+
+    /* --- FRICTION: continuous, and there is no attack anywhere in it --- */
+    swing_air: {
+      base: { synth: 'friction', mat: 'ash', hz: 150, rough: 22, modes: 4,
+              bright: 0.6, decay: 0.25, damp: 1.8, warble: 0.3, atk: 0.0625,
+              slide: -7, trans: 0.1, transHz: 1400, transQ: 0.8, grit: 0.6,
+              gritHz: 1200, space: 0.12, room: 0.1875, refl: 1, dark: 1300,
+              width: 0.68, drive: 0.08, mkup: 0.84, gain: 0.3 },
+      jit:  { hz: [110, 210], rough: [12, 34], decay: [0.1875, 0.375],
+              slide: [-12, -3], bright: [0.45, 0.9], width: [0.55, 0.9],
+              dark: [950, 1900] }
+    },
+    tape_pull: {
+      base: { synth: 'friction', mat: 'ash', hz: 210, rough: 34, modes: 4,
+              bright: 0.9, decay: 0.375, damp: 2.2, warble: 0.3, atk: 0.0625,
+              slide: -2, trans: 0.16, transHz: 2600, transQ: 1, grit: 0.8,
+              gritHz: 2000, space: 0.14, room: 0.125, refl: 2, dark: 2000,
+              width: 0.62, drive: 0.07, mkup: 0.78, gain: 0.3 },
+      jit:  { hz: [160, 300], rough: [22, 40], decay: [0.25, 0.5],
+              bright: [0.7, 1.25], width: [0.56, 0.86], dark: [1500, 2800] }
+    },
+    cloth_on: {
+      base: { synth: 'friction', mat: 'ash', hz: 130, rough: 9, modes: 4,
+              bright: 0.55, decay: 0.1875, damp: 2, warble: 0.3, atk: 0.0625,
+              slide: -3, trans: 0.12, transHz: 1600, transQ: 0.7, grit: 0.85,
+              gritHz: 1300, space: 0.09, room: 0.125, refl: 1, dark: 1400,
+              width: 0.46, drive: 0.06, mkup: 0.74, gain: 0.42, hits: [0, 0.1875] },
+      jit:  { hz: [98, 190], rough: [5, 16], decay: [0.125, 0.3125],
+              bright: [0.42, 0.82], width: [0.36, 0.64], dark: [1000, 2000] },
+      hitSets: [[0, 0.1875], [0, 0.125], [0, 0.25], [0, 0.1875, 0.375], [0, 0.125]]
+    },
+
+    /* --- AIR: no body, no strike, and the band has to MOVE --- */
+    breath_out: {
+      base: { synth: 'air', mat: 'ash', hz: 130, rough: 7, modes: 4,
+              bright: 0.5, decay: 0.5, damp: 1.7, warble: 0.3, atk: 0.125,
+              slide: -4, trans: 0.05, transHz: 900, transQ: 0.6, grit: 0.5,
+              gritHz: 800, space: 0.1, room: 0.1875, refl: 0, dark: 900,
+              width: 0.4, drive: 0.04, mkup: 0.9, gain: 0.3, hits: [0, 0.75] },
+      jit:  { hz: [100, 185], rough: [3, 14], decay: [0.375, 0.6875],
+              atk: [0.0625, 0.1875], bright: [0.38, 0.75], slide: [-8, -1],
+              width: [0.3, 0.56] },
+      hitSets: [[0, 0.75], [0, 0.6875], [0, 0.8125], [0, 0.75, 1.5], [0, 0.625]]
+    },
+    dog_cry: {
+      base: { synth: 'air', mat: 'choir', hz: 300, rough: 18, modes: 5,
+              bright: 1.1, decay: 0.5, damp: 1.9, warble: 1.2, atk: 0.0625,
+              slide: -5, trans: 0.08, transHz: 1800, transQ: 1.4, grit: 0.25,
+              gritHz: 1400, space: 0.88, room: 1.875, refl: 4, dark: 1500,
+              width: 0.95, drive: 0.05, mkup: 0.72, gain: 0.3,
+              hits: [0, 0.5, 0.875] },
+      jit:  { hz: [230, 420], rough: [10, 28], decay: [0.375, 0.75],
+              slide: [-10, -2], space: [0.75, 0.96], room: [1.5, 2.375],
+              bright: [0.85, 1.5], dark: [1100, 2100] },
+      hitSets: [[0, 0.5, 0.875], [0, 0.625], [0, 0.4375, 0.8125, 1.25],
+                [0, 0.5625], [0, 0.5, 1]]
+    },
+
+    /* --- FM: inharmonic and electrical, or clean and bell-like --- */
+    neon_hum: {
+      base: { synth: 'fm', mat: 'glass', hz: 120, ratio: 2.17, index: 4.5,
+              modes: 6, bright: 1, decay: 1.25, damp: 1.6, warble: 2.2,
+              atk: 0.125, trans: 0.1, transHz: 3000, transQ: 2, grit: 0.4,
+              gritHz: 2400, space: 0.26, room: 0.5, refl: 1, dark: 2800,
+              width: 0.5, drive: 0.14, mkup: 0.7, gain: 0.3 },
+      jit:  { hz: [98, 168], ratio: [1.9, 3.4], index: [2.5, 8],
+              decay: [0.9375, 1.75], damp: [1.2, 2.2], width: [0.4, 0.68],
+              dark: [2100, 4000] }
+    },
+    deed_stamp: {
+      base: { synth: 'fm', mat: 'bell', hz: 262, ratio: 1.41, index: 6.5,
+              modes: 8, bright: 1, decay: 1.5, damp: 1.1, warble: 1.8,
+              atk: 0.0625, trans: 0.5, transHz: 3400, transQ: 1.6, grit: 0.1,
+              gritHz: 2400, space: 0.72, room: 1.375, refl: 3, dark: 2800,
+              width: 0.8, drive: 0.06, mkup: 0.6, gain: 0.34, hits: [0, 0.0625] },
+      jit:  { hz: [200, 350], ratio: [1.2, 2.9], index: [3.5, 11],
+              decay: [1.125, 2], space: [0.6, 0.92], room: [1.125, 1.875],
+              damp: [0.85, 1.4], dark: [2100, 3900] },
+      hitSets: [[0, 0.0625], [0], [0, 0.0625], [0, 0.125], [0, 0.0625, 0.1875]]
+    },
+    set_down: {
+      base: { synth: 'fm', mat: 'stone', hz: 78, ratio: 0.707, index: 3,
+              modes: 6, bright: 0.7, decay: 0.4375, damp: 1.8, warble: 0.7,
+              trans: 0.8, transHz: 1700, transQ: 1.1, grit: 0.55, gritHz: 1200,
+              space: 0.42, room: 0.5, refl: 2, dark: 1300, width: 0.62,
+              drive: 0.16, mkup: 0.9, gain: 0.34, hits: [0, 0.0625] },
+      jit:  { hz: [62, 108], ratio: [0.5, 1.6], index: [1.5, 6],
+              decay: [0.3125, 0.625], space: [0.3, 0.58], room: [0.375, 0.75],
+              dark: [1000, 2000], width: [0.5, 0.82] },
+      hitSets: [[0, 0.0625], [0], [0, 0.0625], [0, 0.125], [0, 0.0625, 0.1875]]
+    }
+    /* ---- end batch SFX-04 recipes ---- */
   };
 
   /* ---- THE MEASURED ENVELOPE (rewritten 8/12/26, SAME DAY, from 270) ----
@@ -1229,6 +1449,159 @@ const BOH_SFX = (function () {
   }
 
   /* ONE STRIKE of the material: the modal body + its snap. */
+  /* =====================================================================
+     THE OTHER FOUR PHYSICS (8/12, BATCH SFX-04)
+     ---------------------------------------------------------------------
+     Paolo: "you need more diverse sounds bro its getting stale at this
+     point." Every sound this engine had ever made was a struck resonant
+     object, so 54 moments came out 54 cousins. These are the bodies that
+     are not that. The TRANSIENT and the ROOM stay shared -- they are
+     generic layers, and a method that wants no snap sets trans to 0.
+
+     SEEDED, NOT RANDOM. The particle cloud needs stochastic timings, and
+     Math.random() inside a render would mean the candidate he thumbed is not
+     the candidate that plays. Every draw comes from rng(hashStr(v.id)), so
+     an id is one sound forever, which is what the whole verdict pipeline
+     rests on. ============================================================ */
+
+  /* FM -- Chowning 1973, "The Synthesis of Complex Audio Spectra by Means of
+     Frequency Modulation". A carrier modulated at AUDIO rate: one oscillator
+     into another's frequency, with the modulation INDEX on its own falling
+     envelope, which is the articulation the paper is actually about.
+     THE RATIO IS THE CHARACTER: integer ratios (1, 2, 3) give harmonic,
+     brass-and-reed spectra; non-integer ratios spread the sidebands
+     inharmonically -- 1.41 and 2.17 for bell and metal, 1/sqrt(2) with a low
+     index and a short envelope for the quasi-pitched drum. */
+  function bodyFM(v, AC, dest, t, amp, hold) {
+    var ring = v.decay * BEAT, A = v.atk * BEAT;
+    var car = AC.createOscillator(); car.type = 'sine';
+    car.frequency.setValueAtTime(clamp(v.hz, 16, 19000), t);
+    if (v.slide) {
+      var end = clamp(v.hz * Math.pow(2, v.slide / 12), 16, 19000);
+      car.frequency.exponentialRampToValueAtTime(end, t + A + ring);
+    }
+    var mod = AC.createOscillator(); mod.type = 'sine';
+    var mf = clamp(v.hz * v.ratio, 0.5, 19000);
+    mod.frequency.setValueAtTime(mf, t);
+    /* deviation = index * modulator frequency. The index falls to a fraction
+       of itself across the ring: bright at the attack, pure at the tail,
+       which is how a real struck or blown thing loses its upper partials. */
+    var mg = AC.createGain();
+    var dev = v.index * mf;
+    mg.gain.setValueAtTime(Math.max(0.0001, dev), t + A * 0.5);
+    mg.gain.exponentialRampToValueAtTime(Math.max(0.0001, dev * 0.06),
+                                         t + A + ring * Math.max(0.15, 1 / Math.max(0.2, v.damp)));
+    mod.connect(mg); mg.connect(car.frequency);
+    var g = AC.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(amp * 0.42, t + Math.max(0.002, A));
+    g.gain.exponentialRampToValueAtTime(amp * 0.0008, t + A + ring);
+    g.gain.linearRampToValueAtTime(0, t + A + ring + 0.005);
+    car.connect(g);
+    panTo(AC, g, clamp(v.pan + v.width * 0.25, -1, 1), dest);
+    mod.start(t); mod.stop(t + A + ring + 0.02);
+    car.start(t); car.stop(t + A + ring + 0.02);
+    hold.push(mod); hold.push(car);
+    return t + A + ring;
+  }
+
+  /* PARTICLE -- Perry Cook's PhISEM (1996-99), "Physically Informed Stochastic
+     Event Modeling": many independent objects colliding, reduced to a
+     statistical process. ONE SYSTEM ENERGY decays exponentially and each
+     collision is a tiny resonant ping loud in proportion to what energy is
+     left. Gravel, coins, ice in a glass, keys, chain, breaking glass. */
+  function bodyParticle(v, AC, dest, t, amp, hold) {
+    var span = Math.max(0.03, v.decay * BEAT);
+    var n = Math.max(2, Math.min(64, Math.round(v.grains)));
+    var rand = rng(hashStr('phisem:' + v.id));
+    var src = AC.createBufferSource(); src.buffer = noiseBuf(AC);
+    for (var i = 0; i < n; i++) {
+      /* collisions cluster at the front and thin out, the way a handful of
+         gravel lands. Uniform timings sound like a machine gun. */
+      var u = rand();
+      var at = t + span * u * u;
+      var energy = Math.exp(-3.2 * (at - t) / span);
+      var bp = AC.createBiquadFilter(); bp.type = 'bandpass';
+      /* every particle is its own size: the resonance scatters around hz */
+      var f = clamp(v.hz * (0.55 + rand() * 1.9) * (1 + v.bright * 0.35), 40, 17000);
+      bp.frequency.setValueAtTime(f, at);
+      bp.Q.value = clamp(4 + v.damp * 9, 1, 40);
+      var g = AC.createGain();
+      var life = 0.004 + 0.028 / Math.max(0.4, v.damp);
+      g.gain.setValueAtTime(0.0001, at);
+      g.gain.linearRampToValueAtTime(amp * 0.5 * energy * (0.5 + rand() * 0.7), at + 0.0015);
+      g.gain.exponentialRampToValueAtTime(0.0004, at + life);
+      g.gain.linearRampToValueAtTime(0, at + life + 0.003);
+      bp.connect(g);
+      panTo(AC, g, clamp(v.pan + (rand() * 2 - 1) * v.width, -1, 1), dest);
+      src.connect(bp);
+    }
+    src.start(t); src.stop(t + span + 0.08); hold.push(src);
+    return t + span;
+  }
+
+  /* FRICTION -- stick-slip. Noise through a resonance, its amplitude driven
+     by an oscillator at the SLIP RATE: the surface grabs, loads, lets go.
+     Drags, scrapes, hinges, rope -- the whole family that is CONTINUOUS and
+     has no attack, which a strike-based engine cannot make at all. */
+  function bodyFriction(v, AC, dest, t, amp, hold) {
+    var ring = v.decay * BEAT, A = Math.max(0.01, v.atk * BEAT);
+    var src = AC.createBufferSource(); src.buffer = noiseBuf(AC);
+    var bp = AC.createBiquadFilter(); bp.type = 'bandpass';
+    bp.frequency.setValueAtTime(clamp(v.hz * 2.2, 40, 17000), t);
+    bp.frequency.exponentialRampToValueAtTime(
+      clamp(v.hz * 2.2 * Math.pow(2, v.slide / 12), 40, 17000), t + A + ring);
+    bp.Q.value = clamp(2 + v.bright * 8, 0.6, 30);
+    var slip = AC.createOscillator(); slip.type = 'sawtooth';
+    slip.frequency.setValueAtTime(clamp(v.rough, 0.5, 400), t);
+    slip.frequency.linearRampToValueAtTime(clamp(v.rough * 0.55, 0.5, 400), t + A + ring);
+    var slipG = AC.createGain(); slipG.gain.value = 0.55;
+    var g = AC.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(amp * 5.3, t + A);
+    g.gain.setValueAtTime(amp * 5.3, t + A + ring * 0.6);
+    g.gain.exponentialRampToValueAtTime(amp * 0.0008, t + A + ring);
+    g.gain.linearRampToValueAtTime(0, t + A + ring + 0.005);
+    slip.connect(slipG); slipG.connect(g.gain);
+    src.connect(bp); bp.connect(g);
+    panTo(AC, g, clamp(v.pan - v.width * 0.2, -1, 1), dest);
+    slip.start(t); slip.stop(t + A + ring + 0.02);
+    src.start(t); src.stop(t + A + ring + 0.02);
+    hold.push(slip); hold.push(src);
+    return t + A + ring;
+  }
+
+  /* AIR -- turbulence. Noise through a resonant band that MOVES, under a
+     SWELL rather than a strike. Wind, breath, gas, a hiss through a gap. The
+     band's motion is the whole difference: a static filtered hiss is a
+     texture, a moving one is something happening. */
+  function bodyAir(v, AC, dest, t, amp, hold) {
+    var ring = v.decay * BEAT, A = Math.max(0.02, v.atk * BEAT);
+    var src = AC.createBufferSource(); src.buffer = noiseBuf(AC);
+    var bp = AC.createBiquadFilter(); bp.type = 'bandpass';
+    var f0 = clamp(v.hz * 3.5, 40, 16000);
+    bp.frequency.setValueAtTime(f0, t);
+    bp.frequency.linearRampToValueAtTime(clamp(f0 * (1.6 + v.bright), 40, 16000), t + A);
+    bp.frequency.exponentialRampToValueAtTime(clamp(f0 * 0.7, 40, 16000), t + A + ring);
+    bp.Q.value = clamp(0.6 + v.bright * 3.2, 0.3, 20);
+    /* the gust inside the gust: a slow wobble on the band, so it breathes */
+    var lfo = AC.createOscillator(); lfo.type = 'sine';
+    lfo.frequency.value = clamp(v.rough * 0.12, 0.05, 12);
+    var lg = AC.createGain(); lg.gain.value = f0 * 0.45;
+    lfo.connect(lg); lg.connect(bp.frequency);
+    var g = AC.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.linearRampToValueAtTime(amp * 1.9, t + A);          /* a SWELL, not a hit */
+    g.gain.exponentialRampToValueAtTime(amp * 0.0008, t + A + ring);
+    g.gain.linearRampToValueAtTime(0, t + A + ring + 0.006);
+    src.connect(bp); bp.connect(g);
+    panTo(AC, g, clamp(v.pan + v.width * 0.3, -1, 1), dest);
+    lfo.start(t); lfo.stop(t + A + ring + 0.02);
+    src.start(t); src.stop(t + A + ring + 0.02);
+    hold.push(lfo); hold.push(src);
+    return t + A + ring;
+  }
+
   function strike(v, AC, dest, t, amp, hold) {
     var bank = MODES[v.mat] || MODES.stone;
     var used = Math.min(v.modes, bank.length);
@@ -1254,8 +1627,22 @@ const BOH_SFX = (function () {
       if (t + tl > latest) latest = t + tl;
     }
 
-    /* --- LAYER 2: THE BODY. the modal bank. every partial gets its OWN decay,
-       and the decay SHORTENS as the ratio climbs: the physical law v1 broke. --- */
+    /* --- LAYER 2: THE BODY -----------------------------------------------
+       WHICH PHYSICS MAKES IT (8/12). Everything above and below this point is
+       shared -- the snap and the room are generic and every method gets them.
+       Only the body changes, and `modal` is the original code untouched, so
+       all 97 sounds Paolo has approved render byte-identical. */
+    if (v.synth && v.synth !== 'modal') {
+      var e2 = (v.synth === 'fm')       ? bodyFM(v, AC, dest, t, amp, hold)
+             : (v.synth === 'particle') ? bodyParticle(v, AC, dest, t, amp, hold)
+             : (v.synth === 'friction') ? bodyFriction(v, AC, dest, t, amp, hold)
+             : (v.synth === 'air')      ? bodyAir(v, AC, dest, t, amp, hold)
+             : latest;
+      return (e2 > latest) ? e2 : latest;
+    }
+
+    /* --- the modal bank. every partial gets its OWN decay, and the decay
+       SHORTENS as the ratio climbs: the physical law v1 broke. --- */
     for (var i = 0; i < used; i++) {
       var m = bank[i];
       var ratio = m[0], mAmp = m[1], mDur = m[2], mOff = m[3];

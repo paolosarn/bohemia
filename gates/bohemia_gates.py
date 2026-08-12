@@ -422,6 +422,14 @@ GATES = [
      "the demo set on 8/9. GRAVEYARD IS FINAL binds Claude, not Paolo -- so the "
      "replacement is a FRESH cook from ash and stone, brighter/shorter/harder "
      "than every door that died, new ids, and nothing banked until he thumbs", True),
+    ('SFX DIVERSITY',  ['python3', 'gates/sfx_diversity_gate.py'],
+     "Paolo after judging all 270: \"you need more diverse sounds bro its getting "
+     "stale at this point\". He was hearing the TOPOLOGY -- every sound this engine "
+     "ever made was a struck resonant object, so 54 moments came out 54 cousins, and "
+     "9 of the 12 that died whole were the moments that are not a strike. The engine "
+     "now has five physics (modal / FM / PhISEM particle / friction / turbulence) and "
+     "this gate renders a CONTROLLED PROBE -- every parameter fixed, only the method "
+     "changed -- so two methods sharing one body cannot pass under two names", True),
     ('SFX ENVELOPE',   ['python3', 'gates/sfx_envelope_gate.py'],
      "Paolo 8/11: \"we may need way more voices and way more sounds for the whole "
      "game\". 28 moments became 54, and the 26 new ones were built out of a "

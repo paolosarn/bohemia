@@ -66,7 +66,25 @@ SPEAK_MARKERS = [
     ('cutCaption',    'a scripted-scene caption that names a speaker'),
     ('storyCaption',  'the same, under its pre-8/12 name'),
     ('renderTalk',    'a dialogue node painted with a speaker'),
+    # ADDED 8/12, AND THE REASON IS THE POINT. Stripping comments (below) was
+    # correct -- a marker in prose is not a call site -- but it revealed that
+    # the CITY's only match had ALWAYS been inside a comment. The city is where
+    # Marisela is. It is the surface this entire gate was built for, and
+    # discovery would have walked straight past it if it were not already
+    # listed by name in SURFACES. The narrowing did not create that hole; it
+    # exposed one that was there the whole time and was hidden by a false
+    # positive. So the list gains the shapes the city ACTUALLY uses:
+    ('ctOpen',        'the CITY talk card opening on the person you walked up to'),
+    ('nowLineOf',     'a surface reading out what a person is doing right now'),
 ]
+
+def strip_comments(src):
+    """Remove JS/HTML comments so a marker in prose is not read as a call site."""
+    src = re.sub(r'<!--.*?-->', ' ', src, flags=re.S)
+    src = re.sub(r'/\*.*?\*/', ' ', src, flags=re.S)
+    # line comments only when the // is not inside a URL (https://...)
+    src = re.sub(r'(?m)(?<![:\w])//[^\n]*', ' ', src)
+    return src
 
 JS = r'''
 const path = require('path');
@@ -180,7 +198,17 @@ def main():
             src = open(os.path.join(SLICES, fn), encoding='utf8', errors='ignore').read()
         except Exception:
             continue
-        if any(m in src for m, _ in SPEAK_MARKERS):
+        # A MENTION IS NOT A USE (8/12). The sweep matched raw source, so the
+        # INTRODUCTIONS reference page tripped it on the words "TALK TO THE"
+        # inside a COMMENT about grammar -- a design board with no dialogue in
+        # it at all, reported as an untested talk surface. That is the same
+        # class of mistake as counting every render as a strike: a checker that
+        # cannot tell a mention from a use is the broken one.
+        # Comments are stripped and the markers are matched against CODE ONLY.
+        # This narrows nothing real: every genuine talk surface calls these
+        # names, it does not merely discuss them.
+        code = strip_comments(src)
+        if any(m in code for m, _ in SPEAK_MARKERS):
             talkers.append(fn)
     unlisted = [t for t in talkers if t not in named]
     ok('DISCOVERY: every surface that offers to talk to somebody is in the '
