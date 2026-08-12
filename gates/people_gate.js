@@ -88,7 +88,42 @@ function partA() {
 
   ok('A1 KNOWN_AT_START ships empty (who you already know is his)',
     Object.keys(P.KNOWN_AT_START).length === 0);
-  ok('A2 LINES ships empty (what anybody says is his)', Object.keys(P.LINES).length === 0);
+  /* A2 WAS "LINES SHIPS EMPTY" AND THAT RULING IS DEAD. It was the correct read of
+     MECHANISM-MINE / CONTENTS-PAOLO'S on 7/31, and Paolo overturned it for WORDS on
+     8/11, twice in one day: ALWAYS MAKE AN ATTEMPT ("FOR ANY TEXT JUST HAVE
+     PLACEHOLDING GOOD ESTIMATES OF SPEECH BRO I WILL EDIT IT LIVE") and then
+     DIALOGUE ALWAYS REFERS TO THE CATALOGUE. Newest date wins (CLAUDE.md truth
+     hierarchy), and A GATE MUST NEVER OUTRANK A RULING (Paolo 8/1) -- so the
+     WORDS lane wiring 244 ambient lines into LINES is the law being obeyed, and
+     this claim failing was the RULER being wrong, not the target. Fix the ruler.
+
+     WHAT THE CLAIM PROTECTS NOW, because the old one was protecting something
+     real and deleting it outright would lose that: the danger was never "a line
+     exists", it was "a line exists that HE CANNOT REACH TO EDIT" -- which is
+     exactly how "I will edit it later" rots into "Claude writes the dialogue".
+     So: lines are allowed, and every one of them must be in the WORDS book he
+     edits from. A line nobody can find is still a violation.
+     The DECISION half is untouched and still empty above (A1): who you already
+     know is a ruling, not words. */
+  const lineCount = Object.values(P.LINES).reduce(
+    (n, v) => n + (Array.isArray(v) ? v.length : 1), 0);
+  const bookPath = path.join(ROOT, 'records/BOHEMIA_WORDS_BOOK.json');
+  let bookHas = 0;
+  try {
+    const book = JSON.parse(fs.readFileSync(bookPath, 'utf8'));
+    const flat = JSON.stringify(book);
+    let found = 0, total = 0;
+    Object.values(P.LINES).forEach(v => (Array.isArray(v) ? v : [v]).forEach(line => {
+      total++;
+      if (typeof line === 'string' && flat.includes(JSON.stringify(line).slice(1, -1))) found++;
+    }));
+    bookHas = total ? found / total : 1;
+  } catch (_e) { bookHas = 0; }
+  ok('A2 every drafted line is reachable in the WORDS tab he edits from ('
+    + lineCount + ' lines)',
+    lineCount === 0 || bookHas >= 0.99,
+    Math.round(bookHas * 100) + '% of LINES are in records/BOHEMIA_WORDS_BOOK.json '
+    + '-- a line he cannot reach is a line he cannot edit (8/11)');
 
   const { agents } = roster(0xB10C);
   const people = P.peopleOf(0xB10C, agents);
