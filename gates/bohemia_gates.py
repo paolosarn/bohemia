@@ -879,6 +879,24 @@ GATES = [
      "measured by asserting the owner map is byte-identical after a posture quest. Every value is "
      "positive because every authored one is; nobody ever writes a faction calmer. Seven planted "
      "mistakes self-tested every run", False),
+    ('TIES',           ['node', 'gates/ties_gate.js'],
+     "EVERY PERSON IN THE VALLEY WAS AN ISLAND, which is why three of the sixteen introductions "
+     "shipped dead: four of his dossiers ask for a THIRD PARTY (MOB 'a third person supplies it, "
+     "and that person is vouching', REMNANTS 'it arrives from somebody ELSE', COLORFUL "
+     "'introduced onward to three people') and there was no such thing as a third party anywhere "
+     "in the game. Grounded in Feld 1981 (ties form around FOCI -- shared settings -- and "
+     "homophily is mostly an OUTPUT of that), and the engine already stamped exactly three foci on "
+     "every agent and had never used one socially: the roof, the job site, the outfit. DUNBAR IS "
+     "THE CEILING AND IT IS MEASURED, not asserted: below the layer a shared setting acquaints "
+     "everybody, above it the graph thins to an expected degree ON the layer (400 in one outfit -> "
+     "49.1 against a layer of 50), because otherwise 300 survivors all know all 300. A VOUCH IS A "
+     "GUARANTEE, not a flag -- thieves-in-law crowners are guarantors, so the sponsor must be "
+     "somebody whose name you already earned AND inside the outfit; four wrong shapes are driven "
+     "and all four must refuse. Symmetry is checked on EVERY pair across six real generated "
+     "blocks, because hashing an ordered pair gives a one-way friendship that spot-checks fine and "
+     "is nonsense. Part D plays the whole Mob story through the REAL DOM of the REAL built run. "
+     "HONEST LIMIT, stated everywhere: the roster is one block, so a faction tie across cells does "
+     "not exist and is not faked", False),
     ('INTRODUCTIONS',  ['node', 'gates/introductions_gate.js'],
      "SIXTEEN AUTHORED MECHANICS, ONE UNIFORM BUTTON. Every faction dossier Paolo thumbed UP on "
      "8/2 carries a WHEN YOU ASK THEIR NAME section and every one of them is a different MECHANIC "

@@ -281,6 +281,15 @@ const PROBES = {
   introductions_shown: () => RUN.indexOf('BohemiaIntros.buttonFor(') >= 0 &&
     RUN.indexOf('applyIntroToCard(BohemiaPeople.cardFor(') >= 0 &&
     RUN.indexOf('function groupHasAnOpinion(') >= 0,
+
+  /* WHO KNOWS WHO (8/12). The graph has to be inlined, the run has to feed it the
+     SAME faction answer the rest of the card uses, and the vouch has to reach the
+     card as a named introducer rather than a silent flag. gates/ties_gate.js part
+     D plays the whole thing through the real DOM; this only catches the row going
+     stale. */
+  ties_shown: () => RUN.indexOf('BohemiaTies.vouchFor(') >= 0 &&
+    RUN.indexOf('faction:factionForPerson(a)') >= 0 &&
+    RUN.indexOf("label:'INTRODUCED BY'") >= 0,
 };
 
 const LEGAL = ['INTEGRATED', 'PARTIAL', 'NOT YET'];

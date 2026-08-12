@@ -460,6 +460,7 @@ var XP = {}, XP_LOADED = 0;
 <script src="../engine/bohemia_standing.js"></script>
 <script src="../engine/bohemia_deeds.js"></script>
 <script src="../engine/bohemia_introductions.js"></script>
+<script src="../engine/bohemia_ties.js"></script>
 <script>
 /* the approved art banks repaint via draw() on image load, and a data: URI can
    finish loading before the run's own script has parsed. A no-op placeholder
@@ -3820,6 +3821,17 @@ function factionForPerson(agent){
    dossier sentence. This function only supplies what the ENGINE already knows
    about the person -- their generated name, their role word, their work line --
    and asks the organ what the player has actually learned. */
+/* WHAT YOU CALL SOMEBODY YOU ALREADY KNOW, from their key alone. Only ever used
+   for the introducer, who by definition is somebody whose name you earned. */
+function nameOfKey(key){
+  var rows=tieRoster();
+  for(var i=0;i<rows.length;i++){
+    if(tieKeyOf(rows[i])!==key) continue;
+    var p=personFor(rows[i].agent);
+    return BohemiaPeople.nameOf(p) || BohemiaPeople.headingOf(p);
+  }
+  return 'SOMEBODY';
+}
 function introCtxFor(who){
   /* THE NAME BEHIND THE DOOR. The organ has to know the whole name to hand back a
      PIECE of it (a surname, a given name), so it is derived here whether or not
@@ -3850,14 +3862,66 @@ function groupHasAnOpinion(fid){
   try { return CTX.factions.factions.get(real).standingWith('player') !== 0; }
   catch(_e){ return false; }
 }
+/* ---- WHO KNOWS WHO, ON THIS BLOCK (8/12) -------------------------------------
+   engine/bohemia_ties.js reads the three foci the world already decided (roof, job
+   site, outfit) and answers whether two people are acquainted. The run's job here
+   is only to hand it the roster in the vocabulary the rest of this surface uses:
+   the SAME faction answer factionForPerson gives, so the allegiance line, the
+   introduction and the tie graph can never disagree about who somebody runs with.
+
+   HONEST LIMIT, said out loud so nobody mistakes it for a fix: the roster is THIS
+   BLOCK. Two Mob members twenty cells apart are not acquainted here, because the
+   run only ever materialises one cell of the valley at a time. Household and job
+   ties are unaffected (both are on-block by construction); a faction tie across
+   blocks would need a valley-wide roster, which is a different lane's world model,
+   not something to fake from here.
+
+   AND IT IS DELIBERATELY NOT CACHED. The first version memoised this on
+   (roster length + cell), which is wrong in the one way that matters: allegiance
+   also changes when a QUEST places its cast, and a cached roster would then hold
+   a different opinion about who somebody runs with than the allegiance line drawn
+   two rows above it. That is the same two-systems-disagreeing bug D1 exists to
+   catch, so the cache had to go rather than get a cleverer key. The cost is ~200
+   cheap lookups per card on a fourteen-person block, which is nothing. */
+function tieRoster(){
+  if(!SIM || !SIM.agents) return [];
+  return SIM.agents.map(function(a){
+    return { id:a.id, seed:a.seed, job:a.job, faction:factionForPerson(a), agent:a };
+  });
+}
+function tieKeyOf(row){ return BohemiaPeople.keyOf(seedOfPerson(row.agent), row.agent); }
+/* the two sets the graph needs from the ledger: everybody you have MET, and the
+   smaller set whose NAME you know. One bit each, both already persisted. */
+function tieLedgerSets(){
+  var met={}, known={}, all=PEOPLE_MET.serialize()||{};
+  Object.keys(all).forEach(function(k){ met[k]=1; if(all[k].asked) known[k]=1; });
+  return { met:met, known:known };
+}
 function introStateFor(who, fid){
   /* THREE of the eight earning conditions are honestly answerable today, and the
      organ treats every unanswered one as FALSE rather than assuming it met.
      hires/vouch/overheard arrive with the systems that own them; until then a
      Trades member stays SCAVENGER, which is the correct answer, not a gap. */
-  return { asked:    !!PEOPLE_MET.asked(who.key),
-           honest:   !!PEOPLE_MET.honest(who.key),
-           standing: groupHasAnOpinion(fid) };
+  var st = { asked:    !!PEOPLE_MET.asked(who.key),
+             honest:   !!PEOPLE_MET.honest(who.key),
+             standing: groupHasAnOpinion(fid) };
+  /* THE TWO THIRD-PARTY CONDITIONS, finally answerable. Both were dead until this
+     turn for one reason: nobody in the valley knew anybody. */
+  if(typeof BohemiaTies!=='undefined' && typeof CELL!=='undefined' && CELL){
+    var roster=tieRoster(), sets=tieLedgerSets();
+    st.vouchedBy   = BohemiaTies.vouchFor(who.key, roster, CELL,
+                       { keyOf:tieKeyOf, known:sets.known });
+    st.overheardBy = BohemiaTies.overheardFrom(who.key, roster, CELL,
+                       { keyOf:tieKeyOf, met:sets.met });
+    st.vouched   = !!st.vouchedBy;
+    st.overheard = !!st.overheardBy;
+    /* what THEY could open for you, for the factions whose canon says they do
+       (COLORFUL: "introduced onward to three people"). Counted, never named --
+     you do not learn three strangers' names by being told they exist. */
+    st.onward = BohemiaTies.onwardFrom(who.key, roster, CELL,
+                  { keyOf:tieKeyOf, n:3, met:sets.met }).length;
+  }
+  return st;
 }
 function introFor(agent, who){
   if(typeof BohemiaIntros==='undefined') return null;
@@ -3888,6 +3952,20 @@ function applyIntroToCard(rows, intro){
     out.push({label:'NAME', soft:true,
               value: intro.st.asked ? 'YOU ASKED. YOU DID NOT GET IT.' : 'YOU HAVE NOT ASKED'});
   });
+  /* WHO DID IT FOR YOU. A vouch that does not say whose word it was is just a
+     flag flipping; the whole beat is that somebody you know STAKED SOMETHING. The
+     introducer's name is one you already earned, so printing it gives nothing
+     away. */
+  var st=intro.st||{};
+  if(m.isName && st.vouchedBy)
+    out.push({label:'INTRODUCED BY', value:nameOfKey(st.vouchedBy.by)
+                                    +' \u00b7 '+BohemiaTies.viaWords(st.vouchedBy.via)});
+  else if(m.isName && st.overheardBy)
+    out.push({label:'YOU HEARD IT FROM', value:nameOfKey(st.overheardBy.by)
+                                    +' \u00b7 '+BohemiaTies.viaWords(st.overheardBy.via)});
+  if(m.opens && st.onward)
+    out.push({label:'CAN INTRODUCE YOU TO', value:st.onward+(st.onward===1?' PERSON':' PEOPLE')
+                                    +' YOU HAVE NOT MET'});
   if(m.asks) out.push({label:'THEY ASKED YOU', value:m.asks});
   if(m.blocked) out.push({label:'WILL NOT SAY', value:m.blocked});
   if(m.cost) out.push({label:'AND', value:m.cost});
@@ -4624,7 +4702,14 @@ window.__RUN = {
                intro:(function(){ var ix=introFor(a,p); if(!ix) return null;
                  return { rule:ix.rule.key, tier:ix.m.tier, shown:ix.m.shown,
                           isName:ix.m.isName, asks:ix.m.asks, next:ix.m.next,
+                          vouchedBy:ix.st.vouchedBy||null, overheardBy:ix.st.overheardBy||null,
+                          onward:ix.st.onward|0,
                           button:BohemiaIntros.buttonFor(ix.rule,ix.ctx,ix.st) }; })(),
+               /* WHO THIS PERSON KNOWS, as the graph resolves it on the real block.
+                  Reported, never acted on. */
+               ties:(function(){ if(typeof BohemiaTies==='undefined'||typeof CELL==='undefined'||!CELL) return null;
+                 return BohemiaTies.tiesOf(p.key, tieRoster(), CELL, tieKeyOf)
+                   .map(function(t){ return {key:t.key, via:t.via}; }); })(),
                lookSeed:p.lookSeed, outside:(a.loc.mode==='out'),
                x:a.loc.x, y:a.loc.y, house:p.household.house,
                card:BohemiaPeople.cardFor(p, a, SIM.turn, PEOPLE_MET.get(p.key)) };

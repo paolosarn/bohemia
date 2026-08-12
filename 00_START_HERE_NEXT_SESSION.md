@@ -1606,6 +1606,87 @@ SURFACE, and a symptom that survives content changes is a PIPELINE bug.
 
 --------------------------------------------------------------------------------
 
+FACTIONS (factions-ovkjpf): 8/12 (i) LATEST — *** EVERY PERSON IN THE VALLEY WAS AN
+ISLAND. THEY KNOW EACH OTHER NOW, AND THE MOB IS A CLOSED DOOR YOU CANNOT TALK THROUGH. ***
+Nothing to judge.
+
+WHAT CAME AFTER, and this lane named it itself at the bottom of yesterday's law. The sixteen
+introductions shipped with three earning conditions dead, and all three died of ONE thing: there
+was no such thing as a third party anywhere in the game. Four of his dossiers ask for one:
+
+  MOB       "a third person supplies it, and that person is vouching"
+  REMNANTS  "it usually arrives from somebody ELSE - you hear another soldier use it"
+  COLORFUL  "you are introduced onward to three people"
+  CARAVANS  "a caravanner nobody vouches for"
+
+*** THE RESEARCH IS WHAT MADE IT BUILDABLE TODAY. *** Feld 1981, THE FOCUSED ORGANIZATION OF
+SOCIAL TIES: friendships are not random and are not mostly about liking - they form around FOCI,
+shared settings people are jointly organised around, and similarity is mostly an OUTPUT of that
+rather than the cause. AND THIS ENGINE ALREADY STAMPED EXACTLY THREE FOCI ON EVERY AGENT AND HAD
+NEVER USED ONE OF THEM SOCIALLY: the roof over their head, the job site the generator scanned off
+the real overmap, and the outfit they run with. So not one die is rolled here that the world had
+not already rolled. Same disease as yesterday, one layer down: the data was there, nothing read it.
+
+DUNBAR IS THE CEILING AND IT IS MEASURED, NOT ASSERTED. Support clique 5, sympathy group 15,
+affinity group 50, active network 150. Below its layer a shared setting really does acquaint
+everybody; above it the graph THINS to an expected degree exactly ON the layer. Counted: 400
+people in one outfit come out holding 49.1 acquaintances against a layer of 50. Without that,
+300 survivors would all know all 300 and the whole thing would be worthless.
+
+*** A VOUCH IS A GUARANTEE, NOT A FLAG. *** In the Russian thieves-in-law the sponsor and
+'crowners' are GUARANTORS of the candidate's reputation; the yakuza run on an introduction by an
+existing member. A stranger's word is worth nothing. So the person who gets you into the Mob has
+to be somebody whose NAME YOU ALREADY EARNED and who is INSIDE THE OUTFIT. That is what makes the
+Mob genuinely closed instead of just slower.
+
+WHAT SHIPPED:
+- engine/bohemia_ties.js — the acquaintance graph. Reads three facts, invents nothing, has no
+  roster and no name pool and no dialogue.
+- vouch, overheard and onward all ANSWER NOW. Seven of the eight earning conditions are live;
+  only `work` (hire them twice) is left and it waits on the jobs loop, which is not this lane.
+- THE CARD NAMES WHO DID IT: "INTRODUCED BY <name> · WORK THE SAME PLACE". A vouch that does not
+  say whose word it was is just a flag flipping.
+- OVERHEARD IS DELIBERATELY WEAKER THAN A VOUCH, and that difference IS the difference between
+  the Remnants' mechanic and the Mob's: you only have to have MET the other soldier, not to know
+  what to call them. Overhearing costs the person speaking nothing.
+
+GATE: gates/ties_gate.js, 40 claims, 0 failed. Symmetry checked on EVERY pair across six real
+generated blocks (hashing an ORDERED pair gives a one-way friendship that spot-checks fine and is
+nonsense). Part D plays the whole Mob story through the REAL DOM of the REAL built run: ask
+directly and get nothing, earn a neighbour's name, watch their word open the door, read the
+introducer off the card.
+
+*** I SHIPPED A CACHE AND THEN DELETED IT, ON PURPOSE. *** The roster was memoised on (length +
+cell), which is wrong in the one way that matters: allegiance ALSO changes when a quest places
+its cast, so a cached roster would hold a different opinion about somebody than the allegiance
+line two rows above it on the same card. Two systems disagreeing about one person is the bug this
+lane keeps shipping (8/11's card, 8/12's stale inline). It got deleted, not given a cleverer key.
+Three of my own gate claims were wrong first and I fixed the claims, not the code -- one measured
+a malformed id instead of a person, one had the small-outfit case backwards, and one was defeated
+by my own cache.
+
+INTEGRATION LEDGER: 28/33 -> 29/34.
+
+WHERE HE LOOKS: *** LIFE TAB -> WHO KNOWS WHO. *** A real generated block drawn as a web,
+coloured by which of the three settings made each tie; the Mob's rule played out in three steps
+by the real module; every person's foci and acquaintances; and the Dunbar ceiling measured on the
+page at four outfit sizes. ANOTHER BLOCK reshuffles it. Nothing to tap, nothing to judge.
+
+HONEST LIMIT, said in the module, the gate and the law rather than papered over: THE ROSTER IS
+ONE BLOCK. Two Mob members twenty cells apart are not acquainted, because the run only ever
+materialises one cell at a time. Roof and job ties are unaffected (both are on-block by
+construction); a cross-cell faction tie needs a valley-wide roster, which is the WORLD lane's
+model and not something to fake from here.
+
+WHAT COMES AFTER: `work` is the last dead earning condition and it belongs to the jobs/economy
+loop. The bigger prize the graph just unlocked is that NPCs now have somebody to talk ABOUT -
+gossip currently spreads by proximity alone, and it should travel down these ties.
+
+STILL [PENDING PAOLO], unchanged: REACH_CELLS 12 and AFFILIATED_RATE 0.30; whether all 14
+factions are available at the door; what "faction neighbourhood housing" is architecturally.
+
+--------------------------------------------------------------------------------
+
 FACTIONS (factions-ovkjpf): 8/12 (h) LATEST — *** SIXTEEN AUTHORED INTRODUCTION
 MECHANICS HAD BEEN SITTING UNREAD FOR TEN DAYS. THEY ARE IN THE GAME NOW. ***
 Nothing to judge.
