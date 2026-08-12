@@ -5315,6 +5315,22 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    capacity, base assignments, permanent death + one-revival-per-act rescue
    quest, thresholds, honesty tracking). | one scene plays end to end on
    the real surface, gated | scene content = his | no (runtime).
+0r. THE REACTIVITY MULTIPLIER (sweep 6 catch, 8/12 — the Hades math):
+   Hades ships ~4 boss fights but 21,020 voice lines across 30 characters
+   (305k words, more than the Iliad + Odyssey) — roguelite replayability
+   is bought with REACTIVITY per encounter, not roster size; their system
+   never repeats a line until every unused option is spent, "rewarding
+   failure" with fresh story every run. OUR EDGE: they paid voice actors
+   per line; we SYNTHESIZE (squiggle voices) and our drafts law makes
+   words the cheapest content we own — Bohemia can afford Hades-scale
+   reactivity for free. THE PATTERN (additive to the boss work, never a
+   roster cap — the roster is Paolo's taste): EVERY boss ships with an
+   AFTERMATH REACTION SET, drafted per the craft card — what witnesses
+   say, what the faction says, what the feed posts, DIFFERENT for killed
+   vs spared/bested — flowing through the witness organ + introductions +
+   memory systems already live. A boss without aftermath lines is half a
+   boss. | aftermath drafts reachable in-game after a boss resolves,
+   both routes | corpus-cited words, draft:true | no (drafts, he edits).
 0. [MOSTLY ALREADY BUILT — verified 7/31, do NOT rebuild it] THE DIALOGUE
    SYSTEM v1. REUSE-FIRST found it: engine/bohemia_quest_runtime.js plus the
    run's own TALK sheet already play .bq conversations end to end on the real

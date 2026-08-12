@@ -169,3 +169,32 @@ after measurement; one-link law untouched).
 [Confidence: our sizes measured locally; abandonment numbers are
 Google-published mobile aggregates.]
 HIGH-WATER MARK: swept through main @ a547d1c396cf00db97afb8f05a18f379710085d4
+
+## SWEEP 6 — 8/12/26
+DELTA: 16 commits. THE MOON ZOOM SHIPPED (his own unfinished 7/25
+philosophy completed — zoom out to the moon, his flavor, now real); THE
+SIXTEEN INTRODUCTIONS (his 8/2-approved faction dossiers' WHEN-YOU-ASK-
+THEIR-NAME sections became sixteen DIFFERENT live mechanics — his own
+canon, unread for ten days, now the mechanic); ninth family wired (park
+lawns died mown); cold-open voice stutter fixed; the chin law gated; a
+skull-scale bug he caught by eye fixed; nobody-repaints-in-a-decade (his
+own 7/14 ruling) applied. No collisions. Prior catches all delegated.
+THE CATCH (lens: content volume math; Hades postmortem data + our own
+systems):
+QUESTION: what does "act 1 complete" numerically mean, and is roster
+growth buying replayability?
+FINDINGS: Hades ships ~4 boss fights but 21,020 voice lines / 305k words
+across 30 characters; their replayability is REACTIVITY per encounter
+(never repeat a line until all options spent; failure rewarded with fresh
+story), not set-piece volume. CHALLENGE FINDING (vs the fleet's current
+spend): our boss roster grows (34->41->56->63, HIS taste, untouched) while
+reactivity systems are one week old — but reactivity, not roster, is what
+the comeback canon says players return for. OUR EDGE: Supergiant paid per
+voice line; we synthesize (squiggle) and draft (words law) — Hades-scale
+reactivity is nearly FREE for us. ROUTED: PEOPLE 0r THE REACTIVITY
+MULTIPLIER — every boss ships an aftermath reaction set (witnesses,
+faction lines, feed posts; different for killed vs spared), through the
+organs already live. A boss without aftermath lines is half a boss.
+[Confidence: Hades numbers are published primary; the transfer is my
+inference, flagged as such.]
+HIGH-WATER MARK: swept through main @ 45527cbf52db5f3ba55ca7bc2891033b99336f95

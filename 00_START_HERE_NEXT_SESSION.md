@@ -17202,3 +17202,15 @@ thing they do, the reason everyone deals with them. ROUTED: RUN 0g
 amended (convalescence + montage + debuff), WORLD (pills as premium goods,
 Cartel source), COMBAT (wound->debuff), PEOPLE (Cartel dossier leads with
 the crown). NO new session needed — his question answered.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/12 (f) — SWEEP 6 (16 commits: THE MOON ZOOM shipped —
+his unfinished 7/25 philosophy completed; THE SIXTEEN INTRODUCTIONS — his
+approved dossiers' name-ask sections are now sixteen different live
+mechanics; ninth family wired; cold-open voice stutter fixed). CATCH
+ROUTED: PEOPLE 0r THE REACTIVITY MULTIPLIER — Hades buys replayability
+with 21k reactive lines over ~4 bosses, not roster size; our squiggle
+synthesis + drafts law make Hades-scale reactivity nearly free; every
+boss now owes an AFTERMATH REACTION SET (witnesses/faction/feed,
+killed-vs-spared) through the live organs. Roster size stays HIS taste,
+untouched. Ledger + mark advanced.
