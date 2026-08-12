@@ -91,10 +91,64 @@ var bqFiles = fs.existsSync('quests/bq')
 var sceneFiles = fs.readdirSync('records')
   .filter(function (f) { return /^BOHEMIA_SCENE_.*\.json$/.test(f); })
   .sort().map(function (f) { return 'records/' + f; });
-var SRC = bqFiles.concat(sceneFiles);
+/* the ambient lines the walked world says are dialogue too, and they carry
+   citations like everything else. Same discovery rule as the harvester, or the
+   fingerprint disagrees and reports a stale tab that is not stale. */
+var barkFile = fs.existsSync('records/BOHEMIA_BARKS.json') ? ['records/BOHEMIA_BARKS.json'] : [];
+var SRC = bqFiles.concat(sceneFiles).concat(barkFile);
 
 ok(bqFiles.length > 0, 'dialogue-bearing quests were discovered on disk (' + bqFiles.length + ' .bq)');
 ok(sceneFiles.length > 0, 'dialogue-bearing scenes were discovered on disk (' + sceneFiles.length + ')');
+
+/* ---- THE WORLD'S OWN MOUTH ---------------------------------------------- */
+/* Paolo 8/12: "generate text for now with our quest catalog we have." The
+   ambient bark table shipped EMPTY for a month with a comment saying nothing
+   could fill it -- a comment that predates ALWAYS MAKE AN ATTEMPT (8/11). */
+var barkBadId = [], barkBadTitle = [], barkThin = [], barkUncited = [], barkN = 0, barkBuckets = 0;
+if (barkFile.length) {
+  var BK = JSON.parse(fs.readFileSync('records/BOHEMIA_BARKS.json', 'utf8'));
+  Object.keys(BK.barks || {}).forEach(function (bucket) {
+    barkBuckets++;
+    BK.barks[bucket].forEach(function (r) {
+      barkN++;
+      if (!r.study || !r.study.length) { barkUncited.push(r.id); return; }
+      r.study.forEach(function (c) {
+        var e = LAWS[c.id];
+        if (!e) { barkBadId.push(r.id + ' -> ' + c.id); return; }
+        if (String(e.title || '').trim() !== String(c.title || '').trim())
+          barkBadTitle.push(r.id + ' -> ' + c.id);
+        if (String(c.applied || '').trim().length < 40) barkThin.push(r.id);
+      });
+    });
+  });
+  var people = fs.readFileSync('engine/bohemia_people.js', 'utf8');
+  ok(!/var LINES = \{\};/.test(people),
+    'THE WORLD HAS SOMETHING TO SAY: the LINES table in engine/bohemia_people.js ' +
+    'is no longer empty (it shipped `var LINES = {};` for a month)');
+  ok(barkN >= 150, 'and it is real volume, not a sample (' + barkN + ' lines in ' +
+    barkBuckets + ' buckets)');
+  ok(barkUncited.length === 0, 'every bark cites the catalogue' +
+    (barkUncited.length ? ' — UNCITED: ' + barkUncited.slice(0, 4).join(', ') : ''));
+  ok(barkBadId.length === 0, 'every bark citation RESOLVES' +
+    (barkBadId.length ? ' — ' + barkBadId.slice(0, 3).join(' | ') : ''));
+  ok(barkBadTitle.length === 0, 'and every bark citation title is VERBATIM' +
+    (barkBadTitle.length ? ' — ' + barkBadTitle.slice(0, 3).join(' | ') : ''));
+  ok(barkThin.length === 0, 'and says what it applied' +
+    (barkThin.length ? ' — ' + barkThin.slice(0, 3).join(' | ') : ''));
+  /* the buckets have to be the WORLD'S OWN vocabulary or they never fire */
+  var agents = fs.readFileSync('engine/bohemia_agents.js', 'utf8');
+  var acts = ['sleep', 'home', 'work', 'free', 'scav', 'errand', 'watch'];
+  var roles = ['worker', 'scav', 'keeper', 'watch'];
+  var alien = Object.keys(BK.barks || {}).filter(function (k) {
+    if (k.indexOf('faction:') === 0 || k.indexOf('when:') === 0) return false;
+    var p = k.split(':');
+    return roles.indexOf(p[0]) < 0 || (p[1] && acts.indexOf(p[1]) < 0);
+  });
+  ok(alien.length === 0, 'every role:act bucket uses the SIM\'S OWN words, so the lines ' +
+    'actually fire' + (alien.length ? ' — INVENTED: ' + alien.join(', ') : ''));
+  ok(roles.every(function (r) { return agents.indexOf(r) >= 0; }),
+    'and those role words are the agents module\'s, not this gate\'s');
+}
 
 /* ---- 4/5/6. EVERY CITATION IS REAL --------------------------------------- */
 var badId = [], badTitle = [], thin = [], uncited = [];
@@ -222,6 +276,7 @@ if (BOOK) {
       else if (/^@OBJ\s+\d+\s+"/.test(ln)) mine++;
     });
   });
+  mine += barkN;      /* the world's ambient lines are in the book too */
   ok(BOOK._meta.lines === mine, 'the book holds EVERY line on disk (book ' +
     BOOK._meta.lines + ', counted here ' + mine + ')');
   ok(BOOK._meta.fingerprint === want, 'and the machine copy is current too');

@@ -149,12 +149,379 @@
     'Castellanos', 'Odom', 'Lozano', 'Truong', 'Betancourt', 'Grady', 'Mireles', 'Achebe'
   ];
 
-  // ---- THE LINES TABLE — EMPTY (CONTENTS-PAOLO'S) --------------------------
-  // key (or role) -> [what they say]. This lane builds the MOUTH, not the words
-  // (doctrine §6). Quest dialogue already has a home: the .bq corpus, played by
-  // bohemia_quest_runtime.js. This table is for what a person says when NO quest
-  // is talking, and nothing may fill it but him.
-  var LINES = {};
+  // ---- THE LINES TABLE -- FILLED 8/12 (tools/bohemia_bark_factory.py)
+  // Paolo 8/12: "generate text for now with our quest catalog we have."
+  // It shipped EMPTY with a comment saying nothing may fill it but him. That
+  // comment predates ALWAYS MAKE AN ATTEMPT (8/11), which overturned exactly
+  // that reading for WORDS -- his own diagnosis of the empty field was "THATS
+  // WHY I HAVENT DONE QUESTS YET". Every one of these is a draft he can retype
+  // in the WORDS tab, and every bucket cites the questbook findings it was
+  // written off (Q043.W4 names ambient banter as the best return a solo dev
+  // has). STILL HIS AND STILL EMPTY: KNOWN_AT_START and NAMED_CAST -- who
+  // anybody IS remains a decision, and none is made here.
+  // DO NOT HAND-EDIT: re-run the factory.
+  var LINES = {
+  "faction:Anarchists": [
+    "Nobody's in charge here and that's on purpose.",
+    "You need a permit? From who? Say the name out loud.",
+    "We fixed it ourselves and we'll fix it again.",
+    "We're not disorganised. We're just not YOURS."
+  ],
+  "faction:Blues": [
+    "We voted. You weren't there, and it still counts.",
+    "The well is everybody's or it's nobody's, pick.",
+    "Slow's not the same as wrong.",
+    "Plant it now and somebody eats in ninety days. That's the whole argument.",
+    "Nobody starves on my watch and nobody eats twice either."
+  ],
+  "faction:Caravans": [
+    "Six days out, six days back, and the road changes both times.",
+    "Prices are what the road says they are.",
+    "There's a town north that still has a working sign. A SIGN.",
+    "Two weeks of road and the best thing I saw was a bird."
+  ],
+  "faction:Cartel": [
+    "You want it, there's a price. You don't want it, walk on.",
+    "Nobody made you come down here.",
+    "Everything's available. Availability isn't the expensive part."
+  ],
+  "faction:Church": [
+    "Doors are open. They're always open, that's the point.",
+    "Come eat. Sit through the words first if you can stand them.",
+    "Nobody's turned away. Nobody's turned away twice, either.",
+    "Bring who you like. Bring who you don't like, especially."
+  ],
+  "faction:Colorful": [
+    "You should have seen this place at night. You still should."
+  ],
+  "faction:Homeless": [
+    "Got a spot out of the sun if you need one. Costs nothing.",
+    "Everybody here's from somewhere. Ask sometime.",
+    "I've slept in better and I've slept in worse and I'm still here."
+  ],
+  "faction:La Familia": [
+    "Family eats first. Everybody's family somewhere."
+  ],
+  "faction:Mob": [
+    "The house always has a floor and you're standing on it.",
+    "Talk to me like I'm the last friendly face and you'll do fine.",
+    "I've known this block since before it was worth knowing."
+  ],
+  "faction:Network": [
+    "It's already handled. It was handled before you asked.",
+    "Everything works here. You noticed that.",
+    "We don't disagree about it. There's nothing to disagree about.",
+    "The lights stay on. That's all anybody actually wants.",
+    "You'll find it's simpler than you were expecting.",
+    "Nobody complains here. Ask around."
+  ],
+  "faction:Panthers": [
+    "This block looks after this block."
+  ],
+  "faction:Pures": [
+    "We keep to what we know. It's kept us this long."
+  ],
+  "faction:Reds": [
+    "Everything's a loan. The only question is who's holding it.",
+    "I'll front you. You'll pay it back with interest and a smile.",
+    "Ten percent isn't greed, it's the reason there's anything to lend.",
+    "We keep the books because somebody has to keep the books.",
+    "Everybody says they hate the ledger till they need the ledger."
+  ],
+  "faction:Remnants": [
+    "This was a real city. I don't mean big. I mean real.",
+    "We kept the records. Somebody's going to want them.",
+    "Somebody has to remember what the street names were."
+  ],
+  "faction:Trades": [
+    "I can fix it. I can't fix it for free.",
+    "Bring the part or bring the hours, either way it's the same to me.",
+    "Whoever built this knew what they were doing. Whoever touched it after didn't.",
+    "Everything in this valley was built by somebody who's still alive."
+  ],
+  "faction:Triads": [
+    "Terms first. Then the handshake."
+  ],
+  "faction:Volunteers": [
+    "You're bleeding. Sit down, we'll argue about it after.",
+    "We don't ask who you run with. We ask where it hurts.",
+    "We're out of almost everything except being here."
+  ],
+  "keeper:errand": [
+    "Two blocks, three promises, one of them's real.",
+    "If I'm not back by dark, the list is on the table.",
+    "I'm collecting, not visiting. Don't put the kettle on."
+  ],
+  "keeper:free": [
+    "Sit. You look like a man about to ask me for something.",
+    "It ran better when fewer people knew it existed.",
+    "Everybody's a good neighbour on a full stomach.",
+    "Ask me tomorrow when I'm not counting.",
+    "I've buried people who were owed more than you."
+  ],
+  "keeper:home": [
+    "Wipe your feet, this is somebody's house.",
+    "I keep a list. Everybody on this block is on the list.",
+    "You eat here you help here, that's it, that's the whole rule.",
+    "If it leaks, tell me. Don't fix it, tell me.",
+    "There's water till Thursday. After Thursday there's a conversation.",
+    "I know who's short and I know who's lying about being short.",
+    "You're welcome here. You're not welcome to everything here.",
+    "Take your shoes off and take your side of it off too."
+  ],
+  "keeper:scav": [
+    "I don't like doing this. I like eating."
+  ],
+  "keeper:sleep": [
+    "...",
+    "It'll keep till morning. Everything keeps till morning."
+  ],
+  "keeper:watch": [
+    "I'd rather be the one awake than the one wondering.",
+    "Nothing gets past this porch without saying hello."
+  ],
+  "keeper:work": [
+    "Count it in front of me, not after.",
+    "One family, one share. I don't care how loud you are.",
+    "The book says what the book says.",
+    "You want more, bring more. That's not cruelty, that's arithmetic.",
+    "I'll hear it, but I'll hear it after.",
+    "I'll write you down for Thursday. Don't make me chase you Thursday.",
+    "Everybody thinks they're the exception. Nobody's the exception.",
+    "It's not mine. I just hold the key to it."
+  ],
+  "scav:errand": [
+    "Dropping this off then I'm done, I mean it.",
+    "They asked for glass. I brought glass.",
+    "Two more streets and then I'm somebody's problem, not mine."
+  ],
+  "scav:free": [
+    "I got two batteries and a story.",
+    "Trade you. Don't ask what for.",
+    "I found a whole box of forks. FORKS.",
+    "Everything out there's either bolted down or already somebody's.",
+    "I'd trade the whole bag for a working fridge and I mean it.",
+    "You want to know what's out there? Sand and other people's kitchens."
+  ],
+  "scav:home": [
+    "It's not much. It's what there was.",
+    "Don't tell your mother where I got it.",
+    "I'll go further out tomorrow. It's fine.",
+    "I'll clean it. It works, it's just ugly.",
+    "Nothing today. There's always tomorrow, there's just not always today."
+  ],
+  "scav:scav": [
+    "Anything with a serial number on it, somebody wants.",
+    "Don't go in past the second room. Floor's a suggestion.",
+    "Whole street's picked. We're late by a decade.",
+    "Wire, glass, anything that holds water. That's the list.",
+    "You smell that? Then we're not going in.",
+    "Third house today with the beds still made.",
+    "Take the small stuff first. Small stuff walks.",
+    "If it was worth taking it's already taken. So look for what nobody wanted yet.",
+    "Anything that used to plug into something, bring it.",
+    "That's a load-bearing nothing. Don't lean.",
+    "Been in here before. Somebody moved the chairs.",
+    "Leave the photos. I know, I know. Just leave them."
+  ],
+  "scav:sleep": [
+    "...",
+    "Wake me if the dogs start."
+  ],
+  "scav:watch": [
+    "I'm better at finding than watching.",
+    "Anything moves out there, it's a bag in the wind."
+  ],
+  "scav:work": [
+    "Sorting's the job. Anybody can pick things up.",
+    "That pile's mine, that pile's the block's. Don't mix them.",
+    "Anything shiny goes in the middle pile, I'll look at it after."
+  ],
+  "watch:errand": [
+    "Fast in, fast out. I'm expected somewhere."
+  ],
+  "watch:free": [
+    "Third night in a row somebody's been on that roof.",
+    "One of these years it'll be safe enough to be bored.",
+    "You want the shift? Take the shift. I'm not proud.",
+    "I sleep with the window open. Habit."
+  ],
+  "watch:home": [
+    "I sleep days. Try to remember that.",
+    "Nothing happened, which is the best sentence I know.",
+    "Don't ask. It was fine. It's always fine until it isn't."
+  ],
+  "watch:scav": [
+    "Off shift I take what everybody takes."
+  ],
+  "watch:sleep": [
+    "...",
+    "I hear everything, so it had better be worth it."
+  ],
+  "watch:watch": [
+    "State your business or state nothing and keep walking.",
+    "It's quiet. Quiet's got a sound and this isn't it.",
+    "Two hours to go and then it's somebody else's dark.",
+    "You see a light where there wasn't one, you say so.",
+    "Nobody comes up this street who doesn't live on it.",
+    "Cold out. Been colder.",
+    "I'm not stopping you. I'm looking at you.",
+    "Whistle if you're one of ours. Everybody knows the whistle.",
+    "Every hour I don't see anything is an hour that worked.",
+    "Somebody's been standing at that corner for twenty minutes.",
+    "Go home. I'm not asking twice and I'm not asking rudely.",
+    "You get used to the dark. You never get used to the waiting."
+  ],
+  "watch:work": [
+    "Same post, same window, same six lights.",
+    "I write it down. Somebody eventually reads it."
+  ],
+  "when:after_trouble": [
+    "Everybody's accounted for. Everybody on this block.",
+    "Board it tonight, fix it properly when it's light.",
+    "Nobody's saying anything and everybody's saying it loud.",
+    "Count the doors. Then count the people.",
+    "Whatever you saw, you saw it with us."
+  ],
+  "when:brownout": [
+    "There it goes. Same hour as always.",
+    "Half light's worse than none. Makes you think it's coming back.",
+    "Somebody upstream is drinking before we do.",
+    "Half the block, same as Tuesday.",
+    "It's not broken. Somebody's just using more of it than us."
+  ],
+  "when:favour": [
+    "I'll not forget it. That's worth more here than it used to be.",
+    "You did right by me. Say the word sometime."
+  ],
+  "when:heat": [
+    "Hundred and ten in the shade and there is no shade.",
+    "Don't move till four. Nothing's worth it till four.",
+    "Drink before you're thirsty. After's too late out here.",
+    "You can hear the road ticking.",
+    "This used to be the fun kind of hot."
+  ],
+  "when:hungry": [
+    "I'm fine. I ate yesterday.",
+    "Half now, half tomorrow. That's how you make it two days.",
+    "I'm saving it. Don't look at me like that."
+  ],
+  "when:market": [
+    "Say a number. Any number. We'll meet somewhere sad in the middle.",
+    "That's not what it was worth last week.",
+    "Cash, work, or water. Pick one.",
+    "You touch it, you've bought it, that's the rule.",
+    "For that? For THAT?",
+    "Everybody's an honest trader till the second offer.",
+    "I'll take it for what it's worth to me, not what it's worth to you."
+  ],
+  "when:met_before": [
+    "You again. That's not a complaint.",
+    "Still walking, then.",
+    "I remember you. That's rarer than it sounds."
+  ],
+  "when:night": [
+    "Twelve blocks and you can count the lit ones.",
+    "Whatever's out there tonight can stay out there.",
+    "Dark's the only thing that's free.",
+    "You can hear the freeway when it's this quiet. Nothing on it, but you can hear it.",
+    "Nobody patrols the dark. That's not a rule, it's just true.",
+    "See a light move where nothing should be? Say nothing and walk faster."
+  ],
+  "when:owed": [
+    "You know what you owe me.",
+    "I'm not going to bring it up. I'm just going to look at you."
+  ],
+  "when:rain": [
+    "Put out everything that holds water. Everything.",
+    "First rain since spring and half of it's on the roof, not in the barrel.",
+    "Kids are out in it. Let them be out in it."
+  ],
+  "when:seen": [
+    "Don't know you.",
+    "You're the one from the other block.",
+    "Long as you're not taking anything.",
+    "Morning. Or whatever it is.",
+    "Keep walking, no offence.",
+    "You looking for somebody?",
+    "New face. Huh.",
+    "Whatever you're selling, walk slower.",
+    "You're not from three blocks up, are you."
+  ],
+  "when:stranger_block": [
+    "This isn't your street.",
+    "Ask before you take anything on this block. Ask ME."
+  ],
+  "when:work_short": [
+    "We're two short today and nobody's saying why.",
+    "If they don't show tomorrow I'm putting somebody else on it."
+  ],
+  "worker:errand": [
+    "Four stops and I've done one.",
+    "If they're closed I'm not coming back tomorrow.",
+    "She said noon. It has been noon for a while.",
+    "I'll pay in work. I always pay in work.",
+    "Half of getting anything here is knowing which door.",
+    "Tell her I came by. Tell her I came by TWICE.",
+    "I'm not arguing, I'm explaining loudly."
+  ],
+  "worker:free": [
+    "Give it two years. Somebody'll turn the rest of the lights back on.",
+    "You remember when this block had two working streetlights? Two.",
+    "I'm not saying he stole it. I'm saying he has it.",
+    "Sit down, you're making me tired.",
+    "That's not a rumour, that's my cousin.",
+    "Whole valley's held together with hose clamps and stubbornness.",
+    "Somebody's kid is on the roof again.",
+    "You hear they've got a generator two streets over? Allegedly.",
+    "I'd move if there was anywhere that isn't this.",
+    "Twelve years I've walked this street and it's never been this quiet at noon."
+  ],
+  "worker:home": [
+    "Shoes off. I just swept.",
+    "We're one bad week from asking my brother for help and I'd rather not.",
+    "Did you eat? Don't lie to me.",
+    "Leave the door. It's cooler with it open and nobody's coming down here.",
+    "I'm not going back tomorrow if they're short again.",
+    "Save that. It's still good if you cut the ends off.",
+    "The tap's brown again. Let it run, it clears.",
+    "I'm not asking them for anything. I'd rather be cold.",
+    "Sit with me a minute. Just a minute."
+  ],
+  "worker:scav": [
+    "Copper's gone. Everything's gone but the heavy stuff.",
+    "Somebody beat us here by about a year.",
+    "Take the hinges. People always forget hinges.",
+    "Everything decent's behind a door somebody welded.",
+    "One good find pays a week. One."
+  ],
+  "worker:sleep": [
+    "...",
+    "Turn that off.",
+    "Five more minutes and I mean it.",
+    "Let me sleep or let me work, not both."
+  ],
+  "worker:watch": [
+    "Nothing yet. Which is the job.",
+    "I count six lit windows from here. Same six as last night.",
+    "Anything happens, I'm the one who yells. That's the plan.",
+    "Two of us and eleven houses. You do the maths."
+  ],
+  "worker:work": [
+    "Third shift this week and the meter still reads the same.",
+    "If it runs, it runs. Nobody's paying me to make it pretty.",
+    "Hold that. No, HOLD it.",
+    "They want it done by dark. Dark's in an hour.",
+    "Whoever wired this was in a hurry or a mood.",
+    "I'll trade you an hour. I'm not trading two.",
+    "Every job in this valley is somebody's old job done worse.",
+    "Careful. That's live and it lies about it.",
+    "Two of us doing four people's day and they call that lean.",
+    "Don't help. Seriously. You'll help it into the ground.",
+    "It held all winter. It'll hold.",
+    "Tell them it's done when it's done."
+  ]
+};
 
   // ---- THE FOUR WORDS THE WORLD ALREADY USES -------------------------------
   // NOT new vocabulary. bohemia_agents.js:makeAgent already sorts every person
@@ -438,11 +805,25 @@
     nowLineOf: nowLineOf, workLineOf: workLineOf,
     whereAt: whereAt, cardFor: cardFor, metWords: metWords,
     makeLedger: makeLedger, clock: clock,
-    // what a person says when no quest is talking. EMPTY until he writes them:
-    // an empty list is honest, and a placeholder line becomes canon by shipping.
-    linesFor: function (person) {
+    // what a person says when no quest is talking. FILLED 8/12 by
+    // tools/bohemia_bark_factory.py, every line a draft he can retype in WORDS.
+    linesFor: function (person, opts) {
       if (!person) return [];
-      return (LINES[person.key] || LINES[person.role] || []).slice();
+      /* MOST SPECIFIC FIRST. A person's KEY beats their role-and-what-they-are-
+         doing, which beats their role, which beats their faction, which beats
+         the situation. `at` is the schedule's own act word (sleep/home/work/
+         free/scav/errand/watch) so the world's existing mechanism picks the
+         line and this module still invents nothing. */
+      var at = (opts && opts.at) || person.act || null;
+      var fac = (opts && opts.faction) || person.faction || null;
+      var when = (opts && opts.when) || null;
+      var pick = LINES[person.key]
+        || (at && LINES[person.role + ':' + at])
+        || LINES[person.role]
+        || (fac && LINES['faction:' + fac])
+        || (when && LINES['when:' + when])
+        || [];
+      return pick.slice();
     }
   };
   if (HASREQ) module.exports = API;

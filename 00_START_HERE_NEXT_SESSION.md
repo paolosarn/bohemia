@@ -1,3 +1,198 @@
+PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
+FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
+PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
+NOT A DIORAMA. A SECOND SCENE COSTS A JSON FILE AND ZERO NEW CODE. ***
+PEOPLE (7h9sfy): 8/12 (f) LATEST -- *** THE SECOND CUTSCENE SHIPPED, AND IT COST
+ONE JSON FILE. THE GRIEF DINNER IS IN THE CUTSCENE TAB. ***
+PEOPLE (7h9sfy): 8/12 (h) LATEST -- *** NEW LAW, HIS, AND IT IS ABOUT US:
+HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
+laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
+PEOPLE (7h9sfy): 8/12 (k) LATEST -- *** THE WORLD HAS A MOUTH NOW. 244 AMBIENT
+LINES WRITTEN OFF THE CATALOGUE, WIRED INTO THE PEOPLE MODULE, ALL 1,190 LINES
+EDITABLE IN WORDS. ***
+
+HIS NOTE: "cool another menu.... generate text for now with our quest catalog we
+have." FAIR. The previous turn shipped controls and zero content.
+
+WHAT WAS EMPTY, AND IT WAS THE BLANK PAGE AGAIN. engine/bohemia_people.js has
+carried `var LINES = {};` with a comment saying "nothing may fill it but him".
+THAT COMMENT PREDATES ALWAYS MAKE AN ATTEMPT (8/11), which overturned exactly
+that reading for WORDS -- his own diagnosis of the empty field was "THATS WHY I
+HAVENT DONE QUESTS YET". Every person in the walked world already had a role, a
+schedule, a faction and a block. They had had nothing to say for a month.
+
+THE CATALOGUE TOLD US TO DO THIS FIRST, IN SO MANY WORDS. Q043.W4 AMBIENT BANTER
+AS CHARACTERIZATION: "the cast comes alive through OVERHEARD relationships, not
+just quests -- cheap, high-impact life (a solo-dev-friendly technique)." The
+corpus names barks as the single best return on effort a one-person team has.
+
+244 LINES IN 58 BUCKETS, and the buckets are THE SIM'S OWN VOCABULARY so they
+actually fire:
+  28  role:act   worker/scav/keeper/watch x sleep/home/work/free/scav/errand/
+                 watch -- exactly bohemia_agents.js's words, nothing invented
+  17  faction:   Reds/Blues/Anarchists/Church/Network/Trades/Caravans/... from
+                 the real faction graph
+  13  when:      night, brownout, heat, hungry, market, rain, seen, met_before,
+                 owed, favour, stranger_block, work_short, after_trouble
+Nobody explains the collapse in a single line of it (Q056.W8 ATMOSPHERE OVER
+EXPOSITION). They complain about the water pressure, the shift, the meter, the
+rent. The game is an economic crash simulator so the ERRAND is the subject
+(Q001.W1 TRANSACTION-CARRIES-EMOTION), and the Network's people are unfailingly
+polite (Q025.W5 THE BANALITY OF EVIL).
+
+WIRED, NOT JUST WRITTEN. linesFor(person, opts) now resolves MOST SPECIFIC
+FIRST: their key, then role:act, then role, then faction, then situation. The
+old lookup only knew key and role, so even a full table would have fired four
+buckets out of 58.
+
+TAB: WORDS -- now 1,190 lines, 244 of them the world talking, every one a draft
+he can retype, every one citing the catalogue finding it was written off.
+
+GATE: DIALOGUE CATALOGUE is 38 claims now. It asserts the LINES table is no
+longer the literal string `var LINES = {};`, that there is real volume (>=150),
+that every bark cites a resolving id with a VERBATIM title and a real applied
+sentence, and *** that every role:act bucket uses the AGENTS MODULE'S OWN role
+and act words -- a bucket named something the sim never says is a line that can
+never fire, which is the silent way a bark table dies. ***
+
+*** NEXT (the GO list, in order):
+ 1. MORE TEXT, SAME METHOD. The factory is a spec + a generator + a gate; adding
+    200 more lines is adding rows. Barks for the remaining situations the sim
+    tracks (weather, block wealth, time since a raid) are the cheapest next win.
+ 2. QUEST VOLUME. 21 canon quests exist against a 152-quest catalogue. The
+    QUEST STUDY LAW machinery already checks citations; writing quest 22+ is
+    pure content work with the gates already built.
+ 3. The barks are in the DATA and in WORDS but the walked RUN surface must
+    actually SHOW them over people's heads -- that is the CITY lane's surface.
+    Coordinate before crossing.
+ 4. Not this lane: 60 tools still crash on CITY_B64; his 11 perimeter walls. ***
+
+RUN (run-eak241): 8/12 LATEST -- ONE ZOOM, FROM HIS FEET TO THE MOON, AND BACK.
+
+Paolo: "how do we combine the city builder map with the map in the phone. my original
+intention was that is was this zoom out vibe you could keep zooming out and zooming out
+until it showed the moon you know. that was my original philosophy and i want to stick
+with that thats my flavor."
+
+HE DID NOT ASK FOR A FEATURE. HE ASKED WHY HIS OLD ONE WAS UNFINISHED. The 7/25 law
+(BOHEMIA_ADDENDUM_CITYBUILDER_TOP_DOWN_ONLY_7_25_26.md) LOCKED this continuum in his own
+words and shipped two of its three bands. ITS LAST LINE: "STILL TO COME: the third zoom
+band (keep zooming out to see the rest of the world) - that touches the MAP surface
+(another lane), so coordinate, don't jam." That coordination never happened and the band
+sat for EIGHTEEN DAYS with nothing blocking it but a note.
+*** A [PENDING] THAT NAMES NO PERSON AND NO QUESTION IS NOT A PENDING, IT IS A DROPPED
+STITCH. *** If you park something, park it ON somebody with a question they can answer.
+
+AND IT IS THE SPINE, NOT A VIBE. 7/19 LOCKED: "the generations are Animal / Human /
+Angel and the camera levels are street / city / planetary zoom", and Act 3 is the one-way
+moonshot where "the dynasty ends looking down at the planet". The zoom axis and the
+generation axis are the same axis. Pulling out to the moon on day 1 is the whole game
+foreshadowed in one gesture.
+
+WHAT WAS IN THE WAY WAS ONE LINE: setZoomAt clamped with Math.max(zmin,...). zmax already
+had a seam handing you to your character; zmin was a WALL that made the valley the whole
+world. Same seam, outward. Measured in a real browser, both directions:
+  human/44 -> human/11 -> city 1.00 -> ... -> city 0.21 -> REGION -> PLANET -> MOON
+  MOON -> PLANET -> REGION -> city 0.21 -> ... -> city 2.60 -> human/11
+Zero page errors. Law: laws/BOHEMIA_ADDENDUM_ONE_ZOOM_TO_THE_MOON_8_12_26.md.
+
+THE PHONE MAP IS A DOOR, NOT A SECOND MAP. His question was how to COMBINE them, and the
+obvious reading -- merge the renderers -- is wrong: a phone's map SHOULD look like a
+phone's map, it is a device in a hand. They are combined by sharing the WORLD and the
+CAMERA. Tap a cell on the phone, the run's camera goes there. IT NEVER MOVES HIS BODY,
+and that clause is in the law because moving the player away from his spawn is exactly
+how I broke CITY TALK on 8/11.
+
+PLACEHOLDER, SAID OUT LOUD ON SCREEN. The earth and moon are procedural discs from the
+city's own palette, labelled "placeholder sky - art request AR-005". MEASURED: this
+repository contains NO celestial art of any kind, in any bank -- which is why it is
+REQUESTED, not quietly invented. ART LANE: AR-005 is yours, marker __SKY_ART__, and it
+drops into renderSky()/skyDisc(). The 45 DEGREE ART LAW is NOT broken -- canon names this
+camera separately ("street / city / PLANETARY zoom", 7/19) and the valley diamond stays
+on the 45 the whole way out, which the gate proves by moving the city marker in the
+REGION band and watching the painted valley move with it through the city's own iso().
+
+Gate: onezoom_gate.js, 16 assertions on the real camera. It asserts the pixels DIFFER
+band to band, because a state machine that renders the same frame is not a zoom.
+
+FOUND AND NOT FIXED, written down rather than jammed: the MOUSE WHEEL dead-ends at the
+human->city seam. The wheel handler clamps its index to the lowest human zoom stop so it
+never passes a value BELOW it, and only a pinch (continuous) triggers the handoff. On his
+iPhone he pinches, so the continuum is whole where he plays. Desktop-only paper cut in
+another lane's gesture code.
+
+STILL RED AND NOT MINE (each verified red on origin/main too): DISTRICT FILL, ROAD CELLS,
+TEXTURE MATCH, VOICE SURFACES (arterial/freeway/road-paint work in flight elsewhere),
+ROUND + DOORS (arterial_x), SFX RENDER, PARTS PAINTED, BODY VARIATION, ONE WORLD TAB,
+INTERIORS, REUSE FIRST.
+
+NEXT IN THIS LANE: THE PHONE STILL DOES NOT RING. The pipe runs world -> phone and now
+phone -> camera; the missing leg is a job ARRIVING on it and being accepted there.
+Records: BOHEMIA_ONE_ZOOM_TO_THE_MOON_8_12_26.md, BOHEMIA_YOUR_HOUSE_AND_THE_PHONE_8_11_26.md
+
+RUN (run-eak241): 8/12 LATEST -- ONE ZOOM, FROM HIS FEET TO THE MOON, AND BACK.
+
+Paolo: "how do we combine the city builder map with the map in the phone. my original
+intention was that is was this zoom out vibe you could keep zooming out and zooming out
+until it showed the moon you know. that was my original philosophy and i want to stick
+with that thats my flavor."
+
+HE DID NOT ASK FOR A FEATURE. HE ASKED WHY HIS OLD ONE WAS UNFINISHED. The 7/25 law
+(BOHEMIA_ADDENDUM_CITYBUILDER_TOP_DOWN_ONLY_7_25_26.md) LOCKED this continuum in his own
+words and shipped two of its three bands. ITS LAST LINE: "STILL TO COME: the third zoom
+band (keep zooming out to see the rest of the world) - that touches the MAP surface
+(another lane), so coordinate, don't jam." That coordination never happened and the band
+sat for EIGHTEEN DAYS with nothing blocking it but a note.
+*** A [PENDING] THAT NAMES NO PERSON AND NO QUESTION IS NOT A PENDING, IT IS A DROPPED
+STITCH. *** If you park something, park it ON somebody with a question they can answer.
+
+AND IT IS THE SPINE, NOT A VIBE. 7/19 LOCKED: "the generations are Animal / Human /
+Angel and the camera levels are street / city / planetary zoom", and Act 3 is the one-way
+moonshot where "the dynasty ends looking down at the planet". The zoom axis and the
+generation axis are the same axis. Pulling out to the moon on day 1 is the whole game
+foreshadowed in one gesture.
+
+WHAT WAS IN THE WAY WAS ONE LINE: setZoomAt clamped with Math.max(zmin,...). zmax already
+had a seam handing you to your character; zmin was a WALL that made the valley the whole
+world. Same seam, outward. Measured in a real browser, both directions:
+  human/44 -> human/11 -> city 1.00 -> ... -> city 0.21 -> REGION -> PLANET -> MOON
+  MOON -> PLANET -> REGION -> city 0.21 -> ... -> city 2.60 -> human/11
+Zero page errors. Law: laws/BOHEMIA_ADDENDUM_ONE_ZOOM_TO_THE_MOON_8_12_26.md.
+
+THE PHONE MAP IS A DOOR, NOT A SECOND MAP. His question was how to COMBINE them, and the
+obvious reading -- merge the renderers -- is wrong: a phone's map SHOULD look like a
+phone's map, it is a device in a hand. They are combined by sharing the WORLD and the
+CAMERA. Tap a cell on the phone, the run's camera goes there. IT NEVER MOVES HIS BODY,
+and that clause is in the law because moving the player away from his spawn is exactly
+how I broke CITY TALK on 8/11.
+
+PLACEHOLDER, SAID OUT LOUD ON SCREEN. The earth and moon are procedural discs from the
+city's own palette, labelled "placeholder sky - art request AR-005". MEASURED: this
+repository contains NO celestial art of any kind, in any bank -- which is why it is
+REQUESTED, not quietly invented. ART LANE: AR-005 is yours, marker __SKY_ART__, and it
+drops into renderSky()/skyDisc(). The 45 DEGREE ART LAW is NOT broken -- canon names this
+camera separately ("street / city / PLANETARY zoom", 7/19) and the valley diamond stays
+on the 45 the whole way out, which the gate proves by moving the city marker in the
+REGION band and watching the painted valley move with it through the city's own iso().
+
+Gate: onezoom_gate.js, 16 assertions on the real camera. It asserts the pixels DIFFER
+band to band, because a state machine that renders the same frame is not a zoom.
+
+FOUND AND NOT FIXED, written down rather than jammed: the MOUSE WHEEL dead-ends at the
+human->city seam. The wheel handler clamps its index to the lowest human zoom stop so it
+never passes a value BELOW it, and only a pinch (continuous) triggers the handoff. On his
+iPhone he pinches, so the continuum is whole where he plays. Desktop-only paper cut in
+another lane's gesture code.
+
+STILL RED AND NOT MINE (each verified red on origin/main too): DISTRICT FILL, ROAD CELLS,
+TEXTURE MATCH, VOICE SURFACES (arterial/freeway/road-paint work in flight elsewhere),
+ROUND + DOORS (arterial_x), SFX RENDER, PARTS PAINTED, BODY VARIATION, ONE WORLD TAB,
+INTERIORS, REUSE FIRST.
+
+NEXT IN THIS LANE: THE PHONE STILL DOES NOT RING. The pipe runs world -> phone and now
+phone -> camera; the missing leg is a job ARRIVING on it and being accepted there.
+Records: BOHEMIA_ONE_ZOOM_TO_THE_MOON_8_12_26.md, BOHEMIA_YOUR_HOUSE_AND_THE_PHONE_8_11_26.md
+
 RUN (run-eak241): 8/12 LATEST -- ONE ZOOM, FROM HIS FEET TO THE MOON, AND BACK.
 
 Paolo: "how do we combine the city builder map with the map in the phone. my original

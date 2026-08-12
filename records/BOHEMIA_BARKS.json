@@ -1,0 +1,3752 @@
+{
+ "_meta": {
+  "what": "What people in the walked world say when no quest is talking.",
+  "why": "Paolo 8/12: \"generate text for now with our quest catalog we have.\" engine/bohemia_people.js has carried an EMPTY LINES table since it was written; the 8/11 ALWAYS MAKE AN ATTEMPT ruling overturned the reading that kept it empty, and the corpus (Q043.W4) names ambient banter as the highest-return characterisation a solo dev has.",
+  "generator": "tools/bohemia_bark_factory.py",
+  "buckets": 58,
+  "lines": 244,
+  "keys": "role:act (roles and acts are engine/bohemia_agents.js's own words), faction:<id> (from engine/BOHEMIA_faction_graph.json), when:<situation>",
+  "draft": "every line is draft:true and editable in the WORDS tab"
+ },
+ "barks": {
+  "faction:Anarchists": [
+   {
+    "id": "faction:Anarchists#0",
+    "text": "Nobody's in charge here and that's on purpose.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "faction:Anarchists#1",
+    "text": "You need a permit? From who? Say the name out loud.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "faction:Anarchists#2",
+    "text": "We fixed it ourselves and we'll fix it again.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "faction:Anarchists#3",
+    "text": "We're not disorganised. We're just not YOURS.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "faction:Blues": [
+   {
+    "id": "faction:Blues#0",
+    "text": "We voted. You weren't there, and it still counts.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "faction:Blues#1",
+    "text": "The well is everybody's or it's nobody's, pick.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "faction:Blues#2",
+    "text": "Slow's not the same as wrong.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "faction:Blues#3",
+    "text": "Plant it now and somebody eats in ninety days. That's the whole argument.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "faction:Blues#4",
+    "text": "Nobody starves on my watch and nobody eats twice either.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   }
+  ],
+  "faction:Caravans": [
+   {
+    "id": "faction:Caravans#0",
+    "text": "Six days out, six days back, and the road changes both times.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "faction:Caravans#1",
+    "text": "Prices are what the road says they are.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "faction:Caravans#2",
+    "text": "There's a town north that still has a working sign. A SIGN.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "faction:Caravans#3",
+    "text": "Two weeks of road and the best thing I saw was a bird.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   }
+  ],
+  "faction:Cartel": [
+   {
+    "id": "faction:Cartel#0",
+    "text": "You want it, there's a price. You don't want it, walk on.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Cartel#1",
+    "text": "Nobody made you come down here.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Cartel#2",
+    "text": "Everything's available. Availability isn't the expensive part.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   }
+  ],
+  "faction:Church": [
+   {
+    "id": "faction:Church#0",
+    "text": "Doors are open. They're always open, that's the point.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Church#1",
+    "text": "Come eat. Sit through the words first if you can stand them.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Church#2",
+    "text": "Nobody's turned away. Nobody's turned away twice, either.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Church#3",
+    "text": "Bring who you like. Bring who you don't like, especially.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   }
+  ],
+  "faction:Colorful": [
+   {
+    "id": "faction:Colorful#0",
+    "text": "You should have seen this place at night. You still should.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "faction:Homeless": [
+   {
+    "id": "faction:Homeless#0",
+    "text": "Got a spot out of the sun if you need one. Costs nothing.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "faction:Homeless#1",
+    "text": "Everybody here's from somewhere. Ask sometime.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "faction:Homeless#2",
+    "text": "I've slept in better and I've slept in worse and I'm still here.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   }
+  ],
+  "faction:La Familia": [
+   {
+    "id": "faction:La Familia#0",
+    "text": "Family eats first. Everybody's family somewhere.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   }
+  ],
+  "faction:Mob": [
+   {
+    "id": "faction:Mob#0",
+    "text": "The house always has a floor and you're standing on it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "faction:Mob#1",
+    "text": "Talk to me like I'm the last friendly face and you'll do fine.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "faction:Mob#2",
+    "text": "I've known this block since before it was worth knowing.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "faction:Network": [
+   {
+    "id": "faction:Network#0",
+    "text": "It's already handled. It was handled before you asked.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q009.P2",
+      "title": "W1 (uncanny behavioral tell",
+      "applied": "seed the dread in BEHAVIOUR before any reveal -- people who never disagree, who repeat a phrase, whose grief is smoothed."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Network#1",
+    "text": "Everything works here. You noticed that.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q009.P2",
+      "title": "W1 (uncanny behavioral tell",
+      "applied": "seed the dread in BEHAVIOUR before any reveal -- people who never disagree, who repeat a phrase, whose grief is smoothed."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Network#2",
+    "text": "We don't disagree about it. There's nothing to disagree about.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q009.P2",
+      "title": "W1 (uncanny behavioral tell",
+      "applied": "seed the dread in BEHAVIOUR before any reveal -- people who never disagree, who repeat a phrase, whose grief is smoothed."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Network#3",
+    "text": "The lights stay on. That's all anybody actually wants.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q009.P2",
+      "title": "W1 (uncanny behavioral tell",
+      "applied": "seed the dread in BEHAVIOUR before any reveal -- people who never disagree, who repeat a phrase, whose grief is smoothed."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Network#4",
+    "text": "You'll find it's simpler than you were expecting.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q009.P2",
+      "title": "W1 (uncanny behavioral tell",
+      "applied": "seed the dread in BEHAVIOUR before any reveal -- people who never disagree, who repeat a phrase, whose grief is smoothed."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Network#5",
+    "text": "Nobody complains here. Ask around.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q009.P2",
+      "title": "W1 (uncanny behavioral tell",
+      "applied": "seed the dread in BEHAVIOUR before any reveal -- people who never disagree, who repeat a phrase, whose grief is smoothed."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   }
+  ],
+  "faction:Panthers": [
+   {
+    "id": "faction:Panthers#0",
+    "text": "This block looks after this block.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "faction:Pures": [
+   {
+    "id": "faction:Pures#0",
+    "text": "We keep to what we know. It's kept us this long.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q009.P2",
+      "title": "W1 (uncanny behavioral tell",
+      "applied": "seed the dread in BEHAVIOUR before any reveal -- people who never disagree, who repeat a phrase, whose grief is smoothed."
+     }
+    ]
+   }
+  ],
+  "faction:Reds": [
+   {
+    "id": "faction:Reds#0",
+    "text": "Everything's a loan. The only question is who's holding it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Reds#1",
+    "text": "I'll front you. You'll pay it back with interest and a smile.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Reds#2",
+    "text": "Ten percent isn't greed, it's the reason there's anything to lend.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Reds#3",
+    "text": "We keep the books because somebody has to keep the books.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "faction:Reds#4",
+    "text": "Everybody says they hate the ledger till they need the ledger.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   }
+  ],
+  "faction:Remnants": [
+   {
+    "id": "faction:Remnants#0",
+    "text": "This was a real city. I don't mean big. I mean real.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "faction:Remnants#1",
+    "text": "We kept the records. Somebody's going to want them.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "faction:Remnants#2",
+    "text": "Somebody has to remember what the street names were.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   }
+  ],
+  "faction:Trades": [
+   {
+    "id": "faction:Trades#0",
+    "text": "I can fix it. I can't fix it for free.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "faction:Trades#1",
+    "text": "Bring the part or bring the hours, either way it's the same to me.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "faction:Trades#2",
+    "text": "Whoever built this knew what they were doing. Whoever touched it after didn't.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "faction:Trades#3",
+    "text": "Everything in this valley was built by somebody who's still alive.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   }
+  ],
+  "faction:Triads": [
+   {
+    "id": "faction:Triads#0",
+    "text": "Terms first. Then the handshake.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   }
+  ],
+  "faction:Volunteers": [
+   {
+    "id": "faction:Volunteers#0",
+    "text": "You're bleeding. Sit down, we'll argue about it after.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "faction:Volunteers#1",
+    "text": "We don't ask who you run with. We ask where it hurts.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "faction:Volunteers#2",
+    "text": "We're out of almost everything except being here.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   }
+  ],
+  "keeper:errand": [
+   {
+    "id": "keeper:errand#0",
+    "text": "Two blocks, three promises, one of them's real.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "keeper:errand#1",
+    "text": "If I'm not back by dark, the list is on the table.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "keeper:errand#2",
+    "text": "I'm collecting, not visiting. Don't put the kettle on.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   }
+  ],
+  "keeper:free": [
+   {
+    "id": "keeper:free#0",
+    "text": "Sit. You look like a man about to ask me for something.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "keeper:free#1",
+    "text": "It ran better when fewer people knew it existed.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "keeper:free#2",
+    "text": "Everybody's a good neighbour on a full stomach.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "keeper:free#3",
+    "text": "Ask me tomorrow when I'm not counting.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "keeper:free#4",
+    "text": "I've buried people who were owed more than you.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "keeper:home": [
+   {
+    "id": "keeper:home#0",
+    "text": "Wipe your feet, this is somebody's house.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "keeper:home#1",
+    "text": "I keep a list. Everybody on this block is on the list.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "keeper:home#2",
+    "text": "You eat here you help here, that's it, that's the whole rule.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "keeper:home#3",
+    "text": "If it leaks, tell me. Don't fix it, tell me.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "keeper:home#4",
+    "text": "There's water till Thursday. After Thursday there's a conversation.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "keeper:home#5",
+    "text": "I know who's short and I know who's lying about being short.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "keeper:home#6",
+    "text": "You're welcome here. You're not welcome to everything here.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "keeper:home#7",
+    "text": "Take your shoes off and take your side of it off too.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   }
+  ],
+  "keeper:scav": [
+   {
+    "id": "keeper:scav#0",
+    "text": "I don't like doing this. I like eating.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   }
+  ],
+  "keeper:sleep": [
+   {
+    "id": "keeper:sleep#0",
+    "text": "...",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "keeper:sleep#1",
+    "text": "It'll keep till morning. Everything keeps till morning.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   }
+  ],
+  "keeper:watch": [
+   {
+    "id": "keeper:watch#0",
+    "text": "I'd rather be the one awake than the one wondering.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "keeper:watch#1",
+    "text": "Nothing gets past this porch without saying hello.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   }
+  ],
+  "keeper:work": [
+   {
+    "id": "keeper:work#0",
+    "text": "Count it in front of me, not after.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "keeper:work#1",
+    "text": "One family, one share. I don't care how loud you are.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "keeper:work#2",
+    "text": "The book says what the book says.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "keeper:work#3",
+    "text": "You want more, bring more. That's not cruelty, that's arithmetic.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "keeper:work#4",
+    "text": "I'll hear it, but I'll hear it after.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "keeper:work#5",
+    "text": "I'll write you down for Thursday. Don't make me chase you Thursday.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "keeper:work#6",
+    "text": "Everybody thinks they're the exception. Nobody's the exception.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "keeper:work#7",
+    "text": "It's not mine. I just hold the key to it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   }
+  ],
+  "scav:errand": [
+   {
+    "id": "scav:errand#0",
+    "text": "Dropping this off then I'm done, I mean it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "scav:errand#1",
+    "text": "They asked for glass. I brought glass.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "scav:errand#2",
+    "text": "Two more streets and then I'm somebody's problem, not mine.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   }
+  ],
+  "scav:free": [
+   {
+    "id": "scav:free#0",
+    "text": "I got two batteries and a story.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "scav:free#1",
+    "text": "Trade you. Don't ask what for.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "scav:free#2",
+    "text": "I found a whole box of forks. FORKS.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "scav:free#3",
+    "text": "Everything out there's either bolted down or already somebody's.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "scav:free#4",
+    "text": "I'd trade the whole bag for a working fridge and I mean it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "scav:free#5",
+    "text": "You want to know what's out there? Sand and other people's kitchens.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "scav:home": [
+   {
+    "id": "scav:home#0",
+    "text": "It's not much. It's what there was.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "scav:home#1",
+    "text": "Don't tell your mother where I got it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "scav:home#2",
+    "text": "I'll go further out tomorrow. It's fine.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "scav:home#3",
+    "text": "I'll clean it. It works, it's just ugly.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "scav:home#4",
+    "text": "Nothing today. There's always tomorrow, there's just not always today.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   }
+  ],
+  "scav:scav": [
+   {
+    "id": "scav:scav#0",
+    "text": "Anything with a serial number on it, somebody wants.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#1",
+    "text": "Don't go in past the second room. Floor's a suggestion.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#2",
+    "text": "Whole street's picked. We're late by a decade.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#3",
+    "text": "Wire, glass, anything that holds water. That's the list.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#4",
+    "text": "You smell that? Then we're not going in.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#5",
+    "text": "Third house today with the beds still made.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#6",
+    "text": "Take the small stuff first. Small stuff walks.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#7",
+    "text": "If it was worth taking it's already taken. So look for what nobody wanted yet.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#8",
+    "text": "Anything that used to plug into something, bring it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#9",
+    "text": "That's a load-bearing nothing. Don't lean.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#10",
+    "text": "Been in here before. Somebody moved the chairs.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "scav:scav#11",
+    "text": "Leave the photos. I know, I know. Just leave them.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   }
+  ],
+  "scav:sleep": [
+   {
+    "id": "scav:sleep#0",
+    "text": "...",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "scav:sleep#1",
+    "text": "Wake me if the dogs start.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   }
+  ],
+  "scav:watch": [
+   {
+    "id": "scav:watch#0",
+    "text": "I'm better at finding than watching.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "scav:watch#1",
+    "text": "Anything moves out there, it's a bag in the wind.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   }
+  ],
+  "scav:work": [
+   {
+    "id": "scav:work#0",
+    "text": "Sorting's the job. Anybody can pick things up.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "scav:work#1",
+    "text": "That pile's mine, that pile's the block's. Don't mix them.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "scav:work#2",
+    "text": "Anything shiny goes in the middle pile, I'll look at it after.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   }
+  ],
+  "watch:errand": [
+   {
+    "id": "watch:errand#0",
+    "text": "Fast in, fast out. I'm expected somewhere.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   }
+  ],
+  "watch:free": [
+   {
+    "id": "watch:free#0",
+    "text": "Third night in a row somebody's been on that roof.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "watch:free#1",
+    "text": "One of these years it'll be safe enough to be bored.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "watch:free#2",
+    "text": "You want the shift? Take the shift. I'm not proud.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "watch:free#3",
+    "text": "I sleep with the window open. Habit.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   }
+  ],
+  "watch:home": [
+   {
+    "id": "watch:home#0",
+    "text": "I sleep days. Try to remember that.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "watch:home#1",
+    "text": "Nothing happened, which is the best sentence I know.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "watch:home#2",
+    "text": "Don't ask. It was fine. It's always fine until it isn't.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "watch:scav": [
+   {
+    "id": "watch:scav#0",
+    "text": "Off shift I take what everybody takes.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   }
+  ],
+  "watch:sleep": [
+   {
+    "id": "watch:sleep#0",
+    "text": "...",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:sleep#1",
+    "text": "I hear everything, so it had better be worth it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   }
+  ],
+  "watch:watch": [
+   {
+    "id": "watch:watch#0",
+    "text": "State your business or state nothing and keep walking.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#1",
+    "text": "It's quiet. Quiet's got a sound and this isn't it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#2",
+    "text": "Two hours to go and then it's somebody else's dark.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#3",
+    "text": "You see a light where there wasn't one, you say so.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#4",
+    "text": "Nobody comes up this street who doesn't live on it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#5",
+    "text": "Cold out. Been colder.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#6",
+    "text": "I'm not stopping you. I'm looking at you.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#7",
+    "text": "Whistle if you're one of ours. Everybody knows the whistle.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#8",
+    "text": "Every hour I don't see anything is an hour that worked.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#9",
+    "text": "Somebody's been standing at that corner for twenty minutes.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#10",
+    "text": "Go home. I'm not asking twice and I'm not asking rudely.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "watch:watch#11",
+    "text": "You get used to the dark. You never get used to the waiting.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   }
+  ],
+  "watch:work": [
+   {
+    "id": "watch:work#0",
+    "text": "Same post, same window, same six lights.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "watch:work#1",
+    "text": "I write it down. Somebody eventually reads it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   }
+  ],
+  "when:after_trouble": [
+   {
+    "id": "when:after_trouble#0",
+    "text": "Everybody's accounted for. Everybody on this block.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:after_trouble#1",
+    "text": "Board it tonight, fix it properly when it's light.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:after_trouble#2",
+    "text": "Nobody's saying anything and everybody's saying it loud.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:after_trouble#3",
+    "text": "Count the doors. Then count the people.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:after_trouble#4",
+    "text": "Whatever you saw, you saw it with us.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   }
+  ],
+  "when:brownout": [
+   {
+    "id": "when:brownout#0",
+    "text": "There it goes. Same hour as always.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:brownout#1",
+    "text": "Half light's worse than none. Makes you think it's coming back.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:brownout#2",
+    "text": "Somebody upstream is drinking before we do.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:brownout#3",
+    "text": "Half the block, same as Tuesday.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:brownout#4",
+    "text": "It's not broken. Somebody's just using more of it than us.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   }
+  ],
+  "when:favour": [
+   {
+    "id": "when:favour#0",
+    "text": "I'll not forget it. That's worth more here than it used to be.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:favour#1",
+    "text": "You did right by me. Say the word sometime.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "when:heat": [
+   {
+    "id": "when:heat#0",
+    "text": "Hundred and ten in the shade and there is no shade.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:heat#1",
+    "text": "Don't move till four. Nothing's worth it till four.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:heat#2",
+    "text": "Drink before you're thirsty. After's too late out here.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:heat#3",
+    "text": "You can hear the road ticking.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "when:heat#4",
+    "text": "This used to be the fun kind of hot.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   }
+  ],
+  "when:hungry": [
+   {
+    "id": "when:hungry#0",
+    "text": "I'm fine. I ate yesterday.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "when:hungry#1",
+    "text": "Half now, half tomorrow. That's how you make it two days.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "when:hungry#2",
+    "text": "I'm saving it. Don't look at me like that.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   }
+  ],
+  "when:market": [
+   {
+    "id": "when:market#0",
+    "text": "Say a number. Any number. We'll meet somewhere sad in the middle.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:market#1",
+    "text": "That's not what it was worth last week.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:market#2",
+    "text": "Cash, work, or water. Pick one.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:market#3",
+    "text": "You touch it, you've bought it, that's the rule.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:market#4",
+    "text": "For that? For THAT?",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:market#5",
+    "text": "Everybody's an honest trader till the second offer.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:market#6",
+    "text": "I'll take it for what it's worth to me, not what it's worth to you.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "when:met_before": [
+   {
+    "id": "when:met_before#0",
+    "text": "You again. That's not a complaint.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:met_before#1",
+    "text": "Still walking, then.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:met_before#2",
+    "text": "I remember you. That's rarer than it sounds.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "when:night": [
+   {
+    "id": "when:night#0",
+    "text": "Twelve blocks and you can count the lit ones.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "when:night#1",
+    "text": "Whatever's out there tonight can stay out there.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "when:night#2",
+    "text": "Dark's the only thing that's free.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "when:night#3",
+    "text": "You can hear the freeway when it's this quiet. Nothing on it, but you can hear it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "when:night#4",
+    "text": "Nobody patrols the dark. That's not a rule, it's just true.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   },
+   {
+    "id": "when:night#5",
+    "text": "See a light move where nothing should be? Say nothing and walk faster.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q010.W9",
+      "title": "THE HAUNTED SPACE",
+      "applied": "the space tells its own story without exposition. What people say about a block does the same job as what is drawn on it."
+     }
+    ]
+   }
+  ],
+  "when:owed": [
+   {
+    "id": "when:owed#0",
+    "text": "You know what you owe me.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:owed#1",
+    "text": "I'm not going to bring it up. I'm just going to look at you.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "when:rain": [
+   {
+    "id": "when:rain#0",
+    "text": "Put out everything that holds water. Everything.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "when:rain#1",
+    "text": "First rain since spring and half of it's on the roof, not in the barrel.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "when:rain#2",
+    "text": "Kids are out in it. Let them be out in it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   }
+  ],
+  "when:seen": [
+   {
+    "id": "when:seen#0",
+    "text": "Don't know you.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:seen#1",
+    "text": "You're the one from the other block.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:seen#2",
+    "text": "Long as you're not taking anything.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:seen#3",
+    "text": "Morning. Or whatever it is.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:seen#4",
+    "text": "Keep walking, no offence.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:seen#5",
+    "text": "You looking for somebody?",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:seen#6",
+    "text": "New face. Huh.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:seen#7",
+    "text": "Whatever you're selling, walk slower.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:seen#8",
+    "text": "You're not from three blocks up, are you.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "when:stranger_block": [
+   {
+    "id": "when:stranger_block#0",
+    "text": "This isn't your street.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:stranger_block#1",
+    "text": "Ask before you take anything on this block. Ask ME.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "when:work_short": [
+   {
+    "id": "when:work_short#0",
+    "text": "We're two short today and nobody's saying why.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "when:work_short#1",
+    "text": "If they don't show tomorrow I'm putting somebody else on it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ],
+  "worker:errand": [
+   {
+    "id": "worker:errand#0",
+    "text": "Four stops and I've done one.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "worker:errand#1",
+    "text": "If they're closed I'm not coming back tomorrow.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "worker:errand#2",
+    "text": "She said noon. It has been noon for a while.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "worker:errand#3",
+    "text": "I'll pay in work. I always pay in work.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "worker:errand#4",
+    "text": "Half of getting anything here is knowing which door.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "worker:errand#5",
+    "text": "Tell her I came by. Tell her I came by TWICE.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   },
+   {
+    "id": "worker:errand#6",
+    "text": "I'm not arguing, I'm explaining loudly.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     }
+    ]
+   }
+  ],
+  "worker:free": [
+   {
+    "id": "worker:free#0",
+    "text": "Give it two years. Somebody'll turn the rest of the lights back on.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "worker:free#1",
+    "text": "You remember when this block had two working streetlights? Two.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "worker:free#2",
+    "text": "I'm not saying he stole it. I'm saying he has it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "worker:free#3",
+    "text": "Sit down, you're making me tired.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "worker:free#4",
+    "text": "That's not a rumour, that's my cousin.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "worker:free#5",
+    "text": "Whole valley's held together with hose clamps and stubbornness.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "worker:free#6",
+    "text": "Somebody's kid is on the roof again.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "worker:free#7",
+    "text": "You hear they've got a generator two streets over? Allegedly.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "worker:free#8",
+    "text": "I'd move if there was anywhere that isn't this.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   },
+   {
+    "id": "worker:free#9",
+    "text": "Twelve years I've walked this street and it's never been this quiet at noon.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Half the small talk in a collapsed city is somebody being wrong about how long this lasts."
+     }
+    ]
+   }
+  ],
+  "worker:home": [
+   {
+    "id": "worker:home#0",
+    "text": "Shoes off. I just swept.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:home#1",
+    "text": "We're one bad week from asking my brother for help and I'd rather not.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:home#2",
+    "text": "Did you eat? Don't lie to me.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:home#3",
+    "text": "Leave the door. It's cooler with it open and nobody's coming down here.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:home#4",
+    "text": "I'm not going back tomorrow if they're short again.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:home#5",
+    "text": "Save that. It's still good if you cut the ends off.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:home#6",
+    "text": "The tap's brown again. Let it run, it clears.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:home#7",
+    "text": "I'm not asking them for anything. I'd rather be cold.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:home#8",
+    "text": "Sit with me a minute. Just a minute.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   }
+  ],
+  "worker:scav": [
+   {
+    "id": "worker:scav#0",
+    "text": "Copper's gone. Everything's gone but the heavy stuff.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:scav#1",
+    "text": "Somebody beat us here by about a year.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:scav#2",
+    "text": "Take the hinges. People always forget hinges.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:scav#3",
+    "text": "Everything decent's behind a door somebody welded.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   },
+   {
+    "id": "worker:scav#4",
+    "text": "One good find pays a week. One.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, and that vise shows up in how people talk about the house three doors down."
+     }
+    ]
+   }
+  ],
+  "worker:sleep": [
+   {
+    "id": "worker:sleep#0",
+    "text": "...",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "worker:sleep#1",
+    "text": "Turn that off.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "worker:sleep#2",
+    "text": "Five more minutes and I mean it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   },
+   {
+    "id": "worker:sleep#3",
+    "text": "Let me sleep or let me work, not both.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q056.W8",
+      "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+      "applied": "oblique sayings carry a world better than lore-dumps, so not one line here explains the collapse. They complain about the water pressure."
+     }
+    ]
+   }
+  ],
+  "worker:watch": [
+   {
+    "id": "worker:watch#0",
+    "text": "Nothing yet. Which is the job.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "worker:watch#1",
+    "text": "I count six lit windows from here. Same six as last night.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "worker:watch#2",
+    "text": "Anything happens, I'm the one who yells. That's the plan.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   },
+   {
+    "id": "worker:watch#3",
+    "text": "Two of us and eleven houses. You do the maths.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order is more unsettling than a villain with a speech. The people running the worst arrangements in this valley are unfailingly polite about it."
+     }
+    ]
+   }
+  ],
+  "worker:work": [
+   {
+    "id": "worker:work#0",
+    "text": "Third shift this week and the meter still reads the same.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#1",
+    "text": "If it runs, it runs. Nobody's paying me to make it pretty.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#2",
+    "text": "Hold that. No, HOLD it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#3",
+    "text": "They want it done by dark. Dark's in an hour.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#4",
+    "text": "Whoever wired this was in a hurry or a mood.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#5",
+    "text": "I'll trade you an hour. I'm not trading two.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#6",
+    "text": "Every job in this valley is somebody's old job done worse.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#7",
+    "text": "Careful. That's live and it lies about it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#8",
+    "text": "Two of us doing four people's day and they call that lean.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#9",
+    "text": "Don't help. Seriously. You'll help it into the ground.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#10",
+    "text": "It held all winter. It'll hold.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   },
+   {
+    "id": "worker:work#11",
+    "text": "Tell them it's done when it's done.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q001.W1",
+      "title": "TRANSACTION-CARRIES-EMOTION",
+      "applied": "open with the errand and let the weight arrive underneath. Bohemia is an economic crash simulator, so the errand IS the subject: work, water, power, rent, trade, heat."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the corpus names overheard, ordinary talk the cheapest and highest-impact characterisation available to a solo dev. Nobody in these lines is talking to the player; they are talking to each other and you happen to be there."
+     }
+    ]
+   }
+  ]
+ }
+}

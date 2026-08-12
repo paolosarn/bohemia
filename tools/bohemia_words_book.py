@@ -178,6 +178,26 @@ def parse_scene(path):
 
 
 # --------------------------------------------------------------------- bake
+def parse_barks(path):
+    """The ambient lines the walked world says. They are generated, but they are
+    still WORDS he has not approved, so they belong in WORDS like everything
+    else -- 244 lines he can retype without opening a file."""
+    with open(path, 'r', encoding='utf-8') as f:
+        d = json.load(f)
+    rel = os.path.relpath(path, ROOT).replace(os.sep, '/')
+    out = []
+    for bucket in sorted(d.get('barks', {})):
+        for r in d['barks'][bucket]:
+            out.append({
+                'kind': 'bark', 'id': rel + '#' + r['id'], 'src': rel,
+                'speaker': bucket, 'node': bucket, 'text': r.get('text') or '',
+                'draft': r.get('draft') is True, 'cites': r.get('study') or [],
+                'citeLevel': 'line', 'title': 'WHAT THE WORLD SAYS',
+            })
+    return {'src': rel, 'title': 'WHAT THE WORLD SAYS', 'kind': 'barks',
+            'cites': [], 'lines': out}
+
+
 def sources():
     """EVERY dialogue-bearing artifact, DISCOVERED not listed. A hardcoded list
     is the thing that lets a lane invent a new dialogue file the machine never
@@ -187,6 +207,9 @@ def sources():
         out += [os.path.join(BQ_DIR, f) for f in sorted(os.listdir(BQ_DIR)) if f.endswith('.bq')]
     out += [os.path.join(RECORDS, f) for f in sorted(os.listdir(RECORDS))
             if re.match(r'^BOHEMIA_SCENE_.*\.json$', f)]
+    bk = os.path.join(RECORDS, 'BOHEMIA_BARKS.json')
+    if os.path.exists(bk):
+        out.append(bk)
     return out
 
 
@@ -208,7 +231,12 @@ def fingerprint(paths):
 def harvest():
     books = []
     for p in sources():
-        books.append(parse_bq(p) if p.endswith('.bq') else parse_scene(p))
+        if p.endswith('.bq'):
+            books.append(parse_bq(p))
+        elif p.endswith('BOHEMIA_BARKS.json'):
+            books.append(parse_barks(p))
+        else:
+            books.append(parse_scene(p))
     return books
 
 
