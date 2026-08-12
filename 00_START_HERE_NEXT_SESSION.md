@@ -1,3 +1,48 @@
+CHARACTER (character-0lurbs): 8/11 LATEST -- THE OVERWORLD FACE SIZE DIAL IS DEAD BY HIS
+VERDICT. THE CHIN WORK STAYS AND IS LAW.
+
+PAOLO: "well spin back on the overworld face shit u turned me off."
+
+KILLED, with the tokens in the registry so nobody re-cooks it: BOH_SPRITE_FACE and
+spriteFaceScaled are graveyarded, the knob is out of the alpha, and
+gates/sprite_face_scale_gate.js + tools/bohemia_sprite_face_strip.js +
+tools/bohemia_sprite_face_scale_patch.py are deleted.
+POST-MORTEM: records/POSTMORTEM_OVERWORLD_FACE_SIZE_KILL_8_11_26.txt.
+
+WHY IT DIED, AND THE FAILURE IS MINE NOT THE DIAL'S. He asked for it and the measurement
+backed him -- his whole face out there is six pixels of eyes, three of nose and a TWO PIXEL
+mouth. But each eye is 2px with EXACTLY ONE pixel between them on a ~10px head, so x1.5
+changed ZERO rendered pixels and x2 fused the two eyes into one bar. THE HONEST ANSWER WAS
+ONE SENTENCE -- "the geometry cannot do this, it needs a repaint" -- and instead I built the
+dial, the gate and a four-column contact sheet and handed him a menu of options I already
+knew were bad. He judged the menu.
+WHEN THE MEASUREMENT ALREADY SAYS NO, SAY NO. Do not make him discover the no by looking at
+three bad options. The slot is answered ONLY by a REPAINT of the facial layer with the
+features authored larger, and that is HIS art.
+
+*** THE TREE SILENTLY REVERTED 771 COMMITS, AGAIN, MID-TURN. *** HEAD came back as c5d4dc6
+and `origin/main` LOCALLY READ THE SAME STALE SHA, so every "am I current?" check agreed
+with itself and lied. `git ls-remote origin main` said d6f4b42. The repair:
+    git ls-remote origin main                        <- the ONLY honest source
+    git fetch --force --no-tags origin main          <- brings the objects even if the ref
+                                                        update loses a lock race
+    git update-ref refs/remotes/origin/main <sha>    <- fix the ref by hand
+    git checkout -B <branch> origin/main
+I caught it because `git status` showed files I had committed hours earlier as untracked.
+IF SOMETHING YOU KNOW YOU COMMITTED SHOWS AS MISSING, DO NOT COMMIT -- RESYNC FIRST. A commit
+from that state would have destroyed 771 commits of fleet work.
+
+STILL LAW AND STILL SHIPPED FROM EARLIER TODAY (he approved it twice):
+  laws/BOHEMIA_ADDENDUM_THE_CHIN_LAW_8_11_26.md + gates/chin_law_gate.js (10/0)
+  the head's silhouette edge, the throat capped to one row, and the clamp that stops the
+  throat ever claiming the last face row under the mouth.
+
+NOT PENDING HIM ANY MORE: the overworld face size question is CLOSED. Do not ask it again.
+STILL HIS AND STILL OPEN: NE and NW have no face painted at all (why PARTS PAINTED and BODY
+VARIATION carry one red each -- verified identical on a clean tree, not a regression).
+
+--------------------------------------------------------------------------------
+
 ART (f3eu53): 8/11 (l) LATEST -- *** TEN OF FOURTEEN FAMILIES ARE IN THE GAME.
 THE STOREFRONT "LAYER MYSTERY" WAS THE PROBE STANDING AT THE AWNINGS. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (eleventh-pass section)
@@ -210,6 +255,7 @@ INTERIORS, REUSE FIRST.
 NEXT IN THIS LANE: THE PHONE STILL DOES NOT RING. The pipe runs world -> phone and now
 phone -> camera; the missing leg is a job ARRIVING on it and being accepted there.
 Records: BOHEMIA_ONE_ZOOM_TO_THE_MOON_8_12_26.md, BOHEMIA_YOUR_HOUSE_AND_THE_PHONE_8_11_26.md
+
 
 RUN (run-eak241): 8/12 LATEST -- ONE ZOOM, FROM HIS FEET TO THE MOON, AND BACK.
 
@@ -594,49 +640,13 @@ a quest resolves. The integration ledger's remaining gaps (district art, day cyc
 economy, dress-by-rank, vehicles) all belong to other lanes.
 
 
-CHARACTER (character-0lurbs): 8/11 LATEST -- I BUILT THE WRONG FACE FIRST. THE
-OVERWORLD FACE IS SIX PIXELS AND THE MOUTH IS TWO.
-
-PAOLO: "BRO I MEANT THE TINY PIXEL OVERWORLD FACES. NOT THE DOOM FACES SHIT MAN."
-I had scaled renderFace(), the 64x64 PORTRAIT. The face he actually looks at is on the
-56px BODY: PD.layers['facial/punk-face'], painted pixels drawn through the rest-grid path.
-
-MEASURED, IN FULL:
-    S    eyes 6px (5x2)   nose 3px (8x1)   lips 2px (2x1)
-    SE   eyes 6px         nose 2px         lips 2px
-    E    eyes 3px         nose 1px         lips 2px
-    N NE NW W SW   NOTHING PAINTED AT ALL
-The mouth is TWO PIXELS. That is the whole mouth.
-
-SHIPPED: window.BOH_SPRITE_FACE, DEFAULT 1, and at 1 spriteFaceScaled returns HIS PIXEL
-OBJECT BY IDENTITY -- not an equal copy -- so the draw path provably cannot differ by one
-pixel until he picks a setting. RIG LAW says nobody reshapes his painted regions; HE is the
-one asking, so this is a ruling, and it still ships as opt-in.
-
-*** PER CONNECTED COMPONENT, NEVER PER FEATURE, and that is the design. *** The "eyes"
-pixels span BOTH EYES AND THE GAP. Scaling that box as one region slides them apart across
-the head instead of growing them. Each feature is split into components and each grows about
-its own centre. (I made exactly that mistake on the portrait hours earlier and had to hold
-the eye gap to 35% of the scale to survive it.)
-
-*** THE HONEST CEILING: A FLAT x2 FUSES THE TWO EYES INTO ONE BAR. *** Each eye is 2px with
-exactly ONE pixel between them on a head about 10px wide. No scale fixes that -- more room
-would have to come from a REPAINT, and that is his art. So the knob takes a number OR
-{eyes,nose,lips}, and the setting that actually works ({eyes:1,nose:2,lips:2}: grow the
-mouth, leave the eyes) is something he can say. records/OVERWORLD_FACE_SCALE_8_11.png is
-all four side by side on S/SE/E.
-
-AND x1.5 IS A MATHEMATICAL NO-OP HERE -- a 1.5 scale of a 2px box rounds back to the same
-2px box, ZERO rendered pixels changed. I only found that because the gate COUNTS CHANGED
-RENDERED PIXELS instead of trusting the dial. At this size the scale is effectively integer.
-
-NEW GATE: OVERWORLD FACE (gates/sprite_face_scale_gate.js), registered. Identity at 1,
-every step moves real rendered pixels, monotonic, and the per-feature form is reachable and
-renders as its own third thing.
-
-STILL TRUE FROM EARLIER TODAY: the portrait knob (window.BOH_FACE_FEAT + FACE FEAT DIAL
-gate) is also in, also default 1. It was the wrong surface for his ask but it is inert and
-gated; rip it out if he ever says so.
+CHARACTER (character-0lurbs): 8/11 -- the overworld face size dial that this section
+described as shipped was KILLED by Paolo the same day ("well spin back on the overworld
+face shit u turned me off"). The section is removed rather than left standing, because a
+handoff that still says a corpse SHIPPED is how a corpse gets rebuilt. GRAVEYARD IS FINAL:
+records/POSTMORTEM_OVERWORLD_FACE_SIZE_KILL_8_11_26.txt. The measurement in it is the
+reusable part -- six pixels of eyes and a two-pixel mouth is WHY the answer is a repaint,
+not a dial, and it does not need taking again.
 
 --------------------------------------------------------------------------------
 
@@ -1118,49 +1128,13 @@ a quest resolves. The integration ledger's remaining gaps (district art, day cyc
 economy, dress-by-rank, vehicles) all belong to other lanes.
 
 
-CHARACTER (character-0lurbs): 8/11 LATEST -- I BUILT THE WRONG FACE FIRST. THE
-OVERWORLD FACE IS SIX PIXELS AND THE MOUTH IS TWO.
-
-PAOLO: "BRO I MEANT THE TINY PIXEL OVERWORLD FACES. NOT THE DOOM FACES SHIT MAN."
-I had scaled renderFace(), the 64x64 PORTRAIT. The face he actually looks at is on the
-56px BODY: PD.layers['facial/punk-face'], painted pixels drawn through the rest-grid path.
-
-MEASURED, IN FULL:
-    S    eyes 6px (5x2)   nose 3px (8x1)   lips 2px (2x1)
-    SE   eyes 6px         nose 2px         lips 2px
-    E    eyes 3px         nose 1px         lips 2px
-    N NE NW W SW   NOTHING PAINTED AT ALL
-The mouth is TWO PIXELS. That is the whole mouth.
-
-SHIPPED: window.BOH_SPRITE_FACE, DEFAULT 1, and at 1 spriteFaceScaled returns HIS PIXEL
-OBJECT BY IDENTITY -- not an equal copy -- so the draw path provably cannot differ by one
-pixel until he picks a setting. RIG LAW says nobody reshapes his painted regions; HE is the
-one asking, so this is a ruling, and it still ships as opt-in.
-
-*** PER CONNECTED COMPONENT, NEVER PER FEATURE, and that is the design. *** The "eyes"
-pixels span BOTH EYES AND THE GAP. Scaling that box as one region slides them apart across
-the head instead of growing them. Each feature is split into components and each grows about
-its own centre. (I made exactly that mistake on the portrait hours earlier and had to hold
-the eye gap to 35% of the scale to survive it.)
-
-*** THE HONEST CEILING: A FLAT x2 FUSES THE TWO EYES INTO ONE BAR. *** Each eye is 2px with
-exactly ONE pixel between them on a head about 10px wide. No scale fixes that -- more room
-would have to come from a REPAINT, and that is his art. So the knob takes a number OR
-{eyes,nose,lips}, and the setting that actually works ({eyes:1,nose:2,lips:2}: grow the
-mouth, leave the eyes) is something he can say. records/OVERWORLD_FACE_SCALE_8_11.png is
-all four side by side on S/SE/E.
-
-AND x1.5 IS A MATHEMATICAL NO-OP HERE -- a 1.5 scale of a 2px box rounds back to the same
-2px box, ZERO rendered pixels changed. I only found that because the gate COUNTS CHANGED
-RENDERED PIXELS instead of trusting the dial. At this size the scale is effectively integer.
-
-NEW GATE: OVERWORLD FACE (gates/sprite_face_scale_gate.js), registered. Identity at 1,
-every step moves real rendered pixels, monotonic, and the per-feature form is reachable and
-renders as its own third thing.
-
-STILL TRUE FROM EARLIER TODAY: the portrait knob (window.BOH_FACE_FEAT + FACE FEAT DIAL
-gate) is also in, also default 1. It was the wrong surface for his ask but it is inert and
-gated; rip it out if he ever says so.
+CHARACTER (character-0lurbs): 8/11 -- the overworld face size dial that this section
+described as shipped was KILLED by Paolo the same day ("well spin back on the overworld
+face shit u turned me off"). The section is removed rather than left standing, because a
+handoff that still says a corpse SHIPPED is how a corpse gets rebuilt. GRAVEYARD IS FINAL:
+records/POSTMORTEM_OVERWORLD_FACE_SIZE_KILL_8_11_26.txt. The measurement in it is the
+reusable part -- six pixels of eyes and a two-pixel mouth is WHY the answer is a repaint,
+not a dial, and it does not need taking again.
 
 --------------------------------------------------------------------------------
 
@@ -2008,49 +1982,13 @@ a quest resolves. The integration ledger's remaining gaps (district art, day cyc
 economy, dress-by-rank, vehicles) all belong to other lanes.
 
 
-CHARACTER (character-0lurbs): 8/11 LATEST -- I BUILT THE WRONG FACE FIRST. THE
-OVERWORLD FACE IS SIX PIXELS AND THE MOUTH IS TWO.
-
-PAOLO: "BRO I MEANT THE TINY PIXEL OVERWORLD FACES. NOT THE DOOM FACES SHIT MAN."
-I had scaled renderFace(), the 64x64 PORTRAIT. The face he actually looks at is on the
-56px BODY: PD.layers['facial/punk-face'], painted pixels drawn through the rest-grid path.
-
-MEASURED, IN FULL:
-    S    eyes 6px (5x2)   nose 3px (8x1)   lips 2px (2x1)
-    SE   eyes 6px         nose 2px         lips 2px
-    E    eyes 3px         nose 1px         lips 2px
-    N NE NW W SW   NOTHING PAINTED AT ALL
-The mouth is TWO PIXELS. That is the whole mouth.
-
-SHIPPED: window.BOH_SPRITE_FACE, DEFAULT 1, and at 1 spriteFaceScaled returns HIS PIXEL
-OBJECT BY IDENTITY -- not an equal copy -- so the draw path provably cannot differ by one
-pixel until he picks a setting. RIG LAW says nobody reshapes his painted regions; HE is the
-one asking, so this is a ruling, and it still ships as opt-in.
-
-*** PER CONNECTED COMPONENT, NEVER PER FEATURE, and that is the design. *** The "eyes"
-pixels span BOTH EYES AND THE GAP. Scaling that box as one region slides them apart across
-the head instead of growing them. Each feature is split into components and each grows about
-its own centre. (I made exactly that mistake on the portrait hours earlier and had to hold
-the eye gap to 35% of the scale to survive it.)
-
-*** THE HONEST CEILING: A FLAT x2 FUSES THE TWO EYES INTO ONE BAR. *** Each eye is 2px with
-exactly ONE pixel between them on a head about 10px wide. No scale fixes that -- more room
-would have to come from a REPAINT, and that is his art. So the knob takes a number OR
-{eyes,nose,lips}, and the setting that actually works ({eyes:1,nose:2,lips:2}: grow the
-mouth, leave the eyes) is something he can say. records/OVERWORLD_FACE_SCALE_8_11.png is
-all four side by side on S/SE/E.
-
-AND x1.5 IS A MATHEMATICAL NO-OP HERE -- a 1.5 scale of a 2px box rounds back to the same
-2px box, ZERO rendered pixels changed. I only found that because the gate COUNTS CHANGED
-RENDERED PIXELS instead of trusting the dial. At this size the scale is effectively integer.
-
-NEW GATE: OVERWORLD FACE (gates/sprite_face_scale_gate.js), registered. Identity at 1,
-every step moves real rendered pixels, monotonic, and the per-feature form is reachable and
-renders as its own third thing.
-
-STILL TRUE FROM EARLIER TODAY: the portrait knob (window.BOH_FACE_FEAT + FACE FEAT DIAL
-gate) is also in, also default 1. It was the wrong surface for his ask but it is inert and
-gated; rip it out if he ever says so.
+CHARACTER (character-0lurbs): 8/11 -- the overworld face size dial that this section
+described as shipped was KILLED by Paolo the same day ("well spin back on the overworld
+face shit u turned me off"). The section is removed rather than left standing, because a
+handoff that still says a corpse SHIPPED is how a corpse gets rebuilt. GRAVEYARD IS FINAL:
+records/POSTMORTEM_OVERWORLD_FACE_SIZE_KILL_8_11_26.txt. The measurement in it is the
+reusable part -- six pixels of eyes and a two-pixel mouth is WHY the answer is a repaint,
+not a dial, and it does not need taking again.
 
 --------------------------------------------------------------------------------
 

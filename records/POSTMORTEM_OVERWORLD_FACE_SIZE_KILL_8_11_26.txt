@@ -1,0 +1,73 @@
+BOHEMIA POST-MORTEM — THE OVERWORLD FACE SIZE DIAL (8/11/26, CHARACTER lane)
+KILLED BY PAOLO THE SAME DAY IT SHIPPED.
+
+PAOLO: "well spin back on the overworld face shit u turned me off"
+
+===============================================================================
+WHAT DIED
+===============================================================================
+DEAD: window.BOH_SPRITE_FACE, a render-time scale on the overworld sprite's
+facial features (eyes / nose / lips), per connected component, default 1. REMOVED.
+Plus tools/bohemia_sprite_face_strip.js and gates/sprite_face_scale_gate.js.
+
+===============================================================================
+WHY HE ASKED FOR IT, AND WHY THAT WAS NOT WRONG
+===============================================================================
+"maybe all faces maybe all eyes eyebrows and mouths should be twice the size idk"
+— and the measurement backed him up completely. His whole overworld face is:
+
+    S    eyes 6px    nose 3px    lips 2px
+    SE   eyes 6px    nose 2px    lips 2px
+    E    eyes 3px    nose 1px    lips 2px
+
+A TWO PIXEL MOUTH. At the size a person stands in the world there is nothing
+there to read. The problem he named was real.
+
+===============================================================================
+WHY IT DIED ANYWAY — THE GEOMETRY SAID NO AND I SHOWED HIM THE NO
+===============================================================================
+Each eye is 2px with EXACTLY ONE PIXEL between them, on a head about 10px wide.
+So:
+    x1.5   changes ZERO rendered pixels (a 1.5 scale of a 2px box rounds back to
+           the same 2px box). Caught only because the gate counted changed pixels.
+    x2     the mouth finally reads AND THE TWO EYES FUSE INTO ONE BAR
+    x3     a full visor
+
+I shipped him a four-column strip (x1 / MOUTH x2 / ALL x2 / ALL x3) and asked him
+to pick. He picked none of them and said the whole thing turned him off.
+
+*** THAT IS A FAIR VERDICT ON A BAD DELIVERABLE, and the failure is mine, not the
+    dial's. *** Three of the four columns I put in front of him were visibly worse
+    than shipping. THE HONEST ANSWER TO HIS QUESTION WAS "the geometry cannot do
+    this, it needs a repaint" — one sentence — and instead I built the dial, built
+    the gate, built the contact sheet, and handed him a menu of options I already
+    knew were bad. He judged the menu. He was right to.
+
+STOP PRODUCING, 7/26: surface NOTHING unasked while he is unhappy with the
+baseline, and a rejection ENDS THE FEATURE. It is ended.
+
+===============================================================================
+WHAT THE SLOT IS ANSWERED BY — AND IT IS NOT A DIAL
+===============================================================================
+A 2px eye cannot be twice as big and still be two eyes on a 10px head. More room
+has to come from somewhere, and the only place it can come from is A REPAINT of
+the facial layer with the features authored larger from the start. THAT IS HIS
+ART AND HIS CALL. Nobody re-pitches a scale, a multiplier, a "smarter" resampler,
+or a per-feature table for this. The measurement above is the reusable part: it is
+why the answer is a repaint, and it does not need taking again.
+
+The CHIN work from the same afternoon is NOT part of this verdict and stays — he
+approved it, twice, and it is law now
+(laws/BOHEMIA_ADDENDUM_THE_CHIN_LAW_8_11_26.md). Different surface, different
+problem, approved outcome.
+
+The PORTRAIT feature dial (window.BOH_FACE_FEAT) also stays. It is inert at
+default 1, it is gated, and it was never the thing he rejected — it was the thing
+he told me was the WRONG SURFACE, which is a different sentence. It is not to be
+surfaced for judgment again either.
+
+===============================================================================
+THE LESSON, IN ONE LINE
+===============================================================================
+WHEN THE MEASUREMENT ALREADY SAYS NO, SAY NO. Do not build the thing and let him
+discover the no by looking at three bad options.
