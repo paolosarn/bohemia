@@ -1,3 +1,67 @@
+RUN (run-eak241): 8/12 (b) LATEST -- THE PHONE RINGS. THE DAY STARTS WITH NO JOB.
+
+The phone was in his pocket and knew where he was, and it was still a VIEWER. Nothing
+ever arrived on it; nothing he did on it changed the day. EVERY PHONE FEATURE SO FAR
+COULD HAVE BEEN DELETED AND THE GAME WOULD HAVE PLAYED IDENTICALLY -- that is the test a
+feature has to pass, and it was failing it.
+
+THE SHAPE WAS ALREADY IN THE ENGINE, in its own comment, since it was written:
+  engine/bohemia_loop.js -- "THE FEED OFFERS: the quests you can pick up OVER THE PHONE
+  right now -- the 'feed' channel ... In-person quests (the phoneless: homeless) are
+  deliberately EXCLUDED ... This is 'you can't get their quest over the phone.'"
+The demo was skipping the channel by handing him the day's job on the wake card, done
+deal, before he touched anything. FOURTH TIME THIS LANE HAS FOUND THE SAME THING: the
+work exists and is not in the surface he taps.
+
+NOW: 06:00, no objective, the card says something came in. Tap PHONE (badge 1). The job
+is there in the QUEST'S OWN WORDS (diffed against the .bq). TAKE IT, and the objective
+goes live. Ignore it and the day is his.
+AND NOT TAKING A JOB IS NOT FAILING IT -- a distinction the old auto-start could not
+express, because a quest that starts itself can only be resolved or FAILED:
+  took it, resolved     -> the quest's own COMPLETE stage
+  took it, out of light -> the quest's own FAIL stage. THE TEETH STAY.
+  never took it         -> nothing runs; the reckoning says "never taken".
+
+*** TWO SILENT BUGS OF MINE, AND THE SECOND ONE IS EVERY LANE'S ***
+
+1. THE DAY LOOP WAS THROWING AWAY THE CONSEQUENCE OF THE DAY. Nightfall fires the FAIL
+   stage AFTER endDay() sets phase='ended', and my ledger only accepted entries while
+   'awake' -- so the ONE LINE the reckoning card exists to show was dropped every single
+   time. The outcome was right; the words never reached the screen.
+
+2. FOUR MODULES WERE NEVER IN THE ENGINE SYNC SWEEP AND MY 8/11 COMMIT SAID THEY WERE.
+   The resync scanner is `s.startswith('/* ==== engine/') and s.endswith('==== */')`.
+   My banner trailed a marker comment, so endswith() was false and bq / quest_runtime /
+   dayloop / demoquests sat OUTSIDE the sweep -- while it cheerfully reported "43
+   embedded, 43 already fresh" about a module I had just changed and it had not touched.
+   A CLAIMED REUSE THE MACHINE DOES NOT ACTUALLY PERFORM IS WORSE THAN NO CLAIM: it buys
+   false confidence. Fixed at source and in the tool, 42 -> 47 modules actually swept,
+   proved by drifting one on purpose and watching it come back STALE.
+   *** FOR THE WORLD LANE: two of your banners fail the same test and your modules are
+   also outside the sweep -- engine/bohemia_agents.js and engine/bohemia_population.js.
+   Their banner lines WRAP onto a second line, so endswith('==== */') is false. One-line
+   banner and they are back in. ***
+
+GATES UPDATED, NOT WEAKENED: dayloop_gate and home_phone_gate encoded the old auto-start.
+They now assert the day starts with an EMPTY objective line -- something the old design
+could never have passed.
+Gate: phone_rings_gate.js, 21 assertions, real buttons, BOTH scenarios (he takes it and
+runs out of light; he never takes it). DAY LOOP 54/54, HOME+PHONE 24/24, ONE ZOOM 16/16.
+
+STILL RED AND NOT MINE (each verified red on origin/main too): DISTRICT FILL, ROAD CELLS,
+TEXTURE MATCH, VOICE SURFACES, ROUND + DOORS, HAIR, PARTS PAINTED, BODY VARIATION,
+ONE WORLD TAB, INTERIORS, REUSE FIRST, RENDER PIXEL.
+  ONE OF THOSE DESERVES A SECOND LOOK FROM WHOEVER OWNS IT: RENDER PIXEL wants >5000
+  draws and gets 4876 on origin/main -- so it is red on both sides -- but MY tree
+  measures 3238. A 34% drop in recorded draws is a real signal even though the gate was
+  already red, and it is not something I can attribute to my own changes (the sky band
+  only draws when you are IN it). Worth someone's eyes.
+
+NEXT IN THIS LANE: THE PHONE DOES NOT BUZZ. The badge appears in silence. There is a
+phone_buzz in the sound lane's world already and the SFX bus is live in the alpha, so
+this is a WIRING job, not a cook.
+Records: BOHEMIA_THE_PHONE_RINGS_8_12_26.md, BOHEMIA_ONE_ZOOM_TO_THE_MOON_8_12_26.md
+
 CHARACTER (character-0lurbs): 8/11 LATEST -- THE OVERWORLD FACE SIZE DIAL IS DEAD BY HIS
 VERDICT. THE CHIN WORK STAYS AND IS LAW.
 
