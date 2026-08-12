@@ -1,11 +1,6 @@
-# BOHEMIA — THE BOSS LADDER v6: 56 CANDIDATES, ACT 1 GOT MUCH BIGGER (8/7/26)
+# BOHEMIA — THE BOSS LADDER v7: 53 CANDIDATES, AUDITED AGAINST THE GDD (8/7/26)
 
-> **SUPERSEDED 8/7/26 by `BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md`** (53 bosses). v7 is the live
-> ladder: the GDD consistency audit killed four of these (THE SPOKE, THE RECLAIM, THE VOICE,
-> THE EXCHANGE), moved THE PUMP to act 2 on his reversal, and added THE CISTERN to act 1 on his
-> rain-collection ruling. Read v7, not this. Kept for the history and for the four post-mortems.
-
-**THIS WAS THE LIVE LADDER.** Superseded v5. v1-v5 stays as the history, and v1's thirteen remain
+**THIS IS THE LIVE LADDER.** Supersedes v6. v1-v6 stays as the history, and v1's thirteen remain
 byte-identical inside the 8/3 file. Still **a pool to cut from, not a shipping list.**
 
 ---
@@ -74,61 +69,56 @@ field**, and that is a far better fantasy than finding a tanker. THE REFINERY is
 
 ---
 
-## ACT 1 — ANIMAL. SURVIVE. Twenty candidates, and it now ends on a birth.
+## ACT 1 — ANIMAL. SURVIVE. Nineteen candidates, and it now ends on a birth.
 
 | # | BOSS | HOLDS | THE LOCK (impossible before) | WHAT BESTING THEM GRANTS | KIND |
 |---|---|---|---|---|---|
 | 1 | **THE POT** | the last sound cookware | raw and spoiled food cannot be made safe | cook — **and it is the FIRST boss, played absurdly straight** | GEAR |
-| 2 | **THE TAP** | a live water main | you cannot be far from water for long | draw water from any pipe in the valley | WORLD |
+| 2 | **THE TAP** | the pressure, and who is allowed any | you cannot draw water somebody else owns the pipe for | draw from any main in the valley, whoever thinks they own it | WORLD |
 | 3 | **THE FILTER** | the last clean-water setup | you cannot drink what you find without it turning on you | purify, so any water is water | GEAR |
 | 4 | **THE BURN** | fuel, and who gets warm | night ends your day, cold sends you home | light a fire anywhere, so you get the night back | WORLD |
-| 5 | **THE SPOKE** | the last wheels that still true | you cannot move faster than you can walk | ride, so the valley halves | WORLD |
-| 6 | **THE SURVEYOR** | the last complete map | you only know what you have walked | **unlock the map**, so the valley stops being a rumour | WORLD |
-| 7 | **THE CLIMB** | the last hoist that lifts | everything above the ground floor is scenery | reach roofs, upper floors and towers | WORLD |
-| 8 | **THE LOCKSMITH** | every lock still working | a locked door cannot be opened quietly | pick it, kick a cheap one, or take a mould and cut the key at base | WORLD |
-| 9 | **THE CHARGE** | who still has anything that goes off | a wall is a wall, and a door is the only way in | blow a permanent hole where YOU choose, with improvised demolition charges | WORLD |
-| 10 | **THE PUMP** | the last pressure set | water cannot reach above the ground floor | pressurise, so a tall building can be lived in | WORLD |
-| 11 | **THE MACHINIST** | the pipe, the cap and the nail | a firearm is something you FIND, never something you make | weld pipe weapons, crude and yours | GEAR |
-| 12 | **THE PLATE** | the last press brake | nothing you own can be armoured | press scrap into armour that stops something | GEAR |
-| 13 | **THE TOOTH** | the only working dental kit | a bad tooth cannot be fixed, only endured | **fix a tooth** — main-quest weight, on his ruling | GEAR |
-| 14 | **THE LENS** | the last ground glass | you cannot see detail, near or far | correct your sight, and grind what you need to see with | GEAR |
-| 15 | **THE BARBER** | the chair, the blade, the bleach | you cannot choose how you look | shave, bleach and fade, at the cost of real materials | LOOK |
-| 16 | **THE INK** | the last needles and pigment | nothing on you says who you are by choice | mark yourself permanently, and others read it | LOOK |
-| 17 | **THE DOGS** | the last kennel in the valley | you cannot watch and sleep at the same time | take a dog: it walks with you, or it holds your gate | PEOPLE |
-| 18 | **THE WARD** | the last clinic, and what is left in it | a wound you cannot treat is a death | treat and dose, so a bad day stops being the last one | PEOPLE |
-| 19 | **THE SMITH** | the last forge that still lights | you cannot make anything at home, only carry what you found | run a **WORKSHOP** at base: scrap becomes resource currency, weapons get customised | GEAR |
-| 20 | **THE MIDWIFE** | every birth in the valley | nothing guarantees the line continues | **bring a birth through — AND THIS CLOSES ACT 1** | PEOPLE |
+| 5 | **THE SURVEYOR** | the last complete map | you only know what you have walked | **unlock the map**, so the valley stops being a rumour | WORLD |
+| 6 | **THE CLIMB** | the last hoist that lifts | everything above the ground floor is scenery | reach roofs, upper floors and towers | WORLD |
+| 7 | **THE LOCKSMITH** | every lock still working | a locked door cannot be opened quietly | pick it, kick a cheap one, or take a mould and cut the key at base | WORLD |
+| 8 | **THE CHARGE** | who still has anything that goes off | a wall is a wall, and a door is the only way in | blow a permanent hole where YOU choose, with improvised demolition charges | WORLD |
+| 9 | **THE MACHINIST** | the pipe, the cap and the nail | a firearm is something you FIND, never something you make | weld pipe weapons, crude and yours | GEAR |
+| 10 | **THE PLATE** | the last press brake | nothing you own can be armoured | press scrap into armour that stops something | GEAR |
+| 11 | **THE TOOTH** | the only working dental kit | a bad tooth cannot be fixed, only endured | **fix a tooth** — main-quest weight, on his ruling | GEAR |
+| 12 | **THE LENS** | the last ground glass | you cannot see detail, near or far | correct your sight, and grind what you need to see with | GEAR |
+| 13 | **THE BARBER** | the chair, the blade, the bleach | you cannot choose how you look | shave, bleach and fade, at the cost of real materials | LOOK |
+| 14 | **THE INK** | the last needles and pigment | nothing on you says who you are by choice | mark yourself permanently, and others read it | LOOK |
+| 15 | **THE DOGS** | the last kennel in the valley | you cannot watch and sleep at the same time | take a dog: it walks with you, or it holds your gate | PEOPLE |
+| 16 | **THE WARD** | the last clinic, and what is left in it | a wound you cannot treat is a death | treat and dose, so a bad day stops being the last one | PEOPLE |
+| 17 | **THE CISTERN** | every roof worth catching rain off | you cannot get water without asking somebody who owns it | **catch the monsoon off the rooftops, and stop asking anybody for water** | WORLD |
+| 18 | **THE SMITH** | the last forge that still lights | you cannot make anything at home, only carry what you found | run a **WORKSHOP** at base: scrap becomes resource currency, weapons get customised | GEAR |
+| 19 | **THE MIDWIFE** | every birth in the valley | nothing guarantees the line continues | **bring a birth through — AND THIS CLOSES ACT 1** | PEOPLE |
 
-**★ 1 IS HIS AND IT SHOULD BE FUNNY.** *"maybe this can be the first boss and we can
+**★ THE POT IS HIS AND IT SHOULD BE FUNNY.** *"maybe this can be the first boss and we can
 overdramatize it and itd be funny. like no boss just unlock the skill to cook meals or whatever.
 right off the bat."* So the game's first Forsaken-power moment is somebody's grip on a saucepan,
 scored and staged like the end of the world, and what you win is **cooking**. It teaches the whole
 grammar of the ladder in ninety seconds and it undercuts itself while doing it. **Tone note, not a
 mechanic note: play it absolutely straight. The joke dies if the game winks.**
 
-**★ 10 CAME WITH ITS OWN LORE, FROM HIM.** *"in act 1 the mob has to have its indentured servants
-carry big ass water buckets up the stairs for its rich clients."* That image is the boss: somebody
-is running a bucket chain up a tower for people who can pay, and the reason it exists is that
-nobody has pressure. Beat it and the stairs stop being a tax.
-
-**★ 19 AT THE END OF ACT 1 IS THE RIGHT HINGE** (*"seems like this leans towards the end of act 1
+**★ THE SMITH AT THE END OF ACT 1 IS THE RIGHT HINGE** (*"seems like this leans towards the end of act 1
 please"*): THE SMITH's workshop is the first thing you own that **keeps working while you are not
 there**, which is precisely the difference between act 1 (you do it) and act 2 (your crews do it).
 
-**★★ 20 CLOSES ACT 1, AND IT PUTS A REQUIREMENT ON THE WHOLE ACT.** *"must have a relationship and
+**★★ THE MIDWIFE CLOSES ACT 1, AND IT PUTS A REQUIREMENT ON THE WHOLE ACT.** *"must have a relationship and
 shit to before act 1 closes."* So act 1 is not a checklist of tools — **it has to contain a
 relationship arc that matters, or its ending is unearned.** That is the PEOPLE lane's to build and
 it is flagged to them. This record does not design it and sets no numbers.
 
-## ACT 2 — HUMAN. PRE-INDUSTRIAL. Nineteen candidates. Food first, car last.
+## ACT 2 — HUMAN. PRE-INDUSTRIAL. Twenty candidates. Food first, car last.
 
 | # | BOSS | HOLDS | THE LOCK (impossible before) | WHAT BESTING THEM GRANTS | KIND |
 |---|---|---|---|---|---|
-| 21 | **THE SOIL** | the last living ground | your population is capped by food | grow on ground that was dead | WORLD |
-| 22 | **THE SEED** | what was saved from before | this year's crop cannot become next year's | save seed, so a harvest repeats without you finding one | WORLD |
-| 23 | **THE VAT** | the surviving bioreactors | protein cannot be produced at all, only hunted or traded for | **culture protein at volume: it feeds a city, and real meat becomes a luxury** | WORLD |
-| 24 | **THE COLD** | the last compressor | nothing keeps, so a surplus cannot exist | chill it, so a surplus can exist at all | WORLD |
-| 25 | **THE DRAIN** | where the waste goes | a filthy district's population cap is ZERO | clear the filth, so a settler will accept a bed there | WORLD |
+| 20 | **THE SOIL** | the golf courses, irrigation already in the ground | your population is capped by food | farm the fairways: strip-fields on the dogleg ghosts, greens as seedbeds | WORLD |
+| 21 | **THE SEED** | what was saved from before | this year's crop cannot become next year's | save seed, so a harvest repeats without you finding one | WORLD |
+| 22 | **THE VAT** | the surviving bioreactors | protein cannot be produced at all, only hunted or traded for | **culture protein at volume: it feeds a city, and real meat becomes a luxury** | WORLD |
+| 23 | **THE COLD** | the last compressor | nothing perishable can be kept at all | chill meat, medicine and culture, which no granary can hold | WORLD |
+| 24 | **THE DRAIN** | where the waste goes | a filthy district's population cap is ZERO | clear the filth, so a settler will accept a bed there | WORLD |
+| 25 | **THE PUMP** | the last pressure set | water cannot reach above the ground floor | pressurise, so a tall building can be lived in | WORLD |
 | 26 | **THE LIGHTS** | a lit block | the dark belongs to whoever owns the light | switch on any street in the valley | WORLD |
 | 27 | **THE QUARRY** | the pit and what comes out of it | stone cannot be had faster than one armful at a time | cut raw material at scale | WORLD |
 | 28 | **THE GLASS** | the last float line and annealer | a window cannot be made, only found intact or gone without | make flat glass, so buildings seal and light | GEAR |
@@ -144,56 +134,83 @@ it is flagged to them. This record does not design it and sets no numbers.
 | 38 | **THE SURGEON** | the last theatre that still works | a body cannot be repaired beyond bandaging | operate, so people survive what used to end them | PEOPLE |
 | 39 | **THE ENGINE** | the last vehicle that runs | the valley is too big to cross, even mounted | **drive** — and act 2 ends the moment you do | WORLD |
 
-**★ 32 IS HIS REFRAME AND IT IS MUCH BETTER THAN MINE.** *"how bout instead this is the beginning
+**★ THE PUMP CAME WITH ITS OWN LORE, FROM HIM, AND HIS ACT 2 REVERSAL MADE THAT LORE WORK BETTER.**
+*"in act 1 the mob has to have its indentured servants carry big ass water buckets up the stairs for
+its rich clients."* Somebody is running a bucket chain up a tower for people who can pay, and the
+reason it exists is that nobody has pressure. **That bucket chain is now an ACT 1 CONDITION you live
+under and cannot fix** — you watch it for a whole act — and THE PUMP in act 2 is the boss that ends
+it. Beat it and the stairs stop being a tax. With THE PUMP in act 1 the injustice never had time to
+land; at act 2 it has been sitting on you for nineteen bosses.
+
+**★ THE POUR IS HIS REFRAME AND IT IS MUCH BETTER THAN MINE.** *"how bout instead this is the beginning
 of you being able to upgrade buildings and make more advanced buildings unavailable prior."* My
 version invented a decay problem that does not exist in the game — he replaced it with a real
 city-builder verb. **THE POUR is now the boss that opens BUILDING TIERS**, and that is the single
 most load-bearing city-builder unlock on the ladder.
 
-**★ 34 WENT DEEPER ON HIS NOTE** (*"maybe go deeper"*). A cleared road is not a permanent gift: it
+**★ THE ROAD WENT DEEPER ON HIS NOTE** (*"maybe go deeper"*). A cleared road is not a permanent gift: it
 is a chokepoint somebody was **taxing**, and clearing it means **holding** it. That pairs THE ROAD
-with THE WALL (35) into one idea — a through-route you must defend — instead of a one-off unlock.
+with THE WALL into one idea — a through-route you must defend — instead of a one-off unlock.
 
-**★ 38 MOVED TO THE SECOND HALF OF ACT 2** on his ruling, and it is also the on-ramp to act 3's
+**★ THE SURGEON MOVED TO THE SECOND HALF OF ACT 2** on his ruling, and it is also the on-ramp to act 3's
 chrome: a theatre that can operate on a body is what makes an implant thinkable later.
 
-## ACT 3 — ANGEL. INDUSTRIAL, AND EARLY NIGHT CITY. Seventeen candidates.
+## ACT 3 — ANGEL. INDUSTRIAL, AND EARLY NIGHT CITY. Fourteen candidates.
 
 | # | BOSS | HOLDS | THE LOCK (impossible before) | WHAT BESTING THEM GRANTS | KIND |
 |---|---|---|---|---|---|
 | 40 | **THE RAIL** | the railyard and what still rolls | freight cannot move faster than one truck | move freight at scale — **and it buys you standing as the valley's de facto mayor** | WORLD |
-| 41 | **THE DAM** | the dam, running at a fraction of what it was | the valley cannot stop rationing water and power | **restore it to full**, and the rationing ends | WORLD |
+| 41 | **THE DAM** | the dam, running at a fraction of its 2GW | the valley cannot stop rationing POWER | **restore it to full**, and the power rationing ends | WORLD |
 | 42 | **THE GRID** | the whole network | power is local, and a district lives or dies alone | feed power to any district you choose | WORLD |
-| 43 | **THE RECLAIM** | the treatment works | no drop can be used twice | reclaim water, so the city is not capped by rain | WORLD |
-| 44 | **THE LINE** | the last assembly line | nothing can be made twice exactly the same | manufacture MANY of one thing, identically | GEAR |
-| 45 | **THE BOARD** | the last of the components | a circuit cannot be made, only cannibalised | fabricate electronics, so new machines are possible | GEAR |
-| 46 | **THE LIFT** | the last elevators with cable on them | a tall building is only as useful as its stairs | raise people and loads, so height becomes usable | WORLD |
-| 47 | **THE TOWER** | the cranes | you cannot change the skyline | build UP, and change what the valley looks like from anywhere in it | LOOK |
-| 48 | **THE HOUSE** | the last floor that still takes a bet | the valley has no economy anybody outside would join | deal again, and Vegas earns the way Vegas earned | LOOK |
-| 49 | **THE MARQUEE** | the lights on the Strip | arrivals are a trickle you cannot influence | **turn the lights on and the trickle becomes a stream** | LOOK |
-| 50 | **THE WING** | the airfield and the one airframe | you cannot leave the valley, or see it whole | fly, and the valley stops being the world | WORLD |
-| 51 | **THE SCHOOL** | who gets taught | your heir cannot inherit anything you learned | teach, so an heir starts with what you knew | PEOPLE |
-| 52 | **THE CREDITOR** | every favour anybody still owes | some things one person cannot do at all | **call a debt in: somebody arrives and does it** | PEOPLE |
-| 53 | **THE EXCHANGE** | where favours get traded | clout cannot be spent twice | compound clout, so standing pays for building | PEOPLE |
-| 54 | **THE VOICE** | the only relay still standing | nobody knows you exist, so nobody comes | your phone calls people IN, and they settle | PEOPLE |
-| 55 | **THE IMPLANT** | the first working cyberware in the valley | a body is only what you were born with | fit chrome — **and whoever supplied it knows where you are** | GEAR |
-| 56 | **THE UPLINK** | the one antenna reaching something bigger | nothing outside the valley can reach you, which is why you are safe | reconnect the valley — **and something answers** | WORLD |
+| 43 | **THE LINE** | the last assembly line | nothing can be made twice exactly the same | manufacture MANY of one thing, identically | GEAR |
+| 44 | **THE BOARD** | the last of the components | a circuit cannot be made, only cannibalised | fabricate electronics, so new machines are possible | GEAR |
+| 45 | **THE LIFT** | the last elevators with cable on them | a tall building is only as useful as its stairs | raise people and loads, so height becomes usable | WORLD |
+| 46 | **THE TOWER** | the cranes | you cannot change the skyline | build UP, and change what the valley looks like from anywhere in it | LOOK |
+| 47 | **THE HOUSE** | the last floor that still takes a bet | the valley has no economy anybody outside would join | deal again, and Vegas earns the way Vegas earned | LOOK |
+| 48 | **THE MARQUEE** | the lights on the Strip | arrivals are a trickle you cannot influence | **turn the lights on and the trickle becomes a stream** | LOOK |
+| 49 | **THE WING** | the airfield and the one airframe | you cannot leave the valley, or see it whole | fly, and the valley stops being the world | WORLD |
+| 50 | **THE SCHOOL** | who gets taught | your heir cannot inherit anything you learned | teach, so an heir starts with what you knew | PEOPLE |
+| 51 | **THE CREDITOR** | every favour anybody still owes | some things one person cannot do at all | **call a debt in: somebody arrives and does it** | PEOPLE |
+| 52 | **THE IMPLANT** | the first working cyberware in the valley | a body is only what you were born with | fit chrome — **and whoever supplied it knows where you are** | GEAR |
+| 53 | **THE UPLINK** | the one antenna reaching something bigger | nothing outside the valley can reach you, which is why you are safe | reconnect the valley — **and something answers** | WORLD |
 
-**★ 41 ON HIS RULING** (*"maybe just like fully repair it back to mostly operational instead of
+**★ THE DAM ON HIS RULING** (*"maybe just like fully repair it back to mostly operational instead of
 kinda operational"*): the dam is **not dead**, it is limping, which is why the valley has any power
 at all. The boss is the restoration, and the grant is that **rationing ends** — much stronger than
 switching something on from zero.
 
-**★ 40 ON HIS RULING** (*"repairing this could expedite your standing of pseudo mayor and fasten
+**★ THE RAIL ON HIS RULING** (*"repairing this could expedite your standing of pseudo mayor and fasten
 the city building shit"*): THE RAIL is the first boss whose grant is partly **political** — freight
 at scale makes you the person the valley depends on, and that is what a mayor is in a city with no
 elections.
 
-**★ 49 CORRECTED ON HIS LORE** (*"people are pulling up to vegas anyway"*): the lock was wrong.
+**★ THE MARQUEE CORRECTED ON HIS LORE** (*"people are pulling up to vegas anyway"*): the lock was wrong.
 People already come. What you cannot do is **influence it** — so the grant is an accelerator, not
 an invention.
 
 ---
+
+## WHAT THE GDD AUDIT KILLED — FOUR, AND CANON HAD ALREADY OPENED ALL FOUR DOORS
+
+Full audit: `records/BOHEMIA_LADDER_VS_GDD_AUDIT_8_7_26.md`.
+
+| BOSS | WHY |
+|---|---|
+| **THE VOICE** | KILLED. **the radio station is already BUILT + LOCKED** in GDD v5 (*"no radio, no market; whoever holds the microphone shapes the truth"*), so this was a boss for a capability the valley already has. **That is almost certainly why it failed approval five passes running — there was nothing to unlock.** |
+| **THE RECLAIM** | KILLED. GDD v5: *"the reclaim plant kept running, **THE survival event**"*, and *"every calorie in Bohemia has passed through the reclaim plant twice."* Its lock was the exact opposite of canon. |
+| **THE SPOKE** | KILLED. The LOCKED vehicle ladder says *"START: **MAN-POWERED travel only — bikes, scooters, skateboards**"*. You begin with a bike; the boss granted what you own. |
+| **THE EXCHANGE** | KILLED, folded into THE CREDITOR. GDD v5 reserves **THE GUARANTOR** — *"the guarantor/banker seat is an unassigned faction-defining power position [PENDING, and it is a big one]"* — and my two bosses were that one seat described twice. |
+
+**AND SIX OF THE SEVEN HARD CONFLICTS IN THAT AUDIT WERE MINE, NOT THE GDD'S.** The pattern is
+the one this lane has now named three times in a single day: **I invented locks without checking
+whether canon had already opened that door.** The GDD says the reclaim plant runs, the granary
+exists, the radio exists and you start on a bike — and I had written a boss for all four.
+
+**★ AND ONE HONEST CONSEQUENCE I AM NOT PAPERING OVER: KILLING THE VOICE AND THE EXCHANGE THINNED
+ACT 3's PEOPLE TIER.** Act 3 is supposed to be the act where the city runs itself around you, and
+it now has fewer PEOPLE bosses than act 1 does. That is a real hole the audit opened and it needs
+refilling with something canon actually supports — not with the two I just removed. **[PENDING
+Paolo], and I would rather flag it than fake the balance.**
 
 ## WHAT DIED THIS PASS — SEVEN
 

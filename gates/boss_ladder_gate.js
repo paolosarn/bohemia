@@ -34,7 +34,7 @@
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
-const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_v6_8_7_26.md';
+const LADDER = 'records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md';
 const RULINGS = 'records/BOHEMIA_HIS_BOSS_RULINGS_8_7_26.md';
 
 let pass = 0, fail = 0;
@@ -74,6 +74,39 @@ ok('B2 the numbers run 1..N with no gaps or duplicates',
 ok('B3 no boss is missing its LOCK or its KEY',
    rows.every(r => r.lock.length > 8 && r.key.length > 8));
 
+/* ★ B5/B6 EXIST BECAUSE 85 GREEN CHECKS SHIPPED A FILE WHOSE OWN HEADERS LIED.
+   v7 renumbered 56 rows down to 53 and every act header still spelled out the v6 count
+   ("Twenty candidates" over an act of nineteen), and ten star notes still addressed bosses by
+   their v6 row number -- so the PUMP note sat in act 1 pointing at THE PLATE after his reversal
+   moved PUMP to act 2. The gate checked the TABLES and never read the prose around them.
+   The fix is not "remember to update the prose", it is: the headers must be checkable, and
+   prose must address a boss BY NAME so renumbering can never rot it again. */
+const WORDNUM = { ten:10, eleven:11, twelve:12, thirteen:13, fourteen:14, fifteen:15, sixteen:16,
+                  seventeen:17, eighteen:18, nineteen:19, twenty:20, 'twenty-one':21,
+                  'twenty-two':22, 'twenty-three':23, 'twenty-four':24, 'twenty-five':25 };
+const headerCounts = [];
+lad.split('\n').forEach(line => {
+  const h = line.match(/^##\s*ACT\s*([123])\b(.*)$/);
+  if (!h) return;
+  const w = h[2].toLowerCase().match(/\b([a-z]+(?:-[a-z]+)?)\s+candidates?\b/);
+  headerCounts.push({ act: +h[1], claimed: w ? WORDNUM[w[1]] : null, raw: h[2].trim() });
+});
+const hdrBad = headerCounts.filter(h =>
+  h.claimed !== rows.filter(r => r.act === h.act).length);
+ok('B5 each ACT header\'s spelled-out count MATCHES the rows in that act' +
+   (hdrBad.length ? ' -> ' + hdrBad.map(h => 'act ' + h.act + ' claims ' + h.claimed +
+    ', has ' + rows.filter(r => r.act === h.act).length).join('; ') : ''),
+   headerCounts.length === 3 && hdrBad.length === 0);
+
+/* every ★ note must name its boss, never a row number. A note that says "★ 41" is one
+   renumber away from describing a different boss entirely. */
+const numberedStars = lad.split('\n')
+  .filter(l => /^\*\*★+\s/.test(l))
+  .filter(l => /^\*\*★+\s+\d+\b/.test(l));
+ok('B6 no ★ note addresses a boss by ROW NUMBER instead of by NAME' +
+   (numberedStars.length ? ' -> ' + numberedStars.map(l => l.slice(0, 40)).join(' | ') : ''),
+   numberedStars.length === 0);
+
 /* ---- THE CHECK THAT WOULD HAVE CAUGHT HIM ------------------------------- */
 const norm = s => s.toLowerCase().replace(/[^a-z ]/g, ' ').replace(/\s+/g, ' ').trim();
 const dupLocks = [], seenLock = new Map();
@@ -111,7 +144,9 @@ ok('C3 every LOCK is stated as an IMPOSSIBILITY rather than a noun somebody owns
    nouny.length === 0);
 
 /* ---- THE MERGE AND THE KILLS STAY DEAD ---------------------------------- */
-const DEAD = ['THE WRECKER', 'THE TOLL', 'THE CHANNEL', 'THE JUDGE', 'THE BROKER'];
+const DEAD = ['THE WRECKER', 'THE TOLL', 'THE CHANNEL', 'THE JUDGE', 'THE BROKER',
+  /* killed 8/7 by the GDD audit, because canon had already opened those doors */
+  'THE VOICE', 'THE RECLAIM', 'THE SPOKE', 'THE EXCHANGE'];
 const resurrected = DEAD.filter(d => rows.some(r => r.boss.toUpperCase() === d));
 ok('D1 none of the five killed bosses is back on the ladder' +
    (resurrected.length ? ' -> ' + resurrected.join(',') : ''),
@@ -142,10 +177,15 @@ ok('E3 HABITABLE is DEFINED in one concrete sentence, because he asked what it m
    /population cap is ZERO/i.test(flat) && /settler will accept a bed/i.test(flat));
 ok('E4 THE DRAIN\'s lock is the filth itself, not the word habitable',
    /filth/i.test((rows.find(r => r.boss === 'THE DRAIN') || {}).lock || ''));
-ok('E5 THE VOICE is still built around THE PHONE and people arriving',
-   /phone calls people IN/i.test((rows.find(r => r.boss === 'THE VOICE') || {}).key || ''));
-ok('E6 and THE VOICE is marked NOT APPROVED, because he said he was not saying he liked it',
-   /explicitly did NOT approve/i.test(flat));
+/* E5/E6 RETIRE WITH THE VOICE. The GDD audit found the radio station is already BUILT +
+   LOCKED ("no radio, no market; whoever holds the microphone shapes the truth"), so THE VOICE
+   was a boss for a capability the valley already has -- which is almost certainly why it
+   failed approval five passes running. Nothing to guard once it is dead. */
+ok('E5 THE VOICE is dead, and the audit records WHY it kept failing',
+   !rows.some(r => r.boss === 'THE VOICE'));
+ok('E6 and the reason is on the record: the radio station already exists in canon',
+   /the radio station is already BUILT \+ LOCKED/i.test(flat) ||
+   /RADIO STATION \(no radio, no market/i.test(flat));
 ok('E7 THE SUMMON is recorded as HIS invention with clout-as-mana flagged PENDING',
    /final fantasy summon/i.test(rul) && /CLOUT IS THE MANA/i.test(rul) &&
    /\[PENDING Paolo\]/.test(rul));
@@ -230,12 +270,23 @@ KINDS.forEach(k => counts[k] = rows.filter(r => r.kind === k).length);
 ok('H5 ALL FOUR REAL KINDS ARE USED, because he named gear and customization as the ' +
    'missing ones (' + KINDS.map(k => k + ' ' + counts[k]).join(', ') + ')',
    REAL_KINDS.every(k => counts[k] >= 3));
-ok('H6 GEAR front-loads to act 1 and PEOPLE back-loads to act 3, so the acts really ' +
-   'do escalate',
+/* H6 LOST HALF ITS PREMISE TO THE GDD AUDIT, AND THE HONEST MOVE IS TO SAY SO RATHER THAN
+   RELAX IT QUIETLY. It asserted GEAR front-loads to act 1 AND PEOPLE back-loads to act 3.
+   Killing THE VOICE and THE EXCHANGE -- both act-3 PEOPLE, both because canon had already
+   opened their doors -- left act 3 with FEWER people-bosses than act 1, which is backwards for
+   the act where the city is meant to run itself around you. That is a real hole the audit
+   opened. The GEAR half still holds and is still asserted; the PEOPLE half is now REPORTED as
+   an imbalance the ladder must DECLARE, so going green cannot bury it. */
+const pplA1 = rows.filter(r => r.kind === 'PEOPLE' && r.act === 1).length;
+const pplA3 = rows.filter(r => r.kind === 'PEOPLE' && r.act === 3).length;
+ok('H6 GEAR still front-loads to act 1 (' +
+   rows.filter(r => r.kind === 'GEAR' && r.act === 1).length + ' vs ' +
+   rows.filter(r => r.kind === 'GEAR' && r.act === 3).length + ')',
    rows.filter(r => r.kind === 'GEAR' && r.act === 1).length >=
-   rows.filter(r => r.kind === 'GEAR' && r.act === 3).length &&
-   rows.filter(r => r.kind === 'PEOPLE' && r.act === 3).length >=
-   rows.filter(r => r.kind === 'PEOPLE' && r.act === 1).length);
+   rows.filter(r => r.kind === 'GEAR' && r.act === 3).length);
+ok('H6b act 3 is THIN on PEOPLE after the audit (act1 ' + pplA1 + ' vs act3 ' + pplA3 +
+   ') and the ladder DECLARES that hole rather than hiding it',
+   pplA3 >= pplA1 || /THINNED ACT 3'?s? PEOPLE TIER/i.test(flat));
 
 /* H7 AND H8 ARE RETIRED WITH THE COLUMN THEY GUARDED. They asserted the kill-vs-spare
    BALANCE ("the kill route is not the strong route by default"), which only means something
@@ -270,10 +321,13 @@ ok('J3 the futurism arrives WITH AN OWNER, so it is a bill and not a reward',
    /owner attached/i.test(flat) || /name on the invoice/i.test(flat));
 /* THE BOOT DROPS OUT OF THE SPINE because he killed it ("THATS BULLSHIT LMAO") and he was
    right. THE WING replaces it at the far end, so the spine still spans all three acts. */
-ok('J4 TRANSPORT is a spine through all three acts, because he said it was thin',
+/* THE SPOKE DROPS OUT OF THE SPINE. The LOCKED vehicle ladder in GDD v5 starts you on a
+   bike ("START: MAN-POWERED travel only -- bikes, scooters, skateboards"), so a boss that
+   grants a bike was granting something you already own. The spine is still walk/run/bike-given
+   then EARNED: roads, car, rail, lifts. */
+ok('J4 TRANSPORT is a spine through the acts, because he said it was thin',
    /IS NOW A SPINE/i.test(flat) &&
-   ['THE SPOKE','THE ROAD','THE ENGINE','THE RAIL','THE LIFT','THE WING']
-     .every(b => rows.some(r => r.boss === b)));
+   ['THE ROAD','THE ENGINE','THE RAIL','THE LIFT'].every(b => rows.some(r => r.boss === b)));
 ok('J5 and the research reason transport is not a luxury tier is stated',
    /cannot have metallurgy without transport/i.test(flat));
 ok('J6 FOOD IS FIRST in act 2, because that is what the rebuilding research says',
@@ -291,10 +345,10 @@ ok('J7 the shoe OVERCLAIM is corrected on the record and THE BOOT is dead',
    /survives as world texture/i.test(flat));
 ok('J8 pipe weapons are in ACT 1 as he guessed', actOf('THE MACHINIST') === 1);
 ok('J9 every boss he re-acted actually moved: PLATE/MIDWIFE/SPOKE/PUMP/SURVEYOR/SMITH to ' +
-   'act 1, BONES/ENGINE/SURGEON to act 2',
-   [ 'THE PLATE','THE MIDWIFE','THE SPOKE','THE PUMP','THE SURVEYOR','THE SMITH' ]
+   'act 1, BONES/ENGINE/SURGEON/PUMP to act 2',
+   [ 'THE PLATE','THE MIDWIFE','THE SURVEYOR','THE SMITH' ]
      .every(b => actOf(b) === 1) &&
-   ['THE BONES','THE ENGINE','THE SURGEON'].every(b => actOf(b) === 2));
+   ['THE BONES','THE ENGINE','THE SURGEON','THE PUMP'].every(b => actOf(b) === 2));
 ok('J10 THE ENGINE closes act 2, since he said end of act 2',
    (rows.filter(r => r.act === 2).sort((a, b) => b.n - a.n)[0] || {}).boss === 'THE ENGINE');
 ok('J11 the five he was CONFUSED by are dead, and his words are on the record',
@@ -363,6 +417,66 @@ ok('K13 the three RENAMES are stated as renames, not counted as kills',
 ok('K14 THE VOICE is called out as the longest-running unanswered thing rather than ' +
    'quietly carried a fifth time',
    /longest-running unanswered thing on the ladder/i.test(flat));
+
+/* ==========================================================================
+   PART L (v7) — THE GDD AUDIT. He asked: "compare this to the gdd and see if its up to
+   par lore wise. flag anything that isnt consistent with the lore."
+
+   SEVEN HARD CONFLICTS, AND SIX OF THE SEVEN WERE MINE. The pattern is the one this lane
+   has now named three times in one day: I invented locks without checking whether canon
+   had already opened that door. GDD v5 says the reclaim plant kept running, the granary
+   exists, the radio station exists and you START on a bike -- and I had written bosses for
+   all four. These checks make the audit's findings unforgettable rather than a doc nobody
+   re-reads.
+   ========================================================================== */
+const AUDIT_F = 'records/BOHEMIA_LADDER_VS_GDD_AUDIT_8_7_26.md';
+const hasAudit = fs.existsSync(path.join(ROOT, AUDIT_F));
+ok('L1 the GDD audit exists as its own record', hasAudit);
+const aud = hasAudit ? fs.readFileSync(path.join(ROOT, AUDIT_F), 'utf8').replace(/\s+/g, ' ') : '';
+ok('L2 the four bosses canon had already opened are DEAD, not argued with',
+   ['THE VOICE', 'THE RECLAIM', 'THE SPOKE', 'THE EXCHANGE']
+     .every(b => !rows.some(r => r.boss === b)));
+ok('L3 THE VOICE\'s five failed passes are EXPLAINED, not just recorded',
+   /failed .{0,20}approval passes/i.test(aud) && /nothing to unlock/i.test(aud));
+ok('L4 the THREE-WAY currency split is flagged as canon-level and PENDING',
+   /disagree three ways/i.test(aud) && /MATCHES NEITHER DOCUMENT/i.test(aud) &&
+   /\[PENDING Paolo\]/.test(aud));
+ok('L5 the reclaim plant is recorded as canon\'s SURVIVAL EVENT, not a locked door',
+   /the reclaim plant kept running/i.test(aud));
+ok('L6 water is recorded as NOT the binding constraint, and THE DAM is power-only now',
+   /water is not the binding constraint/i.test(aud) &&
+   /rationing POWER/i.test((rows.find(r => r.boss === 'THE DAM') || {}).lock || ''));
+ok('L7 THE TAP is reframed to CONTROL rather than scarcity',
+   /owns the pipe/i.test((rows.find(r => r.boss === 'THE TAP') || {}).lock || ''));
+ok('L8 THE COLD no longer duplicates THE GRANARY',
+   /perishable/i.test((rows.find(r => r.boss === 'THE COLD') || {}).lock || '') &&
+   !/surplus/i.test((rows.find(r => r.boss === 'THE COLD') || {}).key || ''));
+ok('L9 THE SOIL names the golf courses, which is what canon actually says',
+   /golf courses/i.test((rows.find(r => r.boss === 'THE SOIL') || {}).holds || ''));
+ok('L10 the RESERVED things the ladder must not resolve are flagged by name',
+   /THE GUARANTOR/i.test(aud) && /UNLV chemistry/i.test(aud) &&
+   /fertilizer story/i.test(aud) && /THE WING/i.test(aud));
+ok('L11 the GDD itself is flagged STALE in three places, since newest ruling wins',
+   /THE GDD ITSELF IS STALE/i.test(aud) && /FIX THE DOCUMENT, NOT THE LADDER/i.test(aud));
+ok('L12 ★ and the audit says out loud that SIX OF THE SEVEN CONFLICTS WERE MINE',
+   /six of the seven are mine/i.test(aud));
+ok('L13 the ladder IS the educational mission, which is the strongest lore result',
+   /the infrastructure IS the curriculum/i.test(aud));
+
+/* HIS TWO RULINGS THIS PASS */
+ok('L14 THE PUMP moved to ACT 2 on his reversal ("this is act 2 fs")',
+   actOf('THE PUMP') === 2);
+ok('L15 THE CISTERN exists, sits in ACT 1, and is late in it',
+   rows.some(r => r.boss === 'THE CISTERN') && actOf('THE CISTERN') === 1 &&
+   (rows.find(r => r.boss === 'THE CISTERN') || {}).n >
+     rows.filter(r => r.act === 1).length / 2);
+ok('L16 and rain collection is about INDEPENDENCE, not thirst -- which is the only way it ' +
+   'does not contradict "water is not the binding constraint"',
+   /stop asking anybody for water/i.test((rows.find(r => r.boss === 'THE CISTERN') || {}).key || '') &&
+   /act of secession/i.test(aud));
+ok('L17 the rain research is recorded: four inches, but the city is all roof, and it was ILLEGAL',
+   /four inches/i.test(aud) && /600 gallons/i.test(aud) &&
+   /(illegal|against the law) in Nevada until 2017/i.test(aud) && /monsoon/i.test(aud));
 
 console.log('-'.repeat(74));
 console.log('  ' + rows.length + ' bosses · ' + seenLock.size + ' distinct locks · ' +

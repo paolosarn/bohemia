@@ -869,7 +869,68 @@ circled before saying it is done.
 --------------------------------------------------------------------------------
 
 
-LAB (lab-e2r7sv): 8/7 (h) LATEST -- *** 56 BOSSES. ACT 1 NEARLY DOUBLED, IT NOW OPENS ON A JOKE
+LAB (lab-e2r7sv): 8/7 (i) LATEST -- *** I AUDITED THE LADDER AGAINST GDD v5 AND SEVEN BOSSES WERE
+FIGHTING CANON. SIX OF THE SEVEN WERE MINE. 53 BOSSES NOW. ***
+JUDGE THIS: 1. the 53 in records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md (live ladder, supersedes v6)
+            2. the audit itself in records/BOHEMIA_LADDER_VS_GDD_AUDIT_8_7_26.md
+NOT IN A TAB. Both are records files; the ladder has never had a surface.
+
+*** THE HEADLINE, AND IT EXPLAINS A FIVE-PASS MYSTERY: THE VOICE FAILED APPROVAL FIVE TIMES BECAUSE
+THE RADIO STATION IS ALREADY BUILT + LOCKED IN GDD v5. *** The Life-Support Trio (GRANARY / LIBRARY /
+RADIO STATION) is finished canon -- "no radio, no market; whoever holds the microphone shapes the
+truth." So THE VOICE was a boss offering a capability the valley already has. There was never
+anything to unlock. He could feel it was empty five passes running and could not have known why.
+That is the whole pattern behind the audit: I INVENTED LOCKS WITHOUT CHECKING WHETHER CANON HAD
+ALREADY OPENED THAT DOOR. Six of the seven conflicts are my fault, one is the GDD's.
+
+FOUR KILLED BY THE AUDIT, all with post-mortems in the v7 file: THE VOICE (radio already built),
+THE EXCHANGE (canon has no casino-chip currency; the Three-Currency System is MEDICINE /
+ELECTRICITY / RESOURCES), THE SPOKE (the Vehicle Ladder already STARTS on man-powered bikes and
+scooters, so "you cannot travel faster than walking" is false at hour one), THE RECLAIM (GDD v5:
+"the reclaim plant kept running" -- it is THE survival event of the backstory, not a boss fight).
+
+FOUR REFRAMED instead of killed, because the wall was real and only my framing was wrong: THE TAP,
+THE COLD, THE DAM (a 2GW restoration, canon's own number), THE SOIL (canon says "water is not the
+binding constraint -- soil and labor are", so the lock is labour and land, not thirst).
+
+HIS TWO RULINGS THIS TURN, BOTH APPLIED: (1) THE PUMP is act 2 -- "this is act 2 fs" -- reversing my
+act 1 placement from (h). (2) *** ACT 1 GETS RAIN COLLECTION. *** "act 1 should attempt to have rain
+collection. even if it is a desert." So THE CISTERN is now boss 17, late in act 1, right before THE
+SMITH. And the research makes it far better than a water-scarcity boss: Vegas gets about four inches
+a year, a 1,000 sq ft roof yields roughly 600 gallons off that, AND RAINWATER HARVESTING WAS ILLEGAL
+IN NEVADA UNTIL 2017 -- the state owned the rain. Plus the summer monsoon dumps most of the year's
+total in a handful of violent bursts. So THE CISTERN is not about being thirsty, it is about not
+having to ASK the person who owns the water. It is an act of secession, which is exactly act 1's
+theme, and it does not contradict canon's soil-and-labour ruling one bit.
+
+*** THE STRONGEST LORE RESULT OF THE AUDIT: THE INFRASTRUCTURE IS THE CURRICULUM. *** That is GDD
+v5's own line, and the 53-boss ladder is the mechanical form of it. Every boss holds a piece of
+working infrastructure, and taking it teaches you the thing the world runs on. The ladder and the
+GDD are saying the same sentence from two directions.
+
+*** [PENDING PAOLO] THE THREE-WAY CURRENCY SPLIT, AND IT IS CANON-LEVEL. *** GDD v5 says MEDICINE /
+ELECTRICITY / RESOURCES. The 7/26 addendum says something different. The ENGINE'S triple matches
+NEITHER document. Three live sources, three answers, and per the truth hierarchy a contradiction
+between live files is a BUG, not an interpretation. This is the second time in one day it has been
+flagged. It is not mine to settle.
+ALSO [PENDING PAOLO]: the act-3 PEOPLE tier is THIN now -- killing THE VOICE and THE EXCHANGE took
+two of its bosses and I did not paper over the hole, I declared it and the gate asserts the
+declaration is still there (H6b). And which of the 53 actually live: cutting is his, always.
+
+GATE: gates/boss_ladder_gate.js is 85 checks / 0 fail, up from 68. PART L (L1-L17) is the audit half
+-- it asserts the four kills stay dead, the four reframes keep canon's own facts (2GW, soil-and-
+labour, the reclaim plant, the Trio), THE PUMP is in act 2, THE CISTERN is in act 1 and its grant is
+about independence rather than thirst, and that the file still ADMITS six of the seven were mine.
+TEN MUTATIONS RUN, ALL TEN CAUGHT. Two of them (resurrect THE VOICE, shove THE PUMP back to act 1)
+had to be re-run because my first attempt expanded spaces to \s+ in the search pattern and made
+26,735 replacements -- it corrupted the document instead of testing one property, and 60 cascading
+failures proved nothing. *** A MUTATION THAT CHANGES EVERYTHING TESTS NOTHING. *** Re-run as
+single-row edits: resurrecting THE VOICE trips D1, E5 AND L2; moving THE PUMP trips L14.
+
+--------------------------------------------------------------------------------
+
+
+LAB (lab-e2r7sv): 8/7 (h) -- *** 56 BOSSES. ACT 1 NEARLY DOUBLED, IT NOW OPENS ON A JOKE
 AND CLOSES ON A BIRTH, AND THREE OF HIS LORE RULINGS ARE NOW WORLD FACTS. ***
 JUDGE THIS: 1. the 56 in records/BOHEMIA_THE_BOSS_LADDER_v6_8_7_26.md. NOT IN A TAB.
 
