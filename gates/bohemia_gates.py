@@ -340,6 +340,14 @@ GATES = [
     # Paolo 8/11: "make sure any bones or skulls are always the same size as our
     # humans". One draw height served all 62 judged tiles, so a lone skull and a
     # whole skeleton both came out 1.75 m. He caught it by eye off a picture.
+    # Paolo 8/11: "more open pits ... especially if its dirt/sand ... we can
+    # proceduraly generate elements on the dirt/sand". Dirt is a generative
+    # surface, not a floor.
+    ('PITS',           ['node', 'gates/pits_gate.js'],
+     'bare dirt and sand get dug: subsidence, a cracked rim, the spoil heap that never went '
+     'back in, a machine ramp and nitrogen-fed growth over the fill -- every part a cited '
+     'forensic surface indicator, elliptical never rectangular, spoil thrown to one side, '
+     'deterministic, never on pavement, and naming no faction', False),
     ('BONE SCALE',     ['node', 'gates/bone_scale_gate.js'],
      'nothing human out-measures the human: every dead tile is drawn the size the thing it '
      'depicts actually is (a skull 0.20 m, a femur 0.45 m, a laid-out adult 1.70 m, against a '

@@ -99,6 +99,26 @@ const SUBJECTS = [
       } return null; })()`,
   },
   {
+    id: 'the-pit-dug',
+    title: 'A PIT DUG IN THE DIRT',
+    caption: 'Somebody dug here. The ground is sunk where the fill settled, the pale heap beside it is the earth that never went back in, and the dark green is growing on what is under it. Bare dirt and sand generate these now. RUN tab.',
+    /* THE WHOLE VALLEY, and the BIGGEST dig on it. A pit only exists on bare
+       ground, so hunting a comfortable middle band would photograph a lawn. */
+    find: `(() => {
+      let best=null, bn=0;
+      for (let ty = 0; ty < om.n; ty++) for (let tx = 0; tx < om.n; tx++) {
+        const t = om.at(tx, ty); if (!t) continue;
+        if (!/desert|cemetery|landfill|farm|quarry|wash|basin|golf|park/.test(t.district||'')) continue;
+        tileMeta(tx, ty); const e = pitsForCell(tx, ty);
+        const fill = e.list.filter(p => p.part === 'fill' || p.part === 'green');
+        if (fill.length > bn) { bn = fill.length; best = { tx, ty, p: fill[(fill.length/2)|0] }; }
+        if (bn > 90) break;
+      }
+      if (!best) return null;
+      return { hx: best.tx*FN + best.p.x, hy: best.ty*FN + best.p.y, zoom: 26 };
+    })()`,
+  },
+  {
     id: 'dead-cluster',
     title: 'A CLUSTER: they died together',
     caption: 'The dead come in groups now, not sprinkled one by one. This is what you find in an abandoned block. RUN tab.',

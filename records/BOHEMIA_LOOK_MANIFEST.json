@@ -87,6 +87,19 @@
    },
    "kb": 237.6,
    "stamp": "8/8/26"
+  },
+  {
+   "id": "the-pit-dug",
+   "title": "A PIT DUG IN THE DIRT",
+   "caption": "Somebody dug here. The ground is sunk where the fill settled, the pale heap beside it is the earth that never went back in, and the dark green is growing on what is under it. Bare dirt and sand generate these now. RUN tab.",
+   "file": "look/the-pit-dug.png",
+   "at": {
+    "x": 7280,
+    "y": 900,
+    "zoom": 26
+   },
+   "kb": 179.4,
+   "stamp": "8/8/26"
   }
  ]
 }

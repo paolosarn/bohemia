@@ -276,6 +276,78 @@
   var DEFAULT_STORY={open:2.0, sealed:3.0, cluster:4, story:'the ordinary dead of an ordinary block'};
   var DEFAULT_CLUSTER=4;
 
+  /* ========================================================================
+     3b. OPEN PITS IN THE DIRT (Paolo 8/11, LOCKED)
+     ========================================================================
+     "maybe we should have more open pits where a bunch of the shit lives as
+      well. i know we have grids and shit but part of the procedureal generation
+      especially if its dirt/sand is that we can proceduraly generate elements on
+      the dirt/sand and this may be part of it."
+
+     HIS POINT, TAKEN STRAIGHT: dirt and sand are a GENERATIVE SURFACE, not a
+     floor. Bare ground is where a city that has run out of options digs, and it
+     is the one surface where digging still shows ten years later.
+
+     WHAT A REAL PIT LOOKS LIKE FROM ABOVE, and every one of these is a cited
+     forensic surface indicator, not a look I invented:
+       SUBSIDENCE  backfill compacts as the mass below decomposes, so the fill
+                   sits LOWER than the ground around it. A depression is visible
+                   within days and is still there at 11 months; in arid ground
+                   with no vegetation to close it, far longer.
+       RIM CRACKS  the cut edge cracks as the fill settles away from it.
+       SPOIL       the earth taken out never all goes back. Archaeology has a
+                   word for the leftover heap -- SPOIL -- and it sits beside the
+                   cut, on one side, where the machine or the shovels threw it.
+       RAMP        a pit dug by machine has a ramp at one end. It is how the
+                   loader got in and how the bodies came down.
+       GREEN       decomposition dumps nitrogen, phosphorus and carbon into the
+                   fill, and grave-indicator vegetation grows ABNORMALLY STRONG
+                   over it. In the Mojave that is the loudest tell there is: a
+                   dark living patch in dead ground means something fed it.
+     Sources in records/BOHEMIA_A_PIT_IN_THE_DIRT_READS_FROM_ABOVE_8_11_26.md.
+
+     MECHANISM-MINE / CONTENTS-PAOLO'S. This decides WHERE the ground was dug and
+     WHAT SHAPE the dig left. It never says who dug it. The farm and landfill
+     rows already carry "turning people into soil" as ambient story; no faction is
+     named here or anywhere in this module, because who ran the pits is his. */
+
+  /* THE SURFACE A PIT CAN EXIST ON. Asked of the LEGEND, never of a district
+     name -- the same reason exposureOf reads the legend: a new district gets
+     pits for free the day it declares dirt, and nothing here needs editing. */
+  var DIRT_WORDS=/\b(dirt|sand|soil|earth|desert|gravel|scrub|waste|vacant|spoil|fill|yard|lot|field|ground)\b/i;
+  var NOT_DIRT=/\b(parking|paved|asphalt|concrete|slab|road|walk|floor|tile|carpet|deck)\b/i;
+  function isDiggable(entry){
+    if(!entry) return false;
+    if(exposureOf(entry)!==OPEN) return false;      // must be open, walkable ground
+    var n=String(entry.name||'');
+    if(NOT_DIRT.test(n)) return false;              // you do not dig a parking lot by hand
+    return DIRT_WORDS.test(n);
+  }
+
+  /* HOW MUCH DIGGING A PLACE DID. A pit is not decoration -- it is evidence that
+     somebody was ORGANISED enough to dig, which is rarer than dying. Keyed to
+     the same story the bodies use, so the two can never disagree.
+       rate  expected pits per cell, before the act multiplier
+       hold  bodies that went INTO the pit, per pit */
+  var PIT_STORY={
+    cemetery:  {rate:1.00, hold:34, story:'the pit. they stopped digging graves and started digging one hole'},
+    landfill:  {rate:0.90, hold:26, story:'the trench. a machine was already here, so this is where they brought them'},
+    farm:      {rate:0.70, hold:18, story:'the intake. the ground here is being fed on purpose'},
+    quarry:    {rate:0.60, hold:20, story:'a hole that was already dug, filled with something else'},
+    desert:    {rate:0.35, hold:6,  story:'out past the last streetlight, where nobody was going to ask'},
+    wash:      {rate:0.30, hold:8,  story:'dug in the soft wash bed, and the water has been opening it ever since'},
+    basin:     {rate:0.25, hold:8,  story:'the detention basin. it was already a hole in the ground'},
+    golf:      {rate:0.45, hold:12, story:'soft irrigated ground and a machine in the shed: the easiest digging in the valley'},
+    park:      {rate:0.40, hold:10, story:'the playing field. it was the only soft ground for a mile'},
+    campus:    {rate:0.35, hold:10, story:'the quad, because the ground was soft and the shovels were in the grounds shed'},
+    trailer:   {rate:0.30, hold:6,  story:'dug between the units by the people who lived in them'},
+    suburb:    {rate:0.16, hold:4,  story:'a back yard. somebody buried their own and did it properly'},
+    estate:    {rate:0.14, hold:4,  story:'buried on the lawn, deep, by people who still had help'}
+  };
+  var PIT_DEFAULT={rate:0.10, hold:5, story:'somebody dug here, once, and then stopped coming back'};
+  function pitStoryFor(type){ return PIT_STORY[type]||PIT_DEFAULT; }
+
+
   /* ACT 1 IS THE THICK ONE (Paolo 8/11): "especially in act one I wanna see lots
      of corpses". The number of people who died NEVER changes -- what changes is
      how much of it is still lying in the street as the city comes back. Act 1 is
@@ -401,6 +473,101 @@
      place({type,g,legend,seed,cellX,cellY}) -> [{x,y,form,exposure,tile,scale,
                                                   scatter,interior,story}]
      One call per district cell. Pure, deterministic, allocation-light. */
+  /* ------------------------------------------------------------------------
+     PITS(opts) -> [{x,y,part,...}]  the dig, as ground truth
+     ------------------------------------------------------------------------
+     Same contract as place(): give it a cell's grid + legend + seed and it
+     returns what is on the ground, deterministically. Parts are named after the
+     real thing each one is, so the renderer never has to guess:
+        'fill'   sunken backfill      (the pit floor you can walk into)
+        'rim'    the cracked cut edge (a lip, one tile wide)
+        'spoil'  the heap of earth that never went back in
+        'ramp'   how the machine got down
+        'green'  nitrogen-fed growth over the fill -- the loudest tell in a desert
+     A pit is an ELLIPSE, not a rectangle. Nothing anybody digs is square, and a
+     square hole in a 128x128 grid reads instantly as a game object. ---------- */
+  function pits(opts){
+    opts=opts||{};
+    var legend=opts.legend||{}, type=opts.type||'suburb';
+    var g=opts.g, W, H, at;
+    if(g && g.length && g[0] && g[0].length!==undefined){
+      H=g.length; W=g[0].length; at=function(x,y){ return g[y][x]; };
+    } else if(opts.kit && opts.kit.length){
+      W=opts.W||opts.side||128; H=opts.H||opts.side||128;
+      var kit=opts.kit; at=function(x,y){ return kit[y*W+x]; };
+    } else return [];
+    var seed=(opts.seed>>>0)||1, cx=(opts.cellX|0), cy=(opts.cellY|0);
+    var ps=pitStoryFor(type);
+
+    /* WHICH CODES ARE DIGGABLE, resolved once per legend rather than per tile. */
+    var DIG={}, any=false, c;
+    for(c in legend){ DIG[c]=isDiggable(legend[c]); if(DIG[c]) any=true; }
+    if(!any) return [];                       // no bare ground here: no pits, no fake ones
+
+    /* the diggable ground, and how much of it there is */
+    var soil=[], x, y;
+    for(y=0;y<H;y++)for(x=0;x<W;x++){ if(DIG[at(x,y)]) soil.push(y*W+x); }
+    /* A PIT NEEDS ROOM. Under ~120 diggable tiles the cell is a strip of verge,
+       not a place anybody took a machine to. Refusing is the honest answer. */
+    if(soil.length<120) return [];
+
+    /* HOW MANY PITS. The story rate, scaled by how much bare ground this cell
+       actually has (a whole desert cell earns more than a lawn), then by the act
+       -- act 1 is when the digging happened. A rate below 1 is a PROBABILITY,
+       not a rounding-down to zero, so rare pits still exist somewhere. */
+    var share=Math.min(2.5, soil.length/(W*H*0.35));
+    var want=ps.rate*share*(ACT_DENSITY[opts.act||1]||1);
+    var n=Math.floor(want);
+    if(frac(hash(seed,cx,cy,0x717))<(want-n)) n++;
+    if(n<=0) return [];
+    n=Math.min(n,6);
+
+    var out=[], used={};
+    for(var k=0;k<n;k++){
+      var h=hash(seed,cx*7+k,cy*13+k,0x9111);
+      var sIdx=soil[Math.floor(frac(h)*soil.length)%soil.length];
+      var px=sIdx%W, py=(sIdx/W)|0;
+      /* SIZE FROM THE STORY. A back-yard grave is one body wide; the cemetery
+         pit swallowed a district. Radius in tiles; a tile is 0.75 m, so ra=6 is
+         a hole nine metres across, which is machine work. */
+      var ra=Math.max(2, Math.round(2+Math.sqrt(ps.hold)*(0.55+frac(h>>>3)*0.35)));
+      var rb=Math.max(2, Math.round(ra*(0.55+frac(h>>>7)*0.35)));   // never a circle
+      var rot=frac(h>>>11)*Math.PI;
+      var cosR=Math.cos(rot), sinR=Math.sin(rot);
+      /* the spoil goes on ONE side, the way a machine throws it */
+      var sd=[[1,0],[0,1],[-1,0],[0,-1]][Math.floor(frac(h>>>15)*4)%4];
+      var rd=[[-1,0],[0,-1],[1,0],[0,1]][Math.floor(frac(h>>>19)*4)%4];
+
+      for(y=py-ra-2;y<=py+ra+2;y++)for(x=px-ra-2;x<=px+ra+2;x++){
+        if(x<0||y<0||x>=W||y>=H) continue;
+        var i=y*W+x; if(used[i]) continue;
+        if(!DIG[at(x,y)]) continue;           // never eat a building, a road or a wall
+        var dx=x-px, dy=y-py;
+        var u=(dx*cosR+dy*sinR)/ra, v=(-dx*sinR+dy*cosR)/rb;
+        var d=u*u+v*v;
+        /* EDGE NOISE. A clean ellipse is still a game object; a real cut is
+           ragged. One deterministic wobble per tile, no smoothing pass. */
+        var wob=(frac(hash(seed,x,y,0x5ADD))-0.5)*0.34;
+        var part=null;
+        if(d+wob<0.80) part='fill';
+        else if(d+wob<1.06) part='rim';
+        else if(d+wob<1.55){
+          /* SPOIL ON ONE SIDE ONLY. Dot the offset against the throw direction. */
+          if(dx*sd[0]+dy*sd[1] > ra*0.35) part='spoil';
+        }
+        if(!part) continue;
+        /* THE RAMP cuts the rim on the opposite quarter, so the pit has a way in */
+        if(part==='rim' && (dx*rd[0]+dy*rd[1]) > ra*0.55) part='ramp';
+        /* THE GREEN. Nutrient-fed growth sits over the FILL, patchy, never a
+           solid lawn -- it is fed by what is under it, not watered. */
+        if(part==='fill' && frac(hash(seed,x,y,0x67EE))<0.30) part='green';
+        used[i]=1;
+        out.push({x:x,y:y,part:part,pit:k,story:ps.story});
+      }
+    }
+    return out;
+  }
+
   function place(opts){
     opts=opts||{};
     var legend=opts.legend||{}, type=opts.type||'suburb';
@@ -669,6 +836,8 @@
            ACT_DENSITY:ACT_DENSITY,
            storyFor:storyFor, STORY:STORY, DEFAULT_STORY:DEFAULT_STORY, TILES:TILES,
            MATH:MATH, OPEN:OPEN, SEALED:SEALED, NONE:NONE, tileMetres:tileMetres,
+           pits:pits, pitStoryFor:pitStoryFor, PIT_STORY:PIT_STORY, PIT_DEFAULT:PIT_DEFAULT,
+           isDiggable:isDiggable,
            preCrashModelPop:preCrashModelPop, modelDead:modelDead, visibleDead:visibleDead,
            avgWeight:function(){return AVG_WEIGHT;}, cellsPerSide:function(){return CELLS_PER_SIDE;},
            AVG_WEIGHT_MEASURED:AVG_WEIGHT_MEASURED};
