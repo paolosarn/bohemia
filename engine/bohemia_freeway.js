@@ -46,7 +46,10 @@
   var OUTSHLD = 46;   // 41..46 outside shoulder
   var RAIL = 48;      // 47..48 guardrail
   var EMBANK = 59;    // 49..59 graded embankment, narrowed to a real verge
-  var ROW = 63;       // 60..63 SOUND WALL, sitting on the cell boundary
+  // 64, NOT 63 -- the same off-by-one the arterial had: 63 covers rows 1..127 and MISSES
+  // ROW ZERO AND COLUMN ZERO, so two freeway cells met with a one-tile seam of bare dirt
+  // between their roadbeds. Caught by truncation_gate.js.
+  var ROW = 64;       // 60..63 SOUND WALL, sitting on the cell boundary
   var LANE_LINES = [8, 16, 24, 32];
   var EDGE = 40;
 

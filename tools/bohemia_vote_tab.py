@@ -131,7 +131,12 @@ def card(h, idx, judged_already):
             % (tag, d, d, pad, ar, d, h['b64'], d))
 
 
-cards_new = '<div class="grid">' + ''.join(card(h, i, False) for i, h in enumerate(queue)) + '</div>'
+# AN EMPTY QUEUE IS THE GOAL, AND THE PAGE HAS TO SAY SO. When he clears the last item the
+# grid wrapper renders as an empty box, which reads as broken rather than as finished --
+# and it is the state he SHOULD be in most of the time.
+cards_new = ('<div class="grid">' + ''.join(card(h, i, False) for i, h in enumerate(queue))
+             + '</div>') if queue else \
+    '<div class="empty">Nothing waiting. You are all caught up.</div>'
 cards_old = '<div class="grid">' + ''.join(card(h, i, True) for i, h in enumerate(done)) + '</div>'
 
 # ---- DEMO BLOCKERS, ABOVE THE ICONS (8/9) -----------------------------------------
@@ -362,7 +367,7 @@ HTML = '''<!doctype html><meta charset="utf-8">
 '''
 
 HTML = HTML.replace('__BLOCKERS__', blockers_html)
-HTML = HTML.replace('__NEW__', cards_new or '<div class="empty">Nothing waiting. You are all caught up.</div>')
+HTML = HTML.replace('__NEW__', cards_new)
 HTML = HTML.replace('__OLD__', cards_old)
 HTML = HTML.replace('__STAMP__', '%d waiting, %d already judged' % (len(queue), len(done)))
 

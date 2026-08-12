@@ -578,6 +578,13 @@ GATES = [
      '[PENDING Paolo], a HELD backlog row, the live unjudged count) -- so ruling one removes '
      'it by itself and he is never asked twice for something he already gave. Nothing is '
      'silently dropped, and he answers it in the VOTE tab ABOVE the art, one tap', False),
+    ('TRUNCATION',     ['node', 'gates/truncation_gate.js'],
+     'NOTHING STOPS HALFWAY ACROSS ITS OWN CELL: every through-surface reaches the boundary on '
+     'both ends of its axis, so the next cell can connect to it. The arterial and the freeway '
+     'both laid road across a third of the cell and stopped, and NO existing check could see it '
+     '-- a truncated cell is internally consistent, so walkable/tilespec/answered-for all pass. '
+     'Found only when Paolo made me render a real top-down grid; on its first run it also caught '
+     'an off-by-one leaving a one-tile dirt seam between adjacent road cells', False),
     ('SQUARE ICONS',   ['node', 'gates/square_icons_gate.js'],
      'EVERYTHING IS ON A SQUARE (Paolo 8/8): one measured square for all 59 icons, nothing clipped, '
      'nothing shrunk to fit, one shared ground line, the pad squared in world space too -- and the '

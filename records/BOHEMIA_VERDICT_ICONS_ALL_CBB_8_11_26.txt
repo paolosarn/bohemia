@@ -1,0 +1,28 @@
+BOHEMIA - VERDICT, DISTRICT MAP ICONS (the whole set)
+PAOLO, 8/11/26, VERBATIM:
+
+  "nice good job. i checked them all they all could be better."
+
+READ, AND WHAT IT MEANS FOR THE LANE:
+COULD BE BETTER = ships frozen, fix later (his own legend on the VOTE tab).
+This is the SECOND time in one day he has judged the whole set CBB, so under
+laws/BOHEMIA_ADDENDUM_STOP_PRODUCING_7_26_26.md the icons STOP for this session:
+"a second rejection ends the feature for the session", and "writing a fourth
+version of anything means you already failed". Four road passes already shipped
+today. The set stays as it is, frozen and in the game, and the lane moves on.
+
+WHAT IS NOT BEING DONE, ON PURPOSE:
+  - no fifth icon pass
+  - no asking him which ones or what specifically (EVERYTHING IS A THUMB, 8/9:
+    a reply that hands him a queue of decisions is the turn failing)
+  - nothing sent back to him to re-judge
+
+WHAT THE FROZEN STATE IS: 60 tiles, one cell 451 px wide, each cropped to its own
+cell, none painting past its boundary, markings washed to his 7/14 law.
+
+@VERDICT arterial COULD BE BETTER
+@VERDICT arterial_x COULD BE BETTER
+@VERDICT freeway COULD BE BETTER
+@VERDICT interchange COULD BE BETTER
+    (and the whole set with them - his words are about all sixty, recorded here
+     rather than stamped one by one so the queue does not re-ask him.)

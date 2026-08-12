@@ -51,7 +51,12 @@
   // property line: the corridor runs right up to it and the next parcel starts on the
   // other side. So the right-of-way now fills the cell and the wall lands on the cell
   // boundary, which is exactly where the neighbouring district's own edge begins.
-  var ROW = 63;        // half-width of the whole corridor: the wall sits on the cell edge
+  // 64, NOT 63. With the centreline at C=64 a half-width of 63 covers offsets 0..63, which
+  // is rows 1..127 -- it MISSES ROW ZERO AND COLUMN ZERO, so two road cells side by side had
+  // a one-tile seam of bare dirt between their pavements. Found by truncation_gate.js on its
+  // first real run, after Paolo made me render an actual top-down grid. An off-by-one at a
+  // cell boundary is invisible in any single cell and shows up only where cells meet.
+  var ROW = 64;        // half-width of the whole corridor: the wall sits on the cell edge
 
   // cross-section, as distance OUT from the road's centreline (in tiles, 0.75 m each)
   // THE STREET FILLS THE BOX (Paolo 8/11, LOCKED): "the streets should FILL THE WHOLE
