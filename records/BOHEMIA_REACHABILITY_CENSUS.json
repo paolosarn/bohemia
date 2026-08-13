@@ -1171,7 +1171,7 @@
    "samples": 3,
    "hits_shown": 3,
    "hits_loaded": 1,
-   "bytes": 9749
+   "bytes": 10605
   },
   {
    "path": "engine/bohemia_desert.js",
@@ -1666,7 +1666,7 @@
    "samples": 9,
    "hits_shown": 9,
    "hits_loaded": 9,
-   "bytes": 13521
+   "bytes": 15596
   },
   {
    "path": "engine/bohemia_quest_runtime_tests.js",
