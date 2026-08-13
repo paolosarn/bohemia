@@ -3799,6 +3799,63 @@ function showRecognition(agent){
   el.appendChild(t); el.appendChild(q);
 }
 
+/* ---- AND THEN THEY SAY SOMETHING ABOUT IT (8/13) ------------------------------
+   showRecognition above puts the QUEST'S own @LOG line in a witness's mouth: his
+   sentence, verbatim, about the one deed that just resolved. This is the other
+   half, and it is the PERSON rather than the EVENT -- what they say to you now
+   because of what you have done and where the two of you stand.
+
+   NOT ONE FACT IS INVENTED HERE. Every field below is read out of a system that
+   was already computing it and had nowhere to put it:
+     saw / heard : RUN.sawList, which witnessResolution() fills with exactly who
+                   was in reach and whether they were outdoors (SAW it) or behind
+                   a wall (HEARD it). RUN.clout is the deed's own #tag.
+     rung        : BohemiaStanding.opinionOf() over THIS person's own mind, run
+                   through the module's own rungFor(). Per-person, not the faction
+                   average the readout shows -- the person in front of you has
+                   their own opinion and it is the one they speak with.
+     met         : PEOPLE_MET.metState(), which lives on the ledger that owns the
+                   bits, so no surface re-derives "have we met" for itself and
+                   two screens can never disagree about the same person.
+   All four are OPTIONAL. Anything the world has not produced comes back null and
+   linesFor falls through to the ambient buckets, which is the honest answer: a
+   stranger who has never heard of you talks about the weather.
+
+   WHY IT IS HERE AND NOT IN THE MODULE: bohemia_people.js never reads the clock,
+   the sim or the DOM (its own header rule, and the reason it runs in a gate at
+   all). Handing it a plain object of four strings keeps that true. */
+function reactionCtx(agent, who){
+  var ctx = { saw:null, heard:null, rung:null, met:null };
+  try { ctx.met = PEOPLE_MET.metState(who.key); } catch(_e){}
+  /* WHAT THEY WATCHED YOU DO, AND THE WALL MATTERS. Outdoors within reach is
+     SEEING; indoors within half reach is HEARING, and the two sets of lines are
+     deliberately different -- the secondhand ones are vaguer and colder, because
+     that is what secondhand knowledge is. */
+  try {
+    if(RUN.clout && RUN.sawList){
+      for(var i=0;i<RUN.sawList.length;i++){
+        if(RUN.sawList[i].id!==agent.id) continue;
+        if(RUN.sawList[i].saw) ctx.saw = RUN.clout; else ctx.heard = RUN.clout;
+        break;
+      }
+    }
+  } catch(_e){}
+  /* WHERE YOU STAND WITH THIS ONE PERSON. opinionOf sums the deeds THEY remember
+     with THEIR own decay, so somebody who watched a reckless job last week and
+     somebody who heard about it third-hand do not arrive at the same number. */
+  try {
+    if(typeof BohemiaStanding!=='undefined'){
+      var minds = blockMinds(), mine = null;
+      for(var k=0;k<minds.length;k++) if(minds[k].owner===agent.id){ mine=minds[k]; break; }
+      if(mine && mine.deeds && mine.deeds.length){
+        ctx.rung = BohemiaStanding.rungFor(
+          BohemiaStanding.opinionOf(mine, 'PLAYER', (SIM?SIM.turn:0)|0));
+      }
+    }
+  } catch(_e){}
+  return ctx;
+}
+
 /* ---- WHO THEY RUN WITH (8/11) ------------------------------------------------
    Paolo picked 13 faction colours and 14 marks on 8/2 (FACTION_LOOK / FACTION_MOTIF),
    and the integration ledger has said "bodies are random colourways, not rank-dressed"
@@ -4153,12 +4210,17 @@ function drawPerson(agent){
     d.appendChild(k); d.appendChild(v); card.appendChild(d);
   });
   showAllegiance(agent);   /* AFTER cardFor, which clears #idcard - see the note on it */
-  /* WHAT THEY SAY IS EMPTY AND STAYS EMPTY. This lane builds the mouth, not the
-     words (doctrine section 6); LINES is Paolo's table and people_gate fails if
-     anything fills it. An empty conversation is honest; a placeholder line
-     becomes canon by shipping. */
+  /* WHAT THEY SAY WAS EMPTY FOR A MONTH AND THAT COMMENT IS DEAD. It read "LINES
+     is Paolo's table and people_gate fails if anything fills it" -- the correct
+     7/31 read of MECHANISM-MINE, overturned by ALWAYS MAKE AN ATTEMPT (8/11) in
+     his own words: an empty field is a BLANK PAGE and he does not write from
+     nothing, HE EDITS. The mouth is full of drafts now and every one of them is
+     in the WORDS tab under his thumb.
+
+     AND IT ANSWERS THE WORLD, NOT THE CLOCK (8/13). reactionCtx() hands linesFor
+     the four things three shipped systems already knew about you. */
   SAYS.innerHTML='';
-  BohemiaPeople.linesFor(who).forEach(function(s){
+  BohemiaPeople.linesFor(who, reactionCtx(agent, who)).forEach(function(s){
     var p=document.createElement('p'); p.textContent=s; SAYS.appendChild(p); });
   OPTS.innerHTML='';
   /* YOU HAVE TO ASK (Paolo 7/31, LOCKED). "Nobody will have a name unless you

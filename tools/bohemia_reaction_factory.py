@@ -181,7 +181,7 @@ REACTIONS = {
     "Still walking around, I see.",
  ]),
  'met:known': (['scarce', 'banter'], [
-    "There he is.",
+    "There you are.",
     "I was wondering when you'd come back around.",
     "Same as always? Course it is.",
  ]),

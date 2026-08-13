@@ -296,6 +296,51 @@ if (reactFile.length) {
     (missingRung.length ? ' — SILENT: ' + missingRung.join(', ') : ''));
   ok(missingSaw.length === 0, 'and every clout level has a witnessed reaction' +
     (missingSaw.length ? ' — SILENT: ' + missingSaw.join(', ') : ''));
+
+  /* ---- AND THE SURFACE HAS TO ACTUALLY ASK ------------------------------
+     THE DISEASE THIS CATCHES, and it had already happened twice by the time it
+     was written: the barks were written, gated and green while the one screen
+     that calls linesFor() was still calling it with NO ARGUMENTS -- so 58 of 58
+     situation buckets were unreachable and the gate was cheerfully counting
+     lines nobody could ever hear. Volume in a table is not reach. The claim is
+     about the CALL, and it is made against the run's SOURCE file, because the
+     source is what the builder inlines and a fix typed into the build output is
+     erased by the next build (which is exactly how the first attempt went). */
+  var runSrc = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html';
+  if (fs.existsSync(runSrc)) {
+    var rs = fs.readFileSync(runSrc, 'utf8');
+    ok(/BohemiaPeople\.linesFor\(who,\s*reactionCtx\(/.test(rs),
+      'THE SCREEN ACTUALLY ASKS: the person card calls linesFor WITH the context, ' +
+      'so a written line can be reached — a table nobody queries is a table nobody hears');
+    ok(!/BohemiaPeople\.linesFor\(who\)/.test(rs),
+      'and no call site still asks bare — one of those anywhere silently mutes every bucket');
+    /* THREE SIGNALS, NOT ONE. Passing a ctx that only ever carries `met` would
+       pass the claim above and still leave standing and the witness organ mute,
+       which is the same bug wearing a different coat. */
+    var ctx = (rs.match(/function reactionCtx\([\s\S]*?\n\}/) || [''])[0];
+    ok(/RUN\.sawList/.test(ctx) && /RUN\.clout/.test(ctx),
+      'the ctx reads the WITNESS organ — who was outdoors saw it, who was behind a wall heard it');
+    ok(/BohemiaStanding\.(rungFor|opinionOf)/.test(ctx),
+      'and it reads THIS PERSON\'S OWN standing, not the faction average on the readout');
+    ok(/PEOPLE_MET\.metState\(/.test(ctx),
+      'and the met state comes off the ledger that owns the bits, so no surface re-derives it');
+  }
+
+  /* ---- AND THE COPY HE ACTUALLY LOADS HAS TO BE THE FRESH ONE -----------
+     ENGINE SYNC LAW, aimed at the specific way it failed here: the module was
+     correct on disk, the gates all read it off disk, and the two SLICES that
+     carry an inlined copy — the frame the alpha's RUN tab loads and the CITY
+     world — were a build behind and had no REACTIONS in them at all. Every
+     gate was green and not one person in the game could react. */
+  ['slices/BOHEMIA_RUN_CURRENT.html', 'slices/BOHEMIA_CITY_WORLD.html'].forEach(function (f) {
+    if (!fs.existsSync(f)) return;
+    var t = fs.readFileSync(f, 'utf8');
+    var carries = t.indexOf('BohemiaPeople') >= 0 || t.indexOf('bohemia_people.js') >= 0;
+    if (!carries) return;
+    ok(t.indexOf('var REACTIONS = {') >= 0,
+      'the inlined people module in ' + f.split('/').pop() + ' carries the reactions — ' +
+      'fresh on disk and stale in the surface he taps is the whole failure mode');
+  });
 }
 
 /* ---- 5. ONE-LINK LAW (continued) ----------------------------------- */

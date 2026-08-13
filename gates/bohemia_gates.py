@@ -724,6 +724,18 @@ GATES = [
      'it later" needs a place for later, so the WORDS tab must exist, be wired into the '
      'alpha, live where Pages publishes, fetch nothing, and be CURRENT with its sources by '
      'fingerprint -- a stale tab is the same failure wearing a green', False),
+    ('REACTION REACH', ['node', 'gates/reaction_reach_gate.js'],
+     'The reaction lines were written, cited and GREEN while not one person in the game could '
+     'say one: the walked run called linesFor(who) with NO ARGUMENTS, so every situation bucket '
+     'was unreachable; the frame the RUN tab loads carried a build-old INLINED copy of the '
+     'module with no reactions in it at all; and met:lied could never fire because the ledger '
+     'discarded the false half of the honesty bit. NONE of that is visible to a gate that reads '
+     'files -- and the first version of THIS check grepped the source, survived the mutation, '
+     'and had to be thrown away, because a checker that cannot tell a MENTION from a USE is the '
+     'broken one (8/1). So it BOOTS THE SURFACE, plants the signals the way the world plants '
+     'them (his own DEED_WEIGHT table, loaded from the canon quests\' @DO lines), and asks the '
+     'page what came out: seeing beats hearing beats standing beats memory beats the weather, '
+     'somebody who was not there learns nothing, and cutting any one wire turns it red', False),
     ('SCENE',          ['node', 'gates/scene_gate.js'],
      'DEMO-CRITICAL (Paolo 8/9). The scripted-scene runtime, backlog 0sc, and its first '
      'consumer: the Act 1 cold open in the LOCKED 7/19 shape -- warm pre-collapse family '

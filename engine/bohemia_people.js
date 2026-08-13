@@ -571,7 +571,7 @@
     "I've been lied to by better dressed people than you. You didn't."
   ],
   "met:known": [
-    "There he is.",
+    "There you are.",
     "I was wondering when you'd come back around.",
     "Same as always? Course it is."
   ],
@@ -865,7 +865,8 @@
         var v = data[k];
         if (!v || typeof v !== 'object') return;
         m[k] = { times: v.times | 0, first: v.first | 0, last: v.last | 0,
-               asked: v.asked ? 1 : 0, honest: v.honest ? 1 : 0 };
+               asked: v.asked ? 1 : 0, honest: v.honest ? 1 : 0,
+               answered: v.answered ? 1 : 0 };
       });
     }
     return {
@@ -877,7 +878,7 @@
         if (!key) return null;
         day = day | 0;
         var r = m[key];
-        if (!r) { r = m[key] = { times: 0, first: day, last: day, asked: 0, honest: 0 }; }
+        if (!r) { r = m[key] = { times: 0, first: day, last: day, asked: 0, honest: 0, answered: 0 }; }
         r.times++; r.last = day;
         return r;
       },
@@ -885,7 +886,7 @@
          "really cool". One bit, because the name is derived from it. */
       ask: function (key, day) {
         if (!key) return null;
-        var r = m[key] || (m[key] = { times: 1, first: day | 0, last: day | 0, asked: 0, honest: 0 });
+        var r = m[key] || (m[key] = { times: 1, first: day | 0, last: day | 0, asked: 0, honest: 0, answered: 0 });
         r.asked = 1; r.last = day | 0;
         return r;
       },
@@ -895,19 +896,45 @@
          HOMELESS.md, canon 8/2). Answering honestly is what earns THEIR name, so
          the honest answer has to survive a save exactly the way asking does, or
          the mechanic resets every time he reloads. Still one bit: what you told
-         them is derived, only THAT you told them the truth is stored. */
+         them is derived, only THAT you told them the truth is stored.
+
+         SECOND BIT ADDED 8/13, and it is the difference between "has not answered"
+         and "answered and lied". honest:0 meant both, so a person you had lied to
+         was indistinguishable from a person you had never spoken to -- and the
+         REACTIONS table has a `met:lied` bucket that could therefore NEVER FIRE.
+         A key the sim never emits is a line that can never fire; the fix is on
+         the emitting side, never a line quietly deleted from the table. The
+         boolean was already arriving here and being thrown away. */
       answer: function (key, day, honest) {
         if (!key) return null;
-        var r = m[key] || (m[key] = { times: 1, first: day | 0, last: day | 0, asked: 0, honest: 0 });
-        r.honest = honest ? 1 : 0; r.last = day | 0;
+        var r = m[key] || (m[key] = { times: 1, first: day | 0, last: day | 0, asked: 0, honest: 0, answered: 0 });
+        r.answered = 1; r.honest = honest ? 1 : 0; r.last = day | 0;
         return r;
       },
       honest: function (key) { return !!(m[key] && m[key].honest); },
+      answered: function (key) { return !!(m[key] && m[key].answered); },
+      lied: function (key) { return !!(m[key] && m[key].answered && !m[key].honest); },
       namesKnown: function () {
         var n = 0; for (var k in m) if (m[k].asked) n++; return n;
       },
       known: function () { return Object.keys(m).length; },
-      serialize: function () { return JSON.parse(JSON.stringify(m)); }
+      serialize: function () { return JSON.parse(JSON.stringify(m)); },
+      /* THE ONE PLACE THE met: BUCKETS ARE CHOSEN, and it lives with the ledger
+         that owns the bits rather than in whichever surface happens to be
+         drawing a card. A caller that has to re-derive "have we met" invents its
+         own answer sooner or later, and then two screens disagree about the same
+         person. Most specific first, and every branch reads a bit that is
+         actually stored and actually saved. */
+      metState: function (key) {
+        var r = m[key];
+        if (!r) return 'first';
+        if (r.answered && !r.honest) return 'lied';
+        if (r.answered && r.honest) return 'honest';
+        if (r.asked) return 'asked';
+        if (r.times >= 4) return 'known';
+        if (r.times >= 2) return 'again';
+        return 'first';
+      }
     };
   }
 
@@ -921,7 +948,7 @@
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
     whereAt: whereAt, cardFor: cardFor, metWords: metWords,
-    makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS,
+    makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS, REACTIONS: REACTIONS,
     // what a person says when no quest is talking. FILLED 8/12 by
     // tools/bohemia_bark_factory.py, every line a draft he can retype in WORDS.
     linesFor: function (person, opts) {

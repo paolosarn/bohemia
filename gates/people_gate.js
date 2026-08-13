@@ -148,6 +148,37 @@ function partA() {
   ok('A2c NAMED_CAST is STILL EMPTY — WHO anybody is remains a DECISION',
     !P.NAMED_CAST || Object.keys(P.NAMED_CAST).length === 0);
 
+  /* A2d EVERY met: STATE THE LEDGER CAN REACH HAS SOMETHING TO SAY, and this is
+     the claim that would have caught `met:lied` shipping dead. Before 8/13 the
+     ledger stored honest:0|1 and nothing else, so "never answered" and "answered
+     and lied" were the same record -- metState could never return 'lied' and two
+     written lines could never fire. A key the sim never emits is a line that can
+     never fire, and the cure is on the EMITTING side: the boolean was already
+     arriving at answer() and being discarded. This walks the ledger through every
+     transition a player can actually cause and demands a bucket at each stop. */
+  {
+    const L = P.makeLedger(null);
+    const seen = [];
+    seen.push(L.metState('w'));                        // never met
+    L.meet('w', 1); L.meet('w', 2); seen.push(L.metState('w'));   // met again
+    L.meet('w', 3); L.meet('w', 4); seen.push(L.metState('w'));   // a regular
+    L.ask('w', 5); seen.push(L.metState('w'));         // you asked their name
+    L.answer('w', 6, false); seen.push(L.metState('w'));          // you lied
+    L.answer('w', 7, true); seen.push(L.metState('w'));           // you told the truth
+    const dead = seen.filter(s => !(P.REACTIONS && (P.REACTIONS['met:' + s] || []).length));
+    ok('A2d every met: state the LEDGER can reach has lines (' + seen.join('>') + ')',
+      dead.length === 0,
+      dead.length ? 'DEAD KEYS, written and unreachable: ' + dead.join(', ') : '');
+    ok('A2e metState covers all six — a state nothing can produce is a dead bucket',
+      new Set(seen).size === 6, seen.join(' > '));
+    /* AND IT SURVIVES A SAVE, or lying to somebody is forgiven by a reload. The
+       honest bit needed exactly this check on 8/2 and the answered bit needs it
+       for the same reason: serialize() is what the run writes into the blob. */
+    const L2 = P.makeLedger(L.serialize());
+    ok('A2f the answered bit survives serialize — a reload does not forgive a lie',
+      L2.metState('w') === L.metState('w') && L2.lied('w') === L.lied('w'));
+  }
+
   const { agents } = roster(0xB10C);
   const people = P.peopleOf(0xB10C, agents);
   ok('A3 a real block generates people (' + people.length + ')', people.length >= 6);
@@ -590,8 +621,21 @@ async function partC() {
     ok('C18 THE FACE IS THIS PERSON\'S FACE, at their own look index',
       !!px1 && px1[0] === want[0] && px1[1] === want[1] && px1[2] === want[2]);
 
-    ok('C19 nobody speaks, because his lines table is empty',
-      (await page.$$('#says p')).length === 0);
+    /* C19 WAS "NOBODY SPEAKS, BECAUSE HIS LINES TABLE IS EMPTY" and that is the
+       FOURTH claim in this repo enforcing a ruling Paolo overturned on 8/11
+       ("FOR ANY TEXT JUST HAVE PLACEHOLDING GOOD ESTIMATES OF SPEECH BRO I WILL
+       EDIT IT LIVE THATS WHY I HAVENT DONE QUESTS YET"). A GATE MUST NEVER
+       OUTRANK A RULING (8/1): fix the ruler, never the target.
+       AND THE INVERSION IS THE HARDER CLAIM, which is the point of doing it here
+       rather than deleting the line. Silence passed the old check whether the
+       table was empty BY LAW or empty BY BUG -- and it was empty by bug for a
+       month, because the call site asked with no arguments. Now the surface has
+       to actually produce words, in the browser, on a real person. */
+    const said = await page.$$eval('#says p', ns => ns.map(n => n.textContent.trim()));
+    ok('C19 THEY SPEAK: the person card puts real words on screen (' +
+      said.length + ' line' + (said.length === 1 ? '' : 's') + ')',
+      said.length > 0 && said.every(s => s.length > 0),
+      JSON.stringify(said.slice(0, 2)));
     ok('C20 the hour with them is still on offer, inside the conversation',
       await page.isVisible('#pplhang'));
 

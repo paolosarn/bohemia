@@ -211,12 +211,108 @@ ONE JSON FILE. THE GRIEF DINNER IS IN THE CUTSCENE TAB. ***
 PEOPLE (7h9sfy): 8/12 (h) LATEST -- *** NEW LAW, HIS, AND IT IS ABOUT US:
 HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
-PEOPLE (7h9sfy): 8/12 (k) LATEST -- *** THE WORLD HAS A MOUTH NOW. 244 AMBIENT
-LINES WRITTEN OFF THE CATALOGUE, WIRED INTO THE PEOPLE MODULE, ALL 1,190 LINES
-EDITABLE IN WORDS. ***
+PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
+THE CATALOGUE, WIRED INTO linesFor(). ***
+PEOPLE (7h9sfy): 8/13 (b) LATEST -- *** AND NOW THE MOUTH ANSWERS THE WORLD.
+66 REACTION LINES OVER THREE SYSTEMS THAT TRACKED EVERYTHING AND SAID NOTHING. ***
 
-HIS NOTE: "cool another menu.... generate text for now with our quest catalog we
-have." FAIR. The previous turn shipped controls and zero content.
+DEPTH IS REACTIVITY, NOT WORD COUNT. Hades ships ~21,020 lines whose only job is
+to notice what you just did; that is the number people mean when they say a game
+feels deep. Bohemia had 244 barks and every one of them fired the same whether
+you had robbed the block or fed it.
+
+WHAT WAS ALREADY BEING TRACKED AND NEVER REACHED A MOUTH -- three systems, all
+live, all mute:
+  bohemia_standing.js  RUNGS         HOSTILE COLD NEUTRAL WARM FWU
+  bohemia_loop.js      CLOUT_WEIGHTS quiet notable risky reckless
+  the memory of whether this person has met you, and how that went
+The engine knew your reputation on the block. Nobody on the block ever mentioned
+it. THAT is the same disease as the empty LINES table one turn earlier: the work
+exists and does not reach the surface he taps.
+
+66 LINES IN 19 BUCKETS, AND NOT ONE KEY IS TYPED BY HAND. The factory READS the
+rung names out of bohemia_standing.js and the clout tiers out of bohemia_loop.js
+and refuses to author a key the sim cannot emit. A key the sim never emits is a
+line that can never fire -- the silent way a full-looking table dies, and the
+gate that caught it for barks now catches it for reactions.
+  rung:  HOSTILE COLD NEUTRAL WARM FWU
+  saw:   quiet notable risky reckless      (they watched you do it)
+  heard: same four, one remove colder      (it got to them secondhand)
+  met:   first again known asked honest lied
+
+PRECEDENCE IS THE WHOLE DESIGN: saw > heard > rung > met > ambient.
+SEEING BEATS HEARING BEATS KNOWING YOU. Someone who watched you says
+"I saw. I don't think anybody else did." Someone who only heard is vaguer and
+colder about it. The time-of-day ambient lines now only speak when nobody in
+earshot has anything on you -- which is what they were always for.
+
+*** AND THEN I FOUND THE BARKS HAD NEVER BEEN AUDIBLE. NOT ONE OF THEM, EVER. ***
+
+I went to verify on the real surface and the module was not there. Three things
+were wrong at once, every one of them invisible to every gate we had, and all
+three had been true since the day the 244 barks shipped:
+
+ 1. THE SCREEN NEVER ASKED. The one call site in the walked run was
+    `BohemiaPeople.linesFor(who)` -- NO SECOND ARGUMENT. linesFor resolves by
+    role:act / faction / situation off that argument, so 58 of 58 buckets were
+    unreachable. The table was full and the query was blind. Written, gated,
+    green, and mute.
+ 2. THE COPY HE LOADS WAS A BUILD BEHIND. Every gate reads engine/*.js off disk.
+    The frame the RUN tab actually loads and the CITY world both carry INLINED
+    copies, and neither had REACTIONS in it at all. Fresh on disk, stale in the
+    surface he taps -- the exact thing ENGINE SYNC LAW exists for, and the sweep
+    reported ZERO DRIFT because those copies were outside it.
+ 3. A KEY NOTHING COULD EMIT. `met:lied` could never fire: the ledger stored one
+    honesty bit and threw the false case away, so "never answered" and "answered
+    and lied" were the same record. Two written lines, permanently unreachable.
+    Fixed on the EMITTING side (the boolean was already arriving and being
+    discarded), never by deleting the lines.
+
+FIXED, AND WIRED TO THE ORGANS THAT ALREADY KNEW. reactionCtx() in the run source
+hands linesFor four things nothing had ever asked for:
+  saw / heard  RUN.sawList -- witnessResolution() already recorded exactly who was
+               in reach and whether they were OUTDOORS (saw it) or behind a wall
+               (heard it). Outdoors gets the sharp lines, indoors the vague ones.
+  rung         BohemiaStanding.opinionOf() on THIS PERSON'S OWN mind. Not the
+               faction average on the readout -- the person in front of you has
+               their own memory and their own decay and it is what they speak with.
+  met          PEOPLE_MET.metState(), which now lives on the ledger that owns the
+               bits, so no surface ever re-derives "have we met" for itself.
+All four are optional; anything the world has not produced comes back null and it
+falls through to ambient, which is honest -- a stranger talks about the weather.
+
+*** AND THE FIRST VERSION OF THE NEW GATE WAS ALSO WRONG, WHICH IS THE LESSON. ***
+It grepped the run source for `RUN.sawList` and `BohemiaStanding`. I mutated the
+code to `if(false){...}`, BOTH STRINGS STAYED IN THE FILE, and the gate stayed
+green. A checker that cannot tell a MENTION from a USE is the broken one (8/1).
+Thrown away and rewritten: gates/reaction_reach_gate.js BOOTS THE SURFACE, plants
+the signals the way the world plants them (his own DEED_WEIGHT, loaded from the
+canon quests' @DO lines -- nothing invented), and asks the page what came out.
+Three mutations proved red: cut the witness read, cut the standing read, or swap
+in a stale inline module and it fails 2, 2 and 15 claims.
+
+FOR EVERY LANE, BECAUSE THIS IS NOT A PEOPLE PROBLEM: slices/BOHEMIA_RUN_CURRENT
+.html IS A BUILD OUTPUT. Editing it works until the next `node tools/build_run_
+slice.js` silently erases you. The source is slices/BOHEMIA_RUN_SLICE_7_26_26.html.
+I typed my first fix into the output and had to redo it.
+
+TAB: WORDS -- 1,256 lines across 25 sources now, 1,254 citing the catalogue,
+every one editable in place and exportable.
+TAB: RUN -- walk up to somebody and they now say something that depends on what
+you did, whether they saw it or heard it, and how you two stand.
+
+GATE: DIALOGUE CATALOGUE is 47 claims. Two new ones, both mutation-tested RED
+before being trusted: inventing a rung the standing module does not define
+(rung:FRIENDLY) fails, and reordering linesFor() so ambient outranks reaction
+fails. PEOPLE_GATE A2 had to be INVERTED -- it asserted "LINES ships empty",
+which was the correct 7/31 read of MECHANISM-MINE and was overturned by ALWAYS
+MAKE AN ATTEMPT on 8/11. *** A GATE MUST NEVER OUTRANK A RULING (8/1). *** Third
+time this week a stale gate tried to enforce a dead reading; fix the ruler, never
+the target. What survives: NAMED_CAST is still empty and still checked -- WHO
+anybody IS is a DECISION, what they SAY is an attempt.
+
+HIS EARLIER NOTE, STILL THE STANDARD: "cool another menu.... generate text for
+now with our quest catalog we have." Two turns of content since. No new menus.
 
 WHAT WAS EMPTY, AND IT WAS THE BLANK PAGE AGAIN. engine/bohemia_people.js has
 carried `var LINES = {};` with a comment saying "nothing may fill it but him".
@@ -260,16 +356,28 @@ and act words -- a bucket named something the sim never says is a line that can
 never fire, which is the silent way a bark table dies. ***
 
 *** NEXT (the GO list, in order):
- 1. MORE TEXT, SAME METHOD. The factory is a spec + a generator + a gate; adding
-    200 more lines is adding rows. Barks for the remaining situations the sim
-    tracks (weather, block wealth, time since a raid) are the cheapest next win.
- 2. QUEST VOLUME. 21 canon quests exist against a 152-quest catalogue. The
-    QUEST STUDY LAW machinery already checks citations; writing quest 22+ is
-    pure content work with the gates already built.
- 3. The barks are in the DATA and in WORDS but the walked RUN surface must
-    actually SHOW them over people's heads -- that is the CITY lane's surface.
+ 1. QUEST VOLUME. 21 canon quests against a 152-quest catalogue, and this is now
+    the biggest content gap in the game. The QUEST STUDY LAW machinery already
+    checks the citations, DIRECT already parses all 21 into 1,111 directable
+    rows, and the WORDS tab already harvests every line -- so quest 22+ is pure
+    writing with the whole apparatus already built and gated.
+ 2. MORE REACTION AXES, SAME METHOD. The factory reads its keys off the engine,
+    so the next batch is the next set of things the sim already knows and never
+    says: time since a raid, block wealth, weather, whether they are on shift.
+ 3. A BARK OVER THEIR HEAD IN THE WALKED WORLD. The person CARD speaks now, and
+    reaction_reach_gate proves it. What is still missing is hearing somebody
+    without opening a card -- that is the CITY lane's render surface.
     Coordinate before crossing.
- 4. Not this lane: 60 tools still crash on CITY_B64; his 11 perimeter walls. ***
+ 4. Not this lane: 60 tools still crash on CITY_B64; his 11 perimeter walls.
+
+ *** AND A STANDING WARNING FOR EVERY LANE, PAID FOR TWICE THIS WEEK ***
+ A GREEN GATE THAT READS engine/*.js PROVES NOTHING ABOUT WHAT HE LOADS. Three
+ surfaces carry inlined copies (the alpha, BOHEMIA_RUN_CURRENT, BOHEMIA_CITY_
+ WORLD) and only some modules are in the resync sweep. Before you claim a module
+ shipped: `python3 tools/bohemia_city_module_resync.py --check` and then OPEN THE
+ SURFACE and ask it. And if your check greps a file for a symbol, mutate the code
+ to `if(false)` and watch it -- if it stays green, the string survived and your
+ gate is a checkbox. ***
 
 RUN (run-eak241): 8/12 LATEST -- ONE ZOOM, FROM HIS FEET TO THE MOON, AND BACK.
 
