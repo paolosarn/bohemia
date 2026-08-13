@@ -1,6 +1,6 @@
 {
- "sources": 227,
- "total_mb": 276.5,
+ "sources": 228,
+ "total_mb": 276.6,
  "unreached_mb": 273.6,
  "rows": [
   {
@@ -1153,7 +1153,7 @@
    "samples": 30,
    "hits_shown": 30,
    "hits_loaded": 30,
-   "bytes": 51573
+   "bytes": 52632
   },
   {
    "path": "engine/bohemia_deeds.js",
@@ -1858,6 +1858,15 @@
    "bytes": 32204
   },
   {
+   "path": "engine/bohemia_succession.js",
+   "kind": "engine",
+   "verdict": "SHOWN (part)",
+   "samples": 3,
+   "hits_shown": 2,
+   "hits_loaded": 2,
+   "bytes": 13696
+  },
+  {
    "path": "engine/bohemia_swapmeet.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
@@ -1980,8 +1989,8 @@
    "verdict": "SHOWN (all)",
    "samples": 32,
    "hits_shown": 32,
-   "hits_loaded": 1,
-   "bytes": 24265
+   "hits_loaded": 0,
+   "bytes": 29707
   },
   {
    "path": "engine/bohemia_warehouse.js",
