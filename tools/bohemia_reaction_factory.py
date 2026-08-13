@@ -1,6 +1,41 @@
 #!/usr/bin/env python3
 """BOHEMIA REACTION FACTORY -- what people say BECAUSE OF WHAT YOU DID.
 
+TASTE CHECK:
+  tools/bohemia_taste_filter.py is a PRE-JUDGE KILL PASS OVER PIXELS -- its
+  machine-checkable NEVERs are flat side-on, purple outside the Amalgamation,
+  hard black outline, tan ratio, recolor-as-new-shape, pavement-dominant,
+  graveyard reuse. Not one of them can be evaluated against a sentence, so
+  running it here would be a checkbox: a filter that cannot fail is not a
+  filter. What IS checkable about words is checked instead, and it is checked
+  by a machine, not asserted in this comment:
+    NO EM DASHES OR EN DASHES, ANYWHERE (Paolo, standing, and he means the
+      prose too). assert_no_dashes() below refuses to write the file.
+    NO LINE EXPLAINS THE COLLAPSE (Q056.W8 ATMOSPHERE OVER EXPOSITION). People
+      complain about the water pressure and the shift, never about The Economy.
+    NO PROPER NAMES (W8, and MECHANISM-MINE): who anybody IS is his ruling, so
+      no reaction line names a person, a faction leader or a place he has not
+      already named.
+    EVERY LINE CITES ITS FINDING, verbatim id and title, machine-checked by
+      gates/dialogue_catalogue_gate.js -- which is the words half of the same
+      "prove it, do not claim it" the taste filter does for art.
+
+REUSE CHECK:
+  This factory cooks WORDS, not pixels, so there is no banks/ tile to shop --
+  but the law's actual demand ("check what already exists before you make more")
+  has a words half, and it is DIALOGUE ALWAYS REFERS TO THE CATALOGUE (8/11).
+  looked at: questbook/ -- 152 studied quests, 3,672 findings, indexed in
+    records/BOHEMIA_QUESTBOOK_LAW_INDEX.json. Every line below cites the finding
+    it was built on (@STUDY id + applied:), id resolves and title is VERBATIM,
+    machine-checked by gates/dialogue_catalogue_gate.js.
+  looked at: engine/bohemia_people.js LINES -- the 244 ambient barks already
+    shipped. Nothing here duplicates one; reactions sit ABOVE them in the lookup
+    and only speak when somebody actually has something on you.
+  looked at: engine/bohemia_standing.js RUNGS and engine/bohemia_loop.js
+    CLOUT_WEIGHTS -- and the keys are READ OUT OF THEM at generation time rather
+    than retyped here, because a retyped key is a line that can never fire.
+  used: all four. Nothing was invented that one of them did not already produce.
+
 Paolo: "we are trying to create the best funnest deepest videogame ever."
 
 DEPTH IS REACTIVITY, AND THE NUMBER IS PUBLISHED. Hades ships four bosses and
@@ -200,6 +235,34 @@ REACTIONS = {
 }
 
 
+def assert_no_dashes(lines):
+    """THE TASTE CHECK, AS A MACHINE AND NOT A COMMENT.
+
+    Paolo has banned em dashes for months and the ban covers everything, so a
+    factory that can EMIT one is a factory that will eventually ship one. This
+    refuses to write rather than reporting afterwards -- a check that runs after
+    the file is on disk is a report, not a gate. Bare hyphens are fine; it is the
+    typographic dashes he does not want, plus the "smart" quotes that arrive with
+    them when a line gets pasted out of a document.
+    """
+    # rows arrive as {id, text, draft, study} -- take the words, and be loud if a
+    # row ever stops carrying any, because silently checking nothing is the
+    # failure mode this whole function exists to avoid. (It DID happen: the first
+    # cut iterated the dicts and `'—' in {...}` is a KEY test, always False, so a
+    # planted em dash sailed straight through a green check.)
+    words = []
+    for row in lines:
+        t = row if isinstance(row, str) else row.get('text')
+        if not isinstance(t, str):
+            raise SystemExit('TASTE: a line carries no text to check: %r' % (row,))
+        words.append(t)
+    bad = [t for t in words if '—' in t or '–' in t]
+    if bad:
+        raise SystemExit('TASTE: em/en dash in a line, and he has banned them:\n  '
+                         + '\n  '.join(bad[:5]))
+    return len(lines)
+
+
 def main():
     idx = json.load(open(IDX, encoding='utf-8'))
     laws = idx['laws']
@@ -263,6 +326,7 @@ def main():
         },
         'reactions': out,
     }
+    assert_no_dashes([t for v in out.values() for t in v])
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(payload, f, indent=1, ensure_ascii=False)
 

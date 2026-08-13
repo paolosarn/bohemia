@@ -1,6 +1,37 @@
 #!/usr/bin/env python3
 """BOHEMIA BARK FACTORY -- the words the world says when nobody is questing.
 
+TASTE CHECK:
+  tools/bohemia_taste_filter.py is a pre-judge KILL pass over PIXELS: flat
+  side-on, purple outside the Amalgamation, hard black outline, tan ratio,
+  recolor-as-new-shape, pavement-dominant, graveyard reuse. Not one of those can
+  be evaluated against a sentence, so running it here would be a checkbox, and a
+  filter that cannot fail is not a filter. What IS checkable about words is
+  checked instead, by a machine rather than by this comment:
+    NO EM DASHES OR EN DASHES ANYWHERE (Paolo, standing, and it covers prose).
+      assert_no_dashes() below refuses to write the file, and it was proven by
+      planting one and watching the run die.
+    NO LINE EXPLAINS THE COLLAPSE (Q056.W8 ATMOSPHERE OVER EXPOSITION). The
+      complaint is the water pressure, the shift, the meter, the rent.
+    NO PROPER NAMES (W8 + MECHANISM-MINE): who anybody IS stays his ruling.
+    EVERY LINE CITES ITS FINDING, id and title verbatim, machine-checked by
+      gates/dialogue_catalogue_gate.js.
+
+REUSE CHECK:
+  Cooks WORDS, not pixels, so no banks/ tile applies -- but the words half of
+  the same law does: DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11).
+  looked at: questbook/ -- 152 studied quests, 3,672 findings, indexed in
+    records/BOHEMIA_QUESTBOOK_LAW_INDEX.json. Q043.W4 AMBIENT BANTER AS
+    CHARACTERIZATION is the finding that says to build this at all. Every line
+    cites the finding it came from; gates/dialogue_catalogue_gate.js checks the
+    id resolves and the title is VERBATIM.
+  looked at: engine/bohemia_agents.js -- the role and act words are READ OFF the
+    agent sim rather than invented here, so no bucket is named something the
+    world never says (which is how a full-looking table ships mute).
+  looked at: engine/BOHEMIA_faction_graph.json -- the faction bucket names are
+    his real factions, not a parallel list.
+  used: all three.
+
 Paolo 8/12: "cool another menu.... generate text for now with our quest catalog
 we have."
 
@@ -514,6 +545,34 @@ for k, extra in MORE.items():
         BUCKETS[k] = (['banter'], list(extra))
 
 
+def assert_no_dashes(lines):
+    """THE TASTE CHECK, AS A MACHINE AND NOT A COMMENT.
+
+    Paolo has banned em dashes for months and the ban covers the words too, so a
+    factory that CAN emit one will eventually ship one. This refuses to write
+    rather than reporting after the fact. Bare hyphens are fine; it is the
+    typographic dashes he does not want.
+
+    ROWS ARE DICTS, and the first cut of this function in the sibling reaction
+    factory iterated them raw -- `'-' in {...}` is a KEY test, always False, so a
+    deliberately planted em dash sailed through a green check. A checker that
+    cannot see its own subject is the broken one (8/1). It raises now if a row
+    ever stops carrying text, because silently checking nothing is the exact
+    failure this exists to prevent.
+    """
+    words = []
+    for row in lines:
+        t = row if isinstance(row, str) else row.get('text')
+        if not isinstance(t, str):
+            raise SystemExit('TASTE: a line carries no text to check: %r' % (row,))
+        words.append(t)
+    bad = [t for t in words if '—' in t or '–' in t]
+    if bad:
+        raise SystemExit('TASTE: em/en dash in a line, and he has banned them:\n  '
+                         + '\n  '.join(bad[:5]))
+    return len(words)
+
+
 def main():
     idx = json.load(open(IDX, encoding='utf-8'))
     laws = idx['laws']
@@ -560,6 +619,7 @@ def main():
         },
         'barks': out,
     }
+    assert_no_dashes([t for v in out.values() for t in v])
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(payload, f, indent=1, ensure_ascii=False)
 

@@ -296,6 +296,29 @@ FOR EVERY LANE, BECAUSE THIS IS NOT A PEOPLE PROBLEM: slices/BOHEMIA_RUN_CURRENT
 slice.js` silently erases you. The source is slices/BOHEMIA_RUN_SLICE_7_26_26.html.
 I typed my first fix into the output and had to redo it.
 
+*** AND I DID THE SAME THING TO THE SOUNDS LANE, WHICH IS THE SHARPER VERSION. ***
+On 8/12 they found the cold open speaking 58 times for 7 lines and fixed it by
+hand IN THE ALPHA, inside the cutVoice block that tools/bohemia_cutscene_tab_
+patch.py owns. My re-run of that tool rewrote the block from its own template and
+DELETED THEIR FIX. Their gate (every_voice_surface_gate.py) caught me: green on
+main's alpha, 2 failed on mine. Their guard now lives in MY TOOL, credited, so
+re-running is idempotent -- proved by running it twice for the same md5.
+THE RULE THIS MAKES: if you fix something inside a block another lane's tool
+generates, the fix belongs in THAT TOOL. A fix that lives only in the output
+survives exactly until the next lane regenerates it, and nothing warns either of
+you. Check `git log -1 -- tools/<the tool>` before hand-editing a generated block.
+
+FOUR MORE GATES WERE RED AND MINE, all found by running the full suite instead of
+just my own: QUEST PLACEMENT (its judge page stamps engine md5s and I changed a
+module -- rerun tools/bohemia_quest_placement_judge.py), REUSE FIRST and TASTE
+(my three word tools carried neither block; they do now, and the TASTE one is a
+real machine check that refuses to write a file containing an em dash, proved by
+planting one). STILL RED AND NOT MINE, confirmed against origin/main: REUSE FIRST
+on bohemia_family_cast_patch.py + bohemia_sun_mode_char_patch.py (CHARACTER lane),
+MAP TAB on arterial/freeway body drift (WORLD lane), ONE WORLD TAB (its scanner
+reads the word STORY out of a COMMENT and calls it navigation -- mention vs use,
+same disease, in a gate).
+
 TAB: WORDS -- 1,256 lines across 25 sources now, 1,254 citing the catalogue,
 every one editable in place and exportable.
 TAB: RUN -- walk up to somebody and they now say something that depends on what

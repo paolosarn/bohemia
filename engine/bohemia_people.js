@@ -948,7 +948,7 @@
     nameOf: nameOf, headingOf: headingOf, addressOf: addressOf, seatLineOf: seatLineOf,
     nowLineOf: nowLineOf, workLineOf: workLineOf,
     whereAt: whereAt, cardFor: cardFor, metWords: metWords,
-    makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS, REACTIONS: REACTIONS,
+    makeLedger: makeLedger, clock: clock, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS, REACTIONS: REACTIONS,
     // what a person says when no quest is talking. FILLED 8/12 by
     // tools/bohemia_bark_factory.py, every line a draft he can retype in WORDS.
     linesFor: function (person, opts) {

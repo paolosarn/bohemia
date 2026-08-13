@@ -21317,6 +21317,23 @@ function cutSpeakerName(role){
 function cutVoice(role, text, windowMs){
   try{
     if(typeof BOH_VOICE==='undefined' || !text) return;
+    /* ONE UTTERANCE PER LINE. NOT MY FIX, AND THAT IS THE POINT OF THIS COMMENT.
+       The SOUNDS lane found this on 8/12 -- the surface repaints, this function
+       had no memory of what it just said, and the cold open spoke 58 times for 7
+       lines, each line eight times on top of itself. They fixed it by hand IN THE
+       ALPHA, and the next run of THIS TOOL rewrote the whole block from its own
+       template and deleted their fix. The alpha is an OUTPUT; a fix that lives
+       only in an output survives exactly until the next lane regenerates it.
+       So it lives HERE now, in the source of the block, where re-running is
+       idempotent. Clockless on purpose (their reasoning, kept): a time window
+       would also swallow a line legitimately repeated later in a scene, and what
+       is being prevented is the SAME line arriving again with nothing between.
+       The scene, its timing and voiceFit stay this lane's. This is the voice
+       engine refusing to stutter, nothing more.
+       Gate: gates/every_voice_surface_gate.py, which is theirs and caught me. */
+    var sig = (role||'') + '|' + text;
+    if(sig === window.CUT_LASTSAID) return;
+    window.CUT_LASTSAID = sig;
     /* THE SAME BUS THE VOICE JUDGE USES, RESOLVED THE SAME WAY. The first cut
        called the alpha's bus() helper -- which is declared INSIDE another
        closure and is NOT on window, so `typeof bus` was 'undefined', cutVoice
