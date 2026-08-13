@@ -213,7 +213,7 @@ HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/13 (b) LATEST -- *** AND NOW THE MOUTH ANSWERS THE WORLD.
+PEOPLE (7h9sfy): 8/13 (e) LATEST -- *** AND NOW THE MOUTH ANSWERS THE WORLD.
 66 REACTION LINES OVER THREE SYSTEMS THAT TRACKED EVERYTHING AND SAID NOTHING. ***
 
 DEPTH IS REACTIVITY, NOT WORD COUNT. Hades ships ~21,020 lines whose only job is
@@ -323,6 +323,25 @@ TAB: WORDS -- 1,256 lines across 25 sources now, 1,254 citing the catalogue,
 every one editable in place and exportable.
 TAB: RUN -- walk up to somebody and they now say something that depends on what
 you did, whether they saw it or heard it, and how you two stand.
+SHIPPED as BUILD 8/13e, on main.
+
+THE MERGE WAS GOOD NEWS, WORTH KNOWING BEFORE YOU BUILD ON THIS: while this was
+gating, another lane shipped THE VALLEY REMEMBERS -- standing now SURVIVES THE
+NIGHT. That is the exact signal reactionCtx feeds to linesFor, so a rung: line is
+no longer about something that resets at dawn. The two lanes did not coordinate
+and the systems met correctly because both read the same engine rather than each
+keeping a copy. That is the argument for READING THE MODULE instead of retyping
+its values, in one sentence.
+
+WHAT WAS STILL RED IN THE SUITE AT SHIP AND WHY IT WAS NOT HELD FOR: 12 gates,
+every one checked rather than assumed. RENDER PIXEL fails IDENTICALLY on main's
+own base (checked out c181352 and ran it: 4 passed 1 failed, both ways). THE
+CROWD passes 16/16 run alone and only fails inside the suite -- browser
+contention, and its claim is "byte-identical pixels", which is exactly the kind
+of claim that flakes under load. ONE WORLD TAB and REUSE FIRST are other lanes'
+(named above). The other eight read district/art/render data this lane never
+touched. NOBODY SHOULD TAKE THAT LIST ON FAITH -- the method is in the commits:
+check out the base commit, run the gate there, compare.
 
 GATE: DIALOGUE CATALOGUE is 47 claims. Two new ones, both mutation-tested RED
 before being trusted: inventing a rung the standing module does not define
