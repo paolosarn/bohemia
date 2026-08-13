@@ -640,6 +640,37 @@ function drawFenceform(gx,gy,X,Y,S){
   ctx.drawImage(look(im),sx,0,44,44,X,Y-S,S,S);
   return true;
 }
+/* ELEVENTH WIRED FAMILY (8/12): TF-ART-006 the drained pools. The waterpark
+   names 563 'drained wave pool' cells, the apartments their backyard 'drained
+   pool', the waterpark its 'splash pool'. Same mask idea as the roof ring:
+   the rim piece is named by which sides face OUT of the basin; inside is silt
+   floor with the odd drain; one ladder per pool on a north rim. Slopes, the
+   deep-end wet floors and the clarifier are volume. */
+function poolAt(gx,gy){
+  if(gy<0||gx<0||gy>=NAMEG.length||gx>=NAMEG[0].length) return false;
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  return n.indexOf('pool')>=0 && (n.indexOf('drained')>=0||n.indexOf('splash')>=0);
+}
+function drawPoolform(gx,gy,X,Y,S){
+  if(!poolAt(gx,gy)) return false;
+  var k='';
+  if(!poolAt(gx,gy-1)) k+='N';
+  if(!poolAt(gx+1,gy)) k+='E';
+  if(!poolAt(gx,gy+1)) k+='S';
+  if(!poolAt(gx-1,gy)) k+='W';
+  var name;
+  if(k===''){
+    name = th(gx,gy,29)===0 ? 'floor_drain' : 'silt_'+th(gx,gy,3);
+  } else if(k==='N' && th(gx,0,11)===0){
+    name='rim_N_ladder';
+  } else {
+    name='rim_'+k;
+  }
+  var im=TILEFORM_IMG[name];
+  if(!im||!im.complete||!im.naturalWidth) return false;
+  ctx.drawImage(look(im),X,Y,S,S);
+  return true;
+}
 /* NINTH WIRED FAMILY (8/11): TF-ART-005 dead sports surfaces. The park's open
    lawn (3,067 cells), the school field and the stadium turf are 'dead turf' by
    name; mow stripes alternate a/b per ROW so the lawn reads as a mown-then-
@@ -2929,6 +2960,7 @@ function draw(){
         if(!isSuburbCell() && !body && drawStallform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && !body && drawCropform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && !body && drawTurfform(gx,gy2,X,Y,S)) continue;
+        if(!isSuburbCell() && !body && drawPoolform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
           : genericTile(gx,gy2);

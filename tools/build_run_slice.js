@@ -344,6 +344,10 @@ grabPieces('banks/tileforms/TF-ART-005_CANDIDATES_8_8_26.json',
    'turf_stripe_a2', 'turf_stripe_b2', 'court_0', 'court_1', 'court_2',
    'track_0', 'track_1', 'track_2', 'infield_0', 'infield_1', 'infield_2',
    'putting_0', 'putting_1', 'bunker_0', 'bunker_1', 'bunker_2']);
+grabPieces('banks/tileforms/TF-ART-006_CANDIDATES_8_8_26.json',
+  ['rim_N', 'rim_E', 'rim_S', 'rim_W', 'rim_NE', 'rim_NS', 'rim_NW', 'rim_ES',
+   'rim_EW', 'rim_SW', 'rim_NES', 'rim_NEW', 'rim_NSW', 'rim_ESW', 'rim_NESW',
+   'rim_N_ladder', 'silt_0', 'silt_1', 'silt_2', 'floor_drain']);
 grabPieces('banks/tileforms/TF-ART-008_CANDIDATES_8_8_26.json',
   ['sf_bay_tall_0', 'sf_bay_tall_1', 'sf_boarded_0', 'sf_boarded_1', 'sf_boarded_2',
    'sf_shutter_down_0', 'sf_shutter_down_1', 'sf_grille_half_0', 'sf_grille_half_1',

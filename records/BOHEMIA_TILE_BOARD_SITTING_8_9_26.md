@@ -261,3 +261,16 @@ volume with the signbands, pilasters, ends and the smashed pair.
 TEN OF FOURTEEN FAMILIES ARE IN THE GAME. Remaining four: CMU courses,
 freeway (own render path), pools (basin assembly), deck stairs (blocked on
 the TF-CMB-004 slab cook).
+
+## 8/12 TWELFTH PASS: ELEVENTH FAMILY WIRED (THE DRAINED POOLS)
+
+TF-ART-006 draws on every named pool basin: the waterpark's wave pool (563
+cells) and splash pool, the apartments' backyard pools. The WANG rim is named
+by which sides face out of the basin (the roof-ring mask, third reuse), the
+floor is silt with the odd drain, one ladder per pool on a north rim, and the
+old blue tile waterline survives on the back walls. Looked at live at the
+waterpark. Slopes, wet deep ends and the 5x5 clarifier are volume. The card
+shipped QUANTIZED (1.6 MB vs 3.3) - the Pages cap is at 245 of 260 MB and
+every new shot now compresses or replaces.
+ELEVEN OF FOURTEEN FAMILIES ARE IN THE GAME. Remaining three: CMU courses,
+freeway (own render path), deck stairs (blocked on TF-CMB-004).

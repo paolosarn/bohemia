@@ -109,6 +109,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-ART-006_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt). Volume unlocked, wiring open. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/12/26: every drained/splash pool basin draws the family (WANG rim by which sides face out of the basin, silt floors with drains, one ladder per pool on a north rim), live in the RUN tab (waterpark, apartments). Slopes, wet deep ends and the 5x5 clarifier are the named volume. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/28/26 | PRIORITY: MED
 - BOARD ROW #: 15 | VERDICT: —

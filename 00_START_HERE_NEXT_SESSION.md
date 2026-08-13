@@ -1,3 +1,20 @@
+ART (f3eu53): 8/12 (a) LATEST -- *** ELEVEN OF FOURTEEN FAMILIES ARE IN THE
+GAME. THE POOLS ARE DRAINED FOR GOOD. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twelfth-pass section)
+
+TAB: ART, WIRED IN THE GAME - eleven live-frame cards. The pool rim rode the
+same neighbour-mask machinery as the roof ring and the stall lines (third
+reuse; the pattern is now the lane's standard tool for any edged surface).
+
+REMAINING THREE: CMU cap/vent courses (material-aware course logic in
+drawCivicSkin), freeway (render path is NOT district cells - research first),
+deck stairs (blocked on the TF-CMB-004 slab cook). Then the volume ledger.
+PAGES CAP IS BITING: 245 of 260 MB. Every new tab shot ships QUANTIZED (the
+pool card is 1.6 MB vs 3.3 raw) and the next lane over the line should start
+replacing the oldest raw shots with quantized ones.
+
+ART (f3eu53): 8/11 (l) -- *** TEN OF FOURTEEN FAMILIES ARE IN THE GAME.
+
 RUN (run-eak241): 8/12 (b) LATEST -- THE PHONE RINGS. THE DAY STARTS WITH NO JOB.
 
 The phone was in his pocket and knew where he was, and it was still a VIEWER. Nothing
