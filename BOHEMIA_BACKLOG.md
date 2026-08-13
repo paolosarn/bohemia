@@ -1281,7 +1281,17 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    wall, decisive in the hardest content, numbers tuned by his playtest).
    PAIN PILLS (2-3 tiers MAX, WORLD supplies via the Cartel) manage the
    wounded state, never speed true healing. Demo needs at most the light
-   version: an injury that costs rest + a pill that helps. ***
+   version: an injury that costs rest + a pill that helps.
+   AMENDED AGAIN 8/13 — THE FIELD SURGERY (same addendum §7-8, LOCKED,
+   his verbatim procedure): gunshot treatment is a five-step sequence
+   (dilute povidone iodine + pour -> lidocaine injected around the wound
+   -> tweezers sterilized in boiling water -> extract pellets/bullet ->
+   inject antibiotics), each step consuming its good, played ON SCREEN as
+   an animated sequence per his order ("definitely we're gonna need to
+   make animations for this"). RUN owns the treat-wound verb through the
+   resolver; doing it right EARNS the convalescence path; skipping/
+   lacking a step = worse outcome (numbers PENDING his playtest feel).
+   Demo: light version legal. ***
    (a) HEALTH & STAMINA, THE ONE BAR (v2 §15, LOCKED, Valheim philosophy —
    his named favorite): one combined bar, stamina range capped by current
    health, injuries take DAYS (field medicine stabilizes, never heals),
@@ -1508,6 +1518,16 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+FS. THE FIELD SURGERY KIT (routed 8/13 off Paolo's LOCKED procedure —
+   laws/BOHEMIA_ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md §7-8): FIVE
+   GOODS enter the economy skeleton — povidone iodine, sterile water,
+   lidocaine, tweezers (durable), injectable antibiotics (the scarce
+   link, composes with the antibiotics-runout canon). Kit items ship
+   with draft:true descriptions (funny where fitting, dialogue craft
+   card) and EMPTY numbers/prices per mechanism-mine. Sits beside the
+   pain pills (2-3 tiers, Cartel-supplied) already routed in EC. | items
+   queryable in the goods tables + visible where goods are visible | 
+   prices/rarity = his dials | no.
 GM. GDD MECHANICS ROUTED 8/4 (from records/BOHEMIA_GDD_MECHANICS_LEDGER_
    8_4_26.md — designed-and-LOCKED in the GDD, in nobody's queue until now;
    all mechanism-first, tables empty per mechanism-mine):
@@ -5414,6 +5434,14 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
 ## sounds chat". First word "sounds" (or "sound"/"music"). Owns everything
 ## audible: music, SFX, mix, beat plumbing. AUDIO MOVED OUT of CHARACTER —
 ## one system one session. Lane intent: doctrine §6.)
+FS. FIELD SURGERY SFX MOMENTS (routed 8/13 — laws/BOHEMIA_ADDENDUM_
+   HEALING_IS_A_BIG_DEAL_8_12_26.md §7-8): the five-step gunshot
+   treatment is a prime moment set for the SFX factory — water boil,
+   the pour/splash, the injection hiss, the tweeze click, the extracted
+   pellet drop. Cook candidates into the existing judge page batch flow;
+   his ear rules, bank stays empty until thumbed (same law as item 0). |
+   candidates playable in the MUSIC TAB | which sound wins = his thumb |
+   yes (a new candidate row is judgeable).
 0. (SHIPPED 7/29 - records/BOHEMIA_SFX_FACTORY_7_29_26.md. 60 candidates for
    12 game moments are LIVE in the MUSIC TAB, top of the panel: tap, hear,
    thumb, note, export .txt. Gates: sfx_gate.js (73) + sfx_render_gate.py
@@ -5501,6 +5529,19 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
 ## next session: the rig-check gate assertion + the shading-separation gate
 ## assertion, same turn. AUDIO MOVED OUT 7/29: music/SFX belong to the new
 ## SOUNDS lane above — this lane is bodies, clothing, animation only.)
+FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
+   we're gonna need to make animations for this and yep" — laws/BOHEMIA_
+   ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md §7-8): one clip set for the
+   five-step gunshot treatment — POUR (diluted iodine on the wound),
+   INJECT (lidocaine ring; reused for the antibiotics step), TWEEZE/
+   EXTRACT (pellets/bullet; the boiling-water sterilize can be a held
+   prop beat, not necessarily its own clip). Rig law + leaf-pixel law
+   apply as always; beat-quantized per 120 BPM. Built once, reused for
+   self-treatment AND treating an ally (ally-in-combat canon). RUN
+   consumes the clips in the treat-wound sequence. Demo: light version
+   legal; clips can land post-demo unless cheap. | clips visible on the
+   real surface (ANIMATION TAB) | which step looks how = his thumb on
+   the clips themselves | yes (the clip set is judgeable).
 1. (DONE 7/26 -- records/BOHEMIA_BODYVAR_SLIDERS_7_26_26.txt) ONE-RIG VARIATION
    SLIDERS. Shipped with gates/bodyvar_gate.js + a real-browser clip-set sweep.
    The RANGES are now waiting on Paolo's thumb; do not re-cook them, and do not

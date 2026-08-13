@@ -17571,3 +17571,22 @@ synthesis + drafts law make Hades-scale reactivity nearly free; every
 boss now owes an AFTERMATH REACTION SET (witnesses/faction/feed,
 killed-vs-spared) through the live organs. Roster size stays HIS taste,
 untouched. Ledger + mark advanced.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/13 (a) — THE FIELD SURGERY (Paolo, LOCKED, still at
+Andrea's bedside — laws/BOHEMIA_ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md
+§7-8, amended in place). Canon gunshot treatment, his verbatim five steps:
+diluted povidone iodine poured on the wound -> lidocaine injected in the
+surrounding tissue -> tweezers sterilized in boiling water -> extract the
+pellets/bullet -> inject antibiotics. Medically real (realism check
+confirms the sequence and the shelf-stability; injectable antibiotics are
+the scarce link, composing with the antibiotics-runout canon). Field
+surgery STABILIZES, never heals — doing it right EARNS the convalescence
+path. HIS DIRECT ORDER: "definitely we're gonna need to make animations
+for this" — the sequence plays ON SCREEN, not a menu click. ROUTED, no
+new session: CHARACTER FS (surgery clip set: pour/inject/tweeze-extract,
+rig + leaf-pixel + 120 BPM, reused self/ally), WORLD FS (five kit goods,
+draft descriptions, empty numbers), RUN 0g re-amended (treat-wound verb
+through the resolver, step order, skip = worse outcome), SOUNDS FS (boil/
+pour/hiss/click/pellet-drop candidates for the judge page). Demo: light
+version legal, full sequence post-demo unless cheap.
