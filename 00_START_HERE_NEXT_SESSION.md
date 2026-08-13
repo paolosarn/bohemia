@@ -886,7 +886,73 @@ circled before saying it is done.
 --------------------------------------------------------------------------------
 
 
-LAB (lab-e2r7sv): 8/7 (i) LATEST -- *** I AUDITED THE LADDER AGAINST GDD v5 AND SEVEN BOSSES WERE
+LAB (lab-e2r7sv): 8/13 (a) LATEST -- *** I MEASURED THE CIV 5 TECH TREE AND IT SAYS OUR BOSS
+LADDER IS THE WRONG SHAPE. NOT THE WRONG CONTENTS. THE WRONG GEOMETRY. ***
+JUDGE THIS: 1. records/BOHEMIA_RESEARCH_CIV5_TECHTREE_8_13_26.md (the research + the gap table)
+NOT IN A TAB. Records file. The ladder has never had a surface either.
+
+Paolo 8/13: "do big brain research into civilization five and all of the technologies in the tech
+tree. This may help you with your goals." He was right and it was not the help I went looking for.
+I went to mine 81 tech names for boss ideas. What the tree actually gave up is a SHAPE.
+
+*** THE HEADLINE: THE CHOICE FAN IS A HELD CONSTANT AND IT IS THE WHOLE GAME. *** At every one of
+Civ 5's 81 research steps, the number of techs you may legally take next sits between 3 and 7,
+median 4, for 91% of the game. It is 1 exactly THREE times: the opening move and the final two.
+Eighty-one decisions, each a real choice among about four things, for twenty hours. A graph that
+size could easily offer twenty options or one. It is HELD.
+
+*** AND MEASURED THE SAME WAY, OUR LADDER IS A LINE. *** 53 bosses numbered 1 to 53 with ZERO
+prerequisite edges is not "a pool we will order later" -- it is a 53-TIER-DEEP CHAIN WITH A CHOICE
+FAN OF EXACTLY 1. One legal boss at any moment, ever. Numbering them WAS a design decision and I
+made it without noticing I had made it. Civ 5 spends its whole runtime never letting that drop
+below 3.
+
+MEASURED, side by side, by one tool in one run (node tools/bohemia_civ5_measure.js):
+  civ5: 81 techs · 130 prereq edges · 18 tiers · 8 eras · fan 3-7 med 4 · 2 terminals of 81
+  ours: 53 bosses ·   0 prereq edges · 53 tiers · 3 acts · fan 1 always · 53 terminals of 53
+Plus: an era is 2-3 tiers deep (five of eight span exactly 2); the era cost step DECAYS 3.17x ->
+1.45x rather than compounding; unlocks per tech front-load 2.9 -> 1.2; and A RUN TAKES A FRACTION
+OF THE TREE -- you can hold Gunpowder in the Renaissance having researched 15 of 81 techs, 19%.
+
+*** THE GOOD NEWS IS REAL AND IT MATTERS: HIS ACT SIZES ARE ALREADY RIGHT. *** Civ 5 geometry (2-3
+tiers at a 3-7 fan) means an era holds 6 to 21 nodes. Our acts hold 19, 20 and 14 -- all three land
+inside that band. SO NOTHING NEEDS CUTTING and three acts is not too coarse. Each act just wants
+re-reading as ~4 tiers of ~5 bosses instead of 19 rungs in a row. Same bosses, same acts, same
+count, edges added and ORDER REMOVED. That also answers "which of the 53 live" mechanically: Civ 5
+says ALL of them live and one run touches a fraction, which turns 53 from a content budget problem
+into a replay surface.
+
+I DID NOT DRAW THE EDGES. Which boss gates which is a ruling about how his game is played, and the
+ladder has been rebuilt seven times this month. The prereq COLUMN is mechanism and I will build it
+the second he says go; WHAT GOES IN IT is his. [PENDING PAOLO]
+
+GATE: gates/civ5_gate.js, 38 checks, registered as CIV 5 REF. Every number in the record is
+re-derived from the vendored dataset, so none of it can decay into a thing I once said. *** AND THE
+GAP TABLE IS MEASURED OFF THE LIVE LADDER, so the day somebody adds a prereq column THE GATE GOES
+RED and forces the record rewritten instead of quietly becoming false. *** Ten mutations, all ten
+caught.
+
+*** TWO THINGS I GOT WRONG WRITING IT, BOTH NOW MACHINE-HELD: ***
+1. I reported a "43% units / 43% buildings" per-era split as a design finding. IT WAS A CORRUPT
+   COLUMN -- the source dataset's buildings_enabled is a VERBATIM COPY of units_enabled in 81 of 81
+   nodes. A perfect 1:1 match across EIGHT INDEPENDENT ERAS is a tell, not a result, and I wrote it
+   down before I checked. The column is DELETED from the vendored copy rather than carried, because
+   a lie you store is a lie you will eventually quote. There is NO building data available; nothing
+   in the record reports one.
+2. I hand-typed "236 prerequisite edges" into the comparison table from nothing at all. It is 130.
+   The measurer now emits it so it cannot be typed by hand again.
+AND TWO MORE PROCESS REPEATS worth naming: a gate check hunted a phrasing I had GUESSED instead of
+the claim and failed on correct prose (fixed the RULER, not the record -- sixteenth instance of a
+checker hunting a WORD instead of a THING), and TWO of my ten mutations were malformed and would
+have printed as clean results: one hit the pattern 0 times because the prose was hard-wrapped, one
+ate a table pipe so the thing I meant to test never existed. Both were caught only because the
+harness ASSERTS the mutation landed before believing the outcome. A MUTATION THAT DOES NOT LAND
+TESTS NOTHING, and it looks exactly like a pass.
+
+--------------------------------------------------------------------------------
+
+
+LAB (lab-e2r7sv): 8/7 (i) -- *** I AUDITED THE LADDER AGAINST GDD v5 AND SEVEN BOSSES WERE
 FIGHTING CANON. SIX OF THE SEVEN WERE MINE. 53 BOSSES NOW. ***
 JUDGE THIS: 1. the 53 in records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md (live ladder, supersedes v6)
             2. the audit itself in records/BOHEMIA_LADDER_VS_GDD_AUDIT_8_7_26.md

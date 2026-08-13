@@ -1,0 +1,1510 @@
+[
+ {
+  "cost": 20,
+  "era": "Ancient",
+  "leads_to": [
+   "Pottery",
+   "Animal husbandry",
+   "Archery",
+   "Mining"
+  ],
+  "notes": [
+   "Starting technology for all civilizations"
+  ],
+  "required_techs": [],
+  "tech_id": 0,
+  "tech_name": "Agriculture",
+  "units_enabled": [
+   "Worker",
+   "Settler",
+   "Warrior",
+   "Scout",
+   "Atlatlist",
+   "Jaguar",
+   "Maori warrior",
+   "Pathfinder"
+  ]
+ },
+ {
+  "cost": 1600,
+  "era": "Industrial",
+  "leads_to": [
+   "Biology"
+  ],
+  "notes": [
+   "Reveal archaeological sites",
+   "Construct archaeological dig"
+  ],
+  "required_techs": [
+   "Navigation",
+   "Architecture"
+  ],
+  "tech_id": 41,
+  "tech_name": "Archaeology",
+  "units_enabled": [
+   "Archaeologist"
+  ]
+ },
+ {
+  "cost": 2000,
+  "era": "Industrial",
+  "leads_to": [
+   "Railroad"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Fertilizer",
+   "Military science"
+  ],
+  "tech_id": 43,
+  "tech_name": "Dynamite",
+  "units_enabled": [
+   "Artillery"
+  ]
+ },
+ {
+  "cost": 1600,
+  "era": "Industrial",
+  "leads_to": [
+   "Steam power"
+  ],
+  "notes": [
+   "Reveals Coal"
+  ],
+  "required_techs": [
+   "Economics"
+  ],
+  "tech_id": 46,
+  "tech_name": "Industrialization",
+  "units_enabled": [
+   "Gatling gun"
+  ]
+ },
+ {
+  "cost": 1150,
+  "era": "Renaissance",
+  "leads_to": [
+   "Rifling",
+   "Military science"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Gunpowder"
+  ],
+  "tech_id": 38,
+  "tech_name": "Metallurgy",
+  "units_enabled": [
+   "Lancer",
+   "Sipahi",
+   "Hakkapeliitta",
+   "Winged hussar"
+  ]
+ },
+ {
+  "cost": 1150,
+  "era": "Renaissance",
+  "leads_to": [
+   "Archaeology",
+   "Scientific Theory"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Astronomy"
+  ],
+  "tech_id": 39,
+  "tech_name": "Navigation",
+  "units_enabled": [
+   "Frigate",
+   "Ship of the line",
+   "Privateer",
+   "Sea beggar"
+  ]
+ },
+ {
+  "cost": 1425,
+  "era": "Industrial",
+  "leads_to": [
+   "Dynamite"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Metallurgy"
+  ],
+  "tech_id": 48,
+  "tech_name": "Rifling",
+  "units_enabled": [
+   "Rifleman",
+   "Norwegian ski infantry",
+   "Mehal sefari",
+   "Carolean"
+  ]
+ },
+ {
+  "cost": 1150,
+  "era": "Renaissance",
+  "leads_to": [
+   "Scientific Theory",
+   "Industrialization",
+   "Rifling"
+  ],
+  "notes": [
+   "+1 Gold from Camps",
+   "+1 Gold from Customs Houses",
+   "+1 Gold from Trading Posts",
+   "+2 Gold and +1 Production from Polders"
+  ],
+  "required_techs": [
+   "Banking",
+   "Printing press"
+  ],
+  "tech_id": 36,
+  "tech_name": "Economics",
+  "units_enabled": []
+ },
+ {
+  "cost": 2350,
+  "era": "Industrial",
+  "leads_to": [
+   "Refrigeration"
+  ],
+  "notes": [
+   "Reveals oil",
+   "Allows an additional trade route"
+  ],
+  "required_techs": [
+   "Archaeology",
+   "Scientific Theory"
+  ],
+  "tech_id": 42,
+  "tech_name": "Biology",
+  "units_enabled": []
+ },
+ {
+  "cost": 780,
+  "era": "Renaissance",
+  "leads_to": [
+   "Chemistry",
+   "Metallurgy"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Physics",
+   "Steel"
+  ],
+  "tech_id": 37,
+  "tech_name": "Gunpowder",
+  "units_enabled": [
+   "Musketman",
+   "Minuteman",
+   "Musketeer",
+   "Janissary",
+   "Tercio"
+  ]
+ },
+ {
+  "cost": 7700,
+  "era": "Information",
+  "leads_to": [
+   "Globalization",
+   "Particle physics",
+   "The Internet"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Ecology"
+  ],
+  "tech_id": 79,
+  "tech_name": "Telecommunications",
+  "units_enabled": [
+   "Nuclear submarine"
+  ]
+ },
+ {
+  "cost": 780,
+  "era": "Renaissance",
+  "leads_to": [
+   "Economics",
+   "Architecture"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Education",
+   "Chivalry"
+  ],
+  "tech_id": 34,
+  "tech_name": "Banking",
+  "units_enabled": []
+ },
+ {
+  "cost": 2350,
+  "era": "Industrial",
+  "leads_to": [
+   "Refrigeration",
+   "Radio",
+   "Replaceable parts"
+  ],
+  "notes": [
+   "Reveals Aluminum."
+  ],
+  "required_techs": [
+   "Scientific Theory"
+  ],
+  "tech_id": 44,
+  "tech_name": "Electricity",
+  "units_enabled": []
+ },
+ {
+  "cost": 780,
+  "era": "Renaissance",
+  "leads_to": [
+   "Economics",
+   "Metallurgy"
+  ],
+  "notes": [
+   "Allows convening the World Congress once all other civilizations have been met"
+  ],
+  "required_techs": [
+   "Machinery",
+   "Physics",
+   "Chivalry"
+  ],
+  "tech_id": 40,
+  "tech_name": "Printing Press",
+  "units_enabled": []
+ },
+ {
+  "cost": 1150,
+  "era": "Renaissance",
+  "leads_to": [
+   "Military science",
+   "Fertilizer"
+  ],
+  "notes": [
+   "+1 for Mines, Quarries, Manufactories"
+  ],
+  "required_techs": [
+   "Gunpowder"
+  ],
+  "tech_id": 35,
+  "tech_name": "Chemistry",
+  "units_enabled": [
+   "Cannon"
+  ]
+ },
+ {
+  "cost": 8800,
+  "era": "Information",
+  "leads_to": [
+   "Future tech"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Telecommunications"
+  ],
+  "tech_id": 80,
+  "tech_name": "The Internet",
+  "units_enabled": []
+ },
+ {
+  "cost": 8800,
+  "era": "Information",
+  "leads_to": [
+   "Future tech"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Lasers",
+   "Robotics"
+  ],
+  "tech_id": 78,
+  "tech_name": "Stealth",
+  "units_enabled": [
+   "Stealth bomber"
+  ]
+ },
+ {
+  "cost": 1300,
+  "era": "Industrial",
+  "leads_to": [
+   "Dynamite"
+  ],
+  "notes": [
+   "+1 Food from farms and terrace farms without fresh water, +1 Food from plantations and pastures.",
+   "Renaissance era in vanilla Civ5"
+  ],
+  "required_techs": [
+   "Chemistry"
+  ],
+  "tech_id": 45,
+  "tech_name": "Fertilizer",
+  "units_enabled": []
+ },
+ {
+  "cost": 7700,
+  "era": "Information",
+  "leads_to": [
+   "Nuclear fusion"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Rocketry"
+  ],
+  "tech_id": 77,
+  "tech_name": "Satellites",
+  "units_enabled": [
+   "SS Cockpit"
+  ]
+ },
+ {
+  "cost": 7700,
+  "era": "Information",
+  "leads_to": [
+   "Nuclear fusion",
+   "Nanotechnology",
+   "Stealth"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Computers",
+   "Rocketry"
+  ],
+  "tech_id": 76,
+  "tech_name": "Robotics",
+  "units_enabled": [
+   "Missile cruiser"
+  ]
+ },
+ {
+  "cost": 7700,
+  "era": "Information",
+  "leads_to": [
+   "Stealth"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Computers"
+  ],
+  "tech_id": 71,
+  "tech_name": "Lasers",
+  "units_enabled": [
+   "Jet fighter",
+   "Modern armor"
+  ]
+ },
+ {
+  "cost": 8800,
+  "era": "Information",
+  "leads_to": [
+   "Future tech"
+  ],
+  "notes": [
+   "Gives an additional Delegate in the United Nations for each Diplomat acting in a foreign Capital"
+  ],
+  "required_techs": [
+   "Telecommunications"
+  ],
+  "tech_id": 70,
+  "tech_name": "Globalization",
+  "units_enabled": []
+ },
+ {
+  "cost": 8800,
+  "era": "Information",
+  "leads_to": [
+   "Future tech"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Robotics"
+  ],
+  "tech_id": 73,
+  "tech_name": "Nanotechnology",
+  "units_enabled": [
+   "XCOM Squad",
+   "SS Stasis Chamber"
+  ]
+ },
+ {
+  "cost": 6400,
+  "era": "Atomic",
+  "leads_to": [
+   "Telecommunications",
+   "Mobile tactics"
+  ],
+  "notes": [
+   "Modern era tech in vanilla Civ5"
+  ],
+  "required_techs": [
+   "Atomic theory",
+   "Penicillin"
+  ],
+  "tech_id": 63,
+  "tech_name": "Ecology",
+  "units_enabled": []
+ },
+ {
+  "cost": 5100,
+  "era": "Atomic",
+  "leads_to": [
+   "Ecology"
+  ],
+  "notes": [
+   "Allows an additional Trade route",
+   "Modern era tech in vanilla Civ5"
+  ],
+  "required_techs": [
+   "Refrigeration",
+   "Plastics"
+  ],
+  "tech_id": 65,
+  "tech_name": "Penicillin",
+  "units_enabled": [
+   "Marine"
+  ]
+ },
+ {
+  "cost": 6400,
+  "era": "Atomic",
+  "leads_to": [
+   "Advanced ballistics",
+   "Satellites",
+   "Robotics"
+  ],
+  "notes": [
+   "Modern era tech in vanilla Civ5"
+  ],
+  "required_techs": [
+   "Radar"
+  ],
+  "tech_id": 67,
+  "tech_name": "Rocketry",
+  "units_enabled": [
+   "Mobile SAM",
+   "Rocket artillery"
+  ]
+ },
+ {
+  "cost": 6400,
+  "era": "Atomic",
+  "leads_to": [
+   "Robotics",
+   "Lasers"
+  ],
+  "notes": [
+   "Modern era tech in vanilla Civ5"
+  ],
+  "required_techs": [
+   "Radar",
+   "Combined arms"
+  ],
+  "tech_id": 62,
+  "tech_name": "Computers",
+  "units_enabled": [
+   "Helicopter gunship"
+  ]
+ },
+ {
+  "cost": 7700,
+  "era": "Information",
+  "leads_to": [
+   "Particle physics"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Ecology",
+   "Nuclear fission"
+  ],
+  "tech_id": 72,
+  "tech_name": "Mobile Tactics",
+  "units_enabled": [
+   "Mechanized infantry"
+  ]
+ },
+ {
+  "cost": 7700,
+  "era": "Information",
+  "leads_to": [
+   "Nuclear fusion",
+   "Particle physics"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Rocketry",
+   "Nuclear fission"
+  ],
+  "tech_id": 68,
+  "tech_name": "Advanced Ballistics",
+  "units_enabled": [
+   "Guided missile",
+   "Nuclear missile",
+   "SS Booster"
+  ]
+ },
+ {
+  "cost": 9500,
+  "era": "Information",
+  "leads_to": [],
+  "notes": [],
+  "required_techs": [
+   "Nanotechnology",
+   "Nuclear fusion",
+   "Stealth",
+   "Particle physics",
+   "Globalization",
+   "The Internet"
+  ],
+  "tech_id": 69,
+  "tech_name": "Future Tech",
+  "units_enabled": []
+ },
+ {
+  "cost": 6400,
+  "era": "Atomic",
+  "leads_to": [
+   "Advanced ballistics",
+   "Mobile tactics"
+  ],
+  "notes": [
+   "Modern era tech in vanilla Civ5"
+  ],
+  "required_techs": [
+   "Atomic theory",
+   "Radar"
+  ],
+  "tech_id": 64,
+  "tech_name": "Nuclear Fission",
+  "units_enabled": [
+   "Atomic bomb",
+   "Bazooka"
+  ]
+ },
+ {
+  "cost": 5100,
+  "era": "Atomic",
+  "leads_to": [
+   "Rocketry",
+   "Nuclear fission",
+   "Computers"
+  ],
+  "notes": [
+   "Modern era tech in vanilla Civ5"
+  ],
+  "required_techs": [
+   "Ballistics",
+   "Electronics"
+  ],
+  "tech_id": 66,
+  "tech_name": "Radar",
+  "units_enabled": [
+   "Bomber",
+   "B17",
+   "Fighter",
+   "Zero",
+   "Paratrooper"
+  ]
+ },
+ {
+  "cost": 3100,
+  "era": "Modern",
+  "leads_to": [
+   "Plastics"
+  ],
+  "notes": [
+   "Industrial era in vanilla Civ5",
+   "Enables the International Games proposal in World Congress"
+  ],
+  "required_techs": [
+   "Electricity"
+  ],
+  "tech_id": 56,
+  "tech_name": "Radio",
+  "units_enabled": []
+ },
+ {
+  "cost": 8800,
+  "era": "Information",
+  "leads_to": [
+   "Future tech"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Telecommunications",
+   "Advanced ballistics",
+   "Mobile tactics"
+  ],
+  "tech_id": 75,
+  "tech_name": "Particle Physics",
+  "units_enabled": [
+   "SS Engine"
+  ]
+ },
+ {
+  "cost": 8800,
+  "era": "Information",
+  "leads_to": [
+   "Future tech"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Satellites",
+   "Robotics",
+   "Advanced ballistics"
+  ],
+  "tech_id": 74,
+  "tech_name": "Nuclear Fusion",
+  "units_enabled": [
+   "Giant death robot"
+  ]
+ },
+ {
+  "cost": 4100,
+  "era": "Modern",
+  "leads_to": [
+   "Atomic theory",
+   "Radar"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Replaceable parts",
+   "Flight"
+  ],
+  "tech_id": 53,
+  "tech_name": "Electronics",
+  "units_enabled": [
+   "Carrier",
+   "Battleship"
+  ]
+ },
+ {
+  "cost": 3100,
+  "era": "Modern",
+  "leads_to": [
+   "Combustion",
+   "Ballistics"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Steam power",
+   "Dynamite"
+  ],
+  "tech_id": 57,
+  "tech_name": "Railroad",
+  "units_enabled": []
+ },
+ {
+  "cost": 3100,
+  "era": "Modern",
+  "leads_to": [
+   "Penicillin"
+  ],
+  "notes": [
+   "Industrial era in vanilla Civ5"
+  ],
+  "required_techs": [
+   "Biology",
+   "Electricity"
+  ],
+  "tech_id": 58,
+  "tech_name": "Refrigeration",
+  "units_enabled": [
+   "Submarine"
+  ]
+ },
+ {
+  "cost": 4100,
+  "era": "Modern",
+  "leads_to": [
+   "Penicillin",
+   "Atomic theory"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Radio",
+   "Replaceable parts"
+  ],
+  "tech_id": 55,
+  "tech_name": "Plastics",
+  "units_enabled": [
+   "Infantry",
+   "Pracinha"
+  ]
+ },
+ {
+  "cost": 4100,
+  "era": "Modern",
+  "leads_to": [
+   "Radar",
+   "Combined arms"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Railroad"
+  ],
+  "tech_id": 51,
+  "tech_name": "Ballistics (Civ5)",
+  "units_enabled": [
+   "Anti-aircraft gun",
+   "Machine gun"
+  ]
+ },
+ {
+  "cost": 5100,
+  "era": "Atomic",
+  "leads_to": [
+   "Computers"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Combustion",
+   "Ballistics"
+  ],
+  "tech_id": 61,
+  "tech_name": "Combined Arms",
+  "units_enabled": [
+   "Tank",
+   "Anti-tank gun",
+   "Panzer"
+  ]
+ },
+ {
+  "cost": 3100,
+  "era": "Modern",
+  "leads_to": [
+   "Electronics",
+   "Ballistics"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Steam power"
+  ],
+  "tech_id": 54,
+  "tech_name": "Flight",
+  "units_enabled": [
+   "Triplane",
+   "Great war bomber"
+  ]
+ },
+ {
+  "cost": 1600,
+  "era": "Industrial",
+  "leads_to": [
+   "Dynamite"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Metallurgy",
+   "Chemistry"
+  ],
+  "tech_id": 47,
+  "tech_name": "Military Science",
+  "units_enabled": [
+   "Cavalry",
+   "Cossack",
+   "Hussar",
+   "Berber cavalry",
+   "Comanche riders"
+  ]
+ },
+ {
+  "cost": 5100,
+  "era": "Atomic",
+  "leads_to": [
+   "Ecology",
+   "Nuclear fission"
+  ],
+  "notes": [
+   "Reveals Uranium on the map",
+   "+2 Science from Academy improvement",
+   "Modern Era tech in vanilla Civ5"
+  ],
+  "required_techs": [
+   "Electronics",
+   "Plastics"
+  ],
+  "tech_id": 60,
+  "tech_name": "Atomic Theory",
+  "units_enabled": []
+ },
+ {
+  "cost": 1600,
+  "era": "Industrial",
+  "leads_to": [
+   "Biology",
+   "Steam power",
+   "Electricity"
+  ],
+  "notes": [
+   "+2 Science from Academy",
+   "+1 Production for Lumber Mills"
+  ],
+  "required_techs": [
+   "Economics",
+   "Architecture"
+  ],
+  "tech_id": 49,
+  "tech_name": "Scientific Theory",
+  "units_enabled": []
+ },
+ {
+  "cost": 3100,
+  "era": "Modern",
+  "leads_to": [
+   "Plastics",
+   "Electronics"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Electricity",
+   "Steam power"
+  ],
+  "tech_id": 59,
+  "tech_name": "Replaceable Parts",
+  "units_enabled": [
+   "Great war infantry",
+   "Foreign legion"
+  ]
+ },
+ {
+  "cost": 4100,
+  "era": "Modern",
+  "leads_to": [
+   "Combined arms"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Railroad"
+  ],
+  "tech_id": 52,
+  "tech_name": "Combustion",
+  "units_enabled": [
+   "Destroyer",
+   "Landship"
+  ]
+ },
+ {
+  "cost": 780,
+  "era": "Renaissance",
+  "leads_to": [
+   "Navigation"
+  ],
+  "notes": [
+   "Faster embarked movement",
+   "Allows embarking across oceans"
+  ],
+  "required_techs": [
+   "Compass",
+   "Education"
+  ],
+  "tech_id": 33,
+  "tech_name": "Astronomy",
+  "units_enabled": [
+   "Caravel",
+   "Turtle ship",
+   "Nau"
+  ]
+ },
+ {
+  "cost": 780,
+  "era": "Renaissance",
+  "leads_to": [
+   "Architecture"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Education"
+  ],
+  "tech_id": 31,
+  "tech_name": "Acoustics",
+  "units_enabled": []
+ },
+ {
+  "cost": 485,
+  "era": "Medieval",
+  "leads_to": [
+   "Gunpowder"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Metal casting"
+  ],
+  "tech_id": 29,
+  "tech_name": "Steel",
+  "units_enabled": [
+   "Longswordsman",
+   "Samurai"
+  ]
+ },
+ {
+  "cost": 275,
+  "era": "Medieval",
+  "leads_to": [
+   "Machinery",
+   "Chivalry"
+  ],
+  "notes": [
+   "Enables cities to convert Production into Gold"
+  ],
+  "required_techs": [
+   "Currency"
+  ],
+  "tech_id": 25,
+  "tech_name": "Guilds",
+  "units_enabled": []
+ },
+ {
+  "cost": 485,
+  "era": "Medieval",
+  "leads_to": [
+   "Printing press",
+   "Gunpowder"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Metal casting"
+  ],
+  "tech_id": 28,
+  "tech_name": "Physics",
+  "units_enabled": [
+   "Trebuchet",
+   "Hwach'a"
+  ]
+ },
+ {
+  "cost": 1150,
+  "era": "Renaissance",
+  "leads_to": [
+   "Archaeology",
+   "Scientific Theory"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Acoustics",
+   "Banking"
+  ],
+  "tech_id": 32,
+  "tech_name": "Architecture",
+  "units_enabled": []
+ },
+ {
+  "cost": 175,
+  "era": "Classical",
+  "leads_to": [
+   "Theology"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Calendar",
+   "Writing"
+  ],
+  "tech_id": 20,
+  "tech_name": "Philosophy",
+  "units_enabled": []
+ },
+ {
+  "cost": 485,
+  "era": "Medieval",
+  "leads_to": [
+   "Printing press"
+  ],
+  "notes": [
+   "Faster road movement. The cost in movement points per hex of road movement drops from one-half to to one-third."
+  ],
+  "required_techs": [
+   "Engineering",
+   "Guilds"
+  ],
+  "tech_id": 26,
+  "tech_name": "Machinery",
+  "units_enabled": [
+   "Crossbowman",
+   "Longbowman",
+   "Chu-ko-nu"
+  ]
+ },
+ {
+  "cost": 375,
+  "era": "Medieval",
+  "leads_to": [
+   "Astronomy"
+  ],
+  "notes": [
+   "Increases the range of sea trade routes.",
+   "Allows establishing an additional trade route.",
+   "+ 1 from Fishing Boats"
+  ],
+  "required_techs": [
+   "Optics",
+   "Theology"
+  ],
+  "tech_id": 23,
+  "tech_name": "Compass",
+  "units_enabled": [
+   "Galleass",
+   "Great galleass"
+  ]
+ },
+ {
+  "cost": 485,
+  "era": "Medieval",
+  "leads_to": [
+   "Banking",
+   "Printing press"
+  ],
+  "notes": [
+   "Enables Defensive pact treaties"
+  ],
+  "required_techs": [
+   "Civil service",
+   "Guilds"
+  ],
+  "tech_id": 21,
+  "tech_name": "Chivalry",
+  "units_enabled": [
+   "Knight",
+   "Camel archer",
+   "Naresuan's elephant",
+   "Mandekalu cavalry",
+   "Keshik",
+   "Conquistador"
+  ]
+ },
+ {
+  "cost": 85,
+  "era": "Classical",
+  "leads_to": [
+   "Compass"
+  ],
+  "notes": [
+   "Allows embarking of land units"
+  ],
+  "required_techs": [
+   "Sailing"
+  ],
+  "tech_id": 19,
+  "tech_name": "Optics",
+  "units_enabled": []
+ },
+ {
+  "cost": 275,
+  "era": "Medieval",
+  "leads_to": [
+   "Education",
+   "Compass"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Drama and poetry",
+   "Philosophy"
+  ],
+  "tech_id": 30,
+  "tech_name": "Theology",
+  "units_enabled": []
+ },
+ {
+  "cost": 2350,
+  "era": "Industrial",
+  "leads_to": [
+   "Flight",
+   "Replaceable parts",
+   "Railroad"
+  ],
+  "notes": [
+   "Faster embarked movement"
+  ],
+  "required_techs": [
+   "Scientific Theory",
+   "Industrialization",
+   "Rifling"
+  ],
+  "tech_id": 50,
+  "tech_name": "Steam Power",
+  "units_enabled": [
+   "Ironclad"
+  ]
+ },
+ {
+  "cost": 105,
+  "era": "Classical",
+  "leads_to": [
+   "Currency",
+   "Engineering"
+  ],
+  "notes": [],
+  "required_techs": [
+   "The wheel"
+  ],
+  "tech_id": 18,
+  "tech_name": "Mathematics",
+  "units_enabled": [
+   "Catapult",
+   "Ballista",
+   "Siege tower"
+  ]
+ },
+ {
+  "cost": 275,
+  "era": "Medieval",
+  "leads_to": [
+   "Physics",
+   "Steel"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Engineering",
+   "Iron working"
+  ],
+  "tech_id": 27,
+  "tech_name": "Metal Casting",
+  "units_enabled": [
+   "Berserker"
+  ]
+ },
+ {
+  "cost": 175,
+  "era": "Classical",
+  "leads_to": [
+   "Metal casting",
+   "Machinery"
+  ],
+  "notes": [
+   "Adds bridges over rivers",
+   "Adds an additional Trade route"
+  ],
+  "required_techs": [
+   "Mathematics",
+   "Construction"
+  ],
+  "tech_id": 15,
+  "tech_name": "Engineering",
+  "units_enabled": []
+ },
+ {
+  "cost": 55,
+  "era": "Ancient",
+  "leads_to": [
+   "Philosophy",
+   "Drama and poetry"
+  ],
+  "notes": [
+   "Allows establishment of embassies"
+  ],
+  "required_techs": [
+   "Pottery"
+  ],
+  "tech_id": 11,
+  "tech_name": "Writing",
+  "units_enabled": []
+ },
+ {
+  "cost": 275,
+  "era": "Medieval",
+  "leads_to": [
+   "Chivalry",
+   "Education"
+  ],
+  "notes": [
+   "+1 Food for Farms along fresh water",
+   "+1 Food for Terrace farms along fresh water",
+   "Allows Open borders treaties"
+  ],
+  "required_techs": [
+   "Drama and poetry",
+   "Horseback riding",
+   "Currency"
+  ],
+  "tech_id": 22,
+  "tech_name": "Civil Service",
+  "units_enabled": [
+   "Pikeman",
+   "Landsknecht"
+  ]
+ },
+ {
+  "cost": 485,
+  "era": "Medieval",
+  "leads_to": [
+   "Astronomy",
+   "Acoustics",
+   "Banking"
+  ],
+  "notes": [
+   "Allows cities to convert Production into Science",
+   "Allows Research agreements"
+  ],
+  "required_techs": [
+   "Theology",
+   "Civil service"
+  ],
+  "tech_id": 24,
+  "tech_name": "Education",
+  "units_enabled": []
+ },
+ {
+  "cost": 55,
+  "era": "Ancient",
+  "leads_to": [
+   "Horseback riding"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Animal husbandry"
+  ],
+  "tech_id": 10,
+  "tech_name": "Trapping",
+  "units_enabled": []
+ },
+ {
+  "cost": 105,
+  "era": "Classical",
+  "leads_to": [
+   "Engineering"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Masonry",
+   "The wheel"
+  ],
+  "tech_id": 12,
+  "tech_name": "Construction",
+  "units_enabled": [
+   "Composite bowman"
+  ]
+ },
+ {
+  "cost": 55,
+  "era": "Ancient",
+  "leads_to": [
+   "Optics"
+  ],
+  "notes": [
+   "Allows an additional Trade route"
+  ],
+  "required_techs": [
+   "Pottery"
+  ],
+  "tech_id": 8,
+  "tech_name": "Sailing",
+  "units_enabled": [
+   "Work boat",
+   "Trireme",
+   "Dromon",
+   "Quinquereme",
+   "Cargo ship"
+  ]
+ },
+ {
+  "cost": 35,
+  "era": "Ancient",
+  "leads_to": [
+   "Sailing",
+   "Calendar",
+   "Writing"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Agriculture"
+  ],
+  "tech_id": 7,
+  "tech_name": "Pottery",
+  "units_enabled": []
+ },
+ {
+  "cost": 35,
+  "era": "Ancient",
+  "leads_to": [
+   "Masonry",
+   "Bronze working"
+  ],
+  "notes": [
+   "Allows workers to clear forests"
+  ],
+  "required_techs": [
+   "Agriculture"
+  ],
+  "tech_id": 6,
+  "tech_name": "Mining",
+  "units_enabled": []
+ },
+ {
+  "cost": 175,
+  "era": "Classical",
+  "leads_to": [
+   "Theology",
+   "Civil service"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Writing"
+  ],
+  "tech_id": 14,
+  "tech_name": "Drama and Poetry",
+  "units_enabled": []
+ },
+ {
+  "cost": 195,
+  "era": "Classical",
+  "leads_to": [
+   "Metal casting"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Bronze working"
+  ],
+  "tech_id": 17,
+  "tech_name": "Iron Working",
+  "units_enabled": [
+   "Swordsman",
+   "Mohawk warrior",
+   "Legion",
+   "Kris Swordsman"
+  ]
+ },
+ {
+  "cost": 105,
+  "era": "Classical",
+  "leads_to": [
+   "Civil service"
+  ],
+  "notes": [],
+  "required_techs": [
+   "The wheel",
+   "Trapping"
+  ],
+  "tech_id": 16,
+  "tech_name": "Horseback Riding",
+  "units_enabled": [
+   "Horseman",
+   "Companion cavalry",
+   "Cataphract",
+   "African forest elephant"
+  ]
+ },
+ {
+  "cost": 55,
+  "era": "Ancient",
+  "leads_to": [
+   "Horseback riding",
+   "Mathematics",
+   "Construction"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Animal husbandry",
+   "Archery"
+  ],
+  "tech_id": 9,
+  "tech_name": "The Wheel",
+  "units_enabled": [
+   "Chariot archer",
+   "War chariot",
+   "War elephant",
+   "Horse archer"
+  ]
+ },
+ {
+  "cost": 55,
+  "era": "Ancient",
+  "leads_to": [
+   "Construction"
+  ],
+  "notes": [
+   "Allows workers to clear marshes"
+  ],
+  "required_techs": [
+   "Mining"
+  ],
+  "tech_id": 5,
+  "tech_name": "Masonry",
+  "units_enabled": []
+ },
+ {
+  "cost": 55,
+  "era": "Ancient",
+  "leads_to": [
+   "Philosophy"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Pottery"
+  ],
+  "tech_id": 4,
+  "tech_name": "Calendar",
+  "units_enabled": []
+ },
+ {
+  "cost": 175,
+  "era": "Classical",
+  "leads_to": [
+   "Civil service",
+   "Guilds"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Mathematics"
+  ],
+  "tech_id": 13,
+  "tech_name": "Currency",
+  "units_enabled": []
+ },
+ {
+  "cost": 55,
+  "era": "Ancient",
+  "leads_to": [
+   "Iron working"
+  ],
+  "notes": [
+   "Allows workers to remove jungles",
+   "Reveals Iron on the map"
+  ],
+  "required_techs": [
+   "Mining"
+  ],
+  "tech_id": 3,
+  "tech_name": "Bronze Working",
+  "units_enabled": [
+   "Spearman",
+   "Hoplite",
+   "Immortal",
+   "Pictish warrior",
+   "Battering ram"
+  ]
+ },
+ {
+  "cost": 35,
+  "era": "Ancient",
+  "leads_to": [
+   "Trapping",
+   "The wheel"
+  ],
+  "notes": [
+   "Reveals horses",
+   "Allows an additional Trade route"
+  ],
+  "required_techs": [
+   "Agriculture"
+  ],
+  "tech_id": 1,
+  "tech_name": "Animal Husbandry",
+  "units_enabled": [
+   "Caravan"
+  ]
+ },
+ {
+  "cost": 35,
+  "era": "Ancient",
+  "leads_to": [
+   "The wheel"
+  ],
+  "notes": [],
+  "required_techs": [
+   "Agriculture"
+  ],
+  "tech_id": 2,
+  "tech_name": "Archery",
+  "units_enabled": [
+   "Archer",
+   "Bowman",
+   "Slinger"
+  ]
+ }
+]
