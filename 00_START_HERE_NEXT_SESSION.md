@@ -1810,6 +1810,79 @@ SURFACE, and a symptom that survives content changes is a PIPELINE bug.
 
 --------------------------------------------------------------------------------
 
+FACTIONS (factions-ovkjpf): 8/12 (j) LATEST — *** I BUILT A DOOR AND A LOCK AND THEN
+LEFT THE ROOM EMPTY. THE ROOM HAS SOMETHING IN IT NOW. *** Nothing to judge.
+
+Two turns ago the game learned SIXTEEN WAYS to give you somebody's name. One turn ago it learned
+that the Mob will not be asked, somebody inside has to vouch. And then you walked through that
+door and THERE WAS NOTHING IN THERE - no reason to want in, no idea what they wanted, no idea
+what it was worth.
+
+*** BOTH HALVES OF THAT ANSWER HAVE BEEN IN YOUR DOSSIERS SINCE 8/2, THUMBED UP, READ BY
+NOTHING. *** WHAT THEY WANT FROM YOU, and WHAT THEY TRADE / CONTROL. Third turn running that the
+thing I needed was already written by him and unread. And they are not sixteen ways of saying
+"help us" - they are sixteen ECONOMIES:
+
+  REMNANTS    "Not loyalty. INFORMATION ABOUT THE ROAD... they will pay in ammunition"
+  MOB         "You ACCOUNTED FOR. Not loyal, not employed - listed"
+  CARTEL      "They want you to OWE them... the first thing they give you is free"
+  CHURCH      "They will help you before you agree to any of that"
+  VOLUNTEERS  "will refuse a gift that would make them worth robbing"
+  ANARCHISTS  "For you to show up. Not sign anything, not join anything"
+  AMALGAMATION "the only thing in the valley with no offer"
+
+*** THE CARTEL AND THE CHURCH BOTH MOVE FIRST. *** Same mechanic, opposite intent, both in his
+own words, and the game never tells you which one you are in. That is the best thing in this
+whole turn and I did not write a word of it.
+
+THE RESEARCH: Lave & Wenger 1991, LEGITIMATE PERIPHERAL PARTICIPATION. Nobody JOINS a real
+community - newcomers get let in at the EDGE to do something small and drift inward as they turn
+out to be useful, until the newcomer is the old-timer. That is exactly what all sixteen of his
+sentences describe, and the Anarchists say it outright. So belonging is a SLOPE, not a switch.
+
+WHAT SHIPPED:
+- engine/bohemia_belonging.js — generated from the dossiers, 32 anchors (two per faction), the
+  generator refuses to run if either sentence moves.
+- THE PERSON CARD NOW CARRIES THE WHOLE BARGAIN: what they want in three words, what they hold,
+  what they pay in, what they will not take, whether they move first, and how far in you are.
+- *** BELONGING IS NOT STANDING, AND THE GATE PROVES IT. *** Standing is what they THINK of you;
+  this is HOW MANY TIMES YOU DID THE THING. You can be well liked by an outfit you never once
+  turned up for. Driven through a real quest: +6 then +1 is TWO deeds, not seven, and hurting
+  them is not a step toward belonging (that axis already exists).
+- The count rides save.meta.gave, so the ladder survives a reload. No save migration needed.
+
+GATE: gates/belonging_gate.js, 37 claims, 0 failed.
+
+*** THE GATE CAUGHT A LIVE BUG I HAD ALREADY HAND-CHECKED AND CALLED FINE. *** The world bridge
+writes the counter under the FactionWorld's id ('Remnants'); the card asked with the quest's
+@ROLE token ('REMNANTS'). Straight lookup, 0 forever, ladder never moves. My own browser check
+passed because I happened to type the spelling my code expected. THE THREE SPELLINGS OF A FACTION
+HAVE NOW BITTEN THREE TIMES IN THIS CODEBASE and it is normalised in all three organs.
+
+NOTHING OF HIS IS DECIDED. The Mob dossier's own open question (whether the Mob IS the Cartel,
+whether they hold the guarantor seat) is carried through as PENDING, printed on the page as STILL
+YOURS TO DECIDE, and gated so nobody quietly answers it.
+
+INTEGRATION LEDGER: 29/34 -> 30/35.
+
+WHERE HE LOOKS: *** LIFE TAB -> WHAT THEY WANT FROM YOU. *** All sixteen, both of his paragraphs
+on each card, and a button at the top that walks you from stranger to inside so every card
+changes under him.
+
+MINE AND HE CAN HATE THEM: the rungs are 1 / 3 / 6 / 10 acts from stranger to inside. My call
+under EVERYTHING IS A THUMB; deliberately small, because a peripheral task is supposed to be
+doable the first week.
+
+WHAT COMES AFTER: the three organs now stack (learn a name -> get vouched in -> know what they
+want) and the obvious next brick is that DOING the thing should be possible outside a quest -
+today the only way to move the ladder is an authored @DO faction line. A Remnant asks you what
+the road looked like; there should be a way to answer.
+
+STILL [PENDING PAOLO], unchanged: REACH_CELLS 12 and AFFILIATED_RATE 0.30; whether all 14
+factions are available at the door; what "faction neighbourhood housing" is architecturally.
+
+--------------------------------------------------------------------------------
+
 FACTIONS (factions-ovkjpf): 8/12 (i) LATEST — *** EVERY PERSON IN THE VALLEY WAS AN
 ISLAND. THEY KNOW EACH OTHER NOW, AND THE MOB IS A CLOSED DOOR YOU CANNOT TALK THROUGH. ***
 Nothing to judge.

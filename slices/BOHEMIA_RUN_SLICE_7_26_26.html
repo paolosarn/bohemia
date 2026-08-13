@@ -461,6 +461,7 @@ var XP = {}, XP_LOADED = 0;
 <script src="../engine/bohemia_deeds.js"></script>
 <script src="../engine/bohemia_introductions.js"></script>
 <script src="../engine/bohemia_ties.js"></script>
+<script src="../engine/bohemia_belonging.js"></script>
 <script>
 /* the approved art banks repaint via draw() on image load, and a data: URI can
    finish loading before the run's own script has parsed. A no-op placeholder
@@ -4048,6 +4049,67 @@ function showAllegiance(agent){
   var t=document.createElement('span');
   t.textContent='RUNS WITH THE '+key+(mark?(' \u00b7 '+String(mark).toUpperCase()):'');
   el.appendChild(t);
+  showBargain(host, fid);
+}
+/* ---- WHAT THEY WANT FROM YOU (8/12) -----------------------------------------
+   The last two turns built a door (sixteen ways to learn a name) and a lock (the
+   Mob will not be asked). Walk through it and there was NOTHING IN THERE. This is
+   what is in there, and every word of it is his, off the cards he thumbed up on
+   8/2: what the outfit wants, what it holds, what it pays in, what it refuses,
+   and whether it moves first.
+
+   HOW FAR IN YOU ARE is Lave & Wenger's gradient, walked off a COUNT -- how many
+   times you actually did the thing they want (save.meta.gave, incremented by the
+   world bridge on an authored @DO faction X +N). Not standing. Standing is what
+   they THINK of you and you can be well liked by an outfit you never turned up
+   for; those are two different questions and this is the second one.
+
+   OWNS ITS OWN NODE for the reason the allegiance line had to learn the hard way
+   on 8/11: anything that writes into #idcard before cardFor() runs is wiped. */
+/* HOW MANY TIMES YOU DID WHAT THIS OUTFIT WANTED, across the THREE SPELLINGS of a
+   faction this codebase has. The world bridge writes the counter under the real
+   FactionWorld id ('Remnants'); the card asks with whatever factionForPerson
+   produced, which is a quest's @ROLE token ('REMNANTS') or the derived id. A
+   straight lookup silently returns 0 forever and the ladder never moves -- caught
+   by the gate on the real card, not by reading the code. Same normalisation the
+   introduction and belonging organs already do for the same reason. */
+function gaveFor(fid){
+  if(!fid) return 0;
+  var g=null;
+  try { g=(CTX&&CTX.save&&CTX.save.meta)?CTX.save.meta.gave:null; } catch(_e){ return 0; }
+  if(!g) return 0;
+  var want=String(fid).toUpperCase().replace(/[\s_]/g,'');
+  for(var k in g){ if(String(k).toUpperCase().replace(/[\s_]/g,'')===want) return g[k]|0; }
+  return 0;
+}
+function showBargain(host, fid){
+  var el=document.getElementById('bargain');
+  if(!el){ el=document.createElement('div'); el.id='bargain'; }
+  el.textContent=''; el.removeAttribute('style');
+  if(el.parentNode!==host) host.appendChild(el);
+  if(typeof BohemiaBelonging==='undefined' || !fid) return;
+  var rule=BohemiaBelonging.ruleOf(fid);
+  var gave=gaveFor(fid);
+  var b=BohemiaBelonging.bargain(rule, gave);
+  if(!b) return;
+  el.style.cssText='margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.07);'
+    +'font:11px/1.5 ui-monospace,monospace;color:#8b8272';
+  function line(k,v,col){
+    var d=document.createElement('div');
+    d.style.cssText='display:flex;gap:7px;margin-top:2px';
+    var a=document.createElement('span');
+    a.style.cssText='flex:none;width:88px;letter-spacing:.05em;opacity:.75';
+    a.textContent=k;
+    var c=document.createElement('span');
+    c.style.cssText='flex:1'+(col?(';color:'+col):'');
+    c.textContent=v; d.appendChild(a); d.appendChild(c); el.appendChild(d);
+  }
+  line('THEY WANT', b.wantWord + (b.noOffer?'' : ''), '#cdbd8a');
+  if(b.holds) line('THEY HOLD', b.holds.split('.')[0]);
+  if(b.pays) line('PAID IN', b.pays);
+  if(b.refuses) line('WILL NOT TAKE', b.refuses, '#e0a060');
+  if(b.theyFirst) line('CAREFUL', 'THEY HELP YOU BEFORE YOU AGREE TO ANYTHING', '#e0a060');
+  if(b.rung) line('YOU ARE', b.rung.word + (b.next? (' \u00b7 '+b.next.more+' MORE TO '+b.next.rung.word):''));
 }
 
 function drawPerson(agent){

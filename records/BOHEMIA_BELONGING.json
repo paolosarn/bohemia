@@ -1,0 +1,251 @@
+{
+ "rules": {
+  "REMNANTS": {
+   "key": "REMNANTS",
+   "faction": "THE REMNANTS",
+   "wants": "information",
+   "firstMove": "you-give-first",
+   "pays": "AMMUNITION",
+   "anchor_want": "Not loyalty. INFORMATION ABOUT THE ROAD",
+   "anchor_hold": "Ammunition, working radios, the only maintained vehicles",
+   "mech": "An accurate report outlives a favour with them. They want the parts that make them look bad, too, which is the tell that it is real.",
+   "want": "Not loyalty. INFORMATION ABOUT THE ROAD. What is between here and the next checkpoint, honestly, including the parts that make them look bad. They will pay in ammunition and they will remember an accurate report longer than they remember a favour.",
+   "hold": "Ammunition, working radios, the only maintained vehicles, and the only accurate map of the valley. They do not sell the map. They trade READS of it."
+  },
+  "CARTEL": {
+   "key": "CARTEL",
+   "faction": "THE CARTEL",
+   "wants": "debt",
+   "firstMove": "they-give-first",
+   "pays": "WHATEVER YOU NEEDED THAT WEEK",
+   "anchor_want": "They want you to OWE them",
+   "anchor_hold": "Passage. Also, quietly, PEOPLE",
+   "mech": "Not to work for them. Not yet. The first thing is free and it is exactly the thing you needed that week.",
+   "want": "They want you to OWE them. Not to work for them, not yet. The first thing they give you is free and it is exactly the thing you needed that week.",
+   "hold": "Passage. Also, quietly, PEOPLE - the canon frames them as organised human predation and the honest reading of that in a labour-starved valley is that they are the only faction whose main product is other people's work."
+  },
+  "CHURCH": {
+   "key": "CHURCH",
+   "faction": "THE CHURCH",
+   "wants": "presence",
+   "firstMove": "they-give-first",
+   "pays": "STORED FOOD AND A PLACE ON THE LIST",
+   "anchor_want": "You inside the structure. Attending, counted, and useful to somebody on the list",
+   "anchor_hold": "Stored food, distribution logistics, and the only functioning register",
+   "mech": "They will help you before you agree to any of it, which is exactly what makes it work.",
+   "want": "You inside the structure. Attending, counted, and useful to somebody on the list. They will help you before you agree to any of that, which is exactly what makes it work.",
+   "hold": "Stored food, distribution logistics, and the only functioning register of who is alive and where. Also funerals, which matters more than it sounds in a valley where the GDD locks corpse collection as a real system."
+  },
+  "MOB": {
+   "key": "MOB",
+   "faction": "THE MOB",
+   "wants": "legibility",
+   "firstMove": "you-give-first",
+   "pays": "ENFORCEMENT OF A DEAL",
+   "anchor_want": "You ACCOUNTED FOR. Not loyal, not employed - listed",
+   "anchor_hold": "Tribute, and the enforcement of a deal",
+   "mech": "What you are, what you owe, and who would come looking if you disappeared. That is the whole file.",
+   "pending": "Whether the Mob IS the Cartel, absorbs it, or stands beside it, and whether they hold the guarantor seat, is OPEN in his own dossier and nothing here decides it.",
+   "want": "You ACCOUNTED FOR. Not loyal, not employed - listed. They want to know what you are, what you owe, and who would come looking if you disappeared.",
+   "hold": "Tribute, and the enforcement of a deal. PAOLO 7/31, LOCKED AS DIRECTION: 'I can see the mob a huge role with the caravans.' The Mob running the caravan guarantee is the city's own history rhyming - they financed and muscled Vegas into existence once already. STILL OPEN AND NOT DECIDED HERE: whether the Mob IS the Cartel, absorbs it, or stands beside it; whether they hold the guarantor seat or are fighting for it; how far up the 15 their protection reaches."
+  },
+  "CARAVANS": {
+   "key": "CARAVANS",
+   "faction": "THE CARAVANS",
+   "wants": "information",
+   "firstMove": "you-give-first",
+   "pays": "NEWS FROM OUTSIDE THE VALLEY",
+   "anchor_want": "Escort, and honest word about the road ahead",
+   "anchor_hold": "Everything from outside the valley, and more importantly NEWS",
+   "mech": "And underneath it, somebody in this valley who will stand good for them, which is the guarantor question wearing a friendly face.",
+   "want": "Escort, and honest word about the road ahead. And underneath: somebody in this valley who will stand good for them, which is the guarantor question wearing a friendly face.",
+   "hold": "Everything from outside the valley, and more importantly NEWS. A convoy arrival is a market day, a festival and a security crisis at once - canon. They are the only people in the game who can tell you whether anywhere else is still alive."
+  },
+  "TRADES": {
+   "key": "TRADES",
+   "faction": "THE TRADES",
+   "wants": "labour",
+   "firstMove": "you-give-first",
+   "pays": "REPAIR, AND AN APPRENTICESHIP",
+   "anchor_want": "Paid, on time, in something real",
+   "anchor_hold": "Repair. Water pumps, inverters, vehicles, wells, walls",
+   "mech": "And a second thing they will not say out loud: somebody to teach. A trade with no apprentice dies with the tradesman.",
+   "want": "Paid, on time, in something real. And a second thing they will not say out loud: somebody to teach. A trade with no apprentice dies with the tradesman and every one of them knows it.",
+   "hold": "Repair. Water pumps, inverters, vehicles, wells, walls. Also APPRENTICESHIPS, which is the quiet lever - they decide who in the next generation gets to be worth something."
+  },
+  "VOLUNTEERS": {
+   "key": "VOLUNTEERS",
+   "faction": "THE VOLUNTEERS",
+   "wants": "labour",
+   "firstMove": "you-give-first",
+   "pays": "MEDICINE, AND TEACHING",
+   "anchor_want": "Hands, and supplies, and for you to stop bringing them things that have to be guarded",
+   "anchor_hold": "Medicine, which is one of the game's three currencies",
+   "refuses": "A GIFT THAT WOULD MAKE THEM WORTH ROBBING",
+   "mech": "They will refuse a gift that makes them a target. Generosity that endangers them is not generosity.",
+   "want": "Hands, and supplies, and for you to stop bringing them things that have to be guarded. They will refuse a gift that would make them worth robbing.",
+   "hold": "Medicine, which is one of the game's three currencies, and TEACHING - canon puts knowledge preservation in their remit. In thirty years they are the reason anybody can still read a dosage."
+  },
+  "BLUES": {
+   "key": "BLUES",
+   "faction": "THE BLUES",
+   "wants": "presence",
+   "firstMove": "you-give-first",
+   "pays": "WATER, AND A VOICE IN WHERE IT GOES",
+   "anchor_want": "Participation. They want you at the meeting",
+   "anchor_hold": "Water allocation and the growing that depends on it",
+   "mech": "Not naive about it either: a person who has argued in the room is a person who will abide by what the room decided.",
+   "want": "Participation. They want you at the meeting, and they are not being naive about it - a person who has argued in the room is a person who will abide by what the room decided.",
+   "hold": "Water allocation and the growing that depends on it. They do not own it - they RUN THE MEETING about it, which in Ostrom's world is the more durable position."
+  },
+  "REDS": {
+   "key": "REDS",
+   "faction": "THE REDS",
+   "wants": "debt",
+   "firstMove": "you-give-first",
+   "pays": "CREDIT",
+   "anchor_want": "A counterparty. They want you solvent, productive and slightly in debt",
+   "anchor_hold": "Credit, and therefore everything downstream of credit",
+   "mech": "Not a trap they set. Just the arrangement they consider healthy.",
+   "want": "A counterparty. They want you solvent, productive and slightly in debt - which is not a trap they set, it is just the arrangement they consider healthy.",
+   "hold": "Credit, and therefore everything downstream of credit. They hold the debts, which in a valley with no courts means they hold whatever the debtor agreed to lose."
+  },
+  "ANARCHISTS": {
+   "key": "ANARCHISTS",
+   "faction": "THE ANARCHISTS",
+   "wants": "presence",
+   "firstMove": "you-give-first",
+   "pays": "A CROWD, FAST",
+   "anchor_want": "For you to show up. Not sign anything, not join anything",
+   "anchor_hold": "Attention, and the ability to gather people fast",
+   "mech": "Be there ONCE, when it matters, and they will remember it for three generations.",
+   "want": "For you to show up. Not sign anything, not join anything - be there, once, when it matters, and they will remember it for three generations.",
+   "hold": "Attention, and the ability to gather people fast. Nothing on the ledger and everything on the street. If something in this valley becomes widely believed in a week, they did it."
+  },
+  "NETWORK": {
+   "key": "NETWORK",
+   "faction": "THE NETWORK",
+   "wants": "legibility",
+   "firstMove": "they-give-first",
+   "pays": "THE FEED, THE REPEATERS, THE LIT GRID",
+   "anchor_want": "To be USEFUL to you. That is it, and it is sincere",
+   "anchor_hold": "The feed, the radio repeaters, and the lit grid",
+   "mech": "On the grid, on the feed, and reachable. They have never once charged for any of it.",
+   "want": "To be USEFUL to you. That is it, and it is sincere, and it is how it works. They want you on the grid, on the feed, and reachable.",
+   "hold": "The feed, the radio repeaters, and the lit grid. They are the reason a message crosses the valley in an hour instead of a day, and they have never once charged for it."
+  },
+  "HOMELESS": {
+   "key": "HOMELESS",
+   "faction": "THE HOMELESS",
+   "wants": "information",
+   "firstMove": "you-give-first",
+   "pays": "THE UNDERGROUND, AND WHEN IT IS A GRAVE",
+   "anchor_want": "To be left alone, and underneath that, to be WARNED",
+   "anchor_hold": "The underground itself - every entrance, every 90-degree culvert turn",
+   "mech": "Anything you know about who is coming down is worth more to them than food.",
+   "want": "To be left alone, and underneath that, to be WARNED. Anything you know about who is coming down is worth more to them than food.",
+   "hold": "The underground itself - every entrance, every 90-degree culvert turn, and which trunk floods first. The fastest way across the valley is under it, and they are the only people who can tell you when that is a route and when it is a grave."
+  },
+  "COLORFUL": {
+   "key": "COLORFUL",
+   "faction": "THE COLORFUL",
+   "wants": "character",
+   "firstMove": "you-give-first",
+   "pays": "A NETWORK INSIDE EVERY OTHER FACTION",
+   "anchor_want": "To know whether you are safe to be around",
+   "anchor_hold": "Nothing on a map and a great deal on a network",
+   "mech": "The whole assessment, and it never stops running. Passing it is worth more than any faction's standing.",
+   "want": "To know whether you are safe to be around. That is the whole assessment and it never stops running, and passing it is worth more than any faction's standing.",
+   "hold": "Nothing on a map and a great deal on a network: who is where, who is safe, who has room for one more. In a valley of factions that cannot talk to each other, they are the only people who are already inside all of them."
+  },
+  "KARENS": {
+   "key": "KARENS",
+   "faction": "THE KARENS",
+   "wants": "legibility",
+   "firstMove": "you-give-first",
+   "pays": "FRESH FOOD, AND MEMBERSHIP ITSELF",
+   "anchor_want": "For you to either join properly or leave properly",
+   "anchor_hold": "Fresh food from the only irrigated ground in the valley, and MEMBERSHIP",
+   "refuses": "AMBIGUITY",
+   "mech": "A stranger who will not be categorised is a strictly worse problem to them than an enemy who will.",
+   "want": "For you to either join properly or leave properly. Ambiguity is the thing they cannot process, and a stranger who will not be categorised is a strictly worse problem to them than an enemy who will.",
+   "hold": "Fresh food from the only irrigated ground in the valley, and MEMBERSHIP, which is the actual product. Everything they have is available and there is a process."
+  },
+  "SOCIAL_FORCES": {
+   "key": "SOCIAL_FORCES",
+   "faction": "THE SOCIAL FORCES",
+   "wants": "character",
+   "firstMove": "they-give-first",
+   "pays": "ADMISSION, AND NOTHING ELSE",
+   "anchor_want": "Recruits, and specifically recruits who are frightened",
+   "anchor_hold": "Nothing anyone needs. Their only product is admission",
+   "mech": "They approach AFTER something bad has happened to you, never before. The price is what you are rather than what you do.",
+   "want": "Recruits, and specifically recruits who are frightened. They approach after something bad has happened to you, never before.",
+   "hold": "Nothing anyone needs. Their only product is admission, and the price is what you are rather than what you do."
+  },
+  "AMALGAMATION": {
+   "key": "AMALGAMATION",
+   "faction": "THE AMALGAMATION",
+   "wants": "nothing",
+   "firstMove": "never",
+   "pays": "",
+   "anchor_want": "Nothing from you until you look at it",
+   "anchor_hold": "Nothing it will let you see",
+   "mech": "The only thing in the valley with no offer.",
+   "want": "Nothing from you until you look at it. It is the only thing in the valley with no offer.",
+   "hold": "Nothing it will let you see. Canon: it prioritises secrecy above every tactical consideration and acts by quiet surgical means - an accident that looks natural, a rivalry quietly accelerated. It never moves overtly until every subtle option is gone."
+  }
+ },
+ "rungs": [
+  {
+   "key": "stranger",
+   "at": 0,
+   "word": "A STRANGER",
+   "note": "They have no reason to think about you."
+  },
+  {
+   "key": "peripheral",
+   "at": 1,
+   "word": "SOMEBODY WHO SHOWED UP",
+   "note": "You did the thing once. Lave & Wenger: this is the whole entry, and it is meant to be small."
+  },
+  {
+   "key": "useful",
+   "at": 3,
+   "word": "USEFUL",
+   "note": "Three times is a pattern. They start expecting you."
+  },
+  {
+   "key": "counted",
+   "at": 6,
+   "word": "COUNTED",
+   "note": "You are on whatever list they keep. That is a different thing from being liked."
+  },
+  {
+   "key": "inside",
+   "at": 10,
+   "word": "INSIDE",
+   "note": "The newcomer is the old-timer now, and the next newcomer is your problem."
+  }
+ ],
+ "aliases": {
+  "SOCIALFORCES": "SOCIAL_FORCES",
+  "SOCIAL FORCES": "SOCIAL_FORCES",
+  "PURES": "SOCIAL_FORCES",
+  "PANTHERS": "SOCIAL_FORCES",
+  "LA FAMILIA": "SOCIAL_FORCES",
+  "LAFAMILIA": "SOCIAL_FORCES",
+  "TRIADS": "SOCIAL_FORCES",
+  "THE NETWORK": "NETWORK",
+  "AMALGAM": "AMALGAMATION"
+ },
+ "wantWords": {
+  "presence": "YOU, THERE",
+  "information": "WHAT YOU KNOW",
+  "labour": "YOUR HANDS",
+  "debt": "YOU, OWING",
+  "legibility": "YOU, ON A LIST",
+  "character": "WHAT YOU ARE",
+  "nothing": "NOTHING"
+ }
+}

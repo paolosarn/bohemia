@@ -1,0 +1,580 @@
+#!/usr/bin/env python3
+"""BOHEMIA BELONGING -- what a faction wants from you, and what it is worth (8/12/26, FACTIONS lane)
+
+Paolo, 8/12: "do big brain online research if you need to then execute... Do what
+you have to do next and know what comes after... we are trying tk create the best
+funnest deepest videogame ever."
+
+WHAT CAME AFTER, and it is the hole the last two turns dug. THE SIXTEEN
+INTRODUCTIONS built the door: you learn a faction member's name sixteen different
+ways. WHO KNOWS WHO built the lock: the Mob will not be asked, somebody inside has
+to vouch for you. And then you get through the door and THERE IS NOTHING IN THERE.
+No reason to want in, no idea what they want, no idea what it is worth.
+
+WHAT WAS SITTING THERE, AGAIN. Every one of the sixteen dossiers he thumbed UP on
+8/2 carries BOTH halves of that answer, and neither had ever been read by anything:
+
+  WHAT THEY WANT FROM YOU  -- the price of belonging
+  WHAT THEY TRADE/CONTROL  -- what belonging is worth
+
+And they are not sixteen paraphrases of "help us". They are sixteen different
+economies:
+
+  REMNANTS    "Not loyalty. INFORMATION ABOUT THE ROAD... They will pay in
+               ammunition and they will remember an accurate report longer than
+               they remember a favour."
+  CARTEL      "They want you to OWE them. Not to work for them, not yet. The first
+               thing they give you is free and it is exactly the thing you needed
+               that week."
+  MOB         "You ACCOUNTED FOR. Not loyal, not employed - listed."
+  VOLUNTEERS  "Hands, and supplies, and for you to stop bringing them things that
+               have to be guarded. They will refuse a gift that would make them
+               worth robbing."
+  ANARCHISTS  "For you to show up. Not sign anything, not join anything - be there,
+               once, when it matters."
+  AMALGAMATION "Nothing from you until you look at it. It is the only thing in the
+               valley with no offer."
+
+THE RESEARCH, because he asked and because the identity is the most realistic
+crash simulator that is still fun:
+
+  LAVE & WENGER 1991, LEGITIMATE PERIPHERAL PARTICIPATION (Situated Learning).
+  Nobody JOINS a real community of practice. Newcomers are admitted to do
+  low-stakes work at the EDGE, and they move inward as they become competent and
+  useful, until the newcomer is the old-timer mentoring the next one. Membership is
+  a GRADIENT you drift along by doing the peripheral task, not a switch you flip by
+  signing something. That is precisely the shape of his sixteen sentences: every
+  one of them names a small, doable, peripheral thing -- show up once, be at the
+  meeting, tell them what the road looked like, be reachable -- and none of them is
+  a membership form. The Anarchists say it outright: "Not sign anything, not join
+  anything."
+
+  THE OTHER HALF, and his own canon already carries it: WHO MOVES FIRST. The Church
+  "will help you before you agree to any of that, which is exactly what makes it
+  work", and the Cartel's "first thing they give you is free and it is exactly the
+  thing you needed that week." Same mechanic, opposite intent, and it is the real
+  one -- an unreciprocated gift creates an obligation, which is the engine under
+  both a congregation and a debt trap. The game does not have to explain which one
+  you are in, and it must not.
+
+MECHANISM-MINE / CONTENTS-PAOLO'S. The vocabulary (what KIND of thing is wanted,
+who moves first, what they refuse, the rungs of the drift inward) is mine. WHICH
+faction wants WHAT is entirely his, thumbed 8/2, and it is not typed by hand here:
+every rule carries an ANCHOR -- a verbatim fragment of its own dossier -- and this
+generator REFUSES TO RUN if the anchor is no longer in that dossier.
+
+NOTHING IS DECIDED THAT IS HIS. The Mob dossier carries an explicit open question
+("whether the Mob IS the Cartel, absorbs it, or stands beside it; whether they hold
+the guarantor seat"). It is carried through as PENDING and nothing here resolves it.
+
+REUSE CHECK (7/22 law):
+  - records/factions/*.md ......... OPENED IN CODE, parsed, and both canon
+    sentences are carried into the baked module verbatim. This is the whole point.
+  - engine/bohemia_introductions.py's pattern ... REUSED as the FORM: same anchor
+    discipline, same generated-organ shape, same refuse-to-run-on-drift rule. That
+    pattern is nine hours old and already caught one dossier edit.
+  - engine/bohemia_dress.js ....... OPENED IN CODE for his 8/2 FACTION_LOOK colours.
+  - engine/bohemia_belonging.js ... OPENED IN CODE and inlined whole into the page,
+    so what he looks at is the REAL organ running (VERIFY ON THE REAL SURFACE).
+  - slices/BOHEMIA_WHO_KNOWS_WHO_8_12_26.html ... COPIED BY HAND, not by code: the
+    same dark shell and card grammar, retyped. No bytes of it are opened at build.
+  - nothing is drawn. This cooks TEXT and one baked module.
+
+  python3 tools/bohemia_belonging.py
+
+Writes: engine/bohemia_belonging.js
+        records/BOHEMIA_BELONGING.json
+        slices/BOHEMIA_WHAT_THEY_WANT_8_12_26.html
+
+Law:  laws/BOHEMIA_ADDENDUM_WHAT_THEY_WANT_FROM_YOU_8_12_26.md
+Gate: gates/belonging_gate.js
+"""
+import json
+import os
+import re
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
+DOSSIERS = os.path.join(ROOT, 'records', 'factions')
+OUT_JS = os.path.join(ROOT, 'engine', 'bohemia_belonging.js')
+OUT_JSON = os.path.join(ROOT, 'records', 'BOHEMIA_BELONGING.json')
+OUT_HTML = os.path.join(ROOT, 'slices', 'BOHEMIA_WHAT_THEY_WANT_8_12_26.html')
+
+# ---------------------------------------------------------------------------
+# THE VOCABULARY. Four axes, and between them the sixteen need no special cases.
+#
+#   wants   WHAT KIND OF PERIPHERAL THING STARTS YOU INWARD. Lave & Wenger: the
+#           newcomer is admitted to do low-stakes work at the edge. Every one of
+#           his sentences names one, and they sort into six kinds plus nothing.
+#     presence      be there. Showing up IS the contribution.
+#     information   what you know. The valley's scarcest good after water.
+#     labour        hands, supplies, repair, teaching.
+#     debt          they want you owing. Sometimes kindly, sometimes not.
+#     legibility    they want you LISTED. Not loyal, not employed - known.
+#     character     they are assessing what you ARE, and it never stops.
+#     nothing       the Amalgamation. It is the only thing with no offer.
+#
+#   firstMove WHO MOVES FIRST, which his canon settles for several of them.
+#     they-give-first  they help you BEFORE you agree to anything. An
+#                      unreciprocated gift is an obligation, and that is the
+#                      engine under both a congregation and a debt trap. The game
+#                      never says which one you are in.
+#     you-give-first   the ordinary case.
+#     never            no offer is ever made.
+#
+#   pays    WHAT COMES BACK, in the currency his canon names, when it names one.
+#
+#   refuses WHAT THEY WILL NOT TAKE. A faction that refuses something is a faction
+#           with a spine, and two of his have one written down.
+# ---------------------------------------------------------------------------
+
+RULES = [
+    dict(key='REMNANTS', faction='THE REMNANTS',
+         wants='information', firstMove='you-give-first', pays='AMMUNITION',
+         anchor_want='Not loyalty. INFORMATION ABOUT THE ROAD',
+         anchor_hold='Ammunition, working radios, the only maintained vehicles',
+         mech='An accurate report outlives a favour with them. They want the parts '
+              'that make them look bad, too, which is the tell that it is real.'),
+    dict(key='CARTEL', faction='THE CARTEL',
+         wants='debt', firstMove='they-give-first', pays='WHATEVER YOU NEEDED THAT WEEK',
+         anchor_want='They want you to OWE them',
+         anchor_hold='Passage. Also, quietly, PEOPLE',
+         mech='Not to work for them. Not yet. The first thing is free and it is '
+              'exactly the thing you needed that week.'),
+    dict(key='CHURCH', faction='THE CHURCH',
+         wants='presence', firstMove='they-give-first', pays='STORED FOOD AND A PLACE ON THE LIST',
+         anchor_want='You inside the structure. Attending, counted, and useful to somebody on the list',
+         anchor_hold='Stored food, distribution logistics, and the only functioning register',
+         mech='They will help you before you agree to any of it, which is exactly '
+              'what makes it work.'),
+    dict(key='MOB', faction='THE MOB',
+         wants='legibility', firstMove='you-give-first', pays='ENFORCEMENT OF A DEAL',
+         anchor_want='You ACCOUNTED FOR. Not loyal, not employed - listed',
+         anchor_hold='Tribute, and the enforcement of a deal',
+         mech='What you are, what you owe, and who would come looking if you '
+              'disappeared. That is the whole file.',
+         pending='Whether the Mob IS the Cartel, absorbs it, or stands beside it, '
+                 'and whether they hold the guarantor seat, is OPEN in his own '
+                 'dossier and nothing here decides it.'),
+    dict(key='CARAVANS', faction='THE CARAVANS',
+         wants='information', firstMove='you-give-first', pays='NEWS FROM OUTSIDE THE VALLEY',
+         anchor_want='Escort, and honest word about the road ahead',
+         anchor_hold='Everything from outside the valley, and more importantly NEWS',
+         mech='And underneath it, somebody in this valley who will stand good for '
+              'them, which is the guarantor question wearing a friendly face.'),
+    dict(key='TRADES', faction='THE TRADES',
+         wants='labour', firstMove='you-give-first', pays='REPAIR, AND AN APPRENTICESHIP',
+         anchor_want='Paid, on time, in something real',
+         anchor_hold='Repair. Water pumps, inverters, vehicles, wells, walls',
+         mech='And a second thing they will not say out loud: somebody to teach. A '
+              'trade with no apprentice dies with the tradesman.'),
+    dict(key='VOLUNTEERS', faction='THE VOLUNTEERS',
+         wants='labour', firstMove='you-give-first', pays='MEDICINE, AND TEACHING',
+         anchor_want='Hands, and supplies, and for you to stop bringing them things that have to be guarded',
+         anchor_hold='Medicine, which is one of the game\'s three currencies',
+         refuses='A GIFT THAT WOULD MAKE THEM WORTH ROBBING',
+         mech='They will refuse a gift that makes them a target. Generosity that '
+              'endangers them is not generosity.'),
+    dict(key='BLUES', faction='THE BLUES',
+         wants='presence', firstMove='you-give-first', pays='WATER, AND A VOICE IN WHERE IT GOES',
+         anchor_want='Participation. They want you at the meeting',
+         anchor_hold='Water allocation and the growing that depends on it',
+         mech='Not naive about it either: a person who has argued in the room is a '
+              'person who will abide by what the room decided.'),
+    dict(key='REDS', faction='THE REDS',
+         wants='debt', firstMove='you-give-first', pays='CREDIT',
+         anchor_want='A counterparty. They want you solvent, productive and slightly in debt',
+         anchor_hold='Credit, and therefore everything downstream of credit',
+         mech='Not a trap they set. Just the arrangement they consider healthy.'),
+    dict(key='ANARCHISTS', faction='THE ANARCHISTS',
+         wants='presence', firstMove='you-give-first', pays='A CROWD, FAST',
+         anchor_want='For you to show up. Not sign anything, not join anything',
+         anchor_hold='Attention, and the ability to gather people fast',
+         mech='Be there ONCE, when it matters, and they will remember it for three '
+              'generations.'),
+    dict(key='NETWORK', faction='THE NETWORK',
+         wants='legibility', firstMove='they-give-first', pays='THE FEED, THE REPEATERS, THE LIT GRID',
+         anchor_want='To be USEFUL to you. That is it, and it is sincere',
+         anchor_hold='The feed, the radio repeaters, and the lit grid',
+         mech='On the grid, on the feed, and reachable. They have never once '
+              'charged for any of it.'),
+    dict(key='HOMELESS', faction='THE HOMELESS',
+         wants='information', firstMove='you-give-first', pays='THE UNDERGROUND, AND WHEN IT IS A GRAVE',
+         anchor_want='To be left alone, and underneath that, to be WARNED',
+         anchor_hold='The underground itself - every entrance, every 90-degree culvert turn',
+         mech='Anything you know about who is coming down is worth more to them '
+              'than food.'),
+    dict(key='COLORFUL', faction='THE COLORFUL',
+         wants='character', firstMove='you-give-first', pays='A NETWORK INSIDE EVERY OTHER FACTION',
+         anchor_want='To know whether you are safe to be around',
+         anchor_hold='Nothing on a map and a great deal on a network',
+         mech='The whole assessment, and it never stops running. Passing it is '
+              'worth more than any faction\'s standing.'),
+    dict(key='KARENS', faction='THE KARENS',
+         wants='legibility', firstMove='you-give-first', pays='FRESH FOOD, AND MEMBERSHIP ITSELF',
+         anchor_want='For you to either join properly or leave properly',
+         anchor_hold='Fresh food from the only irrigated ground in the valley, and MEMBERSHIP',
+         refuses='AMBIGUITY',
+         mech='A stranger who will not be categorised is a strictly worse problem '
+              'to them than an enemy who will.'),
+    dict(key='SOCIAL_FORCES', faction='THE SOCIAL FORCES',
+         wants='character', firstMove='they-give-first', pays='ADMISSION, AND NOTHING ELSE',
+         anchor_want='Recruits, and specifically recruits who are frightened',
+         anchor_hold='Nothing anyone needs. Their only product is admission',
+         mech='They approach AFTER something bad has happened to you, never before. '
+              'The price is what you are rather than what you do.'),
+    dict(key='AMALGAMATION', faction='THE AMALGAMATION',
+         wants='nothing', firstMove='never', pays='',
+         anchor_want='Nothing from you until you look at it',
+         anchor_hold='Nothing it will let you see',
+         mech='The only thing in the valley with no offer.'),
+]
+
+# for the ~85% who run with nobody. There is no faction, so there is no bargain,
+# and saying "nothing" about a person who simply is not in a faction would be a
+# statement about THEM rather than about an outfit that does not exist.
+DEFAULT = dict(key='NOBODY', faction='NOBODY IN PARTICULAR',
+               wants='', firstMove='', pays='', mech='', anchor_want=None,
+               anchor_hold=None)
+
+# THE DRIFT INWARD (Lave & Wenger). Mechanism, mine. You do not join; you do the
+# peripheral thing and you move. The counts are my call under EVERYTHING IS A
+# THUMB (8/9) -- he corrects what he hates rather than approving in advance -- and
+# they are deliberately small, because the whole point of a peripheral task is
+# that it is doable the first week.
+RUNGS = [
+    dict(key='stranger',  at=0, word='A STRANGER',
+         note='They have no reason to think about you.'),
+    dict(key='peripheral', at=1, word='SOMEBODY WHO SHOWED UP',
+         note='You did the thing once. Lave & Wenger: this is the whole entry, and '
+              'it is meant to be small.'),
+    dict(key='useful',    at=3, word='USEFUL',
+         note='Three times is a pattern. They start expecting you.'),
+    dict(key='counted',   at=6, word='COUNTED',
+         note='You are on whatever list they keep. That is a different thing from '
+              'being liked.'),
+    dict(key='inside',    at=10, word='INSIDE',
+         note='The newcomer is the old-timer now, and the next newcomer is your '
+              'problem.'),
+]
+
+ALIASES = {
+    'SOCIALFORCES': 'SOCIAL_FORCES', 'SOCIAL FORCES': 'SOCIAL_FORCES',
+    'PURES': 'SOCIAL_FORCES', 'PANTHERS': 'SOCIAL_FORCES',
+    'LA FAMILIA': 'SOCIAL_FORCES', 'LAFAMILIA': 'SOCIAL_FORCES',
+    'TRIADS': 'SOCIAL_FORCES', 'THE NETWORK': 'NETWORK', 'AMALGAM': 'AMALGAMATION',
+}
+
+WANT_WORDS = {
+    'presence':    'YOU, THERE',
+    'information': 'WHAT YOU KNOW',
+    'labour':      'YOUR HANDS',
+    'debt':        'YOU, OWING',
+    'legibility':  'YOU, ON A LIST',
+    'character':   'WHAT YOU ARE',
+    'nothing':     'NOTHING',
+}
+
+
+def read_dossier(key):
+    p = os.path.join(DOSSIERS, 'BOHEMIA_FACTION_%s.md' % key)
+    if not os.path.exists(p):
+        sys.exit('MISSING DOSSIER: ' + p)
+    with open(p, 'r', encoding='utf-8') as f:
+        return f.read()
+
+
+def section(text, head):
+    m = re.search(r'^###\s+' + re.escape(head) + r'\s*$(.*?)(?=^###\s|\Z)',
+                  text, re.M | re.S)
+    return re.sub(r'\s+', ' ', m.group(1)).strip() if m else ''
+
+
+def build():
+    out = []
+    for r in RULES:
+        doc = read_dossier(r['key'])
+        want = section(doc, 'WHAT THEY WANT FROM YOU')
+        hold = section(doc, 'WHAT THEY TRADE / CONTROL')
+        if not want or not hold:
+            sys.exit('MISSING SECTION in dossier for ' + r['key'])
+        for label, anchor, body in (('want', r['anchor_want'], want),
+                                    ('hold', r['anchor_hold'], hold)):
+            if anchor not in body:
+                sys.exit('ANCHOR DRIFT in %s (%s)\n  expected: %s\n  dossier now: %s'
+                         % (r['key'], label, anchor, body[:180]))
+        row = dict(r)
+        row['want'] = want
+        row['hold'] = hold
+        out.append(row)
+    return out
+
+
+JS_HEAD = '''// BOHEMIA BELONGING -- what a faction wants from you, and what it is worth.
+//
+// GENERATED by tools/bohemia_belonging.py. EDIT THE TOOL, NEVER THIS FILE.
+//
+// The last two turns built a door (sixteen ways to learn a name) and a lock (the
+// Mob will not be asked; somebody inside has to vouch). This is what is on the
+// other side of it. Both halves are his, thumbed UP 8/2/26, carried verbatim out
+// of records/factions/*.md, and the generator refuses to run if a rule's ANCHOR
+// is no longer in the dossier it claims to come from.
+//
+// GROUNDED IN LAVE & WENGER 1991, LEGITIMATE PERIPHERAL PARTICIPATION: nobody
+// JOINS a real community. Newcomers are admitted to do low-stakes work at the
+// EDGE and drift inward as they become useful. Every one of his sixteen sentences
+// names exactly such a task, and the Anarchists say the quiet part out loud --
+// "Not sign anything, not join anything". So belonging here is a GRADIENT you
+// walk by doing the thing, never a switch you flip.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S: the vocabulary and the rungs are mine; which
+// faction wants what is entirely his. THERE IS NO DIALOGUE HERE AND THERE MUST
+// NEVER BE -- every string this module returns is third-person mechanical
+// narration or his own canon quoted verbatim, never a character speaking.
+(function(root){
+  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
+
+'''
+
+JS_TAIL = r'''
+  function ruleOf(fid){
+    if(!fid) return DEFAULT;
+    var k=String(fid).toUpperCase().replace(/[^A-Z_ ]/g,'');
+    if(RULES[k]) return RULES[k];
+    if(ALIASES[k] && RULES[ALIASES[k]]) return RULES[ALIASES[k]];
+    var sq=k.replace(/[\s_]/g,'');
+    if(ALIASES[sq] && RULES[ALIASES[sq]]) return RULES[ALIASES[sq]];
+    for(var key in RULES){ if(key.replace(/[\s_]/g,'')===sq) return RULES[key]; }
+    return DEFAULT;
+  }
+
+  /* WHERE YOU STAND WITH THEM, from one number: how many times you have done the
+     thing they actually want. Lave & Wenger's gradient, not a membership switch.
+     A faction with NOTHING to want (the Amalgamation) has no ladder at all, and
+     saying "you are a stranger to it" would be a lie -- it is not a club. */
+  function rungOf(rule, given){
+    rule=rule||DEFAULT;
+    if(!rule.wants || rule.wants==='nothing') return null;
+    var n=given|0, best=RUNGS[0];
+    for(var i=0;i<RUNGS.length;i++) if(n>=RUNGS[i].at) best=RUNGS[i];
+    return best;
+  }
+  /* what would move you one rung, so the player is never guessing at the shape of
+     it. Returns null once there is nothing further in. */
+  function nextRung(rule, given){
+    rule=rule||DEFAULT;
+    if(!rule.wants || rule.wants==='nothing') return null;
+    var n=given|0;
+    for(var i=0;i<RUNGS.length;i++) if(RUNGS[i].at>n)
+      return { rung:RUNGS[i], more:RUNGS[i].at-n };
+    return null;
+  }
+
+  /* THE WHOLE BARGAIN IN ONE CALL, for a surface that has somebody's faction and
+     wants to say what standing in front of them is worth.
+       wants     the KIND, in three words
+       want      his sentence, verbatim
+       holds     his sentence, verbatim
+       pays      the currency his canon names, when it names one
+       refuses   what they will not take, when his canon says
+       theyFirst true when they help you BEFORE you agree to anything
+       rung/next where you stand and what moves it */
+  function bargain(rule, given){
+    rule=rule||DEFAULT;
+    if(!rule.wants) return null;                 /* runs with nobody: no bargain */
+    return {
+      key:      rule.key,
+      faction:  rule.faction,
+      wants:    rule.wants,
+      wantWord: WANT_WORDS[rule.wants]||'',
+      want:     rule.want||'',
+      holds:    rule.hold||'',
+      pays:     rule.pays||'',
+      refuses:  rule.refuses||'',
+      theyFirst: rule.firstMove==='they-give-first',
+      noOffer:  rule.firstMove==='never',
+      mech:     rule.mech||'',
+      pending:  rule.pending||'',
+      rung:     rungOf(rule, given),
+      next:     nextRung(rule, given)
+    };
+  }
+
+  /* the one line a card can print without knowing anything about factions. */
+  function lineFor(rule, given){
+    var b=bargain(rule, given);
+    if(!b) return '';
+    if(b.noOffer) return 'IT WANTS NOTHING FROM YOU.';
+    return 'THEY WANT ' + b.wantWord + '.';
+  }
+
+  var API={ RULES:RULES, DEFAULT:DEFAULT, ALIASES:ALIASES, RUNGS:RUNGS,
+            WANT_WORDS:WANT_WORDS,
+            ruleOf:ruleOf, rungOf:rungOf, nextRung:nextRung, bargain:bargain,
+            lineFor:lineFor,
+            keys:function(){ return Object.keys(RULES); } };
+  if(HASREQ) module.exports=API; else root.BohemiaBelonging=API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+'''
+
+
+def js_literal(rows):
+    def one(r):
+        d = {}
+        for k in ('key', 'faction', 'wants', 'firstMove', 'pays', 'refuses',
+                  'mech', 'want', 'hold', 'pending', 'anchor_want', 'anchor_hold'):
+            if r.get(k):
+                d['anchorWant' if k == 'anchor_want' else
+                  'anchorHold' if k == 'anchor_hold' else k] = r[k]
+        return d
+    body = {r['key']: one(r) for r in rows}
+    def blk(name, val):
+        return '  var ' + name + '=' + json.dumps(val, indent=2, ensure_ascii=False)\
+            .replace('\n', '\n  ') + ';\n\n'
+    return (blk('RULES', body) + blk('DEFAULT', one(DEFAULT)) + blk('ALIASES', ALIASES)
+            + blk('RUNGS', RUNGS) + blk('WANT_WORDS', WANT_WORDS))
+
+
+PAGE = r'''<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>WHAT THEY WANT FROM YOU</title>
+<style>
+:root{--bg:#0d0b09;--ink:#e9e2d2;--dim:#8b8272;--line:#2a251d;--card:#161310;--hot:#cdbd8a}
+body.sun{--bg:#efe9dc;--ink:#1a1712;--dim:#5d564a;--line:#c9c0ac;--card:#fdfaf2;--hot:#6b5a24}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+ font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;-webkit-text-size-adjust:100%}
+header{position:sticky;top:0;z-index:9;background:var(--bg);border-bottom:1px solid var(--line);
+ padding:14px 14px 10px}
+h1{margin:0;font-size:16px;letter-spacing:.09em}
+.sub{color:var(--dim);font-size:11.5px;margin-top:5px;line-height:1.45}
+.bar{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+button{font:inherit;font-size:11px;letter-spacing:.06em;background:var(--card);color:var(--ink);
+ border:1px solid var(--line);border-radius:7px;padding:7px 11px}
+button.on{background:var(--hot);color:var(--bg);border-color:var(--hot)}
+main{padding:12px 12px 60px;max-width:760px;margin:0 auto}
+h2{font-size:12px;letter-spacing:.1em;color:var(--hot);margin:22px 0 8px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:13px;margin:11px 0}
+.nm{font-weight:700;letter-spacing:.09em;font-size:13.5px;display:flex;align-items:center;gap:8px}
+.dot{width:11px;height:11px;border-radius:3px;flex:none}
+.want{font:700 19px ui-monospace,monospace;color:var(--hot);letter-spacing:.04em;margin:9px 0 0}
+.canon{color:var(--ink);font-size:12px;line-height:1.55;margin:7px 0 0;
+ border-left:2px solid var(--hot);padding-left:9px;opacity:.93}
+.row{display:flex;gap:9px;padding:6px 0;border-top:1px solid var(--line);font-size:11.5px}
+.row .k{flex:none;width:104px;color:var(--dim);letter-spacing:.05em}
+.row .v{flex:1}
+.warn{color:#d98a6a}
+body.sun .warn{color:#9d3d12}
+.note{color:var(--dim);font-size:11.5px;line-height:1.55;margin:8px 0 0}
+.ladder{display:flex;gap:4px;margin:9px 0 0;flex-wrap:wrap}
+.st{font-size:9.5px;letter-spacing:.06em;border:1px solid var(--line);border-radius:5px;
+ padding:3px 6px;color:var(--dim)}
+.st b{color:var(--ink)}
+.foot{color:var(--dim);font-size:11px;padding:16px 2px;line-height:1.6}
+</style></head><body>
+<header>
+<h1>WHAT THEY WANT FROM YOU</h1>
+<div class="sub">Two turns ago the game learned sixteen ways to give you somebody's name. Then it
+learned that the Mob will not be asked, somebody inside has to vouch. And then you were through
+the door with <b>nothing in there</b>. This is what is in there: what each outfit wants, what it
+is worth, and how far in you are. All of it is yours, off the cards you thumbed up on 8/2.
+<b>Nothing to judge.</b></div>
+<div class="bar"><button id="sun">SUN MODE</button><button id="given">YOU HAVE DONE IT 0 TIMES</button></div>
+</header>
+<main id="m"></main>
+<script>
+__ENGINE__
+var LOOK=__LOOK__;
+var GIVEN=0, STEPS=[0,1,3,6,10];
+function esc(s){ return String(s==null?'':s).replace(/[&<>]/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
+function card(key){
+  var r=BohemiaBelonging.RULES[key];
+  var b=BohemiaBelonging.bargain(r, GIVEN);
+  var col=(LOOK[key]&&LOOK[key].color)||'#8b8272';
+  var h='<div class="c"><div class="nm"><span class="dot" style="background:'+col+'"></span>'
+    +esc(r.faction)+'</div>';
+  h+='<div class="want">'+esc(b.wantWord)+'</div>';
+  h+='<div class="canon">'+esc(b.want)+'</div>';
+  h+='<div class="row"><div class="k">THEY HOLD</div><div class="v">'+esc(b.holds)+'</div></div>';
+  if(b.pays) h+='<div class="row"><div class="k">PAID IN</div><div class="v">'+esc(b.pays)+'</div></div>';
+  if(b.refuses) h+='<div class="row"><div class="k">WILL NOT TAKE</div><div class="v warn">'
+    +esc(b.refuses)+'</div></div>';
+  if(b.theyFirst) h+='<div class="row"><div class="k">MOVES FIRST</div><div class="v warn">'
+    +'THEY DO. They help you before you agree to anything.</div></div>';
+  if(b.noOffer) h+='<div class="row"><div class="k">MOVES FIRST</div><div class="v warn">'
+    +'NOBODY. There is no offer.</div></div>';
+  if(b.rung){
+    h+='<div class="row"><div class="k">YOU ARE</div><div class="v"><b>'+esc(b.rung.word)+'</b> &middot; '
+      +esc(b.rung.note)+'</div></div>';
+    if(b.next) h+='<div class="row"><div class="k">'+b.next.more+' MORE</div><div class="v">and you are '
+      +esc(b.next.rung.word)+'</div></div>';
+  }
+  if(b.mech) h+='<div class="note">'+esc(b.mech)+'</div>';
+  if(b.pending) h+='<div class="note warn">STILL YOURS TO DECIDE: '+esc(b.pending)+'</div>';
+  return h+'</div>';
+}
+function draw(){
+  var keys=BohemiaBelonging.keys();
+  var lad=BohemiaBelonging.RUNGS.map(function(x){
+    return '<span class="st"'+(BohemiaBelonging.rungOf(BohemiaBelonging.RULES.BLUES,GIVEN).key===x.key
+      ?' style="border-color:var(--hot)"':'')+'>'+x.at+'&times; <b>'+esc(x.word)+'</b></span>'; }).join('');
+  document.getElementById('m').innerHTML =
+    '<div class="c"><div class="nm">HOW FAR IN YOU ARE</div>'
+    +'<div class="note">Nobody joins anything. Lave &amp; Wenger studied how people actually enter '
+    +'a trade, a guild, a crew: you are let in at the EDGE to do something small, and you drift '
+    +'inward as you turn out to be useful, until you are the one training the next person. Your '
+    +'Anarchists card says the quiet part out loud &mdash; <i>"Not sign anything, not join '
+    +'anything."</i> So this is a slope, not a switch. Tap the button up top to walk it.</div>'
+    +'<div class="ladder">'+lad+'</div></div>'
+    + keys.map(card).join('')
+    +'<div class="foot">Every quoted line is yours, verbatim, out of records/factions/ &mdash; the '
+    +'generator refuses to run if one of them changes without a human re-reading it. The rungs and '
+    +'the counts are mine and you can hate them; the bargain is not mine to touch. This page runs '
+    +'the same engine/bohemia_belonging.js the game reads when you walk up to somebody.</div>';
+}
+document.getElementById('sun').addEventListener('click',function(){
+  document.body.classList.toggle('sun'); this.classList.toggle('on'); });
+document.getElementById('given').addEventListener('click',function(){
+  GIVEN=STEPS[(STEPS.indexOf(GIVEN)+1)%STEPS.length];
+  this.textContent='YOU HAVE DONE IT '+GIVEN+' TIME'+(GIVEN===1?'':'S');
+  this.classList.toggle('on', GIVEN>0); draw(); });
+draw();
+</script></body></html>
+'''
+
+
+def faction_look():
+    with open(os.path.join(ROOT, 'engine/bohemia_dress.js'), 'r', encoding='utf-8') as f:
+        src = f.read()
+    out = {}
+    for m in re.finditer(r"([A-Z_]+)\s*:\s*\{[^}]*color\s*:\s*'(#[0-9a-fA-F]{3,8})'", src):
+        out[m.group(1)] = {'color': m.group(2)}
+    return out
+
+
+def main():
+    rows = build()
+    js = JS_HEAD + js_literal(rows) + JS_TAIL
+    with open(OUT_JS, 'w', encoding='utf-8') as f:
+        f.write(js)
+    with open(OUT_JSON, 'w', encoding='utf-8') as f:
+        json.dump({'rules': {r['key']: r for r in rows}, 'rungs': RUNGS,
+                   'aliases': ALIASES, 'wantWords': WANT_WORDS}, f, indent=1,
+                  ensure_ascii=False)
+        f.write('\n')
+    html = (PAGE.replace('__ENGINE__', js.replace('</script>', '<\\/script>'))
+                .replace('__LOOK__', json.dumps(faction_look(), ensure_ascii=False)))
+    with open(OUT_HTML, 'w', encoding='utf-8') as f:
+        f.write(html)
+    print('BELONGING: %d bargains baked' % len(rows))
+    for r in rows:
+        print('  %-14s wants %-12s pays %-32s %s'
+              % (r['key'], r['wants'], (r['pays'] or '-')[:32],
+                 'THEY MOVE FIRST' if r['firstMove'] == 'they-give-first' else ''))
+    for p in (OUT_JS, OUT_JSON, OUT_HTML):
+        print('  wrote %s' % os.path.relpath(p, ROOT))
+
+
+if __name__ == '__main__':
+    main()

@@ -451,6 +451,7 @@
     const placed = {};   // questId -> { x, y, layer, speaker }  (world binding: see placeQuest)
     const sink = typeof opts.record === 'function' ? opts.record : null;
     const factions = opts.factions || null;                 // ctx.factions — real FactionWorld, or null (bare/legacy boot)
+    const save = opts.save || null;                          // ctx.save — for meta.gave, or null on a bare boot
     const factionAdjacency = opts.factionAdjacency || null;  // ctx.factionAdjacency — real 4-way grid, or null
     const worldMap = opts.worldMap || null;                  // ctx.worldMap — the real valley, or null
 
@@ -518,7 +519,22 @@
       Object.keys(s.faction || {}).forEach(function (fid) {
         const delta = s.faction[fid];
         const real = resolveFactionId(fid);
-        if (delta && real) factions.shiftStanding(real, 'player', delta, false);
+        if (!delta || !real) return;
+        factions.shiftStanding(real, 'player', delta, false);
+        /* HOW MANY TIMES YOU DID SOMETHING THEY WANTED (8/12). Standing is what
+           they THINK of you; this is a plain count of the times you actually did
+           the thing, and the two are not the same question -- you can be well
+           liked by an outfit you have never once turned up for.
+           engine/bohemia_belonging.js walks Lave & Wenger's periphery-to-inside
+           gradient off this number, and it has to be a COUNT or the gradient is
+           just standing wearing a hat. Only POSITIVE deltas count: doing them
+           harm is not a step toward belonging, it is a different axis entirely,
+           and it already has one (standing). Rides meta, which is where abstract
+           dynasty-scale state already lives, so no save migration is needed. */
+        if (delta > 0 && save && save.meta) {
+          const g = save.meta.gave || (save.meta.gave = {});
+          g[real] = (g[real] | 0) + 1;
+        }
       });
       Object.keys(s.posture || {}).forEach(function (fid) {
         const delta = s.posture[fid];
@@ -790,6 +806,7 @@
   function bootQuests(ctx) {
     ctx.quests = makeQuestManager({
       factions: ctx.factions,                    // THE WORLD BRIDGE: quest outcomes reach real faction standing
+      save: ctx.save,                            // for meta.gave: the COUNT of times you did what an outfit wanted
       factionAdjacency: ctx.factionAdjacency,     // and, opt-in per quest, the territory AI
       worldMap: ctx.worldMap,                     // THE CASTING BRIDGE: a quest places itself into the real valley
       record: function (evt) {

@@ -909,6 +909,23 @@ GATES = [
      "measured by asserting the owner map is byte-identical after a posture quest. Every value is "
      "positive because every authored one is; nobody ever writes a faction calmer. Seven planted "
      "mistakes self-tested every run", False),
+    ('BELONGING',      ['node', 'gates/belonging_gate.js'],
+     "THE DOOR HAD NOTHING BEHIND IT. Two turns built sixteen ways to learn a faction member's "
+     "name and a lock that makes the Mob wait for somebody inside to vouch -- and then you were "
+     "through with no reason to want in, no idea what they wanted, no idea what it was worth. Both "
+     "halves had been sitting in his dossiers since 8/2, thumbed up and read by nothing: WHAT THEY "
+     "WANT FROM YOU and WHAT THEY TRADE/CONTROL, and they are sixteen ECONOMIES, not sixteen "
+     "paraphrases of 'help us' (REMNANTS 'Not loyalty. INFORMATION ABOUT THE ROAD... they will pay "
+     "in ammunition'; MOB 'you ACCOUNTED FOR. Not loyal, not employed - listed'; VOLUNTEERS 'will "
+     "refuse a gift that would make them worth robbing'). Grounded in Lave & Wenger's LEGITIMATE "
+     "PERIPHERAL PARTICIPATION: nobody JOINS anything, newcomers do low-stakes work at the edge "
+     "and drift inward -- which is what every one of his sentences describes, and the Anarchists "
+     "say it outright ('Not sign anything, not join anything'). BELONGING IS NOT STANDING and the "
+     "gate proves it by driving a real quest: +6 then +1 is TWO deeds, not seven, and hurting them "
+     "is not a step toward belonging. 32 anchors verbatim plus regenerate-and-diff. His OPEN "
+     "question (whether the Mob IS the Cartel, the guarantor seat) is carried as PENDING and gated "
+     "so nobody answers it. The three-spellings-of-a-faction bug bit for the THIRD time here and "
+     "the gate caught it on the real card, not by reading code", False),
     ('TIES',           ['node', 'gates/ties_gate.js'],
      "EVERY PERSON IN THE VALLEY WAS AN ISLAND, which is why three of the sixteen introductions "
      "shipped dead: four of his dossiers ask for a THIRD PARTY (MOB 'a third person supplies it, "

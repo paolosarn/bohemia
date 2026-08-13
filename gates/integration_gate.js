@@ -290,6 +290,14 @@ const PROBES = {
   ties_shown: () => RUN.indexOf('BohemiaTies.vouchFor(') >= 0 &&
     RUN.indexOf('faction:factionForPerson(a)') >= 0 &&
     RUN.indexOf("label:'INTRODUCED BY'") >= 0,
+
+  /* WHAT THEY WANT FROM YOU (8/12). The bargain has to be inlined, drawn into its
+     OWN node after cardFor() clears the card, and driven off the deed COUNT rather
+     than the standing number. gates/belonging_gate.js part D reads the real node in
+     a real browser; this only catches the row going stale. */
+  belonging_shown: () => RUN.indexOf('BohemiaBelonging.bargain(') >= 0 &&
+    RUN.indexOf('function showBargain(') >= 0 &&
+    RUN.indexOf('function gaveFor(') >= 0,
 };
 
 const LEGAL = ['INTEGRATED', 'PARTIAL', 'NOT YET'];

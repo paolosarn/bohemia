@@ -111,10 +111,22 @@ ok('the report says it decides by BYTES, not by names (the 8/4 false-alarm lesso
 /* ---- 5. the instrument agrees with what was verified BY HAND -------------- */
 /* THE CALIBRATION, and it is the claim that makes the rest worth reading. Four
    sources were checked by hand on 8/4 before this tool existed. If the census
-   ever disagrees with one of them, the census is broken, not the hand check. */
+   ever disagrees with one of them, the census is broken, not the hand check --
+   UNLESS THE WORLD MOVED UNDER THE HAND CHECK, which is what happened to the
+   dress row and is why this comment now exists.
+
+   dress.js was genuinely unreached on 8/4. On 8/11 the FACTIONS lane wired the
+   allegiance line into the run's person card, and it reads BohemiaDress's
+   FACTION_LOOK/FACTION_MOTIF for the colour and the mark -- so the module is
+   loaded by the shown surface now and NO TRACE is simply no longer true. The
+   census only caught it today because regenerating it is what made it current.
+   A hand check is a measurement of a moment, not a permanent fact; when a later
+   change falsifies one, the row moves and says why. (The census's LOADED ONLY is
+   conservative here: the colour does reach the screen, as a swatch, but it
+   arrives as a value rather than a draw call and the classifier reads calls.) */
 const VERIFIED = [
   ['engine/bohemia_memory.js', 'NO TRACE'],       // grep: no makeMind on any surface
-  ['engine/bohemia_dress.js', 'NO TRACE'],        // hand-checked unreached 8/4
+  ['engine/bohemia_dress.js', 'LOADED ONLY'],     // was NO TRACE 8/4; the run's allegiance line loads it 8/11
   ['engine/bohemia_people.js', 'SHOWN'],          // P-J shipped it into the city
   ['engine/bohemia_agents.js', 'SHOWN'],          // makeSim is in the city frame
 ];
