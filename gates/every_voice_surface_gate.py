@@ -75,7 +75,17 @@ SPEAK_MARKERS = [
     # exposed one that was there the whole time and was hidden by a false
     # positive. So the list gains the shapes the city ACTUALLY uses:
     ('ctOpen',        'the CITY talk card opening on the person you walked up to'),
-    ('nowLineOf',     'a surface reading out what a person is doing right now'),
+    # nowLineOf WAS A MARKER AND IT WAS THE WRONG ONE (8/13). "Line" in that
+    # function means a STATUS LINE -- it returns a word like SLEEPING or
+    # WORKING for what somebody is doing right now, not anything anybody says.
+    # It flagged WHO_KNOWS_WHO, a reference board with no dialogue in it at
+    # all and not one call to the voice engine, as an untested talk surface.
+    # Removed after checking it costs nothing: the run still matches on
+    # TALK TO THE and renderTalk, the CITY -- the surface this whole gate
+    # exists for, where Marisela is -- still matches on ctOpen, and the alpha
+    # on cutCaption. A marker that fires on a word rather than on a behaviour
+    # trains the next session to ignore this check, which is worse than not
+    # having it.
 ]
 
 def strip_comments(src):

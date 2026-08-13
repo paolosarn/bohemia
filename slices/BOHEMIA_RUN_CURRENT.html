@@ -19237,7 +19237,21 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
            solid lawn -- it is fed by what is under it, not watered. */
         if(part==='fill' && frac(hash(seed,x,y,0x67EE))<0.30) part='green';
         used[i]=1;
-        out.push({x:x,y:y,part:part,pit:k,story:ps.story});
+        /* SHIP THE GEOMETRY, NOT JUST THE VERDICT (8/11). The first cut emitted
+           only a part name, so the renderer could do nothing but flood a whole
+           128th-of-a-cell square -- and at walking zoom that is a STAIRCASE OF
+           BLOCKS, which reads as pixel soup rather than a cut in the ground.
+           Handing back the ellipse maths the tile was judged by lets the draw
+           mask INSIDE the tile, at whatever sub-resolution it likes, without
+           ever re-deriving the shape (one ruler). Cheap: values already computed.
+             d    how far out the tile sits, 0 at the middle of the hole
+             u,v  its position along the pit's own two axes
+             ecc  how close to the boundary it is: 0 deep inside, 1 right on it */
+        var band = part==='fill'||part==='green' ? 0.80
+                 : part==='rim'||part==='ramp'   ? 1.06 : 1.55;
+        out.push({x:x,y:y,part:part,pit:k,story:ps.story,
+                  d:+(d.toFixed(4)), u:+(u.toFixed(4)), v:+(v.toFixed(4)),
+                  ecc:+Math.max(0,Math.min(1,1-Math.abs(band-(d+wob))/0.34)).toFixed(3)});
       }
     }
     return out;

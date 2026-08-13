@@ -422,6 +422,15 @@ GATES = [
      "called renderTalk directly instead of pressing the button. This walks up to "
      "somebody and PRESSES WHAT HE PRESSES on every surface, and FAILS ON "
      "DISCOVERY so a third one cannot be added silently", True),
+    ('VOICE MOOD',     ['python3', 'gates/voice_mood_gate.py'],
+     "identity was solved on 8/11 and DELIVERY was not: a mother calling her kids "
+     "to dinner and somebody telling you to get out of the house came out at the "
+     "same pitch, speed and weight. Scherer 1986 and the Juslin & Laukka 2003 "
+     "meta-analysis both say high arousal is higher F0, more F0 variability, more "
+     "intensity, faster rate and more high-frequency energy -- so the engine moves "
+     "all five on two axes, reads only PUNCTUATION AND CASE by default (never "
+     "sentiment, which would be writing his people for him), and this gate proves "
+     "a line with no marks in it is byte-for-byte the voice he approved", True),
     ('SQUIGGLE VOICE', ['python3', 'gates/voice_gate.py'],
      "Paolo's demo top priority: Animal-Crossing-lineage gibberish speech with "
      "ZERO audio files, so it is FORMANT synthesis (Peterson & Barney vowels) and "

@@ -238,14 +238,100 @@
   /* ---- SAY A LINE ------------------------------------------------------
      Returns the schedule it built (count + seconds) so a gate can count what
      was actually produced instead of trusting that something happened. */
-  function say(text, v, AC, dest, when) {
+  /* ---- MOOD: HOW IT IS SAID, NOT JUST WHO SAYS IT (8/13) ---------------
+     Every character in the game sounded exactly the same whether they were
+     shouting at you or trailing off. Identity was solved; DELIVERY was not,
+     and delivery is most of what makes a conversation feel like people.
+
+     THE RESEARCH IS OLD AND IT AGREES WITH ITSELF. Scherer (1986) and the
+     Juslin & Laukka meta-analysis (2003, 104 studies of vocal expression)
+     both land on the same pattern: high-arousal states -- anger, fear,
+     elation -- carry HIGH MEAN F0, HIGH F0 VARIABILITY, HIGH INTENSITY and
+     an INCREASED SPEAKING RATE, while sadness carries reduced intensity,
+     lower pitch, slower tempo and a narrow range. Fear and happiness are
+     specifically marked by greater pitch variability.
+
+     SO THE DIAL IS DIMENSIONAL, NOT A LIST OF EMOTIONS. Two axes, arousal
+     and valence, which is the form the dimensional literature uses and, more
+     importantly, the form that does not invent canon: naming which of
+     Paolo's characters feel "contempt" would be writing his people for him.
+     MECHANISM-MINE / CONTENTS-PAOLO'S -- I ship the dial, he decides who is
+     angry.
+
+     WHAT THE DEFAULT READS, when a caller passes no mood: PUNCTUATION AND
+     CASE ONLY. A shout, a trail-off, a question -- marks the writers already
+     type, that mean the same thing in every script ever written. It does NOT
+     guess at sentiment from the words, because that is a machine deciding
+     what a line MEANS, and it would be wrong in exactly the places that
+     matter. Valence therefore stays 0 unless a caller states it.
+
+     NEUTRAL IS BYTE-IDENTICAL TO BEFORE. Every scale below is 1 or 0 at
+     mood zero and consumes the same random draws in the same order, so the
+     six voices Paolo approved on 8/11 render exactly as he heard them. The
+     gate asserts it rather than trusting it. */
+  var MOOD_NEUTRAL = { arousal: 0, valence: 0 };
+
+  function moodOf(text) {
+    var s = String(text == null ? '' : text);
+    var a = 0, v = 0;
+    var bangs = (s.match(/!/g) || []).length;
+    if (bangs >= 2) a += 0.80; else if (bangs === 1) a += 0.55;
+    if (/\.\.\.|\u2026/.test(s)) a -= 0.45;          /* a trail-off is small and slow */
+    if (/\?\s*$/.test(s)) a += 0.15;                 /* asking leans forward a little */
+    /* SHOUTING IS TYPED IN CAPS and has been since scripts were typed. Only
+       counts when the line is mostly caps: one proper noun is not a shout. */
+    var caps = (s.match(/[A-Z]/g) || []).length, low = (s.match(/[a-z]/g) || []).length;
+    if (caps + low >= 6 && caps / (caps + low) > 0.6) a += 0.50;
+    return { arousal: clampM(a), valence: clampM(v) };
+  }
+  function clampM(x) { return x < -1 ? -1 : (x > 1 ? 1 : x); }
+
+  /* the voice, bent by the mood. IDENTITY IS PRESERVED: the seed never moves,
+     so a person under any mood is still recognisably that person -- which is
+     the entire point of having voices at all. */
+  function bend(v, m) {
+    if (!m || (!m.arousal && !m.valence)) return v;
+    var a = clampM(m.arousal || 0), val = clampM(m.valence || 0);
+    var o = {};
+    for (var k in v) if (v.hasOwnProperty(k)) o[k] = v[k];
+    /* F0 in SEMITONES, because pitch is perceived in ratios. +-3 semitones at
+       full arousal: audible as a different delivery, never as a different
+       person. */
+    o.f0 = v.f0 * Math.pow(2, (a * 3 + val * 0.6) / 12);
+    o.rate = v.rate * (1 + a * 0.28);                /* faster when roused, slower when flat */
+    o.drop = v.drop * (1 - val * 0.35 + a * 0.10);   /* sadness falls away harder */
+    o.gruff = v.gruff * (1 - val * 0.40);            /* pleasure is a cleaner signal */
+    o.tilt = v.tilt * (1 + a * 0.30);                /* high-frequency energy rises with arousal */
+    return o;
+  }
+  function ampScaleOf(m) { return 1 + (m ? clampM(m.arousal || 0) : 0) * 0.25; }
+  /* THE FRICATIVES HAVE TO COME UP TOO, and this was found by measurement, not
+     by theory. Raising f0 and the formant tilt made the VOICED part brighter
+     and the whole line still measured DARKER, because aroused speech is faster,
+     the hiss bursts get shorter, and the blip envelope's 5 ms attack floor eats
+     a short burst -- so the hiss quietened relative to the vowels and took the
+     high-frequency energy down with it.
+     The fix belongs in the engine, not in the ruler: high-frequency energy IS
+     the cue the research names, and in real raised speech a large part of it is
+     stronger fricatives. So the unvoiced share rises with arousal as well. */
+  function hissScaleOf(m) { return 1 + (m ? clampM(m.arousal || 0) : 0) * 0.85; }
+  /* F0 VARIABILITY is the cue Juslin & Laukka single out for fear and joy, and
+     it is the one that stops a roused voice sounding merely transposed. */
+  function varScaleOf(m) { return 1 + (m ? clampM(m.arousal || 0) : 0) * 0.90; }
+
+  function say(text, v, AC, dest, when, mood) {
     text = String(text == null ? '' : text);
     var letters = text.toLowerCase().replace(/[^a-z .,!?']/g, '');
     var t0 = (when != null ? when : AC.currentTime + 0.02);
     /* SEEDED PER LINE: the same person saying the same words is identical every
        time. Recognising a person is the whole point, and Math.random would make
-       that impossible. */
+       that impossible. THE SEED IS THE UNBENT VOICE, so mood changes delivery
+       and never identity. */
     var rand = rng(hash(v.seed + '|' + text));
+    var m = (mood === undefined) ? moodOf(text) : (mood || MOOD_NEUTRAL);
+    var vB = bend(v, m), aScale = ampScaleOf(m), vScale = varScaleOf(m);
+    var hScale = hissScaleOf(m);
+    v = vB;
     var step = 1 / v.rate;
     var t = t0, n = 0, i, ch, live = [];
     /* how far through the sentence, for declination */
@@ -264,7 +350,9 @@
          language does this and its absence is instantly a robot. */
       var f0 = v.f0 * (1 - v.drop * frac);
       if (q && frac > 0.72) f0 = v.f0 * (1 + 0.16 * (frac - 0.72) / 0.28);
-      f0 *= 0.97 + rand() * 0.06;
+      /* the same draw, widened or narrowed by arousal. Consuming the SAME
+         random number in the same order is what keeps neutral identical. */
+      f0 *= 1 + ((0.97 + rand() * 0.06) - 1) * vScale;
 
       var colour = LETTER[ch];
       var noisy = (colour === null);
@@ -283,7 +371,7 @@
          sibilants strongest (-2.4 dB) and dentals weakest (-21 dB). So the
          target is roughly EIGHT DB DOWN, and the old value was about sixteen dB
          the wrong side of it. */
-      var amp = (isVowel ? 0.30 : (noisy ? 0.021 : 0.20)) * (0.85 + rand() * 0.3);
+      var amp = (isVowel ? 0.30 : (noisy ? 0.021 * hScale : 0.20)) * (0.85 + rand() * 0.3) * aScale;
 
       var node = blip(AC, dest, v, colour, t, Math.max(0.012, dur), f0, amp, noisy, rand);
       if (node) live.push(node);
@@ -292,7 +380,7 @@
     }
     /* A HANDLE, so a new line can CUT the one still talking. Two people
        babbling over each other is not two people, it is a fault. */
-    return { blips: n, seconds: +(t - t0).toFixed(3), start: t0,
+    return { blips: n, seconds: +(t - t0).toFixed(3), start: t0, mood: m,
              stop: function(){ for (var k = 0; k < live.length; k++) {
                try { live[k].stop(); } catch (e) {} } } };
   }
@@ -482,6 +570,7 @@
     hash: hash, rng: rng,
     voiceOf: voiceOf, serialize: serialize, say: say, cook: cook,
     speakerVoice: speakerVoice, opener: opener,
-    ENVELOPE: ENVELOPE, castVoice: castVoice, castCount: castCount
+    ENVELOPE: ENVELOPE, castVoice: castVoice, castCount: castCount,
+    moodOf: moodOf, bend: bend, MOOD_NEUTRAL: MOOD_NEUTRAL
   };
 })(typeof window !== 'undefined' ? window : this);

@@ -141,7 +141,13 @@ PANEL = r'''
  function speak(v){
   try{
    var d=bus(); if(!d||typeof BOH_VOICE==='undefined') return null;
-   return BOH_VOICE.say(LINES[LINE][1], v, MUS.AC, d, null);
+   /* THE JUDGE IS ALWAYS NEUTRAL (8/13). say() now derives a MOOD from the
+      line's own punctuation, which is the right default everywhere in the game
+      and exactly the wrong thing here: a verdict is on a VOICE, and if the
+      sample line ever gained an exclamation mark the six voices he approved on
+      8/11 would quietly start playing back different from what he thumbed.
+      Passing neutral explicitly pins them. */
+   return BOH_VOICE.say(LINES[LINE][1], v, MUS.AC, d, null, BOH_VOICE.MOOD_NEUTRAL);
   }catch(e){ return null; }
  }
  window.__vxSpeak = speak;
@@ -306,6 +312,9 @@ PANEL = r'''
      if(gk && !GROUPS[gk]) GROUPS[gk] = {};
      v = BOH_VOICE.speakerVoice(sp, approved, gk?GROUPS[gk]:null);
    }
+   /* NO MOOD ARGUMENT ON PURPOSE: say() reads the line's own punctuation, so
+      every surface in the game gets delivery for free without a single lane
+      having to wire anything. A caller that knows better can still pass one. */
    TALKING = BOH_VOICE.say(line, v, MUS.AC, d, null);
    return TALKING;
   }catch(e){ return null; }
