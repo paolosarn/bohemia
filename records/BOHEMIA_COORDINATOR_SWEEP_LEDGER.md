@@ -198,3 +198,45 @@ organs already live. A boss without aftermath lines is half a boss.
 [Confidence: Hades numbers are published primary; the transfer is my
 inference, flagged as such.]
 HIGH-WATER MARK: swept through main @ 45527cbf52db5f3ba55ca7bc2891033b99336f95
+
+## SWEEP 7 — 8/13/26 (fired by his "do big brain online research... WE
+## HAVE a demo to ship" order)
+DELTA: 15 commits (13 lane). THE PHONE RINGS (the day starts jobless and
+work arrives on the phone — the feed channel the engine promised is now
+the surface; not taking a job is no longer failing it); THE WORLD HAS A
+MOUTH (244 ambient lines off the catalogue, 1,190 editable in WORDS);
+FIVE PHYSICS (impact sound stale-ness root-caused: the engine only knew
+how to hit things); tenth family wired (dead dark shop glass); WHO KNOWS
+WHO (islands fixed, the Mob is a closed door); a gate repealed to match
+his 8/11 ruling (people_gate — A GATE MUST NEVER OUTRANK A RULING); LAB's
+voice failed five passes because canon had already built the radio (the
+reuse law working); face-size dial killed by his verdict. Plus this
+session: THE FIELD SURGERY recorded + routed; his moon-zoom crash
+diagnosed read-only and routed P0 to CITY (wheel-only sky, touch never
+wired, full-valley redraw per touch event = the freeze).
+CROSS-LANE FLAGS RELAYED: WORLD SYNC (two modules outside the resync
+scanner on a banner technicality — RUN's 8/12 flag, now a WORLD item);
+SHARED -2 render-pixel unattributed 34% draw drop (bisect + attribute);
+PEOPLE 0sc gate-vs-law reconcile (scene_gate forces say beats EMPTY —
+right for the wordless match-cut BY CITATION, wrong under the 8/11
+attempt law for the father's wake-up line and tutorial barks).
+PRIOR CATCHES: all delegated; fresh hunt legal.
+THE CATCH (lens: the demo's emotional core; doctrine §4b, both aisles):
+QUESTION: does the sibling's death land off a 13.5-second WATCHED
+match-cut? FINDINGS: TLOU scrapped its Joel-POV opening as predictable
+and shipped PLAYED minutes as Sarah — the canonical proof that played
+attachment is why the famous death works; Brothers carries the bond in
+the controls; Up's watched dose is ~4.5 min of specifics (film's floor,
+and film has no better channel — we do); identifiable-victim research:
+name + specific detail is load-bearing; retention data: long intro
+cutscenes are a top quit cause, tutorials integrate 1-3 min. CHALLENGE
+FINDING (vs the cold open as built): watched-only seconds is below every
+measured dose, and buying minutes with cutscene pays in abandonment. THE
+RESOLUTION: the tutorial IS the attachment machine — the sibling teaches
+I-MOVE-YOU-MOVE as your first partner, one protect/assist beat, name +
+one quirk up front; zero added minutes, locked shape untouched. ROUTED:
+PEOPLE 0sc amended + COMBAT TUT-SIB + RUN consumes. Record:
+records/BOHEMIA_RESEARCH_PLAYED_ATTACHMENT_8_13_26.md
+[Confidence: craft sources primary/secondary, high; IVE replicated with
+published nuance; transfer is my inference, flagged.]
+HIGH-WATER MARK: swept through main @ a1bca12 (plus this sweep's own push)

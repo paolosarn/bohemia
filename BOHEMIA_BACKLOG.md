@@ -1518,6 +1518,14 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+SYNC. (8/13 coordinator relay of the RUN lane's 8/12 cross-lane flag —
+   small, do it first, it re-arms a law): TWO OF THIS LANE'S MODULES ARE
+   OUTSIDE THE ENGINE SYNC SWEEP. The resync scanner requires the banner
+   line to end in '==== */' and engine/bohemia_agents.js +
+   engine/bohemia_population.js have wrapped banners that fail it — same
+   defect that silently excluded four RUN modules. One-line banner each
+   and they are back under the sync law. | both files picked up by the
+   resync scanner, shown in its output | — | no.
 FS. THE FIELD SURGERY KIT (routed 8/13 off Paolo's LOCKED procedure —
    laws/BOHEMIA_ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md §7-8): FIVE
    GOODS enter the economy skeleton — povidone iodine, sterile water,
@@ -3454,6 +3462,16 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+TUT-SIB. (8/13, sweep 7 catch — records/BOHEMIA_RESEARCH_PLAYED_
+   ATTACHMENT_8_13_26.md; co-owned with PEOPLE 0sc's 8/13 amendment,
+   demo-critical-path row 10): the tutorial-tier family-defense encounter
+   is authored so the SIBLING IS THE TEACHING MECHANISM — they demo
+   I-MOVE-YOU-MOVE as your first partner, one protect/assist beat mid-
+   fight, then the locked loss. Encounter design on existing systems, no
+   new mechanics; the 7/19 shape untouched. | the taught beat and the
+   assist beat play in the real cold open on the real surface | casualty
+   specifics = his leaning (7/19) | no (it ships in the demo; he corrects
+   after playing it).
 TILES. (7/28, on Paolo's TILE FORMS ORDER) EIGHT COMBAT TILE FORMS FILED, FOUR
    THINGS DELIBERATELY NOT FILED. Forms: records/tileforms/TF-CMB-001..008 —
    low cover (vaultable), tall cover (blocking), the dead car, the upper deck
@@ -5362,6 +5380,28 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    capacity, base assignments, permanent death + one-revival-per-act rescue
    quest, thresholds, honesty tracking). | one scene plays end to end on
    the real surface, gated | scene content = his | no (runtime).
+   AMENDED 8/13 (sweep 7 catch — records/BOHEMIA_RESEARCH_PLAYED_
+   ATTACHMENT_8_13_26.md, both-aisles research): THE TUTORIAL IS THE
+   ATTACHMENT MACHINE. As built, attachment before the sibling's death is
+   a 13.5s WATCHED match-cut; TLOU (Druckmann primary — the Joel-POV
+   opening was scrapped, playing Sarah is why the death lands), Brothers
+   (the controls carry the bond), Up (film's minimum dose is ~4.5 min of
+   specifics), and the identifiable-victim effect all converge: the death
+   needs PLAYED attachment, and demo retention data forbids buying it
+   with more cutscene. THE FIX, zero added minutes: inside the existing
+   family-defense tutorial, the SIBLING teaches the beat (I-MOVE-YOU-
+   MOVE, your first dance partner) + one protect/assist beat + name and
+   one quirk surfaced before the fight (draft:true). Losing them = losing
+   your teacher. The locked 7/19 shape and the wordless match-cut are
+   UNTOUCHED; casualty specifics stay his leaning. COMBAT co-owns the
+   encounter authoring; RUN consumes with no added time-to-first-fun.
+   ALSO 8/13, GATE-VS-LAW RECONCILE (same pattern this fleet fixed in
+   people_gate on 8/12): scene_gate.js REFUSES text in every say beat —
+   correct for the match-cut (7/19 ruling: "without a word", cite it),
+   but the father's wake-up line and tutorial barks are WORDS under the
+   8/11 attempt law and must ship as draft:true attempts. Wordless stays
+   wordless BY CITATION; everything else gets its draft. Fix the gate,
+   not the scene.
 0r. THE REACTIVITY MULTIPLIER (sweep 6 catch, 8/12 — the Hades math):
    Hades ships ~4 boss fights but 21,020 voice lines across 30 characters
    (305k words, more than the Iliad + Odyssey) — roguelite replayability
@@ -5737,6 +5777,15 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-2. RENDER PIXEL, UNATTRIBUTED 34% DRAW DROP (8/13 coordinator relay of
+   the RUN lane's 8/12 flag, "red on both sides but a real signal"):
+   render_pixel wants >5000 draws; origin/main measured 4876 and the RUN
+   lane's tree measured 3238 — a 34% drop nobody can attribute. First
+   idle session that owns a render surface: bisect the drop, name the
+   commit, and either bless the new number (if the change was legit,
+   e.g. culling) or fix the regression. A red gate that drifts redder
+   silently is a gate nobody is reading. | drop attributed to a commit +
+   gate threshold re-justified in writing | — | no.
 -1. THE STREET SOURCE GATE (Paolo direct order 7/31 — laws/BOHEMIA_ADDENDUM_
    STREETS_ARE_THE_HARMONIZED_POOL_7_31_26.md; new law = new gate, do this
    first): machine-enforce that street graphics always go through banks/

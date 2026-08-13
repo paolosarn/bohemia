@@ -17604,3 +17604,22 @@ per touch event, which is the freeze-then-Safari-kill he felt. Tap also
 falls through to cityTapPlot on invisible plots. Fix shape + verify-on-
 real-touch demand written into the item. The feature itself is his 7/25
 philosophy and stays; this is a wiring defect, not a verdict.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/13 (c) — SWEEP 7 ON HIS RESEARCH ORDER. THE CATCH:
+THE DEATH ONLY LANDS IF YOU PLAYED THE PERSON. The cold open's attachment
+dose before the sibling dies is a 13.5s watched match-cut; TLOU (played
+Sarah is WHY the death works — the watched version was scrapped in the
+room), Brothers (the bond lives in the controls), Up (~4.5 min is film's
+watched floor), the identifiable-victim effect (name + specific detail is
+load-bearing), and demo retention data (long intros are a top quit cause)
+converge on one fix that costs ZERO added minutes: the family-defense
+TUTORIAL is the attachment machine — the sibling teaches I-MOVE-YOU-MOVE
+as your first partner, one protect/assist beat, name + quirk up front,
+then the locked loss. Routed: PEOPLE 0sc amended, COMBAT TUT-SIB (new,
+demo row 10), RUN consumes. Locked 7/19 shape + wordless match-cut
+untouched. ALSO RELAYED cross-lane: WORLD SYNC banner hole (RUN's flag),
+SHARED -2 render-pixel unattributed 34% drop, PEOPLE scene_gate-vs-8/11-
+attempt-law reconcile (wordless stays wordless BY CITATION; the father's
+wake-up line gets its draft). Record: records/BOHEMIA_RESEARCH_PLAYED_
+ATTACHMENT_8_13_26.md; ledger sweep 7.
