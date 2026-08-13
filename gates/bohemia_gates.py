@@ -605,6 +605,15 @@ GATES = [
      '[PENDING Paolo], a HELD backlog row, the live unjudged count) -- so ruling one removes '
      'it by itself and he is never asked twice for something he already gave. Nothing is '
      'silently dropped, and he answers it in the VOTE tab ABOVE the art, one tap', False),
+    ('SUCCESSION',     ['node', 'gates/succession_gate.js'],
+     "Bohemia's SIGNATURE MECHANIC, locked in architecture 7/1 and unbuilt until 8/11: the world "
+     'routes around the body. A ROLE stores requirements, never a person, so killing the holder '
+     'cannot dangle a pointer; a vacancy is a CONTESTED EVENT decided by weight (what the player '
+     'did) rather than silent reassignment or a dice roll; and it PLAYS OUT OVER TIME on a fuse, '
+     'resolving on the forward compute while the player is elsewhere. Anti-soft-lock is proved by '
+     'FUZZ -- 400 random histories of kills, claims, time and sweeps with zero unreachable states '
+     '-- because the addendum names Skyrim radiant quests as the system that ships that bug. The '
+     'registry is EMPTY of seats and leaders, and both of his OPEN FORKS refuse out loud by name', False),
     ('TRUNCATION',     ['node', 'gates/truncation_gate.js'],
      'NOTHING STOPS HALFWAY ACROSS ITS OWN CELL: every through-surface reaches the boundary on '
      'both ends of its axis, so the next cell can connect to it. The arterial and the freeway '
