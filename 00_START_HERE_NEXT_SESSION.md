@@ -213,7 +213,48 @@ HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/13 (e) LATEST -- *** AND NOW THE MOUTH ANSWERS THE WORLD.
+PEOPLE (7h9sfy): 8/13 (f) LATEST -- *** QUEST 22 EXISTS: THE COLD ROOM. FIRST
+NEW CANON QUEST OFF THE UNTOUCHED 126. ***
+
+THE MEASUREMENT THAT PICKED IT: 21 canon quests cited 26 of the 152 studied
+quests. *** 126 STUDIES HAD NEVER BEEN DRAWN FROM ONCE. *** The corpus was the
+answer to "what do we build next" and nobody had asked it that question. S22 is
+built entirely on untouched findings:
+  Q008.W4 QUEST GATED BEHIND A LIFE SKILL
+  Q008.W2 DISGUISE AS MAINTAINED PERFORMANCE
+  Q005.W3 FAILURE-AS-CONTENT   +  Q005.P3  (the flaws-master half of it)
+  Q008.W8 THE APPROACH IS A MORAL STANCE
+  Q006.P6 W7 (invisible fair math
+Three studies, two masters, every title verbatim. Gate: 324 claims green.
+
+WHAT IT IS, AND IT IS ONE TRUE FACT TURNED INTO A FORK. Las Vegas tap water is
+among the hardest in the country and evaporative cooler pads calcify into stone
+in WEEKS. A scaled pad still passes air, the pump still runs, the water still
+drips -- so a dead cooler looks, sounds and feels exactly like a working one.
+On a 12% lit grid the swamp cooler is the only cooling anybody can afford, and
+one cooled room is the difference for the old people on the block at 115 degrees.
+The skill gate is knowing that a dead PUMP means DRY and this machine is WET.
+  knew it            -> pull the pads, soak them, spare set in    #quiet
+  said so out loud   -> fetch the one person who does, in public  #notable
+  cut a second feed  -> a real compressor off the Network's line  #reckless
+                        (LIGHT=TERRITORY: the room stops being a room and starts
+                         being a load on somebody's list)
+  swapped the pump   -> FAIL, and it WORKS FOR ONE EVENING, which is the whole
+                        point of failure-as-content. Nobody ever tells you that
+                        you got it wrong.
+The lesson underneath, never spoken: pretending you know how costs somebody else,
+never you.
+
+THE GATE FOUND A REAL IMPROVEMENT, worth recording because it looked like a false
+positive: it flagged "July" and "November" as hardcoded names. They are months,
+not people, so the heuristic was technically wrong -- and the fix was still to
+change the LINE, not the gate. "in the heat / in the cold" is better writing for
+a valley that lost its calendar, and loosening a shared gate to fit my prose
+would have been the wrong trade.
+
+TAB: DIRECT -- 22 quests, 1,179 directable rows. TAB: WORDS -- 1,314 lines.
+
+PEOPLE (7h9sfy): 8/13 (e) -- *** AND NOW THE MOUTH ANSWERS THE WORLD.
 66 REACTION LINES OVER THREE SYSTEMS THAT TRACKED EVERYTHING AND SAID NOTHING. ***
 
 DEPTH IS REACTIVITY, NOT WORD COUNT. Hades ships ~21,020 lines whose only job is
@@ -398,11 +439,12 @@ and act words -- a bucket named something the sim never says is a line that can
 never fire, which is the silent way a bark table dies. ***
 
 *** NEXT (the GO list, in order):
- 1. QUEST VOLUME. 21 canon quests against a 152-quest catalogue, and this is now
-    the biggest content gap in the game. The QUEST STUDY LAW machinery already
-    checks the citations, DIRECT already parses all 21 into 1,111 directable
-    rows, and the WORDS tab already harvests every line -- so quest 22+ is pure
-    writing with the whole apparatus already built and gated.
+ 1. QUEST VOLUME, AND S22 PROVES THE COST IS LOW. 22 canon quests against 152
+    studied; 123 studies still never drawn from. S22 took one file: the study
+    gate, DIRECT, WORDS, the placement judge and the run build all picked it up
+    with no new code. Pick untouched studies (the measuring script is three lines
+    of python over BOHEMIA_QUESTBOOK_LAW_INDEX.json and the .bq citations), find
+    the ONE TRUE FACT about this valley that makes a fork, and write it.
  2. MORE REACTION AXES, SAME METHOD. The factory reads its keys off the engine,
     so the next batch is the next set of things the sim already knows and never
     says: time since a raid, block wealth, weather, whether they are on shift.

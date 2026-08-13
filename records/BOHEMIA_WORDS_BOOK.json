@@ -3,10 +3,10 @@
   "what": "Every authored player-facing line in Bohemia, with the questbook catalogue laws each was written from.",
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
-  "sources": 25,
-  "lines": 1256,
-  "cited": 1254,
-  "fingerprint": "581813131525d7aa",
+  "sources": 26,
+  "lines": 1314,
+  "cited": 1312,
+  "fingerprint": "50ddbd49f1d87506",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -31553,6 +31553,2675 @@
      "citeLevel": "file",
      "title": "The One Who Came Back",
      "questId": "bq_one_who_came_back",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+   "title": "The Cold Room",
+   "kind": "quest",
+   "cites": [
+    {
+     "id": "Q008.W4",
+     "title": "QUEST GATED BEHIND A LIFE SKILL",
+     "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+    },
+    {
+     "id": "Q008.W2",
+     "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+     "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+    },
+    {
+     "id": "Q005.W3",
+     "title": "FAILURE-AS-CONTENT",
+     "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+    },
+    {
+     "id": "Q005.P3",
+     "title": "W3 (failure-as-content",
+     "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+    },
+    {
+     "id": "Q008.W8",
+     "title": "THE APPROACH IS A MORAL STANCE",
+     "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+    },
+    {
+     "id": "Q006.P6",
+     "title": "W7 (invisible fair math",
+     "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+    }
+   ],
+   "lines": [
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 10",
+     "text": "One cooled room on the block and it is not cooling. The machine is running. Water is going in. Air is coming out. The room is at ninety-one and climbing.",
+     "line": 52,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#52",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 20",
+     "text": "Eleven people in there and four of them cannot leave it. Whatever is wrong has to be wrong by two o'clock, not by evening.",
+     "line": 55,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#55",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 30",
+     "text": "Pads were stone. Pulled them, soaked them, packed the frame with the spare set, and the air off it went cold in about four minutes. Nobody watched a machine start working.",
+     "line": 59,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#59",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 31",
+     "text": "Walked the block and said out loud that I did not know how. Brought back somebody who did. Room was cold by one. Half the street watched me ask.",
+     "line": 64,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#64",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 32",
+     "text": "Cut a second feed off the live line and ran a real compressor. That room got cold like the old days. It is also now a lit address on somebody's map.",
+     "line": 70,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#70",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 33",
+     "text": "Changed the pump. It ran beautiful. Room was cold that evening and everyone said thank you. Pads finished closing overnight and now the housing is packed solid and there is no cold room at all.",
+     "line": 77,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#77",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "objective",
+     "speaker": "OBJECTIVE",
+     "node": "obj 10",
+     "text": "Find out why a running cooler is not cooling",
+     "line": 81,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#81",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "objective",
+     "speaker": "OBJECTIVE",
+     "node": "obj 20",
+     "text": "Get the room cold before the afternoon",
+     "line": 82,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#82",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "warm",
+     "text": "It is on. That is what I keep telling people and it is what makes me sound stupid. It is on, it is wet, and the room is ninety-one.",
+     "mood": "wary",
+     "line": 90,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#90",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "warm",
+     "text": "Eleven in there. Four of them are not walking anywhere else, and there is nowhere else on this block with a working anything.",
+     "mood": null,
+     "line": 91,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#91",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "warm",
+     "text": "If you know coolers, say so now. If you do not know coolers, also say so now, because I have had three men this month tell me they knew.",
+     "mood": null,
+     "line": 92,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#92",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "warm",
+     "text": "Let me look at it.",
+     "line": 93,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#93",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "warm",
+     "text": "I do not know coolers.",
+     "line": 94,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#94",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "warm",
+     "text": "I know coolers.",
+     "line": 95,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#95",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "warm",
+     "text": "(walk to the cooler without answering)",
+     "line": 96,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#96",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "look",
+     "text": "Pump is turning, you can hear it. Float is fine. There is water coming down the sides, you can see the dark line on the frame.",
+     "mood": "wary",
+     "line": 106,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#106",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "look",
+     "text": "Air comes out. It just comes out the same temperature it went in, near enough. Hot, and now damp, which somehow feels worse.",
+     "mood": null,
+     "line": 107,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#107",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "look",
+     "text": "Show me a pad. Just one.",
+     "line": 108,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#108",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "look",
+     "text": "Then it is the pump. I will swap it.",
+     "line": 109,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#109",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "look",
+     "text": "I am getting somebody who knows.",
+     "line": 110,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#110",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "look",
+     "text": "Is there another live feed near here?",
+     "line": 111,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#111",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "pads",
+     "text": "It does not bend. I thought they were meant to be like that.",
+     "mood": "wary",
+     "line": 118,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#118",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "pads",
+     "text": "That is not a pad any more, that is a tile. And the other five are the same, and the water has been running down the OUTSIDE of them for I do not know how long.",
+     "mood": null,
+     "line": 119,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#119",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "pads",
+     "text": "Water this hard turns them to stone in a month.",
+     "line": 120,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#120",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "pads",
+     "text": "(start pulling the frame apart)",
+     "line": 121,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#121",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "soak",
+     "text": "There is half a case of spare pads in the back that nobody knew what they were for.",
+     "mood": "wary",
+     "line": 125,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#125",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "soak",
+     "text": "I have been running a machine that could not work for three weeks and telling people to be patient. Go on. Before I sit down about it.",
+     "mood": null,
+     "line": 126,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#126",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "soak",
+     "text": "New pads in, old ones in the vinegar.",
+     "line": 127,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#127",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "soak",
+     "text": "(get to work)",
+     "line": 128,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#128",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "pump",
+     "text": "You are sure.",
+     "mood": "wary",
+     "line": 138,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#138",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "pump",
+     "text": "I am not arguing. You are the first person who has touched it instead of squinting at it. There is a pump in the box by the door.",
+     "mood": null,
+     "line": 139,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#139",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "pump",
+     "text": "Swapping it now.",
+     "line": 140,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#140",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "pump",
+     "text": "Wait. Show me a pad first.",
+     "line": 141,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#141",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "pump",
+     "text": "(fit the new pump and close it up)",
+     "line": 142,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#142",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "claim",
+     "text": "Good. Then you can tell me what it is before you open it.",
+     "mood": "wary",
+     "line": 148,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#148",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "claim",
+     "text": "The pads are scaled shut.",
+     "line": 149,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#149",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "claim",
+     "text": "It is the pump.",
+     "line": 150,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#150",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "claim",
+     "text": "I want to look first.",
+     "line": 151,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#151",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "claim",
+     "text": "I lied. I do not know coolers.",
+     "line": 152,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#152",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "honest",
+     "text": "Thank you. That is the second time this month and the first one was me.",
+     "mood": "wary",
+     "line": 158,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#158",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "honest",
+     "text": "There is somebody two streets over with the tools and the knowledge and a very long memory about favours. You would be asking in front of people.",
+     "mood": null,
+     "line": 159,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#159",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "honest",
+     "text": "I will go ask.",
+     "line": 160,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#160",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "honest",
+     "text": "Let me at least look at it first.",
+     "line": 161,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#161",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "fixer",
+     "node": "fetch",
+     "text": "Cold room. Right. Everybody remembers the cold room in the heat and nobody remembers it in the cold when I am the one asking for a hand.",
+     "mood": "wary",
+     "line": 165,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#165",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "fixer",
+     "node": "fetch",
+     "text": "It will be the pads. It is always the pads. Water here eats them and everyone blames the pump because the pump is the part that makes a noise.",
+     "mood": null,
+     "line": 166,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#166",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "fetch",
+     "text": "Come and do it properly. I will owe you.",
+     "line": 167,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#167",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "fetch",
+     "text": "Tell me and I will do it.",
+     "line": 168,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#168",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "fetch",
+     "text": "(hold the door open and wait)",
+     "line": 169,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#169",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "line",
+     "node": "feed",
+     "text": "There is a feed. There is always a feed. The question is whether you want this room on a list.",
+     "mood": "cold",
+     "line": 178,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#178",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "line",
+     "node": "feed",
+     "text": "We do not mind people being cool. We mind not knowing where the current went. Put a compressor on that line and the room stops being a room and starts being a load.",
+     "mood": null,
+     "line": 179,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#179",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "feed",
+     "text": "Do it. They are dying in there.",
+     "line": 180,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#180",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "feed",
+     "text": "What happens to a room on a list?",
+     "line": 181,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#181",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "feed",
+     "text": "Forget it. I will fix the cooler.",
+     "line": 182,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#182",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "line",
+     "node": "list",
+     "text": "Nothing. For a while. Somebody comes and reads it, and then it has a number, and then the number belongs to somebody.",
+     "mood": "cold",
+     "line": 186,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#186",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "line",
+     "node": "list",
+     "text": "That is all. We are not going to do anything to your old people. We are simply going to know exactly where they are and exactly what they cannot do without.",
+     "mood": null,
+     "line": 187,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#187",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "list",
+     "text": "Then no.",
+     "line": 188,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#188",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "list",
+     "text": "Cut it in anyway.",
+     "line": 189,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#189",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "list",
+     "text": "(say nothing and reach for the line)",
+     "line": 190,
+     "id": "quests/bq/S22_THE_COLD_ROOM.bq#190",
+     "src": "quests/bq/S22_THE_COLD_ROOM.bq",
+     "cites": [
+      {
+       "id": "Q008.W4",
+       "title": "QUEST GATED BEHIND A LIFE SKILL",
+       "applied": "the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows."
+      },
+      {
+       "id": "Q008.W2",
+       "title": "DISGUISE AS MAINTAINED PERFORMANCE",
+       "applied": "saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine."
+      },
+      {
+       "id": "Q005.W3",
+       "title": "FAILURE-AS-CONTENT",
+       "applied": "the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good."
+      },
+      {
+       "id": "Q005.P3",
+       "title": "W3 (failure-as-content",
+       "applied": "the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE."
+      },
+      {
+       "id": "Q008.W8",
+       "title": "THE APPROACH IS A MORAL STANCE",
+       "applied": "the three ways to cool the room are three different answers to \"who pays for me not knowing\", and the game never scores them."
+      },
+      {
+       "id": "Q006.P6",
+       "title": "W7 (invisible fair math",
+       "applied": "the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Cold Room",
+     "questId": "bq_cold_room",
      "draft": true
     }
    ]

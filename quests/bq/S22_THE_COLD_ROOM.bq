@@ -1,0 +1,191 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S22 — THE COLD ROOM
+# Shape: the competence quest. No villain and no clock you can see, only a
+# machine that is running perfectly and not working. Faction wires: VOLUNTEERS,
+# TRADES, NETWORK. Grounded hard in the real, and the whole fork rests on one
+# true fact: Las Vegas tap water is among the hardest in the United States, and
+# evaporative cooler pads calcify into stone in WEEKS. A scaled pad still passes
+# air and the pump still runs and the water still drips, so the cooler looks and
+# sounds exactly like a working cooler while the room behind it climbs. In a
+# valley where 12% of the grid is lit, the swamp cooler is the only cooling
+# anybody can afford to run, and one cooled room is the difference for the old
+# people on the block on a 115 degree afternoon. Systems AS the mechanic: this is
+# a SKILL GATE and the skill is knowing the difference between a dead pump and
+# dead pads. The lesson underneath, never spoken: pretending you know how costs
+# somebody else, never you. No proper names. CLOUT rides the deed: doing it
+# properly is #quiet (nobody sees a machine that works), walking across the block
+# to fetch the one person who knows is #notable because you have to say out loud
+# that you could not, and cutting a second feed off the Network's line is
+# #reckless. The failure is #quiet too, because a confident wrong fix looks
+# exactly like a right one for about a day.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q008.W4  QUEST GATED BEHIND A LIFE SKILL
+#   applied: the entire quest is one diagnosis. Knowing that scale kills a pad while the pump keeps running is the gate, and it is a real thing a real person knows.
+# @STUDY Q008.W2  DISGUISE AS MAINTAINED PERFORMANCE
+#   applied: saying you can fix it is not a lie you tell once, it is a thing you then have to keep being, in front of her, with your hands in the machine.
+# @STUDY Q005.W3  FAILURE-AS-CONTENT
+#   applied: the wrong fix is not a reload. You replace the pump, the cooler runs beautifully, the room is cold for one evening, and then the pads close for good.
+# @STUDY Q005.P3  W3 (failure-as-content
+#   applied: the failed check is written as its own branch with its own consequence, rather than a retry: the room does not get warm again, it gets warm WORSE.
+# @STUDY Q008.W8  THE APPROACH IS A MORAL STANCE
+#   applied: the three ways to cool the room are three different answers to "who pays for me not knowing", and the game never scores them.
+# @STUDY Q006.P6  W7 (invisible fair math
+#   applied: the room has a real survivability number underneath (bodies, hours, wet-bulb) that he feels as the old woman by the window and never sees as a bar.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_cold_room   The Cold Room
+@ACT     1
+@FACTION Volunteers
+@ONCE    true
+
+@ROLE keeper  REQ  faction=Volunteers  runs_the_cold_room=true
+@ROLE fixer   REQ  faction=Trades      knows_coolers=true
+@ROLE line    REQ  faction=Network     holds_the_live_feed=true
+
+@STAGE 10
+  @LOG One cooled room on the block and it is not cooling. The machine is running. Water is going in. Air is coming out. The room is at ninety-one and climbing.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Eleven people in there and four of them cannot leave it. Whatever is wrong has to be wrong by two o'clock, not by evening.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Pads were stone. Pulled them, soaked them, packed the frame with the spare set, and the air off it went cold in about four minutes. Nobody watched a machine start working.
+  @DO bond keeper +25
+  @DO faction Trades +4
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Walked the block and said out loud that I did not know how. Brought back somebody who did. Room was cold by one. Half the street watched me ask.
+  @DO bond fixer +20
+  @DO faction Volunteers +8
+  @DO set_flag owes_the_trades
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Cut a second feed off the live line and ran a real compressor. That room got cold like the old days. It is also now a lit address on somebody's map.
+  @DO faction Network -10
+  @DO faction Volunteers +5
+  @DO set_flag second_feed_on_the_line
+  @DO advance_territory
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Changed the pump. It ran beautiful. Room was cold that evening and everyone said thank you. Pads finished closing overnight and now the housing is packed solid and there is no cold room at all.
+  @DO bond keeper -20
+  @DO set_flag the_pads_are_gone
+
+@OBJ 10  "Find out why a running cooler is not cooling"   target=keeper
+@OBJ 20  "Get the room cold before the afternoon"         target=keeper
+
+# =====================================================================
+# THE ASK. She does not describe a broken machine, because it is not
+# behaving like one. That is the whole problem and she knows it is the
+# whole problem, she just does not have the word for it.
+# =====================================================================
+@TALK warm  speaker=keeper  entry=stage>=10,stage<20
+  @SAY It is on. That is what I keep telling people and it is what makes me sound stupid. It is on, it is wet, and the room is ninety-one. #wary
+  @SAY Eleven in there. Four of them are not walking anywhere else, and there is nowhere else on this block with a working anything.
+  @SAY If you know coolers, say so now. If you do not know coolers, also say so now, because I have had three men this month tell me they knew.
+  @OPT "Let me look at it."                    [gate: none]  -> look
+  @OPT "I do not know coolers."                [gate: none]  -> honest
+  @OPT "I know coolers."                       [gate: none]  TRAP -> claim
+  @OPT (walk to the cooler without answering)  [gate: none]  SILENCE -> look
+  @NOVERB "Ask who the three men were"
+@END
+
+# =====================================================================
+# THE GATE. Everything the player needs is in this node, in plain sight,
+# stated by a machine rather than a person. Whether they can read it is
+# the quest. A cooler with a dead pump is DRY. This one is wet.
+# =====================================================================
+@TALK look  speaker=keeper
+  @SAY Pump is turning, you can hear it. Float is fine. There is water coming down the sides, you can see the dark line on the frame. #wary
+  @SAY Air comes out. It just comes out the same temperature it went in, near enough. Hot, and now damp, which somehow feels worse.
+  @OPT "Show me a pad. Just one."             [gate: none]  -> pads
+  @OPT "Then it is the pump. I will swap it." [gate: none]  TRAP -> pump
+  @OPT "I am getting somebody who knows."     [gate: none]  -> fetch
+  @OPT "Is there another live feed near here?" [gate: none]  -> feed
+  @NOVERB "Say the word evaporation out loud"
+@END
+
+# THE RIGHT READ. Not rewarded with a speech; rewarded by the pad being
+# exactly what he said it would be. The game never tells him he was right.
+@TALK pads  speaker=keeper
+  @SAY It does not bend. I thought they were meant to be like that. #wary
+  @SAY That is not a pad any more, that is a tile. And the other five are the same, and the water has been running down the OUTSIDE of them for I do not know how long.
+  @OPT "Water this hard turns them to stone in a month."  [gate: none]  -> soak  @DO learn scale_kills_pads
+  @OPT (start pulling the frame apart)  [gate: none]  SILENCE -> soak  @DO learn scale_kills_pads
+@END
+
+@TALK soak  speaker=keeper
+  @SAY There is half a case of spare pads in the back that nobody knew what they were for. #wary
+  @SAY I have been running a machine that could not work for three weeks and telling people to be patient. Go on. Before I sit down about it.
+  @OPT "New pads in, old ones in the vinegar."  [gate: none]  -> END  @DO set_stage 30
+  @OPT (get to work)                            [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+# =====================================================================
+# THE TRAP, AND IT IS NOT PUNISHED. Replacing the pump is the confident,
+# competent-looking, completely wrong fix. It even works, for one evening,
+# which is what makes it the trap. Nobody in this quest ever tells the
+# player they got it wrong.
+# =====================================================================
+@TALK pump  speaker=keeper
+  @SAY You are sure. #wary
+  @SAY I am not arguing. You are the first person who has touched it instead of squinting at it. There is a pump in the box by the door.
+  @OPT "Swapping it now."                  [gate: none]  -> END  @DO set_stage 33
+  @OPT "Wait. Show me a pad first."        [gate: none]  -> pads
+  @OPT (fit the new pump and close it up)  [gate: none]  SILENCE -> END  @DO set_stage 33
+@END
+
+# THE PERFORMANCE. Saying you know is not one line, it is a role you now
+# have to hold in front of her while you are wrong.
+@TALK claim  speaker=keeper
+  @SAY Good. Then you can tell me what it is before you open it. #wary
+  @OPT "The pads are scaled shut."         [gate: none]  -> pads  @DO learn scale_kills_pads
+  @OPT "It is the pump."                   [gate: none]  TRAP -> pump
+  @OPT "I want to look first."             [gate: none]  -> look
+  @OPT "I lied. I do not know coolers."    [gate: none]  -> honest
+@END
+
+# THE HONEST ROAD. It costs something real and public, and the quest does
+# not pretend otherwise.
+@TALK honest  speaker=keeper
+  @SAY Thank you. That is the second time this month and the first one was me. #wary
+  @SAY There is somebody two streets over with the tools and the knowledge and a very long memory about favours. You would be asking in front of people.
+  @OPT "I will go ask."                    [gate: none]  -> fetch
+  @OPT "Let me at least look at it first." [gate: none]  -> look
+@END
+
+@TALK fetch  speaker=fixer
+  @SAY Cold room. Right. Everybody remembers the cold room in the heat and nobody remembers it in the cold when I am the one asking for a hand. #wary
+  @SAY It will be the pads. It is always the pads. Water here eats them and everyone blames the pump because the pump is the part that makes a noise.
+  @OPT "Come and do it properly. I will owe you."  [gate: none]  -> END  @DO set_stage 31
+  @OPT "Tell me and I will do it."                 [gate: none]  -> soak  @DO learn scale_kills_pads
+  @OPT (hold the door open and wait)               [gate: none]  SILENCE -> END  @DO set_stage 31
+@END
+
+# =====================================================================
+# THE LOUD ROAD. LIGHT=TERRITORY. The live line is the Network's, it is
+# eerily perfect, and a second feed off it is not theft to them, it is a
+# new address they did not authorise.
+# =====================================================================
+@TALK feed  speaker=line  entry=stage>=10
+  @SAY There is a feed. There is always a feed. The question is whether you want this room on a list. #cold
+  @SAY We do not mind people being cool. We mind not knowing where the current went. Put a compressor on that line and the room stops being a room and starts being a load.
+  @OPT "Do it. They are dying in there."   [gate: none]  -> END  @DO set_stage 32
+  @OPT "What happens to a room on a list?" [gate: none]  -> list
+  @OPT "Forget it. I will fix the cooler." [gate: none]  -> look
+@END
+
+@TALK list  speaker=line
+  @SAY Nothing. For a while. Somebody comes and reads it, and then it has a number, and then the number belongs to somebody. #cold
+  @SAY That is all. We are not going to do anything to your old people. We are simply going to know exactly where they are and exactly what they cannot do without.
+  @OPT "Then no."                          [gate: none]  -> look
+  @OPT "Cut it in anyway."                 [gate: none]  -> END  @DO set_stage 32
+  @OPT (say nothing and reach for the line) [gate: none]  SILENCE -> END  @DO set_stage 32
+@END
