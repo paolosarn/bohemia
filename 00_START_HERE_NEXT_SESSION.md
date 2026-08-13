@@ -253,6 +253,20 @@ a valley that lost its calendar, and loosening a shared gate to fit my prose
 would have been the wrong trade.
 
 TAB: DIRECT -- 22 quests, 1,179 directable rows. TAB: WORDS -- 1,314 lines.
+TAB: SLICE -- the phone slice carries the quest set, so adding a quest made it
+stale. `node tools/build_current_slice.js` is part of shipping a quest; the
+current_slice gate catches it, but only if you run the WHOLE suite.
+
+*** FOR THE CROWD LANE: crowd_gate.js IS FLAKY AND THAT MAKES IT NOT A GATE. ***
+Measured, three runs back to back on an unchanged tree: 15/16, 16/16, 16/16. The
+failing claim is "redrawing the same crowd gives byte-identical pixels (no dice
+in the render path)", which is a good thing to want and is inherently sensitive
+to timing and GPU state when the suite is running eight browsers at once. A gate
+that gives different answers about the same bytes cannot tell anybody anything --
+and worse, it teaches every lane to shrug at a red, which is how a real one gets
+ignored. Either pin the nondeterminism (same-frame double draw, no rAF between)
+or make the claim something stable. Not this lane's file, so not this lane's fix,
+but somebody has to own it.
 
 PEOPLE (7h9sfy): 8/13 (e) -- *** AND NOW THE MOUTH ANSWERS THE WORLD.
 66 REACTION LINES OVER THREE SYSTEMS THAT TRACKED EVERYTHING AND SAID NOTHING. ***

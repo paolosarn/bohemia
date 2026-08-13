@@ -4,13 +4,13 @@
    "verb": "advance_territory",
    "verdict": "QUEST-ONLY",
    "why": "only the quest's own state differs",
-   "authored": 4
+   "authored": 5
   },
   {
    "verb": "bond",
    "verdict": "QUEST-ONLY",
    "why": "only the quest's own state differs",
-   "authored": 44
+   "authored": 47
   },
   {
    "verb": "cast",
@@ -22,13 +22,13 @@
    "verb": "complete_objective",
    "verdict": "QUEST-ONLY",
    "why": "only the quest's own state differs",
-   "authored": 86
+   "authored": 90
   },
   {
    "verb": "faction",
    "verdict": "WORLD",
    "why": "the real FactionWorld differs with this verb present",
-   "authored": 59
+   "authored": 63
   },
   {
    "verb": "faction_posture",
@@ -52,7 +52,7 @@
    "verb": "learn",
    "verdict": "QUEST-ONLY",
    "why": "only the quest's own state differs",
-   "authored": 62
+   "authored": 66
   },
   {
    "verb": "play",
@@ -64,13 +64,13 @@
    "verb": "set_flag",
    "verdict": "QUEST-ONLY",
    "why": "only the quest's own state differs",
-   "authored": 36
+   "authored": 39
   },
   {
    "verb": "show_objective",
    "verdict": "QUEST-ONLY",
    "why": "only the quest's own state differs",
-   "authored": 39
+   "authored": 41
   }
  ],
  "totals": {
@@ -80,6 +80,6 @@
   "UNPARSED": 0,
   "ERROR": 0
  },
- "authored_total": 515,
+ "authored_total": 545,
  "method": "behavioural: real boot, real runtime, quest run with and without each verb, worlds diffed"
 }
