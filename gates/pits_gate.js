@@ -134,6 +134,36 @@ ok('act 3 digs less than act 1 (the digging was ten years ago)',
                                  code.indexOf('function pitsForCell') + 700)));
 }
 
+/* ---- 8b. THE EDGE IS A CUT, NOT A STAIRCASE OF BLOCKS (8/11) ------------- */
+/* Paolo saw the first pit and the honest note on it was that the tile edges read
+   as blocky squares: the tone was flooded per whole cell, so at walking zoom the
+   boundary was a staircase of 44 px steps. The module now ships the ellipse
+   maths each tile was judged by, and the renderer masks boundary tiles at
+   quarter-tile resolution against it. Held here so it cannot quietly regress. */
+{
+  const geo = cem.filter(p => p.ecc !== undefined);
+  ok('every pit tile ships the geometry it was judged by (d/u/v/ecc)',
+     geo.length === cem.length && geo.every(p => typeof p.d === 'number' && typeof p.u === 'number'),
+     'without it the renderer can only flood whole cells, which is the blocky edge coming back');
+  const onEdge = cem.filter(p => p.ecc > 0.5).length;
+  ok('boundary tiles know they are on the boundary (' + onEdge + ' of ' + cem.length + ')',
+     onEdge > 0 && onEdge < cem.length,
+     'if every tile or no tile is an edge, ecc is not measuring anything');
+
+  const world = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html'), 'utf8');
+  const code = world.replace(/\/\*[\s\S]*?\*\//g, '');
+  const draw = code.slice(code.indexOf('function pitDraw'), code.indexOf('function pitDraw') + 2600);
+  ok('the shipped page masks the pit edge inside the tile, not just per cell',
+     /p\.ecc/.test(draw) && /p\.u/.test(draw) && /p\.v/.test(draw),
+     'the renderer is flooding whole cells again');
+  ok('a tile deep inside the hole still floods (the mask is for edges only)',
+     /p\.ecc\s*<\s*0?\.\d+/.test(draw),
+     'masking every tile would cost 16x the fills for no visible gain');
+  ok('sub-tile quarters share exact pixel boundaries, so no seam grid shows through',
+     /Math\.round\(sx\s*\+\s*\(i2\s*\+\s*1\)\s*\*\s*q\)/.test(draw),
+     'rounding the origin and ceil-ing the width leaves gaps, and the ground shows through them as a fine grid over the hole -- the blocky look wearing a finer grid');
+}
+
 /* ---- 9. THE PICTURE EXISTS ----------------------------------------------- */
 const shot = path.join(ROOT, 'slices', 'look', 'the-pit-dug.png');
 ok('there is a picture of a real dug pit in the LOOK tab', fs.existsSync(shot));

@@ -6160,7 +6160,21 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
            solid lawn -- it is fed by what is under it, not watered. */
         if(part==='fill' && frac(hash(seed,x,y,0x67EE))<0.30) part='green';
         used[i]=1;
-        out.push({x:x,y:y,part:part,pit:k,story:ps.story});
+        /* SHIP THE GEOMETRY, NOT JUST THE VERDICT (8/11). The first cut emitted
+           only a part name, so the renderer could do nothing but flood a whole
+           128th-of-a-cell square -- and at walking zoom that is a STAIRCASE OF
+           BLOCKS, which reads as pixel soup rather than a cut in the ground.
+           Handing back the ellipse maths the tile was judged by lets the draw
+           mask INSIDE the tile, at whatever sub-resolution it likes, without
+           ever re-deriving the shape (one ruler). Cheap: values already computed.
+             d    how far out the tile sits, 0 at the middle of the hole
+             u,v  its position along the pit's own two axes
+             ecc  how close to the boundary it is: 0 deep inside, 1 right on it */
+        var band = part==='fill'||part==='green' ? 0.80
+                 : part==='rim'||part==='ramp'   ? 1.06 : 1.55;
+        out.push({x:x,y:y,part:part,pit:k,story:ps.story,
+                  d:+(d.toFixed(4)), u:+(u.toFixed(4)), v:+(v.toFixed(4)),
+                  ecc:+Math.max(0,Math.min(1,1-Math.abs(band-(d+wob))/0.34)).toFixed(3)});
       }
     }
     return out;
@@ -15366,7 +15380,42 @@ function pitDraw(ox,oy){
       if(fx<fx0||fx>fx1||fy<fy0||fy>fy1)continue;
       const t=PIT_TONE[p.part]; if(!t)continue;
       g.fillStyle=t.fill;
-      g.fillRect(Math.round(ox+fx*C), Math.round(oy+fy*C), Math.ceil(C), Math.ceil(C));
+      const sx=Math.round(ox+fx*C), sy=Math.round(oy+fy*C);
+      /* A CUT, NOT A STAIRCASE OF BLOCKS (8/11). Flooding every whole cell is
+         what made the first pit read as pixel soup: the boundary was a
+         tile-sized staircase, and at walking zoom a tile is 44 px of hard edge.
+         A tile DEEP inside the hole is genuinely all hole, so it still floods --
+         cheap, and correct. A tile ON the boundary (ecc high) gets masked at
+         QUARTER-TILE resolution against the same ellipse maths that judged it,
+         so the edge breaks up at 11 px instead of 44 and reads as ragged earth.
+         The module ships u/v/d; nothing is re-derived here (one ruler). */
+      if(p.ecc<0.35 || C<10){
+        g.fillRect(sx, sy, Math.ceil(C), Math.ceil(C));
+        continue;
+      }
+      const Q=4, q=C/Q, inside=(p.part==='fill'||p.part==='green');
+      for(let j=0;j<Q;j++)for(let i2=0;i2<Q;i2++){
+        /* where this quarter sits, in the pit's own axes */
+        const su=p.u+((i2+0.5)/Q-0.5)*(2/Q)*0.5, sv=p.v+((j+0.5)/Q-0.5)*(2/Q)*0.5;
+        const sd=su*su+sv*sv;
+        /* the same wobble rule as the module, at quarter resolution: a
+           deterministic per-sub-tile jitter so the break-up is stable, never
+           shimmering as the camera moves */
+        const jit=(((Math.imul((fx*Q+i2)|0,374761393)^Math.imul((fy*Q+j)|0,668265263))>>>9)/8388608-0.5)*0.20;
+        const keep = inside ? (sd+jit < 0.86) : (sd+jit > 0.72);
+        /* SHARE THE EDGE, DO NOT ROUND BOTH ENDS INDEPENDENTLY. Rounding the
+           origin and then ceil-ing the width leaves sub-pixel seams between
+           neighbouring quarters, and the ground shows through them as a faint
+           GRID over the hole -- which is the blocky look coming back wearing a
+           finer grid. Deriving each quarter from its two rounded BOUNDARIES
+           makes adjacent quarters share an exact pixel edge, so a filled run is
+           solid. */
+        if(keep){
+          const x0=Math.round(sx+i2*q), x1=Math.round(sx+(i2+1)*q);
+          const y0=Math.round(sy+j*q),  y1=Math.round(sy+(j+1)*q);
+          g.fillRect(x0, y0, Math.max(1,x1-x0), Math.max(1,y1-y0));
+        }
+      }
     }
   }
 }

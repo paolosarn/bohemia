@@ -106,9 +106,40 @@ digs the same pit forever; the shipped page draws them **under** the dead
 (bodies lie *in* a pit, not beneath it); pits share the dead's legend
 resolution; the pass never forces a district to generate; and the picture exists.
 
+## THE EDGE FIX (same day, the thing I flagged and then did)
+
+I shipped the pit with an honest note: at walking zoom the tile edges read as
+**blocky squares**, because the tone was flooded per whole cell and a cell is
+44 px of hard edge. That is now fixed, and the fix is the shape of the right
+answer rather than a blur.
+
+**The module ships the geometry, not just the verdict.** Each pit tile now
+carries the ellipse maths it was judged by -- `d` (how far out it sits), `u`/`v`
+(its position along the pit's own two axes) and `ecc` (how close to the boundary
+it is, 0 deep inside, 1 right on it). All four were already computed; only the
+verdict was being thrown away.
+
+**The renderer masks boundary tiles at QUARTER-TILE resolution.** A tile deep
+inside the hole is genuinely all hole, so it still floods -- cheap and correct.
+A tile on the boundary is subdivided 4x4 and each quarter is tested against the
+same ellipse, with a deterministic per-sub-tile jitter so the break-up is stable
+and never shimmers as the camera moves. The edge now breaks at 11 px instead of
+44. **Nothing is re-derived in the renderer** -- it reads what the module shipped.
+
+**And the fix had its own bug, caught by looking.** Rounding each quarter's
+origin and ceil-ing its width left sub-pixel seams between neighbours, and the
+ground showed through them as a fine grid over the hole: the blocky look coming
+back wearing a finer grid. Each quarter is now derived from its two rounded
+BOUNDARIES, so adjacent quarters share an exact pixel edge and a filled run is
+solid. Gate assertion added for exactly that, by name.
+
+Gate now 30/0.
+
 ## STILL OPEN
 
-The pit reads as disturbed ground — sunk, greened, spoil beside it — but at
-walking zoom the tile edges are **blocky squares**, because the tone is applied
-per whole cell. It wants a soft edge or a sub-cell mask to read as a cut rather
-than a pixel blob. Flagged rather than claimed.
+The pit reads as sunken, greened, disturbed ground with a ragged cut -- but it
+is still pure TONE, with no depth cue. What would sell it as a hole rather than
+a stain is a **cast shadow on the near rim** (the sun is already a canon
+direction in this engine) and, further out, making the pit **walkable**: the
+ramp exists as data and means nothing yet, so you cannot walk down into a pit.
+That is the next real step and it is mechanism, not content.
