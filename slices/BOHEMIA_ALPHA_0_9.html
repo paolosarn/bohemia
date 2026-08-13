@@ -996,7 +996,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/13d - WHAT THEY WANT FROM YOU</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/13b - THE WORLD REACTS TO WHAT YOU DID</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -21317,18 +21317,6 @@ function cutSpeakerName(role){
 function cutVoice(role, text, windowMs){
   try{
     if(typeof BOH_VOICE==='undefined' || !text) return;
-    /* ONE UTTERANCE PER LINE (8/12, SOUNDS lane). This surface
-       repaints, and this function had no memory of what it just
-       said, so the cold open spoke 58 times for 7 lines -- each
-       line eight times on top of itself. Clockless on purpose: a
-       time window would also swallow a line legitimately repeated
-       later in a scene, and the thing being prevented is the SAME
-       line arriving again with nothing in between.
-       The scene, its timing and voiceFit stay the CUTSCENE lane's.
-       This is the voice engine refusing to stutter, nothing more. */
-    var sig = (role||'') + '|' + text;
-    if(sig === window.CUT_LASTSAID) return;
-    window.CUT_LASTSAID = sig;
     /* THE SAME BUS THE VOICE JUDGE USES, RESOLVED THE SAME WAY. The first cut
        called the alpha's bus() helper -- which is declared INSIDE another
        closure and is NOT on window, so `typeof bus` was 'undefined', cutVoice

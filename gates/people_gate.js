@@ -81,7 +81,18 @@ function roster(seed) {
 }
 
 /* ==========================================================================
-   PART A — THE LAW. The two tables are his and they are empty.
+   PART A — THE LAW, AS IT STANDS TODAY. WHO anybody IS is still his and still
+   empty. WHAT THEY SAY stopped being empty on 8/11.
+
+   A2 USED TO ASSERT "LINES ships empty" AND THAT CLAIM IS NOW BACKWARDS.
+   ALWAYS MAKE AN ATTEMPT (Paolo 8/11, LOCKED) overturned exactly that reading:
+   "This law was read as 'ship no words at all', and THAT READING COST HIM THE
+   QUESTS -- an empty field is a BLANK PAGE, and he does not write from nothing,
+   HE EDITS." An empty mouth was the blank page, so it is filled with drafts he
+   can retype in the WORDS tab, every one citing the corpus finding it came from.
+   A GATE MUST NEVER OUTRANK A RULING (Paolo 8/1): a claim written under the old
+   reading does not get to outlive the ruling that replaced it. It is INVERTED,
+   not deleted, and the half that did NOT change is checked harder than before.
    ========================================================================== */
 function partA() {
   console.log('A. A NAME IS EARNED, NEVER GIVEN');
@@ -124,6 +135,18 @@ function partA() {
     lineCount === 0 || bookHas >= 0.99,
     Math.round(bookHas * 100) + '% of LINES are in records/BOHEMIA_WORDS_BOOK.json '
     + '-- a line he cannot reach is a line he cannot edit (8/11)');
+
+  /* AND THE MOUTH ANSWERS THE WORLD, not just the clock. Ambient time-of-day
+     lines were the whole vocabulary: a person said the same thing whether you
+     had robbed the block or fed it. REACTIONS keys on what the sim already
+     emits (standing rung, clout tier seen/heard, memory of meeting you), so
+     depth is reactivity and not word count. */
+  ok('A2b the world REACTS to what you did, not just to the time of day',
+    P.REACTIONS && Object.keys(P.REACTIONS).length >= 10,
+    P.REACTIONS ? Object.keys(P.REACTIONS).length + ' reaction buckets' : 'no REACTIONS export');
+  /* DECISIONS: still his, still empty. WHO anybody IS was never words. */
+  ok('A2c NAMED_CAST is STILL EMPTY — WHO anybody is remains a DECISION',
+    !P.NAMED_CAST || Object.keys(P.NAMED_CAST).length === 0);
 
   const { agents } = roster(0xB10C);
   const people = P.peopleOf(0xB10C, agents);

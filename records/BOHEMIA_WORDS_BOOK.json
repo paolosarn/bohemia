@@ -3,10 +3,10 @@
   "what": "Every authored player-facing line in Bohemia, with the questbook catalogue laws each was written from.",
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
-  "sources": 24,
-  "lines": 1190,
-  "cited": 1188,
-  "fingerprint": "bc845202b9379c12",
+  "sources": 25,
+  "lines": 1256,
+  "cited": 1254,
+  "fingerprint": "07fdaab243a526aa",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -36958,6 +36958,1512 @@
      ],
      "citeLevel": "line",
      "title": "WHAT THE WORLD SAYS"
+    }
+   ]
+  },
+  {
+   "src": "records/BOHEMIA_REACTIONS.json",
+   "title": "BECAUSE OF WHAT YOU DID",
+   "kind": "reactions",
+   "cites": [],
+   "lines": [
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#heard:notable#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "heard:notable",
+     "node": "heard:notable",
+     "text": "You're the one from the thing.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#heard:notable#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "heard:notable",
+     "node": "heard:notable",
+     "text": "It got to me third-hand and it still had your name on it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#heard:notable#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "heard:notable",
+     "node": "heard:notable",
+     "text": "I've heard two different stories about you this week.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#heard:quiet#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "heard:quiet",
+     "node": "heard:quiet",
+     "text": "Somebody mentioned you. Only somebody.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#heard:quiet#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "heard:quiet",
+     "node": "heard:quiet",
+     "text": "I heard a version of it. Probably the wrong version.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#heard:reckless#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "heard:reckless",
+     "node": "heard:reckless",
+     "text": "Everybody's heard. That's the whole point of what you did, isn't it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      },
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#heard:reckless#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "heard:reckless",
+     "node": "heard:reckless",
+     "text": "Two blocks and a caravan and it still got here before you.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      },
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#heard:reckless#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "heard:reckless",
+     "node": "heard:reckless",
+     "text": "I'd never met you and I already had an opinion.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      },
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#heard:risky#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "heard:risky",
+     "node": "heard:risky",
+     "text": "Word came up this way about you. It didn't lose anything on the trip.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#heard:risky#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "heard:risky",
+     "node": "heard:risky",
+     "text": "I heard, and I heard who was standing near you when it happened.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:again#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:again",
+     "node": "met:again",
+     "text": "You. Again.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:again#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:again",
+     "node": "met:again",
+     "text": "That's twice. Three times and I'll learn your name.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:again#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:again",
+     "node": "met:again",
+     "text": "Still walking around, I see.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:asked#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:asked",
+     "node": "met:asked",
+     "text": "You asked. Most people don't ask.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:asked#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:asked",
+     "node": "met:asked",
+     "text": "You remembered. That's not nothing here.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:first#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:first",
+     "node": "met:first",
+     "text": "Don't think we've done this.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:first#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:first",
+     "node": "met:first",
+     "text": "New. Alright.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:first#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:first",
+     "node": "met:first",
+     "text": "I'll get your name eventually or I won't.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:honest#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:honest",
+     "node": "met:honest",
+     "text": "You told me straight when you didn't have to.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:honest#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:honest",
+     "node": "met:honest",
+     "text": "I've been lied to by better dressed people than you. You didn't.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:known#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:known",
+     "node": "met:known",
+     "text": "There he is.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:known#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:known",
+     "node": "met:known",
+     "text": "I was wondering when you'd come back around.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:known#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:known",
+     "node": "met:known",
+     "text": "Same as always? Course it is.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:lied#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:lied",
+     "node": "met:lied",
+     "text": "You told me a thing that wasn't true and I found out on my own.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      },
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#met:lied#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "met:lied",
+     "node": "met:lied",
+     "text": "I'm not angry. I'm just done taking your word.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      },
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:COLD#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:COLD",
+     "node": "rung:COLD",
+     "text": "I'm not going to be rude about it. I'm just not going to help.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:COLD#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:COLD",
+     "node": "rung:COLD",
+     "text": "We're square. Let's keep it that way.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:COLD#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:COLD",
+     "node": "rung:COLD",
+     "text": "I heard. I'm not going to say what I heard.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:COLD#3",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:COLD",
+     "node": "rung:COLD",
+     "text": "You'll want to talk to somebody else.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:COLD#4",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:COLD",
+     "node": "rung:COLD",
+     "text": "It's not personal. It's just recent.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:FWU#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:FWU",
+     "node": "rung:FWU",
+     "text": "Anything I have. I mean that and I'd rather you didn't test it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:FWU#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:FWU",
+     "node": "rung:FWU",
+     "text": "You're not a guest here. Stop knocking.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:FWU#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:FWU",
+     "node": "rung:FWU",
+     "text": "Half this block would stand up for you and the other half doesn't know you yet.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:FWU#3",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:FWU",
+     "node": "rung:FWU",
+     "text": "Whatever happens, you've got a door here.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:HOSTILE#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:HOSTILE",
+     "node": "rung:HOSTILE",
+     "text": "No. Whatever it is, no.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:HOSTILE#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:HOSTILE",
+     "node": "rung:HOSTILE",
+     "text": "You've got a lot of road to be walking down this one.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:HOSTILE#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:HOSTILE",
+     "node": "rung:HOSTILE",
+     "text": "I know what you did. Everybody on this street knows what you did.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:HOSTILE#3",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:HOSTILE",
+     "node": "rung:HOSTILE",
+     "text": "Don't stand where I can see you.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:HOSTILE#4",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:HOSTILE",
+     "node": "rung:HOSTILE",
+     "text": "There's nothing here for you. There's nothing here for you tomorrow either.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:HOSTILE#5",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:HOSTILE",
+     "node": "rung:HOSTILE",
+     "text": "You come back with the whole block behind you or you don't come back.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:NEUTRAL#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:NEUTRAL",
+     "node": "rung:NEUTRAL",
+     "text": "You're the one who's been around.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:NEUTRAL#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:NEUTRAL",
+     "node": "rung:NEUTRAL",
+     "text": "I don't know you well enough to have an opinion and that's fine by me.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:NEUTRAL#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:NEUTRAL",
+     "node": "rung:NEUTRAL",
+     "text": "Ask. I might answer.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:NEUTRAL#3",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:NEUTRAL",
+     "node": "rung:NEUTRAL",
+     "text": "Haven't decided about you yet.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:WARM#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:WARM",
+     "node": "rung:WARM",
+     "text": "There's a chair. Sit in it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:WARM#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:WARM",
+     "node": "rung:WARM",
+     "text": "You've been decent to people I like. That travels.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:WARM#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:WARM",
+     "node": "rung:WARM",
+     "text": "Take it. Pay me back whenever, or don't.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:WARM#3",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:WARM",
+     "node": "rung:WARM",
+     "text": "I put a word in for you. Didn't have to. Did anyway.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#rung:WARM#4",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "rung:WARM",
+     "node": "rung:WARM",
+     "text": "You need something, you ask me before you ask a stranger.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q031.W3",
+       "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+       "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:notable#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:notable",
+     "node": "saw:notable",
+     "text": "I was standing right there.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:notable#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:notable",
+     "node": "saw:notable",
+     "text": "Half the block watched you do that.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:notable#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:notable",
+     "node": "saw:notable",
+     "text": "People are going to be talking about that at dinner.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:notable#3",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:notable",
+     "node": "saw:notable",
+     "text": "You didn't hide it. I don't know yet if that was brave or stupid.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:quiet#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:quiet",
+     "node": "saw:quiet",
+     "text": "I saw. I don't think anybody else did.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:quiet#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:quiet",
+     "node": "saw:quiet",
+     "text": "You handled that without a crowd. I noticed.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:quiet#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:quiet",
+     "node": "saw:quiet",
+     "text": "Nobody's going to hear it from me.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:quiet#3",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:quiet",
+     "node": "saw:quiet",
+     "text": "Quiet work. Rarer than you'd think.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:reckless#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:reckless",
+     "node": "saw:reckless",
+     "text": "I was there. I'll be answering questions about it for a month.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      },
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:reckless#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:reckless",
+     "node": "saw:reckless",
+     "text": "Whatever you were trying to prove, you proved it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      },
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:reckless#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:reckless",
+     "node": "saw:reckless",
+     "text": "You did that in front of children.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      },
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:reckless#3",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:reckless",
+     "node": "saw:reckless",
+     "text": "I can't unsee it and neither can anybody else on that corner.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      },
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:reckless#4",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:reckless",
+     "node": "saw:reckless",
+     "text": "There's no walking that back. You know that, right?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      },
+      {
+       "id": "Q025.W5",
+       "title": "THE BANALITY OF EVIL",
+       "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:risky#0",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:risky",
+     "node": "saw:risky",
+     "text": "You could have got somebody killed doing that.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:risky#1",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:risky",
+     "node": "saw:risky",
+     "text": "I saw it and I've been thinking about it since.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:risky#2",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:risky",
+     "node": "saw:risky",
+     "text": "That was a lot. That was a LOT.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
+    },
+    {
+     "kind": "reaction",
+     "id": "records/BOHEMIA_REACTIONS.json#saw:risky#3",
+     "src": "records/BOHEMIA_REACTIONS.json",
+     "speaker": "saw:risky",
+     "node": "saw:risky",
+     "text": "I'm not saying you were wrong. I'm saying my hands were shaking.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q002.N4",
+       "title": "NODE HECK_PAYOUT",
+       "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+      },
+      {
+       "id": "Q038.P5",
+       "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+       "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "BECAUSE OF WHAT YOU DID"
     }
    ]
   }

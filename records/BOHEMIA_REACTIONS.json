@@ -1,0 +1,1153 @@
+{
+ "_meta": {
+  "what": "What people say BECAUSE OF WHAT YOU DID -- keyed to standing, to whether they saw it or only heard it, and to what they remember of you.",
+  "why": "Depth is reactivity. Hades ships ~21,020 reactive lines because the game knows what you just did and who saw it. Bohemia computes both already (bohemia_standing.js RUNGS, bohemia_deeds.js witness(), bohemia_people.js makeLedger) and had no words for any of it.",
+  "generator": "tools/bohemia_reaction_factory.py",
+  "keys": "rung:<HOSTILE|COLD|NEUTRAL|WARM|FWU>  saw:<quiet|notable|risky|reckless>  heard:<same>  met:<first|again|known|asked|honest|lied>",
+  "read_from": "RUNGS off engine/bohemia_standing.js, clout tags off engine/bohemia_loop.js -- never retyped here",
+  "buckets": 19,
+  "lines": 66
+ },
+ "reactions": {
+  "heard:notable": [
+   {
+    "id": "heard:notable#0",
+    "text": "You're the one from the thing.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "heard:notable#1",
+    "text": "It got to me third-hand and it still had your name on it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "heard:notable#2",
+    "text": "I've heard two different stories about you this week.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   }
+  ],
+  "heard:quiet": [
+   {
+    "id": "heard:quiet#0",
+    "text": "Somebody mentioned you. Only somebody.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+     }
+    ]
+   },
+   {
+    "id": "heard:quiet#1",
+    "text": "I heard a version of it. Probably the wrong version.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+     }
+    ]
+   }
+  ],
+  "heard:reckless": [
+   {
+    "id": "heard:reckless#0",
+    "text": "Everybody's heard. That's the whole point of what you did, isn't it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     }
+    ]
+   },
+   {
+    "id": "heard:reckless#1",
+    "text": "Two blocks and a caravan and it still got here before you.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     }
+    ]
+   },
+   {
+    "id": "heard:reckless#2",
+    "text": "I'd never met you and I already had an opinion.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     }
+    ]
+   }
+  ],
+  "heard:risky": [
+   {
+    "id": "heard:risky#0",
+    "text": "Word came up this way about you. It didn't lose anything on the trip.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "heard:risky#1",
+    "text": "I heard, and I heard who was standing near you when it happened.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   }
+  ],
+  "met:again": [
+   {
+    "id": "met:again#0",
+    "text": "You. Again.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+     }
+    ]
+   },
+   {
+    "id": "met:again#1",
+    "text": "That's twice. Three times and I'll learn your name.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+     }
+    ]
+   },
+   {
+    "id": "met:again#2",
+    "text": "Still walking around, I see.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+     }
+    ]
+   }
+  ],
+  "met:asked": [
+   {
+    "id": "met:asked#0",
+    "text": "You asked. Most people don't ask.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "met:asked#1",
+    "text": "You remembered. That's not nothing here.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   }
+  ],
+  "met:first": [
+   {
+    "id": "met:first#0",
+    "text": "Don't think we've done this.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "met:first#1",
+    "text": "New. Alright.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "met:first#2",
+    "text": "I'll get your name eventually or I won't.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   }
+  ],
+  "met:honest": [
+   {
+    "id": "met:honest#0",
+    "text": "You told me straight when you didn't have to.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "met:honest#1",
+    "text": "I've been lied to by better dressed people than you. You didn't.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   }
+  ],
+  "met:known": [
+   {
+    "id": "met:known#0",
+    "text": "There he is.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "met:known#1",
+    "text": "I was wondering when you'd come back around.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "met:known#2",
+    "text": "Same as always? Course it is.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   }
+  ],
+  "met:lied": [
+   {
+    "id": "met:lied#0",
+    "text": "You told me a thing that wasn't true and I found out on my own.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     }
+    ]
+   },
+   {
+    "id": "met:lied#1",
+    "text": "I'm not angry. I'm just done taking your word.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     }
+    ]
+   }
+  ],
+  "rung:COLD": [
+   {
+    "id": "rung:COLD#0",
+    "text": "I'm not going to be rude about it. I'm just not going to help.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+     }
+    ]
+   },
+   {
+    "id": "rung:COLD#1",
+    "text": "We're square. Let's keep it that way.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+     }
+    ]
+   },
+   {
+    "id": "rung:COLD#2",
+    "text": "I heard. I'm not going to say what I heard.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+     }
+    ]
+   },
+   {
+    "id": "rung:COLD#3",
+    "text": "You'll want to talk to somebody else.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+     }
+    ]
+   },
+   {
+    "id": "rung:COLD#4",
+    "text": "It's not personal. It's just recent.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q010.W8",
+      "title": "FORESHADOW-IN-HINDSIGHT",
+      "applied": "a line that only lands later. Somebody being wrong about you in front of you is the cheapest version of that there is."
+     }
+    ]
+   }
+  ],
+  "rung:FWU": [
+   {
+    "id": "rung:FWU#0",
+    "text": "Anything I have. I mean that and I'd rather you didn't test it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "rung:FWU#1",
+    "text": "You're not a guest here. Stop knocking.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "rung:FWU#2",
+    "text": "Half this block would stand up for you and the other half doesn't know you yet.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "rung:FWU#3",
+    "text": "Whatever happens, you've got a door here.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   }
+  ],
+  "rung:HOSTILE": [
+   {
+    "id": "rung:HOSTILE#0",
+    "text": "No. Whatever it is, no.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "rung:HOSTILE#1",
+    "text": "You've got a lot of road to be walking down this one.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "rung:HOSTILE#2",
+    "text": "I know what you did. Everybody on this street knows what you did.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "rung:HOSTILE#3",
+    "text": "Don't stand where I can see you.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "rung:HOSTILE#4",
+    "text": "There's nothing here for you. There's nothing here for you tomorrow either.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "rung:HOSTILE#5",
+    "text": "You come back with the whole block behind you or you don't come back.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   }
+  ],
+  "rung:NEUTRAL": [
+   {
+    "id": "rung:NEUTRAL#0",
+    "text": "You're the one who's been around.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "rung:NEUTRAL#1",
+    "text": "I don't know you well enough to have an opinion and that's fine by me.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "rung:NEUTRAL#2",
+    "text": "Ask. I might answer.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "rung:NEUTRAL#3",
+    "text": "Haven't decided about you yet.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   }
+  ],
+  "rung:WARM": [
+   {
+    "id": "rung:WARM#0",
+    "text": "There's a chair. Sit in it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "rung:WARM#1",
+    "text": "You've been decent to people I like. That travels.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "rung:WARM#2",
+    "text": "Take it. Pay me back whenever, or don't.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "rung:WARM#3",
+    "text": "I put a word in for you. Didn't have to. Did anyway.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "rung:WARM#4",
+    "text": "You need something, you ask me before you ask a stranger.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q031.W3",
+      "title": "SCARCITY WEAPONIZES COMPASSION AGAINST YOUR OWN",
+      "applied": "mercy to a stranger endangers your own, so a favour done for you is a risk somebody took, and it shows in how they talk afterwards."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   }
+  ],
+  "saw:notable": [
+   {
+    "id": "saw:notable#0",
+    "text": "I was standing right there.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "saw:notable#1",
+    "text": "Half the block watched you do that.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "saw:notable#2",
+    "text": "People are going to be talking about that at dinner.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "saw:notable#3",
+    "text": "You didn't hide it. I don't know yet if that was brave or stupid.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   }
+  ],
+  "saw:quiet": [
+   {
+    "id": "saw:quiet#0",
+    "text": "I saw. I don't think anybody else did.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "saw:quiet#1",
+    "text": "You handled that without a crowd. I noticed.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "saw:quiet#2",
+    "text": "Nobody's going to hear it from me.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   },
+   {
+    "id": "saw:quiet#3",
+    "text": "Quiet work. Rarer than you'd think.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q043.W4",
+      "title": "AMBIENT BANTER AS CHARACTERIZATION",
+      "applied": "the cast comes alive through overheard relationships rather than quest text. These are people talking about you, mostly not to you."
+     }
+    ]
+   }
+  ],
+  "saw:reckless": [
+   {
+    "id": "saw:reckless#0",
+    "text": "I was there. I'll be answering questions about it for a month.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     }
+    ]
+   },
+   {
+    "id": "saw:reckless#1",
+    "text": "Whatever you were trying to prove, you proved it.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     }
+    ]
+   },
+   {
+    "id": "saw:reckless#2",
+    "text": "You did that in front of children.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     }
+    ]
+   },
+   {
+    "id": "saw:reckless#3",
+    "text": "I can't unsee it and neither can anybody else on that corner.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     }
+    ]
+   },
+   {
+    "id": "saw:reckless#4",
+    "text": "There's no walking that back. You know that, right?",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     },
+     {
+      "id": "Q025.W5",
+      "title": "THE BANALITY OF EVIL",
+      "applied": "the mundane administration of an unjust order. Hostility here is procedural, not theatrical -- you are a problem being processed."
+     }
+    ]
+   }
+  ],
+  "saw:risky": [
+   {
+    "id": "saw:risky#0",
+    "text": "You could have got somebody killed doing that.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "saw:risky#1",
+    "text": "I saw it and I've been thinking about it since.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "saw:risky#2",
+    "text": "That was a lot. That was a LOT.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   },
+   {
+    "id": "saw:risky#3",
+    "text": "I'm not saying you were wrong. I'm saying my hands were shaking.",
+    "draft": true,
+    "study": [
+     {
+      "id": "Q002.N4",
+      "title": "NODE HECK_PAYOUT",
+      "applied": "the corpus's cleanest statement of reactivity: ONE node, six different texts, chosen by what you told him, whether Ted is alive, and what Ted saw. Every key in this file is a fact the world already knows, and the line is chosen by it rather than by a die roll."
+     },
+     {
+      "id": "Q038.P5",
+      "title": "W6/W7/W9 (narrative consistency + persistent reputation + pursuing consequence",
+      "applied": "the banked principle is that extreme acts carry coherent, SEVERE and PERSISTENT consequences. A reckless deed is still in somebody's mouth days later, and that is what makes standing worth playing around."
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -178,6 +178,26 @@ def parse_scene(path):
 
 
 # --------------------------------------------------------------------- bake
+def parse_reactions(path):
+    """What people say BECAUSE OF WHAT YOU DID. Keyed to standing, to whether
+    they SAW it or only heard it, and to what they remember of you -- all values
+    shipped modules already compute. Words he has not approved, so: WORDS tab."""
+    with open(path, 'r', encoding='utf-8') as f:
+        d = json.load(f)
+    rel = os.path.relpath(path, ROOT).replace(os.sep, '/')
+    out = []
+    for bucket in sorted(d.get('reactions', {})):
+        for r in d['reactions'][bucket]:
+            out.append({
+                'kind': 'reaction', 'id': rel + '#' + r['id'], 'src': rel,
+                'speaker': bucket, 'node': bucket, 'text': r.get('text') or '',
+                'draft': r.get('draft') is True, 'cites': r.get('study') or [],
+                'citeLevel': 'line', 'title': 'BECAUSE OF WHAT YOU DID',
+            })
+    return {'src': rel, 'title': 'BECAUSE OF WHAT YOU DID', 'kind': 'reactions',
+            'cites': [], 'lines': out}
+
+
 def parse_barks(path):
     """The ambient lines the walked world says. They are generated, but they are
     still WORDS he has not approved, so they belong in WORDS like everything
@@ -207,9 +227,10 @@ def sources():
         out += [os.path.join(BQ_DIR, f) for f in sorted(os.listdir(BQ_DIR)) if f.endswith('.bq')]
     out += [os.path.join(RECORDS, f) for f in sorted(os.listdir(RECORDS))
             if re.match(r'^BOHEMIA_SCENE_.*\.json$', f)]
-    bk = os.path.join(RECORDS, 'BOHEMIA_BARKS.json')
-    if os.path.exists(bk):
-        out.append(bk)
+    for extra in ('BOHEMIA_BARKS.json', 'BOHEMIA_REACTIONS.json'):
+        f = os.path.join(RECORDS, extra)
+        if os.path.exists(f):
+            out.append(f)
     return out
 
 
@@ -235,6 +256,8 @@ def harvest():
             books.append(parse_bq(p))
         elif p.endswith('BOHEMIA_BARKS.json'):
             books.append(parse_barks(p))
+        elif p.endswith('BOHEMIA_REACTIONS.json'):
+            books.append(parse_reactions(p))
         else:
             books.append(parse_scene(p))
     return books

@@ -95,7 +95,8 @@ var sceneFiles = fs.readdirSync('records')
    citations like everything else. Same discovery rule as the harvester, or the
    fingerprint disagrees and reports a stale tab that is not stale. */
 var barkFile = fs.existsSync('records/BOHEMIA_BARKS.json') ? ['records/BOHEMIA_BARKS.json'] : [];
-var SRC = bqFiles.concat(sceneFiles).concat(barkFile);
+var reactFile = fs.existsSync('records/BOHEMIA_REACTIONS.json') ? ['records/BOHEMIA_REACTIONS.json'] : [];
+var SRC = bqFiles.concat(sceneFiles).concat(barkFile).concat(reactFile);
 
 ok(bqFiles.length > 0, 'dialogue-bearing quests were discovered on disk (' + bqFiles.length + ' .bq)');
 ok(sceneFiles.length > 0, 'dialogue-bearing scenes were discovered on disk (' + sceneFiles.length + ')');
@@ -237,6 +238,67 @@ var alpha = fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8');
 ok(/data-p="words"[^>]*>WORDS</.test(alpha), 'WORDS is a real tab in the alpha tab bar');
 ok(/id="p-words"/.test(alpha) && /BOHEMIA_WORDS_CURRENT\.html/.test(alpha),
   'and the WORDS panel loads that page');
+/* ---- REACTIVITY: WHAT THEY SAY BECAUSE OF WHAT YOU DID ------------------ */
+/* Depth is reactivity. Three shipped systems already knew exactly what a person
+   thinks of you and why -- standing RUNGS, deeds witness(), the ledger -- and
+   all three fed a mouth that said the same ambient line to everybody. The claim
+   that matters is not "there are lines": it is that every KEY is a value one of
+   those modules actually produces, because a key the world never emits is a
+   line that can never fire, and that is invisible from the outside. */
+var reactN = 0;
+if (reactFile.length) {
+  var RX = JSON.parse(fs.readFileSync('records/BOHEMIA_REACTIONS.json', 'utf8'));
+  var standing = fs.readFileSync('engine/bohemia_standing.js', 'utf8');
+  var loopSrc = fs.readFileSync('engine/bohemia_loop.js', 'utf8');
+  var rm = /var RUNGS=\[([\s\S]*?)\];/.exec(standing);
+  var RUNGS = rm ? (rm[1].match(/'[A-Z]+'/g) || []).map(function (x) { return x.slice(1, -1); }) : [];
+  var cm = /CLOUT_WEIGHTS\s*=\s*\{([^}]*)\}/.exec(loopSrc);
+  var CLOUTS = cm ? (cm[1].match(/(\w+)\s*:/g) || []).map(function (x) { return x.replace(/\s*:/, ''); }) : [];
+  ok(RUNGS.length >= 4 && CLOUTS.length >= 4,
+    'the world\'s own standing rungs and clout tags were read off the shipped modules (' +
+    RUNGS.join('/') + ' | ' + CLOUTS.join('/') + ')');
+
+  var rxUncited = [], rxBadId = [], rxBadTitle = [], rxAlien = [];
+  Object.keys(RX.reactions || {}).forEach(function (key) {
+    var head = key.split(':')[0], tail = key.split(':')[1];
+    if (head === 'rung' && RUNGS.indexOf(tail) < 0) rxAlien.push(key);
+    if ((head === 'saw' || head === 'heard') && CLOUTS.indexOf(tail) < 0) rxAlien.push(key);
+    RX.reactions[key].forEach(function (r) {
+      reactN++;
+      if (!r.study || !r.study.length) { rxUncited.push(r.id); return; }
+      r.study.forEach(function (c) {
+        var e = LAWS[c.id];
+        if (!e) { rxBadId.push(r.id + ' -> ' + c.id); return; }
+        if (String(e.title || '').trim() !== String(c.title || '').trim())
+          rxBadTitle.push(r.id + ' -> ' + c.id);
+      });
+    });
+  });
+  ok(reactN >= 50, 'THE WORLD REACTS TO WHAT YOU DID (' + reactN + ' lines across ' +
+    Object.keys(RX.reactions || {}).length + ' keys)');
+  ok(rxAlien.length === 0, 'EVERY REACTION KEY IS A VALUE THE WORLD ACTUALLY PRODUCES' +
+    (rxAlien.length ? ' — INVENTED: ' + rxAlien.join(', ') : '') +
+    ' — a key the sim never emits is a line that can never fire');
+  ok(rxUncited.length === 0, 'every reaction cites the catalogue' +
+    (rxUncited.length ? ' — ' + rxUncited.slice(0, 4).join(', ') : ''));
+  ok(rxBadId.length === 0 && rxBadTitle.length === 0,
+    'and every reaction citation resolves with a VERBATIM title');
+
+  var ppl = fs.readFileSync('engine/bohemia_people.js', 'utf8');
+  ok(ppl.indexOf('var REACTIONS = {') >= 0 && ppl.indexOf('"rung:HOSTILE"') >= 0,
+    'the reactions are WIRED into the people module');
+  ok(/var pick = \(saw && REACTIONS\['saw:'/.test(ppl),
+    'and a REACTION BEATS AN AMBIENT LINE in the lookup — somebody who watched you ' +
+    'do something reckless yesterday does not open with the weather');
+  var missingRung = RUNGS.filter(function (r) { return !(RX.reactions || {})['rung:' + r]; });
+  var missingSaw = CLOUTS.filter(function (c) { return !(RX.reactions || {})['saw:' + c]; });
+  ok(missingRung.length === 0, 'EVERY standing rung has words' +
+    (missingRung.length ? ' — SILENT: ' + missingRung.join(', ') : ''));
+  ok(missingSaw.length === 0, 'and every clout level has a witnessed reaction' +
+    (missingSaw.length ? ' — SILENT: ' + missingSaw.join(', ') : ''));
+}
+
+/* ---- 5. ONE-LINK LAW (continued) ----------------------------------- */
 /* NAME THE TAB / ONE-LINK: it must live where Pages actually publishes, or the
    tab is blank in production and works perfectly on disk — the exact 8/6 bug. */
 var cfg = fs.readFileSync('_config.yml', 'utf8');
@@ -276,7 +338,7 @@ if (BOOK) {
       else if (/^@OBJ\s+\d+\s+"/.test(ln)) mine++;
     });
   });
-  mine += barkN;      /* the world's ambient lines are in the book too */
+  mine += barkN + reactN;   /* ambient lines and reactions are in the book too */
   ok(BOOK._meta.lines === mine, 'the book holds EVERY line on disk (book ' +
     BOOK._meta.lines + ', counted here ' + mine + ')');
   ok(BOOK._meta.fingerprint === want, 'and the machine copy is current too');
