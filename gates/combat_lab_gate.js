@@ -411,7 +411,8 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     !demo.includes('// vital continues your turn'));
   ok('NO DOUBLE EXPOSURE: positional exposure kills the pop-out ONLY when a covered side exists to protect (V32); button reads HOLD/SHOOT/POP OUT (or ENGAGE with no cover, V52)',
     demo.includes('function posExposed()') && demo.includes("txt='HOLD';") &&
-    demo.split("txt=nearCov?'POP OUT':'ENGAGE';").length >= 5 && !demo.includes("txt='POP';") &&
+    demo.split("txt=nearCov?'POP OUT':'ENGAGE';").length >= 4 && !demo.includes("txt='POP';") &&
+    demo.includes("txt='NOTHING TO SHOOT';") &&   /* V147: the one state that ends in a free shot at him names itself */
     demo.includes('V32 HOLD FIX: same gate as updGap'));
   ok('THE DEAD LIE UNDER THE LIVING: corpse under-pass before the player, old draws stripped',
     demo.includes('V24 UNDER THE LIVING') &&
@@ -735,8 +736,31 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
      nobody case it never did. */
   ok('V52 POP OUT VS ENGAGE: when nothing is actually covering you, the action button says ENGAGE, not POP OUT (nothing to pop out of if you were never in cover)',
     demo.includes('const nearCov=coveredFromAnyone();') &&
-    demo.includes("col='#8a7d66'; txt=nearCov?'POP OUT':'ENGAGE';") &&
     demo.includes("col='#eafff0'; txt=nearCov?'POP OUT':'ENGAGE'; green=true;"));
+
+/* ===== V147 THE BUTTON SAYS THE RISK BEFORE HE COMMITS ============
+   Paolo 8/12: "sometimes I'll click it and I'll just get shot first."
+   The nobody-out state ends in recklessPop -- he stands up, never fires, and
+   anyone holding a bead takes a free shot. It used to read POP OUT, which is an
+   INVITATION. He is allowed to take a bad turn; he is not allowed to be tricked
+   into one, so that one state names itself instead of borrowing the wording of
+   the states where there is actually something to shoot. */
+  ok('V147 NOTHING TO SHOOT SAYS SO ON THE BUTTON, before the press that punishes him',
+    demo.includes("col='#8a7d66'; txt='NOTHING TO SHOOT';"));
+
+/* recklessPop BREACHED A LOCKED LAW AND BYPASSED YESTERDAY'S FIX. YOU ALWAYS
+   SHOOT FIRST (8/3, his words: "no enemies never get the first shot") -- and
+   this branch hands them the first shot while he fires nothing. It also never
+   looked at _poppedGreen, so V146's green promise was still being broken one
+   branch over from where it was fixed. The PUNISHMENT stays, because V29 is his
+   ruling too; what goes is being hit THROUGH a promise the UI already made. */
+  ok('V147 GREEN IS ABSOLUTE EVEN IN A RECKLESS POP: a promise the game made outranks a punishment it wants. Green costs nothing here, exactly as V146 gave the volley',
+    /if\(G\._poppedGreen\)\{ G\._poppedGreen=false;/.test(demo) &&
+    demo.includes("setRead('NOTHING TO SHOOT','you stood up on a green board") &&
+    demo.includes('function recklessPop(){'));
+
+  ok('V147 AND THE RECKLESS BRANCH STILL ENDS THE TURN CLEANLY when green spares him -- back to cover, phase UI refreshed, the turn ticked, so a spared pop is not a free extra action',
+    /G\.phase='cover'; G\._dropAt=performance\.now\(\); G\._riseAt=0; setPhaseUI\(\); tickTurnEnd\(\); renderBoard\(\); updGap\(\); return; \}/.test(demo));
   ok('V52 FALL TIMING FIX: a lethal kill sets _deadAt (not just _fellAt) to the real bullet-travel timestamp, so enemyFrame() actually holds the death pose until the bullet lands instead of self-initializing _deadAt to "now"',
     demo.includes('V52 FALL TIMING FIX') &&
     demo.includes('tgt._fellAt=performance.now()+G.ks.dur*tv*1000; tgt._deadAt=tgt._fellAt;') &&
@@ -2558,7 +2582,11 @@ ok('V140 AND THE DECK MAY NOT TELEPORT A MAN BACK INTO RANGE: V90B took shooters
   ok('AND THE EXISTING COVER MATHS ALREADY SCALED OFF P.r everywhere it is used, so nothing had to be rewritten -- the number was simply never allowed to vary',
     demo.includes('if(dA<Math.PI/2 && Math.sin(dA)*P.edist<P.r*0.9){') &&   /* V108 RE-POINTED: the same P.r geometry, now inside coverPillarAgainst, which myCoverAgainst is a boolean over */
     demo.includes('segNear(0,0,exy[0],exy[1],pxy[0],pxy[1],P.r*0.85)') &&
-    demo.includes('Math.hypot(q[0]-sx,q[1]-sy)<P.r*0.6+0.35'));
+    /* V147 RE-POINTED: the MOVEMENT collisions no longer scale off a padded P.r,
+       because the padding was the invisible pillar -- up to 1.1 tiles of block
+       around a rock drawn at 0.45. COVER maths still scales off P.r exactly as
+       this check was built to assert; what changed is what BLOCKS A STEP. */
+    demo.includes('const _rr=Math.max(0.5,P.r||0.5);'));
   ok('PIECES CLUSTER INTO RUNS, so WALLS and CORNERS emerge from the same circle maths that already ships -- a wall is three pillars in a row, and every cover function already understands three pillars in a row. No new geometry, no new collision, no new cover rule',
     gen.includes('const seedP=(G.pillars.length&&Math.random()<clump*0.8)') &&
     gen.includes("const dirs=[[1,0],[-1,0],[0,1],[0,-1]], d=dirs[Math.floor(Math.random()*4)];"));
@@ -3756,7 +3784,14 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
    two of the branches that carried the comment while keeping every real guard,
    so the count fell and the invariant did not. It checks the GUARDS now. */
   ok('V143 AND NO RUN EVER LANDS ON A BODY OR IN A WALL: the run walks the line and STOPS at the first cell holding a pillar or a living man on your floor, and the vault tests its landing cell for both before it moves. Nothing is ever spent before those checks pass',
-    demo.includes('return Math.hypot(q[0]-cx,q[1]-cy)<Q.r*0.6+0.45; }))break;') &&
+    demo.includes('return Math.hypot(q[0]-cx,q[1]-cy)<Math.max(0.5,Q.r||0.5); }))break;') &&
+    !/Q\.r\*0\.6\+0\.45/.test(demo) && !/P\.r\*0\.6\+0\.45/.test(demo) && !/P\.r\*0\.6\+0\.35/.test(demo) &&
+    /const _rr=Math\.max\(0\.5,P\.r\|\|0\.5\); return Math\.hypot\(q\[0\]-sx,q\[1\]-sy\)<_rr/.test(demo) &&
+    /* V147: THE REAL invisible pillar was the PLAIN MOVE -- the button he presses
+       most -- blocking with a halo up to 1.1 tiles around a rock drawn at 0.45
+       and saying "a pillar is there" when there visibly is not. He was quoting
+       the game back at me. Every mover uses the same honest radius now. */
+    true &&
     demo.includes('return Math.abs(q[0]-cx)<0.7&&Math.abs(q[1]-cy)<0.7; }))break;') &&
     /if\(VP\)\{[\s\S]{0,700}if\(!spendMove\(1\)\)/.test(demo) &&
     demo.includes("setRead('BLOCKED','low cover that way and no room on the far side'"));
