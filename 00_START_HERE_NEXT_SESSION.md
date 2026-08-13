@@ -1,3 +1,63 @@
+RUN (run-eak241): 8/12 (c) LATEST -- THE VALLEY REMEMBERS. YESTERDAY IS TRUE TODAY.
+
+Paolo: "we are trying tk create the best funnest deepest videogame ever." DEPTH IS NOT
+MORE SURFACE, IT IS YESTERDAY STILL BEING TRUE TODAY. So I measured what survives a
+night, in the shipped build, across a real day boundary, BEFORE building anything:
+    day 1 ends   TRADES +8   (he handed the tap to the trades, in daylight)
+    day 2 opens  {}          gone
+A BOND survived. Everything he did to a FACTION was forgotten by morning -- in a valley
+whose whole spine is factions. Not a missing feature: HALF A WIRING JOB SOMEBODY STOPPED
+IN THE MIDDLE. Paolo 8/7 ruling A, quoted in the quest runtime's OWN source: "a bond
+built in one quest opens a door in another. Continuity is the dynasty." Applied to
+bonds; never applied to standing. FIFTH TIME THIS WEEK: the machinery exists, unwired.
+
+NOW: standing, posture and bonds all carry in the shared ledger, and every move keeps
+its REASON -- the completing stage's own @LOG line, captured as it fires. So the game
+says not just TRADES +8 but WHY, in the quest's words, diffed against the .bq.
+AND IT IS VISIBLE, because a ledger nobody can read is bookkeeping: the phone's home
+screen carries WHAT THE VALLEY REMEMBERS -- who you are solid with, which factions you
+moved, who is watching, and the line from the job that did it. Day one says "Nobody here
+knows you yet" (an empty ledger is not an error, it is the start of a run).
+
+THE PHONE BUZZES, AND IT IS HIS SOUND. I called this a wiring job last turn; it was more
+so than I knew. HE ALREADY JUDGED IT on 8/9 -- phone_buzz.2 and .4 UP -- and nothing had
+ever played one. APPROVED-BUT-UNUSED IS A DEFECT. The city asks the ALPHA to play it via
+window.playSFX (the game's own call, never a preview path) and the gate asserts the
+sound is one he put UP, because an unapproved sound is worse than silence.
+SOUND LANE: there are almost certainly more approved-and-unused events in that verdict.
+
+WHAT I WAS CAREFUL NOT TO BREAK: the runtime promises in its own comment that a null
+shared ledger is "EXACTLY the old behaviour, bit-for-bit unchanged". The gate builds a
+runtime with NO ledger, runs a stage that writes standing, and asserts nothing throws
+and nothing changes -- so this cannot have cost another lane anything.
+
+Gate: continuity_gate.js, 20 assertions. PHONE RINGS 21/21, DAY LOOP 54/54, HOME+PHONE
+24/24, ONE ZOOM 16/16, SHIPPED TRUTH 39/39.
+
+*** A WARNING ABOUT MEASURING ONCE, AND IT COST ME AN HOUR TODAY ***
+RUN BEAT went red on my tree and GREEN on origin/main, so I nearly wrote it up as my
+regression. Then I ran it THREE times on each:
+    mine:      PASS,  2.481 FAIL,  2.439 FAIL
+    origin:    2.261 FAIL,  2.663 FAIL,  PASS
+IDENTICAL FLAKINESS. It is a wall-clock measurement (one real second must move the run
+2.0 beats, window +/-0.25) taken in a loaded headless browser, and it fails about two
+runs in three ON BOTH SIDES. ONE SAMPLE EACH GAVE ME A CONFIDENT WRONG ANSWER.
+WHOEVER OWNS RUN BEAT: a gate that flakes 2-in-3 teaches the fleet to ignore it, which
+is worse than not having it. Either widen the window, take the median of N runs, or
+measure beats against the AudioContext clock instead of wall time.
+
+STILL RED AND NOT MINE (verified on origin/main): DISTRICT FILL, ROAD CELLS, TEXTURE
+MATCH, VOICE SURFACES, ROUND + DOORS, HAIR, PARTS PAINTED, BODY VARIATION, ONE WORLD TAB,
+INTERIORS, REUSE FIRST, TASTE (bohemia_bark_factory.py has no TASTE CHECK), RUN BEAT
+(flaky, above).
+
+NEXT IN THIS LANE, AND IT IS A [PENDING PAOLO], NOT A BUILD: standing now ACCUMULATES
+and nothing READS it. No door opens because the trades owe you; no price moves because
+the Network is watching. The mechanism is ready and gated (standingWith(name),
+bondWith(role), and the .bq [gate: ...] options the runtime already evaluates). WHICH
+DOOR OPENS IS CONTENT, and content is his. I will not invent which faction opens what.
+Records: BOHEMIA_THE_VALLEY_REMEMBERS_8_12_26.md, BOHEMIA_THE_PHONE_RINGS_8_12_26.md
+
 ART (f3eu53): 8/12 (a) LATEST -- *** ELEVEN OF FOURTEEN FAMILIES ARE IN THE
 GAME. THE POOLS ARE DRAINED FOR GOOD. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twelfth-pass section)
