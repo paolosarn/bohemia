@@ -1907,6 +1907,33 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    sits, what commitment moves it, what neglect costs per rung. Do not invent them.
 
 ## CITY
+P0-SKY. *** PAOLO BUG REPORT 8/13, HIS OWN PHONE, TOP OF THIS LANE'S
+   QUEUE: "the zoom out didn't work, once I started to leave the city it
+   kind of crashed." THE MOON ZOOM SEAM IS BROKEN ON TOUCH — the only
+   device that matters. Coordinator read-only diagnosis of slices/
+   BOHEMIA_CITY_WORLD.html (verify on the real surface before trusting):
+   (1) NO TOUCH PATH ADVANCES THE SKY. skyZoom() is called ONLY from the
+   wheel handler (~line 15906). On iPhone the gesture is pinch, and the
+   pinch path (pointermove, ~15877-15889) never checks SKY — so crossing
+   the seam strands him at SKYU=0: "the zoom out didn't work."
+   (2) THE LIKELY CRASH: in SKY mode, MODE is still 'city', so every
+   pinch/drag pointermove still runs setZoomAt() AND the pan branch, each
+   calling render() — and render() in SKY runs renderSky() -> skyValley(),
+   a full N x N per-tile loop. Two full-valley soft redraws per touch
+   event on a phone reads as a freeze, and iOS Safari kills the page:
+   "it kind of crashed."
+   (3) Tap-through: the pointerup tap path (~15892) has no SKY guard, so
+   a tap in the sky still fires cityTapPlot() on invisible city plots.
+   THE FIX SHAPE (lane's call on details): pinch in SKY drives skyZoom
+   (in = down, out = up, same gesture that got him there), pointermove in
+   SKY never falls through to the city camera, tap in SKY never falls
+   through to plots, and renderSky is cheap or throttled per frame
+   (requestAnimationFrame-coalesced). VERIFY ON THE REAL SURFACE, real
+   touch events, per the 7/18 law — the wheel worked, which is exactly
+   how a desktop-verified feature ships broken to his hand. | pinch
+   crosses the seam and rides to the MOON and back on a real touch
+   run without a freeze, gated | — | no (fix first, he already judged
+   the feature's existence: he wants it working). ***
 ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    7_28_26.md) THE CITY WALK SURFACE HAS ZERO PEOPLE. Human mode has the best
    render architecture in the repo (chunk LRU + canvas pool sized against the

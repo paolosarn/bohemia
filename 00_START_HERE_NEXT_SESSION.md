@@ -17590,3 +17590,17 @@ draft descriptions, empty numbers), RUN 0g re-amended (treat-wound verb
 through the resolver, step order, skip = worse outcome), SOUNDS FS (boil/
 pour/hiss/click/pellet-drop candidates for the judge page). Demo: light
 version legal, full sequence post-demo unless cheap.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/13 (b) — PAOLO BUG REPORT, ROUTED P0 TO CITY: THE MOON
+ZOOM CRASHES ON HIS PHONE ("the zoom out didn't work, once I started to
+leave the city it kind of crashed"). Read-only diagnosis in the backlog
+item (CITY P0-SKY, top of the lane's queue): skyZoom is wired to the WHEEL
+only — no pinch path advances SKYU, so on iPhone the seam strands him at
+the first sky frame; meanwhile every touch move still runs the city
+camera's setZoomAt + pan branches, each forcing a render, and render in
+SKY mode is a full-valley skyValley() tile loop — two full soft redraws
+per touch event, which is the freeze-then-Safari-kill he felt. Tap also
+falls through to cityTapPlot on invisible plots. Fix shape + verify-on-
+real-touch demand written into the item. The feature itself is his 7/25
+philosophy and stays; this is a wiring defect, not a verdict.
