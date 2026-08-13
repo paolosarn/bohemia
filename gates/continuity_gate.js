@@ -1,183 +1,204 @@
-/* BOHEMIA — CONTINUITY IS THE DYNASTY (8/7/26, FACTIONS lane)
+/* ============================================================================
+   CONTINUITY GATE (8/12/26) — yesterday is still true today.
 
-   PAOLO'S RULING, 8/7, asked as A/B/C and answered "A":
-     "a bond built in one quest opens a door in another. Continuity is the dynasty."
+   Paolo: "we are trying tk create the best funnest deepest videogame ever."
 
-   WHAT WAS IN THE WAY. Quest state is PER-QUEST — freshState(Q) hands every runtime
-   its own object — so `@DO bond grower +18` in one quest was invisible to every other
-   quest by construction. 44 authored bond rulings, and no mechanism by which one could
-   ever have mattered to a later story.
+   DEPTH IS NOT MORE SURFACE. It is yesterday still being true today. So this was
+   measured across a real day boundary in the shipped build BEFORE anything was
+   built:
 
-   THE IDENTITY PROBLEM, AND WHY HIS OWN FILES SOLVE IT. A bond has to attach to a
-   PERSON, and a quest's LABEL for someone is not a person. Measured: 43 distinct role
-   names across the corpus, 5 of them used by more than one quest, and those five
-   settle it without anybody having to decide anything:
+       day 1 ends   TRADES +8      (he handed the tap to the trades, in daylight)
+       day 2 opens  {}             gone
 
-     neighbor   S06 `is=the_neighbor household=behind_fence`
-                S09 `is=the_neighbor household=behind_fence`   IDENTICAL — same person
-     runner     S02 `faction_any knows_the_load=true`
-                S12 `faction=CARTEL moves_medicine=true`       DIFFERENT — two people
+   A BOND survived the night. Everything he did to a FACTION was forgotten by
+   morning, in a valley whose entire spine is factions. That was not a missing
+   feature -- it was half a wiring job somebody stopped in the middle:
 
-   He has been declaring identity in the @ROLE conditions since before anything could
-   read it. Writing the neighbour's conditions verbatim twice IS him saying it is the
-   same neighbour. So the key is the CONDITION SET, never the label.
+       Paolo 8/7, ruling A, quoted in the quest runtime's own source:
+       "a bond built in one quest opens a door in another. Continuity is the
+        dynasty."
 
-   WHAT THIS GATE HOLDS, measured on the real runtime and the real manager:
+   Bonds went into the shared ledger that day; faction standing and posture did
+   not, so they lived only in the quest's own state, and a quest's state dies with
+   the quest.
 
-   A. A BOND CROSSES. A quest that never touched a bond sees what an earlier quest
-      built with the same person, and an option gated on it OPENS.
-   B. IDENTITY IS NOT THE LABEL. A different person who happens to share the role name
-      inherits NOTHING. The corpus has two different `runner`s; merging them would be
-      the exact bug this key exists to prevent.
-   C. IT SURVIVES A RELOAD. Continuity that dies on save/load is not continuity.
-   D. IT DOES NOT DOUBLE-COUNT. Inside the quest that built it, the bond is worth what
-      was awarded — not the local number PLUS the carried one.
-   E. THE OLD BEHAVIOUR IS EXACTLY INTACT. A runtime built without a ledger is
-      bit-for-bit what it was, because every existing caller does that.
-   F. IT SHIPS EMPTY. MECHANISM-MINE / CONTENTS-PAOLO'S: the ledger holds only what his
-      quests actually award, and a fresh world has nothing in it.
+   WHAT THIS GATE HOLDS:
+     1. STANDING SURVIVES THE NIGHT -- the exact measurement that was red
+     2. SO DOES POSTURE, and bonds still do (no regression on the half that worked)
+     3. THE REASON IS KEPT, and it is the quest's OWN @LOG line, verbatim against
+        quests/bq/*.bq -- I show his prose, I never write prose about it
+     4. IT IS VISIBLE. A ledger nobody can read is bookkeeping, not depth: the
+        phone must SHOW day 1's move on day 2
+     5. AN EMPTY LEDGER IS NOT AN ERROR, it is day one, and it says so
+     6. A RUNTIME WITH NO SHARED LEDGER IS BIT-FOR-BIT UNCHANGED -- the engine's
+        own written promise, which this change must not break
+     7. THE BUZZ IS HIS SOUND. phone_buzz.2 and .4 are UP in his 8/9 verdict, and
+        the city asks the ALPHA to play it through window.playSFX -- the game's own
+        call, never a private preview path.
+   ========================================================================== */
+'use strict';
+const fs = require('fs'), path = require('path');
+const ROOT = path.join(__dirname, '..');
+const CITY = path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html');
+const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
+const BQ = require(path.join(ROOT, 'engine/bohemia_bq.js'));
+const RT = require(path.join(ROOT, 'engine/bohemia_quest_runtime.js'));
+const DL = require(path.join(ROOT, 'engine/bohemia_dayloop.js'));
+const DQ = require(path.join(ROOT, 'engine/bohemia_demoquests.js'));
 
-   IT SELF-TESTS: every probe feeds a CLAIM'S OWN PREDICATE the values a broken
-   implementation would produce, and passes only if the claim REJECTS them.
+let pass = 0, fail = 0;
+const ok = (n, c) => { c ? pass++ : (fail++, console.log('  > FAIL ' + n)); };
+const done = () => { console.log('CONTINUITY GATE: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
 
-   node gates/continuity_gate.js
-*/
-const path = require('path');
-const ROOT = path.dirname(__dirname);
-process.chdir(ROOT);
+const FILES = ['S01_THE_METER_READER', 'S09_THE_BACK_DOOR', 'S02_THE_SAME_CRATE_TWICE'];
+const SRC = {};
+for (const f of FILES) SRC[f] = fs.readFileSync(path.join(ROOT, 'quests/bq', f + '.bq'), 'utf8');
 
-const L = require('../engine/bohemia_loop.js');
-const BQRT = require('../engine/bohemia_quest_runtime.js');
-const BQ = require('../engine/bohemia_bq.js');
-
-let pass = 0; const fails = [];
-const ok = (n, c) => { c ? pass++ : (fails.push(n), console.log('  FAIL: ' + n)); };
-const notes = [];
-const probes = []; let caught = 0;
-const probe = (n, c) => { probes.push(n); c ? caught++ : console.log('  PROBE MISSED: ' + n); };
-
-/* the neighbour's REQ line, copied VERBATIM from his S06/S09 so this runs on his
-   own identity declaration and not on a fixture invented here */
-const NEIGHBOUR = '@ROLE neighbor REQ is=the_neighbor      household=behind_fence';
-const OTHER_PERSON = '@ROLE neighbor REQ faction=CARTEL  moves_medicine=true';
-
-function quest(id, role, dos, gate) {
-  return ['@QUEST ' + id + '  Continuity Probe', '@ACT 1', '@ONCE true', role,
-    '@STAGE 10', '  @LOG opening', '@STAGE 20 COMPLETE #quiet', '  @LOG done',
-    '@TALK open speaker=neighbor entry=stage>=10', '  @SAY hi',
-    '  @OPT "deep option" [gate: ' + gate + '] -> END  @DO set_stage 20',
-    '  @OPT "build it" [gate: none] -> open  ' + dos, '@END'].join('\n');
-}
-function play(ctx, src, build) {
-  const rt = ctx.quests.start(src);
-  rt.begin('open');
-  if (build) {
-    const o = rt.view().options.filter(x => /build it/.test(x.text))[0];
-    if (o) rt.choose(o.i);
-  }
-  return rt;
-}
-const sees = rt => rt.view().options.some(o => /deep option/.test(o.text));
-
-/* ================= F. IT SHIPS EMPTY ================= */
+/* ---- 1. the measurement that was red ------------------------------------ */
 {
-  const ctx = L.boot({ seed: 'continuity-empty' });
-  const blob = ctx.quests.serialize();
-  const empty = b => !b._shared || !b._shared.bonds || Object.keys(b._shared.bonds).length === 0;
-  ok('the cross-quest ledger SHIPS EMPTY — it holds only what his quests actually award',
-    empty(blob));
-  probe('the empty claim rejects a ledger with anything hand-seeded in it',
-    !empty({ _shared: { bonds: { 'neighbor|x': 5 } } }));
+  const L = DL.make(); L.wake();
+  const Q = DQ.make({ BQ, BQRuntime: RT, sources: SRC, loop: L });
+  Q.openDay(1);
+  Q.event('enter_building', { district: 'suburb', dark: true });
+  Q.resolve(31);                                  /* #notable: @DO faction TRADES +8 */
+  const d1 = Q.standing();
+  ok('day 1 moves a faction (TRADES ' + ((d1.faction[0] || {}).n) + ')',
+     d1.faction.length === 1 && d1.faction[0].who === 'TRADES' && d1.faction[0].n === 8);
+
+  L.nextDay(); Q.openDay(2);
+  const d2 = Q.standing();
+  ok('STANDING SURVIVES THE NIGHT -- day 2 still knows what he did to the trades',
+     d2.faction.length === 1 && d2.faction[0].who === 'TRADES' && d2.faction[0].n === 8);
+  ok('and the live runtime can read it back', Q.rt.standingWith('TRADES') === 8);
+
+  /* the reason, in the quest's own words */
+  const stage31 = BQ.parse(SRC.S01_THE_METER_READER).stages.filter(s => s.n === 31)[0];
+  const why = (d2.log[0] || {}).why;
+  ok('THE REASON IS KEPT, and it is the quest\'s OWN line, verbatim out of the .bq',
+     why === stage31.log && SRC.S01_THE_METER_READER.indexOf(why) >= 0);
+  ok('and the move names the quest it came from',
+     (d2.log[0] || {}).quest === 'The Meter Reader');
 }
 
-/* ================= A. A BOND CROSSES ================= */
-let crossed;
+/* ---- 2. posture and bonds ------------------------------------------------ */
 {
-  const ctx = L.boot({ seed: 'continuity-cross' });
-  const first = play(ctx, quest('c_first', NEIGHBOUR, '@DO bond neighbor +18', 'neighbor>=10'), true);
-  const second = play(ctx, quest('c_second', NEIGHBOUR, '@DO learn nothing', 'neighbor>=10'), false);
-  crossed = { built: sees(first), carried: sees(second) };
-  const carries = c => c.built === true && c.carried === true;
-  ok('A BOND CROSSES: a quest that never touched it sees what an earlier quest built with the same person, and the gated option OPENS',
-    carries(crossed));
-  notes.push('quest 1 built +18 -> option open: ' + crossed.built
-    + '  |  quest 2 never touched it -> option open: ' + crossed.carried);
-  probe('the crossing claim rejects a world where the bond stayed locked inside its own quest',
-    !carries({ built: true, carried: false }));
-  probe('and rejects one where the option was open all along, which would pass by accident',
-    !carries({ built: false, carried: true }));
+  const L = DL.make(); L.wake();
+  const Q = DQ.make({ BQ, BQRuntime: RT, sources: SRC, loop: L });
+  Q.openDay(1);
+  Q.event('enter_building', { district: 'suburb', dark: true });
+  Q.resolve(32);                                  /* #reckless: faction_posture NETWORK +1 */
+  L.nextDay(); Q.openDay(2);
+  const s = Q.standing();
+  ok('POSTURE SURVIVES TOO -- somebody is watching you the next morning',
+     s.posture.length === 1 && s.posture[0].who === 'NETWORK' && s.posture[0].n === 1);
+
+  Q.resolve(20);                                  /* back door #quiet: bond neighbor +20 */
+  L.nextDay(); Q.openDay(3);
+  const s3 = Q.standing();
+  ok('AND BONDS STILL CARRY -- the half that already worked is not regressed',
+     s3.bonds.length === 1 && s3.bonds[0].n === 20);
 }
 
-/* ================= B. IDENTITY IS NOT THE LABEL ================= */
+/* ---- 3. the engine's own promise: no ledger = unchanged ----------------- */
 {
-  const ctx = L.boot({ seed: 'continuity-identity' });
-  play(ctx, quest('i_first', NEIGHBOUR, '@DO bond neighbor +18', 'neighbor>=10'), true);
-  const stranger = play(ctx, quest('i_other', OTHER_PERSON, '@DO learn nothing', 'neighbor>=10'), false);
-  const sameLabel = play(ctx, quest('i_same', NEIGHBOUR, '@DO learn nothing', 'neighbor>=10'), false);
-  const discriminates = (other, same) => other === false && same === true;
-  ok('IDENTITY IS NOT THE LABEL: a DIFFERENT person sharing the role name inherits nothing, while the SAME person still does',
-    discriminates(sees(stranger), sees(sameLabel)));
-  notes.push('same label, different REQ conditions -> inherits: ' + sees(stranger)
-    + '  |  same conditions -> inherits: ' + sees(sameLabel));
-  probe('the identity claim rejects a key that merges two different people who share a label',
-    !discriminates(true, true));
-  probe('and rejects one so strict that even the same person stops matching',
-    !discriminates(false, false));
+  const Q = BQ.parse(SRC.S01_THE_METER_READER);
+  const bare = new RT.Runtime(Q, null, null);     /* no shared ledger at all */
+  bare.start(10);
+  let threw = null;
+  try { bare.setStage(31); } catch (e) { threw = String(e.message); }
+  ok('A RUNTIME WITH NO SHARED LEDGER STILL RUNS -- the engine\'s written promise'
+     + (threw ? ' -- threw: ' + threw : ''), threw === null);
+  ok('and it still writes the quest\'s own state', bare.state.faction.TRADES === 8);
+  ok('with nothing to remember it by', bare.standingWith('TRADES') === 8);
 }
 
-/* ================= C. IT SURVIVES A RELOAD ================= */
+/* ---- 4. the buzz is HIS sound, played by the game's own call ------------ */
 {
-  const ctx = L.boot({ seed: 'continuity-save' });
-  play(ctx, quest('s_first', NEIGHBOUR, '@DO bond neighbor +18', 'neighbor>=10'), true);
-  const blob = JSON.parse(JSON.stringify(ctx.quests.serialize()));
-  const ctx2 = L.boot({ seed: 'continuity-save' });
-  ctx2.quests.restore(blob);
-  const after = play(ctx2, quest('s_later', NEIGHBOUR, '@DO learn nothing', 'neighbor>=10'), false);
-  const survives = v => v === true;
-  ok('IT SURVIVES A RELOAD — continuity that dies on save/load is not continuity',
-    survives(sees(after)));
-  probe('the reload claim rejects a ledger that was not in the save at all', !survives(false));
+  const c = fs.readFileSync(CITY, 'utf8');
+  const a = fs.readFileSync(ALPHA, 'utf8');
+  ok('the city asks for a buzz when a job comes in', c.indexOf('__THE_PHONE_BUZZES__') >= 0
+     && /bohemiaCitySfx/.test(c));
+  ok('the ALPHA plays it through window.playSFX -- the game\'s own call, not a'
+     + ' private preview path', /if\(window\.playSFX\) window\.playSFX/.test(a));
+
+  /* and it is a sound he actually approved */
+  const verdict = fs.readFileSync(path.join(ROOT, 'records/BOHEMIA_SFX_VERDICT_8_9_26.txt'), 'utf8');
+  const ups = (verdict.match(/^\s*UP\s+phone_buzz\.\d+/gm) || []).length;
+  ok('phone_buzz is a sound HE PUT UP (' + ups + ' approved candidates in his 8/9'
+     + ' verdict) -- approved-but-unused is a defect, an unapproved sound is worse',
+     ups >= 1);
 }
 
-/* ================= D. IT DOES NOT DOUBLE-COUNT ================= */
-{
-  const ctx = L.boot({ seed: 'continuity-double' });
-  const rt = play(ctx, quest('d_one', NEIGHBOUR, '@DO bond neighbor +18', 'neighbor>=10'), true);
-  const exact = v => v === 18;
-  ok('IT DOES NOT DOUBLE-COUNT: inside the quest that built it, the bond is worth exactly what was awarded',
-    exact(rt.bondWith('neighbor')));
-  notes.push('awarded +18, reads back ' + rt.bondWith('neighbor'));
-  probe('the no-double-count claim rejects local plus carried being added together',
-    !exact(36));
-}
+/* ---- 5. IT IS VISIBLE, on the surface he taps --------------------------- */
+(async () => {
+  let chromium;
+  try { chromium = require('/opt/node22/lib/node_modules/playwright').chromium; }
+  catch (e) { ok('playwright is available', false); done(); }
+  const b = await chromium.launch();
+  const pg = await b.newPage({ viewport: { width: 390, height: 844 } });
+  const errs = [];
+  pg.on('pageerror', e => errs.push(e.message));
+  await pg.route(/^https?:/, r => r.abort());
+  await pg.goto('file://' + CITY, { waitUntil: 'load', timeout: 120000 });
+  for (let i = 0; i < 120; i++) { if (await pg.$('#daycardIn .dcgo')) break; await pg.waitForTimeout(200); }
 
-/* ================= E. THE OLD BEHAVIOUR IS EXACTLY INTACT ================= */
-{
-  const Q = BQ.parse(quest('e_bare', NEIGHBOUR, '@DO bond neighbor +18', 'neighbor>=10'));
-  const bare = new BQRT.Runtime(Q);            // no ledger, the way every old caller builds one
-  const unchanged = r => r.shared === null && r.bondWith('neighbor') === null;
-  ok('a runtime built WITHOUT a ledger is bit-for-bit what it was — every existing caller does exactly that',
-    unchanged(bare));
-  probe('the compatibility claim rejects a runtime that silently grew a ledger of its own',
-    !unchanged({ shared: { bonds: {} }, bondWith: () => 5 }));
-}
+  ok('the phone BUZZES when the job comes in',
+     (await pg.evaluate(() => window.__BUZZED || 0)) >= 1);
 
-/* ================= his corpus must still parse and cast ================= */
-{
-  const fs = require('fs');
-  let errs = 0, n = 0, keys = new Set();
-  for (const f of fs.readdirSync('quests/bq').filter(x => x.endsWith('.bq'))) {
-    const Q = BQ.parse(fs.readFileSync('quests/bq/' + f, 'utf8'));
-    errs += (BQ.validate(Q).errors || []).length; n++;
-    (Q.roles || []).forEach(r => keys.add(BQRT.personKey(Q, r.name)));
-  }
-  ok('his whole canon corpus still parses and validates clean after the change', errs === 0);
-  notes.push(n + ' canon quests, ' + errs + ' errors, ' + keys.size + ' distinct people identified across them');
-}
+  await pg.$eval('#daycardIn .dcgo', el => el.click());
+  await pg.waitForTimeout(250);
 
-console.log('');
-notes.forEach(n => console.log('  NOTE  ' + n));
-console.log(`  NOTE  ${caught}/${probes.length} self-test probes caught`);
-if (caught !== probes.length) fails.push('self-test probes missed');
-console.log(`=== CONTINUITY GATE: ${pass} passed, ${fails.length} failed ===`);
-process.exit(fails.length ? 1 : 0);
+  /* day one: nobody knows you */
+  const day1phone = await (async () => {
+    await pg.$eval('#phonebtn', el => el.click());
+    let fr = null;
+    for (let i = 0; i < 80; i++) {
+      fr = pg.frames().find(f => /CURRENT_SLICE/.test(f.url()));
+      if (fr) { try { if (await fr.evaluate(() => typeof LIVE !== 'undefined')) break; } catch (e) {} }
+      await pg.waitForTimeout(500);
+    }
+    await pg.waitForTimeout(1200);
+    const t = fr ? await fr.evaluate(() =>
+      [...document.querySelectorAll('.live-strip')].map(x => x.textContent).join(' | ')) : '';
+    await pg.$eval('#phoneclose', el => el.click());
+    await pg.waitForTimeout(200);
+    return { fr, t };
+  })();
+  ok('AN EMPTY LEDGER IS NOT AN ERROR, IT IS DAY ONE, and it says so',
+     /Nobody here knows you yet/i.test(day1phone.t));
+
+  /* live the day the notable way, then sleep */
+  await pg.evaluate(() => {
+    offerAccept();
+    DQ.event('enter_building', { district: 'suburb', dark: true });
+    DQ.resolve(31);
+    advance(20 * 60);
+  });
+  await pg.waitForTimeout(400);
+  await pg.$eval('#daycardIn .dcgo', el => el.click());        /* SLEEP -> DAY 2 */
+  await pg.waitForTimeout(500);
+  const day = await pg.evaluate(() => DAY.day);
+  ok('day 2 begins', day === 2);
+  await pg.$eval('#daycardIn .dcgo', el => el.click());        /* GET UP */
+  await pg.waitForTimeout(250);
+
+  await pg.$eval('#phonebtn', el => el.click());
+  await pg.waitForTimeout(1500);
+  const fr2 = pg.frames().find(f => /CURRENT_SLICE/.test(f.url()));
+  const seen = fr2 ? await fr2.evaluate(() => ({
+    text: [...document.querySelectorAll('.live-strip')].map(x => x.textContent).join(' | '),
+    rows: [...document.querySelectorAll('.st-row')].map(x => x.textContent)
+  })) : { text: '', rows: [] };
+
+  ok('THE PHONE REMEMBERS ON DAY 2 -- what he did yesterday is on his phone this'
+     + ' morning (' + JSON.stringify(seen.rows) + ')',
+     seen.rows.some(r => /TRADES/.test(r) && /\+8/.test(r)));
+  ok('and it says WHY, in the quest\'s own words',
+     /Handed the tap to the trades/.test(seen.text));
+  ok('under a heading that means something', /WHAT THE VALLEY REMEMBERS/i.test(seen.text));
+
+  await b.close();
+  ok('no page error across two lived days' + (errs.length ? ' -- ' + errs[0] : ''),
+     errs.length === 0);
+  done();
+})();

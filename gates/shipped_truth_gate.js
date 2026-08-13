@@ -58,6 +58,8 @@ const CLAIMS = [
   ['__ONE_ZOOM_TO_THE_MOON__',      '"keep zooming out until it showed the moon" -- his feet to the moon, one camera'],
   ['__PHONE_JUMP__',                '...and the phone map is a DOOR into the run, not a second map'],
   ['__THE_PHONE_RINGS__',           'the day starts with no job -- work ARRIVES on the phone and is taken there'],
+  ['__THE_VALLEY_REMEMBERS__',      'what you did yesterday is on your phone this morning, in the quest\'s words'],
+  ['__THE_PHONE_BUZZES__',          '...and it buzzes with a sound he actually approved on 8/9'],
 ];
 
 /* THE SOUND LANE'S CLAIMS. Same contract, different lane: every marker here was

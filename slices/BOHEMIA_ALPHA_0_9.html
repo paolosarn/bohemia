@@ -996,7 +996,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/13a - PEOPLE SOUND LIKE WHAT THEY MEAN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/13b - THE VALLEY REMEMBERS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7038,6 +7038,16 @@ function combatMsgIn(d){
   }
   if(d.type==='BOHEMIA_CITY_NEED_PLAYER'){
     citySendPlayer();
+    return true;
+  }
+  /* __THE_PHONE_BUZZES__ (8/12) -- the city asks, the alpha plays. window.playSFX is
+     THE GAME'S OWN CALL, the same one the run and combat use, never a private preview
+     path: a side door would let a sound board look healthy while the game is silent,
+     which this fleet has shipped once already. phone_buzz.2 and .4 are UP in his 8/9
+     verdict, so this is an approved sound finally being used, not a new one. */
+  if(d.bohemiaCitySfx!==undefined){
+    try{ if(window.playSFX) window.playSFX(String(d.bohemiaCitySfx.ev||'')); }catch(e){}
+    window.__CITY_SFX=(window.__CITY_SFX||0)+1;
     return true;
   }
   if(d.bohemiaCityMusic!==undefined){

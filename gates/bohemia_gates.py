@@ -141,6 +141,18 @@ GATES = [
      'inside somebody else\'s EMPTY srcdoc frame and crashed on "om is not defined", three of '
      'them red on main for over a week. The ordering is pinned here because what broke was a '
      'SHARED RESOLVER and nothing owned it', True),
+    ('CONTINUITY',     ['node', 'gates/continuity_gate.js'],
+     'Paolo 8/12: "we are trying tk create the best funnest deepest videogame ever". Depth '
+     'is not more surface, it is yesterday still being true today -- so it was MEASURED '
+     'across a real day boundary first: day 1 ended TRADES +8, day 2 opened {} . A BOND '
+     'survived the night and everything he did to a FACTION was forgotten by morning, in a '
+     'valley whose whole spine is factions. Half a wiring job somebody stopped in the '
+     'middle: Paolo 8/7 ruling A ("a bond built in one quest opens a door in another. '
+     'Continuity is the dynasty") was applied to bonds and not to standing. Now standing, '
+     'posture and bonds all carry, each with the REASON kept -- the quest\'s own @LOG line, '
+     'diffed against the .bq -- and the phone SHOWS it, because a ledger nobody can read is '
+     'bookkeeping, not depth. Also asserts a runtime with NO shared ledger is unchanged (the '
+     'engine\'s written promise) and that the buzz is a sound HE PUT UP on 8/9', True),
     ('PHONE RINGS',    ['node', 'gates/phone_rings_gate.js'],
      'The phone was in his pocket and knew where he was, and was still a VIEWER: nothing '
      'ever arrived on it and nothing he did on it changed the day. engine/bohemia_loop.js '

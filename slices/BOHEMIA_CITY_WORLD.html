@@ -12170,8 +12170,18 @@ Runtime.prototype._exec=function(text){
                       if(this.shared&&bk!=null){ if(!this.shared.bonds) this.shared.bonds={};
                         this.shared.bonds[bk]=(this.shared.bonds[bk]||0)+num(p[2]); } }
                     break;
-    case 'faction': if(p[1]) s.faction[p[1]]=(s.faction[p[1]]||0)+num(p[2]); break;
-    case 'faction_posture': if(p[1]) s.posture[p[1]]=(s.posture[p[1]]||0)+num(p[2]); break;
+    /* CONTINUITY IS NOT ONLY BONDS (8/12). Paolo 8/7, ruling A: "a bond built in one
+       quest opens a door in another. Continuity is the dynasty." Bonds were wired into
+       the shared ledger that day and FACTION STANDING WAS NOT, so it lived only in the
+       quest's own state -- and a quest's state dies with the quest. Measured 8/12 across
+       a played day boundary: day 1 ended TRADES +8, day 2 opened {} . In a valley whose
+       whole spine is factions, everything you did to one was forgotten by morning.
+       Same shape as bonds, and simpler: a faction's NAME is already its identity in
+       every quest, so there is no personKey to derive. */
+    case 'faction': if(p[1]){ s.faction[p[1]]=(s.faction[p[1]]||0)+num(p[2]);
+                      this._remember('faction',p[1],num(p[2])); } break;
+    case 'faction_posture': if(p[1]){ s.posture[p[1]]=(s.posture[p[1]]||0)+num(p[2]);
+                      this._remember('posture',p[1],num(p[2])); } break;
     /* PACING LAW (Paolo 7/24): the territory AI's advanceRound is never a tick —
        it fires when "the narrative calls for it — a quest resolves, a story beat
        lands." This is that lever, opt-in per quest: an author marks the ONE
@@ -12180,6 +12190,21 @@ Runtime.prototype._exec=function(text){
     case 'play': s.log.push('play '+p.slice(1).join(' ')); break;
     default: s.log.push('UNHANDLED_DO: '+text);
   }
+};
+
+/* THE VALLEY'S MEMORY OF WHAT YOU DID TO IT. Writes a move into the shared ledger
+   and keeps the REASON with it -- the completing stage's own @LOG line, so anything
+   that shows your standing later shows the quest's words for why it moved and never
+   prose written about it. No shared ledger means this is a no-op, which keeps a
+   runtime built the old way bit-for-bit unchanged. */
+Runtime.prototype._remember=function(kind,who,delta){
+  if(!this.shared||!who||!delta) return;
+  var book=this.shared[kind]||(this.shared[kind]={});
+  book[who]=(book[who]||0)+delta;
+  var log=this.shared.log||(this.shared.log=[]);
+  log.push({ kind:kind, who:who, d:delta, why:this._why||null,
+             quest:(this.Q&&(this.Q.title||this.Q.id))||null });
+  if(log.length>200) log.shift();       /* a memory, not a hoard */
 };
 
 Runtime.prototype._obj=function(n,status){
@@ -12201,7 +12226,9 @@ Runtime.prototype.setStage=function(n){
   this.state.stage=n;
   if(st){
     if(st.log) this.state.log.push('[stage '+n+'] '+st.log);
+    this._why=st.log||null;      /* the reason a standing moved is the stage's own line */
     (st.dos||[]).forEach(function(d){ self._exec(d.text); });
+    this._why=null;
     /* doneTags: the completing stage's raw #hashtags (e.g. #reckless), carried
        verbatim so the LOOP layer can classify the outcome (CLOUT weighting) without
        this UI-agnostic runtime knowing anything about followers or feeds. */
@@ -12260,6 +12287,14 @@ Runtime.prototype.choose=function(i){
   var nt=this._talkById[o.to];
   if(!nt){ this.node=null; return this.view(); }
   return this._enter(nt);
+};
+
+/* what the valley remembers about a faction, counting every quest that moved it */
+Runtime.prototype.standingWith=function(name){
+  var here=(this.state.faction||{})[name];
+  var there=(this.shared&&this.shared.faction)?this.shared.faction[name]:undefined;
+  if(here==null&&there==null) return null;
+  return (there==null?here:there);
 };
 
 Runtime.prototype.objectives=function(){
@@ -12692,6 +12727,24 @@ root.BQRuntime=API;
       if (!D.rt || !D.spec || D.rt.state.done) return null;
       D.pending = null;
       return D._toStage(D.spec.fail);
+    };
+
+    /* WHAT THE VALLEY REMEMBERS ABOUT YOU. The shared ledger, flattened for anything
+       that wants to show it -- who you are solid with, which factions you moved, and
+       the quest's OWN line for why each one moved. Read-only: this reports the
+       ledger, it never writes it, because writing it is the quests' job. */
+    D.standing = function () {
+      var sh = shared || {};
+      function rows(book, kind) {
+        var out = [];
+        for (var k in (book || {})) out.push({ kind: kind, who: k, n: book[k] });
+        out.sort(function (a, b) { return Math.abs(b.n) - Math.abs(a.n); });
+        return out;
+      }
+      return { faction: rows(sh.faction, 'faction'),
+               posture: rows(sh.posture, 'posture'),
+               bonds:   rows(sh.bonds, 'bond'),
+               log:     (sh.log || []).slice(-8).reverse() };
     };
 
     D.objectives = function () { return D.rt ? D.rt.objectives() : []; };
@@ -16241,6 +16294,15 @@ function offerRing(){
   OFFER={ id:spec.id, title:Q.title||spec.id, text:(st&&st.log)||spec.brief, day:DAY.day };
   window.__OFFER_RANG=(window.__OFFER_RANG||0)+1;
   phoneBadge();
+  /* __THE_PHONE_BUZZES__ -- HIS OWN SOUND, APPROVED AND UNUSED. He judged the ten
+     phone_buzz candidates on 8/9 and put TWO of them UP (phone_buzz.2, .4), and
+     nothing in the game has ever played one. APPROVED-BUT-UNUSED IS A DEFECT.
+     The city is an iframe, so it asks the alpha -- which owns the audio bus and the
+     approved bank -- rather than cooking a tone of its own, which would be the
+     SOUND lane's work and would not be a sound he picked. */
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaCitySfx:{ev:'phone_buzz'}},'*'); }catch(_e){}
+  window.__BUZZED=(window.__BUZZED||0)+1;
   phonePush(true);
 }
 /* he took it: NOW the quest exists, and the objective is live. */
@@ -16438,7 +16500,8 @@ function phoneState(){
            home:h?{cell:h.cell}:null, objective:obj,
            quest:(function(){ try{ return DQ.spec?DQ.spec.id:null; }catch(_e){ return null; } })(),
            done:(function(){ try{ return DQ.done(); }catch(_e){ return false; } })(),
-           offer:(OFFER&&!OFFER_TAKEN)?OFFER:null, taken:!!OFFER_TAKEN };   /* __THE_PHONE_RINGS__ */
+           offer:(OFFER&&!OFFER_TAKEN)?OFFER:null, taken:!!OFFER_TAKEN,
+           standing:(function(){ try{ return DQ.standing(); }catch(_e){ return null; } })() };   /* __THE_VALLEY_REMEMBERS__ */   /* __THE_PHONE_RINGS__ */
 }
 function phonePush(force){
   if(!PHONE_ON||!PHONE_FR||!PHONE_FR.contentWindow)return;

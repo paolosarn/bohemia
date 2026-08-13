@@ -186,6 +186,24 @@
       return D._toStage(D.spec.fail);
     };
 
+    /* WHAT THE VALLEY REMEMBERS ABOUT YOU. The shared ledger, flattened for anything
+       that wants to show it -- who you are solid with, which factions you moved, and
+       the quest's OWN line for why each one moved. Read-only: this reports the
+       ledger, it never writes it, because writing it is the quests' job. */
+    D.standing = function () {
+      var sh = shared || {};
+      function rows(book, kind) {
+        var out = [];
+        for (var k in (book || {})) out.push({ kind: kind, who: k, n: book[k] });
+        out.sort(function (a, b) { return Math.abs(b.n) - Math.abs(a.n); });
+        return out;
+      }
+      return { faction: rows(sh.faction, 'faction'),
+               posture: rows(sh.posture, 'posture'),
+               bonds:   rows(sh.bonds, 'bond'),
+               log:     (sh.log || []).slice(-8).reverse() };
+    };
+
     D.objectives = function () { return D.rt ? D.rt.objectives() : []; };
     D.done = function () { return !!(D.rt && D.rt.state.done); };
     D.outcome = function () { return D.rt ? D.rt.state.outcome : null; };

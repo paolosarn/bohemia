@@ -437,6 +437,14 @@ var CANON_QUESTS = __CANON_QUESTS_JSON__;
 /* __PHONE_OFFER__ -- the offer state of the live strip. */
 .lv-offer{margin-top:6px;font-size:9px;font-weight:700;letter-spacing:2px;color:#e8b84a}
 .lv-take{margin-top:8px;margin-left:0;display:inline-block}
+/* __THE_VALLEY_REMEMBERS__ -- the ledger, in the phone's own type. */
+.st-hd{margin-top:8px;font-size:9px;font-weight:700;letter-spacing:2px;color:#8d7c5e}
+.st-row{display:flex;justify-content:space-between;align-items:baseline;padding:2px 0}
+.st-who{font-size:12px;color:#e7d8bb}
+.st-n{font-size:12px;font-weight:700}
+.st-n.up{color:#9ed060}
+.st-n.dn{color:#c8503a}
+.st-why{margin-top:3px;font-size:11px;line-height:1.4;color:#8d7c5e}
 </style>
 
 <div id="phone" class="view-home">
@@ -833,6 +841,7 @@ function renderHome(){
      the feed IS the DMs too). One tile, one combined badge. */
   el('home').innerHTML =
     liveStrip()+
+    standingBlock()+
     '<div class="home-hd"><b>the phone</b>@founder_gen1 · '+pr.reach+' followers on the Network</div>'+
     '<div class="apps">'+
       tile('feed','Network', ICON.feed, pr.posts+' posts', offersN+unreadCount())+
@@ -1179,6 +1188,43 @@ function phoneGo(x,y){
     window.parent.postMessage({bohemiaPhoneGo:{x:x,y:y}},'*'); }catch(e){}
   var box=document.getElementById('mapcell');
   if(box) box.innerHTML='<b>X'+x+' Y'+y+'</b> · the run is looking at it \u00b7 close the phone';
+}
+
+
+/* __THE_VALLEY_REMEMBERS__ -- WHAT THE VALLEY REMEMBERS ABOUT YOU (8/12/26).
+   Measured before it was built: a bond survived the night and faction standing did
+   not, so everything he did to a faction was forgotten by morning. The engine
+   carries all three now; this is the half that lets him SEE it, because a ledger
+   nobody can read is bookkeeping, not depth.
+   Every "why" line here is the quest's OWN words -- the same law the offer and the
+   resolution buttons live under. I show his prose; I do not write prose about it. */
+function standingRow(r){
+  var n = r.n>0 ? ('+'+r.n) : String(r.n);
+  return '<div class="st-row"><span class="st-who">'+esc(String(r.who).replace(/\|.*$/,''))+
+         '</span><span class="st-n '+(r.n>0?'up':'dn')+'">'+esc(n)+'</span></div>';
+}
+function standingBlock(){
+  var S = LIVE && LIVE.standing;
+  if(!S) return '';
+  var any = (S.faction.length + S.bonds.length + S.posture.length) > 0;
+  if(!any){
+    /* AN EMPTY LEDGER IS NOT AN ERROR, IT IS DAY ONE. Saying so is better than an
+       empty box, and better than hiding the thing that is about to start filling. */
+    return '<div class="live-strip"><div class="lv-top">THE VALLEY</div>'+
+           '<div class="lv-obj">Nobody here knows you yet.</div></div>';
+  }
+  var h = '<div class="live-strip"><div class="lv-top">WHAT THE VALLEY REMEMBERS</div>';
+  if(S.faction.length){ h += '<div class="st-hd">standing</div>'+S.faction.map(standingRow).join(''); }
+  if(S.bonds.length){   h += '<div class="st-hd">people</div>'+S.bonds.map(standingRow).join(''); }
+  if(S.posture.length){ h += '<div class="st-hd">watching you</div>'+S.posture.map(standingRow).join(''); }
+  if(S.log && S.log.length){
+    h += '<div class="st-hd">because</div>';
+    S.log.slice(0,3).forEach(function(e){
+      if(!e.why) return;
+      h += '<div class="st-why">'+esc(e.why)+'</div>';
+    });
+  }
+  return h+'</div>';
 }
 
 </script>
