@@ -142,6 +142,42 @@ try {
   ok('SMOOTH BUT DEFINITE: the probe ran (' + String(e.message).split('\n')[0].slice(0, 80) + ')', false);
 }
 
+/* ---- THE BACKDROP: IT IS A VIEW, NOT A MAP ON BLUE (8/11) ----------------
+   The overlook framed the valley correctly from day one and then floated it on
+   FLAT BLUE, because city mode fills with one solid colour. A map on a blue
+   field is a map. An overlook is SKY, then the far side of the basin, then the
+   floor you are looking down on. Las Vegas is a bowl: whichever rim you stand
+   on there is another range across the valley, so the ranges are not decoration
+   -- they are the fact that makes it a valley. */
+{
+  const world = fs.readFileSync(path.join(__dirname, '../slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
+  const code = world.replace(/\/\*[\s\S]*?\*\//g, '');
+  const i = code.indexOf('function vistaBackdrop');
+  ok('the vista has a real backdrop, not a flat fill', i > 0);
+  const bd = i > 0 ? code.slice(i, i + 3000) : '';
+  ok('there is a SKY, graded the way a desert sky actually is (deep overhead, pale at the horizon)',
+     /createLinearGradient/.test(bd));
+  ok('there is a far side to the basin — two ranges, not one flat line',
+     (bd.match(/ridge\(/g) || []).length >= 3);
+  ok('the far range is paler than the near one, which IS the atmospheric perspective',
+     /ridge\(horizon-/.test(bd) && /ridge\(horizon,/.test(bd));
+  ok('the horizon is DERIVED from the valley plate, never a guessed screen fraction',
+     /plateTop/.test(bd) && /vistaBackdrop\(oy\)/.test(code),
+     'the first cut put the ranges at a fixed fraction and the valley drew straight over them');
+  ok('the ranges are summed octaves, so they read as massifs and not a sawtooth',
+     (bd.match(/oct\(x,/g) || []).length >= 3,
+     'one frequency per step draws an even row of spikes, which reads as a graph');
+  ok('the ridge line comes off om.seed — MAP LAW, Claude never designs a map layout',
+     /om\.seed/.test(bd));
+  ok('the backdrop respects night, like every other light in this app',
+     /isNight\(\)/.test(bd));
+  ok('the dust inversion only exists by day — a night basin has no visible haze layer',
+     /if\(!night\)/.test(bd));
+  ok('the ordinary city view is untouched: it still gets its flat field',
+     /else\s*\{\s*g\.fillStyle=night\?/.test(code),
+     'the backdrop must cost nothing when the moment is not open');
+}
+
 console.log('THE VISTA GATE: ' + pass + ' passed, ' + fail + ' failed' +
   (o ? '  (overlook ' + o.x + ',' + o.y + ', ' + o.cells + ' cells in sight)' : ''));
 process.exit(fail ? 1 : 0);

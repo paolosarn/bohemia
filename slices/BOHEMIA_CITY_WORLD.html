@@ -15580,12 +15580,98 @@ var HERO_ANCH={"apartment":{"bx":234,"by":347},"arsenal":{"bx":234,"by":346},"ar
 var HERO_IMG={};(function(){for(var k in HERO_SRC){var im=new Image();im.src=HERO_SRC[k];HERO_IMG[k]=im;}})();
 function drawHero(name,p){var im=HERO_IMG[name];if(!im||!im.complete||!im.naturalWidth)return false;var plate=im.naturalWidth-28,sc=TW/plate,a=HERO_ANCH[name];g.drawImage(im,p.sx-a.bx*sc,p.sy+TH/2-a.by*sc,im.naturalWidth*sc,im.naturalHeight*sc);return true;}
 /*HERO_WIRE_END*/
+
+/* ==== THE VISTA BACKDROP (8/11, WORLD lane) =================================
+   DEMO MONEY SHOT. The overlook framed the whole valley correctly and then
+   floated it on FLAT BLUE, because city mode fills with one solid colour and
+   nothing else. A map on a blue field is a map; what an overlook looks like is
+   SKY, then the far side of the basin, then the floor you are looking down on.
+
+   GROUNDED, and the grounding says RESTRAINT. Atmospheric perspective is the
+   real cue for distance -- distant things shift cool, lose contrast, lose
+   detail. But DRY DESERT AIR PRODUCES VERY LITTLE OF IT: in clear Mojave air a
+   range twenty miles off still reads crisp, which is exactly why the Vegas
+   valley looks the way it does from the rim. So the haze here is deliberately
+   THIN. The one thing that is not thin is the INVERSION LAYER: a basin ringed
+   by mountains traps a brown dust haze low over the floor, and that band is a
+   real, observed Las Vegas feature rather than a painterly flourish.
+
+   ONE SUN, THE WORLD'S. Every colour below is picked off isNight() and the same
+   clock the rest of the app reads, so the vista is a night vista at night.
+   NO ART IS COOKED: gradients and a silhouette derived from the seed's own rim.
+   ========================================================================= */
+function vistaBackdrop(plateTop){
+  const night=isNight(), W=cv.width, H=cv.height;
+  /* 1. SKY. A real desert sky is much deeper overhead than at the horizon --
+     the band near the ground is washed pale by the long air path. */
+  const sky=g.createLinearGradient(0,0,0,H*0.62);
+  if(night){ sky.addColorStop(0,'#070b14'); sky.addColorStop(0.55,'#0d1524'); sky.addColorStop(1,'#1b2436'); }
+  else     { sky.addColorStop(0,'#2f6d9e'); sky.addColorStop(0.52,'#6ea3c4'); sky.addColorStop(1,'#c8cfc9'); }
+  g.fillStyle=sky; g.fillRect(0,0,W,H);
+
+  /* 2. THE FAR SIDE OF THE BASIN. Las Vegas is a bowl: whichever rim you stand
+     on, there is another range across the valley. Two ridgelines, the far one
+     paler and flatter than the near one -- that difference IS the atmospheric
+     perspective, applied thinly because the air is dry.
+     THE SILHOUETTE IS DERIVED FROM THE SEED (MAP LAW: Claude never designs map
+     layouts). It is a deterministic ridge profile off om.seed, not a shape
+     anybody authored. */
+  /* WHERE THE HORIZON ACTUALLY IS, ASKED NOT GUESSED. First cut put the ridges
+     at a fixed fraction of the screen and the valley plate drew straight over
+     them -- ranges behind a city you are looking DOWN on. The plate's far corner
+     is cell (0,0), which projects to exactly oy, so that IS the horizon: the far
+     side of the basin has to meet the far edge of the floor. Clamped so a very
+     high or very low framing still leaves sky to see. */
+  const horizon=Math.max(Math.round(H*0.10),
+                Math.min(Math.round(H*0.70), Math.round(plateTop)));
+  /* A RANGE IS NOT A SAWTOOTH. The first cut sampled one frequency per step and
+     drew an even row of spikes, which reads as a graph, not as mountains. Real
+     ranges are a few big massifs with smaller shoulders on them, so this sums
+     THREE octaves: a long wavelength that makes the massifs, a middle one for
+     shoulders, and a short one for the ragged skyline. Deterministic off
+     om.seed -- MAP LAW, the shape is the seed's, never authored by me. */
+  function ridge(yBase,amp,step,col,seedMix){
+    g.fillStyle=col; g.beginPath(); g.moveTo(0,H);
+    const n=(k,m)=>(((om.seed^Math.imul(k+m,2654435761))>>>9)/8388608);
+    /* smooth interpolation inside an octave, so a massif is a mass, not a spike */
+    const oct=(x,wav,m)=>{ const t=x/wav, i=Math.floor(t), f=t-i;
+      const a=n(i,m), b=n(i+1,m), u=f*f*(3-2*f); return a+(b-a)*u; };
+    for(let x=0;x<=W;x+=step){
+      const v = oct(x, W*0.55, seedMix)*0.62      /* the massifs */
+              + oct(x, W*0.17, seedMix+31)*0.26   /* shoulders */
+              + oct(x, W*0.045, seedMix+97)*0.12; /* the ragged skyline */
+      g.lineTo(x, Math.round(yBase-v*amp));
+    }
+    g.lineTo(W,H); g.closePath(); g.fill();
+  }
+  ridge(horizon-Math.round(H*0.050), H*0.115, 6,
+        night?'#141b28':'#8fa2ad', 11);            /* FAR range: pale, low contrast */
+  ridge(horizon,                    H*0.085, 5,
+        night?'#0e1420':'#6d7d78', 977);           /* NEAR range: darker, closer */
+
+  /* 3. THE INVERSION. A brown dust layer sitting on the valley floor, thickest
+     right at the base of the ranges and gone by mid-frame. This is the one
+     heavy atmospheric in a Mojave view, and it is the one that is actually
+     there. */
+  if(!night){
+    const inv=g.createLinearGradient(0,horizon-H*0.02,0,horizon+H*0.16);
+    inv.addColorStop(0,'rgba(196,168,120,0.00)');
+    inv.addColorStop(0.35,'rgba(188,158,110,0.30)');
+    inv.addColorStop(1,'rgba(180,150,105,0.00)');
+    g.fillStyle=inv; g.fillRect(0,horizon-H*0.02,W,H*0.18);
+  }
+}
+
 function renderCity(){
   const N=om.n;
   const ox=Math.round(cv.width/2-(city.x-city.y)*TW/2+panX), oy=Math.round(cv.height/2-(city.x+city.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
   const night=isNight(); window.__LAMPQ=null;
   if(UNDERV){ g.fillStyle='#0a0806'; g.fillRect(0,0,cv.width,cv.height); drawUnder(ox,oy); return; }
-  g.fillStyle=night?'#101826':'#3a6a8a'; g.fillRect(0,0,cv.width,cv.height);
+  /* THE VISTA GETS A REAL BACKDROP; the normal city view keeps its flat field.
+     A map on flat blue is a map -- an overlook is sky, then the far side of the
+     basin, then the floor. Only paid for when the moment is actually open. */
+  if(typeof VISTA!=='undefined' && VISTA && typeof vistaBackdrop==='function'){ vistaBackdrop(oy); }
+  else { g.fillStyle=night?'#101826':'#3a6a8a'; g.fillRect(0,0,cv.width,cv.height); }
   // view radius auto-scales with zoom: enough slots to fill the screen at the
   // current tile size, so zooming out reveals the whole valley, in caps the work.
   const R=Math.min(N,Math.ceil(Math.max((cv.width+2*Math.abs(panX))/TW,(cv.height+2*Math.abs(panY))/TH))+3);
