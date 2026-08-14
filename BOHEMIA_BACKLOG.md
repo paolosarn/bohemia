@@ -1270,6 +1270,28 @@ GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
    the blob's export flow made one-tap; true cloud lands with the ship-
    vehicle ruling [PENDING Paolo ~month 8]. | eviction scenario simulated +
    survived via persisted storage, gated | — | no.
+   AMENDED 8/13 (sweep 8 catch — records/BOHEMIA_RESEARCH_THE_HOME_
+   SCREEN_IS_THE_SAVE_8_13_26.md): THE STRONG FIX WAS NEVER ROUTED. The
+   save module's own comment already knows a HOME SCREEN install is
+   EXEMPT from the 7-day wipe (WebKit primary), but the alpha ships no
+   manifest, no apple meta tags, no icon — so add-to-home-screen today
+   makes a Safari bookmark and buys NOTHING. Ship: manifest.webmanifest
+   (name BOHEMIA, standalone, portrait, start_url = THE ONE LINK — the
+   icon IS the one link with a face) + apple-mobile-web-app metas +
+   apple-touch-icon drafted from approved art; ONE install card at the
+   FIRST sleep-save (engaged-moment timing; once, then a quiet corner
+   affordance) — EARLY because iOS gives the installed app a SEPARATE
+   storage silo (Safari progress does not carry over; export/import is
+   the v1 crossing, Cache Storage bridge optional later); status()
+   already reports evictionRisk + navigator.standalone, surface it
+   (installed = "your save is safe here"). pages_publish: manifest +
+   icon live in slices/ and get bound into the gate's copy-list check.
+   Demo-adjacent-critical: the friends round is exactly when saves must
+   survive a week idle, and the icon-on-a-friend's-phone is the "feels
+   like a real game" delta. persist()+export half stays as the Safari-
+   mode floor. | installed app launches standalone from the icon, save
+   survives a simulated eviction window, gated | icon look = judgeable
+   in the field, he corrects | no (ship it, he corrects the icon).
 0g. GDD MECHANICS ROUTED 8/4 (records/BOHEMIA_GDD_MECHANICS_LEDGER_8_4_26.md)
    *** AMENDED 8/12 BY PAOLO'S HEALING RULING (laws/BOHEMIA_ADDENDUM_
    HEALING_IS_A_BIG_DEAL_8_12_26.md, LOCKED): the one-bar system now

@@ -240,3 +240,44 @@ records/BOHEMIA_RESEARCH_PLAYED_ATTACHMENT_8_13_26.md
 [Confidence: craft sources primary/secondary, high; IVE replicated with
 published nuance; transfer is my inference, flagged.]
 HIGH-WATER MARK: swept through main @ a1bca12 (plus this sweep's own push)
+
+## SWEEP 8 — 8/13/26 (his v3 prompt)
+DELTA: 17 commits, dense and healthy. THE SIGNATURE MECHANIC EXISTS (the
+world routes around the body — succession skeleton live); THE VALLEY
+REMEMBERS (standing survives the night, the phone shows why); 66
+reaction lines over three formerly-mute systems + the barks were NEVER
+AUDIBLE (three cut wires found and fixed — approved-but-unused struck
+again and a lane killed it); VOICE MOOD (people sound like what they
+mean); eleventh family wired (pools drained for good); QUEST 22 off 126
+never-opened studies; LAB measured the Civ 5 tech tree against our boss
+ladder (shape wrong, not contents — LAB's own routing). SELF-CAUGHT
+CROSS-LANE EVENT, resolved RIGHT: the quests lane's tool re-run deleted
+the SOUNDS lane's hand fix inside a generated block; only the victim's
+gate noticed; the fix now lives in the generating tool, credited, with
+the rule stated in the commit — a fix that lives only in generated
+output dies at the next regeneration. CROWD gate measured flaky (15/16
+then 16/16 twice on an unchanged tree) — recorded by the lane for the
+gate's owner with fixes; not re-surfaced here per cost law.
+COLLISIONS: none beyond the self-caught-and-fixed one. My routed items
+(CITY P0-SKY, field surgery, played-attachment) await their lanes' next
+GO — expected, not drift.
+PRIOR CATCHES: all delegated; fresh hunt legal.
+THE CATCH (lens: the platform under the game; both aisles):
+QUESTION: is persist()+export really the strongest save-eviction fix?
+FINDINGS: WebKit primary — home-screen web apps are EXEMPT from the
+7-day storage wipe; the save module's own comment KNOWS this, but the
+alpha ships no manifest/meta/icon, so add-to-home-screen today is a
+bookmark that buys nothing. Landmine: iOS standalone gets a SEPARATE
+storage silo (install late = progress stranded in Safari), which
+inverts timing — the install card belongs EARLY, at the first
+sleep-save. Industry data: engaged-moment custom prompts multiply
+installs 3-6x; installed users retain 2-3x (direction trusted, numbers
+soft). CHALLENGE FINDING: the eviction problem and the feels-like-a-
+real-app problem are the SAME one-file fix, and it was never routed
+because it looks like marketing. ROUTED: RUN 00b amended (manifest +
+metas + drafted icon + first-sleep-save card + pages_publish binding;
+ONE-LINK LAW untouched — the icon IS the link). Record: records/
+BOHEMIA_RESEARCH_THE_HOME_SCREEN_IS_THE_SAVE_8_13_26.md
+[Confidence: platform facts primary, high; retention multipliers
+medium, not load-bearing.]
+HIGH-WATER MARK: swept through main @ 825e5d3 (plus this sweep's push)

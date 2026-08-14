@@ -18045,3 +18045,17 @@ SHARED -2 render-pixel unattributed 34% drop, PEOPLE scene_gate-vs-8/11-
 attempt-law reconcile (wordless stays wordless BY CITATION; the father's
 wake-up line gets its draft). Record: records/BOHEMIA_RESEARCH_PLAYED_
 ATTACHMENT_8_13_26.md; ledger sweep 7.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/13 (d) — SWEEP 8. Fleet dense and healthy (signature
+mechanic live, valley remembers, mute systems given mouths, eleventh
+family); one cross-lane deletion self-caught and fixed RIGHT by the
+quests lane (fixes belong in the generating tool). THE CATCH: THE HOME
+SCREEN IS THE SAVE — WebKit exempts installed home-screen apps from the
+7-day storage wipe (the exact failure RUN 00b fears), the save module's
+comment already knows it, and the alpha ships none of the four small
+things (manifest, metas, icon, card) that make install real; plus the
+iOS silo landmine means the card must come EARLY (first sleep-save) or
+installing strands progress in Safari. RUN 00b amended with the full
+work order; ONE-LINK LAW untouched. Record: records/BOHEMIA_RESEARCH_
+THE_HOME_SCREEN_IS_THE_SAVE_8_13_26.md; ledger sweep 8.
