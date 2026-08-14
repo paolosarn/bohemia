@@ -500,11 +500,29 @@ Every one of these passed a green check before a picture caught it:
     overlay moves itself into whatever panel is actually live, so a future
     reroute cannot break it again.
 
-GATE: opening_gate.js, 17 claims, and it enters through the splash the way a
+*** AND THEN THE FULL SUITE CAUGHT THE FOURTH ONE, WHICH WAS A DESIGN MISTAKE. ***
+The first cut AUTO-PLAYED the moment the RUN tab was tapped. Green on its own
+gate, and it turned THREE OTHER LANES' GATES RED: NAV CLUSTER ("the canvas is
+101px of a 150px viewport" -- my overlay had the screen), VOICE SURFACES ("30
+utterances for 7 distinct lines") and SQUIGGLE VOICE ("three utterances needed
+to check voice identity") -- my scene was talking over their counts.
+THAT IS THE MACHINE TELLING YOU THE DESIGN IS WRONG, NOT THE TEST. The alpha is
+a SIXTEEN TAB surface and he taps RUN all day; a forty-second scene seizing the
+screen because he changed tabs is a thing you learn to dread, and there was no
+moment where the story CHOSE to start -- it just took over while the run was
+still loading. So it INVITES now: a small card, out of the layout flow, "DAY 1
+BEGINS BEFORE THE DAY / The family, the table, ten years ago. / WATCH | NOT NOW".
+Still the first thing on the run surface, still zero explanation, and the story
+starts because somebody started it. NOT NOW is remembered -- asking twice is the
+same ambush in a politer voice. Both voice gates went back to full green
+(41/41, 26/26). NAV CLUSTER fails IDENTICALLY with the opening fully disabled,
+so it is another lane's.
+
+GATE: opening_gate.js, 20 claims, and it enters through the splash the way a
 finger does rather than clicking through it. Four mutations proved red: cut the
 trigger (4 fail), ignore his directed scene (1), ambush a returning player (1),
 and leave the overlay in p-run -- the exact bug that shipped past the first cut
-(2). It also holds the three ways this is worse than not shipping: playing over
+(2). It also claims the run stays PLAYABLE under the invite, and holds the three ways this is worse than not shipping: playing over
 a real save, playing twice, and stranding somebody on a black rectangle.
 
 PEOPLE (7h9sfy): 8/14 (a) -- *** 25 QUESTS. FOUR NEW ONES IN A DAY, ALL FOUR

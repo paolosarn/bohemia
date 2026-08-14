@@ -131,10 +131,30 @@ function pw() {
     await page.waitForTimeout(5000);
     ok('THE OPENING DOES NOT BURN THROUGH BEHIND THE SPLASH — it waits for the door',
       !(await shown(page)), 'a scene nobody can see is a scene that did not happen');
+    ok('and it does not even OFFER itself from behind the splash',
+      await page.evaluate(() => {
+        const i = document.getElementById('openInvite');
+        return !i || getComputedStyle(i).display === 'none';
+      }));
     await enter(page);
     await tapRun(page);
+    await page.waitForTimeout(2500);
+    /* IT INVITES, IT DOES NOT AMBUSH. Auto-playing on a tab tap trampled three
+       other lanes' gates (NAV CLUSTER lost the canvas, both voice gates lost
+       their utterance counts) and was wrong for him anyway on a sixteen-tab
+       surface he taps all day. The claim is that a fresh player is OFFERED it. */
+    const invited = await page.evaluate(() => {
+      const i = document.getElementById('openInvite');
+      if (!i || getComputedStyle(i).display === 'none') return false;
+      const r = i.getBoundingClientRect();
+      return r.width > 80 && r.height > 20;
+    });
+    ok('TAPPING RUN WITH NO DAY IN PROGRESS OFFERS THE OPENING', invited);
+    ok('and it has NOT seized the screen — the run is playable underneath',
+      !(await shown(page)), 'a cutscene that takes the screen because you changed tabs is a thing you learn to dread');
+    await page.evaluate(() => { const w = document.getElementById('openWatch'); if (w) w.click(); });
     await page.waitForTimeout(9000);
-    ok('TAPPING RUN WITH NO SAVE PLAYS THE OPENING', await shown(page));
+    ok('TAPPING WATCH PLAYS THE OPENING', await shown(page));
     const lit = await painted(page);
     ok('and it is DRAWING — the family is on screen, not an empty canvas (' + lit + ' lit samples)',
       lit > 60, 'pixels sampled off the real canvas');
@@ -182,8 +202,12 @@ function pw() {
     await enter(page);
     await tapRun(page);
     await page.waitForTimeout(4500);
-    ok('A PLAYER WITH A SAVE IS NOT SHOWN THE BEGINNING — they are mid-story, and it would read as a bug',
-      !(await shown(page)));
+    const inv = p => p.evaluate(() => {
+      const i = document.getElementById('openInvite');
+      return !!i && getComputedStyle(i).display !== 'none';
+    });
+    ok('A PLAYER WITH A SAVE IS NOT EVEN OFFERED THE BEGINNING — they are mid-story',
+      !(await shown(page)) && !(await inv(page)));
     await page.close();
   }
   {
@@ -194,8 +218,11 @@ function pw() {
     await enter(page);
     await tapRun(page);
     await page.waitForTimeout(4500);
-    ok('and somebody who has already seen it never sees it again',
-      !(await shown(page)));
+    ok('and somebody who has already seen it is never asked again',
+      !(await shown(page)) && !(await page.evaluate(() => {
+        const i = document.getElementById('openInvite');
+        return !!i && getComputedStyle(i).display !== 'none';
+      })));
     await page.close();
   }
 

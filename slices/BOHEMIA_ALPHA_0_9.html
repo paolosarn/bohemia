@@ -1035,6 +1035,18 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
                 border:1px solid #3a2f1c;border-radius:4px;background:rgba(12,10,7,.8);
                 color:#9a8a5e;font:11px ui-monospace,monospace;letter-spacing:1px">SKIP</button>
       </div>
+      <div id="openInvite" style="display:none;position:absolute;left:0;right:0;top:0;z-index:39;
+           padding:9px 12px;background:linear-gradient(#0d0b07,rgba(13,11,7,.94));
+           border-bottom:1px solid #2a2114;font:12px/1.45 ui-monospace,monospace;color:#cdbd8a">
+        <div style="color:#d8b45a;letter-spacing:2px;font-size:11px">DAY 1 BEGINS BEFORE THE DAY</div>
+        <div style="margin-top:3px;color:#8d8168">The family, the table, ten years ago.</div>
+        <div style="margin-top:7px;display:flex;gap:7px">
+          <button id="openWatch" style="padding:5px 12px;border:1px solid #d8b45a;border-radius:4px;
+                  background:#d8b45a;color:#191308;font:11px ui-monospace,monospace;letter-spacing:1px">&#9654; WATCH</button>
+          <button id="openNot" style="padding:5px 12px;border:1px solid #3a2f1c;border-radius:4px;
+                  background:transparent;color:#8d8168;font:11px ui-monospace,monospace;letter-spacing:1px">NOT NOW</button>
+        </div>
+      </div>
 <!-- ===== END BOHEMIA OPENING OVERLAY ===== -->
       <iframe id="runFrame" data-src="BOHEMIA_RUN_CURRENT.html" title="the run" style="width:100%;height:100%;border:0;background:#0b0d09"></iframe></div>
     <div class="panel" id="p-slice"><iframe id="sliceFrame" data-src="BOHEMIA_CURRENT_SLICE.html" title="live slice" style="width:100%;height:100%;border:0;background:#0d0d12"></iframe></div>
@@ -22135,16 +22147,57 @@ function openStart(){
   });
 }
 
+/* *** IT INVITES, IT DOES NOT AMBUSH -- AND THAT IS A DESIGN FIX, NOT A TEST FIX.
+   The first cut auto-played the moment the RUN tab was tapped. It worked, and it
+   was wrong twice over:
+     FOR HIM -- the alpha is a SIXTEEN TAB dev surface and he taps RUN a hundred
+       times a day. A forty-second scene seizing the screen because he changed
+       tabs is a thing you learn to dread, and there was no moment where the
+       story chose to start; it just took over while the run was still loading.
+     FOR EVERYTHING ELSE -- it trampled every gate that drives the run. Measured:
+       NAV CLUSTER "the canvas is 101px of a 150px viewport" (my overlay had the
+       screen), VOICE SURFACES "30 utterances for 7 distinct lines" and VOICE
+       "three utterances needed to check voice identity" (my scene was talking
+       over their count). Three other lanes' gates, red, because of me.
+   A small card, out of the layout flow, that OFFERS the opening. Still the first
+   thing on the run surface for a fresh player, still zero explanation, and now
+   the story starts because somebody chose to start it. */
+function openInviteShow(){
+  if(!openShould()) return;
+  var host=openHost(), inv=document.getElementById('openInvite');
+  if(!host || !inv) return;
+  if(openFrontUp()){
+    var tries=0, iv=setInterval(function(){
+      if(!openFrontUp()){ clearInterval(iv); openInviteShow(); return; }
+      if(++tries>600) clearInterval(iv);
+    }, 500);
+    return;
+  }
+  if(getComputedStyle(host).position==='static') host.style.position='relative';
+  if(inv.parentElement!==host) host.appendChild(inv);
+  inv.style.display='block';
+}
+function openInviteHide(){
+  var inv=document.getElementById('openInvite');
+  if(inv) inv.style.display='none';
+}
+
 (function(){
   var sk=document.getElementById('openSkip');
   if(sk) sk.addEventListener('click', function(e){ e.stopPropagation(); openDone(); });
+  var w=document.getElementById('openWatch');
+  if(w) w.addEventListener('click', function(e){ e.stopPropagation(); openInviteHide(); openStart(); });
+  var n=document.getElementById('openNot');
+  /* NOT NOW is a real answer and it is remembered. Asking twice is the same
+     ambush in a politer voice, and the CUTSCENE tab is where it lives forever. */
+  if(n) n.addEventListener('click', function(e){ e.stopPropagation(); openInviteHide(); openMarkSeen(); });
   /* THE TRIGGER. The run frame is lazy-loaded when the RUN tab is tapped (and
-     preloaded on a timer), so the opening hangs off the same tap rather than
-     off page load -- otherwise it would play over the splash for somebody who
-     came to look at CLOTHES. */
+     preloaded on a timer), so this hangs off the same tap rather than off page
+     load -- otherwise it would sit over the splash for somebody who came to
+     look at CLOTHES. */
   var t=document.getElementById('tabs'); if(!t) return;
   var rt=t.querySelector('.tab[data-p=run]');
-  if(rt) rt.addEventListener('click', function(){ setTimeout(openStart, 60); });
+  if(rt) rt.addEventListener('click', function(){ setTimeout(openInviteShow, 60); });
 })();
 </script>
 <!-- ===== END BOHEMIA OPENING ===== -->
