@@ -22,13 +22,13 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 64 |
-| SHOWN (part) | 7 | 25 |
+| SHOWN (all) | 1 | 67 |
+| SHOWN (part) | 7 | 24 |
 | LOADED ONLY | 18 | 12 |
-| NO TRACE | 73 | 14 |
+| NO TRACE | 73 | 13 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **99** | **130** |
+| **total** | **99** | **131** |
 
 **273.6 MB of 276.6 MB** sampled does not reach the shown surface.
 
@@ -141,7 +141,7 @@ verbatim.
 | `engine/bohemia_light_registry.js` | engine | 0.01 |
 | `engine/bohemia_prop_scale.js` | engine | 0.01 |
 
-*(27 more, see the .json)*
+*(26 more, see the .json)*
 
 ## REACHES HIM
 
@@ -193,6 +193,7 @@ verbatim.
 | `engine/bohemia_bq.js` | engine | 22/22 |
 | `banks/BOHEMIA_MUSIC_BATCH9_DROPIN.txt` | bank | 18/23 |
 | `engine/bohemia_floorplan.js` | engine | 15/15 |
+| `engine/bohemia_daycycle.js` | engine | 14/14 |
 | `banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt` | bank | 13/27 |
 | `engine/bohemia_engine.js` | engine | 12/32 |
 | `engine/bohemia_bodyvar.js` | engine | 11/11 |
@@ -206,4 +207,3 @@ verbatim.
 | `engine/bohemia_scene.js` | engine | 4/4 |
 | `engine/bohemia_stage.js` | engine | 4/4 |
 | `banks/BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt` | bank | 3/8 |
-| `banks/BOHEMIA_SFX_APPROVED_7_30_26.json` | bank | 3/10 |

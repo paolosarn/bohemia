@@ -1,5 +1,5 @@
 {
- "sources": 229,
+ "sources": 230,
  "total_mb": 276.6,
  "unreached_mb": 273.6,
  "rows": [
@@ -1131,9 +1131,9 @@
   {
    "path": "engine/bohemia_daycycle.js",
    "kind": "engine",
-   "verdict": "NO TRACE",
+   "verdict": "SHOWN (all)",
    "samples": 14,
-   "hits_shown": 0,
+   "hits_shown": 14,
    "hits_loaded": 0,
    "bytes": 1251
   },
@@ -1869,9 +1869,9 @@
   {
    "path": "engine/bohemia_succession.js",
    "kind": "engine",
-   "verdict": "SHOWN (part)",
+   "verdict": "SHOWN (all)",
    "samples": 3,
-   "hits_shown": 2,
+   "hits_shown": 3,
    "hits_loaded": 2,
    "bytes": 13696
   },
@@ -2045,6 +2045,15 @@
    "hits_shown": 32,
    "hits_loaded": 32,
    "bytes": 10031
+  },
+  {
+   "path": "engine/bohemia_weather.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 2,
+   "hits_shown": 2,
+   "hits_loaded": 2,
+   "bytes": 6992
   },
   {
    "path": "engine/bohemia_world.js",
