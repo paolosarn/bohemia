@@ -1,5 +1,5 @@
 {
- "sources": 228,
+ "sources": 229,
  "total_mb": 276.6,
  "unreached_mb": 273.6,
  "rows": [
@@ -1289,6 +1289,15 @@
    "hits_shown": 0,
    "hits_loaded": 0,
    "bytes": 24574
+  },
+  {
+   "path": "engine/bohemia_fuse.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 2,
+   "hits_shown": 2,
+   "hits_loaded": 2,
+   "bytes": 11282
   },
   {
    "path": "engine/bohemia_garage.js",
