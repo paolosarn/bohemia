@@ -996,7 +996,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/14h - GATES IN THE FENCES, SKIRTS ON THE TRAILERS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/14a - THE WORLD USES ITS OWN EARS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -16943,9 +16943,21 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
          this document, so the run tells us one happened and we take the chance
          to start the audio while the browser may still count it as gestured. */
       if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
-      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d);
+      if(d.type==='BOHEMIA_WHERE'){
+        /* OCCLUSION HAD NO LISTENER (8/14). placeSound compares where a sound
+           was made against where the player is standing, and nothing ever told
+           it the second half -- so the wall cue shipped and could never fire.
+           The run has been reporting `inside` every four seconds since 8/1 and
+           this handler used it for the ambience bed and threw the rest away.
+           No new message, no new run code: the fact was already arriving. */
+        LISTENER.inside = !!d.inside;
+        AMB.where(d);
         if(d.space && SPACES[d.space]) SPACE=d.space;   /* the run says where you stand */ musicPhase(d); timePass(d); return; }
       if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
+      if(d.type==='BOHEMIA_SFX_AT'){
+        placeSound(d.ev, { dx:d.dx, dy:d.dy, dist:d.dist,
+                           inside:d.inside, when:d.when||null });
+        return; }
       if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
     }catch(e){}
   });
@@ -17107,8 +17119,14 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
      game does not have.
      CUTOFF, not fade-to-nothing: below a hearable gain it plays NOTHING rather
      than a sound too quiet to identify. A sound you cannot place is noise. */
-  var NPC_PLAYED=0;
+  var NPC_PLAYED=0, NPC_PLACED=[];
   window.__npcPlayed=function(){ return NPC_PLAYED; };
+  /* A LIST, NOT THE LAST ONE (8/14). A neighbour keeps walking on his own
+     schedule, so "the most recent placement" is whatever step he happened to
+     take after a test finished staging -- measured: a step staged at 3 tiles
+     read back as gain 0.172, which is nearly nine tiles out. A test wants the
+     step it asked for, so it gets the whole recent list and picks. */
+  window.__npcPlaced=function(from){ return NPC_PLACED.slice(from||0); };
   /* ===== WHERE A SOUND IS (8/13) =========================================
      THE VALLEY WAS A FLAT STEREO FIELD. Every sound in the game arrived at the
      same level from the same nowhere, except one: a neighbour's footstep, which
@@ -17214,7 +17232,19 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
          second copy here is how the two drift and only one of them gets fixed.
          The NPC_PLAYED counter above still increments here, because it counts
          what the NEIGHBOUR played specifically and placeSound serves everyone. */
-      placeSound(ev, { dx:(+d.dx||0), dist:r, inside:false });
+      /* WHAT WAS ACTUALLY PLACED, so a test can attribute instead of guess.
+         The shared SFX bus cannot answer "how loud was the NEIGHBOUR" -- it
+         cannot attribute a peak to a particular walker -- and while chasing
+         that, this recording is what found the actual bug: a step staged three
+         tiles away came back at gain 0.208, exactly 0.377 x 0.55, because the
+         listener still believed the player was indoors and a wall was being
+         applied that no longer existed. A blunt ruler had been showing that
+         intermittently as "distance does not attenuate". The ACOUSTIC proof
+         lives in spatial_sound_gate, which renders offline in isolation; what
+         belongs here is ATTRIBUTION -- this step, that distance, this gain. */
+      var _p = placeSound(ev, { dx:(+d.dx||0), dist:r, inside:false });
+      if(_p){ NPC_PLACED.push({ dist:_p.dist, gain:_p.gain, cut:_p.cut, pan:_p.pan });
+              if(NPC_PLACED.length>40) NPC_PLACED.shift(); }
     }catch(e){}
   }
 
@@ -17295,6 +17325,20 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
           this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
         }
         var ev=this.pick();
+        /* THE RARE ONES HAPPEN SOMEWHERE (8/14). His own briefs say it: a
+           generator is "somewhere", a dog is "far off", a gust comes "through".
+           All three arrived dead centre at full level, which is the one thing
+           those descriptions rule out. The BED stays exactly where it was -- an
+           air tone is the room you are in and has no direction -- but anything
+           that is an EVENT out in the valley gets a place.
+           THE DISTANCE IS A DIAL AND NOTHING DECIDED IT BUT TASTE: far enough
+           to read as "out there", near enough to stay information. */
+        if(ev!==this.kind){
+          var side=(Math.random()*2-1);
+          placeSound(ev, { dx: side*7, dist: 6+Math.random()*9, inside:false },
+                     this.bus);
+          this.last=ev; return;
+        }
         var set=APPROVED[ev]; if(!set||!set.length) return;
         var i=set[(Math.random()*set.length)|0];
         var v=vec(ev,i); if(!v) return;

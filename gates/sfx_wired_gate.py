@@ -296,7 +296,8 @@ const METER=`(function(){
         window.__NPC.push({dx:e.data.dx,dist:e.data.dist}); }catch(_){}}); });
   async function neighbourAt(off){
     await p.evaluate(()=>{ window.__BPEAK=0; window.__NPC=[];
-      window.__NP0 = window.__npcPlayed ? window.__npcPlayed() : 0; });
+      window.__NP0 = window.__npcPlayed ? window.__npcPlayed() : 0;
+      window.__PL0 = window.__npcPlaced ? window.__npcPlaced().length : 0; });
     await fr.evaluate(async(o)=>{
       var a=SIM.outAgents()[0]; if(!a) return;
       a.loc.x=px+o; a.loc.y=py; await new Promise(r=>setTimeout(r,350));
@@ -313,7 +314,15 @@ const METER=`(function(){
                 a flake, and an unsound ruler. */
              played: (await p.evaluate(()=>window.__npcPlayed?window.__npcPlayed():0))
                      - (await p.evaluate(()=>window.__NP0||0)),
-             pan:  await p.evaluate(()=>window.__NPC.length?window.__NPC[0].dx:null) };
+             pan:  await p.evaluate(()=>window.__NPC.length?window.__NPC[0].dx:null),
+             /* WHAT THE NEIGHBOUR ACTUALLY PLACED: distance, gain and filter
+                cutoff, straight off the placement call. Attribution the shared
+                bus cannot give. */
+             /* EVERY PLACEMENT SINCE STAGING, so the caller can take the one
+                it actually asked for instead of whatever step the neighbour
+                took next on his own schedule. */
+             placed: await p.evaluate(()=>window.__npcPlaced
+                       ? window.__npcPlaced(window.__PL0||0) : []) };
   }
   out.npcNear = await neighbourAt(3);
   out.npcMid  = await neighbourAt(6);
@@ -885,13 +894,51 @@ def main():
     # 246/246. Demand the RATIO the inverse law actually predicts. At 3 vs 6
     # tiles, 1/(1+0.55r) gives 0.377 vs 0.233, so mid must land near 60% of near;
     # 0.75 leaves room for candidate variance and still catches a flat mix.
+    # THE BUS PEAK IS REPORTED, NOT ASSERTED (8/14) -- and the reason is worth
+    # writing down straight, because the first version of this comment got it
+    # wrong. It said the check was noisy dice: the max over a window holding a
+    # variable number of steps, each one of five candidates picked at random.
+    # That is true and it is not what was happening. The exact ruler added below
+    # showed the near step being placed at gain 0.208, which is precisely the
+    # 0.377 the inverse law gives TIMES the 0.55 an occluder takes -- the
+    # listener still believed the player was indoors, because that fact only
+    # crossed every four seconds. A real bug, intermittently visible through a
+    # blunt instrument, which is the worst way for a bug to be visible.
+    # With the threshold now reported the instant it is crossed, this reads 52%
+    # where the law predicts 62%. It stays a NOTE because the shared bus still
+    # cannot attribute a peak to a particular walker, and the assertion below
+    # can.
+    # WHAT THIS GATE CAN HONESTLY CLAIM IS ATTRIBUTION -- this step, that
+    # distance, this gain -- and the neighbour now records exactly that. The
+    # ACOUSTIC proof that a gain becomes a quieter, duller sound is
+    # spatial_sound_gate's, which renders one candidate offline in isolation
+    # where no dice are involved.
     if (near.get('peak') or 0) > 0 and (mid.get('peak') or 0) > 0:
-        ratio = mid['peak'] / near['peak']
-        chk(ratio < 0.75,
-            'DISTANCE DOES NOT ATTENUATE: 3 tiles %.4f vs 6 tiles %.4f (%.0f%%). The '
-            'inverse law is the whole point -- without it everything sounds equally '
-            'close and the block turns into a wall of feet.'
-            % (near['peak'], mid['peak'], 100 * ratio))
+        print('  NOTE  bus peak 3 tiles %.4f vs 6 tiles %.4f (%.0f%%) -- reported, '
+              'not asserted; see SPATIAL SOUND for the measured acoustics'
+              % (near['peak'], mid['peak'], 100 * mid['peak'] / near['peak']))
+    def staged(rows, want):
+        # THE STEP THE TEST ASKED FOR, not the one he took next. He keeps
+        # walking, so the list has to be searched rather than tailed.
+        rows = rows or []
+        hits = [r for r in rows if abs(r['dist'] - want) <= 1.2]
+        return hits[0] if hits else None
+    ln, lm = staged(near.get('placed'), 3), staged(mid.get('placed'), 6)
+    chk(bool(ln) and bool(lm),
+        'the neighbour never placed a step at the staged distance, so nothing can '
+        'be attributed (3 tiles: %s, 6 tiles: %s)'
+        % ([round(r['dist'], 1) for r in (near.get('placed') or [])],
+           [round(r['dist'], 1) for r in (mid.get('placed') or [])]))
+    if ln and lm:
+        gr = lm['gain'] / max(1e-9, ln['gain'])
+        chk(gr < 0.75,
+            'DISTANCE DOES NOT ATTENUATE: the step 3 tiles out was placed at gain '
+            '%.3f and the one 6 tiles out at %.3f (%.0f%%). The inverse law is the '
+            'whole point -- without it everything sounds equally close and the '
+            'block turns into a wall of feet.' % (ln['gain'], lm['gain'], 100 * gr))
+        chk(lm['cut'] < ln['cut'],
+            'the further step was not made duller (%.0f Hz at 6 tiles vs %.0f at 3)'
+            % (lm['cut'], ln['cut']))
     chk(near.get('pan') is not None and near.get('pan') > 0,
         'the neighbour to the RIGHT did not report a positive x offset, so nothing '
         'can pan him there')

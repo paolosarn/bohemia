@@ -180,6 +180,20 @@ def main():
         print('  0 passed, 1 FAILED')
         return 1
     d = json.loads(line[-1])
+    # READ THE SHIPPED FILES, NOT THE GENERATOR. A patch tool saying it wired
+    # something is the tool's opinion; the alpha and the built run are what runs.
+    alpha = open(os.path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html'),
+                 encoding='utf8', errors='ignore').read()
+    runp = os.path.join(ROOT, 'slices', 'BOHEMIA_RUN_CURRENT.html')
+    run = open(runp, encoding='utf8', errors='ignore').read() if os.path.exists(runp) else ''
+    d['wiring'] = {
+        'listener':   'LISTENER.inside = !!d.inside' in alpha,
+        'sfxAt':      "function sfxAt(" in run,
+        'accepts':    "BOHEMIA_SFX_AT" in alpha,
+        'doorPlaced': "sfxAt('door_drag'" in run,
+        'ambPlaced':  'placeSound(ev, { dx: side*7' in alpha,
+        'callers':    alpha.count('placeSound(') - alpha.count('function placeSound('),
+    }
     if d.get('fatal'):
         print('  > FAIL ' + d['fatal'])
         print('  0 passed, 1 FAILED')
@@ -239,6 +253,33 @@ def main():
     # ---- AND IT REFUSES RATHER THAN WHISPERING --------------------------
     ok('TOO FAR IS SILENT, not a sound too quiet to identify (%.7f)'
        % d['absurd']['rms'], d['absurd']['rms'] < 1e-6)
+
+    # ---- AND THE WORLD ACTUALLY USES IT ----------------------------------
+    # THE ENGINE EXISTING AND THE GAME USING IT ARE TWO DIFFERENT CLAIMS, and
+    # the first version of this gate only made the first one. Placement shipped
+    # on 8/13 with exactly ONE caller -- a neighbour's footstep, which was
+    # already spatial before any of it was written -- so a door across the lot
+    # still arrived dead centre at full level. Built-but-not-triggered is the
+    # defect this lane has a law about; it does not stop being that defect
+    # because the thing built is good.
+    src = d.get('wiring') or {}
+    ok('THE LISTENER IS TOLD WHERE IT IS STANDING, or occlusion can never fire '
+       'at all (%s)' % ('yes' if src.get('listener') else 'NOTHING SETS IT'),
+       src.get('listener'))
+    ok('the run can say a sound happened SOMEWHERE, not just that it happened '
+       '(%s)' % ('sfxAt' if src.get('sfxAt') else 'no such call'), src.get('sfxAt'))
+    ok('and the parent accepts it (%s)'
+       % ('BOHEMIA_SFX_AT' if src.get('accepts') else 'no handler'), src.get('accepts'))
+    ok('THE DOOR IS PLACED: it knows its own tile instead of playing from '
+       'nowhere (%s)' % ('yes' if src.get('doorPlaced') else 'still flat'),
+       src.get('doorPlaced'))
+    ok('the rare valley sounds happen out in the valley, which is what his own '
+       'briefs say -- "somewhere", "far off" (%s)'
+       % ('yes' if src.get('ambPlaced') else 'still dead centre'),
+       src.get('ambPlaced'))
+    n_callers = src.get('callers', 0)
+    ok('the placement path has more than the one caller it shipped with (%d)'
+       % n_callers, n_callers >= 3)
 
     ok('the page threw nothing: %s' % (d.get('errors') or 'clean'),
        not d.get('errors'))

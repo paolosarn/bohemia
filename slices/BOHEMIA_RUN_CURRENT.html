@@ -25685,6 +25685,27 @@ function sfx(ev,when){
   try{ if(window.parent&&window.parent!==window)
     window.parent.postMessage({type:'BOHEMIA_SFX',ev:ev,when:when||null},'*'); }catch(_e){}
 }
+/* THE SAME THING, BUT IT HAPPENED SOMEWHERE (8/14). The parent has had a full
+   placement model since 8/13 -- distance, pan, the colour of distance, and a
+   wall between you and it -- and exactly ONE caller: a neighbour's footstep,
+   which was already spatial before any of it was written. A door across the lot
+   still arrived dead centre at full level. Built-but-not-triggered is the defect
+   this lane has a law about, and shipping the engine without the callers is that
+   defect wearing a nicer commit message.
+   THE RUN INVENTS NOTHING HERE. It knows the tile a thing happened on and it
+   knows where the player is standing; the offsets below are subtraction. */
+function sfxAt(ev,gx,gy,when){
+  try{
+    if(!(window.parent&&window.parent!==window)) return;
+    var dx=0, dy=0, dist=null;
+    if(typeof gx==='number' && typeof gy==='number' &&
+       typeof px==='number' && typeof py==='number'){
+      dx=gx-px; dy=gy-py; dist=Math.sqrt(dx*dx+dy*dy);
+    }
+    window.parent.postMessage({type:'BOHEMIA_SFX_AT', ev:ev, dx:dx, dy:dy,
+      dist:dist, inside:(mode!=='ext'), when:when||null},'*');
+  }catch(_e){}
+}
 /* TELL THE PARENT A FINGER LANDED (7/31). A touch in here never reaches the
    parent's document, so the parent can be sitting with no audio at all while
    the thumb hammers the D-pad. This fires on the gesture itself, ahead of any
@@ -25733,6 +25754,24 @@ function sfxWhere(){
   }catch(_e){}
 }
 setInterval(sfxWhere, 4000);
+/* AND THE INSTANT IT CHANGES (8/14). The four-second tick is fine for the
+   ambience bed, which is a slow bed, and WRONG for occlusion, which is a
+   yes/no about the wall you just walked through. Crossing a threshold left the
+   parent believing you were still on the other side of it for up to four
+   seconds, so every sound in that window was muffled -- or not muffled -- by a
+   wall that is no longer there. MEASURED, not theorised: a neighbour's step
+   staged three tiles away came back placed at gain 0.208, which is exactly the
+   0.377 the inverse law gives times the 0.55 an occluder takes, because the
+   listener still thought it was indoors.
+   enter() and leave() are the only two doors into that state, so they say so
+   the moment they run. */
+(function(){
+  try{
+    var _enter=window.enter, _leave=window.leave;
+    if(typeof _enter==='function') window.enter=function(){ var r=_enter.apply(this,arguments); try{ sfxWhere(); }catch(_e){} return r; };
+    if(typeof _leave==='function') window.leave=function(){ var r=_leave.apply(this,arguments); try{ sfxWhere(); }catch(_e){} return r; };
+  }catch(_e){}
+})();
 
 /* YOU CAN HEAR THE PEOPLE ON YOUR BLOCK (8/2) ============================
    Every sound in this game happens AT the player. The valley has people walking
@@ -25889,6 +25928,15 @@ var DOORTICKING=false;
 function openDoor(k){ var d=doorState(k);
   if(d.state==='open'||d.state==='opening') return d;
   d.state='opening'; d.t0=Date.now();
+  /* HIS 8/9 THUMB, AT THE DOOR (8/14). doorKey() encodes the tile, so
+     the sound can say where it happened without the run inventing
+     anything. HONEST ABOUT THE SIZE OF THIS: a door the PLAYER opens is
+     always adjacent, so distance barely moves the level -- what it buys
+     is correct OCCLUSION when you open one from the street, and one
+     path, so a door somebody ELSE opens is already spatial the day the
+     game has one. The SHUT stays silent: he killed all five clacks. */
+  try{ var _dk=String(k).split(':').pop().split(',');
+       sfxAt('door_drag', +_dk[0], +_dk[1]); }catch(_e){ sfx('door_drag'); }
   sfx('door_drag');   /* his 8/9 thumb. the SHUT stays silent: he killed all five clacks */
   if(!DOORTICKING){ DOORTICKING=true; requestAnimationFrame(doorTick); }
   return d; }

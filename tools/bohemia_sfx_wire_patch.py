@@ -295,8 +295,20 @@ def parent_block(bank):
          this document, so the run tells us one happened and we take the chance
          to start the audio while the browser may still count it as gestured. */
       if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
-      if(d.type==='BOHEMIA_WHERE'){ AMB.where(d); musicPhase(d); timePass(d); return; }
+      if(d.type==='BOHEMIA_WHERE'){
+        /* OCCLUSION HAD NO LISTENER (8/14). placeSound compares where a sound
+           was made against where the player is standing, and nothing ever told
+           it the second half -- so the wall cue shipped and could never fire.
+           The run has been reporting `inside` every four seconds since 8/1 and
+           this handler used it for the ambience bed and threw the rest away.
+           No new message, no new run code: the fact was already arriving. */
+        LISTENER.inside = !!d.inside;
+        AMB.where(d); musicPhase(d); timePass(d); return; }
       if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
+      if(d.type==='BOHEMIA_SFX_AT'){
+        placeSound(d.ev, { dx:d.dx, dy:d.dy, dist:d.dist,
+                           inside:d.inside, when:d.when||null });
+        return; }
       if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
     }catch(e){}
   });
@@ -458,8 +470,14 @@ def parent_block(bank):
      game does not have.
      CUTOFF, not fade-to-nothing: below a hearable gain it plays NOTHING rather
      than a sound too quiet to identify. A sound you cannot place is noise. */
-  var NPC_PLAYED=0;
+  var NPC_PLAYED=0, NPC_PLACED=[];
   window.__npcPlayed=function(){ return NPC_PLAYED; };
+  /* A LIST, NOT THE LAST ONE (8/14). A neighbour keeps walking on his own
+     schedule, so "the most recent placement" is whatever step he happened to
+     take after a test finished staging -- measured: a step staged at 3 tiles
+     read back as gain 0.172, which is nearly nine tiles out. A test wants the
+     step it asked for, so it gets the whole recent list and picks. */
+  window.__npcPlaced=function(from){ return NPC_PLACED.slice(from||0); };
   /* ===== WHERE A SOUND IS (8/13) =========================================
      THE VALLEY WAS A FLAT STEREO FIELD. Every sound in the game arrived at the
      same level from the same nowhere, except one: a neighbour's footstep, which
@@ -565,7 +583,19 @@ def parent_block(bank):
          second copy here is how the two drift and only one of them gets fixed.
          The NPC_PLAYED counter above still increments here, because it counts
          what the NEIGHBOUR played specifically and placeSound serves everyone. */
-      placeSound(ev, { dx:(+d.dx||0), dist:r, inside:false });
+      /* WHAT WAS ACTUALLY PLACED, so a test can attribute instead of guess.
+         The shared SFX bus cannot answer "how loud was the NEIGHBOUR" -- it
+         cannot attribute a peak to a particular walker -- and while chasing
+         that, this recording is what found the actual bug: a step staged three
+         tiles away came back at gain 0.208, exactly 0.377 x 0.55, because the
+         listener still believed the player was indoors and a wall was being
+         applied that no longer existed. A blunt ruler had been showing that
+         intermittently as "distance does not attenuate". The ACOUSTIC proof
+         lives in spatial_sound_gate, which renders offline in isolation; what
+         belongs here is ATTRIBUTION -- this step, that distance, this gain. */
+      var _p = placeSound(ev, { dx:(+d.dx||0), dist:r, inside:false });
+      if(_p){ NPC_PLACED.push({ dist:_p.dist, gain:_p.gain, cut:_p.cut, pan:_p.pan });
+              if(NPC_PLACED.length>40) NPC_PLACED.shift(); }
     }catch(e){}
   }
 
@@ -646,6 +676,20 @@ def parent_block(bank):
           this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
         }
         var ev=this.pick();
+        /* THE RARE ONES HAPPEN SOMEWHERE (8/14). His own briefs say it: a
+           generator is "somewhere", a dog is "far off", a gust comes "through".
+           All three arrived dead centre at full level, which is the one thing
+           those descriptions rule out. The BED stays exactly where it was -- an
+           air tone is the room you are in and has no direction -- but anything
+           that is an EVENT out in the valley gets a place.
+           THE DISTANCE IS A DIAL AND NOTHING DECIDED IT BUT TASTE: far enough
+           to read as "out there", near enough to stay information. */
+        if(ev!==this.kind){
+          var side=(Math.random()*2-1);
+          placeSound(ev, { dx: side*7, dist: 6+Math.random()*9, inside:false },
+                     this.bus);
+          this.last=ev; return;
+        }
         var set=APPROVED[ev]; if(!set||!set.length) return;
         var i=set[(Math.random()*set.length)|0];
         var v=vec(ev,i); if(!v) return;
@@ -745,6 +789,27 @@ function sfx(ev,when){
   try{ if(window.parent&&window.parent!==window)
     window.parent.postMessage({type:'BOHEMIA_SFX',ev:ev,when:when||null},'*'); }catch(_e){}
 }
+/* THE SAME THING, BUT IT HAPPENED SOMEWHERE (8/14). The parent has had a full
+   placement model since 8/13 -- distance, pan, the colour of distance, and a
+   wall between you and it -- and exactly ONE caller: a neighbour's footstep,
+   which was already spatial before any of it was written. A door across the lot
+   still arrived dead centre at full level. Built-but-not-triggered is the defect
+   this lane has a law about, and shipping the engine without the callers is that
+   defect wearing a nicer commit message.
+   THE RUN INVENTS NOTHING HERE. It knows the tile a thing happened on and it
+   knows where the player is standing; the offsets below are subtraction. */
+function sfxAt(ev,gx,gy,when){
+  try{
+    if(!(window.parent&&window.parent!==window)) return;
+    var dx=0, dy=0, dist=null;
+    if(typeof gx==='number' && typeof gy==='number' &&
+       typeof px==='number' && typeof py==='number'){
+      dx=gx-px; dy=gy-py; dist=Math.sqrt(dx*dx+dy*dy);
+    }
+    window.parent.postMessage({type:'BOHEMIA_SFX_AT', ev:ev, dx:dx, dy:dy,
+      dist:dist, inside:(mode!=='ext'), when:when||null},'*');
+  }catch(_e){}
+}
 /* TELL THE PARENT A FINGER LANDED (7/31). A touch in here never reaches the
    parent's document, so the parent can be sitting with no audio at all while
    the thumb hammers the D-pad. This fires on the gesture itself, ahead of any
@@ -766,6 +831,24 @@ function sfxWhere(){
   }catch(_e){}
 }
 setInterval(sfxWhere, 4000);
+/* AND THE INSTANT IT CHANGES (8/14). The four-second tick is fine for the
+   ambience bed, which is a slow bed, and WRONG for occlusion, which is a
+   yes/no about the wall you just walked through. Crossing a threshold left the
+   parent believing you were still on the other side of it for up to four
+   seconds, so every sound in that window was muffled -- or not muffled -- by a
+   wall that is no longer there. MEASURED, not theorised: a neighbour's step
+   staged three tiles away came back placed at gain 0.208, which is exactly the
+   0.377 the inverse law gives times the 0.55 an occluder takes, because the
+   listener still thought it was indoors.
+   enter() and leave() are the only two doors into that state, so they say so
+   the moment they run. */
+(function(){
+  try{
+    var _enter=window.enter, _leave=window.leave;
+    if(typeof _enter==='function') window.enter=function(){ var r=_enter.apply(this,arguments); try{ sfxWhere(); }catch(_e){} return r; };
+    if(typeof _leave==='function') window.leave=function(){ var r=_leave.apply(this,arguments); try{ sfxWhere(); }catch(_e){} return r; };
+  }catch(_e){}
+})();
 
 /* YOU CAN HEAR THE PEOPLE ON YOUR BLOCK (8/2) ============================
    Every sound in this game happens AT the player. The valley has people walking
@@ -1007,13 +1090,13 @@ def main():
     # candidates in the same export. Playing the drag backwards, or reusing it
     # for the close, would be putting a sound on a moment he ruled has none.
     door_anchor = "  d.state='opening'; d.t0=Date.now();"
-    if "sfx('door_drag')" not in run:
+    if "sfxAt('door_drag'" not in run:
         if door_anchor not in run:
             print('FAIL: cannot find openDoor to wire the door sound')
             return 1
         run = run.replace(door_anchor,
                           door_anchor
-                          + "\n  sfx('door_drag');   /* his 8/9 thumb. the SHUT stays silent: he killed all five clacks */",
+                          + "\n  /* HIS 8/9 THUMB, AT THE DOOR (8/14). doorKey() encodes the tile, so\n     the sound can say where it happened without the run inventing\n     anything. HONEST ABOUT THE SIZE OF THIS: a door the PLAYER opens is\n     always adjacent, so distance barely moves the level -- what it buys\n     is correct OCCLUSION when you open one from the street, and ONE\n     path, so a door somebody ELSE opens is already spatial the day the\n     game has one. The SHUT stays silent: he killed all five clacks. */\n  try{ var _dk=String(k).split(':').pop().split(',');\n       sfxAt('door_drag', +_dk[0], +_dk[1]); }catch(_e){ sfx('door_drag'); }",
                           1)
 
     open(RUN, 'w', encoding='utf8').write(run)
@@ -1024,7 +1107,7 @@ def main():
     built = open(BUILT, encoding='utf8').read()
     if ('SFX WIRE, RUN SIDE' not in built or 'sfxGround(px,py)' not in built
             or "sfx('phone_buzz')" not in built or "sfx('eat')" not in built
-            or "sfx('door_drag')" not in built):
+            or "sfxAt('door_drag'" not in built):
         print('FAIL: the rebuilt run does not carry the wire')
         return 1
 
