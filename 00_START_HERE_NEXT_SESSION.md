@@ -454,8 +454,61 @@ HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/14 (a) LATEST -- *** 25 QUESTS. FOUR NEW ONES IN A DAY, ALL
-FOUR BUILT ON STUDIES NOBODY HAD EVER OPENED, ALL FOUR ABOUT WATER. ***
+PEOPLE (7h9sfy): 8/14 (f) LATEST -- *** THE GAME NOW OPENS WITH THE COLD OPEN.
+DEMO CRITICAL PATH ROWS 7 AND 10, DONE. ***
+
+THE DEMO PLAN HAS TWO ROWS FOR THIS AND NEITHER WAS DONE, FOR TEN DAYS:
+  "7.  THE FIRST FIVE MINUTES: an opening that needs zero explanation -- the
+       scripted-scene runtime (PEOPLE 0sc) playing a minimal cold open, or a
+       clean wake-up-and-go IF THE COLD OPEN ISN'T READY."
+  "10. THE COLD OPEN SCENE (PEOPLE 0sc scripted-scene runtime + RUN consumes)"
+The runtime shipped 8/9. The scene shipped. The CUTSCENE tab is gated forty
+claims deep. AND THE RUN NEVER CONSUMED IT: measured, ZERO references to the
+scene runtime anywhere in the run source, booting straight into wakeInBed()
+which is that row's own FALLBACK. The demo has been opening on the fallback the
+whole time while the real opening sat one tab away. THIRD DAY RUNNING FOR THIS
+DISEASE: built, gated, green, and not in the surface he taps.
+
+NOW: tap RUN with no day in progress and the cold open plays over the run, then
+hands you the day. SKIP is on screen from the first frame. It never plays twice
+and never over a real save.
+*** AND IT PLAYS HIS DIRECTED VERSION. *** openScene() reads DIR['scene:<id>']
+before canon, so a line he retypes in the DIRECT tab is the line the GAME OPENS
+WITH on his phone. That is HE MUST BE ABLE TO DIRECT IT (8/12) finally closing
+its loop -- the instrument existed but the thing it edited was a viewing room.
+
+*** THREE THINGS THE DOM SAID WERE FINE AND THE SCREENSHOT SAID WERE NOT. ***
+Every one of these passed a green check before a picture caught it:
+
+ 1. A FRESH PLAYER ALREADY HAS A SAVE. The first cut gated on "no bohemia.save
+    .v1" and never fired once. The RUN frame preloads on a 2.5s timer, boots,
+    and writes an auto-save labelled auto:start at beat 0 / turn 0 before
+    anybody has touched anything. *** THE PRESENCE OF A SAVE IS NOT EVIDENCE OF
+    PROGRESS *** and any lane reading that key as "has this person played?" is
+    reading it wrong. Now it looks for a save with something IN it.
+ 2. IT PLAYED BEHIND THE SPLASH. Overlay shown, canvas painting, captions
+    advancing BEFORE -> the mother -> the daughter, all checks green, and the
+    screenshot was TAP TO ENTER: #front is fixed at z-index 200 over everything.
+    The scene was burning through where nobody could see it. It waits for the
+    door now.
+ 3. *** THE RUN TAB DOES NOT SHOW THE RUN PANEL. *** Paolo 7/28, "Can you put
+    the city in the run tab?" -- the switcher routes run -> p-city and parks the
+    run iframe in a hidden p-run so postMessage still finds it. The overlay was
+    in p-run, so it computed display:flex inside a display:none parent: the
+    check said visible, the canvas really was painting, and the bounding box was
+    0x0. *** display:flex IS NOT VISIBLE. *** The gate now claims AREA, and the
+    overlay moves itself into whatever panel is actually live, so a future
+    reroute cannot break it again.
+
+GATE: opening_gate.js, 17 claims, and it enters through the splash the way a
+finger does rather than clicking through it. Four mutations proved red: cut the
+trigger (4 fail), ignore his directed scene (1), ambush a returning player (1),
+and leave the overlay in p-run -- the exact bug that shipped past the first cut
+(2). It also holds the three ways this is worse than not shipping: playing over
+a real save, playing twice, and stranding somebody on a black rectangle.
+
+PEOPLE (7h9sfy): 8/14 (a) -- *** 25 QUESTS. FOUR NEW ONES IN A DAY, ALL FOUR
+BUILT ON STUDIES NOBODY HAD EVER OPENED, ALL FOUR ABOUT WATER. ***
 
 21 -> 25 quests, 26 -> 35 studies cited. The three new ones after THE COLD ROOM
 are each ONE VERIFIED REAL FACT turned into a fork, researched rather than

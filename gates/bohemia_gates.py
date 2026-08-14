@@ -775,6 +775,18 @@ GATES = [
      'it later" needs a place for later, so the WORDS tab must exist, be wired into the '
      'alpha, live where Pages publishes, fetch nothing, and be CURRENT with its sources by '
      'fingerprint -- a stale tab is the same failure wearing a green', False),
+    ('OPENING',        ['node', 'gates/opening_gate.js'],
+     'THE DEMO PLAN has two critical-path rows for the cold open (7 THE FIRST FIVE MINUTES, '
+     '10 THE COLD OPEN SCENE) and neither was done: the runtime shipped 8/9, the scene shipped, '
+     'the CUTSCENE tab is gated forty claims deep, and the run booted straight into wakeInBed() '
+     '-- that row\'s own FALLBACK -- with ZERO references to the scene runtime anywhere in it. '
+     'The demo opened on the fallback for ten days while the real opening sat one tab away. This '
+     'boots the alpha, enters through the TAP TO ENTER splash the way a finger does, taps RUN, '
+     'and demands PIXELS: the family on screen, a caption saying something, SKIP reachable, and '
+     'a way into the day from every exit. It also holds the three ways this is worse than not '
+     'shipping (playing over a real save, playing twice, stranding somebody on black) and the '
+     'two lies that got past the first cut -- display:flex inside a display:none parent, and '
+     'the RUN tab routing to p-city rather than p-run', False),
     ('REACTION REACH', ['node', 'gates/reaction_reach_gate.js'],
      'The reaction lines were written, cited and GREEN while not one person in the game could '
      'say one: the walked run called linesFor(who) with NO ARGUMENTS, so every situation bucket '
