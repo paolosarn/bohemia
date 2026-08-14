@@ -1,3 +1,55 @@
+RUN (run-eak241): 8/13 LATEST -- THE DAY PAYS, AND A 4000-CHARACTER WINDOW WAS EATING VERBS.
+
+DEMO CUT row 3 (ruled 8/4): "wake -> 2-3 quests -> ... -> GET PAID -> spend at a trading
+hub -> camp -> sleep-save holds." GET PAID DID NOT HAPPEN, and NOT because it was
+unbuilt. MEASURED: engine/bohemia_payday.js exports questEvent, payForQuest, hubs,
+reachable, nearestHub, shelf, price, buy, dayReport -- and EVERY ONE was referenced
+EXACTLY ZERO TIMES outside its own module. Dormant since 8/11. Sixth time this week.
+
+ONE PIECE REALLY WAS MISSING, and it is a good one. Paolo ruled 8/11: "Whatever currency
+the quest decida to give." The bridge was built THAT DAY to honour it (questReward()
+reads questState.reward) AND THE .bq LANGUAGE HAD NO VERB TO SAY IT. The ruling was
+made, the bridge was built, and the sentence could not be written. Now:
+    @DO pay <currency> <n>
+ON THE STAGE, because his ruling put the reward in the job and a quiet fix and a public
+spectacle are different jobs that should not pay the same.
+
+THE REFUSAL IS THE POINT, NOT A BUG. Canon quests declare no reward yet -- amounts are
+CONTENTS and ALWAYS MAKE AN ATTEMPT (8/11, LOCKED) says "numbers, dials, rates, prices"
+wait for him. So the reckoning does not fake a number, it says:
+    "The Meter Reader: nobody has ruled what this pays"
+One ruling, asked in the place he reads, blocking nothing.
+Gate: day_pays_gate.js (16), incl. the assertion that would have caught the original
+defect -- the run must CALL the bridge, not merely carry it.
+
+*** FOR THE FACTIONS LANE (yours, 8/7) AND FOR EVERY LANE ***
+AUTHORED UNREAD went red when I added a verb, and the cause is worth your time.
+  1. tools/bohemia_authored_unread.py scraped the runtime's @DO vocabulary with
+     `src[src.find('UNHANDLED_DO') - 4000 : ...]` -- A FIXED 4000-CHARACTER WINDOW.
+     My new verb arrived with a long comment and pushed `set_flag` and `learn` -- THE
+     FIRST TWO CASES -- out of the window, so the gate reported 105 authored uses of two
+     perfectly handled verbs as UNPARSED. IT WAS ALREADY TRUNCATING: fixing it recovered
+     `give` and `have` as well, which had been outside that window the whole time.
+     Now bounded by the FUNCTION (_exec -> its default arm), not by a byte count.
+     A magic constant silently truncating what a docstring promises to follow
+     "automatically" is the same disease that gate exists to catch, in miniature.
+  2. snapshotQuest() is the ONE hand-typed list in a gate that is proud of having none,
+     so a verb writing a NEW STATE FIELD reports INERT while working perfectly. Added
+     `reward`. IF YOU ADD A VERB THAT WRITES A NEW FIELD, ADD IT THERE TOO.
+  3. sample_args() lifts probe arguments only from the corpus, so a verb that exists
+     before any quest uses it can never be probed -- which punishes the only correct
+     order of work (mechanism first, his numbers later). NEW_VERB_ARGS is a fallback
+     used ONLY when the corpus has nothing; his own arguments always win.
+
+STILL RED AND NOT MINE (verified on origin/main): DISTRICT FILL, ROAD CELLS, TEXTURE
+MATCH, ROUND + DOORS, HAIR, PARTS PAINTED, BODY VARIATION, ONE WORLD TAB, INTERIORS,
+REUSE FIRST, THE CROWD, RENDER PIXEL.
+
+NEXT IN THIS LANE: the OTHER half of that demo row is still dormant -- hubs, nearestHub,
+shelf, price, buy: "SPEND AT A TRADING HUB". All built, all uncalled. Same wire, and it
+needs one thing first: a price is a NUMBER, and numbers are his.
+Records: BOHEMIA_THE_DAY_PAYS_8_12_26.md, BOHEMIA_THE_VALLEY_REMEMBERS_8_12_26.md
+
 ART (f3eu53): 8/14 (a) LATEST -- *** TWELVE OF FOURTEEN FAMILIES ARE IN THE
 GAME. THE BLOCK WALLS GOT THEIR CAP. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (thirteenth-pass section)

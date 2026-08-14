@@ -76,7 +76,19 @@ def verbs_from_runtime():
     """The @DO vocabulary, read out of the runtime's own switch. Never typed here,
     so a verb added or renamed tomorrow is followed automatically."""
     src = open(RUNTIME, encoding='utf-8').read()
-    body = src[src.find('UNHANDLED_DO') - 4000:src.find('UNHANDLED_DO')]
+    # BOUNDED BY THE FUNCTION, NOT BY A BYTE COUNT. This read back a fixed 4000
+    # characters from UNHANDLED_DO, and on 8/12 a new verb arriving with a long
+    # comment above it pushed `set_flag` and `learn` -- the FIRST TWO CASES -- out
+    # of that window. The gate then reported 105 authored uses of two perfectly
+    # handled verbs as UNPARSED. A magic constant silently truncating the thing this
+    # function's own docstring promises to follow "automatically" is the same defect
+    # in miniature that the gate exists to catch, so it now reads from the start of
+    # _exec (the function that OWNS the switch) to its default arm.
+    end = src.find('UNHANDLED_DO')
+    start = src.rfind('Runtime.prototype._exec', 0, end)
+    if start < 0:
+        raise SystemExit('the runtime no longer has a _exec switch to read; fix this scraper')
+    body = src[start:end]
     return sorted(set(re.findall(r"case\s*'([a-z_]+)'", body)))
 
 
@@ -91,9 +103,26 @@ def authored_counts():
     return n
 
 
+# A VERB CAN BE NEWER THAN THE CORPUS, and the arg-lifting alone cannot follow it.
+# Added 8/12 for `pay`. This gate's own charter says "a verb added, renamed, or
+# deleted tomorrow is followed automatically" -- but sample_args() lifts arguments
+# only from .bq files, so a verb the runtime supports and no quest has used YET gets
+# probed with an empty argument, does nothing (correctly), and is reported inert.
+# That would punish the only correct order of work: build the mechanism, then let
+# him rule the contents. `@DO pay <currency> <n>` exists because Paolo ruled on 8/11
+# that a quest declares its own reward, and the AMOUNTS are contents that wait for
+# him -- so no canon quest carries it yet, ON PURPOSE.
+# THE FALLBACK IS ONLY EVER USED WHEN THE CORPUS HAS NOTHING. The moment a real
+# quest writes the verb, his own arguments win and this entry stops being consulted.
+NEW_VERB_ARGS = {
+    'pay': 'resources 3',
+}
+
+
 def sample_args():
     """Real arguments, lifted from his own corpus so each verb is probed the way it
-    is actually written rather than with something invented."""
+    is actually written rather than with something invented. A verb the corpus has
+    not used yet falls back to NEW_VERB_ARGS above, and only then."""
     args = {}
     for fn in os.listdir(BQDIR):
         if not fn.endswith('.bq'):
@@ -103,6 +132,8 @@ def sample_args():
             v, rest = m.group(1), m.group(2).strip()
             if v not in args and v != 'set_stage':
                 args[v] = rest
+    for v, a in NEW_VERB_ARGS.items():
+        args.setdefault(v, a)        # corpus wins; this only fills a real gap
     return args
 
 
@@ -121,11 +152,22 @@ function snapshotWorld(ctx) {
   for (const [d, f] of w.owner.entries()) out.owner[d] = f;
   return JSON.stringify(out);
 }
+/* THE ONE HAND-TYPED LIST IN A GATE THAT IS PROUD OF HAVING NONE, and it bit on
+   8/12 exactly the way its own docstring predicts. The vocabulary is read out of
+   the runtime's switch so a new verb is followed automatically -- but the STATE
+   SHAPE is written out by hand here, so a new verb writing a NEW FIELD is followed
+   by nothing and reports INERT while working perfectly. `reward` (added 8/12 with
+   @DO pay) was invisible to this snapshot. Serialising the whole state instead
+   would follow any future field for free, but it would also make every probe
+   depend on `stage` and `done`, which the verb under test does not own -- so the
+   list stays explicit and gains the field. If you add a verb that writes a new
+   field, ADD IT HERE TOO. */
 function snapshotQuest(rt) {
   const s = rt.state;
   return JSON.stringify({ flags: s.flags, knows: s.knows, has: s.has, roles: s.roles,
     bonds: s.bonds, faction: s.faction, posture: s.posture, objectives: s.objectives,
-    advanceTerritory: s.advanceTerritory, log: s.log, doneTags: s.doneTags });
+    advanceTerritory: s.advanceTerritory, log: s.log, doneTags: s.doneTags,
+    reward: s.reward });
 }
 function pick(v, t) { return (v.options || []).filter(o => o.text.indexOf(t) >= 0)[0]; }
 

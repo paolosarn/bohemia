@@ -4496,7 +4496,7 @@ function hydrateNodeDos(Q){
 function freshState(Q){
   var s={ stage:null, flags:{}, knows:{}, has:{}, roles:{}, faction:{}, bonds:{},
           posture:{}, gen:1, objectives:{}, locked:{}, log:[], done:false, outcome:null,
-          doneTags:[], advanceTerritory:false };
+          doneTags:[], advanceTerritory:false, reward:{} };
   (Q.roles||[]).forEach(function(r){ s.roles[r.name]=!!r.req; }); /* REQ present, OPT absent */
   return s;
 }
@@ -4631,6 +4631,23 @@ Runtime.prototype._exec=function(text){
        lands." This is that lever, opt-in per quest: an author marks the ONE
        resolution stage that's a real story beat, everyday errands never touch it. */
     case 'advance_territory': s.advanceTerritory=true; break;
+    /* WHAT THE JOB PAYS, SAID BY THE JOB (8/12). Paolo ruled it on 8/11, asked what a
+       day's work should be worth: "Whatever currency the quest decida to give." The
+       payday bridge was built that day to honour it -- questReward() reads
+       questState.reward and pays exactly that -- and THE .bq LANGUAGE HAD NO WAY TO
+       SAY IT. A quest could not declare a reward, so every finished job fell through
+       to the empty global table and got NO_RULING. The ruling was made, the bridge
+       was built, and the sentence could not be written.
+       IT LIVES ON THE STAGE, not in a header, and that is his ruling too: the reward
+       belongs to the OUTCOME. A quiet fix and a public spectacle are different jobs
+       and should not pay the same, and the completing stage is already where a quest
+       says what happened.
+         @DO pay resources 3
+       AMOUNTS ARE CONTENTS. Nothing here invents one: this is the verb, and what any
+       quest actually pays is written in that quest's own file with the rest of its
+       canon, which is exactly where he put it. */
+    case 'pay': if(p[1]&&p[2]!=null){ s.reward=s.reward||{};
+                  s.reward[p[1]]=(s.reward[p[1]]||0)+num(p[2]); } break;
     case 'play': s.log.push('play '+p.slice(1).join(' ')); break;
     default: s.log.push('UNHANDLED_DO: '+text);
   }

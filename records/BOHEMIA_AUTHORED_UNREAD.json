@@ -55,6 +55,12 @@
    "authored": 79
   },
   {
+   "verb": "pay",
+   "verdict": "QUEST-ONLY",
+   "why": "only the quest's own state differs",
+   "authored": 0
+  },
+  {
    "verb": "play",
    "verdict": "QUEST-ONLY",
    "why": "only the quest's own state differs",
@@ -75,7 +81,7 @@
  ],
  "totals": {
   "WORLD": 2,
-  "QUEST-ONLY": 10,
+  "QUEST-ONLY": 11,
   "INERT": 0,
   "UNPARSED": 0,
   "ERROR": 0
