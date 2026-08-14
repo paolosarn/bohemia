@@ -274,3 +274,22 @@ shipped QUANTIZED (1.6 MB vs 3.3) - the Pages cap is at 245 of 260 MB and
 every new shot now compresses or replaces.
 ELEVEN OF FOURTEEN FAMILIES ARE IN THE GAME. Remaining three: CMU courses,
 freeway (own render path), deck stairs (blocked on TF-CMB-004).
+
+## 8/14 THIRTEENTH PASS: TWELFTH FAMILY WIRED (THE CMU COURSES)
+
+TF-ART-001 finishes the plain block buildings: the cap beam draws as the TOP
+COURSE of every block-material wall mass (and the orange starter parapet dies
+there - the cap IS the top), the vent block sits sparse at 1-in-18 mid-wall.
+The machinery is honest about WHICH masses are block: the builder ships
+bd/bdef boolean flags beside every civic wall pool and the page re-runs the
+exact mass hash (civicIsBlockMass) - so a tilt-up warehouse next door keeps
+its parapet and only buildings that actually drew block_grey/block_painted
+get courses. Those live in the DEFAULT pool, so the family shows on the
+unremarkable districts (solar, terminal, anything unlisted), which is exactly
+what CMU is for. One build bug caught by the always-run grep: the piece grab
+sat AFTER the page-injection replace and shipped zero pieces; moved above it,
+verified 6 pieces in the page, then looked at the solar farm live. Card
+quantized (1.6 MB). TWELVE OF FOURTEEN FAMILIES ARE IN THE GAME. Remaining
+two are both blocked outside this lane: freeway (world cells are still
+reserved-landmark ground, WORLD lane must realize the districts) and deck
+stairs (TF-CMB-004 slab cook still OPEN on the board).

@@ -379,9 +379,15 @@ def main():
     ok('and there is at least one real flat roof material',
        any(kindof.get(m2) in ('gravel', 'plaster') for m2 in rmats))
 
-    # ONE MATERIAL PER BUILDING, not per cell, or a warehouse is a patchwork
-    ok('a whole building wears one material (coarse block seed)',
-       'var bx=gx>>3, by=gy>>3;' in rs)
+    # ONE MATERIAL PER BUILDING, not per cell, or a warehouse is a patchwork.
+    # AMENDED for Paolo's 8/11 placement ruling ("the placement was shit but
+    # individually the tiles are good"): the seed is the building MASS itself
+    # (flood-filled anchor via _civicMassKey), no longer a blind 8x8 block that
+    # patchworked any building straddling a block boundary. The old check
+    # asserted the dead 8x8 seed and outlived the ruling; a gate must never
+    # outrank a ruling, so the check now asserts the mass seed.
+    ok('a whole building wears one material (mass seed, his 8/11 ruling)',
+       'var mk=_civicMassKey(gx,gy);' in rs and 'var bx=mk[0], by=mk[1];' in rs)
     ok('the colourway still shuffles per cell so nothing stamps',
        'var c=(Math.imul(gx|0,374761393)' in rs)
     ok('the pool is chosen by DISTRICT, not ungated from the house pool',

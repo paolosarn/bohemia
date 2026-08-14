@@ -353,6 +353,10 @@ grabPieces('banks/tileforms/TF-ART-008_CANDIDATES_8_8_26.json',
    'sf_shutter_down_0', 'sf_shutter_down_1', 'sf_grille_half_0', 'sf_grille_half_1',
    'sf_awning_rust_0', 'sf_awning_rust_1', 'sf_awning_teal_0', 'sf_awning_teal_1',
    'sf_awning_sand_stripe_0', 'sf_awning_sand_stripe_1', 'sf_awning_sage_0', 'sf_awning_sage_1']);
+/* twelfth family: TF-ART-001 CMU courses. Must be grabbed HERE, before the
+   replace below, or the pieces never reach the page registry. */
+grabPieces('banks/tileforms/TF-ART-001_CANDIDATES_8_8_26.json',
+  ['cmu_capbeam_0', 'cmu_capbeam_1', 'cmu_capbeam_2', 'cmu_vent_0', 'cmu_vent_1', 'cmu_vent_2']);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('
@@ -485,8 +489,11 @@ var CIVIC_DEFAULT = ['tiltup_concrete', 'block_grey', 'block_painted'];
    tar-and-gravel roof, and a pitched barrel tile on a warehouse would be a lie. */
 var CIVIC_ROOF = ['gravel_roof', 'tar_paper'];
 
-var civicWall = {}, civicOrder = Object.keys(CIVIC).sort();
-civicOrder.forEach(function (d) { civicWall[d] = texMats(CIVIC[d]); });
+var civicWall = {}, civicBlock = {}, civicOrder = Object.keys(CIVIC).sort();
+civicOrder.forEach(function (d) {
+  civicWall[d] = texMats(CIVIC[d]);
+  civicBlock[d] = CIVIC[d].map(function (id) { return id.indexOf('block_') === 0; });
+});
 /* THE APPROVED CORRUGATED FAMILY (TF-ART-002, Paolo's 8/11 TILE BOARD verdict):
    the fourth wired family. Three real paint colourways + the bare ribbed metal
    with its rust runs join the metal districts' pools as MATERIALS of their own,
@@ -514,7 +521,7 @@ var CORR_MATS = [
 ];
 ['industrial', 'warehouse', 'storage', 'railyard', 'granary', 'battery',
  'reclaim', 'landfill', 'swapmeet', 'farm'].forEach(function (d) {
-  if (civicWall[d]) CORR_MATS.forEach(function (m) { civicWall[d].push(m); });
+  if (civicWall[d]) CORR_MATS.forEach(function (m) { civicWall[d].push(m); civicBlock[d].push(false); });
 });
 console.log('  TILEFORMS: TF-ART-002 corrugated joins 10 metal districts as 4 materials (fourth wired family)');
 /* sixth family: TF-ART-009 brick - the painted-over ghost-sign wall field joins
@@ -536,7 +543,7 @@ if (String(brickBank.law || '').indexOf('APPROVED') !== 0)
 var brickGhost = bankMat(brickBank, BRICK_BANK,
   ['brick_painted_ghost_0', 'brick_painted_ghost_1', 'brick_painted_ghost_2']);
 ['downtown', 'chapel', 'school', 'commercial', 'courthouse', 'library'].forEach(function (d) {
-  if (civicWall[d]) civicWall[d].push(brickGhost);
+  if (civicWall[d]) { civicWall[d].push(brickGhost); civicBlock[d].push(false); }
 });
 var MH_BANK = 'banks/tileforms/TF-ART-013_CANDIDATES_8_8_26.json';
 var mhBank = JSON.parse(fs.readFileSync(MH_BANK, 'utf8'));
@@ -546,7 +553,7 @@ if (String(mhBank.law || '').indexOf('APPROVED') !== 0)
   var m = bankMat(mhBank, MH_BANK,
     ['mh_field_' + cw + '_0', 'mh_field_' + cw + '_1', 'mh_field_' + cw + '_2',
      'mh_stripe_' + cw + '_0', 'mh_stripe_' + cw + '_1', 'mh_stripe_' + cw + '_2']);
-  if (civicWall.trailer) civicWall.trailer.push(m);
+  if (civicWall.trailer) { civicWall.trailer.push(m); civicBlock.trailer.push(false); }
 });
 console.log('  TILEFORMS: TF-ART-009 ghost brick joins 6 old-brick districts; TF-ART-013 adds 3 park colourways to the trailer pool (sixth + seventh wired families)');
 /* PLACEMENT FIX (Paolo 8/11, 'the placement was shit but individually the
@@ -567,7 +574,13 @@ var civicRoofPool = [
   roofMat(['capsheet_tan_0', 'capsheet_tan_1']),
 ];
 console.log('  TILEFORMS: TF-ART-012 fields replace the civic roof pool (ring and field are one roof now)');
-var civicPayload = { d: civicWall, def: texMats(CIVIC_DEFAULT), roof: civicRoofPool };
+/* twelfth family: TF-ART-001 CMU courses (pieces grabbed in the early tileform
+   section). The cap beam is the top course of a BLOCK-material wall and the vent
+   block a sparse mid-wall cell - the bd/bdef flags tell the page which masses
+   drew a block material. */
+var civicPayload = { d: civicWall, def: texMats(CIVIC_DEFAULT), roof: civicRoofPool,
+                     bd: civicBlock,
+                     bdef: CIVIC_DEFAULT.map(function (id) { return id.indexOf('block_') === 0; }) };
 if (html.indexOf('__CIVIC_SKIN_JSON__') < 0) throw new Error('missing __CIVIC_SKIN_JSON__ placeholder');
 html = html.replace('__CIVIC_SKIN_JSON__', JSON.stringify(civicPayload));
 console.log('  DISTRICT MATERIALS: ' + civicOrder.length + ' district types mapped to real '

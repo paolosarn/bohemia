@@ -1,3 +1,25 @@
+ART (f3eu53): 8/14 (a) LATEST -- *** TWELVE OF FOURTEEN FAMILIES ARE IN THE
+GAME. THE BLOCK WALLS GOT THEIR CAP. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (thirteenth-pass section)
+
+TAB: ART, WIRED IN THE GAME - twelve live-frame cards. TF-ART-001 CMU courses:
+cap beam is the TOP COURSE of every block-material mass (orange starter parapet
+dies there), vent block sparse 1-in-18 mid-wall. The builder ships bd/bdef
+flags beside every civic wall pool and the page re-runs the mass hash
+(civicIsBlockMass), so ONLY buildings that actually drew block_grey/
+block_painted (the DEFAULT pool: solar, terminal, unlisted districts) wear
+courses; tilt-up neighbours keep their parapet. Build lesson recorded in the
+sitting: a grabPieces call BELOW the __TILEFORM_B64_JSON__ replace ships zero
+pieces - the always-run grep caught it.
+
+THE LANE'S FAMILY WORK IS DONE UNTIL OTHER LANES MOVE. Remaining two are both
+blocked outside: freeway (world freeway/arterial/interchange cells are still
+reserved-landmark ground - WORLD lane must realize them; engine/
+bohemia_freeway.js exists and registers), deck stairs (TF-CMB-004 slab cook
+still OPEN on the board). NEXT UP: the volume ledger (turnouts, wheel stops,
+fence gates, mh skirts, sf signbands, pool slopes...) and quantize-replacing
+the oldest raw ART tab shots - PAGES CAP IS BITING: ~247 of 260 MB.
+
 CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE CLOTHES HE PUTS ON NOW SURVIVE A
 RELOAD. THE CLO WARDROBE WAS IN NO SAVE AT ALL. ***
 
@@ -105,7 +127,8 @@ bondWith(role), and the .bq [gate: ...] options the runtime already evaluates). 
 DOOR OPENS IS CONTENT, and content is his. I will not invent which faction opens what.
 Records: BOHEMIA_THE_VALLEY_REMEMBERS_8_12_26.md, BOHEMIA_THE_PHONE_RINGS_8_12_26.md
 
-ART (f3eu53): 8/12 (a) LATEST -- *** ELEVEN OF FOURTEEN FAMILIES ARE IN THE
+ART (f3eu53): 8/12 (a) -- *** ELEVEN OF FOURTEEN FAMILIES ARE IN THE
+ART (f3eu53): 8/12 (a) -- *** ELEVEN OF FOURTEEN FAMILIES ARE IN THE
 GAME. THE POOLS ARE DRAINED FOR GOOD. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twelfth-pass section)
 

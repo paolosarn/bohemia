@@ -790,11 +790,12 @@ function drawStallform(gx,gy,X,Y,S){
   return true;
 }
 var CIVIC_SKIN_B64 = __CIVIC_SKIN_JSON__;
-var CIVIC_SKIN = { d:{}, def:[], roof:[] };
+var CIVIC_SKIN = { d:{}, def:[], roof:[], bd:{}, bdef:[] };
 (function(){
   var mk=function(mats){ return (mats||[]).map(function(m){ return _mkimgs(m); }); };
   Object.keys(CIVIC_SKIN_B64.d||{}).forEach(function(k){ CIVIC_SKIN.d[k]=mk(CIVIC_SKIN_B64.d[k]); });
   CIVIC_SKIN.def=mk(CIVIC_SKIN_B64.def); CIVIC_SKIN.roof=mk(CIVIC_SKIN_B64.roof);
+  CIVIC_SKIN.bd=(CIVIC_SKIN_B64.bd)||{}; CIVIC_SKIN.bdef=(CIVIC_SKIN_B64.bdef)||[];
 })();
 /* deterministic per cell: same tile in the same place every time, no shimmer */
 function boughtImg(bank,gx,gy){
@@ -2158,6 +2159,20 @@ function _civicMassKey(gx,gy){
   for(var j=0;j<cells.length;j++) _cmass[cells[j][0]+','+cells[j][1]]=key;
   return key;
 }
+/* TWELFTH WIRED FAMILY (8/13): TF-ART-001 CMU courses. The cap beam is the
+   TOP COURSE of a block-material wall (it replaces the orange starter parapet
+   there - the flagged outlier dies on block masses) and the vent block is a
+   sparse mid-wall cell. Needs to know the MASS's material, so it re-runs the
+   exact civicImg hash against the block flags the builder ships. */
+function civicIsBlockMass(gx,gy){
+  var pool=civicPool('W'); if(!pool||!pool.length) return false;
+  var flags=(CIVIC_SKIN.d[CELLNAME])?(CIVIC_SKIN.bd[CELLNAME]||[]):CIVIC_SKIN.bdef;
+  if(!flags||!flags.length) return false;
+  var mk2=_civicMassKey(gx,gy);
+  var h=(Math.imul(mk2[0],2654435761)^Math.imul(mk2[1],40503)
+        ^Math.imul((CELL&&CELL[0])|0,2246822519)^Math.imul((CELL&&CELL[1])|0,668265263))>>>0;
+  return !!flags[h%pool.length];
+}
 function civicImg(kind,gx,gy){
   var pool=civicPool(kind); if(!pool||!pool.length) return null;
   /* ONE MATERIAL PER BUILDING: the seed is the 8x8-cell block plus the district and
@@ -2200,6 +2215,15 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
   var k=SKIN_FIELD[id]; if(!k||k==='Y') return false;   /* yard wears his BOUGHT dirt */
   var im=civicImg(k,gx,gy); if(!im) return false;
   var mul=SKIN_LIGHT[id];
+  if(k==='W' && civicIsBlockMass(gx,gy)){
+    var topE = civicRoofAt(gx,gy-1) || !civicSolidAt(gx,gy-1);
+    var cm = topE ? TILEFORM_IMG['cmu_capbeam_'+th(gx,gy,3)]
+           : (th(gx,gy,18)===0 ? TILEFORM_IMG['cmu_vent_'+th(gx,0,3)] : null);
+    if(cm&&cm.complete&&cm.naturalWidth){
+      ctx.drawImage(look(cm),X,Y,S,S);
+      return true;              /* the cap IS the top course: no orange parapet over it */
+    }
+  }
   ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S);
   if(k!=='W') return true;
   /* ---- THE PARAPET. A wall cell with ROOF BEHIND IT is the building's top edge, and

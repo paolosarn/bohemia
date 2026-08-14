@@ -117,6 +117,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-ART-001_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt). Volume unlocked, wiring open. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED by Paolo 8/11/26 (TILE BOARD sitting, UP; bank: banks/tileforms/TF-ART-001_CANDIDATES_8_8_26.json now carries the APPROVED law line; verdict: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt) AND WIRED 8/13/26: cap beam draws as the TOP COURSE of every block-material wall mass (replacing the orange starter parapet there - the cap IS the top) and the vent block sits sparse (1 in 18) mid-wall. Block masses are known exactly: the builder ships bd/bdef flags beside every civic wall pool and the page re-runs the mass hash (civicIsBlockMass) so only buildings that actually drew block_grey/block_painted get courses. Verified standing at the solar farm (def-pool district), live frame: records/target/ART_WIRED_TF-ART-001.png, card in the ART tab. Twelfth wired family. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/28/26 | PRIORITY: HIGH
 - BOARD ROW #: 10 | VERDICT: —

@@ -128,6 +128,8 @@ const WIRED = [
     what: 'The waterpark wave pool, the splash pool and the apartment pools are real drained basins now: silted cracked floors, the coping rim stepping around every shape of the basin, the old blue tile waterline still on the back walls, a drain here and there. Live frame at the waterpark. Slopes, the wet deep ends, ladders as volume, and the treatment clarifier for the reclaim plant.' },
   { id: 'TF-ART-002', title: 'THE WAREHOUSES WEAR REAL METAL', img: 'ART_WIRED_TF-ART-002.png',
     what: 'Ten industrial districts pick from your corrugated skins now: bare metal with rust runs, and three real paints. One material per building so nothing patchworks. Live frame in the warehouse district.' },
+  { id: 'TF-ART-001', title: 'THE BLOCK WALLS GOT THEIR CAP', img: 'ART_WIRED_TF-ART-001.png',
+    what: 'The plain concrete-block buildings (the unremarkable ones: solar, terminal, every district without a fancier material) finish properly now: a smooth poured cap beam runs the whole top course of the wall, and the odd vent block sits low in the courses. The orange starter parapet dies on these walls; the cap IS the top. Live frame at the solar farm.' },
 ];
 
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
