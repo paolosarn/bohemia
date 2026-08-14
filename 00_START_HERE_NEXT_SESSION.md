@@ -2118,6 +2118,68 @@ SURFACE, and a symptom that survives content changes is a PIPELINE bug.
 
 --------------------------------------------------------------------------------
 
+FACTIONS (factions-ovkjpf): 8/13 (a) LATEST — *** THE BARGAIN WAS LEGIBLE AND YOU COULD
+NOT ACT ON IT. NOW YOU CAN. *** Nothing to judge.
+
+This morning the card started telling you what an outfit wants. And there was NO WAY TO GIVE IT
+TO THEM - the only thing in the entire game that could move the belonging ladder was an authored
+quest with @DO faction X +N. A Remnant tells you they want honest word about the road and you
+stand there with no button. That is the inverse of my own rule from the day before: not a button
+that does nothing, A BUTTON THAT DOES NOT EXIST.
+
+WHAT SHIPPED - ONE ACT PER KIND OF WANT, each named for what that outfit actually wants:
+  Tell them what you have seen   (Remnants, Homeless, Caravans)
+  Show up for them               (Church, Blues, Anarchists)
+  Give them an hour of it        (Trades, Volunteers)
+  Take what they are offering    (Cartel, Reds)
+  Let them write you down        (Mob, Karens, Network)
+
+*** TWO KINDS CORRECTLY HAVE NO BUTTON *** and both are his canon, not a gap: the Colorful and
+the Social Forces are ASSESSING you and it never stops running - you cannot press a button to be
+safe to be around - and the Amalgamation makes no offer at all. The card says WHY there is
+nothing to press instead of just being blank.
+
+IT COSTS AN HOUR AND THE HOUR IS NOT A NEW PRICE. TIME IS SPENT BY ACTIONS (7/26) makes the
+action-cost table canon and forbids a lane writing one, so the act REUSES the HANGOUT moment he
+already priced at 1. Doing somebody a favour IS spending an hour with them. Gated, so nobody
+quietly mints a price later.
+
+*** ONCE A DAY, AND I HAD THE RESEARCH BACKWARDS AT FIRST. *** I went in assuming instant
+repayment CANCELS a bond. Gouldner 1960 and Malinowski say the opposite: obligations persist, a
+gift is not returned on the spot, and the INTERVAL between giving and getting back is where the
+relationship actually lives. So the daily limit is not an anti-grind dial bolted on - the wait IS
+the mechanic. You cannot buy your way inside in one afternoon. I corrected my premise instead of
+shipping the version I liked.
+
+ONE WRITER: the world bridge and the card now move the same number, so it lives in
+BohemiaBelonging.record() and both go through it - including folding the three spellings of a
+faction, which have now bitten this codebase FOUR times. The loop resolves the module lazily and
+falls back to a plain increment on a bare boot, so the world bridge is never blocked on a surface
+module.
+
+GATE: gates/belonging_gate.js, 50 claims, 0 failed. The whole loop is driven through the REAL DOM
+of the REAL built run: read the bargain, press the act, watch the rung go from A STRANGER to
+SOMEBODY WHO SHOWED UP, find the button gone and the card saying COME BACK TOMORROW. Two of my
+own probes were wrong first (one inherited a planted count from an earlier claim, one sliced the
+text it then searched) and I fixed the probes, not the code.
+
+THE THREE ORGANS NOW STACK END TO END, NO QUEST REQUIRED: walk up to somebody -> learn their name
+the way their outfit does it -> find out who they run with -> read what that outfit wants ->
+do it -> watch the rung move.
+
+WHERE HE LOOKS: *** LIFE TAB -> WHAT THEY WANT FROM YOU. *** Every card now has a YOU CAN row.
+
+WHAT COMES AFTER: the act is currently the same weight whoever you do it for and wherever you
+are. The obvious depth is that TELLING THE REMNANTS WHAT YOU SAW should depend on having actually
+seen something - the witness organ already records what happened in front of people, and nothing
+reads it back the other way. That is the next honest brick.
+
+STILL [PENDING PAOLO], unchanged: REACH_CELLS 12 and AFFILIATED_RATE 0.30; whether all 14
+factions are available at the door; what "faction neighbourhood housing" is architecturally; and
+the Mob dossier's own open question about the Cartel and the guarantor seat.
+
+--------------------------------------------------------------------------------
+
 FACTIONS (factions-ovkjpf): 8/12 (j) LATEST — *** I BUILT A DOOR AND A LOCK AND THEN
 LEFT THE ROOM EMPTY. THE ROOM HAS SOMETHING IN IT NOW. *** Nothing to judge.
 

@@ -297,7 +297,10 @@ const PROBES = {
      a real browser; this only catches the row going stale. */
   belonging_shown: () => RUN.indexOf('BohemiaBelonging.bargain(') >= 0 &&
     RUN.indexOf('function showBargain(') >= 0 &&
-    RUN.indexOf('function gaveFor(') >= 0,
+    RUN.indexOf('function gaveFor(') >= 0 &&
+    /* and the act, or the bargain is legible and unactionable */
+    RUN.indexOf('BohemiaBelonging.actFor(') >= 0 &&
+    RUN.indexOf('BohemiaBelonging.record(') >= 0,
 };
 
 const LEGAL = ['INTEGRATED', 'PARTIAL', 'NOT YET'];

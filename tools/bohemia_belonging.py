@@ -258,6 +258,26 @@ RUNGS = [
               'problem.'),
 ]
 
+# THE PERIPHERAL ACT. Lave & Wenger's newcomer is admitted to do a small thing at
+# the edge; until this turn there was no way to DO it -- the only thing that could
+# move the ladder was an authored quest with @DO faction X +N. So a Remnant would
+# tell you they wanted honest word about the road and there was no way to give it.
+# A bargain you can read and cannot act on is the inverse of the button-that-does-
+# nothing rule: a button that does not exist.
+#
+# ONE ACT PER KIND OF WANT, and every one is a thing the engine can already
+# honestly do. Two kinds have NO act on purpose:
+#   character  they are ASSESSING you and it never stops running (his words). You
+#              cannot press a button to be safe to be around.
+#   nothing    the Amalgamation makes no offer. There is nothing to do.
+ACTS = {
+    'presence':    'Show up for them',
+    'information': 'Tell them what you have seen',
+    'labour':      'Give them an hour of it',
+    'debt':        'Take what they are offering',
+    'legibility':  'Let them write you down',
+}
+
 ALIASES = {
     'SOCIALFORCES': 'SOCIAL_FORCES', 'SOCIAL FORCES': 'SOCIAL_FORCES',
     'PURES': 'SOCIAL_FORCES', 'PANTHERS': 'SOCIAL_FORCES',
@@ -408,10 +428,76 @@ JS_TAIL = r'''
     return 'THEY WANT ' + b.wantWord + '.';
   }
 
+  /* ---- WHAT YOU CAN ACTUALLY DO ABOUT IT ---------------------------------
+     Returns the act, or null when there is nothing to press. Null is a real
+     answer three ways and each one is his canon, not a gap:
+       - they are ASSESSING you (Colorful, Social Forces). You cannot press a
+         button to be safe to be around.
+       - there is no offer at all (the Amalgamation).
+       - YOU ALREADY DID IT TODAY. Gouldner 1960 and Malinowski before him: a
+         gift is not returned on the spot, and the INTERVAL between giving and
+         returning is where the obligation -- and therefore the relationship --
+         actually lives. So this is not an anti-grind dial bolted on; the wait IS
+         the mechanic. You cannot buy your way inside in one afternoon. */
+  function actFor(rule, st){
+    rule=rule||DEFAULT; st=st||{};
+    if(!rule.wants) return null;
+    var label=ACTS[rule.wants];
+    if(!label) return null;
+    if(st.gaveToday) return null;
+    return { label:label, kind:rule.wants };
+  }
+  /* WHY THERE IS NO BUTTON, in words, so a surface never has to guess. */
+  function noActBecause(rule, st){
+    rule=rule||DEFAULT; st=st||{};
+    if(!rule.wants) return '';
+    if(rule.wants==='nothing') return 'THERE IS NOTHING TO DO. IT MAKES NO OFFER.';
+    if(!ACTS[rule.wants]) return 'NOTHING TO PRESS. THEY ARE STILL DECIDING WHAT YOU ARE.';
+    if(st.gaveToday) return 'YOU ALREADY DID TODAY. COME BACK TOMORROW.';
+    return '';
+  }
+
+  /* ---- THE ONE WRITER -----------------------------------------------------
+     Two callers move this number now: the world bridge, when an authored quest
+     resolves in a faction's favour, and the run, when you do the peripheral act
+     on somebody's card. Two writers with two shapes is how a count starts
+     disagreeing with itself, so there is one function and they both use it.
+     THE THREE SPELLINGS problem is solved HERE too, once, rather than in each
+     caller -- it has already bitten this codebase three times. */
+  function normKey(fid){ return String(fid||'').toUpperCase().replace(/[\s_]/g,''); }
+  function gaveOf(save, fid){
+    var g=save && save.meta && save.meta.gave;
+    if(!g||!fid) return 0;
+    var want=normKey(fid);
+    for(var k in g) if(normKey(k)===want) return g[k]|0;
+    return 0;
+  }
+  function gaveDayOf(save, fid){
+    var d=save && save.meta && save.meta.gaveDay;
+    if(!d||!fid) return null;
+    var want=normKey(fid);
+    for(var k in d) if(normKey(k)===want) return d[k];
+    return null;
+  }
+  function record(save, fid, day){
+    if(!save || !save.meta || !fid) return 0;
+    var g=save.meta.gave || (save.meta.gave={});
+    var want=normKey(fid), hit=null;
+    for(var k in g) if(normKey(k)===want) hit=k;
+    var key=hit||fid;
+    g[key]=(g[key]|0)+1;
+    if(day!=null){
+      var d=save.meta.gaveDay || (save.meta.gaveDay={});
+      d[key]=day|0;
+    }
+    return g[key];
+  }
+
   var API={ RULES:RULES, DEFAULT:DEFAULT, ALIASES:ALIASES, RUNGS:RUNGS,
-            WANT_WORDS:WANT_WORDS,
+            WANT_WORDS:WANT_WORDS, ACTS:ACTS,
             ruleOf:ruleOf, rungOf:rungOf, nextRung:nextRung, bargain:bargain,
-            lineFor:lineFor,
+            lineFor:lineFor, actFor:actFor, noActBecause:noActBecause,
+            gaveOf:gaveOf, gaveDayOf:gaveDayOf, record:record,
             keys:function(){ return Object.keys(RULES); } };
   if(HASREQ) module.exports=API; else root.BohemiaBelonging=API;
 })(typeof globalThis!=='undefined'?globalThis:this);
@@ -432,7 +518,7 @@ def js_literal(rows):
         return '  var ' + name + '=' + json.dumps(val, indent=2, ensure_ascii=False)\
             .replace('\n', '\n  ') + ';\n\n'
     return (blk('RULES', body) + blk('DEFAULT', one(DEFAULT)) + blk('ALIASES', ALIASES)
-            + blk('RUNGS', RUNGS) + blk('WANT_WORDS', WANT_WORDS))
+            + blk('RUNGS', RUNGS) + blk('WANT_WORDS', WANT_WORDS) + blk('ACTS', ACTS))
 
 
 PAGE = r'''<!doctype html><html><head><meta charset="utf-8">
@@ -510,6 +596,11 @@ function card(key){
     if(b.next) h+='<div class="row"><div class="k">'+b.next.more+' MORE</div><div class="v">and you are '
       +esc(b.next.rung.word)+'</div></div>';
   }
+  var act=BohemiaBelonging.actFor(r, {gaveToday:false});
+  h+='<div class="row"><div class="k">YOU CAN</div><div class="v">'
+    +(act? ('<b>'+esc(act.label)+'</b> &middot; costs an hour, once a day')
+         : ('<span class="warn">'+esc(BohemiaBelonging.noActBecause(r,{}))+'</span>'))
+    +'</div></div>';
   if(b.mech) h+='<div class="note">'+esc(b.mech)+'</div>';
   if(b.pending) h+='<div class="note warn">STILL YOURS TO DECIDE: '+esc(b.pending)+'</div>';
   return h+'</div>';
@@ -526,6 +617,10 @@ function draw(){
     +'inward as you turn out to be useful, until you are the one training the next person. Your '
     +'Anarchists card says the quiet part out loud &mdash; <i>"Not sign anything, not join '
     +'anything."</i> So this is a slope, not a switch. Tap the button up top to walk it.</div>'
+    +'<div class="note">Every card now says what you can actually DO about it, and doing it costs '
+    +'an hour and only works once a day. That is not an anti-grind dial: Gouldner and Malinowski '
+    +'both found that a gift is not returned on the spot, and the WAIT between giving and getting '
+    +'back is where the obligation lives. You cannot buy your way inside in one afternoon.</div>'
     +'<div class="ladder">'+lad+'</div></div>'
     + keys.map(card).join('')
     +'<div class="foot">Every quoted line is yours, verbatim, out of records/factions/ &mdash; the '

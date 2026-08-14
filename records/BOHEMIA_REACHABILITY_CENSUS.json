@@ -991,7 +991,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 32,
-   "bytes": 19983
+   "bytes": 23237
   },
   {
    "path": "engine/bohemia_blockgen.js",
@@ -1405,7 +1405,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 32,
-   "bytes": 73764
+   "bytes": 75175
   },
   {
    "path": "engine/bohemia_loop_channel_tests.js",
@@ -1582,10 +1582,10 @@
    "path": "engine/bohemia_people.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 5,
-   "hits_shown": 5,
-   "hits_loaded": 5,
-   "bytes": 40663
+   "samples": 7,
+   "hits_shown": 7,
+   "hits_loaded": 7,
+   "bytes": 48044
   },
   {
    "path": "engine/bohemia_personlook.js",

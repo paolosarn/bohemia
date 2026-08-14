@@ -207,6 +207,49 @@ function partC() {
     ctx.factions.factions.get('Remnants').standingWith('player') < stand2,
     JSON.stringify(after3));
 
+  /* ---- THE PERIPHERAL ACT. A bargain you can read and cannot act on is the
+     inverse of yesterday's rule: not a button that does nothing, a button that
+     does not exist. Two kinds correctly have none, and both are his canon. */
+  ok('C8 every kind of want that CAN be acted on has exactly one act',
+    Object.keys(B.ACTS).length === 5 &&
+    ['presence', 'information', 'labour', 'debt', 'legibility']
+      .every(k => typeof B.ACTS[k] === 'string' && B.ACTS[k].length > 3),
+    JSON.stringify(B.ACTS));
+  ok('C9 you cannot press a button to be safe to be around, or to be offered nothing',
+    B.actFor(B.RULES.COLORFUL, {}) === null &&
+    B.actFor(B.RULES.SOCIAL_FORCES, {}) === null &&
+    B.actFor(B.RULES.AMALGAMATION, {}) === null &&
+    /STILL DECIDING/.test(B.noActBecause(B.RULES.COLORFUL, {})) &&
+    /NO OFFER/.test(B.noActBecause(B.RULES.AMALGAMATION, {})));
+  ok('C10 the act names the thing that outfit actually wants, not a generic favour',
+    B.actFor(B.RULES.REMNANTS, {}).label === B.ACTS.information &&
+    B.actFor(B.RULES.MOB, {}).label === B.ACTS.legibility &&
+    B.actFor(B.RULES.CARTEL, {}).label === B.ACTS.debt &&
+    B.ACTS.information !== B.ACTS.legibility);
+  ok('C11 once a day, and the surface is told WHY there is nothing to press',
+    B.actFor(B.RULES.REMNANTS, { gaveToday: true }) === null &&
+    /COME BACK TOMORROW/.test(B.noActBecause(B.RULES.REMNANTS, { gaveToday: true })));
+  ok('C12 somebody who runs with nobody has no act, because there is no bargain',
+    B.actFor(B.DEFAULT, {}) === null && B.noActBecause(B.DEFAULT, {}) === '');
+
+  /* ONE WRITER. The world bridge and the card both move this number, and the
+     three spellings of a faction have already bitten this codebase three times.
+     Both callers must land on the SAME key or the ladder splits in two. */
+  const sv = { meta: {} };
+  B.record(sv, 'REMNANTS', 3);
+  B.record(sv, 'Remnants', 3);
+  B.record(sv, 'remnants', 4);
+  ok('C13 three spellings of one outfit are one count, not three',
+    Object.keys(sv.meta.gave).length === 1 && B.gaveOf(sv, 'Remnants') === 3 &&
+    B.gaveOf(sv, 'REMNANTS') === 3, JSON.stringify(sv.meta.gave));
+  ok('C14 the day is recorded under the same single key',
+    Object.keys(sv.meta.gaveDay).length === 1 && B.gaveDayOf(sv, 'REMNANTS') === 4);
+  ok('C15 the world bridge writes through the same one writer the card uses',
+    /belongingModule\(\)/.test(
+      fs.readFileSync(path.join(ROOT, 'engine/bohemia_loop.js'), 'utf8')) &&
+    /BEL\.record\(save, real, null\)/.test(
+      fs.readFileSync(path.join(ROOT, 'engine/bohemia_loop.js'), 'utf8')));
+
   /* it has to survive a reload or the ladder resets every time he closes the app */
   const blob = L.captureSave(ctx);
   const ctx2 = L.boot({ saveText: blob });
@@ -264,6 +307,56 @@ async function partD() {
       /USEFUL/.test(out.warm) && !/A STRANGER/.test(out.warm), out.warm);
     ok('D6 somebody who runs with nobody gets no bargain block at all',
       !out.none || out.none.trim() === '', JSON.stringify(out.none));
+    /* THE WHOLE LOOP, THROUGH THE REAL DOM: read the bargain, press the act, watch
+       the rung move, and find the button gone until tomorrow. */
+    const loop = await page.evaluate(() => {
+      const a = (SIM && SIM.agents || [])[0];
+      const orig = window.factionForPerson;
+      window.factionForPerson = function () { return 'REMNANTS'; };
+      /* START FROM ZERO. D5 above deliberately plants a count of 4 to prove the
+         rung moves, and the first version of this claim inherited it and then
+         asserted "one act takes you from a stranger" against a tree where you
+         were already USEFUL. The probe was wrong, not the code. */
+      if (CTX && CTX.save && CTX.save.meta) { CTX.save.meta.gave = {}; CTX.save.meta.gaveDay = {}; }
+      const rung = () => { const n = document.getElementById('bargain');
+        const t = n ? n.innerText : '';
+        const i = t.indexOf('YOU ARE');
+        return i < 0 ? t : t.slice(i, t.indexOf('\n', t.indexOf('\n', i) + 1) + 1) || t.slice(i);
+      };
+      openPerson(a);
+      const btn = document.getElementById('pplgive');
+      const label = btn ? btn.textContent : null;
+      const before = rung();
+      if (btn) btn.click();
+      openPerson(a);
+      const after = rung();
+      /* the WHOLE block too: rung() deliberately slices out just the YOU ARE
+         lines, and the reason-there-is-no-button lives below them. */
+      const whole = (document.getElementById('bargain') || {}).innerText || '';
+      const second = document.getElementById('pplgive');
+      const gave = JSON.parse(JSON.stringify((CTX.save.meta || {}).gave || {}));
+      window.factionForPerson = orig;
+      return { label, before, after, whole, second: !!second, gave };
+    });
+    ok('D8 the card offers the act this outfit actually wants',
+      loop.label === B.ACTS.information, JSON.stringify(loop.label));
+    ok('D9 doing it once really moves the rung on the real card',
+      /A STRANGER/.test(loop.before) && /SOMEBODY WHO SHOWED UP/.test(loop.after),
+      loop.before.split('\n').pop() + ' -> ' + loop.after.split('\n').pop());
+    ok('D10 the count landed under ONE key, whichever spelling the card used',
+      Object.keys(loop.gave).length === 1, JSON.stringify(loop.gave));
+    ok('D11 the button is gone until tomorrow, and the card says so',
+      loop.second === false && /COME BACK TOMORROW/.test(loop.whole),
+      'button ' + loop.second + ' | ' + loop.whole.split('\n').pop());
+
+    /* NO NEW PRICE WAS INVENTED. TIME IS SPENT BY ACTIONS (7/26) makes the
+       action-cost table canon and forbids a lane writing one. The act reuses the
+       HANGOUT moment he already priced at 1 hour. */
+    ok('D12 the act costs an hour by REUSING his priced moment, not a new one',
+      /spendTime\('HANGOUT'/.test(src) &&
+      (src.match(/var MOMENTS = \[[^\]]*\]/) || [''])[0].split('name:').length - 1 === 3,
+      'a new priced moment would be a lane writing the action-cost table');
+
     ok('D7 the run threw no errors doing any of that',
       errors.length === 0, errors.slice(0, 3).join(' | '));
   } finally { await browser.close(); }

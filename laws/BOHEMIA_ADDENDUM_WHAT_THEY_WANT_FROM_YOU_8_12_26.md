@@ -97,9 +97,46 @@ own hand-check passed because I happened to type the spelling my code expected;
 time this codebase's three faction vocabularies have bitten — it is now normalised
 in all three organs.
 
+## AMENDED THE NEXT TURN — THE PERIPHERAL ACT
+
+The bargain shipped legible and **unactionable**. The card told you the Remnants
+wanted honest word about the road, and the only thing in the game that could move
+the ladder was an authored quest with `@DO faction X +N`. That is the inverse of
+this lane's own rule from the day before: **not a button that does nothing, a
+button that does not exist.**
+
+**ONE ACT PER KIND OF WANT**, each named for the thing that outfit actually wants:
+*Tell them what you have seen* (information), *Show up for them* (presence),
+*Give them an hour of it* (labour), *Take what they are offering* (debt), *Let them
+write you down* (legibility).
+
+**TWO KINDS CORRECTLY HAVE NO BUTTON**, and both are his canon rather than a gap:
+the Colorful and the Social Forces are **assessing** you and it never stops running
+— you cannot press a button to be safe to be around — and the Amalgamation makes
+no offer at all.
+
+**IT COSTS AN HOUR, AND THE HOUR IS NOT A NEW PRICE.** `TIME IS SPENT BY ACTIONS`
+(7/26) makes the action-cost table canon and forbids a lane writing one, so the act
+reuses the **HANGOUT** moment he already priced at 1 — doing somebody a favour *is*
+spending an hour with them. Nothing new is costed. Gated.
+
+**ONCE A DAY, AND THE WAIT IS THE MECHANIC.** Gouldner 1960, and Malinowski before
+him: a gift is **not** returned on the spot, and the **interval** between giving
+and returning is where the obligation — and therefore the relationship — actually
+lives. (I had assumed the opposite going in: that instant repayment *cancels* a
+bond. The literature says obligations persist, and the gap is the point. Correcting
+my own premise rather than shipping the version I liked.) So the daily limit is not
+an anti-grind dial bolted on; you cannot buy your way inside in one afternoon.
+
+**ONE WRITER.** The world bridge and the card now both move the same count, so it
+lives in `BohemiaBelonging.record()` and both callers go through it — including the
+normalisation of the three faction spellings, which have now bitten this codebase
+**four** times. The loop resolves the module lazily and falls back to a plain
+increment on a bare boot, so the world bridge is never blocked on a surface module.
+
 ## THE MACHINE
 
-`gates/belonging_gate.js`, 37 claims: 32 anchors verbatim plus a regenerate-and-
+`gates/belonging_gate.js`, 50 claims: 32 anchors verbatim plus a regenerate-and-
 diff; distinctness measured on what the player actually reads; the named-in-canon
 bargains driven; the ladder driven through a **real authored quest** and proven to
 be a count rather than the standing number; and the **real built run in a real

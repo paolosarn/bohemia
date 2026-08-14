@@ -19013,6 +19013,18 @@ var CANON_QUESTS = ["# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
        fires only on an explicit @DO advance_territory, so a quest that stirs somebody
        up changes what they'd reach for NEXT TIME the narrative calls a round, never
        this instant. */
+    /* OPTIONAL DEPENDENCY, resolved lazily on purpose. bohemia_belonging owns the
+       one writer for the belonging count; the loop must not hard-require it,
+       because a bare boot (tests, headless gates, the legacy carriers) has no
+       surface modules and the world bridge cannot be blocked on one. Resolved at
+       CALL time so browser load order does not matter either. */
+    function belongingModule() {
+      try {
+        if (typeof require !== 'undefined') return require('./bohemia_belonging.js');
+      } catch (_e) { /* not present on this carrier: fall through to the global */ }
+      const g = (typeof globalThis !== 'undefined') ? globalThis : null;
+      return (g && g.BohemiaBelonging) || null;
+    }
     function applyWorldEffects(rt) {
       if (!factions) return;
       const s = rt.state;
@@ -19032,8 +19044,19 @@ var CANON_QUESTS = ["# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
            and it already has one (standing). Rides meta, which is where abstract
            dynasty-scale state already lives, so no save migration is needed. */
         if (delta > 0 && save && save.meta) {
-          const g = save.meta.gave || (save.meta.gave = {});
-          g[real] = (g[real] | 0) + 1;
+          /* ONE WRITER. The run moves this same number when you do the peripheral
+             act on somebody's card, and two callers with two shapes is how a
+             count starts disagreeing with itself -- so both go through
+             bohemia_belonging's record(), which also folds the three spellings of
+             a faction into one key. Falls back to the plain increment on a bare
+             boot where the module is not loaded, so the world bridge is never
+             blocked on a surface module. */
+          const BEL = belongingModule();
+          if (BEL && typeof BEL.record === 'function') BEL.record(save, real, null);
+          else {
+            const g = save.meta.gave || (save.meta.gave = {});
+            g[real] = (g[real] | 0) + 1;
+          }
         }
       });
       Object.keys(s.posture || {}).forEach(function (fid) {

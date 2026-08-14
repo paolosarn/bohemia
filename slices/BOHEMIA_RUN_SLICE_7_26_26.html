@@ -4123,21 +4123,17 @@ function showAllegiance(agent){
 
    OWNS ITS OWN NODE for the reason the allegiance line had to learn the hard way
    on 8/11: anything that writes into #idcard before cardFor() runs is wiped. */
-/* HOW MANY TIMES YOU DID WHAT THIS OUTFIT WANTED, across the THREE SPELLINGS of a
-   faction this codebase has. The world bridge writes the counter under the real
-   FactionWorld id ('Remnants'); the card asks with whatever factionForPerson
-   produced, which is a quest's @ROLE token ('REMNANTS') or the derived id. A
-   straight lookup silently returns 0 forever and the ladder never moves -- caught
-   by the gate on the real card, not by reading the code. Same normalisation the
-   introduction and belonging organs already do for the same reason. */
+/* HOW MANY TIMES YOU DID WHAT THIS OUTFIT WANTED. The lookup used to live here and
+   it has moved into the organ, because the run is no longer the only reader: the
+   world bridge writes the same number and the act below writes it too. The THREE
+   SPELLINGS of a faction get folded in one place now instead of three -- they have
+   already bitten this codebase three times. */
 function gaveFor(fid){
-  if(!fid) return 0;
-  var g=null;
-  try { g=(CTX&&CTX.save&&CTX.save.meta)?CTX.save.meta.gave:null; } catch(_e){ return 0; }
-  if(!g) return 0;
-  var want=String(fid).toUpperCase().replace(/[\s_]/g,'');
-  for(var k in g){ if(String(k).toUpperCase().replace(/[\s_]/g,'')===want) return g[k]|0; }
-  return 0;
+  try { return BohemiaBelonging.gaveOf(CTX && CTX.save, fid); } catch(_e){ return 0; }
+}
+function gaveTodayFor(fid){
+  try { return BohemiaBelonging.gaveDayOf(CTX && CTX.save, fid) === worldDay(); }
+  catch(_e){ return false; }
 }
 function showBargain(host, fid){
   var el=document.getElementById('bargain');
@@ -4167,6 +4163,8 @@ function showBargain(host, fid){
   if(b.refuses) line('WILL NOT TAKE', b.refuses, '#e0a060');
   if(b.theyFirst) line('CAREFUL', 'THEY HELP YOU BEFORE YOU AGREE TO ANYTHING', '#e0a060');
   if(b.rung) line('YOU ARE', b.rung.word + (b.next? (' \u00b7 '+b.next.more+' MORE TO '+b.next.rung.word):''));
+  var why=BohemiaBelonging.noActBecause(rule, {gaveToday:gaveTodayFor(fid)});
+  if(why) line('', why);
 }
 
 function drawPerson(agent){
@@ -4257,6 +4255,35 @@ function drawPerson(agent){
       drawPerson(agent);
     });
     OPTS.appendChild(ansBtn);
+  }
+  /* ---- THE PERIPHERAL ACT (8/12) ---------------------------------------------
+     The card has told you what this outfit wants since this morning and there was
+     no way to give it to them: the only thing that could move the ladder was an
+     authored quest with @DO faction X +N. A bargain you can read and cannot act on
+     is the inverse of my own rule from yesterday -- not a button that does
+     nothing, a button that does not exist.
+
+     IT COSTS AN HOUR, AND THE HOUR IS NOT A NEW PRICE. TIME IS SPENT BY ACTIONS
+     (7/26) makes the action-cost table canon and forbids a lane from writing one,
+     so this reuses the HANGOUT moment he already priced at 1 -- doing somebody a
+     favour IS spending an hour with them. Nothing new is costed here.
+
+     ONE PER DAY, AND THE WAIT IS THE MECHANIC RATHER THAN AN ANTI-GRIND DIAL.
+     Gouldner 1960, and Malinowski before him: a gift is not returned on the spot,
+     and the INTERVAL between giving and returning is where the obligation lives.
+     You cannot buy your way inside in one afternoon. */
+  var bfid = factionForPerson(agent);
+  var brule = bfid ? BohemiaBelonging.ruleOf(bfid) : null;
+  var bact = brule ? BohemiaBelonging.actFor(brule, {gaveToday:gaveTodayFor(bfid)}) : null;
+  if(bact){
+    var doIt=document.createElement('button');
+    doIt.id='pplgive'; doIt.textContent=bact.label;
+    doIt.addEventListener('click', function(){
+      BohemiaBelonging.record(CTX && CTX.save, bfid, worldDay());
+      closePerson();
+      spendTime('HANGOUT', 'You did what the '+String(bfid).toUpperCase()+' wanted.');
+    });
+    OPTS.appendChild(doIt);
   }
   var hang=document.createElement('button');
   hang.id='pplhang'; hang.textContent='Hang out for an hour';
