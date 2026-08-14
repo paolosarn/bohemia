@@ -4969,6 +4969,1425 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   root.BohemiaDistrictKit=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
 
+/* ==== THE WORLD YOU STAND IN (inlined verbatim) ==== */
+/* ---- engine/bohemia_economy.js (inlined verbatim) ---- */
+// BOHEMIA ECONOMY — post-collapse scarcity, grounded (7/19/26, LIFE session)
+//
+// The brief's law: GROUNDED IN THE REAL. Real economics of collapse, no
+// fantasy. Every constant below carries its real-world anchor.
+//
+// WHAT COLLAPSE ECONOMIES ACTUALLY DO (research, distilled):
+//   - Fiat dies with the state that backed it. Exchange reverts to BARTER and
+//     then re-converges on COMMODITY MONEY — a divisible, durable, universally
+//     needed good (historical: cigarettes in WWII camps and 1990s Russian
+//     towns, ammunition and fuel in Balkan sieges, ration cans in besieged
+//     Sarajevo, bottled water after hurricanes).
+//   - WHICH commodity becomes Bohemia's money is CANON, so it is [PENDING
+//     Paolo] (currency logos already sit on his shelf). Until he rules, this
+//     ledger quotes barter prices in SALVAGE-KG EQUIVALENT — scrap is the one
+//     thing everyone on a dead grid can produce and everyone needs — and the
+//     numeraire swaps out in one place (NUMERAIRE) when he names the money.
+//   - Price under scarcity is hyperbolic in remaining supply, not linear:
+//     the last week of water costs more per liter than the last month did.
+//     Siege data (Sarajevo 92-95): staple prices moved 10-100x, not 2x.
+//
+// THE MOJAVE NUMBERS (why Vegas is the perfect scarcity stage):
+//   - WATER: a sedentary adult needs ~3L/day; desert labor pushes 6-8L. We
+//     budget 4L/day average across a mixed day. Household plumbing is dead
+//     (SNWA pumps need grid power); standing stock is water heaters (~150-
+//     300L/house), toilet tanks, pools long gone to evaporation. Lake Mead
+//     intakes need power the 12% grid doesn't spend on pumping.
+//   - FOOD: ~2000 kcal/day = 1 ration. Vegas pre-collapse held roughly 1
+//     week of grocery inventory (just-in-time trucking from CA/UT), plus
+//     deep casino/resort dry stores — THE reason downtown matters. Scavenge
+//     yield decays as the easy shelves empty.
+//   - POWER: CLUSTERED POWER LAW — 12% of circuits live, all owned. A dark
+//     suburb block produces and consumes zero grid power; power trades as a
+//     SERVICE (charging, refrigeration) at owned clusters only.
+//   - MEDS: insulin, antibiotics, painkillers — highest value-to-weight of
+//     any salvage class (true in every real collapse market).
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S: FACTION_ECONOMY (who taxes, who rations,
+// who controls which market) ships EMPTY. The machine prices goods; who OWNS
+// the goods is his canon.
+(function(root){
+  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
+
+  function rng(seed){var s=(seed>>>0)||1;return function(){
+    s^=s<<13;s>>>=0;s^=s>>17;s^=s<<5;s>>>=0;return s/4294967296;};}
+
+  // ---- GOODS (unit, need/adult/day, base barter value in salvage-kg) -------
+  var GOODS={
+    water:  {unit:'L',      need:4.0,  base:0.25, note:'3L sedentary, 6-8 desert labor; 4 mixed'},
+    food:   {unit:'ration', need:1.0,  base:1.5,  note:'1 ration = ~2000 kcal'},
+    salvage:{unit:'kg',     need:0,    base:1.0,  note:'the numeraire until Paolo names the money'},
+    meds:   {unit:'dose',   need:0.02, base:12.0, note:'rare use, extreme value/weight'},
+    fuel:   {unit:'L',      need:0.05, base:3.0,  note:'generators/stoves; stale gas is cut with additives'},
+    power:  {unit:'kWh',    need:0,    base:2.0,  note:'a SERVICE at live clusters only (12% law)'}
+  };
+  var NUMERAIRE='salvage';   // [PENDING Paolo: the commodity money + its logo]
+
+  // ---- WORK YIELDS (per agent per worked day, in goods) --------------------
+  // site job: organized crew at a real district (warehouse floor, market,
+  // clinic, solar yard) — better yield, and pays in the goods the site moves.
+  // scav: subsistence sweep of an already-picked block — thin and decaying.
+  var YIELD={
+    site: {salvage:3.0, food:0.3},
+    scav: {salvage:1.2, food:0.15}
+  };
+  // scavenge decay: yield multiplier halves every ~180 days of picking the
+  // same ground (the easy shelves empty; grounded in real disaster looting
+  // curves — day-one supermarkets vs month-three).
+  function scavDecay(day){ return Math.pow(0.5, (day||0)/180); }
+
+  // ---- FACTION TABLE — EMPTY (CONTENTS-PAOLO'S) ----------------------------
+  var FACTION_ECONOMY={};
+
+  // ---- LEDGER --------------------------------------------------------------
+  // One ledger per settlement/block. Starting stocks are the block's REAL
+  // standing water/food (water heaters + pantries), deterministic per seed.
+  function makeLedger(seed, nAgents, nHouses){
+    var r=rng((seed^0xEC0)>>>0);
+    return {
+      seed:seed>>>0, day:0, agents:nAgents|0, houses:nHouses|0,
+      stocks:{
+        // ~200L water heater + ~30L containers per house, +-20% condition
+        water: Math.round(nHouses*(200+60*r())),
+        // ~10 days pantry per resident at collapse, minus what's been eaten:
+        // this block has been living on it — call it a working reserve
+        food:  Math.round(nAgents*(8+6*r())),
+        salvage: Math.round(nAgents*(2+3*r())),
+        meds:  Math.round(nAgents*0.6+ r()*3),
+        fuel:  Math.round(nHouses*(1.5+2*r())),
+        power: 0                                  // dark block: the 12% law
+      },
+      flows:{produced:{},consumed:{},shortfall:{}} // last advanceDay result
+    };
+  }
+
+  // ---- PRICE — hyperbolic in days-of-supply, monotone in scarcity ----------
+  // daysLeft = stock / dailyNeed. Price multiplies as supply tightens:
+  //   >30 days: base. 30..7: ramp. <7: hyperbolic (last-week water).
+  // Monotone DECREASING in stock — the gate proves it stays that way.
+  function scarcityMult(daysLeft){
+    if(!isFinite(daysLeft)) return 1;
+    if(daysLeft>=30) return 1;
+    if(daysLeft<=0)  return 40;                       // out: siege price
+    var m=30/Math.max(daysLeft,0.75);                 // hyperbola through 1@30d
+    return Math.min(40, m);                           // capped at siege ratio
+  }
+  function price(ledger, good){
+    var g=GOODS[good]; if(!g) return null;
+    var dailyNeed=g.need*ledger.agents;
+    var daysLeft=dailyNeed>0 ? ledger.stocks[good]/dailyNeed : Infinity;
+    return +(g.base*scarcityMult(daysLeft)).toFixed(2);
+  }
+  function daysLeft(ledger, good){
+    var g=GOODS[good]; var dn=g.need*ledger.agents;
+    return dn>0 ? +(ledger.stocks[good]/dn).toFixed(1) : Infinity;
+  }
+
+  // ---- ADVANCE ONE DAY -----------------------------------------------------
+  // agents: the block population (bohemia_agents specs — job.kind drives
+  // yield). CONSERVATION: stock delta EXACTLY equals produced - consumed;
+  // shortfall records unmet need (nothing goes negative, nothing appears).
+  function advanceDay(ledger, agents){
+    var produced={}, consumed={}, shortfall={};
+    var decay=scavDecay(ledger.day);
+    (agents||[]).forEach(function(a){
+      var y=YIELD[a.job&&a.job.kind==='site'?'site':'scav'];
+      var mult=(a.job&&a.job.kind==='site')?1:decay;   // organized sites hold yield longer
+      Object.keys(y).forEach(function(good){
+        produced[good]=(produced[good]||0)+y[good]*mult; });
+    });
+    Object.keys(GOODS).forEach(function(good){
+      var need=GOODS[good].need*ledger.agents;
+      if(need>0) consumed[good]=need;
+    });
+    // apply: produce first, then consume down to zero, log unmet as shortfall
+    Object.keys(produced).forEach(function(good){
+      produced[good]=+produced[good].toFixed(2);
+      ledger.stocks[good]=+(ledger.stocks[good]+produced[good]).toFixed(2); });
+    Object.keys(consumed).forEach(function(good){
+      var want=consumed[good], have=ledger.stocks[good];
+      var take=Math.min(want,have);
+      ledger.stocks[good]=+(have-take).toFixed(2);
+      consumed[good]=+take.toFixed(2);
+      if(want-take>1e-9) shortfall[good]=+(want-take).toFixed(2);
+    });
+    ledger.day++;
+    ledger.flows={produced:produced,consumed:consumed,shortfall:shortfall};
+    return ledger.flows;
+  }
+
+  // human-readable market readout for HUDs/judges
+  function report(ledger){
+    return Object.keys(GOODS).map(function(good){
+      var d=daysLeft(ledger,good);
+      return {good:good, unit:GOODS[good].unit,
+        stock:+(+ledger.stocks[good]).toFixed(1),
+        daysLeft:d===Infinity?null:d,
+        price:price(ledger,good)};
+    });
+  }
+
+  var API={GOODS:GOODS,NUMERAIRE:NUMERAIRE,YIELD:YIELD,scavDecay:scavDecay,
+    makeLedger:makeLedger,advanceDay:advanceDay,price:price,daysLeft:daysLeft,
+    scarcityMult:scarcityMult,report:report,FACTION_ECONOMY:FACTION_ECONOMY};
+  if(HASREQ) module.exports=API;
+  root.BohemiaEconomy=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+
+/* ---- engine/bohemia_purse.js (inlined verbatim) ---- */
+// BOHEMIA PURSE — the player's three currencies, and the ledger that proves them.
+// (7/31/26, WORLD lane. Paolo: "WE HAVE 11 months of forward motion work we need to
+// complete. Do what you have to do next and know what comes after.")
+//
+// WHY THIS, NOW. records/BOHEMIA_THE_BIG_MISSING_7_29_26.md ranks the organs the game
+// does not have. #1 is THE GAME DAY (wake -> quest -> travel -> resolve -> GET PAID ->
+// spend -> sleep) and it is blocked on #3, THE ECONOMY, which is owned by this lane.
+// Nothing in the valley pays anybody. The day loop cannot close until it does, so this
+// is the highest-leverage thing WORLD can build: it unblocks another lane's #1.
+//
+// WHAT WAS ALREADY HERE, so this does not rebuild it:
+//   engine/bohemia_economy.js   a SETTLEMENT scarcity sim — stock, decay, hyperbolic
+//                               price under scarcity, priced in salvage-kg. That is the
+//                               WORLD's economy: what a town has and what it costs.
+//   engine/bohemia_loop.js      the clout/follower math (CLOUT_WEIGHTS, ruled 7/21).
+//   bohemia_world_resolve.js    advances the settlement a day per spent moment.
+// The hole between them is the PLAYER. There is no purse. Nothing credits, nothing
+// debits, nothing can be spent. This is that, and only that.
+//
+// THE CURRENCIES ARE LOCKED AND THERE ARE EXACTLY THREE
+// (laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_CENTURY_7_26_26.md, Paolo 7/26, LOCKED):
+//   RESOURCES    physical goods (apple = food, duct tape = materials; a third icon is
+//                [PENDING Paolo])
+//   ELECTRICITY  batteries, tech
+//   CLOUT        producible by buildings, spendable in many ways
+// THE ANTI-REFERENCE IS PART OF THE LAW: "games like that are called spreadsheet
+// simulators and I'm not a fan". Civ-5 / Surviving-the-Aftermath multi-currency feel is
+// BANNED. So: three balances, one ledger, six verbs. If this file ever needs a fourth
+// currency or a second ledger, it has broken his ruling.
+//
+// RESEARCH — WHY A LEDGER AND NOT THREE COUNTERS. Game-economy practice models an economy
+// as FAUCETS (sources, which create value from nothing) and SINKS/DRAINS (which destroy
+// it), plus CONVERTERS and TRADERS that only move value around (Daniel Cook, "Value chains
+// — a method for creating and balancing faucet-and-drain game economies", lostgarden 2021;
+// the same source/drain/converter/trader vocabulary recurs across the live-ops literature).
+// The failure mode everybody names is the same one: faucets are effectively infinite, so
+// an economy inflates until currency is meaningless, and you cannot fix what you cannot
+// measure. The literature also splits SOFT sinks (value moves to another holder — a
+// transfer, which does NOT fight inflation) from HARD sinks (value is destroyed, which
+// does). A bare counter cannot tell those apart. A ledger can, so:
+//
+//   1. BALANCES ARE DERIVED, NEVER SET. The entries are the truth and the balance is
+//      their sum. There is no setter. A number nobody can explain is a bug you cannot
+//      find at month 9 with a save file in your hand.
+//   2. EVERY MOVEMENT DECLARES ITS KIND — source / drain / convert / transfer — so the
+//      faucet-vs-sink pressure per currency is a measurement (see flow()), not a vibe.
+//   3. EVERY MOVEMENT CARRIES A REASON AND A REF. No anonymous money, ever.
+//   4. YOU CANNOT SPEND WHAT YOU DO NOT HAVE. A debit past zero is REFUSED and the
+//      refusal is recorded. Balances never go negative, so no hidden debt system exists
+//      by accident — debt would be canon, and canon is Paolo's.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S, HELD IN CODE AND NOT IN A COMMENT. The machine
+// moves money. WHAT ANYTHING IS WORTH IS HIS. So PAYOUT, PRICES and PRODUCTION ship
+// EMPTY, and with an empty table the answer is NO_RULING — never a guessed number, never
+// a placeholder that quietly becomes canon by shipping. This is the same shape as the
+// faction beat predicate in bohemia_world_resolve.js, which is DEFAULT OFF structurally.
+//
+// ACT ONE ONLY (Paolo 7/28). The CENTURY RULE — dynasty choices compounding across three
+// acts — is in the same locked addendum as the currencies, and it is deliberately NOT
+// modelled here. Act-2/3 design is parked by his own ruling.
+(function (root) {
+  'use strict';
+
+  /* the three, in his order. Frozen: a fourth breaks the anti-spreadsheet ruling. */
+  var CURRENCIES = ['resources', 'electricity', 'clout'];
+
+  /* the value-chain vocabulary, used as the ledger's own kinds:
+       source    created from nothing and injected  (a FAUCET)
+       drain     destroyed and gone                 (a HARD SINK — this is what fights inflation)
+       convert   one currency became another        (neither; net-zero across the pair)
+       transfer  moved to or from another holder    (a SOFT SINK — moves value, destroys none) */
+  var KINDS = ['source', 'drain', 'convert', 'transfer'];
+
+  var NO_RULING = 'NO_RULING';
+
+  /* ---------------------------------------------------------------------------
+     THE TABLES. ALL THREE SHIP EMPTY. They are the CONTENTS half of the law and
+     they are Paolo's alone. Do not fill these in. Do not add "sensible defaults".
+     A placeholder number that ships is canon nobody ruled.
+     --------------------------------------------------------------------------- */
+  var PAYOUT = {};        // questOutcome/tag -> {resources, electricity, clout}  [PENDING Paolo]
+  var PRICES = {};        // goodId           -> {currency, amount}               [PENDING Paolo]
+  var PRODUCTION = {};    // buildingId       -> per-day yield                    [PENDING Paolo]
+
+  function isCurrency(c) { return CURRENCIES.indexOf(c) >= 0; }
+
+  function create(opts) {
+    opts = opts || {};
+    return { entries: [], day: opts.day || 0, id: opts.id || 'player' };
+  }
+
+  /* BALANCE IS A SUM, NOT A FIELD. This is the whole design in one function. */
+  function balance(purse, currency) {
+    if (!purse || !isCurrency(currency)) return 0;
+    var n = 0;
+    for (var i = 0; i < purse.entries.length; i++) {
+      var e = purse.entries[i];
+      if (e.currency === currency) n += e.amount;
+    }
+    return n;
+  }
+
+  function balances(purse) {
+    var out = {};
+    for (var i = 0; i < CURRENCIES.length; i++) out[CURRENCIES[i]] = balance(purse, CURRENCIES[i]);
+    return out;
+  }
+
+  /* the one private writer. Everything public goes through it, so there is exactly one
+     place where the ledger can grow and exactly one set of rules to satisfy. */
+  function _post(purse, currency, amount, kind, reason, ref, day) {
+    if (!purse) return { applied: false, reason: 'NO_PURSE' };
+    if (!isCurrency(currency)) return { applied: false, reason: 'NOT_A_CURRENCY', currency: currency };
+    if (KINDS.indexOf(kind) < 0) return { applied: false, reason: 'NOT_A_KIND', kind: kind };
+    if (typeof amount !== 'number' || !isFinite(amount) || amount === 0)
+      return { applied: false, reason: 'NOT_AN_AMOUNT', amount: amount };
+    /* NO ANONYMOUS MONEY. A movement with no reason is a movement nobody can debug. */
+    if (!reason) return { applied: false, reason: 'NO_REASON' };
+    /* YOU CANNOT SPEND WHAT YOU DO NOT HAVE, and the refusal is part of the record. */
+    if (amount < 0 && balance(purse, currency) + amount < 0) {
+      var short = -(balance(purse, currency) + amount);
+      return { applied: false, reason: 'INSUFFICIENT', currency: currency,
+               have: balance(purse, currency), wanted: -amount, short: short };
+    }
+    var entry = { currency: currency, amount: amount, kind: kind, reason: reason,
+                  ref: ref == null ? null : ref, day: day == null ? purse.day : day,
+                  seq: purse.entries.length };
+    purse.entries.push(entry);
+    return { applied: true, entry: entry, balance: balance(purse, currency) };
+  }
+
+  /* the six verbs. That is the entire surface — the anti-spreadsheet ruling is an API
+     constraint here, not a note. */
+  function credit(purse, currency, amount, reason, ref, day) {
+    return _post(purse, currency, Math.abs(amount), 'source', reason, ref, day);
+  }
+  function debit(purse, currency, amount, reason, ref, day) {
+    return _post(purse, currency, -Math.abs(amount), 'drain', reason, ref, day);
+  }
+  function transferOut(purse, currency, amount, reason, ref, day) {
+    return _post(purse, currency, -Math.abs(amount), 'transfer', reason, ref, day);
+  }
+  function transferIn(purse, currency, amount, reason, ref, day) {
+    return _post(purse, currency, Math.abs(amount), 'transfer', reason, ref, day);
+  }
+
+  /* CONVERT is the only two-legged movement, and it is ATOMIC: if the outgoing leg is
+     refused, the incoming leg never happens. A half-applied conversion would mint or
+     burn currency silently, which is the exact class of bug the ledger exists to make
+     impossible. The RATE is not here -- a rate is a price and prices are Paolo's. */
+  function convert(purse, fromCur, fromAmt, toCur, toAmt, reason, ref, day) {
+    if (!reason) return { applied: false, reason: 'NO_REASON' };
+    var out = _post(purse, fromCur, -Math.abs(fromAmt), 'convert', reason, ref, day);
+    if (!out.applied) return out;
+    var back = _post(purse, toCur, Math.abs(toAmt), 'convert', reason, ref, day);
+    if (!back.applied) { purse.entries.pop(); return back; }   // atomic: unwind leg one
+    return { applied: true, out: out.entry, in: back.entry, balances: balances(purse) };
+  }
+
+  /* ---------------------------------------------------------------------------
+     THE RULED EDGES. Each one asks its table and, finding it empty, says so. This is
+     the mechanism/contents split executed rather than described: the pipe is finished
+     and connected, and it carries nothing until he rules the numbers.
+     --------------------------------------------------------------------------- */
+
+  /* A quest was completed. The loop already fires an outcome event carrying the quest's
+     own clout tag (#quiet/#notable/#risky/#reckless, ruled 7/21). What that is WORTH is
+     not ruled, so nothing is paid and the caller is told exactly why. */
+  function payQuest(purse, ev, day) {
+    if (!ev) return { applied: false, reason: 'NO_EVENT' };
+    var key = ev.outcome || (ev.tags && ev.tags[0]) || null;
+    var row = key && Object.prototype.hasOwnProperty.call(PAYOUT, key) ? PAYOUT[key] : null;
+    if (!row) return { applied: false, reason: NO_RULING, table: 'PAYOUT', key: key,
+                       about: 'what a quest outcome pays is Paolo\'s ruling' };
+    var done = [];
+    for (var i = 0; i < CURRENCIES.length; i++) {
+      var c = CURRENCIES[i];
+      if (row[c]) done.push(credit(purse, c, row[c], 'quest:' + key, ev.questId || null, day));
+    }
+    return { applied: done.length > 0, paid: done, balances: balances(purse) };
+  }
+
+  /* Buy something. An empty price table means the shop is real and the tag on the shelf
+     is blank -- which is honest, and is not the same as free. */
+  function spend(purse, goodId, day) {
+    var row = Object.prototype.hasOwnProperty.call(PRICES, goodId) ? PRICES[goodId] : null;
+    if (!row) return { applied: false, reason: NO_RULING, table: 'PRICES', key: goodId,
+                       about: 'what a thing costs is Paolo\'s ruling' };
+    return debit(purse, row.currency, row.amount, 'buy:' + goodId, goodId, day);
+  }
+
+  /* A building produced its day. Same shape, same silence. */
+  function produce(purse, buildingId, day) {
+    var row = Object.prototype.hasOwnProperty.call(PRODUCTION, buildingId) ? PRODUCTION[buildingId] : null;
+    if (!row) return { applied: false, reason: NO_RULING, table: 'PRODUCTION', key: buildingId,
+                       about: 'what a building produces is Paolo\'s ruling' };
+    var done = [];
+    for (var i = 0; i < CURRENCIES.length; i++) {
+      var c = CURRENCIES[i];
+      if (row[c]) done.push(credit(purse, c, row[c], 'produce:' + buildingId, buildingId, day));
+    }
+    return { applied: done.length > 0, made: done, balances: balances(purse) };
+  }
+
+  /* ---------------------------------------------------------------------------
+     MEASUREMENT. The reason the ledger carries kinds: faucet pressure against hard-sink
+     pressure, per currency. When the tables are filled in, THIS is the number that says
+     whether the economy inflates -- and it is available on day one instead of being
+     reconstructed from a save file at month nine.
+     --------------------------------------------------------------------------- */
+  function flow(purse) {
+    var out = {};
+    for (var i = 0; i < CURRENCIES.length; i++) {
+      out[CURRENCIES[i]] = { source: 0, drain: 0, convertIn: 0, convertOut: 0,
+                             transferIn: 0, transferOut: 0, net: 0 };
+    }
+    for (var j = 0; j < (purse ? purse.entries.length : 0); j++) {
+      var e = purse.entries[j], b = out[e.currency];
+      if (!b) continue;
+      b.net += e.amount;
+      if (e.kind === 'source') b.source += e.amount;
+      else if (e.kind === 'drain') b.drain += -e.amount;
+      else if (e.kind === 'convert') { if (e.amount > 0) b.convertIn += e.amount; else b.convertOut += -e.amount; }
+      else if (e.kind === 'transfer') { if (e.amount > 0) b.transferIn += e.amount; else b.transferOut += -e.amount; }
+    }
+    return out;
+  }
+
+  /* AUDIT: the ledger is the truth, so prove it. Every entry is well-formed, every
+     balance equals the sum of its entries, nothing ever went negative at any point in
+     history, and no movement is anonymous. This runs over the WHOLE history, not the
+     end state, because "it balances now" hides a balance that went negative on day 3. */
+  function audit(purse) {
+    var problems = [];
+    if (!purse || !purse.entries) return { ok: false, problems: ['NO_PURSE'] };
+    var running = {}, i;
+    for (i = 0; i < CURRENCIES.length; i++) running[CURRENCIES[i]] = 0;
+    for (i = 0; i < purse.entries.length; i++) {
+      var e = purse.entries[i];
+      if (!isCurrency(e.currency)) problems.push('entry ' + i + ': not a currency (' + e.currency + ')');
+      if (KINDS.indexOf(e.kind) < 0) problems.push('entry ' + i + ': not a kind (' + e.kind + ')');
+      if (!e.reason) problems.push('entry ' + i + ': anonymous movement, no reason');
+      if (typeof e.amount !== 'number' || !isFinite(e.amount) || e.amount === 0)
+        problems.push('entry ' + i + ': bad amount (' + e.amount + ')');
+      if (e.seq !== i) problems.push('entry ' + i + ': sequence broken (seq ' + e.seq + ')');
+      if (running[e.currency] !== undefined) {
+        running[e.currency] += e.amount;
+        if (running[e.currency] < 0)
+          problems.push('entry ' + i + ': ' + e.currency + ' went negative in history');
+      }
+    }
+    var b = balances(purse);
+    for (i = 0; i < CURRENCIES.length; i++) {
+      var c = CURRENCIES[i];
+      if (b[c] !== running[c]) problems.push(c + ': balance ' + b[c] + ' != ledger sum ' + running[c]);
+    }
+    return { ok: problems.length === 0, problems: problems, balances: b };
+  }
+
+  /* the whole story of one currency, or of everything, newest last. */
+  function history(purse, currency) {
+    if (!purse) return [];
+    return purse.entries.filter(function (e) { return !currency || e.currency === currency; });
+  }
+
+  /* Save/restore is the entries. Nothing else is state, because nothing else is truth. */
+  function save(purse) { return { id: purse.id, day: purse.day, entries: purse.entries.slice() }; }
+  function load(blob) {
+    var p = create({ id: (blob && blob.id) || 'player', day: (blob && blob.day) || 0 });
+    p.entries = (blob && blob.entries) ? blob.entries.slice() : [];
+    return p;
+  }
+
+  var API = {
+    CURRENCIES: CURRENCIES, KINDS: KINDS, NO_RULING: NO_RULING,
+    PAYOUT: PAYOUT, PRICES: PRICES, PRODUCTION: PRODUCTION,
+    create: create, balance: balance, balances: balances,
+    credit: credit, debit: debit, transferIn: transferIn, transferOut: transferOut,
+    convert: convert,
+    payQuest: payQuest, spend: spend, produce: produce,
+    flow: flow, audit: audit, history: history, save: save, load: load
+  };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  root.BohemiaPurse = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ---- engine/bohemia_payday.js (inlined verbatim) ---- */
+// BOHEMIA PAYDAY — the circulatory link between a finished quest, the player's purse,
+// and a place to spend it. (8/9/26, WORLD lane.)
+//
+//   "the quest payout hook so the day loop PAYS, one act-1 trading hub reachable and
+//    spendable"                                                    -- Paolo, 8/9/26
+//
+// WHY THIS EXISTS, AND IT IS NOT WHAT I SAID IT WAS. Earlier the same day I wrote, in a
+// surface he reads, that "payQuest() fires on every quest outcome and credits the purse."
+// THAT WAS FALSE AND I HAD NOT CHECKED IT. Nothing in this repo called payQuest. Nothing
+// imported bohemia_purse.js at all. The purse was an island: a finished ledger with six
+// verbs, three currencies and an audit, wired to nothing, reachable from nothing.
+// (laws/BOHEMIA_LAW_HOW_HAIR_AND_SHAPE_WORK_8_1_26.md: do not claim things about the
+// codebase without checking. This module is that claim made true instead of retracted.)
+//
+// AND THE PROBE HAD ALREADY SAID SO, in the only voice that counts -- the surface he
+// taps. tools/bohemia_game_day_probe.js walks the real RUN surface and reports link by
+// link where the day stops:
+//
+//     [BLOCKED] 5 GET PAID      currency on the walked surface: NONE AT ALL
+//     [BLOCKED] 6 SPEND SOMETHING   nothing to spend: no currency exists here
+//
+// THE THREE ORGANS ALL EXISTED AND NOTHING JOINED THEM:
+//     bohemia_quest_runtime.js  ends a quest with {done, outcome:'COMPLETE'|'FAIL',
+//                               doneTags} -- and hands it to nobody.
+//     bohemia_purse.js          payQuest(purse, ev) wants exactly {outcome, tags} -- and
+//                               is called by nobody.
+//     bohemia_economy.js        prices goods hyperbolically against remaining supply,
+//                               anchored in real siege data -- and sells to nobody.
+// This is the joint. It invents no organ and duplicates none.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S, HELD EXACTLY. Every number a player would feel is
+// his and every one of them is still empty:
+//     what a quest pays        PURSE.PAYOUT      {}  [PENDING Paolo, demo blocker 1]
+//     what a thing costs       PURSE.PRICES      {}  [PENDING Paolo, demo blocker 2]
+//     what a building yields   PURSE.PRODUCTION  {}  [PENDING Paolo, demo blocker 3]
+// So this module carries VALUE END TO END and delivers ZERO, out loud, by name. The pipe
+// is finished and the valve is his. One letter opens it.
+//
+// MAP LAW HELD: Claude never designs map layouts, plumbing only. The hubs below are not
+// placed by me -- they are the swap-meet cells THE OVERMAP ALREADY SITED, read back out
+// of the world model. If the seed moves them, they move.
+//
+// WHY A SWAP MEET IS THE ACT-1 TRADING HUB, and it is the realistic answer rather than a
+// convenient one: informal markets in a collapsed economy do not get founded, they
+// ACCRETE at a fixed, already-known, high-traffic spot with room to park and a boundary
+// somebody can watch -- which is the definition of a swap meet, and Las Vegas ran real
+// ones for decades. A market needs no new building, no charter and nobody's permission;
+// it needs a place everybody can already find. The overmap sites those cells; the ledger
+// gives them a till.
+//
+// REUSE CHECK: cooks NO pixels and adds NO tables. Opens engine/bohemia_purse.js (the
+// ledger and its six verbs), engine/bohemia_economy.js (GOODS + price(), both already
+// research-anchored in their own source) and the world model's districtsOfType(). It
+// writes nothing any of them already owns.
+(function (root) {
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+  var PURSE = HASREQ ? require('./bohemia_purse.js')
+    : (root.BohemiaPurse || (typeof BohemiaPurse !== 'undefined' ? BohemiaPurse : null));
+  var ECON = HASREQ ? require('./bohemia_economy.js')
+    : (root.BohemiaEconomy || (typeof BohemiaEconomy !== 'undefined' ? BohemiaEconomy : null));
+
+  var NO_RULING = 'NO_RULING';
+
+  /* THE DISTRICT TYPES A MARKET ACCRETES ON, most market-like first. NOT a placement:
+     a filter over cells the overmap already made. swapmeet is a market by definition;
+     a truckstop is the other place in a dead valley that already has fuel, water, a
+     paved apron and people passing through. */
+  var HUB_TYPES = ['swapmeet', 'truckstop'];
+
+  /* ---------------------------------------------------------------------------
+     1. THE PAYOUT HOOK. A quest ended; tell the purse.
+     --------------------------------------------------------------------------- */
+
+  /* The quest runtime's finished state IS the event -- no third shape in between, because
+     a translation layer between two things that already agree is a place for them to
+     drift apart. It ends with {done, outcome, doneTags}; payQuest wants {outcome, tags}. */
+  function questEvent(questState, questId) {
+    if (!questState || !questState.done) return null;
+    return {
+      questId: questId || questState.id || null,
+      outcome: questState.outcome || null,
+      tags: (questState.doneTags || []).slice()
+    };
+  }
+
+  /* Pay for a finished quest. Returns the purse's own answer verbatim, INCLUDING its
+     refusal -- a caller must be able to tell "paid nothing because it is worth nothing"
+     from "paid nothing because nobody has ruled what it is worth". */
+  /* WHAT A QUEST PAYS IS THE QUEST'S OWN BUSINESS -- RULED 8/11.
+     Asked what a day's work should pay, Paolo answered: "Whatever currency the quest decida
+     to give." That is not a number, it is a DESIGN RULING, and it is a better one than the
+     option I offered him. I had proposed a global PAYOUT table keyed on the outcome tier --
+     every #notable job in the valley worth the same thing forever. He put the reward back
+     where the job is: a water run pays water, a courier job pays clout, a salvage job pays
+     salvage, and each quest says so itself.
+     SO THE MECHANISM CHANGED SHAPE, not just its contents. The quest declares `reward` and
+     the bridge pays exactly that. The AMOUNTS stay contents -- they live in the .bq quest
+     files with the rest of that quest's canon, which is where he just put them.
+     His global table still works and is still empty: a quest that declares nothing falls
+     through to PURSE.PAYOUT and gets the same honest refusal as before. */
+  function questReward(questState, quest) {
+    var r = (questState && questState.reward) || (quest && quest.reward) || null;
+    if (!r) return null;
+    var out = {}, any = false;
+    for (var i = 0; i < CURRENCIES().length; i++) {
+      var c = CURRENCIES()[i];
+      if (typeof r[c] === 'number' && r[c] !== 0) { out[c] = r[c]; any = true; }
+    }
+    return any ? out : null;
+  }
+
+  function CURRENCIES() { return PURSE ? PURSE.CURRENCIES : []; }
+
+  function payForQuest(purse, questState, day, questId, quest) {
+    if (!PURSE) return { applied: false, reason: 'NO_PURSE' };
+    var ev = questEvent(questState, questId);
+    if (!ev) return { applied: false, reason: 'NOT_FINISHED' };
+    var reward = questReward(questState, quest);
+    if (reward) {
+      var done = [];
+      for (var c in reward) {
+        if (!Object.prototype.hasOwnProperty.call(reward, c)) continue;
+        done.push(PURSE.credit(purse, c, reward[c], 'quest:' + (ev.outcome || 'done'),
+                               ev.questId, day));
+      }
+      return { applied: true, source: 'quest', paid: reward,
+               balances: PURSE.balances(purse) };
+    }
+    return PURSE.payQuest(purse, ev, day);
+  }
+
+  /* ---------------------------------------------------------------------------
+     2. THE HUBS. Read out of the world, never placed here.
+     --------------------------------------------------------------------------- */
+
+  /* TAKES EITHER SHAPE, BECAUSE THE VALLEY HAS TWO AND I CHECKED WHICH IS WHERE.
+     Headless and in the run slice there is a full world model with districtsOfType().
+     In the CITY page -- the surface Paolo actually walks -- there is no world model at
+     all; that page inlines the OVERMAP and nothing else, so the first version of this
+     returned an empty hub list on the one surface that mattered and looked fine
+     everywhere I happened to test it. Follow the artefact, do not assume its shape. */
+  function overmapOf(w) {
+    if (!w) return null;
+    if (typeof w.at === 'function' && w.n) return w;           // a raw overmap
+    if (w.m && typeof w.m.at === 'function') return w.m;       // one wrapping an overmap
+    return null;
+  }
+
+  function hubs(w) {
+    var out = [], i, j, t;
+    if (w && typeof w.districtsOfType === 'function') {
+      for (i = 0; i < HUB_TYPES.length; i++) {
+        t = HUB_TYPES[i];
+        var cells = w.districtsOfType(t) || [];
+        for (j = 0; j < cells.length; j++) {
+          out.push({ id: t + ':' + cells[j].x + ',' + cells[j].y, kind: t,
+                     x: cells[j].x, y: cells[j].y });
+        }
+      }
+      return out;
+    }
+    var m = overmapOf(w);
+    if (!m) return out;
+    for (var y = 0; y < m.n; y++) {
+      for (var x = 0; x < m.n; x++) {
+        var c = m.at(x, y);
+        if (!c || HUB_TYPES.indexOf(c.district) < 0) continue;
+        out.push({ id: c.district + ':' + x + ',' + y, kind: c.district, x: x, y: y });
+      }
+    }
+    return out;
+  }
+
+  /* REACHABLE means a body can get to it, and the honest test of that is the one the
+     district kit already applies to every plot: the drivable/walkable network reaches
+     the curb. Ask the plot itself rather than asserting it from up here.
+     RETURNS NULL WHEN IT CANNOT BE TESTED -- on a surface with no plot API there is no
+     answer, and reporting `false` there would be a guess dressed as a measurement. */
+  function reachable(w, hub) {
+    if (!w || !hub || typeof w.plot !== 'function') return null;
+    var p = null;
+    try { p = w.plot(hub.x, hub.y); } catch (e) { return false; }
+    if (!p) return false;
+    if (typeof p.driveConnected === 'function') { try { return !!p.driveConnected(); } catch (e) { } }
+    return !!(p.buildings && p.buildings.length);
+  }
+
+  function nearestHub(w, x, y) {
+    var hs = hubs(w), best = null, bd = Infinity;
+    for (var i = 0; i < hs.length; i++) {
+      var dx = hs[i].x - x, dy = hs[i].y - y, d = dx * dx + dy * dy;
+      if (d < bd) { bd = d; best = hs[i]; }
+    }
+    if (best) best.dist = Math.sqrt(bd);
+    return best;
+  }
+
+  /* ---------------------------------------------------------------------------
+     3. THE SHELF, AND THE ONE VALVE THAT IS HIS.
+     --------------------------------------------------------------------------- */
+
+  /* What a hub offers. The goods are engine/bohemia_economy.js's GOODS -- already in
+     this repo, already carrying their own real-world anchors in that file's header, and
+     NOT invented here. What is missing is never the shelf; it is the tag on it. */
+  function shelf(hub) {
+    if (!ECON || !ECON.GOODS) return [];
+    var out = [];
+    for (var g in ECON.GOODS) {
+      if (!Object.prototype.hasOwnProperty.call(ECON.GOODS, g)) continue;
+      if (!ECON.GOODS[g].need) continue;        // a numeraire is not a thing on a shelf
+      out.push({ good: g, unit: ECON.GOODS[g].unit, note: ECON.GOODS[g].note });
+    }
+    return out;
+  }
+
+  /* PRICE_SOURCE IS THE VALVE AND IT IS SHUT. Demo blocker 2 asks him which of three:
+       A  price off the scarcity sim we already have  -> 'economy'
+       B  he names goods and prices                   -> 'ruled' (PURSE.PRICES filled)
+       C  barter only, no prices at all               -> 'barter'
+     Until he answers a letter this stays null and every price says NO_RULING by name.
+     A DEFAULT HERE WOULD BE CANON NOBODY RULED, which is the one thing the mechanism/
+     contents split exists to prevent -- and the 8/3 mistake this repo already paid for
+     once, off a sentence that sounded warm. */
+  /* HE OPENED IT. @RULING PRICES A (Paolo 8/11): "Three goods, priced off the scarcity sim
+     we already have." records/BOHEMIA_VERDICT_ICONS_AND_DEMO_BLOCKERS_8_11_26.txt
+     So the tag on the shelf is READ, never typed: bohemia_economy.js prices every good
+     hyperbolically against how many days of it are left, anchored in real siege data
+     (Sarajevo 92-95, staples moved 10-100x not 2x). The price MOVES when the valley gets
+     thirstier, which is why this is the realistic answer and not merely the convenient one.
+     HIS OWN TABLE STILL WINS: PURSE.PRICES is checked first and is still empty, so if he
+     ever names a price it beats the sim for that good and nothing else changes. */
+  var PRICE_SOURCE = 'economy';   // RULED 8/11 by Paolo, blocker 2 = A
+
+  function price(purse, ledger, goodId) {
+    if (!PURSE) return { reason: 'NO_PURSE' };
+    // his own table always wins, whether or not the valve was ever turned
+    if (PURSE.PRICES && Object.prototype.hasOwnProperty.call(PURSE.PRICES, goodId)) {
+      return { source: 'ruled', price: PURSE.PRICES[goodId] };
+    }
+    if (PRICE_SOURCE === 'economy' && ECON && ledger) {
+      return { source: 'economy', price: ECON.price(ledger, goodId) };
+    }
+    if (PRICE_SOURCE === 'barter') return { source: 'barter', price: null };
+    return { reason: NO_RULING, table: 'PRICES', key: goodId,
+             about: 'what a thing costs is Paolo\'s ruling (demo blocker 2)' };
+  }
+
+  /* Buy. Goes through the purse's own debit so the ledger records a HARD SINK -- the
+     thing that actually fights inflation, and the reason the purse is a ledger and not
+     three counters. */
+  /* WHICH CURRENCY A GOOD IS BOUGHT WITH. The economy quotes everything in SALVAGE-KG --
+     "the one thing everyone on a dead grid can produce and everyone needs" (its own words,
+     7/19) -- and of his three ruled currencies that IS resources: physical goods you carry.
+     Electricity is a service off the 12% live grid and clout is reputation; neither buys a
+     litre of water. This is a mapping between two things he already ruled, not a new table. */
+  var SALVAGE_CURRENCY = 'resources';
+
+  function buy(purse, hubOrNull, goodId, day, ledger) {
+    if (!PURSE) return { applied: false, reason: 'NO_PURSE' };
+    // his own named price wins, and his table is still empty
+    if (PURSE.PRICES && Object.prototype.hasOwnProperty.call(PURSE.PRICES, goodId)) {
+      return PURSE.spend(purse, goodId, day);
+    }
+    var p = price(purse, ledger, goodId);
+    if (p.reason) return { applied: false, reason: p.reason, table: p.table, key: goodId,
+                           about: p.about };
+    if (p.source === 'barter') return { applied: false, reason: 'BARTER_ONLY', key: goodId };
+    if (p.price == null) return { applied: false, reason: 'NO_PRICE', key: goodId };
+    if (PURSE.balance(purse, SALVAGE_CURRENCY) < p.price) {
+      return { applied: false, reason: 'CANNOT_AFFORD', key: goodId, price: p.price,
+               have: PURSE.balance(purse, SALVAGE_CURRENCY) };
+    }
+    /* A HARD SINK, on purpose: the goods leave the world when you consume them, so the
+       value is DESTROYED rather than moved. That is the half of a faucet-and-drain economy
+       that actually fights inflation, and the reason the purse is a ledger not a counter. */
+    var e = PURSE.debit(purse, SALVAGE_CURRENCY, p.price, 'buy:' + goodId, goodId, day);
+    return { applied: true, good: goodId, paid: p.price, source: p.source,
+             currency: SALVAGE_CURRENCY, entry: e, balances: PURSE.balances(purse) };
+  }
+
+  /* ---------------------------------------------------------------------------
+     4. THE DAY, END TO END. One call a host can make to prove the loop circulates --
+        and to see, in one object, exactly where it stops and whose call that is.
+     --------------------------------------------------------------------------- */
+  function dayReport(w, purse, ledger) {
+    var hs = hubs(w);
+    var reach = [], untested = 0;
+    for (var i = 0; i < hs.length && i < 8; i++) {
+      var r = reachable(w, hs[i]);
+      if (r === null) untested++; else if (r) reach.push(hs[i]);
+    }
+    var sh = shelf();
+    var priced = [], unruled = [];
+    for (var j = 0; j < sh.length; j++) {
+      var p = price(purse, ledger, sh[j].good);
+      (p.reason === NO_RULING ? unruled : priced).push(sh[j].good);
+    }
+    return {
+      purseExists: !!PURSE,
+      currencies: PURSE ? PURSE.CURRENCIES.slice() : [],
+      hubs: hs.length, hubsReachable: reach.length, hubsUntestable: untested,
+      shelf: sh.length, priced: priced, unruled: unruled,
+      payoutRuled: !!(PURSE && Object.keys(PURSE.PAYOUT || {}).length),
+      priceSource: PRICE_SOURCE,
+      blocking: (!(PURSE && Object.keys(PURSE.PAYOUT || {}).length) ? ['PAYOUT'] : [])
+        .concat(unruled.length ? ['PRICES'] : [])
+    };
+  }
+
+  var API = {
+    HUB_TYPES: HUB_TYPES, PRICE_SOURCE: PRICE_SOURCE, NO_RULING: NO_RULING,
+    questEvent: questEvent, payForQuest: payForQuest,
+    hubs: hubs, reachable: reachable, nearestHub: nearestHub,
+    shelf: shelf, price: price, buy: buy, dayReport: dayReport
+  };
+  if (HASREQ) module.exports = API;
+  root.BohemiaPayday = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ---- engine/bohemia_daycycle.js (inlined verbatim) ---- */
+// BOHEMIA DAY CYCLE — ambient light over the day (7/14/26)
+// Grounded: sun color temperature (warm at horizon, neutral at noon);
+// night floor = Paolo's approved ambient (+10% ruling, 7/14).
+const BOH_DAYCYCLE=(function(){
+  const NIGHT=[2.42,2.64,3.52];          // Paolo's night (16-level space)
+  const DAY=[16,16,16];                  // full bright
+  const DUSK=[11.5,8.5,6.5];             // warm horizon light (tunable, flagged)
+  function lerp(a,b,t){return a.map((v,i)=>v+(b[i]-v)*t);}
+  // t: 0..1 day fraction (0 = midnight)
+  function ambientAt(t){
+    t=((t%1)+1)%1;
+    if(t<0.20) return NIGHT;                                   // deep night
+    if(t<0.30) return lerp(NIGHT,DUSK,(t-0.20)/0.10);          // dawn warm-up
+    if(t<0.38) return lerp(DUSK,DAY,(t-0.30)/0.08);            // morning
+    if(t<0.70) return DAY;                                     // day
+    if(t<0.80) return lerp(DAY,DUSK,(t-0.70)/0.10);            // golden hour
+    if(t<0.88) return lerp(DUSK,NIGHT,(t-0.80)/0.08);          // dusk fall
+    return NIGHT;
+  }
+  function isNightish(t){const a=ambientAt(t);return (a[0]+a[1]+a[2])/3<8;}
+  return {ambientAt,isNightish,NIGHT,DAY,DUSK};
+})();
+if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
+
+/* ---- engine/bohemia_weather.js (inlined verbatim) ---- */
+// BOHEMIA WEATHER — Vegas weather, which is barely any weather. (8/11/26, WORLD lane.)
+//
+// RULED 7/28, LOCKED: laws/BOHEMIA_ADDENDUM_VEGAS_WEATHER_7_28_26.md
+//
+//   "Weather yes please however vegas weather is just mostly sunny then mostly cloudy and
+//    maybe it rains once a month fr so. Weather not too diverse but yeah. Plus alot of
+//    foliage is going to be dead anyway."  -- Paolo
+//
+// THE WHOLE VOCABULARY IS THREE WORDS AND THE LAW IS "NOT TOO DIVERSE":
+//     SUNNY   the default, most days
+//     CLOUDY  the second state, common enough to notice
+//     RAIN    RARE -- Vegas-rare, about once a month of game time, and an EVENT precisely
+//             because it almost never happens
+// The addendum says it outright: "Anyone proposing a fourth weather type is violating this
+// addendum, not extending it." There is no snow, no fog, no storm ladder, no seasons. The
+// gate holds the list at three so a later session cannot quietly grow one.
+//
+// GROUNDED IN THE REAL, which is why the ratio is what it is: Las Vegas runs about 300
+// sunny days and roughly two dozen rain days a year, and monsoon rain arrives as a short
+// loud event rather than a grey afternoon. So rain here is ~1 day in 30, and when it comes
+// it is over quickly.
+//
+// DEAD FOLIAGE IS THE BASELINE, NOT A WEATHER EFFECT (his point 3, and it is the one a
+// weather system would get wrong by default): "a lot of foliage is going to be dead
+// anyway". Rain on a dead valley WETS THE GROUND. It does not revive anything, it does not
+// green a lawn, and there is deliberately no growth, bloom or recovery hook in this file
+// for a later session to reach for.
+//
+// IT COMPOSES WITH THE DAY CYCLE, IT DOES NOT COMPETE WITH IT (his point 5, verbatim: "wire
+// together, not as rivals"). bohemia_daycycle.js already owns what colour the light is at a
+// given hour and it stays the single source of that. Weather only ever ATTENUATES what the
+// day cycle already decided -- cloud flattens and cools it, rain flattens it further -- so
+// there is exactly one place that knows what noon looks like. A weather module that
+// returned its own absolute light would be a second sun.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S: the state machine and the transition timing are the
+// fleet's; the DISTRIBUTION is his ruling and ships as this table's contents, tunable only
+// while it still feels like "it rains about once a month for real".
+(function (root) {
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+  var DAY = HASREQ ? require('./bohemia_daycycle.js')
+    : (root.BOH_DAYCYCLE || (typeof BOH_DAYCYCLE !== 'undefined' ? BOH_DAYCYCLE : null));
+
+  var SUNNY = 'SUNNY', CLOUDY = 'CLOUDY', RAIN = 'RAIN';
+  var STATES = [SUNNY, CLOUDY, RAIN];        // THREE. Not four. Ever.
+
+  /* HIS DISTRIBUTION, as contents. Days out of thirty, straight off the real valley and his
+     "once a month fr": rain is one day in thirty and short; cloudy is common enough to
+     notice; everything else is sun. */
+  var DIST = { SUNNY: 22, CLOUDY: 7, RAIN: 1 };
+
+  /* A RAIN DAY IS NOT A RAIN DAY. Monsoon rain in the Mojave is a short loud event, so when
+     a day rolls RAIN it rains for a WINDOW inside that day and is otherwise cloudy. This is
+     the difference between "it rained today" and "today was rain", and it is the whole
+     reason rain reads as an event. */
+  var RAIN_WINDOW = 0.10;                    // ~2.4 hours of a day
+
+  function hash(a, b) {
+    var h = ((a >>> 0) * 0x9E3779B1 + (b >>> 0) * 0x85EBCA6B) >>> 0;
+    h ^= h >>> 16; h = Math.imul(h, 0x85EBCA6B) >>> 0;
+    h ^= h >>> 13; h = Math.imul(h, 0xC2B2AE35) >>> 0;
+    h ^= h >>> 16;
+    return h >>> 0;
+  }
+
+  /* THE DAY'S WEATHER IS DERIVED FROM THE DAY, not stored and not rolled live. Same seed
+     and same day always gives the same sky, on every device and after any reload, which is
+     what lets the resolver fast-forward a week and still agree with what the player saw. */
+  function dayState(seed, day) {
+    var total = DIST.SUNNY + DIST.CLOUDY + DIST.RAIN;
+    var r = hash(seed >>> 0, day >>> 0) % total;
+    if (r < DIST.RAIN) return RAIN;
+    if (r < DIST.RAIN + DIST.CLOUDY) return CLOUDY;
+    return SUNNY;
+  }
+
+  /* WHAT IT IS DOING RIGHT NOW. t is the day fraction the day cycle already uses (0..1), so
+     both systems read the same clock rather than each keeping their own. */
+  function at(seed, day, t) {
+    var st = dayState(seed, day);
+    if (st !== RAIN) return { state: st, raining: false, day: day };
+    /* the window sits where Mojave monsoon rain actually falls: afternoon into evening,
+       nudged by the day's own hash so it is not the same hour every time. */
+    var start = 0.55 + (hash(seed >>> 0, (day ^ 0xBEEF) >>> 0) % 1000) / 1000 * 0.25;
+    var raining = t >= start && t < start + RAIN_WINDOW;
+    return { state: st, raining: raining, day: day,
+             window: [start, start + RAIN_WINDOW] };
+  }
+
+  /* THE LIGHT. ATTENUATION ONLY -- the day cycle decides what colour the hour is and this
+     never overrides it. Cloud flattens and cools; rain flattens further. A weather module
+     that returned an absolute colour would be a second sun and the two would drift. */
+  var CLOUD_MULT = [0.86, 0.88, 0.94];       // cools as it dims: sky light, not lamp light
+  var RAIN_MULT = [0.74, 0.77, 0.86];
+
+  function ambient(seed, day, t) {
+    if (!DAY) return null;
+    var base = DAY.ambientAt(t);
+    var w = at(seed, day, t);
+    var m = w.raining ? RAIN_MULT : (w.state === CLOUDY ? CLOUD_MULT : null);
+    if (!m) return base.slice();
+    return [base[0] * m[0], base[1] * m[1], base[2] * m[2]];
+  }
+
+  /* GROUND WETNESS, 0..1. Rain wets the ground and the ground dries out again -- in this
+     valley, fast. NOTHING ELSE HAPPENS: no growth, no green, no recovery. His point 3 is
+     the reason there is no other output on this function. */
+  var DRY_HOURS = 3.5;
+  function wetness(seed, day, t) {
+    var w = at(seed, day, t);
+    if (w.state !== RAIN) return 0;
+    if (w.raining) return 1;
+    var end = w.window[1];
+    if (t < end) return 0;                   // before the rain, still dry
+    var since = (t - end) * 24;
+    return Math.max(0, 1 - since / DRY_HOURS);
+  }
+
+  /* A SANITY READOUT FOR A WHOLE MONTH, so "once a month for real" is measurable rather
+     than asserted. The gate uses it; so can anybody tuning the table. */
+  function census(seed, days) {
+    var out = { SUNNY: 0, CLOUDY: 0, RAIN: 0 };
+    for (var d = 0; d < days; d++) out[dayState(seed, d)]++;
+    return out;
+  }
+
+  var API = {
+    SUNNY: SUNNY, CLOUDY: CLOUDY, RAIN: RAIN, STATES: STATES, DIST: DIST,
+    RAIN_WINDOW: RAIN_WINDOW, CLOUD_MULT: CLOUD_MULT, RAIN_MULT: RAIN_MULT,
+    dayState: dayState, at: at, ambient: ambient, wetness: wetness, census: census
+  };
+  if (HASREQ) module.exports = API;
+  root.BohemiaWeather = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ---- engine/bohemia_succession.js (inlined verbatim) ---- */
+// BOHEMIA SUCCESSION — the world routes around the body. (8/11/26, WORLD lane.)
+//
+// THE SIGNATURE MECHANIC, locked in architecture 7/1 and never built:
+// laws/BOHEMIA_ADDENDUM_SUCCESSION_AND_BUNKERGUY_7_1_26.md
+//
+//   "you can kill or remove anyone. When you do, the world does NOT freeze or silently
+//    reassign, it runs a POWER STRUGGLE to fill the vacancy, and the struggle plays out
+//    over REAL TIME (turns, even decades)... Society survived the apocalypse but CHANGED,
+//    and it keeps changing around the holes you tear in it."
+//
+// Kill-anyone was already ruled. This is what makes it mean something: nothing here decides
+// WHO anybody is, it decides what happens to a job when the person doing it stops.
+//
+// THE THREE PIECES, straight out of the addendum, and each one is here because leaving it
+// out is a known failure mode:
+//
+//  1. ROLES, NOT NPC-POINTERS (the Bethesda alias model). A role stores REQUIREMENTS and
+//     conditions, never a hardcoded person. Actors are matched in at runtime, so killing a
+//     holder writes a delta and the role simply re-queries. A system that stores the person
+//     IS the soft-lock: the pointer dangles and the thread dies with the body.
+//
+//  2. A VACANCY IS A CONTESTED EVENT WITH A WINNER, not silent reassignment. Kill the
+//     moderate and the vacuum can be filled by a hardliner who now hates you, or the
+//     faction can fracture, or a rival can absorb the seat. Silent reassignment is the
+//     version of this that teaches the player nothing.
+//
+//  3. IT TAKES TIME, ON A FUSE. Paolo, LOCKED: "the struggle PLAYS OUT over time, not
+//     instant... the crazy story consequences intentionally bloom in decade 2 and 3." So a
+//     vacancy opens, warns, and RESOLVES LATER -- resolvable on the forward-compute while
+//     the player is elsewhere, which is what lets a hole you tore in gen 1 still be shaping
+//     who your grandchild deals with in gen 3.
+//
+// ANTI-SOFT-LOCK IS THE HARD REQUIREMENT AND IT NEEDS BOTH HALVES (the addendum names
+// Skyrim's radiant quests as the counterexample that ships the bug):
+//     a FALLBACK PATH  -- living claimants first, then a replacement the faction sends, but
+//                         only if the faction still has bodies to send; and
+//     a GRACEFUL CLOSE -- when nobody can fill it, the thread CLOSES with a consequence
+//                         ripple, never an error. That closure IS the kill-everything
+//                         endpoint expressed locally.
+// A role with neither is a soft-lock generator. This module cannot produce one: `tick`
+// either fills, waits, or closes, and every path is a state the world can carry forever.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S, held exactly:
+//   ROLES ships EMPTY. Who holds power in this valley, what the seats are called, which
+//   factions contest them -- all his, and PEOPLE's dossiers supply the bodies. This file
+//   knows how a seat empties and refills. It does not know one seat's name.
+//
+// THE TWO OPEN FORKS ARE HIS AND ARE NOT DECIDED HERE (they are named as forks in the
+// addendum's own OPEN FORKS section, so answering one by picking a default would be canon
+// nobody ruled):
+//   REOPEN_CLOSED -- does a closed thread ever reopen if a faction recovers over a
+//     generation? Default null = PERMANENT, because permanence is the behaviour the locked
+//     text already describes ("never an error", the endpoint expressed locally) and
+//     reopening is the speculative addition. The switch exists so his answer is one line.
+//   SPAWN_REPLACEMENTS -- may a role pull a spawned replacement, or only NPCs already
+//     alive? Default null = LIVING ONLY. His recorded leaning is "both", but a leaning is
+//     not a ruling, and the difference is exactly how fast the valley refills itself.
+// Both are asked out loud by `pending()` rather than silently assumed.
+(function (root) {
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+
+  var NO_RULING = 'NO_RULING';
+
+  /* THE REGISTRY. Empty, and it stays empty until he names a seat. */
+  var ROLES = {};              // roleId -> {faction, requires:[], weight:{}}  [PENDING Paolo]
+
+  /* HIS TWO FORKS. Null means unruled; the safe behaviour is used and said out loud. */
+  var REOPEN_CLOSED = null;    // [PENDING Paolo, fork 1]
+  var SPAWN_REPLACEMENTS = null; // [PENDING Paolo, fork 2]
+
+  var VACANT = 'VACANT', CONTESTED = 'CONTESTED', HELD = 'HELD', CLOSED = 'CLOSED';
+
+  /* A FUSE, NOT AN INSTANT. The addendum locks that a struggle takes time; the LENGTH of a
+     struggle is a tuning number, not canon, so it is derived from how contested the seat is
+     rather than typed: one claimant settles fast, five fight for a long time. */
+  function fuseFor(nClaimants) {
+    return nClaimants <= 1 ? 2 : 2 + nClaimants * 3;
+  }
+
+  function hash(a, b) {
+    var h = ((a >>> 0) * 0x9E3779B1 + (b >>> 0) * 0x85EBCA6B) >>> 0;
+    h ^= h >>> 16; h = Math.imul(h, 0x85EBCA6B) >>> 0;
+    h ^= h >>> 13; h = Math.imul(h, 0xC2B2AE35) >>> 0;
+    h ^= h >>> 16;
+    return h >>> 0;
+  }
+
+  function create(opts) {
+    opts = opts || {};
+    return { day: opts.day || 0, seats: {}, log: [] };
+  }
+
+  /* Open a seat. `spec` is the ROLE (requirements), never a person. A caller may pass a
+     spec inline -- that is how PEOPLE's dossiers supply canon without this file holding
+     any -- and if it names a registered role the registry wins. */
+  function seat(state, roleId, spec) {
+    var reg = Object.prototype.hasOwnProperty.call(ROLES, roleId) ? ROLES[roleId] : null;
+    var s = {
+      role: roleId, spec: reg || spec || null, status: VACANT,
+      holder: null, since: state.day, fuse: null, claimants: [], closedWhy: null
+    };
+    state.seats[roleId] = s;
+    return s;
+  }
+
+  /* THE HOLE. A holder dies, leaves, or is removed -- the world does not freeze and does
+     not silently reassign. It opens a contest. */
+  function vacate(state, roleId, why) {
+    var s = state.seats[roleId];
+    if (!s) return { applied: false, reason: 'NO_SEAT' };
+    if (s.status === CLOSED) return { applied: false, reason: 'CLOSED' };
+    var was = s.holder;
+    s.holder = null;
+    s.status = VACANT;
+    s.since = state.day;
+    s.claimants = [];
+    s.fuse = null;
+    state.log.push({ day: state.day, role: roleId, event: 'vacated', who: was, why: why || null });
+    return { applied: true, was: was, status: s.status };
+  }
+
+  /* Somebody puts themselves forward. A claim carries the WEIGHT the world already
+     computed -- faction standing, economics, everything the player did -- and this module
+     does not invent any of it. */
+  function claim(state, roleId, who, weight) {
+    var s = state.seats[roleId];
+    if (!s || s.status === CLOSED || s.status === HELD) return { applied: false };
+    if (s.claimants.some(function (c) { return c.who === who; })) return { applied: false, reason: 'ALREADY' };
+    s.claimants.push({ who: who, weight: +weight || 0 });
+    if (s.status === VACANT) {
+      s.status = CONTESTED;
+      s.fuse = state.day + fuseFor(s.claimants.length);
+      state.log.push({ day: state.day, role: roleId, event: 'contested', fuse: s.fuse });
+    } else {
+      s.fuse = state.day + fuseFor(s.claimants.length);   // a new challenger extends it
+    }
+    return { applied: true, claimants: s.claimants.length, resolvesOn: s.fuse };
+  }
+
+  /* THE FORWARD COMPUTE. Advance to a day; every fuse that has burned down resolves.
+     This is what lets a struggle finish while the player is a hundred miles away. */
+  function tick(state, toDay) {
+    var out = [];
+    var day = Math.max(state.day, toDay || state.day);
+    for (var id in state.seats) {
+      if (!Object.prototype.hasOwnProperty.call(state.seats, id)) continue;
+      var s = state.seats[id];
+      if (s.status !== CONTESTED || s.fuse == null || day < s.fuse) continue;
+      out.push(resolve(state, id, day));
+    }
+    state.day = day;
+    return out;
+  }
+
+  /* THE STRUGGLE RESOLVES, AND SOMEBODY WINS. Weight decides it; the hash only breaks ties,
+     so the outcome is a consequence of what the player did and not of a dice roll. */
+  function resolve(state, roleId, day) {
+    var s = state.seats[roleId];
+    if (!s || s.status === CLOSED) return { role: roleId, applied: false };
+    var live = s.claimants.slice();
+    if (!live.length) return close(state, roleId, 'NOBODY_LEFT_TO_SEND', day);
+    live.sort(function (a, b) {
+      if (b.weight !== a.weight) return b.weight - a.weight;
+      return hash(a.who ? String(a.who).length : 0, 1) - hash(b.who ? String(b.who).length : 0, 1);
+    });
+    var winner = live[0];
+    s.holder = winner.who;
+    s.status = HELD;
+    s.since = day;
+    s.fuse = null;
+    var beaten = live.slice(1).map(function (c) { return c.who; });
+    s.claimants = [];
+    state.log.push({ day: day, role: roleId, event: 'filled', who: winner.who, beat: beaten });
+    /* THE RIPPLE. Who LOST is the interesting half -- a hardliner who was passed over is
+       exactly the person the addendum says fills the next vacuum hating you. It is reported,
+       never acted on here: what a loser DOES is faction canon and not this file's business. */
+    return { role: roleId, applied: true, filled: winner.who, passedOver: beaten, day: day };
+  }
+
+  /* GRACEFUL CLOSE -- never an error. When a faction is bled dry enough that nobody can
+     fill a seat, the thread closes and the world carries that closure forever. The
+     addendum: "that closure IS the kill-everything endpoint expressed locally." */
+  function close(state, roleId, why, day) {
+    var s = state.seats[roleId];
+    if (!s) return { role: roleId, applied: false };
+    s.status = CLOSED;
+    s.holder = null;
+    s.fuse = null;
+    s.closedWhy = why || 'NOBODY_LEFT_TO_SEND';
+    s.since = day == null ? state.day : day;
+    state.log.push({ day: s.since, role: roleId, event: 'closed', why: s.closedWhy });
+    return { role: roleId, applied: true, closed: true, why: s.closedWhy };
+  }
+
+  /* Can a closed seat come back? HIS FORK, and unruled, so the answer is the permanent one
+     and it says why rather than pretending it decided. */
+  function reopen(state, roleId) {
+    if (REOPEN_CLOSED !== true) {
+      return { applied: false, reason: NO_RULING, fork: 'REOPEN_CLOSED',
+               about: 'whether a closed thread reopens when a faction recovers is Paolo\'s '
+                    + 'call (succession addendum, OPEN FORKS); permanent until he rules' };
+    }
+    var s = state.seats[roleId];
+    if (!s || s.status !== CLOSED) return { applied: false };
+    s.status = VACANT; s.closedWhy = null; s.since = state.day;
+    state.log.push({ day: state.day, role: roleId, event: 'reopened' });
+    return { applied: true };
+  }
+
+  /* THE ANTI-SOFT-LOCK PROOF, callable. Every seat is in a state the world can carry
+     forever: held, waiting on a fuse that will fire, or closed. A seat that is VACANT with
+     no claimants and no fuse is the soft-lock shape, and it cannot survive a tick. */
+  function stuck(state) {
+    var bad = [];
+    for (var id in state.seats) {
+      if (!Object.prototype.hasOwnProperty.call(state.seats, id)) continue;
+      var s = state.seats[id];
+      if (s.status === VACANT && !s.claimants.length && s.fuse == null) bad.push(id);
+      if (s.status === CONTESTED && s.fuse == null) bad.push(id);
+    }
+    return bad;
+  }
+
+  /* Nobody came forward and the fuse never got lit: the world must still move on. Called by
+     the host when a vacancy has gone unclaimed long enough that the faction has visibly
+     failed to produce anyone -- which is the fallback half of the anti-soft-lock rule. */
+  function sweep(state, patienceDays) {
+    var p = patienceDays == null ? 30 : patienceDays;
+    var out = [];
+    for (var id in state.seats) {
+      if (!Object.prototype.hasOwnProperty.call(state.seats, id)) continue;
+      var s = state.seats[id];
+      if (s.status !== VACANT) continue;
+      if (state.day - s.since < p) continue;
+      if (SPAWN_REPLACEMENTS === true) {
+        // his fork 2, if he ever rules it: the faction sends somebody new
+        out.push({ role: id, wouldSpawn: true, reason: NO_RULING, fork: 'SPAWN_REPLACEMENTS' });
+        continue;
+      }
+      out.push(close(state, id, 'NOBODY_LEFT_TO_SEND'));
+    }
+    return out;
+  }
+
+  /* What is still his. Named, so it can never be quietly defaulted. */
+  function pending() {
+    return [
+      { key: 'ROLES', empty: Object.keys(ROLES).length === 0,
+        about: 'which seats of power exist and who holds them is Paolo\'s canon; PEOPLE\'s '
+             + 'dossiers supply the bodies' },
+      { key: 'REOPEN_CLOSED', value: REOPEN_CLOSED,
+        about: 'does a closed thread reopen if a faction recovers over a generation? '
+             + '(succession addendum, OPEN FORKS). Permanent until ruled.' },
+      { key: 'SPAWN_REPLACEMENTS', value: SPAWN_REPLACEMENTS,
+        about: 'may a role pull a spawned replacement, or only NPCs already alive? '
+             + 'His recorded leaning is "both", but a leaning is not a ruling. Living only '
+             + 'until ruled.' }
+    ];
+  }
+
+  var API = {
+    ROLES: ROLES, VACANT: VACANT, CONTESTED: CONTESTED, HELD: HELD, CLOSED: CLOSED,
+    REOPEN_CLOSED: REOPEN_CLOSED, SPAWN_REPLACEMENTS: SPAWN_REPLACEMENTS,
+    NO_RULING: NO_RULING, fuseFor: fuseFor,
+    create: create, seat: seat, vacate: vacate, claim: claim, tick: tick,
+    resolve: resolve, close: close, reopen: reopen, stuck: stuck, sweep: sweep,
+    pending: pending
+  };
+  if (HASREQ) module.exports = API;
+  root.BohemiaSuccession = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ---- engine/bohemia_fuse.js (inlined verbatim) ---- */
+// BOHEMIA FUSED CONSEQUENCES — not everything waits for you. (8/11/26, WORLD lane.)
+//
+// LOCKED 7/1: laws/BOHEMIA_ADDENDUM_CAMERA_TIMESTEP_FUSED_7_1_26.md sec 4.
+//
+//   "Most of the world is I-move-you-move (waits for you). But some events are PLANTED with
+//    a fuse: you set something in motion (e.g. kill a leader, cut a deal) and it fires on a
+//    delay regardless of what you do... Ties directly to the SUCCESSION system: you tear a
+//    hole, the power struggle to fill it has a fuse, and it resolves on its own timeline."
+//
+// THE WARNING WINDOW IS THE WHOLE DESIGN, and it is his call, locked:
+//
+//   "a fused consequence is NOT a silent gut-punch and NOT a locked cutscene. As the fuse
+//    burns down the game WARNS you: 'hey, you're gonna wanna pull up soon.' You get a window
+//    of turns to zoom in and reach it. Make it in time, you can act on it / intervene /
+//    change the outcome. Too slow, or too buried in the big-picture view to catch the
+//    signal, it resolves without you and you live with it. Skill = attention + position +
+//    speed."
+//
+// So there are exactly three ways a fuse can end and the player earns which one:
+//     INTERVENED        you got there in time and acted
+//     RESOLVED_WITHOUT   it fired while you were elsewhere, and you live with it
+//     CANCELLED          the thing it was about stopped existing
+// A fourth outcome -- a fuse that quietly disappears -- is the bug this file exists to make
+// impossible. Every planted event ends in exactly one of those, and `orphans()` proves it.
+//
+// WHY IT IS NOT A CUTSCENE AND NOT A GUT-PUNCH, in his own framing: a locked cutscene takes
+// agency away, and a silent resolution teaches the player nothing. The warning respects
+// I-MOVE-YOU-MOVE -- the signal gives you TURNS, and the event fires on its fuse if you do
+// not spend them getting there. The lesson underneath, never preached (sec 2 of the same
+// addendum): move in big steps and you fast-forward past the fine grain. Missing a fuse is
+// not the world cheating; it is you having chosen to be somewhere else.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S: nothing here knows what any consequence IS. No event
+// list, no outcomes, no text. A host plants {id, fireTurn, lead} and reads back what
+// happened; what a struggle or a deal DOES when it lands is faction canon.
+//
+// HIS TWO OPEN FORKS FROM THE SAME ADDENDUM ARE NOT DECIDED HERE:
+//   WARNING_SPECIFICITY -- does the warning tell you WHAT it is ("the east deal's going
+//     bad", strategic, you choose what is worth interrupting for) or only THAT something is
+//     coming (a direction and a pull, no detail until you arrive, tense and creepy)? He
+//     calls it a TONE call. Null = the minimal honest signal: something is coming, and
+//     where. The detail is withheld rather than invented.
+//   REACHED_IS_PLAYABLE -- once you reach it in time, is it fully playable (fight,
+//     intervene) or a shortened beat you nudge? His recorded leaning is playable, and a
+//     leaning is not a ruling. Null = the fuse reports INTERVENED and hands the host the
+//     moment; it does not decide how much of it you get to play.
+(function (root) {
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+  var NO_RULING = 'NO_RULING';
+
+  var WARNING_SPECIFICITY = null;   // [PENDING Paolo, fork: tone call]
+  var REACHED_IS_PLAYABLE = null;   // [PENDING Paolo, fork: leaning playable]
+
+  var LIT = 'LIT', WARNED = 'WARNED', REACHED = 'REACHED';
+  var INTERVENED = 'INTERVENED', RESOLVED_WITHOUT = 'RESOLVED_WITHOUT', CANCELLED = 'CANCELLED';
+  var TERMINAL = { INTERVENED: 1, RESOLVED_WITHOUT: 1, CANCELLED: 1 };
+
+  function create(opts) {
+    opts = opts || {};
+    return { turn: opts.turn || 0, fuses: {}, log: [] };
+  }
+
+  /* PLANT ONE. fireTurn is when it goes off no matter where you are; lead is how many turns
+     of warning you get before that. A lead of zero would be the silent gut-punch he ruled
+     out, so it is floored at one -- the player is always owed at least one turn to react. */
+  function plant(state, ev) {
+    if (!ev || !ev.id) return { applied: false, reason: 'NO_ID' };
+    if (state.fuses[ev.id]) return { applied: false, reason: 'ALREADY_LIT' };
+    var fire = ev.fireTurn == null ? state.turn + 2 : ev.fireTurn;
+    /* THE WARNING HAS TO BE IN THE FUTURE OR IT IS NOT A WARNING. A caller can ask for more
+       lead than the fuse actually has -- a succession struggle that settles in two days with
+       a three-turn lead would "warn" a turn before it was planted, which the player can never
+       act on and which reads as the silent gut-punch he ruled out. So the lead is clamped to
+       the window that exists, and never below one: he is always owed at least one turn. */
+    var want = Math.max(1, ev.lead == null ? 2 : ev.lead);
+    var lead = Math.max(1, Math.min(want, fire - state.turn));
+    var f = {
+      id: ev.id, fire: fire, lead: lead, status: LIT,
+      at: ev.at || null,                 // where the player has to get to, if anywhere
+      about: ev.about || null,           // opaque to this file; the host's business
+      warnedOn: null, reachedOn: null, endedOn: null, outcome: null
+    };
+    state.fuses[ev.id] = f;
+    state.log.push({ turn: state.turn, id: ev.id, event: 'planted', fire: fire, lead: lead });
+    return { applied: true, fire: fire, warnsOn: fire - lead };
+  }
+
+  /* THE SIGNAL. Deliberately thin: something is coming, and where. WHAT it is stays behind
+     his unruled fork rather than being invented, and the fork is named in the payload so a
+     host cannot mistake the silence for a decision. */
+  function signal(f) {
+    var out = { id: f.id, turnsLeft: null, at: f.at };
+    if (WARNING_SPECIFICITY === 'named') { out.about = f.about; return out; }
+    out.detail = NO_RULING;
+    out.fork = 'WARNING_SPECIFICITY';
+    out.aboutFork = 'whether the warning names WHAT is coming or only THAT something is, is '
+                  + "Paolo's tone call (camera/timestep addendum, OPEN FORKS)";
+    return out;
+  }
+
+  /* ADVANCE THE CLOCK. Everything that crosses its warning line warns; everything that
+     crosses its fire turn resolves, whether or not the player is anywhere near. This is the
+     LOD forward-compute: a scheduled tick that fires at turn N regardless. */
+  function tick(state, toTurn) {
+    var turn = Math.max(state.turn, toTurn == null ? state.turn : toTurn);
+    var out = [];
+    for (var id in state.fuses) {
+      if (!Object.prototype.hasOwnProperty.call(state.fuses, id)) continue;
+      var f = state.fuses[id];
+      if (TERMINAL[f.status]) continue;
+      if (f.status === LIT && turn >= f.fire - f.lead && turn < f.fire) {
+        f.status = WARNED; f.warnedOn = turn;
+        var s = signal(f); s.turnsLeft = f.fire - turn;
+        state.log.push({ turn: turn, id: id, event: 'warned' });
+        out.push({ kind: 'warning', signal: s });
+      }
+      if (turn >= f.fire) {
+        // it fires on its fuse. Being there is the only thing that changes the ending.
+        var reached = f.status === REACHED;
+        f.status = reached ? INTERVENED : RESOLVED_WITHOUT;
+        f.endedOn = turn;
+        f.outcome = f.status;
+        state.log.push({ turn: turn, id: id, event: 'fired', outcome: f.status });
+        var res = { kind: 'fired', id: id, outcome: f.status, at: f.at };
+        if (reached) {
+          /* HOW MUCH OF IT YOU GET TO PLAY IS HIS OTHER FORK. The moment is handed back,
+             not staged: this file will not decide between a full fight and a nudge. */
+          res.playable = NO_RULING;
+          res.fork = 'REACHED_IS_PLAYABLE';
+        }
+        out.push(res);
+      }
+    }
+    state.turn = turn;
+    return out;
+  }
+
+  /* YOU GOT THERE. Only counts before it fires -- that is the whole skill expression:
+     attention to catch the signal, position and speed to arrive inside the window. */
+  function reach(state, id) {
+    var f = state.fuses[id];
+    if (!f) return { applied: false, reason: 'NO_FUSE' };
+    if (TERMINAL[f.status]) return { applied: false, reason: 'TOO_LATE', outcome: f.outcome };
+    if (state.turn >= f.fire) return { applied: false, reason: 'TOO_LATE' };
+    f.status = REACHED; f.reachedOn = state.turn;
+    state.log.push({ turn: state.turn, id: id, event: 'reached' });
+    return { applied: true, turnsToSpare: f.fire - state.turn };
+  }
+
+  /* The thing it was about stopped existing. A legitimate ending, and it must be explicit:
+     a fuse that is simply deleted is the disappearing-event bug. */
+  function cancel(state, id, why) {
+    var f = state.fuses[id];
+    if (!f || TERMINAL[f.status]) return { applied: false };
+    f.status = CANCELLED; f.outcome = CANCELLED; f.endedOn = state.turn;
+    state.log.push({ turn: state.turn, id: id, event: 'cancelled', why: why || null });
+    return { applied: true };
+  }
+
+  /* THE PROOF THAT NOTHING VANISHES. Any fuse whose fire turn has passed and which is not
+     in a terminal state is an event the world forgot -- exactly the silent-disappearance
+     failure the warning-window design exists to prevent. Always empty after a tick. */
+  function orphans(state) {
+    var bad = [];
+    for (var id in state.fuses) {
+      if (!Object.prototype.hasOwnProperty.call(state.fuses, id)) continue;
+      var f = state.fuses[id];
+      if (!TERMINAL[f.status] && state.turn >= f.fire) bad.push(id);
+    }
+    return bad;
+  }
+
+  /* THE TIE TO SUCCESSION, which is the reason both systems exist (7/1: "you tear a hole,
+     the power struggle to fill it has a fuse"). Plants a fuse for a contested seat using
+     the struggle's OWN resolve day, so the warning and the reveal ride the same clock the
+     succession module already computed. It reads that module; it does not reimplement it. */
+  function plantForSeat(state, succState, roleId, lead) {
+    var s = succState && succState.seats && succState.seats[roleId];
+    if (!s || s.fuse == null) return { applied: false, reason: 'NOT_CONTESTED' };
+    return plant(state, { id: 'seat:' + roleId, fireTurn: s.fuse, lead: lead == null ? 3 : lead,
+                          about: 'a power struggle resolves', at: null });
+  }
+
+  function pending() {
+    return [
+      { key: 'WARNING_SPECIFICITY', value: WARNING_SPECIFICITY,
+        about: 'does the warning name WHAT is coming, or only THAT something is? A tone '
+             + 'call (camera/timestep addendum, OPEN FORKS). Minimal signal until ruled.' },
+      { key: 'REACHED_IS_PLAYABLE', value: REACHED_IS_PLAYABLE,
+        about: 'reaching it in time: fully playable, or a shortened beat you nudge? His '
+             + 'leaning is playable, and a leaning is not a ruling.' }
+    ];
+  }
+
+  var API = {
+    LIT: LIT, WARNED: WARNED, REACHED: REACHED,
+    INTERVENED: INTERVENED, RESOLVED_WITHOUT: RESOLVED_WITHOUT, CANCELLED: CANCELLED,
+    NO_RULING: NO_RULING,
+    WARNING_SPECIFICITY: WARNING_SPECIFICITY, REACHED_IS_PLAYABLE: REACHED_IS_PLAYABLE,
+    create: create, plant: plant, tick: tick, reach: reach, cancel: cancel,
+    orphans: orphans, plantForSeat: plantForSeat, pending: pending
+  };
+  if (HASREQ) module.exports = API;
+  root.BohemiaFuse = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== end THE WORLD YOU STAND IN ==== */
+
 /* ==== THE PLAYER CAN BE PAID (inlined verbatim) ==== */
 /* ---- engine/bohemia_economy.js (inlined verbatim) ---- */
 // BOHEMIA ECONOMY — post-collapse scarcity, grounded (7/19/26, LIFE session)

@@ -670,6 +670,14 @@ GATES = [
      '-- a truncated cell is internally consistent, so walkable/tilespec/answered-for all pass. '
      'Found only when Paolo made me render a real top-down grid; on its first run it also caught '
      'an off-by-one leaving a one-tile dirt seam between adjacent road cells', False),
+    ('WEATHER',        ['node', 'gates/weather_gate.js'],
+     'VEGAS WEATHER, WHICH IS BARELY ANY WEATHER (Paolo 7/28 LOCKED): three states and only '
+     'three -- "anyone proposing a fourth weather type is violating this addendum, not '
+     'extending it". It rains about once a month, MEASURED over a full year on five seeds, and '
+     'a rain day is a short loud monsoon event rather than a grey afternoon. Rain wets the '
+     'ground and REVIVES NOTHING (dead foliage is the baseline, not a weather effect), and '
+     'weather only ever ATTENUATES the day cycle -- a module returning its own absolute light '
+     'would be a SECOND SUN and the two would drift the first time anybody tuned one', False),
     ('SQUARE ICONS',   ['node', 'gates/square_icons_gate.js'],
      'EVERYTHING IS ON A SQUARE (Paolo 8/8): one measured square for all 59 icons, nothing clipped, '
      'nothing shrunk to fit, one shared ground line, the pad squared in world space too -- and the '

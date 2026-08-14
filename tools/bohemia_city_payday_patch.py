@@ -55,9 +55,20 @@ os.chdir(REPO)
 
 WORLD = 'slices/BOHEMIA_CITY_WORLD.html'
 # dependency order: payday requires the other two to be defined before it runs
-MODULES = ['engine/bohemia_economy.js', 'engine/bohemia_purse.js', 'engine/bohemia_payday.js']
-MARK = '/* ==== THE PLAYER CAN BE PAID (inlined verbatim) ==== */'
-ENDMARK = '/* ==== end THE PLAYER CAN BE PAID ==== */'
+# THE WORLD STATE A PLAYER CAN STAND IN, in dependency order. It started as the money and
+# it is now everything this lane built that a body standing in the valley is subject to --
+# because the lesson of the purse was that a module nobody loads is a module that does not
+# exist, and shipping four more engines into engine/ without wiring them would be making
+# that same mistake four more times.
+#   economy/purse/payday   what you are owed and what things cost
+#   daycycle/weather       what the light is doing (weather only ATTENUATES the daycycle,
+#                          so the daycycle must be inlined FIRST or it has nothing to dim)
+#   succession/fuse        the world reorganising around the holes you tore, on a fuse
+MODULES = ['engine/bohemia_economy.js', 'engine/bohemia_purse.js', 'engine/bohemia_payday.js',
+           'engine/bohemia_daycycle.js', 'engine/bohemia_weather.js',
+           'engine/bohemia_succession.js', 'engine/bohemia_fuse.js']
+MARK = '/* ==== THE WORLD YOU STAND IN (inlined verbatim) ==== */'
+ENDMARK = '/* ==== end THE WORLD YOU STAND IN ==== */'
 
 if not os.path.exists(WORLD):
     sys.exit('PAYDAY PATCH: %s is not here.' % WORLD)
