@@ -309,6 +309,14 @@ async function restoreShellChrome(shell) {
     await ctx.evaluate(({ hxv, hyv, z }) => {
       hx = hxv; hy = hyv;
       if (typeof HC !== 'undefined' && z) HC = z;
+      /* PHOTOGRAPH THE HOUR HE ACTUALLY OPENS THE GAME. I tried moving the
+         clock to midday so the pit's cast shadow would read stronger, looked at
+         the result, and it was WORSE: noon is the shortest shadow of the day and
+         the bright ambient washed the ground flat. It was also the wrong
+         instinct -- choosing a flattering hour to make my own feature look good
+         is dressing the shot. The world opens at 06:00 and that is what he sees,
+         so that is what gets photographed; if a cue does not read at his hour,
+         the cue is what gets fixed. */
       /* GET THE CHROME OFF THE ART. His words: "so I can see the art assets and
          what's wrong". The D-pad, the button row and the toast are DOM sitting ON
          TOP of the canvas, so screenshotting the canvas element still composites

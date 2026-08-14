@@ -111,6 +111,36 @@ const PIT_TONE={
   ramp:  {fill:'rgba(30,23,13,0.22)'},   // graded slope: shallower, so lighter
   spoil: {fill:'rgba(196,166,112,0.34)'} // the heap that never went back: lit
 };
+/* ==== DEPTH: THE RIM CASTS INTO THE HOLE (8/11) =============================
+   Tone alone said "something happened to this ground". It did not say HOLE,
+   because nothing in the picture was lit. A pit is a negative volume, and the
+   one cue that reads instantly from above is the SUN-SIDE WALL casting down
+   across the floor -- the same thing that makes a crater read in a photograph.
+   ONE SUN, and it is the world's, not mine: sunVec() already drives every cast
+   shadow in this app off T.min, so a pit dims and swings with the day like
+   everything else, and goes flat at night when there is nothing to cast. ==== */
+function pitShade(p){
+  const s=(typeof sunVec==='function')?sunVec():null;
+  if(!s) return 0;                       /* night: no sun, no cast, no fake depth */
+  if(p.part==='spoil') return -0.10;     /* a heap is the one part that catches light */
+  if(p.part!=='fill'&&p.part!=='green'&&p.part!=='ramp') return 0;
+  /* HOW DEEP UNDER THE WALL THIS TILE SITS. u/v are the tile's position along the
+     pit's own axes, so dotting them against the sun direction says whether it is
+     on the shaded side of the bowl. Deepest right under the sun-side wall,
+     nothing on the far side, which is exactly how a real hole reads. */
+  const d=(-p.u*s.dx-p.v*s.dy);
+  /* AMBIENT OCCLUSION FIRST, CAST SECOND. Measured 8/11: driving depth off the
+     sun alone made the pit read at dawn and vanish at noon, because noon is the
+     shortest shadow of the day. A real hole is dark even at noon -- the floor
+     simply sees less sky than flat ground does, and that is ambient occlusion,
+     not a cast shadow. So the floor carries a FLOOR of darkness that does not
+     move with the clock, and the sun adds the directional cast on top. That is
+     also why it survives the hour he actually plays at. */
+  const ao=(p.part==='fill'||p.part==='green') ? 0.20 : 0.07;
+  if(d<=0) return ao;
+  /* the ramp is a graded slope, so it takes about half the depth of a cut wall */
+  return Math.min(0.46, ao + d*0.42*(p.part==='ramp'?0.5:1));
+}
 function pitDraw(ox,oy){
   if(typeof BohemiaDead==='undefined'||typeof BohemiaDead.pits!=='function')return;
   const C=HC;
@@ -126,6 +156,9 @@ function pitDraw(ox,oy){
       if(fx<fx0||fx>fx1||fy<fy0||fy>fy1)continue;
       const t=PIT_TONE[p.part]; if(!t)continue;
       g.fillStyle=t.fill;
+      /* the cast, painted on TOP of the part's own tone in the same pass, so a
+         pit costs one extra fill on the shaded half and nothing anywhere else */
+      const sh=pitShade(p);
       const sx=Math.round(ox+fx*C), sy=Math.round(oy+fy*C);
       /* A CUT, NOT A STAIRCASE OF BLOCKS (8/11). Flooding every whole cell is
          what made the first pit read as pixel soup: the boundary was a
@@ -137,6 +170,10 @@ function pitDraw(ox,oy){
          The module ships u/v/d; nothing is re-derived here (one ruler). */
       if(p.ecc<0.35 || C<10){
         g.fillRect(sx, sy, Math.ceil(C), Math.ceil(C));
+        if(sh>0.01){ g.fillStyle='rgba(10,7,3,'+sh.toFixed(3)+')';
+          g.fillRect(sx, sy, Math.ceil(C), Math.ceil(C)); g.fillStyle=t.fill; }
+        else if(sh<-0.01){ g.fillStyle='rgba(255,240,205,'+(-sh).toFixed(3)+')';
+          g.fillRect(sx, sy, Math.ceil(C), Math.ceil(C)); g.fillStyle=t.fill; }
         continue;
       }
       const Q=4, q=C/Q, inside=(p.part==='fill'||p.part==='green');

@@ -135,11 +135,43 @@ solid. Gate assertion added for exactly that, by name.
 
 Gate now 30/0.
 
-## STILL OPEN
+## DEPTH: IT READS AS A HOLE NOW (same day)
 
-The pit reads as sunken, greened, disturbed ground with a ragged cut -- but it
-is still pure TONE, with no depth cue. What would sell it as a hole rather than
-a stain is a **cast shadow on the near rim** (the sun is already a canon
-direction in this engine) and, further out, making the pit **walkable**: the
-ramp exists as data and means nothing yet, so you cannot walk down into a pit.
-That is the next real step and it is mechanism, not content.
+Tone alone said *something happened to this ground*. It never said **hole**,
+because nothing in the picture was lit.
+
+**The sun is the world's, not mine.** `sunVec()` already drives every cast
+shadow in this app off `T.min`, so a pit now dims and swings with the day like
+everything else, and goes flat at night when there is nothing to cast.
+
+**Ambient occlusion first, cast shadow second — and that order is a measured
+result, not a preference.** The first version drove depth off the sun alone. It
+read beautifully at dawn and *vanished at midday*, because noon is the shortest
+shadow of the day. A real hole is dark at noon too: the floor simply sees less
+sky than flat ground does. So the floor now carries a constant darkness that
+does not move with the clock, and the sun adds the directional cast on top.
+The spoil heap goes the other way — it is a mound, so it *catches* light.
+
+### The wrong instinct I caught myself in
+
+When the cue read weakly, my first move was to change the LOOK tool to
+photograph at **midday** instead of the game's 06:00 opening. I looked at the
+result: it was **worse** — short shadows plus bright ambient washed the ground
+flat. It was also the wrong instinct regardless of outcome. Choosing a
+flattering hour to make my own feature look good is dressing the shot. **The
+world opens at 06:00 and that is what he sees, so that is what gets
+photographed. If a cue does not read at his hour, the cue is what gets fixed** —
+which is what the ambient-occlusion floor does.
+
+Gate now 35/0, including: depth must use the world sun and never a private
+light; a pit floor must be dark with the sun overhead; a pit must cast nothing
+at night rather than faking depth; the spoil must catch light rather than
+shadow. `shadow_gate.js` still 7/0 — the world's own shadow law is untouched.
+
+## STILL OPEN — AND IT IS THE NEXT REAL STEP
+
+**A pit is not walkable yet.** The ramp exists as data and means nothing: you
+cannot walk down into a pit, and the cut rim does not stop you walking across
+it. Making the rim block and the ramp the only way in turns a picture into a
+*place* — you have to find the way down, and what is at the bottom is worth the
+walk. That is mechanism, not content, and it is the next thing this lane builds.

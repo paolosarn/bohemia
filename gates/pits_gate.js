@@ -164,6 +164,31 @@ ok('act 3 digs less than act 1 (the digging was ten years ago)',
      'rounding the origin and ceil-ing the width leaves gaps, and the ground shows through them as a fine grid over the hole -- the blocky look wearing a finer grid');
 }
 
+/* ---- 8c. IT READS AS A HOLE, NOT A STAIN (8/11) -------------------------- */
+/* Tone alone said "something happened to this ground" and never said HOLE,
+   because nothing in the picture was lit. Two cues, and the ORDER matters:
+   ambient occlusion first (a hole sees less sky, so it is dark even at noon),
+   the sun's directional cast second. Driving it off the sun alone was tried and
+   measured: it read at dawn and vanished at midday, because noon is the
+   shortest shadow of the day. */
+{
+  const world = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_CITY_WORLD.html'), 'utf8');
+  const code = world.replace(/\/\*[\s\S]*?\*\//g, '');
+  const i = code.indexOf('function pitShade');
+  ok('the shipped page gives a pit depth, not just tone', i > 0);
+  const shade = i > 0 ? code.slice(i, i + 1200) : '';
+  ok('depth uses the WORLD sun, never a private light of its own',
+     /sunVec\(\)/.test(shade),
+     'one sun: every cast shadow in this app reads T.min, and a pit must swing with the day like everything else');
+  ok('a pit floor is dark even with the sun overhead (ambient occlusion, not just a cast)',
+     /ao/.test(shade) && /d\s*<=\s*0\)\s*return\s+ao/.test(shade),
+     'sun-only depth reads at dawn and vanishes at noon — measured, then fixed');
+  ok('at night a pit casts nothing rather than faking depth',
+     /if\(!s\)\s*return\s*0/.test(shade));
+  ok('the spoil heap catches light instead of shadow — it is a mound, not a hole',
+     /spoil.*return\s*-/.test(shade));
+}
+
 /* ---- 9. THE PICTURE EXISTS ----------------------------------------------- */
 const shot = path.join(ROOT, 'slices', 'look', 'the-pit-dug.png');
 ok('there is a picture of a real dug pit in the LOOK tab', fs.existsSync(shot));
