@@ -6358,7 +6358,13 @@ const PERSIST={NS:'bohemia:',V:1,lastFlush:0,lastHash:'',
     try{localStorage.setItem('bohemia:probe','1');localStorage.removeItem('bohemia:probe');PERSIST_MODE='disk';return localStorage;}
     catch(e){PERSIST_MODE='memory';return mem;}
   })(),
-  snapshot(){return {equipped:G.equipped,tints:G.tints,swing:G.swing,dir:G.dir,bodyVar:G.bodyVar,
+  /* `worn` IS THE CLO WARDROBE and it was missing from this list entirely, so
+     every garment he put on from the 236-item canon catalogue died on reload --
+     measured boot to boot: SHUFFLE FIT survives a tab round-trip and comes back
+     {} after a refresh. frameLookHash has carried G_WORN since 7/31, so the
+     RENDERER knew about it; only the SAVE did not. */
+  snapshot(){return {equipped:G.equipped,worn:(typeof window!=='undefined'&&window.G_WORN)||{},
+    tints:G.tints,swing:G.swing,dir:G.dir,bodyVar:G.bodyVar,
     pface:pface,hairColor:hairColor,eyeColor:eyeColor,faceOffsets:FACE_OFFSETS,skinToneName:skinTone[0],skinDetail:SKIN_DETAIL};},
   save(slot,data){try{this.backend.setItem(this.NS+slot,JSON.stringify({v:this.V,t:Date.now(),data:data}));return true;}catch(e){return false;}},
   load(slot){try{const raw=this.backend.getItem(this.NS+slot);if(raw==null)return null;
@@ -6374,6 +6380,11 @@ const PERSIST={NS:'bohemia:',V:1,lastFlush:0,lastHash:'',
   restore(){const d=this.load('look');if(!d)return false;
     try{
       if(d.equipped)Object.assign(G.equipped,d.equipped);
+      /* REPLACE, NEVER MERGE. A fit is a whole outfit, not a pile of slots:
+         Object.assign here would leave a coat from the previous session hanging in
+         an `outer` slot that the saved fit deliberately left EMPTY, and he would
+         get an outfit he never chose. */
+      if(d.worn&&typeof window!=='undefined')window.G_WORN=Object.assign({},d.worn);
       if(d.tints)G.tints=d.tints;
       if(typeof d.swing==='number')G.swing=d.swing;
       if(d.bodyVar){G.bodyVar=BOH_BODYVAR.sanitize(d.bodyVar);rebuildFromRig();}   /* ONE RIG: the dials ride the look save */

@@ -1,3 +1,50 @@
+CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE CLOTHES HE PUTS ON NOW SURVIVE A
+RELOAD. THE CLO WARDROBE WAS IN NO SAVE AT ALL. ***
+
+TWO WARDROBES, ONE OF THEM SAVED:
+  G.equipped  the PD layer slots (body/facial/shirt/pants/shoes/hair) -- in
+              PERSIST.snapshot() since forever
+  G_WORN      the CLO catalogue, 258 garments / 236 st:'canon', everything the clothes tab
+              and SHUFFLE FIT put on him -- IN NO SAVE AT ALL
+Measured boot to boot: SHUFFLE FIT works, survives a tab round-trip, comes back {} after a
+refresh. He dressed the character and got the default PD layers back every time.
+frameLookHash has carried G_WORN since 7/31 ("putting on a red shirt changed the frame"), so
+the RENDERER knew about that wardrobe for weeks. ONLY THE SAVE DID NOT.
+FIXED: tools/bohemia_worn_persist_patch.py -- snapshot() carries `worn`, restore() replaces
+it. GATE: WORN PERSIST (gates/worn_persist_gate.js, registered), driven through the real
+button and a REAL page reload in ONE browser context.
+
+*** MY OWN PROBE LIED TO ME TWICE ON THIS ONE ITEM, both times the same way. ***
+  1. "GARMENTS = 0, the wardrobe never reaches the character" -- measured on a STALE TREE
+     (see below). On the real alpha it is 258. A dramatic false finding I nearly reported.
+  2. "the save carries the fit, the restore drops it" -- I searched the saved blob with
+     /SLATE|HENLEY|BOOTS|JACKET/i and it HIT. What it matched was
+     `jacket/japanese-fuzz_hoodDown`, a PD slot value, because "JACKET" is a substring.
+     A LOOSE REGEX OVER A SAVE BLOB IS NOT A MEASUREMENT. Reading snapshot() settled it.
+
+AND A GATE ASSERTION OF MINE COULD NOT FAIL, SO I DELETED IT. I wrote a "restore REPLACES,
+never merges" check; mutation-testing the merging version PASSED, because on a page load
+G_WORN is empty before restore runs, so merge-into-{} and replace-{} are the same operation.
+The replace is still correct defensive code and stays; it is simply not observable through
+the real surface. A gate that cannot fail is worse than a missing gate -- it reads as
+coverage. Mutation-tested what remains: drop `worn` from snapshot() and the gate goes red.
+
+*** THE WORKING COPY REVERTS BETWEEN TURNS -- FOUR TIMES TODAY. READ THIS FIRST. ***
+HEAD comes back as c5d4dc6 (134 commits) and the LOCAL origin/main ref reads the SAME stale
+SHA, so every "am I current?" check agrees with itself and lies. The reflog in that state
+contains commits from OTHER sessions on this same reused branch name and NONE of the current
+session's work -- that is how you identify it in one command. THE REPAIR, every turn, before
+touching anything:
+    SHA=$(git ls-remote origin main | cut -f1)      # the ONLY honest source
+    git fetch --force --no-tags origin main         # brings objects even if the ref update
+                                                    # loses a lock race to a parallel fetch
+    git update-ref refs/remotes/origin/main $SHA
+    git checkout -B claude/character-0lurbs origin/main
+NEVER COMMIT FROM THE STALE STATE -- it would destroy ~780 commits of fleet work. And treat
+every measurement taken before the resync as void; two of mine were.
+
+--------------------------------------------------------------------------------
+
 RUN (run-eak241): 8/12 (c) LATEST -- THE VALLEY REMEMBERS. YESTERDAY IS TRUE TODAY.
 
 Paolo: "we are trying tk create the best funnest deepest videogame ever." DEPTH IS NOT

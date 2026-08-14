@@ -1036,6 +1036,15 @@ GATES = [
      'legs (a bare shin paints the dark under-body, not skin), and the contact shadow lives in its own '
      'canvas with NONE of it in the sprite -- SHADOWS ARE A SEPARATE LAYER, 7/26 LOCKED',
      True),
+    ('WORN PERSIST',   ['node', 'gates/worn_persist_gate.js'],
+     'THE CLOTHES HE PUTS ON SURVIVE A RELOAD. There are TWO wardrobes on this character and only one was '
+     'ever saved: G.equipped (the PD layer slots) was in PERSIST.snapshot() since forever, and G_WORN -- the '
+     'CLO catalogue, 258 garments / 236 canon, everything the clothes tab and SHUFFLE FIT put on him -- was in '
+     'NO SAVE AT ALL. Measured boot to boot: the fit survived a tab round-trip and came back {} after a '
+     'refresh, so he dressed the character and got the default PD layers back. frameLookHash has carried '
+     'G_WORN since 7/31, so the RENDERER knew about that wardrobe for weeks and only the SAVE did not. Driven '
+     'through the real button and a real page reload in one browser context',
+     True),
     ('CHIN LAW',       ['node', 'gates/chin_law_gate.js'],
      'THE CHIN LAW (Paolo 8/11, LOCKED: "make sure we never have this chin issue ever again"). He caught the '
      'same defect FOUR times from TWO unrelated mechanisms -- the head was the one body part excluded from '
