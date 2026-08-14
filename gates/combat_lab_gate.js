@@ -745,6 +745,31 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
    INVITATION. He is allowed to take a bad turn; he is not allowed to be tricked
    into one, so that one state names itself instead of borrowing the wording of
    the states where there is actually something to shoot. */
+/* ===== V148 YOU CAN SEE WHO CAN REACH YOU =========================
+   Paolo 8/12: "I think we to be able to see the range of all the Enemies
+   weapons would be really nice just to know when."
+   Every gun has had a max range on BOTH sides since V138 and NOTHING ON SCREEN
+   EVER SAID ANY OF IT. He took fire and could not tell whether one man or three
+   could touch him. The geometry decided the fight and stayed invisible.
+   INTO THE BREACH IS THE MODEL: intent transparent BEFORE the commit, on the
+   board, next to the thing it is about. */
+  ok('V148 ONE PIP PER MAN, ANSWERING ONE QUESTION -- can THIS one reach me right now. Solid means he can shoot you where you stand; hollow means he is still walking. It sits over his head, on him, not in a corner of the screen',
+    /const _hot=inHisRange\(e\), _pr=Math\.max\(3,ring\*0\.22\)/.test(demo) &&
+    demo.includes("x.fillStyle='rgba(240,70,48,0.98)'") &&
+    demo.includes("x.strokeStyle='rgba(210,220,235,0.75)'"));
+
+  ok('V148 AND IT IS SIZED OFF THE TILE PITCH, NOT THE SPRITE: the first cut scaled the pip from the body radius and came out ~2px on the zoomed-out board -- drawn and completely unreadable, which is the same as not shipping it. It carries a dark halo so it reads on pale sand and on dark asphalt',
+    /_py=ey\+MASS_DY-ring\*0\.85/.test(demo) &&
+    demo.includes("x.fillStyle='rgba(0,0,0,0.55)'; x.beginPath(); x.arc(ex,_py,_pr+1.6,0,7); x.fill();"));
+
+  ok('V148 EIGHT RANGE RINGS WOULD BE NOISE, so there are none: the reach bubble is drawn for the ONE man he has selected or is aiming at, and never for a dead, downed, broken, fled or melee body',
+    /const _ri=\(G\.selTarget!=null\)\?G\.selTarget:G\.fireTarget;/.test(demo) &&
+    /_rr=maxRange\(foeRange\(_re\)\)\*ring;/.test(demo) &&
+    /if\(_re&&!_re\.dead&&!_re\.downed&&!_re\.broken&&!_re\.fleeing&&!_re\.melee\)\{/.test(demo));
+
+  ok('V148 AND THE COUNT EXISTS IN WORDS: how many guns have him right now out of how many are on the field, which is the number he was missing when he could not tell whether to move',
+    demo.includes('function threatCount(){'));
+
   ok('V147 NOTHING TO SHOOT SAYS SO ON THE BUTTON, before the press that punishes him',
     demo.includes("col='#8a7d66'; txt='NOTHING TO SHOOT';"));
 
