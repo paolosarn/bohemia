@@ -622,6 +622,22 @@ function fenceAt(gx,gy){
   var n=String(NAMEG[gy][gx]||'').toLowerCase();
   return n.indexOf('fence')>=0 && n.indexOf('wall')<0;
 }
+/* VOLUME (8/14): the bank's own GATES ride the run. A gate is 88px wide - a
+   two-cell pair - and both halves must be plain horizontal run (no hub, no
+   vertical), or half a gate would hang off a corner post. Every real lot has
+   a gate; about one fence pair in thirteen gets one, style fixed per pair. */
+function fenceHorizOnly(gx,gy){
+  if(!fenceAt(gx,gy)) return false;
+  if(fenceAt(gx,gy-1)||fenceAt(gx,gy+1)) return false;
+  return fenceAt(gx+1,gy)||fenceAt(gx-1,gy);
+}
+function fenceGateSx(gx,gy){
+  var p=gx>>1;
+  if(th(p,gy,13)!==0) return -1;
+  var a=p*2;
+  if(!fenceHorizOnly(a,gy)||!fenceHorizOnly(a+1,gy)) return -1;
+  return (gx===a)?0:44;
+}
 function drawFenceform(gx,gy,X,Y,S){
   if(!fenceAt(gx,gy)) return false;
   var E=fenceAt(gx+1,gy), W2=fenceAt(gx-1,gy), N=fenceAt(gx,gy-1), S2=fenceAt(gx,gy+1);
@@ -630,9 +646,14 @@ function drawFenceform(gx,gy,X,Y,S){
   if(horiz&&vert){ im=TILEFORM_IMG['post_hub']; }
   else if(vert){ im=TILEFORM_IMG['ns_run_'+th(0,gx,2)]; }
   else if(horiz){
-    var pick=['run_plain_0','run_plain_1','run_plain_2','run_rail_0','run_rail_1','run_rail_2'][th(0,gy,6)];
-    if(th(gx>>2,gy,17)===0) pick='run_breach';
-    im=TILEFORM_IMG[pick]; sx=(((gx%4)+4)%4)*44;
+    var gsx=fenceGateSx(gx,gy);
+    if(gsx>=0){
+      im=TILEFORM_IMG[['gate_shut','gate_sag','gate_open'][th(gx>>1,gy,3)]]; sx=gsx;
+    } else {
+      var pick=['run_plain_0','run_plain_1','run_plain_2','run_rail_0','run_rail_1','run_rail_2'][th(0,gy,6)];
+      if(th(gx>>2,gy,17)===0) pick='run_breach';
+      im=TILEFORM_IMG[pick]; sx=(((gx%4)+4)%4)*44;
+    }
   } else { im=TILEFORM_IMG['post_hub']; }
   if(!im||!im.complete||!im.naturalWidth) return false;
   /* ground under the mesh first: see-through means the world shows through */
@@ -2226,6 +2247,20 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
   }
   ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S);
   if(k!=='W') return true;
+  /* VOLUME (8/14): TF-ART-013 SKIRTS. A mobile home sits on piers and wears a
+     skirt at the base - the panel band overlays the LOWER part of the bottom
+     row so the siding still reads above it. Every trailer-district mass gets
+     one (metal skirting is what a real park runs); the odd vent, the odd
+     missing panel with the dark void behind. */
+  if(CELLNAME==='trailer' && !civicSolidAt(gx,gy+1)){
+    var sk = th(gx,gy,17)===0 ? TILEFORM_IMG['mh_skirt_missing_0']
+           : th(gx,gy,11)===0 ? TILEFORM_IMG['mh_skirt_vent_0']
+           : TILEFORM_IMG['mh_skirt_'+th(gx,gy,3)];
+    if(sk&&sk.complete&&sk.naturalWidth){
+      var band=Math.round(S*26/44);
+      ctx.drawImage(look(sk),0,18,44,26,X,Y+S-band,S,band);
+    }
+  }
   /* ---- THE PARAPET. A wall cell with ROOF BEHIND IT is the building's top edge, and
      the wall runs up past the roof and stops in a capped band. This is the single
      strongest read a commercial building has and it is what a customer actually sees

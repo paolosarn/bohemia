@@ -293,3 +293,26 @@ quantized (1.6 MB). TWELVE OF FOURTEEN FAMILIES ARE IN THE GAME. Remaining
 two are both blocked outside this lane: freeway (world cells are still
 reserved-landmark ground, WORLD lane must realize the districts) and deck
 stairs (TF-CMB-004 slab cook still OPEN on the board).
+
+## 8/14 FOURTEENTH PASS: THE VOLUME LEDGER OPENS (GATES AND SKIRTS), AND THE
+## TAB SHOTS GO ON A DIET
+
+The families are done until other lanes move, so the ledger opened. TWO packs,
+both pure REUSE - the 8/8 cooks had already made the pieces and his 8/11 UP
+approved the whole banks, so nothing new was cooked:
+- TF-ART-004 GATES: gate_shut / gate_sag / gate_open are 88px TWO-CELL pairs
+  riding the horizontal run; both halves must be plain run (no hub, no
+  vertical) so half a gate can never hang off a corner post; about one pair in
+  thirteen, style fixed per pair. Looked at live at the battery yard: hinge
+  post, sagging leaf, latch post, world through the mesh.
+- TF-ART-013 SKIRTS: the panel band overlays the LOWER 26px of every
+  trailer-district mass bottom row, so the body siding still reads above it;
+  vent 1-in-11, missing panel 1-in-17 with the dark under-trailer void behind.
+  Looked at live in the park.
+AND the pages diet: the nine raw ART tab cards quantized in place, 34 MB down
+to 17. The published surface drops from ~248 MB to ~231 of the 260 cap -
+headroom for the next dozen cards. Both refreshed cards (gate in the run,
+skirt at the base) ship quantized like everything now does.
+Ledger next: rail turnouts, wheel stops (needs world stall-bay data), roll-up
+doors, fence slat/topper runs, mh awnings + hitches + the burned row, sf
+signbands, pool slopes, turf court lines.

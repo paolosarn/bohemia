@@ -1,3 +1,24 @@
+ART (f3eu53): 8/14 (b) LATEST -- *** THE VOLUME LEDGER IS OPEN: GATES IN THE
+FENCES, SKIRTS ON THE TRAILERS, AND 17 MB OF PAGES HEADROOM BACK. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fourteenth-pass section)
+
+TAB: ART, WIRED IN THE GAME - the chain-link card now shows a GATE in the run
+(battery yard) and the trailer card shows the SKIRT at the base. Both packs
+were pure reuse: the approved 8/8 banks already held the pieces (gate_shut/
+sag/open two-cell pairs; mh_skirt panel band + vent + missing), so the work
+was placement only. Gate rule: both halves of the 88px pair must be plain
+horizontal run. Skirt rule: band overlays the lower 26px of the bottom row,
+siding reads above.
+PAGES DIET: all nine raw ART cards quantized in place (34 -> 17 MB), surface
+~231 of 260 MB.
+
+LEDGER NEXT (in rough order of visibility): fence slat/topper runs, mh awnings
++ hitches + burned row, roll-up doors on the metal districts, rail turnouts,
+sf signbands, pool slopes, turf court lines. Wheel stops NEED WORLD DATA (the
+stall cells are lines, not bays - the bay interior is unnamed asphalt).
+STILL BLOCKED OUTSIDE: freeway (WORLD lane realizes the reserved cells), deck
+stairs (TF-CMB-004 slab cook OPEN).
+
 CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE DEMO CAST WAS WEARING THE PLAYER'S
 CLOTHES UNDERNEATH THEIR OWN. AND THE "BARE LEG" BUG NEVER EXISTED. ***
 
@@ -91,7 +112,8 @@ shelf, price, buy: "SPEND AT A TRADING HUB". All built, all uncalled. Same wire,
 needs one thing first: a price is a NUMBER, and numbers are his.
 Records: BOHEMIA_THE_DAY_PAYS_8_12_26.md, BOHEMIA_THE_VALLEY_REMEMBERS_8_12_26.md
 
-ART (f3eu53): 8/14 (a) LATEST -- *** TWELVE OF FOURTEEN FAMILIES ARE IN THE
+ART (f3eu53): 8/14 (a) -- *** TWELVE OF FOURTEEN FAMILIES ARE IN THE
+ART (f3eu53): 8/14 (a) -- *** TWELVE OF FOURTEEN FAMILIES ARE IN THE
 GAME. THE BLOCK WALLS GOT THEIR CAP. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (thirteenth-pass section)
 

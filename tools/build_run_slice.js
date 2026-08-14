@@ -303,7 +303,9 @@ var fenceBank = JSON.parse(fs.readFileSync(FENCE_BANK, 'utf8'));
 if (String(fenceBank.law || '').indexOf('APPROVED') !== 0)
   throw new Error('TILEFORM: ' + FENCE_BANK + ' law line is not APPROVED - nothing unjudged draws');
 var FENCE_PIECES = ['run_plain_0', 'run_plain_1', 'run_plain_2', 'run_rail_0', 'run_rail_1',
-                    'run_rail_2', 'run_breach', 'ns_run_0', 'ns_run_1', 'post_hub'];
+                    'run_rail_2', 'run_breach', 'ns_run_0', 'ns_run_1', 'post_hub',
+                    /* VOLUME 8/14: the bank's own gates, two-cell 88px pairs on the run */
+                    'gate_shut', 'gate_sag', 'gate_open'];
 var fenceCount = 0;
 fenceBank.tiles.forEach(function (t) {
   if (FENCE_PIECES.indexOf(t.name) >= 0) { tileformOut[t.name] = t.b64; fenceCount++; }
@@ -357,6 +359,10 @@ grabPieces('banks/tileforms/TF-ART-008_CANDIDATES_8_8_26.json',
    replace below, or the pieces never reach the page registry. */
 grabPieces('banks/tileforms/TF-ART-001_CANDIDATES_8_8_26.json',
   ['cmu_capbeam_0', 'cmu_capbeam_1', 'cmu_capbeam_2', 'cmu_vent_0', 'cmu_vent_1', 'cmu_vent_2']);
+/* VOLUME 8/14: TF-ART-013 skirts - the panel band overlays the base of every
+   trailer-district mass (drawCivicSkin bottom-row hook). */
+grabPieces('banks/tileforms/TF-ART-013_CANDIDATES_8_8_26.json',
+  ['mh_skirt_0', 'mh_skirt_1', 'mh_skirt_2', 'mh_skirt_vent_0', 'mh_skirt_missing_0']);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('

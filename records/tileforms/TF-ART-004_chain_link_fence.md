@@ -115,6 +115,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: thirteen fence-naming districts draw the see-through runs, N-S columns and post hubs (one line one style, ground painted under the mesh, breach 1-in-17 segments); the jail's razor-wire WALL is excluded as a different object. Gates, toppers, slats and the sag/lean variants are the named volume. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: thirteen fence-naming districts draw the see-through runs, N-S columns and post hubs (one line one style, ground painted under the mesh, breach 1-in-17 segments); the jail's razor-wire WALL is excluded as a different object. Gates, toppers, slats and the sag/lean variants are the named volume. VOLUME 8/14/26: GATES wired from the same approved bank (gate_shut / gate_sag / gate_open, 88px two-cell pairs riding the horizontal run, both halves must be plain run so no gate hangs off a corner post, about one pair in thirteen, style fixed per pair). Verified live at the battery yard; card updated in the ART tab. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/28/26 | PRIORITY: HIGH
 - BOARD ROW #: 13 | VERDICT: —
