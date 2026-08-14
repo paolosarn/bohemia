@@ -626,6 +626,15 @@ GATES = [
      '[PENDING Paolo], a HELD backlog row, the live unjudged count) -- so ruling one removes '
      'it by itself and he is never asked twice for something he already gave. Nothing is '
      'silently dropped, and he answers it in the VOTE tab ABOVE the art, one tap', False),
+    ('FUSED',          ['node', 'gates/fuse_gate.js'],
+     'NOT EVERYTHING WAITS FOR YOU (locked 7/1): an event is PLANTED with a fire-turn and a '
+     'warning lead, it warns you to pull up, and it fires on its fuse wherever you are. '
+     'Reach it in time and you intervene; miss it and you live with it -- same fuse, same '
+     'turn, different ending, decided by attention and position. NOT a silent gut-punch (the '
+     'warning is clamped so it can never land in the past, even on a fuse shorter than its '
+     'own lead) and NOT a cutscene. Nothing ever vanishes: 400 fuzzed histories, every fuse '
+     'ends in exactly one terminal state. It rides SUCCESSION\'s own resolve day so the two '
+     'clocks cannot drift, and both of his OPEN FORKS refuse out loud by name', False),
     ('SUCCESSION',     ['node', 'gates/succession_gate.js'],
      "Bohemia's SIGNATURE MECHANIC, locked in architecture 7/1 and unbuilt until 8/11: the world "
      'routes around the body. A ROLE stores requirements, never a person, so killing the holder '
