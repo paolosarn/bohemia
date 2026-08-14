@@ -1,3 +1,56 @@
+RUN (run-eak241): 8/14 LATEST -- THE TRADING HUB. HE CAN SPEND IT NOW, AND IT WAS
+NEVER BLOCKED ON HIM.
+
+DEMO CUT row 3 is CLOSED end to end: wake -> the phone rings -> take the job -> walk ->
+resolve -> GET PAID -> SPEND AT A TRADING HUB -> sleep -> it all survives the night.
+
+*** READ THIS PART EVEN IF YOU SKIP THE REST, IT IS THE LESSON ***
+My own handoff (the line at the bottom of the 8/13 section below, left standing on
+purpose) said the trading hub was blocked on Paolo because "a price is a NUMBER, and
+numbers are his." THAT WAS WRONG AND I HAD NOT READ THE FILE. He ruled it three days
+earlier:
+    @RULING PRICES A (Paolo 8/11): "Three goods, priced off the scarcity sim we
+    already have."   records/BOHEMIA_VERDICT_ICONS_AND_DEMO_BLOCKERS_8_11_26.txt
+and engine/bohemia_payday.js has carried `var PRICE_SOURCE = 'economy';  // RULED 8/11
+by Paolo, blocker 2 = A` ever since. We asked him, he answered, we wrote it down, and
+then we waited three days for him to answer again.
+A RULING NOBODY READS BACK IS THE SAME AS A RULING NOBODY ASKED FOR. Before you put
+anything on his plate, grep records/ and the engine for the answer -- it may already
+be there, in writing, from him. Gate assertion 1 in market_gate.js is exactly this.
+
+WHAT SHIPPED (all of it out of parts already in the build, nothing new invented):
+  WHERE     hubs read OUT OF THE OVERMAP (swap meet / truck stop). MAP LAW absolute:
+            nothing placed here. Seed moves them, the market moves.
+  WHAT      bohemia_economy.js's GOODS, each already carrying its own real anchor.
+  HOW MUCH  the scarcity sim he ruled -- hyperbolic in days-of-supply, anchored in
+            Sarajevo 92-95 (staples moved 10-100x, not 2x). NOBODY TYPED A PRICE.
+  HIS TABLE STILL WINS and is STILL EMPTY: PURSE.PRICES is checked first. The day he
+            names a price it beats the sim and nothing else changes.
+A MARKET IS A PLACE: no buying from the phone, no button anywhere but the hub cell.
+That is what makes the walk from his house to the swap meet worth anything. The phone
+tells him WHERE, riding the GO door that already existed (__PHONE_JUMP__).
+A HARD SINK: buying drops the stock the price is computed from, so the next one is
+dearer. And the ledger ages every nightfall, so day 3 does not cost what day 1 cost --
+which is the entire reason ruling A was worth having.
+
+TWO CHOICES MADE OUT LOUD SO NOBODY LATER READS THEM AS CANON:
+  1. the market is sized by BohemiaPopulation's own heads around the hub (the people
+     he can literally walk up to) -- a SAMPLED ESTIMATE, lazily built, saved.
+  2. everyone scavs. The economy module has exactly two job kinds and knowing who
+     works a SITE needs plots this page does not have. Chosen, not invented.
+
+Gate: market_gate.js (32), registered as MARKET. It makes the sale TWICE -- in the
+city page AND through the alpha's RUN tab -- because all six of this week's findings
+were green in the file they lived in. VERIFY ON THE REAL SURFACE is not a slogan.
+Record: records/BOHEMIA_THE_TRADING_HUB_8_14_26.md
+
+NEXT IN THIS LANE: DEMO GATE -- one integration test that plays the WHOLE day headless
+(wake -> offer -> accept -> resolve -> paid -> spend -> sleep -> reload) on the real
+link, plus the streaming-engine adoption for smooth crossings. Both mechanism, neither
+blocked. Do NOT put a number on his plate without grepping for it first.
+
+---
+
 ART (f3eu53): 8/14 (b) LATEST -- *** THE VOLUME LEDGER IS OPEN: GATES IN THE
 FENCES, SKIRTS ON THE TRAILERS, AND 17 MB OF PAGES HEADROOM BACK. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fourteenth-pass section)
@@ -110,6 +163,8 @@ REUSE FIRST, THE CROWD, RENDER PIXEL.
 NEXT IN THIS LANE: the OTHER half of that demo row is still dormant -- hubs, nearestHub,
 shelf, price, buy: "SPEND AT A TRADING HUB". All built, all uncalled. Same wire, and it
 needs one thing first: a price is a NUMBER, and numbers are his.
+  ^^^ WRONG, AND LEFT HERE ON PURPOSE. He had already ruled the price on 8/11 and the
+  code said so. Shipped 8/14; see the section at the top of this file.
 Records: BOHEMIA_THE_DAY_PAYS_8_12_26.md, BOHEMIA_THE_VALLEY_REMEMBERS_8_12_26.md
 
 ART (f3eu53): 8/14 (a) -- *** TWELVE OF FOURTEEN FAMILIES ARE IN THE

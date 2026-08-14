@@ -152,6 +152,21 @@ GATES = [
      'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
      'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
      'names the job -- because amounts are CONTENTS and numbers wait for him', True),
+    ('MARKET',         ['node', 'gates/market_gate.js'],
+     'The other half of that same demo row -- "SPEND AT A TRADING HUB" -- and my own '
+     'handoff said it was blocked on Paolo because "a price is a number, and numbers are '
+     'his." THAT WAS WRONG AND I HAD NOT READ THE FILE. He ruled it three days earlier: '
+     '@RULING PRICES A (8/11), "Three goods, priced off the scarcity sim we already have", '
+     'and payday.js has carried PRICE_SOURCE=economy ever since. The lane spent three days '
+     'waiting for a ruling it already had -- the seventh finished thing this week that never '
+     'reached the surface he taps. Now: the hubs are READ OUT OF THE OVERMAP (MAP LAW, '
+     'nothing placed), the goods and their prices come off the scarcity sim (hyperbolic in '
+     'days-of-supply, anchored in Sarajevo 92-95 where staples moved 10-100x), and a market '
+     'is A PLACE -- standing anywhere else there is no button, and you cannot buy from the '
+     'phone. Driven on the real surface: he stands in the swap meet the overmap put there, '
+     'is refused while broke, buys, the balance really drops, buying the stock makes the '
+     'next one DEARER, and a night in the valley moves the price again. HIS TABLE STILL '
+     'WINS and is still empty: the day he names a price it beats the sim', True),
     ('CONTINUITY',     ['node', 'gates/continuity_gate.js'],
      'Paolo 8/12: "we are trying tk create the best funnest deepest videogame ever". Depth '
      'is not more surface, it is yesterday still being true today -- so it was MEASURED '

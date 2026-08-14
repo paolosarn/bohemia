@@ -132,6 +132,7 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
   <div id="qline"></div>
   <div id="daycard"><div id="daycardIn"></div></div>
   <div id="sleepbtn">🛏 SLEEP</div>
+  <div id="mktbtn">🧺 MARKET</div><!-- __THE_TRADING_HUB__ -->
   <div id="phonewrap"><div id="phonebar"><span id="phonewhere"></span><span id="phoneclose">✕</span></div><div id="phoneslot"></div></div>
   <div id="savepanel"></div>
   <div id="keypanel"></div>
@@ -170,6 +171,20 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
   background:var(--face);border:1px solid var(--line);color:var(--acc);
   font-size:11px;font-weight:700;letter-spacing:1px}
 #sleepbtn:active{border-color:var(--acc);color:#fff}
+/* __THE_TRADING_HUB__ -- the market button sits beside SLEEP and is only there when he
+   is standing in the hub, because a market is a place. */
+#mktbtn{position:absolute;left:6px;bottom:40px;z-index:7;padding:7px 11px;border-radius:9px;
+  background:var(--face);border:1px solid var(--acc);color:var(--acc);
+  font-size:11px;font-weight:700;letter-spacing:1px;display:none}
+#mktbtn:active{background:#2a251d;color:#fff}
+#daycardIn .mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:9px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
+  border:1px solid var(--line)}
+#daycardIn .mrow:active{border-color:var(--acc)}
+#daycardIn .mrow.no{opacity:.45}
+#daycardIn .mgood{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--ink)}
+#daycardIn .mnote{font-size:10px;color:#8d7c5e;letter-spacing:.5px}
+#daycardIn .mprice{font-size:12px;font-weight:700;color:var(--acc);white-space:nowrap}
 #daycard{position:absolute;inset:0;z-index:20;display:none;align-items:center;justify-content:center;
   background:rgba(6,5,4,.86);padding:14px}
 #daycard.on{display:flex}
@@ -17569,6 +17584,7 @@ function updHud(){
   document.getElementById('note').textContent=MODE==='city'
     ? 'move on the streets. time moves when you move.'
     : 'walking the neighborhood you dropped into.';
+  try{ mktBtnSync(); }catch(_e){}   /* __THE_TRADING_HUB__ */
 }
 
 // ---- mode switch: the zoom seam (button proof) ----
@@ -17911,7 +17927,8 @@ function reportState(){
       v:1,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
       riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
       loop:DAY.serialize(),quest:DQ.serialize(),      /* __DAY_LOOP__ */
-      purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })()   /* __THE_DAY_PAYS__ */
+      purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
+      market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null   /* __THE_TRADING_HUB__ */   /* __THE_DAY_PAYS__ */
     }},'*'); }catch(_e){}
   },800);
 }
@@ -18067,6 +18084,9 @@ function onNightfall(){
      takes the quest author's own FAIL stage. */
   if(OFFER_TAKEN){ const r=DQ.nightfall(); if(r)updQline();
     try{ payForToday(); }catch(_e){}   /* __THE_DAY_PAYS__ */ }
+  try{ mktAdvanceDay(); }catch(_e){}   /* __THE_TRADING_HUB__ -- a day passes in the valley
+     too: stock produced, eaten, shortfall logged. Water at four days does not cost
+     what water at thirty days costs, and that is the whole point of ruling A. */
   showReckoning();
 }
 function showReckoning(){
@@ -18233,7 +18253,10 @@ function phoneState(){
            done:(function(){ try{ return DQ.done(); }catch(_e){ return false; } })(),
            offer:(OFFER&&!OFFER_TAKEN)?OFFER:null, taken:!!OFFER_TAKEN,
            standing:(function(){ try{ return DQ.standing(); }catch(_e){ return null; } })(),
-           purse:purseBalances(), paid:PAID_TODAY, payRefused:PAY_REFUSED };   /* __THE_DAY_PAYS__ */   /* __THE_VALLEY_REMEMBERS__ */   /* __THE_PHONE_RINGS__ */
+           purse:purseBalances(), paid:PAID_TODAY, payRefused:PAY_REFUSED,
+           market:(function(){ try{ var h=mktHub(); return h?{cell:{x:h.x,y:h.y},kind:h.kind,
+             dist:Math.round(h.dist||0), at:mktAt(), bought:MKT_BOUGHT}:null; }
+             catch(_e){ return null; } })() };   /* __THE_TRADING_HUB__ */   /* __THE_DAY_PAYS__ */   /* __THE_VALLEY_REMEMBERS__ */   /* __THE_PHONE_RINGS__ */
 }
 function phonePush(force){
   if(!PHONE_ON||!PHONE_FR||!PHONE_FR.contentWindow)return;
@@ -18452,6 +18475,138 @@ function payForToday(){
   return r;
 }
 
+
+/* __THE_TRADING_HUB__ -- SPEND AT A TRADING HUB. The other half of the demo cut's row 3,
+   and it was never blocked: Paolo ruled PRICES = A on 8/11 ("Three goods, priced off
+   the scarcity sim we already have") and payday.js has carried PRICE_SOURCE='economy'
+   ever since. The lane then waited three days for a ruling it already had.
+   MAP LAW: the hubs are READ out of the overmap, never placed here.
+   var, not let, for the same temporal-dead-zone reason as HOME (8/11). */
+var MKT_LEDGER=null, MKT_HUB=null, MKT_HUB_KEY=null, MKT_BOUGHT=null, MKT_LAST=null;
+
+/* WHERE. nearestHub takes a raw overmap, which is exactly what this page has. */
+function mktHub(){
+  var key=seed+':'+city.x+','+city.y+':'+MODE;
+  if(MKT_HUB_KEY===key) return MKT_HUB;
+  var cx=(MODE==='human')?((hx/FN)|0):city.x, cy=(MODE==='human')?((hy/FN)|0):city.y;
+  var h=null; try{ h=BohemiaPayday.nearestHub(om, cx, cy); }catch(_e){ h=null; }
+  MKT_HUB=h; MKT_HUB_KEY=key; return h;
+}
+/* A MARKET IS A PLACE. He has to be standing in the cell, in either mode -- the city
+   marker counts, because moving the marker there IS how you travel the valley. */
+function mktAt(){
+  var h=mktHub(); if(!h) return false;
+  var cx=(MODE==='human')?((hx/FN)|0):city.x, cy=(MODE==='human')?((hy/FN)|0):city.y;
+  return h.x===cx&&h.y===cy;
+}
+
+/* THE VALLEY'S OWN PEOPLE SIZE THE MARKET. No plots on this page (payday's header
+   records that discovery), so the census is BohemiaPopulation's -- the same module
+   that decides who is standing on screen. A SAMPLED ESTIMATE, said out loud. */
+function mktHeads(){
+  var heads=0, seen={}, n=om.n, tried=0;
+  var h=mktHub(); if(!h) return 0;
+  /* nearest residential neighbourhoods first: a swap meet serves what is around it */
+  for(var r=0;r<=8&&tried<10;r++){
+    for(var dy=-r;dy<=r&&tried<10;dy++)for(var dx=-r;dx<=r&&tried<10;dx++){
+      if(Math.max(Math.abs(dx),Math.abs(dy))!==r)continue;
+      var x=h.x+dx, y=h.y+dy; if(x<0||y<0||x>=n||y>=n)continue;
+      var c=om.at(x,y); if(!c)continue;
+      var nb=null; try{ nb=BohemiaPopulation.neighbourhoodOf(x,y); }catch(_e){ continue; }
+      var k=nb[0]+','+nb[1]; if(seen[k])continue; seen[k]=1;
+      var ppl=[]; try{ ppl=BohemiaPopulation.peopleIn(om,POWER,nb[0],nb[1],seed,FN,null,24)||[]; }
+      catch(_e){ ppl=[]; }
+      if(!ppl.length)continue;
+      heads+=ppl.length; tried++;
+    }
+  }
+  return heads;
+}
+/* Built LAZILY: a census at boot is paid by every player who never trades. */
+function mktLedger(){
+  if(MKT_LEDGER) return MKT_LEDGER;
+  var heads=mktHeads();
+  if(!heads) heads=1;                 /* a market with no customers still has a shelf */
+  try{ MKT_LEDGER=BohemiaEconomy.makeLedger(seed, heads, heads); }catch(_e){ MKT_LEDGER=null; }
+  return MKT_LEDGER;
+}
+/* EVERYONE SCAVS, and that is a stated choice not a number. The economy module owns
+   exactly two job kinds; knowing who works a SITE needs plots this page does not
+   have, so every head takes the module's own conservative kind. */
+function mktAgents(){
+  var L=mktLedger(); if(!L) return [];
+  var out=[]; for(var i=0;i<L.agents;i++) out.push({job:{kind:'scav'}});
+  return out;
+}
+/* THE DAY MOVES THE PRICES. Stock is produced, eaten, and what is not there is
+   shortfall -- which is the whole point of the ruling he made. */
+function mktAdvanceDay(){
+  if(!MKT_LEDGER) return null;            /* never censused = never traded = nothing to age */
+  try{ return BohemiaEconomy.advanceDay(MKT_LEDGER, mktAgents()); }catch(_e){ return null; }
+}
+/* THE SHELF. Goods and prices both READ, never typed. */
+function mktShelf(){
+  var L=mktLedger(), p=purseGet(), out=[];
+  var sh=[]; try{ sh=BohemiaPayday.shelf()||[]; }catch(_e){ sh=[]; }
+  for(var i=0;i<sh.length;i++){
+    var q=null; try{ q=BohemiaPayday.price(p, L, sh[i].good); }catch(_e){ q=null; }
+    var dl=null; try{ dl=BohemiaEconomy.daysLeft(L, sh[i].good); }catch(_e){}
+    out.push({ good:sh[i].good, unit:sh[i].unit, note:sh[i].note,
+               price:(q&&q.price!=null)?q.price:null,
+               source:(q&&q.source)||null, reason:(q&&q.reason)||null,
+               daysLeft:(dl===Infinity||dl==null)?null:dl });
+  }
+  return out;
+}
+function mktBuy(good){
+  var p=purseGet(); if(!p) return null;
+  var r=null;
+  try{ r=BohemiaPayday.buy(p, mktHub(), good, DAY.day, mktLedger()); }catch(_e){ return null; }
+  MKT_LAST=r;
+  if(r&&r.applied){
+    MKT_BOUGHT=MKT_BOUGHT||{}; MKT_BOUGHT[good]=(MKT_BOUGHT[good]||0)+1;
+    window.__BOUGHT=(window.__BOUGHT||0)+1;
+    /* A HARD SINK: the goods leave the world when he consumes them, so the stock the
+       price is computed from really drops. Buying makes the next one dearer. */
+    try{ if(MKT_LEDGER&&MKT_LEDGER.stocks&&MKT_LEDGER.stocks[good]!=null)
+      MKT_LEDGER.stocks[good]=Math.max(0,+(MKT_LEDGER.stocks[good]-1).toFixed(2)); }catch(_e){}
+  } else window.__BUY_REFUSED=(window.__BUY_REFUSED||0)+1;
+  try{ phonePush(true); }catch(_e){}
+  return r;
+}
+/* THE SHELF ON SCREEN. Reuses the day card, because a second card system is a second
+   thing to keep in step with the first. */
+function showMarket(){
+  var h=mktHub(), rows=mktShelf(), bal=purseBalances()||{};
+  var s='<h2>'+esc(((h&&h.kind==='truckstop')?'TRUCK STOP':'SWAP MEET'))+'</h2>'
+       +'<div class="sub">'+esc(DAY.hhmm(DAY.min))+' \u00b7 you have '
+       +esc(String(bal.resources==null?0:bal.resources))+' resources</div>';
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i], can=(r.price!=null)&&((bal.resources||0)>=r.price);
+    var right=(r.price!=null)?(r.price+' res'):(r.reason==='NO_RULING'?'unpriced':'\u2014');
+    s+='<div class="mrow'+(can?'':' no')+'" data-act="buy:'+esc(r.good)+'">'
+      +'<div><div class="mgood">'+esc(r.good.toUpperCase())+' \u00b7 1 '+esc(r.unit)+'</div>'
+      +'<div class="mnote">'+esc(r.daysLeft==null?String(r.note||'')
+          :(r.daysLeft+' days of it left in the valley'))+'</div></div>'
+      +'<div class="mprice">'+esc(right)+'</div></div>';
+  }
+  if(MKT_LAST&&!MKT_LAST.applied)
+    s+='<div class="sub" style="margin-top:8px">'+esc(
+        MKT_LAST.reason==='CANNOT_AFFORD'?('not enough resources: that is '+MKT_LAST.price
+          +' and you have '+MKT_LAST.have)
+        :MKT_LAST.reason==='NO_RULING'?'nobody has ruled what that costs'
+        :String(MKT_LAST.reason||''))+'</div>';
+  s+='<div class="dcgo" data-act="close">LEAVE</div>';
+  cardShow(s,function(act){
+    if(act==='close'){ MKT_LAST=null; cardHide(); return; }
+    if(act&&act.indexOf('buy:')===0){ mktBuy(act.slice(4)); showMarket(); }
+  });
+}
+function mktBtnSync(){
+  var el=document.getElementById('mktbtn'); if(!el)return;
+  el.style.display=(mktAt()&&DAY.phase==='awake')?'block':'none';
+}
+
 function applyRestore(st){
   if(!st||st.v!==1)return false;
   if(typeof st.seed==='number'&&st.seed!==seed){ seed=st.seed; om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed); metaCache.clear(); chunkCache.clear(); }
@@ -18461,6 +18616,9 @@ function applyRestore(st){
      rides with it, so resuming puts you back mid-job, not back at the wake. */
   /* __THE_DAY_PAYS__ -- a day's pay that dies with the tab is not pay. */
   if(st.purse){ try{ PURSEV=BohemiaPurse.load(st.purse); }catch(_e){} }
+  /* __THE_TRADING_HUB__ -- the valley's stocks are the price, so a market that forgets
+     them resets every price to base on every reload. */
+  if(st.market){ try{ MKT_LEDGER=st.market.ledger||null; MKT_BOUGHT=st.market.bought||null; }catch(_e){} }
   if(st.loop&&DAY.restore(st.loop)){ daySync(); DAY_RESTORED=true;
     if(st.quest)DQ.restore(st.quest,DAY.day); else DQ.openDay(DAY.day);
     try{ updQline(); }catch(_e){}
@@ -19601,6 +19759,10 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 
 
 /* __DAY_LOOP__ BOOT -- open day 1 once the world is up. */
+/* __THE_TRADING_HUB__ BOOT */
+document.getElementById('mktbtn').addEventListener('click',function(){
+  if(!mktAt())return; MKT_LAST=null; showMarket();
+});
 document.getElementById('sleepbtn').addEventListener('click',function(){
   if(DAY.phase!=='awake')return; DAY.sleep(); daySync(); onNightfall(); updHud();
 });
