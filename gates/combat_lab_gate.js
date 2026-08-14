@@ -869,12 +869,39 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
      fluid in the fire button now, which is his own ask ("maybe it's like
      fluid... Warcraft... Diablo"). The read did not disappear, it MOVED, so the
      check follows it to the orb. */
-  ok('V54 TOOLKIT UI: four buttons wired, disabled in the aim phase like WAIT, and the stamina read exists (as the orb, not pips)',
+  ok('V54 TOOLKIT UI: the toolkit buttons are wired, disabled in the aim phase like WAIT, and the stamina read exists (as the orb, not pips). V149 makes it FIVE -- the swap joins the same disable rail rather than inventing its own',
     demo.includes('id="suppressbtn"') && demo.includes("mk('runbtn','RUN'") &&
     demo.includes("mk('grenbtn2','GREN'") &&
+    demo.includes("mk('swapbtn','ALT'") &&
     demo.includes('id="peekbtn"') &&
     demo.includes('const lvl=Math.max(0,Math.min(1,(G.stam||0)/STAM_MAX));') &&
-    demo.includes("for(const _id of ['suppressbtn','peekbtn','runbtn','grenbtn2']){"));
+    demo.includes("for(const _id of ['suppressbtn','peekbtn','runbtn','grenbtn2','swapbtn']){"));
+
+/* ===== V149 YOU CARRY TWO GUNS ====================================
+   Paolo [T22]: "I actually went in the settings to switch my gun so I can get a
+   longer range and I think that's important. Maybe this should be a swap."
+   HE ALREADY PLAYED THE MECHANIC -- he reached past the game, into a menu,
+   mid-fight, to solve a range problem the fight would not let him solve. That
+   is the strongest signal a mechanic is missing.
+   THE RESEARCH IS UNANIMOUS THAT A FREE SWAP IS AN EXPLOIT: with no cost, the
+   correct play is to hold whichever gun is better this instant and switch back
+   after, every turn. And the other half is equally real -- going to a sidearm
+   is FASTER THAN RELOADING, which is why anyone carries one. So the swap is a
+   BEAT: fast enough to be worth doing, expensive enough that he has to see it
+   coming. */
+  ok('V149 THE SWAP COSTS THE TURN: you swap INSTEAD of shooting, they get their volley, and you come up next beat holding the right gun. Anticipating the range you are ABOUT to be in, one beat early, is the skill this adds',
+    demo.includes('function doSwap(){') &&
+    /G\.wpnAlt=from; WEAPON=to;/.test(demo) &&
+    /endTurnReturn\(false\); \}/.test(demo));
+
+  ok('V149 ALWAYS A SHORT AND A LONG, and which guns he OWNS is not decided here: the pairing reads the weapon he already has and gives it an opposite number, so every loadout has a close answer and a far answer',
+    demo.includes("const WEAPON_PAIR={pistol:'rifle',rifle:'pistol',smg:'shotgun',shotgun:'smg'};") &&
+    demo.includes('function altWeapon(){'));
+
+  ok('V149 THE BUTTON NAMES THE GUN, NOT THE VERB: the useful information is WHICH gun, because he is choosing a range rather than an action, and it arms nothing else while it does it',
+    demo.includes('function updSwapBtn(){') &&
+    /b\.textContent=\(to\|\|''\)\.slice\(0,5\)\.toUpperCase\(\);/.test(demo) &&
+    /G\.runArm=false; G\.grenArm=false; G\.sprintArm=false; G\.dashArm=false;/.test(demo));
   // v55: shuffle the time of day per fight (morning/dusk/night), washing the scene
   ok('V55 DAY PHASE: pickDayPhase rolls morning/dusk/night; applyDayPhase washes the scene per phase and is called from screenOverlays',
     demo.includes("G.dayPhase=['morning','dusk','night'][Math.floor(Math.random()*3)]") &&
