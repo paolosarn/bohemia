@@ -1,0 +1,202 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S23 — DEAD POOL
+# Shape: the quest where the player learns one fact and the fact is the whole
+# moral problem. No villain. Faction wires: CARAVANS, NETWORK, TRADES. Grounded
+# in a real thing this valley actually built, and the fact is so on-the-nose for
+# Bohemia that it needed no invention at all:
+#   Lake Mead has three intakes. The first dies when the lake drops past 1,050
+#   feet. The second dies around 1,000. So Las Vegas spent $1.5 billion on a
+#   third one -- three miles of tunnel, twenty feet across -- with its mouth at
+#   about 860 feet. DEAD POOL, the elevation below which Hoover Dam stops
+#   releasing water downstream at all, is 895. The third straw drinks from
+#   roughly THIRTY-FIVE FEET BELOW the point where everyone downstream gets
+#   nothing. Plus a Low Lake Level Pumping Station that can move 900 million
+#   gallons a day out of a lake that is no longer legally a river.
+#   (snwa.com/infrastructure-improvements/intake3-pumping-station, 2015/2022)
+# The city built a straw that outlives the river. Everybody downstream of it is
+# drinking nothing while this valley's taps still run, and that is not a
+# conspiracy, it is a public works project with a budget line.
+# Systems AS the mechanic: this is the KNOWLEDGE-GATE. There is no skill check
+# and no combat. Once you know where the valley's water comes from you cannot
+# un-know it, and every option after that is what you do with a fact.
+# The lesson underneath, never spoken: the people who planned for the worst are
+# not villains for having planned, and they are still drinking your neighbours'
+# water. No proper names. CLOUT rides the deed: a quiet share is #quiet, saying
+# it out loud in the market is #notable, and taking a caravan to the intake is
+# #reckless because you are showing armed strangers the valley's throat.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q018.W1  KNOWLEDGE IS THE UPGRADE
+#   applied: nothing about the player changes in this quest except what they know, and knowing where the water comes from is the only thing that unlocks any of the endings.
+# @STUDY Q018.W5  KNOWLEDGE-GATES DISGUISED AS SKILL-GATES
+#   applied: it looks like a persuasion problem and it is not. There is no check to pass. The caravan says yes to whoever can tell them a true thing about the lake.
+# @STUDY Q012.W6  THE GENUINELY-DEBATED QUESTION
+#   applied: the valley built the deep intake before anyone downstream was thirsty. Both readings of that are honestly available and the quest scores neither.
+# @STUDY Q012.P6  W5 (dialogue is the game
+#   applied: every verb here is a sentence. There is nothing to fight and nothing to carry; the entire quest is what you are willing to say and to whom.
+# @STUDY Q029.W10  LEGITIMACY AS A FAIL-STATE
+#   applied: the failure is not dying. It is the block deciding you are the kind of person who tells outsiders where the water is, or the kind who watched a caravan leave dry.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_dead_pool   Dead Pool
+@ACT     1
+@FACTION Caravans
+@ONCE    true
+
+@ROLE hauler   REQ  faction=Caravans  came_up_the_river=true
+@ROLE pumpman  REQ  faction=Trades    worked_the_intake=true
+@ROLE clerk    REQ  faction=Network   keeps_the_allocation=true
+
+@STAGE 10
+  @LOG A caravan came up from downriver with empty bladders and a story about a dam that stopped giving. Our taps ran this morning the same as always.
+  @DO show_objective 10
+@STAGE 20
+  @LOG Somebody in this valley knows why both of those things are true at once, and it is not a secret, it is just not something anybody says out loud.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Filled them from the block tank after dark and told them the truth about the third intake while we worked. They left knowing where they stand. Nobody up the street knew they had been here.
+  @DO bond hauler +25
+  @DO learn the_third_intake
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Said it in the market, in daylight: the reason our taps run is a tunnel under a lake that stopped being a river. Half the block did not know. Now they do.
+  @DO faction Caravans +10
+  @DO faction Network -8
+  @DO learn the_third_intake
+  @DO set_flag the_block_knows_about_the_straw
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Walked them out to the intake works so they could see it. They filled everything they had. They also now know exactly where this valley drinks from and how few people are standing on it.
+  @DO faction Caravans +15
+  @DO faction Network -20
+  @DO learn the_third_intake
+  @DO set_flag strangers_have_seen_the_intake
+  @DO advance_territory
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Told them we had nothing spare. They believed me, which was the worst part, and went back down to a river that is not a river. Nobody saw me not help.
+  @DO bond hauler -25
+  @DO faction Caravans -12
+
+@OBJ 10  "Find out why our taps run and theirs do not"  target=pumpman
+@OBJ 20  "Decide what the caravan leaves with"          target=hauler
+
+# =====================================================================
+# THE ARRIVAL. He is not accusing anybody. He genuinely does not know,
+# and that is worse to listen to than an accusation would be.
+# =====================================================================
+@TALK dry  speaker=hauler  entry=stage>=10,stage<20
+  @SAY Eleven days up from the low country. The channel down there is a road now. You can walk it. #wary
+  @SAY And I come up here and there is a tap running behind you into a bucket nobody is watching. I am not angry. I am trying to understand what I am looking at.
+  @SAY Somebody here knows why. Find out and come back and tell me, and I will decide whether I ever come up this way again.
+  @OPT "I will find out."                       [gate: none]  -> ask
+  @OPT "We have more than you think."           [gate: none]  -> ask
+  @OPT "We have nothing spare."                 [gate: none]  TRAP -> nothing
+  @OPT (fill his bottle without saying anything) [gate: none]  SILENCE -> ask
+  @NOVERB "Ask what the channel looked like"
+@END
+
+@TALK nothing  speaker=hauler
+  @SAY All right. #wary
+  @SAY That is the thing about a tap. It does not lie for you. It is running while you say it.
+  @OPT "I misspoke. Let me find out what we have." [gate: none]  -> ask
+  @OPT "I am sorry."                                [gate: none]  -> END  @DO set_stage 33
+  @OPT (say nothing further)                        [gate: none]  SILENCE -> END  @DO set_stage 33
+@END
+
+# =====================================================================
+# THE FACT. This is the whole quest. He is not being cagey, he is being
+# an engineer: he tells you the elevations because the elevations ARE
+# the answer, and he assumes you can subtract.
+# =====================================================================
+@TALK ask  speaker=pumpman  entry=stage>=10
+  @SAY Three intakes. First one goes dry when the lake drops past ten-fifty. Second one is done around a thousand. #wary
+  @SAY Third one sits at about eight-sixty. There is three miles of tunnel behind it, twenty feet across, and a pumping station that can move nine hundred million gallons a day.
+  @SAY Now. Dead pool is eight ninety-five. That is the number where the dam stops letting anything go downstream. Do the subtraction and tell me what you get.
+  @OPT "You drink thirty-five feet below where the river ends." [gate: none]  -> yes  @DO learn the_third_intake
+  @OPT "So we planned for this."                                [gate: none]  -> yes  @DO learn the_third_intake
+  @OPT "That cannot be legal."                                  [gate: none]  -> legal
+  @NOVERB "Ask when they built it"
+@END
+
+@TALK yes  speaker=pumpman
+  @SAY That is what you get. #wary
+  @SAY It was not sneaked in either. It cost a billion and a half and it was in the paper and there were tours. Everybody agreed it was prudent. It WAS prudent. That is the part I keep chewing.
+  @SAY We built a straw that outlives the river and then we were surprised to find ourselves the last ones drinking. Go tell your caravan whatever you are going to tell them.
+  @OPT "I am telling them the truth."     [gate: none]  -> back
+  @OPT "Who decides what goes out?"       [gate: none]  -> clerkq
+  @OPT "Can I take them out there?"       [gate: none]  -> works
+@END
+
+@TALK legal  speaker=pumpman
+  @SAY It is the most legal thing in the valley. There is an allocation and a compact and a whole shelf of paper. #wary
+  @SAY Every drop that comes up that tunnel is somebody's lawful share of a lake. What there is not, is a line in any of that paper about the people standing at the bottom of a dry channel eleven days south.
+  @OPT "So it is legal and it is not right."  [gate: none]  -> yes  @DO learn the_third_intake
+  @OPT "Then nothing to be done."             [gate: none]  -> END  @DO set_stage 33
+@END
+
+# THE ADMINISTRATION. Polite, correct, and the most unsettling thing in
+# the quest, because nothing he says is untrue.
+@TALK clerkq  speaker=clerk  entry=stage>=20
+  @SAY Outflow is allocated. I do not decide it, I record it. If you want to give some of yours away that is entirely your business and I will note it as consumption. #cold
+  @SAY What I would ask is that you do not walk anybody out to the works. Not because of the water. Because of the works.
+  @OPT "Understood."                         [gate: none]  -> back
+  @OPT "You would rather they thought it was magic." [gate: none]  -> back
+  @OPT (say nothing and go)                  [gate: none]  SILENCE -> back
+@END
+
+@TALK works  speaker=pumpman
+  @SAY You can. There is no fence worth the name and there are four of us who know how to run it. #dread
+  @SAY Understand what that means. Right now the reason nobody takes this valley's water is that nobody outside it has ever seen where it comes from.
+  @OPT "They should see it."                 [gate: none]  -> back
+  @OPT "You are right. Forget it."           [gate: none]  -> back
+@END
+
+# =====================================================================
+# THE RETURN. He does not want a speech. He wants a number and a yes or
+# a no, and what he does with the answer is his.
+# =====================================================================
+@TALK back  speaker=hauler  entry=stage>=20
+  @SAY Well. #wary
+  @SAY Say it plain. I have been lied to gently the whole way up and I would rather have it flat.
+  @OPT "There is a third intake. It drinks below where your river ends." [gate: knows:the_third_intake]  -> flat
+  @OPT "Fill your bladders. Tonight, quietly."                            [gate: none]  -> quiet
+  @OPT "Come to the market. I will say it in front of everyone."          [gate: none]  -> loud
+  @OPT "I will take you out and show you."                                [gate: none]  -> show
+  @OPT "We have nothing spare."                                           [gate: none]  TRAP -> END  @DO set_stage 33
+@END
+
+@TALK flat  speaker=hauler
+  @SAY Thirty-five feet. #wary
+  @SAY That is the whole thing then. Not a war, not a theft. Thirty-five feet of pipe and a man in an office writing it down. I would almost rather it had been theft.
+  @OPT "Fill up. Quietly, tonight."          [gate: none]  -> quiet
+  @OPT "Come and hear me say it out loud."   [gate: none]  -> loud
+  @OPT "I will show you the works."          [gate: none]  -> show
+@END
+
+@TALK quiet  speaker=hauler
+  @SAY After dark then. And I will not say where it came from. #wary
+  @OPT "Then we are square."                 [gate: none]  -> END  @DO set_stage 30
+  @OPT (start hauling in the dark)           [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK loud  speaker=hauler
+  @SAY In front of your own people. You know some of them do not know this. #wary
+  @SAY They are going to look at their own tap differently for the rest of their lives and they are not going to thank you.
+  @OPT "Say it anyway."                      [gate: none]  -> END  @DO set_stage 31
+  @OPT "No. Quietly, tonight."               [gate: none]  -> quiet
+@END
+
+@TALK show  speaker=hauler
+  @SAY You would take me out there. #dread
+  @SAY I have nine people and a cart and we are thirsty, and you are going to walk us to the one place in this valley that matters. I want you to hear yourself offer it.
+  @OPT "Walk with me."                       [gate: none]  -> END  @DO set_stage 32
+  @OPT (start walking toward the lake)       [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT "You are right. Tonight, quietly."    [gate: none]  -> quiet
+@END

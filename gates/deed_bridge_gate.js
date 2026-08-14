@@ -325,8 +325,20 @@ let quietStanding, recklessStanding;
   ok('THE RULE, MEASURED: the biggest act in his corpus, done in front of a whole faction, moves EXACTLY one rung',
     oneRung(st.value));
   notes.push(`divisor ${corpus.divisor} derived from max |delta| ${corpus.maxAbs} / rung step ${corpus.rungStep}`);
+  /* THIS PROBE USED TO HARDCODE 10 AS THE FEEL NUMBER AND IT WENT BLIND ON 8/14.
+     A new quest authored a -20 faction delta, max |delta| moved 18 -> 20, and the
+     DERIVED divisor became exactly 10 -- so the probe's deliberately-wrong value
+     and the correct value were the same number, oneRung() said yes, and the probe
+     stopped catching anything. It reported 14/15 rather than lying outright,
+     which is the only reason it was noticed.
+     A SELF-TEST WITH A CONSTANT IN IT IS A SELF-TEST WITH AN EXPIRY DATE. The
+     claim under test is "the divisor is DERIVED, not picked", so the wrong value
+     has to be defined RELATIVE to the derived one and can never collide with it.
+     Both directions, so it cannot be satisfied by an off-by-one in one of them. */
   probe('the derivation claim rejects a divisor picked by feel instead of measured off the corpus',
-    !oneRung(corpus.maxAbs / 10 * (corpus.rungStep / corpus.rungStep)));
+    !oneRung(corpus.maxAbs / (corpus.divisor + 1)));
+  probe('and rejects one too small the same way — the claim is not one-sided',
+    corpus.divisor <= 1 || !oneRung(corpus.maxAbs / (corpus.divisor - 1)));
   probe('and rejects a scale where one quest maxes the faction out',
     !oneRung(corpus.maxAbs));
 }

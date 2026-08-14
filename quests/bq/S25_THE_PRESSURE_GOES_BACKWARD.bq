@@ -1,0 +1,177 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S25 — THE PRESSURE GOES BACKWARD
+# Shape: the investigation where the investigator is the cause. Faction wires:
+# VOLUNTEERS, TRADES, BLUES. Grounded in the real mechanism behind every boil
+# water notice ever issued, and it is the most quietly horrifying piece of
+# plumbing there is:
+#   A water main only keeps dirt out because it is PUSHING. Drop the pressure --
+#   a break, a fire draw, a pump somebody added -- and at every unprotected
+#   cross-connection the flow REVERSES. Backsiphonage: the vacuum pulls whatever
+#   is on the other end of that connection BACKWARD into the drinking main. A
+#   hose left sitting in a tank. A pump wired into a bathroom line. That is why
+#   utilities issue a precautionary notice on a pressure loss alone, before any
+#   sample comes back: loss of positive pressure IS the hazard.
+#   (EPA cross-connection/backflow guidance; standard boil-water criteria)
+# Nobody has to poison anybody. The block poisons itself, backward, through a
+# hose that has been sitting in a barrel for a month doing nothing at all.
+# Systems AS the mechanic: this is a real deduction with a real physical answer,
+# and the reason it is hard is that the sick houses are UPSTREAM of the cause.
+# Everybody looks downhill. It came from downhill.
+# The lesson underneath, never spoken: the harm nobody intended still has an
+# address, and it is probably one you helped make. No proper names. CLOUT rides
+# the deed: pulling the hose yourself is #quiet, calling the boil notice is
+# #notable, dumping the main is #reckless.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q009.W5  THE INVESTIGATOR IS IMPLICATED
+#   applied: the pressure drop that reversed the flow is the one the player's own block caused drawing hard on the line, and the quest says so plainly at the end rather than as a twist.
+# @STUDY Q019.W1  DEDUCTION IS THE GAMEPLAY
+#   applied: there is one physical answer and it is reachable. Who is sick, who is not, and which way the ground falls are the three facts, and they only fit one shape.
+# @STUDY Q019.W6  THE LOGIC-MESH (lateral information)
+#   applied: the decisive fact comes from a completely unrelated errand -- somebody complaining their pump has been running rough since the day the pressure went funny.
+# @STUDY Q009.W2  THE MUNDANE HOOK -> COSMIC DREAD
+#   applied: it opens with bad stomachs and ends with the understanding that the pipe under the whole street has been running the wrong way for eleven days.
+# @STUDY Q019.P2  W1/W2 (deduction is gameplay + inverted mystery
+#   applied: the flaws-master half -- the player can be TOLD the mechanism early and it does not spoil anything, because knowing backsiphonage exists is not the same as knowing which hose.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_backward   The Pressure Goes Backward
+@ACT     1
+@FACTION Volunteers
+@ONCE    true
+
+@ROLE nurse   REQ  faction=Volunteers  counts_the_sick=true
+@ROLE fitter  REQ  faction=Trades      knows_the_mains=true
+@ROLE pumper  REQ  faction=Blues       added_a_pump=true
+
+@STAGE 10
+  @LOG Nine houses with the same bad water. They are not next to each other and they are not all downhill of anything.
+  @DO show_objective 10
+@STAGE 20
+  @LOG The sick houses are UPSTREAM. Everybody has been looking the wrong way down the street for eleven days.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Walked down and pulled a garden hose out of a rain barrel. That was it. That was the whole thing. Told the fitter, told nobody else, and the water came right in four days.
+  @DO bond fitter +20
+  @DO learn backsiphonage
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Put the boil notice out on the whole block before I knew whose hose it was. Everybody boiled everything for six days and hated it and nobody else got sick.
+  @DO faction Volunteers +12
+  @DO learn backsiphonage
+  @DO set_flag boil_notice_called
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Opened every hydrant on the street and dumped the main to flush it, in the middle of a dry month, in front of everyone. It worked. We are also now down what we were down.
+  @DO faction Volunteers +6
+  @DO faction Blues -12
+  @DO learn backsiphonage
+  @DO set_flag dumped_the_main
+  @DO advance_territory
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Kept looking downhill because that is where things go. Two more houses by the end of the week and one of them is the one with the baby in it.
+  @DO bond nurse -25
+  @DO set_flag two_more_houses
+
+@OBJ 10  "Find what the nine sick houses have in common"  target=nurse
+@OBJ 20  "Stop it going backward"                         target=fitter
+
+# =====================================================================
+# THE MUNDANE HOOK. Bad stomachs. She is not being dramatic and that is
+# what makes it land.
+# =====================================================================
+@TALK sick  speaker=nurse  entry=stage>=10,stage<20
+  @SAY Nine houses. Same thing in all of them, and it is not food, because two of those houses have not shared a meal with anybody in a year. #wary
+  @SAY It is the water. I know it is the water. What I cannot tell you is why it is THOSE nine and not the ones between them.
+  @SAY Here is the list. Look at where they are before you look at anything else.
+  @OPT "Show me on the street."          [gate: none]  -> map
+  @OPT "Which way does the ground fall?" [gate: none]  -> fall
+  @OPT "Anybody NOT sick who should be?" [gate: none]  -> map
+  @NOVERB "Ask when it started"
+@END
+
+@TALK map  speaker=nurse
+  @SAY Top of the rise, mostly. Two on the flat. Nothing at all in the eight houses at the bottom end, and the bottom end is where I would have bet everything. #wary
+  @OPT "The sick ones are uphill of the well ones." [gate: none]  -> fall
+  @OPT "Then it is not coming down the street."     [gate: none]  -> fall
+  @OPT "Must be the tank at the top."               [gate: none]  TRAP -> tank
+@END
+
+@TALK fall  speaker=nurse
+  @SAY Falls south, hard. Always has. Everything in this valley runs south eventually. #wary
+  @SAY Which is why nobody has got anywhere in eleven days. Every single one of us has been walking downhill looking for it.
+  @OPT "Then I want the fitter. Now."   [gate: none]  -> fitter  @DO set_stage 20
+  @OPT (turn and walk uphill)           [gate: none]  SILENCE -> fitter  @DO set_stage 20
+@END
+
+# THE TRAP: the intuitive answer. Chasing the tank costs the week.
+@TALK tank  speaker=nurse
+  @SAY We drained it. Scrubbed it. Three of us, two days, and I have not slept since. #wary
+  @SAY Two more houses went bad while we were in there. Whatever this is, it did not care that we were cleaning the tank.
+  @OPT "Then it is not the tank."       [gate: none]  -> fall
+  @OPT "Do it again properly."          [gate: none]  -> END  @DO set_stage 33
+@END
+
+# =====================================================================
+# THE MECHANISM. He can tell the player exactly how it works and it does
+# not spoil anything, because knowing that backsiphonage exists is not
+# the same as knowing whose hose.
+# =====================================================================
+@TALK fitter  speaker=fitter  entry=stage>=20
+  @SAY A main keeps muck out by PUSHING. That is the whole trick. There is no valve in the world doing that job, it is just pressure, all day, every day. #wary
+  @SAY Take the pressure off and every place where somebody has joined something to that pipe stops being an outlet and becomes an inlet. It sucks. Backward. Up the hill, if that is where the pipe goes.
+  @SAY So stop asking what is downhill of the sick houses. Ask what is CONNECTED to them, and then ask what has been sitting in a barrel.
+  @OPT "What dropped the pressure?"     [gate: none]  -> pressure  @DO learn backsiphonage
+  @OPT "Who has added a pump lately?"   [gate: none]  -> pump  @DO learn backsiphonage
+  @OPT "Boil notice. Whole block. Now." [gate: none]  -> boil
+  @OPT "Dump the main and flush it."    [gate: none]  -> dump
+@END
+
+# THE IMPLICATION, said flatly and early rather than saved as a twist.
+@TALK pressure  speaker=fitter
+  @SAY You did. #wary
+  @SAY Not you personally, do not make a face. This block has been drawing harder than that main has ever been asked to carry, since the day we all started keeping our own tanks. Every one of us fills at once at six in the evening and the line goes soft for an hour.
+  @SAY There is no villain in this. There is a street full of people being sensible one at a time.
+  @OPT "Then find me the connection."   [gate: none]  -> pump
+  @OPT "We have been poisoning ourselves at six o'clock." [gate: none]  -> pump
+@END
+
+# THE LATERAL FACT. It arrives as somebody else's unrelated complaint.
+@TALK pump  speaker=pumper
+  @SAY My pump? My pump has been running rough since about the time the water went funny, since you ask, which is the least of my problems. #wary
+  @SAY I put it on the bathroom line to get some head into the upstairs. And I run the garden hose off the same tee into the barrel out back so it is not just sitting there.
+  @SAY What. What is that face.
+  @OPT "Is the hose IN the barrel? Under the water?"  [gate: knows:backsiphonage]  -> hose
+  @OPT "Show me the tee."                              [gate: none]  -> hose
+  @OPT "Nothing. Show me the barrel."                  [gate: none]  SILENCE -> hose
+@END
+
+@TALK hose  speaker=pumper
+  @SAY It has been in there a month. It is a hose in a barrel. It is not doing anything. #wary
+  @SAY ...It is not doing anything when the pressure is up. Is that what you are about to tell me.
+  @OPT "Pull it out. That is all. Pull it out." [gate: none]  -> END  @DO set_stage 30
+  @OPT (reach in and pull the hose out)         [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT "Boil notice first. Everyone."           [gate: none]  -> boil
+@END
+
+@TALK boil  speaker=fitter
+  @SAY Whole block, six days, everything through a rolling boil including what you brush your teeth with. #wary
+  @SAY They will hate it and about a third of them will not do it, and it is still the right call before you know whose connection it is. That is exactly what a precautionary notice is FOR. You do not wait for proof to stop drinking.
+  @OPT "Call it."                       [gate: none]  -> END  @DO set_stage 31
+  @OPT "First let me find the hose."    [gate: none]  -> pump
+@END
+
+@TALK dump  speaker=fitter
+  @SAY Every hydrant on the street, wide open, until it runs clean. #dread
+  @SAY It will work. It will also be the most water this block has spent in one afternoon since the lights went, in front of every person who has been rationing since spring, and they will remember who opened the first one.
+  @OPT "Open them."                     [gate: none]  -> END  @DO set_stage 32
+  @OPT (put a wrench on the first hydrant) [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT "No. Find the connection first." [gate: none]  -> pump
+@END

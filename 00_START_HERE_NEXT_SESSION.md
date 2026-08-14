@@ -260,8 +260,48 @@ HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/13 (f) LATEST -- *** QUEST 22 EXISTS: THE COLD ROOM. FIRST
-NEW CANON QUEST OFF THE UNTOUCHED 126. ***
+PEOPLE (7h9sfy): 8/14 (a) LATEST -- *** 25 QUESTS. FOUR NEW ONES IN A DAY, ALL
+FOUR BUILT ON STUDIES NOBODY HAD EVER OPENED, ALL FOUR ABOUT WATER. ***
+
+21 -> 25 quests, 26 -> 35 studies cited. The three new ones after THE COLD ROOM
+are each ONE VERIFIED REAL FACT turned into a fork, researched rather than
+invented, because "the most realistic economic crash simulator, but fun" means
+the fact has to survive being looked up:
+
+ S23 DEAD POOL. Lake Mead has three intakes. The first dies at 1,050 feet, the
+   second around 1,000. So the valley spent $1.5 BILLION on a third -- three
+   miles of tunnel, twenty feet across -- with its mouth at about 860. DEAD POOL,
+   the elevation where Hoover Dam stops releasing anything downstream at all, is
+   895. *** THIS CITY DRINKS THIRTY-FIVE FEET BELOW THE END OF THE RIVER. ***
+   Plus a pumping station that moves 900 million gallons a day out of a lake that
+   is no longer legally a river. It is not a conspiracy, it is a public works
+   project with a budget line and a ribbon cutting. A caravan comes up from the
+   dry country and the whole quest is what you are willing to say to them.
+   (snwa.com/infrastructure-improvements/intake3-pumping-station)
+
+ S24 FIFTY-FIVE GALLONS A FOOT. The water authority paid people to tear out their
+   lawns for twenty-five years -- $5 a square foot, $7 with the district's share.
+   185 MILLION square feet converted, 119 billion gallons saved, and the number
+   printed on every flyer for a generation: 55 GALLONS PER SQUARE FOOT PER YEAR.
+   *** THE ECONOMY DIED AND THE INSTRUMENT DID NOT. *** Everybody on the block
+   still converts grass to gallons in their head instantly, because they were
+   paid to for twenty years. So a lawn that is still green is not pretty here, it
+   is a number, and the number is RIGHT -- 2,000 feet, 110,000 gallons a year. It
+   is a greywater rig. Being right about the arithmetic is not being right.
+
+ S25 THE PRESSURE GOES BACKWARD. A water main keeps dirt out by PUSHING; there is
+   no valve doing that job. Drop the pressure and every unprotected connection
+   stops being an outlet and becomes an inlet -- backsiphonage, and it pulls
+   whatever is on the far end BACKWARD into the drinking main. That is why a
+   utility issues a boil notice on a pressure loss alone, before any sample comes
+   back. The sick houses are UPHILL and everybody spends eleven days looking
+   downhill. The cause is a garden hose sitting in a rain barrel. And the
+   pressure drop was the block's own: everyone fills their tank at six o'clock.
+   *** THE INVESTIGATOR IS IMPLICATED, and the quest says so flatly instead of
+   saving it for a twist. ***
+
+PEOPLE (7h9sfy): 8/13 (f) -- *** QUEST 22: THE COLD ROOM. FIRST NEW CANON QUEST
+OFF THE UNTOUCHED 126. ***
 
 THE MEASUREMENT THAT PICKED IT: 21 canon quests cited 26 of the 152 studied
 quests. *** 126 STUDIES HAD NEVER BEEN DRAWN FROM ONCE. *** The corpus was the
@@ -299,7 +339,22 @@ change the LINE, not the gate. "in the heat / in the cold" is better writing for
 a valley that lost its calendar, and loosening a shared gate to fit my prose
 would have been the wrong trade.
 
-TAB: DIRECT -- 22 quests, 1,179 directable rows. TAB: WORDS -- 1,314 lines.
+*** AND ONE OF THEM BLINDED A GATE'S SELF-TEST, WHICH IS WORTH THE WHOLE PAGE ***
+deed_bridge_gate derives its units divisor off the corpus: max |faction delta|
+over the rung step. S23 authored a -20 (walking armed strangers to the valley's
+intake is the largest betrayal in the set), max moved 18 -> 20, and the DERIVED
+divisor became exactly 10. Its self-test probe had HARDCODED 10 as the
+"deliberately wrong, picked by feel" value -- so the fake and the correct answer
+became the same number and the probe silently stopped catching anything.
+*** A SELF-TEST WITH A CONSTANT IN IT HAS AN EXPIRY DATE. *** The wrong value has
+to be defined RELATIVE to the derived one so it can never collide: divisor+1, and
+now divisor-1 too so the claim is not one-sided. Verified on BOTH corpora -- 16/16
+probes caught at divisor 9 and at divisor 10 -- so it is a real tightening rather
+than something tuned to today's data. It reported 14/15 instead of lying, which
+is the only reason anybody saw it. THE FIX WAS THE PROBE, NOT MY -20.
+
+TAB: DIRECT -- 25 quests, 1,390 directable rows. TAB: WORDS -- 1,494 lines,
+29 sources. TAB: SLICE -- rebuilt (the phone carries the quest set).
 TAB: SLICE -- the phone slice carries the quest set, so adding a quest made it
 stale. `node tools/build_current_slice.js` is part of shipping a quest; the
 current_slice gate catches it, but only if you run the WHOLE suite.
