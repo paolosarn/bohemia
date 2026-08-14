@@ -246,7 +246,7 @@ ok('V141 RANGE IS A FILTER ON WHO YOU CAN FIGHT, AND IT IS SYMMETRIC: my reach b
   /function posExposed\(\)\{[^}]*inHisRange\(e\)\)/.test(demo));
 
 ok('V141 AND A BLOCKED SHOT EXPLAINS ITSELF: an unresponsive button is a bug to the person holding the phone however correct the rule behind it is. The button reads OUT OF RANGE, and popping is refused with the only two numbers that matter -- how far the nearest man is and how far this gun goes',
-  /txt='OUT OF RANGE';/.test(demo) &&
+  /txt=_alt\?\('SWAP TO '\+_alt\.toUpperCase\(\)\):'OUT OF RANGE';/.test(demo) &&
   demo.includes('function anyInMyRange(){') &&
   demo.includes("setRead('OUT OF RANGE','nearest is '+Math.round(_n)+' tiles, this gun reaches '"));
 
@@ -779,6 +779,22 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
    looked at _poppedGreen, so V146's green promise was still being broken one
    branch over from where it was fixed. The PUNISHMENT stays, because V29 is his
    ruling too; what goes is being hit THROUGH a promise the UI already made. */
+  /* ===== V150 THE DEAD BUTTON NEVER NAMED THE WAY OUT ===============
+   Paolo 8/14: "I'm already done getting shot at not letting me shoot."
+   MEASURED, 2,100 turns: OUT OF RANGE on 10% of them; on 70% of THOSE he is
+   also being shot at -- helpless turns -- and in *** 100% *** of those the gun
+   in his OTHER HAND would have reached somebody. The answer was in his pocket
+   every single time and the button just stated a fact he could already feel.
+   Not a rule bug: a DEAD END with a silent exit. */
+  ok('V150 THE OUT-OF-RANGE BUTTON NAMES THE WAY OUT: if the gun in his other hand reaches somebody it says WHICH GUN, because that is the move and it is one tap away on the thumb row he is already touching',
+    /let _alt=null; try\{ const _a=altWeapon\(\), _ar=maxRange\(wpnRange\(_a\)\);/.test(demo) &&
+    /txt=_alt\?\('SWAP TO '\+_alt\.toUpperCase\(\)\):'OUT OF RANGE';/.test(demo));
+
+  ok('V150 AND THE SHOOT-FIRST LAW IS STRUCTURAL NOW, not branch-by-branch: doPop asks modePool() whether a shot EXISTS, so the reckless branches are unreachable when he has a target. V29 survives exactly where it was aimed -- an empty pool, where there is no shot to take',
+    /const _haveShot=\(function\(\)\{ try\{ return modePool\(\)\.length>0;/.test(demo) &&
+    /if\(!mel\.length && !_haveShot\)\{ return recklessPop\(\); \}/.test(demo) &&
+    /else if\(exp\.length===0 && !anyPeeking\(\) && !_haveShot\)\{ return recklessPop\(\); \}/.test(demo));
+
   ok('V147 GREEN IS ABSOLUTE EVEN IN A RECKLESS POP: a promise the game made outranks a punishment it wants. Green costs nothing here, exactly as V146 gave the volley',
     /if\(G\._poppedGreen\)\{ G\._poppedGreen=false;/.test(demo) &&
     demo.includes("setRead('NOTHING TO SHOOT','you stood up on a green board") &&
