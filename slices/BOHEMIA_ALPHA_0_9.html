@@ -3381,8 +3381,24 @@ function famPaintShadow(cv){
   x.fillStyle=g; x.beginPath(); x.arc(cx,cy,rx,0,Math.PI*2); x.fill(); x.restore();
 }
 
+/* A CAST MEMBER WEARS HER OWN CLOTHES AND NOTHING ELSE (8/11). This borrowed
+   G_WORN but left G.equipped alone, so every member also wore THE PLAYER'S PD
+   DEFAULTS underneath -- leather legwarmers, balenciagas, the cowl hoodie. Two
+   wardrobes, both on, at once.
+   MEASURED on the SISTER with her `legs` slot emptied, sampling BAKED parts 9+10:
+   58% skin, top colours 212,208,200 x52 | 31,31,36 x24 | 20,20,26 x20. Those last
+   two are entries 2 and 0 of the pants/leather-legwarmer ramp -- the player's
+   default pants painting her shins from underneath.
+   THAT IS THE "bare leg paints the dark under-body 31,31,36" REPORT, and it was
+   never a rendering bug: the shin was correctly painting a garment nobody realised
+   was still on. Strip BOTH wardrobes and legs render 175/175 skin, arms 85/85.
+   `body` and `facial` are NOT cleared -- they are not garments, they are the
+   person, and clearing them paints a skinless mannequin. */
+var FAM_PD_CLOTHING = ['shirt','jacket','pants','shoes','hat','glasses','hair'];
 function famPaintBody(cv, member, dir){
   var keepW = window.G_WORN, keepDials = G.bodyVar, keepAge = G.age;
+  var keepEq = {};
+  FAM_PD_CLOTHING.forEach(function(s){ if(s in G.equipped){ keepEq[s] = G.equipped[s]; G.equipped[s] = ''; } });
   try {
     window.G_WORN = member.worn;
     G.bodyVar = member.dials;
@@ -3404,6 +3420,7 @@ function famPaintBody(cv, member, dir){
        rig installed would silently reshape every other surface in the game, and
        it would surface as a rendering bug somewhere with no connection to here. */
     window.G_WORN = keepW; G.bodyVar = keepDials; G.age = keepAge;
+    for (var _s in keepEq) G.equipped[_s] = keepEq[_s];
     try { rebuildFromRig(); } catch(e2) {}
     try { HD_CACHE.map.clear(); } catch(e3) {}
   }

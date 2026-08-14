@@ -1,3 +1,44 @@
+CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE DEMO CAST WAS WEARING THE PLAYER'S
+CLOTHES UNDERNEATH THEIR OWN. AND THE "BARE LEG" BUG NEVER EXISTED. ***
+
+famPaintBody borrowed G_WORN for each member and left G.equipped alone, so every cast member
+also wore the PLAYER'S PD DEFAULTS -- leather legwarmers, balenciagas, the cowl hoodie. Two
+wardrobes, both on, at once. MEASURED on the cast cards, pixels of the player's default
+garment ramps:
+    BEFORE   FATHER 72 | MOTHER 40 | BROTHER 320 (10% of him was the player's hoodie) | SISTER 154
+    AFTER    0 | 0 | 0 | 0
+tools/bohemia_cast_wardrobe_patch.py. `body` and `facial` are NOT cleared -- they are not
+garments, they are the person; clearing them paints a skinless mannequin.
+
+*** AND THAT SOLVES THE "bare shin paints the dark under-body 31,31,36 instead of skin"
+REPORT THAT HAS BEEN IN THIS HANDOFF FOR DAYS. THERE WAS NO RENDERING BUG. *** Strip BOTH
+wardrobes and the legs render 175/175 skin and the arms 85/85 -- the renderer was innocent
+the whole time. 31,31,36 and 20,20,25 are entries of the pants/leather-legwarmer ramp. The
+shin was correctly painting a garment nobody realised was still on.
+CONSEQUENCE: family_cast_gate's "every member wears a LEG garment" rule was a WORKAROUND for
+a bug that did not exist, and it quietly banned a bare-legged cast member -- a kid in shorts,
+anybody -- from the demo. REMOVED, and replaced with the real invariant: a cast member has
+ZERO pixels of the player's PD garments on her. Mutation-tested: revert the fix and all four
+members fail.
+
+MY PROBES WERE WRONG TWICE ON THE WAY HERE and both are worth knowing:
+  1. First "bare leg" probe stripped pants+shoes but left the SHIRT AND JACKET on, so the
+     "bare arm" I measured as 3/85 skin was a SLEEVE. Control for every layer, not the one
+     you are thinking about.
+  2. Then I "verified the fix" with a probe that drove drawChar directly and set G_WORN
+     itself -- it never called famPaintBody, so it was re-running the OLD behaviour and
+     reported no change. A probe that does not go through the code you changed cannot test
+     the code you changed.
+
+GATE: FAMILY CAST 26/0 (was 23), carrying the new assertion.
+
+STILL TRUE, READ IT: the working copy REVERTS BETWEEN TURNS (four times 8/11). Resync with
+`git ls-remote origin main` before touching anything -- the local origin/main ref lies too.
+Full procedure is further down this file. Treat any measurement taken before a resync as
+void; two of mine were.
+
+--------------------------------------------------------------------------------
+
 RUN (run-eak241): 8/13 LATEST -- THE DAY PAYS, AND A 4000-CHARACTER WINDOW WAS EATING VERBS.
 
 DEMO CUT row 3 (ruled 8/4): "wake -> 2-3 quests -> ... -> GET PAID -> spend at a trading
@@ -71,6 +112,7 @@ bohemia_freeway.js exists and registers), deck stairs (TF-CMB-004 slab cook
 still OPEN on the board). NEXT UP: the volume ledger (turnouts, wheel stops,
 fence gates, mh skirts, sf signbands, pool slopes...) and quantize-replacing
 the oldest raw ART tab shots - PAGES CAP IS BITING: ~247 of 260 MB.
+
 
 CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE CLOTHES HE PUTS ON NOW SURVIVE A
 RELOAD. THE CLO WARDROBE WAS IN NO SAVE AT ALL. ***

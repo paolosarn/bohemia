@@ -60,6 +60,15 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
         if (!canon.has(m.worn[slot])) out.unapproved.push(m.role + '/' + slot + '=' + m.worn[slot]);
       });
     });
+    /* THE PLAYER'S OWN CLOTHES, worn under theirs. famPaintBody borrowed G_WORN but
+       left G.equipped alone, so every member also wore the PD defaults -- leather
+       legwarmers, balenciagas, the cowl hoodie. Measured 8/11 before the fix:
+       BROTHER 320 px of the player's hoodie, SISTER 154, FATHER 72, MOTHER 40. */
+    const pdBad = new Set();
+    ['pants/leather-legwarmer','shoes/balenciaga','shirt/cowl-hoodie','jacket/japanese-fuzz_hoodDown']
+      .forEach(k => ((PD.ramps[k]||[]).forEach(c => pdBad.add(c.join(',')))));
+    pdBad.delete('28,22,24');   /* the shared dark anatomy entry is in EVERY ramp, skin included */
+    out.pdWorn = {};
     const cards = document.querySelectorAll('#familyCast .famCard');
     cards.forEach(card => {
       const bd = card.querySelector('.famBody'), sh = card.querySelector('.famShadow');
@@ -74,6 +83,8 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
           /* a contact shadow lands in the bottom rows as SEMI-transparent black.
              The body itself is opaque there (boots), so this is specific. */
           if (y > bd.height - 12 && d[i + 3] < 200 && d[i] < 40 && d[i + 1] < 40 && d[i + 2] < 40) rec.bodyLowDark++;
+          const exact = d[i] + ',' + d[i + 1] + ',' + d[i + 2];
+          if (pdBad.has(exact)) rec.pd = (rec.pd || 0) + 1;
           const k = (d[i] >> 4) + ',' + (d[i + 1] >> 4) + ',' + (d[i + 2] >> 4);
           h[k] = (h[k] || 0) + 1;
           if (d[i + 3] > 40) { if (y < rec.top) rec.top = y; if (y > rec.bot) rec.bot = y; }
@@ -131,15 +142,22 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   ok('the four are FOUR DIFFERENT PEOPLE, not one rig four times (' + uniq.size + ' distinct sprites)',
     uniq.size === R.members.length);
 
-  /* EVERY MEMBER WEARS LEGS. Measured 8/11: an exposed shin paints the dark
-     under-body (31,31,36) instead of skin -- byte-identical to wearing no leg
-     garment -- while the same body paints bare ARMS as skin. Until that render
-     bug is fixed, a bare-legged cast member is a broken-looking one, so the cast
-     is held to clothed legs and this check documents WHY rather than hiding it. */
-  const bareLegs = (R.legless || []);
-  ok('every cast member wears a LEG garment (' + (bareLegs.length ? 'BARE: ' + bareLegs.join(', ') :
-    'none bare') + ') — an exposed shin currently paints the dark under-body, not skin',
-    bareLegs.length === 0);
+  /* SHE WEARS HER OWN CLOTHES AND NOTHING ELSE (8/11).
+     This used to assert that every member wore a LEG garment, as a workaround for a
+     reported "a bare shin paints the dark under-body 31,31,36 instead of skin" bug.
+     THERE WAS NO SUCH BUG. Strip BOTH wardrobes and the legs render 175/175 skin and
+     the arms 85/85 -- the renderer was innocent. What was actually happening: 31,31,36
+     and 20,20,25 are entries of the pants/leather-legwarmer ramp, and famPaintBody
+     borrowed G_WORN but left G.equipped alone, so every cast member wore THE PLAYER'S
+     PD DEFAULTS under her own outfit. The shin was correctly painting a garment nobody
+     realised was still on.
+     So the workaround is gone -- a bare-legged cast member is legal now, a kid in
+     shorts is legal now -- and the REAL invariant is asserted in its place. */
+  for (const m of R.members)
+    ok(m.role + ": wears HER OWN clothes and nothing else (" + (m.pd || 0) + " pixels of the " +
+       "PLAYER'S default PD garments). Before this was fixed: BROTHER 320, SISTER 154, " +
+       "FATHER 72, MOTHER 40 -- the cast was wearing the player's hoodie and legwarmers " +
+       "underneath their canon outfits", !m.pd);
 
   /* ===== PAOLO 8/11: "we have to assign the different heights in the different
      body sizing ... are we even able to make character a kid child characters".
