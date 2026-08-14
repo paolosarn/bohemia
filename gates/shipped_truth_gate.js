@@ -60,6 +60,7 @@ const CLAIMS = [
   ['__THE_PHONE_RINGS__',           'the day starts with no job -- work ARRIVES on the phone and is taken there'],
   ['__THE_VALLEY_REMEMBERS__',      'what you did yesterday is on your phone this morning, in the quest\'s words'],
   ['__THE_PHONE_BUZZES__',          '...and it buzzes with a sound he actually approved on 8/9'],
+  ['__THE_DAY_PAYS__',              'finishing a job reaches the purse, and an unruled price says so'],
 ];
 
 /* THE SOUND LANE'S CLAIMS. Same contract, different lane: every marker here was

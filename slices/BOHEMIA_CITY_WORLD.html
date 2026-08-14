@@ -12210,7 +12210,7 @@ function hydrateNodeDos(Q){
 function freshState(Q){
   var s={ stage:null, flags:{}, knows:{}, has:{}, roles:{}, faction:{}, bonds:{},
           posture:{}, gen:1, objectives:{}, locked:{}, log:[], done:false, outcome:null,
-          doneTags:[], advanceTerritory:false };
+          doneTags:[], advanceTerritory:false, reward:{} };
   (Q.roles||[]).forEach(function(r){ s.roles[r.name]=!!r.req; }); /* REQ present, OPT absent */
   return s;
 }
@@ -12345,6 +12345,23 @@ Runtime.prototype._exec=function(text){
        lands." This is that lever, opt-in per quest: an author marks the ONE
        resolution stage that's a real story beat, everyday errands never touch it. */
     case 'advance_territory': s.advanceTerritory=true; break;
+    /* WHAT THE JOB PAYS, SAID BY THE JOB (8/12). Paolo ruled it on 8/11, asked what a
+       day's work should be worth: "Whatever currency the quest decida to give." The
+       payday bridge was built that day to honour it -- questReward() reads
+       questState.reward and pays exactly that -- and THE .bq LANGUAGE HAD NO WAY TO
+       SAY IT. A quest could not declare a reward, so every finished job fell through
+       to the empty global table and got NO_RULING. The ruling was made, the bridge
+       was built, and the sentence could not be written.
+       IT LIVES ON THE STAGE, not in a header, and that is his ruling too: the reward
+       belongs to the OUTCOME. A quiet fix and a public spectacle are different jobs
+       and should not pay the same, and the completing stage is already where a quest
+       says what happened.
+         @DO pay resources 3
+       AMOUNTS ARE CONTENTS. Nothing here invents one: this is the verb, and what any
+       quest actually pays is written in that quest's own file with the rest of its
+       canon, which is exactly where he put it. */
+    case 'pay': if(p[1]&&p[2]!=null){ s.reward=s.reward||{};
+                  s.reward[p[1]]=(s.reward[p[1]]||0)+num(p[2]); } break;
     case 'play': s.log.push('play '+p.slice(1).join(' ')); break;
     default: s.log.push('UNHANDLED_DO: '+text);
   }
@@ -16388,7 +16405,8 @@ function reportState(){
     try{ if(window.parent&&window.parent!==window)window.parent.postMessage({bohemiaCityState:{
       v:1,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
       riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
-      loop:DAY.serialize(),quest:DQ.serialize()      /* __DAY_LOOP__ */
+      loop:DAY.serialize(),quest:DQ.serialize(),      /* __DAY_LOOP__ */
+      purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })()   /* __THE_DAY_PAYS__ */
     }},'*'); }catch(_e){}
   },800);
 }
@@ -16442,6 +16460,10 @@ function dayEnteredBuilding(label){
   if(r)dayAfterQuest(r);
 }
 function dayAfterQuest(r){
+  /* __THE_DAY_PAYS__ -- the job ended, so the purse hears about it. Both endings
+     come through here: a resolution he chose, and the quest's own FAIL stage at
+     nightfall. */
+  try{ if(DQ.rt&&DQ.rt.state.done) payForToday(); }catch(_e){}
   updQline();
   if(r&&r.card){ showChoice(r.card); }
 }
@@ -16538,7 +16560,8 @@ function onNightfall(){
      nightfall. If he never accepted the offer, no quest ever ran, so there is
      nothing to fail -- the day was his. Only an ACCEPTED job that ran out of light
      takes the quest author's own FAIL stage. */
-  if(OFFER_TAKEN){ const r=DQ.nightfall(); if(r)updQline(); }
+  if(OFFER_TAKEN){ const r=DQ.nightfall(); if(r)updQline();
+    try{ payForToday(); }catch(_e){}   /* __THE_DAY_PAYS__ */ }
   showReckoning();
 }
 function showReckoning(){
@@ -16556,6 +16579,14 @@ function showReckoning(){
         +(DQ.tags().length?' ('+esc(DQ.tags()[0])+')':'')+'</li>';
   /* __THE_PHONE_RINGS__ */
   else if(OFFER&&!OFFER_TAKEN)h+='<li>'+esc(OFFER.title)+': never taken</li>';
+  /* __THE_DAY_PAYS__ -- WHAT THE DAY WAS WORTH, and the refusal is not a bug.
+     Amounts are CONTENTS (ALWAYS MAKE AN ATTEMPT, 8/11: "numbers, dials, rates,
+     prices" still wait for him), so this never fakes one. It says who has not
+     ruled yet, in the place he will see it. */
+  if(PAID_TODAY){ var pd=[]; for(var cc in PAID_TODAY) pd.push(PAID_TODAY[cc]+' '+cc);
+    h+='<li>paid: '+esc(pd.join(', '))+'</li>'; }
+  else if(PAY_REFUSED==='NO_RULING')
+    h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': nobody has ruled what this pays</li>';
   h+='</ul>';
   h+='<div class="dcgo" data-act="next">SLEEP \u2192 DAY '+(s.day+1)+'</div>';
   cardShow(h,function(){ cardHide(); DAY.nextDay(); daySync(); _lastDistrict=null;
@@ -16696,7 +16727,8 @@ function phoneState(){
            quest:(function(){ try{ return DQ.spec?DQ.spec.id:null; }catch(_e){ return null; } })(),
            done:(function(){ try{ return DQ.done(); }catch(_e){ return false; } })(),
            offer:(OFFER&&!OFFER_TAKEN)?OFFER:null, taken:!!OFFER_TAKEN,
-           standing:(function(){ try{ return DQ.standing(); }catch(_e){ return null; } })() };   /* __THE_VALLEY_REMEMBERS__ */   /* __THE_PHONE_RINGS__ */
+           standing:(function(){ try{ return DQ.standing(); }catch(_e){ return null; } })(),
+           purse:purseBalances(), paid:PAID_TODAY, payRefused:PAY_REFUSED };   /* __THE_DAY_PAYS__ */   /* __THE_VALLEY_REMEMBERS__ */   /* __THE_PHONE_RINGS__ */
 }
 function phonePush(force){
   if(!PHONE_ON||!PHONE_FR||!PHONE_FR.contentWindow)return;
@@ -16886,6 +16918,35 @@ window.addEventListener('message',function(ev){
   try{ offerAccept(); }catch(_e){}
 });
 
+
+/* __THE_DAY_PAYS__ -- THE RUN HAS A PURSE, AND FINISHING A JOB REACHES IT.
+   engine/bohemia_payday.js was built 8/11 and called ZERO times from anywhere: the
+   demo cut's "GET PAID" beat has been in the build, dormant, ever since. var, not
+   let, for the same temporal-dead-zone reason as HOME (8/11). */
+var PURSEV=null, PAID_TODAY=null, PAY_REFUSED=null;
+function purseGet(){
+  if(PURSEV) return PURSEV;
+  try{ PURSEV=BohemiaPurse.create(); }catch(_e){ PURSEV=null; }
+  return PURSEV;
+}
+function purseBalances(){
+  try{ return BohemiaPurse.balances(purseGet()); }catch(_e){ return null; }
+}
+/* A JOB ENDED. TELL THE PURSE. The payday bridge takes the runtime's finished state
+   as-is -- no third shape in between -- and answers verbatim, INCLUDING its refusal,
+   so we can tell "worth nothing" from "nobody has ruled what it is worth". */
+function payForToday(){
+  PAID_TODAY=null; PAY_REFUSED=null;
+  var p=purseGet(); if(!p||!DQ.rt||!DQ.rt.state.done) return null;
+  var r=null;
+  try{ r=BohemiaPayday.payForQuest(p, DQ.rt.state, DAY.day, DQ.spec&&DQ.spec.id, DQ.Q); }
+  catch(_e){ return null; }
+  if(r&&r.applied){ PAID_TODAY=r.paid; window.__PAID=(window.__PAID||0)+1; }
+  else if(r){ PAY_REFUSED=r.reason||'NO_RULING'; window.__PAY_REFUSED=(window.__PAY_REFUSED||0)+1; }
+  try{ phonePush(true); }catch(_e){}
+  return r;
+}
+
 function applyRestore(st){
   if(!st||st.v!==1)return false;
   if(typeof st.seed==='number'&&st.seed!==seed){ seed=st.seed; om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed); metaCache.clear(); chunkCache.clear(); }
@@ -16893,6 +16954,8 @@ function applyRestore(st){
   /* __DAY_LOOP__ -- a day loop that does not survive a reload is a session
      toy, not a loop. The quest's own state (stage, bonds, faction, objectives)
      rides with it, so resuming puts you back mid-job, not back at the wake. */
+  /* __THE_DAY_PAYS__ -- a day's pay that dies with the tab is not pay. */
+  if(st.purse){ try{ PURSEV=BohemiaPurse.load(st.purse); }catch(_e){} }
   if(st.loop&&DAY.restore(st.loop)){ daySync(); DAY_RESTORED=true;
     if(st.quest)DQ.restore(st.quest,DAY.day); else DQ.openDay(DAY.day);
     try{ updQline(); }catch(_e){}

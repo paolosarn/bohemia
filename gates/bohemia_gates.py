@@ -141,6 +141,17 @@ GATES = [
      'inside somebody else\'s EMPTY srcdoc frame and crashed on "om is not defined", three of '
      'them red on main for over a week. The ordering is pinned here because what broke was a '
      'SHARED RESOLVER and nothing owned it', True),
+    ('DAY PAYS',       ['node', 'gates/day_pays_gate.js'],
+     'The demo cut ruled 8/4 says "GET PAID -> spend at a trading hub". It never happened, '
+     'and not because it was unbuilt: MEASURED 8/12, engine/bohemia_payday.js exported '
+     'questEvent, payForQuest, hubs, nearestHub, shelf, price, buy and dayReport and every '
+     'one was referenced EXACTLY ZERO times outside its own module -- dormant since 8/11. '
+     'One piece really was missing: Paolo ruled "whatever currency the quest decida to give" '
+     'and the .bq language had NO VERB to say it, so every finished job fell through to the '
+     'empty global table. Now @DO pay <currency> <n> lives on the stage (the reward belongs '
+     'to the OUTCOME) and the run calls the bridge. A quest that declares nothing is REFUSED '
+     'rather than guessed at, and the reckoning says "nobody has ruled what this pays" and '
+     'names the job -- because amounts are CONTENTS and numbers wait for him', True),
     ('CONTINUITY',     ['node', 'gates/continuity_gate.js'],
      'Paolo 8/12: "we are trying tk create the best funnest deepest videogame ever". Depth '
      'is not more surface, it is yesterday still being true today -- so it was MEASURED '
