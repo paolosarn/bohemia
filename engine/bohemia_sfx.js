@@ -1291,11 +1291,43 @@ const BOH_SFX = (function () {
      neon_buzz dog_far equip). Those 60 candidates are in the graveyard. */
   var ENVELOPE = {
     since: '8/12/26',
-    judged: 270, approved: 97,
+    judged: 330, approved: 105,
     dead: ['metal'],              /* 3 UP / 22 DOWN. the only stable finding */
+    /* ---- AND THEN METHOD TURNED OUT TO MATTER MORE (8/14) --------------
+       He swept all 330 the day the five physics shipped, and the scoreboard by
+       METHOD is sharper than anything material ever gave:
+         friction    6 UP /  9 DOWN   40%   the best method in the game
+         modal      97 UP / 173      36%
+         fm          2 UP / 13       13%
+         particle    0 UP / 20        0%
+         air         0 UP / 10        0%
+       THIRTY CANDIDATES ACROSS PARTICLE AND AIR AND HE KEPT NONE. That is a
+       larger sample than the metal finding and a cleaner result, and it points
+       the opposite way from where the batch was aimed: the cloud of collisions
+       and the turbulence -- the two methods added specifically because breaking
+       glass and breath are not struck objects -- are the two he wants least.
+       FRICTION IS THE OPPOSITE STORY and it is the reason the batch was worth
+       cooking: four moments that had NEVER had a sound got one (swing,
+       patch_up, build_place, equip), and all four are friction.
+       READ THE LIMIT HONESTLY: 0/30 says these RECIPES failed, and it cannot
+       fully separate the method from my writing of it. So they are not deleted
+       -- deadMethod is a bar on cooking NEW ones without a ruling from him,
+       not a claim that no such sound could ever work. */
+    deadMethod: ['particle', 'air'],
+    methodRate: { friction: 0.40, modal: 0.36, fm: 0.13, particle: 0, air: 0 },
+    /* EIGHT MOMENTS HAVE NOW DIED WHOLE TWICE (SFX-03 and again as SFX-04).
+       STOP PRODUCING (Paolo 7/26) is explicit: a second rejection ends the
+       feature. No third cook answers these, in this session or any other,
+       without him asking for one. */
+    twiceDead: ['glass_crunch', 'deck_ring', 'mag_clack', 'breath_out',
+                'deed_stamp', 'cash_count', 'neon_hum', 'dog_cry'],
     /* kept as history, NOT as law: the direction that survived, and its real
        strength once the whole game was judged */
-    mkupUp: 0.879, mkupDown: 0.992, driveUp: 0.151, driveDown: 0.194,
+    /* RE-DERIVED ON EVERY SWEEP, and the direction keeps WEAKENING as the
+       sample grows: -1.17 at 140 thumbs, -0.36 at 270, and at 330 the two
+       means are 0.874 and 0.939. It survives as a sign and nothing more,
+       which is why it was never allowed to become a cap. */
+    mkupUp: 0.874, mkupDown: 0.939, driveUp: 0.146, driveDown: 0.168,
     /* the bounding box of every candidate he has ever said yes to */
     REGION: {
     hz: [46, 1922.1723311021924],

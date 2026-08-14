@@ -62,6 +62,7 @@ const pw=pwmod();
     if(typeof BOH_SFX==='undefined') return {fatal:'BOH_SFX is not in the shipped alpha'};
     const SR=44100, r={};
     r.methods = (BOH_SFX.SPEC.synth && BOH_SFX.SPEC.synth.of) || null;
+    r.env = BOH_SFX.ENVELOPE || {};
     /* MEASURE THE AUDIO HE WOULD HEAR, on the real render path, offline. */
     async function shape(v){
       const secs=BOH_SFX.beatsOf(v)*BOH_SFX.BEAT+0.4;
@@ -277,6 +278,38 @@ def main():
     ok('every NEW candidate makes sound too (%s)'
        % (', '.join(x['id'] for x in fresh if x['peak'] < 0.002) or 'none silent'),
        not [x for x in fresh if x['peak'] < 0.002])
+
+    # ---- 5. AND THEN HE JUDGED IT (8/14) ---------------------------------
+    # The batch was built to answer "everything sounds the same" with four new
+    # physics. He swept all 330 the same day and the answer is sharper than the
+    # question: friction 40% (the best method in the game), modal 36%, fm 13%,
+    # particle 0/20, air 0/10. The two methods added specifically because
+    # breaking glass and breath are not struck objects are the two he wants
+    # least -- and FRICTION, which did not exist three days ago, is the only
+    # thing that has ever given a sound to swing, patch_up, build_place or
+    # equip. A diversity gate that could not notice that would be measuring
+    # variety for its own sake.
+    env = d.get('env') or {}
+    dead_m = env.get('deadMethod') or []
+    ok('the engine records which methods his sweep killed (%s)'
+       % (', '.join(dead_m) or 'none recorded'), len(dead_m) == 2)
+    rate = env.get('methodRate') or {}
+    for m in dead_m:
+        ok('%s is recorded at the rate he actually gave it (%s)'
+           % (m, rate.get(m)), rate.get(m) == 0)
+    ok('friction is recorded as the method that beat the original (%s vs modal '
+       '%s)' % (rate.get('friction'), rate.get('modal')),
+       (rate.get('friction') or 0) > (rate.get('modal') or 1))
+    twice = env.get('twiceDead') or []
+    ok('the eight moments he has now killed TWICE are named, so no third cook '
+       'answers them (%d)' % len(twice), len(twice) == 8)
+    # AND NOTHING NEW MAY BE COOKED FROM A DEAD METHOD. Today that is vacuous --
+    # SFX-04 predates the finding and keeps its ids so his thumbs still resolve
+    # -- so the check is on what comes NEXT, and it says so rather than
+    # pretending to have caught something.
+    later = [e for e in (env.get('batch') or []) if e in twice]
+    ok('the twice-dead are not sitting in a live batch list (%s)'
+       % (', '.join(later) or 'none'), not later)
 
     ok('the page threw nothing: %s' % (d.get('errors') or 'clean'), not d.get('errors'))
 

@@ -996,7 +996,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/14i - THE TRADING HUB</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/14b - FRICTION WON, 105 SOUNDS LIVE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -15864,11 +15864,43 @@ const BOH_SFX = (function () {
      neon_buzz dog_far equip). Those 60 candidates are in the graveyard. */
   var ENVELOPE = {
     since: '8/12/26',
-    judged: 270, approved: 97,
+    judged: 330, approved: 105,
     dead: ['metal'],              /* 3 UP / 22 DOWN. the only stable finding */
+    /* ---- AND THEN METHOD TURNED OUT TO MATTER MORE (8/14) --------------
+       He swept all 330 the day the five physics shipped, and the scoreboard by
+       METHOD is sharper than anything material ever gave:
+         friction    6 UP /  9 DOWN   40%   the best method in the game
+         modal      97 UP / 173      36%
+         fm          2 UP / 13       13%
+         particle    0 UP / 20        0%
+         air         0 UP / 10        0%
+       THIRTY CANDIDATES ACROSS PARTICLE AND AIR AND HE KEPT NONE. That is a
+       larger sample than the metal finding and a cleaner result, and it points
+       the opposite way from where the batch was aimed: the cloud of collisions
+       and the turbulence -- the two methods added specifically because breaking
+       glass and breath are not struck objects -- are the two he wants least.
+       FRICTION IS THE OPPOSITE STORY and it is the reason the batch was worth
+       cooking: four moments that had NEVER had a sound got one (swing,
+       patch_up, build_place, equip), and all four are friction.
+       READ THE LIMIT HONESTLY: 0/30 says these RECIPES failed, and it cannot
+       fully separate the method from my writing of it. So they are not deleted
+       -- deadMethod is a bar on cooking NEW ones without a ruling from him,
+       not a claim that no such sound could ever work. */
+    deadMethod: ['particle', 'air'],
+    methodRate: { friction: 0.40, modal: 0.36, fm: 0.13, particle: 0, air: 0 },
+    /* EIGHT MOMENTS HAVE NOW DIED WHOLE TWICE (SFX-03 and again as SFX-04).
+       STOP PRODUCING (Paolo 7/26) is explicit: a second rejection ends the
+       feature. No third cook answers these, in this session or any other,
+       without him asking for one. */
+    twiceDead: ['glass_crunch', 'deck_ring', 'mag_clack', 'breath_out',
+                'deed_stamp', 'cash_count', 'neon_hum', 'dog_cry'],
     /* kept as history, NOT as law: the direction that survived, and its real
        strength once the whole game was judged */
-    mkupUp: 0.879, mkupDown: 0.992, driveUp: 0.151, driveDown: 0.194,
+    /* RE-DERIVED ON EVERY SWEEP, and the direction keeps WEAKENING as the
+       sample grows: -1.17 at 140 thumbs, -0.36 at 270, and at 330 the two
+       means are 0.874 and 0.939. It survives as a sign and nothing more,
+       which is why it was never allowed to become a cap. */
+    mkupUp: 0.874, mkupDown: 0.939, driveUp: 0.146, driveDown: 0.168,
     /* the bounding box of every candidate he has ever said yes to */
     REGION: {
     hz: [46, 1922.1723311021924],
@@ -16393,7 +16425,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BOH_SFX;
 <script>
 /* HIS COMMITTED THUMBS, baked in from records/BOHEMIA_SFX_VERDICT_*.txt. localStorage only holds CHANGES on top of
    this, so a wiped phone falls back to what he already decided. */
-var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"step_dirt.4":1,"step_asphalt.0":1,"step_asphalt.1":1,"step_asphalt.2":1,"step_asphalt.3":1,"step_asphalt.4":1,"step_gravel.0":1,"step_gravel.1":1,"step_gravel.2":1,"step_gravel.3":1,"step_gravel.4":1,"door_open.0":-1,"door_open.1":-1,"door_open.2":-1,"door_open.3":-1,"door_open.4":-1,"door_shut.0":-1,"door_shut.1":-1,"door_shut.2":-1,"door_shut.3":-1,"door_shut.4":-1,"pickup.0":1,"pickup.1":1,"pickup.2":1,"pickup.3":1,"pickup.4":1,"hit.0":-1,"hit.1":-1,"hit.2":1,"hit.3":-1,"hit.4":1,"block.0":-1,"block.1":-1,"block.2":1,"block.3":-1,"block.4":-1,"kill.0":1,"kill.1":1,"kill.2":1,"kill.3":1,"kill.4":1,"ui_tap.0":-1,"ui_tap.1":1,"ui_tap.2":1,"ui_tap.3":1,"ui_tap.4":-1,"phone_buzz.0":-1,"phone_buzz.1":-1,"phone_buzz.2":1,"phone_buzz.3":-1,"phone_buzz.4":1,"save_chime.0":1,"save_chime.1":1,"save_chime.2":1,"save_chime.3":1,"save_chime.4":1,"shot.0":-1,"shot.1":-1,"shot.2":-1,"shot.3":1,"shot.4":-1,"miss.0":-1,"miss.1":-1,"miss.2":-1,"miss.3":-1,"miss.4":-1,"vital.0":-1,"vital.1":-1,"vital.2":-1,"vital.3":-1,"vital.4":-1,"hurt.0":-1,"hurt.1":-1,"hurt.2":1,"hurt.3":-1,"hurt.4":-1,"clear.0":-1,"clear.1":-1,"clear.2":-1,"clear.3":-1,"clear.4":-1,"air_day.0":1,"air_day.1":1,"air_day.2":1,"air_day.3":1,"air_day.4":1,"air_night.0":1,"air_night.1":1,"air_night.2":1,"air_night.3":1,"air_night.4":1,"air_inside.0":1,"air_inside.1":1,"air_inside.2":1,"air_inside.3":1,"air_inside.4":1,"eat.0":-1,"eat.1":-1,"eat.2":1,"eat.3":-1,"eat.4":-1,"sleep.0":-1,"sleep.1":-1,"sleep.2":-1,"sleep.3":-1,"sleep.4":-1,"talk_start.0":-1,"talk_start.1":-1,"talk_start.2":-1,"talk_start.3":-1,"talk_start.4":-1,"go_inside.0":-1,"go_inside.1":-1,"go_inside.2":-1,"go_inside.3":-1,"go_inside.4":-1,"quest_done.0":-1,"quest_done.1":-1,"quest_done.2":-1,"quest_done.3":-1,"quest_done.4":-1,"time_pass.0":1,"time_pass.1":1,"time_pass.2":1,"time_pass.3":1,"time_pass.4":1,"door_drag.0":1,"door_drag.1":-1,"door_drag.2":-1,"door_drag.3":-1,"door_drag.4":-1,"door_clack.0":-1,"door_clack.1":-1,"door_clack.2":-1,"door_clack.3":-1,"door_clack.4":-1,"step_concrete.0":-1,"step_concrete.1":-1,"step_concrete.2":1,"step_concrete.3":-1,"step_concrete.4":-1,"step_sand.0":-1,"step_sand.1":-1,"step_sand.2":-1,"step_sand.3":-1,"step_sand.4":1,"step_glass.0":-1,"step_glass.1":-1,"step_glass.2":-1,"step_glass.3":-1,"step_glass.4":-1,"step_wood.0":-1,"step_wood.1":-1,"step_wood.2":1,"step_wood.3":-1,"step_wood.4":1,"step_metal.0":-1,"step_metal.1":-1,"step_metal.2":-1,"step_metal.3":-1,"step_metal.4":-1,"swing.0":-1,"swing.1":-1,"swing.2":-1,"swing.3":-1,"swing.4":-1,"melee_hit.0":1,"melee_hit.1":-1,"melee_hit.2":1,"melee_hit.3":1,"melee_hit.4":1,"reload.0":-1,"reload.1":-1,"reload.2":-1,"reload.3":-1,"reload.4":-1,"dry_fire.0":-1,"dry_fire.1":1,"dry_fire.2":-1,"dry_fire.3":-1,"dry_fire.4":-1,"casing.0":1,"casing.1":-1,"casing.2":-1,"casing.3":-1,"casing.4":-1,"heartbeat.0":1,"heartbeat.1":1,"heartbeat.2":-1,"heartbeat.3":1,"heartbeat.4":-1,"breath.0":-1,"breath.1":-1,"breath.2":-1,"breath.3":-1,"breath.4":-1,"drink.0":1,"drink.1":1,"drink.2":1,"drink.3":1,"drink.4":1,"patch_up.0":-1,"patch_up.1":-1,"patch_up.2":-1,"patch_up.3":-1,"patch_up.4":-1,"build_place.0":-1,"build_place.1":-1,"build_place.2":-1,"build_place.3":-1,"build_place.4":-1,"demolish.0":1,"demolish.1":-1,"demolish.2":1,"demolish.3":-1,"demolish.4":1,"deed.0":-1,"deed.1":-1,"deed.2":-1,"deed.3":-1,"deed.4":-1,"money.0":-1,"money.1":-1,"money.2":-1,"money.3":-1,"money.4":-1,"power_on.0":1,"power_on.1":-1,"power_on.2":-1,"power_on.3":-1,"power_on.4":1,"wind_gust.0":1,"wind_gust.1":1,"wind_gust.2":-1,"wind_gust.3":-1,"wind_gust.4":-1,"neon_buzz.0":-1,"neon_buzz.1":-1,"neon_buzz.2":-1,"neon_buzz.3":-1,"neon_buzz.4":-1,"generator.0":1,"generator.1":1,"generator.2":1,"generator.3":1,"generator.4":-1,"dog_far.0":-1,"dog_far.1":-1,"dog_far.2":-1,"dog_far.3":-1,"dog_far.4":-1,"ui_back.0":-1,"ui_back.1":-1,"ui_back.2":1,"ui_back.3":1,"ui_back.4":1,"ui_deny.0":1,"ui_deny.1":-1,"ui_deny.2":1,"ui_deny.3":-1,"ui_deny.4":1,"equip.0":-1,"equip.1":-1,"equip.2":-1,"equip.3":-1,"equip.4":-1};
+var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"step_dirt.4":1,"step_asphalt.0":1,"step_asphalt.1":1,"step_asphalt.2":1,"step_asphalt.3":1,"step_asphalt.4":1,"step_gravel.0":1,"step_gravel.1":1,"step_gravel.2":1,"step_gravel.3":1,"step_gravel.4":1,"door_open.0":-1,"door_open.1":-1,"door_open.2":-1,"door_open.3":-1,"door_open.4":-1,"door_shut.0":-1,"door_shut.1":-1,"door_shut.2":-1,"door_shut.3":-1,"door_shut.4":-1,"pickup.0":1,"pickup.1":1,"pickup.2":1,"pickup.3":1,"pickup.4":1,"hit.0":-1,"hit.1":-1,"hit.2":1,"hit.3":-1,"hit.4":1,"block.0":-1,"block.1":-1,"block.2":1,"block.3":-1,"block.4":-1,"kill.0":1,"kill.1":1,"kill.2":1,"kill.3":1,"kill.4":1,"ui_tap.0":-1,"ui_tap.1":1,"ui_tap.2":1,"ui_tap.3":1,"ui_tap.4":-1,"phone_buzz.0":-1,"phone_buzz.1":-1,"phone_buzz.2":1,"phone_buzz.3":-1,"phone_buzz.4":1,"save_chime.0":1,"save_chime.1":1,"save_chime.2":1,"save_chime.3":1,"save_chime.4":1,"shot.0":-1,"shot.1":-1,"shot.2":-1,"shot.3":1,"shot.4":-1,"miss.0":-1,"miss.1":-1,"miss.2":-1,"miss.3":-1,"miss.4":-1,"vital.0":-1,"vital.1":-1,"vital.2":-1,"vital.3":-1,"vital.4":-1,"hurt.0":-1,"hurt.1":-1,"hurt.2":1,"hurt.3":-1,"hurt.4":-1,"clear.0":-1,"clear.1":-1,"clear.2":-1,"clear.3":-1,"clear.4":-1,"air_day.0":1,"air_day.1":1,"air_day.2":1,"air_day.3":1,"air_day.4":1,"air_night.0":1,"air_night.1":1,"air_night.2":1,"air_night.3":1,"air_night.4":1,"air_inside.0":1,"air_inside.1":1,"air_inside.2":1,"air_inside.3":1,"air_inside.4":1,"eat.0":-1,"eat.1":-1,"eat.2":1,"eat.3":-1,"eat.4":-1,"sleep.0":-1,"sleep.1":-1,"sleep.2":-1,"sleep.3":-1,"sleep.4":-1,"talk_start.0":-1,"talk_start.1":-1,"talk_start.2":-1,"talk_start.3":-1,"talk_start.4":-1,"go_inside.0":-1,"go_inside.1":-1,"go_inside.2":-1,"go_inside.3":-1,"go_inside.4":-1,"quest_done.0":-1,"quest_done.1":-1,"quest_done.2":-1,"quest_done.3":-1,"quest_done.4":-1,"time_pass.0":1,"time_pass.1":1,"time_pass.2":1,"time_pass.3":1,"time_pass.4":1,"door_drag.0":1,"door_drag.1":-1,"door_drag.2":-1,"door_drag.3":-1,"door_drag.4":-1,"door_clack.0":-1,"door_clack.1":-1,"door_clack.2":-1,"door_clack.3":-1,"door_clack.4":-1,"step_concrete.0":-1,"step_concrete.1":-1,"step_concrete.2":1,"step_concrete.3":-1,"step_concrete.4":-1,"step_sand.0":-1,"step_sand.1":-1,"step_sand.2":-1,"step_sand.3":-1,"step_sand.4":1,"step_glass.0":-1,"step_glass.1":-1,"step_glass.2":-1,"step_glass.3":-1,"step_glass.4":-1,"step_wood.0":-1,"step_wood.1":-1,"step_wood.2":1,"step_wood.3":-1,"step_wood.4":1,"step_metal.0":-1,"step_metal.1":-1,"step_metal.2":-1,"step_metal.3":-1,"step_metal.4":-1,"swing.0":-1,"swing.1":-1,"swing.2":-1,"swing.3":-1,"swing.4":-1,"melee_hit.0":1,"melee_hit.1":-1,"melee_hit.2":1,"melee_hit.3":1,"melee_hit.4":1,"reload.0":-1,"reload.1":-1,"reload.2":-1,"reload.3":-1,"reload.4":-1,"dry_fire.0":-1,"dry_fire.1":1,"dry_fire.2":-1,"dry_fire.3":-1,"dry_fire.4":-1,"casing.0":1,"casing.1":-1,"casing.2":-1,"casing.3":-1,"casing.4":-1,"heartbeat.0":1,"heartbeat.1":1,"heartbeat.2":-1,"heartbeat.3":1,"heartbeat.4":-1,"breath.0":-1,"breath.1":-1,"breath.2":-1,"breath.3":-1,"breath.4":-1,"drink.0":1,"drink.1":1,"drink.2":1,"drink.3":1,"drink.4":1,"patch_up.0":-1,"patch_up.1":-1,"patch_up.2":-1,"patch_up.3":-1,"patch_up.4":-1,"build_place.0":-1,"build_place.1":-1,"build_place.2":-1,"build_place.3":-1,"build_place.4":-1,"demolish.0":1,"demolish.1":-1,"demolish.2":1,"demolish.3":-1,"demolish.4":1,"deed.0":-1,"deed.1":-1,"deed.2":-1,"deed.3":-1,"deed.4":-1,"money.0":-1,"money.1":-1,"money.2":-1,"money.3":-1,"money.4":-1,"power_on.0":1,"power_on.1":-1,"power_on.2":-1,"power_on.3":-1,"power_on.4":1,"wind_gust.0":1,"wind_gust.1":1,"wind_gust.2":-1,"wind_gust.3":-1,"wind_gust.4":-1,"neon_buzz.0":-1,"neon_buzz.1":-1,"neon_buzz.2":-1,"neon_buzz.3":-1,"neon_buzz.4":-1,"generator.0":1,"generator.1":1,"generator.2":1,"generator.3":1,"generator.4":-1,"dog_far.0":-1,"dog_far.1":-1,"dog_far.2":-1,"dog_far.3":-1,"dog_far.4":-1,"ui_back.0":-1,"ui_back.1":-1,"ui_back.2":1,"ui_back.3":1,"ui_back.4":1,"ui_deny.0":1,"ui_deny.1":-1,"ui_deny.2":1,"ui_deny.3":-1,"ui_deny.4":1,"equip.0":-1,"equip.1":-1,"equip.2":-1,"equip.3":-1,"equip.4":-1,"glass_crunch.0":-1,"glass_crunch.1":-1,"glass_crunch.2":-1,"glass_crunch.3":-1,"glass_crunch.4":-1,"deck_ring.0":-1,"deck_ring.1":-1,"deck_ring.2":-1,"deck_ring.3":-1,"deck_ring.4":-1,"swing_air.0":-1,"swing_air.1":-1,"swing_air.2":1,"swing_air.3":1,"swing_air.4":-1,"mag_clack.0":-1,"mag_clack.1":-1,"mag_clack.2":-1,"mag_clack.3":-1,"mag_clack.4":-1,"breath_out.0":-1,"breath_out.1":-1,"breath_out.2":-1,"breath_out.3":-1,"breath_out.4":-1,"tape_pull.0":-1,"tape_pull.1":1,"tape_pull.2":-1,"tape_pull.3":-1,"tape_pull.4":1,"set_down.0":-1,"set_down.1":-1,"set_down.2":1,"set_down.3":1,"set_down.4":-1,"deed_stamp.0":-1,"deed_stamp.1":-1,"deed_stamp.2":-1,"deed_stamp.3":-1,"deed_stamp.4":-1,"cash_count.0":-1,"cash_count.1":-1,"cash_count.2":-1,"cash_count.3":-1,"cash_count.4":-1,"neon_hum.0":-1,"neon_hum.1":-1,"neon_hum.2":-1,"neon_hum.3":-1,"neon_hum.4":-1,"dog_cry.0":-1,"dog_cry.1":-1,"dog_cry.2":-1,"dog_cry.3":-1,"dog_cry.4":-1,"cloth_on.0":-1,"cloth_on.1":1,"cloth_on.2":-1,"cloth_on.3":-1,"cloth_on.4":1};
 
 /* =========================================================================
    THE SFX JUDGE — MUSIC TAB (Paolo 7/29, the SOUNDS lane)
@@ -16704,18 +16736,18 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 <!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->
 <script>
 /* === SFX WIRE, PARENT SIDE (7/30/26) ====================================
-   Paolo's 97 approved sounds, from his 8/12 full sweep. The table below is INDEXES
+   Paolo's 105 approved sounds, from his 8/14 full sweep. The table below is INDEXES
    into the shipped generator, not copied audio: candidate n of event e is
    BOH_SFX.cook(e,5)[n], which gates/sfx_render_gate.py fingerprints. So what
    plays is byte-for-byte the thing he heard when he thumbed it.
-   Verdict: records/BOHEMIA_SFX_VERDICT_8_12_26.txt
-   Bank:    banks/BOHEMIA_SFX_APPROVED_8_12_26.json
+   Verdict: records/BOHEMIA_SFX_VERDICT_8_14_26.txt
+   Bank:    banks/BOHEMIA_SFX_APPROVED_8_14_26.json
    ONE AUDIOCONTEXT: everything below plays on the MUSIC studio's context and
    its brickwall limiter. The run posts an event name; nothing else. */
 (function(){
   'use strict';
   if(window.__SFX_WIRE)return; window.__SFX_WIRE=true;
-  var APPROVED={"air_day":[0,1,2,3,4],"air_inside":[0,1,2,3,4],"air_night":[0,1,2,3,4],"block":[2],"casing":[0],"demolish":[0,2,4],"door_drag":[0],"drink":[0,1,2,3,4],"dry_fire":[1],"eat":[2],"generator":[0,1,2,3],"heartbeat":[0,1,3],"hit":[2,4],"hurt":[2],"kill":[0,1,2,3,4],"melee_hit":[0,2,3,4],"phone_buzz":[2,4],"pickup":[0,1,2,3,4],"power_on":[0,4],"save_chime":[0,1,2,3,4],"shot":[3],"step_asphalt":[0,1,2,3,4],"step_concrete":[2],"step_dirt":[0,1,2,3,4],"step_gravel":[0,1,2,3,4],"step_sand":[4],"step_wood":[2,4],"time_pass":[0,1,2,3,4],"ui_back":[2,3,4],"ui_deny":[0,2,4],"ui_tap":[1,2,3],"wind_gust":[0,1]};
+  var APPROVED={"air_day":[0,1,2,3,4],"air_inside":[0,1,2,3,4],"air_night":[0,1,2,3,4],"block":[2],"casing":[0],"cloth_on":[1,4],"demolish":[0,2,4],"door_drag":[0],"drink":[0,1,2,3,4],"dry_fire":[1],"eat":[2],"generator":[0,1,2,3],"heartbeat":[0,1,3],"hit":[2,4],"hurt":[2],"kill":[0,1,2,3,4],"melee_hit":[0,2,3,4],"phone_buzz":[2,4],"pickup":[0,1,2,3,4],"power_on":[0,4],"save_chime":[0,1,2,3,4],"set_down":[2,3],"shot":[3],"step_asphalt":[0,1,2,3,4],"step_concrete":[2],"step_dirt":[0,1,2,3,4],"step_gravel":[0,1,2,3,4],"step_sand":[4],"step_wood":[2,4],"swing_air":[2,3],"tape_pull":[1,4],"time_pass":[0,1,2,3,4],"ui_back":[2,3,4],"ui_deny":[0,2,4],"ui_tap":[1,2,3],"wind_gust":[0,1]};
   /* THE BOARD HAS TO KNOW WHICH MOMENTS ACTUALLY HAVE A SOUND (8/2), and it
      must read the SAME table playSFX reads. A second copy of his thumbs is a
      second thing that can be wrong. */

@@ -40,7 +40,7 @@ ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_CURRENT.html'
 # 8/12: he swept all 270 and the bank grew 38 -> 97. The wire and this gate
 # must read the SAME file or one of them is checking a bank nobody plays.
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_12_26.json'
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_14_26.json'
 VERDICT = 'records/BOHEMIA_SFX_VERDICT_7_30_26.txt'
 
 JS = r"""
@@ -1111,6 +1111,21 @@ def main():
                      'yet; the verb this sound belongs to is unbuilt',
         'power_on':  'LIGHT IS TERRITORY, but taking a block is not a move a '
                      'player can make in the run today',
+        # ---- HIS 8/14 SWEEP APPROVED FOUR MORE, AND ALL FOUR ARE FRICTION ----
+        # These are the batch's real win: four moments that had never had a
+        # sound in the game's history got one, from a method that did not exist
+        # three days earlier. And not one of them has a verb to fire from yet.
+        # Named separately, because "no call site" as a single blanket line is
+        # how a real omission hides inside a legitimate one -- and because the
+        # day any of these four verbs gets built, the sound is already chosen.
+        'swing_air': 'a melee swing lives in the COMBAT surface, another lane\'s '
+                     'iframe, and the run has no melee at all',
+        'tape_pull': 'patching yourself up needs the healing system he ruled on '
+                     '8/13 (convalescence in game-time); it is routed, not built',
+        'set_down':  'placing a building is the city-builder verb, and the '
+                     'builder can still place nothing',
+        'cloth_on':  'equip() exists in the inventory module with ZERO callers '
+                     '-- checked, not assumed. No surface dresses anybody yet',
     }
     silent = sorted(ev for ev in bank if not wired(ev))
     unexpected = [ev for ev in silent if ev not in WAIVED]

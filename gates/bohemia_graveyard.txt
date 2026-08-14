@@ -992,3 +992,85 @@ ALSO DEAD THIS SWEEP, individually (the moments themselves lived):
   the 28 older ones. Every id and thumb: records/BOHEMIA_SFX_VERDICT_8_12_26.txt
 \bBOH_SPRITE_FACE\b | 8/11/26 | DEAD (Paolo: "well spin back on the overworld face shit u turned me off"). The overworld sprite's facial-feature SIZE DIAL. He asked for it ("maybe all eyes eyebrows and mouths should be twice the size idk") and the measurement backed him: his whole face out there is six pixels of eyes, three of nose and a TWO PIXEL mouth. But each eye is 2px with EXACTLY ONE pixel between them on a ~10px head, so x1.5 changed ZERO rendered pixels and x2 FUSED THE TWO EYES INTO ONE BAR. The honest answer was one sentence -- "the geometry cannot do this, it needs a repaint" -- and instead I built the dial, the gate and a four-column contact sheet and handed him a menu of options I already knew were bad. He judged the menu, and he was right to. GRAVEYARD IS FINAL for the whole approach: no scale, no multiplier, no per-feature table, no smarter resampler, nobody re-pitches making the overworld features bigger by resampling them. The slot is answered ONLY by a REPAINT of the facial layer with the features authored larger from the start, which is HIS art and HIS call. Post-mortem: records/POSTMORTEM_OVERWORLD_FACE_SIZE_KILL_8_11_26.txt. Removed the same commit this line landed: gates/sprite_face_scale_gate.js, tools/bohemia_sprite_face_strip.js, tools/bohemia_sprite_face_scale_patch.py, records/OVERWORLD_FACE_SCALE_8_11.png. The CHIN work from the same afternoon is NOT part of this verdict and stays (laws/BOHEMIA_ADDENDUM_THE_CHIN_LAW_8_11_26.md) -- he approved that, twice.
 \bspriteFaceScaled\b | 8/11/26 | DEAD, same verdict. The per-connected-component resampler behind BOH_SPRITE_FACE. Do not re-add.
+
+==========================================================================
+BATCH SFX-04, THE EIGHT THAT DIED WHOLE TWICE (Paolo 8/14/26)
+==========================================================================
+These eight moments were killed in SFX-03, answered with a DIFFERENT PHYSICS
+and new ids, and killed again. Forty more candidates dead.
+
+STOP PRODUCING (Paolo 7/26) IS EXPLICIT: a second rejection ends the feature.
+There is no third cook for these slots, in this session or any other, unless he
+asks for one. Writing a third version of something is the TELL that the failure
+already happened.
+
+WHAT THE POST-MORTEM ACTUALLY SHOWS, and it is not what the batch predicted:
+  THE METHOD SCOREBOARD ACROSS ALL 330
+    friction    6 UP /   9 DOWN   40%   the best method in the game
+    modal      97 UP / 173 DOWN   36%
+    fm          2 UP /  13 DOWN   13%
+    particle    0 UP /  20 DOWN    0%
+    air         0 UP /  10 DOWN    0%
+  PARTICLE AND AIR WENT 0 FOR 30. They were added for exactly these moments --
+  breaking glass is a hundred collisions, breath has no body -- and the reasoning
+  was sound and he did not want the result. A correct diagnosis is not a verdict.
+  FRICTION IS WHY THE BATCH WAS WORTH COOKING. Four moments that had NEVER had a
+  sound got one (swing, patch_up, build_place, equip) and every one is friction,
+  a method that did not exist three days earlier.
+  THE LIMIT, STATED: 0/30 says these RECIPES failed. It cannot fully separate the
+  method from my writing of it, which is why particle and air are barred from NEW
+  cooks rather than deleted from the engine.
+
+GRAVEYARD IS FINAL: these forty ids do not come back.
+
+  [glass_crunch] all five dead (particle)
+  glass_crunch.0     synth=particle  mat=glass    hz=  900.0 decay=0.1875
+  glass_crunch.1     synth=particle  mat=glass    hz= 1074.9 decay=0.1250
+  glass_crunch.2     synth=particle  mat=glass    hz= 1072.4 decay=0.1875
+  glass_crunch.3     synth=particle  mat=glass    hz= 1245.0 decay=0.1875
+  glass_crunch.4     synth=particle  mat=glass    hz=  779.2 decay=0.1875
+  [deck_ring] all five dead (particle)
+  deck_ring.0        synth=particle  mat=metal    hz=  420.0 decay=0.1875
+  deck_ring.1        synth=particle  mat=metal    hz=  535.4 decay=0.1875
+  deck_ring.2        synth=particle  mat=metal    hz=  446.0 decay=0.3125
+  deck_ring.3        synth=particle  mat=metal    hz=  456.5 decay=0.1250
+  deck_ring.4        synth=particle  mat=metal    hz=  436.9 decay=0.2500
+  [mag_clack] all five dead (particle)
+  mag_clack.0        synth=particle  mat=metal    hz=  520.0 decay=0.3750
+  mag_clack.1        synth=particle  mat=metal    hz=  446.3 decay=0.3125
+  mag_clack.2        synth=particle  mat=metal    hz=  677.9 decay=0.3125
+  mag_clack.3        synth=particle  mat=metal    hz=  610.1 decay=0.4375
+  mag_clack.4        synth=particle  mat=metal    hz=  425.1 decay=0.3750
+  [breath_out] all five dead (air)
+  breath_out.0       synth=air       mat=ash      hz=  130.0 decay=0.5000
+  breath_out.1       synth=air       mat=ash      hz=  159.4 decay=0.4375
+  breath_out.2       synth=air       mat=ash      hz=  108.8 decay=0.4375
+  breath_out.3       synth=air       mat=ash      hz=  145.1 decay=0.5625
+  breath_out.4       synth=air       mat=ash      hz=  115.5 decay=0.5000
+  [deed_stamp] all five dead (fm)
+  deed_stamp.0       synth=fm        mat=bell     hz=  262.0 decay=1.5000
+  deed_stamp.1       synth=fm        mat=bell     hz=  341.9 decay=1.6250
+  deed_stamp.2       synth=fm        mat=bell     hz=  216.3 decay=1.6875
+  deed_stamp.3       synth=fm        mat=bell     hz=  214.4 decay=1.8125
+  deed_stamp.4       synth=fm        mat=bell     hz=  221.9 decay=1.8125
+  [cash_count] all five dead (particle)
+  cash_count.0       synth=particle  mat=ash      hz= 1150.0 decay=0.2500
+  cash_count.1       synth=particle  mat=ash      hz= 1415.3 decay=0.1875
+  cash_count.2       synth=particle  mat=ash      hz= 1114.7 decay=0.3125
+  cash_count.3       synth=particle  mat=ash      hz=  846.6 decay=0.1875
+  cash_count.4       synth=particle  mat=ash      hz= 1105.4 decay=0.3125
+  [neon_hum] all five dead (fm)
+  neon_hum.0         synth=fm        mat=glass    hz=  120.0 decay=1.2500
+  neon_hum.1         synth=fm        mat=glass    hz=  107.3 decay=1.6875
+  neon_hum.2         synth=fm        mat=glass    hz=  118.0 decay=1.1875
+  neon_hum.3         synth=fm        mat=glass    hz=  113.3 decay=0.9375
+  neon_hum.4         synth=fm        mat=glass    hz=  159.2 decay=0.9375
+  [dog_cry] all five dead (air)
+  dog_cry.0          synth=air       mat=choir    hz=  300.0 decay=0.5000
+  dog_cry.1          synth=air       mat=choir    hz=  417.5 decay=0.6875
+  dog_cry.2          synth=air       mat=choir    hz=  300.7 decay=0.4375
+  dog_cry.3          synth=air       mat=choir    hz=  244.5 decay=0.6875
+  dog_cry.4          synth=air       mat=choir    hz=  260.1 decay=0.6250
+
+THE FOUR THAT LIVED, for the record: swing_air.2 .3, tape_pull.1 .4,
+set_down.2 .3, cloth_on.1 .4 -- all friction except set_down, which is fm.

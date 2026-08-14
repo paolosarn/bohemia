@@ -83,8 +83,8 @@ os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'
 BUILT = 'slices/BOHEMIA_RUN_CURRENT.html'
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_12_26.json'   # 8/12: he judged all 270
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_12_26.txt'
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_14_26.json'   # 8/14: he judged all 330
+VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_14_26.txt'
 
 P_BEGIN = '<!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->'
 P_END = '<!-- /BOHEMIA SFX WIRE PARENT -->'
@@ -93,7 +93,7 @@ P_END = '<!-- /BOHEMIA SFX WIRE PARENT -->'
 def parent_block(bank):
     return """
 /* === SFX WIRE, PARENT SIDE (7/30/26) ====================================
-   Paolo's 97 approved sounds, from his 8/12 full sweep. The table below is INDEXES
+   Paolo's 105 approved sounds, from his 8/14 full sweep. The table below is INDEXES
    into the shipped generator, not copied audio: candidate n of event e is
    BOH_SFX.cook(e,5)[n], which gates/sfx_render_gate.py fingerprints. So what
    plays is byte-for-byte the thing he heard when he thumbed it.
@@ -1139,7 +1139,7 @@ def main():
             print('  re-applied %s (it lives inside the block this tool owns)' % dep)
 
     print('THE APPROVED SOUNDS PLAY NOW.')
-    print('  %d approved sounds across %d events, from his 8/12 full sweep' % (n, len(bank)))
+    print('  %d approved sounds across %d events, from his 8/14 full sweep' % (n, len(bank)))
     print('  footsteps chosen by the tile the game already knows')
     print('  phone buzz on a real post, EAT on the thing the room held (his 8/2 ruling)')
     print('  the door DRAGS open (his 8/9 thumb); the SHUT stays silent, also his')
