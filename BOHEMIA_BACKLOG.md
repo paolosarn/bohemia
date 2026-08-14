@@ -6,8 +6,30 @@
 ## if your lane owns a demo-critical-path row (RUN 00/00b/0d, ART board,
 ## SOUNDS minimum set, COMBAT warming, PEOPLE 0sc cold open), IT OUTRANKS
 ## everything else in your queue. Non-demo work continues only when your
-## demo-critical items are done or blocked. Demo scope pick pending Paolo
-## (ONE GOOD DAY proposed); the critical path is valid under any scope. ***
+## demo-critical items are done or blocked.
+## *** THE ONE WALKED SURFACE (coordinator decision 8/14, on the audit —
+## records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md). THE CITY WORLD IS THE
+## WALKED SURFACE; slices/BOHEMIA_RUN_CURRENT.html IS LEGACY. This is not
+## new policy, it is naming what the build already does: ALPHA:7355 makes
+## the RUN TAB SHOW THE CITY PANEL, and the alpha's own comment (:17164)
+## says "#p-run is display:none the whole time". The run slice — 15.9 MB
+## on disk, 11.0 MB gzipped — is preloaded on every visit and NEVER
+## DISPLAYED. NO LANE SHIPS NEW PLAYER-FACING WIRING INTO THE RUN SLICE.
+## Engine modules stay canonical and shared (ENGINE SYNC LAW untouched);
+## this is about which SLICE consumes them. Demo-critical wiring migrates
+## (SOUNDS P0-WALK, RUN 00's fight/pay); the run slice stays in the repo
+## as the harvest source and its PRELOAD gets dropped once migration
+## lands, which is most of the time-to-first-play problem gone for free.
+## If Paolo rules the other way the board flips — say so and it flips. ***
+## SCOPE IS RULED, NOT PENDING (corrected 8/14 — this banner still said
+## "pending Paolo" ten days after he ruled it, which is exactly the stale
+## record the shelf audit exists to catch): THE ORIGIN + ONE GOOD DAY —
+## the cold open (family defense, the sibling dies), THE VISTA (the
+## overlook), then one good day. His words 8/4: "I want that main quest
+## origin in it when ur sibling dies and you get to see the outlook in
+## the city type shit." LIVE STATUS OF ALL 13 CRITICAL-PATH ROWS:
+## records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md — read it before you
+## claim a row is somebody else's problem. ***
 
 ## *** FLEET-WIDE FREEZE (7/26, ART-FIRST RESET — read laws/BOHEMIA_ADDENDUM_
 ## ART_FIRST_RESET_7_26_26.md). *** BOTH FREEZES ARE LIFTED AS OF 7/26. ***
@@ -1251,6 +1273,40 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
+P0-DOOR. *** THE GAME IS NOT THE FIRST THING A NEW PLAYER SEES. TOP OF
+   THE QUEUE, DEMO-BLOCKING, AND THE CHEAPEST BIG WIN ON THE BOARD (8/14
+   coordinator audit — records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md row 7).
+   After the splash, the alpha opens on the CHARACTER workbench:
+   ALPHA:1012 `<div class="tab on" data-p="char">CHARACTER</div>` and
+   :1082 `<div class="panel on" id="p-char">`. A friend who taps the one
+   link lands on a dev tool and must find RUN among ~16 tabs. Meanwhile
+   the cold open PLAYS PROPERLY (gates/coldopen_gate.js proves it in a
+   real browser) but sits in the CUTSCENE tab and hands off to nothing.
+   DO: (a) the alpha opens on the game; (b) route the opening —
+   splash -> cold open -> the day, so the demo has a front door instead of
+   a workbench; (c) row 10's handoff bug rides along: ALPHA:21436-21438
+   calls the fight WITHOUT switching tabs, so the family-defense encounter
+   is posted to the combat frame while the player is still looking at the
+   cutscene canvas — switch the surface with the handoff.
+   THE TAB BAR STAYS EXACTLY AS IT IS for him (it is his whole workshop and
+   NAME THE TAB depends on it) — this changes which one is OPEN at boot,
+   nothing else. If a dev-vs-player default is wanted later, that is a
+   separate ruling; do not invent a mode system for it now.
+   | a cold-boot of the one link lands the player in the game, not a tab
+   bar, verified in a real browser and gated | — | no (he corrects after
+   playing it). ***
+P0-VISTA. THE MONEY SHOT HAS NO CALLER (8/14 audit, row 11 — one line of
+   work). The vista is BUILT, derived, inlined in the walked city
+   (:12974), opened by vistaOpen() (:15800) and armed in the world:
+   vistaCheck() fires when your cell equals the derived overlook cell,
+   every frame from renderHuman (:15847-15898), gated and probed on the
+   real page. Its own seam comment says "RUN plays it from the day loop
+   and the cold open" — and a repo-wide grep for `__VISTA` finds ZERO
+   game-side callers, only the definition and two gates. The demo's money
+   shot is currently reachable only by accidentally walking onto one rim
+   cell. DO: call `__VISTA.open()` from the cold open's aftermath (the
+   ruled ORIGIN -> VISTA order) and/or a day-loop beat. | the vista plays
+   in the demo's scripted path, gated | which beat = lane's call | no.
 00. THE GAME DAY (assigned 7/29 off Paolo's big-missing dispatch — records/
    BOHEMIA_THE_BIG_MISSING_7_29_26.md item 1, THE lane milestone): one full
    playable day — wake at the base -> pick up a quest -> travel -> resolve
@@ -5523,6 +5579,37 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
 ## sounds chat". First word "sounds" (or "sound"/"music"). Owns everything
 ## audible: music, SFX, mix, beat plumbing. AUDIO MOVED OUT of CHARACTER —
 ## one system one session. Lane intent: doctrine §6.)
+P0-WALK. *** THE APPROVED SOUNDS ARE WIRED TO A SURFACE THE PLAYER NEVER
+   SEES. TOP OF THIS LANE'S QUEUE, DEMO-BLOCKING (8/14 coordinator audit —
+   records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md row 3). Nothing is wrong
+   with the sounds: 97 approved pairs across 32 families from his 270-thumb
+   sitting, six ground types classified, doors, hit/kill on the beat, save
+   chime. THE WIRING IS ON THE WRONG SLICE. `BOHEMIA_RUN_CURRENT.html`
+   posts BOHEMIA_SFX (sfxGround :25626-25650, door :25719, save chime
+   :27700) and that slice is LOADED AND NEVER DISPLAYED (ALPHA:7355 — the
+   RUN tab shows the CITY panel; the alpha says so itself at :17164).
+   `BOHEMIA_CITY_WORLD.html`, the surface he actually walks, posts
+   BOHEMIA_SFX **zero** times and has **zero** footstep code — its whole
+   audio output is one line, :16462 phone_buzz. SO HE WALKS IN SILENCE
+   AND HAS SINCE THE SOUNDS WERE APPROVED.
+   AND THE GATE IS WHY NOBODY CAUGHT IT: gates/sfx_wired_gate.py clicks the
+   RUN tab (:105-106) then reaches into #runFrame (:107-109) — the hidden
+   slice — and counts sounds crossing from there. Green gate, silent game:
+   the 7/18 VERIFY-ON-THE-REAL-SURFACE law failing at fleet scale.
+   DO: (a) move the sfx call sites onto the city walk — the approved bank,
+   the ground classifier and the parent-side player ALL already exist, so
+   this is wiring, not cooking, and REUSE-FIRST means porting the
+   classifier, not rewriting it; (b) REPOINT THE GATE AT THE VISIBLE FRAME
+   (find the CITY_WORLD frame the way gates/dayloop_gate.js does at
+   :287-294 — that gate got it right) and make it fail if it is ever
+   measuring a hidden panel again; (c) in-game UI taps inside the city
+   iframe never reach the alpha's document-level click delegate (:17233),
+   so his approved UI tick is silent in the world too — carry it across.
+   Coordinate with RUN (they own the call sites in the walk loop) — ONE
+   SYSTEM ONE SESSION: agree who edits CITY_WORLD before either of you
+   does. | footsteps/doors/save chime audible on the REAL walked surface,
+   measured in the city frame, gated | — | no (his sounds are already
+   judged; this is delivery). ***
 FS. FIELD SURGERY SFX MOMENTS (routed 8/13 — laws/BOHEMIA_ADDENDUM_
    HEALING_IS_A_BIG_DEAL_8_12_26.md §7-8): the five-step gunshot
    treatment is a prime moment set for the SFX factory — water boil,
@@ -5799,6 +5886,68 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-3. *** THE SHELF AUDIT — EXTEND THE CENSUS WE ALREADY HAVE (sweep 9
+   catch, 8/14 — records/BOHEMIA_RESEARCH_THE_PHANTOM_SHELF_8_14_26.md).
+   EIGHT commits in one week, from FIVE lanes, are the same discovery —
+   finished work the player could never reach — and NOT ONE was found by
+   a gate. All eight were accidents.
+   *** REUSE-FIRST CORRECTION, AND IT IS THE POINT: the instrument
+   ALREADY EXISTS. records/BOHEMIA_REACHABILITY_CENSUS.json (8/6) +
+   gates/reachability_gate.js measure exactly this, and THE NUMBER IS
+   GROWING: the gate's header cites SEVENTEEN "LOADED ONLY" rows; the
+   census today reports THIRTY, and 273.6 of 276.6 MB unreached. The
+   gate deliberately does not demand the number go down (correctly — a
+   gate must never outrank a ruling about what gets wired first), so
+   nothing has ever forced the conversation, and the fleet kept
+   discovering the same disease by hand, eight times in a week. DO NOT
+   BUILD A SECOND CENSUS. ***
+   BUILD, on top of the existing census: (a) THE RATCHET WITH A NAME —
+   every LOADED ONLY row must carry an OWNER LANE and a backlog id, or
+   the gate goes red on the UNDECLARED ones only (never on the count).
+   That keeps the ruling with Paolo and the lanes while making a
+   nameless phantom illegal — the "a pending that names no person is not
+   a pending" rule, machine-enforced. (b) THE CALL-SITE HALF the census
+   cannot see: under the ENGINE SYNC LAW each module is INLINED into the
+   slices, so grepping for callers finds the inlined COPY and cannot
+   tell a call from a definition (the coordinator's own first attempt
+   failed exactly this way — it reported brownout 5/5 dead when brownout
+   is called in people.js, three slices, and has a gate). Parse each
+   slice's `/* ===== bohemia_X.js ===== */` banner regions (85 in the run
+   slice, already parsed by the resync tooling) and count call sites
+   OUTSIDE the module's own region; zero external callers = a phantom
+   the census scores as present. THIS IS THE ONE THAT WOULD HAVE CAUGHT
+   PAYDAY dormant since 8/11. (c) THE DYNAMIC HALF, extending RUN 0i
+   telemetry + dayloop_gate: log which systems FIRE at least once in the
+   headless played day; a system that never fires in a full day is a
+   phantom the static halves both miss (the moon-zoom class: wired, but
+   on a code path no phone can take). (d) RUN THE DEMO PATH FIRST.
+   THE OUTSIDE EVIDENCE (why this is structural, not sloppiness): retail
+   operations research calls this a PHANTOM STOCKOUT — stock in the back
+   room that never reaches the shelf; DeHoratius & Raman measured 65% of
+   370k inventory records inaccurate, ~4% of annual sales lost to phantom
+   stock breaks, and — THE PART AIMED AT US — Ton & Raman found phantom
+   stockouts RISE WITH VARIETY AND INVENTORY. Nine parallel lanes each
+   told to SHIP A LOT is the maximum-variety configuration in that study,
+   so this gets WORSE as we get faster, while gates stay green because a
+   gate tests the back room. Retail's answer is not "try harder", it is
+   SCHEDULED CYCLE COUNTING. This item is our cycle count.
+   | audit runs, names a real phantom nobody had noticed, gate registered
+   and mutation-tested | — | no (machinery). ***
+-2b. THE FLAKY CROWD GATE HAS NO OWNER (8/14 coordinator: the quests lane
+   measured it and correctly filed it "for whoever owns crowd_gate.js" —
+   and NOBODY DOES, which is the dropped-stitch pattern this fleet named
+   itself: a pending that names no person is not a pending). MEASURED by
+   that lane: three back-to-back runs on an UNCHANGED tree gave 15/16,
+   16/16, 16/16. The failing claim is "redrawing the same crowd gives
+   byte-identical pixels (no dice in the render path)" — a good thing to
+   want, and inherently timing/GPU-sensitive while the suite drives
+   eight browsers at once. CLAIMED BY: whichever session next runs the
+   full suite and sees it red (crowd_gate.js was last touched by the
+   CHARACTER lane's hair/crowd work). A gate that gives different answers
+   about the same bytes teaches every lane to shrug at a red, which is
+   the most expensive thing a gate can do. | gate deterministic across
+   5 consecutive runs on an unchanged tree, or the claim is narrowed to
+   what is genuinely deterministic | — | no.
 -2. RENDER PIXEL, UNATTRIBUTED 34% DRAW DROP (8/13 coordinator relay of
    the RUN lane's 8/12 flag, "red on both sides but a real signal"):
    render_pixel wants >5000 draws; origin/main measured 4876 and the RUN

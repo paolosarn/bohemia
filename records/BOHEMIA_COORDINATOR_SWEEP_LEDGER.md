@@ -281,3 +281,66 @@ BOHEMIA_RESEARCH_THE_HOME_SCREEN_IS_THE_SAVE_8_13_26.md
 [Confidence: platform facts primary, high; retention multipliers
 medium, not load-bearing.]
 HIGH-WATER MARK: swept through main @ 825e5d3 (plus this sweep's push)
+
+## SWEEP 9 — 8/14/26 (his sweep prompt + "forward motion, know what
+## comes after")
+DELTA: 14 commits. THE DAY PAYS (payday bridge found dormant since 8/11
+by its own lane — "sixth time this week"); THE PERIPHERAL ACT; twelfth
+family wired (block wall caps); THREE MORE QUESTS (25 canon, all water,
+35 studies cited); SPATIAL SOUND (the valley stops being a flat stereo
+field); the CLO wardrobe now survives a reload; NOT EVERYTHING WAITS FOR
+YOU (the fuse that makes succession felt); the range system made visible;
+pits read as holes. CITY has NOT run since his moon-zoom crash was filed
+(P0-SKY still unclaimed).
+THE WORK: full audit of ALL 13 demo critical-path rows with reachability
+proof (three parallel read-only audits) -> records/BOHEMIA_DEMO_STATUS_
+BOARD_8_14_26.md. SCORE: 4 CLOSED (combat handoff, family cast, squiggle
+voices, save minimum), 8 PARTIAL, 1 OPEN.
+THE CATCH (lens: the platform under the game; both aisles; and it turned
+out to be one root cause under eight symptoms):
+QUESTION: why does the fleet keep discovering, by accident, that finished
+work is unreachable? ANSWER, MEASURED: THE ALPHA HAS TWO WALK SURFACES
+AND ONLY ONE IS VISIBLE. ALPHA:7355 makes the RUN tab show the CITY
+panel; the alpha's own comment (:17164) says "#p-run is display:none the
+whole time"; BOHEMIA_RUN_CURRENT.html is 15.9 MB (11.0 MB gzipped),
+preloaded every visit, never displayed. The day loop, quests, tiles,
+vista and voices migrated to the city; THE SOUND WIRING, THE COMBAT
+ENTRY, THE PAYDAY CALLERS AND 30 CENSUS ROWS DID NOT.
+THE SHARPEST INSTANCE: his 97 approved sounds post from the run slice;
+the walked city posts BOHEMIA_SFX zero times and has zero footstep code
+(its entire audio output is one phone_buzz line at :16462) — SO HE HAS
+BEEN WALKING IN SILENCE SINCE THE SOUNDS WERE APPROVED — and
+sfx_wired_gate.py verifies sound by reaching into #runFrame, the hidden
+slice. Green gate, silent game: VERIFY-ON-THE-REAL-SURFACE (7/18)
+failing at fleet scale.
+CHALLENGE FINDINGS (two, both against things we believe):
+(1) "the sound minimum set is CLOSED" — every record says so; it is not,
+for the player. (2) The reachability instrument ALREADY EXISTS
+(records/BOHEMIA_REACHABILITY_CENSUS.json + gates/reachability_gate.js,
+8/6) and ITS NUMBER IS GROWING: 17 LOADED-ONLY rows then, THIRTY now,
+273.6 of 276.6 MB unreached. The gate deliberately never demands the
+number go down (correct — it must not outrank a ruling), so nothing ever
+forces the conversation. We built a smoke detector and wired it to a
+notebook. OUTSIDE AISLE: retail ops calls this a PHANTOM STOCKOUT —
+DeHoratius & Raman, 65% of 370k inventory records inaccurate, ~4% of
+sales lost; Ton & Raman found phantom stockouts RISE WITH VARIETY AND
+INVENTORY, i.e. this is the price of our own volume law and gets worse
+as we get faster. Their fix is scheduled cycle counting, not effort.
+Valve instrumented what players actually did rather than trusting built
+content (Half-Life onward; L4D auto-gathered playtest data).
+DECIDED: THE ONE WALKED SURFACE — the city world is the walked surface,
+the run slice is legacy, no lane ships new player-facing wiring into it,
+its preload dies with the migration (11 MB off time-to-first-play for
+free). Banner added to the backlog head; flips on his word.
+ROUTED: RUN P0-DOOR (the alpha opens on the CHARACTER dev tab — a friend
+lands on a workbench; also fixes the cold open's tabless handoff), RUN
+P0-VISTA (the money shot has ZERO callers — one line), SOUNDS P0-WALK
+(migrate the approved sounds to the visible surface + repoint the gate),
+SHARED -3 (extend the census: nameless phantoms illegal + the call-site
+half the census cannot see + the fired-in-a-played-day half), SHARED -2b
+(the flaky crowd gate had no owner). Records: BOHEMIA_DEMO_STATUS_BOARD_
+8_14_26.md, BOHEMIA_RESEARCH_THE_PHANTOM_SHELF_8_14_26.md.
+[Confidence: surface/wiring claims verified by direct file:line reads
+plus three independent audits, high. Retail figures peer-reviewed; the
+transfer is analogy, flagged.]
+HIGH-WATER MARK: swept through main @ a61d8c4 (plus this sweep's push)

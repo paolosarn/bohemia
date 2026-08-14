@@ -18362,3 +18362,30 @@ iOS silo landmine means the card must come EARLY (first sleep-save) or
 installing strands progress in Safari. RUN 00b amended with the full
 work order; ONE-LINK LAW untouched. Record: records/BOHEMIA_RESEARCH_
 THE_HOME_SCREEN_IS_THE_SAVE_8_13_26.md; ledger sweep 8.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/14 — SWEEP 9 + THE FULL DEMO AUDIT. READ THIS ONE.
+records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md audits all 13 demo rows with
+reachability proof: 4 CLOSED, 8 PARTIAL, 1 OPEN — and they share ONE root
+cause. THE ALPHA HAS TWO WALK SURFACES AND ONLY ONE IS VISIBLE:
+ALPHA:7355 makes the RUN tab show the CITY panel (the alpha says so
+itself at :17164, "#p-run is display:none the whole time"), so
+BOHEMIA_RUN_CURRENT.html — 15.9 MB, 11.0 MB gzipped — is preloaded every
+visit and NEVER DISPLAYED. The day loop, quests, tiles, vista and voices
+migrated to the city world; THE SOUND WIRING, THE COMBAT ENTRY AND THE
+PAYDAY CALL SITES DID NOT. Sharpest instance: his 97 approved sounds post
+from the run slice, the walked city posts BOHEMIA_SFX zero times and has
+zero footstep code — he has been WALKING IN SILENCE since the sounds were
+approved — and sfx_wired_gate.py verifies them by reaching into #runFrame,
+the hidden slice. Green gate, silent game.
+DECIDED (coordinator, flips on his word): THE ONE WALKED SURFACE — the
+city world is it, the run slice is legacy, NO LANE SHIPS NEW PLAYER-FACING
+WIRING INTO IT, and its preload dies with the migration (11 MB off
+time-to-first-play for free). Banner is at the head of BOHEMIA_BACKLOG.md.
+ROUTED: RUN P0-DOOR (the alpha boots onto the CHARACTER dev tab — a friend
+tapping the link lands on a workbench, not the game; cheapest big win on
+the board) + RUN P0-VISTA (the vista has ZERO callers; one line) + SOUNDS
+P0-WALK (migrate sound to the visible surface, repoint the gate the way
+dayloop_gate does it) + SHARED -3 (extend the reachability census: 17
+LOADED-ONLY rows on 8/6, THIRTY today — nameless phantoms become illegal)
++ SHARED -2b (the flaky crowd gate had no owner). Ledger sweep 9.
