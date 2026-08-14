@@ -454,6 +454,14 @@ GATES = [
      "the demo set on 8/9. GRAVEYARD IS FINAL binds Claude, not Paolo -- so the "
      "replacement is a FRESH cook from ash and stone, brighter/shorter/harder "
      "than every door that died, new ids, and nothing banked until he thumbs", True),
+    ('SPATIAL SOUND',  ['python3', 'gates/spatial_sound_gate.py'],
+     "the valley was a FLAT STEREO FIELD: every sound arrived at the same level "
+     "from the same nowhere except a neighbour's footstep, which got distance and "
+     "pan on 8/2 and stayed the only spatial sound in the game. Placement is now "
+     "one path for everything -- the inverse law for level, pan from the x offset, "
+     "a lowpass that closes with distance, and OCCLUSION when a wall is between "
+     "you and it. Measured in the rendered samples, never read back off the "
+     "arithmetic, and mutation-tested: pinning the filter open takes it red", True),
     ('SFX DIVERSITY',  ['python3', 'gates/sfx_diversity_gate.py'],
      "Paolo after judging all 270: \"you need more diverse sounds bro its getting "
      "stale at this point\". He was hearing the TOPOLOGY -- every sound this engine "

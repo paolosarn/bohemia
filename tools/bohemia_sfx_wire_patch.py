@@ -227,8 +227,15 @@ def parent_block(bank):
       MUS.audio();
       var AC=MUS.AC;
       /* a footstep goes to the quiet sub-bus; everything else to the master */
+      /* MUS.OUT BEFORE MUS.MAST, ALWAYS. MUS.stop() ducks the MUSIC master to
+         zero and leaves it there (his 7/27 fix, still correct), so anything
+         that falls back to MAST goes silent the moment he turns the music off.
+         THIS LINE HAD THE FIX AND LOST IT: somebody repaired it in the ALPHA
+         by hand, and the next run of this tool -- which owns the block and
+         re-injects it whole -- reverted them. A fix that lives in generated
+         output is a fix with a countdown on it. It lives in the generator now. */
       var dest=(ev.indexOf('step_')===0 ? (stepBus()||sfxBus()) : sfxBus())
-               || MUS.MAST || AC.destination;
+               || MUS.OUT || MUS.MAST || AC.destination;
       var at=null;
       if(when==='beat' && MUS.playing && MUS.nextT){
         /* the next 16th that is also a beat boundary */
@@ -453,6 +460,82 @@ def parent_block(bank):
      than a sound too quiet to identify. A sound you cannot place is noise. */
   var NPC_PLAYED=0;
   window.__npcPlayed=function(){ return NPC_PLAYED; };
+  /* ===== WHERE A SOUND IS (8/13) =========================================
+     THE VALLEY WAS A FLAT STEREO FIELD. Every sound in the game arrived at the
+     same level from the same nowhere, except one: a neighbour's footstep, which
+     got distance and pan on 8/2 and has been the only spatial sound since. A
+     door across the lot, a generator running somewhere, a dog -- all of them
+     played as if they were happening inside your head. In a game whose whole
+     texture is walking an empty city, WHERE a sound is IS the information.
+
+     THREE CUES, and the order matters because only the first two are exact:
+       1. LEVEL. The inverse law -- amplitude proportional to 1/r, about 6 dB
+          per doubling. The researched model already used for footsteps,
+          generalised here instead of copied a second time. 1/(1+k*r), never a
+          linear fade: linear makes everything sound the same distance away
+          until it abruptly does not.
+       2. PAN. Left is left. A top-down view has no front/back to confuse, and
+          faking one with filters would be inventing information the game does
+          not have.
+       3. COLOUR. Distant sound is DULLER, and the old code had no answer for
+          this at all. Two real effects push the same way: air absorbs high
+          frequencies faster than low ones (ISO 9613-1 is the standard that
+          quantifies it), and the further away you are the more of what reaches
+          you is reflection rather than direct sound.
+          HONEST ABOUT THE NUMBERS: across a city block, literal atmospheric
+          absorption is small. The curve below is a GAME DIAL chosen to read
+          right, resting on a real direction rather than pretending to be a
+          calculation. One word from him changes it.
+
+     OCCLUSION IS THE FOURTH AND IT IS THE ONE A CITY NEEDS. A sound made inside
+     a building and heard from the street has a wall in the way: much quieter,
+     much duller. The run already knows inside from outside, so this costs no
+     new state. A lowpass is a filter, not a delay -- SCREECH LAW is untouched.
+
+     HIS VECTORS ARE NEVER EDITED. Placement copies the vector and moves the
+     copy, exactly as the footstep path has always done: the verdict is on the
+     SOUND, never on where the game puts it. */
+  var LISTENER = { inside: false };
+  function placeSound(ev, place, dest0){
+    try{
+      if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return null;
+      var i=pick(ev); if(i==null) return null;
+      var v=vec(ev,i); if(!v) return null;
+      MUS.audio(); var AC=MUS.AC; if(!AC) return null;
+      var out = dest0 || sfxBus() || MUS.OUT || MUS.MAST || AC.destination;
+      if(!out) return null;
+      place = place || {};
+      var dx = +place.dx || 0, dy = +place.dy || 0;
+      var r = (place.dist != null) ? Math.max(0, +place.dist)
+                                   : Math.sqrt(dx*dx + dy*dy);
+      r = Math.max(0.5, r);
+      var g = 1/(1 + 0.55*r);                    /* the inverse law, as before */
+      /* A WALL BETWEEN YOU AND IT. Only when the two sides disagree: a sound
+         made inside, heard inside, is not occluded. */
+      var occl = (place.inside != null) && (!!place.inside !== !!LISTENER.inside);
+      if(occl) g *= 0.55;
+      if(g < 0.05) return null;                  /* too far to be information */
+      /* THE COLOUR OF DISTANCE. Wide open at your feet, about 4 kHz a dozen
+         tiles out, under 2 kHz across a block -- and a wall takes most of what
+         is left off the top. */
+      var cut = 18000/(1 + 0.30*r);
+      if(occl) cut *= 0.35;
+      cut = Math.max(320, Math.min(20000, cut));
+      var gain = AC.createGain(); gain.gain.value = g;
+      var lp = AC.createBiquadFilter(); lp.type='lowpass';
+      lp.frequency.value = cut; lp.Q.value = 0.7;
+      lp.connect(gain); gain.connect(out);
+      var w={}, k; for(k in v) w[k]=v[k];        /* his vector, never edited */
+      w.pan = Math.max(-1, Math.min(1, dx/6));
+      BOH_SFX.render(w, AC, lp, place.when || null);
+      SFX_COUNT++;
+      return { gain:g, cut:cut, pan:w.pan, occluded:!!occl, ev:ev, dist:r };
+    }catch(e){ return null; }
+  }
+  /* THE RUN SAYS WHERE IT IS STANDING, so occlusion has two sides to compare. */
+  try{ window.__sfxListener=function(o){ if(o) LISTENER.inside=!!o.inside; }; }catch(_e){}
+  try{ window.playSFXAt=placeSound; }catch(_e){}
+
   function npcStep(d){
     try{
       var r=Math.max(0.5, +d.dist||0);
@@ -476,12 +559,13 @@ def parent_block(bank):
                          the ambience bed shares that bus and fires one-shots
                          every 40-95s, so "the bus made a noise" attributes
                          somebody else's sound to the neighbour. */
-      var at=MUS.AC.createGain(); at.gain.value=g; at.connect(out);
-      /* the vector is HIS and is never edited -- a copy carries the position */
-      var w={}, k; for(k in v) w[k]=v[k];
-      w.pan=pan;
-      BOH_SFX.render(w,MUS.AC,at,null);
-      SFX_COUNT++;
+      /* ONE PLACEMENT PATH, NOT TWO (8/13). This was the only spatial sound in
+         the game and it grew its own distance/pan code; placeSound is that same
+         model generalised, plus the colour of distance and occlusion. Keeping a
+         second copy here is how the two drift and only one of them gets fixed.
+         The NPC_PLAYED counter above still increments here, because it counts
+         what the NEIGHBOUR played specifically and placeSound serves everyone. */
+      placeSound(ev, { dx:(+d.dx||0), dist:r, inside:false });
     }catch(e){}
   }
 
