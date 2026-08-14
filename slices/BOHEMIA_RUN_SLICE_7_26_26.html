@@ -1025,7 +1025,18 @@ function findHomeCell(){
 var HOME_CELL = findHomeCell();
 /* Read one cell of the valley into the grids the run walks and draws on. */
 function loadCell(cx,cy){
-  CELL=[cx,cy]; G=[]; SOLIDG=[]; LAYERG=[]; NAMEG=[]; CELLNAME='';
+  CELL=[cx,cy];
+  /* WHERE YOU HAVE STOOD (8/14). The Remnants want honest word about the road and
+     the Homeless want warning about who is coming down; both are worthless if you
+     can report them without having been anywhere. This is the smallest honest
+     record of having LOOKED: the cells you actually walked into. Rides meta beside
+     the belonging count, so it needs no save migration and survives a reload. */
+  try {
+    if(CTX && CTX.save && CTX.save.meta){
+      var seen = CTX.save.meta.seen || (CTX.save.meta.seen = {});
+      seen[cx+','+cy] = 1;
+    }
+  } catch(_e){} G=[]; SOLIDG=[]; LAYERG=[]; NAMEG=[]; CELLNAME='';
   for(var y=0;y<T;y++){
     var gr=[], sr=[], lr=[], nr=[];
     for(var x=0;x<T;x++){
@@ -4238,6 +4249,44 @@ function showAllegiance(agent){
 function gaveFor(fid){
   try { return BohemiaBelonging.gaveOf(CTX && CTX.save, fid); } catch(_e){ return 0; }
 }
+/* ARE YOU ON THEIR GROUND? Their base is a real district on the real map, and the
+   world already declares how far a base's pull carries -- bohemia_agents.REACH_CELLS,
+   the same number that decides who BELONGS to them. No new dial is minted here: it
+   is [PENDING Paolo] on that module and if he retunes it, this follows. Returns
+   null when the outfit has no base placed at all, which is not the same as being
+   far from one and must not read as a refusal. */
+function theirGround(fid){
+  if(!fid || !CTX || !CTX.factionBases || typeof CELL==='undefined' || !CELL) return null;
+  var want=String(fid).toUpperCase().replace(/[\s_]/g,''), base=null;
+  for(var k in CTX.factionBases){
+    if(String(k).toUpperCase().replace(/[\s_]/g,'')===want){ base=CTX.factionBases[k]; break; }
+  }
+  if(!base || base.x==null) return null;
+  var reach=(typeof BohemiaAgents!=='undefined' && BohemiaAgents.REACH_CELLS) || 12;
+  var d=Math.abs(base.x-CELL[0])+Math.abs(base.y-CELL[1]);
+  return { base:base, dist:d, on:d<=reach, reach:reach };
+}
+/* HAVE YOU BEEN ANYWHERE THEY HAVE NOT HEARD ABOUT? Count the cells you have stood
+   in against the count at the last time you told this outfit. You have to go and
+   look, and come back. */
+function seenCount(){
+  try { return Object.keys((CTX.save.meta||{}).seen||{}).length; } catch(_e){ return 0; }
+}
+function toldCount(fid){
+  try {
+    var t=(CTX.save.meta||{}).told||{}, want=String(fid).toUpperCase().replace(/[\s_]/g,'');
+    for(var k in t) if(String(k).toUpperCase().replace(/[\s_]/g,'')===want) return t[k]|0;
+  } catch(_e){}
+  return 0;
+}
+function actStateFor(fid){
+  var g=theirGround(fid);
+  return { gaveToday:      gaveTodayFor(fid),
+           /* no base placed is not "far away": leave it unblocked rather than
+              refusing for a reason that is really a gap in the world. */
+           onTheirGround:  g ? g.on : true,
+           somethingToTell: seenCount() > toldCount(fid) };
+}
 function gaveTodayFor(fid){
   try { return BohemiaBelonging.gaveDayOf(CTX && CTX.save, fid) === worldDay(); }
   catch(_e){ return false; }
@@ -4270,8 +4319,16 @@ function showBargain(host, fid){
   if(b.refuses) line('WILL NOT TAKE', b.refuses, '#e0a060');
   if(b.theyFirst) line('CAREFUL', 'THEY HELP YOU BEFORE YOU AGREE TO ANYTHING', '#e0a060');
   if(b.rung) line('YOU ARE', b.rung.word + (b.next? (' \u00b7 '+b.next.more+' MORE TO '+b.next.rung.word):''));
-  var why=BohemiaBelonging.noActBecause(rule, {gaveToday:gaveTodayFor(fid)});
+  var why=BohemiaBelonging.noActBecause(rule, actStateFor(fid));
   if(why) line('', why);
+  /* AND WHERE THEIR GROUND ACTUALLY IS, because "go to them" without a direction
+     is the hunting he banned. Read off the real base coords the world placed. */
+  var g=theirGround(fid);
+  if(g && !g.on){
+    var dx=g.base.x-CELL[0], dy=g.base.y-CELL[1];
+    var dir=(Math.abs(dy)>=Math.abs(dx)? (dy<0?'NORTH':'SOUTH') : (dx<0?'WEST':'EAST'));
+    line('THEIR GROUND', g.dist+' CELLS ' + dir);
+  }
 }
 
 function drawPerson(agent){
@@ -4381,12 +4438,18 @@ function drawPerson(agent){
      You cannot buy your way inside in one afternoon. */
   var bfid = factionForPerson(agent);
   var brule = bfid ? BohemiaBelonging.ruleOf(bfid) : null;
-  var bact = brule ? BohemiaBelonging.actFor(brule, {gaveToday:gaveTodayFor(bfid)}) : null;
+  var bact = brule ? BohemiaBelonging.actFor(brule, actStateFor(bfid)) : null;
   if(bact){
     var doIt=document.createElement('button');
     doIt.id='pplgive'; doIt.textContent=bact.label;
     doIt.addEventListener('click', function(){
       BohemiaBelonging.record(CTX && CTX.save, bfid, worldDay());
+      /* telling them SPENDS what you had to tell: the next report needs somewhere
+         new. Banked under the same normalised key the count uses. */
+      if(bact.kind==='information' && CTX && CTX.save && CTX.save.meta){
+        var t=CTX.save.meta.told || (CTX.save.meta.told={});
+        t[bfid]=seenCount();
+      }
       closePerson();
       spendTime('HANGOUT', 'You did what the '+String(bfid).toUpperCase()+' wanted.');
     });

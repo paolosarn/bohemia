@@ -991,7 +991,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 32,
-   "bytes": 23237
+   "bytes": 24892
   },
   {
    "path": "engine/bohemia_blockgen.js",
@@ -1675,7 +1675,7 @@
    "samples": 9,
    "hits_shown": 9,
    "hits_loaded": 9,
-   "bytes": 15596
+   "bytes": 16835
   },
   {
    "path": "engine/bohemia_quest_runtime_tests.js",

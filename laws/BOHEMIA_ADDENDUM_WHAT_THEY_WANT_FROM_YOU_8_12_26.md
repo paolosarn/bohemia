@@ -128,6 +128,28 @@ bond. The literature says obligations persist, and the gap is the point. Correct
 my own premise rather than shipping the version I liked.) So the daily limit is not
 an anti-grind dial bolted on; you cannot buy your way inside in one afternoon.
 
+**AND THE ACT NEEDS A REASON (amended again, 8/14).** It shipped with only the
+daily limit behind it, which made "Tell them what you have seen" work whether or
+not you had seen anything, anywhere, ever. **A button you can press from anywhere
+with nothing behind it is the same lie as a button that does nothing.** Two of the
+five kinds have a condition the world can genuinely check:
+
+- **presence** — you have to be **on their ground**. Their base is a real district
+  the world placed, and `bohemia_agents.REACH_CELLS` already declares how far a
+  base's pull carries. **No new dial is minted**: that number is `[PENDING Paolo]`
+  on that module, and if he retunes it this follows. When you are not on it, the
+  card says **which way to walk and how far** — "go to them" with no direction is
+  the hunting he banned on 8/11.
+- **information** — you have to have **somewhere you have stood that they have not
+  heard about**. Telling them **spends** it; the next report needs somewhere new.
+  You have to go and look, and come back.
+
+The other three need nothing but the hour, and inventing a gate for them would be
+inventing content: giving the Trades an hour of your labour requires an hour of
+your labour and that is the whole of it. **An unanswered condition never blocks** —
+only an explicit `false` does, because refusing for a gap in the world rather than
+a fact about the player is a lie.
+
 **ONE WRITER.** The world bridge and the card now both move the same count, so it
 lives in `BohemiaBelonging.record()` and both callers go through it — including the
 normalisation of the three faction spellings, which have now bitten this codebase
@@ -136,7 +158,7 @@ increment on a bare boot, so the world bridge is never blocked on a surface modu
 
 ## THE MACHINE
 
-`gates/belonging_gate.js`, 50 claims: 32 anchors verbatim plus a regenerate-and-
+`gates/belonging_gate.js`, 58 claims: 32 anchors verbatim plus a regenerate-and-
 diff; distinctness measured on what the player actually reads; the named-in-canon
 bargains driven; the ladder driven through a **real authored quest** and proven to
 be a count rather than the standing number; and the **real built run in a real

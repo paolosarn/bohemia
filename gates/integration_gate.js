@@ -300,7 +300,10 @@ const PROBES = {
     RUN.indexOf('function gaveFor(') >= 0 &&
     /* and the act, or the bargain is legible and unactionable */
     RUN.indexOf('BohemiaBelonging.actFor(') >= 0 &&
-    RUN.indexOf('BohemiaBelonging.record(') >= 0,
+    RUN.indexOf('BohemiaBelonging.record(') >= 0 &&
+    /* and the act needs a reason, or it is a button you can press from anywhere */
+    RUN.indexOf('function theirGround(') >= 0 &&
+    RUN.indexOf('function actStateFor(') >= 0,
 };
 
 const LEGAL = ['INTEGRATED', 'PARTIAL', 'NOT YET'];

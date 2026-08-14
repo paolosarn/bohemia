@@ -232,6 +232,25 @@ function partC() {
   ok('C12 somebody who runs with nobody has no act, because there is no bargain',
     B.actFor(B.DEFAULT, {}) === null && B.noActBecause(B.DEFAULT, {}) === '');
 
+  /* THE ACT NEEDS A REASON. It shipped without one and that was a hollow button:
+     "Tell them what you have seen" worked whether or not you had seen anything. */
+  ok('C12a showing up needs you to actually be on their ground',
+    B.actFor(B.RULES.CHURCH, { onTheirGround: false }) === null &&
+    !!B.actFor(B.RULES.CHURCH, { onTheirGround: true }) &&
+    /GO TO THEM/.test(B.noActBecause(B.RULES.CHURCH, { onTheirGround: false })));
+  ok('C12b telling them needs somewhere you have been that they have not heard',
+    B.actFor(B.RULES.REMNANTS, { somethingToTell: false }) === null &&
+    !!B.actFor(B.RULES.REMNANTS, { somethingToTell: true }) &&
+    /GO AND LOOK/.test(B.noActBecause(B.RULES.REMNANTS, { somethingToTell: false })));
+  ok('C12c the two conditions do not leak onto the kinds they do not belong to',
+    !!B.actFor(B.RULES.TRADES, { onTheirGround: false, somethingToTell: false }) &&
+    !!B.actFor(B.RULES.MOB, { onTheirGround: false, somethingToTell: false }) &&
+    !!B.actFor(B.RULES.CARTEL, { onTheirGround: false, somethingToTell: false }),
+    'giving the Trades an hour needs an hour, and inventing a gate would be inventing content');
+  ok('C12d an unanswered condition never blocks: only an explicit false does',
+    !!B.actFor(B.RULES.CHURCH, {}) && !!B.actFor(B.RULES.REMNANTS, {}),
+    'undefined means the surface could not answer, and a refusal for a gap in the world is a lie');
+
   /* ONE WRITER. The world bridge and the card both move this number, and the
      three spellings of a faction have already bitten this codebase three times.
      Both callers must land on the SAME key or the ladder splits in two. */
@@ -348,6 +367,55 @@ async function partD() {
     ok('D11 the button is gone until tomorrow, and the card says so',
       loop.second === false && /COME BACK TOMORROW/.test(loop.whole),
       'button ' + loop.second + ' | ' + loop.whole.split('\n').pop());
+
+    /* THE PRECONDITIONS, ON THE REAL SURFACE. Their base is a real district the
+       world placed, and the cells-you-have-stood-in are real. */
+    const pre = await page.evaluate(() => {
+      const a = (SIM && SIM.agents || [])[0];
+      const orig = window.factionForPerson;
+      if (CTX && CTX.save && CTX.save.meta) {
+        CTX.save.meta.gave = {}; CTX.save.meta.gaveDay = {}; CTX.save.meta.told = {};
+      }
+      const out = {};
+      /* find an outfit whose ground is FAR from where we opened, and one near */
+      const grounds = {};
+      Object.keys(CTX.factionBases || {}).forEach(k => { grounds[k] = theirGround(k); });
+      const far = Object.keys(grounds).filter(k => grounds[k] && !grounds[k].on)[0];
+      const near = Object.keys(grounds).filter(k => grounds[k] && grounds[k].on)[0];
+      out.far = far; out.near = near;
+      out.farDist = far ? grounds[far].dist : null;
+      /* PRESENCE, far away: no button, and the card points at their ground */
+      if (far) {
+        window.factionForPerson = function () { return 'CHURCH'; };
+        const realGround = theirGround;
+        window.theirGround = function () { return grounds[far]; };
+        openPerson(a);
+        out.farBtn = !!document.getElementById('pplgive');
+        out.farCard = (document.getElementById('bargain') || {}).innerText || '';
+        window.theirGround = realGround;
+      }
+      /* INFORMATION: tell them, then it is spent until you go somewhere new */
+      window.factionForPerson = function () { return 'REMNANTS'; };
+      openPerson(a);
+      out.tellBtn = !!document.getElementById('pplgive');
+      const g = document.getElementById('pplgive'); if (g) g.click();
+      openPerson(a);
+      out.afterTell = !!document.getElementById('pplgive');
+      out.told = toldCount('REMNANTS'); out.seen = seenCount();
+      window.factionForPerson = orig;
+      return out;
+    });
+    ok('D13 the world really places some outfits within reach and some far off',
+      !!pre.far && pre.farDist > 12, JSON.stringify({ far: pre.far, d: pre.farDist }));
+    ok('D14 you cannot show up for an outfit whose ground you are nowhere near',
+      pre.farBtn === false && /NOT ON THEIR GROUND/.test(pre.farCard),
+      JSON.stringify(pre.farCard.split('\n').slice(-3)));
+    ok('D15 and the card says WHICH WAY to walk, rather than making him hunt',
+      /THEIR GROUND/.test(pre.farCard) && /CELLS (NORTH|SOUTH|EAST|WEST)/.test(pre.farCard),
+      JSON.stringify(pre.farCard.split('\n').slice(-2)));
+    ok('D16 telling them what you saw spends it until you have been somewhere new',
+      pre.tellBtn === true && pre.afterTell === false && pre.told === pre.seen,
+      JSON.stringify({ told: pre.told, seen: pre.seen }));
 
     /* NO NEW PRICE WAS INVENTED. TIME IS SPENT BY ACTIONS (7/26) makes the
        action-cost table canon and forbids a lane writing one. The act reuses the

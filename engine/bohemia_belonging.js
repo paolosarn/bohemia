@@ -370,21 +370,49 @@
          returning is where the obligation -- and therefore the relationship --
          actually lives. So this is not an anti-grind dial bolted on; the wait IS
          the mechanic. You cannot buy your way inside in one afternoon. */
+  /* THE ACT NEEDS A REASON, and two of the five have one the world can actually
+     check. It shipped without them and that was a hollow button: "Tell them what
+     you have seen" worked whether or not you had seen anything, anywhere, ever.
+     A button you can press from anywhere with nothing behind it is the same lie
+     as a button that does nothing, in a better coat.
+
+       presence     you have to be ON THEIR GROUND. Their base is a real place on
+                    the real map and the world already declares how far its pull
+                    carries (bohemia_agents REACH_CELLS). No new number: if he
+                    retunes that dial, this follows it.
+       information  you have to HAVE SOMETHING TO TELL -- somewhere you have stood
+                    that you have not reported to them yet. You have to go and
+                    look, and come back.
+
+     The other three need nothing but the hour, and inventing a gate for them
+     would be inventing content. Giving the Trades an hour of your labour requires
+     an hour of your labour and that is the whole of it. */
+  function blockedBy(rule, st){
+    rule=rule||DEFAULT; st=st||{};
+    if(rule.wants==='presence'   && st.onTheirGround===false) return 'ground';
+    if(rule.wants==='information'&& st.somethingToTell===false) return 'nothing-new';
+    return '';
+  }
   function actFor(rule, st){
     rule=rule||DEFAULT; st=st||{};
     if(!rule.wants) return null;
     var label=ACTS[rule.wants];
     if(!label) return null;
     if(st.gaveToday) return null;
+    if(blockedBy(rule, st)) return null;
     return { label:label, kind:rule.wants };
   }
-  /* WHY THERE IS NO BUTTON, in words, so a surface never has to guess. */
+  /* WHY THERE IS NO BUTTON, in words, so a surface never has to guess and the
+     player is never staring at a blank. */
   function noActBecause(rule, st){
     rule=rule||DEFAULT; st=st||{};
     if(!rule.wants) return '';
     if(rule.wants==='nothing') return 'THERE IS NOTHING TO DO. IT MAKES NO OFFER.';
     if(!ACTS[rule.wants]) return 'NOTHING TO PRESS. THEY ARE STILL DECIDING WHAT YOU ARE.';
     if(st.gaveToday) return 'YOU ALREADY DID TODAY. COME BACK TOMORROW.';
+    var b=blockedBy(rule, st);
+    if(b==='ground') return 'NOT ON THEIR GROUND. GO TO THEM.';
+    if(b==='nothing-new') return 'YOU HAVE NOTHING NEW TO TELL THEM. GO AND LOOK.';
     return '';
   }
 
@@ -428,6 +456,7 @@
             WANT_WORDS:WANT_WORDS, ACTS:ACTS,
             ruleOf:ruleOf, rungOf:rungOf, nextRung:nextRung, bargain:bargain,
             lineFor:lineFor, actFor:actFor, noActBecause:noActBecause,
+            blockedBy:blockedBy,
             gaveOf:gaveOf, gaveDayOf:gaveDayOf, record:record,
             keys:function(){ return Object.keys(RULES); } };
   if(HASREQ) module.exports=API; else root.BohemiaBelonging=API;

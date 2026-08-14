@@ -2257,6 +2257,64 @@ SURFACE, and a symptom that survives content changes is a PIPELINE bug.
 
 --------------------------------------------------------------------------------
 
+FACTIONS (factions-ovkjpf): 8/14 (a) LATEST — *** THE BUTTON WORKED FROM ANYWHERE WITH
+NOTHING BEHIND IT. NOW YOU HAVE TO GO TO THEM, AND YOU HAVE TO HAVE SOMETHING TO SAY. ***
+Nothing to judge.
+
+Yesterday I shipped the act: a button on somebody's card that does the thing their outfit
+actually wants. It had ONE constraint - once a day. Which meant "TELL THEM WHAT YOU HAVE SEEN"
+worked whether or not you had seen anything, anywhere, ever, and "SHOW UP FOR THEM" worked from
+the other side of the valley. *** A BUTTON YOU CAN PRESS FROM ANYWHERE WITH NOTHING BEHIND IT IS
+THE SAME LIE AS A BUTTON THAT DOES NOTHING. *** I flagged it myself in yesterday's handoff and
+this is it fixed.
+
+TWO OF THE FIVE KINDS NOW HAVE A CONDITION THE WORLD CAN GENUINELY CHECK:
+- PRESENCE (Church, Blues, Anarchists): you have to be ON THEIR GROUND. Their base is a real
+  district the world placed, and bohemia_agents already declares how far a base's pull carries.
+  *** NO NEW DIAL WAS MINTED *** - that number is [PENDING Paolo] on that module and if he
+  retunes it this follows. Measured on the demo block: the Church is 4 cells away and the
+  Remnants are 85, so it is a real constraint and not a formality.
+- INFORMATION (Remnants, Homeless, Caravans): you have to have SOMEWHERE YOU HAVE STOOD that
+  they have not heard about. Telling them SPENDS it. You have to go and look, and come back.
+
+The other three need nothing but the hour, and inventing a gate for them would be inventing
+content: giving the Trades an hour of your labour requires an hour of your labour and that is
+the whole of it.
+
+*** WHEN YOU ARE NOT ON THEIR GROUND THE CARD SAYS WHICH WAY TO WALK AND HOW FAR. *** "Go to
+them" with no direction is the hunting he banned on 8/11. It reads THEIR GROUND / 85 CELLS SOUTH,
+off the real base coordinates the world placed.
+
+AN UNANSWERED CONDITION NEVER BLOCKS. Only an explicit false does. Refusing because the world has
+no base placed for an outfit is refusing for a gap in the world rather than a fact about the
+player, and that is a lie with extra steps.
+
+NEW WORLD STATE, both tiny and both riding meta so no save migration was needed: meta.seen (the
+cells you have actually stood in) and meta.told (how much you had seen the last time you reported
+to each outfit).
+
+GATE: gates/belonging_gate.js 50 -> 58 claims, 0 failed. The preconditions are driven on the REAL
+surface: find an outfit whose ground is genuinely far, confirm there is no button and the card
+points the way; tell the Remnants what you saw and confirm it is spent until you go somewhere new.
+
+THE STACK IS NOW FIVE DEEP AND NEEDS NO QUEST: walk up to somebody -> learn their name the way
+their outfit does it -> find out who they run with -> read what that outfit wants -> GO TO THEIR
+GROUND OR GO AND LOOK AT SOMETHING -> do it -> watch the rung move.
+
+WHERE HE LOOKS: *** LIFE TAB -> WHAT THEY WANT FROM YOU. *** Every YOU CAN row now names its
+condition.
+
+WHAT COMES AFTER: the acts are still all worth exactly one step. A faction should care MORE about
+the thing it is desperate for than about a routine favour, and the dossiers already say which is
+which (the Homeless value warning "more than food"). That is the next honest brick, and it is
+reading his canon again rather than inventing a weight table.
+
+STILL [PENDING PAOLO], unchanged: REACH_CELLS 12 and AFFILIATED_RATE 0.30; whether all 14
+factions are available at the door; what "faction neighbourhood housing" is architecturally; the
+Mob dossier's open question about the Cartel and the guarantor seat.
+
+--------------------------------------------------------------------------------
+
 FACTIONS (factions-ovkjpf): 8/13 (a) LATEST — *** THE BARGAIN WAS LEGIBLE AND YOU COULD
 NOT ACT ON IT. NOW YOU CAN. *** Nothing to judge.
 
