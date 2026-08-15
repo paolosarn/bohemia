@@ -27,17 +27,19 @@ console.log('STREET FACING GATE — a street faces the way it actually runs');
 ok('the page decides a street tile\'s facing at all', /function heroFlip\(/.test(code));
 const fn = code.slice(code.indexOf('function heroFlip'), code.indexOf('function heroFlip') + 900);
 
-ok('the facing is READ off the neighbour mask the cell already computes, never guessed',
-   /m\.N/.test(fn) && /m\.S/.test(fn) && /m\.E/.test(fn) && /m\.W/.test(fn),
-   'the direction is free: tileMeta has computed it on every road cell for months');
-ok('a north-south run and an east-west run are told apart', /ns\s*>\s*ew/.test(fn));
-ok('a JUNCTION is never flipped — a crossroads is symmetric',
-   /ns>=1&&ew>=1\)\s*return false/.test(fn.replace(/\s/g, '').replace(/(.)/g, '$1')) ||
-   /return false;\s*\/\/ a junction/.test(fn) || /ns>=1&&ew>=1/.test(fn.replace(/\s/g, '')),
-   'flipping the dedicated intersection tile only shuffles its own corners');
-ok('only ROADS are ever turned — a building is never mirrored',
-   /RD\[d\]/.test(fn) && /return false/.test(fn),
-   'mirroring a hero would flip its doors, its signage and its street frontage');
+/* THESE THREE WERE WRITTEN FOR THE NEIGHBOUR-MASK VERSION AND ARE NOW UPDATED,
+   NOT DELETED. Paolo caught that the mask version excluded the whole freeway, so
+   the rule changed from "count my neighbours" to "measure how far the road
+   actually runs". The checks have to follow the RULING (a street faces the way
+   it runs), never the first implementation of it. */
+ok('the facing is DERIVED from the map, never guessed from a district name',
+   /roadAxis\(d,x,y\)/.test(fn),
+   'the direction is free: the map already knows which cells are road');
+ok('a north-south run and an east-west run are told apart',
+   /ax==='ns'/.test(fn) && /'ew'/.test(code));
+ok('a true crossing is never flipped — it is symmetric',
+   /if\(!ax\) return false/.test(fn),
+   'flipping a dedicated intersection tile only shuffles its own corners');
 
 /* THE TRANSFORM ITSELF ----------------------------------------------------- */
 {
@@ -50,6 +52,39 @@ ok('only ROADS are ever turned — a building is never mirrored',
   ok('the flip is passed in from the call site, not recomputed inside the draw',
      /drawHero\(d,p,heroFlip\(d,x,y\)\)/.test(code),
      'one ruler: the mask is read once per cell');
+}
+
+/* ---- THE FREEWAY: A TWO-WIDE RIBBON, AND WHAT IT DOES AT A STREET (8/15) --
+   Paolo caught that the first pass did nothing for the freeway. He was right and
+   the reason was structural: a freeway is TWO CELLS WIDE, so every cell always
+   has a partner beside it AND a continuation ahead, and a neighbour-count test
+   calls that a junction. Measured on the shipped seed: 968 freeway cells, 942
+   classified as junctions, zero turned. Run length fixes it: 461 north-south,
+   487 east-west, 20 genuine crossings. */
+{
+  ok('direction is measured by RUN LENGTH, not by counting neighbours',
+     /function roadRun\(/.test(code) && /function roadAxis\(/.test(code),
+     'a two-wide ribbon always has a lateral neighbour, so neighbour-count calls the whole freeway a junction and excludes it from its own fix');
+  ok('the run walk stays inside the road FAMILY, so a freeway is not continued by a side street',
+     /fam&&!fam\(t\.district\)/.test(code));
+  ok('the two halves of a wide road are told apart, so the pair works together',
+     /function ribbonHalf\(/.test(code),
+     'without this the same tile prints twice and the ribbon has two near shoulders and no far one');
+  ok('the halves are flipped against each other', /ribbonHalf\(d,x,y,ax\)/.test(code));
+
+  ok('a freeway meeting a street is GRADE SEPARATED, not painted flat over it',
+     /function overpassAt\(/.test(code));
+  ok('the FREEWAY carries the deck (in this valley the freeway is the thing on structure)',
+     /return 1;\s*$|return 1;/m.test(code) && /_op===1/.test(code));
+  ok('the cross street DIPS on its way in, as he asked',
+     /_op===2/.test(code) && /_lift=-/.test(code),
+     'lifting one road without sinking the other reads as two roads painted on top of each other');
+  ok('the deck throws a shadow onto what it crosses',
+     /globalAlpha\*=0\.42/.test(code),
+     'height on screen alone does not say OVER; the shadow is what says it');
+  ok('there is GROUND under the bridge, drawn before the deck is lifted',
+     /dia\(p,'#6a655c'\)/.test(code),
+     'a lifted deck with nothing painted under it punches through to the background');
 }
 
 console.log('\nSTREET FACING GATE: ' + pass + ' passed, ' + fail + ' failed');
