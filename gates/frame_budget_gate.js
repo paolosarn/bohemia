@@ -30,14 +30,29 @@
  * on a known number would be switched off by the next session that hit it; a gate pinned at
  * the truth catches the day somebody makes it worse, which has already happened once today.
  *
- * AND THE FIX IS NOT IN YET, ON PURPOSE. One was attempted and REVERTED the same hour: a
- * capture-phase coalescer that muted render during the gesture and painted once per frame.
- * Measured, it made things worse (3.08 per move), and instrumenting it showed why -- the
- * listener fired 24 times and muted 24 times, but ITS STUB WAS NEVER CALLED ONCE. The page's
- * internal render() calls do not resolve through window.render, so the interception cannot
- * work from outside. That is written down here so the next attempt starts from the finding
- * instead of rediscovering it: the coalescing has to live INSIDE the page's own render path,
- * not wrapped around it.
+ * THE FIX TOOK TWO ATTEMPTS AND THE FIRST ONE IS WHY THE SECOND WORKED. Attempt one wrapped
+ * the page from OUTSIDE: a capture-phase listener swapping window.render for a queueing stub.
+ * Measured, it made things WORSE (3.08 per move), and instrumenting it was flat -- the
+ * listener fired 24 times, muted 24 times, and ITS STUB WAS CALLED ZERO TIMES. The page's
+ * internal render() calls do not resolve through window.render, so no paint can be
+ * intercepted from outside. Attempt two put one helper INSIDE the page's own scope and
+ * changed ONE call site: 2.08 -> 1.08 redraws per touch move, nearly halved.
+ *
+ * A PERF RATCHET INVITES EXACTLY ONE KIND OF CHEATING: winning the number by painting less
+ * than the game needs. So the budget is not asserted alone -- the zoom must still land on a
+ * pixel-true stop and pinching out must still cross the seam into the city builder, both on
+ * the same real gesture.
+ *
+ * AND HERE IS WHAT THIS GATE STILL CANNOT CATCH, written down rather than papered over,
+ * because a checker that claims teeth it does not have is the thing I spent today removing:
+ * throttling the ZOOM's paint away entirely, while the rest of the app keeps drawing, is NOT
+ * detected. Mutation-tested and confirmed green. Two attempts failed to catch it -- the
+ * state assertions pass because HZOOM is still assigned by the caller, and a canvas
+ * fingerprint passes because the day loop repaints anyway, so neither can isolate one
+ * gesture's paint on a page with a live render loop. The honest boundary: THIS GATE CATCHES
+ * REGRESSIONS THAT MAKE PAINTING MORE EXPENSIVE (mutation: revert the coalescer -> 2.08, it
+ * bites), NOT ONES THAT SILENTLY MAKE THE ZOOM STOP DRAWING. Catching that needs a paint
+ * counter inside render() itself, attributable to a cause. Whoever adds one, start here.
  *
  *   node gates/frame_budget_gate.js
  */
@@ -52,7 +67,7 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
 /* THE RATCHET: measured on this build, 8/15. LOWER IS THE ONLY LEGAL DIRECTION. */
 const BUDGET = {
-  humanPinch: 2.2   // measured 2.08. The headroom is noise, not permission.
+  humanPinch: 1.2   // measured 1.08 after the coalescer. Was 2.2 (2.08 measured) before it.
 };
 
 function requirePlaywright() {
@@ -121,6 +136,65 @@ function requirePlaywright() {
        BUDGET.humanPinch + ' redraws per touch move). THE RATCHET ONLY EVER COMES DOWN -- ' +
        'the day somebody makes this worse, this line is how it is found',
        m.per <= BUDGET.humanPinch);
+
+    /* CORRECTNESS ON THE SAME GESTURE, so the budget above can never be won by painting
+       less than the game needs. */
+    {
+      await p.evaluate(() => { try { cardHide(); } catch (e) {} });
+      const start = await p.evaluate(() => ({ mode: MODE, z: HZOOM }));
+      await touch('touchStart', [{ x: 170, y: 400, id: 1 }, { x: 230, y: 400, id: 2 }]);
+      for (let i = 1; i <= 14; i++) {
+        await touch('touchMove', [{ x: 170 - i * 8, y: 400, id: 1 },
+                                  { x: 230 + i * 8, y: 400, id: 2 }]);
+      }
+      await touch('touchEnd', []);
+      await p.waitForTimeout(250);
+      const zin = await p.evaluate(() => ({ z: HZOOM, onStop: HLEVELS.indexOf(HZOOM) >= 0 }));
+      ok('the zoom still LANDS ON A PIXEL-TRUE STOP after coalescing the paint (' + start.z +
+         ' -> ' + zin.z + ') -- fewer redraws must never mean a softer zoom', zin.onStop);
+
+      let crossed = false;
+      for (let pass = 0; pass < 6 && !crossed; pass++) {
+        await touch('touchStart', [{ x: 100, y: 400, id: 1 }, { x: 300, y: 400, id: 2 }]);
+        for (let i = 1; i <= 14; i++) {
+          await touch('touchMove', [{ x: 100 + i * 7, y: 400, id: 1 },
+                                    { x: 300 - i * 7, y: 400, id: 2 }]);
+        }
+        await touch('touchEnd', []);
+        await p.waitForTimeout(150);
+        crossed = await p.evaluate(() => MODE === 'city');
+      }
+      ok('and pinching out still CROSSES THE SEAM into the city builder, which is his 8/2 ' +
+         'ruling and the thing a paint-throttle could most easily break', crossed);
+
+      /* AND THE SCREEN MUST ACTUALLY CHANGE. The two assertions above read STATE, and a
+         mutation proved that is not enough: throttling every paint away leaves HZOOM
+         landing on its stop and the seam crossing perfectly while the canvas sits FROZEN.
+         Both checks stayed green on a build that painted nothing. So the last word belongs
+         to the pixels -- fingerprint the canvas before and after a real gesture and demand
+         it moved. A perf budget with no pixel check is an invitation to win it by drawing
+         nothing at all. */
+      const shot = () => p.evaluate(() => {
+        const c = document.querySelector('canvas');
+        const g = c.getContext('2d');
+        const d = g.getImageData(0, 0, Math.min(c.width, 160), Math.min(c.height, 160)).data;
+        let h = 0;
+        for (let i = 0; i < d.length; i += 97) { h = (h * 31 + d[i]) >>> 0; }
+        return h;
+      });
+      await p.evaluate(() => { if (MODE !== 'human' && typeof swapMode === 'function') swapMode(); });
+      await p.waitForTimeout(600);
+      const before = await shot();
+      await touch('touchStart', [{ x: 170, y: 400, id: 1 }, { x: 230, y: 400, id: 2 }]);
+      for (let i = 1; i <= 14; i++) {
+        await touch('touchMove', [{ x: 170 - i * 8, y: 400, id: 1 },
+                                  { x: 230 + i * 8, y: 400, id: 2 }]);
+      }
+      await touch('touchEnd', []);
+      await p.waitForTimeout(400);
+      const after = await shot();
+      ok('the canvas is not frozen -- it still repaints across a gesture', before !== after);
+    }
 
     ok('and nothing throws while it is measured',
        errs.length === 0 || (console.log('  (errors: ' + errs.slice(0, 2).join(' | ') + ')'), false));

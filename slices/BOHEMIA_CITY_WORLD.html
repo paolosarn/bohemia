@@ -207,6 +207,7 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
 
 
 
+
 #daycardIn .mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;
   padding:9px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
   border:1px solid var(--line)}
@@ -6921,6 +6922,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE WORLD YOU STAND IN ==== */
+
+
 
 
 
@@ -15828,6 +15831,37 @@ let HZOOM=44; // player-chosen human zoom, SNAPPED to pixel-true levels
 // fractional art scaling at any stop.
 const HLEVELS=[11,22,44,88];
 let _zacc=44;
+/* ==== ONE PAINT PER FRAME WHILE HE PINCHES ==== */
+/* __FRAME_BUDGET__ -- renderSoon(): one paint per frame while two fingers are down.
+   MEASURED, NOT GUESSED (gates/frame_budget_gate.js): pinch-zoom WHILE WALKING cost 2.08
+   full redraws per touch move at ~23 ms each -- about 49 ms per finger movement, three
+   frames at 60 Hz, in the most common gesture in the game.
+   IT LIVES HERE, IN THE PAGE'S OWN SCOPE, BECAUSE THE FIRST ATTEMPT LIVED OUTSIDE AND DID
+   NOTHING: a capture-phase listener swapped window.render for a stub, fired 24 times, muted
+   24 times, and its stub was called ZERO times. The page's internal render() calls do not
+   resolve through window.render. A paint can only be coalesced from inside the paint path.
+   IT THROTTLES PAINTING, NEVER THE SIMULATION. HZOOM and HC are still assigned on every
+   event by the caller, so the zoom lands on the same pixel-true stop and the mode seam is
+   untouched -- only the number of paints on the way there changes. A dropped paint is a
+   frame the eye never needed; a dropped step would be the game lying. */
+var _fbFingers = 0, _fbQueued = false;
+window.addEventListener('pointerdown', function(){ _fbFingers++; }, true);
+window.addEventListener('pointerup', function(){ _fbFingers = Math.max(0, _fbFingers - 1); }, true);
+window.addEventListener('pointercancel', function(){ _fbFingers = Math.max(0, _fbFingers - 1); }, true);
+
+function renderSoon(){
+  /* ONE FINGER IS NOT THE PROBLEM. A drag already paints once per event, which is correct;
+     the doubling is purely a two-finger artefact, so single-touch behaviour is left exactly
+     as it was rather than quietly changing something that was never measured. */
+  if(_fbFingers < 2){ render(); return; }
+  if(_fbQueued) return;
+  _fbQueued = true;
+  requestAnimationFrame(function(){
+    _fbQueued = false;
+    try{ render(); }catch(_e){}
+  });
+}
+/* ==== end ONE PAINT PER FRAME ==== */
 function setHZoom(z){
   /* __ZOOM_SEAM__ (Paolo 8/2: "i should be able to ZOOM OUT UNTIL I GET INTO
      THE CITY BUILDER MODE BRO"). The clamp on the next line used to eat the
@@ -15844,7 +15878,7 @@ function setHZoom(z){
   _zacc=Math.max(HLEVELS[0],Math.min(HLEVELS[HLEVELS.length-1],z));
   let best=HLEVELS[0],bd=1e9;
   for(const L of HLEVELS){ const d=Math.abs(Math.log(_zacc/L)); if(d<bd){bd=d;best=L;} }
-  HZOOM=best; if(!transing)HC=HZOOM; render(); if(typeof reportState==='function')reportState();
+  HZOOM=best; if(!transing)HC=HZOOM; renderSoon(); if(typeof reportState==='function')reportState();
 }
 // ---- TEXTURE TILE FACTORY (7/6/26, Paolo's direction: texture and love,
 // pixel density at character grade, no flat cells). FACTORY LAW shape:
@@ -18505,6 +18539,7 @@ function skyExit(){ if(!SKY)return; SKY=false; SKYU=0; window.__SKY_EXIT=(window
   window.addEventListener('pointercancel', onUp, true);
 })();
 /* ==== end THE MOON ZOOM ON HIS PHONE ==== */
+
 
 /* one step of the same gesture that got him here. OUT raises SKYU; IN lowers it,
    and at 0 it hands back to the city builder, which hands back to his feet. */
@@ -21308,6 +21343,7 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 document.getElementById('mktbtn').addEventListener('click',function(){
   if(!mktAt())return; MKT_LAST=null; showMarket();
 });
+
 
 
 

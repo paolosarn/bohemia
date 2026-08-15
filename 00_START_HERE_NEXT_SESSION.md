@@ -8873,7 +8873,40 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 (g) LATEST -- *** THE REPO HAD NO PERF GAUGE AT ALL, AND THE
+WORLD (world-9lfjtf): 8/15 (h) LATEST -- *** THE ZOOM HITCH IS FIXED: HALF THE PAINTING
+PER FINGER MOVEMENT WHILE HE WALKS. *** Gate: frame_budget_gate.js 7/0 (FRAME BUDGET).
+Tool: tools/bohemia_city_frame_budget_patch.py
+
+TAB: CITY / RUN, the walked view. Nothing new to look at; it is the same gesture costing
+half as much.
+
+    BEFORE : 2.08 full redraws per touch move   (~49 ms per finger movement, 3 frames)
+    AFTER  : 1.08 full redraws per touch move
+
+THE FIRST ATTEMPT IS WHY THE SECOND WORKED, and this is the reusable finding: wrapping the
+page from OUTSIDE does nothing. A capture-phase listener swapped window.render for a stub;
+it fired 24 times, muted 24 times, and ITS STUB WAS CALLED ZERO TIMES. The page's internal
+render() calls do not resolve through window.render. A PAINT CAN ONLY BE COALESCED FROM
+INSIDE THE PAINT PATH. Attempt two: one helper (renderSoon) in the page's own scope, ONE
+call site changed in setHZoom. Nearly halved.
+BEHAVIOUR IS UNTOUCHED AND ASSERTED: the zoom still lands on a pixel-true stop (44 -> 88)
+and pinching out still crosses the seam into the city builder (his 8/2 ruling). HZOOM and
+HC are still assigned on every event; only the number of PAINTS changed. It throttles
+painting, never the simulation.
+
+*** AND THE GATE'S BLIND SPOT IS WRITTEN INTO THE GATE, not hidden. *** A perf ratchet is
+trivially won by drawing less than the game needs, so I tried to block that and FAILED
+TWICE, both confirmed by mutation:
+  - state assertions pass, because HZOOM is still assigned by the caller
+  - a canvas fingerprint passes, because the day loop repaints anyway
+Neither can isolate ONE gesture's paint on a page with a live render loop. So the header
+now states the honest boundary: THIS GATE CATCHES REGRESSIONS THAT MAKE PAINTING MORE
+EXPENSIVE (revert the coalescer -> 2.08, it bites), NOT ONES THAT MAKE THE ZOOM STOP
+DRAWING. Catching that needs a paint counter inside render() itself, attributable to a
+cause. I nearly shipped the anti-cheat as if it worked, which would have been the same
+false-coverage lie I spent the rest of the day deleting.
+
+WORLD (world-9lfjtf): 8/15 (g) -- *** THE REPO HAD NO PERF GAUGE AT ALL, AND THE
 FIRST ONE FOUND A HITCH IN THE MOST COMMON GESTURE IN THE GAME. ***
 Gate: frame_budget_gate.js 4/0 (FRAME BUDGET).
 

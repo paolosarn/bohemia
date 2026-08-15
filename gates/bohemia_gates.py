@@ -746,10 +746,18 @@ GATES = [
      'gesture in the game. setHZoom ends in render() and a two-finger pinch dispatches TWO '
      'pointermove events per visual step. Ratcheted at the MEASURED truth rather than a wish, '
      'because a gate red on a known number gets switched off. The fix is deliberately NOT in '
-     'yet: one was attempted and reverted the same hour after measuring WORSE (3.08), and the '
-     'gate header records why -- the page\'s internal render() calls do not resolve through '
-     'window.render, so it cannot be intercepted from outside. Mutation: doubling the zoom '
-     'redraw takes it to 4.08 and the ratchet bites', False),
+     'THE FIX TOOK TWO ATTEMPTS AND THE FIRST IS WHY THE SECOND WORKED: wrapping the page from '
+     'OUTSIDE measured WORSE (3.08), and instrumenting it was flat -- the listener fired 24 '
+     'times, muted 24 times, and its stub was called ZERO times, because the page\'s internal '
+     'render() calls do not resolve through window.render. A paint can only be coalesced from '
+     'INSIDE the paint path. One helper in the page\'s own scope and ONE call site changed: '
+     '2.08 -> 1.08, nearly halved, with the zoom still landing on a pixel-true stop and the '
+     'mode seam still crossing (both asserted, because a perf ratchet is trivially won by '
+     'breaking the feature). AND ITS OWN BLIND SPOT IS WRITTEN INTO THE HEADER rather than '
+     'papered over: throttling the zoom\'s paint away entirely is NOT detected -- confirmed by '
+     'mutation, twice -- because state assertions pass (HZOOM is still assigned) and a canvas '
+     'fingerprint passes (the day loop repaints anyway). It catches regressions that make '
+     'painting MORE expensive, not ones that make it stop', False),
     ('SKY TOUCH',      ['node', 'gates/sky_touch_gate.js'],
      'PAOLO\'S P0, 8/13, HIS OWN PHONE: "the zoom out didn\'t work, once I started to leave '
      'the city it kind of crashed." THE WHEEL PATH WORKED THE WHOLE TIME, which is the entire '
