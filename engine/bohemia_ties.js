@@ -84,11 +84,34 @@
   function fociOf(agent, cell) {
     if (!agent) return {};
     var f = {};
+    /* WHO SHARES YOUR ROOF. Prefer the seat the world DECLARES (home.building)
+       and only fall back to parsing the id when there isn't one.
+       WHY THE PREFERENCE, added 8/15: parsing the id was never wrong, it was
+       INCOMPLETE. bohemia_agents builds id 'H<houseI+1>-<n+1>' beside
+       home:{building:houseI}, so on the run's roster the two agree exactly and
+       this changes nothing. On the CITY's roster they do not: its adapter mints
+       a unique id per person, so every resident parsed out as the sole occupant
+       of their own house and the home focus was empty on the surface he
+       actually walks. The declared seat is the fact; the id is a spelling of
+       it. Read the fact. */
     var id = String(agent.id || '');
-    var house = id.indexOf('-') > 0 ? id.slice(0, id.indexOf('-')) : null;
+    var house = (agent.home && agent.home.building != null)
+      ? 'B' + agent.home.building
+      : (id.indexOf('-') > 0 ? id.slice(0, id.indexOf('-')) : null);
     if (house) f.home = 'H:' + (cell ? cell[0] + ',' + cell[1] + ':' : '') + house;
     var j = agent.job;
-    if (j && j.kind === 'site' && j.dir && j.dist) f.work = 'W:' + j.district + ':' + j.dir + j.dist;
+    /* WHERE THEY WORK. Prefer a DECLARED site, same reason as the roof above:
+       district+dir+dist is a SPELLING of a workplace relative to the worker, and
+       two people who walk to the same building from opposite sides spell it
+       differently. On the run's roster the spelling is fine — those agents share
+       a block, so the same jobSite gives the same three fields and they match.
+       On the city's it is not: every person's bearing is relative to their own
+       neighbourhood, so 27 affiliated people produced 26 different workplaces
+       and almost nobody could know anybody. A surface that can resolve the
+       bearing into an actual place says so with j.site, and then the place is
+       the key. Measured before and after; nothing here is generated. */
+    if (j && j.kind === 'site' && j.site) f.work = 'W:' + j.site;
+    else if (j && j.kind === 'site' && j.dir && j.dist) f.work = 'W:' + j.district + ':' + j.dir + j.dist;
     /* a scavenger works alone by definition (bohemia_agents: kind 'scav' has no
        site), so scavenging is NOT a focus. Two people who both scavenge have not
        met; they are both out there on their own. */

@@ -2190,8 +2190,25 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    CEILING (makeCeiling): faction standing gets a WALL you cannot grind through.
    You reach it by doing jobs and you only pass it by COMMITTING (taking a side,
    burning a bridge), and neglect gets more expensive the deeper in you are.
-   [PENDING Paolo] THE NUMBERS: how many favours per week, where each faction wall
-   sits, what commitment moves it, what neglect costs per rung. Do not invent them.
+   *** CEILING HALF SHIPPED 8/15 (FACTIONS lane) -- engine/bohemia_standing.js,
+   gates/standing_gate.js (47), law BOHEMIA_ADDENDUM_THE_WALL_AND_WHO_FINDS_OUT_
+   8_15_26.md, live on the CITY person card, page in the LIFE tab. It CALLS
+   makeCeiling rather than rebuilding it; the gate proves that by deleting the
+   dependency and demanding a refusal. THE RATION HALF IS STILL UNADOPTED. ***
+   HOW THE [PENDING] WAS ANSWERED WITHOUT INVENTING ANYTHING, split into its four
+   parts because as one blob it read as "build nothing":
+     - the faction states       his own approved sentence names two acts ("taking
+                                a side, burning a bridge") -> three states. A
+                                shape, never a number.
+     - where each wall sits     DERIVED from the shipped gated RUNGS: each
+                                commitment buys exactly one more rung. Not one
+                                number typed; change the ladder and they follow.
+     - what commitment moves it his words again, same sentence.
+     - what neglect costs       the ONLY real number, and EVERYTHING COSTS ONE
+                                (8/15, newer than this 7/26 pending, newest date
+                                wins) answers it: 1 per stage, tagged placeholder,
+                                enumerable via BohemiaStanding.placeholders().
+   [PENDING Paolo] STILL UNTOUCHED: how many favours per week (the RATION half).
 
 ## CITY
 P0-SKY. [FIXED 8/15, gate SKY TOUCH (sky_touch_gate.js 9/0). Measured on a real touch

@@ -19873,11 +19873,755 @@ function ctEveryone(){
 function ctAgent(p){
   var parts=String(p.id).split(':');
   var h=(parseInt(parts[parts.length-1],10)||0)+1;
+  /* __CITY_STANDING__ -- WHERE THEY WORK WAS BEING THROWN AWAY. personFields has
+     carried workDir + workDist on every person since the 7/31 address book
+     ("a bearing and a distance, not a district name ... naming the workplace is
+     the surface's job"). This adapter marked all of them lone scavengers, which
+     deleted a declared fact and cost two things at once: bohemia_ties lost its
+     WORK focus, and bohemia_agents.factionOf lost its second origin -- the 8/11
+     ruling that you run with whoever your LIVING depends on, not just whoever
+     is nearest your bed.
+     NOTHING IS INVENTED HERE. These are the record's own fields, handed over in
+     the shape both modules already read. A person with no bearing stays a
+     scavenger, which is the honest answer and not a gap. */
+  /* AND THE BEARING IS RESOLVED INTO A PLACE. personFields says it outright --
+     "naming the workplace is the surface's job because only the surface knows
+     what is actually there" -- so this surface does it. Their own overmap cell
+     plus the declared bearing IS the workplace, and two people who walk to the
+     same one now share it however far apart they live. Left as a bearing it was
+     relative to each worker, which gave 27 affiliated people 26 different
+     workplaces and a social graph with almost no edges in it. */
+  var CTW={N:[0,-1],E:[1,0],S:[0,1],W:[-1,0],NE:[1,-1],SE:[1,1],SW:[-1,1],NW:[-1,-1]};
+  var site=null;
+  if(p.workDir && p.home){
+    var v=CTW[p.workDir]||[0,0];
+    site=(Math.floor(p.home[0]/FN)+v[0]*p.workDist)+','
+        +(Math.floor(p.home[1]/FN)+v[1]*p.workDist);
+  }
   return { id:'H'+h+'-1', seed:p.scheduleSeed>>>0, role:p.archetype,
-           home:{building:h-1,bedRoom:0}, job:{kind:'scav'}, sched:p.sched };
+           home:{building:(p.home?p.home[0]+','+p.home[1]:h-1), bedRoom:0},
+           job: site
+                  ? {kind:'site', district:(p.nx+':'+p.ny), site:site,
+                     dir:p.workDir, dist:p.workDist}
+                  : {kind:'scav', district:null, dir:null, dist:null},
+           sched:p.sched };
 }
 </script>
 <script>
+/* ==== engine/bohemia_resolve.js ==== */
+/* ============================================================================
+   BOHEMIA — RESOLVE / RATION / CEILING / REACH   (bohemia_resolve.js, 7/26/26)
+
+   THE FIRST PORT OUT OF THE REFERENCE LAB. Paolo, after playing LAB-03:
+   "Did you learn anything. Anything we can throw in the bohemia code right now?"
+
+   Four mechanisms, learned by rebuilding Stardew's fishing, farming and
+   marriage from its own source and then standing them in one walkable world.
+   Read the two records before changing anything here:
+     records/lab/BOHEMIA_LAB_STARDEW_MECHANICS_TEARDOWN_7_26_26.txt
+     records/lab/BOHEMIA_LAB_STARDEW_WORLD_NOTE_7_26_26.md
+   Law: laws/BOHEMIA_ADDENDUM_LAB_PORTS_ON_HIS_WORD_7_26_26.md
+   Gate: gates/resolve_gate.js
+
+   THIS FILE IS MECHANISM ONLY. Every table in it is EMPTY until Paolo rules
+   the contents (MECHANISM-MINE / CONTENTS-PAOLO'S). It declares no action
+   costs, no faction thresholds, no ration limits and no reach number for any
+   real Bohemia system: callers pass those in, and the day a caller wants a
+   default, that default is a ruling and not a line of code I get to write.
+
+   HEADLESS. No DOM, no engine dependency, no clock of its own. Runs in node.
+
+   ----------------------------------------------------------------------------
+   1. RESOLVE — ONE MOMENT, MANY SYSTEMS, ZERO COUPLING
+   AMENDED 7/26 by Paolo, same turn it shipped: "sleep can be hangout or eat too
+   u know". So a MOMENT is ANY BLOCK OF TIME THE PLAYER SPENDS, and sleep is only
+   the biggest one. Law: laws/BOHEMIA_ADDENDUM_THE_MOMENT_IS_ANY_SPENT_BLOCK_7_26_26.md
+   A moment carries a SIZE, a system declares WHICH moments it answers, and the
+   names and sizes are canon and therefore his: this file ships none.
+   ----------------------------------------------------------------------------
+   The finding: in the emulation, fishing, farming and courtship never touch
+   each other. They share exactly ONE thing, the day rollover. Sleep, and the
+   crops advance or stall, the soil dries, her friendship decays if you did not
+   say hello, the wedding counts down, the schedule resets. Three systems, one
+   integration point, and not one of them knows the others exist.
+
+   That is what this registry is. Not an event bus, not a pub/sub graph: an
+   ORDERED LIST OF PURE STEPS run at one named moment. A step gets the context
+   and returns a small report. A step cannot see another step's report, cannot
+   register another step mid-resolve, and cannot reorder itself. If a step
+   throws, the moment still completes and the failure is reported by name,
+   because one bad system must never eat the player's night.
+
+   It lands directly on TIME IS SPENT BY ACTIONS (Paolo 7/26): the biggest
+   chunk of time the player can spend is a night, and it is the one that
+   changes the most.
+
+   ----------------------------------------------------------------------------
+   2. RATION — LIMIT BY COUNT, NEVER BY PRICE
+   ----------------------------------------------------------------------------
+   The finding: Stardew's gifts are capped at one a day and two a week, and
+   birthdays bypass both AND pay 8x. The limit is a COUNT, not a cost. A priced
+   limit stops mattering the moment the player is rich; a rationed one never
+   stops mattering. For a game about clout and favours in a dead city, that is
+   the more useful shape by a mile.
+
+   ----------------------------------------------------------------------------
+   3. CEILING — A CAP THAT ONLY MOVES ON A COMMITMENT
+   ----------------------------------------------------------------------------
+   The finding: Utility.GetMaximumHeartsForCharacter returns EIGHT for a
+   datable villager you are not dating, and the point clamp is
+   (maxHearts + 1) * 250 - 1. So an undated love interest hard-caps at 2249 and
+   no amount of gifting moves it. You cannot grind past a relationship; you have
+   to ACT. Accept the bouquet and the ceiling becomes 10 hearts. Marry and it
+   becomes 14. And neglect gets MORE expensive as you get closer: -2 a stranger,
+   -8 dating, -20 a spouse.
+
+   Progress gates are STATE CHANGES, not point totals. That is the shape our
+   faction standing wants: you reach the wall by doing jobs, and you only get
+   past it by taking a side.
+
+   ----------------------------------------------------------------------------
+   4. REACH — FORGIVENESS IS A NUMBER, AND IT IS SMALL
+   ----------------------------------------------------------------------------
+   The finding: the moment a mechanic lives in a place it needs an answer to
+   "how close is close enough", and three ad-hoc answers is three bugs. One
+   declared number, one facing rule, one predicate. Same lesson as the fishing
+   tolerance (a 28-unit fish in a 96-unit bar) and the corner slip (a nudge of
+   an eighth of your walk speed): the slack is small, explicit, and never zero.
+   ========================================================================== */
+const BOH_RESOLVE = (function () {
+  'use strict';
+
+  /* ==========================================================================
+     1. RESOLVE
+     ========================================================================== */
+
+  /* Order is DECLARED, never inferred from registration order, because
+     registration order is whatever the boot sequence happened to be that day
+     and that is not authority. A step whose phase is not in this list is a
+     build error, not a step that quietly runs last. */
+  const PHASES = ['WORLD', 'PLACES', 'PEOPLE', 'BOOKS', 'FEED'];
+
+  function makeResolver(config) {
+    const steps = [];          /* { name, phase, fn, moments } */
+    let running = false;
+
+    /* THE MOMENTS ARE THE CALLER'S. A night, a hangout, a meal: all the same
+       mechanism at different sizes. This file ships no names and no sizes,
+       because both are canon (Paolo 7/26). Declare none and the resolver accepts
+       any moment name and no step may subscribe to one — that is a legal, and
+       deliberately weaker, way to use it. */
+    const declared = (config && Array.isArray(config.moments)) ? config.moments.map(m => {
+      if (typeof m === 'string') return { name: m, spends: null };
+      if (!m || typeof m.name !== 'string') throw new Error('resolve: a moment needs a name');
+      return { name: m.name, spends: (m.spends !== undefined ? m.spends : null) };
+    }) : null;
+    if (declared && !declared.length) throw new Error('resolve: declare at least one moment, or none at all');
+    const momentNames = declared ? declared.map(m => m.name) : null;
+    function momentDef(name) {
+      if (!declared) return { name: name, spends: null };
+      for (let i = 0; i < declared.length; i++) if (declared[i].name === name) return declared[i];
+      throw new Error('resolve: undeclared moment "' + name + '"');
+    }
+
+    function register(name, phase, fn, opts) {
+      if (typeof name !== 'string' || !name) throw new Error('resolve: a step needs a name');
+      if (PHASES.indexOf(phase) < 0) throw new Error('resolve: unknown phase "' + phase + '" for ' + name);
+      if (typeof fn !== 'function') throw new Error('resolve: ' + name + ' needs a function');
+      if (running) throw new Error('resolve: ' + name + ' tried to register DURING a resolve');
+      if (steps.some(s => s.name === name)) throw new Error('resolve: duplicate step ' + name);
+      let moments = null;
+      if (opts && opts.moments) {
+        if (!declared) throw new Error('resolve: ' + name + ' subscribes to moments but none were declared');
+        moments = [].concat(opts.moments);
+        moments.forEach(m => {
+          if (momentNames.indexOf(m) < 0) throw new Error('resolve: ' + name + ' subscribes to undeclared moment "' + m + '"');
+        });
+      }
+      /* a step that declares nothing answers EVERY moment. That is a real choice
+         and it is the documented default, not an oversight. */
+      steps.push({ name: name, phase: phase, fn: fn, moments: moments });
+      return true;
+    }
+
+    function ordered(moment) {
+      /* stable inside a phase: registration order breaks ties, and that is the
+         only thing registration order is allowed to decide */
+      const out = [];
+      PHASES.forEach(p => steps.forEach(s => {
+        if (s.phase !== p) return;
+        if (moment && s.moments && s.moments.indexOf(moment) < 0) return;
+        out.push(s);
+      }));
+      return out;
+    }
+
+    /* Run the moment. Every step gets the SAME ctx and the moment as its own
+       frozen argument — never through ctx, and never another step's report, so
+       no step can start depending on one. */
+    function resolve(ctx, opts) {
+      if (running) throw new Error('resolve: already resolving');
+      const name = (opts && opts.moment) || null;
+      if (declared && !name) throw new Error('resolve: this resolver has declared moments, so name the one you are spending');
+      const def = momentDef(name || 'MOMENT');
+      const moment = Object.freeze({ name: def.name, spends: def.spends });
+      running = true;
+      const reports = {}, failures = [];
+      const list = ordered(declared ? moment.name : null);
+      try {
+        for (let i = 0; i < list.length; i++) {
+          const s = list[i];
+          try {
+            const r = s.fn(ctx, moment);
+            reports[s.name] = (r === undefined) ? null : r;
+          } catch (e) {
+            /* one bad system must never eat the block of time the player spent */
+            failures.push({ step: s.name, error: String(e && e.message || e) });
+            reports[s.name] = null;
+          }
+        }
+      } finally { running = false; }
+      return {
+        moment: moment.name,
+        spends: moment.spends,
+        order: list.map(s => s.name),
+        reports: reports,
+        failures: failures,
+        ok: failures.length === 0
+      };
+    }
+
+    return { register, resolve, ordered, PHASES: PHASES.slice(),
+             moments: momentNames ? momentNames.slice() : null,
+             get count() { return steps.length; } };
+  }
+
+  /* ==========================================================================
+     2. RATION
+     ========================================================================== */
+
+  /* A ration is a COUNT per window, not a cost. `limits` is {perDay, perWeek},
+     either optional; a missing limit is unlimited on that window (which is a
+     real choice a caller can make, not a default I invented).
+
+     `bypass` is the birthday shape: a caller-supplied predicate that, when
+     true, ignores BOTH windows and may carry a multiplier. Nothing in here
+     knows what a birthday is or what an occasion is worth. */
+  function makeRation(limits) {
+    const perDay = (limits && limits.perDay != null) ? limits.perDay : Infinity;
+    const perWeek = (limits && limits.perWeek != null) ? limits.perWeek : Infinity;
+    if (perDay < 0 || perWeek < 0) throw new Error('ration: a limit cannot be negative');
+    const state = {};          /* key -> { day, week, dayStamp, weekStamp } */
+
+    function slot(key) {
+      if (!state[key]) state[key] = { day: 0, week: 0, dayStamp: null, weekStamp: null };
+      return state[key];
+    }
+    /* The caller owns the calendar. It hands us its own day and week stamps, so
+       this file never decides how long a Bohemia week is. */
+    function sync(s, dayStamp, weekStamp) {
+      if (dayStamp !== undefined && s.dayStamp !== dayStamp) { s.dayStamp = dayStamp; s.day = 0; }
+      if (weekStamp !== undefined && s.weekStamp !== weekStamp) { s.weekStamp = weekStamp; s.week = 0; }
+    }
+
+    function check(key, when, bypass) {
+      const s = slot(key);
+      sync(s, when && when.day, when && when.week);
+      if (bypass && bypass.allow) {
+        return { allowed: true, reason: 'BYPASS', multiplier: (bypass.multiplier != null ? bypass.multiplier : 1),
+                 dayLeft: Math.max(0, perDay - s.day), weekLeft: Math.max(0, perWeek - s.week) };
+      }
+      if (s.day >= perDay) return { allowed: false, reason: 'DAY_SPENT', multiplier: 0, dayLeft: 0, weekLeft: Math.max(0, perWeek - s.week) };
+      if (s.week >= perWeek) return { allowed: false, reason: 'WEEK_SPENT', multiplier: 0, dayLeft: Math.max(0, perDay - s.day), weekLeft: 0 };
+      return { allowed: true, reason: 'OK', multiplier: 1,
+               dayLeft: perDay - s.day, weekLeft: perWeek - s.week };
+    }
+
+    /* spend() is check() plus the bookkeeping, so a caller cannot forget the
+       second half and quietly get an unlimited ration. */
+    function spend(key, when, bypass) {
+      const r = check(key, when, bypass);
+      if (!r.allowed) return r;
+      const s = slot(key);
+      s.day += 1; s.week += 1;
+      return { allowed: true, reason: r.reason, multiplier: r.multiplier,
+               dayLeft: Math.max(0, perDay - s.day), weekLeft: Math.max(0, perWeek - s.week) };
+    }
+    function left(key, when) {
+      const s = slot(key); sync(s, when && when.day, when && when.week);
+      return { dayLeft: Math.max(0, perDay - s.day), weekLeft: Math.max(0, perWeek - s.week) };
+    }
+    return { check, spend, left, limits: { perDay, perWeek } };
+  }
+
+  /* ==========================================================================
+     3. CEILING
+     ========================================================================== */
+
+  /* `stages` is an ORDERED list of {state, ceiling, neglect}. The state names,
+     the ceilings and the neglect costs are all the CALLER's: this file only
+     enforces the three properties the lab measured.
+       - the ceiling belongs to the CURRENT state, so points cannot pass it
+       - the only way up is a STATE CHANGE (advance), never more points
+       - neglect is allowed to grow with the state, and the ceiling check does
+         not care whether it does */
+  function makeCeiling(stages) {
+    if (!Array.isArray(stages) || !stages.length) throw new Error('ceiling: needs at least one stage');
+    stages.forEach((s, i) => {
+      if (!s || typeof s.state !== 'string') throw new Error('ceiling: stage ' + i + ' needs a state name');
+      if (typeof s.ceiling !== 'number' || s.ceiling < 0) throw new Error('ceiling: ' + s.state + ' needs a ceiling');
+    });
+    for (let i = 1; i < stages.length; i++) {
+      if (stages[i].ceiling < stages[i - 1].ceiling) {
+        throw new Error('ceiling: ' + stages[i].state + ' lowers the ceiling below ' + stages[i - 1].state);
+      }
+    }
+    function indexOf(state) {
+      for (let i = 0; i < stages.length; i++) if (stages[i].state === state) return i;
+      return -1;
+    }
+    function stageOf(state) {
+      const i = indexOf(state);
+      if (i < 0) throw new Error('ceiling: unknown state ' + state);
+      return stages[i];
+    }
+    function ceilingFor(state) { return stageOf(state).ceiling; }
+    function neglectFor(state) { const s = stageOf(state); return s.neglect != null ? s.neglect : 0; }
+    /* the clamp IS the wall: gifting, grinding, favours, anything additive */
+    function add(state, points, amount) {
+      const cap = ceilingFor(state);
+      const before = Math.max(0, Math.min(points, cap));
+      const after = Math.max(0, Math.min(before + amount, cap));
+      return { points: after, gained: after - before, capped: (before + amount) > cap, ceiling: cap };
+    }
+    /* the only way the ceiling moves. `gate` is the caller's requirement to be
+       allowed to take the step: a point threshold, an item, a ruling, whatever.
+       This file does not decide what earns a commitment. */
+    function advance(state, points, gate) {
+      const i = indexOf(state);
+      if (i < 0) throw new Error('ceiling: unknown state ' + state);
+      if (i === stages.length - 1) return { state: state, moved: false, reason: 'FINAL', ceiling: ceilingFor(state) };
+      if (gate && gate.requiredPoints != null && points < gate.requiredPoints) {
+        return { state: state, moved: false, reason: 'NOT_EARNED', need: gate.requiredPoints, have: points, ceiling: ceilingFor(state) };
+      }
+      if (gate && gate.allow === false) {
+        return { state: state, moved: false, reason: 'REFUSED', ceiling: ceilingFor(state) };
+      }
+      const next = stages[i + 1];
+      return { state: next.state, moved: true, reason: 'COMMITTED', ceiling: next.ceiling, neglect: neglectFor(next.state) };
+    }
+    function isWalled(state, points) { return points >= ceilingFor(state); }
+    return { ceilingFor, neglectFor, add, advance, isWalled,
+             states: stages.map(s => s.state) };
+  }
+
+  /* ==========================================================================
+     4. REACH
+     ========================================================================== */
+
+  /* ONE declared number per surface, passed in, never defaulted here. The
+     facing rule is the emulation's: the tile you FACE is the tile you act on,
+     and a body within `tiles` of you in manhattan distance is in reach. */
+  const DIRS = { UP: 0, RIGHT: 1, DOWN: 2, LEFT: 3 };
+  function facingTile(x, y, facing) {
+    if (facing === DIRS.UP) return { x: x, y: y - 1 };
+    if (facing === DIRS.RIGHT) return { x: x + 1, y: y };
+    if (facing === DIRS.DOWN) return { x: x, y: y + 1 };
+    if (facing === DIRS.LEFT) return { x: x - 1, y: y };
+    throw new Error('reach: facing must be 0-3');
+  }
+  function makeReach(tiles) {
+    if (typeof tiles !== 'number' || tiles < 0) throw new Error('reach: needs a declared tile count');
+    function inReach(a, b) { return Math.abs(a.x - b.x) + Math.abs(a.y - b.y) <= tiles; }
+    /* the honest version of "am I standing in front of it": the faced tile, or
+       anything inside the declared slack. One predicate, used everywhere. */
+    function canAct(from, facing, target) {
+      const f = facingTile(from.x, from.y, facing);
+      if (f.x === target.x && f.y === target.y) return true;
+      return inReach(from, target);
+    }
+    return { tiles, inReach, canAct, facingTile, DIRS };
+  }
+
+  return {
+    PHASES, makeResolver, makeRation, makeCeiling, makeReach, facingTile, DIRS,
+    /* provenance, so nobody has to guess where these shapes came from */
+    LEARNED_FROM: {
+      resolve: 'LAB-03: three mechanics, one rollover, zero coupling; a moment is ANY spent block (Paolo 7/26: sleep can be hangout or eat too)',
+      ration:  'LAB-02: gifts limited by count (1/day, 2/week), not by price',
+      ceiling: 'LAB-02: Utility.cs:2901 — undated caps at 8 hearts, only a commitment moves it',
+      reach:   'LAB-03: forgiveness is one declared number, and it is small'
+    }
+  };
+})();
+if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
+
+/* ==== engine/bohemia_commitment.js ==== */
+// BOHEMIA COMMITMENT -- THE WALL YOU CANNOT GRIND THROUGH, AND WHO FINDS OUT.
+//
+// GENERATED by tools/bohemia_commitment.py. EDIT THE TOOL, NEVER THIS FILE.
+//
+// THE HOLE THIS FILLS. On 8/12 this lane shipped a five-rung ladder from
+// stranger to inside, and you could climb the whole thing by pressing one
+// button ten times. Nothing stopped you, nothing noticed, and no other outfit
+// in the valley ever heard about it. A ladder with no wall is a progress bar.
+//
+// TWO THINGS ARE ADDED AND THEY ONLY MATTER TOGETHER:
+//   THE WALL   favours run out of road. You can turn up for the Church until
+//              they call you USEFUL and not one act further; the rest of the
+//              way is not for sale at any quantity of the same thing.
+//   THE COST   the only thing that passes a wall is a COMMITMENT, and a
+//              commitment is visible. Word travels the acquaintance graph to
+//              every other outfit that has a line to this one.
+//
+// ADOPTED, NOT REBUILT. The clamp is BOH_RESOLVE.makeCeiling -- Paolo APPROVED
+// it 7/26 ("a cap that only moves on a COMMITMENT, never on more points, with
+// neglect allowed to grow as you get closer") and it has had zero callers for
+// twenty days. This module calls it rather than writing a second clamp,
+// because two clamps is the two-systems-disagreeing bug this lane has already
+// fixed four times.
+//
+// GROUNDED, NOT INVENTED:
+//   PORTES 1998 (Annu. Rev. Sociol. 24:1-24), the four dark sides of social
+//     capital -- exclusion of outsiders, EXCESS CLAIMS ON GROUP MEMBERS,
+//     restriction of individual freedom, downward levelling norms. Being
+//     inside is a relationship with obligations, never a prize you collect.
+//   BURT / SIMMEL, TERTIUS GAUDENS -- the third who benefits. Spanning a hole
+//     between two disconnected outfits is a real advantage.
+//   TERTIUS DOLENS (Organization Science 2024) -- the third who SUFFERS. When
+//     the two sides you span are connected and in conflict, the identical
+//     position costs you instead. Same standing, opposite sign.
+//   LIPSET & ROKKAN 1967 / COSER 1956, CROSS-CUTTING CLEAVAGES -- when
+//     opponents on one dimension are allies on another, conflict moderates.
+//     bohemia_ties already carries three foci (home, work, faction), so a home
+//     or work tie IS a cross-cut against the faction split. This module reads
+//     that; it generates nothing.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S: the wall, the walk and the landing rule
+// are mechanism. Which outfits exist and what they want is his. NOTHING HERE
+// NAMES A RIVAL OR DECIDES THAT TWO OUTFITS ARE ENEMIES -- it only reports who
+// is in a position to hear, and how the news would reach them.
+(function(root){
+  var HASREQ=(typeof module!=='undefined'&&module.exports&&typeof require!=='undefined');
+
+  /* THE COMMITMENT STATES AND THEIR WALLS.
+     Every ceiling below is DERIVED from bohemia_belonging's RUNGS at build
+     time by one rule -- each commitment buys exactly one more rung -- and none
+     of them is typed by hand. The ladder this was derived from was at [0, 1, 3, 6, 10].
+     `ceiling: null` means no wall at all, which is the last state by
+     construction rather than by choice.
+     `neglect` is the one genuine number and it is 1 per stage under
+     EVERYTHING COSTS ONE (Paolo 8/15): it carries neglectPlaceholder so his
+     tuning pass can enumerate every unruled number in the game in one list. */
+  var STAGES = [
+    {
+      "state": "none",
+      "word": "NOTHING SAID",
+      "note": "You have committed to nobody. Everything you have done for them, you could walk away from tomorrow and they would shrug.",
+      "passBy": null,
+      "passWord": null,
+      "passNote": null,
+      "ceiling": 5,
+      "reaches": "USEFUL",
+      "blocks": "COUNTED",
+      "neglect": 0,
+      "neglectPlaceholder": true
+    },
+    {
+      "state": "sided",
+      "word": "YOU TOOK A SIDE",
+      "note": "You said out loud that you are with them. Nobody had to write it down for it to be true.",
+      "passBy": "take-a-side",
+      "passWord": "Say you are with them",
+      "passNote": "Said in front of people. That is the whole mechanism and it is enough.",
+      "ceiling": 9,
+      "reaches": "COUNTED",
+      "blocks": "INSIDE",
+      "neglect": 1,
+      "neglectPlaceholder": true
+    },
+    {
+      "state": "burned",
+      "word": "YOU BURNED A BRIDGE",
+      "note": "You cost yourself somewhere else to be here. This is the one that cannot be walked back.",
+      "passBy": "burn-a-bridge",
+      "passWord": "Burn a bridge for them",
+      "passNote": "Something you had with somebody else is gone now, and they know which somebody.",
+      "ceiling": null,
+      "reaches": "INSIDE",
+      "blocks": null,
+      "neglect": 2,
+      "neglectPlaceholder": true
+    }
+  ];
+
+  /* HOW THE NEWS LANDS. Labels on a derived answer; there is no dial here. */
+  var LANDING = {
+    "direct": {
+      "word": "AS FACT",
+      "note": "Somebody who shares a roof or a job with one of theirs was close enough to know. It reaches them as a thing that happened, not a thing they heard."
+    },
+    "secondhand": {
+      "word": "AS A RUMOUR",
+      "note": "It gets to them down a chain of people who each only half know you. They will hear that you did something. They will not hear exactly what."
+    },
+    "silent": {
+      "word": "NOT AT ALL",
+      "note": "There is no line between them and you. Nobody who could carry it knows anybody who would care."
+    }
+  };
+
+  /* ---- THE WALL ----------------------------------------------------------
+     BOH_RESOLVE.makeCeiling is the approved mechanism and it is a DEPENDENCY,
+     not a fallback. If it is absent the honest answer is to say so loudly
+     rather than quietly clamp with a second implementation -- a silent
+     substitute is how two systems start disagreeing. */
+  function resolveModule(){
+    if(typeof BOH_RESOLVE !== 'undefined') return BOH_RESOLVE;
+    if(typeof root !== 'undefined' && root.BOH_RESOLVE) return root.BOH_RESOLVE;
+    if(HASREQ){ try { return require('./bohemia_resolve.js'); } catch(_e){} }
+    return null;
+  }
+  var _ceiling = null;
+  function ceiling(){
+    if(_ceiling) return _ceiling;
+    var R = resolveModule();
+    if(!R || typeof R.makeCeiling !== 'function')
+      throw new Error('bohemia_commitment: BOH_RESOLVE.makeCeiling is required and '
+        + 'absent. This module ADOPTS the approved ceiling (Paolo 7/26); it does '
+        + 'not carry a second one.');
+    /* makeCeiling wants a real number and rejects a decreasing run, so the
+       no-wall state serialises to Infinity here. */
+    _ceiling = R.makeCeiling(STAGES.map(function(s){
+      return { state:s.state,
+               ceiling: (s.ceiling==null ? Infinity : s.ceiling),
+               neglect: s.neglect };
+    }));
+    return _ceiling;
+  }
+
+  function stageOf(state){
+    for(var i=0;i<STAGES.length;i++) if(STAGES[i].state===state) return STAGES[i];
+    return STAGES[0];
+  }
+  function stateIndex(state){
+    for(var i=0;i<STAGES.length;i++) if(STAGES[i].state===state) return i;
+    return 0;
+  }
+  function firstState(){ return STAGES[0].state; }
+
+  /* WHERE YOU ARE AGAINST THE WALL, in one call, for a card that has a rung
+     count and a commitment state and wants to say what is actually stopping
+     you. Returns atWall true when more of the same thing will do nothing --
+     which is the whole point, and it has to be legible BEFORE you press, not
+     discovered after. */
+  function wallOf(state, given){
+    var st = stageOf(state), C = ceiling();
+    var cap = C.ceilingFor(st.state);
+    var n = given|0;
+    /* THE PASS BELONGS TO THE STATE YOU ARE MOVING TO, NOT THE ONE YOU ARE IN.
+       Read off the current stage first and the player standing at the first
+       wall was offered nothing at all, because 'none' is the state you are
+       given rather than one you commit to. The question a card asks is always
+       "what gets me PAST this", so the answer comes from next. */
+    var nx = (stateIndex(st.state) < STAGES.length-1)
+               ? STAGES[stateIndex(st.state)+1] : null;
+    return {
+      state:    st.state,
+      word:     st.word,
+      note:     st.note,
+      ceiling:  cap,
+      atWall:   C.isWalled(st.state, n),
+      reaches:  st.reaches,
+      blocks:   st.blocks,
+      room:     (cap===Infinity ? Infinity : Math.max(0, cap - n)),
+      passBy:   nx ? nx.passBy   : null,
+      passWord: nx ? nx.passWord : null,
+      passNote: nx ? nx.passNote : null,
+      next:     nx
+    };
+  }
+
+  /* doing the thing they want, clamped. THE CLAMP IS THE APPROVED ONE. */
+  function give(state, given, amount){
+    var r = ceiling().add(stageOf(state).state, given|0,
+                          (amount==null?1:amount)|0);
+    return { points:r.points, gained:r.gained, capped:r.capped, ceiling:r.ceiling };
+  }
+
+  /* THE ONLY THING THAT MOVES A WALL. `gate` is the caller's, exactly as the
+     approved mechanism intends -- this file does not decide what earns a
+     commitment. It refuses when you have not even filled the current room,
+     because committing to people you have barely met is not a decision, it is
+     a typo. */
+  function commit(state, given){
+    var w = wallOf(state, given);
+    if(!w.next) return { state:state, moved:false, reason:'FINAL' };
+    var r = ceiling().advance(state, given|0,
+              { requiredPoints: (w.ceiling===Infinity ? 0 : w.ceiling) });
+    if(!r.moved) return { state:state, moved:false, reason:r.reason,
+                          need:r.need, have:given|0 };
+    return { state:r.state, moved:true, reason:'COMMITTED',
+             ceiling:r.ceiling, neglect:r.neglect,
+             word:stageOf(r.state).word, note:stageOf(r.state).note };
+  }
+
+  function neglectFor(state){ return ceiling().neglectFor(stageOf(state).state); }
+
+  /* ---- WORD TRAVELS ------------------------------------------------------
+     WHICH OTHER OUTFITS LEARN THAT YOU COMMITTED, and how the news gets to
+     them. Nothing is rolled: this walks the acquaintance graph bohemia_ties
+     already builds out of foci the world already decided.
+
+     THE WALK. Start from everybody who runs with the outfit you committed to.
+     Step outward along real ties. Every person carries their own outfit, so
+     the first time the walk touches somebody from another outfit, that outfit
+     has heard -- at that distance, along that path.
+
+     BFS, not depth-first, because the SHORTEST path is the one that decides
+     how the news lands and a deep walk would find a long ugly route first. */
+  function whoHears(fid, roster, cell, opts){
+    opts = opts || {};
+    var T = opts.ties || (typeof BohemiaTies!=='undefined' ? BohemiaTies : null);
+    if(!T || !fid || !roster || !roster.length) return [];
+    var keyOf = opts.keyOf || function(a){ return String(a && a.id); };
+    var maxHops = (opts.maxHops!=null ? opts.maxHops : 3);
+    var want = norm(fid);
+
+    var byKey = {};
+    roster.forEach(function(a){ byKey[keyOf(a)] = a; });
+    function facOf(k){ var a=byKey[k]; return a && a.faction ? norm(a.faction) : null; }
+
+    /* the front line: everybody in the outfit you committed to. */
+    var seen = {}, queue = [];
+    roster.forEach(function(a){
+      if(facOf(keyOf(a)) !== want) return;
+      var k = keyOf(a); seen[k]=true;
+      queue.push({ key:k, hops:0, crossed:false });
+    });
+    if(!queue.length) return [];
+
+    var heard = {};
+    for(var qi=0; qi<queue.length; qi++){
+      var cur = queue[qi];
+      if(cur.hops >= maxHops) continue;
+      var ties = T.tiesOf(cur.key, roster, cell, keyOf);
+      for(var i=0;i<ties.length;i++){
+        var t = ties[i];
+        if(seen[t.key]) continue;
+        seen[t.key] = true;
+        /* A CROSS-CUTTING STEP. home and work are the other two dimensions;
+           travelling either of them means the split was crossed on the way,
+           and the cleavage literature says that is what softens it. */
+        var crossed = cur.crossed || (t.via === 'home' || t.via === 'work');
+        var f = facOf(t.key);
+        if(f && f !== want && !heard[f]){
+          heard[f] = { faction:f, hops:cur.hops+1, via:t.via,
+                       crossed:crossed, through:t.key };
+        }
+        queue.push({ key:t.key, hops:cur.hops+1, crossed:crossed });
+      }
+    }
+    var out = Object.keys(heard).map(function(k){ return heard[k]; });
+    out.sort(function(a,b){ return a.hops-b.hops || (a.faction<b.faction?-1:1); });
+    return out;
+  }
+
+  /* HOW IT LANDS with one outfit that heard.
+     DISTANCE decides it, because distance is the thing that varies -- see the
+     note on LANDING above for why the cross-cutting half is a theorem here
+     rather than a dial. One hop and somebody who was close to it tells them.
+     Further and it arrives down a chain, as a rumour. */
+  function landing(h){
+    if(!h) return { key:'silent', word:LANDING.silent.word, note:LANDING.silent.note };
+    var k = (h.hops <= 1) ? 'direct' : 'secondhand';
+    return { key:k, word:LANDING[k].word, note:LANDING[k].note,
+             hops:h.hops, faction:h.faction, via:h.via, through:h.through,
+             /* true for every bridge across a faction line, always, by the
+                construction of the foci. Reported so a surface can say WHICH
+                shared setting leaked it -- that your own housemate runs with
+                them is the interesting half. */
+             crossed:h.crossed };
+  }
+
+  /* ---- TERTIUS -----------------------------------------------------------
+     THE BROKER'S POSITION, and its sign. You have real standing with two
+     outfits. Burt/Simmel: if they are DISCONNECTED you span a structural hole
+     and that is an advantage -- you are the only route between them. The 2024
+     tertius dolens finding is the correction that makes it a game: if they are
+     CONNECTED, the identical position costs you, because both sides can see
+     the other half of what you are doing.
+
+     `heard` is the whoHears output for the outfit you just committed to, so
+     "connected" here is a measured fact about this valley's graph, not an
+     opinion about whether two outfits like each other. NOTHING IN THIS FILE
+     DECIDES THAT ANY TWO OUTFITS ARE ENEMIES. */
+  function tertius(standings, heard){
+    var others = Object.keys(standings||{}).filter(function(k){
+      return (standings[k]|0) > 0; });
+    if(others.length < 2) return null;
+    var reached = {};
+    (heard||[]).forEach(function(h){ reached[norm(h.faction)] = h; });
+    var exposed = others.filter(function(k){ return !!reached[norm(k)]; });
+    if(!exposed.length)
+      return { key:'gaudens', word:'YOU ARE THE ONLY ROUTE BETWEEN THEM',
+               note:'The outfits you stand with have no line to each other. '
+                  + 'Nobody on either side can see the other half of what you '
+                  + 'are doing, and that is worth more than either standing.',
+               others:others, exposed:[] };
+    return { key:'dolens', word:'BOTH SIDES CAN SEE YOU',
+             note:'The outfits you stand with are connected, so the position '
+                + 'that would have made you the only route between them makes '
+                + 'you the person both of them are watching instead.',
+             others:others, exposed:exposed };
+  }
+
+  function norm(f){ return String(f||'').toUpperCase().replace(/[\s_]/g,''); }
+
+  /* ---- THE SAVE ----------------------------------------------------------
+     ONE WRITER, same law as bohemia_belonging.record -- the three-spellings
+     problem has bitten this codebase four times and it is solved in one place
+     per fact, never in each caller. */
+  function stateOf(save, fid){
+    var s = save && save.meta && save.meta.commit;
+    if(!s || !fid) return firstState();
+    var want = norm(fid);
+    for(var k in s) if(norm(k)===want) return s[k];
+    return firstState();
+  }
+  function setState(save, fid, state){
+    if(!save || !save.meta || !fid) return firstState();
+    var s = save.meta.commit || (save.meta.commit={});
+    var want = norm(fid), hit = null;
+    for(var k in s) if(norm(k)===want) hit = k;
+    s[hit||fid] = state;
+    return state;
+  }
+
+  /* EVERY UNRULED NUMBER IN THIS MODULE, enumerable, so the tuning pass that
+     EVERYTHING COSTS ONE section 5 asks for can generate its list instead of
+     remembering it. The ceilings are NOT in here on purpose: they are derived
+     from a shipped gated table, so they are not waiting on a ruling. */
+  function placeholders(){
+    return STAGES.filter(function(s){ return s.neglectPlaceholder; })
+      .map(function(s){
+        return { where:'bohemia_commitment.STAGES.' + s.state + '.neglect',
+                 value:s.neglect, placeholder:true,
+                 law:'EVERYTHING COSTS ONE (Paolo 8/15/26)',
+                 what:'what neglecting this outfit costs per day at this state' };
+      });
+  }
+
+  var API = { STAGES:STAGES, LANDING:LANDING,
+              stageOf:stageOf, firstState:firstState, states:function(){
+                return STAGES.map(function(s){ return s.state; }); },
+              wallOf:wallOf, give:give, commit:commit, neglectFor:neglectFor,
+              whoHears:whoHears, landing:landing, tertius:tertius,
+              stateOf:stateOf, setState:setState,
+              placeholders:placeholders };
+  if(HASREQ) module.exports=API; else root.BohemiaCommitment=API;
+})(typeof globalThis!=='undefined'?globalThis:this);
+
 /* ==== engine/bohemia_introductions.js ==== */
 // BOHEMIA INTRODUCTIONS -- the sixteen ways you come to know somebody.
 //
@@ -20433,11 +21177,34 @@ function ctAgent(p){
   function fociOf(agent, cell) {
     if (!agent) return {};
     var f = {};
+    /* WHO SHARES YOUR ROOF. Prefer the seat the world DECLARES (home.building)
+       and only fall back to parsing the id when there isn't one.
+       WHY THE PREFERENCE, added 8/15: parsing the id was never wrong, it was
+       INCOMPLETE. bohemia_agents builds id 'H<houseI+1>-<n+1>' beside
+       home:{building:houseI}, so on the run's roster the two agree exactly and
+       this changes nothing. On the CITY's roster they do not: its adapter mints
+       a unique id per person, so every resident parsed out as the sole occupant
+       of their own house and the home focus was empty on the surface he
+       actually walks. The declared seat is the fact; the id is a spelling of
+       it. Read the fact. */
     var id = String(agent.id || '');
-    var house = id.indexOf('-') > 0 ? id.slice(0, id.indexOf('-')) : null;
+    var house = (agent.home && agent.home.building != null)
+      ? 'B' + agent.home.building
+      : (id.indexOf('-') > 0 ? id.slice(0, id.indexOf('-')) : null);
     if (house) f.home = 'H:' + (cell ? cell[0] + ',' + cell[1] + ':' : '') + house;
     var j = agent.job;
-    if (j && j.kind === 'site' && j.dir && j.dist) f.work = 'W:' + j.district + ':' + j.dir + j.dist;
+    /* WHERE THEY WORK. Prefer a DECLARED site, same reason as the roof above:
+       district+dir+dist is a SPELLING of a workplace relative to the worker, and
+       two people who walk to the same building from opposite sides spell it
+       differently. On the run's roster the spelling is fine — those agents share
+       a block, so the same jobSite gives the same three fields and they match.
+       On the city's it is not: every person's bearing is relative to their own
+       neighbourhood, so 27 affiliated people produced 26 different workplaces
+       and almost nobody could know anybody. A surface that can resolve the
+       bearing into an actual place says so with j.site, and then the place is
+       the key. Measured before and after; nothing here is generated. */
+    if (j && j.kind === 'site' && j.site) f.work = 'W:' + j.site;
+    else if (j && j.kind === 'site' && j.dir && j.dist) f.work = 'W:' + j.district + ':' + j.dir + j.dist;
     /* a scavenger works alone by definition (bohemia_agents: kind 'scav' has no
        site), so scavenging is NOT a focus. Two people who both scavenge have not
        met; they are both out there on their own. */
@@ -21110,7 +21877,35 @@ function ctCell(){ return [Math.floor(hx/FN), Math.floor(hy/FN)]; }
 function ctFactionOf(p){
   var bases = ctBases();
   if(!bases || typeof BohemiaAgents === 'undefined') return null;
-  try { return BohemiaAgents.factionOf(ctAgent(p), ctCell(), bases); } catch(_e){ return null; }
+  /* __CITY_STANDING__ -- A BARE CATCH HERE COST THIS LANE THREE DAYS.
+     This used to be `try { ... } catch(_e){ return null; }`. The city carried a
+     7/29 snapshot of bohemia_agents whose faction half did not exist yet, so
+     factionOf was not a function, so the catch answered null -- for every
+     person, in every cell, for thirteen days. Measured: 166 people across 40
+     locations, zero affiliated. Nobody in Las Vegas ran with anybody and
+     nothing anywhere went red, because a swallowed TypeError looks exactly
+     like an honest 'they run with nobody'.
+     NULL IS A REAL ANSWER HERE -- most of the valley belongs to no outfit --
+     which is precisely why it must never also be the error answer. A missing
+     dependency now says so, once, in a sentence. */
+  if(typeof BohemiaAgents.factionOf !== 'function'){
+    if(!ctFactionOf.__warned){ ctFactionOf.__warned = 1;
+      console.error('BOHEMIA: BohemiaAgents.factionOf is missing -- the inlined '
+        + 'agents body is stale against engine/bohemia_agents.js. Re-run '
+        + 'tools/bohemia_city_commitment_patch.py. Until then NOBODY has a faction '
+        + 'and that is a bug, not a world.'); }
+    return null;
+  }
+  /* WHOSE CELL DECIDES IT: THEIRS. This passed ctCell() -- the PLAYER's cell --
+     so a person's allegiance was a fact about where I happened to be standing,
+     and walking one cell east could change who somebody runs with. Found by the
+     gate the same turn: a real Keeper resolved to an outfit while I stood on a
+     base and to nobody once I walked over to him.
+     Their own cell comes off their own home, which the person record has
+     carried all along. Same vocabulary as ctCell (fine coords / FN), so the two
+     can never mean different grids. */
+  var pc = (p && p.home) ? [Math.floor(p.home[0]/FN), Math.floor(p.home[1]/FN)] : ctCell();
+  return BohemiaAgents.factionOf(ctAgent(p), pc, bases);
 }
 
 /* the save this lane keeps: how many times you did what an outfit wanted, and on
@@ -21231,6 +22026,74 @@ function ctOpen(){
    words for the same reason -- that gate counts tags wherever they appear, and
    writing the literal here would fail it all over again.) Doing HTML surgery on a string you
    just built is a smell even when it parses. */
+/* __CITY_STANDING__ -- WHO WILL HEAR ABOUT IT, BEFORE YOU PRESS.
+   A consequence you find out about afterwards is a trap. A consequence printed
+   on the card next to the button is a decision, and that difference is the whole
+   distance between hardcore and unfair.
+
+   THE ROSTER IS THE VALLEY, NOT THE BLOCK -- AND NOT A WINDOW ROUND THE PLAYER.
+   News about a commitment does not stop at the edge of the screen, and the nine
+   neighbourhoods ctEveryone() returns hold four people.
+   THE FIRST VERSION WALKED PLUS-OR-MINUS TEN NEIGHBOURHOODS AROUND hx,hy AND
+   CACHED THAT. The gate caught it immediately: stand near the edge of the map
+   when the cache is built and the "valley" is 119 people with one affiliated
+   body in it, so the same commitment has different consequences depending on
+   where you happened to be standing the first time you looked. THE VALLEY DOES
+   NOT MOVE, so the walk is now the whole fixed grid from a fixed origin.
+   Built ONCE, lazily, on the first card that actually reaches a wall -- which
+   is rare -- and cached, keyed to the population module's own RULES VERSION so
+   a mass edit invalidates it rather than leaving a stale social graph behind. */
+var CT_VALLEY = null, CT_VALLEY_V = null;
+function ctValleyRoster(){
+  var v = (typeof BohemiaPopulation!=='undefined' && BohemiaPopulation.rulesVersion)
+            ? BohemiaPopulation.rulesVersion() : 0;
+  if(CT_VALLEY && CT_VALLEY_V === v) return CT_VALLEY;
+  var NB=BohemiaPopulation.NB, out=[];
+  /* the whole valley: om.n cells a side, NB cells to a neighbourhood. */
+  var span=Math.ceil((om && om.n ? om.n : 96)/NB);
+  for(var ny=0; ny<span; ny++) for(var nx=0; nx<span; nx++){
+    var list=pplPeople(nx,ny);
+    for(var i=0;i<list.length;i++){
+      var a=ctAgent(list[i]), ph=list[i].home;
+      /* THEIR cell, from THEIR home, in the same fine/FN vocabulary ctCell uses.
+         nx/ny would have been the neighbourhood grid, which is a different grid
+         entirely -- and passing it here would have quietly given the valley a
+         different set of allegiances than the card shows. */
+      try { a.faction = BohemiaAgents.factionOf(a,
+              [Math.floor(ph[0]/FN), Math.floor(ph[1]/FN)], ctBases()); }
+      catch(_e){ a.faction = null; }
+      a.__id = list[i].id;
+      out.push(a);
+    }
+  }
+  CT_VALLEY = out; CT_VALLEY_V = v;
+  return out;
+}
+function ctHearRows(body, fid){
+  if(typeof BohemiaCommitment==='undefined' || typeof BohemiaTies==='undefined') return body;
+  var heard;
+  try { heard = BohemiaCommitment.whoHears(fid, ctValleyRoster(), ctCell(), {ties:BohemiaTies}); }
+  catch(_e){ return body; }
+  if(!heard.length){
+    body += ctRow('WHO WILL HEAR', 'NOBODY. NO OUTFIT IN THIS VALLEY HAS A LINE TO THEM.');
+    return body;
+  }
+  var fact=[], rumour=[];
+  for(var i=0;i<heard.length;i++){
+    var l=BohemiaCommitment.landing(heard[i]);
+    (l.key==='direct'?fact:rumour).push(heard[i].faction);
+  }
+  if(fact.length)   body += ctRow('WILL HEAR IT AS FACT', fact.join(', '));
+  if(rumour.length) body += ctRow('WILL HEAR A RUMOUR', rumour.join(', '));
+  /* WHICH SHARED SETTING LEAKED IT. Every bridge across a faction line runs
+     through a roof or a job site -- that is a theorem of the foci, not a roll --
+     so naming the room is always possible and always the interesting half. */
+  var via = heard[0].via==='home' ? 'SOMEBODY THEY SHARE A ROOF WITH'
+                                  : 'SOMEBODY THEY WORK BESIDE';
+  body += ctRow('IT GETS OUT THROUGH', via);
+  return body;
+}
+
 function ctIntroName(intro, asked){
   var m = intro.m || {};
   if(m.isName) return ['NAME', m.shown];
@@ -21300,8 +22163,32 @@ function ctDraw(){
       if(bar.pays) body += ctRow('PAID IN', bar.pays);
       if(bar.refuses) body += ctRow('WILL NOT TAKE', bar.refuses);
       if(bar.theyFirst) body += ctRow('CAREFUL', 'THEY HELP YOU BEFORE YOU AGREE TO ANYTHING');
+      /* __CITY_STANDING__ -- THE RUNG LINE WAS PROMISING WHAT THE WALL FORBIDS.
+         With five acts done and nothing committed it read "1 MORE TO COUNTED".
+         One more does nothing: COUNTED is not for sale at any quantity of the
+         same act. The ladder half cannot see the wall half, so the wall answers
+         first and the ladder only speaks when there is actually road left. */
+      var ctWall = null, ctGave = BohemiaBelonging.gaveOf(bState.sv, ctFid);
+      /* function-scoped on purpose: the button block below is outside this if,
+         and a commitment is offered on the same ground rule as the act rather
+         than on a second number invented for it. */
+      var ctOnGround = bState.ground ? bState.ground.on : true;
+      if(typeof BohemiaCommitment !== 'undefined'){
+        var cSt = BohemiaCommitment.stateOf(bState.sv, ctFid);
+        ctWall = BohemiaCommitment.wallOf(cSt, ctGave);
+      }
       if(bar.rung) body += ctRow('YOU ARE', bar.rung.word
-        + (bar.next ? (' \u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));
+        + ((bar.next && (!ctWall || !ctWall.atWall))
+             ? (' \u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));
+      if(ctWall && ctWall.state !== 'none') body += ctRow('YOU HAVE', ctWall.word);
+      if(ctWall && ctWall.atWall && ctWall.blocks){
+        body += ctRow('THE WALL', 'TURNING UP GETS YOU NO FURTHER THAN '
+          + ctWall.reaches + '. ' + ctWall.blocks + ' IS NOT FOR SALE.');
+        if(ctWall.passNote) body += ctRow('TO PASS IT', ctWall.passNote);
+        body = ctHearRows(body, ctFid);
+      } else if(ctWall && ctWall.blocks && ctWall.room !== Infinity){
+        body += ctRow('THE WALL', ctWall.room + ' MORE AND TURNING UP STOPS WORKING');
+      }
       var why = BohemiaBelonging.noActBecause(bRule, bState.st);
       if(why) body += ctRow('', why);
       if(bState.ground && !bState.ground.on){
@@ -21315,6 +22202,12 @@ function ctDraw(){
   /* EVERY BUTTON AT THE BOTTOM, under the rows it acts on. */
   if(ctBtn) body+='<button id="ctask">'+ctBtn+'</button>';
   if(ctAct) body+='<button id="ctgive">'+ctAct.label+'</button>';
+  /* __CITY_STANDING__ -- THE COMMITMENT. Offered only at the wall, and only on
+     their ground: saying you are with somebody is said in front of people, and
+     the reach rule that already governs the act governs this too rather than a
+     second number invented here. */
+  if(ctWall && ctWall.atWall && ctWall.passWord && ctOnGround)
+    body+='<button id="ctcommit">'+ctWall.passWord+'</button>';
   body+='<button id="ctgo">Leave them to it</button>';
   card.innerHTML=body; card.style.display='block';
   document.getElementById('cttalk').style.display='none';
@@ -21322,6 +22215,16 @@ function ctDraw(){
   if(ask) ask.addEventListener('click',function(){
     CT_MET.ask(who.key, T.day||1); ctSave(); ctDraw(); render(); });
   /* __CITY_FACTIONS__ */
+  /* __CITY_STANDING__ */
+  var commit=document.getElementById('ctcommit');
+  if(commit) commit.addEventListener('click',function(){
+    var sv=ctBelongSave();
+    var cur=BohemiaCommitment.stateOf(sv, ctFid);
+    var r=BohemiaCommitment.commit(cur, BohemiaBelonging.gaveOf(sv, ctFid));
+    if(r.moved) BohemiaCommitment.setState(sv, ctFid, r.state);
+    advance(60);
+    ctDraw(); render();
+  });
   var give=document.getElementById('ctgive');
   if(give) give.addEventListener('click',function(){
     var sv=ctBelongSave();

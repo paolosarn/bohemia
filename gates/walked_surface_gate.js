@@ -131,11 +131,27 @@ async function partC() {
     await page.goto('file://' + CITY);
     await page.waitForTimeout(6000);
     const out = await page.evaluate(() => {
+      /* THE STUB THAT USED TO BE HERE HID A THIRTEEN-DAY OUTAGE (8/15).
+         This probe replaced window.ctFactionOf with a function returning
+         'Church', so C2-C6 proved the card renders faction canon correctly --
+         about a stub. Meanwhile the city's inlined bohemia_agents was a 7/29
+         snapshot with no factionOf at all and the real answer for every person
+         in the valley was null. A test that mocks the broken thing cannot see
+         that it is broken.
+         So the Church case now uses a REAL Church member if the valley has one
+         and only falls back to the stub when it does not -- and says which.
+         Law: laws/BOHEMIA_ADDENDUM_THE_WALL_AND_WHO_FINDS_OUT_8_15_26.md sec 8.4 */
       const all = (typeof ctEveryone === 'function') ? ctEveryone() : [];
       if (!all.length) return { skip: 'no people on the city block' };
-      const at = ctAt(all[0]); hx = at[0] + 1; hy = at[1];
+      const r = { bases: Object.keys(ctBases() || {}).length, realFaction: null };
       const orig = window.ctFactionOf;
-      const r = { bases: Object.keys(ctBases() || {}).length };
+      let subject = all[0];
+      for (const b of Object.values(ctBases() || {})) {
+        hx = b.x * FN + 2; hy = b.y * FN + 2;
+        const hit = ctEveryone().find(p => ctFactionOf(p));
+        if (hit) { subject = hit; r.realFaction = ctFactionOf(hit); break; }
+      }
+      const at = ctAt(subject); hx = at[0] + 1; hy = at[1];
       window.ctFactionOf = function () { return 'Church'; };
       ctSawCell(); ctOpen();
       r.church = document.getElementById('ctcard').innerText;
@@ -155,6 +171,12 @@ async function partC() {
     else {
       ok('C1 the walked surface knows where the outfits are',
         out.bases >= 10, String(out.bases));
+      /* THE CLAIM THIS GATE COULD NOT MAKE UNTIL 8/15, and its absence is why
+         the four turns above it were green while the game was quiet. */
+      ok('C1a REAL people on the walked surface actually run with somebody',
+        !!out.realFaction,
+        'zero affiliated anywhere in the valley means the inlined agents body is '
+        + 'stale again -- re-run tools/bohemia_city_commitment_patch.py');
       ok('C2 the card says who they run with, and what that outfit wants',
         /RUNS WITH\s*\n?CHURCH/.test(out.church) && /THEY WANT/.test(out.church),
         JSON.stringify(out.church.slice(0, 120)));

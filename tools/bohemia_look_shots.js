@@ -41,6 +41,30 @@ const STAMP = process.env.BOHEMIA_LOOK_STAMP || '8/8/26';
  * ------------------------------------------------------------------------- */
 const SUBJECTS = [
   {
+    id: 'the-wall',
+    title: 'THE WALL: turning up runs out of road',
+    caption: 'Walk up to anybody who runs with an outfit and this is their card. You have done what they want five times, and it says so: turning up gets you no further than USEFUL, and COUNTED is not for sale at any number of favours. The only button that passes it is saying out loud that you are with them. CITY tab, tap a person.',
+    keep: '#ctcard',
+    /* A MOMENT, NOT A PLACE, and it needs a REAL affiliated person -- the whole
+       point of the turn that added it is that stubbing the faction is how four
+       green turns hid an outage. If the valley has nobody, this MISSES and says
+       so rather than photographing a stub. */
+    open: `(() => {
+      const bases = ctBases() || {}; let who = null, fid = null;
+      for (const b of Object.values(bases)) {
+        hx = b.x*FN + 2; hy = b.y*FN + 2;
+        for (const p of ctEveryone()) { const f = ctFactionOf(p); if (f) { who = p; fid = f; break; } }
+        if (who) break;
+      }
+      if (!who) return null;
+      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      const sv = ctBelongSave();
+      sv.meta.gave = {}; sv.meta.gave[fid] = 5; sv.meta.commit = {};
+      ctSawCell(); ctOpen();
+      return { card: true, fid: fid };
+    })()`,
+  },
+  {
     id: 'vista',
     title: 'THE VISTA: the mountain overlook',
     caption: 'THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.',
@@ -258,19 +282,24 @@ async function restoreShellChrome(shell) {
       try { got = await ctx.evaluate(s.open); } catch (e) { err = ' — ' + String(e.message || e).split('\n')[0].slice(0, 120); }
       if (!got) { console.log('  MISS  ' + s.id.padEnd(16) + 'the moment did not open' + err); continue; }
       await shell.waitForTimeout(1400);
-      await ctx.evaluate(() => {
+      await ctx.evaluate((keep) => {
         window.__LOOK_HIDDEN = [];
         const cv = document.getElementById('cv');
         for (const el of document.body.querySelectorAll('*')) {
           if (el === cv || el.contains(cv)) continue;
-          if (el.id === 'vistaCard' || el.closest('#vistaCard')) continue;   // the card IS part of the moment
+          /* THE PANEL THAT IS PART OF THE MOMENT STAYS UP. It used to be
+             hardcoded to #vistaCard; a subject now names its own, because the
+             second UI moment to want a picture (the person card) was not the
+             vista and would have been hidden by the sweep that exists to
+             remove chrome. */
+          if (keep && (el.matches(keep) || el.closest(keep))) continue;
           const cs = getComputedStyle(el);
           if (cs.position !== 'absolute' && cs.position !== 'fixed') continue;
           if (cs.display === 'none' || cs.visibility === 'hidden') continue;
           const r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) continue;
           window.__LOOK_HIDDEN.push([el, el.style.visibility]); el.style.visibility = 'hidden';
         }
-      });
+      }, s.keep || '#vistaCard');
       const file2 = path.join(OUTDIR, s.id + '.png');
       await hideShellChrome(shell);
       await shell.screenshot({ path: file2 });
