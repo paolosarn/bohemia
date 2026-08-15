@@ -196,7 +196,11 @@ GATES = [
      'asserts NO DAMAGE BEFORE THE DIAL is untouched, and GENERATES the tuning list rather '
      'than remembering it. The tables are empty today: it is standing before the numbers '
      'arrive so the first hand to fill them cannot land an untagged one', True),
-    ('DEMO',           ['node', 'gates/demo_gate.js'],
+    ('DEMO DAY',       ['node', 'gates/demo_day_gate.js'],
+     'THE PEOPLE LANE SHIPPED A demo_gate THE SAME DAY FOR THE SAME ROW AND BOTH ARE WORTH '
+     'KEEPING -- theirs guards the SPINE OF THE OPENING from a phone that has never seen the '
+     'game, this one guards THE DAY ITSELF. Neither is a superset of the other and collapsing '
+     'them would have thrown away real coverage to win a filename. '
      'DEMO BOARD row 9: seven gates each proved one beat of the demo and NOBODY had ever '
      'played the whole thing on the surface Paolo taps. This does, by hand, in ONE session, '
      'touching only what a player can touch: tap the splash and land IN THE GAME rather '
