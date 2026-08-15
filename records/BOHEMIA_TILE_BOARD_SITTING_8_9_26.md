@@ -316,3 +316,24 @@ skirt at the base) ship quantized like everything now does.
 Ledger next: rail turnouts, wheel stops (needs world stall-bay data), roll-up
 doors, fence slat/topper runs, mh awnings + hitches + the burned row, sf
 signbands, pool slopes, turf court lines.
+
+## 8/15 FIFTEENTH PASS: THE FENCE WARDROBE AND THE BURNED ROW (VOLUME, ALL REUSE)
+
+Four more ledger items, still zero new cooks - the approved 8/8 banks held
+every piece:
+- TF-ART-004 fence wardrobe: the eight security districts (storage, battery,
+  substation, arsenal, fort, airbase, radio, reclaim) run BARBED and RAZOR
+  wire lines, the trailer park and swap meet run privacy SLATS, and everywhere
+  the desert blows TRASH into the mesh (1-in-19) with the odd section LEANING
+  (1-in-23). One line still wears one style. Looked at live: the razor coil
+  running the substation line.
+- TF-ART-013 burned row + hitches: the burn joins the trailer pool as a
+  MATERIAL of its own, so about one mass in six is a whole charred hull -
+  whole-home, one material per mass, never a per-cell patchwork - and every
+  home keeps its tow hitch at the west tongue end, drawn in front of the
+  skirt. Looked at live: a turquoise home beside two burned hulls, skirts and
+  hitches on all of them. Card updated.
+Ledger remaining: mh awnings (placement needs care - canopy layer over the
+yard cell), roll-up doors, rail turnouts, sf signbands, pool slopes, turf
+court lines. Wheel stops still need world bay data. Freeway and deck stairs
+still blocked outside the lane.

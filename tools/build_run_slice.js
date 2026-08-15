@@ -305,7 +305,11 @@ if (String(fenceBank.law || '').indexOf('APPROVED') !== 0)
 var FENCE_PIECES = ['run_plain_0', 'run_plain_1', 'run_plain_2', 'run_rail_0', 'run_rail_1',
                     'run_rail_2', 'run_breach', 'ns_run_0', 'ns_run_1', 'post_hub',
                     /* VOLUME 8/14: the bank's own gates, two-cell 88px pairs on the run */
-                    'gate_shut', 'gate_sag', 'gate_open'];
+                    'gate_shut', 'gate_sag', 'gate_open',
+                    /* VOLUME 8/15: the rest of the wardrobe - security wire, privacy
+                       slats, blown trash, a leaning section */
+                    'run_barbed', 'run_razor', 'run_slat_tan', 'run_slat_bone',
+                    'run_trash_0', 'run_trash_1', 'run_lean'];
 var fenceCount = 0;
 fenceBank.tiles.forEach(function (t) {
   if (FENCE_PIECES.indexOf(t.name) >= 0) { tileformOut[t.name] = t.b64; fenceCount++; }
@@ -362,7 +366,9 @@ grabPieces('banks/tileforms/TF-ART-001_CANDIDATES_8_8_26.json',
 /* VOLUME 8/14: TF-ART-013 skirts - the panel band overlays the base of every
    trailer-district mass (drawCivicSkin bottom-row hook). */
 grabPieces('banks/tileforms/TF-ART-013_CANDIDATES_8_8_26.json',
-  ['mh_skirt_0', 'mh_skirt_1', 'mh_skirt_2', 'mh_skirt_vent_0', 'mh_skirt_missing_0']);
+  ['mh_skirt_0', 'mh_skirt_1', 'mh_skirt_2', 'mh_skirt_vent_0', 'mh_skirt_missing_0',
+   /* VOLUME 8/15: the tow hitch still on every tongue end */
+   'mh_hitch_0']);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('
@@ -561,7 +567,13 @@ if (String(mhBank.law || '').indexOf('APPROVED') !== 0)
      'mh_stripe_' + cw + '_0', 'mh_stripe_' + cw + '_1', 'mh_stripe_' + cw + '_2']);
   if (civicWall.trailer) { civicWall.trailer.push(m); civicBlock.trailer.push(false); }
 });
-console.log('  TILEFORMS: TF-ART-009 ghost brick joins 6 old-brick districts; TF-ART-013 adds 3 park colourways to the trailer pool (sixth + seventh wired families)');
+/* VOLUME 8/15: the BURNED ROW joins the pool as a material of its own - one
+   mass in six draws the burn, whole, because a post-crash park has dead homes
+   and a burn is a whole-home event, never a per-cell patchwork. */
+var mhBurned = bankMat(mhBank, MH_BANK,
+  ['mh_burned_body_0', 'mh_burned_body_1', 'mh_burned_body_2']);
+if (civicWall.trailer) { civicWall.trailer.push(mhBurned); civicBlock.trailer.push(false); }
+console.log('  TILEFORMS: TF-ART-009 ghost brick joins 6 old-brick districts; TF-ART-013 adds 3 park colourways + the burned row to the trailer pool (sixth + seventh wired families)');
 /* PLACEMENT FIX (Paolo 8/11, 'the placement was shit but individually the
    tiles are good'): the roof INTERIOR drew the old 8/1 pool while the new
    coping ring is TF-ART-012 - a brick-textured field against a gravel-rim

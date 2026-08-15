@@ -1,3 +1,28 @@
+*** FLAG FOR THE RUN LANE (from ART, 8/15): run_gate.js IS RED ON MAIN and it
+is the COLD OPEN. Proven on a clean origin/main worktree (8c2c320): alphaRun's
+tapStep cannot reach the D-pad - first #syncBadge intercepted the click (fixed
+in this ship: pointer-events:none, a status line should never eat taps), and
+under that the opening overlay still blocks the run panel, "<div id=app>
+intercepts pointer events". The gate dismisses the OLD splash; the new cold
+open needs its own dismissal step (or the overlay needs pointer-events
+handling when done). Your feature, your gate reconciliation - every lane's
+full-suite run is red until then. ***
+
+ART (f3eu53): 8/15 (a) LATEST -- *** THE FENCE WARDROBE IS ON AND THE PARK
+HAS ITS DEAD: razor wire on the security yards, slats on the park, trash in
+the mesh, one home in six a burned hull, hitches on every tongue. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fifteenth-pass section)
+
+TAB: ART, WIRED IN THE GAME - the chain-link and trailer cards carry the new
+volume (trailer card reshot: live home beside burned hulls). All still pure
+reuse of the approved 8/8 banks - fifteen passes, zero rejected cooks.
+
+LEDGER NEXT: mh awnings (canopy layer over the yard cell - the one placement
+that needs real care), roll-up doors on the metal districts, rail turnouts,
+sf signbands, pool slopes, turf court lines. Wheel stops NEED WORLD DATA.
+STILL BLOCKED OUTSIDE: freeway (WORLD realizes the reserved cells), deck
+stairs (TF-CMB-004 slab cook OPEN).
+
 CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE FAMILY MOVES. HE APPROVED THE CAST. ***
 
 PAOLO: "The family is looking good. I fuck with it heavy if I could see them do animations that
@@ -81,7 +106,7 @@ blocked. Do NOT put a number on his plate without grepping for it first.
 
 ---
 
-ART (f3eu53): 8/14 (b) LATEST -- *** THE VOLUME LEDGER IS OPEN: GATES IN THE
+ART (f3eu53): 8/14 (b) -- *** THE VOLUME LEDGER IS OPEN: GATES IN THE
 FENCES, SKIRTS ON THE TRAILERS, AND 17 MB OF PAGES HEADROOM BACK. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fourteenth-pass section)
 
@@ -455,7 +480,7 @@ VARIATION carry one red each -- verified identical on a clean tree, not a regres
 
 --------------------------------------------------------------------------------
 
-ART (f3eu53): 8/11 (l) LATEST -- *** TEN OF FOURTEEN FAMILIES ARE IN THE GAME.
+ART (f3eu53): 8/11 (l) -- *** TEN OF FOURTEEN FAMILIES ARE IN THE GAME.
 THE STOREFRONT "LAYER MYSTERY" WAS THE PROBE STANDING AT THE AWNINGS. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (eleventh-pass section)
 

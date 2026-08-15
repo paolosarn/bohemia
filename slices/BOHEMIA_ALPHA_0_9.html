@@ -70,7 +70,7 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .g8l{font-size:10px;text-align:center;opacity:.7;margin-top:2px}
 #p-rig,#p-combat,#p-city{overflow:hidden}
 #rigFrame,#combatFrame,#cityFrame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#0a0908}
-#syncBadge{text-align:center;padding:2px;font-size:9px;letter-spacing:1px;color:#3a3020;transition:color .3s}
+#syncBadge{text-align:center;padding:2px;font-size:9px;letter-spacing:1px;color:#3a3020;transition:color .3s;pointer-events:none}
 .row{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;align-items:center}
 .row b{width:100%;font-size:10px;letter-spacing:2px;color:#7a6a4a;margin-bottom:2px}
 button.opt{background:#1a150e;border:1px solid #2e2416;color:#c9bfa8;padding:6px 10px;font-size:11px;border-radius:4px;cursor:pointer}
@@ -998,7 +998,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/12i - FAT AND TALL ON THE TILE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/15a - RAZOR WIRE, SLATS AND THE BURNED ROW</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash

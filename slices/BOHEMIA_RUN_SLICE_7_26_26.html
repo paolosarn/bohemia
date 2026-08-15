@@ -650,8 +650,22 @@ function drawFenceform(gx,gy,X,Y,S){
     if(gsx>=0){
       im=TILEFORM_IMG[['gate_shut','gate_sag','gate_open'][th(gx>>1,gy,3)]]; sx=gsx;
     } else {
-      var pick=['run_plain_0','run_plain_1','run_plain_2','run_rail_0','run_rail_1','run_rail_2'][th(0,gy,6)];
+      /* VOLUME (8/15): the rest of the approved fence wardrobe. Security
+         districts run wire on top (barbed, razor), the park and the swap meet
+         run privacy slats; one line still wears one style. And the desert
+         blows TRASH into the mesh - the sparse overrides are breach (1/17),
+         a trashed section (1/19) and a leaning section (1/23). */
+      var fpool=['run_plain_0','run_plain_1','run_plain_2','run_rail_0','run_rail_1','run_rail_2'];
+      var fd=CELLNAME;
+      if(fd==='storage'||fd==='battery'||fd==='substation'||fd==='arsenal'||fd==='fort'
+       ||fd==='airbase'||fd==='radio'||fd==='reclaim')
+        fpool=['run_barbed','run_razor','run_barbed','run_rail_0','run_razor','run_plain_0'];
+      else if(fd==='trailer'||fd==='swapmeet')
+        fpool=['run_slat_tan','run_slat_bone','run_plain_1','run_slat_tan','run_rail_1','run_slat_bone'];
+      var pick=fpool[th(0,gy,6)];
       if(th(gx>>2,gy,17)===0) pick='run_breach';
+      else if(th(gx>>2,gy,19)===1) pick='run_trash_'+th(gx>>1,gy,2);
+      else if(th(gx>>2,gy,23)===2) pick='run_lean';
       im=TILEFORM_IMG[pick]; sx=(((gx%4)+4)%4)*44;
     }
   } else { im=TILEFORM_IMG['post_hub']; }
@@ -2270,6 +2284,16 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
     if(sk&&sk.complete&&sk.naturalWidth){
       var band=Math.round(S*26/44);
       ctx.drawImage(look(sk),0,18,44,26,X,Y+S-band,S,band);
+    }
+    /* VOLUME (8/15): the TOW HITCH still on the tongue end. A single-wide
+       never lost its hitch; it sits at the west end of the home, in front
+       of the skirt. */
+    if(!civicSolidAt(gx-1,gy)){
+      var ht=TILEFORM_IMG['mh_hitch_0'];
+      if(ht&&ht.complete&&ht.naturalWidth){
+        var hb=Math.round(S*26/44);
+        ctx.drawImage(look(ht),X,Y+S-hb,Math.round(S*0.75),hb);
+      }
     }
   }
   /* ---- THE PARAPET. A wall cell with ROOF BEHIND IT is the building's top edge, and
