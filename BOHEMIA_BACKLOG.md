@@ -1362,6 +1362,21 @@ P0-VISTA. THE MONEY SHOT HAS NO CALLER (8/14 audit, row 11 — one line of
    cell. DO: call `__VISTA.open()` from the cold open's aftermath (the
    ruled ORIGIN -> VISTA order) and/or a day-loop beat. | the vista plays
    in the demo's scripted path, gated | which beat = lane's call | no.
+E1-RUN. *** THE PAYDAY BRIDGE CAN FINALLY BE CALLED (8/15, off Paolo's
+   EVERYTHING COSTS ONE ruling — laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_
+   ONE_8_15_26.md; pairs with WORLD E1 which fills the tables). The 8/14
+   audit found row 1's get-paid/spend half PRESENT AND DORMANT: every
+   call site of payQuest/payForQuest/nearestHub/buy sits INSIDE the
+   payday module's own body, zero callers in the day-loop glue — and the
+   lane's own 8/14 commit said the same ("the bridge that was built and
+   never called"). The reason it stayed dormant was that the tables were
+   empty and it would only have answered NO_RULING. THE TABLES ARE
+   FILLING WITH TAGGED ONES NOW, so: call the bridge from the resolve/
+   reckoning path, move the purse, spend at a hub. Keep the refusal path
+   for uncovered keys. This closes the GET PAID -> SPEND half of the
+   ruled demo cut. | quest pays -> purse moves -> hub purchase clears, on
+   the real walked surface, in the headless day gate | real numbers are
+   his after a full playthrough | no. ***
 00. THE GAME DAY (assigned 7/29 off Paolo's big-missing dispatch — records/
    BOHEMIA_THE_BIG_MISSING_7_29_26.md item 1, THE lane milestone): one full
    playable day — wake at the base -> pick up a quest -> travel -> resolve
@@ -1695,6 +1710,37 @@ GM. GDD MECHANICS ROUTED 8/4 (from records/BOHEMIA_GDD_MECHANICS_LEDGER_
    passive income -> lose patrol lose income) + MAYOR-ARC RUNGS (territory
    -> ~49% mandate -> pseudo-mayor) — both keystone-native. | with the
    braid gates | numbers = his | no.
+E1. *** EVERYTHING COSTS ONE — THE VALVE IS OPEN (Paolo 8/15, LOCKED —
+   laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md. DO THIS FIRST
+   IN THIS LANE; it kills demo blockers 1, 2 AND 3 in one pass.) His
+   words: "anything that could cost a resource, we can't be tied up in
+   this. Just make everything cost one. Just start off with one and then
+   I'll move from there... you would have to play until the end of the
+   game to be like OK this is how much I should have."
+   FILL WITH TAGGED ONES: PURSE.PAYOUT, PURSE.PRICES, PURSE.PRODUCTION
+   (bohemia_payday.js:33-35), plus the rewind's per-move cost. The module
+   header already said "the pipe is finished and the valve is his, ONE
+   LETTER OPENS IT" — the letter is 1.
+   ONE IS NOT A GUESS, IT IS THE ABSENCE OF ONE, so mechanism-mine holds
+   completely: nobody is filling in canon he reserved. And a 1 can never
+   be mistaken for a tuned value the way a plausible drafted number can —
+   which is why his answer is SAFER than the drafted-numbers option that
+   was recommended to him.
+   NOT FREE: the spend still happens, the ledger still moves, you can
+   still run out. KEEP THE NO_RULING PATH for keys no table covers (nine
+   gates assert that honest refusal — the mechanism stays, the tables
+   just stop being empty). NOT DAMAGE: NO DAMAGE BEFORE THE DIAL is
+   untouched and out of scope.
+   THE MACHINE HALF, REQUIRED (a law without a gate is not enforced):
+   every unity value ships TAGGED placeholder (the numeric twin of
+   draft:true) and a gate enumerates every economic value asserting each
+   is either tagged placeholder or carries a recorded ruling from him —
+   so a hand-typed 7 with nothing behind it goes RED, and the tuning list
+   he works from after his first full playthrough is GENERATED, never
+   remembered. | economy circulates end to end on the real surface (quest
+   pays -> purse moves -> hub sells -> building yields) + the placeholder
+   gate registered and mutation-tested | the real numbers are HIS, after
+   he plays to the end | no. ***
 EP. *** BACKGROUND PRODUCTION IS NOW LOAD-BEARING FOR A SECOND SYSTEM
    (8/15, off Paolo's rewind ruling — laws/BOHEMIA_ADDENDUM_THE_REWIND_
    8_15_26.md §7/§7c). He asked for resources that accrue "autonomously

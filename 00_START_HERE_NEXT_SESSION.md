@@ -18762,3 +18762,33 @@ WORLD item EP ships the tick mechanism with the table still empty and
 refusing honestly. Rewind buffer + ghost VFX can be built in full before
 the numbers land; pricing waits.
 STILL PENDING PAOLO: how rewind meets permadeath in a run (not defaulted).
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/15 (c) — EVERYTHING COSTS ONE (Paolo, LOCKED —
+laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md; routed WORLD E1
++ WORLD EP + RUN E1-RUN). "Anything that could cost a resource, we can't
+be tied up in this. Just make everything cost one. Just start off with
+one and then I'll move from there... you would have to play until the end
+of the game to be like OK this is how much I should have."
+EVERY resource cost, price, payout and yield is 1 until he has played the
+game end to end and tuned it by feel. PURSE.PAYOUT / PURSE.PRICES /
+PURSE.PRODUCTION fill with TAGGED ones today — DEMO BLOCKERS 1, 2 AND 3
+ALL DIE AT ONCE. bohemia_payday.js's own header said "the pipe is
+finished and the valve is his, ONE LETTER OPENS IT"; the letter is 1.
+WHY THIS BEATS THE DRAFTED-NUMBERS OPTION THAT WAS RECOMMENDED TO HIM: a
+plausible number LOOKS TUNED, slips past every future reader, and becomes
+canon by inertia. A 1 announces itself as a placeholder from across the
+room. ONE IS NOT A GUESS, IT IS THE ABSENCE OF ONE — so mechanism-mine /
+contents-Paolo's holds completely, and the 8/9-vs-8/11 law conflict that
+was put to him DISSOLVES rather than being decided: nobody invented a
+number, and nothing is waiting.
+NOT free (the spend happens, the ledger moves, you can run out), NOT the
+end of the NO_RULING path (keep it for uncovered keys — nine gates assert
+that refusal), NOT damage (NO DAMAGE BEFORE THE DIAL untouched).
+REQUIRED MACHINE HALF: every unity value ships TAGGED placeholder (the
+numeric twin of draft:true) + a gate asserting every economic value is
+either tagged or carries a recorded ruling, so an untagged hand-typed
+number goes RED and his post-playthrough tuning list is GENERATED.
+UNBLOCKED TODAY: the GET PAID -> SPEND half of the demo cut, which the
+8/14 audit found present but dormant — it was never missing code, it was
+missing a number.
