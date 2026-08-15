@@ -8903,8 +8903,20 @@ the walked zoom still lands on a pixel-true stop, and both seams still cross.
 The tool REFUSES rather than guesses if a paint site moves -- it did exactly that on the
 first run when an anchor did not match, which is how it should behave.
 
-STILL TRUE AND STILL WRITTEN IN THE GATE: it catches paint getting MORE expensive, not
-paint stopping. That blind spot is documented, mutation-confirmed, and left honest.
+*** AND I HAD TO CORRECT MYSELF ABOUT THE GATE'S OWN BLIND SPOT. *** Earlier today I wrote,
+in the gate header and in a commit, that it CANNOT catch paint being throttled away
+entirely, "because the day loop repaints anyway". MEASURED AFTERWARDS: this page renders
+ZERO times in two idle seconds. THERE IS NO AMBIENT LOOP. The claim was inferred, not
+measured, and it was wrong.
+IT CATCHES BOTH DIRECTIONS NOW, mutation-confirmed:
+    make painting MORE expensive -> RED (2.08, or 4.00, named)
+    make it paint NOTHING        -> RED (the per-view "saw real work" floor hits zero)
+What had actually been missing was COVERAGE, not cleverness: when I wrote that limitation
+the gate only watched the view the page OPENS in, so a cheat in the city view had nothing
+looking at it. Extending the gauge to the second view is what gave it the floor.
+THE LESSON REPEATS: inferring a checker's BLIND SPOT is the same error as inferring its
+COVERAGE. I have now made both mistakes in one day -- a ratchet that claimed debt it did
+not have, and a header that disclaimed teeth it did have.
 
 WORLD (world-9lfjtf): 8/15 (h) -- *** THE ZOOM HITCH IS FIXED: HALF THE PAINTING
 PER FINGER MOVEMENT WHILE HE WALKS. *** Gate: frame_budget_gate.js 7/0 (FRAME BUDGET).

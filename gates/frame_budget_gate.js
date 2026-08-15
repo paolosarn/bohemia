@@ -43,16 +43,22 @@
  * pixel-true stop and pinching out must still cross the seam into the city builder, both on
  * the same real gesture.
  *
- * AND HERE IS WHAT THIS GATE STILL CANNOT CATCH, written down rather than papered over,
- * because a checker that claims teeth it does not have is the thing I spent today removing:
- * throttling the ZOOM's paint away entirely, while the rest of the app keeps drawing, is NOT
- * detected. Mutation-tested and confirmed green. Two attempts failed to catch it -- the
- * state assertions pass because HZOOM is still assigned by the caller, and a canvas
- * fingerprint passes because the day loop repaints anyway, so neither can isolate one
- * gesture's paint on a page with a live render loop. The honest boundary: THIS GATE CATCHES
- * REGRESSIONS THAT MAKE PAINTING MORE EXPENSIVE (mutation: revert the coalescer -> 2.08, it
- * bites), NOT ONES THAT SILENTLY MAKE THE ZOOM STOP DRAWING. Catching that needs a paint
- * counter inside render() itself, attributable to a cause. Whoever adds one, start here.
+ * IT CATCHES BOTH DIRECTIONS, and getting there corrected a mistake worth recording.
+ *   TOO EXPENSIVE : revert either coalescer and it bites, naming the number (2.08, or 4.00).
+ *   NOT PAINTING  : make renderSoon() draw nothing and it bites too -- the per-view "the
+ *                   gauge saw real work" floor drops to zero and the frozen-canvas check
+ *                   fires. Both mutation-confirmed.
+ *
+ * AN EARLIER REVISION OF THIS HEADER DECLARED THE SECOND CASE UNDETECTABLE AND GAVE A REASON
+ * THAT WAS SIMPLY FALSE: that a canvas fingerprint always passes "because the day loop
+ * repaints anyway". MEASURED AFTERWARDS: this page renders ZERO times in two idle seconds.
+ * There is no ambient loop. The real story is duller and more useful -- when that claim was
+ * written the gate only measured the view the page opens in, so a cheat in the CITY view had
+ * nothing looking at it. Extending the gauge to the second view is what gave it the floor
+ * that catches the cheat; no clever assertion was needed, only coverage.
+ * THE LESSON IS THE ONE THAT KEEPS REPEATING TODAY: I wrote down a limitation I had inferred
+ * instead of measured, and it was wrong in the direction that makes a gate look weaker than
+ * it is. Inferring a checker's blind spot is the same error as inferring its coverage.
  *
  *   node gates/frame_budget_gate.js
  */
