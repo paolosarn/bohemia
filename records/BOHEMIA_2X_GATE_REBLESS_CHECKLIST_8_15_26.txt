@@ -1,0 +1,70 @@
+BOHEMIA — 2X: THE GATE RE-BLESS CHECKLIST, ENUMERATED (8/15/26, CHARACTER lane)
+
+The 2X item says "the suite is the proof, not the obstacle" and names ~18 gates
+that measure character scale, then leaves "re-bless them" as one line. That line
+was the last unknown in the flip. It is enumerated now, swept against the real
+files, so the flip commit is mechanical instead of exploratory.
+
+===============================================================================
+CLASS A — 56 USED AS A STRIDE (index math). THE DANGEROUS ONE.
+===============================================================================
+`i * 56`, `i / 56`, `i % 56` converts a flat pixel index to x,y. At 112 the stride
+is 112 and every one of these silently addresses the WRONG PIXEL -- it does not
+throw, it just reads somewhere else, which is the worst possible failure in a gate
+because the gate keeps reporting numbers.
+
+    structure_gate.js     22 occurrences   <- by far the biggest, do this one first
+    neck_tone_gate.js      2
+    combat_lab_gate.js     1
+
+THESE MUST BE READ, NOT SED-REPLACED. A blind s/56/112/ also hits row indices,
+thresholds and prose. Each site has to be classified as stride / coordinate /
+unrelated.
+
+===============================================================================
+CLASS B — 56 DECLARED AS THE RIG SIZE. Mechanical.
+===============================================================================
+`W: 56`, `CW = 56`, `new Function('CW','CH',...)(56,56)` -- the gate telling the
+engine how big the body is. These become 112 together with the rig.
+
+    acc_gate.js              hat_gate.js            parts_are_painted_gate.js
+    anim_fabrication_gate.js hood_gate.js           people_gate.js
+    bodyvar_gate.js          open_coat_gate.js      structure_gate.js
+    clothes_follow_gate.js
+
+===============================================================================
+CLASS C — PINNED CANVAS WIDTHS. Double AND stay integer on the CONTENT box.
+===============================================================================
+canvas_scale_gate.js pins nine character surfaces with an expected whole-number
+scale. THE 8/6 LESSON APPLIES AND IS THE TRAP HERE: the bitmap lands in the
+CONTENT box, and `*{box-sizing:border-box}` means a declared width INCLUDES its
+1-2px border. A doubled width that forgets the border is fractional again, and
+fractional-but-near-integer is worse than obviously wrong because it survives
+being looked at.
+
+    char/charCv 3   char/portraitCv 2   clothes/cloBig 3   clothes/cloCv 1
+    anim/g8_0 1     anim/g8_4 1         rig/cv 1
+    char/hairTile 1 char/hairSpinShot 2
+
+Every declared width doubles; each keeps carrying its own border; the CONTENT box
+must stay an integer multiple of the (now 112) backing store.
+
+===============================================================================
+CLASS D — RATCHETS THAT MUST BE RE-PINNED, NOT DELETED
+===============================================================================
+head_follows_rig_gate.js   PINNED_TOTAL 14 / PINNED_WORST 3, measured in 56-space
+                           pixels. At 112 the same physical deviation reads as
+                           double. Re-measure and re-pin; DO NOT relax them to
+                           make the flip pass.
+canvas_memory_gate.py      ceilings are ratchets; the finished-frame cache does
+                           NOT grow (records/BOHEMIA_2X_MEMORY_MEASURED_8_15_26),
+                           so these should hold unchanged. If one moves, that is
+                           a finding, not a number to edit.
+
+===============================================================================
+THE RULE FOR ALL OF IT
+===============================================================================
+A GATE MUST NEVER OUTRANK A RULING (8/1). Re-bless with a comment naming his 8/14
+ruling. NEVER delete a check to make the flip green -- a check that is wrong at
+112 gets its number corrected and its reason written down, and a check that goes
+red for a real reason has found a real bug in the migration.

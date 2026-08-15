@@ -1,3 +1,39 @@
+CHARACTER (character-0lurbs): 8/15 -- *** 2X IS FULLY PREPPED. THE FLIP HAS NO UNKNOWNS
+LEFT. *** Steps 1-4 still NOT applied (they land together or not at all).
+
+DONE AND PROVED THIS SESSION:
+  tools/bohemia_rig_double.js 10/0, mutation-tested -- the rig (56->112, 5,248 px -> 20,992,
+    240 joints) AND garments/hair (45 layers, 7,526 -> 30,104, G24 [16,3] -> [32,6]), each
+    with its own ROUND-TRIP proof: halve it back and it must equal his originals exactly.
+    That is what makes RIG LAW safe BY CONSTRUCTION rather than by promise.
+  ANIMATION NEEDS NO DOUBLING -- the clips are functions returning ANGLES, not keyframes. 61
+    clips, zero work. THE ONE TRAP: headBob (ALPHA:3023) is literal `bob = -1`/`1` pixels;
+    at 112 that is HALF the physical breathing, so it MUST become 2 or the characters
+    quietly stop breathing.
+  MEMORY CLEARED -- records/BOHEMIA_2X_MEMORY_MEASURED_8_15_26.txt. The cache already stores
+    112 frames today (G.hd defaults true), so it does not grow. HD_CACHE.max stays 768.
+  THE GATE RE-BLESS IS ENUMERATED -- records/BOHEMIA_2X_GATE_REBLESS_CHECKLIST_8_15_26.txt.
+    Four classes, swept against the real files:
+    (A) 56 AS A STRIDE (i*56, i/56, i%56) -- THE DANGEROUS ONE: at 112 it silently addresses
+        the WRONG PIXEL and the gate keeps reporting numbers. structure_gate x22 (first),
+        neck_tone x2, combat_lab x1. READ each site; a blind s/56/112/ also hits row indices
+        and prose.
+    (B) 56 declared as the rig size, mechanical: acc, anim_fabrication, bodyvar,
+        clothes_follow, hat, hood, open_coat, parts_are_painted, people, structure.
+    (C) canvas_scale_gate's NINE pinned surfaces: double AND stay integer on the CONTENT box
+        (box-sizing means the declared width includes its border -- the 8/6 lesson).
+    (D) RATCHETS TO RE-PIN, NEVER RELAX: head_follows_rig PINNED_TOTAL 14 / WORST 3 are
+        56-space pixels and read double at 112.
+
+THE FLIP, ONE COMMIT: apply doubleRig to BAKED + dblPDLayer to every PD layer + G24 x2;
+headBob 1 -> 2; Scale2x OFF (where the sharpening comes from, and it HANDS BACK CPU because
+Scale2x currently runs only to manufacture the 112 the cache already stores); outline derived
+at 1px (his "half as thin", free); then the four gate classes above.
+THE JUDGEABLE: a side-by-side of the SAME character before/after at the SAME display size,
+and the thinner border is the thing to look at.
+
+--------------------------------------------------------------------------------
+
 ART (f3eu53): 8/16 (a) LATEST -- *** THE TRACKS END LIKE TRACKS: buffer
 stops on one end in four, blown sand over the rest. Turnouts + crossing
 PARKED with measurements (no through mainline, no road ever meets a track).

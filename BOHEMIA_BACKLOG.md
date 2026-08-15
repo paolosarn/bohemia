@@ -6032,6 +6032,23 @@ SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    becomes possible). Steps 1-4 ship ALONE first: everything looks the
    same but sharper and nothing regresses. Mixing step 5 in turns a
    provable migration into a redesign.
+   *** THE RE-BLESS IS ENUMERATED NOW (8/15) --
+   records/BOHEMIA_2X_GATE_REBLESS_CHECKLIST_8_15_26.txt. Swept against the real
+   files, so the flip commit is mechanical instead of exploratory. FOUR CLASSES:
+   (A) 56 USED AS A STRIDE (i*56, i/56, i%56) -- THE DANGEROUS ONE, because at
+   112 it silently addresses the wrong pixel and the gate keeps reporting
+   numbers: structure_gate.js x22 (do it first), neck_tone_gate.js x2,
+   combat_lab_gate.js x1. READ EACH SITE; a blind s/56/112/ also hits row
+   indices and prose. (B) 56 DECLARED AS THE RIG SIZE, mechanical: acc, anim_
+   fabrication, bodyvar, clothes_follow, hat, hood, open_coat, parts_are_painted,
+   people, structure. (C) canvas_scale_gate's NINE pinned character surfaces --
+   double each AND keep it integer on the CONTENT box, because box-sizing means
+   the declared width includes its own border (the 8/6 lesson; near-integer
+   survives being looked at, which is why it is worse than obviously wrong).
+   (D) RATCHETS TO RE-PIN, NOT RELAX: head_follows_rig's PINNED_TOTAL 14 /
+   PINNED_WORST 3 are 56-space pixels and read double at 112 -- re-measure, do
+   not loosen; canvas_memory's ceilings should hold unchanged since the cache
+   does not grow, and if one moves that is a FINDING. ***
    THE SUITE IS THE PROOF, NOT THE OBSTACLE: eighteen gates already
    measure character scale/rig fidelity/canvas ratios (rig_is_law,
    rig_no_drift, bone_scale, clothes_follow, head_follows_rig,
