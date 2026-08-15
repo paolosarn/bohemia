@@ -651,7 +651,47 @@ HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/14 (f) LATEST -- *** THE GAME NOW OPENS WITH THE COLD OPEN.
+PEOPLE (7h9sfy): 8/15 (b) LATEST -- *** FIVE PLAYABLE DAYS. DEMO CRITICAL PATH
+ROW 4 IS AT THE TOP OF ITS RANGE INSTEAD OF THE FLOOR. ***
+
+HIS WORD ON THE OPENING: "I saw it I like it. I appreciate it thank you."
+NOTES ARE RULINGS (7/19) -- that is the verdict, it is not going back to him.
+
+ROW 4 OF THE DEMO PLAN: "3-5 PLAYABLE QUESTS: demo-legal via hardcoded
+placements (the S01 pattern)". The demo had THREE and had had three since 8/11.
+Days 4 and 5 are now S22 THE COLD ROOM and S25 THE PRESSURE GOES BACKWARD, and
+they cost two rows in bohemia_demoquests.js DAYS -- no new machinery at all,
+because both were written in the meter reader's exact stage shape (open 10,
+advance to 20 on a world event, choose at 20 between #quiet/#notable/#reckless,
+33 is the author's own FAIL branch for nightfall).
+  day 4  enter a building        -- you have to GO IN AND LOOK at the machine
+  day 5  enter a NEW district    -- the sick houses are not neighbours, and
+                                    crossing into somewhere new IS the deduction
+Both picked by the module's own honest rule: the world can actually satisfy them
+today. No `require:'heat'` on the cold room, because the world has no heat axis
+this table can ask about and a condition that never fires is a day that never
+plays.
+
+*** TWO TOOLS THAT LIED ABOUT BEING IDEMPOTENT, AND ONE GATE THAT TESTED ITSELF ***
+
+ 1. bohemia_city_dayloop_patch.py said "Idempotent: re-running finds the marker
+    and reports NOOP." IT IS NOT IDEMPOTENT, IT IS ONE-SHOT. Adding a quest to
+    QUESTS printed NOOP and the city kept serving the old bytes -- the exact
+    failure bohemia_city_module_resync.py exists to clean up after, and a
+    violation of the 8/11 law that an editing tool must REPLACE. It rebuilds and
+    swaps the whole generated block now, proven by md5 over two runs.
+ 2. dayloop_gate.js hardcoded the three quest file stems. The demo grew to five
+    and the gate did not: SRC had no text for the new files, openDay() correctly
+    returned null, and the gate reported "no resolution card" AS IF THE QUESTS
+    WERE BROKEN. They were fine. It reads DQ.DAYS now. *** THIS IS THE SECOND
+    TIME IN TWO DAYS A GATE FAILED BECAUSE IT RETYPED A LIST THE CODE ALREADY
+    OWNED *** (the other was opening_gate guessing the DIRECT storage key). If
+    your gate types out a constant the product also types out, it is testing
+    your typing.
+ 3. Row 4 is now a CLAIM, not a hope: dayloop_gate asserts 3-5 days, no repeats,
+    numbered in order. A future session cannot quietly drop back under the line.
+
+PEOPLE (7h9sfy): 8/14 (f) -- *** THE GAME OPENS WITH THE COLD OPEN.
 DEMO CRITICAL PATH ROWS 7 AND 10, DONE. ***
 
 THE DEMO PLAN HAS TWO ROWS FOR THIS AND NEITHER WAS DONE, FOR TEN DAYS:

@@ -70,6 +70,35 @@
       open: 10,
       advance: { stage: 20, on: 'enter_district', require: 'new' },
       choiceAt: 20, choices: [30, 31, 32], fail: 33
+    },
+    /* DAYS 4 AND 5 (8/14). The demo plan's row 4 asks for "3-5 PLAYABLE QUESTS"
+       and three was the floor. These two are picked by the SAME honest rule the
+       first three were: the world can actually satisfy them today. Both were
+       written on 8/13-8/14 in the meter reader's exact shape (open 10, advance
+       to 20 on a world event, choose at 20 between #quiet/#notable/#reckless,
+       33 is the author's own FAIL branch for nightfall), so neither needs a
+       line of new machinery -- they are rows in this table.
+       AND BOTH ARE ABOUT WATER, which is what the valley is about. */
+    {
+      day: 4, id: 'bq_cold_room', file: 'S22_THE_COLD_ROOM',
+      brief: 'One cooled room on the block, and it is not cooling.',
+      open: 10,
+      /* you have to GO IN AND LOOK at the machine; that is the whole quest.
+         No `require` -- the cold room is an afternoon problem and the world's
+         heat axis is not a thing this table can ask about yet, so asking for
+         one would be a condition that never fires. */
+      advance: { stage: 20, on: 'enter_building' },
+      choiceAt: 20, choices: [30, 31, 32], fail: 33
+    },
+    {
+      day: 5, id: 'bq_backward', file: 'S25_THE_PRESSURE_GOES_BACKWARD',
+      brief: 'Nine houses with the same bad water, and they are not neighbours.',
+      open: 10,
+      /* the sick houses are not next to each other -- crossing into somewhere
+         you have not been IS the deduction, so a NEW district is exactly the
+         beat where "they are not all downhill of anything" lands. */
+      advance: { stage: 20, on: 'enter_district', require: 'new' },
+      choiceAt: 20, choices: [30, 31, 32], fail: 33
     }
   ];
 

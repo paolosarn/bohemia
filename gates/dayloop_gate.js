@@ -34,9 +34,19 @@ let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  > FAIL ' + n)); };
 const done = () => { console.log('DAY LOOP GATE: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
 
+/* THE DAY TABLE NAMES THE QUESTS, SO READ IT. This list used to be three file
+   stems typed out here, and the day the demo grew to five days the gate did not
+   grow with it: SRC had no text for the new files, openDay() correctly returned
+   null for a quest it could not load, and the gate reported "no resolution card"
+   as if the QUESTS were broken. They were fine; the gate was testing its own
+   hardcoded list. Same shape as the DIR_KEY typo in opening_gate the same day.
+   Derived from DQ.DAYS, so adding a day is a row in the engine and nothing else. */
 const SRC = {};
-for (const f of ['S01_THE_METER_READER', 'S09_THE_BACK_DOOR', 'S02_THE_SAME_CRATE_TWICE'])
-  SRC[f] = fs.readFileSync(path.join(ROOT, 'quests/bq', f + '.bq'), 'utf8');
+for (const spec of DQ.DAYS) {
+  const p = path.join(ROOT, 'quests/bq', spec.file + '.bq');
+  if (!fs.existsSync(p)) { console.log('  > FAIL day ' + spec.day + ' names a quest that does not exist: ' + spec.file); process.exit(1); }
+  SRC[spec.file] = fs.readFileSync(p, 'utf8');
+}
 
 /* ---- 1. THE SHAPE -------------------------------------------------------- */
 {
@@ -104,6 +114,20 @@ for (const f of ['S01_THE_METER_READER', 'S09_THE_BACK_DOOR', 'S02_THE_SAME_CRAT
   const Sq = BQ.parse(SRC.S01_THE_METER_READER);
   const failLog = Sq.stages.filter(x => x.n === 33)[0].log;
   ok('and it fails in the words its AUTHOR wrote for that branch, not mine', r.log === failLog);
+}
+
+/* ---- 4b. THE DEMO PLAN ASKS FOR 3-5 PLAYABLE QUESTS ---------------------- */
+{
+  /* records/BOHEMIA_THE_DEMO_PLAN_8_4_26.md, critical path row 4: "3-5 PLAYABLE
+     QUESTS: demo-legal via hardcoded placements". Three was the floor and it sat
+     at the floor for three days. This is the row itself, as a claim -- and it
+     also stops a future session quietly deleting a day back under the line. */
+  ok('the demo offers 3-5 playable days (' + DQ.DAYS.length + ')',
+    DQ.DAYS.length >= 3 && DQ.DAYS.length <= 5);
+  const ids = DQ.DAYS.map(d => d.id);
+  ok('and no two days are the same quest', new Set(ids).size === ids.length);
+  ok('and every day is numbered in order with no gaps',
+    DQ.DAYS.every((d, i) => d.day === i + 1));
 }
 
 /* ---- 5. NO INVENTED WORDS. THE ASSERTION THAT MATTERS MOST. ------------- */

@@ -53,7 +53,7 @@ CSS in the city's existing palette (--acc #b89a6a, --face #141210, --line
 #2a2418, --ink #e7d8bb), which is the Dead Eye Dial's language and already the
 whole app's. No bank is opened because nothing is drawn.
 
-Idempotent: re-running finds the marker and reports NOOP.
+Idempotent for real (8/14): re-running REBUILDS and swaps the generated block.\nIt used to no-op on the marker, which meant a changed module or a new quest\nsilently never reached the city.
 """
 import json
 import os
@@ -63,7 +63,11 @@ CITY = 'slices/BOHEMIA_CITY_WORLD.html'
 MARKER = '__DAY_LOOP__'
 MODULES = ['engine/bohemia_bq.js', 'engine/bohemia_quest_runtime.js',
            'engine/bohemia_dayloop.js', 'engine/bohemia_demoquests.js']
-QUESTS = ['S01_THE_METER_READER', 'S09_THE_BACK_DOOR', 'S02_THE_SAME_CRATE_TWICE']
+# FIVE now (8/14): the demo plan's row 4 asks for 3-5 PLAYABLE quests and three
+# was the floor. Days 4 and 5 are rows in bohemia_demoquests.js DAYS, no new
+# machinery -- both were written in the meter reader's exact stage shape.
+QUESTS = ['S01_THE_METER_READER', 'S09_THE_BACK_DOOR', 'S02_THE_SAME_CRATE_TWICE',
+          'S22_THE_COLD_ROOM', 'S25_THE_PRESSURE_GOES_BACKWARD']
 
 # ---- the clock this replaces ------------------------------------------------
 OLD_CLOCK = """// ---- game clock: I MOVE YOU MOVE. steps advance time. ----
@@ -284,12 +288,60 @@ NEW_RESTORE = """  T.day=st.day||1; T.min=(typeof st.min==='number')?st.min:8*60
     if(DAY.phase==='ended')try{ showReckoning(); }catch(_e){} }"""
 
 
+def _block():
+    """the generated payload: engine bodies + the canon quest text, verbatim."""
+    bodies = []
+    for m in MODULES:
+        if not os.path.exists(m):
+            sys.exit('FAIL: missing module ' + m)
+        bodies.append('/* ' + MARKER + ' */\n/* ==== engine/' + os.path.basename(m) + ' ==== */\n'
+                      + open(m, encoding='utf-8').read())
+    src = {}
+    for q in QUESTS:
+        p = 'quests/bq/' + q + '.bq'
+        if not os.path.exists(p):
+            sys.exit('FAIL: missing quest ' + p)
+        src[q] = open(p, encoding='utf-8').read()
+    bodies.append('/* ' + MARKER + ' -- the ' + str(len(QUESTS)) + ' canon .bq quests, VERBATIM.\n'
+                  '   Every resolution button in the game is one of these files\' own @LOG lines. */\n'
+                  'const DEMO_BQ=' + json.dumps(src) + ';\n'
+                  'let DAY_RESTORED=false;')
+    return '\n'.join(bodies) + '\n'
+
+
+def rebuild(s):
+    """REPLACE the generated block in place. The block runs from the first
+    __DAY_LOOP__ banner up to the clock the patch installed."""
+    head = '/* ' + MARKER + ' */\n/* ==== engine/' + os.path.basename(MODULES[0]) + ' ==== */'
+    i = s.find(head)
+    if i < 0:
+        sys.exit('REFUSING TO WRITE: %s is present but its first module banner is not, '
+                 'so the block boundary cannot be found. Re-anchor before re-running.' % MARKER)
+    j = s.find(NEW_CLOCK, i)
+    if j < 0:
+        sys.exit('REFUSING TO WRITE: the installed clock was not found after the block, '
+                 'so replacing would eat somebody else\'s code.')
+    out = s[:i] + _block() + s[j:]
+    open(CITY, 'w', encoding='utf-8').write(out)
+    print('DAY LOOP: block replaced (%d modules, %d quests, %.1f KB)'
+          % (len(MODULES), len(QUESTS), len(_block()) / 1024.0))
+
+
 def main():
     if not os.path.exists(CITY):
         sys.exit('FAIL: ' + CITY + ' not found')
     s = open(CITY, encoding='utf-8').read()
     if MARKER in s:
-        print('NOOP: ' + MARKER + ' already present')
+        # *** IT USED TO NO-OP FOREVER HERE AND THAT WAS THE BUG. *** The docstring
+        # called that "idempotent"; it is not, it is ONE-SHOT. The moment anybody
+        # changed a module body or added a quest to QUESTS, this tool cheerfully
+        # reported NOOP and the city kept serving the old bytes -- the exact
+        # failure tools/bohemia_city_module_resync.py exists to clean up after,
+        # and the 8/11 CHARACTER-lane law says an editing tool must REPLACE.
+        # So: rebuild the block and swap it, every run. Running it ten times
+        # leaves the file identical to running it once, which is what idempotent
+        # actually means.
+        rebuild(s)
         return
 
     # 1. the engine bodies + the canon quest text, right before the clock
@@ -314,7 +366,7 @@ def main():
         if not os.path.exists(p):
             sys.exit('FAIL: missing quest ' + p)
         src[q] = open(p, encoding='utf-8').read()
-    bodies.append('/* ' + MARKER + ' -- the three canon .bq quests, VERBATIM. Every\n'
+    bodies.append('/* ' + MARKER + ' -- the five canon .bq quests, VERBATIM. Every\n'
                   '   resolution button in the game is one of these files\' own @LOG lines. */\n'
                   'const DEMO_BQ=' + json.dumps(src) + ';\n'
                   'let DAY_RESTORED=false;')
