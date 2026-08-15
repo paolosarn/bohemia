@@ -90,7 +90,9 @@ select,input[type=range]{background:#1a150e;border:1px solid #2e2416;color:#c9bf
 #familyCast .famStage{position:relative;width:114px;height:114px;border:1px solid #241c12;border-radius:3px;
   background:linear-gradient(#1a1622 0%,#1a1622 62%,#39323f 88%,#453d4c 100%)}
 #familyCast .famShadow,#familyCast .famBody{position:absolute;left:0;top:0;width:112px;height:112px;image-rendering:pixelated}
-#familyCast .famRole{font:800 10px ui-monospace,monospace;letter-spacing:2px;color:#c8b98a;margin-top:3px}
+#familyCast .famClipBar{display:flex;align-items:center;justify-content:center;gap:8px;padding:6px 0;font:11px ui-monospace,monospace;letter-spacing:1px;color:#8a8172}
+.famClip{background:#1e1e27;color:#e9e9f0;border:1px solid #34343f;border-radius:6px;padding:5px 8px;font:11px ui-monospace,monospace}
+.famRole{font:800 10px ui-monospace,monospace;letter-spacing:2px;color:#c8b98a;margin-top:3px}
 #familyCast .famName{font:600 10px ui-monospace,monospace;color:#8a7a5a}
 #familyCast .famDraft{font-size:8px;letter-spacing:1px;color:#6a5a3e}
 #p-char.sun #familyCast .famStage{background:linear-gradient(#efe9dc 0%,#efe9dc 62%,#d3cbbb 88%,#c4bba7 100%)!important}
@@ -996,7 +998,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/14g - THE GAME OPENS WITH THE COLD OPEN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/12h - THE FAMILY MOVES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3420,7 +3422,7 @@ function famPaintShadow(cv){
    `body` and `facial` are NOT cleared -- they are not garments, they are the
    person, and clearing them paints a skinless mannequin. */
 var FAM_PD_CLOTHING = ['shirt','jacket','pants','shoes','hat','glasses','hair'];
-function famPaintBody(cv, member, dir){
+function famPaintBody(cv, member, dir, clip, ph){
   var keepW = window.G_WORN, keepDials = G.bodyVar, keepAge = G.age;
   var keepEq = {};
   FAM_PD_CLOTHING.forEach(function(s){ if(s in G.equipped){ keepEq[s] = G.equipped[s]; G.equipped[s] = ''; } });
@@ -3438,7 +3440,7 @@ function famPaintBody(cv, member, dir){
        BODY, so they hand back the previous person unless cleared. */
     rebuildFromRig();
     try { HD_CACHE.map.clear(); } catch(e) {}
-    drawChar(cv, dir, 'idle', 0);
+    drawChar(cv, dir, clip || 'idle', ph || 0);
   } catch(e) {
   } finally {
     /* PUT THE PLAYER'S BODY BACK. These are GLOBALS: leaving the sister's child
@@ -3451,6 +3453,44 @@ function famPaintBody(cv, member, dir){
   }
 }
 
+/* ===== THE FAMILY MOVES (Paolo 8/11: "if I could see them do animations that
+   would be awesome") ========================================================
+   BAKED STRIPS, NOT LIVE REPAINTS. famPaintBody calls rebuildFromRig() -- it has
+   to, because a cast member is not the player and her dials and age only reach the
+   renderer through it -- and four rig rebuilds per frame at 60fps is not a thing
+   that can run. So each member's loop is baked ONCE into finished canvases and the
+   render loop blits. The rebuild is paid on a clip or facing change.
+   ONE CLOCK. The render loop already carries the 120 BPM phase for the character
+   box; the cast reads the same one. A second timer would be a second clock. */
+var FAM_STRIP = new Map(), FAM_CARDS = [], FAM_CLIP = 'idle';
+function famFrames(){ try{ return Math.max(4, FRAME_CACHE.buckets|0); }catch(e){ return 8; } }
+function famStrip(member, dir, clip){
+  var key = member.role + '|' + dir + '|' + clip;
+  var hit = FAM_STRIP.get(key); if (hit) return hit;
+  var n = famFrames(), strip = [];
+  for (var i = 0; i < n; i++){
+    var c = document.createElement('canvas'); c.width = 112; c.height = 112;
+    famPaintBody(c, member, dir, clip, i / n);
+    strip.push(c);
+  }
+  FAM_STRIP.set(key, strip);
+  return strip;
+}
+/* called from the render loop with the phase it already computed */
+function famTick(ph){
+  if (!FAM_CARDS.length) return;
+  for (var i = 0; i < FAM_CARDS.length; i++){
+    var card = FAM_CARDS[i];
+    var strip = famStrip(card.member, card.dir, FAM_CLIP);
+    var f = Math.floor(ph * strip.length) % strip.length;
+    if (f === card.frame) continue;                       /* the beat has not moved */
+    card.frame = f;
+    var g = card.cv.getContext('2d');
+    g.clearRect(0, 0, card.cv.width, card.cv.height);
+    g.drawImage(strip[f], 0, 0);
+  }
+}
+window.famTick = famTick;
 function famBuild(){
   var host = document.getElementById('familyCast');
   if (!host || !window.drawChar) return;
@@ -3465,10 +3505,13 @@ function famBuild(){
     stage.appendChild(sh); stage.appendChild(bd);
     famPaintShadow(sh);
     famPaintBody(bd, m, 'S');
+    var card_ = { cv: bd, member: m, dir: 'S', frame: -1 };
+    FAM_CARDS.push(card_);
     /* tap to turn: every member walks all eight facings, because a cast you can
        only see from the front is a cast you cannot judge for a fight */
     var d = 0;
-    stage.onclick = function(){ d = (d+1) % 8; famPaintBody(bd, m, DIRS8[d]); lbl.textContent = m.role + ' \u00b7 ' + DIRS8[d]; };
+    stage.onclick = function(){ d = (d+1) % 8; card_.dir = DIRS8[d]; card_.frame = -1;
+      famPaintBody(bd, m, DIRS8[d], FAM_CLIP, 0); lbl.textContent = m.role + ' \u00b7 ' + DIRS8[d]; };
     var lbl = document.createElement('div'); lbl.className='famRole';
     var AGEL = (window.BOH_AGE && BOH_AGE.STAGES[m.age||'adult']) ? BOH_AGE.STAGES[m.age||'adult'].label : '';
     lbl.textContent = m.role + ' \u00b7 S';
@@ -3480,6 +3523,28 @@ function famBuild(){
     card.appendChild(stage); card.appendChild(lbl); card.appendChild(agl); card.appendChild(nm); card.appendChild(dr);
     host.appendChild(card);
   });
+  /* WHAT THEY DO IS HIS CALL (MECHANISM-MINE / CONTENTS-PAOLO'S). This carries the
+     FULL canon CLIPS list, not a shortlist I picked -- which animations are worth
+     seeing the family in is a content decision and it is his. Changing it drops
+     every baked strip so the whole cast re-bakes into the new clip together. */
+  var pick = document.createElement('select');
+  pick.className = 'famClip';
+  /* NOT `window.CLIPS` -- CLIPS is a top-level `const`, so it never lands on
+     window and the picker silently came up with ONE option. Measured: options=1.
+     A bare identifier reads the const; typeof guards it without a ReferenceError. */
+  ((typeof CLIPS !== 'undefined' && CLIPS.length) ? CLIPS : ['idle']).forEach(function(c){
+    var o = document.createElement('option'); o.value = c; o.textContent = c.toUpperCase();
+    if (c === FAM_CLIP) o.selected = true; pick.appendChild(o);
+  });
+  pick.onchange = function(){
+    FAM_CLIP = pick.value;
+    FAM_STRIP.clear();                                  /* every strip is for the old clip */
+    FAM_CARDS.forEach(function(c){ c.frame = -1; });
+  };
+  var bar = document.createElement('div'); bar.className = 'famClipBar';
+  var cl = document.createElement('span'); cl.textContent = 'THE FAMILY DOES: ';
+  bar.appendChild(cl); bar.appendChild(pick);
+  host.parentNode ? host.parentNode.insertBefore(bar, host) : host.appendChild(bar);
 }
 window.famBuild = famBuild;
 
@@ -13092,7 +13157,13 @@ function loop(){
     const _sk=G.showSkel;G.showSkel=false;
     drawChar(document.getElementById('charCv'),G.dir,_cc,ph);
     G.showSkel=_sk;
-    if(window.crowdTick)window.crowdTick();}
+    if(window.crowdTick)window.crowdTick();
+    /* THE FAMILY MOVES ON THE SAME BEAT (Paolo 8/11). Same `now`, same BEAT_MS,
+       same ANIMBEATS as the character box above -- one clock for the whole
+       screen. famTick only blits a pre-baked frame, so this costs a drawImage
+       per member and nothing else. */
+    if(window.famTick){const _fb=ANIMBEATS[FAM_CLIP]||2;
+      window.famTick(((now-(G.charT0||G.t0))/(BEAT_MS*_fb))%1);}}
   PERSIST.autoflush(now);warmTick();
   if(animOn){const beats=ANIMBEATS[G.clip]||2;const _rph=(now-G.t0)/(BEAT_MS*beats);const ph=TERMINAL[G.clip]?Math.min(1,_rph):(_rph%1);   /* terminal deaths play once then hold the corpse */
     if(G.clip==='headshot-2'&&G._rgT0!==G.t0){G._rgT0=G.t0;RG.key=null;RG.last=null;}   /* (re)start the ragdoll on select/replay */

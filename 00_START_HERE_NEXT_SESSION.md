@@ -1,3 +1,33 @@
+CHARACTER (character-0lurbs): 8/11 LATEST -- *** THE FAMILY MOVES. HE APPROVED THE CAST. ***
+
+PAOLO: "The family is looking good. I fuck with it heavy if I could see them do animations that
+would be awesome."
+NOTES ARE RULINGS -- the cast is APPROVED, and the one thing he asked for on top of it shipped
+the same turn. All four members animate on the character screen, with a picker carrying the
+FULL canon CLIPS list (102) so he can watch the family do anything in the game.
+tools/bohemia_family_anim_patch.py. GATE: FAMILY ANIM (gates/family_anim_gate.js) 13/0,
+registered, mutation-tested (remove the tick and seven assertions fail).
+
+*** BAKED STRIPS, NOT LIVE REPAINTS, AND THIS IS THE PART TO NOT UNDO. *** famPaintBody calls
+rebuildFromRig() -- it has to, because a cast member is not the player and her dials and age
+reach the renderer ONLY through it -- and that is four full rig rebuilds per frame at 60fps.
+So each member's loop is baked ONCE into finished canvases and the render loop just blits.
+Rebuild is paid on a clip or facing change, never per frame.
+
+*** ONE CLOCK. *** 120 BPM LAW. The render loop already computes
+(now - t0)/(BEAT_MS * ANIMBEATS[clip]) % 1 for the character box; the cast reads THAT phase in
+THAT loop. A private setInterval for the family would be a second clock and two clocks drift.
+The gate checks this structurally, because "is there a second timer" is not a question a
+screenshot can answer.
+
+THE PICKER SHIPPED WITH ONE OPTION AND I ONLY CAUGHT IT BY COUNTING. `CLIPS` is a top-level
+const, so `window.CLIPS` is undefined and my `|| ['idle']` fallback won SILENTLY -- the select
+rendered, looked right, and offered exactly one clip. Measured options=1, fixed, now 102. Same
+family of bug as the `gdir` temporal-dead-zone read earlier today: a guard that swallows the
+failure and leaves something plausible on screen. COUNT THE THING, do not look at it.
+
+--------------------------------------------------------------------------------
+
 RUN (run-eak241): 8/14 LATEST -- THE TRADING HUB. HE CAN SPEND IT NOW, AND IT WAS
 NEVER BLOCKED ON HIM.
 

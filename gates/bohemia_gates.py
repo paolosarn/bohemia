@@ -1082,6 +1082,14 @@ GATES = [
      'legs (a bare shin paints the dark under-body, not skin), and the contact shadow lives in its own '
      'canvas with NONE of it in the sprite -- SHADOWS ARE A SEPARATE LAYER, 7/26 LOCKED',
      True),
+    ('FAMILY ANIM',    ['node', 'gates/family_anim_gate.js'],
+     'Paolo 8/11: "The family is looking good. I fuck with it heavy if I could see them do animations that '
+     'would be awesome." All four cast bodies ANIMATE, counted as distinct RENDERED frames over real '
+     'wall-clock time; the clip picker carries the FULL canon CLIPS list (it shipped with ONE, because CLIPS '
+     'is a const and window.CLIPS is undefined); changing the clip changes what they DRAW, not just what the '
+     'select says; and they ride the render loop that already owns the 120 BPM phase rather than a private '
+     'timer, because two clocks drift. Baked strips, since famPaintBody rebuilds the rig',
+     True),
     ('WORN PERSIST',   ['node', 'gates/worn_persist_gate.js'],
      'THE CLOTHES HE PUTS ON SURVIVE A RELOAD. There are TWO wardrobes on this character and only one was '
      'ever saved: G.equipped (the PD layer slots) was in PERSIST.snapshot() since forever, and G_WORN -- the '
