@@ -37,6 +37,13 @@ tunable by his playtest feel, not spec.
 "Honestly maybe the most valuable thing is pain pills really." The premium
 good of the valley (a GOOD, not a currency — the three currencies stand).
 - TWO TIERS, MAYBE THREE MAX — simplify, his word. No pharmacology tree.
+  *** SETTLED AT TWO (coordinator 8/15, under EVERYTHING IS A THUMB). His
+  own phrasing led with two ("a couple different tiers... two maybe three
+  max"), and asking him a fourth time was the approvals-queue behavior
+  the 8/9 law bans. So: TWO TIERS ship — the common street grade and the
+  real pharmaceutical one — and if he wants a third he says so and it is
+  a five-minute change, because tier count is a table row, not a system.
+  WORLD builds against two. ***
 - Pills MANAGE the wounded state (function while hurt, soften the debuff)
   — they never accelerate true healing. Only time heals.
 - PROVENANCE IS QUESTIONABLE AND THE DESCRIPTIONS GET TO BE FUNNY (his
