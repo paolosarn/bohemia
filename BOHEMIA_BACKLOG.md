@@ -1273,6 +1273,47 @@ items; every item works to the Definition of Done. Entry shape:
 GOAL | DoD beyond the standard | DON'T TOUCH | needs-verdict-before-volume?
 
 ## RUN
+P0-SAVE. *** THE SAVE SURVIVES THE PHONE AND NOT US — WIRE THE MIGRATION
+   CHAIN BEFORE THE FRIENDS ROUND (sweep 12 catch, 8/15 — records/
+   BOHEMIA_RESEARCH_THE_SAVE_SURVIVES_THE_PHONE_NOT_US_8_15_26.md).
+   THE MACHINE EXISTS AND IS WIRED TO NOTHING: engine/bohemia_engine.js
+   carries `CURRENT_SAVE_VERSION = 7` and a full ordered MIGRATIONS chain
+   (pure, one step each, with the right discipline already in its own
+   comments — "never rename in place, keep old readable"). But
+   `CURRENT_SAVE_VERSION`, `MIGRATIONS` and `migrate(` appear ZERO times
+   in BOHEMIA_CITY_WORLD.html and ZERO times in engine/bohemia_save.js.
+   AND THE VERSIONS ALREADY DISAGREE: the city stamps v:1, the save
+   module carries V=2, the engine believes 7. Three components, three
+   answers, no authority.
+   WHY IT IS URGENT AND NOT MERELY TRUE: the closed playtest is imminent,
+   and the site AUTO-DEPLOYS — measured 8/6, the lanes push about every
+   THIRTEEN MINUTES — so the state shape can change under a live player
+   between sessions with nobody intending a "release". WE ARE A MORE
+   FREQUENT THREAT TO THE SAVE THAN iOS IS, and iOS is the threat we
+   built all the armour for (two slots, generations, checksums,
+   tombstones, 40+ hostile assertions). A dead save is not a bug somebody
+   retries; it is a stranger's world gone, and the feedback goes with it.
+   DO: (1) ONE VERSION, ONE AUTHORITY — reconcile v:1 / V=2 / 7 into a
+   single number the writer stamps and the reader checks. (2) WIRE THE
+   CHAIN into the playable load path. (3) EXPAND/CONTRACT becomes the
+   standing rule for state-shape changes fleet-wide: add alongside,
+   default the new field in a migration, never rename in place, remove
+   only when provably unread. (4) THE GATE THAT CANNOT ROT — SAVE
+   FIXTURES: check in a real save blob captured from each shipped build
+   and assert the CURRENT build opens EVERY one; the corpus then grows by
+   itself every ship, and a shape change without a migration goes red on
+   a real world instead of a hypothetical. This is how Mojang keeps
+   DataFixerUpper honest, and Minecraft opens decade-old worlds because
+   of it. (5) CAPTURE THE FIRST FIXTURES NOW, before the friends round.
+   (6) THE REWIND INHERITS THIS: its ring buffer is made of these
+   snapshots — in-memory buffers die on reload and are fine, anything
+   persisted must migrate.
+   AND IT CORRECTS THE 8/14 BOARD: row 6 was marked CLOSED. Wrong twice —
+   this week's acd7b85 / 0ff4947 found the city could not even talk to
+   the shell so the autosave never arrived, AND durability is not
+   compatibility. The audit checked that bytes survive the browser and
+   never asked whether they survive us. | one version stamped and
+   checked, chain called on load, fixture corpus gated green | — | no. ***
 P0-DOOR. *** THE GAME IS NOT THE FIRST THING A NEW PLAYER SEES. TOP OF
    THE QUEUE, DEMO-BLOCKING, AND THE CHEAPEST BIG WIN ON THE BOARD (8/14
    coordinator audit — records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md row 7).

@@ -138,7 +138,20 @@ bake bug is fixed at the door (`:7239-7241` startEncounter re-checks
 lookKey). Asserted by `gates/combat_lab_gate.js:4186-4190`. Nothing
 remains for this row.
 
-### ROW 6 — SAVE DURABILITY MINIMUM — **CLOSED** (the 8/13 amendment OPEN)
+### ROW 6 — SAVE DURABILITY MINIMUM — **CORRECTED 8/15: NOT CLOSED**
+*** THIS ROW WAS MARKED CLOSED AND IT WAS WRONG TWICE (sweep 12 —
+records/BOHEMIA_RESEARCH_THE_SAVE_SURVIVES_THE_PHONE_NOT_US_8_15_26.md).
+(1) Not closed on its own terms: this week lanes found "THE CITY COULD
+NOT TALK TO THE SHELL: the autosave has never arrived" and "THE CITY WAS
+NEVER INTRODUCED TO ITS OWN SAVE" (acd7b85, 0ff4947) — the storage layer
+was immaculate and the message never reached it, the two-surfaces disease
+inside the save itself. (2) DURABILITY IS NOT COMPATIBILITY: this audit
+verified that the bytes survive the BROWSER and never asked whether they
+survive US. engine/bohemia_engine.js has CURRENT_SAVE_VERSION=7 and a
+full migration chain that the playable surface and the save module
+reference ZERO times, and the three components stamp three different
+version numbers. Routed as RUN P0-SAVE, before the friends round. ***
+ORIGINAL 8/14 FINDING, kept as the record — **CLOSED** (the 8/13 amendment OPEN)
 persist() runs at boot on the real surface (`ALPHA:8-34`), verified live by
 `gates/durable_save_gate.js`. Save v2 is two-slot with generation counters,
 checksums and tombstones, proven in a real browser against hostile-browser

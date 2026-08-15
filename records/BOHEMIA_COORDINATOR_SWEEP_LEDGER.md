@@ -453,3 +453,75 @@ requirements published, high. Per-player rendering claims are
 population-level, which is why the routed answer is a SIMULATOR TEST and
 not an assumption.]
 HIGH-WATER MARK: swept through main @ 710e795 (plus this sweep's push)
+
+## SWEEP 12 — 8/15/26 (his v3 prompt)
+DELTA: 24 commits, the strongest week yet, and MOST OF IT IS THE 8/14
+AUDIT AND MY ROUTED CATCHES COMING BACK BUILT.
+- HIS P0 IS FIXED: "the pinch rides to the moon and back, and the freeze
+  is gone" — the crash he reported is dead.
+- THE REPO HAD NO PERF GAUGE AT ALL (board row 8), one got built, and it
+  IMMEDIATELY found a hitch in the most common gesture in the game plus
+  "the city builder was the worst performer in the game and had no number
+  at all"; the zoom hitch is now fixed (half the painting per finger move).
+- PLACEHOLDER GATE for EVERYTHING COSTS ONE shipped — his ruling has its
+  machine half, and the RUN half was already done.
+- "I COUNTED THE REST OF THE FLEET: 22 OF 30 'INTEGRATED' ROWS STILL
+  PROVE THEMSELVES ONLY ON THE APP HE NEVER SEES" — sweep 9's two-surface
+  finding, now counted fleet-wide by a lane. 22 of 30.
+- THE STREET TALKS: linesFor was called ZERO TIMES in the frame he looks
+  at. A keeper tool had been CRASHING FOR TWO WEEKS and still read as
+  protection. The WORLD backlog said OPEN for work that shipped eight
+  days ago. Same family, three more instances.
+- Two honest self-corrections by lanes: "I DOCUMENTED A BLIND SPOT THE
+  GATE DOES NOT HAVE, AND GAVE A REASON THAT WAS FALSE", and the two-way
+  cover ruling.
+- NEW LAW FROM HIM, recorded by COMBAT: THE FIGHT HAS TO MOVE YOU.
+COLLISION, CAUGHT AND HANDLED BY THE LANES THEMSELVES: PEOPLE and RUN
+each wrote a DEMO GATE the same day ("KEEP BOTH DEMO GATES"). Two gates
+over one contract can drift apart, but both were kept deliberately with
+reasons stated, so this stays a WATCH ITEM, not an intervention — revisit
+only if they ever disagree about the same run.
+MY HYPOTHESIS THAT DIED THIS SWEEP (recorded because a killed hypothesis
+is a result): I suspected the 120 BPM spine was audio-only and unplayable
+muted. Two checks killed it — the ring/silent switch is already handled
+(navigator.audioSession.type='playback', found 7/31 after a second report
+of silence), and the combat blob DOES draw the beat (a cream marker for
+YOU, a red-orange one for THEM, at different positions). No catch there.
+THE CATCH (lens: what the save is actually armoured against; both aisles):
+QUESTION: the save is the most hardened system in the repo — hardened
+against WHAT?
+MEASURED: engine/bohemia_engine.js carries CURRENT_SAVE_VERSION = 7 and a
+complete ordered MIGRATIONS chain, with the right discipline already in
+its own comments ("never rename in place, keep old readable") — and
+`CURRENT_SAVE_VERSION`, `MIGRATIONS` and `migrate(` appear ZERO times in
+the playable city surface AND zero times in bohemia_save.js. The city
+stamps v:1, the save module V=2, the engine believes 7. THE SAFETY
+MECHANISM FOR THE ONE SYSTEM WHOSE FAILURE IS UNRECOVERABLE IS UNPLUGGED.
+TIMING: the closed playtest is imminent and the site AUTO-DEPLOYS every
+~13 minutes of pushes, so the shape can change under a live player with
+nobody intending a release. WE ARE A MORE FREQUENT THREAT THAN iOS, and
+iOS is what all the armour was built for.
+AISLES: Mojang built DataFixerUpper — an entire library, schemas plus
+ordered rewrite rules between versions — so Minecraft opens decade-old
+worlds; the best-selling game ever concluded this deserved permanent
+dedicated machinery. Backend engineering settled it as EXPAND/CONTRACT
+(parallel change): add alongside, dual-write, contract only when the old
+shape is provably unread, with backward/forward compatibility as
+non-negotiable design constraints.
+CHALLENGE FINDING, AND IT IS AGAINST MY OWN WORK: the 8/14 board marked
+ROW 6 SAVE DURABILITY **CLOSED**. Wrong twice — (1) lanes found this week
+that the city could not talk to the shell so the autosave never arrived,
+and (2) DURABILITY IS NOT COMPATIBILITY: I verified the bytes survive the
+BROWSER and never asked whether they survive US. Fourth instance this
+month of the same general form: we keep verifying the layer we built
+instead of the path the player takes. Board corrected in place.
+ROUTED: RUN P0-SAVE — one version with one authority, wire the chain on
+load, expand/contract as the fleet-wide rule for shape changes, and the
+gate that cannot rot: A SAVE FIXTURE CORPUS, one real blob captured per
+shipped build, asserting the current build opens every one, with the
+first fixtures captured BEFORE the friends round.
+[Confidence: the zero-reference greps and version disagreement are
+measurements, high; DFU and expand/contract published practice, high;
+"a schema change will break a playtester's save" is a prediction, flagged
+as such — but it is the default outcome of what the greps show.]
+HIGH-WATER MARK: swept through main @ 477e401 (plus this sweep's push)

@@ -19952,3 +19952,36 @@ LIGHT=TERRITORY is luminance, already safe for everyone. THE FIX IS HIS
 OWN LAW: STRUCTURE-NOT-COLOR (7/19) extended from PROGRESS to IDENTITY —
 factions readable by SILHOUETTE, colour as back-up. Owners named this
 time.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/15 (g) — SWEEP 12. Strongest week yet and most of it
+was routed catches coming back BUILT: his moon-zoom P0 is FIXED (the
+pinch rides to the moon and back), the repo's first perf gauge shipped
+and immediately found a hitch in the most common gesture plus "the city
+builder was the worst performer in the game and had no number at all",
+the placeholder gate for EVERYTHING COSTS ONE landed, and a lane counted
+sweep 9 fleet-wide: 22 OF 30 "integrated" rows still prove themselves
+only on the app he never sees. Collision caught by the lanes themselves
+(PEOPLE and RUN both wrote a demo gate; both kept deliberately) — WATCH
+ITEM, revisit only if they disagree about the same run.
+A HYPOTHESIS OF MINE DIED HERE, recorded as a result: the 120 BPM spine
+is NOT audio-only — the silent switch is already handled
+(navigator.audioSession.type='playback', 7/31) and the combat blob draws
+the beat (cream = YOU, red-orange = THEM, different positions).
+THE CATCH — THE SAVE SURVIVES THE PHONE, NOT US (records/BOHEMIA_
+RESEARCH_THE_SAVE_SURVIVES_THE_PHONE_NOT_US_8_15_26.md; routed RUN
+P0-SAVE, before the friends round). engine/bohemia_engine.js has
+CURRENT_SAVE_VERSION=7 and a complete ordered migration chain whose own
+comments already say "never rename in place" — and the playable city
+surface and bohemia_save.js reference it ZERO times, while the three
+components stamp v:1, V=2 and 7. The safety mechanism for the one system
+whose failure is UNRECOVERABLE is unplugged, days before a playtest, on a
+site that auto-deploys every ~13 minutes — we are a more frequent threat
+to the save than iOS, and iOS is what all the armour was built for.
+AISLES: Mojang built DataFixerUpper as a whole library so Minecraft opens
+decade-old worlds; backend practice settled on EXPAND/CONTRACT.
+CHALLENGE FINDING AGAINST MY OWN WORK: the 8/14 board marked ROW 6 SAVE
+**CLOSED** and it was wrong twice — the autosave never arrived (acd7b85 /
+0ff4947), and durability is not compatibility. Board corrected in place.
+Fourth instance this month of verifying the layer we built instead of the
+path the player takes.
