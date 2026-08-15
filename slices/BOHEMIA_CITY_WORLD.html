@@ -132,6 +132,7 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
   <div id="qline"></div>
   <div id="daycard"><div id="daycardIn"></div></div>
   <div id="sleepbtn">🛏 SLEEP</div>
+  <div id="rungbtn">◆ STANDING</div><!-- __WHERE_YOU_STAND__ -->
   <div id="mktbtn">🧺 MARKET</div><!-- __THE_TRADING_HUB__ -->
   <div id="phonewrap"><div id="phonebar"><span id="phonewhere"></span><span id="phoneclose">✕</span></div><div id="phoneslot"></div></div>
   <div id="savepanel"></div>
@@ -177,6 +178,33 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
   background:var(--face);border:1px solid var(--acc);color:var(--acc);
   font-size:11px;font-weight:700;letter-spacing:1px;display:none}
 #mktbtn:active{background:#2a251d;color:#fff}
+/* ==== mandate face css ==== */
+/* __WHERE_YOU_STAND__ -- sits in the same left column as SLEEP and MARKET, above both,
+   and borrows #mktbtn's rule rather than copying it so the two can never drift apart. */
+#rungbtn{position:absolute;left:6px;bottom:74px;z-index:7;padding:7px 11px;border-radius:9px;
+  background:var(--face);border:1px solid var(--line);color:var(--acc);
+  font-size:11px;font-weight:700;letter-spacing:1px}
+#rungbtn:active{background:#2a251d;color:#fff}
+#daycardIn .rrow{display:flex;justify-content:space-between;align-items:baseline;gap:8px;
+  padding:8px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
+  border:1px solid var(--line)}
+#daycardIn .rk{font-size:10px;letter-spacing:1px;color:var(--acc);opacity:.85}
+#daycardIn .rv{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--ink);
+  text-align:right}
+#daycardIn .rwhy{font-size:11px;line-height:1.45;color:var(--ink);opacity:.8;
+  padding:2px 2px 8px}
+#daycardIn .rpend{font-size:11px;line-height:1.45;color:var(--acc);opacity:.9;
+  padding:8px 10px;margin-top:2px;border-radius:8px;background:#151310;
+  border:1px dashed var(--line)}
+/* ==== end mandate face css ==== */
+
+
+
+
+
+
+
+
 #daycardIn .mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;
   padding:9px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
   border:1px solid var(--line)}
@@ -6891,6 +6919,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE WORLD YOU STAND IN ==== */
+
+
 
 
 
@@ -21020,6 +21050,117 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 document.getElementById('mktbtn').addEventListener('click',function(){
   if(!mktAt())return; MKT_LAST=null; showMarket();
 });
+
+
+
+
+
+
+
+
+/* ==== WHERE YOU STAND WITH THE CITY (mandate face) ==== */
+/* __WHERE_YOU_STAND__ -- THE MANDATE FACE. Paolo 8/12, LOCKED: he must be able to DIRECT a
+   system, not just watch it, and the test is "where does he change this himself?" The rung
+   computed correctly in engine/bohemia_mandate.js and appeared nowhere he could reach, which
+   is the same failure the quests had.
+   EVERY NUMBER ON THIS CARD IS READ. Nothing here invents a faction, a standing, or a
+   denominator, and the one question it cannot answer honestly it refuses out loud. */
+
+/* HIS 16, and they are read off the belonging registry rather than typed here -- the same
+   16 that have dossiers in records/factions/. A hand-typed roster is the recurring house
+   bug and would silently go stale the day he adds a faction. */
+function rungRoster(){
+  try{
+    var R = (window.BohemiaBelonging && window.BohemiaBelonging.RULES) || null;
+    if(R){ var k = Object.keys(R); if(k.length) return k; }
+  }catch(_e){}
+  return null;                       /* no roster loaded -> the card says so, never guesses */
+}
+
+/* WHO IS WITH YOU, out of the CROSS-QUEST LEDGER -- `DQ.shared.faction`, which is what
+   Runtime._remember writes when a quest says `@DO faction NAME +n`. Standing above zero is
+   friendly-with-you; a faction nobody has ever dealt with is simply not with you yet, which
+   is correct on day one.
+   IT MUST BE THE SHARED LEDGER AND NOT THE ACTIVE QUEST'S OWN STATE. That distinction is
+   the whole point of the 8/12 fix: faction standing used to live only inside a quest, and a
+   quest's state dies with the quest, so day 1 ended TRADES +8 and day 2 opened empty. A
+   card reading the quest's copy would show your standing evaporating every morning.
+   (The first draft of this read a `QS` global that does not exist on this page. It failed
+   silently into an empty object behind a try/catch, so the card would have read 0 of 16
+   forever while looking perfectly healthy. Found by driving the real page and warming a
+   faction -- VERIFY ON THE REAL SURFACE, and a probe that only opens the card is not a
+   test, it is a screenshot.) */
+function rungStandings(){
+  try{ if(typeof DQ !== 'undefined' && DQ && DQ.shared && DQ.shared.faction)
+         return DQ.shared.faction; }catch(_e){}
+  return {};
+}
+
+function rungRead(){
+  var roster = rungRoster();
+  if(!roster) return { ok:false };
+  var st = rungStandings(), fwuNames = [];
+  var facs = roster.map(function(name){
+    var v = +st[name] || 0, f = v > 0;
+    if(f) fwuNames.push(name);
+    return { name:name, fwu:f, standing:v };
+  });
+  var M = window.BohemiaMandate; if(!M) return { ok:false };
+  return { ok:true, facs:facs, fwu:fwuNames, total:roster.length,
+           rung:M.rungOf(facs), share:M.fwuShare(facs),
+           need:Math.ceil(M.MANDATE_SHARE * roster.length),
+           mayorOpen:(M.MAYOR_SHARE == null) };
+}
+
+function rungWords(r){
+  if(r.rung === 'MANDATE')
+    return 'The city backs you. You can build in a district whose local faction does not '
+         + 'love you, because the whole city has your back and the locals do not have to.';
+  if(r.rung === 'MAYOR')
+    return 'You are not negotiating any more. You are governing.';
+  return 'You build where you are loved, and nowhere else. Every plot is its own '
+       + 'negotiation until enough of the valley is with you.';
+}
+
+function showStanding(){
+  var r = rungRead();
+  if(!r.ok){
+    cardShow('<div class="rwhy">Standing is not loaded on this page yet.</div>'
+           + '<div class="rrow"><span class="rk">TAP</span><span class="rv">CLOSE</span></div>',
+           cardHide);
+    return;
+  }
+  var h = '';
+  h += '<div class="rrow"><span class="rk">YOUR RUNG</span>'
+     + '<span class="rv">' + r.rung + '</span></div>';
+  h += '<div class="rrow"><span class="rk">THE VALLEY</span><span class="rv">'
+     + r.fwu.length + ' of ' + r.total + ' factions with you</span></div>';
+  if(r.rung === 'TERRITORY'){
+    h += '<div class="rrow"><span class="rk">TO BE BACKED</span><span class="rv">'
+       + r.need + ' of ' + r.total + '</span></div>';
+  }
+  h += '<div class="rwhy">' + rungWords(r) + '</div>';
+  if(r.fwu.length){
+    h += '<div class="rrow"><span class="rk">WITH YOU</span><span class="rv">'
+       + r.fwu.join(' · ') + '</span></div>';
+  }
+  /* THE LINE THIS CARD REFUSES TO WRITE, and it says so rather than faking it. No district
+     on the overmap carries a faction owner: who holds which ground is HIS canon, and MAP
+     LAW says Claude never designs map layouts. An invented owner would be canon nobody
+     ruled, shipped quietly inside a UI. */
+  h += '<div class="rpend">Nobody holds this ground yet. Which faction claims which '
+     + 'district is yours to set, so this card cannot tell you whose permission you would '
+     + 'be needing here.</div>';
+  if(r.mayorOpen){
+    h += '<div class="rpend">The top rung has no number yet. You said "enough done, enough '
+       + 'love", which is not a share, so it stays out of reach until you name one.</div>';
+  }
+  h += '<div class="rrow"><span class="rk">TAP</span><span class="rv">CLOSE</span></div>';
+  cardShow(h, cardHide);
+}
+
+document.getElementById('rungbtn').addEventListener('click', showStanding);
+/* ==== end WHERE YOU STAND WITH THE CITY ==== */
 document.getElementById('sleepbtn').addEventListener('click',function(){
   if(DAY.phase!=='awake')return; DAY.sleep(); daySync(); onNightfall(); updHud();
 });

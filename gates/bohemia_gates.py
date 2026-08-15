@@ -732,6 +732,21 @@ GATES = [
      'first long line, which for a dozen of them is a "/* ======" divider occurring 42 times '
      'in one page, so it reported three modules inlined that are not there. A CHECKER THAT '
      'CANNOT TELL ONE MODULE FROM ANOTHER IS THE BROKEN ONE -- and it took THREE wrong rulers, each one confidently wrong: the first long line is a divider, the LONGEST line is often the shared IIFE footer (eight modules came back inlined nine times), and some engine files are BUNDLES carrying others verbatim so a contained module can never have a unique line. Bundles are DERIVED, never listed. It also now proves NO MODULE IS INLINED TWICE, which is how the real bug was found: renaming the payday block ORPHANED the old one, the patch could not see it, and a second stale copy of economy/purse/payday sat LATER in the file and WON at runtime while the fresh one was dead code. Caught only because a good added to the economy was missing from the real page', False),
+    ('MANDATE FACE',   ['node', 'gates/mandate_face_gate.js'],
+     'HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT (Paolo 8/12): the ladder he locked on '
+     '6/30 shipped as a module and computed perfectly where nobody could reach it, which is '
+     'the exact failure that cost him the quests. So there is a STANDING button on the page '
+     'he walks, and this gate RUNS THAT PAGE IN A REAL BROWSER and taps it. It DRIVES the '
+     'ladder rather than photographing it: 0 of 16 TERRITORY, warm seven and the card MOVES, '
+     'the eighth crosses his ~49% and flips to MANDATE, turn one against you and it knocks '
+     'straight back down -- the rung is derived and never stored, proved where he can see it '
+     'rather than in a unit test. THAT DRIVING IS THE POINT: the first version read a QS '
+     'global that DOES NOT EXIST on the page, failed silently into an empty object behind a '
+     'try/catch, and would have shown "0 of 16" forever while looking healthy. A gate that '
+     'only opened the card would have passed it. It also holds the refusals, because a UI is '
+     'the easiest place to smuggle in canon nobody ruled: the card must never name a faction '
+     'as owning the ground (MAP LAW, and who holds which district is his) and never put a '
+     'number on the top rung. All three mutations bite, including that original bug', False),
     ('MANDATE',        ['node', 'gates/mandate_gate.js'],
      'TERRITORY -> MANDATE -> MAYOR, locked 6/30 and unbuilt until 8/11: "the more the city '
      'backs you, the easier building becomes, even in areas whose local faction does not love '

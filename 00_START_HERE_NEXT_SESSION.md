@@ -8740,7 +8740,50 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 (c) LATEST -- *** THE PAGE WAS RUNNING A STALE COPY OF THE
+WORLD (world-9lfjtf): 8/15 (d) LATEST -- *** THE RUNG HAS A FACE NOW: TAP STANDING AND
+SEE HOW MUCH OF THE VALLEY IS WITH YOU. *** BUILD 8/15n.
+Gate: mandate_face_gate.js 15/0 (MANDATE FACE). Tool: tools/bohemia_city_mandate_patch.py
+
+TAB: CITY (and the RUN tab, which shows the same page). Bottom-left, above MARKET and
+SLEEP: a button that says STANDING. That is the whole door.
+
+WHY IT EXISTS: HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT (8/12, LOCKED). The ladder
+computed perfectly in engine/bohemia_mandate.js and appeared NOWHERE he could reach, which
+is exactly the failure that cost him the quests. A rung he meets nowhere is a rung he can
+correct never.
+
+WHAT THE CARD SAYS, AND EVERY NUMBER IS READ:
+  YOUR RUNG      from BohemiaMandate.rungOf, the same derived call the engine makes
+  THE VALLEY     n of 16 factions with you. The 16 are HIS roster, read off
+                 engine/bohemia_belonging.js RULES (the same 16 with dossiers in
+                 records/factions/), and who is friendly is read off DQ.shared.faction,
+                 the CROSS-QUEST ledger that `@DO faction NAME +n` writes.
+  TO BE BACKED   8 of 16, which is his 49% of his 16 and not a number anybody picked
+  and then what the rung BUYS, in plain words, because a rung nobody can read is a badge.
+
+AND TWO THINGS THE CARD REFUSES TO SAY, out loud, on screen where he meets them:
+  1. WHO HOLDS THIS GROUND. No district carries a faction owner, because that is his canon
+     and MAP LAW says Claude never designs the map. The card says the ground is unclaimed
+     and says whose call it is, instead of inventing an owner to look finished.
+  2. WHAT THE TOP RUNG COSTS. "Enough done, enough love" is not a share.
+
+*** THE BUG THIS ALMOST SHIPPED WITH, AND IT IS THE LESSON. *** The first version read a
+`QS` global that DOES NOT EXIST on that page. It failed silently into an empty object
+behind a try/catch, so the card would have read "0 of 16" FOREVER while looking perfectly
+healthy -- correct layout, correct words, correct-looking zero. Opening the card and
+finding text in it would have passed it. It was caught by WARMING SEVEN FACTIONS AND
+DEMANDING THE NUMBER MOVE. So the gate drives the ladder instead of photographing it:
+  0 of 16 -> TERRITORY · 7 -> TERRITORY (close does not count) · 8 -> MANDATE · turn one
+  against you -> TERRITORY again, which is "derived, never stored" being TRUE where he can
+  see it rather than in a unit test.
+A PROBE THAT ONLY OPENS THE THING IS NOT A TEST, IT IS A SCREENSHOT. Three mutations bite,
+including that exact original bug, plus inventing a district owner and hard-coding the
+roster.
+
+NEXT IN THIS LANE: the school floodlight masts still read flat (45 DEGREE ART LAW debt);
+airport/airbase heroes ruled I1=B and not yet rebuilt.
+
+WORLD (world-9lfjtf): 8/15 (c) -- *** THE PAGE WAS RUNNING A STALE COPY OF THE
 ECONOMY, AND ONE OF OUR OWN GATES WAS HOLDING IT THERE. *** BUILD 8/15m.
 Gates: medkit_gate.js 16/0 (MEDKIT), banner_gate.js 12/0 (BANNER), payday_gate.js 35/0.
 
