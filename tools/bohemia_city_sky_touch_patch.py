@@ -64,88 +64,81 @@ JS = """%s
 /* __SKY_ON_TOUCH__ -- P0, Paolo 8/13 on his own phone: "the zoom out didn't work, once I
    started to leave the city it kind of crashed." Measured before touching anything: the
    pinch never moved SKYU at all, and ten touch moves fired TWENTY-ONE full-valley redraws
-   at 8.2 ms each. Both faults have one root -- in SKY, MODE is still 'city', so every
+   at 8.2 ms each. Both faults had one root -- in SKY, MODE is still 'city', so every
    pointer handler on this page believes it is looking at the city.
-   ADDITIVE ON PURPOSE. This is a capture-phase listener that stops the event before the
-   city handlers see it, rather than surgery inside a pointer handler four lanes are
-   editing. Nothing below duplicates the page's own logic: it steps the existing skyZoom()
-   and lets skyZoom's own floor call skyExit(). */
+
+   *** REWRITTEN 8/15 AFTER HE REPORTED IT STILL BROKEN: "I can't zoom out all the way from
+   my location all the way to the moon." He was right, and the first version was the cause.
+   IT KEPT ITS OWN MODEL OF HIS FINGERS -- a `pts` map and a `down` counter maintained from
+   pointerdown/pointerup. That model DRIFTS. A pointerdown that lands while SKY is still
+   false (which is exactly what happens: the sky opens PART-WAY THROUGH the gesture that
+   opens it) never registers, an up can be missed, and once the model disagrees with reality
+   the sky stops responding entirely. Measured: identical input, one probe reached the MOON
+   and another sat at zero across three consecutive runs. Flaky, not dead -- which is why it
+   passed its own gate and still failed in his hand.
+   THE FIX IS TO STOP KEEPING A MODEL. TouchEvent.touches IS the authoritative live list of
+   fingers on the glass, supplied fresh with every event. Read it, do not mirror it. Nothing
+   to desynchronise, and the case that broke it -- fingers already down when the sky opens --
+   now just works, because the next touchmove already carries both of them.
+   (Same lesson as the rest of this build: derive it, never hand-maintain it.) */
 (function(){
-  var pts = {}, lastDist = 0, acc = 0, queued = false;
+  var lastDist = 0, acc = 0, queued = false;
 
   /* ONE REDRAW PER FRAME. renderSky -> skyValley is a full N x N per-tile loop; the old
-     path ran it twice per touch event, which is ~17 ms of work against a 16 ms frame and
-     is why iOS killed the page. Coalescing is the entire performance fix. */
+     path ran it twice per touch event, ~17 ms against a 16 ms frame, which is why iOS
+     killed the page. */
   function paint(){
     if(queued) return;
     queued = true;
     requestAnimationFrame(function(){ queued = false; try{ render(); }catch(_e){} });
   }
 
-  function two(){
-    var k = Object.keys(pts);
-    return k.length >= 2 ? [pts[k[0]], pts[k[1]]] : null;
-  }
-  function dist(a){
-    var dx = a[0].x - a[1].x, dy = a[0].y - a[1].y;
+  function spread(t){
+    if(!t || t.length < 2) return 0;
+    var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY;
     return Math.sqrt(dx * dx + dy * dy);
   }
 
-  function onDown(e){
-    if(!SKY) return;
-    pts[e.pointerId] = { x:e.clientX, y:e.clientY };
-    lastDist = 0; acc = 0;
-    e.stopPropagation();          /* the city never learns a finger went down up here */
-  }
+  /* THE POINTER SIDE EXISTS ONLY TO KEEP THE CITY OUT. While the sky is up the city must
+     not zoom, pan, or select a plot underneath it -- MODE is still 'city' up there, so every
+     one of its handlers would happily act. It does no arithmetic and holds no state. */
+  function block(e){ if(SKY) e.stopPropagation(); }
+  window.addEventListener('pointerdown', block, true);
+  window.addEventListener('pointermove', block, true);
+  window.addEventListener('pointerup', block, true);
+  window.addEventListener('pointercancel', block, true);
 
-  function onMove(e){
-    if(!SKY) return;
-    e.stopPropagation();
-    if(!(e.pointerId in pts)) return;
-    pts[e.pointerId] = { x:e.clientX, y:e.clientY };
-    var a = two(); if(!a) return;            /* one finger in the sky does nothing at all */
-    var d = dist(a);
-    if(lastDist > 0 && d > 0){
-      /* HIS HAND ALREADY KNOWS THIS GESTURE: fingers apart zooms IN (the city does the
-         same), and in the sky "in" means back down toward the valley. Fingers together is
-         out, and out is up toward the moon. Accumulated in log space so a slow drag is
-         smooth instead of notched, and stepped through skyZoom() so the floor check that
-         drops him back into the city keeps working untouched. */
+  /* THE SKY SIDE READS THE EVENT AND NOTHING ELSE. */
+  window.addEventListener('touchmove', function(e){
+    if(!SKY){ lastDist = 0; acc = 0; return; }
+    var d = spread(e.touches);
+    if(!d){ lastDist = 0; return; }          /* fewer than two fingers: nothing to zoom with */
+    if(lastDist > 0){
+      /* HIS HAND ALREADY KNOWS THIS GESTURE: fingers together is out and up toward the moon,
+         apart is in and back down. Accumulated in log space so a slow drag is smooth rather
+         than notched, and stepped through the EXISTING skyZoom so its own floor -- the one
+         that drops him back into the valley -- keeps working untouched. */
       acc += Math.log(d / lastDist);
-      /* AND skyZoom ENDS IN render(). One touch move can be several steps, so calling it
-         straight would paint the whole valley once PER STEP -- measured at 41 redraws for
-         12 touch moves, which is WORSE than the 21 this patch exists to kill. The first
-         version of this fix did exactly that and the measurement caught it.
-         So the batch runs with render muted and paints ONCE, on the frame. Muting rather
-         than editing skyZoom keeps the wheel path and the floor check byte-identical. */
       var real = window.render, stepped = false;
-      window.render = function(){};
+      window.render = function(){};          /* skyZoom ends in render(); batch, paint once */
       try{
         while(Math.abs(acc) >= 0.06){
           var dir = acc > 0 ? 1 : -1;        /* +1 = down to the valley, matching the wheel */
           acc -= dir * 0.06;
           stepped = true;
           skyZoom(dir);
-          if(!SKY) break;                    /* skyZoom's own floor dropped us home */
+          if(!SKY) break;
         }
       } finally { window.render = real; }
-      if(!SKY){ pts = {}; lastDist = 0; acc = 0; paint(); return; }
       if(stepped) paint();
+      if(!SKY){ lastDist = 0; acc = 0; return; }
     }
     lastDist = d;
-  }
+  }, true);
 
-  function onUp(e){
-    if(!SKY){ delete pts[e.pointerId]; return; }
-    e.stopPropagation();          /* and so a tap at the moon never selects a city plot */
-    delete pts[e.pointerId];
-    if(Object.keys(pts).length < 2) lastDist = 0;
-  }
-
-  window.addEventListener('pointerdown', onDown, true);
-  window.addEventListener('pointermove', onMove, true);
-  window.addEventListener('pointerup', onUp, true);
-  window.addEventListener('pointercancel', onUp, true);
+  window.addEventListener('touchend', function(e){
+    if(!e.touches || e.touches.length < 2){ lastDist = 0; acc = 0; }
+  }, true);
 })();
 %s""" % (MARK, ENDMARK)
 

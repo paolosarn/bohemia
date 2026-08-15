@@ -136,6 +136,52 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
     ok('a tap at the moon does NOT select an invisible city plot underneath it',
        await p.evaluate(() => JSON.stringify((typeof CB !== 'undefined' && CB) ? CB.sel : null) === window.__sel));
 
+    /* *** THE WHOLE JOURNEY, WHICH IS THE ONLY THING HE ACTUALLY ASKED FOR. ***
+       He reported this STILL broken after the first fix shipped: "I can't zoom out all the
+       way from my location all the way to the moon." He was right, and the reason is the
+       shape of this gate. Every assertion above starts by CALLING skyEnter() -- the sky was
+       proved in isolation, and the seam was proved in isolation, and NOBODY EVER WALKED THE
+       WHOLE ROAD. The bug lived exactly in the join: the gesture that OPENS the sky was
+       consumed doing it, and the handler's private finger-model desynchronised, so from a
+       standing start he could get into the sky and then no further.
+       GATING THE PIECES IS NOT GATING THE JOURNEY. This walks it from the default start, on
+       realistic thumb-and-forefinger pinches, with nothing pre-set. */
+    {
+      await p.goto('file://' + path.join(ROOT, PAGE));
+      await p.waitForTimeout(2500);
+      await p.evaluate(() => { try { cardHide(); } catch (e) {} });
+      const start = await p.evaluate(() => ({ mode: MODE, sky: SKY }));
+      ok('the journey starts where the player starts: on foot, no sky, nothing pre-set',
+         start.mode === 'human' && start.sky === false);
+
+      /* A real thumb-and-forefinger pinch on a phone: ~150px apart closing to ~60px. That
+         is one hand's comfortable travel, not the 270px lab squeeze the rest of this file
+         uses -- and the difference between them is the difference between a gate passing
+         and his hand failing. */
+      const realPinch = async () => {
+        const cx = 195, cy = 430;
+        await touch('touchStart', [{ x: cx - 75, y: cy, id: 1 }, { x: cx + 75, y: cy, id: 2 }]);
+        for (let i = 1; i <= 10; i++) {
+          const h = 75 - i * 4.5;
+          await touch('touchMove', [{ x: cx - h, y: cy, id: 1 }, { x: cx + h, y: cy, id: 2 }]);
+        }
+        await touch('touchEnd', []);
+        await p.waitForTimeout(220);
+      };
+
+      let pinches = 0, reached = false;
+      for (; pinches < 8 && !reached; ) {
+        await realPinch();
+        pinches++;
+        reached = await p.evaluate(() => SKY && skyBand() === 'MOON');
+      }
+      ok('FROM HIS LOCATION ALL THE WAY TO THE MOON, on ordinary pinches, with nothing ' +
+         'pre-set -- his exact words, and it took ' + pinches + ' pinches', reached);
+      ok('and it gets there in a handful of gestures rather than a marathon (' + pinches +
+         ' <= 6), because "it works if you pinch it fifteen times" is what broken feels like',
+         reached && pinches <= 6);
+    }
+
     ok('and nothing throws through the whole round trip',
        errs.length === 0 || (console.log('  (errors: ' + errs.slice(0, 2).join(' | ') + ')'), false));
   } catch (e) {

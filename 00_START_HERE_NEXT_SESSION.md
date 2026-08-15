@@ -9086,7 +9086,41 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 (i) LATEST -- *** THE CITY BUILDER WAS THE WORST PERFORMER IN
+WORLD (world-9lfjtf): 8/15 (j) LATEST -- *** HE REPORTED THE MOON ZOOM STILL BROKEN AND HE
+WAS RIGHT. I GATED THE PIECES AND NEVER WALKED THE JOURNEY. *** BUILD 8/15zb.
+Gate: sky_touch_gate.js 12/0, now including the WHOLE ROAD from a standing start.
+
+HIS WORDS: "I can't zoom out all the way from my location all the way to the moon."
+
+REPRODUCED FROM A STANDING START, realistic thumb-and-forefinger pinches: he reaches the
+sky on pinch 4 and then IT STOPS. Pinches 5 and 6 do nothing. Three consecutive runs
+identical. And in a DIFFERENT probe, same input, it sailed to the moon -- FLAKY, not dead,
+which is exactly why it passed its own gate and still failed in his hand.
+
+THE CAUSE WAS MY OWN FIX FROM THIS MORNING. It kept a PRIVATE MODEL OF HIS FINGERS: a `pts`
+map and a `down` counter maintained from pointerdown/pointerup. That model drifts. The
+pointerdown that starts the gesture lands while SKY is still FALSE -- because the sky opens
+PART-WAY THROUGH the very gesture that opens it -- so those fingers never register, and once
+the model disagrees with reality the sky stops responding at all.
+
+FIXED BY DELETING THE MODEL. TouchEvent.touches IS the live list of fingers on the glass,
+handed to you fresh with every event. Read it, never mirror it. The pointer listeners now do
+exactly one job -- stop the city underneath from zooming, panning or selecting a plot -- and
+hold no state at all. Same lesson as everything else in this build: DERIVE IT, NEVER
+HAND-MAINTAIN IT.
+NOW DETERMINISTIC, and better than before: the gesture that OPENS the sky also carries him
+0.6 of the way up instead of being consumed. From his feet to the MOON in FOUR ordinary
+pinches, identical across runs.
+
+*** THE REAL LESSON, AND IT IS ABOUT THE GATE, NOT THE CODE. *** sky_touch_gate.js was 9/0
+green while this was broken, because every assertion in it began by CALLING skyEnter().
+The sky was proved in isolation. The seam was proved in isolation. NOBODY EVER WALKED THE
+WHOLE ROAD, and the bug lived precisely in the join. GATING THE PIECES IS NOT GATING THE
+JOURNEY. The gate now walks it from the default start with nothing pre-set, on realistic
+hand-sized pinches (the lab's 270px squeeze is not a thumb), and asserts it takes a handful
+of gestures, because "it works if you pinch it fifteen times" is what broken feels like.
+
+WORLD (world-9lfjtf): 8/15 (i) -- *** THE CITY BUILDER WAS THE WORST PERFORMER IN
 THE GAME AND HAD NO NUMBER AT ALL. FOUR REDRAWS PER FINGER MOVEMENT -> ONE. ***
 Gate: frame_budget_gate.js 12/0 (FRAME BUDGET), now covering BOTH views.
 
