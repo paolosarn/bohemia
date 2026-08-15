@@ -1759,7 +1759,14 @@ EP. *** BACKGROUND PRODUCTION IS NOW LOAD-BEARING FOR A SECOND SYSTEM
    refuses honestly | yields = HIS numbers | no.
 EC. THE ECONOMY SKELETON (assigned 7/29 off Paolo's big-missing dispatch —
    records/BOHEMIA_THE_BIG_MISSING_7_29_26.md item 3): the three ruled
-   currencies (medicine/electricity/resources, GDD v5 LOCKED) get a running
+   currencies (RESOURCES / ELECTRICITY / CLOUT — laws/BOHEMIA_ADDENDUM_
+   THREE_CURRENCIES_CENTURY_7_26_26.md, Paolo 7/26 LOCKED, and what
+   engine/bohemia_purse.js actually implements. *** THIS LINE READ
+   "medicine/electricity/resources" UNTIL 8/15 AND WAS WRONG TWICE:
+   medicine is a GOOD, not a currency, and CLOUT was missing entirely.
+   Caught when he corrected the coordinator — "there's no money in this
+   game... you get resources, you get energy, or you get clout." See
+   records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md ***) get a running
    LEDGER: quest payout hook, a price table, a spend sink API — EVERY TABLE
    SHIPS EMPTY per mechanism-mine (payout amounts, prices, convoy cadence,
    the guarantor seat are ALL [PENDING Paolo], flagged NO_RULING by name
@@ -6062,9 +6069,31 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
 ##    defect as a felt improvement (7/30, the canvas-scale turn -- he could not
 ##    see it, and he was right).
 
-## QUESTS — HIBERNATED (Paolo 7/26, laws/BOHEMIA_ADDENDUM_QUESTS_LANE_
-## HIBERNATED_7_26_26.md). Do NOT pick up items below; no "quests" sessions
-## until Paolo reopens the lane. All shipped quest work stays live and gated.
+## QUESTS — HEADER WAS STALE, CORRECTED 8/15 BY THE COORDINATOR. The
+## hibernation below is from 7/26 and QUEST AUTHORING HAS PLAINLY RESUMED:
+## S22 THE COLD ROOM and S23-S25 (all water, all researched) shipped 8/13-14,
+## taking the corpus 21 -> 25 with 35 studies cited. A header telling sessions
+## "do NOT pick up items below" while items below are actively shipping is the
+## worst kind of stale record: it makes the backlog untrustworthy exactly where
+## it is being used. Whoever is authoring quests owns the items below; if Paolo
+## did NOT reopen this lane, say so and the work moves under whichever lane
+## claimed it. The 7/26 hibernation text is kept here as history:
+## (WAS: HIBERNATED, laws/BOHEMIA_ADDENDUM_QUESTS_LANE_HIBERNATED_7_26_26.md,
+## no "quests" sessions until Paolo reopens the lane.)
+NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
+   THERE IS NO MONEY IN BOHEMIA (his 7/26 locked law; we drifted off it) and
+   it reached the page: 16 "money" + 6 "currency" + a "Coins" across the .bq
+   corpus, several in @SAY/@OPT/@LOG lines a player reads — S02 "take the
+   money" / "quiet money spends the same as loud money", S05 "easy money", S15
+   "I do not care about the money. I have the money." Rewrite money-as-a-thing
+   to name the actual good (medicine on the barrel, a case of batteries, half a
+   tank, a roll of tape) — which is ALSO the craft card's specificity rule, so
+   the lines get BETTER, not more careful. Money as DEAD IDIOM in an older
+   character's mouth stays legal with an inline citation of the record, because
+   language outlives the thing it named. These are drafted words correcting OUR
+   drift, not a request for his time. | the no-money gate (SHARED -4) green on
+   the corpus | — | no.
+## All shipped quest work stays live and gated.
 1. DONE 7/26 (S10-S21 shipped, corpus 9 -> 21, gate hardened with 5 new checks,
    laws/BOHEMIA_ADDENDUM_TWELVE_MORE_CANON_QUESTS_7_26_26.md). Sitting is live in
    the alpha: LIFE tab -> THE 12 NEW CANON QUESTS. Awaiting thumbs.
@@ -6087,6 +6116,27 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-4. *** THE NO-MONEY GATE (8/15, on Paolo's correction — records/BOHEMIA_
+   THERE_IS_NO_MONEY_8_15_26.md. NEW LAW, NEW GATE, SAME TURN — except
+   the law is not new: he ruled it 7/26 and we drifted off it, which is
+   the whole reason it needs a machine.) THERE IS NO MONEY IN BOHEMIA.
+   Three currencies, locked since 7/26: RESOURCES (physical goods —
+   food, tape, wood, medicine, all piling into ONE counter), ELECTRICITY
+   (batteries, tech), CLOUT. Individual goods are FICTION; the counter is
+   the mechanic. AUDIT FOUND IT SHIPPED: 16 "money", 6 "currency" and a
+   "Coins" across quests/bq/*.bq, several in @SAY/@OPT/@LOG lines a
+   player READS ("take the money", "I have the money", "quiet money
+   spends the same as loud money").
+   BUILD: a word sweep over player-facing text (.bq @SAY/@OPT/@LOG, UI
+   copy, item and quest names, the WORDS corpus) failing on money / cash
+   / dollar / coin / wallet USED AS A THING. THE IDIOM EXCEPTION IS REAL
+   AND MUST SURVIVE: language outlives the thing it named, so an old
+   character saying "easy money" about a bounty paid in medicine is good
+   character writing — legal ONLY with an inline citation of the record
+   on that line, so an exception is a decision somebody made rather than
+   a leak. A blanket ban would flatten the writing and that is not the
+   goal. | gate registered + mutation-tested (put "take the money" in a
+   @SAY and it goes red) | — | no. ***
 -3. *** THE SHELF AUDIT — EXTEND THE CENSUS WE ALREADY HAVE (sweep 9
    catch, 8/14 — records/BOHEMIA_RESEARCH_THE_PHANTOM_SHELF_8_14_26.md).
    EIGHT commits in one week, from FIVE lanes, are the same discovery —

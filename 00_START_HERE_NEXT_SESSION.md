@@ -18822,3 +18822,36 @@ number goes RED and his post-playthrough tuning list is GENERATED.
 UNBLOCKED TODAY: the GET PAID -> SPEND half of the demo cut, which the
 8/14 audit found present but dormant — it was never missing code, it was
 missing a number.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/15 (d) — THERE IS NO MONEY IN THIS GAME (Paolo's
+correction: "how many steps I gotta tell you bro, read the lore... you
+get resources, you get energy, or you get clout... batteries, medicine,
+food, duct tape and wood, it all just piles back up into the same
+resource number"). Record: records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md.
+HE ALREADY RULED THIS ON 7/26 — laws/BOHEMIA_ADDENDUM_THREE_CURRENCIES_
+CENTURY_7_26_26.md, and engine/bohemia_purse.js implements it correctly
+(RESOURCES = physical goods, ELECTRICITY = batteries and tech, CLOUT).
+The aggregation he described IS the law: goods are FICTION, the counter
+is the mechanic, three balances one ledger, and the anti-reference is in
+his own words ("spreadsheet simulators and I'm not a fan"). So the drift
+is OURS and the honest answer to "how many steps" is zero more.
+IT SHIPPED TO THE PAGE: 16 "money", 6 "currency", 1 "Coins" across
+quests/bq/*.bq — several in @SAY/@OPT/@LOG lines a player READS.
+THE RULE (keeps the writing good): banned is money as a LITERAL THING
+(take it, have it, owe it, it arrives); LEGAL is money as DEAD IDIOM in
+a character's mouth, cited inline — language outlives the thing it named.
+The replacement is not a word, it is the GOOD: medicine on the barrel, a
+case of batteries, a roll of tape. That is the craft card's specificity
+rule, so the fix improves the lines.
+ROUTED: QUESTS NM (the corpus sweep), SHARED -4 (the no-money gate, with
+the cited-idiom exception).
+TWO PIECES OF LIVE ROT FIXED IN THE SAME PASS: (1) the WORLD EC item
+named the currencies "medicine/electricity/resources" — wrong twice
+(medicine is a GOOD; CLOUT was missing) and contradicting a locked law
+plus the working code. (2) The QUESTS lane header still said HIBERNATED,
+"do NOT pick up items below", while S22-S25 shipped 8/13-14 — a header
+forbidding work that is actively happening. Both corrected in place.
+AND THE COORDINATOR CAUSED SOME OF THIS: my own previous reply said
+"money", "get paid", "spend money" — the drift came out of the session
+whose job is catching drift.
