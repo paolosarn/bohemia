@@ -495,6 +495,14 @@ GATES = [
      "the demo set on 8/9. GRAVEYARD IS FINAL binds Claude, not Paolo -- so the "
      "replacement is a FRESH cook from ash and stone, brighter/shorter/harder "
      "than every door that died, new ids, and nothing banked until he thumbs", True),
+    ('MIX',            ['python3', 'gates/mix_gate.py'],
+     "nothing in the game ever moved out of the way of anything else: 105 approved "
+     "sounds all arriving at the same weight, and a voice cap that dropped whatever "
+     "came ninth. Four coarse priority tiers decide now (the fight is never "
+     "refused), and the music DUCKS UNDER A PERSON TALKING -- the researched -9 dB, "
+     "with the attack shortened from the usual 500ms because a squiggle line is "
+     "often only a second and a half long. Measured as AUDIO through the duck node "
+     "against the AUDIO clock, never read off the arithmetic", True),
     ('SPATIAL SOUND',  ['python3', 'gates/spatial_sound_gate.py'],
      "the valley was a FLAT STEREO FIELD: every sound arrived at the same level "
      "from the same nowhere except a neighbour's footstep, which got distance and "

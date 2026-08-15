@@ -316,6 +316,14 @@ PANEL = r'''
       every surface in the game gets delivery for free without a single lane
       having to wire anything. A caller that knows better can still pass one. */
    TALKING = BOH_VOICE.say(line, v, MUS.AC, d, null);
+   /* AND THE MUSIC GETS OUT OF THE WAY (8/15). A squiggle line and a full song
+      arrived at the same weight and the line lost, because a song is continuous
+      and a voice is not. say() reports how long it will run, so the duck lasts
+      exactly as long as the person is talking and not a beat more -- no timer
+      to drift, no guess at line length. The duck itself lives in the SFX wire,
+      which owns the buses; this only says WHEN somebody is speaking. */
+   try{ if(window.duckMusic && TALKING && TALKING.seconds)
+          window.duckMusic(TALKING.seconds); }catch(_e){}
    return TALKING;
   }catch(e){ return null; }
  };

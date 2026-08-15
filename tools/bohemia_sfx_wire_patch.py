@@ -208,16 +208,125 @@ def parent_block(bank):
      THE FIRST SOUND IS NEVER DROPPED, and a lone sound is never touched. */
   var VOX=[], LASTEV={};
   var VOX_EVENT_MS=45, VOX_WINDOW_MS=60, VOX_MAX=8;
+  /* ---- AND IT USED TO DROP WHATEVER ARRIVED NINTH (8/15) ---------------
+     The cap was first-come-first-served: eight sounds inside sixty
+     milliseconds and the ninth was refused, whatever it was. A mix that drops
+     by ARRIVAL ORDER is not a mix, it is a queue -- the thing the player most
+     needed to hear is as likely to be thrown away as anything else, in the
+     exact moment there is most going on.
+     BEING PRECISE ABOUT WHAT WAS AND WAS NOT REACHABLE, because the first
+     version of this comment overstated it and the measurement caught me: a
+     flood of FOOTSTEPS could never do this. The 45 ms per-event guard admits
+     one step_asphalt per burst however many are asked for -- measured, 1 of 40.
+     The reachable case is many DIFFERENT sounds landing together, which is
+     precisely what a fight is: a shot, a hit, a body, a casing, a door, the
+     phone, two neighbours walking. That is the moment the cap was deciding by
+     arrival order, and that is the moment it now decides by importance.
+     PRIORITY IS THE STANDARD ANSWER and every audio middleware has it under one
+     name or another -- a sound carries an importance, and when there are more
+     sounds than room the least important loses. Here it is deliberately coarse,
+     four tiers, because a fine-grained table would be inventing a hierarchy
+     nobody ruled on:
+       3 CRITICAL   the fight and the answer to it. kill, hurt, shot, hit,
+                    block, vital, melee. Never refused.
+       2 EVENT      something happened that you did. doors, saves, quests,
+                    money, the phone, the interface.
+       1 WORLD      the valley being the valley. ambience, gusts, generators.
+       0 CONSTANT   footsteps -- the sound the game makes most, and the only
+                    one that can plausibly flood the window on its own.
+     THE HEADROOM IS THE MECHANISM: a tier may only use part of the window, so
+     a flood of footsteps can never fill it past the point where a gunshot
+     still fits. CRITICAL bypasses the cap entirely, which is the whole point.
+     WHAT IT IS NOT: this is not voice STEALING. A Web Audio source already
+     scheduled cannot be cheaply un-scheduled, so nothing already sounding is
+     cut short -- the cap decides what gets IN. Saying so because "priority"
+     usually implies stealing and this does less than that. */
+  var PRIO={ kill:3, hurt:3, shot:3, hit:3, block:3, vital:3, melee_hit:3,
+             miss:3, clear:3, dry_fire:3, casing:3, swing_air:3, heartbeat:3,
+             air_day:1, air_night:1, air_inside:1, wind_gust:1, generator:1,
+             dog_far:1, dog_cry:1, neon_buzz:1, neon_hum:1 };
+  function prioOf(ev){
+    if(PRIO[ev]!=null) return PRIO[ev];
+    if(String(ev).indexOf('step_')===0) return 0;
+    return 2;
+  }
+  /* room a tier is allowed to take. 3 is uncapped and is not in the table. */
+  var TIER_ROOM={ 0:5, 1:6, 2:8 };
   function voiceOK(ev){
     var now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
     var last=LASTEV[ev];
     if(last!=null && (now-last)<VOX_EVENT_MS) return false;
     while(VOX.length && (now-VOX[0])>VOX_WINDOW_MS) VOX.shift();
-    if(VOX.length>=VOX_MAX) return false;
+    var p=prioOf(ev);
+    var room=(p>=3) ? Infinity : (TIER_ROOM[p]!=null ? TIER_ROOM[p] : VOX_MAX);
+    if(VOX.length>=Math.min(room, p>=3 ? Infinity : VOX_MAX)) return false;
     LASTEV[ev]=now; VOX.push(now);
     return true;
   }
-  window.__voiceStats=function(){ return {perEvent:VOX_EVENT_MS, window:VOX_WINDOW_MS, max:VOX_MAX}; };
+  window.__voiceStats=function(){ return {perEvent:VOX_EVENT_MS, window:VOX_WINDOW_MS,
+    max:VOX_MAX, tiers:TIER_ROOM, prio:PRIO, prioOf:function(e){ return prioOf(e); }}; };
+  /* THE ADMISSION DECISION ITSELF, so a test can ask it forty times without
+     paying for forty renders. Rendering is what made the first version of
+     the mix gate wrong: forty real sounds took longer than the sixty
+     millisecond window they were supposed to be crowding, so the window
+     emptied underneath the experiment and the cap looked broken. This is
+     THE SAME FUNCTION playSFX calls, not a copy of its logic. */
+  window.__voiceAdmit=function(ev){ return voiceOK(ev); };
+
+  /* ===== DUCKING: THE MUSIC GETS OUT OF THE WAY OF A PERSON (8/15) ======
+     Nothing in the game has ever moved out of the way of anything else. A
+     squiggle line and a full song arrived at the same weight and fought, and
+     the line lost, because a song is continuous and a voice is not.
+     DUCKING UNDER DIALOGUE IS THE OLDEST MOVE IN THE BOOK -- broadcast has done
+     it for decades and every game middleware ships it. THE RESEARCHED SHAPE:
+     about -9 dB of duck is the usual dialogue target, with a typical game ramp
+     of ~500 ms down and ~1000 ms back.
+     I SHORTENED THE ATTACK AND SAY SO: 500 ms down buries the first third of a
+     line that is often only a second and a half long, which is the exact thing
+     the duck exists to prevent. 150 ms is fast enough to be under the first
+     syllable and slow enough not to click. The recovery stays long (900 ms)
+     because a fast recovery pumps, and pumping is audible in a way a slow one
+     is not. All three are dials; one word from him moves any of them.
+     ITS OWN NODE, SO HIS SLIDER IS NEVER TOUCHED. MUSVOL is the music volume he
+     sets; ducking it would fight the mixer and lose his setting the first time
+     the two disagreed. A dedicated gain sits between the music master and that
+     slider instead, so the duck is the only thing that ever writes to it. */
+  var DUCK=null, DUCK_UNTIL=0;
+  var DUCK_DEPTH=0.355, DUCK_DOWN=0.15, DUCK_UP=0.9;   /* -9 dB, 150 ms, 900 ms */
+  function duckNode(){
+    try{
+      if(DUCK && DUCK.__wired) return DUCK;
+      if(typeof MUS==='undefined' || !MUS.AC || !MUS.MAST || !MUS.MUSVOL) return null;
+      var g=MUS.AC.createGain(); g.gain.value=1;
+      try{ MUS.MAST.disconnect(MUS.MUSVOL); }catch(_e){}
+      MUS.MAST.connect(g); g.connect(MUS.MUSVOL);
+      g.__wired=true; DUCK=g;
+      try{ window.__DUCK=DUCK; }catch(_e){}
+    }catch(e){ DUCK=null; }
+    return DUCK;
+  }
+  /* seconds = how long the thing that is ducking will last. Overlapping calls
+     EXTEND rather than restart, so two people talking do not pump the song. */
+  window.duckMusic=function(seconds){
+    try{
+      var g=duckNode(); if(!g) return null;
+      var AC=MUS.AC, now=AC.currentTime;
+      var hold=Math.max(0.05, Math.min(8, +seconds||0.6));
+      var until=now+hold;
+      if(until<DUCK_UNTIL) until=DUCK_UNTIL;      /* never cut a duck short */
+      DUCK_UNTIL=until;
+      g.gain.cancelScheduledValues(now);
+      g.gain.setValueAtTime(g.gain.value, now);
+      g.gain.linearRampToValueAtTime(DUCK_DEPTH, now+DUCK_DOWN);
+      g.gain.setValueAtTime(DUCK_DEPTH, until);
+      g.gain.linearRampToValueAtTime(1, until+DUCK_UP);
+      return { depth:DUCK_DEPTH, down:DUCK_DOWN, up:DUCK_UP, until:until };
+    }catch(e){ return null; }
+  };
+  window.__duckStats=function(){
+    return { depth:DUCK_DEPTH, down:DUCK_DOWN, up:DUCK_UP,
+             wired:!!(DUCK&&DUCK.__wired),
+             gain:(DUCK?DUCK.gain.value:null) }; };
   window.playSFX=function(ev,when){
     try{
       if(typeof BOH_SFX==='undefined')return null;

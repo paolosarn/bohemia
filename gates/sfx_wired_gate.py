@@ -962,6 +962,13 @@ def main():
     bad_dest = []
     for m in re.finditer(r'MUS\.MAST\s*\|\|', alpha_src):
         head = alpha_src[max(0, m.start() - 40):m.start()]
+        # A NEGATED TOKEN IS AN EXISTENCE GUARD, NEVER A DESTINATION (8/15).
+        # `if(!MUS.AC || !MUS.MAST || !MUS.MUSVOL) return null;` is a module
+        # checking the graph is there before it touches it -- the opposite of
+        # routing a sound into the music master. The rule is about a fallback
+        # CHAIN, and a fallback never negates, so this cannot hide a real one.
+        if head.rstrip().endswith('!'):
+            continue
         if 'MUS.OUT||' in head.replace(' ', '') or 'MUS.OUT ||' in head:
             continue
         bad_dest.append(alpha_src[max(0, m.start() - 60):m.start() + 30]
