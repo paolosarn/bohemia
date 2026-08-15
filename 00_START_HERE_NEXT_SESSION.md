@@ -8757,7 +8757,55 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 (d) LATEST -- *** THE RUNG HAS A FACE NOW: TAP STANDING AND
+WORLD (world-9lfjtf): 8/15 (e) LATEST -- *** HIS P0 IS FIXED: THE PINCH RIDES TO THE
+MOON AND BACK, AND THE FREEZE IS GONE. *** Gate: sky_touch_gate.js 9/0 (SKY TOUCH).
+Tool: tools/bohemia_city_sky_touch_patch.py
+
+TAB: CITY (and RUN, same page). Pinch your fingers TOGETHER to leave the city and keep
+going up to the moon. Pinch them APART to come back down.
+
+HIS WORDS, 8/13, his own phone: "the zoom out didn't work, once I started to leave the
+city it kind of crashed." Routed to this lane as TOP OF QUEUE and still open on the demo
+board two days later.
+
+MEASURED FIRST, on a real touch device (Playwright + CDP, iPhone viewport), because THE
+WHEEL PATH WORKED THE WHOLE TIME and that is exactly how a desktop-verified feature ships
+broken to his hand:
+    DID_THE_PINCH_MOVE_THE_SKY : false     <- "the zoom out didn't work", literally zero
+    renders during one pinch   : 21        <- for TEN touch moves. 2.1 per move.
+    cost of one sky render     : 8.2 ms    <- on a fast desktop. His phone is worse.
+~17 ms of full-valley redraw PER TOUCH EVENT against a 16 ms frame. iOS kills the page.
+
+ONE ROOT FOR ALL THREE FAULTS: IN SKY, `MODE` IS STILL 'city'. Every pointer handler on
+the page therefore believes it is looking at the city. So nothing on touch advanced the
+sky (skyZoom was called from the WHEEL and nowhere else), the pinch branch ran setZoomAt
+AND the pan branch and each ended in render(), and a tap at the moon selected an invisible
+plot underneath.
+
+THE FIX IS ADDITIVE ON PURPOSE: one capture-phase listener that stops the event before the
+city handlers see it. No surgery inside a pointer handler four lanes are editing. It steps
+the page's EXISTING skyZoom (so the wheel path and the floor check that drops him home stay
+byte-identical), accumulates in log space so a slow drag is smooth rather than notched, and
+coalesces the redraw onto one requestAnimationFrame.
+
+*** AND MY OWN FIRST VERSION MADE THE FREEZE WORSE. *** skyZoom ends in render(), and one
+touch move can be several steps, so stepping it naively measured FORTY-ONE redraws for
+twelve moves -- worse than the 21 the patch exists to kill. THE NUMBER CAUGHT IT. A gate
+that only asked "does the pinch reach the moon" would have shipped a worse freeze than the
+bug it fixed, which is why the render budget is an ASSERTION and not a hope.
+AFTER: 11 redraws for 12 moves, riding SKYU 0 -> 1, all the way to the MOON band.
+
+Mutations all bite: his original bug (no touch path advances the sky), that naive fix, and
+letting the city camera see the gesture again.
+
+NEXT IN THIS LANE: the school floodlight masts and the airport/airbase heroes are BOTH
+icon-factory work and ANOTHER WORLD SESSION IS LIVE IN THAT FILE TODAY (streets, freeways,
+roofs, the 60-icon regen). ONE SYSTEM, ONE SESSION -- do not touch tools/bohemia_district_
+hero_factory.py until that session is done. Everything else in the WORLD backlog section is
+DONE and gated: SYNC, FS, GM(a-e), EC, ER(a) verticality (shipped 8/7, the row is stale),
+ER(b), ER(c). Demo board row 2's WORLD half (freeway cells) is that other session's too.
+
+WORLD (world-9lfjtf): 8/15 (d) -- *** THE RUNG HAS A FACE NOW: TAP STANDING AND
 SEE HOW MUCH OF THE VALLEY IS WITH YOU. *** BUILD 8/15n.
 Gate: mandate_face_gate.js 15/0 (MANDATE FACE). Tool: tools/bohemia_city_mandate_patch.py
 

@@ -732,6 +732,23 @@ GATES = [
      'first long line, which for a dozen of them is a "/* ======" divider occurring 42 times '
      'in one page, so it reported three modules inlined that are not there. A CHECKER THAT '
      'CANNOT TELL ONE MODULE FROM ANOTHER IS THE BROKEN ONE -- and it took THREE wrong rulers, each one confidently wrong: the first long line is a divider, the LONGEST line is often the shared IIFE footer (eight modules came back inlined nine times), and some engine files are BUNDLES carrying others verbatim so a contained module can never have a unique line. Bundles are DERIVED, never listed. It also now proves NO MODULE IS INLINED TWICE, which is how the real bug was found: renaming the payday block ORPHANED the old one, the patch could not see it, and a second stale copy of economy/purse/payday sat LATER in the file and WON at runtime while the fresh one was dead code. Caught only because a good added to the economy was missing from the real page', False),
+    ('SKY TOUCH',      ['node', 'gates/sky_touch_gate.js'],
+     'PAOLO\'S P0, 8/13, HIS OWN PHONE: "the zoom out didn\'t work, once I started to leave '
+     'the city it kind of crashed." THE WHEEL PATH WORKED THE WHOLE TIME, which is the entire '
+     'reason this gate drives REAL TOUCH EVENTS through CDP on an iPhone-shaped viewport '
+     'instead of calling functions -- a gate that called skyZoom() directly would have been '
+     'green on the broken build, and that is how a desktop-verified feature reached his hand '
+     'broken. One root: in SKY, MODE is still "city", so every pointer handler believed it was '
+     'looking at the city. Nothing on touch advanced the sky at all (measured: SKYU moved by '
+     'ZERO), the pinch branch ran setZoomAt AND the pan branch and each ended in a full N x N '
+     'valley redraw (measured: 21 redraws for TEN touch moves at 8.2 ms each, against a 16 ms '
+     'frame -- that is the freeze), and a tap at the moon selected an invisible plot '
+     'underneath. THE FIX\'S OWN FIRST VERSION MADE THE FREEZE WORSE -- skyZoom ends in '
+     'render() and one move is several steps, so stepping it naively measured FORTY-ONE '
+     'redraws for twelve moves. The render budget is asserted, not assumed, which is the only '
+     'reason that was caught: a gate checking only "does the pinch reach the moon" would have '
+     'shipped a worse freeze than the one it was written to fix. All three mutations bite -- '
+     'his original bug, that naive fix, and letting the city camera see the gesture', False),
     ('MANDATE FACE',   ['node', 'gates/mandate_face_gate.js'],
      'HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT (Paolo 8/12): the ladder he locked on '
      '6/30 shipped as a module and computed perfectly where nobody could reach it, which is '
