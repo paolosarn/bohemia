@@ -1,3 +1,62 @@
+SOUND (sound-xk7pjp): 8/15 LATEST -- *** THE MIX EXISTS NOW, AND SEVEN MOMENTS THAT
+WERE SILENT SINCE LAUNCH HAVE CANDIDATES. TAB: MUSIC. ***
+
+HE JUDGED 330 IN ONE SITTING on 8/14 -- his third full sweep in three days -- and
+the scoreboard is about METHOD, which is a sharper finding than material ever gave:
+    friction    6 UP /   9 DOWN   40%   the best method in the game
+    modal      97 UP / 173 DOWN   36%
+    fm          2 UP /  13 DOWN   13%
+    particle    0 UP /  20 DOWN    0%
+    air         0 UP /  10 DOWN    0%
+THIRTY CANDIDATES ACROSS PARTICLE AND AIR AND HE KEPT NONE. Bigger sample and
+cleaner result than the metal finding, and it points the OPPOSITE way from where
+the batch was aimed -- those two were added because breaking glass is a hundred
+collisions and breath has no body. The diagnosis was right and he did not want the
+result. A correct diagnosis is not a verdict.
+105 SOUNDS ACROSS 36 MOMENTS PLAY. Everything he has ever thumbed is in the bank.
+
+WHAT SHIPPED THIS SESSION, newest first:
+  BATCH SFX-05 (8/15) -- the seven big moments still playing silence: miss_past,
+    vital_deep, clear_still, sleep_sink, turn_to_you, cross_in, done_ring. Four are
+    FRICTION because his own data ranks it highest. Sorted first: 8 moments are
+    closed by STOP PRODUCING (killed twice), 6 were already answered and lived.
+    FIRST BATCH regionBinds ACTUALLY HOLDS -- containment was a forward-looking law
+    with an empty list since 8/12, and these 35 candidates all land inside the box
+    of his 105 approvals. AWAITING HIS THUMBS, MUSIC tab.
+  THE MIX (8/15) -- music DUCKS under a person talking (-9 dB, 150ms down, 900ms
+    back, sized by the line itself) on its OWN NODE so his volume slider is never
+    touched; and four priority tiers replaced first-come-first-served, so the fight
+    is never refused. He judged it: "Super fire I'm so glad that's the case."
+  SPATIAL (8/13-14) -- one placement path: inverse-law level, pan, a lowpass that
+    closes with distance, and OCCLUSION. The door and the rare valley sounds are
+    placed. Chasing a flaky gate found a REAL bug: leaving any building left every
+    sound muffled by a wall that was no longer there for up to four seconds.
+  VOICE MOOD (8/13) -- Scherer 1986 / Juslin & Laukka 2003: high arousal is higher
+    F0, more variability, louder, faster, brighter. Two dials, read off PUNCTUATION
+    AND CASE only, never sentiment. Neutral is byte-identical to his 8/11 verdicts.
+  FIVE PHYSICS (8/12) -- modal / FM / PhISEM particle / friction / turbulence, and
+    the gate proves they differ with a CONTROLLED PROBE (every parameter fixed,
+    only the method changed).
+
+WHAT IS WAITING ON PAOLO: the 35 SFX-05 candidates, MUSIC tab. Nothing else.
+
+WHAT IS BUILT AND CANNOT FIRE, each named rather than blanket-waived: swing_air,
+tape_pull, set_down, cloth_on -- four sounds he APPROVED on 8/14 with no verb to
+fire from. A melee swing lives in the COMBAT iframe; patching up needs the healing
+system he ruled on 8/13 (routed, unbuilt); the builder can place nothing; and
+equip() exists in the inventory module with ZERO CALLERS (checked, not assumed).
+THE DAY ANY OF THOSE VERBS IS BUILT, THE SOUND IS ALREADY CHOSEN.
+
+FOR THE NEXT SOUND SESSION, the lessons that cost the most time here:
+  A RULER THAT CANNOT FAIL IS NOT A RULER. Three gates passed while measuring
+  nothing this session -- brightness measured over a window that shrank with
+  volume; two methods "differing" because their RECIPES differed; a duck sampled
+  through AudioParam.value, which does not reflect running automation in Chrome.
+  Mutation-test every new gate, both directions.
+  AND WHEN A FLAKY GATE IS BLAMED ON RANDOMNESS, LOOK AGAIN. "Distance does not
+  attenuate" was intermittent and I called it dice. It was the occlusion latency
+  bug, visible only through a blunt instrument.
+
 *** NEVER ASK HIM A TECHNICAL QUESTION (Paolo 8/15, LOCKED). READ THIS BEFORE YOU WRITE A
 REPLY. *** laws/BOHEMIA_ADDENDUM_NEVER_ASK_HIM_TECHNICAL_QUESTIONS_8_15_26.md, in CLAUDE.md,
 gated by reply_contract_gate.js (mutation-tested).
