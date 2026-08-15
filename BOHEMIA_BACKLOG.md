@@ -1321,8 +1321,32 @@ RW. THE REWIND / GHOST TIME (Paolo 8/15, LOCKED in principle, routed to
    or dies. THE WORLD'S MEMORY MUST REWIND TOO: standing, witnesses and
    the feed must ride the snapshot, or a rewind that moves you back but
    leaves the valley remembering will feel like cheating.
-   [PENDING Paolo] the cost model (asked this turn) and how rewind meets
-   permadeath in a run. DO NOT DEFAULT EITHER.
+   *** COST MODEL ANSWERED 8/15, SAME SITTING (law §7): THE REWIND COSTS
+   RESOURCES — the ruled currency, not a new one — AND IT IS PAID OUT OF
+   BACKGROUND PRODUCTION, NOT PICKUPS. He rejected the consumable model
+   in his own words ("I can't imagine you'd be walking around and you'd
+   find vials of network juice"), and asked for resources accruing
+   "autonomously in the background while you play... it'll be super
+   important." That dodges the hoarding trap (an income stream gets
+   spent; a precious vial gets hoarded and reloaded around) and it
+   BRAIDS THE GAME: the city you built pays for your take-backs, so
+   losing territory costs you the ability to undo. Composes with the
+   already-ruled infrastructure-taxation rung.
+   COORDINATOR-DECIDED, correctable: cost scales PER MOVE REWOUND (small
+   take-back cheap, undoing a disaster expensive); never blocked by a
+   menu — if you cannot afford the distance you can afford a shorter one.
+   MAIN CHARACTER ONLY (LOCKED, §7b): nobody else in the world rewinds,
+   ever, and it is NEVER EXPLAINED. This is also a large engineering
+   gift — the buffer restores YOU and the world's memory of you, not a
+   simulation-wide time machine, which shrinks the determinism problem
+   by an order of magnitude.
+   HARD DEPENDENCY (§7c): pricing waits on PURSE.PRODUCTION, which is
+   `{}` and marked [PENDING Paolo, demo blocker 3] in bohemia_payday.js
+   line 35 — the "super important" background production he just
+   described IS that empty table. Build the buffer and the ghost VFX
+   anyway; price against a placeholder that answers NO_RULING, exactly as
+   payday does. NEVER FAKE A NUMBER. ***
+   [PENDING Paolo] how rewind meets permadeath in a run. DO NOT DEFAULT.
    | rewind N moves and land in byte-identical state, gated; the ghost
    tape visible on the real surface | cost model + death semantics = his |
    yes (the ghost-time effect is judgeable once it draws).
@@ -1671,6 +1695,22 @@ GM. GDD MECHANICS ROUTED 8/4 (from records/BOHEMIA_GDD_MECHANICS_LEDGER_
    passive income -> lose patrol lose income) + MAYOR-ARC RUNGS (territory
    -> ~49% mandate -> pseudo-mayor) — both keystone-native. | with the
    braid gates | numbers = his | no.
+EP. *** BACKGROUND PRODUCTION IS NOW LOAD-BEARING FOR A SECOND SYSTEM
+   (8/15, off Paolo's rewind ruling — laws/BOHEMIA_ADDENDUM_THE_REWIND_
+   8_15_26.md §7/§7c). He asked for resources that accrue "autonomously
+   in the background while you play... it'll be super important", and
+   then priced THE REWIND against them. So passive production now feeds
+   BOTH the economy and the game's headline new mechanic.
+   THE MECHANISM SHIPS NOW, THE NUMBERS DO NOT: buildings/holdings yield
+   on a tick into the purse's RESOURCES; `PURSE.PRODUCTION` stays `{}`
+   and answers NO_RULING (bohemia_payday.js:35, [PENDING Paolo, demo
+   blocker 3]) until he rules yields. Never fake a number — the refusal
+   is the correct behavior and payday already models it.
+   COMPOSES WITH: the infrastructure-taxation rung (patrol -> passive
+   income -> lose patrol, lose income) already ruled in the braid, which
+   is the same pipe. Build one, not two. | a held building yields into
+   the purse over time on the real surface, gated; empty table still
+   refuses honestly | yields = HIS numbers | no.
 EC. THE ECONOMY SKELETON (assigned 7/29 off Paolo's big-missing dispatch —
    records/BOHEMIA_THE_BIG_MISSING_7_29_26.md item 3): the three ruled
    currencies (medicine/electricity/resources, GDD v5 LOCKED) get a running

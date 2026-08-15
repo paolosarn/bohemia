@@ -109,10 +109,73 @@ THE RESOLUTION, and it costs nothing: ASSOCIATE, NEVER EXPLAIN.
 - DEATH SEMANTICS: how the rewind interacts with the ROGUELITE run and
   permadeath is NOT settled here and is [PENDING Paolo]. Do not assume.
 
-## 7. THE ONE QUESTION (per the 8/4 question-format law; realism leads)
-See the coordinator's ask in the turn that shipped this. THE COST MODEL is
-the only fork that changes the build, and the trap in §3 is why it cannot
-be defaulted quietly.
+## 7. THE COST MODEL — ANSWERED (Paolo 8/15, same sitting, LOCKED)
+He answered the fork, and the answer is better than any of the three
+options offered:
+**THE REWIND COSTS RESOURCES — AND RESOURCES COME FROM BACKGROUND
+PRODUCTION, NOT FROM PICKUPS.**
+His words, in order:
+- "Maybe it just takes up resources potentially." RESOURCES is one of the
+  three ruled currencies (RESOURCES / ELECTRICITY / CLOUT), so the
+  rewind is priced in the money the game already has. No new resource,
+  no time-currency, nothing invented.
+- HE REJECTED THE PICKUP MODEL EXPLICITLY: "I can't imagine you'd be
+  walking around and you'd find vials of network juice that you could
+  rewind on, I don't believe so." No collectible time-juice. That kills
+  the Sands-of-Time consumable pattern ON PURPOSE.
+- "like one of the games to get resources autonomously going in the
+  background too while you play, like it'll be super important." The
+  cost is paid out of PASSIVE PRODUCTION — what your holdings yield
+  while you play.
+### HE SOLVED THE HOARDING TRAP WITHOUT BEING TOLD IT WAS ONE
+§3 warned that a SCARCE consumable re-creates save-scumming, because
+players reload rather than spend a precious vial. An INCOME STREAM does
+not have that failure mode: renewable means you spend it, finite-per-
+unit-time means you cannot spam it. Spending income feels nothing like
+burning your last vial. His instinct went straight past the trap.
+### AND IT BRAIDS THE TWO HALVES OF THE GAME THROUGH ONE MECHANIC
+The rewind is PAID FOR BY THE CITY YOU BUILT. The builder half funds the
+run half; losing territory means losing the ability to undo. That is THE
+BRAID (8/4, his pick C) made concrete, and it composes with the already-
+ruled INFRASTRUCTURE TAXATION rung (patrol -> passive income -> lose
+patrol, lose income).
+### THE OPPORTUNITY COST IS THE LIFE LESSON, AND IT IS NEVER PREACHED
+Resources spent undoing your mistakes are resources not spent repairing
+the city. Every take-back is paid for out of the future you were
+building. Nobody in the game ever says this. The player feels it.
+### DECIDED BY THE COORDINATOR (mechanical, correctable)
+- COST SCALES WITH DISTANCE: rewinding is priced PER MOVE rewound, so a
+  small take-back is cheap and undoing a whole disaster is expensive.
+  No flat fee. (Correct-after; it is one line.)
+- The rewind is never blocked by a menu; if you cannot afford the
+  distance, you can afford a shorter one.
+
+## 7b. MAIN CHARACTER ONLY (Paolo 8/15, LOCKED, and it is canon-shaped)
+"I can't imagine that the whole world would interact with this sort of
+idea. Maybe it's like a main character only thing and maybe that's the
+way it's supposed to be. I mean that's kind of what main character means
+even in real life too."
+ONLY YOU REWIND. No NPC, no faction, no enemy. It is not a technology in
+the world; it is a property of being the protagonist.
+- IT IS NEVER EXPLAINED (§5 holds — permanent ambiguity is locked). The
+  game does not say why you can and nobody else can. It simply is.
+- THE LIFE LESSON UNDERNEATH, in his own framing: being the main
+  character of your own life means the do-overs are yours alone, and
+  they are not free. Never stated in dialogue.
+- MECHANICAL CONSEQUENCE, and it is a gift: because nothing else in the
+  world rewinds, the ring buffer only ever has to restore YOUR state and
+  the world's memory of you — not a simulation-wide time machine. This
+  keeps §6's determinism problem an order of magnitude smaller.
+
+## 7c. THE DEPENDENCY THIS CREATES (routing consequence, flagged 8/15)
+Background production is NOT BUILT and is waiting on HIM specifically:
+`engine/bohemia_payday.js` line 35 — `what a building yields
+PURSE.PRODUCTION {} [PENDING Paolo, demo blocker 3]`. The system he just
+called "super important" is the empty table that has been sitting on his
+ruling since 8/11. So: the rewind cannot be PRICED until production
+yields exist, though the ring buffer and the ghost-time VFX can be built
+in full before then (price it from a placeholder that answers NO_RULING,
+exactly as payday already does — never fake a number).
 
 ## 8. ROUTING
 - COMBAT owns the combat rewind (he already gave that chat the combat

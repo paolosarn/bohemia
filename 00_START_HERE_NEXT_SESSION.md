@@ -18721,3 +18721,29 @@ MAX RANGE ruling (a couple tiles beyond every enemy), chain shots gated
 by gun type, accuracy falloff, MORE MOVEMENT wanted — and the cross-lane
 one: NO FACE CHANGE UNDER HEAVY DAMAGE, which is CHARACTER's surface and
 COMBAT's state, so it is flagged in both.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/15 (b) — THE REWIND'S COST MODEL, ANSWERED BY PAOLO
+THE SAME SITTING (law §7/§7b/§7c updated; RUN RW + COMBAT RW-C + new
+WORLD EP). THE REWIND COSTS RESOURCES — the ruled currency, not a new
+one — PAID OUT OF BACKGROUND PRODUCTION, NOT PICKUPS. He rejected the
+consumable model himself ("I can't imagine you'd be walking around and
+you'd find vials of network juice"), and asked for resources accruing
+"autonomously in the background while you play... it'll be super
+important." That walks straight past the hoarding trap the research
+flagged (an income stream gets spent; a scarce vial gets hoarded and
+save-scummed around) and it BRAIDS THE GAME: the city you built pays for
+your take-backs, so losing territory costs you the ability to undo.
+MAIN CHARACTER ONLY (LOCKED): nobody else in the world rewinds, ever, and
+it is NEVER EXPLAINED (permanent ambiguity holds). Big engineering gift —
+the buffer restores YOU and the world's memory of you, not a
+simulation-wide time machine.
+COORDINATOR-DECIDED, correctable: cost scales per move rewound; never
+menu-blocked.
+THE DEPENDENCY, AND IT IS THE POINT: the "super important" background
+production he described IS `PURSE.PRODUCTION {}`, empty and marked
+[PENDING Paolo, demo blocker 3] at bohemia_payday.js:35 since 8/11. New
+WORLD item EP ships the tick mechanism with the table still empty and
+refusing honestly. Rewind buffer + ghost VFX can be built in full before
+the numbers land; pricing waits.
+STILL PENDING PAOLO: how rewind meets permadeath in a run (not defaulted).
