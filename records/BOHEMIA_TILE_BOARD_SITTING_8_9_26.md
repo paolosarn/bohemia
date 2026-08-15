@@ -363,3 +363,23 @@ player passes under needs world-named overhead cells (LAYERG drives the
 pass-under fade) and map data is the WORLD lane's under MAP LAW. Both cards
 reshot. Ledger remaining in-lane: turf court lines, rail turnouts, sf
 signbands - all need real cooks now, the pure-reuse well is dry.
+
+## 8/15 SEVENTEENTH PASS: THE PAINTED LINES (THE WELL WAS NOT DRY)
+
+I declared the pure-reuse well dry one pass early. The TF-ART-005 bank holds
+60 tiles and the wiring had only ever grabbed 20: court_line_<NESW> (the full
+WANG-16), track_lane NS/EW + four corners, turf_line_<NESW> and the speedway
+banking were all cooked 8/8, approved 8/11, and sitting there. THIS PASS:
+- Court lines: the rim-mask pattern's FOURTH reuse - a court cell facing out
+  wears the ghost ring on that side. Thirty-year wash, nearly gone, still
+  legible: verified at a park court on the blue acrylic.
+- Track lanes: straight pieces where the track continues N-S or E-W, corners
+  where the ring bends, and a wide track pad honestly stays plain field
+  (lane geometry on a blob would be a lie). Verified at the school track.
+STILL PARKED IN THE BANK: turf_line_<NESW> (yard lines need a named FIELD
+rect - the park's dead turf is one continuous lawn and lining all of it
+would be wrong; needs world naming or a rect-finder with a ruling) and
+banking_0..2/aprons (the speedway's cells need probing for a banking name).
+FREEWAY RE-CHECKED after the WORLD lane's 8/15 ribbon ship: the walked
+world's freeway cells are STILL reserved-landmark ground - their ribbon was
+the vista view. TF-ART-011 stays blocked on WORLD.

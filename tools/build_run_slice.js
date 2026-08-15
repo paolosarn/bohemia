@@ -349,7 +349,14 @@ grabPieces('banks/tileforms/TF-ART-005_CANDIDATES_8_8_26.json',
   ['turf_stripe_a0', 'turf_stripe_b0', 'turf_stripe_a1', 'turf_stripe_b1',
    'turf_stripe_a2', 'turf_stripe_b2', 'court_0', 'court_1', 'court_2',
    'track_0', 'track_1', 'track_2', 'infield_0', 'infield_1', 'infield_2',
-   'putting_0', 'putting_1', 'bunker_0', 'bunker_1', 'bunker_2']);
+   'putting_0', 'putting_1', 'bunker_0', 'bunker_1', 'bunker_2',
+   /* VOLUME 8/15: the painted lines - court ghost-line WANG + track lanes */
+   'court_line_N', 'court_line_E', 'court_line_S', 'court_line_W',
+   'court_line_NE', 'court_line_NS', 'court_line_NW', 'court_line_ES',
+   'court_line_EW', 'court_line_SW', 'court_line_NES', 'court_line_NEW',
+   'court_line_NSW', 'court_line_ESW', 'court_line_NESW',
+   'track_lane_NS', 'track_lane_EW', 'track_lane_NE', 'track_lane_NW',
+   'track_lane_ES', 'track_lane_SW']);
 grabPieces('banks/tileforms/TF-ART-006_CANDIDATES_8_8_26.json',
   ['rim_N', 'rim_E', 'rim_S', 'rim_W', 'rim_NE', 'rim_NS', 'rim_NW', 'rim_ES',
    'rim_EW', 'rim_SW', 'rim_NES', 'rim_NEW', 'rim_NSW', 'rim_ESW', 'rim_NESW',

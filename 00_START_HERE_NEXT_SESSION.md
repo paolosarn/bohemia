@@ -1,3 +1,18 @@
+ART (f3eu53): 8/15 (c) LATEST -- *** THE PAINTED LINES ARE ON: ghost court
+rings and faded track lanes. The reuse well was NOT dry - the 005 bank held
+21 unwired line pieces. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (seventeenth-pass section)
+
+TAB: ART, WIRED IN THE GAME - turf card reshot at a park court, ghost lines
+on the blue acrylic. Rim-mask pattern's fourth reuse.
+
+PARKED IN THE BANK, needs input: turf_line yard lines (need a named field
+rect - lining the whole park lawn would be wrong), speedway banking (probe
+the speedway for a banking name first). FREEWAY RE-CHECKED after WORLD's
+ribbon ship: walked-world freeway cells are STILL reserved ground - their
+ribbon was the vista. TF-ART-011 stays blocked. Deck stairs still on
+TF-CMB-004. Real-cook ledger now truly: sf signbands, rail turnouts.
+
 CHARACTER (character-0lurbs): 8/15 -- 2X STEP 1+2 IS BUILT AND PROVED. NOT YET APPLIED,
 DELIBERATELY. tools/bohemia_rig_double.js (6/0, mutation-tested).
 
@@ -118,7 +133,7 @@ good" -- and an empty ask is a FINISHED turn, not a lazy one.
 
 --------------------------------------------------------------------------------
 
-ART (f3eu53): 8/15 (b) LATEST -- *** THE ROOFS HAVE THEIR DEAD MECHANICAL AND
+ART (f3eu53): 8/15 (b) -- *** THE ROOFS HAVE THEIR DEAD MECHANICAL AND
 THE POOLS HAVE THEIR DEEP END. The 8/11 "RTUs stay unwired" note is closed:
 they draw as multi-cell props at uniform tile scale, no resample. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (sixteenth-pass section)
