@@ -291,11 +291,11 @@ if (String(roofBank.law || '').indexOf('APPROVED') !== 0)
   throw new Error('TILEFORM: ' + ROOF_BANK + ' law line is not APPROVED - nothing unjudged draws');
 var roofCount = 0;
 roofBank.tiles.forEach(function (t) {
-  if (/^(parapet_(galv|bone|oxide)_(run_[nesw]_[ab]|out_[ns][ew]|in_[ns][ew]|end_open[nse]|scupper)|bur_gravel_\d|duct_straight_\d|duct_elbow_0)$/.test(t.name)) {
+  if (/^(parapet_(galv|bone|oxide)_(run_[nesw]_[ab]|out_[ns][ew]|in_[ns][ew]|end_open[nse]|scupper)|parapet_galv_run_[ne]_drift|bur_gravel_\d|duct_straight_\d|duct_elbow_0|rtu_small_[01]|rtu_large_0|hatch_0|panel_pulled_0|drain_sump_0)$/.test(t.name)) {
     tileformOut[t.name] = t.b64; roofCount++;
   }
 });
-if (roofCount !== 66) throw new Error('TILEFORM: only ' + roofCount + ' roof pieces matched in ' + ROOF_BANK);
+if (roofCount !== 74) throw new Error('TILEFORM: only ' + roofCount + ' roof pieces matched in ' + ROOF_BANK);
 /* fifth family: TF-ART-004 chain-link - the run sheets, N-S columns and the
    post hub. Gates, toppers and slat variants are named volume. */
 var FENCE_BANK = 'banks/tileforms/TF-ART-004_CANDIDATES_8_8_26.json';
@@ -353,7 +353,10 @@ grabPieces('banks/tileforms/TF-ART-005_CANDIDATES_8_8_26.json',
 grabPieces('banks/tileforms/TF-ART-006_CANDIDATES_8_8_26.json',
   ['rim_N', 'rim_E', 'rim_S', 'rim_W', 'rim_NE', 'rim_NS', 'rim_NW', 'rim_ES',
    'rim_EW', 'rim_SW', 'rim_NES', 'rim_NEW', 'rim_NSW', 'rim_ESW', 'rim_NESW',
-   'rim_N_ladder', 'silt_0', 'silt_1', 'silt_2', 'floor_drain']);
+   'rim_N_ladder', 'silt_0', 'silt_1', 'silt_2', 'floor_drain',
+   /* VOLUME 8/15: the hopper - slopes descend to the darker deep end */
+   'slope_n_0', 'slope_n_1', 'slope_e_0', 'slope_e_1', 'slope_s_0', 'slope_s_1',
+   'slope_w_0', 'slope_w_1', 'deep_0', 'deep_1', 'deep_2']);
 grabPieces('banks/tileforms/TF-ART-008_CANDIDATES_8_8_26.json',
   ['sf_bay_tall_0', 'sf_bay_tall_1', 'sf_boarded_0', 'sf_boarded_1', 'sf_boarded_2',
    'sf_shutter_down_0', 'sf_shutter_down_1', 'sf_grille_half_0', 'sf_grille_half_1',

@@ -337,3 +337,29 @@ Ledger remaining: mh awnings (placement needs care - canopy layer over the
 yard cell), roll-up doors, rail turnouts, sf signbands, pool slopes, turf
 court lines. Wheel stops still need world bay data. Freeway and deck stairs
 still blocked outside the lane.
+
+## 8/15 SIXTEENTH PASS: THE ROOFS GOT THEIR DEAD MECHANICAL AND THE POOLS GOT
+## THEIR DEEP END (VOLUME, ALL REUSE AGAIN)
+
+The 8/8 cooks were more complete than the wiring ever was - both banks held
+finished, approved, UNWIRED pieces:
+- TF-ART-012: the RTUs the 8/11 wiring note parked ("88x86, not a whole
+  number of cells, stay unwired") are ON. The objection was never the art,
+  it was placement, and the answer was the exterior-prop pattern: draw the
+  multi-cell RGBA at the SAME uniform scale as every tile (no resample),
+  anchored at the right-bottom cell of the footprint so the left-to-right
+  cell loop never draws a field over them, one roll per 4-column block so
+  units cannot collide. Small units, the large unit, roof hatches, drain
+  sumps, pulled panels on roof interiors; scuppers drain the south parapets;
+  sand drifts pile on galv north/east walls. Looked at live: a dead unit
+  standing on a commercial gravel roof.
+- TF-ART-006: poolDeepAt (all-pool 2-cell ring) marks the hopper, deep_0..2
+  draws it darker, and slope pieces descend toward it from the shallow floor.
+  Luminance is geometry, the cook's own words. Looked at live at the wave
+  pool. deep_wet stays parked on weather state; the clarifier stays parked on
+  world occupancy (a drawn basin the player walks over would lie).
+Also FILED: mh awnings are BLOCKED ON WORLD like the freeway - a canopy the
+player passes under needs world-named overhead cells (LAYERG drives the
+pass-under fade) and map data is the WORLD lane's under MAP LAW. Both cards
+reshot. Ledger remaining in-lane: turf court lines, rail turnouts, sf
+signbands - all need real cooks now, the pure-reuse well is dry.

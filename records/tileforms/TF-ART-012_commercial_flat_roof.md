@@ -454,6 +454,6 @@
       runtime shadow pass, and no prop layer above roofs in the run
 
 ## J. ADMIN
-- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: the parapet ring is live on every 'roof edge' cell (downtown oxide, civic bone, industrial galv - library/chapel/courthouse/downtown read their coping now) and 'rooftop plant' cells wear the duct pieces, in the RUN tab. The RTUs (88x86, not cell-integer) and hatches are the open volume; the roof FIELDS still come from the 8/1 civic pool. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: the parapet ring is live on every 'roof edge' cell (downtown oxide, civic bone, industrial galv - library/chapel/courthouse/downtown read their coping now) and 'rooftop plant' cells wear the duct pieces, in the RUN tab. The RTUs (88x86, not cell-integer) and hatches are the open volume; the roof FIELDS still come from the 8/1 civic pool. VOLUME 8/15/26: the dead mechanical is on - rtu_small/large drawn as multi-cell props at uniform tile scale (no resample, right-bottom anchored so the cell loop never stomps them, one roll per 4-column block so units never collide), hatch, drain sump, pulled panel on interiors; scupper on south runs 1-in-7; galv sand drifts n/e 1-in-11. Verified live on a commercial roof; card reshot. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/29/26 | PRIORITY: HIGH
 - BOARD ROW #: 21 | VERDICT: —

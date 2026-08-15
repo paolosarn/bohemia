@@ -1,3 +1,18 @@
+ART (f3eu53): 8/15 (b) LATEST -- *** THE ROOFS HAVE THEIR DEAD MECHANICAL AND
+THE POOLS HAVE THEIR DEEP END. The 8/11 "RTUs stay unwired" note is closed:
+they draw as multi-cell props at uniform tile scale, no resample. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (sixteenth-pass section)
+
+TAB: ART, WIRED IN THE GAME - roof card reshot (dead unit on the gravel),
+pool card reshot (deep end reading dark past the slopes). Scuppers on south
+parapets, sand drifts on galv n/e walls, hatches, sumps, pulled panels.
+
+FILED BLOCKED-ON-WORLD: mh awnings (need world-named overhead cells; LAYERG
+drives the pass-under fade; MAP LAW says map data is not mine), the freeway,
+the clarifier (needs occupancy), deep_wet (needs weather state).
+LEDGER REMAINING IN-LANE: turf court lines, rail turnouts, sf signbands -
+these need REAL COOKS now, the pure-reuse well is dry after sixteen passes.
+
 CHARACTER (character-0lurbs): 8/15 LATEST -- 2X's MEMORY PREREQUISITE IS MEASURED AND
 CLEARED. THE MIGRATION IS UNBLOCKED AND HAS NOT BEEN STARTED.
 
@@ -46,7 +61,7 @@ open needs its own dismissal step (or the overlay needs pointer-events
 handling when done). Your feature, your gate reconciliation - every lane's
 full-suite run is red until then. ***
 
-ART (f3eu53): 8/15 (a) LATEST -- *** THE FENCE WARDROBE IS ON AND THE PARK
+ART (f3eu53): 8/15 (a) -- *** THE FENCE WARDROBE IS ON AND THE PARK
 HAS ITS DEAD: razor wire on the security yards, slats on the park, trash in
 the mesh, one home in six a burned hull, hitches on every tongue. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fifteenth-pass section)

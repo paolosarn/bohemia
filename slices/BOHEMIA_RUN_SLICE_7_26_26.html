@@ -576,7 +576,14 @@ function drawRoofform(gx,gy,X,Y,S){
     var open=(oN?1:0)+(oE?1:0)+(oS?1:0)+(oW?1:0);
     var ab=((gx+gy)%2===0)?'_a':'_b';
     if(open===1){
-      name='parapet_'+cw+'_run_'+(oN?'n':oE?'e':oS?'s':'w')+ab;
+      var rdir=(oN?'n':oE?'e':oS?'s':'w');
+      name='parapet_'+cw+'_run_'+rdir+ab;
+      /* VOLUME (8/15): the bank's own scupper drains the south face (1-in-7
+         per column) and on galvanized roofs the desert piles sand DRIFT
+         against the north and east parapet (1-in-11). */
+      if(rdir==='s' && th(gx,0,7)===0) name='parapet_'+cw+'_scupper';
+      else if(cw==='galv' && (rdir==='n'||rdir==='e') && th(gx,gy,11)===0)
+        name='parapet_galv_run_'+rdir+'_drift';
     } else if(open===2){
       if(oN&&oE) name='parapet_'+cw+'_out_ne';
       else if(oN&&oW) name='parapet_'+cw+'_out_nw';
@@ -687,6 +694,15 @@ function poolAt(gx,gy){
   var n=String(NAMEG[gy][gx]||'').toLowerCase();
   return n.indexOf('pool')>=0 && (n.indexOf('drained')>=0||n.indexOf('splash')>=0);
 }
+/* VOLUME (8/15): a pool floor is not flat. Cells two full cells from every
+   rim are the DEEP END hopper (darker silt at depth), and the shallow floor
+   meets the deep on a SLOPE piece that descends toward it - luminance is
+   geometry, the cook's own words. */
+function poolDeepAt(gx,gy){
+  for(var dy=-2;dy<=2;dy++)for(var dx=-2;dx<=2;dx++)
+    if(!poolAt(gx+dx,gy+dy)) return false;
+  return true;
+}
 function drawPoolform(gx,gy,X,Y,S){
   if(!poolAt(gx,gy)) return false;
   var k='';
@@ -696,7 +712,13 @@ function drawPoolform(gx,gy,X,Y,S){
   if(!poolAt(gx-1,gy)) k+='W';
   var name;
   if(k===''){
-    name = th(gx,gy,29)===0 ? 'floor_drain' : 'silt_'+th(gx,gy,3);
+    if(poolDeepAt(gx,gy)){
+      name = 'deep_'+th(gx,gy,3);
+    } else if(poolDeepAt(gx,gy+1)){ name='slope_s_'+th(gx,gy,2); }
+    else if(poolDeepAt(gx,gy-1)){ name='slope_n_'+th(gx,gy,2); }
+    else if(poolDeepAt(gx+1,gy)){ name='slope_e_'+th(gx,gy,2); }
+    else if(poolDeepAt(gx-1,gy)){ name='slope_w_'+th(gx,gy,2); }
+    else name = th(gx,gy,29)===0 ? 'floor_drain' : 'silt_'+th(gx,gy,3);
   } else if(k==='N' && th(gx,0,11)===0){
     name='rim_N_ladder';
   } else {
@@ -2271,6 +2293,44 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
     }
   }
   ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S);
+  /* VOLUME (8/15): THE DEAD MECHANICAL ON THE FLAT ROOFS. The RTUs are
+     multi-cell art (88x86, 132x90) drawn at the same uniform scale as every
+     tile - no resample - anchored at the RIGHT-BOTTOM cell of their footprint
+     so the left-to-right cell loop never draws a field over them. One roll
+     per 4-column block decides small unit / large unit / nothing, the roof
+     hatch rides a second roll, and the odd pulled panel and drain sump keep
+     a big roof from reading empty. Interior cells only: a unit never sits on
+     the parapet. */
+  if(k==='R'){
+    function rin(x2,y2){ return civicRoofAt(x2,y2) && civicRoofAt(x2,y2-1) && civicRoofAt(x2,y2+1)
+                              && civicRoofAt(x2-1,y2) && civicRoofAt(x2+1,y2); }
+    var rt=th(gx>>2,gy,17);
+    if(gx%4===1 && rt===0 && rin(gx-1,gy) && rin(gx,gy)){
+      var ru=TILEFORM_IMG['rtu_small_'+(((gx>>2)^gy)&1)];
+      if(ru&&ru.complete&&ru.naturalWidth){
+        var rh=S*86/44; ctx.drawImage(look(ru),X-S,Y+S-rh,2*S,rh);
+      }
+    } else if(gx%4===2 && rt===1 && rin(gx-2,gy) && rin(gx-1,gy) && rin(gx,gy)){
+      var rl=TILEFORM_IMG['rtu_large_0'];
+      if(rl&&rl.complete&&rl.naturalWidth){
+        var lh=S*90/44; ctx.drawImage(look(rl),X-2*S,Y+S-lh,3*S,lh);
+      }
+    } else if(gx%4===3 && rt>1 && th(gx>>2,gy,19)===0 && rin(gx,gy)){
+      var ha=TILEFORM_IMG['hatch_0'];
+      if(ha&&ha.complete&&ha.naturalWidth){
+        var hw=S*54/44, hh=S*52/44; ctx.drawImage(look(ha),X-(hw-S),Y+S-hh,hw,hh);
+      }
+    } else if(th(gx,gy,43)===0 && rin(gx,gy)){
+      var ds=TILEFORM_IMG['drain_sump_0'];
+      if(ds&&ds.complete&&ds.naturalWidth) ctx.drawImage(look(ds),X,Y,S,S);
+    } else if(th(gx,gy,61)===0 && rin(gx,gy)){
+      var pp=TILEFORM_IMG['panel_pulled_0'];
+      if(pp&&pp.complete&&pp.naturalWidth){
+        var pw=S*22/44, ph=S*15/44;
+        ctx.drawImage(look(pp),X+Math.round((S-pw)/2),Y+Math.round((S-ph)/2),pw,ph);
+      }
+    }
+  }
   if(k!=='W') return true;
   /* VOLUME (8/14): TF-ART-013 SKIRTS. A mobile home sits on piers and wears a
      skirt at the base - the panel band overlays the LOWER part of the bottom

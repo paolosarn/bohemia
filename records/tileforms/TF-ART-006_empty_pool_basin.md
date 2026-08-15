@@ -109,6 +109,6 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: APPROVED 8/11/26 AND WIRED 8/12/26: every drained/splash pool basin draws the family (WANG rim by which sides face out of the basin, silt floors with drains, one ladder per pool on a north rim), live in the RUN tab (waterpark, apartments). Slopes, wet deep ends and the 5x5 clarifier are the named volume. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/12/26: every drained/splash pool basin draws the family (WANG rim by which sides face out of the basin, silt floors with drains, one ladder per pool on a north rim), live in the RUN tab (waterpark, apartments). Slopes, wet deep ends and the 5x5 clarifier are the named volume. VOLUME 8/15/26: the hopper is wired - poolDeepAt (2-cell Chebyshev ring all-pool) draws deep_0..2 and the shallow floor descends on slope_n/e/s/w pieces toward it. deep_wet stays parked on weather state; clarifier_5x5 parked on world occupancy (a walkable drawn basin would lie). Verified live at the wave pool; card reshot. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/28/26 | PRIORITY: MED
 - BOARD ROW #: 15 | VERDICT: —
