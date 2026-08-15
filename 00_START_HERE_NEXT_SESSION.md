@@ -1716,7 +1716,81 @@ circled before saying it is done.
 --------------------------------------------------------------------------------
 
 
-LAB (lab-e2r7sv): 8/13 (a) LATEST -- *** I MEASURED THE CIV 5 TECH TREE AND IT SAYS OUR BOSS
+LAB (lab-e2r7sv): 8/13 (b) LATEST -- *** HE SAID "SURE" AND THE LADDER IS A GRAPH NOW. AND HE
+DROPPED A BIGGER RULING INSIDE THE YES: NOT EVERY NODE IS A BOSS. ***
+JUDGE THIS: 1. records/BOHEMIA_HIS_GRAPH_RULINGS_8_13_26.md (his six rulings + what they cost)
+            2. records/BOHEMIA_LADDER_GRAPH_8_13_26.json (38 edges, each with its reason)
+NOT IN A TAB. Records files.
+
+*** HE HIT THE CIV 5 NUMBER WITHOUT BEING SHOWN IT. *** He said the live menu should hold "5 or 6 of
+them or four of them" -- FOUR TO SIX. The Civ 5 measurement he had not read was 3 TO 7, MEDIAN 4.
+Two people arriving at the same constant from opposite directions is the strongest evidence in this
+whole research thread that the choice fan is a real design law and not a curiosity of one game.
+
+*** R-ACQUIRED IS THE BIG ONE AND IT IS BIGGER THAN THE COLUMN. *** "I dont know if its all gonna be
+just bosses like maybe a lot of them could be but the idea is that its something thats ACQUIRED so it
+doesnt have to maybe not killing or persuading a particular person like its just a quest and thatd be
+fun." THE UNIT OF THE LADDER IS THE ACQUISITION, NOT THE FIGHT. For a month every one of the 53 rows
+was written as "somebody holds a thing and you take it from them" and he just said the holder is
+OPTIONAL. Some are a person you beat or spare. Some are JUST A JOB YOU DO -- no antagonist, nothing
+to persuade. So each node needs a ROUTE (BOSS / QUEST / FOUND), and THE ARTIFACT IS MISNAMED.
+[PENDING PAOLO] on renaming it -- I did not quietly retitle a file he has judged seven times.
+
+THE GRAPH: 53 nodes, 38 PHYSICALLY NECESSARY edges, 8 TIERS, acyclic. Every edge carries a
+one-sentence reason readable off the two rows it connects -- you cannot catch rain off a roof you
+cannot reach (CISTERN needs CLIMB), you cannot open a pit without something that goes off (QUARRY
+needs CHARGE), canon says soil and LABOR are the binding constraint so farming waits on the crew
+(SOIL needs FOREMAN), and the ladder's own text already pairs ROAD with WALL and already says a
+theatre is what makes an implant thinkable. 8 TIERS IS WHERE 3 ACTS AT CIV 5 ERA-DEPTH PREDICTED
+(6-9) WITHOUT BEING AIMED THERE.
+
+*** AND THE HONEST HEADLINE IS A SHORTFALL I AM NOT ALLOWED TO HIDE: PHYSICS OPENS TWENTY DOORS AND
+HE ASKED FOR FOUR TO SIX. *** The tempting move was to invent fourteen more edges until the number
+matched his. That would be fourteen decisions about how his game is played, buried in a data file
+where they look like physics. STOP PRODUCING names that shape exactly (finding a legal way to ship it
+anyway IS the violation), so: quest_gates is EMPTY, the routes table holds ONLY THE POT (the one node
+he called a boss in his own words), THE GATE FAILS IF I DECLARE THEM, and it fails if the shortfall
+stops being stated out loud. R-GATE already names the tool that closes the gap -- a quest -- and
+WHICH nodes sit behind one is his.
+
+*** HIS NARRATIVE TRIANGLE, RECORDED AS AN UNSOLVED PROBLEM, NOT ANSWERED WITH A FEATURE: ***
+  MORE THAN VALHEIM -- "imagine if Valheim just give a little fuck to have some sort of narrative
+    direction like just a little bit... I think thats really important". Valheim's bosses have no
+    story at all and that is the failure he named. He wants A LITTLE. Not a plot.
+  BUT NEVER A CUTSCENE -- "we want this game to be fluid like we dont want to be bogged down by
+    being stuck in a cut scene." Narrative may not stop play. Hard constraint on HOW.
+  AND NEVER AN MMO QUEST LOG -- "I dont want this to be cheap either like I dont want this to feel
+    like an MMORPG, which is bullshit." The obvious cheap fix (marker, fetch count, unread
+    paragraph) is explicitly banned.
+Those three fight each other and that vice IS the next real design problem. NOTHING WAS BUILT FOR IT
+and the gate asserts it is still presented as unsolved.
+
+GATES: ladder_graph_gate.js 30 checks (registered LADDER GRAPH), civ5_gate.js now 39.
+*** AND CIV5_GATE D4 WENT OFF EXACTLY AS DESIGNED. *** It was written yesterday to assert the ladder
+still had ZERO prereq edges, with the comment "if this fails the finding is stale and the record must
+be rewritten, not patched." He ruled, the graph landed, the finding went stale, and D4 forced the
+research record rewritten instead of letting it quietly become false. That is the first time a gate
+in this repo has caught its OWN finding expiring. D4 was rewritten, NOT deleted.
+
+THIRTEEN MUTATIONS, ALL THIRTEEN CAUGHT -- including the four that matter most: declaring the 14
+quest gates myself (D5), assigning all 53 routes myself (E2), renaming his file instead of asking
+(E5), and claiming the narrative triangle was solved (F4).
+*** AND FOUR OF THE THIRTEEN DID NOT LAND ON THE FIRST TRY, WHICH IS THE LESSON THAT KEEPS REPEATING
+IN THIS LANE: *** two missed on hard-wrapped prose, one on CASE, and one landed but the phrase
+appears TWICE in the file so the gate correctly read the intact copy and I briefly suspected a
+working check. Every one printed as a clean 30/0 PASS. They were only caught because the harness
+ASSERTS THE MUTATION LANDED before believing the outcome. A MUTATION THAT DOES NOT LAND TESTS
+NOTHING AND LOOKS EXACTLY LIKE A PASS. Mutate on a fully whitespace-normalised, case-insensitive
+basis and count the hits.
+Also: D3 was a TAUTOLOGY on its first write (a ternary whose two branches were the same expression),
+and the rulings prose said "twenty-one" roots where the tool measures TWENTY -- the THIRD hand-typed
+number I have gotten wrong in two days, so D3 now reads the spelled-out count out of the prose and
+compares it against the measurement.
+
+--------------------------------------------------------------------------------
+
+
+LAB (lab-e2r7sv): 8/13 (a) -- *** I MEASURED THE CIV 5 TECH TREE AND IT SAYS OUR BOSS
 LADDER IS THE WRONG SHAPE. NOT THE WRONG CONTENTS. THE WRONG GEOMETRY. ***
 JUDGE THIS: 1. records/BOHEMIA_RESEARCH_CIV5_TECHTREE_8_13_26.md (the research + the gap table)
 NOT IN A TAB. Records file. The ladder has never had a surface either.

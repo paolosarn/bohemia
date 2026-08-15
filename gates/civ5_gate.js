@@ -120,9 +120,18 @@ ok('D2 the ladder node count in the record matches the live ladder (' + boh.node
    flat.includes('| ' + civ.nodes + ' | ' + boh.nodes + ' |'));
 ok('D3 the act split in the record matches the live ladder (' + boh.perAct.join('/') + ')',
    flat.includes(boh.perAct.join(' / ')));
-ok('D4 THE LADDER STILL HAS ZERO PREREQUISITE EDGES -- if this fails, the finding is stale '
-   + 'and the record must be rewritten, not patched',
-   !/\|\s*(PREREQ|PREREQUISITE|REQUIRES|GATED BY)\s*\|/i.test(lad));
+/* ★ D4 DID ITS JOB ON 8/13 AND THIS IS WHAT THAT LOOKS LIKE. It used to assert the ladder
+   had ZERO prerequisite edges, which was the finding. Then he ruled "Sure" and a graph was
+   built, so the finding went stale -- exactly the event this check was written to catch. It
+   now demands the record ACKNOWLEDGE the graph rather than pretend the ladder is still a
+   line. A gate that guards a fact must change when the fact does, or it starts defending a
+   lie. (What it must never do is get deleted so the stale claim can stand.) */
+const graphExists = fs.existsSync(path.join(ROOT, 'records/BOHEMIA_LADDER_GRAPH_8_13_26.json'));
+ok('D4 if a prerequisite graph exists, the record ADMITS the line-finding is now history',
+   !graphExists || (/this finding is now history/i.test(flat) &&
+                    /SNAPSHOT of 8\/13 morning/i.test(flat)));
+ok('D4b and it records that he reached 4-6 independently of the Civ 5 measurement',
+   !graphExists || /without being shown it/i.test(flat));
 ok('D5 the record states the ladder fan is 1 and Civ 5 is not',
    /\*\*1, always\*\*/.test(flat) && /median 4/.test(flat));
 ok('D6 the record calls our ladder a LINE in those words',
@@ -157,7 +166,8 @@ function report() {
     console.log(`  civ5: ${civ.nodes} techs · ${civ.edges} edges · ${civ.tiers} tiers · `
       + `fan ${civ.fanMin}-${civ.fanMax} (med ${civ.fanMedian})`);
     console.log(`  ours: ${boh.nodes} bosses · ${boh.prereqEdges} edges · ${boh.tiers} tiers · `
-      + `fan ${boh.fan}`);
+      + `fan ${boh.fan}` + (boh.isGraph ? ` (A GRAPH since 8/13, opening fan ${boh.openingFan})`
+                                        : ' (still a LINE)'));
   }
   console.log('='.repeat(74));
 }

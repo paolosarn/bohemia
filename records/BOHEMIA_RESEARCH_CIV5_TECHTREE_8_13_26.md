@@ -132,6 +132,29 @@ fraction**. Gunpowder on 19% of the tree. If the ladder becomes a graph, 53 stop
 budget problem and becomes a replay surface: a run that beelines THE CHARGE and THE MACHINIST is a
 different game from a run that beelines THE CISTERN and THE MIDWIFE, off the same 53.
 
+## ★ UPDATE, SAME DAY: HE RULED, AND THIS FINDING IS NOW HISTORY
+
+He read the above and answered **"Sure"** — the prerequisite column is approved. His rulings are in
+`records/BOHEMIA_HIS_GRAPH_RULINGS_8_13_26.md` and the graph is in
+`records/BOHEMIA_LADDER_GRAPH_8_13_26.json`.
+
+**So the gap table above is a SNAPSHOT of 8/13 morning, not the live state.** It is left standing
+because it is the measurement that produced the ruling, and `civ5_gate.js` now asserts this update
+exists rather than asserting the ladder still has zero edges. That is the check working as designed:
+**the finding went stale and the gate forced the record rewritten instead of letting it quietly
+become false.**
+
+**AND HE CONFIRMED THE HEADLINE WITHOUT BEING SHOWN IT.** He said the live menu should hold
+*"maybe like 5 or 6 of them or four of them"* — **4 to 6.** The Civ 5 measurement, which he had not
+read when he said it, is **3 to 7, median 4.** Two people arriving at the same constant from opposite
+directions is the strongest evidence in this file that the choice fan is real and not a curiosity of
+one game.
+
+**AND ONE THING HE ADDED THAT CIV 5 CANNOT TEACH US:** a prerequisite does not have to be a fight.
+*"the idea is that it's something that's ACQUIRED so it doesn't have to maybe not killing or
+persuading a particular person like it's just a quest."* Civ 5's nodes are all the same kind of thing
+(you pay beakers). Ours will not be, and that is a place the reference stops being useful.
+
 ### WHAT I AM NOT DOING
 
 I am **not** drawing the edges. Which boss gates which boss is a design ruling about how his game

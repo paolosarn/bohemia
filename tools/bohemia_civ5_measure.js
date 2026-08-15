@@ -143,12 +143,49 @@ function measureLadder() {
     if (m) rows.push({ n: +m[1], boss: m[2].trim(), act });
   });
   const per = [1, 2, 3].map(a => rows.filter(r => r.act === a).length);
+
+  /* ★ 8/13: he ruled "Sure" and a prerequisite graph now exists beside the ladder. Before
+     that, this function hardcoded `prereqEdges: 0` and `fan: 1` -- true at the time, and a
+     LIE the moment the graph landed. Reporting a stale zero here would have made the gate's
+     own summary line contradict the graph gate running twenty seconds later. So it reads the
+     graph when there is one, and only falls back to line-geometry when there is not. */
+  const GRAPH = path.join(ROOT, 'records/BOHEMIA_LADDER_GRAPH_8_13_26.json');
+  if (fs.existsSync(GRAPH)) {
+    const g = JSON.parse(fs.readFileSync(GRAPH, 'utf8'));
+    const pre = new Map(rows.map(r => [r.boss, []]));
+    g.edges.forEach(e => { if (pre.has(e.to)) pre.get(e.to).push(e.from); });
+    const depth = new Map();
+    const D = n => {
+      if (depth.has(n)) return depth.get(n);
+      depth.set(n, 0);
+      const ps = pre.get(n) || [];
+      depth.set(n, ps.length ? 1 + Math.max(...ps.map(D)) : 0);
+      return depth.get(n);
+    };
+    rows.forEach(r => D(r.boss));
+    const done = new Set(); const fan = [];
+    while (done.size < rows.length) {
+      const av = rows.filter(r => !done.has(r.boss) && (pre.get(r.boss) || []).every(p => done.has(p)));
+      if (!av.length) break;
+      fan.push(av.length); av.sort((a, b) => a.n - b.n); done.add(av[0].boss);
+    }
+    const sorted = [...fan].sort((a, b) => a - b);
+    return {
+      nodes: rows.length, acts: 3, perAct: per,
+      tiers: Math.max(...depth.values()) + 1,
+      fan: sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0,
+      openingFan: fan.length ? fan[0] : 0,
+      terminals: rows.filter(r => !g.edges.some(e => e.from === r.boss)).length,
+      prereqEdges: g.edges.length,
+      isGraph: true,
+    };
+  }
+  /* a numbered 1..N list with no prereq column IS a line: N tiers, and exactly one
+     legal next move at every point in the game. */
   return {
     nodes: rows.length, acts: 3, perAct: per,
-    /* a numbered 1..N list with no prereq column IS a line: N tiers, and exactly one
-       legal next move at every point in the game. */
     tiers: rows.length, fan: 1, terminals: rows.length,
-    prereqEdges: 0,
+    prereqEdges: 0, openingFan: 1, isGraph: false,
   };
 }
 
