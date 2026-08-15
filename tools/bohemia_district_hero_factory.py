@@ -162,6 +162,90 @@ TALL_MUL   = 1.25
 # that is the part that answers "they all look exactly the same". Sixty heroes
 # cannot be re-dressed by hand in a turn, and the variation has to be mechanical
 # to be believable across sixty tiles.
+# ============================================================================
+# WALL TEXTURE (Paolo 8/15, the other half of "roofs and textures for their walls")
+# ============================================================================
+# WHAT A REAL WALL IN THIS VALLEY HAS, and it is not a pattern -- it is JOINTS.
+# Las Vegas commercial construction is overwhelmingly TILT-UP CONCRETE and CMU
+# block, and what you actually see from across a street is not texture, it is the
+# lines where the panels meet: a vertical joint every panel, a REVEAL band near
+# the top under the parapet, and a BASE band where the wall meets its footing.
+# Those three lines are what stop a wall reading as a flat fill.
+#
+# GEOMETRY, NOT A NEW MATERIAL. The window material ('win') is consumed by a
+# rasterizer this factory does not own, so inventing a new face type would mean
+# changing a renderer I would then have to re-verify everywhere. The roof pass
+# proved that thin boxes read correctly at this scale and cost nothing, so the
+# joints are boxes. Same technique, already verified on the real surface.
+#
+# CAPPED ON PURPOSE. Only the biggest walls are jointed, and only a handful per
+# hero. Every wall on sixty heroes would be thousands of slivers for detail the
+# eye cannot resolve on a tile -- cost with no picture, which is the same trap
+# the roof pass avoided by taking the six biggest roofs.
+def _dress_walls(scene, key):
+    """Put panel joints and reveals on the big wall faces, deterministically."""
+    import zlib
+    def rnd(i):
+        return ((zlib.crc32((key + 'w' + str(i)).encode('utf8')) >> 7) & 0xffff) / 65535.0
+
+    walls = []
+    for verts, _uv, _n, m in list(scene.faces):
+        zs = [v[2] for v in verts]
+        h = max(zs) - min(zs)
+        if h < 2.2:
+            continue                                   # not a wall: a lid, a kerb, a step
+        xs = [v[0] for v in verts]; ys = [v[1] for v in verts]
+        w = max(xs) - min(xs); d = max(ys) - min(ys)
+        if w < 0.05 and d < 0.05:
+            continue
+        span = max(w, d)
+        if span < 2.0:
+            continue                                   # too narrow to carry a panel joint
+        axis = 'x' if w >= d else 'y'
+        walls.append((min(xs), min(ys), w, d, min(zs), h, span, axis, m))
+
+    walls.sort(key=lambda r: -(r[6] * r[5]))
+    for i, (x0, y0, w, d, z0, h, span, axis, m) in enumerate(walls[:8]):
+        base = m.get('c') if isinstance(m, dict) and 'c' in m else None
+        if base is None:
+            base = m.get('wall') if isinstance(m, dict) else None
+        try:
+            base = tuple(int(v) for v in base)
+        except Exception:
+            continue                                   # a window face: it already has detail
+        dk = tuple(max(0, int(v * 0.74)) for v in base)
+        lt = tuple(min(255, int(v * 1.12)) for v in base)
+        t = 0.06                                       # a joint is a LINE, never a plank
+
+        # THE BASE REVEAL: where the wall meets its footing. Always present.
+        if axis == 'x':
+            scene.box((x0, y0 - t, z0 + 0.25), (w, t, 0.14), {'c': dk})
+        else:
+            scene.box((x0 - t, y0, z0 + 0.25), (t, d, 0.14), {'c': dk})
+
+        # THE PARAPET REVEAL: a shadow line under the roof edge.
+        if h > 3.2:
+            zr = z0 + h - 0.55
+            if axis == 'x':
+                scene.box((x0, y0 - t, zr), (w, t, 0.12), {'c': dk})
+            else:
+                scene.box((x0 - t, y0, zr), (t, d, 0.12), {'c': dk})
+
+        # THE PANEL JOINTS: vertical lines at real tilt-up panel spacing.
+        # A tilt-up panel is wide, so these are sparse -- a picket fence of thin
+        # lines would read as corrugation, which is a different building.
+        pitch = 2.6 + rnd(i) * 1.4
+        n = int(span / pitch)
+        for k in range(1, max(1, n)):
+            off = k * pitch
+            if off >= span - 0.2:
+                break
+            if axis == 'x':
+                scene.box((x0 + off, y0 - t, z0 + 0.2), (t, t, h - 0.5), {'c': lt if k % 2 else dk})
+            else:
+                scene.box((x0 - t, y0 + off, z0 + 0.2), (t, t, h - 0.5), {'c': lt if k % 2 else dk})
+    return scene
+
 def _dress_roofs(scene, key):
     """Put a real roof on every building in a scene, deterministically varied."""
     import zlib
@@ -4020,6 +4104,7 @@ def main():
         # (Written the wrong way round first, caught before it shipped.)
         # HIS 8/15 ROOF RULING, before the widening so the parapet grows with the
         # building it belongs to rather than floating inside it.
+        _dress_walls(scene, d)
         _dress_roofs(scene, d)
         _fat_and_tall(scene)
         # BIGGER (Paolo 8/2: "I want them taller. I want them wider... big as fuck as big

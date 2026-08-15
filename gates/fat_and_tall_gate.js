@@ -118,5 +118,24 @@ ok('anything at plate level stays at plate level (ground_z ' + GZ + ')',
      F.indexOf('_dress_roofs(scene, d)') < F.lastIndexOf('_fat_and_tall(scene)'));
 }
 
+/* ---- WALLS (Paolo 8/15, the other half of the same ruling) --------------- */
+{
+  const F = fs.readFileSync(path.join(ROOT, 'tools', 'bohemia_district_hero_factory.py'), 'utf8')
+              .replace(/^\s*#.*$/gm, '');
+  ok('walls carry texture, not a flat fill', /def _dress_walls\(/.test(F));
+  ok('what a wall actually shows is JOINTS: a base reveal, a parapet reveal, panel lines',
+     /pitch\s*=\s*2\.6/.test(F) && /h > 3\.2/.test(F));
+  ok('a joint is a LINE, never a plank', /t\s*=\s*0\.06/.test(F),
+     'a thick joint reads as trim; a picket fence of thin ones reads as corrugation, which is a different building');
+  ok('panel spacing is TILT-UP spacing, so joints stay sparse', /int\(span \/ pitch\)/.test(F));
+  ok('window faces are skipped — they already carry their own detail',
+     /except Exception:\s*\n\s*continue/.test(F));
+  ok('lids, kerbs and steps are never jointed', /if h < 2\.2/.test(F));
+  ok('the work is capped to the biggest walls', /walls\[:8\]/.test(F),
+     'jointing every wall on sixty heroes is thousands of slivers for detail the eye cannot resolve on a tile');
+  ok('walls are dressed BEFORE roofs, so a parapet sits on a finished wall',
+     F.lastIndexOf('_dress_walls(scene, d)') < F.lastIndexOf('_dress_roofs(scene, d)'));
+}
+
 console.log('\nFAT AND TALL GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);
