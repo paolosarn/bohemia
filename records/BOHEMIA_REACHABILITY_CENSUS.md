@@ -22,15 +22,15 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 67 |
-| SHOWN (part) | 7 | 24 |
-| LOADED ONLY | 18 | 12 |
+| SHOWN (all) | 1 | 70 |
+| SHOWN (part) | 8 | 23 |
+| LOADED ONLY | 18 | 10 |
 | NO TRACE | 73 | 13 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **99** | **131** |
+| **total** | **100** | **131** |
 
-**273.6 MB of 276.6 MB** sampled does not reach the shown surface.
+**274.0 MB of 277.0 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -64,8 +64,6 @@ verbatim.
 | `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
 | `engine/bohemia_utility.js` | engine | 0.07 |
 | `engine/bohemia_world.js` | engine | 0.06 |
-| `engine/bohemia_introductions.js` | engine | 0.03 |
-| `engine/bohemia_belonging.js` | engine | 0.02 |
 | `engine/bohemia_dress.js` | engine | 0.02 |
 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | bank | 0.02 |
 | `engine/bohemia_resolve.js` | engine | 0.02 |
@@ -89,7 +87,7 @@ verbatim.
 | `banks/BOHEMIA_TILE_REPO.txt` | bank | 6.02 |
 | `banks/BOHEMIA_DEMO_PROP_POOL_7_10_26.txt` | bank | 3.98 |
 | `banks/BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt` | bank | 3.51 |
-| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 2.91 |
+| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 3.34 |
 | `banks/BOHEMIA_HOUSE_FACTORY_BANK_7_14_26.txt` | bank | 2.63 |
 | `banks/BOHEMIA_WALL_VARIANT_BANK_7_10_26.txt` | bank | 2.60 |
 | `banks/BOHEMIA_GRAPHICS_VERDICTS_MASTER_7_16_26.txt` | bank | 1.90 |
@@ -150,6 +148,7 @@ verbatim.
 | `banks/BOHEMIA_MUSIC_REPO.txt` | bank | 32/32 |
 | `engine/bohemia_apartment.js` | engine | 32/32 |
 | `engine/bohemia_battery.js` | engine | 32/32 |
+| `engine/bohemia_belonging.js` | engine | 32/32 |
 | `engine/bohemia_boneyard.js` | engine | 32/32 |
 | `engine/bohemia_cemetery.js` | engine | 32/32 |
 | `engine/bohemia_chapel.js` | engine | 32/32 |
@@ -162,6 +161,7 @@ verbatim.
 | `engine/bohemia_farm.js` | engine | 32/32 |
 | `engine/bohemia_firestation.js` | engine | 32/32 |
 | `engine/bohemia_golf.js` | engine | 32/32 |
+| `engine/bohemia_introductions.js` | engine | 32/32 |
 | `engine/bohemia_landfill.js` | engine | 32/32 |
 | `engine/bohemia_library.js` | engine | 32/32 |
 | `engine/bohemia_mall.js` | engine | 32/32 |
@@ -205,5 +205,3 @@ verbatim.
 | `engine/bohemia_agents.js` | engine | 6/8 |
 | `engine/bohemia_dayloop.js` | engine | 5/5 |
 | `engine/bohemia_scene.js` | engine | 4/4 |
-| `engine/bohemia_stage.js` | engine | 4/4 |
-| `banks/BOHEMIA_LAMP_DARK_VARIANTS_7_14_26.txt` | bank | 3/8 |
