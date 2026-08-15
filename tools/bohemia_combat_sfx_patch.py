@@ -179,6 +179,61 @@ PINNED_CALL = ("    else if(cov)onOffbeat(()=>fxCoverSave(e.ea));"
                "   /* R: your cover ate that one */ }")
 
 
+# ---- 8/15: THE MISS AND THE VITAL, WHICH COMBAT ALREADY HAD NAMES FOR ------
+# He swept miss_past FIVE OF FIVE and kept three of five vital_deep. Both
+# moments are already first-class verdicts in this fight -- showVerd('MISS') and
+# showVerd('VITAL') -- and both have had a placeholder oscillator on them since
+# before this lane existed. So this is the block wire again, exactly: no
+# mechanic invented, no call site moved, a real moment that was beeping now
+# plays what he chose.
+#
+# WHY THE HEADERS AND NOT THE INJECTED BLOCK. sndVital and sndMiss are the
+# COMBAT lane's own functions, defined well below the block this tool owns.
+# Copying them into my block would define them twice; wrapping them at runtime
+# would put a reassignment in somebody else's scope for no gain. Editing the
+# first statement of each is the same move that put the block on fxCoverSave,
+# and it leaves every one of their bodies intact as the standalone fallback.
+#
+# THE LIMITER IS ON THE MISS AND NOT THE VITAL, ON PURPOSE. sndMiss has five
+# call sites and two of them run inside per-enemy loops (the nerve break, the
+# blast dodge), so one frame can ask for it three times; a vital is one shot
+# resolving against one man and cannot double. Same 200 ms window as the block.
+VITAL_OLD = ("function sndVital(){ tone(360,0.12,0.08,'triangle'); "
+             "tone(540,0.08,0.05,'sine'); }")
+VITAL_NEW = ("function sndVital(){ if(sfxAsk('vital_deep'))return;"
+             "   /* HIS 8/15: 3 of 5 kept, modal at 74 Hz -- worse than a hit,\n"
+             "      not yet a kill, and it lands in the body. */\n"
+             "  tone(360,0.12,0.08,'triangle'); tone(540,0.08,0.05,'sine'); }")
+
+MISS_OLD = "function sndMiss(){ if(!AC)return;"
+MISS_NEW = ("var _missAt=0;\n"
+            "function sndMiss(){\n"
+            "  var _n=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();\n"
+            "  if(_n-_missAt<200)return;\n"
+            "  _missAt=_n;\n"
+            "  if(sfxAsk('miss_past'))return;"
+            "   /* HIS 8/15 SWEEP, 5/5 -- the cleanest verdict in any batch\n"
+            "      since the demo set. There is nothing to strike in a miss,\n"
+            "      which is why every struck-object candidate for it died. */\n"
+            "  if(!AC)return;")
+
+
+def wire_miss_vital(demo):
+    """His 8/15 miss and vital onto the two verdicts combat already scores."""
+    ok = True
+    for name, old, new in (('vital_deep', VITAL_OLD, VITAL_NEW),
+                           ('miss_past', MISS_OLD, MISS_NEW)):
+        if new.split('\n')[0] in demo and ("sfxAsk('%s')" % name) in demo:
+            continue
+        if demo.count(old) != 1:
+            print('FAIL: the %s call site is not present exactly once (%d)'
+                  % (name, demo.count(old)))
+            ok = False
+            continue
+        demo = demo.replace(old, new, 1)
+    return demo, ok
+
+
 def wire_block(demo):
     """Put his BLOCKED sound on the cover save. Idempotent, and loud on failure."""
     if STALE_CALL in demo:
@@ -229,10 +284,14 @@ def main():
         demo, ok = wire_block(demo)
         if not ok:
             return 1
+        demo, ok = wire_miss_vital(demo)
+        if not ok:
+            return 1
         b64 = base64.b64encode(demo.encode('utf8')).decode('ascii')
         src = src[:i0] + b64 + src[j0:]
         open(ALPHA, 'w', encoding='utf8').write(src)
-        print('  re-injected (idempotent upgrade): hit, kill, shot, hurt, block')
+        print('  re-injected (idempotent upgrade): hit, kill, shot, hurt, '
+              'block, vital_deep, miss_past')
         return 0
 
     for old in (OLD_KILL, OLD_HIT, OLD_SHOT, OLD_RETURN):
@@ -254,6 +313,9 @@ def main():
     demo, ok = wire_block(demo)
     if not ok:
         return 1
+    demo, ok = wire_miss_vital(demo)
+    if not ok:
+        return 1
     b64 = base64.b64encode(demo.encode('utf8')).decode('ascii')
     src = src[:i0] + b64 + src[j0:]
     open(ALPHA, 'w', encoding='utf8').write(src)
@@ -263,6 +325,8 @@ def main():
     print('    sndShot -> playSFX("shot")  shot.3, the only survivor of five')
     print('    sndReturn -> playSFX("hurt") hurt.2, the only survivor of five')
     print('    sndBlock -> playSFX("block") on the shot your cover ATE')
+    print('    sndVital -> playSFX("vital_deep") 3 of 5 kept 8/15')
+    print('    sndMiss  -> playSFX("miss_past")  5 of 5 kept 8/15')
     print('OK -> ' + ALPHA)
     return 0
 

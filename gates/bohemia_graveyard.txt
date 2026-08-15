@@ -1074,3 +1074,54 @@ GRAVEYARD IS FINAL: these forty ids do not come back.
 
 THE FOUR THAT LIVED, for the record: swing_air.2 .3, tape_pull.1 .4,
 set_down.2 .3, cloth_on.1 .4 -- all friction except set_down, which is fm.
+
+=== SFX-05, HIS 8/15 SWEEP (365/365) ================================
+Seven moments, thirty-five candidates, thirteen kept. Two swept 5/5 -- the
+first clean sweeps since the original demo set -- and both are FRICTION with
+almost no room in them.
+
+DEAD (20 candidates, four moments died whole on their first outing):
+  [clear_still] all five dead (friction, space 0.80 room 1.875)
+  clear_still.0      synth=friction  mat=stone    hz=   58.0 decay=1.5000
+  clear_still.1      synth=friction  mat=stone    hz=   64.1 decay=1.7500
+  clear_still.2      synth=friction  mat=stone    hz=   78.1 decay=2.1250
+  clear_still.3      synth=friction  mat=stone    hz=   67.4 decay=1.6875
+  clear_still.4      synth=friction  mat=stone    hz=   64.1 decay=1.9375
+  [turn_to_you] all five dead (friction, space 0.14 room 0.125)
+  turn_to_you.0      synth=friction  mat=ash      hz=  150.0 decay=0.1250
+  turn_to_you.1      synth=friction  mat=ash      hz=  149.6 decay=0.0625
+  turn_to_you.2      synth=friction  mat=ash      hz=  160.5 decay=0.1875
+  turn_to_you.3      synth=friction  mat=ash      hz=  205.0 decay=0.0625
+  turn_to_you.4      synth=friction  mat=ash      hz=  151.0 decay=0.1250
+  [cross_in] all five dead (modal, space 0.72 room 1.250)
+  cross_in.0         synth=modal     mat=stone    hz=   88.0 decay=0.6250
+  cross_in.1         synth=modal     mat=stone    hz=   95.8 decay=0.8125
+  cross_in.2         synth=modal     mat=stone    hz=   82.5 decay=0.8125
+  cross_in.3         synth=modal     mat=stone    hz=  101.8 decay=0.9375
+  cross_in.4         synth=modal     mat=stone    hz=  100.7 decay=0.6875
+  [done_ring] all five dead (modal, space 0.78 room 1.500)
+  done_ring.0        synth=modal     mat=crystal  hz=  620.0 decay=1.2500
+  done_ring.1        synth=modal     mat=crystal  hz=  604.1 decay=1.4375
+  done_ring.2        synth=modal     mat=crystal  hz=  860.0 decay=1.1875
+  done_ring.3        synth=modal     mat=crystal  hz=  499.0 decay=1.6250
+  done_ring.4        synth=modal     mat=crystal  hz=  770.4 decay=1.4375
+
+AND THE COUSINS OF THE THIRTEEN THAT LIVED:
+  [miss_past] NOTHING DIED. 5 of 5.
+  [vital_deep] 3 of 5 kept; the rest:
+  vital_deep.1       synth=modal     mat=bone     hz=   92.7 decay=0.3125
+  vital_deep.3       synth=modal     mat=bone     hz=   68.5 decay=0.3750
+  [sleep_sink] NOTHING DIED. 5 of 5.
+
+THE POST-MORTEM, AND IT IS ONE FINDING NOT FOUR. The three roomiest recipes
+in the batch are three of the four deaths (clear_still space 0.80, done_ring
+0.78, cross_in 0.72) and the two that swept clean are the two with almost none
+(miss_past 0.14, sleep_sink 0.16). Both survivors are a thing happening AT you.
+All three big rooms are a SPACE being described, and he does not want the room
+announced. turn_to_you is the exception that keeps this honest: small room,
+still died, and its own why says why -- "a person is not an event". It was one.
+
+NO SECOND COOK. These four are onceDeadWhole, not twiceDead, so one more
+version would technically be legal. It is not happening: the right use of a
+reading is the next thing, not a re-cook of the thing the reading came from.
+They move only if Paolo asks.

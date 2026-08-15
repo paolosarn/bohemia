@@ -40,8 +40,8 @@ ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_CURRENT.html'
 # 8/12: he swept all 270 and the bank grew 38 -> 97. The wire and this gate
 # must read the SAME file or one of them is checking a bank nobody plays.
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_14_26.json'
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_7_30_26.txt'
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_15_26.json'
+VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_15_26.txt'
 
 JS = r"""
 /* MEASURE THE AIR, NOT THE INTENTION (7/31/26).
@@ -157,6 +157,25 @@ const METER=`(function(){
   out.peakWalking=await p.evaluate(()=>window.__PEAK);
   out.acState=await p.evaluate(()=>(typeof MUS!=='undefined'&&MUS.AC)?MUS.AC.state:'none');
 
+  /* ===== YOU SLEEP AND YOU HEAR IT (8/15) ===============================
+     He swept sleep_sink 5/5 and the run has exactly one place a sleep can
+     happen: sleepSave(), which spendTime('SLEEP') calls and which the SLEEP
+     AND SAVE button on the save sheet calls. Drive that function and read the
+     run's OWN ask log -- not the bank, not the source. A sound in a JSON file
+     is not a sound.
+     IT RUNS AFTER THE WALK'S SNAPSHOTS ARE TAKEN, on purpose: fired earlier,
+     the sleep it triggers lands in the walk's crossing log and reads as a
+     footstep violation. It did, the first time this ran.
+     THE TRY IS DELIBERATE AND THE ORDER IS THE POINT: sfx() is the first
+     statement in sleepSave, so even if writeSave or renderSaveSheet throws
+     further down, the ask has already happened and the log will show it. */
+  out.sleepAsked = await fr.evaluate(()=>{
+    var n=window.__ASKED.length;
+    try{ sleepSave(); }catch(e){}
+    return window.__ASKED.slice(n);
+  });
+  await p.waitForTimeout(400);
+
   /* a door must make NO sound at all, measured the same way. WAIT FOR SILENCE
      FIRST: the footsteps above have decay tails, and measuring on top of them
      reads their ring-out as the door's noise (it did, at 0.2044, the first time
@@ -213,6 +232,16 @@ const METER=`(function(){
   }
   out.mixStep = await onBus('step_asphalt');
   out.mixKill = await onBus('kill');
+  /* HIS THREE NEWEST SOUNDS, ON THE REAL BUS (8/15). Banked and wired are two
+     different claims and this is the second one: the parent actually renders
+     audible signal for each. miss_past and vital_deep come from the combat
+     iframe, which cannot be driven from here without staging a whole fight, so
+     what is measured is the half this gate CAN measure honestly -- the parent
+     end of their channel -- and the combat end is checked statically below at
+     its sfxAsk call sites. Said out loud rather than dressed up as a playtest. */
+  out.mixSleep = await onBus('sleep_sink');
+  out.mixMiss  = await onBus('miss_past');
+  out.mixVital = await onBus('vital_deep');
   out.stepBusGain = await p.evaluate(()=>window.__STEPBUS?window.__STEPBUS.gain.value:null);
   out.hasVolume = await p.evaluate(()=>typeof window.setSFXVolume==='function');
   await p.evaluate(()=>window.setSFXVolume(0));
@@ -658,6 +687,29 @@ def main():
     chk("sfxAsk('kill')" in demo, 'combat never asks for his KILL sound')
     chk("sfxAsk('shot')" in demo, 'combat never asks for his SHOT sound (shot.3, 8/1)')
     chk("sfxAsk('hurt')" in demo, 'combat never asks for his HURT sound (hurt.2, 8/1)')
+    # 8/15: the two combat verdicts that were still beeping placeholders. Both
+    # moments already existed and both already had a showVerd of their own --
+    # nothing was invented to spend a sound on, which is the same test the
+    # block wire had to pass on 8/2.
+    chk("sfxAsk('vital_deep')" in demo,
+        'combat never asks for his VITAL sound (3 of 5 kept, 8/15)')
+    chk("sfxAsk('miss_past')" in demo,
+        'combat never asks for his MISS sound (5 of 5, 8/15)')
+    for fn, ev in (('sndVital', 'vital_deep'), ('sndMiss', 'miss_past')):
+        chk(demo.count('function %s(' % fn) == 1,
+            '%s is not defined exactly once in combat' % fn)
+        i = demo.index('function %s(' % fn)
+        body = demo[i:i + 420]
+        chk("sfxAsk('%s')" % ev in body,
+            '%s does not ask the parent for his sound' % fn)
+        chk(body.index("sfxAsk('%s')" % ev) < (body.find('tone(') if 'tone(' in body
+                                               else len(body)),
+            '%s still beeps its placeholder before asking for his sound' % fn)
+    # ONE MISS PER FRAME. sndMiss has five call sites and two of them sit inside
+    # per-enemy loops, so without a window a nerve break can fire his single
+    # approved miss three times in one tick. Same limiter the block needed.
+    chk('_missAt' in demo, 'the miss sound has no rate limit and it is called '
+                           'from inside per-enemy loops')
     for fn in ('sndShot', 'sndReturn'):
         chk(demo.count('function %s(' % fn) == 1,
             '%s is not defined exactly once in combat' % fn)
@@ -842,6 +894,24 @@ def main():
         'THE FOOTSTEPS DO NOT RISE OUT OF THE MIX: bed was %.4f, walking peaked '
         'at %.4f. It is playing and he still cannot hear it.' % (fl, peak))
 
+    # 7a-ii. YOU SLEEP AND YOU HEAR IT (8/15). His 5/5, and this reverses the
+    #        8/7 reading that sleep is only a quantity of time -- so it gets a
+    #        check rather than a comment. The claim is not "sleep_sink is in the
+    #        bank"; it is "calling the run's sleep makes the run ask for it".
+    sl = d.get('sleepAsked')
+    chk(isinstance(sl, list), 'the sleep probe never ran')
+    sl = sl or []
+    chk('sleep_sink' in sl,
+        'SLEEPING ASKED FOR NOTHING. sleepSave() ran and the run requested %r. '
+        'He swept this one 5 of 5.' % (sl[:4],))
+    chk(sl.count('sleep_sink') == 1,
+        'one sleep asked for the sink %d times' % sl.count('sleep_sink'))
+    # AND IT DOES NOT DRAG THE SAVE BELL WITH IT. sleepSave calls writeSave
+    # directly rather than autoSave, so his bell must NOT double up on it --
+    # if that ever changes, lying down plays two sounds at once.
+    chk('save_chime' not in sl,
+        'sleeping fired the save bell as well as the sink: %r' % (sl,))
+
     # 8. doors are silent, measured the same way
     chk(d.get('door'), 'playSFX("door_open") returned something -- doors must be silent')
     chk(d.get('bogus'), 'an unbanked event name played a sound')
@@ -849,6 +919,17 @@ def main():
     chk((d.get('peakDoor') or 0) <= floor * 1.5 + 0.02,
         'a DOOR RAISED THE LEVEL (floor %.4f -> %.4f) and he approved none of the ten'
         % (floor, d.get('peakDoor') or 0))
+
+    # 7a-iii. AND ALL THREE OF HIS NEWEST SOUNDS MAKE SIGNAL ON THE REAL BUS.
+    #         APPROVED-BUT-UNUSED IS A DEFECT and its quieter cousin is
+    #         BANKED-BUT-SILENT: a recipe can cook, validate, land in the bank
+    #         and render nothing audible, and every other check here would stay
+    #         green through it.
+    for name, key in (('sleep_sink', 'mixSleep'), ('miss_past', 'mixMiss'),
+                      ('vital_deep', 'mixVital')):
+        v = d.get(key) or 0
+        chk(v > 0.005, '%s is banked and renders SILENCE on the SFX bus (peak '
+                       '%.5f)' % (name, v))
 
     # 7b-v. THE MIX HE RULED ON, measured on the SFX bus (music-proof).
     chk(d.get('sfxTap'), 'could not tap the SFX bus, so the mix was not measured')

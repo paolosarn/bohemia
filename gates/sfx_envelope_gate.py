@@ -76,8 +76,18 @@ const rate={}; for(const m in mat) rate[m]=mat[m][0]/(mat[m][0]+mat[m][1]);
    against REGION, not the base recipe: the sound he would actually hear is the
    jittered one, so a jitter range that walks out of the approved box is exactly
    as much a violation as a base that starts outside it. */
-const E=S.ENVELOPE, batch={};
-for(const ev of E.batch){
+/* THE LIST THE GATE WALKS IS batch UNION regionBinds, AND THAT UNION IS A
+   BUG FIX (8/15). regionBinds shipped on 8/12 as the forward-binding list and
+   every event on it is by definition NOT in `batch` -- batch is the 8/12 cook.
+   So the loop below built rows only for batch, main() looked up B[ev] for each
+   bound event, got undefined, read `undefined.outsideN` as falsy and PRINTED
+   "all inside" for all seven. A pass that measured nothing, worded like a pass
+   that measured everything. A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS
+   THE BROKEN ONE (8/1 craft law), and this was one. */
+const E=S.ENVELOPE;
+const WALK=E.batch.concat((E.regionBinds||[]).filter(x=>E.batch.indexOf(x)<0));
+const batch={};
+for(const ev of WALK){
   const r=S.RECIPE[ev];
   if(!r){ batch[ev]={missing:true}; continue; }
   const c1=S.cook(ev,5), c2=S.cook(ev,5);
@@ -138,12 +148,16 @@ const pw=pwmod();
     if(typeof BOH_SFX==='undefined') return {fatal:'BOH_SFX is not in the shipped alpha'};
     const E=BOH_SFX.ENVELOPE;
     if(!E) return {fatal:'the shipped alpha carries an engine with no ENVELOPE'};
-    const r={events:BOH_SFX.EVENTS.length, batch:E.batch.length};
-    r.allListed = E.batch.every(ev=>BOH_SFX.EVENTS.some(x=>x.ev===ev));
-    r.allCook   = E.batch.every(ev=>BOH_SFX.cook(ev,5).length===5);
+    /* SAME UNION AS THE DERIVATION (8/15). The surface leg had the identical
+       hole: it proved the 8/12 batch was listed, cooked, labelled and audible
+       and said nothing at all about the seven moments added since. */
+    const W=E.batch.concat((E.regionBinds||[]).filter(x=>E.batch.indexOf(x)<0));
+    const r={events:BOH_SFX.EVENTS.length, batch:W.length};
+    r.allListed = W.every(ev=>BOH_SFX.EVENTS.some(x=>x.ev===ev));
+    r.allCook   = W.every(ev=>BOH_SFX.cook(ev,5).length===5);
     /* EVERY NEW MOMENT HAS A LABEL AND A WHY. A row he cannot read is a row he
        cannot judge, and an unjudgeable sound may as well not have been cooked. */
-    r.allLabelled = E.batch.every(ev=>{ const x=BOH_SFX.EVENTS.find(y=>y.ev===ev);
+    r.allLabelled = W.every(ev=>{ const x=BOH_SFX.EVENTS.find(y=>y.ev===ev);
       return x && x.label && x.label.length>3 && x.why && x.why.length>18; });
     /* HIS 8/12 THUMBS REACHED THE TABLE THE GAME READS. This check was the
        opposite way round this morning -- nothing may be banked, because he had
@@ -152,12 +166,12 @@ const pw=pwmod();
        lane's own law: 14 of the 26 moments have a sound he chose and every one
        of them has to be in the table playSFX consults. */
     const A=window.__SFX_APPROVED||{};
-    r.banked=E.batch.filter(ev=>A[ev]&&A[ev].length);
+    r.banked=W.filter(ev=>A[ev]&&A[ev].length);
     /* AUDIBLE ON THE REAL RENDER PATH. Offline, through BOH_SFX.render itself,
        one candidate per new moment. A recipe that cooks clean and renders
        silence is the failure this catches. */
     const SR=44100; r.silent=[]; r.peaks={};
-    for(const ev of E.batch){
+    for(const ev of W){
       const v=BOH_SFX.cook(ev,5)[0];
       const secs=BOH_SFX.beatsOf(v)*BOH_SFX.BEAT+0.4;
       const OAC=new OfflineAudioContext(2,Math.ceil(SR*secs),SR);
@@ -194,7 +208,7 @@ def run(js, timeout):
 
 
 def main():
-    print('=== SFX ENVELOPE GATE - what 270 of his thumbs actually support ===')
+    print('=== SFX ENVELOPE GATE - what 365 of his thumbs actually support ===')
     p = f = 0
 
     def ok(name, cond):
@@ -262,24 +276,32 @@ def main():
     # ---- 4. THE REGION IS MEASURED, AND IT BINDS FORWARD -------------------
     ok('the shipped REGION is the real bounding box of his %d approvals (%s)'
        % (d['up'], '; '.join(d['boxOff'][:2]) or 'exact'), not d['boxOff'])
-    ok('all %d moments in the batch have a recipe' % len(env['batch']),
-       all(not B[e].get('missing') for e in env['batch']))
+    walk = env['batch'] + [e for e in env.get('regionBinds', [])
+                           if e not in env['batch']]
+    ok('all %d moments in the batch have a recipe' % len(walk),
+       all(not B[e].get('missing') for e in walk))
     # THE BINDING LIST IS FORWARD-ONLY AND THE GATE SAYS SO OUT LOUD. Narrowing
     # a jitter range changes what casing.1 IS, and 130 of his thumbs are
     # attached to those exact vectors -- so SFX-03 is measured against the box,
     # never failed on it. Anything added after 8/12 goes in regionBinds.
     for ev in env.get('regionBinds', []):
-        b = B.get(ev) or {}
+        b = B.get(ev)
+        # THE ROW HAS TO EXIST. This assertion is the bug fix: `b or {}` used to
+        # swallow a missing row and report "all inside" for a bound event the
+        # derivation had never looked at.
+        ok('%s is a real cooked row, not a name the derivation skipped' % ev,
+           bool(b) and not b.get('missing') and b.get('n') == 5)
+        b = b or {}
         ok('%s is bound to the region and lands inside it (%s)'
            % (ev, ', '.join(b.get('outside', [])) or 'all inside'),
-           not b.get('outsideN'))
+           b.get('n') == 5 and not b.get('outsideN'))
     strays = sum(B[e]['outsideN'] for e in env['batch'] if not B[e].get('missing'))
     print('  NOTE  %d of 130 SFX-03 candidate values sit outside the approved '
           'box; not a failure, and not re-cooked, because his thumbs are '
           'attached to these exact vectors' % strays)
 
     # ---- 4b. BATCH INTEGRITY ----------------------------------------------
-    for ev in env['batch']:
+    for ev in walk:
         b = B[ev]
         if b.get('missing'):
             continue
@@ -309,10 +331,12 @@ def main():
         ok('all %d new moments are listed on the surface' % s['batch'], s['allListed'])
         ok('all %d new moments cook on the surface' % s['batch'], s['allCook'])
         ok('every new moment tells him what it is and why it matters', s['allLabelled'])
-        ok('HIS 8/12 THUMBS REACHED THE GAME: %d of the new moments now have a '
+        # 14 from the 8/12 batch, plus miss_past / vital_deep / sleep_sink from
+        # the 8/15 sweep. The floor moves with his thumbs, never down.
+        ok('HIS THUMBS REACHED THE GAME: %d of the new moments now have a '
            'sound the run can actually play (%s)'
            % (len(s['banked']), ', '.join(s['banked'][:6])),
-           len(s['banked']) >= 14)
+           len(s['banked']) >= 17)
         ok('EVERY NEW SOUND ACTUALLY MAKES SOUND on the real render path (%s)'
            % (', '.join(s['silent']) or 'none silent'), not s['silent'])
         ok('the page threw nothing: %s' % (s.get('errors') or 'clean'),
@@ -320,8 +344,9 @@ def main():
 
     print('  %d passed, %d FAILED' % (p, f))
     if not f:
-        print('  26 new moments put to him, 14 came back with a sound, and the '
-              'law was rewritten from 270 thumbs instead of defended.')
+        print('  33 new moments put to him across three batches, 17 came back '
+              'with a sound, and the law has been rewritten from his sweeps '
+              'twice instead of defended once.')
     return 1 if f else 0
 
 

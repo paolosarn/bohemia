@@ -83,8 +83,8 @@ os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'
 BUILT = 'slices/BOHEMIA_RUN_CURRENT.html'
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_14_26.json'   # 8/14: he judged all 330
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_14_26.txt'
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_15_26.json'   # 8/15: he judged all 365
+VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_15_26.txt'
 
 P_BEGIN = '<!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->'
 P_END = '<!-- /BOHEMIA SFX WIRE PARENT -->'
@@ -93,7 +93,7 @@ P_END = '<!-- /BOHEMIA SFX WIRE PARENT -->'
 def parent_block(bank):
     return """
 /* === SFX WIRE, PARENT SIDE (7/30/26) ====================================
-   Paolo's 105 approved sounds, from his 8/14 full sweep. The table below is INDEXES
+   Paolo's 118 approved sounds, from his 8/15 full sweep. The table below is INDEXES
    into the shipped generator, not copied audio: candidate n of event e is
    BOH_SFX.cook(e,5)[n], which gates/sfx_render_gate.py fingerprints. So what
    plays is byte-for-byte the thing he heard when he thumbed it.
@@ -1076,11 +1076,24 @@ def main():
     _old = 'STEP_BUS.connect(MUS.MAST || AC.destination);'
     _new = ('STEP_BUS.connect((window.__SFXBUS) || MUS.MAST || AC.destination);'
             '  /* 8/2: through the SFX master so one slider reaches it */')
+    # AND THE CHECK FOR "ALREADY DONE" IS A PROPERTY, NOT A BYTE MATCH (8/15).
+    # It used to test for the exact replacement string, so the moment the mix
+    # patch inserted MUS.OUT into that same line this tool started printing
+    # "no footstep bus found to reroute (another lane may have moved it)" on a
+    # bus that was correctly routed the whole time. A false alarm about someone
+    # else's lane is worse than no message: it is a bug report pointing at the
+    # wrong file. What actually matters is that STEP_BUS reaches __SFXBUS.
+    _connect = [ln for ln in alpha.split('\n') if 'STEP_BUS.connect(' in ln]
     if _old in alpha:
         alpha = alpha.replace(_old, _new, 1)
         print('  footstep bus rerouted through the SFX master (their gain untouched)')
-    elif _new not in alpha:
-        print('  NOTE: no footstep bus found to reroute (another lane may have moved it)')
+    elif any('__SFXBUS' in ln for ln in _connect):
+        print('  footstep bus already reaches the SFX master (one slider covers it)')
+    elif not _connect:
+        print('  NOTE: no footstep bus in this build at all')
+    else:
+        print('  WARNING: STEP_BUS exists and does NOT reach __SFXBUS -- the one '
+              'sound the volume slider cannot turn down:\n    ' + _connect[0].strip())
 
     open(ALPHA, 'w', encoding='utf8').write(alpha)
 
@@ -1208,6 +1221,45 @@ def main():
                           + "\n  /* HIS 8/9 THUMB, AT THE DOOR (8/14). doorKey() encodes the tile, so\n     the sound can say where it happened without the run inventing\n     anything. HONEST ABOUT THE SIZE OF THIS: a door the PLAYER opens is\n     always adjacent, so distance barely moves the level -- what it buys\n     is correct OCCLUSION when you open one from the street, and ONE\n     path, so a door somebody ELSE opens is already spatial the day the\n     game has one. The SHUT stays silent: he killed all five clacks. */\n  try{ var _dk=String(k).split(':').pop().split(',');\n       sfxAt('door_drag', +_dk[0], +_dk[1]); }catch(_e){ sfx('door_drag'); }",
                           1)
 
+    # ---- YOU SLEEP (8/15) ------------------------------------------------
+    # HE REVERSED HIMSELF AND THE NEWEST DATE WINS. On 8/7 he killed all five
+    # SLEEP candidates while approving all five TIME_PASS, and the wire above
+    # read those two together as ONE decision: sleeping is a QUANTITY of time,
+    # not a ceremony of its own, so an eight-hour night got eight clock strikes
+    # and nothing else. That reading was honest and it is now SUPERSEDED. He
+    # swept sleep_sink FIVE OF FIVE on 8/15 -- one of only two clean sweeps in
+    # any batch since the demo set -- and a 5/5 is not a maybe.
+    #
+    # WHAT CHANGED IS THE SOUND, NOT THE MOMENT. The killed SLEEP candidates
+    # were modal, a struck object announcing bedtime. sleep_sink is FRICTION at
+    # 96 Hz with almost no room in it (space 0.16): weight settling, not an
+    # event being declared. That is the difference his thumbs drew, and it is
+    # the same line the four deaths in this batch drew from the other side --
+    # every big-room candidate died, both no-room candidates swept.
+    #
+    # THE HOURS STILL STRIKE. This does not replace the 8/7 wire, it sits under
+    # it: the sink fires the instant you lie down, the clock jump is picked up
+    # by the parent's four-second world report and counts the night off after
+    # it. Settle, then hear how long it was.
+    #
+    # ONE CALL SITE, AND IT IS THE FUNNEL. sleepSave() is where BOTH sleeps
+    # arrive -- spendTime('SLEEP') calls it, and so does the SLEEP AND SAVE
+    # button on the save sheet. Wiring it here is one sound per real sleep by
+    # construction rather than by a guard.
+    sleep_anchor = ("function sleepSave(){ writeSave('slept'); "
+                    "toast('You slept. Saved.'); renderSaveSheet(); }")
+    if "sfx('sleep_sink')" not in run:
+        if sleep_anchor not in run:
+            print('FAIL: cannot find sleepSave to wire his 5/5 sleep sound')
+            return 1
+        run = run.replace(sleep_anchor,
+                          "function sleepSave(){ sfx('sleep_sink');"
+                          "   /* HIS 8/15 SWEEP, 5/5. Supersedes the 8/7 reading that\n"
+                          "        sleep is only a quantity of time -- the hours still\n"
+                          "        strike on top of this. */\n"
+                          "  writeSave('slept'); toast('You slept. Saved.'); "
+                          "renderSaveSheet(); }", 1)
+
     open(RUN, 'w', encoding='utf8').write(run)
     r = subprocess.run(['node', 'tools/build_run_slice.js'], capture_output=True, text=True)
     if r.returncode != 0:
@@ -1216,6 +1268,7 @@ def main():
     built = open(BUILT, encoding='utf8').read()
     if ('SFX WIRE, RUN SIDE' not in built or 'sfxGround(px,py)' not in built
             or "sfx('phone_buzz')" not in built or "sfx('eat')" not in built
+            or "sfx('sleep_sink')" not in built
             or "sfxAt('door_drag'" not in built):
         print('FAIL: the rebuilt run does not carry the wire')
         return 1
@@ -1248,7 +1301,8 @@ def main():
             print('  re-applied %s (it lives inside the block this tool owns)' % dep)
 
     print('THE APPROVED SOUNDS PLAY NOW.')
-    print('  %d approved sounds across %d events, from his 8/14 full sweep' % (n, len(bank)))
+    print('  %d approved sounds across %d events, from his 8/15 full sweep' % (n, len(bank)))
+    print('  YOU SLEEP and you hear it (his 8/15 5/5), and the hours still strike')
     print('  footsteps chosen by the tile the game already knows')
     print('  phone buzz on a real post, EAT on the thing the room held (his 8/2 ruling)')
     print('  the door DRAGS open (his 8/9 thumb); the SHUT stays silent, also his')

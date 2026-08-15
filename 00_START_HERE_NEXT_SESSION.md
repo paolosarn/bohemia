@@ -372,91 +372,98 @@ already stores 112 frames today (G.hd defaults true), so it does not grow. HD_CA
 stays 768.
 
 --------------------------------------------------------------------------------
-SOUND (sound-xk7pjp): 8/15 LATEST -- *** THE MIX EXISTS NOW, AND SEVEN MOMENTS THAT
-WERE SILENT SINCE LAUNCH HAVE CANDIDATES. TAB: MUSIC. ***
+SOUND (sound-xk7pjp): 8/15 LATEST -- *** HE SWEPT ALL 365 AND TWO SOUNDS CAME BACK
+FIVE OF FIVE. SLEEPING MAKES A SOUND, THE MISS MAKES A SOUND, THE VITAL MAKES A
+SOUND. TAB: RUN (sleep), COMBAT (miss + vital), MUSIC (judge them all). ***
 
-HE JUDGED 330 IN ONE SITTING on 8/14 -- his third full sweep in three days -- and
-the scoreboard is about METHOD, which is a sharper finding than material ever gave:
-    friction    6 UP /   9 DOWN   40%   the best method in the game
-    modal      97 UP / 173 DOWN   36%
-    fm          2 UP /  13 DOWN   13%
-    particle    0 UP /  20 DOWN    0%
-    air         0 UP /  10 DOWN    0%
-THIRTY CANDIDATES ACROSS PARTICLE AND AIR AND HE KEPT NONE. Bigger sample and
-cleaner result than the metal finding, and it points the OPPOSITE way from where
-the batch was aimed -- those two were added because breaking glass is a hundred
-collisions and breath has no body. The diagnosis was right and he did not want the
-result. A correct diagnosis is not a verdict.
-105 SOUNDS ACROSS 36 MOMENTS PLAY. Everything he has ever thumbed is in the bank.
+HIS FOURTH FULL SWEEP IN FOUR DAYS. 118 UP / 247 DOWN across 39 moments that now have
+a sound. records/BOHEMIA_SFX_VERDICT_8_15_26.txt, banks/BOHEMIA_SFX_APPROVED_8_15_26.json.
 
-WHAT SHIPPED THIS SESSION, newest first:
-  BATCH SFX-05 (8/15) -- the seven big moments still playing silence: miss_past,
-    vital_deep, clear_still, sleep_sink, turn_to_you, cross_in, done_ring. Four are
-    FRICTION because his own data ranks it highest. Sorted first: 8 moments are
-    closed by STOP PRODUCING (killed twice), 6 were already answered and lived.
-    FIRST BATCH regionBinds ACTUALLY HOLDS -- containment was a forward-looking law
-    with an empty list since 8/12, and these 35 candidates all land inside the box
-    of his 105 approvals. AWAITING HIS THUMBS, MUSIC tab.
-  THE MIX (8/15) -- music DUCKS under a person talking (-9 dB, 150ms down, 900ms
-    back, sized by the line itself) on its OWN NODE so his volume slider is never
-    touched; and four priority tiers replaced first-come-first-served, so the fight
-    is never refused. He judged it: "Super fire I'm so glad that's the case."
-  SPATIAL (8/13-14) -- one placement path: inverse-law level, pan, a lowpass that
-    closes with distance, and OCCLUSION. The door and the rare valley sounds are
-    placed. Chasing a flaky gate found a REAL bug: leaving any building left every
-    sound muffled by a wall that was no longer there for up to four seconds.
-  VOICE MOOD (8/13) -- Scherer 1986 / Juslin & Laukka 2003: high arousal is higher
-    F0, more variability, louder, faster, brighter. Two dials, read off PUNCTUATION
-    AND CASE only, never sentiment. Neutral is byte-identical to his 8/11 verdicts.
-  FIVE PHYSICS (8/12) -- modal / FM / PhISEM particle / friction / turbulence, and
-    the gate proves they differ with a CONTROLLED PROBE (every parameter fixed,
-    only the method changed).
+SFX-05 RESULTS, seven moments:
+    miss_past   5/5  friction   THE SHOT GOES PAST YOU     <- clean sweep
+    sleep_sink  5/5  friction   EIGHT HOURS GONE           <- clean sweep
+    vital_deep  3/5  modal      WORSE THAN A HIT, NOT A KILL
+    clear_still 0/5  friction   the fight is over
+    turn_to_you 0/5  friction   somebody turns to you
+    cross_in    0/5  modal      you step inside
+    done_ring   0/5  modal      it is done
+Nothing has swept 5/5 since the ORIGINAL DEMO SET. Both that did are friction.
 
-WHAT IS WAITING ON PAOLO: the 35 SFX-05 candidates, MUSIC tab. Nothing else.
+*** FRICTION STOPPED BEING A THIN FINDING. *** It was 6 UP / 9 DOWN on fifteen
+judgements at 330, which is not a result. Twenty more candidates later:
+    friction   16 UP /  19 DOWN   46%   <- and now it is one
+    modal     100 UP / 185        35%
+    fm          2 UP /  13        13%
+    particle    0 UP /  20         0%
+    air         0 UP /  10         0%
+Cook friction unless a moment argues otherwise.
 
-WHAT IS BUILT AND CANNOT FIRE, each named rather than blanket-waived: swing_air,
-tape_pull, set_down, cloth_on -- four sounds he APPROVED on 8/14 with no verb to
-fire from. A melee swing lives in the COMBAT iframe; patching up needs the healing
-system he ruled on 8/13 (routed, unbuilt); the builder can place nothing; and
-equip() exists in the inventory module with ZERO CALLERS (checked, not assumed).
-THE DAY ANY OF THOSE VERBS IS BUILT, THE SOUND IS ALREADY CHOSEN.
+*** THE READING THE FOUR DEATHS GAVE: HE DOES NOT WANT THE ROOM ANNOUNCED. *** The
+three roomiest recipes in the batch are three of the four deaths (clear_still space
+0.80, done_ring 0.78, cross_in 0.72). The two that swept are the two with almost no
+room at all (miss_past 0.14, sleep_sink 0.16). Both survivors are a thing happening AT
+you; all three big rooms are a SPACE being described. RECORDED AS AN OBSERVATION AND
+DELIBERATELY NOT MADE A CAP on `space` -- seven recipes is exactly the sample size
+that produced the material law his next sweep destroyed.
 
-FOR THE NEXT SOUND SESSION, the lessons that cost the most time here:
-  A RULER THAT CANNOT FAIL IS NOT A RULER. Three gates passed while measuring
-  nothing this session -- brightness measured over a window that shrank with
-  volume; two methods "differing" because their RECIPES differed; a duck sampled
-  through AudioParam.value, which does not reflect running automation in Chrome.
-  Mutation-test every new gate, both directions.
-  AND WHEN A FLAKY GATE IS BLAMED ON RANDOMNESS, LOOK AGAIN. "Distance does not
-  attenuate" was intermittent and I called it dice. It was the occlusion latency
-  bug, visible only through a blunt instrument.
+THE FOUR ARE onceDeadWhole, NOT twiceDead, and the difference is stated on purpose:
+STOP PRODUCING ends a feature on the SECOND rejection, so one more cook would
+technically be legal. IT IS NOT HAPPENING. The right use of a reading is the next
+thing, not a re-cook of the thing the reading came from. They move only if Paolo asks.
 
-*** NEVER ASK HIM A TECHNICAL QUESTION (Paolo 8/15, LOCKED). READ THIS BEFORE YOU WRITE A
-REPLY. *** laws/BOHEMIA_ADDENDUM_NEVER_ASK_HIM_TECHNICAL_QUESTIONS_8_15_26.md, in CLAUDE.md,
-gated by reply_contract_gate.js (mutation-tested).
+WHAT GOT WIRED (all three, same turn -- approved-but-unused is a defect):
+  sleep_sink -> sleepSave() in the run. The funnel BOTH sleeps pass through
+      (spendTime('SLEEP') calls it, and so does SLEEP AND SAVE on the save sheet).
+      *** THIS REVERSES THE 8/7 READING. *** On 8/7 he killed all five SLEEP
+      candidates while approving all five TIME_PASS, and the wire read those
+      together as one decision: sleep is a QUANTITY of time, not a ceremony. A 5/5
+      supersedes that. WHAT CHANGED IS THE SOUND, NOT THE MOMENT -- the dead SLEEP
+      candidates were modal, a struck object announcing bedtime; sleep_sink is
+      friction at 96 Hz with no room in it, weight settling. THE HOURS STILL STRIKE:
+      the sink fires when you lie down, the clock count follows it.
+  miss_past  -> sndMiss() in combat. Five call sites, all already named MISS.
+  vital_deep -> sndVital() in combat. showVerd('VITAL') has existed the whole time.
+      Both were beeping placeholder oscillators. No mechanic invented, no call site
+      moved -- same move that put BLOCK on the cover save. 200 ms limiter on the
+      miss because two of its call sites sit inside per-enemy loops.
 
-His words: "You're insane to think I know any of that shit... don't be fucking asking me
-technical nerdy questions like this, bro. I'm stupid as fuck... look online to see what you
-should do first... what great Studios do first."
+TWO GATE HOLES CLOSED THE SAME TURN, and both were mine:
+  1. regionBinds MEASURED NOTHING. It shipped 8/12 as the forward-binding list, and
+     every event on it is by definition NOT in ENVELOPE.batch -- so the derivation
+     built no row, main() read undefined.outsideN as falsy, and printed "all inside"
+     for all seven. A pass worded like a pass. Both legs now walk batch UNION
+     regionBinds. MUTATION-PROVED: push miss_past's hz to 9200 and it goes red;
+     name a bound event that has no recipe and it goes red.
+  2. The wire tool cried wolf about someone else's lane. Its "is the footstep bus
+     already rerouted" test was a byte match on its own replacement string, so the
+     moment the mix patch inserted MUS.OUT into that line it started printing "no
+     footstep bus found (another lane may have moved it)" on a bus that was correct
+     the whole time. It tests the PROPERTY now (does STEP_BUS reach __SFXBUS).
 
-WHAT EARNED IT: I finished a task and asked him to choose between two engineering items BY
-THEIR INTERNAL CODENAMES ("RUN P0-DOOR or 2X?"), explained in lanes and blocking status --
-and I had ALREADY WRITTEN DOWN which one I thought was right, so it was not a fork, it was
-approval-seeking, which EVERYTHING IS A THUMB (8/9) killed months ago.
+NEW CHECKS, all mutation-proved:
+  sfx_wired_gate: drives sleepSave() in the real browser and reads the RUN's OWN ask
+     log (remove the wire -> 3 red). Asserts the save bell does NOT double up on it.
+     Measures sleep_sink / miss_past / vital_deep on the real SFX bus -- banked and
+     audible are different claims. Static combat checks for both sfxAsk call sites
+     and the miss limiter (strip the ask -> 2 red).
+  sfx_envelope_gate: re-derives REGION and the mkup/drive direction from ALL his
+     verdict files on every run. REGION did not move at 365 -- every new approval
+     landed inside the box, which is the first time that has been true.
 
-BANNED, any wording: which engineering item comes next; which lane or session owns
-something; anything named by a codename/file/gate/backlog row; anything answerable by
-reading the repo OR BY RESEARCH (what shippable games do first, what a studio builds before
-a demo, the standard order for a migration -- looking it up is OUR job).
-STILL LEGITIMATE, one at a time: IDENTITY/NAMES he reserved, a genuine creative fork about
-the GAME in plain words, and anything he asked to see.
-THE TEST: could I answer this myself with the repo, the laws, or a search? Then it is not a
-question, it is work I have not done yet.
-SECOND TEST: have I already written down what I think the answer is? Then I am asking
-permission. Do the thing.
-WHY IT KEEPS HAPPENING: the reply format ends with WHAT I NEED FROM YOU, and the pull to put
-SOMETHING there manufactures these. THAT BLOCK HAS A CORRECT EMPTY STATE -- "Nothing, I'm
-good" -- and an empty ask is a FINISHED turn, not a lazy one.
+DIRECTION WEAKENS AGAIN, as it has every sweep: mkup -1.17 at 140 thumbs, -0.36 at
+270, 0.874/0.939 at 330, 0.868/0.921 at 365. Still asserted only as a SIGN, never a
+cap. A cap tight enough to mean anything would be red on sounds HE APPROVED.
+
+*** A WARNING FOR THE NEXT SESSION, AND IT COST A WHOLE TURN. *** This work was built
+once, committed, rebased and NOT PUSHED while the full suite ran -- and the container
+reverted to an Aug 2 snapshot mid-run and took the commit and every loose object with
+it. GIT IS THE MEMORY only once it is on the REMOTE. Push the session branch the
+moment you commit; the gate pass gates the push to MAIN, never the push to your own
+branch.
+
+STILL WAIVED (approved, no moment in the game yet, each checked not assumed): casing,
+cloth_on, demolish, drink, dry_fire, heartbeat, melee_hit, pickup, power_on, set_down,
+swing_air, tape_pull. The gate names the reason for every one.
 
 --------------------------------------------------------------------------------
 

@@ -28276,7 +28276,10 @@ function writeSave(label){
 }
 /* the three kinds, all coexisting per the ruling */
 function manualSave(){ writeSave('manual'); toast('Saved.'); renderSaveSheet(); }
-function sleepSave(){ writeSave('slept'); toast('You slept. Saved.'); renderSaveSheet(); }
+function sleepSave(){ sfx('sleep_sink');   /* HIS 8/15 SWEEP, 5/5. Supersedes the 8/7 reading that
+        sleep is only a quantity of time -- the hours still
+        strike on top of this. */
+  writeSave('slept'); toast('You slept. Saved.'); renderSaveSheet(); }
 function autoSave(why){ writeSave('auto:'+why); sfx('save_chime'); }   /* HIS bell (7/30) */
 /* DEATH IS A RELOAD: the closest previous save, never a reset */
 function loadClosest(){
