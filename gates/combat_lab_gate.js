@@ -3785,8 +3785,35 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     /function threatMult\(\)\{ const k=Math\.max\(0,Math\.min\(4,\(G\.userPkg\|\|0\)\|0\)\);/.test(demo));
 
   ok('V121 IT DIVIDES THE MISS, NOT THE HIT. The first cut multiplied the hit chance and I MEASURED V.HARD and BOHEMIAN both landing on the 0.99 clamp -- two identical tiers, the exact bug being fixed, moved up two notches. Dividing the miss cannot pass 1, so no clamp can ever eat a tier',
-    demo.includes('return 1-(1-base)/threatMult();') &&
-    !/Math\.min\(0\.99,\(0\.97 - distT\(e\)\*0\.60\)\*threatMult\(\)\)/.test(demo));
+    demo.includes('1-(1-base)/threatMult()') &&
+    !/Math\.min\(0\.99,\(0\.97 - distT\(e\)\*0\.60\)\*threatMult\(\)\)/.test(demo) &&
+    /* V153 RE-POINTED: the DIFFICULTY term is byte-identical and still divides
+       the miss. What follows it is a MOVING-TARGET modifier, which is not
+       difficulty and only ever multiplies DOWNWARD -- so the failure this law
+       exists to stop (two tiers landing on the same 0.99 clamp) remains
+       impossible. The law is intact; only the string pin was stale. */
+    /return \(1-\(1-base\)\/threatMult\(\)\)\*\(iMoved\(\)\?\(1-MOVING_MISS\):1\); \}/.test(demo) &&
+    /const MOVING_MISS=0\.35;/.test(demo));
+
+/* ===== V153 IT CUTS BOTH WAYS =====================================
+   Paolo 8/15: "so what I'm the only one that gets affected by this... that's not
+   fair second being out in the open in this game for more than two turns like
+   you will die so like I'm trying to make this fun."
+   TWO POINTS AND BOTH LAND. V152 chewed cover on ONE code path -- the enemy
+   volley, where the stone that stopped their round was already in hand -- so
+   only HIS cover degraded. That was not a design position, it was the easy half
+   shipped. And his second point breaks my own feature: if the open kills you in
+   two turns, destroying his cover is not a prompt to move, it is a death
+   sentence. */
+  ok('V153 THEIR COVER DEGRADES TOO: his shot that a man\'s stone eats chews that stone, same rule and same numbers, rock to rock in both directions',
+    demo.includes('function foeCoverPillar(e){') &&
+    demo.includes('function chewFoeCover(tgt){') &&
+    /function fireMissRound\(tgt\)\{ try\{chewFoeCover\(tgt\);\}catch\(_e\)\{\}/.test(demo));
+
+  ok('V153 AND THE OPEN IS CROSSABLE, or cover decay is only punishment: this game had never once rewarded movement -- standing still and sprinting across a lot presented the same silhouette to every gun. A modifier on the roll, never immunity',
+    demo.includes('function iMoved(){') &&
+    /const MOVED_MS=1200;/.test(demo) &&
+    /\*\(iMoved\(\)\?\(1-MOVING_MISS\):1\)/.test(demo));
 
   ok('V121 IT IS NOT A DAMAGE MULTIPLIER AND IT DOES NOT TOUCH THE DIAL: his no-multipliers ruling stands (a bullet does what a bullet does), and v98 says out loud that the killshot allowance must never be wired to difficulty. threatMult is read by distAccuracy and nowhere else',
     (demo.match(/threatMult\(\)/g) || []).length === 2 &&
