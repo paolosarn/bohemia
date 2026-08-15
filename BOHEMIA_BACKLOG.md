@@ -3710,6 +3710,42 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+MOVE. *** THE FIGHT HAS TO MOVE YOU (Paolo 8/15, LOCKED, direction-class,
+   DEMO-CRITICAL — laws/BOHEMIA_ADDENDUM_THE_FIGHT_HAS_TO_MOVE_YOU_8_15_26.md.
+   TOP OF THIS LANE'S QUEUE.) His words, playing it: "it's still kind of felt
+   like I just found some cover and I stayed in the same place just shooting
+   people at the same location like nothing changed. THERE'S NO MOVEMENT.
+   THERE'S NO MOVEMENT WHATSOEVER AND I HATE IT."
+   THE RULING: a fight the player can win from one spot is a broken fight. He
+   must be made to leave cover repeatedly, as the CHEAPEST way to survive.
+   THIS IS STRUCTURAL, NOT TUNING. More incoming damage does not fix it -- a
+   stationary player with more damage is still stationary, just dead. Something
+   has to make THE SPOT ITSELF stop being good.
+   DEMO-CRITICAL because the demo opens on the family-defense fight. A static
+   centrepiece fight is a static demo.
+   THE RESEARCHED MENU (mechanisms, NOT a design — the pick is his or this
+   lane's normal process): (1) the position EXPIRES (cover degrades/burns/is
+   destroyed); (2) FLANKERS whose job is to make the angle worthless — the
+   commonest answer and the cheapest to author; (3) THE FLUSH, a thrown thing
+   that denies an area rather than dealing damage (eviction, not the kill);
+   (4) RUSHERS that cannot be handled at range; (5) THE OBJECTIVE MOVES —
+   reach/carry/protect, so movement is the win condition; (6) THE RESOURCE IS
+   ELSEWHERE (ammo, cover, the wounded ally), so staying put runs you dry;
+   (7) THE CLOCK — reinforcements make a stalemate a slow loss.
+   FIT IT TO BOHEMIA, NOT TO A GENRE: this is a post-collapse survival RPG, not
+   a military shooter. (5) and (6) sit naturally with scarcity and people; (1)
+   and (2) are cheapest against the existing rig. Nothing here argues for a
+   set-piece action game. "Do nothing" is off the menu — he rejected the
+   current encounter shape.
+   OWED TO CHARACTER, ask BEFORE the encounter design freezes, not after: if the
+   answer has anyone repositioning under fire, the CLIPS must exist and read at
+   56px (break-from-cover, move-and-fire, dive/roll). They do not exist today
+   beyond general locomotion. CHARACTER authors them on request.
+   | THE TEST, and it is machine-checkable headless: can the player win the
+   encounter WITHOUT leaving the first cover they reach? If yes it is not fixed.
+   A gate that plays the fight from one spot and REQUIRES it to fail is the
+   honest check | which mechanism = his call / this lane's process | YES —
+   he plays it and says whether it moves him. ***
 RW-C. THE REWIND, COMBAT HALF (Paolo 8/15 — laws/BOHEMIA_ADDENDUM_THE_
    REWIND_8_15_26.md; RUN owns the ring buffer and the restore path, this
    lane consumes it for fights and must not build a second one). His

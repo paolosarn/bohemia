@@ -1,3 +1,32 @@
+*** COMBAT: THE FIGHT HAS TO MOVE YOU (Paolo 8/15, LOCKED, DEMO-CRITICAL). ROUTED, NOT MINE
+TO BUILD. *** laws/BOHEMIA_ADDENDUM_THE_FIGHT_HAS_TO_MOVE_YOU_8_15_26.md, top of the COMBAT
+queue in BOHEMIA_BACKLOG.md, canon index regenerated.
+
+His words, playing it: "it's still kind of felt like I just found some cover and I stayed in
+the same place just shooting people at the same location like nothing changed. THERE'S NO
+MOVEMENT. THERE'S NO MOVEMENT WHATSOEVER AND I HATE IT."
+
+THE RULING: a fight the player can win from ONE SPOT is a broken fight. STRUCTURAL, not
+tuning -- more incoming damage does not fix it, a stationary player with more damage is still
+stationary, just dead. Something has to make THE SPOT ITSELF stop being good.
+DEMO-CRITICAL: the demo opens on the family-defense fight.
+THE TEST, machine-checkable headless: can the player win the encounter WITHOUT leaving the
+first cover they reach? If yes it is not fixed. A gate that plays the fight from one spot and
+REQUIRES it to fail is the honest check.
+The researched menu of mechanisms (position expires / flankers / the flush / rushers / the
+objective moves / the resource is elsewhere / the clock) is in the law. WHICH ONE is a design
+call and is his or COMBAT's -- mechanism is ours, contents are his.
+
+*** WHAT THIS OWES CHARACTER, AND ASK BEFORE THE ENCOUNTER DESIGN FREEZES: *** if the answer
+has anyone repositioning under fire, the CLIPS must exist and read at 56px -- break-from-
+cover, move-and-fire, dive/roll. THEY DO NOT EXIST TODAY beyond general locomotion. This lane
+authors them on request. Do not let COMBAT discover that late.
+
+I did NOT build combat. ONE SYSTEM ONE SESSION -- this lane is bodies, clothing, animation.
+Recording his ruling the turn it was made is the job; building another lane's system is not.
+
+--------------------------------------------------------------------------------
+
 RUN (run-eak241): 8/15 LATEST -- THE CITY COULD NOT TALK TO THE SHELL. THE AUTOSAVE
 HAS NEVER WORKED THROUGH THE ALPHA, AND THE SAVE PANEL SAID IT DID.
 
