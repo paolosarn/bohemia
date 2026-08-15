@@ -812,6 +812,18 @@ GATES = [
      'it later" needs a place for later, so the WORDS tab must exist, be wired into the '
      'alpha, live where Pages publishes, fetch nothing, and be CURRENT with its sources by '
      'fingerprint -- a stale tab is the same failure wearing a green', False),
+    ('DEMO',           ['node', 'gates/demo_gate.js'],
+     'DEMO PLAN critical path row 9, the only row with no owner named: "one integration test '
+     'that plays the whole day headless + deploy-verified on the real link. THE DEMO IS A '
+     'BUILD, NOT A VIBE." dayloop_gate already plays a day, but it plays it in the CITY page '
+     '-- and THAT IS NOT THE DOOR. Paolo taps one link and everything he sees comes through '
+     'the alpha; every difference between those two surfaces is a place the demo can be broken '
+     'with every gate green, and 8/14 found three of exactly that kind in one afternoon. So '
+     'this plays it the way he plays it: open the link, tap through TAP TO ENTER, tap RUN, take '
+     'the opening, take the job off the phone, live the day to nightfall, read the reckoning, '
+     'and check tomorrow is a different job. NOTE THE HONEST GAP: this container cannot reach '
+     'github.io (the proxy 403s CONNECT), so row 9\'s deploy half stays MANUAL and DEMO GREEN '
+     'does NOT mean the live link is good', False),
     ('OPENING',        ['node', 'gates/opening_gate.js'],
      'THE DEMO PLAN has two critical-path rows for the cold open (7 THE FIRST FIVE MINUTES, '
      '10 THE COLD OPEN SCENE) and neither was done: the runtime shipped 8/9, the scene shipped, '

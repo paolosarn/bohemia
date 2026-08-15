@@ -651,8 +651,44 @@ HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/15 (b) LATEST -- *** FIVE PLAYABLE DAYS. DEMO CRITICAL PATH
-ROW 4 IS AT THE TOP OF ITS RANGE INSTEAD OF THE FLOOR. ***
+PEOPLE (7h9sfy): 8/15 (c) LATEST -- *** THE DEMO GATE EXISTS. ROW 9 WAS THE ONLY
+CRITICAL-PATH ROW WITH NO OWNER AND NOBODY HAD PICKED IT UP. ***
+
+ROW 9: "one integration test that plays the whole day headless + deploy-verified
+on the real link. THE DEMO IS A BUILD, NOT A VIBE."
+
+WHY IT WAS NEEDED WHEN dayloop_gate ALREADY PLAYS A DAY IN A BROWSER: it plays
+it in slices/BOHEMIA_CITY_WORLD.html, and *** THAT IS NOT THE DOOR. *** He taps
+ONE link and everything he sees comes through the alpha. Every difference
+between those two surfaces is a place the demo can be broken with every gate
+green -- and 8/14 turned up THREE of exactly that kind in one afternoon. So
+gates/demo_gate.js plays it the way he plays it: open the link, tap through TAP
+TO ENTER, tap RUN, take the opening, take the job OFF THE PHONE, live the day to
+nightfall, read the reckoning, confirm tomorrow is a different job. 19 claims.
+
+*** AND THE HONEST GAP, SAID OUT LOUD RATHER THAN QUIETLY SKIPPED: THIS
+CONTAINER CANNOT REACH github.io. *** The agent proxy answers 403 to CONNECT
+(checked: curl -> "CONNECT tunnel failed, response 403"). A gate that cannot
+make the request cannot make the claim, and faking it against a local file would
+be the side-door probe the 7/18 law bans. So row 9's DEPLOY half stays MANUAL
+(the pages workflow run + `git merge-base --is-ancestor`, per the ship flow) and
+DEMO GREEN DOES NOT MEAN THE LIVE LINK IS GOOD. If a future session runs where
+the network allows it, that half is a ten-line addition and the gate says where.
+
+TWO MORE OF THE SAME BUG CLASS, CAUGHT BY BUILDING IT:
+ - The gate picked its frame with `frames().find(f => /RUN_CURRENT|CITY_WORLD/)`
+   and got RUN_CURRENT, which does NOT own the day loop -- DAY, DQ and the wake
+   card all live in CITY_WORLD. That is the .find()-returns-the-first-match bug
+   this handoff already records against bohemia_city_app.js isFrame(), which
+   blinded fourteen gates at once. It asks each frame what it CAN DO now.
+ - It clicked GET UP and demanded an objective, which is the PRE-8/12 flow. The
+   day starts with NO job now; the work ARRIVES on the phone and is taken there
+   (__THE_PHONE_RINGS__, RUN lane). My gate read "the demo is broken" when the
+   demo had grown a better opening move. A gate written against last week's
+   product is a gate that reports last week's news.
+
+PEOPLE (7h9sfy): 8/15 (b) -- *** FIVE PLAYABLE DAYS. DEMO CRITICAL PATH ROW 4 IS
+AT THE TOP OF ITS RANGE INSTEAD OF THE FLOOR. ***
 
 HIS WORD ON THE OPENING: "I saw it I like it. I appreciate it thank you."
 NOTES ARE RULINGS (7/19) -- that is the verdict, it is not going back to him.
