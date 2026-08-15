@@ -732,6 +732,24 @@ GATES = [
      'first long line, which for a dozen of them is a "/* ======" divider occurring 42 times '
      'in one page, so it reported three modules inlined that are not there. A CHECKER THAT '
      'CANNOT TELL ONE MODULE FROM ANOTHER IS THE BROKEN ONE -- and it took THREE wrong rulers, each one confidently wrong: the first long line is a divider, the LONGEST line is often the shared IIFE footer (eight modules came back inlined nine times), and some engine files are BUNDLES carrying others verbatim so a contained module can never have a unique line. Bundles are DERIVED, never listed. It also now proves NO MODULE IS INLINED TWICE, which is how the real bug was found: renaming the payday block ORPHANED the old one, the patch could not see it, and a second stale copy of economy/purse/payday sat LATER in the file and WON at runtime while the fresh one was dead code. Caught only because a good added to the economy was missing from the real page', False),
+    ('FRAME BUDGET',   ['node', 'gates/frame_budget_gate.js'],
+     'THE FIRST PERF GAUGE IN THE REPO. Demo board row 8: "step latency is gated, render '
+     'latency is measured NOWHERE. A perf claim without a gauge is a guess." It was right -- '
+     'of ~150 gates, ZERO counted what a finger movement costs on the surface he plays. It '
+     'measures FULL REDRAWS PER TOUCH MOVE, a count and not a stopwatch, because milliseconds '
+     'are a property of whatever machine the gate runs on while a redraw count is '
+     'deterministic and travels -- and the count is what caught the sky P0 (2.1 per move) AND '
+     'a fix for it that made things worse (41 for 12). ms is printed as information and never '
+     'asserted. WHAT IT FOUND ON ITS FIRST RUN, which is the whole argument for gauges: '
+     'pinch-zoom WHILE WALKING costs 2.08 full redraws per touch move at ~23 ms, so about 49 '
+     'ms of painting per finger movement, THREE FRAMES at 60 Hz, during the most common '
+     'gesture in the game. setHZoom ends in render() and a two-finger pinch dispatches TWO '
+     'pointermove events per visual step. Ratcheted at the MEASURED truth rather than a wish, '
+     'because a gate red on a known number gets switched off. The fix is deliberately NOT in '
+     'yet: one was attempted and reverted the same hour after measuring WORSE (3.08), and the '
+     'gate header records why -- the page\'s internal render() calls do not resolve through '
+     'window.render, so it cannot be intercepted from outside. Mutation: doubling the zoom '
+     'redraw takes it to 4.08 and the ratchet bites', False),
     ('SKY TOUCH',      ['node', 'gates/sky_touch_gate.js'],
      'PAOLO\'S P0, 8/13, HIS OWN PHONE: "the zoom out didn\'t work, once I started to leave '
      'the city it kind of crashed." THE WHEEL PATH WORKED THE WHOLE TIME, which is the entire '

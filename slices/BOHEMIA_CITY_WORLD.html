@@ -206,6 +206,7 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
 
 
 
+
 #daycardIn .mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;
   padding:9px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
   border:1px solid var(--line)}
@@ -6920,6 +6921,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE WORLD YOU STAND IN ==== */
+
+
 
 
 
@@ -18339,6 +18342,7 @@ function skyExit(){ if(!SKY)return; SKY=false; SKYU=0; window.__SKY_EXIT=(window
   window.addEventListener('pointercancel', onUp, true);
 })();
 /* ==== end THE MOON ZOOM ON HIS PHONE ==== */
+
 /* one step of the same gesture that got him here. OUT raises SKYU; IN lowers it,
    and at 0 it hands back to the city builder, which hands back to his feet. */
 function skyZoom(dir){
@@ -21141,6 +21145,7 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 document.getElementById('mktbtn').addEventListener('click',function(){
   if(!mktAt())return; MKT_LAST=null; showMarket();
 });
+
 
 
 

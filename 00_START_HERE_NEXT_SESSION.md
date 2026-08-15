@@ -8807,7 +8807,52 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 (f) LATEST -- *** A KEEPER TOOL HAD BEEN CRASHING FOR TWO
+WORLD (world-9lfjtf): 8/15 (g) LATEST -- *** THE REPO HAD NO PERF GAUGE AT ALL, AND THE
+FIRST ONE FOUND A HITCH IN THE MOST COMMON GESTURE IN THE GAME. ***
+Gate: frame_budget_gate.js 4/0 (FRAME BUDGET).
+
+TAB: none, this is instrumentation. NOT IN A TAB.
+
+Demo board row 8 said it plainly: "step latency is gated, render latency is measured
+NOWHERE. A perf claim without a gauge is a guess." True: of ~150 gates, ZERO counted what
+a finger movement costs on the surface he plays.
+
+WHAT IT FOUND ON ITS FIRST RUN:
+    pinch-zoom WHILE WALKING = 2.08 full redraws per touch move, ~23 ms each
+~49 ms of painting per finger movement. THREE FRAMES at 60 Hz. During the single most
+common gesture in the game, on the surface he walks. Same shape as the sky P0 he reported
+on 8/13 and MORE expensive, because the walked view costs more to draw than the sky.
+WHY TWO: setHZoom() ends in render(), which runs once per POINTER EVENT, and a two-finger
+pinch dispatches TWO pointermove events per visual step. setHZoom is not wrong; two fingers
+is what makes it expensive.
+
+IT COUNTS REDRAWS, IT DOES NOT TIME THEM. Milliseconds are a property of whatever machine
+the gate runs on and would be flaky everywhere; a redraw COUNT is deterministic and
+travels. It is also the metric that caught the sky P0 and caught a fix for it that made
+things worse. ms is printed as information and never asserted.
+
+*** AND THE FIX IS NOT IN, ON PURPOSE. *** I wrote one and REVERTED it the same hour: a
+capture-phase coalescer that muted render during the gesture and painted once per frame.
+Measured, it was WORSE (3.08 per move). Instrumenting it showed exactly why, and this is
+the finding the next attempt should start from rather than rediscover:
+    the listener fired 24 times and muted 24 times, and ITS STUB WAS CALLED ZERO TIMES.
+The page's internal render() calls do NOT resolve through window.render, so the paint
+cannot be intercepted from outside. THE COALESCING HAS TO LIVE INSIDE THE PAGE'S OWN RENDER
+PATH, not wrapped around it. Shipping the broken version would have made his phone 50%
+worse; the gauge is what stopped that, one hour after the gauge is what caught the same
+class of mistake in the sky fix.
+
+The ratchet is set at the MEASURED truth (2.2), not at a wish. A gate red on a known number
+gets switched off by the next session that hits it. Mutation: doubling the zoom's redraw
+takes it to 4.08 and the ratchet bites.
+
+ALSO CAUGHT AND WORTH KEEPING: the first draft of this gauge measured a CITY PAN and got
+zero renders, because the page opens in HUMAN mode and the pan branch requires city mode.
+It passed, silently, over no work at all. A perf number taken on a surface the gesture
+never reaches is worse than no number, because it reads as coverage. The gate now asserts
+the mode AND asserts it saw work before it asserts a budget.
+
+WORLD (world-9lfjtf): 8/15 (f) -- *** A KEEPER TOOL HAD BEEN CRASHING FOR TWO
 WEEKS AND STILL READ AS PROTECTION. *** Gate: banner_gate.js 14/0.
 
 TAB: none. Machinery under every tab. NOT IN A TAB, nothing to look at.
