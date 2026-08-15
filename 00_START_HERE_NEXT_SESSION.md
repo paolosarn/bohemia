@@ -8807,7 +8807,47 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 (e) LATEST -- *** HIS P0 IS FIXED: THE PINCH RIDES TO THE
+WORLD (world-9lfjtf): 8/15 (f) LATEST -- *** A KEEPER TOOL HAD BEEN CRASHING FOR TWO
+WEEKS AND STILL READ AS PROTECTION. *** Gate: banner_gate.js 14/0.
+
+TAB: none. Machinery under every tab. NOT IN A TAB, nothing to look at.
+
+I WENT TO PAY DOWN MY OWN DEBT AND FOUND THE DEBT WAS PARTLY IMAGINARY, WHICH WAS WORSE.
+banner_gate.js shipped this morning with a RATCHET listing four modules hidden from the
+engine sync sweep. THREE OF THEM WERE NEVER IN THAT PAGE AT ALL. The list was captured
+from the ruler's SECOND draft, before signatures were checked for uniqueness, so shared
+boilerplate matched and the gate invented debt -- and I baked that measurement into a
+constant. A RATCHET CARRYING PHANTOM DEBT IS WORSE THAN NO RATCHET: `hidden <= 4` would
+have stayed GREEN while four REAL modules went dark. I widened my own gate by three and
+did not notice for a day.
+
+THE FOURTH WAS REAL, AND IT WAS THE INTERESTING ONE. engine/bohemia_overmap.js is
+invisible to the generic sweep because its banner reads "/* ==== overmap engine (inlined)
+==== */" instead of naming the file. That was survivable ONLY because overmap has its own
+dedicated keeper, tools/bohemia_city_overmap_resync.py.
+*** THAT KEEPER HAS BEEN DEAD SINCE 8/2. *** It hard-codes the alpha and the CITY_B64 key,
+and the city MOVED OUT of the alpha in the 8/2 payload-wall pass, so it has raised
+ValueError on line one every run since. Two weeks. So overmap -- the module whose entire
+reason for existing is that a STALE FORK of it was found hiding inside base64 -- has had
+NO sync protection of any kind. It is byte-identical to canon today by LUCK, not process.
+
+A BROKEN KEEPER IS WORSE THAN NO KEEPER, because it reads as coverage on every board and
+in every handoff. Nobody runs a tool to check whether it still starts.
+
+FIXED: the keeper now finds the page the way the WORKING sweep finds it (derive, never
+hard-code -- the same lesson as the payday markers earlier today) and handles both the
+plain page and the base64 payload rather than assuming. It also NORMALISES overmap's
+banner on the way through, so the generic sweep covers it too. Two keepers now, and that
+is not redundancy, it is the difference between watched and merely looking watched.
+The ratchet is EMPTY and may only shrink; anything added to it is a regression.
+NEW ASSERTION: every keeper tool must actually RUN. Both mutations bite (restore the
+hard-coded path, revert the banner).
+
+NEXT IN THIS LANE: still nothing open in the WORLD backlog section. The icon-factory debt
+(school floodlights, airport heroes) belongs to whichever session is holding
+tools/bohemia_district_hero_factory.py -- check `git log -3` on it first.
+
+WORLD (world-9lfjtf): 8/15 (e) -- *** HIS P0 IS FIXED: THE PINCH RIDES TO THE
 MOON AND BACK, AND THE FREEZE IS GONE. *** Gate: sky_touch_gate.js 9/0 (SKY TOUCH).
 Tool: tools/bohemia_city_sky_touch_patch.py
 

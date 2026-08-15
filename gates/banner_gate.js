@@ -157,16 +157,18 @@ function inlinedModules(src) {
   return out;
 }
 
-/* THE RATCHET. Four modules were already inlined behind an unreadable banner before this
-   gate existed, in pages this lane does not own (ONE SYSTEM, ONE SESSION). Naming them is
-   what makes them fixable; a gate that just went red would be deleted by the next session
-   that hit it. THIS LIST MAY ONLY SHRINK. Adding to it is the violation. */
-const KNOWN_HIDDEN = [
-  'engine/bohemia_overmap.js',
-  'engine/bohemia_standing.js',
-  'engine/bohemia_terrain_noise.js',
-  'engine/bohemia_world_resolve.js'
-];
+/* THE RATCHET IS EMPTY, AND GETTING HERE MATTERED MORE THAN IT LOOKS.
+   It shipped this morning listing FOUR hidden modules. Three of them were never inlined in
+   that page at all: the list was captured from the ruler's SECOND draft, before signatures
+   were checked for uniqueness, so shared boilerplate matched and invented debt. A RATCHET
+   CARRYING PHANTOM DEBT IS WORSE THAN NO RATCHET -- `hidden <= 4` would have stayed green
+   while four REAL modules went dark, which is precisely the slack this pattern exists to
+   remove. I baked a wrong measurement into a constant and it silently widened the gate.
+   The fourth was real: engine/bohemia_overmap.js. Fixed at the source rather than listed
+   here -- see tools/bohemia_city_overmap_resync.py, whose own keeper had been crashing
+   since 8/2 while looking like protection.
+   IT MAY ONLY SHRINK, AND IT IS AT ZERO. Anything added here is a regression, not a note. */
+const KNOWN_HIDDEN = [];
 
 if (PAGE) {
   const seen = visibleBanners(PAGE.text);
@@ -224,6 +226,23 @@ if (PAGE) {
 ok('the scanner still finds modules by a ONE-LINE banner, which is what makes a wrapped ' +
    'banner an opt-out rather than a typo',
    /startswith\('\/\* ==== engine\/'\)\s*and\s*s\.endswith\('==== \*\/'\)/.test(TOOL));
+
+/* AND EVERY KEEPER MUST ACTUALLY RUN. A BROKEN KEEPER IS WORSE THAN NO KEEPER, because it
+   reads as coverage on every board and in every handoff. tools/bohemia_city_overmap_resync.py
+   -- the ONLY thing watching the module whose whole reason for existing is that a stale fork
+   of it was found hiding inside base64 -- had been raising ValueError on line one since 8/2,
+   when the city moved out of the alpha and the tool kept hard-coding the old location. Two
+   weeks. Nothing said a word, because nobody runs a tool to see whether it still starts. */
+{
+  const { execFileSync } = require('child_process');
+  const keepers = ['tools/bohemia_city_module_resync.py', 'tools/bohemia_city_overmap_resync.py'];
+  keepers.forEach(k => {
+    let alive = true, why = '';
+    try { execFileSync('python3', [k], { cwd: ROOT, stdio: 'pipe', timeout: 120000 }); }
+    catch (e) { alive = false; why = String((e.stderr || e.message || '')).trim().split('\n').pop(); }
+    ok('the keeper RUNS: ' + k.split('/').pop() + (alive ? '' : ' -- ' + why), alive);
+  });
+}
 
 console.log('BANNER GATE: ' + pass + ' passed, ' + fail + ' failed  (every inlined engine ' +
             'module is visible to the sync sweep; a wrapped banner is a silent opt-out from ' +
