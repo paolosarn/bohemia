@@ -18625,3 +18625,36 @@ net; re-bless numbers, never delete checks. MEASURE FIRST: 4x pixels per
 frame vs the ~224MB iOS ceiling (canvas_memory_gate). NOT demo-blocking —
 it must not displace RUN P0-DOOR or SOUNDS P0-WALK. ART is NOT involved
 (the rig is CHARACTER's law; one system, one session).
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/15 — THE REWIND / GHOST TIME (Paolo, LOCKED in
+principle, routed to the coordinator by name — laws/BOHEMIA_ADDENDUM_THE_
+REWIND_8_15_26.md; RUN RW is primary owner, COMBAT RW-C consumes).
+Prince-of-Persia rewind over the last ~200 moves, playing as a ghost-time
+VFX like a tape running backwards, as HIS answer to save-scumming, perks
+extending the window, combat and non-combat; sleep-only saving is
+DIRECTION not locked (he hedged "might").
+WHY IT IS CHEAP HERE: Blow's Braid talk says record WORLD STATE in a ring
+buffer, never event-source — and `reportState()` already serializes the
+whole game as a small object, the world is SEED-DERIVED so it does not
+ride along, and I-MOVE-YOU-MOVE makes moves DISCRETE. 200 snapshots, not
+Braid's 60fps physics problem. REUSE THE SNAPSHOT.
+THE CHALLENGE FINDING, aimed at his own proposal: an unlimited free
+rewind is save-scumming with better VFX (the XCOM ironman discourse is
+clear that ironman works because it is a COMMITMENT DEVICE), but a SCARCE
+rewind re-creates scumming by another door — players reload to avoid
+spending the precious consumable. So the COST MODEL is a real fork and it
+is [PENDING Paolo], asked this turn. Death/permadeath semantics also
+pending — do not default either.
+LORE, and a canon tension caught before it was steamrolled: he tied it to
+the Amalgamation/5D, which fits perfectly — but PERMANENT AMBIGUITY is
+LOCKED (GDD v2, reaffirmed as EXPLAIN THE HANDS NEVER THE GHOSTS), so the
+game must ASSOCIATE, NEVER EXPLAIN. Resolution costs nothing: PURPLE
+RESERVATION already gives purple to the Amalgamation ALONE, so a purple
+ghost-time effect says "this is them" without a word and never confirms
+a mechanism.
+ALSO CAPTURED (his combat feedback, typed in the COMBAT chat): interim
+MAX RANGE ruling (a couple tiles beyond every enemy), chain shots gated
+by gun type, accuracy falloff, MORE MOVEMENT wanted — and the cross-lane
+one: NO FACE CHANGE UNDER HEAVY DAMAGE, which is CHARACTER's surface and
+COMBAT's state, so it is flagged in both.

@@ -1295,6 +1295,37 @@ P0-DOOR. *** THE GAME IS NOT THE FIRST THING A NEW PLAYER SEES. TOP OF
    | a cold-boot of the one link lands the player in the game, not a tab
    bar, verified in a real browser and gated | — | no (he corrects after
    playing it). ***
+RW. THE REWIND / GHOST TIME (Paolo 8/15, LOCKED in principle, routed to
+   the coordinator by name — laws/BOHEMIA_ADDENDUM_THE_REWIND_8_15_26.md.
+   THIS LANE IS PRIMARY OWNER: it owns the snapshot, the save and the day
+   loop; COMBAT consumes the machinery for fights. NOT demo-blocking —
+   never ahead of P0-DOOR.) He wants Prince-of-Persia rewind over the
+   last ~200 moves, playing as a ghost-time VFX like a tape running
+   backwards, as the ANSWER TO SAVE-SCUMMING ("I hate save scumming"),
+   with perks extending the window, in and out of combat; possibly paired
+   with sleep-only saving (FNV/FO4 hardcore — he hedged "might", so that
+   half is DIRECTION, not locked).
+   IT IS CHEAP HERE AND THE MECHANISM ALREADY EXISTS. Blow's Braid talk
+   (the practitioner reference) warns AGAINST event-sourcing — record
+   WORLD STATE into a ring buffer. We already do: `reportState()` in the
+   city serializes the entire game as a small object ({v,seed,day,min,
+   hx,hy,cx,cy,mode,riding,hzoom,loop:DAY.serialize(),quest:DQ.serialize(),
+   purse,market}), the world is SEED-DERIVED so no world data rides
+   along, and I-MOVE-YOU-MOVE/120 BPM makes moves DISCRETE — so this is
+   200 small snapshots in a ring buffer, not Braid's 60fps physics
+   problem. REUSE THE SNAPSHOT; do not invent a second one.
+   MEASURE, DO NOT ASSUME: 200 snapshots against the ~224MB iOS ceiling;
+   and the restore path needs a gate that rewinds N moves and asserts
+   byte-identical state — anything derived from a mutable global instead
+   of from the snapshot WILL drift, and that is where this system lives
+   or dies. THE WORLD'S MEMORY MUST REWIND TOO: standing, witnesses and
+   the feed must ride the snapshot, or a rewind that moves you back but
+   leaves the valley remembering will feel like cheating.
+   [PENDING Paolo] the cost model (asked this turn) and how rewind meets
+   permadeath in a run. DO NOT DEFAULT EITHER.
+   | rewind N moves and land in byte-identical state, gated; the ghost
+   tape visible on the real surface | cost model + death semantics = his |
+   yes (the ghost-time effect is judgeable once it draws).
 P0-VISTA. THE MONEY SHOT HAS NO CALLER (8/14 audit, row 11 — one line of
    work). The vista is BUILT, derived, inlined in the walked city
    (:12974), opened by vistaOpen() (:15800) and armed in the world:
@@ -3540,6 +3571,24 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+RW-C. THE REWIND, COMBAT HALF (Paolo 8/15 — laws/BOHEMIA_ADDENDUM_THE_
+   REWIND_8_15_26.md; RUN owns the ring buffer and the restore path, this
+   lane consumes it for fights and must not build a second one). His
+   feedback that came with it is already in this lane's hands (he typed
+   it here): interim MAX RANGE ruling — "whatever the character's maximum
+   range is for right now, just a couple tiles bigger than all the
+   enemies" — buildable today; longer range later becomes a PERK/level
+   stat, never a base buff; CHAIN SHOTS gated by gun type (a big rifle
+   chains on a KILLSHOT, a pistol may chain on a headshot without a
+   kill); accuracy falls off with distance; and HE WANTS MORE MOVEMENT —
+   he stood still behind cover and still hit everything.
+   *** CROSS-LANE, SO IT DOES NOT FALL BETWEEN YOU: HE SAW NO FACE CHANGE
+   while taking heavy damage. The wounded FACE is CHARACTER's surface,
+   the damage state is this lane's — neither owns both, which is exactly
+   how a thing like this survives for weeks. Whichever lane picks it up
+   SAYS SO IN THE HANDOFF so the other stops waiting. ***
+   | fights rewind cleanly through RUN's buffer; range/chain/movement
+   changes visible on the real surface | cost model = his | no.
 TUT-SIB. (8/13, sweep 7 catch — records/BOHEMIA_RESEARCH_PLAYED_
    ATTACHMENT_8_13_26.md; co-owned with PEOPLE 0sc's 8/13 amendment,
    demo-critical-path row 10): the tutorial-tier family-defense encounter
