@@ -1,145 +1,160 @@
 #!/usr/bin/env python3
 """
-BOHEMIA — RESOLVE THE TWO CONFLICTS EVERY PARALLEL SHIP HITS (7/31/26)
+RESOLVE THE TWO CONFLICTS EVERY SHIP HITS (8/15/26, RUN lane).
 
-REUSE CHECK: cooks nothing, draws nothing, opens no art bank. This is git plumbing.
+Main moved eighteen times during one ship today and every rebase produced the
+same two conflicts, in the same two files, with the same correct resolution:
 
-With this many lanes shipping to main at once, a rebase collides on exactly two files,
-every single time, for exactly two reasons:
+  slices/BOHEMIA_ALPHA_0_9.html   the BUILD STAMP. Two lanes each wrote one line.
+                                  The answer is never "pick a side": it is TAKE
+                                  MAIN'S LINEAGE AND BUMP IT, because letters only
+                                  go forward and a stamp that reads older than one
+                                  already shipped tells Paolo he is on an older
+                                  build than he is. (Seen twice: 8/14 rolled
+                                  h -> g, and a lane shipped 8/15d after 8/15f.)
 
-  00_START_HERE_NEXT_SESSION.md   two lanes each PREPENDED their section
-  slices/BOHEMIA_ALPHA_0_9.html   two lanes each bumped #buildstamp
+  00_START_HERE_NEXT_SESSION.md   two lanes appended their section at the top.
+                                  The answer is ALWAYS KEEP BOTH. A resolution
+                                  that deletes the other lane is not a resolution
+                                  -- that is the 8/3 failure no_markers_gate.js
+                                  exists for, where 162 lines of the COMBAT lane
+                                  were mangled by somebody else's merge.
 
-Both have one correct resolution and it is mechanical, so doing it by hand with line
-indices is just a chance to lose somebody's handoff. It nearly happened once already
-this session: a resolver asserted, the file was left with markers, and the markers got
-staged and committed because the next command ran anyway.
+DOING IT BY HAND IS WHAT KEEPS GOING WRONG. Three times this session conflict
+markers reached a commit, the last one because I checked the alpha for markers
+and not the whole tree. This does both files the same way every time and then
+SWEEPS THE WHOLE TREE, so "I checked the file I was thinking about" stops being
+a thing that can happen.
 
-  HANDOFF: keep BOTH sides, whole, mine on top. A handoff section is somebody's only
-           record of their session. Nothing is ever dropped.
-  STAMP:   keep MINE, but advance the date-letter PAST theirs. Two lanes both landing
-           "7/31v" is how Paolo ends up unable to tell which build he is on, which is
-           the entire reason the stamp exists.
+TWO RULES LEARNED THE HARD WAY AND ENCODED HERE:
 
-  python3 tools/bohemia_resolve_ship_conflicts.py        # resolve, then git add
-  python3 tools/bohemia_resolve_ship_conflicts.py --check  # report only, exit 1 if any
+  WRITE FIRST, VERIFY AFTER. An earlier version of this resolver had the date
+  '8/11' baked into its regex. Main rolled to 8/12, the regex missed, and it
+  threw BEFORE writing anything -- so the rebase carried on with the file still
+  full of markers and the markers were committed. Nothing here refuses to write
+  because it did not recognise something: unknown shapes are kept verbatim and
+  reported, never dropped.
+
+  NO DATE IS EVER HARD-CODED. The stamp pattern reads whatever date main has.
+
+Usage, after a conflicted rebase:
+    python3 tools/bohemia_resolve_ship_conflicts.py "MY HEADLINE"
+then check the report, `git add -A`, `git rebase --continue`.
 """
 import os
 import re
+import subprocess
 import sys
 
-REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) or '.'
-os.chdir(REPO)
-
-HANDOFF = '00_START_HERE_NEXT_SESSION.md'
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
-STAMP = re.compile(r'BUILD (\d+/\d+)([a-z]+) - ')
+HANDOFF = '00_START_HERE_NEXT_SESSION.md'
+STAMP = re.compile(r'(<div id="buildstamp"[^>]*>)BUILD (\d+/\d+)([a-z]*) - ([^<]*)(</div>)')
+
+
+def regions(text):
+    """Every conflict region as (start, mid, end_line_index) over a line list."""
+    lines = text.split('\n')
+    out, i = [], 0
+    while i < len(lines):
+        if lines[i].startswith('<<<<<<< '):
+            b = i
+            while b < len(lines) and lines[b] != '=======':
+                b += 1
+            c = b
+            while c < len(lines) and not lines[c].startswith('>>>>>>> '):
+                c += 1
+            if b < len(lines) and c < len(lines):
+                out.append((i, b, c))
+                i = c + 1
+                continue
+        i += 1
+    return lines, out
 
 
 def bump(letter):
-    """a -> b, z -> aa, az -> ba. NEVER chr(ord('z')+1).
-
-    That is not hypothetical: with this many lanes shipping, 8/1 actually ran past z,
-    and the naive increment put "BUILD 8/1{" on main. run_gate caught it -- the stamp
-    must be a date-letter and a headline -- but it was live for one push, and a stamp
-    Paolo cannot read is the exact failure the stamp law exists to prevent.
-    """
-    chars = list(letter)
-    i = len(chars) - 1
-    while i >= 0:
-        if chars[i] != 'z':
-            chars[i] = chr(ord(chars[i]) + 1)
-            return ''.join(chars)
-        chars[i] = 'a'
-        i -= 1
-    return 'a' + ''.join(chars)
+    if not letter:
+        return 'a'
+    if letter[-1] == 'z':
+        return letter + 'a'
+    return letter[:-1] + chr(ord(letter[-1]) + 1)
 
 
-def hunks(lines):
-    """every conflict as (start, ours_slice, theirs_slice, end_exclusive)"""
-    out, i = [], 0
-    while i < len(lines):
-        if lines[i].startswith('<<<<<<<'):
-            mid = end = None
-            for j in range(i + 1, len(lines)):
-                if lines[j] == '=======' and mid is None:
-                    mid = j
-                elif lines[j].startswith('>>>>>>>'):
-                    end = j
-                    break
-            if mid is None or end is None:
-                raise SystemExit('unterminated conflict at line %d' % (i + 1))
-            out.append((i, (i + 1, mid), (mid + 1, end), end + 1))
-            i = end + 1
+def resolve_alpha(headline):
+    if not os.path.exists(ALPHA):
+        return 'no alpha'
+    lines, regs = regions(open(ALPHA, encoding='utf-8').read())
+    if not regs:
+        return 'alpha: no conflict'
+    out, prev, notes = [], 0, []
+    for (a, b, c) in regs:
+        out += lines[prev:a]
+        head = '\n'.join(lines[a + 1:b])          # main's side
+        m = STAMP.search(head)
+        if m:
+            new = m.group(1) + 'BUILD ' + m.group(2) + bump(m.group(3)) + ' - ' + headline + m.group(5)
+            out.append(re.sub(STAMP, lambda _: new, head, count=1))
+            notes.append('stamp ' + m.group(2) + m.group(3) + ' -> ' + m.group(2) + bump(m.group(3)))
         else:
-            i += 1
-    return out
+            # NOT A STAMP. Keep BOTH sides verbatim and say so, never drop one.
+            out += lines[a + 1:b] + lines[b + 1:c]
+            notes.append('alpha: non-stamp conflict KEPT BOTH SIDES, review it')
+        prev = c + 1
+    out += lines[prev:]
+    open(ALPHA, 'w', encoding='utf-8').write('\n'.join(out))
+    return '; '.join(notes)
 
 
-def resolve_handoff(lines):
-    """keep both sides whole; mine (the rebased commit, i.e. THEIRS in git terms) first"""
-    for start, ours, theirs, end in reversed(hunks(lines)):
-        a = lines[ours[0]:ours[1]]
-        b = lines[theirs[0]:theirs[1]]
-        lines[start:end] = b + [''] + a
-    return lines
+def resolve_handoff():
+    if not os.path.exists(HANDOFF):
+        return 'no handoff'
+    lines, regs = regions(open(HANDOFF, encoding='utf-8').read())
+    if not regs:
+        return 'handoff: no conflict'
+    out, prev = [], 0
+    for (a, b, c) in regs:
+        out += lines[prev:a]
+        head, mine = lines[a + 1:b], lines[b + 1:c]
+        out += mine + [''] + head          # BOTH, mine first (my lane's latest)
+        prev = c + 1
+    out += lines[prev:]
+    open(HANDOFF, 'w', encoding='utf-8').write('\n'.join(out))
+    return 'handoff: %d region(s), BOTH sides kept' % len(regs)
 
 
-def resolve_stamp(lines):
-    """keep my stamp line, but move its letter past whatever landed on main"""
-    for start, ours, theirs, end in reversed(hunks(lines)):
-        a = '\n'.join(lines[ours[0]:ours[1]])       # what is on main
-        b_lines = lines[theirs[0]:theirs[1]]        # mine
-        b = '\n'.join(b_lines)
-        ma, mb = STAMP.search(a), STAMP.search(b)
-        if ma and mb:
-            # DATE FIRST, THEN LETTER. Comparing letters alone silently shipped a
-            # "7/31w" stamp while main had already rolled over to "8/1a" -- older
-            # than what it was replacing, which is worse than not bumping at all.
-            date, letter = ma.group(1), ma.group(2)
-            if (date, letter) >= (mb.group(1), mb.group(2)):
-                nxt = bump(letter)
-                b_lines = [STAMP.sub('BUILD %s%s - ' % (date, nxt), l, count=1)
-                           if STAMP.search(l) else l for l in b_lines]
-                print('   stamp: main is at %s%s, mine advances to %s%s'
-                      % (date, letter, date, nxt))
-        lines[start:end] = b_lines
-    return lines
-
-
-def run(path, fn, check):
-    if not os.path.exists(path):
-        return 0
-    raw = open(path, encoding='utf8').read()
-    lines = raw.split('\n')
-    n = len(hunks(lines))
-    if not n:
-        return 0
-    print('%s: %d conflict hunk(s)' % (path, n))
-    if check:
-        return n
-    before = len(raw)
-    out = '\n'.join(fn(lines))
-    bad = [l for l in out.split('\n')
-           if l.startswith('<<<<<<<') or l.startswith('>>>>>>>') or l == '=======']
-    if bad:
-        raise SystemExit('REFUSING to write %s: %d marker(s) survived' % (path, len(bad)))
-    if path == ALPHA and len(out) < before * 0.95:
-        raise SystemExit('REFUSING to write %s: it shrank %d -> %d' % (path, before, len(out)))
-    open(path, 'w', encoding='utf8').write(out)
-    print('   resolved -> %d lines' % out.count('\n'))
-    return n
+def sweep():
+    """The whole tree, because 'I checked the file I was thinking about' is how
+       markers got committed three times this session."""
+    try:
+        files = subprocess.check_output(['git', 'ls-files'], text=True).split('\n')
+    except Exception as e:
+        return ['could not list tracked files: ' + str(e)]
+    bad = []
+    for f in files:
+        if not f or not os.path.exists(f):
+            continue
+        try:
+            with open(f, encoding='utf-8', errors='ignore') as fh:
+                for line in fh:
+                    if line.startswith('<<<<<<< ') or line.startswith('>>>>>>> '):
+                        bad.append(f)
+                        break
+        except Exception:
+            pass
+    return bad
 
 
 def main():
-    check = '--check' in sys.argv
-    total = run(HANDOFF, resolve_handoff, check) + run(ALPHA, resolve_stamp, check)
-    if not total:
-        print('no ship conflicts')
-    elif not check:
-        print('now: git add %s %s && git rebase --continue' % (HANDOFF, ALPHA))
-    return 1 if (check and total) else 0
+    headline = (sys.argv[1] if len(sys.argv) > 1 else 'SHIP').strip()
+    print(resolve_alpha(headline))
+    print(resolve_handoff())
+    bad = sweep()
+    if bad:
+        print('STILL CONFLICTED (resolve by hand, then re-run):')
+        for f in bad:
+            print('   ' + f)
+        sys.exit(1)
+    print('WHOLE TREE SWEPT: no conflict markers in any tracked file')
 
 
 if __name__ == '__main__':
-    sys.exit(main())
+    main()

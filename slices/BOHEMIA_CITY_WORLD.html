@@ -18064,15 +18064,28 @@ window.addEventListener('message',ev=>{ const d=ev&&ev.data;
 // slot. Reload resumes exactly. Never a time machine: there is no second
 // slot to scum back to. Fold/death semantics untouched [PENDING fold work].
 let _svT=null;
+/* __ONE_SNAPSHOT__ -- ONE SNAPSHOT, USED BY BOTH SAVE PATHS.
+   THE BUG THIS KILLS, and it was mine: reportState (debounced, ordinary) and
+   flushState (pagehide/freeze/blur/visibilitychange, THE PHONE PATH) each built
+   their own copy of this object. purse landed in one on 8/12 and market on 8/14,
+   and neither ever landed in the other -- so switching apps mid-run restored the
+   right day and the right quest with an EMPTY PURSE and a valley whose stocks
+   snapped back to base, which reset every price in the market. A save that
+   restores four fields out of six is not partial, it is a lie, and the debounce
+   hid it everywhere except the surface Paolo actually demos on.
+   Adding two fields to the copy would have left the trap armed for the next lane.
+   A FIELD CANNOT NOW BE ADDED TO ONE PATH AND NOT THE OTHER. */
+function citySnapshot(){
+  return { v:1,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
+    riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
+    loop:DAY.serialize(),quest:DQ.serialize(),      /* __DAY_LOOP__ */
+    purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
+    market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null   /* __THE_TRADING_HUB__ */ };
+}
 function reportState(){
   if(_svT)return; _svT=setTimeout(()=>{ _svT=null;
-    try{ if(window.parent&&window.parent!==window)window.parent.postMessage({bohemiaCityState:{
-      v:1,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
-      riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
-      loop:DAY.serialize(),quest:DQ.serialize(),      /* __DAY_LOOP__ */
-      purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
-      market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null   /* __THE_TRADING_HUB__ */   /* __THE_DAY_PAYS__ */
-    }},'*'); }catch(_e){}
+    try{ if(window.parent&&window.parent!==window)
+      window.parent.postMessage({bohemiaCityState:citySnapshot()},'*'); }catch(_e){}
   },800);
 }
 /* __SAVE_FLUSH_IOS__ -- THE FLUSH IOS ACTUALLY DELIVERS (8/11/26).
@@ -18084,11 +18097,12 @@ function reportState(){
    synchronous flush, and it is idempotent, so firing three times costs nothing.
    The debounce still covers the ordinary case; this covers the phone. */
 function flushState(){ if(_svT){clearTimeout(_svT);_svT=null;}
-  try{ if(window.parent&&window.parent!==window)window.parent.postMessage({bohemiaCityState:{
-    v:1,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
-    riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
-    loop:DAY.serialize(),quest:DQ.serialize()        /* __DAY_LOOP__ */
-  }},'*'); }catch(_e){} }
+  /* __ONE_SNAPSHOT__ -- the SAME snapshot the debounced path writes. This
+     function used to carry its own hand-copied literal and it was two fields
+     behind, so the emergency path (the phone path) silently dropped the purse
+     and the market. */
+  try{ if(window.parent&&window.parent!==window)
+    window.parent.postMessage({bohemiaCityState:citySnapshot()},'*'); }catch(_e){} }
 window.addEventListener('pagehide',flushState);
 window.addEventListener('freeze',flushState);
 window.addEventListener('blur',flushState);

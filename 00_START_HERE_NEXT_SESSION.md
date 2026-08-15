@@ -1,3 +1,83 @@
+RUN (run-eak241): 8/15 LATEST -- THE CITY COULD NOT TALK TO THE SHELL. THE AUTOSAVE
+HAS NEVER WORKED THROUGH THE ALPHA, AND THE SAVE PANEL SAID IT DID.
+
+*** EVERY LANE SHOULD READ THIS ONE. IT BROKE THREE LANES' WORK, QUIETLY. ***
+MEASURED in a real browser before anything was changed. Same payload, twice:
+    postMessage({bohemiaCityState:{day:42}})           -> CITYSAVE 0 bytes
+    postMessage({type:'X', bohemiaCityState:{day:42}}) -> 135 bytes, day 42 reads back
+The only difference is a .type field, and the city never sends one. ALPHA:7105 was
+    function combatMsgIn(d){ if(!d||!d.type)return false;
+and SEVEN handlers inside it are keyed on bohemia* properties with NO .type:
+    bohemiaCityState (THE AUTOSAVE) · bohemiaCitySfx (the city's sounds crossing to
+    the audio bus) · bohemiaCityMusic · the three save-panel messages (status line,
+    EXPORT SAVE, IMPORT SAVE) · bohemiaPrefabApproved.
+All seven have been unreachable. Both save paths were dead, INCLUDING flushState --
+the pagehide/freeze/blur path written 8/11 specifically so a phone reaped by Safari
+does not lose the run. And the city's save panel reads "Autosaves survive a reload."
+
+MINE TO OWN: THE DAY PAYS (8/12) and THE TRADING HUB (8/14) both say the purse and
+market "ride the save" and both gates PROVED IT -- on the city page opened DIRECTLY,
+where the city is the top document and there is no shell to post to. On the alpha
+the message went nowhere. VERIFY ON THE REAL SURFACE, 7/18: a side-door probe is a
+lie, and mine were one frame short while showing green.
+
+FOR SOUNDS: your phone buzz across the bridge was dead for the same reason and is
+alive again. FOR whoever owns prefabs: same. Neither lane's files were touched.
+
+FIX IS DERIVED, NOT A LIST: adding one key fixes one of seven and arms the trap for
+the eighth. The guard now tests for a .type OR any bohemia* key, so the next handler
+is covered before it is written. A junk postMessage is still ignored (gated).
+
+SECOND BUG, ALSO MINE, SAME PASS: reportState and flushState each built their own
+copy of the state object. purse landed in one on 8/12, market on 8/14, neither ever
+landed in the other -- so the PHONE path restored the right day with an EMPTY PURSE
+and a valley whose stocks reset to base, which resets every price. There is ONE
+citySnapshot() now and both callers use it. IF YOU ADD A FIELD TO THE CITY SAVE,
+there is only one place to add it, on purpose.
+
+ALSO SHIPPED:
+- THE DEMO GATE (board row 9, 24 checks). Seven gates each proved ONE beat and
+  nobody had ever played the whole demo on the surface he taps. This does, by hand,
+  in one session, touching only what a player can touch: splash -> IN THE GAME ->
+  wake with no objective -> the phone rings -> take it ON THE PHONE -> walk in ->
+  tap the quest author's own option -> PAID -> walk to the swap meet -> TAP A ROW
+  AND BUY -> sleep -> day 2 -> RELOAD THE WHOLE ALPHA and everything came back. It
+  found both bugs above on its first run. It also chains the deploy check row 9
+  asked for: every file the played day LOADED is a path _config.yml publishes.
+  THE FIGHT and CAMP are printed as NOT ASSERTED, out loud, so the row cannot read
+  as closed while the game still stops.
+- ROW 7, the other half. MEASURED both trees: at origin/main, tapping the splash
+  lands you on p-char, THE WARDROBE WORKBENCH. The PEOPLE lane made tapping RUN
+  open the cold open (8/14, good work, their opening_gate is 20/20 on my tree);
+  nothing made the splash land on RUN. Now it does, by TAPPING THE REAL TAB --
+  the city iframe is built lazily inside that click handler, which also sends the
+  player, sends the cast, restores the save and pushes prefabs, so a markup
+  default would have shown an empty panel. Splash -> the game -> the cold open.
+
+ONE THING I LEFT FOR THE OWNER: gates/pages_publish_gate.js (WORLD lane) still
+carries its own inline copy of the _config.yml exclude parser. I extracted it to
+gates/bohemia_pages_publish.js and used that, rather than making a second copy.
+Adopting it there is a one-line change and I did not make it because that lane is
+being edited today.
+
+CAMP IS STILL FROZEN AND I DID NOT BUILD IT. Board row 1 lists it as the last
+missing beat of the day loop and it is tempting. It is [PENDING Paolo] twice over:
+"NO session builds survival mechanics before that verdict" (7/26 survival
+direction) and backlog 1z, "whether Bohemia's camp is one object or a small set;
+how many taps quick means; the refund rate; every number" -- routed to COMBAT for
+the camp and RUN for the surface. Nothing here went near it.
+
+NEXT IN THIS LANE: THE FIGHT is the last unblocked beat of board row 1 (every
+occurrence of "combat" in the city world is a comment or CSS; the handoff at
+ALPHA:6967 is triggered only by postMessage from the hidden run slice) -- that is
+a boundary with COMBAT and needs a word before anybody crosses it. Otherwise: the
+8/13 home-screen work order (manifest + apple metas + icon; grep -c manifest = 0
+across all three surfaces), which is pure RUN and unblocked.
+Records: BOHEMIA_THE_CITY_COULD_NOT_TALK_8_15_26.md
+
+---
+
+
 ART (f3eu53): 8/15 (d) LATEST -- *** THE SIGNBANDS ARE UP (first real cook of
 the volume era) AND THE STADIUM DRAWS ITS OWN YARD LINES. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (eighteenth-pass section)
@@ -61,7 +141,6 @@ already stores 112 frames today (G.hd defaults true), so it does not grow. HD_CA
 stays 768.
 
 --------------------------------------------------------------------------------
-
 SOUND (sound-xk7pjp): 8/15 LATEST -- *** THE MIX EXISTS NOW, AND SEVEN MOMENTS THAT
 WERE SILENT SINCE LAUNCH HAVE CANDIDATES. TAB: MUSIC. ***
 

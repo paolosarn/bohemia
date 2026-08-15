@@ -998,7 +998,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/15x - THE CITY BUILDER DRAWS 4X LESS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/15y - YOUR RUN SURVIVES THE RELOAD</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7102,7 +7102,27 @@ function runEncounterIn(d){
   else fr.addEventListener('load',()=>setTimeout(go,250));
 }
 function combatMsgIn(d){
-  if(!d||!d.type)return false;
+  /* __THE_CITY_CAN_TALK__ -- THIS GUARD SILENTLY KILLED THE CITY'S AUTOSAVE.
+     It was `if(!d||!d.type)return false;`, and SEVEN handlers below are keyed on
+     bohemia* properties with NO .type -- bohemiaCityState (the autosave),
+     bohemiaCitySfx, bohemiaCityMusic, the three save panel messages and
+     bohemiaPrefabApproved. Every one of them returned false on this line.
+     MEASURED 8/15 before changing anything: the same payload saved 0 bytes
+     without a .type and 135 bytes with one. So the city has never autosaved
+     through the alpha, while the save panel told the player "Autosaves survive
+     a reload" -- and my own 8/12 and 8/14 gates missed it because they opened
+     the city page DIRECTLY, where it is the top document and there is no shell
+     to post to (VERIFY ON THE REAL SURFACE, 7/18).
+     DERIVED, NOT A LIST: adding one key would fix one of seven and leave the
+     trap armed for the eighth. The guard's job is to ignore postMessages from
+     unrelated frames, and every handler here answers to a .type OR a bohemia*
+     key, so that is what it tests. A handler added later needs no change. */
+  if(!d)return false;
+  if(!d.type){
+    var _keyed=false;
+    for(var _k in d){ if(_k.indexOf('bohemia')===0){ _keyed=true; break; } }
+    if(!_keyed)return false;
+  }
   if(d.type==='BOHEMIA_RUN_ENCOUNTER'){runEncounterIn(d);return true;}
   if(d.type==='BOHEMIA_RUN_NEED_CAST'){runSendCast();return true;}
   /* CITY CAST: the city asks for a body on boot; send the CAST too, so
@@ -7427,7 +7447,22 @@ function drawLogoBig(){
 }
 document.getElementById('front').addEventListener('click',()=>{
   document.getElementById('front').style.display='none';
-  document.getElementById('app').style.display='flex';buildUI();});
+  document.getElementById('app').style.display='flex';buildUI();
+  /* __THE_GAME_IS_THE_FIRST_THING__ -- DEMO BOARD ROW 7, "the cheapest big win on the board".
+     A new player used to land on the CHARACTER wardrobe workbench and had to
+     find RUN among the tabs to reach the game. Now the entry opens the game.
+     IT TAPS THE REAL TAB rather than setting a class, because the city iframe
+     is built lazily INSIDE that click handler, which also sends the player,
+     sends the cast, restores the city save and pushes approved prefabs. A
+     markup default would show an empty panel and skip all five.
+     A MISSING TAB IS LOUD: one_world_tab_gate.js exists because this fleet
+     wrote `if(t)t.click()` eight times and a renamed tab became a game that
+     quietly does not open. */
+  var runTab=document.querySelector('.tab[data-p="run"]');
+  if(!runTab){ window.__RUN_TAB_MISSING=true;
+    console.error('THE RUN TAB IS GONE from the alpha tab bar: the game cannot open'); }
+  else { runTab.click(); window.__OPENED_ON_THE_GAME=(window.__OPENED_ON_THE_GAME||0)+1; }
+});
 /* ===== V134 WARM THE FIGHT, RE-LANDED SAFELY =====================
    Paolo 8/8: "re-land the handoff warming without the stale-clothing bug (first
    fight can't stall)."

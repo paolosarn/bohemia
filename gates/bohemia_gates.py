@@ -167,6 +167,34 @@ GATES = [
      'is refused while broke, buys, the balance really drops, buying the stock makes the '
      'next one DEARER, and a night in the valley moves the price again. HIS TABLE STILL '
      'WINS and is still empty: the day he names a price it beats the sim', True),
+    ('CITY BRIDGE',    ['node', 'gates/city_bridge_gate.js'],
+     'THE CITY COULD NOT TALK TO THE SHELL, AND THE SAVE PANEL SAID IT COULD. Measured in '
+     'a real browser before anything was changed: postMessage({bohemiaCityState:{day:42}}) '
+     'saved 0 bytes, and the SAME payload with a .type field saved 135 and read back. '
+     'combatMsgIn opened with `if(!d||!d.type)return false;` and SEVEN handlers inside it '
+     'are keyed on bohemia* properties with no .type -- so the autosave, the city sounds, '
+     'the music toggle, all three save-panel messages and the prefab bridge were ALL '
+     'unreachable. The city has never autosaved through the alpha, while its own save '
+     'panel read "Autosaves survive a reload", and my 8/12 and 8/14 gates both asserted '
+     'the purse and market ride the save -- true on the city page opened DIRECTLY, where '
+     'there is no shell to post to, and false where he plays. The fix is DERIVED, not a '
+     'list: the guard tests for a .type OR any bohemia* key, so the eighth handler is '
+     'covered before it is written. This posts every handler the alpha declares (scraped '
+     'from the alpha, never typed here), proves the save, the sound and the prefab bridge '
+     'really work, and proves an unrelated postMessage is still ignored', True),
+    ('DEMO',           ['node', 'gates/demo_gate.js'],
+     'DEMO BOARD row 9: seven gates each proved one beat of the demo and NOBODY had ever '
+     'played the whole thing on the surface Paolo taps. This does, by hand, in ONE session, '
+     'touching only what a player can touch: tap the splash and land IN THE GAME rather '
+     'than on the wardrobe workbench (row 7), wake with no objective, the phone rings, take '
+     'the job ON THE PHONE, walk into the building, tap the quest author\'s own option, GET '
+     'PAID, walk to the swap meet the overmap placed, TAP A ROW AND BUY, sleep, day 2 -- '
+     'then RELOAD THE WHOLE ALPHA and assert the day, the purse and the valley\'s stocks '
+     'all came back. It found two real bugs on its first run and both are fixed. It also '
+     'chains the deploy check row 9 asked for: every file the played day actually loaded is '
+     'a path _config.yml publishes, read through the shared resolver, so a demo that works '
+     'on disk and 404s on the real link goes red here. THE FIGHT and CAMP are named as NOT '
+     'ASSERTED out loud, so this row can never read as closed while the game still stops', True),
     ('CONTINUITY',     ['node', 'gates/continuity_gate.js'],
      'Paolo 8/12: "we are trying tk create the best funnest deepest videogame ever". Depth '
      'is not more surface, it is yesterday still being true today -- so it was MEASURED '
