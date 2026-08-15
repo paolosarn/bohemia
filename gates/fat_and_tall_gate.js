@@ -89,5 +89,34 @@ ok('anything at plate level stays at plate level (ground_z ' + GZ + ')',
      tallest / w > 0.85);
 }
 
+/* ---- ROOFS (Paolo 8/15) --------------------------------------------------
+   "a lot of them just like look exactly the same ... They're all missing roofs
+    and textures for their walls and stuff"
+   From a 3/4 view the ROOF is the biggest surface on every building, and it was
+   the one surface carrying no information at all -- which is precisely why sixty
+   different subjects read the same. */
+{
+  const F = fs.readFileSync(path.join(ROOT, 'tools', 'bohemia_district_hero_factory.py'), 'utf8')
+              .replace(/^\s*#.*$/gm, '');
+  ok('every building gets a roof dressed, not a flat-shaded lid', /def _dress_roofs\(/.test(F));
+  ok('a flat roof has a PARAPET — without one a building is an open-topped box',
+     /parapet|ph\s*=\s*0\.55/.test(F) || /scene\.box\(\(x0, y0, z\)/.test(F));
+  ok('there is rooftop plant (HVAC), the most recognisable thing on an American roof',
+     /uw\s*=\s*min/.test(F) && /ud\s*=\s*min/.test(F));
+  ok('and the small stuff — vents and curbs — so a roof never reads empty',
+     /0\.26, 0\.26/.test(F));
+  ok('roofs are VARIED BY HASH, which is what answers "they all look the same"',
+     /def rnd\(i\)/.test(F) && /crc32/.test(F));
+  ok('ground, kerbs and aprons are never mistaken for roofs',
+     /if z < 2\.4/.test(F),
+     'dressing a slab of ground with HVAC is the failure mode of a top-face scan');
+  ok('the dressing runs BEFORE the widening, so a parapet grows with its building',
+     /* COMPARE CALL TO CALL. The first cut compared the _dress_roofs CALL against
+        indexOf('_fat_and_tall(scene)') -- which matches the DEFINITION line, and
+        a definition always precedes its call site. lastIndexOf finds the call. */
+     F.indexOf('_dress_roofs(scene, d)') > 0 &&
+     F.indexOf('_dress_roofs(scene, d)') < F.lastIndexOf('_fat_and_tall(scene)'));
+}
+
 console.log('\nFAT AND TALL GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

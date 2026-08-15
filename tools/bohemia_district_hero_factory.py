@@ -133,6 +133,107 @@ ONE_STOREY = 2.75          # measured off the suburb house, not chosen
 GROUND_Z   = 0.15          # anything at or under this is the plate, never lifted
 FAT        = 1.30          # footprint widening toward the cell edge
 TALL_MUL   = 1.25
+# ============================================================================
+# ROOFS AND WALL TEXTURE (Paolo 8/15) — "they all look exactly the same"
+# ============================================================================
+# HIS WORDS: "a lot of them just like look exactly the same and like I'm not
+# saying has to be super colorful but like yeah they are. They're all missing
+# roofs and textures for their walls and stuff like."
+#
+# HE IS DESCRIBING A REAL GAP, NOT A COLOUR PREFERENCE. Sixty heroes were built
+# as clean prisms with a flat-shaded top, so from a 3/4 view -- which is the only
+# view this game has -- THE ROOF IS THE BIGGEST SURFACE ON EVERY BUILDING and it
+# was the one surface carrying no information at all. That is why they read the
+# same: the largest thing on screen is identical from tile to tile.
+#
+# WHAT A REAL FLAT ROOF HAS, and this is the whole list, in order of how much of
+# the roof it covers:
+#   PARAPET     the wall carries up past the roof deck. It is what gives a flat
+#               roof an EDGE, and without it a building reads as an open-topped
+#               box. Every commercial flat roof in the valley has one.
+#   HVAC        packaged rooftop units, the single most recognisable thing on an
+#               American commercial roof. Big, boxy, and they sit in a rough row.
+#   CURBS/VENTS smaller boxes and stub pipes scattered between the units.
+#   STAIR HEAD  the roof-access penthouse, one per building, at an edge.
+# WALL BANDING: a shadow line at the parapet and a band at the base, which is
+# what a tilt-up panel joint and a foundation reveal actually look like.
+#
+# ONE PASS OVER THE SET, VARIED BY HASH so no two roofs are furnished the same --
+# that is the part that answers "they all look exactly the same". Sixty heroes
+# cannot be re-dressed by hand in a turn, and the variation has to be mechanical
+# to be believable across sixty tiles.
+def _dress_roofs(scene, key):
+    """Put a real roof on every building in a scene, deterministically varied."""
+    import zlib
+    h0 = zlib.crc32(key.encode('utf8'))
+    def rnd(i):
+        return ((zlib.crc32((key + ':' + str(i)).encode('utf8')) >> 7) & 0xffff) / 65535.0
+
+    # find the TOP faces: flat, horizontal, and high enough to be a roof rather
+    # than a kerb or a slab of ground.
+    roofs = []
+    for verts, _uv, _n, m in list(scene.faces):
+        zs = [v[2] for v in verts]
+        if max(zs) - min(zs) > 0.01:
+            continue                                   # not horizontal
+        z = zs[0]
+        if z < 2.4:
+            continue                                   # ground, kerb, apron: not a roof
+        xs = [v[0] for v in verts]; ys = [v[1] for v in verts]
+        w = max(xs) - min(xs); d = max(ys) - min(ys)
+        if w < 1.2 or d < 1.2:
+            continue                                   # too small to stand anything on
+        roofs.append((min(xs), min(ys), w, d, z, m))
+
+    # biggest first, and cap the work: the eye reads the big roofs, and dressing
+    # a hundred tiny ones is cost with no picture.
+    roofs.sort(key=lambda r: -(r[2] * r[3]))
+    for i, (x0, y0, w, d, z, m) in enumerate(roofs[:6]):
+        base = m.get('c') if isinstance(m, dict) and 'c' in m else (120, 116, 108)
+        try:
+            base = tuple(int(v) for v in base)
+        except Exception:
+            base = (120, 116, 108)
+        dk = tuple(max(0, int(v * 0.72)) for v in base)
+        lt = tuple(min(255, int(v * 1.18)) for v in base)
+
+        # PARAPET: a low wall right around the roof edge. This is the single
+        # biggest read -- it turns an open box into a building.
+        t = min(0.34, max(0.16, w * 0.05))
+        ph = 0.55 + rnd(i * 7) * 0.45
+        scene.box((x0, y0, z), (w, t, ph), {'c': lt})
+        scene.box((x0, y0 + d - t, z), (w, t, ph), {'c': dk})
+        scene.box((x0, y0, z), (t, d, ph), {'c': dk})
+        scene.box((x0 + w - t, y0, z), (t, d, ph), {'c': lt})
+
+        # HVAC: packaged units in a rough row, sized off the roof so a small
+        # building gets small plant and a big one gets big plant.
+        n = 1 + int(rnd(i * 11) * 3)
+        uw = min(1.5, max(0.55, w * 0.16))
+        ud = min(1.1, max(0.45, d * 0.20))
+        for k in range(n):
+            ux = x0 + t + 0.3 + (w - 2 * t - uw - 0.6) * ((k + 0.5) / n)
+            uy = y0 + d * (0.32 + rnd(i * 13 + k) * 0.30)
+            if uy + ud > y0 + d - t:
+                uy = y0 + d - t - ud - 0.05
+            scene.box((ux, uy, z), (uw, ud, 0.42 + rnd(i * 17 + k) * 0.30),
+                      {'top': {'c': lt}, 'px': {'c': dk}, 'py': {'c': dk},
+                       'nx': {'c': base}, 'ny': {'c': base}})
+
+        # VENTS + CURBS: the small stuff that stops a roof reading as empty
+        for k in range(2 + int(rnd(i * 19) * 3)):
+            vx = x0 + t + rnd(i * 23 + k) * max(0.1, (w - 2 * t - 0.4))
+            vy = y0 + t + rnd(i * 29 + k) * max(0.1, (d - 2 * t - 0.4))
+            scene.box((vx, vy, z), (0.26, 0.26, 0.2 + rnd(i * 31 + k) * 0.3), {'c': dk})
+
+        # STAIR HEAD: one roof-access penthouse, at an edge, on the bigger roofs
+        if w * d > 9 and rnd(i * 37) > 0.35:
+            sw = min(1.3, w * 0.22); sd = min(1.1, d * 0.22)
+            scene.box((x0 + w - t - sw - 0.15, y0 + t + 0.15, z), (sw, sd, 1.0 + rnd(i * 41) * 0.5),
+                      {'top': {'c': lt}, 'px': {'c': dk}, 'py': {'c': dk},
+                       'nx': {'c': base}, 'ny': {'c': base}})
+    return scene
+
 def _fat_and_tall(scene):
     """Push every hero out to its cell edges and up by a storey, in place.
 
@@ -3917,6 +4018,9 @@ def main():
         # square is sized from the set's own extents a few lines down, so a hero
         # that grew AFTER that measurement would grow straight off its own frame.
         # (Written the wrong way round first, caught before it shipped.)
+        # HIS 8/15 ROOF RULING, before the widening so the parapet grows with the
+        # building it belongs to rather than floating inside it.
+        _dress_roofs(scene, d)
         _fat_and_tall(scene)
         # BIGGER (Paolo 8/2: "I want them taller. I want them wider... big as fuck as big
         # as we can have it"). The sprite frames TIGHT on the building now that the parking
