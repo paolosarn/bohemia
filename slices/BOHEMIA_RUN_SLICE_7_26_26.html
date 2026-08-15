@@ -748,9 +748,25 @@ function trackAt(gx,gy){
   if(gy<0||gx<0||gy>=NAMEG.length||gx>=NAMEG[0].length) return false;
   return String(NAMEG[gy][gx]||'').toLowerCase().indexOf('running track')>=0;
 }
+/* VOLUME (8/15, second pass): the stadium names its own yard lines - 'field
+   markings' cells - and turf_line is a line NETWORK WANG: the piece is named
+   by which neighbours continue the line, so a marking cell draws its chalk
+   fragment joined to the next one, and the line stubs out where the world
+   says it ends. */
+function fieldMarkAt(gx,gy){
+  if(gy<0||gx<0||gy>=NAMEG.length||gx>=NAMEG[0].length) return false;
+  return String(NAMEG[gy][gx]||'').toLowerCase().indexOf('field markings')>=0;
+}
 function drawTurfform(gx,gy,X,Y,S){
   var n=String(NAMEG[gy][gx]||'').toLowerCase(), name=null;
-  if(n.indexOf('turf')>=0 && n.indexOf('dead')>=0){
+  if(n.indexOf('field markings')>=0){
+    var mk='';
+    if(fieldMarkAt(gx,gy-1)) mk+='N';
+    if(fieldMarkAt(gx+1,gy)) mk+='E';
+    if(fieldMarkAt(gx,gy+1)) mk+='S';
+    if(fieldMarkAt(gx-1,gy)) mk+='W';
+    name = mk ? 'turf_line_'+mk : 'turf_stripe_a'+th(0,gy>>1,3);
+  } else if(n.indexOf('turf')>=0 && n.indexOf('dead')>=0){
     name='turf_stripe_'+((gy%2===0)?'a':'b')+th(0,gy>>1,3);
   } else if(n.indexOf('court')>=0 && n.indexOf('wall')<0){
     var ck='';
@@ -805,6 +821,23 @@ function drawSfform(gx,gy,X,Y,S){
   var im=TILEFORM_IMG[name];
   if(!im||!im.complete||!im.naturalWidth) return false;
   ctx.drawImage(look(im),X,Y,S,S);
+  /* VOLUME (8/15): THE SIGNBAND. Downtown's glass runs 2+ rows and the top
+     row touches the roof, so the dead sign fascia lives ON the top glass row:
+     the band (source rows 10..37) translates to the cell top, 1:1, no
+     resample - fascia above, glazing continuing below. Ghost letters read
+     DARKER (the salvaged cans kept the sun off the paint); one band colour
+     per 4-cell run, content per 2-cell shop segment; never lit, never words. */
+  if(n.indexOf('awning')<0){
+    var abv=gy>0?String(NAMEG[gy-1][gx]||'').toLowerCase():'';
+    if(abv.indexOf('storefront')<0){
+      var sc=th(gx>>2,gy,3), sv=th(gy,gx>>1,9);
+      var sb=TILEFORM_IMG[sv===8 ? 'sb_broken_'+(sc&1) : sv>=5 ? 'sb_ghost_'+sc : 'sb_blank_'+sc];
+      if(sb&&sb.complete&&sb.naturalWidth){
+        var bh=Math.round(S*28/44);
+        ctx.drawImage(look(sb),0,10,44,28,X,Y,S,bh);
+      }
+    }
+  }
   return true;
 }
 /* EIGHTH WIRED FAMILY (8/11): TF-ART-014 the dead crop fields. The farm names

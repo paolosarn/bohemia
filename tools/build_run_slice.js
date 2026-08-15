@@ -356,7 +356,13 @@ grabPieces('banks/tileforms/TF-ART-005_CANDIDATES_8_8_26.json',
    'court_line_EW', 'court_line_SW', 'court_line_NES', 'court_line_NEW',
    'court_line_NSW', 'court_line_ESW', 'court_line_NESW',
    'track_lane_NS', 'track_lane_EW', 'track_lane_NE', 'track_lane_NW',
-   'track_lane_ES', 'track_lane_SW']);
+   'track_lane_ES', 'track_lane_SW',
+   /* VOLUME 8/15 (second pass): the stadium's own 'field markings' cells
+      draw the turf yard-line network */
+   'turf_line_N', 'turf_line_E', 'turf_line_S', 'turf_line_W',
+   'turf_line_NE', 'turf_line_NS', 'turf_line_NW', 'turf_line_ES',
+   'turf_line_EW', 'turf_line_SW', 'turf_line_NES', 'turf_line_NEW',
+   'turf_line_NSW', 'turf_line_ESW', 'turf_line_NESW']);
 grabPieces('banks/tileforms/TF-ART-006_CANDIDATES_8_8_26.json',
   ['rim_N', 'rim_E', 'rim_S', 'rim_W', 'rim_NE', 'rim_NS', 'rim_NW', 'rim_ES',
    'rim_EW', 'rim_SW', 'rim_NES', 'rim_NEW', 'rim_NSW', 'rim_ESW', 'rim_NESW',
@@ -379,6 +385,11 @@ grabPieces('banks/tileforms/TF-ART-013_CANDIDATES_8_8_26.json',
   ['mh_skirt_0', 'mh_skirt_1', 'mh_skirt_2', 'mh_skirt_vent_0', 'mh_skirt_missing_0',
    /* VOLUME 8/15: the tow hitch still on every tongue end */
    'mh_hitch_0']);
+/* VOLUME 8/15 (second pass): the dead signbands above the storefront glass,
+   cooked from harvested family palette - tools/tfcook/TF-ART-008_signband_cook.py */
+grabPieces('banks/tileforms/TF-ART-008_SIGNBAND_VOLUME_8_15_26.json',
+  ['sb_blank_0', 'sb_blank_1', 'sb_blank_2', 'sb_ghost_0', 'sb_ghost_1',
+   'sb_ghost_2', 'sb_broken_0', 'sb_broken_1']);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('

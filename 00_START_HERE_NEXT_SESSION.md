@@ -1,4 +1,21 @@
-ART (f3eu53): 8/15 (c) LATEST -- *** THE PAINTED LINES ARE ON: ghost court
+ART (f3eu53): 8/15 (d) LATEST -- *** THE SIGNBANDS ARE UP (first real cook of
+the volume era) AND THE STADIUM DRAWS ITS OWN YARD LINES. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (eighteenth-pass section)
+
+TAB: ART, WIRED IN THE GAME - the storefront card is reshot: dead fascia
+bands over the glass, ghost letters darker where the cans were salvaged, one
+skewed dead can. Cooked from the family palette (cook + REUSE/TASTE checks in
+tools/tfcook/TF-ART-008_signband_cook.py). Yard lines: 'field markings'
+cells draw the turf_line NETWORK (measured: network semantics, not edge).
+
+MEASURED LESSON worth keeping: downtown glass is 2+ rows and touches roof -
+"the wall above the storefront" does not exist anywhere. Probe before wiring.
+
+REMAINING LEDGER: rail turnouts (real cook), sf pilasters + smashed pair
+(cook), mh awnings/freeway/banking/clarifier/deep_wet all BLOCKED ON WORLD
+or weather. The line sets are DONE - every painted line in the bank draws.
+
+ART (f3eu53): 8/15 (c) -- *** THE PAINTED LINES ARE ON: ghost court
 rings and faded track lanes. The reuse well was NOT dry - the 005 bank held
 21 unwired line pieces. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (seventeenth-pass section)
