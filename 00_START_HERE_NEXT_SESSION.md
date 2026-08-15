@@ -1,3 +1,35 @@
+CHARACTER (character-0lurbs): 8/15 -- 2X STEP 1+2 IS BUILT AND PROVED. NOT YET APPLIED,
+DELIBERATELY. tools/bohemia_rig_double.js (6/0, mutation-tested).
+
+Doubles a BAKED-shaped package: one painted pixel -> a 2x2 block, and EVERY coordinate x2
+(skeleton + pose). Run on his real rig:
+    56 -> 112x112 | 8 facings | 96 part lists | 5,248 painted pixels -> 20,992 | 240 joints
+
+*** THE ONE CLAIM THAT MATTERS IS PROVED, NOT ASSERTED. *** RIG LAW says his painted regions
+are sacrosanct. The migration is safe under that law ONLY because the transform is lossless
+and exactly invertible. So the tool HALVES ITS OWN OUTPUT BACK and requires byte-identical
+equality with what went in, on every part of every facing. Mutation-tested both ways: nudge
+one pixel by one and two assertions fail; stop doubling the coordinates and one fails.
+
+*** WHY IT IS NOT APPLIED YET, AND DO NOT "JUST TURN IT ON". *** The ruling is explicit that
+steps 1-4 land TOGETHER (double pixels, double coordinates, Scale2x OFF, 1px outline) and
+that the result is "everything looks the same but sharper". A HALF-MIGRATED RIG DOES NOT LOOK
+WORSE, IT LOOKS LIKE GARBAGE: doubled art bound to joints at half their true position. The
+flip is one commit or it is not a flip.
+
+WHAT STEP 2 STILL OWES, named so nobody thinks this file covered it: garment/hair anchors
+(PD layers on the 24-grid + G24_OX/OY offsets) and animation keyframes live in other
+structures. Same treatment, same round-trip proof, same commit as the flip.
+ALSO IN THAT COMMIT: re-bless the ~18 scale/rig gates on doubled numbers (every declared
+width doubles and must stay INTEGER ON THE CONTENT BOX -- the 8/6 lesson -- hair picker tiles
+and the 8-facing spin bar included). A GATE MUST NEVER OUTRANK A RULING: re-bless with a
+comment naming his ruling, never delete a check.
+MEMORY IS ALREADY CLEARED: records/BOHEMIA_2X_MEMORY_MEASURED_8_15_26.txt -- the cache
+already stores 112 frames today (G.hd defaults true), so it does not grow. HD_CACHE.max
+stays 768.
+
+--------------------------------------------------------------------------------
+
 SOUND (sound-xk7pjp): 8/15 LATEST -- *** THE MIX EXISTS NOW, AND SEVEN MOMENTS THAT
 WERE SILENT SINCE LAUNCH HAVE CANDIDATES. TAB: MUSIC. ***
 
