@@ -18573,3 +18573,25 @@ P0-WALK (migrate sound to the visible surface, repoint the gate the way
 dayloop_gate does it) + SHARED -3 (extend the reachability census: 17
 LOADED-ONLY rows on 8/6, THIRTY today — nameless phantoms become illegal)
 + SHARED -2b (the flaky crowd gate had no owner). Ledger sweep 9.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/14 (b) — TWICE THE PIXELS ON THE PEOPLE (Paolo,
+LOCKED, off a cutscene — laws/BOHEMIA_ADDENDUM_TWICE_THE_PIXELS_8_14_26
+.md; routed CHARACTER 2X, top of that lane's queue). He said the tiles
+look higher quality than the people and he was exactly right: the rig is
+authored at 56px (drawChar's `const S=W/56`) and G.hd defaults TRUE, so
+every character frame is already machine-enlarged by Scale2x — upscaled
+people standing next to native tiles. RULED: canonical character
+resolution 56 -> 112, native. HIS TWO ASKS ARE ONE OPERATION — the black
+border is renderer-DERIVED, not painted into his art, so authoring at 112
+while still deriving a 1px outline makes the border half as thick
+relative to the body for free. NOTHING RESETS, and that is provable: his
+painted pixels double EXACTLY (1px -> 2x2, lossless, so RIG LAW's
+sacrosanct regions survive by construction), every coordinate x2 (bones,
+region maps, garment/hair anchors, animation keys), Scale2x off, outline
+re-derived — steps that ship ALONE first, with per-item detail as normal
+cooks afterward, forever. Eighteen existing scale gates are the safety
+net; re-bless numbers, never delete checks. MEASURE FIRST: 4x pixels per
+frame vs the ~224MB iOS ceiling (canvas_memory_gate). NOT demo-blocking —
+it must not displace RUN P0-DOOR or SOUNDS P0-WALK. ART is NOT involved
+(the rig is CHARACTER's law; one system, one session).

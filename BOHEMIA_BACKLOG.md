@@ -5705,6 +5705,56 @@ FS. FIELD SURGERY SFX MOMENTS (routed 8/13 — laws/BOHEMIA_ADDENDUM_
 ## next session: the rig-check gate assertion + the shading-separation gate
 ## assertion, same turn. AUDIO MOVED OUT 7/29: music/SFX belong to the new
 ## SOUNDS lane above — this lane is bodies, clothing, animation only.)
+2X. *** TWICE THE PIXELS ON THE PEOPLE (Paolo 8/14, LOCKED, watching a
+   cutscene — laws/BOHEMIA_ADDENDUM_TWICE_THE_PIXELS_8_14_26.md. TOP OF
+   THIS LANE'S QUEUE. His words: "the character models need twice as many
+   pixels and the black border has to be thinner, like half as thin...
+   the tiles are higher quality than the people... set up a game plan so
+   everything is the same progress, nothing has to reset.")
+   HE WAS RIGHT AND HERE IS THE PROOF HE COULD NOT SEE: the rig is
+   authored at FIFTY-SIX pixels (drawChar: `const S=W/56`) and `G.hd`
+   defaults TRUE, so every frame is already machine-enlarged to 112 by
+   Scale2x. The people are UPSCALED art standing next to NATIVE tiles.
+   THE RULING: canonical character resolution 56 -> 112, native.
+   HIS TWO ASKS ARE ONE OPERATION: the black border is renderer-DERIVED
+   (the renderer outlines a limb's outer and inner column), not painted
+   into his art — so authoring at 112 and still deriving the outline at
+   ONE pixel makes the border exactly half as thick relative to the body,
+   free, as a consequence. There is no separate outline job.
+   THE MIGRATION, IN THIS ORDER, AND DO NOT MIX THEM: (1) his painted
+   pixels double EXACTLY, each pixel -> a 2x2 block — lossless, no
+   interpretation, which is how RIG LAW's sacrosanct regions stay intact
+   BY CONSTRUCTION; (2) every coordinate x2 — bones, region maps, garment
+   and hair anchors, animation keyframes — one mechanical pass; (3) turn
+   Scale2x OFF (that is where the visible jump comes from, and it hands
+   back per-frame CPU); (4) derive the outline at 1px; (5) ONLY THEN,
+   progressively and forever, real detail per item as normal cooks (the
+   fade-blends-into-skin-tone item the hair-and-shape law marks [UNBUILT]
+   becomes possible). Steps 1-4 ship ALONE first: everything looks the
+   same but sharper and nothing regresses. Mixing step 5 in turns a
+   provable migration into a redesign.
+   THE SUITE IS THE PROOF, NOT THE OBSTACLE: eighteen gates already
+   measure character scale/rig fidelity/canvas ratios (rig_is_law,
+   rig_no_drift, bone_scale, clothes_follow, head_follows_rig,
+   face_feature_scale, hair, bodyvar, canvas_scale, canvas_memory,
+   human_scale, scale_truth, render_like_the_rig, combat_scale...). The
+   doubling is correct when all of them are green on RE-BLESSED numbers —
+   every declared width doubles and must stay integer on the CONTENT box
+   (the 8/6 lesson), hair picker tiles and the 8-facing spin bar
+   included. Re-bless with a comment naming his ruling; never delete a
+   check. A GATE MUST NEVER OUTRANK A RULING.
+   MEASURE BEFORE THE FLIP: 4x the pixels per frame against the measured
+   ~224MB iOS ceiling, with HD_CACHE at 768 frames. canvas_memory_gate
+   exists for this. If it comes back tight the answer is cache budget,
+   NOT a smaller rig — the resolution is ruled.
+   NOT DEMO-BLOCKING: do not let this displace RUN P0-DOOR / SOUNDS
+   P0-WALK. It changes no gameplay wiring, so it is safe in parallel, and
+   if it misses the demo the demo loses nothing.
+   | every scale gate green on re-blessed numbers + a side-by-side of the
+   same character before/after at the same display size + memory measured
+   under the ceiling | detail per item = his normal thumbs, later | YES —
+   the before/after pair is the judgeable, and the thinner border is the
+   thing to look at. ***
 FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
    we're gonna need to make animations for this and yep" — laws/BOHEMIA_
    ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md §7-8): one clip set for the
