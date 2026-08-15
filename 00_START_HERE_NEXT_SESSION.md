@@ -883,8 +883,53 @@ HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/15 (m) LATEST -- *** THE STREET TALKS. AND THE REASON IT DID
-NOT IS THE WORST REACH FAILURE THIS LANE HAS FOUND. ***
+PEOPLE (7h9sfy): 8/16 (a) LATEST -- *** HIS BUG, REPORTED LIVE, AND IT WAS TWO
+BUGS STACKED. REROLL GIVES YOU A HOUSE AGAIN. ***
+
+PAOLO, VERBATIM: "I pressed re-roll the seed button on the run tab and now I
+can't find the house I'm supposed to be at what's up with that."
+HE WAS RIGHT, AND IT WAS WORSE THAN HE THOUGHT.
+
+BUG 1 -- REROLL REPLACED THE WORLD AND LEFT EVERYTHING DERIVED FROM IT STANDING.
+Measured across one press:
+    seed   2691674296 -> 3182853632   (a new valley)
+    cell   48,48      -> 52,48        (a new neighbourhood)
+    hx,hy  6205,6271  -> 6205,6271    (HE NEVER MOVED)
+    HOME   6219,6256  -> 6219,6256    (a house in a valley that is gone)
+Walk again and his own front door was *** 549 TILES AWAY ***, in a cell he was
+not standing in. HOME anchors on LANDED -- where you dropped in -- so a stale
+LANDED also drags the anchor back to the centre of the cell, which is the exact
+regression homeFind's OWN COMMENT records from 8/11: "HOME 55 cells north of the
+drop-in ... indistinguishable from not having one."
+
+BUG 2, UNDERNEATH IT -- AND REROLL PUT HIM ON THE STRIP, WHICH HAS NO HOUSES.
+The handler carried a COPY of `city.x=L.stripX; city.y=Math.round(96*0.5)` --
+word for word the line __WORKING_DISTRICT__'s own comment names as the 8/2 bug
+("the literal middle of the valley, on the Strip, every run") and keeps ONLY as
+a last-resort fallback. Boot was fixed on 8/2. *** REROLL KEPT THE DEAD VERSION,
+because the fix lived in an ANONYMOUS IIFE that nothing else could call. *** So
+after fixing bug 1 alone he still had NO HOME AT ALL: district 'strip', homeFind
+scanned the cell, correctly found nothing, and there was nothing to find.
+
+*** A COPIED LINE IS A FIX THAT ONLY HALF-SHIPPED. *** placeWorkingDistrict() is
+a named function now, called at boot AND at reroll, so the two cannot disagree
+again. If a fix needs to happen in two places, the second place will be missed;
+give it a name and call it twice.
+
+MEASURED AFTER: five consecutive presses, five different seeds, every one a
+SUBURB with a house 6 to 48 tiles away. Before: the Strip, or 549 tiles.
+
+GATE: reroll_gate.js, 8 claims, presses the button he pressed FIVE times through
+the real link. Both bugs mutation-proved red: restore the Strip line and 5 of 5
+rerolls leave him homeless; stop clearing the stale state and the old valley's
+HOME survives the press.
+
+LANE NOTE: this is a fix in the CITY lane's file. It is his live bug so it was
+fixed the turn he reported it. Two lines in the reroll handler plus naming an
+existing IIFE; no city logic or render maths touched.
+
+PEOPLE (7h9sfy): 8/15 (m) -- *** THE STREET TALKS. AND THE REASON IT DID NOT IS
+THE WORST REACH FAILURE THIS LANE HAS FOUND. ***
 
 *** MEASURED: `linesFor` WAS CALLED ZERO TIMES IN BOHEMIA_CITY_WORLD.html. ***
 That is the frame the player is looking at when they tap RUN. 244 written barks

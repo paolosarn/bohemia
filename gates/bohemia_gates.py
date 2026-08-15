@@ -960,6 +960,18 @@ GATES = [
      'it later" needs a place for later, so the WORDS tab must exist, be wired into the '
      'alpha, live where Pages publishes, fetch nothing, and be CURRENT with its sources by '
      'fingerprint -- a stale tab is the same failure wearing a green', False),
+    ('REROLL',         ['node', 'gates/reroll_gate.js'],
+     'HIS BUG, REPORTED LIVE 8/15: "I pressed re-roll the seed button on the run tab and now I '
+     'can\'t find the house I\'m supposed to be at." TWO bugs stacked. (1) REROLL replaced the '
+     'world and left everything derived from it standing -- new seed, new neighbourhood, and he '
+     'never moved: his own front door measured 549 TILES AWAY in a cell he was not in, because '
+     'HOME anchors on LANDED and LANDED still pointed into the old valley. (2) And it put him on '
+     'the STRIP, which has no houses -- the handler carried a COPY of the exact line '
+     '__WORKING_DISTRICT__ names as the 8/2 bug and keeps only as a last-resort fallback. Boot '
+     'was fixed on 8/2; reroll kept the dead version because the fix lived in an anonymous IIFE '
+     'nothing could call. A COPIED LINE IS A FIX THAT ONLY HALF-SHIPPED. One resolver now, '
+     'called from both. This presses the button he pressed FIVE times and demands he lands '
+     'somewhere he can live with a house he can find', False),
     ('CITY BARKS',     ['node', 'gates/city_barks_gate.js'],
      'THE WORST REACH FAILURE THIS LANE HAS FOUND: linesFor was called ZERO TIMES in '
      'BOHEMIA_CITY_WORLD.html -- the frame the player looks at when they tap RUN. 244 written '

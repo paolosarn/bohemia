@@ -14549,7 +14549,16 @@ const city={x:0,y:0};                  // marker on overmap slots
    Current setting is mirrored in records/BOHEMIA_WORKING_DISTRICT.txt so another
    session can read it without decoding this blob. */
 const WORKING_DISTRICT='suburb';
-(function(){
+/* NAMED, BECAUSE REROLL NEEDED IT AND DID NOT HAVE IT (Paolo 8/15: "I pressed
+   re-roll the seed button on the run tab and now I can't find the house I'm
+   supposed to be at"). This was an anonymous IIFE that ran once at boot, so the
+   reroll handler could not call it -- and instead carried a COPY of the FALLBACK
+   line below, `city.x=L.stripX; city.y=Math.round(96*0.5)`, which is the exact
+   line this block's own comment says was the 8/2 bug. Rerolling therefore put
+   him on the STRIP every time, and the Strip has no houses: measured, homeFind
+   scanned the new cell and correctly found nothing, so he had no home at all.
+   One resolver, called at boot and at reroll. */
+function placeWorkingDistrict(){
   /* nearest cell of that type to the valley centre. A FULL scan in a fixed order
      with ties broken by scan order: deterministic, so the run opens the same cell
      every time and his bearings never move under him between sessions. */
@@ -14563,7 +14572,8 @@ const WORKING_DISTRICT='suburb';
   /* FALLBACK: a district type not placed in this valley must never leave the
      player nowhere, so the old Strip spawn is kept as the safety net. */
   const L=om.layout; city.x=L.stripX; city.y=Math.round(96*0.5);
-})();
+}
+placeWorkingDistrict();
 
 // ---- CONTINUOUS FINE WORLD (7/6/26, CONTINUOUS WALK LAW) ----
 // The fixed 3x3 drop-in patch is DEAD. The fine layer is ONE UNBROKEN WORLD:
@@ -18937,7 +18947,23 @@ document.getElementById('reroll').addEventListener('click',()=>{
   seed=(seed*1103515245+12345)>>>0;
   EDITS=CE.makeEdits(); CBpersist(); CB.sel=null;   /* ZOOM-BUILD: new valley, edits reset */
   om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed);
-  const L=om.layout; city.x=L.stripX; city.y=Math.round(96*0.5);   // re-place marker for the new layout
+  placeWorkingDistrict();          // the SAME placement boot uses: a cell you can live in
+  /* *** NEW VALLEY, NEW LIFE (Paolo 8/15: "I pressed re-roll the seed button on
+     the run tab and now I can't find the house I'm supposed to be at"). ***
+     REROLL rebuilt the world and re-placed the city marker and left EVERYTHING
+     DERIVED FROM THE OLD WORLD standing. Measured across one press:
+       seed   2691674296 -> 3182853632   (new valley)
+       cell   48,48      -> 52,48        (new neighbourhood)
+       hx,hy  6205,6271  -> 6205,6271    (HE NEVER MOVED)
+       HOME   6219,6256  -> 6219,6256    (a house in a valley that is gone)
+     and once he walked again, his own front door was 549 TILES AWAY in a cell he
+     was not in. HOME is anchored on LANDED -- where you dropped in -- so a stale
+     LANDED also drags the anchor back to the centre of the cell, which is the
+     exact 8/11 regression its own comment describes: "HOME 55 cells north of the
+     drop-in ... indistinguishable from not having one."
+     Three variables, cleared at the ONE place the world is replaced. The next
+     drop-in writes LANDED, and homeFind then finds the house in front of him. */
+  LANDED=null; HOME=null; HOME_KEY=null;   /* __REROLL_REHOMES__ */
   MODE='city'; chunkCache.clear(); metaCache.clear(); __subCache.clear();               // new seed = new world, drop the stream
   if(UNDERV){ UNDERV=false; ub.classList.remove('on'); }            // reroll always returns to surface
   updHud(); render();
