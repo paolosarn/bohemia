@@ -67,6 +67,35 @@ direction) and backlog 1z, "whether Bohemia's camp is one object or a small set;
 how many taps quick means; the refund rate; every number" -- routed to COMBAT for
 the camp and RUN for the surface. Nothing here went near it.
 
+PART TWO, SAME DAY, FOUND BY THE SAME GATE: THE CITY WAS NEVER INTRODUCED TO ITS
+OWN SAVE. Fixing the bridge was not enough. Measured: save 2755 bytes holding day 2
+with purse and market, survives the reload in localStorage, and the world came back
+day 1 / purse 0 / market null with T.day=1 -- applyRestore NEVER CALLED. Called by
+hand a moment later with that exact payload it returns true and restores everything.
+THE HANDOFF WAS A BET: the shell GUESSED when the city was ready with ONE setTimeout
+320ms after the iframe load, no ack, no retry, against a 1.6 MB page that grows
+daily. And the boot guessed from the other side -- `setTimeout(... if(!DAY_RESTORED)
+showWake() ..., 60)`, SIXTY MILLISECONDS to decide "is this a new game", so a
+returning player got a DAY 1 card thrown over their own run.
+NOW THE CITY ASKS, same idiom the file already used for BOHEMIA_CITY_NEED_PLAYER:
+  city  -> shell : {bohemiaCityNeedRestore:1}
+  shell -> city  : {bohemiaCityRestore:<data>} or {bohemiaCityRestoreNone:1}
+"No save" is an answer too -- that is what the 60ms timer had to guess about. The
+old 320ms push is left in: applyRestore is a pure apply, so if it wins, the
+handshake just finds the day already restored. Proven 3 runs of 3, because a race
+proved once is not proven.
+
+*** FOR EVERY LANE: run_gate.js IS GREEN AGAIN, 126/0. *** ART flagged it to this
+lane (it was crashing on main, so every lane's full-suite run was red). TWO causes,
+both measured: (1) the cold open overlay sits over the run panel from frame one --
+the gate now taps the same SKIP a player taps; (2) under that, #runFrame came back
+390x150, so the D-pad was OUTSIDE the iframe rectangle and every click mapped to a
+point the parent owned, which Playwright reports as "<div id=app> intercepts
+pointer events" and kills on a 30s timeout thirty seconds from its cause. The panel
+is display:none in normal play so nothing else ever gives it a size; the gate sizes
+it as part of the synthetic panel-open it already declares.
+
+
 NEXT IN THIS LANE: THE FIGHT is the last unblocked beat of board row 1 (every
 occurrence of "combat" in the city world is a comment or CSS; the handoff at
 ALPHA:6967 is triggered only by postMessage from the hidden run slice) -- that is
@@ -76,6 +105,7 @@ across all three surfaces), which is pure RUN and unblocked.
 Records: BOHEMIA_THE_CITY_COULD_NOT_TALK_8_15_26.md
 
 ---
+
 
 
 ART (f3eu53): 8/15 (d) LATEST -- *** THE SIGNBANDS ARE UP (first real cook of

@@ -18898,7 +18898,11 @@ window.addEventListener('message',ev=>{ const d=ev&&ev.data;
     window.__BOH_LAST_GOTO=[city.x,city.y];
     try{ updHud(); render(); }catch(_e){}
   }
-  if(d&&d.bohemiaCityRestore)applyRestore(d.bohemiaCityRestore);
+  if(d&&d.bohemiaCityRestore){ applyRestore(d.bohemiaCityRestore);
+    /* __THE_CITY_ASKS_FOR_ITS_SAVE__ */ RESTORE_ANSWERED=true; try{ bootWake(); }catch(_e){} }
+  if(d&&d.bohemiaCityRestoreNone){ RESTORE_ANSWERED=true;   /* __THE_CITY_ASKS_FOR_ITS_SAVE__ --
+    "you have no save" IS an answer, and it is the one that starts a new game. */
+    try{ bootWake(); }catch(_e){} }
   if(d&&d.bohemiaCitySaveInfo){ const el=document.getElementById('sv-mode'); if(el)el.textContent=d.bohemiaCitySaveInfo.mode; }
 });
 document.getElementById('savebtn').addEventListener('click',()=>{
@@ -21480,7 +21484,29 @@ document.getElementById('rungbtn').addEventListener('click', showStanding);
 document.getElementById('sleepbtn').addEventListener('click',function(){
   if(DAY.phase!=='awake')return; DAY.sleep(); daySync(); onNightfall(); updHud();
 });
-setTimeout(function(){ if(!DAY_RESTORED) showWake(); else updQline(); },60);
+/* __THE_CITY_ASKS_FOR_ITS_SAVE__ -- THE CITY ASKS FOR ITS SAVE, because the city is the
+   only party that knows when the city is ready.
+   THIS LINE USED TO BE A SIXTY MILLISECOND TIMER. It decided "is this a new
+   game?" 60ms into a boot, long before any answer about the save could arrive,
+   so a returning player got a DAY 1 wake card thrown over their own run unless
+   the restore beat 60ms. MEASURED 8/15: after a played day the shell's restore
+   push (one setTimeout, 320ms after the iframe load, no ack, no retry) missed
+   entirely -- applyRestore was never called, T.day stayed 1, and a perfect 2755
+   byte save sat in localStorage while the run started over.
+   Same idiom as BOHEMIA_CITY_NEED_PLAYER above: ASK, then act on the answer.
+   The shell's old 320ms push is deliberately left alone -- applyRestore is a
+   pure apply, so if it wins the race this just finds the day already restored. */
+var RESTORE_ANSWERED=false;
+function bootWake(){
+  if(window.__BOOTED_WAKE)return; window.__BOOTED_WAKE=true;
+  if(!DAY_RESTORED) showWake(); else updQline();
+}
+try{ if(window.parent&&window.parent!==window)
+  window.parent.postMessage({bohemiaCityNeedRestore:1},'*'); }catch(_e){}
+/* the cap is not a guess about the shell's speed, it is the answer to "there is
+   no shell": every gate that opens this page DIRECTLY has no parent to reply,
+   and a returning player must never be stuck looking at nothing. */
+setTimeout(function(){ if(!RESTORE_ANSWERED) bootWake(); },1200);
 
 
 /* __PHONE_IN_POCKET__ BOOT */

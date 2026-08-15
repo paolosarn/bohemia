@@ -111,3 +111,75 @@ modules outside the sync sweep. A ruling read once and never read back. And now 
 bridge that carried nothing.
 
 The gates were green every single time.
+
+---
+
+# PART TWO: THE CITY WAS NEVER INTRODUCED TO ITS OWN SAVE (same day)
+
+Fixing the bridge was not enough, and the demo gate said so on the next run.
+
+## THE MEASUREMENT
+
+Play a real day on the real alpha, then reload:
+
+    CITYSAVE before reload : 2755 bytes, day 2, purse yes, market yes
+    CITYSAVE after  reload : day 2, purse yes, market yes        (the save is FINE)
+    the world came back as : day 1, purse 0, market null
+    T.day after that boot  : 1        <- applyRestore was NEVER CALLED
+    applyRestore(that exact payload), by hand a moment later:
+                             returns true, day 2, purse 499.75, water 702
+
+The save was perfect. The restore function was perfect. They were never
+introduced.
+
+## THE CAUSE IS THE HANDOFF, NOT A LINE
+
+The shell **guessed** when the city was ready:
+
+    fr.addEventListener('load', () => { ...
+      setTimeout(() => { ...postMessage({bohemiaCityRestore: sv.data})... }, 320); });
+
+One `setTimeout`, fired once, at a hand-picked moment, with no acknowledgement
+and no retry. The city is ~1.6 MB of script that grows every day. When 320ms
+after `load` falls on the wrong side of readiness — and after a played day it
+reproducibly does — the message lands in a document that cannot act on it, and
+nothing anywhere says so.
+
+And the boot made the matching mistake from the other side:
+
+    setTimeout(function(){ if(!DAY_RESTORED) showWake(); else updQline(); }, 60);
+
+**Sixty milliseconds** to decide "is this a new game?" — so a returning player got
+a DAY 1 wake card thrown over their own run unless the restore beat 60ms.
+
+## THE FIX IS THE IDIOM THE FILE ALREADY USED
+
+The city already asks the shell for things when *it* is ready
+(`BOHEMIA_CITY_NEED_PLAYER`, CITY_WORLD:18992). The save now works the same way,
+because the city is the only party that knows when the city is ready:
+
+    city  -> shell : {bohemiaCityNeedRestore:1}
+    shell -> city  : {bohemiaCityRestore:<data>}  or  {bohemiaCityRestoreNone:1}
+
+"No save" is an answer too — that is the thing the 60ms timer had to guess about.
+The old 320ms push is left in place: `applyRestore` is a pure apply, so if it
+wins the race the handshake just finds the day already restored.
+
+Proven three runs out of three, because a race proved once is not proven.
+
+## AND THE FLEET-WIDE BLOCKER ART FLAGGED
+
+`run_gate.js` (126 integration assertions, the fleet's only end-to-end proof that
+character + valley + districts + loop work together) was **crashing on main**, so
+every lane's full-suite run was red. ART routed it here. Two causes, both found by
+measuring rather than reading:
+
+1. the cold open overlay now sits over the run panel from the first frame — the
+   gate dismisses it by tapping the same SKIP a player taps;
+2. underneath that, `#runFrame` came back **390x150**, so the D-pad sat outside
+   the iframe's rectangle and every click mapped to a point the parent owned.
+   Playwright reported `<div id=app> intercepts pointer events` and died on a 30s
+   timeout, thirty seconds and one wrong surface away from its cause. The panel is
+   `display:none` in normal play, so nothing in the build ever gives it a size.
+
+**RUN GATE: 126 passed, 0 failed.**

@@ -7192,6 +7192,22 @@ function combatMsgIn(d){
     if(d.bohemiaCityMusic.on)CITYMUS.startShuffle(); else CITYMUS.stopShuffle();
     return true;
   }
+  if(d.bohemiaCityNeedRestore!==undefined){
+    /* __THE_CITY_ASKS_FOR_ITS_SAVE__ -- THE CITY ASKED. The old arrangement had this shell
+       GUESS when the city was ready (one setTimeout, 320ms after the iframe
+       load, no ack, no retry) and after a played day it missed: a perfect save
+       sat in localStorage while the run started over at day 1. The city is the
+       only party that knows when it is up, so now it asks and this answers.
+       "No save" is answered too -- silence is what the 60ms boot timer used to
+       have to guess about. */
+    const cf=document.getElementById('cityFrame');
+    const sv=CITYSAVE.load();
+    if(cf&&cf.contentWindow)try{
+      cf.contentWindow.postMessage((sv&&sv.data)?{bohemiaCityRestore:sv.data}
+                                               :{bohemiaCityRestoreNone:1},'*');
+    }catch(e){}
+    return true;
+  }
   if(d.bohemiaCityState!==undefined){
     CITYSAVE.save(d.bohemiaCityState);
     return true;

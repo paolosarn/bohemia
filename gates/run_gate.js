@@ -381,6 +381,31 @@ async function alphaRun() {
     await page.goto('file://' + ALPHA_FILE, { timeout: 120000 });
     await page.click('#front');
     await page.click('.tab[data-p=run]');
+    /* THE COLD OPEN IS THE OPENING NOW, AND IT IS AN OVERLAY (flagged to this lane
+       by ART, 8/15: "run_gate.js IS RED ON MAIN and it is the COLD OPEN... every
+       lane's full-suite run is red until then"). The PEOPLE lane's #openWrap sits
+       over the run panel from the first frame, so tapStep's clicks on the D-pad
+       were being intercepted and the gate died on a 30s click timeout with no
+       useful message. A PLAYER GETS OUT OF IT BY TAPPING SKIP, so that is what
+       this does -- the same control opening_gate.js drives, not a synthetic
+       teardown of somebody else's feature. Waited for rather than assumed: the
+       overlay is built at boot and shown a beat later, and clicking a button that
+       is not there yet is how this class of failure arrives in the first place. */
+    for (let i = 0; i < 40; i++) {
+      const up = await page.evaluate(() => {
+        const w = document.getElementById('openWrap');
+        return !!(w && getComputedStyle(w).display !== 'none');
+      });
+      if (up) break;
+      await page.waitForTimeout(100);
+    }
+    await page.evaluate(() => {
+      const s = document.getElementById('openSkip');
+      if (s) s.click();
+      const w = document.getElementById('openWrap');
+      if (w) w.style.display = 'none';   /* belt: SKIP hides it, this proves it gone */
+    });
+    await page.waitForTimeout(300);
     /* THE RUN TAB OPENS THE CITY NOW (Paolo 7/28: "Kill"). The run slice is dead as
        a TAB - no tap reaches it, and that is the ruling. But it is still WIRED into
        the shell: the baked-body cast, the saves and the combat handoff all still
@@ -394,8 +419,25 @@ async function alphaRun() {
        outright, not propped up. */
     await page.evaluate(() => {
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
-      document.getElementById('p-run').classList.add('on');
+      const pr = document.getElementById('p-run');
+      pr.classList.add('on');
+      /* AND IT NEEDS A REAL BOX, which is the second half of the red ART flagged.
+         MEASURED 8/15: with the panel merely shown, #runFrame came back 390x150 --
+         so the D-pad sat OUTSIDE the iframe's rectangle, every tapStep click
+         mapped to a point the parent owned, and Playwright reported
+         "<div id=app> intercepts pointer events" and died on a 30s timeout with
+         no hint of the cause. The panel is display:none in normal play (the RUN
+         tab shows the city), so nothing else in the build ever gives it a size.
+         Sizing it here is part of the same synthetic step this section already
+         declares out loud above -- opening a surface the UI no longer exposes --
+         and it is stated rather than hidden. */
+      pr.style.position = 'absolute';
+      pr.style.inset = '0';
+      pr.style.height = '100%';
+      const rf = document.getElementById('runFrame');
+      if (rf) { rf.style.width = '100%'; rf.style.height = '100%'; }
     });
+    await page.waitForTimeout(500);
     /* ATTACHED, NOT VISIBLE (Paolo 7/28: "Can you put the city in the run tab?").
        The RUN tab now routes to the city panel, so the run slice's iframe is
        loaded and live but no longer on screen. Every assertion below still runs
