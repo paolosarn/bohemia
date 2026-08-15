@@ -1029,10 +1029,31 @@ ok('V67 WHOLE BARS: every cover cycle is a whole number of BARS, so the top of t
     demo.includes("G.grenade={ea:a,edist:dd,fuse:2,r:1.5") &&
     demo.includes('if(!aimo&&G.grenade){') &&
     demo.includes('const _hadG=!!G.grenade;'));
-  ok('V61 ONE GRENADE: exactly one grenade per encounter (Paolo) -- throw gated on G._grenadeThrown, latched on throw, reset each fight',
-    demo.includes('if(!_hadG && !G.grenade && !G.over && !G._grenadeThrown){') &&
-    demo.includes('_at:performance.now()}; G._grenadeThrown=true;') &&
+/* ===== V152 SUPERSEDES V61'S ONE-PER-FIGHT CAP =====================
+   Paolo 8/15: "there's no movement in the game bro... as soon as I find Cover I
+   can just hunker down until the end... do whatever you have to do."
+   V61's cap was written as "exactly one per encounter, FOR JUDGING IT CLEAN" --
+   a scaffold so he could see the feature once and rule on it. He ruled. The
+   scaffold stayed up for two months, and the game's only purpose-built reason
+   to move has been firing ONCE per fight.
+   *** THIS CHANGES SOMETHING THE OLD GATE ATTRIBUTED TO HIM, so it is flagged
+   to him in the reply rather than slipped past. *** Newest date wins, and a
+   generous cooldown keeps it a beat and never spam. */
+  ok('V152 THEIR GRENADE RUNS ON A COOLDOWN, not a one-shot latch: the file\'s own designated movement-forcer finally gets to force movement more than once, with a real gap between throws',
+    demo.includes('const GREN_CD=5;') &&
+    demo.includes('if(!_hadG && !G.grenade && !G.over && !(G._grenCd>0)){') &&
+    demo.includes('G._grenCd=GREN_CD;') &&
     demo.includes('G.grenade=null; G._grenadeBlast=null; G._grenadeThrown=false;'));
+
+  ok('V152 COVER DIES, WHICH IS XCOM\'S OWN ANSWER TO TURTLING: every round his cover eats takes a bite, tall stone is chewed down to LOW (crouch it, vault it) and low cover is chewed to rubble and removed. The tile he is sitting on expires because he stood there and let people shoot it, not on a schedule',
+    demo.includes('function chewCover(P){') &&
+    demo.includes('function coverHP(P){') &&
+    /if\(covP\)chewCover\(covP\);/.test(demo) &&
+    demo.includes("setRead('COVER IS GONE'") &&
+    demo.includes("setRead('COVER IS GOING'"));
+
+  ok('V152 AND NO TIMER, DELIBERATELY: a countdown is an author off-screen shouting hurry up, and he asked for things that "switched up naturally". Nothing here announces itself -- no clock, no meter, no shrinking play area',
+    !/MISSION_TIMER|turnLimit|TURN_LIMIT/.test(demo));
   // v62: weapon identities -- per-weapon killshot cap + dial width
   ok('V62 WEAPON IDENTITY: each weapon sets a killshots/turn cap (rifle 1, smg 2, shotgun 2, pistol up-to-skill) and a dial width (rifle/shotgun wide, smg mean); chain + dial + readout all use it',
     demo.includes('const WEAPON_CAP={pistol:8,smg:2,rifle:1,shotgun:2};') &&
