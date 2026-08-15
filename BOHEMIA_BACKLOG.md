@@ -5858,6 +5858,25 @@ FS. FIELD SURGERY SFX MOMENTS (routed 8/13 — laws/BOHEMIA_ADDENDUM_
    defaults TRUE, so every frame is already machine-enlarged to 112 by
    Scale2x. The people are UPSCALED art standing next to NATIVE tiles.
    THE RULING: canonical character resolution 56 -> 112, native.
+   *** HIS 8/15 FOLLOW-UP, LOOKING AT THE CHARACTER LIVE: "I want that black
+   outline to be [thinner]. It's thin in some parts and I like that." AND HE
+   ASKED WHETHER HE MISSPOKE ABOUT TWICE vs FOUR TIMES -- HE DID NOT, AND
+   NEITHER READING IS WRONG: twice the resolution PER SIDE (56->112 across and
+   down) IS four times the pixels in total. Measured on his real rig by
+   tools/bohemia_rig_double.js: 5,248 painted pixels -> 20,992, exactly 4x.
+   Say it that way to him; both his numbers are correct.
+   MEASURED THE OUTLINE HE IS LOOKING AT: on the displayed 112 frame the true
+   outline is TWO PIXELS almost everywhere (24% of edge rows on S and on E sit
+   in the 2px bucket; ~1% are 1px). That is exactly what a 1px AUTHORED outline
+   must look like once Scale2x doubles the whole frame -- the border is not
+   inconsistent, IT IS UNIFORMLY DOUBLED ALONG WITH EVERYTHING ELSE.
+   CAUTION ON THE RULER: a luminance-only sweep also reports 10px/26px/40px
+   "outline" runs. Those are his BLACK CLOTHING (tank, cargos, hoodie) read as
+   border. Do not chase them; classify against the garment ramps first.
+   SO THE FIX IS ALREADY STEP (4) AND NOTHING NEW IS OWED: author at 112, derive
+   the outline at ONE pixel, and the same body carries a border half as thick --
+   2px -> 1px on screen. The thin parts he likes ARE the 1px look; the flip makes
+   the whole silhouette look like that. ***
    HIS TWO ASKS ARE ONE OPERATION: the black border is renderer-DERIVED
    (the renderer outlines a limb's outer and inner column), not painted
    into his art — so authoring at 112 and still deriving the outline at
