@@ -196,12 +196,48 @@ function partD() {
   });
 }
 
+/* ------------------------------------------------- E. THE FLEET-WIDE COUNT */
+function partE() {
+  console.log('E. THE OTHER LANES ARE TOLD, NOT AUDITED FOR THEM');
+
+  const AUD = path.join(ROOT, 'records/BOHEMIA_SURFACE_AUDIT_8_15_26.md');
+  const PAGE_ = path.join(ROOT, 'slices/BOHEMIA_WHICH_SURFACE_8_15_26.html');
+  ok('E1 the audit exists', fs.existsSync(AUD) && fs.existsSync(PAGE_));
+  if (!fs.existsSync(AUD)) return;
+  const md = fs.readFileSync(AUD, 'utf8');
+
+  /* IT IS REGENERATED AND DIFFED, so the count on the page can never be a
+     yesterday's number wearing today's date. */
+  const before = md;
+  try { execFileSync('python3', [path.join(ROOT, 'tools/bohemia_surface_audit.py')],
+                     { cwd: ROOT, stdio: 'pipe' }); } catch (e) {}
+  ok('E2 the audit is exactly what its tool produces right now',
+    fs.readFileSync(AUD, 'utf8') === before);
+
+  ok('E3 it lists every ledger row, not a hand-picked few',
+    (md.match(/^\| .* \| (INTEGRATED|PARTIAL|NOT YET) \|/gm) || []).length >= 30);
+
+  /* THE CLAIM IS NARROW AND THE FILE SAYS SO. This lane does not get to declare
+     another lane's work broken from a string search; the city is a separate
+     renderer and most of it is there under another spelling. */
+  ok('E4 it says outright that NOT FOUND is not a verdict',
+    /NOT FOUND does not mean broken/i.test(md) && /go and look/i.test(md));
+  ok('E5 the page says it too, where he reads it',
+    /NOT FOUND<\/b> does not mean broken|NOT FOUND\b[^<]*does not mean broken/i
+      .test(fs.readFileSync(PAGE_, 'utf8')));
+
+  const hub = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_LIFE_CURRENT.html'), 'utf8');
+  ok('E6 the LIFE tab links it, so the finding is reachable and not a file',
+    hub.includes('BOHEMIA_WHICH_SURFACE_8_15_26.html'));
+}
+
 (async function main() {
   console.log('WALKED SURFACE GATE — the work is where he looks\n');
   await partA();
   partB();
   await partC();
   partD();
+  partE();
   console.log('\nWALKED SURFACE GATE: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error('WALKED SURFACE GATE CRASHED: ' + (e && e.stack || e)); process.exit(1); });

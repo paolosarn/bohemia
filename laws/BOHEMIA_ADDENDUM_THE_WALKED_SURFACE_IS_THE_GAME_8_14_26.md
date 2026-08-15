@@ -82,9 +82,36 @@ walked surface's people get the same household and job data the run's roster has
 That is a WORLD-lane shape, not something to fake from here, and it is stated
 rather than papered over.
 
+## AMENDED 8/15 — I COUNTED THE REST OF THE FLEET
+
+Having fixed my own three rows, I read the ledger and counted. **It has 35 rows,
+30 of them claiming INTEGRATED, and `integration_gate.js` read the dark file for
+every single one.** Three named their surface. Thirty-two did not.
+
+`tools/bohemia_surface_audit.py` turns the 8/4 disclaimer into a **list**: for each
+row, is the evidence that row's own probe looks for present on the walked surface?
+The probes are **read out of the gate**, never retyped, so the audit cannot test
+for evidence a probe does not actually use.
+
+**As of 8/15: 6 on the walked surface, 22 only on the one he never sees, 7 whose
+probe cannot answer the question at all.**
+
+**THE CLAIM IS DELIBERATELY NARROW, and the file, the page and the gate all say so
+on every row.** The city is a separate renderer that shares almost no drawing code
+with the run, and the ledger header says most systems *are* there "each under its
+own spelling". **NOT FOUND means GO AND LOOK**, addressed to the lane that owns the
+row, by the lane that just made this exact mistake with its own three. It never
+means broken, and this lane does not get to declare another lane's work dead from a
+string search.
+
+**AND I REPOINTED MY OWN THREE PROBES, WHICH I HAD NOT.** Migrating the code was
+not enough: my probes still only searched the run, so my rows were still proving
+the dark file the day after I fixed them. They now check the CITY, which is the
+shape of the fix the other 22 need.
+
 ## THE MACHINE
 
-`gates/walked_surface_gate.js`, 23 claims:
+`gates/walked_surface_gate.js`, 29 claims:
 
 - **A** — which surface he sees is **measured in a real browser**, not read off a
   document.

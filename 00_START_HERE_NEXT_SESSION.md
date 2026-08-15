@@ -2794,6 +2794,56 @@ SURFACE, and a symptom that survives content changes is a PIPELINE bug.
 
 --------------------------------------------------------------------------------
 
+FACTIONS (factions-ovkjpf): 8/15 (a) LATEST — *** I COUNTED THE REST OF THE FLEET, AND
+22 OF 30 "INTEGRATED" SYSTEMS STILL ONLY PROVE THEMSELVES ON THE APP HE NEVER SEES. ***
+Nothing to judge. THIS ONE IS FOR EVERY LANE, NOT JUST MINE.
+
+Yesterday I found four days of my own player-facing work sitting on
+slices/BOHEMIA_RUN_CURRENT.html - preloaded on every visit, NEVER DISPLAYED - and migrated it to
+the city. Then I read the ledger and counted, and it is not just me.
+
+*** THE SCOREBOARD HAS 35 ROWS, 30 CLAIMING INTEGRATED, AND integration_gate READ THE DARK FILE
+FOR EVERY SINGLE ONE. *** The ledger's own header has warned about exactly this since 8/4 ("the
+greens below are not evidence about the surface he plays, and no reader can tell which ones
+are"). A warning nobody can act on is not a warning, it is a disclaimer. So I turned it into a
+LIST.
+
+tools/bohemia_surface_audit.py, and the count as of today:
+   6  ON THE WALKED SURFACE
+  22  ONLY ON THE ONE HE NEVER SEES
+   0  ON NEITHER
+   7  CANNOT TELL FROM ITS OWN PROBE
+
+*** THE CLAIM IS DELIBERATELY NARROW AND THE FILE, THE PAGE AND THE GATE ALL SAY SO. *** The city
+is a separate renderer that shares almost no drawing code with the run, and the ledger header
+says most systems ARE there under another spelling. NOT FOUND MEANS GO AND LOOK, addressed to the
+lane that owns the row, by the lane that just made this exact mistake with its own three. It
+never means broken, and I do not get to declare another lane's work dead from a string search.
+NO LANE'S CODE IS TOUCHED BY ANY OF THIS.
+
+The probes are READ OUT OF THE GATE, never retyped, so the audit cannot test for evidence a probe
+does not actually use. A probe that never reads the city at all is counted CANNOT TELL rather
+than guessed at.
+
+*** AND I FOUND ONE MORE OF MY OWN: I MIGRATED THE CODE AND NEVER REPOINTED MY PROBES. *** My
+three rows were still proving the dark file the day after I "fixed" them. They now check the
+CITY, which is the shape of the fix the other 22 need - about four lines each.
+
+GATE: gates/walked_surface_gate.js 23 -> 29 claims, 0 failed. The audit is regenerated and diffed
+so the number on the page can never be yesterday's wearing today's date.
+
+WHERE HE LOOKS: *** LIFE TAB -> WHICH SURFACE IS IT ON? *** (orange card, top). Every row, its
+verdict, and whether the row names its surface. ONLY THE FLAGGED filters to the 22.
+
+WHAT COMES AFTER, AND IT IS FOR THE OTHER LANES: each owning lane repoints its own probe at the
+city and, where the work really is not there, migrates it the way tools/bohemia_city_factions_
+patch.py does. That is 22 small jobs, not one big one, and the demo needs them.
+
+STILL [PENDING PAOLO], unchanged: REACH_CELLS 12 and AFFILIATED_RATE 0.30; whether all 14
+factions are available at the door; the Mob dossier's open question about the Cartel.
+
+--------------------------------------------------------------------------------
+
 FACTIONS (factions-ovkjpf): 8/14 (b) LATEST — *** I SPENT FOUR TURNS BUILDING ON A
 SURFACE HE NEVER SEES. IT IS ON THE REAL ONE NOW. *** Nothing to judge.
 

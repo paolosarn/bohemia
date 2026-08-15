@@ -22,6 +22,14 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const LEDGER = path.join(ROOT, 'records/BOHEMIA_RUN_INTEGRATION_LEDGER_7_26_26.md');
 const RUN = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_RUN_CURRENT.html'), 'utf8');
+/* THE SURFACE HE ACTUALLY WALKS (8/15). Every probe in this file reads RUN, and
+   since the coordinator ruled the CITY WORLD the walked surface on 8/14 that means
+   every green below is evidence about a file the alpha preloads and NEVER DISPLAYS.
+   The header of the ledger has warned about this since 8/4 and no probe acted on
+   it. The FACTIONS lane's three rows are repointed here as the shape of the fix:
+   a row about player-facing work must prove itself WHERE HE LOOKS.
+   records/BOHEMIA_SURFACE_AUDIT_8_15_26.md lists the 24 that still do not. */
+const CITY = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
 const ALPHA = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
 const engine = (m) => fs.readFileSync(path.join(ROOT, 'engine/' + m), 'utf8');
 
@@ -278,24 +286,32 @@ const PROBES = {
      of the three checks this feature has -- gates/introductions_gate.js part C opens
      the real built run in a real browser, presses the real button and reads the real
      row -- so this one only has to catch the row silently going stale. */
-  introductions_shown: () => RUN.indexOf('BohemiaIntros.buttonFor(') >= 0 &&
-    RUN.indexOf('applyIntroToCard(BohemiaPeople.cardFor(') >= 0 &&
-    RUN.indexOf('function groupHasAnOpinion(') >= 0,
+  /* ON THE WALKED SURFACE. The run half is kept because the work is genuinely in
+     both and the legacy file is still the harvest source; the CITY half is what
+     makes this row a claim about the game he plays. */
+  introductions_shown: () => CITY.indexOf('BohemiaIntros.meeting(') >= 0 &&
+    CITY.indexOf('function ctIntroName(') >= 0 &&
+    CITY.indexOf('function ctIntroRows(') >= 0 &&
+    RUN.indexOf('BohemiaIntros.buttonFor(') >= 0,
 
   /* WHO KNOWS WHO (8/12). The graph has to be inlined, the run has to feed it the
      SAME faction answer the rest of the card uses, and the vouch has to reach the
      card as a named introducer rather than a silent flag. gates/ties_gate.js part
      D plays the whole thing through the real DOM; this only catches the row going
      stale. */
-  ties_shown: () => RUN.indexOf('BohemiaTies.vouchFor(') >= 0 &&
-    RUN.indexOf('faction:factionForPerson(a)') >= 0 &&
+  ties_shown: () => CITY.indexOf('==== engine/bohemia_ties.js ====') >= 0 &&
+    CITY.indexOf('function ctFactionOf(') >= 0 &&
+    RUN.indexOf('BohemiaTies.vouchFor(') >= 0 &&
     RUN.indexOf("label:'INTRODUCED BY'") >= 0,
 
   /* WHAT THEY WANT FROM YOU (8/12). The bargain has to be inlined, drawn into its
      OWN node after cardFor() clears the card, and driven off the deed COUNT rather
      than the standing number. gates/belonging_gate.js part D reads the real node in
      a real browser; this only catches the row going stale. */
-  belonging_shown: () => RUN.indexOf('BohemiaBelonging.bargain(') >= 0 &&
+  belonging_shown: () => CITY.indexOf('BohemiaBelonging.bargain(') >= 0 &&
+    CITY.indexOf('BohemiaBelonging.actFor(') >= 0 &&
+    CITY.indexOf('BohemiaBelonging.record(') >= 0 &&
+    RUN.indexOf('BohemiaBelonging.bargain(') >= 0 &&
     RUN.indexOf('function showBargain(') >= 0 &&
     RUN.indexOf('function gaveFor(') >= 0 &&
     /* and the act, or the bargain is legible and unactionable */
