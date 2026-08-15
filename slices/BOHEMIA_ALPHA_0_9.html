@@ -998,7 +998,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/15g - DEAD AC UNITS ON THE ROOFS, DEEP ENDS IN THE POOLS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/15b - SEVEN SILENT MOMENTS ANSWERED</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -15088,8 +15088,41 @@ const BOH_SFX = (function () {
     { ev: 'cash_count',   label: 'MONEY MOVES',             why: 'paper and coin counted off. many small events, never one tone' },
     { ev: 'neon_hum',     label: 'NEON, STILL LIT',         why: 'gas and current, which is electrical and never a struck body. the 12% that has power' },
     { ev: 'dog_cry',      label: 'A DOG, FAR OFF',          why: 'a cry with the air of the distance in it. the only other living thing you can hear' },
-    { ev: 'cloth_on',     label: 'CLOTHES GO ON',           why: 'fabric moving over a body. friction, quiet, and over before you place it' }
+    { ev: 'cloth_on',     label: 'CLOTHES GO ON',           why: 'fabric moving over a body. friction, quiet, and over before you place it' },
     /* ---- end batch SFX-04 events ---- */
+
+    /* =====================================================================
+       BATCH SFX-05 (8/15/26) — THE SEVEN BIG MOMENTS STILL PLAYING SILENCE
+       ---------------------------------------------------------------------
+       After three full sweeps the game has 105 sounds and these seven moments
+       have none: you shoot and miss, you hit something that matters, the fight
+       ends, you sleep, somebody turns to you, you step inside, and the run is
+       done -- the last of which his own brief calls "the one moment that earns
+       the whole room".
+       WHY THESE SEVEN AND NOT THE OTHERS. Every silent moment was sorted
+       first. Eight have been killed TWICE and are closed by STOP PRODUCING --
+       no third cook, ever, unless he asks for one. Six more (swing, patch_up,
+       build_place, equip, and the doors) were answered by SFX-04 or the fresh
+       doors, and the answer LIVED. What is left is exactly these seven:
+       rejected once, in the very first batch, and never re-answered since.
+       THE METHOD IS HIS DATA, NOT MY TASTE. friction is the best-performing
+       engine in the game -- 40% against modal's 36% -- and it did not exist
+       when these seven were cooked. Four of the seven are friction; the other
+       three are moments that genuinely ARE a struck object. particle and air
+       are not used at all: they went 0 for 30 and are barred.
+       AND THEY ARE THE FIRST BATCH THE REGION ACTUALLY BINDS. Containment has
+       been a forward-looking law with an empty list since 8/12, because
+       re-cooking SFX-03 to fit the box would have invalidated thumbs he had
+       already given. These are new, so every candidate lands inside the
+       bounding box of the 105 sounds he has approved. */
+    { ev: 'miss_past',   label: 'THE SHOT MISSES',       why: 'it went past you. there is nothing to strike in a miss, which is why the struck one died' },
+    { ev: 'vital_deep',  label: 'VITAL HIT',             why: 'worse than a hit and not yet a kill. lower and longer than the hit he kept, and it lands in the body' },
+    { ev: 'clear_still', label: 'THE FIGHT IS OVER',     why: 'everyone is down and the room goes quiet. a space with nothing left happening in it' },
+    { ev: 'sleep_sink',  label: 'YOU SLEEP',             why: 'settling in, and eight hours gone. the biggest block of time in the game passes in silence today' },
+    { ev: 'turn_to_you', label: 'SOMEBODY TURNS TO YOU', why: 'the moment a conversation starts. small on purpose: a person is not an event' },
+    { ev: 'cross_in',    label: 'YOU STEP INSIDE',       why: 'crossing into a building. the ROOM is the sound, not the door. NOT named step_* -- every step_ event in this engine is a GROUND SURFACE, and the render gate rightly holds those to no-room and short, which a threshold crossing is the opposite of' },
+    { ev: 'done_ring',   label: 'IT IS DONE',            why: 'the run completed. his own words: the one moment that earns the whole room' }
+    /* ---- end batch SFX-05 events ---- */
     /* ---- end batch 02 events ---- */
   ];
 
@@ -15922,7 +15955,86 @@ const BOH_SFX = (function () {
               dark: [1000, 2000], width: [0.5, 0.82] },
       hitSets: [[0, 0.0625], [0], [0, 0.0625], [0, 0.125], [0, 0.0625, 0.1875]]
     }
-    /* ---- end batch SFX-04 recipes ---- */
+    /* ---- end batch SFX-04 recipes ---- */,
+
+    /* =====================================================================
+       BATCH SFX-05 RECIPES (8/15/26). Every candidate lands inside REGION --
+       the bounding box of all 105 sounds he has approved -- and these are the
+       first recipes regionBinds actually holds to it.
+       ===================================================================== */
+
+    /* --- FRICTION: the method his 330 thumbs rate highest --- */
+    miss_past: {
+      base: { synth: 'friction', mat: 'stone', hz: 320, rough: 34, modes: 5,
+              bright: 1.1, decay: 0.1875, damp: 2.2, warble: 0.5, atk: 0.0625,
+              slide: -12, trans: 0.15, transHz: 5200, transQ: 2, grit: 0.7,
+              gritHz: 2600, space: 0.14, room: 0.1875, refl: 1, dark: 3000,
+              width: 0.75, drive: 0.1, mkup: 0.7, gain: 0.3 },
+      jit:  { hz: [250, 430], rough: [24, 40], decay: [0.125, 0.3125],
+              slide: [-13.5, -7], bright: [0.9, 1.45], width: [0.6, 0.95],
+              dark: [2200, 4200], gritHz: [1900, 3800] }
+    },
+    sleep_sink: {
+      base: { synth: 'friction', mat: 'ash', hz: 96, rough: 5, modes: 4,
+              bright: 0.42, decay: 0.75, damp: 2, warble: 0.3, atk: 0.1875,
+              slide: -5, trans: 0.1, transHz: 1100, transQ: 0.8, grit: 0.9,
+              gritHz: 900, space: 0.16, room: 0.25, refl: 1, dark: 1000,
+              width: 0.6, drive: 0.06, mkup: 0.85, gain: 0.3, hits: [0, 0.75] },
+      jit:  { hz: [76, 140], rough: [3, 10], decay: [0.5, 1], slide: [-9, -2],
+              bright: [0.34, 0.66], width: [0.5, 0.85], dark: [700, 1500] },
+      hitSets: [[0, 0.75], [0, 0.625], [0, 0.875], [0, 0.75, 1.5], [0, 0.6875]]
+    },
+    turn_to_you: {
+      base: { synth: 'friction', mat: 'ash', hz: 150, rough: 12, modes: 4,
+              bright: 0.6, decay: 0.125, damp: 2.1, warble: 0.3, atk: 0.0625,
+              slide: -2, trans: 0.12, transHz: 1900, transQ: 0.9, grit: 0.82,
+              gritHz: 1500, space: 0.14, room: 0.125, refl: 2, dark: 1500,
+              width: 0.72, drive: 0.05, mkup: 0.62, gain: 0.52 },
+      jit:  { hz: [118, 210], rough: [7, 18], decay: [0.0625, 0.1875],
+              bright: [0.48, 0.85], width: [0.62, 0.9], dark: [1100, 2200] }
+    },
+    clear_still: {
+      base: { synth: 'friction', mat: 'stone', hz: 58, rough: 3, modes: 6,
+              bright: 0.4, decay: 1.5, damp: 1.3, warble: 0.9, atk: 0.25,
+              slide: -4, trans: 0.12, transHz: 900, transQ: 0.9, grit: 0.3,
+              gritHz: 700, space: 0.8, room: 1.875, refl: 4, dark: 900,
+              width: 0.85, drive: 0.08, mkup: 0.8, gain: 0.3 },
+      jit:  { hz: [48, 84], rough: [1.5, 7], decay: [1.125, 2.25],
+              space: [0.66, 0.95], room: [1.5, 2.5], dark: [600, 1400],
+              warble: [0.6, 1.6], atk: [0.1875, 0.375], width: [0.72, 1] }
+    },
+
+    /* --- MODAL: these three genuinely ARE a struck object --- */
+    vital_deep: {
+      base: { mat: 'bone', hz: 74, modes: 6, bright: 0.62, decay: 0.3125,
+              damp: 2.2, warble: 0.5, trans: 0.95, transHz: 1600, transQ: 1.2,
+              grit: 0.62, gritHz: 1100, space: 0.26, room: 0.3125, refl: 2,
+              dark: 950, width: 0.5, drive: 0.3, mkup: 0.98, gain: 0.42,
+              hits: [0, 0.0625] },
+      jit:  { hz: [60, 100], decay: [0.25, 0.4375], transHz: [1200, 2600],
+              grit: [0.45, 0.8], damp: [1.8, 2.6], drive: [0.2, 0.42],
+              dark: [700, 1500], width: [0.4, 0.66] },
+      hitSets: [[0, 0.0625], [0], [0, 0.0625], [0, 0.125], [0, 0.0625, 0.1875]]
+    },
+    cross_in: {
+      base: { mat: 'stone', hz: 88, modes: 7, bright: 0.55, decay: 0.625,
+              damp: 1.5, warble: 1, atk: 0.0625, trans: 0.3, transHz: 1400,
+              transQ: 1.6, grit: 0.32, gritHz: 1000, space: 0.72, room: 1.25,
+              refl: 4, dark: 1300, width: 0.8, drive: 0.12, mkup: 0.9, gain: 0.3 },
+      jit:  { hz: [70, 124], decay: [0.5, 0.9375], space: [0.58, 0.9],
+              room: [1, 1.75], dark: [900, 2000], warble: [0.6, 1.7],
+              width: [0.68, 0.98] }
+    },
+    done_ring: {
+      base: { mat: 'crystal', hz: 620, modes: 8, bright: 1.2, decay: 1.25,
+              damp: 1.2, warble: 1.6, atk: 0.0625, trans: 0.35, transHz: 6200,
+              transQ: 2.2, grit: 0.08, gritHz: 4200, space: 0.78, room: 1.5,
+              refl: 3, dark: 4400, width: 0.85, drive: 0.05, mkup: 0.55, gain: 0.34 },
+      jit:  { hz: [480, 880], decay: [1, 1.875], space: [0.62, 0.94],
+              room: [1.25, 2.125], dark: [3200, 6000], warble: [1.1, 2.4],
+              bright: [1, 1.6], transHz: [5000, 8400] }
+    }
+    /* ---- end batch SFX-05 recipes ---- */
   };
 
   /* ---- THE MEASURED ENVELOPE (rewritten 8/12/26, SAME DAY, from 270) ----
@@ -16037,7 +16149,12 @@ const BOH_SFX = (function () {
        already made. So the region binds FORWARD: any recipe added after 8/12
        goes in this list and must cook entirely inside it. The existing batch is
        measured and REPORTED against the box, never failed on it. */
-    regionBinds: [],
+    /* THE FIRST BATCH THE REGION ACTUALLY BINDS (8/15). It has been a
+       forward-looking law with an empty list since 8/12, because re-cooking
+       SFX-03 to fit the box would have invalidated thumbs he had already
+       given. SFX-05 is new, so it is held to it. */
+    regionBinds: ['miss_past','vital_deep','clear_still','sleep_sink',
+                  'turn_to_you','cross_in','done_ring'],
     batch: ['step_concrete','step_sand','step_glass','step_wood','step_metal',
             'swing','melee_hit','reload','dry_fire','casing',
             'heartbeat','breath','drink','patch_up',
