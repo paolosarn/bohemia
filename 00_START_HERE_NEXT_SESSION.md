@@ -919,8 +919,49 @@ HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/16 (a) LATEST -- *** HIS BUG, REPORTED LIVE, AND IT WAS TWO
-BUGS STACKED. REROLL GIVES YOU A HOUSE AGAIN. ***
+PEOPLE (7h9sfy): 8/16 (b) LATEST -- *** "STILL NOT FIXED." HE WAS RIGHT AGAIN,
+AND MY GATE WAS GREEN THE WHOLE TIME BECAUSE IT DID THE MISSING STEP FOR THE
+GAME. ***
+
+I shipped the reroll fix, called it done, and he came back with two words. The
+fix was real and it was not what he was looking at.
+
+*** WHAT HE ACTUALLY SEES: REROLL SETS MODE='city'. *** Pressed MID-WALK it threw
+him out of the game into the zoomed-out isometric overview -- no body, no house,
+a DROP IN button to find. Screenshotted it and there it was: "CITY MODE", the
+marker a white dot on the Strip, nothing that looks like a home anywhere. "I
+can't find the house I'm supposed to be at" IS THAT SCREEN, exactly, and no
+amount of correct HOME bookkeeping underneath it was going to change what he was
+staring at.
+
+*** AND WHY MY GATE MISSED IT -- THE WORST GATE MISTAKE OF THE WEEK. ***
+reroll_gate pressed the button and then CALLED swapMode() ITSELF and re-rendered
+until a house appeared. It walked him back down to the ground, which is the
+exact step the GAME was failing to do. So it measured 8/8 green on the build he
+was calling broken.
+*** A GATE THAT PERFORMS THE MISSING STEP IS TESTING ITSELF. *** It presses,
+waits, and looks now. Nothing else. Mutated the fix back out and it fails 2
+claims, including the one in his own words: "PRESSED WHILE WALKING, STILL WALKING
+AFTERWARDS -- never thrown to the overview."
+
+THE FIX: reroll answers in the language it was asked in. Pressed from the
+overview it leaves you in the overview; pressed while walking it drops you back
+on the ground at the new house. That drop-in is also what MAKES the house exist,
+because swapMode writes LANDED and homeFind anchors HOME on it -- and HOME
+resolves off fine data that streams in AFTER the drop, so it asks again on the
+next frames instead of taking the first "not yet" as "you have no house".
+
+MEASURED AFTER, as a player, real clicks, no help from the harness: HUMAN MODE,
+standing on the street, the word HOME on the house 13 tiles away and IN FRAME.
+
+ALSO CORRECTED: the gate's staleness claim was "LANDED/HOME/HOME_KEY are all
+null", which was only true while the drop-in happened after the press. Now reroll
+re-homes him itself, so the three are correctly REPOPULATED. The honest claim was
+never "cleared", it is "belongs to THIS valley" -- HOME_KEY carries the seed it
+was computed under, so it cannot lie about which world it came from.
+
+PEOPLE (7h9sfy): 8/16 (a) -- *** HIS BUG: REROLL LEFT THE OLD VALLEY'S HOME
+STANDING (549 tiles away) AND PUT HIM ON THE STRIP, WHICH HAS NO HOUSES. ***
 
 PAOLO, VERBATIM: "I pressed re-roll the seed button on the run tab and now I
 can't find the house I'm supposed to be at what's up with that."

@@ -18945,6 +18945,18 @@ window.addEventListener('message',ev=>{ const d=ev&&ev.data;
 const ub=document.getElementById('underbtn');
 ub.addEventListener('click',()=>{ UNDERV=!UNDERV; ub.classList.toggle('on',UNDERV); if(UNDERV&&MODE!=='city'){ MODE='city'; updHud(); } render(); });
 document.getElementById('reroll').addEventListener('click',()=>{
+  /* *** IF HE WAS WALKING, HE IS STILL WALKING AFTERWARDS. *** (Paolo 8/15, on
+     the FIRST fix not being enough: "Still not fixed.") Clearing the stale HOME
+     and placing a livable cell was necessary and it was not what he was looking
+     at. REROLL sets MODE='city', so pressing it MID-WALK threw him out of the
+     game into the zoomed-out isometric overview: no house on screen, no body,
+     and a DROP IN button to find. "I can't find the house I'm supposed to be
+     at" is that screen, exactly.
+     REROLL IS A CITY-BUILDER GESTURE THAT HE CAN ALSO REACH WHILE PLAYING A
+     PERSON. So it has to answer in the language he asked in: pressed from the
+     overview it leaves him in the overview, pressed while walking it puts him
+     back on the ground at the new house. */
+  const _wasWalking = (MODE === 'human');
   seed=(seed*1103515245+12345)>>>0;
   EDITS=CE.makeEdits(); CBpersist(); CB.sel=null;   /* ZOOM-BUILD: new valley, edits reset */
   om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed);
@@ -18968,6 +18980,19 @@ document.getElementById('reroll').addEventListener('click',()=>{
   MODE='city'; chunkCache.clear(); metaCache.clear(); __subCache.clear();               // new seed = new world, drop the stream
   if(UNDERV){ UNDERV=false; ub.classList.remove('on'); }            // reroll always returns to surface
   updHud(); render();
+  /* BACK ON THE GROUND. swapMode's city->human branch derives the walked player
+     from city.x/city.y -- which placeWorkingDistrict has just aimed at a cell he
+     can live in -- and writes LANDED, which is what homeFind anchors HOME on. So
+     this one call is also what makes his house exist again. */
+  if(_wasWalking && typeof swapMode==='function'){
+    try{ swapMode(); HC=HZOOM; render(); }catch(_rr){}
+    /* and HOME resolves off the cell's fine data, which streams in AFTER the
+       drop-in, so ask again on the next frames rather than accepting the first
+       "not yet" as "you have no house". */
+    let _t=0; const _findHome=()=>{ if(HOME||_t++>12) return;
+      try{ render(); }catch(_e){} setTimeout(_findHome,140); };
+    setTimeout(_findHome,140);
+  }
 });
 updHud(); fit();
 /* __HUMAN_START__ (Paolo 8/2: "I'd rather start off in human mode rather than

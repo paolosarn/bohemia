@@ -90,11 +90,17 @@ function pw() {
     const cleared = await city.evaluate(() => ({
       landed: LANDED, home: HOME, key: HOME_KEY, seed: seed >>> 0,
     }));
-    await city.evaluate(() => { if (typeof swapMode === 'function') swapMode(); });
+    /* *** DO NOT DO FOR THE GAME WHAT THE GAME MUST DO. *** The first cut of
+       this gate called swapMode() itself and then re-rendered until a house
+       appeared -- so it PASSED a build where pressing REROLL threw him into the
+       zoomed-out city overview with no body and no house, because the gate
+       quietly walked him back down. He pressed the button and said "Still not
+       fixed" while this read 8/8 green.
+       A gate that performs the missing step is testing itself. Press, wait, and
+       look -- nothing else. */
+    await page.waitForTimeout(2600);
     let s = null;
-    for (let i = 0; i < 6 && !(s && s.home); i++) {
-      await city.evaluate(() => { try { renderHuman(); } catch (_e) { try { render(); } catch (_e2) {} } });
-      await page.waitForTimeout(900);
+    {
       s = await city.evaluate(() => ({
         seed: seed >>> 0,
         district: (function () { try { return String((om.at(city.x, city.y) || {}).district); } catch (_e) { return '?'; } })(),
@@ -102,6 +108,7 @@ function pw() {
         dist: HOME ? Math.abs(HOME.x - hx) + Math.abs(HOME.y - hy) : null,
         homeCell: HOME ? [(HOME.x / FN) | 0, (HOME.y / FN) | 0] : null,
         meCell: [(hx / FN) | 0, (hy / FN) | 0],
+        mode: MODE,
       }));
     }
     runs.push({ cleared, s });
@@ -111,10 +118,24 @@ function pw() {
     runs.map(r => r.s && r.s.seed).join(' -> ') + ')',
     new Set([before.seed].concat(runs.map(r => r.s && r.s.seed))).size === 6);
 
-  const staleCarried = runs.filter(r => r.cleared.landed || r.cleared.home || r.cleared.key);
-  ok('NOTHING FROM THE OLD VALLEY SURVIVES THE PRESS — LANDED, HOME and HOME_KEY are cleared',
+  /* NOTHING FROM THE OLD VALLEY SURVIVES. Written as "all three are null" at
+     first, which was right only while the drop-in happened AFTER the press --
+     now reroll re-homes him itself, so by the time this samples, the three are
+     correctly REPOPULATED for the new world. The honest claim was never
+     "cleared", it is "belongs to THIS valley": HOME_KEY carries the seed it was
+     computed under, so it cannot lie about which world it came from. */
+  const staleCarried = runs.filter(r =>
+    r.cleared.key && String(r.cleared.key).split(':')[0] !== String(r.cleared.seed));
+  ok('NOTHING FROM THE OLD VALLEY SURVIVES THE PRESS — the home on file belongs to THIS seed',
     staleCarried.length === 0,
-    staleCarried.length ? JSON.stringify(staleCarried[0].cleared) : '');
+    staleCarried.length ? 'key ' + staleCarried[0].cleared.key + ' vs seed ' + staleCarried[0].cleared.seed : '');
+
+  /* THE CLAIM HE ACTUALLY MADE. He was walking when he pressed it; he must be
+     walking after. Being teleported to an overview IS "I can't find the house". */
+  const yanked = runs.filter(r => !r.s || r.s.mode !== 'human');
+  ok('PRESSED WHILE WALKING, STILL WALKING AFTERWARDS — never thrown to the overview',
+    yanked.length === 0,
+    'modes: ' + runs.map(r => r.s && r.s.mode).join(', ') + ' — the city overview has no body and no house on it');
 
   const strip = runs.filter(r => !r.s || /strip|freeway|interchange|beltway/.test(r.s.district));
   ok('EVERY REROLL LANDS SOMEWHERE HE CAN LIVE, never the Strip (' +
