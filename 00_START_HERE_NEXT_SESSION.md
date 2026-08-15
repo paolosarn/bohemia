@@ -8873,7 +8873,40 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 (h) LATEST -- *** THE ZOOM HITCH IS FIXED: HALF THE PAINTING
+WORLD (world-9lfjtf): 8/15 (i) LATEST -- *** THE CITY BUILDER WAS THE WORST PERFORMER IN
+THE GAME AND HAD NO NUMBER AT ALL. FOUR REDRAWS PER FINGER MOVEMENT -> ONE. ***
+Gate: frame_budget_gate.js 12/0 (FRAME BUDGET), now covering BOTH views.
+
+TAB: CITY (the builder) and the walked view. Same gestures, a quarter of the work.
+
+    city PINCH-ZOOM : 4.00 -> 1.00 redraws per touch move  (~86 ms -> ~15 ms per movement)
+    city ONE-FINGER PAN : 1.00, untouched, and now PINNED there
+    walking PINCH : 1.08 (fixed earlier today, was 2.08)
+
+WHY THE CITY WAS NEVER MEASURED: THE PAGE OPENS IN THE WALKED VIEW. My first gauge only
+ever saw that, so the view he BUILDS in -- the "shining jewel" of the whole design -- had
+no number at all. A GAUGE THAT ONLY LOOKS WHERE THE APP HAPPENS TO OPEN IS HALF A GAUGE.
+When a number was finally taken it was the worst in the game: FOUR full redraws per touch
+move, ~86 ms per finger movement, FIVE FRAMES at 60 Hz.
+AND IT WAS THE SAME BUG THE 8/13 P0 ALREADY NAMED, sitting in a second place: the city
+pinch branch calls setZoomAt() AND the pan branch, and EACH ends in render(). Two paints
+per pointer event, two pointer events per visual step. The sky diagnosis described this
+exact shape two days ago and nobody looked for it anywhere else.
+
+FIXED the same way, through renderSoon() -- coalescing INSIDE the paint path, which is the
+finding from the attempt that failed. Three call sites now: setHZoom (walked), setZoomAt
+(city camera), and the city pinch's pan branch. The single-finger drag was ALREADY 1.00 and
+is deliberately untouched: it was never the problem, and quietly changing something nobody
+measured is how a perf pass breaks a feel.
+BEHAVIOUR ASSERTED IN BOTH VIEWS: city zoom still moves (1 -> 2) and city pan still moves,
+the walked zoom still lands on a pixel-true stop, and both seams still cross.
+The tool REFUSES rather than guesses if a paint site moves -- it did exactly that on the
+first run when an anchor did not match, which is how it should behave.
+
+STILL TRUE AND STILL WRITTEN IN THE GATE: it catches paint getting MORE expensive, not
+paint stopping. That blind spot is documented, mutation-confirmed, and left honest.
+
+WORLD (world-9lfjtf): 8/15 (h) -- *** THE ZOOM HITCH IS FIXED: HALF THE PAINTING
 PER FINGER MOVEMENT WHILE HE WALKS. *** Gate: frame_budget_gate.js 7/0 (FRAME BUDGET).
 Tool: tools/bohemia_city_frame_budget_patch.py
 

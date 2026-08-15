@@ -67,7 +67,9 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
 /* THE RATCHET: measured on this build, 8/15. LOWER IS THE ONLY LEGAL DIRECTION. */
 const BUDGET = {
-  humanPinch: 1.2   // measured 1.08 after the coalescer. Was 2.2 (2.08 measured) before it.
+  humanPinch: 1.2,  // measured 1.08 after the coalescer. Was 2.2 (2.08 measured) before it.
+  cityPinch:  1.2,  // measured 1.00 after. WAS 4.00 -- the worst number found anywhere.
+  cityPan:    1.2   // measured 1.00, and it was ALWAYS 1.00. Pinned so it stays that way.
 };
 
 function requirePlaywright() {
@@ -195,6 +197,51 @@ function requirePlaywright() {
       const after = await shot();
       ok('the canvas is not frozen -- it still repaints across a gesture', before !== after);
     }
+
+    /* THE CITY BUILDER IS THE OTHER HALF OF THE GAME AND WAS UNMEASURED UNTIL NOW.
+       The first version of this gauge only ever saw the walked view, because the page opens
+       in human mode -- so the view he BUILDS in, the "shining jewel", had no number at all.
+       When one was finally taken it was the worst in the game: FOUR full redraws per touch
+       move, ~86 ms per finger movement, five frames at 60 Hz. Its pinch branch called
+       setZoomAt() AND the pan branch and each ended in render(), which is exactly what the
+       8/13 P0 diagnosis said about the sky -- the same bug, in a second place, found only
+       because somebody finally counted. A GAUGE THAT ONLY LOOKS WHERE THE APP HAPPENS TO
+       OPEN IS HALF A GAUGE. */
+    await p.evaluate(() => { if (MODE !== 'city' && typeof swapMode === 'function') swapMode(); });
+    await p.waitForTimeout(1200);
+    ok('the gauge reaches the CITY BUILDER too, not just the view the page opens in',
+       await p.evaluate(() => MODE) === 'city');
+
+    const measure = async (label, fingers) => {
+      await p.evaluate(() => { window.__r0 = window.__r; window.__ms0 = window.__ms; });
+      const pts = (i) => fingers === 2
+        ? [{ x: 150 - i * 5, y: 400, id: 1 }, { x: 250 + i * 5, y: 400, id: 2 }]
+        : [{ x: 200 + i * 8, y: 400 + i * 4, id: 1 }];
+      await touch('touchStart', pts(0));
+      for (let i = 1; i <= MOVES; i++) await touch('touchMove', pts(i));
+      await touch('touchEnd', []);
+      await p.waitForTimeout(250);
+      const r = await p.evaluate(([n]) => {
+        const c = window.__r - window.__r0;
+        return { per: +(c / n).toFixed(2), renders: c,
+                 ms: c ? +((window.__ms - window.__ms0) / c).toFixed(1) : 0 };
+      }, [MOVES]);
+      console.log('  MEASURED: ' + label + ' = ' + r.per + ' redraws per touch move, ~' +
+                  r.ms + ' ms each');
+      return r;
+    };
+
+    const cityPan = await measure('city one-finger pan', 1);
+    ok('the city pan gauge saw real work', cityPan.renders > 0);
+    ok('CITY PAN stays at one redraw per touch move (' + cityPan.per + ' <= ' +
+       BUDGET.cityPan + ') -- it was always correct and this pins it there, because the ' +
+       'easiest way to break a thing is to "optimise" past it', cityPan.per <= BUDGET.cityPan);
+
+    const cityPinch = await measure('city pinch-zoom', 2);
+    ok('the city pinch gauge saw real work', cityPinch.renders > 0);
+    ok('CITY PINCH-ZOOM STAYS WITHIN BUDGET (' + cityPinch.per + ' <= ' + BUDGET.cityPinch +
+       '). IT WAS 4.00 -- ~86 ms per finger movement, five frames, in the view he BUILDS ' +
+       'in -- and nobody knew because nothing was counting', cityPinch.per <= BUDGET.cityPinch);
 
     ok('and nothing throws while it is measured',
        errs.length === 0 || (console.log('  (errors: ' + errs.slice(0, 2).join(' | ') + ')'), false));

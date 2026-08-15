@@ -757,7 +757,15 @@ GATES = [
      'papered over: throttling the zoom\'s paint away entirely is NOT detected -- confirmed by '
      'mutation, twice -- because state assertions pass (HZOOM is still assigned) and a canvas '
      'fingerprint passes (the day loop repaints anyway). It catches regressions that make '
-     'painting MORE expensive, not ones that make it stop', False),
+     'painting MORE expensive, not ones that make it stop. AND IT COVERS BOTH VIEWS NOW, '
+     'which is how the worst number in the game was found: the first version only ever saw '
+     'the walked view because that is where the page OPENS, so the CITY BUILDER -- the '
+     '"shining jewel", the view he BUILDS in -- had no number at all. When one was finally '
+     'taken it was FOUR full redraws per touch move, ~86 ms per finger movement, five frames '
+     'at 60 Hz. Its pinch branch called setZoomAt() AND the pan branch and each ended in '
+     'render(): the SAME bug the 8/13 P0 named in the sky, sitting in a second place, found '
+     'only because somebody finally counted. Now 1.00. A GAUGE THAT ONLY LOOKS WHERE THE APP '
+     'HAPPENS TO OPEN IS HALF A GAUGE', False),
     ('SKY TOUCH',      ['node', 'gates/sky_touch_gate.js'],
      'PAOLO\'S P0, 8/13, HIS OWN PHONE: "the zoom out didn\'t work, once I started to leave '
      'the city it kind of crashed." THE WHEEL PATH WORKED THE WHOLE TIME, which is the entire '

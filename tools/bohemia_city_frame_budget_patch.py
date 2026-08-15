@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ONE PAINT PER FRAME WHILE HE PINCHES (8/15/26, WORLD lane) — THE SECOND ATTEMPT.
+ONE PAINT PER FRAME WHILE HE PINCHES (8/15/26, WORLD lane) — BOTH VIEWS.
 
 MEASURED BY gates/frame_budget_gate.js, the repo's first perf gauge:
 
@@ -53,8 +53,32 @@ MARK = '/* ==== ONE PAINT PER FRAME WHILE HE PINCHES ==== */'
 ENDMARK = '/* ==== end ONE PAINT PER FRAME ==== */'
 LEGACY_MARKS = []
 
-CALL_OLD = '  HZOOM=best; if(!transing)HC=HZOOM; render(); if(typeof reportState'
-CALL_NEW = '  HZOOM=best; if(!transing)HC=HZOOM; renderSoon(); if(typeof reportState'
+# THE CALL SITES, ONE PER PAINT THAT A TWO-FINGER GESTURE MULTIPLIES.
+#
+# MEASURED, both views, real touch, iPhone viewport:
+#   walking, pinch  : 2.08 redraws per touch move   (setHZoom paints once per pointer event,
+#                                                    and a pinch is two events per step)
+#   city, one-finger pan : 1.00 per move            <- already correct, left alone
+#   city, PINCH     : 4.00 redraws per touch move   <- ~86 ms per finger movement, FIVE
+#                                                      frames at 60 Hz, and the worst number
+#                                                      measured anywhere in the game
+# THE CITY PINCH IS FOUR because its branch calls setZoomAt() AND the pan branch, and EACH
+# ends in render() -- exactly what the 8/13 P0 diagnosis said about the sky, in the view he
+# BUILDS in. Two paints per pointer event, two pointer events per visual step.
+# The single-finger drag is deliberately untouched at 1.00: it was never the problem, and
+# quietly changing something that was never measured is how a perf pass breaks a feel.
+CALL_SITES = [
+    # (what it is, before, after)
+    ('setHZoom, the walked view',
+     '  HZOOM=best; if(!transing)HC=HZOOM; render(); if(typeof reportState',
+     '  HZOOM=best; if(!transing)HC=HZOOM; renderSoon(); if(typeof reportState'),
+    ('setZoomAt, the city camera',
+     '\n  clampPan(); render();\n',
+     '\n  clampPan(); renderSoon();\n'),
+    ('the city pinch pan branch',
+     '      if(lastMid){ panX+=m.x-lastMid.x; panY+=m.y-lastMid.y; clampPan(); render(); }',
+     '      if(lastMid){ panX+=m.x-lastMid.x; panY+=m.y-lastMid.y; clampPan(); renderSoon(); }'),
+]
 
 JS = """%s
 /* __FRAME_BUDGET__ -- renderSoon(): one paint per frame while two fingers are down.
@@ -117,17 +141,23 @@ if i < 0:
     sys.exit('FRAME BUDGET: could not find setHZoom to attach beside.')
 src = src[:i] + JS + '\n' + src[i:]
 
-# THE ONE CALL SITE. Idempotent: already-patched pages simply have CALL_NEW.
-if CALL_OLD in src:
-    src = src.replace(CALL_OLD, CALL_NEW, 1)
-    rewired = True
-elif CALL_NEW in src:
-    rewired = True
-else:
-    sys.exit('FRAME BUDGET: setHZoom does not end in the render() call this expects. '
-             'Refusing to guess which paint to coalesce.')
+# EVERY CALL SITE, IDEMPOTENTLY. An already-patched page simply has the NEW form. A site
+# that matches NEITHER is a refusal, never a shrug: it means the paint this exists to
+# coalesce has moved, and guessing which render() to rewrite is how a perf pass breaks
+# something nobody measured.
+rewired = []
+for what, before, after in CALL_SITES:
+    if before in src:
+        src = src.replace(before, after, 1)
+        rewired.append(what)
+    elif after in src:
+        rewired.append(what + ' (already)')
+    else:
+        sys.exit('FRAME BUDGET: could not find the paint for %r. Refusing to guess which '
+                 'render() to coalesce.' % what)
 
 open(WORLD, 'w', encoding='utf-8').write(src)
-print('FRAME BUDGET: %s renderSoon() and rewired setHZoom in %s'
-      % ('REFRESHED' if refreshed else 'added', WORLD))
-print('    measured before: 2.08 full redraws per touch move, ~23 ms each, while WALKING')
+print('FRAME BUDGET: %s renderSoon() in %s' % ('REFRESHED' if refreshed else 'added', WORLD))
+for w in rewired:
+    print('    coalesced:', w)
+print('    measured before: walking pinch 2.08, CITY pinch 4.00 redraws per touch move')

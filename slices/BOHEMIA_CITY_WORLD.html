@@ -208,6 +208,7 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
 
 
 
+
 #daycardIn .mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;
   padding:9px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
   border:1px solid var(--line)}
@@ -6922,6 +6923,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE WORLD YOU STAND IN ==== */
+
+
 
 
 
@@ -15340,7 +15343,7 @@ function setZoomAt(z,pvx,pvy){
   panY=(pvy-cv.height/2)*(1-k)+panY*k;
   CZOOM=z; TW=TW0*z; TH=TH0*z;
   if(Math.abs(z-zmin)<1e-4){ panX=0; panY=0; }       // snap to centered at full fit
-  clampPan(); render();
+  clampPan(); renderSoon();
 }
 function recenter(){ panX=0; panY=0; setZoomAt(1); }
 function fitMap(){ const [zmin]=zoomBounds(); panX=0; panY=0; setZoomAt(zmin); }
@@ -15831,6 +15834,7 @@ let HZOOM=44; // player-chosen human zoom, SNAPPED to pixel-true levels
 // fractional art scaling at any stop.
 const HLEVELS=[11,22,44,88];
 let _zacc=44;
+
 /* ==== ONE PAINT PER FRAME WHILE HE PINCHES ==== */
 /* __FRAME_BUDGET__ -- renderSoon(): one paint per frame while two fingers are down.
    MEASURED, NOT GUESSED (gates/frame_budget_gate.js): pinch-zoom WHILE WALKING cost 2.08
@@ -17854,7 +17858,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
     if(a){                                          // pinch: zoom about the midpoint + pan the midpoint
       const d=dist(a), m=mid(a);
       if(lastDist>0)setZoomAt(CZOOM*(d/lastDist), m.x, m.y);
-      if(lastMid){ panX+=m.x-lastMid.x; panY+=m.y-lastMid.y; clampPan(); render(); }
+      if(lastMid){ panX+=m.x-lastMid.x; panY+=m.y-lastMid.y; clampPan(); renderSoon(); }
       lastDist=d; lastMid=m;
     } else if(lastMid){                             // single-finger drag: pan
       const c=toCv(e);
@@ -18539,6 +18543,7 @@ function skyExit(){ if(!SKY)return; SKY=false; SKYU=0; window.__SKY_EXIT=(window
   window.addEventListener('pointercancel', onUp, true);
 })();
 /* ==== end THE MOON ZOOM ON HIS PHONE ==== */
+
 
 
 /* one step of the same gesture that got him here. OUT raises SKYU; IN lowers it,
@@ -21343,6 +21348,7 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 document.getElementById('mktbtn').addEventListener('click',function(){
   if(!mktAt())return; MKT_LAST=null; showMarket();
 });
+
 
 
 
