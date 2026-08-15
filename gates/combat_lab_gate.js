@@ -746,7 +746,7 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
      no-stone case this always guarded AND the stone-that-shields-you-from-
      nobody case it never did. */
   ok('V52 POP OUT VS ENGAGE: when nothing is actually covering you, the action button says ENGAGE, not POP OUT (nothing to pop out of if you were never in cover)',
-    demo.includes('const nearCov=coveredFromAnyone();') &&
+    demo.includes('const nearCov=inRealCover();') &&   /* V156 RE-POINTED: the predicate got STRICTER, not weaker -- it is now coveredFromAnyone AND within reach of the stone. The law is unchanged and better served. */
     demo.includes("col='#eafff0'; txt=nearCov?'POP OUT':'ENGAGE'; green=true;"));
 
 /* ===== V147 THE BUTTON SAYS THE RISK BEFORE HE COMMITS ============
@@ -2739,14 +2739,23 @@ ok('V140 AND THE DECK MAY NOT TELEPORT A MAN BACK INTO RANGE: V90B took shooters
     /* 8 enemy-facing calls, still 8: seven ask the boolean and the eighth asks
        coverPillarAgainst directly, because the volley needs to know WHICH piece
        stopped the round so it can put the heat in the car. */
-    demo.split('myCoverAgainst(e.ea,e.edist,e.lvl)').length - 1 === 9 &&   /* V110: pressureGuns was the eighth. MIGRATED BY V123: coveredFromAnyone is the ninth, and it carries its level like every other -- the invariant is that no enemy-facing call may be levelless, never that there is a fixed number of them */
-    demo.split('coverPillarAgainst(e.ea,e.edist,e.lvl,false)').length - 1 === 1 &&
-    demo.split('myCoverAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 1 &&
-    demo.split('myConcealAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 === 4 &&   /* MIGRATED BY V122: runBreakLocks is the fourth, and it carries its level like every other -- the invariant is that no enemy-facing call may be levelless, not that there are exactly three */
+    /* V156 RE-POINTED, AND THE RULER WAS THE BROKEN ONE. These were EXACT
+       counts, so adding a correct new enemy-facing call -- one that carries its
+       level like every other -- took the gate red for a reason that has nothing
+       to do with the law. The comments beside them had already said so twice in
+       their own words: "the invariant is that no enemy-facing call may be
+       levelless, never that there is a fixed number of them". The counts are
+       floors now and the INVARIANT is asserted directly, across every form,
+       including coverPillarAgainst. FIX THE RULER, NEVER THE TARGET. */
+    demo.split('myCoverAgainst(e.ea,e.edist,e.lvl)').length - 1 >= 9 &&
+    demo.split('coverPillarAgainst(e.ea,e.edist,e.lvl,false)').length - 1 >= 1 &&
+    demo.split('myCoverAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 >= 1 &&
+    demo.split('myConcealAgainst(e2.ea,e2.edist,e2.lvl)').length - 1 >= 4 &&
     demo.includes('coverPillarAgainst(e.ea,e.edist,e.lvl,false)') &&
     demo.includes('myCoverAgainst(tgt.ea,tgt.edist,tgt.lvl)') &&
     demo.includes('myCoverAgainst(e.ea,null,e.lvl)') &&
-    !/my(Cover|Conceal)Against\((e|e2|tgt)\.ea,\s*(e|e2|tgt)\.edist\)/.test(demo));
+    !/my(Cover|Conceal)Against\((e|e2|tgt)\.ea,\s*(e|e2|tgt)\.edist\)/.test(demo) &&
+    !/coverPillarAgainst\((e|e2|tgt)\.ea,\s*(e|e2|tgt)\.edist,\s*(false|true)\)/.test(demo));
 
   ok('HIS NO-MULTIPLIERS RULING HOLDS: height changes nothing about damage. KILL_DMG is still the flat constant and no level term is anywhere near it',
     demo.includes('const KILL_DMG=100;') && demo.includes('applyDamage(tgt,KILL_DMG);') &&
@@ -4410,9 +4419,69 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     demo.includes('r.scrollLeft+=dx; ev.preventDefault();'));
 
   ok('V123 POP OUT NOW ASKS WHO IT IS COVER FROM. Paolo: "IF I HAVE CIVER TIO MY NORTH OF ME BUT THERES NO ENEMIES TO THE NORTH... THE ACTION BUTTON SHOULD NOT BE SAYING POP OUT." playerNearCover asked IS THERE ANY STONE WITHIN 1.8 TILES IN ANY DIRECTION, full stop -- it never asked whether that stone was between you and a living man. Wrong since v52',
+    /* V156 RE-POINTED, AND IT IS THE OTHER HALF OF THE SAME RULING. V52 asked
+       "is any stone near me" and V123 replaced it with "is anything between me
+       and anyone" -- which threw the proximity away, so POP OUT started
+       appearing while he stood in open ground with the nearest rock three tiles
+       off (measured: 370 of 400 turns, every one a lie). NEITHER HALF ALONE WAS
+       EVER RIGHT. inRealCover is the conjunction: the stone you are AT, that
+       also shields you from a living man. Both his rulings, finally at once. */
     demo.includes('function coveredFromAnyone(){') &&
-    demo.includes('const nearCov=coveredFromAnyone();') &&
+    demo.includes('const nearCov=inRealCover();') &&
+    /function inRealCover\(\)\{ return !!myCoverPillarNear\(\); \}/.test(demo) &&
     !demo.includes('const nearCov=playerNearCover();'));
+
+  ok('V156 AND THE PROXIMITY HALF IS BACK, AT THE SAME REACH EVERY ENEMY BODY IS HELD TO. realCoverPillar has demanded a stone within 1.8 tiles of a man since V108; the player had NO proximity test at all, so the rule ran one way exactly like V153. COVER_REACH is that same number, not a new one',
+    demo.includes('const COVER_REACH=1.8;') &&
+    /P\.edist<COVER_REACH/.test(demo) &&
+    /Math\.hypot\(pxy\[0\]-exy\[0\],pxy\[1\]-exy\[1\]\)<1\.8/.test(demo));
+
+  { /* MEASURED, not read: put a man out there, put a rock on the line at
+       various distances, and ask the button what it would say. */
+    const a = demo.indexOf('const COVER_REACH=1.8;');
+    const b = demo.indexOf('\n', demo.indexOf('function inRealCover()', a));
+    if (a > 0 && b > a) {
+      const src = demo.slice(a, b);
+      const ask = (rockDist) => new Function('G', 'coverPillarAgainst',
+        src + ';return inRealCover();'
+      )({ e: [{ ea: 0, edist: 12, lvl: 0 }] }, () => ({ edist: rockDist }));
+      ok('V156 THE BUTTON STOPS OFFERING TO POP HIM OUT OF OPEN GROUND: a stone he is standing at is cover, the same stone three tiles up the lot is scenery -- which is his report, "in the middle of nowhere and it will still tell me to pop out"',
+        ask(0.9) === true && ask(1.7) === true && ask(2.8) === false && ask(6.0) === false);
+    }
+  }
+
+  ok('V156 BUT NO PROTECTION IS TAKEN AWAY. A rock on the line really does stop a bullet whether he is hugging it or it is four tiles up the lot, so myCoverAgainst is untouched and the volley, the dial and the acquisition bead all still ask exactly what they asked. BEING SHIELDED is geometry; BEING IN COVER is a place you stand. The file only ever had one word for both',
+    demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
+    demo.includes('return !!coverPillarAgainst(ang,dist,lvl,false); }') &&
+    !/myCoverAgainst\(ang,dist,lvl\)\{[\s\S]{0,200}COVER_REACH/.test(demo));
+
+  { /* AND NOTHING GOT HARDER, PROVEN BY CONTAINMENT rather than by a sim that
+       saturates. Every value V156 changed must reach ONLY display: the button
+       label, the run readout and the flank sentence. If any of them ever feeds
+       damage, the dial or a pool, this goes red. */
+    // strip block and line comments first: "tiles closed", "each closed" and
+    // friends are prose, and a checker that cannot tell a mention from a use is
+    // the broken one.
+    const code = demo.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/^\s*\/\/.*$/gm, ' ');
+    const bad = (name, allow) => code.split('\n')
+      .filter(l => new RegExp('\\b' + name + '\\b').test(l))
+      .some(l => {
+        const s = l.trim();
+        // a declaration is not a use, including the second name in `let a=0,b=0;`
+        if (new RegExp('(const|let)\\s+[^;]*\\b' + name + '\\b\\s*=').test(s)) return false;
+        return !allow.test(s);
+      });
+    ok('V156 AND NOTHING GOT HARDER: every value it changed reaches ONLY the screen. nearCov feeds the button text and its glow, onCov feeds the run readout, flanked/closed feed one sentence. None of them touches damage, the dial or a targeting pool -- so he keeps every bit of shielding he had and only the label became true',
+      !bad('nearCov', /txt=|bg=|glow=|col=/) &&
+      !bad('onCov', /setRead|onCov\?/) &&
+      !bad('flanked', /flanked\+\+|const word=/) &&
+      !bad('closed', /closed\+\+|closed\?/));
+  }
+
+  ok('V156 AND THE FLANK NOTICE STOPS CRYING WOLF. Measured before: "N came around your cover" fired on 98.8% of turns, because ghost cover made the BEFORE state blocked almost everywhere so nearly any step read as a flank -- which is the real reason he could not tell whether they were trying. It can only be said about cover he actually has, and when he has none it says what happened instead',
+    demo.includes('const _hadCover=inRealCover();') &&
+    /const wasBlocked=_hadCover&&coverAtXY\(/.test(demo) &&
+    /:\(closed\?\(closed\+' closed on you'\):\(G\._pressN\+' moved on you'\)\)/.test(demo));
 
   ok('V123 AND IT REUSES THE REAL GEOMETRY TEST INSTEAD OF INVENTING A SECOND ONE: myCoverAgainst is what the volley, the exposure floor and the acquisition bead already ask, so the action button stops being the one place asking the cheap question',
     /coveredFromAnyone\(\)\{[\s\S]{0,220}myCoverAgainst\(e\.ea,e\.edist,e\.lvl\)/.test(demo));
