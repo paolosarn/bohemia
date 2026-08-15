@@ -19293,3 +19293,30 @@ forbidding work that is actively happening. Both corrected in place.
 AND THE COORDINATOR CAUSED SOME OF THIS: my own previous reply said
 "money", "get paid", "spend money" — the drift came out of the session
 whose job is catching drift.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/15 (e) — SWEEP 10. The 8/14 demo audit drove the
+week: SOUNDS moved the approved sounds onto the surface he actually walks
+("I spent four turns building on a surface he never sees"), RUN built THE
+DEMO GATE (row 9, the row nobody owned), row 4 hit five playable days,
+the sync hole was TEN modules not two, and CHARACTER measured and cleared
+2X's memory prerequisite before touching the rig. No collisions; every P0
+claimed within a day.
+HIS RULING TIGHTENED: money is speakable ONLY as the dead past ("unless
+they're referring to what they used to have"). My dead-idiom exception
+was too loose — "easy money" about a live bounty is ILLEGAL. ELEGY, NEVER
+TRANSACTION. Record + gate narrowed.
+THE CATCH — THE THUMB (records/BOHEMIA_RESEARCH_THE_THUMB_8_15_26.md,
+routed SHARED -5): "iPhone portrait" is line one of the charter and we
+solved only the half our machines can see. The entire navigation, SIXTEEN
+tabs behind a horizontal drag, sits in the top strip — the documented red
+zone where only a grip change reaches. The walked city pins ~13 elements
+high vs ~6 low and uses `safe-area-inset` ZERO times. Hoober: 49% of
+people hold one-handed, ~75% of interaction is thumb-driven, only ~a
+third of the screen is effortless. Aviation ergonomics: frequently-used
+controls must sit inside the reach envelope — PLACEMENT IS EARNED BY
+FREQUENCY. And fifteen gates open a 390x844 viewport to verify what FITS,
+so reachability is invisible to them by construction — the third time
+this month that a gate measuring the wrong thing was the answer. The
+person it costs most is Paolo, who drags that strip dozens of times a day.
+NAME THE TAB is untouched (names, not position).

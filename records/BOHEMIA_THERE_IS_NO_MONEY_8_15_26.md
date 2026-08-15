@@ -49,12 +49,17 @@ word REFERS TO:
   owing it, it arriving, paying in it. "Take the money" is wrong because
   there is nothing to take. Same for cash, dollars, coins, a wallet,
   "currency" spoken aloud.
-- LEGAL — money as DEAD IDIOM in a person's mouth. Language outlives the
-  thing it named: an older character saying "easy money" about a bounty
-  that pays in medicine is CHARACTER, and arguably good character (the
-  habits of a dead economy are exactly the texture this world wants).
-  Use it deliberately, sparingly, and never where a literal reading is
-  possible.
+- *** NARROWED BY PAOLO THE SAME DAY, AND MY VERSION WAS TOO LOOSE: "even
+  those quest lines are fucked up. Don't you say the word fucking money
+  OK unless they're referring to what they used to have or something."
+  THE ONLY LEGAL USE IS THE DEAD PAST — a character remembering the
+  money they used to have, the world that had it, what it bought before
+  it died. Elegy, never transaction.
+  SO "EASY MONEY" ABOUT A LIVE BOUNTY IS ILLEGAL. My "dead idiom"
+  exception would have let exactly that through, and he closed it. An
+  idiom about a PRESENT deal is still the word doing live work; the
+  habits-of-a-dead-economy texture has to come from somewhere other than
+  characters pricing today's job in a currency that does not exist. ***
 - THE REPLACEMENT IS NOT A WORD, IT IS THE GOOD: people say what they
   are actually being handed — medicine on the barrel, a case of batteries,
   half a tank, a roll of tape. That is also the dialogue craft card's

@@ -6116,6 +6116,50 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-5. *** THE THUMB: WE DESIGNED FOR THE SCREEN AND NEVER FOR THE HAND
+   (sweep 10 catch, 8/15 — records/BOHEMIA_RESEARCH_THE_THUMB_8_15_26.md.
+   Whichever session owns a surface takes its part; the GATE is shared.)
+   "iPhone portrait" is line one of this project's charter and we solved
+   the half our machines can see. MEASURED HERE: the entire navigation —
+   SIXTEEN tabs, overflow-x:auto, touch-action:pan-x, custom drag
+   scroller — sits in the TOP strip, the documented red zone, so reaching
+   tab 12 is a precise horizontal DRAG in the least reachable band of the
+   phone. The walked city surface pins ~13 elements near the top against
+   ~6 near the bottom. `safe-area-inset` appears ONCE in the alpha and
+   ZERO times in the city world, so nothing is protected from the home
+   indicator or Safari's bottom URL bar. AND FIFTEEN GATES OPEN A
+   390x844 VIEWPORT AND VERIFY WHAT FITS — a Playwright click lands
+   anywhere with equal ease, so reachability is invisible to our whole
+   apparatus BY CONSTRUCTION (third time this month that a gate
+   measuring the wrong thing was the answer).
+   THE OUTSIDE EVIDENCE: Hoober's 1,333 street observations — 49% hold
+   one-handed, ~75% of interaction is thumb-driven, and only about a
+   THIRD of the screen is effortless (bottom, arcing away from the
+   thumb); top corners are awkward-to-impossible. Phones got taller
+   since, which makes it worse. Aviation/industrial ergonomics settled
+   the rule we need: controls used FREQUENTLY must sit inside the
+   reachability envelope, designed for the 5th-95th percentile, not the
+   designer's arm. PLACEMENT IS EARNED BY FREQUENCY.
+   DO: (a) THE FREQUENCY AUDIT first — rank every control by how often
+   it is used in a real session; that ranking IS the placement spec.
+   (b) THE TAB BAR IS THE HEADLINE — most-used control in the build,
+   sitting in the red zone behind a drag. Move it into the reachable band
+   ABOVE the safe-area inset. THE TAB SET AND NAMES DO NOT CHANGE; NAME
+   THE TAB (7/28) is about names, not position, and is untouched.
+   (c) handle env(safe-area-inset-*) on the WALKED surface where it is
+   absent. (d) NOT "move everything to the bottom" — the bottom edge is
+   its own iOS trap, which is why (c) comes first. (e) THE GATE THAT CAN
+   SEE IT: assert every FREQUENT-ranked control renders inside a defined
+   reachable region of a 390x844 portrait viewport — geometry, not taste.
+   WHO IT COSTS MOST IS HIM: players get P0-DOOR and land in the game,
+   but he drags that sixteen-tab strip dozens of times a day and has
+   never mentioned it, because ambient friction does not feel like a bug.
+   HONEST LIMIT: a geometry gate approximates a thumb; the real check is
+   him playing one-handed, which the closed playtest already collects.
+   | frequency ranking recorded + frequent controls inside the reachable
+   region, gated + safe-area handled on the walked surface | final
+   placement feel = his | yes (the moved bar is judgeable the moment he
+   holds it). ***
 -4. *** THE NO-MONEY GATE (8/15, on Paolo's correction — records/BOHEMIA_
    THERE_IS_NO_MONEY_8_15_26.md. NEW LAW, NEW GATE, SAME TURN — except
    the law is not new: he ruled it 7/26 and we drifted off it, which is
@@ -6129,13 +6173,15 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    spends the same as loud money").
    BUILD: a word sweep over player-facing text (.bq @SAY/@OPT/@LOG, UI
    copy, item and quest names, the WORDS corpus) failing on money / cash
-   / dollar / coin / wallet USED AS A THING. THE IDIOM EXCEPTION IS REAL
-   AND MUST SURVIVE: language outlives the thing it named, so an old
-   character saying "easy money" about a bounty paid in medicine is good
-   character writing — legal ONLY with an inline citation of the record
-   on that line, so an exception is a decision somebody made rather than
-   a leak. A blanket ban would flatten the writing and that is not the
-   goal. | gate registered + mutation-tested (put "take the money" in a
+   / dollar / coin / wallet USED AS A THING. *** THE EXCEPTION IS NARROWER THAN THE
+   FIRST DRAFT OF THIS ITEM SAID — PAOLO NARROWED IT HIMSELF: "don't you
+   say the word fucking money OK unless they're referring to what they
+   used to have or something." THE ONLY LEGAL USE IS THE DEAD PAST
+   (remembering what money bought before it died). ELEGY, NEVER
+   TRANSACTION. "Easy money" about a live bounty is ILLEGAL — the
+   coordinator's dead-idiom exception would have passed it and he closed
+   it. Legal past-tense uses still carry an inline citation of the record
+   so every survivor is a decision somebody made. *** | gate registered + mutation-tested (put "take the money" in a
    @SAY and it goes red) | — | no. ***
 -3. *** THE SHELF AUDIT — EXTEND THE CENSUS WE ALREADY HAVE (sweep 9
    catch, 8/14 — records/BOHEMIA_RESEARCH_THE_PHANTOM_SHELF_8_14_26.md).

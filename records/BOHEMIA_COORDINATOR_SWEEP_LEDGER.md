@@ -344,3 +344,56 @@ half the census cannot see + the fired-in-a-played-day half), SHARED -2b
 plus three independent audits, high. Retail figures peer-reviewed; the
 transfer is analogy, flagged.]
 HIGH-WATER MARK: swept through main @ a61d8c4 (plus this sweep's push)
+
+## SWEEP 10 — 8/15/26 (his v3 prompt)
+DELTA: 20 lane commits, and THE 8/14 AUDIT DROVE MOST OF THEM.
+CLOSED OFF MY BOARD: SOUNDS acted on P0-WALK — "I SPENT FOUR TURNS
+BUILDING ON A SURFACE HE NEVER SEES. IT IS ON THE REAL ONE NOW" (plus
+BATCH SFX-05, seven big moments that were playing silence); RUN built THE
+DEMO GATE, "row 9, the only critical-path row nobody owned"; row 4 left
+the floor with FIVE PLAYABLE DAYS; the ENGINE SYNC hole I relayed turned
+out to be TEN modules, not two, and two had drifted a week; CHARACTER
+measured and CLEARED the 2X memory prerequisite before touching the rig
+(exactly the order the law asked for). ALSO: TERRITORY -> MANDATE ->
+MAYOR (the braid rung — the city can back you now), COVER DIES + IT CUTS
+BOTH WAYS (the movement-forcer, answering his "I want more movement"),
+THE MIX (music gets out of a person's way), the freeway ribbon and street
+facing, and HIS OWN NEW LAW: never ask him a technical question.
+COLLISIONS: none. Every P0 I routed was claimed by its lane within a day.
+DRIFT FIXED THIS TURN: the money vocabulary (below), the WORLD EC
+currency line (said "medicine/electricity/resources" — medicine is a
+GOOD and CLOUT was missing, contradicting his locked 7/26 law and the
+working code), and the QUESTS lane header still reading HIBERNATED / "do
+NOT pick up items below" while S22-S25 shipped under it.
+HIS RULING, TIGHTENED: money may be spoken ONLY as the dead past
+("unless they're referring to what they used to have"). My dead-idiom
+exception was too loose and he closed it — "easy money" about a live
+bounty is illegal. ELEGY, NEVER TRANSACTION. Gate narrowed to match.
+THE CATCH (lens: the hand, not the screen; both aisles):
+QUESTION: "iPhone portrait" is line one of the charter and every gate
+runs 390x844 — so is the form factor actually handled?
+MEASURED: the whole navigation (SIXTEEN tabs, overflow-x, touch-action:
+pan-x, custom drag scroller) sits in the TOP strip — the documented red
+zone — so reaching tab 12 is a precise drag in the least reachable band.
+The walked city pins ~13 elements high against ~6 low. `safe-area-inset`
+appears ONCE in the alpha and ZERO times in the city world.
+FINDINGS: Hoober's 1,333 field observations — 49% one-handed, ~75% of
+interaction thumb-driven, only ~a third of the screen effortless (bottom
+arc), top corners awkward-to-impossible; phones grew taller since.
+Aviation/industrial ergonomics: frequently-used controls MUST sit in the
+reach envelope, 5th-95th percentile — PLACEMENT IS EARNED BY FREQUENCY.
+CHALLENGE FINDING: we solved LAYOUT (what fits, verified fifteen times)
+and never OPERATION (what a thumb reaches) — and the half we solved is
+the half our machines can see, so fifteen gates report green on a
+question nobody asked them. Third time this month that "the gate measures
+the wrong thing" was the answer. AND IT COSTS HIM MOST: players get
+P0-DOOR, but he drags that sixteen-tab strip dozens of times a day and
+has never mentioned it, because ambient friction does not feel like a bug.
+ROUTED: SHARED -5 (frequency audit -> tab bar into the reachable band
+above the safe-area inset -> safe-area on the walked surface -> a reach
+gate asserting geometry, explicitly NOT "move everything to the bottom").
+NAME THE TAB is untouched: it governs names, not position.
+[Confidence: our layout numbers read from the shipped files, high;
+Hoober widely-cited field research, high but a decade old — which
+strengthens this finding; cockpit transfer is my analogy, flagged.]
+HIGH-WATER MARK: swept through main @ 8d210cd (plus this sweep's push)
