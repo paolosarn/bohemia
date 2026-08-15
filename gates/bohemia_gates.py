@@ -701,6 +701,21 @@ GATES = [
      'FUZZ -- 400 random histories of kills, claims, time and sweeps with zero unreachable states '
      '-- because the addendum names Skyrim radiant quests as the system that ships that bug. The '
      'registry is EMPTY of seats and leaders, and both of his OPEN FORKS refuse out loud by name', False),
+    ('BANNER',         ['node', 'gates/banner_gate.js'],
+     'A MODULE THE SYNC SWEEP CANNOT SEE IS A MODULE OUTSIDE THE ENGINE SYNC LAW, AND NOTHING '
+     'SAID SO. The resync scanner finds embedded copies by a ONE-LINE banner, so a banner that '
+     'WRAPS is not a formatting nit, it is an opt-out: the module keeps its stale copy, the '
+     'sweep skips it, and every gate stays green because a checker that only looks at what it '
+     'can SEE reports perfect health on a shrinking sample. It had already happened three times '
+     '-- four RUN modules, then agents + population on the city page, and WHEN THOSE TWO WERE '
+     'PUT BACK THE SWEEP RESYNCED BOTH IMMEDIATELY: the city was carrying a population module '
+     'from before the 8/6 scale correction, describing a 48x48 valley that has been 96x96 for '
+     'weeks. This lane was guilty too -- the payday patch wrote "----" banners, so all eight '
+     'modules it inlines were outside the law. Ratchet on the four that remain, in pages this '
+     'lane does not own. Its own first run was WRONG and said so: it signed modules by their '
+     'first long line, which for a dozen of them is a "/* ======" divider occurring 42 times '
+     'in one page, so it reported three modules inlined that are not there. A CHECKER THAT '
+     'CANNOT TELL ONE MODULE FROM ANOTHER IS THE BROKEN ONE', False),
     ('MANDATE',        ['node', 'gates/mandate_gate.js'],
      'TERRITORY -> MANDATE -> MAYOR, locked 6/30 and unbuilt until 8/11: "the more the city '
      'backs you, the easier building becomes, even in areas whose local faction does not love '

@@ -8693,7 +8693,44 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 LATEST -- *** TERRITORY -> MANDATE -> MAYOR. THE CITY CAN
+WORLD (world-9lfjtf): 8/15 (b) LATEST -- *** THE ENGINE SYNC LAW COULD NOT SEE TEN OF
+ITS OWN MODULES, AND TWO OF THEM HAD DRIFTED A WEEK. *** BUILD 8/15k.
+Gate: banner_gate.js 8/0, registered as BANNER.
+
+TAB: none -- this is the machine under every tab. NOT IN A TAB, and nothing to look at.
+
+THE BACKLOG ITEM WAS ONE LINE OF WORK AND IT UNCOVERED A LIVE BUG. The SYNC item said
+two modules were outside the sweep because their banner wrapped. It is worse than
+bookkeeping: tools/bohemia_city_module_resync.py finds embedded copies by a banner that
+STARTS and ENDS with the '====' marker ON ONE LINE, so a wrapped banner is not a
+formatting nit, IT IS AN OPT-OUT. The module keeps its embedded copy, the sweep skips
+it, and every gate stays green -- because a checker that only looks at what it can SEE
+reports perfect health on a shrinking sample.
+THE MOMENT THE TWO BANNERS WERE FIXED, THE SWEEP RESYNCED BOTH. The city page was
+carrying a bohemia_population.js from BEFORE the 8/6 scale correction -- the revision
+whose own comments describe a 48x48 valley that has been 96x96 for weeks, the one that
+was 4.25x wrong. That drift was over a week old and invisible.
+
+AND THIS LANE WAS GUILTY OF THE SAME THING. bohemia_city_payday_patch.py wrote its
+banners as '/* ---- engine/x.js ---- */'. Dashes, not equals. So ALL EIGHT modules this
+lane inlines -- economy, purse, payday, daycycle, weather, succession, fuse, mandate --
+were outside the ENGINE SYNC LAW from the day they landed. Fixed at the tool, so it can
+never be re-introduced by re-running the patch.
+
+NEW GATE: banner_gate.js. Every module inlined in the page the sweep actually reads must
+be VISIBLE to it. Four remain hidden in pages this lane does not own (overmap, standing,
+terrain_noise, world_resolve) and they are a RATCHET -- named so they are fixable, and
+the list may only shrink.
+ITS OWN FIRST RUN WAS WRONG AND THE GATE SAYS SO IN ITS HEADER: it signed each module by
+its first long line, which for a dozen of them is a '/* ======' divider that occurs 42
+times in one page, so it reported three modules inlined that are not there at all. A
+CHECKER THAT CANNOT TELL ONE MODULE FROM ANOTHER IS THE BROKEN ONE. Fixed the ruler
+(longest non-divider line), then found the second error the same way: it was scanning
+both pages when the tool scans exactly ONE, chosen by a marker, and unwraps a base64
+payload to do it. Mirror the door and the key, or you are measuring something the law
+never looks at.
+
+WORLD (world-9lfjtf): 8/15 (a) -- *** TERRITORY -> MANDATE -> MAYOR. THE CITY CAN
 BACK YOU NOW, AND THAT IS WHAT LETS YOU BUILD WHERE THEY HATE YOU. *** BUILD 8/15a.
 Gate: mandate_gate.js 30/0, registered as MANDATE. Module: engine/bohemia_mandate.js.
 

@@ -1340,9 +1340,7 @@ if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);
 
-/* ==== engine/bohemia_agents.js (CITY PEOPLE, 7/29) — the WORLD lane's
-   schedules, inlined VERBATIM. This frame asks it when a person is home and
-   never decides for itself. ==== */
+/* ==== engine/bohemia_agents.js ==== */
 // BOHEMIA AGENTS — the people factory (7/19/26, LIFE session)
 //
 // The stage exists (world model: districts, homes, floorplans). This module
@@ -1421,20 +1419,36 @@ global.BohemiaOvermap=API;
   // millions, and then on top of it now we have an apocalypse."
   //   THE THREE STEPS, run against the LIVE MAP by tools/bohemia_scale_model.js so
   //   this number can never drift away from the world it describes:
-  //     THE MAP        48x48 cells x 96 m = 21.23 km2, 12,260 dwellings drawn
-  //     THE SCALE      1:78 by housing (12,260 of Clark County's 958,705 units),
-  //                    1:66 by area (21.2 km2 of the valley's 540 sq mi = 1,398.6).
-  //                    Two independent measures agreeing within 16% is what says
-  //                    the map is a coherent model and not a doodle.
-  //     STEP 1         2050 Vegas is ~2.9 M (UNLV CBER: 3 M in 2055). At 1:78 that
-  //                    is 37,085 people. Millions became tens of thousands purely
-  //                    from the scale model - his whole point.
-  //     STEP 2         then the apocalypse. GDD v5: ~3% remain. 37,085 x 3%
-  //                    = 1,113 PEOPLE IN THE WHOLE VALLEY.
-  //     STEP 3         1,113 / 2.2 per household = 506 occupied homes of 12,260.
+  //   *** CORRECTED 8/6/26. THE NUMBERS BELOW WERE 4.25x WRONG AND THE RATE WAS
+  //   NOT. *** tools/bohemia_scale_model.js promised in its own header that this
+  //   figure "can never drift away from the world it describes", and then measured
+  //   the valley with `for (y = 0; y < 48; ...)` HARDCODED. The valley became 96x96
+  //   and the tool kept measuring a quarter of it - silently, because a small loop
+  //   over a big world does not error, it under-counts.
+  //     THE MAP        96x96 cells x 96 m = 84.9 km2, 55,391 dwellings drawn
+  //                    (it read 48x48, 21.2 km2, 12,259 dwellings)
+  //     THE SCALE      1:17.3 by housing (55,391 of Clark County's 958,705 units),
+  //                    1:16.5 by area (84.9 km2 of the valley's 540 sq mi = 1,398.6).
+  //                    THEY NOW AGREE WITHIN 5% - tighter than the 16% the old
+  //                    numbers managed, which is the sign the correction is real
+  //                    and not a second mistake.
+  //     STEP 1         2050 Vegas is ~2.9 M (UNLV CBER: 3 M in 2055). At 1:17.3
+  //                    that is 167,553 people. Millions became hundreds of
+  //                    thousands purely from the scale model - his whole point,
+  //                    unchanged.
+  //     STEP 2         then the apocalypse. GDD v5: ~3% remain. 167,553 x 3%
+  //                    = ~5,027 PEOPLE IN THE WHOLE VALLEY.  (was: 1,113)
+  //     STEP 3         5,027 / 2.2 per household = 2,285 occupied of 55,391 homes.
+  //     MEASURED       an exact census over all 2,809 residential cells returns
+  //                    4,723 people at 3.91% occupancy - 6% off the prediction,
+  //                    where before the fix the two were 4.25x apart. THE ENGINE
+  //                    WAS ALWAYS RIGHT; ONLY THE ARITHMETIC DESCRIBING IT WAS
+  //                    WRONG, WHICH IS WHY OCCUPIED_RATE DOES NOT CHANGE.
   //                    OCCUPANCY = 4.1% on paper; 0.038 is the value that
   //                    LANDS there on the real map, because occupancy is a per-house
   //                    hash roll and household draws are not exactly the mean.
+  //                    THE RATE IS UNTOUCHED BY THE 8/6 CORRECTION: 3.91% measured
+  //                    against 4.1% derived. It was right the whole time.
   //   THE OLD VALUE WAS 0.30 and its own comment called it a placeholder whose real
   //   number was [PENDING Paolo]. It was 7.3x too many people. This replaces a
   //   self-declared placeholder with arithmetic off his own GDD and public data -
@@ -1507,11 +1521,128 @@ global.BohemiaOvermap=API;
     return agent.sched[agent.sched.length-1];
   }
 
-  // ---- FACTION TABLE — EMPTY (CONTENTS-PAOLO'S) ----------------------------
-  // When Paolo rules faction membership (who lives where, who works for whom),
-  // rows land here and agentsForBlock starts consulting it. Until then every
-  // agent is faction:null and nothing in the engine invents an allegiance.
+  // ---- FACTION TABLE — STILL EMPTY (CONTENTS-PAOLO'S) -----------------------
+  // WHICH faction holds WHICH ground is his ruling and it has not been made. This
+  // table stays empty and nothing below invents a row for it.
   var FACTION_ASSIGN={};
+
+  // ---- WHO BELONGS TO ANYBODY (8/2/26) --------------------------------------
+  // Paolo, 8/2, after thumbing the whole gap list WANT: "We need to make lots of
+  // progress." Gap 2 was the biggest finding in the research - faction games write
+  // their LEADERS and leave the ordinary members as wallpaper - and this repo's own
+  // 268 derived people were exactly that: every single one faction:null.
+  //
+  // MECHANISM-MINE / CONTENTS-PAOLO'S, kept honestly:
+  //   THE MECHANISM (that a person HAS an allegiance, that it is derived from their
+  //   seat so it survives the sim being thrown away, that most people have none) is
+  //   this function.
+  //   THE CONTENTS (which faction holds which ground) are his, and they are NOT
+  //   here. factionOf reads the bases the CALLER supplies - the loop already seats
+  //   every faction on real worldMap.factionSlots coordinates via bootFactions, so
+  //   the geography is canon plumbing that already existed. Called with no bases,
+  //   every agent is unaffiliated exactly as before. Zero invention, zero regression.
+  //
+  // MOST PEOPLE BELONG TO NOBODY, and that is the grounded answer, not a placeholder.
+  // Act 1 is ten years in with every faction at about a third of maturity - "every
+  // faction is a startup" (GDD v2 section 8). A valley where most people are just
+  // people is what that sentence means.
+  var AFFILIATED_RATE=0.30;   // [PENDING Paolo] the share of adults who run with anybody
+  var REACH_CELLS=12;         // [PENDING Paolo] how far a base's pull carries
+
+  // A person's allegiance is keyed to their SEAT, never to their place in a list -
+  // the 8/2 law this lane learned the hard way when repairing a district silently
+  // swapped every neighbour's personality.
+  /* ACCEPT THE SHAPE THE REAL CALLER ACTUALLY PASSES. Found 8/11, and it is the
+     worst kind of bug: this function took an ARRAY of {name,x,y}, its gate proved it
+     with exactly that fixture across 50 claims, and the ONLY caller in the game -
+     bohemia_loop.js's boot - builds `ctx.factionBases[fid] = {x,y}`: an OBJECT keyed
+     by faction id, with no `name` and no `.length`. So the very first line returned
+     null for every person in the valley, every time, and NOBODY HAS EVER BELONGED TO
+     ANYTHING in a real run. Green the whole way, because the gate fed it a shape the
+     caller never produces.
+     Normalised here rather than in the loop: the loop's object form is what other
+     code already reads, and changing that contract to suit this function would move
+     the breakage instead of fixing it. */
+  function normalizeBases(bases){
+    if(!bases) return [];
+    if(Array.isArray(bases)) return bases;
+    var out=[];
+    Object.keys(bases).sort().forEach(function(k){
+      var b=bases[k]; if(!b||b.x==null||b.y==null) return;
+      out.push({ name: b.name||k, x: b.x, y: b.y });
+    });
+    return out;
+  }
+  /* where a person actually works, from the job site the generator already scanned:
+     a compass direction and a distance in cells off their own block. */
+  function jobCell(agent, cell){
+    var j=agent&&agent.job;
+    if(!j||j.kind!=='site'||!j.dir||!j.dist) return null;
+    var d={N:[0,-1],S:[0,1],W:[-1,0],E:[1,0]}[j.dir];
+    return d ? [cell[0]+d[0]*j.dist, cell[1]+d[1]*j.dist] : null;
+  }
+  function factionOf(agent, cell, bases){
+    bases = normalizeBases(bases);
+    if(!agent||!bases.length||!cell) return null;
+    /* THE SEAT IS THE BLOCK PLUS THE ID, NEVER THE ID ALONE. Ids are 'H3-1',
+       'H8-2' - they repeat on every block in the valley, so hashing the id by
+       itself made every H3-1 anywhere the same faction and collapsed the whole
+       population onto a dozen draws. Same class of mistake as 8/2's "a person is
+       keyed to where they live, never to their place in a list": agent.seed is
+       already unique per (block, house, seat) and it is what makes this a fact
+       about a PERSON. */
+    var seat=String(agent.id||'');
+    var seatKey=mix32((agent.seed>>>0) ^ strHash(seat));
+    /* TWO INDEPENDENT DRAWS, and the first version got this wrong in a way worth
+       keeping written down: one hash was doing both jobs - the do-they-belong roll
+       AND the which-faction pick - so the agents that passed the first test were a
+       biased slice of the second, and one faction took 63% of a three-way split.
+       Correlated draws out of one hash is a classic and it is invisible until you
+       count. Different salts, measured distribution, gate asserts it stays even. */
+    var base=hash(cell[0]|0, cell[1]|0, seatKey);
+    var joinRoll=mix32(base ^ 0x9e3779b9);
+    var pickRoll=mix32(base ^ 0x85ebca6b);
+    if((joinRoll%10000)/10000 >= AFFILIATED_RATE) return null;  // most belong to nobody
+    // among the bases actually within reach, pick deterministically by seat. The
+    // NEAREST is not automatically it: people are not iron filings, and a valley
+    // where allegiance is a pure distance function reads as a heat map.
+    /* YOU RUN WITH WHOEVER YOUR LIVING DEPENDS ON, not just whoever is nearest your
+       bed. (8/11.) Allegiance was a pure function of where a person SLEEPS, which is
+       the weakest of the real channels. The conflict literature on weak-state settings
+       is consistent: armed groups' political capital comes from sponsoring access to
+       JOBS and basic services, and it is ECONOMIC DEPENDENCE through livelihood that
+       ties people to them - patron-client ties follow the work, not the address.
+       The agent already carries a job site (district + dir + dist, scanned off the real
+       overmap), so a working person's allegiance now also weighs whoever holds ground
+       near WHERE THEY WORK. No new data, no tuned knob.
+       HONEST LIMIT, stated so nobody mistakes it for a fix: job sites are found within
+       3 cells, so this widens the net a little, not a lot. It does NOT rescue a block
+       20 cells from everything - that is a fact about the map, and papering over it
+       here would be fitting the world to a screenshot. */
+    var origins=[cell];
+    var jc=jobCell(agent, cell); if(jc) origins.push(jc);
+    var near=[], seen={};
+    for(var i=0;i<bases.length;i++){
+      var b=bases[i]; if(!b||b.x==null||b.y==null) continue;
+      for(var o=0;o<origins.length;o++){
+        var d=Math.abs(b.x-origins[o][0])+Math.abs(b.y-origins[o][1]);
+        if(d<=REACH_CELLS && !seen[b.name]){ seen[b.name]=1; near.push(b); break; }
+      }
+    }
+    if(!near.length) return null;
+    near.sort(function(a,b){ return String(a.name||'')<String(b.name||'')?-1:1; });
+    return near[pickRoll%near.length].name||null;
+  }
+  /* murmur3's finalizer. THE SHARED hash() ENDS ON A MULTIPLY and a multiply only
+     propagates bits LEFT, so its low bits hardly move - taking `% 3` off them gave a
+     48/40/12 split of a three-way choice. hash() itself is NOT touched: every seeded
+     thing in this world derives from it and improving it would reshuffle the whole
+     valley. This mixes on top, locally. */
+  function mix32(x){ x=x>>>0;
+    x^=x>>>16; x=Math.imul(x,0x85ebca6b)>>>0;
+    x^=x>>>13; x=Math.imul(x,0xc2b2ae35)>>>0;
+    x^=x>>>16; return x>>>0; }
+  function strHash(s){ var h=2166136261; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=(h*16777619)>>>0; } return h>>>0; }
 
   // ---- AGENT SPEC ----------------------------------------------------------
   // agent = {
@@ -1567,6 +1698,8 @@ global.BohemiaOvermap=API;
   }
   function agentsForBlock(blockSeed, feet, jobs, fpOf, opts){
     opts=opts||{};
+    /* opts.factionBases + opts.cell light up factionOf. Absent = every agent
+       unaffiliated, exactly as before this shipped. */
     var rate=(opts.occupiedRate!=null)?opts.occupiedRate:OCCUPIED_RATE;
     /* THE POPULATION DIAL HAS THE LAST WORD, whichever path the rate came from
        (Paolo 8/1, the slider he is going to make). occupiedRateFor already
@@ -1629,6 +1762,14 @@ global.BohemiaOvermap=API;
         out.push(makeAgent(blockSeed,i,n,js,fpOf));
       }
     }
+    /* WHO THEY RUN WITH. Derived from the seat, so it survives the sim being thrown
+       away and rebuilt on every save load - the same law that keeps a neighbour the
+       same person after you repair their street. */
+    if(opts.factionBases&&opts.cell){
+      for(var fi=0;fi<out.length;fi++)
+        out[fi].faction=factionOf(out[fi], opts.cell, opts.factionBases);
+    }
+
     return out;
   }
 
@@ -1797,6 +1938,15 @@ global.BohemiaOvermap=API;
              present while their shift says 'work', away the rest of the day. */
           var v={}; for(var kk in a) v[kk]=a[kk];
           v.visiting=true; v.fromCell=[hx,hy];
+          /* WHERE THEY LIVE travels with them, and it is the CELL only.
+             This used to also carry v.homeIndex - their position in their home
+             block's roster - and that field was the array-index identity bug in
+             miniature: a roster position is not a fact about a person, it is a
+             fact about how many of their neighbours happen to be home, so it
+             moved the moment the block's occupancy changed. It is gone. The
+             visitor is a COPY of the home agent, so its 'H<house>-<slot>' id is
+             already the seat it has at home, and that is what bohemia_population
+             keys a person by (see A PERSON IS KEYED TO WHERE THEY LIVE there). */
           out.push(v);
         }
       }
@@ -2065,6 +2215,18 @@ global.BohemiaOvermap=API;
             if(gate&&occFree(gate[0],gate[1],a.id)){ a.loc.mode='out'; place(a,gate[0],gate[1]); a._path=null; }
             return; }
           if(a.loc.mode==='in'){ stepOut(a,door); return; }
+          /* A PORCH SITTER GOES TO ONE SPOT AND STAYS THERE. roam() below picks
+             a random tile anywhere on a 128-tile block, which is exactly why the
+             nearest person outdoors is routinely a hundred tiles from your front
+             door. A body flagged porch walks to a.porchAt once and then stops.
+             It is the ONE thing this flag does; everything else about them -
+             identity, schedule, card, the name you have to ask for - is an
+             ordinary resident's, because a prop would test nothing. */
+          if(a.porch){
+            if(a.porchAt && (a.loc.x!==a.porchAt[0]||a.loc.y!==a.porchAt[1]))
+              walkTo(a,a.porchAt);
+            return;
+          }
           roam(a,act);
         }
       });
@@ -2151,15 +2313,16 @@ global.BohemiaOvermap=API;
     ADVERTS:ADVERTS,homeActAt:homeActAt,homeSpotFor:homeSpotFor,
     deviate:deviate,DEVIATION_CAP:DEVIATION_CAP,
     jobsNear:jobsNear,workersForPlot:workersForPlot,peopleForPlot:peopleForPlot,
-    makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash};
+    makeSim:makeSim,FACTION_ASSIGN:FACTION_ASSIGN,hash:hash,
+    factionOf:factionOf,normalizeBases:normalizeBases,jobCell:jobCell,AFFILIATED_RATE:AFFILIATED_RATE,REACH_CELLS:REACH_CELLS};
   if(HASREQ) module.exports=API;
   root.BohemiaAgents=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
-
-/* ==== engine/bohemia_population.js (CITY PEOPLE, 7/29) — Paolo's zone map
-   and the PERSON RECORD. Inlined verbatim so the CITY tab and the RUN answer
-   "who lives here" from ONE module, and so people stay mass-editable.
-   Gates: zone_map_gate.js + mass_edit_gate.js ==== */
+/* ==== engine/bohemia_population.js ==== */
+/* CITY PEOPLE, 7/29 — Paolo's zone map and the PERSON RECORD. Inlined verbatim so the
+   CITY tab and the RUN answer "who lives here" from ONE module, and so people stay
+   mass-editable. Gates: zone_map_gate.js + mass_edit_gate.js. (One-line banner above on
+   purpose: see the note on bohemia_agents.js.) */
 // BOHEMIA POPULATION (7/29/26) — WHERE THE 300 PEOPLE ARE.
 //
 // Paolo 7/29, LOCKED (laws/BOHEMIA_ADDENDUM_HOW_MANY_PEOPLE_7_29_26.md):
@@ -2774,6 +2937,47 @@ global.BohemiaOvermap=API;
     return n;
   }
 
+  /* ==== A PERSON IS KEYED TO WHERE THEY LIVE, NEVER TO THEIR PLACE IN A LIST.
+     (8/2/26. The third time this lane keyed identity to the wrong thing, and
+     the worst of the three.)
+
+     bohemia_agents.js builds a block's roster by walking the houses and SKIPPING
+     the abandoned ones, so a person's position in that array is not a fact about
+     them - it is a fact about how many of their neighbours happen to be home.
+     Deriving character from the array position means that the moment occupancy
+     changes, everybody after the change becomes somebody else.
+
+     THAT IS NOT HYPOTHETICAL, IT IS THE GAME MODE PAOLO ASKED FOR ON 8/1: "when
+     you fully repair a district ... more people will want to move in and live in
+     the recovered ruins." Repairing a district raises its occupancy. Measured on
+     cell (3,5): two residents before the repair, four after, and BOTH of the
+     originals came back as different human beings - H12-1 and H12-2 swapped
+     personalities with each other outright. Zero of two survived.
+
+     And it lands squarely on his other locked ruling (7/31, YOU HAVE TO ASK):
+     "once you ask their name, if you see them again, then they would be named."
+     The NAME is safe - bohemia_people.js keys that to 'H<house>-<slot>', which is
+     stable. The CHARACTER was not. So you would spend act one repairing your
+     street and every neighbour you ever named would still answer to their name
+     while being a completely different person underneath.
+
+     THE KEY IS THE SEAT: which house, which place in that household. The agents
+     module already writes it into every agent id and bohemia_people.js already
+     parses it the same way; this just stops ignoring it.
+
+     ONE-TIME RESHUFFLE, DELIBERATE: changing the key changes who is who, once.
+     That is legal precisely because nothing about any individual is approved yet
+     (KNOWN_AT_START and LINES both ship empty, no verdict names a person), and
+     the alternative is a world that reshuffles every time the dial moves. ==== */
+  var SLOTS_PER_HOUSE = 8;         // household() returns 1..4; 8 is headroom, gated
+  function seatNumberOf(agent) {
+    var m = /^H(\d+)-(\d+)$/.exec(String(agent && agent.id || ''));
+    if (!m) return null;
+    var house = parseInt(m[1], 10) - 1, slot = parseInt(m[2], 10) - 1;
+    if (house < 0 || slot < 0 || slot >= SLOTS_PER_HOUSE) return null;
+    return house * SLOTS_PER_HOUSE + slot;
+  }
+
   // One person record per agent on a RUN block, derived and then run through
   // the overrides layer - derivation THEN overrides, in that order, exactly as
   // peopleIn does it for the CITY tab, so neither surface can ever see an
@@ -2781,9 +2985,34 @@ global.BohemiaOvermap=API;
   function peopleForAgents(agents, tx, ty, seed, zone) {
     var out = [];
     for (var i = 0; i < (agents ? agents.length : 0); i++) {
-      out.push(applyRules(personFields(tx, ty, i, seed, zone || 'spread', [tx, ty], 'run')));
+      var a = agents[i];
+      /* A VISITOR IS CONDITIONED BY WHERE THEY LIVE, NOT WHERE THEY STAND.
+         Workers who commute in from a neighbouring block are on this cell's
+         roster (they are standing here) but their character belongs to their own
+         block - deriving them from THIS cell would give the same person one
+         personality at the clinic and another in their own yard.
+         AND THIS IS WHAT PUTS THEM INSIDE MASS EDITS (Paolo 7/29): a visitor with
+         no person record is a body no rule can reach, and "editing people means
+         adding a rule" has to mean every body on the surface.
+         Their seat travels with them for free: workersForPlot copies the agent,
+         so its 'H<house>-<slot>' id is already the one it has at home. */
+      var cx = tx, cy = ty;
+      if (a && a.visiting && a.fromCell) { cx = a.fromCell[0]; cy = a.fromCell[1]; }
+      /* the array position is the FALLBACK ONLY, for a body with no seat in any
+         house. Every agent the generator makes has one; people_gate counts the
+         fallbacks and fails if the number is ever above zero. */
+      var seat = seatNumberOf(a);
+      out.push(applyRules(personFields(cx, cy, (seat != null) ? seat : i,
+                                       seed, zone || 'spread', [cx, cy], 'run')));
     }
     return out;
+  }
+  // how many bodies on this roster have no seat to be keyed by. For the gate.
+  function seatlessIn(agents) {
+    var n = 0;
+    for (var i = 0; i < (agents ? agents.length : 0); i++)
+      if (seatNumberOf(agents[i]) == null) n++;
+    return n;
   }
 
   // ---- THE OVERRIDES LAYER -------------------------------------------------
@@ -2918,7 +3147,9 @@ global.BohemiaOvermap=API;
   // so in the same breath, and WHICH numbers is his call. dialForAct() returns
   // null until he fills it in, and the gate fails if a row lands unruled.
   // MAX RAISED 8/1 from 4 to 32: the scale-model arithmetic says the valley holds
-  // ~1,113 people, and the zone-map path yields 60 at dial 1, so the truthful
+  // ~4,723 people (CORRECTED 8/6: the old 1,113 came from a scale model that
+  // measured a 48x48 valley after the map became 96x96), and the zone-map path
+  // yields 60 at dial 1, so the truthful
   // setting is around 19. A slider that cannot reach the right answer is a broken
   // slider. 32 leaves headroom above it without being meaningless (the map's
   // physical ceiling is 26,972 people - every drawn home full).
@@ -3020,6 +3251,8 @@ global.BohemiaOvermap=API;
               allPeople: allPeople, where: where,
               conditionSchedule: conditionSchedule, conditionAgents: conditionAgents, shiftEdges: shiftEdges,
               peopleForAgents: peopleForAgents,
+              seatNumberOf: seatNumberOf, seatlessIn: seatlessIn,
+              SLOTS_PER_HOUSE: SLOTS_PER_HOUSE,
               NIGHT_FROM: NIGHT_FROM, NIGHT_TO: NIGHT_TO,
               addRule: addRule, removeRule: removeRule, clearRules: clearRules, rules: rules,
               applyRules: applyRules, rulesVersion: rulesVersion,
@@ -4985,7 +5218,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
 
 /* ==== THE WORLD YOU STAND IN (inlined verbatim) ==== */
-/* ---- engine/bohemia_economy.js (inlined verbatim) ---- */
+/* ==== engine/bohemia_economy.js ==== */
+/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA ECONOMY — post-collapse scarcity, grounded (7/19/26, LIFE session)
 //
 // The brief's law: GROUNDED IN THE REAL. Real economics of collapse, no
@@ -5153,7 +5387,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   root.BohemiaEconomy=API;
 })(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
 
-/* ---- engine/bohemia_purse.js (inlined verbatim) ---- */
+/* ==== engine/bohemia_purse.js ==== */
+/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA PURSE — the player's three currencies, and the ledger that proves them.
 // (7/31/26, WORLD lane. Paolo: "WE HAVE 11 months of forward motion work we need to
 // complete. Do what you have to do next and know what comes after.")
@@ -5440,7 +5675,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   root.BohemiaPurse = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
-/* ---- engine/bohemia_payday.js (inlined verbatim) ---- */
+/* ==== engine/bohemia_payday.js ==== */
+/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA PAYDAY — the circulatory link between a finished quest, the player's purse,
 // and a place to spend it. (8/9/26, WORLD lane.)
 //
@@ -5760,7 +5996,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   root.BohemiaPayday = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
-/* ---- engine/bohemia_daycycle.js (inlined verbatim) ---- */
+/* ==== engine/bohemia_daycycle.js ==== */
+/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA DAY CYCLE — ambient light over the day (7/14/26)
 // Grounded: sun color temperature (warm at horizon, neutral at noon);
 // night floor = Paolo's approved ambient (+10% ruling, 7/14).
@@ -5785,7 +6022,8 @@ const BOH_DAYCYCLE=(function(){
 })();
 if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
-/* ---- engine/bohemia_weather.js (inlined verbatim) ---- */
+/* ==== engine/bohemia_weather.js ==== */
+/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA WEATHER — Vegas weather, which is barely any weather. (8/11/26, WORLD lane.)
 //
 // RULED 7/28, LOCKED: laws/BOHEMIA_ADDENDUM_VEGAS_WEATHER_7_28_26.md
@@ -5921,7 +6159,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   root.BohemiaWeather = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
-/* ---- engine/bohemia_succession.js (inlined verbatim) ---- */
+/* ==== engine/bohemia_succession.js ==== */
+/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA SUCCESSION — the world routes around the body. (8/11/26, WORLD lane.)
 //
 // THE SIGNATURE MECHANIC, locked in architecture 7/1 and never built:
@@ -6194,7 +6433,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   root.BohemiaSuccession = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
-/* ---- engine/bohemia_fuse.js (inlined verbatim) ---- */
+/* ==== engine/bohemia_fuse.js ==== */
+/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA FUSED CONSEQUENCES — not everything waits for you. (8/11/26, WORLD lane.)
 //
 // LOCKED 7/1: laws/BOHEMIA_ADDENDUM_CAMERA_TIMESTEP_FUSED_7_1_26.md sec 4.
@@ -6401,7 +6641,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
   root.BohemiaFuse = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
-/* ---- engine/bohemia_mandate.js (inlined verbatim) ---- */
+/* ==== engine/bohemia_mandate.js ==== */
+/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above is one line on purpose: see the note in that tool. */
 // BOHEMIA MANDATE — territory, then the city's backing, then rule. (8/11/26, WORLD lane.)
 //
 // LOCKED 6/30: laws/BOHEMIA_ADDENDUM_PERSISTENT_CONSEQUENCE_MAYOR_6_30_26.md
@@ -6606,6 +6847,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE WORLD YOU STAND IN ==== */
+
+
 
 
 

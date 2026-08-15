@@ -109,7 +109,15 @@ j = src.find('\n', j) + 1           # past the kit IIFE's closing line
 
 blob = [MARK]
 for m in MODULES:
-    blob.append('/* ---- %s (inlined verbatim) ---- */' % m)
+    # THE BANNER IS THE SYNC SWEEP'S ONLY DOOR, so it is written in the scanner's exact
+    # shape: '/* ==== engine/x.js ==== */' on ONE line. It used to be '---- ... ----' and
+    # that is not a style choice, it is an OPT-OUT -- tools/bohemia_city_module_resync.py
+    # only sees a banner that starts AND ends with the '====' marker, so all eight of these
+    # modules sat outside the ENGINE SYNC LAW while every gate stayed green. Two other
+    # modules on this same page had already drifted a week that way (8/15).
+    blob.append('/* ==== %s ==== */' % m)
+    blob.append('/* inlined verbatim by tools/bohemia_city_payday_patch.py. The banner above '
+                'is one line on purpose: see the note in that tool. */')
     blob.append(open(m, encoding='utf-8').read())
 blob.append(ENDMARK)
 src = src[:j] + '\n' + '\n'.join(blob) + '\n' + src[j:]
