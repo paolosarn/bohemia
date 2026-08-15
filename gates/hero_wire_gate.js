@@ -37,7 +37,12 @@ ok('the CITY APP is findable (' + (where || 'nowhere') + ')', !!dec);
 if (dec) {
   ok('drawHero() is defined in the city render', dec.indexOf('function drawHero(') >= 0);
   ok('HERO_WIRE block present (markers)', dec.indexOf('/*HERO_WIRE_START*/') >= 0 && dec.indexOf('/*HERO_WIRE_END*/') >= 0);
-  ok('render switch is hero-guarded (all districts covered)', dec.indexOf('if(!(HERO_IMG[d]&&drawHero(d,p)))switch(d){') >= 0);
+  /* ASK FOR THE PROPERTY, NEVER THE SPELLING (8/1). This matched the call
+     BYTE FOR BYTE, so adding a third argument to drawHero -- the street-facing
+     flip, 8/15 -- turned it red while the switch was still perfectly guarded.
+     THE RULE is: the district switch only runs when the hero did not draw. */
+  ok('render switch is hero-guarded (all districts covered)',
+     /if\(!\(HERO_IMG\[d\]&&drawHero\([\s\S]{0,60}?\)\)switch\(d\)\{/.test(dec));
   for (const d of districts) {
     ok(d + ': sprite embedded as PNG data URI', dec.indexOf('"' + d + '":"data:image/png;base64,') >= 0);
     ok(d + ': anchor bx/by embedded', new RegExp('"' + d + '":\\{"bx":\\d+,"by":\\d+\\}').test(dec));

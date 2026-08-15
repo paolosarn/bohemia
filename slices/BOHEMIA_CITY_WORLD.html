@@ -15593,7 +15593,56 @@ function drawUnder(ox,oy){
 var HERO_ANCH={"apartment":{"bx":234,"by":347},"arsenal":{"bx":234,"by":346},"arterial":{"bx":234,"by":352},"arterial_x":{"bx":234,"by":352},"ballpark":{"bx":234,"by":347},"basin":{"bx":239,"by":343},"battery":{"bx":234,"by":347},"boneyard":{"bx":234,"by":347},"campus":{"bx":234,"by":347},"cemetery":{"bx":234,"by":347},"chapel":{"bx":234,"by":346},"cityhall":{"bx":234,"by":347},"commercial":{"bx":234,"by":347},"courthouse":{"bx":234,"by":346},"datafort":{"bx":240,"by":343},"desert":{"bx":234,"by":347},"downtown":{"bx":234,"by":346},"drivein":{"bx":234,"by":347},"farm":{"bx":236,"by":349},"firestation":{"bx":234,"by":345},"freeway":{"bx":235,"by":353},"fueldepot":{"bx":234,"by":346},"golf":{"bx":232,"by":345},"granary":{"bx":234,"by":346},"gypsum":{"bx":234,"by":346},"industrial":{"bx":234,"by":346},"intake":{"bx":234,"by":347},"interchange":{"bx":234,"by":352},"jail":{"bx":234,"by":347},"landfill":{"bx":234,"by":347},"library":{"bx":234,"by":346},"mall":{"bx":234,"by":347},"medical":{"bx":234,"by":347},"mountain":{"bx":234,"by":347},"park":{"bx":234,"by":346},"policestation":{"bx":234,"by":347},"pumpstation":{"bx":234,"by":347},"quarry":{"bx":234,"by":347},"radio":{"bx":234,"by":346},"rail":{"bx":234,"by":347},"railyard":{"bx":234,"by":346},"reclaim":{"bx":234,"by":347},"reservoir":{"bx":234,"by":346},"school":{"bx":234,"by":347},"solar":{"bx":234,"by":347},"speedway":{"bx":234,"by":347},"stadium":{"bx":234,"by":346},"storage":{"bx":234,"by":347},"substation":{"bx":234,"by":347},"suburb":{"bx":234,"by":347},"swapmeet":{"bx":234,"by":347},"terminal":{"bx":234,"by":346},"town":{"bx":234,"by":347},"trailer":{"bx":234,"by":348},"truckstop":{"bx":234,"by":347},"warehouse":{"bx":234,"by":347},"wash":{"bx":234,"by":347},"water":{"bx":243,"by":343},"waterpark":{"bx":234,"by":347},"watertreat":{"bx":234,"by":347}};
 /* HERO_SRC lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 var HERO_IMG={};(function(){for(var k in HERO_SRC){var im=new Image();im.src=HERO_SRC[k];HERO_IMG[k]=im;}})();
-function drawHero(name,p){var im=HERO_IMG[name];if(!im||!im.complete||!im.naturalWidth)return false;var plate=im.naturalWidth-28,sc=TW/plate,a=HERO_ANCH[name];g.drawImage(im,p.sx-a.bx*sc,p.sy+TH/2-a.by*sc,im.naturalWidth*sc,im.naturalHeight*sc);return true;}
+/* WHICH WAY A STREET RUNS, AND FACING THE TILE THAT WAY (Paolo 8/15) ==========
+   "how hard is it to recognize and be smart about which direction a street
+    should be going east to West north to south and then make it face that way
+    properly by turning the tile"
+
+   IT IS NOT HARD, AND THE REASON IS THAT WE ALREADY KNOW. Every road cell in
+   this app already computes its four neighbours in tileMeta -- m.N/m.S/m.E/m.W,
+   "is the cell that way also a road". That mask IS the direction, exactly, for
+   free, and it has been sitting there unused by the art:
+       N and S, no E/W .... the street runs NORTH-SOUTH
+       E and W, no N/S .... the street runs EAST-WEST
+       three or four ...... a junction, which is a different tile, not a rotation
+   Nothing has to be guessed, inferred from a name, or authored per cell.
+
+   WHY A MIRROR AND NOT A ROTATION. On a 2:1 isometric plate the two street runs
+   are the two DIAGONALS of the diamond, and those two diagonals are mirror
+   images of each other across the vertical. So the correct "turn" for a tile
+   authored along one diagonal is a horizontal flip -- one transform, no
+   resampling, no second sprite to draw, and it stays pixel-exact because a flip
+   of an integer-scaled blit is still integer-scaled. Rotating the bitmap would
+   shear the pixel grid and break the 45-degree art law.
+   A JUNCTION IS NEVER FLIPPED: a crossroads is symmetric, and flipping the
+   dedicated intersection tile would only shuffle its own corners. ========== */
+function heroFlip(d,x,y){
+  if(typeof RD==='undefined'||!RD[d]) return false;      // not a road: never flipped
+  var m; try{ m=tileMeta(x,y); }catch(e){ return false; }
+  if(!m||!m.road) return false;
+  var ns=(m.N?1:0)+(m.S?1:0), ew=(m.E?1:0)+(m.W?1:0);
+  if(ns>=1&&ew>=1) return false;                          // a junction is symmetric
+  return ns>ew;                                           // a north-south run is the mirrored diagonal
+}
+function drawHero(name,p,flip){var im=HERO_IMG[name];if(!im||!im.complete||!im.naturalWidth)return false;
+  var plate=im.naturalWidth-28,sc=TW/plate,a=HERO_ANCH[name];
+  var dx=p.sx-a.bx*sc, dy=p.sy+TH/2-a.by*sc, w=im.naturalWidth*sc, h=im.naturalHeight*sc;
+  if(flip){
+    /* mirror about the tile's OWN centre line, not the canvas: the anchor is
+       what keeps a tile butted up against its neighbour, so the flip has to
+       preserve where the plate sits. */
+    /* translate(2*sx) then scale(-1,1) maps X -> 2*sx - X, so a blit issued at
+       dx lands mirrored about the tile's centre line at [2sx-dx-w, 2sx-dx],
+       which is exactly the reflection wanted. (Worked the offset out wrong on
+       the first pass and negated dx as well -- double-mirrored, sprite an
+       anchor-width off. Checked on the real surface, not on paper.) */
+    g.save(); g.translate(p.sx*2,0); g.scale(-1,1);
+    g.drawImage(im, dx, dy, w, h);
+    g.restore();
+  } else {
+    g.drawImage(im,dx,dy,w,h);
+  }
+  return true;}
 /*HERO_WIRE_END*/
 
 /* ==== THE VISTA BACKDROP (8/11, WORLD lane) =================================
@@ -15698,7 +15747,7 @@ function renderCity(){
       if(p.sx<-TW||p.sx>cv.width+TW||p.sy<-40||p.sy>cv.height+40)continue;
       g.globalAlpha=cellActive(t)?1:0.15;
       const d=t.district, r=OM.rng(t.seed);
-      if(!(HERO_IMG[d]&&drawHero(d,p)))switch(d){
+      if(!(HERO_IMG[d]&&drawHero(d,p,heroFlip(d,x,y))))switch(d){
         case 'arterial': { dia(p,'#8a8a86'); /* LIGHT=TERRITORY (7/20): live circuits queue their lamps; the pass after the night wash draws them so light cuts the dark and neighbors' tiles never occlude a lamp (the occlusion law). */ if(night){ const pw=POWER.at(x,y); if(pw.live){ (window.__LAMPQ=window.__LAMPQ||[]).push({sx:p.sx,sy:p.sy}); } } break; }
         case 'freeway': case 'beltway': dia(p,'#5e5e5a'); break;
         case 'strip': dia(p,'#7a7a76'); g.fillStyle=night?'#ffe86a':'#ffd21a'; g.fillRect(p.sx-TW*0.16,p.sy+TH*0.35,TW*0.32,TH*0.3); break;
