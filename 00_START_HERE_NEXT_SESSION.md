@@ -8543,7 +8543,107 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/9 (b) LATEST -- *** THE DAY CAN PAY NOW, AND FIVE BLOCKERS ARE
+WORLD (world-9lfjtf): 8/15 LATEST -- *** TERRITORY -> MANDATE -> MAYOR. THE CITY CAN
+BACK YOU NOW, AND THAT IS WHAT LETS YOU BUILD WHERE THEY HATE YOU. *** BUILD 8/15a.
+Gate: mandate_gate.js 30/0, registered as MANDATE. Module: engine/bohemia_mandate.js.
+
+TAB: none of its own -- it is world state under the CITY tab / the RUN tab's walked
+valley, the same place the purse and the weather live. NOT A TAB, and that is right:
+this is what the world is doing, not a page to look at.
+
+WHAT LANDED, and every piece of it was LOCKED 6/30 and unbuilt for six weeks
+(laws/BOHEMIA_ADDENDUM_PERSISTENT_CONSEQUENCE_MAYOR_6_30_26.md):
+  RUNG 1 TERRITORY   you build where you are loved. The baseline builder surface.
+  RUNG 2 MANDATE     cross ~49% of factions friendly-with-you (HIS number, and his
+                     own addendum calls it a starting instinct) and the CITY backs
+                     you: you can now build in a district whose local faction does
+                     NOT love you. "Popular support overrides local resistance."
+  RUNG 3 MAYOR       unreachable, on purpose. He ruled a share for the middle rung
+                     and did not rule one for the top, so MAYOR_SHARE = null and the
+                     top rung asks for a ruling instead of being guessed off a curve.
+THE MIDDLE RUNG HAS TO CHANGE SOMETHING OR IT IS DECORATION. That is gate assertion
+5: the same cold district is CLOSED at 4/10 factions and OPEN at 5/10. If crossing
+the threshold did not open a door, the whole ladder would be a badge.
+
+THE ONE DESIGN CALL WORTH READING BACK: THE RUNG IS DERIVED, NEVER STORED. His own
+third pending was "how losing faction favor can knock you back down a rung" -- it
+needs no ruling, because rungOf() recomputes off current standing every time it is
+asked. Lose a faction, ask again, you are lower. A STORED rung would have needed a
+demotion rule and would have sat high forever the first time somebody forgot to write
+one. That is THE RECURRING HOUSE BUG (a value held by hand where a value could be
+derived) caught before it was written, for once, instead of after.
+
+MAYOR MEANS PSEUDO-MAYOR AND THE LORE DEPENDS ON IT. Core canon: formal government
+failed everywhere and is a cautionary tale, Texas tried to reconstitute one and that
+failure is told across all three acts, and the word "mayor" appears NOWHERE in core
+canon. So this is a CITY-STATE STRONGMAN, an affectionate colloquial title, never a
+restored municipal office. Nothing in the module elects anybody. The gate enforces it
+against LOGIC, not prose -- its first run failed on the module's own sentence saying
+it is "never a restored municipal office", which is the law being OBEYED. A CHECKER
+THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE (8/1). Fixed the ruler.
+
+AND THE TOP OF THE LADDER IS KILLABLE: mayorSeat() hands bohemia_succession.js a
+ROLE, not a person, so the strongman can be assassinated and the seat contests like
+any other vacancy. That is what makes the summit part of the world instead of an
+achievement screen.
+
+TAXATION, and it composes with two laws already standing: PATROL IS THE FAUCET. A
+district pays only while it is yours AND lit AND patrolled -- stop patrolling and it
+stops paying the same turn, no decay curve, no grace period, because holding ground
+is a thing you keep paying for. LIGHT = TERRITORY and nobody patrols the dark, so an
+unlit district cannot be patrolled and therefore cannot pay.
+
+STILL HIS, REFUSED BY NAME RATHER THAN GUESSED (all four are in M.pending()):
+  MANDATE_SHARE  0.49, used as given, flagged as instinct not final
+  MAYOR_SHARE    null -- "enough done, enough love" is not a number
+  GRANTS         EMPTY. His own pending: what "easier" actually grants at each rung
+                 (cost multipliers? unlock tiers? restriction removal?). A multiplier
+                 invented here would ship as canon nobody ruled.
+  TAX_RATE       RULED 8/15 WHILE THIS WAS IN FLIGHT. His EVERYTHING COSTS ONE law
+                 landed on main mid-ship and it reaches "any future resource price
+                 anybody is tempted to invent" -- a per-day take is a YIELD, so the
+                 rate is 1, and the gate flipped from "it refuses" to "it pays one"
+                 the same turn (A GATE MUST NEVER OUTRANK A RULING). His override
+                 table is still empty and still wins the day he names a real rate.
+                 §4 held too: a holding with no district type at all still refuses
+                 by name rather than quietly defaulting to one.
+  AND THE UNIT   is RESOURCES. His THERE IS NO MONEY correction landed on main in the
+                 same window ("read the lore, there's no money in this game"), and a
+                 system that pays you every day is exactly where money vocabulary
+                 creeps back in, so it is machine-locked at the source here instead of
+                 being caught later in shipped dialogue.
+
+WIRED, NOT JUST WRITTEN: added to bohemia_city_payday_patch.py's MODULES (now eight),
+after succession because it hands succession a role. VERIFIED ON THE REAL SURFACE
+with a headless probe of slices/BOHEMIA_CITY_WORLD.html -- window.BohemiaMandate is
+there, the cold district opens at 5/10, favour loss demotes, income refuses NO_RULING,
+a dark district gives "nobody patrols the dark", zero page errors. The lesson of the
+purse stands: A MODULE NOBODY LOADS IS A MODULE THAT DOES NOT EXIST.
+
+EARLIER THIS SESSION, same lane, already shipped:
+  THE ICONS ARE ONE CELL EACH. His ruling, four times over: a street tile FILLS the
+  1x1 citybuilder square, sidewalk at the ends and road the whole rest. Every tile is
+  now the same cell width (451px), DERIVED from its ground plate, cropped to content,
+  and the cell paints the tile's own pad colour instead of the sprite carrying baked
+  ground. arterial and arterial_x are TWO SEPARATE ITEMS with two icons (his words);
+  the intersection box is bare asphalt + crosswalks + signals and NO LANES.
+  NOTHING STOPS HALFWAY: truncation_gate.js was written because a road cell that
+  paves a third of its cell and stops is internally consistent, so walkable/tilespec/
+  answered-for all passed it. Its first run also caught a one-tile dirt seam between
+  every pair of adjacent road cells (ROW=63 where it had to be 64).
+  THE DAY PAYS AND THE MONEY SPENDS: bohemia_payday.js bridges quests to the purse.
+  SUCCESSION + FUSE + WEATHER + MANDATE all landed and all four are wired to the page.
+  ICONS ARE FROZEN: whole-set CBB twice. STOP PRODUCING says a second rejection ends
+  the feature for the session. No fifth pass. Do not reopen them without him.
+
+NEXT IN THIS LANE, all mechanism, none blocked on him:
+  1. The school's floodlight masts still read as flat poles (45 DEGREE ART LAW debt,
+     and it is the concrete half of his "all of them could be better less glitchy").
+  2. airport/airbase heroes: he ruled I1=B (drop the runway) and they are not rebuilt.
+  3. MANDATE has no surface yet. It computes and nothing shows it. The rung belongs
+     on the CITY tab where he can see which districts are open to him and why.
+
+WORLD (world-9lfjtf): 8/9 (b) -- *** THE DAY CAN PAY NOW, AND FIVE BLOCKERS ARE
 IN THE VOTE TAB. *** BUILD 8/9g. Record: records/BOHEMIA_THE_DAY_CAN_PAY_8_9_26.md.
 Gates: payday_gate.js 26/0, demo_blockers_gate.js 27/0.
 

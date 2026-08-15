@@ -64,9 +64,13 @@ WORLD = 'slices/BOHEMIA_CITY_WORLD.html'
 #   daycycle/weather       what the light is doing (weather only ATTENUATES the daycycle,
 #                          so the daycycle must be inlined FIRST or it has nothing to dim)
 #   succession/fuse        the world reorganising around the holes you tore, on a fuse
+#   mandate                how much of the city backs you, and therefore where you may build
+#                          (it hands succession a ROLE for the strongman seat, so succession
+#                          must be defined first)
 MODULES = ['engine/bohemia_economy.js', 'engine/bohemia_purse.js', 'engine/bohemia_payday.js',
            'engine/bohemia_daycycle.js', 'engine/bohemia_weather.js',
-           'engine/bohemia_succession.js', 'engine/bohemia_fuse.js']
+           'engine/bohemia_succession.js', 'engine/bohemia_fuse.js',
+           'engine/bohemia_mandate.js']
 MARK = '/* ==== THE WORLD YOU STAND IN (inlined verbatim) ==== */'
 ENDMARK = '/* ==== end THE WORLD YOU STAND IN ==== */'
 

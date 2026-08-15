@@ -701,6 +701,20 @@ GATES = [
      'FUZZ -- 400 random histories of kills, claims, time and sweeps with zero unreachable states '
      '-- because the addendum names Skyrim radiant quests as the system that ships that bug. The '
      'registry is EMPTY of seats and leaders, and both of his OPEN FORKS refuse out loud by name', False),
+    ('MANDATE',        ['node', 'gates/mandate_gate.js'],
+     'TERRITORY -> MANDATE -> MAYOR, locked 6/30 and unbuilt until 8/11: "the more the city '
+     'backs you, the easier building becomes, even in areas whose local faction does not love '
+     'you". The middle rung has to CHANGE something or it is decoration, so the gate proves his '
+     '~49% actually opens a district that hates you. The rung is DERIVED and never stored, which '
+     'answers his own third pending -- losing favour knocks you back down by construction, and a '
+     'stored rung would sit high forever the first time somebody forgot a demotion rule. MAYOR is '
+     'a PSEUDO-mayor and the lore depends on it (formal government failed everywhere; the word '
+     'appears nowhere in core canon), and it is a SEAT handed to succession, so the top of the '
+     'ladder is killable. Patrol is the faucet and a dark district cannot pay -- and it pays his '
+     'ONE (EVERYTHING COSTS ONE, 8/15, which reaches "any future resource price anybody is '
+     'tempted to invent", and a per-day take is a yield), so this gate flipped that assertion '
+     'from refuse to pay the same turn he ruled it: A GATE MUST NEVER OUTRANK A RULING. Every '
+     'number he has NOT ruled still refuses out loud by name', False),
     ('TRUNCATION',     ['node', 'gates/truncation_gate.js'],
      'NOTHING STOPS HALFWAY ACROSS ITS OWN CELL: every through-surface reaches the boundary on '
      'both ends of its axis, so the next cell can connect to it. The arterial and the freeway '
