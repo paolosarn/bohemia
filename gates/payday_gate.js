@@ -59,9 +59,26 @@ for (const sym of ['BohemiaEconomy', 'BohemiaPurse', 'BohemiaPayday']) {
   ok(sym + ' is loaded in the world he walks, not just in engine/',
      new RegExp('root\\.' + sym + '\\s*=').test(walked));
 }
+/* THE MARKERS ARE READ OFF THE PATCH TOOL, NEVER RETYPED HERE, and that is not tidiness --
+   THIS ASSERTION WAS PINNING A LIVE BUG IN PLACE. It hard-coded "THE PLAYER CAN BE PAID",
+   the block's ORIGINAL name. When the block outgrew money and was renamed to "THE WORLD YOU
+   STAND IN", the patch tool stopped recognising the old block and inlined a SECOND copy of
+   economy/purse/payday above it -- and this gate then REQUIRED the orphan to stay, because
+   deleting it would turn this line red. The stale copy sat later in the file, so the browser
+   ran it and the fresh one was dead code, for as long as both were there.
+   A GATE THAT HARD-CODES WHAT A TOOL GENERATES WILL EVENTUALLY DEFEND THE OLD BEHAVIOUR
+   AGAINST THE NEW ONE. Derive it, and the rename is free. (The recurring house bug: a value
+   passed by hand where a value could be derived.) */
+const PATCH = fs.readFileSync('tools/bohemia_city_payday_patch.py', 'utf8');
+const markOf = (name) => (PATCH.match(new RegExp('^' + name + " = '(.*)'", 'm')) || [, ''])[1];
+const MARK = markOf('MARK'), ENDMARK = markOf('ENDMARK');
+ok('the block markers are read off the patch tool rather than retyped (' + MARK + ')',
+   !!MARK && !!ENDMARK);
 ok('the payday block is delimited so it can be REFRESHED, never frozen at first landing',
-   walked.includes('/* ==== THE PLAYER CAN BE PAID (inlined verbatim) ==== */') &&
-   walked.includes('/* ==== end THE PLAYER CAN BE PAID ==== */'));
+   walked.includes(MARK) && walked.includes(ENDMARK));
+ok('and NO block survives under a name the tool no longer looks for -- an orphan later in ' +
+   'the file wins at runtime and shadows the fresh copy',
+   !walked.includes('THE PLAYER CAN BE PAID'));
 // ENGINE SYNC LAW: the inlined body must BE the canon body, not a fork of it
 const payBody = fs.readFileSync('engine/bohemia_payday.js', 'utf8');
 ok('the inlined payday is byte-identical to the engine canon (one body, no drift)',

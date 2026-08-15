@@ -74,6 +74,21 @@ MODULES = ['engine/bohemia_economy.js', 'engine/bohemia_purse.js', 'engine/bohem
 MARK = '/* ==== THE WORLD YOU STAND IN (inlined verbatim) ==== */'
 ENDMARK = '/* ==== end THE WORLD YOU STAND IN ==== */'
 
+# EVERY NAME THIS BLOCK HAS EVER HAD. When the block grew past money it was renamed from
+# "THE PLAYER CAN BE PAID" to "THE WORLD YOU STAND IN", and the rename ORPHANED the old
+# one: the patch looked for the new marker, did not find the old block, and inlined a
+# SECOND copy of economy/purse/payday above it. The orphan sat LATER in the file, so the
+# browser ran the stale copy and the fresh one was dead code -- ONE CANONICAL BODY PER
+# MODULE (ENGINE SYNC LAW) broken on the surface Paolo actually walks, with every gate
+# green, because nothing compared the page against itself. Found 8/15 only because a
+# freshly added good was missing from window.BohemiaEconomy on the real page.
+# THE FIX BELONGS HERE AND NOT IN THE FILE: a hand-deleted orphan comes back the next time
+# somebody renames the marker. Rename it again and add the old name to this list.
+LEGACY_MARKS = [
+    ('/* ==== THE PLAYER CAN BE PAID (inlined verbatim) ==== */',
+     '/* ==== end THE PLAYER CAN BE PAID ==== */'),
+]
+
 if not os.path.exists(WORLD):
     sys.exit('PAYDAY PATCH: %s is not here.' % WORLD)
 src = open(WORLD, encoding='utf-8').read()
@@ -93,6 +108,18 @@ if MARK in src:
     refreshed = True
 else:
     refreshed = False
+
+# AND SWEEP EVERY ORPHAN THIS BLOCK LEFT BEHIND UNDER AN OLD NAME. Same refusal as above:
+# a start with no end is not something to guess at.
+orphans = 0
+for _m, _e in LEGACY_MARKS:
+    while _m in src:
+        a = src.find(_m)
+        b = src.find(_e, a)
+        if b < 0:
+            sys.exit('PAYDAY PATCH: legacy block %r has a start and no end. Refusing to guess.' % _m)
+        src = src[:a] + src[b + len(_e):]
+        orphans += 1
 
 for m in MODULES:
     if not os.path.exists(m):
@@ -125,6 +152,9 @@ src = src[:j] + '\n' + '\n'.join(blob) + '\n' + src[j:]
 open(WORLD, 'w', encoding='utf-8').write(src)
 print('PAYDAY PATCH: %d modules %s %s'
       % (len(MODULES), 'REFRESHED in' if refreshed else 'inlined into', WORLD))
+if orphans:
+    print('    SWEPT %d ORPHANED BLOCK(S) left behind by an old marker name -- they sat '
+          'LATER in the file and their stale copies were WINNING at runtime.' % orphans)
 for m in MODULES:
     print('   ', m)
 print('   every amount still [PENDING Paolo] -- the pipe reaches the surface, the valve is his.')

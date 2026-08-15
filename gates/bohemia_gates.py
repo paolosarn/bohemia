@@ -701,6 +701,22 @@ GATES = [
      'FUZZ -- 400 random histories of kills, claims, time and sweeps with zero unreachable states '
      '-- because the addendum names Skyrim radiant quests as the system that ships that bug. The '
      'registry is EMPTY of seats and leaders, and both of his OPEN FORKS refuse out loud by name', False),
+    ('MEDKIT',         ['node', 'gates/medkit_gate.js'],
+     'THE FIELD SURGERY KIT, and it is five goods and only five. Paolo wrote the procedure '
+     'himself at a bedside (8/13, LOCKED): pour povidone iodine cut with sterile water, inject '
+     'lidocaine around the wound, sterilise tweezers in boiling water, pick the pellets out, '
+     'inject antibiotics. It is the ACTUAL wilderness-medicine sequence, which is why it earned '
+     'a law -- and iodine and lidocaine both keep for years, so what survives the crash is '
+     'exactly this kit, with injectable antibiotics the scarce link that turns a complete one '
+     'into a prize. Tweezers are the only DURABLE. All five price through the ONE existing '
+     'scarcity sim rather than a second path built beside it, at his EVERYTHING COSTS ONE, '
+     'because that ruling is NEWER than the 8/11 scarcity one and reaches any price anybody is '
+     'tempted to invent (the six older goods keep their researched anchors). Every description '
+     'is a real written attempt tagged draft:true, because he does not write from a blank page, '
+     'he edits. And it proves what is ABSENT: no treat-wound verb, no clip hook, no sound hook, '
+     'no skip-a-step dial -- those are RUN\'s, CHARACTER\'s and the sound lane\'s halves of '
+     'the same routing, and taking them would break ONE SYSTEM, ONE SESSION. Every assertion '
+     'mutation-tested', False),
     ('BANNER',         ['node', 'gates/banner_gate.js'],
      'A MODULE THE SYNC SWEEP CANNOT SEE IS A MODULE OUTSIDE THE ENGINE SYNC LAW, AND NOTHING '
      'SAID SO. The resync scanner finds embedded copies by a ONE-LINE banner, so a banner that '
@@ -715,7 +731,7 @@ GATES = [
      'lane does not own. Its own first run was WRONG and said so: it signed modules by their '
      'first long line, which for a dozen of them is a "/* ======" divider occurring 42 times '
      'in one page, so it reported three modules inlined that are not there. A CHECKER THAT '
-     'CANNOT TELL ONE MODULE FROM ANOTHER IS THE BROKEN ONE', False),
+     'CANNOT TELL ONE MODULE FROM ANOTHER IS THE BROKEN ONE -- and it took THREE wrong rulers, each one confidently wrong: the first long line is a divider, the LONGEST line is often the shared IIFE footer (eight modules came back inlined nine times), and some engine files are BUNDLES carrying others verbatim so a contained module can never have a unique line. Bundles are DERIVED, never listed. It also now proves NO MODULE IS INLINED TWICE, which is how the real bug was found: renaming the payday block ORPHANED the old one, the patch could not see it, and a second stale copy of economy/purse/payday sat LATER in the file and WON at runtime while the fresh one was dead code. Caught only because a good added to the economy was missing from the real page', False),
     ('MANDATE',        ['node', 'gates/mandate_gate.js'],
      'TERRITORY -> MANDATE -> MAYOR, locked 6/30 and unbuilt until 8/11: "the more the city '
      'backs you, the easier building becomes, even in areas whose local faction does not love '

@@ -89,24 +89,70 @@ function visibleBanners(src) {
    a banner -- otherwise the check would be blind in exactly the way the bug is. Each engine
    module opens with its own distinctive first line, so the body is found by its content. */
 const ENGINE = fs.readdirSync('engine').filter(f => f.endsWith('.js'));
+const BODIES = {};
+ENGINE.forEach(f => { BODIES[f] = fs.readFileSync(path.join('engine', f), 'utf8'); });
+
+/* A SIGNATURE MUST BE UNIQUE TO ITS MODULE, and getting there took three tries -- each
+   wrong ruler produced confident nonsense, which is the whole reason a checker gets
+   verified rather than trusted:
+     1. FIRST LONG LINE. For a dozen modules that is the "/* ======" divider, which occurs
+        42 times in one page. It reported modules inlined that are not in the file.
+     2. LONGEST NON-DIVIDER LINE. Better, but the longest line in a compact module is often
+        the SHARED IIFE FOOTER -- the identical "})(typeof window !== 'undefined' ? ..."
+        that ends most of these files. Eight modules came back "inlined 9 times".
+     3. LONGEST LINE THAT APPEARS IN NO OTHER ENGINE MODULE. That is a fingerprint.
+   FIX THE RULER, NEVER THE TARGET. Both false alarms were the checker's fault, and had
+   either been believed it would have sent somebody hunting a bug that does not exist. */
+function longLines(f) {
+  return BODIES[f].split('\n').map(l => l.trim())
+    .filter(l => l.length > 40 && !/^[/*=\-_.#\s]+$/.test(l) && !/^\/\*\s*[=\-]{6,}/.test(l))
+    .sort((a, b) => b.length - a.length);
+}
+const LONG = {};
+ENGINE.forEach(f => { LONG[f] = longLines(f); });
+
+/* AND SOME ENGINE FILES ARE BUNDLES THAT CARRY OTHER MODULES VERBATIM. Measured, not
+   assumed: bohemia_engine_graphics_7_14_26.js contains 258 of blockgen's 259 long lines,
+   112 of 113 of plotgen's, and all of daycycle, light_pass and powergrid. Comparing a
+   module against a bundle that CONTAINS it can never yield a unique line, and the fourth
+   wrong ruler would have been "14 modules are unfingerprintable, something is broken".
+   Nothing is broken; a bundle is not a peer. DERIVED here rather than listed by hand,
+   because a hand-written list of bundles is the recurring house bug again. */
+function containsModule(host, guest) {
+  if (host === guest || !LONG[guest].length) return false;
+  let hits = 0;
+  for (const l of LONG[guest]) if (BODIES[host].indexOf(l) >= 0) hits++;
+  return hits / LONG[guest].length > 0.9;
+}
+const BUNDLE = {};
+ENGINE.forEach(h => { BUNDLE[h] = ENGINE.some(g => containsModule(h, g)); });
+const bundles = ENGINE.filter(f => BUNDLE[f]);
+
+function signature(f) {
+  for (const l of LONG[f]) {
+    let shared = false;
+    for (const g of ENGINE) {
+      if (g === f || BUNDLE[g]) continue;          // a bundle is not a peer
+      if (BODIES[g].indexOf(l) >= 0) { shared = true; break; }
+    }
+    if (!shared) return l;
+  }
+  return null;
+}
+const SIG = {};
+ENGINE.forEach(f => { SIG[f] = signature(f); });
+ok('the bundle files are DERIVED, never listed by hand (' + bundles.join(', ') + ')',
+   bundles.length >= 1);
+ok('and every other engine module has a line found in no PEER module, so each one can be ' +
+   'told apart by content alone (' + ENGINE.filter(f => !SIG[f]).length + ' without one)',
+   ENGINE.filter(f => !SIG[f] && !BUNDLE[f]).length === 0);
 function inlinedModules(src) {
   const out = [];
+  /* A SIGNATURE, not the whole file: the page may legitimately carry an OLDER revision --
+     that is what the resync tool is FOR -- so matching the current bytes would miss a stale
+     copy, which is the very thing that must stay visible. */
   ENGINE.forEach(f => {
-    const body = fs.readFileSync(path.join('engine', f), 'utf8');
-    /* A SIGNATURE, not the whole file: the page may legitimately carry an older revision
-       (that is what the resync tool is FOR), so matching the current bytes would miss a
-       stale copy -- which is the very thing that must stay visible.
-       THE FIRST DRAFT OF THIS TOOK THE FIRST LINE OVER 20 CHARACTERS AND WAS WRONG: for a
-       dozen modules that is the '/* ======' divider, which occurs 42 times in one page, so
-       the gate reported three modules inlined that are not there at all. A CHECKER THAT
-       CANNOT TELL ONE MODULE FROM ANOTHER IS THE BROKEN ONE. The signature has to be
-       DISTINCTIVE, so it is the module's LONGEST line that is not a rule of punctuation --
-       long lines are prose or real code and are effectively unique. */
-    const sig = body.split('\n')
-      .map(l => l.trim())
-      .filter(l => l.length > 40 && !/^[/*=\-_.#\s]+$/.test(l) && !/^\/\*\s*[=\-]{6,}/.test(l))
-      .sort((a, b) => b.length - a.length)[0];
-    if (sig && src.indexOf(sig) >= 0) out.push('engine/' + f);
+    if (SIG[f] && src.indexOf(SIG[f]) >= 0) out.push('engine/' + f);
   });
   return out;
 }
@@ -145,6 +191,32 @@ if (PAGE) {
   ok('and so are the two that had silently drifted a week (agents + population)',
      ['engine/bohemia_agents.js', 'engine/bohemia_population.js']
        .every(m => seen.indexOf(m) >= 0));
+
+  /* ONE CANONICAL BODY PER MODULE, ON THE PAGE ITSELF. The ENGINE SYNC LAW says it, and the
+     sync gate checks the REPO for two bodies -- but nothing compared the PAGE against
+     ITSELF, and that is where it actually broke. When the payday block was renamed from
+     "THE PLAYER CAN BE PAID" to "THE WORLD YOU STAND IN", the rename ORPHANED the old
+     block: the patch could not find it, so it inlined a SECOND copy of economy, purse and
+     payday above it. The orphan sat LATER in the file, so the browser ran the STALE copy
+     and the fresh one was dead code. Every gate green the whole time.
+     IT WAS FOUND BY ACCIDENT, which is the part that matters: a good added to the economy
+     on 8/15 was simply missing from window.BohemiaEconomy on the real page. VERIFY ON THE
+     REAL SURFACE is what caught it; this assertion is so it never needs luck again. */
+  const dupes = [];
+  ENGINE.forEach(f => {
+    const sig = SIG[f];
+    if (!sig) return;
+    let n = 0, at = 0;
+    while ((at = PAGE.text.indexOf(sig, at)) >= 0) { n++; at += sig.length; }
+    if (n > 1) dupes.push('engine/' + f + ' x' + n);
+  });
+  ok('NO module is inlined TWICE in the page -- a second copy later in the file WINS at ' +
+     'runtime and silently shadows the fresh one' +
+     (dupes.length ? ' -- DOUBLED: ' + dupes.join(', ') : ''),
+     dupes.length === 0);
+  ok('and no orphaned block survives under a marker name the patch tool no longer looks ' +
+     'for, which is how the doubling happened in the first place',
+     PAGE.text.indexOf('THE PLAYER CAN BE PAID') < 0);
 }
 
 /* AND THE RULE ITSELF IS PINNED. If somebody relaxes the scanner's banner test, this gate's

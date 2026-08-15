@@ -8725,7 +8725,61 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 (b) LATEST -- *** THE ENGINE SYNC LAW COULD NOT SEE TEN OF
+WORLD (world-9lfjtf): 8/15 (c) LATEST -- *** THE PAGE WAS RUNNING A STALE COPY OF THE
+ECONOMY, AND ONE OF OUR OWN GATES WAS HOLDING IT THERE. *** BUILD 8/15m.
+Gates: medkit_gate.js 16/0 (MEDKIT), banner_gate.js 12/0 (BANNER), payday_gate.js 35/0.
+
+TAB: the goods are world state under the CITY tab and the walked valley. The field
+surgery itself is NOT IN A TAB YET and will not be from this lane: the treat-wound
+verb is RUN's and the surgery animation is CHARACTER's, both routed 8/13.
+
+WHAT SHIPPED: THE FIELD SURGERY KIT, five goods, his procedure (laws/BOHEMIA_ADDENDUM_
+HEALING_IS_A_BIG_DEAL_8_12_26.md sec 7-8, LOCKED 8/13): povidone iodine cut with
+sterile water, lidocaine injected around the wound, tweezers boiled, pellets picked
+out, antibiotics injected. It is the REAL wilderness-medicine sequence, which is why it
+earned a law. Iodine and lidocaine both keep for years, so what survives the crash is
+exactly this kit; injectable antibiotics are the scarce link, which is what makes a
+COMPLETE kit a prize instead of a shopping list. Tweezers are the only durable. All
+five price through the ONE existing scarcity sim at his EVERYTHING COSTS ONE, because
+that ruling is NEWER than the 8/11 scarcity one and reaches "any future resource price
+anybody is tempted to invent" -- the six older goods keep their researched anchors
+because they predate it. Every description is a real written attempt tagged draft:true.
+THIS LANE TOOK NONE OF ANYBODY ELSE'S HALF and the gate proves the absence: no
+treat-wound verb, no clip hook, no sound hook, no skip-a-step dial.
+
+*** AND THEN THE KIT FOUND A LIVE BUG THAT NOTHING COULD SEE. *** A good added to the
+economy was simply MISSING from window.BohemiaEconomy on the real page. Cause: the
+payday block was renamed from "THE PLAYER CAN BE PAID" to "THE WORLD YOU STAND IN" at
+some point, and the rename ORPHANED the old block -- the patch tool could not find it,
+so it inlined a SECOND copy of economy, purse and payday above it. The orphan sat LATER
+in the file, so the browser ran the STALE copy and the fresh one was dead code.
+
+THE PART WORTH READING TWICE: ONE OF OUR OWN GATES WAS PINNING IT THERE. payday_gate.js
+asserted the OLD marker must be present, so deleting the orphan would have turned it
+RED. Anybody who tried to clean it up would have been told they broke something. A GATE
+THAT HARD-CODES WHAT A TOOL GENERATES WILL EVENTUALLY DEFEND THE OLD BEHAVIOUR AGAINST
+THE NEW ONE. Both the gate and the tool now DERIVE the markers, so the next rename is
+free, and the tool sweeps every orphan a rename leaves behind.
+
+banner_gate.js also now proves NO MODULE IS INLINED TWICE. Writing that check took FOUR
+rulers and every wrong one was confidently wrong, which is the whole argument for
+mutation-testing a checker instead of trusting a green:
+  1. first long line          -> that is the '/* ======' divider, 42 hits in one page
+  2. longest non-divider line -> that is often the SHARED IIFE footer; eight modules
+                                 came back "inlined nine times"
+  3. longest UNIQUE line      -> 14 modules had none, which looked like a disaster
+  4. and the answer: some engine files are BUNDLES that carry other modules VERBATIM
+     (bohemia_engine_graphics_7_14_26.js holds 258 of blockgen's 259 long lines). A
+     bundle is not a peer. Bundles are DERIVED, never listed by hand.
+FIX THE RULER, NEVER THE TARGET. Every assertion in both new gates was mutation-tested:
+a sixth kit good, an invented price, a second durable, a stolen verb, a blanked
+description, a re-introduced orphan and a re-wrapped banner. All seven bite.
+
+NEXT IN THIS LANE: give the MANDATE rung a face in the CITY tab (it computes and
+nothing shows it); the school floodlight masts still read flat; airport/airbase heroes
+ruled I1=B and not yet rebuilt.
+
+WORLD (world-9lfjtf): 8/15 (b) -- *** THE ENGINE SYNC LAW COULD NOT SEE TEN OF
 ITS OWN MODULES, AND TWO OF THEM HAD DRIFTED A WEEK. *** BUILD 8/15k.
 Gate: banner_gate.js 8/0, registered as BANNER.
 

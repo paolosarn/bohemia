@@ -50,7 +50,51 @@
     salvage:{unit:'kg',     need:0,    base:1.0,  note:'the numeraire until Paolo names the money'},
     meds:   {unit:'dose',   need:0.02, base:12.0, note:'rare use, extreme value/weight'},
     fuel:   {unit:'L',      need:0.05, base:3.0,  note:'generators/stoves; stale gas is cut with additives'},
-    power:  {unit:'kWh',    need:0,    base:2.0,  note:'a SERVICE at live clusters only (12% law)'}
+    power:  {unit:'kWh',    need:0,    base:2.0,  note:'a SERVICE at live clusters only (12% law)'},
+
+    // ---- THE FIELD SURGERY KIT (Paolo 8/13, LOCKED) -----------------------
+    // laws/BOHEMIA_ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md sec 7-8, his verbatim
+    // procedure for a gunshot wound: pour povidone iodine (cut with sterile water),
+    // inject lidocaine around the wound, sterilise tweezers in boiling water, pick
+    // the pellets out, then inject antibiotics. FIVE STEPS, FIVE GOODS.
+    // IT IS MEDICALLY REAL, which is why it earned a law: irrigate, anaesthetise
+    // locally, sterile instruments, foreign-body removal, antibiotic cover is the
+    // actual wilderness-medicine sequence. And the medicine ledger holds -- iodine
+    // and lidocaine are both shelf-stable for years, so what survives the crash is
+    // exactly this kit.
+    // need:0 ON ALL FIVE IS NOT LAZINESS. These are EVENT goods, not daily ones --
+    // nobody drinks lidocaine every morning. The scarcity sim already handles need:0
+    // (power, salvage) by taking days-of-supply as infinite and resting on the base,
+    // so the kit prices through the SAME machine he ruled on 8/11 rather than a
+    // second one built beside it.
+    // base:1 ON ALL FIVE IS HIS RULING, NOT A SHRUG. EVERYTHING COSTS ONE (8/15,
+    // LOCKED) reaches "any future resource price anybody is tempted to invent", and
+    // it is NEWER than the 8/11 scarcity ruling, so it wins on the truth hierarchy.
+    // The six goods above keep their researched anchors because they shipped before
+    // it and the sim was blessed on top of them; a NEW price invented today would be
+    // exactly what he ruled against. One is not a guess, it is the absence of one.
+    iodine:      {unit:'mL',     need:0, base:1, kit:'field_surgery', step:1, draft:true,
+                  note:'povidone-iodine 10%, shelf-stable for years unopened. The most '
+                     + 'survivable disinfectant in a dead pharmacy.',
+                  desc:'Brown as old blood and twice as ugly. Still works.'},
+    sterilewater:{unit:'mL',     need:0, base:1, kit:'field_surgery', step:1, draft:true,
+                  note:'sealed sterile water for irrigation; boiling substitutes in a '
+                     + 'pinch, which is why step 3 exists at all',
+                  desc:'Water that cost more than water. Worth it once.'},
+    lidocaine:   {unit:'vial',   need:0, base:1, kit:'field_surgery', step:2, draft:true,
+                  note:'lidocaine HCl 1-2%, multi-year shelf life. The reason field '
+                     + 'extraction is survivable without a surgeon.',
+                  desc:'Rings the wound and the wound goes quiet. You stay awake for it.'},
+    tweezers:    {unit:'tool',   need:0, base:1, kit:'field_surgery', step:4, durable:true,
+                  draft:true,
+                  note:'THE DURABLE. Sterilised, never consumed. The one piece you keep.',
+                  desc:'Boil them, use them, boil them again. They outlive everybody.'},
+    antibiotics: {unit:'course', need:0, base:1, kit:'field_surgery', step:5, draft:true,
+                  note:'injectable, and THE SCARCE LINK -- composes with the '
+                     + 'antibiotics-runout already in canon, which is what makes a '
+                     + 'complete kit a prize rather than a shopping list',
+                  desc:'The last step, and the one nobody has. Everything before it is '
+                     + 'just practice if you skip it.'}
   };
   var NUMERAIRE='salvage';   // [PENDING Paolo: the commodity money + its logo]
 
