@@ -5847,6 +5847,21 @@ FS. FIELD SURGERY SFX MOMENTS (routed 8/13 — laws/BOHEMIA_ADDENDUM_
 ## next session: the rig-check gate assertion + the shading-separation gate
 ## assertion, same turn. AUDIO MOVED OUT 7/29: music/SFX belong to the new
 ## SOUNDS lane above — this lane is bodies, clothing, animation only.)
+SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
+   11, 8/15 — records/BOHEMIA_RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_
+   COLOR_8_15_26.md). His 7/19 law says colourways are legal but never
+   progress, progress is new garment SHAPES — written to stop recolours
+   being passed off as content. IT IS ALSO EXACTLY THE ACCESSIBILITY
+   ANSWER FOR FACTIONS, and it matches the source our own 8/2 faction
+   research already cited: SILHOUETTE OVER LOGO. SO: every faction must
+   be identifiable by SILHOUETTE — garment shape, proportion, headwear —
+   with colour as the BACK-UP channel, never the carrier. Not a new
+   system: the wardrobe already ships shapes; this is assignment plus a
+   rule for new ones. Pairs with SHARED -6 (the greyscale/simulator gate
+   is how it gets proved). Do it as the 2X detail pass lands, since new
+   pixels are exactly where silhouette detail becomes affordable. | each
+   faction distinguishable in GREYSCALE on the real surface, gated |
+   which shape belongs to which faction = his taste, as always | yes.
 2X. *** TWICE THE PIXELS ON THE PEOPLE (Paolo 8/14, LOCKED, watching a
    cutscene — laws/BOHEMIA_ADDENDUM_TWICE_THE_PIXELS_8_14_26.md. TOP OF
    THIS LANE'S QUEUE. His words: "the character models need twice as many
@@ -6135,6 +6150,26 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-6. *** THE GREYSCALE / COLOURBLIND GATE (sweep 11 catch, 8/15 —
+   records/BOHEMIA_RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_COLOR_8_15_26.md.
+   THE MACHINE HALF OUR OWN 8/2 RESEARCH ASKED FOR AND NEVER GOT.)
+   records/BOHEMIA_FACTION_GAPS_RESEARCH_8_2_26.md said it in our own
+   words two weeks ago: "...and through deuteranopia/protanopia/
+   tritanopia simulators. WE HAVE NEVER DONE EITHER. The new gate does
+   the value half; THE COLOURBLIND HALF IS UNBUILT." It named no owner
+   and no id, so it died. BUILD: render every identity-bearing surface —
+   faction dress, the map, Amalgamation signals, UI states — in
+   GREYSCALE and under deuteranope/protanope simulation, and assert they
+   stay distinguishable. WHY IT MATTERS AT THIS SIZE: red/green
+   deficiency runs ~8-10% of males, so colour-as-sole-carrier fails about
+   ONE IN TWELVE MEN; Game Accessibility Guidelines lists "no essential
+   information by a fixed colour alone" in its BASIC tier, and WCAG 1.4.1
+   and Xbox AG 103 say the same. Safety law settled it long ago: ISO 3864
+   puts every symbol inside a SHAPE (triangle=hazard, circle=mandatory,
+   slashed circle=prohibition) so meaning survives losing any one
+   channel. GOOD NEWS TO KEEP: LIGHT=TERRITORY is LUMINANCE, not hue, so
+   the game's biggest signal system is already safe. | gate registered,
+   runs both simulations, fails on a real single-channel signal | — | no.
 -5. *** THE THUMB: WE DESIGNED FOR THE SCREEN AND NEVER FOR THE HAND
    (sweep 10 catch, 8/15 — records/BOHEMIA_RESEARCH_THE_THUMB_8_15_26.md.
    Whichever session owns a surface takes its part; the GATE is shared.)

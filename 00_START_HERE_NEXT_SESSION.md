@@ -19389,3 +19389,28 @@ so reachability is invisible to them by construction — the third time
 this month that a gate measuring the wrong thing was the answer. The
 person it costs most is Paolo, who drags that strip dozens of times a day.
 NAME THE TAB is untouched (names, not position).
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/15 (f) — SWEEP 11. Light delta: CHARACTER shipped 2X
+steps 1+2 (the rig doubler, PROVED LOSSLESS, not yet applied — exactly
+the order the law asked for); WORLD found the Strip and the resorts "do
+not exist as places, that is why they have no art"; and another of the
+family — "the page was running a stale copy of the economy, and one of
+our own gates was holding it there."
+THE CATCH — MEANING THAT ONLY LIVES IN A COLOUR (records/BOHEMIA_
+RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_COLOR_8_15_26.md; routed CHARACTER
+SIL + SHARED -6, and the REWIND LAW AMENDED IN PLACE). Our own 8/2
+faction research already wrote "the colourblind half is unbuilt" and
+named no owner, so it died. The deadline moved this week: the rewind's
+ghost-time VFX is specified as PURPLE to say "this is them" wordlessly —
+a headline mechanic about to carry its meaning on one colour channel.
+Colour-alone fails ~1 in 12 men; GAG lists it BASIC tier; ISO 3864 /
+ANSI Z535 require shape+symbol+colour together so meaning survives losing
+a channel. CHALLENGE FINDING: PURPLE RESERVATION has a gate that enforces
+its LETTER (nobody else uses purple) and cannot enforce its PURPOSE (that
+a player sees it is them) — exclusivity without a second channel is a
+lock with no door. The law is incomplete, not wrong. GOOD NEWS:
+LIGHT=TERRITORY is luminance, already safe for everyone. THE FIX IS HIS
+OWN LAW: STRUCTURE-NOT-COLOR (7/19) extended from PROGRESS to IDENTITY —
+factions readable by SILHOUETTE, colour as back-up. Owners named this
+time.

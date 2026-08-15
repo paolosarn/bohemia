@@ -90,6 +90,18 @@ THE RESOLUTION, and it costs nothing: ASSOCIATE, NEVER EXPLAIN.
   ghost-time effect SAYS "this is them" without a single word, and it is
   the only thing in the game allowed to say it. The law we already have
   does the storytelling for free.
+  *** AMENDED 8/15 BY SWEEP 11, BEFORE THIS IS BUILT (records/BOHEMIA_
+  RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_COLOR_8_15_26.md): PURPLE MUST
+  NEVER CARRY THIS MEANING ALONE. Colour as a sole channel fails roughly
+  one in twelve men (red/green deficiency ~8-10% of males), and a
+  deuteranope does not reliably separate purple from blue — so a
+  purple-only signal is a lore beat a chunk of players cannot receive.
+  THE REWIND ALREADY HAS ITS SECOND CHANNEL FOR FREE: the reverse-tape
+  MOTION is unmistakable and hue-independent, and the SOUNDS lane's
+  reverse-tape effect is a third. Write the pairing into the VFX spec
+  rather than discovering it after ship. PURPLE RESERVATION itself is
+  untouched and stays exclusive — this adds a channel, it removes
+  nothing. ***
 - People may have theories. The game never confirms one. That is the
   wiki-culture outcome the tone research says we want.
 

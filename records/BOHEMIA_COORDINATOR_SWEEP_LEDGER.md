@@ -397,3 +397,59 @@ NAME THE TAB is untouched: it governs names, not position.
 Hoober widely-cited field research, high but a decade old — which
 strengthens this finding; cockpit transfer is my analogy, flagged.]
 HIGH-WATER MARK: swept through main @ 8d210cd (plus this sweep's push)
+
+## SWEEP 11 — 8/15/26 (his v3 prompt; light delta, one breath per COST LAW)
+DELTA: 5 commits. CHARACTER shipped 2X STEPS 1+2 — the rig doubler,
+PROVED LOSSLESS on his real rig, NOT YET APPLIED: exactly the order the
+law demanded (transform alone first, detail later). WORLD: the freeway
+painted lines off the reuse well, and a real finding — "THE STRIP AND
+THE RESORTS DO NOT EXIST AS PLACES, THAT IS WHY THEY HAVE NO ART."
+AND ONE MORE OF THE FAMILY: "THE PAGE WAS RUNNING A STALE COPY OF THE
+ECONOMY, AND ONE OF OUR OWN GATES WAS HOLDING IT THERE" — a gate
+ENFORCING staleness. Fourth time this month the answer was a gate
+measuring or holding the wrong thing; the shelf audit (SHARED -3) and the
+reach gate (SHARED -5) both exist because of this pattern.
+COLLISIONS: none.
+THE CATCH (lens: can the signal be RECEIVED; both aisles):
+QUESTION: the most important lore signal in the game is a COLOUR (purple
+= the Amalgamation, exclusivity enforced by a purity gate) and faction
+identity is a colour per faction. Can every player receive them?
+FOUND: WE ALREADY WROTE THIS DOWN AND LET IT DIE. records/BOHEMIA_
+FACTION_GAPS_RESEARCH_8_2_26.md, verbatim: "...through deuteranopia/
+protanopia/tritanopia simulators. WE HAVE NEVER DONE EITHER... THE
+COLOURBLIND HALF IS UNBUILT." No owner, no id, two weeks, nothing.
+AND THE DEADLINE MOVED THIS WEEK: the 8/15 rewind law says the ghost-time
+VFX should be PURPLE so it says "this is them" wordlessly — a headline
+mechanic about to be built with its meaning on a single colour channel.
+FINDINGS: Game Accessibility Guidelines lists "no essential information
+by a fixed colour alone" in its BASIC tier; WCAG 1.4.1 and Xbox AG 103
+concur; red/green deficiency is ~8-10% of males, so colour-alone fails
+about ONE IN TWELVE MEN. Real-world aisle: ISO 3864 / ANSI Z535 require
+symbol + SHAPE + colour together (triangle=hazard, circle=mandatory,
+slashed circle=prohibition) precisely so meaning survives losing a
+channel — bad light, cheap screen, sunlight, colour blindness are one
+failure mode wearing four hats.
+CHALLENGE FINDING: PURPLE RESERVATION is a law we love, with a gate, and
+it is SINGLE-CHANNEL. The gate enforces the letter perfectly (nobody else
+may use purple) and CANNOT enforce the purpose (that a player SEES it is
+them). Exclusivity without a second channel is a lock with no door. The
+law is not wrong, it is incomplete.
+GOOD NEWS KEPT: LIGHT=TERRITORY is LUMINANCE not hue — the game's
+biggest signalling system is already safe for everyone.
+THE FIX IS A LAW HE ALREADY WROTE: STRUCTURE-NOT-COLOR (7/19) says
+progress is garment SHAPES, not colourways — written to stop recolours
+passing as content, and it is exactly the accessibility answer for
+faction identity (and matches the "silhouette over logo" source our own
+8/2 research cited). Extend it from PROGRESS to IDENTITY.
+ROUTED, WITH OWNERS NAMED (the 8/2 version died nameless): CHARACTER SIL
+(factions identifiable by silhouette, colour as back-up), SHARED -6 (the
+greyscale + deuteranope/protanope simulator gate), and the REWIND LAW
+AMENDED IN PLACE before the VFX is built — purple never carries the
+meaning alone; the reverse-tape MOTION is a free hue-independent second
+channel and the sound is a third. PURPLE RESERVATION untouched.
+[Confidence: our colour dependencies read from the build and laws, high;
+prevalence figures and guideline tiers published, high; ISO/ANSI
+requirements published, high. Per-player rendering claims are
+population-level, which is why the routed answer is a SIMULATOR TEST and
+not an assumption.]
+HIGH-WATER MARK: swept through main @ 710e795 (plus this sweep's push)
