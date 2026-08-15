@@ -190,6 +190,11 @@ def _dress_walls(scene, key):
 
     walls = []
     for verts, _uv, _n, m in list(scene.faces):
+        # KEEP THE NORMAL. The first cut threw it away and offset every joint the
+        # SAME way (-y or -x), which is only correct for the walls that happen to
+        # face that way. On the opposite faces the joint was buried inside the
+        # solid (invisible) or hanging in the air off the building (a glitch).
+        # He said "glitchy" three times before I went looking for my own bugs.
         zs = [v[2] for v in verts]
         h = max(zs) - min(zs)
         if h < 2.2:
@@ -202,10 +207,24 @@ def _dress_walls(scene, key):
         if span < 2.0:
             continue                                   # too narrow to carry a panel joint
         axis = 'x' if w >= d else 'y'
-        walls.append((min(xs), min(ys), w, d, min(zs), h, span, axis, m))
+        # which way is OUT: take it off the face normal, and only accept a face
+        # that genuinely points sideways (a sloped or capping face gets no joints)
+        try:
+            nx, ny = float(_n[0]), float(_n[1])
+        except Exception:
+            nx, ny = (0.0, -1.0)
+        if axis == 'x':
+            if abs(ny) < 0.5:
+                continue
+            out = 1.0 if ny > 0 else -1.0
+        else:
+            if abs(nx) < 0.5:
+                continue
+            out = 1.0 if nx > 0 else -1.0
+        walls.append((min(xs), min(ys), w, d, min(zs), h, span, axis, m, out))
 
     walls.sort(key=lambda r: -(r[6] * r[5]))
-    for i, (x0, y0, w, d, z0, h, span, axis, m) in enumerate(walls[:8]):
+    for i, (x0, y0, w, d, z0, h, span, axis, m, out) in enumerate(walls[:8]):
         base = m.get('c') if isinstance(m, dict) and 'c' in m else None
         if base is None:
             base = m.get('wall') if isinstance(m, dict) else None
@@ -218,18 +237,20 @@ def _dress_walls(scene, key):
         t = 0.06                                       # a joint is a LINE, never a plank
 
         # THE BASE REVEAL: where the wall meets its footing. Always present.
+        oy = (y0 + d) if out > 0 else (y0 - t)
+        ox = (x0 + w) if out > 0 else (x0 - t)
         if axis == 'x':
-            scene.box((x0, y0 - t, z0 + 0.25), (w, t, 0.14), {'c': dk})
+            scene.box((x0, oy, z0 + 0.25), (w, t, 0.14), {'c': dk})
         else:
-            scene.box((x0 - t, y0, z0 + 0.25), (t, d, 0.14), {'c': dk})
+            scene.box((ox, y0, z0 + 0.25), (t, d, 0.14), {'c': dk})
 
         # THE PARAPET REVEAL: a shadow line under the roof edge.
         if h > 3.2:
             zr = z0 + h - 0.55
             if axis == 'x':
-                scene.box((x0, y0 - t, zr), (w, t, 0.12), {'c': dk})
+                scene.box((x0, oy, zr), (w, t, 0.12), {'c': dk})
             else:
-                scene.box((x0 - t, y0, zr), (t, d, 0.12), {'c': dk})
+                scene.box((ox, y0, zr), (t, d, 0.12), {'c': dk})
 
         # THE PANEL JOINTS: vertical lines at real tilt-up panel spacing.
         # A tilt-up panel is wide, so these are sparse -- a picket fence of thin
@@ -241,9 +262,9 @@ def _dress_walls(scene, key):
             if off >= span - 0.2:
                 break
             if axis == 'x':
-                scene.box((x0 + off, y0 - t, z0 + 0.2), (t, t, h - 0.5), {'c': lt if k % 2 else dk})
+                scene.box((x0 + off, oy, z0 + 0.2), (t, t, h - 0.5), {'c': lt if k % 2 else dk})
             else:
-                scene.box((x0 - t, y0 + off, z0 + 0.2), (t, t, h - 0.5), {'c': lt if k % 2 else dk})
+                scene.box((ox, y0 + off, z0 + 0.2), (t, t, h - 0.5), {'c': lt if k % 2 else dk})
     return scene
 
 def _dress_roofs(scene, key):
