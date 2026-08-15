@@ -1,3 +1,41 @@
+CHARACTER (character-0lurbs): 8/15 LATEST -- 2X's MEMORY PREREQUISITE IS MEASURED AND
+CLEARED. THE MIGRATION IS UNBLOCKED AND HAS NOT BEEN STARTED.
+
+The cast is done and he signed off ("OK, it's looking good. We have other things we need to
+do"), so I popped this lane's top backlog item: 2X — TWICE THE PIXELS ON THE PEOPLE (Paolo
+8/14, LOCKED). It orders a measurement BEFORE anybody touches the rig, and that measurement
+is this turn's work. records/BOHEMIA_2X_MEMORY_MEASURED_8_15_26.txt.
+
+*** IT DOES NOT COME BACK TIGHT, AND THE REASON DECIDES THE MIGRATION. ***
+`G.hd` DEFAULTS TRUE. drawChar ALREADY upscales every frame 56->112 through Scale2x before
+caching it, so THE FINISHED-FRAME CACHE IS ALREADY PAYING THE 112 PRICE TODAY.
+    HD_CACHE entry, before the migration:  112 x 112 x 4
+    HD_CACHE entry, after  the migration:  112 x 112 x 4      <- identical
+    at full cap (768): 36.8 MB either way | headroom under the 224 MB iOS ceiling: 187.3 MB
+    warmed and measured: HD_CACHE 524/768 = 25.1 MB, FRAME_CACHE 578/768 = 13.8 MB
+What actually grows 4x is the per-frame BAKE working set (buildFrame on a 112 part grid,
+0.04 -> 0.16 MB), and that is TRANSIENT -- scratch for one frame, freed before the next,
+never accumulating into the ceiling.
+NO CACHE BUDGET CHANGE NEEDED. HD_CACHE.max stays 768.
+AND IT CONFIRMS THE ITEM'S OWN STEP (3) FROM THE SAME FACT: Scale2x runs on every cold frame
+purely to manufacture the 112 the cache already stores, so turning it off DELETES work.
+HONEST LIMIT: desktop Chromium, not his phone. But it is an ARITHMETIC result -- entry size
+is w*h*4 and the cap is a constant -- so the before/after equality holds on any device. No
+live iOS reading is claimed.
+CACHES WARMED ON PURPOSE (12 clips x 8 facings x 4 phases through the real drawChar). A cold
+cache reports a comfortable number that means nothing.
+
+STEPS 1-4 NOT STARTED, DELIBERATELY. A half-migrated rig breaks every body in the game, and
+the item is explicit that 1-4 ship together and step 5 must never be mixed in. NEXT IS STEP
+(1) ALONE: his painted pixels double EXACTLY, each pixel -> a 2x2 block. Lossless, no
+interpretation, which is how RIG LAW's sacrosanct regions stay intact BY CONSTRUCTION.
+
+SHIPPED EARLIER TODAY AND GREEN: FAMILY ANIM 13/0 (all four cast members animate on the
+shared 120 BPM clock, full 102-clip picker), FAMILY CAST 26/0, WORN PERSIST 5/0, CHIN LAW
+10/0.
+
+--------------------------------------------------------------------------------
+
 *** FLAG FOR THE RUN LANE (from ART, 8/15): run_gate.js IS RED ON MAIN and it
 is the COLD OPEN. Proven on a clean origin/main worktree (8c2c320): alphaRun's
 tapStep cannot reach the D-pad - first #syncBadge intercepted the click (fixed

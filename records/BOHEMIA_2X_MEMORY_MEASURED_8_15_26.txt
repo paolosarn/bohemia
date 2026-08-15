@@ -1,0 +1,74 @@
+BOHEMIA — 2X: THE MEMORY PREREQUISITE, MEASURED (8/15/26, CHARACTER lane)
+
+THE BACKLOG ITEM ORDERED THIS BEFORE ANYBODY TOUCHES THE RIG:
+  "MEASURE BEFORE THE FLIP: 4x the pixels per frame against the measured ~224MB
+   iOS ceiling, with HD_CACHE at 768 frames. canvas_memory_gate exists for this.
+   If it comes back tight the answer is cache budget, NOT a smaller rig."
+(2X — TWICE THE PIXELS ON THE PEOPLE, Paolo 8/14, LOCKED,
+ laws/BOHEMIA_ADDENDUM_TWICE_THE_PIXELS_8_14_26.md)
+
+IT DOES NOT COME BACK TIGHT. THE PREREQUISITE IS CLEARED.
+
+===============================================================================
+MEASURED, on the real alpha, with the caches WARMED
+===============================================================================
+Warmed by cycling 12 clips x 8 facings x 4 phases through drawChar on the real
+character canvas -- a cold cache reports a comfortable number that means nothing.
+
+    HD_CACHE      524 / 768 frames warm  =  25.1 MB
+                  at FULL CAP (768)      =  36.8 MB
+    FRAME_CACHE   578 / 768              =  13.8 MB
+    iOS ceiling   224 MB
+    HEADROOM at a completely full character cache   =  187.3 MB
+
+===============================================================================
+*** AND HERE IS THE PART THAT DECIDES IT: THE CACHE DOES NOT GROW AT 2X. ***
+===============================================================================
+`G.hd` DEFAULTS TRUE, and drawChar already upscales every frame 56 -> 112 through
+Scale2x before storing it. SO THE FINISHED-FRAME CACHE IS ALREADY PAYING THE 112
+PRICE, TODAY, ON EVERY FRAME.
+
+    HD_CACHE entry size, before the migration:  112 x 112 x 4
+    HD_CACHE entry size, after the migration:   112 x 112 x 4      <- identical
+
+36.8 MB at full cap before, 36.8 MB at full cap after. The migration changes where
+those 112 pixels COME FROM -- native authored art instead of a machine upscale --
+not how many bytes are retained.
+
+WHAT ACTUALLY GROWS 4x is the per-frame BAKE WORKING SET: buildFrame composing on a
+112x112 part grid instead of 56x56.
+
+    per frame now   0.04 MB   ->   at 2x   0.16 MB
+
+That is TRANSIENT, not retained -- it is the scratch for one frame, freed before the
+next. It never accumulates into the ceiling.
+
+===============================================================================
+WHAT THIS MEANS FOR THE MIGRATION
+===============================================================================
+1. NO CACHE BUDGET CHANGE IS NEEDED. The item's fallback ("if it comes back tight
+   the answer is cache budget") does not have to be exercised. HD_CACHE.max stays
+   768.
+2. THE ITEM'S OWN CPU CLAIM IS CONFIRMED FROM THE SAME FACT. Step (3) of the
+   migration is "turn Scale2x OFF ... and it hands back per-frame CPU". It does,
+   and this is why: Scale2x is running on EVERY cold frame right now purely to
+   manufacture the 112 the cache already stores. Authoring at 112 deletes that work
+   rather than adding any.
+3. THE HONEST LIMIT OF THIS MEASUREMENT: taken in desktop Chromium at DPR 2, not on
+   his phone. It is an ARITHMETIC result, not a device result -- the entry size is
+   w*h*4 and the cap is a constant, so the before/after equality holds on any
+   device. The 224 MB figure remains the pinned iOS floor from the 7/27 mobile
+   render contract and carries that contract's own honesty clause. Nothing here
+   claims a live iOS reading.
+
+===============================================================================
+STATUS OF THE 2X MIGRATION AFTER THIS TURN
+===============================================================================
+CLEARED   the memory prerequisite (this file)
+NOT DONE  steps 1-4 (double the painted pixels; double every coordinate; Scale2x
+          off; 1px outline). NOT STARTED, deliberately -- a half-migrated rig
+          breaks every body in the game, and the item is explicit that steps 1-4
+          ship together and that step 5 must not be mixed in.
+NEXT      step (1) alone: his painted pixels double EXACTLY, each pixel -> a 2x2
+          block. Lossless, no interpretation, which is how RIG LAW's sacrosanct
+          regions stay intact BY CONSTRUCTION.

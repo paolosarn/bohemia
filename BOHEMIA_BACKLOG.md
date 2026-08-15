@@ -5796,6 +5796,22 @@ FS. FIELD SURGERY SFX MOMENTS (routed 8/13 — laws/BOHEMIA_ADDENDUM_
    ~224MB iOS ceiling, with HD_CACHE at 768 frames. canvas_memory_gate
    exists for this. If it comes back tight the answer is cache budget,
    NOT a smaller rig — the resolution is ruled.
+   *** MEASURED 8/15 AND CLEARED — records/BOHEMIA_2X_MEMORY_MEASURED_8_15_26.txt.
+   IT DOES NOT COME BACK TIGHT, AND THE REASON DECIDES THE WHOLE MIGRATION:
+   `G.hd` DEFAULTS TRUE, so drawChar ALREADY upscales every frame 56->112 through
+   Scale2x before caching it. THE FINISHED-FRAME CACHE IS ALREADY PAYING THE 112
+   PRICE TODAY. Entry size is 112x112x4 before AND after, so HD_CACHE at full cap
+   is 36.8 MB either way — 187.3 MB of headroom under the 224 MB ceiling. Warmed
+   caches measured 524/768 HD frames = 25.1 MB, FRAME_CACHE 578/768 = 13.8 MB.
+   What actually grows 4x is the per-frame BAKE working set (buildFrame on a
+   112 part grid, 0.04 -> 0.16 MB) and that is TRANSIENT, freed before the next
+   frame, never accumulating into the ceiling.
+   NO CACHE BUDGET CHANGE NEEDED — HD_CACHE.max stays 768.
+   AND IT CONFIRMS STEP (3) FROM THE SAME FACT: Scale2x runs on every cold frame
+   purely to manufacture the 112 the cache already stores, so turning it off
+   DELETES work rather than adding any. Honest limit: desktop Chromium, not his
+   phone — but the result is ARITHMETIC (entry size w*h*4, cap a constant), so the
+   before/after equality holds on any device. Steps 1-4 NOT STARTED. ***
    NOT DEMO-BLOCKING: do not let this displace RUN P0-DOOR / SOUNDS
    P0-WALK. It changes no gameplay wiring, so it is safe in parallel, and
    if it misses the demo the demo loses nothing.
