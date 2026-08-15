@@ -1,3 +1,32 @@
+*** NEVER ASK HIM A TECHNICAL QUESTION (Paolo 8/15, LOCKED). READ THIS BEFORE YOU WRITE A
+REPLY. *** laws/BOHEMIA_ADDENDUM_NEVER_ASK_HIM_TECHNICAL_QUESTIONS_8_15_26.md, in CLAUDE.md,
+gated by reply_contract_gate.js (mutation-tested).
+
+His words: "You're insane to think I know any of that shit... don't be fucking asking me
+technical nerdy questions like this, bro. I'm stupid as fuck... look online to see what you
+should do first... what great Studios do first."
+
+WHAT EARNED IT: I finished a task and asked him to choose between two engineering items BY
+THEIR INTERNAL CODENAMES ("RUN P0-DOOR or 2X?"), explained in lanes and blocking status --
+and I had ALREADY WRITTEN DOWN which one I thought was right, so it was not a fork, it was
+approval-seeking, which EVERYTHING IS A THUMB (8/9) killed months ago.
+
+BANNED, any wording: which engineering item comes next; which lane or session owns
+something; anything named by a codename/file/gate/backlog row; anything answerable by
+reading the repo OR BY RESEARCH (what shippable games do first, what a studio builds before
+a demo, the standard order for a migration -- looking it up is OUR job).
+STILL LEGITIMATE, one at a time: IDENTITY/NAMES he reserved, a genuine creative fork about
+the GAME in plain words, and anything he asked to see.
+THE TEST: could I answer this myself with the repo, the laws, or a search? Then it is not a
+question, it is work I have not done yet.
+SECOND TEST: have I already written down what I think the answer is? Then I am asking
+permission. Do the thing.
+WHY IT KEEPS HAPPENING: the reply format ends with WHAT I NEED FROM YOU, and the pull to put
+SOMETHING there manufactures these. THAT BLOCK HAS A CORRECT EMPTY STATE -- "Nothing, I'm
+good" -- and an empty ask is a FINISHED turn, not a lazy one.
+
+--------------------------------------------------------------------------------
+
 ART (f3eu53): 8/15 (b) LATEST -- *** THE ROOFS HAVE THEIR DEAD MECHANICAL AND
 THE POOLS HAVE THEIR DEEP END. The 8/11 "RTUs stay unwired" note is closed:
 they draw as multi-cell props at uniform tile scale, no resample. ***
@@ -12,6 +41,7 @@ drives the pass-under fade; MAP LAW says map data is not mine), the freeway,
 the clarifier (needs occupancy), deep_wet (needs weather state).
 LEDGER REMAINING IN-LANE: turf court lines, rail turnouts, sf signbands -
 these need REAL COOKS now, the pure-reuse well is dry after sixteen passes.
+
 
 CHARACTER (character-0lurbs): 8/15 LATEST -- 2X's MEMORY PREREQUISITE IS MEASURED AND
 CLEARED. THE MIGRATION IS UNBLOCKED AND HAS NOT BEEN STARTED.

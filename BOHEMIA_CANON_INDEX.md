@@ -1,11 +1,11 @@
-# BOHEMIA CANON INDEX — regenerated 08/14/26
+# BOHEMIA CANON INDEX — regenerated 08/15/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-300 canon files indexed across 2 locations.
+304 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -166,7 +166,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_COMBAT_DNA_RF4_6_30_26.md`
 - `BOHEMIA_ADDENDUM_COMBAT_6_27_26.md`
 
-### TILES & ART (23)
+### TILES & ART (24)
+- `BOHEMIA_ADDENDUM_FAT_AND_TALL_ON_THE_TILE_8_15_26.md`
 - `BOHEMIA_ADDENDUM_ARTICULATION_NOT_FRAGMENTATION_8_2_26.md`
 - `BOHEMIA_ADDENDUM_A_WALL_ENDS_AT_ITS_OWN_TILE_8_1_26.md`
 - `BOHEMIA_ADDENDUM_HUMAN_TILES_FIRST_7_27_26.md`
@@ -216,7 +217,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_UNTHOUGHT_INFRA_7_5_26.md`
 - `BOHEMIA_ADDENDUM_CITYBUILDER_MODEL_7_1_26.md`
 
-### QUESTS & LORE (26)
+### QUESTS & LORE (27)
+- `BOHEMIA_ADDENDUM_NEVER_ASK_HIM_TECHNICAL_QUESTIONS_8_15_26.md`
 - `BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md`
 - `BOHEMIA_ADDENDUM_REALISM_FIRST_AND_THE_QUESTION_FORMAT_8_4_26.md`
 - `BOHEMIA_ADDENDUM_LORE_SITTING_7_31_26.md`
@@ -273,7 +275,9 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (152) — add keywords to DOMAINS
+### UNCLASSIFIED (154) — add keywords to DOMAINS
+- `BOHEMIA_ADDENDUM_THE_REWIND_8_15_26.md`
+- `BOHEMIA_ADDENDUM_TWICE_THE_PIXELS_8_14_26.md`
 - `BOHEMIA_ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md`
 - `BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md`
 - `BOHEMIA_ADDENDUM_ONE_ZOOM_TO_THE_MOON_8_12_26.md`

@@ -40,6 +40,23 @@ ok('the doctrine still forbids leading with a green gate', /never lead\n     wit
 ok('the doctrine keeps JUDGE THIS and the proof line', /JUDGE THIS/.test(doc) && /Proof line/.test(doc));
 ok('the doctrine keeps the play-link-last rule', /play link, on its own line after/.test(doc));
 
+/* NEVER ASK HIM A TECHNICAL QUESTION (Paolo 8/15, LOCKED): "don't be fucking asking
+   me technical nerdy questions like this, bro. I'm stupid as fuck." I finished a
+   task and then asked him to pick between two engineering items BY THEIR INTERNAL
+   CODENAMES -- having already written down which one I thought was right, so it was
+   not even a real fork, it was approval-seeking that EVERYTHING IS A THUMB (8/9)
+   had already killed.
+   THIS IS ASSERTED ON CLAUDE.md, not on /laws, deliberately: a session that never
+   opens the laws directory still has to read CLAUDE.md first, so the rule has to be
+   reachable there or it does not bind. */
+ok('CLAUDE.md carries the NEVER-ASK-HIM-A-TECHNICAL-QUESTION law (8/15) — the ' +
+   'running order is Claude\'s job, and a question answerable by the repo or by ' +
+   'research is work that has not been done yet',
+   /NEVER ASK HIM A TECHNICAL OR PRIORITISATION QUESTION/.test(md));
+ok('...and it names the empty state, because the pull to fill WHAT I NEED FROM YOU ' +
+   'is what manufactures these questions',
+   /correct empty state/.test(md) && /Nothing, I'm good/.test(md));
+
 /* THE TRAP THIS CLOSES: the two files must not describe different orders. */
 {
   const askIdx = doc.indexOf('WHAT I NEED FROM YOU');
