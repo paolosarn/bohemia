@@ -1666,7 +1666,27 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
-SYNC. (8/13 coordinator relay of the RUN lane's 8/12 cross-lane flag —
+STATE OF THIS SECTION, AUDITED 8/15 AGAINST THE CODE: every row below is DONE and gated
+(SYNC 8/15, FS 8/15, GM(a)-(e), EC, ER(a)(b)(c)). Nothing in this section is open work.
+WHAT IS ACTUALLY LEFT FOR THIS LANE, and it is not in this file because it belongs to
+whoever is holding the icon factory: the school floodlight masts still read as flat poles
+(45 DEGREE ART LAW debt) and the airport/airbase heroes were ruled I1=B and never rebuilt.
+BOTH ARE tools/bohemia_district_hero_factory.py, and on 8/15 a SECOND WORLD SESSION was
+live in that file all day (streets, freeways, roofs, the 60-icon regen). ONE SYSTEM, ONE
+SESSION: check `git log -3 -- tools/bohemia_district_hero_factory.py` before touching it.
+Demo board row 2's WORLD half (realize the freeway/arterial/interchange cells) is that
+same session's ground.
+
+SYNC. [DONE 8/15 — and it was not bookkeeping. Fixing the two wrapped banners put the
+   modules back under the sweep and THE SWEEP IMMEDIATELY RESYNCED BOTH: the city page was
+   carrying a bohemia_population.js from before the 8/6 scale correction, describing a
+   48x48 valley that has been 96x96 for weeks. Over a week of invisible drift. This lane
+   was guilty too — bohemia_city_payday_patch.py wrote '----' banners, so all eight modules
+   it inlines were outside the ENGINE SYNC LAW from the day they landed. Fixed at the tool.
+   New gate: banner_gate.js, which also proves NO MODULE IS INLINED TWICE — that caught a
+   SECOND live bug, an orphaned block left behind by a rename whose stale copies were
+   WINNING at runtime, held in place by a gate that hard-coded the old marker name.]
+   (8/13 coordinator relay of the RUN lane's 8/12 cross-lane flag —
    small, do it first, it re-arms a law): TWO OF THIS LANE'S MODULES ARE
    OUTSIDE THE ENGINE SYNC SWEEP. The resync scanner requires the banner
    line to end in '==== */' and engine/bohemia_agents.js +
@@ -1674,7 +1694,11 @@ SYNC. (8/13 coordinator relay of the RUN lane's 8/12 cross-lane flag —
    defect that silently excluded four RUN modules. One-line banner each
    and they are back under the sync law. | both files picked up by the
    resync scanner, shown in its output | — | no.
-FS. THE FIELD SURGERY KIT (routed 8/13 off Paolo's LOCKED procedure —
+FS. [DONE 8/15 — five goods in his step order, tweezers the only durable, priced through
+   the existing scarcity sim at his EVERYTHING COSTS ONE, every description a real attempt
+   tagged draft:true. Gate: medkit_gate.js, which also proves this lane took NONE of the
+   other halves (no treat-wound verb, no clip hook, no sound hook).]
+   THE FIELD SURGERY KIT (routed 8/13 off Paolo's LOCKED procedure —
    laws/BOHEMIA_ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md §7-8): FIVE
    GOODS enter the economy skeleton — povidone iodine, sterile water,
    lidocaine, tweezers (durable), injectable antibiotics (the scarce
@@ -1774,8 +1798,20 @@ EC. THE ECONOMY SKELETON (assigned 7/29 off Paolo's big-missing dispatch —
    consumes this the day it exists. | ledger + hooks gated headless; an
    unruled economy visibly reads unruled | century rule + time-is-spent
    compose here | no.
-ER. [DONE 7/29 — see 0X] (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
-   7_28_26.md) TWO ENGINE GAPS THIS LANE OWNS:
+ER. [ALL THREE DONE — (a) 8/7, (b) by construction, (c) 8/14. Audited 8/15 against the
+   code, not against this row: a row that says OPEN for shipped work is how the next
+   session rebuilds something that already exists.]
+   (a) VERTICALITY SHIPPED 8/7 and this row was still reading OPEN eight days later.
+   engine/bohemia_floorplan.js has `.levels`, a stair cell keeps g:'floor' and gains
+   kind:'stair' (so every `g==='floor'||g==='door'` consumer in the repo keeps working
+   untouched), ground.meta.stories is derived from the level count, and THREE gates hold
+   it: floorplan_gate.js, interior_levels_gate.js, verticality_gate.js. The garage decks
+   were the pilot exactly as this row planned.
+   (b) PHANTOM DESERT RESIDENTS: fixed by construction. bohemia_population.js:57 carries
+   a RESIDENTIAL whitelist (suburb/gated/estate/apartment/trailer/town), so a desert or
+   arterial cell grants zero households and nobody sleeps in a rock formation.
+   (c) VEGAS WEATHER: shipped, three states only, weather_gate.js.
+   (original text kept below for the record)
    (a) VERTICALITY'S ENGINE HALF. Paolo's stated direction: 2-3 story
    buildings with climbable stairs. Today: floorplan vocabulary is only
    floor/wall/door (bohemia_floorplan.js:58, "multi-floor stacking" in its
@@ -2117,7 +2153,17 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    sits, what commitment moves it, what neglect costs per rung. Do not invent them.
 
 ## CITY
-P0-SKY. *** PAOLO BUG REPORT 8/13, HIS OWN PHONE, TOP OF THIS LANE'S
+P0-SKY. [FIXED 8/15, gate SKY TOUCH (sky_touch_gate.js 9/0). Measured on a real touch
+   device BEFORE touching anything, because the wheel path worked the whole time: the pinch
+   moved the sky by ZERO, and ten touch moves fired 21 full-valley redraws at 8.2 ms each
+   against a 16 ms frame. All three faults had one root — in SKY, MODE is still 'city', so
+   every pointer handler believed it was looking at the city. Fixed with one capture-phase
+   listener that stops the event before the city handlers see it and steps the EXISTING
+   skyZoom, rAF-coalesced. AFTER: SKYU 0 -> 1 to the MOON band in 11 redraws for 12 moves.
+   NOTE FOR ANYBODY WHO TOUCHES THIS: the first fix MADE IT WORSE — skyZoom ends in
+   render() and one move is several steps, so stepping it naively measured 41 redraws for
+   12 moves. The render budget is an ASSERTION in the gate for exactly that reason.]
+   *** PAOLO BUG REPORT 8/13, HIS OWN PHONE, TOP OF THIS LANE'S
    QUEUE: "the zoom out didn't work, once I started to leave the city it
    kind of crashed." THE MOON ZOOM SEAM IS BROKEN ON TOUCH — the only
    device that matters. Coordinator read-only diagnosis of slices/
