@@ -704,9 +704,20 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
    SPR.portraits.dmg, which nothing ever filled. Every frame arrived, was
    decoded, and was dropped on the floor. Built, sent, decoded, never connected
    -- the second time this week. */
-  ok('V146 THE DAMAGE FACES ACTUALLY LAND: the decoded frames go into SPR.portraits.dmg, which is the name the consumer reads, instead of into a _dmgRaw nothing ever looked at',
-    /SPR\.portraits\.dmg=d\.portraits\.dmg\.map\(fr=>mkAt\(fr,64,64\)\)/.test(demo) &&
+/* ===== V151 THE GATE THAT WOULD HAVE CAUGHT THREE REPORTS =========
+   V146 asserted "SPR.portraits.dmg = ...map(...)" EXISTS, and it did -- and the
+   VERY NEXT STATEMENT replaced the whole object with a fresh {you, dying}
+   literal with no dmg. A string check cannot see the next line undoing it.
+   Same class as a function defined and never called: present, and dead.
+   So this checks the SHAPE THAT SURVIVES: one literal, built once, carrying
+   every face, with no later assignment able to open a window. */
+  ok('V151 THE DAMAGE FACES SURVIVE THE NEXT LINE: the portrait object is built ONCE with you, dying and dmg in the same literal, so nothing can fill it and be overwritten a statement later',
+    /SPR\.portraits=\{you:mkAt\(d\.portraits\.you,64,64\),\s*\n\s*dying:mkAt\(d\.portraits\.dying,64,64\),\s*\n\s*dmg:_dmgF\};/.test(demo) &&
+    /let _dmgF=null;/.test(demo) &&
     demo.includes('const _dmgSet=(JUICE.AU&&SPR.portraits.dmg&&SPR.portraits.dmg.length)'));
+
+  ok('V151 AND THERE IS EXACTLY ONE PLACE THAT BUILDS IT from the message, so a later assignment can never orphan the frames again',
+    (demo.match(/SPR\.portraits=\{you:mkAt/g) || []).length === 1);
   // v49: the comment box wraps instead of scrolling sideways off-screen
   // v50 supersedes v49's box-growth attempt entirely -- Paolo: "I did not tell you to
   // make a bigger multi box... there was no export copy button... all of my shit went away"
