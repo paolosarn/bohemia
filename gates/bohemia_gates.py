@@ -621,6 +621,14 @@ GATES = [
      'beat-tactics lab: dial-gated damage, occupancy, 120, verdict UI', False),
     ('COMBAT RUNS',    ['node', 'gates/combat_runs_smoke.js'],
      'IT PARSES IS NOT IT RUNS (Paolo 8/2, black screen + one red line): 620 string checks and a node --check were all green while every frame threw ReferenceError, because a temporal dead zone is valid syntax. This boots the real alpha, opens the real combat tab and drives real frames through cover -> AIM -> killshot -> freeze, failing on ANY pageerror or console error', False),
+    ('FIGHT MOVES YOU', ['node', 'gates/fight_moves_you_gate.js'],
+     'THE FIGHT HAS TO MOVE YOU (Paolo 8/15, LOCKED, demo-critical): "there\'s no movement whatsoever and I hate it". '
+     'His law names its own test and asked for this gate by name -- play a fight from ONE SPOT and require it to FAIL. '
+     'It plays the real fight in a real browser with one policy and two arms: never-moves must clear ZERO, allowed-to-walk '
+     'must still clear most, and the walking arm is scored against a CONTROL running the old infinite-ammo world so that '
+     'scarcity making fights unwinnable (rather than unstandable) also goes red. Every call is the shipped function -- '
+     'dryNow, doReload, doSwap, spendRound, pickTarget, dropRounds, worldShift -- because a gate that reimplements the '
+     'maths marks its own homework. Mutation-tested: full magazines at the bell clear 8 of 12 from one spot and take it red', True),
     ('FACE CANON',     ['node', 'gates/face_canon_gate.js'],
      'the 7/19 calibration is the floor: no stale save bulldozes it, every menu rebakes', False),
     ('COMBAT ANIM',    ['node', 'gates/combat_anim_gate.js'],

@@ -4478,6 +4478,49 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       !bad('closed', /closed\+\+|closed\?/));
   }
 
+/* ===== V157 THE BULLETS ARE OVER THERE ============================
+   The behaviour lives in gates/fight_moves_you_gate.js, which PLAYS the fight.
+   What belongs here is the shape of the thing: that ammo exists at all, that a
+   shot is the only thing that spends it, that the refusal names the way out,
+   and that the drop is world state rather than something that follows him. */
+  ok('V157 THE GAME HAS AMMO AT ALL. It had NONE -- infinite bullets since day one, in a game about scarcity, which is both the realism hole and the exact reason one tile can win a fight',
+    demo.includes('const MAG={pistol:8, smg:16, rifle:4, shotgun:4};') &&
+    demo.includes('const START_LOADED={pistol:3, smg:5, rifle:2, shotgun:2};') &&
+    /function dryNow\(\)\{ return roundsIn\(WEAPON\)<=0; \}/.test(demo));
+
+  ok('V157 A SHOT IS THE ONLY THING THAT SPENDS A ROUND, and it spends it only once the shot is REAL -- after the dry check and after a target is found, so a refusal never costs him ammo',
+    (demo.match(/spendRound\(\);/g) || []).length === 1 &&
+    /if\(dryNow\(\)\)\{ const _alt=altWeapon\(\);[\s\S]{0,400}?return; \}\s*\n\s*G\.popTarget>=0\|\|/.test(demo) &&
+    /if\(G\.fireTarget<0\)\{ return endTurnReturn\(\); \}\s*\n\s*spendRound\(\);/.test(demo));
+
+  ok('V157 AND THE DEAD ARE THE SUPPLY: a man who falls leaves his rounds on the tile he fell on, and worldShift carries them like every other piece of world state -- if they moved with the player there would be nothing to walk to',
+    /if\(_lethalRoll\)\{ tgt\.dead=true; try\{dropRounds\(tgt\);\}catch\(_e\)\{\} \}/.test(demo) &&
+    demo.includes('if(Array.isArray(G.drops))for(const d of G.drops)mv(d,0.02);') &&
+    demo.includes('try{sweepDrops();}catch(_e){}'));
+
+  ok('V157 ROUNDS ARE ROUNDS. The first cut typed each drop by the dead man\'s calibre, which is MORE realistic and dead-ended 24 of 40 fights: he carried a pistol and the ground was rifle ammo. A mechanism that can strand him is a bug with a story attached',
+    demo.includes('function spareRounds(){') &&
+    !/spareFor\(/.test(demo) &&
+    !/w:foeGunOf\(e\)/.test(demo));
+
+  ok('V157 THE BUTTON NAMES THE MOVE AND THEN PERFORMS IT: dry owns the button before any other state (a green pop with an empty magazine is the button lying again), it says RELOAD or SWAP or GO GET ROUNDS, and the tap does that exact thing',
+    /if\(dryNow\(\)\)\{\s*\n\s*const _al=altWeapon\(\)/.test(demo) &&
+    /txt=canReload\(\)\?'RELOAD':\(_altLoaded\?\('SWAP TO '\+_al\.toUpperCase\(\)\):'GO GET ROUNDS'\)/.test(demo) &&
+    /if\(canReload\(\)\)return doReload\(\);/.test(demo));
+
+  ok('V157 AND THE RELOAD COSTS THE TURN, exactly like the swap, so scarcity is a decision and never a free button',
+    /function doReload\(\)\{[\s\S]{0,700}endTurnReturn\(false\); \}/.test(demo));
+
+  ok('V157 HE CAN SEE WHAT HE HAS LEFT, on the readout he already reads for range -- a resource he cannot see is one he cannot plan around, and this one decides whether he can stay where he is',
+    demo.includes('function updAmmoRead(){') &&
+    demo.includes('id="ammoread"') &&
+    /updGap\(\)\{ try\{updRangeRead\(\);\}catch\(_e\)\{\} try\{updAmmoRead\(\);\}catch\(_e\)\{\}/.test(demo));
+
+  ok('V157 AND THE GROUND MARKER IS THE GRENADE MARKER, reused byte for byte the way V137\'s hold marker was -- same fieldPos, same pulsing disc, same dashed ring, same label draw. No second marker was invented',
+    demo.includes("x.fillText('AMMO',dp[0],dp[1])") &&
+    /x\.setLineDash\(\[6,5\]\);/.test(demo) &&
+    demo.includes('const dp=fieldPos(_d,W,H,cx,cy)'));
+
   ok('V156 AND THE FLANK NOTICE STOPS CRYING WOLF. Measured before: "N came around your cover" fired on 98.8% of turns, because ghost cover made the BEFORE state blocked almost everywhere so nearly any step read as a flank -- which is the real reason he could not tell whether they were trying. It can only be said about cover he actually has, and when he has none it says what happened instead',
     demo.includes('const _hadCover=inRealCover();') &&
     /const wasBlocked=_hadCover&&coverAtXY\(/.test(demo) &&
