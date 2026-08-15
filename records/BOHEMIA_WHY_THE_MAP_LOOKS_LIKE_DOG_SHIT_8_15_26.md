@@ -70,3 +70,44 @@ Sixty district heroes exist and eighteen types have none. The eighteen include
 the Strip, the resorts, and every named landmark. Until those exist, every other
 improvement to the map is polish on a surface whose loudest cells are flat
 colour.
+
+
+---
+
+## I TRIED TO BUILD IT AND HIT THE REAL BLOCKER (same day)
+
+Told to go, I wrote `build_resort()` and `build_strip()` into the hero factory
+— podium + tower + porte cochere + parking garage, which is the canonical Vegas
+massing (podium floors 1-4 carry the casino/restaurant/convention, the guest
+tower stands on it from 5 up, the porte cochere wraps the tower base, the garage
+attaches to one end). The factory crashed with `KeyError: 'resort'`.
+
+**That crash is the actual finding.**
+
+The hero factory pulls each district's palette **live** from that district's own
+engine module, because of HERO=WALKABLE (Paolo 7/24): the hero and the walkable
+tile must share one source of truth. Measured:
+
+- **63 walkable district modules exist.**
+- **Of the 18 district types with no hero art, only 2 have a walkable module.**
+- `resort`, `strip` and `casino` have **no walkable district at all.**
+
+So the Strip and the resorts do not merely lack an icon. **They do not exist as
+places.** There is nothing to walk into, which is why there is no palette, which
+is why there is no hero, which is why they draw as a flat coloured diamond.
+
+**Building the hero first would have violated HERO=WALKABLE** — it would put a
+resort on the map that opens onto nothing. I reverted the builders rather than
+ship a picture with no place behind it; the factory is back to green.
+
+## THE ORDER THIS HAS TO HAPPEN IN
+
+1. **The walkable districts first** — `resort`, `strip`, `casino` as real
+   district modules with legends, the way the other 63 are built
+   (`laws/BOHEMIA_HOW_TO_BUILD_A_DISTRICT.md` is the method).
+2. **Then the heroes**, which then come almost free, because the factory reads
+   the district's own palette and the massing research is already done and
+   recorded above.
+
+That is one district build, not an art pass, and it is the largest single thing
+standing between the map and looking finished.
