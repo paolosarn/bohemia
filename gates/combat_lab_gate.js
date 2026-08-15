@@ -203,8 +203,8 @@ ok('STREET FLOOR: world-anchored tile board with median + lane markings (V94: th
   ok('tapping a cell places a REAL block on that tile',
     demo.includes('places/removes a REAL cover block ON that tile') && demo.includes('placed:true'));
   ok('TWO-TURN RED LINE: pools require an acquired bead',
-    demo.split('.filter(e=>(e.acq||0)>=1)').length >= 3 &&
-    demo.includes('&&(e.acq||0)>=1);'));
+    demo.split('.filter(e=>acquired(e))').length >= 3 &&
+    demo.includes('&&acquired(e));'));
   ok('acquiring turn is telegraphed (warning line + acq clock)',
     demo.includes('ACQUIRING') && demo.includes('acq:0,'));
   // v8 GRID LOCK: the ghost cells ARE the painted tiles
@@ -384,7 +384,7 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes('mv(s,0.02)') && demo.includes('mv(L,0.02)'));
   // v22: the plumbing pass — the red line law finally complete
   ok('V24 LOS BEAD (supersedes v22): a step only resets guns whose LINE you broke',
-    demo.includes('V24 LOS BEAD') && demo.includes('if(myConcealAgainst(e2.ea,e2.edist,e2.lvl)){ if((e2.acq||0)>=1)_broke++; e2.acq=0; }'));   /* V108 RE-POINTED: his own words were "it has to be a line of sight thing", and v108 finally separated the LINE from the PROTECTION. The bead asks myConcealAgainst, so a car door breaks the lock exactly as it really would. Same law, sharper test. */   /* V90: same check, now level-aware */
+    demo.includes('V24 LOS BEAD') && demo.includes('if(myConcealAgainst(e2.ea,e2.edist,e2.lvl)){ if(acquired(e2))_broke++; e2.acq=0; }'));   /* V108 RE-POINTED: his own words were "it has to be a line of sight thing", and v108 finally separated the LINE from the PROTECTION. The bead asks myConcealAgainst, so a car door breaks the lock exactly as it really would. Same law, sharper test. */   /* V90: same check, now level-aware */
   ok('danger outranks its warning, and the LINES ARE VISIBLE AGAIN. Paolo 8/1 reversed his own 7/3 and 7/4 dial-downs -- "I\'m not seeing the beads anymore... I want them to come back for now" -- so red and amber came back up. The ORDERING he set is what this check has always been about and it still holds: red outranks amber outranks out outranks tucked',
     demo.includes("'rgba(232,60,40,0.62)'") && demo.includes("'rgba(232,140,40,0.42)'") &&
     !demo.includes("'rgba(232,60,40,0.30)';w=2;"));
@@ -456,7 +456,7 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
   // v28: the threat ladder
   ok('V28 THREAT ORDER: imminent blade (V33 reach/windup-aware) > exposed guns (closest first) > closing blades > the rest',
     demo.includes('V28 THREAT ORDER') && demo.includes('V33 THREAT REACH') &&
-    demo.includes('_rank(e)*1000+e.edist'));
+    demo.includes('threatRank(e)*1000+e.edist'));   /* V155 RE-POINTED: the rank MOVED to module scope so the chain uses the same table -- same ladder, same weighting, one copy instead of two. The V155 block below now also RUNS this ordering rather than reading it. */
   // v29: reckless pop + crouch-fire plumbing
   ok('V29 RECKLESS POP: the button always fires; bad timing stands you into held beads',
     demo.includes('V29 RECKLESS POP') && demo.includes('function recklessPop()') &&
@@ -865,7 +865,7 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
   ok('V67 SUPPRESS IS TURN-BASED, NOT WALL-CLOCK (Paolo: "it doesn\'t seem like it does fucking anything"). The 2.2-SECOND pin expired while he was still deciding his move; a pin is now counted in TURNS like everything else in this fight, it breaks the red lines they were holding, and it costs a turn of cooldown',
     demo.includes('function pinned(e){ return (e.supp||0)>0; }') &&
     demo.includes('const SUPP_TURNS=1;') && demo.includes('const SUPP_CD=1;') &&
-    demo.includes('e.supp=SUPP_TURNS; if((e.acq||0)>=1)beads++; e.acq=0;') &&
+    demo.includes('e.supp=SUPP_TURNS; if(acquired(e))beads++; e.acq=0;') &&
     demo.includes('for(const e of G.e){ if((e.supp||0)>0)e.supp--; }') &&
     demo.includes('if((G.suppCd||0)>0)G.suppCd--;') &&
     // the wall clock is GONE from the pin
@@ -2796,8 +2796,17 @@ ok('V140 AND THE DECK MAY NOT TELEPORT A MAN BACK INTO RANGE: V90B took shooters
     demo.includes("const near=!!stairNear();"));
   ok('A BLADE CANNOT REACH A FLOOR ABOVE IT -- not a balance number, an arm being too short',
     /for\(const e of G\.e\)\{ if\(e\.dead\|\|e\.downed\|\|e\.broken\|\|e\.fleeing\|\|!e\.melee\)continue;\s*\n\s*if\(\(e\.lvl\|0\)!==myLvl\(\)\)continue;/.test(demo));
+  /* V155 RE-POINTED, AND THE RULER WAS THE BROKEN ONE. This was a fixed
+     1200-character window after `function resetFightState(){`, so ANY line added
+     to the reset -- however correct -- eventually pushed `G.lvl=0;` out of view
+     and took the gate red for a reason that had nothing to do with the law. The
+     law is "the reset puts you back on the lot", so it now reads THE FUNCTION
+     BODY, whatever length it grows to. FIX THE RULER, NEVER THE TARGET. */
   ok('and every fight starts on the lot',
-    /function resetFightState\(\)\{[\s\S]{0,1200}G\.lvl=0;/.test(demo));   /* V107 RE-POINTED: and now NEW ENCOUNTER puts you back on the lot too, which the old inline list never did */
+    (() => { const a = demo.indexOf('function resetFightState(){');
+      if (a < 0) return false;
+      const b = demo.indexOf('\nfunction ', a + 10);
+      return demo.slice(a, b < 0 ? a + 4000 : b).includes('G.lvl=0;'); })());   /* V107 RE-POINTED: and now NEW ENCOUNTER puts you back on the lot too, which the old inline list never did */
 
   /* the render: levels are drawn RELATIVE, which is the one-scene law */
   ok('V90B LEVELS ARE DRAWN RELATIVE TO YOU: the deck floats above the lot from the ground and becomes the floor under your feet once you are on it. ONE SCENE, the same law the killshot and the board already obey',
@@ -3563,7 +3572,7 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('pressurePkg()))'));   /* V114 RE-POINTED: the high-ground edge subtracts a tier after the max() closes */
 
   ok('V110 AND IT COUNTS ONLY THE SITUATION HE DESCRIBED: a gun BEHIND COVER, holding a line on you, that you have NO cover from. A gun in the open is a target, not pressure; a gun you are covered from is not shooting at you. MEASURED: 1 gun -> no floor, 2 -> HARD, 3 -> V.HARD, 4 -> BOHEMIAN, and taking cover from one of three drops the count to two',
-    demo.includes('&&e.gcov&&(e.acq||0)>=1&&!myCoverAgainst(e.ea,e.edist,e.lvl)).length; }'));
+    demo.includes('&&e.gcov&&acquired(e)&&!myCoverAgainst(e.ea,e.edist,e.lvl)).length; }'));
 
   ok('V110 AND POINT BLANK STILL EASES THE DIAL. Pressure is a FLOOR, the same shape v95 gave the chain ramp, so his 7/27 point-blank ruling survives intact -- closing the distance is still how you buy a friendlier dial, it just cannot fully cancel the cost of standing in the open',
     /Math\.max\(\s*distPkg\(tgt\)\+\(tgt\.elite\?1:0\)[\s\S]{0,120}chainRampDial\(\),[\s\S]{0,80}pressurePkg\(\)/.test(demo));
@@ -3795,6 +3804,135 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     /return \(1-\(1-base\)\/threatMult\(\)\)\*\(iMoved\(\)\?\(1-MOVING_MISS\):1\); \}/.test(demo) &&
     /const MOVING_MISS=0\.35;/.test(demo));
 
+/* ===== V154 ONE MORE BEAT BEFORE THEY SHOOT =======================
+   Paolo 8/15: "whatever it's at right now, one extra turn it takes for Enemies
+   to shoot at you and I think this might be more survival potentially fun."
+   Every change this week made the board MORE dangerous -- cover decays, guns
+   have reach, they flank and close and bound, grenades come more than once --
+   and the one thing that never moved was HOW LONG HE HAS TO REACT. An extra
+   beat makes all of it survivable without weakening any of it.
+   AND THE NUMBER STOPS BEING SCATTERED: the threshold was the literal >= 1
+   written out ELEVEN times, including in the RED-LINE DISPLAY. Eleven copies of
+   one rule is the exact shape that has cost him all week -- and a display that
+   can quietly disagree with the rule it draws is how he learns to ignore the
+   display. One dial, one predicate. */
+  ok('V154 THE ACQUISITION DELAY IS ONE DIAL, READ THROUGH ONE PREDICATE, so the bead he watches and the rule that shoots him can never drift apart',
+    demo.includes('const ACQ_TURNS=2;') &&
+    demo.includes('function acquired(e){ return !!e && (e.acq||0)>=ACQ_TURNS; }') &&
+    !/\(e\.acq\|\|0\)>=1/.test(demo) && !/\(e2\.acq\|\|0\)>=1/.test(demo));
+
+  ok('V154 AND EVERY PATH THAT COULD SHOOT HIM GOES THROUGH IT -- the volley, the wait-exposed path, the reckless path and the red line all ask the same question',
+    (demo.match(/acquired\(e\)/g) || []).length >= 5 &&
+    /const red=hot&&\(e\.melee\|\|acquired\(e\)\)/.test(demo));
+
+/* ===== V155 THE GUN ONLY SWINGS SO FAR ============================
+   Paolo, for the SECOND time: "I already told you if I'm facing one way the next
+   person that I can kill shot can't be like directly on the other side like
+   bumping to shoot someone."
+   nextChainTarget was literally `return pickTarget()` -- pure threat order, all
+   360 degrees -- so a killshot could hand him a man at his back and call it one
+   motion. A chain is ONE MOTION: the muzzle swings off the man who dropped onto
+   the next one, and outside the arc the gun can traverse there is no chain.
+   MEASURED, NOT READ. A string check would pass on a swing filter that is
+   defined and never reaches the selection -- that is the exact failure that cost
+   him inMyRange and the damage faces. This RUNS the real selection against a
+   built board and asserts the man at 180 degrees is never returned. */
+  { const _sa = demo.indexOf('const SWING_ARC=');
+    const _pt = demo.indexOf('function threatRank(e){');
+    const _end = demo.indexOf('function nextChainTarget(){');
+    const _endB = demo.indexOf('\n', demo.indexOf('return bestOf(pool); }', _end));
+    ok('V155 the swing machinery and the chain selector are both present in the shipped blob',
+      _sa > 0 && _pt > 0 && _end > _sa && _endB > _end);
+
+    if (_sa > 0 && _pt > 0 && _endB > _end) {
+      const src = demo.slice(_pt, _endB);
+      // the real selection, with only the two board oracles stubbed
+      const mk = (WEAPON, faceA, enemies) => new Function(
+        'WEAPON', 'G', 'modePool', 'myCoverAgainst',
+        src + ';return {pick:nextChainTarget(), arc:swingArc(), inS:inSwing};'
+      )(WEAPON, { e: enemies, _muzzleA: faceA, faceAng: 0, selTarget: null },
+        () => enemies.filter(e => !e.dead), () => false);
+
+      // four men: dead ahead, 60 deg off, 100 deg off, and directly behind.
+      const board = [
+        { i: 0, ea: 0.00,        edist: 9, melee: false },
+        { i: 1, ea: 1.05,        edist: 4, melee: false },   // 60 deg
+        { i: 2, ea: 1.75,        edist: 3, melee: false },   // 100 deg
+        { i: 3, ea: Math.PI,     edist: 1, melee: false },   // straight at his back, CLOSEST
+      ];
+      // closest-first would pick the man behind him every single time.
+      const r = mk('pistol', 0, board);
+      ok('V155 THE MAN AT HIS BACK IS NEVER THE CHAIN, even when he is the closest man on the board -- which is exactly who the old closest-first selector handed him',
+        r.pick !== 3 && r.inS(board[3]) === false);
+
+      ok('V155 and inside the arc the threat order is untouched: the closest man the gun can reach is still the one it takes',
+        r.pick === 1 && r.inS(board[1]) === true);
+
+      // the arc belongs to the gun: same board, different weapon, different reach
+      const rp = mk('pistol', 0, board), rr = mk('rifle', 0, board), rs = mk('sniper', 0, board);
+      ok('V155 THE ARC BELONGS TO THE GUN (his own "maybe depending on the gun type"): pistol > smg > shotgun > rifle > sniper, so the gun that gives the most shots gives the least ground',
+        rp.arc > mk('smg', 0, board).arc && mk('smg', 0, board).arc > mk('shotgun', 0, board).arc &&
+        mk('shotgun', 0, board).arc > rr.arc && rr.arc > rs.arc);
+
+      ok('V155 and that trade is REAL on a board: the pistol chains the man 60 degrees out, the rifle cannot reach him, and the scope chains nobody but the man dead ahead',
+        rp.pick === 1 && rr.pick === 0 && rs.pick === 0);
+
+      // wrap-around: a muzzle near +pi and a man near -pi are 20 deg apart, not 340
+      const wrap = mk('pistol', 3.0, [{ i: 0, ea: -3.0, edist: 5, melee: false }]);
+      ok('V155 the angle wraps: a muzzle at +172 and a man at -172 are 16 degrees apart, not 344 -- the arc is a real angular gap, never a subtraction',
+        wrap.pick === 0);
+
+      // and it is NOT a distance filter wearing an arc costume
+      const far = mk('pistol', 0, [{ i: 0, ea: 0.1, edist: 40, melee: false }]);
+      ok('V155 the arc is about DIRECTION only: a man far away but dead ahead is still one motion from the muzzle',
+        far.pick === 0);
+    }
+  }
+
+  ok('V155 THE SWING IS MEASURED OFF THE SHOT, NOT OFF THE STANCE. G.faceAng is written a SECOND time by updateStanceFacing every time the phase returns to cover, so reading it in the chain would have measured from wherever the body ended up after the kill camera. The shot stamps its own angle',
+    /if\(G\._muzzleA!=null&&isChain\)G\._sweepUsed=\(G\._sweepUsed\|\|0\)\+angGap\(tgt\.ea,G\._muzzleA\);\s*\n\s*G\._muzzleA=tgt\.ea; \}/.test(demo) &&
+    /function muzzleAng\(\)\{ return \(G\._muzzleA!=null\)\?G\._muzzleA:\(G\.faceAng\|\|0\); \}/.test(demo) &&
+    /const g=angGap\(e\.ea,muzzleAng\(\)\);/.test(demo) &&
+    /G\._chainWait=false; G\._muzzleA=null; G\._sweepUsed=0;/.test(demo));
+
+/* V155b THE TURN HAS A TOTAL TRAVERSE. MEASURED before this existed: with a
+   per-hop arc ONLY, a pistol still chained 63.9% of the men left and the chain
+   died at the arc on 2.1% of kills -- because eight hops of 75 degrees is 600
+   degrees of rotation. He could still sweep the whole board inside one turn,
+   one hop at a time, which is the pirouette he complained about arriving in
+   slow motion. A per-hop arc without a turn budget is a cosmetic fix. */
+  ok('V155 AND THE WHOLE TURN HAS A TRAVERSE BUDGET, because eight hops of 75 degrees is 600 degrees -- a per-hop arc alone still lets one turn circle the board',
+    demo.includes('const SWEEP_TURNS=2.2;') &&
+    demo.includes('function turnSweep(){ return swingArc()*SWEEP_TURNS; }') &&
+    /return g<=swingArc\(\) && g<=sweepLeft\(\);/.test(demo) &&
+    /if\(!isChain\)\{G\._chainN=1;G\._poppedOut=false;G\._sweepUsed=0;G\._muzzleA=null;\}/.test(demo));
+
+  { // and it RUNS: spend the budget and the same man stops being chainable
+    const _pt = demo.indexOf('function threatRank(e){');
+    const _end = demo.indexOf('function nextChainTarget(){');
+    const _endB = demo.indexOf('\n', demo.indexOf('return bestOf(pool); }', _end));
+    if (_pt > 0 && _endB > _end) {
+      const src = demo.slice(_pt, _endB);
+      const board = [{ i: 0, ea: 1.0, edist: 5, melee: false }];
+      const run = (used) => new Function('WEAPON', 'G', 'modePool', 'myCoverAgainst',
+        src + ';return nextChainTarget();'
+      )('pistol', { e: board, _muzzleA: 0, faceAng: 0, selTarget: null, _sweepUsed: used },
+        () => board, () => false);
+      ok('V155 THE BUDGET IS REAL AND IT RUNS DOWN: a man 57 degrees off the muzzle is chainable on a fresh turn and is NOT chainable once the turn has already spent its traverse -- same man, same angle, same gun',
+        run(0) === 0 && run(2.5) === -1);
+    }
+  }
+
+  ok('V155 THE MANUAL CHAIN OBEYS THE SAME ARC ON BOTH SURFACES (the board chip and the world tap) and says WHY it refused, rather than dying silently on a tap',
+    (demo.match(/TOO FAR TO SWING/g) || []).length === 2 &&
+    (demo.match(/if\(G\._chainWait\)\{ if\(!inSwing\(e\)\)\{/g) || []).length === 2 &&
+    demo.includes('NO SWING LEFT'));
+
+  ok('V155 AND THE THREAT RANK WAS MOVED, NOT COPIED -- one table, read by the first shot and the chain alike, because a second copy is how a rule and its display drift apart',
+    (demo.match(/function threatRank\(e\)\{/g) || []).length === 1 &&
+    (demo.match(/const _rank=/g) || []).length === 0 &&
+    demo.includes('function bestOf(pool){') && /return bestOf\(pool\); \}/.test(demo));
+
 /* ===== V153 IT CUTS BOTH WAYS =====================================
    Paolo 8/15: "so what I'm the only one that gets affected by this... that's not
    fair second being out in the open in this game for more than two turns like
@@ -3899,7 +4037,7 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
 
   ok('V122 RUN KEEPS DASH\'S REAL PAYLOAD: the run is FREE (no turn end, nobody shoots) and arriving somewhere new BREAKS THEIR RED LINES. Dash\'s point was never "two tiles", it was that the fight loses track of you',
     demo.includes('function runBreakLocks(){') &&
-    demo.includes('if(myConcealAgainst(e2.ea,e2.edist,e2.lvl)){ if((e2.acq||0)>=1)n++; e2.acq=0; }'));
+    demo.includes('if(myConcealAgainst(e2.ea,e2.edist,e2.lvl)){ if(acquired(e2))n++; e2.acq=0; }'));
 
   ok('V122 EVERY CHECK HAPPENS BEFORE A SINGLE PIP IS SPENT. MEASURED on the first cut, which spent first and refunded on refusal: a TALL pillar already one tile away gave stop=0, the no-move fallback pushed one tile FORWARD, and RUN walked me straight INSIDE a solid wall for 2 pips. An OCCUPANCY LAW break shipped by a convenience',
     /const n=runStops\(d\);[\s\S]{0,600}if\(!spendMove\(cost\)\)/.test(demo) &&
