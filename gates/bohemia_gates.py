@@ -182,6 +182,20 @@ GATES = [
      'covered before it is written. This posts every handler the alpha declares (scraped '
      'from the alpha, never typed here), proves the save, the sound and the prefab bridge '
      'really work, and proves an unrelated postMessage is still ignored', True),
+    ('PLACEHOLDER #',  ['node', 'gates/placeholder_number_gate.js'],
+     'laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md (Paolo, LOCKED) asks for this '
+     'gate by name in its section 5b and says whoever ships first writes it. His reasoning '
+     'is the whole point: a plausible-looking number LOOKS TUNED, so it slips past every '
+     'future reader, gets built on, and becomes canon by inertia -- nobody re-opens a value '
+     'that looks deliberate, while a 1 announces itself as a placeholder from across the '
+     'room. So the failure caught here is not a wrong number, it is a number wearing NO '
+     'LABEL. It constrains the PROPERTY and not the shape, because WORLD owns these tables '
+     'and has not filled them yet and this lane does not design another lane\'s data on the '
+     'way past. Mutation-tested in place (a bare {resources:7} is planted, caught, and the '
+     'table put back), asserts ONE IS NOT FREE (the honest NO_RULING refusal survives), '
+     'asserts NO DAMAGE BEFORE THE DIAL is untouched, and GENERATES the tuning list rather '
+     'than remembering it. The tables are empty today: it is standing before the numbers '
+     'arrive so the first hand to fill them cannot land an untagged one', True),
     ('DEMO',           ['node', 'gates/demo_gate.js'],
      'DEMO BOARD row 9: seven gates each proved one beat of the demo and NOBODY had ever '
      'played the whole thing on the surface Paolo taps. This does, by hand, in ONE session, '
