@@ -196,6 +196,21 @@ GATES = [
      'asserts NO DAMAGE BEFORE THE DIAL is untouched, and GENERATES the tuning list rather '
      'than remembering it. The tables are empty today: it is standing before the numbers '
      'arrive so the first hand to fill them cannot land an untagged one', True),
+    ('ONE VALLEY',     ['node', 'gates/one_valley_gate.js'],
+     'Paolo 8/15: "When I press the re-roll button... it like puts me to another location and I '
+     'cant continue to run." MEASURED mid-run: one tap swapped the valley seed, threw him out of '
+     'his body, made his HOME null, and THE NEXT AUTOSAVE WROTE THE NEW SEED. THEN I GOT THE FIX '
+     'WRONG AND THAT IS THE USEFUL HALF: I removed the button, and ANOTHER LANE HAD ALREADY '
+     'FIXED IT THE SAME DAY for his other report about it, with a rehome and a gate that presses '
+     'it five times. Deleting a feature somebody just repaired, for the same user, is not a fix. '
+     'The button is back and reroll is THEIRS. What this holds is the part that is nobody elses '
+     'and still true: NOTHING IN THE TOOLBAR IS A ONE-WAY DOOR OUT OF HIS RUN. It starts a real '
+     'run, presses EVERY control, toggles each BACK, and asserts he ends up in his own body with '
+     'his own house -- checking any single button by name would let the next one land with the '
+     'same power. The sweep earns that: it found UNDER, which cleared its view but left him in '
+     'the overview with no way back to his feet. Reroll is skipped DECLARED, not silently, '
+     'because replacing the world is its job and reroll_gate.js owns where it lands him. '
+     'Mutation-tested: re-break UNDER and it goes red naming it', True),
     ('DEMO DAY',       ['node', 'gates/demo_day_gate.js'],
      'THE PEOPLE LANE SHIPPED A demo_gate THE SAME DAY FOR THE SAME ROW AND BOTH ARE WORTH '
      'KEEPING -- theirs guards the SPINE OF THE OPENING from a phone that has never seen the '

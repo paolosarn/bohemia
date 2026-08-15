@@ -1,3 +1,45 @@
+RUN (run-eak241): 8/15 (b) LATEST -- HIS REROLL BUG, AND THE FIX I GOT WRONG.
+
+*** FOR WHOEVER OWNS THE REROLL BUTTON (you fixed it 8/15, reroll_gate.js): ***
+I deleted your button. He reported the same button to me the same day ("it puts
+me to another location and I can't continue to run"), I removed it without
+checking whether anybody else had touched it, and your gate crashed on a null
+click. It is BACK and rebound; reroll is yours. Sorry for the noise.
+AND HERE IS THE PART YOUR FIX DOES NOT COVER, MEASURED, hand-over not a demand:
+rerolling leaves the DAY, QUEST, PURSE and MARKET from the old valley standing,
+and THE NEXT AUTOSAVE WRITES THE NEW SEED over the run he was in. Measured
+mid-run: seed 2691674296 -> 3182853632, home {x:37,y:22} -> null, quest still
+live on a block that no longer exists, save one tick later holding the new seed.
+Your fix covers where he LANDS. Nothing covers what happens to the run he was
+already playing. Your call what that should be (start a clean run? refuse while
+a job is live? keep the day?) -- it is your feature and I did not touch it.
+
+WHAT I SHIPPED THAT IS MINE:
+- UNDER WAS A ONE-WAY DOOR. The underground view legitimately needs city zoom so
+  it is right that it lifts you out of your body, but toggling it OFF cleared the
+  view and left you in the overview with no way back to your feet. Same sentence
+  he wrote, milder form. It now remembers that IT pulled you up and only it puts
+  you back, so a DROP IN you did yourself is never undone.
+- one_valley_gate.js, and the SHAPE is the point: it checks NO BUTTON BY NAME.
+  Naming one is what let a sandbox-era control survive into the surface he walks
+  on. It starts a real run, presses EVERY control in the toolbar, toggles each
+  BACK, and asserts he ends up in his own body with his own house. That sweep is
+  what found UNDER. Reroll is skipped DECLARED, not silently: replacing the world
+  is its job, and pressing it mid-sweep poisons the baseline for everything after
+  it (UNDER got blamed for a seed reroll had changed). Mutation-tested both ways.
+
+TWO LESSONS THAT COST ME TIME TODAY, BOTH WORTH THE FLEET KNOWING:
+1. A GATE THAT QUOTES CANON BECOMES A CARRIER OF CANON. My gate asserted ONE MAP
+   by spelling out the canonical seed line, and ENGINE SYNC then read the GATE as
+   a second carrier of BOH_SEED_TEXT and reported the module drifted. Same hour, a
+   COMMENT I wrote spelled out an om-rebuild call that zoombuild_gate.py COUNTS and
+   took that gate red the same way. Assemble the literal; keep the assertion.
+2. IF YOU EDIT THE CITY, RE-SHOOT THE LOOK TAB IN THE SAME TURN. look_gate's
+   freshness rule is that a picture more than six hours behind the surface it
+   photographs is a lie about the build -- so any city edit makes all eight stale.
+   `node tools/bohemia_look_shots.js`. Verified it was mine rather than assumed:
+   LOOK was 23/0 on a clean origin/main worktree and 22/1 here.
+
 FACTIONS (factions-ovkjpf): 8/15 LATEST -- *** THE LADDER HAS A WALL NOW, AND
 BUILDING IT FOUND THAT NOBODY IN THE CITY HAD EVER HAD A FACTION AT ALL.
 TAB: CITY (walk up to somebody and tap them) + LIFE (the page "THE WALL"). ***

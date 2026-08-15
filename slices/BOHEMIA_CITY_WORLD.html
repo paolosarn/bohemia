@@ -18943,7 +18943,22 @@ window.addEventListener('message',ev=>{ const d=ev&&ev.data;
   }
 });
 const ub=document.getElementById('underbtn');
-ub.addEventListener('click',()=>{ UNDERV=!UNDERV; ub.classList.toggle('on',UNDERV); if(UNDERV&&MODE!=='city'){ MODE='city'; updHud(); } render(); });
+/* __UNDER_GIVES_YOU_YOUR_BODY_BACK__ (8/15) -- found by one_valley_gate.js while
+   it was sweeping the toolbar for the REROLL bug Paolo reported. UNDER is a real
+   view and it genuinely needs city zoom to show the underground, so it is right
+   that it pulls you up out of your body. IT WAS A ONE-WAY DOOR: toggling it back
+   OFF cleared UNDERV and left MODE='city', so you were standing in the overview
+   with no way back to your feet except finding DROP IN again. That is the same
+   sentence he wrote about REROLL -- "I can't continue to run" -- in a milder
+   form. It now remembers that IT was the thing that pulled you up, and only it
+   puts you back, so a DROP IN you did yourself is never undone. */
+ub.addEventListener('click',()=>{ UNDERV=!UNDERV; ub.classList.toggle('on',UNDERV);
+  if(UNDERV){ if(MODE!=='city'){ UNDER_TOOK_BODY=true; MODE='city'; updHud(); } }
+  else if(UNDER_TOOK_BODY){ UNDER_TOOK_BODY=false;
+    if(typeof swapMode==='function'){ try{ swapMode(); }catch(_e){ MODE='human'; updHud(); } }
+    else { MODE='human'; updHud(); } }
+  render(); });
+var UNDER_TOOK_BODY=false;
 document.getElementById('reroll').addEventListener('click',()=>{
   /* *** IF HE WAS WALKING, HE IS STILL WALKING AFTERWARDS. *** (Paolo 8/15, on
      the FIRST fix not being enough: "Still not fixed.") Clearing the stale HOME
