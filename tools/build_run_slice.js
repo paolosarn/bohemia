@@ -394,6 +394,10 @@ grabPieces('banks/tileforms/TF-ART-008_SIGNBAND_VOLUME_8_15_26.json',
    tools/tfcook/TF-ART-008_smash_pilaster_cook.py */
 grabPieces('banks/tileforms/TF-ART-008_SMASH_VOLUME_8_15_26.json',
   ['sf_smashed_0', 'sf_smashed_1', 'sf_pilaster_0', 'sf_pilaster_1']);
+/* VOLUME 8/16: the yard's track ends - a buffer stop on one end in four,
+   blown-sand tapers on the rest - tools/tfcook/TF-ART-010_ends_cook.py */
+grabPieces('banks/tileforms/TF-ART-010_ENDS_VOLUME_8_16_26.json',
+  ['rail_buffer_e', 'rail_buffer_w', 'rail_taper_e', 'rail_taper_w']);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('

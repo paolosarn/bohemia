@@ -107,7 +107,7 @@ const CARDS = [
    card. */
 const WIRED = [
   { id: 'TF-ART-010', title: 'THE RAILYARD RUNS ON YOUR TRACKS', img: 'ART_WIRED_TF-ART-010.png',
-    what: 'The classification fan draws your approved ties, rails and ballast plates now. This is a live frame from the game, standing in the yard: the boxcars sit on real track instead of dirt.' },
+    what: 'The classification fan draws your approved ties, rails and ballast plates now. VOLUME 8/16: the tracks END like tracks now - measured first: 517 east and 517 west ends in the yard, so a thousand steel stops would be a lie. About one end in four keeps its rusted BUFFER STOP and the rest sink under thirty years of blown sand, one rail tip still showing. Live frame at a buffered end. Turnouts and the level crossing wait on world geometry that does not exist yet (no through mainline, no road ever meets a track).' },
   { id: 'TF-ART-003', title: 'THE LOTS HAVE THEIR PAINTED LINES', img: 'ART_WIRED_TF-ART-003.png',
     what: 'Courthouse, commercial, chapel, industrial, warehouse and downtown lots draw your washed stripes, each cell reading the painted line’s own shape. Live frame from the courthouse lot. The medical lot names whole bays, not lines, and is left alone on purpose.' },
   { id: 'TF-ART-012', title: 'THE ROOFS HAVE THEIR EDGE', img: 'ART_WIRED_TF-ART-012.png',

@@ -1,4 +1,21 @@
-ART (f3eu53): 8/15 (e) LATEST -- *** TF-ART-008 IS COMPLETE: smashed fronts
+ART (f3eu53): 8/16 (a) LATEST -- *** THE TRACKS END LIKE TRACKS: buffer
+stops on one end in four, blown sand over the rest. Turnouts + crossing
+PARKED with measurements (no through mainline, no road ever meets a track).
+***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twentieth-pass section)
+
+TAB: ART, WIRED IN THE GAME - railyard card reshot at a buffered end.
+
+THE LANE'S LEDGER IS NOW EMPTY OF UNBLOCKED ITEMS: every approved family is
+wired, every named volume item is either IN THE GAME (bands, piers, smash,
+gates, skirts, hitches, burned row, RTUs, scuppers, drifts, deep ends,
+slopes, all the painted lines, track ends) or PARKED with a measured reason
+(awnings/freeway/banking/clarifier/turf-rects/turnouts/crossing = world
+geometry or weather that does not exist yet; deck stairs = TF-CMB-004).
+NEXT for this lane when nothing unblocks: quantize-sweep any remaining raw
+records/target shots for pages headroom, then hold for WORLD.
+
+ART (f3eu53): 8/15 (e) -- *** TF-ART-008 IS COMPLETE: smashed fronts
 and pilasters join the bands. Every volume item the storefront form named is
 in the game. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (nineteenth-pass section)

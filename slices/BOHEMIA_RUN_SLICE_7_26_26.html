@@ -532,6 +532,19 @@ function drawRailform(gx,gy,X,Y,S){
     var im=TILEFORM_IMG['rail_yard_corridor_'+v+ph];
     if(!im||!im.complete||!im.naturalWidth) return false;
     ctx.drawImage(look(im),0,slice*44,44,44,X,Y,S,S);
+    /* VOLUME (8/16): THE TRACK ENDS. Measured: 517 east + 517 west ends in
+       the yard, no through line. A thousand steel stops would be a lie, so
+       about one end in four keeps its BUFFER and the rest sink under thirty
+       years of blown sand (TAPER, one rail tip still showing). Track row
+       only. */
+    if(dyt===0){
+      var contE = gx+1<NAMEG[ty].length && String(NAMEG[ty][gx+1]||'').toLowerCase().indexOf('rail track')>=0;
+      var contW = gx-1>=0 && String(NAMEG[ty][gx-1]||'').toLowerCase().indexOf('rail track')>=0;
+      var endim=null;
+      if(!contE && contW) endim=TILEFORM_IMG[th(0,ty,4)===0?'rail_buffer_e':'rail_taper_e'];
+      else if(!contW && contE) endim=TILEFORM_IMG[th(0,ty,4)===0?'rail_buffer_w':'rail_taper_w'];
+      if(endim&&endim.complete&&endim.naturalWidth) ctx.drawImage(look(endim),X,Y,S,S);
+    }
     return true;
   }
   /* the yard's continuous bed between tracks: his approved plate, not paint */

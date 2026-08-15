@@ -161,6 +161,6 @@
 - [ ] Caption JSON parses and matches sections C and D
 
 ## J. ADMIN
-- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: the railyard's classification fan draws the yard corridors (5-slice, phase A/B per the bank's 88px contract) and the ballast bed draws the plates, live in the RUN tab. Turnout/crossing/buffer and the mainline corridor are the remaining volume. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
+- STATUS: APPROVED 8/11/26 AND WIRED 8/11/26: the railyard's classification fan draws the yard corridors (5-slice, phase A/B per the bank's 88px contract) and the ballast bed draws the plates, live in the RUN tab. Turnout/crossing/buffer and the mainline corridor are the remaining volume. VOLUME 8/16/26: TRACK ENDS wired (tools/tfcook/TF-ART-010_ends_cook.py - RGBA overlays cooked to sit OVER the corridor art so the rails arrive at the stop; buffer 1-in-4 ends, blown-sand taper with a showing rail tip on the rest). MEASURED FIRST: 2,727 track cells, 517+517 E/W ends, zero road adjacency - so turnouts and the level crossing are PARKED on world geometry (no through mainline in the walked world). Verified live at a buffered end; card reshot. | REQUESTED BY: ART lane (own queue, breaking down board row 7)
   | DATE: 7/29/26 | PRIORITY: HIGH
 - BOARD ROW #: 19 | VERDICT: none yet

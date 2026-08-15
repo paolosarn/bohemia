@@ -400,3 +400,19 @@ reshot. TF-ART-008 IS COMPLETE: signbands, pilasters, ends and the smashed
 pair, every volume item the form named, all in the game.
 NEXT REAL COOK: rail buffers (yard track ends) and the level crossing where
 the mainline meets a street. Blocked-on-world list unchanged.
+
+## 8/16 TWENTIETH PASS: THE TRACKS END LIKE TRACKS
+
+Third real cook (tools/tfcook/TF-ART-010_ends_cook.py). MEASURED FIRST: the
+walked world's rail is the yard only - 2,727 track cells, all east-west, 517
+ends per side, ZERO road adjacency. So: no level crossing exists to dress
+and no through mainline exists to turnout - both PARKED on world geometry,
+recorded on the form. What could ship honestly: about one end in four keeps
+its rusted steel BUFFER STOP (banded beam, raked posts, cast shadow) and the
+rest sink under a blown-sand TAPER with one rail tip still showing. The
+pieces are RGBA overlays cooked to sit OVER the corridor art, so the rails
+visibly ARRIVE at the stop - the first opaque version wiped them and was
+recooked before it ever shipped. First version of the cook also failed the
+look (stick-figure beam, clean wedge drift) and was iterated ONCE before
+wiring: render-and-look applies to my own cooks the same as to the world.
+Verified live at a buffered end against the yard shed; card reshot.

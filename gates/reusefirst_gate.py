@@ -46,7 +46,15 @@ print('=== REUSE-FIRST GATE ===')
 # same file. Any tool that DRAWS answers to the law, whatever it is named.
 DRAWS = re.compile(r'fillRect|drawImage|fillStyle|createImageData|putImageData')
 patchers = [f for f in glob.glob('tools/*_patch.py') if DRAWS.search(open(f, encoding='utf8').read())]
-files = sorted(set(glob.glob('tools/*_factory.py')) | set(glob.glob('tools/*_cook*.py')) | set(patchers))
+# 8/16 HOLE CLOSED (found by the ART lane checking its own cook was swept and
+# finding SILENCE): the glob was tools/*_cook*.py, top level only, so the
+# entire tools/tfcook/ directory - fourteen family cooks and every volume
+# cook, the single biggest pixel-making population in the repo - was NEVER
+# swept. A green gate over an unswept file is worse than no gate. Recursive
+# now: any *_cook*.py or *_factory.py anywhere under tools/ answers the law.
+files = sorted(set(glob.glob('tools/**/*_factory.py', recursive=True))
+             | set(glob.glob('tools/**/*_cook*.py', recursive=True))
+             | set(patchers))
 check('art-cooking tools found', len(files) > 0, '%d' % len(files))
 check('drawing patch tools are swept too (the 7/26 hole)', len(patchers) > 0, '%d' % len(patchers))
 
