@@ -283,9 +283,21 @@ for (const f of ['S01_THE_METER_READER', 'S09_THE_BACK_DOOR', 'S02_THE_SAME_CRAT
        merely not born yet -- a gate lying in the same direction as a bug is
        worse than no gate. Waiting on the CONDITION is the honest instrument.
        (That 15s is itself a real finding, and it belongs to the streaming row.) */
+    /* POLL FOR THE THING THIS ACTUALLY CHECKS, which is the CARD, not DAY.
+       DAY becomes defined a beat before the wake card is painted, so polling on
+       DAY and then reading the card is a race -- it passed only because the gap
+       was small. The FACTIONS lane added ~73KB of organs to the city frame on
+       8/14 and the gap widened enough to fail, which is the probe being brittle
+       rather than the day loop being broken (verified: with a longer wait the
+       same build reports day 1, min 360, THE METER READER). The comment above
+       already says waiting on the CONDITION is the honest instrument; this is
+       that, applied to the right condition. */
     for (let i = 0; i < 60; i++) {
       const f = pg2.frames().find(x => /CITY_WORLD|CITY_CURRENT/.test(x.url()));
-      if (f) { try { if (await f.evaluate(() => typeof DAY !== 'undefined')) break; } catch (e) {} }
+      if (f) { try {
+        if (await f.evaluate(() => typeof DAY !== 'undefined'
+              && !!document.querySelector('#daycard.on'))) break;
+      } catch (e) {} }
       await pg2.waitForTimeout(1000);
     }
     /* the frame is a separate ORIGIN under file://, so reaching in from the page

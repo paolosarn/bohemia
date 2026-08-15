@@ -2580,6 +2580,66 @@ SURFACE, and a symptom that survives content changes is a PIPELINE bug.
 
 --------------------------------------------------------------------------------
 
+FACTIONS (factions-ovkjpf): 8/14 (b) LATEST — *** I SPENT FOUR TURNS BUILDING ON A
+SURFACE HE NEVER SEES. IT IS ON THE REAL ONE NOW. *** Nothing to judge.
+
+*** THIS IS A POST-MORTEM ON MY OWN WEEK, AND IT IS THE HEADLINE. *** The coordinator ruled on
+8/14 that THE CITY WORLD IS THE WALKED SURFACE and slices/BOHEMIA_RUN_CURRENT.html IS LEGACY -
+preloaded on every visit and NEVER DISPLAYED. I verified it myself rather than taking the
+document's word: open the real alpha, tap RUN, and p-run computes to display:none while p-city is
+block and #runFrame.offsetParent is null.
+
+BY THEN THIS LANE HAD PUT FOUR TURNS OF PLAYER-FACING WORK ON THE RUN'S PERSON CARD:
+  8/12  the sixteen introductions
+  8/12  who knows who, and the vouch that names your introducer
+  8/12  what a faction wants from you, what it holds, how far in you are
+  8/14  the peripheral act and its preconditions
+All real. All gated. NONE OF IT ON THE SURFACE HE PLAYS. The judge pages in the LIFE tab saved
+half of it - he can look at all four - but the in-game half has been dark since it shipped. That
+is the authored-but-unread disease, committed by the lane that wrote the gate against it.
+
+*** AND THE DEEPER FAILURE WAS THE RECORD, NOT THE CODE. *** integration_gate let three rows say
+INTEGRATED while probing a file nobody sees, under a ledger header that had WARNED about exactly
+this since 8/4 ("the RUN tab does not display that file"). I read that header and wrote three
+rows under it anyway. A WARNING IS NOT A GATE.
+
+WHAT SHIPPED - THE MIGRATION:
+- tools/bohemia_city_factions_patch.py moves all three organs onto the city, injected with the
+  ==== engine/x.js ==== banner so they JOIN THE ENGINE SYNC SWEEP (the city's resync went 47 -> 50
+  embedded modules and reports them fresh).
+- *** THE PORT WAS NOT A COPY-PASTE, AND THAT IS THE INTERESTING PART. *** The city's people are
+  SHIMS: ctAgent() fabricates H<n>-1 (everybody alone in their own house) and job:{kind:'scav'}
+  (everybody a lone scavenger), and there was NO FACTION anywhere in the file. Ported naively all
+  three organs sit inert. The one fact that unlocks them is WHO SOMEBODY RUNS WITH.
+- ONE ANSWER, NOT TWO: the faction bases are the LOOP'S OWN placement rule, baked at patch time
+  and gated BYTE-IDENTICAL against it, keyed to the seed text. Deriving a second set from the
+  city's own overmap would put the Cartel in two places depending which surface you stand on -
+  the two-systems-disagreeing bug this lane has now fixed four times.
+- The card on the walked surface now reads: RUNS WITH CHURCH / THEY ASKED YOU: YOUR NAME / THEY
+  WANT: YOU, THERE / THEY HOLD: stored food... / CAREFUL: THEY HELP YOU BEFORE YOU AGREE TO
+  ANYTHING / YOU ARE: A STRANGER / NOT ON THEIR GROUND. GO TO THEM. / THEIR GROUND: 34 CELLS
+  NORTH. Verbatim canon, preconditions honoured, buttons at the bottom.
+- THE LEDGER ROWS NOW NAME THEIR SURFACE and say plainly they were true about a dark file for
+  two days.
+
+GATE: gates/walked_surface_gate.js, 23 claims, 0 failed. It checks the thing the integration
+probes structurally cannot: not IS IT WIRED but IS IT WIRED WHERE HE LOOKS. Which surface he sees
+is MEASURED in a real browser, so if the build ever flips back the lane is told instead of guessing.
+
+*** STILL THIN ON THAT SURFACE, SAID RATHER THAN PAPERED OVER: *** the city's people have no real
+household and no real job site, so two of the tie graph's three foci are empty there and the
+vouch can only fire through the faction focus. That is a WORLD-lane shape - the walked surface's
+people need the same roster data the run's have - and it is not something to fake from here.
+
+WHAT COMES AFTER: every other lane that shipped into the run slice has the same problem I did.
+The integration ledger has 30 INTEGRATED rows and its probes ALL read the run file. Somebody
+should sweep the other 27 the way I swept my 3, and walked_surface_gate is the shape to do it in.
+
+STILL [PENDING PAOLO], unchanged: REACH_CELLS 12 and AFFILIATED_RATE 0.30; whether all 14
+factions are available at the door; the Mob dossier's open question about the Cartel.
+
+--------------------------------------------------------------------------------
+
 FACTIONS (factions-ovkjpf): 8/14 (a) LATEST — *** THE BUTTON WORKED FROM ANYWHERE WITH
 NOTHING BEHIND IT. NOW YOU HAVE TO GO TO THEM, AND YOU HAVE TO HAVE SOMETHING TO SAY. ***
 Nothing to judge.

@@ -1007,6 +1007,21 @@ GATES = [
      "measured by asserting the owner map is byte-identical after a posture quest. Every value is "
      "positive because every authored one is; nobody ever writes a faction calmer. Seven planted "
      "mistakes self-tested every run", False),
+    ('WALKED SURFACE', ['node', 'gates/walked_surface_gate.js'],
+     "I SPENT FOUR TURNS WIRING PLAYER-FACING WORK INTO A SURFACE HE NEVER SEES. The coordinator "
+     "ruled 8/14 that the CITY WORLD is the walked surface and the run slice is legacy -- "
+     "preloaded every visit, NEVER DISPLAYED -- and by then this lane had put the sixteen "
+     "introductions, the vouch, the bargain and the act on the run's person card. All real, all "
+     "gated, all dark. Worse, integration_gate let three rows say INTEGRATED while probing that "
+     "file, under a ledger header that had WARNED about exactly this since 8/4: a warning is not a "
+     "gate. So this checks the thing the integration probes structurally cannot -- not IS IT "
+     "WIRED but IS IT WIRED WHERE HE LOOKS. Which surface he sees is MEASURED in a real browser "
+     "rather than read off a document, so if the build flips back the lane is told instead of "
+     "guessing. The migration is not a copy-paste and the gate says why: the city's people are "
+     "SHIMS with no faction, no household and no job site, so all three organs would port over "
+     "inert. The one fact that unlocks them is who somebody runs with, and the bases for it are "
+     "the LOOP'S OWN, baked and gated BYTE-IDENTICAL, because deriving a second set would put the "
+     "Cartel in two places depending which surface you stand on", False),
     ('BELONGING',      ['node', 'gates/belonging_gate.js'],
      "THE DOOR HAD NOTHING BEHIND IT. Two turns built sixteen ways to learn a faction member's "
      "name and a lock that makes the Mob wait for somebody inside to vouch -- and then you were "
