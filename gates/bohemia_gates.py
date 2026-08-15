@@ -397,6 +397,13 @@ GATES = [
      'back in, a machine ramp and nitrogen-fed growth over the fill -- every part a cited '
      'forensic surface indicator, elliptical never rectangular, spoil thrown to one side, '
      'deterministic, never on pavement, and naming no faction', False),
+    # Paolo 8/15 on the whole icon batch: "it's border should be on the border of
+    # the tile. It should be that fat and big on the tile" + the storey curve.
+    ('FAT AND TALL',   ['node', 'gates/fat_and_tall_gate.js'],
+     'every building painted on a tile starts at the cell border and gains a storey (1 reads '
+     'as 2, 2 as 3, the tallest very tall) -- a CURVE not a multiplier, because x2 then x1.5 '
+     'is falling and a constant would flatten the skyline he asked to exaggerate; clamped at '
+     'the plate so fat is never bleed, and the ground is never lifted off its own cell', False),
     ('BONE SCALE',     ['node', 'gates/bone_scale_gate.js'],
      'nothing human out-measures the human: every dead tile is drawn the size the thing it '
      'depicts actually is (a skull 0.20 m, a femur 0.45 m, a laid-out adult 1.70 m, against a '

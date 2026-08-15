@@ -93,6 +93,91 @@ def _load_pal():
 SQUARE_PX = 384          # placeholder; main() overwrites it from the real measurement
 
 
+
+# ============================================================================
+# FAT AND TALL (Paolo 8/15/26, LOCKED — the whole-batch ruling on the icons)
+# ============================================================================
+# HIS WORDS, verbatim, on all sixty:
+#   "everything needs to be bigger and like whenever you start painting anything
+#    it should start like at the border of the actual tile itself like super
+#    important ... I want these things to be bigger bigger and taller make the
+#    one stories look like two stories make the two stories look like three
+#    stories make the tallest buildings very tall ... whenever you start making a
+#    building or painting one like it's border should be on the border of the
+#    tile. It should be that fat and big on the tile."
+#
+# TWO INSTRUCTIONS, AND THEY ARE DIFFERENT INSTRUCTIONS:
+#   FAT   the building's own footprint reaches the edge of its cell. Not the
+#         ground plate reaching the edge -- that was already true -- the
+#         BUILDING. Sixty heroes were authored with a polite setback inside the
+#         plate, which is why they read as models standing on a tile instead of
+#         as a block that IS the tile.
+#   TALL  +1 storey on everything, and more on top of that the taller it already
+#         is. His three examples fix the curve exactly: 1->2, 2->3, tallest very
+#         tall. That is not one multiplier -- x2 then x1.5 is a FALLING
+#         multiplier, so a constant would flatten the skyline he asked to
+#         exaggerate.
+#
+# THE UNIT IS MEASURED, NOT GUESSED. A Summerlin house in this factory is 2.9
+# units for its first storey and +2.6 for its second, so ONE STOREY = 2.75 units.
+# Everything below is expressed in that measured storey.
+#
+#   z' = z * 1.25 + ONE_STOREY
+#     1 storey  2.9  -> 6.4   = 2.3 storeys   ("one stories look like two")
+#     2 storeys 5.5  -> 9.6   = 3.5 storeys   ("two stories look like three")
+#     12 storeys 33  -> 44    = 16 storeys    ("the tallest buildings very tall")
+#
+# THE GROUND IS NEVER LIFTED. Anything at plate level stays at plate level, or
+# the tile would peel off its own cell and stop butting up against its neighbour.
+ONE_STOREY = 2.75          # measured off the suburb house, not chosen
+GROUND_Z   = 0.15          # anything at or under this is the plate, never lifted
+FAT        = 1.30          # footprint widening toward the cell edge
+TALL_MUL   = 1.25
+def _fat_and_tall(scene):
+    """Push every hero out to its cell edges and up by a storey, in place.
+
+    ONE PASS OVER THE SET, NOT SIXTY EDITS. Sixty authored heroes cannot each be
+    re-proportioned by hand in a turn, and hand-editing them would also lose the
+    real subjects they are matched to (a twelve-storey jail stays twelve
+    storeys, it just reads as the tower it is). A transform states the ruling
+    once, applies it everywhere, and can be measured by a gate.
+    """
+    # the cell's own centre, taken from the GROUND PLATE, so the widening pushes
+    # toward the tile edges rather than away from wherever the art happens to sit
+    gx, gy = [], []
+    for verts, _uv, _n, _m in scene.faces:
+        if max(v[2] for v in verts) > GROUND_Z:
+            continue
+        for (x, y, z) in verts:
+            gx.append(x); gy.append(y)
+    if not gx:
+        return scene
+    cx = (min(gx) + max(gx)) * 0.5
+    cy = (min(gy) + max(gy)) * 0.5
+    hx = (max(gx) - min(gx)) * 0.5
+    hy = (max(gy) - min(gy)) * 0.5
+
+    out = []
+    for verts, uv, n, m in scene.faces:
+        top = max(v[2] for v in verts)
+        nv = []
+        for (x, y, z) in verts:
+            if top <= GROUND_Z:
+                nv.append((x, y, z))               # the plate is the cell: untouched
+                continue
+            # FAT: out toward the cell edge, and CLAMPED AT IT. His rule is that the
+            # border lands ON the border, never past it -- a tile that paints into
+            # its neighbour is the thing the 8/11 pass was cleaning up.
+            ax = cx + (x - cx) * FAT
+            ay = cy + (y - cy) * FAT
+            ax = max(cx - hx, min(cx + hx, ax))
+            ay = max(cy - hy, min(cy + hy, ay))
+            # TALL: a storey on everything, and proportionally more the taller it is
+            nv.append((ax, ay, z * TALL_MUL + (ONE_STOREY if z > GROUND_Z else 0.0)))
+        out.append((nv, uv, n, m))
+    scene.faces = out
+    return scene
+
 def _fit(scene, scale, margin=14):
     """EVERY ICON COMES OUT ON THE SAME SQUARE (Paolo, 8/8): "all the icons should be on a
     square, everything should be on a square. It looks like they're just taking free shapes,
@@ -3828,6 +3913,11 @@ def main():
     for d, fn in HEROES.items():
         scene, scale = fn(P[d])
         _draw_ground(scene)                       # the pad, SQUARE, fitted to what got built
+        # HIS 8/15 RULING, AND IT MUST LAND BEFORE ANYTHING IS MEASURED. The one
+        # square is sized from the set's own extents a few lines down, so a hero
+        # that grew AFTER that measurement would grow straight off its own frame.
+        # (Written the wrong way round first, caught before it shipped.)
+        _fat_and_tall(scene)
         # BIGGER (Paolo 8/2: "I want them taller. I want them wider... big as fuck as big
         # as we can have it"). The sprite frames TIGHT on the building now that the parking
         # is gone, and the scale is lifted so the mass fills the square instead of sitting

@@ -1,0 +1,41 @@
+BOHEMIA - VERDICT, DISTRICT MAP ICONS (the whole batch)
+PAOLO, 8/15/26, VERBATIM:
+
+  "Somethings are still glitchy looking, but yeah, everything needs to be bigger
+   and like whenever you start painting anything it should start like at the
+   border of the actual tile itself like super important like I want these
+   things to be bigger bigger and taller make the one stories look like two
+   stories make the two stories look like three stories make the tallest
+   buildings very tall you know like I don't know if you need to look up
+   measurements online you might have already done that, but I know I definitely
+   want everything to look just taller and wider on the tile itself like
+   whenever you start making a building or painting one like it's border should
+   be on the border of the tile. It should be that fat and big on the tile."
+
+@VERDICT chapel YES        <- the first YES this set has had
+
+WHAT WAS DONE, THE SAME TURN (NOTES ARE RULINGS, 7/19):
+All 60 heroes regenerated through one transform, _fat_and_tall(), rather than 60
+hand edits. The shared square went 451 px -> 489 px.
+  FAT   every building's footprint pushed out to its own cell edge and CLAMPED
+        there. The border lands ON the border, never past it.
+  TALL  z' = z * 1.25 + ONE_STOREY, which satisfies all three of his examples:
+          1 storey  -> 2.3     "make the one stories look like two"
+          2 storeys -> 3.5     "make the two stories look like three"
+          12 storeys-> 16.0    "make the tallest buildings very tall"
+
+ON HIS MEASUREMENTS NOTE: the number that mattered was already in our own
+factory, not online. A Summerlin house here is authored at 2.9 units for its
+first storey and +2.6 for its second, so ONE STOREY = 2.75 units. The curve is
+expressed in that measured storey.
+
+THIS SUPERSEDES the frozen state in BOHEMIA_VERDICT_ICONS_ALL_CBB_8_11_26.txt
+("none painting past its boundary"). Nothing paints into a NEIGHBOUR -- that
+still holds -- but the polite setback INSIDE the plate is dead. Newest wins.
+
+STILL OPEN, IN HIS WORDS AND NOT ANSWERED HERE: "somethings are still glitchy
+looking." He did not say which, and this pass did not hunt for them. Not asking
+him to enumerate (EVERYTHING IS A THUMB); the next look at this set starts there.
+
+LAW:  laws/BOHEMIA_ADDENDUM_FAT_AND_TALL_ON_THE_TILE_8_15_26.md
+GATE: gates/fat_and_tall_gate.js  14/0, in the suite
