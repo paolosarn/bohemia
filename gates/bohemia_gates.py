@@ -893,6 +893,19 @@ GATES = [
      'it later" needs a place for later, so the WORDS tab must exist, be wired into the '
      'alpha, live where Pages publishes, fetch nothing, and be CURRENT with its sources by '
      'fingerprint -- a stale tab is the same failure wearing a green', False),
+    ('CITY BARKS',     ['node', 'gates/city_barks_gate.js'],
+     'THE WORST REACH FAILURE THIS LANE HAS FOUND: linesFor was called ZERO TIMES in '
+     'BOHEMIA_CITY_WORLD.html -- the frame the player looks at when they tap RUN. 244 written '
+     'barks and 66 reactions, inlined and correct in that file, and nothing in it had ever asked '
+     'for a line; the mouth and its gates all lived in BOHEMIA_RUN_CURRENT, which the RUN tab '
+     'does not show. Now the residents on the street speak, and this proves it in PIXELS on the '
+     'real path -- because the feature failed FOUR times with everything upstream measuring '
+     'perfect: declarations nested inside the draw, a clock that demanded an exact beat on an '
+     'I-MOVE-YOU-MOVE surface, a speaker picked by proximity instead of visibility (a bubble over '
+     'a roof), and `var g = ctx` in a frame whose context is `g` -- which threw on every call '
+     'inside a try/catch that ate it. A CAUGHT EXCEPTION IN A DRAW PATH IS A FEATURE THAT '
+     'SILENTLY DOES NOTHING. So the claim is the same frame drawn silent and spoken, and the '
+     'pixels must DIFFER', False),
     ('DEMO',           ['node', 'gates/demo_gate.js'],
      'DEMO PLAN critical path row 9, the only row with no owner named: "one integration test '
      'that plays the whole day headless + deploy-verified on the real link. THE DEMO IS A '
