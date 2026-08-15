@@ -817,6 +817,15 @@ function drawSfform(gx,gy,X,Y,S){
          : seg===5 ? 'sf_shutter_down_'+th(gx,gy,2)
          : seg===6 ? 'sf_grille_half_'+th(gx,gy,2)
          : 'sf_bay_tall_'+th(gx,gy,2);
+    /* VOLUME (8/15, second cook): THE SMASHED FRONT. A looted bay is a GONE
+       pane, and looters enter at street level - only the BOTTOM row of a
+       glass run smashes (about one shop column in thirteen), and only GLASS
+       segments smash: boarded, shuttered and grilled fronts are already
+       sealed. */
+    var glassSeg = (seg<=3 || seg===7);
+    var botRow = gy+1>=NAMEG.length
+              || String(NAMEG[gy+1][gx]||'').toLowerCase().indexOf('storefront')<0;
+    if(glassSeg && botRow && th(0,gx>>1,13)===0) name='sf_smashed_'+th(gx,0,2);
   }
   var im=TILEFORM_IMG[name];
   if(!im||!im.complete||!im.naturalWidth) return false;
@@ -836,6 +845,13 @@ function drawSfform(gx,gy,X,Y,S){
         var bh=Math.round(S*28/44);
         ctx.drawImage(look(sb),0,10,44,28,X,Y,S,bh);
       }
+    }
+    /* VOLUME (8/15, second cook): THE PILASTER. A masonry pier at every
+       2-cell segment boundary, full height, drawn OVER the band so the
+       fascia runs between piers the way a real strip front does. */
+    if(gx%2===0){
+      var pl=TILEFORM_IMG['sf_pilaster_'+th(0,gx>>2,2)];
+      if(pl&&pl.complete&&pl.naturalWidth) ctx.drawImage(look(pl),X,Y,S,S);
     }
   }
   return true;

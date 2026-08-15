@@ -1,3 +1,16 @@
+ART (f3eu53): 8/15 (e) LATEST -- *** TF-ART-008 IS COMPLETE: smashed fronts
+and pilasters join the bands. Every volume item the storefront form named is
+in the game. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (nineteenth-pass section)
+
+TAB: ART, WIRED IN THE GAME - storefront card reshot: bands, piers and a
+looted bay in one street. The smash is cooked ON the family bay art (frame
+kept, pane gone) so broken matches intact pixel for pixel.
+
+NEXT: rail buffers + the mainline level crossing (real cooks). Parked on
+WORLD/weather: awnings, freeway, banking, clarifier, deep_wet, turf-rect
+yard lines. The painted-line sets are all done.
+
 *** COMBAT: THE FIGHT HAS TO MOVE YOU (Paolo 8/15, LOCKED, DEMO-CRITICAL). ROUTED, NOT MINE
 TO BUILD. *** laws/BOHEMIA_ADDENDUM_THE_FIGHT_HAS_TO_MOVE_YOU_8_15_26.md, top of the COMBAT
 queue in BOHEMIA_BACKLOG.md, canon index regenerated.
@@ -137,7 +150,7 @@ Records: BOHEMIA_THE_CITY_COULD_NOT_TALK_8_15_26.md
 
 
 
-ART (f3eu53): 8/15 (d) LATEST -- *** THE SIGNBANDS ARE UP (first real cook of
+ART (f3eu53): 8/15 (d) -- *** THE SIGNBANDS ARE UP (first real cook of
 the volume era) AND THE STADIUM DRAWS ITS OWN YARD LINES. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (eighteenth-pass section)
 

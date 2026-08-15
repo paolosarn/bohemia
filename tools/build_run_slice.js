@@ -390,6 +390,10 @@ grabPieces('banks/tileforms/TF-ART-013_CANDIDATES_8_8_26.json',
 grabPieces('banks/tileforms/TF-ART-008_SIGNBAND_VOLUME_8_15_26.json',
   ['sb_blank_0', 'sb_blank_1', 'sb_blank_2', 'sb_ghost_0', 'sb_ghost_1',
    'sb_ghost_2', 'sb_broken_0', 'sb_broken_1']);
+/* VOLUME 8/15 (second cook): the smashed fronts and the pilaster rhythm -
+   tools/tfcook/TF-ART-008_smash_pilaster_cook.py */
+grabPieces('banks/tileforms/TF-ART-008_SMASH_VOLUME_8_15_26.json',
+  ['sf_smashed_0', 'sf_smashed_1', 'sf_pilaster_0', 'sf_pilaster_1']);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('

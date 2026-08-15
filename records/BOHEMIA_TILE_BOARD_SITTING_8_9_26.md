@@ -383,3 +383,20 @@ banking_0..2/aprons (the speedway's cells need probing for a banking name).
 FREEWAY RE-CHECKED after the WORLD lane's 8/15 ribbon ship: the walked
 world's freeway cells are STILL reserved-landmark ground - their ribbon was
 the vista view. TF-ART-011 stays blocked on WORLD.
+
+## 8/15 NINETEENTH PASS: THE STOREFRONT FAMILY COMPLETES (SMASH + PILASTERS)
+
+Second cook of the day (tools/tfcook/TF-ART-008_smash_pilaster_cook.py):
+- THE SMASHED FRONT is cooked ON the family's own bay art - frame kept, pane
+  knocked out to a black void with a ragged shard fringe and dull grit at the
+  sill - so a looted bay matches the intact bay beside it pixel for pixel.
+  GLASS segments only (boarded/shuttered/grilled are already sealed), BOTTOM
+  row only (looters enter at street level), one shop column in thirteen.
+- THE PILASTERS give the block its bay rhythm: painted-masonry piers at every
+  2-cell segment boundary, full height, drawn over the signband so the fascia
+  runs BETWEEN piers the way a real strip front does.
+Verified live downtown - bands, piers and a looted bay in one street; card
+reshot. TF-ART-008 IS COMPLETE: signbands, pilasters, ends and the smashed
+pair, every volume item the form named, all in the game.
+NEXT REAL COOK: rail buffers (yard track ends) and the level crossing where
+the mainline meets a street. Blocked-on-world list unchanged.
