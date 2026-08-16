@@ -434,3 +434,22 @@ the 7/28 form predicted if the stripes ever went UP, and they did.
 WIRING IS THE COMBAT LANE'S (the fight field renderer is their system). The
 handoff flags them: both deck banks ready to wire together. NOT IN A TAB
 YET - the deck reaches Paolo when COMBAT wires it into their surface.
+
+## 8/16 TWENTY-SECOND PASS: THE KERB KIT COOKS, AND THE PLACEMENT TRUTH
+
+TF-ART-018 (board row 15, the lane's own queue): cooked on the harmonized
+street pool per the 7/31 law, cap and face authored to the frozen starter
+kerb's own measured numbers (176 cap band / 59 face) so transitions and
+straight runs read as one object. AT THE BAR: the four corner RETURNS (the
+cap arcs the corner over the road wedge) and the four crossing RAMPS
+(bleached warning pad, dropped throat). HELD: the four M2 drops - first
+render over-ringed the cell, one more design pass owed. PARKED: M4 inlets
+(no world cell names a drain; inventing drainage is a placement lie).
+THE PLACEMENT TRUTH, measured twice on the live surface: plain 'sidewalk'
+cells exist ONLY in the suburb family (a 16x16-cell non-suburb sweep found
+ZERO), and the suburb ground stack is the dressed reference district. The
+wire-in hook found no legal site, so IT WAS PULLED rather than shipped
+inert - a hook that never fires is a claimed feature that does not exist.
+Next pass: wire the returns into the suburb path deliberately, verified at
+a real corner, or hand the placement call to the coordinator if the suburb
+stack proves owned.

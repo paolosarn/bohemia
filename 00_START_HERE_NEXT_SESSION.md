@@ -1,4 +1,16 @@
-ART (f3eu53): 8/16 (b) LATEST -- *** THE DECK SLAB IS COOKED AND THE STAIRS
+ART (f3eu53): 8/16 (c) LATEST -- *** THE KERB KIT IS COOKED (returns + ramps
+at the bar, drops held for one more pass) AND THE PLACEMENT TRUTH IS
+MEASURED: sidewalks exist ONLY in the suburb family, so the wire-in is a
+deliberate suburb-stack job next pass, not a drive-by. An inert hook was
+pulled rather than shipped. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twenty-second-pass
+section). Bank: banks/tileforms/TF-ART-018_CANDIDATES_8_16_26.json.
+
+NEXT PASS, IN ORDER: (1) wire kerb returns into the suburb ground path,
+verified at a real street corner; (2) redesign the M2 drop; (3) hold for
+WORLD on everything else parked.
+
+ART (f3eu53): 8/16 (b) -- *** THE DECK SLAB IS COOKED AND THE STAIRS
 ARE UNBLOCKED. COMBAT LANE: banks/tileforms/TF-CMB-004_CANDIDATES_8_16_26
 .json (slab, 14 pieces, beam authored to your DECK_H = ring*1.15) +
 TF-CMB-005_CANDIDATES_8_8_26.json (stairs, approved 8/11) are BOTH ready to
