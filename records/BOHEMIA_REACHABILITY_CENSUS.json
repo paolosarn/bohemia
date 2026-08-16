@@ -1,7 +1,7 @@
 {
- "sources": 235,
- "total_mb": 277.7,
- "unreached_mb": 274.6,
+ "sources": 236,
+ "total_mb": 277.9,
+ "unreached_mb": 274.7,
  "rows": [
   {
    "path": "banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt",
@@ -154,7 +154,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 0,
-   "bytes": 3984883
+   "bytes": 4098247
   },
   {
    "path": "banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt",
@@ -616,6 +616,15 @@
    "bytes": 1292
   },
   {
+   "path": "banks/BOHEMIA_SFX_APPROVED_8_16_26.json",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 30,
+   "hits_shown": 3,
+   "hits_loaded": 0,
+   "bytes": 1316
+  },
+  {
    "path": "banks/BOHEMIA_SFX_BANK_7_29_26.txt",
    "kind": "bank",
    "verdict": "NO TRACE",
@@ -1027,7 +1036,7 @@
    "samples": 11,
    "hits_shown": 11,
    "hits_loaded": 0,
-   "bytes": 32345
+   "bytes": 32763
   },
   {
    "path": "engine/bohemia_boneyard.js",
@@ -1045,7 +1054,7 @@
    "samples": 22,
    "hits_shown": 22,
    "hits_loaded": 22,
-   "bytes": 13198
+   "bytes": 14984
   },
   {
    "path": "engine/bohemia_bq_tests.js",
@@ -1810,7 +1819,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 0,
-   "bytes": 118233
+   "bytes": 144059
   },
   {
    "path": "engine/bohemia_slice_core.js",

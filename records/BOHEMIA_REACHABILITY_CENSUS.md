@@ -23,14 +23,14 @@ verbatim.
 | | banks | engine modules |
 |---|---|---|
 | SHOWN (all) | 1 | 75 |
-| SHOWN (part) | 9 | 22 |
+| SHOWN (part) | 10 | 22 |
 | LOADED ONLY | 18 | 9 |
 | NO TRACE | 73 | 13 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **101** | **134** |
+| **total** | **102** | **134** |
 
-**274.6 MB of 277.7 MB** sampled does not reach the shown surface.
+**274.7 MB of 277.9 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -84,7 +84,7 @@ verbatim.
 | `banks/BOHEMIA_GROUND_VARIANT_BANK_7_10_26.txt` | bank | 7.45 |
 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | bank | 6.94 |
 | `banks/BOHEMIA_TILE_REPO.txt` | bank | 6.02 |
-| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 3.98 |
+| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 4.10 |
 | `banks/BOHEMIA_DEMO_PROP_POOL_7_10_26.txt` | bank | 3.98 |
 | `banks/BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt` | bank | 3.51 |
 | `banks/BOHEMIA_HOUSE_FACTORY_BANK_7_14_26.txt` | bank | 2.63 |
