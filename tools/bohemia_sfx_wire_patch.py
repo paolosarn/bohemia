@@ -83,8 +83,8 @@ os.chdir(REPO)
 ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_SLICE_7_26_26.html'
 BUILT = 'slices/BOHEMIA_RUN_CURRENT.html'
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_16_26.json'   # 8/16: he judged all 400
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_16_26.txt'
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_16b_26.json'  # 8/16b: he judged all 430
+VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_16b_26.txt'
 
 P_BEGIN = '<!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->'
 P_END = '<!-- /BOHEMIA SFX WIRE PARENT -->'
@@ -327,6 +327,58 @@ def parent_block(bank):
     return { depth:DUCK_DEPTH, down:DUCK_DOWN, up:DUCK_UP,
              wired:!!(DUCK&&DUCK.__wired),
              gain:(DUCK?DUCK.gain.value:null) }; };
+  /* ===== THE JUDGE SCREEN IS SILENT EXCEPT FOR WHAT HE PRESSES =========
+     PAOLO, 8/16, AND NOT FOR THE FIRST TIME: "how many fucking times do I have
+     to fucking tell you that when I click a sound button it shouldn't be doing
+     the button sound click because that's disturbing me from hearing the actual
+     sound effect ... everything should make a sound except for the fucking
+     sound button that I played to hear different sounds to vote on".
+
+     MEASURED BEFORE IT WAS FIXED, on the real page with a real touch, because
+     the obvious suspect was wrong. The preview button does NOT play a UI click:
+     tapping one renders exactly one thing, the candidate. What is actually
+     landing on top of his auditions is THE GAME PLAYING ITSELF IN ANOTHER TAB
+     -- the run keeps autosaving on its own timer and his approved save bell
+     rings straight through the MUSIC tab. Three seconds of doing nothing at all
+     renders save_chime.0. He hears it next to his taps and reads it as the
+     button; the button was innocent and the room was not.
+
+     THE AMBIENCE LANE ALREADY SOLVED THIS FOR ITSELF on 8/1 -- it checks the
+     RUN tab is actually open before it plays, because a hidden iframe keeps its
+     timers. That guard was never generalised, so every OTHER game sound kept
+     the hole: the bell today, and a footstep or a door the moment the run moves
+     while he is judging.
+
+     AND THE GUARD GOES ON THE SOURCE, NOT ON THE SOUND'S NAME. The first
+     version of this listed the run's event names and checked them inside
+     playSFX, and the wired gate went red on ten checks immediately -- because
+     step_asphalt is ALSO what he hears when he taps step_asphalt on the judge
+     board, and silencing that is the exact opposite of what he asked for.
+     Every one of those reds was right.
+     The honest discriminator is WHO ASKED. The run and combat are iframes and
+     can only reach the parent by postMessage; his finger on the board and the
+     parent's own interface call playSFX directly. So the check sits on the
+     message channel: a sound the RUN asks for while he is looking at another
+     tab is dropped, and nothing he presses can ever be. */
+  /* AND THE CONDITION IS "HE IS JUDGING", NOT "THE RUN TAB IS SHUT".
+     The first two versions asked whether the RUN tab was visible, which is a
+     PROXY for the thing he actually complained about and a bad one: it made
+     every game sound depend on a tab state, and it took the block-is-not-empty
+     checks red because a neighbour's footstep is staged from a probe that does
+     not sit on the RUN tab. FIX THE RULER, NOT THE TARGET -- and here the
+     ruler was my own condition.
+     What he described is one specific room: he is on the MUSIC tab auditioning
+     candidates to vote on, and the game is playing over them. So that is what
+     is checked. During real play the MUSIC tab is not open and this guard is
+     inert by construction, which is why it cannot silence anything he is
+     actually playing. */
+  function judging(){
+    try{
+      var el=document.getElementById('p-music');
+      return !!(el && el.classList && el.classList.contains('on'));
+    }catch(e){ return false; }  /* if we cannot tell, never silence */
+  }
+  window.__judging=judging;
   window.playSFX=function(ev,when){
     try{
       if(typeof BOH_SFX==='undefined')return null;
@@ -413,6 +465,21 @@ def parent_block(bank):
            No new message, no new run code: the fact was already arriving. */
         LISTENER.inside = !!d.inside;
         AMB.where(d); musicPhase(d); timePass(d); return; }
+      /* THE GAME DOES NOT PLAY TO AN EMPTY ROOM (8/16, his ruling). Every
+         sound below was asked for by the RUN or by COMBAT, across an iframe
+         boundary. If he is not looking at that tab, he is judging, and the
+         game must not put a save bell or a footstep on top of the candidate
+         he is trying to hear. Nothing he PRESSES passes through here.
+         AND IT IS THE IFRAME THAT IS GATED, NOT THE MESSAGE TYPE. ev.source
+         is the window that posted: an iframe is not this window, a direct
+         post from the parent (a probe, a measurement, his own board) is.
+         Together with judging() this is as narrow as the rule can be made:
+         the run or combat, talking across the iframe boundary, while he is
+         looking at the judge sheet. Nothing else is touched. */
+      var _fromGame = (d.type==='BOHEMIA_NPCSTEP' || d.type==='BOHEMIA_SFX_AT'
+                       || d.type==='BOHEMIA_SFX');
+      var _fromIframe = !!(ev && ev.source && ev.source !== window);
+      if(_fromGame && _fromIframe && judging()) return;
       if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
       if(d.type==='BOHEMIA_SFX_AT'){
         placeSound(d.ev, { dx:d.dx, dy:d.dy, dist:d.dist,
@@ -1282,6 +1349,23 @@ def main():
                             "         to going down and not to the save that answers it. */",
                           1)
 
+    # ---- YOU COME UP (8/16b) ---------------------------------------------
+    # 4 of 5, all his own voices (dawnpad, dawnwash, edenmist, solarhum). The
+    # other half of the sleep he swept 5/5 back on 8/15: you lie down and the
+    # sink plays, you wake and this does. The run says the words already --
+    # "You woke up in your own house" -- so the moment exists and was silent.
+    wake_anchor = "toast('You woke up in your own house. Walk out the front door.');"
+    if "sfx('come_up')" not in run:
+        if run.count(wake_anchor) != 1:
+            print('FAIL: the wake toast is not present exactly once (%d)'
+                  % run.count(wake_anchor))
+            return 1
+        run = run.replace(wake_anchor,
+                          "sfx('come_up');"
+                          "   /* HIS 8/16b, 4 of 5, all his own instruments. The other\n"
+                          "        half of the sleep he swept five of five. */\n"
+                          + wake_anchor, 1)
+
     open(RUN, 'w', encoding='utf8').write(run)
     r = subprocess.run(['node', 'tools/build_run_slice.js'], capture_output=True, text=True)
     if r.returncode != 0:
@@ -1292,6 +1376,7 @@ def main():
             or "sfx('phone_buzz')" not in built or "sfx('eat')" not in built
             or "sfx('sleep_sink')" not in built
             or "sfx('went_down')" not in built
+            or "sfx('come_up')" not in built
             or "sfxAt('door_drag'" not in built):
         print('FAIL: the rebuilt run does not carry the wire')
         return 1

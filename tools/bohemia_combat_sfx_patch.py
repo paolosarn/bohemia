@@ -218,6 +218,77 @@ MISS_NEW = ("var _missAt=0;\n"
             "  if(!AC)return;")
 
 
+# ---- 8/16b: THE FOUR COMBAT SOUNDS HE KEPT OUT OF SFX-07 -------------------
+# His instrument batch scored 43% where the raw-synthesis version of the SAME
+# six moments had scored 0%, and four of the survivors are combat moments that
+# already exist and already fire. Each attaches to the function combat ALREADY
+# calls for that moment -- no call site moved, no mechanic invented, same rule
+# the block, miss and vital wires followed.
+#   dirt_take  -> sndMissImpact, the round that missed arriving in the ground.
+#                 5 OF 5, his cleanest sweep in this batch.
+#   stone_bite -> chewCover, the stone losing a piece as it takes rounds.
+#   boots_go   -> the reposition, which his own locked ruling made demo-critical:
+#                 a fight you can win from one spot is broken, and you cannot
+#                 hear a reason to move if moving is silent.
+#   will_goes  -> the nerve break, where a shooter becomes a person running. It
+#                 was borrowing sndMiss, so it shared the MISS sound with an
+#                 actual miss; now it has its own.
+IMP_OLD = "function sndMissImpact(surf){ if(!AC)return;"
+IMP_NEW = ("function sndMissImpact(surf){ if(sfxAsk('dirt_take'))return;"
+           "   /* HIS 8/16b SWEEP, 5 of 5 -- templeblock, udu, boneplate,\n"
+           "      spoonclack, taiko. All five are his own instruments. */\n"
+           "  if(!AC)return;")
+
+CHEW_OLD = "function chewCover(P){ if(!P)return;"
+CHEW_NEW = ("function chewCover(P){ if(!P)return;"
+            "\n  try{ sfxAsk('stone_bite'); }catch(_e){}"
+            "   /* HIS 8/16b: pickscrape. The stone you are behind is being\n"
+            "      eaten while you use it, and it was silent until now. */")
+
+
+def wire_sfx07(demo):
+    """His 8/16b instrument survivors, onto moments combat already scores."""
+    ok = True
+    for name, old, new in (('dirt_take', IMP_OLD, IMP_NEW),
+                           ('stone_bite', CHEW_OLD, CHEW_NEW)):
+        if ("sfxAsk('%s')" % name) in demo:
+            continue
+        if demo.count(old) != 1:
+            print('FAIL: the %s call site is not present exactly once (%d)'
+                  % (name, demo.count(old)))
+            ok = False
+            continue
+        demo = demo.replace(old, new, 1)
+    # THE NERVE BREAK STOPS BORROWING THE MISS SOUND. It called sndMiss, so a
+    # man's will breaking and a round going wide were the same noise.
+    fl_old = ("else{ e.fleeing=true; e._fleeAt=performance.now(); "
+              "e._fleeVar=Math.floor(Math.random()*2); "
+              "onBeat(()=>{try{sndMiss();}catch(_e){}});")
+    fl_new = ("else{ e.fleeing=true; e._fleeAt=performance.now(); "
+              "e._fleeVar=Math.floor(Math.random()*2); "
+              "onBeat(()=>{try{ if(!sfxAsk('will_goes')) sndMiss(); }catch(_e){}});")
+    if "sfxAsk('will_goes')" not in demo:
+        if demo.count(fl_old) == 1:
+            demo = demo.replace(fl_old, fl_new, 1)
+        else:
+            print('FAIL: the nerve-break call site is not present exactly once (%d)'
+                  % demo.count(fl_old))
+            ok = False
+    # AND THE REPOSITION, which is the one his locked ruling actually needs.
+    mv_old = "e._movedAt=performance.now();"
+    mv_new = ("e._movedAt=performance.now(); try{ sfxAsk('boots_go'); }catch(_e){}"
+              "   /* HIS 8/16b: ironstep + cabasa. THE FIGHT HAS TO MOVE YOU -- you\n"
+              "         cannot hear a reason to leave your cover if the man\n"
+              "         flanking you does it in silence. */")
+    if "sfxAsk('boots_go')" not in demo:
+        if demo.count(mv_old) >= 1:
+            demo = demo.replace(mv_old, mv_new, 1)
+        else:
+            print('FAIL: no reposition site found for boots_go')
+            ok = False
+    return demo, ok
+
+
 def wire_miss_vital(demo):
     """His 8/15 miss and vital onto the two verdicts combat already scores."""
     ok = True
@@ -287,6 +358,9 @@ def main():
         demo, ok = wire_miss_vital(demo)
         if not ok:
             return 1
+        demo, ok = wire_sfx07(demo)
+        if not ok:
+            return 1
         b64 = base64.b64encode(demo.encode('utf8')).decode('ascii')
         src = src[:i0] + b64 + src[j0:]
         open(ALPHA, 'w', encoding='utf8').write(src)
@@ -314,6 +388,9 @@ def main():
     if not ok:
         return 1
     demo, ok = wire_miss_vital(demo)
+    if not ok:
+        return 1
+    demo, ok = wire_sfx07(demo)
     if not ok:
         return 1
     b64 = base64.b64encode(demo.encode('utf8')).decode('ascii')

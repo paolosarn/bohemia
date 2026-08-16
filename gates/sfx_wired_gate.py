@@ -40,8 +40,8 @@ ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_CURRENT.html'
 # 8/12: he swept all 270 and the bank grew 38 -> 97. The wire and this gate
 # must read the SAME file or one of them is checking a bank nobody plays.
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_16_26.json'
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_16_26.txt'
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_16b_26.json'
+VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_16b_26.txt'
 
 JS = r"""
 /* MEASURE THE AIR, NOT THE INTENTION (7/31/26).
@@ -169,6 +169,48 @@ const METER=`(function(){
      THE TRY IS DELIBERATE AND THE ORDER IS THE POINT: sfx() is the first
      statement in sleepSave, so even if writeSave or renderSaveSheet throws
      further down, the ask has already happened and the log will show it. */
+  /* ===== NOTHING PLAYS OVER HIM WHILE HE IS VOTING (8/16) ==============
+     Paolo, and not for the first time: "when I click a sound button it
+     shouldn't be doing the button sound click because that's disturbing me
+     from hearing the actual sound effect ... everything should make a sound
+     except for the fucking sound button that I played to hear different
+     sounds to vote on".
+     MEASURED, AND THE OBVIOUS SUSPECT WAS INNOCENT. The preview button plays
+     no UI click at all -- tapping one renders exactly the candidate. What
+     lands on his auditions is the RUN autosaving on its own timer in a tab he
+     is not looking at, ringing his approved save bell through the judge sheet.
+
+     THIS PROBE STAGES THE SOUND, IT DOES NOT WAIT FOR ONE. The first version
+     sat on the judge sheet for three seconds hoping the run's autosave timer
+     would fire, and it passed clean with the guard DELETED -- because in a
+     three-second window the timer often does not come round. A check that can
+     pass by waiting the wrong three seconds measures nothing. So the run frame
+     is asked to make its own noise, the way it really does (its sfx() posts
+     from inside the iframe), and the answer is read on both tabs. */
+  async function runAsks(tab){
+    await p.evaluate(t=>{ var el=document.querySelector('.tab[data-p="'+t+'"]');
+      if(el) el.click(); }, tab);
+    await p.waitForTimeout(600);
+    await p.evaluate(()=>{ window.__JR=[]; if(!window.__JRreal){ window.__JRreal=BOH_SFX.render;
+      BOH_SFX.render=function(v){ window.__JR.push((v&&v.id)||'?'); return window.__JRreal.apply(this,arguments); }; } });
+    await fr.evaluate(()=>{ try{ sfx('save_chime'); }catch(e){} });
+    await p.waitForTimeout(500);
+    return await p.evaluate(()=>window.__JR.slice());
+  }
+  out.runAskOnMusic = await runAsks('music');
+  out.runAskOnRun   = await runAsks('run');
+  out.parentAskOnMusic = await p.evaluate(async()=>{
+    var el=document.querySelector('.tab[data-p="music"]'); if(el) el.click();
+    await new Promise(r=>setTimeout(r,500));
+    window.__JR=[];
+    window.postMessage({type:'BOHEMIA_SFX',ev:'save_chime'},'*');
+    await new Promise(r=>setTimeout(r,450));
+    return window.__JR.slice();
+  });
+  await p.evaluate(()=>{ if(window.__JRreal){ BOH_SFX.render=window.__JRreal; window.__JRreal=null; }
+    var el=document.querySelector('.tab[data-p="run"]'); if(el) el.click(); });
+  await p.waitForTimeout(500);
+
   out.sleepAsked = await fr.evaluate(()=>{
     var n=window.__ASKED.length;
     try{ sleepSave(); }catch(e){}
@@ -323,6 +365,26 @@ const METER=`(function(){
     window.addEventListener('message',function(e){ try{
       if(e&&e.data&&e.data.type==='BOHEMIA_NPCSTEP')
         window.__NPC.push({dx:e.data.dx,dist:e.data.dist}); }catch(_){}}); });
+  /* WAS THE RUN TAB EVEN OPEN? (8/16) A neighbour is only audible while he is
+     LOOKING at the run -- his 8/16 ruling stops the game playing over him
+     while he judges in another tab -- so a probe that stages a neighbour with
+     the RUN tab closed is measuring a state no player is ever in. Report it
+     rather than assume it, and put the tab back before measuring. */
+  out.runTabAtNpc = await p.evaluate(()=>{
+    var el=document.getElementById('p-run');
+    return !!(el&&el.classList&&el.classList.contains('on'));
+  });
+  if(!out.runTabAtNpc){
+    /* SELECT BY dataset.p, not by text. Several tabs contain the letters
+       "run" in their label and the first match was not the RUN tab. */
+    await p.evaluate(()=>{ var t=document.querySelector('.tab[data-p="run"]');
+      if(t) t.click(); });
+    await p.waitForTimeout(600);
+    out.runTabRestored = await p.evaluate(()=>{
+      var el=document.getElementById('p-run');
+      return !!(el&&el.classList&&el.classList.contains('on'));
+    });
+  }
   async function neighbourAt(off){
     await p.evaluate(()=>{ window.__BPEAK=0; window.__NPC=[];
       window.__NP0 = window.__npcPlayed ? window.__npcPlayed() : 0;
@@ -911,6 +973,21 @@ def main():
     # if that ever changes, lying down plays two sounds at once.
     chk('save_chime' not in sl,
         'sleeping fired the save bell as well as the sink: %r' % (sl,))
+
+    # 7a-iv. HIS JUDGING IS NOT INTERRUPTED (8/16). Two directions, because
+    #        only one of them is his complaint and the other is the trap: too
+    #        wide a guard silences the game he is trying to play.
+    chk(not (d.get('runAskOnMusic') or []),
+        'THE GAME PLAYED OVER HIM WHILE HE WAS VOTING: the run asked for a '
+        'sound with the judge sheet open and %r rendered. He has reported this '
+        'more than once.' % (d.get('runAskOnMusic') or []))
+    chk(bool(d.get('runAskOnRun')),
+        'THE GUARD SILENCED REAL PLAY: the run asked for a sound with the RUN '
+        'tab open and nothing rendered. Everything should make a sound except '
+        'what he is voting on.')
+    chk(bool(d.get('parentAskOnMusic')),
+        'the guard is too wide: it silenced a sound the PARENT asked for, which '
+        'is what his own judge board and the mixer use')
 
     # 8. doors are silent, measured the same way
     chk(d.get('door'), 'playSFX("door_open") returned something -- doors must be silent')
