@@ -38,7 +38,12 @@ gate that finds out one at a time:
   node    tools/build_run_slice.js                 (the legacy run slice -- still
                                                     has to stay byte-current)
   python3 tools/bohemia_reachability_census.py     (the census, if a surface moved)
-Run all three after any engine edit instead of discovering them across two suites.
+  node    tools/bohemia_look_shots.js              (the LOOK pictures -- the gate
+           + python3 tools/bohemia_look_build.py    compares their mtime to the
+                                                    city's, so ANY city change
+                                                    restales all of them)
+FOUR, not three -- the fourth was found the same way as the other three, one
+suite at a time. Run all four after any engine edit.
 
 STILL TRUE AND STILL NOT MINE: from the spawn cell (48,48) the nearest 1,438
 people include ZERO who run with anybody; first affiliated is 9 cells out. Neither
