@@ -5,7 +5,7 @@ This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-309 canon files indexed across 2 locations.
+311 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -276,7 +276,9 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (158) — add keywords to DOMAINS
+### UNCLASSIFIED (160) — add keywords to DOMAINS
+- `BOHEMIA_ADDENDUM_ALLEGIANCE_FOLLOWS_THE_GROUND_8_16_26.md`
+- `BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md`
 - `BOHEMIA_ADDENDUM_WHAT_BEING_INSIDE_COSTS_8_16_26.md`
 - `BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md`
 - `BOHEMIA_ADDENDUM_THE_FIGHT_HAS_TO_MOVE_YOU_8_15_26.md`

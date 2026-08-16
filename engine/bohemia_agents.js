@@ -235,7 +235,23 @@
   function jobCell(agent, cell){
     var j=agent&&agent.job;
     if(!j||j.kind!=='site'||!j.dir||!j.dist) return null;
-    var d={N:[0,-1],S:[0,1],W:[-1,0],E:[1,0]}[j.dir];
+    /* ALL EIGHT BEARINGS, NOT FOUR (8/16).
+       This table was N/S/W/E only, which exactly matched its one producer:
+       jobsNear() scans a cardinal ring and can never emit a diagonal. Then the
+       CITY started supplying agents whose bearing comes from
+       bohemia_population.personFields -- the 7/31 address book -- which draws
+       workDir from EIGHT directions. Measured: 49% of the valley draws a
+       diagonal, and every one of them fell through this lookup to null.
+       WHAT THAT SILENTLY COST: factionOf uses jobCell as its SECOND origin, the
+       8/11 ruling that you run with whoever your LIVING depends on rather than
+       only whoever is nearest your bed. For half the valley that ruling was not
+       running at all, and nothing said so, because a missing key here reads
+       exactly like an unemployed person.
+       STRICTLY ADDITIVE: the four cardinal answers are byte-identical to what
+       they were, so the run's roster cannot move. The four diagonals go from
+       null to a real cell, which is what they always should have been. */
+    var d={N:[0,-1],S:[0,1],W:[-1,0],E:[1,0],
+           NE:[1,-1],SE:[1,1],SW:[-1,1],NW:[-1,-1]}[j.dir];
     return d ? [cell[0]+d[0]*j.dist, cell[1]+d[1]*j.dist] : null;
   }
   function factionOf(agent, cell, bases){
@@ -281,14 +297,40 @@
     var near=[], seen={};
     for(var i=0;i<bases.length;i++){
       var b=bases[i]; if(!b||b.x==null||b.y==null) continue;
+      /* the CLOSEST of a person's origins, not the first one that happens to be
+         in reach -- home and work are both real and the nearer one is the one
+         that pulls harder. */
+      var best=null;
       for(var o=0;o<origins.length;o++){
         var d=Math.abs(b.x-origins[o][0])+Math.abs(b.y-origins[o][1]);
-        if(d<=REACH_CELLS && !seen[b.name]){ seen[b.name]=1; near.push(b); break; }
+        if(best===null||d<best) best=d;
+      }
+      if(best!=null && best<=REACH_CELLS && !seen[b.name]){
+        seen[b.name]=1; near.push({ b:b, d:best });
       }
     }
     if(!near.length) return null;
-    near.sort(function(a,b){ return String(a.name||'')<String(b.name||'')?-1:1; });
-    return near[pickRoll%near.length].name||null;
+    near.sort(function(a,b){ return String(a.b.name||'')<String(b.b.name||'')?-1:1; });
+
+    /* CONTROL DECAYS WITH DISTANCE (8/16). This used to pick UNIFORMLY among
+       every base in reach, which meant somebody living next door to the Church
+       was exactly as likely to run with a Cartel twelve cells away. Allegiance
+       was a coin flip over whoever happened to be within the radius, and the
+       radius was the only geography in it.
+       KALYVAS 2006, THE LOGIC OF VIOLENCE IN CIVIL WAR: territorial control is
+       a CONTINUUM, not a radius, and COLLABORATION FOLLOWS CONTROL -- the
+       population's alignment tracks who actually holds the ground it stands on.
+       So the draw is weighted by how near the ground is to each base, linearly
+       off REACH_CELLS itself. NO NEW DIAL: the weight is (REACH_CELLS + 1 - d),
+       which is his own number and nothing else, and a base at the very edge of
+       reach still has a real (small) share rather than being cut off.
+       The draw stays DETERMINISTIC and stays keyed to pickRoll, so the hash
+       independence the 8/11 fix bought is untouched. */
+    var total=0, k;
+    for(k=0;k<near.length;k++){ near[k].w = (REACH_CELLS + 1 - near[k].d); total += near[k].w; }
+    var roll = pickRoll % total;
+    for(k=0;k<near.length;k++){ roll -= near[k].w; if(roll<0) return near[k].b.name||null; }
+    return near[near.length-1].b.name||null;
   }
   /* murmur3's finalizer. THE SHARED hash() ENDS ON A MULTIPLY and a multiply only
      propagates bits LEFT, so its low bits hardly move - taking `% 3` off them gave a

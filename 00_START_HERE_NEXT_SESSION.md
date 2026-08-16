@@ -1,3 +1,55 @@
+FACTIONS (factions-ovkjpf): 8/16 (b) LATEST -- *** WHO YOU RUN WITH IS NOW ABOUT
+WHERE YOU LIVE, AND HALF THE VALLEY'S COMMUTE WAS BEING THROWN AWAY.
+TAB: CITY (tap anybody near a faction base). ***
+
+TWO BUGS IN factionOf, BOTH SILENT BECAUSE THE WRONG ANSWER LOOKS LIKE AN HONEST
+"they run with nobody":
+  1. jobCell() mapped FOUR bearings (N/S/W/E). That matched its only original
+     producer -- jobsNear() scans a cardinal ring. Then on 8/15 I made the city
+     pass through workDir from personFields, which draws from EIGHT. MEASURED:
+     49% of the valley draws a diagonal and every one fell through to null, so
+     the 8/11 ruling that you run with whoever your LIVING depends on was not
+     running for half the people. Fixed strictly additively (the four cardinal
+     answers are gated byte-identical). Valley affiliation 27 -> 31, outfits 10 -> 11.
+  2. The pick was UNIFORM over everything in reach, so somebody living next door
+     to the Church was exactly as likely to run with a Cartel twelve cells away.
+     Kalyvas 2006: control is a continuum, not a radius, and COLLABORATION FOLLOWS
+     CONTROL. The draw is weighted by distance now, linearly off REACH_CELLS
+     itself -- NO NEW DIAL. Measured on the walked surface: standing on a base,
+     11/16 affiliated people (69%) run with THAT outfit, and the Mob/Network
+     bases sit 12 cells apart so you find BOTH on that ground -- a contested zone
+     falling out of the geometry rather than being authored.
+  law: laws/BOHEMIA_ADDENDUM_ALLEGIANCE_FOLLOWS_THE_GROUND_8_16_26.md
+  gate: faction_membership_gate 60 claims (was 55)
+
+I HAD TO REWRITE A GATE CLAIM AND THE REASONING IS IN THE LAW. The old claim
+demanded an EVEN split across bases at 2, 8 and 12 cells -- correct while the pick
+was uniform, and it existed to catch a correlated-hash bug that twice gave one
+faction 63%. Under distance weighting an uneven split is the CORRECT answer, so
+that claim would have forbidden the fix. The rewrite measures hash fairness at
+EQUAL distance (34.1/33.5/32.4 -- the 63% bug would still be caught) and adds
+three claims locking the new behaviour, including one asserting the unequal-
+distance split IS uneven so nobody "restores" the old claim without seeing why.
+
+*** THE THREE-COMMAND RULE, LEARNED THE HARD WAY TWICE NOW ***
+ANY edit to an engine module stales THREE derived artifacts and each has its own
+gate that finds out one at a time:
+  python3 tools/bohemia_city_module_resync.py      (the city's inline copy)
+  node    tools/build_run_slice.js                 (the legacy run slice -- still
+                                                    has to stay byte-current)
+  python3 tools/bohemia_reachability_census.py     (the census, if a surface moved)
+Run all three after any engine edit instead of discovering them across two suites.
+
+STILL TRUE AND STILL NOT MINE: from the spawn cell (48,48) the nearest 1,438
+people include ZERO who run with anybody; first affiliated is 9 cells out. Neither
+fix moves that -- it is base placement (MAP LAW) plus two [PENDING Paolo] dials
+(REACH_CELLS 12, AFFILIATED_RATE 0.30). Routing the demo past an outfit is
+QUESTS/RUN.
+
+WHAT COMES NEXT FOR THIS LANE: consolidate the two RUNGS tables --
+bohemia_standing (8/2 witness reputation) and bohemia_belonging (8/12 ladder)
+both carry one. Flagged 8/15, still open, and it is the last known duplicate
+mechanism in the lane.
 PEOPLE (people-7h9sfy): 8/16 LATEST -- *** HE CAN SET THE POPULATION NOW. HE HAS
 NOT BEEN ABLE TO SINCE 8/1. TAB: RUN, in the BUILDER'S DRAWER behind the
 spanner, beside REROLL. ***

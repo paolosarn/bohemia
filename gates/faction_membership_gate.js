@@ -98,12 +98,56 @@ ok('MOST PEOPLE BELONG TO NOBODY: affiliation lands near the declared rate, not 
 ok('the unaffiliated are the majority — a valley of joiners is not act one',
   S.rate < 0.5);
 
-/* ---------- C. the split is even ---------- */
-const shares = Object.values(S.by).map(v => v / S.aff);
-ok('EVERY FACTION IN REACH GETS A REAL SHARE (measured, because the first two versions of '
-  + 'this were 63% and 48% to one faction and both looked fine until counted): no faction '
-  + 'over 45%, none under 20% of a three-way',
-  Object.keys(S.by).length === 3 && Math.max(...shares) < 0.45 && Math.min(...shares) > 0.20);
+/* ---------- C. the draw is fair, and geography decides the rest ---------- */
+/* THIS CLAIM WAS REWRITTEN 8/16, AND WHY MATTERS. It used to measure the split
+   across BASES AT DIFFERENT DISTANCES (2, 8 and 12 cells from the test block)
+   and demand it be even. That was right while the pick was UNIFORM over
+   everything in reach -- it existed to catch a correlated-hash bug that had
+   twice given one faction 63% and 48%. But a uniform pick meant somebody living
+   next door to one base was exactly as likely to run with another twelve cells
+   away, which is not a world, it is a radius.
+   The pick is weighted by distance now (Kalyvas: collaboration follows control),
+   so an uneven split across unequal distances is the CORRECT answer and the old
+   claim would have forbidden the fix. The hash-bias check it was really for is
+   preserved EXACTLY by measuring at EQUAL distance, where any imbalance can only
+   come from the draw. Then a second claim locks the new behaviour. */
+const EQ = [
+  { name: 'REMNANTS', x: 23, y: 22 },   /* all three exactly 3 cells */
+  { name: 'CARTEL', x: 17, y: 22 },     /* from the test block [20,22] */
+  { name: 'TRADES', x: 20, y: 25 },
+];
+const E = sweep({ cell: [20, 22], factionBases: EQ }, 400);
+const eqShares = Object.values(E.by).map(v => v / E.aff);
+ok('THE DRAW ITSELF IS FAIR: at EQUAL distance no faction runs away with it (measured, '
+  + 'because the first two versions of this were 63% and 48% to one faction and both '
+  + 'looked fine until counted): no faction over 45%, none under 20% of a three-way',
+  Object.keys(E.by).length === 3 && Math.max(...eqShares) < 0.45 && Math.min(...eqShares) > 0.20,
+  JSON.stringify(E.by));
+
+/* THE NEW BEHAVIOUR, and it is the whole point of the change. */
+const NEARFAR = [{ name: 'REMNANTS', x: 20, y: 22 }, { name: 'CARTEL', x: 20, y: 34 }];
+const NF = sweep({ cell: [20, 22], factionBases: NEARFAR }, 400);
+ok('ALLEGIANCE FOLLOWS THE GROUND: the base you are standing on takes far more of the '
+  + 'block than one at the edge of reach — control decays with distance rather than '
+  + 'stopping at a radius (Kalyvas 2006)',
+  (NF.by.REMNANTS || 0) > (NF.by.CARTEL || 0) * 3, JSON.stringify(NF.by));
+ok('...but the far one is never CUT OFF, because the edge of reach is still reach',
+  (NF.by.CARTEL || 0) > 0, JSON.stringify(NF.by));
+ok('the split across UNEQUAL distances is therefore uneven, which is the correct answer '
+  + 'and the thing the old version of this claim would have forbidden',
+  Math.max(...Object.values(S.by).map(v => v / S.aff)) > 0.45, JSON.stringify(S.by));
+
+/* ---------- C2. the eight bearings ---------- */
+ok('A DIAGONAL COMMUTE IS A COMMUTE: jobCell resolves all EIGHT bearings, not the four '
+  + 'its only original producer emitted. bohemia_population.personFields draws workDir '
+  + 'from eight, so 49% of the valley fell through to null and the 8/11 ruling that you '
+  + 'run with whoever your LIVING depends on was not running for half the people',
+  ['NE', 'SE', 'SW', 'NW'].every(d =>
+    !!A.jobCell({ job: { kind: 'site', dir: d, dist: 2 } }, [10, 10])));
+ok('...and the four cardinal answers are byte-identical, so the run roster cannot move',
+  JSON.stringify([['N', [10, 7]], ['S', [10, 13]], ['W', [7, 10]], ['E', [13, 10]]]
+    .map(([d, want]) => JSON.stringify(A.jobCell({ job: { kind: 'site', dir: d, dist: 3 } }, [10, 10])) === JSON.stringify(want)))
+  === JSON.stringify([true, true, true, true]));
 
 /* ---------- D. keyed to the seat ---------- */
 const f = s => roster(s, { cell: [20, 22], factionBases: BASES }).map(a => a.id + ':' + a.faction).join(',');
