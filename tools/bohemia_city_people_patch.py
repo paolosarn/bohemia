@@ -231,7 +231,21 @@ function pplPeople(nx, ny) {
   const k = nx + ',' + ny;
   let list = PPL_PEOPLE.get(k);
   if (list) return list;
-  list = BohemiaPopulation.peopleIn(om, POWER, nx, ny, seed, FN, pplStandable, 24);
+  /* THE RENDER BUDGET RIDES THE DIAL, or the top of his slider is dead (8/16).
+     This cap is a DRAW BUDGET, not a census: 24 bodies per neighbourhood is all
+     one screen ever needed at the population the game shipped with. But it also
+     silently became the ceiling of the whole population dial. MEASURED on the
+     real surface, standing in a settlement, bodies actually blitted:
+         dial 0 -> 0    dial 1 -> 6    dial 4 -> 15
+         dial 12 -> 15  dial 20 -> 15  dial 32 -> 15
+     Everything from dial 4 up was the SAME STREET. Seven eighths of the handle
+     did nothing, which is the module's own definition of a broken slider.
+     So the budget scales with what he asked for and stays where it is at dial 1
+     -- nothing moves until he moves it -- with a hard ceiling so a dragged
+     slider can never ask the frame for an unbounded crowd. */
+  const dialCap = Math.max(24, Math.min(240,
+    Math.round(24 * (BohemiaPopulation.dial() || 0))));
+  list = BohemiaPopulation.peopleIn(om, POWER, nx, ny, seed, FN, pplStandable, dialCap);
   const taken = new Set(list.map(p => p.home[0] + ',' + p.home[1]));
   for (const p of list) {
     /* THE SCHEDULE IS AGENTS.JS'S, ASKED - NOT REIMPLEMENTED. This frame has no

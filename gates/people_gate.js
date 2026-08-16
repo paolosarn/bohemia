@@ -1087,12 +1087,28 @@ function partG() {
   ok('G8 the derivation is written down where the number lives',
     /scale model of our Las Vegas|SCALE|1,113|scale_model/.test(src));
 
-  /* G9: his slider has to be able to REACH the truthful setting. The zone-map
-     path yields ~60 at dial 1, so the answer is around 19x - a max of 4 could
-     not express it, which is a broken slider. */
+  /* G9: his slider has to be able to REACH every answer anybody has proposed.
+     THIS ASSERTION USED TO READ `POP.DIAL_MAX >= 20`, justified by "the zone-map
+     path yields ~60 at dial 1, so the answer is around 19x". That divided a
+     TOTAL POPULATION by a NEIGHBOURHOOD COUNT and was wrong by ~70x (see the
+     8/16 sweep in bohemia_population.js). The 20 was right by accident, which is
+     the worst way for a number in a gate to be right: it kept passing while the
+     reasoning under it was rubble. A SELF-TEST WITH A CONSTANT IN IT HAS AN
+     EXPIRY DATE -- so this now reads the landmarks out of the module and cannot
+     go stale when they move. */
   const POP = require(path.join(ROOT, 'engine/bohemia_population.js'));
-  ok('G9 the dial can reach the scale-model answer (max ' + POP.DIAL_MAX + ')',
-    POP.DIAL_MAX >= 20);
+  const LM = POP.LANDMARK || {};
+  ok('G9 the dial reaches every proposed answer (max ' + POP.DIAL_MAX +
+    ', furthest landmark ' + Math.max(...Object.values(LM).map(Number)) + ')',
+    Object.keys(LM).length >= 3 &&
+    Object.values(LM).every(v => Number.isFinite(Number(v)) &&
+      Number(v) >= POP.DIAL_MIN && Number(v) <= POP.DIAL_MAX));
+  /* G10: and the landmarks have to be ORDERED and DISTINCT, or "go to the
+     story's answer" and "go to today" are the same tap wearing two labels. */
+  const lv = ['nobody', 'today', 'scale', 'story'].map(k => Number(LM[k]));
+  ok('G10 the landmarks are distinct and ascending (' + lv.join(' < ') + ')',
+    lv.every(v => Number.isFinite(v)) &&
+    lv.every((v, i) => i === 0 || v > lv[i - 1]) && lv[0] === 0 && lv[1] === 1);
 }
 
 /* ==========================================================================

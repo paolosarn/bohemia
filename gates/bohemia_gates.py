@@ -1030,6 +1030,21 @@ GATES = [
      'inside a try/catch that ate it. A CAUGHT EXCEPTION IN A DRAW PATH IS A FEATURE THAT '
      'SILENTLY DOES NOTHING. So the claim is the same frame drawn silent and spoken, and the '
      'pixels must DIFFER', False),
+    ('POPULATION DIAL', ['node', 'gates/population_dial_gate.js'],
+     'Paolo 8/1: "the slider can go all the way from zero to a maximum." The PLUMBING shipped '
+     'that day -- DIAL, setDial, applyDial, a MIN and a MAX -- and MEASURED 8/16, FIFTEEN DAYS '
+     'LATER, NOTHING ANYWHERE CALLED setDial. There was no control, in any tab, at any zoom. '
+     'HE MUST BE ABLE TO DIRECT IT (8/12) and he could not. This gate holds the handle open, '
+     'and every claim it makes is a bug that was really there: the panel first landed inside '
+     '#topbar, whose CSS strips positioning off every child; the dial multiplied a RATE only '
+     'bohemia_agents.js ever read, while the city walks peopleIn -> homesIn -> headsAt RAW, so '
+     'bodies drawn at dial 0, 1 and 20 measured 1, 1 and 1; PPL_PEOPLE keys on rulesVersion and '
+     'setDial never bumped it, so the surface served pre-dial neighbourhoods forever; an '
+     'authored spawn neighbour stood in the GHOST VALLEY at dial 0, which the module itself '
+     'calls the bottom of the slider being a lie; and a 24-body draw budget made dial 4, 12, 20 '
+     'and 32 THE SAME STREET. It presses the button he presses, walks into a settlement, and '
+     'COUNTS THE BODIES THE FRAME BLITTED -- 0 -> 6 -> 31 -> 88 across the track -- because '
+     'this lane has now shipped five features that measured perfectly and were invisible', False),
     ('DEMO',           ['node', 'gates/demo_gate.js'],
      'DEMO PLAN critical path row 9, the only row with no owner named: "one integration test '
      'that plays the whole day headless + deploy-verified on the real link. THE DEMO IS A '

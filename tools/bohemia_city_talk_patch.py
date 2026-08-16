@@ -120,8 +120,23 @@ function ctSpawn(){
    same derivation as every other person in the valley - placed a few tiles from
    where you land, on ground you can actually stand on. */
 var CT_NB = null;
+var CT_NB_V = -1;
 function ctNeighbour(){
   var s=ctSpawn(); if(!s) return null;
+  /* THE BOTTOM OF THE SLIDER IS NOT ALLOWED TO LIE (8/16). The population
+     module's own words for dial 0 are "A GHOST VALLEY. Not 'fewer people' -
+     NOBODY ... It has to be reachable or the bottom of the slider is a lie."
+     This neighbour is an authored fixture rather than a census resident, so he
+     sailed straight through it: measured on the real surface, dial 0 drew one
+     body. If he says nobody lives here, nobody lives here, and that includes
+     the man next door. Keyed on rulesVersion so moving the dial back brings
+     him straight home. */
+  try {
+    if (BohemiaPopulation.dial() <= 0) { CT_NB = null; return null; }
+    if (CT_NB_V !== BohemiaPopulation.rulesVersion()) {
+      CT_NB = null; CT_NB_V = BohemiaPopulation.rulesVersion();
+    }
+  } catch (_e) {}
   if(CT_NB) return CT_NB;
   var NB=BohemiaPopulation.NB, span=NB*FN;
   var nx=Math.floor(s[0]/span), ny=Math.floor(s[1]/span);
@@ -365,11 +380,56 @@ def cut(text, a, b, what):
 def main():
     city = open(CITY, encoding='utf8').read()
 
-    if MARK in city:
+    """A TRACE IS A STRUCTURAL MARKER, NEVER A MENTION (fixed 8/16).
+
+    This used to strip on `MARK in city` and then re-check the same substring,
+    where MARK is the bare words 'CITY TALK'. That worked exactly as long as this
+    tool was the only thing in the file that had ever said them. By 8/16 three
+    later patches referred to CITY TALK IN THEIR OWN COMMENTS -- the name pass,
+    the label pass, and the reroll fix all cite it by name, correctly, because it
+    is the lane they must not break. So the strip succeeded, the prose remained,
+    and the tool declared its own success a failure and refused to re-apply.
+    A CHECKER THAT CANNOT TELL A MENTION FROM A USE IS THE BROKEN ONE (8/1).
+    The real evidence is the four delimiters and the swapped call: if those are
+    gone, the strip is clean.
+    """
+    def traces(t):
+        n = sum(t.count(m) for m in (MOD_START, MOD_END, TALK_START, TALK_END))
+        return n + t.count(NAMES_CALL_NEW)
+
+    # ---------------------------------------------------------------------
+    # REFUSE TO ROLL ANOTHER LANE BACK (8/16). This tool STRIPS the talk block
+    # and REGENERATES it from the TALK_JS constant below, which is the 8/3 text.
+    # That is fine while this tool is the only thing that has ever written there.
+    # It was not: measured 8/16, re-running it deleted 2,607 lines of the
+    # FACTIONS lane's work out of the city -- CT_BASES_BAKED and every faction's
+    # canon strings, written into this block after 8/3 and never mirrored back
+    # here. Every gate stayed green, because a gate that does not know the
+    # content existed cannot miss it.
+    # A REGENERATOR IS ONLY SAFE WHILE IT IS THE ONLY AUTHOR. So before it
+    # destroys anything, it asks whether the block on disk says things it does
+    # not know how to say, and stops if it does. Mirror the newer content into
+    # TALK_JS (this file is the source of record) and it will apply again.
+    # ---------------------------------------------------------------------
+    if TALK_START in city and TALK_END in city:
+        cur = city[city.index(TALK_START):city.index(TALK_END)]
+        mine = set(l.strip() for l in TALK_JS.splitlines())
+        theirs = [l.strip() for l in cur.splitlines()
+                  if len(l.strip()) > 12 and l.strip() not in mine]
+        if theirs:
+            print('REFUSING TO WRITE: the CITY TALK block in the city has %d line(s) '
+                  'this tool cannot regenerate.' % len(theirs))
+            print('Somebody extended it after 8/3 and did not mirror it back here.')
+            print('Regenerating would DELETE their work. First three:')
+            for l in theirs[:3]:
+                print('   ' + l[:100])
+            sys.exit(1)
+
+    if traces(city):
         city = cut(city, MOD_START, MOD_END, 'the identity module')
         city = cut(city, TALK_START, TALK_END, 'the talk surface')
         city = city.replace(NAMES_CALL_NEW, NAMES_CALL_OLD, 1)
-        if MARK in city:
+        if traces(city):
             print('FAILED: strip left traces behind, refusing to double-apply'); sys.exit(1)
         print('  (previous CITY TALK stripped, re-applying)')
 

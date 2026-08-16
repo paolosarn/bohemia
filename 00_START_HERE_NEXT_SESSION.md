@@ -1,3 +1,126 @@
+PEOPLE (people-7h9sfy): 8/16 LATEST -- *** HE CAN SET THE POPULATION NOW. HE HAS
+NOT BEEN ABLE TO SINCE 8/1. TAB: RUN, in the BUILDER'S DRAWER behind the
+spanner, beside REROLL. ***
+
+PAOLO 8/1: "the slider can go all the way from zero to a maximum." The PLUMBING
+shipped that day -- DIAL, setDial, dialAt, applyDial, a MIN and a MAX, all in
+engine/bohemia_population.js, all inlined into the city. MEASURED 8/16, FIFTEEN
+DAYS LATER: NOTHING ANYWHERE CALLED setDial. Not the alpha, not the city, not the
+run, not a debug key. The number he told us to build him a way to set was
+reachable only by editing a file. That is exactly what the 8/12 law exists to
+stop, and it had been sitting there the whole time.
+
+WHAT IT DOES, counted in bodies the frame actually blitted, standing in a
+settlement:  dial 0 -> 0    dial 1 -> 6    dial 4 -> 31    dial 32 -> 88
+It SHIPS AT DIAL 1. Nothing in the world moves until he drags it. The number is
+a DECISION and stays his; I only built the handle.
+IT IS IN THE DRAWER ON PURPOSE, and that was decided by a REBASE, not by me:
+the RUN lane shipped __BUILDERS_TOOLS_IN_A_DRAWER__ hours earlier off Paolo's
+"the run has a lot of bullshit buttons still around from the early days", moving
+REROLL/KEY/UNDER out of the row he walks with. A population dial is a BUILDER
+tool by that same audit -- it regenerates the world -- so putting a ninth chip
+under his thumb would have been re-making the exact mess he had just complained
+about, and one_valley_gate would have been right to fail it. My patch anchors on
+`<div id="reroll">`, which now lives in the tray, so the tool put it in the right
+place by itself.
+  tools/bohemia_population_dial_patch.py (idempotent by md5)
+  gates/population_dial_gate.js, 19 claims, registered as POPULATION DIAL
+  records/BOHEMIA_THE_POPULATION_DIAL_8_16_26.md
+
+*** THE ARITHMETIC IN bohemia_population.js WAS WRONG BY SEVENTY TIMES AND A GATE
+WAS PROTECTING IT. *** Its own comment said "the zone-map path yields 60 at dial
+1, so the truthful setting is around 19". That divides a TOTAL POPULATION (the
+scale model's ~4,723) by a NEIGHBOURHOOD COUNT -- census() dedupes to one row per
+neighbourhood, so its 60 is 60 NEIGHBOURHOODS. Swept properly (seed 7, every 3rd
+plot, real agents): dial 1 already yields ~4,194 people, which is 89% OF THE SCALE
+MODEL. SO THE VALLEY IS NOT UNDERPOPULATED -- the street reads sparse because
+~4,200 people over a 96x96 valley IS one person every couple of blocks. That is
+the scale model working, and whether it is the game he wants is HIS call, which is
+the whole reason the handle now exists. people_gate G9 had frozen the bad
+reasoning into an assertion (DIAL_MAX >= 20, "because the answer is around 19x").
+THE 20 WAS RIGHT BY ACCIDENT, which is the worst way for a number in a gate to be
+right: it kept passing while the reasoning under it was rubble. G9 now reads
+LANDMARK{} out of the module and cannot go stale; G10 is new.
+
+FIVE BUGS BETWEEN "IT EXISTS" AND "IT WORKS", every one of them measuring perfect
+upstream and doing nothing on screen. THIS LANE HAS NOW SHIPPED FIVE FEATURES WITH
+THAT EXACT SHAPE IN ONE SESSION; assume it, do not hope against it.
+  - the panel landed INSIDE #topbar, whose CSS is
+    `#topbar>*{position:static !important;top:auto !important}` -- it strips
+    positioning off every child. The tool now CUTS AND RE-INSERTS instead of
+    swapping in place, so a misplaced block relocates itself instead of living
+    there forever.
+  - THE DIAL NEVER REACHED THE SURFACE. applyDial multiplies a RATE and its only
+    caller is occupiedRateFor, the adapter bohemia_agents.js goes through. THE
+    CITY DOES NOT GO THROUGH IT: peoplePass -> pplPeople -> peopleIn -> homesIn ->
+    headsAt, and headsAt is RAW. Bodies at dial 0, 1 and 20 measured 1, 1 and 1.
+    The headless sweep looked perfect the whole time because it walked the other
+    path. ONE DIAL, TWO PATHS, APPLIED EXACTLY ONCE ON EACH.
+  - a cache outlived the decision: PPL_PEOPLE keys on rulesVersion(), whose own
+    comment says "bumped by any mutation", and setDial did not bump it. Fixed IN
+    THE MODULE, not at the call site -- clearing a cache next to the button would
+    have fixed this button and left the next caller of setDial broken identically.
+  - THE BOTTOM OF THE SLIDER LIED. The module promises dial 0 is "A GHOST VALLEY
+    ... NOBODY", and the authored spawn neighbour is not a census resident, so he
+    stood on the empty street at dial 0.
+  - THE TOP WAS DEAD GROUND. The surface capped a neighbourhood at 24 bodies (a
+    sane draw budget, silently the ceiling of the whole dial), so dial 4, 12, 20
+    and 32 drew THE SAME STREET. The budget now rides the dial, ceiling 240.
+
+TWO CHECKERS FIXED AT THE RULER, NEVER THE TARGET:
+  - bohemia_city_talk_patch.py refused to re-apply because its "already applied?"
+    test was the bare substring 'CITY TALK', and by 8/16 three LATER patches cite
+    CITY TALK in their own comments (correctly -- it is the lane they must not
+    break). The strip succeeded and the tool called its own success a failure. It
+    checks the four structural delimiters now. A CHECKER THAT CANNOT TELL A
+    MENTION FROM A USE IS THE BROKEN ONE.
+  - gates/bohemia_gates.py would not run AT ALL: the INSTRUMENTS entry (MUSIC
+    lane, 8/16) was a 3-tuple in a 4-tuple table, so _run_all died on unpack
+    before a single gate executed. One missing `False`. Fixed in passing.
+
+WHAT IS STILL HIS AND MUST NOT BE FILLED IN: the dial VALUE, ACT_DIAL (a setting
+per act) and REPAIR_WORTH (what a repaired district is worth in people). All empty.
+
+AND IT ANSWERS A QUESTION OPEN SINCE 8/1. records/BOHEMIA_HOW_MANY_PEOPLE_
+CONTRADICTION_8_1_26.md ends with "walking one block from home, how many people
+should be on that street -- nobody, a couple, or a dozen?" -- never put to him in
+a form he could answer, because answering meant arbitrating three constants in
+three files. It is now a handle he drags until the street looks right.
+
+*** A TOOL IN THIS REPO WAS ARMED TO DELETE ANOTHER LANE'S WORK, AND IT DID. ***
+tools/bohemia_city_talk_patch.py STRIPS the CITY TALK block out of the city and
+REGENERATES it from its own TALK_JS constant, which is still the 8/3 text. That is
+safe exactly as long as it is the only thing that has ever written there -- and it
+has not been since at least 7/31. Re-running it this turn DELETED 2,607 LINES,
+including the FACTIONS lane's CT_BASES_BAKED and every faction canon string from
+their 8/16 ship, plus __CITY_STANDING__. EVERY GATE STAYED GREEN: a gate that does
+not know the content existed cannot miss it. I caught it in `git diff --numstat`
+(266 added, 2,607 REMOVED) and rebuilt the city without it, applying my two city
+edits surgically instead. THE TOOL NOW REFUSES: before stripping it diffs the
+block on disk against its own TALK_JS and stops dead if the file says anything it
+cannot regenerate (it currently reports 2,121 such lines). A REGENERATOR IS ONLY
+SAFE WHILE IT IS THE ONLY AUTHOR. If you need it, mirror the newer content back
+into TALK_JS first -- that file is the source of record and it has been wrong for
+two weeks. ASSUME THE SAME IS TRUE OF EVERY OTHER strip-and-regenerate tool in
+tools/ until you have checked its numstat.
+
+KNOWN DORMANT DRIFT, checked not assumed: BOHEMIA_CURRENT_SLICE.html and
+BOHEMIA_RUN_CURRENT.html both carry an inlined population module WITHOUT this
+turn's dialHeads/LANDMARK/version-bump, and bohemia_population.js is NOT in
+gates/bohemia_sync_canon.txt so ENGINE SYNC does not watch it. It is harmless
+TODAY because neither file calls peopleIn or homesIn -- their copies are dead
+weight, not a second answer. The moment either surface draws residents it becomes
+a real split, which is the exact failure this module's opening comment exists to
+prevent ("the same neighbourhood would be a ghost town in one and a settlement in
+the other"). Add it to the sync canon before that happens.
+
+WHAT COMES NEXT FOR THIS LANE: (1) the spawn block is a SPREAD neighbourhood, so
+the dial is nearly invisible exactly where he starts -- that is his 7/29 ruling
+working, not a bug, and the panel says so in words, but WHERE THE PLAYER SPAWNS is
+worth someone's attention and is not mine to move. (2) More reaction axes off
+signals the sim already emits. (3) Quest volume: 114 questbook studies still
+untouched. (4) Two-person overheard exchanges are now POSSIBLE at a raised dial
+(88 bodies on one street) and were not before.
 ART (f3eu53): 8/17 (a) LATEST -- *** THE DRIVEWAY DROPS ARE IN: every suburb
 driveway that meets the street wears its dropped kerb lip. Kerb kit now
 returns + drops live; ramps banked. FOUND: the 80 world-named gate/curb-cut

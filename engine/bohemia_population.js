@@ -201,7 +201,9 @@
   // renderers.
   function homesIn(om, POWER, nx, ny, seed, FN, pick, cap) {
     var out = [];
-    var want = headsAt(om, POWER, nx * NB, ny * NB, seed);
+    /* THE DIAL APPLIES HERE TOO, and for fifteen days it did not. See dialHeads
+       below: this is the path the CITY SURFACE walks, and it was raw. */
+    var want = dialHeads(headsAt(om, POWER, nx * NB, ny * NB, seed), nx * NB, ny * NB);
     if (!want) return out;
     if (cap && want > cap) want = cap;
     var x0 = nx * NB * FN, y0 = ny * NB * FN, span = NB * FN;
@@ -821,16 +823,47 @@
   // THE ACT TABLE SHIPS EMPTY. Three acts probably want three settings, he said
   // so in the same breath, and WHICH numbers is his call. dialForAct() returns
   // null until he fills it in, and the gate fails if a row lands unruled.
-  // MAX RAISED 8/1 from 4 to 32: the scale-model arithmetic says the valley holds
-  // ~4,723 people (CORRECTED 8/6: the old 1,113 came from a scale model that
-  // measured a 48x48 valley after the map became 96x96), and the zone-map path
-  // yields 60 at dial 1, so the truthful
-  // setting is around 19. A slider that cannot reach the right answer is a broken
-  // slider. 32 leaves headroom above it without being meaningless (the map's
-  // physical ceiling is 26,972 people - every drawn home full).
+  // MAX RAISED 8/1 from 4 to 32, and 32 is CONFIRMED CORRECT by the 8/16 sweep
+  // below: it reaches ~96,885 people, above every answer anybody has proposed.
   var DIAL_MIN = 0, DIAL_MAX = 32;
   var DIAL = 1;                    // "leave the world exactly as it was"
   var ACT_DIAL = {};               // act -> dial. HIS. EMPTY.
+  // ==========================================================================
+  // WHERE THE DIAL ACTUALLY LANDS -- MEASURED, and it corrects this file.
+  //
+  // THE OLD NOTE HERE SAID "the zone-map path yields 60 at dial 1, so the
+  // truthful setting is around 19". THAT WAS WRONG BY ABOUT SEVENTY TIMES, and
+  // it was wrong in a way worth naming: it divided a TOTAL POPULATION (the scale
+  // model's ~4,723 people) by a NEIGHBOURHOOD COUNT (census().people dedupes to
+  // one row per neighbourhood via seen[k], so its 60 is 60 NEIGHBOURHOODS, not
+  // 60 residents). Apples over oranges. A gate then froze the error in place:
+  // people_gate G9 asserted DIAL_MAX >= 20 "because the answer is around 19x".
+  //
+  // MEASURED 8/16, seed 7, by sweeping the dial and counting every agent the
+  // world actually instantiates through agentsForPlot (every 3rd plot, x9):
+  //     dial  0  ->        0 people
+  //     dial  1  ->   ~4,194        <- what ships today
+  //     dial  4  ->  ~14,715
+  //     dial 16  ->  ~59,013
+  //     dial 32  ->  ~96,885        <- the ceiling; above this the rate clamps
+  //
+  // SO THE VALLEY IS NOT UNDERPOPULATED. At dial 1 it is already at 89% of the
+  // scale model's ~4,723. The street reads empty because ~4,200 people spread
+  // over a 96x96 valley IS one person every couple of blocks -- that is the
+  // scale model working, not failing. WHICH MEANS IT IS A CHOICE, HIS, and the
+  // slider exists so he can make it by looking at a street instead of by
+  // arbitrating three numbers in three files.
+  //
+  // THE THREE LIVE ANSWERS, on the dial's own scale, so the handle can offer
+  // them as places to GO and nobody has to do this arithmetic again. Sources are
+  // records/BOHEMIA_HOW_MANY_PEOPLE_CONTRADICTION_8_1_26.md (still [PENDING
+  // Paolo] since 8/1 -- this is the instrument that finally lets him answer it).
+  var LANDMARK = {
+    nobody: 0,     // a ghost valley. Act 3 wipeout, a dead cell, a difficulty.
+    today:  1,     // exactly what ships. Nothing moves until he moves it.
+    scale:  1.1,   // the 96x96 scale model's ~4,723 survivors
+    story:  20     // GDD v5's ~69,000 (~3% of ~2.3M), read off the sweep above
+  };
   // ==========================================================================
   // PER-DISTRICT DIALS — the plumbing for REPAIRING A DISTRICT
   // (Paolo 8/1: "when you fully repair a district, kind of like Stardew Valley -
@@ -865,10 +898,14 @@
     v = Number(v);
     if (!isFinite(v)) return cellDial(cx, cy);
     v = v < DIAL_MIN ? DIAL_MIN : (v > DIAL_MAX ? DIAL_MAX : v);
+    var was = CELL_DIAL[cellKey(cx, cy)];
     CELL_DIAL[cellKey(cx, cy)] = v;
+    if (was !== v) RULES_V++;      // same reason as setDial: caches key on this
     return v;
   }
-  function clearCellDials() { CELL_DIAL = {}; }
+  function clearCellDials() {
+    for (var k in CELL_DIAL) { CELL_DIAL = {}; RULES_V++; break; }
+  }
   function repairWorth(repair) {
     return Object.prototype.hasOwnProperty.call(REPAIR_WORTH, repair)
       ? REPAIR_WORTH[repair] : null;
@@ -880,17 +917,45 @@
   function setDial(v) {
     v = Number(v);
     if (!isFinite(v)) return DIAL;
+    var was = DIAL;
     DIAL = v < DIAL_MIN ? DIAL_MIN : (v > DIAL_MAX ? DIAL_MAX : v);
+    /* EVERY CONSUMER KEYS ITS CACHE ON RULES_V -- the version's own comment says
+       "bumped by any mutation", and moving the dial is the biggest mutation this
+       module has. It was not bumped, so the city's PPL_PEOPLE map served
+       pre-dial neighbourhoods forever and the handle looked dead.
+       BUMPING IT HERE RATHER THAN AT THE CALL SITE IS THE POINT: clearing a
+       cache next to the button would have fixed this button and left the next
+       caller of setDial broken in exactly the same way. A COPIED LINE IS A FIX
+       THAT ONLY HALF-SHIPPED. */
+    if (DIAL !== was) RULES_V++;
     return DIAL;
   }
   function dialForAct(act) {
     return Object.prototype.hasOwnProperty.call(ACT_DIAL, act) ? ACT_DIAL[act] : null;
   }
-  /* the one place the dial is applied, so no caller can forget it */
+  /* the one place the dial is applied TO A RATE, so no caller can forget it */
   function applyDial(rate, cx, cy) {
     if (!(rate > 0)) return 0;
     var r = rate * (cx == null ? DIAL : dialAt(cx, cy));
     return r < 0 ? 0 : (r > 1 ? 1 : r);
+  }
+  /* ...AND THE OTHER HALF OF THE DIAL, MISSING SINCE 8/1.
+     applyDial multiplies a RATE, and the only caller is occupiedRateFor, which
+     is the adapter bohemia_agents.js goes through. THE CITY SURFACE DOES NOT GO
+     THROUGH IT AT ALL: peoplePass -> pplPeople -> peopleIn -> homesIn ->
+     headsAt, and headsAt is raw. So the dial moved every number a gate could
+     measure and moved NOTHING PAOLO COULD SEE.
+     MEASURED 8/16 on the real surface, through the one link, standing on the
+     street in the RUN tab: bodies actually blitted at dial 0, dial 1 and dial 20
+     were 1, 1 and 1. Dial 0 is supposed to be a ghost valley and it drew a
+     neighbour. The headless sweep in the note above looked perfect the whole
+     time, because it went down the OTHER path.
+     ONE DIAL, TWO PATHS, APPLIED EXACTLY ONCE ON EACH -- never both on one path,
+     which would square it. */
+  function dialHeads(heads, tx, ty) {
+    if (!(heads > 0)) return 0;
+    var n = Math.round(heads * (tx == null ? DIAL : dialAt(tx, ty)));
+    return n < 0 ? 0 : n;
   }
 
   function occupiedRateFor(om, POWER, tx, ty, seed, homesInPlot) {
@@ -919,7 +984,7 @@
               dial: dial, setDial: setDial, applyDial: applyDial,
               cellDial: cellDial, setCellDial: setCellDial, clearCellDials: clearCellDials,
               dialAt: dialAt, REPAIR_WORTH: REPAIR_WORTH, repairWorth: repairWorth,
-              DIAL_MIN: DIAL_MIN, DIAL_MAX: DIAL_MAX,
+              DIAL_MIN: DIAL_MIN, DIAL_MAX: DIAL_MAX, LANDMARK: LANDMARK,
               ACT_DIAL: ACT_DIAL, dialForAct: dialForAct,
               ARCHETYPES: ARCHETYPES, personFields: personFields, peopleIn: peopleIn,
               placeFor: placeFor, atFavourite: atFavourite, HEAT_FROM: HEAT_FROM, HEAT_TO: HEAT_TO,
