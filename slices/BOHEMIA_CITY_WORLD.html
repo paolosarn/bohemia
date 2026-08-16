@@ -121,12 +121,27 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
   <div id="note">move on the streets. time moves when you move.</div>
   <div id="fitbtn">⤢ WHOLE MAP</div>
   <div id="bikebtn">🚲 BIKE</div>
+  <!-- __BUILDERS_TOOLS_IN_A_DRAWER__ -- Paolo 8/16: "Im not even trying to press re roll fr
+       the run has a lot of bullshit buttons still around from the early days."
+       AUDITED ONE AT A TIME: of the six controls that used to be in this row,
+       three were tools for BUILDING the world (REROLL regenerates it, KEY is a
+       colour legend and district FILTER, UNDER is the underground inspection
+       view) and they sat either side of PHONE, which is the one he is actually
+       reaching for. At phone size, under a thumb. He was never trying to press
+       REROLL. Nothing is deleted and nothing leaves the DOM -- REROLL is another
+       lane's live feature with its own gate, and he also said "I always want to
+       make sure your procedurally generated world is 10/10", so the tools that
+       INSPECT the world keep a home. They are one tap away instead of under his
+       thumb, at the FAR END of the row, away from PHONE. -->
   <div id="topbar"><!-- TOOLBAR TIDY: one flex row, never overlaps -->
     <div id="musbtn">🎵 MUSIC</div>
     <div id="savebtn">💾</div>
+    <div id="phonebtn">📱 PHONE<span id="phonebadge"></span></div>
+    <div id="devbtn">🛠</div>
+  </div>
+  <div id="devtray"><!-- __BUILDERS_TOOLS_IN_A_DRAWER__ -- the builder's tools, out of the way -->
     <div id="reroll">↻ REROLL</div>
     <div id="underbtn">⬇ UNDER</div>
-    <div id="phonebtn">📱 PHONE<span id="phonebadge"></span></div>
     <div id="keybtn">🔑 KEY</div>
   </div>
   <div id="qline"></div>
@@ -149,6 +164,19 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
 #phonebtn:active{border-color:var(--acc);color:#fff}
 /* __THE_PHONE_RINGS__ -- the badge. Reuses the button's own face; nothing new drawn. */
 #phonebtn{position:relative}
+/* __BUILDERS_TOOLS_IN_A_DRAWER__ -- the builder's tray. Same treatment as the toolbar buttons
+   it holds, so nothing looks like a different app; hidden until asked for. */
+#devbtn{padding:7px 9px;border-radius:5px;background:var(--face);border:1px solid var(--line);
+  color:#6f6350;font-size:11px;font-weight:700;letter-spacing:1px}
+#devbtn.on{color:var(--acc);border-color:var(--acc)}
+#devtray{position:absolute;right:6px;top:44px;z-index:9;display:none;
+  flex-direction:column;gap:5px;padding:6px;border-radius:8px;
+  background:rgba(12,10,8,.96);border:1px solid var(--line)}
+#devtray.on{display:flex}
+#devtray > div{padding:7px 11px;border-radius:5px;background:var(--face);
+  border:1px solid var(--line);color:var(--acc);font-size:11px;font-weight:700;
+  letter-spacing:1px;white-space:nowrap;text-align:center}
+#devtray > div:active{border-color:var(--acc);color:#fff}
 #phonebadge{display:none;position:absolute;top:-5px;right:-5px;min-width:14px;height:14px;
   border-radius:7px;background:#c8503a;color:#fff;font-size:9px;font-weight:700;
   line-height:14px;text-align:center;padding:0 3px}
@@ -18091,6 +18119,14 @@ function renderKey(){
 }
 renderKey();
 document.getElementById('keybtn').addEventListener('click',()=>{ kp.style.display=kp.style.display==='block'?'none':'block'; });
+/* __BUILDERS_TOOLS_IN_A_DRAWER__ -- one toggle for the whole tray. The tools inside keep their
+   own handlers untouched, so each behaves exactly as it always did. */
+document.getElementById('devbtn').addEventListener('click',()=>{
+  const t=document.getElementById('devtray');
+  const on=!t.classList.contains('on');
+  t.classList.toggle('on',on);
+  document.getElementById('devbtn').classList.toggle('on',on);
+});
 let CITYMUS_ON=false;
 function setMusBtn(on){ CITYMUS_ON=on; document.getElementById('musbtn').classList.toggle('on',on); }
 document.getElementById('musbtn').addEventListener('click',()=>{

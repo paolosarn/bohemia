@@ -72,6 +72,13 @@ function pw() {
      pinning their internals would just break every time they improve it. */
   ok('the reroll button is still there, because it is not mine to remove',
      c.indexOf('<div id="reroll">') >= 0);
+  /* HIS 8/16 RULING, MACHINE-HELD: "the run has a lot of bullshit buttons still
+     around from the early days." The builder's tools have a drawer now. Asserted
+     on the TRAY existing and holding them, and -- the half that actually matters
+     -- by the live sweep below, which presses everything left in the row he taps
+     and fails if any of it can touch the world. */
+  ok('the builder\'s tools have a drawer (reroll, under, key)',
+     c.indexOf('__BUILDERS_TOOLS_IN_A_DRAWER__') >= 0 && c.indexOf('id="devtray"') >= 0);
   /* THE LITERAL IS SPLIT ON PURPOSE, and this is the second time today. Writing
      the canonical seed line out in full made ENGINE SYNC read THIS GATE as a
      second carrier of BOH_SEED_TEXT and report the module drifted -- a gate that
@@ -130,22 +137,28 @@ function pw() {
        before.seed === 2691674296);
 
     /* ---- 2. PRESS EVERYTHING A THUMB CAN REACH -------------------------- */
+    const tray = await f.evaluate(() => {
+      const t = document.getElementById('devtray');
+      return { there: !!t, open: !!t && getComputedStyle(t).display !== 'none',
+               holds: t ? [...t.children].map(e => e.id) : [] };
+    });
+    ok('the builder\'s drawer is CLOSED when he arrives, holding ' + tray.holds.join(', '),
+       tray.there && tray.open === false && tray.holds.length >= 3);
+
     const controls = await f.evaluate(() =>
       [...document.querySelectorAll('#topbar > *')].map(e => e.id || e.className).filter(Boolean));
     ok('the toolbar has controls to press (' + controls.join(', ') + ')', controls.length > 0);
 
+    /* NOTHING IS SKIPPED ANY MORE, AND THAT IS THE POINT. This loop used to
+       exempt REROLL because pressing it replaces the world and poisoned the
+       baseline for every control measured after it. It is not in this row any
+       more (Paolo 8/16: "Im not even trying to press re roll fr the run has a lot
+       of bullshit buttons still around from the early days"), so the sweep now
+       covers exactly the row he taps while walking, and the exemption is gone.
+       If a world-building tool is ever put back among the things he presses, it
+       gets pressed here and it fails here. */
     const damage = [];
-    /* REROLL IS SKIPPED, DECLARED RATHER THAN QUIETLY DROPPED, and for a reason
-       the first run of this loop demonstrated: pressing it REPLACES THE WORLD, so
-       every control after it was measured against a valley that no longer existed
-       and UNDER got blamed for changing the seed reroll had changed. It is also
-       not a one-way door in the sense that matters -- it hands you a new valley
-       and the overview, and gates/reroll_gate.js holds it to landing you where
-       you can live with a house you can find. That button is another lane's. */
-    const SKIP = ['reroll'];
     for (const id of controls) {
-      if (SKIP.indexOf(id) >= 0) { console.log('    (skipped ' + id
-        + ': it replaces the world by design, held by gates/reroll_gate.js)'); continue; }
       /* PRESS IT, THEN PRESS IT AGAIN. His sentence was "I can't CONTINUE to
          run", and that is the thing to measure: a control may legitimately take
          the screen or the camera (UNDER really does need city zoom to show the
@@ -163,10 +176,7 @@ function pw() {
       }, id);
       await page.waitForTimeout(300);
       if (!after) continue;
-      /* REROLL is DECLARED, not silently skipped: a new valley is its entire job
-         and gates/reroll_gate.js owns whether it lands him well. Every other
-         control changing the valley is still a failure here. */
-      if (id !== 'reroll' && after.seed !== before.seed)
+      if (after.seed !== before.seed)
         damage.push(id + ' CHANGED THE VALLEY (' + before.seed + ' -> ' + after.seed + ')');
 
       const back = await f.evaluate(cid => {
@@ -178,8 +188,7 @@ function pw() {
       }, id);
       await page.waitForTimeout(300);
       if (!back.home) damage.push(id + ' DESTROYED HIS HOME');
-      if (id !== 'reroll' && back.seed !== before.seed)
-        damage.push(id + ' left him in another valley');
+      if (back.seed !== before.seed) damage.push(id + ' left him in another valley');
       if (back.mode !== 'human')
         damage.push(id + ' IS A ONE-WAY DOOR: it took him out of his body and gave nothing back');
 

@@ -1,3 +1,48 @@
+RUN (run-eak241): 8/16 LATEST -- THE BUTTON WAS NOT THE PROBLEM, THE TOOLBAR WAS.
+
+Paolo 8/16: "Im not even trying to press re roll fr the run has a lot of bullshit
+buttons still around from the early days. I always want to make surw though your
+proceduraly generated world is 10/10 though."
+
+A DIFFERENT BUG FROM YESTERDAY'S. Yesterday was "reroll did something terrible"
+(fixed by the lane that owns it, twice). This one is "I KEEP HITTING IT BY
+ACCIDENT, and it is not the only one." I audited the row he taps while walking,
+one control at a time:
+    MUSIC   on/off                                    PLAYER
+    save    the save panel                            PLAYER
+    PHONE   where his job lands                       PLAYER  <- what he wants
+    REROLL  regenerates the world                     BUILDER, sandbox era
+    KEY     colour legend + district-type FILTERS     BUILDER, a map tool
+    UNDER   the underground inspection view           BUILDER
+THREE OF SIX were world-building tools, sitting either side of the one button he
+actually presses, at phone size, under a thumb. He was never reaching for REROLL.
+He was reaching for PHONE.
+
+FIX: the three builder tools moved into a tray behind one small toggle at the FAR
+END of the row, away from PHONE. NOTHING DELETED, NOTHING OUT OF THE DOM --
+reroll is another lane's live feature and its gate clicks it through the DOM, so a
+closed tray does not bother it (REROLL GATE still 9/0). And because he said in the
+same breath that he wants the world to be 10/10, the tools that INSPECT the world
+keep a home rather than being thrown away. I did NOT delete anything this time:
+I did that on his last report and it turned out another lane had just fixed it.
+
+MACHINE-HELD, and the shape is the point: one_valley_gate.js presses EVERY control
+left in the row he taps, toggles each back, and fails if any of them can touch the
+world or leave him out of his body. It used to EXEMPT reroll; the exemption is gone
+because reroll is not in that row any more. Mutation-tested: put a world-rerolling
+control back among the things he presses and it goes red naming it.
+
+*** ON "IS THE PROCEDURAL WORLD 10/10" -- THE HONEST ANSWER, FOR THE WORLD LANE ***
+I did not claim it. I checked. gates/district_fill_gate.js is the floor under every
+district (each type pinned at the content share it MEASURED on 8/2, worst case
+across all six street configs) and TWO TYPES ARE BELOW THEIR FLOOR:
+    arterial   20.4% content vs 45.1% pinned    less than half what it was
+    freeway    36.5% content vs 45.8% pinned
+Those are the main roads, they are the WORLD lane's active area right now (the
+freeway ribbon work landed 8/15), and this is the one machine-visible dent in his
+"10/10" today. NOT TOUCHED FROM HERE -- it is live work in another lane and this is
+a hand-over, not a demand. But he asked, so it is written down where he can see it.
+
 ART (f3eu53): 8/16 (d) LATEST -- *** THE KERB TURNS ITS CORNERS: thirteenth
 wired family. Returns live at every suburb intersection, verified. Ramp
 branch removed on measurement (no crossing landing is named); drops still
