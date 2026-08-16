@@ -89,3 +89,50 @@ A placeholder that is WRONG teaches the wrong thing while it waits. This one tol
 Mojave was an ocean world and that the Earth was flat, for four days, under a label that
 said "placeholder" — and the label made both look like things that were merely unfinished.
 **"PLACEHOLDER" EXCUSES INCOMPLETE. IT DOES NOT EXCUSE INCORRECT.**
+
+
+---
+
+# ROUND TWO, 8/16 — HE LOOKED AGAIN
+
+> "It looks a little better. It's still kinda looks like shit though still in blue around
+> the city as I zoom out and then the cities like this like square grid that's poking out
+> the side of the Earth when I zoom out even more, it's kind of weird."
+
+He sent a screenshot, and the screenshot is why both of these got found. Neither was the
+sky. I had fixed the sky and reported it; he was pointing at two other things.
+
+## THE CITY WAS FLOATING IN THE SEA
+
+The blue he means is in **CITY MODE**, around the isometric diamond, in the whole-map view.
+It is not rendered by the sky at all. The city view clears its entire canvas to a flat
+colour before drawing the valley, and that colour was `#3a6a8a`.
+
+**`#3a6a8a` IS THIS GAME'S WATER.** From the same file:
+`if(col==='#3a6a8a') return 'water'`. The Mojave valley has been sitting in an OCEAN in
+every zoomed-out view, and because it looked like a background nobody ever read it as
+water. Sampled off his screen with a colour picker, not guessed.
+
+Beyond the mapped 96x96 there is **more desert** — the map is a window onto the Mojave, not
+an island. Day is now the desert floor the sky render already uses; night is the city's own
+warm dark. The water colour itself is untouched; only the backdrop that was borrowing it.
+
+## THE GRID POKING OUT OF THE PLANET — A FAULT MY OWN FIX EXPOSED
+
+> "the square grid that's poking out the side of the Earth"
+
+**This one I caused, the day before.** Curving the horizon turned the ground into a LIMB,
+but the valley kept being painted as a flat diamond on top of it, so its corners hung off
+into empty space past the planet's edge. The straight horizon had hidden it, because
+nothing can stick out of a floor that spans the whole frame.
+
+A FIX CAN EXPOSE A FAULT THAT WAS ALWAYS THERE BUT HAD NOWHERE TO SHOW. The valley is now
+clipped to the limb silhouette, so the planet's edge cuts the city the way a real horizon
+cuts one.
+
+## THE LESSON FROM ROUND TWO
+
+I fixed the sky, verified the sky, and reported the sky — and both of his remaining
+complaints were somewhere else. **HE SAID "AROUND THE CITY" AND I HEARD "THE SKY", because
+the sky was what I had just been working on.** The screenshot is what corrected me. When he
+describes where something is, that is data, not framing.

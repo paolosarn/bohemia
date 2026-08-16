@@ -243,6 +243,16 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
       ok('and the sky is MOJAVE, not maritime: no #7fa8c8 powder blue in a game whose ' +
          'every surface is desert tan',
          page.indexOf('__SKY_DESERT__') >= 0 && pageCode.indexOf('#7fa8c8') < 0);
+      ok('THE CITY IS NOT FLOATING IN THE SEA. The whole-map view cleared its canvas to ' +
+         '#3a6a8a, which is literally this game\'s WATER colour -- a Mojave valley sitting ' +
+         'in an ocean in every zoomed-out view, and it read as a background so nobody read ' +
+         'it as water. Beyond the mapped 96x96 there is more desert.',
+         page.indexOf('__CITY_VOID__') >= 0 &&
+         !/fillStyle=night\?'#101826':'#3a6a8a'/.test(pageCode));
+      ok('and the valley is CLIPPED TO THE LIMB, so the square grid stops poking out the ' +
+         'side of the planet -- a fault my own horizon curve exposed, because nothing can ' +
+         'stick out of a floor that spans the whole frame',
+         page.indexOf('__SKY_CLIP__') >= 0);
       ok('the placeholder still SAYS it is a placeholder, because the real celestial art ' +
          'is AR-005 and belongs to the ART lane -- this made the stand-in honest, it did ' +
          'not pre-empt the artist',

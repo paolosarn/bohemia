@@ -112,6 +112,75 @@ EARTH_NEW = ("    /* __SKY_EARTH__ -- THE MOJAVE FROM ABOVE, not an ocean world.
              "    skyDisc(W*0.5,H*0.98+er*0.55,er,'#c9a06a','#4a2f1c',"
              "'rgba(150,195,235,0.42)');")
 
+
+# ---- 4. THE BLUE AROUND THE CITY, which is not the sky at all -------------------------
+# Paolo 8/16, with a screenshot: "still in blue around the city as I zoom out". He was
+# looking at the CITY view, not the sky -- and that blue is not rendered at all, it is CSS.
+# The canvas is transparent and #stage{background:#1a2a38} shows through around the iso
+# diamond, over a #2a4a62 page. Two slate blues framing a Mojave valley, and no amount of
+# work on renderSky could ever have touched them, which is why the first pass did not.
+# THE VOID AROUND THE VALLEY IS DESERT NIGHT, NOT OCEAN. #1c1a15 is the city's own
+# second-most-used colour (28 uses in this file) -- reused, not invented.
+BODY_OLD = "html,body{background:#2a4a62;"
+BODY_NEW = "html,body{background:#1c1a15;/*__SKY_VOID__*/"
+STAGE_OLD = "overflow:hidden;background:#1a2a38}"
+STAGE_NEW = "overflow:hidden;background:#1c1a15}"
+
+# ---- 5. THE GRID POKING OUT THE SIDE OF THE EARTH -------------------------------------
+# Paolo 8/16: "the cities like this like square grid that's poking out the side of the
+# Earth when I zoom out even more, it's kind of weird."
+# HE IS DESCRIBING A BUG I CREATED YESTERDAY. Curving the horizon made the ground a LIMB,
+# but the valley is still painted as a flat diamond on top of it -- so its corners hang off
+# into empty space past the planet's edge. The straight horizon hid this, because nothing
+# could stick out of a floor that spanned the whole frame.
+# THE FIX IS A CLIP, not a redraw: the valley is painted INSIDE the limb silhouette, so the
+# planet's edge cuts it exactly the way a real horizon cuts a city.
+VALLEY_OLD = ("    var k=Math.max(0.06,1-u*3.2);\n"
+              "    var tw=TW,th=TH; TW=TW0*zoomBounds()[0]*k; TH=TH0*zoomBounds()[0]*k;\n"
+              "    try{ skyValley(horizon); }catch(_e){}\n"
+              "    TW=tw; TH=th;")
+VALLEY_NEW = ("""    var k=Math.max(0.06,1-u*3.2);
+    var tw=TW,th=TH; TW=TW0*zoomBounds()[0]*k; TH=TH0*zoomBounds()[0]*k;
+    /* __SKY_CLIP__ -- THE VALLEY IS ON THE PLANET, NOT FLOATING BESIDE IT. Paolo 8/16:
+       "the square grid that's poking out the side of the Earth... it's kind of weird."
+       That was a bug I introduced the day before: curving the horizon turned the ground
+       into a LIMB, but the valley kept being painted as a flat diamond on top, so its
+       corners hung off into space past the planet's edge. The straight horizon had hidden
+       it, because nothing can stick out of a floor that spans the whole frame -- a fix can
+       expose a fault that was always there but had nowhere to show.
+       Clipped to the limb silhouette, so the planet's edge cuts the city exactly the way a
+       real horizon cuts one. */
+    g.save();
+    g.beginPath();
+    g.moveTo(0,edgeY(0));
+    for(var cx2=0;cx2<=W;cx2+=8) g.lineTo(cx2,edgeY(cx2));
+    g.lineTo(W,H); g.lineTo(0,H); g.closePath();
+    g.clip();
+    try{ skyValley(horizon); }catch(_e){}
+    g.restore();
+    TW=tw; TH=th;""")
+
+
+# ---- 6. THE CITY WAS FLOATING IN WATER --------------------------------------------------
+# Paolo 8/16, with a screenshot: "still in blue around the city as I zoom out."
+# THE FIRST PASS FIXED THE SKY AND MISSED THIS ENTIRELY, because it is not the sky: the CITY
+# view clears its whole canvas to a flat colour before drawing the valley diamond, and that
+# colour was #3a6a8a.
+# #3a6a8a IS THIS GAME'S WATER. Line ~16045: `if(col==='#3a6a8a') return 'water'`. The valley
+# has been sitting in an ocean, in the Mojave, in every whole-map view, and it looked like a
+# background so nobody read it as one.
+# BEYOND THE MAPPED VALLEY IS MORE DESERT. That is the only honest answer: the 96x96 is a
+# window onto the Mojave, not an island. Day gets the desert floor the sky render already
+# uses (#8a7a58); night gets the city's own warm dark (#241f1a). Both reused from this file.
+# THE WATER COLOUR ITSELF IS NOT TOUCHED -- only the backdrop that was borrowing it.
+VOID_OLD = "  else { g.fillStyle=night?'#101826':'#3a6a8a'; g.fillRect(0,0,cv.width,cv.height); }"
+VOID_NEW = ("  /* __CITY_VOID__ -- the valley sits in the MOJAVE, not in the sea. This used to\n"
+            "     clear to #3a6a8a, which is literally this game's WATER colour, so the whole-map\n"
+            "     view showed a city floating in an ocean -- \"still in blue around the city\"\n"
+            "     (Paolo 8/16). Beyond the mapped 96x96 there is more desert, because the map is\n"
+            "     a window onto the Mojave and not an island. */\n"
+            "  else { g.fillStyle=night?'#241f1a':'#8a7a58'; g.fillRect(0,0,cv.width,cv.height); }")
+
 if not os.path.exists(WORLD):
     sys.exit('SKY DESERT: %s is not here.' % WORLD)
 src = open(WORLD, encoding='utf-8').read()
@@ -119,8 +188,17 @@ src = open(WORLD, encoding='utf-8').read()
 done = []
 for name, old, new, marker in (('sky palette', SKY_OLD, SKY_NEW, '__SKY_DESERT__'),
                                ('horizon curve', GND_OLD, GND_NEW, '__SKY_CURVE__'),
-                               ('the earth itself', EARTH_OLD, EARTH_NEW, '__SKY_EARTH__')):
-    if marker in src:
+                               ('the earth itself', EARTH_OLD, EARTH_NEW, '__SKY_EARTH__'),
+                               ('the void around the city', BODY_OLD, BODY_NEW, '__SKY_VOID__'),
+                               ('the stage backdrop', STAGE_OLD, STAGE_NEW, None),
+                               ('the valley clipped to the limb', VALLEY_OLD, VALLEY_NEW,
+                                '__SKY_CLIP__'),
+                               ('the city floating in water', VOID_OLD, VOID_NEW,
+                                '__CITY_VOID__')):
+    if marker and marker in src:
+        done.append(name + ' (already)')
+        continue
+    if marker is None and old not in src and new in src:
         done.append(name + ' (already)')
         continue
     if old not in src:

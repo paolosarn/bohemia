@@ -18,10 +18,10 @@
    same text (#b89a6a), same round action button bottom-right. ONE game. */
 :root{--acc:#b89a6a;--bg:#0b0a09;--ink:#e7d8bb;--line:#2a2418;--face:#141210;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none   /* TOUCH GUARD (7/27): hold-to-act vs the iOS long-press menu */}
-html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',system-ui,sans-serif;overflow:hidden;height:100%}
+html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Space Grotesk',system-ui,sans-serif;overflow:hidden;height:100%}
 .wrap{max-width:640px;margin:0 auto;height:100%;display:flex;flex-direction:column;padding:6px 6px 0}
 #hud{display:flex;justify-content:space-between;align-items:center;padding:2px 6px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--ink);text-shadow:0 1px 3px rgba(0,0,0,.6)}
-#stage{flex:1;position:relative;min-height:0;border-radius:12px;overflow:hidden;background:#1a2a38}
+#stage{flex:1;position:relative;min-height:0;border-radius:12px;overflow:hidden;background:#1c1a15}
 #cv{position:absolute;inset:0;width:100%;height:100%;display:block}
 /* NAV CLUSTER (7/6/26): portrait dead center, 8 dir buttons ringed around it,
    mirrors combat's corner portrait. 180x180 at right/bottom 6px so the whole
@@ -225,6 +225,7 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
   padding:8px 10px;margin-top:2px;border-radius:8px;background:#151310;
   border:1px dashed var(--line)}
 /* ==== end mandate face css ==== */
+
 
 
 
@@ -6955,6 +6956,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE WORLD YOU STAND IN ==== */
+
+
 
 
 
@@ -15678,7 +15681,12 @@ function renderCity(){
      A map on flat blue is a map -- an overlook is sky, then the far side of the
      basin, then the floor. Only paid for when the moment is actually open. */
   if(typeof VISTA!=='undefined' && VISTA && typeof vistaBackdrop==='function'){ vistaBackdrop(oy); }
-  else { g.fillStyle=night?'#101826':'#3a6a8a'; g.fillRect(0,0,cv.width,cv.height); }
+  /* __CITY_VOID__ -- the valley sits in the MOJAVE, not in the sea. This used to
+     clear to #3a6a8a, which is literally this game's WATER colour, so the whole-map
+     view showed a city floating in an ocean -- "still in blue around the city"
+     (Paolo 8/16). Beyond the mapped 96x96 there is more desert, because the map is
+     a window onto the Mojave and not an island. */
+  else { g.fillStyle=night?'#241f1a':'#8a7a58'; g.fillRect(0,0,cv.width,cv.height); }
   // view radius auto-scales with zoom: enough slots to fill the screen at the
   // current tile size, so zooming out reveals the whole valley, in caps the work.
   const R=Math.min(N,Math.ceil(Math.max((cv.width+2*Math.abs(panX))/TW,(cv.height+2*Math.abs(panY))/TH))+3);
@@ -15909,6 +15917,7 @@ let HZOOM=44; // player-chosen human zoom, SNAPPED to pixel-true levels
 // fractional art scaling at any stop.
 const HLEVELS=[11,22,44,88];
 let _zacc=44;
+
 
 
 
@@ -18665,6 +18674,7 @@ function skyExit(){ if(!SKY)return; SKY=false; SKYU=0; window.__SKY_EXIT=(window
 
 
 
+
 /* one step of the same gesture that got him here. OUT raises SKYU; IN lowers it,
    and at 0 it hands back to the city builder, which hands back to his feet. */
 function skyZoom(dir){
@@ -18771,7 +18781,23 @@ function renderSky(){
     g.stroke(); g.restore();
     var k=Math.max(0.06,1-u*3.2);
     var tw=TW,th=TH; TW=TW0*zoomBounds()[0]*k; TH=TH0*zoomBounds()[0]*k;
+    /* __SKY_CLIP__ -- THE VALLEY IS ON THE PLANET, NOT FLOATING BESIDE IT. Paolo 8/16:
+       "the square grid that's poking out the side of the Earth... it's kind of weird."
+       That was a bug I introduced the day before: curving the horizon turned the ground
+       into a LIMB, but the valley kept being painted as a flat diamond on top, so its
+       corners hung off into space past the planet's edge. The straight horizon had hidden
+       it, because nothing can stick out of a floor that spans the whole frame -- a fix can
+       expose a fault that was always there but had nowhere to show.
+       Clipped to the limb silhouette, so the planet's edge cuts the city exactly the way a
+       real horizon cuts one. */
+    g.save();
+    g.beginPath();
+    g.moveTo(0,edgeY(0));
+    for(var cx2=0;cx2<=W;cx2+=8) g.lineTo(cx2,edgeY(cx2));
+    g.lineTo(W,H); g.lineTo(0,H); g.closePath();
+    g.clip();
     try{ skyValley(horizon); }catch(_e){}
+    g.restore();
     TW=tw; TH=th;
   }
 
@@ -22775,6 +22801,7 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 document.getElementById('mktbtn').addEventListener('click',function(){
   if(!mktAt())return; MKT_LAST=null; showMarket();
 });
+
 
 
 
