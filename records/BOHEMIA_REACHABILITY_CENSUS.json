@@ -1,7 +1,7 @@
 {
- "sources": 231,
- "total_mb": 277.0,
- "unreached_mb": 274.0,
+ "sources": 235,
+ "total_mb": 277.7,
+ "unreached_mb": 274.6,
  "rows": [
   {
    "path": "banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt",
@@ -154,7 +154,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 0,
-   "bytes": 3336931
+   "bytes": 3984883
   },
   {
    "path": "banks/BOHEMIA_DOOR_ANIM_BANK_7_13_26.txt",
@@ -607,6 +607,15 @@
    "bytes": 1168
   },
   {
+   "path": "banks/BOHEMIA_SFX_APPROVED_8_15_26.json",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 29,
+   "hits_shown": 3,
+   "hits_loaded": 0,
+   "bytes": 1292
+  },
+  {
    "path": "banks/BOHEMIA_SFX_BANK_7_29_26.txt",
    "kind": "bank",
    "verdict": "NO TRACE",
@@ -942,9 +951,9 @@
   {
    "path": "engine/bohemia_agents.js",
    "kind": "engine",
-   "verdict": "SHOWN (part)",
+   "verdict": "SHOWN (all)",
    "samples": 8,
-   "hits_shown": 6,
+   "hits_shown": 8,
    "hits_loaded": 8,
    "bytes": 57887
   },
@@ -1000,7 +1009,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 32,
-   "bytes": 24892
+   "bytes": 25863
   },
   {
    "path": "engine/bohemia_blockgen.js",
@@ -1102,6 +1111,15 @@
    "bytes": 22720
   },
   {
+   "path": "engine/bohemia_claim.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 3,
+   "hits_shown": 3,
+   "hits_loaded": 0,
+   "bytes": 10922
+  },
+  {
    "path": "engine/bohemia_coldopen_set.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
@@ -1118,6 +1136,15 @@
    "hits_shown": 32,
    "hits_loaded": 32,
    "bytes": 21593
+  },
+  {
+   "path": "engine/bohemia_commitment.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 6,
+   "hits_shown": 6,
+   "hits_loaded": 0,
+   "bytes": 17451
   },
   {
    "path": "engine/bohemia_courthouse.js",
@@ -1180,7 +1207,7 @@
    "samples": 3,
    "hits_shown": 3,
    "hits_loaded": 1,
-   "bytes": 10605
+   "bytes": 12296
   },
   {
    "path": "engine/bohemia_desert.js",
@@ -1231,10 +1258,10 @@
    "path": "engine/bohemia_economy.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 2,
-   "hits_shown": 2,
-   "hits_loaded": 2,
-   "bytes": 8689
+   "samples": 3,
+   "hits_shown": 3,
+   "hits_loaded": 3,
+   "bytes": 12094
   },
   {
    "path": "engine/bohemia_encounters.js",
@@ -1525,6 +1552,15 @@
    "bytes": 16503
   },
   {
+   "path": "engine/bohemia_mandate.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 4,
+   "hits_shown": 4,
+   "hits_loaded": 2,
+   "bytes": 12421
+  },
+  {
    "path": "engine/bohemia_medical.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
@@ -1716,9 +1752,9 @@
   {
    "path": "engine/bohemia_resolve.js",
    "kind": "engine",
-   "verdict": "LOADED ONLY",
+   "verdict": "SHOWN (all)",
    "samples": 20,
-   "hits_shown": 0,
+   "hits_shown": 20,
    "hits_loaded": 20,
    "bytes": 18557
   },
@@ -1774,7 +1810,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 0,
-   "bytes": 116182
+   "bytes": 118233
   },
   {
    "path": "engine/bohemia_slice_core.js",
@@ -1927,7 +1963,7 @@
    "samples": 2,
    "hits_shown": 2,
    "hits_loaded": 2,
-   "bytes": 13386
+   "bytes": 15051
   },
   {
    "path": "engine/bohemia_tilepool.js",

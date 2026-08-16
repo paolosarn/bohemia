@@ -23681,12 +23681,31 @@ var XP = {}, XP_LOADED = 0;
     return g[key];
   }
 
+  /* THE COUNT CAN GO DOWN, AND IT GOES DOWN THROUGH HERE (8/16).
+     bohemia_claim lets an outfit ask something of you once it COUNTS you, and
+     refusing costs the rung that made you worth asking. That is a DECREASE, and
+     record() only ever adds -- so either the caller grew a second writer or this
+     file grew a decrement. It is this one: the count has ONE writer and the
+     spelling is normalised in ONE place, which is the bug this lane has now
+     fixed six times.
+     Never below zero: falling out of favour returns you to a stranger, it does
+     not invent a debt the ladder has no rung for. */
+  function adjust(save, fid, delta){
+    if(!save || !save.meta || !fid || !delta) return gaveOf(save, fid);
+    var g=save.meta.gave || (save.meta.gave={});
+    var want=normKey(fid), hit=null;
+    for(var k in g) if(normKey(k)===want) hit=k;
+    var key=hit||fid;
+    g[key]=Math.max(0, (g[key]|0) + (delta|0));
+    return g[key];
+  }
+
   var API={ RULES:RULES, DEFAULT:DEFAULT, ALIASES:ALIASES, RUNGS:RUNGS,
             WANT_WORDS:WANT_WORDS, ACTS:ACTS,
             ruleOf:ruleOf, rungOf:rungOf, nextRung:nextRung, bargain:bargain,
             lineFor:lineFor, actFor:actFor, noActBecause:noActBecause,
             blockedBy:blockedBy,
-            gaveOf:gaveOf, gaveDayOf:gaveDayOf, record:record,
+            gaveOf:gaveOf, gaveDayOf:gaveDayOf, record:record, adjust:adjust,
             keys:function(){ return Object.keys(RULES); } };
   if(HASREQ) module.exports=API; else root.BohemiaBelonging=API;
 })(typeof globalThis!=='undefined'?globalThis:this);
