@@ -67,7 +67,7 @@ GATES = [
      "from, and the sound engine had never called one of them in five sweeps. "
      "This proves the door is open, that every instrument a recipe names is one "
      "the rack really answers to, and that borrowing it copies no voice and adds "
-     "no feedback path"),
+     "no feedback path", False),
     ('DISTRICT FILL',  ['node', 'gates/district_fill_gate.js'],
      'the floor one level down from MAP SIZE: every district type pinned at the content share it measured on 8/2, because walkable_gate compares pavement to content and a district with NO pavement passes it however empty it gets', False),
     ('BLOB INTEGRITY', ['node', 'gates/blob_integrity_gate.js'],
@@ -698,6 +698,15 @@ GATES = [
      'the neck is its own skin TONE not a shadow and never tints a collar; his curtain-bob export ships byte for byte and a repaint can never become a retint', False),
     ('CHAR OUTLINE',   ['node', 'gates/character_outline_gate.js'],
      'the 1px black border wraps every facing: last pass, snapshot-based so it cannot grow on itself, colour only so occupancy still sees the true silhouette', False),
+    ('BORDER 1PX',     ['node', 'gates/border_gate.js'],
+     'Paolo 8/14: "the black border has to be thinner, like half as thin". CHAR_OUTLINE '
+     'always drew ONE pixel and was always correct -- it just ran BEFORE the Scale2x that '
+     'takes the frame to 112, so his border arrived DOUBLED. A pass can be right and still '
+     'be wrong for WHERE IT SITS IN THE PIPELINE, and no amount of reading it finds that. '
+     'Measured against SKIN on the real render path (the naive ruler read 10px off his '
+     'black trousers), all 8 facings, plus: ONLY the border moved (every non-border pixel '
+     'matches the borderless frame upscaled the same way), the border still CLOSES, and '
+     'bake112 agrees so he is not outlined 1px in CHARACTER and 2px in COMBAT', False),
     ('FROZEN POSES',   ['node', 'gates/frozen_poses_gate.js'],
      'a clip is a small set of FROZEN poses and every frame of a hold is the same cache entry: zero morph is structural, and every proof clip must report 0', False),
     ('ARM HOLD',       ['node', 'gates/arm_hold_gate.js'],
