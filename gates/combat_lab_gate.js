@@ -4483,10 +4483,20 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
    What belongs here is the shape of the thing: that ammo exists at all, that a
    shot is the only thing that spends it, that the refusal names the way out,
    and that the drop is world state rather than something that follows him. */
-  ok('V157 THE GAME HAS AMMO AT ALL. It had NONE -- infinite bullets since day one, in a game about scarcity, which is both the realism hole and the exact reason one tile can win a fight',
-    demo.includes('const MAG={pistol:8, smg:16, rifle:4, shotgun:4};') &&
-    demo.includes('const START_LOADED={pistol:3, smg:5, rifle:2, shotgun:2};') &&
+  /* V158 RE-POINTED, AND THE OLD NUMBERS WERE THE THING THAT WAS WRONG. This
+     pinned pistol:8 / start:3 -- a magazine I sized so a gate would pass, which
+     Paolo read on his own screen and called unrealistic. He was right: a 9mm
+     magazine is 15 to 17. The law being checked is that AMMO EXISTS, never that
+     it is scarce enough to satisfy some other check. */
+  ok('V157 THE GAME HAS AMMO AT ALL. It had NONE -- infinite bullets since day one, in a game about scarcity. V158: and the magazines are REAL ones, because a number he can read off the screen is part of the fiction',
+    demo.includes('const MAG={pistol:15, smg:30, rifle:20, shotgun:6};') &&
+    demo.includes('const START_LOADED={pistol:15, smg:30, rifle:20, shotgun:6};') &&
     /function dryNow\(\)\{ return roundsIn\(WEAPON\)<=0; \}/.test(demo));
+
+  ok('V158 AND HE STARTS WITH A LOADED GUN: every weapon\'s starting load IS its magazine, because a person who walked into a fight has a full gun. What he does not have is spares -- those come off the men he drops, which is the mechanism and it survived his ruling intact',
+    /const MAG=\{([^}]*)\};/.test(demo) &&
+    demo.match(/const MAG=\{([^}]*)\};/)[1] === demo.match(/const START_LOADED=\{([^}]*)\};/)[1] &&
+    demo.includes('const START_SPARE=0;'));
 
   ok('V157 A SHOT IS THE ONLY THING THAT SPENDS A ROUND, and it spends it only once the shot is REAL -- after the dry check and after a target is found, so a refusal never costs him ammo',
     (demo.match(/spendRound\(\);/g) || []).length === 1 &&

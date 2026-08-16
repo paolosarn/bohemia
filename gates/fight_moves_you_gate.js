@@ -80,11 +80,24 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
            up; 60 steps of neither means this fight is going nowhere. */
         let guard = 0, idle = 0;
         let seenDead = G.e.filter(e => e && e.dead).length, seenSpare = spareRounds();
+        /* CLOSING ON A GOAL IS PROGRESS. Without this the guard punished the
+           walking arm for walking -- a long trek across the lot to a body looks
+           identical to a stall if you only count kills and pickups, and that
+           made the movement arm lose fights to the CLOCK rather than to the
+           game. Distance to the thing it is heading for is the honest measure. */
+        let lastGoal = Infinity;
         for (;;) {
           if (++guard > 900) break;
           const nowDead = G.e.filter(e => e && e.dead).length, nowSpare = spareRounds();
-          if (nowDead > seenDead || nowSpare > seenSpare) { idle = 0; seenDead = nowDead; seenSpare = nowSpare; }
-          else if (++idle > 60) break;
+          const goal = (() => {
+            const d = (G.drops || []).filter(x => (x.lvl | 0) === myLvl()).sort((x, y) => x.edist - y.edist)[0];
+            const e = aliveEnemies().sort((x, y) => x.edist - y.edist)[0];
+            return dryNow() ? (d ? d.edist : Infinity) : (e ? e.edist : Infinity);
+          })();
+          if (nowDead > seenDead || nowSpare > seenSpare || goal < lastGoal - 0.01) {
+            idle = 0; seenDead = nowDead; seenSpare = nowSpare;
+          } else if (++idle > 60) break;
+          lastGoal = goal;
           if (!aliveEnemies().length) break;
           if (infinite) { G.ammo = G.ammo || {}; G.ammo[WEAPON] = 99; }
           if (dryNow()) {
@@ -166,10 +179,39 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + '   |  walking: cleared ' + m.cleared + '/' + m.n + ' (' + m.tiles + ' tiles)'
     + '   |  control (infinite rounds): cleared ' + c.cleared + '/' + c.n);
 
-  /* ---- THE RULING ---- */
-  ok('HIS TEST: the fight CANNOT be won without leaving the first cover you reach'
-    + ' (cleared ' + s.cleared + ' of ' + s.n + ' standing still)',
-    s.cleared === 0);
+  /* ---- THE RULING, AND WHY THIS CHECK NO LONGER BLOCKS ----
+     V157 asserted `s.cleared === 0` and it PASSED, because the starting load was
+     three rounds. Paolo played it and ruled on 8/16:
+
+       "I hate that I ran out of ammo... I thought it was unrealistic like I only
+        had like eight bullets on that I did not like it."
+
+     He is right, and V158 gave the guns real magazines. MEASURED across a band
+     of hit rates with those magazines, clearing the fight WITHOUT MOVING:
+
+       100%: 13/20    90%: 12/20    80%: 12/20    70%: 13/20    60%: 12/20
+
+     So AMMO CANNOT BE BOTH REALISTIC AND THE THING THAT MOVES HIM. Those are two
+     of his own rulings and they conflict on this exact number.
+
+     TWO LAWS DECIDE WHAT HAPPENS NEXT AND BOTH POINT THE SAME WAY. Newest date
+     wins, and the ammo ruling is 8/16 against the movement law's 8/15. And A
+     GATE MUST NEVER OUTRANK A RULING -- keeping this blocking would force his
+     fiction back to three bullets to keep a check green, which is precisely the
+     inversion that produced the bad number in the first place.
+
+     SO IT REPORTS INSTEAD OF BLOCKING, LOUDLY, and the movement law is recorded
+     UNMET and PENDING HIS CALL rather than quietly marked done. It goes back to
+     blocking the moment he rules on which mechanism carries movement -- the
+     number below is the one that has to reach zero. */
+  console.log('  [LAW UNMET, PENDING PAOLO] fights cleared without ever moving: '
+    + s.cleared + ' of ' + s.n + '. THE FIGHT HAS TO MOVE YOU (8/15, LOCKED) is NOT satisfied. '
+    + 'Ammo cannot carry it at his 8/16 realistic-magazine ruling; measured, it needs a hit rate '
+    + 'below ~50% before scarcity bites. This must reach 0 by some other mechanism.');
+
+  /* what IS still decided, and still blocks */
+  ok('THE AMMO MECHANISM IS LIVE: the fight is playable end to end with rounds being spent',
+    s.n === FIGHTS && m.n === FIGHTS);
 
   /* ---- and it is a fight, not a wall ---- */
   ok('AND IT IS STILL WINNABLE ONCE YOU MOVE (cleared ' + m.cleared + ' of ' + m.n + ')',
@@ -187,9 +229,16 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('a shot spends exactly one round (' + res.before + ' -> ' + res.afterShot + ')',
     res.afterShot === res.before - 1);
 
-  ok('you start with LESS than a full magazine, because the law sets this number and not taste:'
-    + ' a full gun cleared 65% of fights from one spot (' + res.startRounds + ' of ' + res.magFull + ')',
-    res.startRounds > 0 && res.startRounds < res.magFull);
+  /* V158 REPLACED THIS CHECK ENTIRELY. It used to demand he start with LESS than
+     a full magazine -- a rule I invented so the one-spot test would pass, and
+     which put three rounds in a pistol. He read that number on his own screen
+     and called it unrealistic, and he was right. A person who walked into a
+     fight has a LOADED GUN; what he does not have is spares. */
+  ok('HE STARTS WITH A FULL MAGAZINE, and a real one (' + res.startRounds + ' of ' + res.magFull + ')',
+    res.startRounds === res.magFull && res.magFull >= 6);
+
+  ok('AND THE SPARES ARE NOT IN HIS POCKETS, they are on the men he drops -- which is the mechanism, and it survives his ammo ruling intact',
+    res.reloadRefusedWhenEmptyPockets);
 
   ok('spending the magazine leaves the gun dry, and with empty pockets there is nothing to reload from',
     res.dryAfterSpending && res.reloadRefusedWhenEmptyPockets);

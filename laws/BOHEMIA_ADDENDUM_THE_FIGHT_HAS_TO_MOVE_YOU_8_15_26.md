@@ -79,3 +79,54 @@ Not "does the fight have more stuff in it". The test is:
 That is machine-checkable in a headless run — hold position, fire, and see whether
 the encounter can be completed. A gate that plays a fight from one spot and requires
 it to FAIL is the honest check, and it is what should prove this ruling is satisfied.
+
+---
+
+## STATUS 8/16/26 — ATTEMPTED WITH AMMO, AND IT COLLIDED WITH A NEWER RULING
+
+**The law is NOT satisfied. It is UNMET and PENDING Paolo's call.** Recorded here
+rather than left in a session's head.
+
+**What was tried (v157):** mechanism 6, *the resource is elsewhere*. The game had
+no ammo at all — infinite bullets since day one — so guns got magazines, shots
+started spending rounds, and every man you drop leaves his rounds on the ground
+where he fell. It worked: the one-spot test went to **0 of 40**.
+
+**Why it does not stand:** it only reached zero because the starting load was
+three rounds in a pistol. Paolo played it on 8/16 and ruled:
+
+> *"I hate that I ran out of ammo... I thought it was unrealistic like I only had
+> like eight bullets on that I did not like it."*
+
+He is right, and v158 gave the guns real magazines (pistol 15, smg 30, rifle 20,
+shotgun 6, starting full). **Measured across a band of hit rates, fights cleared
+without ever moving:**
+
+```
+hit rate   100%   90%    80%    70%    60%    50%
+cleared    13/20  12/20  12/20  13/20  12/20  14/20
+```
+
+**AMMO CANNOT BE BOTH REALISTIC AND THE THING THAT MOVES HIM.** Scarcity does not
+bite until a player is missing roughly half his shots. Those are two of Paolo's
+own rulings and they conflict on this exact number.
+
+**How the conflict was resolved, and by which laws:** newest date wins, and the
+ammo ruling (8/16) is newer than this law (8/15) — so realistic magazines ship.
+And A GATE MUST NEVER OUTRANK A RULING: keeping the one-spot check blocking would
+have forced the fiction back to three bullets to keep a green check, which is the
+exact inversion that produced the bad number.
+
+**What the machine does now:** `gates/fight_moves_you_gate.js` still runs the
+one-spot test every time and prints it as `[LAW UNMET, PENDING PAOLO]` with the
+live number, but it no longer blocks. Everything the ammo mechanism *does* still
+blocks (rounds are spent, drops are world state, the button is honest). **The
+check goes back to blocking the moment a mechanism is chosen — the printed number
+is the one that has to reach 0.**
+
+**Still on the menu, untried:** 4 (rushers), 5 (the objective moves), 7 (the
+clock). 1, 2 and 3 are built and were rejected four times as insufficient on
+their own. The ammo mechanism from v157 stays — it is good, and it is real — it
+simply is not load-bearing for this law.
+
+**This is Paolo's call and was not decided for him.**
