@@ -508,7 +508,7 @@ _Open desert — LOW BY NATURE and named as such: there is no building in open M
 - dead yucca — the stalks (code 12 "dead yucca")
 - dumped debris and a burned car — somebody has been here (code 7 "dumped debris", code 8 "burned car")
 
-## WATER  (490x282, anchor 265,374)
+## WATER  (490x292, anchor 265,374)
 _Lake shore — LOW BY NATURE and named as such: the subject is a horizontal. What makes it legible is the BATHTUB RING, the white mineral band the water left on the rock as it dropped over twenty years, with the exposed lakebed cracking below it, shore rock above, and a LAUNCH RAMP that now ends a long way short of the water. The sunken boat is the punchline._
 
 - open water — the shrunken sheet (code 0 "open water", code 1 "shallow water")

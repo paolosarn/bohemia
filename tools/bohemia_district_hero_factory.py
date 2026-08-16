@@ -182,6 +182,93 @@ TALL_MUL   = 1.25
 # hero. Every wall on sixty heroes would be thousands of slivers for detail the
 # eye cannot resolve on a tile -- cost with no picture, which is the same trap
 # the roof pass avoided by taking the six biggest roofs.
+# ============================================================================
+# DENSITY (Paolo 8/15) — "a lot of them just like look exactly the same"
+# ============================================================================
+# MEASURED, and the spread is the whole answer. Face counts across the 60:
+#   median 215.  ballpark 4806, school 3266, speedway 2065.
+#   medical 19.  mall 22.  firestation 25.  DOWNTOWN 37.  industrial 40.
+# Downtown drawn with THIRTY-SEVEN faces next to a ballpark with four thousand
+# is not a style difference, it is one subject being finished and the other
+# being a placeholder that never got revisited. That is what "they all look the
+# same" actually is: the thin ones have nothing on them to tell apart.
+#
+# WHAT GETS ADDED IS WHAT EVERY REAL BUILDING HAS AT GROUND LEVEL, and none of
+# it is invention -- it is the stuff you stop seeing because it is on every
+# building you have ever walked past:
+#   KERB          the pad edge is a kerb, not a colour change
+#   SERVICE DOOR  every building has a back door, and it is not the front door
+#   DOWNSPOUTS    at the corners, running the full height of the wall
+#   CONDENSERS    wall-mounted units at ground level beside the service door
+#   BOLLARDS      in front of anything with a door onto a drive
+#
+# ONLY THE THIN ONES. A hero already carrying more than the median is finished
+# and gets nothing -- adding to the ballpark would be noise on a subject that is
+# already dense. This is a LEVELLER, not a decorator.
+DENSITY_FLOOR = 140          # below the measured median: these are the unfinished ones
+def _thicken(scene, key):
+    """Give a thin hero the ground-level detail every real building carries."""
+    import zlib
+    if len(scene.faces) >= DENSITY_FLOOR:
+        return scene                                   # already finished: leave it alone
+    def rnd(i):
+        return ((zlib.crc32((key + 'd' + str(i)).encode('utf8')) >> 7) & 0xffff) / 65535.0
+
+    # the building footprint, taken off the walls rather than the pad, so the
+    # dressing lands against the BUILDING and not out in the parking
+    xs, ys, tops = [], [], []
+    for verts, _uv, _n, _m in list(scene.faces):
+        zsv = [v[2] for v in verts]
+        if max(zsv) - min(zsv) < 2.2:
+            continue
+        tops.append(max(zsv))
+        for (x, y, z) in verts:
+            xs.append(x); ys.append(y)
+    # A DOWNSPOUT RUNS TO ITS OWN WALL, NOT TO THE TALLEST THING ON THE LOT.
+    # First cut used the scene max, so on any hero with a tower the spouts on the
+    # LOW block shot straight up past it as thin poles standing in mid-air --
+    # which is the exact "glitchy poles" complaint, authored by me this time.
+    # Taking the SHORTEST tall wall keeps every spout against real wall.
+    zt = min(tops) if tops else 0.0
+    if not xs:
+        return scene
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    if x1 - x0 < 1.0 or y1 - y0 < 1.0:
+        return scene
+    grey = (96, 92, 86); dkg = (64, 61, 57); pale = (150, 146, 138)
+
+    # KERB: a low lip right around the building, which is what separates a
+    # building from the ground it stands on.
+    k = 0.16
+    scene.box((x0 - k, y0 - k, 0), (x1 - x0 + 2 * k, k, 0.18), {'c': pale})
+    scene.box((x0 - k, y1, 0), (x1 - x0 + 2 * k, k, 0.18), {'c': dkg})
+    scene.box((x0 - k, y0 - k, 0), (k, y1 - y0 + 2 * k, 0.18), {'c': dkg})
+    scene.box((x1, y0 - k, 0), (k, y1 - y0 + 2 * k, 0.18), {'c': pale})
+
+    # DOWNSPOUTS at the corners, full height. Cheap, and they break a blank wall
+    # vertically the way nothing else at this scale does.
+    hgt = max(2.0, min(zt, zt * 0.92))
+    for (cx, cy) in ((x0 - 0.10, y0 - 0.10), (x1, y0 - 0.10), (x0 - 0.10, y1), (x1, y1)):
+        scene.box((cx, cy, 0), (0.16, 0.16, hgt), {'c': dkg})
+
+    # SERVICE DOOR on the back, with a step -- never on the same side as the front
+    sx = x0 + (x1 - x0) * (0.20 + rnd(1) * 0.5)
+    scene.box((sx, y1 - 0.06, 0), (0.9, 0.12, 2.1), {'c': dkg})
+    scene.box((sx - 0.12, y1, 0), (1.14, 0.34, 0.16), {'c': grey})
+
+    # CONDENSERS beside it, on the ground, which is where they actually sit
+    for j in range(1 + int(rnd(2) * 2)):
+        scene.box((sx + 1.2 + j * 0.85, y1 + 0.10, 0), (0.62, 0.55, 0.7),
+                  {'top': {'c': pale}, 'px': {'c': grey}, 'py': {'c': grey},
+                   'nx': {'c': dkg}, 'ny': {'c': dkg}})
+
+    # BOLLARDS along the front, protecting the wall from the drive
+    n = 3 + int(rnd(3) * 3)
+    for b in range(n):
+        bx = x0 + (x1 - x0) * ((b + 0.5) / n)
+        scene.box((bx, y0 - 0.55, 0), (0.18, 0.18, 0.75), {'c': pale})
+    return scene
+
 def _dress_walls(scene, key):
     """Put panel joints and reveals on the big wall faces, deterministically."""
     import zlib
@@ -4125,6 +4212,7 @@ def main():
         # (Written the wrong way round first, caught before it shipped.)
         # HIS 8/15 ROOF RULING, before the widening so the parapet grows with the
         # building it belongs to rather than floating inside it.
+        _thicken(scene, d)
         _dress_walls(scene, d)
         _dress_roofs(scene, d)
         _fat_and_tall(scene)
