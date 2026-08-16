@@ -1251,6 +1251,25 @@ GATES = [
      "inert. The one fact that unlocks them is who somebody runs with, and the bases for it are "
      "the LOOP'S OWN, baked and gated BYTE-IDENTICAL, because deriving a second set would put the "
      "Cartel in two places depending which surface you stand on", False),
+    ('CLAIM',          ['node', 'gates/claim_gate.js'],
+     "MEMBERSHIP WAS ALL UPSIDE. The ladder (8/12) and the wall (8/15) both model what YOU do "
+     "to THEM -- you could be COUNTED by the Church and they would never once ask you for "
+     "anything. Portes 1998's second dark side of social capital is EXCESS CLAIMS ON GROUP "
+     "MEMBERS, the half no faction system builds: being inside is a relationship that makes "
+     "demands, and refusing costs the standing that made you worth asking. So once an outfit "
+     "counts you it asks, for the thing IT already wants (his 8/2 canon, read never invented); "
+     "saying YES buys NOTHING because meeting an obligation is the rent not a ladder, and that "
+     "asymmetry is the first thing a kind edit would break; saying NO drops you below COUNTED by "
+     "an amount DERIVED from the shipped rungs. Gouldner 1960 is why it has a clock and not a "
+     "price -- an unanswered claim ages in public. The ration is BOH_RESOLVE.makeRation, APPROVED "
+     "7/26 and unadopted until now, proven adopted by deleting the dependency and demanding a "
+     "refusal; its LIMITS stay [PENDING Paolo] (verdict item c) so the surface passes {} and the "
+     "pipe runs without refusing yet. FIVE BUGS IT FOUND: the ration was one per PROCESS so a "
+     "second save started with the week spent; the save was looked up by the DISPLAY LABEL not "
+     "the id (the three-spellings class, sixth time); I hand-edited a GENERATED file and the "
+     "belonging gate silently wiped it; and TWO OF THESE CLAIMS WERE THEMSELVES THE BROKEN ONE -- "
+     "one grepped a faction name out of a COMMENT, one asserted a design that was never the "
+     "design. Both fixed at the ruler, never the target", False),
     ('COMMITMENT',     ['node', 'gates/commitment_gate.js'],
      "A LADDER WITH NO WALL IS A PROGRESS BAR. The 8/12 ladder went stranger to inside and you "
      "could climb all of it by pressing one button ten times, and no other outfit ever heard. The "

@@ -41,6 +41,28 @@ const STAMP = process.env.BOHEMIA_LOOK_STAMP || '8/8/26';
  * ------------------------------------------------------------------------- */
 const SUBJECTS = [
   {
+    id: 'the-claim',
+    title: 'THEY ASK YOU BACK',
+    caption: 'Once an outfit COUNTS you it starts asking, and what it asks for is the thing it already wanted. Saying yes buys you nothing -- it is the rent on being counted. Saying no drops you straight back below counted, and they remember which way you went. CITY tab, tap a person you have done favours for.',
+    keep: '#ctcard',
+    open: `(() => {
+      const bases = ctBases() || {}; let who = null, fid = null;
+      for (const b of Object.values(bases)) {
+        hx = b.x*FN + 2; hy = b.y*FN + 2;
+        for (const p of ctEveryone()) { const f = ctFactionOf(p); if (f) { who = p; fid = f; break; } }
+        if (who) break;
+      }
+      if (!who) return null;
+      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      const sv = ctBelongSave();
+      sv.meta.gave = {}; sv.meta.gave[fid] = 6;
+      sv.meta.commit = {}; sv.meta.commit[fid] = 'sided';
+      sv.meta.claims = {};
+      ctSawCell(); ctOpen();
+      return { card: true, fid: fid };
+    })()`,
+  },
+  {
     id: 'the-wall',
     title: 'THE WALL: turning up runs out of road',
     caption: 'Walk up to anybody who runs with an outfit and this is their card. You have done what they want five times, and it says so: turning up gets you no further than USEFUL, and COUNTED is not for sale at any number of favours. The only button that passes it is saying out loud that you are with them. CITY tab, tap a person.',
