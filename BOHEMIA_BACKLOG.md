@@ -6307,6 +6307,40 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-7. *** THE JOURNEY RULE + THE GOODHART GUARD (sweep 13 catch, 8/15 —
+   records/BOHEMIA_RESEARCH_HE_IS_THE_INTEGRATION_TEST_8_15_26.md. This
+   promotes a lesson ONE LANE ALREADY PAID FOR TWICE into fleet law.)
+   NINE commits in a single 20-commit window are the same confession, in
+   the lanes' own words: "I GATED THE PIECES AND NEVER WALKED THE
+   JOURNEY" / "my gate was green because it did the missing step" / "THE
+   DEMO GATE USES ITS FINGERS: the lesson that cost two 'still not fixed'
+   rounds" / "HE SAID GLITCHY THREE TIMES AND I FINALLY WENT LOOKING AT
+   MY OWN CODE" / "HE CAME BACK FROM THE MOON AND THE CITY FROZE
+   FOREVER". HE IS FUNCTIONING AS THE FLEET'S INTEGRATION TEST AND PAYING
+   FOR IT BY REPEATING HIMSELF — one bug cost him three reports.
+   (1) THE JOURNEY RULE: every player-facing fix ships with at least one
+   test that WALKS THE WHOLE PATH THE WAY A FINGER DOES — real touch
+   events, real surface, start to finish INCLUDING THE WAY BACK — not
+   just the piece that changed. The demo gate lane built the reference
+   implementation; copy it rather than reinventing it.
+   (2) THE GOODHART GUARD: NO NUMBER A PLAYER CAN FEEL MAY BE CHOSEN TO
+   MAKE A GATE PASS. One lane wrote "I HAD SIZED A MAGAZINE TO MAKE A
+   GATE PASS" — a number he will feel, chosen to satisfy a test. That is
+   Goodhart's Law inside the design and it violates his own 8/1 ruling,
+   FIX THE RULER NEVER THE TARGET. If a gate forces a design number, THE
+   GATE IS WRONG; re-derive the number from the ruling and fix the gate.
+   THE CHALLENGE THIS CARRIES, and it is against our most-cited law: A
+   LAW WITHOUT A MACHINE GATE IS NOT ENFORCED is true and stays — but its
+   unwritten corollary is that A GATE TESTING PIECES CERTIFIES NOTHING
+   ABOUT THE JOURNEY, AND A GREEN ONE ACTIVELY STOPS PEOPLE LOOKING. A
+   red gate starts a hunt; a green one ends one. Mars Climate Orbiter is
+   the canonical version: every component verified, the SEAM never was,
+   and the board's finding is ours verbatim — "component verification and
+   interface verification are not the same activity, and most engineering
+   programs treat them as if they are."
+   | the journey rule cited by a new end-to-end test on a real surface +
+   the ammo number re-derived from his ruling rather than the gate | — |
+   no. ***
 -6. *** THE GREYSCALE / COLOURBLIND GATE (sweep 11 catch, 8/15 —
    records/BOHEMIA_RESEARCH_MEANING_THAT_ONLY_LIVES_IN_A_COLOR_8_15_26.md.
    THE MACHINE HALF OUR OWN 8/2 RESEARCH ASKED FOR AND NEVER GOT.)

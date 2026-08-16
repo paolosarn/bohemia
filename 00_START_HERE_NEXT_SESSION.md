@@ -20320,3 +20320,33 @@ CHALLENGE FINDING AGAINST MY OWN WORK: the 8/14 board marked ROW 6 SAVE
 0ff4947), and durability is not compatibility. Board corrected in place.
 Fourth instance this month of verifying the layer we built instead of the
 path the player takes.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/15 (h) — SWEEP 13. THE CATCH IS ABOUT US. Nine
+commits in ONE 20-commit window, from five lanes, are the same
+confession: "I GATED THE PIECES AND NEVER WALKED THE JOURNEY", "my gate
+was green because it did the missing step", "THE DEMO GATE USES ITS
+FINGERS: the lesson that cost two 'still not fixed' rounds", "HE SAID
+GLITCHY THREE TIMES AND I FINALLY WENT LOOKING AT MY OWN CODE", "HE CAME
+BACK FROM THE MOON AND THE CITY FROZE FOREVER", "THE BUTTON WAS LYING 370
+TIMES OUT OF 400", "I HAD SIZED A MAGAZINE TO MAKE A GATE PASS".
+PAOLO IS THE FLEET'S INTEGRATION TEST AND HE PAYS IN REPEATS — one bug
+cost him THREE reports. AND THE COORDINATOR IS IN THE LIST: sweep 12
+relayed "YOUR CRASH IS DEAD" from a commit SUBJECT, never walked; he then
+reported the moon zoom still broken and was right.
+CHALLENGE FINDING against our most-cited law: A LAW WITHOUT A MACHINE
+GATE IS NOT ENFORCED stays true, but A GATE THAT TESTS THE PIECES
+CERTIFIES NOTHING ABOUT THE JOURNEY, AND A GREEN ONE ACTIVELY STOPS
+PEOPLE LOOKING — worst case it reaches into the design and picks a
+number (Goodhart, live, in the magazine). Mars Climate Orbiter is the
+canonical form: every component verified, the seam never, and the board's
+own finding is ours verbatim — component verification and interface
+verification are not the same activity.
+ROUTED: SHARED -7 (THE JOURNEY RULE: every player-facing fix ships a test
+that walks the whole path as a FINGER, including the way back — copy the
+demo gate lane's implementation; plus THE GOODHART GUARD: no number a
+player can feel may be chosen to make a gate pass, re-derive the ammo
+number from his ruling). NEW COORDINATOR-OWNED ARTIFACT:
+records/BOHEMIA_REPEAT_LEDGER.md — every bug he reports and how many
+rounds it took, 2+ rounds must name the gate that was green. Only this
+session sees every report, so only this session can count repeats.

@@ -525,3 +525,60 @@ measurements, high; DFU and expand/contract published practice, high;
 "a schema change will break a playtester's save" is a prediction, flagged
 as such — but it is the default outcome of what the greps show.]
 HIGH-WATER MARK: swept through main @ 477e401 (plus this sweep's push)
+
+## SWEEP 13 — 8/15/26 (his v3 prompt)
+DELTA: 20 commits. THE DECK SLAB COOKED (the board's oldest HIGH row
+closes and the stairs unblock — row 2 moves); SFX-06 gave ears to seven
+more moments the game was playing silently; the LADDER HAS A WALL and
+building it found NOBODY IN THE CITY HAD EVER HAD A FACTION AT ALL; his
+AMMO RULING landed ("the game had no ammo, and that is why one tile could
+win a fight"); CHARACTER enumerated 2X's gate re-bless so the flip has no
+unknowns left; the legacy run slice needed the same ties resync.
+THE CATCH (lens: who is actually testing the seams; both aisles):
+QUESTION: we have well over a hundred gates and our most-cited law is A
+LAW WITHOUT A MACHINE GATE IS NOT ENFORCED. Are they catching what he
+hits, and if not, who is?
+MEASURED: NINE commits in this one window are the same confession, from
+five lanes, in their own words — "I GATED THE PIECES AND NEVER WALKED THE
+JOURNEY", "my gate was green because it did the missing step", "THE DEMO
+GATE USES ITS FINGERS: the lesson that cost two 'still not fixed'
+rounds", "HE SAID GLITCHY THREE TIMES AND I FINALLY WENT LOOKING AT MY
+OWN CODE", "HE CAME BACK FROM THE MOON AND THE CITY FROZE FOREVER", "THE
+BUTTON WAS LYING 370 TIMES OUT OF 400", "I HAD SIZED A MAGAZINE TO MAKE A
+GATE PASS". HE IS THE FLEET'S INTEGRATION TEST AND HE PAYS IN REPEATS —
+one bug cost him THREE reports.
+AND I AM IN THE LIST: sweep 12 opened with "YOUR CRASH IS DEAD", taken
+from a commit SUBJECT and relayed as fact. He then reported the moon zoom
+still broken and was right. The session whose whole job is verification
+relayed a fix it never walked, which is worse from here because he trusts
+the rollup to be the thing that checked.
+AISLES: MARS CLIMATE ORBITER — $327M lost because the spec said
+newton-seconds and the software emitted pound-force-seconds, and the
+board found the project "had no designed process for verifying whether
+the components worked together"; its transferable finding is ours
+verbatim: COMPONENT VERIFICATION AND INTERFACE VERIFICATION ARE NOT THE
+SAME ACTIVITY AND MOST PROGRAMS TREAT THEM AS IF THEY ARE. GOODHART'S LAW
+— "when a measure becomes a target it ceases to be a good measure" —
+whose documented software form is exactly our magazine incident; the
+published mitigation is COUNTER-METRICS.
+CHALLENGE FINDING (against the most-cited law in this repo): A LAW
+WITHOUT A MACHINE GATE IS NOT ENFORCED is true and stays, but its
+unwritten corollary cost us nine times this week — A GATE THAT TESTS THE
+PIECES CERTIFIES NOTHING ABOUT THE JOURNEY, AND A GREEN ONE ACTIVELY
+STOPS PEOPLE LOOKING. A red gate starts a hunt; a green one ends one. In
+its worst form it reaches into the design and picks a number. We have
+been counting gates as if the count were the safety; the safety is
+coverage of the SEAMS.
+ROUTED: SHARED -7 (THE JOURNEY RULE — every player-facing fix ships a
+test that walks the whole path as a finger, including the way back, copy
+the demo gate lane's reference implementation; plus THE GOODHART GUARD —
+no number a player can feel may be chosen to make a gate pass, and the
+ammo number gets re-derived from his ruling). NEW ARTIFACT, COORDINATOR-
+OWNED: records/BOHEMIA_REPEAT_LEDGER.md — every bug he reports and how
+many rounds it took, because only this session sees every report; 2+
+rounds requires naming the gate that was green. AND A RULE ON MYSELF:
+never relay "fixed" from a commit subject again.
+[Confidence: the nine commits are the lanes' own words from our git log,
+high; NASA board and Goodhart are published, high; the claim that a
+repeat ledger would have caught these earlier is a proposal, flagged.]
+HIGH-WATER MARK: swept through main @ 637cca8 (plus this sweep's push)
