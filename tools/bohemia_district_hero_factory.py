@@ -224,44 +224,15 @@ DENSITY_FLOOR = 140          # below the measured median: these are the unfinish
 # including the ones authored as "walls" that a material switch missed.
 ENCLOSURES = False           # Paolo 8/16: no fencing, no perimeter walls, nothing.
 def _strip_enclosures(scene):
-    """Delete anything whose job is to ring the plot. Shape-based, not name-based."""
-    if ENCLOSURES:
-        return scene
-    # the BUILDING: tall mass. Anything low and far from it is site enclosure.
-    bx0 = by0 = 1e9; bx1 = by1 = -1e9
-    for verts, _uv, _n, _m in scene.faces:
-        zs = [v[2] for v in verts]
-        if max(zs) < 3.0:
-            continue                                   # not building mass
-        for (x, y, z) in verts:
-            bx0 = min(bx0, x); bx1 = max(bx1, x)
-            by0 = min(by0, y); by1 = max(by1, y)
-    if bx1 < bx0:
-        return scene
+    """KEPT AS A NO-OP, ON PURPOSE, AS THE RECORD OF A WRONG APPROACH.
 
-    keep = []
-    for f in scene.faces:
-        verts = f[0]
-        zs = [v[2] for v in verts]
-        top = max(zs)
-        xs = [v[0] for v in verts]; ys = [v[1] for v in verts]
-        w = max(xs) - min(xs); d = max(ys) - min(ys)
-        # OUTSIDE the building footprint, with a margin -- an enclosure stands off
-        outside = (max(xs) < bx0 - 0.35 or min(xs) > bx1 + 0.35 or
-                   max(ys) < by0 - 0.35 or min(ys) > by1 + 0.35)
-        if not outside:
-            keep.append(f); continue                   # against the building: kerb, step, dock
-        # A WALL IS LONG, THIN AND OUT AT THE EDGE -- AND HEIGHT DOES NOT EXCUSE IT.
-        # First cut kept anything over 3 units as "building", so every perimeter
-        # wall in the set survived: a yard wall IS tall. Shape decides, not height,
-        # and the only height rule is a ceiling high enough to protect a real
-        # detached wing (a garage, a guard house) from being mistaken for a fence.
-        longthin = (w > 2.0 and d < 0.7) or (d > 2.0 and w < 0.7)
-        post = (w < 0.7 and d < 0.7 and top > 0.8)
-        if (longthin or post) and top < 8.0:
-            continue                                   # it rings the plot: gone
-        keep.append(f)
-    scene.faces = keep
+    I wrote three versions of a clever shape-based sweep to find and delete
+    perimeter walls, and all three removed essentially nothing (2 faces across
+    seven heroes). The walls are AUTHORED, one line at a time, in about five
+    builders -- so the fix was always five direct edits, not a detector. Reaching
+    for a global trick three times in a row while the boring edit sat there is
+    the actual mistake, and deleting this function would hide that it happened.
+    The perimeter walls now route through _fence_box() like the fences do."""
     return scene
 
 def _thicken(scene, key):
@@ -1275,7 +1246,7 @@ def build_courthouse(P):
     for bx in (-2.0, 0.4, 2.8, 5.2, 7.6, 10.0, 12.4):
         s.box((bx - 0.17, 11.4, 0), (0.34, 0.34, 1.0), {'c': BOLL})
     # THE SECURE YARD wall on the west, with a staff car still behind it.
-    s.box((-2.6, 11.2, 0), (9.0, 0.35, 2.4), {'c': WALL})
+    _fence_box(s, (-2.6, 11.2, 0), (9.0, 0.35, 2.4), {'c': WALL})   # Paolo 8/16: no perimeter walls
     return s, 6.8
 
 
@@ -1483,7 +1454,7 @@ def build_chapel(P):
     # it. In this ground you do not dig graves, you build a wall and you fill it.
     for (wx, wy, wdx, wdy) in ((8.1, -0.6, 4.2, 0.3), (8.1, 4.4, 4.2, 0.3),
                                (8.1, -0.6, 0.3, 5.3), (12.0, -0.6, 0.3, 5.3)):
-        s.box((wx, wy, 0), (wdx, wdy, 1.9), {'top': _dark(WALL, 1.1), 'px': _dark(WALL, 1.0),
+        _fence_box(s, (wx, wy, 0), (wdx, wdy, 1.9), {'top': _dark(WALL, 1.1), 'px': _dark(WALL, 1.0),
               'py': _dark(WALL, 0.85), 'nx': _dark(WALL), 'ny': _dark(WALL)})
     for ty in (0.4, 2.0, 3.6):
         s.box((10.0, ty, 0), (0.22, 0.22, 1.4), {'c': _dark(P[3], 1.0)['c']})
@@ -1895,7 +1866,7 @@ def build_interchange(P):
     s.box((9.0, 8.7, 0.13), (1.4, 0.20, 0.03), {'c': GORE})                              # the painted gore
     s.box((12.9, 1.0, 0), (0.30, 0.30, 8.2), {'c': MAST})                                # high-mast light tower
     s.box((12.55, 0.65, 8.2), (1.0, 1.0, 0.5), {'c': _dark(MAST, 1.1)['c']})
-    s.box((-3, -2.9, 0), (18, 0.5, 2.6), {'top': _dark(WALL, 1.06), 'px': _dark(WALL, 1.0),
+    _fence_box(s, (-3, -2.9, 0), (18, 0.5, 2.6), {'top': _dark(WALL, 1.06), 'px': _dark(WALL, 1.0),
           'py': _dark(WALL, 0.82), 'nx': _dark(WALL), 'ny': _dark(WALL)})                # sound wall
     for (bx, by) in [(7.0, 11.4), (10.2, 12.6), (13.0, 10.2)]:
         s.box((bx, by, 0), (0.8, 0.8, 0.55), {'c': BRUSH})                               # dry brush in the infield
@@ -2327,7 +2298,7 @@ def build_suburb(P):
     # THE BLOCK WALL, continuous, which is the whole point of the form
     for (wx, wy, ww, wd) in [(-2.6, -2.6, 15.4, 0.3), (-2.6, -2.6, 0.3, 15.4),
                              (12.5, -2.6, 0.3, 15.4), (-2.6, 12.5, 15.4, 0.3)]:
-        s.box((wx, wy, 0), (ww, wd, 2.1), {'top': _dark(WALL, 1.12), 'px': _dark(WALL, 1.0),
+        _fence_box(s, (wx, wy, 0), (ww, wd, 2.1), {'top': _dark(WALL, 1.12), 'px': _dark(WALL, 1.0),
               'py': _dark(WALL, 0.84), 'nx': _dark(WALL, 1.0), 'ny': _dark(WALL, 0.84)})
     return s, 6.0
 
@@ -2430,7 +2401,7 @@ def build_jail(P):
     s.box((-2.4, 7.2, 0.02), (15.0, 5.6, 0.06), {'c': YARD})
     for (wx, wy, ww, wd) in [(-2.6, 6.9, 15.4, 0.34), (-2.6, 6.9, 0.34, 6.2),
                              (12.4, 6.9, 0.34, 6.2), (-2.6, 12.8, 15.4, 0.34)]:
-        s.box((wx, wy, 0), (ww, wd, 3.4), {'top': {'c': WIRE}, 'px': _dark(WALL, 1.0),
+        _fence_box(s, (wx, wy, 0), (ww, wd, 3.4), {'top': {'c': WIRE}, 'px': _dark(WALL, 1.0),
               'py': _dark(WALL, 0.84), 'nx': _dark(WALL, 1.0), 'ny': _dark(WALL, 0.84)})
     for (gx, gy) in [(-2.2, 7.3), (12.0, 7.3), (-2.2, 12.4), (12.0, 12.4)]:               # THE GUARD TOWERS
         s.box((gx, gy, 0), (0.5, 0.5, 5.2), {'c': _dark(GUARD, 0.86)['c']})
