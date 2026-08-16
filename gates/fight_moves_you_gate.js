@@ -2,41 +2,43 @@
 /* ============================================================================
    THE FIGHT HAS TO MOVE YOU (Paolo 8/15/26, LOCKED, demo-critical)
 
-   > "It's still kind of felt like I just found some cover and I stayed in the
-   >  same place just shooting people at the same location like nothing changed.
-   >  There's no movement. There's no movement whatsoever and I hate it."
+   > "There's no movement. There's no movement whatsoever and I hate it."
 
-   His law names its own test and asks for exactly this gate:
+   His law names its own test and asked for this gate by name:
 
    > "Can the player win this encounter without leaving the first piece of cover
-   >  they reach? If yes, it is not fixed. That is machine-checkable in a
-   >  headless run -- hold position, fire, and see whether the encounter can be
-   >  completed. A gate that plays a fight from one spot and requires it to FAIL
-   >  is the honest check."
+   >  they reach? If yes, it is not fixed. A gate that plays a fight from one
+   >  spot and requires it to FAIL is the honest check."
 
-   So this PLAYS the real fight in a real browser, twice, with ONE policy and one
-   difference between the arms: whether the player is allowed to walk.
+   IT BLOCKS AGAIN. It was downgraded to a printed warning on 8/16 when his
+   realistic-magazine ruling took ammo out of the job of moving him, and the law
+   sat UNMET for exactly one turn. He then picked the mechanism himself:
 
-     ARM A -- never moves.       Clearing ANY fight is a FAILURE.
-     ARM B -- allowed to walk.   Clearing almost none is a FAILURE.
+   > "I like that in rogue fable four you have to go down the dungeon so from one
+   >  second to another so it is a movement goal for stuff."
 
-   Arm B is not decoration. A fight that cannot be won standing still AND cannot
-   be won moving either is not fixed, it is broken, and a gate that only checked
-   arm A would pass an unwinnable game. The control for arm B is the world as it
-   was BEFORE ammo existed: the same policy with rounds made effectively
-   infinite. If ammo has made fights meaningfully less winnable, arm B falls
-   behind that control and this goes red.
+   So every fight has a WAY OUT and reaching it is the win. Killing every man no
+   longer ends the encounter. That is why this can block honestly now: from one
+   spot the win condition is not unlikely, it is UNREACHABLE, and no amount of
+   player skill converts standing still into a victory.
 
-   WHY IT DRIVES THE SHIPPED FUNCTIONS: dryNow, canReload, doReload, doSwap,
-   spendRound, pickTarget, dropRounds and worldShift are the real ones out of the
-   real blob. A gate that re-implemented the ammo maths would be marking its own
-   homework, which is the failure mode that has cost this project three sessions.
+   TWO ARMS, ONE POLICY, one difference: whether the player is allowed to walk.
+     ARM A -- never moves, kills everything it can reach.  Any win is a FAILURE.
+     ARM B -- walks to the way out.                        Losing most is a FAILURE.
+
+   Arm B is not decoration. A fight nobody can win either way is not fixed, it is
+   broken, and a gate that only checked arm A would pass an unwinnable game.
+
+   It drives the SHIPPED functions -- setupCombat, pickTarget, applyDamage,
+   worldShift, exitCheck via the world move, winGame -- because a gate that
+   reimplements the rules marks its own homework, which is the failure that has
+   cost this project three sessions.
    ========================================================================== */
 const path = require('path');
 const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 
 const ALPHA = path.join(__dirname, '..', 'slices', 'BOHEMIA_ALPHA_0_9.html');
-const FIGHTS = 12;   /* enough to separate 0% from most, small enough that the suite stays runnable */
+const FIGHTS = 16;
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, console.log('  FAIL ' + n)); };
@@ -63,194 +65,127 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   }
 
   const res = await frame.evaluate((FIGHTS) => {
-    if (typeof dryNow !== 'function' || typeof dropRounds !== 'function')
+    if (typeof placeWayOut !== 'function' || typeof exitCheck !== 'function')
       return { missing: true };
 
-    /* ONE policy. The arms differ only in `mayWalk` (and, for the control,
-       whether the magazine is refilled behind the player's back). */
-    const play = (mayWalk, infinite) => {
-      let cleared = 0, stuck = 0, n = 0, tiles = 0;
+    /* deterministic, so a hit rate means the same thing on every run */
+    let seed = 4242;
+    const rnd = () => { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; };
+
+    const play = (mayWalk, hit) => {
+      let won = 0, n = 0, tiles = 0, clearedBoardButNotOut = 0, dist = 0;
       for (let a = 1; a <= FIGHTS; a++) {
-        BohemiaArena.set(a); setupCombat();
-        n++;
-        /* STOP ON NO PROGRESS, not on a big step budget. A flat guard of a few
-           thousand made a REGRESSED build take longer than a healthy one, which
-           is a defect in the gate: the check a regression trips must be the fast
-           path, never the slow one. Progress = a man died or rounds were picked
-           up; 60 steps of neither means this fight is going nowhere. */
-        let guard = 0, idle = 0;
-        let seenDead = G.e.filter(e => e && e.dead).length, seenSpare = spareRounds();
-        /* CLOSING ON A GOAL IS PROGRESS. Without this the guard punished the
-           walking arm for walking -- a long trek across the lot to a body looks
-           identical to a stall if you only count kills and pickups, and that
-           made the movement arm lose fights to the CLOCK rather than to the
-           game. Distance to the thing it is heading for is the honest measure. */
-        let lastGoal = Infinity;
+        BohemiaArena.set(a); setupCombat(); n++;
+        dist += (G.exit ? G.exit.edist : 0);
+        let guard = 0;
         for (;;) {
-          if (++guard > 900) break;
-          const nowDead = G.e.filter(e => e && e.dead).length, nowSpare = spareRounds();
-          const goal = (() => {
-            const d = (G.drops || []).filter(x => (x.lvl | 0) === myLvl()).sort((x, y) => x.edist - y.edist)[0];
-            const e = aliveEnemies().sort((x, y) => x.edist - y.edist)[0];
-            return dryNow() ? (d ? d.edist : Infinity) : (e ? e.edist : Infinity);
-          })();
-          if (nowDead > seenDead || nowSpare > seenSpare || goal < lastGoal - 0.01) {
-            idle = 0; seenDead = nowDead; seenSpare = nowSpare;
-          } else if (++idle > 60) break;
-          lastGoal = goal;
-          if (!aliveEnemies().length) break;
-          if (infinite) { G.ammo = G.ammo || {}; G.ammo[WEAPON] = 99; }
-          if (dryNow()) {
-            if (canReload()) { doReload(); continue; }
-            const alt = altWeapon();
-            if (alt && alt !== WEAPON && roundsIn(alt) > 0) { doSwap(); continue; }
-            if (!mayWalk) break;                 /* THE TEST: he refuses to leave */
-            const d = (G.drops || []).filter(x => (x.lvl | 0) === myLvl())
-              .sort((x, y) => x.edist - y.edist)[0];
-            if (!d) break;
-            worldShift(Math.cos(d.ea), Math.sin(d.ea)); tiles++;
-            continue;
+          if (++guard > 400) break;
+          if (G.over) break;
+          if (mayWalk && G.exit) {
+            worldShift(Math.cos(G.exit.ea), Math.sin(G.exit.ea)); tiles++;
+            if (G.over) break;
           }
           const i = pickTarget();
-          if (i < 0) {
-            if (!mayWalk) break;
-            const e = aliveEnemies().sort((x, y) => x.edist - y.edist)[0];
-            if (!e) break;
-            worldShift(Math.cos(e.ea), Math.sin(e.ea)); tiles++;
-            continue;
-          }
-          spendRound();
-          if (G.e[i]) {
+          if (i >= 0 && rnd() < hit && G.e[i]) {
             applyDamage(G.e[i], KILL_DMG);
-            if (G.e[i].hp <= 0) { G.e[i].dead = true; dropRounds(G.e[i]); }
+            if (G.e[i].hp <= 0) G.e[i].dead = true;
+            /* THE GAME GETS ITS OWN CHANCE TO DECLARE A WIN. Without this the
+               harness killed men behind the engine's back and checkClear -- the
+               exact function that decides whether a cleared board ends the
+               fight -- was never called, so mutating it changed nothing and the
+               gate passed a build where camping won again. Caught by mutation
+               testing, which is the only reason this line exists. */
+            try { checkClear(); } catch (e) { }
+            if (G.over) break;
           }
+          if (!mayWalk && !aliveEnemies().length) { clearedBoardButNotOut++; break; }
         }
-        if (!aliveEnemies().length) cleared++; else stuck++;
+        if (G.win) won++;
       }
-      return { n, cleared, stuck, tiles };
+      return { n, won, tiles, clearedBoardButNotOut, dist: dist / n };
     };
 
-    /* and the ammo model itself, driven rather than read */
-    BohemiaArena.set(1); setupCombat();
-    const startRounds = roundsIn(WEAPON);
-    const magFull = magSize(WEAPON);
-    const before = roundsIn(WEAPON);
-    spendRound();
-    const afterShot = roundsIn(WEAPON);
-    while (roundsIn(WEAPON) > 0) spendRound();
-    const dryAfterSpending = dryNow();
-    const reloadRefusedWhenEmptyPockets = (spareRounds() === 0) && !canReload();
-    /* a man falls, and his rounds are on the ground where he fell, not on you */
-    const dropsBefore = (G.drops || []).length;
-    const victim = G.e.find(e => e && !e.dead);
-    if (victim) dropRounds(victim);
-    const dropsAfter = (G.drops || []).length;
-    const spareBeforePickup = spareRounds();
-    /* and only walking onto it takes it */
-    const d0 = G.drops[G.drops.length - 1];
-    d0.edist = 6; d0.lvl = myLvl();
-    sweepDrops();
-    const stillThereAtRange = (G.drops || []).length === dropsAfter && spareRounds() === spareBeforePickup;
-    d0.edist = 0.5;
-    sweepDrops();
-    const takenWhenReached = (G.drops || []).length === dropsAfter - 1 && spareRounds() > spareBeforePickup;
+    /* the way out itself, driven rather than read */
+    BohemiaArena.set(3); setupCombat();
+    const placed = !!G.exit;
+    const startDist = G.exit ? G.exit.edist : 0;
+    const bearing = G.exit ? G.exit.ea : 0;
+    /* it is a TILE: the world moving under him must change how far it is */
+    const before = G.exit.edist;
+    worldShift(Math.cos(bearing), Math.sin(bearing));
+    const closed = before - G.exit.edist;
+    /* and standing on it is the win */
+    G.exit.edist = 0.2;
+    const wonBefore = !!G.win;
+    exitCheck();
+    const wonByArriving = !wonBefore && !!G.win && !!G._wonByExit;
+
+    /* the ammo feature is OFF by his second rejection, and must stay off */
+    BohemiaArena.set(4); setupCombat();
+    const ammoOff = (typeof AMMO_ON !== 'undefined') && AMMO_ON === false;
+    const gunNeverDry = (() => { for (let k = 0; k < 60; k++) spendRound(); return !dryNow(); })();
+    const noLitter = (G.drops || []).length === 0;
 
     return {
-      still: play(false, false),
-      moving: play(true, false),
-      control: play(true, true),
-      startRounds, magFull, before, afterShot,
-      dryAfterSpending, reloadRefusedWhenEmptyPockets,
-      dropped: dropsAfter === dropsBefore + 1,
-      stillThereAtRange, takenWhenReached,
+      still: play(false, 0.9),
+      moving: play(true, 0.9),
+      placed, startDist, closed, wonByArriving,
+      ammoOff, gunNeverDry, noLitter,
     };
   }, FIGHTS);
 
   if (res.missing) {
-    console.log('  FAIL the ammo model is not in the shipped blob at all (dryNow/dropRounds missing)');
+    console.log('  FAIL there is no way out in the shipped blob at all (placeWayOut/exitCheck missing)');
     console.log('=== FIGHT MOVES YOU GATE: 0 passed, 1 failed ===');
     await browser.close();
     process.exit(1);
   }
 
-  const s = res.still, m = res.moving, c = res.control;
+  const s = res.still, m = res.moving;
+  console.log('  never moves: won ' + s.won + '/' + s.n
+    + ' (board cleared but still standing there: ' + s.clearedBoardButNotOut + ')'
+    + '   |  walks to it: won ' + m.won + '/' + m.n
+    + ' after ' + (m.tiles / m.n).toFixed(1) + ' tiles');
 
-  console.log('  never moves: cleared ' + s.cleared + '/' + s.n
-    + '   |  walking: cleared ' + m.cleared + '/' + m.n + ' (' + m.tiles + ' tiles)'
-    + '   |  control (infinite rounds): cleared ' + c.cleared + '/' + c.n);
+  /* ---- THE RULING, BLOCKING ---- */
+  ok('HIS TEST: the fight CANNOT be won without leaving the first cover you reach'
+    + ' (won ' + s.won + ' of ' + s.n + ' standing still)',
+    s.won === 0);
 
-  /* ---- THE RULING, AND WHY THIS CHECK NO LONGER BLOCKS ----
-     V157 asserted `s.cleared === 0` and it PASSED, because the starting load was
-     three rounds. Paolo played it and ruled on 8/16:
-
-       "I hate that I ran out of ammo... I thought it was unrealistic like I only
-        had like eight bullets on that I did not like it."
-
-     He is right, and V158 gave the guns real magazines. MEASURED across a band
-     of hit rates with those magazines, clearing the fight WITHOUT MOVING:
-
-       100%: 13/20    90%: 12/20    80%: 12/20    70%: 13/20    60%: 12/20
-
-     So AMMO CANNOT BE BOTH REALISTIC AND THE THING THAT MOVES HIM. Those are two
-     of his own rulings and they conflict on this exact number.
-
-     TWO LAWS DECIDE WHAT HAPPENS NEXT AND BOTH POINT THE SAME WAY. Newest date
-     wins, and the ammo ruling is 8/16 against the movement law's 8/15. And A
-     GATE MUST NEVER OUTRANK A RULING -- keeping this blocking would force his
-     fiction back to three bullets to keep a check green, which is precisely the
-     inversion that produced the bad number in the first place.
-
-     SO IT REPORTS INSTEAD OF BLOCKING, LOUDLY, and the movement law is recorded
-     UNMET and PENDING HIS CALL rather than quietly marked done. It goes back to
-     blocking the moment he rules on which mechanism carries movement -- the
-     number below is the one that has to reach zero. */
-  console.log('  [LAW UNMET, PENDING PAOLO] fights cleared without ever moving: '
-    + s.cleared + ' of ' + s.n + '. THE FIGHT HAS TO MOVE YOU (8/15, LOCKED) is NOT satisfied. '
-    + 'Ammo cannot carry it at his 8/16 realistic-magazine ruling; measured, it needs a hit rate '
-    + 'below ~50% before scarcity bites. This must reach 0 by some other mechanism.');
-
-  /* what IS still decided, and still blocks */
-  ok('THE AMMO MECHANISM IS LIVE: the fight is playable end to end with rounds being spent',
-    s.n === FIGHTS && m.n === FIGHTS);
+  /* WHAT THIS CHECK IS FOR, and it is not a percentage. Arm A winning zero would
+     also be true of a build where he simply could not kill anybody, so this
+     proves the rule was actually EXERCISED: fights where the board really was
+     emptied and it STILL was not a win. The threshold is a floor, not a rate --
+     a rate would be measuring how often his gun reaches, which is a different
+     question and not this law's. */
+  ok('AND IT IS NOT A TECHNICALITY: killing every man on the board still does not end it'
+    + ' (' + s.clearedBoardButNotOut + ' of ' + s.n + ' fights emptied the board and were still not won)',
+    s.clearedBoardButNotOut >= 3);
 
   /* ---- and it is a fight, not a wall ---- */
-  ok('AND IT IS STILL WINNABLE ONCE YOU MOVE (cleared ' + m.cleared + ' of ' + m.n + ')',
-    m.cleared >= Math.ceil(m.n * 0.6));
+  ok('AND IT IS WINNABLE ONCE YOU WALK (won ' + m.won + ' of ' + m.n + ')',
+    m.won >= Math.ceil(m.n * 0.9));
 
-  ok('AND MOVING IS NOT MEASURABLY WORSE OFF THAN THE OLD INFINITE-AMMO WORLD --'
-    + ' if scarcity had made fights unwinnable rather than unstandable, this arm would fall behind the control'
-    + ' (' + m.cleared + ' vs control ' + c.cleared + ')',
-    m.cleared >= c.cleared - Math.ceil(c.n * 0.15));
-
-  ok('and the walking arm actually WALKS -- a pass earned by standing still would be a broken test',
+  ok('the walking arm actually WALKS -- a pass earned by standing still would be a broken test',
     m.tiles > 0);
 
-  /* ---- the model, driven ---- */
-  ok('a shot spends exactly one round (' + res.before + ' -> ' + res.afterShot + ')',
-    res.afterShot === res.before - 1);
+  ok('A JOURNEY IS NOT A FIGHT: the way out is a real trip but a bounded one. The first cut put it beyond the FURTHEST man and measured 32.8 tiles against a fight that lasts about 14 turns, which is a hike with a gunfight at the start (starts ' + m.dist.toFixed(1) + ' tiles out)',
+    m.dist >= 8 && m.dist <= 20);
 
-  /* V158 REPLACED THIS CHECK ENTIRELY. It used to demand he start with LESS than
-     a full magazine -- a rule I invented so the one-spot test would pass, and
-     which put three rounds in a pistol. He read that number on his own screen
-     and called it unrealistic, and he was right. A person who walked into a
-     fight has a LOADED GUN; what he does not have is spares. */
-  ok('HE STARTS WITH A FULL MAGAZINE, and a real one (' + res.startRounds + ' of ' + res.magFull + ')',
-    res.startRounds === res.magFull && res.magFull >= 6);
+  /* ---- the mechanism, driven ---- */
+  ok('every fight is given a way out at the bell', res.placed && res.startDist > 0);
 
-  ok('AND THE SPARES ARE NOT IN HIS POCKETS, they are on the men he drops -- which is the mechanism, and it survives his ammo ruling intact',
-    res.reloadRefusedWhenEmptyPockets);
+  ok('it is a TILE, not a direction: walking toward it closes the distance, so the world moving under him IS him arriving',
+    res.closed > 0.5);
 
-  ok('spending the magazine leaves the gun dry, and with empty pockets there is nothing to reload from',
-    res.dryAfterSpending && res.reloadRefusedWhenEmptyPockets);
+  ok('and standing on it wins the fight, flagged as the way out rather than as a board clear',
+    res.wonByArriving);
 
-  ok('THE DEAD ARE THE SUPPLY: a man who falls leaves rounds on the board',
-    res.dropped);
+  /* ---- his second rejection, held ---- */
+  ok('AMMO IS OFF BY HIS SECOND REJECTION ("I\'m not a big fan of the ammo being depleted"), and STOP PRODUCING says a second rejection ends the feature. The gun does not run dry, and the ground is not littered with rounds',
+    res.ammoOff && res.gunNeverDry && res.noLitter);
 
-  ok('AND THEY LIE WHERE HE FELL, so they are only yours once you have walked to them'
-    + ' -- which is the whole mechanism, not a detail',
-    res.stillThereAtRange && res.takenWhenReached);
-
-  ok('no page errors while playing ' + (s.n + m.n + c.n) + ' fights', errors.length === 0);
+  ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 
   console.log('=== FIGHT MOVES YOU GATE: ' + pass + ' passed, ' + fail + ' failed ===');

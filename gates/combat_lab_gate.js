@@ -4488,10 +4488,49 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
      Paolo read on his own screen and called unrealistic. He was right: a 9mm
      magazine is 15 to 17. The law being checked is that AMMO EXISTS, never that
      it is scarce enough to satisfy some other check. */
-  ok('V157 THE GAME HAS AMMO AT ALL. It had NONE -- infinite bullets since day one, in a game about scarcity. V158: and the magazines are REAL ones, because a number he can read off the screen is part of the fiction',
-    demo.includes('const MAG={pistol:15, smg:30, rifle:20, shotgun:6};') &&
-    demo.includes('const START_LOADED={pistol:15, smg:30, rifle:20, shotgun:6};') &&
-    /function dryNow\(\)\{ return roundsIn\(WEAPON\)<=0; \}/.test(demo));
+  /* V159 RE-POINTED: Paolo rejected ammo depletion a SECOND time ("I'm not a big
+     fan of the ammo being depleted"), and STOP PRODUCING says a second rejection
+     ends the feature. It is OFF behind one dial rather than deleted, because he
+     said he was not a fan, not kill it. So what is checked is that the whole
+     thing is genuinely off and reversible in one word -- and that it is off at
+     the SOURCE (the dial), never by quietly gutting the functions. */
+/* ===== V159 THE WAY OUT ===========================================
+   Paolo 8/16: "I like that in rogue fable four you have to go down the dungeon
+   so from one second to another so it is a movement goal for stuff so I think
+   that's important."
+   Mechanism 5 from his own law, and the only one that cannot be TANKED: cover
+   decay, flankers and the flush all make standing still worse and a good player
+   eats all three. A destination is not a punishment for staying, it is a place
+   you have to reach, so from one spot the win is not unlikely, it is unreachable.
+   The behaviour lives in gates/fight_moves_you_gate.js, which plays it. What
+   belongs here is the shape: derived not designed, world state not a direction,
+   and the win reading as the way out rather than as a board clear. */
+  ok('V159 EVERY FIGHT HAS A WAY OUT AND REACHING IT IS THE WIN, and killing every man no longer ends the encounter -- the RF4 shape, where clearing a floor does not advance you, taking the stairs does',
+    demo.includes('function placeWayOut(){') &&
+    demo.includes('function exitCheck(){') &&
+    /if\(EXIT_ON&&G\.exit\)\{ try\{ setRead\('NOTHING LEFT IN YOUR WAY'/.test(demo) &&
+    /function afterKill\(\)\{ if\(aliveEnemies\(\)\.length===0&&!\(EXIT_ON&&G\.exit\)\)return winGame\(\);/.test(demo));
+
+  ok('V159 DERIVED, NEVER DESIGNED (MAP LAW): the way out is read off the bearing the threat is coming FROM, exactly as V137 derives the hold place from that same bearing. Nothing authors a layout',
+    /const threat=n\?Math\.atan2\(sy,sx\):0;\s*\n\s*const d?=?.*G\.exit=\{ea:threat/.test(demo.replace(/\r/g, '')) ||
+    (/G\.exit=\{ea:threat/.test(demo) && /for\(const e of \(G\.e\|\|\[\]\)\)\{ if\(!e\|\|e\.dead\)continue;\s*\n\s*sx\+=Math\.cos\(e\.ea\)/.test(demo)));
+
+  ok('V159 IT IS A TILE, NOT A DIRECTION: worldShift carries it like every other piece of world state, and reaching it is checked on every world move -- if it travelled with him he could never arrive',
+    demo.includes('if(G.exit)mv(G.exit,0.02);') &&
+    demo.includes('try{exitCheck();}catch(_e){}'));
+
+  ok('V159 AND IT IS PLACED AFTER THE RESET THAT CLEARS IT. setupCombat calls resetFightState LATER in its own body, so placing the way out earlier put it on the board and wiped it one line later -- measured, a null exit and 0 tiles walked in every fight. Same class as V151\'s damage faces: written, then undone by the next statement',
+    /resetFightState\(\); placeWayOut\(\);/.test(demo));
+
+  ok('V159 AND THE WIN SAYS WHICH WIN IT WAS -- getting out is not "area clear", and a readout that called it that would teach him the wrong rule',
+    /setRead\(G\._wonByExit\?'YOU MADE IT':'AREA CLEAR'/.test(demo));
+
+  ok('V159 THE AMMO IS OFF BY HIS SECOND REJECTION, behind ONE dial, with the mechanism intact underneath so one word brings it back',
+    demo.includes('const AMMO_ON=false;') &&
+    /function dryNow\(\)\{ return AMMO_ON && roundsIn\(WEAPON\)<=0; \}/.test(demo) &&
+    /function spendRound\(\)\{ if\(!AMMO_ON\)return 99;/.test(demo) &&
+    /function dropRounds\(e\)\{ if\(!AMMO_ON\)return;/.test(demo) &&
+    demo.includes('const MAG={pistol:15, smg:30, rifle:20, shotgun:6};'));
 
   ok('V158 AND HE STARTS WITH A LOADED GUN: every weapon\'s starting load IS its magazine, because a person who walked into a fight has a full gun. What he does not have is spares -- those come off the men he drops, which is the mechanism and it survived his ruling intact',
     /const MAG=\{([^}]*)\};/.test(demo) &&

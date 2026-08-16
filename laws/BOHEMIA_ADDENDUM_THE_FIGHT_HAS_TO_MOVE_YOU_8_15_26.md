@@ -84,8 +84,8 @@ it to FAIL is the honest check, and it is what should prove this ruling is satis
 
 ## STATUS 8/16/26 — ATTEMPTED WITH AMMO, AND IT COLLIDED WITH A NEWER RULING
 
-**The law is NOT satisfied. It is UNMET and PENDING Paolo's call.** Recorded here
-rather than left in a session's head.
+**SUPERSEDED BY THE 8/16 ENTRY BELOW. He picked the mechanism and it is built.**
+Kept because the reasoning is the record of how it was got wrong first.
 
 **What was tried (v157):** mechanism 6, *the resource is elsewhere*. The game had
 no ammo at all — infinite bullets since day one — so guns got magazines, shots
@@ -130,3 +130,48 @@ their own. The ammo mechanism from v157 stays — it is good, and it is real —
 simply is not load-bearing for this law.
 
 **This is Paolo's call and was not decided for him.**
+
+
+---
+
+## STATUS 8/16/26 (LATER) — SATISFIED. HE PICKED THE MECHANISM HIMSELF.
+
+> *"I like that in rogue fable four you have to go down the dungeon so from one
+> second to another so it is a movement goal for stuff so I think that's
+> important."*
+
+That is **mechanism 5, THE OBJECTIVE MOVES**, and it is now built (v159).
+
+**EVERY FIGHT HAS A WAY OUT, AND REACHING IT IS THE WIN.** Killing every man on
+the board no longer ends the encounter. That is the RF4 shape exactly: clearing a
+floor does not advance you, taking the stairs does.
+
+**Why this one works where 1, 2 and 3 did not.** Cover decay, flankers and the
+flush all make standing still *worse*, and a good player eats all three — which is
+what he was reporting, four times. A destination is not a punishment for staying.
+From one spot the win condition is not unlikely, it is **unreachable**, and no
+amount of player skill converts standing still into a victory.
+
+**Derived, never designed (MAP LAW).** Placed on the bearing the threat is coming
+from, at the range the nearest man is holding, clamped to 10–18 tiles. It reads
+where they already are and authors nothing. Bounded because the first cut put it
+beyond the *furthest* man and measured 32.8 tiles, which is a hike with a gunfight
+at the start.
+
+**MEASURED, one policy, two arms:**
+
+```
+NEVER MOVES     won  0 / 16      (11 of those emptied the board and still had not won)
+WALKS TO IT     won 16 / 16      after ~13 tiles
+```
+
+**The gate BLOCKS again.** `gates/fight_moves_you_gate.js` was downgraded to a
+printed warning for exactly one turn while the law sat unmet; it now enforces.
+Mutation-tested: restoring "killing everyone wins" makes the never-moves arm win
+10 of 16 and takes it red. That mutation also exposed a hole in the gate itself —
+the harness was killing men behind the engine's back so `checkClear` was never
+called and the mutation changed nothing. Fixed.
+
+**Ammo (v157) is OFF**, by his second rejection on the same day, behind one dial
+with the mechanism intact. It was only ever scarce because it was carrying this
+law; it is not needed for that any more.
