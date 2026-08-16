@@ -416,3 +416,21 @@ recooked before it ever shipped. First version of the cook also failed the
 look (stick-figure beam, clean wedge drift) and was iterated ONCE before
 wiring: render-and-look applies to my own cooks the same as to the world.
 Verified live at a buffered end against the yard shed; card reshot.
+
+## 8/16 TWENTY-FIRST PASS: THE DECK SLAB COOKS, AND THE STAIRS UNBLOCK
+
+The oldest HIGH-priority row on the board (TF-CMB-004, OPEN since 7/28,
+blocking the 8/11-approved stairs) is cooked: 14 pieces - three top plates
+plus the wet colorway, the WANG edge/corner ring with the sun-lit lip, the
+edge-beam face authored to the demo's own DECK_H ratio with hard formwork
+verticals + efflorescence + rebar rust, and the near-black soffit (the dark
+where nobody patrols). THREE RENDER-AND-LOOK ITERATIONS before banking: the
+starter concrete tiles are heavily CRACKED ground - right colour, wrong
+condition for a structural plate - so the plate is synthesized from their
+colour statistics with only hairline cracks kept; then the crack pattern
+repeated across edge tiles sharing a seed and was re-seeded per tile. Ghost
+stall paint is sampled from the approved TF-ART-003 stripe - the free win
+the 7/28 form predicted if the stripes ever went UP, and they did.
+WIRING IS THE COMBAT LANE'S (the fight field renderer is their system). The
+handoff flags them: both deck banks ready to wire together. NOT IN A TAB
+YET - the deck reaches Paolo when COMBAT wires it into their surface.

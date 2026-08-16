@@ -182,7 +182,7 @@
 - [ ] caption JSON parses and matches sections C and D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: COMBAT lane | DATE: 7/28/26 | PRIORITY: HIGH
+- STATUS: COOKED 8/16/26 (tools/tfcook/TF-CMB-004_cook.py -> banks/tileforms/TF-CMB-004_CANDIDATES_8_16_26.json, 14 pieces: 3 top variants + wet, WANG edges/corners with the lit lip, the beam face at the DECK_H ratio, the soffit). Cooked to the form: plate synthesized from the approved starter concrete COLOUR (the raw tiles are cracked ground - wrong condition for a structural plate, caught on the first render), ghost stall paint sampled from the approved TF-ART-003 stripe exactly as the form predicted. Ships under EVERYTHING IS A THUMB 8/9. WIRING BELONGS TO THE COMBAT LANE (the fight field renderer is their system; one system one session) - the 8/11-approved TF-CMB-005 stairs are UNBLOCKED by this cook and both banks are ready to wire together. | REQUESTED BY: COMBAT lane | DATE: 7/28/26 | PRIORITY: HIGH
 - BOARD ROW #: 53 | VERDICT: — | RELATED: board row 1 (interior stairs + garage
   ramp/deck-edge) covers the INTERIOR half of the same problem; this form is the
   EXTERIOR open-air deck. Cook them together, judge them together, do not cook

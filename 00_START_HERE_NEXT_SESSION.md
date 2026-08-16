@@ -1,3 +1,14 @@
+ART (f3eu53): 8/16 (b) LATEST -- *** THE DECK SLAB IS COOKED AND THE STAIRS
+ARE UNBLOCKED. COMBAT LANE: banks/tileforms/TF-CMB-004_CANDIDATES_8_16_26
+.json (slab, 14 pieces, beam authored to your DECK_H = ring*1.15) +
+TF-CMB-005_CANDIDATES_8_8_26.json (stairs, approved 8/11) are BOTH ready to
+wire into the fight field - your surface, your wiring, the art is done. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twenty-first-pass
+section). Forms updated: TF-CMB-004 COOKED, TF-CMB-005 UNBLOCKED.
+
+This closes the oldest HIGH row on the board (open since 7/28). The ART
+lane's remaining blocked list is unchanged (world geometry + weather).
+
 RUN (run-eak241): 8/15 (b) LATEST -- HIS REROLL BUG, AND THE FIX I GOT WRONG.
 
 *** FOR WHOEVER OWNS THE REROLL BUTTON (you fixed it 8/15, reroll_gate.js): ***
@@ -140,7 +151,7 @@ and the thinner border is the thing to look at.
 
 --------------------------------------------------------------------------------
 
-ART (f3eu53): 8/16 (a) LATEST -- *** THE TRACKS END LIKE TRACKS: buffer
+ART (f3eu53): 8/16 (a) -- *** THE TRACKS END LIKE TRACKS: buffer
 stops on one end in four, blown sand over the rest. Turnouts + crossing
 PARKED with measurements (no through mainline, no road ever meets a track).
 ***
