@@ -42,7 +42,10 @@ ok('the colour is a flag, not a literal buried in the loop',
 const iSkin = src.indexOf('const SKINNER_API=(function(){');
 const iRigid = src.indexOf('const RIGID = { on: true };');
 const iFlag = src.indexOf('const CHAR_OUTLINE');
-const iFn = src.indexOf('function buildFrame(d,clip,ph){');
+/* SIGNATURE-AGNOSTIC. buildFrame took a 4th parameter (_noOutline) when the
+   border moved to display size; anchoring on the exact old signature missed and
+   silently failed two assertions that were about SCOPE, not about arity. */
+const iFn = src.indexOf('function buildFrame(d,clip,ph');
 ok('the anchors are all found', iSkin > 0 && iRigid > 0 && iFlag > 0 && iFn > 0);
 ok('CHAR_OUTLINE is NOT declared back in the skinner closure next to RIGID',
   Math.abs(iFlag - iRigid) > 400);
@@ -61,8 +64,13 @@ ok('the general rule is recorded: a load-time hang is a page error, capture page
   /Capture `pageerror` FIRST/.test(law));
 
 /* ---- the pass itself --------------------------------------------------- */
-const m = src.match(/if\(CHAR_OUTLINE\.on\)\{[\s\S]*?\n  \}/);
-ok('the outline pass is present in buildFrame', !!m);
+/* THE PASS IS A FUNCTION NOW, so it can run at 56 or at 112 -- that is the whole
+   fix for "the black border has to be thinner, like half as thin" (it was drawn at
+   56 and then DOUBLED by the Scale2x that takes the frame to 112). Not one line of
+   its logic changed, so every assertion below about its CONTENT still runs, against
+   applyCharOutline instead of against an inline block. */
+const m = src.match(/function applyCharOutline\(px,CW,CH\)\{[\s\S]*?\n  return px;\n\}/);
+ok('the outline pass exists and is callable at any frame size', !!m);
 if (!m) done();
 const pass = m[0];
 
@@ -91,7 +99,9 @@ ok('it is orthogonal 4-neighbour, not diagonal (diagonals make fat corners)',
 /* ---- ORDER. Last pass or it gets covered. ------------------------------ */
 const iFloater = src.indexOf('FINAL FLOATER CULL');
 const iSep = src.indexOf('_SEPMAP');
-const iPass = src.indexOf('if(CHAR_OUTLINE.on){');
+/* the CALL is what must come last inside buildFrame; the definition can live
+   anywhere. `if(CHAR_OUTLINE.on && !_noOutline)` is that call site. */
+const iPass = src.indexOf('if(CHAR_OUTLINE.on');
 const iRet = src.indexOf('  return {px,CW,CH};');
 ok('the outline runs AFTER the final floater cull, so it never outlines a dead speck',
   iFloater > 0 && iPass > iFloater);

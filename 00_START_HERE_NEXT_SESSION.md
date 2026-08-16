@@ -198,6 +198,68 @@ asking things of YOU, and refusing costs a rung. The research is done and in the
 law; the organ is not built. (2) consolidate the two RUNGS tables. (3) the RATION
 half of the 7/26 verdict is still unadopted.
 
+CHARACTER (character-0lurbs): 8/16 LATEST -- *** THE BORDER IS ONE PIXEL. AND 2X IS
+NOT A CODE PROBLEM ANY MORE -- IT IS A PAINTING PROBLEM. READ THAT SECOND PART. ***
+
+SHIPPED: his 8/14 "the black border has to be thinner, like half as thin", measured
+2px -> 1px against skin on all 8 facings, with 0 of ~18,000 non-border pixels
+changed. CHAR_OUTLINE was ALWAYS drawing one pixel and was always correct; it just
+ran BEFORE the Scale2x that takes the frame to 112, so his border arrived doubled.
+The pass moved to after the upscale. COMBAT too (bake112) -- fixing only drawChar
+would outline him 1px in CHARACTER and 2px in COMBAT.
+  Law:  laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md
+  Gate: gates/border_gate.js  6/0, MUTATION-TESTED (put the pass back before the
+        upscale and it reports 2px on all 8, which is exactly the old build).
+  TAB: CHARACTER. Also visible anywhere a person is drawn -- RUN, CITY, COMBAT.
+
+*** 2X: BUILT, PROVED, AND DELIBERATELY OFF. DO NOT JUST TURN IT ON. ***
+The renderer can compose natively at 112 today: RIG_RS (one scalar off BAKED),
+RIG2X() (the load-time doubler, PROVED lossless and exactly invertible on his real
+rig -- halve it back and you get his pixels byte for byte), and 23 seams. PD layers
+stay 24-grid, all 258 CLO garments stay 56, both block-stamp at their seam; not one
+garment was touched. Every seam is the IDENTITY at RIG_RS=1 and that was PROVED --
+96 frames captured before and after, 96/96 byte-identical.
+    python3 tools/bohemia_2x_flip.py --flip     (and --unflip)
+
+IT IS OFF BECAUSE AT 112 HIS HEAD RENDERS AS A BOX. Flat-sided hair, a jaw that
+drops straight down with no taper. His art holds 56x56 of information and doubling
+invents none; what ALSO vanishes is that Scale2x does not merely enlarge, IT ROUNDS
+DIAGONAL CORNERS, and a large part of that head's roundness was never painted -- it
+was manufactured by the upscaler in every build he has ever approved. Composing
+natively removes it, straight into the LOCKED 8/1 law "no straight lines (hair is
+little off shapes)".
+THE TEMPTING WRONG FIX is to double the rig with Scale2x so the rounding bakes in.
+That RESHAPES HIS PAINTED ART (RIG LAW) and destroys the round-trip proof that makes
+the doubler legal at all. Do not.
+THE REAL ANSWER: twice the pixels means PAINTING AT 112, not upscaling to it. The
+pipeline is ready the day the art exists.
+  Full finding, with every measurement: records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_8_16_26.txt
+
+FOUR GATES READ 56 INTO A 112 WORLD AND ALL FOUR WERE RULERS, NOT DEFECTS -- a hard
+`* 2` from rig space to render space (reads at 224, returns null, reports "the head
+has no edge"); a scan loop stopping at x<56 (walks off the face, reports the skin
+HALF as wide); an edge test comparing two halves of ONE doubled pixel (the tell was
+EXACTLY 20/40); and CHIN LAW B's "one row" cap, which is a DEPTH he ruled on a
+56-tall face, not a row count. All re-blessed via tools/bohemia_2x_gate_rebless.py
+and EVERY ONE re-run at 56 first, where it had to return the identical verdict AND
+the identical numbers. It did. A ruler fix that changes an old verdict is not a
+fix, it is a relaxation.
+
+STILL HIS, STILL OPEN: NE and NW have no face painted at all (this is why PARTS
+PAINTED and BODY VARIATION each carry one red). Verified on a clean tree, not a
+regression.
+
+*** THE WORKING COPY STILL REVERTS BETWEEN TURNS -- it happened AGAIN this session
+(HEAD came back at 968 commits while origin/main was at 1042), and the local
+origin/main ref lies too, so every "am I current?" check agrees with itself.
+RESYNC BEFORE TOUCHING ANYTHING and treat any measurement taken before it as VOID:
+    SHA=$(git ls-remote origin main | cut -f1)
+    git fetch --force --no-tags origin main
+    git update-ref refs/remotes/origin/main $SHA
+    git checkout -f -B claude/character-0lurbs origin/main
+Last session's final green sweep was measured on a stale 968 tree and was void; it
+was re-run clean this turn. ***
+
 CHARACTER (character-0lurbs): 8/15 -- *** 2X IS FULLY PREPPED. THE FLIP HAS NO UNKNOWNS
 LEFT. *** Steps 1-4 still NOT applied (they land together or not at all).
 

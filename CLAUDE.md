@@ -231,6 +231,23 @@ research partner. He DECIDES, you PRODUCE.
   A GATE MUST NEVER OUTRANK A RULING, a checker that cannot tell a mention from a use
   is the broken one, fix the ruler never the target, and do not claim things about
   the codebase without checking. Gate: craft_law_gate.js.
+- THE BORDER IS ONE PIXEL WHERE HE SEES IT (Paolo 8/14 + 8/15, LOCKED): "the black
+  border has to be thinner, like half as thin". CHAR_OUTLINE always drew ONE pixel
+  and was always correct -- it just ran BEFORE the Scale2x that takes the frame to
+  112, so his border arrived DOUBLED. A pass can be individually right and still be
+  wrong because of WHERE IT SITS IN THE PIPELINE, and no amount of reading the pass
+  finds that; only measuring the pixels he receives does (VERIFY ON THE REAL
+  SURFACE). The border pass is now the LAST thing before display, at display size,
+  on EVERY path that draws a character (drawChar AND bake112 -- fixing one alone
+  outlines him 1px in CHARACTER and 2px in COMBAT). Measured 2px -> 1px, all 8
+  facings, with 0 of ~18,000 non-border pixels changed. Full law:
+  laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md  Gate: border_gate.js
+  THE OTHER HALF OF THAT RULING ("twice as many pixels") IS NOT SHIPPED AND IS NOT
+  A CODE PROBLEM: the 112 pipeline is built, proved seam-by-seam and dormant at
+  RIG_RS=1, but his art holds 56x56 of information and composing natively removes
+  the corner-rounding Scale2x was silently doing -- the head renders as a BOX,
+  straight into the 8/1 "no straight lines" law. Twice the pixels means PAINTING at
+  112. Full finding: records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_8_16_26.txt
 - NO DAMAGE BEFORE THE DIAL. EVER.
 
 ## LORE YAP SESSIONS (no code involved — a first-class session type)

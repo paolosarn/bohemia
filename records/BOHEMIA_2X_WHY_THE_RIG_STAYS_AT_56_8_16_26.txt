@@ -1,0 +1,146 @@
+BOHEMIA — 2X: WHAT GOT BUILT, WHAT SHIPPED, AND THE ONE THING THAT STOPPED IT
+CHARACTER lane, 8/16/26
+
+Paolo 8/14, LOCKED: "the character models need twice as many pixels and the black
+border has to be thinner, like half as thin."
+
+TWO HALVES. ONE SHIPPED. THE OTHER IS BLOCKED ON PAINT, NOT ON CODE.
+This file is the honest account, because "we did 2X" would be a lie and the next
+session needs to know exactly where the line is.
+
+
+===============================================================================
+SHIPPED — THE BORDER
+===============================================================================
+Measured against skin on the real render path, all 8 facings:  2px -> 1px.
+Body provably unchanged: 0 of ~18,000 non-border pixels differ.
+Same border now in COMBAT (bake112), not just CHARACTER.
+Law: laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md
+Gate: gates/border_gate.js — 6/0, mutation-tested against the old behaviour.
+
+
+===============================================================================
+BUILT, PROVED, AND DORMANT — THE 112 PIPELINE
+===============================================================================
+The whole renderer can compose the character natively at 112. It is in the file
+and it is off (RIG_RS = 1).
+
+  RIG_RS            one scalar, derived from BAKED itself, so nothing can disagree
+                    about the rig's resolution
+  RIG2X()           the load-time rig doubler. PROVED LOSSLESS AND EXACTLY
+                    INVERTIBLE on his real rig by tools/bohemia_rig_double.js:
+                    halve the output and you get his original pixels back, byte for
+                    byte, every part, every facing. That round trip is what makes it
+                    legal under RIG LAW rather than merely promised.
+                    56 -> 112, 96 part lists, 5,248 painted cells -> 20,992,
+                    240 joints doubled with them.
+  23 seams          every place the renderer knew "56" now asks. PD layers stay on
+                    their 24 grid and stamp as blocks at the placement seam; all 258
+                    CLO garments stay on their own 56 grid and stamp as blocks at
+                    the gen() seam. Nothing was rewritten. No garment was touched.
+
+*** EVERY SEAM IS THE IDENTITY AT RIG_RS = 1, AND THAT WAS PROVED, NOT ASSUMED. ***
+96 rendered frames (8 facings x 3 clips x 4 phases) captured before the seams and
+after them: 96/96 BYTE-IDENTICAL. That is why the two halves could be separated at
+all — a half-applied resolution migration does not look worse, it looks like
+garbage, and this one can be flipped and unflipped at will.
+
+  python3 tools/bohemia_2x_flip.py --flip     (and --unflip)
+
+
+===============================================================================
+WHY THE FLIP IS NOT ON — AND THIS IS THE WHOLE FINDING
+===============================================================================
+It works. It renders. The gates pass. It looks WRONG.
+
+At 112 native, HIS HEAD RENDERS AS A BOX. Flat-sided hair, a jaw that drops
+straight down with no taper, square corners everywhere.
+
+WHY: his art holds 56x56 of information. Doubling cannot invent detail — a
+block-double is four cells where there was one, and not one new decision. What was
+ALSO happening at 56, invisibly, is that Scale2x does not merely enlarge: it ROUNDS
+DIAGONAL CORNERS. A large part of the roundness of that head was never painted. It
+was manufactured by the upscaler, every frame, and it has been in every build he
+has ever approved.
+
+Compose natively and the upscaler is gone, so the rounding is gone with it.
+
+And it lands directly on a LOCKED craft law — HOW HAIR AND SHAPE WORK, 8/1:
+"no straight lines (hair is little off shapes)". The 112-native head is straight
+lines. Shipping it would have traded a border he asked for against a silhouette he
+already ruled on.
+
+THE PICTURE OF IT: records/BOHEMIA_2X_REJECTED_112_NATIVE_BOXY_HEAD_8_16_26.png.
+That image is THE REJECTED PATH, not a shipped result -- its own heading still says
+"twice the pixels, half the border" because it was made before the head was looked
+at properly. Look at the hair and the jaw in the bottom row: straight lines.
+(The picture of what DID ship is slices/look/border-one-pixel.png, in the LOOK tab.)
+
+THE TEMPTING WRONG FIX: double the rig with Scale2x instead of blocks, so the
+rounding bakes in. That is RESHAPING HIS PAINTED ART — the exact thing RIG LAW
+forbids — and it would have destroyed the round-trip proof that makes the doubler
+legal in the first place. Not mine to do.
+
+SO THE REAL ANSWER, and it is not a code answer:
+    THE WAY TO GET TWICE THE PIXELS IS TO PAINT AT 112, NOT TO UPSCALE TO IT.
+The pipeline is now ready for that the day the art exists. One call flips it.
+
+
+===============================================================================
+MEASUREMENTS WORTH KEEPING
+===============================================================================
+GEOMETRY at 112 native (the migration itself is sound, for the record):
+  285 of 356 part boxes land EXACTLY where the doubled 56 boxes predict
+   47 within 1px, 14 within 2px
+  99.6% of body mass preserved; no part vanished
+  two parts APPEAR at 112 (S walk, hand) — a sliver too thin to survive 56
+
+MEMORY: unchanged. HD_CACHE entries were already 112x112x4 because G.hd was already
+true, so warm 524/768 = 25.1 MB and the full cap 36.8 MB before AND after.
+(records/BOHEMIA_2X_MEMORY_MEASURED_8_15_26.txt)
+
+
+===============================================================================
+FOUR GATES WERE READING 56 INTO A 112 WORLD — ALL FOUR WERE RULERS, NONE A DEFECT
+===============================================================================
+Every one of these looked like a catastrophic character regression and every one was
+the instrument. Recorded because the same four shapes will recur on any future
+resolution work.
+
+ 1. RIG SPACE -> RENDER SPACE HARD-CODED AS `* 2`
+    chin_law_gate + head_follows_rig_gate: `at(x,y)` doubled the coordinate because
+    the rig was 56 and the render 112. On a 112 rig that reads at 224 — off the
+    canvas — so every lookup returned null and the gate reported "the head has no
+    edge, 0/0 rows". Fixed: the factor is PL / BAKED.W, derived.
+
+ 2. A TAPE MEASURE THAT STOPS AT 56
+    head_follows_rig scanned `for (x = 0; x < 56; x++)`. His head sits at x=40..75
+    on a 112 frame, so the ruler walked off its own measurement halfway across his
+    face and reported the skin as HALF as wide as the rig paints it — 20 vs 10,
+    every row. Fixed: scan BAKED.W.
+
+ 3. COMPARING A PIXEL WITH ITSELF
+    Both edge rules asked "is the outermost skin pixel darker than the one beside
+    it". Block-doubled art makes two adjacent CELLS the two halves of ONE painted
+    pixel — necessarily the same colour — so half of all comparisons were false by
+    construction. The tell was the number: EXACTLY 20/40. Every real comparison
+    passed. Fixed: step by RIG_RS to reach the actual neighbour.
+
+ 4. A RULING RE-EXPRESSED AS A ROW COUNT
+    CHIN LAW B caps the throat at "ONE row of his face". That was said about a
+    56-tall face; the same physical band is two rig rows at 112. A literal 1 would
+    have halved the throat tone he approved on 7/27 and 8/11 — a gate quietly
+    overruling a ruling. Fixed: the cap is RIG_RS rows, which is the same
+    conversion the renderer's own throat code makes.
+
+*** THE DISCIPLINE THAT MADE THIS SAFE: every re-blessed gate was re-run at 56
+FIRST and had to return the IDENTICAL verdict and the identical numbers. It did —
+CHIN LAW 10/0, HEAD FOLLOWS RIG 5/0, RIG IS LAW 12/0, unchanged. A ruler fix that
+changes a verdict at the old resolution is not a ruler fix, it is a relaxation. ***
+
+STILL PINNED AND STILL HONEST: head_follows_rig's PINNED_TOTAL/PINNED_WORST are raw
+rig-pixel counts and are meaningful only at 56. At 112 the same head measures 64/4
+against pins of 14/3 — but normalized, the WORST ROW (the shelf under the mouth he
+circled) IMPROVES 3 -> 2, while the total rises 13 -> 16 because the deviation
+becomes uniform. Nothing was re-pinned, because nothing shipped at 112. When the art
+is painted at 112, re-pin from measurement and say so out loud.

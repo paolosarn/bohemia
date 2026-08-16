@@ -40,7 +40,10 @@ ok('it is on, targets part 3, and the amount is a single tunable flag',
 
 const iClose = src.indexOf('return { Skinner, REFINE_STATS,');
 const iFlag = src.indexOf('const NECK_TONE');
-const iFn = src.indexOf('function buildFrame(d,clip,ph){');
+/* SIGNATURE-AGNOSTIC. buildFrame took a 4th parameter (_noOutline) when the border
+   moved to display size. Anchoring on the exact old signature missed and silently
+   failed two assertions that are about SCOPE, not about arity. */
+const iFn = src.indexOf('function buildFrame(d,clip,ph');
 ok('the scope anchors are found', iClose > 0 && iFlag > 0 && iFn > 0);
 ok('NECK_TONE is declared OUTSIDE the skinner closure and BEFORE buildFrame',
   iFlag > iClose && iFlag < iFn);

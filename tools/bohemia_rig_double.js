@@ -29,6 +29,17 @@
  * (2)'s remainder and get the same treatment and the same round-trip proof when the
  * flip lands. Named here so the next session does not think this file covered them.
  *
+ * RIG CHECK (RIG IS LAW, Paolo 7/26/26): READS the rig and writes NOTHING back.
+ *   It builds a DOUBLED COPY in memory and proves the copy is exactly invertible --
+ *   halve it and his original pixels come back byte for byte -- which is the only
+ *   reason a resolution change is legal under a law that says his painted regions
+ *   are sacrosanct. BAKED itself is never mutated, on disk or in the page.
+ *   built on: BAKED, BAKED.layers
+ *   joints: none named
+ *     (every joint in skeleton and pose is doubled generically, by iteration, so no
+ *      joint is special-cased and none can be missed)
+ *   parts: none named -- every part list is doubled by iteration
+ *
  *   node tools/bohemia_rig_double.js          # prove it on the real BAKED
  */
 'use strict';

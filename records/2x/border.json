@@ -1,0 +1,486 @@
+{
+ "rigW": 56,
+ "rs": 1,
+ "frames": {
+  "S|idle|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "7a4dbe62652ad2ff4e93f7a8c53e31d7afb84673"
+  },
+  "S|idle|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "065bdffcf9896818370e484597cbbcc8f985de44"
+  },
+  "S|idle|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "5d67e5730dcacc0a28e5033bd8d278c41aba0342"
+  },
+  "S|idle|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "a98e81537cf7b17fc22d96449d0e8a1e695441fa"
+  },
+  "S|walk|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "9eb60b1293e220ceca29f0727be13f0e293a858c"
+  },
+  "S|walk|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "0f176a135c07f1da1d31b3f8c08842425269e542"
+  },
+  "S|walk|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "2c8ee4c6ddc86f4e0fcc59dae9e4627e47925d95"
+  },
+  "S|walk|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "924d85549ca6ffc72d0f4f419bafe895ecae4852"
+  },
+  "S|run|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "41cdf1ca1a3a56363889a310d37435b6168bde93"
+  },
+  "S|run|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "d2b29b6218382b1fe819a718a11d6cbdb90c7b49"
+  },
+  "S|run|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "53cc132d6cfeca24532a30ec7a08b2a7f2741fb9"
+  },
+  "S|run|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "0e6e38091828398d1d1c4b1fb8b8c6eb3f1cd233"
+  },
+  "SE|idle|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "b4589c753b54978722b23126727f09fc0d5cc21f"
+  },
+  "SE|idle|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "6eff6c4e0074648f4b53baa5399304f5ffbe306a"
+  },
+  "SE|idle|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "670dd9aea429f43670c49540c6b5fe6ce4df82c3"
+  },
+  "SE|idle|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "a8cda9c05b09eff59eb34ea8df274e51463bbcfa"
+  },
+  "SE|walk|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "84b6d4ef64ed2821afaa8a33e75d8d9897604abe"
+  },
+  "SE|walk|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "431c5063c29c356843b3c048e0b80dd67b4494a9"
+  },
+  "SE|walk|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "84b6d4ef64ed2821afaa8a33e75d8d9897604abe"
+  },
+  "SE|walk|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "b604d8fb2c4ff6d11decc7ee49e1c82943d977fb"
+  },
+  "SE|run|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "f2f2814cc2352de05269d9176152086fd73291a1"
+  },
+  "SE|run|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "1a225c387404c9db6aba4aaf76a07e05aa1f2c9e"
+  },
+  "SE|run|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "f2f2814cc2352de05269d9176152086fd73291a1"
+  },
+  "SE|run|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "fed206a2dfd454c86f2194d5b8f06a0c13b7b826"
+  },
+  "E|idle|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "a0395ea418fa2182b1af0d944027d57e3798fce5"
+  },
+  "E|idle|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "0ea15dc9ef8ef4892bafada73d87bcd95e6d142d"
+  },
+  "E|idle|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "e764b56eead27ceffa64954e4bcdfe3e173983f3"
+  },
+  "E|idle|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "7abbe7c5dade7b2fa72257596f4adcc5c8305190"
+  },
+  "E|walk|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "bf5b86bc36f3675b2b367a7f6c2ec3855065de39"
+  },
+  "E|walk|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "e088509604a4095c8f91e0179535a76d49c470e8"
+  },
+  "E|walk|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "1c015bbfa3b60089350426bf215b7cdda0def08a"
+  },
+  "E|walk|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "da672c0e0cd5167a8ae383d5ab9140adaa66fc22"
+  },
+  "E|run|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "642e563d6fcf9b802335cbf839dca8f04bb2bc67"
+  },
+  "E|run|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "ce3c7e74c4c5d37d9177c134091ca57dd1e38b90"
+  },
+  "E|run|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "642e563d6fcf9b802335cbf839dca8f04bb2bc67"
+  },
+  "E|run|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "604449a9c65bc976049a44a822de41e002336d80"
+  },
+  "NE|idle|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "1771912d90c50d077f7bdca2eda5c4073e7a2898"
+  },
+  "NE|idle|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "5be02277ea5d6a0f90e812ce9f2225d0056fcf5f"
+  },
+  "NE|idle|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "dafa81c746a4bbc549ef02574c8f75e49bae272d"
+  },
+  "NE|idle|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "8345b2b56d420b8f823d57886db691063360e08f"
+  },
+  "NE|walk|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "d86a8f74e934dd513d6518e5da034cd6053931a4"
+  },
+  "NE|walk|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "27e9100f9d3c15f727e7e54d33a4ce75fb01f535"
+  },
+  "NE|walk|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "5031c34bf2137bb8aef7560006793a72c0882505"
+  },
+  "NE|walk|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "74ce2d9d5b5bdbd4572f870cb594c11d9ae71817"
+  },
+  "NE|run|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "315d2d4c3f17cf6c766316b43bb5c8beacff44d9"
+  },
+  "NE|run|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "3c4b26a1ac00605f5416f6485ac76c3a18b8c57b"
+  },
+  "NE|run|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "315d2d4c3f17cf6c766316b43bb5c8beacff44d9"
+  },
+  "NE|run|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "7736ee740fceeb7432f0d452dc51fc18a43bdd48"
+  },
+  "N|idle|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "302a00f028d420fa8e82e6ca1a7fac90cb904b9a"
+  },
+  "N|idle|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "e7f447bb830063d654e3fd4a68f893c699b7a7d9"
+  },
+  "N|idle|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "19cf7722335cd3b05018b7c33bba607cb638bdb8"
+  },
+  "N|idle|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "b5f328515dfa47f53f3efbb2cf465d566ae86b73"
+  },
+  "N|walk|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "fa329afed0cae9f38ae8dfa94b91289b04b9fb6c"
+  },
+  "N|walk|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "ab6721d77056bb5217d72785a2d01f70afe8274b"
+  },
+  "N|walk|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "34f27ba0a2cdaa2228198fb30b1094a0a70b3887"
+  },
+  "N|walk|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "93d2ffb7d0c3eaa6b623337046325a5a9d59ca12"
+  },
+  "N|run|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "457f3f43801b3612bead008aacffed2735519e28"
+  },
+  "N|run|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "1320fb10a092db783b4d709ff255873112f87fc3"
+  },
+  "N|run|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "df2ee014b13974672dad6917def1194ec75c649a"
+  },
+  "N|run|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "ce62c76a5f565d0be1d54b4cab22fbafb065831b"
+  },
+  "NW|idle|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "8411d7be4aa37b0b78692ab478dec95d27713717"
+  },
+  "NW|idle|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "fe2deefa99338faae41cc570c625b6916c64a604"
+  },
+  "NW|idle|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "05c77d757d7e826cfc2c5a00a542079300692bd8"
+  },
+  "NW|idle|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "ead5a09bbbe8f7ff00d0742e0e0f6694ddc154b0"
+  },
+  "NW|walk|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "db5b77a80046ef75bcf47e60e4eb162aff46a597"
+  },
+  "NW|walk|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "0351e8b6d5ef3f368cbe2507a9483adbfa02b674"
+  },
+  "NW|walk|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "9b44cce03c29e0b5e3ee47adf17d75f97871e843"
+  },
+  "NW|walk|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "9ccf8c178ae399b4aa43bef2e46eb5651bde0b89"
+  },
+  "NW|run|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "9fffa37a4ea9a916a8302c0fe0b10f53edd1d720"
+  },
+  "NW|run|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "19ff7bc2d7221922c75b627120ce239a69b8a4ed"
+  },
+  "NW|run|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "9fffa37a4ea9a916a8302c0fe0b10f53edd1d720"
+  },
+  "NW|run|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "ba483ad8402cd08deab17ec3448547d7a9304fe7"
+  },
+  "W|idle|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "2cf98afad0d872e70fb45c4ce8b494a5399700d1"
+  },
+  "W|idle|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "2dfffde1e3ff06f135b5114b10f757212a408cc9"
+  },
+  "W|idle|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "3acabe05575790622692d15a5b260da1ee630963"
+  },
+  "W|idle|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "e38783bc7cc7b21cec4c953fbed6af7e94639fe9"
+  },
+  "W|walk|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "c8f7816c686cb49afdc3c98548eea50dfee4261a"
+  },
+  "W|walk|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "7bc367e021ba3da13c62ffbc4c8f7be0fdb7d351"
+  },
+  "W|walk|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "9cde6db556e814a1bf9c3bdf3baf0895fd4f5d70"
+  },
+  "W|walk|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "f367d0901e7762ca25798216ad7a6bfaa5d9c162"
+  },
+  "W|run|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "4be83613d16deb19ade0859c1206d4eadd81d50f"
+  },
+  "W|run|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "9eaea4a36ba3f575b985b17164fc8bfe596628d1"
+  },
+  "W|run|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "4be83613d16deb19ade0859c1206d4eadd81d50f"
+  },
+  "W|run|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "6aa38d50c5c3c7e8cf68d4e595272eafdd0fec4e"
+  },
+  "SW|idle|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "c7af686ec1358a98088e2c8a999515611e6908c8"
+  },
+  "SW|idle|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "4cde0f714e284680aa1df32282166bd1b8472ecd"
+  },
+  "SW|idle|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "105fef0d2af50fae1688869515bee5dee3280900"
+  },
+  "SW|idle|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "61dae4bece3fcd5d77cd767dac93599ccaff6f4b"
+  },
+  "SW|walk|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "01efe25d5500cbd1f485f1b365838c8ea015b00e"
+  },
+  "SW|walk|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "1d9054a5d853fe4a7027997b45a4757a3a49ef98"
+  },
+  "SW|walk|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "01efe25d5500cbd1f485f1b365838c8ea015b00e"
+  },
+  "SW|walk|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "32463ef1919468e6ce2de5c26c5757286074fb25"
+  },
+  "SW|run|0": {
+   "W": 112,
+   "H": 112,
+   "sha": "88891b728798fff64500d86480df72492373eff9"
+  },
+  "SW|run|0.25": {
+   "W": 112,
+   "H": 112,
+   "sha": "925c87360c30e0c1a2db7c7bab41c9ce3088b178"
+  },
+  "SW|run|0.5": {
+   "W": 112,
+   "H": 112,
+   "sha": "88891b728798fff64500d86480df72492373eff9"
+  },
+  "SW|run|0.75": {
+   "W": 112,
+   "H": 112,
+   "sha": "577d8b714e155d65ed7e6577ad547977e261c429"
+  }
+ }
+}

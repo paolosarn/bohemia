@@ -1,6 +1,14 @@
 {
- "built": "8/8/26",
+ "built": "8/16/26",
  "shots": [
+  {
+   "id": "border-one-pixel",
+   "title": "THE BLACK BORDER IS ONE PIXEL NOW",
+   "caption": "His 8/14 ask: \"the black border has to be thinner, like half as thin.\" It was always drawn as ONE pixel -- but it was drawn on the 56 composition and then DOUBLED by the upscale that takes the frame to 112, so it reached the screen at two. It is now drawn after the upscale and arrives at one. Same body, byte for byte: 0 of ~18,000 non-border pixels changed. CHARACTER tab, and anywhere a person is drawn -- RUN, CITY, COMBAT.",
+   "file": "look/border-one-pixel.png",
+   "kb": 75.9,
+   "stamp": "8/16/26"
+  },
   {
    "id": "dead-suburb",
    "title": "THE DEAD: a suburban street",

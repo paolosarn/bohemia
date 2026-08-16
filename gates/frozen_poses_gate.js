@@ -64,8 +64,15 @@ ok('the reason the stay-put rule was killed is recorded at the code, not just in
   /the arms aren't moving for a lot of the/.test(src) && /29\.8 -> 0\.0/.test(src));
 
 /* ---- piece 3: the cache keys on the POSE, which is what makes it exact --- */
+/* THE RULE IS UNCHANGED: key on the RESOLVED POSE SIGNATURE, not the phase index
+   -- that is what makes every frame of a hold literally the same pixels instead of
+   a recomputation that merely ought to match. The key gained one more segment when
+   the border moved to display size, because the cache now holds bordered AND
+   borderless frames and serving one as the other would hand a borderless sprite to
+   the city bake. `_ph?_ph.sig:q` is still the part being guarded. */
 ok('the frame cache keys on the resolved pose signature, not the phase index',
-  /const k=d\+'\|'\+clip\+'\|'\+\(_ph\?_ph\.sig:q\)\+'\|'\+frameLookHash\(d\)/.test(src));
+  /const k=d\+'\|'\+clip\+'\|'\+\(_ph\?_ph\.sig:q\)\+'\|'/.test(src) &&
+  /frameLookHash\(d\)/.test(src));
 ok('every pose carries a signature to key on', /sig:parts\.join\('\|'\)/.test(src));
 ok('buildFrame draws the frozen pose', /const _hp=poseHoldAt\(d,clip,ph\)/.test(src));
 

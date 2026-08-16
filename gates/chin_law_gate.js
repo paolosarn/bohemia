@@ -72,23 +72,34 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     const isThroat = c => !!c && SK.some(r => near(c, [r[0] * mul | 0, r[1] * mul | 0, r[2] * mul | 0]));
 
     const facialKey = Object.keys(PD.layers).filter(k => k.indexOf('facial') === 0)[0];
-    const out = { facings: [], mul: mul };
+    const out = { facings: [], mul: mul, rs: (typeof RIG_RS !== 'undefined') ? RIG_RS : 1 };
 
     for (const d of ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW']) {
       const face = BAKED.layers[d] && BAKED.layers[d]['2'];
       if (!face || !face.length) continue;                 // no face painted on this facing
       const FL = PD.layers[facialKey] && PD.layers[facialKey][d];
       /* the MOUTH row, from his own facial art, in 56-space */
+      /* the mouth comes off a 24-grid PD layer, so G24_OY puts it in 56-space and
+         RIG_RS puts it in rig space -- the same conversion the renderer's own chin
+         clamp does. Left unconverted it was a 56-space row compared against
+         112-space rig rows, and every comparison after it was meaningless. */
+      const _rs = (typeof RIG_RS !== 'undefined') ? RIG_RS : 1;
       let mouthY = -1;
       if (FL) for (const i in FL.px) if (FL.px[i] === 2) {
-        const y = ((+i / (FL.w || 24)) | 0) + G24_OY; if (y > mouthY) mouthY = y;
+        const y = (((+i / (FL.w || 24)) | 0) + G24_OY) * _rs; if (y > mouthY) mouthY = y;
       }
 
       const cv = document.createElement('canvas'); cv.width = cv.height = PL;
       try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
       drawChar(cv, d, 'idle', 0);
       const D = cv.getContext('2d').getImageData(0, 0, PL, PL).data;
-      const at = (x, y) => { const i = ((y * 2) * PL + (x * 2)) * 4; return D[i + 3] < 40 ? null : [D[i], D[i + 1], D[i + 2]]; };
+      /* RIG SPACE -> RENDER SPACE, derived rather than assumed. This was a hard
+         `* 2` because the rig was 56 and the render 112. At a 112 rig that doubling
+         reads at 224 -- off the canvas -- and every lookup returns null, which is
+         precisely how this gate reported "0/0 rows" for a head whose jaw was fine.
+         PL / BAKED.W is 2 at 56 and 1 at 112, and cannot go stale again. */
+      const SC = PL / W;
+      const at = (x, y) => { const i = ((y * SC) * PL + (x * SC)) * 4; return D[i + 3] < 40 ? null : [D[i], D[i + 1], D[i + 2]]; };
 
       /* his FACE cells (part 2) drive the throat/chin rules -- those are about the
          face's own tone. The EDGE rule needs the whole HEAD silhouette (parts 1+2),
@@ -120,7 +131,16 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
         const skinXs = (headRow[y] || []).slice().sort((a, b) => a - b)
           .filter(x => { const c = at(x, y); return isSkin(c) || isThroat(c); });
         if (skinXs.length >= 4) {
-          for (const [e, inn] of [[skinXs[0], skinXs[1]], [skinXs[skinXs.length - 1], skinXs[skinXs.length - 2]]]) {
+          /* *** STEP BY A RIG PIXEL, NOT BY A CELL. *** His art is block-doubled, so
+             at 112 two adjacent cells are the two halves of ONE painted pixel and are
+             necessarily the same colour. Asking "is the edge darker than the cell
+             beside it" then compares a pixel with itself and is false by
+             construction -- which is why this reported exactly 20/40: every real
+             comparison passed and every within-block comparison could not. The edge
+             was perfect the whole time. Neighbour = _st cells away. */
+          const _st = (typeof RIG_RS !== 'undefined') ? RIG_RS : 1;
+          const _lo = skinXs[0], _hi = skinXs[skinXs.length - 1];
+          for (const [e, inn] of [[_lo, _lo + _st], [_hi, _hi - _st]]) {
             const ce = at(e, y), ci = at(inn, y);
             if (!ce || !ci) continue;
             checked++; if (lum(ce) < lum(ci) - 4) edged++;
@@ -154,9 +174,16 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     else
       console.log('  (' + f.d + ': his rig paints no face below the mouth row — rule A does not apply)');
     /* B */
-    ok('CHIN LAW B — ' + f.d + ': the THROAT takes at most ONE row of his face (' + f.throatRows +
-       ') — at two it paints the jaw AND the chin the neck\'s own tone and they read as one slab',
-       f.throatRows <= 1);
+    /* HIS RULING IS A DEPTH, NOT A ROW COUNT. "the throat keeps a row" was said
+       about a 56-tall face; at 112 that same band of throat IS two rig rows, and it
+       is the exact conversion the renderer's own _tRows makes. Capping at a literal
+       1 here would halve the throat tone he approved on 7/27 and 8/11 -- a gate
+       quietly overruling a ruling, which is the thing that is never allowed. */
+    const _rsB = (typeof R.rs !== 'undefined') ? R.rs : 1;
+    ok('CHIN LAW B — ' + f.d + ': the THROAT takes at most ONE ROW OF HIS 56 FACE (' + f.throatRows +
+       ' rig rows at RIG_RS ' + _rsB + ') — at two it paints the jaw AND the chin the ' +
+       'neck\'s own tone and they read as one slab',
+       f.throatRows <= _rsB);
     /* C */
     ok('CHIN LAW C — ' + f.d + ': the head HAS AN EDGE (' + f.edged + '/' + f.checked + ' rows read ' +
        'darker at the skin edge than inside) — the head was once the ONE body part excluded from ' +

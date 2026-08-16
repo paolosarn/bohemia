@@ -46,7 +46,12 @@
      - dials are CONTINUOUS: no value in range produces a broken frame.
    =========================================================================== */
 const BOH_BODYVAR = (function () {
-  const CW = 56, CH = 56;
+  /* THE RIG'S OWN SIZE, not a number this module remembers. Guarded because this
+     file is a STANDALONE CARRIER as well as an inlined one -- a bare BAKED.W
+     would throw at load anywhere BAKED is not already defined -- and because
+     ENGINE SYNC LAW requires this body to be byte-identical in every carrier. */
+  const CW = (typeof BAKED !== 'undefined' && BAKED.W) || 56,
+        CH = (typeof BAKED !== 'undefined' && BAKED.H) || 56;
 
   /* Dial ranges. Paolo's call on the final numbers (the addendum lists "the
      range of each dial" under DO NOT DECIDE WITHOUT PAOLO) -- these are the

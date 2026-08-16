@@ -40,7 +40,7 @@ const REPO = path.dirname(__dirname);
 const ALPHA = path.join(REPO, 'slices/BOHEMIA_ALPHA_0_9.html');
 
 /* MEASURED 8/11/26. These may only go DOWN. */
-const PINNED_TOTAL = 14;   // sum of |game - rig| across the face rows
+const PINNED_TOTAL = 13;   // sum of |game - rig| across the face rows (ratchet: only ever shrinks)
 const PINNED_WORST = 3;    // the worst single row (y14, the jaw)
 
 let pass = 0, fail = 0;
@@ -76,13 +76,23 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
 
     const SK = (typeof skinTone !== 'undefined' && skinTone[1]) ? skinTone[1] : [];
-    const at = (x, y) => { const i = ((y * 2) * PL + (x * 2)) * 4; return D[i + 3] < 40 ? null : [D[i], D[i + 1], D[i + 2]]; };
+    /* see chin_law_gate: rig space -> render space is DERIVED, never assumed. A
+       hard `* 2` reads at 224 on a 112 rig and returns null for every pixel, which
+       reads as "the head has no edge" when the head is fine. */
+    const _SC = PL / (BAKED.W || 56);
+    const at = (x, y) => { const i = ((y * _SC) * PL + (x * _SC)) * 4; return D[i + 3] < 40 ? null : [D[i], D[i + 1], D[i + 2]]; };
     const isSkin = c => c && SK.some(r => Math.abs(c[0] - r[0]) + Math.abs(c[1] - r[1]) + Math.abs(c[2] - r[2]) < 40);
     const rows = [];
     let total = 0, worst = 0, worstY = -1;
     for (const ys of Object.keys(rig).map(Number).sort((a, b) => a - b)) {
+      /* *** SCAN THE WHOLE CHARACTER. *** This loop stopped at x<56, which was the
+         width of the rig when it was written. At a 112 rig the head sits around
+         x=40..75, so the ruler walked off its own measurement halfway across his
+         face and reported the skin as HALF as wide as the rig paints it -- 20 vs
+         10, every row, which reads exactly like a catastrophic regression and is
+         nothing but a tape measure that stops at 56. */
       let a = 99, b = -1;
-      for (let x = 0; x < 56; x++) if (isSkin(at(x, ys))) { if (x < a) a = x; if (x > b) b = x; }
+      for (let x = 0; x < BAKED.W; x++) if (isSkin(at(x, ys))) { if (x < a) a = x; if (x > b) b = x; }
       if (b < 0) continue;
       const rw = rig[ys].b - rig[ys].a + 1, gw = b - a + 1, dv = Math.abs(gw - rw);
       rows.push({ y: ys, rig: rw, game: gw, d: dv });
@@ -106,10 +116,14 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
     const lum = c => c[0] * 0.299 + c[1] * 0.587 + c[2] * 0.114;
     for (const ys of Object.keys(rig).map(Number).sort((a, b) => a - b)) {
       const xs = [];
-      for (let x = 0; x < 56; x++) if (isSkin(at(x, ys))) xs.push(x);
+      for (let x = 0; x < BAKED.W; x++) if (isSkin(at(x, ys))) xs.push(x);   /* whole character, see above */
       if (xs.length < 4) continue;
+      /* neighbour = one RIG pixel away; at 112 that is RIG_RS cells. Comparing
+         adjacent CELLS compares two halves of the same painted pixel -- see the
+         long note in chin_law_gate. */
+      const _st = (typeof RIG_RS !== 'undefined') ? RIG_RS : 1;
       const a = xs[0], b = xs[xs.length - 1];
-      for (const [e, inn] of [[a, a + 1], [b, b - 1]]) {
+      for (const [e, inn] of [[a, a + _st], [b, b - _st]]) {
         const ce = at(e, ys), ci = at(inn, ys);
         if (!isSkin(ce) || !isSkin(ci)) continue;
         checked++;

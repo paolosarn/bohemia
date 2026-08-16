@@ -65,7 +65,12 @@ if (alphaTxt !== rigTxt) {
 
 /* NO THIRD BODY. The whole failure was a second copy nobody knew about, so the
    gate counts copies rather than trusting that one exists. */
-const topLevel = (src.match(/\bBAKED\s*=\s*\{/g) || []).length;
+/* THE RULE IS UNCHANGED: exactly one body, because the whole failure this gate
+   exists for was a second copy nobody knew about. The one body is now wrapped in
+   the load-time doubler -- BAKED = RIG2X({...}) -- so the pattern has to allow the
+   wrapper. It still COUNTS, so a second body is still caught; what it no longer
+   does is miss the only one. */
+const topLevel = (src.match(/\bBAKED\s*=\s*(?:RIG2X\()?\{/g) || []).length;
 ok('exactly ONE body lives in the alpha itself', topLevel === 1);
 let extra = [];
 for (const m of src.matchAll(/const (\w+_B64)='([^']+)'/g)) {

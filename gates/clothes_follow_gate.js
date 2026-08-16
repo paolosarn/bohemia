@@ -52,8 +52,14 @@ ok('the swallowed-error lesson is recorded at the code',
   /the catch below swallowed it/.test(src));
 
 /* ---- CW is not in scope here. Third closure boundary to cost a round. --- */
-ok('the map build uses a LOCAL 56, not the skinner closure\'s CW',
-  /const _CW = 56;/.test(src) && /\(idx\/_CW\)\|0/.test(src));
+/* THE RULE IS "A LOCAL, NOT THE SKINNER CLOSURE'S CW" -- the third closure
+   boundary to cost a round -- and it still holds. The local now DERIVES its value
+   from the rig instead of hard-coding 56, so this asks for the declaration and for
+   the local actually being the thing divided by, which is the part that was ever
+   in doubt. Demanding the literal would have made the gate a vote against reading
+   the rig's real size. */
+ok('the map build uses a LOCAL, not the skinner closure\'s CW',
+  /const _CW = /.test(src) && /\(idx\/_CW\)\|0/.test(src));
 ok('the closure-scope trap is recorded at the code',
   /CW lives inside the SKINNER_API closure/.test(src));
 
