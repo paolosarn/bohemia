@@ -28,6 +28,8 @@ counted from HIS side: how many times did he have to say it.
 | 5 | Cover / flanking not readable | 1 | Found to be real: "THE BUTTON WAS LYING 370 TIMES OUT OF 400." |
 | 6 | Face does not change under heavy damage | OPEN | Cross-lane (CHARACTER owns the face, COMBAT owns the damage state); flagged in both 8/13, no owner has claimed it. WATCH: an unclaimed cross-lane report is the most likely candidate for a repeat. |
 
+| 7 | "I didn't see the new sound effect" | 2 | NOT a gate this time — a PIPELINE defect: the lane shipped SFX-07 on THE SAME IDS he had killed hours earlier, so his own DOWN thumbs suppressed the new candidates. His past judgment hid his next one. Fixed by never reusing a killed id (SHARED -8 item 4). |
+
 ## STANDING NOTES
 - A repeat is never the lane's fault to be scolded for; it is a GATE
   DEFECT to be named. Every row above ends in a gate that was green.

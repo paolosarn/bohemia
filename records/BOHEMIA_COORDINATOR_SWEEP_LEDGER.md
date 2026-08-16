@@ -582,3 +582,66 @@ never relay "fixed" from a commit subject again.
 high; NASA board and Goodhart are published, high; the claim that a
 repeat ledger would have caught these earlier is a proposal, flagged.]
 HIGH-WATER MARK: swept through main @ 637cca8 (plus this sweep's push)
+
+## SWEEP 14 — 8/16/26 (his v3 prompt)
+DELTA: 17 commits. THIRTEENTH FAMILY WIRED (the kerb turns its corners)
+plus the kerb kit cooked with placement measured; THE HOSPITAL IS A
+HOSPITAL NOW; two quests that invert what everybody knows; THEY ASK YOU
+BACK (PEOPLE built the half of social capital nobody builds, citing
+Portes); and THE BORDER IS ONE PIXEL — his 8/14 thin-outline ask turned
+out never to be an outline bug at all, it was a pass running one step too
+early, with the other half of that ruling correctly identified as a
+painting job rather than a code job.
+FLEET-WIDE STOP, CAUGHT AND FIXED BY THE LANE THAT HIT IT: "THE GATE
+SUITE COULD NOT RUN AT ALL ON MAIN" — one malformed row in the gate table
+(three fields where every other has four) took down ALL 361 gates for
+every lane, because the table is unpacked in a loop. Fixed, and the table
+now checks itself and names the offending row. Worth recording as the
+cheapest possible catastrophic failure: nobody on any lane could run
+gates, and the cause was a missing `False`.
+REPEAT LEDGER: one new row — "I didn't see the new sound effect", 2
+rounds, and NOT a gate defect this time: the lane shipped SFX-07 on the
+same ids he had killed hours earlier, so HIS OWN DOWN THUMBS HID THE NEW
+WORK. His past judgment suppressed his next one.
+THE CATCH (lens: how we spend the scarcest resource in the project; both
+aisles): QUESTION: is the judgment pipeline spending his attention well,
+and is anyone measuring?
+MEASURED, from every SFX verdict he has ever filed: ballot 62 -> 132 ->
+142 -> 272 -> 332 -> 366 while keep rate went 62% -> 46% -> 44% -> 36% ->
+31% -> 32%. THE BALLOT GREW SIX-FOLD AND THE KEEP RATE HALVED. ~1,350
+judgment calls on sound effects alone. This week's SFX-06: 34 of 35 dead,
+a 3% keep rate.
+THE MECHANISM IS IN THE LANE'S OWN WORDS: "he had a 602-VOICE RACK IN THE
+SAME FILE and the sound engine had never called one of them" — every
+candidate in every ballot came from one small corner of the space while
+602 instruments sat unused, and the response to a falling hit rate was a
+BIGGER BALLOT. We compensated for a narrow generator with his thumbs.
+AISLES: ACTIVE LEARNING — the discipline built for exactly "an expensive
+human must label things", whose whole answer is label the MOST
+INFORMATIVE, not MORE, an explicit shift "from mass labeling to targeted
+data curation". QUALITY-DIVERSITY / MAP-ELITES — generators should
+ILLUMINATE a space (best candidate per cell, diversity enforced during
+search) rather than heap up neighbours, and the literature frames it
+precisely for MIXED-INITIATIVE design, which is our judge page.
+CHALLENGE FINDING against the FIRST law in this repo: FACTORY LAW bakes
+in BATCH OUTPUT and has been read as "bigger batch, better odds." The
+data says volume without diversity is resampling. It needs a companion
+clause, not a repeal: A BATCH'S VALUE IS ITS COVERAGE, NOT ITS COUNT. And
+it collides with HIS OWN 8/9 law — a 366-item ballot IS an approvals
+queue, obeying the judged-domain exception while breaking the spirit of
+the law written to kill exactly that. HONEST OTHER SIDE, stated: sound is
+a domain he WANTS to rule and his ear is the only instrument; the finding
+is not "stop asking him" but that we ask hundreds of near-identical
+questions and call it diligence.
+ROUTED: SHARED -8 — thumb yield tracked on every judge page (a falling
+yield indicts the GENERATOR, not his taste); diversity/near-duplicate
+collapse before the ballot; harvest the 843 dead sounds by extending
+GRAVEYARD IS FINAL from identity to NEIGHBOURHOOD; never reuse a killed
+id; ballot cap with "make a better generator" as the answer when it
+cannot be filled.
+[Confidence: the verdict table is counted from our own records, high; the
+602-rack and id collision are the lanes' own commits, high; active
+learning and QD are published practice, high. That narrow sampling CAUSED
+the falling keep rate is inference, flagged — untested until a diverse
+batch is run, which is item 2.]
+HIGH-WATER MARK: swept through main @ a9604a5 (plus this sweep's push)

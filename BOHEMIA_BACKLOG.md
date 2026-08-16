@@ -6307,6 +6307,50 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
+-8. *** A BATCH'S VALUE IS ITS COVERAGE, NOT ITS COUNT (sweep 14 catch,
+   8/16 — records/BOHEMIA_RESEARCH_THE_PRICE_OF_HIS_THUMBS_8_16_26.md.
+   FLEET-WIDE for any lane that cooks batches; SOUNDS runs it first
+   because it has the data and the pain.)
+   MEASURED ACROSS EVERY SFX VERDICT HE HAS EVER FILED: the ballot grew
+   ~6x (62 -> 132 -> 142 -> 272 -> 332 -> 366) while the keep rate HALVED
+   (62% -> 46% -> 44% -> 36% -> 31% -> 32%). ~1,350 judgment calls on
+   sound effects alone, and the yield per press fell nearly every sitting.
+   This week's SFX-06 came back 34 OF 35 DEAD — a 3% keep rate.
+   THE MECHANISM IS IN THE LANE'S OWN COMMITS: "he had a 602-VOICE RACK
+   IN THE SAME FILE and the sound engine had never called one of them",
+   and the instruction inside his rejection names that same rack. Every
+   candidate in every one of those ballots came from one small corner of
+   the space while 602 instruments sat unused — the generator was mining
+   an exhausted vein, and the answer to a falling hit rate was A BIGGER
+   BALLOT. WE PAID FOR A NARROW GENERATOR WITH HIS ATTENTION.
+   DO: (1) THUMB YIELD IS A TRACKED NUMBER on every judge page (kept/total
+   + trend). A FALLING YIELD IS A STATEMENT ABOUT THE GENERATOR, NOT HIS
+   TASTE; below ~40% the response is a better generator, never a longer
+   ballot. (2) DIVERSITY BEFORE THE BALLOT: place candidates in a
+   parameter space (for SFX the synth vector AND the 602-instrument rack),
+   collapse near-duplicates, one per cell — MAP-Elites style. If the
+   generator cannot fill N distinct cells the batch is N, not 300.
+   (3) HARVEST THE 843 DEAD SOUNDS: his kills are the most valuable
+   labelled taste dataset we own. Extend GRAVEYARD IS FINAL from IDENTITY
+   to NEIGHBOURHOOD — nothing ships to a ballot inside a killed
+   candidate's cell. Dead things stay dead; so do their twins.
+   (4) NEVER REUSE A KILLED ID — measured this week: "I had shipped
+   SFX-07 on the same ids he killed hours earlier, so HIS OWN DOWN THUMBS
+   HID IT." One-line fix, real bug. (5) BALLOT CAP: if the generator
+   cannot produce that many DISTINCT candidates, THAT is the finding and
+   the turn's work is the generator.
+   THE CHALLENGE IT CARRIES: FACTORY LAW is the first law in this repo and
+   it bakes in BATCH OUTPUT, read for weeks as "bigger batch, better
+   odds." The data says the opposite — volume without diversity is
+   resampling. FACTORY LAW gains a companion clause, not a repeal. It also
+   collides with his own EVERYTHING IS A THUMB (8/9): a 366-item ballot IS
+   an approvals queue, obeying the judged-domain exception while breaking
+   the spirit of the law written to kill exactly that. THE HONEST OTHER
+   SIDE: sound is a domain he WANTS to rule and his ear is the only
+   instrument — the finding is not "stop asking him", it is that we are
+   asking him hundreds of near-identical questions and calling it
+   diligence. | yield tracked + a diverse batch beats a big one on keep
+   rate, measured | his ear still rules every sound | no. ***
 -7. *** THE JOURNEY RULE + THE GOODHART GUARD (sweep 13 catch, 8/15 —
    records/BOHEMIA_RESEARCH_HE_IS_THE_INTEGRATION_TEST_8_15_26.md. This
    promotes a lesson ONE LANE ALREADY PAID FOR TWICE into fleet law.)

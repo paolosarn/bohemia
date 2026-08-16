@@ -20617,3 +20617,32 @@ number from his ruling). NEW COORDINATOR-OWNED ARTIFACT:
 records/BOHEMIA_REPEAT_LEDGER.md — every bug he reports and how many
 rounds it took, 2+ rounds must name the gate that was green. Only this
 session sees every report, so only this session can count repeats.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/16 — SWEEP 14. THE CATCH IS THE PRICE OF HIS THUMBS
+(records/BOHEMIA_RESEARCH_THE_PRICE_OF_HIS_THUMBS_8_16_26.md; routed
+SHARED -8, fleet-wide for batch-cooking lanes, SOUNDS first).
+MEASURED across every SFX verdict he has filed: the ballot grew ~6x
+(62 -> 366) while the keep rate HALVED (62% -> 32%). ~1,350 judgment
+calls on sound effects alone; this week's SFX-06 came back 34 of 35 dead.
+THE MECHANISM IS IN THE LANE'S OWN COMMIT: "he had a 602-VOICE RACK IN
+THE SAME FILE and the sound engine had never called one of them." Every
+candidate came from one corner of the space while 602 instruments sat
+unused, and the answer to a falling hit rate was a BIGGER BALLOT. WE
+PAID FOR A NARROW GENERATOR WITH HIS ATTENTION.
+CHALLENGE FINDING against the FIRST law in the repo: FACTORY LAW bakes in
+BATCH OUTPUT and has been read as "bigger batch, better odds" — the data
+says volume without diversity is resampling. Companion clause, not a
+repeal: A BATCH'S VALUE IS ITS COVERAGE, NOT ITS COUNT. It also collides
+with his own 8/9 law: a 366-item ballot IS an approvals queue.
+ROUTED: thumb yield tracked per judge page (falling yield indicts the
+GENERATOR, never his taste), near-duplicate collapse before the ballot
+(MAP-Elites style, one per cell), harvest the 843 dead sounds by
+extending GRAVEYARD IS FINAL from identity to NEIGHBOURHOOD, never reuse
+a killed id, and a ballot cap whose failure condition is "build a better
+generator".
+ALSO THIS WINDOW: the whole 361-gate suite could not run on main (one
+malformed table row, unpacked in a loop) — fixed by the lane that hit it,
+and the table now checks itself. And the REPEAT LEDGER gained a row: "I
+didn't see the new sound effect" (2 rounds) — the lane shipped new
+candidates on ids he had already killed, so his own DOWN thumbs hid them.
