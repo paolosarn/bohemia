@@ -472,12 +472,23 @@ const BOH_SFX = (function () {
        to the three things that punish standing still: your cover degrading,
        the car you are behind heating toward going up, and a gun leaving his
        rock to flank you. */
-    { ev: 'round_land',  label: 'THE ROUND LANDS',       why: 'the shot that missed arrives somewhere. it went past you and then it hit the ground, and the ground is what you hear' },
-    { ev: 'cover_chew',  label: 'YOUR COVER TAKES ONE',  why: 'the stone you are behind loses a piece. the fight is eating your hiding place while you are still using it' },
-    { ev: 'car_heat',    label: 'THE CAR TAKES ANOTHER', why: 'hiding behind a car is a clock you can watch. this is the clock ticking, not the impact that wound it' },
-    { ev: 'man_moves',   label: 'SOMEBODY REPOSITIONS',  why: 'a gun leaves his rock and scrambles for a better one. the fight has to move you, so you have to hear it move them' },
-    { ev: 'nerve_break', label: 'HIS NERVE GOES',        why: 'the moment a man stops being a shooter and becomes a person running. not a death, not a hit, a decision' },
-    { ev: 'wake_up',     label: 'YOU WAKE UP',           why: 'the other half of the sleep he swept five of five. same body, same bed, coming up instead of going down' },
+    { ev: 'dirt_take',   label: 'THE GROUND TAKES IT',     why: 'the shot that missed arrives somewhere. built out of HIS instruments, not synthesis -- the version made of raw physics died 5 of 5' },
+    { ev: 'stone_bite',  label: 'YOUR COVER LOSES A PIECE', why: 'the stone you are behind is being eaten while you use it. his instruments this time, five different ones' },
+    { ev: 'panel_tick',  label: 'THE CAR TICKS',           why: 'hiding behind a car is a clock you can watch. this is the clock, played on five of his own voices' },
+    { ev: 'boots_go',    label: 'BOOTS GOING SOMEWHERE',   why: 'a gun leaves his rock to flank you. the fight has to move you, so you have to hear it move them' },
+    { ev: 'will_goes',   label: 'HIS WILL GOES',           why: 'a shooter becomes a person running. five of his voices for the moment a man quits' },
+    { ev: 'come_up',     label: 'YOU COME UP',             why: 'waking. the other half of the sleep he swept five of five, and this one is made of his instruments' },
+
+    /* ---- SFX-06, DEAD 30 OF 30 ON 8/16, LISTED SO HIS VERDICTS STAY TRUE ---
+       Kept as events because every recipe needs one and because the judge
+       sheet must still be able to show him what he already decided. They are
+       not re-cooked and nothing new is asked of him here. */
+    { ev: 'round_land', label: 'THE ROUND LANDS [DEAD 8/16]', why: 'the raw-synthesis version. died 5 of 5. its replacement is dirt_take' },
+    { ev: 'cover_chew', label: 'YOUR COVER TAKES ONE [DEAD 8/16]', why: 'the raw-synthesis version. died 5 of 5. its replacement is stone_bite' },
+    { ev: 'car_heat', label: 'THE CAR TAKES ANOTHER [DEAD 8/16]', why: 'the raw-synthesis version. died 5 of 5. its replacement is panel_tick' },
+    { ev: 'man_moves', label: 'SOMEBODY REPOSITIONS [DEAD 8/16]', why: 'the raw-synthesis version. died 5 of 5. its replacement is boots_go' },
+    { ev: 'nerve_break', label: 'HIS NERVE GOES [DEAD 8/16]', why: 'the raw-synthesis version. died 5 of 5. its replacement is will_goes' },
+    { ev: 'wake_up', label: 'YOU WAKE UP [DEAD 8/16]', why: 'the raw-synthesis version. died 5 of 5. its replacement is come_up' },
     { ev: 'went_down',   label: 'YOU GO DOWN',           why: 'you lost the fight. the biggest thing that can happen to you in this game and it has been silent since launch' }
     /* ---- end batch SFX-05 events ---- */
     /* ---- end batch 02 events ---- */
@@ -1446,6 +1457,96 @@ const BOH_SFX = (function () {
 
     /* ---- end batch SFX-06 recipes ---- */
 
+    /* ---- THE SFX-06 RECIPES HE JUDGED, KEPT EXACTLY AS HE HEARD THEM ----
+       These six died 30 of 30 on 8/16 and they are NOT re-cooked, NOT tuned,
+       and NOT deleted. THE REASON IS THE WHOLE INTEGRITY OF HIS VERDICT FILE:
+       a candidate is a pure function of (event, index) through the recipe, so
+       records/BOHEMIA_SFX_VERDICT_8_16_26.txt saying `DOWN round_land.0` is
+       only TRUE while round_land.0 still cooks the sound he actually heard.
+       I broke that once already -- SFX-07 was first written on top of these
+       six ids, which silently reassigned thirty of his thumbs to sounds he
+       had never been played, AND hid the new batch behind his own verdicts,
+       because the judge sheet opens a decided moment collapsed. He said "I
+       didn't see the new sound effect" and he was right.
+       So the dead ids stay dead and keep their sounds, and the instrument
+       versions got new names -- the same move this engine already made when
+       miss -> miss_past, step_glass -> glass_crunch, swing -> swing_air. */
+    /* --- FRICTION, the method his thumbs rate highest --- */
+    round_land: {
+      base: { mat: 'stone', hz: 210, modes: 5, bright: 0.75, decay: 0.125,
+              damp: 2.4, warble: 0.4, atk: 0, trans: 0.92, transHz: 3400,
+              transQ: 1.6, grit: 0.95, gritHz: 1400, space: 0.09, room: 0.0625,
+              refl: 1, dark: 1800, width: 0.7, drive: 0.12, mkup: 0.66,
+              gain: 0.34 },
+      jit:  { hz: [170, 290], decay: [0.0625, 0.1875], damp: [2, 2.7],
+              transHz: [2400, 4800], bright: [0.6, 1], width: [0.58, 0.9],
+              grit: [0.85, 0.98], dark: [1300, 2600], gritHz: [1000, 2100] }
+    },
+    cover_chew: {
+      base: { mat: 'stone', hz: 430, modes: 6, bright: 1.25, decay: 0.1875,
+              damp: 2.2, warble: 0.5, atk: 0, trans: 0.88, transHz: 5600,
+              transQ: 2.1, grit: 0.8, gritHz: 3100, space: 0.11, room: 0.125,
+              refl: 1, dark: 3600, width: 0.72, drive: 0.11, mkup: 0.62,
+              gain: 0.32, hits: [0, 0.0625] },
+      jit:  { hz: [330, 620], decay: [0.125, 0.3125], damp: [1.8, 2.6],
+              transHz: [4200, 8000], bright: [1, 1.55], width: [0.6, 0.95],
+              dark: [2600, 5000], gritHz: [2300, 4400] },
+      hitSets: [[0, 0.0625], [0], [0, 0.09375], [0, 0.0625, 0.15625], [0, 0.125]]
+    },
+    car_heat: {
+      base: { synth: 'fm', mat: 'stone', hz: 128, ratio: 1.41, index: 3.2,
+              modes: 5, bright: 0.55, decay: 0.4375, damp: 1.9, warble: 0.35,
+              atk: 0.0625, trans: 0.3, transHz: 1400, transQ: 0.9, grit: 0.55,
+              gritHz: 800, space: 0.1, room: 0.125, refl: 1, dark: 1100,
+              width: 0.58, drive: 0.07, mkup: 0.8, gain: 0.3,
+              hits: [0, 0.375, 0.6875] },
+      jit:  { hz: [104, 176], ratio: [1.3, 2.2], index: [2, 5],
+              decay: [0.3125, 0.625], bright: [0.44, 0.72], width: [0.5, 0.8],
+              dark: [800, 1600] },
+      hitSets: [[0, 0.375, 0.6875], [0, 0.4375], [0, 0.3125, 0.5625],
+                [0, 0.5, 0.875], [0, 0.25, 0.5, 0.8125]]
+    },
+    man_moves: {
+      base: { synth: 'friction', mat: 'ash', hz: 260, rough: 17, modes: 5,
+              bright: 0.68, decay: 0.3125, damp: 2.1, warble: 0.4, atk: 0.0625,
+              slide: -6, trans: 0.13, transHz: 2200, transQ: 1.1, grit: 0.88,
+              gritHz: 1700, space: 0.13, room: 0.1875, refl: 1, dark: 2100,
+              width: 0.68, drive: 0.08, mkup: 0.7, gain: 0.28,
+              hits: [0, 0.1875, 0.375] },
+      jit:  { hz: [205, 350], rough: [12, 24], decay: [0.25, 0.4375],
+              slide: [-9, -3], bright: [0.55, 0.92], width: [0.58, 0.88],
+              dark: [1600, 3000], gritHz: [1300, 2500] },
+      hitSets: [[0, 0.1875, 0.375], [0, 0.25], [0, 0.125, 0.3125],
+                [0, 0.1875, 0.375, 0.5625], [0, 0.21875, 0.4375]]
+    },
+    wake_up: {
+      base: { synth: 'friction', mat: 'ash', hz: 110, rough: 6, modes: 4,
+              bright: 0.5, decay: 0.5, damp: 2, warble: 0.3, atk: 0.125,
+              slide: 4, trans: 0.1, transHz: 1200, transQ: 0.8, grit: 0.85,
+              gritHz: 1000, space: 0.14, room: 0.1875, refl: 1, dark: 1200,
+              width: 0.62, drive: 0.06, mkup: 0.82, gain: 0.3,
+              hits: [0, 0.5] },
+      jit:  { hz: [88, 158], rough: [4, 10], decay: [0.375, 0.75],
+              slide: [1, 5], bright: [0.4, 0.75], width: [0.52, 0.86],
+              dark: [900, 1800] },
+      hitSets: [[0, 0.5], [0, 0.4375], [0, 0.5625], [0, 0.375, 0.8125],
+                [0, 0.46875]]
+    },
+
+    /* --- MODAL: a person is a struck body, not a scrape --- */
+    nerve_break: {
+      base: { mat: 'bone', hz: 92, modes: 6, bright: 0.6, decay: 0.375,
+              damp: 2.3, warble: 0.6, atk: 0.0625, trans: 0.85, transHz: 1500,
+              transQ: 1.2, grit: 0.6, gritHz: 1000, space: 0.12, room: 0.125,
+              refl: 1, dark: 1200, width: 0.5, drive: 0.28, mkup: 0.9,
+              gain: 0.4, hits: [0, 0.0625] },
+      jit:  { hz: [74, 124], decay: [0.3125, 0.5625], transHz: [1150, 2400],
+              grit: [0.45, 0.78], damp: [1.9, 2.6], drive: [0.2, 0.4],
+              dark: [900, 1700], width: [0.4, 0.64] },
+      hitSets: [[0, 0.0625], [0], [0, 0.125], [0, 0.0625, 0.1875],
+                [0, 0.09375]]
+    },
+
     /* ================= BATCH SFX-07 (8/16/26) =========================
        THE SAME SIX MOMENTS, REBUILT OUT OF HIS OWN INSTRUMENTS.
 
@@ -1475,7 +1576,7 @@ const BOH_SFX = (function () {
        resolve is a silent sound effect, which is the worst failure this lane
        can ship, so instrument_gate re-renders every one of them on the shipped
        surface on every run and fails on any that goes quiet. */
-    round_land: {
+    dirt_take: {
       base: { synth: 'instrument', inst: 'templeblock', mat: 'stone', hz: 210,
               modes: 5, bright: 0.75, decay: 0.1875, damp: 2.1, warble: 0.4,
               atk: 0, trans: 0.5, transHz: 3400, transQ: 1.6, grit: 0.5,
@@ -1485,7 +1586,7 @@ const BOH_SFX = (function () {
               dark: [1300, 2600] },
       instSets: ['templeblock', 'udu', 'boneplate', 'spoonclack', 'taiko']
     },
-    cover_chew: {
+    stone_bite: {
       base: { synth: 'instrument', inst: 'shardglass', mat: 'stone', hz: 430,
               modes: 6, bright: 1.1, decay: 0.25, damp: 2, warble: 0.5,
               atk: 0, trans: 0.5, transHz: 5600, transQ: 2.1, grit: 0.5,
@@ -1496,7 +1597,7 @@ const BOH_SFX = (function () {
       instSets: ['shardglass', 'shatterspark', 'rubblelight', 'scrapchime',
                  'pickscrape']
     },
-    car_heat: {
+    panel_tick: {
       base: { synth: 'instrument', inst: 'ticker', mat: 'stone', hz: 128,
               modes: 5, bright: 0.55, decay: 0.375, damp: 1.9, warble: 0.35,
               atk: 0, trans: 0.4, transHz: 1400, transQ: 0.9, grit: 0.4,
@@ -1509,7 +1610,7 @@ const BOH_SFX = (function () {
       hitSets: [[0, 0.375, 0.6875], [0, 0.4375], [0, 0.3125, 0.5625],
                 [0, 0.5, 0.875], [0, 0.25, 0.5, 0.8125]]
     },
-    man_moves: {
+    boots_go: {
       base: { synth: 'instrument', inst: 'ironstep', mat: 'ash', hz: 260,
               modes: 5, bright: 0.68, decay: 0.3125, damp: 2.1, warble: 0.4,
               atk: 0, trans: 0.45, transHz: 2200, transQ: 1.1, grit: 0.5,
@@ -1522,7 +1623,7 @@ const BOH_SFX = (function () {
       hitSets: [[0, 0.1875, 0.375], [0, 0.25], [0, 0.125, 0.3125],
                 [0, 0.1875, 0.375, 0.5625], [0, 0.21875, 0.4375]]
     },
-    nerve_break: {
+    will_goes: {
       base: { synth: 'instrument', inst: 'onebreath', mat: 'bone', hz: 92,
               modes: 6, bright: 0.6, decay: 0.4375, damp: 2.3, warble: 0.6,
               atk: 0, trans: 0.5, transHz: 1500, transQ: 1.2, grit: 0.45,
@@ -1533,7 +1634,7 @@ const BOH_SFX = (function () {
       instSets: ['onebreath', 'holdbreath', 'ironlung', 'throatsong',
                  'formantvox']
     },
-    wake_up: {
+    come_up: {
       base: { synth: 'instrument', inst: 'dawnpad', mat: 'ash', hz: 110,
               modes: 4, bright: 0.5, decay: 0.625, damp: 2, warble: 0.3,
               atk: 0.0625, trans: 0.3, transHz: 1200, transQ: 0.8, grit: 0.4,
@@ -1716,7 +1817,11 @@ const BOH_SFX = (function () {
                   /* SFX-06. Being on this list is what MAKES the region bind:
                      an event not on it is measured and reported, never failed. */
                   'round_land','cover_chew','car_heat','man_moves',
-                  'nerve_break','wake_up','went_down'],
+                  'nerve_break','wake_up','went_down',
+                  /* SFX-07, his own instruments, on NEW ids because the six
+                     above are judged and their sounds are frozen. */
+                  'dirt_take','stone_bite','panel_tick','boots_go',
+                  'will_goes','come_up'],
     batch: ['step_concrete','step_sand','step_glass','step_wood','step_metal',
             'swing','melee_hit','reload','dry_fire','casing',
             'heartbeat','breath','drink','patch_up',

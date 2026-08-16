@@ -55,6 +55,12 @@ GATES = [
      'no street dead-ends into empty lots', False),
     ('VALLEY SCALE',   ['node', 'gates/valley_scale_gate.js'],
      'a district is the size the 7/6 law says (128x128 = 96m), and ONE constant says so', False),
+    ('VERDICT FROZEN', ['python3', 'gates/verdict_frozen_gate.py'],
+     "Paolo 8/16: \"I didn't see the new sound effect\". SFX-07 shipped on the "
+     "same event ids he had killed hours earlier, so the judge sheet hid thirty "
+     "new candidates behind his own DOWN thumbs AND thirty of his verdicts were "
+     "silently reassigned to sounds he never heard. A sound he has judged is "
+     "frozen forever; a new sound gets a NEW id"),
     ('INSTRUMENTS',    ['python3', 'gates/instrument_gate.py'],
      "Paolo 8/16 after SFX-06 died 34 of 35: \"use more instruments\". The alpha "
      "carries a 602-voice music rack that every song he calls fire is built "
