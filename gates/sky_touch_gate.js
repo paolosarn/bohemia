@@ -222,6 +222,33 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
          'it is what a swallowed finger-release looks like from the outside', !froze);
     }
 
+    /* HIS 8/16 VERDICT, MACHINE-LOCKED. "all blue and it doesn't even look like it's
+       moving out from the Earth." Both were real defects in the placeholder, and a
+       placeholder is allowed to be unfinished but never WRONG. These two assertions stop
+       either from creeping back while the real art (AR-005) is still outstanding. */
+    {
+      const page = fs.readFileSync(PAGE, 'utf8');
+      /* Comments stripped: this file's own notes QUOTE the old colour while explaining why
+         it was wrong, and a checker that cannot tell a mention from a use is the broken one
+         (8/1). Fifth time that trap has come up today; strip first, then look. */
+      const pageCode = page.replace(/\/\*[\s\S]*?\*\//g, '');
+      ok('THE HORIZON IS A CURVE, NOT A RECTANGLE -- a straight horizon reads as standing ' +
+         'on a plain at EVERY altitude, which is why no amount of art would have made the ' +
+         'old one look like leaving Earth',
+         page.indexOf('__SKY_CURVE__') >= 0 &&
+         !/g\.fillRect\(0,horizon,W,H-horizon\)/.test(pageCode));
+      ok('AND THE EARTH HE IS LEAVING IS THE MOJAVE, not an ocean world -- the planet disc ' +
+         'itself was the "all blue" he was pointing at, and fixing the sky behind it was ' +
+         'only half the job', page.indexOf('__SKY_EARTH__') >= 0);
+      ok('and the sky is MOJAVE, not maritime: no #7fa8c8 powder blue in a game whose ' +
+         'every surface is desert tan',
+         page.indexOf('__SKY_DESERT__') >= 0 && pageCode.indexOf('#7fa8c8') < 0);
+      ok('the placeholder still SAYS it is a placeholder, because the real celestial art ' +
+         'is AR-005 and belongs to the ART lane -- this made the stand-in honest, it did ' +
+         'not pre-empt the artist',
+         page.indexOf('art request AR-005') >= 0);
+    }
+
     ok('and nothing throws through the whole round trip',
        errs.length === 0 || (console.log('  (errors: ' + errs.slice(0, 2).join(' | ') + ')'), false));
   } catch (e) {

@@ -211,6 +211,8 @@ html,body{background:#2a4a62;color:var(--ink);font:14px/1.4 'Space Grotesk',syst
 
 
 
+
+
 #daycardIn .mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;
   padding:9px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
   border:1px solid var(--line)}
@@ -6925,6 +6927,10 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE WORLD YOU STAND IN ==== */
+
+
+
+
 
 
 
@@ -15878,6 +15884,8 @@ let _zacc=44;
 
 
 
+
+
 /* ==== ONE PAINT PER FRAME WHILE HE PINCHES ==== */
 /* __FRAME_BUDGET__ -- renderSoon(): one paint per frame while two fingers are down.
    MEASURED, NOT GUESSED (gates/frame_budget_gate.js): pinch-zoom WHILE WALKING cost 2.08
@@ -18619,6 +18627,8 @@ function skyExit(){ if(!SKY)return; SKY=false; SKYU=0; window.__SKY_EXIT=(window
 
 
 
+
+
 /* one step of the same gesture that got him here. OUT raises SKYU; IN lowers it,
    and at 0 it hands back to the city builder, which hands back to his feet. */
 function skyZoom(dir){
@@ -18657,8 +18667,15 @@ function renderSky(){
      floor fills the frame and the valley sits in it. Past that the horizon curves
      and the sky darkens toward space. */
   var t=Math.min(1,u/0.55);                       /* 0 = atmosphere, 1 = space */
-  var skyTop=mixHex(night?'#101826':'#3a6a8a','#05060b',t);
-  var skyLow=mixHex(night?'#1a2436':'#7fa8c8','#05060b',Math.min(1,t*1.15));
+  /* __SKY_DESERT__ -- a MOJAVE sky, which is deep blue at the zenith and dust-TAN
+     at the horizon, because the horizon is a hundred miles of suspended silt. It
+     used to run #3a6a8a -> #7fa8c8, a maritime powder blue, in a game whose every
+     surface is desert tan -- "all blue" (Paolo 8/16), and he was right. The haze
+     colour is the city's OWN #d8c08a, not a new one. And it goes to black FASTER
+     on the way up (t*1.45) because airglow is a thin shell, not a whole-frame
+     gradient: past the atmosphere there should be no blue left to see. */
+  var skyTop=mixHex(night?'#101826':'#33607f','#05060b',Math.min(1,t*1.45));
+  var skyLow=mixHex(night?'#1a2436':'#d8c08a','#05060b',Math.min(1,t*1.25));
   var gd=g.createLinearGradient(0,0,0,H);
   gd.addColorStop(0,skyTop); gd.addColorStop(1,skyLow);
   g.fillStyle=gd; g.fillRect(0,0,W,H);
@@ -18675,7 +18692,13 @@ function renderSky(){
        place Act 3 goes, and the place the dynasty ends looking back from. */
     var mu=(u-0.55)/0.45;
     var er=Math.max(28,H*0.62*(1-mu*0.72));
-    skyDisc(W*0.5,H*0.98+er*0.55,er,'#7fa8c8','#16283a','rgba(180,220,255,0.35)');
+    /* __SKY_EARTH__ -- THE MOJAVE FROM ABOVE, not an ocean world. It was #7fa8c8
+       with a pale blue rim, which is the "all blue" he was actually pointing at
+       (8/16) -- the sky behind the planet was only half of it. From orbit over
+       Las Vegas you see ochre, iron oxide and dry-lake white. The ONLY blue in
+       the frame is the atmospheric limb, because that shell really is blue and
+       it is what makes a planet read as a planet rather than a painted ball. */
+    skyDisc(W*0.5,H*0.98+er*0.55,er,'#c9a06a','#4a2f1c','rgba(150,195,235,0.42)');
     var mr=18+mu*Math.min(W,H)*0.16;
     var my=H*0.30-mu*H*0.06;
     skyDisc(W*0.5,my,mr,'#e8e2d4','#7a7466',null);
@@ -18689,10 +18712,27 @@ function renderSky(){
        CITY's own renderer at a smaller tile, so this is the same picture the city
        builder draws -- not a second map of the same place. */
     var horizon=H*(0.42+u*0.36);
+    /* __SKY_CURVE__ -- THE HORIZON BOWS, AND THAT IS THE WHOLE FIX. Paolo 8/16: "it doesn't
+       even look like it's moving out from the Earth." It never could: this was a fillRect
+       with a dead straight top edge, and A STRAIGHT HORIZON READS AS STANDING ON A PLAIN AT
+       EVERY ALTITUDE. It is the single cue that says "flat", and shrinking the city
+       underneath it cannot argue with it.
+       So the edge is an ARC now. Its sagitta -- how far the middle rises above the sides --
+       grows with altitude: imperceptible down low, decisive by the planetary band, until he
+       is looking OVER a limb rather than across a floor. Geometry, not art direction, and
+       the same reason a real horizon looks flat from a rooftop and curved from a jet. */
+    var bow=H*0.34*u*u;                     /* quadratic: nothing early, obvious late */
+    var edgeY=function(x){ var d=(x-W/2)/(W/2); return horizon+bow*(d*d); };
     g.fillStyle=mixHex('#8a7a58','#3a3226',Math.min(1,u/0.5));
-    g.fillRect(0,horizon,W,H-horizon);
-    g.save(); g.globalAlpha=Math.max(0,0.55-u); g.fillStyle='#d8c08a';
-    g.fillRect(0,horizon-3,W,3); g.restore();
+    g.beginPath();
+    g.moveTo(0,edgeY(0));
+    for(var sx=0;sx<=W;sx+=8) g.lineTo(sx,edgeY(sx));
+    g.lineTo(W,H); g.lineTo(0,H); g.closePath(); g.fill();
+    /* the lit rim of the limb, following the same curve rather than a straight bar */
+    g.save(); g.globalAlpha=Math.max(0,0.55-u); g.strokeStyle='#d8c08a'; g.lineWidth=3;
+    g.beginPath(); g.moveTo(0,edgeY(0));
+    for(var rx=0;rx<=W;rx+=8) g.lineTo(rx,edgeY(rx));
+    g.stroke(); g.restore();
     var k=Math.max(0.06,1-u*3.2);
     var tw=TW,th=TH; TW=TW0*zoomBounds()[0]*k; TH=TH0*zoomBounds()[0]*k;
     try{ skyValley(horizon); }catch(_e){}
@@ -22384,6 +22424,8 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 document.getElementById('mktbtn').addEventListener('click',function(){
   if(!mktAt())return; MKT_LAST=null; showMarket();
 });
+
+
 
 
 

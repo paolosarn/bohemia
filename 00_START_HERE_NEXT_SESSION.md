@@ -9328,7 +9328,46 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 (k) LATEST -- *** HE CAME BACK FROM THE MOON AND THE CITY FROZE
+WORLD (world-9lfjtf): 8/16 LATEST -- *** HIS VERDICT ON THE ZOOM: "A GOOD ROUGH DRAFT...
+IT NEEDS MORE WORK." THE PLACEHOLDER WAS NOT JUST UNFINISHED, IT WAS WRONG. *** BUILD 8/16h.
+Gate: sky_touch_gate.js 18/0. Record: records/BOHEMIA_VERDICT_ROUGH_DRAFT_8_16_26.md
+
+HIS WORDS: "all blue and it doesn't even look like it's moving out from the Earth. It's
+really bad." Plus: "off the freeway are so fucked up not going the right direction half of
+them."
+
+THE VERDICT SPLITS THREE WAYS AND TWO OF THEM ARE NOT THIS SESSION'S GROUND:
+  1. THE FREEWAY DIRECTIONS -> the OTHER live WORLD session. It has been committing in
+     tools/bohemia_district_hero_factory.py continuously through 8/15-8/16 and landed
+     "STREETS NOW FACE THE WAY THEY ACTUALLY RUN" the same day. His report lands ON TOP of
+     that fix, which usually means one orientation case was covered and the mirror was not.
+     NOT TOUCHED. Two sessions in one generator is the collision the parallel law names.
+  2. THE SKY LOOK -> ART, via AR-005, which already owns it. The screen literally says
+     "placeholder sky - art request AR-005", and the repo has NO celestial art in any bank.
+     His verdict is the strongest input that request has ever had; it travels with it.
+  3. WHAT WAS ACTUALLY WRONG AND IS NOW FIXED -> below.
+
+*** A PLACEHOLDER IS ALLOWED TO BE UNFINISHED. IT IS NOT ALLOWED TO BE WRONG. ***
+  "ALL BLUE": the record for this feature CLAIMS the discs are "drawn from the palette the
+    city already uses". They were not. The sky ran #3a6a8a -> #7fa8c8, maritime powder
+    blue, in a game whose every surface is Mojave tan -- and worse, THE EARTH DISC ITSELF
+    was #7fa8c8 with a pale blue rim. An ocean world, over Las Vegas. Now: blue at the
+    ZENITH and the city's own dust-tan (#d8c08a) at the horizon, because a desert horizon
+    is a hundred miles of suspended silt; and the planet is ochre with the ONLY blue in the
+    frame being the atmospheric limb, which really is blue.
+    I FIXED THE SKY BEHIND THE PLANET FIRST AND CALLED IT DONE. The gate caught that the
+    planet was still blue. Half a fix looks exactly like a fix until something measures it.
+  "DOESN'T LOOK LIKE LEAVING EARTH": because the ground was a RECTANGLE -- fillRect with a
+    dead straight top edge that slid down and darkened. A STRAIGHT HORIZON READS AS
+    STANDING ON A PLAIN AT EVERY ALTITUDE. No art would have fixed that; it is geometry.
+    The horizon BOWS now, sagitta growing quadratically with altitude, so he ends up
+    looking OVER a limb instead of across a floor. Verified by screenshot at five
+    altitudes on the real page -- I LOOKED AT THE PIXELS, which is the only way this class
+    of complaint can be checked.
+  UNTOUCHED ON PURPOSE: the moon disc, the starfield, the placeholder label. AR-005 is the
+    artist's and making the stand-in honest must not pre-empt them.
+
+WORLD (world-9lfjtf): 8/15 (k) -- *** HE CAME BACK FROM THE MOON AND THE CITY FROZE
 FOREVER. I SWALLOWED HIS FINGER-RELEASES. *** BUILD 8/15zd. Gate: sky_touch_gate.js 14/0,
 now a ROUND TRIP.
 
