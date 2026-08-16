@@ -60,7 +60,7 @@ GATES = [
      "same event ids he had killed hours earlier, so the judge sheet hid thirty "
      "new candidates behind his own DOWN thumbs AND thirty of his verdicts were "
      "silently reassigned to sounds he never heard. A sound he has judged is "
-     "frozen forever; a new sound gets a NEW id"),
+     "frozen forever; a new sound gets a NEW id", False),
     ('INSTRUMENTS',    ['python3', 'gates/instrument_gate.py'],
      "Paolo 8/16 after SFX-06 died 34 of 35: \"use more instruments\". The alpha "
      "carries a 602-voice music rack that every song he calls fire is built "
@@ -1775,10 +1775,41 @@ def main():
         drop_lock()
 
 
+def _check_table():
+    """THE REGISTRY IS THE FLEET'S SINGLE POINT OF FAILURE, so it checks itself.
+
+    Every GATES row is (name, argv, what, slow). Twice in one day a row landed with
+    only three -- INSTRUMENTS (MUSIC lane) and VERDICT FROZEN -- and because the
+    run loop UNPACKS the row, one bad row does not skip one gate: it raises
+    ValueError before a single gate runs and takes down ALL 362, on every lane, for
+    everybody. Both times the traceback pointed at the for-statement and named no
+    gate, so the cost was a hunt rather than a fix.
+
+    This cannot be a gate of its own -- a gate that lives in the table cannot run
+    when the table is broken -- so it runs here, first, and NAMES the row. It is
+    also why it does not raise: a malformed row is a typo, and telling the author
+    which line to fix beats a stack trace every time.
+    """
+    bad = [(i, r) for i, r in enumerate(GATES) if not isinstance(r, tuple) or len(r) != 4]
+    if not bad:
+        return True
+    print('=' * 78)
+    print('  THE GATE TABLE IS MALFORMED -- no gate can run until this is fixed.')
+    print('  Every row is (name, argv, what, slow). These are not:')
+    for i, r in bad:
+        nm = r[0] if isinstance(r, (tuple, list)) and r else '?'
+        print('    row %d  %-18s has %d field(s), needs 4 -- add the missing `slow` '
+              'boolean (False unless the gate is slow)' % (i, nm, len(r)))
+    print('=' * 78)
+    return False
+
+
 def _run_all(fast, strict):
     print('=' * 78)
     print('BOHEMIA GATES')
     print('=' * 78)
+    if not _check_table():
+        return 1
     deps_check()
     failed = []
     t0 = time.time()
