@@ -383,98 +383,64 @@ already stores 112 frames today (G.hd defaults true), so it does not grow. HD_CA
 stays 768.
 
 --------------------------------------------------------------------------------
-SOUND (sound-xk7pjp): 8/15 LATEST -- *** HE SWEPT ALL 365 AND TWO SOUNDS CAME BACK
-FIVE OF FIVE. SLEEPING MAKES A SOUND, THE MISS MAKES A SOUND, THE VITAL MAKES A
-SOUND. TAB: RUN (sleep), COMBAT (miss + vital), MUSIC (judge them all). ***
+SOUND (sound-xk7pjp): 8/16 LATEST -- *** HE ASKED FOR NEW SOUNDS. SFX-06 IS 35
+CANDIDATES ACROSS 7 MOMENTS THE GAME ALREADY HAS AND PLAYS SILENTLY. AWAITING HIS
+THUMBS. TAB: MUSIC. ***
 
-HIS FOURTH FULL SWEEP IN FOUR DAYS. 118 UP / 247 DOWN across 39 moments that now have
-a sound. records/BOHEMIA_SFX_VERDICT_8_15_26.txt, banks/BOHEMIA_SFX_APPROVED_8_15_26.json.
+  round_land   THE ROUND LANDS         the shot that missed hits the ground
+  cover_chew   YOUR COVER TAKES ONE    your stone loses a piece
+  car_heat     THE CAR TAKES ANOTHER   the clock ticking, not the impact
+  man_moves    SOMEBODY REPOSITIONS    a gun leaves his rock to flank you
+  nerve_break  HIS NERVE GOES          a shooter becomes a person running
+  wake_up      YOU WAKE UP             the other half of his 5/5 sleep
+  went_down    YOU GO DOWN             you lost the fight. silent since launch
 
-SFX-05 RESULTS, seven moments:
-    miss_past   5/5  friction   THE SHOT GOES PAST YOU     <- clean sweep
-    sleep_sink  5/5  friction   EIGHT HOURS GONE           <- clean sweep
-    vital_deep  3/5  modal      WORSE THAN A HIT, NOT A KILL
-    clear_still 0/5  friction   the fight is over
-    turn_to_you 0/5  friction   somebody turns to you
-    cross_in    0/5  modal      you step inside
-    done_ring   0/5  modal      it is done
-Nothing has swept 5/5 since the ORIGINAL DEMO SET. Both that did are friction.
+FIVE OF SEVEN ARE COMBAT ON PURPOSE. His newest locked ruling is THE FIGHT HAS TO
+MOVE YOU -- a fight you can win from one spot is broken. You cannot HEAR a reason to
+move if nothing about moving makes a sound, so the three things that punish standing
+still (cover degrading, the car heating, a man flanking) now have ears. Every moment
+was found by reading the run and the fight for a toast or a verdict that ALREADY
+FIRES. Nothing was invented to spend a sound on.
 
-*** FRICTION STOPPED BEING A THIN FINDING. *** It was 6 UP / 9 DOWN on fifteen
-judgements at 330, which is not a result. Twenty more candidates later:
-    friction   16 UP /  19 DOWN   46%   <- and now it is one
-    modal     100 UP / 185        35%
-    fm          2 UP /  13        13%
-    particle    0 UP /  20         0%
-    air         0 UP /  10         0%
-Cook friction unless a moment argues otherwise.
+*** THE MISTAKE I MADE AND THE GATE THAT CAUGHT IT. *** The batch was first written
+SIX-OF-SEVEN FRICTION, because friction is his best method (46%). The diversity gate
+went red and it was right on CRAFT grounds before gate grounds: a bullet into dirt,
+concrete shedding, and a body hitting the floor are IMPACTS, and I had made them
+scrapes because scrapes score well with him. That is picking the method to flatter
+the scoreboard. Now: round_land / cover_chew / went_down are MODAL (struck, damped,
+high grit), car_heat is FM (a panel under thermal stress ticks INHARMONICALLY --
+metal's character without the metal material his thumbs killed), and the three that
+genuinely rub stay friction. HIS "GETTING STALE" RULING OUTRANKS HIS OWN SCOREBOARD:
+the scoreboard says what he likes, the ruling says what he cannot stand.
 
-*** THE READING THE FOUR DEATHS GAVE: HE DOES NOT WANT THE ROOM ANNOUNCED. *** The
-three roomiest recipes in the batch are three of the four deaths (clear_still space
-0.80, done_ring 0.78, cross_in 0.72). The two that swept are the two with almost no
-room at all (miss_past 0.14, sleep_sink 0.16). Both survivors are a thing happening AT
-you; all three big rooms are a SPACE being described. RECORDED AS AN OBSERVATION AND
-DELIBERATELY NOT MADE A CAP on `space` -- seven recipes is exactly the sample size
-that produced the material law his next sweep destroyed.
+*** AND THE SILENT CLAMP THAT ALMOST SHIPPED. *** The design axis of this batch is
+the SLIP RATE (`rough`), because the stick-slip literature is blunt that slip rate
+and roughness -- not pitch -- are what make a friction sound read as a material, and
+his own two 5/5 sweeps sit at opposite ends of it (sleep_sink 5, miss_past 34). The
+ladder was written 3/6/9/24/41/62. SPEC.rough CAPS AT 40, so cook() clamped 62 and 41
+to the same 40 and two of the seven came out cousins -- in a batch whose whole
+premise is that they are not. Caught by printing what cook() RETURNED, never what the
+recipe SAID. Fixed in the recipe, never the spec: widening a declared range to fit my
+numbers would loosen validation for every sound in the game to save one of mine.
+Ladder is now 3, 6, 9, 17, 28, 38.
 
-THE FOUR ARE onceDeadWhole, NOT twiceDead, and the difference is stated on purpose:
-STOP PRODUCING ends a feature on the SECOND rejection, so one more cook would
-technically be legal. IT IS NOT HAPPENING. The right use of a reading is the next
-thing, not a re-cook of the thing the reading came from. They move only if Paolo asks.
+GATE FIX (mutation-proved): sfx_envelope_gate asserted every bound event was `judged
+== 5`, which was right while every bound event had been swept and WRONG the moment a
+fresh batch existed. A candidate he has not seen is not a defect, and a gate that
+goes red for EXISTING pressures the next session to stop cooking. THE REAL DEFECT IS
+THE MIDDLE: 1-4 of 5 means the sheet changed under him between thumbs, the exact 8/1
+"I can't be judging shit and then you pretend that I didn't" failure. Now: whole or
+not at all, and the gate NAMES what is awaiting him on every run.
 
-WHAT GOT WIRED (all three, same turn -- approved-but-unused is a defect):
-  sleep_sink -> sleepSave() in the run. The funnel BOTH sleeps pass through
-      (spendTime('SLEEP') calls it, and so does SLEEP AND SAVE on the save sheet).
-      *** THIS REVERSES THE 8/7 READING. *** On 8/7 he killed all five SLEEP
-      candidates while approving all five TIME_PASS, and the wire read those
-      together as one decision: sleep is a QUANTITY of time, not a ceremony. A 5/5
-      supersedes that. WHAT CHANGED IS THE SOUND, NOT THE MOMENT -- the dead SLEEP
-      candidates were modal, a struck object announcing bedtime; sleep_sink is
-      friction at 96 Hz with no room in it, weight settling. THE HOURS STILL STRIKE:
-      the sink fires when you lie down, the clock count follows it.
-  miss_past  -> sndMiss() in combat. Five call sites, all already named MISS.
-  vital_deep -> sndVital() in combat. showVerd('VITAL') has existed the whole time.
-      Both were beeping placeholder oscillators. No mechanic invented, no call site
-      moved -- same move that put BLOCK on the cover save. 200 ms limiter on the
-      miss because two of its call sites sit inside per-enemy loops.
+ALREADY LIVE FROM 8/15 (his 365/365 sweep, 118 UP across 39 moments): sleeping makes
+a sound (TAB: RUN), the miss and the vital make a sound (TAB: COMBAT). Full detail in
+git history for commit 3c6211d.
 
-TWO GATE HOLES CLOSED THE SAME TURN, and both were mine:
-  1. regionBinds MEASURED NOTHING. It shipped 8/12 as the forward-binding list, and
-     every event on it is by definition NOT in ENVELOPE.batch -- so the derivation
-     built no row, main() read undefined.outsideN as falsy, and printed "all inside"
-     for all seven. A pass worded like a pass. Both legs now walk batch UNION
-     regionBinds. MUTATION-PROVED: push miss_past's hz to 9200 and it goes red;
-     name a bound event that has no recipe and it goes red.
-  2. The wire tool cried wolf about someone else's lane. Its "is the footstep bus
-     already rerouted" test was a byte match on its own replacement string, so the
-     moment the mix patch inserted MUS.OUT into that line it started printing "no
-     footstep bus found (another lane may have moved it)" on a bus that was correct
-     the whole time. It tests the PROPERTY now (does STEP_BUS reach __SFXBUS).
-
-NEW CHECKS, all mutation-proved:
-  sfx_wired_gate: drives sleepSave() in the real browser and reads the RUN's OWN ask
-     log (remove the wire -> 3 red). Asserts the save bell does NOT double up on it.
-     Measures sleep_sink / miss_past / vital_deep on the real SFX bus -- banked and
-     audible are different claims. Static combat checks for both sfxAsk call sites
-     and the miss limiter (strip the ask -> 2 red).
-  sfx_envelope_gate: re-derives REGION and the mkup/drive direction from ALL his
-     verdict files on every run. REGION did not move at 365 -- every new approval
-     landed inside the box, which is the first time that has been true.
-
-DIRECTION WEAKENS AGAIN, as it has every sweep: mkup -1.17 at 140 thumbs, -0.36 at
-270, 0.874/0.939 at 330, 0.868/0.921 at 365. Still asserted only as a SIGN, never a
-cap. A cap tight enough to mean anything would be red on sounds HE APPROVED.
-
-*** A WARNING FOR THE NEXT SESSION, AND IT COST A WHOLE TURN. *** This work was built
-once, committed, rebased and NOT PUSHED while the full suite ran -- and the container
-reverted to an Aug 2 snapshot mid-run and took the commit and every loose object with
-it. GIT IS THE MEMORY only once it is on the REMOTE. Push the session branch the
-moment you commit; the gate pass gates the push to MAIN, never the push to your own
-branch.
-
-STILL WAIVED (approved, no moment in the game yet, each checked not assumed): casing,
-cloth_on, demolish, drink, dry_fire, heartbeat, melee_hit, pickup, power_on, set_down,
-swing_air, tape_pull. The gate names the reason for every one.
+*** PUSH THE BRANCH THE MOMENT YOU COMMIT. *** Two container reverts to an Aug 2
+snapshot ate a whole turn's work mid-suite this session. GIT IS THE MEMORY only once
+it is on the REMOTE. The gate pass gates the push to MAIN, never the push to your own
+branch, and never the play link -- he waited on a build because I held it behind a
+suite, and that was the wrong order.
 
 --------------------------------------------------------------------------------
 

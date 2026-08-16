@@ -444,7 +444,26 @@ const BOH_SFX = (function () {
     { ev: 'sleep_sink',  label: 'YOU SLEEP',             why: 'settling in, and eight hours gone. the biggest block of time in the game passes in silence today' },
     { ev: 'turn_to_you', label: 'SOMEBODY TURNS TO YOU', why: 'the moment a conversation starts. small on purpose: a person is not an event' },
     { ev: 'cross_in',    label: 'YOU STEP INSIDE',       why: 'crossing into a building. the ROOM is the sound, not the door. NOT named step_* -- every step_ event in this engine is a GROUND SURFACE, and the render gate rightly holds those to no-room and short, which a threshold crossing is the opposite of' },
-    { ev: 'done_ring',   label: 'IT IS DONE',            why: 'the run completed. his own words: the one moment that earns the whole room' }
+    { ev: 'done_ring',   label: 'IT IS DONE',            why: 'the run completed. his own words: the one moment that earns the whole room' },
+
+    /* ---- BATCH SFX-06 (8/16, HE ASKED FOR NEW SOUNDS) -------------------
+       SEVEN MOMENTS THAT ARE REAL IN THE BUILD TODAY AND MAKE NO NOISE. Every
+       one was found by reading the run and the fight for a toast or a verdict
+       that already fires, never by inventing a moment to spend a sound on.
+       FIVE OF THE SEVEN ARE COMBAT, because the demo opens on the family
+       defence fight and his newest locked ruling is THE FIGHT HAS TO MOVE YOU
+       -- a fight you can win from one spot is broken. You cannot hear a reason
+       to move if nothing about moving makes a sound, so this batch gives ears
+       to the three things that punish standing still: your cover degrading,
+       the car you are behind heating toward going up, and a gun leaving his
+       rock to flank you. */
+    { ev: 'round_land',  label: 'THE ROUND LANDS',       why: 'the shot that missed arrives somewhere. it went past you and then it hit the ground, and the ground is what you hear' },
+    { ev: 'cover_chew',  label: 'YOUR COVER TAKES ONE',  why: 'the stone you are behind loses a piece. the fight is eating your hiding place while you are still using it' },
+    { ev: 'car_heat',    label: 'THE CAR TAKES ANOTHER', why: 'hiding behind a car is a clock you can watch. this is the clock ticking, not the impact that wound it' },
+    { ev: 'man_moves',   label: 'SOMEBODY REPOSITIONS',  why: 'a gun leaves his rock and scrambles for a better one. the fight has to move you, so you have to hear it move them' },
+    { ev: 'nerve_break', label: 'HIS NERVE GOES',        why: 'the moment a man stops being a shooter and becomes a person running. not a death, not a hit, a decision' },
+    { ev: 'wake_up',     label: 'YOU WAKE UP',           why: 'the other half of the sleep he swept five of five. same body, same bed, coming up instead of going down' },
+    { ev: 'went_down',   label: 'YOU GO DOWN',           why: 'you lost the fight. the biggest thing that can happen to you in this game and it has been silent since launch' }
     /* ---- end batch SFX-05 events ---- */
     /* ---- end batch 02 events ---- */
   ];
@@ -1356,8 +1375,148 @@ const BOH_SFX = (function () {
       jit:  { hz: [480, 880], decay: [1, 1.875], space: [0.62, 0.94],
               room: [1.25, 2.125], dark: [3200, 6000], warble: [1.1, 2.4],
               bright: [1, 1.6], transHz: [5000, 8400] }
-    }
+    },
     /* ---- end batch SFX-05 recipes ---- */
+
+    /* ================= BATCH SFX-06 (8/16/26) =========================
+       COOKED FROM HIS 365 THUMBS, NOT FROM TASTE:
+         PHYSICS PICKS THE METHOD; HIS DATA PICKS WITHIN IT. This batch was
+           first written SIX-OF-SEVEN FRICTION, on the honest but lazy logic
+           that friction is his best method (16 UP / 19 DOWN, 46%). The
+           diversity gate went red -- friction would have owned 65 of 110
+           non-modal candidates -- and it was RIGHT, on craft grounds before
+           gate grounds. A bullet into dirt, concrete shedding a piece and a
+           body hitting the floor are IMPACTS. They are struck things, and I
+           had made them scrapes because scrapes score well with him. That is
+           picking the method to flatter the scoreboard.
+           So the four that are not scrapes changed: round_land, cover_chew and
+           went_down are MODAL (struck, heavily damped, high grit), car_heat is
+           FM (a panel under thermal stress ticks INHARMONICALLY, which is what
+           FM is for, and it gets metal's character without the metal material
+           his thumbs killed 3 UP / 22 DOWN). Three friction survive and all
+           three genuinely rub: a scramble, a body shifting in a bed, and the
+           slow stick-slip of a cooling panel.
+           HIS "GETTING STALE" RULING OUTRANKED HIS OWN SCOREBOARD HERE, and
+           that is the right order: the scoreboard says what he likes, the
+           ruling says what he cannot stand, and one bad batch of cousins costs
+           more than one method's hit rate wins.
+         DO NOT ANNOUNCE THE ROOM. Every recipe here sits at space 0.09-0.15
+           and room <= 0.25 -- right where the two he swept 5/5 live (0.14 and
+           0.16) and nowhere near the three big rooms that all died whole
+           (cross_in 0.72, done_ring 0.78, clear_still 0.80).
+         NO METAL, NO PARTICLE, NO AIR. `dead` and `deadMethod`, both his data.
+         ONE MODAL ON PURPOSE (nerve_break). Seven friction recipes would be a
+           monoculture, and "its getting stale" is his complaint on the record.
+
+       AND THE ONE THING THE RESEARCH CHANGED. The stick-slip literature is
+       blunt that the SLIP RATE and surface roughness -- not pitch -- are what
+       make a friction sound read as a particular material: the slip pattern IS
+       the perceived roughness, and the mode shifts riding on it are what read
+       as inharmonic. In this engine that is `rough`, the sawtooth slip
+       frequency in Hz, clamped [0.5, 400] and ramped to 0.55x across the
+       sound. HIS OWN TWO CLEAN SWEEPS SIT AT OPPOSITE ENDS OF IT (sleep_sink
+       rough 5, miss_past rough 34), which says the axis is live for him. So
+       this batch ladders it deliberately instead of varying pitch and calling
+       that variety: 3, 6, 9, 17, 28, 38 across the six friction recipes. A
+       tick, a breath, a slump, a scramble, a crack, a spray.
+       AND THE LADDER IS THE ONE THE SPEC ACTUALLY ALLOWS. It was first
+       written 3/6/9/24/41/62, and SPEC.rough caps at 40 -- so cook()
+       clamped 62 and 41 to the SAME 40 and the spray and the crack came out
+       as near-cousins. Silent, legal, and it would have shipped two of seven
+       sounding alike in a batch whose entire premise is that they do not.
+       Caught by printing what cook() RETURNED instead of what the recipe
+       SAID. The fix is the recipe, never the spec: 40 Hz is already a fast
+       rasp and widening a declared range to fit my numbers would loosen
+       validation for every sound in the game to save one of mine. */
+
+    /* --- FRICTION, the method his thumbs rate highest --- */
+    round_land: {
+      base: { mat: 'stone', hz: 210, modes: 5, bright: 0.75, decay: 0.125,
+              damp: 2.4, warble: 0.4, atk: 0, trans: 0.92, transHz: 3400,
+              transQ: 1.6, grit: 0.95, gritHz: 1400, space: 0.09, room: 0.0625,
+              refl: 1, dark: 1800, width: 0.7, drive: 0.12, mkup: 0.66,
+              gain: 0.34 },
+      jit:  { hz: [170, 290], decay: [0.0625, 0.1875], damp: [2, 2.7],
+              transHz: [2400, 4800], bright: [0.6, 1], width: [0.58, 0.9],
+              grit: [0.85, 0.98], dark: [1300, 2600], gritHz: [1000, 2100] }
+    },
+    cover_chew: {
+      base: { mat: 'stone', hz: 430, modes: 6, bright: 1.25, decay: 0.1875,
+              damp: 2.2, warble: 0.5, atk: 0, trans: 0.88, transHz: 5600,
+              transQ: 2.1, grit: 0.8, gritHz: 3100, space: 0.11, room: 0.125,
+              refl: 1, dark: 3600, width: 0.72, drive: 0.11, mkup: 0.62,
+              gain: 0.32, hits: [0, 0.0625] },
+      jit:  { hz: [330, 620], decay: [0.125, 0.3125], damp: [1.8, 2.6],
+              transHz: [4200, 8000], bright: [1, 1.55], width: [0.6, 0.95],
+              dark: [2600, 5000], gritHz: [2300, 4400] },
+      hitSets: [[0, 0.0625], [0], [0, 0.09375], [0, 0.0625, 0.15625], [0, 0.125]]
+    },
+    car_heat: {
+      base: { synth: 'fm', mat: 'stone', hz: 128, ratio: 1.41, index: 3.2,
+              modes: 5, bright: 0.55, decay: 0.4375, damp: 1.9, warble: 0.35,
+              atk: 0.0625, trans: 0.3, transHz: 1400, transQ: 0.9, grit: 0.55,
+              gritHz: 800, space: 0.1, room: 0.125, refl: 1, dark: 1100,
+              width: 0.58, drive: 0.07, mkup: 0.8, gain: 0.3,
+              hits: [0, 0.375, 0.6875] },
+      jit:  { hz: [104, 176], ratio: [1.3, 2.2], index: [2, 5],
+              decay: [0.3125, 0.625], bright: [0.44, 0.72], width: [0.5, 0.8],
+              dark: [800, 1600] },
+      hitSets: [[0, 0.375, 0.6875], [0, 0.4375], [0, 0.3125, 0.5625],
+                [0, 0.5, 0.875], [0, 0.25, 0.5, 0.8125]]
+    },
+    man_moves: {
+      base: { synth: 'friction', mat: 'ash', hz: 260, rough: 17, modes: 5,
+              bright: 0.68, decay: 0.3125, damp: 2.1, warble: 0.4, atk: 0.0625,
+              slide: -6, trans: 0.13, transHz: 2200, transQ: 1.1, grit: 0.88,
+              gritHz: 1700, space: 0.13, room: 0.1875, refl: 1, dark: 2100,
+              width: 0.68, drive: 0.08, mkup: 0.7, gain: 0.28,
+              hits: [0, 0.1875, 0.375] },
+      jit:  { hz: [205, 350], rough: [12, 24], decay: [0.25, 0.4375],
+              slide: [-9, -3], bright: [0.55, 0.92], width: [0.58, 0.88],
+              dark: [1600, 3000], gritHz: [1300, 2500] },
+      hitSets: [[0, 0.1875, 0.375], [0, 0.25], [0, 0.125, 0.3125],
+                [0, 0.1875, 0.375, 0.5625], [0, 0.21875, 0.4375]]
+    },
+    wake_up: {
+      base: { synth: 'friction', mat: 'ash', hz: 110, rough: 6, modes: 4,
+              bright: 0.5, decay: 0.5, damp: 2, warble: 0.3, atk: 0.125,
+              slide: 4, trans: 0.1, transHz: 1200, transQ: 0.8, grit: 0.85,
+              gritHz: 1000, space: 0.14, room: 0.1875, refl: 1, dark: 1200,
+              width: 0.62, drive: 0.06, mkup: 0.82, gain: 0.3,
+              hits: [0, 0.5] },
+      jit:  { hz: [88, 158], rough: [4, 10], decay: [0.375, 0.75],
+              slide: [1, 5], bright: [0.4, 0.75], width: [0.52, 0.86],
+              dark: [900, 1800] },
+      hitSets: [[0, 0.5], [0, 0.4375], [0, 0.5625], [0, 0.375, 0.8125],
+                [0, 0.46875]]
+    },
+    went_down: {
+      base: { mat: 'ash', hz: 68, modes: 5, bright: 0.36, decay: 0.875,
+              damp: 2.3, warble: 0.45, atk: 0, trans: 0.96, transHz: 900,
+              transQ: 0.9, grit: 0.92, gritHz: 700, space: 0.15, room: 0.25,
+              refl: 1, dark: 800, width: 0.66, drive: 0.12, mkup: 0.86,
+              gain: 0.34, hits: [0, 0.0625, 0.3125] },
+      jit:  { hz: [54, 98], decay: [0.625, 1.125], damp: [1.9, 2.7],
+              transHz: [700, 1500], bright: [0.3, 0.5], width: [0.56, 0.9],
+              dark: [600, 1300], gritHz: [500, 1100] },
+      hitSets: [[0, 0.0625, 0.3125], [0, 0.375], [0, 0.0625, 0.25],
+                [0, 0.125, 0.4375], [0, 0.0625, 0.28125]]
+    },
+
+    /* --- MODAL: a person is a struck body, not a scrape --- */
+    nerve_break: {
+      base: { mat: 'bone', hz: 92, modes: 6, bright: 0.6, decay: 0.375,
+              damp: 2.3, warble: 0.6, atk: 0.0625, trans: 0.85, transHz: 1500,
+              transQ: 1.2, grit: 0.6, gritHz: 1000, space: 0.12, room: 0.125,
+              refl: 1, dark: 1200, width: 0.5, drive: 0.28, mkup: 0.9,
+              gain: 0.4, hits: [0, 0.0625] },
+      jit:  { hz: [74, 124], decay: [0.3125, 0.5625], transHz: [1150, 2400],
+              grit: [0.45, 0.78], damp: [1.9, 2.6], drive: [0.2, 0.4],
+              dark: [900, 1700], width: [0.4, 0.64] },
+      hitSets: [[0, 0.0625], [0], [0, 0.125], [0, 0.0625, 0.1875],
+                [0, 0.09375]]
+    }
+    /* ---- end batch SFX-06 recipes ---- */
   };
 
   /* ---- THE MEASURED ENVELOPE (rewritten 8/12/26, SAME DAY, from 270) ----
@@ -1508,7 +1667,11 @@ const BOH_SFX = (function () {
        SFX-03 to fit the box would have invalidated thumbs he had already
        given. SFX-05 is new, so it is held to it. */
     regionBinds: ['miss_past','vital_deep','clear_still','sleep_sink',
-                  'turn_to_you','cross_in','done_ring'],
+                  'turn_to_you','cross_in','done_ring',
+                  /* SFX-06. Being on this list is what MAKES the region bind:
+                     an event not on it is measured and reported, never failed. */
+                  'round_land','cover_chew','car_heat','man_moves',
+                  'nerve_break','wake_up','went_down'],
     batch: ['step_concrete','step_sand','step_glass','step_wood','step_metal',
             'swing','melee_hit','reload','dry_fire','casing',
             'heartbeat','breath','drink','patch_up',

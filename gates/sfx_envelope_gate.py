@@ -295,6 +295,13 @@ def main():
         ok('%s is bound to the region and lands inside it (%s)'
            % (ev, ', '.join(b.get('outside', [])) or 'all inside'),
            b.get('n') == 5 and not b.get('outsideN'))
+    # AND WHAT IS STILL WAITING ON HIM IS NAMED OUT LOUD, never left implicit.
+    # STALE UNJUDGED IS DEAD: an unjudged batch that nobody reports is one that
+    # quietly rots, so the gate says whose turn it is on every run.
+    pending = [e for e in walk if not B[e].get('missing') and B[e]['judged'] == 0]
+    if pending:
+        print('  NOTE  %d moments are cooked and AWAITING HIS THUMBS: %s'
+              % (len(pending), ', '.join(pending)))
     strays = sum(B[e]['outsideN'] for e in env['batch'] if not B[e].get('missing'))
     print('  NOTE  %d of 130 SFX-03 candidate values sit outside the approved '
           'box; not a failure, and not re-cooked, because his thumbs are '
@@ -311,8 +318,17 @@ def main():
            'the sound he heard)' % ev, b['deterministic'])
         ok('%s does not drift material across its own candidates' % ev,
            len(b['mats']) == 1)
-        ok('%s was actually put to him and judged (%d of 5)' % (ev, b['judged']),
-           b['judged'] == 5)
+        # JUDGED WHOLE OR NOT AT ALL (8/16). This asserted `judged == 5`, which
+        # was right while every bound event had already been swept and WRONG the
+        # moment a fresh batch was cooked: a candidate he has not seen yet is
+        # not a defect, it is the normal state of a new cook, and a gate that
+        # goes red for existing is a gate that pressures the next session to
+        # stop cooking. THE REAL DEFECT IS THE MIDDLE. 1-4 of 5 means the sheet
+        # changed under him between thumbs -- the exact "I can't be judging shit
+        # and then you pretend that I didn't" failure from 8/1 -- so that stays
+        # red. Zero is new, five is settled, anything between is a bug.
+        ok('%s is judged whole or not at all, never half (%d of 5)'
+           % (ev, b['judged']), b['judged'] in (0, 5))
 
     # ---- 5. THE BATCH ACTUALLY GREW THE GAME -------------------------------
     ok('the game has far more moments than the demo set (%d, was 28)'
