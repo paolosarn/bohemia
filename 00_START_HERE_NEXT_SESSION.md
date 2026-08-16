@@ -9287,7 +9287,42 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/15 (j) LATEST -- *** HE REPORTED THE MOON ZOOM STILL BROKEN AND HE
+WORLD (world-9lfjtf): 8/15 (k) LATEST -- *** HE CAME BACK FROM THE MOON AND THE CITY FROZE
+FOREVER. I SWALLOWED HIS FINGER-RELEASES. *** BUILD 8/15zd. Gate: sky_touch_gate.js 14/0,
+now a ROUND TRIP.
+
+HIS WORDS: "I saw the moon, but I tried to zoom back in and then the game started breaking."
+
+REPRODUCED: after returning from the moon the city sat at its widest zoom and NEVER MOVED
+AGAIN. Eight pinches, no error, no crash, nothing. Instrumented: setZoomAt was being called
+20 times per gesture and every single call requested 0.2078 -- EXACTLY the zoom it was
+already at. A perfectly healthy-looking loop asking for nothing.
+
+CAUSE, AND IT WAS MINE FROM THIS MORNING: the sky handler blocked ALL pointer events while
+the sky was up, INCLUDING pointerup. The city keeps a Map of fingers currently down and
+deletes from it on pointerup. Block the release and the entries are never deleted -- so the
+city was still measuring the distance between two fingers that had left the glass minutes
+earlier. Constant distance, ratio exactly 1.0, zoom request exactly equal to current zoom,
+frozen until a page reload.
+
+THE RULE THIS EARNED: YOU MAY SWALLOW AN INTENT, YOU MAY NEVER SWALLOW A CLEANUP.
+The sky turns on PART-WAY THROUGH a gesture, so blocking down/up symmetrically is
+impossible -- which means the only safe asymmetry is the one that lets the other system
+tidy up. A stray release for a finger the city never registered is harmless (deleting a
+missing key is a no-op). A missing release is permanent corruption.
+
+*** AND I HAD ALREADY LEARNED THE GATE LESSON TODAY AND ONLY HALF-APPLIED IT. *** After his
+first report I extended the gate to walk the whole journey OUT, from a standing start. I
+left the journey BACK as a fragment -- it proved "pinching the other way rides back down",
+which was TRUE, because it tested the sky's own descent from inside the sky and stopped the
+instant the sky closed. The break was one step further on, in the city underneath.
+A ROUND TRIP IS ONE JOURNEY, NOT TWO, and it is not gated until it lands where it started.
+The gate now flies moon -> city -> street and asserts the city zoom actually CHANGES on the
+way back, naming the frozen-number signature (0.208 -> 0.208 -> 0.208) because that
+repetition IS the bug seen from outside. Mutation: restore the pointerup block, both
+assertions bite.
+
+WORLD (world-9lfjtf): 8/15 (j) -- *** HE REPORTED THE MOON ZOOM STILL BROKEN AND HE
 WAS RIGHT. I GATED THE PIECES AND NEVER WALKED THE JOURNEY. *** BUILD 8/15zb.
 Gate: sky_touch_gate.js 12/0, now including the WHOLE ROAD from a standing start.
 

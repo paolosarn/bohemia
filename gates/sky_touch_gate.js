@@ -180,6 +180,46 @@ ok('it steps the page\'s EXISTING skyZoom rather than reaching into SKYU by hand
       ok('and it gets there in a handful of gestures rather than a marathon (' + pinches +
          ' <= 6), because "it works if you pinch it fifteen times" is what broken feels like',
          reached && pinches <= 6);
+
+      /* *** AND ALL THE WAY BACK, WHICH IS THE SECOND HALF HE HAD TO REPORT SEPARATELY. ***
+         Paolo, right after seeing the moon: "I tried to zoom back in and then the game
+         started breaking." It did. The city froze at its widest zoom PERMANENTLY -- every
+         pinch asked it to zoom to exactly where it already was -- because this handler was
+         swallowing pointerup, so the city's map of fingers-currently-down never got cleaned
+         and it kept measuring the gap between two fingers that had left the glass.
+         THE FIRST VERSION OF THIS GATE PROVED "pinching the other way rides back DOWN" AND
+         WAS TRUE: it tested the sky's own descent, from inside the sky, and stopped the
+         moment the sky closed. The break was one step further on, in the city underneath.
+         I HAD ALREADY LEARNED THIS LESSON TODAY AND ONLY HALF-APPLIED IT: I extended the
+         gate to walk the journey OUT, and left the journey BACK as a fragment. A round trip
+         is one journey, not two, and it is not gated until it lands where it started. */
+      const realSpread = async () => {
+        const cx = 195, cy = 430;
+        await touch('touchStart', [{ x: cx - 30, y: cy, id: 1 }, { x: cx + 30, y: cy, id: 2 }]);
+        for (let i = 1; i <= 10; i++) {
+          const h = 30 + i * 4.5;
+          await touch('touchMove', [{ x: cx - h, y: cy, id: 1 }, { x: cx + h, y: cy, id: 2 }]);
+        }
+        await touch('touchEnd', []);
+        await p.waitForTimeout(220);
+      };
+
+      let back = 0, home = false, zooms = [];
+      for (; back < 10 && !home; ) {
+        await realSpread();
+        back++;
+        const w = await p.evaluate(() => ({ m: MODE, sky: SKY, cz: +CZOOM.toFixed(3) }));
+        zooms.push(w.cz);
+        home = (w.m === 'human' && !w.sky);
+      }
+      ok('AND ALL THE WAY BACK DOWN TO HIS FEET, on ordinary pinches -- moon to standing on ' +
+         'the street in ' + back + ' gestures', home);
+      /* THE SPECIFIC CORRUPTION, NAMED: a frozen city reports the SAME zoom every gesture. */
+      const froze = zooms.length > 3 &&
+        zooms.slice(1, 4).every(z => z === zooms[0]);
+      ok('and the city zoom actually MOVES on the way back rather than repeating one frozen ' +
+         'number (' + zooms.slice(0, 4).join(' -> ') + ') -- that repetition IS the bug, and ' +
+         'it is what a swallowed finger-release looks like from the outside', !froze);
     }
 
     ok('and nothing throws through the whole round trip',

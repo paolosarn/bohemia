@@ -101,12 +101,27 @@ JS = """%s
 
   /* THE POINTER SIDE EXISTS ONLY TO KEEP THE CITY OUT. While the sky is up the city must
      not zoom, pan, or select a plot underneath it -- MODE is still 'city' up there, so every
-     one of its handlers would happily act. It does no arithmetic and holds no state. */
+     one of its handlers would happily act.
+
+     *** BUT A RELEASE IS NEVER BLOCKED, AND THIS IS THE BUG HE FOUND COMING BACK DOWN. ***
+     Paolo 8/15: "I saw the moon, but I tried to zoom back in and then the game started
+     breaking." Measured: after returning from the moon the city froze at its widest zoom
+     FOREVER -- every pinch asked it to zoom to exactly where it already was, 0.2078 when
+     0.2078 is where it sat, and no reload short of a page refresh recovered it.
+     CAUSE: this handler used to swallow pointerup too. The city keeps a Map of fingers
+     currently down, and it deletes from that Map on pointerup. Blocking the release meant
+     the entries were NEVER deleted, so its Map kept two fingers that had long since left the
+     glass. Its pinch maths then measured the distance between two frozen points -- constant,
+     ratio exactly 1.0, zoom request exactly equal to current zoom, nothing moves, ever.
+     THE RULE: YOU MAY SWALLOW AN INTENT, YOU MAY NEVER SWALLOW A CLEANUP. The sky turns on
+     PART-WAY THROUGH a gesture, so it is impossible to block down/up symmetrically -- which
+     means the only safe asymmetry is the one that lets the other system tidy up. A stray
+     release for a finger the city never registered is harmless (deleting a missing key is a
+     no-op); a missing release is permanent corruption. */
   function block(e){ if(SKY) e.stopPropagation(); }
   window.addEventListener('pointerdown', block, true);
   window.addEventListener('pointermove', block, true);
-  window.addEventListener('pointerup', block, true);
-  window.addEventListener('pointercancel', block, true);
+  /* pointerup and pointercancel deliberately NOT blocked -- see above. */
 
   /* THE SKY SIDE READS THE EVENT AND NOTHING ELSE. */
   window.addEventListener('touchmove', function(e){
