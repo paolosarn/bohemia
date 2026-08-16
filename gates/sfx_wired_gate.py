@@ -40,8 +40,8 @@ ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_CURRENT.html'
 # 8/12: he swept all 270 and the bank grew 38 -> 97. The wire and this gate
 # must read the SAME file or one of them is checking a bank nobody plays.
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_15_26.json'
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_15_26.txt'
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_16_26.json'
+VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_16_26.txt'
 
 JS = r"""
 /* MEASURE THE AIR, NOT THE INTENTION (7/31/26).
