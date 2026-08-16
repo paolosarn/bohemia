@@ -206,6 +206,64 @@ TALL_MUL   = 1.25
 # and gets nothing -- adding to the ballpark would be noise on a subject that is
 # already dense. This is a LEVELLER, not a decorator.
 DENSITY_FLOOR = 140          # below the measured median: these are the unfinished ones
+# ============================================================================
+# NOTHING ENCLOSES A LOT (Paolo 8/16, LOCKED)
+# ============================================================================
+# "no perimeter walls until I tell you, bro no fencing no nothing bro."
+#
+# I turned the fences off last turn and then ASKED him about the leftover
+# perimeter walls instead of just removing them. That was the mistake -- he had
+# already said "none of that shit", and handing him a follow-up question is the
+# approvals queue coming back (EVERYTHING IS A THUMB, 8/9). The rule is broader
+# than fences and it is his: NOTHING RINGS A PLOT until he says otherwise.
+# Fence, wall, railing, bollard line, hedge -- if it exists to enclose, it is off.
+#
+# WHY IT IS A SWEEP AND NOT SIXTY EDITS: an enclosure is not a material, it is a
+# SHAPE -- long, thin, low, and out at the edge of the plot away from the
+# building. That is checkable, so the machine can find every one of them
+# including the ones authored as "walls" that a material switch missed.
+ENCLOSURES = False           # Paolo 8/16: no fencing, no perimeter walls, nothing.
+def _strip_enclosures(scene):
+    """Delete anything whose job is to ring the plot. Shape-based, not name-based."""
+    if ENCLOSURES:
+        return scene
+    # the BUILDING: tall mass. Anything low and far from it is site enclosure.
+    bx0 = by0 = 1e9; bx1 = by1 = -1e9
+    for verts, _uv, _n, _m in scene.faces:
+        zs = [v[2] for v in verts]
+        if max(zs) < 3.0:
+            continue                                   # not building mass
+        for (x, y, z) in verts:
+            bx0 = min(bx0, x); bx1 = max(bx1, x)
+            by0 = min(by0, y); by1 = max(by1, y)
+    if bx1 < bx0:
+        return scene
+
+    keep = []
+    for f in scene.faces:
+        verts = f[0]
+        zs = [v[2] for v in verts]
+        top = max(zs)
+        xs = [v[0] for v in verts]; ys = [v[1] for v in verts]
+        w = max(xs) - min(xs); d = max(ys) - min(ys)
+        # OUTSIDE the building footprint, with a margin -- an enclosure stands off
+        outside = (max(xs) < bx0 - 0.35 or min(xs) > bx1 + 0.35 or
+                   max(ys) < by0 - 0.35 or min(ys) > by1 + 0.35)
+        if not outside:
+            keep.append(f); continue                   # against the building: kerb, step, dock
+        # A WALL IS LONG, THIN AND OUT AT THE EDGE -- AND HEIGHT DOES NOT EXCUSE IT.
+        # First cut kept anything over 3 units as "building", so every perimeter
+        # wall in the set survived: a yard wall IS tall. Shape decides, not height,
+        # and the only height rule is a ceiling high enough to protect a real
+        # detached wing (a garage, a guard house) from being mistaken for a fence.
+        longthin = (w > 2.0 and d < 0.7) or (d > 2.0 and w < 0.7)
+        post = (w < 0.7 and d < 0.7 and top > 0.8)
+        if (longthin or post) and top < 8.0:
+            continue                                   # it rings the plot: gone
+        keep.append(f)
+    scene.faces = keep
+    return scene
+
 def _thicken(scene, key):
     """Give a thin hero the ground-level detail every real building carries."""
     import zlib
@@ -262,11 +320,10 @@ def _thicken(scene, key):
                   {'top': {'c': pale}, 'px': {'c': grey}, 'py': {'c': grey},
                    'nx': {'c': dkg}, 'ny': {'c': dkg}})
 
-    # BOLLARDS along the front, protecting the wall from the drive
-    n = 3 + int(rnd(3) * 3)
-    for b in range(n):
-        bx = x0 + (x1 - x0) * ((b + 0.5) / n)
-        scene.box((bx, y0 - 0.55, 0), (0.18, 0.18, 0.75), {'c': pale})
+    # NO BOLLARDS. I added a line of them last turn as 'site detail' and a line of
+    # posts along a frontage is a BARRIER, which is exactly what he just banned.
+    # (Paolo 8/16: 'no fencing no nothing'.) Left as a note rather than deleted so
+    # nobody re-adds them thinking it was an oversight.
     return scene
 
 def _dress_walls(scene, key):
@@ -930,41 +987,35 @@ def build_industrial(P):
 
 # ---------------------------------------------------------------- MEDICAL
 def build_medical(P):
-    BLD, DOOR, CANOPY, GARAGE, VEH, WALK, REDX, DRIVE = P[2], P[4], P[7], P[8], P[11], P[6], P[9], P[1]
+    """ONE BIG HOSPITAL (Paolo 8/16): "just have the hospital be one building
+    like have a big hospital bro."
+
+    Last turn I built a podium, a bed tower, a canopy and a parking garage --
+    four masses -- when what he asked for was ONE BUILDING that is BIG. A real
+    regional hospital reads as a single enormous slab anyway: the tower is the
+    building, not an object standing on a separate podium. So this is one mass,
+    wall to wall on the tile, tall enough to be the landmark of its district, with
+    the entrance and the cross ON it rather than on an attached wing.
+    NOTHING ENCLOSES IT -- no wall, no fence, no bollards (Paolo 8/16).
+    """
+    BLD, DOOR, CANOPY, REDX, DRIVE = P[2], P[4], P[7], P[9], P[1]
     s = Scene()
-    _ground(s, (-3, -3, 15, 15), drive=(9.5, -3, 15, 15), groundc=(120, 120, 124), lotc=DRIVE)
-    # THE HOSPITAL IS A HOSPITAL, NOT A CLINIC (Paolo 8/16: "Hospital should be
-    # bigger and shit"). He is right and it was measured: this was the THINNEST
-    # hero in the whole set at 19 faces, on a 9x7x9 block -- about three storeys,
-    # which is a medical office, not a hospital.
-    # A REGIONAL HOSPITAL IS A BED TOWER ON A PODIUM. The podium carries
-    # emergency, imaging, theatres and plant at grade; the BED TOWER stands on it
-    # and is what you actually see from a mile away. Sunrise here is ~700 beds
-    # over multiple towers -- so the mass is a wide low base and a tall slab, and
-    # the tall slab is the whole silhouette.
-    s.box((-2.4, -1.4, 0), (11.4, 8.4, 11.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 8, 4, 4),
-          'py': _win(BLD, 6, 4, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    # THE BED TOWER: the long thin slab of wards, standing on the podium
-    s.box((-1.2, 0.4, 11.0), (7.2, 4.6, 26.0), {'top': _dark(BLD, 0.84), 'px': _win(BLD, 7, 11, 21),
-          'py': _win(BLD, 5, 11, 27), 'nx': _dark(BLD), 'ny': _dark(BLD)})
-    # the rooftop plant deck and the helipad every trauma centre carries
-    s.box((0.2, 1.4, 37.0), (4.6, 2.8, 1.6), {'c': _dark(BLD, 0.7)})
-    # a RED CROSS on the front face so it reads as a hospital
-    s.quad((9.04, 2.6, 6.4), (9.04, 4.8, 6.4), (9.04, 4.8, 7.4), (9.04, 2.6, 7.4), {'c': REDX}, (1, 0, 0))
-    s.quad((9.04, 3.3, 5.6), (9.04, 4.1, 5.6), (9.04, 4.1, 8.2), (9.04, 3.3, 8.2), {'c': REDX}, (1, 0, 0))
-    # entrance drop-off canopy + doors
-    s.box((9, 2.0, 0), (2.6, 3.8, 3.4), {'c': CANOPY})
-    _door_face(s, (-2.4, -1.4, 0), (11.4, 8.4, 11.0), width=2.2, ztop=3.0,
+    _ground(s, (-3, -3, 15, 15), drive=(9.8, -3, 15, 15), groundc=(120, 120, 124), lotc=DRIVE)
+    # ONE MASS. Wide, deep, and TALL -- a hospital is the tallest thing for blocks.
+    s.box((-2.6, -2.2, 0), (12.6, 10.4, 34.0),
+          {'top': _dark(BLD, 0.88), 'px': _win(BLD, 9, 13, 4),
+           'py': _win(BLD, 8, 13, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    # the plant deck on top, which every hospital carries
+    s.box((-0.6, -0.4, 34.0), (8.6, 6.6, 2.0), {'c': _dark(BLD, 0.7)})
+    # THE RED CROSS, on the building itself, big enough to read from a tile away
+    s.quad((10.04, 2.2, 8.0), (10.04, 5.4, 8.0), (10.04, 5.4, 9.6), (10.04, 2.2, 9.6), {'c': REDX}, (1, 0, 0))
+    s.quad((10.04, 3.2, 6.6), (10.04, 4.4, 6.6), (10.04, 4.4, 11.0), (10.04, 3.2, 11.0), {'c': REDX}, (1, 0, 0))
+    # the ambulance canopy, attached to the one building rather than a wing
+    s.box((10.0, 1.4, 0), (2.4, 4.6, 3.6), {'c': CANOPY})
+    _door_face(s, (-2.6, -2.2, 0), (12.6, 10.4, 34.0), width=2.4, ztop=3.2,
                doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
-    # the decked PARKING GARAGE (front-right) — horizontal deck bands read as levels
-    s.box((9.5, 7, 0), (5, 6.5, 6.2), {'top': _dark(GARAGE, 0.9), 'px': _win(GARAGE, 1, 5, 2, 0.0),
-          'py': _win(GARAGE, 1, 5, 5, 0.0), 'nx': _dark(GARAGE), 'ny': _dark(GARAGE)})
-    for (cx, cy) in [(10.4, -1.6), (12.3, -1.6), (9.9, 5.4)]:               # a couple parked cars (canon CAR size)
-        _vehicle(s, cx, cy, CAR, VEH, along='y')
-    return s, 6.6
+    return s, 6.0
 
-
-# ---------------------------------------------------------------- MALL
 def build_mall(P):
     CONC, ANCHOR, FOOD, CARC, DRIVE, LOT = P[2], P[6], P[7], P[10], P[1], P[4]
     s = Scene()
@@ -4247,6 +4298,7 @@ def main():
         # HIS 8/15 ROOF RULING, before the widening so the parapet grows with the
         # building it belongs to rather than floating inside it.
         _thicken(scene, d)
+        _strip_enclosures(scene)   # Paolo 8/16: nothing rings a plot
         _dress_walls(scene, d)
         _dress_roofs(scene, d)
         _fat_and_tall(scene)
