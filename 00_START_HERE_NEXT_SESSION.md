@@ -104,6 +104,17 @@ into TALK_JS first -- that file is the source of record and it has been wrong fo
 two weeks. ASSUME THE SAME IS TRUE OF EVERY OTHER strip-and-regenerate tool in
 tools/ until you have checked its numstat.
 
+AN ENGINE EDIT STALES **FOUR** ARTIFACTS, NOT THREE. The list already in this
+file said three -- the city's inline copy (bohemia_city_module_resync.py), the
+run slice (build_run_slice.js) and the census (bohemia_reachability_census.py).
+IT IS FOUR. **THE LOOK PICTURES** (tools/bohemia_look_shots.js) are clocked
+against slices/BOHEMIA_CITY_WORLD.html, so rewriting the city makes every shot
+older than six hours read STALE and turns LOOK red. I ran the resync by instinct
+because I needed it to see my own change, and forgot the rest until the suite
+said so: LOOK went red on 8 stale pictures and VOICE SURFACES went red against a
+run slice built before dialHeads existed. Both green after regenerating (LOOK
+23/0, VOICE SURFACES 26/0, RUN 126/0, REACHABILITY 16/0). RUN ALL FOUR.
+
 KNOWN DORMANT DRIFT, checked not assumed: BOHEMIA_CURRENT_SLICE.html and
 BOHEMIA_RUN_CURRENT.html both carry an inlined population module WITHOUT this
 turn's dialHeads/LANDMARK/version-bump, and bohemia_population.js is NOT in
