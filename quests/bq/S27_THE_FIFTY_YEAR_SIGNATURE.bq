@@ -1,0 +1,178 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S27 — THE FIFTY YEAR SIGNATURE
+# Shape: the quest where the villain is a document and the document is correct.
+# Faction wires: NETWORK, TRADES, REMNANTS. Grounded in the real machinery that
+# decides who in this valley has electricity, and it is not a market:
+#   Hoover Dam's power has been divided by ACT OF CONGRESS for ninety years. The
+#   current contracts were signed in October 2016 and RUN TO 2067 -- fifty-year
+#   allocations to 46 direct and 74 total allottees across Nevada, Arizona and a
+#   named list of Southern California cities, with 95% of the resource locked to
+#   whoever already held it and 5% left for anybody new.
+#   (Hoover Power Allocation Act; WAPA 2017-2067 contracts)
+# THE LIGHTS THAT ARE STILL ON ARE ON BECAUSE OF A SIGNATURE FROM 2016. Nobody
+# alive in this valley negotiated it, nobody can amend it, and the paper does not
+# know the world ended. CLUSTERED POWER and LIGHT=TERRITORY are canon; this is
+# WHY the territory has the shape it has, and the shape was drawn by a lawyer.
+# Systems AS the mechanic: the whole quest is a READ. There is nothing to fight
+# and nothing to carry. Somebody hands you a page and what you can do afterwards
+# depends entirely on what you understood on it.
+# The lesson underneath, never spoken: the most powerful thing in the room is
+# usually the arrangement nobody remembers agreeing to. No proper names. CLOUT
+# rides the deed: reading it and keeping it is #quiet, reading it OUT is
+# #notable, and burning the allocation off the wall is #reckless.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q010.W9  THE HAUNTED SPACE
+#   applied: the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition.
+# @STUDY Q010.W8  FORESHADOW-IN-HINDSIGHT
+#   applied: the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be.
+# @STUDY Q010.P7  W7 (meaningful unsolvability
+#   applied: there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise.
+# @STUDY Q011.W8  MUNDANE TOOLS, PRECISE USE
+#   applied: the only instrument is reading. A wall chart, a percentage and a date, used precisely.
+# @STUDY Q015.W10  MORALITY IS DISTRIBUTED ACROSS PATHS
+#   applied: keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_fifty_year   The Fifty Year Signature
+@ACT     1
+@FACTION Network
+@ONCE    true
+
+@ROLE clerk    REQ  faction=Network    keeps_the_allocation=true
+@ROLE lineman  REQ  faction=Trades     works_the_live_side=true
+@ROLE dark     REQ  faction=Remnants   lives_off_the_grid=true
+
+@STAGE 10
+  @LOG Twelve percent of this valley has light and the same twelve percent has had it for ten years. That is not luck and it is not a market.
+  @DO show_objective 10
+@STAGE 20
+  @LOG The substation office is untouched. There is a chart on the wall dividing the dam's output between named holders, ninety-five percent locked to whoever already had it, and an end date of 2067.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Read it, understood it, took the page and told nobody. The lit blocks stay lit and the people in them still think it is because somebody clever is keeping them lit.
+  @DO bond clerk +20
+  @DO learn the_allocation
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Read it out where the dark side could hear. Now everybody knows the map of the light was drawn in an office in 2016 by people who are not here, and cannot be appealed to.
+  @DO faction Remnants +14
+  @DO faction Network -12
+  @DO learn the_allocation
+  @DO set_flag the_allocation_is_public
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Took the chart off the wall and burned it in the yard. Nobody can point at the paper now. The switches did not move an inch and the men who read it still remember what it said.
+  @DO faction Network -20
+  @DO faction Remnants +8
+  @DO learn the_allocation
+  @DO set_flag burned_the_allocation
+  @DO advance_territory
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG Did not go in. It is still on the wall, still true, still deciding which streets have light tonight, and I still could not tell you why the line stops where it stops.
+  @DO bond dark -12
+
+@OBJ 10  "Find out why the SAME blocks are lit"   target=lineman
+@OBJ 20  "Decide what the allocation is worth"    target=clerk
+
+# =====================================================================
+# THE ASK. He has worked the live side for a decade and the thing that
+# bothers him is not that the light is unfair. It is that it is TIDY.
+# =====================================================================
+@TALK tidy  speaker=lineman  entry=stage>=10,stage<20
+  @SAY Ten years. Same blocks, same edges. If it were people deciding, it would have moved by now -- somebody would have muscled in, somebody would have got cut off in a bad winter. #wary
+  @SAY It has not moved once. Whatever draws that line does not care who is standing on either side of it, and that is the part that keeps me up.
+  @SAY The old substation office is still shut. I have never been in. You look like you would go in.
+  @OPT "I will go in."                       [gate: none]  -> office
+  @OPT "Somebody is being paid to keep it."  [gate: none]  TRAP -> paid
+  @OPT "Lines get drawn by paper more often than by people." [gate: none]  -> office
+  @OPT (start walking to the substation)     [gate: none]  SILENCE -> office
+  @NOVERB "Ask who owns the grid"
+@END
+
+# THE TRAP: looking for a man to blame. It is the natural instinct and it
+# is why nobody has understood this in ten years.
+@TALK paid  speaker=lineman
+  @SAY That is what I thought for about eight years. #wary
+  @SAY So I watched. Nobody collects. Nobody adjusts. There is no meeting where it gets decided. It just IS, every morning, exactly as it was.
+  @OPT "Then it was decided before."         [gate: none]  -> office
+  @OPT "Nothing just IS. Forget it."         [gate: none]  -> END  @DO set_stage 33
+@END
+
+# =====================================================================
+# THE ROOM. Q010.W9 THE HAUNTED SPACE -- nobody explains anything. The
+# office is exactly as it was left and the chart is still current.
+# =====================================================================
+@TALK office  speaker=clerk  entry=stage>=10
+  @SAY You found it open. Nobody locked it because nobody wanted anything in it. #cold
+  @SAY Chairs pushed in. A jug on the side. And the wall.
+  @SAY Read the wall. Take your time. I have read it maybe four hundred times and it says the same thing every time.
+  @OPT "Read the chart."                     [gate: none]  -> chart
+  @OPT "Whose names are these?"              [gate: none]  -> names
+  @OPT (stand and look at the wall)          [gate: none]  SILENCE -> chart
+@END
+
+@TALK chart  speaker=clerk
+  @SAY Allocations. Ninety-five percent of the output held by whoever already held it. Five percent for anybody new, and there has not been anybody new. #cold
+  @SAY Signed in October. Runs fifty years. The end date printed on it is 2067.
+  @SAY Everything on this wall is still in force. It does not know. There is no clause in it for the world stopping, because why would there be.
+  @OPT "So the light is a contract, not a decision." [gate: none]  -> after  @DO learn the_allocation
+  @OPT "Who could change it?"                        [gate: none]  -> change
+  @OPT "2067."                                       [gate: none]  -> after  @DO learn the_allocation
+@END
+
+@TALK names  speaker=clerk
+  @SAY Cities. Districts. A water authority. Some of them are eleven hundred miles from here and I could not tell you if any of them still has a person in it. #cold
+  @SAY The switches do not know that either. The allocation goes where the allocation goes.
+  @OPT "Show me the end date."                [gate: none]  -> chart
+@END
+
+@TALK change  speaker=clerk
+  @SAY An act of the body that made it. #cold
+  @SAY I want you to sit with that for a second, because it is the whole thing. Not a man. Not a faction. Not a price. The only thing that could move this line is an institution that no longer exists, and it built the line to LAST, on purpose, so that nobody local could ever move it.
+  @OPT "Then it cannot be moved."             [gate: none]  -> after  @DO learn the_allocation
+  @OPT "Everything can be moved."             [gate: none]  TRAP -> after  @DO learn the_allocation
+@END
+
+# =====================================================================
+# WHAT YOU DO WITH IT. The three roads, and none of them changes a single
+# switch. That is Q010.P7: the unsolvability is the point.
+# =====================================================================
+@TALK after  speaker=clerk
+  @SAY Now you know, and knowing does not move one ampere. #cold
+  @SAY What it moves is people. So: keep the page, say the page, or burn the page.
+  @OPT "I keep it. Nobody needs this tonight." [gate: none]  -> keep
+  @OPT "They deserve to know why they are dark." [gate: none]  -> loud
+  @OPT "Take it down. Burn it."                 [gate: none]  -> burn
+@END
+
+@TALK keep  speaker=clerk
+  @SAY Quietly, then. #cold
+  @SAY They will go on believing somebody is choosing, and being angry at a person is at least a thing you can survive.
+  @OPT "Quietly."                              [gate: none]  -> END  @DO set_stage 30
+  @OPT (fold the page and put it away)         [gate: none]  SILENCE -> END  @DO set_stage 30
+@END
+
+@TALK loud  speaker=dark  entry=stage>=20
+  @SAY Say it again. #wary
+  @SAY Say the year. ...So it was never that we did not matter enough. It is that the paper was signed before anybody thought to ask us, and it runs longer than I will.
+  @SAY That is worse and it is also the first true thing anybody has told me about the light.
+  @OPT "It is worse and it is true."           [gate: none]  -> END  @DO set_stage 31
+  @OPT (say nothing and let it land)           [gate: none]  SILENCE -> END  @DO set_stage 31
+  @OPT "Forget I said it."                     [gate: none]  -> keep
+@END
+
+@TALK burn  speaker=clerk
+  @SAY You can. It is paper. #dread
+  @SAY Understand it changes nothing except that nobody can ever be shown it again. The lines stay where they are and the reason stops being something you can point at, which is how it was before you walked in.
+  @OPT "Burn it."                              [gate: none]  -> END  @DO set_stage 32
+  @OPT (take it off the wall)                  [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT "No. It stays on the wall."             [gate: none]  -> keep
+@END

@@ -186,14 +186,39 @@ function validate(Q, world){
   }
 
   /* G4 hardcoded names. Root-cause heuristic: a proper noun is a capitalized word that is NOT
-     sentence-initial and NOT a declared role. Sentence-initial caps are grammar, not names. */
+     sentence-initial and NOT a declared role. Sentence-initial caps are grammar, not names.
+
+     *** KNOW WHAT THIS CANNOT SEE, MEASURED 8/16. *** The sentence-initial skip is
+     what makes the check usable at all -- every sentence starts with a capital --
+     and it is also a real hole: A NAME AT THE START OF A SENTENCE PASSES
+     SILENTLY. Planted "Gutierrez left the jug on the side." into a canon quest
+     and the gate stayed green at 546/546. So ZERO HARDCODED_NAME WARNINGS DOES
+     NOT MEAN NO NAMES; it means no names in the middle of a sentence. Closing it
+     properly needs a common-word dictionary to tell "Gutierrez left" from
+     "Nothing left", which is a real piece of work and not a one-line fix -- it is
+     recorded here rather than half-done, so nobody reads a green as a proof.
+     What it DOES catch reliably: a name dropped mid-sentence, which is the
+     commonest way one gets in. */
   Q.talks.forEach(function(t){ t.says.forEach(function(s){
     var txt = s.text, m, re=/([.!?]\s+|,\s+|\s+)([A-Z][a-z]{2,})/g;
+    var MONTHS={January:1,February:1,March:1,April:1,May:1,June:1,July:1,August:1,
+      September:1,October:1,November:1,December:1,Monday:1,Tuesday:1,Wednesday:1,
+      Thursday:1,Friday:1,Saturday:1,Sunday:1};
     var STOP={The:1,This:1,That:1,They:1,Then:1,There:1,These:1,Those:1,You:1,Your:1,What:1,When:1,Where:1,Which:1,Who:1,Why:1,How:1,And:1,But:1,For:1,Not:1,Now:1,She:1,Her:1,His:1,Him:1,Its:1,Was:1,Were:1,Are:1,Did:1,Does:1,Get:1,Got:1,Had:1,Has:1,Have:1,Just:1,Like:1,Look:1,Make:1,Never:1,Nothing:1,Only:1,Same:1,Say:1,Said:1,Tell:1,Told:1,Take:1,Went:1,Yes:1,Sit:1,Good:1,Play:1,Cleared:1,Six:1,Everyone:1,Welcome:1,Unhoused:1,Bring:1,Write:1,Their:1,One:1,Instead:1,Nobody:1,All:1,Because:1,Before:1,Beyond:1,Every:1,Find:1,Give:1,Sorry:1,Stop:1,Still:1,Ask:1,Come:1,Keep:1,Wait:1,Watch:1,Speak:1,Read:1};
     while((m=re.exec(txt))){
       var w=m[2];
       if(m[1].match(/[.!?]/)) continue;            /* sentence-initial: grammar, not a name */
       if(STOP[w]) continue;
+      /* A MONTH IS NOT A PERSON. This fired twice in two days -- on "July" and
+         "November" in S22, and on "October" in S27, where a clerk is reading the
+         date off a real dated document aloud. The claim this heuristic exists to
+         make is "quests written against NAMES die with the person"; a month
+         cannot die, cannot be recast, and cannot be replaced by a @ROLE, so
+         flagging one is the RULER being imprecise rather than the target being
+         wrong. FIRST TIME the line was also improvable and I changed the line;
+         the SECOND occurrence is a gap, not a coincidence -- any quest that
+         quotes a dated document will hit it. Days too, for the same reason. */
+      if(MONTHS[w]) continue;
       if(roleNames[w.toLowerCase()]) continue;
       W('HARDCODED_NAME','line '+s.line+': possible hardcoded name "'+w+'". Quests written against names die with the person. Use a @ROLE.');
     }

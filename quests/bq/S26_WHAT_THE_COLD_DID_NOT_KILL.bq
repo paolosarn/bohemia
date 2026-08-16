@@ -1,0 +1,168 @@
+# BOHEMIA SIDE QUEST — PLAYABLE .bq (canon machine layer)
+# S26 — WHAT THE COLD DID NOT KILL
+# Shape: the quest where the whole block is WRONG about a fact, and being right
+# costs you something anyway. Faction wires: VOLUNTEERS, TRADES, CHURCH.
+# Grounded in a real finding that INVERTS what everybody assumes, which is the
+# only reason it is worth a quest:
+#   EVERYONE KNOWS insulin dies without a fridge. It is close to the first thing
+#   anybody says about medicine in a blackout. IT IS NOT TRUE. The heat-stability
+#   literature is clear and it is not close: unopened vials hold clinical potency
+#   up to 25C for SIX MONTHS and up to 37C for TWO MONTHS, and OSCILLATING
+#   between 25C and 37C for three months shows NO measurable loss of activity --
+#   which is exactly what a shaded room in this valley does every day and night.
+#   Loss at 37C measures ~2.2-2.8% at one month, 5.7% at two, 8.3-8.6% at three.
+#   (Cochrane CD015385, 2023; PLOS One 10.1371/journal.pone.0245372, 2021)
+# So a valley that threw its insulin away threw away medicine that worked.
+# Systems AS the mechanic: this is a KNOWLEDGE-GATE with no skill check anywhere.
+# Nothing is unlocked by a number. You either know the fact or you do not, and
+# the whole quest is who you can get to believe it.
+# The lesson underneath, never spoken: being right is not the same as being
+# believed, and a person is entitled to refuse a stranger's certainty about their
+# own child. No proper names. CLOUT rides the deed: proving it on your own arm is
+# #quiet, calling the block together is #notable, opening the sealed store in
+# front of everyone is #reckless. The failure is #quiet and it is the honest one:
+# you were right, you could not make it matter, and the case went on being buried.
+
+# ---- QUESTBOOK STUDY CITATIONS (QUEST STUDY LAW, 7/26/26) -------------------
+# The corpus this quest is actually built from. Every id below resolves in
+# records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3,672 citable findings mined out of
+# the 152 studied quests in questbook/), and gates/quest_study_gate.js verifies
+# the id AND the quoted law title verbatim. A citation is a claim the machine
+# can check, never a name-drop.
+# @STUDY Q010.W3  MORAL TESTS WITH NO MECHANICAL STAKE
+#   applied: nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it.
+# @STUDY Q010.P3  W3 (moral tests with no mechanical stake
+#   applied: the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves.
+# @STUDY Q010.W7  DELIBERATE, MEANINGFUL UNSOLVABILITY
+#   applied: the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose.
+# @STUDY Q011.W8  MUNDANE TOOLS, PRECISE USE
+#   applied: the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house.
+# @STUDY Q015.W10  MORALITY IS DISTRIBUTED ACROSS PATHS
+#   applied: there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief.
+# ----------------------------------------------------------------------------
+
+@QUEST   bq_cold_did_not_kill   What The Cold Did Not Kill
+@ACT     1
+@FACTION Volunteers
+@ONCE    true
+
+@ROLE keeper  REQ  faction=Volunteers  holds_the_sealed_store=true
+@ROLE mother  REQ  faction=Church      has_a_child_on_insulin=true
+@ROLE trader  REQ  faction=Trades      sells_what_is_scarce=true
+
+@STAGE 10
+  @LOG Half a case of insulin in a back room, sealed since the grid went, and everybody on this block calls it spoiled. Nobody has opened it to look.
+  @DO show_objective 10
+@STAGE 20
+  @LOG It is not spoiled. Unopened, in shade, this valley's heat does not kill it in months. The problem was never the medicine.
+  @DO show_objective 20
+  @DO complete_objective 10
+@STAGE 30 COMPLETE #quiet
+  @LOG Logged the room's temperature for six days on a card and took the first dose myself in front of one person. She watched, and then she used it.
+  @DO bond mother +30
+  @DO learn insulin_survives_heat
+  @DO complete_objective 20
+@STAGE 31 COMPLETE #notable
+  @LOG Called the block together and said it out loud: we have been throwing away medicine that works. Half believed me. The half that did not now has a reason to say I am dangerous.
+  @DO faction Volunteers +10
+  @DO faction Church -8
+  @DO learn insulin_survives_heat
+  @DO set_flag said_it_to_the_block
+  @DO complete_objective 20
+@STAGE 32 COMPLETE #reckless
+  @LOG Broke the seal on the store in daylight and handed it out. Everyone who needed it got it. Everyone who was living off it being untouchable also found out today.
+  @DO faction Volunteers +6
+  @DO faction Trades -14
+  @DO learn insulin_survives_heat
+  @DO set_flag opened_the_sealed_store
+  @DO advance_territory
+  @DO complete_objective 20
+@STAGE 33 FAIL #quiet
+  @LOG I was right and I could not make it matter. The case is still sealed, she still measures out what she has, and nobody watched me be right about it.
+  @DO bond mother -10
+
+@OBJ 10  "Find out what is actually in the sealed store"  target=keeper
+@OBJ 20  "Get it to somebody who needs it"                target=mother
+
+# =====================================================================
+# THE ASK. She is not asking for medicine. She is asking you to stop
+# somebody else asking her for it, which is a different job.
+# =====================================================================
+@TALK sealed  speaker=keeper  entry=stage>=10,stage<20
+  @SAY There is half a case of it in the back and I have said no to four people this month. #wary
+  @SAY It is spoiled. It has to be. No power since the grid went, and everyone knows what happens to that stuff without a fridge.
+  @SAY What I would like is for somebody to tell me I am right, so I can stop lying awake about it.
+  @OPT "Show me a vial."                        [gate: none]  -> look
+  @OPT "Everyone knows that and everyone is wrong." [gate: none]  -> wrong
+  @OPT "You are right. Keep it sealed."         [gate: none]  TRAP -> END  @DO set_stage 33
+  @OPT (hold your hand out for one)             [gate: none]  SILENCE -> look
+  @NOVERB "Ask who the four people were"
+@END
+
+# =====================================================================
+# THE FACT. Stated as an engineer states it, in numbers, because the
+# numbers are what make it true rather than a comforting opinion.
+# =====================================================================
+@TALK wrong  speaker=keeper
+  @SAY Go on then. #wary
+  @OPT "Unopened, under twenty-five, it holds for months. Not days."  [gate: none]  -> look  @DO learn insulin_survives_heat
+  @OPT "It has been in shade the whole time. That is the difference."  [gate: none]  -> look  @DO learn insulin_survives_heat
+@END
+
+@TALK look  speaker=keeper
+  @SAY Sealed. Cardboard's dry. The room's the coolest one in the building, which is why we put it there, and it swings maybe twenty-five at dawn to thirty-eight by four. #wary
+  @SAY Say the number that means something. I am listening properly now.
+  @OPT "That swing is the mildest thing you could do to it."   [gate: none]  -> proof  @DO learn insulin_survives_heat
+  @OPT "Two months at thirty-eight is a few percent, not nothing left." [gate: none]  -> proof  @DO learn insulin_survives_heat
+  @OPT "I do not actually know. I am guessing."                [gate: none]  -> END  @DO set_stage 33
+@END
+
+@TALK proof  speaker=keeper
+  @SAY Then I have been sitting on the one thing this block needed. #dread
+  @SAY Do not tell me. Tell HER. She is the one measuring it out in halves and she will not take my word for anything, and I do not blame her.
+  @DO set_stage 20
+@END
+
+# =====================================================================
+# THE MOTHER. She is not ignorant and she is not stubborn. She is doing
+# arithmetic with her child's life and a stranger's confidence is not a
+# number she can put in it.
+# =====================================================================
+@TALK hers  speaker=mother  entry=stage>=20
+  @SAY I know what you are going to say, because he already said it, badly. #wary
+  @SAY Here is mine. I have eleven days of what I trust. If I use what you say is good and you are wrong, I find out she is wrong by watching her, and by then I have nothing left to go back to.
+  @SAY So do not tell me it is fine. Tell me how you would KNOW.
+  @OPT "Six days of temperature on a card, and I take the first dose."   [gate: knows:insulin_survives_heat]  -> card
+  @OPT "I will say it in front of the whole block."                      [gate: none]  -> block
+  @OPT "I am opening the store. Everyone can decide for themselves."     [gate: none]  -> store
+  @OPT "You are right to wait."                                          [gate: none]  -> END  @DO set_stage 33
+  @NOVERB "Tell her she is being irrational"
+@END
+
+# THE QUIET ROAD. It costs a week, which is the whole price, and the
+# quest does not pretend a week is nothing when she has eleven days.
+@TALK card  speaker=mother
+  @SAY Six days. I have eleven. #wary
+  @SAY That is not nothing you are asking. That is more than half of what is between her and finding out the hard way. And it is the first offer anybody has made me that costs THEM something.
+  @OPT "Six days. Starting now."          [gate: none]  -> END  @DO set_stage 30
+  @OPT (write the first reading down)     [gate: none]  SILENCE -> END  @DO set_stage 30
+  @OPT "Faster. I will tell the block."   [gate: none]  -> block
+@END
+
+@TALK block  speaker=mother
+  @SAY In front of everyone. #dread
+  @SAY Then it is not a thing I decided, it is a thing that was decided at me. And the ones who say no will say it about me, not about the medicine.
+  @OPT "They need to hear it."            [gate: none]  -> END  @DO set_stage 31
+  @OPT "You are right. Six days, quietly." [gate: none]  -> card
+@END
+
+# THE LOUD ROAD, and the one person it costs. He is not a villain; a
+# thing everybody believes is worthless is a thing one man can price.
+@TALK store  speaker=trader  entry=stage>=20
+  @SAY Open it and hand it out. Sure. #cold
+  @SAY You understand what I have been doing while everybody agreed that case was rubbish. I have been the only one bringing the good stuff up from the south, at what it costs to bring it.
+  @SAY After today nobody pays that again, and next winter when the road is shut, nobody is driving it either. I am not threatening you. I am telling you the arithmetic.
+  @OPT "Open it."                          [gate: none]  -> END  @DO set_stage 32
+  @OPT (break the seal without answering)  [gate: none]  SILENCE -> END  @DO set_stage 32
+  @OPT "Then we do it quietly. Six days."  [gate: none]  -> card
+@END

@@ -1009,9 +1009,52 @@ HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/16 (c) LATEST -- *** THE DEMO GATE USES ITS FINGERS NOW. THE
-LESSON THAT COST TWO "STILL NOT FIXED" ROUNDS, APPLIED TO THE DEMO'S OWN
-OPENING MOVE. ***
+PEOPLE (7h9sfy): 8/16 (d) LATEST -- *** 27 QUESTS. TWO NEW ONES THAT INVERT WHAT
+EVERYBODY THINKS THEY KNOW -- WHICH IS WHAT THE RESEARCH IS FOR. ***
+
+S26 WHAT THE COLD DID NOT KILL. Everybody knows insulin dies without a fridge.
+*** IT IS NOT TRUE, AND THE LITERATURE IS NOT CLOSE. *** Unopened vials hold
+clinical potency up to 25C for SIX MONTHS and up to 37C for TWO MONTHS, and
+OSCILLATING between 25C and 37C for three months shows NO measurable loss --
+which is exactly what a shaded room in this valley does every day and night.
+Loss at 37C is ~2.2-2.8% at one month, 5.7% at two, 8.3-8.6% at three.
+(Cochrane CD015385 2023; PLOS One 10.1371/journal.pone.0245372 2021)
+So a valley that threw its insulin away threw away medicine that worked. The
+quest is a KNOWLEDGE-GATE with no skill check anywhere: you either know the fact
+or you do not, and the whole thing is who you can get to believe it. The mother
+can refuse and refusing is not a puzzle you failed -- nothing in it can compel
+her, on purpose (Q010.W7 DELIBERATE, MEANINGFUL UNSOLVABILITY).
+
+S27 THE FIFTY YEAR SIGNATURE. Hoover Dam's power is divided by ACT OF CONGRESS.
+The current contracts were signed in 2016 and *** RUN TO 2067 *** -- 46 direct
+and 74 total allocations, 95% locked to whoever already held it, 5% for anybody
+new. THE LIGHTS THAT ARE STILL ON ARE ON BECAUSE OF A SIGNATURE FROM 2016.
+Nobody alive negotiated it, nobody can amend it, the paper does not know the
+world ended. CLUSTERED POWER and LIGHT=TERRITORY are canon; this is WHY the
+territory has the shape it has, and the shape was drawn by a lawyer. The whole
+quest is a READ, and no ending moves a single ampere.
+
+*** AND A REAL HOLE IN A SHARED CHECK, FOUND BY MUTATING IT. ***
+bq.js's HARDCODED_NAME heuristic flagged "October" (a clerk reading a date off a
+document). Second month in two days -- "July"/"November" hit S22 -- so I excluded
+month and day names: a month cannot die, cannot be recast, and cannot be replaced
+by a @ROLE, which is the whole claim the check makes.
+THEN I MUTATED IT THE OTHER WAY and found something worse. Planted "Gutierrez
+left the jug on the side." into a canon quest and *** THE GATE STAYED GREEN AT
+546/546. *** The heuristic skips sentence-initial capitals as grammar -- which is
+the only reason it is usable, and also a hole, because CHARACTER NAMES USUALLY
+START SENTENCES. So it catches a month mid-sentence and misses an actual surname
+at a sentence start, which is backwards from its purpose.
+*** ZERO HARDCODED_NAME WARNINGS DOES NOT MEAN NO NAMES. *** Closing it properly
+needs a common-word dictionary to tell "Gutierrez left" from "Nothing left" --
+real work, not a one-liner. RECORDED IN THE CODE rather than half-done, so
+nobody reads a green as a proof.
+
+TAB: DIRECT -- 27 quests, 1,513 directable rows. TAB: WORDS -- 1,599 lines,
+31 sources.
+
+PEOPLE (7h9sfy): 8/16 (c) -- *** THE DEMO GATE USES ITS FINGERS: it took the
+day's job by calling offerAccept() and never tapped the four-tap chain. ***
 
 Two rounds in a row I called something fixed and he came back. Both times the
 shape was identical: MY GATE DID FOR THE GAME THE STEP THE GAME WAS FAILING TO

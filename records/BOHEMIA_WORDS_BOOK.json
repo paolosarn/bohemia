@@ -3,10 +3,10 @@
   "what": "Every authored player-facing line in Bohemia, with the questbook catalogue laws each was written from.",
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
-  "sources": 29,
-  "lines": 1494,
-  "cited": 1492,
-  "fingerprint": "e8e5cbf1497200bd",
+  "sources": 31,
+  "lines": 1599,
+  "cited": 1597,
+  "fingerprint": "c8943fd38ccb03db",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -41593,6 +41593,4316 @@
      "citeLevel": "file",
      "title": "The Pressure Goes Backward",
      "questId": "bq_backward",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+   "title": "What The Cold Did Not Kill",
+   "kind": "quest",
+   "cites": [
+    {
+     "id": "Q010.W3",
+     "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+     "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+    },
+    {
+     "id": "Q010.P3",
+     "title": "W3 (moral tests with no mechanical stake",
+     "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+    },
+    {
+     "id": "Q010.W7",
+     "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+     "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+    },
+    {
+     "id": "Q011.W8",
+     "title": "MUNDANE TOOLS, PRECISE USE",
+     "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+    },
+    {
+     "id": "Q015.W10",
+     "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+     "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+    }
+   ],
+   "lines": [
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 10",
+     "text": "Half a case of insulin in a back room, sealed since the grid went, and everybody on this block calls it spoiled. Nobody has opened it to look.",
+     "line": 54,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#54",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 20",
+     "text": "It is not spoiled. Unopened, in shade, this valley's heat does not kill it in months. The problem was never the medicine.",
+     "line": 57,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#57",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 30",
+     "text": "Logged the room's temperature for six days on a card and took the first dose myself in front of one person. She watched, and then she used it.",
+     "line": 61,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#61",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 31",
+     "text": "Called the block together and said it out loud: we have been throwing away medicine that works. Half believed me. The half that did not now has a reason to say I am dangerous.",
+     "line": 66,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#66",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 32",
+     "text": "Broke the seal on the store in daylight and handed it out. Everyone who needed it got it. Everyone who was living off it being untouchable also found out today.",
+     "line": 73,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#73",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 33",
+     "text": "I was right and I could not make it matter. The case is still sealed, she still measures out what she has, and nobody watched me be right about it.",
+     "line": 81,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#81",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "objective",
+     "speaker": "OBJECTIVE",
+     "node": "obj 10",
+     "text": "Find out what is actually in the sealed store",
+     "line": 84,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#84",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "objective",
+     "speaker": "OBJECTIVE",
+     "node": "obj 20",
+     "text": "Get it to somebody who needs it",
+     "line": 85,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#85",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "sealed",
+     "text": "There is half a case of it in the back and I have said no to four people this month.",
+     "mood": "wary",
+     "line": 92,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#92",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "sealed",
+     "text": "It is spoiled. It has to be. No power since the grid went, and everyone knows what happens to that stuff without a fridge.",
+     "mood": null,
+     "line": 93,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#93",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "sealed",
+     "text": "What I would like is for somebody to tell me I am right, so I can stop lying awake about it.",
+     "mood": null,
+     "line": 94,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#94",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "sealed",
+     "text": "Show me a vial.",
+     "line": 95,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#95",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "sealed",
+     "text": "Everyone knows that and everyone is wrong.",
+     "line": 96,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#96",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "sealed",
+     "text": "You are right. Keep it sealed.",
+     "line": 97,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#97",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "sealed",
+     "text": "(hold your hand out for one)",
+     "line": 98,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#98",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "wrong",
+     "text": "Go on then.",
+     "mood": "wary",
+     "line": 107,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#107",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "wrong",
+     "text": "Unopened, under twenty-five, it holds for months. Not days.",
+     "line": 108,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#108",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "wrong",
+     "text": "It has been in shade the whole time. That is the difference.",
+     "line": 109,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#109",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "look",
+     "text": "Sealed. Cardboard's dry. The room's the coolest one in the building, which is why we put it there, and it swings maybe twenty-five at dawn to thirty-eight by four.",
+     "mood": "wary",
+     "line": 113,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#113",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "look",
+     "text": "Say the number that means something. I am listening properly now.",
+     "mood": null,
+     "line": 114,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#114",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "look",
+     "text": "That swing is the mildest thing you could do to it.",
+     "line": 115,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#115",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "look",
+     "text": "Two months at thirty-eight is a few percent, not nothing left.",
+     "line": 116,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#116",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "look",
+     "text": "I do not actually know. I am guessing.",
+     "line": 117,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#117",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "proof",
+     "text": "Then I have been sitting on the one thing this block needed.",
+     "mood": "dread",
+     "line": 121,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#121",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "keeper",
+     "node": "proof",
+     "text": "Do not tell me. Tell HER. She is the one measuring it out in halves and she will not take my word for anything, and I do not blame her.",
+     "mood": null,
+     "line": 122,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#122",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "mother",
+     "node": "hers",
+     "text": "I know what you are going to say, because he already said it, badly.",
+     "mood": "wary",
+     "line": 132,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#132",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "mother",
+     "node": "hers",
+     "text": "Here is mine. I have eleven days of what I trust. If I use what you say is good and you are wrong, I find out she is wrong by watching her, and by then I have nothing left to go back to.",
+     "mood": null,
+     "line": 133,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#133",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "mother",
+     "node": "hers",
+     "text": "So do not tell me it is fine. Tell me how you would KNOW.",
+     "mood": null,
+     "line": 134,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#134",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "hers",
+     "text": "Six days of temperature on a card, and I take the first dose.",
+     "line": 135,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#135",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "hers",
+     "text": "I will say it in front of the whole block.",
+     "line": 136,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#136",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "hers",
+     "text": "I am opening the store. Everyone can decide for themselves.",
+     "line": 137,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#137",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "hers",
+     "text": "You are right to wait.",
+     "line": 138,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#138",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "mother",
+     "node": "card",
+     "text": "Six days. I have eleven.",
+     "mood": "wary",
+     "line": 145,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#145",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "mother",
+     "node": "card",
+     "text": "That is not nothing you are asking. That is more than half of what is between her and finding out the hard way. And it is the first offer anybody has made me that costs THEM something.",
+     "mood": null,
+     "line": 146,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#146",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "card",
+     "text": "Six days. Starting now.",
+     "line": 147,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#147",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "card",
+     "text": "(write the first reading down)",
+     "line": 148,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#148",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "card",
+     "text": "Faster. I will tell the block.",
+     "line": 149,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#149",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "mother",
+     "node": "block",
+     "text": "In front of everyone.",
+     "mood": "dread",
+     "line": 153,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#153",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "mother",
+     "node": "block",
+     "text": "Then it is not a thing I decided, it is a thing that was decided at me. And the ones who say no will say it about me, not about the medicine.",
+     "mood": null,
+     "line": 154,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#154",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "block",
+     "text": "They need to hear it.",
+     "line": 155,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#155",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "block",
+     "text": "You are right. Six days, quietly.",
+     "line": 156,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#156",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "trader",
+     "node": "store",
+     "text": "Open it and hand it out. Sure.",
+     "mood": "cold",
+     "line": 162,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#162",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "trader",
+     "node": "store",
+     "text": "You understand what I have been doing while everybody agreed that case was rubbish. I have been the only one bringing the good stuff up from the south, at what it costs to bring it.",
+     "mood": null,
+     "line": 163,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#163",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "trader",
+     "node": "store",
+     "text": "After today nobody pays that again, and next winter when the road is shut, nobody is driving it either. I am not threatening you. I am telling you the arithmetic.",
+     "mood": null,
+     "line": 164,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#164",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "store",
+     "text": "Open it.",
+     "line": 165,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#165",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "store",
+     "text": "(break the seal without answering)",
+     "line": 166,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#166",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "store",
+     "text": "Then we do it quietly. Six days.",
+     "line": 167,
+     "id": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq#167",
+     "src": "quests/bq/S26_WHAT_THE_COLD_DID_NOT_KILL.bq",
+     "cites": [
+      {
+       "id": "Q010.W3",
+       "title": "MORAL TESTS WITH NO MECHANICAL STAKE",
+       "applied": "nothing in this quest rewards a stat. What it costs and what it pays is entirely who trusts you afterwards, and the game never scores it."
+      },
+      {
+       "id": "Q010.P3",
+       "title": "W3 (moral tests with no mechanical stake",
+       "applied": "the flaws-master half of the same law, which is the one that shapes the ending where you are right and nobody moves."
+      },
+      {
+       "id": "Q010.W7",
+       "title": "DELIBERATE, MEANINGFUL UNSOLVABILITY",
+       "applied": "the mother can refuse, and refusing is not a puzzle you failed to solve. No option in the quest can compel her, on purpose."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the whole proof is a shaded room, a thermometer and a written date. Nothing rare, nothing invented, all of it already in a house."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "there is no clean road. Quiet costs a week, loud costs her standing, and the sealed store costs whoever was living off the belief."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "What The Cold Did Not Kill",
+     "questId": "bq_cold_did_not_kill",
+     "draft": true
+    }
+   ]
+  },
+  {
+   "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+   "title": "The Fifty Year Signature",
+   "kind": "quest",
+   "cites": [
+    {
+     "id": "Q010.W9",
+     "title": "THE HAUNTED SPACE",
+     "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+    },
+    {
+     "id": "Q010.W8",
+     "title": "FORESHADOW-IN-HINDSIGHT",
+     "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+    },
+    {
+     "id": "Q010.P7",
+     "title": "W7 (meaningful unsolvability",
+     "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+    },
+    {
+     "id": "Q011.W8",
+     "title": "MUNDANE TOOLS, PRECISE USE",
+     "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+    },
+    {
+     "id": "Q015.W10",
+     "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+     "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+    }
+   ],
+   "lines": [
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 10",
+     "text": "Twelve percent of this valley has light and the same twelve percent has had it for ten years. That is not luck and it is not a market.",
+     "line": 52,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#52",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 20",
+     "text": "The substation office is untouched. There is a chart on the wall dividing the dam's output between named holders, ninety-five percent locked to whoever already had it, and an end date of 2067.",
+     "line": 55,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#55",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 30",
+     "text": "Read it, understood it, took the page and told nobody. The lit blocks stay lit and the people in them still think it is because somebody clever is keeping them lit.",
+     "line": 59,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#59",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 31",
+     "text": "Read it out where the dark side could hear. Now everybody knows the map of the light was drawn in an office in 2016 by people who are not here, and cannot be appealed to.",
+     "line": 64,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#64",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 32",
+     "text": "Took the chart off the wall and burned it in the yard. Nobody can point at the paper now. The switches did not move an inch and the men who read it still remember what it said.",
+     "line": 71,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#71",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "journal",
+     "speaker": "JOURNAL",
+     "node": "stage 33",
+     "text": "Did not go in. It is still on the wall, still true, still deciding which streets have light tonight, and I still could not tell you why the line stops where it stops.",
+     "line": 79,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#79",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "objective",
+     "speaker": "OBJECTIVE",
+     "node": "obj 10",
+     "text": "Find out why the SAME blocks are lit",
+     "line": 82,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#82",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "objective",
+     "speaker": "OBJECTIVE",
+     "node": "obj 20",
+     "text": "Decide what the allocation is worth",
+     "line": 83,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#83",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "tidy",
+     "text": "Ten years. Same blocks, same edges. If it were people deciding, it would have moved by now -- somebody would have muscled in, somebody would have got cut off in a bad winter.",
+     "mood": "wary",
+     "line": 90,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#90",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "tidy",
+     "text": "It has not moved once. Whatever draws that line does not care who is standing on either side of it, and that is the part that keeps me up.",
+     "mood": null,
+     "line": 91,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#91",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "tidy",
+     "text": "The old substation office is still shut. I have never been in. You look like you would go in.",
+     "mood": null,
+     "line": 92,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#92",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "tidy",
+     "text": "I will go in.",
+     "line": 93,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#93",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "tidy",
+     "text": "Somebody is being paid to keep it.",
+     "line": 94,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#94",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "tidy",
+     "text": "Lines get drawn by paper more often than by people.",
+     "line": 95,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#95",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "tidy",
+     "text": "(start walking to the substation)",
+     "line": 96,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#96",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "paid",
+     "text": "That is what I thought for about eight years.",
+     "mood": "wary",
+     "line": 103,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#103",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "lineman",
+     "node": "paid",
+     "text": "So I watched. Nobody collects. Nobody adjusts. There is no meeting where it gets decided. It just IS, every morning, exactly as it was.",
+     "mood": null,
+     "line": 104,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#104",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "paid",
+     "text": "Then it was decided before.",
+     "line": 105,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#105",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "paid",
+     "text": "Nothing just IS. Forget it.",
+     "line": 106,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#106",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "office",
+     "text": "You found it open. Nobody locked it because nobody wanted anything in it.",
+     "mood": "cold",
+     "line": 114,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#114",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "office",
+     "text": "Chairs pushed in. A jug on the side. And the wall.",
+     "mood": null,
+     "line": 115,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#115",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "office",
+     "text": "Read the wall. Take your time. I have read it maybe four hundred times and it says the same thing every time.",
+     "mood": null,
+     "line": 116,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#116",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "office",
+     "text": "Read the chart.",
+     "line": 117,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#117",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "office",
+     "text": "Whose names are these?",
+     "line": 118,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#118",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "office",
+     "text": "(stand and look at the wall)",
+     "line": 119,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#119",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "chart",
+     "text": "Allocations. Ninety-five percent of the output held by whoever already held it. Five percent for anybody new, and there has not been anybody new.",
+     "mood": "cold",
+     "line": 123,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#123",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "chart",
+     "text": "Signed in October. Runs fifty years. The end date printed on it is 2067.",
+     "mood": null,
+     "line": 124,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#124",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "chart",
+     "text": "Everything on this wall is still in force. It does not know. There is no clause in it for the world stopping, because why would there be.",
+     "mood": null,
+     "line": 125,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#125",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "chart",
+     "text": "So the light is a contract, not a decision.",
+     "line": 126,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#126",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "chart",
+     "text": "Who could change it?",
+     "line": 127,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#127",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "chart",
+     "text": "2067.",
+     "line": 128,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#128",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "names",
+     "text": "Cities. Districts. A water authority. Some of them are eleven hundred miles from here and I could not tell you if any of them still has a person in it.",
+     "mood": "cold",
+     "line": 132,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#132",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "names",
+     "text": "The switches do not know that either. The allocation goes where the allocation goes.",
+     "mood": null,
+     "line": 133,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#133",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "names",
+     "text": "Show me the end date.",
+     "line": 134,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#134",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "change",
+     "text": "An act of the body that made it.",
+     "mood": "cold",
+     "line": 138,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#138",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "change",
+     "text": "I want you to sit with that for a second, because it is the whole thing. Not a man. Not a faction. Not a price. The only thing that could move this line is an institution that no longer exists, and it built the line to LAST, on purpose, so that nobody local could ever move it.",
+     "mood": null,
+     "line": 139,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#139",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "change",
+     "text": "Then it cannot be moved.",
+     "line": 140,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#140",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "change",
+     "text": "Everything can be moved.",
+     "line": 141,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#141",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "after",
+     "text": "Now you know, and knowing does not move one ampere.",
+     "mood": "cold",
+     "line": 149,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#149",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "after",
+     "text": "What it moves is people. So: keep the page, say the page, or burn the page.",
+     "mood": null,
+     "line": 150,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#150",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "after",
+     "text": "I keep it. Nobody needs this tonight.",
+     "line": 151,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#151",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "after",
+     "text": "They deserve to know why they are dark.",
+     "line": 152,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#152",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "after",
+     "text": "Take it down. Burn it.",
+     "line": 153,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#153",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "keep",
+     "text": "Quietly, then.",
+     "mood": "cold",
+     "line": 157,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#157",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "keep",
+     "text": "They will go on believing somebody is choosing, and being angry at a person is at least a thing you can survive.",
+     "mood": null,
+     "line": 158,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#158",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "keep",
+     "text": "Quietly.",
+     "line": 159,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#159",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "keep",
+     "text": "(fold the page and put it away)",
+     "line": 160,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#160",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "dark",
+     "node": "loud",
+     "text": "Say it again.",
+     "mood": "wary",
+     "line": 164,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#164",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "dark",
+     "node": "loud",
+     "text": "Say the year. ...So it was never that we did not matter enough. It is that the paper was signed before anybody thought to ask us, and it runs longer than I will.",
+     "mood": null,
+     "line": 165,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#165",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "dark",
+     "node": "loud",
+     "text": "That is worse and it is also the first true thing anybody has told me about the light.",
+     "mood": null,
+     "line": 166,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#166",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "loud",
+     "text": "It is worse and it is true.",
+     "line": 167,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#167",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "loud",
+     "text": "(say nothing and let it land)",
+     "line": 168,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#168",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "loud",
+     "text": "Forget I said it.",
+     "line": 169,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#169",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "burn",
+     "text": "You can. It is paper.",
+     "mood": "dread",
+     "line": 173,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#173",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "say",
+     "speaker": "clerk",
+     "node": "burn",
+     "text": "Understand it changes nothing except that nobody can ever be shown it again. The lines stay where they are and the reason stops being something you can point at, which is how it was before you walked in.",
+     "mood": null,
+     "line": 174,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#174",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "burn",
+     "text": "Burn it.",
+     "line": 175,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#175",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "burn",
+     "text": "(take it off the wall)",
+     "line": 176,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#176",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
+     "draft": true
+    },
+    {
+     "kind": "choice",
+     "speaker": "PLAYER",
+     "node": "burn",
+     "text": "No. It stays on the wall.",
+     "line": 177,
+     "id": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq#177",
+     "src": "quests/bq/S27_THE_FIFTY_YEAR_SIGNATURE.bq",
+     "cites": [
+      {
+       "id": "Q010.W9",
+       "title": "THE HAUNTED SPACE",
+       "applied": "the substation office is untouched -- chairs pushed in, a wall chart still current to a year nobody reached. The room says what happened without a word of exposition."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "the chart's end date is 2067, and it is printed in the same ink as everything else on the wall. It only lands once you work out what year that was supposed to be."
+      },
+      {
+       "id": "Q010.P7",
+       "title": "W7 (meaningful unsolvability",
+       "applied": "there is no version of this where the allocation gets renegotiated. The paper cannot be argued with, and the quest never pretends otherwise."
+      },
+      {
+       "id": "Q011.W8",
+       "title": "MUNDANE TOOLS, PRECISE USE",
+       "applied": "the only instrument is reading. A wall chart, a percentage and a date, used precisely."
+      },
+      {
+       "id": "Q015.W10",
+       "title": "MORALITY IS DISTRIBUTED ACROSS PATHS",
+       "applied": "keeping it quiet protects the lit blocks, saying it out loud arms the dark ones, and burning it takes the argument away from everybody including the people it was keeping alive."
+      }
+     ],
+     "citeLevel": "file",
+     "title": "The Fifty Year Signature",
+     "questId": "bq_fifty_year",
      "draft": true
     }
    ]
