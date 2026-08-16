@@ -466,3 +466,18 @@ borders a named crosswalk cell, and a branch that never fires is a claimed
 feature that does not exist. Ramps and drops stay banked (drops still owe a
 design pass). THIRTEEN FAMILIES ARE IN THE GAME and the kerb card is in the
 ART tab.
+
+## 8/17 TWENTY-FOURTH PASS: THE DRIVEWAY DROPS, AND WHERE THE REAL GATES LIVE
+
+M2 redesigned and wired: the drop is an RGBA overlay lip now (the opaque
+first version over-ringed the cell) - low cap across the driveway mouth,
+flaring to full kerb at each end - and it fires on the real curb-cut
+definition: any driveway cell with exactly one road neighbour. Thousands of
+suburb driveways meet the street properly now. Verified live at a mouth.
+TWO MEASUREMENT LESSONS: (1) the 80 world-named 'gate / curb cut' cells all
+sit ON cell borders (x or y = 0, the fence line) - my border-excluding scan
+missed every one of them for a full pass; scan from 0 when the object lives
+on the seam. (2) Those cells are REAL entrances - a future pass should move
+the hash-placed fence gates onto them instead of rolling dice. Recorded on
+the form. Ramps stay banked (no crossing landing is named). The kerb card
+is reshot at a driveway mouth.

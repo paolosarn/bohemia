@@ -879,6 +879,25 @@ function drawSfform(gx,gy,X,Y,S){
    kerb's measured numbers so straight runs and transitions read as one. */
 function drawKerbform(gx,gy,X,Y,S){
   var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  /* M2 (8/17 second design pass): a driveway cell that MEETS the road is a
+     curb cut by definition - the cap drops to half height across the mouth
+     and flares back to full kerb at each end. Drawn as an overlay AFTER the
+     driveway's own bought surface, so this hook returns false and the lip
+     rides the normal ground draw via the fence pattern: paint the ground
+     under it first, then the lip. */
+  if(n.indexOf('driveway')>=0){
+    var dN=isRoad(gx,gy-1), dE=isRoad(gx+1,gy), dS=isRoad(gx,gy+1), dW=isRoad(gx-1,gy);
+    var dc=(dN?1:0)+(dE?1:0)+(dS?1:0)+(dW?1:0);
+    if(dc===1){
+      var dd=TILEFORM_IMG['kerb_drop_'+(dN?'n':dE?'e':dS?'s':'w')];
+      if(dd&&dd.complete&&dd.naturalWidth){
+        if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+        ctx.drawImage(look(dd),X,Y,S,S);
+        return true;
+      }
+    }
+    return false;
+  }
   if(n.indexOf('sidewalk')<0) return false;
   var rN=isRoad(gx,gy-1), rE=isRoad(gx+1,gy), rS=isRoad(gx,gy+1), rW=isRoad(gx-1,gy);
   var name=null;

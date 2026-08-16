@@ -1,3 +1,11 @@
+ART (f3eu53): 8/17 (a) LATEST -- *** THE DRIVEWAY DROPS ARE IN: every suburb
+driveway that meets the street wears its dropped kerb lip. Kerb kit now
+returns + drops live; ramps banked. FOUND: the 80 world-named gate/curb-cut
+cells all sit ON cell borders - real entrances the hash-placed fence gates
+should move to in a future pass. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twenty-fourth pass)
+TAB: ART, WIRED IN THE GAME - kerb card reshot at a driveway mouth.
+
 RUN (run-eak241): 8/16 LATEST -- THE BUTTON WAS NOT THE PROBLEM, THE TOOLBAR WAS.
 
 Paolo 8/16: "Im not even trying to press re roll fr the run has a lot of bullshit
@@ -43,7 +51,7 @@ freeway ribbon work landed 8/15), and this is the one machine-visible dent in hi
 "10/10" today. NOT TOUCHED FROM HERE -- it is live work in another lane and this is
 a hand-over, not a demand. But he asked, so it is written down where he can see it.
 
-ART (f3eu53): 8/16 (d) LATEST -- *** THE KERB TURNS ITS CORNERS: thirteenth
+ART (f3eu53): 8/16 (d) -- *** THE KERB TURNS ITS CORNERS: thirteenth
 wired family. Returns live at every suburb intersection, verified. Ramp
 branch removed on measurement (no crossing landing is named); drops still
 owe a design pass. ***

@@ -105,26 +105,26 @@ def kerb_return(corner):
     return im
 
 def kerb_drop(facing):
-    """M2: the cap dips to road grade across a car entrance. facing = which
-    side of the cell the road is on. The cell itself is the named curb cut."""
-    im = base(SIDE)
+    """M2 REDESIGN (8/17, second pass - the first over-ringed the cell): an
+    RGBA OVERLAY for a driveway cell where it meets the road. The cap runs
+    LOW along the road edge (a dropped kerb is a kerb at half height), and
+    flares up to full cap value in the last 6px at each end, where it meets
+    the neighbouring sidewalk's full kerb. The driveway's own bought surface
+    stays visible - this is a lip, not a floor."""
+    im = Image.new('RGBA', (C, C), (0, 0, 0, 0))
     px = im.load()
-    sp = STREET.load()
-    horiz = facing in 'ns'
-    for y in range(C):
-        for x in range(C):
-            t = (y if facing == 'n' else C-1-y) if horiz else (x if facing == 'w' else C-1-x)
-            u = (x if horiz else y)
-            # the dip: full width at road grade in the middle 60%, sloped 20% wings
-            wing = min(u, C-1-u) / (C*0.2)
-            k = min(1.0, wing)                 # 0 at the ends, 1 mid-run
-            capline = int(3 + 9*(1-k))         # cap sits low mid-cell (dropped)
-            if t < capline - 2:
-                px[x, y] = sp[x, y]            # road grade / apron throat
-            elif t < capline:
-                px[x, y] = dim(CAP, 0.9 + 0.1*k)
-            elif t < capline + 1:
-                px[x, y] = FACE if k < 0.4 else dim(FACE, 1.5)
+    for u in range(C):
+        wing = min(u, C-1-u)
+        flare = max(0.0, 1.0 - wing/6.0)          # 1 at the ends, 0 mid-run
+        capv = mixc(dim(CAP, 0.82), CAP, flare)   # low cap mid-run, full at ends
+        depth = 2 + (1 if flare > 0.5 else 0)     # ends thicken toward full kerb
+        for t in range(depth+1):
+            c = capv if t < depth else FACE
+            if facing == 'n':   x, y = u, t
+            elif facing == 's': x, y = u, C-1-t
+            elif facing == 'w': x, y = t, u
+            else:               x, y = C-1-t, u
+            px[x, y] = c + (255,)
     return im
 
 def ramp(facing):
