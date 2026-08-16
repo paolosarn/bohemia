@@ -398,6 +398,10 @@ grabPieces('banks/tileforms/TF-ART-008_SMASH_VOLUME_8_15_26.json',
    blown-sand tapers on the rest - tools/tfcook/TF-ART-010_ends_cook.py */
 grabPieces('banks/tileforms/TF-ART-010_ENDS_VOLUME_8_16_26.json',
   ['rail_buffer_e', 'rail_buffer_w', 'rail_taper_e', 'rail_taper_w']);
+/* TF-ART-018 8/16 second pass: kerb returns + crossing ramps wire into the
+   suburb streets (the measured home of every sidewalk). Drops still held. */
+grabPieces('banks/tileforms/TF-ART-018_CANDIDATES_8_16_26.json',
+  ['kerb_return_ne', 'kerb_return_nw', 'kerb_return_se', 'kerb_return_sw']);
 if (html.indexOf('__TILEFORM_B64_JSON__') < 0) throw new Error('missing __TILEFORM_B64_JSON__ placeholder');
 html = html.replace('__TILEFORM_B64_JSON__', JSON.stringify(tileformOut));
 console.log('  TILEFORMS: ' + Object.keys(tileformOut).length + ' approved pieces ('

@@ -1,3 +1,10 @@
+ART (f3eu53): 8/16 (d) LATEST -- *** THE KERB TURNS ITS CORNERS: thirteenth
+wired family. Returns live at every suburb intersection, verified. Ramp
+branch removed on measurement (no crossing landing is named); drops still
+owe a design pass. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twenty-third pass)
+TAB: ART, WIRED IN THE GAME - the kerb card, live frame at an intersection.
+
 FACTIONS (factions-ovkjpf): 8/16 LATEST -- *** THE OUTFIT ASKS YOU BACK NOW.
 TAB: CITY (tap somebody you have done favours for) + LOOK (picture "THEY ASK YOU BACK"). ***
 
@@ -62,7 +69,7 @@ radius. Researched this turn, NOT built -- it preserves his dial exactly and mak
 contested ground real, which would feed the who-will-hear graph directly.
 
 ART (f3eu53): 8/16 (b) LATEST -- *** THE DECK SLAB IS COOKED AND THE STAIRS
-ART (f3eu53): 8/16 (c) LATEST -- *** THE KERB KIT IS COOKED (returns + ramps
+ART (f3eu53): 8/16 (c) -- *** THE KERB KIT IS COOKED (returns + ramps
 at the bar, drops held for one more pass) AND THE PLACEMENT TRUTH IS
 MEASURED: sidewalks exist ONLY in the suburb family, so the wire-in is a
 deliberate suburb-stack job next pass, not a drive-by. An inert hook was

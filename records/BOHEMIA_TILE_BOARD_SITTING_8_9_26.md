@@ -453,3 +453,16 @@ inert - a hook that never fires is a claimed feature that does not exist.
 Next pass: wire the returns into the suburb path deliberately, verified at
 a real corner, or hand the placement call to the coordinator if the suburb
 stack proves owned.
+
+## 8/16 TWENTY-THIRD PASS: THE KERB TURNS ITS CORNERS (THIRTEENTH WIRED FAMILY)
+
+Second pass on TF-ART-018, done deliberately where the first pass measured:
+the returns wire into the SUBURB ground path (before the bought pool), fire
+at every sidewalk cell with two adjacent orthogonal roads, and were looked
+at live at a real intersection - the cap arcs its quarter turn over the
+road wedge and mates with the straight bought runs beside it. The M5 ramp
+branch was tested the same way and REMOVED: no named sidewalk cell ever
+borders a named crosswalk cell, and a branch that never fires is a claimed
+feature that does not exist. Ramps and drops stay banked (drops still owe a
+design pass). THIRTEEN FAMILIES ARE IN THE GAME and the kerb card is in the
+ART tab.

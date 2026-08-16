@@ -869,6 +869,36 @@ function drawSfform(gx,gy,X,Y,S){
   }
   return true;
 }
+/* TF-ART-018 KERB TRANSITIONS (8/16, board row 15, second pass): the kerb
+   turns its corners and meets its crossings. M1 RETURN: a sidewalk cell with
+   road on two ADJACENT orthogonal sides is the corner and the cap arcs it.
+   M5 RAMP: a sidewalk cell beside a named crosswalk cell wears the ramp and
+   its bleached warning pad. Measured 8/16: these sites exist ONLY in the
+   suburb family, so the hook runs there deliberately. Canvases harvested
+   from the harmonized street pool; cap/face authored to the frozen starter
+   kerb's measured numbers so straight runs and transitions read as one. */
+function drawKerbform(gx,gy,X,Y,S){
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  if(n.indexOf('sidewalk')<0) return false;
+  var rN=isRoad(gx,gy-1), rE=isRoad(gx+1,gy), rS=isRoad(gx,gy+1), rW=isRoad(gx-1,gy);
+  var name=null;
+  var rc=(rN?1:0)+(rE?1:0)+(rS?1:0)+(rW?1:0);
+  if(rc===2){
+    if(rN&&rE) name='kerb_return_ne';
+    else if(rN&&rW) name='kerb_return_nw';
+    else if(rS&&rE) name='kerb_return_se';
+    else if(rS&&rW) name='kerb_return_sw';
+  }
+  /* M5 ramps: MEASURED 8/16 second pass - no named sidewalk cell is ever
+     orthogonally adjacent to a named crosswalk cell, so the ramp branch was
+     REMOVED rather than left dormant. The four ramp tiles stay banked for
+     the day the world names a crossing landing. */
+  if(!name) return false;
+  var im=TILEFORM_IMG[name];
+  if(!im||!im.complete||!im.naturalWidth) return false;
+  ctx.drawImage(look(im),X,Y,S,S);
+  return true;
+}
 /* EIGHTH WIRED FAMILY (8/11): TF-ART-014 the dead crop fields. The farm names
    its own ground - 'field soil' (fallow), 'crop rows' (furrowed), 'irrigation'
    (the dead channels) - and these were the DELIBERATE blanks of the 8/5 prop
@@ -3253,6 +3283,10 @@ function draw(){
         if(!isSuburbCell() && !body && drawCropform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && !body && drawTurfform(gx,gy2,X,Y,S)) continue;
         if(!isSuburbCell() && !body && drawPoolform(gx,gy2,X,Y,S)) continue;
+        /* TF-ART-018 (8/16 second pass): kerb returns + crossing ramps. The
+           8/16 measurement stands - sidewalks live in the SUBURB family - so
+           this hook runs for suburb ground too, before the bought pool. */
+        if(!body && drawKerbform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))
           : genericTile(gx,gy2);
