@@ -664,6 +664,27 @@ def _door(s, at, lo, hi, ztop, doorc=(30, 33, 40), framec=(158, 162, 168), awn=N
         s.box((at, lo - 0.4, ztop + 0.1), (awn, hi - lo + 0.8, 0.25), {'c': framec})
 
 
+# ============================================================================
+# NO FENCING (Paolo 8/16): "i never asked you to put fencing on none of that
+# shit either"
+# ============================================================================
+# He is right, and it was never his. Fences were authored into hero after hero
+# as scene-setting -- fortress fence, perimeter fence, right-of-way fence -- and
+# they are CONTENT, not mechanism: a fence says somebody is holding this ground,
+# which is a claim about his world that he did not make. It also read as clutter
+# ringing half the set, which is part of why the tiles looked busy and alike.
+#
+# ONE SWITCH, not sixty deletions. The builders keep their fence lines so the
+# intent stays in the record and nothing is lost if he ever rules fences back
+# in; the switch turns them into nothing. Deleting the code would throw away the
+# authoring, and re-adding it later would be a rewrite.
+FENCES = False               # Paolo 8/16: he never asked for fencing. OFF.
+def _fence_box(s, org, size, mat):
+    """Every fence in this factory goes through here, so 'no fences' is one line."""
+    if not FENCES:
+        return
+    s.box(org, size, mat)
+
 def _win(wall, cols=4, rows=6, seed=5, dead=0.13, boardc=None):
     return {'t': 'win', 'wall': wall, 'glass': (34, 40, 48),
             'frame': tuple(min(255, int(c * 1.14)) for c in wall),
@@ -812,7 +833,7 @@ def build_battery(P):
     s.box((5.7, 12.0, 0.5), (6.0, 0.3, 0.7), {'c': HAZ})                    # hazard band
     # perimeter FENCE posts around the yard + a couple pole lights
     for (fx, fy) in [(-2.5, -2.5), (14.5, -2.5), (14.5, 15.0), (-2.5, 15.0)]:
-        s.box((fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.2), {'c': FENCE})
+        _fence_box(s, (fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.2), {'c': FENCE})
     for (lx, ly) in [(4.6, 7.0), (14.6, 7.0)]:
         s.box((lx - 0.08, ly - 0.08, 0), (0.16, 0.16, 2.6), {'c': POLE})
     return s, 7.0
@@ -912,15 +933,28 @@ def build_medical(P):
     BLD, DOOR, CANOPY, GARAGE, VEH, WALK, REDX, DRIVE = P[2], P[4], P[7], P[8], P[11], P[6], P[9], P[1]
     s = Scene()
     _ground(s, (-3, -3, 15, 15), drive=(9.5, -3, 15, 15), groundc=(120, 120, 124), lotc=DRIVE)
-    # the hospital block + ER wing
-    s.box((-2, -1, 0), (9, 7, 9.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 6, 7, 4),
-          'py': _win(BLD, 5, 7, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    # THE HOSPITAL IS A HOSPITAL, NOT A CLINIC (Paolo 8/16: "Hospital should be
+    # bigger and shit"). He is right and it was measured: this was the THINNEST
+    # hero in the whole set at 19 faces, on a 9x7x9 block -- about three storeys,
+    # which is a medical office, not a hospital.
+    # A REGIONAL HOSPITAL IS A BED TOWER ON A PODIUM. The podium carries
+    # emergency, imaging, theatres and plant at grade; the BED TOWER stands on it
+    # and is what you actually see from a mile away. Sunrise here is ~700 beds
+    # over multiple towers -- so the mass is a wide low base and a tall slab, and
+    # the tall slab is the whole silhouette.
+    s.box((-2.4, -1.4, 0), (11.4, 8.4, 11.0), {'top': _dark(BLD, 0.9), 'px': _win(BLD, 8, 4, 4),
+          'py': _win(BLD, 6, 4, 8), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    # THE BED TOWER: the long thin slab of wards, standing on the podium
+    s.box((-1.2, 0.4, 11.0), (7.2, 4.6, 26.0), {'top': _dark(BLD, 0.84), 'px': _win(BLD, 7, 11, 21),
+          'py': _win(BLD, 5, 11, 27), 'nx': _dark(BLD), 'ny': _dark(BLD)})
+    # the rooftop plant deck and the helipad every trauma centre carries
+    s.box((0.2, 1.4, 37.0), (4.6, 2.8, 1.6), {'c': _dark(BLD, 0.7)})
     # a RED CROSS on the front face so it reads as a hospital
-    s.quad((7.04, 2.6, 5.6), (7.04, 4.4, 5.6), (7.04, 4.4, 6.4), (7.04, 2.6, 6.4), {'c': REDX}, (1, 0, 0))
-    s.quad((7.04, 3.2, 5.0), (7.04, 3.8, 5.0), (7.04, 3.8, 7.0), (7.04, 3.2, 7.0), {'c': REDX}, (1, 0, 0))
+    s.quad((9.04, 2.6, 6.4), (9.04, 4.8, 6.4), (9.04, 4.8, 7.4), (9.04, 2.6, 7.4), {'c': REDX}, (1, 0, 0))
+    s.quad((9.04, 3.3, 5.6), (9.04, 4.1, 5.6), (9.04, 4.1, 8.2), (9.04, 3.3, 8.2), {'c': REDX}, (1, 0, 0))
     # entrance drop-off canopy + doors
-    s.box((7, 2.2, 0), (2.2, 3.2, 3.0), {'c': CANOPY})
-    _door_face(s, (-2, -1, 0), (9, 7, 9.0), width=1.8, ztop=2.7,
+    s.box((9, 2.0, 0), (2.6, 3.8, 3.4), {'c': CANOPY})
+    _door_face(s, (-2.4, -1.4, 0), (11.4, 8.4, 11.0), width=2.2, ztop=3.0,
                doorc=_dark(BLD, 0.4)['c'], framec=tuple(min(255, int(c * 1.2)) for c in BLD))
     # the decked PARKING GARAGE (front-right) — horizontal deck bands read as levels
     s.box((9.5, 7, 0), (5, 6.5, 6.2), {'top': _dark(GARAGE, 0.9), 'px': _win(GARAGE, 1, 5, 2, 0.0),
@@ -1002,7 +1036,7 @@ def build_warehouse(P):
     s.box((9.5, -1.0, 0), (3.6, 3.2, 7.2), {'top': _dark(OFFICE, 0.9), 'px': _win(OFFICE, 3, 4, 6),
           'py': _win(OFFICE, 2, 2, 9), 'nx': _dark(OFFICE), 'ny': _dark(OFFICE)})
     for (fx, fy) in [(-2.5, -2.5), (13.5, -2.5), (13.5, 9.5), (-2.5, 9.5)]:   # fortress fence posts
-        s.box((fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.2), {'c': FENCE})
+        _fence_box(s, (fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.2), {'c': FENCE})
     for cx in (-1.0, 1.5, 4.0):                                              # abandoned cars in the drive aisle (canon CAR size)
         _vehicle(s, cx, 11.0, CAR, CARC, along='x')
     return s, 6.6
@@ -1439,7 +1473,7 @@ def build_farm(P):
           'py': _win(HOUSE, 2, 2, 9), 'nx': _dark(HOUSE), 'ny': _dark(HOUSE)})
     _vehicle(s, 7.5, 1.0, CAR, TRACTOR, along='x')                             # a dead tractor
     for fx in range(0, 8):
-        s.box((-2.5 + fx * 2.0, 9.5, 0), (0.12, 0.12, 1.1), {'c': FENCE})
+        _fence_box(s, (-2.5 + fx * 2.0, 9.5, 0), (0.12, 0.12, 1.1), {'c': FENCE})
     return s, 6.6
 
 
@@ -1484,7 +1518,7 @@ def build_policestation(P):
           'nx': _dark(PATROL), 'ny': _dark(PATROL)})                                    # signage band
     s.box((8.2, -0.7, 4.4), (1.6, 0.3, 0.3), {'c': _dark(IMPOUND, 1.1)['c']})           # canopy light bar
     for (fx, fy) in [(-2.5, -2.5), (13.5, -2.5), (13.5, 6.5), (-2.5, 6.5)]:
-        s.box((fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.0), {'c': FENCE})
+        _fence_box(s, (fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.0), {'c': FENCE})
     return s, 6.6
 
 
@@ -1538,7 +1572,7 @@ def build_storage(P):
     s.box((9.5, -1.0, 0), (3.4, 3.0, 3.4), {'top': _dark(OFFICE, 0.9), 'px': _win(OFFICE, 3, 2, 6),
           'py': _win(OFFICE, 2, 2, 9), 'nx': _dark(OFFICE), 'ny': _dark(OFFICE)})       # office
     for (fx, fy) in [(-2.5, -2.5), (13.5, -2.5), (13.5, 9.5), (-2.5, 9.5)]:
-        s.box((fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.2), {'c': FENCE})                   # fortress fence
+        _fence_box(s, (fx - 0.1, fy - 0.1, 0), (0.2, 0.2, 2.2), {'c': FENCE})                   # fortress fence
     _vehicle(s, 0.0, 11.0, CAR, VEH, along='x')
     return s, 6.6
 
@@ -1729,7 +1763,7 @@ def build_rail(P):
     for dx in (-1.2, 1.6, 4.4, 7.2):
         s.box((dx, -0.68, 0.1), (1.5, 0.10, 1.9), {'c': _dark(DOCK, 0.6)['c']})          # dock doors
     for fx in (-2.6, 2.4, 7.4, 12.4):
-        s.box((fx, 1.9, 0), (0.16, 0.16, 1.9), {'c': FENCE})                             # right-of-way fence
+        _fence_box(s, (fx, 1.9, 0), (0.16, 0.16, 1.9), {'c': FENCE})                             # right-of-way fence
     _track(s, -3, 15, 5.0, (BAL, TIE, STEEL))                                            # the second track
     _railcar(s, 8.6, 5.0 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
     _railcar(s, 12.2, 5.0 - RAILCAR[1] / 2, RAILCAR, FREIGHT, along='x')
@@ -1848,7 +1882,7 @@ def build_airport(P):
     s.box((13.2, 2.0, 0), (0.28, 0.28, 6.2), {'c': LMAST})                               # apron floodlight mast
     s.box((12.9, 1.7, 6.2), (0.9, 0.9, 0.45), {'c': _dark(LMAST, 1.1)['c']})
     for fx in (-2.6, 2.4, 7.4, 12.4):
-        s.box((fx, 8.0, 0), (0.16, 0.16, 1.8), {'c': FENCE})                             # perimeter fence
+        _fence_box(s, (fx, 8.0, 0), (0.16, 0.16, 1.8), {'c': FENCE})                             # perimeter fence
     s.box((-3, 9.5, 0.08), (18, 0.20, 0.04), {'c': TAXIC})                               # amber taxi centreline
     s.box((-3, 11.5, 0.03), (18, 0.34, 0.05), {'c': SHLD})                               # paved shoulder
     for seg in range(7):
@@ -1884,7 +1918,7 @@ def build_airbase(P):
     s.box((13.0, 2.4, 0), (0.28, 0.28, 6.0), {'c': LMAST})                                # floodlight mast
     s.box((12.7, 2.1, 6.0), (0.9, 0.9, 0.45), {'c': _dark(LMAST, 1.1)['c']})
     for fx in (-2.6, 2.4, 7.4, 12.4):
-        s.box((fx, 8.0, 0), (0.16, 0.16, 1.8), {'c': FENCE})                              # perimeter fence
+        _fence_box(s, (fx, 8.0, 0), (0.16, 0.16, 1.8), {'c': FENCE})                              # perimeter fence
     s.box((-3, 9.5, 0.08), (18, 0.20, 0.04), {'c': TAXIC})                                # amber taxi centreline
     s.box((-3, 11.5, 0.03), (18, 0.34, 0.05), {'c': SHLD})
     for seg in range(7):
@@ -2207,7 +2241,7 @@ def build_apartment(P):
           'py': _dark(CLUB, 0.86), 'nx': _dark(CLUB), 'ny': _dark(CLUB)})                # the clubhouse
     _door_face(s, (3.0, 6.6, 0), (4.6, 2.0, 3.2), width=1.1, ztop=2.0)
     for (fx, fy) in [(-2.6, -2.6), (13.4, -2.6), (13.4, 12.8), (-2.6, 12.8)]:
-        s.box((fx, fy, 0), (0.16, 0.16, 1.9), {'c': FENCE})
+        _fence_box(s, (fx, fy, 0), (0.16, 0.16, 1.9), {'c': FENCE})
     return s, 6.2
 
 
@@ -2280,7 +2314,7 @@ def build_trailer(P):
                 s.box((cx + 4.7, ry + 0.5, 0), (0.9, 1.0, 1.3), {'c': SHED})                        # the shed
                 s.box((cx + 4.75, ry + 1.8, 0), (0.35, 0.35, 0.75), {'c': PROP})                    # propane bottle
     for (fx, fy) in [(-2.7, -2.7), (13.3, -2.7), (13.3, 15.2), (-2.7, 15.2)]:
-        s.box((fx, fy, 0), (0.16, 0.16, 1.8), {'c': FENCE})
+        _fence_box(s, (fx, fy, 0), (0.16, 0.16, 1.8), {'c': FENCE})
     # THE YARD LIGHT: one tall pole lighting the whole lot, which is the only thing in a
     # mobile home park taller than a single-wide and the one vertical it honestly has.
     s.box((6.4, 5.9, 0), (0.4, 0.4, 9.2), {'c': _dark(POLE, 0.88)['c']})
@@ -2470,7 +2504,7 @@ def build_substation(P):
           'py': _dark(CTRL, 0.86), 'nx': _dark(CTRL), 'ny': _dark(CTRL)})                   # THE CONTROL HOUSE
     _door_face(s, (-2.4, 11.4, 0), (4.2, 2.6, 3.4), width=1.1, ztop=2.2)
     for (fx, fy) in [(-2.8, -2.2), (12.6, -2.2), (12.6, 13.6), (-2.8, 13.6)]:
-        s.box((fx, fy, 0), (0.18, 0.18, 2.4), {'c': FENCE})
+        _fence_box(s, (fx, fy, 0), (0.18, 0.18, 2.4), {'c': FENCE})
     return s, 5.6
 
 
@@ -2510,7 +2544,7 @@ def build_watertreat(P):
         s.box((px, 12.6, 0.8), (0.36, 0.36, 0.5), {'c': PIPE})
     s.box((8.0, 12.7, 1.3), (5.0, 0.2, 0.2), {'c': PIPE})
     for (fx, fy) in [(-2.8, -2.4), (12.6, -2.4), (12.6, 13.4), (-2.8, 13.4)]:
-        s.box((fx, fy, 0), (0.18, 0.18, 2.2), {'c': FENCE})
+        _fence_box(s, (fx, fy, 0), (0.18, 0.18, 2.2), {'c': FENCE})
     return s, 5.8
 
 
@@ -2654,7 +2688,7 @@ def build_boneyard(P):
     for (tx, ty) in [(-2.2, 0.6), (-2.2, 3.4), (-2.2, 6.2)]:                                 # the tyre piles
         s.prism(tx, ty, 0, 1.0, 1.5, 12, {'c': SCRAP}, {'c': _dark(SCRAP, 1.12)['c']})
     for (fx, fy) in [(-2.8, -2.6), (13.0, -2.6), (13.0, 13.4), (-2.8, 13.4)]:
-        s.box((fx, fy, 0), (0.18, 0.18, 2.2), {'c': FENCE})
+        _fence_box(s, (fx, fy, 0), (0.18, 0.18, 2.2), {'c': FENCE})
     return s, 5.6
 
 
@@ -2674,7 +2708,7 @@ def build_wash(P):
     for ly in (1.0, 9.4):
         s.box((-3.0, ly - 0.2, 2.2), (17.0, 0.45, 0.5), {'c': _dark(CONC, 1.12)['c']})
         for fx in range(-2, 15, 2):
-            s.box((fx, ly - 0.05, 2.7), (0.14, 0.14, 1.7), {'c': FENCE})
+            _fence_box(s, (fx, ly - 0.05, 2.7), (0.14, 0.14, 1.7), {'c': FENCE})
     # THE TRAPEZOIDAL CHANNEL: sloped walls cut down to a flat invert
     for side, (wy, ny) in enumerate([(1.2, 1.0), (9.2, -1.0)]):
         s.quad((-3.0, wy, 2.2), (14.0, wy, 2.2), (14.0, wy + ny * 2.0, -1.4),
@@ -2695,7 +2729,7 @@ def build_wash(P):
         s.box((10.0, by, -1.5), (2.4, 0.7, 4.0), {'c': _dark(CONC, 0.86)['c']})                # its piers
     for by2 in (0.2, 11.0):
         for k in range(5):
-            s.box((9.7 + k * 0.66, by2, 3.2), (0.12, 0.2, 0.8), {'c': FENCE})                  # the bridge rail
+            _fence_box(s, (9.7 + k * 0.66, by2, 3.2), (0.12, 0.2, 0.8), {'c': FENCE})                  # the bridge rail
     # THE GAUGE MAST AND THE BRIDGE LIGHT: a lined channel is a trench, but the things
     # that WATCH it stand up. The staff gauge on the wall is the only warning anybody down
     # there gets that a wall of water is coming, which in this valley kills people.
