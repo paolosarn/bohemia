@@ -1043,9 +1043,46 @@ HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/16 (b) LATEST -- *** "STILL NOT FIXED." HE WAS RIGHT AGAIN,
-AND MY GATE WAS GREEN THE WHOLE TIME BECAUSE IT DID THE MISSING STEP FOR THE
-GAME. ***
+PEOPLE (7h9sfy): 8/16 (c) LATEST -- *** THE DEMO GATE USES ITS FINGERS NOW. THE
+LESSON THAT COST TWO "STILL NOT FIXED" ROUNDS, APPLIED TO THE DEMO'S OWN
+OPENING MOVE. ***
+
+Two rounds in a row I called something fixed and he came back. Both times the
+shape was identical: MY GATE DID FOR THE GAME THE STEP THE GAME WAS FAILING TO
+DO. So before building anything new I went looking for the same disease in the
+gates I had already written, and the worst one was in the DEMO gate itself.
+
+*** IT TOOK THE DAY'S JOB BY CALLING offerAccept(). *** A JavaScript function.
+The demo's actual opening move is a CHAIN OF FOUR TAPS -- GET UP, PHONE, TAP TO
+UNLOCK, TAKE IT -- and every link of it could have been broken with
+offerAccept() still returning cleanly and the gate still reading green. That is
+the entire first two minutes of the demo, unverified.
+Driven as real taps now, end to end. Mutation: rename the TAKE IT button and it
+fails 3 claims. The old version could not have noticed a player being unable to
+start the game.
+
+*** AND THE ARCHITECTURE IS THREE SURFACES, NOT TWO. I HAD THIS WRONG. ***
+  BOHEMIA_ALPHA_0_9.html      the door, the tabs, the cutscene/opening
+  BOHEMIA_CITY_WORLD.html     THE GAME -- DAY, DQ, the wake card, the people you
+                              walk past, the barks. This is what p-city shows.
+  BOHEMIA_CURRENT_SLICE.html  *** THE PHONE. *** Its own frame, its own file. I
+                              wrote on 8/15 that the run frame was the other
+                              half of a two-frame game; the phone is a THIRD
+                              file and the job is taken inside it.
+  BOHEMIA_RUN_CURRENT.html    parked, not shown by the RUN tab.
+FIND A FRAME BY ASKING IT WHAT IT CAN DO. Two frames answer to the run's URL and
+.find() takes the wrong one; the phone is a third file again. Every frame lookup
+in every gate I own now asks "does this frame have the control I need" and keeps
+looking past the first match.
+
+WORTH KNOWING: the day's job flow is GOOD. It works with fingers, it looks
+right -- a lock screen with notifications ("The Neighbor: we gotta talk about
+the wall between our yards", "Network: 24 quests available near you"), TAP TO
+UNLOCK, then A JOB CAME IN with the quest's own words and a TAKE IT button.
+Nothing needed fixing there. It just had never been tested as a person does it.
+
+PEOPLE (7h9sfy): 8/16 (b) -- *** "STILL NOT FIXED." REROLL THREW HIM INTO THE
+CITY OVERVIEW; MY GATE CALLED swapMode() ITSELF AND READ 8/8 GREEN. ***
 
 I shipped the reroll fix, called it done, and he came back with two words. The
 fix was real and it was not what he was looking at.

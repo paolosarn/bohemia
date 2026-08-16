@@ -166,27 +166,70 @@ function pw() {
       ok('a WAKE card is up with something to do', day.card && day.txt.length > 10, day.txt);
       ok('and there is a button to start the day', day.go === true);
 
-      /* THE DAY STARTS WITH NO JOB SINCE 8/12 (__THE_PHONE_RINGS__, the RUN lane).
-         GET UP wakes you; the work ARRIVES on the phone and is TAKEN there. The
-         first cut of this clicked GET UP and demanded an objective, which is the
-         old flow -- it read as "the demo is broken" when the demo had simply
-         grown a better opening move. The handshake itself is phone_rings_gate's
-         subject; this gate only needs the job taken so the day can be played. */
+      /* *** TAKE THE JOB THE WAY A FINGER TAKES IT. ***
+         This called offerAccept() -- a JS function -- and declared the demo's
+         opening move working. That is the mistake that cost two "still not
+         fixed" rounds on 8/15: A GATE THAT PERFORMS THE MISSING STEP IS TESTING
+         ITSELF. The whole first two minutes of the demo is a chain of taps
+         (GET UP -> PHONE -> tap to unlock -> TAKE IT) and every link of it could
+         break with offerAccept() still returning cleanly.
+         Driven as taps now, end to end. Measured while writing it: the chain
+         works, and the phone is its own frame -- slices/BOHEMIA_CURRENT_SLICE
+         .html, NOT the run slice -- reached by asking every frame which one has
+         a VISIBLE control, never by matching a URL or taking the first hit. */
       ok('the day starts with NO objective — the job has not arrived yet',
         await fr.evaluate(() => ((document.getElementById('qline') || {}).textContent || '') === ''));
-      const took = await fr.evaluate(() => {
-        const g = document.querySelector('#daycardIn .dcgo');
-        if (g) g.click();
-        return new Promise(res => setTimeout(() => {
-          try { offerAccept(); } catch (_e) {}
-          setTimeout(() => res({
-            hud: (document.getElementById('qline') || {}).textContent || '',
-            phase: (typeof DAY !== 'undefined' && DAY) ? DAY.phase : null,
-          }), 400);
-        }, 500));
+
+      await fr.click('#daycardIn .dcgo');            // GET UP
+      await page.waitForTimeout(900);
+      ok('GET UP is a real button and it wakes the day',
+        await fr.evaluate(() => (typeof DAY !== 'undefined' && DAY) ? DAY.phase === 'awake' : false));
+
+      await fr.click('#phonebtn');                   // the phone, in his pocket
+      await page.waitForTimeout(7000);               // NETWORK OS boots
+      const slot = await fr.$('#phoneslot');
+      const box = slot ? await slot.boundingBox() : null;
+      ok('tapping PHONE opens it', !!box && box.height > 100);
+      if (box) {                                     // TAP TO UNLOCK
+        await page.mouse.click(box.x + box.width / 2, box.y + box.height * 0.9);
+        await page.waitForTimeout(2200);
+      }
+
+      /* ASK EVERY FRAME WHICH ONE HAS THE BUTTON. Two frames answer to the run's
+         URL and .find() takes the wrong one; the phone is a third file again. */
+      let phone = null;
+      const visibleTakeIt = () => [...document.querySelectorAll('*')].some(e => {
+        if (e.children.length) return false;
+        if (/^(SCRIPT|STYLE)$/.test(e.tagName)) return false;
+        if (!/take it/i.test(e.textContent || '')) return false;
+        const r = e.getBoundingClientRect();
+        return r.width > 10 && r.height > 6;
       });
-      ok('taking the job off the phone puts a live objective on the HUD ("' +
-        took.hud.trim().slice(0, 44) + '")', took.hud.trim().length > 0);
+      for (const f of page.frames()) {
+        try { if (await f.evaluate(visibleTakeIt)) phone = f; } catch (_e) {}
+      }
+      ok('THE JOB IS ON THE PHONE, with a button he can press',
+        !!phone, 'GET UP -> PHONE -> unlock should surface the day\'s job');
+      if (phone) {
+        await phone.evaluate(() => {
+          const t = [...document.querySelectorAll('*')].find(e => {
+            if (e.children.length) return false;
+            if (/^(SCRIPT|STYLE)$/.test(e.tagName)) return false;
+            if ((e.textContent || '').trim().toUpperCase() !== 'TAKE IT') return false;
+            const r = e.getBoundingClientRect();
+            return r.width > 10 && r.height > 6;
+          });
+          if (t) t.click();
+        });
+        await page.waitForTimeout(1800);
+      }
+      const took = await fr.evaluate(() => ({
+        hud: (document.getElementById('qline') || {}).textContent || '',
+        phase: (typeof DAY !== 'undefined' && DAY) ? DAY.phase : null,
+      }));
+      ok('TAPPING "TAKE IT" PUTS A LIVE OBJECTIVE ON THE HUD ("' +
+        took.hud.trim().slice(0, 44) + '") — the whole opening move, by finger',
+        took.hud.trim().length > 0);
 
       /* THE DAY CAN END, AND ENDING MEANS SOMETHING. Driven through the loop's
          own clock rather than by walking sixteen hours, which is what the day
