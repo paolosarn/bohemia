@@ -4742,6 +4742,9 @@ window.addEventListener('message', function(ev){
                           spared:d.spared|0, fled:d.fled|0, playerHP:d.playerHP };
     RUN.phase='resolved'; HAND.style.display='none';
     if(!d.victory){
+      sfx('went_down');   /* HIS 8/16 SURVIVOR: the one of thirty-five he kept.
+         Fired BEFORE the rollback, because the sound belongs
+         to going down and not to the save that answers it. */
       /* DEATH IS A RELOAD, NOT A RESET (Paolo 7/26): you go back to the closest
          previous save. Never a wipe, never start-from-the-beginning. */
       if(loadClosest()) toast('You went down. Back to your last save.');

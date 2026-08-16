@@ -190,7 +190,15 @@ const BOH_SFX = (function () {
                    CONTINUOUS and has no attack at all.
          air       turbulence. Noise through a band that MOVES. Wind, breath,
                    gas, hiss: sound with no body and no strike. */
-    synth:   { kind: 'enum', of: ['modal', 'fm', 'particle', 'friction', 'air'], d: 'modal' },
+    synth:   { kind: 'enum', of: ['modal', 'fm', 'particle', 'friction', 'air',
+                                 'instrument'], d: 'modal' },
+    /* WHICH OF HIS 602 INSTRUMENTS (8/16). Only read when synth==='instrument'.
+       Free-text on purpose: the rack lives in the alpha, not in this module, so
+       this file cannot enumerate it without duplicating his list and going
+       stale the first time the MUSIC lane adds a voice. instrument_gate.py
+       resolves every name against the SHIPPED rack instead, which is the check
+       that actually matters. */
+    inst:    { kind: 'str',  d: '' },
     ratio:   { kind: 'num',  min: 0.1, max: 12,  d: 2 },    /* fm  carrier:modulator */
     index:   { kind: 'num',  min: 0,   max: 20,  d: 3 },    /* fm  modulation index */
     grains:  { kind: 'num',  min: 2,   max: 64,  d: 12 },   /* particle  collisions */
@@ -204,6 +212,13 @@ const BOH_SFX = (function () {
       k = FIELDS[i]; s = SPEC[k];
       x = (v && v[k] != null) ? v[k] : s.d;
       if (s.kind === 'enum') o[k] = (s.of.indexOf(x) >= 0) ? x : s.d;
+      /* A NAME IS NOT A NUMBER (8/16). Without this branch `inst` fell through
+         to the numeric clamp, `clamp(+'templeblock' || 0, undefined, undefined)`,
+         and every instrument name in the batch silently became 0 -- so every
+         instrument-backed sound rendered nothing at all. It cost one cook to
+         find and it is exactly why instrument_gate re-renders each name on the
+         real surface instead of trusting the recipe text. */
+      else if (s.kind === 'str') o[k] = (typeof x === 'string') ? x : s.d;
       else if (s.kind === 'beat') o[k] = clamp(q(+x || 0), s.min, s.max);
       else o[k] = clamp(+x || 0, s.min, s.max);
     }
@@ -1429,67 +1444,111 @@ const BOH_SFX = (function () {
        rasp and widening a declared range to fit my numbers would loosen
        validation for every sound in the game to save one of mine. */
 
-    /* --- FRICTION, the method his thumbs rate highest --- */
+    /* ---- end batch SFX-06 recipes ---- */
+
+    /* ================= BATCH SFX-07 (8/16/26) =========================
+       THE SAME SIX MOMENTS, REBUILT OUT OF HIS OWN INSTRUMENTS.
+
+       PAOLO, on the 400/400 sweep that killed SFX-06 thirty-four of
+       thirty-five: "These are all very bad except for one I need you to be
+       greater than use more instruments. I like it was really bad."
+
+       HE DID NOT DISPUTE A SINGLE MOMENT. Five of the six below are the combat
+       beats his own locked ruling asks for, and the seventh (went_down) he
+       KEPT. What he rejected was what they were made of. So the moments stand
+       and the SOURCE changes completely: every candidate here is one of the
+       602 voices in his own music rack, played through synthV, on the same bus
+       and limiter as everything else.
+
+       AND THE QUESTION PUT TO HIM CHANGES SHAPE. Every batch before this asked
+       the same thing five times -- here is a sound, and here it is again
+       slightly higher. These ask WHICH VOICE: five different instruments per
+       moment, one per candidate. His thumbs on this batch do not tune a
+       recipe, they teach this lane which of HIS instruments belong in the
+       game's sound design, which is a thing no amount of jittering hz could
+       ever have found out.
+
+       EVERY NAME BELOW WAS RENDERED THROUGH THE REAL RACK BEFORE IT WAS
+       WRITTEN DOWN, and four of the first picks were thrown out for making no
+       sound at all (thud, knock, boneshuffle, quiver -- they match the rack's
+       source text but are not reachable through synthV). A voice that does not
+       resolve is a silent sound effect, which is the worst failure this lane
+       can ship, so instrument_gate re-renders every one of them on the shipped
+       surface on every run and fails on any that goes quiet. */
     round_land: {
-      base: { mat: 'stone', hz: 210, modes: 5, bright: 0.75, decay: 0.125,
-              damp: 2.4, warble: 0.4, atk: 0, trans: 0.92, transHz: 3400,
-              transQ: 1.6, grit: 0.95, gritHz: 1400, space: 0.09, room: 0.0625,
-              refl: 1, dark: 1800, width: 0.7, drive: 0.12, mkup: 0.66,
-              gain: 0.34 },
-      jit:  { hz: [170, 290], decay: [0.0625, 0.1875], damp: [2, 2.7],
-              transHz: [2400, 4800], bright: [0.6, 1], width: [0.58, 0.9],
-              grit: [0.85, 0.98], dark: [1300, 2600], gritHz: [1000, 2100] }
+      base: { synth: 'instrument', inst: 'templeblock', mat: 'stone', hz: 210,
+              modes: 5, bright: 0.75, decay: 0.1875, damp: 2.1, warble: 0.4,
+              atk: 0, trans: 0.5, transHz: 3400, transQ: 1.6, grit: 0.5,
+              gritHz: 1400, space: 0.09, room: 0.0625, refl: 1, dark: 1800,
+              width: 0.7, drive: 0.06, mkup: 0.66, gain: 0.34 },
+      jit:  { hz: [150, 300], decay: [0.125, 0.3125], width: [0.58, 0.9],
+              dark: [1300, 2600] },
+      instSets: ['templeblock', 'udu', 'boneplate', 'spoonclack', 'taiko']
     },
     cover_chew: {
-      base: { mat: 'stone', hz: 430, modes: 6, bright: 1.25, decay: 0.1875,
-              damp: 2.2, warble: 0.5, atk: 0, trans: 0.88, transHz: 5600,
-              transQ: 2.1, grit: 0.8, gritHz: 3100, space: 0.11, room: 0.125,
-              refl: 1, dark: 3600, width: 0.72, drive: 0.11, mkup: 0.62,
-              gain: 0.32, hits: [0, 0.0625] },
-      jit:  { hz: [330, 620], decay: [0.125, 0.3125], damp: [1.8, 2.6],
-              transHz: [4200, 8000], bright: [1, 1.55], width: [0.6, 0.95],
-              dark: [2600, 5000], gritHz: [2300, 4400] },
-      hitSets: [[0, 0.0625], [0], [0, 0.09375], [0, 0.0625, 0.15625], [0, 0.125]]
+      base: { synth: 'instrument', inst: 'shardglass', mat: 'stone', hz: 430,
+              modes: 6, bright: 1.1, decay: 0.25, damp: 2, warble: 0.5,
+              atk: 0, trans: 0.5, transHz: 5600, transQ: 2.1, grit: 0.5,
+              gritHz: 3100, space: 0.11, room: 0.125, refl: 1, dark: 3600,
+              width: 0.72, drive: 0.06, mkup: 0.62, gain: 0.32 },
+      jit:  { hz: [300, 620], decay: [0.1875, 0.375], width: [0.6, 0.95],
+              dark: [2600, 5000] },
+      instSets: ['shardglass', 'shatterspark', 'rubblelight', 'scrapchime',
+                 'pickscrape']
     },
     car_heat: {
-      base: { synth: 'fm', mat: 'stone', hz: 128, ratio: 1.41, index: 3.2,
-              modes: 5, bright: 0.55, decay: 0.4375, damp: 1.9, warble: 0.35,
-              atk: 0.0625, trans: 0.3, transHz: 1400, transQ: 0.9, grit: 0.55,
+      base: { synth: 'instrument', inst: 'ticker', mat: 'stone', hz: 128,
+              modes: 5, bright: 0.55, decay: 0.375, damp: 1.9, warble: 0.35,
+              atk: 0, trans: 0.4, transHz: 1400, transQ: 0.9, grit: 0.4,
               gritHz: 800, space: 0.1, room: 0.125, refl: 1, dark: 1100,
-              width: 0.58, drive: 0.07, mkup: 0.8, gain: 0.3,
+              width: 0.58, drive: 0.05, mkup: 0.8, gain: 0.3,
               hits: [0, 0.375, 0.6875] },
-      jit:  { hz: [104, 176], ratio: [1.3, 2.2], index: [2, 5],
-              decay: [0.3125, 0.625], bright: [0.44, 0.72], width: [0.5, 0.8],
+      jit:  { hz: [100, 190], decay: [0.3125, 0.5], width: [0.5, 0.8],
               dark: [800, 1600] },
+      instSets: ['ticker', 'meterclick', 'capacitor', 'ironheart', 'riveter'],
       hitSets: [[0, 0.375, 0.6875], [0, 0.4375], [0, 0.3125, 0.5625],
                 [0, 0.5, 0.875], [0, 0.25, 0.5, 0.8125]]
     },
     man_moves: {
-      base: { synth: 'friction', mat: 'ash', hz: 260, rough: 17, modes: 5,
-              bright: 0.68, decay: 0.3125, damp: 2.1, warble: 0.4, atk: 0.0625,
-              slide: -6, trans: 0.13, transHz: 2200, transQ: 1.1, grit: 0.88,
+      base: { synth: 'instrument', inst: 'ironstep', mat: 'ash', hz: 260,
+              modes: 5, bright: 0.68, decay: 0.3125, damp: 2.1, warble: 0.4,
+              atk: 0, trans: 0.45, transHz: 2200, transQ: 1.1, grit: 0.5,
               gritHz: 1700, space: 0.13, room: 0.1875, refl: 1, dark: 2100,
-              width: 0.68, drive: 0.08, mkup: 0.7, gain: 0.28,
+              width: 0.68, drive: 0.05, mkup: 0.7, gain: 0.28,
               hits: [0, 0.1875, 0.375] },
-      jit:  { hz: [205, 350], rough: [12, 24], decay: [0.25, 0.4375],
-              slide: [-9, -3], bright: [0.55, 0.92], width: [0.58, 0.88],
-              dark: [1600, 3000], gritHz: [1300, 2500] },
+      jit:  { hz: [190, 350], decay: [0.25, 0.4375], width: [0.58, 0.88],
+              dark: [1600, 3000] },
+      instSets: ['ironstep', 'washboard', 'guiro', 'rubboard', 'cabasa'],
       hitSets: [[0, 0.1875, 0.375], [0, 0.25], [0, 0.125, 0.3125],
                 [0, 0.1875, 0.375, 0.5625], [0, 0.21875, 0.4375]]
     },
-    wake_up: {
-      base: { synth: 'friction', mat: 'ash', hz: 110, rough: 6, modes: 4,
-              bright: 0.5, decay: 0.5, damp: 2, warble: 0.3, atk: 0.125,
-              slide: 4, trans: 0.1, transHz: 1200, transQ: 0.8, grit: 0.85,
-              gritHz: 1000, space: 0.14, room: 0.1875, refl: 1, dark: 1200,
-              width: 0.62, drive: 0.06, mkup: 0.82, gain: 0.3,
-              hits: [0, 0.5] },
-      jit:  { hz: [88, 158], rough: [4, 10], decay: [0.375, 0.75],
-              slide: [1, 5], bright: [0.4, 0.75], width: [0.52, 0.86],
-              dark: [900, 1800] },
-      hitSets: [[0, 0.5], [0, 0.4375], [0, 0.5625], [0, 0.375, 0.8125],
-                [0, 0.46875]]
+    nerve_break: {
+      base: { synth: 'instrument', inst: 'onebreath', mat: 'bone', hz: 92,
+              modes: 6, bright: 0.6, decay: 0.4375, damp: 2.3, warble: 0.6,
+              atk: 0, trans: 0.5, transHz: 1500, transQ: 1.2, grit: 0.45,
+              gritHz: 1000, space: 0.12, room: 0.125, refl: 1, dark: 1200,
+              width: 0.5, drive: 0.08, mkup: 0.9, gain: 0.4 },
+      jit:  { hz: [74, 130], decay: [0.375, 0.625], width: [0.4, 0.64],
+              dark: [900, 1700] },
+      instSets: ['onebreath', 'holdbreath', 'ironlung', 'throatsong',
+                 'formantvox']
     },
+    wake_up: {
+      base: { synth: 'instrument', inst: 'dawnpad', mat: 'ash', hz: 110,
+              modes: 4, bright: 0.5, decay: 0.625, damp: 2, warble: 0.3,
+              atk: 0.0625, trans: 0.3, transHz: 1200, transQ: 0.8, grit: 0.4,
+              gritHz: 1000, space: 0.14, room: 0.1875, refl: 1, dark: 1200,
+              width: 0.62, drive: 0.04, mkup: 0.82, gain: 0.3 },
+      jit:  { hz: [88, 165], decay: [0.5, 0.875], width: [0.52, 0.86],
+              dark: [900, 1800] },
+      instSets: ['dawnpad', 'dawnwash', 'edenmist', 'stillair', 'solarhum']
+    },
+
+    /* --- HIS ONE SURVIVOR FROM SFX-06, UNTOUCHED --------------------
+       went_down.4 is the single candidate he kept out of thirty-five, so
+       this recipe does not move by one digit. A recipe he has approved is
+       frozen: re-cooking it would change what went_down.4 IS and silently
+       throw away the only thumb this batch earned. */
     went_down: {
       base: { mat: 'ash', hz: 68, modes: 5, bright: 0.36, decay: 0.875,
               damp: 2.3, warble: 0.45, atk: 0, trans: 0.96, transHz: 900,
@@ -1502,20 +1561,6 @@ const BOH_SFX = (function () {
       hitSets: [[0, 0.0625, 0.3125], [0, 0.375], [0, 0.0625, 0.25],
                 [0, 0.125, 0.4375], [0, 0.0625, 0.28125]]
     },
-
-    /* --- MODAL: a person is a struck body, not a scrape --- */
-    nerve_break: {
-      base: { mat: 'bone', hz: 92, modes: 6, bright: 0.6, decay: 0.375,
-              damp: 2.3, warble: 0.6, atk: 0.0625, trans: 0.85, transHz: 1500,
-              transQ: 1.2, grit: 0.6, gritHz: 1000, space: 0.12, room: 0.125,
-              refl: 1, dark: 1200, width: 0.5, drive: 0.28, mkup: 0.9,
-              gain: 0.4, hits: [0, 0.0625] },
-      jit:  { hz: [74, 124], decay: [0.3125, 0.5625], transHz: [1150, 2400],
-              grit: [0.45, 0.78], damp: [1.9, 2.6], drive: [0.2, 0.4],
-              dark: [900, 1700], width: [0.4, 0.64] },
-      hitSets: [[0, 0.0625], [0], [0, 0.125], [0, 0.0625, 0.1875],
-                [0, 0.09375]]
-    }
     /* ---- end batch SFX-06 recipes ---- */
   };
 
@@ -1713,6 +1758,15 @@ const BOH_SFX = (function () {
           v[f] = (SPEC[f] && SPEC[f].kind === 'beat') ? q(x) : x;
         }
         if (r.hitSets) v.hits = r.hitSets[i % r.hitSets.length].slice();
+        /* FIVE DIFFERENT INSTRUMENTS, NOT FIVE JITTERS OF ONE (8/16). Every
+           batch before this asked him the same question five times: here is a
+           sound, and here it is again slightly higher. When the SOURCE is his
+           602-voice rack the far more useful question is WHICH VOICE, so an
+           instrument recipe lists five names and each candidate gets its own.
+           His thumbs then teach this lane which of HIS instruments belong in
+           the game's sound design, which is a thing no amount of jittering hz
+           could ever have found out. */
+        if (r.instSets) v.inst = r.instSets[i % r.instSets.length];
         /* every candidate sits somewhere different in the field. FFX moved its
            effects off mono on purpose; nothing here ships dead centre. */
         v.pan = (rand() * 2 - 1) * 0.35;
@@ -1736,6 +1790,10 @@ const BOH_SFX = (function () {
       var k = FIELDS[i], s = SPEC[k], x = v[k];
       if (x == null) { errs.push(k + ' missing'); continue; }
       if (s.kind === 'enum') { if (s.of.indexOf(x) < 0) errs.push(k + ' not in spec: ' + x); continue; }
+      if (s.kind === 'str') {
+        if (typeof x !== 'string') errs.push(k + ' must be a name, got ' + typeof x);
+        continue;
+      }
       if (typeof x !== 'number' || !isFinite(x)) { errs.push(k + ' not a finite number'); continue; }
       if (x < s.min - 1e-9 || x > s.max + 1e-9) errs.push(k + ' out of range: ' + x);
       if (s.kind === 'beat' && Math.abs(x * 16 - Math.round(x * 16)) > 1e-9)
@@ -1945,6 +2003,89 @@ const BOH_SFX = (function () {
     return t + A + ring;
   }
 
+
+  /* ===================================================================
+     INSTRUMENT -- HIS OWN RACK, PLAYED AS A SOUND EFFECT (8/16/26)
+     =================================================================== */
+  /* PAOLO, ON HIS 400/400 SWEEP, AFTER SFX-06 DIED 34 OF 35:
+       "These are all very bad except for one I need you to be greater
+        than use more instruments. I like it was really bad."
+
+     HE WAS POINTING AT A REUSE-FIRST VIOLATION THAT HAD BEEN RUNNING SINCE
+     7/29 AND NOBODY HAD MEASURED. The alpha carries a music studio whose
+     voice rack, synthV(), holds SIX HUNDRED AND TWO named instruments --
+     splinterbell, ashchoir, farbell, ironlung, glassrequiem, mournhorn,
+     evictionbell, dustbowlguitar, on and on -- and every song he has ever
+     called fire is built out of them. This engine had never called one. Five
+     raw synthesis primitives, eighty moments, four hundred candidates, and
+     not one note of the library sitting in the same HTML file.
+
+     That is why the approval rate on cooked sounds has sat near 30% through
+     five straight sweeps and never moved. The recipes were not the problem
+     and the moments were not the problem: the SOUND SOURCE was.
+
+     SO THE ENGINE GAINS A SIXTH PHYSICS THAT IS NOT A PHYSICS. It is a door
+     into his rack. `synth: "instrument"` plus `inst: "<name>"` renders that
+     event by playing HIS instrument, on the parent's AudioContext, through
+     the same SFX bus, limiter and volume knob as everything else.
+
+     WHAT THIS DELIBERATELY DOES NOT DO:
+       - It does not copy a single one of his voices into this file. There is
+         ONE definition of splinterbell and it stays in the studio. If the
+         MUSIC lane improves a voice, every sound effect built on it improves
+         with it, and neither lane has to know.
+       - It does not re-quantise. playSFX already places the event on the
+         beat; synthV takes an absolute start time and gets the one it is
+         given.
+       - It invents no instruments. MECHANISM-MINE / CONTENTS-PAOLO'S: the
+         door is mine, the 602 things behind it are his.
+
+     SCREECH LAW, CHECKED NOT ASSUMED: the rack body was swept for
+     createDelay / createConvolver before this shipped. Zero of each across
+     375KB and 757 oscillators. Routing effects through it adds no feedback
+     path to the game.
+
+     PITCH. His rack speaks in SEMITONES from a note function, this engine
+     speaks in Hz. semiOf() converts, so a recipe still tunes in Hz like every
+     other body and the instrument lands where the recipe asked.
+
+     NODE-SAFE. The rack is in the alpha, not in this module, so under `node`
+     (every gate that requires this file) synthV does not exist. The body
+     returns the start time unchanged rather than throwing, and
+     instrument_gate.py does the real verification on the SHIPPED surface --
+     which is the only place the claim is even meaningful. */
+  function bodyInstrument(v, AC, dest, t, amp, hold) {
+    var SV = null;
+    try {
+      SV = (typeof window !== 'undefined' && window.synthV) ? window.synthV
+         : (typeof synthV !== 'undefined') ? synthV : null;
+    } catch (e) { SV = null; }
+    if (!SV || !v.inst) return t;
+    var sd   = Math.max(0.03, v.decay * BEAT);
+    var semi = semiOf(v.hz);
+    var hzFn = function (x) { return REF_HZ * Math.pow(2, x / 12); };
+    /* HIS RACK IS CALIBRATED AROUND g0 ~0.05-0.13 (read off the studio's own
+       call sites), and this engine's gain runs 0.18-0.72. Mapping into HIS
+       range rather than pushing his voices at ours is the whole point of
+       borrowing them: a voice driven three times as hard as the song drives
+       it is not the voice he approved. */
+    var g0 = clamp(amp * v.gain * 0.42, 0.01, 0.22);
+    var n = (v.hits && v.hits.length) ? v.hits.length : 1;
+    for (var i = 0; i < n; i++) {
+      var off = (v.hits && v.hits.length) ? v.hits[i] * BEAT : 0;
+      try { SV(v.inst, AC, dest, hzFn, sd, semi, t + off, g0); } catch (e) {}
+    }
+    var last = (v.hits && v.hits.length) ? v.hits[n - 1] * BEAT : 0;
+    return t + last + sd * 2.4;
+  }
+  /* A3. Chosen because his rack's own call sites pass semitone offsets in
+     roughly -55..+12 around it, so a Hz in this engine's legal range converts
+     to a semitone his instruments actually sound good at. */
+  var REF_HZ = 220;
+  function semiOf(hz) {
+    return Math.round(12 * Math.log(Math.max(20, hz) / REF_HZ) / Math.LN2);
+  }
+
   function strike(v, AC, dest, t, amp, hold) {
     var bank = MODES[v.mat] || MODES.stone;
     var used = Math.min(v.modes, bank.length);
@@ -1976,10 +2117,11 @@ const BOH_SFX = (function () {
        Only the body changes, and `modal` is the original code untouched, so
        all 97 sounds Paolo has approved render byte-identical. */
     if (v.synth && v.synth !== 'modal') {
-      var e2 = (v.synth === 'fm')       ? bodyFM(v, AC, dest, t, amp, hold)
-             : (v.synth === 'particle') ? bodyParticle(v, AC, dest, t, amp, hold)
-             : (v.synth === 'friction') ? bodyFriction(v, AC, dest, t, amp, hold)
-             : (v.synth === 'air')      ? bodyAir(v, AC, dest, t, amp, hold)
+      var e2 = (v.synth === 'fm')         ? bodyFM(v, AC, dest, t, amp, hold)
+             : (v.synth === 'particle')   ? bodyParticle(v, AC, dest, t, amp, hold)
+             : (v.synth === 'friction')   ? bodyFriction(v, AC, dest, t, amp, hold)
+             : (v.synth === 'air')        ? bodyAir(v, AC, dest, t, amp, hold)
+             : (v.synth === 'instrument') ? bodyInstrument(v, AC, dest, t, amp, hold)
              : latest;
       return (e2 > latest) ? e2 : latest;
     }

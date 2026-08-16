@@ -1260,6 +1260,28 @@ def main():
                           "  writeSave('slept'); toast('You slept. Saved.'); "
                           "renderSaveSheet(); }", 1)
 
+    # ---- YOU GO DOWN (8/16) ----------------------------------------------
+    # THE ONE CANDIDATE HE KEPT out of thirty-five. went_down.4, modal ash at
+    # 88 Hz with three hits -- an impact, then the body finishing its fall.
+    # It fires the instant the fight is scored a loss, BEFORE loadClosest()
+    # rolls the world back to the last save: the sound belongs to the moment
+    # you went down, not to the reload that answers it. Putting it after would
+    # play his sound over a world that has already forgotten the fight.
+    # ONE SITE COVERS BOTH ENDINGS -- reload-to-save and no-save-to-return-to.
+    down_anchor = "    if(!d.victory){"
+    if "sfx('went_down')" not in run:
+        if run.count(down_anchor) != 1:
+            print('FAIL: the defeat branch is not present exactly once (%d)'
+                  % run.count(down_anchor))
+            return 1
+        run = run.replace(down_anchor,
+                          down_anchor
+                          + "\n      sfx('went_down');"
+                            "   /* HIS 8/16 SURVIVOR: the one of thirty-five he kept.\n"
+                            "         Fired BEFORE the rollback, because the sound belongs\n"
+                            "         to going down and not to the save that answers it. */",
+                          1)
+
     open(RUN, 'w', encoding='utf8').write(run)
     r = subprocess.run(['node', 'tools/build_run_slice.js'], capture_output=True, text=True)
     if r.returncode != 0:
@@ -1269,6 +1291,7 @@ def main():
     if ('SFX WIRE, RUN SIDE' not in built or 'sfxGround(px,py)' not in built
             or "sfx('phone_buzz')" not in built or "sfx('eat')" not in built
             or "sfx('sleep_sink')" not in built
+            or "sfx('went_down')" not in built
             or "sfxAt('door_drag'" not in built):
         print('FAIL: the rebuilt run does not carry the wire')
         return 1

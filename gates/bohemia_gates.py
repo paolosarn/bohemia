@@ -55,6 +55,13 @@ GATES = [
      'no street dead-ends into empty lots', False),
     ('VALLEY SCALE',   ['node', 'gates/valley_scale_gate.js'],
      'a district is the size the 7/6 law says (128x128 = 96m), and ONE constant says so', False),
+    ('INSTRUMENTS',    ['python3', 'gates/instrument_gate.py'],
+     "Paolo 8/16 after SFX-06 died 34 of 35: \"use more instruments\". The alpha "
+     "carries a 602-voice music rack that every song he calls fire is built "
+     "from, and the sound engine had never called one of them in five sweeps. "
+     "This proves the door is open, that every instrument a recipe names is one "
+     "the rack really answers to, and that borrowing it copies no voice and adds "
+     "no feedback path"),
     ('DISTRICT FILL',  ['node', 'gates/district_fill_gate.js'],
      'the floor one level down from MAP SIZE: every district type pinned at the content share it measured on 8/2, because walkable_gate compares pavement to content and a district with NO pavement passes it however empty it gets', False),
     ('BLOB INTEGRITY', ['node', 'gates/blob_integrity_gate.js'],

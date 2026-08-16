@@ -998,7 +998,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/16d - TWO QUESTS THAT INVERT WHAT EVERYBODY KNOWS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/16k - YOUR 602 INSTRUMENTS MAKE THE SOUNDS NOW</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -14918,7 +14918,15 @@ const BOH_SFX = (function () {
                    CONTINUOUS and has no attack at all.
          air       turbulence. Noise through a band that MOVES. Wind, breath,
                    gas, hiss: sound with no body and no strike. */
-    synth:   { kind: 'enum', of: ['modal', 'fm', 'particle', 'friction', 'air'], d: 'modal' },
+    synth:   { kind: 'enum', of: ['modal', 'fm', 'particle', 'friction', 'air',
+                                 'instrument'], d: 'modal' },
+    /* WHICH OF HIS 602 INSTRUMENTS (8/16). Only read when synth==='instrument'.
+       Free-text on purpose: the rack lives in the alpha, not in this module, so
+       this file cannot enumerate it without duplicating his list and going
+       stale the first time the MUSIC lane adds a voice. instrument_gate.py
+       resolves every name against the SHIPPED rack instead, which is the check
+       that actually matters. */
+    inst:    { kind: 'str',  d: '' },
     ratio:   { kind: 'num',  min: 0.1, max: 12,  d: 2 },    /* fm  carrier:modulator */
     index:   { kind: 'num',  min: 0,   max: 20,  d: 3 },    /* fm  modulation index */
     grains:  { kind: 'num',  min: 2,   max: 64,  d: 12 },   /* particle  collisions */
@@ -14932,6 +14940,13 @@ const BOH_SFX = (function () {
       k = FIELDS[i]; s = SPEC[k];
       x = (v && v[k] != null) ? v[k] : s.d;
       if (s.kind === 'enum') o[k] = (s.of.indexOf(x) >= 0) ? x : s.d;
+      /* A NAME IS NOT A NUMBER (8/16). Without this branch `inst` fell through
+         to the numeric clamp, `clamp(+'templeblock' || 0, undefined, undefined)`,
+         and every instrument name in the batch silently became 0 -- so every
+         instrument-backed sound rendered nothing at all. It cost one cook to
+         find and it is exactly why instrument_gate re-renders each name on the
+         real surface instead of trusting the recipe text. */
+      else if (s.kind === 'str') o[k] = (typeof x === 'string') ? x : s.d;
       else if (s.kind === 'beat') o[k] = clamp(q(+x || 0), s.min, s.max);
       else o[k] = clamp(+x || 0, s.min, s.max);
     }
@@ -16157,67 +16172,111 @@ const BOH_SFX = (function () {
        rasp and widening a declared range to fit my numbers would loosen
        validation for every sound in the game to save one of mine. */
 
-    /* --- FRICTION, the method his thumbs rate highest --- */
+    /* ---- end batch SFX-06 recipes ---- */
+
+    /* ================= BATCH SFX-07 (8/16/26) =========================
+       THE SAME SIX MOMENTS, REBUILT OUT OF HIS OWN INSTRUMENTS.
+
+       PAOLO, on the 400/400 sweep that killed SFX-06 thirty-four of
+       thirty-five: "These are all very bad except for one I need you to be
+       greater than use more instruments. I like it was really bad."
+
+       HE DID NOT DISPUTE A SINGLE MOMENT. Five of the six below are the combat
+       beats his own locked ruling asks for, and the seventh (went_down) he
+       KEPT. What he rejected was what they were made of. So the moments stand
+       and the SOURCE changes completely: every candidate here is one of the
+       602 voices in his own music rack, played through synthV, on the same bus
+       and limiter as everything else.
+
+       AND THE QUESTION PUT TO HIM CHANGES SHAPE. Every batch before this asked
+       the same thing five times -- here is a sound, and here it is again
+       slightly higher. These ask WHICH VOICE: five different instruments per
+       moment, one per candidate. His thumbs on this batch do not tune a
+       recipe, they teach this lane which of HIS instruments belong in the
+       game's sound design, which is a thing no amount of jittering hz could
+       ever have found out.
+
+       EVERY NAME BELOW WAS RENDERED THROUGH THE REAL RACK BEFORE IT WAS
+       WRITTEN DOWN, and four of the first picks were thrown out for making no
+       sound at all (thud, knock, boneshuffle, quiver -- they match the rack's
+       source text but are not reachable through synthV). A voice that does not
+       resolve is a silent sound effect, which is the worst failure this lane
+       can ship, so instrument_gate re-renders every one of them on the shipped
+       surface on every run and fails on any that goes quiet. */
     round_land: {
-      base: { mat: 'stone', hz: 210, modes: 5, bright: 0.75, decay: 0.125,
-              damp: 2.4, warble: 0.4, atk: 0, trans: 0.92, transHz: 3400,
-              transQ: 1.6, grit: 0.95, gritHz: 1400, space: 0.09, room: 0.0625,
-              refl: 1, dark: 1800, width: 0.7, drive: 0.12, mkup: 0.66,
-              gain: 0.34 },
-      jit:  { hz: [170, 290], decay: [0.0625, 0.1875], damp: [2, 2.7],
-              transHz: [2400, 4800], bright: [0.6, 1], width: [0.58, 0.9],
-              grit: [0.85, 0.98], dark: [1300, 2600], gritHz: [1000, 2100] }
+      base: { synth: 'instrument', inst: 'templeblock', mat: 'stone', hz: 210,
+              modes: 5, bright: 0.75, decay: 0.1875, damp: 2.1, warble: 0.4,
+              atk: 0, trans: 0.5, transHz: 3400, transQ: 1.6, grit: 0.5,
+              gritHz: 1400, space: 0.09, room: 0.0625, refl: 1, dark: 1800,
+              width: 0.7, drive: 0.06, mkup: 0.66, gain: 0.34 },
+      jit:  { hz: [150, 300], decay: [0.125, 0.3125], width: [0.58, 0.9],
+              dark: [1300, 2600] },
+      instSets: ['templeblock', 'udu', 'boneplate', 'spoonclack', 'taiko']
     },
     cover_chew: {
-      base: { mat: 'stone', hz: 430, modes: 6, bright: 1.25, decay: 0.1875,
-              damp: 2.2, warble: 0.5, atk: 0, trans: 0.88, transHz: 5600,
-              transQ: 2.1, grit: 0.8, gritHz: 3100, space: 0.11, room: 0.125,
-              refl: 1, dark: 3600, width: 0.72, drive: 0.11, mkup: 0.62,
-              gain: 0.32, hits: [0, 0.0625] },
-      jit:  { hz: [330, 620], decay: [0.125, 0.3125], damp: [1.8, 2.6],
-              transHz: [4200, 8000], bright: [1, 1.55], width: [0.6, 0.95],
-              dark: [2600, 5000], gritHz: [2300, 4400] },
-      hitSets: [[0, 0.0625], [0], [0, 0.09375], [0, 0.0625, 0.15625], [0, 0.125]]
+      base: { synth: 'instrument', inst: 'shardglass', mat: 'stone', hz: 430,
+              modes: 6, bright: 1.1, decay: 0.25, damp: 2, warble: 0.5,
+              atk: 0, trans: 0.5, transHz: 5600, transQ: 2.1, grit: 0.5,
+              gritHz: 3100, space: 0.11, room: 0.125, refl: 1, dark: 3600,
+              width: 0.72, drive: 0.06, mkup: 0.62, gain: 0.32 },
+      jit:  { hz: [300, 620], decay: [0.1875, 0.375], width: [0.6, 0.95],
+              dark: [2600, 5000] },
+      instSets: ['shardglass', 'shatterspark', 'rubblelight', 'scrapchime',
+                 'pickscrape']
     },
     car_heat: {
-      base: { synth: 'fm', mat: 'stone', hz: 128, ratio: 1.41, index: 3.2,
-              modes: 5, bright: 0.55, decay: 0.4375, damp: 1.9, warble: 0.35,
-              atk: 0.0625, trans: 0.3, transHz: 1400, transQ: 0.9, grit: 0.55,
+      base: { synth: 'instrument', inst: 'ticker', mat: 'stone', hz: 128,
+              modes: 5, bright: 0.55, decay: 0.375, damp: 1.9, warble: 0.35,
+              atk: 0, trans: 0.4, transHz: 1400, transQ: 0.9, grit: 0.4,
               gritHz: 800, space: 0.1, room: 0.125, refl: 1, dark: 1100,
-              width: 0.58, drive: 0.07, mkup: 0.8, gain: 0.3,
+              width: 0.58, drive: 0.05, mkup: 0.8, gain: 0.3,
               hits: [0, 0.375, 0.6875] },
-      jit:  { hz: [104, 176], ratio: [1.3, 2.2], index: [2, 5],
-              decay: [0.3125, 0.625], bright: [0.44, 0.72], width: [0.5, 0.8],
+      jit:  { hz: [100, 190], decay: [0.3125, 0.5], width: [0.5, 0.8],
               dark: [800, 1600] },
+      instSets: ['ticker', 'meterclick', 'capacitor', 'ironheart', 'riveter'],
       hitSets: [[0, 0.375, 0.6875], [0, 0.4375], [0, 0.3125, 0.5625],
                 [0, 0.5, 0.875], [0, 0.25, 0.5, 0.8125]]
     },
     man_moves: {
-      base: { synth: 'friction', mat: 'ash', hz: 260, rough: 17, modes: 5,
-              bright: 0.68, decay: 0.3125, damp: 2.1, warble: 0.4, atk: 0.0625,
-              slide: -6, trans: 0.13, transHz: 2200, transQ: 1.1, grit: 0.88,
+      base: { synth: 'instrument', inst: 'ironstep', mat: 'ash', hz: 260,
+              modes: 5, bright: 0.68, decay: 0.3125, damp: 2.1, warble: 0.4,
+              atk: 0, trans: 0.45, transHz: 2200, transQ: 1.1, grit: 0.5,
               gritHz: 1700, space: 0.13, room: 0.1875, refl: 1, dark: 2100,
-              width: 0.68, drive: 0.08, mkup: 0.7, gain: 0.28,
+              width: 0.68, drive: 0.05, mkup: 0.7, gain: 0.28,
               hits: [0, 0.1875, 0.375] },
-      jit:  { hz: [205, 350], rough: [12, 24], decay: [0.25, 0.4375],
-              slide: [-9, -3], bright: [0.55, 0.92], width: [0.58, 0.88],
-              dark: [1600, 3000], gritHz: [1300, 2500] },
+      jit:  { hz: [190, 350], decay: [0.25, 0.4375], width: [0.58, 0.88],
+              dark: [1600, 3000] },
+      instSets: ['ironstep', 'washboard', 'guiro', 'rubboard', 'cabasa'],
       hitSets: [[0, 0.1875, 0.375], [0, 0.25], [0, 0.125, 0.3125],
                 [0, 0.1875, 0.375, 0.5625], [0, 0.21875, 0.4375]]
     },
-    wake_up: {
-      base: { synth: 'friction', mat: 'ash', hz: 110, rough: 6, modes: 4,
-              bright: 0.5, decay: 0.5, damp: 2, warble: 0.3, atk: 0.125,
-              slide: 4, trans: 0.1, transHz: 1200, transQ: 0.8, grit: 0.85,
-              gritHz: 1000, space: 0.14, room: 0.1875, refl: 1, dark: 1200,
-              width: 0.62, drive: 0.06, mkup: 0.82, gain: 0.3,
-              hits: [0, 0.5] },
-      jit:  { hz: [88, 158], rough: [4, 10], decay: [0.375, 0.75],
-              slide: [1, 5], bright: [0.4, 0.75], width: [0.52, 0.86],
-              dark: [900, 1800] },
-      hitSets: [[0, 0.5], [0, 0.4375], [0, 0.5625], [0, 0.375, 0.8125],
-                [0, 0.46875]]
+    nerve_break: {
+      base: { synth: 'instrument', inst: 'onebreath', mat: 'bone', hz: 92,
+              modes: 6, bright: 0.6, decay: 0.4375, damp: 2.3, warble: 0.6,
+              atk: 0, trans: 0.5, transHz: 1500, transQ: 1.2, grit: 0.45,
+              gritHz: 1000, space: 0.12, room: 0.125, refl: 1, dark: 1200,
+              width: 0.5, drive: 0.08, mkup: 0.9, gain: 0.4 },
+      jit:  { hz: [74, 130], decay: [0.375, 0.625], width: [0.4, 0.64],
+              dark: [900, 1700] },
+      instSets: ['onebreath', 'holdbreath', 'ironlung', 'throatsong',
+                 'formantvox']
     },
+    wake_up: {
+      base: { synth: 'instrument', inst: 'dawnpad', mat: 'ash', hz: 110,
+              modes: 4, bright: 0.5, decay: 0.625, damp: 2, warble: 0.3,
+              atk: 0.0625, trans: 0.3, transHz: 1200, transQ: 0.8, grit: 0.4,
+              gritHz: 1000, space: 0.14, room: 0.1875, refl: 1, dark: 1200,
+              width: 0.62, drive: 0.04, mkup: 0.82, gain: 0.3 },
+      jit:  { hz: [88, 165], decay: [0.5, 0.875], width: [0.52, 0.86],
+              dark: [900, 1800] },
+      instSets: ['dawnpad', 'dawnwash', 'edenmist', 'stillair', 'solarhum']
+    },
+
+    /* --- HIS ONE SURVIVOR FROM SFX-06, UNTOUCHED --------------------
+       went_down.4 is the single candidate he kept out of thirty-five, so
+       this recipe does not move by one digit. A recipe he has approved is
+       frozen: re-cooking it would change what went_down.4 IS and silently
+       throw away the only thumb this batch earned. */
     went_down: {
       base: { mat: 'ash', hz: 68, modes: 5, bright: 0.36, decay: 0.875,
               damp: 2.3, warble: 0.45, atk: 0, trans: 0.96, transHz: 900,
@@ -16230,20 +16289,6 @@ const BOH_SFX = (function () {
       hitSets: [[0, 0.0625, 0.3125], [0, 0.375], [0, 0.0625, 0.25],
                 [0, 0.125, 0.4375], [0, 0.0625, 0.28125]]
     },
-
-    /* --- MODAL: a person is a struck body, not a scrape --- */
-    nerve_break: {
-      base: { mat: 'bone', hz: 92, modes: 6, bright: 0.6, decay: 0.375,
-              damp: 2.3, warble: 0.6, atk: 0.0625, trans: 0.85, transHz: 1500,
-              transQ: 1.2, grit: 0.6, gritHz: 1000, space: 0.12, room: 0.125,
-              refl: 1, dark: 1200, width: 0.5, drive: 0.28, mkup: 0.9,
-              gain: 0.4, hits: [0, 0.0625] },
-      jit:  { hz: [74, 124], decay: [0.3125, 0.5625], transHz: [1150, 2400],
-              grit: [0.45, 0.78], damp: [1.9, 2.6], drive: [0.2, 0.4],
-              dark: [900, 1700], width: [0.4, 0.64] },
-      hitSets: [[0, 0.0625], [0], [0, 0.125], [0, 0.0625, 0.1875],
-                [0, 0.09375]]
-    }
     /* ---- end batch SFX-06 recipes ---- */
   };
 
@@ -16441,6 +16486,15 @@ const BOH_SFX = (function () {
           v[f] = (SPEC[f] && SPEC[f].kind === 'beat') ? q(x) : x;
         }
         if (r.hitSets) v.hits = r.hitSets[i % r.hitSets.length].slice();
+        /* FIVE DIFFERENT INSTRUMENTS, NOT FIVE JITTERS OF ONE (8/16). Every
+           batch before this asked him the same question five times: here is a
+           sound, and here it is again slightly higher. When the SOURCE is his
+           602-voice rack the far more useful question is WHICH VOICE, so an
+           instrument recipe lists five names and each candidate gets its own.
+           His thumbs then teach this lane which of HIS instruments belong in
+           the game's sound design, which is a thing no amount of jittering hz
+           could ever have found out. */
+        if (r.instSets) v.inst = r.instSets[i % r.instSets.length];
         /* every candidate sits somewhere different in the field. FFX moved its
            effects off mono on purpose; nothing here ships dead centre. */
         v.pan = (rand() * 2 - 1) * 0.35;
@@ -16464,6 +16518,10 @@ const BOH_SFX = (function () {
       var k = FIELDS[i], s = SPEC[k], x = v[k];
       if (x == null) { errs.push(k + ' missing'); continue; }
       if (s.kind === 'enum') { if (s.of.indexOf(x) < 0) errs.push(k + ' not in spec: ' + x); continue; }
+      if (s.kind === 'str') {
+        if (typeof x !== 'string') errs.push(k + ' must be a name, got ' + typeof x);
+        continue;
+      }
       if (typeof x !== 'number' || !isFinite(x)) { errs.push(k + ' not a finite number'); continue; }
       if (x < s.min - 1e-9 || x > s.max + 1e-9) errs.push(k + ' out of range: ' + x);
       if (s.kind === 'beat' && Math.abs(x * 16 - Math.round(x * 16)) > 1e-9)
@@ -16673,6 +16731,89 @@ const BOH_SFX = (function () {
     return t + A + ring;
   }
 
+
+  /* ===================================================================
+     INSTRUMENT -- HIS OWN RACK, PLAYED AS A SOUND EFFECT (8/16/26)
+     =================================================================== */
+  /* PAOLO, ON HIS 400/400 SWEEP, AFTER SFX-06 DIED 34 OF 35:
+       "These are all very bad except for one I need you to be greater
+        than use more instruments. I like it was really bad."
+
+     HE WAS POINTING AT A REUSE-FIRST VIOLATION THAT HAD BEEN RUNNING SINCE
+     7/29 AND NOBODY HAD MEASURED. The alpha carries a music studio whose
+     voice rack, synthV(), holds SIX HUNDRED AND TWO named instruments --
+     splinterbell, ashchoir, farbell, ironlung, glassrequiem, mournhorn,
+     evictionbell, dustbowlguitar, on and on -- and every song he has ever
+     called fire is built out of them. This engine had never called one. Five
+     raw synthesis primitives, eighty moments, four hundred candidates, and
+     not one note of the library sitting in the same HTML file.
+
+     That is why the approval rate on cooked sounds has sat near 30% through
+     five straight sweeps and never moved. The recipes were not the problem
+     and the moments were not the problem: the SOUND SOURCE was.
+
+     SO THE ENGINE GAINS A SIXTH PHYSICS THAT IS NOT A PHYSICS. It is a door
+     into his rack. `synth: "instrument"` plus `inst: "<name>"` renders that
+     event by playing HIS instrument, on the parent's AudioContext, through
+     the same SFX bus, limiter and volume knob as everything else.
+
+     WHAT THIS DELIBERATELY DOES NOT DO:
+       - It does not copy a single one of his voices into this file. There is
+         ONE definition of splinterbell and it stays in the studio. If the
+         MUSIC lane improves a voice, every sound effect built on it improves
+         with it, and neither lane has to know.
+       - It does not re-quantise. playSFX already places the event on the
+         beat; synthV takes an absolute start time and gets the one it is
+         given.
+       - It invents no instruments. MECHANISM-MINE / CONTENTS-PAOLO'S: the
+         door is mine, the 602 things behind it are his.
+
+     SCREECH LAW, CHECKED NOT ASSUMED: the rack body was swept for
+     createDelay / createConvolver before this shipped. Zero of each across
+     375KB and 757 oscillators. Routing effects through it adds no feedback
+     path to the game.
+
+     PITCH. His rack speaks in SEMITONES from a note function, this engine
+     speaks in Hz. semiOf() converts, so a recipe still tunes in Hz like every
+     other body and the instrument lands where the recipe asked.
+
+     NODE-SAFE. The rack is in the alpha, not in this module, so under `node`
+     (every gate that requires this file) synthV does not exist. The body
+     returns the start time unchanged rather than throwing, and
+     instrument_gate.py does the real verification on the SHIPPED surface --
+     which is the only place the claim is even meaningful. */
+  function bodyInstrument(v, AC, dest, t, amp, hold) {
+    var SV = null;
+    try {
+      SV = (typeof window !== 'undefined' && window.synthV) ? window.synthV
+         : (typeof synthV !== 'undefined') ? synthV : null;
+    } catch (e) { SV = null; }
+    if (!SV || !v.inst) return t;
+    var sd   = Math.max(0.03, v.decay * BEAT);
+    var semi = semiOf(v.hz);
+    var hzFn = function (x) { return REF_HZ * Math.pow(2, x / 12); };
+    /* HIS RACK IS CALIBRATED AROUND g0 ~0.05-0.13 (read off the studio's own
+       call sites), and this engine's gain runs 0.18-0.72. Mapping into HIS
+       range rather than pushing his voices at ours is the whole point of
+       borrowing them: a voice driven three times as hard as the song drives
+       it is not the voice he approved. */
+    var g0 = clamp(amp * v.gain * 0.42, 0.01, 0.22);
+    var n = (v.hits && v.hits.length) ? v.hits.length : 1;
+    for (var i = 0; i < n; i++) {
+      var off = (v.hits && v.hits.length) ? v.hits[i] * BEAT : 0;
+      try { SV(v.inst, AC, dest, hzFn, sd, semi, t + off, g0); } catch (e) {}
+    }
+    var last = (v.hits && v.hits.length) ? v.hits[n - 1] * BEAT : 0;
+    return t + last + sd * 2.4;
+  }
+  /* A3. Chosen because his rack's own call sites pass semitone offsets in
+     roughly -55..+12 around it, so a Hz in this engine's legal range converts
+     to a semitone his instruments actually sound good at. */
+  var REF_HZ = 220;
+  function semiOf(hz) {
+    return Math.round(12 * Math.log(Math.max(20, hz) / REF_HZ) / Math.LN2);
+  }
+
   function strike(v, AC, dest, t, amp, hold) {
     var bank = MODES[v.mat] || MODES.stone;
     var used = Math.min(v.modes, bank.length);
@@ -16704,10 +16845,11 @@ const BOH_SFX = (function () {
        Only the body changes, and `modal` is the original code untouched, so
        all 97 sounds Paolo has approved render byte-identical. */
     if (v.synth && v.synth !== 'modal') {
-      var e2 = (v.synth === 'fm')       ? bodyFM(v, AC, dest, t, amp, hold)
-             : (v.synth === 'particle') ? bodyParticle(v, AC, dest, t, amp, hold)
-             : (v.synth === 'friction') ? bodyFriction(v, AC, dest, t, amp, hold)
-             : (v.synth === 'air')      ? bodyAir(v, AC, dest, t, amp, hold)
+      var e2 = (v.synth === 'fm')         ? bodyFM(v, AC, dest, t, amp, hold)
+             : (v.synth === 'particle')   ? bodyParticle(v, AC, dest, t, amp, hold)
+             : (v.synth === 'friction')   ? bodyFriction(v, AC, dest, t, amp, hold)
+             : (v.synth === 'air')        ? bodyAir(v, AC, dest, t, amp, hold)
+             : (v.synth === 'instrument') ? bodyInstrument(v, AC, dest, t, amp, hold)
              : latest;
       return (e2 > latest) ? e2 : latest;
     }
@@ -16891,7 +17033,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = BOH_SFX;
 <script>
 /* HIS COMMITTED THUMBS, baked in from records/BOHEMIA_SFX_VERDICT_*.txt. localStorage only holds CHANGES on top of
    this, so a wiped phone falls back to what he already decided. */
-var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"step_dirt.4":1,"step_asphalt.0":1,"step_asphalt.1":1,"step_asphalt.2":1,"step_asphalt.3":1,"step_asphalt.4":1,"step_gravel.0":1,"step_gravel.1":1,"step_gravel.2":1,"step_gravel.3":1,"step_gravel.4":1,"door_open.0":-1,"door_open.1":-1,"door_open.2":-1,"door_open.3":-1,"door_open.4":-1,"door_shut.0":-1,"door_shut.1":-1,"door_shut.2":-1,"door_shut.3":-1,"door_shut.4":-1,"pickup.0":1,"pickup.1":1,"pickup.2":1,"pickup.3":1,"pickup.4":1,"hit.0":-1,"hit.1":-1,"hit.2":1,"hit.3":-1,"hit.4":1,"block.0":-1,"block.1":-1,"block.2":1,"block.3":-1,"block.4":-1,"kill.0":1,"kill.1":1,"kill.2":1,"kill.3":1,"kill.4":1,"ui_tap.0":-1,"ui_tap.1":1,"ui_tap.2":1,"ui_tap.3":1,"ui_tap.4":-1,"phone_buzz.0":-1,"phone_buzz.1":-1,"phone_buzz.2":1,"phone_buzz.3":-1,"phone_buzz.4":1,"save_chime.0":1,"save_chime.1":1,"save_chime.2":1,"save_chime.3":1,"save_chime.4":1,"shot.0":-1,"shot.1":-1,"shot.2":-1,"shot.3":1,"shot.4":-1,"miss.0":-1,"miss.1":-1,"miss.2":-1,"miss.3":-1,"miss.4":-1,"vital.0":-1,"vital.1":-1,"vital.2":-1,"vital.3":-1,"vital.4":-1,"hurt.0":-1,"hurt.1":-1,"hurt.2":1,"hurt.3":-1,"hurt.4":-1,"clear.0":-1,"clear.1":-1,"clear.2":-1,"clear.3":-1,"clear.4":-1,"air_day.0":1,"air_day.1":1,"air_day.2":1,"air_day.3":1,"air_day.4":1,"air_night.0":1,"air_night.1":1,"air_night.2":1,"air_night.3":1,"air_night.4":1,"air_inside.0":1,"air_inside.1":1,"air_inside.2":1,"air_inside.3":1,"air_inside.4":1,"eat.0":-1,"eat.1":-1,"eat.2":1,"eat.3":-1,"eat.4":-1,"sleep.0":-1,"sleep.1":-1,"sleep.2":-1,"sleep.3":-1,"sleep.4":-1,"talk_start.0":-1,"talk_start.1":-1,"talk_start.2":-1,"talk_start.3":-1,"talk_start.4":-1,"go_inside.0":-1,"go_inside.1":-1,"go_inside.2":-1,"go_inside.3":-1,"go_inside.4":-1,"quest_done.0":-1,"quest_done.1":-1,"quest_done.2":-1,"quest_done.3":-1,"quest_done.4":-1,"time_pass.0":1,"time_pass.1":1,"time_pass.2":1,"time_pass.3":1,"time_pass.4":1,"door_drag.0":1,"door_drag.1":-1,"door_drag.2":-1,"door_drag.3":-1,"door_drag.4":-1,"door_clack.0":-1,"door_clack.1":-1,"door_clack.2":-1,"door_clack.3":-1,"door_clack.4":-1,"step_concrete.0":-1,"step_concrete.1":-1,"step_concrete.2":1,"step_concrete.3":-1,"step_concrete.4":-1,"step_sand.0":-1,"step_sand.1":-1,"step_sand.2":-1,"step_sand.3":-1,"step_sand.4":1,"step_glass.0":-1,"step_glass.1":-1,"step_glass.2":-1,"step_glass.3":-1,"step_glass.4":-1,"step_wood.0":-1,"step_wood.1":-1,"step_wood.2":1,"step_wood.3":-1,"step_wood.4":1,"step_metal.0":-1,"step_metal.1":-1,"step_metal.2":-1,"step_metal.3":-1,"step_metal.4":-1,"swing.0":-1,"swing.1":-1,"swing.2":-1,"swing.3":-1,"swing.4":-1,"melee_hit.0":1,"melee_hit.1":-1,"melee_hit.2":1,"melee_hit.3":1,"melee_hit.4":1,"reload.0":-1,"reload.1":-1,"reload.2":-1,"reload.3":-1,"reload.4":-1,"dry_fire.0":-1,"dry_fire.1":1,"dry_fire.2":-1,"dry_fire.3":-1,"dry_fire.4":-1,"casing.0":1,"casing.1":-1,"casing.2":-1,"casing.3":-1,"casing.4":-1,"heartbeat.0":1,"heartbeat.1":1,"heartbeat.2":-1,"heartbeat.3":1,"heartbeat.4":-1,"breath.0":-1,"breath.1":-1,"breath.2":-1,"breath.3":-1,"breath.4":-1,"drink.0":1,"drink.1":1,"drink.2":1,"drink.3":1,"drink.4":1,"patch_up.0":-1,"patch_up.1":-1,"patch_up.2":-1,"patch_up.3":-1,"patch_up.4":-1,"build_place.0":-1,"build_place.1":-1,"build_place.2":-1,"build_place.3":-1,"build_place.4":-1,"demolish.0":1,"demolish.1":-1,"demolish.2":1,"demolish.3":-1,"demolish.4":1,"deed.0":-1,"deed.1":-1,"deed.2":-1,"deed.3":-1,"deed.4":-1,"money.0":-1,"money.1":-1,"money.2":-1,"money.3":-1,"money.4":-1,"power_on.0":1,"power_on.1":-1,"power_on.2":-1,"power_on.3":-1,"power_on.4":1,"wind_gust.0":1,"wind_gust.1":1,"wind_gust.2":-1,"wind_gust.3":-1,"wind_gust.4":-1,"neon_buzz.0":-1,"neon_buzz.1":-1,"neon_buzz.2":-1,"neon_buzz.3":-1,"neon_buzz.4":-1,"generator.0":1,"generator.1":1,"generator.2":1,"generator.3":1,"generator.4":-1,"dog_far.0":-1,"dog_far.1":-1,"dog_far.2":-1,"dog_far.3":-1,"dog_far.4":-1,"ui_back.0":-1,"ui_back.1":-1,"ui_back.2":1,"ui_back.3":1,"ui_back.4":1,"ui_deny.0":1,"ui_deny.1":-1,"ui_deny.2":1,"ui_deny.3":-1,"ui_deny.4":1,"equip.0":-1,"equip.1":-1,"equip.2":-1,"equip.3":-1,"equip.4":-1,"glass_crunch.0":-1,"glass_crunch.1":-1,"glass_crunch.2":-1,"glass_crunch.3":-1,"glass_crunch.4":-1,"deck_ring.0":-1,"deck_ring.1":-1,"deck_ring.2":-1,"deck_ring.3":-1,"deck_ring.4":-1,"swing_air.0":-1,"swing_air.1":-1,"swing_air.2":1,"swing_air.3":1,"swing_air.4":-1,"mag_clack.0":-1,"mag_clack.1":-1,"mag_clack.2":-1,"mag_clack.3":-1,"mag_clack.4":-1,"breath_out.0":-1,"breath_out.1":-1,"breath_out.2":-1,"breath_out.3":-1,"breath_out.4":-1,"tape_pull.0":-1,"tape_pull.1":1,"tape_pull.2":-1,"tape_pull.3":-1,"tape_pull.4":1,"set_down.0":-1,"set_down.1":-1,"set_down.2":1,"set_down.3":1,"set_down.4":-1,"deed_stamp.0":-1,"deed_stamp.1":-1,"deed_stamp.2":-1,"deed_stamp.3":-1,"deed_stamp.4":-1,"cash_count.0":-1,"cash_count.1":-1,"cash_count.2":-1,"cash_count.3":-1,"cash_count.4":-1,"neon_hum.0":-1,"neon_hum.1":-1,"neon_hum.2":-1,"neon_hum.3":-1,"neon_hum.4":-1,"dog_cry.0":-1,"dog_cry.1":-1,"dog_cry.2":-1,"dog_cry.3":-1,"dog_cry.4":-1,"cloth_on.0":-1,"cloth_on.1":1,"cloth_on.2":-1,"cloth_on.3":-1,"cloth_on.4":1,"miss_past.0":1,"miss_past.1":1,"miss_past.2":1,"miss_past.3":1,"miss_past.4":1,"vital_deep.0":1,"vital_deep.1":-1,"vital_deep.2":1,"vital_deep.3":-1,"vital_deep.4":1,"clear_still.0":-1,"clear_still.1":-1,"clear_still.2":-1,"clear_still.3":-1,"clear_still.4":-1,"sleep_sink.0":1,"sleep_sink.1":1,"sleep_sink.2":1,"sleep_sink.3":1,"sleep_sink.4":1,"turn_to_you.0":-1,"turn_to_you.1":-1,"turn_to_you.2":-1,"turn_to_you.3":-1,"turn_to_you.4":-1,"cross_in.0":-1,"cross_in.1":-1,"cross_in.2":-1,"cross_in.3":-1,"cross_in.4":-1,"done_ring.0":-1,"done_ring.1":-1,"done_ring.2":-1,"done_ring.3":-1,"done_ring.4":-1};
+var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"step_dirt.4":1,"step_asphalt.0":1,"step_asphalt.1":1,"step_asphalt.2":1,"step_asphalt.3":1,"step_asphalt.4":1,"step_gravel.0":1,"step_gravel.1":1,"step_gravel.2":1,"step_gravel.3":1,"step_gravel.4":1,"door_open.0":-1,"door_open.1":-1,"door_open.2":-1,"door_open.3":-1,"door_open.4":-1,"door_shut.0":-1,"door_shut.1":-1,"door_shut.2":-1,"door_shut.3":-1,"door_shut.4":-1,"pickup.0":1,"pickup.1":1,"pickup.2":1,"pickup.3":1,"pickup.4":1,"hit.0":-1,"hit.1":-1,"hit.2":1,"hit.3":-1,"hit.4":1,"block.0":-1,"block.1":-1,"block.2":1,"block.3":-1,"block.4":-1,"kill.0":1,"kill.1":1,"kill.2":1,"kill.3":1,"kill.4":1,"ui_tap.0":-1,"ui_tap.1":1,"ui_tap.2":1,"ui_tap.3":1,"ui_tap.4":-1,"phone_buzz.0":-1,"phone_buzz.1":-1,"phone_buzz.2":1,"phone_buzz.3":-1,"phone_buzz.4":1,"save_chime.0":1,"save_chime.1":1,"save_chime.2":1,"save_chime.3":1,"save_chime.4":1,"shot.0":-1,"shot.1":-1,"shot.2":-1,"shot.3":1,"shot.4":-1,"miss.0":-1,"miss.1":-1,"miss.2":-1,"miss.3":-1,"miss.4":-1,"vital.0":-1,"vital.1":-1,"vital.2":-1,"vital.3":-1,"vital.4":-1,"hurt.0":-1,"hurt.1":-1,"hurt.2":1,"hurt.3":-1,"hurt.4":-1,"clear.0":-1,"clear.1":-1,"clear.2":-1,"clear.3":-1,"clear.4":-1,"air_day.0":1,"air_day.1":1,"air_day.2":1,"air_day.3":1,"air_day.4":1,"air_night.0":1,"air_night.1":1,"air_night.2":1,"air_night.3":1,"air_night.4":1,"air_inside.0":1,"air_inside.1":1,"air_inside.2":1,"air_inside.3":1,"air_inside.4":1,"eat.0":-1,"eat.1":-1,"eat.2":1,"eat.3":-1,"eat.4":-1,"sleep.0":-1,"sleep.1":-1,"sleep.2":-1,"sleep.3":-1,"sleep.4":-1,"talk_start.0":-1,"talk_start.1":-1,"talk_start.2":-1,"talk_start.3":-1,"talk_start.4":-1,"go_inside.0":-1,"go_inside.1":-1,"go_inside.2":-1,"go_inside.3":-1,"go_inside.4":-1,"quest_done.0":-1,"quest_done.1":-1,"quest_done.2":-1,"quest_done.3":-1,"quest_done.4":-1,"time_pass.0":1,"time_pass.1":1,"time_pass.2":1,"time_pass.3":1,"time_pass.4":1,"door_drag.0":1,"door_drag.1":-1,"door_drag.2":-1,"door_drag.3":-1,"door_drag.4":-1,"door_clack.0":-1,"door_clack.1":-1,"door_clack.2":-1,"door_clack.3":-1,"door_clack.4":-1,"step_concrete.0":-1,"step_concrete.1":-1,"step_concrete.2":1,"step_concrete.3":-1,"step_concrete.4":-1,"step_sand.0":-1,"step_sand.1":-1,"step_sand.2":-1,"step_sand.3":-1,"step_sand.4":1,"step_glass.0":-1,"step_glass.1":-1,"step_glass.2":-1,"step_glass.3":-1,"step_glass.4":-1,"step_wood.0":-1,"step_wood.1":-1,"step_wood.2":1,"step_wood.3":-1,"step_wood.4":1,"step_metal.0":-1,"step_metal.1":-1,"step_metal.2":-1,"step_metal.3":-1,"step_metal.4":-1,"swing.0":-1,"swing.1":-1,"swing.2":-1,"swing.3":-1,"swing.4":-1,"melee_hit.0":1,"melee_hit.1":-1,"melee_hit.2":1,"melee_hit.3":1,"melee_hit.4":1,"reload.0":-1,"reload.1":-1,"reload.2":-1,"reload.3":-1,"reload.4":-1,"dry_fire.0":-1,"dry_fire.1":1,"dry_fire.2":-1,"dry_fire.3":-1,"dry_fire.4":-1,"casing.0":1,"casing.1":-1,"casing.2":-1,"casing.3":-1,"casing.4":-1,"heartbeat.0":1,"heartbeat.1":1,"heartbeat.2":-1,"heartbeat.3":1,"heartbeat.4":-1,"breath.0":-1,"breath.1":-1,"breath.2":-1,"breath.3":-1,"breath.4":-1,"drink.0":1,"drink.1":1,"drink.2":1,"drink.3":1,"drink.4":1,"patch_up.0":-1,"patch_up.1":-1,"patch_up.2":-1,"patch_up.3":-1,"patch_up.4":-1,"build_place.0":-1,"build_place.1":-1,"build_place.2":-1,"build_place.3":-1,"build_place.4":-1,"demolish.0":1,"demolish.1":-1,"demolish.2":1,"demolish.3":-1,"demolish.4":1,"deed.0":-1,"deed.1":-1,"deed.2":-1,"deed.3":-1,"deed.4":-1,"money.0":-1,"money.1":-1,"money.2":-1,"money.3":-1,"money.4":-1,"power_on.0":1,"power_on.1":-1,"power_on.2":-1,"power_on.3":-1,"power_on.4":1,"wind_gust.0":1,"wind_gust.1":1,"wind_gust.2":-1,"wind_gust.3":-1,"wind_gust.4":-1,"neon_buzz.0":-1,"neon_buzz.1":-1,"neon_buzz.2":-1,"neon_buzz.3":-1,"neon_buzz.4":-1,"generator.0":1,"generator.1":1,"generator.2":1,"generator.3":1,"generator.4":-1,"dog_far.0":-1,"dog_far.1":-1,"dog_far.2":-1,"dog_far.3":-1,"dog_far.4":-1,"ui_back.0":-1,"ui_back.1":-1,"ui_back.2":1,"ui_back.3":1,"ui_back.4":1,"ui_deny.0":1,"ui_deny.1":-1,"ui_deny.2":1,"ui_deny.3":-1,"ui_deny.4":1,"equip.0":-1,"equip.1":-1,"equip.2":-1,"equip.3":-1,"equip.4":-1,"glass_crunch.0":-1,"glass_crunch.1":-1,"glass_crunch.2":-1,"glass_crunch.3":-1,"glass_crunch.4":-1,"deck_ring.0":-1,"deck_ring.1":-1,"deck_ring.2":-1,"deck_ring.3":-1,"deck_ring.4":-1,"swing_air.0":-1,"swing_air.1":-1,"swing_air.2":1,"swing_air.3":1,"swing_air.4":-1,"mag_clack.0":-1,"mag_clack.1":-1,"mag_clack.2":-1,"mag_clack.3":-1,"mag_clack.4":-1,"breath_out.0":-1,"breath_out.1":-1,"breath_out.2":-1,"breath_out.3":-1,"breath_out.4":-1,"tape_pull.0":-1,"tape_pull.1":1,"tape_pull.2":-1,"tape_pull.3":-1,"tape_pull.4":1,"set_down.0":-1,"set_down.1":-1,"set_down.2":1,"set_down.3":1,"set_down.4":-1,"deed_stamp.0":-1,"deed_stamp.1":-1,"deed_stamp.2":-1,"deed_stamp.3":-1,"deed_stamp.4":-1,"cash_count.0":-1,"cash_count.1":-1,"cash_count.2":-1,"cash_count.3":-1,"cash_count.4":-1,"neon_hum.0":-1,"neon_hum.1":-1,"neon_hum.2":-1,"neon_hum.3":-1,"neon_hum.4":-1,"dog_cry.0":-1,"dog_cry.1":-1,"dog_cry.2":-1,"dog_cry.3":-1,"dog_cry.4":-1,"cloth_on.0":-1,"cloth_on.1":1,"cloth_on.2":-1,"cloth_on.3":-1,"cloth_on.4":1,"miss_past.0":1,"miss_past.1":1,"miss_past.2":1,"miss_past.3":1,"miss_past.4":1,"vital_deep.0":1,"vital_deep.1":-1,"vital_deep.2":1,"vital_deep.3":-1,"vital_deep.4":1,"clear_still.0":-1,"clear_still.1":-1,"clear_still.2":-1,"clear_still.3":-1,"clear_still.4":-1,"sleep_sink.0":1,"sleep_sink.1":1,"sleep_sink.2":1,"sleep_sink.3":1,"sleep_sink.4":1,"turn_to_you.0":-1,"turn_to_you.1":-1,"turn_to_you.2":-1,"turn_to_you.3":-1,"turn_to_you.4":-1,"cross_in.0":-1,"cross_in.1":-1,"cross_in.2":-1,"cross_in.3":-1,"cross_in.4":-1,"done_ring.0":-1,"done_ring.1":-1,"done_ring.2":-1,"done_ring.3":-1,"done_ring.4":-1,"round_land.0":-1,"round_land.1":-1,"round_land.2":-1,"round_land.3":-1,"round_land.4":-1,"cover_chew.0":-1,"cover_chew.1":-1,"cover_chew.2":-1,"cover_chew.3":-1,"cover_chew.4":-1,"car_heat.0":-1,"car_heat.1":-1,"car_heat.2":-1,"car_heat.3":-1,"car_heat.4":-1,"man_moves.0":-1,"man_moves.1":-1,"man_moves.2":-1,"man_moves.3":-1,"man_moves.4":-1,"nerve_break.0":-1,"nerve_break.1":-1,"nerve_break.2":-1,"nerve_break.3":-1,"nerve_break.4":-1,"wake_up.0":-1,"wake_up.1":-1,"wake_up.2":-1,"wake_up.3":-1,"wake_up.4":-1,"went_down.0":-1,"went_down.1":-1,"went_down.2":-1,"went_down.3":-1,"went_down.4":1};
 
 /* =========================================================================
    THE SFX JUDGE — MUSIC TAB (Paolo 7/29, the SOUNDS lane)
@@ -17206,14 +17348,14 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
    into the shipped generator, not copied audio: candidate n of event e is
    BOH_SFX.cook(e,5)[n], which gates/sfx_render_gate.py fingerprints. So what
    plays is byte-for-byte the thing he heard when he thumbed it.
-   Verdict: records/BOHEMIA_SFX_VERDICT_8_15_26.txt
-   Bank:    banks/BOHEMIA_SFX_APPROVED_8_15_26.json
+   Verdict: records/BOHEMIA_SFX_VERDICT_8_16_26.txt
+   Bank:    banks/BOHEMIA_SFX_APPROVED_8_16_26.json
    ONE AUDIOCONTEXT: everything below plays on the MUSIC studio's context and
    its brickwall limiter. The run posts an event name; nothing else. */
 (function(){
   'use strict';
   if(window.__SFX_WIRE)return; window.__SFX_WIRE=true;
-  var APPROVED={"air_day":[0,1,2,3,4],"air_inside":[0,1,2,3,4],"air_night":[0,1,2,3,4],"block":[2],"casing":[0],"cloth_on":[1,4],"demolish":[0,2,4],"door_drag":[0],"drink":[0,1,2,3,4],"dry_fire":[1],"eat":[2],"generator":[0,1,2,3],"heartbeat":[0,1,3],"hit":[2,4],"hurt":[2],"kill":[0,1,2,3,4],"melee_hit":[0,2,3,4],"miss_past":[0,1,2,3,4],"phone_buzz":[2,4],"pickup":[0,1,2,3,4],"power_on":[0,4],"save_chime":[0,1,2,3,4],"set_down":[2,3],"shot":[3],"sleep_sink":[0,1,2,3,4],"step_asphalt":[0,1,2,3,4],"step_concrete":[2],"step_dirt":[0,1,2,3,4],"step_gravel":[0,1,2,3,4],"step_sand":[4],"step_wood":[2,4],"swing_air":[2,3],"tape_pull":[1,4],"time_pass":[0,1,2,3,4],"ui_back":[2,3,4],"ui_deny":[0,2,4],"ui_tap":[1,2,3],"vital_deep":[0,2,4],"wind_gust":[0,1]};
+  var APPROVED={"air_day":[0,1,2,3,4],"air_inside":[0,1,2,3,4],"air_night":[0,1,2,3,4],"block":[2],"casing":[0],"cloth_on":[1,4],"demolish":[0,2,4],"door_drag":[0],"drink":[0,1,2,3,4],"dry_fire":[1],"eat":[2],"generator":[0,1,2,3],"heartbeat":[0,1,3],"hit":[2,4],"hurt":[2],"kill":[0,1,2,3,4],"melee_hit":[0,2,3,4],"miss_past":[0,1,2,3,4],"phone_buzz":[2,4],"pickup":[0,1,2,3,4],"power_on":[0,4],"save_chime":[0,1,2,3,4],"set_down":[2,3],"shot":[3],"sleep_sink":[0,1,2,3,4],"step_asphalt":[0,1,2,3,4],"step_concrete":[2],"step_dirt":[0,1,2,3,4],"step_gravel":[0,1,2,3,4],"step_sand":[4],"step_wood":[2,4],"swing_air":[2,3],"tape_pull":[1,4],"time_pass":[0,1,2,3,4],"ui_back":[2,3,4],"ui_deny":[0,2,4],"ui_tap":[1,2,3],"vital_deep":[0,2,4],"went_down":[4],"wind_gust":[0,1]};
   /* THE BOARD HAS TO KNOW WHICH MOMENTS ACTUALLY HAVE A SOUND (8/2), and it
      must read the SAME table playSFX reads. A second copy of his thumbs is a
      second thing that can be wrong. */

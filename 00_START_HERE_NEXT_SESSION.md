@@ -383,64 +383,59 @@ already stores 112 frames today (G.hd defaults true), so it does not grow. HD_CA
 stays 768.
 
 --------------------------------------------------------------------------------
-SOUND (sound-xk7pjp): 8/16 LATEST -- *** HE ASKED FOR NEW SOUNDS. SFX-06 IS 35
-CANDIDATES ACROSS 7 MOMENTS THE GAME ALREADY HAS AND PLAYS SILENTLY. AWAITING HIS
+SOUND (sound-xk7pjp): 8/16 LATEST -- *** THE SOUND ENGINE CAN PLAY HIS 602
+INSTRUMENTS NOW. SFX-07 IS 30 CANDIDATES BUILT FROM HIS OWN MUSIC RACK, AWAITING
 THUMBS. TAB: MUSIC. ***
 
-  round_land   THE ROUND LANDS         the shot that missed hits the ground
-  cover_chew   YOUR COVER TAKES ONE    your stone loses a piece
-  car_heat     THE CAR TAKES ANOTHER   the clock ticking, not the impact
-  man_moves    SOMEBODY REPOSITIONS    a gun leaves his rock to flank you
-  nerve_break  HIS NERVE GOES          a shooter becomes a person running
-  wake_up      YOU WAKE UP             the other half of his 5/5 sleep
-  went_down    YOU GO DOWN             you lost the fight. silent since launch
+HIS 400/400 SWEEP KILLED SFX-06 THIRTY-FOUR OF THIRTY-FIVE. Verbatim:
+    "These are all very bad except for one I need you to be greater than use
+     more instruments. I like it was really bad."
+119 UP / 281 DOWN. records/BOHEMIA_SFX_VERDICT_8_16_26.txt.
 
-FIVE OF SEVEN ARE COMBAT ON PURPOSE. His newest locked ruling is THE FIGHT HAS TO
-MOVE YOU -- a fight you can win from one spot is broken. You cannot HEAR a reason to
-move if nothing about moving makes a sound, so the three things that punish standing
-still (cover degrading, the car heating, a man flanking) now have ears. Every moment
-was found by reading the run and the fight for a toast or a verdict that ALREADY
-FIRES. Nothing was invented to spend a sound on.
+*** THE FINDING, AND IT EXPLAINS EVERY SWEEP SINCE 7/29. *** The alpha carries a
+music studio whose voice rack -- synthV() -- holds SIX HUNDRED AND TWO named
+instruments (splinterbell, ashchoir, farbell, ironlung, glassrequiem, mournhorn,
+evictionbell, dustbowlguitar...). Every song he calls fire is built out of them.
+THE SFX ENGINE HAD NEVER CALLED ONE. Eighty moments, 400 candidates, five raw
+synthesis primitives, zero notes of a 375KB approved library sitting in the SAME
+HTML FILE. That is a REUSE-FIRST violation that ran for eighteen days while every
+sound gate stayed green, because they all asked "is this recipe valid" and none
+asked "is there something already approved you are ignoring". His approval rate
+on raw synthesis sat near 30% across five sweeps and never moved.
 
-*** THE MISTAKE I MADE AND THE GATE THAT CAUGHT IT. *** The batch was first written
-SIX-OF-SEVEN FRICTION, because friction is his best method (46%). The diversity gate
-went red and it was right on CRAFT grounds before gate grounds: a bullet into dirt,
-concrete shedding, and a body hitting the floor are IMPACTS, and I had made them
-scrapes because scrapes score well with him. That is picking the method to flatter
-the scoreboard. Now: round_land / cover_chew / went_down are MODAL (struck, damped,
-high grit), car_heat is FM (a panel under thermal stress ticks INHARMONICALLY --
-metal's character without the metal material his thumbs killed), and the three that
-genuinely rub stay friction. HIS "GETTING STALE" RULING OUTRANKS HIS OWN SCOREBOARD:
-the scoreboard says what he likes, the ruling says what he cannot stand.
+WHAT SHIPPED:
+  1. A SIXTH SYNTH THAT IS A DOOR, NOT A PHYSICS. synth:'instrument' + inst:'<name>'
+     renders an event by playing HIS voice through synthV, on the same bus,
+     limiter and volume knob. It copies NO voice -- one definition, in his studio,
+     forever, so the MUSIC lane improving a voice improves the sound effects too.
+  2. instSets: FIVE DIFFERENT INSTRUMENTS PER MOMENT, not five jitters of one.
+     Every batch before asked the same question five times. This asks WHICH VOICE,
+     so his thumbs teach the lane which of HIS instruments belong in the game.
+  3. SFX-07: the six moments he did NOT dispute, rebuilt on his rack. 30
+     candidates, 30 different instruments.
+  4. went_down WIRED -- his single survivor, on the real defeat branch, fired
+     BEFORE loadClosest() rolls the world back, because the sound belongs to
+     going down and not to the save that answers it.
+  5. gates/instrument_gate.py (registered in the suite as INSTRUMENTS).
 
-*** AND THE SILENT CLAMP THAT ALMOST SHIPPED. *** The design axis of this batch is
-the SLIP RATE (`rough`), because the stick-slip literature is blunt that slip rate
-and roughness -- not pitch -- are what make a friction sound read as a material, and
-his own two 5/5 sweeps sit at opposite ends of it (sleep_sink 5, miss_past 34). The
-ladder was written 3/6/9/24/41/62. SPEC.rough CAPS AT 40, so cook() clamped 62 and 41
-to the same 40 and two of the seven came out cousins -- in a batch whose whole
-premise is that they are not. Caught by printing what cook() RETURNED, never what the
-recipe SAID. Fixed in the recipe, never the spec: widening a declared range to fit my
-numbers would loosen validation for every sound in the game to save one of mine.
-Ladder is now 3, 6, 9, 17, 28, 38.
+*** TWO BUGS THIS FOUND, BOTH OF WHICH WOULD HAVE SHIPPED SILENCE. ***
+  a) sanitize() had no 'str' branch, so `inst` fell to clamp(+'templeblock'||0)
+     and EVERY instrument name became 0. Every instrument sound rendered nothing.
+  b) FOUR of the first-pick instruments (thud, knock, boneshuffle, quiver) match
+     the rack's source text but are NOT reachable through synthV -- they render
+     silence. A voice that does not resolve is a silent sound effect.
+  BOTH are why instrument_gate RE-RENDERS every named voice on the shipped
+  surface every run, with a deliberate bogus-name control so the check cannot
+  pass by measuring nothing.
 
-GATE FIX (mutation-proved): sfx_envelope_gate asserted every bound event was `judged
-== 5`, which was right while every bound event had been swept and WRONG the moment a
-fresh batch existed. A candidate he has not seen is not a defect, and a gate that
-goes red for EXISTING pressures the next session to stop cooking. THE REAL DEFECT IS
-THE MIDDLE: 1-4 of 5 means the sheet changed under him between thumbs, the exact 8/1
-"I can't be judging shit and then you pretend that I didn't" failure. Now: whole or
-not at all, and the gate NAMES what is awaiting him on every run.
+NEXT: his thumbs on SFX-07 answer the only question that matters now -- do his
+own instruments beat raw synthesis. If yes, the other 74 moments get rebuilt the
+same way and the five primitives become the fallback, not the default.
 
-ALREADY LIVE FROM 8/15 (his 365/365 sweep, 118 UP across 39 moments): sleeping makes
-a sound (TAB: RUN), the miss and the vital make a sound (TAB: COMBAT). Full detail in
-git history for commit 3c6211d.
-
-*** PUSH THE BRANCH THE MOMENT YOU COMMIT. *** Two container reverts to an Aug 2
-snapshot ate a whole turn's work mid-suite this session. GIT IS THE MEMORY only once
-it is on the REMOTE. The gate pass gates the push to MAIN, never the push to your own
-branch, and never the play link -- he waited on a build because I held it behind a
-suite, and that was the wrong order.
+*** PUSH THE BRANCH THE MOMENT YOU COMMIT. *** The container reverted to an Aug 2
+snapshot THREE times this session. Everything survived only because it was on the
+remote. The gate pass gates the push to MAIN, never the push to your own branch,
+and never the play link.
 
 --------------------------------------------------------------------------------
 
