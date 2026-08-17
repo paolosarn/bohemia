@@ -56,6 +56,18 @@ RF4. *** THE RF4 TEARDOWN — LAB OWNS THE SPEC, COMBAT OWNS THE CODE
    body; he has flipped it to BUILD THE RECREATION FIRST, then diverge.
    Nothing in the 6/30 doc is repealed — its five "where guns + 120 BPM
    beat it" theses ARE the phase-two spec, already written in June.
+   *** THE RESEARCH IS ALREADY DONE FOR YOU (8/16, on his direct order
+   "big brain research for this rogue fable four shit"): records/
+   BOHEMIA_RF4_RESEARCH_DOSSIER_8_16_26.md holds the designer's own
+   thesis, the run shape, the 13-zone map, the concrete combat mechanics
+   (priority targets, support-AI backliners, the 50% anti-pull shout,
+   counter-enemies, the POWER unification, abilities that read walls),
+   the tome/talent/upgrade progression, and the consumable-hoarding
+   finding — all attributed. START THERE, DO NOT RE-SEARCH IT. Section 7
+   lists the FIVE GAPS the network proxy blocked (turn/energy model,
+   damage math after unification, between-fight healing, full talent
+   lists, and RF3->RF4's omission list) — those are the only things left
+   to find, and Paolo owns the game. ***
    DELIVERABLE: records/BOHEMIA_RF4_TEARDOWN_SPEC.md — a NUMBERED,
    mechanical inventory of RF4's systems (turn/energy model, ability
    economy, the POWER unification, enemy design rules, zone and boss
@@ -3866,6 +3878,18 @@ RF4-C. *** BUILD THE RF4 RECREATION — THIS LANE OWNS THE CODE (Paolo
    is traceable both ways. If you need a mechanic the spec does not
    cover, ASK FOR A SPEC ITEM — do not invent one, and do not go study
    RF4 yourself. That is how two chats stay one system.
+   *** RF4 ALREADY SOLVED "THE FIGHT HAS TO MOVE YOU" (MOVE, below) AND
+   THE ANSWER IS ENEMY DESIGN, NOT ANIMATION — records/BOHEMIA_RF4_
+   RESEARCH_DOSSIER_8_16_26.md §6. Three independent mechanics produce
+   forced movement there: (1) a 50% chance enemies SHOUT the moment they
+   aggro, which kills the sit-and-pull pattern outright; (2) the PRIORITY
+   TARGET is placed AT THE BACK — dangerous or a healer/buffer — so
+   winning means advancing past the nearest threat instead of shooting
+   it; (3) SUPPORT ENEMIES RUN A DEDICATED AI that keeps line-of-sight
+   with an ALLY while biased AGAINST being near or in line-of-sight of
+   the PLAYER, so the thing you must kill keeps leaving. None of that is
+   juice or animation — it is POSITIONAL PRESSURE FROM ENEMY DESIGN.
+   MOVE and this item are the same work; do them together. ***
    INDOOR FIRST, AND IT PAYS THE DEMO IMMEDIATELY: his words, "this will
    require indoor combat for the most part so we can really feel the
    juice we are squeezing." A fight only has positioning depth if the

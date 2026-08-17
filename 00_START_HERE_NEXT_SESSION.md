@@ -21014,3 +21014,41 @@ CONSTRAINT recorded as a build instruction, not a lecture: mechanics and
 systems are not copyrightable — recreate them freely and exactly.
 EXPRESSION is not: never copy a name, string, icon, screen or the title.
 Costs nothing since it is all reskinned to post-crash Vegas anyway.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/16 (c) — THE RF4 RESEARCH DOSSIER (on his order,
+"big brain research for this rogue fable four shit... the deep wiki,
+tutorials, combat guides and tips, the whole thing"). Record:
+records/BOHEMIA_RF4_RESEARCH_DOSSIER_8_16_26.md. It is the INPUT to LAB's
+spec, not the spec — the seam is unchanged: LAB specs, COMBAT builds.
+THE THESIS, in the designer's own words: RF4 is a deliberate tension
+between traditional tactical roguelike AND "old school BOOMER SHOOTERS
+with their high mobility, circle strafing and general mayhem", trying to
+maximize both. HE IS REACHING FOR THE FEELING WE PRODUCE NATIVELY — we
+have real guns, LOS, cover and the 120 BPM dial, so the recreation is
+building the DECISION layer under a shooter that already exists. The 6/30
+combat-DNA doc's thesis, confirmed by RF4's own designer.
+CAPTURED: the ~1hr run shape and 13-zone map (main descent + two optional
+branch sets, ending at the Vault of Yendor); 250+ monsters, 30+ bosses;
+"no stat and formula bloat, critical information presented in the world
+and on the field of battle"; PRIORITY TARGETS (fights are 2+ enemies and
+the one that matters hides at the back); SUPPORT-AI BACKLINERS that avoid
+the player's line of sight; THE 50% ANTI-PULL SHOUT; counter-enemies and
+the anti-dominant-ability rule; the POWER unification from 1.36;
+abilities that READ WALLS (+1 Power for ending a turn "wide open, not
+adjacent to any walls"); tomes giving 2 random talents of 3 with talent
+UPGRADES carrying the real build variety; and the consumable-hoarding
+death pattern.
+THE THREE FINDINGS THAT MATTER: (1) RF4 ALREADY SOLVED "THE FIGHT HAS TO
+MOVE YOU" — three enemy-design mechanics, no animation involved; MOVE and
+COMBAT RF4-C are the same work. (2) UNIFICATION is the transferable
+discipline, not the numbers — collapse near-duplicate systems and gain
+depth, which is his own three-currencies instinct. (3) INFORMATION ON THE
+FIELD, NOT IN MENUS — a faithful recreation cannot ship a stat sheet.
+FIVE GAPS LEFT OPEN AND NAMED (proxy blocked Steam/itch/Fandom direct
+fetches): the turn/energy model (the most important unknown, because it
+is where RF4's turn structure meets our beat), damage math after
+unification, between-fight healing and rest-cheese prevention, full
+talent lists, and the RF3->RF4 omission list. Paolo owns the game; one
+recorded run would close all five. NOT a blocker — LAB can spec the rest
+today.
