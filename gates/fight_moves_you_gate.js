@@ -105,6 +105,22 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       return { n, won, tiles, clearedBoardButNotOut, dist: dist / n };
     };
 
+    /* IS A CLEARED BOARD A WIN? Asked DIRECTLY, not inferred from a play arm.
+       V160 capped every gun at sight, so the never-moves arm can no longer even
+       reach every man -- which means "fights that emptied the board" fell to
+       zero and the statistical version of this check went blind. It was never
+       measuring reach; it was asking whether killing everyone ends the fight.
+       So it asks that, by killing everyone and calling the game's own
+       checkClear, then walking out and asserting THAT wins. */
+    BohemiaArena.set(7); setupCombat();
+    const exitThere = !!G.exit;
+    for (const e of G.e) if (e) { e.dead = true; }
+    try { checkClear(); } catch (e) { }
+    const clearedBoardIsNotAWin = !G.win && !G.over;
+    if (G.exit) G.exit.edist = 0.2;
+    try { exitCheck(); } catch (e) { }
+    const leavingIsTheWin = !!G.win && !!G._wonByExit;
+
     /* the way out itself, driven rather than read */
     BohemiaArena.set(3); setupCombat();
     const placed = !!G.exit;
@@ -130,6 +146,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       still: play(false, 0.9),
       moving: play(true, 0.9),
       placed, startDist, closed, wonByArriving,
+      exitThere, clearedBoardIsNotAWin, leavingIsTheWin,
       ammoOff, gunNeverDry, noLitter,
     };
   }, FIGHTS);
@@ -152,15 +169,13 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + ' (won ' + s.won + ' of ' + s.n + ' standing still)',
     s.won === 0);
 
-  /* WHAT THIS CHECK IS FOR, and it is not a percentage. Arm A winning zero would
-     also be true of a build where he simply could not kill anybody, so this
-     proves the rule was actually EXERCISED: fights where the board really was
-     emptied and it STILL was not a win. The threshold is a floor, not a rate --
-     a rate would be measuring how often his gun reaches, which is a different
-     question and not this law's. */
-  ok('AND IT IS NOT A TECHNICALITY: killing every man on the board still does not end it'
-    + ' (' + s.clearedBoardButNotOut + ' of ' + s.n + ' fights emptied the board and were still not won)',
-    s.clearedBoardButNotOut >= 3);
+  /* ASKED DIRECTLY. This used to count fights where the play arm happened to
+     empty the board, which V160's sight cap took to zero -- the arm cannot reach
+     every man any more, so the check went blind to the thing it was for. It was
+     never about reach. It is about whether killing everyone ends the fight, so
+     it kills everyone, calls the game's OWN checkClear, and then walks out. */
+  ok('AND IT IS NOT A TECHNICALITY: every man on the board is dead, the game\'s own checkClear has run, and it is STILL not a win -- then walking out IS',
+    res.exitThere && res.clearedBoardIsNotAWin && res.leavingIsTheWin);
 
   /* ---- and it is a fight, not a wall ---- */
   ok('AND IT IS WINNABLE ONCE YOU WALK (won ' + m.won + ' of ' + m.n + ')',

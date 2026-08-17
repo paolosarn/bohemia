@@ -589,7 +589,14 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
     demo.includes('let sniperIdx=-1; if(N>=4)') &&
     demo.includes("while(sniperIdx===closeIdx&&sp++<20)") &&
     demo.includes("if(i===sniperIdx)arch='sniper';") &&
-    /\(i===sniperIdx\) \? Math\.min\(contentR\(\), Math\.max\(_hi, contentR\(\)\*0\.90\)\)/.test(demo));   /* V140: still always the farthest and never the close man -- now pinned to the edge of the world AND to the far end of the spawn band, whichever is further out */   /* V138: 13.5-16.5 -> 30-40 tiles. Still always the farthest, still never the close guy, and now genuinely outside everything you own */
+    /* V160 RE-POINTED. He was parked at 90% of the arena radius -- measured 29
+       tiles against 17.5 of sight -- on the stated grounds that "he is the
+       reason the board is this big". That reason RETIRED with the research:
+       every gun including his is capped at 16 now, so out there he could not
+       see, shoot, or be shot. He was a rumour with a health bar. The law is
+       unchanged and still checked: ALWAYS THE FARTHEST MAN, never the close
+       one. He is now the farthest man Paolo can actually SEE. */
+    /\(i===sniperIdx\) \? Math\.min\(SIGHT_TILES, contentR\(\), Math\.max\(_hi, contentR\(\)\*0\.90\)\)/.test(demo));   /* V140: still always the farthest and never the close man -- now pinned to the edge of the world AND to the far end of the spawn band, whichever is further out */   /* V138: 13.5-16.5 -> 30-40 tiles. Still always the farthest, still never the close guy, and now genuinely outside everything you own */
   // v40: streak momentum joins the real JUICE verdict menu, AU's dead toggle retired
   ok('V40 STREAK MOMENTUM IS A REAL JUICE TOGGLE: gated by JUICE.AW in the same slot the visible band formula reads, so on/off never lies',
     demo.includes('V40 JUICE MENU') &&
@@ -2485,11 +2492,19 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
     demo.includes('function inMyRange(e){') && demo.includes('function inHisRange(e){'));
   ok('AUDIT PINNED: the distance bands are PT_BLANK=4 / FAR_TILE=26 / MAX_RANGE=64. V138 raised the ceiling from 42 because a sniper now really does sit out at 30-40 tiles, where 42 was a number nothing ever reached',
     demo.includes('const PT_BLANK=4, FAR_TILE=26, MAX_RANGE=64;'));
-  ok('V138 EVERY GUN HAS A RANGE, WHICH IS THE TABLE THAT NEVER EXISTED: WEAPON_LETHAL, WEAPON_CAP, WEAPON_WIDTH and WEAPON_ID all shipped long ago and range did not, so a pistol and a rifle were the same gun with different dial widths',
+  /* V160 RE-POINTED OFF THE RESEARCH HE ASKED FOR. These pinned max:14/16/26/44
+     and sniper 64. Measured on the real canvas, he SEES 17.5 tiles to the sides,
+     so the rifle reached 2.5x sight and the sniper 3.7x -- half of both numbers
+     did nothing but exist. Rogue Fable IV, which is the game he keeps citing,
+     gives a bow 7 range against 7.5 tiles of vision: RANGE EQUALS SIGHT. The law
+     being checked is still that every gun HAS a range, never that the numbers
+     are any particular size. */
+  ok('V138 EVERY GUN HAS A RANGE, WHICH IS THE TABLE THAT NEVER EXISTED: WEAPON_LETHAL, WEAPON_CAP, WEAPON_WIDTH and WEAPON_ID all shipped long ago and range did not, so a pistol and a rifle were the same gun with different dial widths. V160: and no gun reaches past sight',
     /const WEAPON_RANGE=\{/.test(demo) &&
-    /shotgun:\{eff:5,  max:14\}/.test(demo) && /pistol :\{eff:6,  max:16\}/.test(demo) &&
-    /smg    :\{eff:10, max:26\}/.test(demo) && /rifle  :\{eff:20, max:44\}/.test(demo) &&
-    /const SNIPER_RANGE=\{eff:30,max:64\};/.test(demo));
+    /shotgun:\{eff:5,  max:9\}/.test(demo) && /pistol :\{eff:6,  max:12\}/.test(demo) &&
+    /smg    :\{eff:10, max:15\}/.test(demo) && /rifle  :\{eff:20, max:16\}/.test(demo) &&
+    /const SNIPER_RANGE=\{eff:30,max:16\};/.test(demo) &&
+    /const SIGHT_TILES=17;/.test(demo) && /const REACH_CEIL=16;/.test(demo));
   ok('V138 THE ORDER IS THE RESEARCH AND IT NEVER INVERTS: shotgun < pistol < SMG < rifle < sniper, on both numbers, because that ordering is the one thing about real gun ranges that survives being squeezed onto a board',
     (function(){ const m=demo.match(/const WEAPON_RANGE=\{[\s\S]*?\n\};/); if(!m)return false;
       const g=[...m[0].matchAll(/(\w+)\s*:\{eff:(\d+),\s*max:(\d+)\}/g)].map(x=>[x[1],+x[2],+x[3]]);
@@ -2518,7 +2533,15 @@ ok('AND THE REASON IT SURVIVED: drawFloor lays base + pulse + VIGNETTE, then dra
 ok('V140 THE SPAWN BAND IS MEASURED IN **YOUR GUN**, NEVER IN TILES: a fixed tile number cannot be right for five weapons with five reaches, and the dark HALVES every range, so the only honest unit is a multiple of the range actually in effect',
   /const _R=maxRange\(myRange\(\)\);/.test(demo) &&
   /const SPAWN_NEAR=1\.15, SPAWN_FAR=1\.65;/.test(demo) &&
-  /const _lo=Math\.min\(contentR\(\), Math\.max\(PT_BLANK\+2, _R\*SPAWN_NEAR\)\);/.test(demo));
+  /* V160 RE-POINTED, AND THE LAW IS INTACT. The band is still measured in HIS
+     GUN -- _R*SPAWN_NEAR to _R*SPAWN_FAR, untouched. What was added is a
+     CEILING, not a unit: they may not start beyond what he can see. I claimed
+     the old multipliers would "fix themselves" once ranges came down and
+     MEASURED THEY DID NOT -- 1.65 x 16 is 26 tiles against 17.5 of sight, so
+     20% of every fight began off screen, invisible AND unreachable, which is
+     not an approach, it is a rumour. */
+  /const _lo=Math\.min\(SIGHT_TILES, contentR\(\), Math\.max\(PT_BLANK\+2, _R\*SPAWN_NEAR\)\);/.test(demo) &&
+  /const _hi=Math\.min\(SIGHT_TILES, contentR\(\), Math\.max\(_lo\+1, _R\*SPAWN_FAR\)\);/.test(demo));
 
 /* ===== V145 THE GAP WAS TOO WIDE, MEASURED ========================
    60 arenas pressing only WAIT: 14.9 TURNS before anything was shootable and
@@ -3104,8 +3127,17 @@ ok('MECHANISM-MINE/CONTENTS-PAOLO\'S PAID OFF: v95\'s allowance table shipped EM
     /function rangeT\(d,R\)\{[\s\S]{0,120}rangeMult\(\)/.test(demo));
   ok('V98 GOT STRONGER, NOT WEAKER, WHEN GUNS GAINED RANGES: it used to run through ONE shared far end because there was only ever one range in the game. Now the SAME NIGHT_RANGE number scales every weapon individually -- a shotgun\'s reach shortens after dark too, which a single shared far end could never express. And the MAX shrinks with it, so lit really does mean hittable from across the lot and dark really does mean they have to come to you',
     /const F=Math\.max\(PT_BLANK\+2,R\.eff\*1\.6\*rangeMult\(\)\);/.test(demo) &&
-    /function maxRange\(R\)\{ return Math\.max\(PT_BLANK\+2, R\.max\*rangeMult\(\)\); \}/.test(demo) &&
+    /* V160 RE-POINTED: maxRange gained the SIGHT ceiling. The night scaling is
+       byte-identical inside it -- R.max*rangeMult() is untouched -- so V98's law
+       is unchanged; it is now wrapped by a ceiling that binds in daylight and
+       does not bind after dark, which is exactly the right way round. */
+    /function maxRange\(R\)\{ return Math\.min\(REACH_CEIL, Math\.max\(PT_BLANK\+2, R\.max\*rangeMult\(\)\)\); \}/.test(demo) &&
     /inMyRange\(e\)\{ return !!e && \(e\.edist\|\|0\) <= maxRange\(myRange\(\)\); \}/.test(demo));
+
+  ok('V160 THE CEILING IS ONE DOOR: every reach in the game -- yours, theirs, the sniper\'s and the V151 floor that hands him the edge over the field -- comes through maxRange, so a number added anywhere else cannot route around sight. His V151 ruling still stands underneath it: he outranges the field, he just cannot outrange his own eyes',
+    (demo.match(/function maxRange\(R\)\{/g) || []).length === 1 &&
+    /Math\.min\(REACH_CEIL,/.test(demo) &&
+    /function inHisRange\(e\)\{ return !!e && \(e\.edist\|\|0\) <= maxRange\(foeRange\(e\)\); \}/.test(demo));
 
   ok('V98 AND POINT BLANK IS EXACTLY UNTOUCHED AT NIGHT, not approximately: distT subtracts PT_BLANK before dividing, so it is 0 for any d <= PT_BLANK whatever the far end is. His 7/27 point-blank ruling gets LOUDER after dark rather than taxed flat',
     demo.includes('return Math.min(1,Math.max(0,(d-PT_BLANK)/(F-PT_BLANK))); }') &&
