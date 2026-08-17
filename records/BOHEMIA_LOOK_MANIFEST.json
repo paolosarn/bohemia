@@ -19,7 +19,7 @@
     "y": 3434,
     "zoom": 44
    },
-   "kb": 331.5,
+   "kb": 334.5,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -33,7 +33,7 @@
     "y": 3140,
     "zoom": 44
    },
-   "kb": 520.7,
+   "kb": 529.5,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -47,7 +47,7 @@
     "y": 3028,
     "zoom": 44
    },
-   "kb": 508.8,
+   "kb": 517.8,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -61,7 +61,7 @@
     "y": 8608,
     "zoom": 22
    },
-   "kb": 343.1,
+   "kb": 349.4,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -71,7 +71,7 @@
    "caption": "THE DEMO MONEY SHOT. Stand on the west rim and the whole valley is laid out below you, drawn by the valley view that already existed. RUN tab, on reaching the overlook.",
    "file": "look/vista.png",
    "at": null,
-   "kb": 487.1,
+   "kb": 487,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -85,7 +85,7 @@
     "y": 2183,
     "zoom": 30
    },
-   "kb": 356.8,
+   "kb": 362.4,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -99,7 +99,7 @@
     "y": 3331,
     "zoom": 30
    },
-   "kb": 233.6,
+   "kb": 238.1,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -113,7 +113,7 @@
     "y": 900,
     "zoom": 26
    },
-   "kb": 182.9,
+   "kb": 185.6,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -123,7 +123,7 @@
    "caption": "Walk up to anybody who runs with an outfit and this is their card. You have done what they want five times, and it says so: turning up gets you no further than USEFUL, and COUNTED is not for sale at any number of favours. The only button that passes it is saying out loud that you are with them. CITY tab, tap a person.",
    "file": "look/the-wall.png",
    "at": null,
-   "kb": 238.8,
+   "kb": 247,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
@@ -133,7 +133,7 @@
    "caption": "Once an outfit COUNTS you it starts asking, and what it asks for is the thing it already wanted. Saying yes buys you nothing -- it is the rent on being counted. Saying no drops you straight back below counted, and they remember which way you went. CITY tab, tap a person you have done favours for.",
    "file": "look/the-claim.png",
    "at": null,
-   "kb": 249.2,
+   "kb": 257.4,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   }

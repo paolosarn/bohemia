@@ -30,7 +30,7 @@ verbatim.
 | UNSAMPLED | 0 | 0 |
 | **total** | **103** | **135** |
 
-**276.2 MB of 279.4 MB** sampled does not reach the shown surface.
+**275.9 MB of 279.1 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -84,7 +84,7 @@ verbatim.
 | `banks/BOHEMIA_GROUND_VARIANT_BANK_7_10_26.txt` | bank | 7.45 |
 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | bank | 6.94 |
 | `banks/BOHEMIA_TILE_REPO.txt` | bank | 6.02 |
-| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 5.56 |
+| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 5.26 |
 | `banks/BOHEMIA_DEMO_PROP_POOL_7_10_26.txt` | bank | 3.98 |
 | `banks/BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt` | bank | 3.51 |
 | `banks/BOHEMIA_HOUSE_FACTORY_BANK_7_14_26.txt` | bank | 2.63 |
