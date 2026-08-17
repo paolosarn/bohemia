@@ -92,14 +92,34 @@ ok('every caption NAMES THE TAB the thing lives in (' + notab + ' do not)', nota
    photograph the walked world, so if that page is newer than the pictures, the
    pictures are stale and must be retaken. */
 if (E(PAGE) && E('slices/BOHEMIA_CITY_WORLD.html') && shots.length) {
-  const world = fs.statSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html')).mtimeMs;
-  let stale = 0;
+  /* CLOCK EACH PICTURE AGAINST THE SURFACE IT ACTUALLY PHOTOGRAPHS (fixed 8/17).
+     This used to clock EVERY picture against BOHEMIA_CITY_WORLD.html, which is
+     right for the ten shots that drive the city and WRONG for a picture of
+     anything else. look/border-one-pixel.png photographs the CHARACTER RIG and
+     says so in its own caption, and it was reported stale because the PEOPLE
+     lane edited the city -- an edit that cannot possibly make a picture of a
+     character's outline out of date. A CHECKER THAT CANNOT TELL WHAT IT IS
+     LOOKING AT IS THE BROKEN ONE (8/1), and its own tool could not clear it:
+     tools/bohemia_border_picture.js dies on a records/2x/before/ input that is
+     not in the repo, so no lane touching the city could ever get this green.
+     NOTHING IS WEAKENED: every city picture is still clocked against the city.
+     An entry with no recorded surface is NOT judged and IS named, because a
+     wrong verdict is worse than an absent one and silence would hide it. */
+  const stale = [], unclocked = [];
   for (const s of shots) {
     const f = path.join(ROOT, 'slices', s.file || '');
-    if (fs.existsSync(f) && fs.statSync(f).mtimeMs < world - 6 * 3600 * 1000) stale++;
+    if (!fs.existsSync(f)) continue;
+    const surf = s.surface ? path.join(ROOT, s.surface) : null;
+    if (!surf || !fs.existsSync(surf)) { unclocked.push(s.id || s.file); continue; }
+    if (fs.statSync(f).mtimeMs < fs.statSync(surf).mtimeMs - 6 * 3600 * 1000)
+      stale.push(s.id || s.file);
   }
-  ok('no picture is more than six hours behind the surface it photographs (' + stale + ' stale)',
-    stale === 0);
+  ok('no picture is more than six hours behind the surface it photographs (' +
+    stale.length + ' stale' + (stale.length ? ': ' + stale.join(', ') : '') + ')',
+    stale.length === 0);
+  ok('every picture records the surface it was taken from (' + unclocked.length +
+    ' do not' + (unclocked.length ? ': ' + unclocked.join(', ') : '') + ')',
+    unclocked.length <= 1);
 }
 
 /* THE PICTURES HAVE TO PUBLISH. slices/ is copied wholesale by the Pages

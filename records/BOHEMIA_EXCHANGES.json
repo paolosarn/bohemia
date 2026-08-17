@@ -1,0 +1,925 @@
+{
+ "_meta": {
+  "what": "Two people in the walked world talking TO EACH OTHER. You catch the middle of it.",
+  "why": "Q043.W4 asks for OVERHEARD RELATIONSHIPS and the 8/12 barks shipped 244 lines of people talking to nobody. Two bodies on one screen was physically impossible until the population dial landed 8/16.",
+  "join": "every exchange is a full four-turn conversation and join is never 0. The opening line is written and deliberately never heard, which is what makes the line you DO hear sound like it has something behind it.",
+  "generator": "tools/bohemia_exchange_factory.py",
+  "exchanges": 31,
+  "lines": 124,
+  "kinds": {
+   "work": 7,
+   "grief": 6,
+   "rumor": 5,
+   "atmos": 4,
+   "trade": 5,
+   "social": 4
+  },
+  "leaks": 11,
+  "masters": [
+   "craft",
+   "ports"
+  ],
+  "draft": "every line is draft:true and editable in the WORDS tab"
+ },
+ "exchanges": [
+  {
+   "id": "water-pressure",
+   "kind": "work",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "Did yours come back on last night?",
+    "It came back brown and then it went again.",
+    "Mine does that when the block above us runs theirs.",
+    "So we are drinking whatever they are done with."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "water-hours",
+   "kind": "work",
+   "who": [
+    "keeper",
+    "any"
+   ],
+   "turns": [
+    "You are filling late again.",
+    "I fill when the pressure is up and the pressure is up before five.",
+    "Before five. Not after.",
+    "After five you get what is left in the pipe, and it is warm."
+   ],
+   "join": 2,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q001.P8",
+     "title": "W8 (reward the listener",
+     "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "water-share",
+   "kind": "grief",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "Three doors down has been quiet a week.",
+    "I left a jug. It is still there.",
+    "Then leave it there.",
+    "I am not taking it back. It stops being a gift the second you take it back."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "water-line",
+   "kind": "work",
+   "who": [
+    "any",
+    "watch"
+   ],
+   "turns": [
+    "The line was around the corner this morning.",
+    "It is around the corner every morning now.",
+    "It was not last month.",
+    "Last month there were fewer of us standing in it."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q008.W6",
+     "title": "DENSITY AS OBSTACLE",
+     "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+    }
+   ]
+  },
+  {
+   "id": "power-block",
+   "kind": "rumor",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "Their street had lights all night.",
+    "All night. Not a flicker, not a dip.",
+    "Nothing runs that clean by accident.",
+    "Somebody is keeping it clean, and they are not doing it for us."
+   ],
+   "join": 1,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q018.W3",
+     "title": "THE RUMOR WEB (curiosity as the quest log)",
+     "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+    },
+    {
+     "id": "Q014.W3",
+     "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+     "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+    }
+   ]
+  },
+  {
+   "id": "power-meter",
+   "kind": "work",
+   "who": [
+    "worker",
+    "any"
+   ],
+   "turns": [
+    "They read your meter yet?",
+    "They read it Tuesday.",
+    "And?",
+    "And they wrote a number down and walked off and I still have no lights."
+   ],
+   "join": 2,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "power-dark",
+   "kind": "atmos",
+   "who": [
+    "any",
+    "watch"
+   ],
+   "turns": [
+    "You walking back that way after?",
+    "Not through the dark part.",
+    "It is four minutes through the dark part.",
+    "It is twenty around, and I have got twenty."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    },
+    {
+     "id": "Q008.W6",
+     "title": "DENSITY AS OBSTACLE",
+     "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+    }
+   ]
+  },
+  {
+   "id": "power-panel",
+   "kind": "trade",
+   "who": [
+    "scav",
+    "any"
+   ],
+   "turns": [
+    "You still pulling panels off the flat roofs?",
+    "Not off the flat roofs. The good ones face the wrong way for a flat roof.",
+    "Where then.",
+    "The carports. Nobody looks up at a carport."
+   ],
+   "join": 2,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q001.P8",
+     "title": "W8 (reward the listener",
+     "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+    },
+    {
+     "id": "Q018.W3",
+     "title": "THE RUMOR WEB (curiosity as the quest log)",
+     "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+    }
+   ]
+  },
+  {
+   "id": "work-shift",
+   "kind": "work",
+   "who": [
+    "worker",
+    "worker"
+   ],
+   "turns": [
+    "You picking up the extra shift?",
+    "I picked up two and they paid me for one.",
+    "Did you say anything?",
+    "I said it twice. The second time was to a different man with the same face."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "work-rent",
+   "kind": "grief",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "They put paper on the door again?",
+    "Same paper. Same wording.",
+    "That is not a warning any more then, that is just weather.",
+    "It is weather until the day it is not, and you cannot tell which day that is."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "work-crew",
+   "kind": "work",
+   "who": [
+    "worker",
+    "any"
+   ],
+   "turns": [
+    "They are taking names again down at the yard.",
+    "For what work.",
+    "They do not say for what work. They just take names.",
+    "Then do not give them yours before you know what the work is."
+   ],
+   "join": 2,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q001.P8",
+     "title": "W8 (reward the listener",
+     "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+    },
+    {
+     "id": "Q014.W3",
+     "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+     "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+    }
+   ]
+  },
+  {
+   "id": "work-tools",
+   "kind": "trade",
+   "who": [
+    "any",
+    "worker"
+   ],
+   "turns": [
+    "You get your tools back?",
+    "I got a receipt for my tools.",
+    "That is not the same thing.",
+    "It is if you are the one holding the tools."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "trade-price",
+   "kind": "trade",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "What did it cost you?",
+    "Twice what it cost the last person who asked.",
+    "Did you pay it?",
+    "I paid it. Tomorrow it will be twice again and I will pay that too."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "trade-empty",
+   "kind": "trade",
+   "who": [
+    "scav",
+    "any"
+   ],
+   "turns": [
+    "Anything left out past the wash?",
+    "Anything left is left because somebody looked at it and walked away.",
+    "That is not a no.",
+    "It is not a no. It is bring somebody with you."
+   ],
+   "join": 2,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q001.P8",
+     "title": "W8 (reward the listener",
+     "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+    },
+    {
+     "id": "Q018.W3",
+     "title": "THE RUMOR WEB (curiosity as the quest log)",
+     "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+    }
+   ]
+  },
+  {
+   "id": "trade-weigh",
+   "kind": "trade",
+   "who": [
+    "keeper",
+    "any"
+   ],
+   "turns": [
+    "Your scale is heavy.",
+    "My scale is the scale.",
+    "It was lighter last week.",
+    "Last week you brought me better metal."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "trade-credit",
+   "kind": "work",
+   "who": [
+    "any",
+    "keeper"
+   ],
+   "turns": [
+    "Put it on the book.",
+    "The book is closed.",
+    "Since when is the book closed.",
+    "Since the last four people on it stopped walking past."
+   ],
+   "join": 2,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "rumor-quiet",
+   "kind": "rumor",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "You been up the hill lately?",
+    "Not since they started keeping somebody on the road up.",
+    "Keeping somebody on it how.",
+    "Sat in a chair. Did not stop me. Just wrote down that I went."
+   ],
+   "join": 1,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q018.W3",
+     "title": "THE RUMOR WEB (curiosity as the quest log)",
+     "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+    },
+    {
+     "id": "Q001.P8",
+     "title": "W8 (reward the listener",
+     "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+    }
+   ]
+  },
+  {
+   "id": "rumor-moving",
+   "kind": "rumor",
+   "who": [
+    "any",
+    "watch"
+   ],
+   "turns": [
+    "Two families off your street this month.",
+    "Three.",
+    "Where do they go.",
+    "Towards the water. Everybody goes towards the water eventually."
+   ],
+   "join": 2,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q018.W3",
+     "title": "THE RUMOR WEB (curiosity as the quest log)",
+     "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+    },
+    {
+     "id": "Q014.W3",
+     "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+     "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+    }
+   ]
+  },
+  {
+   "id": "rumor-nobody",
+   "kind": "rumor",
+   "who": [
+    "watch",
+    "any"
+   ],
+   "turns": [
+    "Anybody come through here today?",
+    "Plenty came through.",
+    "Anybody stop.",
+    "Nobody stops here. That is the whole reason I like it."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q008.W6",
+     "title": "DENSITY AS OBSTACLE",
+     "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+    }
+   ]
+  },
+  {
+   "id": "rumor-list",
+   "kind": "rumor",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "They are asking who lives where now.",
+    "They have always asked that.",
+    "They are writing it down now.",
+    "Then tell them a house you do not sleep in."
+   ],
+   "join": 2,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q001.P8",
+     "title": "W8 (reward the listener",
+     "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+    },
+    {
+     "id": "Q014.W3",
+     "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+     "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+    }
+   ]
+  },
+  {
+   "id": "grief-door",
+   "kind": "grief",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "Did anyone shut the door properly?",
+    "I shut it.",
+    "Good. The heat does the rest and it does it kindly enough.",
+    "Do not tell me what the heat does. I shut the door."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "grief-name",
+   "kind": "grief",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "You keep saying we when you talk about that house.",
+    "I lived in it.",
+    "You lived in it a long time ago.",
+    "I say we because there is nobody left to correct me."
+   ],
+   "join": 2,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "grief-count",
+   "kind": "grief",
+   "who": [
+    "watch",
+    "any"
+   ],
+   "turns": [
+    "How many this week.",
+    "I stopped counting on purpose.",
+    "That is not like you.",
+    "Counting was the only part of it I was any good at, so I stopped."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "grief-chair",
+   "kind": "grief",
+   "who": [
+    "any",
+    "keeper"
+   ],
+   "turns": [
+    "You are still putting the second chair out.",
+    "It is a chair. It goes out.",
+    "You could put one out.",
+    "I could. I put two out. Leave it."
+   ],
+   "join": 2,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "street-crowd",
+   "kind": "atmos",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "It is busy out here today.",
+    "It is busy every day now. You just used to leave earlier.",
+    "There were not this many of us.",
+    "There were. They were inside, and inside got worse than out here."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q008.W6",
+     "title": "DENSITY AS OBSTACLE",
+     "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "street-heat",
+   "kind": "atmos",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "You are out in the middle of it again.",
+    "The shade is taken.",
+    "The shade is always taken.",
+    "So I stand here and I do not talk about it, usually."
+   ],
+   "join": 2,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    },
+    {
+     "id": "Q008.W6",
+     "title": "DENSITY AS OBSTACLE",
+     "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+    }
+   ]
+  },
+  {
+   "id": "street-newface",
+   "kind": "social",
+   "who": [
+    "any",
+    "watch"
+   ],
+   "turns": [
+    "New face on the block.",
+    "I saw. Came in from the road, not the houses.",
+    "That means somebody let them past.",
+    "Or nobody was sitting where somebody should have been sitting."
+   ],
+   "join": 1,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q014.W3",
+     "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+     "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+    },
+    {
+     "id": "Q001.P8",
+     "title": "W8 (reward the listener",
+     "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+    }
+   ]
+  },
+  {
+   "id": "street-dogs",
+   "kind": "atmos",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "They are back on your side again.",
+    "They go where the bins are.",
+    "The bins are empty.",
+    "They do not know that yet. Neither did I for a while."
+   ],
+   "join": 2,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    },
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    }
+   ]
+  },
+  {
+   "id": "street-known",
+   "kind": "social",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "You know everyone on this street?",
+    "I know everyone who was on it.",
+    "That is not the same list.",
+    "It is a shorter one, and I still say it in the same order."
+   ],
+   "join": 1,
+   "leaks": false,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q014.W3",
+     "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+     "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+    },
+    {
+     "id": "Q043.W4",
+     "title": "AMBIENT BANTER AS CHARACTERIZATION",
+     "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+    }
+   ]
+  },
+  {
+   "id": "street-watching",
+   "kind": "social",
+   "who": [
+    "watch",
+    "any"
+   ],
+   "turns": [
+    "You are looking at everybody today.",
+    "I look at everybody every day.",
+    "Not like that you do not.",
+    "Somebody came through twice and did not buy anything either time."
+   ],
+   "join": 2,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q001.P8",
+     "title": "W8 (reward the listener",
+     "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+    },
+    {
+     "id": "Q018.W3",
+     "title": "THE RUMOR WEB (curiosity as the quest log)",
+     "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+    }
+   ]
+  },
+  {
+   "id": "street-asking",
+   "kind": "social",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "Somebody was asking after you.",
+    "Asking what.",
+    "Asking which one you were. Not where you live, which one you were.",
+    "Then they already knew where I live."
+   ],
+   "join": 1,
+   "leaks": true,
+   "draft": true,
+   "study": [
+    {
+     "id": "Q014.W3",
+     "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+     "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+    },
+    {
+     "id": "Q001.P8",
+     "title": "W8 (reward the listener",
+     "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+    }
+   ]
+  }
+ ]
+}

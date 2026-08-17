@@ -20,7 +20,8 @@
     "zoom": 44
    },
    "kb": 331.5,
-   "stamp": "8/8/26"
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
    "id": "dead-road",
@@ -33,7 +34,8 @@
     "zoom": 44
    },
    "kb": 520.7,
-   "stamp": "8/8/26"
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
    "id": "dead-desert",
@@ -46,7 +48,8 @@
     "zoom": 44
    },
    "kb": 508.8,
-   "stamp": "8/8/26"
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
    "id": "dead-density",
@@ -59,7 +62,8 @@
     "zoom": 22
    },
    "kb": 343.1,
-   "stamp": "8/8/26"
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
    "id": "vista",
@@ -68,7 +72,8 @@
    "file": "look/vista.png",
    "at": null,
    "kb": 487.1,
-   "stamp": "8/8/26"
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
    "id": "dead-pit",
@@ -81,7 +86,8 @@
     "zoom": 30
    },
    "kb": 356.8,
-   "stamp": "8/8/26"
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
    "id": "dead-cluster",
@@ -94,7 +100,8 @@
     "zoom": 30
    },
    "kb": 233.6,
-   "stamp": "8/8/26"
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
    "id": "the-pit-dug",
@@ -107,7 +114,8 @@
     "zoom": 26
    },
    "kb": 182.9,
-   "stamp": "8/8/26"
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
    "id": "the-wall",
@@ -116,7 +124,8 @@
    "file": "look/the-wall.png",
    "at": null,
    "kb": 238.8,
-   "stamp": "8/8/26"
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
    "id": "the-claim",
@@ -125,7 +134,8 @@
    "file": "look/the-claim.png",
    "at": null,
    "kb": 249.2,
-   "stamp": "8/8/26"
+   "stamp": "8/8/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
   }
  ]
 }

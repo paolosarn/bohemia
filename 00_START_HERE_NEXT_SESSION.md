@@ -1,3 +1,80 @@
+PEOPLE (people-7h9sfy): 8/17 LATEST -- *** THE STREET TALKS TO ITSELF NOW. TWO
+PEOPLE, A REAL CONVERSATION, AND YOU WALK IN ON THE MIDDLE. TAB: RUN, just walk
+into a settlement. ***
+
+Q043.W4 AMBIENT BANTER AS CHARACTERIZATION asks for OVERHEARD RELATIONSHIPS, and
+the 8/12 bark factory CITES that finding in its own header while shipping 244
+lines in which every single person talks to NOBODY. A person alone saying a thing
+is not a relationship. IT WAS NOT NEGLECT, IT WAS IMPOSSIBLE: measured 8/16 at
+every hour of a full day, ONE body was drawn on the street and never a pair. The
+population dial (8/16) put 88 in a settlement, so the conversations became
+possible and this is them.
+  31 conversations, 124 lines, 11 leak a real thread
+  tools/bohemia_exchange_factory.py -> engine/bohemia_exchanges.js
+  tools/bohemia_city_exchange_patch.py (idempotent by md5)
+  gates/exchange_gate.js, 22 claims, registered as STREET EXCHANGE
+  records/BOHEMIA_THE_STREET_TALKS_8_17_26.md
+
+*** YOU NEVER HEAR THE OPENING LINE, AND THAT IS THE WHOLE TRICK. *** Every
+exchange is authored as a FULL FOUR-TURN conversation and `join` is never 0. The
+opener is written and deliberately never spoken. Turn 2 only sounds like it has a
+turn 1 behind it because a turn 1 really exists. Measured on the real street:
+  [15:6:0]  You could put one out.
+  [15:6:42] I could. I put two out. Leave it.
+  [15:6:42] Asking what.
+  [15:6:0]  Asking which one you were. Not where you live, which one you were.
+  [15:6:42] Then they already knew where I live.
+Two people, alternating, two different conversations, zero page errors. Neither
+entered at its opening line.
+
+IT IS ADDITIVE, NEVER A REGRESSION: the dial ships at 1 where a pair is rare, so
+if no pair is found the frame falls through to the solo bark exactly as before
+(gate B11 holds that). AND IT DRAWS NOTHING OF ITS OWN -- every turn is handed to
+the barkPass bubble that already exists. One bubble, one place to fix it.
+
+THREE CHECKERS FIXED AT THE RULER, and every one said the right thing in a
+comment while doing the wrong thing in code:
+  - tools/bohemia_words_book.py sources() says "EVERY dialogue-bearing artifact,
+    DISCOVERED not listed. A hardcoded list is the thing that lets a lane invent
+    a new dialogue file the machine never looks at." IT THEN HARDCODED TWO
+    FILENAMES. The next lane to invent one was this one, and 124 drafted lines
+    would have been invisible in the WORDS tab -- under the 8/11 law that is 124
+    lines he cannot edit. Discovery is BY CONTENT now: any records/BOHEMIA_*.json
+    holding a container of lines.
+  - gates/dialogue_catalogue_gate.js had the SAME hardcoded list, stated
+    independently. Same content rule now AND THE SAME ORDER: the first cut pinned
+    BARKS/REACTIONS at the front while the harvester sorted all three together,
+    and the two fingerprints disagreed over nothing but alphabetical position,
+    reporting a stale WORDS tab that was not stale.
+  - gates/look_gate.js clocked EVERY picture against BOHEMIA_CITY_WORLD.html.
+    look/border-one-pixel.png photographs the CHARACTER RIG and says so in its
+    own caption, so editing the city reported it stale -- and NO LANE COULD EVER
+    CLEAR IT, because tools/bohemia_border_picture.js dies on a records/2x/before/
+    input that is not in the repo. The manifest records the surface now and the
+    check compares against THAT; unrecorded entries are NOT judged and ARE named.
+    Nothing weakened: city pictures are still clocked against the city, and the
+    gate went from 23 assertions to 24. Mutation tested both ways.
+
+FOR THE CHARACTER LANE: tools/bohemia_border_picture.js is BROKEN on disk. It
+needs records/2x/before/S_idle_0.png and that file is not in the repo, so the
+border picture cannot be re-shot by anybody. It is exempt from the freshness
+check now rather than permanently red, but the tool still needs its input back.
+
+ALSO: engine/bohemia_people.js had `REACTIONS: REACTIONS` FIVE TIMES in one
+object literal from a botched edit. Harmless in JS, last one wins, and exactly
+the kind of thing nobody reads twice. Deduped.
+
+AN ENGINE EDIT STALES FOUR ARTIFACTS: the city inline copy
+(bohemia_city_module_resync.py), the run slice (build_run_slice.js), the census
+(bohemia_reachability_census.py) and THE LOOK PICTURES (bohemia_look_shots.js).
+All four run this turn.
+
+WHAT COMES NEXT FOR THIS LANE: (1) exchanges are chosen by ARCHETYPE only; the
+sim already knows faction, standing, what you were SEEN doing and whether they
+have met you, and an exchange that reacts to the player walking past is the
+obvious next axis. (2) The 11 that leak a thread leak it into nothing -- Q018.W3
+wants the thread to be pullable, which means an overheard fact should be able to
+open something. (3) Quest volume: 114 questbook studies still untouched.
 ART (f3eu53): 8/17 (b) LATEST -- *** GATES AT THE REAL ENTRANCES: every
 world-named gate/curb-cut cell stands as a single wide open gate now,
 run-aware (leaves at the end posts, mouth open). Freeway re-probed: STILL

@@ -1055,6 +1055,22 @@ GATES = [
      'inside a try/catch that ate it. A CAUGHT EXCEPTION IN A DRAW PATH IS A FEATURE THAT '
      'SILENTLY DOES NOTHING. So the claim is the same frame drawn silent and spoken, and the '
      'pixels must DIFFER', False),
+    ('STREET EXCHANGE', ['node', 'gates/exchange_gate.js'],
+     'Q043.W4 AMBIENT BANTER AS CHARACTERIZATION asks for OVERHEARD RELATIONSHIPS, and the '
+     '8/12 bark factory CITES that finding in its own header while shipping 244 lines in '
+     'which every single person is talking to NOBODY. A person alone saying a thing is not '
+     'a relationship. It was not neglect: measured at every hour of a full day, ONE body '
+     'was drawn on the street and never a pair, so a conversation was physically impossible '
+     'until the population dial landed. Now two people who are both DRAWN, both in earshot '
+     'and standing near each other hold a real conversation and YOU WALK IN ON THE MIDDLE '
+     'of it -- every exchange is authored as four turns and entered at turn 1 or 2, so the '
+     'opening line is written and deliberately never heard, which is the one craft rule '
+     'every source agrees on. This drives the real street through the one link and demands: '
+     'two DIFFERENT people speak, nobody answers themselves, no opening line is ever heard, '
+     'a pair spends its whole pool before repeating (Q030.X3), no kind is a stub (Q043.X4), '
+     'the solo bark still fires when there is nobody to talk to, and THE BUBBLE REACHES '
+     'PIXELS -- because `var g = ctx` once threw on the first line of every bark inside a '
+     'try/catch that ate it, and everything upstream measured perfect', False),
     ('POPULATION DIAL', ['node', 'gates/population_dial_gate.js'],
      'Paolo 8/1: "the slider can go all the way from zero to a maximum." The PLUMBING shipped '
      'that day -- DIAL, setDial, applyDial, a MIN and a MAX -- and MEASURED 8/16, FIFTEEN DAYS '

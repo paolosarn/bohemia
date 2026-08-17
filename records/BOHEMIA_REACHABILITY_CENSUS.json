@@ -1,6 +1,6 @@
 {
- "sources": 236,
- "total_mb": 279.3,
+ "sources": 238,
+ "total_mb": 279.4,
  "unreached_mb": 276.2,
  "rows": [
   {
@@ -623,6 +623,15 @@
    "hits_shown": 3,
    "hits_loaded": 0,
    "bytes": 1316
+  },
+  {
+   "path": "banks/BOHEMIA_SFX_APPROVED_8_16b_26.json",
+   "kind": "bank",
+   "verdict": "SHOWN (part)",
+   "samples": 32,
+   "hits_shown": 3,
+   "hits_loaded": 0,
+   "bytes": 1474
   },
   {
    "path": "banks/BOHEMIA_SFX_BANK_7_29_26.txt",
@@ -1300,6 +1309,15 @@
    "bytes": 52801
   },
   {
+   "path": "engine/bohemia_exchanges.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 8,
+   "hits_shown": 8,
+   "hits_loaded": 1,
+   "bytes": 31358
+  },
+  {
    "path": "engine/bohemia_farm.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
@@ -1645,10 +1663,10 @@
    "path": "engine/bohemia_people.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 7,
-   "hits_shown": 7,
-   "hits_loaded": 7,
-   "bytes": 48044
+   "samples": 6,
+   "hits_shown": 6,
+   "hits_loaded": 6,
+   "bytes": 47956
   },
   {
    "path": "engine/bohemia_personlook.js",
@@ -1819,7 +1837,7 @@
    "samples": 32,
    "hits_shown": 32,
    "hits_loaded": 0,
-   "bytes": 144059
+   "bytes": 144344
   },
   {
    "path": "engine/bohemia_slice_core.js",

@@ -333,7 +333,8 @@ async function restoreShellChrome(shell) {
       });
       const kb2 = fs.statSync(file2).size / 1024;
       shots.push({ id: s.id, title: s.title, caption: s.caption, file: 'look/' + s.id + '.png',
-                   at: null, kb: +kb2.toFixed(1), stamp: STAMP });
+                   at: null, kb: +kb2.toFixed(1), stamp: STAMP,
+                   surface: 'slices/BOHEMIA_CITY_WORLD.html' });
       console.log('  SHOT  ' + s.id.padEnd(16) + kb2.toFixed(0).padStart(5) + ' KB   (a moment, not a place)');
       continue;
     }
@@ -412,7 +413,8 @@ async function restoreShellChrome(shell) {
     });
     const kb = fs.statSync(file).size / 1024;
     shots.push({ id: s.id, title: s.title, caption: s.caption, file: 'look/' + s.id + '.png',
-                 at: { x: spot.hx, y: spot.hy, zoom: spot.zoom || null }, kb: +kb.toFixed(1), stamp: STAMP });
+                 at: { x: spot.hx, y: spot.hy, zoom: spot.zoom || null }, kb: +kb.toFixed(1), stamp: STAMP,
+                 surface: 'slices/BOHEMIA_CITY_WORLD.html' });
     console.log('  SHOT  ' + s.id.padEnd(16) + kb.toFixed(0).padStart(5) + ' KB   at ' + spot.hx + ',' + spot.hy);
   }
 

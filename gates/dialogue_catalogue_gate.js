@@ -96,7 +96,31 @@ var sceneFiles = fs.readdirSync('records')
    fingerprint disagrees and reports a stale tab that is not stale. */
 var barkFile = fs.existsSync('records/BOHEMIA_BARKS.json') ? ['records/BOHEMIA_BARKS.json'] : [];
 var reactFile = fs.existsSync('records/BOHEMIA_REACTIONS.json') ? ['records/BOHEMIA_REACTIONS.json'] : [];
-var SRC = bqFiles.concat(sceneFiles).concat(barkFile).concat(reactFile);
+/* AND ANY OTHER records/ JSON THAT HOLDS A CONTAINER OF LINES (8/17). Both this
+   gate and the harvester used to name the dialogue files one by one, and the
+   harvester's own comment said that was exactly the thing that lets a lane
+   invent a file the machine never looks at. The next lane to do it was the
+   PEOPLE lane, with records/BOHEMIA_EXCHANGES.json and 124 drafted lines that
+   would have been invisible in the WORDS tab -- which under the 8/11 law means
+   124 lines he cannot edit. Discovery is BY CONTENT now, on both sides,
+   independently stated, so a new dialogue file is picked up the day it lands
+   and the two lists cannot silently drift apart. */
+var CONTAINERS = ['barks', 'reactions', 'exchanges'];
+var lineFiles = fs.readdirSync('records').sort().filter(function (f) {
+  if (!/^BOHEMIA_.*\.json$/.test(f)) return false;
+  if (/^BOHEMIA_SCENE_/.test(f)) return false;
+  try {
+    var d = JSON.parse(fs.readFileSync('records/' + f, 'utf8'));
+    return d && typeof d === 'object' && CONTAINERS.some(function (k) { return k in d; });
+  } catch (_e) { return false; }
+}).map(function (f) { return 'records/' + f; });
+/* SAME RULE **AND SAME ORDER** AS THE HARVESTER. The fingerprint hashes the
+   path then the bytes of each source in sequence, so listing the same files in
+   a different order reports a stale WORDS tab that is not stale. The first cut
+   of this kept BARKS and REACTIONS pinned at the front and scanned for the
+   rest; the harvester sorts all three together, and the two hashes disagreed
+   over nothing but alphabetical position. */
+var SRC = bqFiles.concat(sceneFiles).concat(lineFiles);
 
 ok(bqFiles.length > 0, 'dialogue-bearing quests were discovered on disk (' + bqFiles.length + ' .bq)');
 ok(sceneFiles.length > 0, 'dialogue-bearing scenes were discovered on disk (' + sceneFiles.length + ')');
@@ -281,6 +305,35 @@ if (reactFile.length) {
     ' — a key the sim never emits is a line that can never fire');
   ok(rxUncited.length === 0, 'every reaction cites the catalogue' +
     (rxUncited.length ? ' — ' + rxUncited.slice(0, 4).join(', ') : ''));
+}
+
+/* ---- TWO PEOPLE TALKING TO EACH OTHER (8/17) ---------------------------- */
+/* Q043.W4 AMBIENT BANTER AS CHARACTERIZATION asks for OVERHEARD RELATIONSHIPS,
+   and the bark table cited that finding while shipping 244 lines of people
+   talking to nobody. These are the conversations. They are drafted words he has
+   not approved, so they obey exactly the same law as everything else here. */
+var xchN = 0, xchUncited = [], xchBadId = [], xchBadTitle = [], xchThin = [], xchHeard = [];
+if (fs.existsSync('records/BOHEMIA_EXCHANGES.json')) {
+  var XJ = JSON.parse(fs.readFileSync('records/BOHEMIA_EXCHANGES.json', 'utf8'));
+  (XJ.exchanges || []).forEach(function (x) {
+    xchN += (x.turns || []).length;
+    if (!(x.join >= 1)) xchHeard.push(x.id);
+    if (!x.study || x.study.length < 2) { xchUncited.push(x.id); return; }
+    x.study.forEach(function (c) {
+      var e = LAWS[c.id];
+      if (!e) { xchBadId.push(x.id + ' -> ' + c.id); return; }
+      if (String(e.title || '').trim() !== String(c.title || '').trim())
+        xchBadTitle.push(x.id + ' -> ' + c.id);
+      if (String(c.applied || '').trim().length < 40) xchThin.push(x.id);
+    });
+  });
+  ok(xchN >= 90, 'PEOPLE TALK TO EACH OTHER, not just at the player (' + xchN +
+    ' turns across ' + (XJ.exchanges || []).length + ' conversations)');
+  ok(xchUncited.length === 0 && xchBadId.length === 0 && xchBadTitle.length === 0 &&
+    xchThin.length === 0, 'every conversation cites >=2 findings, verbatim, applied' +
+    (xchUncited.concat(xchBadId, xchBadTitle, xchThin).slice(0, 3).join(', ')));
+  ok(xchHeard.length === 0, 'YOU WALK IN ON THE MIDDLE: no conversation is entered ' +
+    'at its opening line' + (xchHeard.length ? ' — ' + xchHeard.join(', ') : ''));
   ok(rxBadId.length === 0 && rxBadTitle.length === 0,
     'and every reaction citation resolves with a VERBATIM title');
 
@@ -383,7 +436,10 @@ if (BOOK) {
       else if (/^@OBJ\s+\d+\s+"/.test(ln)) mine++;
     });
   });
-  mine += barkN + reactN;   /* ambient lines and reactions are in the book too */
+  mine += barkN + reactN + xchN;   /* ambient lines, reactions and the
+     two-person exchanges are all in the book too. ALL FOUR turns of an
+     exchange count, including the opening line the player never hears: he
+     cannot edit what the second line is answering if he cannot see it. */
   ok(BOOK._meta.lines === mine, 'the book holds EVERY line on disk (book ' +
     BOOK._meta.lines + ', counted here ' + mine + ')');
   ok(BOOK._meta.fingerprint === want, 'and the machine copy is current too');

@@ -22,15 +22,15 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 75 |
-| SHOWN (part) | 10 | 22 |
+| SHOWN (all) | 1 | 76 |
+| SHOWN (part) | 11 | 22 |
 | LOADED ONLY | 18 | 9 |
 | NO TRACE | 73 | 13 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **102** | **134** |
+| **total** | **103** | **135** |
 
-**276.2 MB of 279.3 MB** sampled does not reach the shown surface.
+**276.2 MB of 279.4 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -199,8 +199,8 @@ verbatim.
 | `engine/bohemia_bodyvar.js` | engine | 11/11 |
 | `engine/bohemia_quest_runtime.js` | engine | 9/9 |
 | `engine/bohemia_agents.js` | engine | 8/8 |
+| `engine/bohemia_exchanges.js` | engine | 8/8 |
 | `engine/bohemia_purse.js` | engine | 8/8 |
 | `engine/bohemia_story_surface.js` | engine | 8/8 |
-| `engine/bohemia_people.js` | engine | 7/7 |
 | `engine/bohemia_population.js` | engine | 7/7 |
 | `engine/bohemia_commitment.js` | engine | 6/6 |

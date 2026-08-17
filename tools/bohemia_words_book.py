@@ -218,19 +218,66 @@ def parse_barks(path):
             'cites': [], 'lines': out}
 
 
+# WHAT MAKES A records/ JSON A DIALOGUE FILE: a top-level container of lines.
+# Routed BY CONTENT, so a new one is picked up the day it lands.
+CONTAINERS = ('barks', 'reactions', 'exchanges')
+
+
+def parse_exchanges(path):
+    """TWO PEOPLE TALKING TO EACH OTHER. A scene here is a four-turn
+    conversation, and the player only ever hears from `join` on -- but ALL FOUR
+    turns go into WORDS, including the opening line nobody hears, because he
+    cannot edit what the second line is answering if he cannot see it."""
+    with open(path, 'r', encoding='utf-8') as f:
+        d = json.load(f)
+    rel = os.path.relpath(path, ROOT).replace(os.sep, '/')
+    out = []
+    for x in d.get('exchanges', []):
+        for i, t in enumerate(x.get('turns') or []):
+            out.append({
+                'kind': 'exchange', 'id': rel + '#' + x['id'] + '.' + str(i), 'src': rel,
+                'speaker': (x.get('who') or ['any', 'any'])[i % 2],
+                'node': x['id'] + ' (' + x.get('kind', '') + ')'
+                        + ('' if i >= x.get('join', 1) else '  [never heard]'),
+                'text': t, 'draft': x.get('draft') is True,
+                'cites': x.get('study') or [], 'citeLevel': 'line',
+                'title': 'WHAT TWO PEOPLE SAY TO EACH OTHER',
+            })
+    return {'src': rel, 'title': 'WHAT TWO PEOPLE SAY TO EACH OTHER',
+            'kind': 'exchanges', 'cites': [], 'lines': out}
+
+
 def sources():
     """EVERY dialogue-bearing artifact, DISCOVERED not listed. A hardcoded list
     is the thing that lets a lane invent a new dialogue file the machine never
-    looks at, which is how a law stops being enforced without anybody noticing."""
+    looks at, which is how a law stops being enforced without anybody noticing.
+
+    IT SAID THAT AND THEN HARDCODED TWO FILENAMES (8/17). The next lane to write
+    a dialogue file was this one -- records/BOHEMIA_EXCHANGES.json, 124 drafted
+    lines -- and it would have been invisible in the WORDS tab, which under the
+    8/11 law means 124 lines Paolo cannot edit. A comment describing the right
+    behaviour is not the behaviour. So this now opens every BOHEMIA_*.json in
+    records/ and keeps the ones that CONTAIN a container of lines, which is a
+    property of the file rather than a name somebody remembered to add here.
+    """
     out = []
     if os.path.isdir(BQ_DIR):
         out += [os.path.join(BQ_DIR, f) for f in sorted(os.listdir(BQ_DIR)) if f.endswith('.bq')]
     out += [os.path.join(RECORDS, f) for f in sorted(os.listdir(RECORDS))
             if re.match(r'^BOHEMIA_SCENE_.*\.json$', f)]
-    for extra in ('BOHEMIA_BARKS.json', 'BOHEMIA_REACTIONS.json'):
-        f = os.path.join(RECORDS, extra)
-        if os.path.exists(f):
-            out.append(f)
+    for f in sorted(os.listdir(RECORDS)):
+        if not f.startswith('BOHEMIA_') or not f.endswith('.json'):
+            continue
+        if re.match(r'^BOHEMIA_SCENE_.*\.json$', f):
+            continue
+        p = os.path.join(RECORDS, f)
+        try:
+            with open(p, 'r', encoding='utf-8') as fh:
+                d = json.load(fh)
+        except Exception:
+            continue
+        if isinstance(d, dict) and any(k in d for k in CONTAINERS):
+            out.append(p)
     return out
 
 
@@ -258,6 +305,8 @@ def harvest():
             books.append(parse_barks(p))
         elif p.endswith('BOHEMIA_REACTIONS.json'):
             books.append(parse_reactions(p))
+        elif p.endswith('BOHEMIA_EXCHANGES.json'):
+            books.append(parse_exchanges(p))
         else:
             books.append(parse_scene(p))
     return books

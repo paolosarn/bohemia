@@ -3,10 +3,10 @@
   "what": "Every authored player-facing line in Bohemia, with the questbook catalogue laws each was written from.",
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
-  "sources": 31,
-  "lines": 1599,
-  "cited": 1597,
-  "fingerprint": "c8943fd38ccb03db",
+  "sources": 32,
+  "lines": 1723,
+  "cited": 1721,
+  "fingerprint": "44d5c9af9ce2fbfa",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -51308,6 +51308,2866 @@
      ],
      "citeLevel": "line",
      "title": "WHAT THE WORLD SAYS"
+    }
+   ]
+  },
+  {
+   "src": "records/BOHEMIA_EXCHANGES.json",
+   "title": "WHAT TWO PEOPLE SAY TO EACH OTHER",
+   "kind": "exchanges",
+   "cites": [],
+   "lines": [
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-pressure.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-pressure (work)  [never heard]",
+     "text": "Did yours come back on last night?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-pressure.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-pressure (work)",
+     "text": "It came back brown and then it went again.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-pressure.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-pressure (work)",
+     "text": "Mine does that when the block above us runs theirs.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-pressure.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-pressure (work)",
+     "text": "So we are drinking whatever they are done with.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-hours.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "keeper",
+     "node": "water-hours (work)  [never heard]",
+     "text": "You are filling late again.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-hours.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-hours (work)  [never heard]",
+     "text": "I fill when the pressure is up and the pressure is up before five.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-hours.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "keeper",
+     "node": "water-hours (work)",
+     "text": "Before five. Not after.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-hours.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-hours (work)",
+     "text": "After five you get what is left in the pipe, and it is warm.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-share.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-share (grief)  [never heard]",
+     "text": "Three doors down has been quiet a week.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-share.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-share (grief)",
+     "text": "I left a jug. It is still there.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-share.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-share (grief)",
+     "text": "Then leave it there.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-share.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-share (grief)",
+     "text": "I am not taking it back. It stops being a gift the second you take it back.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-line.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-line (work)  [never heard]",
+     "text": "The line was around the corner this morning.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-line.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "water-line (work)",
+     "text": "It is around the corner every morning now.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-line.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "water-line (work)",
+     "text": "It was not last month.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#water-line.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "water-line (work)",
+     "text": "Last month there were fewer of us standing in it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-block.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "power-block (rumor)  [never heard]",
+     "text": "Their street had lights all night.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-block.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "power-block (rumor)",
+     "text": "All night. Not a flicker, not a dip.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-block.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "power-block (rumor)",
+     "text": "Nothing runs that clean by accident.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-block.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "power-block (rumor)",
+     "text": "Somebody is keeping it clean, and they are not doing it for us.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-meter.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "worker",
+     "node": "power-meter (work)  [never heard]",
+     "text": "They read your meter yet?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-meter.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "power-meter (work)  [never heard]",
+     "text": "They read it Tuesday.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-meter.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "worker",
+     "node": "power-meter (work)",
+     "text": "And?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-meter.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "power-meter (work)",
+     "text": "And they wrote a number down and walked off and I still have no lights.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-dark.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "power-dark (atmos)  [never heard]",
+     "text": "You walking back that way after?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-dark.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "power-dark (atmos)",
+     "text": "Not through the dark part.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-dark.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "power-dark (atmos)",
+     "text": "It is four minutes through the dark part.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-dark.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "power-dark (atmos)",
+     "text": "It is twenty around, and I have got twenty.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-panel.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "scav",
+     "node": "power-panel (trade)  [never heard]",
+     "text": "You still pulling panels off the flat roofs?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-panel.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "power-panel (trade)  [never heard]",
+     "text": "Not off the flat roofs. The good ones face the wrong way for a flat roof.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-panel.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "scav",
+     "node": "power-panel (trade)",
+     "text": "Where then.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#power-panel.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "power-panel (trade)",
+     "text": "The carports. Nobody looks up at a carport.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-shift.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "worker",
+     "node": "work-shift (work)  [never heard]",
+     "text": "You picking up the extra shift?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-shift.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "worker",
+     "node": "work-shift (work)",
+     "text": "I picked up two and they paid me for one.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-shift.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "worker",
+     "node": "work-shift (work)",
+     "text": "Did you say anything?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-shift.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "worker",
+     "node": "work-shift (work)",
+     "text": "I said it twice. The second time was to a different man with the same face.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-rent.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "work-rent (grief)  [never heard]",
+     "text": "They put paper on the door again?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-rent.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "work-rent (grief)",
+     "text": "Same paper. Same wording.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-rent.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "work-rent (grief)",
+     "text": "That is not a warning any more then, that is just weather.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-rent.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "work-rent (grief)",
+     "text": "It is weather until the day it is not, and you cannot tell which day that is.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-crew.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "worker",
+     "node": "work-crew (work)  [never heard]",
+     "text": "They are taking names again down at the yard.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-crew.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "work-crew (work)  [never heard]",
+     "text": "For what work.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-crew.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "worker",
+     "node": "work-crew (work)",
+     "text": "They do not say for what work. They just take names.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-crew.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "work-crew (work)",
+     "text": "Then do not give them yours before you know what the work is.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-tools.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "work-tools (trade)  [never heard]",
+     "text": "You get your tools back?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-tools.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "worker",
+     "node": "work-tools (trade)",
+     "text": "I got a receipt for my tools.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-tools.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "work-tools (trade)",
+     "text": "That is not the same thing.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#work-tools.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "worker",
+     "node": "work-tools (trade)",
+     "text": "It is if you are the one holding the tools.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-price.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "trade-price (trade)  [never heard]",
+     "text": "What did it cost you?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-price.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "trade-price (trade)",
+     "text": "Twice what it cost the last person who asked.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-price.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "trade-price (trade)",
+     "text": "Did you pay it?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-price.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "trade-price (trade)",
+     "text": "I paid it. Tomorrow it will be twice again and I will pay that too.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-empty.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "scav",
+     "node": "trade-empty (trade)  [never heard]",
+     "text": "Anything left out past the wash?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-empty.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "trade-empty (trade)  [never heard]",
+     "text": "Anything left is left because somebody looked at it and walked away.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-empty.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "scav",
+     "node": "trade-empty (trade)",
+     "text": "That is not a no.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-empty.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "trade-empty (trade)",
+     "text": "It is not a no. It is bring somebody with you.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-weigh.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "keeper",
+     "node": "trade-weigh (trade)  [never heard]",
+     "text": "Your scale is heavy.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-weigh.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "trade-weigh (trade)",
+     "text": "My scale is the scale.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-weigh.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "keeper",
+     "node": "trade-weigh (trade)",
+     "text": "It was lighter last week.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-weigh.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "trade-weigh (trade)",
+     "text": "Last week you brought me better metal.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-credit.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "trade-credit (work)  [never heard]",
+     "text": "Put it on the book.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-credit.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "keeper",
+     "node": "trade-credit (work)  [never heard]",
+     "text": "The book is closed.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-credit.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "trade-credit (work)",
+     "text": "Since when is the book closed.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#trade-credit.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "keeper",
+     "node": "trade-credit (work)",
+     "text": "Since the last four people on it stopped walking past.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-quiet.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-quiet (rumor)  [never heard]",
+     "text": "You been up the hill lately?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-quiet.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-quiet (rumor)",
+     "text": "Not since they started keeping somebody on the road up.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-quiet.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-quiet (rumor)",
+     "text": "Keeping somebody on it how.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-quiet.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-quiet (rumor)",
+     "text": "Sat in a chair. Did not stop me. Just wrote down that I went.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-moving.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-moving (rumor)  [never heard]",
+     "text": "Two families off your street this month.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-moving.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "rumor-moving (rumor)  [never heard]",
+     "text": "Three.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-moving.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-moving (rumor)",
+     "text": "Where do they go.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-moving.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "rumor-moving (rumor)",
+     "text": "Towards the water. Everybody goes towards the water eventually.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-nobody.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "rumor-nobody (rumor)  [never heard]",
+     "text": "Anybody come through here today?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-nobody.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-nobody (rumor)",
+     "text": "Plenty came through.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-nobody.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "rumor-nobody (rumor)",
+     "text": "Anybody stop.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-nobody.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-nobody (rumor)",
+     "text": "Nobody stops here. That is the whole reason I like it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-list.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-list (rumor)  [never heard]",
+     "text": "They are asking who lives where now.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-list.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-list (rumor)  [never heard]",
+     "text": "They have always asked that.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-list.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-list (rumor)",
+     "text": "They are writing it down now.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#rumor-list.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "rumor-list (rumor)",
+     "text": "Then tell them a house you do not sleep in.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-door.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-door (grief)  [never heard]",
+     "text": "Did anyone shut the door properly?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-door.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-door (grief)",
+     "text": "I shut it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-door.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-door (grief)",
+     "text": "Good. The heat does the rest and it does it kindly enough.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-door.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-door (grief)",
+     "text": "Do not tell me what the heat does. I shut the door.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-name.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-name (grief)  [never heard]",
+     "text": "You keep saying we when you talk about that house.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-name.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-name (grief)  [never heard]",
+     "text": "I lived in it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-name.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-name (grief)",
+     "text": "You lived in it a long time ago.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-name.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-name (grief)",
+     "text": "I say we because there is nobody left to correct me.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-count.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "grief-count (grief)  [never heard]",
+     "text": "How many this week.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-count.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-count (grief)",
+     "text": "I stopped counting on purpose.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-count.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "grief-count (grief)",
+     "text": "That is not like you.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-count.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-count (grief)",
+     "text": "Counting was the only part of it I was any good at, so I stopped.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-chair.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-chair (grief)  [never heard]",
+     "text": "You are still putting the second chair out.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-chair.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "keeper",
+     "node": "grief-chair (grief)  [never heard]",
+     "text": "It is a chair. It goes out.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-chair.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "grief-chair (grief)",
+     "text": "You could put one out.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#grief-chair.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "keeper",
+     "node": "grief-chair (grief)",
+     "text": "I could. I put two out. Leave it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-crowd.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-crowd (atmos)  [never heard]",
+     "text": "It is busy out here today.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-crowd.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-crowd (atmos)",
+     "text": "It is busy every day now. You just used to leave earlier.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-crowd.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-crowd (atmos)",
+     "text": "There were not this many of us.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-crowd.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-crowd (atmos)",
+     "text": "There were. They were inside, and inside got worse than out here.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-heat.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-heat (atmos)  [never heard]",
+     "text": "You are out in the middle of it again.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-heat.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-heat (atmos)  [never heard]",
+     "text": "The shade is taken.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-heat.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-heat (atmos)",
+     "text": "The shade is always taken.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-heat.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-heat (atmos)",
+     "text": "So I stand here and I do not talk about it, usually.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q008.W6",
+       "title": "DENSITY AS OBSTACLE",
+       "applied": "the world's texture is the challenge. A street with enough people on it to hold a conversation is a different street to move through than an empty one."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-newface.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-newface (social)  [never heard]",
+     "text": "New face on the block.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-newface.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "street-newface (social)",
+     "text": "I saw. Came in from the road, not the houses.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-newface.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-newface (social)",
+     "text": "That means somebody let them past.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-newface.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "street-newface (social)",
+     "text": "Or nobody was sitting where somebody should have been sitting.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-dogs.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-dogs (atmos)  [never heard]",
+     "text": "They are back on your side again.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-dogs.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-dogs (atmos)  [never heard]",
+     "text": "They go where the bins are.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-dogs.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-dogs (atmos)",
+     "text": "The bins are empty.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-dogs.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-dogs (atmos)",
+     "text": "They do not know that yet. Neither did I for a while.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-known.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-known (social)  [never heard]",
+     "text": "You know everyone on this street?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-known.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-known (social)",
+     "text": "I know everyone who was on it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-known.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-known (social)",
+     "text": "That is not the same list.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-known.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-known (social)",
+     "text": "It is a shorter one, and I still say it in the same order.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q043.W4",
+       "title": "AMBIENT BANTER AS CHARACTERIZATION",
+       "applied": "the corpus names OVERHEARD RELATIONSHIPS the cheapest, highest-impact characterisation a solo dev has. The barks shipped the overheard half and not the relationship half. These are two people who know each other."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-watching.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "street-watching (social)  [never heard]",
+     "text": "You are looking at everybody today.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-watching.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-watching (social)  [never heard]",
+     "text": "I look at everybody every day.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-watching.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "watch",
+     "node": "street-watching (social)",
+     "text": "Not like that you do not.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-watching.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-watching (social)",
+     "text": "Somebody came through twice and did not buy anything either time.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      },
+      {
+       "id": "Q018.W3",
+       "title": "THE RUMOR WEB (curiosity as the quest log)",
+       "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-asking.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-asking (social)  [never heard]",
+     "text": "Somebody was asking after you.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-asking.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-asking (social)",
+     "text": "Asking what.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-asking.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-asking (social)",
+     "text": "Asking which one you were. Not where you live, which one you were.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#street-asking.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "street-asking (social)",
+     "text": "Then they already knew where I live.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "what you learn about this valley you learn through its social fabric rather than a quest log, so the gossip IS the information channel."
+      },
+      {
+       "id": "Q001.P8",
+       "title": "W8 (reward the listener",
+       "applied": "gate something behind a detail only an attentive player caught. Some of these carry a fact about the valley that is said nowhere else, so walking past is a real loss and standing still is a real reward."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
     }
    ]
   },
