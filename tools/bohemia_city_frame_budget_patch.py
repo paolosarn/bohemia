@@ -67,6 +67,45 @@ LEGACY_MARKS = []
 # BUILDS in. Two paints per pointer event, two pointer events per visual step.
 # The single-finger drag is deliberately untouched at 1.00: it was never the problem, and
 # quietly changing something that was never measured is how a perf pass breaks a feel.
+# ---- THE VISTA OVERLOOK WAS RECOMPUTED EVERY BEAT ---------------------------------------
+# PROFILED, not guessed: while walking, 42.7% of samples were in seenFrom() and 18.6% in
+# fallbackHome(). SIXTY-ONE PERCENT of the time the player spends moving, and the actual
+# drawing was 0.2%. My own earlier note said this cost was "renderer cost, a much larger
+# job" -- THAT WAS WRONG, and the profiler is what corrected it. Never diagnose a perf
+# problem by reading code; sample it.
+#
+# WHAT IT IS: vistaCheck() runs on the beat and asks "am I standing on the best overlook?".
+# Its own comment says "it is a cell test" -- and comparing two cells IS cheap. GETTING the
+# cell is not. vistaWhere() -> BohemiaVista.overlook(world) scans all 9,216 cells of the
+# 96x96 overmap and, for every rim cell, casts 24 rays x 46 steps looking for what it can
+# see. Millions of lookups, from scratch, every single step.
+# A CHEAP-LOOKING CHECK WITH AN ENORMOUSLY EXPENSIVE INPUT is the most expensive kind,
+# because nothing about the call site looks wrong.
+#
+# THE FIX IS A CACHE, and it is safe for exactly one reason: THE ANSWER CANNOT CHANGE.
+# The overlook is derived from the MAP, and the map is fixed for a seed -- walking around
+# does not move the mountains. Keyed on the seed so a REROLL still recomputes.
+# Memoised at the city's call site rather than inside the engine module, because the vista
+# is co-owned (demo row 11: RUN plays it, CITY owns where it is) and this lane does not get
+# to change the shared body on its own.
+VISTA_OLD = ("function vistaWhere(){ try{ return BohemiaVista.overlook(WORLDREF||om); }"
+             "catch(e){ return null; } }")
+VISTA_NEW = ("""/* __VISTA_MEMO__ -- the overlook is derived from the MAP, and the map does not move
+   while he walks. This used to run a full 9,216-cell scan with 24-ray casts per rim cell
+   EVERY BEAT, because vistaCheck() calls it to ask "am I standing on it yet?" -- 61% of
+   frame time while walking, profiled. Comparing two cells is cheap; FETCHING the cell was
+   not, and nothing at the call site looked wrong.
+   Keyed on the seed, so REROLL still recomputes and nothing goes stale. */
+let VISTA_MEMO=null, VISTA_MEMO_SEED=null;
+function vistaWhere(){
+  try{
+    var w=WORLDREF||om, sd=(w&&w.seed);
+    if(VISTA_MEMO!==null && VISTA_MEMO_SEED===sd) return VISTA_MEMO;
+    VISTA_MEMO=BohemiaVista.overlook(w); VISTA_MEMO_SEED=sd;
+    return VISTA_MEMO;
+  }catch(e){ return null; }
+}""")
+
 CALL_SITES = [
     # (what it is, before, after)
     ('setHZoom, the walked view',
@@ -75,6 +114,7 @@ CALL_SITES = [
     ('setZoomAt, the city camera',
      '\n  clampPan(); render();\n',
      '\n  clampPan(); renderSoon();\n'),
+    ('the vista overlook memo', VISTA_OLD, VISTA_NEW, '__VISTA_MEMO__'),
     ('the city pinch pan branch',
      '      if(lastMid){ panX+=m.x-lastMid.x; panY+=m.y-lastMid.y; clampPan(); render(); }',
      '      if(lastMid){ panX+=m.x-lastMid.x; panY+=m.y-lastMid.y; clampPan(); renderSoon(); }'),
@@ -112,6 +152,9 @@ function renderSoon(){
 }
 %s""" % (MARK, ENDMARK)
 
+
+
+
 if not os.path.exists(WORLD):
     sys.exit('FRAME BUDGET: %s is not here.' % WORLD)
 src = open(WORLD, encoding='utf-8').read()
@@ -146,7 +189,12 @@ src = src[:i] + JS + '\n' + src[i:]
 # coalesce has moved, and guessing which render() to rewrite is how a perf pass breaks
 # something nobody measured.
 rewired = []
-for what, before, after in CALL_SITES:
+for _site in CALL_SITES:
+    what, before, after = _site[0], _site[1], _site[2]
+    _marker = _site[3] if len(_site) > 3 else None
+    if _marker and _marker in src:
+        rewired.append(what + ' (already)')
+        continue
     if before in src:
         src = src.replace(before, after, 1)
         rewired.append(what)

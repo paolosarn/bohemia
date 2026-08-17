@@ -296,6 +296,62 @@ function requirePlaywright() {
        walk.frames + ', under 10%)',
        walk.dupes <= Math.max(3, walk.frames * 0.10));
 
+    /* *** THE BIGGEST WIN OF THE WEEK, AND THE PROFILER FOUND IT, NOT READING. ***
+       Walking cost ~14 ms per frame. I had written in a commit that this was "renderer
+       cost, a much larger job than duplication" -- I INFERRED THAT AND IT WAS WRONG.
+       Sampled, the drawing was 0.2% and SIXTY-ONE PERCENT was in two functions: seenFrom
+       (42.7%) and fallbackHome (18.6%).
+       WHY: vistaCheck() runs on the beat and asks "am I standing on the best overlook
+       yet?". Its own comment calls it "a cell test", and comparing two cells IS cheap --
+       but FETCHING the cell scans all 9,216 map cells and casts 24 rays x 46 steps from
+       every rim cell. A CHEAP-LOOKING CHECK WITH AN ENORMOUSLY EXPENSIVE INPUT, which is
+       the worst kind, because nothing at the call site looks wrong.
+       The answer is derived from the MAP and the map does not move while he walks, so it
+       is memoised on the seed. 14.7 ms -> 0.6 ms per frame, measured.
+       ASSERTED AS A COUNT, not a time: the overlook must be computed ONCE across many
+       steps. A count is deterministic and travels; the milliseconds are just the reward. */
+    await p.evaluate(() => {
+      window.__ov = 0;
+      const o = BohemiaVista.overlook;
+      BohemiaVista.overlook = function () { window.__ov++; return o.apply(this, arguments); };
+      if (MODE !== 'human' && typeof swapMode === 'function') swapMode();
+    });
+    await p.waitForTimeout(1200);
+    for (let i = 0; i < 8; i++) {
+      await p.evaluate(() => {
+        const el = document.querySelector('#pad .pb');
+        if (el) el.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+      });
+      await p.waitForTimeout(120);
+    }
+    /* AND THE COUNT IS TAKEN FROM vistaWhere() DIRECTLY, not from walking, because
+       vistaCheck() short-circuits once the vista has been seen -- so counting during steps
+       reported ZERO with the memo AND ZERO without it. A SILENT PASS OVER NO WORK, which
+       is the same trap the first city-pan assertion fell into earlier in this file. Ask the
+       function the question instead of hoping the game asks it for you. */
+    /* AND THE MEMO IS RESET BEFORE COUNTING. Without that the cache is already warm from
+       page load, so the count is 0 WITH the memo and 0 WITHOUT it -- a silent pass over no
+       work, twice over, and the mutation test is what exposed it. A cache test that never
+       makes the cache miss is not a test. */
+    const ov = await p.evaluate(() => {
+      let n = 0;
+      const o = BohemiaVista.overlook;
+      BohemiaVista.overlook = function () { n++; return o.apply(this, arguments); };
+      try { VISTA_MEMO = null; VISTA_MEMO_SEED = null; } catch (e) {}
+      for (let i = 0; i < 12; i++) vistaWhere();
+      BohemiaVista.overlook = o;
+      return n;
+    });
+    console.log('  MEASURED: full-map overlook scans for 12 vistaWhere() calls = ' + ov);
+    ok('THE VISTA OVERLOOK IS COMPUTED ONCE, NOT EVERY TIME IT IS ASKED (' + ov + ' scans ' +
+       'for 12 calls). It was 61% of frame time while walking -- a 9,216-cell raycast with ' +
+       '24-ray casts per rim cell, behind a line that reads like a cell comparison',
+       ov <= 1);
+    ok('and the memo still tells the TRUTH: it matches the uncached engine answer, so the ' +
+       'cache is not a lie',
+       await p.evaluate(() => JSON.stringify(vistaWhere()) ===
+                              JSON.stringify(BohemiaVista.overlook(WORLDREF || om))));
+
     ok('and nothing throws while it is measured',
        errs.length === 0 || (console.log('  (errors: ' + errs.slice(0, 2).join(' | ') + ')'), false));
   } catch (e) {

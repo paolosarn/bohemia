@@ -281,6 +281,8 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 
 
 
+
+
 #daycardIn .mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;
   padding:9px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
   border:1px solid var(--line)}
@@ -7102,6 +7104,10 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 
 /* ==== end THE WORLD YOU STAND IN ==== */
+
+
+
+
 
 
 
@@ -16069,6 +16075,8 @@ let _zacc=44;
 
 
 
+
+
 /* ==== ONE PAINT PER FRAME WHILE HE PINCHES ==== */
 /* __FRAME_BUDGET__ -- renderSoon(): one paint per frame while two fingers are down.
    MEASURED, NOT GUESSED (gates/frame_budget_gate.js): pinch-zoom WHILE WALKING cost 2.08
@@ -17740,7 +17748,21 @@ function deadDraw(ox,oy){
    mountain cell on the valley rim by what it can actually see, and the winner is
    wherever this seed happened to put the best vantage. ==== */
 let VISTA=null;            // {returnTo:{hx,hy,mode}, card, at} while it is open
-function vistaWhere(){ try{ return BohemiaVista.overlook(WORLDREF||om); }catch(e){ return null; } }
+/* __VISTA_MEMO__ -- the overlook is derived from the MAP, and the map does not move
+   while he walks. This used to run a full 9,216-cell scan with 24-ray casts per rim cell
+   EVERY BEAT, because vistaCheck() calls it to ask "am I standing on it yet?" -- 61% of
+   frame time while walking, profiled. Comparing two cells is cheap; FETCHING the cell was
+   not, and nothing at the call site looked wrong.
+   Keyed on the seed, so REROLL still recomputes and nothing goes stale. */
+let VISTA_MEMO=null, VISTA_MEMO_SEED=null;
+function vistaWhere(){
+  try{
+    var w=WORLDREF||om, sd=(w&&w.seed);
+    if(VISTA_MEMO!==null && VISTA_MEMO_SEED===sd) return VISTA_MEMO;
+    VISTA_MEMO=BohemiaVista.overlook(w); VISTA_MEMO_SEED=sd;
+    return VISTA_MEMO;
+  }catch(e){ return null; }
+}
 let WORLDREF=null;
 try{ WORLDREF={ seed:om.seed, at:function(x,y){ return om.at(x,y); } }; }catch(e){}
 
@@ -18821,6 +18843,8 @@ function skyExit(){ if(!SKY)return; SKY=false; SKYU=0; window.__SKY_EXIT=(window
   }, true);
 })();
 /* ==== end THE MOON ZOOM ON HIS PHONE ==== */
+
+
 
 
 
@@ -23175,6 +23199,8 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 document.getElementById('mktbtn').addEventListener('click',function(){
   if(!mktAt())return; MKT_LAST=null; showMarket();
 });
+
+
 
 
 

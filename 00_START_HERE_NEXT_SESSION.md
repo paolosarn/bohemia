@@ -9815,7 +9815,44 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/16 (b) LATEST -- *** DEMO ROW 8 (PERF) IS CLOSED, AND THE LAST
+WORLD (world-9lfjtf): 8/16 (c) LATEST -- *** WALKING GOT ~20x CHEAPER, AND I FOUND IT BY
+PROFILING AFTER MY OWN NOTE SAID THE OPPOSITE. *** BUILD 8/16t.
+Gate: frame_budget_gate.js 16/0.
+
+    BEFORE : 14.7 ms per frame while walking, 1,239 ms of work for ten steps
+    AFTER  :  0.6 ms per frame,                  46 ms for ten steps
+
+I HAD WRITTEN IN A COMMIT THAT THIS WAS "RENDERER COST, A DIFFERENT AND MUCH LARGER JOB."
+That was INFERRED. Profiled, the drawing was 0.2% and SIXTY-ONE PERCENT of walking was in
+two functions: seenFrom (42.7%) and fallbackHome (18.6%).
+NEVER DIAGNOSE A PERF PROBLEM BY READING CODE. SAMPLE IT.
+
+WHAT IT WAS: vistaCheck() runs on the beat and asks "am I standing on the best overlook
+yet?". Its own comment calls it "a cell test" -- and comparing two cells IS cheap. FETCHING
+the cell is not: vistaWhere() -> BohemiaVista.overlook() scans all 9,216 cells of the 96x96
+overmap and casts 24 rays x 46 steps from every rim cell. Millions of lookups, from
+scratch, every single step he takes.
+A CHEAP-LOOKING CHECK WITH AN ENORMOUSLY EXPENSIVE INPUT is the worst kind of slow, because
+nothing at the call site looks wrong. The line reads like a comparison.
+
+THE FIX IS A MEMO, and it is safe for exactly one reason: THE ANSWER CANNOT CHANGE. The
+overlook is derived from the MAP, and walking does not move the mountains. Keyed on the
+seed so REROLL still recomputes. Proven honest: the memo's answer is byte-identical to the
+uncached engine call, so the cache is not a lie.
+SIDE EFFECT, MEASURED: the pinch-while-walking cost fell 18.8 ms -> 3.6 ms too, because it
+was paying the same tax.
+
+*** AND THE ASSERTION FOR IT WAS WRONG TWICE BEFORE IT WAS RIGHT. ***
+  1. Counted scans while WALKING -> 0 with the memo and 0 without, because vistaCheck()
+     short-circuits once the vista has been seen. A silent pass over no work.
+  2. Counted scans from vistaWhere() but did not RESET the memo first -> the cache was
+     already warm from page load, so again 0 either way.
+  A CACHE TEST THAT NEVER MAKES THE CACHE MISS IS NOT A TEST. It now resets and counts:
+  1 scan for 12 calls; disable the memo and it reports 12 and goes red. Both proven.
+  The mutation test is the only reason either mistake was caught -- the gate was GREEN and
+  meaningless twice.
+
+WORLD (world-9lfjtf): 8/16 (b) -- *** DEMO ROW 8 (PERF) IS CLOSED, AND THE LAST
 MEASUREMENT NEARLY MADE ME BREAK THE WALK ANIMATION. *** BUILD 8/16s.
 Gate: frame_budget_gate.js 14/0. Board: records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md
 
