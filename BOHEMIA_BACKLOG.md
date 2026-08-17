@@ -6248,6 +6248,42 @@ SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    under the ceiling | detail per item = his normal thumbs, later | YES —
    the before/after pair is the judgeable, and the thinner border is the
    thing to look at. ***
+   *** AMENDED 8/17 AFTER BUILDING IT. THREE THINGS ABOVE ARE NOW WRONG AND THIS
+   ROW WOULD COST THE NEXT SESSION A DAY IF IT WERE POPPED AS WRITTEN.
+   (1) "Steps 1-4 NOT STARTED" is stale. Steps 1-3 ARE BUILT, PROVED AND DORMANT
+   at RIG_RS=1: RIG2X() doubles his rig losslessly (halve it back and his pixels
+   return byte for byte), 23 seams read the rig's size instead of assuming 56, and
+   all of it is the IDENTITY at RIG_RS=1 -- proved on 96 rendered frames,
+   96/96 byte-identical. `python3 tools/bohemia_2x_flip.py --flip` (and --unflip,
+   which round-trips to the same bytes).
+   (2) STEP 4 IS SHIPPED, AND IT DID NOT NEED THE FLIP. This row says the border
+   is "already step (4) and nothing new is owed ... author at 112 and the same body
+   carries a border half as thick". That coupling was wrong: the border was 2px
+   because CHAR_OUTLINE ran BEFORE the Scale2x that takes the frame to 112, so
+   moving the pass to after the upscale delivered 2px -> 1px on its own. Shipped
+   8/16-8/17 on EVERY surface that draws a person -- drawChar, bake112 for COMBAT,
+   and the city at all three zoom tiers (which was still doubling to 2px and
+   quadrupling to 4px after the alpha was fixed).
+   laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md
+   Gates: border_gate.js, city_border_gate.js (self-calibrating: it measures the
+   OLD behaviour with the SAME ruler and asserts 2->1 and 4->1).
+   (3) *** "EVERYTHING LOOKS THE SAME BUT SHARPER AND NOTHING REGRESSES" IS
+   DISPROVED. AT 112 NATIVE HIS HEAD RENDERS AS A BOX. *** Flat-sided hair, a jaw
+   that drops straight down with no taper. His art holds 56x56 of information and
+   doubling invents none -- and Scale2x does not merely enlarge, IT ROUNDS DIAGONAL
+   CORNERS. A large part of that head's roundness was never painted; the upscaler
+   manufactured it in every build he has ever approved, and composing natively
+   removes it. That walks straight into the LOCKED 8/1 law "no straight lines (hair
+   is little off shapes)".
+   THE TEMPTING WRONG FIX -- doubling the rig with Scale2x so the rounding bakes in
+   -- RESHAPES HIS PAINTED ART (RIG LAW) and destroys the round-trip proof that
+   makes the doubler legal at all. Do not.
+   SO THE REMAINING WORK IS NOT PLUMBING, IT IS PAINT: twice the pixels means
+   AUTHORING at 112, which is step (5) this row explicitly says not to mix in --
+   and it turns out step (5) is the only thing left that can deliver the headline.
+   The pipeline is ready the day the art is; the flip is one call.
+   Full finding + every measurement:
+   records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_8_16_26.txt ***
 FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
    we're gonna need to make animations for this and yep" — laws/BOHEMIA_
    ADDENDUM_HEALING_IS_A_BIG_DEAL_8_12_26.md §7-8): one clip set for the

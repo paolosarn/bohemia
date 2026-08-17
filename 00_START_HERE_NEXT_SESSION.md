@@ -526,6 +526,80 @@ asking things of YOU, and refusing costs a rung. The research is done and in the
 law; the organ is not built. (2) consolidate the two RUNGS tables. (3) the RATION
 half of the 7/26 verdict is still unadopted.
 
+CHARACTER (character-0lurbs): 8/17 LATEST -- *** THE BORDER RULING IS FINISHED ON
+EVERY SURFACE, AND 2X IS NOW A PAINTING PROBLEM, NOT A CODE ONE. READ BOTH. ***
+
+SHIPPED THIS SESSION (all live, all gated, all mutation-tested):
+ 1. THE BORDER IS ONE PIXEL -- everywhere a person is drawn. CHAR_OUTLINE always
+    drew ONE and was always correct; it just ran BEFORE the Scale2x that takes the
+    frame to 112, so his border arrived DOUBLED. Moved the pass to after the
+    upscale. drawChar + bake112 (COMBAT) on 8/16.
+    AND THE GAME WAS STILL DOUBLING IT AFTER THAT -- caught 8/17. The city scales
+    bodies on an integer ladder (EPX x2 at the default walk zoom HC=44, x4 past 64)
+    so the border baked in at 56 reached the screen 2px, and 4px zoomed in. Fixed
+    at the same seam: bake56 gained an OPT-IN borderless flag (the CITY asks; the
+    legacy RUN bridge does NOT and keeps what it had), and CITY_WORLD got one
+    shared spriteAt() that scales for the tier and borders once, cached.
+    Measured 2->1 at walk zoom, 4->1 zoomed in.
+    laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md
+    Gates: border_gate.js (6/0), city_border_gate.js (11/0, SELF-CALIBRATING -- it
+    measures the OLD behaviour with the SAME ruler, so the claim is a comparison
+    and not a threshold somebody picked; I had it on ">=85% of rows" reading 79%
+    and did NOT lower it).
+    TAB: CHARACTER for the workbench, and RUN/CITY/COMBAT for the game.
+ 2. THE BACK OF HIS HEAD WAS NEVER MISSING ART. Two gates spent weeks demanding a
+    FACE ON A SKULL and every handoff filed it as a debt HE owed. NE/N/NW carry a
+    92px head against 24-31 on the front views -- rear three-quarters. Both gates
+    fixed; the face carve-out must EARN itself by proving a double-mass skull, so it
+    cannot be bought by deleting art. 8/0 mutation-tested.
+    records/BOHEMIA_THE_BACK_OF_HIS_HEAD_WAS_NEVER_MISSING_8_17_26.txt
+ 3. A DEV STATUS LINE WAS ON THE PLAY SURFACE. "rig sync: waiting for a rig edit"
+    sat above the day card in the game. NOT a tab bug: #syncBadge lives OUTSIDE
+    #stage so it renders on all sixteen tabs by construction. It now says nothing
+    at rest and still flashes on a rebuild. gates/play_surface_clean_gate.js checks
+    THE BAND, not the badge, so the next one is caught whatever it is called.
+ 4. THE GATE SUITE COULD NOT RUN AT ALL ON MAIN -- twice in one day a GATES row
+    landed with 3 fields instead of 4 (INSTRUMENTS, then VERDICT FROZEN), and the
+    runner UNPACKS rows, so one bad row killed all 362 for every lane with a
+    traceback naming no gate. Fixed both + the table now checks itself and NAMES
+    the row. Mutation-tested.
+
+*** 2X: BUILT, PROVED, DELIBERATELY OFF -- DO NOT JUST TURN IT ON. ***
+Steps 1-3 are in the file and dormant at RIG_RS=1 (RIG2X doubles his rig losslessly
+-- halve it back and his pixels return byte for byte; 23 seams; every one the
+IDENTITY at RIG_RS=1, proved on 96 frames, 96/96 byte-identical).
+    python3 tools/bohemia_2x_flip.py --flip     (and --unflip, byte-identical)
+IT IS OFF BECAUSE AT 112 HIS HEAD RENDERS AS A BOX. His art holds 56x56 of
+information; doubling invents none, and Scale2x was not merely enlarging, IT WAS
+ROUNDING THE CORNERS -- a large part of that head's roundness was never painted.
+Composing natively removes it, straight into the LOCKED 8/1 "no straight lines".
+Doubling the rig with Scale2x instead reshapes his art (RIG LAW) and kills the
+round-trip proof. TWICE THE PIXELS MEANS PAINTING AT 112. The backlog's CHARACTER
+2X row is AMENDED 8/17 with all of this -- read the amendment, not the original
+plan, which says "nothing regresses" and is disproved.
+    records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_8_16_26.txt
+
+THE LANE HAS ZERO REDS. Verified on the shipped tree: border 6/0, city border 11/0,
+play surface 4/0, chin law 10/0, parts painted 23/0, bodyvar 41/0, char outline
+35/0, neck tone 58/0, clothes follow 63/0, frozen poses 29/0, anim fabrication 26/0,
+rig is law 12/0, rig check 187/0, family cast 26/0, family anim 13/0, worn persist
+5/0, engine sync zero drift.
+
+I CROSSED INTO CITY_WORLD for the border, and say so plainly: the border law and the
+player sprite are this lane's, the eight lines that scale and blit that sprite are
+where the law was breaking, and the halves cannot land separately (borderless art
+with no border pass = no outlines at all). One commit, one gate, and the residents
+share the same helper so nobody could silently lose an outline.
+
+*** THE WORKING COPY STILL REVERTS BETWEEN TURNS. It happened again this session
+(HEAD came back at 968 while origin/main was at 1042). The local origin/main ref
+lies too, so every "am I current?" check agrees with itself. RESYNC FIRST and treat
+any measurement taken before it as VOID:
+    SHA=$(git ls-remote origin main | cut -f1)
+    git fetch --force --no-tags origin main
+    git update-ref refs/remotes/origin/main $SHA
+    git checkout -f -B claude/character-0lurbs origin/main ***
+
 CHARACTER (character-0lurbs): 8/16 LATEST -- *** THE BORDER IS ONE PIXEL. AND 2X IS
 NOT A CODE PROBLEM ANY MORE -- IT IS A PAINTING PROBLEM. READ THAT SECOND PART. ***
 
