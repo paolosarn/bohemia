@@ -1,4 +1,19 @@
 <!DOCTYPE html><html><head><meta charset="utf-8">
+<!-- __IT_GOES_ON_HIS_HOME_SCREEN__ -- IT GOES ON HIS HOME SCREEN (demo board row 6).
+     iOS DOES NOT read the manifest's icons for the springboard: it reads
+     apple-touch-icon, and that element OVERRIDES the manifest list where both
+     exist. So the touch icon is not a legacy fallback here, it is the only thing
+     that puts his own chosen logo (bank pick #11, THE ONE) on his phone.
+     The manifest is the modern declaration and carries display:standalone; the
+     capable meta costs one line and covers older phones a friend might hand
+     over. Both, on purpose. -->
+<link rel="manifest" href="bohemia.webmanifest">
+<link rel="apple-touch-icon" href="icons/bohemia-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="BOHEMIA">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0c0a08">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>BOHEMIA</title>
 <script>/* ONE-LINK LAW (Paolo 7/18/26): the canonical alpha URL is the ONLY link,
@@ -998,7 +1013,19 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/17j - THE STREET TALKS TO ITSELF</div>
+  <!-- __IT_GOES_ON_HIS_HOME_SCREEN__ -- THE STORAGE SPLIT, SAID OUT LOUD INSTEAD
+       OF LOOKING LIKE A WIPED SAVE. iOS gives a home-screen web app its OWN
+       storage bucket: localStorage, cookies and the service worker are NOT shared
+       with Safari. So a run played in the browser is simply not in the jar the
+       icon opens, and the symptom is indistinguishable from the save being
+       destroyed. Shown ONLY when both are true (standalone AND nothing saved),
+       and it points at the EXPORT/IMPORT path the save panel already has.
+       (Re-placed 8/17: a rebase onto a splash another lane had edited dropped
+       this element while keeping the script that fills it, so the notice went
+       silent with every source check still green. The gate caught it.) -->
+  <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
+       font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/17k - IT GOES ON YOUR HOME SCREEN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7647,6 +7674,40 @@ function drawLogoBig(){
   x.clearRect(0,0,cv.width,cv.height);
   x.drawImage(im,0,0);
 }
+/* __IT_GOES_ON_HIS_HOME_SCREEN__ -- see the note element above. navigator.standalone is
+   Apple's own flag and display-mode:standalone covers everyone else; BOTH this
+   AND an empty save must be true, so a returning player never sees it. */
+(function(){
+  var solo = (window.navigator && window.navigator.standalone === true) ||
+    (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+  if(!solo) return;
+  /* *** A NOT-YET IS NOT AN ANSWER. *** The first cut read CITYSAVE right here
+     and wrapped it in a catch that set empty=true. CITYSAVE is a `const` about
+     FOUR THOUSAND LINES further down this file, so at this point it is in the
+     temporal dead zone: the read THREW, the catch called that "no save", and the
+     gate caught the build telling a returning player his run was gone. Same
+     shape as the HOME/LANDED bug on 8/11 -- a silent catch around a TDZ error
+     looks exactly like a feature quietly doing the wrong thing. So it WAITS for
+     the ledger to exist and only then decides, and if it never arrives it says
+     NOTHING, because a warning fired on no evidence is worse than no warning. */
+  var tries = 0;
+  function decide(){
+    var sv = null;
+    try{ sv = CITYSAVE.load(); }
+    catch(_e){ if(tries++ < 60){ setTimeout(decide, 100); } return; }
+    var empty = !(sv && sv.data);
+    window.__STANDALONE_EMPTY = !!empty;
+    if(!empty) return;
+    var el = document.getElementById('standalonenote');
+    if(!el) return;
+    el.textContent = 'Added to your home screen. iPhone gives this its own save, '
+      + 'separate from Safari, so a run you played in the browser is not here. '
+      + 'Open the browser, tap the disk icon, EXPORT SAVE, then IMPORT it in here.';
+    el.style.display = 'block';
+    window.__STANDALONE_NOTE = 1;
+  }
+  decide();
+})();
 document.getElementById('front').addEventListener('click',()=>{
   document.getElementById('front').style.display='none';
   document.getElementById('app').style.display='flex';buildUI();

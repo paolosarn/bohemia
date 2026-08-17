@@ -209,6 +209,26 @@ GATES = [
      'asserts NO DAMAGE BEFORE THE DIAL is untouched, and GENERATES the tuning list rather '
      'than remembering it. The tables are empty today: it is standing before the numbers '
      'arrive so the first hand to fill them cannot land an untagged one', True),
+    ('HOME SCREEN',    ['node', 'gates/home_screen_gate.js'],
+     'DEMO BOARD row 6, the half open since 8/13: manifest + apple metas + icon, and the '
+     'board\'s own evidence was a grep returning 0, 0 and 0 across every surface. He demos '
+     'this on a PHONE off one link and that link had no name, no icon and no way out of '
+     'Safari chrome. THREE iOS FACTS, researched rather than remembered, because each is a '
+     'place iOS does not do what other platforms do: (1) iOS DOES NOT USE THE MANIFEST ICONS '
+     'for the springboard -- it reads apple-touch-icon, which OVERRIDES the manifest list, so '
+     'a manifest-only build passes every checker and still ships a grey screenshot as the '
+     'icon; (2) the icon has to EXIST AND PUBLISH, checked on disk and against _config.yml '
+     'through the shared resolver, because a missing one is not a broken image he could '
+     'diagnose, it is a blank tile on his phone; (3) STORAGE IS NOT SHARED between Safari and '
+     'a home-screen app -- separate localStorage, cookies and service worker -- so a run he '
+     'played in the browser IS NOT THERE when he taps the icon, and the symptom is '
+     'indistinguishable from the save being wiped. The build says so in plain words and names '
+     'the EXPORT/IMPORT path that already exists, and this DRIVES ALL THREE CASES in a real '
+     'browser: standalone-and-empty must warn, standalone-with-a-run must stay QUIET (a '
+     'notice fired at a returning player is worse than none), and the browser never sees it. '
+     'That middle case caught a real bug on the first run: the check read CITYSAVE from four '
+     'thousand lines above its own const, so the TDZ throw landed in a catch that called it '
+     '"no save" -- a not-yet is not an answer', True),
     ('ONE VALLEY',     ['node', 'gates/one_valley_gate.js'],
      'Paolo 8/15: "When I press the re-roll button... it like puts me to another location and I '
      'cant continue to run." MEASURED mid-run: one tap swapped the valley seed, threw him out of '
