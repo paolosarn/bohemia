@@ -151,7 +151,17 @@ for (const [name, dials] of EXTREMES) {
     if (got.join(',') !== PARTS.join(',')) { structBad.push(name + '/' + d + ': part id set changed'); continue; }
     for (const q of PARTS) {
       const arr = L[q];
-      if (!arr.length) { structBad.push(name + '/' + d + ' part ' + q + ': EMPTIED'); continue; }
+      /* *** EMPTIED MEANS THE DIAL TOOK SOMETHING AWAY. *** PARTS is derived from
+         SOUTH -- a FRONT view, the facing that shows the most face -- and was then
+         required on every facing, so NE and NW could never pass: they are rear
+         three-quarters and carry no face at all (92px of back-of-skull instead of
+         24-31px of front head). That reported his correct art as a dial bug.
+         Comparing against each facing's OWN neutral rig is STRICTER, not looser:
+         every real emptying on every facing is still caught, and a part that was
+         never painted there cannot be reported as removed. */
+      const base = ((BAKED.layers[d] || {})[q] || []).length;
+      if (!arr.length && base) { structBad.push(name + '/' + d + ' part ' + q + ': EMPTIED (rig paints ' + base + 'px here)'); continue; }
+      if (!arr.length) continue;                    /* nothing there to empty */
       for (const idx of arr) if (idx < 0 || idx >= CW * CH || (idx | 0) !== idx) { structBad.push(name + '/' + d + ' part ' + q + ': index out of the 56x56 frame'); break; }
       // no row of a part may vanish: the source rows must all survive
       const sRows = new Set(BAKED.layers[d][q].map(i => (i / CW) | 0));

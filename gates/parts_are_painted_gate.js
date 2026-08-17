@@ -55,12 +55,42 @@ ok('all eight facings are painted', DIRS.length === 8);
 
 /* 1a. every part is non-empty on every facing -- "complete" starts with existing */
 {
+  /* *** A REAR VIEW HAS NO FACE, AND THAT IS ANATOMY, NOT MISSING ART. ***
+     This demanded all twelve parts on all eight facings and so flagged NE/2 and
+     NW/2 forever -- and every handoff since carried it as a debt owed by PAOLO.
+     Measured on his rig: NE, N and NW carry a NINETY-TWO pixel head against 24-31
+     on the front views. Three times the mass, because a rear three-quarter shows
+     the whole cranium and no features. Rendered all eight and looked: the face
+     turns toward you through S/SE/E and away through NE/N/NW. The art is right.
+
+     THE CARVE-OUT HAS TO EARN ITSELF, or it is just a hole. The face may be
+     absent ONLY where the head PROVES the facing is a rear view, by carrying at
+     least twice the front-view head mass. Consequences, all deliberate:
+       - delete the face from S/SE/E/W/SW and this still fails (small head there)
+       - delete a back-of-skull as well as its face and this fails, because the
+         proof disappears with the art
+     An exemption that cannot be satisfied by REMOVING art is the only kind that
+     is safe to grant. */
+  const headOf = d => ((B.layers[d] || {})[1] || []).length;
+  const faceOf = d => ((B.layers[d] || {})[2] || []).length;
+  const frontHeads = DIRS.filter(d => faceOf(d) > 0).map(headOf).filter(n => n > 0);
+  const frontHead = frontHeads.length ? Math.min.apply(null, frontHeads) : 0;
+  const isRearView = d => faceOf(d) === 0 && frontHead > 0 && headOf(d) >= frontHead * 2;
+  const rear = DIRS.filter(isRearView);
+
   let missing = [];
   for (const d of DIRS) for (let q = 1; q <= 12; q++) {
+    if (q === 2 && isRearView(d)) continue;          /* the back of a head */
     const L = B.layers[d][q];
     if (!L || !L.length) missing.push(d + '/' + q);
   }
-  ok('no part is empty on any facing' + (missing.length ? ' [' + missing.slice(0, 6).join(', ') + ']' : ''), !missing.length);
+  ok('no part is empty on any facing, except the FACE on a proven rear view (' +
+     (rear.length ? rear.join(',') + ' — head ' + rear.map(headOf).join('/') +
+      'px vs ' + frontHead + 'px on the front views' : 'none') + ')' +
+     (missing.length ? ' [' + missing.slice(0, 6).join(', ') + ']' : ''), !missing.length);
+  ok('and a rear view is PROVEN by its skull, never assumed — a facing with no ' +
+     'face and no big head is missing art and still fails',
+     DIRS.every(d => faceOf(d) > 0 || isRearView(d)));
 }
 
 /* 1b. THE TORSO IS WHOLE UNDER THE ARMS. This is his question, checked literally:

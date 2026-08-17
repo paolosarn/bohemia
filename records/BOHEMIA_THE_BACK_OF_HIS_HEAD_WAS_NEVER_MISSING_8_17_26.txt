@@ -1,0 +1,103 @@
+BOHEMIA — THE BACK OF HIS HEAD WAS NEVER MISSING ART
+CHARACTER lane, 8/17/26
+
+TWO GATES HAD BEEN RED FOR WEEKS AND BOTH WERE DEMANDING A FACE ON THE BACK OF A
+SKULL. Every handoff since carried it forward as
+
+    "STILL HIS, STILL OPEN: NE and NW have no face painted at all"
+
+which filed a debt against PAOLO for art that is correct. He was never going to
+"finish" it, because there was nothing to finish.
+
+
+===============================================================================
+THE MEASUREMENT THAT SETTLED IT
+===============================================================================
+Painted pixels per part per facing, straight off his rig:
+
+    dir    head   FACE          dir    head   FACE
+    S       24     76           NE      92      0   <- flagged
+    SE      31     64           N       92     12
+    E       26     48           NW      92      0   <- flagged
+    W       26     48           SW      31     64
+
+NE, N and NW carry a NINETY-TWO PIXEL head against 24-31 on the front views.
+That is not a head with its face deleted. That is THE BACK OF A SKULL: roughly
+three times the mass, because a rear three-quarter shows the whole cranium and no
+features. The two "empty" facings are the two with the biggest heads in the rig.
+
+Then I rendered all eight through drawChar and LOOKED (VERIFY ON THE REAL SURFACE,
+7/18). The face turns toward you through S/SE/E and away through NE/N/NW. The
+rotation reads exactly the way a rotation should. THE ART IS RIGHT.
+
+
+===============================================================================
+WHAT WAS ACTUALLY WRONG — THE SAME MISTAKE, TWICE
+===============================================================================
+A fixed list of twelve parts, demanded on all eight facings.
+
+  parts_are_painted_gate.js    for (let q = 1; q <= 12; q++)   // every direction
+  bodyvar_gate.js              const PARTS = keys(BAKED.layers.S)
+
+bodyvar's is the sharper one and worth keeping in mind: it derives "the parts that
+must exist" from SOUTH -- the single facing that shows the MOST face -- and then
+requires that set everywhere. A back view can never satisfy it. The gate was not
+measuring the dials at all on those facings; it was measuring the difference
+between the front of a head and the back of one.
+
+
+===============================================================================
+THE FIX, AND WHY NEITHER HALF IS A HOLE
+===============================================================================
+1. bodyvar now asks its OWN question. Its rule is "a DIAL must not empty a part",
+   and emptying means the rig painted something and the dial took it away. So it
+   compares each facing against ITS OWN neutral rig instead of against South's part
+   list. This is STRICTER, not looser: every real emptying on every facing is still
+   caught, and a part that was never painted there can no longer be reported as
+   removed.
+
+2. parts_are_painted still demands all twelve parts, with ONE anatomical carve-out
+   THAT HAS TO EARN ITSELF: the FACE may be absent only on a facing that PROVES it
+   is a rear view, by carrying at least twice the front-view head mass.
+
+   *** THE PROPERTY THAT MAKES IT SAFE: the exemption cannot be bought by REMOVING
+   ART. *** Delete the skull and the proof goes with it, so the missing face becomes
+   a failure again. That is the whole design.
+
+
+===============================================================================
+MUTATION-TESTED, BECAUSE AN EXEMPTION IS A HOLE UNTIL SOMEBODY PROVES IT IS NOT
+===============================================================================
+tools/bohemia_backhead_mutation_check.js — 8 passed, 0 failed:
+
+  0. the untouched rig PASSES (his rear facings are not a defect)
+  1. face deleted from S (a front view)            CAUGHT
+  2. face deleted from every front view            CAUGHT
+  3. rear view stripped of its skull (NE head)     CAUGHT  <- cannot buy the exemption
+  4. non-face part deleted from a rear view        CAUGHT  <- face only, never blanket
+  5. a DIAL wipes a part the rig paints            CAUGHT  <- bodyvar's real rule
+  + both mutated files md5-verified back to byte-identical before exit
+
+AND THE FIRST VERSION OF TEST 5 WAS WRONG, in the way worth writing down: it
+emptied the face OUT OF THE RIG and expected bodyvar to shout. With the rig empty
+there, no dial removed anything, and staying quiet was the CORRECT answer --
+parts_are_painted is what catches a rig hole, and it did, in test 1. A test that
+fails a gate for answering its own question correctly is a broken test, not a
+broken gate. The mutation was moved to where the rule actually lives: the dial
+module.
+
+
+===============================================================================
+RESULT
+===============================================================================
+  parts_are_painted   21 passed / 1 failed  ->  23 passed / 0 failed
+  bodyvar             40 passed / 1 failed  ->  41 passed / 0 failed
+
+THE CHARACTER LANE NOW HAS ZERO REDS, and the one open item every handoff had been
+attributing to Paolo does not exist.
+
+STILL TRUE AND WORTH A GLANCE SOMEDAY: N carries 12 face pixels while NE and NW
+carry none. On a straight-back view you would expect zero. Twelve pixels is a
+sliver -- an ear edge or a hair line sitting in part 2 -- and it is not worth
+touching his rig over. Recorded so the next person who measures this does not
+think they have found something.

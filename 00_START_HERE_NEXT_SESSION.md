@@ -489,9 +489,16 @@ and EVERY ONE re-run at 56 first, where it had to return the identical verdict A
 the identical numbers. It did. A ruler fix that changes an old verdict is not a
 fix, it is a relaxation.
 
-STILL HIS, STILL OPEN: NE and NW have no face painted at all (this is why PARTS
-PAINTED and BODY VARIATION each carry one red). Verified on a clean tree, not a
-regression.
+*** CLOSED 8/17, AND IT WAS NEVER HIS: NE and NW have no face because THEY ARE THE
+BACK OF HIS HEAD. Measured -- NE/N/NW carry a 92px head against 24-31 on the front
+views, three times the mass, a whole cranium with no features -- and rendered all
+eight facings and looked: the face turns toward you through S/SE/E and away through
+NE/N/NW. Both gates were demanding all twelve parts on all eight facings (bodyvar
+derived its required set from SOUTH, the facing with the MOST face). Fixed, and the
+face carve-out has to EARN itself by proving a rear view with a double-mass skull,
+so it cannot be bought by deleting art. parts_are_painted 23/0, bodyvar 41/0.
+Do not re-file this as a debt he owes.
+records/BOHEMIA_THE_BACK_OF_HIS_HEAD_WAS_NEVER_MISSING_8_17_26.txt ***
 
 *** THE WORKING COPY STILL REVERTS BETWEEN TURNS -- it happened AGAIN this session
 (HEAD came back at 968 commits while origin/main was at 1042), and the local
@@ -1359,8 +1366,9 @@ STILL LAW AND STILL SHIPPED FROM EARLIER TODAY (he approved it twice):
   throat ever claiming the last face row under the mouth.
 
 NOT PENDING HIM ANY MORE: the overworld face size question is CLOSED. Do not ask it again.
-STILL HIS AND STILL OPEN: NE and NW have no face painted at all (why PARTS PAINTED and BODY
-VARIATION carry one red each -- verified identical on a clean tree, not a regression).
+CLOSED 8/17: the NE/NW "missing face" was THE BACK OF HIS HEAD all along (92px skull vs
+24-31px front head, confirmed by rendering all eight). Both gates were wrong, both are fixed
+and mutation-tested, CHARACTER has zero reds. Not his, not open.
 
 --------------------------------------------------------------------------------
 
