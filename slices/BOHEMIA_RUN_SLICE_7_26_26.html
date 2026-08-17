@@ -877,6 +877,34 @@ function drawSfform(gx,gy,X,Y,S){
    suburb family, so the hook runs there deliberately. Canvases harvested
    from the harmonized street pool; cap/face authored to the frozen starter
    kerb's measured numbers so straight runs and transitions read as one. */
+/* THE REAL ENTRANCES (8/17): the world names its own gate cells - 'gate /
+   curb cut' on the fence line where a driveway crosses. Measured 8/16: all
+   of them sit ON cell borders, which is why a border-excluding scan missed
+   them for a pass. Each one now draws its driveway ground and a single-leaf
+   OPEN gate (the approved gate art's post half) - a car entrance standing
+   open, where the world says it is. */
+function drawGateform(gx,gy,X,Y,S){
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  if(n.indexOf('gate')<0 || (n.indexOf('curb cut')<0 && n.indexOf('kerb cut')<0)) return false;
+  var gimg=TILEFORM_IMG['gate_open'];
+  if(!gimg||!gimg.complete||!gimg.naturalWidth) return false;
+  if(!drawBought('concrete',gx,gy,X,Y,S)) tput('dirt',X,Y,S);
+  /* an entrance can be several cells wide: the LEAVES hang at the run's two
+     ends (left half of the art west, right half east) and the middle stays
+     open ground - one wide gate standing open, not a picket line of gates. */
+  function gcell(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+    var n2=String(NAMEG[y2][x2]||'').toLowerCase();
+    return n2.indexOf('gate')>=0 && (n2.indexOf('curb cut')>=0||n2.indexOf('kerb cut')>=0); }
+  var horiz = gcell(gx-1,gy)||gcell(gx+1,gy);
+  var isW = horiz ? !gcell(gx-1,gy) : !gcell(gx,gy-1);
+  var isE = horiz ? !gcell(gx+1,gy) : !gcell(gx,gy+1);
+  var sx = isW ? 0 : isE ? 44 : -1;
+  if(sx>=0){
+    ctx.drawImage(look(gimg),sx,44,44,44,X,Y,S,S);
+    ctx.drawImage(look(gimg),sx,0,44,44,X,Y-S,S,S);
+  }
+  return true;
+}
 function drawKerbform(gx,gy,X,Y,S){
   var n=String(NAMEG[gy][gx]||'').toLowerCase();
   /* M2 (8/17 second design pass): a driveway cell that MEETS the road is a
@@ -3305,6 +3333,7 @@ function draw(){
         /* TF-ART-018 (8/16 second pass): kerb returns + crossing ramps. The
            8/16 measurement stands - sidewalks live in the SUBURB family - so
            this hook runs for suburb ground too, before the bought pool. */
+        if(!body && drawGateform(gx,gy2,X,Y,S)) continue;
         if(!body && drawKerbform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))

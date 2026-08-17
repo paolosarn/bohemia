@@ -481,3 +481,15 @@ on the seam. (2) Those cells are REAL entrances - a future pass should move
 the hash-placed fence gates onto them instead of rolling dice. Recorded on
 the form. Ramps stay banked (no crossing landing is named). The kerb card
 is reshot at a driveway mouth.
+
+## 8/17 TWENTY-FIFTH PASS: GATES AT THE REAL ENTRANCES
+
+The 8/16 finding pays off: the world-named 'gate / curb cut' cells (all on
+cell borders, the fence lines' own entrances) now draw their driveway
+ground and a single-leaf OPEN gate from the approved art. RUN-AWARE from
+the second render on: a multi-cell entrance hangs its leaves at the END
+posts only - the first render put a full gate on every cell of the run and
+read as a picket line of gates, caught on the live surface and fixed the
+same pass. The hash-rolled mid-run gates from 8/14 stay (they read as yard
+gates); the REAL entrances now read as what they are: places a car drives
+in. Freeway re-probed after four more WORLD ships: STILL reserved ground.

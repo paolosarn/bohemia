@@ -1,3 +1,10 @@
+ART (f3eu53): 8/17 (b) LATEST -- *** GATES AT THE REAL ENTRANCES: every
+world-named gate/curb-cut cell stands as a single wide open gate now,
+run-aware (leaves at the end posts, mouth open). Freeway re-probed: STILL
+reserved ground. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twenty-fifth pass)
+TAB: ART, WIRED IN THE GAME - chain-link card text carries it.
+
 FACTIONS (factions-ovkjpf): 8/16 (b) LATEST -- *** WHO YOU RUN WITH IS NOW ABOUT
 WHERE YOU LIVE, AND HALF THE VALLEY'S COMMUTE WAS BEING THROWN AWAY.
 TAB: CITY (tap anybody near a faction base). ***
@@ -189,7 +196,7 @@ worth someone's attention and is not mine to move. (2) More reaction axes off
 signals the sim already emits. (3) Quest volume: 114 questbook studies still
 untouched. (4) Two-person overheard exchanges are now POSSIBLE at a raised dial
 (88 bodies on one street) and were not before.
-ART (f3eu53): 8/17 (a) LATEST -- *** THE DRIVEWAY DROPS ARE IN: every suburb
+ART (f3eu53): 8/17 (a) -- *** THE DRIVEWAY DROPS ARE IN: every suburb
 driveway that meets the street wears its dropped kerb lip. Kerb kit now
 returns + drops live; ramps banked. FOUND: the 80 world-named gate/curb-cut
 cells all sit ON cell borders - real entrances the hash-placed fence gates
