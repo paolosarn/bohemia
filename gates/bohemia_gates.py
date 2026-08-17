@@ -634,6 +634,14 @@ GATES = [
      'beat-tactics lab: dial-gated damage, occupancy, 120, verdict UI', False),
     ('COMBAT RUNS',    ['node', 'gates/combat_runs_smoke.js'],
      'IT PARSES IS NOT IT RUNS (Paolo 8/2, black screen + one red line): 620 string checks and a node --check were all green while every frame threw ReferenceError, because a temporal dead zone is valid syntax. This boots the real alpha, opens the real combat tab and drives real frames through cover -> AIM -> killshot -> freeze, failing on ANY pageerror or console error', False),
+    ('COMBAT ENTRY',  ['node', 'gates/combat_entry_gate.js'],
+     'THE DOOR IS THE FIGHT (RF4-C first deliverable, 8/17): demo row 1 said the walked surface has NO COMBAT '
+     'ENTRY POINT -- verified, all five "combat" occurrences in the city world were comments or CSS -- while the '
+     'V66 BOHEMIA_ENCOUNTER bridge had been finished and driven by the run for weeks. The city simply never called '
+     'it. This boots the alpha, opens the walked surface the way his thumb does, WALKS A BODY THROUGH A REAL DOOR '
+     'via the shipped inEnter, and requires a real fight to assemble and then put him back on the block he was '
+     'standing on. Mutation-tested against ITSELF: an earlier version drove the trigger by hand and stayed green '
+     'when the door was unhooked, which is the exact present-and-dead blind spot it exists to catch', True),
     ('FIGHT MOVES YOU', ['node', 'gates/fight_moves_you_gate.js'],
      'THE FIGHT HAS TO MOVE YOU (Paolo 8/15, LOCKED, demo-critical): "there\'s no movement whatsoever and I hate it". '
      'His law names its own test and asked for this gate by name -- play a fight from ONE SPOT and require it to FAIL. '

@@ -998,7 +998,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/16u - YOU CANNOT SHOOT WHAT YOU CANNOT SEE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/17a - THE DOOR IS THE FIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7207,6 +7207,51 @@ function runPost(msg){
 }
 let RUNFIGHT=false;              /* this fight belongs to the run, and owes it an answer */
 window.__RUN_HANDOFF={acked:false,started:false,ended:false};   /* what run_gate.js reads */
+/* ===== V161 THE DOOR IS THE FIGHT ==============================
+   The walked surface had no combat entry point (demo row 1, verified: all five
+   "combat" occurrences in the city world were comments or CSS). The bridge was
+   already finished -- BOHEMIA_ENCOUNTER in, BOHEMIA_COMBAT_END out, driven by
+   the RUN slice for weeks. The city just never called it.
+   THIS MIRRORS runEncounterIn ON PURPOSE, shape for shape. A second handoff path
+   is the duplicate-system mistake this repo keeps paying for; the fight the city
+   asks for rides the same bus the dial already speaks. */
+var CITYFIGHT=false, CITYFIGHT_AT=null;
+function cityEncounterIn(d){
+  CITYFIGHT=true; CITYFIGHT_AT=(d&&d.at)||null;
+  const go=()=>{ const enc=startEncounter({
+      packageId:(d&&d.packageId!=null)?d.packageId:1,
+      roster:(d&&d.roster)||null,
+      objective:(d&&d.label)?('inside the '+d.label):null,
+      faction:(d&&d.faction)||null, reason:'walked in on them'});
+    if(enc){ enc.fromCity=true; enc.cityRoom=(d&&d.room)||null; }
+    return !!enc; };
+  if(document.getElementById('combatFrame')){showTabPanel('combat');go();return;}
+  const tab=document.querySelector('.tab[data-p=combat]');
+  if(tab)tab.click();                                   /* creates the frame + shows it */
+  const fr=document.getElementById('combatFrame');
+  if(!fr){go();return;}
+  if(fr.contentDocument&&fr.contentDocument.readyState==='complete')setTimeout(go,250);
+  else fr.addEventListener('load',()=>setTimeout(go,250));
+}
+/* and home again, to the block he was standing on. INSIDE.exit already holds the
+   exterior cell he walked in from, because the interior entrance IS the exterior
+   entrance -- that is the 7/19 law doing the work, not a second bookkeeping. */
+function cityFightHome(outcome){
+  if(!CITYFIGHT)return false;
+  CITYFIGHT=false;
+  /* THE WALKED SURFACE IS BEHIND THE **RUN** TAB. There is no data-p="city"
+     tab at all -- the shell maps the RUN tab to the p-city panel
+     (`var PANEL = (t.dataset.p==='run') ? 'city' : t.dataset.p`). Clicking the
+     real tab is what rebuilds/refreshes the frame, so this clicks what his
+     thumb clicks instead of hand-toggling classes and leaving the tab strip
+     lying about where he is. */
+  try{ const t=document.querySelector('.tab[data-p=run]');
+    if(t)t.click(); else showTabPanel('city'); }catch(_e){}
+  try{ const cf=document.getElementById('cityFrame');
+    if(cf&&cf.contentWindow)cf.contentWindow.postMessage({type:'BOHEMIA_CITY_COMBAT_END',
+      outcome:outcome||null, at:CITYFIGHT_AT},'*'); }catch(_e){}
+  CITYFIGHT_AT=null; return true;
+}
 function runEncounterIn(d){
   RUNFIGHT=true;
   window.__RUN_HANDOFF={acked:true,started:false,ended:false};
@@ -7247,6 +7292,7 @@ function combatMsgIn(d){
     if(!_keyed)return false;
   }
   if(d.type==='BOHEMIA_RUN_ENCOUNTER'){runEncounterIn(d);return true;}
+  if(d.type==='BOHEMIA_CITY_ENCOUNTER'){cityEncounterIn(d);return true;}   /* V161 THE DOOR IS THE FIGHT */
   if(d.type==='BOHEMIA_RUN_NEED_CAST'){runSendCast();return true;}
   /* CITY CAST: the city asks for a body on boot; send the CAST too, so
      the people standing in it are not six copies of him. */
@@ -7402,6 +7448,7 @@ function combatMsgIn(d){
     /* THE RUN HANDOFF, coming home: the fight the run asked for is settled, so
        hand the outcome (dead/spared/fled per the mercy mechanics) back down and
        put Paolo straight back on the block where he was standing. */
+    try{ if(CITYFIGHT)cityFightHome(G.lastEncounter||null); }catch(_e){}   /* V161: back to the block he was standing on */
     if(RUNFIGHT){
       RUNFIGHT=false;
       if(G.encounter)G.encounter.fromRun=false;

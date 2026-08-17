@@ -19979,7 +19979,66 @@ function inEnter(tgtX,tgtY,fromX,fromY,portal){
      which is exactly what the 8/2 doorway rule funnels every entry through. */
   try{ doorSwing((tgtX*73856093)^(tgtY*19349663),tgtX,tgtY); }catch(_e){}
   try{ dayEnteredBuilding(INSIDE&&INSIDE.label); }catch(_e){}   /* __DAY_LOOP__ */
+  /* __CITY_FIGHT__ -- V161 THE DOOR IS THE FIGHT.
+     Demo row 1: there was NO COMBAT ENTRY POINT on the walked surface -- every
+     "combat" occurrence in this file was a comment or CSS, checked. The combat
+     bridge itself has been finished since V66 and the RUN slice has driven it
+     for weeks; THE CITY SIMPLY NEVER CALLED IT.
+     inEnter is the ONE place a body goes through a door (the 8/2 doorway ruling
+     funnels every entry through here), so this is the only hook needed and
+     nothing else in the walk is touched. */
+  try{ cityFightOnEnter(); }catch(_e){}
   advance(0.5); return true;
+}
+/* WHO IS IN THE ROOM IS NOT MINE. This city has factions, bases and reach and NO
+   hostility model, and who hates whom is canon -- Paolo's, not this lane's. So no
+   hostility table is authored here.
+   But an empty predicate means the wire never fires, which is invisible work and
+   exactly what ALWAYS MAKE AN ATTEMPT (8/11) exists to stop. So: a real playable
+   attempt, marked draft, movable in one word.
+   DETERMINISTIC OFF THE FOOTPRINT, never a coin flip per entry -- the same
+   building behaves the same way every time, so the world is a place rather than a
+   slot machine, and he cannot farm a door by walking in and out. */
+var FIGHT_ODDS=0.35;   /* [DIAL, draft:true] how often somebody is in there who does not want you in there */
+var FIGHT_MIN=2, FIGHT_MAX=5;   /* [DIALS, draft:true] how many of them, and the ROOM decides */
+function cityFightRoll(){
+  if(!INSIDE||!INSIDE.foot)return false;
+  var f=INSIDE.foot;
+  var h=(Math.imul(f.x,2246822519)^Math.imul(f.y,3266489917)^Math.imul(f.w*31+f.h,668265263))>>>0;
+  return ((h%1000)/1000)<FIGHT_ODDS; }
+/* HOW MANY OF THEM, DERIVED FROM THE ROOM RATHER THAN PICKED. A bigger room
+   holds more people -- that is the floor plate doing the work, not a table I
+   invented, and it means the fight scales with the building he chose to walk
+   into. Sending NO roster is not an option: startEncounter maps (spec.roster||[])
+   and an empty fight throws in the frame -- measured, "Cannot read properties of
+   undefined" on the first end-to-end run. A fight with nobody in it is not a
+   restrained fight, it is a broken one. */
+function cityFightCount(){
+  if(!INSIDE||!INSIDE.foot)return FIGHT_MIN;
+  var f=INSIDE.foot, area=Math.max(1,(f.w|0)*(f.h|0));
+  var n=Math.round(FIGHT_MIN+(FIGHT_MAX-FIGHT_MIN)*Math.min(1,area/144));
+  return Math.max(FIGHT_MIN,Math.min(FIGHT_MAX,n)); }
+function cityFightOnEnter(){
+  if(!INSIDE||!cityFightRoll())return false;
+  if(!(window.parent&&window.parent!==window))return false;
+  var f=INSIDE.foot, fp=INSIDE.fp;
+  /* THE NAMES ARE NOT MINE. Only the ARCHETYPE rides -- who these people are,
+     what they are called and which outfit they run with is canon. startEncounter
+     already fills a neutral placeholder name, and that stays a placeholder until
+     he rules. */
+  var roster=[]; var n=cityFightCount();
+  for(var i=0;i<n;i++)roster.push({arch:(i%4===3)?'bot':'human'});
+  var fac=null; try{ fac=(typeof cityFactionHere==='function')?cityFactionHere():null; }catch(_e){}
+  /* the ROOM rides along -- real dimensions, because INTERIOR-MATCHES-EXTERIOR
+     means fp.W x fp.H IS the footprint. Combat does not consume it yet: walls as
+     cover and doorways as chokepoints are the RF4 half and belong to the teardown
+     spec, which does not exist. Sending it costs nothing and means the spec'd
+     version has it waiting instead of needing another wire. */
+  try{ window.parent.postMessage({type:'BOHEMIA_CITY_ENCOUNTER',
+    label:(INSIDE.label||'interior'), faction:fac, draft:true, roster:roster,
+    room:{w:(fp&&fp.W)||f.w, h:(fp&&fp.H)||f.h, zone:INSIDE.zone||null},
+    at:{gx:(INSIDE.exit&&INSIDE.exit.gx)|0, gy:(INSIDE.exit&&INSIDE.exit.gy)|0}},'*'); }catch(_e){ return false; }
+  return true;
 }
 function inPassable(x,y){
   const fp=INSIDE.fp; if(x<0||y<0||x>=fp.W||y>=fp.H)return false;
