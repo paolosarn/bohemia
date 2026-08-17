@@ -51,6 +51,8 @@ exclude:
   - records/tilespec/       # the district dossiers
   - records/tileforms/
   - records/zeromorph/
+  - reference/      # third-party study corpora (Rogue Fable school, 8/17) — reference
+                    # only, cited by records/, and NEVER published: not ours to serve
   - "*.md"          # CLAUDE.md, the handoff, the backlog, the masters
   - "*.txt"
   - "*.json"

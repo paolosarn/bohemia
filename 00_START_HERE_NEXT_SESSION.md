@@ -1,3 +1,18 @@
+ART (f3eu53): 8/17 (c) LATEST -- *** PAOLO DROPPED THE ROGUE FABLE SCHOOL
+CORPUS (12 courses, 81 lessons, scripts + Tiled maps) and it is STUDIED:
+records/BOHEMIA_STUDY_THE_SCHOOL_OF_DANGER_8_17_26.md. Corpus intake at
+reference/rogue_fable_school/ (reference ONLY - no third-party pixel or
+line ships). THE HEADLINE FOR COMBAT LANE: the school architecture (tiny
+authored rooms + stat clamps as the teacher + one verb per room + exact
+enemy numbers + held-back hints + failure predicates) is the reference
+brief for teaching Bohemia's combat verbs - the beat, cover, decks, doors,
+dark-stealth, the action clock. Your surface, your build; the study is
+your brief. His question answered: the Tutorial IS in the corpus; no file
+named "danger school" was sent - that is the base game's built-in school,
+which lives in the game's own source, not the custom-course layer. ***
+
+ART (f3eu53): 8/17 (b) -- *** GATES AT THE REAL ENTRANCES: every
+
 PEOPLE (people-7h9sfy): 8/17 LATEST -- *** THE STREET TALKS TO ITSELF NOW. TWO
 PEOPLE, A REAL CONVERSATION, AND YOU WALK IN ON THE MIDDLE. TAB: RUN, just walk
 into a settlement. ***
