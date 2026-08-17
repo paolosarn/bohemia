@@ -6,7 +6,7 @@
 # REACHABILITY on the surface Paolo taps, not existence in a file
 # (VERIFY ON THE REAL SURFACE, 7/18). Every row carries its evidence.
 
-## THE SCORE: 4 CLOSED · 8 PARTIAL · 1 OPEN
+## THE SCORE: 5 CLOSED · 7 PARTIAL · 1 OPEN   (row 8 closed 8/16)
 And they share ONE root cause, below.
 
 =============================================================================
@@ -175,18 +175,49 @@ downstream already works.
 OWNER: RUN. DEMO-BLOCKING, and it is the single highest ratio of
 player-impact to work on this board.
 
-### ROW 8 — PERF — **PARTIAL**
+### ROW 8 — PERF — **CLOSED (8/16)**
 The chunked renderer IS on the walked surface: 16x16 chunk store with LRU
 eviction at 520 chunks (`CITY_WORLD:13920-13932`) and per-chunk 128x128
 baked textures, LRU-trimmed (:14375-14656). RUN 0d asked the RUN slice to
 adopt `world.stream()`; that row is now MOOT rather than done, because the
 run is not the walked surface (see the decision above).
-MISSING: any frame-time gauge at all. The backlog says it itself
-(:5850-5853) — "step latency is gated, render latency is measured
-nowhere. A perf claim without a gauge is a guess." No perf/frame/hitch
-gate or record exists. Plus the unfixed P0 from `a1bca12`: two full-valley
-redraws per touch move in sky mode, which is the freeze Paolo hit.
-OWNER: CITY (P0 + the probe on the walked surface).
+**CLOSED 8/16 — BOTH HALVES DONE, WITH NUMBERS.**
+
+THE P0 (the freeze Paolo hit leaving the city) is FIXED. Measured on a real
+touch device before touching anything: the pinch moved the sky by ZERO and
+ten touch moves fired 21 full-valley redraws at 8.2 ms each. Root cause: in
+SKY, MODE is still 'city', so every pointer handler thought it was looking
+at the city. Gate: SKY TOUCH (sky_touch_gate.js), which drives REAL touch
+through CDP because the wheel path worked the whole time and a gate that
+called skyZoom() directly would have been green on the broken build. It now
+walks the WHOLE ROUND TRIP, feet -> moon -> feet, because he had to report
+the return leg separately after the outward leg was "fixed".
+
+THE GAUGE EXISTS: FRAME BUDGET (frame_budget_gate.js), the repo's first.
+It counts REDRAWS rather than timing them, because milliseconds are a
+property of whichever machine the gate runs on and a count travels. What it
+found on its first runs:
+  - pinch while walking: 2.08 redraws/touch move -> **1.08**
+  - CITY BUILDER pinch:  4.00 redraws/touch move -> **1.00** (~86 ms per
+    finger movement, five frames at 60 Hz, in the view he BUILDS in, and it
+    had no number at all because the gauge only watched the view the page
+    OPENS in. A GAUGE THAT ONLY LOOKS WHERE THE APP OPENS IS HALF A GAUGE.)
+  - city one-finger pan: 1.00, already correct, now pinned.
+
+AND THE METRIC ITSELF NEEDED A SECOND RULER. A STEP measured 7.7 redraws,
+which by the gesture ruler reads as a catastrophic regression in the thing
+the player does every turn. IT IS NOT A REGRESSION: a step ANIMATES, so it
+should repaint many times. The histogram says 79 frames painted once and 2
+painted twice — a healthy 60 fps animation. TRUSTING THE GESTURE METRIC
+THERE WOULD HAVE "OPTIMISED" THE WALK ANIMATION OUT OF THE GAME. Animations
+are now gauged PER FRAME (the only defect available to one is painting the
+same frame twice); gestures stay per input.
+
+STILL TRUE AND WRITTEN INTO THE GATE: each redraw costs ~14 ms on a fast
+desktop, so a phone is near its frame budget while animating. That is
+RENDERER COST, a separate and much larger piece of work than duplication,
+and it is now measured rather than assumed.
+OWNER: CITY. DONE.
 
 ### ROW 9 — DEMO GATE — **PARTIAL**
 `gates/dayloop_gate.js` is the real thing and it is good: it plays the day

@@ -249,6 +249,53 @@ function requirePlaywright() {
        '). IT WAS 4.00 -- ~86 ms per finger movement, five frames, in the view he BUILDS ' +
        'in -- and nobody knew because nothing was counting', cityPinch.per <= BUDGET.cityPinch);
 
+    /* *** THE MOST COMMON ACTION IN THE GAME, AND IT NEEDED A DIFFERENT RULER. ***
+       Everything above measures REDRAWS PER TOUCH MOVE, which is the right metric for a
+       GESTURE: a pinch should not repaint twice for one movement of the fingers.
+       A STEP IS NOT A GESTURE, IT IS AN ANIMATION. Measured cold, a single step costs 7.7
+       redraws -- and by the gesture ruler that reads like a catastrophic 7x regression in
+       the thing the player does every single turn. IT IS NOTHING OF THE KIND. A step
+       animates the body between tiles, so it SHOULD repaint many times; the histogram says
+       79 frames rendered once and 2 rendered twice, which is a healthy 60fps animation.
+       IF I HAD TRUSTED THE GESTURE METRIC HERE I WOULD HAVE "OPTIMISED" THE WALK ANIMATION
+       OUT OF THE GAME and the gate would have called it a win.
+       SO ANIMATIONS ARE MEASURED PER FRAME, NOT PER INPUT: the only defect available to an
+       animation is painting the SAME frame twice, and that is what this asserts. Choosing
+       the wrong ruler does not just mis-measure, it points the fix at the wrong thing. */
+    await p.evaluate(() => {
+      if (MODE !== 'human' && typeof swapMode === 'function') swapMode();
+    });
+    await p.waitForTimeout(1400);
+    await p.evaluate(() => {
+      window.__f = 0; window.__inFrame = 0; window.__dupes = 0; window.__paints = 0;
+      const raf = window.requestAnimationFrame;
+      (function tick() {
+        window.__f++;
+        if (window.__inFrame > 1) window.__dupes++;
+        window.__inFrame = 0;
+        raf.call(window, tick);
+      })();
+      const o = window.render;
+      window.render = function () { window.__inFrame++; window.__paints++; return o.apply(this, arguments); };
+    });
+    for (let i = 0; i < 10; i++) {
+      await p.evaluate(() => {
+        const el = document.querySelector('#pad .pb');
+        if (el) el.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+      });
+      await p.waitForTimeout(140);
+    }
+    const walk = await p.evaluate(() => ({ frames: window.__f, paints: window.__paints,
+                                           dupes: window.__dupes }));
+    ok('the walk gauge saw real work (' + walk.paints + ' paints over ' + walk.frames +
+       ' frames)', walk.paints > 0 && walk.frames > 0);
+    console.log('  MEASURED: walking = ' + walk.paints + ' paints across ' + walk.frames +
+                ' frames, ' + walk.dupes + ' frames painted twice');
+    ok('WALKING PAINTS ONCE PER FRAME -- an animation is allowed to repaint often, it is ' +
+       'not allowed to paint the SAME frame twice (' + walk.dupes + ' doubled of ' +
+       walk.frames + ', under 10%)',
+       walk.dupes <= Math.max(3, walk.frames * 0.10));
+
     ok('and nothing throws while it is measured',
        errs.length === 0 || (console.log('  (errors: ' + errs.slice(0, 2).join(' | ') + ')'), false));
   } catch (e) {

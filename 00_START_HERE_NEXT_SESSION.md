@@ -9717,7 +9717,41 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/16 LATEST -- *** HIS VERDICT ON THE ZOOM: "A GOOD ROUGH DRAFT...
+WORLD (world-9lfjtf): 8/16 (b) LATEST -- *** DEMO ROW 8 (PERF) IS CLOSED, AND THE LAST
+MEASUREMENT NEARLY MADE ME BREAK THE WALK ANIMATION. *** BUILD 8/16s.
+Gate: frame_budget_gate.js 14/0. Board: records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md
+
+ROW 8 WAS THIS LANE'S ONLY OWNED ROW ON THE DEMO BOARD ("OWNER: CITY") and both halves are
+now done: the P0 touch freeze he reported, and the frame gauge that did not exist.
+Board updated with the numbers rather than a tick.
+
+*** THE FINDING WORTH KEEPING, AND IT IS ABOUT CHOOSING A RULER. ***
+The gauge measures REDRAWS PER TOUCH MOVE, which is right for a GESTURE: a pinch must not
+repaint twice for one movement of the fingers. I pointed that same ruler at WALKING, which
+is the single most common action in the game and had never been measured.
+    a step = 7.7 redraws
+By the gesture ruler that is a catastrophic 7x regression in the thing he does every turn.
+IT IS NOTHING OF THE KIND. A STEP ANIMATES. It is SUPPOSED to repaint many times. The
+histogram settles it: 79 frames painted once, 2 painted twice -- a healthy 60fps animation.
+HAD I TRUSTED THE NUMBER I WOULD HAVE "OPTIMISED" THE WALK ANIMATION OUT OF THE GAME, and
+the gate would have called it a win, and he would have reported a fourth bug.
+SO THE GAUGE NOW CARRIES TWO RULERS: gestures per INPUT, animations per FRAME. The only
+defect available to an animation is painting the SAME frame twice, and that is what is
+asserted (mutation: double the paint inside the animation loop -> 41 of 58 frames doubled,
+red). CHOOSING THE WRONG RULER DOES NOT JUST MIS-MEASURE, IT AIMS THE FIX AT THE WRONG
+THING -- the third time this week a checker's design mattered more than its result.
+
+MEASURED AND LEFT ALONE ON PURPOSE: each redraw costs ~14 ms on a fast desktop, so a phone
+sits near its frame budget while animating. That is RENDERER COST, a different and much
+larger job than duplication. It is now a measured number instead of an assumption, which is
+what row 8 asked for.
+
+WHAT IS LEFT FOR THIS LANE: nothing on the demo board. Rows 1/4/6/7/9/11 are RUN's, 2 is
+ART's (+ the freeway cells, which belong to the OTHER live WORLD session), 3 is SOUNDS',
+10 is PEOPLE's. The icon-factory debt is that other session's too -- check
+`git log -3 -- tools/bohemia_district_hero_factory.py` before touching it.
+
+WORLD (world-9lfjtf): 8/16 (a) -- *** HIS VERDICT ON THE ZOOM: "A GOOD ROUGH DRAFT...
 IT NEEDS MORE WORK." THE PLACEHOLDER WAS NOT JUST UNFINISHED, IT WAS WRONG. *** BUILD 8/16h.
 Gate: sky_touch_gate.js 18/0. Record: records/BOHEMIA_VERDICT_ROUGH_DRAFT_8_16_26.md
 
