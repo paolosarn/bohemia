@@ -111,12 +111,63 @@ def parent_block(bank):
   try{ window.__SFX_APPROVED=APPROVED; }catch(_e){}
   var last={};                       /* per event: what played last, never twice */
   var SFX_COUNT=0;                   /* what the status line in the MUSIC tab reports */
+  /* ===== ONE MOMENT, MORE THAN FIVE VOICES (8/16b) ======================
+     MEASURED, and it is the worst number in this whole lane: THE MOST-PLAYED
+     SOUND IN THE GAME HAS EXACTLY ONE APPROVED VARIANT. Every shot in every
+     firefight is byte-identical. So is every sidewalk step, every hit you
+     take, every piece of brass, every shot your cover eats. Twelve wired
+     moments sit at one variant and four more at two.
+     This is the MACHINE GUN EFFECT and it is the oldest problem in game audio:
+     the same sample fired in rapid succession stops reading as an event and
+     starts reading as a machine. It is also, precisely, "its getting stale" --
+     except this time in the GAME rather than on the judge sheet, which is why
+     no amount of new moments was ever going to fix it.
+     APPROVAL UNLOCKS VOLUME is already this repo's law. It had never been
+     applied to sound: he approved shot.3 on 8/1 and the volume never came.
+
+     WHY A SIBLING EVENT RATHER THAN A BIGGER COOK. A recipe cooks exactly five
+     candidates and his thumbs are attached to those five vectors forever
+     (verdict_frozen_gate). Widening `shot` to eight would change what shot.3
+     IS. So a moment gains a SIBLING EVENT with its own id and its own five,
+     and the picker draws from the union. His old thumbs never move.
+
+     TWO THINGS THE RESEARCH CHANGED:
+       ODD IS BETTER THAN EVEN. Standard round-robin practice is an odd number
+       of variants against an even meter, so the cycle never locks to the
+       phrasing. This game quantises EVERYTHING to 120 BPM, which makes it the
+       worst possible case for an even count -- four variants against 4/4 would
+       line up forever.
+       NEVER TWICE IN A ROW, which this picker already did and which is kept. */
+  /* WHICH MOMENTS DRAW FROM WHICH SIBLINGS (8/16b). Left is the moment the
+     game asks for; right is the extra event whose approved candidates join its
+     pool. Nothing here changes what he approved -- it only widens the draw. */
+  var SIBLINGS={
+    shot:          ['shot_more'],
+    hurt:          ['hurt_more'],
+    hit:           ['hit_more'],
+    casing:        ['brass_more'],
+    block:         ['cover_more'],
+    step_concrete: ['walk_more']
+  };      /* moment -> extra event ids that also feed it */
+  window.__sfxSiblings=SIBLINGS;
+  function poolOf(ev){
+    var pool=[], set=APPROVED[ev]||[], i;
+    for(i=0;i<set.length;i++) pool.push([ev,set[i]]);
+    var sib=SIBLINGS[ev]||[];
+    for(var s=0;s<sib.length;s++){
+      var t=APPROVED[sib[s]]||[];
+      for(i=0;i<t.length;i++) pool.push([sib[s],t[i]]);
+    }
+    return pool;
+  }
+  window.__sfxPool=function(ev){ return poolOf(ev).map(function(x){return x[0]+'.'+x[1];}); };
   function pick(ev){
-    var set=APPROVED[ev]; if(!set||!set.length)return null;   /* unjudged = silent */
-    if(set.length===1)return set[0];
-    var i, guard=0;
-    do{ i=set[(Math.random()*set.length)|0]; }while(i===last[ev] && ++guard<8);
-    last[ev]=i; return i;
+    var pool=poolOf(ev); if(!pool.length)return null;   /* unjudged = silent */
+    if(pool.length===1)return pool[0];
+    var c, guard=0, key;
+    do{ c=pool[(Math.random()*pool.length)|0]; key=c[0]+'.'+c[1]; }
+    while(key===last[ev] && ++guard<8);
+    last[ev]=key; return c;
   }
   var cache={};
   function vec(ev,i){
@@ -383,8 +434,8 @@ def parent_block(bank):
     try{
       if(typeof BOH_SFX==='undefined')return null;
       if(!voiceOK(ev))return null;
-      var i=pick(ev); if(i==null)return null;
-      var v=vec(ev,i); if(!v)return null;
+      var c=pick(ev); if(c==null)return null;
+      var v=vec(c[0],c[1]); if(!v)return null;
       MUS.audio();
       var AC=MUS.AC;
       /* a footstep goes to the quiet sub-bus; everything else to the master */
@@ -693,8 +744,8 @@ def parent_block(bank):
   function placeSound(ev, place, dest0){
     try{
       if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return null;
-      var i=pick(ev); if(i==null) return null;
-      var v=vec(ev,i); if(!v) return null;
+      var c=pick(ev); if(c==null) return null;
+      var v=vec(c[0],c[1]); if(!v) return null;
       MUS.audio(); var AC=MUS.AC; if(!AC) return null;
       var out = dest0 || sfxBus() || MUS.OUT || MUS.MAST || AC.destination;
       if(!out) return null;
@@ -739,8 +790,8 @@ def parent_block(bank):
       var ev='step_'+(({asphalt:'asphalt',dirt:'dirt',gravel:'gravel'})[d.surface]
                       ||String(d.surface||'').replace('step_','')||'dirt');
       if(!APPROVED[ev]) ev='step_dirt';
-      var i=pick(ev); if(i==null)return;
-      var v=vec(ev,i); if(!v)return;
+      var c=pick(ev); if(c==null)return;
+      var v=vec(c[0],c[1]); if(!v)return;
       if(typeof MUS==='undefined')return; MUS.audio(); if(!MUS.AC)return;
       /* NOT through the player's footstep bus. That bus is at 0.12 because HIS
          OWN steps fire constantly and would be fatiguing -- a neighbour's step

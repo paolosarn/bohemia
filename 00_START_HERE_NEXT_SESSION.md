@@ -786,59 +786,62 @@ already stores 112 frames today (G.hd defaults true), so it does not grow. HD_CA
 stays 768.
 
 --------------------------------------------------------------------------------
-SOUND (sound-xk7pjp): 8/16 LATEST -- *** THE SOUND ENGINE CAN PLAY HIS 602
-INSTRUMENTS NOW. SFX-07 IS 30 CANDIDATES BUILT FROM HIS OWN MUSIC RACK, AWAITING
-THUMBS. TAB: MUSIC. ***
+SOUND (sound-xk7pjp): 8/16b LATEST -- *** THE MOST-PLAYED SOUND IN THE GAME HAD
+ONE VARIANT. SFX-08 IS 30 CANDIDATES OF VOLUME FOR SIX MOMENTS HE ALREADY KEPT,
+AWAITING THUMBS. TAB: MUSIC. ***
 
-HIS 400/400 SWEEP KILLED SFX-06 THIRTY-FOUR OF THIRTY-FIVE. Verbatim:
-    "These are all very bad except for one I need you to be greater than use
-     more instruments. I like it was really bad."
-119 UP / 281 DOWN. records/BOHEMIA_SFX_VERDICT_8_16_26.txt.
+HIS 430/430 SWEEP SETTLED THE BIG QUESTION: *** HIS OWN INSTRUMENTS BEAT RAW
+SYNTHESIS AND IT IS NOT CLOSE. *** Same six moments, same player:
+    SFX-06, raw synthesis    0 UP / 30    0%
+    SFX-07, HIS 602-VOICE RACK  13 UP / 30   43%
+dirt_take swept 5/5. 132 UP / 298 DOWN overall. All five survivors are wired.
+records/BOHEMIA_SFX_VERDICT_8_16b_26.txt, banks/BOHEMIA_SFX_APPROVED_8_16b_26.json.
 
-*** THE FINDING, AND IT EXPLAINS EVERY SWEEP SINCE 7/29. *** The alpha carries a
-music studio whose voice rack -- synthV() -- holds SIX HUNDRED AND TWO named
-instruments (splinterbell, ashchoir, farbell, ironlung, glassrequiem, mournhorn,
-evictionbell, dustbowlguitar...). Every song he calls fire is built out of them.
-THE SFX ENGINE HAD NEVER CALLED ONE. Eighty moments, 400 candidates, five raw
-synthesis primitives, zero notes of a 375KB approved library sitting in the SAME
-HTML FILE. That is a REUSE-FIRST violation that ran for eighteen days while every
-sound gate stayed green, because they all asked "is this recipe valid" and none
-asked "is there something already approved you are ignoring". His approval rate
-on raw synthesis sat near 30% across five sweeps and never moved.
+*** AND THEN THE REAL STALENESS TURNED OUT TO BE IN THE GAME, NOT THE BALLOT. ***
+Measured across the wired set: TWELVE moments hold exactly ONE approved variant
+and four more hold two. `shot` is one of the ones -- the single most-played sound
+in the game, byte-identical on every shot of every firefight since 8/1. So is
+step_concrete (every sidewalk AND every interior floor), hurt, block, casing.
+That is the MACHINE GUN EFFECT, and it is "its getting stale" for the fifth time
+-- except in the GAME, where no number of new moments could ever have fixed it.
+APPROVAL UNLOCKS VOLUME is this repo's oldest law and sound had never applied it.
 
-WHAT SHIPPED:
-  1. A SIXTH SYNTH THAT IS A DOOR, NOT A PHYSICS. synth:'instrument' + inst:'<name>'
-     renders an event by playing HIS voice through synthV, on the same bus,
-     limiter and volume knob. It copies NO voice -- one definition, in his studio,
-     forever, so the MUSIC lane improving a voice improves the sound effects too.
-  2. instSets: FIVE DIFFERENT INSTRUMENTS PER MOMENT, not five jitters of one.
-     Every batch before asked the same question five times. This asks WHICH VOICE,
-     so his thumbs teach the lane which of HIS instruments belong in the game.
-  3. SFX-07: the six moments he did NOT dispute, rebuilt on his rack. 30
-     candidates, 30 different instruments.
-  4. went_down WIRED -- his single survivor, on the real defeat branch, fired
-     BEFORE loadClosest() rolls the world back, because the sound belongs to
-     going down and not to the save that answers it.
-  5. gates/instrument_gate.py (registered in the suite as INSTRUMENTS).
+MECHANISM (the part that matters more than the batch): SIBLING EVENTS. A recipe
+cooks exactly five and his thumbs are frozen to those five vectors forever, so a
+moment cannot simply grow. Instead a moment gains a SIBLING event with its own
+id and its own five, and pick() draws from the UNION. His old thumbs never move.
+    shot <- shot_more | hurt <- hurt_more | hit <- hit_more
+    casing <- brass_more | block <- cover_more | step_concrete <- walk_more
+window.__sfxPool('shot') prints the live draw pool.
 
-*** TWO BUGS THIS FOUND, BOTH OF WHICH WOULD HAVE SHIPPED SILENCE. ***
-  a) sanitize() had no 'str' branch, so `inst` fell to clamp(+'templeblock'||0)
-     and EVERY instrument name became 0. Every instrument sound rendered nothing.
-  b) FOUR of the first-pick instruments (thud, knock, boneshuffle, quiver) match
-     the rack's source text but are NOT reachable through synthV -- they render
-     silence. A voice that does not resolve is a silent sound effect.
-  BOTH are why instrument_gate RE-RENDERS every named voice on the shipped
-  surface every run, with a deliberate bogus-name control so the check cannot
-  pass by measuring nothing.
+TWO THINGS THE ROUND-ROBIN RESEARCH CHANGED: an ODD number of variants beats an
+even one, because an even count locks to the phrasing -- and this game quantises
+EVERYTHING to 120 BPM, the worst possible case. And never the same one twice in a
+row, which pick() already did and which is kept.
 
-NEXT: his thumbs on SFX-07 answer the only question that matters now -- do his
-own instruments beat raw synthesis. If yes, the other 74 moments get rebuilt the
-same way and the five primitives become the fallback, not the default.
+SFX-08 IS ALL INSTRUMENT-BACKED, five different voices per moment. Six of the
+first picks were thrown out for rendering SILENCE despite appearing in the rack's
+source (conga, chestplate, gorget, helm, pauldron, knock).
+
+ALSO FIXED THIS TURN: the game was playing over him while he voted. Not the
+button -- measured, the preview plays only the candidate. The RUN autosaves on
+its own timer in a tab he is not looking at and rings his save bell through the
+judge sheet. Guard: a sound is dropped only when BOTH the MUSIC tab is open AND
+the request crossed an iframe boundary (ev.source !== window). Two earlier
+versions were wrong and the gates caught both -- v1 would have silenced a
+footstep he TAPPED, v2 broke the neighbour checks.
+
+GATES: instrument_gate (his 602 voices reachable, every named voice re-rendered
+on the shipped surface with a bogus-name control), verdict_frozen_gate (a sound
+he has judged can never change; new sound = NEW id), and the machine-gun check
+inside sfx_wired_gate (a thinned moment must have a sibling to grow into). All
+mutation-proved.
+
+NEXT: his thumbs on SFX-08. Every approval instantly widens a moment's draw pool
+with no further work -- that is what the sibling mechanism buys.
 
 *** PUSH THE BRANCH THE MOMENT YOU COMMIT. *** The container reverted to an Aug 2
-snapshot THREE times this session. Everything survived only because it was on the
-remote. The gate pass gates the push to MAIN, never the push to your own branch,
-and never the play link.
+snapshot FOUR times this session. Everything survived only because it was pushed.
 
 --------------------------------------------------------------------------------
 

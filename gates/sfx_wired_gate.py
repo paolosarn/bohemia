@@ -989,6 +989,31 @@ def main():
         'the guard is too wide: it silenced a sound the PARENT asked for, which '
         'is what his own judge board and the mixer use')
 
+    # 7a-v. THE MACHINE GUN CHECK (8/16b). MEASURED, and it is the worst
+    #       number this lane ever produced: the most-played sound in the game
+    #       had exactly ONE approved variant, so every shot in every firefight
+    #       was byte-identical. APPROVAL UNLOCKS VOLUME is this repo's oldest
+    #       law and sound had never applied it.
+    #       This does NOT demand he approve more -- that would be a gate
+    #       outranking his thumbs. It demands the MECHANISM exists: a moment he
+    #       has thinned out must have a sibling event feeding its pool, so the
+    #       moment he says yes to one, the game widens by itself.
+    thin = sorted(k for k, v in bank.items() if len(v) <= 1)
+    sib_src = open('tools/bohemia_sfx_wire_patch.py', encoding='utf8').read()
+    m = re.search(r'var SIBLINGS=\{(.*?)\};', sib_src, re.S)
+    chk(m is not None, 'the sibling pool mechanism is gone -- a moment can no '
+                       'longer draw from more than five candidates')
+    sibs = set(re.findall(r"^\s*([a-z_]+):", m.group(1), re.M)) if m else set()
+    # the ones that actually repeat in play, ranked by how often they fire
+    HOT = ['shot', 'casing', 'hurt', 'block', 'step_concrete']
+    missing = [e for e in HOT if e in thin and e not in sibs]
+    chk(not missing,
+        'THESE REPEAT IDENTICALLY EVERY TIME AND HAVE NO SIBLING TO GROW INTO: '
+        '%s. One sample on every shot is the machine gun effect.' % missing)
+    print('  NOTE  %d wired moments still hold one approved variant; %d of them '
+          'have a sibling batch waiting on his thumbs'
+          % (len(thin), len([e for e in thin if e in sibs])))
+
     # 8. doors are silent, measured the same way
     chk(d.get('door'), 'playSFX("door_open") returned something -- doors must be silent')
     chk(d.get('bogus'), 'an unbanked event name played a sound')

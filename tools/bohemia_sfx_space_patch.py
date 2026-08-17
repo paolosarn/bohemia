@@ -129,7 +129,10 @@ DEFS = """  /* === THE ROOM TAKES THE SOUND (8/4) ==============================
   }
 """
 
-CALL_ANCHOR = "      var v=vec(ev,i); if(!v)return null;"
+# 8/16b: pick() returns a (event, index) PAIR now, because a moment can draw
+# from a SIBLING event -- the most-played sound in the game had one variant
+# and a recipe cannot grow past five without moving thumbs he already spent.
+CALL_ANCHOR = "      var v=vec(c[0],c[1]); if(!v)return null;"
 CALL_ADD = "\n      v=inSpace(v);"
 
 W_ANCHOR = "AMB.where(d);"

@@ -489,7 +489,17 @@ const BOH_SFX = (function () {
     { ev: 'man_moves', label: 'SOMEBODY REPOSITIONS [DEAD 8/16]', why: 'the raw-synthesis version. died 5 of 5. its replacement is boots_go' },
     { ev: 'nerve_break', label: 'HIS NERVE GOES [DEAD 8/16]', why: 'the raw-synthesis version. died 5 of 5. its replacement is will_goes' },
     { ev: 'wake_up', label: 'YOU WAKE UP [DEAD 8/16]', why: 'the raw-synthesis version. died 5 of 5. its replacement is come_up' },
-    { ev: 'went_down',   label: 'YOU GO DOWN',           why: 'you lost the fight. the biggest thing that can happen to you in this game and it has been silent since launch' }
+    { ev: 'went_down',   label: 'YOU GO DOWN',           why: 'you lost the fight. the biggest thing that can happen to you in this game and it has been silent since launch' },
+
+    /* ---- BATCH SFX-08 (8/16b) -- VOLUME FOR MOMENTS HE ALREADY KEPT ----
+       Siblings, not replacements: each feeds a moment he has already approved,
+       alongside the candidate he already keeps. His old thumbs do not move. */
+    { ev: 'shot_more',   label: 'THE GUN, AGAIN',        why: 'MORE gunshots, not a different one. shot.3 is the single most-played sound in the game and it has been alone since 8/1, so every firefight is one sample on repeat' },
+    { ev: 'hurt_more',   label: 'TAKING IT, AGAIN',      why: 'more of the hit that lands on YOU. hurt.2 has been alone since 8/1 and return fire is constant' },
+    { ev: 'hit_more',    label: 'LANDING IT, AGAIN',     why: 'more of the hit you land. two variants for the sound a whole fight is made of is two too few' },
+    { ev: 'brass_more',  label: 'MORE BRASS',            why: 'casing.0 plays after every single shot and it is one sample. brass never lands the same way twice' },
+    { ev: 'cover_more',  label: 'COVER EATS ANOTHER',    why: 'block.2 has been alone since 7/30 and one volley can be eaten three times in a second' },
+    { ev: 'walk_more',   label: 'MORE SIDEWALK',         why: 'step_concrete.2 is one sample for every sidewalk and every interior floor in the valley, the second most-walked surface in the game' }
     /* ---- end batch SFX-05 events ---- */
     /* ---- end batch 02 events ---- */
   ];
@@ -1663,6 +1673,97 @@ const BOH_SFX = (function () {
                 [0, 0.125, 0.4375], [0, 0.0625, 0.28125]]
     },
     /* ---- end batch SFX-06 recipes ---- */
+
+    /* ================= BATCH SFX-08 (8/16b) ===========================
+       SIX SIBLINGS FOR SIX MOMENTS HE ALREADY APPROVED -- volume, not new
+       moments. APPROVAL UNLOCKS VOLUME is this repo's oldest law and this lane
+       had never once applied it. MEASURED: twelve wired moments have exactly
+       ONE approved variant and four more have two, and the most-played sound
+       in the whole game is one of the ones. Every shot in every firefight is
+       byte-identical, and so is every sidewalk step.
+       THE MACHINE GUN EFFECT is the oldest problem in game audio: one sample
+       fired in rapid succession stops reading as an event and starts reading
+       as a machine. It is also exactly "its getting stale" -- except in the
+       GAME rather than on the judge sheet, which is why no number of NEW
+       moments was ever going to fix it.
+       Every one is built on his own rack, because his 430 answered that with
+       nothing left to argue: the same six moments scored 0 of 30 as raw
+       synthesis and 13 of 30 as his instruments.
+       AND THE COUNT IS ODD-SEEKING. Round-robin practice is an odd number of
+       variants against an even meter so the cycle never locks to the phrasing,
+       and this game quantises EVERYTHING to 120 BPM -- the worst possible case
+       for an even count. These moments hold 1 or 2 today; five more each puts
+       them near three or five rather than two or four. Reported, never
+       enforced: how many survive is his call.
+       Every name was rendered through the real rack before it was written
+       down, and six of the first picks were thrown out for making no sound at
+       all (conga, chestplate, gorget, helm, pauldron, knock) despite all six
+       appearing in the rack's source text. */
+    shot_more: {
+      base: { synth: 'instrument', inst: 'dropkick', mat: 'ash', hz: 66,
+              modes: 5, bright: 0.5, decay: 0.1875, damp: 2.4, warble: 0.35,
+              atk: 0, trans: 0.6, transHz: 5200, transQ: 1.1, grit: 0.7,
+              gritHz: 520, space: 0.22, room: 0.25, refl: 2, dark: 1320,
+              width: 0.5, drive: 0.2, mkup: 0.8, gain: 0.34 },
+      jit:  { hz: [52, 92], decay: [0.125, 0.25], width: [0.42, 0.66],
+              dark: [900, 1900] },
+      instSets: ['dropkick', 'subboom', 'thunderdrum', 'taiko', 'anvil']
+    },
+    hurt_more: {
+      base: { synth: 'instrument', inst: 'heartbeatsub', mat: 'ash', hz: 68,
+              modes: 4, bright: 0.35, decay: 0.25, damp: 2.2, warble: 0.5,
+              atk: 0, trans: 0.5, transHz: 1120, transQ: 0.8, grit: 0.6,
+              gritHz: 560, space: 0.37, room: 0.375, refl: 1, dark: 850,
+              width: 0.32, drive: 0.18, mkup: 0.86, gain: 0.36 },
+      jit:  { hz: [54, 96], decay: [0.1875, 0.375], width: [0.28, 0.5],
+              dark: [620, 1200] },
+      instSets: ['heartbeatsub', 'subboom', 'ironlung', 'paperlung',
+                 'throatsong']
+    },
+    hit_more: {
+      base: { synth: 'instrument', inst: 'boneplate', mat: 'bone', hz: 165,
+              modes: 6, bright: 1, decay: 0.1875, damp: 2.5, warble: 0.6,
+              atk: 0, trans: 0.7, transHz: 2900, transQ: 1.1, grit: 0.5,
+              gritHz: 1600, space: 0.18, room: 0.1875, refl: 1, dark: 1500,
+              width: 0.46, drive: 0.22, mkup: 0.88, gain: 0.42 },
+      jit:  { hz: [130, 220], decay: [0.125, 0.3125], width: [0.38, 0.6],
+              dark: [1100, 2200] },
+      instSets: ['boneplate', 'bones', 'udu', 'timbale', 'templeblock']
+    },
+    brass_more: {
+      base: { synth: 'instrument', inst: 'glassdrop', mat: 'crystal', hz: 1400,
+              modes: 6, bright: 1.3, decay: 0.25, damp: 2.4, warble: 1.3,
+              atk: 0, trans: 0.5, transHz: 8400, transQ: 2.6, grit: 0.3,
+              gritHz: 5800, space: 0.3, room: 0.3125, refl: 2, dark: 5100,
+              width: 0.7, drive: 0.05, mkup: 0.6, gain: 0.3,
+              hits: [0.25, 0.375, 0.4375] },
+      jit:  { hz: [980, 1800], decay: [0.1875, 0.375], width: [0.6, 0.92],
+              dark: [3800, 6000] },
+      instSets: ['glassdrop', 'coin', 'bottle', 'cellring', 'glassbottle'],
+      hitSets: [[0.25, 0.375, 0.4375], [0.1875, 0.3125], [0.25, 0.4375],
+                [0.3125, 0.4375, 0.5625], [0.21875, 0.34375, 0.46875]]
+    },
+    cover_more: {
+      base: { synth: 'instrument', inst: 'anvil', mat: 'stone', hz: 380,
+              modes: 6, bright: 1.2, decay: 0.25, damp: 2, warble: 0.8,
+              atk: 0, trans: 0.55, transHz: 6200, transQ: 2.2, grit: 0.4,
+              gritHz: 3400, space: 0.28, room: 0.3125, refl: 2, dark: 2450,
+              width: 0.64, drive: 0.14, mkup: 0.78, gain: 0.38 },
+      jit:  { hz: [300, 520], decay: [0.1875, 0.375], width: [0.54, 0.86],
+              dark: [1900, 3400] },
+      instSets: ['anvil', 'riveter', 'shardglass', 'ironstep', 'timpani']
+    },
+    walk_more: {
+      base: { synth: 'instrument', inst: 'templeblock', mat: 'stone', hz: 140,
+              modes: 5, bright: 0.78, decay: 0.125, damp: 2.4, warble: 0.4,
+              atk: 0, trans: 0.55, transHz: 2840, transQ: 1.4, grit: 0.5,
+              gritHz: 3100, space: 0.07, room: 0.0625, refl: 1, dark: 1800,
+              width: 0.38, drive: 0.08, mkup: 0.8, gain: 0.31 },
+      jit:  { hz: [112, 190], decay: [0.0625, 0.1875], width: [0.3, 0.52],
+              dark: [1300, 2500] },
+      instSets: ['templeblock', 'spoonclack', 'boneplate', 'bones', 'ironstep']
+    }
+    /* ---- end batch SFX-08 recipes ---- */
   };
 
   /* ---- THE MEASURED ENVELOPE (rewritten 8/12/26, SAME DAY, from 270) ----
@@ -1825,7 +1926,10 @@ const BOH_SFX = (function () {
                   /* SFX-07, his own instruments, on NEW ids because the six
                      above are judged and their sounds are frozen. */
                   'dirt_take','stone_bite','panel_tick','boots_go',
-                  'will_goes','come_up'],
+                  'will_goes','come_up',
+                  /* SFX-08, the volume batch */
+                  'shot_more','hurt_more','hit_more','brass_more',
+                  'cover_more','walk_more'],
     batch: ['step_concrete','step_sand','step_glass','step_wood','step_metal',
             'swing','melee_hit','reload','dry_fire','casing',
             'heartbeat','breath','drink','patch_up',
