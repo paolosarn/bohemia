@@ -706,6 +706,14 @@ GATES = [
      'the neck is its own skin TONE not a shadow and never tints a collar; his curtain-bob export ships byte for byte and a repaint can never become a retint', False),
     ('CHAR OUTLINE',   ['node', 'gates/character_outline_gate.js'],
      'the 1px black border wraps every facing: last pass, snapshot-based so it cannot grow on itself, colour only so occupancy still sees the true silhouette', False),
+    ('PLAY SURFACE',   ['node', 'gates/play_surface_clean_gate.js'],
+     'a friend boots the demo, taps the splash, lands in the game -- and read '
+     '"rig sync: waiting for a rig edit" across the top. Not a tab-switching bug: '
+     '#syncBadge sits BETWEEN the tab bar and #stage, outside every panel, so it '
+     'renders on all sixteen tabs including the one the game is played on. This '
+     'checks THE BAND, not the badge -- naming the element would let the next one '
+     'land in the same place under a different id -- by reading what is actually '
+     'visible after the splash and failing on developer vocabulary', False),
     ('BORDER 1PX',     ['node', 'gates/border_gate.js'],
      'Paolo 8/14: "the black border has to be thinner, like half as thin". CHAR_OUTLINE '
      'always drew ONE pixel and was always correct -- it just ran BEFORE the Scale2x that '

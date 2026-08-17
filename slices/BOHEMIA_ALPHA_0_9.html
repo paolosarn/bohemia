@@ -70,7 +70,7 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 .g8l{font-size:10px;text-align:center;opacity:.7;margin-top:2px}
 #p-rig,#p-combat,#p-city{overflow:hidden}
 #rigFrame,#combatFrame,#cityFrame{position:absolute;inset:0;width:100%;height:100%;border:0;background:#0a0908}
-#syncBadge{text-align:center;padding:2px;font-size:9px;letter-spacing:1px;color:#3a3020;transition:color .3s;pointer-events:none}
+#syncBadge{text-align:center;padding:2px;font-size:9px;letter-spacing:1px;color:#3a3020;transition:color .3s;pointer-events:none}#syncBadge:empty{padding:0;height:0}
 .row{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;align-items:center}
 .row b{width:100%;font-size:10px;letter-spacing:2px;color:#7a6a4a;margin-bottom:2px}
 button.opt{background:#1a150e;border:1px solid #2e2416;color:#c9bfa8;padding:6px 10px;font-size:11px;border-radius:4px;cursor:pointer}
@@ -998,7 +998,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/16p - EVERY GUNSHOT WAS THE SAME ONE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/17f - NO DEV TEXT IN THE GAME</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -1022,7 +1022,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
     <div class="tab" data-p="life">LIFE</div>
     <div class="tab" data-p="art">ART</div>
   </div>
-  <div id="syncBadge">rig sync: waiting for a rig edit</div>
+  <div id="syncBadge"></div><!-- EMPTY AT REST: this is the rig-rebuild indicator and it lives OUTSIDE #stage, so it renders on every tab including RUN. It speaks only when a rebuild lands, then goes quiet again. -->
   <div id="stage">
     <div class="panel" id="p-vote"><iframe id="voteFrame" data-src="BOHEMIA_VOTE_CURRENT.html" title="vote on what is new" style="width:100%;height:100%;border:0;background:#0d0d12"></iframe></div>
     <div class="panel" id="p-run" style="position:relative">
@@ -5026,7 +5026,15 @@ window.addEventListener('message',ev=>{
     G._cityRebakeT=setTimeout(()=>{citySendPlayer();},1500);
   }
   const b=document.getElementById('syncBadge');
-  if(b){b.textContent='RIG SYNC \u2713 '+new Date().toLocaleTimeString()+' - character + animation rebuilt';b.style.color='#8fe89a';setTimeout(()=>{b.style.color='#3a3020';},900);}
+  /* SPEAK, THEN GO QUIET. This used to dim the COLOUR after 900ms and keep the
+     TEXT forever -- so after the first rig edit the player carried
+     "RIG SYNC ... character + animation rebuilt" across the top of the GAME for
+     the rest of the session, in dim brown. Fading a colour is not clearing a
+     message. The badge lives outside #stage and therefore shows on every tab
+     including RUN, so anything it leaves behind is on the play surface. */
+  if(b){b.textContent='RIG SYNC \u2713 '+new Date().toLocaleTimeString()+' - character + animation rebuilt';b.style.color='#8fe89a';
+    clearTimeout(G._syncBadgeT);
+    G._syncBadgeT=setTimeout(()=>{b.style.color='#3a3020';b.textContent='';},1800);}
 });
 
 function slotOptions(){const opts={};for(const k in PD.layers){const slot=k.split('/')[0];(opts[slot]=opts[slot]||[]).push(k);}return opts;}
