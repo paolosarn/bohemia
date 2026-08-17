@@ -266,13 +266,15 @@ def _thicken(scene, key):
         return scene
     grey = (96, 92, 86); dkg = (64, 61, 57); pale = (150, 146, 138)
 
-    # KERB: a low lip right around the building, which is what separates a
-    # building from the ground it stands on.
-    k = 0.16
-    scene.box((x0 - k, y0 - k, 0), (x1 - x0 + 2 * k, k, 0.18), {'c': pale})
-    scene.box((x0 - k, y1, 0), (x1 - x0 + 2 * k, k, 0.18), {'c': dkg})
-    scene.box((x0 - k, y0 - k, 0), (k, y1 - y0 + 2 * k, 0.18), {'c': dkg})
-    scene.box((x1, y0 - k, 0), (k, y1 - y0 + 2 * k, 0.18), {'c': pale})
+    # NO KERB. THIS WAS THE THING HE KEPT POINTING AT AND IT WAS MINE.
+    # I added a "kerb" here two turns ago -- four boxes running right around the
+    # building on all four sides -- and then spent FOUR attempts hunting the
+    # factory for authored "perimeter walls" to explain what he was seeing. It
+    # was this. A continuous line around all four sides of a plot IS a perimeter
+    # wall, whatever I called it in the comment, and he said no fencing, no
+    # walls, no nothing (Paolo 8/16).
+    # The lesson is not about kerbs: I searched other people's code for four
+    # passes before checking the code I had just written.
 
     # DOWNSPOUTS at the corners, full height. Cheap, and they break a blank wall
     # vertically the way nothing else at this scale does.
