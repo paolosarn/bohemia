@@ -706,6 +706,15 @@ GATES = [
      'the neck is its own skin TONE not a shadow and never tints a collar; his curtain-bob export ships byte for byte and a repaint can never become a retint', False),
     ('CHAR OUTLINE',   ['node', 'gates/character_outline_gate.js'],
      'the 1px black border wraps every facing: last pass, snapshot-based so it cannot grow on itself, colour only so occupancy still sees the true silhouette', False),
+    ('CITY BORDER',    ['node', 'gates/city_border_gate.js'],
+     'the 1px border reached the CHARACTER tab and COMBAT and was still DOUBLED in '
+     'the game: the city scales bodies on an integer ladder (EPX x2 at the default '
+     'walk zoom HC=44, x4 past 64), so a border baked in at 56 arrived 2px and 4px. '
+     'SELF-CALIBRATING: it measures the shipped path AND the exact behaviour it '
+     'replaced with the same ruler on the same sprite, so the claim is a comparison '
+     '(2->1, 4->1) and not a threshold somebody picked. Measured on the sprite '
+     'spriteAt() actually returns, because three attempts to read it off the '
+     'composited screen measured the desert and a HUD bar instead', False),
     ('PLAY SURFACE',   ['node', 'gates/play_surface_clean_gate.js'],
      'a friend boots the demo, taps the splash, lands in the game -- and read '
      '"rig sync: waiting for a rig edit" across the top. Not a tab-switching bug: '

@@ -998,7 +998,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
   <canvas id="logobig" width="640" height="170"></canvas>
   <div id="frontsub">POST-ECONOMIC APOCALYPSE - LAS VEGAS</div>
   <div id="fronttap">TAP TO ENTER</div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/17g - WALKING GOT 20X CHEAPER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/17g - ONE PIXEL IN THE GAME TOO</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -6796,7 +6796,15 @@ function bake112(d,clip,ph){
     px=s.data.map(v=>v?[(v-1)>>16&255,(v-1)>>8&255,(v-1)&255]:null);W=s.W;H=s.H;}
   if(CHAR_OUTLINE.on) applyCharOutline(px,W,H);
   return packIdx(frameToRGBA({px:px,CW:W,CH:H}),112,112);}
-function bake56(d,clip,ph){const f=buildFrame(d,clip,ph);const r=frameToRGBA(f);
+/* BORDERLESS ON PURPOSE (Paolo 8/14, "half as thin"). The city applies its own
+   integer ladder to these -- EPX x2 at the default walk zoom (HC=44), x4 past 64 --
+   so a border baked in here at 56 reaches the screen 2px or 4px thick, which is the
+   exact doubling the ruling removed everywhere else. The city draws the one pixel
+   itself, after scaling, at the size it will be seen. The CITY asks for this (both
+   the player and the cast, so every body in the world changes together); the legacy
+   RUN-slice bridge does NOT pass the flag and keeps the border it always had --
+   that surface is never displayed and this change has no business altering it. */
+function bake56(d,clip,ph,noBorder){const f=buildFrame(d,clip,ph,!!noBorder);const r=frameToRGBA(f);
   return packIdx(f.CW===56?r:_rgbaHalf(r,f.CW,f.CH),56,56);} /* RAW art: city applies the Scale2x ladder itself (integer scale law) */
 G._sentLook=null;
 /* LOOK KEY (7/3/26): the ONE string that decides whether the combat module's
@@ -6828,9 +6836,9 @@ function citySendPlayer(){
     const dirs={};
     const PHS=[0.0,0.25,0.5,0.75];   /* 4 frames per beat-cycle, quantized quarters */
     for(const d of DIRS){
-      dirs[d]={idle:bake56(d,'idle',0.25),
-        walk:PHS.map(p=>bake56(d,'walk',p)),
-        run:PHS.map(p=>bake56(d,'run',p))};
+      dirs[d]={idle:bake56(d,'idle',0.25,true),
+        walk:PHS.map(p=>bake56(d,'walk',p,true)),
+        run:PHS.map(p=>bake56(d,'run',p,true))};
     }
     /* PORTRAIT: the EXACT combat mechanism, same face, same ramp, same 64x64 */
     let portrait=null;
@@ -6871,7 +6879,7 @@ function citySendCast(){
   };
   try{
     plan.forEach(L=>{ for(const d of DIRS) withLook(L,()=>{
-      L.dirs[d]={idle:bake56(d,'idle',0.25)};
+      L.dirs[d]={idle:bake56(d,'idle',0.25,true)};   /* borderless: the city borders after scaling */
     }); });
     fr.contentWindow.postMessage(out,'*');
   }catch(_e){ CCAST=null; return false; }

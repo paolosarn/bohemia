@@ -17402,10 +17402,9 @@ function peoplePass(ox, oy, C) {
       const spr = own || (set && set.idle); if (!spr) continue;
       /* the ZOOM LEVEL LAW, same ladder the player uses: never a fractional scale */
       const lad = C >= 64 ? 224 : (C >= 32 ? 112 : (C < 17 ? 28 : 56));
-      let img = spr;
-      if (C >= 64) { if (!spr._hd4) { if (!spr._hd) spr._hd = epx2(spr); spr._hd4 = epx2(spr._hd); } img = spr._hd4; }
-      else if (C >= 32) { if (!spr._hd) spr._hd = epx2(spr); img = spr._hd; }
-      else if (C < 17) { if (!spr._half) spr._half = half2(spr); img = spr._half; }
+      /* SAME ladder as the player, shared rather than duplicated: an outline on
+         one and not the other is worse than none at all. */
+      let img = spriteAt(spr, C);
       /* CITY CAST: a cast body is ALREADY this person's clothes - tinting it
          again would put a hue over his wardrobe and undo the point. Only the
          fallback player sprite still gets the shift. */
@@ -17919,10 +17918,8 @@ function renderHuman(){
     g.imageSmoothingEnabled=false;
     // ZOOM LEVEL LAW: tier by nearest level. 28 = exact 2:1 decimation of
     // the raw 56; 112/224 = Scale2x applied once/twice. Never fractional.
-    let img=spr;
-    if(HC>=64){ if(!spr._hd4){ if(!spr._hd)spr._hd=epx2(spr); spr._hd4=epx2(spr._hd); } img=spr._hd4; }
-    else if(HC>=32){ if(!spr._hd)spr._hd=epx2(spr); img=spr._hd; }
-    else if(HC<17){ if(!spr._half)spr._half=half2(spr); img=spr._half; }
+    /* the border is drawn at DISPLAY size now -- see spriteAt/outline1 */
+    let img=spriteAt(spr,HC);
     if(typeof RIDING!=='undefined'&&RIDING){
       // PLACEHOLDER bike under the body [PENDING Paolo: riding pose + bike art]
       const horiz=(HFACE==='E'||HFACE==='W'||HFACE==='NE'||HFACE==='SE'||HFACE==='NW'||HFACE==='SW');
@@ -19530,6 +19527,47 @@ function half2(src){
     D[di]=S[si];D[di+1]=S[si+1];D[di+2]=S[si+2];D[di+3]=S[si+3];
   }
   ox.putImageData(O,0,0); return out;
+}
+/* ===== THE BORDER IS DRAWN AT DISPLAY SIZE (Paolo 8/14, CHARACTER lane 8/17) =====
+   "the black border has to be thinner, like half as thin."
+   The alpha now ships these bodies BORDERLESS, because this file scales them on an
+   integer ladder -- EPX x2 at the default walk zoom (HC=44), x4 past 64 -- and a
+   1px border baked in at 56 arrived on screen 2px thick, and 4px zoomed in. The
+   character tab showed him at 1px and the game showed him at 2px: same character,
+   two outlines.
+   So the pixel is drawn HERE, once, on the cached scaled canvas. Per frame this
+   costs exactly what it used to: one drawImage of one cached canvas.
+   Mirrors the alpha's own pass (applyCharOutline): computed from a SNAPSHOT so the
+   border cannot grow on itself, orthogonal 4-neighbour so corners stay sharp, and
+   it only ever writes cells that were EMPTY -- painted art is untouchable. */
+function outline1(src){
+  const w=src.width,h=src.height;
+  const out=document.createElement('canvas'); out.width=w; out.height=h;
+  const g2=out.getContext('2d'); g2.imageSmoothingEnabled=false;
+  g2.drawImage(src,0,0);
+  const im=g2.getImageData(0,0,w,h), D=im.data;
+  const solid=new Uint8Array(w*h);
+  for(let i=0;i<w*h;i++) if(D[i*4+3]>8) solid[i]=1;      /* SNAPSHOT first */
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    const i=y*w+x; if(solid[i])continue;
+    if((x+1<w&&solid[i+1])||(x>0&&solid[i-1])||
+       (y+1<h&&solid[i+w])||(y>0&&solid[i-w])){
+      const o=i*4; D[o]=0; D[o+1]=0; D[o+2]=0; D[o+3]=255;
+    }
+  }
+  g2.putImageData(im,0,0);
+  return out;
+}
+/* ONE LADDER, BOTH CALL SITES. The player draw and peoplePass carried the same
+   eight lines each; a border applied to one and not the other is worse than none.
+   _hd0 is the UNBORDERED double, kept so the x4 tier chains off it -- chaining x4
+   off the bordered x2 would border a border and put 2px back at the closest zoom. */
+function spriteAt(spr,C){
+  if(C>=64){ if(!spr._hd4){ if(!spr._hd0)spr._hd0=epx2(spr); spr._hd4=outline1(epx2(spr._hd0)); } return spr._hd4; }
+  if(C>=32){ if(!spr._hd){ if(!spr._hd0)spr._hd0=epx2(spr); spr._hd=outline1(spr._hd0); } return spr._hd; }
+  if(C<17){ if(!spr._half)spr._half=outline1(half2(spr)); return spr._half; }
+  if(!spr._b)spr._b=outline1(spr);      /* RAW 56 NEEDS IT TOO -- the art arrives borderless */
+  return spr._b;
 }
 function epx2(src){
   const w=src.width,h=src.height;
