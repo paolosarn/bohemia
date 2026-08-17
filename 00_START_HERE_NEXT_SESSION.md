@@ -2774,7 +2774,87 @@ circled before saying it is done.
 --------------------------------------------------------------------------------
 
 
-LAB (lab-e2r7sv): 8/13 (b) LATEST -- *** HE SAID "SURE" AND THE LADDER IS A GRAPH NOW. AND HE
+LAB (lab-e2r7sv): 8/17 (a) LATEST -- *** THE RF4 TEARDOWN SPEC EXISTS. THE SEAM BETWEEN LAB AND
+COMBAT IS A FILE NOW, AND EIGHT OF RF4's PILLARS TURN OUT TO BE ALREADY BUILT. ***
+JUDGE THIS: 1. records/BOHEMIA_RF4_TEARDOWN_SPEC.md (28 numbered items, each with a status)
+NOT IN A TAB (records file). The fight itself is the COMBAT tab.
+
+Paolo 8/17: "For combat, I completely just want to. I really need you to re-create rogue fable four
+holy shit please."
+
+*** READ laws/BOHEMIA_ADDENDUM_RECREATE_RF4_FIRST_8_16_26.md FIRST. *** It landed on main WHILE I
+was working, from the COMBAT side, and it re-formats this job: he put TWO CHATS ON ONE SYSTEM, so
+§4 names the seam as a FILE. LAB OWNS THE TEARDOWN SPEC AND WRITES NO COMBAT CODE. COMBAT owns the
+implementation AND the STATUS column. Neither lane edits the other's column. If COMBAT needs a
+mechanic the spec lacks it ASKS LAB FOR A SPEC ITEM instead of reading RF4 itself.
+I did NOT write another RF4 philosophy doc -- laws/BOHEMIA_ADDENDUM_COMBAT_DNA_RF4_6_30_26.md (6/30)
+already holds the nine pillars and is explicitly NOT repealed (it is now the PHASE TWO spec). A tenth
+version of that is exactly the failure STOP PRODUCING names.
+
+THE SPEC: records/BOHEMIA_RF4_TEARDOWN_SPEC.md, 28 numbered items (RF4-01..28) across the frame, the
+TRINITY, the ability economy, geometry, enemy design, structure, and RF4's deliberate OMISSIONS. Each
+ends in SPECED / BUILT / DIFFERS-ON-PURPOSE. Every BOHEMIA-TODAY number is re-derived off the running
+fight by tools/bohemia_rf4_teardown_measure.js, so no status rests on a sentence I typed.
+
+*** EIGHT OF RF4's PILLARS ARE ALREADY IN, MEASURED ON THE REAL ALPHA (320 bodies, 40 arenas): ***
+the cover and line-of-fire model (RF4-17), THE ENVIRONMENT GENUINELY FIGHTING BACK -- cover carries
+HP and chews away under fire, cars cook off, decks and stairs, darkness (RF4-16, the most
+RF4-faithful part of the whole system), field readouts (RF4-02), COMBAT's new ranges (RF4-18), target
+selection (RF4-03), the way out that made movement the win condition on 8/16 (RF4-19), ARMOR 0 ON ALL
+320 BODIES so there is no stat mitigation to hide behind (RF4-14/25), and juice (RF4-26).
+
+*** THE THREE THAT MATTER MOST AND DO NOT EXIST -- RF4's TRINITY: *** RF4-05 PROTECTION POINTS (a
+rechargeable shield where one attack can NEVER break through into HP while you hold even 1 point, so
+you deliberately tank a huge hit then avoid damage a few turns to rebuild; it merged 4-5 defensive
+stats into one, and RF4-06: ENEMIES USE THE EXACT SAME SYSTEM), RF4-07 POWER (one unified offensive
+stat replacing a pile of one-off damage boosts -- absent entirely), RF4-08 SPEED POINTS (mobility as
+a spendable resource that buys ACTIONS; partial, stam/dashArm/sprintArm exist).
+*** BUT THOSE THREE ARE [SECONDHAND] AND THE SPEC SAYS SO LOUDLY. *** Every primary source
+(justin-wang123.itch.io, store.steampowered.com, sites.google.com) is EGRESS-BLOCKED from this
+environment, so they came from search summaries. COMBAT MUST NOT IMPLEMENT A NUMBER OFF THEM. The
+shapes are trustworthy, the values are not. Getting a primary read is the top of LAB's own queue --
+if Paolo can open the itch.io "Game Design: Combat" devlog on his phone, one screenshot closes the
+biggest hole in the spec.
+
+*** THE ONE MEASURED DIVERGENCE: EVERY FIGHT IS EIGHT MEN. *** 8.0 per fight, min 8, max 8, and
+0 OF 40 inside Wang's 3-6 band (he says fights get messy past 5-6 and wants even 3-4 to be a real
+challenge with a wandering extra as a crisis). AND EIGHT IS NOT A RULING -- checked before accusing
+anyone: the 6/27 addendum uses eight as the STRESS CASE ("[LOCKED] Perfect play = zero damage at any
+enemy count. ONE ENEMY OR EIGHT") and the 6/30 DNA doc ALREADY adopted small fights as ours ("as an
+explicit design axis"). THE CEILING SHIPPED AS THE CONSTANT. The roster is DEEP (5 types, 8 HP tiers
+45-200, 70 of 320 melee, 40 elite) and the encounter is FLAT, so at a permanent 8 every fight is the
+same arithmetic and no single enemy is ever the puzzle. THE DEPTH IS BUILT AND IT NEVER SURFACES.
+COMBAT decides the CURVE; G.numEnemies is the knob and LAB did not touch it. Routed to the top of the
+COMBAT queue with the spec as its brief.
+ALSO WORTH THE INDOOR PUSH HE ASKED FOR: RF4-15, WALLS ARE MECHANICS NOT SCENERY -- an RF4 ability
+grants power for ending a turn "not adjacent to any walls". That is what makes indoor combat worth
+the trouble instead of just a smaller map.
+
+GATE: gates/rf4_teardown_gate.js, 39 checks, registered as RF4 TEARDOWN. It does NOT demand 3-6 (not
+his ruling; a gate must never outrank one) -- it demands the divergence stay MEASURED AND DECLARED,
+and goes red when COMBAT lands the curve so the spec is rewritten rather than quietly becoming false.
+FOURTEEN MUTATIONS, ALL FOURTEEN CAUGHT, including smoothing over the divergence, hiding that the
+sources were blocked, letting COMBAT build numbers off a lead, taking the encounter curve from COMBAT,
+overstating the ability gap, withholding credit for the roster depth, and adopting an RF4 name as ours.
+
+*** AND THE FOURTEENTH FOUND A HOLE IN MY OWN GATE. *** G3 is the machine half of the lane boundary:
+LAB's diff must touch no engine module and no slice. I appended a line to engine/bohemia_claim.js to
+test it and THE GATE PASSED 39/0 -- because it only ran `git diff origin/main...HEAD`, which sees
+COMMITTED history. A BOUNDARY CHECK THAT ONLY NOTICES AFTER YOU COMMIT TELLS YOU TOO LATE. It now
+unions the committed diff, the staged diff, the working tree and untracked files, and fires on all of
+them.
+
+*** THIS TURN ALSO LOST WORK TO THE ENVIRONMENT AND IT IS WORTH KNOWING WHY. *** A stale
+.git/rebase-merge directory kept resuming a days-old rebase and threw the whole working tree back to
+an old commit MID-SESSION, deleting an earlier version of this audit that was committed locally but
+never pushed. Recovery: verify your ships are ancestors of origin/main (mine were), then
+`rm -rf .git/rebase-merge .git/rebase-apply` and hard-reset to origin/main. *** PUSH EARLIER THAN
+FEELS NECESSARY, and never trust a local commit as durable in this environment. ***
+
+--------------------------------------------------------------------------------
+
+
+LAB (lab-e2r7sv): 8/13 (b) -- *** HE SAID "SURE" AND THE LADDER IS A GRAPH NOW. AND HE
 DROPPED A BIGGER RULING INSIDE THE YES: NOT EVERY NODE IS A BOSS. ***
 JUDGE THIS: 1. records/BOHEMIA_HIS_GRAPH_RULINGS_8_13_26.md (his six rulings + what they cost)
             2. records/BOHEMIA_LADDER_GRAPH_8_13_26.json (38 edges, each with its reason)

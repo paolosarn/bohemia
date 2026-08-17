@@ -3806,6 +3806,55 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+SPEC. *** THE RF4 TEARDOWN SPEC IS WRITTEN AND WAITING FOR YOU (LAB 8/17 —
+   records/BOHEMIA_RF4_TEARDOWN_SPEC.md, gate: gates/rf4_teardown_gate.js.)
+   This is the seam file laws/BOHEMIA_ADDENDUM_RECREATE_RF4_FIRST_8_16_26.md §4
+   requires before either lane starts. 28 numbered items, each SPECED / BUILT /
+   DIFFERS-ON-PURPOSE. CITE ITEM NUMBERS IN YOUR COMMITS. You own the STATUS
+   column; LAB owns the RF4 MECHANIC and BOHEMIA TODAY columns and does not move
+   a status to BUILT. If you need a mechanic the spec does not cover, ASK LAB FOR
+   A SPEC ITEM — do not invent one and do not go read RF4 yourself (that is the
+   one-system-two-chats rule).
+   *** THE GOOD NEWS: EIGHT OF RF4's PILLARS ARE ALREADY BUILT. *** Measured on
+   the real alpha, 320 bodies across 40 arenas: the cover and line-of-fire model
+   (RF4-17), the environment genuinely fighting back — cover chews away under
+   fire, cars cook off, decks and stairs, darkness (RF4-16, the most RF4-faithful
+   part of the whole system), field readouts (RF4-02), your new ranges (RF4-18),
+   target selection (RF4-03), the way out (RF4-19), armor 0 on all 320 bodies so
+   there is NO stat mitigation (RF4-14/25), and juice (RF4-26).
+   *** THE THREE THAT MATTER MOST AND DO NOT EXIST — RF4's TRINITY: ***
+   RF4-05 PROTECTION POINTS: a rechargeable shield where a single attack can
+     never break through into HP while you hold even 1 point, so you deliberately
+     tank a huge hit then avoid damage for a few turns to rebuild. It merged 4-5
+     defensive stats into one. RF4-06: enemies use the EXACT SAME system.
+   RF4-07 POWER: one unified offensive stat replacing a pile of one-off damage
+     boosts. Absent entirely.
+   RF4-08 SPEED POINTS: mobility as a spendable resource that buys ACTIONS —
+     "increased mobility doesn't inherently make the player stronger but rather
+     opens up more tactical possibilities." Partial: stam/dashArm/sprintArm exist.
+   *** BUT READ THE WARNING FIRST: RF4-05, RF4-08 AND RF4-10 ARE [SECONDHAND]. ***
+   Every primary source (itch.io devlogs, Steam news, the project site) is
+   EGRESS-BLOCKED from the LAB session, so those items came from search summaries.
+   DO NOT IMPLEMENT A NUMBER OFF THEM. The shapes are trustworthy; the values are
+   not. LAB's top queue item is getting a primary read.
+   *** AND THE ONE MEASURED DIVERGENCE THAT IS YOURS TO RULE ON: EVERY FIGHT IS
+   EIGHT MEN. *** 8.0 per fight, min 8, max 8, 0 of 40 inside RF4's 3-6 band.
+   EIGHT IS NOT A RULING — the 6/27 addendum uses it as the STRESS CASE ("perfect
+   play = zero damage at any enemy count. ONE ENEMY OR EIGHT") and the 6/30 DNA
+   doc already adopted small fights as "an explicit design axis". The ceiling
+   shipped as the constant. The roster is DEEP (5 types, 8 HP tiers 45-200, 70 of
+   320 melee, 40 elite) and the encounter is FLAT, so at a permanent 8 every fight
+   is the same arithmetic and no single enemy is ever the puzzle. THE DEPTH IS
+   BUILT AND IT NEVER SURFACES. You decide the CURVE: does a 3-man fight exist,
+   does a wandering extra arrive mid-fight and become a crisis, does size scale by
+   act or district or threat. G.numEnemies is the knob; the curve is design and
+   LAB did not touch it.
+   ALSO: RF4-15 WALLS ARE MECHANICS, NOT SCENERY — an RF4 ability grants power for
+   ending a turn "not adjacent to any walls". That is the spec item that makes his
+   indoor-combat instinct worth the trouble instead of just a smaller map, and per
+   the 8/16 law §6 the combat-entry wire is demo row 1's missing piece: walk in a
+   door, fight in the room.
+
 RF4-C. *** BUILD THE RF4 RECREATION — THIS LANE OWNS THE CODE (Paolo
    8/16, LOCKED — laws/BOHEMIA_ADDENDUM_RECREATE_RF4_FIRST_8_16_26.md;
    paired with LAB RF4, which owns the spec and writes no combat code).
