@@ -20845,3 +20845,50 @@ malformed table row, unpacked in a loop) — fixed by the lane that hit it,
 and the table now checks itself. And the REPEAT LEDGER gained a row: "I
 didn't see the new sound effect" (2 rounds) — the lane shipped new
 candidates on ids he had already killed, so his own DOWN thumbs hid them.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/16 (b) — RECREATE ROGUE FABLE IV FIRST (Paolo,
+LOCKED, direction-class — laws/BOHEMIA_ADDENDUM_RECREATE_RF4_FIRST_
+8_16_26.md; routed LAB RF4 + COMBAT RF4-C). "The reference lab and the
+combat chats are going to be working together to make a live recreation
+of Rogue Fable 4 for our game bar none. idc if its a rip off... and then
+we'll make it different once we have that product. this will require
+indoor combat for the most part."
+IT IS A RE-SEQUENCING, NOT A NEW DIRECTION. The 6/30 combat-DNA doc said
+share the skeleton, build a different body; he flipped it to BUILD THE
+RECREATION FIRST, then diverge. Newest date wins. NOTHING in the 6/30 doc
+is repealed — its five "where guns + 120 BPM beat it" theses ARE the
+phase-two spec, already written in June. He does not have to invent the
+differentiation later; it exists.
+*** TWO CHATS ON ONE SYSTEM IS THE COLLISION THIS SESSION EXISTS TO
+PREVENT, SO THE SEAM IS NAMED BEFORE EITHER STARTS: LAB owns THE SPEC
+(records/BOHEMIA_RF4_TEARDOWN_SPEC.md — numbered mechanical inventory +
+a diff against what we have, each item SPECED / BUILT / DIFFERS-ON-
+PURPOSE) and WRITES NO COMBAT CODE. COMBAT owns THE IMPLEMENTATION, is
+the only lane touching combat code, builds FROM the spec and CITES SPEC
+ITEM NUMBERS in commits. If COMBAT needs an uncovered mechanic it ASKS
+FOR A SPEC ITEM — it does not invent one and does not go study RF4
+itself. Sweep 13 applies: component verification is not interface
+verification, so the interface is a file, not a conversation. ***
+RESEARCH ANCHORS HANDED TO LAB (do not re-derive): RF4's goal is full
+roguelike depth in UNDER AN HOUR, approachable to newcomers; deliberately
+free of stat/formula bloat with critical info IN THE WORLD AND ON THE
+FIELD, not menus; combat is mobility/positioning/timing/target-selection;
+13 zones, 250+ monsters, 30+ bosses; and its living principle is
+UNIFICATION (update 1.36 collapsed many one-off damage effects into ONE
+stat, POWER, plus Protection/Block, "streamlining while maintaining or
+increasing depth"). AND THE FINDING THAT PROVES HIS INDOOR CALL:
+abilities READ THE ROOM — Infusion-of-Storms grants +1 Power when ending
+turn "wide open, meaning NOT ADJACENT TO ANY WALLS". Walls are mechanics
+there, not scenery.
+INDOOR IS ALREADY HALF-BUILT AND IT PAYS THE DEMO: INTERIOR-MATCHES-
+EXTERIOR makes every interior a real dimensioned space, tilespec already
+types PORTAL and solid, cover already gates LOS — and the missing piece
+is demo row 1's own gap (NO combat entry point on the walked surface).
+Walk in a door, fight in the room = the demo's fight half. Ship that
+first; the rest is post-demo and must not displace RUN P0-DOOR / SOUNDS
+P0-WALK / RUN P0-SAVE.
+CONSTRAINT recorded as a build instruction, not a lecture: mechanics and
+systems are not copyrightable — recreate them freely and exactly.
+EXPRESSION is not: never copy a name, string, icon, screen or the title.
+Costs nothing since it is all reskinned to post-crash Vegas anyway.

@@ -45,6 +45,44 @@
 
 ## LAB (THE REFERENCE LAB — first word "lab"; law: laws/BOHEMIA_ADDENDUM_
 ## THE_REFERENCE_LAB_7_26_26.md. One session = one system = one named game.)
+RF4. *** THE RF4 TEARDOWN — LAB OWNS THE SPEC, COMBAT OWNS THE CODE
+   (Paolo 8/16, LOCKED, direction-class — laws/BOHEMIA_ADDENDUM_RECREATE_
+   RF4_FIRST_8_16_26.md: "the reference lab and the combat chats are
+   going to be working together to make a live recreation of Rogue Fable
+   4 for our game bar none. idc if its a rip off. we are going to do this
+   right!!! and then we'll make it different once we have that product.")
+   TOP OF THIS LANE'S QUEUE. IT IS A RE-SEQUENCING, NOT A NEW DIRECTION:
+   the 6/30 combat-DNA doc said share the skeleton and build a different
+   body; he has flipped it to BUILD THE RECREATION FIRST, then diverge.
+   Nothing in the 6/30 doc is repealed — its five "where guns + 120 BPM
+   beat it" theses ARE the phase-two spec, already written in June.
+   DELIVERABLE: records/BOHEMIA_RF4_TEARDOWN_SPEC.md — a NUMBERED,
+   mechanical inventory of RF4's systems (turn/energy model, ability
+   economy, the POWER unification, enemy design rules, zone and boss
+   structure, character development and build variety, and what it
+   DELIBERATELY OMITS), plus a DIFF against what Bohemia already has.
+   Each item carries a status: SPECED / BUILT / DIFFERS-ON-PURPOSE.
+   THIS LANE WRITES NO COMBAT CODE. That is the whole point of the split.
+   ANCHORS ALREADY FOUND (do not re-derive, extend): the design goal is
+   full roguelike depth in UNDER AN HOUR, approachable to newcomers;
+   deliberately free of stat/formula bloat with critical info presented
+   IN THE WORLD AND ON THE FIELD rather than in menus; combat is
+   mobility/positioning/timing/target-selection; 13 zones, 250+ monsters,
+   30+ bosses; and its living design principle is UNIFICATION — update
+   1.36 collapsed many one-off damage effects into ONE stat (POWER) and
+   did the same for Protection/Block, "streamlining while maintaining or
+   increasing depth". Steal the ruthlessness about collapsing
+   near-duplicate systems, not the numbers. AND THE ONE THAT PROVES THE
+   INDOOR CALL: abilities READ THE ROOM — Infusion-of-Storms grants +1
+   Power when ending turn "wide open, meaning NOT ADJACENT TO ANY WALLS".
+   Walls are mechanics there, not scenery.
+   THE CONSTRAINT, as a build instruction and not a lecture: mechanics
+   and systems are not copyrightable, so recreate them freely and
+   exactly. EXPRESSION is not free — never copy a name, a string, an
+   icon, a screen or the title. Costs us nothing; it is all being
+   reskinned to post-crash Vegas anyway.
+   | the spec exists, numbered, with the diff column filled | which
+   mechanics we keep once it works = his | no (it is a document). ***
 0. [RULED 7/26] THE LANE'S ASSIGNMENT CHANGED MID-DAY. Paolo: "who said I
    wanted to test the walking... it was supposed to be like the actual game and
    all its mechanics... you need to get the code online and implement it for the
@@ -3768,6 +3806,39 @@ ER. (discovered 7/28, ENGINE REALITY AUDIT — laws/BOHEMIA_ENGINE_REALITY_MAP_
    treatment for RIG_B64/PREFAB_B64.)
 
 ## COMBAT
+RF4-C. *** BUILD THE RF4 RECREATION — THIS LANE OWNS THE CODE (Paolo
+   8/16, LOCKED — laws/BOHEMIA_ADDENDUM_RECREATE_RF4_FIRST_8_16_26.md;
+   paired with LAB RF4, which owns the spec and writes no combat code).
+   TWO CHATS ON ONE SYSTEM IS THE COLLISION THE COORDINATOR EXISTS TO
+   PREVENT, so the seam is written down before either lane starts: the
+   interface is records/BOHEMIA_RF4_TEARDOWN_SPEC.md, numbered items,
+   each with a status column (SPECED / BUILT / DIFFERS-ON-PURPOSE).
+   BUILD FROM THE SPEC AND CITE SPEC ITEM NUMBERS IN COMMITS so the seam
+   is traceable both ways. If you need a mechanic the spec does not
+   cover, ASK FOR A SPEC ITEM — do not invent one, and do not go study
+   RF4 yourself. That is how two chats stay one system.
+   INDOOR FIRST, AND IT PAYS THE DEMO IMMEDIATELY: his words, "this will
+   require indoor combat for the most part so we can really feel the
+   juice we are squeezing." A fight only has positioning depth if the
+   geometry MEANS something — doorways are chokepoints, corners are
+   cover, wide open is exposure — and on a 65-mile valley that dissolves.
+   IT ALSO SERVES MOVE (below): a room forces movement in a way an open
+   street never did.
+   WE ARE READY: INTERIOR-MATCHES-EXTERIOR (7/19) means every interior
+   floor plate is exactly the footprint w x h, so interiors are real
+   dimensioned spaces already; the tilespec LAYERING law already types
+   PORTAL tiles and what is solid; the cover system already gates LOS.
+   THE MISSING PIECE IS THE ONE THE DEMO BOARD ALREADY FLAGGED — there is
+   NO COMBAT ENTRY POINT on the walked surface (row 1: every "combat"
+   occurrence in the city world is a comment or CSS). INDOOR COMBAT AND
+   THAT MISSING WIRE ARE THE SAME JOB: walk in a door, fight in the room.
+   SHIP THAT FIRST; it closes demo row 1's fight half. Everything after
+   is post-demo depth and must not displace RUN P0-DOOR / SOUNDS P0-WALK
+   / RUN P0-SAVE.
+   THE 6/30 DOC IS NOT REPEALED — it is phase two, already written.
+   | walk through a door and fight inside the room, on the real walked
+   surface, gated with a JOURNEY test (SHARED -7) not a piece test |
+   feel/tuning = his hands | yes (the first indoor fight is judgeable). ***
 MOVE. *** THE FIGHT HAS TO MOVE YOU (Paolo 8/15, LOCKED, direction-class,
    DEMO-CRITICAL — laws/BOHEMIA_ADDENDUM_THE_FIGHT_HAS_TO_MOVE_YOU_8_15_26.md.
    TOP OF THIS LANE'S QUEUE.) His words, playing it: "it's still kind of felt
