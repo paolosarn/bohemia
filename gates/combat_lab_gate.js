@@ -4526,6 +4526,62 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
      said he was not a fan, not kill it. So what is checked is that the whole
      thing is genuinely off and reversible in one word -- and that it is off at
      the SOURCE (the dial), never by quietly gutting the functions. */
+/* ===== V162 THE FIGHT IS ON THE GRID ==============================
+   Paolo 8/17: "we really need this shit to play exactly like rogue fable four
+   right now."
+   MEASURED FIRST: the board was a perfect tile grid with the PEOPLE FLOATING
+   OVER IT -- 1405/1405 rocks on a cell against 16/160 bodies, and enemy moves
+   with a median of 1.80 tiles of which ZERO were exactly one cell. That is not a
+   feel problem, it is arithmetic: a roguelike is playable because you can COUNT,
+   and nothing is countable when a man sits at 7.34 tiles and slides 1.80.
+   The behaviour is measured by the browser gate; what belongs here is the shape,
+   and the invariant that a body's position cannot be written without landing on
+   a cell. */
+  ok('V162 EVERY BODY LIVES ON A CELL, and it is an INVARIANT rather than a one-time tidy-up: the snap lives in worldShift and in the spawn, so a step can never leave a man half on a tile',
+    demo.includes('function cellOf(o){') && demo.includes('function putCell(o,cx,cy){') &&
+    demo.includes('function snapBody(o){') && demo.includes('function snapAllBodies(){') &&
+    /try\{ snapAllBodies\(\); \}catch\(_e\)\{\}/.test(demo) &&
+    /try\{ snapBody\(e\); \}catch\(_e\)\{\}\s*\n\s*G\.e\.push\(e\);/.test(demo));
+
+  { /* THE GUARD IS LOAD-BEARING, AND THIS IS THE CASE THAT PROVES IT. Deleting
+       the re-snap left every ordinary measurement at 160/160 and 960/960,
+       because a player step moves the world by an INTEGER vector and integers
+       stay integers -- so a mutation test on the happy path said the guard was
+       decoration. It is not. worldShift's mv() clamps a body to a 0.6 minimum
+       radius, and 0.6 is not a cell: walk straight into a man and without the
+       snap he ends at (0.600, 0.000), off the grid AND inside the player's own
+       cell. Measured both ways. Pinned here as the exact scenario rather than as
+       a string. */
+    const a = demo.indexOf('function cellOf(o){');
+    const b = demo.indexOf('function worldShift(vx,vy){', a);
+    const src = (a > 0 && b > a) ? demo.slice(a, b) : '';
+    let landed = null;
+    if (src) {
+      try {
+        landed = new Function('G', src + `;
+          const e={ea:0,edist:0.6};      /* what mv()'s 0.6 clamp produces */
+          G.e=[e]; snapAllBodies();
+          return [Math.cos(e.ea)*e.edist, Math.sin(e.ea)*e.edist];`)({ e: [] });
+      } catch (_e) { landed = null; }
+    }
+    ok('V162 AND WALKING STRAIGHT INTO A MAN STILL LEAVES HIM ON A CELL: worldShift clamps a body to a 0.6 radius, which is not a tile and is inside the player, so the snap puts him on the neighbouring cell instead of half inside him',
+      !!landed && Math.abs(landed[0] - Math.round(landed[0])) < 1e-9
+              && Math.abs(landed[1] - Math.round(landed[1])) < 1e-9
+              && !(Math.round(landed[0]) === 0 && Math.round(landed[1]) === 0));
+  }
+
+  ok('V162 A MAN MOVES EXACTLY ONE CELL, to one of the same eight neighbours the player has always used -- the scorer is untouched and still wants its angle, it just has to say so in a legal move',
+    /const PRESS_CELLS=\[\[0,-1\],\[1,-1\],\[1,0\],\[1,1\],\[0,1\],\[-1,1\],\[-1,0\],\[-1,-1\]\];/.test(demo) &&
+    /const _c=cellOf\(e\);/.test(demo) &&
+    /const nx=_c\[0\]\+off\[0\], ny=_c\[1\]\+off\[1\];/.test(demo));
+
+  ok('V162 AND THE PLAYER\'S CELL IS HIS: OCCUPANCY LAW stops being a 0.6-tile fudge and becomes what it always said, one body per cell, checked as integers',
+    /if\(nx===0&&ny===0\)continue;/.test(demo) &&
+    /if\(cx===0&&cy===0\)\{/.test(demo));
+
+  ok('V162 AND THE SLIDE\'S CONSTANT IS DELETED, NOT ORPHANED. PRESS_STEP was how far a man drifted in a turn; a cell move has no use for it, and leaving it declared and unread is the present-and-dead shape that cost this project inMyRange and the damage faces twice over',
+    !/const PRESS_STEP=/.test(demo));
+
 /* ===== V159 THE WAY OUT ===========================================
    Paolo 8/16: "I like that in rogue fable four you have to go down the dungeon
    so from one second to another so it is a movement goal for stuff so I think
@@ -4720,9 +4776,15 @@ ok('V136 THEY ARE STILL SHOOTERS, NOT BLADES: PRESS_STANDOFF holds them at a sho
   /if\(Math\.hypot\(q\[0\]-nx,q\[1\]-ny\)<\(P\.r\|\|0\.5\)\*0\.8\)\{bad=true;break;\}/.test(demo));
 
 ok('V136 A MOVE HAS TO BE WORTH SOMETHING: PRESS_WORTH is the margin a tile must beat standing put by, so nobody shuffles sideways for nothing, and a bound is capped at PRESS_STEP so no shooter ever teleports across the lot',
+  /* V162 RE-POINTED. The LAW is that a move must beat standing put by a margin,
+     and PRESS_WORTH still is that margin. What is gone is the SLIDE: PRESS_STEP
+     (how far a man drifted in a turn) and the hypot guard that kept the drift
+     under it. A man moves ONE CELL now, so the cap is the cell itself and the
+     constant is DELETED rather than left declared and unread -- a dead dial is
+     worse than no dial, because the next session tunes it and nothing happens. */
   /const PRESS_WORTH=0\.18;/.test(demo) &&
-  /const PRESS_STEP=1\.8;/.test(demo) &&
-  /if\(Math\.hypot\(nx-ex,ny-ey\)>PRESS_STEP\*1\.02\)continue;/.test(demo));
+  /const PRESS_CELLS=\[\[0,-1\],\[1,-1\],\[1,0\],\[1,1\],\[0,1\],\[-1,1\],\[-1,0\],\[-1,-1\]\];/.test(demo) &&
+  !/const PRESS_STEP=/.test(demo));
 
 ok('V136 IT DOES NOT STEAL THE DAMAGE LINE: "RETURN FIRE, 3 of 5 hit you" is the most important thing on screen and a movement notice must never overwrite it, so setRead remembers its own colour and the press APPENDS to the line already there, in that line\'s colour',
   /G\.lastRead=\{t:t,s:s\|\|'',at:Date\.now\(\),c:col\|\|''\}/.test(demo) &&
@@ -4779,12 +4841,20 @@ ok('V137 A DUEL IS COMPLETELY UNCHANGED: with no place to defend G.hold is null,
   /s\+=G\.hold\?HOLD_ANGLE:3\.0;/.test(demo) && /s\+=G\.hold\?HOLD_STONE:0\.8;/.test(demo));
 
 ok('V137 AND THEY ARE ALLOWED PAST, which is the number the whole feature lives on: at PRESS_STANDOFF 3.2 a man can never get around you to something 6 tiles behind, so a defence would have been geometrically impossible while still LOOKING like it worked. A man running an objective is not trying to shoot you, he is trying to get by',
+  /* V162 RE-POINTED: the standoff numbers are untouched and still decide who may
+     get past. The landing is a CELL now, so the old Math.max clamp -- which put a
+     man at a fractional radius and knocked him straight back off the grid -- is
+     replaced by putCell. Same law, same numbers, legal position. */
   /const HOLD_PASS=1\.8;/.test(demo) &&
   /const standoff=G\.hold\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
-  /e\.edist=Math\.max\(G\.hold\?HOLD_PASS:PRESS_STANDOFF,nd\);/.test(demo));
+  /putCell\(e,Math\.round\(p\.x\),Math\.round\(p\.y\)\); snapBody\(e\);/.test(demo));
 
 ok('V137 THE ARC ALONE COULD NEVER CARRY HIM ROUND IN TIME (0.9 rad at range 6 is a 5.4-tile walk against a 1.8-tile step), so a defending fight also offers the straight line at the place -- and those candidates run the SAME body and pillar rejections as every other one, with no shortcuts',
-  /for\(const g of \[PRESS_STEP,PRESS_STEP\*0\.6\]\)extra\.push/.test(demo) &&
+  /* V162 RE-POINTED: the defence still offers the straight line at the objective,
+     because the arc alone still cannot carry a man round in time. It is a CELL
+     step now -- the sign of each axis, which is how a body walks a diagonal on a
+     grid -- instead of two fractional radii. */
+  /extra\.push\(\[_c0\[0\]\+Math\.sign\(Math\.round\(dx\)\), _c0\[1\]\+Math\.sign\(Math\.round\(dy\)\)\]\);/.test(demo) &&
   /for\(const c of extra\)\{ const nx=c\[0\],ny=c\[1\];/.test(demo) &&
   /if\(Math\.hypot\(ox-nx,oy-ny\)<0\.9\)\{bad=true;break;\} \}\n      if\(!bad\)for\(const P of \(G\.pillars\|\|\[\]\)\)/.test(demo));
 
