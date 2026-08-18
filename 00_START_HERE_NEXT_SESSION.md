@@ -1,3 +1,61 @@
+RUN (run-eak241): 8/17 LATEST -- P0-SAVE CLOSED, AND THE VALLEY HAS A CALLER.
+
+TWO DEMO-BOARD ROWS, both routed to this lane.
+
+*** ROW 6, P0-SAVE: "DURABILITY IS NOT COMPATIBILITY" -- CLOSED. ***
+ONE CORRECTION TO THE BOARD, measured: it says "three components stamp three
+different version numbers", which reads as one number written three ways. They
+are three LAYERS and it is right that they differ -- the ENVELOPE
+(bohemia_save.js v:1), the PAYLOAD (citySnapshot v:1) and the ENGINE's own save
+(CURRENT_SAVE_VERSION=7, a different save entirely).
+THE REAL DEFECT WAS NARROWER AND WORSE:
+    citySnapshot() wrote   v:1        hardcoded
+    applyRestore  tested   st.v!==1   hardcoded, EXACT EQUALITY
+The first lane to do the CORRECT thing -- change the shape, bump the version --
+would have silently returned false for EVERY SAVE IN EXISTENCE and started him at
+day 1 with nothing. I got away with adding purse (8/12) and market (8/14) only
+because I did NOT bump it. That is luck. The inverse was live too: a cached older
+build threw a newer save away without a word.
+Also measured: engine/bohemia_engine.js has a complete migration chain
+(walk-forward, refuse-the-future, never-mutate) referenced ZERO times by either
+playable surface. Another finished thing nothing calls.
+NOW: one CITY_SAVE_V both sides use, migrateCity() that never mutates its input,
+and a NAMED refusal for a save from a newer build, left on disk. The migration
+table ships EMPTY on purpose -- one shape exists today and inventing steps for
+shapes that never existed is fiction. IF YOU CHANGE THE SAVE SHAPE: bump
+CITY_SAVE_V and add one entry to CITY_MIGRATE. That is the whole contract.
+Gate: save_compat_gate.js (16), MUTATION-TESTED by PERFORMING the future commit.
+
+*** ROW 11, THE VISTA: it had no caller. CLOSED. ***
+Eighth row of that exact shape this lane has closed. The phone now carries where
+the overlook is (same channel as the market, so it is somewhere to WALK TO) and
+the day loop plays it ONCE on the day 2 morning, after GET UP.
+
+TWO THINGS A GREEN GATE DID NOT CATCH, both found by looking:
+ 1. I first opened it ON the wake -- which also raises the DAY 2 card -- so the
+    money shot rendered UNDER a modal. Gate green (it WAS open, it HAD drawn its
+    card), shot buried. Found by taking the screenshot. I had written "stacking
+    two big beats buries both" three lines above the code that did it.
+ 2. Then the suite went red on HOME + PHONE, one of MY OWN gates, and it was
+    right. vistaClose gave back hx/hy/MODE and left city.x/city.y PARKED ON THE
+    MOUNTAIN, and homeFind caches per (seed, MARKER cell) -- so HIS HOUSE STOPPED
+    EXISTING for as long as he was looking at the valley. Measured: marker
+    [48,48] home {48,48} -> open -> [17,36] -> close -> STILL [17,36], home null.
+    A CAMERA MOVE IS NOT A FACT ABOUT WHERE HE LIVES. The marker AND home are
+    stashed in returnTo and put back, and the phone reports the remembered answer
+    while the vista is up.
+FOR ANY LANE MOVING city.x/city.y: HOME resolves off the MARKER, not off his
+body. Move the marker and his house evaporates until you put it back.
+
+STILL RED AND NOT MINE (checked against my own diff, grep=0): BANNER is red on
+engine/bohemia_exchanges.js x17 and bohemia_people.js x2 -- somebody is inlining
+a module seventeen times. TASTE and RF4 TEARDOWN are LAB/COMBAT landing today.
+
+NEXT IN THIS LANE: the last piece of the 8/13 work order -- the ADD TO HOME
+SCREEN card after his first night, which now has somewhere to point (the manifest
+and icon shipped 8/16). CAMP remains the one demo beat frozen twice over
+([PENDING Paolo] + "no session builds survival mechanics before that verdict").
+
 FACTIONS (factions-ovkjpf): 8/17 LATEST -- *** THE LADDER FINALLY POINTS AT
 SOMETHING: THEY CAN GIVE YOU THINGS NOW, AND THE FREE ONES ARE THE DANGEROUS ONES.
 TAB: CITY (tap anybody who runs with somebody) + LOOK ("THE FIRST THING IS FREE"). ***
