@@ -23,12 +23,12 @@ verbatim.
 | | banks | engine modules |
 |---|---|---|
 | SHOWN (all) | 1 | 77 |
-| SHOWN (part) | 11 | 22 |
+| SHOWN (part) | 12 | 22 |
 | LOADED ONLY | 18 | 9 |
 | NO TRACE | 73 | 13 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **103** | **136** |
+| **total** | **104** | **136** |
 
 **275.9 MB of 279.1 MB** sampled does not reach the shown surface.
 
