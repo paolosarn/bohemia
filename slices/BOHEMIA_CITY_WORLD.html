@@ -19785,10 +19785,53 @@ let _svT=null;
    hid it everywhere except the surface Paolo actually demos on.
    Adding two fields to the copy would have left the trap armed for the next lane.
    A FIELD CANNOT NOW BE ADDED TO ONE PATH AND NOT THE OTHER. */
+/* __THE_SAVE_SURVIVES_US__ -- ONE CONSTANT, WRITTEN BY THE SNAPSHOT AND READ BY THE
+   RESTORE. They both used to hardcode 1 in their own line, and the reader tested
+   it with EXACT EQUALITY (st.v!==1), so the first lane to do the correct thing --
+   change the shape and bump the version -- would have silently wiped every save
+   in existence. BUMP THIS WHEN THE SHAPE CHANGES and add a step to CITY_MIGRATE
+   below; that is the whole contract. */
+var CITY_SAVE_V = 1;
+/* Each entry migrates a save FROM its key version TO the next, applied in order
+   until it reaches CITY_SAVE_V -- the same shape as the engine's own chain in
+   bohemia_engine.js, which has done this correctly since it was written and is
+   called by neither playable surface.
+   IT IS EMPTY ON PURPOSE. There is one shape today, and inventing migrations for
+   shapes that never existed is fiction. The MECHANISM is what ships, so the next
+   lane to change the save adds one line here instead of finding this out the way
+   he would have. */
+var CITY_MIGRATE = {
+  /* 1: function(s){ s.newField = whatever; return s; }, */
+};
+/* Walk a save forward. NEVER MUTATES THE INPUT, so a failed migration cannot
+   corrupt what is already on disk (the engine's rule, and it is a good one).
+   Returns null with a REASON rather than a bare false, because "I refused this"
+   and "there was nothing there" are different answers and the old code gave the
+   same one for both. */
+function migrateCity(st){
+  if(!st || typeof st!=='object') return {ok:false, why:'EMPTY'};
+  var v = (typeof st.v==='number') ? st.v : 0;
+  if(v > CITY_SAVE_V){
+    /* FROM THE FUTURE: he played a newer build, then opened a cached older one.
+       Silently starting a new game here is how a save "disappears". */
+    return {ok:false, why:'FROM_A_NEWER_BUILD', have:v, want:CITY_SAVE_V};
+  }
+  var s = null;
+  try{ s = JSON.parse(JSON.stringify(st)); }catch(_e){ return {ok:false, why:'UNREADABLE'}; }
+  var guard = 0;
+  while(v < CITY_SAVE_V && guard++ < 64){
+    var step = CITY_MIGRATE[v];
+    if(!step) return {ok:false, why:'NO_MIGRATION_FROM_' + v};
+    try{ s = step(s); }catch(_e){ return {ok:false, why:'MIGRATION_THREW_AT_' + v}; }
+    v++; s.v = v;
+  }
+  return {ok:true, st:s};
+}
 function citySnapshot(){
-  return { v:1,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
+  return { v:CITY_SAVE_V,seed,day:T.day,min:T.min,hx,hy,cx:city.x,cy:city.y,mode:MODE,
     riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
     loop:DAY.serialize(),quest:DQ.serialize(),      /* __DAY_LOOP__ */
+    vistaSeen:!!VISTA_SEEN,   /* __THE_VALLEY_IS_A_PLACE__ -- once ever means across reloads */
     purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
     market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null   /* __THE_TRADING_HUB__ */ };
 }
@@ -19887,7 +19930,8 @@ function showWake(){
           +'<h3>'+esc((o.title||'').toUpperCase())+'</h3>'
           +'<div class="sub">on the network \u00b7 not taken</div>'; }
   h+='<div class="dcgo" data-act="go">GET UP</div>';
-  cardShow(h,function(){ cardHide(); });
+  /* __THE_VALLEY_IS_A_PLACE__ -- the valley comes AFTER the card is gone, never under it. */
+  cardShow(h,function(){ cardHide(); try{ vistaBeatMaybe(); }catch(_e){} });
 }
 
 /* THE OFFER. Its words are the quest's own -- the same law the resolution buttons
@@ -20099,7 +20143,33 @@ function homeWake(){
   window.__WOKE_HOME=(window.__WOKE_HOME||0)+1;
   return true;
 }
-DAY.on('wake',function(){ try{ homeWake(); }catch(_e){} });
+DAY.on('wake',function(){ try{ homeWake(); }catch(_e){}
+  /* __THE_VALLEY_IS_A_PLACE__ -- THE ONE CALL board row 11 asked for. The seam says
+     "RUN plays it from the day loop" and RUN never did: a repo-wide grep found
+     zero game-side callers, so the demo's money shot was reachable only by
+     wandering onto the right rim cell.
+     DAY 2, NOT DAY 1: day 1 is already the cold open plus his first job. And not
+     nightfall, which is already the reckoning -- stacking the two big beats
+     buries both. The wake is the empty moment in the loop.
+     ONCE EVER, and it remembers: VISTA_SEEN is the same flag the walk-onto-it
+     path sets, so seeing it either way spends it. */
+  try{ if(DAY.day===2 && !VISTA_SEEN && window.__VISTA) VISTA_ARMED=true; }catch(_e){}
+});
+/* __THE_VALLEY_IS_A_PLACE__ -- ARMED ON THE WAKE, PLAYED AFTER HE TAPS GET UP.
+   *** I SHOT THIS AND LOOKED AT IT, and the first cut was wrong in exactly the
+   way the comment above warns about. *** It opened the valley ON the wake event,
+   and the wake ALSO raises the DAY 2 card -- so the money shot rendered
+   UNDERNEATH a modal covering the middle of the screen. The gate was green (it
+   really was open, it really did draw its card) and the shot was buried. I wrote
+   "stacking two big beats buries both" about nightfall three lines up and then
+   did it at the wake.
+   So the valley waits for the card to be gone. GET UP, then the valley. */
+var VISTA_ARMED=false;
+function vistaBeatMaybe(){
+  if(!VISTA_ARMED || VISTA_SEEN) return;
+  VISTA_ARMED=false; VISTA_SEEN=true;
+  setTimeout(function(){ try{ if(window.__VISTA.open()) window.__VISTA_BEAT=1; }catch(_e){} }, 260);
+}
 
 /* __PHONE_IN_POCKET__ -- THE PHONE IS IN YOUR POCKET (Paolo 8/11: "the Phone app
    that we worked so hard for isn't even implemented yet"). It was finished and it was
@@ -20123,7 +20193,19 @@ function phoneState(){
            purse:purseBalances(), paid:PAID_TODAY, payRefused:PAY_REFUSED,
            market:(function(){ try{ var h=mktHub(); return h?{cell:{x:h.x,y:h.y},kind:h.kind,
              dist:Math.round(h.dist||0), at:mktAt(), bought:MKT_BOUGHT}:null; }
-             catch(_e){ return null; } })() };   /* __THE_TRADING_HUB__ */   /* __THE_DAY_PAYS__ */   /* __THE_VALLEY_REMEMBERS__ */   /* __THE_PHONE_RINGS__ */
+             catch(_e){ return null; } })(),
+           /* __THE_VALLEY_IS_A_PLACE__ -- THE OVERLOOK IS A PLACE HE CAN FIND. Board row 11:
+              "NOTHING LEADS YOU THERE ... found by ACCIDENTALLY WALKING ONTO ONE
+              RIM CELL." The phone already carries where the market is and already
+              has a GO that moves the city marker, so the overlook rides the same
+              channel. Where it IS stays derived from the map (MAP LAW); this only
+              reports it. */
+           vista:(function(){ try{ var o=window.__VISTA&&window.__VISTA.where();
+             if(!o) return null;
+             var cx=(MODE==='human')?((hx/FN)|0):city.x, cy=(MODE==='human')?((hy/FN)|0):city.y;
+             return { cell:{x:o.x,y:o.y}, at:(cx===o.x&&cy===o.y), seen:!!VISTA_SEEN,
+                      dist:Math.round(Math.sqrt((o.x-cx)*(o.x-cx)+(o.y-cy)*(o.y-cy))) };
+             }catch(_e){ return null; } })() };   /* __THE_TRADING_HUB__ */   /* __THE_DAY_PAYS__ */   /* __THE_VALLEY_REMEMBERS__ */   /* __THE_PHONE_RINGS__ */
 }
 function phonePush(force){
   if(!PHONE_ON||!PHONE_FR||!PHONE_FR.contentWindow)return;
@@ -20635,7 +20717,21 @@ function mktBtnSync(){
 }
 
 function applyRestore(st){
-  if(!st||st.v!==1)return false;
+  /* __THE_SAVE_SURVIVES_US__ -- was `if(!st||st.v!==1)return false;`, an exact-equality
+     test against a hardcoded 1, which meant the first correct version bump would
+     have wiped every save in existence without a word. Now it walks forward, and
+     a refusal is REPORTED rather than looking exactly like an empty save. */
+  var _m = migrateCity(st);
+  if(!_m.ok){
+    window.__RESTORE_REFUSED = _m.why;
+    if(_m.why !== 'EMPTY'){
+      try{ console.warn('BOHEMIA: this save was not loaded (' + _m.why + '). '
+        + 'It has NOT been deleted.'); }catch(_e){}
+    }
+    return false;
+  }
+  st = _m.st;
+  window.__RESTORE_OK = (window.__RESTORE_OK||0) + 1;
   if(typeof st.seed==='number'&&st.seed!==seed){ seed=st.seed; om=CBinstall(OM.buildOvermap(seed));POWER=BOH_POWERGRID.powerMap(om,seed); metaCache.clear(); chunkCache.clear(); }
   T.day=st.day||1; T.min=(typeof st.min==='number')?st.min:8*60;
   /* __DAY_LOOP__ -- a day loop that does not survive a reload is a session
@@ -20646,6 +20742,8 @@ function applyRestore(st){
   /* __THE_TRADING_HUB__ -- the valley's stocks are the price, so a market that forgets
      them resets every price to base on every reload. */
   if(st.market){ try{ MKT_LEDGER=st.market.ledger||null; MKT_BOUGHT=st.market.bought||null; }catch(_e){} }
+  /* __THE_VALLEY_IS_A_PLACE__ */
+  if(st.vistaSeen){ try{ VISTA_SEEN=true; }catch(_e){} }
   if(st.loop&&DAY.restore(st.loop)){ daySync(); DAY_RESTORED=true;
     if(st.quest)DQ.restore(st.quest,DAY.day); else DQ.openDay(DAY.day);
     try{ updQline(); }catch(_e){}

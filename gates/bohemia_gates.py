@@ -209,6 +209,34 @@ GATES = [
      'asserts NO DAMAGE BEFORE THE DIAL is untouched, and GENERATES the tuning list rather '
      'than remembering it. The tables are empty today: it is standing before the numbers '
      'arrive so the first hand to fill them cannot land an untagged one', True),
+    ('SAVE COMPAT',    ['node', 'gates/save_compat_gate.js'],
+     'DEMO BOARD row 6, P0-SAVE, routed here 8/15: "DURABILITY IS NOT COMPATIBILITY -- this '
+     'audit verified that the bytes survive the BROWSER and never asked whether they survive '
+     'US." Everything built for the save so far protects it from the PHONE; none of it '
+     'protected it from the next commit. MEASURED: citySnapshot wrote a hardcoded v:1 and '
+     'applyRestore tested st.v!==1, EXACT EQUALITY against a hardcoded 1 -- so the first lane '
+     'to do the CORRECT thing (change the shape, bump the version) would have silently '
+     'returned false for every save in existence and started him at day 1 with nothing, '
+     'indistinguishable from a wipe. I only got away with adding purse and market this week '
+     'because I did NOT bump it, which is luck. The inverse was live too: a cached older '
+     'build threw a newer save away without a word. Now one constant, a walk-forward '
+     'migrator that NEVER MUTATES THE INPUT, and a named refusal for a save from a newer '
+     'build. It is MUTATION-TESTED by performing the future commit -- bump the version at '
+     'runtime, add the migration a lane would add, and prove his old save still arrives -- '
+     'because a trap that only springs on a later commit cannot be proved any other way', True),
+    ('VISTA BEAT',     ['node', 'gates/vista_beat_gate.js'],
+     'DEMO BOARD row 11: the vista is built, derived, inlined and ARMED, "BUT NOTHING LEADS '
+     'YOU THERE -- a repo-wide grep finds ZERO game-side callers. The demo money shot is '
+     'currently found by ACCIDENTALLY WALKING ONTO ONE RIM CELL." Eighth row of that exact '
+     'shape this lane has closed: a finished thing with a published seam and no caller. Now '
+     'the phone carries where the overlook is (the same channel that carries the market, so '
+     'it is somewhere to WALK TO), and the day loop plays it ONCE on the day 2 morning -- not '
+     'day 1, which is already the cold open plus his first job. AND THE HALF A GREEN GATE '
+     'MISSED: the first cut opened it ON the wake, which also raises the DAY 2 card, so the '
+     'money shot rendered UNDER a modal -- gate green, shot buried. Found by taking the '
+     'screenshot and looking. It waits for GET UP now, and the gate asserts the card is GONE '
+     'when the valley is up. Once ever, across reloads, and MAP LAW holds: this lane reports '
+     'where the overlook is and never places it', True),
     ('HOME SCREEN',    ['node', 'gates/home_screen_gate.js'],
      'DEMO BOARD row 6, the half open since 8/13: manifest + apple metas + icon, and the '
      'board\'s own evidence was a grep returning 0, 0 and 0 across every surface. He demos '
