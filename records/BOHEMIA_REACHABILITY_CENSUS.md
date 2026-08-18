@@ -22,15 +22,15 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 78 |
-| SHOWN (part) | 12 | 22 |
-| LOADED ONLY | 18 | 9 |
+| SHOWN (all) | 1 | 90 |
+| SHOWN (part) | 12 | 17 |
+| LOADED ONLY | 18 | 8 |
 | NO TRACE | 73 | 13 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **104** | **137** |
+| **total** | **104** | **143** |
 
-**275.9 MB of 279.1 MB** sampled does not reach the shown surface.
+**300.6 MB of 304.0 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -62,7 +62,6 @@ verbatim.
 | `banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt` | bank | 0.10 |
 | `engine/bohemia_loop.js` | engine | 0.08 |
 | `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
-| `engine/bohemia_utility.js` | engine | 0.07 |
 | `engine/bohemia_world.js` | engine | 0.06 |
 | `engine/bohemia_dress.js` | engine | 0.02 |
 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | bank | 0.02 |
@@ -80,11 +79,11 @@ verbatim.
 | `banks/BOHEMIA_HD_TILE_REPO_part4.txt` | bank | 45.66 |
 | `banks/BOHEMIA_HD_TILE_REPO_part3.txt` | bank | 44.90 |
 | `banks/BOHEMIA_HD_TILE_REPO_part2.txt` | bank | 44.72 |
+| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 30.03 |
 | `banks/BOHEMIA_FIRE_FLICKER_BANK_7_13_26.txt` | bank | 10.30 |
 | `banks/BOHEMIA_GROUND_VARIANT_BANK_7_10_26.txt` | bank | 7.45 |
 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | bank | 6.94 |
 | `banks/BOHEMIA_TILE_REPO.txt` | bank | 6.02 |
-| `banks/BOHEMIA_DISTRICT_HERO_CANDIDATES_7_23_26.txt` | bank | 5.26 |
 | `banks/BOHEMIA_DEMO_PROP_POOL_7_10_26.txt` | bank | 3.98 |
 | `banks/BOHEMIA_SEAM_FIXED_SURFACES_7_14_26.txt` | bank | 3.51 |
 | `banks/BOHEMIA_HOUSE_FACTORY_BANK_7_14_26.txt` | bank | 2.63 |
@@ -145,10 +144,14 @@ verbatim.
 | source | kind | samples found |
 |---|---|---|
 | `banks/BOHEMIA_MUSIC_REPO.txt` | bank | 32/32 |
+| `engine/bohemia_airfield.js` | engine | 32/32 |
 | `engine/bohemia_apartment.js` | engine | 32/32 |
+| `engine/bohemia_ballpark.js` | engine | 32/32 |
 | `engine/bohemia_battery.js` | engine | 32/32 |
 | `engine/bohemia_belonging.js` | engine | 32/32 |
 | `engine/bohemia_boneyard.js` | engine | 32/32 |
+| `engine/bohemia_campus.js` | engine | 32/32 |
+| `engine/bohemia_casino.js` | engine | 32/32 |
 | `engine/bohemia_cemetery.js` | engine | 32/32 |
 | `engine/bohemia_chapel.js` | engine | 32/32 |
 | `engine/bohemia_cityhall.js` | engine | 32/32 |
@@ -169,15 +172,20 @@ verbatim.
 | `engine/bohemia_park.js` | engine | 32/32 |
 | `engine/bohemia_policestation.js` | engine | 32/32 |
 | `engine/bohemia_railyard.js` | engine | 32/32 |
+| `engine/bohemia_resort.js` | engine | 32/32 |
 | `engine/bohemia_school.js` | engine | 32/32 |
 | `engine/bohemia_sfx.js` | engine | 32/32 |
+| `engine/bohemia_speedway.js` | engine | 32/32 |
 | `engine/bohemia_stadium.js` | engine | 32/32 |
 | `engine/bohemia_storage.js` | engine | 32/32 |
+| `engine/bohemia_strip.js` | engine | 32/32 |
 | `engine/bohemia_substation.js` | engine | 32/32 |
 | `engine/bohemia_suburb.js` | engine | 32/32 |
 | `engine/bohemia_swapmeet.js` | engine | 32/32 |
 | `engine/bohemia_terminal.js` | engine | 32/32 |
+| `engine/bohemia_town.js` | engine | 32/32 |
 | `engine/bohemia_truckstop.js` | engine | 32/32 |
+| `engine/bohemia_utility.js` | engine | 32/32 |
 | `engine/bohemia_voice.js` | engine | 32/32 |
 | `engine/bohemia_warehouse.js` | engine | 32/32 |
 | `engine/bohemia_wash.js` | engine | 32/32 |
@@ -195,12 +203,3 @@ verbatim.
 | `engine/bohemia_asking.js` | engine | 16/16 |
 | `engine/bohemia_floorplan.js` | engine | 15/15 |
 | `engine/bohemia_daycycle.js` | engine | 14/14 |
-| `banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt` | bank | 13/27 |
-| `engine/bohemia_engine.js` | engine | 12/32 |
-| `engine/bohemia_bodyvar.js` | engine | 11/11 |
-| `engine/bohemia_exchanges.js` | engine | 10/10 |
-| `engine/bohemia_quest_runtime.js` | engine | 9/9 |
-| `engine/bohemia_agents.js` | engine | 8/8 |
-| `engine/bohemia_purse.js` | engine | 8/8 |
-| `engine/bohemia_story_surface.js` | engine | 8/8 |
-| `engine/bohemia_population.js` | engine | 7/7 |
