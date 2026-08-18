@@ -1,3 +1,72 @@
+CHARACTER (character-0lurbs): 8/18 (g) LATEST -- *** ALL THIRTEEN FACTIONS HAVE AN
+OUTLINE OF THEIR OWN, AND HEADWEAR TURNS OUT TO BE WORTH ALMOST NOTHING.
+BACKLOG ROW SIL IS CLOSED. TAB: CHARACTER, "THE THIRTEEN OUTFITS" (tap COLOUR OFF
+to run the test yourself), and LOOK for the picture. ***
+Record: records/BOHEMIA_THIRTEEN_OUTFITS_AND_WHAT_HEADWEAR_IS_WORTH_8_18_26.txt
+Gate: gates/faction_outfit_gate.js, 18 claims, registered as OUTFITS 13.
+
+NOT PICKED BY EYE, AND IT COULD NOT HAVE BEEN. The lever said the wardrobe holds
+only about six shape classes above the floor -- nine long coats scoring 0.0446 to
+four decimals are ONE shape in nine colours -- and there are thirteen factions.
+Assigning thirteen fits on that evidence and hoping is how six factions ship looking
+identical. So tools/bohemia_faction_fits.js searched: 880 candidate fits (5 bodies x
+11 shoulder shapes x 4 heads x 4 legs), each rendered, each scored on the FRONT width
+profile, greedy farthest-point pick for the biggest mutually-distinct set.
+
+    floor 0.030 -> 19        floor 0.040 -> EXACTLY 13        floor 0.045 -> 11
+
+The wardrobe delivers precisely what the game needs and not one spare. That also
+killed my own "only six classes" reading: the classes MULTIPLY against body and legs.
+
+*** THE FINDING ANY LANE CAN USE: HEADWEAR CANNOT CARRY IDENTITY AT THIS SIZE. ***
+The 8/15 amendment names three channels -- garment shape, proportion, HEADWEAR. The
+picture came back with the hats nearly invisible, so I measured them on the real 112
+render instead of arguing with it:
+    body, nothing on it   2961 px
+    + wide-brim hat       +56   (+1.9%)      + long coat   +114  (+3.9%)
+    + knit cap            +62   (+2.1%)      + road cape   +175  (+5.9%)
+A WIDE BRIM IS WORTH 1.9% OF A BODY -- the weakest of the three channels by a factor
+of three, and NO CHOICE OF HAT FIXES IT. It needs pixels. That is a direct argument
+for row 2X (his 8/14 "twice as many pixels"): a 56px hat is 224px at 112-native, the
+difference between a shape you can name across a street and a smudge. Re-search this
+table with head classes weighted properly the day 2X lands.
+
+TWO PROCESS LESSONS, BOTH PAID FOR IN THIS TURN:
+ 1. CHOOSE AND GRADE ON THE SAME RULER. The search scored buildFrame at 56 while the
+    gate scored the 112 board WITH the one-pixel outline on it. Two rulers. A set that
+    searched clean came back with pairs at 0.007 and I spent FOUR rounds adjusting
+    individual fits -- fixing the target. The search now grades through drawChar, the
+    function the board actually calls.
+ 2. BASE AND FEET ARE NOT FREE. The search held WHITE TEE / BROWN BOOTS fixed; real
+    fits vary the shirt and the boot and both touch the outline (a hem, a shaft),
+    worth about 0.005. So 0.040 was never a number thirteen DRESSED people could hold.
+    The pin is 0.035 -- above the six-resident cast's own 0.030 ratchet and 2.6x the
+    0.014 gap that actually failed. Do not ratchet it up without re-searching WITH
+    base and feet varied.
+
+AND IT IS AN INSTRUMENT, NOT A QUESTION. "What factions wear" is reserved to him by
+name in the agents module, so under HE MUST BE ABLE TO DIRECT IT (8/12) he gets the
+tool rather than a bolded ask: WEAR IT drops a faction's fit onto the player, the
+WARDROBE directly below changes it, SAVE TO writes it back and it survives the phone,
+EXPORT .TXT hands over the table, COLOUR OFF is the test in one tap. Every line is
+draft:true. The gate fails if any of those controls goes missing.
+The four social forces (Pures, Panthers, La Familia, Triads) deliberately have NO
+outfit -- they are members INSIDE other factions and an outline of their own would
+announce what the canon says is hidden. The gate fails if one ever gets one.
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER:
+ 1. NOBODY IN THE WORLD WEARS ANY OF THIS YET, and that is not this lane's call:
+    FACTION_ASSIGN is empty and every agent is faction:null because WHICH FACTION
+    HOLDS WHICH GROUND is his ruling. The thirteen fits are ready the day it lands,
+    and the binding is a small job when it does. Do not invent the assignment.
+ 2. 2X IS STILL BLOCKED ON PAINTING, NOT CODE (records/BOHEMIA_2X_WHY_THE_RIG_STAYS_
+    AT_56_8_16_26.txt): doubling his rig mechanically makes the head a BOX, because
+    Scale2x was manufacturing its roundness. The pixels have to be PAINTED at 112.
+    The headwear measurement above is now a second, independent argument for it.
+ 3. A COOK BRIEF EXISTS AND IT IS EXACT: the outline is set at the SHOULDER LINE and
+    the HEM. 34 of 202 garments carry the whole structural range. A new garment should
+    occupy a silhouette nobody has -- not another colourway, and not another long coat.
+
 FACTIONS (factions-ovkjpf): 8/18 LATEST -- *** THE DEBT GETS CALLED IN. The free
 thing the Cartel gave you three days ago now has somebody coming for it.
 TAB: CITY (tap anybody who runs with somebody) + LOOK ("THEY ARE NOT WAITING"). ***

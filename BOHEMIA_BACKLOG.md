@@ -5389,6 +5389,35 @@ SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    faction half of this row is built, RUN THE LEVER FIRST and assign from the top
    of the ranking. Pins ratcheted 0.010->0.030 / 0.070->0.085 so this cannot
    regress quietly. FACTIONS ARE STILL OWED; the city cast is done.
+   *** SECOND HALF SHIPPED 8/18 -- ALL THIRTEEN FACTIONS HAVE AN OUTLINE. ROW SIL IS
+   CLOSED. records/BOHEMIA_THIRTEEN_OUTFITS_AND_WHAT_HEADWEAR_IS_WORTH_8_18_26.txt ***
+   CHARACTER tab, THE THIRTEEN OUTFITS. Held by gates/faction_outfit_gate.js (18).
+   NOT PICKED BY EYE: tools/bohemia_faction_fits.js rendered 880 candidate fits
+   (5 bodies x 11 shoulder shapes x 4 heads x 4 legs) and greedily searched for the
+   largest mutually-distinct set -- 19 at floor 0.030, EXACTLY 13 at 0.040, 11 at
+   0.045. The wardrobe delivers precisely what the game needs and not one spare, and
+   that killed my own earlier "only six shape classes" reading: the classes MULTIPLY
+   against body and legs.
+   THE FOUR SOCIAL FORCES GET NOTHING, ON PURPOSE. Pures/Panthers/La Familia/Triads
+   are members INSIDE other factions; an outline of their own would announce what the
+   canon says is hidden. The gate fails if one ever gets one.
+   *** AND THE FINDING THAT REACHES PAST THIS ROW: HEADWEAR CANNOT CARRY IDENTITY. ***
+   The 8/15 amendment names three channels -- garment shape, proportion, HEADWEAR.
+   Measured on the real 112 render: a wide-brim hat adds 56px to a 2,961px body
+   (+1.9%); a knit cap +2.1%; a long coat +3.9%; a cape +5.9%. HEADWEAR IS THE WEAKEST
+   CHANNEL BY A FACTOR OF THREE and no choice of hat fixes it -- it needs PIXELS. That
+   ties straight to row 2X: a 56px hat becomes 224px at 112-native. Re-search this
+   table with head classes weighted properly the day 2X lands; until then the outlines
+   are carried by BODY, HEM and SHOULDER LINE.
+   TWO PROCESS LESSONS, both paid for: (1) CHOOSE AND GRADE ON THE SAME RULER. The
+   search scored buildFrame at 56 while the gate scored the 112 board with the outline
+   on it, so a clean set came back with pairs at 0.007 and I spent four rounds fixing
+   individual fits, which is fixing the target. (2) BASE AND FEET ARE NOT FREE -- a
+   shirt hem and a boot shaft are part of the outline, worth about 0.005, which is why
+   the pin is 0.035 and not the 0.040 the search reported.
+   STILL OPEN AND NOT THIS ROW: no agent in the world carries a faction yet
+   (FACTION_ASSIGN empty, faction:null everywhere) because WHICH FACTION HOLDS WHICH
+   GROUND is his ruling. The outfits are ready the day it lands.
 2X. *** TWICE THE PIXELS ON THE PEOPLE (Paolo 8/14, LOCKED, watching a
    cutscene — laws/BOHEMIA_ADDENDUM_TWICE_THE_PIXELS_8_14_26.md. TOP OF
    THIS LANE'S QUEUE. His words: "the character models need twice as many

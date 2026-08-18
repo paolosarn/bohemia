@@ -754,6 +754,16 @@ GATES = [
      'the neck is its own skin TONE not a shadow and never tints a collar; his curtain-bob export ships byte for byte and a repaint can never become a retint', False),
     ('CHAR OUTLINE',   ['node', 'gates/character_outline_gate.js'],
      'the 1px black border wraps every facing: last pass, snapshot-based so it cannot grow on itself, colour only so occupancy still sees the true silhouette', False),
+    ('OUTFITS 13',     ['node', 'gates/faction_outfit_gate.js'],
+     'backlog row SIL, the faction half: all 13 selectable factions have an OUTLINE '
+     'of their own, chosen by searching 880 rendered fits rather than by eye, and '
+     'the four groups that hide inside other factions deliberately have none. Scored '
+     'on the width profile with colour and size discarded, on the same 112 pixels he '
+     'sees -- choosing on one ruler and grading on another produced pairs at 0.007 '
+     'and four rounds of tweaking the wrong thing. It also holds the INSTRUMENT '
+     '(HE MUST BE ABLE TO DIRECT IT, 8/12): WEAR IT, SAVE TO, COLOUR OFF, EXPORT, '
+     'because what factions wear is reserved to him by name and a question is not a '
+     'tool', False),
     ('CAST SHAPES',    ['node', 'gates/city_cast_silhouette_gate.js'],
      'STRUCTURE-NOT-COLOR (7/19, amended 8/15 to govern IDENTITY) + Paolo 8/3 "have '
      'it not be a copy of me": the six city residents were the player body in the '

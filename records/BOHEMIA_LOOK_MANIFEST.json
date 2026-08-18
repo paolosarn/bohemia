@@ -2,6 +2,16 @@
  "built": "8/8/26",
  "shots": [
   {
+   "id": "thirteen-outfits",
+   "title": "THE THIRTEEN OUTFITS",
+   "caption": "Every faction you can join, and you can tell them apart with the colour switched off. That matters because the game is DARK -- the demo opens at 06:00 -- so colour is the one channel you cannot count on. These were not picked by eye: 880 fits were rendered out of clothes that already existed and the thirteen most different were kept, which is also how I found out the wardrobe holds exactly thirteen and not one more. The bottom block is the test. CHARACTER tab, THE THIRTEEN OUTFITS -- tap a body to turn it, hit COLOUR OFF to run the test yourself, WEAR IT to put one on and change it.",
+   "file": "look/thirteen-outfits.png",
+   "kb": 103.5,
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "stamp": "8/18/26",
+   "shooter": "node tools/bohemia_faction_picture.js"
+  },
+  {
    "id": "six-neighbours",
    "title": "THE SIX PEOPLE ON YOUR STREET",
    "caption": "Your neighbours used to be YOU, six times, under six random colours -- same body, same clothes, only the hue changed, plus a durag on every third one. Strip the colour and they were six identical silhouettes, which matters because the valley is DARK: the demo opens at 06:00 and colour is the one channel you cannot count on. They are six SHAPES now -- different bodies, different garments, all from the canon wardrobe. TWO OF THEM STILL MATCHED, and the fix was not a new garment: I measured all 202 clothes in the wardrobe for how much each one changes the outline, and the SHOULDER MANTLE moves it four times more than the gap I could not close. It was already in there. The backpack I had given one of them turns out to be invisible from the front, which is the direction you meet somebody in. The two closest neighbours are now three times further apart. The bottom row is the test. RUN tab, walk into a settlement.",
