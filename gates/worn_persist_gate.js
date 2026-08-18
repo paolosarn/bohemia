@@ -53,14 +53,24 @@ const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
   const catalogue = await page.evaluate(() => {
     const g = window.GARMENTS || [];
     return { total: g.length, canon: g.filter(x => x.st === 'canon').length,
-             hasBtn: !![...document.querySelectorAll('button')].find(b => /SHUFFLE FIT/i.test(b.textContent || '')) };
+             hasBtn: !!document.getElementById('charFit') };
   });
   ok('the CLO catalogue reaches the page (' + catalogue.total + ' garments, ' +
      catalogue.canon + ' canon)', catalogue.total > 50 && catalogue.canon > 50);
   ok('the SHUFFLE FIT button is on the character screen', catalogue.hasBtn);
 
   await page.evaluate(() => {
-    const b = [...document.querySelectorAll('button')].find(x => /SHUFFLE FIT/i.test(x.textContent || ''));
+    /* BY ID, NOT BY THE WORD PRINTED ON IT. hair_gate had this exact shape and it
+       cost three red assertions for days: it searched every button in the document
+       for "EXPORT", and #dirExport sits thirty lines above #hairExport, so it
+       pressed the DIRECT tab's button and then reported the hair board broken. Only
+       one button says SHUFFLE FIT today so this one happened to work -- which is
+       luck, not correctness, in a sixteen-tab app where labels repeat.
+       AND I GOT THE ID WRONG ON THE FIRST TRY, which is the joke and the lesson:
+       I reached for #charShuf, the button RIGHT NEXT TO IT on the same source line,
+       which says SHUFFLE ANIM. The gate went red in one run. Checking beats
+       guessing, and a gate that can catch its own author is doing its job. */
+    const b = document.getElementById('charFit');
     if (b) b.click();
   });
   await page.waitForTimeout(2500);

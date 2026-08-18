@@ -204,8 +204,17 @@ ok('citizens can grow hair (PERSONLOOK wear odds)', /hair:\s*0\.9/.test(src));
     const r0 = parseInt(localStorage.getItem('bohemia_hair_roundno') || '1', 10);
     ta.value = 'GATE PROBE NOTE'; ta.oninput();
     const stored = localStorage.getItem('bohemia_hair_notes_r' + r0);
-    const btn = [...document.querySelectorAll('button')].find(b => /EXPORT/i.test(b.textContent));
-    if (btn) btn.click();
+    /* *** PRESS THE HAIR BOARD'S OWN BUTTON. *** This searched EVERY button in the
+       document for the word EXPORT and took the first one -- and the alpha has
+       five. #dirExport ("EXPORT .TXT", the DIRECT tab) sits at ALPHA:1123, thirty
+       lines ABOVE #hairExport at :1154, so `.find` returned it every time and this
+       gate has been clicking another tab's export button and then reporting the
+       hair round as broken. The handler was correct the whole time.
+       The element has an id. Use it. A ruler that searches for a button by the word
+       printed on it, in a sixteen-tab app, will eventually press something else. */
+    const btn = document.getElementById('hairExport');
+    if (!btn) return { ok: true, stored: stored, noButton: true };
+    btn.click();
     return {
       ok: true, stored: stored,
       advanced: parseInt(localStorage.getItem('bohemia_hair_roundno') || '1', 10) === r0 + 1,
