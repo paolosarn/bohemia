@@ -1,3 +1,81 @@
+COMBAT (combat-nfnki9): 8/18 (k) LATEST -- *** THE MACHINE CANNOT CUT A CORNER.
+RF4-51, MACHINE 3 OF THE NINE, IS BUILT. TAB: COMBAT -- fight anything with a
+SEC-BOT in it and run away diagonally. ***
+Record: records/BOHEMIA_COMBAT_DISTANCE_OUT_OF_PURE_GEOMETRY_8_18_26.md
+Tool:   tools/bohemia_combat_movement_asymmetry_patch.py  (v164, idempotent, replayable)
+Gates:  gates/fight_moves_you_gate.js 15/0  |  gates/combat_lab_gate.js 832/0
+Spec:   records/BOHEMIA_RF4_TEARDOWN_SPEC.md  RF4-51 SPECED -> BUILT
+
+HIS OWN SPEC ROW, NOT A NEW IDEA: "Slow enemies move ORTHOGONALLY ONLY; you move
+DIAGONALLY -- every diagonal step costs them more than it costs you, so you
+generate distance out of pure geometry with NO RESOURCE SPENT." Its own diff
+column calls it the cheapest difficulty lever in the whole document, which
+matters because NO DAMAGE BEFORE THE DIAL forbids the stat-inflation alternative
+outright. `ortho:true` on the SEC-BOT archetype, four neighbours instead of
+eight, and the four are PRESS_CELLS FILTERED so the two lists can only ever
+differ by exactly the diagonals. Nothing announces it -- no icon, no label.
+
+*** THE FINDING ANY LANE CAN USE: THE FIRST CUT SHIPPED A STATUE, AND A STATUE
+MEASURES BETTER THAN THE FEATURE. *** Halving a body's neighbours did not freeze
+it. It exposed two numbers that had been quietly wrong, and the broken version
+scored HIGHER on the headline metric (4.03 tiles of "manufactured distance"
+against the real mechanic's 2.28) because a body that never moves also generates
+distance. If your feature's headline number goes UP when you fix its bugs, the
+number is measuring the bug. Check the thing that should NOT have changed.
+
+BUG ONE WAS MINE FROM TWO DAYS EARLIER. V160 capped every gun's MAX at the sight
+ceiling (rifle 44->16, sniper 64->16) and left the EFF column exactly where it
+sat, so both wanted to fight further than they can shoot -- eff 20 and 30 on a
+board that stops at 16 -- and pressScore's entire progress gradient is
+max(0,d-eff), which is then zero at every distance either can ever be at. Fixed
+by effRange(), mirroring maxRange(), ONE DOOR. No eff number was retyped:
+inventing "a rifle's real comfort is 13" would be sizing a dial to make my own
+feature measure well, which is what he caught on 8/16.
+
+BUG TWO IS THE ONE WORTH REMEMBERING: A BAR NO SINGLE STEP CAN CLEAR IS NOT A
+FILTER, IT IS A WALL. PRESS_WORTH was a flat 0.18 typed beside a gradient worth
+PRESS_PULL/mx PER TILE -- 0.244 to a 9-tile shotgun, 0.183 to a 12-tile pistol,
+0.1375 to a 16-tile rifle. The pistol cleared it by two thousandths; the rifle
+never could, at any distance, ever. Divide by your own range and the further your
+gun shoots the less a tile is allowed to be worth to you. It is DERIVED off the
+pull now and means half a tile of real progress. If you have a threshold and a
+gradient as two typed numbers, check that one can actually clear the other.
+
+MEASURED: bodies with somewhere better to stand than where they are went from 86%
+to 99% for ordinary gunmen and 35% to 57% for the heavy on four cells. The
+mechanic, over 96 chases with the ONLY difference being the flag: 8-way chaser
+ends 12.04 tiles out stepping 6.2 turns in 8, orthogonal-only ends 14.32 stepping
+6.1 -- 2.28 tiles manufactured, in 71 of 96 trials. Mutation-tested four ways,
+each put back.
+
+ALSO THIS TURN: gates/rf4_teardown_gate.js G3 RESTORED FROM HISTORY (35bd2b9), not
+rewritten -- main's own c2cceed filed it as a rebase casualty and promised the next
+lane to trip it would recover the LAB's version. It went red at COMBAT for marking a
+status BUILT, which is exactly what the column rule tells COMBAT to do. A GATE MUST
+NEVER OUTRANK A RULING. 94/0, and mutation-tested: touching a non-STATUS column
+beside a slice change still goes red naming the row.
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER (the RF4 LIFT routes machines 1,3,4,7,8,9
+here; 1 and 3 are now BUILT):
+ 1. MACHINE 4 -- VISION AS ONE VARIABLE. It is the master switch: five enemy
+    systems (spawn, acquisition, the press, the flush, the flee) each read their
+    own idea of "can he see me" today. One variable, read by all five, is what
+    makes the dark and the cover mean something consistent instead of five
+    approximations that disagree.
+ 2. MACHINE 7 -- PUBLISHED DETERMINISTIC AI. RF4's enemies are readable because
+    they are rule-stated and never roll. Ours mostly are; the point is publishing
+    the rules on the surface so he can plan against them.
+ 3. MACHINE 8 -- BOUNDED DAMAGE VARIANCE (50-100%). CANNOT SHIP UNTIL THE DIAL.
+    NO DAMAGE BEFORE THE DIAL, so this is blocked by law, not by work.
+ 4. MACHINE 9 -- STATUS EFFECTS AS TURN DENIAL, and the fight half of machine 6
+    (terrain kills). The terrain PROPERTIES half is WORLD's.
+ 5. STILL NOT MINE: "liquids block sprinting" is the terrain half of RF4-51 and
+    belongs to WORLD by the same law's section 6.
+ 6. KNOWN AND DELIBERATE, NOT A BUG: a rifleman in daylight is comfortable
+    anywhere he can shoot, so he repositions for ANGLE rather than closing.
+    Tightening his comfort band below his reach means picking a number and there
+    is no ruling for one. Leave it unless he rules.
+
 CHARACTER (character-0lurbs): 8/18 (g) LATEST -- *** ALL THIRTEEN FACTIONS HAVE AN
 OUTLINE OF THEIR OWN, AND HEADWEAR TURNS OUT TO BE WORTH ALMOST NOTHING.
 BACKLOG ROW SIL IS CLOSED. TAB: CHARACTER, "THE THIRTEEN OUTFITS" (tap COLOUR OFF
