@@ -80,10 +80,22 @@
      the writer measures nothing and says so in the language of a result. */
   function walkable(c) {
     if (!c) return false;
+    if (c.furn && (c.furn.cls === 'cover' || c.furn.cls === 'low')) return false;
     return c.g === 'floor' || c.door === true || c.kind === 'stair';
   }
-  /* A cell that stops a bullet and a look. A wall does; a doorway in it does not. */
-  function opaque(c) { return !c || (c.g === 'wall' && c.door !== true); }
+  /* A cell that stops a bullet and a look. A wall does; a doorway in it does not; and
+     so does anything chest-to-head standing on the floor.
+     THE FURNITURE SPLIT IS LOAD-BEARING HERE AND IT WOULD BE EASY TO CHEAT. Only class
+     `cover` blocks sight -- racking, lockers, a fridge, a counter run. A `low` piece (a
+     bed, a desk, a meeting table) blocks the BODY and not the LOOK, because we have no
+     crouch and a sofa cannot hide you. Counting `low` as opaque would make every office
+     in the game pass the retreat obligation while playing exactly as badly as before,
+     and a number that improves while the game does not is worse than a red one. */
+  function opaque(c) {
+    if (!c) return true;
+    if (c.furn && c.furn.cls === 'cover') return true;
+    return c.g === 'wall' && c.door !== true;
+  }
 
   /* LINE OF SIGHT, symmetric, on the grid the generator actually produces. Bresenham
      between cell centres; any opaque cell strictly between the ends blocks it. The
