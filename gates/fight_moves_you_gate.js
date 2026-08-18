@@ -200,6 +200,112 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('AMMO IS OFF BY HIS SECOND REJECTION ("I\'m not a big fan of the ammo being depleted"), and STOP PRODUCING says a second rejection ends the feature. The gun does not run dry, and the ground is not littered with rounds',
     res.ammoOff && res.gunNeverDry && res.noLitter);
 
+  /* ===== V164 MOVEMENT ASYMMETRY, MEASURED ON THE SHIPPED MOVER =========
+     RF4-51 machine 3: "Slow enemies move ORTHOGONALLY ONLY; you move DIAGONALLY
+     -- every diagonal step costs them more than it costs you, so you generate
+     distance out of pure geometry with NO RESOURCE SPENT."
+     TWO ARMS, ONE DIFFERENCE, and it has to be exactly one: same arena, same
+     start cell, same flee vector, same shipped pressAI. The ONLY thing that
+     changes between them is the ortho flag on the body.
+     AND THE FIRST CUT OF THIS SHIPPED A STATUE. A slow body that never moves
+     also "manufactures distance", by doing nothing, and it would have measured
+     BETTER than the real mechanic (4.03 tiles against 2.55). So the step COUNT
+     is checked too: if the slow arm is not walking roughly as often as the fast
+     one, the gap is a freeze wearing the feature's clothes. */
+  const asym = await frame.evaluate(() => {
+    const cheb = e => { const c = cellOf(e); return Math.max(Math.abs(c[0]), Math.abs(c[1])); };
+    const DIRS = [[-1,-1],[1,-1],[1,1],[-1,1]], STEPS = 8, START = 9;
+    const chase = (ortho, a, dir) => {
+      BohemiaArena.set(a); setupCombat();
+      G.e.length = 0; G.hold = null; G.over = false;
+      const E = JSON.parse(JSON.stringify(ARCH.bot)); E.ortho = ortho;
+      const e = { i:0, E, n:'T', hp:160, max:160, arch:'bot', dead:false, melee:false,
+                  acq:9, stun:0, supp:0, lvl:0, gcov:0, ea:0, edist:START };
+      putCell(e, -dir[0]*START, -dir[1]*START);   /* he flees AWAY from the machine */
+      G.e.push(e); G.numEnemies = 1;
+      let moved = 0, diag = 0;
+      for (let k = 0; k < STEPS; k++) {
+        worldShift(dir[0], dir[1]);
+        G.mTurn = (G.mTurn||0) + 1; e._movedTurn = -1;
+        const was = cellOf(e);
+        try { pressAI(); } catch (x) {}
+        const now = cellOf(e);
+        const dx = Math.abs(now[0]-was[0]), dy = Math.abs(now[1]-was[1]);
+        if (dx || dy) { moved++; if (dx && dy) diag++; }
+      }
+      return { gap: cheb(e), moved, diag };
+    };
+    /* setupCombat SIZES THE ROSTER OFF G.numEnemies, so a one-man chase rig
+       that walks away without putting it back leaves every later arena with a
+       single body in it. That is exactly how the first run of this check
+       reported "0 flagged bodies" and looked like a shipped bug. */
+    const N0 = G.numEnemies;
+    let gO = 0, gE = 0, mO = 0, mE = 0, dO = 0, n = 0, lost = 0;
+    for (let a = 1; a <= 24; a++) for (const d of DIRS) {
+      const A = chase(true, a, d), B = chase(false, a, d);
+      gO += A.gap; gE += B.gap; mO += A.moved; mE += B.moved; dO += A.diag; n++;
+      if (A.gap > B.gap) lost++;
+    }
+    /* and in a REAL arena, with the real roster, a flagged body never lands on
+       a diagonal -- the chase above could pass while the flag leaked in the
+       fights he actually plays */
+    let realMoves = 0, realDiag = 0, flagged = 0;
+    G.numEnemies = N0;
+    for (let a = 1; a <= 12; a++) {
+      BohemiaArena.set(a); setupCombat();
+      flagged += (G.e||[]).filter(e => e && e.E && e.E.ortho).length;
+      for (let t = 0; t < 20; t++) {
+        const was = (G.e||[]).map(e => e && !e.dead ? cellOf(e) : null);
+        G.mTurn = (G.mTurn||0) + 1;
+        try { pressAI(); } catch (x) {}
+        (G.e||[]).forEach((e, i) => {
+          if (!e || e.dead || !was[i] || !(e.E && e.E.ortho)) return;
+          const c = cellOf(e), dx = Math.abs(c[0]-was[i][0]), dy = Math.abs(c[1]-was[i][1]);
+          if (!dx && !dy) return;
+          realMoves++; if (dx && dy) realDiag++;
+        });
+      }
+    }
+    return { n, gO: gO/n, gE: gE/n, mO: mO/n, mE: mE/n, dO, lost,
+             realMoves, realDiag, flagged, steps: STEPS };
+  });
+
+  console.log('  he runs diagonally 8 turns, ' + asym.n + ' trials: 8-way chaser ends '
+    + asym.gE.toFixed(2) + ' tiles out (stepped ' + asym.mE.toFixed(1) + '/' + asym.steps
+    + '), orthogonal-only ends ' + asym.gO.toFixed(2) + ' (stepped ' + asym.mO.toFixed(1)
+    + '/' + asym.steps + ')');
+
+  ok('V164 RF4-51 DISTANCE OUT OF PURE GEOMETRY: cutting corners he can and the machine cannot leaves it '
+    + (asym.gO - asym.gE).toFixed(2) + ' tiles further back over ' + asym.steps
+    + ' turns, in ' + asym.lost + ' of ' + asym.n + ' trials',
+    (asym.gO - asym.gE) >= 1.0 && asym.lost >= asym.n * 0.6);
+
+  ok('V164 AND IT IS GEOMETRY, NOT A FREEZE -- the slow body still walks about as often as the fast one ('
+    + asym.mO.toFixed(1) + ' turns against ' + asym.mE.toFixed(1) + ' of ' + asym.steps
+    + '). A statue manufactures MORE distance than the real mechanic and would have passed the check above',
+    asym.mO >= asym.mE * 0.75);
+
+  /* AND THE MOVER ITSELF HAS TO BE ALIVE, WHICH IS A SEPARATE CLAIM. The ratio
+     above is blind to both arms freezing together: reverting the V164 eff clamp
+     takes the chaser from stepping 6.5 turns in 8 to 4.0, and the ratio still
+     reads fine because BOTH halves shrank. V160 shrank every gun's MAX to the
+     sight ceiling and left the EFF column alone, so the rifle wanted to fight at
+     20 tiles on a 16-tile board and pressScore's entire progress gradient was
+     zero at every reachable distance. This is the check that notices. */
+  ok('V164 AND THE PULL IS LIVE AT ALL -- a chaser who wants you steps on '
+    + asym.mE.toFixed(1) + ' of ' + asym.steps + ' turns. A gun whose EFF sits off the end '
+    + 'of the board has no progress gradient anywhere and stands there instead',
+    asym.mE >= asym.steps * 0.7);
+
+  ok('V164 A SLOW BODY NEVER LANDS ON A DIAGONAL, in the fights he actually plays: '
+    + asym.realDiag + ' diagonal landings in ' + asym.realMoves + ' moves by '
+    + asym.flagged + ' flagged bodies',
+    asym.flagged > 0 && asym.realMoves > 0 && asym.realDiag === 0);
+
+  ok('V164 AND THE CONTROL MOVES BOTH WAYS -- if the fast arm had frozen too, the flag would not be what did it ('
+    + asym.dO + ' diagonal steps by the slow arm across ' + asym.n + ' chases)',
+    asym.mE > 0 && asym.dO === 0);
+
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));
 

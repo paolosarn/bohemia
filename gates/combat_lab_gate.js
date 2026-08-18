@@ -4593,6 +4593,98 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V164 MOVEMENT ASYMMETRY (RF4-51, machine 3) ===============
+   "Slow enemies move ORTHOGONALLY ONLY; you move DIAGONALLY -- every diagonal
+   step costs them more than it costs you, so you generate distance out of pure
+   geometry with NO RESOURCE SPENT."
+   The BEHAVIOUR is measured on the shipped mover by fight_moves_you_gate (96
+   chases, two arms, one difference). What is pinned here is the shape, the two
+   arithmetic bugs it uncovered, and the CLAIM itself -- run as pure geometry,
+   because a mechanic nobody has checked the maths of is a hope. */
+  ok('V164 THE IDENTITY IS DECLARED, NOT DERIVED: `ortho` sits on the archetype next to hp and acc, so which bodies are slow is one word to change and is visible where every other identity number is. Deriving it from a threshold on hp would be authoring canon behind a formula',
+    /bot:\s*\{n:'SEC-BOT'[^}]*ortho:true\}/.test(demo) &&
+    !/ortho:\s*(e\.|hp|E\.hp|\()/.test(demo));
+
+  ok('V164 AND THE SLOW SET IS THE FAST SET FILTERED, never a second table -- two copies of a rule always drift apart, and the whole mechanic is that these two lists differ by exactly the diagonals',
+    demo.includes('const PRESS_CELLS_ORTHO=PRESS_CELLS.filter(c=>c[0]===0||c[1]===0);') &&
+    /for\(const off of \(\(e\.E&&e\.E\.ortho\)\?PRESS_CELLS_ORTHO:PRESS_CELLS\)\)/.test(demo));
+
+  { /* THE CLAIM, AS GEOMETRY. He flees on a diagonal; a chaser that may only
+       take cardinals cannot answer both axes in one turn, so the gap opens by a
+       tile a turn while an eight-way chaser holds it flat. No game state, no
+       scorer, no arena -- just the shape the whole feature rests on. */
+    const run = (ortho) => {
+      const SET = ortho ? [[0,-1],[1,0],[0,1],[-1,0]]
+                        : [[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1],[-1,0],[-1,-1]];
+      let x = 6, y = 6;                                  /* he is at the origin */
+      for (let t = 0; t < 8; t++) {
+        x += 1; y += 1;                                  /* he runs diagonally away */
+        let best = null, bd = Infinity;                  /* the chaser closes as hard as it can */
+        for (const o of SET) {
+          const d = Math.hypot(x + o[0], y + o[1]);
+          if (d < bd) { bd = d; best = o; }
+        }
+        x += best[0]; y += best[1];
+      }
+      return Math.hypot(x, y);
+    };
+    const slow = run(true), fast = run(false);
+    ok('V164 THE CLAIM IS TRUE AS GEOMETRY BEFORE IT IS TRUE AS CODE: over eight diagonal strides a cardinals-only chaser ends '
+      + slow.toFixed(1) + ' tiles out against the eight-way chaser\'s ' + fast.toFixed(1)
+      + ' -- distance manufactured with no resource spent, which is the entire spec row',
+      slow - fast >= 3 && fast <= 9);
+  }
+
+/* ===== AND THE TWO ARITHMETIC BUGS IT UNCOVERED ===================
+   The first cut of the mechanic shipped a STATUE. Halving a body's neighbours
+   did not cause that; it exposed two numbers that had been quietly wrong. */
+  { /* V160 (mine, 8/16) shrank every gun's MAX to the sight ceiling and left the
+       EFF column exactly where it was, so the rifle wanted to fight at 20 tiles
+       and the sniper at 30 on a board that stops at 16 -- and pressScore's whole
+       progress gradient is max(0,d-eff), which is then zero at every distance
+       either of them can ever be at. RUN, not read: a gun cannot want to fight
+       further than it can shoot. */
+    const grab = (name) => {
+      const a = demo.indexOf('function ' + name + '(R){');
+      return a > 0 ? demo.slice(a, demo.indexOf('}', demo.indexOf('return', a)) + 1) : '';
+    };
+    /* BOTH doors, because effRange is only meaningful as the one that cannot
+       overshoot maxRange -- running it against a stub would be marking my own
+       homework with a ruler I drew */
+    const src = grab('maxRange') + '\n' + grab('effRange');
+    let rifle = null, sniper = null, pistol = null, dark = null;
+    try {
+      const f = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult',
+        src + '; return effRange;')(16, 4, () => 1);
+      const fDark = new Function('REACH_CEIL', 'PT_BLANK', 'rangeMult',
+        src + '; return effRange;')(16, 4, () => 0.5);
+      rifle = f({ eff: 20, max: 16 }); sniper = f({ eff: 30, max: 16 });
+      pistol = f({ eff: 6, max: 12 }); dark = fDark({ eff: 20, max: 16 });
+    } catch (e) {}
+    ok('V164 EFF GOES THROUGH THE SAME DOOR MAX ALREADY GOES THROUGH: a rifle written eff:20 on a 16-tile board wants to fight at ' + rifle
+      + ' and a sniper written eff:30 at ' + sniper + ', so the progress gradient is live instead of dead by construction',
+      rifle === 16 && sniper === 16);
+    ok('V164 AND NO NUMBER WAS PICKED TO MAKE IT MEASURE WELL -- the clamp takes each gun to its OWN max and no further, so a pistol written eff:6 max:12 is untouched at ' + pistol + ' and the existing order survives',
+      pistol === 6);
+    ok('V164 AND THE DARK SHRINKS WHERE A GUN WANTS TO FIGHT EXACTLY AS IT SHRINKS WHERE IT CAN: at half range the same rifle wants ' + dark + ' tiles, not 20',
+      dark === 8);
+    ok('V164 AND NOTHING READS THE RAW EFF FOR A MOVEMENT DECISION ANY MORE',
+      !/Math\.max\(0,d-R\.eff\)/.test(demo));
+  }
+
+  { /* AND THE BAR A STEP HAS TO CLEAR WAS HIGHER THAN A STEP. Progress is worth
+       PRESS_PULL/mx per tile: 0.183 to a 12-tile pistol and 0.1375 to a 16-tile
+       rifle, against a flat 0.18 typed in. The pistol cleared it by two
+       thousandths; the rifle never could, at any distance, ever. */
+    ok('V164 THE MOVE-WORTH BAR IS DERIVED OFF THE PULL, not typed beside it -- two loose numbers in a relationship drift apart the first day somebody moves a range',
+      demo.includes('const PRESS_PULL=2.2;') &&
+      demo.includes('const PRESS_WORTH=0.5*PRESS_PULL/REACH_CEIL;') &&
+      /s-=PRESS_PULL\*Math\.max\(0,d-effRange\(R\)\)\/mx;/.test(demo));
+    const pull = 2.2, ceil = 16, worth = 0.5 * pull / ceil;
+    ok('V164 AND IT MEANS ONE PLAIN THING -- HALF A TILE OF REAL PROGRESS -- so every gun in the game can clear it with ONE step, which is the least a movement threshold can do and still be a threshold. The old flat 0.18 was a wall to anything reaching past 12 tiles',
+      worth < pull / ceil && 0.18 > pull / ceil && worth < 0.18);
+  }
+
 /* ===== V162 THE FIGHT IS ON THE GRID ==============================
    Paolo 8/17: "we really need this shit to play exactly like rogue fable four
    right now."
@@ -4837,8 +4929,15 @@ ok('V136 IT ASKS THE GAME\'S OWN FUNCTIONS AND NEVER RESTATES THEM: the scorer c
    saturates near 9.6 tiles, so out on a 16-tile board the gradient was FLAT:
    movers/turn fell 1.93 -> 0.42 and they closed 0.61 tiles in six turns. The
    board got bigger and the fight got emptier. Gated so it cannot come back. */
+/* V164 RE-POINTED, AND THIS CHECK WAS GUARDING THE BROKEN VERSION. It swore
+   "both terms are monotonic at every distance, so there is no flat stretch to
+   stall in" while pinning the literal `d-R.eff`, and from V160 onward that term
+   was structurally zero for the rifle (eff 20) and the sniper (eff 30) on a
+   board that stops at 16. The check could not tell, because it was reading the
+   words rather than the arithmetic. It now pins the EFF-THROUGH-ONE-DOOR form,
+   and the V164 block above RUNS the clamp instead of trusting it. */
 ok('V138 THE PRESS READS **HIS** GUN, NEVER MINE: a man wants to be inside HIS OWN effective range, and past his own max he is holding a brick -- the worst tile on the board to stand on. Both terms are monotonic at every distance, so there is no flat stretch to stall in (the V137 cliff lesson, applied before it could bite twice)',
-  /s-=2\.2\*Math\.max\(0,d-R\.eff\)\/mx;/.test(demo) &&
+  /s-=PRESS_PULL\*Math\.max\(0,d-effRange\(R\)\)\/mx;/.test(demo) &&
   /if\(d>mx\)s-=2\.5;/.test(demo) &&
   !/s\+=2\.2\*\(distT\(\{edist:e\.edist\}\)-distT\(\{edist:d\}\)\)/.test(demo));
 
@@ -4861,7 +4960,11 @@ ok('V136 A MOVE HAS TO BE WORTH SOMETHING: PRESS_WORTH is the margin a tile must
      under it. A man moves ONE CELL now, so the cap is the cell itself and the
      constant is DELETED rather than left declared and unread -- a dead dial is
      worse than no dial, because the next session tunes it and nothing happens. */
-  /const PRESS_WORTH=0\.18;/.test(demo) &&
+  /* V164 RE-POINTED AGAIN, and the margin is no longer a typed number: 0.18 was
+     higher than a single tile of progress for any gun reaching past 12 tiles, so
+     for the rifle and the sniper it was not a margin, it was a wall. It is
+     derived off the pull now and means half a tile of real progress. */
+  /const PRESS_WORTH=0\.5\*PRESS_PULL\/REACH_CEIL;/.test(demo) &&
   /const PRESS_CELLS=\[\[0,-1\],\[1,-1\],\[1,0\],\[1,1\],\[0,1\],\[-1,1\],\[-1,0\],\[-1,-1\]\];/.test(demo) &&
   !/const PRESS_STEP=/.test(demo));
 
