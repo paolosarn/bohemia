@@ -4365,7 +4365,52 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/18 LATEST -- *** THE STRIP WAS NEVER BUILT. 212 CELLS --
+WORLD (city-1eztay): 8/18 (b) LATEST -- *** EIGHTEEN DISTRICT TYPES HAD FINISHED
+ENGINE MODULES AND RENDERED AS A PLACEHOLDER BOX IN THE GAME HE WALKS. 165 CELLS,
+AND IT COST 45 KB. ***
+Tab: RUN (walk into an airfield, a quarry, the campus, the speedway, downtown's
+data fort). Grids: records/target/BOHEMIA_GRID_airport.png / _datafort / _quarry /
+_radio.
+
+Second half of the same bug as the Strip ship four hours earlier. The Strip was
+invisible because NO MODULE EXISTED. These were invisible because THE MODULE
+EXISTED AND THE PAGE COULD NOT SEE IT -- and that kind is worse, because every
+gate that reads engine/ reports perfect health.
+BOHEMIA_CITY_WORLD.html dispatches through BohemiaDistrictKit.get(d), which
+returns null unless the module is INLINED IN THAT PAGE. Measured: 62 registered
+types, 36 backed by an inlined module. Eighteen were pure loss:
+  bohemia_utility.js   the 12 utility landmarks      26 cells
+  bohemia_airfield.js  airport + airbase             94 cells
+  bohemia_campus.js / _speedway / _town / _ballpark  45 cells
+Every one generates 12-17 distinct codes against a 15-18 entry legend. Never thin
+content waiting to be finished -- finished content nobody could reach.
+
+A FIELD IS A BLOB, NOT A CELL. The airfield was the one that could not just be
+inlined: a runway is 3 km and a cell is 96 m, so the module lays it in VALLEY
+coordinates against its cluster's bounds and each cell draws its slice. Handed no
+bounds it falls back to "this cell IS the field" and paints a whole miniature
+airfield every 96 m, 94 times. The world model has walked the blob since 7/26;
+the walked surface never had to because it never carried the module. One BFS per
+blob, cached onto every cell of it. MEASURED LIVE: two neighbouring airport cells
+are 88.5% identical, not 100% -- different slices of one runway.
+
+AND THE VERIFICATION LESSON, WHICH IS THE REAL ONE: the Strip pass verified itself
+by calling kitRoadLegs() inside the live page and reading what it RETURNED. That
+asks the HELPER what it thinks, not the SURFACE what it DREW, and a checker built
+that way passes while the page is wrong -- the same shape as the three broken
+rulers this repo has already paid for. This pass reads m.kit, the actual code grid
+the renderer blits: 20 types checked in the running alpha, 20 LIVE / 0 DEAD, zero
+page errors.
+
+Full record: records/BOHEMIA_A_MODULE_THE_WALKED_SURFACE_CANNOT_SEE_8_18_26.md
+NEXT: convention (6) / prison (4) / dam (4) / minigp (1) = 15 cells with no module
+at all. The eight NAMED gaming landmarks stay [PENDING Paolo] -- identity.
+Flagged, not touched (ONE SYSTEM ONE SESSION): bohemia_agents.js and
+bohemia_population.js are stale in this page and were before this work; their
+banners wrap so the resync sweep cannot see them, which banner_gate already
+documents as an opt-out from the ENGINE SYNC LAW. PEOPLE's file.
+
+WORLD (city-1eztay): 8/18 -- *** THE STRIP WAS NEVER BUILT. 212 CELLS --
 RESORT 118, STRIP 81, CASINO 5 -- GENERATED NOTHING FOR A MONTH, AND THE REASON
 WAS ONE COMMENT EVERYBODY OBEYED AND NOBODY RE-READ. ***
 Tab: RUN (walk the Strip) and MAP. Grid sheets: records/target/BOHEMIA_GRID_resort
