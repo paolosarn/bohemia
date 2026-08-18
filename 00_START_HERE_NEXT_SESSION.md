@@ -1,4 +1,109 @@
-WORLD (world-9lfjtf): 8/18 (a) LATEST -- *** THE FLOOR CAN DO SOMETHING TO YOU. THE
+LAB (lab-e2r7sv): 8/18 (a) LATEST -- *** THE SPEC IS BUILT ON HIS OWN 83-SCREEN CAPTURE NOW, NOT ON
+MY SEARCHES -- AND FINDING THAT OUT MEANT ADMITTING I DID THE WRONG WORK FIRST. ***
+JUDGE THIS: 1. records/BOHEMIA_RF4_TEARDOWN_SPEC.md (68 numbered items) NOT IN A TAB (records file).
+The fight is the COMBAT tab.
+
+Paolo 8/18: "do big brain online research if you need to then execute and have any questions on your
+task WE HAVE a demo to ship more forward motion work we need to complete."
+
+*** READ THIS BEFORE ANY RF4 WORK: laws/BOHEMIA_ADDENDUM_THE_RF4_LIFT_8_17_26.md. ***
+PAOLO CAPTURED THE GAME HIMSELF. records/rf4/BOHEMIA_RF4_DANGER_SCHOOL_MASTER.md is his verbatim
+capture of 83 RF4 tutorial screens, and records/rf4/BOHEMIA_RF4_COMBAT_SYSTEMS_SYNTHESIS_8_17_26.pdf
+is his own 14-section analysis. The 8/17 law then AUTHORISED the lift, DECIDED all seven open forks,
+NAMED six contradictions, and routed every lane. Its §6 defines this lane's job in one sentence:
+"LAB -- its teardown job SHRANK. He did the research. LAB DOES NOT RE-SEARCH RF4; it turns his corpus
+into the numbered spec with the diff column."
+I RE-SEARCHED IT ANYWAY. The law was already on main and I did not read it before starting, so I spent
+a pass chasing the damage math and the SP economy -- the exact two things his capture already closed.
+It is recorded in the spec's CORRECTIONS block, not buried. THE LESSON IS ALREADY IN CLAUDE.md AND I
+BROKE IT: read the laws first, then work. The search pass was not worthless (it corroborated mechanics
+independently and closed two dossier gaps), but it was redundant AND IT CONTRADICTED SETTLED CANON
+TWICE:
+  C-A. RF4-15 said "do not import the resource tax." WRONG. Law C1 had already ruled TAKE IT, because
+    SP IS UPSIDE-ONLY: it never taxes normal play, it grants free actions on top, and it refills on a
+    WORLD clock rather than a punish timer. I had conflated "a resource exists" with "a resource taxes
+    you." Corrected in place.
+  C-B. RF4-10's "PP regenerates 5 points every 5 turns" came from a search summary. His capture
+    documents a 5-turn GLOBAL cadence for SPEED POINTS and records that RF4's own tutorial contradicts
+    itself on exactly that. I MAY HAVE ATTACHED AN SP FACT TO PP. Flagged, not trusted, with a
+    pointer telling COMBAT to take the clock from RF4-49 instead.
+The spec now runs a FOUR-TIER authority stack with his [CAPTURE] on top, above [LAW], [PRIMARY] and
+[SOURCED]. If a search finding disagrees with his capture, the capture wins. He could just read the
+game; I could not, because every primary domain is egress-blocked here as org policy.
+
+*** HIS ONE SENTENCE, WHICH REFRAMES THE WHOLE RECREATION: *** "Rogue Fable IV is not a damage game.
+It is a POSITION game with a damage readout, and almost every system in it exists to make geometry
+more powerful than statistics." That is the deepest answer yet to why our fight can feel flat: WE HAVE
+THE DAMAGE READOUT AND THE GEOMETRY IS DECORATION.
+
+*** SECTION J IS HIS NINE MACHINES, KEPT AS THE BUILD ORDER (RF4-49..57), ROUTED BY THE LAW. ***
+The one COMBAT starts with, because the law says it is "the one he will feel first": RF4-49 THE
+FREE-MOVEMENT BUDGET. One action per turn, attacking ends it, moving ends it, waiting is legal and
+often correct -- EXCEPT sprinting moves you WITHOUT ending your turn, so SP is a currency that buys
+free actions outside the turn economy. And the sharp part: SP REFILLS ON EVERY 5TH GLOBAL GAME TURN ON
+A FIXED WORLD CLOCK, NOT A PER-USE COOLDOWN. "A resource on a global clock tests TIMING; the same
+resource on a per-use cooldown tests only PATIENCE." WE ALREADY HAVE THE SUBSTRATE: the 120 BPM global
+clock, BEAT=0.5s. Also in J: vision as ONE variable gating FIVE enemy systems (the law calls it the
+cheapest depth in the document, and we already own LOS and destructible cover); movement asymmetry
+(slow enemies orthogonal-only, you diagonal, so geometry generates distance for free -- cleaner than
+stat inflation and it needs no numbers); environmental kills that keep a bad-item run solvable;
+bounded 50-100% damage variance so breakpoints are plannable and crits become a COMBO system; and
+status effects as TURN DENIAL rather than damage.
+SECTION K holds the six contradictions as RULINGS, and the one that will bite anybody who misses it is
+RF4-62 / LAW C4: RF4 IS MELEE-AND-SPELL, WE ARE GUNS. There distance is safety, which is why kiting
+works. HERE LINE OF SIGHT IS SAFETY -- so BREAKING LOS IS OUR KITE VERB, cover is our corridor, and a
+corner is still a spacing tool. Do not copy the kite loop literally.
+ALSO NOW FLEET-WIDE LAW and it binds every lane that writes player-facing text, not just combat: the
+A/B/C TEACHING REGISTER (RF4-65..68). Tell them what they could not derive, hint at what they could,
+SHOW them what the room can demonstrate. "NEVER EXPLAIN SOMETHING THE FLOOR COULD HAVE SHOWN."
+
+*** THE TWO MEASURED GAPS STILL OPEN FOR COMBAT, unchanged and now better sourced: *** every fight is
+EIGHT men (8.0, min 8, max 8, 0 of 40 inside his 3-4-typical / 5-6-very-hard / 7-plus-is-boss-only
+rule, confirmed by two independent queries) and NO ENEMY READS ANY OTHER ENEMY. RF4 buys depth with
+SYNERGY, which compounds; we buy it with BODIES, which only adds. Eight is still not a ruling (6/27
+uses it as the STRESS CASE, "one enemy or eight"). COMBAT owns the curve and the composition table;
+G.numEnemies was measured, never touched. Cheapest way in is RF4-38, one support body whose AI
+actively avoids your line of sight so the thing you must kill keeps leaving.
+ONE FORK NOBODY HAS RULED, flagged not decided: RF4-58, LEVELLING UP RESTORES ALL COOLDOWNS, so a held
+level-up is a detonatable mid-fight reset and progression becomes a combat ability. The 8/17 law
+decided seven forks and this was not one of them.
+
+GATE: gates/rf4_teardown_gate.js, 94 checks, registered as RF4 TEARDOWN. It does NOT demand RF4's
+numbers -- a gate must never outrank a ruling -- it demands the divergence stay MEASURED and DECLARED
+and goes red when COMBAT lands the curve. It fails if the capture loses its place at the top of the
+authority stack, if either correction is quietly removed, if the admission that the re-search was the
+wrong call is edited out, if a [PENDING Paolo] fork gets answered by LAB, if any RF4-NN
+cross-reference dangles, or if LAB's own diff touches any engine module or slice.
+46 MUTATIONS RUN THIS TURN AND TWO FOUND REAL HOLES IN MY OWN CHECKS. H3 was written as
+`A && B || C`, which JS groups as `(A && B) || C`, so its trailing clause alone passed it and deleting
+the actual admission changed NOTHING -- a check that cannot fail is not a check. And A6 caught me
+giving one item a DUAL status, inventing a fourth value the law does not define; I fixed the spec, not
+the ruler. A cross-reference check now exists because a renumbering slip had left RF4-07 pointing at
+RF4-15 instead of RF4-18, and in a file whose whole purpose is that COMBAT cites item numbers, a wrong
+number is a real defect.
+
+*** ENVIRONMENT WARNING, TWICE IN ONE SESSION AND IT COST REAL WORK. *** A stale .git/rebase-merge
+directory kept resuming a days-old rebase and threw the tree back to an old commit mid-session, once
+deleting committed-but-unpushed work and once nearly making me push a commit that DELETED five other
+lanes' files. RECOVERY: check `ls .git/rebase-merge`, `rm -rf .git/rebase-merge .git/rebase-apply`,
+verify your ships are ancestors of origin/main, hard-reset to origin/main, then re-apply your own
+files only. ALWAYS diff against origin/main and read the file list before pushing. PUSH EARLIER THAN
+FEELS NECESSARY.
+
+*** WHAT COMES AFTER. *** The teardown is DONE and COMBAT is unblocked; do not rewrite it, extend it
+only when COMBAT asks for a spec item. LAB DOES NOT RE-SEARCH RF4 -- that is law, and the two gaps
+still open (the full talent lists, and RF3-to-RF4's omission list) are the least useful of the five
+and unreachable behind the proxy anyway. THE NEXT LAB STUDY IS PAOLO'S CALL (one session = one system
+= one named game). Strongest candidate on the demo board is ROW 7, THE FIRST FIVE MINUTES: still OPEN,
+DEMO-BLOCKING, and described there as "the single highest ratio of player-impact to work on this
+board" -- a new player lands on the CHARACTER workbench and has to find RUN among ~16 tabs. Owner is
+RUN, so LAB's contribution would be a reference study of how the best-in-class roguelites open.
+Offered, not started.
+
+--------------------------------------------------------------------------------
+
+
+WORLD (world-9lfjtf): 8/18 (a) -- *** THE FLOOR CAN DO SOMETHING TO YOU. THE
 VALLEY WAS ALREADY FULL OF LETHAL GROUND AND NOTHING HAD EVER TOLD THE GAME.
 TAB: RUN -- walk onto it and a line appears bottom-left of the map saying what is
 under your feet. ***
@@ -213,7 +318,7 @@ NEXT IN THIS LANE: the last piece of the 8/13 work order -- the ADD TO HOME
 SCREEN card after his first night, which now has somewhere to point (the manifest
 and icon shipped 8/16). CAMP remains the one demo beat frozen twice over
 ([PENDING Paolo] + "no session builds survival mechanics before that verdict").
-CHARACTER (character-0lurbs): 8/18 (d) LATEST -- *** TWO OF THE SIX NEIGHBOURS
+CHARACTER (character-0lurbs): 8/18 (d) -- *** TWO OF THE SIX NEIGHBOURS
 STILL LOOKED LIKE THE SAME PERSON, AND THE FIX WAS ALREADY IN THE WARDROBE.
 TAB: LOOK, "THE SIX PEOPLE ON YOUR STREET" (the bottom row is the test), and
 RUN, walk into a settlement. ***
@@ -357,8 +462,8 @@ include ZERO who run with anybody; first affiliated is 9 cells out. Base placeme
 is MAP LAW; REACH_CELLS and AFFILIATED_RATE are [PENDING Paolo]; routing the demo
 past an outfit is QUESTS/RUN.
 
-ART (f3eu53): 8/17 (c) LATEST -- *** PAOLO DROPPED THE ROGUE FABLE SCHOOL
-PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+ART (f3eu53): 8/17 (c) -- *** PAOLO DROPPED THE ROGUE FABLE SCHOOL
+PEOPLE (people-7h9sfy): 8/17 (b) -- *** OVERHEARING A FACT NOW WRITES IT
 DOWN, AND STAYING FOR THE WHOLE CONVERSATION IS WHAT PAYS. TAB: RUN, and you
 read it on the talk card when you open somebody. ***
 
@@ -435,8 +540,8 @@ a ruling from him about WHAT any of them lead to, so build the asking mechanism
 and leave the destinations empty. (2) Exchanges are picked by ARCHETYPE only; the
 sim already knows faction, standing, what you were SEEN doing and whether they
 have met you. (3) Quest volume: 114 questbook studies still untouched.
-ART (f3eu53): 8/17 (d) LATEST -- *** THE AWNINGS WERE NEVER BLOCKED: the
-ART (f3eu53): 8/18 (a) LATEST -- *** EVERY AWNING HANGS: side-facing
+ART (f3eu53): 8/17 (d) -- *** THE AWNINGS WERE NEVER BLOCKED: the
+ART (f3eu53): 8/18 (a) -- *** EVERY AWNING HANGS: side-facing
 ribbons cooked (fabric sampled from the approved drops) and wired for east
 and west facades. All four facings of every named awning cell in downtown
 draw now. ***
@@ -548,14 +653,14 @@ have met you, and an exchange that reacts to the player walking past is the
 obvious next axis. (2) The 11 that leak a thread leak it into nothing -- Q018.W3
 wants the thread to be pullable, which means an overheard fact should be able to
 open something. (3) Quest volume: 114 questbook studies still untouched.
-ART (f3eu53): 8/17 (b) LATEST -- *** GATES AT THE REAL ENTRANCES: every
+ART (f3eu53): 8/17 (b) -- *** GATES AT THE REAL ENTRANCES: every
 world-named gate/curb-cut cell stands as a single wide open gate now,
 run-aware (leaves at the end posts, mouth open). Freeway re-probed: STILL
 reserved ground. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twenty-fifth pass)
 TAB: ART, WIRED IN THE GAME - chain-link card text carries it.
 
-FACTIONS (factions-ovkjpf): 8/16 (b) LATEST -- *** WHO YOU RUN WITH IS NOW ABOUT
+FACTIONS (factions-ovkjpf): 8/16 (b) -- *** WHO YOU RUN WITH IS NOW ABOUT
 WHERE YOU LIVE, AND HALF THE VALLEY'S COMMUTE WAS BEING THROWN AWAY.
 TAB: CITY (tap anybody near a faction base). ***
 
@@ -869,7 +974,7 @@ control) rather than a hard 12-cell cliff where allegiance switches off at an ex
 radius. Researched this turn, NOT built -- it preserves his dial exactly and makes
 contested ground real, which would feed the who-will-hear graph directly.
 
-ART (f3eu53): 8/16 (b) LATEST -- *** THE DECK SLAB IS COOKED AND THE STAIRS
+ART (f3eu53): 8/16 (b) -- *** THE DECK SLAB IS COOKED AND THE STAIRS
 ART (f3eu53): 8/16 (c) -- *** THE KERB KIT IS COOKED (returns + ramps
 at the bar, drops held for one more pass) AND THE PLACEMENT TRUTH IS
 MEASURED: sidewalks exist ONLY in the suburb family, so the wire-in is a
@@ -893,7 +998,7 @@ section). Forms updated: TF-CMB-004 COOKED, TF-CMB-005 UNBLOCKED.
 This closes the oldest HIGH row on the board (open since 7/28). The ART
 lane's remaining blocked list is unchanged (world geometry + weather).
 
-RUN (run-eak241): 8/15 (b) LATEST -- HIS REROLL BUG, AND THE FIX I GOT WRONG.
+RUN (run-eak241): 8/15 (b) -- HIS REROLL BUG, AND THE FIX I GOT WRONG.
 
 *** FOR WHOEVER OWNS THE REROLL BUTTON (you fixed it 8/15, reroll_gate.js): ***
 I deleted your button. He reported the same button to me the same day ("it puts
@@ -1817,7 +1922,7 @@ every measurement taken before the resync as void; two of mine were.
 
 --------------------------------------------------------------------------------
 
-RUN (run-eak241): 8/12 (c) LATEST -- THE VALLEY REMEMBERS. YESTERDAY IS TRUE TODAY.
+RUN (run-eak241): 8/12 (c) -- THE VALLEY REMEMBERS. YESTERDAY IS TRUE TODAY.
 
 Paolo: "we are trying tk create the best funnest deepest videogame ever." DEPTH IS NOT
 MORE SURFACE, IT IS YESTERDAY STILL BEING TRUE TODAY. So I measured what survives a
@@ -1895,7 +2000,7 @@ replacing the oldest raw shots with quantized ones.
 
 ART (f3eu53): 8/11 (l) -- *** TEN OF FOURTEEN FAMILIES ARE IN THE GAME.
 
-RUN (run-eak241): 8/12 (b) LATEST -- THE PHONE RINGS. THE DAY STARTS WITH NO JOB.
+RUN (run-eak241): 8/12 (b) -- THE PHONE RINGS. THE DAY STARTS WITH NO JOB.
 
 The phone was in his pocket and knew where he was, and it was still a VIEWER. Nothing
 ever arrived on it; nothing he did on it changed the day. EVERY PHONE FEATURE SO FAR
@@ -2023,18 +2128,18 @@ compress; the ceiling is real now.
 
 ART (f3eu53): 8/11 (k) -- *** NINE OF FOURTEEN FAMILIES ARE IN THE
 
-PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
+PEOPLE (7h9sfy): 8/12 (b) -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
-PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
+PEOPLE (7h9sfy): 8/12 (d) -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
 NOT A DIORAMA. A SECOND SCENE COSTS A JSON FILE AND ZERO NEW CODE. ***
-PEOPLE (7h9sfy): 8/12 (f) LATEST -- *** THE SECOND CUTSCENE SHIPPED, AND IT COST
+PEOPLE (7h9sfy): 8/12 (f) -- *** THE SECOND CUTSCENE SHIPPED, AND IT COST
 ONE JSON FILE. THE GRIEF DINNER IS IN THE CUTSCENE TAB. ***
-PEOPLE (7h9sfy): 8/12 (h) LATEST -- *** NEW LAW, HIS, AND IT IS ABOUT US:
+PEOPLE (7h9sfy): 8/12 (h) -- *** NEW LAW, HIS, AND IT IS ABOUT US:
 HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 PEOPLE (7h9sfy): 8/12 (k) -- *** THE WORLD HAS A MOUTH: 244 AMBIENT LINES OFF
 THE CATALOGUE, WIRED INTO linesFor(). ***
-PEOPLE (7h9sfy): 8/16 (d) LATEST -- *** 27 QUESTS. TWO NEW ONES THAT INVERT WHAT
+PEOPLE (7h9sfy): 8/16 (d) -- *** 27 QUESTS. TWO NEW ONES THAT INVERT WHAT
 EVERYBODY THINKS THEY KNOW -- WHICH IS WHAT THE RESEARCH IS FOR. ***
 
 S26 WHAT THE COLD DID NOT KILL. Everybody knows insulin dies without a fridge.
@@ -2922,7 +3027,7 @@ NEXT IN THIS LANE: THE PHONE STILL DOES NOT RING. The pipe runs world -> phone a
 phone -> camera; the missing leg is a job ARRIVING on it and being accepted there.
 Records: BOHEMIA_ONE_ZOOM_TO_THE_MOON_8_12_26.md, BOHEMIA_YOUR_HOUSE_AND_THE_PHONE_8_11_26.md
 
-ART (f3eu53): 8/11 (k) LATEST -- *** NINE OF FOURTEEN FAMILIES ARE IN THE
+ART (f3eu53): 8/11 (k) -- *** NINE OF FOURTEEN FAMILIES ARE IN THE
 GAME. THE PARK LAWNS DIED MOWN. STOREFRONTS ARE BUILT BUT HELD - UNVERIFIED
 PLACEMENT DOES NOT SHIP. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (tenth-pass section)
@@ -2989,13 +3094,13 @@ records/OVERWORLD_FACE_SCALE_8_11.png), and NE/NW have no face painted at all.
 --------------------------------------------------------------------------------
 
 
-PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
+PEOPLE (7h9sfy): 8/12 (b) -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
-PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
+PEOPLE (7h9sfy): 8/12 (d) -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
 NOT A DIORAMA. A SECOND SCENE COSTS A JSON FILE AND ZERO NEW CODE. ***
-PEOPLE (7h9sfy): 8/12 (f) LATEST -- *** THE SECOND CUTSCENE SHIPPED, AND IT COST
+PEOPLE (7h9sfy): 8/12 (f) -- *** THE SECOND CUTSCENE SHIPPED, AND IT COST
 ONE JSON FILE. THE GRIEF DINNER IS IN THE CUTSCENE TAB. ***
-PEOPLE (7h9sfy): 8/12 (h) LATEST -- *** NEW LAW, HIS, AND IT IS ABOUT US:
+PEOPLE (7h9sfy): 8/12 (h) -- *** NEW LAW, HIS, AND IT IS ABOUT US:
 HE MUST BE ABLE TO DIRECT IT, NOT JUST WATCH IT.
 laws/BOHEMIA_ADDENDUM_HE_MUST_BE_ABLE_TO_DIRECT_8_12_26.md. TAB: DIRECT. ***
 
@@ -3102,7 +3207,7 @@ and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left al
 
 
 
-LAB (lab-e2r7sv): 8/7 (d) LATEST -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
+LAB (lab-e2r7sv): 8/7 (d) -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
 THREE BOSSES WERE THE SAME BOSS. THE LADDER IS REBUILT AND THE BUG IS NOW MACHINE-HELD. ***
 JUDGE THIS: 1. the 17 bosses in records/BOHEMIA_THE_BOSS_LADDER_v2_8_7_26.md. NOT IN A TAB.
 ONE THING PENDING HIM: THE VOICE, which he explicitly did not approve.
@@ -3340,7 +3445,7 @@ have no face painted at all.
 
 --------------------------------------------------------------------------------
 
-ART (f3eu53): 8/11 (j) LATEST -- *** EIGHT OF FOURTEEN FAMILIES ARE IN THE
+ART (f3eu53): 8/11 (j) -- *** EIGHT OF FOURTEEN FAMILIES ARE IN THE
 GAME. THE FARM GROUND WAS THE DAY'S LAST WIRING: THE DELIBERATE BLANKS FINALLY
 GOT THEIR FAMILY. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (ninth-pass section)
@@ -3407,7 +3512,7 @@ circled before saying it is done.
 --------------------------------------------------------------------------------
 
 
-LAB (lab-e2r7sv): 8/17 (a) LATEST -- *** THE RF4 TEARDOWN SPEC EXISTS. THE SEAM BETWEEN LAB AND
+LAB (lab-e2r7sv): 8/17 (a) -- *** THE RF4 TEARDOWN SPEC EXISTS. THE SEAM BETWEEN LAB AND
 COMBAT IS A FILE NOW, AND EIGHT OF RF4's PILLARS TURN OUT TO BE ALREADY BUILT. ***
 JUDGE THIS: 1. records/BOHEMIA_RF4_TEARDOWN_SPEC.md (28 numbered items, each with a status)
 NOT IN A TAB (records file). The fight itself is the COMBAT tab.
@@ -3760,11 +3865,11 @@ the act-1 relationship arc (PEOPLE lane); whether clout is the summon's mana; wh
 and the MEDICINE-vs-RESOURCES currency name.
 
 
-PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
+PEOPLE (7h9sfy): 8/12 (b) -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
-PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
+PEOPLE (7h9sfy): 8/12 (d) -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
 NOT A DIORAMA. A SECOND SCENE COSTS A JSON FILE AND ZERO NEW CODE. ***
-PEOPLE (7h9sfy): 8/12 (f) LATEST -- *** THE SECOND CUTSCENE SHIPPED, AND IT COST
+PEOPLE (7h9sfy): 8/12 (f) -- *** THE SECOND CUTSCENE SHIPPED, AND IT COST
 ONE JSON FILE. THE GRIEF DINNER IS IN THE CUTSCENE TAB. ***
 
 THE PROOF THE PLUMBING WORKED. Yesterday's pass made the cutscene a machine;
@@ -3871,7 +3976,7 @@ and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left al
 
 
 
-LAB (lab-e2r7sv): 8/7 (d) LATEST -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
+LAB (lab-e2r7sv): 8/7 (d) -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
 THREE BOSSES WERE THE SAME BOSS. THE LADDER IS REBUILT AND THE BUG IS NOW MACHINE-HELD. ***
 JUDGE THIS: 1. the 17 bosses in records/BOHEMIA_THE_BOSS_LADDER_v2_8_7_26.md. NOT IN A TAB.
 ONE THING PENDING HIM: THE VOICE, which he explicitly did not approve.
@@ -4109,7 +4214,7 @@ have no face painted at all.
 
 --------------------------------------------------------------------------------
 
-ART (f3eu53): 8/11 (i) LATEST -- *** SEVEN OF FOURTEEN FAMILIES ARE IN THE
+ART (f3eu53): 8/11 (i) -- *** SEVEN OF FOURTEEN FAMILIES ARE IN THE
 GAME: RAIL, STRIPES, RING, METAL, MESH, BRICK, MOBILE HOMES. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (eighth-pass section)
 
@@ -4127,7 +4232,7 @@ ART (f3eu53): 8/11 (h) -- *** FIFTH FAMILY WIRED: THE FENCES ARE REAL
 
 
 
-LAB (lab-e2r7sv): 8/7 (g) LATEST -- *** 63 BOSS CANDIDATES ACROSS THREE ACTS, AND HE CAUGHT ME
+LAB (lab-e2r7sv): 8/7 (g) -- *** 63 BOSS CANDIDATES ACROSS THREE ACTS, AND HE CAUGHT ME
 OVERSELLING A RESEARCH FINDING. IT IS A POOL TO CUT FROM, NOT A SHIPPING LIST. ***
 JUDGE THIS: 1. the 63 in records/BOHEMIA_THE_BOSS_LADDER_v5_8_7_26.md. NOT IN A TAB.
 
@@ -4181,7 +4286,7 @@ approved); whether the valley should EVER reconnect (63 THE UPLINK, close to the
 story); whether clout is the summon's mana; and the MEDICINE-vs-RESOURCES currency name.
 
 
-LAB (lab-e2r7sv): 8/7 (f) LATEST -- *** 41 BOSSES, AND ACT 3 IS EARLY NIGHT CITY. THE REBUILD
+LAB (lab-e2r7sv): 8/7 (f) -- *** 41 BOSSES, AND ACT 3 IS EARLY NIGHT CITY. THE REBUILD
 IS THE TAKEOVER, AND THE PLAYER BUILDS THE TRAP THEMSELVES. ***
 JUDGE THIS: 1. the 41 in records/BOHEMIA_THE_BOSS_LADDER_v4_8_7_26.md. NOT IN A TAB.
 PENDING HIM: THE VOICE (39), and whether "dirty bomb" meant radiological.
@@ -5017,7 +5122,7 @@ GATES: RUN 126, CURRENT SLICE 6, STANDING 35, DEED BRIDGE 27, MEMBERSHIP 55,
 INTEGRATION 116 (27/32), NO HUNTING 7.
 
 
-ART (f3eu53): 8/11 (h) LATEST -- *** FIFTH FAMILY WIRED: THE FENCES ARE REAL
+ART (f3eu53): 8/11 (h) -- *** FIFTH FAMILY WIRED: THE FENCES ARE REAL
 SEE-THROUGH CHAIN-LINK IN THIRTEEN DISTRICTS. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (seventh-pass section)
 
@@ -5031,7 +5136,7 @@ volume ledger (rail turnout/crossing/buffer, wheel stops/ADA, RTU recook at
 cell size, roll-up doors, fence gates/toppers, deck stairs after TF-CMB-004).
 
 ART (f3eu53): 8/11 (g) -- *** HIS VERDICT ON THE WIRED WORK: "LOOKS GOOD
-SOUND (sound-xk7pjp): 8/12 (a) LATEST -- *** THE GAME HAS 54 SOUND MOMENTS NOW,
+SOUND (sound-xk7pjp): 8/12 (a) -- *** THE GAME HAS 54 SOUND MOMENTS NOW,
 NOT 28, AND THE 26 NEW ONES WERE BUILT OUT OF A MEASUREMENT OF HIS OWN 140
 THUMBS. TAB: MUSIC. ***
 
@@ -5084,9 +5189,9 @@ NOT DONE, AND DELIBERATELY: none of the 26 is wired to a call site yet. They
 are silent until he thumbs them, so wiring first would be wiring to nothing --
 the wire lands the turn the bank does.
 
-PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
+PEOPLE (7h9sfy): 8/12 (b) -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
-PEOPLE (7h9sfy): 8/12 (d) LATEST -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
+PEOPLE (7h9sfy): 8/12 (d) -- *** THE CUTSCENE PLUMBING IS A MACHINE NOW,
 NOT A DIORAMA. A SECOND SCENE COSTS A JSON FILE AND ZERO NEW CODE. ***
 
 HIS NOTE: "im more concerned of the natural wiring and plumbing of the cutscenes
@@ -5203,7 +5308,7 @@ and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left al
 
 
 
-LAB (lab-e2r7sv): 8/7 (d) LATEST -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
+LAB (lab-e2r7sv): 8/7 (d) -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
 THREE BOSSES WERE THE SAME BOSS. THE LADDER IS REBUILT AND THE BUG IS NOW MACHINE-HELD. ***
 JUDGE THIS: 1. the 17 bosses in records/BOHEMIA_THE_BOSS_LADDER_v2_8_7_26.md. NOT IN A TAB.
 ONE THING PENDING HIM: THE VOICE, which he explicitly did not approve.
@@ -5392,7 +5497,7 @@ GATES: RUN 126, CURRENT SLICE 6, STANDING 35, DEED BRIDGE 27. The current slice 
 first -- it embeds the loop and I had rebuilt only the run. Same trap as 8/9; rebuild
 BOTH slices whenever engine or run source changes.
 
-ART (f3eu53): 8/11 (g) LATEST -- *** HIS VERDICT ON THE WIRED WORK: "LOOKS GOOD
+ART (f3eu53): 8/11 (g) -- *** HIS VERDICT ON THE WIRED WORK: "LOOKS GOOD
 THE PLACEMENT WAS SHIT BUT INDIVIDUALLY THE TILES ARE GOOD." THREE PLACEMENT
 FAULTS FIXED SAME TURN, CARDS RE-SHOT. ***
 Record: records/BOHEMIA_PLACEMENT_RULING_8_11_26.txt
@@ -5411,7 +5516,7 @@ joins, then the volume ledger.
 
 ART (f3eu53): 8/11 (f) -- *** NEW LAW, HIS, LOCKED: SHOW IT IN A TAB,
 
-LAB (lab-e2r7sv): 8/7 (e) LATEST -- *** BESTING IS NOT KILLING. 34 BOSSES, AND EVERY ONE CAN
+LAB (lab-e2r7sv): 8/7 (e) -- *** BESTING IS NOT KILLING. 34 BOSSES, AND EVERY ONE CAN
 BE KILLED **OR** SPARED FOR A DIFFERENT GRANT. ***
 JUDGE THIS: 1. the 34 in records/BOHEMIA_THE_BOSS_LADDER_v3_8_7_26.md. NOT IN A TAB.
 ONE THING PENDING HIM: THE VOICE, still not approved.
@@ -5476,7 +5581,7 @@ name from earlier today.
 
 
 
-ART (f3eu53): 8/11 (f) LATEST -- *** NEW LAW, HIS, LOCKED: SHOW IT IN A TAB,
+ART (f3eu53): 8/11 (f) -- *** NEW LAW, HIS, LOCKED: SHOW IT IN A TAB,
 NEVER A HUNT. "Never ever ever again tell me hey check this out by opening the
 run tab." READ laws/BOHEMIA_ADDENDUM_SHOW_IT_IN_A_TAB_NEVER_A_HUNT_8_11_26.md
 BEFORE TELLING HIM WHERE ANYTHING IS. ***
@@ -5552,7 +5657,7 @@ NOT AS A FAILING CLAIM. Turning "every faction spans 2+ tiers" into a rule would
 authoring pressure on HIM — write a new faction with one ending and the gate calls it a
 violation. It is evidence, and a human decides whether a drift matters.
 
-PEOPLE (7h9sfy): 8/12 (b) LATEST -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
+PEOPLE (7h9sfy): 8/12 (b) -- *** HIS NOTES ON THE COLD OPEN, ALL FIVE,
 FIXED. THE TAB IS CALLED CUTSCENE NOW (his word). ***
 
 HIS VERDICT ON v1: "Okay that was mad decent... That was fire. The house looked
@@ -5668,7 +5773,7 @@ and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left al
 
 
 
-LAB (lab-e2r7sv): 8/7 (d) LATEST -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
+LAB (lab-e2r7sv): 8/7 (d) -- *** HE FOUND A BUG BY EYE THAT 131 CHECKS COULD NOT SEE:
 THREE BOSSES WERE THE SAME BOSS. THE LADDER IS REBUILT AND THE BUG IS NOW MACHINE-HELD. ***
 JUDGE THIS: 1. the 17 bosses in records/BOHEMIA_THE_BOSS_LADDER_v2_8_7_26.md. NOT IN A TAB.
 ONE THING PENDING HIM: THE VOICE, which he explicitly did not approve.
@@ -5769,7 +5874,7 @@ and where a faction lives is MAP CONTENT. Measured on the ENTRANCE page, left al
 
 
 
-ART (f3eu53): 8/11 (e) LATEST -- *** FOURTH FAMILY WIRED: THE METAL DISTRICTS
+ART (f3eu53): 8/11 (e) -- *** FOURTH FAMILY WIRED: THE METAL DISTRICTS
 WEAR HIS CORRUGATED SKINS. FOUR OF FOURTEEN APPROVED FAMILIES NOW DRAW. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (sixth-pass section)
 
@@ -5873,7 +5978,7 @@ loop passes an OBJECT, so NOBODY had ever belonged to anything in a real run whi
 50-claim gate stayed green on a fixture. A FIXTURE IS NOT THE CALLER. The gate now boots
 the real loop.
 
-PEOPLE (7h9sfy): 8/11 (y) LATEST -- *** THE COLD OPEN IS IN A TAB AND IT PLAYS.
+PEOPLE (7h9sfy): 8/11 (y) -- *** THE COLD OPEN IS IN A TAB AND IT PLAYS.
 STORY tab, in the alpha. Fifteen seconds, one match-cut, four spoken lines,
 zero new art. ***
 
@@ -5983,7 +6088,7 @@ Law: laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md | Gate: attempt_gat
 CLAUDE.md AMENDED (a contradiction between two live files is a bug, and this one was
 costing him quests).
 
-ART (f3eu53): 8/11 (d) LATEST -- *** THIRD FAMILY WIRED: THE ROOFS HAVE THEIR
+ART (f3eu53): 8/11 (d) -- *** THIRD FAMILY WIRED: THE ROOFS HAVE THEIR
 PARAPET RING. THREE OF HIS FOURTEEN APPROVED FAMILIES NOW DRAW IN THE GAME. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fifth-pass section)
 
@@ -6210,7 +6315,7 @@ boot turned out to be a font), then consuming the vista as it lands. The cold op
 landed and plays.
 Records: BOHEMIA_THE_DAY_CLOSES_8_11_26.md, BOHEMIA_I_DECIDE_THE_MECHANISM_8_11_26.md
 
-PEOPLE (7h9sfy): 8/11 (w) LATEST -- *** DIALOGUE IS OFF THE APPROVAL QUEUE.
+PEOPLE (7h9sfy): 8/11 (w) -- *** DIALOGUE IS OFF THE APPROVAL QUEUE.
 "I DONT HAVE TIME TO APPROVE THE DIALOGUE THIS SLOW LIKE THIS I WILL EDIT IT
 LATER JUST DIALOGUE ALWAYS REFER TO THE BEST QUESTS EVER CATALOGUE." READ
 laws/BOHEMIA_ADDENDUM_DIALOGUE_REFERS_TO_THE_CATALOGUE_8_11_26.md BEFORE YOU
@@ -6310,7 +6415,7 @@ Law: laws/BOHEMIA_ADDENDUM_ALWAYS_MAKE_AN_ATTEMPT_8_11_26.md | Gate: attempt_gat
 CLAUDE.md AMENDED (a contradiction between two live files is a bug, and this one was
 costing him quests).
 
-ART (f3eu53): 8/11 (c) LATEST -- *** SECOND FAMILY WIRED: THE PARKING LOTS HAVE
+ART (f3eu53): 8/11 (c) -- *** SECOND FAMILY WIRED: THE PARKING LOTS HAVE
 THEIR PAINTED LINES. A BAY-VS-LINE MISS WAS CAUGHT BY A/B BEFORE IT SHIPPED. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (fourth-pass section)
 
@@ -6416,7 +6521,7 @@ load. Its first cut had a VACUOUS claim -- it looked for page filenames inside t
 handoff, found zero, and passed green -- so it was turned around to sweep the hubs,
 where the set can never be empty. That trap has now been caught three times in two days.
 
-ART (f3eu53): 8/11 (b) LATEST -- *** THE FIRST APPROVED FAMILY IS IN THE GAME:
+ART (f3eu53): 8/11 (b) -- *** THE FIRST APPROVED FAMILY IS IN THE GAME:
 THE RAILYARD DRAWS HIS APPROVED TRACKS. CORRECT-AFTER, AS THE NEW LAW ORDERS. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (third-pass section)
 
@@ -6531,7 +6636,7 @@ canvas, and all four members fail by name on the shadow-separation claim.
 ALPHA LOADS 20/0, SUN MODE green, CANVAS SCALE unchanged at 52/1 (city lane's).
 Shot: records/familycast/cast.png
 
-ART (f3eu53): 8/11 (a) LATEST -- *** THE TILE BOARD VERDICT IS IN: 14 FAMILIES
+ART (f3eu53): 8/11 (a) -- *** THE TILE BOARD VERDICT IS IN: 14 FAMILIES
 APPROVED (475 TILES), 3 KILLED. "Im so impressed." WIRING IS NOW THE LANE'S
 WHOLE JOB. ***
 Records: records/BOHEMIA_TILE_BOARD_VERDICT_8_11_26.txt +
@@ -6609,7 +6714,7 @@ VISION 7/19: father wakes you, sister is lost, older brother survives, it ends s
 the mother, with the sibling mirrored by player gender). I build the four, put them
 in the game, and he corrects them. Names stay his.
 
-COMBAT (nfnki9): 8/11 (d) LATEST -- *** I SHIPPED GIANTS AND HE CAUGHT IT.
+COMBAT (nfnki9): 8/11 (d) -- *** I SHIPPED GIANTS AND HE CAUGHT IT.
 READ "THE ONE THAT BIT ME" BELOW BEFORE TOUCHING THE BOARD SCALE. ***
 Records: records/BOHEMIA_COMBAT_THE_GIANTS_WERE_MY_BUG_8_11_26.md +
 records/BOHEMIA_COMBAT_GUN_RANGES_AND_A_BIG_BOARD_8_11_26.md
@@ -7003,7 +7108,7 @@ FOR EVERY LANE: if your system ships empty text, FILL IT with a real attempt and
 draft:true. LINES, NAMED_CAST, quest text, UI copy - all of it. He is waiting to edit.
 
 -----------------------------------------------------------------------------------
-ART (f3eu53): 8/9 (u) LATEST -- *** BOARD RESUMED INLINE: +2 COOKS (THE THREE
+ART (f3eu53): 8/9 (u) -- *** BOARD RESUMED INLINE: +2 COOKS (THE THREE
 MONEY ICONS + THE CONTACT SHADOW), +10 DUPLICATE FORMS CLOSED. THE SITTING IS
 NOW 17 FAMILIES / 537 TILES. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (second-pass section)
@@ -7185,7 +7290,7 @@ revert wipes Pillow/numpy even though the SessionStart hook installs them, and
 tools/build_run_slice.js hard-fails without PIL -- rerun
 `python3 -m pip install -r gates/requirements.txt` if a build dies on ModuleNotFound.
 
-ART (f3eu53): 8/9 (t) LATEST -- *** VERDICTS IN: ALL FOUR ART CARDS UP, AND THE
+ART (f3eu53): 8/9 (t) -- *** VERDICTS IN: ALL FOUR ART CARDS UP, AND THE
 DIRT SHIPS AT HIS 0.30. ***
 Records: records/BOHEMIA_ART_VERDICT_8_5_BUILD_8_9_26.txt +
 records/BOHEMIA_GRIME_VERDICT_8_9_26.txt
@@ -7253,7 +7358,7 @@ mouth, plugs into the name+memory system already built) / C BOTH, corners first 
 you start as nobody. AWAITING HIS LETTER.
 
 -----------------------------------------------------------------------------------
-ART (f3eu53): 8/9 (s) LATEST -- *** THE TILE BOARD SITTING IS LIVE: 15 FAMILIES,
+ART (f3eu53): 8/9 (s) -- *** THE TILE BOARD SITTING IS LIVE: 15 FAMILIES,
 525 CANDIDATE TILES, ONE JUDGE PAGE IN THE ART TAB. NOTHING IS IN THE GAME. ***
 Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md
 
@@ -7423,7 +7528,7 @@ What a seventh would need, in order:
  3. Look at DOWNTOWN and the SUBURB before believing any farm.
 
 
-LAB (lab-e2r7sv): 8/7 (c) LATEST -- *** LAB-10 IS DEAD, AND THE NINTH KILL IS ABOUT THE
+LAB (lab-e2r7sv): 8/7 (c) -- *** LAB-10 IS DEAD, AND THE NINTH KILL IS ABOUT THE
 FORMAT, NOT ABOUT VALHEIM. THIS LANE'S DELIVERABLE SHAPE IS THE PROBLEM. ***
 Paolo, 8/7: "That valheim sample was so dogshit". Page DELETED and graveyarded, gate row
 gone, NO V2. Nothing to judge. Post-mortem: records/BOHEMIA_LAB_VALHEIM_BUILD_KILL_8_7_26.md
@@ -9175,7 +9280,7 @@ label that moves while the pool does not would pass everything else and change
 nothing he can hear. Plus: THE MARKER ON THE DOOR must be in the day pool and
 must NOT be in the night pool.
 
-LAB (lab-e2r7sv): 8/5 (a) LATEST -- *** THE MACHINE I PROMISED YESTERDAY CANNOT BE BUILT.
+LAB (lab-e2r7sv): 8/5 (a) -- *** THE MACHINE I PROMISED YESTERDAY CANNOT BE BUILT.
 HERE IS THE PROOF, AND THE THING THAT WORKS INSTEAD. *** Nothing to judge.
 
 === READ THIS BEFORE YOU TRY TO BUILD A SEMANTIC CONTRADICTION SWEEP ===
@@ -9577,7 +9682,7 @@ TRUE: fresh, caveat intact, no ghosts, agrees with the hand checks. 16 claims, 4
 mutations killed.
 
 -----------------------------------------------------------------------------------
-LAB (lab-e2r7sv): 8/4 (f) LATEST -- *** BUILT THE MACHINE THAT FINDS CANON ROT, AND ITS
+LAB (lab-e2r7sv): 8/4 (f) -- *** BUILT THE MACHINE THAT FINDS CANON ROT, AND ITS
 FIRST RUN WAS WRONG IN A WAY WORTH READING. *** Nothing to judge.
 
 He said he was lazy and to think outside the box, so: not more design. NINE SESSIONS WRITE
@@ -9655,7 +9760,7 @@ the next machine and it is bigger.
    NOTE: another lane reports GitHub Pages has failed three commits running, so the live link
    may be stale -- nothing I shipped today touches the playable surface either way.
 
-ART (f3eu53): 8/6 (g) LATEST -- *** 89.5% OF THE ART IN THIS REPO HAS NEVER DRAWN A
+ART (f3eu53): 8/6 (g) -- *** 89.5% OF THE ART IN THIS REPO HAS NEVER DRAWN A
 PIXEL. MEASURED, WITH A PROBE THAT PROVES ITSELF FIRST. ***
 
   61 banks carry art · 17,179 images · 1,805 live (10.5%)
@@ -9705,7 +9810,7 @@ opens indoors, so gotoCell moves the exterior under an INTERIOR camera. WALK OUT
 THE FRONT DOOR FIRST, then teleport, then wait until the canvas is actually
 painting. gotoCell was never broken.
 
-ART (f3eu53): 8/6 (d) LATEST -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
+ART (f3eu53): 8/6 (d) -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
 HAND, AND THE GAME DREW ZERO. THAT IS WHY THE WORLD LOOKS EMPTY. ***
 
 === READ THIS FIRST, EVERY LANE ===
@@ -10068,7 +10173,7 @@ Verified through the real door: LIFE tab, top card, zero console errors. Stamp 8
    and the organ works and is visible. Wiring it is the next move - RUN-lane coordination.
 2. Gap 5 (wearing another faction's colours). 3. Gaps 6, 8, 9.
 
-ART (f3eu53): 8/5 (a) LATEST -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
+ART (f3eu53): 8/5 (a) -- *** HE BOUGHT 8,674 TILES, JUDGED 2,604 OF THEM BY
 HAND, AND THE GAME DREW ZERO. THAT IS WHY THE WORLD LOOKS EMPTY. ***
 
 === READ THIS FIRST, EVERY LANE ===
@@ -10328,7 +10433,7 @@ checks the DETERMINISTIC transform exactly, plus ONE FIXED VECTOR's audio
 the meter CANNOT resolve OPEN from STREET - that difference is inside the noise,
 so it is not asserted.
 
-LAB (lab-e2r7sv): 8/4 (e) LATEST -- WHY VALHEIM'S CAMP FELT FAST, AND THE ONE READING OF IT
+LAB (lab-e2r7sv): 8/4 (e) -- WHY VALHEIM'S CAMP FELT FAST, AND THE ONE READING OF IT
 THAT WOULD REPEAL A LAW HE ALREADY MADE.
 
 records/BOHEMIA_RESEARCH_VALHEIM_BUILD_FEEL_8_4_26.md. "Valheim's build menu ... it really
@@ -10454,7 +10559,7 @@ ENGINE SYNC clean.
    list instead of a blank page. Do that before asking him anything.
 2. Gap 5 (wearing another faction's colours) - now cheap.
 3. Gaps 6, 8, 9 (agendas, membership, internal politics) all sit on this.
-ART (f3eu53): 8/4 (i) LATEST -- *** THE WORK WAS FINISHED AND IT STILL DID NOT
+ART (f3eu53): 8/4 (i) -- *** THE WORK WAS FINISHED AND IT STILL DID NOT
 EXIST, BECAUSE HE COULD NOT REACH IT. IT IS IN THE **ART TAB** NOW. ***
 
 "bro can you put all the work in a different fucking tab like the life tab bro wtf like
@@ -10532,7 +10637,7 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/17 (b) LATEST -- *** THE CITY ASKED THE WORLD THE SAME QUESTION
+WORLD (world-9lfjtf): 8/17 (b) -- *** THE CITY ASKED THE WORLD THE SAME QUESTION
 FIVE TIMES A FRAME. *** BUILD 8/17n. Gate: frame_budget_gate.js 22/0.
 
 MEASURED BY COUNTING CALLS, not by reading code:
@@ -11879,7 +11984,7 @@ event list is still total and free via boardCovers.
 GATES: sfx_wired 292/292, sfx_render 1766/1766, COMBAT LAB 675/675, RUN 126/126,
 MUSIC 17/17, ALPHA LOADS 20/20, SONG LOCK 20/20.
 
-LAB (lab-e2r7sv): 8/4 (d) LATEST -- ALL 18 BOSSES IN ONE NUMBERED TABLE, AND THE ANSWER ON
+LAB (lab-e2r7sv): 8/4 (d) -- ALL 18 BOSSES IN ONE NUMBERED TABLE, AND THE ANSWER ON
 WHERE THESE DESIGN CHATS BELONG.
 
 records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md now opens with a single at-a-glance
@@ -12160,7 +12265,7 @@ Neighbours held: CITY TALK 18, CITY PEOPLE 18, HUMAN START 9.
 dialogue beyond the card and the ask - is HIS to raise. Not blocked, not forgotten,
 parked. Building it unasked is the STOP PRODUCING violation.
 
-LAB (lab-e2r7sv): 8/4 (c) LATEST -- *** V1 RESTORED VERBATIM OUT OF GIT. HE REJECTED THE
+LAB (lab-e2r7sv): 8/4 (c) -- *** V1 RESTORED VERBATIM OUT OF GIT. HE REJECTED THE
 LADDER TWICE AND THE PATTERN WAS MINE: I KEPT REPLACING THE PERSON WITH A THING. ***
 
 "that kinda sucks too i liked your first version the best cant we build off that"
@@ -12227,7 +12332,7 @@ rulings_gate is 96 checks. Six mutations, all six caught -- including paraphrasi
 2. THE WITNESS + STORY-SPREAD PLUMBING -- approved work; boss 7 THE VOICE is its payoff.
 3. R30 "let's look into it" -- the legacy-roguelite family. Garbled, not guessing.
 4. Did not touch #buildstamp: one record, one gate.
-WORLD (world-9lfjtf): 8/4 (d) LATEST -- THE BUILDING IS THE ICON, and NINETEEN GATES WERE
+WORLD (world-9lfjtf): 8/4 (d) -- THE BUILDING IS THE ICON, and NINETEEN GATES WERE
 LYING ABOUT THE CITY (five of them accusing his own art of never shipping).
 Live on main, BUILD 8/4e.
 
@@ -12377,7 +12482,7 @@ THE LESSON, and it is the same one three times today: a gate that cannot find th
 it measures does not fail loudly, it passes vacuously or dies on a frame it never got.
 When the container moves, sweep the gates the same turn.
 
-LAB (lab-e2r7sv): 8/4 (b) LATEST -- *** HE KILLED THE MATERIAL FRAMING AND HE WAS RIGHT.
+LAB (lab-e2r7sv): 8/4 (b) -- *** HE KILLED THE MATERIAL FRAMING AND HE WAS RIGHT.
 IT WAS MY FACTUAL ERROR, NOT HIS TASTE. *** The ladder is 16 TOOLS now.
 
 "it's giving like material vibes and not like tool vibes ... I'd rather have it be like you
@@ -12503,7 +12608,7 @@ container. I trimmed the board section to ONE TAP PER STATE (live/new/dead)
 rather than per event - coverage of the full event LIST is still total and cheap
 via boardCovers, which needs no sound. Do not re-expand it to a sweep.
 
-LAB (lab-e2r7sv): 8/4 (a) LATEST -- THE RESEARCH SAYS HIS THREE PERCENTAGES ARE THREE
+LAB (lab-e2r7sv): 8/4 (a) -- THE RESEARCH SAYS HIS THREE PERCENTAGES ARE THREE
 DIFFERENT VERBS, AND ANOTHER SESSION HAD ALREADY LOCKED THE NUMBERS.
 
 REVISION 2 of records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md. 21 candidates now.
@@ -12644,7 +12749,7 @@ STILL WORTH A LOOK, reported not fixed: the four BOHEMIA_HD_TILE_REPO_part*.txt 
 2. The four HD tile banks.
 3. Nothing else in the repo is near the wall, measured, and the gate watches all of it now.
 
-LAB (lab-e2r7sv): 8/3 (g) LATEST -- HE RENAMED THE BOSSES AFTER THE SUBSTANCE, AND
+LAB (lab-e2r7sv): 8/3 (g) -- HE RENAMED THE BOSSES AFTER THE SUBSTANCE, AND
 "CONCRETE BOSS" TURNED OUT TO BE THE HINGE OF THE WHOLE LADDER.
 
 "Maybe there's like a water BOSS maybe there's like a light boss maybe there's like a
@@ -12777,7 +12882,7 @@ in never lands on the coping row, and the cook states the eave/parapet inversion
 
 --- EARLIER TODAY ---
 
-LAB (lab-e2r7sv): 8/3 (f) LATEST -- THE BOSS LADDER: 13 CANDIDATES, WEAKEST TO
+LAB (lab-e2r7sv): 8/3 (f) -- THE BOSS LADDER: 13 CANDIDATES, WEAKEST TO
 STRONGEST, ACROSS THE THREE ACTS. AWAITING HIS THUMBS.
 
 records/BOHEMIA_THE_BOSS_LADDER_CANDIDATES_8_3_26.md. CANDIDATES, NOT CANON. He asked for
@@ -12987,7 +13092,7 @@ STILL WORTH A LOOK, reported not fixed: the four BOHEMIA_HD_TILE_REPO_part*.txt 
 2. The four HD tile banks.
 3. Nothing else in the repo is near the wall, measured, and the gate watches all of it now.
 
-COMBAT (combat-nfnki9): 8/3 (c) LATEST -- YOUR MISSED ROUND EXISTS NOW. Live on
+COMBAT (combat-nfnki9): 8/3 (c) -- YOUR MISSED ROUND EXISTS NOW. Live on
 main as 17cd5a8, BUILD 8/3k, Pages build VERIFIED success 04:08.
 
 === READ THIS FIRST: TWO PROCESS FAILURES HE CAUGHT TODAY ===
@@ -13201,7 +13306,7 @@ Nobody WEARS their faction colour on the surface he plays yet - bohemia_dress is
 the LIFE slice, not by the alpha's RUN. Wiring it into the run touches the RUN lane's
 surface, so it is a coordination job, not a solo one. THAT IS THE NEXT VISIBLE STEP and it
 is what turns all of this from true into SEEN.
-RUN (run-eak241): 8/3 (h) LATEST -- THE WHOLE BUILDING GOES TRANSPARENT, THE DOOR STAYS.
+RUN (run-eak241): 8/3 (h) -- THE WHOLE BUILDING GOES TRANSPARENT, THE DOOR STAYS.
 Ship: BUILD 8/3h. Tab: RUN.
 
 Paolo RULED IT TWICE and I asked a second time anyway, which is the error to not repeat:
@@ -13232,7 +13337,7 @@ bounded (20 cells away it stops), and the same state renders identically twice.
 WHY THE ROOF IS NOT TOUCHED: a mass's top is baked into the chunk canvas and drawn BEFORE
 the body, so it is already behind him and can never hide him.
 
-RUN (run-eak241): 8/3 (h) LATEST -- BUILDINGS GO SEE-THROUGH WHEN YOU WALK UP TO THEM.
+RUN (run-eak241): 8/3 (h) -- BUILDINGS GO SEE-THROUGH WHEN YOU WALK UP TO THEM.
 Ship: BUILD 8/3h. Tab: RUN.
 
 Paolo RULED it: "Ofcourse the building should become see through to reflect characters
@@ -13256,7 +13361,7 @@ into the chunk canvas and drawn BEFORE the body, so a building cannot hide him a
 today. Making masses occlude-and-fade is a real feature with its own look and it is a
 design call. records/BOHEMIA_THE_SEE_THROUGH_CANNOT_FIRE_IN_THE_SUBURB_8_3_26.md
 
-LAB (lab-e2r7sv): 8/3 (e) LATEST -- THE PROGRESSION SPINE. HE ASKED HOW THE WHOLE STACK
+LAB (lab-e2r7sv): 8/3 (e) -- THE PROGRESSION SPINE. HE ASKED HOW THE WHOLE STACK
 FITS AND THE ANSWER WAS ALREADY IN HIS OWN LAWS. *** ONE RULING BLOCKS EVERYTHING. ***
 
 records/BOHEMIA_THE_PROGRESSION_SPINE_PROPOSAL_8_3_26.md. PROPOSAL, NOT CANON. Nothing
@@ -13334,7 +13439,7 @@ SPREADS. AND YOU CLIMB THAT LADDER THREE TIMES, ONCE PER GENERATION.
 4. Canon-contradiction auditing across the indexed files.
 5. Did not touch #buildstamp: one record only.
 
-LAB (lab-e2r7sv): 8/3 (d) LATEST -- WHY VALHEIM WORKED, AND IT CONFIRMED TWO OF HIS
+LAB (lab-e2r7sv): 8/3 (d) -- WHY VALHEIM WORKED, AND IT CONFIRMED TWO OF HIS
 OWN RULINGS IN REAL SOURCE CODE.
 
 === HE ASKED WHY VALHEIM IS SO SUCCESSFUL (he is "an intense fan") ===
@@ -13422,7 +13527,7 @@ file with asserts that BOTH the old and new blocks are present.
 4. Canon-contradiction auditing across the indexed files.
 5. Did not touch #buildstamp: records and gates only.
 
-LAB (lab-e2r7sv): 8/3 (c) LATEST -- HOW BIG OUR MAP IS vs THE REFERENCES, AND I HAD
+LAB (lab-e2r7sv): 8/3 (c) -- HOW BIG OUR MAP IS vs THE REFERENCES, AND I HAD
 TO DELETE ONE OF MY OWN GATE CHECKS BECAUSE HIS RULING OUTRANKED IT.
 
 === HE ASKED: SKYRIM vs VALHEIM vs FNV vs OURS ===
@@ -13692,7 +13797,7 @@ Anarchists) and want a re-pass against his real ones. Flagged, not silently rewr
 STILL BLOCKED: all 12 gaps are thumbed WANT and every one is faction machinery, which
 BUILD THE WORLD (7/31) still has switched off. One word from him unblocks twelve systems.
 
-COMBAT (combat-nfnki9): 8/3 (b) LATEST -- THE COOK IS IN THE GRAVEYARD, AND I
+COMBAT (combat-nfnki9): 8/3 (b) -- THE COOK IS IN THE GRAVEYARD, AND I
 SPENT HALF A DAY NOT ACTUALLY DEPLOYING. Live on main as 27ca030, BUILD 8/3j,
 Pages build verified SUCCESS at 19:40.
 
@@ -14136,7 +14241,7 @@ A gate that goes red because he exercised a verdict is the gate being wrong.
   origin/main` before believing it.
 - main moves every ~10 minutes. Rebuild-on-main + replay beats rebasing the alpha.
 
-LAB (lab-e2r7sv): 8/3 (b) LATEST -- HE RULED ALL THREE, AND THE GRIME ANSWER IS
+LAB (lab-e2r7sv): 8/3 (b) -- HE RULED ALL THREE, AND THE GRIME ANSWER IS
 "IT IS A PIPELINE STAGE, NOT A MILESTONE".
 
 === RULING 1: THE GRIME PASS IS APPROVED. "SURE" ===
@@ -14201,7 +14306,7 @@ origin/main FIRST, then hard-sync. Nothing has been lost.
    I am NOT guessing a title. R29 (Rogue Fable) is NOT live permission; killed 8/1.
 3. Canon-contradiction auditing across the indexed files.
 4. Did not touch #buildstamp again: laws/records/gates only, nothing new on the surface.
-RUN (run-eak241): 8/3 (g) LATEST -- SIDE DOORS IN THE SUBURB HE SPAWNS IN.
+RUN (run-eak241): 8/3 (g) -- SIDE DOORS IN THE SUBURB HE SPAWNS IN.
 Ship: BUILD 8/3g. Tab: RUN. READ laws/BOHEMIA_LAW_MEASURE_THE_THING_HE_NAMED_8_3_26.md
 clause 1b before you write another coverage gate.
 
@@ -14226,7 +14331,7 @@ STILL HIS TO JUDGE: the sliver is dark and narrow. The WIDTH is one number (JAMB
 and the bank says so itself: "7px was approved for the demo doors ONLY -- these are
 CANDIDATES; widths adjustable per doorway when judged."
 
-COMBAT (combat-nfnki9): 8/3 (a) LATEST -- DIFFICULTY NEVER TOUCHED THE ENEMY, AND
+COMBAT (combat-nfnki9): 8/3 (a) -- DIFFICULTY NEVER TOUCHED THE ENEMY, AND
 RUN IS ONE BUTTON ON THE THUMB. Shipped to main as 4f5b9b4, BUILD 8/3f.
 
 === HE ASKED WHY THE FIGHT IS EASY. I MEASURED IT INSTEAD OF GUESSING ===
@@ -14318,7 +14423,7 @@ TOOLS (replay in order after any rebase, both idempotent):
          tools/bohemia_combat_occupancy_and_threat_patch.py   (v121)
          tools/bohemia_combat_run_button_patch.py             (v122)
 
-LAB (lab-e2r7sv): 8/3 (a) LATEST -- MACHINE PARTY IS A NAMED VISUAL REFERENCE NOW,
+LAB (lab-e2r7sv): 8/3 (a) -- MACHINE PARTY IS A NAMED VISUAL REFERENCE NOW,
 AND THIRTY RULINGS HE ALREADY GAVE ARE FINALLY ON DISK.
 
 === HE ASKED FOR THE MACHINE PARTY LOOK (records/BOHEMIA_RESEARCH_MACHINE_PARTY_8_3_26.md) ===
@@ -14578,7 +14683,7 @@ PITCH-STABILITY theory it was built on is DEAD and recorded as dead. That is two
 of my theories killed in one day, and the honest lesson in the graveyard is to
 stop reverse-engineering his silent kills and start from the one sentence he
 actually wrote. NEW_VIBES is empty. Two song slots stay open on purpose.
-RUN (run-eak241): 8/3 (d) LATEST -- EAST AND WEST FACING DOORS, THE ONES HE MADE 7/10.
+RUN (run-eak241): 8/3 (d) -- EAST AND WEST FACING DOORS, THE ONES HE MADE 7/10.
 Ship: BUILD 8/3d. Tab: RUN.
 
 "I never saw your eastern west facing doors, bro what's up with that?" HE WAS RIGHT AND
@@ -14612,7 +14717,7 @@ SUBURB IS THE WHOLE REMAINING RESIDUAL: 34 of 42 masses, all on the suburb's OWN
 whose frontage is dead-ground backyard get none. A back door onto a walkable yard IS
 reachable. THAT IS THE NEXT MOVE.
 
-RUN (run-eak241): 8/3 (c) LATEST -- BUILDINGS HAVE DOORS NOW, AND A DOOR IS THE WAY IN.
+RUN (run-eak241): 8/3 (c) -- BUILDINGS HAVE DOORS NOW, AND A DOOR IS THE WAY IN.
 Ship: BUILD 8/3c. Tab: RUN. LAW: laws/BOHEMIA_LAW_MEASURE_THE_THING_HE_NAMED_8_3_26.md
 (he asked for laws every other session must follow; that file is it, READ IT).
 
@@ -14681,7 +14786,7 @@ narrow IN_ROLE_FLOOR and the wall bucket to what he named, render, LOOK, gate it
 DO NOT re-cook interior art -- 465 of his tiles already exist. DO NOT guess the look;
 it was guessed once and stopped.
 
-RUN (run-eak241): 8/3 (b) LATEST -- YOU WALK THROUGH THE DOORWAY, NOT INTO IT.
+RUN (run-eak241): 8/3 (b) -- YOU WALK THROUGH THE DOORWAY, NOT INTO IT.
 Ship: BUILD 8/3b. Tab: RUN (walk up to a house and go in).
 
 Paolo: "WHY WHEN I ENTER A HOUSE I CANT GO LEFT AND RIGHT."
@@ -14713,7 +14818,7 @@ THE SAME MISTAKE THREE TIMES IN ONE DAY, all three now recorded:
   a reachable cell is not a pressed direction (this one)
 When he says a button does nothing, PRESS THE BUTTON.
 
-RUN (run-eak241): 8/3 (a) LATEST -- THE SIDE DOOR YOU CAN SEE, D1 ACROSS ALL 36
+RUN (run-eak241): 8/3 (a) -- THE SIDE DOOR YOU CAN SEE, D1 ACROSS ALL 36
 DISTRICTS, AND A BUG THAT WOULD HAVE SHIPPED A SUBURB THAT DOES NOT LOAD.
 Ship: BUILD 8/3a - THE SIDE DOOR YOU CAN SEE + NEVER ON THE SIDEWALK. Tab: RUN.
 
