@@ -1,13 +1,23 @@
 {
- "built": "8/8/26",
+ "built": "8/17/26",
  "shots": [
+  {
+   "id": "border-in-the-game",
+   "title": "THE BLACK BORDER, IN THE GAME",
+   "caption": "His 8/14 ask, finished where it counts. The CHARACTER tab got the thin outline first, and the GAME kept doubling it: the city enlarges every body on an integer ladder, so the one pixel came along for the ride and landed 2px thick walking around and 4px zoomed in. The border is now drawn AFTER the enlargement, at the size you actually see it, for the player and every neighbour. RUN tab (and CITY), anywhere a person is drawn.",
+   "file": "look/border-in-the-game.png",
+   "kb": 59.9,
+   "stamp": "8/17/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+  },
   {
    "id": "border-one-pixel",
    "title": "THE BLACK BORDER IS ONE PIXEL NOW",
    "caption": "His 8/14 ask: \"the black border has to be thinner, like half as thin.\" It was always drawn as ONE pixel -- but it was drawn on the 56 composition and then DOUBLED by the upscale that takes the frame to 112, so it reached the screen at two. It is now drawn after the upscale and arrives at one. Same body, byte for byte: 0 of ~18,000 non-border pixels changed. CHARACTER tab, and anywhere a person is drawn -- RUN, CITY, COMBAT.",
    "file": "look/border-one-pixel.png",
    "kb": 75.9,
-   "stamp": "8/16/26"
+   "stamp": "8/16/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html"
   },
   {
    "id": "dead-suburb",
