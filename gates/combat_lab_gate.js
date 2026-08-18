@@ -867,7 +867,19 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
     /* V107 RE-POINTED: the hand-written list in setupCombat became resetFightState(), the ONE reset both doors call. The invariant is stronger, not weaker -- newEncounter gets it too now. */
     demo.includes('G.stam=STAM_MAX; G.handPeek=false; G.dashArm=false; G.sprintArm=false; G.suppCd=0;') &&
     demo.includes('function resetFightState(){') &&
-    demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
+    /* V163 RE-POINTED, AND THE SUPERSESSION IS NAMED. The per-use regen
+       ("+1 only on a turn you spent none") came from the 7/26 audit. THE 8/17
+       RF4 LIFT LAW IS NEWER AND OVERTURNS IT IN HIS OWN WORDS: "SP regenerates
+       on every 5th global game turn, ON A FIXED WORLD CLOCK. It is NOT a
+       per-use cooldown that starts when you spend... It rewards clock-reading,
+       not hoarding." NEWEST DATE WINS (TRUTH HIERARCHY), and section 6 of that
+       law routes this to COMBAT as the FIRST thing to build.
+       The invariant that survives is the one V67 actually cared about: a pip he
+       pays is not handed straight back by the same turn. Under the clock it is
+       handed back by the CLOCK, which is the point. */
+    /const SP_TICK=5;/.test(demo) &&
+    /if\(\(\(G\.mTurn\|\|0\)%SP_TICK\)===0\)\{/.test(demo) &&
+    !/G\._stamSpent/.test(demo.replace(/\/\*[\s\S]*?\*\//g, ' ')) &&   /* comments stripped: my own comment QUOTES the dead line, and a checker that cannot tell a mention from a use is the broken one */
     demo.includes("function spendStam(n){ if((G.stam||0)<n)return false;") && demo.includes('function spendMove(n){'));
   ok('V67 SUPPRESS IS TURN-BASED, NOT WALL-CLOCK (Paolo: "it doesn\'t seem like it does fucking anything"). The 2.2-SECOND pin expired while he was still deciding his move; a pin is now counted in TURNS like everything else in this fight, it breaks the red lines they were holding, and it costs a turn of cooldown',
     demo.includes('function pinned(e){ return (e.supp||0)>0; }') &&
@@ -1388,9 +1400,21 @@ ok('and your one real ACTION still costs you: popping to shoot ends the turn and
 }
 
 ok('V67 STAMINA IS ACTUALLY SPENT: the pip you pay is no longer handed straight back by the same turn\'s refill. The refill is the reward for a turn you spent nothing on -- otherwise sprint costs a pip and the pips never move, which is a cost you cannot feel',
-  demo.includes('G.stam-=n; G._stamSpent=true; updStam();') &&
-  demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
-  demo.includes('G._stamSpent=false; updStam();') &&
+    /* V163 RE-POINTED, AND THE SUPERSESSION IS NAMED. The per-use regen
+       ("+1 only on a turn you spent none") came from the 7/26 audit. THE 8/17
+       RF4 LIFT LAW IS NEWER AND OVERTURNS IT IN HIS OWN WORDS: "SP regenerates
+       on every 5th global game turn, ON A FIXED WORLD CLOCK. It is NOT a
+       per-use cooldown that starts when you spend... It rewards clock-reading,
+       not hoarding." NEWEST DATE WINS (TRUTH HIERARCHY), and section 6 of that
+       law routes this to COMBAT as the FIRST thing to build.
+       The invariant that survives is the one V67 actually cared about: a pip he
+       pays is not handed straight back by the same turn. Under the clock it is
+       handed back by the CLOCK, which is the point. */
+  demo.includes('G.stam-=n; updStam();') &&
+  /if\(\(\(G\.mTurn\|\|0\)%SP_TICK\)===0\)\{/.test(demo) &&
+  /* the flag the old rule needed is DEAD and deleted, not left orphaned --
+     comments stripped, because the comment that explains the deletion quotes it */
+  !/G\._stamSpent/.test(demo.replace(/\/\*[\s\S]*?\*\//g, ' ')) &&
   !demo.includes('G.stam=Math.min(STAM_MAX,(G.stam||0)+1); updStam();   /* V54: a pip back each turn */'));
 
 /* ============================================================================
@@ -1708,7 +1732,10 @@ ok('and the app really does hold his OVERWORLD assignments (>= the 7/19 floor of
     };
     const perfect = run('PERFECT'), late = run('LATE'), good = run('GOOD');
     ok('ON-BEAT MOVEMENT IS FREE: a stamina move whose press lands PERFECT refunds its pip, so a player in the pocket can keep moving all turn (Rogue Fable IV\'s "near constant motion", earned by rhythm)',
-      perfect.stam === 3 && perfect._stamSpent === false);
+      /* V163: the flag is gone with the per-use regen it served. What this check
+         is FOR is unchanged and is asserted directly: a PERFECT press costs no
+         pip. Reading a deleted flag would be testing bookkeeping, not the rule. */
+      perfect.stam === 3);
     ok('a sloppy move still costs: GOOD and off-beat both spend the pip for real',
       good.stam === 2 && late.stam === 2);
     ok('and moving well FEEDS the chain while moving badly breaks it -- movement is playing, not a free pass',
@@ -2563,9 +2590,10 @@ ok('V140 AND THE DECK MAY NOT TELEPORT A MAN BACK INTO RANGE: V90B took shooters
   ok('AUDIT PINNED: cover is a BINARY predicate and incoming fire FILTERS on it -- an enemy you have cover against is removed from the volley entirely, 0% or 100%, never a modifier',
     demo.includes('function myCoverAgainst(ang,dist,lvl){') &&
     demo.includes('!myCoverAgainst(e.ea,e.edist,e.lvl)'));   /* V90: still a FILTER, now level-aware. The audit's "0% or 100%" finding is unchanged -- a floor simply turns the whole predicate off. */
-  ok('AUDIT PINNED: the stamina economy is 3 pips, +1 only on a turn you spent none, and a stamina move costs no turn (Paolo 7/26, LOCKED)',
+  ok('AUDIT PINNED: the stamina economy is 3 pips and a stamina move costs no turn (Paolo 7/26). V163: the REGEN half of that ruling is superseded by his 8/17 RF4 LIFT -- a global clock, not a per-use refund -- and newest date wins. What the audit was protecting is intact: the budget is small, it is spendable, and spending it does not cost a turn',
     demo.includes('const STAM_MAX=3;') &&
-    demo.includes('if(!G._stamSpent)G.stam=Math.min(STAM_MAX,(G.stam||0)+1);') &&
+    /const SP_TICK=5;/.test(demo) &&
+    /if\(\(\(G\.mTurn\|\|0\)%SP_TICK\)===0\)\{/.test(demo) &&
     demo.includes('function spendStam(n){ if((G.stam||0)<n)return false;'));
 
   /* --- THE FINDING ITSELF, as a machine check. This is the one that matters:
@@ -4526,6 +4554,45 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
      said he was not a fan, not kill it. So what is checked is that the whole
      thing is genuinely off and reversible in one word -- and that it is off at
      the SOURCE (the dial), never by quietly gutting the functions. */
+/* ===== V163 THE FREE-MOVEMENT BUDGET (RF4-08, machine 1) =========
+   Routed by the 8/17 RF4 LIFT law: "COMBAT owns machines 1, 3, 4, 7, 8, 9...
+   START WITH THE FREE-MOVEMENT BUDGET; it is the one he will feel first."
+   His own synthesis is the spec: "One action per turn. Attacking ends your turn.
+   MOVING ENDS YOUR TURN... The exception that makes the game: Speed Points.
+   Sprinting moves you WITHOUT ending your turn... The regen rule is the sharp
+   part. SP regenerates on every 5th global game turn, ON A FIXED WORLD CLOCK. It
+   is NOT a per-use cooldown... It rewards clock-reading, not hoarding."
+   MEASURED: the browser gate drives real steps. What is pinned here is the shape
+   and the arithmetic of the clock, RUN rather than read. */
+  ok('V163 MOVING ENDS YOUR TURN -- the base rule everything else stands on, and the sprint is explicitly the exception rather than an accident',
+    /if\(!_sprinting\)\{ return endTurnReturn\(false\); \}/.test(demo) &&
+    demo.includes('const SP_TICK=5;'));
+
+  { /* THE CLOCK, RUN. A per-use refund and a global clock are indistinguishable
+       by string, and the whole ruling is which one it is -- so this executes the
+       shipped arithmetic for a spender and a hoarder over twelve turns. */
+    const a = demo.indexOf('if(((G.mTurn||0)%SP_TICK)===0){');
+    const src = a > 0 ? demo.slice(a, demo.indexOf('updStam();', a) + 10) : '';
+    const run = (startStam, spendEachTurn) => {
+      const G = { stam: startStam, mTurn: 0 };
+      const out = [];
+      for (let t = 0; t < 12; t++) {
+        G.mTurn++;
+        if (spendEachTurn && G.stam > 0) G.stam--;
+        new Function('G', 'STAM_MAX', 'SP_TICK', 'setRead', 'updStam', src)(G, 3, 5, () => {}, () => {});
+        out.push(G.stam);
+      }
+      return out;
+    };
+    let spender = null, hoarder = null;
+    try { spender = run(0, true); hoarder = run(3, false); } catch (e) { }
+    ok('V163 THE BUDGET REFILLS ON A GLOBAL CLOCK, whatever he spent and whenever -- spend it to nothing and it comes back on the tick, which is his "spend on turn 4 and it refunds on turn 5, for free"',
+      !!spender && spender[4] === 3 && spender[9] === 3);
+    ok('V163 AND HOARDING EARNS NOTHING, which is the inversion the old rule had exactly backwards: it paid a pip ONLY for a turn you spent none, so it punished spending and rewarded sitting still -- the opposite of the movement he has asked for since 8/15',
+      !!hoarder && !!spender && hoarder.every(v => v <= 3) &&
+      spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
+  }
+
 /* ===== V162 THE FIGHT IS ON THE GRID ==============================
    Paolo 8/17: "we really need this shit to play exactly like rogue fable four
    right now."
@@ -4626,9 +4693,21 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     demo.includes('const START_SPARE=0;'));
 
   ok('V157 A SHOT IS THE ONLY THING THAT SPENDS A ROUND, and it spends it only once the shot is REAL -- after the dry check and after a target is found, so a refusal never costs him ammo',
+    /* V163 FIXED THE RULER, AND IT WAS MINE. This asserted the dry check sat
+       within 400 CHARACTERS of the target pick -- a fixed window, which is not
+       the law. The SOUND lane added a dry_fire cue and a comment inside that
+       block (correctly: his 8/1 approved sound had been silent because there was
+       no ammo to run out of), the block grew past 400, and MY check went red on
+       main for someone else's good change. The law is an ORDER, so it is checked
+       as an order: dry check first, then the target pick, then the spend. */
     (demo.match(/spendRound\(\);/g) || []).length === 1 &&
-    /if\(dryNow\(\)\)\{ const _alt=altWeapon\(\);[\s\S]{0,400}?return; \}\s*\n\s*G\.popTarget>=0\|\|/.test(demo) &&
-    /if\(G\.fireTarget<0\)\{ return endTurnReturn\(\); \}\s*\n\s*spendRound\(\);/.test(demo));
+    (() => {
+      const dry = demo.indexOf('if(dryNow()){ const _alt=altWeapon();');
+      const pick = demo.indexOf('G.popTarget>=0||(G.popTarget=pickTarget());', dry);
+      const spend = demo.indexOf('spendRound();', pick);
+      const bail = demo.indexOf('if(G.fireTarget<0){ return endTurnReturn(); }', pick);
+      return dry > 0 && pick > dry && bail > pick && spend > bail;
+    })());
 
   ok('V157 AND THE DEAD ARE THE SUPPLY: a man who falls leaves his rounds on the tile he fell on, and worldShift carries them like every other piece of world state -- if they moved with the player there would be nothing to walk to',
     /if\(_lethalRoll\)\{ tgt\.dead=true; try\{dropRounds\(tgt\);\}catch\(_e\)\{\} \}/.test(demo) &&
