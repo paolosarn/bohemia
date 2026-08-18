@@ -493,3 +493,19 @@ read as a picket line of gates, caught on the live surface and fixed the
 same pass. The hash-rolled mid-run gates from 8/14 stay (they read as yard
 gates); the REAL entrances now read as what they are: places a car drives
 in. Freeway re-probed after four more WORLD ships: STILL reserved ground.
+
+## 8/17 TWENTY-SIXTH PASS: THE AWNINGS WERE NEVER BLOCKED
+
+The volume ledger had "awnings" filed as blocked-on-world since 8/15 - and
+that was HALF right: the TRAILER awnings need world cells that do not
+exist. But downtown's storefront awnings were sitting on 154+ world-named
+'storefront awning' cells per block, ALL on the overhead layer, with the
+pass-under fade machinery live since forever, waiting for pixels. The
+approved two-cell tattered drops now hang on every SOUTH-FACING front (one
+colourway per shop run, matching the facade branch), sidewalk drawn under,
+and you walk beneath them. MEASURED on the first render and gated: the art
+is authored for south-facing fronts; on a vertical run it stamps sideways
+into a dark ribbon, so side-facing runs keep their plain canopy and
+SIDE-FACING DROPS are the named volume remainder. The lesson worth the
+pass: re-read your own blocked list against the world every few days - one
+of its entries was a door that was never locked.

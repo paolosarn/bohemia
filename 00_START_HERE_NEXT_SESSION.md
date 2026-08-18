@@ -1,4 +1,11 @@
-ART (f3eu53): 8/17 (c) LATEST -- *** PAOLO DROPPED THE ROGUE FABLE SCHOOL
+ART (f3eu53): 8/17 (d) LATEST -- *** THE AWNINGS WERE NEVER BLOCKED: the
+south-facing downtown fronts hang the approved tattered drops now (overhead
+layer, walk under them, fade live). Side-facing drops are named volume.
+The blocked list lied by one entry - re-read it against the world often. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twenty-sixth pass)
+TAB: ART, WIRED IN THE GAME - storefront card text carries it.
+
+ART (f3eu53): 8/17 (c) -- *** PAOLO DROPPED THE ROGUE FABLE SCHOOL
 CORPUS (12 courses, 81 lessons, scripts + Tiled maps) and it is STUDIED:
 records/BOHEMIA_STUDY_THE_SCHOOL_OF_DANGER_8_17_26.md. Corpus intake at
 reference/rogue_fable_school/ (reference ONLY - no third-party pixel or

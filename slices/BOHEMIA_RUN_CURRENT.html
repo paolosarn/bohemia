@@ -24249,6 +24249,33 @@ function drawSfform(gx,gy,X,Y,S){
    them for a pass. Each one now draws its driveway ground and a single-leaf
    OPEN gate (the approved gate art's post half) - a car entrance standing
    open, where the world says it is. */
+/* THE AWNINGS COME DOWN OFF THE VOLUME LIST (8/17): downtown names 154+
+   'storefront awning' cells per cell block, ALL on the overhead layer - the
+   pass-under machinery has been waiting for pixels this whole time. The
+   approved awning drops are two cells tall like the fence art: the lower
+   half is the canopy over your head, the upper half leans on the glass
+   behind it. One colourway per 4-cell run, same key as the facade branch,
+   so a shop's awning matches its front. The sidewalk draws under it first:
+   you WALK under these, and the fade already knows. */
+function drawAwnform(gx,gy,X,Y,S){
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  if(n.indexOf('storefront awning')<0) return false;
+  if(LAYERG[gy][gx]!=='overhead') return false;
+  /* MEASURED (first render): the art is authored for SOUTH-FACING fronts -
+     canopy sloping up to a facade BEHIND (north of) the cell. On a vertical
+     run it stamps sideways into a dark ribbon, so only south-facing awnings
+     draw; the others keep their generic canopy until side-facing drops are
+     cooked as volume. */
+  var fb=gy>0?String(NAMEG[gy-1][gx]||'').toLowerCase():'';
+  if(fb.indexOf('storefront')<0 || LAYERG[gy-1][gx]==='overhead') return false;
+  var cw=['rust','teal','sand_stripe','sage'][th(0,gx>>2,4)];
+  var im=TILEFORM_IMG['sf_awning_'+cw+'_'+th(gx,gy,2)];
+  if(!im||!im.complete||!im.naturalWidth) return false;
+  if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+  ctx.drawImage(look(im),0,44,44,44,X,Y,S,S);
+  ctx.drawImage(look(im),0,0,44,44,X,Y-S,S,S);
+  return true;
+}
 function drawGateform(gx,gy,X,Y,S){
   var n=String(NAMEG[gy][gx]||'').toLowerCase();
   if(n.indexOf('gate')<0 || (n.indexOf('curb cut')<0 && n.indexOf('kerb cut')<0)) return false;
@@ -26699,6 +26726,7 @@ function draw(){
         /* TF-ART-018 (8/16 second pass): kerb returns + crossing ramps. The
            8/16 measurement stands - sidewalks live in the SUBURB family - so
            this hook runs for suburb ground too, before the bought pool. */
+        if(!body && drawAwnform(gx,gy2,X,Y,S)) continue;
         if(!body && drawGateform(gx,gy2,X,Y,S)) continue;
         if(!body && drawKerbform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
