@@ -19222,7 +19222,24 @@ function vistaOpen(){
   let o=null, f=null;
   try{ o=BohemiaVista.overlook(WORLDREF); f=o&&BohemiaVista.framing(WORLDREF,o,cv.width,cv.height); }catch(e){ return false; }
   if(!o||!f) return false;
-  VISTA={ returnTo:{hx:hx, hy:hy, mode:MODE}, at:o,
+  /* __THE_VALLEY_IS_A_PLACE__ -- THE MARKER GOES IN returnTo TOO. vistaClose gave back
+     hx/hy/MODE and LEFT city.x/city.y parked on the mountain rim, so HOME -- which
+     resolves per (seed, marker cell) -- came back NULL and his house stopped
+     existing. MEASURED: marker [48,48] home {48,48} -> open -> marker [17,36] ->
+     close -> marker STILL [17,36], home null.
+     It was latent while the only way in was WALKING onto the overlook (the marker
+     was already near you). The day-2 beat calls it from anywhere, which exposed it
+     hard and turned home_phone_gate red. Completing a structure that was already
+     there rather than adding one. */
+  /* AND HIS HOUSE IS NOT A CAMERA FACT. homeFind() caches per (seed, MARKER
+     cell), so moving the camera to the overlook recomputed HOME against a
+     mountain rim, found nothing, and overwrote the cache with NULL -- his house
+     stopped existing FOR AS LONG AS HE WAS LOOKING AT THE VALLEY, which is
+     exactly when the phone is most likely to be open. Restoring the marker on
+     close was not enough; the answer has to hold WHILE the vista is up. Stashed
+     and put back, same as the marker. __THE_VALLEY_IS_A_PLACE__ */
+  VISTA={ returnTo:{hx:hx, hy:hy, mode:MODE, cx:city.x, cy:city.y,
+                    home:HOME, homeKey:HOME_KEY}, at:o,
           card:vistaCard(f.survey), survey:f.survey };
   MODE='city'; city.x=f.cx; city.y=f.cy; panX=0;
   /* LIFT THE HORIZON. Dead-centring the look-at left a third of the frame as
@@ -19241,6 +19258,8 @@ function vistaClose(){
   const r=VISTA.returnTo; VISTA=null;
   const el=document.getElementById('vistaCard'); if(el) el.remove();
   hx=r.hx; hy=r.hy; MODE=r.mode;
+  if(typeof r.cx==='number'){ city.x=r.cx; city.y=r.cy; }   /* __THE_VALLEY_IS_A_PLACE__ */
+  if(r.homeKey){ HOME=r.home; HOME_KEY=r.homeKey; }        /* __THE_VALLEY_IS_A_PLACE__ */
   TW=18; TH=9;                                   /* the view's own default zoom */
   render();
   return true;
@@ -20185,7 +20204,11 @@ function phoneState(){
   return { where:d||'', district:d||'', day:DAY.day, clock:DAY.hhmm(DAY.min),
            night:isNight(), mode:MODE,
            cell:{x:(MODE==='human')?((hx/FN)|0):city.x, y:(MODE==='human')?((hy/FN)|0):city.y},
-           home:h?{cell:h.cell}:null, objective:obj,
+           home:(function(){ /* __THE_VALLEY_IS_A_PLACE__ -- a camera move is not a fact
+             about his house. While the vista is up the marker is on the rim, so
+             homeFind() would answer null; the remembered answer is the true one. */
+             try{ if(VISTA&&VISTA.returnTo&&VISTA.returnTo.home) return {cell:VISTA.returnTo.home.cell}; }catch(_e){}
+             return h?{cell:h.cell}:null; })(), objective:obj,
            quest:(function(){ try{ return DQ.spec?DQ.spec.id:null; }catch(_e){ return null; } })(),
            done:(function(){ try{ return DQ.done(); }catch(_e){ return false; } })(),
            offer:(OFFER&&!OFFER_TAKEN)?OFFER:null, taken:!!OFFER_TAKEN,

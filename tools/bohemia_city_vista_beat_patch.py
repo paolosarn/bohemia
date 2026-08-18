@@ -121,6 +121,23 @@ NEW_RESTORE = """  if(st.market){ try{ MKT_LEDGER=st.market.ledger||null; MKT_BO
   /* """ + MARK + """ */
   if(st.vistaSeen){ try{ VISTA_SEEN=true; }catch(_e){} }"""
 
+# 5. vistaClose must give back the CITY MARKER too, not just the body
+OLD_RETURN = """  VISTA={ returnTo:{hx:hx, hy:hy, mode:MODE}, at:o,"""
+NEW_RETURN = """  /* """ + MARK + """ -- THE MARKER GOES IN returnTo TOO. vistaClose gave back
+     hx/hy/MODE and LEFT city.x/city.y parked on the mountain rim, so HOME -- which
+     resolves per (seed, marker cell) -- came back NULL and his house stopped
+     existing. MEASURED: marker [48,48] home {48,48} -> open -> marker [17,36] ->
+     close -> marker STILL [17,36], home null.
+     It was latent while the only way in was WALKING onto the overlook (the marker
+     was already near you); the day-2 beat calls it from anywhere, which exposed
+     it hard and turned home_phone_gate red. Completing the structure that was
+     already there rather than adding one. */
+  VISTA={ returnTo:{hx:hx, hy:hy, mode:MODE, cx:city.x, cy:city.y}, at:o,"""
+
+OLD_CLOSE = """  hx=r.hx; hy=r.hy; MODE=r.mode;"""
+NEW_CLOSE = """  hx=r.hx; hy=r.hy; MODE=r.mode;
+  if(typeof r.cx==='number'){ city.x=r.cx; city.y=r.cy; }   /* """ + MARK + """ */"""
+
 
 def main():
     if not os.path.exists(CITY):
@@ -133,7 +150,9 @@ def main():
                            ('the wake hook', OLD_WAKE, NEW_WAKE),
                            ('the get up tap', OLD_GETUP, NEW_GETUP),
                            ('the snapshot', OLD_SNAP, NEW_SNAP),
-                           ('the restore', OLD_RESTORE, NEW_RESTORE)]:
+                           ('the restore', OLD_RESTORE, NEW_RESTORE),
+                           ('the vista returnTo', OLD_RETURN, NEW_RETURN),
+                           ('the vista close', OLD_CLOSE, NEW_CLOSE)]:
         if old not in s:
             sys.exit('FAIL: anchor not found -- ' + name)
         s = s.replace(old, new, 1)
