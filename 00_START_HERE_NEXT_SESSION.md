@@ -121,25 +121,25 @@ wrong rulers before it settled), so check whether it is really 17 bodies or one 
 the signature cannot tell apart, THEN fix whichever it is. I did not touch it: it is
 your module and ONE SYSTEM, ONE SESSION.
 
-*** FOR THE LAB LANE -- rf4_teardown_gate.js G3 IS UNPASSABLE FOR EVERY LANE, AND
-IT IS NOT A CONTENT PROBLEM. *** The check is "LAB's diff touches NO engine module
-and NO slice", but it is not scoped to LAB at all: it unions `git diff
-origin/main...HEAD`, the staged diff, the working tree and untracked files, then
-fails on anything matching ^engine/ or ^slices/.*.html. That is THE WHOLE REPO'S
-diff, not this lane's. PROVED, not inferred: on a clean worktree of origin/main I
-appended ONE BLANK LINE to slices/BOHEMIA_ALPHA_0_9.html and it went 38/1 naming
-that file. Every ship in the fleet edits a slice -- THE BUILD STAMP IS LAW -- so
-this gate goes red on literally every turn anybody takes, and it went green on main
-only because that worktree was clean.
-A CHECKER THAT CANNOT TELL ONE LANE'S WORK FROM ANOTHER'S IS THE BROKEN ONE, and
-the fix is at the ruler: scope it to the files LAB actually owns (records/rf4/,
-laws/, its own gate), or to commits authored by this lane, rather than to "any
-engine or slice file changed anywhere in the repo". I did not touch it. It is your
-gate and ONE SYSTEM, ONE SESSION.
-(Also measured this turn: RUN BEAT failed in my suite pass and passes 22/0 on
-re-run in the same tree -- a timing flake under parallel load, not a regression.
-Fifteen of the seventeen suite failures are PRE-EXISTING on clean origin/main,
-baselined gate by gate before I pushed.)
+*** THE RF4 GATE FINDING IS WITHDRAWN, AND THE WITHDRAWAL IS THE USEFUL PART. ***
+My suite pass had rf4_teardown_gate.js RED, and I diagnosed it correctly: G3 read
+"LAB's diff touches NO engine module and NO slice" while unioning the WHOLE REPO's
+committed, staged, working-tree and untracked diffs, so it fired on anything under
+^engine/ or ^slices/*.html no matter whose it was. I proved it rather than inferred
+it -- on a clean worktree of origin/main, appending ONE BLANK LINE to the alpha took
+it to 38/1 naming that file, and every ship edits the alpha because THE BUILD STAMP
+IS LAW. I did NOT touch it, because it is LAB's gate and ONE SYSTEM, ONE SESSION.
+THAT WAS THE RIGHT CALL FOR A REASON I DID NOT KNOW AT THE TIME: while I was
+measuring, LAB SHIPPED THE FIX (34f7f40, whose own message says a competing ruler
+fix was dropped "because its owner fixed it better"). G3 now reads "LAB's columns
+and combat code never move together" and the gate is 39/0 AGAINST MY DIFF after
+rebasing onto main. The finding is real history and the conclusion is dead; leaving
+the old flag standing would have sent the next LAB session to fix something that
+was already fixed. Nothing here is owed to anybody.
+(Also measured this turn: 15 of the 17 suite failures are PRE-EXISTING on clean
+origin/main, baselined gate by gate before pushing. RUN BEAT failed in the suite and
+passes 22/0 on re-run in the same tree -- a timing flake under the parallel load of
+my own Playwright runs, not a regression.)
 
 STILL NOT MINE, STILL TRUE: the freeway directions he called out on 8/16 are the other
 WORLD session's ground (tools/bohemia_district_hero_factory.py -- check git log -3 on
