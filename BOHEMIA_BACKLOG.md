@@ -6252,6 +6252,29 @@ SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    pixels are exactly where silhouette detail becomes affordable. | each
    faction distinguishable in GREYSCALE on the real surface, gated |
    which shape belongs to which faction = his taste, as always | yes.
+   *** FIRST HALF SHIPPED 8/17-8/18 (the CITY CAST), AND THE MEASUREMENT IT
+   PRODUCED CHANGES HOW THE REST OF THIS ROW GETS BUILT --
+   records/BOHEMIA_WHICH_CLOTHES_ACTUALLY_CHANGE_THE_SHAPE_8_18_26.txt. ***
+   The six city residents were the player's body in the player's clothes under
+   random tints: SIX IDENTICAL SILHOUETTES in greyscale. They are six shapes now
+   (CITY_CAST_LOOKS, built the way FAMILY_CAST already was -- BODYVAR dials plus
+   a real fit from the canon wardrobe), held by gates/city_cast_silhouette_gate.js
+   scoring a WIDTH PROFILE with colour and size discarded.
+   THE FINDING, and it is the reusable part: two residents stayed 0.014 apart and
+   FOUR dial-and-swap attempts moved it ~0.01 each. Dials are a weak lever once a
+   coat is on, because the coat covers the body. tools/bohemia_silhouette_lever.js
+   ranks all 202 canon garments by how much each moves the outline, in the same
+   metric the gate scores:
+       SHOULDER MANTLE 0.0528 front  |  long coats 0.0446  |  ROAD CAPE 0.0303
+       wide-brim hats 0.0238  |  168 OF 202 MOVE THE FRONT BY LESS THAN 0.014
+   So: (a) THE ANSWER WAS ALREADY IN THE WARDROBE and a new cook would have been
+   waste -- swapping the mantle in took the closest pair 0.014 -> 0.04 in one edit;
+   (b) MEASURE THE FRONT. The RUCK PACK one resident wore to break his outline
+   scores 0.0000 from the front -- a back item cannot separate people walking
+   TOWARD you, and that is the direction you meet a stranger in; (c) when the
+   faction half of this row is built, RUN THE LEVER FIRST and assign from the top
+   of the ranking. Pins ratcheted 0.010->0.030 / 0.070->0.085 so this cannot
+   regress quietly. FACTIONS ARE STILL OWED; the city cast is done.
 2X. *** TWICE THE PIXELS ON THE PEOPLE (Paolo 8/14, LOCKED, watching a
    cutscene — laws/BOHEMIA_ADDENDUM_TWICE_THE_PIXELS_8_14_26.md. TOP OF
    THIS LANE'S QUEUE. His words: "the character models need twice as many

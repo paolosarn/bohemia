@@ -1,0 +1,78 @@
+BOHEMIA -- WHICH CLOTHES ACTUALLY CHANGE THE SHAPE
+CHARACTER lane, 8/18/26. Measurement, not a proposal. Nothing here is pending Paolo.
+
+WHY THIS WAS MEASURED
+---------------------
+The six city residents became six silhouettes on 8/17 (STRUCTURE-NOT-COLOR, amended
+8/15 to govern identity). Five of them separated cleanly. TWO DID NOT: the wide brim
+and the poncho sat 0.014 apart on the width profile -- close enough to read as the
+same person with the colour stripped out, which is the whole test.
+
+I tried four things to fix it: bigger height spread, belly and shoulder dials pushed
+harder, a leg-garment swap, a hat swap. Every one of them moved the number by about
+0.01 and none of them closed it. Under STOP PRODUCING (7/26) a fourth version means
+the approach is already wrong, so I stopped fixing the attempt.
+
+WHAT I HAD NOT DONE, AND SHOULD HAVE DONE FIRST
+-----------------------------------------------
+REUSE-FIRST (7/22) says prove nothing in the bank does the job before cooking. I was
+one step from cooking a new garment, and I had NOT proved that. The wardrobe holds
+202 canon pieces across 12 layers. I had tried maybe fifteen of them.
+
+So tools/bohemia_silhouette_lever.js ranks the ENTIRE wardrobe by how much each
+single garment changes the outline: one body, one pose, one garment at a time,
+against the same body wearing nothing on that layer, scored with the exact metric
+the cast gate uses -- so every number below is directly comparable to the 0.014 gap.
+
+THE RANKING (front / back, top of 202)
+--------------------------------------
+   front    back  layer    garment
+  0.0528  0.0000  back     SHOULDER MANTLE / OLIVE SHOULDER MANTLE
+  0.0446  0.0568  outer    WASTELAND DUSTER  (and 8 other long coats)
+  0.0303  0.0199  back     ROAD CAPE
+  0.0238  0.0227  head     CHINESE RICE FARMER HAT  (and the other wide caps)
+
+  168 of 202 canon garments change the FRONT outline by LESS than 0.014.
+
+THREE THINGS THAT CAME OUT OF IT
+--------------------------------
+1. THE ANSWER WAS ALREADY IN THE WARDROBE. The SHOULDER MANTLE moves the front
+   outline 0.0528 -- nearly FOUR TIMES the gap I could not close with dials -- and I
+   had never put it on anybody. A new cook would have been a new garment answering a
+   question an existing garment already answers.
+
+2. I HAD BEEN MEASURING THE WRONG DIRECTION. One resident wore a RUCK PACK
+   specifically to break his outline. The pack scores 0.0000 on the FRONT. It is a
+   back item; it is invisible on somebody walking toward you, which is the direction
+   you meet a stranger in. It does not appear anywhere in the top 22. Every score in
+   this file is the front for that reason, and the tool prints the back too so the
+   difference is visible instead of assumed.
+
+3. THE WARDROBE IS MOSTLY RECOLOURS. 168 of 202 pieces do not change the front
+   outline meaningfully. That is not a complaint about the wardrobe -- colourways are
+   legal -- it is the measured shape of STRUCTURE-NOT-COLOR (7/19): if progress is
+   new SHAPES, then 34 of 202 garments are carrying the structural range of the game,
+   and a new garment cook should aim at a silhouette nobody occupies rather than at a
+   colour nobody has.
+
+WHAT CHANGED IN THE GAME
+------------------------
+  pack     RUCK PACK        -> OLIVE SHOULDER MANTLE   (front-invisible -> strongest lever)
+  poncho   DUST PONCHO      -> ROAD CAPE, id renamed to 'cape'
+
+  closest pair    0.014 -> 0.04     (three times further apart)
+  mean spread     0.070 -> 0.093
+  gate pins ratcheted: MIN_PAIR_PROFILE 0.010 -> 0.030, MIN_MEAN_PROFILE 0.070 -> 0.085
+  gates/city_cast_silhouette_gate.js: 6 passed, 0 failed
+
+The pins are ratcheted because a pin left at the old value would let this regress
+silently, and a gate that cannot fail the thing it just caught is not a gate.
+
+WHERE HE SEES IT
+----------------
+LOOK tab, "THE SIX PEOPLE ON YOUR STREET" -- the six residents in colour and again
+with every hue removed. The bottom row is the whole test.
+RUN tab, walk into a settlement -- these are the people on the street.
+
+  node tools/bohemia_silhouette_lever.js       reruns the ranking
+  node gates/city_cast_silhouette_gate.js      holds the result

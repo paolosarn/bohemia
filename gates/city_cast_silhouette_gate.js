@@ -62,15 +62,23 @@ const ALPHA = 'file://' + path.join(REPO, 'slices/BOHEMIA_ALPHA_0_9.html');
    two residents the same shape again. It does NOT certify that all six are
    maximally distinct, because they are not: widebrim and poncho sit at 0.014 and
    you tell them apart by the hat brim and the hair, not by the outline.
-   I TRIED FOUR TIMES TO SEPARATE THAT PAIR AND MOVED IT ~0.01, WHICH IS THE USEFUL
-   FINDING: at 56px, once a coat is on, BODYVAR dials barely change the outline (the
-   coat covers the body), and swapping trousers for shorts + tall boots changed it
-   by literally nothing (the legs region fills either way). The lever that would
-   work is a garment with a genuinely different OUTER shape -- a flaring cape, a
-   bulky pack that breaks the shoulder line -- and that is a cook, not an
-   assignment. Raise these pins when that lands. */
-const MIN_PAIR_PROFILE = 0.010;  /* no two residents may be the SAME shape */
-const MIN_MEAN_PROFILE = 0.070;  /* and the cast as a whole must stay varied */
+   RATCHETED 8/18 AND THE STORY IS WORTH KEEPING. Four attempts at the closest pair
+   moved it ~0.01, because at 56px BODYVAR dials barely change the outline once a
+   coat is on and swapping trousers for shorts changed it by literally nothing. I
+   concluded the lever had to be a NEW garment -- a cook. THAT CONCLUSION WAS WRONG
+   AND REUSE-FIRST CAUGHT IT: tools/bohemia_silhouette_lever.js ranked all 202 canon
+   garments by how much each one moves the FRONT profile, and the answer was already
+   in the wardrobe. SHOULDER MANTLE scores 0.0528, nearly four times the gap I could
+   not close, and I had never tried it. One measured swap took the closest pair from
+   0.014 to 0.04.
+   TWO THINGS THAT RANKING ALSO SETTLED: the RUCK PACK I had given somebody to break
+   his outline is INVISIBLE FROM THE FRONT, which is where you meet a person -- and
+   168 of the 202 canon garments move the front outline by LESS than 0.014, i.e.
+   most of the wardrobe is colour and texture, not shape. That is STRUCTURE-NOT-COLOR
+   measured rather than asserted.
+   Pins raised to match. They only ever go up. */
+const MIN_PAIR_PROFILE = 0.030;  /* no two residents may be near the same shape */
+const MIN_MEAN_PROFILE = 0.085;  /* and the cast as a whole must stay varied */
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };

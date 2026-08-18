@@ -4,11 +4,12 @@
   {
    "id": "six-neighbours",
    "title": "THE SIX PEOPLE ON YOUR STREET",
-   "caption": "Your neighbours used to be YOU, six times, under six random colours -- same body, same clothes, only the hue changed, plus a durag on every third one. Strip the colour and they were six identical silhouettes, which matters because the valley is DARK: the demo opens at 06:00 and colour is the one channel you cannot count on. They are six SHAPES now -- different bodies, different garments, all from the canon wardrobe. The bottom row is the test. RUN tab, walk into a settlement.",
+   "caption": "Your neighbours used to be YOU, six times, under six random colours -- same body, same clothes, only the hue changed, plus a durag on every third one. Strip the colour and they were six identical silhouettes, which matters because the valley is DARK: the demo opens at 06:00 and colour is the one channel you cannot count on. They are six SHAPES now -- different bodies, different garments, all from the canon wardrobe. TWO OF THEM STILL MATCHED, and the fix was not a new garment: I measured all 202 clothes in the wardrobe for how much each one changes the outline, and the SHOULDER MANTLE moves it four times more than the gap I could not close. It was already in there. The backpack I had given one of them turns out to be invisible from the front, which is the direction you meet somebody in. The two closest neighbours are now three times further apart. The bottom row is the test. RUN tab, walk into a settlement.",
    "file": "look/six-neighbours.png",
-   "kb": 59.3,
+   "kb": 59.4,
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
-   "stamp": "8/17/26"
+   "stamp": "8/18/26",
+   "shooter": "node tools/bohemia_city_cast_picture.js"
   },
   {
    "id": "border-in-the-game",
@@ -17,7 +18,8 @@
    "file": "look/border-in-the-game.png",
    "kb": 59.9,
    "stamp": "8/17/26",
-   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+   "surface": "slices/BOHEMIA_CITY_WORLD.html",
+   "shooter": "node tools/bohemia_city_border_picture.js"
   },
   {
    "id": "border-one-pixel",
@@ -25,8 +27,9 @@
    "caption": "His 8/14 ask: \"the black border has to be thinner, like half as thin.\" It was always drawn as ONE pixel -- but it was drawn on the 56 composition and then DOUBLED by the upscale that takes the frame to 112, so it reached the screen at two. It is now drawn after the upscale and arrives at one. Same body, byte for byte: 0 of ~18,000 non-border pixels changed. CHARACTER tab, and anywhere a person is drawn -- RUN, CITY, COMBAT.",
    "file": "look/border-one-pixel.png",
    "kb": 75.9,
-   "stamp": "8/16/26",
-   "surface": "slices/BOHEMIA_ALPHA_0_9.html"
+   "stamp": "8/18/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_border_picture.js"
   },
   {
    "id": "dead-suburb",

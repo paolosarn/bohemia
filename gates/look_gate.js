@@ -105,17 +105,30 @@ if (E(PAGE) && E('slices/BOHEMIA_CITY_WORLD.html') && shots.length) {
      NOTHING IS WEAKENED: every city picture is still clocked against the city.
      An entry with no recorded surface is NOT judged and IS named, because a
      wrong verdict is worse than an absent one and silence would hide it. */
-  const stale = [], unclocked = [];
+  /* AND IT NAMES THE COMMAND THAT CLEARS IT (8/18, CHARACTER lane). A red that
+     says only "border-one-pixel is stale" tells the lane that hit it WHAT is
+     wrong and nothing about how to fix it, so the fix that gets reached for is
+     the manifest, which is the target and not the ruler. Every shot may record
+     a `shooter`; when one goes stale the gate prints the exact line to retake
+     it. Nothing is weakened -- the verdict is identical, only the message grew.
+     (The reason this was unclearable at all was worse and is fixed separately:
+     tools/bohemia_border_picture.js read its inputs from records/2x/*.png,
+     which are not in the repo, so it worked exactly once. It shoots the live
+     alpha now and has no inputs outside the repo.) */
+  const stale = [], unclocked = [], how = [];
   for (const s of shots) {
     const f = path.join(ROOT, 'slices', s.file || '');
     if (!fs.existsSync(f)) continue;
     const surf = s.surface ? path.join(ROOT, s.surface) : null;
     if (!surf || !fs.existsSync(surf)) { unclocked.push(s.id || s.file); continue; }
-    if (fs.statSync(f).mtimeMs < fs.statSync(surf).mtimeMs - 6 * 3600 * 1000)
+    if (fs.statSync(f).mtimeMs < fs.statSync(surf).mtimeMs - 6 * 3600 * 1000) {
       stale.push(s.id || s.file);
+      how.push('      ' + (s.id || s.file) + ': ' + (s.shooter || 'NO SHOOTER RECORDED -- add one'));
+    }
   }
   ok('no picture is more than six hours behind the surface it photographs (' +
-    stale.length + ' stale' + (stale.length ? ': ' + stale.join(', ') : '') + ')',
+    stale.length + ' stale' + (stale.length ? ': ' + stale.join(', ') +
+    '\n   RETAKE IT WITH:\n' + how.join('\n') : '') + ')',
     stale.length === 0);
   ok('every picture records the surface it was taken from (' + unclocked.length +
     ' do not' + (unclocked.length ? ': ' + unclocked.join(', ') : '') + ')',

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 RUN (run-eak241): 8/17 LATEST -- P0-SAVE CLOSED, AND THE VALLEY HAS A CALLER.
 
 TWO DEMO-BOARD ROWS, both routed to this lane.
@@ -55,6 +56,84 @@ NEXT IN THIS LANE: the last piece of the 8/13 work order -- the ADD TO HOME
 SCREEN card after his first night, which now has somewhere to point (the manifest
 and icon shipped 8/16). CAMP remains the one demo beat frozen twice over
 ([PENDING Paolo] + "no session builds survival mechanics before that verdict").
+=======
+CHARACTER (character-0lurbs): 8/18 (d) LATEST -- *** TWO OF THE SIX NEIGHBOURS
+STILL LOOKED LIKE THE SAME PERSON, AND THE FIX WAS ALREADY IN THE WARDROBE.
+TAB: LOOK, "THE SIX PEOPLE ON YOUR STREET" (the bottom row is the test), and
+RUN, walk into a settlement. ***
+Record: records/BOHEMIA_WHICH_CLOTHES_ACTUALLY_CHANGE_THE_SHAPE_8_18_26.txt
+
+8/17 turned the six city residents from one body in six random tints into six
+SHAPES. Five separated. The wide brim and the poncho sat 0.014 apart on the width
+profile -- same person in greyscale -- and I spent FOUR attempts on dials and leg
+swaps moving it about 0.01 each. That is the STOP PRODUCING tell, so I stopped
+fixing the attempt and asked what I had skipped.
+
+WHAT I HAD SKIPPED WAS REUSE-FIRST. I had tried maybe fifteen of the 202 canon
+garments and was one step from cooking a new one. tools/bohemia_silhouette_lever.js
+now ranks the WHOLE wardrobe by how much each single garment moves the outline, in
+the exact metric the cast gate scores by, so every number is comparable to the gap:
+
+   front    back  layer    garment
+  0.0528  0.0000  back     SHOULDER MANTLE
+  0.0446  0.0568  outer    WASTELAND DUSTER (and 8 other long coats)
+  0.0303  0.0199  back     ROAD CAPE
+  0.0238  0.0227  head     CHINESE RICE FARMER HAT
+  168 OF 202 MOVE THE FRONT BY LESS THAN 0.014.
+
+THREE THINGS OUT OF IT, AND TWO ARE REUSABLE BY ANY LANE:
+ 1. THE MANTLE MOVES THE OUTLINE FOUR TIMES MORE THAN THE GAP I COULD NOT CLOSE,
+    and it was sitting in the wardrobe the whole time. One swap took the closest
+    pair 0.014 -> 0.04. The cook I nearly did would have been pure waste.
+ 2. I HAD BEEN MEASURING THE WRONG DIRECTION. The RUCK PACK I gave a resident
+    specifically to break his outline scores 0.0000 FROM THE FRONT. A back item
+    cannot separate people walking toward you, which is how you meet a stranger.
+    Any lane doing silhouette work: score the FRONT, or you are scoring nothing.
+ 3. THE WARDROBE IS MOSTLY RECOLOURS -- 34 of 202 pieces carry the structural
+    range of the game. That is the measured shape of STRUCTURE-NOT-COLOR, and it
+    says a new garment cook should aim at a silhouette nobody occupies.
+Pins ratcheted 0.010->0.030 and 0.070->0.085 so this cannot regress quietly.
+city_cast_silhouette_gate.js 6/0, mean spread 0.070 -> 0.093.
+
+*** AND THE LOOK RED THE PEOPLE LANE HANDED BACK IS CLEARED AT THE ROOT. ***
+They were right that no lane could clear `border-one-pixel`, and right not to
+weaken the check to go green. But the cause was not the ruler: THE SHOOTER READ
+ITS INPUTS FROM records/2x/before/*.png AND records/2x/border/*.png, WHICH ARE
+NOT IN THE REPO. It was a tool that worked exactly once, on the machine that made
+those captures. tools/bohemia_border_picture.js now shoots the LIVE alpha in one
+page load and has no input outside the repo:
+    BEFORE  buildFrameCached(d,clip,ph,false) -> Scale2x   (outline baked at 56,
+                                                            so Scale2x doubles it)
+    AFTER   buildFrameCached(d,clip,ph,true)  -> Scale2x -> applyCharOutline at 112
+That BEFORE line is the old renderer rebuilt from the parts the current one still
+has -- the `_noOutline` argument exists because the outline pass was lifted out of
+the composition -- so it is not a second drawing path that could flatter the shot.
+Retaken, 75.9 KB, 3 facings, and the difference reads at a glance.
+AND THE GATE NOW TELLS YOU HOW: every shot records a `shooter` in the manifest and
+look_gate prints the exact command next to any picture it calls stale. The verdict
+is unchanged; the message stopped being a dead end.
+   IF border-one-pixel GOES STALE ON YOUR SHIP:  node tools/bohemia_border_picture.js
+   IF six-neighbours GOES STALE:                 node tools/bohemia_city_cast_picture.js
+It will keep going stale, because it is clocked against the alpha and every lane
+edits the alpha daily for the build stamp. That is now a 40-second command instead
+of an unclearable red, which is the right cost. A content-aware ruler (clock a
+picture against the CODE REGION it photographs, not a 20 MB monolith's mtime) is
+the real answer and is unbuilt -- it is a LOOK/shared job, not a character one.
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER:
+ 1. FACTIONS BY SILHOUETTE -- the second half of backlog row SIL, and the city
+    cast is the worked example. RUN THE LEVER FIRST and assign from the top of
+    the ranking; do not start from dials. Needs the greyscale gate generalised
+    from six residents to N factions.
+ 2. 2X IS STILL BLOCKED ON PAINTING, NOT ON CODE. The flip is built, proved
+    lossless and deliberately dormant at RIG_RS=1
+    (records/BOHEMIA_2X_WHY_THE_RIG_STAYS_AT_56_8_16_26.txt): doubling his rig
+    mechanically makes the head a BOX, because Scale2x was manufacturing its
+    roundness. The pixels have to be PAINTED at 112. That is content and it is
+    his call when.
+ 3. The lever's own finding is a cook brief: 34 of 202 garments carry the shape
+    range. A silhouette nobody occupies is worth more than any recolour.
+>>>>>>> 53b9718 (THE MANTLE WAS ALREADY IN THE WARDROBE, AND THE PACK WAS INVISIBLE FROM THE FRONT)
 
 FACTIONS (factions-ovkjpf): 8/17 LATEST -- *** THE LADDER FINALLY POINTS AT
 SOMETHING: THEY CAN GIVE YOU THINGS NOW, AND THE FREE ONES ARE THE DANGEROUS ONES.
