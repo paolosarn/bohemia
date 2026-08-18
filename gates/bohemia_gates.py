@@ -726,6 +726,14 @@ GATES = [
      'the neck is its own skin TONE not a shadow and never tints a collar; his curtain-bob export ships byte for byte and a repaint can never become a retint', False),
     ('CHAR OUTLINE',   ['node', 'gates/character_outline_gate.js'],
      'the 1px black border wraps every facing: last pass, snapshot-based so it cannot grow on itself, colour only so occupancy still sees the true silhouette', False),
+    ('CAST SHAPES',    ['node', 'gates/city_cast_silhouette_gate.js'],
+     'STRUCTURE-NOT-COLOR (7/19, amended 8/15 to govern IDENTITY) + Paolo 8/3 "have '
+     'it not be a copy of me": the six city residents were the player body in the '
+     'player clothes under four RANDOM tints, so in greyscale they were six identical '
+     'silhouettes -- and the valley is dark, which makes colour the one channel that '
+     'cannot carry a cast. Scored on WIDTH PROFILE with colour and size discarded. The '
+     'old cast scores EXACTLY 0.000 on all fifteen pairs by construction, so the floor '
+     'rejects it absolutely; mutation-tested by making everyone person #0', False),
     ('CITY BORDER',    ['node', 'gates/city_border_gate.js'],
      'the 1px border reached the CHARACTER tab and COMBAT and was still DOUBLED in '
      'the game: the city scales bodies on an integer ladder (EPX x2 at the default '

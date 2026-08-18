@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/18b - FIVE LOOKUPS PER CELL, NOW ONE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/18c - SIX NEIGHBOURS, NOT SIX TINTS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -6886,23 +6886,79 @@ function citySendPlayer(){
    else, so this is 48 frames rather than 288. */
 let CCAST=null;                                   /* bake in flight */
 const CITY_LOOKS=6;                               /* the same six the run gets */
+/* ===== SIX SHAPES, NOT SIX COLOURS (Paolo 7/19 STRUCTURE-NOT-COLOR, amended 8/15
+   to govern IDENTITY; Paolo 8/3 "have it not be a copy of me") ==================
+   MEASURED BEFORE IT WAS CHANGED: the six residents were the player's body in the
+   player's clothes under random tints, and rendered in greyscale they were SIX
+   IDENTICAL SILHOUETTES. The valley is dark -- the demo opens at 06:00 -- so
+   colour is exactly the channel that is not reliably there, and it was carrying
+   the whole cast.
+   Same construction as FAMILY_CAST, which this lane already got right: BODYVAR
+   dials for the body, a real fit from the canon wardrobe for the shape. Every
+   garment here is st:'canon' and already exists; nothing is cooked.
+   THE TEST IS GREYSCALE: strip the colour and six different outlines must remain.
+   gates/city_cast_silhouette_gate.js holds it.
+   His table to retune -- which shape belongs to whom is taste. */
+const CITY_CAST_LOOKS = [
+  { id:'longcoat', why:'tallest, narrowest column -- a floor-length duster',
+    dials:{height:0.75,belly:-0.25,arms:0.10,shoulders:0.15,hips:-0.15},
+    worn:{hair:'BUZZ CUT',base:'FADED BLACK LONGSLEEVE',outer:'WASTELAND DUSTER',
+          legs:'BLACK DENIM',feet:'TALL MOTO BOOTS'} },
+  { id:'barearms', why:'short and broad, bare arms, no coat to hide the shoulders',
+    dials:{height:-0.35,belly:0.50,arms:0.30,shoulders:0.60,hips:0.10},
+    worn:{hair:'SLICK BACK',base:'SOOT TANK',gear:'BRICK SUSPENDERS',
+          legs:'KHAKI CARGOS',feet:'RANCH BOOTS'} },
+  { id:'pack', why:'a bulk on the back nobody else has, under a knit cap',
+    dials:{height:0.25,belly:0.20,arms:0.05,shoulders:0.45,hips:0.05},
+    worn:{hair:'CROP',base:'OLIVE HOODIE',back:'RUCK PACK',head:'STORM KNIT CAP',
+          legs:'SOOT CARGOS',feet:'WRAPPED BOOTS'} },
+  { id:'skirt', why:'smallest, and the only one whose lower half is not two legs',
+    dials:{height:-0.60,belly:-0.30,arms:-0.35,shoulders:-0.40,hips:0.35},
+    worn:{hair:'SHOULDER LENGTH',base:'STRIPED TEE',legs:'ANKLE WRAP SKIRT',
+          feet:'SLATE SNEAKERS'} },
+  { id:'widebrim', why:'a hat you can identify from across the street',
+    dials:{height:-0.70,belly:0.55,arms:-0.15,shoulders:0.05,hips:0.30},
+    worn:{hair:'GREY WISPS',base:'DUST PLAID SHIRT',head:'CHINESE RICE FARMER HAT',
+          legs:'DUST TROUSERS',feet:'SANDWALKERS',waist:'SCAV TOOL BELT'} },
+  { id:'poncho', why:'a triangle, and the only trailing hem',
+    dials:{height:0.55,belly:-0.30,arms:0.15,shoulders:-0.10,hips:-0.20},
+    worn:{hair:'SHAG',base:'BONE HENLEY',outer:'DUST PONCHO',neck:'TRAILING SCARF',
+          legs:'CUTOFF DENIM SHORTS',feet:'TALL MOTO BOOTS'} }
+];
+window.CITY_CAST_LOOKS = CITY_CAST_LOOKS;
 function citySendCast(){
   const fr=document.getElementById('cityFrame');
   if(!fr||!fr.contentWindow)return false;
   if(CCAST)return true;
   CCAST=true;
   const out={type:'BOHEMIA_CITY_CAST',w:56,h:56,packed:true,looks:[]};
-  const rc=()=>[0,0,0].map(()=>64+Math.floor(Math.random()*150));
   const plan=[];
   for(let i=0;i<CITY_LOOKS;i++){
-    const L={tints:{jacket:rc(),shirt:rc(),pants:rc(),shoes:rc()},
-             hat:(i%3===0)?'hat/durag':'', dirs:{}};
+    const src=CITY_CAST_LOOKS[i%CITY_CAST_LOOKS.length];
+    const L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
     plan.push(L); out.looks.push({dirs:L.dirs});
   }
+  /* BORROW THE BODY, THEN GIVE IT BACK -- the path famPaintBody proved. A resident
+     is not the player, and dials/age reach the renderer ONLY through
+     rebuildFromRig(); setting them and baking changes nothing without it. The PD
+     clothing slots are cleared too, or the player's own garments render underneath
+     this person's fit. Everything is restored in the finally, because these are
+     GLOBALS: leaving one installed silently reshapes every other surface in the
+     game and surfaces as a rendering bug with no connection to here. */
+  const PD_CLOTHES=['shirt','jacket','pants','shoes','hat','glasses','hair'];
   const withLook=(L,fn)=>{
-    const kt=JSON.parse(JSON.stringify(G.tints)),kh=G.equipped.hat;
-    G.tints=L.tints;G.equipped.hat=L.hat;
-    try{fn();}finally{G.tints=kt;G.equipped.hat=kh;}
+    const kW=window.G_WORN, kD=G.bodyVar, kA=G.age, kE={};
+    PD_CLOTHES.forEach(s=>{ if(s in G.equipped){ kE[s]=G.equipped[s]; G.equipped[s]=''; } });
+    try{
+      window.G_WORN=L.worn; G.bodyVar=L.dials; G.age=L.age;
+      rebuildFromRig();
+      fn();
+    }finally{
+      window.G_WORN=kW; G.bodyVar=kD; G.age=kA;
+      for(const s in kE) G.equipped[s]=kE[s];
+      try{ rebuildFromRig(); }catch(_e){}
+      try{ HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); }catch(_e){}
+    }
   };
   try{
     plan.forEach(L=>{ for(const d of DIRS) withLook(L,()=>{

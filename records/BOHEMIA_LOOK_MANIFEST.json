@@ -2,6 +2,15 @@
  "built": "8/17/26",
  "shots": [
   {
+   "id": "six-neighbours",
+   "title": "THE SIX PEOPLE ON YOUR STREET",
+   "caption": "Your neighbours used to be YOU, six times, under six random colours -- same body, same clothes, only the hue changed, plus a durag on every third one. Strip the colour and they were six identical silhouettes, which matters because the valley is DARK: the demo opens at 06:00 and colour is the one channel you cannot count on. They are six SHAPES now -- different bodies, different garments, all from the canon wardrobe. The bottom row is the test. RUN tab, walk into a settlement.",
+   "file": "look/six-neighbours.png",
+   "kb": 59.3,
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "stamp": "8/17/26"
+  },
+  {
    "id": "border-in-the-game",
    "title": "THE BLACK BORDER, IN THE GAME",
    "caption": "His 8/14 ask, finished where it counts. The CHARACTER tab got the thin outline first, and the GAME kept doubling it: the city enlarges every body on an integer ladder, so the one pixel came along for the ride and landed 2px thick walking around and 4px zoomed in. The border is now drawn AFTER the enlargement, at the size you actually see it, for the player and every neighbour. RUN tab (and CITY), anywhere a person is drawn.",
