@@ -1083,6 +1083,20 @@ GATES = [
      'inside a try/catch that ate it. A CAUGHT EXCEPTION IN A DRAW PATH IS A FEATURE THAT '
      'SILENTLY DOES NOTHING. So the claim is the same frame drawn silent and spoken, and the '
      'pixels must DIFFER', False),
+    ('WHAT YOU HEARD', ['node', 'gates/known_gate.js'],
+     'The street exchanges shipped with ELEVEN conversations that say something TRUE about '
+     'this valley said nowhere else, and the fact went NOWHERE: you overheard it, the bubble '
+     'faded, the game forgot. Q001.P8 "reward the listener" asks to gate something behind a '
+     'detail only an attentive player caught, and a detail caught then dropped gates nothing '
+     '-- that was atmosphere wearing a mechanic\'s coat. Now overhearing WRITES IT DOWN, and '
+     'STAYING IS WHAT PAYS: the fact is recorded only when the conversation reaches its LAST '
+     'turn and the line quoted is that turn, so walking off halfway means you heard people '
+     'talking and learned nothing (measured first: quoting the JOIN turn produced HEARD: '
+     '"Where then.", a fact about nothing). It NEVER POINTS AT ANYTHING -- Q018.W3 asks for a '
+     'thread to pull with NO waypoints, and MAP LAW agrees, so a row carries a SUBJECT and a '
+     'QUESTION and no cell, ever. This walks a real settlement through the one link and '
+     'demands the log FILL ITSELF, survive a reload, and be readable on the card he already '
+     'opens', False),
     ('STREET EXCHANGE', ['node', 'gates/exchange_gate.js'],
      'Q043.W4 AMBIENT BANTER AS CHARACTERIZATION asks for OVERHEARD RELATIONSHIPS, and the '
      '8/12 bark factory CITES that finding in its own header while shipping 244 lines in '

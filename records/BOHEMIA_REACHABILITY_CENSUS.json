@@ -1,5 +1,5 @@
 {
- "sources": 238,
+ "sources": 239,
  "total_mb": 279.1,
  "unreached_mb": 275.9,
  "rows": [
@@ -1312,10 +1312,10 @@
    "path": "engine/bohemia_exchanges.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 8,
-   "hits_shown": 8,
+   "samples": 10,
+   "hits_shown": 10,
    "hits_loaded": 1,
-   "bytes": 31358
+   "bytes": 34403
   },
   {
    "path": "engine/bohemia_farm.js",
@@ -1433,6 +1433,15 @@
    "hits_shown": 30,
    "hits_loaded": 30,
    "bytes": 9042
+  },
+  {
+   "path": "engine/bohemia_known.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 2,
+   "hits_shown": 2,
+   "hits_loaded": 1,
+   "bytes": 6732
   },
   {
    "path": "engine/bohemia_landfill.js",

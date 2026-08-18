@@ -37,6 +37,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -66,6 +68,8 @@
    ],
    "join": 2,
    "leaks": true,
+   "subject": "water",
+   "implies": "The pressure is only up before five. Something else is running it the rest of the day.",
    "draft": true,
    "study": [
     {
@@ -95,6 +99,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -124,6 +130,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -153,6 +161,8 @@
    ],
    "join": 1,
    "leaks": true,
+   "subject": "power",
+   "implies": "One street stays lit all night and nothing runs that clean by accident.",
    "draft": true,
    "study": [
     {
@@ -182,6 +192,8 @@
    ],
    "join": 2,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -211,6 +223,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -240,6 +254,8 @@
    ],
    "join": 2,
    "leaks": true,
+   "subject": "salvage",
+   "implies": "The good panels face the wrong way for a flat roof. The carports are still standing.",
    "draft": true,
    "study": [
     {
@@ -269,6 +285,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -298,6 +316,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -327,6 +347,8 @@
    ],
    "join": 2,
    "leaks": true,
+   "subject": "work",
+   "implies": "They are taking names at the yard and will not say what the work is.",
    "draft": true,
    "study": [
     {
@@ -356,6 +378,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -385,6 +409,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -414,6 +440,8 @@
    ],
    "join": 2,
    "leaks": true,
+   "subject": "salvage",
+   "implies": "Whatever is still lying out past the wash was left there for a reason.",
    "draft": true,
    "study": [
     {
@@ -443,6 +471,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -472,6 +502,8 @@
    ],
    "join": 2,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -501,6 +533,8 @@
    ],
    "join": 1,
    "leaks": true,
+   "subject": "the hill",
+   "implies": "Somebody sits on the road up the hill and writes down who goes.",
    "draft": true,
    "study": [
     {
@@ -530,6 +564,8 @@
    ],
    "join": 2,
    "leaks": true,
+   "subject": "water",
+   "implies": "Families are leaving towards the water. Nobody says what is there.",
    "draft": true,
    "study": [
     {
@@ -559,6 +595,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -588,6 +626,8 @@
    ],
    "join": 2,
    "leaks": true,
+   "subject": "names",
+   "implies": "Somebody is writing down who lives in which house.",
    "draft": true,
    "study": [
     {
@@ -617,6 +657,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -646,6 +688,8 @@
    ],
    "join": 2,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -675,6 +719,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -704,6 +750,8 @@
    ],
    "join": 2,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -733,6 +781,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -762,6 +812,8 @@
    ],
    "join": 2,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -791,6 +843,8 @@
    ],
    "join": 1,
    "leaks": true,
+   "subject": "strangers",
+   "implies": "Somebody came in off the road instead of the houses, and was let past.",
    "draft": true,
    "study": [
     {
@@ -820,6 +874,8 @@
    ],
    "join": 2,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -849,6 +905,8 @@
    ],
    "join": 1,
    "leaks": false,
+   "subject": null,
+   "implies": null,
    "draft": true,
    "study": [
     {
@@ -878,6 +936,8 @@
    ],
    "join": 2,
    "leaks": true,
+   "subject": "strangers",
+   "implies": "Somebody came through twice and did not buy anything either time.",
    "draft": true,
    "study": [
     {
@@ -907,6 +967,8 @@
    ],
    "join": 1,
    "leaks": true,
+   "subject": "names",
+   "implies": "Somebody was asking which one you were, and already knew where you live.",
    "draft": true,
    "study": [
     {

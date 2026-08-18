@@ -39,6 +39,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -68,6 +70,8 @@
   ],
   "join": 2,
   "leaks": true,
+  "subject": "water",
+  "implies": "The pressure is only up before five. Something else is running it the rest of the day.",
   "draft": true,
   "study": [
    {
@@ -97,6 +101,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -126,6 +132,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -155,6 +163,8 @@
   ],
   "join": 1,
   "leaks": true,
+  "subject": "power",
+  "implies": "One street stays lit all night and nothing runs that clean by accident.",
   "draft": true,
   "study": [
    {
@@ -184,6 +194,8 @@
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -213,6 +225,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -242,6 +256,8 @@
   ],
   "join": 2,
   "leaks": true,
+  "subject": "salvage",
+  "implies": "The good panels face the wrong way for a flat roof. The carports are still standing.",
   "draft": true,
   "study": [
    {
@@ -271,6 +287,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -300,6 +318,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -329,6 +349,8 @@
   ],
   "join": 2,
   "leaks": true,
+  "subject": "work",
+  "implies": "They are taking names at the yard and will not say what the work is.",
   "draft": true,
   "study": [
    {
@@ -358,6 +380,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -387,6 +411,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -416,6 +442,8 @@
   ],
   "join": 2,
   "leaks": true,
+  "subject": "salvage",
+  "implies": "Whatever is still lying out past the wash was left there for a reason.",
   "draft": true,
   "study": [
    {
@@ -445,6 +473,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -474,6 +504,8 @@
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -503,6 +535,8 @@
   ],
   "join": 1,
   "leaks": true,
+  "subject": "the hill",
+  "implies": "Somebody sits on the road up the hill and writes down who goes.",
   "draft": true,
   "study": [
    {
@@ -532,6 +566,8 @@
   ],
   "join": 2,
   "leaks": true,
+  "subject": "water",
+  "implies": "Families are leaving towards the water. Nobody says what is there.",
   "draft": true,
   "study": [
    {
@@ -561,6 +597,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -590,6 +628,8 @@
   ],
   "join": 2,
   "leaks": true,
+  "subject": "names",
+  "implies": "Somebody is writing down who lives in which house.",
   "draft": true,
   "study": [
    {
@@ -619,6 +659,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -648,6 +690,8 @@
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -677,6 +721,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -706,6 +752,8 @@
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -735,6 +783,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -764,6 +814,8 @@
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -793,6 +845,8 @@
   ],
   "join": 1,
   "leaks": true,
+  "subject": "strangers",
+  "implies": "Somebody came in off the road instead of the houses, and was let past.",
   "draft": true,
   "study": [
    {
@@ -822,6 +876,8 @@
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -851,6 +907,8 @@
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -880,6 +938,8 @@
   ],
   "join": 2,
   "leaks": true,
+  "subject": "strangers",
+  "implies": "Somebody came through twice and did not buy anything either time.",
   "draft": true,
   "study": [
    {
@@ -909,6 +969,8 @@
   ],
   "join": 1,
   "leaks": true,
+  "subject": "names",
+  "implies": "Somebody was asking which one you were, and already knew where you live.",
   "draft": true,
   "study": [
    {
@@ -989,10 +1051,31 @@
     return out;
   }
 
+  /* A PERSON-TO-SUBJECT MAP IS NOT IN THIS DATA, AND I MEASURED THAT RATHER
+     THAN SHIPPING IT. The first cut derived "what somebody's trade gets talked
+     about" from which archetypes appear in each leaking conversation. Measured:
+     scav, keeper, watch and worker each came back with ALL SEVEN subjects,
+     because most exchanges take ('any','any') speakers and an 'any' slot
+     matches everybody. A function that returns the same answer for every input
+     is not a lookup, it is a decoration, and shipping it would have put a
+     person-specific row on a card that was never person-specific. So the log is
+     a LOG -- which is what Q018.W3 asked for in the first place: "a growing map
+     of known-vs-implied", not a dossier per resident. */
+
+  /* and the reverse, for a surface that has a subject and wants the fact */
+  function leaksOf(subject) {
+    var out = [];
+    for (var i = 0; i < EXCHANGES.length; i++) {
+      if (EXCHANGES[i].leaks && EXCHANGES[i].subject === subject) out.push(EXCHANGES[i]);
+    }
+    return out;
+  }
+
   var API = {
     VERSION: '8.17.26',
     EXCHANGES: EXCHANGES,
     forPair: forPair, nextFor: nextFor, heard: heard, fits: fits,
+    leaksOf: leaksOf,
     count: EXCHANGES.length
   };
   if (HASREQ) module.exports = API;

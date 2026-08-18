@@ -1,3 +1,61 @@
+PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
+DOWN, AND STAYING FOR THE WHOLE CONVERSATION IS WHAT PAYS. TAB: RUN, and you
+read it on the talk card when you open somebody. ***
+
+THE MORNING SHIPPED 11 CONVERSATIONS MARKED leaks:true -- each saying something
+TRUE about this valley said nowhere else -- AND THE FACT WENT NOWHERE. You
+overheard it, the bubble faded, the game forgot. Q001.P8 "reward the listener"
+asks to gate something behind a detail only an attentive player caught, and a
+detail caught then dropped gates nothing. That was atmosphere wearing a
+mechanic's coat, and this is the mechanic.
+  engine/bohemia_known.js, its own key boh.city.known (never rides the main save)
+  tools/bohemia_city_known_patch.py (idempotent by md5)
+  gates/known_gate.js, 19 claims, registered as WHAT YOU HEARD
+  records/BOHEMIA_WHAT_YOU_HEARD_8_17_26.md
+
+READS LIKE THIS ON THE CARD:
+  YOU HEARD        "After five you get what is left in the pipe, and it is warm."
+  WHICH LEAVES     The pressure is only up before five. Something else is
+                   running it the rest of the day.
+  THINGS YOU KNOW  3 ACROSS 3 SUBJECTS
+Seven subjects exist to have a thread on: water, power, salvage, work, the hill,
+names, strangers.
+
+*** STAYING IS WHAT PAYS. *** The fact is recorded ONLY when the conversation
+reaches its LAST turn and the line quoted is that turn, because that is where the
+payoff sits in all eleven. Walk off halfway and you heard people talking and
+learned nothing. Measured first: quoting the JOIN turn produced rows like
+HEARD: "Where then." -- a fact about nothing.
+
+*** AND IT NEVER POINTS AT ANYTHING. *** Q018.W3 wants a thread to pull with NO
+waypoints and MAP LAW agrees, so a row carries a SUBJECT and a QUESTION and never
+a cell. The gate greps every stored row for a coordinate and fails if it finds
+one. RESEARCHED 8/17: Outer Wilds' ship log is the design that already solved
+this -- "the only things locked to you are locked because you are ignorant of
+them", and the ORDER you learned things in is part of what you know, which is why
+re-hearing a fact counts it but never reorders the log.
+
+WHAT I MEASURED AND THEN DID NOT SHIP: a derivation of "what somebody's trade
+gets talked about", so the card could show what you had heard about THIS person's
+subject. Measured: scav, keeper, watch and worker each returned ALL SEVEN
+subjects, because most exchanges take ('any','any') speakers. A FUNCTION THAT
+RETURNS THE SAME ANSWER FOR EVERY INPUT IS NOT A LOOKUP, IT IS A DECORATION. It
+was deleted, the reason written into the factory, and the log stayed a log.
+
+AND ONE FLAKE WAS KILLED RATHER THAN LIVED WITH: gate B5 drove a fixed 130
+renders and returned 4 facts one run and 1 the next, because only 11 of 31
+conversations leak. A GATE THAT FAILS INTERMITTENTLY IS WORSE THAN NO GATE -- it
+teaches everybody to re-run until green, which is how a real failure gets waved
+through. It walks a bounded distance and stops the moment the claim is satisfied.
+
+WHAT COMES NEXT FOR THIS LANE: (1) the 11 facts are now RECORDED but still open
+nothing -- Q018.W3's thread has to become pullable, which means a fact should
+change what you can do or ask somewhere. That is the next real step and it needs
+a ruling from him about WHAT any of them lead to, so build the asking mechanism
+and leave the destinations empty. (2) Exchanges are picked by ARCHETYPE only; the
+sim already knows faction, standing, what you were SEEN doing and whether they
+have met you. (3) Quest volume: 114 questbook studies still untouched.
+ART (f3eu53): 8/17 (d) LATEST -- *** THE AWNINGS WERE NEVER BLOCKED: the
 ART (f3eu53): 8/18 (a) LATEST -- *** EVERY AWNING HANGS: side-facing
 ribbons cooked (fabric sampled from the approved drops) and wired for east
 and west facades. All four facings of every named awning cell in downtown

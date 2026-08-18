@@ -17272,6 +17272,155 @@ function pplFace(p, at) {
    NOTHING IS AUTHORED HERE. Every string comes out of his LINES table (the same
    rows the WORDS tab edits), chosen by facts the city already knows about that
    person. If he rewrites a line in WORDS, the street says the new one. */
+/* ==== engine/bohemia_known.js (WHAT YOU HEARD, 8/17) ==== */
+// BOHEMIA KNOWN -- WHAT YOU HEARD, AND WHAT IT LEAVES OPEN (8/17/26, PEOPLE lane)
+//
+// *** THE HALF OF "REWARD THE LISTENER" THAT WAS STILL MISSING. ***
+// The street exchanges shipped this morning with eleven conversations marked
+// `leaks:true` -- each one saying something TRUE about this valley that is said
+// nowhere else. And the fact went nowhere. You overheard it, the bubble faded,
+// and the game forgot. That is atmosphere wearing a mechanic's coat, and the
+// corpus is explicit that it is not what it asked for:
+//
+//   Q001.P8 "W8 (reward the listener" (ports) -- "gate a solution behind a
+//     detail only an attentive player caught." A detail that is caught and then
+//     dropped gates nothing. Standing still has to BUY something.
+//
+//   Q018.W3 THE RUMOR WEB (curiosity as the quest log) (craft) -- "a growing map
+//     of known-vs-implied that always gives a thread to pull, with NO waypoints
+//     -- the player follows their own questions (cf. our unrecorded ledger as a
+//     living log)." The corpus names the shape: KNOWN versus IMPLIED, and NO
+//     WAYPOINT. So this records two things per fact and never a location: the
+//     line you actually heard, and the question it leaves open.
+//
+//   Q014.W3 SOCIAL DEDUCTION VIA DIEGETIC MEANS (craft) -- "the investigation
+//     happens through the party's social fabric, not a quest-log clue." Which is
+//     why this is filled by standing near two people and by nothing else.
+//
+// RESEARCHED 8/17, and the design that already solved this is Outer Wilds' ship
+// log: progression is knowledge, and "the only things that are LOCKED to you are
+// locked because you are IGNORANT of them." Its rumour mode lays entries out by
+// how they relate, differently for every player, because the ORDER you learned
+// things in is part of what you know. No marker is ever placed in the world.
+// That is the same instrument this is, at the scale Bohemia can honestly carry
+// today: a list of what you overheard, in the words you overheard it in.
+//
+// WHAT IT DELIBERATELY DOES NOT DO: point at anything. No coordinate, no cell,
+// no arrow, no "go here". MAP LAW says Claude never designs map layouts, and
+// Q018.W3 says no waypoints, and those agree. A fact names a SUBJECT (water,
+// power, salvage, work, the hill, names, strangers) and asks a question. Where
+// the answer is, if it is anywhere yet, is his.
+//
+// MECHANISM-MINE / CONTENTS-PAOLO'S: this module stores and returns. It writes
+// no words -- every line in it came from an exchange he can edit in the WORDS
+// tab, and it never invents a fact of its own.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports);
+
+  var MAX = 200;          /* a log, not a landfill: oldest falls off the end */
+
+  function make(data) {
+    /* id -> { id, subject, line, implies, day, min, times, first } */
+    var m = {}, order = [];
+    if (data && typeof data === 'object' && data.rows) {
+      for (var i = 0; i < data.rows.length; i++) {
+        var r = data.rows[i];
+        if (!r || !r.id) continue;
+        m[r.id] = {
+          id: String(r.id), subject: String(r.subject || ''),
+          line: String(r.line || ''), implies: String(r.implies || ''),
+          day: r.day | 0, min: r.min | 0,
+          times: (r.times | 0) || 1, first: (r.first | 0) || (r.day | 0)
+        };
+        order.push(r.id);
+      }
+    }
+
+    function note(fact) {
+      /* A FACT WITH NOTHING BEHIND IT IS NOT A FACT. An exchange that claims to
+         leak and names no subject or question would otherwise fill the log with
+         rows that say nothing, which is worse than an empty log because it looks
+         like content. The factory refuses to build one; this refuses to store
+         one, because two independent refusals is what makes it true. */
+      if (!fact || !fact.id || !fact.subject || !fact.implies) return null;
+      var id = String(fact.id);
+      var r = m[id];
+      if (r) {
+        /* HEARING IT AGAIN IS NOT LEARNING IT AGAIN. It counts, because how
+           often a thing is said on a street is itself information, but it never
+           reorders the log: the ORDER YOU LEARNED THINGS IN is part of what you
+           know (the ship-log lesson), so a rediscovery must not shuffle it. */
+        r.times++;
+        return r;
+      }
+      r = m[id] = {
+        id: id, subject: String(fact.subject), line: String(fact.line || ''),
+        implies: String(fact.implies), day: fact.day | 0, min: fact.min | 0,
+        times: 1, first: fact.day | 0
+      };
+      order.push(id);
+      while (order.length > MAX) { delete m[order[0]]; order.shift(); }
+      return r;
+    }
+
+    function get(id) { return m[id] || null; }
+    function has(id) { return !!m[id]; }
+    function count() { return order.length; }
+
+    /* WHAT YOU KNOW ABOUT ONE SUBJECT. This is the whole query the surface
+       needs: you are standing in front of somebody, what have you heard that
+       bears on them? */
+    function about(subject) {
+      var out = [];
+      if (!subject) return out;
+      var s = String(subject).toLowerCase();
+      for (var i = 0; i < order.length; i++) {
+        var r = m[order[i]];
+        if (r && r.subject.toLowerCase() === s) out.push(r);
+      }
+      return out;
+    }
+    function knows(subject) { return about(subject).length > 0; }
+
+    /* EVERY SUBJECT YOU HAVE HEARD ANYTHING ABOUT, with how much. The map of
+       known-vs-implied Q018.W3 asks for: it shows what you have a thread on and
+       says nothing about where the thread goes. */
+    function subjects() {
+      var seen = {}, out = [];
+      for (var i = 0; i < order.length; i++) {
+        var r = m[order[i]];
+        if (!r) continue;
+        if (!seen[r.subject]) { seen[r.subject] = { subject: r.subject, n: 0 }; out.push(seen[r.subject]); }
+        seen[r.subject].n++;
+      }
+      return out;
+    }
+
+    /* NEWEST FIRST for reading, but `order` is kept oldest-first because that
+       is the record of how you came to know it. */
+    function all() {
+      var out = [];
+      for (var i = order.length - 1; i >= 0; i--) if (m[order[i]]) out.push(m[order[i]]);
+      return out;
+    }
+
+    function serialize() {
+      var rows = [];
+      for (var i = 0; i < order.length; i++) if (m[order[i]]) rows.push(m[order[i]]);
+      return { v: 1, rows: rows };
+    }
+
+    return { note: note, get: get, has: has, count: count, about: about,
+             knows: knows, subjects: subjects, all: all, serialize: serialize };
+  }
+
+  var API = { VERSION: '8.17.26', make: make, MAX: MAX };
+  if (HASREQ) module.exports = API;
+  root.BohemiaKnown = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+
+/* ==== /engine/bohemia_known.js (WHAT YOU HEARD) ==== */
 /* ==== engine/bohemia_exchanges.js (EXCHANGES, 8/17) ==== */
 // BOHEMIA EXCHANGES -- two people talking TO EACH OTHER (8/17/26, PEOPLE lane)
 // GENERATED by tools/bohemia_exchange_factory.py. DO NOT HAND-EDIT: re-run the tool.
@@ -17314,6 +17463,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17343,6 +17494,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": true,
+  "subject": "water",
+  "implies": "The pressure is only up before five. Something else is running it the rest of the day.",
   "draft": true,
   "study": [
    {
@@ -17372,6 +17525,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17401,6 +17556,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17430,6 +17587,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": true,
+  "subject": "power",
+  "implies": "One street stays lit all night and nothing runs that clean by accident.",
   "draft": true,
   "study": [
    {
@@ -17459,6 +17618,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17488,6 +17649,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17517,6 +17680,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": true,
+  "subject": "salvage",
+  "implies": "The good panels face the wrong way for a flat roof. The carports are still standing.",
   "draft": true,
   "study": [
    {
@@ -17546,6 +17711,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17575,6 +17742,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17604,6 +17773,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": true,
+  "subject": "work",
+  "implies": "They are taking names at the yard and will not say what the work is.",
   "draft": true,
   "study": [
    {
@@ -17633,6 +17804,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17662,6 +17835,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17691,6 +17866,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": true,
+  "subject": "salvage",
+  "implies": "Whatever is still lying out past the wash was left there for a reason.",
   "draft": true,
   "study": [
    {
@@ -17720,6 +17897,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17749,6 +17928,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17778,6 +17959,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": true,
+  "subject": "the hill",
+  "implies": "Somebody sits on the road up the hill and writes down who goes.",
   "draft": true,
   "study": [
    {
@@ -17807,6 +17990,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": true,
+  "subject": "water",
+  "implies": "Families are leaving towards the water. Nobody says what is there.",
   "draft": true,
   "study": [
    {
@@ -17836,6 +18021,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17865,6 +18052,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": true,
+  "subject": "names",
+  "implies": "Somebody is writing down who lives in which house.",
   "draft": true,
   "study": [
    {
@@ -17894,6 +18083,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17923,6 +18114,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17952,6 +18145,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -17981,6 +18176,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -18010,6 +18207,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -18039,6 +18238,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -18068,6 +18269,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": true,
+  "subject": "strangers",
+  "implies": "Somebody came in off the road instead of the houses, and was let past.",
   "draft": true,
   "study": [
    {
@@ -18097,6 +18300,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -18126,6 +18331,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": false,
+  "subject": null,
+  "implies": null,
   "draft": true,
   "study": [
    {
@@ -18155,6 +18362,8 @@ function pplFace(p, at) {
   ],
   "join": 2,
   "leaks": true,
+  "subject": "strangers",
+  "implies": "Somebody came through twice and did not buy anything either time.",
   "draft": true,
   "study": [
    {
@@ -18184,6 +18393,8 @@ function pplFace(p, at) {
   ],
   "join": 1,
   "leaks": true,
+  "subject": "names",
+  "implies": "Somebody was asking which one you were, and already knew where you live.",
   "draft": true,
   "study": [
    {
@@ -18264,10 +18475,31 @@ function pplFace(p, at) {
     return out;
   }
 
+  /* A PERSON-TO-SUBJECT MAP IS NOT IN THIS DATA, AND I MEASURED THAT RATHER
+     THAN SHIPPING IT. The first cut derived "what somebody's trade gets talked
+     about" from which archetypes appear in each leaking conversation. Measured:
+     scav, keeper, watch and worker each came back with ALL SEVEN subjects,
+     because most exchanges take ('any','any') speakers and an 'any' slot
+     matches everybody. A function that returns the same answer for every input
+     is not a lookup, it is a decoration, and shipping it would have put a
+     person-specific row on a card that was never person-specific. So the log is
+     a LOG -- which is what Q018.W3 asked for in the first place: "a growing map
+     of known-vs-implied", not a dossier per resident. */
+
+  /* and the reverse, for a surface that has a subject and wants the fact */
+  function leaksOf(subject) {
+    var out = [];
+    for (var i = 0; i < EXCHANGES.length; i++) {
+      if (EXCHANGES[i].leaks && EXCHANGES[i].subject === subject) out.push(EXCHANGES[i]);
+    }
+    return out;
+  }
+
   var API = {
     VERSION: '8.17.26',
     EXCHANGES: EXCHANGES,
     forPair: forPair, nextFor: nextFor, heard: heard, fits: fits,
+    leaksOf: leaksOf,
     count: EXCHANGES.length
   };
   if (HASREQ) module.exports = API;
@@ -18348,6 +18580,42 @@ function barkPick(){
   return best;
 }
 
+/* ===== BOHEMIA WHAT YOU HEARD (generated) ===== */
+/* ---- THE THINGS YOU HEARD, AND THEY OUTLIVE THE BUBBLE --------------------
+   Eleven of the street exchanges say something true that is said nowhere else.
+   Until this, hearing one changed nothing at all. Q001.P8 asks that an
+   attentive player be REWARDED; this is the reward, and it is deliberately not
+   a waypoint (Q018.W3: a thread to pull, never a marker). */
+var KNOWN = null;
+function knownLoad(){
+  if (KNOWN) return KNOWN;
+  var data = null;
+  try { data = JSON.parse(localStorage.getItem('boh.city.known') || 'null'); } catch (_e) {}
+  try { KNOWN = BohemiaKnown.make(data); } catch (_e) { KNOWN = null; }
+  return KNOWN;
+}
+function knownSave(){
+  try { localStorage.setItem('boh.city.known', JSON.stringify(knownLoad().serialize())); }
+  catch (_e) {}
+}
+/* RECORD IT. Called only when an exchange reaches its LAST turn, so walking off
+   halfway means you heard people talking and learned nothing. */
+function knownHeard(x, line){
+  if (!x || !x.leaks || !x.subject || !x.implies) return null;
+  var k = knownLoad(); if (!k) return null;
+  var r = k.note({ id: x.id, subject: x.subject, implies: x.implies,
+                   line: line || x.turns[x.turns.length - 1],
+                   day: (T && T.day) | 0, min: (T && T.min) | 0 });
+  if (r) knownSave();
+  return r;
+}
+/* WHAT THE CARD SHOWS. Newest first, and never more than two, because a card is
+   a card and a wall of rumour is not readable at a glance. */
+function knownRows(){
+  var k = knownLoad(); if (!k || !k.count()) return [];
+  return k.all().slice(0, 2);
+}
+/* ===== END BOHEMIA WHAT YOU HEARD ===== */
 /* ===== BOHEMIA STREET EXCHANGES (generated) ===== */
 /* ---- TWO PEOPLE TALKING TO EACH OTHER, AND YOU WALK IN ON THE MIDDLE -------
    Q043.W4 AMBIENT BANTER AS CHARACTERIZATION asks for OVERHEARD RELATIONSHIPS.
@@ -18417,6 +18685,18 @@ function xchStart(now){
 function xchSay(now){
   if (!XCH.on || XCH.i >= XCH.turns.length) { XCH.on = false; return false; }
   var t = XCH.turns[XCH.i++];
+  /* THE LAST TURN IS WHERE THE FACT IS, in all eleven of them, so this is also
+     what makes STAYING the thing that pays. Recorded here rather than at the
+     start: an exchange you walked away from taught you nothing. */
+  if (XCH.i >= XCH.turns.length) {
+    try {
+      var full = null;
+      for (var q = 0; q < BohemiaExchanges.EXCHANGES.length; q++) {
+        if (BohemiaExchanges.EXCHANGES[q].id === XCH.id) { full = BohemiaExchanges.EXCHANGES[q]; break; }
+      }
+      if (full) knownHeard(full, t.text);
+    } catch (_e) {}
+  }
   var speakerIsA = (t.speaker === 0);
   BARK.p = speakerIsA ? XCH.a : XCH.b;
   BARK.at = speakerIsA ? XCH.atA : XCH.atB;
@@ -24250,6 +24530,20 @@ function ctDraw(){
     }
   }
   /* EVERY BUTTON AT THE BOTTOM, under the rows it acts on. */
+  /* __WHAT_YOU_HEARD__ -- the log, on a surface he already opens. Two rows
+     only: a card is a card and a wall of rumour is not readable at a glance.
+     Q018.W3 wants KNOWN vs IMPLIED, so both are shown and neither is a
+     location. Through ctRow() so it wears the card's own face. */
+  try {
+    var kk = knownLoad();
+    if (kk && kk.count()) {
+      var rows = knownRows();
+      body += ctRow('YOU HEARD', '"' + rows[0].line + '"');
+      body += ctRow('WHICH LEAVES', rows[0].implies);
+      body += ctRow('THINGS YOU KNOW', kk.count() + ' ACROSS ' +
+        kk.subjects().length + ' SUBJECT' + (kk.subjects().length === 1 ? '' : 'S'));
+    }
+  } catch (_e) {}
   if(ctBtn) body+='<button id="ctask">'+ctBtn+'</button>';
   if(ctAct) body+='<button id="ctgive">'+ctAct.label+'</button>';
   /* __CITY_STANDING__ -- THE COMMITMENT. Offered only at the wall, and only on

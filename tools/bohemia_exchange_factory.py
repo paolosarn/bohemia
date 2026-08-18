@@ -129,7 +129,9 @@ EX = [
              "It came back brown and then it went again.",
              "Mine does that when the block above us runs theirs.",
              "So we are drinking whatever they are done with."]),
-    dict(id='water-hours', kind='work', who=('keeper', 'any'), join=2, leaks=True,
+    dict(id='water-hours', kind='work', who=('keeper', 'any'), join=2, leaks=True, subject='water',
+         implies='The pressure is only up before five. Something else is running it the rest of the day.',
+         
          cites=['listen', 'atmos'], turns=[
              "You are filling late again.",
              "I fill when the pressure is up and the pressure is up before five.",
@@ -149,7 +151,9 @@ EX = [
              "Last month there were fewer of us standing in it."]),
 
     # ---- POWER ------------------------------------------------------------
-    dict(id='power-block', kind='rumor', who=('any', 'any'), join=1, leaks=True,
+    dict(id='power-block', kind='rumor', who=('any', 'any'), join=1, leaks=True, subject='power',
+         implies='One street stays lit all night and nothing runs that clean by accident.',
+         
          cites=['rumor', 'social'], turns=[
              "Their street had lights all night.",
              "All night. Not a flicker, not a dip.",
@@ -167,7 +171,9 @@ EX = [
              "Not through the dark part.",
              "It is four minutes through the dark part.",
              "It is twenty around, and I have got twenty."]),
-    dict(id='power-panel', kind='trade', who=('scav', 'any'), join=2, leaks=True,
+    dict(id='power-panel', kind='trade', who=('scav', 'any'), join=2, leaks=True, subject='salvage',
+         implies='The good panels face the wrong way for a flat roof. The carports are still standing.',
+         
          cites=['listen', 'rumor'], turns=[
              "You still pulling panels off the flat roofs?",
              "Not off the flat roofs. The good ones face the wrong way for a flat roof.",
@@ -187,7 +193,9 @@ EX = [
              "Same paper. Same wording.",
              "That is not a warning any more then, that is just weather.",
              "It is weather until the day it is not, and you cannot tell which day that is."]),
-    dict(id='work-crew', kind='work', who=('worker', 'any'), join=2, leaks=True,
+    dict(id='work-crew', kind='work', who=('worker', 'any'), join=2, leaks=True, subject='work',
+         implies='They are taking names at the yard and will not say what the work is.',
+         
          cites=['listen', 'social'], turns=[
              "They are taking names again down at the yard.",
              "For what work.",
@@ -207,7 +215,9 @@ EX = [
              "Twice what it cost the last person who asked.",
              "Did you pay it?",
              "I paid it. Tomorrow it will be twice again and I will pay that too."]),
-    dict(id='trade-empty', kind='trade', who=('scav', 'any'), join=2, leaks=True,
+    dict(id='trade-empty', kind='trade', who=('scav', 'any'), join=2, leaks=True, subject='salvage',
+         implies='Whatever is still lying out past the wash was left there for a reason.',
+         
          cites=['listen', 'rumor'], turns=[
              "Anything left out past the wash?",
              "Anything left is left because somebody looked at it and walked away.",
@@ -227,13 +237,17 @@ EX = [
              "Since the last four people on it stopped walking past."]),
 
     # ---- RUMOUR AND THE THREAD -------------------------------------------
-    dict(id='rumor-quiet', kind='rumor', who=('any', 'any'), join=1, leaks=True,
+    dict(id='rumor-quiet', kind='rumor', who=('any', 'any'), join=1, leaks=True, subject='the hill',
+         implies='Somebody sits on the road up the hill and writes down who goes.',
+         
          cites=['rumor', 'listen'], turns=[
              "You been up the hill lately?",
              "Not since they started keeping somebody on the road up.",
              "Keeping somebody on it how.",
              "Sat in a chair. Did not stop me. Just wrote down that I went."]),
-    dict(id='rumor-moving', kind='rumor', who=('any', 'watch'), join=2, leaks=True,
+    dict(id='rumor-moving', kind='rumor', who=('any', 'watch'), join=2, leaks=True, subject='water',
+         implies='Families are leaving towards the water. Nobody says what is there.',
+         
          cites=['rumor', 'social'], turns=[
              "Two families off your street this month.",
              "Three.",
@@ -245,7 +259,9 @@ EX = [
              "Plenty came through.",
              "Anybody stop.",
              "Nobody stops here. That is the whole reason I like it."]),
-    dict(id='rumor-list', kind='rumor', who=('any', 'any'), join=2, leaks=True,
+    dict(id='rumor-list', kind='rumor', who=('any', 'any'), join=2, leaks=True, subject='names',
+         implies='Somebody is writing down who lives in which house.',
+         
          cites=['listen', 'social'], turns=[
              "They are asking who lives where now.",
              "They have always asked that.",
@@ -291,7 +307,9 @@ EX = [
              "The shade is taken.",
              "The shade is always taken.",
              "So I stand here and I do not talk about it, usually."]),
-    dict(id='street-newface', kind='social', who=('any', 'watch'), join=1, leaks=True,
+    dict(id='street-newface', kind='social', who=('any', 'watch'), join=1, leaks=True, subject='strangers',
+         implies='Somebody came in off the road instead of the houses, and was let past.',
+         
          cites=['social', 'listen'], turns=[
              "New face on the block.",
              "I saw. Came in from the road, not the houses.",
@@ -309,13 +327,17 @@ EX = [
              "I know everyone who was on it.",
              "That is not the same list.",
              "It is a shorter one, and I still say it in the same order."]),
-    dict(id='street-watching', kind='social', who=('watch', 'any'), join=2, leaks=True,
+    dict(id='street-watching', kind='social', who=('watch', 'any'), join=2, leaks=True, subject='strangers',
+         implies='Somebody came through twice and did not buy anything either time.',
+         
          cites=['listen', 'rumor'], turns=[
              "You are looking at everybody today.",
              "I look at everybody every day.",
              "Not like that you do not.",
              "Somebody came through twice and did not buy anything either time."]),
-    dict(id='street-asking', kind='social', who=('any', 'any'), join=1, leaks=True,
+    dict(id='street-asking', kind='social', who=('any', 'any'), join=1, leaks=True, subject='names',
+         implies='Somebody was asking which one you were, and already knew where you live.',
+         
          cites=['social', 'listen'], turns=[
              "Somebody was asking after you.",
              "Asking what.",
@@ -383,6 +405,11 @@ def main():
             raise SystemExit('%s has %d turns, must be 4' % (x['id'], len(x['turns'])))
         if not (1 <= x['join'] <= 2):
             raise SystemExit('%s joins at %d; you never hear the opener' % (x['id'], x['join']))
+        if x['leaks'] and not (x.get('subject') and x.get('implies')):
+            raise SystemExit('%s claims to leak and names no subject or question. '
+                             'Q001.P8 rewards the LISTENER: a leak with nothing '
+                             'behind it is atmosphere wearing a mechanic\'s coat.'
+                             % x['id'])
         if len(x['cites']) < 2:
             raise SystemExit('%s cites %d findings, needs 2' % (x['id'], len(x['cites'])))
         studies = {CITES[c][0].split('.')[0] for c in x['cites']}
@@ -417,6 +444,8 @@ def main():
             'turns': x['turns'],
             'join': x['join'],
             'leaks': x['leaks'],
+            'subject': x.get('subject'),
+            'implies': x.get('implies'),
             'draft': True,
             'study': [{'id': CITES[c][0], 'title': CITES[c][1], 'applied': CITES[c][2]}
                       for c in x['cites']],
@@ -536,10 +565,31 @@ def main():
     return out;
   }
 
+  /* A PERSON-TO-SUBJECT MAP IS NOT IN THIS DATA, AND I MEASURED THAT RATHER
+     THAN SHIPPING IT. The first cut derived "what somebody's trade gets talked
+     about" from which archetypes appear in each leaking conversation. Measured:
+     scav, keeper, watch and worker each came back with ALL SEVEN subjects,
+     because most exchanges take ('any','any') speakers and an 'any' slot
+     matches everybody. A function that returns the same answer for every input
+     is not a lookup, it is a decoration, and shipping it would have put a
+     person-specific row on a card that was never person-specific. So the log is
+     a LOG -- which is what Q018.W3 asked for in the first place: "a growing map
+     of known-vs-implied", not a dossier per resident. */
+
+  /* and the reverse, for a surface that has a subject and wants the fact */
+  function leaksOf(subject) {
+    var out = [];
+    for (var i = 0; i < EXCHANGES.length; i++) {
+      if (EXCHANGES[i].leaks && EXCHANGES[i].subject === subject) out.push(EXCHANGES[i]);
+    }
+    return out;
+  }
+
   var API = {
     VERSION: '8.17.26',
     EXCHANGES: EXCHANGES,
     forPair: forPair, nextFor: nextFor, heard: heard, fits: fits,
+    leaksOf: leaksOf,
     count: EXCHANGES.length
   };
   if (HASREQ) module.exports = API;
