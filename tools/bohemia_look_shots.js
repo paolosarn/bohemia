@@ -41,6 +41,32 @@ const STAMP = process.env.BOHEMIA_LOOK_STAMP || '8/8/26';
  * ------------------------------------------------------------------------- */
 const SUBJECTS = [
   {
+    id: 'the-collection',
+    title: 'THEY ARE NOT WAITING',
+    caption: 'This is what the free thing was for. You took what the Cartel was offering three times, and now that they count you they are asking -- and they are not waiting for the polite gap between asks, because that gap is for people who do not owe them. Saying no here does not cost you one rung, it costs you one for every favour you took. CITY tab, tap a person.',
+    keep: '#ctcard',
+    open: `(() => {
+      const bases = ctBases() || {}; let who = null, fid = null;
+      for (const b of Object.values(bases)) {
+        hx = b.x*FN + 2; hy = b.y*FN + 2;
+        for (const p of ctEveryone()) { const f = ctFactionOf(p); if (f) { who = p; fid = f; break; } }
+        if (who) break;
+      }
+      if (!who) return null;
+      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      const sv = ctBelongSave();
+      sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
+      ctSawCell(); ctOpen();
+      for (let i = 0; i < 3; i++) {
+        const f = document.getElementById('ctfavour'); if (f) f.click();
+        ctClose(); ctOpen();
+      }
+      sv.meta.gave[fid] = 6;              /* COUNTED, so they start asking */
+      ctClose(); ctOpen();
+      return { card: true, fid: fid };
+    })()`,
+  },
+  {
     id: 'the-favour',
     title: 'THE FIRST THING IS FREE',
     caption: 'The other direction, finally. Some outfits give you something the first time you meet them, it costs you nothing, and that is exactly the part to worry about -- the card starts keeping a tally of what you have taken. Others hand you nothing until they count you, and then it spends the standing you built. One outfit gives nothing to anybody ever. CITY tab, tap a person.',

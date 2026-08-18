@@ -1481,7 +1481,15 @@ GATES = [
      "the id (the three-spellings class, sixth time); I hand-edited a GENERATED file and the "
      "belonging gate silently wiped it; and TWO OF THESE CLAIMS WERE THEMSELVES THE BROKEN ONE -- "
      "one grepped a faction name out of a COMMENT, one asserted a design that was never the "
-     "design. Both fixed at the ruler, never the target", False),
+     "design. Both fixed at the ruler, never the target. *** EXTENDED 8/18: THE DEBT GETS "
+     "CALLED IN. *** The favour (8/16) opened an account and NOTHING EVER COLLECTED IT -- his "
+     "Cartel canon had a hook and no line. Now owing an outfit BYPASSES the weekly ration "
+     "(the bypass slot Paolo approved 7/26 and nothing had ever called: the limit models "
+     "restraint and a creditor has none), refusing costs one extra rung PER UNPAID FAVOUR "
+     "(counted at 6, owing 3, refuse -> 2), and MEETING a claim works one off, because a debt "
+     "you can never clear is a sentence not a relationship. The card says THEY ARE NOT "
+     "WAITING so the player can trace it to the free thing they took. Neither organ touches "
+     "the other's save -- a number in, a number out, asserted", False),
     ('COMMITMENT',     ['node', 'gates/commitment_gate.js'],
      "A LADDER WITH NO WALL IS A PROGRESS BAR. The 8/12 ladder went stranger to inside and you "
      "could climb all of it by pressing one button ten times, and no other outfit ever heard. The "

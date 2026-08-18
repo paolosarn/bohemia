@@ -104,6 +104,11 @@ WORDS = dict(
               'counted.',
     spent='THEY HAVE ASKED ENOUGH THIS WEEK',
     spent_note='Even an outfit that owns you does not ask every day.',
+    worked_off='You did it, and it came off what you owed them. Some of it.',
+    refused_owing='They gave you things {n} times and you said no. That is not '
+                  'a rung lost, that is a decision about what you are to them.',
+    owing='THEY ARE NOT WAITING',
+    owing_note='You owe them. The polite gap between asks is for people who do not.',
 )
 
 
@@ -316,9 +321,17 @@ TEMPLATE = r'''// BOHEMIA CLAIM -- WHAT BEING INSIDE COSTS YOU.
   /* THEY START ASKING. Called by a surface when it sees a counted rung and no
      open claim. Rationed through the approved mechanism, so an outfit that owns
      you still does not lean on you every single day. */
-  function open(save, fid, day, when, limits){
+  function open(save, fid, day, when, limits, owed){
     if(!save || !save.meta || !fid) return null;
-    var r = ration(save, limits).spend('claim:'+norm(fid), when);
+    /* THE DEBT IS WHY THEY DO NOT WAIT (8/18). makeRation has carried a BYPASS
+       slot since Paolo approved it on 7/26 -- "the birthday shape: an occasion
+       that ignores both windows" -- and NOTHING HAS EVER CALLED IT. This is what
+       it was for: an outfit you owe does not respect the polite weekly limit,
+       because the limit models restraint and a creditor has none.
+       The multiplier stays 1 (EVERYTHING COSTS ONE): owing changes WHETHER they
+       wait, not how much they take in one go. */
+    var bypass = ((owed|0) > 0) ? { allow:true, multiplier:1 } : null;
+    var r = ration(save, limits).spend('claim:'+norm(fid), when, bypass);
     if(!r.allowed) return { opened:false, reason:r.reason,
                             word:WORDS.spent, note:WORDS.spent_note, draft:DRAFT };
     var m = claimsOf(save), k = keyIn(m, fid);
@@ -334,14 +347,22 @@ TEMPLATE = r'''// BOHEMIA CLAIM -- WHAT BEING INSIDE COSTS YOU.
      NO costs the rung that made you worth asking. This returns the delta and
      lets the caller apply it, because the count lives in bohemia_belonging and
      a second writer is how two ladders start disagreeing. */
-  function answer(save, fid, said, given){
+  function answer(save, fid, said, given, owed){
     var m = claimsOf(save), k = keyIn(m, fid);
     if(!m[k]) return { answered:false, reason:'NOTHING_ASKED' };
     delete m[k];
     var B = belongingModule();
     if(said === 'yes'){
+      /* DOING WHAT THEY ASK PAYS THE ACCOUNT DOWN, one favour per claim met.
+         A debt you can never clear is a sentence, not a relationship -- Gouldner's
+         interval has to be able to CLOSE. The caller applies this through
+         bohemia_favour.settle, which is the debt's one writer; this file only
+         says how much was worked off. */
       return { answered:true, said:'yes', delta:0,
-               word:WORDS.kept, note:WORDS.kept_note, draft:DRAFT };
+               settle: ((owed|0) > 0) ? 1 : 0,
+               word:WORDS.kept,
+               note: ((owed|0) > 0) ? WORDS.worked_off : WORDS.kept_note,
+               draft:DRAFT };
     }
     /* THE COST OF NO: you fall out of the rung that made you worth asking.
        Derived -- it is the distance back to the rung below the trigger, read
@@ -351,8 +372,16 @@ TEMPLATE = r'''// BOHEMIA CLAIM -- WHAT BEING INSIDE COSTS YOU.
       var floor = B.RUNGS[TRIGGER_RUNG].at|0;
       back = Math.max(0, (given|0) - (floor - 1));
     }
-    return { answered:true, said:'no', delta:-back,
-             word:WORDS.refused, note:WORDS.refused_note, draft:DRAFT };
+    /* REFUSING A CREDITOR COSTS MORE THAN REFUSING A FRIEND. One rung per
+       unpaid favour on top of the fall, tagged as a placeholder like every other
+       unruled number here. This is the whole reason the free thing was free. */
+    var extra = Math.max(0, owed|0);
+    return { answered:true, said:'no', delta:-(back + extra),
+             owedWhenRefused: extra,
+             word:WORDS.refused,
+             note: extra ? WORDS.refused_owing.replace('{n}', String(extra))
+                         : WORDS.refused_note,
+             settle:0, draft:DRAFT };
   }
 
   /* every drafted string, so the WORDS tab can list and edit them without
@@ -364,7 +393,20 @@ TEMPLATE = r'''// BOHEMIA CLAIM -- WHAT BEING INSIDE COSTS YOU.
     });
   }
 
+  /* every unruled number in this module, per EVERYTHING COSTS ONE section 5. */
+  function placeholders(){
+    return [
+      { where:'bohemia_claim.refusalSurchargePerDebt', value:1, placeholder:true,
+        law:'EVERYTHING COSTS ONE (Paolo 8/15/26)',
+        what:'extra rungs lost per unpaid favour when you refuse a creditor' },
+      { where:'bohemia_claim.settlePerClaimMet', value:1, placeholder:true,
+        law:'EVERYTHING COSTS ONE (Paolo 8/15/26)',
+        what:'how many favours one met claim works off' }
+    ];
+  }
+
   var API = { WORDS:WORDS, TRIGGER_RUNG:TRIGGER_RUNG, TRIGGER_WORD:TRIGGER_WORD,
+              placeholders:placeholders,
               claimFor:claimFor, open:open, answer:answer,
               openOf:openOf, claimsOf:claimsOf, words:words };
   if(HASREQ) module.exports=API; else root.BohemiaClaim=API;

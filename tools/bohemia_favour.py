@@ -86,8 +86,12 @@ ANCHORS = [
     (BELONGING, '"firstMove": "they-give-first"',
      'the canon axis this whole module is built on'),
     (BELONGING, '"firstMove": "you-give-first"', 'the other side of that axis'),
-    (CLAIM, 'function answer(save, fid, said, given)',
-     'the reciprocal half a debt is eventually collected by'),
+    (CLAIM, 'function answer(save, fid, said, given, owed)',
+     'the reciprocal half that COLLECTS the debt -- the `owed` parameter is the '
+     'whole connection, so if it is dropped this refuses rather than silently '
+     'ledgering a debt nobody ever asks about'),
+    (CLAIM, 'settle:', 'the claim reports how much a met claim works off, which '
+     'this file then applies through settle() -- its own one writer'),
 ]
 
 # WHEN THEY WILL GIVE, by his own firstMove axis. The RUNG NAMES are read from
@@ -314,6 +318,21 @@ TEMPLATE = r'''// BOHEMIA FAVOUR -- WHAT YOU CAN ASK OF THEM.
              draft:DRAFT };
   }
 
+  /* PAYING IT DOWN. The debt is settled by DOING WHAT THEY ASK -- bohemia_claim
+     owns the asking and returns how much a met claim clears, and this applies
+     it, because the account has ONE WRITER and it is this file.
+     A DEBT YOU CAN NEVER CLEAR IS A SENTENCE, NOT A RELATIONSHIP. Gouldner's
+     reciprocity is about the INTERVAL between taking and returning, which means
+     the interval has to be able to close; if it never could, the Cartel would
+     be a trap with no door rather than a bargain with a bad rate. */
+  function settle(save, fid, n){
+    if(!save || !save.meta || !fid || !n) return owedOf(save, fid);
+    var m=owedMap(save), k=keyIn(m, fid);
+    m[k] = Math.max(0, (m[k]|0) - (n|0));
+    if(!m[k]) delete m[k];
+    return (m[k]|0);
+  }
+
   /* what the card says about a running account. THE DEBT IS NOT COLLECTED
      HERE: bohemia_claim owns asking, and a second opener is how two systems
      start disagreeing. This only reports that the account exists. */
@@ -348,6 +367,7 @@ TEMPLATE = r'''// BOHEMIA FAVOUR -- WHAT YOU CAN ASK OF THEM.
   var API = { GIVES:GIVES, WORDS:WORDS, FAVOUR_SIZE:FAVOUR_SIZE,
               STANDING_COST:STANDING_COST,
               askFor:askFor, take:take, owedOf:owedOf, owedRow:owedRow,
+              settle:settle,
               placeholders:placeholders, words:words };
   if(HASREQ) module.exports=API; else root.BohemiaFavour=API;
 })(typeof globalThis!=='undefined'?globalThis:this);

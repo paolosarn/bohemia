@@ -1,3 +1,61 @@
+FACTIONS (factions-ovkjpf): 8/18 LATEST -- *** THE DEBT GETS CALLED IN. The free
+thing the Cartel gave you three days ago now has somebody coming for it.
+TAB: CITY (tap anybody who runs with somebody) + LOOK ("THEY ARE NOT WAITING"). ***
+
+THE HOLE. 8/16 shipped the favour: some outfits hand you something free the first
+time you meet them and it puts you in DEBT, and the card kept a tally. NOTHING
+EVER COLLECTED IT. His Cartel canon ("They want you to OWE them") had a hook and
+no line -- the authored-but-unread disease inside a system this lane wrote itself
+two days earlier.
+
+THE THREE CONNECTIONS:
+  1. AN OUTFIT YOU OWE DOES NOT WAIT ITS TURN. makeRation has carried a BYPASS
+     slot since Paolo approved it 7/26 ("the birthday shape: an occasion that
+     ignores both windows") and NOTHING HAD EVER CALLED IT. This is what it was
+     for: the weekly limit models restraint and a creditor has none.
+  2. REFUSING A CREDITOR COSTS MORE THAN REFUSING A FRIEND -- one extra rung per
+     unpaid favour. Measured on the real card: counted at 6, owing 3, refuse -> 2.
+     That is the whole reason the free thing was free.
+  3. AND THE ACCOUNT CAN BE CLOSED. Meeting a claim works one favour off, because
+     A DEBT YOU CAN NEVER CLEAR IS A SENTENCE, NOT A RELATIONSHIP (Gouldner: the
+     interval between taking and returning has to be able to close).
+The card says THEY ARE NOT WAITING / "the polite gap between asks is for people
+who do not" -- without that row the bypass is invisible and the player cannot
+trace it to the free thing they took, which is the fact that made it a decision.
+
+  law: laws/BOHEMIA_ADDENDUM_THE_DEBT_GETS_CALLED_IN_8_18_26.md
+  gates/claim_gate.js part D2, 9 new claims (45 total); favour 31 unchanged
+  wired by tools/bohemia_city_collect_patch.py; engine/bohemia_favour.js settle()
+
+THE BOUNDARY, ASSERTED NOT TRUSTED: favour owns the debt, claim owns asking, and
+NEITHER TOUCHES THE OTHER'S SAVE. The claim takes a NUMBER and returns a NUMBER;
+the surface reads the ledger, passes the int and applies the settlement through
+the ledger's own writer. Claim could have imported favour -- one import and a
+circular dependency waiting to happen, since favour already anchors ON claim.
+
+THE ANCHOR LAW EARNED ITS KEEP. Changing answer(save,fid,said,given) ->
+answer(...,owed) made bohemia_favour's citation of it stale and THE GENERATOR
+REFUSED TO RUN, the same minute, not a week later. The anchor now names the
+`owed` parameter specifically, so dropping it refuses rather than silently
+ledgering a debt nobody ever asks about.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+ 1. THE PERSON CARD IS GETTING LONG. Five systems now write rows onto it (name,
+    bargain, wall, claim, favour) and on the collection screenshot it is ~20 rows
+    before the buttons. It all reads, but it is one more system away from being a
+    wall of text. Worth a pass that decides what COLLAPSES when it is not the
+    live question, before adding a sixth.
+ 2. Consolidate the two RUNGS tables (bohemia_standing 8/2 + bohemia_belonging
+    8/12). Flagged 8/15, still open, last known duplicate mechanism in the lane.
+
+STILL TRUE AND STILL NOT MINE: from the spawn cell the nearest 1,438 people
+include ZERO who run with anybody. Base placement is MAP LAW; REACH_CELLS and
+AFFILIATED_RATE are [PENDING Paolo]; routing the demo past an outfit is QUESTS/RUN.
+
+THE FOUR-COMMAND RULE still holds: any engine edit stales the city inline copies
+(bohemia_city_module_resync.py), the run slice (build_run_slice.js), the census
+(bohemia_reachability_census.py) and the LOOK pictures (bohemia_look_shots.js +
+bohemia_look_build.py). All four run before every ship.
 PEOPLE (people-7h9sfy): 8/17 (c) LATEST -- *** THE THREAD IS PULLABLE NOW. YOU CAN
 ASK SOMEBODY ABOUT WHAT YOU OVERHEARD AND IT GOES ONE STEP DEEPER. TAB: RUN,
 walk up to anybody and the buttons are on their card. ***

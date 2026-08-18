@@ -160,6 +160,64 @@ function partD() {
       return C.open(s, 'CHURCH', 1, { day: 1, week: 1 }, {}).reason === 'ALREADY_OPEN'; })());
 }
 
+/* ------------------------------------------------- D2. THE DEBT GETS CALLED IN */
+function partD2() {
+  console.log('D2. AN OUTFIT YOU OWE DOES NOT WAIT ITS TURN');
+
+  const W1 = { day: 1, week: 1 }, W2 = { day: 2, week: 1 };
+
+  /* THE APPROVED BYPASS FINALLY HAS A CALLER. makeRation has carried a bypass
+     slot since Paolo approved it 7/26 ("the birthday shape: an occasion that
+     ignores both windows") and nothing had ever used it. */
+  const clean = fresh();
+  C.open(clean, 'CHURCH', 1, W1, { perWeek: 1 }, 0);
+  C.answer(clean, 'CHURCH', 'yes', 6, 0);
+  ok('D2a with no debt the weekly limit still protects you',
+    C.open(clean, 'CHURCH', 2, W2, { perWeek: 1 }, 0).reason === 'WEEK_SPENT');
+
+  const owing = fresh();
+  C.open(owing, 'CHURCH', 1, W1, { perWeek: 1 }, 2);
+  C.answer(owing, 'CHURCH', 'yes', 6, 2);
+  ok('D2b owing it, they ask again inside the same spent window — the ration '
+    + 'BYPASS approved 7/26 and never called until now',
+    C.open(owing, 'CHURCH', 2, W2, { perWeek: 1 }, 2).opened === true,
+    'the limit models restraint, and a creditor has none');
+
+  /* REFUSING A CREDITOR COSTS MORE THAN REFUSING A FRIEND. */
+  const a = fresh(); C.open(a, 'CHURCH', 1, W1, {}, 0);
+  const b = fresh(); C.open(b, 'CHURCH', 1, W1, {}, 3);
+  const n0 = C.answer(a, 'CHURCH', 'no', 6, 0);
+  const n3 = C.answer(b, 'CHURCH', 'no', 6, 3);
+  ok('D2c refusing while you owe costs MORE, one rung per unpaid favour — which '
+    + 'is the whole reason the free thing was free',
+    n3.delta === n0.delta - 3, JSON.stringify({ clear: n0.delta, owing3: n3.delta }));
+  ok('D2d …and the card is told WHY, not just handed a bigger number',
+    /gave you things 3 times/.test(n3.note || ''), n3.note);
+
+  /* AND THE ACCOUNT CAN BE CLOSED. */
+  const c = fresh(); C.open(c, 'CHURCH', 1, W1, {}, 2);
+  const y = C.answer(c, 'CHURCH', 'yes', 6, 2);
+  ok('D2e meeting a claim WORKS THE DEBT OFF — a debt you can never clear is a '
+    + 'sentence, not a relationship (Gouldner: the interval has to be able to close)',
+    y.settle === 1, JSON.stringify({ settle: y.settle }));
+  ok('D2f …and it says so rather than reusing the no-debt line',
+    /came off what you owed/.test(y.note || ''), y.note);
+  ok('D2g meeting a claim you owe nothing on settles nothing',
+    C.answer((() => { const s = fresh(); C.open(s, 'CHURCH', 1, W1, {}); return s; })(),
+      'CHURCH', 'yes', 6, 0).settle === 0);
+
+  /* THE BOUNDARY: claim never writes the debt ledger. */
+  ok('D2h this module never touches the debt store — it takes a NUMBER and '
+    + 'returns a NUMBER, so neither organ reaches into the other\'s save',
+    !/meta\.owed|owedMap|BohemiaFavour/.test(
+      fs.readFileSync(GEN, 'utf8').replace(/\/\*[\s\S]*?\*\//g, ' ')
+        .replace(/^\s*\/\/.*$/gm, ' ')));
+  const ph = C.placeholders();
+  ok('D2i both new numbers are tagged placeholders',
+    ph.length >= 2 && ph.every(p => p.placeholder === true && p.value === 1),
+    JSON.stringify(ph.map(p => p.where)));
+}
+
 /* ------------------------------------------------------------- E. THE WORDS */
 function partE() {
   console.log('E. EVERY WORD IS A REAL ATTEMPT HE CAN EDIT');
@@ -285,7 +343,7 @@ function partG() {
 
 (async function main() {
   console.log('CLAIM GATE — what being inside costs you\n');
-  partA(); partB(); partC(); partD(); partE();
+  partA(); partB(); partC(); partD(); partD2(); partE();
   await partF();
   partG();
   console.log('\nCLAIM GATE: ' + pass + ' passed, ' + fail + ' failed');
