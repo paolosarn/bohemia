@@ -48,6 +48,8 @@
 //  4 palm median        5 curb + gutter       6 promenade (walk)    7 planter
 //  9 streetlight       11 dead palm          12 signal mast        14 dead car
 // 15 stop bar          16 storm inlet        17 yellow pocket line
+// 21 paver band        22 building-line margin                    23 junction box
+// 24 bus / taxi lane
 // 18 pedestrian bridge span (OVERHEAD)       19 bridge tower       20 marquee pylon
 (function (root) {
   var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
@@ -71,12 +73,28 @@
   var EDGE = 30;                              // solid white edge line
   var POCKET = 16;                            // how far past the box the left-turn bay runs
 
+  /* THE PROMENADE IS NOT ONE SLAB, and measuring it proved it: laid as a single code the
+     walk owned 47.3% of the cell, which breaks the MONOBLOCK law (no code owns 30% of a
+     plot -- nobody has ANSWERED FOR ground that big) and reads on the grid as exactly the
+     blank plate this whole ship exists to kill. Out there it is three surfaces you can see
+     the joint between: the KERB-SIDE WALK you actually move along, a PAVER BAND of
+     patterned banding through the middle of it, and the BUILDING-LINE MARGIN where the
+     resort's own frontage takes over the ground. Same width, three real things. */
+  var PAVER_A = 42, PAVER_B = 52;   // the banded middle of the promenade
+  /* AND THE ROADWAY IS NOT ONE SLAB EITHER, for the same measured reason (33.5% as one
+     code) and the same real one: the outside lane of Las Vegas Boulevard is the BUS AND
+     TAXI lane, and on a street where a resort's whole arrival depends on the kerb it is
+     the most heavily used, most heavily marked surface out there. Naming it is what the
+     street actually is. */
+  var BUSLANE = 23;    // 24..31: the kerb-side bus and taxi lane
   function bandCode(b) {
     if (b <= MEDIAN) return 4;
-    if (b <= PAVE) return 1;
+    if (b <= BUSLANE) return 1;
+    if (b <= PAVE) return 24;
     if (b <= CURB) return 5;
-    if (b <= WALK) return 6;   // NO amenity strip: the promenade starts at the gutter
-    if (b <= ROW) return 6;
+    if (b < PAVER_A) return 6;      // kerb-side walk
+    if (b <= PAVER_B) return 21;    // the paver band
+    if (b <= ROW) return 22;        // building-line margin
     return 0;
   }
 
@@ -138,6 +156,11 @@
         if (b > ROW) continue;
         var code = bandCode(b);
         if (code === 4 && xing && inPave(ox, oy)) code = 1;            // never block the crossing
+        /* AND THE JUNCTION BOX IS ITS OWN SURFACE. A crossing cell measured 56.3% "asphalt
+           roadway" as one code; out there the box is visibly different ground -- older,
+           polished by the turning traffic, unstriped because nothing may be painted through
+           a junction. Naming it is honest AND it is what stops one code owning the cell. */
+        if ((code === 1 || code === 24) && xing && inPave(ox, oy)) code = 23;
         g[y][x] = code;
       }
     }
@@ -154,12 +177,12 @@
           [-o, o].forEach(function (s) {
             if (!dash) return;
             var px = alongAxis === 'v' ? C + s : t, py = alongAxis === 'v' ? t : C + s;
-            if (g[py][px] === 1) g[py][px] = 2;
+            if (g[py][px] === 1 || g[py][px] === 24) g[py][px] = 2;
           });
         });
         [-EDGE, EDGE].forEach(function (s) {
           var px = alongAxis === 'v' ? C + s : t, py = alongAxis === 'v' ? t : C + s;
-          if (g[py][px] === 1) g[py][px] = 2;
+          if (g[py][px] === 1 || g[py][px] === 24) g[py][px] = 2;
         });
       }
     }
@@ -208,7 +231,7 @@
       var c = g[py][px];
       if (over ? over(c) : (c === 6)) g[py][px] = code;
     }
-    var onWalk = function (c) { return c === 6 || c === 7; };
+    var onWalk = function (c) { return c === 6 || c === 7 || c === 21 || c === 22; };
 
     // CROSSWALKS + STOP BARS at every approach that exists.
     function approach(dir) {
@@ -217,11 +240,12 @@
         for (var d = BOX - 3; d <= BOX; d++) {
           var a = C + sign * d;
           var px = vertical ? C + o : a, py = vertical ? a : C + o;
-          if (g[py][px] === 1 || g[py][px] === 2) g[py][px] = ((o + 64) % 4 < 2) ? 3 : g[py][px];
+          var _c0 = g[py][px];
+          if (_c0 === 1 || _c0 === 2 || _c0 === 23 || _c0 === 24) g[py][px] = ((o + 64) % 4 < 2) ? 3 : g[py][px];
         }
         var sa = C + sign * (BOX + 2);
         var sx = vertical ? C + o : sa, sy = vertical ? sa : C + o;
-        if (g[sy][sx] === 1) g[sy][sx] = 15;
+        if (g[sy][sx] === 1 || g[sy][sx] === 24) g[sy][sx] = 15;
       }
       /* CURB RAMPS: without them the crossing dies at the gutter and a body on the
          promenade can never legally reach the other side. (The arterial's gate caught
@@ -234,7 +258,7 @@
             var rx = vertical ? C + o2 : a2, ry = vertical ? a2 : C + o2;
             if (rx < 0 || ry < 0 || rx > 127 || ry > 127) continue;
             var cc = g[ry][rx];
-            if (cc === 5 || cc === 6 || cc === 1 || cc === 2) g[ry][rx] = 3;
+            if (cc === 5 || cc === 6 || cc === 1 || cc === 2 || cc === 21 || cc === 23 || cc === 24) g[ry][rx] = 3;
           }
         }
       }
@@ -286,8 +310,8 @@
             if (px < 0 || py < 0 || px > 127 || py > 127) continue;
             var cur = g[py][px];
             // the deck flies over roadway, median and paint alike; it only LANDS on walk
-            if (cur === 1 || cur === 2 || cur === 3 || cur === 4 || cur === 5 ||
-                cur === 11 || cur === 15 || cur === 17 || cur === 6) g[py][px] = 18;
+            if (cur === 1 || cur === 2 || cur === 3 || cur === 4 || cur === 5 || cur === 21 ||
+                cur === 23 || cur === 24 || cur === 11 || cur === 15 || cur === 17 || cur === 6) g[py][px] = 18;
           }
         }
         /* THE TOWERS BELONG TO THE CROSSING HALF. On the sibling half the deck is just
@@ -301,7 +325,7 @@
               var tx = alongAxis === 'v' ? C + side * tb : at + ts;
               var ty = alongAxis === 'v' ? at + ts : C + side * tb;
               if (tx < 0 || ty < 0 || tx > 127 || ty > 127) continue;
-              if (g[ty][tx] === 18 || g[ty][tx] === 6) g[ty][tx] = 19;
+              if (g[ty][tx] === 18 || g[ty][tx] === 6 || g[ty][tx] === 21) g[ty][tx] = 19;
             }
           }
         });
@@ -334,7 +358,7 @@
           var side = e ? 1 : -1;
           var b = CURB + 5 + Math.floor(r() * 10);
           var px = alongAxis === 'v' ? C + side * b : t, py = alongAxis === 'v' ? t : C + side * b;
-          if (r() < 0.55) put(px, py, 7, function (c) { return c === 6; });
+          if (r() < 0.55) put(px, py, 7, function (c) { return c === 6 || c === 21 || c === 22; });
         }
       }
       // streetlights and dead palms standing in the promenade, staggered down each arm
@@ -376,7 +400,8 @@
       if (Math.abs(ct - C) > BOX + 4) {
         for (i = 0; i < 3; i++) for (var k = 0; k < 2; k++) {
           var px3 = cAxis === 'v' ? C + cs + k : ct + i, py3 = cAxis === 'v' ? ct + i : C + cs + k;
-          if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 && g[py3][px3] === 1) g[py3][px3] = 14;
+          if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 &&
+              (g[py3][px3] === 1 || g[py3][px3] === 24)) g[py3][px3] = 14;
         }
       }
     }
@@ -398,7 +423,8 @@
           else { px = C + b; py = C + o; }
           if (px < 0 || py < 0 || px > 127 || py > 127) continue;
           var cur = g[py][px];
-          if (cur === 7 || cur === 11 || cur === 9 || cur === 20 || cur === 0) g[py][px] = 6;
+          if (cur === 7 || cur === 11 || cur === 9 || cur === 20 || cur === 0 ||
+          cur === 21 || cur === 22) g[py][px] = 6;
         }
       }
     });
@@ -409,7 +435,7 @@
 
   /* a vehicle can cross the cell on every direction the network says connects */
   function throughDrivable(res, links) {
-    var g = res.g, drive = { 1: 1, 2: 1, 3: 1, 14: 1, 15: 1, 17: 1 };
+    var g = res.g, drive = { 1: 1, 2: 1, 3: 1, 14: 1, 15: 1, 17: 1, 23: 1, 24: 1 };
     return (links || res.links).every(function (d) {
       d = String(d).toUpperCase()[0];
       var i, hit = false;
@@ -429,9 +455,10 @@
   var PALETTE = {
     0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#b3ab97', 4: '#5f5f4a', 5: '#6b6b74', 6: '#8a8a92',
-    7: '#4a4030', 9: '#8f8676', 11: '#3a4520', 12: '#6a6a72', 14: '#55555f',
+    7: '#4a4030', 9: '#8f8676', 11: '#4d4a38', 12: '#6a6a72', 14: '#55555f',
     15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a',
-    18: '#7c8390', 19: '#6d7280', 20: '#5c5648'
+    18: '#7c8390', 19: '#6d7280', 20: '#5c5648',
+    21: '#7e7e86', 22: '#6f6f78', 23: '#2e2e36', 24: '#3b3b44'
   };
 
   var LEGEND = {
@@ -444,7 +471,7 @@
     6:  { name: 'promenade',          kind: 'walk',     act1: 'the Strip promenade: wide pavers at the back of curb, cracked and lifted, sand drifted along the building line' },
     7:  { name: 'planter',            kind: 'tree-dead',act1: 'a tree well cut into the promenade, the tree gone, the pit full of grit and trash', solid: false },
     9:  { name: 'streetlight',        kind: 'prop',     act1: 'a boulevard light standard on the promenade, head dark' },
-    11: { name: 'dead palm',          kind: 'tree-dead',act1: 'a Strip palm dead on its feet — bare trunk, the crown collapsed years ago' },
+    11: { name: 'dead palm',          kind: 'tree-dead',act1: 'a Strip palm dead on its feet — bare grey trunk, the crown collapsed years ago; nothing in this valley is green' },
     12: { name: 'signal mast',        kind: 'prop',     act1: 'traffic signal mast arm reaching out over the lanes, every head dark' },
     14: { name: 'dead car',           kind: 'vehicle',  act1: 'a car left in the lane where the traffic stopped, tyres flat, glass gone' },
     15: { name: 'stop bar',           kind: 'marking',  act1: 'wide white stop bar behind the crosswalk' },
@@ -452,7 +479,11 @@
     17: { name: 'yellow turn-pocket line', kind: 'marking', act1: 'yellow line bordering the left-turn bay where the median opens' },
     18: { name: 'pedestrian bridge',  kind: 'overhead', act1: 'the enclosed pedestrian bridge over the boulevard — you walk ACROSS it and you pass UNDER it; the glazing is starred and the moving walkway is stopped', solid: false },
     19: { name: 'bridge tower',       kind: 'structure',act1: 'the stair and escalator tower carrying the bridge down to the promenade, escalator treads frozen mid-flight', enter: 'the tower stair: switchback flights up to the bridge deck, handrails cold, one landing open to the street' },
-    20: { name: 'marquee pylon',      kind: 'structure',act1: 'a resort marquee pylon standing at the property line, the sign face dark and blank'  }
+    20: { name: 'marquee pylon',      kind: 'structure',act1: 'a resort marquee pylon standing at the property line, the sign face dark and blank'  },
+    21: { name: 'paver band',         kind: 'walk',     act1: 'the banded pavers running down the middle of the promenade, lifted and rocking where the roots got under them' },
+    22: { name: 'building-line margin',kind: 'walk',    act1: 'the last strip of promenade against the property line, where the resort frontage takes the ground over — sand drifted deep along it' },
+    23: { name: 'junction box',       kind: 'drive',    act1: 'the asphalt inside the junction, polished by the turning traffic and unpainted, because nothing is ever striped through a crossing' },
+    24: { name: 'bus / taxi lane',    kind: 'drive',    act1: 'the kerb-side bus and taxi lane, rutted where a thousand coaches stopped in the same spot every day' }
   };
 
   var NOTES = {

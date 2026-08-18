@@ -58,7 +58,7 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [arsenal](tilespec/BOHEMIA_TILESPEC_arsenal.md) | industrial | 15 | yes |
 | [arterial_x](tilespec/BOHEMIA_TILESPEC_arterial_x.md) | (uncategorized) | 18 | yes |
 | [basin](tilespec/BOHEMIA_TILESPEC_basin.md) | infrastructure | 15 | yes |
-| [casino](tilespec/BOHEMIA_TILESPEC_casino.md) | gaming_resort | 15 | yes |
+| [casino](tilespec/BOHEMIA_TILESPEC_casino.md) | gaming_resort | 16 | yes |
 | [datafort](tilespec/BOHEMIA_TILESPEC_datafort.md) | infrastructure | 15 | yes |
 | [fueldepot](tilespec/BOHEMIA_TILESPEC_fueldepot.md) | industrial | 15 | yes |
 | [granary](tilespec/BOHEMIA_TILESPEC_granary.md) | industrial | 15 | yes |
@@ -69,8 +69,8 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [radio](tilespec/BOHEMIA_TILESPEC_radio.md) | infrastructure | 15 | yes |
 | [reclaim](tilespec/BOHEMIA_TILESPEC_reclaim.md) | infrastructure | 15 | yes |
 | [reservoir](tilespec/BOHEMIA_TILESPEC_reservoir.md) | infrastructure | 15 | yes |
-| [resort](tilespec/BOHEMIA_TILESPEC_resort.md) | gaming_resort | 15 | yes |
-| [strip](tilespec/BOHEMIA_TILESPEC_strip.md) | gaming_resort | 18 | yes |
-| [strip_x](tilespec/BOHEMIA_TILESPEC_strip_x.md) | (uncategorized) | 18 | yes |
+| [resort](tilespec/BOHEMIA_TILESPEC_resort.md) | gaming_resort | 16 | yes |
+| [strip](tilespec/BOHEMIA_TILESPEC_strip.md) | gaming_resort | 22 | yes |
+| [strip_x](tilespec/BOHEMIA_TILESPEC_strip_x.md) | (uncategorized) | 22 | yes |
 
 WHEN A DISTRICT IS APPROVED: it exposes a LEGEND (code -> {name, kind, act1}); this generator writes its sheet; `gates/tilespec_gate.js` fails if any tile code ships undocumented. That is the standing "record everything you built" flow.

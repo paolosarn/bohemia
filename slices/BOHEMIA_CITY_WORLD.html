@@ -13532,11 +13532,14 @@ const BEAT=500; // 120BPM law
 // mega-resort site plans — Encore/Wynn, Paris Las Vegas, Circa; SpotlightVegas on mega-resort
 // spatial design): the canonical Strip resort is a PODIUM + TOWER. Podium floors 1-4 carry the
 // CASINO FLOOR, restaurants, theatre and convention space at grade; the GUEST TOWER stands on the
-// podium from floor 5 up and is the whole silhouette. A PORTE COCHERE wraps the tower base and
-// feeds the LOBBY off the drive; a decked PARKING GARAGE attaches to one end of the podium. The
-// pool deck sits behind, screened from the street by the building rather than by any wall.
+// podium from floor 5 up and is the whole silhouette. The ARRIVAL is a colonnade of piers down the
+// drive and a raised entry platform at the LOBBY -- NOT a porte cochere, because Paolo
+// banned canopies on 8/2 ("no more canopies I only see canopies at parks and shit") and a
+// porte cochere is a canopy; the ruling outranks the reference. A decked PARKING GARAGE
+// attaches to one end of the podium, and the pool deck sits behind, screened from the
+// street by the building rather than by any wall.
 // ACT-1 DEAD: doors open, the casino floor dark and stripped, the pool a dry basin, cars left in
-// the porte cochere where they were abandoned.
+// the arrival forecourt where they were abandoned.
 // NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): "no perimeter walls until I tell you, bro no
 // fencing no nothing bro." There is no fence, no yard wall, no bollard line and no kerb ring in
 // this district. The building IS the edge — which is how a real Strip resort works anyway: the
@@ -13545,8 +13548,8 @@ const BEAT=500; // 120BPM law
 //  0 sidewalk / apron            1 drive lane (DRIVABLE)
 //  2 podium (casino floor)        3 dry planting bed
 //  4 podium roof band             5 drive entrance (curb cut — NOT a gate in a fence)
-//  6 guest tower                  7 porte cochere canopy (OVERHEAD)
-//  8 parking garage deck          9 pole light
+//  6 guest tower                  7 entry forecourt (paved, open sky)
+//  8 parking garage deck          9 colonnade pier
 //  10 abandoned vehicle          11 drive marking      12 dry pool basin
 //  13 lobby doors (PORTAL)        14 tower plant deck   15 casino skylight
 (function(root){
@@ -13565,8 +13568,13 @@ const BEAT=500; // 120BPM law
     // ---- THE PODIUM. Wall to wall across the plot, because that is what a Strip
     //      podium does: it meets the sidewalk on its street frontage and there is
     //      no setback to put a fence in.
-    G.rect(8,10,W-9,74,2);
-    G.rect(10,12,W-11,20,4);                                            // podium roof band (north)
+    //      AND IT REACHES THE PLOT EDGE. Measured: the first cut left 39.4% of the cell as
+    //      one undifferentiated "sidewalk / apron" -- a plot four tenths empty, which is
+    //      both the MONOBLOCK law (no code owns 30% of a plot) and the WALKABLE-LAND law
+    //      (buildings and purposeful content dominate; pavement is connective tissue).
+    //      A real Strip parcel has no leftover ground at all: the building goes to the line.
+    G.rect(4,6,W-5,74,2);
+    G.rect(6,8,W-7,20,4);                                               // podium roof band (north)
 
     // ---- THE GUEST TOWER on the podium: solid mass, the silhouette of the district.
     //      Real Strip tower floorplates are long and thin (a double-loaded corridor with
@@ -13576,15 +13584,22 @@ const BEAT=500; // 120BPM law
     G.rect(38,26,54,34,14); G.rect(66,26,84,32,14);                     // rooftop plant / cooling deck
     G.rect(44,52,62,58,14); G.rect(74,50,88,58,14);
 
-    // ---- THE PORTE COCHERE + LOBBY, off the south drive ----
+    // ---- THE ARRIVAL + LOBBY, off the south drive ----
+    // NO CANOPY (Paolo 8/2, LOCKED): "new rule no more canopies I only see canopies at
+    // parks and shit." A porte cochere is a canopy, full stop, and a gate must never
+    // outrank a ruling -- so the roof plane is GONE and the arrival is built the way the
+    // ruling itself says to build one: what a real entrance has instead. A COLONNADE of
+    // piers down both sides of the drive, and a raised ENTRY PLATFORM with its step up to
+    // the doors. The columns and the platform say arrival; nothing overhangs anything.
     var cx=W>>1;
-    G.rect(cx-20,76,cx+20,90,7);                                        // the canopy (OVERHEAD: pass under)
-    for(i=-18;i<=18;i+=9) set(cx+i,90,9);                               // canopy columns read as pole lights
-    G.rect(cx-6,74,cx+6,75,13);                                         // the lobby doors into the podium
+    G.rect(cx-22,76,cx+22,88,7);                                        // the entry forecourt (paved, open sky)
+    for(i=-20;i<=20;i+=5){ set(cx+i,76,9); set(cx+i,89,9); }            // the colonnade, both sides of the drive
+    G.rect(cx-14,72,cx+14,75,14);                                       // the raised entry platform + its step
+    G.rect(cx-6,71,cx+6,72,13);                                         // the lobby doors into the podium
 
-    // ---- THE DRIVE: in off the street, under the canopy, back out. One surface. ----
+    // ---- THE DRIVE: in off the street, across the forecourt, back out. One surface. ----
     G.rect(6,92,W-7,104,1);
-    G.rect(cx-20,90,cx+20,92,1);                                        // the porte-cochere lane itself
+    G.rect(cx-20,90,cx+20,92,1);                                        // the arrival lane itself
     G.rect(10,104,14,H-1,1);                                            // the two street connections
     G.rect(W-15,104,W-11,H-1,1);
     for(x=16;x<=W-17;x+=10) set(x,98,11);                               // drive centre dashes
@@ -13614,12 +13629,21 @@ const BEAT=500; // 120BPM law
       }
     }
 
+    // ---- THE FRONTAGE PLAZA. The rest of the ground between the podium and the drive is
+    //      not "sidewalk", it is the resort's own broad paved forecourt, and calling it
+    //      what it is stops one code owning four tenths of the plot.
+    G.rect(4,76,W-5,90,7);
+    // ---- THE SERVICE YARD on the back corner: bays, a dock and the bins. Purposeful
+    //      content on ground that was blank apron.
+    G.rect(W-30,72,W-5,93,1);                                           // meets the arrival drive: ONE car surface
+    for(x=W-28;x<=W-8;x+=6) G.rect(x,74,x+3,75,10);                     // trucks left in the bays
+
     // ---- THE POOL DECK behind, screened by the building, not by a fence ----
     G.rect(20,78,cx-26,88,12);                                          // the dry basin
     for(i=0;i<12;i++){ var px=22+Math.floor(r()*(cx-50)), py=79+Math.floor(r()*8);
       if(get(px,py)===12&&r()<0.4) set(px,py,3); }                      // dead planting in the basin
 
-    // ---- dead dressing: cars left in the porte cochere and on the drive ----
+    // ---- dead dressing: cars left on the forecourt and on the drive ----
     G.rect(cx-12,93,cx-11,97,10); G.rect(cx+9,93,cx+10,97,10);
     G.rect(24,99,25,103,10);
     for(i=0;i<18;i++){ var dx=8+Math.floor(r()*(W-16)), dy=92+Math.floor(r()*12);
@@ -13660,27 +13684,27 @@ const BEAT=500; // 120BPM law
     4:{name:'podium roof band',   kind:'structure',  act1:'the podium roof band along the back of the casino floor, ducting and dead fans standing on it'},
     5:{name:'drive entrance',     kind:'gate',       act1:'the curb cut where the arrival drive meets the street — a gap in the kerb, nothing to open, no fence either side', solid:false},
     6:{name:'guest tower',        kind:'building',   act1:'the guest tower standing on the podium, window bands blown in places', enter:'a guest corridor: doors ajar down both sides, carpet, no light'},
-    7:{name:'porte cochere canopy',kind:'overhead',  act1:'the arrival canopy on columns — you walk and drive UNDER it', solid:false},
+    7:{name:'entry forecourt',    kind:'ground',     act1:'the paved arrival forecourt between the colonnades, open to the sky, drifted with sand', solid:false},
     8:{name:'parking garage deck',kind:'building',   act1:'the open-deck parking structure on the end of the podium', enter:'a parking deck: cars left in the bays, ramp down into the dark'},
-    9:{name:'pole light',         kind:'prop',       act1:'a canopy column / drive pole light, head dark'},
-    10:{name:'abandoned vehicle', kind:'vehicle',    act1:'a car left under the canopy where it was abandoned, doors open'},
+    9:{name:'colonnade pier',     kind:'prop',       act1:'a squat stone arrival pier, one of the double colonnade down the drive; the light on its head is dead'},
+    10:{name:'abandoned vehicle', kind:'vehicle',    act1:'a car left on the arrival forecourt where it was abandoned, doors open'},
     11:{name:'drive marking',     kind:'marking',    act1:'faded arrival-drive centre dashes'},
     12:{name:'dry pool basin',    kind:'ground',     act1:'the pool deck: a dry basin, tiles crazed, silt and dead planting in the bottom', solid:false},
-    13:{name:'lobby doors',       kind:'portal',     act1:'the lobby doors under the canopy, one leaf standing open', solid:false},
+    13:{name:'lobby doors',       kind:'portal',     act1:'the lobby doors at the head of the entry platform, one leaf standing open', solid:false},
     14:{name:'tower plant deck',  kind:'structure',  act1:'the cooling plant standing on the tower roof, fan housings open to the sky'},
     15:{name:'casino skylight',   kind:'structure',  act1:'a skylight punched through the podium roof over the casino floor, half the glazing starred and one panel gone through'}
   };
   var NOTES={
-    summary:'A dead Las Vegas mega-resort — a four-storey podium carrying the casino floor wall-to-wall on the plot, a guest tower standing on it, a porte cochere you walk and drive under into the lobby, an open-deck parking garage on one end, and a dry pool basin behind. Nothing fences it: the building is the edge.',
+    summary:'A dead Las Vegas mega-resort — a four-storey podium carrying the casino floor wall-to-wall on the plot, a guest tower standing on it, a colonnaded arrival forecourt and raised entry platform into the lobby, an open-deck parking garage on one end, and a dry pool basin behind. Nothing fences it: the building is the edge.',
     reference:['Las Vegas mega-resort site plans (Encore/Wynn, Paris Las Vegas, Circa; SpotlightVegas on mega-resort spatial design): the canonical form is PODIUM + TOWER. Podium floors 1-4 carry the casino floor, restaurants, theatre and convention space at grade; the GUEST TOWER stands on the podium from floor 5 up and is the whole silhouette. A PORTE COCHERE wraps the tower base and feeds the lobby off the arrival drive; a decked PARKING GARAGE attaches to one end of the podium.'],
     layout:['The PODIUM runs wall-to-wall across the plot and meets the sidewalk on its frontage — a Strip podium has no setback, which is also why it needs no fence.',
       'The GUEST TOWER stands on the podium, set back from the podium edge, and is the tallest thing in the district.',
-      'The PORTE COCHERE is a canopy on columns over the arrival lane; the LOBBY DOORS open off it into the podium.',
+      'The ARRIVAL is a paved forecourt with a double COLONNADE of piers down it and a raised ENTRY PLATFORM at the head; the LOBBY DOORS open off that platform into the podium. No canopy anywhere (Paolo 8/2): the columns and the platform do the work a porte-cochere roof used to.',
       'The PARKING GARAGE is an open deck on one end of the podium. The POOL DECK sits behind the building, screened by the building itself.'],
-    circulation:'Street-aware via canonical-south + K.rotateToStreet: the lobby/porte cochere is on the primary street. The arrival DRIVE (code 1) is one connected car surface entering off the street, passing under the canopy at the lobby and returning to the street (K.driveReachFromStreet). Pedestrians walk the sidewalk (0) straight onto the podium frontage; the canopy (7) is OVERHEAD, so you pass under it on foot or in a car.',
-    layering:'GROUND plane (flat): the sidewalk/apron (0), the arrival drive (1) + markings (11) + the curb cuts (5), the dry pool basin (12). STRUCTURES (¾ front face, solid): the PODIUM (2, ENTERABLE -> the casino floor), the GUEST TOWER (6, ENTERABLE -> a guest corridor), the PARKING GARAGE deck (8, ENTERABLE), the roof/plant decks (4, 14) and the SKYLIGHTS (15). OVERHEAD (pass under): the porte cochere canopy (7). PORTALS: the lobby doors (13). PROPS: pole lights / canopy columns (9), abandoned vehicles (10), dead planting (3). The tower is the vertical mass and the podium is the plinth; you walk under the canopy and in through the lobby.',
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the lobby and its arrival forecourt are on the primary street. The arrival DRIVE (code 1) is one connected car surface entering off the street, crossing the arrival forecourt at the lobby and returning to the street (K.driveReachFromStreet). Pedestrians walk the sidewalk (0) straight onto the podium frontage; the forecourt (7) is open ground you walk and drive straight across.',
+    layering:'GROUND plane (flat): the sidewalk/apron (0), the arrival drive (1) + markings (11) + the curb cuts (5), the dry pool basin (12). STRUCTURES (¾ front face, solid): the PODIUM (2, ENTERABLE -> the casino floor), the GUEST TOWER (6, ENTERABLE -> a guest corridor), the PARKING GARAGE deck (8, ENTERABLE), the roof/plant decks (4, 14) and the SKYLIGHTS (15). PORTALS: the lobby doors (13). PROPS: colonnade piers (9), abandoned vehicles (10), dead planting (3). The tower is the vertical mass and the podium is the plinth; you cross the forecourt between the piers and in through the lobby.',
     decisions:['NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): no fence, no perimeter wall, no bollard line, no kerb ring. The podium meeting the sidewalk is the edge, which is what the real building does.',
-      'Act-1 DEAD: casino floor dark and stripped, lobby door standing open, pool a dry basin, cars abandoned under the canopy, drift in the drive.',
+      'Act-1 DEAD: casino floor dark and stripped, lobby door standing open, pool a dry basin, cars abandoned on the forecourt, drift in the drive.',
       'Gaming/resort category. Zero purple. NO FACTION, NO OWNER, NO NAME anywhere — who holds the Strip is Paolo\'s to rule (MECHANISM-MINE / CONTENTS-PAOLO\'S).',
       'The podium, the tower and the garage are all ENTERABLE, so the interior/zoom phase has three real volumes to open rather than a facade.',
       'Research-first (per the playbook): built from real Las Vegas resort site plans, not from memory of what a casino looks like.']
@@ -13704,14 +13728,16 @@ const BEAT=500; // 120BPM law
 //   * The mass is LOW AND WIDE — one enormous single-storey casino floor swallowing most
 //     of the block — with a SLENDER HOTEL WING standing on the back of it, not the
 //     podium-and-tower silhouette of the Strip.
-//   * The frontage is SIGN, floor to roof: the marquee and the neon canopy are the facade.
-//     Downtown sold itself with light, not with architecture.
+//   * The frontage is SIGN, floor to roof: the marquee IS the facade. Downtown sold itself
+//     with light, not with architecture. NOT the Fremont canopy, famous as it is -- Paolo
+//     banned canopies on 8/2 and a gate must never outrank a ruling, so the sign does the
+//     whole job standing up instead of reaching out.
 //   * The car is banished to the back: a SELF-PARK DECK on the alley, and a short VALET
 //     LANE off the side street. No porte cochere across the front — there is no room.
 //   * The block is cut by a SERVICE ALLEY, which is the other thing the old grid has and
 //     the Strip does not.
 //
-// ACT-1 DEAD: the floor dark and stripped, the canopy dead overhead, the marquee blank,
+// ACT-1 DEAD: the floor dark and stripped, every tube broken off, the marquee blank,
 // the alley full of what got dragged out of the building.
 //
 // NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): "no perimeter walls until I tell you,
@@ -13723,8 +13749,8 @@ const BEAT=500; // 120BPM law
 //  0 sidewalk            1 valet / alley surface (DRIVABLE)   2 casino floor (mass)
 //  3 debris / dead planting                                   4 floor roof band
 //  5 drive entrance (curb cut — NOT a gate in a fence)        6 hotel wing
-//  7 neon canopy (OVERHEAD)                                   8 self-park deck
-//  9 pole light         10 abandoned vehicle                 11 lane marking
+//  7 entry apron (paved, open sky)                            8 self-park deck
+//  9 sign standard       10 abandoned vehicle                 11 lane marking
 // 12 marquee sign       13 casino doors (PORTAL)             14 wing roof plant
 // 15 floor skylight
 (function(root){
@@ -13762,11 +13788,16 @@ const BEAT=500; // 120BPM law
     G.rect(26,20,60,46,6);
     G.rect(32,26,54,34,14);                                   // wing roof plant
 
-    // ---- THE FRONTAGE IS SIGN. The marquee runs most of the building line, and the neon
-    //      canopy reaches out over the sidewalk the way Fremont's does — you walk UNDER it.
-    G.rect(14,97,W-15,103,7);                                 // the canopy (OVERHEAD)
-    for(x=18;x<=W-19;x+=14) set(x,103,9);                     // canopy columns at the kerb
-    G.rect(10,90,26,96,12); G.rect(W-27,90,W-11,96,12);       // the marquee towers, blank faces
+    // ---- THE FRONTAGE IS SIGN, AND IT IS ALL SIGN. No canopy over the walk (Paolo 8/2,
+    //      LOCKED: "no more canopies I only see canopies at parks and shit") -- the Fremont
+    //      canopy is the most famous canopy in America and it is still a canopy, and a gate
+    //      must never outrank a ruling. So the sign does the whole job on its own terms:
+    //      the MARQUEE runs the full building line floor to roof rather than sitting in two
+    //      towers with a roof strung between them, and a row of SIGN PYLONS stands out at
+    //      the kerb. Nothing overhangs the pavement.
+    G.rect(8,90,W-9,96,12);                                   // the marquee, the whole frontage, blank faces
+    G.rect(10,97,22,99,12); G.rect(W-23,97,W-11,99,12);       // the two end pylons, out at the kerb
+    for(x=26;x<=W-27;x+=13) set(x,100,9);                     // sign standards down the walk, heads dark
     G.rect(cx-10,95,cx+10,96,13);                             // the casino doors, straight off the walk
 
     // ---- THE SERVICE ALLEY across the back of the block: the other thing the old grid has.
@@ -13828,9 +13859,9 @@ const BEAT=500; // 120BPM law
     4:{name:'floor roof band',    kind:'structure',  act1:'the roof plant band along the back of the casino floor, ducting and dead fans standing on it'},
     5:{name:'drive entrance',     kind:'gate',       act1:'the curb cut where the valet lane and the alley meet the street — a gap in the kerb, nothing to open, no fence either side', solid:false},
     6:{name:'hotel wing',         kind:'building',   act1:'the slender hotel wing standing on the back of the floor, window units hanging out of half the openings', enter:'a corridor of rooms: doors ajar, a smell of dust and old smoke, no light'},
-    7:{name:'neon canopy',        kind:'overhead',   act1:'the neon canopy reaching out over the sidewalk on its columns — you walk UNDER it; every tube dead, some hanging', solid:false},
+    7:{name:'entry apron',        kind:'ground',     act1:'the paved apron in front of the doors, open to the sky, grit and broken tube glass drifted across it', solid:false},
     8:{name:'self-park deck',     kind:'building',   act1:'the self-park deck on the alley, ramp mouth open', enter:'a parking deck: cars left in the bays, the ramp turning down into black'},
-    9:{name:'pole light',         kind:'prop',       act1:'a canopy column / kerb light, head dark'},
+    9:{name:'sign standard',      kind:'prop',       act1:'a sign standard out at the kerb, its tubes broken off at the collar'},
     10:{name:'abandoned vehicle', kind:'vehicle',    act1:'a car left in the valet lane where it was abandoned, doors open'},
     11:{name:'lane marking',      kind:'marking',    act1:'faded valet-lane centre dashes'},
     12:{name:'marquee sign',      kind:'structure',  act1:'a marquee tower on the building line, floor to roof, the sign face dark and blank'},
@@ -13839,17 +13870,17 @@ const BEAT=500; // 120BPM law
     15:{name:'floor skylight',    kind:'structure',  act1:'a skylight punched through the roof over the pit, glazing starred and one panel gone through'}
   };
   var NOTES={
-    summary:'A dead DOWNTOWN casino block — one enormous low casino floor filling the plot to the building line with no setback at all, a slender hotel wing standing on the back of it, marquee towers and a neon canopy for a facade, a self-park deck and a service alley behind, and a short valet lane off the side street. Nothing fences it: the building is the edge.',
+    summary:'A dead DOWNTOWN casino block — one enormous low casino floor filling the plot to the building line with no setback at all, a slender hotel wing standing on the back of it, a marquee running the whole building line for a facade, a self-park deck and a service alley behind, and a short valet lane off the side street. Nothing fences it: the building is the edge.',
     reference:['Fremont Street / Glitter Gulch (the Golden Nugget, Binion\'s, the Four Queens, the Fremont Street Experience canopy). A downtown casino is the OPPOSITE of a Strip resort: no setback, no arrival drive, no podium-and-tower. The casino floor meets the sidewalk on a block platted before anybody parked a car; the mass is low and wide with a slender hotel wing at the rear; the FRONTAGE IS SIGN, floor to roof, because downtown sold itself with light rather than architecture; the car is banished to a self-park deck on the alley and a short valet lane off the side street.'],
     layout:['The CASINO FLOOR fills the block to the building line on the primary frontage. There is no setback, no apron and no lawn — which is also why it needs no fence.',
       'The HOTEL WING is slender and stands on the BACK of the floor, never across the front.',
-      'The frontage is SIGN: MARQUEE towers on the building line and a NEON CANOPY reaching out over the sidewalk on columns, which you walk under.',
+      'The frontage is SIGN and nothing but: the MARQUEE runs the full building line floor to roof, two end PYLONS stand out at the kerb, and a row of sign standards runs down the walk. No canopy over the pavement (Paolo 8/2) -- the sign stands up instead of reaching out.',
       'A SERVICE ALLEY crosses the back of the block and runs out to the street down one side; the SELF-PARK DECK sits on it. A short VALET LANE comes in off the side street.'],
-    circulation:'Street-aware via canonical-south + K.rotateToStreet: the doors and the marquee are on the primary street. The DRIVE surface (code 1) is one connected car surface — alley plus valet lane — entering off the street at the curb cuts and reaching the self-park deck (K.driveReachFromStreet). Pedestrians walk the sidewalk straight into the doors; the canopy (7) is OVERHEAD, so you pass under it on foot.',
-    layering:'GROUND plane (flat): the sidewalk (0), the alley and valet lane (1) + markings (11) + the curb cuts (5). STRUCTURES (¾ front face, solid): the CASINO FLOOR (2, ENTERABLE -> the floor), the HOTEL WING (6, ENTERABLE -> a corridor of rooms), the SELF-PARK DECK (8, ENTERABLE), the MARQUEE towers (12), the roof/plant decks (4, 14) and the SKYLIGHTS (15). OVERHEAD (pass under): the neon canopy (7). PORTALS: the casino doors (13). PROPS: pole lights / canopy columns (9), abandoned vehicles (10), debris and dead planting (3). The floor is a single low plate and the wing is the only vertical mass; you walk under the canopy and straight in off the pavement.',
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the doors and the marquee are on the primary street. The DRIVE surface (code 1) is one connected car surface — alley plus valet lane — entering off the street at the curb cuts and reaching the self-park deck (K.driveReachFromStreet). Pedestrians walk the sidewalk straight into the doors; the entry apron (7) is open ground you walk straight across.',
+    layering:'GROUND plane (flat): the sidewalk (0), the alley and valet lane (1) + markings (11) + the curb cuts (5). STRUCTURES (¾ front face, solid): the CASINO FLOOR (2, ENTERABLE -> the floor), the HOTEL WING (6, ENTERABLE -> a corridor of rooms), the SELF-PARK DECK (8, ENTERABLE), the MARQUEE towers (12), the roof/plant decks (4, 14) and the SKYLIGHTS (15). PORTALS: the casino doors (13). PROPS: sign standards (9), abandoned vehicles (10), debris and dead planting (3). The floor is a single low plate and the wing is the only vertical mass; you walk straight in off the pavement under the sign.',
     decisions:['NOT THE STRIP RESORT. engine/bohemia_resort.js is podium + tower + porte cochere on a 100 m arrival drive; this is a no-setback low floor with a sign for a face. Two gaming types, two real buildings, two icons.',
       'NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): no fence, no perimeter wall, no bollard line, no kerb ring. The building meeting the sidewalk is the edge, which is what the real block does.',
-      'Act-1 DEAD: floor dark and stripped, doors standing open, canopy tubes dead, marquee faces blank, cars abandoned in the valet lane, the alley full of what got dragged out.',
+      'Act-1 DEAD: floor dark and stripped, doors standing open, every tube broken off, marquee faces blank, cars abandoned in the valet lane, the alley full of what got dragged out.',
       'Gaming/resort category. Zero purple. NO FACTION, NO OWNER, NO NAME anywhere — the marquee faces are deliberately BLANK. Who holds downtown is Paolo\'s to rule (MECHANISM-MINE / CONTENTS-PAOLO\'S).',
       'The floor, the wing and the park deck are all ENTERABLE, so the interior/zoom phase has three real volumes to open rather than a facade.',
       'ACT TRIPTYCH: only the act-1 dead material is specified. Act-2 and act-3 are [PENDING Paolo].']
@@ -13911,6 +13942,8 @@ const BEAT=500; // 120BPM law
 //  4 palm median        5 curb + gutter       6 promenade (walk)    7 planter
 //  9 streetlight       11 dead palm          12 signal mast        14 dead car
 // 15 stop bar          16 storm inlet        17 yellow pocket line
+// 21 paver band        22 building-line margin                    23 junction box
+// 24 bus / taxi lane
 // 18 pedestrian bridge span (OVERHEAD)       19 bridge tower       20 marquee pylon
 (function (root) {
   var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
@@ -13934,12 +13967,28 @@ const BEAT=500; // 120BPM law
   var EDGE = 30;                              // solid white edge line
   var POCKET = 16;                            // how far past the box the left-turn bay runs
 
+  /* THE PROMENADE IS NOT ONE SLAB, and measuring it proved it: laid as a single code the
+     walk owned 47.3% of the cell, which breaks the MONOBLOCK law (no code owns 30% of a
+     plot -- nobody has ANSWERED FOR ground that big) and reads on the grid as exactly the
+     blank plate this whole ship exists to kill. Out there it is three surfaces you can see
+     the joint between: the KERB-SIDE WALK you actually move along, a PAVER BAND of
+     patterned banding through the middle of it, and the BUILDING-LINE MARGIN where the
+     resort's own frontage takes over the ground. Same width, three real things. */
+  var PAVER_A = 42, PAVER_B = 52;   // the banded middle of the promenade
+  /* AND THE ROADWAY IS NOT ONE SLAB EITHER, for the same measured reason (33.5% as one
+     code) and the same real one: the outside lane of Las Vegas Boulevard is the BUS AND
+     TAXI lane, and on a street where a resort's whole arrival depends on the kerb it is
+     the most heavily used, most heavily marked surface out there. Naming it is what the
+     street actually is. */
+  var BUSLANE = 23;    // 24..31: the kerb-side bus and taxi lane
   function bandCode(b) {
     if (b <= MEDIAN) return 4;
-    if (b <= PAVE) return 1;
+    if (b <= BUSLANE) return 1;
+    if (b <= PAVE) return 24;
     if (b <= CURB) return 5;
-    if (b <= WALK) return 6;   // NO amenity strip: the promenade starts at the gutter
-    if (b <= ROW) return 6;
+    if (b < PAVER_A) return 6;      // kerb-side walk
+    if (b <= PAVER_B) return 21;    // the paver band
+    if (b <= ROW) return 22;        // building-line margin
     return 0;
   }
 
@@ -14001,6 +14050,11 @@ const BEAT=500; // 120BPM law
         if (b > ROW) continue;
         var code = bandCode(b);
         if (code === 4 && xing && inPave(ox, oy)) code = 1;            // never block the crossing
+        /* AND THE JUNCTION BOX IS ITS OWN SURFACE. A crossing cell measured 56.3% "asphalt
+           roadway" as one code; out there the box is visibly different ground -- older,
+           polished by the turning traffic, unstriped because nothing may be painted through
+           a junction. Naming it is honest AND it is what stops one code owning the cell. */
+        if ((code === 1 || code === 24) && xing && inPave(ox, oy)) code = 23;
         g[y][x] = code;
       }
     }
@@ -14017,12 +14071,12 @@ const BEAT=500; // 120BPM law
           [-o, o].forEach(function (s) {
             if (!dash) return;
             var px = alongAxis === 'v' ? C + s : t, py = alongAxis === 'v' ? t : C + s;
-            if (g[py][px] === 1) g[py][px] = 2;
+            if (g[py][px] === 1 || g[py][px] === 24) g[py][px] = 2;
           });
         });
         [-EDGE, EDGE].forEach(function (s) {
           var px = alongAxis === 'v' ? C + s : t, py = alongAxis === 'v' ? t : C + s;
-          if (g[py][px] === 1) g[py][px] = 2;
+          if (g[py][px] === 1 || g[py][px] === 24) g[py][px] = 2;
         });
       }
     }
@@ -14071,7 +14125,7 @@ const BEAT=500; // 120BPM law
       var c = g[py][px];
       if (over ? over(c) : (c === 6)) g[py][px] = code;
     }
-    var onWalk = function (c) { return c === 6 || c === 7; };
+    var onWalk = function (c) { return c === 6 || c === 7 || c === 21 || c === 22; };
 
     // CROSSWALKS + STOP BARS at every approach that exists.
     function approach(dir) {
@@ -14080,11 +14134,12 @@ const BEAT=500; // 120BPM law
         for (var d = BOX - 3; d <= BOX; d++) {
           var a = C + sign * d;
           var px = vertical ? C + o : a, py = vertical ? a : C + o;
-          if (g[py][px] === 1 || g[py][px] === 2) g[py][px] = ((o + 64) % 4 < 2) ? 3 : g[py][px];
+          var _c0 = g[py][px];
+          if (_c0 === 1 || _c0 === 2 || _c0 === 23 || _c0 === 24) g[py][px] = ((o + 64) % 4 < 2) ? 3 : g[py][px];
         }
         var sa = C + sign * (BOX + 2);
         var sx = vertical ? C + o : sa, sy = vertical ? sa : C + o;
-        if (g[sy][sx] === 1) g[sy][sx] = 15;
+        if (g[sy][sx] === 1 || g[sy][sx] === 24) g[sy][sx] = 15;
       }
       /* CURB RAMPS: without them the crossing dies at the gutter and a body on the
          promenade can never legally reach the other side. (The arterial's gate caught
@@ -14097,7 +14152,7 @@ const BEAT=500; // 120BPM law
             var rx = vertical ? C + o2 : a2, ry = vertical ? a2 : C + o2;
             if (rx < 0 || ry < 0 || rx > 127 || ry > 127) continue;
             var cc = g[ry][rx];
-            if (cc === 5 || cc === 6 || cc === 1 || cc === 2) g[ry][rx] = 3;
+            if (cc === 5 || cc === 6 || cc === 1 || cc === 2 || cc === 21 || cc === 23 || cc === 24) g[ry][rx] = 3;
           }
         }
       }
@@ -14149,8 +14204,8 @@ const BEAT=500; // 120BPM law
             if (px < 0 || py < 0 || px > 127 || py > 127) continue;
             var cur = g[py][px];
             // the deck flies over roadway, median and paint alike; it only LANDS on walk
-            if (cur === 1 || cur === 2 || cur === 3 || cur === 4 || cur === 5 ||
-                cur === 11 || cur === 15 || cur === 17 || cur === 6) g[py][px] = 18;
+            if (cur === 1 || cur === 2 || cur === 3 || cur === 4 || cur === 5 || cur === 21 ||
+                cur === 23 || cur === 24 || cur === 11 || cur === 15 || cur === 17 || cur === 6) g[py][px] = 18;
           }
         }
         /* THE TOWERS BELONG TO THE CROSSING HALF. On the sibling half the deck is just
@@ -14164,7 +14219,7 @@ const BEAT=500; // 120BPM law
               var tx = alongAxis === 'v' ? C + side * tb : at + ts;
               var ty = alongAxis === 'v' ? at + ts : C + side * tb;
               if (tx < 0 || ty < 0 || tx > 127 || ty > 127) continue;
-              if (g[ty][tx] === 18 || g[ty][tx] === 6) g[ty][tx] = 19;
+              if (g[ty][tx] === 18 || g[ty][tx] === 6 || g[ty][tx] === 21) g[ty][tx] = 19;
             }
           }
         });
@@ -14197,7 +14252,7 @@ const BEAT=500; // 120BPM law
           var side = e ? 1 : -1;
           var b = CURB + 5 + Math.floor(r() * 10);
           var px = alongAxis === 'v' ? C + side * b : t, py = alongAxis === 'v' ? t : C + side * b;
-          if (r() < 0.55) put(px, py, 7, function (c) { return c === 6; });
+          if (r() < 0.55) put(px, py, 7, function (c) { return c === 6 || c === 21 || c === 22; });
         }
       }
       // streetlights and dead palms standing in the promenade, staggered down each arm
@@ -14239,7 +14294,8 @@ const BEAT=500; // 120BPM law
       if (Math.abs(ct - C) > BOX + 4) {
         for (i = 0; i < 3; i++) for (var k = 0; k < 2; k++) {
           var px3 = cAxis === 'v' ? C + cs + k : ct + i, py3 = cAxis === 'v' ? ct + i : C + cs + k;
-          if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 && g[py3][px3] === 1) g[py3][px3] = 14;
+          if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 &&
+              (g[py3][px3] === 1 || g[py3][px3] === 24)) g[py3][px3] = 14;
         }
       }
     }
@@ -14261,7 +14317,8 @@ const BEAT=500; // 120BPM law
           else { px = C + b; py = C + o; }
           if (px < 0 || py < 0 || px > 127 || py > 127) continue;
           var cur = g[py][px];
-          if (cur === 7 || cur === 11 || cur === 9 || cur === 20 || cur === 0) g[py][px] = 6;
+          if (cur === 7 || cur === 11 || cur === 9 || cur === 20 || cur === 0 ||
+          cur === 21 || cur === 22) g[py][px] = 6;
         }
       }
     });
@@ -14272,7 +14329,7 @@ const BEAT=500; // 120BPM law
 
   /* a vehicle can cross the cell on every direction the network says connects */
   function throughDrivable(res, links) {
-    var g = res.g, drive = { 1: 1, 2: 1, 3: 1, 14: 1, 15: 1, 17: 1 };
+    var g = res.g, drive = { 1: 1, 2: 1, 3: 1, 14: 1, 15: 1, 17: 1, 23: 1, 24: 1 };
     return (links || res.links).every(function (d) {
       d = String(d).toUpperCase()[0];
       var i, hit = false;
@@ -14292,9 +14349,10 @@ const BEAT=500; // 120BPM law
   var PALETTE = {
     0: '#5a5140',
     1: '#33333c', 2: '#b3ab97', 3: '#b3ab97', 4: '#5f5f4a', 5: '#6b6b74', 6: '#8a8a92',
-    7: '#4a4030', 9: '#8f8676', 11: '#3a4520', 12: '#6a6a72', 14: '#55555f',
+    7: '#4a4030', 9: '#8f8676', 11: '#4d4a38', 12: '#6a6a72', 14: '#55555f',
     15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a',
-    18: '#7c8390', 19: '#6d7280', 20: '#5c5648'
+    18: '#7c8390', 19: '#6d7280', 20: '#5c5648',
+    21: '#7e7e86', 22: '#6f6f78', 23: '#2e2e36', 24: '#3b3b44'
   };
 
   var LEGEND = {
@@ -14307,7 +14365,7 @@ const BEAT=500; // 120BPM law
     6:  { name: 'promenade',          kind: 'walk',     act1: 'the Strip promenade: wide pavers at the back of curb, cracked and lifted, sand drifted along the building line' },
     7:  { name: 'planter',            kind: 'tree-dead',act1: 'a tree well cut into the promenade, the tree gone, the pit full of grit and trash', solid: false },
     9:  { name: 'streetlight',        kind: 'prop',     act1: 'a boulevard light standard on the promenade, head dark' },
-    11: { name: 'dead palm',          kind: 'tree-dead',act1: 'a Strip palm dead on its feet — bare trunk, the crown collapsed years ago' },
+    11: { name: 'dead palm',          kind: 'tree-dead',act1: 'a Strip palm dead on its feet — bare grey trunk, the crown collapsed years ago; nothing in this valley is green' },
     12: { name: 'signal mast',        kind: 'prop',     act1: 'traffic signal mast arm reaching out over the lanes, every head dark' },
     14: { name: 'dead car',           kind: 'vehicle',  act1: 'a car left in the lane where the traffic stopped, tyres flat, glass gone' },
     15: { name: 'stop bar',           kind: 'marking',  act1: 'wide white stop bar behind the crosswalk' },
@@ -14315,7 +14373,11 @@ const BEAT=500; // 120BPM law
     17: { name: 'yellow turn-pocket line', kind: 'marking', act1: 'yellow line bordering the left-turn bay where the median opens' },
     18: { name: 'pedestrian bridge',  kind: 'overhead', act1: 'the enclosed pedestrian bridge over the boulevard — you walk ACROSS it and you pass UNDER it; the glazing is starred and the moving walkway is stopped', solid: false },
     19: { name: 'bridge tower',       kind: 'structure',act1: 'the stair and escalator tower carrying the bridge down to the promenade, escalator treads frozen mid-flight', enter: 'the tower stair: switchback flights up to the bridge deck, handrails cold, one landing open to the street' },
-    20: { name: 'marquee pylon',      kind: 'structure',act1: 'a resort marquee pylon standing at the property line, the sign face dark and blank'  }
+    20: { name: 'marquee pylon',      kind: 'structure',act1: 'a resort marquee pylon standing at the property line, the sign face dark and blank'  },
+    21: { name: 'paver band',         kind: 'walk',     act1: 'the banded pavers running down the middle of the promenade, lifted and rocking where the roots got under them' },
+    22: { name: 'building-line margin',kind: 'walk',    act1: 'the last strip of promenade against the property line, where the resort frontage takes the ground over — sand drifted deep along it' },
+    23: { name: 'junction box',       kind: 'drive',    act1: 'the asphalt inside the junction, polished by the turning traffic and unpainted, because nothing is ever striped through a crossing' },
+    24: { name: 'bus / taxi lane',    kind: 'drive',    act1: 'the kerb-side bus and taxi lane, rutted where a thousand coaches stopped in the same spot every day' }
   };
 
   var NOTES = {
@@ -22907,7 +22969,7 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
 
 // district -> interior room grammar, transcribed from bohemia_world.js's DISTGEN
 // at patch time (ENGINE SYNC LAW: one table, one truth). interiors_gate re-derives.
-const IN_ZONE={apartment:'residential',arsenal:'warehouse',ballpark:'leisure',basin:'default',battery:'warehouse',boneyard:'warehouse',campus:'institutional',cemetery:'institutional',chapel:'civic',cityhall:'civic',commercial:'retail',courthouse:'civic',datafort:'office',downtown:'retail',drivein:'leisure',estate:'residential',farm:'default',firestation:'institutional',fueldepot:'warehouse',gated:'residential',golf:'leisure',granary:'warehouse',gypsum:'warehouse',industrial:'warehouse',intake:'warehouse',jail:'institutional',landfill:'warehouse',library:'civic',mall:'retail',medical:'institutional',park:'default',policestation:'institutional',pumpstation:'warehouse',quarry:'warehouse',radio:'office',railyard:'warehouse',reclaim:'warehouse',reservoir:'warehouse',school:'institutional',solar:'office',speedway:'leisure',stadium:'leisure',storage:'warehouse',substation:'warehouse',suburb:'residential',swapmeet:'retail',terminal:'institutional',town:'residential',trailer:'residential',truckstop:'retail',warehouse:'warehouse',wash:'default',waterpark:'leisure',watertreat:'warehouse'};
+const IN_ZONE={apartment:'residential',arsenal:'warehouse',ballpark:'leisure',basin:'default',battery:'warehouse',boneyard:'warehouse',campus:'institutional',casino:'leisure',cemetery:'institutional',chapel:'civic',cityhall:'civic',commercial:'retail',courthouse:'civic',datafort:'office',downtown:'retail',drivein:'leisure',estate:'residential',farm:'default',firestation:'institutional',fueldepot:'warehouse',gated:'residential',golf:'leisure',granary:'warehouse',gypsum:'warehouse',industrial:'warehouse',intake:'warehouse',jail:'institutional',landfill:'warehouse',library:'civic',mall:'retail',medical:'institutional',park:'default',policestation:'institutional',pumpstation:'warehouse',quarry:'warehouse',radio:'office',railyard:'warehouse',reclaim:'warehouse',reservoir:'warehouse',resort:'leisure',school:'institutional',solar:'office',speedway:'leisure',stadium:'leisure',storage:'warehouse',substation:'warehouse',suburb:'residential',swapmeet:'retail',terminal:'institutional',town:'residential',trailer:'residential',truckstop:'retail',warehouse:'warehouse',wash:'default',waterpark:'leisure',watertreat:'warehouse'};
 const IN_D4=[[1,0],[-1,0],[0,1],[0,-1]];
 let INSIDE=null;      // {fp,foot,zone,label,ix,iy,door,exit:{gx,gy}}
 

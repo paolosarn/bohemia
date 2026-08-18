@@ -50,6 +50,11 @@ MODULES = [
     'engine/bohemia_campus.js', 'engine/bohemia_speedway.js',
     'engine/bohemia_town.js', 'engine/bohemia_ballpark.js',
     'engine/bohemia_desert.js', 'engine/bohemia_mountain.js', 'engine/bohemia_water.js',
+    # GAMING & RESORT (8/18). These load BEFORE world.js, which reads BohemiaResort /
+    # BohemiaCasino / BohemiaStrip off the global for its DISTGEN + SURFACEGEN entries --
+    # in a plain browser bundle there is no require(), so a missing module here is a THROW
+    # on page load, not a quiet gap.
+    'engine/bohemia_resort.js', 'engine/bohemia_casino.js', 'engine/bohemia_strip.js',
     'engine/bohemia_overmap.js', 'engine/bohemia_overmap_bridge.js', 'engine/bohemia_blockgen.js',
     'engine/bohemia_floorplan.js', 'engine/bohemia_garage.js', 'engine/bohemia_crypt.js',
     # ONE WORLD INTERIORS step 1: rooms loads BEFORE world, which reads BOH_ROOMS.

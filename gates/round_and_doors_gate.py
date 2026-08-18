@@ -165,6 +165,11 @@ DOORLESS_BY_NATURE = {
     'wash',       # a lined flood channel (the SEWER TUNNEL MOUTH is a portal, not a door)
     'arterial',   # six lanes and a signal mast
     'freeway',    # lanes, a deck and a gantry
+    # 8/11 split the arterial into the RUN and the CROSSING as two registered types with two
+    # icons, and only the run was on this list -- so the crossing has been reported as a NEW
+    # doorless hero ever since, on a lane that had not changed. It is the same six lanes and
+    # the same signal masts as the entry two lines above it. Same nature, same answer.
+    'arterial_x',  # the same road, at a junction
 }
 DOORLESS_DEBT = DOORLESS_DEBT | DOORLESS_BY_NATURE
 new_doorless = sorted(set(doorless) - DOORLESS_DEBT)

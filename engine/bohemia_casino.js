@@ -10,14 +10,16 @@
 //   * The mass is LOW AND WIDE — one enormous single-storey casino floor swallowing most
 //     of the block — with a SLENDER HOTEL WING standing on the back of it, not the
 //     podium-and-tower silhouette of the Strip.
-//   * The frontage is SIGN, floor to roof: the marquee and the neon canopy are the facade.
-//     Downtown sold itself with light, not with architecture.
+//   * The frontage is SIGN, floor to roof: the marquee IS the facade. Downtown sold itself
+//     with light, not with architecture. NOT the Fremont canopy, famous as it is -- Paolo
+//     banned canopies on 8/2 and a gate must never outrank a ruling, so the sign does the
+//     whole job standing up instead of reaching out.
 //   * The car is banished to the back: a SELF-PARK DECK on the alley, and a short VALET
 //     LANE off the side street. No porte cochere across the front — there is no room.
 //   * The block is cut by a SERVICE ALLEY, which is the other thing the old grid has and
 //     the Strip does not.
 //
-// ACT-1 DEAD: the floor dark and stripped, the canopy dead overhead, the marquee blank,
+// ACT-1 DEAD: the floor dark and stripped, every tube broken off, the marquee blank,
 // the alley full of what got dragged out of the building.
 //
 // NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): "no perimeter walls until I tell you,
@@ -29,8 +31,8 @@
 //  0 sidewalk            1 valet / alley surface (DRIVABLE)   2 casino floor (mass)
 //  3 debris / dead planting                                   4 floor roof band
 //  5 drive entrance (curb cut — NOT a gate in a fence)        6 hotel wing
-//  7 neon canopy (OVERHEAD)                                   8 self-park deck
-//  9 pole light         10 abandoned vehicle                 11 lane marking
+//  7 entry apron (paved, open sky)                            8 self-park deck
+//  9 sign standard       10 abandoned vehicle                 11 lane marking
 // 12 marquee sign       13 casino doors (PORTAL)             14 wing roof plant
 // 15 floor skylight
 (function(root){
@@ -68,11 +70,16 @@
     G.rect(26,20,60,46,6);
     G.rect(32,26,54,34,14);                                   // wing roof plant
 
-    // ---- THE FRONTAGE IS SIGN. The marquee runs most of the building line, and the neon
-    //      canopy reaches out over the sidewalk the way Fremont's does — you walk UNDER it.
-    G.rect(14,97,W-15,103,7);                                 // the canopy (OVERHEAD)
-    for(x=18;x<=W-19;x+=14) set(x,103,9);                     // canopy columns at the kerb
-    G.rect(10,90,26,96,12); G.rect(W-27,90,W-11,96,12);       // the marquee towers, blank faces
+    // ---- THE FRONTAGE IS SIGN, AND IT IS ALL SIGN. No canopy over the walk (Paolo 8/2,
+    //      LOCKED: "no more canopies I only see canopies at parks and shit") -- the Fremont
+    //      canopy is the most famous canopy in America and it is still a canopy, and a gate
+    //      must never outrank a ruling. So the sign does the whole job on its own terms:
+    //      the MARQUEE runs the full building line floor to roof rather than sitting in two
+    //      towers with a roof strung between them, and a row of SIGN PYLONS stands out at
+    //      the kerb. Nothing overhangs the pavement.
+    G.rect(8,90,W-9,96,12);                                   // the marquee, the whole frontage, blank faces
+    G.rect(10,97,22,99,12); G.rect(W-23,97,W-11,99,12);       // the two end pylons, out at the kerb
+    for(x=26;x<=W-27;x+=13) set(x,100,9);                     // sign standards down the walk, heads dark
     G.rect(cx-10,95,cx+10,96,13);                             // the casino doors, straight off the walk
 
     // ---- THE SERVICE ALLEY across the back of the block: the other thing the old grid has.
@@ -134,9 +141,9 @@
     4:{name:'floor roof band',    kind:'structure',  act1:'the roof plant band along the back of the casino floor, ducting and dead fans standing on it'},
     5:{name:'drive entrance',     kind:'gate',       act1:'the curb cut where the valet lane and the alley meet the street — a gap in the kerb, nothing to open, no fence either side', solid:false},
     6:{name:'hotel wing',         kind:'building',   act1:'the slender hotel wing standing on the back of the floor, window units hanging out of half the openings', enter:'a corridor of rooms: doors ajar, a smell of dust and old smoke, no light'},
-    7:{name:'neon canopy',        kind:'overhead',   act1:'the neon canopy reaching out over the sidewalk on its columns — you walk UNDER it; every tube dead, some hanging', solid:false},
+    7:{name:'entry apron',        kind:'ground',     act1:'the paved apron in front of the doors, open to the sky, grit and broken tube glass drifted across it', solid:false},
     8:{name:'self-park deck',     kind:'building',   act1:'the self-park deck on the alley, ramp mouth open', enter:'a parking deck: cars left in the bays, the ramp turning down into black'},
-    9:{name:'pole light',         kind:'prop',       act1:'a canopy column / kerb light, head dark'},
+    9:{name:'sign standard',      kind:'prop',       act1:'a sign standard out at the kerb, its tubes broken off at the collar'},
     10:{name:'abandoned vehicle', kind:'vehicle',    act1:'a car left in the valet lane where it was abandoned, doors open'},
     11:{name:'lane marking',      kind:'marking',    act1:'faded valet-lane centre dashes'},
     12:{name:'marquee sign',      kind:'structure',  act1:'a marquee tower on the building line, floor to roof, the sign face dark and blank'},
@@ -145,17 +152,17 @@
     15:{name:'floor skylight',    kind:'structure',  act1:'a skylight punched through the roof over the pit, glazing starred and one panel gone through'}
   };
   var NOTES={
-    summary:'A dead DOWNTOWN casino block — one enormous low casino floor filling the plot to the building line with no setback at all, a slender hotel wing standing on the back of it, marquee towers and a neon canopy for a facade, a self-park deck and a service alley behind, and a short valet lane off the side street. Nothing fences it: the building is the edge.',
+    summary:'A dead DOWNTOWN casino block — one enormous low casino floor filling the plot to the building line with no setback at all, a slender hotel wing standing on the back of it, a marquee running the whole building line for a facade, a self-park deck and a service alley behind, and a short valet lane off the side street. Nothing fences it: the building is the edge.',
     reference:['Fremont Street / Glitter Gulch (the Golden Nugget, Binion\'s, the Four Queens, the Fremont Street Experience canopy). A downtown casino is the OPPOSITE of a Strip resort: no setback, no arrival drive, no podium-and-tower. The casino floor meets the sidewalk on a block platted before anybody parked a car; the mass is low and wide with a slender hotel wing at the rear; the FRONTAGE IS SIGN, floor to roof, because downtown sold itself with light rather than architecture; the car is banished to a self-park deck on the alley and a short valet lane off the side street.'],
     layout:['The CASINO FLOOR fills the block to the building line on the primary frontage. There is no setback, no apron and no lawn — which is also why it needs no fence.',
       'The HOTEL WING is slender and stands on the BACK of the floor, never across the front.',
-      'The frontage is SIGN: MARQUEE towers on the building line and a NEON CANOPY reaching out over the sidewalk on columns, which you walk under.',
+      'The frontage is SIGN and nothing but: the MARQUEE runs the full building line floor to roof, two end PYLONS stand out at the kerb, and a row of sign standards runs down the walk. No canopy over the pavement (Paolo 8/2) -- the sign stands up instead of reaching out.',
       'A SERVICE ALLEY crosses the back of the block and runs out to the street down one side; the SELF-PARK DECK sits on it. A short VALET LANE comes in off the side street.'],
-    circulation:'Street-aware via canonical-south + K.rotateToStreet: the doors and the marquee are on the primary street. The DRIVE surface (code 1) is one connected car surface — alley plus valet lane — entering off the street at the curb cuts and reaching the self-park deck (K.driveReachFromStreet). Pedestrians walk the sidewalk straight into the doors; the canopy (7) is OVERHEAD, so you pass under it on foot.',
-    layering:'GROUND plane (flat): the sidewalk (0), the alley and valet lane (1) + markings (11) + the curb cuts (5). STRUCTURES (¾ front face, solid): the CASINO FLOOR (2, ENTERABLE -> the floor), the HOTEL WING (6, ENTERABLE -> a corridor of rooms), the SELF-PARK DECK (8, ENTERABLE), the MARQUEE towers (12), the roof/plant decks (4, 14) and the SKYLIGHTS (15). OVERHEAD (pass under): the neon canopy (7). PORTALS: the casino doors (13). PROPS: pole lights / canopy columns (9), abandoned vehicles (10), debris and dead planting (3). The floor is a single low plate and the wing is the only vertical mass; you walk under the canopy and straight in off the pavement.',
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the doors and the marquee are on the primary street. The DRIVE surface (code 1) is one connected car surface — alley plus valet lane — entering off the street at the curb cuts and reaching the self-park deck (K.driveReachFromStreet). Pedestrians walk the sidewalk straight into the doors; the entry apron (7) is open ground you walk straight across.',
+    layering:'GROUND plane (flat): the sidewalk (0), the alley and valet lane (1) + markings (11) + the curb cuts (5). STRUCTURES (¾ front face, solid): the CASINO FLOOR (2, ENTERABLE -> the floor), the HOTEL WING (6, ENTERABLE -> a corridor of rooms), the SELF-PARK DECK (8, ENTERABLE), the MARQUEE towers (12), the roof/plant decks (4, 14) and the SKYLIGHTS (15). PORTALS: the casino doors (13). PROPS: sign standards (9), abandoned vehicles (10), debris and dead planting (3). The floor is a single low plate and the wing is the only vertical mass; you walk straight in off the pavement under the sign.',
     decisions:['NOT THE STRIP RESORT. engine/bohemia_resort.js is podium + tower + porte cochere on a 100 m arrival drive; this is a no-setback low floor with a sign for a face. Two gaming types, two real buildings, two icons.',
       'NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): no fence, no perimeter wall, no bollard line, no kerb ring. The building meeting the sidewalk is the edge, which is what the real block does.',
-      'Act-1 DEAD: floor dark and stripped, doors standing open, canopy tubes dead, marquee faces blank, cars abandoned in the valet lane, the alley full of what got dragged out.',
+      'Act-1 DEAD: floor dark and stripped, doors standing open, every tube broken off, marquee faces blank, cars abandoned in the valet lane, the alley full of what got dragged out.',
       'Gaming/resort category. Zero purple. NO FACTION, NO OWNER, NO NAME anywhere — the marquee faces are deliberately BLANK. Who holds downtown is Paolo\'s to rule (MECHANISM-MINE / CONTENTS-PAOLO\'S).',
       'The floor, the wing and the park deck are all ENTERABLE, so the interior/zoom phase has three real volumes to open rather than a facade.',
       'ACT TRIPTYCH: only the act-1 dead material is specified. Act-2 and act-3 are [PENDING Paolo].']

@@ -59,6 +59,14 @@ SPANS = {
     # to an anchor block. Nobody has ever stood under one to get out of the sun, and it holds
     # a 15 m mast up. Same category as the busbar directly above it in this list.
     ('radio', 'guy wire'),
+    # 8/18: THE STRIP PEDESTRIAN BRIDGE. An enclosed deck on stair towers carrying people
+    # ACROSS eight lanes of Las Vegas Boulevard -- the same category as the downtown
+    # skybridge two lines above it, and the opposite of shade in every way that matters:
+    # you do not stand under it to get out of the sun, you WALK ON IT to get to the other
+    # side of a road you cannot cross. Clark County runs a standing structural repair
+    # contract on the real ones. Infrastructure carrying something across a gap, verbatim
+    # the definition at the top of this file.
+    ('strip', 'pedestrian bridge'), ('strip_x', 'pedestrian bridge'),
 }
 
 # SHELTER CANOPIES still standing. RATCHET: this list may only shrink, and nothing new

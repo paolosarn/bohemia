@@ -2,11 +2,14 @@
 // mega-resort site plans — Encore/Wynn, Paris Las Vegas, Circa; SpotlightVegas on mega-resort
 // spatial design): the canonical Strip resort is a PODIUM + TOWER. Podium floors 1-4 carry the
 // CASINO FLOOR, restaurants, theatre and convention space at grade; the GUEST TOWER stands on the
-// podium from floor 5 up and is the whole silhouette. A PORTE COCHERE wraps the tower base and
-// feeds the LOBBY off the drive; a decked PARKING GARAGE attaches to one end of the podium. The
-// pool deck sits behind, screened from the street by the building rather than by any wall.
+// podium from floor 5 up and is the whole silhouette. The ARRIVAL is a colonnade of piers down the
+// drive and a raised entry platform at the LOBBY -- NOT a porte cochere, because Paolo
+// banned canopies on 8/2 ("no more canopies I only see canopies at parks and shit") and a
+// porte cochere is a canopy; the ruling outranks the reference. A decked PARKING GARAGE
+// attaches to one end of the podium, and the pool deck sits behind, screened from the
+// street by the building rather than by any wall.
 // ACT-1 DEAD: doors open, the casino floor dark and stripped, the pool a dry basin, cars left in
-// the porte cochere where they were abandoned.
+// the arrival forecourt where they were abandoned.
 // NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): "no perimeter walls until I tell you, bro no
 // fencing no nothing bro." There is no fence, no yard wall, no bollard line and no kerb ring in
 // this district. The building IS the edge — which is how a real Strip resort works anyway: the
@@ -15,8 +18,8 @@
 //  0 sidewalk / apron            1 drive lane (DRIVABLE)
 //  2 podium (casino floor)        3 dry planting bed
 //  4 podium roof band             5 drive entrance (curb cut — NOT a gate in a fence)
-//  6 guest tower                  7 porte cochere canopy (OVERHEAD)
-//  8 parking garage deck          9 pole light
+//  6 guest tower                  7 entry forecourt (paved, open sky)
+//  8 parking garage deck          9 colonnade pier
 //  10 abandoned vehicle          11 drive marking      12 dry pool basin
 //  13 lobby doors (PORTAL)        14 tower plant deck   15 casino skylight
 (function(root){
@@ -35,8 +38,13 @@
     // ---- THE PODIUM. Wall to wall across the plot, because that is what a Strip
     //      podium does: it meets the sidewalk on its street frontage and there is
     //      no setback to put a fence in.
-    G.rect(8,10,W-9,74,2);
-    G.rect(10,12,W-11,20,4);                                            // podium roof band (north)
+    //      AND IT REACHES THE PLOT EDGE. Measured: the first cut left 39.4% of the cell as
+    //      one undifferentiated "sidewalk / apron" -- a plot four tenths empty, which is
+    //      both the MONOBLOCK law (no code owns 30% of a plot) and the WALKABLE-LAND law
+    //      (buildings and purposeful content dominate; pavement is connective tissue).
+    //      A real Strip parcel has no leftover ground at all: the building goes to the line.
+    G.rect(4,6,W-5,74,2);
+    G.rect(6,8,W-7,20,4);                                               // podium roof band (north)
 
     // ---- THE GUEST TOWER on the podium: solid mass, the silhouette of the district.
     //      Real Strip tower floorplates are long and thin (a double-loaded corridor with
@@ -46,15 +54,22 @@
     G.rect(38,26,54,34,14); G.rect(66,26,84,32,14);                     // rooftop plant / cooling deck
     G.rect(44,52,62,58,14); G.rect(74,50,88,58,14);
 
-    // ---- THE PORTE COCHERE + LOBBY, off the south drive ----
+    // ---- THE ARRIVAL + LOBBY, off the south drive ----
+    // NO CANOPY (Paolo 8/2, LOCKED): "new rule no more canopies I only see canopies at
+    // parks and shit." A porte cochere is a canopy, full stop, and a gate must never
+    // outrank a ruling -- so the roof plane is GONE and the arrival is built the way the
+    // ruling itself says to build one: what a real entrance has instead. A COLONNADE of
+    // piers down both sides of the drive, and a raised ENTRY PLATFORM with its step up to
+    // the doors. The columns and the platform say arrival; nothing overhangs anything.
     var cx=W>>1;
-    G.rect(cx-20,76,cx+20,90,7);                                        // the canopy (OVERHEAD: pass under)
-    for(i=-18;i<=18;i+=9) set(cx+i,90,9);                               // canopy columns read as pole lights
-    G.rect(cx-6,74,cx+6,75,13);                                         // the lobby doors into the podium
+    G.rect(cx-22,76,cx+22,88,7);                                        // the entry forecourt (paved, open sky)
+    for(i=-20;i<=20;i+=5){ set(cx+i,76,9); set(cx+i,89,9); }            // the colonnade, both sides of the drive
+    G.rect(cx-14,72,cx+14,75,14);                                       // the raised entry platform + its step
+    G.rect(cx-6,71,cx+6,72,13);                                         // the lobby doors into the podium
 
-    // ---- THE DRIVE: in off the street, under the canopy, back out. One surface. ----
+    // ---- THE DRIVE: in off the street, across the forecourt, back out. One surface. ----
     G.rect(6,92,W-7,104,1);
-    G.rect(cx-20,90,cx+20,92,1);                                        // the porte-cochere lane itself
+    G.rect(cx-20,90,cx+20,92,1);                                        // the arrival lane itself
     G.rect(10,104,14,H-1,1);                                            // the two street connections
     G.rect(W-15,104,W-11,H-1,1);
     for(x=16;x<=W-17;x+=10) set(x,98,11);                               // drive centre dashes
@@ -84,12 +99,21 @@
       }
     }
 
+    // ---- THE FRONTAGE PLAZA. The rest of the ground between the podium and the drive is
+    //      not "sidewalk", it is the resort's own broad paved forecourt, and calling it
+    //      what it is stops one code owning four tenths of the plot.
+    G.rect(4,76,W-5,90,7);
+    // ---- THE SERVICE YARD on the back corner: bays, a dock and the bins. Purposeful
+    //      content on ground that was blank apron.
+    G.rect(W-30,72,W-5,93,1);                                           // meets the arrival drive: ONE car surface
+    for(x=W-28;x<=W-8;x+=6) G.rect(x,74,x+3,75,10);                     // trucks left in the bays
+
     // ---- THE POOL DECK behind, screened by the building, not by a fence ----
     G.rect(20,78,cx-26,88,12);                                          // the dry basin
     for(i=0;i<12;i++){ var px=22+Math.floor(r()*(cx-50)), py=79+Math.floor(r()*8);
       if(get(px,py)===12&&r()<0.4) set(px,py,3); }                      // dead planting in the basin
 
-    // ---- dead dressing: cars left in the porte cochere and on the drive ----
+    // ---- dead dressing: cars left on the forecourt and on the drive ----
     G.rect(cx-12,93,cx-11,97,10); G.rect(cx+9,93,cx+10,97,10);
     G.rect(24,99,25,103,10);
     for(i=0;i<18;i++){ var dx=8+Math.floor(r()*(W-16)), dy=92+Math.floor(r()*12);
@@ -130,27 +154,27 @@
     4:{name:'podium roof band',   kind:'structure',  act1:'the podium roof band along the back of the casino floor, ducting and dead fans standing on it'},
     5:{name:'drive entrance',     kind:'gate',       act1:'the curb cut where the arrival drive meets the street — a gap in the kerb, nothing to open, no fence either side', solid:false},
     6:{name:'guest tower',        kind:'building',   act1:'the guest tower standing on the podium, window bands blown in places', enter:'a guest corridor: doors ajar down both sides, carpet, no light'},
-    7:{name:'porte cochere canopy',kind:'overhead',  act1:'the arrival canopy on columns — you walk and drive UNDER it', solid:false},
+    7:{name:'entry forecourt',    kind:'ground',     act1:'the paved arrival forecourt between the colonnades, open to the sky, drifted with sand', solid:false},
     8:{name:'parking garage deck',kind:'building',   act1:'the open-deck parking structure on the end of the podium', enter:'a parking deck: cars left in the bays, ramp down into the dark'},
-    9:{name:'pole light',         kind:'prop',       act1:'a canopy column / drive pole light, head dark'},
-    10:{name:'abandoned vehicle', kind:'vehicle',    act1:'a car left under the canopy where it was abandoned, doors open'},
+    9:{name:'colonnade pier',     kind:'prop',       act1:'a squat stone arrival pier, one of the double colonnade down the drive; the light on its head is dead'},
+    10:{name:'abandoned vehicle', kind:'vehicle',    act1:'a car left on the arrival forecourt where it was abandoned, doors open'},
     11:{name:'drive marking',     kind:'marking',    act1:'faded arrival-drive centre dashes'},
     12:{name:'dry pool basin',    kind:'ground',     act1:'the pool deck: a dry basin, tiles crazed, silt and dead planting in the bottom', solid:false},
-    13:{name:'lobby doors',       kind:'portal',     act1:'the lobby doors under the canopy, one leaf standing open', solid:false},
+    13:{name:'lobby doors',       kind:'portal',     act1:'the lobby doors at the head of the entry platform, one leaf standing open', solid:false},
     14:{name:'tower plant deck',  kind:'structure',  act1:'the cooling plant standing on the tower roof, fan housings open to the sky'},
     15:{name:'casino skylight',   kind:'structure',  act1:'a skylight punched through the podium roof over the casino floor, half the glazing starred and one panel gone through'}
   };
   var NOTES={
-    summary:'A dead Las Vegas mega-resort — a four-storey podium carrying the casino floor wall-to-wall on the plot, a guest tower standing on it, a porte cochere you walk and drive under into the lobby, an open-deck parking garage on one end, and a dry pool basin behind. Nothing fences it: the building is the edge.',
+    summary:'A dead Las Vegas mega-resort — a four-storey podium carrying the casino floor wall-to-wall on the plot, a guest tower standing on it, a colonnaded arrival forecourt and raised entry platform into the lobby, an open-deck parking garage on one end, and a dry pool basin behind. Nothing fences it: the building is the edge.',
     reference:['Las Vegas mega-resort site plans (Encore/Wynn, Paris Las Vegas, Circa; SpotlightVegas on mega-resort spatial design): the canonical form is PODIUM + TOWER. Podium floors 1-4 carry the casino floor, restaurants, theatre and convention space at grade; the GUEST TOWER stands on the podium from floor 5 up and is the whole silhouette. A PORTE COCHERE wraps the tower base and feeds the lobby off the arrival drive; a decked PARKING GARAGE attaches to one end of the podium.'],
     layout:['The PODIUM runs wall-to-wall across the plot and meets the sidewalk on its frontage — a Strip podium has no setback, which is also why it needs no fence.',
       'The GUEST TOWER stands on the podium, set back from the podium edge, and is the tallest thing in the district.',
-      'The PORTE COCHERE is a canopy on columns over the arrival lane; the LOBBY DOORS open off it into the podium.',
+      'The ARRIVAL is a paved forecourt with a double COLONNADE of piers down it and a raised ENTRY PLATFORM at the head; the LOBBY DOORS open off that platform into the podium. No canopy anywhere (Paolo 8/2): the columns and the platform do the work a porte-cochere roof used to.',
       'The PARKING GARAGE is an open deck on one end of the podium. The POOL DECK sits behind the building, screened by the building itself.'],
-    circulation:'Street-aware via canonical-south + K.rotateToStreet: the lobby/porte cochere is on the primary street. The arrival DRIVE (code 1) is one connected car surface entering off the street, passing under the canopy at the lobby and returning to the street (K.driveReachFromStreet). Pedestrians walk the sidewalk (0) straight onto the podium frontage; the canopy (7) is OVERHEAD, so you pass under it on foot or in a car.',
-    layering:'GROUND plane (flat): the sidewalk/apron (0), the arrival drive (1) + markings (11) + the curb cuts (5), the dry pool basin (12). STRUCTURES (¾ front face, solid): the PODIUM (2, ENTERABLE -> the casino floor), the GUEST TOWER (6, ENTERABLE -> a guest corridor), the PARKING GARAGE deck (8, ENTERABLE), the roof/plant decks (4, 14) and the SKYLIGHTS (15). OVERHEAD (pass under): the porte cochere canopy (7). PORTALS: the lobby doors (13). PROPS: pole lights / canopy columns (9), abandoned vehicles (10), dead planting (3). The tower is the vertical mass and the podium is the plinth; you walk under the canopy and in through the lobby.',
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the lobby and its arrival forecourt are on the primary street. The arrival DRIVE (code 1) is one connected car surface entering off the street, crossing the arrival forecourt at the lobby and returning to the street (K.driveReachFromStreet). Pedestrians walk the sidewalk (0) straight onto the podium frontage; the forecourt (7) is open ground you walk and drive straight across.',
+    layering:'GROUND plane (flat): the sidewalk/apron (0), the arrival drive (1) + markings (11) + the curb cuts (5), the dry pool basin (12). STRUCTURES (¾ front face, solid): the PODIUM (2, ENTERABLE -> the casino floor), the GUEST TOWER (6, ENTERABLE -> a guest corridor), the PARKING GARAGE deck (8, ENTERABLE), the roof/plant decks (4, 14) and the SKYLIGHTS (15). PORTALS: the lobby doors (13). PROPS: colonnade piers (9), abandoned vehicles (10), dead planting (3). The tower is the vertical mass and the podium is the plinth; you cross the forecourt between the piers and in through the lobby.',
     decisions:['NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): no fence, no perimeter wall, no bollard line, no kerb ring. The podium meeting the sidewalk is the edge, which is what the real building does.',
-      'Act-1 DEAD: casino floor dark and stripped, lobby door standing open, pool a dry basin, cars abandoned under the canopy, drift in the drive.',
+      'Act-1 DEAD: casino floor dark and stripped, lobby door standing open, pool a dry basin, cars abandoned on the forecourt, drift in the drive.',
       'Gaming/resort category. Zero purple. NO FACTION, NO OWNER, NO NAME anywhere — who holds the Strip is Paolo\'s to rule (MECHANISM-MINE / CONTENTS-PAOLO\'S).',
       'The podium, the tower and the garage are all ENTERABLE, so the interior/zoom phase has three real volumes to open rather than a facade.',
       'Research-first (per the playbook): built from real Las Vegas resort site plans, not from memory of what a casino looks like.']

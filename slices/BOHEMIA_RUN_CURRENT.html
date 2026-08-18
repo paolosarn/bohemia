@@ -17362,7 +17362,17 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
   var RAI= HASREQ ? require('./bohemia_rail.js')           : (typeof BohemiaRail!=='undefined'?BohemiaRail:root.BohemiaRail);
   var ICH= HASREQ ? require('./bohemia_interchange.js')    : (typeof BohemiaInterchange!=='undefined'?BohemiaInterchange:root.BohemiaInterchange);
   // GAMING & RESORT is BESPOKE (Paolo 7/18): casinos/resorts get individual hand-crafted
-  // love, NOT the auto-factory. No DISTGEN entry — they stay landmark placeholders until built by hand.
+  // love, NOT the auto-factory.
+  // BUILT BY HAND, 8/18. That reservation was never "leave them blank forever", it was
+  // "no auto-factory" — and for four months it was read as the first thing, so the three
+  // biggest gaming types in the valley (resort 118 cells, strip 81, casino 5) generated
+  // NOTHING and rendered as flat coloured diamonds on the map. These three modules ARE the
+  // individual hand-crafted love: each researched off real Las Vegas site plans, each with
+  // its own legend, dossier and layering, and each a different building from the other two
+  // (Strip podium+tower / the boulevard itself / a no-setback downtown floor).
+  var RES= HASREQ ? require('./bohemia_resort.js')          : (typeof BohemiaResort!=='undefined'?BohemiaResort:root.BohemiaResort);
+  var CAS= HASREQ ? require('./bohemia_casino.js')          : (typeof BohemiaCasino!=='undefined'?BohemiaCasino:root.BohemiaCasino);
+  var STR= HASREQ ? require('./bohemia_strip.js')           : (typeof BohemiaStrip!=='undefined'?BohemiaStrip:root.BohemiaStrip);
 
   // THE FACTORY (Paolo 7/18): a district TYPE -> its generator. Adding a district is now
   // one line here. Each generator emits {g,W,H} + a footprints() of enterable buildings;
@@ -17412,6 +17422,10 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
     speedway:   { mod:SPW, foot:function(r){return r.footprints;},           zone:'leisure' },
     town:       { mod:TWN, foot:function(r){return r.footprints;},           zone:'residential' },
     ballpark:   { mod:BLP, foot:function(r){return r.footprints;},           zone:'leisure' },
+    // GAMING & RESORT (8/18): the two gaming PLOTS. `strip` is the boulevard itself and is
+    // a SURFACE, not a district — it is in SURFACEGEN below, with the roads it belongs to.
+    resort:     { mod:RES, foot:function(r){return r.footprints;},           zone:'leisure' },
+    casino:     { mod:CAS, foot:function(r){return r.footprints;},           zone:'leisure' },
     // THE TWELVE UTILITY LANDMARKS (8/5). Every one of these was already SITED by the
     // overmap with real geography behind it (Sloan quarry, the granary on the rail line,
     // the Lake Mead intake, the tank farm, the flood detention basins) and every one of
@@ -17442,6 +17456,13 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
   var SURFACEGEN = {
     arterial: { mod:ART, zone:'default' },
     freeway:  { mod:FWY, zone:'default' },
+    /* LAS VEGAS BOULEVARD (8/18). `strip` has been in ROADSET since the overmap was
+       written — every district beside it has always treated it as the street it fronts
+       onto — and it has been in SURFACEGEN never, so all 81 cells of the resort corridor
+       generated bare ground. It is a network tile like the arterial, not a lot: eight
+       lanes, a palm median, a promenade at the back of curb, and the enclosed pedestrian
+       bridges at the crossings. */
+    strip:    { mod:STR, zone:'default' },
     // TERRAIN (7/26): the raw land. Sampled from ONE valley-wide noise field in global
     // coordinates (bohemia_terrain_noise.js), never from the cell seed, so ridges,
     // rills and shorelines cross cell boundaries without a seam. Still surfaces, never

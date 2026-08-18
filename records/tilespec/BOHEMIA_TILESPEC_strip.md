@@ -39,15 +39,15 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
 | 0 | `dead-dirt (kit ground)` | dirt margin | ground | a strip of graded dirt where the promenade stops short of the property line | ground | no | — | — |
-| 1 | `#33333c` | asphalt roadway | drive | eight lanes of Las Vegas Boulevard, patched, rutted and sun-bleached | ground | no | — | 5492 |
+| 1 | `#33333c` | asphalt roadway | drive | eight lanes of Las Vegas Boulevard, patched, rutted and sun-bleached | ground | no | — | 3832 |
 | 2 | `#b3ab97` | white lane line | marking | faded white lane line, dashed between lanes going the same way | ground | no | — | 652 |
 | 3 | `#b3ab97` | crosswalk | marking | ladder crosswalk across the approach, worn down to ghosts of bars | ground | no | — | — |
 | 4 | `#5f5f4a` | palm median | ground | the wide landscaped median down the middle of the boulevard, irrigation dead, gravel and dust | ground | no | — | 1906 |
 | 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt packed in it, the promenade starting right off the back of it | ground | no | — | 512 |
-| 6 | `#8a8a92` | promenade | walk | the Strip promenade: wide pavers at the back of curb, cracked and lifted, sand drifted along the building line | ground | no | — | 7751 |
+| 6 | `#8a8a92` | promenade | walk | the Strip promenade: wide pavers at the back of curb, cracked and lifted, sand drifted along the building line | ground | no | — | 2035 |
 | 7 | `#4a4030` | planter | tree-dead | a tree well cut into the promenade, the tree gone, the pit full of grit and trash | prop | no | — | 19 |
 | 9 | `#8f8676` | streetlight | prop | a boulevard light standard on the promenade, head dark | prop | yes | — | 9 |
-| 11 | `#3a4520` | dead palm | tree-dead | a Strip palm dead on its feet — bare trunk, the crown collapsed years ago | prop | yes | — | 23 |
+| 11 | `#4d4a38` | dead palm | tree-dead | a Strip palm dead on its feet — bare grey trunk, the crown collapsed years ago; nothing in this valley is green | prop | yes | — | 23 |
 | 12 | `#6a6a72` | signal mast | prop | traffic signal mast arm reaching out over the lanes, every head dark | prop | yes | — | — |
 | 14 | `#55555f` | dead car | vehicle | a car left in the lane where the traffic stopped, tyres flat, glass gone | prop | yes | — | — |
 | 15 | `#b3ab97` | stop bar | marking | wide white stop bar behind the crosswalk | ground | no | — | — |
@@ -56,6 +56,10 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 18 | `#7c8390` | pedestrian bridge | overhead | the enclosed pedestrian bridge over the boulevard — you walk ACROSS it and you pass UNDER it; the glazing is starred and the moving walkway is stopped | overhead | no | — | — |
 | 19 | `#6d7280` | bridge tower | structure | the stair and escalator tower carrying the bridge down to the promenade, escalator treads frozen mid-flight | structure | yes | the tower stair: switchback flights up to the bridge deck, handrails cold, one landing open to the street | — |
 | 20 | `#5c5648` | marquee pylon | structure | a resort marquee pylon standing at the property line, the sign face dark and blank | structure | yes | — | 20 |
+| 21 | `#7e7e86` | paver band | walk | the banded pavers running down the middle of the promenade, lifted and rocking where the roots got under them | ground | no | — | 2793 |
+| 22 | `#6f6f78` | building-line margin | walk | the last strip of promenade against the property line, where the resort frontage takes the ground over — sand drifted deep along it | ground | no | — | 2923 |
+| 23 | `#2e2e36` | junction box | drive | the asphalt inside the junction, polished by the turning traffic and unpainted, because nothing is ever striped through a crossing | ground | no | — | — |
+| 24 | `#3b3b44` | bus / taxi lane | drive | the kerb-side bus and taxi lane, rutted where a thousand coaches stopped in the same spot every day | ground | no | — | 1660 |
 
 **Gate:** the street-aware/drivable law via `gates/district_kit_gate.js`, the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.
 **Decisions / rejections:** see `records/BOHEMIA_FAILURE_GRAVEYARD_7_19_26.md` + the handoff.
