@@ -329,9 +329,25 @@ async function partC() {
         .map(r => [r.querySelector('.k').textContent, r.querySelector('.v').textContent]);
     });
     const afterRow = after.find(r => r[0] === 'NAME' || r[0] === 'KNOWN AS');
-    ok('C8 pressing the real button changes what the real card says they are called',
-      !!afterRow && afterRow[1] !== beforeName,
-      'before ' + JSON.stringify(beforeName) + ' after ' + JSON.stringify(afterRow));
+    /* ★ THIS CLAIM WAS RULE-BLIND, AND 8/18 EXPOSED IT. It asserted that pressing
+       ask ALWAYS changes the name -- true for most of the sixteen, and flatly
+       false for the ones whose canon is that asking gets you nothing. It only
+       ever passed because the person the probe happened to meet was one of the
+       former; the day allegiance started following the ground (8/16), the probe
+       started meeting a Cartel member instead and went red about the feature
+       working correctly.
+       THE CARD ITSELF STATES WHICH RULE IT IS UNDER -- "HOW YOU GET THE REST" --
+       so the claim now reads that and asserts the matching half. Cross-checking
+       the two rows against each other is worth more than the old blanket claim:
+       it catches a card that SAYS never and then hands the name over anyway. */
+    const howRow = (opened.rows.find(r => /HOW YOU GET/.test(r[0])) || [])[1] || '';
+    const neverEarns = /NOTHING\. EVER\.?/i.test(howRow);
+    ok('C8 pressing the real button changes what the real card says they are called '
+      + '— unless their canon is that it never will, and then it must NOT'
+      + (neverEarns ? ' [this one: NEVER]' : ''),
+      !!afterRow && (neverEarns ? afterRow[1] === beforeName : afterRow[1] !== beforeName),
+      'howYouGetTheRest ' + JSON.stringify(howRow)
+      + ' before ' + JSON.stringify(beforeName) + ' after ' + JSON.stringify(afterRow));
 
     /* THE CONTRADICTION TEST. Force a faction whose handle is NOT a name and
        assert the card shows the handle and NOT the full name people.js would

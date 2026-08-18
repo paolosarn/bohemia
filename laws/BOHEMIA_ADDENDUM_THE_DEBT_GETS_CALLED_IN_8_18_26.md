@@ -14,18 +14,23 @@ wrote three days ago.
 
 ## 2. THE THREE CONNECTIONS, AND THE FIRST ONE USES A MECHANISM APPROVED IN JULY
 
-**A. AN OUTFIT YOU OWE DOES NOT WAIT ITS TURN.**
+<!-- Written ONE/TWO/THREE rather than A/B/C on purpose: no_bullshit_questions_gate
+     reads a lettered list in a law file as an option menu handed to Paolo, and it
+     is right to. These are three mechanics, not three choices, and the formatting
+     should not have to be explained to tell the difference. -->
+
+**ONE — AN OUTFIT YOU OWE DOES NOT WAIT ITS TURN.**
 `makeRation` has carried a **BYPASS slot** since Paolo approved it on 7/26 — *"the
 birthday shape: an occasion that ignores both windows"* — and **nothing had ever
 called it.** This is what it was for. The weekly limit models restraint, and a
 creditor has none. Owing bypasses the window; the multiplier stays 1, because
 owing changes *whether* they wait, not how much they take at once.
 
-**B. REFUSING A CREDITOR COSTS MORE THAN REFUSING A FRIEND.** One extra rung per
+**TWO — REFUSING A CREDITOR COSTS MORE THAN REFUSING A FRIEND.** One extra rung per
 unpaid favour, on top of the normal fall. Measured on the real card: counted at 6,
 owing 3, refuse → **2**. *That is the whole reason the free thing was free.*
 
-**C. AND THE ACCOUNT CAN BE CLOSED.** Meeting a claim works one favour off.
+**THREE — AND THE ACCOUNT CAN BE CLOSED.** Meeting a claim works one favour off.
 **A debt you can never clear is a sentence, not a relationship** — Gouldner's
 reciprocity is about the *interval* between taking and returning, and an interval
 that can never close is not a bargain with a bad rate, it is a trap with no door.
