@@ -3,10 +3,10 @@
   "what": "Every authored player-facing line in Bohemia, with the questbook catalogue laws each was written from.",
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
-  "sources": 32,
-  "lines": 1723,
-  "cited": 1721,
-  "fingerprint": "4edb1e29dadac8d9",
+  "sources": 33,
+  "lines": 1769,
+  "cited": 1763,
+  "fingerprint": "c2cc9a9abb1e884a",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -46213,6 +46213,1028 @@
      ],
      "citeLevel": "line",
      "title": "THE GRIEF DINNER"
+    }
+   ]
+  },
+  {
+   "src": "records/BOHEMIA_ASKING.json",
+   "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+   "kind": "asking",
+   "cites": [],
+   "lines": [
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#names:keeper",
+     "node": "asked about names",
+     "text": "They came to me with the book and asked who buys what. I gave them last year's names and they wrote every one down."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#names:keeper.line",
+     "node": "asked about names (goes in the log)",
+     "text": "They wrote down last year's names without checking one of them."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#names:keeper.implies",
+     "node": "asked about names (the question it leaves)",
+     "text": "Whoever is collecting names is not checking whether they are real."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "worker",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#names:worker",
+     "node": "asked about names",
+     "text": "They have got me twice, spelled two ways. Both of them get post."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "worker",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#names:worker.line",
+     "node": "asked about names (goes in the log)",
+     "text": "One man is on the list twice under two spellings, and both get post."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "worker",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#names:worker.implies",
+     "node": "asked about names (the question it leaves)",
+     "text": "The list is being used to send things, not to find people."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#power:watch",
+     "node": "asked about power",
+     "text": "That street has been lit since before I started sitting out here. And nobody has ever changed a bulb on it."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#power:watch.line",
+     "node": "asked about power (goes in the log)",
+     "text": "Nobody has ever changed a bulb on the lit street."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#power:watch.implies",
+     "node": "asked about power (the question it leaves)",
+     "text": "Whatever keeps that street lit does not need anybody to maintain it."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "scav",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#power:scav",
+     "node": "asked about power",
+     "text": "You cannot pull anything off that block. I have tried. It is all bolted like somebody meant it to stay."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "scav",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#power:scav.line",
+     "node": "asked about power (goes in the log)",
+     "text": "Everything on the lit block is bolted like somebody meant it to stay."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "scav",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#power:scav.implies",
+     "node": "asked about power (the question it leaves)",
+     "text": "Somebody built that block to last and did not want it stripped."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "scav",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#salvage:scav",
+     "node": "asked about salvage",
+     "text": "Carports. Awnings. Anything nobody looks up at. And go early, because you are not the only one who worked it out."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "scav",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#salvage:scav.line",
+     "node": "asked about salvage (goes in the log)",
+     "text": "Somebody else is already working the carports, and they go early."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "scav",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#salvage:scav.implies",
+     "node": "asked about salvage (the question it leaves)",
+     "text": "Somebody is stripping the same places you are, and getting there first."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#salvage:keeper",
+     "node": "asked about salvage",
+     "text": "I buy what comes off the carports and I do not ask. It comes in clean, and clean is the part that bothers me."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#salvage:keeper.line",
+     "node": "asked about salvage (goes in the log)",
+     "text": "What comes off the carports arrives clean, and that is unusual."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#salvage:keeper.implies",
+     "node": "asked about salvage (the question it leaves)",
+     "text": "Somebody is stripping panels carefully rather than fast."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#strangers:watch",
+     "node": "asked about strangers",
+     "text": "Two visits, nothing bought, and they walked the same line both times. That is somebody measuring."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#strangers:watch.line",
+     "node": "asked about strangers (goes in the log)",
+     "text": "They walked the same line twice and bought nothing."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#strangers:watch.implies",
+     "node": "asked about strangers (the question it leaves)",
+     "text": "Somebody is measuring this street rather than shopping on it."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#strangers:keeper",
+     "node": "asked about strangers",
+     "text": "They asked what I keep out back. Nobody asks what I keep out back."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#strangers:keeper.line",
+     "node": "asked about strangers (goes in the log)",
+     "text": "They asked what is kept out back, which nobody asks."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#strangers:keeper.implies",
+     "node": "asked about strangers (the question it leaves)",
+     "text": "Somebody is interested in what is behind the counters, not on them."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#the-hill:watch",
+     "node": "asked about the hill",
+     "text": "He is not stopping anybody. He is counting. That is a different job and it took me too long to see it."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#the-hill:watch.line",
+     "node": "asked about the hill (goes in the log)",
+     "text": "The man on the hill road is counting, not stopping."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#the-hill:watch.implies",
+     "node": "asked about the hill (the question it leaves)",
+     "text": "Somebody wants to know how many go up, and does not mind who."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "scav",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#the-hill:scav",
+     "node": "asked about the hill",
+     "text": "I went up once. There is nothing up there worth carrying down. Somebody still thought it was worth watching."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "scav",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#the-hill:scav.line",
+     "node": "asked about the hill (goes in the log)",
+     "text": "There is nothing up the hill worth carrying down, and it is watched anyway."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "scav",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#the-hill:scav.implies",
+     "node": "asked about the hill (the question it leaves)",
+     "text": "What is up the hill is not worth stealing, which is why it is worth watching."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#water:keeper",
+     "node": "asked about water",
+     "text": "Before five it comes off the high line. After five you are on the tank, and the tank is somebody's."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#water:keeper.line",
+     "node": "asked about water (goes in the log)",
+     "text": "After five you are on the tank, and the tank is somebody's."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#water:keeper.implies",
+     "node": "asked about water (the question it leaves)",
+     "text": "Somebody owns the tank the whole block drinks from after five."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "worker",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#water:worker",
+     "node": "asked about water",
+     "text": "I have carried pipe for them twice. Same yard both times. Paid cash both times, which nobody does unless they would rather not write it down."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "worker",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#water:worker.line",
+     "node": "asked about water (goes in the log)",
+     "text": "Pipe gets carried to the same yard, and it is paid for in cash."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "worker",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#water:worker.implies",
+     "node": "asked about water (the question it leaves)",
+     "text": "Somebody is moving water and would rather it was not written down."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "worker",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#work:worker",
+     "node": "asked about work",
+     "text": "They took my name in the spring and never called it. Somebody I know gave them a name the same week and was working by Friday."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "worker",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#work:worker.line",
+     "node": "asked about work (goes in the log)",
+     "text": "They take everybody's name and call almost nobody."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "worker",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W4",
+       "title": "MULTIPLE KEYS TO THE ANSWER",
+       "applied": "many diegetic paths to the same knowledge. Every subject is answerable by two different trades, so you are never hunting one specific person, and the build refuses a subject whose answers all come from one trade."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#work:worker.implies",
+     "node": "asked about work (the question it leaves)",
+     "text": "Being on that list is not what gets you the work."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#work:watch",
+     "node": "asked about work",
+     "text": "The yard fills up on the days the water is off. Every time. I stopped believing that was chance a while ago."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#work:watch.line",
+     "node": "asked about work (goes in the log)",
+     "text": "The yard fills up on the days the water is off, every time."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q014.W3",
+       "title": "SOCIAL DEDUCTION VIA DIEGETIC MEANS",
+       "applied": "the investigation happens through the social fabric rather than a quest log. Asking a person IS the mechanism; there is no menu of leads."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They tell you what they carried, what they were paid, and what they noticed."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK",
+     "id": "records/BOHEMIA_ASKING.json#work:watch.implies",
+     "node": "asked about work (the question it leaves)",
+     "text": "Whoever runs the yard knows when the water goes off before it goes off."
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "worker",
+     "id": "records/BOHEMIA_ASKING.json#deflect:worker",
+     "node": "does not know",
+     "text": "I work. I do not keep track of who is doing what to who.",
+     "draft": true,
+     "cites": [],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK"
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "scav",
+     "id": "records/BOHEMIA_ASKING.json#deflect:scav",
+     "node": "does not know",
+     "text": "Ask somebody who stands still for a living. I am never in one place long enough.",
+     "draft": true,
+     "cites": [],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK"
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "keeper",
+     "id": "records/BOHEMIA_ASKING.json#deflect:keeper",
+     "node": "does not know",
+     "text": "I hear things across this counter all day. That is not one of them.",
+     "draft": true,
+     "cites": [],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK"
+    },
+    {
+     "kind": "asking",
+     "src": "records/BOHEMIA_ASKING.json",
+     "speaker": "watch",
+     "id": "records/BOHEMIA_ASKING.json#deflect:watch",
+     "node": "does not know",
+     "text": "I watch this street. That is not this street.",
+     "draft": true,
+     "cites": [],
+     "citeLevel": "line",
+     "title": "WHAT THEY TELL YOU WHEN YOU ASK"
     }
    ]
   },

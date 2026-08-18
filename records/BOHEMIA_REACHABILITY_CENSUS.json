@@ -1012,6 +1012,15 @@
    "bytes": 28759
   },
   {
+   "path": "engine/bohemia_asking.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 16,
+   "hits_shown": 16,
+   "hits_loaded": 1,
+   "bytes": 16274
+  },
+  {
    "path": "engine/bohemia_ballpark.js",
    "kind": "engine",
    "verdict": "SHOWN (part)",

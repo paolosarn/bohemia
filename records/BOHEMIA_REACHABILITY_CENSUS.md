@@ -192,6 +192,7 @@ verbatim.
 | `engine/bohemia_bq.js` | engine | 22/22 |
 | `engine/bohemia_resolve.js` | engine | 20/20 |
 | `banks/BOHEMIA_MUSIC_BATCH9_DROPIN.txt` | bank | 18/23 |
+| `engine/bohemia_asking.js` | engine | 16/16 |
 | `engine/bohemia_floorplan.js` | engine | 15/15 |
 | `engine/bohemia_daycycle.js` | engine | 14/14 |
 | `banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt` | bank | 13/27 |
@@ -203,4 +204,3 @@ verbatim.
 | `engine/bohemia_purse.js` | engine | 8/8 |
 | `engine/bohemia_story_surface.js` | engine | 8/8 |
 | `engine/bohemia_population.js` | engine | 7/7 |
-| `engine/bohemia_commitment.js` | engine | 6/6 |

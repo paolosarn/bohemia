@@ -1151,6 +1151,22 @@ GATES = [
      'inside a try/catch that ate it. A CAUGHT EXCEPTION IN A DRAW PATH IS A FEATURE THAT '
      'SILENTLY DOES NOTHING. So the claim is the same frame drawn silent and spoken, and the '
      'pixels must DIFFER', False),
+    ('ASKING', ['node', 'gates/asking_gate.js'],
+     'The overheard-fact log shipped READ-ONLY: eleven true things about this valley and no '
+     'way to do anything with any of them. Q018.W3 THE RUMOR WEB asks for a thread to PULL, '
+     'and a thread you cannot pull is a list. Now you can ask somebody about a subject you '
+     'overheard, and if their TRADE knows it the thread goes one step deeper into the same '
+     'log. SCOPED, NOT COMBINATORIAL: Q047.X1 tells a solo dev to get the effect of '
+     'reactivity with templated content rather than volume, and the research agrees hard '
+     '(Disco Elysium\'s four call signs alone cost 428 new dialogue cards), so it is 7 '
+     'subjects x 2 answers + 4 reusable refusals -- 18 blocks covering 28 combinations, and '
+     'this asserts that shape so nobody "improves" it into a content mountain. Every subject '
+     'is answerable by TWO trades (Q014.W4 MULTIPLE KEYS) so you never hunt one body; you can '
+     'only ask about what you really overheard (Q001.P8); a refusal names a TRADE and never a '
+     'place (Q037.W3, the log IS the map); and NOTHING RESOLVES, because what is up the hill '
+     'and who owns the tank are CANON and his. It PRESSES THE BUTTON, because the first cut '
+     'drew three perfect buttons that did nothing at all -- the patch guard matched a string '
+     'the step above it had just inserted, so the handler was never bound', False),
     ('WHAT YOU HEARD', ['node', 'gates/known_gate.js'],
      'The street exchanges shipped with ELEVEN conversations that say something TRUE about '
      'this valley said nowhere else, and the fact went NOWHERE: you overheard it, the bubble '

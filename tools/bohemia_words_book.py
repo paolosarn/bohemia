@@ -220,7 +220,35 @@ def parse_barks(path):
 
 # WHAT MAKES A records/ JSON A DIALOGUE FILE: a top-level container of lines.
 # Routed BY CONTENT, so a new one is picked up the day it lands.
-CONTAINERS = ('barks', 'reactions', 'exchanges')
+CONTAINERS = ('barks', 'reactions', 'exchanges', 'asking')
+
+
+def parse_asking(path):
+    """WHAT SOMEBODY TELLS YOU WHEN YOU ASK. Three strings per answer: what they
+    SAY, and the two halves of the fact it adds to your log. All three are words
+    he has not approved, so all three are here. The refusals are words too."""
+    with open(path, 'r', encoding='utf-8') as f:
+        d = json.load(f)
+    rel = os.path.relpath(path, ROOT).replace(os.sep, '/')
+    out = []
+    for a in d.get('asking', []):
+        base = {'kind': 'asking', 'src': rel, 'speaker': a.get('who') or 'any',
+                'draft': a.get('draft') is True, 'cites': a.get('study') or [],
+                'citeLevel': 'line', 'title': 'WHAT THEY TELL YOU WHEN YOU ASK'}
+        node = 'asked about ' + a.get('subject', '')
+        out.append(dict(base, id=rel + '#' + a['id'], node=node, text=a.get('says') or ''))
+        dp = a.get('deeper') or {}
+        out.append(dict(base, id=rel + '#' + a['id'] + '.line', node=node + ' (goes in the log)',
+                        text=dp.get('line') or ''))
+        out.append(dict(base, id=rel + '#' + a['id'] + '.implies',
+                        node=node + ' (the question it leaves)', text=dp.get('implies') or ''))
+    for trade, line in (d.get('deflect') or {}).items():
+        out.append({'kind': 'asking', 'src': rel, 'speaker': trade,
+                    'id': rel + '#deflect:' + trade, 'node': 'does not know',
+                    'text': line, 'draft': True, 'cites': [], 'citeLevel': 'line',
+                    'title': 'WHAT THEY TELL YOU WHEN YOU ASK'})
+    return {'src': rel, 'title': 'WHAT THEY TELL YOU WHEN YOU ASK', 'kind': 'asking',
+            'cites': [], 'lines': out}
 
 
 def parse_exchanges(path):
@@ -307,6 +335,8 @@ def harvest():
             books.append(parse_reactions(p))
         elif p.endswith('BOHEMIA_EXCHANGES.json'):
             books.append(parse_exchanges(p))
+        elif p.endswith('BOHEMIA_ASKING.json'):
+            books.append(parse_asking(p))
         else:
             books.append(parse_scene(p))
     return books

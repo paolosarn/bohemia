@@ -1,3 +1,65 @@
+PEOPLE (people-7h9sfy): 8/17 (c) LATEST -- *** THE THREAD IS PULLABLE NOW. YOU CAN
+ASK SOMEBODY ABOUT WHAT YOU OVERHEARD AND IT GOES ONE STEP DEEPER. TAB: RUN,
+walk up to anybody and the buttons are on their card. ***
+
+The overheard-fact log shipped READ-ONLY this morning: eleven true things about
+this valley and no way to do anything with any of them. Q018.W3 asks for a thread
+to PULL, and a thread you cannot pull is a list.
+  tools/bohemia_asking_factory.py -> engine/bohemia_asking.js
+  tools/bohemia_city_asking_patch.py (idempotent by md5)
+  gates/asking_gate.js, 21 claims, registered as ASKING
+  records/BOHEMIA_ASKING_8_17_26.md
+
+DRIVEN ON THE REAL SURFACE: overheard "the hill" on the street, asked a
+SCAVENGER, and got back "I went up once. There is nothing up there worth carrying
+down. Somebody still thought it was worth watching." The log went 3 facts to 4,
+the new one reading "There is nothing up the hill worth carrying down, and it is
+watched anyway / What is up the hill is not worth stealing, which is why it is
+worth watching", and "the hill" vanished from that person's buttons.
+
+*** SCOPED, NOT COMBINATORIAL, AND BOTH THE RESEARCH AND THE CORPUS SAY SO. ***
+The obvious shape is an answer per person per topic and it is a mountain: Disco
+Elysium's four player call signs alone cost 428 new dialogue cards. Q047.X1
+ASTRONOMICAL WRITING/VO COST tells a solo dev to get the EFFECT with SCOPED,
+SMARTLY-TEMPLATED content instead. So it is 7 subjects x 2 answers + 4 REUSABLE
+refusals: 18 authored blocks covering 28 person-and-subject combinations. Adding
+a subject costs two answers, not one per resident, AND THE GATE ASSERTS THAT
+SHAPE so nobody "improves" it into a content mountain.
+
+RULES IT KEEPS: every subject answerable by TWO trades (Q014.W4 MULTIPLE KEYS) so
+you never hunt one body; you can only ask about what you really overheard to the
+end (Q001.P8) and an empty log offers zero buttons; a refusal names a TRADE and
+never a place (Q037.W3, the log IS the map); three buttons maximum, because the
+RUN lane spent 8/16 taking buttons OFF this surface.
+
+*** NOTHING RESOLVES, ON PURPOSE. *** Every deeper fact asks a SHARPER question
+and stops. What is up the hill, who owns the tank the block drinks from after
+five, and who is collecting names are CANON and HIS. The destinations ship empty.
+A tool that invented them would be writing his world for him. THIS IS THE ONE
+THING IN THE LANE WAITING ON A RULING FROM HIM, and it is not blocking: the
+mechanism is complete and playable without an answer.
+
+*** THE BUG I SHIPPED, AND IT IS THE SECOND TIME IN TWO DAYS ***
+The first cut drew THREE PERFECT BUTTONS THAT DID NOTHING AT ALL. The patch
+tool's "already applied?" guard was `if 'ctaskabout' in s` -- and the step
+immediately above had just inserted the button markup containing that exact
+string, so the tool believed it had already run and THE CLICK HANDLER WAS NEVER
+BOUND. A GUARD THAT MATCHES SOMETHING AN EARLIER STEP WROTE IS NOT A GUARD, IT IS
+A COIN FLIP THAT ALWAYS LANDS THE SAME WAY. Every patch tool in tools/ that
+inserts more than one block has this failure available to it: check yours.
+
+LOOK IS STILL 23/1 AND IT IS STILL NOT MINE. See the note to the CHARACTER lane
+below; nothing changed, tools/bohemia_border_picture.js still dies on a
+records/2x/before/ input that is not in the repo.
+
+WHAT COMES NEXT FOR THIS LANE: (1) the deeper facts are the natural place for a
+RULING -- one sentence from him about what is up the hill turns seven dead ends
+into seven destinations, and the mechanism is already built to carry them.
+(2) Exchanges and answers are picked by TRADE only; the sim already knows
+faction, standing, what you were SEEN doing and whether they have met you.
+(3) Quest volume: 114 questbook studies still untouched.
+
+PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
 ART (f3eu53): 8/18 (b) LATEST -- *** COMPOSITION AUDIT: six districts
 walked on the live build, families checked TOGETHER for the first time.
 Verdict: composed. One finding fixed: the waterpark lawn's row-locked turf

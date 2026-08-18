@@ -105,7 +105,7 @@ var reactFile = fs.existsSync('records/BOHEMIA_REACTIONS.json') ? ['records/BOHE
    124 lines he cannot edit. Discovery is BY CONTENT now, on both sides,
    independently stated, so a new dialogue file is picked up the day it lands
    and the two lists cannot silently drift apart. */
-var CONTAINERS = ['barks', 'reactions', 'exchanges'];
+var CONTAINERS = ['barks', 'reactions', 'exchanges', 'asking'];
 var lineFiles = fs.readdirSync('records').sort().filter(function (f) {
   if (!/^BOHEMIA_.*\.json$/.test(f)) return false;
   if (/^BOHEMIA_SCENE_/.test(f)) return false;
@@ -312,6 +312,28 @@ if (reactFile.length) {
    and the bark table cited that finding while shipping 244 lines of people
    talking to nobody. These are the conversations. They are drafted words he has
    not approved, so they obey exactly the same law as everything else here. */
+/* WHAT SOMEBODY TELLS YOU WHEN YOU ASK (8/17). Three strings per answer plus a
+   refusal per trade, all of them drafted words he has not approved. */
+var askN = 0, askBad = [];
+if (fs.existsSync('records/BOHEMIA_ASKING.json')) {
+  var AJ = JSON.parse(fs.readFileSync('records/BOHEMIA_ASKING.json', 'utf8'));
+  (AJ.asking || []).forEach(function (a) {
+    askN += 3;
+    (a.study || []).forEach(function (c) {
+      var e = LAWS[c.id];
+      if (!e) askBad.push(a.id + ' -> ' + c.id);
+      else if (String(e.title || '').trim() !== String(c.title || '').trim())
+        askBad.push(a.id + ' -> ' + c.id + ' not verbatim');
+    });
+    if (!a.study || a.study.length < 2) askBad.push(a.id + ' (<2 studies)');
+  });
+  askN += Object.keys(AJ.deflect || {}).length;
+  ok(askN >= 40, 'YOU CAN ASK ABOUT WHAT YOU HEARD (' + askN + ' lines across ' +
+    (AJ.asking || []).length + ' answers)');
+  ok(askBad.length === 0, 'every answer cites the catalogue, verbatim' +
+    (askBad.length ? ' — ' + askBad.slice(0, 3).join(', ') : ''));
+}
+
 var xchN = 0, xchUncited = [], xchBadId = [], xchBadTitle = [], xchThin = [], xchHeard = [];
 if (fs.existsSync('records/BOHEMIA_EXCHANGES.json')) {
   var XJ = JSON.parse(fs.readFileSync('records/BOHEMIA_EXCHANGES.json', 'utf8'));
@@ -436,7 +458,7 @@ if (BOOK) {
       else if (/^@OBJ\s+\d+\s+"/.test(ln)) mine++;
     });
   });
-  mine += barkN + reactN + xchN;   /* ambient lines, reactions and the
+  mine += barkN + reactN + xchN + askN;   /* ambient lines, reactions and the
      two-person exchanges are all in the book too. ALL FOUR turns of an
      exchange count, including the opening line the player never hears: he
      cannot edit what the second line is answering if he cannot see it. */
