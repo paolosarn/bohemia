@@ -44,6 +44,11 @@ const DISTRICTS = [
   { name: 'cityhall',   mod: require('../engine/bohemia_cityhall.js') },
   { name: 'battery',    mod: require('../engine/bohemia_battery.js') },
   { name: 'terminal',   mod: require('../engine/bohemia_terminal.js') },
+  // GAMING & RESORT (8/18): the three types the 7/18 "bespoke, not the auto-factory"
+  // reservation left generating nothing for four months. Two plots and one street.
+  { name: 'resort',     mod: require('../engine/bohemia_resort.js') },
+  { name: 'casino',     mod: require('../engine/bohemia_casino.js') },
+  { name: 'strip',      mod: require('../engine/bohemia_strip.js') },
 ];
 
 for (const d of DISTRICTS) {

@@ -13527,6 +13527,874 @@ const BEAT=500; // 120BPM law
    body shared with the rest of the build). Edits resolve through om.at, the ONE
    seam every consumer reads (city overview AND the fine-grain walk tiles), so a
    change shows at every zoom. ==== */
+/* ==== engine/bohemia_resort.js (canon, married 8/18) ==== */
+// BOHEMIA RESORT (8/16/26). GAMING/RESORT, on the DISTRICT KIT. Research-first (Las Vegas
+// mega-resort site plans — Encore/Wynn, Paris Las Vegas, Circa; SpotlightVegas on mega-resort
+// spatial design): the canonical Strip resort is a PODIUM + TOWER. Podium floors 1-4 carry the
+// CASINO FLOOR, restaurants, theatre and convention space at grade; the GUEST TOWER stands on the
+// podium from floor 5 up and is the whole silhouette. A PORTE COCHERE wraps the tower base and
+// feeds the LOBBY off the drive; a decked PARKING GARAGE attaches to one end of the podium. The
+// pool deck sits behind, screened from the street by the building rather than by any wall.
+// ACT-1 DEAD: doors open, the casino floor dark and stripped, the pool a dry basin, cars left in
+// the porte cochere where they were abandoned.
+// NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): "no perimeter walls until I tell you, bro no
+// fencing no nothing bro." There is no fence, no yard wall, no bollard line and no kerb ring in
+// this district. The building IS the edge — which is how a real Strip resort works anyway: the
+// podium meets the sidewalk.
+// LEGEND:
+//  0 sidewalk / apron            1 drive lane (DRIVABLE)
+//  2 podium (casino floor)        3 dry planting bed
+//  4 podium roof band             5 drive entrance (curb cut — NOT a gate in a fence)
+//  6 guest tower                  7 porte cochere canopy (OVERHEAD)
+//  8 parking garage deck          9 pole light
+//  10 abandoned vehicle          11 drive marking      12 dry pool basin
+//  13 lobby doors (PORTAL)        14 tower plant deck   15 casino skylight
+(function(root){
+  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+  var M=K.M;
+
+  function buildCanonical(seed){
+    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
+    function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
+
+    // ---- BASE: sidewalk/apron everywhere; the drive is carved in below ----
+    G.rect(0,0,W-1,H-1,0);
+
+    // ---- THE PODIUM. Wall to wall across the plot, because that is what a Strip
+    //      podium does: it meets the sidewalk on its street frontage and there is
+    //      no setback to put a fence in.
+    G.rect(8,10,W-9,74,2);
+    G.rect(10,12,W-11,20,4);                                            // podium roof band (north)
+
+    // ---- THE GUEST TOWER on the podium: solid mass, the silhouette of the district.
+    //      Real Strip tower floorplates are long and thin (a double-loaded corridor with
+    //      rooms both sides), so this is 50 m x 30 m of SOLID tower, not a hollow ring —
+    //      the plant deck on top is a few small patches, the way a real roof reads.
+    G.rect(30,22,96,62,6);
+    G.rect(38,26,54,34,14); G.rect(66,26,84,32,14);                     // rooftop plant / cooling deck
+    G.rect(44,52,62,58,14); G.rect(74,50,88,58,14);
+
+    // ---- THE PORTE COCHERE + LOBBY, off the south drive ----
+    var cx=W>>1;
+    G.rect(cx-20,76,cx+20,90,7);                                        // the canopy (OVERHEAD: pass under)
+    for(i=-18;i<=18;i+=9) set(cx+i,90,9);                               // canopy columns read as pole lights
+    G.rect(cx-6,74,cx+6,75,13);                                         // the lobby doors into the podium
+
+    // ---- THE DRIVE: in off the street, under the canopy, back out. One surface. ----
+    G.rect(6,92,W-7,104,1);
+    G.rect(cx-20,90,cx+20,92,1);                                        // the porte-cochere lane itself
+    G.rect(10,104,14,H-1,1);                                            // the two street connections
+    G.rect(W-15,104,W-11,H-1,1);
+    for(x=16;x<=W-17;x+=10) set(x,98,11);                               // drive centre dashes
+    // THE CURB CUTS are the district's only "gate" — a gap in the kerb where the drive
+    // meets the street. No fence, no barrier, nothing to open (Paolo 8/16, LOCKED).
+    for(x=10;x<=14;x++) set(x,H-1,5);
+    for(x=W-15;x<=W-11;x++) set(x,H-1,5);
+
+    // ---- THE PARKING GARAGE on one end of the podium (open-deck, no wall) ----
+    G.rect(W-30,26,W-11,70,8);
+
+    // THE PODIUM ROOF IS NOT A BLANK SLAB. Seen from above a real resort podium is the
+    // busiest surface on the site: chiller banks, cooling towers, duct runs and kitchen
+    // extract covering most of it, with SKYLIGHTS punched over the casino floor and the
+    // atria. Drawn as one flat plate it read as exactly the "they all look the same"
+    // Paolo has been calling out, and it gave the hero factory nothing to extrude.
+    // RUNS LAST, ON WHAT IS LEFT. Placed before the tower and the garage it painted a
+    // plant field across ground those masses then covered, and only the strip of podium
+    // west of the tower survived -- so two thirds of the roof went back to being the blank
+    // slab this exists to kill. Measured on the grid sheet, not guessed.
+    for(y=24;y<=70;y+=7){
+      for(x=10;x<=W-11;x+=9){
+        if(get(x,y)!==2) continue;
+        var pw=2+Math.floor(r()*4), ph=2+Math.floor(r()*3);
+        if(r()<0.5) G.rect(x,y,Math.min(x+pw,W-11),Math.min(y+ph,73),4);        // plant
+        else if(r()<0.55) G.rect(x,y,Math.min(x+pw+2,W-11),Math.min(y+ph,73),15); // skylight
+      }
+    }
+
+    // ---- THE POOL DECK behind, screened by the building, not by a fence ----
+    G.rect(20,78,cx-26,88,12);                                          // the dry basin
+    for(i=0;i<12;i++){ var px=22+Math.floor(r()*(cx-50)), py=79+Math.floor(r()*8);
+      if(get(px,py)===12&&r()<0.4) set(px,py,3); }                      // dead planting in the basin
+
+    // ---- dead dressing: cars left in the porte cochere and on the drive ----
+    G.rect(cx-12,93,cx-11,97,10); G.rect(cx+9,93,cx+10,97,10);
+    G.rect(24,99,25,103,10);
+    for(i=0;i<18;i++){ var dx=8+Math.floor(r()*(W-16)), dy=92+Math.floor(r()*12);
+      if(get(dx,dy)===1&&r()<0.35) set(dx,dy,3); }                      // drift in the dead drive
+    return g;
+  }
+
+  function generate(seed,opts){
+    opts=opts||{}; var streets=opts.streets||['S'];
+    var soft=function(c){ return c===0||c===3; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:0, pedOver:soft, pedInset:10});
+    var g=res.g;
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      /* ONE MASS, ONE FOOTPRINT. footprints() takes connected components, so asking it
+         for (podium OR tower OR garage) in one pass returned ONE bounding box swallowing
+         the whole plot -- and under the INTERIOR-MATCHES-EXTERIOR LAW that would have
+         built a single 84x49 m interior instead of three real volumes. Each mass carries
+         its OWN roof code so the roof never cuts its body in half. */
+      footprints:K.footprints(g,function(v){return v===2||v===4||v===15;})
+        .concat(K.footprints(g,function(v){return v===6||v===14;}))
+        .concat(K.footprints(g,function(v){return v===8;}))};
+  }
+  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+
+  /* THE MASSES HAVE TO READ APART. Measured on the grid sheet: podium #6d6455 against
+     tower #7b7263 is a 6% value step, so a 50 m tower standing on a 84 m podium vanished
+     into it and the whole district read as one tan slab. It is also wrong on its own
+     terms — 45 DEGREE ART LAW: the TALLEST thing catches the most sky and is the LIGHTEST,
+     the deck tucked at grade is the darkest. Ordered by height, not by taste. */
+  var PALETTE={0:'#514c44',1:'#3f3d38',2:'#6d6455',3:'#4a4030',4:'#8d8372',5:'#c2a86a',6:'#9a9184',
+    7:'#8a8172',8:'#4e4a44',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#4a5560',13:'#2e2a24',
+    14:'#c0b6a0',15:'#d2cfbe'};
+  var LEGEND={
+    0:{name:'sidewalk / apron',   kind:'ground',    act1:'the wide resort sidewalk, cracked, sand drifted along the podium wall'},
+    1:{name:'drive lane',         kind:'drive',      act1:'the arrival drive in off the street and back out (car-drivable)'},
+    2:{name:'podium (casino floor)',kind:'building', act1:'the podium: four storeys of casino floor, restaurants and back of house, glass out at grade', enter:'the casino floor: dark, stripped, carpet lifting, banks of dead machines pushed into rows'},
+    3:{name:'dry planting bed',   kind:'tree-dead',  act1:'a planting bed gone to dust and dead palm stumps', solid:false},
+    4:{name:'podium roof band',   kind:'structure',  act1:'the podium roof band along the back of the casino floor, ducting and dead fans standing on it'},
+    5:{name:'drive entrance',     kind:'gate',       act1:'the curb cut where the arrival drive meets the street — a gap in the kerb, nothing to open, no fence either side', solid:false},
+    6:{name:'guest tower',        kind:'building',   act1:'the guest tower standing on the podium, window bands blown in places', enter:'a guest corridor: doors ajar down both sides, carpet, no light'},
+    7:{name:'porte cochere canopy',kind:'overhead',  act1:'the arrival canopy on columns — you walk and drive UNDER it', solid:false},
+    8:{name:'parking garage deck',kind:'building',   act1:'the open-deck parking structure on the end of the podium', enter:'a parking deck: cars left in the bays, ramp down into the dark'},
+    9:{name:'pole light',         kind:'prop',       act1:'a canopy column / drive pole light, head dark'},
+    10:{name:'abandoned vehicle', kind:'vehicle',    act1:'a car left under the canopy where it was abandoned, doors open'},
+    11:{name:'drive marking',     kind:'marking',    act1:'faded arrival-drive centre dashes'},
+    12:{name:'dry pool basin',    kind:'ground',     act1:'the pool deck: a dry basin, tiles crazed, silt and dead planting in the bottom', solid:false},
+    13:{name:'lobby doors',       kind:'portal',     act1:'the lobby doors under the canopy, one leaf standing open', solid:false},
+    14:{name:'tower plant deck',  kind:'structure',  act1:'the cooling plant standing on the tower roof, fan housings open to the sky'},
+    15:{name:'casino skylight',   kind:'structure',  act1:'a skylight punched through the podium roof over the casino floor, half the glazing starred and one panel gone through'}
+  };
+  var NOTES={
+    summary:'A dead Las Vegas mega-resort — a four-storey podium carrying the casino floor wall-to-wall on the plot, a guest tower standing on it, a porte cochere you walk and drive under into the lobby, an open-deck parking garage on one end, and a dry pool basin behind. Nothing fences it: the building is the edge.',
+    reference:['Las Vegas mega-resort site plans (Encore/Wynn, Paris Las Vegas, Circa; SpotlightVegas on mega-resort spatial design): the canonical form is PODIUM + TOWER. Podium floors 1-4 carry the casino floor, restaurants, theatre and convention space at grade; the GUEST TOWER stands on the podium from floor 5 up and is the whole silhouette. A PORTE COCHERE wraps the tower base and feeds the lobby off the arrival drive; a decked PARKING GARAGE attaches to one end of the podium.'],
+    layout:['The PODIUM runs wall-to-wall across the plot and meets the sidewalk on its frontage — a Strip podium has no setback, which is also why it needs no fence.',
+      'The GUEST TOWER stands on the podium, set back from the podium edge, and is the tallest thing in the district.',
+      'The PORTE COCHERE is a canopy on columns over the arrival lane; the LOBBY DOORS open off it into the podium.',
+      'The PARKING GARAGE is an open deck on one end of the podium. The POOL DECK sits behind the building, screened by the building itself.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the lobby/porte cochere is on the primary street. The arrival DRIVE (code 1) is one connected car surface entering off the street, passing under the canopy at the lobby and returning to the street (K.driveReachFromStreet). Pedestrians walk the sidewalk (0) straight onto the podium frontage; the canopy (7) is OVERHEAD, so you pass under it on foot or in a car.',
+    layering:'GROUND plane (flat): the sidewalk/apron (0), the arrival drive (1) + markings (11) + the curb cuts (5), the dry pool basin (12). STRUCTURES (¾ front face, solid): the PODIUM (2, ENTERABLE -> the casino floor), the GUEST TOWER (6, ENTERABLE -> a guest corridor), the PARKING GARAGE deck (8, ENTERABLE), the roof/plant decks (4, 14) and the SKYLIGHTS (15). OVERHEAD (pass under): the porte cochere canopy (7). PORTALS: the lobby doors (13). PROPS: pole lights / canopy columns (9), abandoned vehicles (10), dead planting (3). The tower is the vertical mass and the podium is the plinth; you walk under the canopy and in through the lobby.',
+    decisions:['NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): no fence, no perimeter wall, no bollard line, no kerb ring. The podium meeting the sidewalk is the edge, which is what the real building does.',
+      'Act-1 DEAD: casino floor dark and stripped, lobby door standing open, pool a dry basin, cars abandoned under the canopy, drift in the drive.',
+      'Gaming/resort category. Zero purple. NO FACTION, NO OWNER, NO NAME anywhere — who holds the Strip is Paolo\'s to rule (MECHANISM-MINE / CONTENTS-PAOLO\'S).',
+      'The podium, the tower and the garage are all ENTERABLE, so the interior/zoom phase has three real volumes to open rather than a facade.',
+      'Research-first (per the playbook): built from real Las Vegas resort site plans, not from memory of what a casino looks like.']
+  };
+  K.register('resort', { generate:generate, body:function(c){return c===2||c===4||c===6||c===8||c===14||c===15;}, category:'commercial', palette:PALETTE, legend:LEGEND, notes:NOTES });
+
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  if(typeof module!=='undefined')module.exports=API;
+  root.BohemiaResort=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+/* ==== engine/bohemia_casino.js (canon, married 8/18) ==== */
+// BOHEMIA CASINO (8/18/26, WORLD lane). GAMING/RESORT, on the DISTRICT KIT. The DOWNTOWN
+// casino, and it is deliberately NOT the Strip resort next door in engine/bohemia_resort.js.
+//
+// RESEARCH-FIRST, and the difference is the whole point (Fremont Street / Glitter Gulch:
+// the Golden Nugget, Binion's, the Four Queens, the Fremont Street Experience canopy):
+//   * A downtown casino has NO SETBACK AT ALL. The casino floor meets the sidewalk on the
+//     building line, doors straight off the pavement, because these blocks were platted
+//     before anybody parked a car. A Strip resort has a 100 m arrival drive; this has a
+//     doorway.
+//   * The mass is LOW AND WIDE — one enormous single-storey casino floor swallowing most
+//     of the block — with a SLENDER HOTEL WING standing on the back of it, not the
+//     podium-and-tower silhouette of the Strip.
+//   * The frontage is SIGN, floor to roof: the marquee and the neon canopy are the facade.
+//     Downtown sold itself with light, not with architecture.
+//   * The car is banished to the back: a SELF-PARK DECK on the alley, and a short VALET
+//     LANE off the side street. No porte cochere across the front — there is no room.
+//   * The block is cut by a SERVICE ALLEY, which is the other thing the old grid has and
+//     the Strip does not.
+//
+// ACT-1 DEAD: the floor dark and stripped, the canopy dead overhead, the marquee blank,
+// the alley full of what got dragged out of the building.
+//
+// NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): "no perimeter walls until I tell you,
+// bro no fencing no nothing bro." No fence, no yard wall, no bollard line, no kerb ring.
+// The building meeting the sidewalk is the edge — which is exactly what a Fremont block
+// actually does, so this costs nothing.
+//
+// LEGEND:
+//  0 sidewalk            1 valet / alley surface (DRIVABLE)   2 casino floor (mass)
+//  3 debris / dead planting                                   4 floor roof band
+//  5 drive entrance (curb cut — NOT a gate in a fence)        6 hotel wing
+//  7 neon canopy (OVERHEAD)                                   8 self-park deck
+//  9 pole light         10 abandoned vehicle                 11 lane marking
+// 12 marquee sign       13 casino doors (PORTAL)             14 wing roof plant
+// 15 floor skylight
+(function(root){
+  var K = (typeof module!=='undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit!=='undefined'?BohemiaDistrictKit:root.BohemiaDistrictKit);
+
+  function buildCanonical(seed){
+    var G=K.grid(seed), g=G.g, W=G.W, H=G.H, x, y, i, r=G.rnd;
+    function set(x,y,c){ if(x>=0&&y>=0&&x<W&&y<H)g[y][x]=c; }
+    function get(x,y){ return (x>=0&&y>=0&&x<W&&y<H)?g[y][x]:0; }
+    var cx=W>>1;
+
+    // ---- BASE: sidewalk. On an old downtown block that is all the open ground there is.
+    G.rect(0,0,W-1,H-1,0);
+
+    // ---- THE CASINO FLOOR. One enormous low mass filling the block right up to the
+    //      building line on the primary (south) frontage. No setback, no lawn, no apron.
+    G.rect(6,14,W-7,96,2);
+    G.rect(12,18,W-13,26,4);                                  // roof plant band along the back
+    // THE FLOOR ROOF IS THE BUSIEST SURFACE ON THE SITE. A downtown casino floor is one
+    // enormous single-storey plate and everything that serves it — chillers, extract,
+    // duct runs — stands on top of it, with SKYLIGHTS punched over the pit. Drawn flat it
+    // read as a blank slab, which is exactly the "they all look the same" complaint.
+    for(y=32;y<=90;y+=9){
+      for(x=10;x<=W-11;x+=12){
+        if(get(x,y)!==2) continue;
+        var pw=3+Math.floor(r()*4), ph=2+Math.floor(r()*4);
+        if(r()<0.5) G.rect(x,y,Math.min(x+pw,W-11),Math.min(y+ph,92),4);
+        else if(r()<0.6) G.rect(x,y,Math.min(x+pw+3,W-11),Math.min(y+ph,92),15);
+      }
+    }
+
+    // ---- THE HOTEL WING on the BACK of the floor, slender, standing on the mass.
+    //      Downtown builds up at the rear where the block is cheap, never across the front.
+    G.rect(26,20,60,46,6);
+    G.rect(32,26,54,34,14);                                   // wing roof plant
+
+    // ---- THE FRONTAGE IS SIGN. The marquee runs most of the building line, and the neon
+    //      canopy reaches out over the sidewalk the way Fremont's does — you walk UNDER it.
+    G.rect(14,97,W-15,103,7);                                 // the canopy (OVERHEAD)
+    for(x=18;x<=W-19;x+=14) set(x,103,9);                     // canopy columns at the kerb
+    G.rect(10,90,26,96,12); G.rect(W-27,90,W-11,96,12);       // the marquee towers, blank faces
+    G.rect(cx-10,95,cx+10,96,13);                             // the casino doors, straight off the walk
+
+    // ---- THE SERVICE ALLEY across the back of the block: the other thing the old grid has.
+    G.rect(4,4,W-5,12,1);
+    G.rect(4,4,10,H-1,1);                                     // and down the west side, out to the street
+    for(i=0;i<26;i++){ var ax=6+Math.floor(r()*(W-14)), ay=5+Math.floor(r()*7);
+      if(get(ax,ay)===1&&r()<0.5) set(ax,ay,3); }             // what got dragged out of the building
+
+    // ---- THE VALET LANE off the side (east) street: a short in-and-out, no porte cochere.
+    G.rect(W-11,60,W-5,H-1,1);
+    G.rect(W-24,88,W-5,94,1);
+    for(y=64;y<=H-8;y+=9) set(W-8,y,11);                      // lane centre dashes
+
+    // ---- THE SELF-PARK DECK on the alley, where the car belongs downtown ----
+    G.rect(W-40,14,W-13,50,8);
+
+    // ---- CURB CUTS: the only "gate" this district has. A gap in the kerb where the lane
+    //      meets the street. No fence, no barrier, nothing to open (Paolo 8/16, LOCKED).
+    for(y=H-6;y<=H-1;y++) set(W-8,y,5);
+    for(x=4;x<=10;x++) set(x,H-1,5);
+    for(y=H-6;y<=H-1;y++){ for(x=W-11;x<=W-5;x++) if(get(x,y)===1) set(x,y,1); }
+
+    // ---- dead dressing ----
+    G.rect(W-10,70,W-9,74,10); G.rect(6,108,7,112,10);
+    for(i=0;i<14;i++){ var dx=4+Math.floor(r()*(W-8)), dy=104+Math.floor(r()*20);
+      if(get(dx,dy)===0&&r()<0.4) set(dx,dy,3); }             // drift on the dead sidewalk
+    return g;
+  }
+
+  function generate(seed,opts){
+    opts=opts||{}; var streets=opts.streets||['S'];
+    var soft=function(c){ return c===0||c===3; };
+    var res=K.rotateToStreet(buildCanonical(seed>>>0), streets, {gate:5, pedWalk:0, pedOver:soft, pedInset:8});
+    var g=res.g;
+    return {g:g, W:g[0].length, H:g.length, streets:streets, gates:res.gates,
+      /* ONE MASS, ONE FOOTPRINT — see the note in bohemia_resort.js. Asked in one pass,
+         footprints() returns a single component swallowing floor + wing + deck, and the
+         INTERIOR-MATCHES-EXTERIOR LAW would then build one interior the size of the block
+         instead of three real volumes. Each mass carries its own roof code. */
+      footprints:K.footprints(g,function(v){return v===2||v===4||v===15;})
+        .concat(K.footprints(g,function(v){return v===6||v===14;}))
+        .concat(K.footprints(g,function(v){return v===8;}))
+        .concat(K.footprints(g,function(v){return v===12;}))};
+  }
+  function driveConnected(res){ return K.driveReachFromStreet(res.g,1)>0.85; }
+
+  /* ORDERED BY HEIGHT, NOT BY TASTE (45 DEGREE ART LAW: the tallest thing catches the most
+     sky). The wing stands above the floor and is lighter than it; the park deck tucked on
+     the alley is the darkest mass; the marquee towers are the brightest thing on the block
+     because on a real Fremont frontage the sign is what you see and the building is not. */
+  var PALETTE={0:'#565046',1:'#3f3d38',2:'#6a5f4e',3:'#4a4030',4:'#8a8072',5:'#c2a86a',6:'#948a76',
+    7:'#8c7f63',8:'#4e4a44',9:'#8f8676',10:'#55555f',11:'#c9c1aa',12:'#a8944e',13:'#2e2a24',
+    14:'#a0967e',15:'#b6b3a4'};
+  var LEGEND={
+    0:{name:'sidewalk',           kind:'ground',    act1:'the downtown sidewalk running straight into the building line, cracked, grit in the joints'},
+    1:{name:'valet lane / alley', kind:'drive',      act1:'the service alley across the back and the short valet lane off the side street (car-drivable)'},
+    2:{name:'casino floor',       kind:'building',   act1:'the casino floor: one enormous low mass filling the block, glass out at the walk', enter:'the floor: black carpet under a dead ceiling, machine banks pushed into rows, the cage stripped and standing open'},
+    3:{name:'debris / dead planting',kind:'tree-dead',act1:'what got dragged out of the building and left in the alley, and dead planting gone to dust', solid:false},
+    4:{name:'floor roof band',    kind:'structure',  act1:'the roof plant band along the back of the casino floor, ducting and dead fans standing on it'},
+    5:{name:'drive entrance',     kind:'gate',       act1:'the curb cut where the valet lane and the alley meet the street — a gap in the kerb, nothing to open, no fence either side', solid:false},
+    6:{name:'hotel wing',         kind:'building',   act1:'the slender hotel wing standing on the back of the floor, window units hanging out of half the openings', enter:'a corridor of rooms: doors ajar, a smell of dust and old smoke, no light'},
+    7:{name:'neon canopy',        kind:'overhead',   act1:'the neon canopy reaching out over the sidewalk on its columns — you walk UNDER it; every tube dead, some hanging', solid:false},
+    8:{name:'self-park deck',     kind:'building',   act1:'the self-park deck on the alley, ramp mouth open', enter:'a parking deck: cars left in the bays, the ramp turning down into black'},
+    9:{name:'pole light',         kind:'prop',       act1:'a canopy column / kerb light, head dark'},
+    10:{name:'abandoned vehicle', kind:'vehicle',    act1:'a car left in the valet lane where it was abandoned, doors open'},
+    11:{name:'lane marking',      kind:'marking',    act1:'faded valet-lane centre dashes'},
+    12:{name:'marquee sign',      kind:'structure',  act1:'a marquee tower on the building line, floor to roof, the sign face dark and blank'},
+    13:{name:'casino doors',      kind:'portal',     act1:'the casino doors straight off the sidewalk, one leaf standing open', solid:false},
+    14:{name:'wing roof plant',   kind:'structure',  act1:'the plant deck on top of the hotel wing, tanks and fan housings, everything still'},
+    15:{name:'floor skylight',    kind:'structure',  act1:'a skylight punched through the roof over the pit, glazing starred and one panel gone through'}
+  };
+  var NOTES={
+    summary:'A dead DOWNTOWN casino block — one enormous low casino floor filling the plot to the building line with no setback at all, a slender hotel wing standing on the back of it, marquee towers and a neon canopy for a facade, a self-park deck and a service alley behind, and a short valet lane off the side street. Nothing fences it: the building is the edge.',
+    reference:['Fremont Street / Glitter Gulch (the Golden Nugget, Binion\'s, the Four Queens, the Fremont Street Experience canopy). A downtown casino is the OPPOSITE of a Strip resort: no setback, no arrival drive, no podium-and-tower. The casino floor meets the sidewalk on a block platted before anybody parked a car; the mass is low and wide with a slender hotel wing at the rear; the FRONTAGE IS SIGN, floor to roof, because downtown sold itself with light rather than architecture; the car is banished to a self-park deck on the alley and a short valet lane off the side street.'],
+    layout:['The CASINO FLOOR fills the block to the building line on the primary frontage. There is no setback, no apron and no lawn — which is also why it needs no fence.',
+      'The HOTEL WING is slender and stands on the BACK of the floor, never across the front.',
+      'The frontage is SIGN: MARQUEE towers on the building line and a NEON CANOPY reaching out over the sidewalk on columns, which you walk under.',
+      'A SERVICE ALLEY crosses the back of the block and runs out to the street down one side; the SELF-PARK DECK sits on it. A short VALET LANE comes in off the side street.'],
+    circulation:'Street-aware via canonical-south + K.rotateToStreet: the doors and the marquee are on the primary street. The DRIVE surface (code 1) is one connected car surface — alley plus valet lane — entering off the street at the curb cuts and reaching the self-park deck (K.driveReachFromStreet). Pedestrians walk the sidewalk straight into the doors; the canopy (7) is OVERHEAD, so you pass under it on foot.',
+    layering:'GROUND plane (flat): the sidewalk (0), the alley and valet lane (1) + markings (11) + the curb cuts (5). STRUCTURES (¾ front face, solid): the CASINO FLOOR (2, ENTERABLE -> the floor), the HOTEL WING (6, ENTERABLE -> a corridor of rooms), the SELF-PARK DECK (8, ENTERABLE), the MARQUEE towers (12), the roof/plant decks (4, 14) and the SKYLIGHTS (15). OVERHEAD (pass under): the neon canopy (7). PORTALS: the casino doors (13). PROPS: pole lights / canopy columns (9), abandoned vehicles (10), debris and dead planting (3). The floor is a single low plate and the wing is the only vertical mass; you walk under the canopy and straight in off the pavement.',
+    decisions:['NOT THE STRIP RESORT. engine/bohemia_resort.js is podium + tower + porte cochere on a 100 m arrival drive; this is a no-setback low floor with a sign for a face. Two gaming types, two real buildings, two icons.',
+      'NOTHING ENCLOSES THE PLOT (Paolo 8/16, LOCKED): no fence, no perimeter wall, no bollard line, no kerb ring. The building meeting the sidewalk is the edge, which is what the real block does.',
+      'Act-1 DEAD: floor dark and stripped, doors standing open, canopy tubes dead, marquee faces blank, cars abandoned in the valet lane, the alley full of what got dragged out.',
+      'Gaming/resort category. Zero purple. NO FACTION, NO OWNER, NO NAME anywhere — the marquee faces are deliberately BLANK. Who holds downtown is Paolo\'s to rule (MECHANISM-MINE / CONTENTS-PAOLO\'S).',
+      'The floor, the wing and the park deck are all ENTERABLE, so the interior/zoom phase has three real volumes to open rather than a facade.',
+      'ACT TRIPTYCH: only the act-1 dead material is specified. Act-2 and act-3 are [PENDING Paolo].']
+  };
+  K.register('casino', { generate:generate, body:function(c){return c===2||c===4||c===6||c===8||c===12||c===14||c===15;}, category:'commercial', palette:PALETTE, legend:LEGEND, notes:NOTES });
+
+  var API={generate:generate,driveConnected:driveConnected,footprints:function(r){return r.footprints;},palette:PALETTE,legend:LEGEND,notes:NOTES};
+  if(typeof module!=='undefined')module.exports=API;
+  root.BohemiaCasino=API;
+})(typeof window!=='undefined'?window:(typeof globalThis!=='undefined'?globalThis:this));
+/* ==== engine/bohemia_strip.js (canon, married 8/18) ==== */
+// BOHEMIA STRIP (8/18/26, WORLD lane). LAS VEGAS BOULEVARD ITSELF — the 81 cells of the
+// resort corridor that had NO GENERATOR AT ALL and rendered as bare ground while every
+// neighbour treated them as a street (`strip` has been in ROADSET since the overmap was
+// written, and in SURFACEGEN never). It is a SURFACE, not a district: a network tile like
+// the arterial, handed the directions whose neighbours are also road, never rotateToStreet.
+//
+// WHY IT IS NOT JUST A FAT ARTERIAL. Researched 8/18 (RTC of Southern Nevada on the Las
+// Vegas Boulevard revitalisation; Clark County Public Works pedestrian-bridge program;
+// FHWA Las Vegas Pedestrian Safety Project phases 2-3):
+//   * EIGHT LANES divided by a wide LANDSCAPED MEDIAN, with left-turn bays opening at the
+//     major intersections. The county lifted the median palms out during construction and
+//     RE-PLANTED them after, which is how central the palm median is to what the street is.
+//   * The walk is a PROMENADE AT THE BACK OF CURB — no amenity strip, no buffer, no
+//     detached sidewalk. The Strip's sidewalk is the widest continuous pedestrian surface
+//     in the valley and it is packed against the traffic.
+//   * NO BLOCK WALL, EVER. A tract wall backs an arterial; a RESORT PODIUM fronts this.
+//     The neighbour's own building is the edge.
+//   * The signature of the corridor is the ENCLOSED PEDESTRIAN BRIDGE over the boulevard
+//     at each major crossing, on stair/escalator towers at the corners — Clark County runs
+//     a standing repair program on them. That is an OVERHEAD span you walk across and pass
+//     UNDER, which is exactly what our layering system was built to carry.
+//   * The MARQUEE PYLONS stand at the property line on the promenade: the tallest thing on
+//     the street that is not a building.
+//
+// A RUN AND A CROSSING ARE TWO DIFFERENT THINGS (Paolo 8/11, LOCKED, and it applies here
+// for the same reason it applied to the arterial): `strip` is the straight boulevard run,
+// `strip_x` is the signalised crossing with the bridges. Same generator, same palette, one
+// canonical body — asked the other question, so the ICON LAW gives the pair two icons.
+//
+// ACT-1 DEAD: the palms in the median dead on their feet, every signal head dark, the
+// bridges standing with their escalators stopped, the marquee faces blank, cars left where
+// the traffic stopped.
+//
+// REUSE CHECK (REUSE-FIRST, Paolo 7/22): STREETS ARE THE HARMONIZED POOL (Paolo 7/31) —
+// read records/BOHEMIA_WHERE_THE_GOOD_STREET_PIXELS_ARE_7_31_26.md first, which names
+// banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt as the source of every street pixel
+// (pools.street, pools.side, pools.median, pools.lane_div, pools.cross, the turn-pocket
+// lines) plus its embedded 30yr-marking-wash and weather-rarity rulings. THIS MODULE COOKS
+// ZERO PIXELS. It emits CODES, and it deliberately reuses the ARTERIAL's exact code
+// vocabulary for every shared meaning (1 roadway, 2 lane line, 3 crosswalk, 4 median,
+// 5 curb, 6 walk, 9 light, 11 dead palm, 12 signal, 14 dead car, 15 stop bar, 16 inlet,
+// 17 pocket line) so the renderer's existing map from those codes to the harmonized pool
+// tiles carries straight over with nothing hand-painted. Only what the Strip has and the
+// arterial does not gets new codes: 18 bridge span, 19 bridge tower, 20 marquee pylon.
+//
+// LEGEND:
+//  0 dirt margin        1 asphalt roadway     2 white lane line     3 crosswalk
+//  4 palm median        5 curb + gutter       6 promenade (walk)    7 planter
+//  9 streetlight       11 dead palm          12 signal mast        14 dead car
+// 15 stop bar          16 storm inlet        17 yellow pocket line
+// 18 pedestrian bridge span (OVERHEAD)       19 bridge tower       20 marquee pylon
+(function (root) {
+  var K = (typeof module !== 'undefined') ? require('./bohemia_district_kit.js')
+        : (typeof BohemiaDistrictKit !== 'undefined' ? BohemiaDistrictKit : root.BohemiaDistrictKit);
+
+  var C = 64;          // cell centre (128x128)
+  // THE CROSS-SECTION, as distance OUT from the centreline (tiles of 0.75 m).
+  // THE STREET FILLS THE BOX (Paolo 8/11, LOCKED). Same law the arterial lives under, and
+  // the Strip is the easiest street in the game to obey it with, because out there the
+  // right-of-way really does run building face to building face with nothing between.
+  var MEDIAN = 7;      // 0..7    wide landscaped palm median (~11 m)
+  var PAVE = 31;       // 8..31   4 lanes each way + bus/turn lane (~18 m per side)
+  var CURB = 33;       // 32..33  curb + gutter
+  var WALK = 64;       // 34..64  THE PROMENADE, at the back of curb, out to the cell edge
+  var ROW = 64;        // and no wall: the resort podium next door is the edge
+  // 64, NOT 63 — the arterial's truncation_gate lesson: a half-width of 63 misses row 0
+  // and column 0, so two road cells side by side get a one-tile seam of bare dirt.
+  var BOX = 33;        // half-width of the curb-to-curb junction box (tracks CURB)
+
+  var LANE_A = 12, LANE_B = 19, LANE_C = 26;  // white lines between same-direction lanes
+  var EDGE = 30;                              // solid white edge line
+  var POCKET = 16;                            // how far past the box the left-turn bay runs
+
+  function bandCode(b) {
+    if (b <= MEDIAN) return 4;
+    if (b <= PAVE) return 1;
+    if (b <= CURB) return 5;
+    if (b <= WALK) return 6;   // NO amenity strip: the promenade starts at the gutter
+    if (b <= ROW) return 6;
+    return 0;
+  }
+
+  /* THE NETWORK TILE. Identical machinery to the arterial's, for the same reason: a tile
+     is pavement if EITHER road's pavement reaches it, so corners, tees and four-ways all
+     fall out of one generator instead of sixteen hand-built masks. */
+  /* THE BOULEVARD IS TWO CELLS WIDE, AND ITS OWN OTHER HALF IS NOT A CROSS STREET.
+     Paolo 8/16 on the freeway, and it is the identical defect here: "you gotta recognize
+     when the freeway is two grids wide two tiles wide that it has to work together."
+     MEASURED IN THE SEED VALLEY: the Strip is 81 cells and it runs TWO CELLS ABREAST, so
+     every single cell has a road neighbour on all four sides — its continuation ahead and
+     behind, and its own SIBLING HALF to the side. Keyed off "is there a road next to me",
+     78 of the 81 built a full signalised junction: seventy-eight sets of crosswalks,
+     signal masts and pedestrian bridges in an unbroken row down Las Vegas Boulevard.
+     So the cell is told three different things and never confuses them:
+       links  — the axis the boulevard RUNS on (from run length, not from adjacency)
+       cross  — the legs where a road that is NOT this boulevard actually meets it. THIS,
+                and only this, makes a crossing.
+       spanThrough — my sibling half has the crossing and its pedestrian bridge has to
+                keep going across me, because a bridge over an eight-lane boulevard does
+                not stop halfway. This is the halves working together. */
+  function generate(seed, opts) {
+    opts = opts || {};
+    var links = opts.links || opts.streets || ['N', 'S'];
+    var set = {}; links.forEach(function (d) { set[String(d).toUpperCase()[0]] = 1; });
+    if (!set.N && !set.S && !set.E && !set.W) { set.N = set.S = 1; }
+    var hasN = !!set.N, hasS = !!set.S, hasE = !!set.E, hasW = !!set.W;
+    var vert = hasN || hasS, horiz = hasE || hasW;
+    var xset = {}; (opts.cross || []).forEach(function (d) { xset[String(d).toUpperCase()[0]] = 1; });
+    /* a cross street only counts if it comes in ACROSS the boulevard, not along it */
+    var xLegs = ['N', 'S', 'E', 'W'].filter(function (d) {
+      if (!xset[d]) return false;
+      return (d === 'N' || d === 'S') ? !vert : !horiz;
+    });
+    /* NO CALLER, OLD BEHAVIOUR. A caller that knows nothing about cross streets (the
+       standalone dossier, the icon, a gate) still gets the crossing anatomy off a
+       four-leg mask, exactly as before, so nothing that already worked changes. */
+    var xing = (opts.cross != null) ? xLegs.length > 0 : (vert && horiz);
+    var through = !xing && !!opts.spanThrough;
+
+    var G = K.grid(seed >>> 0), g = G.g, r = G.rnd, x, y, i;
+
+    function coverV(oy) { return vert && (oy <= 0 ? (hasN || oy >= -BOX) : (hasS || oy <= BOX)); }
+    function coverH(ox) { return horiz && (ox <= 0 ? (hasW || ox >= -BOX) : (hasE || ox <= BOX)); }
+    function bandAt(ox, oy) {
+      var b = 1e9;
+      if (coverV(oy)) b = Math.min(b, Math.abs(ox));
+      if (coverH(ox)) b = Math.min(b, Math.abs(oy));
+      return b;
+    }
+
+    // ---- 1. the corridor -------------------------------------------------------
+    var inPave = function (ox, oy) { return Math.abs(ox) <= BOX && Math.abs(oy) <= BOX; };
+    for (y = 0; y < 128; y++) {
+      var oy = y - C;
+      for (x = 0; x < 128; x++) {
+        var ox = x - C;
+        var b = bandAt(ox, oy);
+        if (b > ROW) continue;
+        var code = bandCode(b);
+        if (code === 4 && xing && inPave(ox, oy)) code = 1;            // never block the crossing
+        g[y][x] = code;
+      }
+    }
+
+    // ---- 2. markings -----------------------------------------------------------
+    function laneLine(alongAxis) {
+      for (var t = 0; t < 128; t++) {
+        var oa = t - C;
+        if (xing && Math.abs(oa) <= BOX) continue;            // never stripe through a junction
+        if (alongAxis === 'v' && !coverV(oa)) continue;
+        if (alongAxis === 'h' && !coverH(oa)) continue;
+        var dash = (Math.floor((t % 12) / 6) === 0);
+        [LANE_A, LANE_B, LANE_C].forEach(function (o) {
+          [-o, o].forEach(function (s) {
+            if (!dash) return;
+            var px = alongAxis === 'v' ? C + s : t, py = alongAxis === 'v' ? t : C + s;
+            if (g[py][px] === 1) g[py][px] = 2;
+          });
+        });
+        [-EDGE, EDGE].forEach(function (s) {
+          var px = alongAxis === 'v' ? C + s : t, py = alongAxis === 'v' ? t : C + s;
+          if (g[py][px] === 1) g[py][px] = 2;
+        });
+      }
+    }
+    if (vert) laneLine('v');
+    if (horiz) laneLine('h');
+
+    // THE PALMS DOWN THE MEDIAN. The one thing the county lifted out and re-planted, so
+    // it is the one thing this street cannot be built without. Act-1: dead on their feet.
+    function medianPalms(alongAxis, coverFn) {
+      for (var t = 5; t < 128; t += 9) {
+        if (!coverFn(t - C)) continue;
+        if (xing && Math.abs(t - C) <= BOX + 2) continue;
+        var o = ((t / 9) | 0) % 2 ? 3 : -3;
+        var px = alongAxis === 'v' ? C + o : t, py = alongAxis === 'v' ? t : C + o;
+        if (g[py][px] === 4) g[py][px] = 11;
+      }
+    }
+    if (vert) medianPalms('v', coverV);
+    if (horiz) medianPalms('h', coverH);
+
+    // THE TURN POCKET (LINE COLOR LAW: yellow lives only where opposing directions meet
+    // with no island between them, and on this street that is the left-turn bay).
+    function pocket(alongAxis, dirSign) {
+      for (var t = 0; t < 128; t++) {
+        var oa = t - C;
+        // the bay is a BAY, not the whole leg: it opens just clear of the junction box and
+        // closes again well before the cell edge, so the palm median survives on both sides
+        // of it. (Get this wrong by making it open-ended and the crossing cell loses its
+        // median entirely — measured: 1,906 median tiles down to 30.)
+        if (dirSign > 0 ? (oa < BOX + 1 || oa > BOX + POCKET) : (oa > -BOX - 1 || oa < -(BOX + POCKET))) continue;
+        for (var o = -MEDIAN; o <= MEDIAN; o++) {
+          var px = alongAxis === 'v' ? C + o : t, py = alongAxis === 'v' ? t : C + o;
+          g[py][px] = (Math.abs(o) === MEDIAN) ? 17 : 1;
+        }
+      }
+    }
+    /* THE LEFT-TURN BAY OPENS TOWARD THE CROSS STREET, and nowhere else. On a run the
+       median is unbroken, because nothing turns across a run. */
+    if (xing) {
+      if (vert) { pocket('v', -1); pocket('v', 1); }
+      if (horiz) { pocket('h', 1); pocket('h', -1); }
+    }
+
+    function put(px, py, code, over) {
+      if (px < 0 || py < 0 || px > 127 || py > 127) return;
+      var c = g[py][px];
+      if (over ? over(c) : (c === 6)) g[py][px] = code;
+    }
+    var onWalk = function (c) { return c === 6 || c === 7; };
+
+    // CROSSWALKS + STOP BARS at every approach that exists.
+    function approach(dir) {
+      var vertical = (dir === 'N' || dir === 'S'), sign = (dir === 'S' || dir === 'E') ? 1 : -1;
+      for (var o = -EDGE; o <= EDGE; o++) {
+        for (var d = BOX - 3; d <= BOX; d++) {
+          var a = C + sign * d;
+          var px = vertical ? C + o : a, py = vertical ? a : C + o;
+          if (g[py][px] === 1 || g[py][px] === 2) g[py][px] = ((o + 64) % 4 < 2) ? 3 : g[py][px];
+        }
+        var sa = C + sign * (BOX + 2);
+        var sx = vertical ? C + o : sa, sy = vertical ? sa : C + o;
+        if (g[sy][sx] === 1) g[sy][sx] = 15;
+      }
+      /* CURB RAMPS: without them the crossing dies at the gutter and a body on the
+         promenade can never legally reach the other side. (The arterial's gate caught
+         exactly this; the same hole is the same hole here.) */
+      for (var e = 0; e < 2; e++) {
+        var side = e ? 1 : -1;
+        for (var band = CURB - 1; band <= CURB + 6; band++) {
+          for (var d2 = BOX - 3; d2 <= BOX; d2++) {
+            var a2 = C + sign * d2, o2 = side * band;
+            var rx = vertical ? C + o2 : a2, ry = vertical ? a2 : C + o2;
+            if (rx < 0 || ry < 0 || rx > 127 || ry > 127) continue;
+            var cc = g[ry][rx];
+            if (cc === 5 || cc === 6 || cc === 1 || cc === 2) g[ry][rx] = 3;
+          }
+        }
+      }
+    }
+    /* THE CROSS STREET HAS TO REACH THE BOULEVARD. Its roadway lives in ITS OWN cell, so
+       without this it stopped dead at my cell boundary and ran into 23 m of promenade --
+       an intersection you cannot drive through. Pave its mouth in from the edge to my kerb,
+       at an arterial's half-width, and lay its kerbs beside it. */
+    var XHALF = 22;                                   // half-width of a mile-arterial roadway
+    xLegs.forEach(function (d) {
+      var vertical = (d === 'N' || d === 'S'), sign = (d === 'S' || d === 'E') ? 1 : -1;
+      for (var o = -(XHALF + 2); o <= XHALF + 2; o++) {
+        for (var b = ROW; b >= CURB; b--) {
+          var px = vertical ? C + o : C + sign * b, py = vertical ? C + sign * b : C + o;
+          if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+          g[py][px] = (Math.abs(o) > XHALF) ? 5 : 1;
+        }
+      }
+    });
+    /* AND THE CROSSWALK GOES ACROSS THE BOULEVARD, NOT ACROSS THE SIDE STREET. What a
+       pedestrian needs at a Strip junction is a way over EIGHT LANES; a ladder painted
+       across the side street's mouth is not that, and is what the first cut drew because
+       it called approach() on the cross legs. The bars land at the two ends of the
+       junction box, spanning the roadway -- the standard anatomy, and the one the
+       crossing icon has been showing since the first grid sheet. */
+    if (xing) {
+      var walkLegs = vert ? ['N', 'S'] : ['E', 'W'];
+      if (!xLegs.length) walkLegs = ['N', 'S', 'E', 'W'].filter(function (d) { return set[d]; });
+      walkLegs.forEach(approach);
+    }
+
+    /* ---- 3. THE PEDESTRIAN BRIDGES. The signature of the corridor, and the reason the
+       county keeps a standing repair contract on them: at a real Strip crossing you do
+       not cross at grade at all, you go UP a tower on one corner, ACROSS an enclosed span
+       over eight lanes of traffic, and DOWN the tower on the other side.
+
+       The span is code 18, layer OVERHEAD — you walk ON it and pass UNDER it, which is
+       the layering the district kit already carries (kind 'overhead' -> pass under).
+       The towers are code 19: real structure, standing on the promenade at the corner. */
+    if (xing || through) {
+      var SPAN = 4;                                  // half-width of the enclosed deck
+      // one span per leg, landing on the promenade either side of the roadway
+      function bridge(alongAxis) {
+        var at = C + (alongAxis === 'v' ? -1 : 1) * (BOX + 12);   // clear of the junction box
+        if (at < 6 || at > 121) return;
+        for (var b = -(CURB + 8); b <= CURB + 8; b++) {
+          for (var s = -SPAN; s <= SPAN; s++) {
+            var px = alongAxis === 'v' ? C + b : at + s, py = alongAxis === 'v' ? at + s : C + b;
+            if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+            var cur = g[py][px];
+            // the deck flies over roadway, median and paint alike; it only LANDS on walk
+            if (cur === 1 || cur === 2 || cur === 3 || cur === 4 || cur === 5 ||
+                cur === 11 || cur === 15 || cur === 17 || cur === 6) g[py][px] = 18;
+          }
+        }
+        /* THE TOWERS BELONG TO THE CROSSING HALF. On the sibling half the deck is just
+           passing over -- a bridge over a two-cell-wide boulevard has two towers total,
+           not four, and putting a stair tower in the middle of the roadway would be
+           absurd. This is what "they have to work together" means in code. */
+        if (through) return;
+        [-1, 1].forEach(function (side) {
+          for (var tb = CURB + 4; tb <= CURB + 12; tb++) {
+            for (var ts = -SPAN; ts <= SPAN; ts++) {
+              var tx = alongAxis === 'v' ? C + side * tb : at + ts;
+              var ty = alongAxis === 'v' ? at + ts : C + side * tb;
+              if (tx < 0 || ty < 0 || tx > 127 || ty > 127) continue;
+              if (g[ty][tx] === 18 || g[ty][tx] === 6) g[ty][tx] = 19;
+            }
+          }
+        });
+      }
+      /* THE DECK FLIES ACROSS THE TRAFFIC, so it is laid on the boulevard's OWN axis --
+         a bridge over a north-south boulevard runs east-west. On a through-half it runs
+         edge to edge so it meets its other half exactly at the cell boundary. */
+      if (vert) bridge('v');
+      if (horiz && !vert) bridge('h');
+      if (xing) {
+        // signal mast arms on the four corners, heads dark
+        [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (q) {
+          put(C + q[0] * (CURB + 2), C + q[1] * (CURB + 2), 12, onWalk);
+        });
+        // storm inlets in the gutter at the corners (this is where the valley floods)
+        [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (q) {
+          var px = C + q[0] * CURB, py = C + q[1] * (CURB - 6);
+          if (g[py][px] === 5) g[py][px] = 16;
+        });
+      }
+    }
+
+    // ---- 4. the promenade, dressed (act-1 DEAD) --------------------------------
+    // PLANTERS punched into the promenade rather than laid as a band: out there the walk
+    // is one continuous surface with tree wells and pots cut into it, not a lawn strip.
+    function dressWalk(alongAxis, coverFn) {
+      for (var t = 3; t < 128; t += 6) {
+        if (!coverFn(t - C)) continue;
+        for (var e = 0; e < 2; e++) {
+          var side = e ? 1 : -1;
+          var b = CURB + 5 + Math.floor(r() * 10);
+          var px = alongAxis === 'v' ? C + side * b : t, py = alongAxis === 'v' ? t : C + side * b;
+          if (r() < 0.55) put(px, py, 7, function (c) { return c === 6; });
+        }
+      }
+      // streetlights and dead palms standing in the promenade, staggered down each arm
+      for (var u = 8; u < 128; u += 14) {
+        if (!coverFn(u - C)) continue;
+        var s2 = ((u / 14) | 0) % 2 ? (CURB + 3) : -(CURB + 3);
+        put(alongAxis === 'v' ? C + s2 : u, alongAxis === 'v' ? u : C + s2, 9, onWalk);
+      }
+      for (var v = 6; v < 128; v += 11) {
+        if (!coverFn(v - C)) continue;
+        if (r() > 0.7) continue;
+        var s3 = (r() < 0.5 ? 1 : -1) * (CURB + 9 + Math.floor(r() * 14));
+        put(alongAxis === 'v' ? C + s3 : v, alongAxis === 'v' ? v : C + s3, 11, onWalk);
+      }
+    }
+    if (vert) dressWalk('v', coverV);
+    if (horiz) dressWalk('h', coverH);
+
+    /* THE MARQUEE PYLON. The tallest thing on the street that is not a building, standing
+       at the property line where the resort meets the walk. ONE per cell, deterministic,
+       and its face is BLANK — whose resort this is, and what its name is, is Paolo's
+       (MECHANISM-MINE / CONTENTS-PAOLO'S). */
+    if (vert || horiz) {
+      var mAxis = vert ? 'v' : 'h', mt = 24 + Math.floor(r() * 70);
+      var ms = (r() < 0.5 ? 1 : -1) * (ROW - 6);
+      if (!xing || Math.abs(mt - C) > BOX + 16) {
+        for (i = -2; i <= 2; i++) for (var j = 0; j < 4; j++) {
+          var mx = mAxis === 'v' ? C + ms + (ms > 0 ? j : -j) : mt + i;
+          var my = mAxis === 'v' ? mt + i : C + ms + (ms > 0 ? j : -j);
+          put(mx, my, 20, onWalk);
+        }
+      }
+    }
+
+    // cars left where the traffic stopped
+    if (r() < 0.75) {
+      var cAxis = vert ? 'v' : 'h', ct = 18 + Math.floor(r() * 84);
+      var cs = (r() < 0.5 ? 1 : -1) * (PAVE - 2);
+      if (Math.abs(ct - C) > BOX + 4) {
+        for (i = 0; i < 3; i++) for (var k = 0; k < 2; k++) {
+          var px3 = cAxis === 'v' ? C + cs + k : ct + i, py3 = cAxis === 'v' ? ct + i : C + cs + k;
+          if (px3 >= 0 && py3 >= 0 && px3 < 128 && py3 < 128 && g[py3][px3] === 1) g[py3][px3] = 14;
+        }
+      }
+    }
+
+    /* ACCESS. Every edge that faces something that is NOT road is where a resort stands,
+       and a body has to be able to step off its podium onto the promenade. There is no
+       wall to break through here — the promenade already runs to the boundary — so this
+       just clears any planter, palm or pylon out of the doorway. */
+    var access = opts.access || [];
+    access.forEach(function (d) {
+      d = String(d).toUpperCase()[0];
+      var half = 9;
+      for (var o = -half; o <= half; o++) {
+        for (var b = ROW; b >= CURB; b--) {
+          var px, py;
+          if (d === 'N') { px = C + o; py = C - b; }
+          else if (d === 'S') { px = C + o; py = C + b; }
+          else if (d === 'W') { px = C - b; py = C + o; }
+          else { px = C + b; py = C + o; }
+          if (px < 0 || py < 0 || px > 127 || py > 127) continue;
+          var cur = g[py][px];
+          if (cur === 7 || cur === 11 || cur === 9 || cur === 20 || cur === 0) g[py][px] = 6;
+        }
+      }
+    });
+
+    return { g: g, W: 128, H: 128, streets: links, links: links, access: access,
+             gates: [], footprints: [] };
+  }
+
+  /* a vehicle can cross the cell on every direction the network says connects */
+  function throughDrivable(res, links) {
+    var g = res.g, drive = { 1: 1, 2: 1, 3: 1, 14: 1, 15: 1, 17: 1 };
+    return (links || res.links).every(function (d) {
+      d = String(d).toUpperCase()[0];
+      var i, hit = false;
+      for (i = 0; i < 128; i++) {
+        if (d === 'N' && drive[g[0][i]]) hit = true;
+        if (d === 'S' && drive[g[127][i]]) hit = true;
+        if (d === 'W' && drive[g[i][0]]) hit = true;
+        if (d === 'E' && drive[g[i][127]]) hit = true;
+      }
+      return hit;
+    });
+  }
+
+  // THE ARTERIAL'S PALETTE FOR EVERY SHARED CODE (one street, one look — the harmonized
+  // pool law). The three Strip-only codes are the only new colours, and they sit inside
+  // the same layer value bands as the structures around them.
+  var PALETTE = {
+    0: '#5a5140',
+    1: '#33333c', 2: '#b3ab97', 3: '#b3ab97', 4: '#5f5f4a', 5: '#6b6b74', 6: '#8a8a92',
+    7: '#4a4030', 9: '#8f8676', 11: '#3a4520', 12: '#6a6a72', 14: '#55555f',
+    15: '#b3ab97', 16: '#4a4842', 17: '#b09a3a',
+    18: '#7c8390', 19: '#6d7280', 20: '#5c5648'
+  };
+
+  var LEGEND = {
+    0:  { name: 'dirt margin',        kind: 'ground',   act1: 'a strip of graded dirt where the promenade stops short of the property line' },
+    1:  { name: 'asphalt roadway',    kind: 'drive',    act1: 'eight lanes of Las Vegas Boulevard, patched, rutted and sun-bleached' },
+    2:  { name: 'white lane line',    kind: 'marking',  act1: 'faded white lane line, dashed between lanes going the same way' },
+    3:  { name: 'crosswalk',          kind: 'marking',  act1: 'ladder crosswalk across the approach, worn down to ghosts of bars' },
+    4:  { name: 'palm median',        kind: 'ground',   act1: 'the wide landscaped median down the middle of the boulevard, irrigation dead, gravel and dust', solid: false },
+    5:  { name: 'curb + gutter',      kind: 'ground',   act1: 'concrete curb and gutter, silt packed in it, the promenade starting right off the back of it' },
+    6:  { name: 'promenade',          kind: 'walk',     act1: 'the Strip promenade: wide pavers at the back of curb, cracked and lifted, sand drifted along the building line' },
+    7:  { name: 'planter',            kind: 'tree-dead',act1: 'a tree well cut into the promenade, the tree gone, the pit full of grit and trash', solid: false },
+    9:  { name: 'streetlight',        kind: 'prop',     act1: 'a boulevard light standard on the promenade, head dark' },
+    11: { name: 'dead palm',          kind: 'tree-dead',act1: 'a Strip palm dead on its feet — bare trunk, the crown collapsed years ago' },
+    12: { name: 'signal mast',        kind: 'prop',     act1: 'traffic signal mast arm reaching out over the lanes, every head dark' },
+    14: { name: 'dead car',           kind: 'vehicle',  act1: 'a car left in the lane where the traffic stopped, tyres flat, glass gone' },
+    15: { name: 'stop bar',           kind: 'marking',  act1: 'wide white stop bar behind the crosswalk' },
+    16: { name: 'storm drain inlet',  kind: 'ground',   act1: 'curb inlet to the flood system, grate half choked with silt' },
+    17: { name: 'yellow turn-pocket line', kind: 'marking', act1: 'yellow line bordering the left-turn bay where the median opens' },
+    18: { name: 'pedestrian bridge',  kind: 'overhead', act1: 'the enclosed pedestrian bridge over the boulevard — you walk ACROSS it and you pass UNDER it; the glazing is starred and the moving walkway is stopped', solid: false },
+    19: { name: 'bridge tower',       kind: 'structure',act1: 'the stair and escalator tower carrying the bridge down to the promenade, escalator treads frozen mid-flight', enter: 'the tower stair: switchback flights up to the bridge deck, handrails cold, one landing open to the street' },
+    20: { name: 'marquee pylon',      kind: 'structure',act1: 'a resort marquee pylon standing at the property line, the sign face dark and blank'  }
+  };
+
+  var NOTES = {
+    summary: 'LAS VEGAS BOULEVARD — the resort corridor itself. Eight lanes divided by a wide landscaped palm median, a promenade at the back of curb running out to the property line on both sides, marquee pylons at the building face, and at every major crossing the enclosed PEDESTRIAN BRIDGES on their stair towers, flying over the traffic. 81 cells of the valley are this street, and every one of them generated bare ground until now.',
+    reference: [
+      'RTC of Southern Nevada, Las Vegas Boulevard revitalisation: the median palms were lifted out during construction and RE-PLANTED after, with the sidewalks widened, curb ramps added and lighting rebuilt. The palm median is not decoration on this street, it is the street.',
+      'FHWA Las Vegas Pedestrian Safety Project (phases 2-3) and Clark County Public Works: the Strip walk is built AT THE BACK OF CURB with no buffer between the walk and the travel lanes — the opposite of the valley arterial, which detaches its sidewalk behind an amenity strip.',
+      'Clark County Public Works pedestrian-bridge program: the corridor crosses at the major intersections by ENCLOSED BRIDGE on stair/escalator towers, not at grade — a standing repair and lighting contract runs on four bridges at Flamingo alone.',
+      'Roadway: generally six to eight lanes divided by a central median, with dedicated transit and left-turn lanes opening at the major intersections.'
+    ],
+    layout: [
+      'The cross-section from the centreline out: an 11 m landscaped PALM MEDIAN, four lanes each way plus a bus/turn lane out to 23 m, curb and gutter, then the PROMENADE — and the promenade runs all the way to the cell edge, because on this street the neighbouring RESORT PODIUM is the property line and there is no wall to put anywhere.',
+      'It is a NETWORK TILE, not a lot: it takes the directions whose neighbours are also road and builds what serves them, so a through run, a corner, a T and a four-way all come out of one generator.',
+      'At a real crossing the median stops short for a yellow-bordered left-turn bay, ladder crosswalks and stop bars land on every approach, signal masts stand on the four corners — and the PEDESTRIAN BRIDGES fly across the boulevard clear of the junction box, landing on their stair towers on the promenade either side.',
+      'The promenade is dressed rather than banded: tree wells cut into the pavers, boulevard light standards, dead palms, and one marquee pylon standing at the building line.'
+    ],
+    circulation: 'Traffic runs through on every connected direction, cell edge to cell edge. Pedestrians have TWO routes and that is the whole character of this street: at grade along a continuous promenade that wraps every corner and crosses at the marked crosswalks, or UP a bridge tower and ACROSS the enclosed span above the traffic. The span is OVERHEAD, so a body underneath it walks or drives straight through.',
+    layering: 'GROUND (flat, walk or drive): the roadway (1), every marking (2, 3, 15, 17), the curb and gutter (5), the storm inlet (16), the planters (7), and the palm median (4), which is a low island you step onto, not a blocker. WALK: the promenade (6). OVERHEAD (pass under, walk on): the pedestrian bridge span (18). STRUCTURE (blocks, ¾ face): the bridge towers (19, ENTERABLE -> the tower stair) and the marquee pylons (20). PROPS (solid): streetlight (9), signal mast (12), dead car (14), dead palm (11). The bridge is the only thing in the corridor at a second level, and it is the reason this street reads as the Strip and not as a wide arterial.',
+    decisions: [
+      'A SURFACE, NOT A DISTRICT: a road cell never becomes faction territory, an economy district or a quest address. It registers surface:true, so the world renders it and bodies walk it while everything that counts districts keeps counting only districts. Same ruling the arterial ships under.',
+      'A RUN AND A CROSSING ARE TWO DIFFERENT THINGS (Paolo 8/11, LOCKED): `strip` is the straight boulevard run, `strip_x` is the signalised crossing that carries the bridges. Same generator, same palette, one canonical body — two registered types so the ICON LAW gives the pair two icons and the map can never draw a crossing where a run is.',
+      'vehicular:true under the WALKABLE-LAND LAW: a street is the one venue whose vehicle surface IS the venue. It is still dressed the whole length — median palms, planters, lights, pylons, bridges — and never a void.',
+      'NO WALL, NO FENCE, NOTHING ENCLOSING (Paolo 8/16, LOCKED, and the real street agrees): a tract wall backs an arterial, but a resort podium fronts the Strip. The promenade runs to the boundary and the neighbour\'s own building starts on the other side of the line.',
+      'LINE COLOR LAW held exactly: white divides lanes going the same way; yellow appears only at the left-turn bay where the median opens and opposing directions actually meet.',
+      'MECHANISM-MINE / CONTENTS-PAOLO\'S: the marquee pylons stand with BLANK faces and there is not one resort name, owner or faction anywhere in this module. Who holds the Strip is his to rule.',
+      'ACT TRIPTYCH: only the act-1 dead material is specified. Act-2 recovering and act-3 rebuilt are [PENDING Paolo].'
+    ]
+  };
+
+  var SPEC = {
+    body: function (c) { return c === 19 || c === 20; },
+    palette: PALETTE, legend: LEGEND, notes: NOTES, vehicular: true, surface: true
+  };
+  /* THE REGISTERED FORM TAKES THE REAL MASK WHEN IT IS GIVEN ONE. A road cell's
+     `streets` and its `links` are THE SAME LIST -- the directions whose neighbour is also
+     road -- so a caller that hands this module {streets:[...]} (the district-kit registry
+     signature, which is what the city page's __kitBlock passes) is handing it the network
+     mask, and forcing a fixed pair on top of that would draw a north-south boulevard
+     through an east-west cell. Fall back to the fixed legs only when nobody said. */
+  /* A STREET ALWAYS RUNS THROUGH. Callers pass {streets:['S']} to mean "the thing on my
+     south side is a road" -- correct for a LOT, and for a street CELL it means the
+     boulevard dead-ends inside the block: measured, a one-leg mask left the northern 30
+     tiles of the cell as bare dirt with a hard line across it, which is the exact defect
+     the arterial spent 7/26 fixing. So a mask that names one end of an axis gets the
+     other end too. It still TURNS -- an east-west mask builds an east-west boulevard --
+     it just never stops halfway. */
+  function bothLegs(dirs) {
+    var s = {}; dirs.forEach(function (d) { s[String(d).toUpperCase()[0]] = 1; });
+    if (s.N || s.S) { s.N = s.S = 1; }
+    if (s.E || s.W) { s.E = s.W = 1; }
+    var out = ['N', 'S', 'E', 'W'].filter(function (d) { return s[d]; });
+    return out.length ? out : ['N', 'S'];
+  }
+  function reg(name, legs, force) {
+    var s = { generate: function (seed, opts) {
+        var o = {}; for (var k in (opts || {})) o[k] = opts[k];
+        var given = (!force && (o.links || o.streets)) || null;
+        o.links = (given && given.length) ? bothLegs(given) : legs; o.streets = o.links;
+        return generate(seed, o); },
+      /* the surface/world caller hands the network mask in, and it is the ONLY caller that
+         can know whether the road beside this cell is a cross street or this boulevard's
+         own other half -- the module cannot see the map. */
+      category: K.category(name) || 'gaming_resort' };
+    for (var k2 in SPEC) s[k2] = SPEC[k2];
+    K.register(name, s);
+  }
+  // THE RUN, AND IT ALWAYS RUNS THROUGH. A street that dead-ends inside a block is not a
+  // street — the arterial learned this the hard way and left a third of every grid bare.
+  reg('strip', ['N', 'S']);
+  // THE CROSSING: all four legs, the lights, and the bridges. FORCED, because this type
+  // exists to be the icon of a crossing -- it is a portrait, not a placement.
+  reg('strip_x', ['N', 'S', 'E', 'W'], true);
+
+  var API = { generate: generate, throughDrivable: throughDrivable,
+              footprints: function (r) { return r.footprints; },
+              palette: PALETTE, legend: LEGEND, notes: NOTES };
+  if (typeof module !== 'undefined') module.exports = API;
+  root.BohemiaStrip = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
 /* ==== engine/bohemia_cityedit.js (inlined verbatim) ==== */
 // BOHEMIA CITY EDIT — the city-builder verbs (7/19/26, LIFE+CITY session)
 //
@@ -15291,6 +16159,10 @@ const GRP=Math.max(1,Math.round(128/FN));
 let hx=0, hy=0; setTimeout(function(){ if(window.__CITY)window.__CITY.human=function(x,y){hx=x;hy=y;render();}; },0);                        // GLOBAL fine coords of the player
 function slotGround(d){ return ({suburb:'#9ab06a',commercial:'#a0a89a',industrial:'#9a948a',downtown:'#98a0a2',park:'#6a9a4a',golf:'#6a9a4a',desert:'#d8b078',wash:'#c8b088',resort:'#8a8478',mall:'#9a948a',campus:'#5a8a5a',town:'#b09a70',medical:'#a8b0a8',water:'#3a6a8a',mountain:'#8a7a66'})[d]||'#a09a8a'; }
 const RD={arterial:1,strip:1,freeway:1,interchange:1,rail:1,beltway:1};
+/* ROADS THAT DRAW THEMSELVES (8/18): a road district whose engine module is registered
+   with the district kit renders through the kit path instead of the parametric XSEC
+   table. Everything in RD but not here stays exactly as it was. */
+const KIT_ROAD={strip:1};
 const BW={arterial:6,strip:10,freeway:8,interchange:12,rail:2,beltway:8};   // half-widths, scaled to 128
 const RCOL={arterial:'#8a8a86',strip:'#7a7a76',freeway:'#5e5e5a',interchange:'#4a4a48',rail:'#7a6a58',beltway:'#5e5e5a'};
 const OPEN={desert:1,wash:1,mountain:1,water:1};   // open terrain: no street ring
@@ -15475,8 +16347,8 @@ function __subGrid(tx,ty){
    ==== */
 const __kitCache=new Map();
 function __kitHash(s){ let h=0; for(let i=0;i<s.length;i++) h=(Math.imul(h,131)+s.charCodeAt(i))>>>0; return h; }
-function __kitBlock(gx4,gy4,type){
-  const k=type+'|'+gx4+','+gy4; let b=__kitCache.get(k); if(b)return b;
+function __kitBlock(gx4,gy4,type,legs){
+  const k=type+'|'+gx4+','+gy4+(legs?'|'+legs.key:''); let b=__kitCache.get(k); if(b)return b;
   const spec=(typeof BohemiaDistrictKit!=='undefined')?BohemiaDistrictKit.get(type):null;
   let g=null;
   if(spec){
@@ -15488,7 +16360,9 @@ function __kitBlock(gx4,gy4,type){
     side('W',__nk.map(i=>[gx4*GRP-1,gy4*GRP+i]));
     side('N',__nk.map(i=>[gx4*GRP+i,gy4*GRP-1]));
     const gseed=(om.seed ^ Math.imul(gx4,73856093) ^ Math.imul(gy4,19349663) ^ Math.imul(__kitHash(type),101)>>>0)>>>0;
-    try{ const res=spec.generate(gseed,{streets:st.length?st:['S']}); if(res&&res.g)g=res.g; }
+    try{ const o=legs?{streets:legs.streets,links:legs.streets,cross:legs.cross,spanThrough:legs.spanThrough}
+                     :{streets:st.length?st:['S']};
+         const res=spec.generate(gseed,o); if(res&&res.g)g=res.g; }
     catch(e){ g=null; }
   }
   b={g:g,spec:spec};
@@ -15496,13 +16370,56 @@ function __kitBlock(gx4,gy4,type){
   if(__kitCache.size>60){ const it=__kitCache.keys(); __kitCache.delete(it.next().value); }
   return b;
 }
-function __kitGrid(tx,ty,type){
-  const blk=__kitBlock(Math.floor(tx/GRP),Math.floor(ty/GRP),type);
+function __kitGrid(tx,ty,type,legs){
+  const blk=__kitBlock(Math.floor(tx/GRP),Math.floor(ty/GRP),type,legs);
   if(!blk.g) return null;
   const ox=(((tx%GRP)+GRP)%GRP)*FN, oy=(((ty%GRP)+GRP)%GRP)*FN;
   const out=new Uint16Array(FN*FN);
   for(let y=0;y<FN;y++)for(let x=0;x<FN;x++) out[y*FN+x]=blk.g[oy+y][ox+x];
   return {codes:out, spec:blk.spec};
+}
+
+/* WHICH ROAD IS WHICH, FOR A ROAD THAT DRAWS ITSELF (8/18).
+   Paolo 8/16, on the freeway and it is the same defect here: "you gotta recognize when
+   the freeway is two grids wide two tiles wide that it has to WORK TOGETHER."
+   MEASURED: the Strip runs TWO CELLS ABREAST for its whole length, so every one of its 81
+   cells has a road neighbour on all four sides -- its continuation ahead and behind, and
+   its own SIBLING HALF to the side. Handed the raw adjacency mask the generator built a
+   signalised junction on 78 of 81 cells: seventy-eight sets of crosswalks, signal masts
+   and pedestrian bridges in an unbroken row down Las Vegas Boulevard.
+   The module cannot see the map, so this is where the three things get told apart:
+     streets     the axis it RUNS on -- from roadAxis(), which measures RUN LENGTH, the
+                 same machinery the freeway ribbon already uses. Not from adjacency.
+     cross       roads that are NOT this boulevard. Only these make a crossing.
+     spanThrough my sibling half has the crossing, so its pedestrian bridge keeps going
+                 across me -- a bridge over an eight-lane boulevard does not stop halfway,
+                 and the towers stay on the half that owns them. The halves working
+                 together, which is the thing he asked for. */
+function kitRoadLegs(d,tx,ty){
+  const ax=roadAxis(d,tx,ty)||'ns';
+  const streets=(ax==='ns')?['N','S']:['E','W'];
+  const D=[['N',0,-1],['S',0,1],['W',-1,0],['E',1,0]];
+  const cross=[];
+  for(const [nm,dx,dy] of D){
+    const t=om.at(tx+dx,ty+dy);
+    if(!t||!RD[t.district]||t.district===d) continue;      // my own other half is not a cross street
+    cross.push(nm);
+  }
+  // does the sibling half beside me carry a crossing my bridge has to continue across?
+  let spanThrough=false;
+  if(!cross.length){
+    const side=(ax==='ns')?[[-1,0],[1,0]]:[[0,-1],[0,1]];
+    for(const [dx,dy] of side){
+      const t=om.at(tx+dx,ty+dy); if(!t||t.district!==d) continue;
+      for(const [,ddx,ddy] of D){
+        const u=om.at(tx+dx+ddx,ty+dy+ddy);
+        if(u&&RD[u.district]&&u.district!==d){ spanThrough=true; break; }
+      }
+      if(spanThrough) break;
+    }
+  }
+  return {streets:streets, cross:cross, spanThrough:spanThrough,
+          key:ax+':'+cross.join('')+(spanThrough?'+T':'')};
 }
 
 function tileMeta(tx,ty){
@@ -15514,6 +16431,19 @@ function tileMeta(tx,ty){
     const nb=[om.at(tx,ty-1),om.at(tx,ty+1),om.at(tx-1,ty),om.at(tx+1,ty)];
     m.N=!!(nb[0]&&RD[nb[0].district]); m.S=!!(nb[1]&&RD[nb[1].district]);
     m.W=!!(nb[2]&&RD[nb[2].district]); m.E=!!(nb[3]&&RD[nb[3].district]);
+    /* A ROAD WITH ITS OWN MODULE DRAWS ITSELF (8/18). The parametric XSEC table below is
+       four numbers -- lanes, median, side, and a colour -- and four numbers cannot say
+       "palm median", "promenade at the back of curb" or "enclosed pedestrian bridge over
+       eight lanes". Las Vegas Boulevard now has a real generator with a legend and a
+       dossier, so the strip cells route through the SAME kit path every district uses and
+       get their tiles from their own module. __kitBlock hands the generator the road-
+       neighbour mask as `streets`, which for a network tile is exactly its `links`, so
+       the boulevard turns with the cell instead of always running north-south. Every
+       other road (arterial, freeway, rail, interchange) is untouched and still parametric. */
+    if(KIT_ROAD[d] && typeof BohemiaDistrictKit!=='undefined' && BohemiaDistrictKit.get(d)){
+      const kr=__kitGrid(tx,ty,d,kitRoadLegs(d,tx,ty));
+      if(kr){ m.kit=kr.codes; m.kitSpec=kr.spec; m.road=false; metaCache.set(key,m); return m; }
+    }
     metaCache.set(key,m); return m;
   }
   if(m.open){ // scattered unwalkable clutter (rocks, brush) on open ground
@@ -15743,7 +16673,13 @@ function realizeCell(gx,gy){
     if(tl.layer==='portal'){ c.g='#8a8a86'; c.walk=true;
       if(entry&&entry.enter){ c.enter=entry.enter; c.ecode=code; c.portal=true; }   /* STEP-INSIDE: a door/ramp/open bay you step through */
       return c; }
-    if(tl.layer==='overhead'){ c.g=slotGround(d); c.walk=true; return c; }
+    /* AN OVERHEAD IS A THING, NOT A HOLE (8/18). This branch drew every canopy, deck and
+       bridge span as slotGround(d) -- the district's bare DIRT -- so from above a truck-stop
+       canopy and a pedestrian bridge over eight lanes both read as a patch of desert laid
+       across whatever they cover. Seen from a ¾ camera the overhead is the thing you SEE and
+       the ground under it is the thing you do not, so it draws its own palette colour. It
+       stays WALKABLE, which is the whole point of the layer: you pass under it. */
+    if(tl.layer==='overhead'){ c.g=pal; c.walk=true; c.overhead=true; return c; }
     c.g=pal; c.walk=true; return c;
   }
   if(m.sub){ /* CANON SUBURB codes: 0 dead 1 road 2 house 3 drive 4 wall 5 gate 6 garage 9 upper */

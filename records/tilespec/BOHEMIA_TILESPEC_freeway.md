@@ -43,22 +43,22 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | dirt frontage | ground | graded dirt outside the sound wall, weeds through it | ground | no | — | 4446 |
-| 1 | `#33333c` | travel lane | drive | interstate lane, sun-cracked and drifted with grit | ground | no | — | 3084 |
-| 2 | `#b3ab97` | white lane line | marking | faded white lane line (a freeway has no yellow: the barrier does that job) | ground | no | — | 438 |
-| 3 | `#3d3d46` | shoulder | drive | paved shoulder, rumble strip worn flat | ground | no | — | 1304 |
-| 4 | `#8a8a92` | median barrier | structure | concrete F-shape median barrier, scarred and tagged | structure | yes | — | 282 |
-| 5 | `#6b6b74` | guardrail | structure | steel W-beam guardrail, posts bent where something left the road | structure | yes | — | 373 |
-| 6 | `#6a5f47` | embankment | ground | graded embankment slope, decomposed granite and rock | ground | no | — | 5794 |
-| 7 | `#3a4520` | dead brush | tree-dead | dry brush and tumbleweed piled up the embankment | prop | yes | — | 34 |
-| 8 | `#7a7266` | sound wall | structure | the tall block sound wall fronting the neighbourhood, tagged end to end | structure | yes | — | 376 |
+| 0 | `dead-dirt (kit ground)` | dirt frontage | ground | graded dirt outside the sound wall, weeds through it | ground | no | — | 2048 |
+| 1 | `#33333c` | travel lane | drive | interstate lane, sun-cracked and drifted with grit | ground | no | — | 7364 |
+| 2 | `#b3ab97` | white lane line | marking | faded white lane line (a freeway has no yellow: the barrier does that job) | ground | no | — | 646 |
+| 3 | `#3d3d46` | shoulder | drive | paved shoulder, rumble strip worn flat | ground | no | — | 1783 |
+| 4 | `#8a8a92` | median barrier | structure | concrete F-shape median barrier, scarred and tagged | structure | yes | — | 336 |
+| 5 | `#6b6b74` | guardrail | structure | steel W-beam guardrail, posts bent where something left the road | structure | yes | — | 445 |
+| 6 | `#6a5f47` | embankment | ground | graded embankment slope, decomposed granite and rock | ground | no | — | 2422 |
+| 7 | `#3a4520` | dead brush | tree-dead | dry brush and tumbleweed piled up the embankment | prop | yes | — | 42 |
+| 8 | `#7a7266` | sound wall | structure | the tall block sound wall fronting the neighbourhood, tagged end to end | structure | yes | — | 1008 |
 | 9 | `#8f8676` | high-mast light | prop | high-mast freeway light, every head dark | prop | yes | — | 3 |
-| 10 | `#55555f` | dead car | vehicle | a car stopped in the lane where it died, doors open, glass gone | prop | yes | — | 130 |
+| 10 | `#55555f` | dead car | vehicle | a car stopped in the lane where it died, doors open, glass gone | prop | yes | — | 132 |
 | 11 | `#4a4a54` | dead semi | vehicle | a jackknifed semi across the lanes, trailer stripped | prop | yes | — | 51 |
 | 12 | `#5c5c66` | overpass deck | overhead | the mile-grid street crossing overhead on its deck (you pass UNDER) | overhead | no | — | — |
 | 13 | `#6f6a5e` | bridge column | structure | concrete bridge pier carrying the overpass, tagged at the base | structure | yes | — | — |
-| 14 | `#6a6a72` | sign gantry | overhead | overhead sign gantry, panels gone or hanging | overhead | no | — | 44 |
-| 15 | `#4a4842` | rubble / debris | prop | blown tyre, bumper, glass and drift across the lanes | prop | no | — | 25 |
+| 14 | `#6a6a72` | sign gantry | overhead | overhead sign gantry, panels gone or hanging | overhead | no | — | 73 |
+| 15 | `#4a4842` | rubble / debris | prop | blown tyre, bumper, glass and drift across the lanes | prop | no | — | 31 |
 | 16 | `#5a5348` | rail ballast | ground | the railway ballast running out from under the bridge, in the daylight between the abutments | ground | no | — | — |
 | 17 | `#8e8a84` | rail under bridge | ground | the UP mainline passing under the interstate, rails still bright on top | ground | no | — | — |
 

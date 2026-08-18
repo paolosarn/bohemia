@@ -61,7 +61,17 @@ def _hex(h):
 
 
 def load():
-    if not os.path.exists(DUMP):
+    # A CACHE THAT NEVER EXPIRES IS A LIE (8/18). `if not exists(DUMP)` meant this tool
+    # re-drew the SAME grids forever: I changed three engine modules, re-ran it, and got a
+    # byte-identical sheet back with a cheerful success line -- the exact "a tool that
+    # silently no-ops is worse than one that fails" failure this repo keeps paying for.
+    # The dump is stale the moment any engine module is newer than it.
+    stale = not os.path.exists(DUMP)
+    if not stale:
+        t = os.path.getmtime(DUMP)
+        stale = any(os.path.getmtime(os.path.join('engine', f)) > t
+                    for f in os.listdir('engine') if f.endswith('.js'))
+    if stale:
         subprocess.run(['node', 'tools/bohemia_district_grid_dump.js', DUMP],
                        check=True, capture_output=True)
     return json.load(open(DUMP, encoding='utf8'))

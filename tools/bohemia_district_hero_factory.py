@@ -940,6 +940,157 @@ def build_downtown(P):
     return s, 6.4
 
 
+# ---------------------------------------------------------------- RESORT
+def build_resort(P):
+    """engine/bohemia_resort.js: PODIUM + TOWER, and the tower is the tallest thing in the
+    valley on purpose. What says STRIP RESORT and nothing else: a low podium filling the
+    block, one enormous guest tower standing on it, and the PORTE COCHERE on its columns
+    reaching out over the arrival drive. The pool basin is the punchline -- dry."""
+    POD, TOWER, ROOF, CANOPY, GARAGE = P[2], P[6], P[4], P[7], P[8]
+    POOL, MECH, POLE, CARC, DOOR = P[12], P[14], P[9], P[10], P[13]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=P[0], lotc=P[1])
+    # THE PODIUM: four storeys of casino floor filling the block wall to wall, no setback.
+    s.box((-2, -2, 0), (15, 11, 4.4), {'top': _dark(ROOF, 0.95), 'px': _win(POD, 10, 3, 4, 0.15),
+          'py': _win(POD, 8, 3, 9, 0.15), 'nx': _dark(POD), 'ny': _dark(POD)})
+    for (mx, my, mw, mh) in ((0.4, -1.2, 2.6, 1.8), (5.2, -1.4, 3.2, 1.4), (9.6, 0.4, 2.2, 2.0),
+                             (1.8, 1.8, 2.0, 1.4)):                       # roof plant on the podium
+        s.box((mx, my, 4.4), (mw, mh, 0.9), {'c': _dark(ROOF, 1.12)['c']})
+    for (kx, ky, kw) in ((3.4, 0.6, 2.4), (7.0, 2.2, 2.0)):               # skylights over the casino floor
+        s.box((kx, ky, 4.4), (kw, 1.4, 0.25), {'c': P[15]})
+    # THE GUEST TOWER, standing on the podium and owning the silhouette. A real Strip
+    # floorplate is a long thin double-loaded slab, not a square, so this is one.
+    s.box((0.6, -1.4, 4.4), (9.4, 4.2, 16.5),
+          {'top': _dark(TOWER, 0.85), 'px': _win(TOWER, 12, 8, 3, 0.18),
+           'py': _win(TOWER, 5, 8, 7, 0.18), 'nx': _win(TOWER, 5, 8, 11, 0.18), 'ny': _dark(TOWER)})
+    s.box((2.0, -0.6, 20.9), (3.0, 2.4, 1.4), {'c': MECH})                # mech penthouse
+    s.box((6.6, -0.6, 20.9), (2.0, 2.0, 1.0), {'c': MECH})                # lift overrun
+    # THE PORTE COCHERE: a canopy on columns you walk and DRIVE under. The one thing on the
+    # site that is neither building nor ground, and the reason arrival reads as arrival.
+    for cx in (1.2, 4.2, 7.2, 10.2):
+        s.box((cx, 11.4, 0), (0.34, 0.34, 3.6), {'c': _dark(POLE, 1.1)['c']})
+    s.box((0.4, 9.0, 3.6), (10.8, 3.4, 0.6), {'top': _dark(CANOPY, 1.15),
+          'px': _dark(CANOPY, 0.85), 'py': _dark(CANOPY, 0.85),
+          'nx': _dark(CANOPY, 0.85), 'ny': _dark(CANOPY, 0.85)})
+    _door_face(s, (-2, -2, 0), (15, 11, 4.4), width=2.4, ztop=2.8, doorc=DOOR,
+               framec=tuple(min(255, int(c * 1.3)) for c in POD))
+    # THE PARKING GARAGE, an open deck on one end of the podium: floor plates, no walls.
+    for gz in (0, 2.0, 4.0, 6.0):
+        s.box((11.2, 0.2, gz), (3.4, 7.2, 0.45), {'c': _dark(GARAGE, 1.0 + gz * 0.03)['c']})
+    for (px_, py_) in ((11.4, 0.4), (14.2, 0.4), (11.4, 6.9), (14.2, 6.9)):
+        s.box((px_, py_, 0), (0.3, 0.3, 6.5), {'c': _dark(GARAGE, 0.8)['c']})
+    # THE DRY POOL, behind the building where a resort puts it, screened by the building
+    s.box((-1.6, 12.4, 0.02), (6.0, 2.6, 0.06), {'c': _dark(POOL, 1.25)['c']})   # deck
+    s.box((-1.0, 12.9, 0.02), (4.6, 1.7, 0.30), {'top': _dark(POOL, 0.7),
+          'px': _dark(POOL, 1.0), 'py': _dark(POOL, 1.0), 'nx': _dark(POOL, 1.0), 'ny': _dark(POOL, 1.0)})
+    for cx2 in (4.8, 7.6):                                                # cars left under the canopy
+        _vehicle(s, cx2, 10.6, CAR, CARC, along='x')
+    return s, 22.3
+
+
+# ---------------------------------------------------------------- CASINO
+def build_casino(P):
+    """engine/bohemia_casino.js: the DOWNTOWN casino, and the whole job of this icon is to
+    not be the resort. LOW AND WIDE floor with no setback, a slender wing on the back, and
+    THE FRONTAGE IS SIGN -- two marquee pylons floor to roof with the neon canopy strung
+    between them over the pavement. Downtown sold itself with light, not architecture."""
+    FLOOR, WING, ROOF, CANOPY, DECK = P[2], P[6], P[4], P[7], P[8]
+    MARQ, MECH, POLE, CARC, DOOR = P[12], P[14], P[9], P[10], P[13]
+    s = Scene()
+    _ground(s, (-3, -3, 15, 15), groundc=P[0], lotc=P[1])
+    # THE FLOOR: one enormous low plate filling the block to the building line.
+    s.box((-2, -2, 0), (15, 12, 3.6), {'top': _dark(ROOF, 0.95), 'px': _win(FLOOR, 11, 2, 5, 0.16),
+          'py': _win(FLOOR, 9, 2, 8, 0.16), 'nx': _dark(FLOOR), 'ny': _dark(FLOOR)})
+    for (mx, my, mw, mh) in ((0.2, -1.4, 3.0, 1.6), (5.6, -1.2, 2.4, 1.6), (9.4, 0.8, 2.6, 1.8),
+                             (2.6, 2.4, 2.2, 1.4), (8.0, 4.0, 2.0, 1.6)):
+        s.box((mx, my, 3.6), (mw, mh, 0.8), {'c': _dark(ROOF, 1.12)['c']})
+    for (kx, ky, kw) in ((3.2, 0.2, 2.8), (6.4, 2.8, 2.4), (0.6, 5.2, 2.2)):
+        s.box((kx, ky, 3.6), (kw, 1.3, 0.22), {'c': P[15]})
+    # THE HOTEL WING on the BACK of the floor -- slender, never across the front.
+    s.box((1.4, -1.6, 3.6), (6.0, 3.2, 9.0), {'top': _dark(WING, 0.85), 'px': _win(WING, 8, 6, 6, 0.2),
+          'py': _win(WING, 4, 6, 2, 0.2), 'nx': _win(WING, 4, 6, 9, 0.2), 'ny': _dark(WING)})
+    s.box((2.6, -0.8, 12.6), (2.6, 1.8, 1.1), {'c': MECH})
+    # THE FRONTAGE IS SIGN. The pylons are the tallest things on the block after the wing
+    # and they are the BRIGHTEST -- on a real Fremont block the sign is what you see.
+    # The faces are BLANK: whose casino this is stays Paolo's (MECHANISM-MINE / CONTENTS-PAOLO'S).
+    for mxp in (-1.4, 10.0):
+        s.box((mxp, 9.2, 0), (2.8, 1.2, 10.5), {'top': _dark(MARQ, 1.2),
+              'px': _dark(MARQ, 1.28), 'py': _dark(MARQ, 1.28),
+              'nx': _dark(MARQ, 0.9), 'ny': _dark(MARQ, 0.9)})
+    # THE NEON CANOPY over the pavement, on its kerb columns
+    for cx in (2.0, 5.0, 8.0):
+        s.box((cx, 12.5, 0), (0.3, 0.3, 4.2), {'c': _dark(POLE, 1.1)['c']})
+    s.box((1.2, 10.4, 4.2), (8.0, 2.6, 0.55), {'top': _dark(CANOPY, 1.2),
+          'px': _dark(CANOPY, 0.85), 'py': _dark(CANOPY, 0.85),
+          'nx': _dark(CANOPY, 0.85), 'ny': _dark(CANOPY, 0.85)})
+    _door_face(s, (-2, -2, 0), (15, 12, 3.6), width=2.2, ztop=2.6, doorc=DOOR,
+               framec=tuple(min(255, int(c * 1.3)) for c in FLOOR))
+    # THE SELF-PARK DECK on the alley, where the car belongs downtown
+    for gz in (0, 2.0, 4.0):
+        s.box((11.0, -1.8, gz), (3.6, 6.0, 0.42), {'c': _dark(DECK, 1.0 + gz * 0.04)['c']})
+    for (px_, py_) in ((11.2, -1.6), (14.2, -1.6), (11.2, 3.7), (14.2, 3.7)):
+        s.box((px_, py_, 0), (0.3, 0.3, 4.4), {'c': _dark(DECK, 0.8)['c']})
+    _vehicle(s, 11.6, 11.4, CAR, CARC, along='y')                          # left in the valet lane
+    return s, 13.7
+
+
+# ---------------------------------------------------------------- STRIP (LAS VEGAS BLVD)
+def _strip_body(P, crossing):
+    """engine/bohemia_strip.js. The boulevard, and the one thing that makes it the Strip
+    rather than a wide arterial: the ENCLOSED PEDESTRIAN BRIDGE flying over eight lanes on
+    its stair towers. Nothing else in the valley has one. The palm median is the other
+    tell -- the county lifted those palms out during construction and re-planted them."""
+    ROAD, LINE, CROSS, MEDIAN, WALK = P[1], P[2], P[3], P[4], P[6]
+    PALM, LIGHT, SIGNAL, SPAN, TOWER, PYLON = P[11], P[9], P[12], P[18], P[19], P[20]
+    s = Scene()
+    _ground(s, (-4, -4, 16, 16), groundc=WALK, lotc=ROAD)
+    # THE PROMENADE runs to the edge on both sides; the roadway fills everything between.
+    s.box((-4, -4, 0.01), (20, 20, 0.04), {'c': WALK})
+    s.box((-4, 1.6, 0.03), (20, 8.8, 0.06), {'c': ROAD})
+    s.box((-4, 5.4, 0.05), (20, 1.2, 0.10), {'c': MEDIAN})                 # the palm median
+    for lx in (-3.0, 0.4, 3.8, 7.2, 10.6):                                 # lane dashes both sides
+        for ly in (3.0, 4.2, 7.8, 9.0):
+            s.box((lx, ly, 0.07), (1.5, 0.16, 0.03), {'c': LINE})
+    for px in (-2.4, 1.6, 5.6, 9.6):                                       # the median palms, dead
+        s.box((px, 5.85, 0.10), (0.22, 0.22, 3.2), {'c': _dark(PALM, 1.05)['c']})
+        s.box((px - 0.55, 5.3, 3.3), (1.3, 1.3, 0.35), {'c': PALM})
+    for (lx2, ly2) in ((-1.6, 0.9), (4.4, 11.1), (10.4, 0.9)):             # boulevard light standards
+        s.box((lx2, ly2, 0), (0.24, 0.24, 4.6), {'c': LIGHT})
+        s.box((lx2 - 0.5, ly2 - 0.1, 4.6), (1.2, 0.3, 0.22), {'c': _dark(LIGHT, 1.15)['c']})
+    if crossing:
+        for cy in (2.0, 9.4):                                              # ladder crosswalks
+            for cb in range(9):
+                s.box((-1.2 + cb * 1.5, cy, 0.07), (0.7, 1.0, 0.03), {'c': CROSS})
+        for (sx, sy) in ((-1.8, 0.6), (10.2, 0.6), (-1.8, 11.0), (10.2, 11.0)):
+            s.box((sx, sy, 0), (0.28, 0.28, 5.0), {'c': SIGNAL})           # signal masts
+            s.box((sx, sy + (1.0 if sy < 5 else -3.4), 4.7), (0.22, 3.2, 0.22), {'c': SIGNAL})
+    # THE PEDESTRIAN BRIDGE. Deck flying clear over the roadway on its two stair towers,
+    # which is how you actually cross this street.
+    for (tx, ty) in ((-0.6, 0.2), (-0.6, 10.4)):
+        s.box((tx, ty, 0), (2.4, 1.8, 6.4), {'top': _dark(TOWER, 1.1),
+              'px': _win(TOWER, 2, 4, 3, 0.3), 'py': _dark(TOWER, 0.9),
+              'nx': _dark(TOWER, 0.9), 'ny': _dark(TOWER, 0.9)})
+    s.box((-0.2, 1.4, 6.0), (1.6, 9.6, 1.5), {'top': _dark(SPAN, 1.2),
+          'px': _win(SPAN, 2, 1, 5, 0.34), 'py': _win(SPAN, 12, 1, 8, 0.34),
+          'nx': _win(SPAN, 12, 1, 2, 0.34), 'ny': _dark(SPAN, 0.95)})
+    # THE MARQUEE PYLON at the property line: the tallest thing on the street that is not
+    # a building, and its face is BLANK on purpose.
+    s.box((7.8, 12.6, 0), (2.2, 1.0, 9.0), {'top': _dark(PYLON, 1.2),
+          'px': _dark(PYLON, 1.25), 'py': _dark(PYLON, 1.25),
+          'nx': _dark(PYLON, 0.9), 'ny': _dark(PYLON, 0.9)})
+    _vehicle(s, 2.6, 3.4, CAR, P[14], along='x')                           # left where traffic stopped
+    _vehicle(s, 8.0, 8.6, CAR, P[14], along='x')
+    return s, 10.2
+
+
+def build_strip(P):
+    return _strip_body(P, crossing=False)
+
+
+def build_strip_x(P):
+    return _strip_body(P, crossing=True)
+
+
 # ---------------------------------------------------------------- INDUSTRIAL
 def build_industrial(P):
     WARE, DOCK, OFFICE, GUARD, TRAILERC, DRIVE = P[2], P[4], P[6], P[11], P[9], P[1]
@@ -3560,6 +3711,11 @@ HEROES = {'cityhall': build_cityhall, 'battery': build_battery, 'terminal': buil
           'golf': build_golf, 'drivein': build_drivein, 'boneyard': build_boneyard,
           'wash': build_wash, 'freeway': build_freeway, 'arterial': build_arterial,
           'arterial_x': build_arterial_x,
+          # GAMING & RESORT (8/18): three types that could not have an icon before today,
+          # because the hero factory reads a district's palette LIVE off its engine module
+          # and these three had no module. They have one now.
+          'resort': build_resort, 'casino': build_casino,
+          'strip': build_strip, 'strip_x': build_strip_x,
           'mountain': build_mountain, 'desert': build_desert, 'water': build_water}
 
 # THE TWELVE UTILITY LANDMARKS, appended LAST on purpose: art_45_gate samples heroes[0]
@@ -3620,6 +3776,10 @@ LABEL = {
     'courthouse': 'Courthouse — matched: a stately civic block on a podium + a COLUMN PORTICO + grand STEPS + a DOME.',
     'apartment': 'Garden apartments — matched: three walk-up BLOCKS around a court, their circulation on the OUTSIDE the way Sun Belt walk-ups build it (open WALKWAY DECKS on two levels and the stair run at the end), the DRAINED POOL in the middle of the court, the clubhouse, and the perimeter fence.',
     'arterial': 'Arterial — THE RUN: the sidewalks are the two ends and the street fills everything between them (Paolo 8/11), an unbroken raised MEDIAN with its dead palms down the middle, three lanes each way running clean off both ends, streetlights. No crosswalks, no signals, no walls — nothing stops on a run.',
+    'resort': 'Strip mega-resort — matched to the walkable district: PODIUM + TOWER, off real Las Vegas site plans (Encore/Wynn, Paris Las Vegas, Circa). A low podium filling the block wall to wall with the casino floor, roof plant and SKYLIGHTS over it, and ONE ENORMOUS GUEST TOWER standing on it — a long thin double-loaded slab, the tallest thing in the valley — plus the PORTE COCHERE on its columns reaching out over the arrival drive, the open-deck parking garage on one end and the DRY POOL basin behind. No fence, no wall, no bollards anywhere (Paolo 8/16): the podium meeting the sidewalk is the edge, which is what the real building does.',
+    'casino': 'Downtown casino — matched, and its whole job is to NOT be the Strip resort. Fremont Street: NO SETBACK, one enormous LOW WIDE floor meeting the pavement on a block platted before anybody parked a car, a SLENDER HOTEL WING on the back rather than a tower across the front, and THE FRONTAGE IS SIGN — two MARQUEE PYLONS floor to roof, the brightest things on the block, with the NEON CANOPY strung between them over the walk. The car is banished to a self-park deck on the alley. Marquee faces BLANK: whose casino it is stays Paolo\'s.',
+    'strip': 'Las Vegas Boulevard — THE RUN, and it is a street cell, not a lot: eight lanes filling the cell end to end, the wide LANDSCAPED PALM MEDIAN down the middle (the county lifted those palms out during construction and re-planted them — the median is not decoration, it is the street), the PROMENADE at the back of curb running out to the property line on both sides with no amenity strip and NO WALL, a marquee pylon at the building face, and the ENCLOSED PEDESTRIAN BRIDGE flying over the traffic on its two stair towers. The bridge is the tell: nothing else in the valley has one.',
+    'strip_x': 'Las Vegas Boulevard Crossing — THE CROSSING, a different item from the run (same ruling as arterial vs arterial_x, Paolo 8/11): the boulevard with LADDER CROSSWALKS on the approaches, the SIGNAL MASTS reaching their arms out over eight lanes, and the PEDESTRIAN BRIDGE standing over all of it. Out there you do not cross this street at grade at all — you go up a tower, across the span and down the other side, which is exactly what this icon shows.',
     'arterial_x': 'Arterial Intersection — THE CROSSING, and a different item from the run (Paolo 8/11): FOUR SIDEWALK CORNERS with the junction box opening between them, ladder CROSSWALKS on all four legs, the median stopped short for the left-turn opening, and the SIGNAL MASTS reaching their arms out over the lanes. The corners say intersection before you can see a single signal head.',
     'boneyard': 'Wrecking yard — matched: six CRUSHED-CAR STACKS, flattened bodies piled six and eight high in leaning towers — a shape nothing else makes — with the CRANE and its grapple standing over them, loose wrecks in three faded colours filling the dirt aisles, tyre piles and the parts office.',
     'cemetery': 'Memorial park — matched: the MAUSOLEUM with its colonnade front (the only building with height on a cemetery), the HEADSTONE FIELD gridded around it, the OBELISK monument, a columbarium wall and the dead trees in their grates.',
@@ -3774,6 +3934,48 @@ PARTS = {
         'drained pool — the court pool, empty (code 8 "drained pool"), its shallow end a step up',
         'clubhouse — the low office/laundry mass with its door (code 7 "clubhouse")',
         'perimeter fence posts — the corner posts of the property fence (code 12 "fence")',
+    ],
+    'resort': [
+        'podium — the four-storey casino floor filling the block wall to wall (code 2 "podium (casino floor)")',
+        'roof plant + skylights — the chiller/duct field on the podium roof and the glazing punched over the casino floor (code 4 "podium roof band", code 15 "casino skylight")',
+        'guest tower — the long thin double-loaded slab standing on the podium, the tallest mass in the valley (code 6 "guest tower")',
+        'mech penthouse + lift overrun — on the tower roof (code 14 "tower plant deck")',
+        'porte cochere — the arrival canopy on its columns, walked and driven UNDER (code 7 "porte cochere canopy", code 9 "pole light")',
+        'lobby doors — under the canopy, into the podium (code 13 "lobby doors")',
+        'parking garage — open floor plates on one end of the podium, no walls (code 8 "parking garage deck")',
+        'dry pool — the basin behind the building, screened by the building (code 12 "dry pool basin")',
+        'abandoned cars — left under the canopy where they stopped (code 10 "abandoned vehicle")',
+    ],
+    'casino': [
+        'casino floor — one enormous low plate meeting the pavement, no setback (code 2 "casino floor")',
+        'roof plant + skylights — the busiest surface on a downtown block (code 4 "floor roof band", code 15 "floor skylight")',
+        'hotel wing — slender, on the BACK of the floor, never across the front (code 6 "hotel wing")',
+        'wing roof plant — tanks and fan housings on top of the wing (code 14 "wing roof plant")',
+        'marquee pylons — floor to roof at the building line, the brightest thing on the block, faces BLANK (code 12 "marquee sign")',
+        'neon canopy — strung over the pavement on its kerb columns (code 7 "neon canopy", code 9 "pole light")',
+        'casino doors — straight off the sidewalk (code 13 "casino doors")',
+        'self-park deck — open plates on the alley, where the car belongs downtown (code 8 "self-park deck")',
+        'abandoned car — left in the valet lane (code 10 "abandoned vehicle")',
+    ],
+    'strip': [
+        'roadway — eight lanes filling the cell end to end (code 1 "asphalt roadway")',
+        'palm median — the wide landscaped median down the middle with its dead palms (code 4 "palm median", code 11 "dead palm")',
+        'promenade — at the BACK OF CURB with no amenity strip and no wall, running to the property line both sides (code 6 "promenade")',
+        'lane dashes — four lanes each way (code 2 "white lane line")',
+        'pedestrian bridge — the enclosed span over the traffic on its two stair towers (code 18 "pedestrian bridge", code 19 "bridge tower")',
+        'marquee pylon — at the building face, sign face blank (code 20 "marquee pylon")',
+        'boulevard light standards — on the promenade (code 9 "streetlight")',
+        'dead cars — left in the lanes where the traffic stopped (code 14 "dead car")',
+    ],
+    'strip_x': [
+        'roadway — the junction, eight lanes (code 1 "asphalt roadway")',
+        'ladder crosswalks — on the approaches (code 3 "crosswalk")',
+        'signal masts — arms out over eight lanes, every head dark (code 12 "signal mast")',
+        'palm median — stopped short for the left-turn opening (code 4 "palm median", code 11 "dead palm")',
+        'pedestrian bridge — standing over the whole crossing on its stair towers, which is how you actually cross this street (code 18 "pedestrian bridge", code 19 "bridge tower")',
+        'promenade — wrapping the corners (code 6 "promenade")',
+        'marquee pylon — at the building face (code 20 "marquee pylon")',
+        'dead cars — in the lanes (code 14 "dead car")',
     ],
     'arterial': [
         'roadway — six lanes filling the cell end to end, paved past the frame so the box has no bare corner (code 1 "asphalt roadway")',

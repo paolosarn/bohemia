@@ -4260,7 +4260,101 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/11 (zg) LATEST -- *** THE DEAD COME IN CLUSTERS AND THE
+WORLD (city-1eztay): 8/18 LATEST -- *** THE STRIP WAS NEVER BUILT. 212 CELLS --
+RESORT 118, STRIP 81, CASINO 5 -- GENERATED NOTHING FOR A MONTH, AND THE REASON
+WAS ONE COMMENT EVERYBODY OBEYED AND NOBODY RE-READ. ***
+Tab: RUN (walk the Strip) and MAP. Grid sheets: records/target/BOHEMIA_GRID_resort
+.png / _casino.png / _strip.png / _strip_x.png.
+
+The 7/18 ruling said gaming/resort is "individual hand-crafted love, NOT the
+auto-factory". Every session read "no DISTGEN entry" and stopped. So the three
+biggest gaming types in the valley fell through to the placeholder branch in the
+city renderer -- the one that literally reads
+`const noStreets=(d==='resort'||d==='mall'||d==='casino')` and drops one flat
+coloured box on the tile. THAT is the flat diamond on the map, and it is why hero
+art for the Strip was impossible: the hero factory reads a district's palette LIVE
+off its engine module and there was no module.
+
+`strip` was the worst of the three because it was half-wired in a way that HID it:
+it has been in ROADSET since the overmap was written -- every district beside it
+has always treated it as the street it fronts onto, so the neighbours all looked
+right -- and in SURFACEGEN never. A road every other cell believes in, that draws
+nothing.
+
+WHAT SHIPPED. Three modules, each researched off real Las Vegas, each a DIFFERENT
+BUILDING from the other two (three gaming types all coming out as the same tan box
+was the failure mode):
+  engine/bohemia_resort.js  PODIUM + TOWER (Encore/Wynn, Paris LV, Circa). A low
+    podium filling the block with the casino floor, ONE enormous guest tower on it,
+    a porte cochere you walk and drive UNDER, an open-deck garage, a dry pool.
+    3 enterable volumes.
+  engine/bohemia_strip.js   LAS VEGAS BOULEVARD ITSELF, a SURFACE not a lot (RTC
+    of Southern Nevada revitalisation record, Clark County Public Works, FHWA Las
+    Vegas Pedestrian Safety Project): eight lanes, the WIDE PALM MEDIAN (the county
+    lifted those palms out during construction and re-planted them), a PROMENADE AT
+    THE BACK OF CURB with no amenity strip and NO WALL, and the ENCLOSED PEDESTRIAN
+    BRIDGES over the traffic on their stair towers. Registered twice, `strip` (run)
+    and `strip_x` (crossing), same split the arterial got 8/11.
+  engine/bohemia_casino.js  THE DOWNTOWN CASINO, deliberately the opposite: NO
+    SETBACK, one low wide floor meeting the pavement, a slender wing on the BACK,
+    and THE FRONTAGE IS SIGN -- marquee pylons floor to roof with a neon canopy
+    over the walk. Car banished to a self-park deck on the alley.
+Wired: world.js DISTGEN (resort, casino) + SURFACEGEN (strip), tilespec dossiers,
+tilespec_gate, map_tab_gate, inlined into BOHEMIA_CITY_WORLD.html, and four hero
+icons in the factory (resort / casino / strip / strip_x).
+
+NOTHING ENCLOSES ANY OF THEM (Paolo 8/16, LOCKED, "no perimeter walls until I tell
+you, bro no fencing no nothing bro"). No fence, no yard wall, no bollard line, no
+kerb ring in any of the three. The building meeting the sidewalk is the edge --
+which is what the real buildings do, so it cost nothing.
+
+FOUR THINGS THIS TURN GOT WRONG FIRST AND MEASURED SECOND (full post-mortem:
+records/BOHEMIA_THE_STRIP_WAS_NEVER_BUILT_8_18_26.md):
+  1. ONE MASS, ONE FOOTPRINT. K.footprints() takes connected components, so asking
+     for (podium OR tower OR garage) in one pass returned ONE bounding box over the
+     whole plot -- and under INTERIOR-MATCHES-EXTERIOR that builds a single 84x49 m
+     interior instead of three volumes. Each mass carries its own roof code now.
+  2. A STREET THAT DEAD-ENDS INSIDE A BLOCK. The registered strip takes the caller's
+     mask so the boulevard turns with the cell, but {streets:['S']} taken literally
+     left the northern 30 tiles of every cell as bare dirt with a hard line across
+     it -- exactly the defect the arterial spent 7/26 fixing. A mask naming one end
+     of an axis gets the other end too: it still turns, it never stops halfway.
+  3. THE ROOF WAS A BLANK SLAB, AND THEN IT STILL WAS. The plant-and-skylight field
+     that fixes "they all look exactly the same" ran BEFORE the tower and garage
+     were drawn and they painted over two thirds of it. Only the podium west of the
+     tower survived. Found on the grid sheet, not by reading the code.
+  4. SEVENTY-EIGHT PEDESTRIAN BRIDGES IN A ROW. Paolo 8/16 on the freeway -- "you
+     gotta recognize when the freeway is two grids wide two tiles wide that it has to
+     WORK TOGETHER" -- is the identical defect here and I walked straight into it. The
+     Strip runs TWO CELLS ABREAST its whole length, so every cell has a road neighbour
+     on all four sides: its continuation ahead and behind AND ITS OWN SIBLING HALF to
+     the side. Keyed off raw adjacency, 78 of 81 cells built a full signalised junction.
+     The caller now tells the module three different things: `streets` = the axis it
+     RUNS on (from roadAxis(), which measures RUN LENGTH, the freeway ribbon's own
+     machinery), `cross` = roads that are NOT this boulevard (only these make a
+     crossing), and `spanThrough` = my sibling has the crossing so its bridge keeps
+     going across me with the towers staying on the half that owns them.
+  5. A CACHE THAT NEVER EXPIRES IS A LIE. bohemia_district_grid_sheet.py loaded its
+     dump with `if not os.path.exists(DUMP)`. Three engine modules changed, re-ran
+     it, got a BYTE-IDENTICAL sheet back with a cheerful success line. It
+     regenerates on engine mtime now.
+
+AND TWO IN THE RENDERER:
+  A ROAD WITH ITS OWN MODULE DRAWS ITSELF. The city page drew every road from four
+  numbers (lanes/median/side/colour). Four numbers cannot say "palm median" or
+  "pedestrian bridge over eight lanes". strip routes through the kit path now;
+  arterial, freeway, rail and interchange untouched.
+  AN OVERHEAD IS A THING, NOT A HOLE. The kit branch drew every canopy, deck and
+  bridge span as slotGround(d) -- the district's bare DIRT -- so from above a
+  truck-stop canopy read as a patch of desert laid over what it covers. It draws
+  its own colour now and stays walkable, which is the whole point of the layer.
+
+STILL NOT DONE: the eight NAMED gaming landmarks (highroller, sphere x4, luxor,
+strat, sign, springs) generate nothing -- single cells, and what each one IS is
+IDENTITY, so it is [PENDING Paolo]. Freeway art stays frozen on its second
+rejection (STOP PRODUCING).
+
+WORLD (city-1eztay): 8/11 (zg)  -- *** THE DEAD COME IN CLUSTERS AND THE
 CEMETERY IS A PIT -- PLUS THE DRIFT BUG THAT HID IT: THE APP CARRIES INLINED
 COPIES AND MY PATCH TOOL IS ONE-SHOT. ***
 Tab: LOOK -> 7 cards, all real frames. Nothing to hunt.

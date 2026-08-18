@@ -43,18 +43,18 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 
 | code | color | tile / name | kind | ACT-1 material (tile this) | layer | solid | enter (interior) | in cell |
 |---|---|---|---|---|---|---|---|---|
-| 0 | `dead-dirt (kit ground)` | dirt shoulder | ground | the bare graded dirt between the block wall and the neighbouring lot | ground | no | — | 5335 |
-| 1 | `#33333c` | asphalt roadway | drive | six lanes of cracked asphalt, patched and sun-bleached | ground | no | — | 3146 |
-| 2 | `#b3ab97` | white lane line | marking | faded white lane line, dashed between lanes going the same way | ground | no | — | 160 |
+| 0 | `dead-dirt (kit ground)` | dirt shoulder | ground | the bare graded dirt between the block wall and the neighbouring lot | ground | no | — | 2304 |
+| 1 | `#33333c` | asphalt roadway | drive | six lanes of cracked asphalt, patched and sun-bleached | ground | no | — | 8804 |
+| 2 | `#b3ab97` | white lane line | marking | faded white lane line, dashed between lanes going the same way | ground | no | — | 436 |
 | 3 | `#b3ab97` | crosswalk | marking | ladder crosswalk across the approach, half worn off | ground | no | — | — |
-| 4 | `#6f6a5e` | raised median | ground | raised concrete median island, dead landscaping and gravel | ground | no | — | 435 |
-| 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt and dead leaves packed in it | ground | no | — | 348 |
-| 6 | `#8a8a92` | sidewalk | walk | detached concrete sidewalk, cracked and lifted at the joints | ground | no | — | 522 |
-| 7 | `#6a5f47` | landscape strip | ground | decomposed granite amenity and setback strip, irrigation long dead | ground | no | — | 6067 |
-| 8 | `#7a7266` | block wall | structure | six foot CMU block wall backing the tract, tagged and chipped | structure | yes | — | 348 |
-| 9 | `#8f8676` | streetlight | prop | cobra-head streetlight on the amenity strip, head dark | prop | yes | — | 2 |
-| 10 | `#6a5f4a` | power pole | prop | overhead distribution pole down the setback, lines sagging | prop | yes | — | 5 |
-| 11 | `#3a4520` | dead palm / shrub | tree-dead | dead palm stump and dry oleander left in the setback | prop | yes | — | 16 |
+| 4 | `#6f6a5e` | raised median | ground | raised concrete median island, dead landscaping and gravel | ground | no | — | 550 |
+| 5 | `#6b6b74` | curb + gutter | ground | concrete curb and gutter, silt and dead leaves packed in it | ground | no | — | 440 |
+| 6 | `#8a8a92` | sidewalk | walk | detached concrete sidewalk, cracked and lifted at the joints | ground | no | — | 2420 |
+| 7 | `#6a5f47` | landscape strip | ground | decomposed granite amenity and setback strip, irrigation long dead | ground | no | — | 1319 |
+| 8 | `#7a7266` | block wall | structure | six foot CMU block wall backing the tract, tagged and chipped | structure | yes | — | 110 |
+| 9 | `#8f8676` | streetlight | prop | cobra-head streetlight on the amenity strip, head dark | prop | yes | — | 1 |
+| 10 | `#6a5f4a` | power pole | prop | overhead distribution pole down the setback, lines sagging | prop | yes | — | — |
+| 11 | `#3a4520` | dead palm / shrub | tree-dead | dead palm stump and dry oleander left in the setback | prop | yes | — | — |
 | 12 | `#6a6a72` | signal mast | prop | traffic signal mast arm on the corner, every head dark | prop | yes | — | — |
 | 13 | `#5c5648` | bus stop | structure | transit stop pad with a bent shelter frame, the ad panel long gone | structure | yes | — | — |
 | 14 | `#55555f` | dead car | vehicle | a car left at the curb, tyres flat, glass gone | prop | yes | — | — |
