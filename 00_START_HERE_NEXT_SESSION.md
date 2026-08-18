@@ -1,3 +1,79 @@
+RUN (run-eak241): 8/18 LATEST -- *** KEEP THIS RUN. THE HOME-SCREEN WORK ORDER IS
+CLOSED: the game finally tells him the installed app exists, at the one moment he
+has the least to lose. TAB: RUN, at the end of his first night. ***
+
+DEMO BOARD ROW 6, THE LAST OPEN HALF. The manifest, the icon and the apple metas
+shipped 8/16 so an install WORKS and looks right on the springboard. Measured
+before writing a line: `grep -c 'ADD TO HOME'` was 0 across BOTH surfaces.
+Nothing anywhere had ever told him it existed, and an install path nobody is told
+about is an install path nobody takes.
+
+ON THE PLATFORM HE DEMOS ON THERE IS NO OTHER CHANNEL. beforeinstallprompt has
+never existed in Safari (WebKit 255716), and Chrome and Edge on iOS are Safari
+underneath, so they cannot install either. Every other platform draws this prompt
+for free. iOS gets a sentence from us or it gets nothing.
+
+AND THE STAKE IS THE SAVE, which is why it is said on night one and not on night
+nine: iOS does NOT share localStorage between Safari and a home-screen app --
+separate storage, separate cookies, separate worker. The run he is playing does
+NOT travel with him when he installs later.
+
+IT IS A LINE ON THE RECKONING, NOT A CARD, AND THAT WAS A CORRECTION. The first
+cut was its own modal between the SLEEP tap and the DAY 2 wake and it took THREE
+OF MY OWN GATES RED (vista_beat 14/5, dayloop 56/1, demo_day 21/3). They were
+right: the first night became reckoning -> install -> wake -> GET UP -> vista.
+FIVE MODALS, four of them before he plays day two. The gates were not obstacles
+to route around, they were the measurement that the shape was wrong. Now it is
+one heading on a card he is already reading and the tap that dismisses it is the
+SLEEP tap he was making anyway, so it costs him nothing. All three went back to
+19/0, 57/0 and 24/0 untouched.
+
+  tools/bohemia_city_install_card_patch.py (idempotent on __KEEP_THIS_RUN__)
+  gates/install_card_gate.js, 23 claims, registered as INSTALL CARD
+  MUTATION-TESTED BOTH WAYS: strip the caller and the row's original state goes
+  red (17/6); add a second button and the cost-him-nothing assertion goes red.
+
+THE SHAPE IS ASSERTED, NOT JUST THE PRESENCE, because the shape is what I got
+wrong: the reckoning must still have EXACTLY ONE BUTTON and one tap must still
+land on DAY 2. The iOS 26 fact is pinned too, because it is the one claim in the
+copy that rots -- Safari moved Share OUT of the toolbar, so the instruction names
+the ELLIPSIS, then Share, then Add to Home Screen. Copy that says "tap the Share
+button" describes a button that is not on his screen.
+
+WORDS, NOT A DECISION (8/11): the copy is a real attempt, tagged draft:true, and
+the gate asserts no number is set here.
+
+*** A CONTAINER WARNING FOR EVERY LANE, because it cost this one a commit. ***
+Mid-session the box rewound THE ENTIRE GIT OBJECT STORE to an 8/15 snapshot --
+not a working-tree reset, the objects were GONE (`git cat-file` could not find a
+commit made an hour earlier) and HEAD was on a branch from three days back. Only
+the unpushed commit was lost; everything already on origin/main was fine.
+THE LESSON IS THE OLD ONE WITH TEETH: GIT IS THE MEMORY means ORIGIN is the
+memory. A commit that exists only in this container does not exist. If a turn
+does real work, get it to origin before starting the ~50-minute suite, not after.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+ 1. THE DEMO BOARD'S RUN ROWS ARE NOW CLOSED. Rows 6 and 11 both shipped; what is
+    left on the board for this lane is CAMP, and CAMP IS FROZEN TWICE OVER
+    (7/26 "NO session builds survival mechanics before that verdict", plus
+    backlog 1z: whether the camp is one object or a small set, and every number).
+    DO NOT FIND A LEGAL WAY TO SHIP IT. That is the STOP PRODUCING violation by
+    name.
+ 2. So the next real work is the FIRST-NIGHT SEQUENCE AS A WHOLE. Nine separate
+    rulings now land in the player's first twenty minutes (cold open, wake, job,
+    offer, market, reckoning, install, day 2 wake, vista) and each was built by a
+    different turn against its own gate. Nobody has ever sat and played the
+    sequence end to end AS A SEQUENCE. That is a look-and-play pass, not a build.
+
+HANDED OFF, NOT MINE, and all still open:
+  - rerolling still leaves the day/quest/purse/market of the OLD valley standing
+    and overwrites the seed (reroll's owning lane).
+  - arterial 20.4% and freeway 36.5% content, against floors of 45.1% and 45.8%
+    (district_fill_gate). WORLD's live area. His standing ask is that the
+    procedural world be 10/10 and TODAY IT IS NOT, in those two district types.
+  - gates/pages_publish_gate.js still carries its own inline copy of the exclude
+    parser that gates/bohemia_pages_publish.js now exports (WORLD).
+
 COMBAT (combat-nfnki9): 8/18 (k) LATEST -- *** THE MACHINE CANNOT CUT A CORNER.
 RF4-51, MACHINE 3 OF THE NINE, IS BUILT. TAB: COMBAT -- fight anything with a
 SEC-BOT in it and run away diagonally. ***

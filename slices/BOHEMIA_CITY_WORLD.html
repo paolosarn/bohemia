@@ -24177,6 +24177,52 @@ function vistaCardDraw(){
    Checked on the beat rather than every frame -- it is a cell test, and the 120
    BPM law already gives every lane one tick to hang cheap checks on. */
 let VISTA_SEEN=false;
+/* __KEEP_THIS_RUN__ -- KEEP THIS RUN. On iOS this sentence is the ONLY install
+   path there is: beforeinstallprompt has never existed in Safari (WebKit 255716),
+   and Chrome and Edge on iOS are Safari underneath, so no browser will ever draw
+   this prompt for us. Measured 8/18 before writing it: `grep -c 'ADD TO HOME'`
+   was 0 on both surfaces, so nothing had ever told him the installed app exists.
+   THE REAL STAKE IS STORAGE: iOS does NOT share localStorage between Safari and a
+   home-screen app, so the run he is in right now does not travel with him when he
+   installs. That is why it is said at the end of DAY 1 -- the moment he has the
+   least to lose -- and not on day nine.
+   var, NOT let: reportState/citySnapshot sit ~500 lines EARLIER in this file and
+   read INSTALL_ASKED. A top-level `let` is in the temporal dead zone until its own
+   line runs, and the throw would land in citySnapshot's caller. Same trap that ate
+   LANDED on 8/11 and CITYSAVE in the standalone check. */
+var INSTALL_ASKED=false;
+/* WORDS, NOT A DECISION (ALWAYS MAKE AN ATTEMPT, 8/11) -- a real attempt, written
+   as if it ships, draft:true so he can find and edit every word in the WORDS tab. */
+var INSTALL_WORDS={ draft:true,
+  title:'KEEP THIS RUN',
+  body:'Bohemia lives in your browser. Put it on your home screen and it opens '
+     + 'like an app, full screen, straight back into this valley.',
+  ios:'Tap \u22ef at the bottom of Safari, then Share, then Add to Home Screen.',
+};
+function installShouldAsk(){
+  if(INSTALL_ASKED) return false;
+  /* NEVER INSIDE THE INSTALLED APP. He already did it. Checked through the top
+     window because the city runs in the alpha's iframe: navigator.standalone is
+     Apple's flag and is only meaningful on the top document, while display-mode
+     reflects the top-level browsing context and so reads correctly from in here.
+     Both are wrapped because a cross-origin top is a throw, not a false. */
+  try{
+    var w = window.top || window;
+    if(w.navigator && w.navigator.standalone === true) return false;
+  }catch(_e){}
+  try{
+    if(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)
+      return false;
+  }catch(_e){}
+  return true;
+}
+function installLine(){
+  INSTALL_ASKED=true;
+  try{ window.__INSTALL_SHOWN=(window.__INSTALL_SHOWN||0)+1; }catch(_e){}
+  return '<h3>'+esc(INSTALL_WORDS.title)+'</h3>'
+       + '<div class="sub">'+esc(INSTALL_WORDS.body)+'</div>'
+       + '<div class="sub">'+esc(INSTALL_WORDS.ios)+'</div>';
+}
 function vistaCheck(){
   if(VISTA||VISTA_SEEN||MODE!=='human') return;
   const o=vistaWhere(); if(!o) return;
@@ -24745,6 +24791,7 @@ function citySnapshot(){
     riding:(typeof RIDING!=='undefined')?RIDING:false,hzoom:HZOOM,
     loop:DAY.serialize(),quest:DQ.serialize(),      /* __DAY_LOOP__ */
     vistaSeen:!!VISTA_SEEN,   /* __THE_VALLEY_IS_A_PLACE__ -- once ever means across reloads */
+    installAsked:!!INSTALL_ASKED,   /* __KEEP_THIS_RUN__ -- a prompt that comes back every night is an ad */
     purse:(function(){ try{ return BohemiaPurse.save(purseGet()); }catch(_e){ return null; } })(),
     market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null   /* __THE_TRADING_HUB__ */ };
 }
@@ -24937,6 +24984,14 @@ function showReckoning(){
   else if(PAY_REFUSED==='NO_RULING')
     h+='<li>'+esc((DAYOPEN&&DAYOPEN.title)||'the job')+': nobody has ruled what this pays</li>';
   h+='</ul>';
+  /* __KEEP_THIS_RUN__ -- ONE LINE ON A CARD HE IS ALREADY READING, and that shape
+     is a correction. The first cut was its own modal between the SLEEP tap and the
+     DAY 2 wake, and it took THREE of my own gates red (vista_beat 14/5, dayloop
+     56/1, demo_day 21/3) because the first night became reckoning -> install ->
+     wake -> GET UP -> vista: five modals, four of them before he plays day two.
+     The gates were the measurement that the shape was wrong, not an obstacle.
+     Here the tap that dismisses it is the SLEEP tap he was making anyway. */
+  if(s.day===1 && installShouldAsk()) h+=installLine();
   h+='<div class="dcgo" data-act="next">SLEEP \u2192 DAY '+(s.day+1)+'</div>';
   cardShow(h,function(){ cardHide(); DAY.nextDay(); daySync(); _lastDistrict=null;
     showWake(); updHud(); render(); reportState(); });
@@ -25661,6 +25716,8 @@ function applyRestore(st){
   if(st.market){ try{ MKT_LEDGER=st.market.ledger||null; MKT_BOUGHT=st.market.bought||null; }catch(_e){} }
   /* __THE_VALLEY_IS_A_PLACE__ */
   if(st.vistaSeen){ try{ VISTA_SEEN=true; }catch(_e){} }
+  /* __KEEP_THIS_RUN__ */
+  if(st.installAsked){ try{ INSTALL_ASKED=true; }catch(_e){} }
   if(st.loop&&DAY.restore(st.loop)){ daySync(); DAY_RESTORED=true;
     if(st.quest)DQ.restore(st.quest,DAY.day); else DQ.openDay(DAY.day);
     try{ updQline(); }catch(_e){}

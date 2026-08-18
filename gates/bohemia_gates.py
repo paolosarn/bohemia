@@ -237,6 +237,24 @@ GATES = [
      'screenshot and looking. It waits for GET UP now, and the gate asserts the card is GONE '
      'when the valley is up. Once ever, across reloads, and MAP LAW holds: this lane reports '
      'where the overlook is and never places it', True),
+    ('INSTALL CARD',   ['node', 'gates/install_card_gate.js'],
+     'DEMO BOARD row 6, THE LAST HALF OF THE HOME-SCREEN WORK ORDER: the manifest, the icon '
+     'and the apple metas shipped 8/16 so an install WORKS, but NOTHING EVER TOLD HIM IT '
+     'EXISTS -- grep -c "ADD TO HOME" was 0 across both surfaces. On the platform he demos '
+     'on there is no other channel: beforeinstallprompt has never existed in Safari (WebKit '
+     '255716) and Chrome and Edge on iOS are Safari underneath, so iOS gets a sentence from '
+     'us or it gets nothing. AND THE STAKE IS THE SAVE -- iOS does NOT share localStorage '
+     'between Safari and a home-screen app, so the run he is in does not travel with him, '
+     'which is why the ask lands at the end of DAY 1 when he has the least to lose. IT IS A '
+     'LINE ON THE RECKONING, NOT A CARD, AND THAT WAS A CORRECTION: the first cut was its '
+     'own modal and took THREE of my own gates red (vista_beat 14/5, dayloop 56/1, demo_day '
+     '21/3) because the first night became reckoning -> install -> wake -> GET UP -> vista, '
+     'five modals, four before he plays day two. So the SHAPE is asserted, not just the '
+     'presence: the reckoning must still have EXACTLY ONE BUTTON and one tap must still land '
+     'on DAY 2. The iOS 26 detail is pinned too, because it is the one claim in the copy that '
+     'rots: Safari moved Share out of the toolbar, so the instruction names the ELLIPSIS. '
+     'Mutation-tested both ways -- strip the caller and the row\'s original state goes red, '
+     'add a second button and the cost-him-nothing assertion goes red', True),
     ('HOME SCREEN',    ['node', 'gates/home_screen_gate.js'],
      'DEMO BOARD row 6, the half open since 8/13: manifest + apple metas + icon, and the '
      'board\'s own evidence was a grep returning 0, 0 and 0 across every surface. He demos '
