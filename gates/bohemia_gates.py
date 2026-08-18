@@ -1364,6 +1364,21 @@ GATES = [
      "inert. The one fact that unlocks them is who somebody runs with, and the bases for it are "
      "the LOOP'S OWN, baked and gated BYTE-IDENTICAL, because deriving a second set would put the "
      "Cartel in two places depending which surface you stand on", False),
+    ('FAVOUR',         ['node', 'gates/favour_gate.js'],
+     "THE LADDER POINTED AT NOTHING. An outfit could COUNT you and lean on you (the claim) and "
+     "could never GIVE YOU ANYTHING -- his sixteen `pays` lines were card text, swept and "
+     "confirmed: no ask/request/receive/grant anywhere in engine/. Scott 1972 and Eisenstadt & "
+     "Roniger 1984 give the shape -- a patron tie carries LONG-RANGE CREDIT AND OBLIGATIONS, so "
+     "it is a RUNNING ACCOUNT, not a trade -- AND HIS CARTEL DOSSIER WROTE THAT MECHANIC ON 8/2 "
+     "BEFORE ANY OF IT: 'They want you to OWE them... the first thing they give you is free and "
+     "it is exactly the thing you needed that week.' Three economies fall out of his firstMove "
+     "axis, which until now only produced one warning row: they-give-first gives from the first "
+     "meeting for free and puts you in debt, you-give-first gives nothing until COUNTED and then "
+     "SPENDS standing, never gives nothing at any depth. What they hand over is his line BYTE FOR "
+     "BYTE across every outfit and no outfit is named in the code. The refusal is a ROW not an "
+     "absence, because 'never' and 'not yet' are different facts. And for a wants:debt outfit the "
+     "act and the favour are ONE GESTURE -- taking their help IS how you climb -- so one button "
+     "fires both halves", False),
     ('CLAIM',          ['node', 'gates/claim_gate.js'],
      "MEMBERSHIP WAS ALL UPSIDE. The ladder (8/12) and the wall (8/15) both model what YOU do "
      "to THEM -- you could be COUNTED by the Church and they would never once ask you for "

@@ -41,6 +41,28 @@ const STAMP = process.env.BOHEMIA_LOOK_STAMP || '8/8/26';
  * ------------------------------------------------------------------------- */
 const SUBJECTS = [
   {
+    id: 'the-favour',
+    title: 'THE FIRST THING IS FREE',
+    caption: 'The other direction, finally. Some outfits give you something the first time you meet them, it costs you nothing, and that is exactly the part to worry about -- the card starts keeping a tally of what you have taken. Others hand you nothing until they count you, and then it spends the standing you built. One outfit gives nothing to anybody ever. CITY tab, tap a person.',
+    keep: '#ctcard',
+    open: `(() => {
+      const bases = ctBases() || {}; let who = null, fid = null;
+      for (const b of Object.values(bases)) {
+        hx = b.x*FN + 2; hy = b.y*FN + 2;
+        for (const p of ctEveryone()) { const f = ctFactionOf(p); if (f) { who = p; fid = f; break; } }
+        if (who) break;
+      }
+      if (!who) return null;
+      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      const sv = ctBelongSave();
+      sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
+      ctSawCell(); ctOpen();
+      const f = document.getElementById('ctfavour'); if (f) f.click();
+      ctClose(); ctOpen();
+      return { card: true, fid: fid };
+    })()`,
+  },
+  {
     id: 'the-claim',
     title: 'THEY ASK YOU BACK',
     caption: 'Once an outfit COUNTS you it starts asking, and what it asks for is the thing it already wanted. Saying yes buys you nothing -- it is the rent on being counted. Saying no drops you straight back below counted, and they remember which way you went. CITY tab, tap a person you have done favours for.',

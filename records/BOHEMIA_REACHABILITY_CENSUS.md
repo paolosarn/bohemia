@@ -23,12 +23,12 @@ verbatim.
 | | banks | engine modules |
 |---|---|---|
 | SHOWN (all) | 1 | 77 |
-| SHOWN (part) | 12 | 22 |
+| SHOWN (part) | 11 | 22 |
 | LOADED ONLY | 18 | 9 |
 | NO TRACE | 73 | 13 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **104** | **136** |
+| **total** | **103** | **136** |
 
 **275.9 MB of 279.1 MB** sampled does not reach the shown surface.
 
@@ -197,9 +197,9 @@ verbatim.
 | `banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt` | bank | 13/27 |
 | `engine/bohemia_engine.js` | engine | 12/32 |
 | `engine/bohemia_bodyvar.js` | engine | 11/11 |
-| `engine/bohemia_exchanges.js` | engine | 10/10 |
 | `engine/bohemia_quest_runtime.js` | engine | 9/9 |
 | `engine/bohemia_agents.js` | engine | 8/8 |
+| `engine/bohemia_exchanges.js` | engine | 8/8 |
 | `engine/bohemia_purse.js` | engine | 8/8 |
 | `engine/bohemia_story_surface.js` | engine | 8/8 |
 | `engine/bohemia_population.js` | engine | 7/7 |
