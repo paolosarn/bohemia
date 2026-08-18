@@ -1159,10 +1159,10 @@
    "path": "engine/bohemia_claim.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 3,
-   "hits_shown": 3,
+   "samples": 4,
+   "hits_shown": 4,
    "hits_loaded": 0,
-   "bytes": 10922
+   "bytes": 13373
   },
   {
    "path": "engine/bohemia_coldopen_set.js",
@@ -1360,7 +1360,7 @@
    "samples": 2,
    "hits_shown": 2,
    "hits_loaded": 0,
-   "bytes": 8902
+   "bytes": 9702
   },
   {
    "path": "engine/bohemia_firestation.js",
