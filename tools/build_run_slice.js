@@ -394,6 +394,14 @@ grabPieces('banks/tileforms/TF-ART-008_SIGNBAND_VOLUME_8_15_26.json',
    tools/tfcook/TF-ART-008_smash_pilaster_cook.py */
 grabPieces('banks/tileforms/TF-ART-008_SMASH_VOLUME_8_15_26.json',
   ['sf_smashed_0', 'sf_smashed_1', 'sf_pilaster_0', 'sf_pilaster_1']);
+/* VOLUME 8/18: side-facing awning ribbons for the vertical runs -
+   tools/tfcook/TF-ART-008_sideawning_cook.py */
+grabPieces('banks/tileforms/TF-ART-008_SIDEAWNING_VOLUME_8_18_26.json',
+  ['awn_side_w_rust_0', 'awn_side_w_rust_1', 'awn_side_e_rust_0', 'awn_side_e_rust_1',
+   'awn_side_w_teal_0', 'awn_side_w_teal_1', 'awn_side_e_teal_0', 'awn_side_e_teal_1',
+   'awn_side_w_sand_stripe_0', 'awn_side_w_sand_stripe_1', 'awn_side_e_sand_stripe_0',
+   'awn_side_e_sand_stripe_1', 'awn_side_w_sage_0', 'awn_side_w_sage_1',
+   'awn_side_e_sage_0', 'awn_side_e_sage_1']);
 /* VOLUME 8/16: the yard's track ends - a buffer stop on one end in four,
    blown-sand tapers on the rest - tools/tfcook/TF-ART-010_ends_cook.py */
 grabPieces('banks/tileforms/TF-ART-010_ENDS_VOLUME_8_16_26.json',

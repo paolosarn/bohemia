@@ -509,3 +509,15 @@ into a dark ribbon, so side-facing runs keep their plain canopy and
 SIDE-FACING DROPS are the named volume remainder. The lesson worth the
 pass: re-read your own blocked list against the world every few days - one
 of its entries was a door that was never locked.
+
+## 8/18 TWENTY-SEVENTH PASS: EVERY AWNING HANGS (THE SIDE RIBBONS)
+
+The 8/17 remainder closed same-week: side-facing awning ribbons cooked
+(tools/tfcook/TF-ART-008_sideawning_cook.py) with fabric colours SAMPLED
+from the family's own approved drops, so a shop that turns a corner keeps
+its awning colour around it. The ribbon is a continuous N-S canopy: sag
+scallop per 11px arm bay (44 divides clean, so runs tile seamlessly), lit
+crest on the street-side curve, support-arm pixels at the facade, torn
+gaps that show the sidewalk through. Wired for east AND west facades;
+verified live on the vertical run that read as a dark ribbon two passes
+ago. Every named awning cell in downtown now draws, all four facings.

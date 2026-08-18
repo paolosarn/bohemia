@@ -895,19 +895,33 @@ function drawAwnform(gx,gy,X,Y,S){
   var n=String(NAMEG[gy][gx]||'').toLowerCase();
   if(n.indexOf('storefront awning')<0) return false;
   if(LAYERG[gy][gx]!=='overhead') return false;
-  /* MEASURED (first render): the art is authored for SOUTH-FACING fronts -
-     canopy sloping up to a facade BEHIND (north of) the cell. On a vertical
-     run it stamps sideways into a dark ribbon, so only south-facing awnings
-     draw; the others keep their generic canopy until side-facing drops are
-     cooked as volume. */
+  /* MEASURED (8/17 first render): the family drops are authored for SOUTH-
+     FACING fronts. Side-facing runs got their own cooked drops on 8/18
+     (awn_side_*, fabric colours sampled from the family's own pieces), so
+     every facing draws now: south-facing uses the two-cell family drop,
+     east/west-facing uses the continuous side ribbon, one colourway per
+     shop run either way. */
   var fb=gy>0?String(NAMEG[gy-1][gx]||'').toLowerCase():'';
-  if(fb.indexOf('storefront')<0 || LAYERG[gy-1][gx]==='overhead') return false;
-  var cw=['rust','teal','sand_stripe','sage'][th(0,gx>>2,4)];
-  var im=TILEFORM_IMG['sf_awning_'+cw+'_'+th(gx,gy,2)];
-  if(!im||!im.complete||!im.naturalWidth) return false;
+  var southFacing = fb.indexOf('storefront')>=0 && LAYERG[gy-1][gx]!=='overhead';
+  if(southFacing){
+    var cw=['rust','teal','sand_stripe','sage'][th(0,gx>>2,4)];
+    var im=TILEFORM_IMG['sf_awning_'+cw+'_'+th(gx,gy,2)];
+    if(!im||!im.complete||!im.naturalWidth) return false;
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+    ctx.drawImage(look(im),0,44,44,44,X,Y,S,S);
+    ctx.drawImage(look(im),0,0,44,44,X,Y-S,S,S);
+    return true;
+  }
+  function sfWall(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+    return String(NAMEG[y2][x2]||'').toLowerCase().indexOf('storefront')>=0
+        && LAYERG[y2][x2]!=='overhead'; }
+  var fw=sfWall(gx-1,gy), fe=sfWall(gx+1,gy);
+  if(!fw && !fe) return false;
+  var cw2=['rust','teal','sand_stripe','sage'][th(0,gy>>2,4)];
+  var im2=TILEFORM_IMG['awn_side_'+(fw?'w':'e')+'_'+cw2+'_'+th(gx,gy,2)];
+  if(!im2||!im2.complete||!im2.naturalWidth) return false;
   if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
-  ctx.drawImage(look(im),0,44,44,44,X,Y,S,S);
-  ctx.drawImage(look(im),0,0,44,44,X,Y-S,S,S);
+  ctx.drawImage(look(im2),X,Y,S,S);
   return true;
 }
 function drawGateform(gx,gy,X,Y,S){

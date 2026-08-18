@@ -1,4 +1,17 @@
-ART (f3eu53): 8/17 (d) LATEST -- *** THE AWNINGS WERE NEVER BLOCKED: the
+ART (f3eu53): 8/18 (a) LATEST -- *** EVERY AWNING HANGS: side-facing
+ribbons cooked (fabric sampled from the approved drops) and wired for east
+and west facades. All four facings of every named awning cell in downtown
+draw now. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twenty-seventh pass)
+TAB: ART, WIRED IN THE GAME - storefront card text carries it.
+
+THE LANE'S FULL STATE: 13 families wired, every named volume item either
+in the game or parked on a measured external blocker (freeway/crossings/
+banking/clarifier/turf-rects/trailer-awnings = WORLD; deep_wet = weather;
+deck slab + stairs banks = COMBAT to wire; ramps banked awaiting a named
+crossing landing).
+
+ART (f3eu53): 8/17 (d) -- *** THE AWNINGS WERE NEVER BLOCKED: the
 south-facing downtown fronts hang the approved tattered drops now (overhead
 layer, walk under them, fade live). Side-facing drops are named volume.
 The blocked list lied by one entry - re-read it against the world often. ***
