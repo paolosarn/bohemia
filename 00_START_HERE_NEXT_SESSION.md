@@ -1,4 +1,161 @@
-<<<<<<< HEAD
+WORLD (world-9lfjtf): 8/18 (a) LATEST -- *** THE FLOOR CAN DO SOMETHING TO YOU. THE
+VALLEY WAS ALREADY FULL OF LETHAL GROUND AND NOTHING HAD EVER TOLD THE GAME.
+TAB: RUN -- walk onto it and a line appears bottom-left of the map saying what is
+under your feet. ***
+
+Paolo 8/17, LOCKED: "THE WORLD HAS TO FEEL MORE ALIVE." The RF4 lift routes that
+order to WORLD, not COMBAT, and says why in one sentence: it is TILE TYPES with
+combat-readable properties. Its last line is the brief -- a room only feels alive if
+the floor can do something to you.
+
+*** NOBODY INVENTED A HAZARD AND NOBODY PLACED ONE. *** Sixty-two district
+generators have been authoring drained pools, talus aprons, leachate ponds, standing
+pit water and ballast for weeks. Nothing had ever said any of it was dangerous. So
+this is a READING of ground that already existed: a rule runs against each district's
+own LEGEND, and 19 TILES IN 15 DISTRICTS came back lethal, loose or wet.
+  engine/bohemia_hazard.js      the five classes + the rules
+  tools/bohemia_hazard_sheet.js the batch output (generated, never hand-edited)
+  tools/bohemia_city_hazard_patch.py  the readout on the walked surface
+  gates/hazard_gate.js          68 checks, 2 mutations confirmed
+  records/BOHEMIA_THE_FLOOR_CAN_KILL_YOU_8_18_26.md
+
+  KILLS      4 tiles / 3 districts   drained pools, treatment basins
+  AMPLIFIES  7 tiles / 6 districts   talus, ballast, debris fill, crusted sludge
+  DISABLES   8 tiles / 8 districts   leachate, pit water, coolant, shallows
+  FAVOURS    DEFINED AND EMPTY -- act one has no undead and ACT ONE ONLY forbids me
+             designing the ones that might
+  DENIES     DEFINED AND EMPTY for a DIFFERENT reason: it is not a tile at all. It is
+             a predicate over OCCUPANCY, so no legend sweep could ever populate it.
+
+*** DERIVED, NOT TYPED, AND THE GATE ATTACKS THAT CLAIM FROM BOTH SIDES. *** Rename
+apartment:8 and the pit stops being a pit; author a drained pool into a district that
+never had one and it is lethal that instant. A hand-kept table would have sailed
+through every other assertion in the gate. That is the whole difference between this
+and a hazard list.
+
+*** FORCED ENTRY KILLS. DELIBERATE ENTRY DOES NOT. *** His corpus says "knocked or
+CHARGING in", and that clause dissolved the question I spent an hour on -- how deep a
+drop has to be before it is fatal. WRONG QUESTION. The test is whether you landed
+under control. You climb down into a drained pool every day of the week; thrown
+head-first into the same concrete shell you do not get up. CONSENT, not depth. And
+NO DAMAGE BEFORE THE DIAL is untouched: no weapon may ever route through that channel
+and the gate asserts the fence.
+
+*** THE RUNNING PAGE CORRECTED MY RULE, WHICH IS THE 7/18 LAW EARNING ITS KEEP. ***
+The first standability rule was "not solid and not a portal". Six tiles passed it and
+came back walk:false when the real surface was asked -- storage:3 debris/tumbleweed
+among them -- because the kit calls a prop non-solid while the walked surface blocks
+it. A PROP IS AN OBJECT ON THE GROUND, NOT THE GROUND. Nineteen tiles that are all
+actually standable beats twenty-five where six are decoration.
+
+*** WHAT THIS FOUND IN THE WORLD ITSELF, and it is the next work, not a footnote ***
+  1. THE VALLEY HAS NO WALKABLE RUBBLE FIELD. Every rubble/debris tile in six
+     districts is a prop the walked surface blocks. The most classic piece of unstable
+     ground in any game cannot be stood on here.
+  2. THE THREE REAL LETHAL DROPS ARE MODELLED AS WALLS: quarry:7 bench crest,
+     intake:13 shaft, reclaim:6 crusted pond centre. You bump into them.
+  3. gypsum:7 MEANS TWO THINGS (a bench crest AND a dome shell). One code cannot carry
+     two occupancies. Split it in the gypsum generator.
+  4. THE WALKED SURFACE KNOWS FEWER DISTRICTS THAN THE ENGINE DOES: the city world's
+     kit registers 35 of 62 types, so only 5 of the 15 hazard districts can be reached.
+     That caps far more than this feature and it is not a hazard problem.
+
+WHAT COMES NEXT FOR THIS LANE: the RETREAT OBLIGATION (machine 2 of the lift -- "if
+your combat loop requires retreat, your level generator has a hard obligation to
+guarantee retreat is possible... a cramped room deletes the entire core verb"). That
+is a gate over interior floorplans -- loops, corners and pillars, never boxes -- and
+it is the other half of what §6 routed here. Then gap 1 above (a ground-layer rubble
+tile), which is the cheapest of the four and makes AMPLIFIES real indoors.
+
+AND THE SECOND HALF LANDED THE SAME TURN -- THE RETREAT OBLIGATION.
+*** A ROOM YOU CANNOT BACK OUT OF HAS NO FIGHT IN IT. NOT IN A TAB: this one is a
+MEASUREMENT of every interior in the game, not a screen. ***
+His synthesis, quoted in the lift at §6: "if your combat loop requires retreat, your
+level generator has a HARD OBLIGATION to guarantee retreat is possible... a cramped
+room deletes the entire core verb." Nothing was checking, and that failure never
+announces itself -- every room generates, every gate stays green, and the fight is
+quietly worse in every building for a reason nobody can point at.
+WITH GUNS ON BOTH SIDES DISTANCE IS NOT SAFETY, LINE OF SIGHT IS (§3 C4 of the law),
+so the question asked from every floor cell is: can I reach somewhere they cannot see
+me. Binary, no invented radius.
+  engine/bohemia_retreat.js · gates/retreat_gate.js (18 checks) ·
+  records/BOHEMIA_A_ROOM_YOU_CAN_BACK_OUT_OF_8_18_26.md
+
+  6x6 / 8x8 / 10x10   ONE ROOM every time, 94% of the floor with nowhere to hide
+  12x10               1.3 rooms, two thirds of plans still strand somebody
+  16x14               3.6 rooms, 6 of 54 strand somebody
+  20x16 AND UP        EVERY cell of EVERY plan in EVERY zone has a retreat
+
+A CLEAN BREAK, NOT A SMEAR. The obligation is asserted ABSOLUTELY above 320 tiles and
+the break point is a RATCHET that may only come DOWN.
+*** AND THE FIX FOR A BOX IS NOT MORE WALLS. *** A 6x6 plate is 4.5 m square -- a
+shed. Partitioning a shed to make a gate green would be inventing architecture that
+does not exist, and REALISM FIRST forbids it. Cover in a room that size is FURNITURE,
+which has sat in the floorplan generator's own meta.pending as a TODO string since
+July and is now a combat requirement worth 9,630 stranded floor cells. One pillar in a
+9x9 test box takes it from ZERO cells with a retreat to ALL EIGHTY, so the geometry
+needed is small -- it just has to be the right kind.
+REPORTED AND NOT ASSERTED, with the reason: 23 of 48 fight-sized plans are strictly
+TREE-SHAPED at the door level, so a leaf room can be cornered. That is real -- and so
+are real commercial floorplans, which are trees. His prescription says "never boxes";
+his HARD obligation says "retreat is possible", and that one holds. Forcing every plan
+to loop trades realism for a prescription rather than for fun, and that trade is HIS.
+
+*** AN ASSERTION I WROTE AND THEN CAUGHT MYSELF. *** The first loop check counted
+cycles on the CELL grid and passed 54 of 54 -- it could not have failed, because any
+floor wider than one tile is a mesh, including in a strictly tree-shaped building. A
+measurement that cannot fail is not a measurement. It is measured on DOORS now. (The
+same session made the same mistake in the other direction an hour earlier: the measure
+invented a cell field the generator does not have and reported NINE ZONES AT ZERO
+CELLS -- a clean sweep of total failure stated with complete confidence, entirely the
+reader's fault.)
+
+*** FOR THE PEOPLE LANE, AND IT IS RED ON MAIN RIGHT NOW (not mine, verified) ***
+banner_gate.js is 13/1 on origin/main with my work stashed out, so this predates this
+turn: "NO module is inlined TWICE -- DOUBLED: engine/bohemia_exchanges.js x17,
+engine/bohemia_people.js x2". That is the exact class of bug this gate was written for
+on 8/15 -- a second copy sits LATER in the file and WINS at runtime while the fresh one
+is dead code, and the failure is invisible because both copies parse. Seventeen is a
+big enough number that the signature may also be mis-grouping (this gate had three
+wrong rulers before it settled), so check whether it is really 17 bodies or one body
+the signature cannot tell apart, THEN fix whichever it is. I did not touch it: it is
+your module and ONE SYSTEM, ONE SESSION.
+
+*** FOR THE LAB LANE -- rf4_teardown_gate.js G3 IS UNPASSABLE FOR EVERY LANE, AND
+IT IS NOT A CONTENT PROBLEM. *** The check is "LAB's diff touches NO engine module
+and NO slice", but it is not scoped to LAB at all: it unions `git diff
+origin/main...HEAD`, the staged diff, the working tree and untracked files, then
+fails on anything matching ^engine/ or ^slices/.*.html. That is THE WHOLE REPO'S
+diff, not this lane's. PROVED, not inferred: on a clean worktree of origin/main I
+appended ONE BLANK LINE to slices/BOHEMIA_ALPHA_0_9.html and it went 38/1 naming
+that file. Every ship in the fleet edits a slice -- THE BUILD STAMP IS LAW -- so
+this gate goes red on literally every turn anybody takes, and it went green on main
+only because that worktree was clean.
+A CHECKER THAT CANNOT TELL ONE LANE'S WORK FROM ANOTHER'S IS THE BROKEN ONE, and
+the fix is at the ruler: scope it to the files LAB actually owns (records/rf4/,
+laws/, its own gate), or to commits authored by this lane, rather than to "any
+engine or slice file changed anywhere in the repo". I did not touch it. It is your
+gate and ONE SYSTEM, ONE SESSION.
+(Also measured this turn: RUN BEAT failed in my suite pass and passes 22/0 on
+re-run in the same tree -- a timing flake under parallel load, not a regression.
+Fifteen of the seventeen suite failures are PRE-EXISTING on clean origin/main,
+baselined gate by gate before I pushed.)
+
+STILL NOT MINE, STILL TRUE: the freeway directions he called out on 8/16 are the other
+WORLD session's ground (tools/bohemia_district_hero_factory.py -- check git log -3 on
+it first), and the celestial art is ART's AR-005 at marker __SKY_ART__.
+
+*** THIS FILE WAS ON MAIN WITH LIVE <<<<<<< ======= >>>>>>> MARKERS IN IT AGAIN
+(third time -- the file records the other two below). origin/main's copy opened with
+`<<<<<<< HEAD` on LINE 1 and carried a `>>>>>>> 53b9718` a hundred lines down, so the
+first thing the next session reads was a merge artefact. Resolved here by KEEPING BOTH
+SIDES and deleting only the three marker lines, which is the safe call for a file that
+is append-only prose: every lane's section is legitimate content and nothing had to be
+chosen between. Nobody's words were dropped.
+THE CAUSE IS STRUCTURAL, NOT CARELESSNESS: every lane rewrites the top of one shared
+file every ship, so a rebase conflicts here on almost every turn, and resolving it is
+the last thing anybody does before pushing. -- WORLD, 8/18
+
 RUN (run-eak241): 8/17 LATEST -- P0-SAVE CLOSED, AND THE VALLEY HAS A CALLER.
 
 TWO DEMO-BOARD ROWS, both routed to this lane.
@@ -56,7 +213,6 @@ NEXT IN THIS LANE: the last piece of the 8/13 work order -- the ADD TO HOME
 SCREEN card after his first night, which now has somewhere to point (the manifest
 and icon shipped 8/16). CAMP remains the one demo beat frozen twice over
 ([PENDING Paolo] + "no session builds survival mechanics before that verdict").
-=======
 CHARACTER (character-0lurbs): 8/18 (d) LATEST -- *** TWO OF THE SIX NEIGHBOURS
 STILL LOOKED LIKE THE SAME PERSON, AND THE FIX WAS ALREADY IN THE WARDROBE.
 TAB: LOOK, "THE SIX PEOPLE ON YOUR STREET" (the bottom row is the test), and
@@ -133,7 +289,6 @@ WHAT COMES NEXT FOR THIS LANE, IN ORDER:
     his call when.
  3. The lever's own finding is a cook brief: 34 of 202 garments carry the shape
     range. A silhouette nobody occupies is worth more than any recolour.
->>>>>>> 53b9718 (THE MANTLE WAS ALREADY IN THE WARDROBE, AND THE PACK WAS INVISIBLE FROM THE FRONT)
 
 FACTIONS (factions-ovkjpf): 8/17 LATEST -- *** THE LADDER FINALLY POINTS AT
 SOMETHING: THEY CAN GIVE YOU THINGS NOW, AND THE FREE ONES ARE THE DANGEROUS ONES.

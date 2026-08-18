@@ -1765,7 +1765,40 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
-ALIVE. *** "THE WORLD HAS TO FEEL MORE ALIVE" — TERRAIN THAT DOES
+ALIVE. [DONE 8/18 — THE FLOOR HALF. Nobody invented a hazard and nobody placed one: 62
+   district generators had been authoring drained pools, talus aprons, leachate ponds and
+   standing pit water for weeks and NOTHING EVER TOLD THE GAME ANY OF IT WAS DANGEROUS. A
+   rule reads each district's own LEGEND and 19 tiles in 15 districts came back lethal,
+   loose or wet — derived, so a drained pool authored next month is lethal that afternoon
+   with no edit (the gate mutates a legend both ways to prove it). His numbers are his
+   (+50% exactly, sprint AND abilities off, the kill outright on the environmental channel
+   with NO WEAPON allowed near it). FORCED ENTRY KILLS, walking in does not — his own
+   "knocked or charging in", which dissolves how-deep-is-fatal by making CONSENT the test.
+   FAVOURS and DENIES ship DEFINED AND EMPTY with their own reasons (no undead in act one;
+   DENIES is occupancy, not ground), and the commonness dial answers NO_RULING.
+   engine/bohemia_hazard.js + tools/bohemia_hazard_sheet.js + tools/bohemia_city_hazard_patch.py
+   + gates/hazard_gate.js (68 checks, 2 mutations confirmed) +
+   records/BOHEMIA_THE_FLOOR_CAN_KILL_YOU_8_18_26.md.
+   WHAT IS STILL OPEN, and it is in that record's GAPS section: (a) the valley has NO
+   walkable rubble field — every rubble tile is a prop the walked surface blocks, so the
+   most classic unstable ground there is cannot be stood on; (b) the three genuinely fatal
+   drops (quarry:7 bench crest, intake:13 shaft, reclaim:6 crusted pond) are STRUCTURE
+   tiles — you bump into them instead of falling in; (c) gypsum:7 means two different
+   things and cannot carry two occupancies; (d) the walked surface's kit registers 35 of
+   62 district types so 10 of the 15 hazard districts cannot be reached at all. And the
+   RETREAT OBLIGATION (machine 2) IS ALSO DONE, same turn: engine/bohemia_retreat.js +
+   gates/retreat_gate.js (18 checks) + records/BOHEMIA_A_ROOM_YOU_CAN_BACK_OUT_OF_8_18_26.md.
+   Measured across 9 zones x 6 seeds x 9 footprints, a CLEAN BREAK at 20x16: below it every
+   plate is ONE ROOM and 32% of floor has nowhere to hide; at 320 tiles and up every cell of
+   every plan in every zone can get out of sight, asserted absolutely, and the break point is
+   ratcheted so it may only come DOWN. WITH GUNS ON BOTH SIDES DISTANCE IS NOT SAFETY, LINE
+   OF SIGHT IS (C4), so the measure is "can I reach somewhere they cannot see me", binary,
+   no invented radius. AND THE FIX FOR A BOX IS NOT MORE WALLS: a 6x6 plate is 4.5 m square,
+   and partitioning a shed to win a number is inventing architecture that does not exist.
+   Cover at that size is FURNITURE, i.e. meta.pending's "furniture per role", a TODO string
+   since July, now a combat requirement worth 9,630 stranded cells, and THAT is this lane's
+   next item. ART's hazard-tile ask is filed in the hazard record.]
+   *** "THE WORLD HAS TO FEEL MORE ALIVE" — TERRAIN THAT DOES
    SOMETHING TO YOU (Paolo 8/17, LOCKED, the second half of his RF4
    order — laws/BOHEMIA_ADDENDUM_THE_RF4_LIFT_8_17_26.md §5. TOP OF THIS
    LANE'S QUEUE, and per the note below this section had nothing open, so
