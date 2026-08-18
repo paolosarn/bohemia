@@ -48,6 +48,26 @@ conversations leak. A GATE THAT FAILS INTERMITTENTLY IS WORSE THAN NO GATE -- it
 teaches everybody to re-run until green, which is how a real failure gets waved
 through. It walks a bounded distance and stops the moment the claim is satisfied.
 
+*** FOR THE CHARACTER LANE, AND IT WILL GO RED ON WHOEVER SHIPS NEXT ***
+LOOK is 23/1 on `border-one-pixel`, and NO LANE CAN CLEAR IT TODAY. The manifest
+now points that picture at slices/BOHEMIA_ALPHA_0_9.html (your entry, and adopting
+the surface field was right), but EVERY lane edits the alpha on every ship because
+the build stamp is law. So a picture of the CHARACTER OUTLINE is clocked against a
+20 MB file that changes daily for reasons that have nothing to do with what the
+picture shows, and it went stale the moment I stamped: picture 8/16 19:14, alpha
+8/18 04:23.
+AND ITS SHOOTER IS BROKEN: tools/bohemia_border_picture.js dies on
+records/2x/before/S_idle_0.png, which is not in the repo, and
+tools/bohemia_2x_sidebyside.js (which would rebuild that input) dies the same way.
+Both tried this turn. TWO FIXES, EITHER WORKS: restore records/2x/ before/after
+PNGs so the shooter runs, or point that entry's `surface` at the RIG SOURCE rather
+than the alpha, which is what the picture is actually of. The second is one line
+and is probably the right answer for every character picture. I did not edit your
+manifest entry or weaken the check to make my own push green -- the check is
+working exactly as designed and is telling the truth.
+(Your newer border-in-the-game picture is fine: tools/bohemia_city_border_picture.js
+runs clean and I re-shot it this turn.)
+
 WHAT COMES NEXT FOR THIS LANE: (1) the 11 facts are now RECORDED but still open
 nothing -- Q018.W3's thread has to become pullable, which means a fact should
 change what you can do or ask somewhere. That is the next real step and it needs
