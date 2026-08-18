@@ -40,8 +40,8 @@ ALPHA = 'slices/BOHEMIA_ALPHA_0_9.html'
 RUN = 'slices/BOHEMIA_RUN_CURRENT.html'
 # 8/12: he swept all 270 and the bank grew 38 -> 97. The wire and this gate
 # must read the SAME file or one of them is checking a bank nobody plays.
-BANK = 'banks/BOHEMIA_SFX_APPROVED_8_16b_26.json'
-VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_16b_26.txt'
+BANK = 'banks/BOHEMIA_SFX_APPROVED_8_17_26.json'
+VERDICT = 'records/BOHEMIA_SFX_VERDICT_8_17_26.txt'
 
 JS = r"""
 /* MEASURE THE AIR, NOT THE INTENTION (7/31/26).
@@ -151,6 +151,17 @@ const METER=`(function(){
   out.taps=taps;
   out.moved={before, after, moved: before[0]!==after[0]||before[1]!==after[1]};
   out.asked=await fr.evaluate(()=>window.__ASKED.slice());
+  /* THE LIVE DRAW POOLS (8/17). A sibling event never gets a call site of its
+     own -- that is the entire design: it feeds a moment he already approved.
+     So "is it wired" cannot be answered by grepping for its name. It is
+     answered by asking the shipped picker what it would actually draw from. */
+  out.pools = await p.evaluate(()=>{
+    var r={}; try{
+      var S=window.__sfxSiblings||{};
+      for(var k in S) r[k]=window.__sfxPool(k);
+    }catch(e){}
+    return r;
+  });
   out.received=await p.evaluate(()=>window.__RX.slice());
   out.gestures=await p.evaluate(()=>window.__GEST);
   out.meterOK=await p.evaluate(()=>!!window.__METER_OK);
@@ -1330,7 +1341,25 @@ def main():
         'THESE WAIVERS HAVE EXPIRED -- the moment they said did not exist is in '
         'the build now, and a sound he approved is still silent: %s' % expired)
 
-    silent = sorted(ev for ev in bank if not wired(ev))
+    # A SIBLING IS WIRED THROUGH ITS PARENT, AND THE PROOF IS THE LIVE POOL.
+    # These events deliberately have no call site: they widen a moment he
+    # already approved. Grepping for their name would report them dead forever,
+    # so this asks the SHIPPED picker what it would really draw -- which is the
+    # only claim worth making, and it fails if the sibling is not in there.
+    pools = d.get('pools') or {}
+    sib_wired = set()
+    for moment, pool in pools.items():
+        if not wired(moment):
+            continue
+        for cid in pool:
+            sib_wired.add(cid.rsplit('.', 1)[0])
+    for moment, pool in sorted(pools.items()):
+        n = len(pool)
+        extra = sorted({c.rsplit('.', 1)[0] for c in pool} - {moment})
+        if extra:
+            print('  POOL  %-14s draws from %d variants across %s'
+                  % (moment, n, ', '.join([moment] + extra)))
+    silent = sorted(ev for ev in bank if not wired(ev) and ev not in sib_wired)
     unexpected = [ev for ev in silent if ev not in WAIVED]
     chk(not unexpected,
         'HE APPROVED THESE AND NOTHING CAN PLAY THEM: %s. Approved-but-unused is '

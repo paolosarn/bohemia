@@ -959,59 +959,58 @@ already stores 112 frames today (G.hd defaults true), so it does not grow. HD_CA
 stays 768.
 
 --------------------------------------------------------------------------------
-SOUND (sound-xk7pjp): 8/17 LATEST -- *** ELEVEN CANDIDATES HE APPROVED WEEKS AGO
-COULD NOT MAKE A SOUND, AND FIVE OF THEIR EXCUSES HAD SILENTLY EXPIRED. ALL FIVE
-ARE WIRED. TABS: COMBAT (all five), MUSIC (judge SFX-08, still open). ***
+SOUND (sound-xk7pjp): 8/17b LATEST -- *** SFX-08 IS THE BEST BATCH THIS LANE HAS
+EVER COOKED, 16 of 30 (53%), WITH TWO CLEAN 5/5 SWEEPS IN ONE BATCH. THE GUNSHOT
+NOW HAS SIX VARIANTS INSTEAD OF ONE. NOTHING AWAITS HIS THUMBS. TABS: COMBAT, RUN. ***
 
-NO NEW SOUNDS THIS TURN, ON PURPOSE: 30 SFX-08 candidates are awaiting his thumbs
-and the doctrine says non-cook work while the queue is full. This was the non-cook
-work with the most value in it.
+HIS 460/460 SWEEP. 148 UP / 312 DOWN.
+records/BOHEMIA_SFX_VERDICT_8_17_26.txt, banks/BOHEMIA_SFX_APPROVED_8_17_26.json.
 
-*** THE DEFECT: A WAIVER IS A CLAIM ABOUT THE BUILD, AND NOBODY EVER RE-READ ONE.
-sfx_wired_gate carried twelve waivers explaining why an approved sound had no call
-site. Every one was PROSE written the day the sound was approved. Five had expired:
-  melee_hit (4 approved)  "the fight lives in another lane's iframe, this lane does
-                           not reach in" -- while this same tool was editing
-                           FOURTEEN sounds inside that iframe. Eighteen days silent.
-  swing_air (2 approved)  same sentence, same expiry
-  dry_fire  (1 approved)  "needs an ammo count to be empty" -- THE COMBAT LANE
-                           SHIPPED AMMO. dryNow() is a real branch that printed
-                           EMPTY in text only.
-  casing    (1 approved)  "the brass cannot land before the fight is this lane's
-                           to touch" -- it has been this lane's to touch since 7/31
-  heartbeat (3 approved)  "needs the player's HP inside the RUN" -- it exists in
-                           the FIGHT, which is the only place low health is felt
-ELEVEN APPROVED CANDIDATES, DEAD WEIGHT, NOW AUDIBLE.
+    shot_more   5/5   dropkick, subboom, thunderdrum, taiko, anvil
+    hurt_more   5/5   heartbeatsub, subboom, ironlung, paperlung, throatsong
+    walk_more   3/5   templeblock, boneplate, ironstep
+    cover_more  2/5   anvil, ironstep
+    hit_more    1/5   boneplate
+    brass_more  0/5   died whole
 
-WHERE EACH ONE ATTACHES (no mechanic invented, every branch already existed):
-  dry_fire  -> dryNow(), the moment he pulls on a dry gun. His own why for this
-               sound is "you pulled and nothing happened, the sound that means you
-               counted wrong" -- written for this branch before it existed.
-  casing    -> spendRound(), so it rides the ROUND and a dry pull throws no brass.
-               casing.0 carries its own 0.25-0.44 beat delay, which is what makes
-               it read as brass hitting the floor and not part of the gun.
-  heartbeat -> the damage event that takes him UNDER 35% -- once, with a latch, so
-               it marks the moment he became fragile instead of nagging while he is
-  melee_hit -> the melee strike branch, inside reach
-  swing_air -> the same branch, outside reach. The combat lane's own comment says
-               "the swing plays, hit or miss", so the code already told them apart.
-  200 ms limiters on the melee pair: a melee round resolves every enemy in one
-  loop and three blades landing together would rattle.
+*** WHAT IT BOUGHT, MEASURED ON THE SHIPPED PICKER (the POOL lines the wired
+gate now prints on every run): ***
+    shot           1 -> 6 variants    the most-played sound in the game
+    hurt           1 -> 6
+    step_concrete  1 -> 4             every sidewalk and interior floor
+    block          1 -> 3
+    hit            2 -> 3
+    casing         1 -> 1             brass_more died whole
+NO NEW WIRING WAS NEEDED. The sibling mechanism widened the pools the moment the
+verdict file landed -- that is exactly what it was built for.
 
-*** THE SYSTEMIC FIX: EVERY WAIVER NOW CARRIES AN EXPIRY NEEDLE. *** (reason,
-where, needle) -- a string that must NOT be findable in the run/combat/alpha. The
-needle IS the moment. If it turns up, the gate fails BY NAME and says which file
-to look in. A waiver that cannot expire is not a waiver, it is a hiding place.
-Mutation-proved: inject verb:'drink' into the run and the gate goes red naming it.
-SEVEN WAIVERS LEFT, each printed every run with the exact condition that kills it:
-  pickup verb:'take' | drink verb:'drink' | demolish verb:'demolish'
-  power_on verb:'power' | tape_pull verb:'patch' | set_down verb:'place'
-  cloth_on verb:'equip'   -- all in the run
+*** THE METHOD QUESTION IS SETTLED. *** Sixty candidates from his own 602-voice
+rack across SFX-07 and SFX-08:
+    instrument   29 UP / 60   48%   <- best source in the engine now
+    friction     16 UP / 35   46%
+    modal       100 UP / 285  35%
+    fm            2 UP /  15  13%
+    particle      0 UP /  20   0%
+    air           0 UP /  10   0%
+RAW SYNTHESIS IS THE FALLBACK FROM HERE. Cook from the rack unless a moment
+genuinely argues otherwise.
 
-STILL OPEN FOR HIM: SFX-08, 30 candidates, TAB MUSIC. Six moments he already keeps
-that repeat identically (shot has ONE variant and fires on every shot of every
-firefight). Each approval instantly widens that moment's draw pool through the
-sibling mechanism -- no further work needed from anyone.
+CLOSED: panel_tick is the only moment to fail on BOTH sources (car_heat died as
+synthesis, panel_tick died as instruments) -- twice dead as a MOMENT, closed.
+brass_more is a first rejection; casing stays at one variant and gets no second
+cook unless he asks.
+
+GATE FIX: the wired gate reported the five approved siblings as unplayable,
+because a sibling deliberately has NO call site of its own. Grepping for its name
+would call it dead forever. It now asks the SHIPPED PICKER what it would really
+draw (window.__sfxPool) and prints every pool. Mutation-proved: delete the shot
+sibling and TWO checks go red -- the machine-gun check and approved-but-unused.
+
+NOTHING IS AWAITING HIS THUMBS. Every cooked candidate in the engine is judged.
+Next cook should come from the rack, and the 13 moments still holding one variant
+are the obvious targets (door_drag, eat, step_sand, went_down, will_goes,
+stone_bite, dry_fire, casing...) -- but ASK FIRST or wait for him to say go: the
+last unasked batch of new moments was the one he called "all very bad".
 
 *** PUSH THE BRANCH THE MOMENT YOU COMMIT. *** The container reverted to an Aug 2
 snapshot FIVE times this session. Everything survived only because it was pushed.

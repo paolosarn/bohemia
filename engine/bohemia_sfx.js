@@ -1809,7 +1809,7 @@ const BOH_SFX = (function () {
      neon_buzz dog_far equip). Those 60 candidates are in the graveyard. */
   var ENVELOPE = {
     since: '8/12/26',
-    judged: 430, approved: 132,
+    judged: 460, approved: 148,
     dead: ['metal'],              /* 3 UP / 22 DOWN. the only stable finding */
     /* ---- AND THEN METHOD TURNED OUT TO MATTER MORE (8/14) --------------
        He swept all 330 the day the five physics shipped, and the scoreboard by
@@ -1855,10 +1855,16 @@ const BOH_SFX = (function () {
        the material law that his next sweep destroyed. */
     deadMethod: ['particle', 'air'],
     methodRate: { friction: 0.46, modal: 0.35, fm: 0.13, particle: 0, air: 0,
-                  /* HIS OWN RACK, first outing (8/16b): 13 UP / 30. Best rate
-                     of any method that is not friction, on a batch whose raw
-                     synthesis twin scored ZERO on the same six moments. */
-                  instrument: 0.43 },
+                  /* HIS OWN RACK, AND AT 60 CANDIDATES IT IS NOW THE BEST
+                     SOURCE IN THE ENGINE (8/17). 29 UP / 60 across SFX-07 and
+                     SFX-08 -- ahead of friction, on a larger sample than any
+                     new method has ever had here, and against raw synthesis
+                     that scored ZERO on the identical six moments. SFX-08 went
+                     16 of 30 with TWO clean five-of-five sweeps in one batch,
+                     which had never happened before.
+                     RAW SYNTHESIS IS THE FALLBACK FROM HERE. Cook from the
+                     rack unless a moment genuinely argues otherwise. */
+                  instrument: 0.48 },
     /* EIGHT MOMENTS HAVE NOW DIED WHOLE TWICE (SFX-03 and again as SFX-04).
        STOP PRODUCING (Paolo 7/26) is explicit: a second rejection ends the
        feature. No third cook answers these, in this session or any other,
@@ -1873,14 +1879,22 @@ const BOH_SFX = (function () {
        honest response to a reading is to use it on the next thing, not to
        re-cook the thing it was given about. Nothing here gets a second version
        unless he asks for one. */
-    onceDeadWhole: ['clear_still', 'turn_to_you', 'cross_in', 'done_ring'],
+    onceDeadWhole: ['clear_still', 'turn_to_you', 'cross_in', 'done_ring',
+                    /* 8/17: panel_tick died whole as instruments after
+                       car_heat died whole as synthesis -- the ONLY moment to
+                       fail on both sources, so it is twice dead as a MOMENT
+                       and closed. brass_more is its first rejection: casing
+                       stays at one variant and does not get another cook
+                       unless he asks. */
+                    'panel_tick', 'brass_more'],
     /* kept as history, NOT as law: the direction that survived, and its real
        strength once the whole game was judged */
     /* RE-DERIVED ON EVERY SWEEP, and the direction keeps WEAKENING as the
        sample grows: -1.17 at 140 thumbs, -0.36 at 270, 0.874/0.939 at 330,
-       0.868/0.921 at 365, 0.855/0.894 at 430. It survives as a sign and
-       nothing more, which is why it was never allowed to become a cap. */
-    mkupUp: 0.8546, mkupDown: 0.8941, driveUp: 0.1358, driveDown: 0.1512,
+       0.868/0.921 at 365, 0.855/0.894 at 430, 0.851/0.888 at 460. It
+       survives as a sign and nothing more, which is why it was never allowed
+       to become a cap. */
+    mkupUp: 0.8510, mkupDown: 0.8875, driveUp: 0.1389, driveDown: 0.1498,
     /* the bounding box of every candidate he has ever said yes to */
     REGION: {
     hz: [46, 1922.1723311021924],
