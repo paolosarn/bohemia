@@ -283,6 +283,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 
 
 
+
 #daycardIn .mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;
   padding:9px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
   border:1px solid var(--line)}
@@ -7149,6 +7150,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
 
 
+
+
 /* ==== engine/bohemia_dead.js (inlined verbatim) ==== */
 // BOHEMIA DEAD — THE DEAD-PLACEMENT PASS (8/8/26, WORLD lane)
 //
@@ -13249,9 +13252,26 @@ function CBpersist(){ try{ localStorage.setItem(CB_LS,CE.serialize(EDITS)); }cat
 function CBinstall(o){
   if(!o||o.__cbEdited)return o;
   const raw=o.at.bind(o); o.__cbRawAt=raw;
+  /* __EDIT_SEAM_FAST__ -- 9,216 string keys a frame for a table with no rows in it.
+     PROFILED at 6.3% of city-builder frame time. The city overview reads EVERY cell of the
+     96x96 map every frame, and this line allocated `x+','+y` for each one before looking it
+     up -- nine thousand strings per frame, plus the garbage (collector at 2.1%).
+     IN THE DEMO IT IS ALL FOR NOTHING: EDITS.cells is EMPTY until he paints something, so a
+     NEW PLAYER PAYS THE FULL COST OF A FEATURE THEY HAVE NOT USED YET.
+     The guard is EXACT, not approximate: no keys means no edit can apply, so the raw tile
+     IS the answer. The instant he paints one cell this behaves exactly as it did before --
+     same lookup, same Object.assign, same result.
+     AND IT IS NOT A CACHE ON PURPOSE. The vista memo is safe because mountains do not move;
+     an EDIT is the one thing here that DOES change under him, and caching it is how you
+     ship a builder where his change does not show up. */
   o.at=function(x,y){ const t=raw(x,y); if(!t)return t;
-    const d=EDITS.cells&&EDITS.cells[x+','+y];
-    return (d&&d!==t.district)?Object.assign({},t,{district:d}):t; };
+    const cells=EDITS.cells;
+    if(!cells) return t;
+    for(var _k in cells){ /* any row at all? then do the real lookup */
+      const d=cells[x+','+y];
+      return (d&&d!==t.district)?Object.assign({},t,{district:d}):t;
+    }
+    return t; };
   o.__cbEdited=true; return o;
 }
 CBinstall(om);
@@ -16069,6 +16089,7 @@ let HZOOM=44; // player-chosen human zoom, SNAPPED to pixel-true levels
 // fractional art scaling at any stop.
 const HLEVELS=[11,22,44,88];
 let _zacc=44;
+
 
 
 
@@ -19942,6 +19963,7 @@ function skyExit(){ if(!SKY)return; SKY=false; SKYU=0; window.__SKY_EXIT=(window
   }, true);
 })();
 /* ==== end THE MOON ZOOM ON HIS PHONE ==== */
+
 
 
 
@@ -24339,6 +24361,7 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 document.getElementById('mktbtn').addEventListener('click',function(){
   if(!mktAt())return; MKT_LAST=null; showMarket();
 });
+
 
 
 

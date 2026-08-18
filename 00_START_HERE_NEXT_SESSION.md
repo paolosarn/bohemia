@@ -9981,7 +9981,39 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/16 (c) LATEST -- *** WALKING GOT ~20x CHEAPER, AND I FOUND IT BY
+WORLD (world-9lfjtf): 8/17 LATEST -- *** THE CITY BUILDER IS DRAW-BOUND: NO SECOND 20x,
+AND SAYING SO IS THE POINT. *** BUILD 8/17h. Gate: frame_budget_gate.js 18/0.
+
+After walking went 20x cheaper I profiled the CITY BUILDER, the worst remaining number in
+the game (34-66 ms per redraw). THERE IS NO HIDDEN HOT SPOT LIKE THE VISTA WAS. The time is
+genuinely spread across drawImage, canvas save/restore, lineTo and browser rasterisation.
+IT IS DRAW-BOUND. Worth stating plainly, because the last win was big enough that promising
+another would be easy and wrong.
+
+ONE ENTRY WAS NOT DRAWING: CBinstall.o.at at 6.3%. The seam that makes a district repaint
+true at EVERY zoom (a good design, one world, no second copy) built a string key `x+','+y`
+for every one of the 9,216 cells EVERY FRAME, to look up a table that is EMPTY until he
+paints something. Nine thousand string allocations a frame, plus the garbage, so A NEW
+PLAYER PAYS THE FULL COST OF A FEATURE THEY HAVE NOT USED YET.
+Guarded: no rows means no edit can apply, so the raw tile IS the answer. EXACT, not
+approximate -- the instant he paints one cell it behaves as before. NOT a cache, on purpose:
+the vista memo is safe because mountains do not move, but an EDIT is the one thing here that
+DOES change under him, and caching that is how you ship a builder where his change never
+shows. Measured 6.3% -> 0.6%, twice; roadRun fell 4.8% -> 1.0% with it.
+
+*** AND THE HONEST SIZE OF IT: I CANNOT CLAIM A SPEEDUP HE WOULD FEEL. *** The wall-clock ms
+in this very gate swing between 22 and 90 across runs on the SAME build. The profile share
+improved and is reproducible; the milliseconds are noise. That is exactly why every budget
+in the gate is a COUNT and never a time, and it is why this is gated on CORRECTNESS (his
+edit still shows, removing it restores the tile) rather than on speed.
+
+WHAT COMES AFTER FOR THE CITY VIEW, NOT DONE: the remaining cost is architectural -- the
+diamond is redrawn per frame and the map does not change during a pan, so the base layer
+wants to be baked once and blitted. That is a real refactor of the view he BUILDS in, it
+carries real visual risk, and it should be started fresh rather than tacked onto the end of
+a long session.
+
+WORLD (world-9lfjtf): 8/16 (c) -- *** WALKING GOT ~20x CHEAPER, AND I FOUND IT BY
 PROFILING AFTER MY OWN NOTE SAID THE OPPOSITE. *** BUILD 8/16t.
 Gate: frame_budget_gate.js 16/0.
 

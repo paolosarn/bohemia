@@ -352,6 +352,33 @@ function requirePlaywright() {
        await p.evaluate(() => JSON.stringify(vistaWhere()) ===
                               JSON.stringify(BohemiaVista.overlook(WORLDREF || om))));
 
+    /* THE EDIT SEAM'S FAST PATH -- gated on CORRECTNESS, not on speed. The wrapper that
+       makes a district repaint true at every zoom was building a string key `x+','+y` for
+       every one of the 9,216 cells every frame, to look up a table that is EMPTY until he
+       paints something: 6.3% of city frame time, all of it for nothing, paid by a player
+       who has not used the feature. Profiled 6.3% -> 0.6% after the guard.
+       IT IS ASSERTED AS BEHAVIOUR BECAUSE THE SPEED IS NOT ASSERTABLE: the ms figures in
+       this very gate swing between 22 and 90 across runs on the same build, which is
+       exactly why every budget here is a COUNT. What must never break is that his edit
+       still shows -- a builder whose change does not appear is worthless however fast. */
+    {
+      const seam = await p.evaluate(() => {
+        const x = 20, y = 20;
+        const before = om.at(x, y).district;
+        EDITS.cells = EDITS.cells || {};
+        EDITS.cells[x + ',' + y] = 'park';
+        const after = om.at(x, y).district;
+        delete EDITS.cells[x + ',' + y];
+        const restored = om.at(x, y).district;
+        return { before: before, after: after, restored: restored };
+      });
+      ok('AN EDIT STILL SHOWS THROUGH THE SEAM with the empty-table fast path in ' +
+         '(' + seam.before + ' -> ' + seam.after + ')',
+         seam.after === 'park' && seam.before !== 'park');
+      ok('and removing it restores the original tile, so the guard is exact rather than ' +
+         'a cache that could go stale under him', seam.restored === seam.before);
+    }
+
     ok('and nothing throws while it is measured',
        errs.length === 0 || (console.log('  (errors: ' + errs.slice(0, 2).join(' | ') + ')'), false));
   } catch (e) {
