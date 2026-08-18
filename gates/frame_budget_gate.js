@@ -367,8 +367,15 @@ function requirePlaywright() {
         const before = om.at(x, y).district;
         EDITS.cells = EDITS.cells || {};
         EDITS.cells[x + ',' + y] = 'park';
+        /* A NEW FRAME. The world is snapshotted per frame (__FRAME_CACHE__), so an edit
+           made in the MIDDLE of one correctly does not appear until the next -- exactly
+           like every other change in a frame-based renderer. This assertion used to poke
+           the seam without advancing the frame and went red the day the cache landed,
+           which is the cache being RIGHT and the test being written before it existed. */
+        if (typeof CITY_FRAME !== 'undefined') CITY_FRAME++;
         const after = om.at(x, y).district;
         delete EDITS.cells[x + ',' + y];
+        if (typeof CITY_FRAME !== 'undefined') CITY_FRAME++;
         const restored = om.at(x, y).district;
         return { before: before, after: after, restored: restored };
       });
@@ -377,6 +384,63 @@ function requirePlaywright() {
          seam.after === 'park' && seam.before !== 'park');
       ok('and removing it restores the original tile, so the guard is exact rather than ' +
          'a cache that could go stale under him', seam.restored === seam.before);
+    }
+
+    /* THE PER-FRAME WORLD CACHE. Measured by COUNTING, not reading: painting one city
+       frame with the whole valley on screen made 46,859 om.at() calls against a 9,216-cell
+       map -- FIVE LOOKUPS PER CELL. Pan far away and it falls to exactly one per cell, so
+       the extra four are paid only for VISIBLE cells: the overpass/grade logic and its
+       neighbour probes asking the world the same question repeatedly inside one frame.
+       SAFE FOR EXACTLY ONE REASON: WITHIN A FRAME THE MAP CANNOT CHANGE. render() is
+       read-only over the world, so answers two through five are identical to the first by
+       construction, and a cache that dies with the frame cannot go stale.
+       THREE CACHES NOW LIVE ON THIS PATH WITH THREE LIFETIMES, each argued from what can
+       actually change: the vista memo lasts FOREVER (mountains do not move), the edit-seam
+       guard caches NOTHING (an edit is the one thing that changes under him), this lasts
+       ONE FRAME. A cache whose lifetime is chosen by vibes is how a builder starts lying. */
+    {
+      const fc = await p.evaluate(() => {
+        panX = 0; panY = 0;
+        const f0 = CITY_FRAME;
+        renderCity();                       /* ask the city renderer directly: render() may
+                                               route elsewhere depending on mode/sky */
+        const cached = om.__fc ? om.__fc.size : -1;
+        const f1 = CITY_FRAME;
+        renderCity();
+        return { cached: cached, stable: om.__fc ? om.__fc.size : -1,
+                 ticks: f1 > f0 && CITY_FRAME > f1, cells: om.n * om.n };
+      });
+      ok('the world is cached PER FRAME (' + fc.cached + ' unique cells for a ' + fc.cells +
+         '-cell map, against 46,859 raw calls before) and the frame counter really ticks',
+         fc.cached > 0 && fc.cached <= fc.cells + 64 && fc.ticks);
+      ok('and it does not grow across frames -- it is a one-frame snapshot, not a leak',
+         fc.stable <= fc.cached + 64);
+      /* THE INVARIANT, ASSERTED DIRECTLY, because the softer "does not grow" check let a
+         real mutation through: dropping the clear() leaves LAST frame's answers in the map,
+         and a stale world is exactly the failure a per-frame cache exists to avoid. A new
+         frame must START EMPTY -- one lookup, one entry. */
+      const fresh = await p.evaluate(() => {
+        CITY_FRAME++;
+        om.at(5, 5);
+        return om.__fc ? om.__fc.size : -1;
+      });
+      ok('A NEW FRAME STARTS FROM AN EMPTY SNAPSHOT (' + fresh + ' entry after one lookup) ' +
+         '-- carrying last frame\'s answers forward is a stale world, which is the one ' +
+         'thing this cache must never do', fresh === 1);
+      const edit = await p.evaluate(() => {
+        const x = 20, y = 20;
+        const before = om.at(x, y).district;
+        EDITS.cells = EDITS.cells || {};
+        EDITS.cells[x + ',' + y] = 'park';
+        CITY_FRAME++;
+        const after = om.at(x, y).district;
+        delete EDITS.cells[x + ',' + y];
+        CITY_FRAME++;
+        return { after: after, restored: om.at(x, y).district === before };
+      });
+      ok('AND HIS EDIT STILL LANDS ON THE VERY NEXT FRAME -- the whole point of a one-frame ' +
+         'lifetime, and the difference between a fast builder and one that ignores him',
+         edit.after === 'park' && edit.restored);
     }
 
     ok('and nothing throws while it is measured',

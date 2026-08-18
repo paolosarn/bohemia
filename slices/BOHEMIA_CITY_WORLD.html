@@ -284,6 +284,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font:14px/1.4 'Spa
 
 
 
+
 #daycardIn .mrow{display:flex;justify-content:space-between;align-items:center;gap:8px;
   padding:9px 10px;margin-bottom:5px;border-radius:8px;background:#151310;
   border:1px solid var(--line)}
@@ -7152,6 +7153,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
 
 
+
+
 /* ==== engine/bohemia_dead.js (inlined verbatim) ==== */
 // BOHEMIA DEAD — THE DEAD-PLACEMENT PASS (8/8/26, WORLD lane)
 //
@@ -13264,16 +13267,43 @@ function CBinstall(o){
      AND IT IS NOT A CACHE ON PURPOSE. The vista memo is safe because mountains do not move;
      an EDIT is the one thing here that DOES change under him, and caching it is how you
      ship a builder where his change does not show up. */
-  o.at=function(x,y){ const t=raw(x,y); if(!t)return t;
-    const cells=EDITS.cells;
-    if(!cells) return t;
-    for(var _k in cells){ /* any row at all? then do the real lookup */
-      const d=cells[x+','+y];
-      return (d&&d!==t.district)?Object.assign({},t,{district:d}):t;
+  /* __FRAME_CACHE__ -- FIVE LOOKUPS PER CELL PER FRAME, measured: 46,859 om.at() calls
+     for a 9,216-cell map with the whole valley on screen. Pan far away and it falls to
+     9,217 -- exactly one per cell -- so the extra four are paid only for cells that are
+     VISIBLE: the overpass/grade logic and its neighbour probes asking the world the same
+     question over and over while painting one frame.
+     SAFE FOR EXACTLY ONE REASON: WITHIN A SINGLE FRAME THE MAP CANNOT CHANGE. render() is
+     read-only over the world, so answers two through five are identical to the first by
+     construction, and a cache that dies at the end of the frame cannot go stale.
+     THREE CACHES NOW LIVE ON THIS PATH AND THEY HAVE THREE DIFFERENT LIFETIMES, each
+     argued from what can actually change: the vista memo lasts FOREVER (mountains do not
+     move), the edit-seam guard caches NOTHING (an edit is the one thing that changes under
+     him), and this lasts ONE FRAME. A cache whose lifetime is chosen by vibes is how a
+     builder starts lying to the person building.
+     NUMERIC KEY, because this very seam taught that lesson: x*1024+y is an integer for any
+     96x96 map, so the hot path allocates nothing. */
+  o.__fcFrame=-1; o.__fc=new Map();
+  o.at=function(x,y){
+    const fk=(x<<10)+y;
+    if(o.__fcFrame===CITY_FRAME){ const hit=o.__fc.get(fk); if(hit!==undefined) return hit; }
+    else { o.__fcFrame=CITY_FRAME; o.__fc.clear(); }
+    const t=raw(x,y);
+    let out=t;
+    if(t){
+      const cells=EDITS.cells;
+      if(cells){
+        for(var _k in cells){ /* any row at all? then do the real lookup */
+          const d=cells[x+','+y];
+          out=(d&&d!==t.district)?Object.assign({},t,{district:d}):t;
+          break;
+        }
+      }
     }
-    return t; };
+    o.__fc.set(fk,out);
+    return out; };
   o.__cbEdited=true; return o;
 }
+let CITY_FRAME=0;          /* __FRAME_CACHE__ -- bumped once per city render */
 CBinstall(om);
 const CB={_tapStart:null,_tapMoved:0,sel:null};
 function CBdistAt(x,y){ const t=om.at(x,y); return t&&t.district; }
@@ -15845,6 +15875,7 @@ function vistaBackdrop(plateTop){
 }
 
 function renderCity(){
+  CITY_FRAME++;            /* __FRAME_CACHE__ -- one frame, one world snapshot */
   const N=om.n;
   const ox=Math.round(cv.width/2-(city.x-city.y)*TW/2+panX), oy=Math.round(cv.height/2-(city.x+city.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
   const night=isNight(); window.__LAMPQ=null;
@@ -16089,6 +16120,7 @@ let HZOOM=44; // player-chosen human zoom, SNAPPED to pixel-true levels
 // fractional art scaling at any stop.
 const HLEVELS=[11,22,44,88];
 let _zacc=44;
+
 
 
 
@@ -19963,6 +19995,7 @@ function skyExit(){ if(!SKY)return; SKY=false; SKYU=0; window.__SKY_EXIT=(window
   }, true);
 })();
 /* ==== end THE MOON ZOOM ON HIS PHONE ==== */
+
 
 
 
@@ -24361,6 +24394,7 @@ window.__CITY_INSIDE=function(){ return INSIDE?{W:INSIDE.fp.W,H:INSIDE.fp.H,foot
 document.getElementById('mktbtn').addEventListener('click',function(){
   if(!mktAt())return; MKT_LAST=null; showMarket();
 });
+
 
 
 

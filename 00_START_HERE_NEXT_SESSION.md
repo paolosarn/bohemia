@@ -10000,7 +10000,48 @@ tab's derived build went stale).
 3. The grime NUMBER is [PENDING, Paolo's call].
 4. Downtown has single asphalt cells stranded in concrete plazas. WORLD lane, not art.
 
-WORLD (world-9lfjtf): 8/17 LATEST -- *** THE CITY BUILDER IS DRAW-BOUND: NO SECOND 20x,
+WORLD (world-9lfjtf): 8/17 (b) LATEST -- *** THE CITY ASKED THE WORLD THE SAME QUESTION
+FIVE TIMES A FRAME. *** BUILD 8/17n. Gate: frame_budget_gate.js 22/0.
+
+MEASURED BY COUNTING CALLS, not by reading code:
+    one city frame, whole valley on screen : 46,859 om.at() calls
+    the map has                            :  9,216 cells
+FIVE POINT ONE LOOKUPS PER CELL PER FRAME. The tell: pan far away and it drops to 9,217,
+exactly one per cell -- so the extra four are paid ONLY for VISIBLE cells. It is the
+overpass/grade logic and its neighbour probes asking the world the same thing over and over
+while painting a single frame.
+
+SAFE FOR EXACTLY ONE REASON: WITHIN A FRAME THE MAP CANNOT CHANGE. render() is read-only
+over the world, so answers two through five are identical to the first BY CONSTRUCTION.
+Result: 9,224 unique cells cached per frame against 46,859 raw calls -- ~80% of the world
+queries in a city frame were redundant.
+
+*** PIXEL-IDENTICAL: 0 differing pixels of 329,160, before vs after. *** For a caching
+change that is the proof that matters; a cache that alters one pixel is not a cache, it is
+a bug with good intentions.
+
+THREE CACHES NOW LIVE ON THIS PATH WITH THREE DIFFERENT LIFETIMES, and each is argued from
+what can actually change:
+    vista memo      FOREVER    -- mountains do not move
+    edit-seam guard NOTHING    -- an edit is the one thing that changes under him, and
+                                  caching it ships a builder where his change never appears
+    world snapshot  ONE FRAME  -- the only window in which the world is provably frozen
+A CACHE WHOSE LIFETIME IS CHOSEN BY VIBES IS HOW A BUILDER STARTS LYING TO THE PERSON
+BUILDING. Write down what can change, and the lifetime falls out of it.
+
+AND THE GATE WAS WRONG TWICE BEFORE IT WAS RIGHT, both caught by mutation:
+  1. An older assertion poked the edit seam WITHOUT advancing the frame and went red the day
+     the cache landed -- the cache being RIGHT and the test predating it. A mid-frame edit
+     correctly waits for the next frame, like every change in a frame-based renderer.
+  2. "The cache does not grow across frames" was too soft: deleting the clear() leaves LAST
+     frame's answers in the map and it stayed GREEN. Replaced with the actual invariant --
+     a new frame starts EMPTY, one lookup gives exactly one entry. Now it bites.
+
+STILL NOT DONE, AND STILL THE NEXT REAL JOB: the view is DRAW-bound. This removed redundant
+world QUERIES, not drawing. Baking the static layer once and blitting it during a pan is a
+genuine refactor of the view he builds in, carries visual risk, and wants a fresh start.
+
+WORLD (world-9lfjtf): 8/17 (a) -- *** THE CITY BUILDER IS DRAW-BOUND: NO SECOND 20x,
 AND SAYING SO IS THE POINT. *** BUILD 8/17h. Gate: frame_budget_gate.js 18/0.
 
 After walking went 20x cheaper I profiled the CITY BUILDER, the worst remaining number in
