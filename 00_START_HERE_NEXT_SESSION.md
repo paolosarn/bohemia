@@ -4591,7 +4591,49 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/18 (b) LATEST -- *** EIGHTEEN DISTRICT TYPES HAD FINISHED
+WORLD (city-1eztay): 8/18 (c) LATEST -- *** THE STREETS NEVER FILLED THE BOX. HIS
+8/11 RULING WAS BUILT THE SAME DAY AND REACHED THE SCREEN A WEEK LATE. 3,386 CELLS,
+37% OF THE VALLEY. ***
+Tab: RUN -- walk any street. Or MAP.
+
+Paolo 8/11, LOCKED: "the streets should FILL THE WHOLE FUCKING BOX ABSOLUTELY...
+THE STREETS DONT HAVE WALLS." bohemia_arterial.js widened its corridor wall to
+wall THAT DAY and documents the fix in its own comments. The surface he walks
+never saw it, because BOHEMIA_CITY_WORLD.html carries a DUPLICATE road renderer --
+a four-number XSEC table (lanes/median/side) drawing a thin ribbon and leaving the
+rest of the cell as fallback dirt. MEASURED by asking the page's own per-tile
+function over a whole cell:
+    arterial     8.6% drawn, 91% bare  ->  99.2%
+    freeway     17.9% drawn, 82% bare  ->  85.5%
+    strip       20.7%                  -> 100.0%
+    interchange 20.1%                  ->  20.1%  (excluded on purpose)
+The modules fill 100.0%. Zero page errors either side.
+
+THAT IS WHAT "THE FREEWAYS ARE LOOKING LIKE DOG SHIT" (8/16) ACTUALLY IS. Never an
+art problem -- his own approved ruling not getting to the screen, and him walking a
+valley 91% of whose street cells are bare dirt.
+
+THIRD INSTANCE TODAY OF ONE BUG: A MODULE THE WALKED SURFACE CANNOT SEE. The Strip
+districts had no module. Eighteen district types had a module the page did not
+carry. The roads have a module the page carries AND IGNORES for its own copy.
+
+The arterial RUN and CROSSING resolve apart now (arterial / arterial_x), which the
+page could not express before -- one XSEC row served both, so Paolo's 8/11 "2
+DIFFERENT ITEMS AND ICONS!!" was unrepresentable on the walked surface.
+
+THE INTERCHANGE IS EXCLUDED AND THAT IS A MEASUREMENT: through its module it came
+back WORSE than the table -- 8,843 bare tiles and THREE tiles of road vs 20% drawn
+-- because a stack is built from its cluster's APPROACH data (which arm climbs,
+which dives, where each ramp lands) and this page can hand it bounds but not that.
+16 cells untouched; its module not inlined, 30 KB not spent. THAT IS THE NEXT ITEM
+for this lane: clusterApproach on the walked surface.
+
+COST +64 KB gz (819 from 755). UNBLOCKS ART: TF-ART-011 freeway tile family is on
+the demo status board row 2 as BLOCKED ON WORLD ("WORLD must realize
+freeway/arterial cells"). Those cells emit their modules' real tile codes now.
+Record: records/BOHEMIA_THE_STREETS_NEVER_FILLED_THE_BOX_8_18_26.md
+
+WORLD (city-1eztay): 8/18 (b) -- *** EIGHTEEN DISTRICT TYPES HAD FINISHED
 ENGINE MODULES AND RENDERED AS A PLACEHOLDER BOX IN THE GAME HE WALKS. 165 CELLS,
 AND IT COST 45 KB. ***
 Tab: RUN (walk into an airfield, a quarry, the campus, the speedway, downtown's
