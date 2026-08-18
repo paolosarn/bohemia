@@ -1284,39 +1284,52 @@ def main():
     # site" as a single blanket line is how a real omission hides inside a
     # legitimate one. A WAIVER IS NOT A DELETION: his sounds stay in the bank,
     # the debt prints every run, and the list is CLOSED.
+    # ---- A WAIVER IS A CLAIM ABOUT THE BUILD, AND CLAIMS EXPIRE (8/17) ----
+    # This table used to be PROSE. Every entry was a sentence somebody wrote on
+    # the day the sound was approved, and nothing ever re-read one. That is how
+    # melee_hit sat silent for eighteen days behind "the fight lives in another
+    # lane's iframe, this lane does not reach in" -- while this same tool was
+    # editing FOURTEEN sounds inside that iframe. Two more expired the day the
+    # COMBAT lane shipped ammo (dry_fire had no empty gun to fire on; there is
+    # one now) and a third was mine to fix all along (casing).
+    # SO EVERY WAIVER NOW CARRIES A NEEDLE: a string that must NOT be findable
+    # in the build. The needle IS the moment. If it turns up, the excuse is over
+    # and the gate says so by name, with the file to look in. A waiver that
+    # cannot expire is not a waiver, it is a hiding place.
+    #   (reason, where, needle)   where: 'run' | 'combat' | 'alpha'
     WAIVED = {
-        'pickup': 'Paolo 8/2 ruled EAT is its own sound; pickup waits for '
-                  'an inventory to exist',
-        'melee_hit': 'the fight lives in the COMBAT surface, another lane\'s '
-                     'iframe. ONE SYSTEM ONE SESSION: this lane does not reach in',
-        'casing':    'same iframe as the shot it follows -- the brass cannot '
-                     'land before the fight is this lane\'s to touch',
-        'dry_fire':  'needs an ammo count to be empty, and the run has no '
-                     'weapon state outside the combat frame',
-        'heartbeat': 'needs the player\'s HP inside the RUN. Today hp exists '
-                     'only in the encounter payload the run hands to combat',
-        'drink':     'there is no drink action anywhere in the run. EAT is a '
-                     'verb; thirst is not one yet',
-        'demolish':  'the city-builder can place nothing and remove nothing '
-                     'yet; the verb this sound belongs to is unbuilt',
-        'power_on':  'LIGHT IS TERRITORY, but taking a block is not a move a '
-                     'player can make in the run today',
-        # ---- HIS 8/14 SWEEP APPROVED FOUR MORE, AND ALL FOUR ARE FRICTION ----
-        # These are the batch's real win: four moments that had never had a
-        # sound in the game's history got one, from a method that did not exist
-        # three days earlier. And not one of them has a verb to fire from yet.
-        # Named separately, because "no call site" as a single blanket line is
-        # how a real omission hides inside a legitimate one -- and because the
-        # day any of these four verbs gets built, the sound is already chosen.
-        'swing_air': 'a melee swing lives in the COMBAT surface, another lane\'s '
-                     'iframe, and the run has no melee at all',
-        'tape_pull': 'patching yourself up needs the healing system he ruled on '
-                     '8/13 (convalescence in game-time); it is routed, not built',
-        'set_down':  'placing a building is the city-builder verb, and the '
-                     'builder can still place nothing',
-        'cloth_on':  'equip() exists in the inventory module with ZERO callers '
-                     '-- checked, not assumed. No surface dresses anybody yet',
+        'pickup':    ('Paolo 8/2 ruled EAT is its own sound; pickup waits for '
+                      'an inventory to exist',
+                      'run', "verb:'take'"),
+        'drink':     ('there is no drink action anywhere in the run. EAT is a '
+                      'verb; thirst is not one yet',
+                      'run', "verb:'drink'"),
+        'demolish':  ('the city-builder can place nothing and remove nothing '
+                      'yet; the verb this sound belongs to is unbuilt',
+                      'run', "verb:'demolish'"),
+        'power_on':  ('LIGHT IS TERRITORY, but taking a block is not a move a '
+                      'player can make in the run today',
+                      'run', "verb:'power'"),
+        'tape_pull': ('patching yourself up needs the healing system he ruled '
+                      'on 8/13 (convalescence in game-time); it is routed, not '
+                      'built',
+                      'run', "verb:'patch'"),
+        'set_down':  ('placing a building is the city-builder verb, and the '
+                      'builder can still place nothing',
+                      'run', "verb:'place'"),
+        'cloth_on':  ('equip() exists in the inventory module with ZERO callers '
+                      '-- checked, not assumed. No surface dresses anybody yet',
+                      'run', "verb:'equip'"),
     }
+    _src = {'run': run, 'combat': demo, 'alpha': alpha_src}
+    expired = []
+    for ev, (why, where, needle) in WAIVED.items():
+        if needle and needle in _src.get(where, ''):
+            expired.append('%s (%s now has %s)' % (ev, where, needle))
+    chk(not expired,
+        'THESE WAIVERS HAVE EXPIRED -- the moment they said did not exist is in '
+        'the build now, and a sound he approved is still silent: %s' % expired)
+
     silent = sorted(ev for ev in bank if not wired(ev))
     unexpected = [ev for ev in silent if ev not in WAIVED]
     chk(not unexpected,
@@ -1325,7 +1338,8 @@ def main():
         % ', '.join(unexpected))
     for ev in silent:
         if ev in WAIVED:
-            print('  WAIVED: %s has no moment -- %s' % (ev, WAIVED[ev]))
+            print('  WAIVED: %s -- %s   [expires when %s appears in the %s]'
+                  % (ev, WAIVED[ev][0], WAIVED[ev][2], WAIVED[ev][1]))
     # THE MATCHER MUST BE ABLE TO SAY NO. A check that returns True for anything
     # is worse than no check, and this file has already shipped one of those
     # today (a distance test that passed with attenuation deleted).

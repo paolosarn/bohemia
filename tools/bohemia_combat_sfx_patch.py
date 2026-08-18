@@ -246,6 +246,129 @@ CHEW_NEW = ("function chewCover(P){ if(!P)return;"
             "      eaten while you use it, and it was silent until now. */")
 
 
+# ---- 8/17: THREE SOUNDS HE APPROVED THAT COULD NOT FIRE UNTIL NOW ----------
+# APPROVED-BUT-UNUSED IS A DEFECT, and these three were WAIVED rather than
+# fixed, each with an honest reason at the time. Two of those reasons expired
+# when the COMBAT lane shipped ammo, and the third was mine to fix all along.
+#
+#   dry_fire.1  approved 8/1, waived "needs an ammo count to be empty, and the
+#               run has no weapon state outside the combat frame". AMMO LANDED.
+#               dryNow() is a real branch that fires whenever he pulls on a dry
+#               gun, and it says EMPTY in TEXT ONLY. His own why for this sound
+#               is "you pulled and nothing happened, the sound that means you
+#               counted wrong" -- it was written for exactly this branch before
+#               the branch existed.
+#   casing.0    approved 7/30, waived "same iframe as the shot it follows -- the
+#               brass cannot land before the fight is this lane's to touch". That
+#               stopped being true the day this tool started editing combat. The
+#               brass rides the shot, and casing.0 already carries its own delay
+#               (hits at 0.25/0.375/0.4375) so it lands AFTER the round leaves,
+#               which is what makes it read as brass and not as part of the gun.
+#   heartbeat   approved 7/30 (3 of 5), waived "needs the player's HP inside the
+#               RUN; today hp exists only in the encounter payload". It exists
+#               HERE, in the fight, which is the only place low health is a
+#               thing you can feel. His why: "the sound that is inside your
+#               head, not in the room".
+#
+# NO MECHANIC IS INVENTED FOR ANY OF THEM. Every one attaches to a branch the
+# fight already takes and already draws or prints.
+DRY_OLD = "  if(dryNow()){ const _alt=altWeapon();"
+DRY_NEW = ("  if(dryNow()){ const _alt=altWeapon();"
+           "\n    try{ sfxAsk('dry_fire'); }catch(_e){}"
+           "   /* HIS dry_fire.1, approved 8/1 and silent ever since because\n"
+           "         there was no ammo to run out of. There is now. */")
+
+# ONE PIECE OF BRASS PER ROUND, on the round that was actually spent.
+SPEND_OLD = "  spendRound();   /* V157: one trigger pull, one round -- spent only once the shot is real */"
+SPEND_NEW = ("  spendRound();   /* V157: one trigger pull, one round -- spent only once the shot is real */"
+             "\n  try{ sfxAsk('casing'); }catch(_e){}"
+             "   /* HIS casing.0. It rides the ROUND, not the trigger, so a dry\n"
+             "        pull throws no brass. Its own hits land at 0.25-0.44 of a\n"
+             "        beat, which is why it reads as brass hitting the floor\n"
+             "        rather than as part of the gun. */")
+
+
+def wire_waived(demo):
+    """Three sounds he approved weeks ago whose moments finally exist."""
+    ok = True
+    for name, old, new in (('dry_fire', DRY_OLD, DRY_NEW),
+                           ('casing', SPEND_OLD, SPEND_NEW)):
+        if ("sfxAsk('%s')" % name) in demo:
+            continue
+        if demo.count(old) != 1:
+            print('FAIL: the %s site is not present exactly once (%d)'
+                  % (name, demo.count(old)))
+            ok = False
+            continue
+        demo = demo.replace(old, new, 1)
+    # YOUR HEART, ONCE, WHEN THE FIGHT TURNS. Not a loop and not per-turn: it
+    # fires on the damage event that takes him UNDER the line, so it marks the
+    # moment he became fragile instead of nagging while he is.
+    hb_old = "G.pHP=Math.max(0,G.pHP-dmg); updPlayer();"
+    hb_new = ("G.pHP=Math.max(0,G.pHP-dmg); updPlayer();"
+              " try{ if(G.pHP>0 && G.pHP<=(G.pMax||100)*0.35 && !G._hbSaid){"
+              "G._hbSaid=1; sfxAsk('heartbeat'); } }catch(_e){}")
+    if "sfxAsk('heartbeat')" not in demo:
+        n = demo.count(hb_old)
+        if n < 1:
+            print('FAIL: no player-damage site found for heartbeat')
+            ok = False
+        else:
+            demo = demo.replace(hb_old, hb_new)   # every damage path
+    return demo, ok
+
+
+# ---- 8/17b: MELEE. THE WAIVER SAID THIS LANE DOES NOT REACH IN. IT DOES. ----
+# melee_hit (4 approved, 7/30) and swing_air (2 approved, 8/12) were both waived
+# with the same sentence: "the fight lives in the COMBAT surface, another lane's
+# iframe. ONE SYSTEM ONE SESSION: this lane does not reach in."
+# THAT SENTENCE STOPPED BEING TRUE and nobody re-read it. This tool now edits
+# fourteen sounds inside that iframe. A waiver is a claim about the build, and a
+# claim nobody re-checks is how six approved candidates stay silent for weeks.
+# THE BRANCH ALREADY DISTINGUISHES THEM, in the combat lane's own words: "b13:
+# the swing plays, hit or miss". Inside reach is a body; outside reach is air.
+# That is exactly the pair he approved -- melee_hit is "pipe on a body, the
+# closest worst sound in the game", swing_air is "the bat catching air, there is
+# nothing to strike in a miss".
+MEL_OLD = ("      if(e.edist<=e.reach+0.01){ const a=e.E.dmg; "
+           "const d=a[0]+Math.floor(Math.random()*(a[1]-a[0]+1)); dmg+=d; who.push(e.i); } }")
+MEL_NEW = ("      if(e.edist<=e.reach+0.01){ const a=e.E.dmg; "
+           "const d=a[0]+Math.floor(Math.random()*(a[1]-a[0]+1)); dmg+=d; who.push(e.i); "
+           "try{ sndMelee(); }catch(_e){} }"
+           "\n      else { try{ sndSwing(); }catch(_e){} } }")
+
+MEL_FNS = """
+/* HIS MELEE PAIR (8/17b). ONE PER FRAME EACH: a melee round resolves every
+   enemy in one loop, so three blades landing together would fire his single
+   set three times in one tick and turn the worst sound in the game into a
+   rattle. Same 200 ms window the block and the miss already use. */
+var _melAt=0,_swgAt=0;
+function _now2(){ return (typeof performance!=='undefined'&&performance.now)?performance.now():Date.now(); }
+function sndMelee(){ var n=_now2(); if(n-_melAt<200)return; _melAt=n;
+  if(sfxAsk('melee_hit'))return; tone(200,0.09,0.07,'square'); }
+function sndSwing(){ var n=_now2(); if(n-_swgAt<200)return; _swgAt=n;
+  if(sfxAsk('swing_air'))return; }
+"""
+
+
+def wire_melee(demo):
+    """melee_hit and swing_air, on the branch that already tells them apart."""
+    if "sfxAsk('melee_hit')" in demo:
+        return demo, True
+    if demo.count(MEL_OLD) != 1:
+        print('FAIL: the melee strike branch is not present exactly once (%d)'
+              % demo.count(MEL_OLD))
+        return demo, False
+    demo = demo.replace(MEL_OLD, MEL_NEW, 1)
+    # the two helpers go next to the rest of this lane's sound layer
+    anchor = "var _blkAt=0;"
+    if demo.count(anchor) != 1:
+        print('FAIL: cannot find the sound layer to add the melee helpers to')
+        return demo, False
+    demo = demo.replace(anchor, MEL_FNS + anchor, 1)
+    return demo, True
+
+
 def wire_sfx07(demo):
     """His 8/16b instrument survivors, onto moments combat already scores."""
     ok = True
@@ -361,6 +484,12 @@ def main():
         demo, ok = wire_sfx07(demo)
         if not ok:
             return 1
+        demo, ok = wire_waived(demo)
+        if not ok:
+            return 1
+        demo, ok = wire_melee(demo)
+        if not ok:
+            return 1
         b64 = base64.b64encode(demo.encode('utf8')).decode('ascii')
         src = src[:i0] + b64 + src[j0:]
         open(ALPHA, 'w', encoding='utf8').write(src)
@@ -391,6 +520,12 @@ def main():
     if not ok:
         return 1
     demo, ok = wire_sfx07(demo)
+    if not ok:
+        return 1
+    demo, ok = wire_waived(demo)
+    if not ok:
+        return 1
+    demo, ok = wire_melee(demo)
     if not ok:
         return 1
     b64 = base64.b64encode(demo.encode('utf8')).decode('ascii')

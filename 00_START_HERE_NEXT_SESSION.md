@@ -952,62 +952,62 @@ already stores 112 frames today (G.hd defaults true), so it does not grow. HD_CA
 stays 768.
 
 --------------------------------------------------------------------------------
-SOUND (sound-xk7pjp): 8/16b LATEST -- *** THE MOST-PLAYED SOUND IN THE GAME HAD
-ONE VARIANT. SFX-08 IS 30 CANDIDATES OF VOLUME FOR SIX MOMENTS HE ALREADY KEPT,
-AWAITING THUMBS. TAB: MUSIC. ***
+SOUND (sound-xk7pjp): 8/17 LATEST -- *** ELEVEN CANDIDATES HE APPROVED WEEKS AGO
+COULD NOT MAKE A SOUND, AND FIVE OF THEIR EXCUSES HAD SILENTLY EXPIRED. ALL FIVE
+ARE WIRED. TABS: COMBAT (all five), MUSIC (judge SFX-08, still open). ***
 
-HIS 430/430 SWEEP SETTLED THE BIG QUESTION: *** HIS OWN INSTRUMENTS BEAT RAW
-SYNTHESIS AND IT IS NOT CLOSE. *** Same six moments, same player:
-    SFX-06, raw synthesis    0 UP / 30    0%
-    SFX-07, HIS 602-VOICE RACK  13 UP / 30   43%
-dirt_take swept 5/5. 132 UP / 298 DOWN overall. All five survivors are wired.
-records/BOHEMIA_SFX_VERDICT_8_16b_26.txt, banks/BOHEMIA_SFX_APPROVED_8_16b_26.json.
+NO NEW SOUNDS THIS TURN, ON PURPOSE: 30 SFX-08 candidates are awaiting his thumbs
+and the doctrine says non-cook work while the queue is full. This was the non-cook
+work with the most value in it.
 
-*** AND THEN THE REAL STALENESS TURNED OUT TO BE IN THE GAME, NOT THE BALLOT. ***
-Measured across the wired set: TWELVE moments hold exactly ONE approved variant
-and four more hold two. `shot` is one of the ones -- the single most-played sound
-in the game, byte-identical on every shot of every firefight since 8/1. So is
-step_concrete (every sidewalk AND every interior floor), hurt, block, casing.
-That is the MACHINE GUN EFFECT, and it is "its getting stale" for the fifth time
--- except in the GAME, where no number of new moments could ever have fixed it.
-APPROVAL UNLOCKS VOLUME is this repo's oldest law and sound had never applied it.
+*** THE DEFECT: A WAIVER IS A CLAIM ABOUT THE BUILD, AND NOBODY EVER RE-READ ONE.
+sfx_wired_gate carried twelve waivers explaining why an approved sound had no call
+site. Every one was PROSE written the day the sound was approved. Five had expired:
+  melee_hit (4 approved)  "the fight lives in another lane's iframe, this lane does
+                           not reach in" -- while this same tool was editing
+                           FOURTEEN sounds inside that iframe. Eighteen days silent.
+  swing_air (2 approved)  same sentence, same expiry
+  dry_fire  (1 approved)  "needs an ammo count to be empty" -- THE COMBAT LANE
+                           SHIPPED AMMO. dryNow() is a real branch that printed
+                           EMPTY in text only.
+  casing    (1 approved)  "the brass cannot land before the fight is this lane's
+                           to touch" -- it has been this lane's to touch since 7/31
+  heartbeat (3 approved)  "needs the player's HP inside the RUN" -- it exists in
+                           the FIGHT, which is the only place low health is felt
+ELEVEN APPROVED CANDIDATES, DEAD WEIGHT, NOW AUDIBLE.
 
-MECHANISM (the part that matters more than the batch): SIBLING EVENTS. A recipe
-cooks exactly five and his thumbs are frozen to those five vectors forever, so a
-moment cannot simply grow. Instead a moment gains a SIBLING event with its own
-id and its own five, and pick() draws from the UNION. His old thumbs never move.
-    shot <- shot_more | hurt <- hurt_more | hit <- hit_more
-    casing <- brass_more | block <- cover_more | step_concrete <- walk_more
-window.__sfxPool('shot') prints the live draw pool.
+WHERE EACH ONE ATTACHES (no mechanic invented, every branch already existed):
+  dry_fire  -> dryNow(), the moment he pulls on a dry gun. His own why for this
+               sound is "you pulled and nothing happened, the sound that means you
+               counted wrong" -- written for this branch before it existed.
+  casing    -> spendRound(), so it rides the ROUND and a dry pull throws no brass.
+               casing.0 carries its own 0.25-0.44 beat delay, which is what makes
+               it read as brass hitting the floor and not part of the gun.
+  heartbeat -> the damage event that takes him UNDER 35% -- once, with a latch, so
+               it marks the moment he became fragile instead of nagging while he is
+  melee_hit -> the melee strike branch, inside reach
+  swing_air -> the same branch, outside reach. The combat lane's own comment says
+               "the swing plays, hit or miss", so the code already told them apart.
+  200 ms limiters on the melee pair: a melee round resolves every enemy in one
+  loop and three blades landing together would rattle.
 
-TWO THINGS THE ROUND-ROBIN RESEARCH CHANGED: an ODD number of variants beats an
-even one, because an even count locks to the phrasing -- and this game quantises
-EVERYTHING to 120 BPM, the worst possible case. And never the same one twice in a
-row, which pick() already did and which is kept.
+*** THE SYSTEMIC FIX: EVERY WAIVER NOW CARRIES AN EXPIRY NEEDLE. *** (reason,
+where, needle) -- a string that must NOT be findable in the run/combat/alpha. The
+needle IS the moment. If it turns up, the gate fails BY NAME and says which file
+to look in. A waiver that cannot expire is not a waiver, it is a hiding place.
+Mutation-proved: inject verb:'drink' into the run and the gate goes red naming it.
+SEVEN WAIVERS LEFT, each printed every run with the exact condition that kills it:
+  pickup verb:'take' | drink verb:'drink' | demolish verb:'demolish'
+  power_on verb:'power' | tape_pull verb:'patch' | set_down verb:'place'
+  cloth_on verb:'equip'   -- all in the run
 
-SFX-08 IS ALL INSTRUMENT-BACKED, five different voices per moment. Six of the
-first picks were thrown out for rendering SILENCE despite appearing in the rack's
-source (conga, chestplate, gorget, helm, pauldron, knock).
-
-ALSO FIXED THIS TURN: the game was playing over him while he voted. Not the
-button -- measured, the preview plays only the candidate. The RUN autosaves on
-its own timer in a tab he is not looking at and rings his save bell through the
-judge sheet. Guard: a sound is dropped only when BOTH the MUSIC tab is open AND
-the request crossed an iframe boundary (ev.source !== window). Two earlier
-versions were wrong and the gates caught both -- v1 would have silenced a
-footstep he TAPPED, v2 broke the neighbour checks.
-
-GATES: instrument_gate (his 602 voices reachable, every named voice re-rendered
-on the shipped surface with a bogus-name control), verdict_frozen_gate (a sound
-he has judged can never change; new sound = NEW id), and the machine-gun check
-inside sfx_wired_gate (a thinned moment must have a sibling to grow into). All
-mutation-proved.
-
-NEXT: his thumbs on SFX-08. Every approval instantly widens a moment's draw pool
-with no further work -- that is what the sibling mechanism buys.
+STILL OPEN FOR HIM: SFX-08, 30 candidates, TAB MUSIC. Six moments he already keeps
+that repeat identically (shot has ONE variant and fires on every shot of every
+firefight). Each approval instantly widens that moment's draw pool through the
+sibling mechanism -- no further work needed from anyone.
 
 *** PUSH THE BRANCH THE MOMENT YOU COMMIT. *** The container reverted to an Aug 2
-snapshot FOUR times this session. Everything survived only because it was pushed.
+snapshot FIVE times this session. Everything survived only because it was pushed.
 
 --------------------------------------------------------------------------------
 
