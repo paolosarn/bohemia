@@ -1796,8 +1796,26 @@ ALIVE. [DONE 8/18 — THE FLOOR HALF. Nobody invented a hazard and nobody placed
    no invented radius. AND THE FIX FOR A BOX IS NOT MORE WALLS: a 6x6 plate is 4.5 m square,
    and partitioning a shed to win a number is inventing architecture that does not exist.
    Cover at that size is FURNITURE, i.e. meta.pending's "furniture per role", a TODO string
-   since July, now a combat requirement worth 9,630 stranded cells, and THAT is this lane's
-   next item. ART's hazard-tile ask is filed in the hazard record.]
+   since July, now a combat requirement worth 9,630 stranded cells. THAT IS ALSO DONE
+   (8/18, same day): engine/bohemia_furnish.js + tools/bohemia_city_furnish_patch.py +
+   gates/furnish_gate.js (32 checks, 3 mutations) +
+   records/BOHEMIA_WHAT_IS_IN_THE_ROOM_8_18_26.md. Three classes and only one hides you:
+   COVER is chest-to-head and opaque, LOW blocks the body and never the look (no crouch,
+   so a sofa cannot pretend), LOOSE blocks nothing. Stranded cells 9,630 -> 3,053 (-68%),
+   break point 320 -> 224 tiles and ratcheted. The smallest plates are IMPROVED and NOT
+   claimed fixed, because tuning density until a shed goes green would be lying. It
+   landed the same day __CITY_FIGHT__ made the door the fight, so the furnished room IS
+   the fight room. REUSE CHECK ended in a WARNING: both interior banks are generic asset
+   packs (oak barrels / burlap sacks / LIVE FLOWERING PLANTS in one, glowing sci-fi loot
+   crates in the other) and nothing is wired from either -- read that before reaching for
+   them. ART's cover-form ask is TWO forms, not twenty-five, and it is in the record.
+   WHAT IS LEFT FOR THIS LANE, in order: (1) a GROUND-LAYER RUBBLE TILE -- every rubble
+   tile in six districts is a prop the walked surface blocks, so the most classic piece
+   of unstable ground there is cannot be stood on, and it is what makes AMPLIFIES real
+   indoors and out; (2) the three real lethal drops modelled as STRUCTURE (quarry:7,
+   intake:13, reclaim:6); (3) gypsum:7 carrying two occupancies in one code; (4) the
+   walked surface's kit registering only 35 of 62 district types, which caps far more
+   than these features.]
    *** "THE WORLD HAS TO FEEL MORE ALIVE" — TERRAIN THAT DOES
    SOMETHING TO YOU (Paolo 8/17, LOCKED, the second half of his RF4
    order — laws/BOHEMIA_ADDENDUM_THE_RF4_LIFT_8_17_26.md §5. TOP OF THIS

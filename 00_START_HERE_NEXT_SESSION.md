@@ -1,3 +1,84 @@
+WORLD (world-9lfjtf): 8/18 (b) LATEST -- *** ROOMS HAVE THINGS IN THEM NOW, AND ONLY
+THE CHEST-HIGH THINGS HIDE YOU. TAB: RUN -- walk through any door and look at the
+room. ***
+
+THIS IS THE SECOND HALF OF A NUMBER I PUBLISHED THIS MORNING. The retreat gate measured
+the RF4 lift's hard obligation ("a cramped room deletes the entire core verb") and found
+a clean break: every plate 10x10 or under is ONE ROOM with 94% of its floor unable to get
+out of sight. Walls cannot fix that -- a 6x6 plate is 4.5 METRES SQUARE, and partitioning
+a shed so a gate goes green is inventing architecture that does not exist. Cover at that
+size is WHAT IS IN THE ROOM.
+
+  stranded floor cells   9,630 -> 3,053   (-68%)
+  the break point          320 -> 224 tiles, ratcheted so it may only come down
+
+*** THE TIMING WAS NOT LUCK: __CITY_FIGHT__ ("THE DOOR IS THE FIGHT") landed on the
+walked surface while I was building this. inEnter is now both the way inside and the way
+into a fight, so the room I furnished IS the room the fight happens in. ***
+
+  engine/bohemia_furnish.js            three classes, 25 roles, deterministic
+  tools/bohemia_city_furnish_patch.py  on the plate, in inEnter, blocking + drawn
+  gates/furnish_gate.js                32 checks, 3 mutations confirmed
+  records/BOHEMIA_WHAT_IS_IN_THE_ROOM_8_18_26.md
+
+  COVER  chest-to-head and opaque -- racking, lockers, a fridge, a counter run.
+         Blocks the body AND the look. This is what makes a room fightable.
+  LOW    knee-to-waist -- a bed, a sofa, a desk. Blocks the body, NEVER the look.
+         There is no crouch in this game, so a sofa cannot hide you and will not
+         pretend to.
+  LOOSE  litter. Blocks nothing, and nothing downstream may count it as cover.
+
+*** THE SPLIT IS THE WHOLE DESIGN AND THE GATE ATTACKS IT. *** Calling a desk "cover"
+would pass the retreat obligation in every office in the game while it played exactly as
+badly as before. A number that improves while the game does not is worse than a red one.
+Flip that one flag and the gate goes red; so does deleting the doorway guard (2,722
+pieces in or beside a doorway, 233 plates cut in two).
+
+*** THE SMALLEST PLATES ARE IMPROVED AND NOT CLAIMED FIXED. *** 98 of 162 still strand
+somebody and that number stays in the gate output. A 4.5 m room with one shelf still has
+sightlines, and tuning density until it went green would be lying about a shed.
+
+*** THE REUSE CHECK ENDED IN A WARNING, NOT A SHOPPING LIST -- READ THIS BEFORE YOU
+REACH FOR EITHER BANK. *** I opened, decoded and LOOKED AT both (rendered to PNG and
+viewed, not read about):
+  banks/BOHEMIA_INTERIOR_POOL_7_26_26.txt -- header claims "every tile here carries a
+    Paolo UP verdict". It is a GENERIC FANTASY ASSET PACK: banded oak barrels, burlap
+    sacks, tavern benches, potion bottles and LIVE FLOWERING PLANTS.
+  banks/BOHEMIA_DEMO_PROP_POOL_7_10_26.txt -- its `container` family is GLOWING SCI-FI
+    LOOT CRATES. Its `cover` family (jersey barriers, sandbags, steel plate) is the one
+    usable set in either bank, and it is right for a fortified room, wrong for a bedroom.
+Nothing is wired from either. What draws is a blocking VOLUME with a lit top and a darker
+front -- the same fallback this renderer already uses -- and COVER rises into the cell
+above while LOW does not, so the two are told apart by SHAPE before colour.
+ART's ask is TWO FORMS, not twenty-five: one chest-to-head mass that reads as "this hides
+me", one knee-to-waist mass that reads as "this does not". Full ask in the record.
+
+*** FOR WHOEVER OWNS __HOUSE_FLOORS__ -- I SAW THIS AND DID NOT TOUCH IT. *** Walking
+into a real house to verify the furniture draws, the interior renders FANTASY DUNGEON
+floor and door tiles including large LIVE GREEN FLOWERING VEGETATION, inside a residential
+building in a valley that stopped watering things a decade before act one. That is the
+same standing law the 7/22 prefab fix enforces outdoors, failing indoors. Your story is
+already live (Paolo 8/6, "Tile wood and carpet bro ofc bro wtf") and names his tile as a
+declared interim -- but the interim note does not mention the vegetation, and that half is
+a standing-law violation on the surface he plays. ONE SYSTEM, ONE SESSION: it is yours.
+
+*** AND A WARNING ABOUT THIS CONTAINER, because it cost me the work once. *** This
+session's box REPROVISIONED TWICE mid-run and both times the git checkout reverted to a
+commit from 8/9 and every UNCOMMITTED file vanished. The hazard and retreat work survived
+because it was pushed; the furnish work had to be rewritten from scratch. COMMIT EARLY
+AND OFTEN HERE -- do not hold a finished module until the suite passes.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. A GROUND-LAYER RUBBLE TILE. Every rubble/debris tile in six districts is a `prop`
+     the walked surface blocks, so the most classic piece of unstable ground in any game
+     cannot be stood on here. It is what makes AMPLIFIES real, indoors and out, and it is
+     the cheapest of the four gaps.
+  2. The three genuinely fatal drops modelled as STRUCTURE tiles (quarry:7 bench crest,
+     intake:13 shaft, reclaim:6 crusted pond) -- you bump into them instead of falling in.
+  3. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+  4. The walked surface's kit registers 35 of the engine's 62 district types, so 10 of the
+     15 hazard districts cannot be reached at all. That caps far more than these features.
+
 FACTIONS (factions-ovkjpf): 8/18 LATEST -- *** THE DEBT GETS CALLED IN. The free
 thing the Cartel gave you three days ago now has somebody coming for it.
 TAB: CITY (tap anybody who runs with somebody) + LOOK ("THEY ARE NOT WAITING"). ***
