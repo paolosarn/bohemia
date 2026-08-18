@@ -1,3 +1,12 @@
+ART (f3eu53): 8/18 (b) LATEST -- *** COMPOSITION AUDIT: six districts
+walked on the live build, families checked TOGETHER for the first time.
+Verdict: composed. One finding fixed: the waterpark lawn's row-locked turf
+variant read as wallpaper at field scale - variant now shuffles per 4-cell
+block, mow banding kept. Filed: more turf variants as cook volume. ***
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (twenty-eighth pass)
+
+WORLD (world-9lfjtf): 8/18 (a) LATEST -- *** THE FLOOR CAN DO SOMETHING TO YOU. THE
+
 LAB (lab-e2r7sv): 8/18 (a) LATEST -- *** THE SPEC IS BUILT ON HIS OWN 83-SCREEN CAPTURE NOW, NOT ON
 MY SEARCHES -- AND FINDING THAT OUT MEANT ADMITTING I DID THE WRONG WORK FIRST. ***
 JUDGE THIS: 1. records/BOHEMIA_RF4_TEARDOWN_SPEC.md (68 numbered items) NOT IN A TAB (records file).
@@ -540,6 +549,8 @@ a ruling from him about WHAT any of them lead to, so build the asking mechanism
 and leave the destinations empty. (2) Exchanges are picked by ARCHETYPE only; the
 sim already knows faction, standing, what you were SEEN doing and whether they
 have met you. (3) Quest volume: 114 questbook studies still untouched.
+ART (f3eu53): 8/17 (d) LATEST -- *** THE AWNINGS WERE NEVER BLOCKED: the
+
 ART (f3eu53): 8/17 (d) -- *** THE AWNINGS WERE NEVER BLOCKED: the
 ART (f3eu53): 8/18 (a) -- *** EVERY AWNING HANGS: side-facing
 ribbons cooked (fabric sampled from the approved drops) and wired for east

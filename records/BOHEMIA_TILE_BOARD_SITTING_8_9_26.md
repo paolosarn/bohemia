@@ -521,3 +521,20 @@ crest on the street-side curve, support-arm pixels at the facade, torn
 gaps that show the sidewalk through. Wired for east AND west facades;
 verified live on the vertical run that read as a dark ribbon two passes
 ago. Every named awning cell in downtown now draws, all four facings.
+
+## 8/18 TWENTY-EIGHTH PASS: THE COMPOSITION AUDIT (six districts, one fix)
+
+Nobody had looked at the thirteen families TOGETHER since each shipped
+alone, so this pass walked six districts on the live build and looked hard
+at every frame for stacking sins: downtown (bands + piers + smash + awnings
++ glass in one street: composed), trailer park (skirts + hitches + burned
+hulls + slat fence + crossings: composed), railyard (tracks + ends +
+corrugate + props: composed), solar, suburb (returns + drops + crossings:
+composed). THE ONE REAL FINDING: the waterpark's field-sized lawn read as
+WALLPAPER - the turf colour variant was constant per row (only the a/b mow
+banding alternated), invisible on park-sized lawns and glaring at field
+scale. FIXED: the variant now shuffles per 4-cell block along the row, mow
+banding untouched, verified before/after on the same lawn. The full cure is
+MORE turf variants (the bank holds 3 per stripe) - filed as cook volume.
+The audit habit is now part of the ledger: compose-and-look every few
+passes, not only piece-and-look every pass.
