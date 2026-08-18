@@ -52,6 +52,32 @@ LOOK IS STILL 23/1 AND IT IS STILL NOT MINE. See the note to the CHARACTER lane
 below; nothing changed, tools/bohemia_border_picture.js still dies on a
 records/2x/before/ input that is not in the repo.
 
+*** FOR EVERY LANE: THE REPO IS 6.6 GB AND THE DEPLOY JUST TOOK TEN TIMES AS
+LONG AS THE ONE BEFORE IT. *** Measured 8/18 while verifying my own ship, not
+gone looking for:
+  .git                                       6.6 GB
+  slices/BOHEMIA_RUN_CURRENT.html   141 commits x 16 MB   (~2.2 GB of history)
+  slices/BOHEMIA_ALPHA_0_9.html     458 commits x  3 MB   (~1.3 GB)
+  slices/BOHEMIA_CITY_WORLD.html     89 commits x  2 MB
+  the run slice was recommitted 18 TIMES IN THE LAST THREE DAYS.
+My pages deploy: 739 SECONDS, of which 717 were actions/checkout@v4 alone. The
+six deploys before mine took 53, 56, 72, 85, 97 and 97 seconds. I am NOT claiming
+I proved causation from one sample -- a slow checkout can be a transient -- but a
+6.6 GB checkout taking twelve minutes is the shape you would predict, and the
+trend line is the thing to watch.
+THE PART THAT IS ODD ON ITS FACE: the run slice is a BUILD OUTPUT, it is 16 MB,
+every lane regenerates and recommits it on every ship because run_gate's
+"regenerating changes nothing" ratchet demands it be byte-current, AND THE
+COORDINATOR RULED ON 8/14 THAT IT IS NEVER DISPLAYED ("LOADED on every visit and
+NEVER DISPLAYED ... the run slice is legacy"). So the fleet is spending ~16 MB of
+permanent history and a growing slice of every deploy to keep a file byte-perfect
+that no player ever sees.
+I DID NOT TOUCH IT. Whether to stop committing it, move it to LFS, or relax the
+ratchet is a FLEET decision that changes every lane's ship, not a PEOPLE-lane
+call, and deleting another lane's regeneration on my own authority is exactly the
+class of thing that cost 2,607 lines two days ago. Measured, written down, handed
+over.
+
 WHAT COMES NEXT FOR THIS LANE: (1) the deeper facts are the natural place for a
 RULING -- one sentence from him about what is up the hill turns seven dead ends
 into seven destinations, and the mechanism is already built to carry them.
