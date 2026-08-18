@@ -68,6 +68,14 @@ RF4. *** THE RF4 TEARDOWN — LAB OWNS THE SPEC, COMBAT OWNS THE CODE
    damage math after unification, between-fight healing, full talent
    lists, and RF3->RF4's omission list) — those are the only things left
    to find, and Paolo owns the game. ***
+   *** SCOPE CHANGED 8/17 — HE DID THE RESEARCH HIMSELF. He captured 83
+   tutorial screens verbatim and wrote the systems synthesis; both are in
+   records/rf4/ and the capture is DECLARED CLOSED by him. DO NOT
+   RE-SEARCH RF4. This lane's job shrinks to: turn HIS corpus into the
+   numbered spec with the diff column, and mark the six contradictions in
+   laws/BOHEMIA_ADDENDUM_THE_RF4_LIFT_8_17_26.md §3 as
+   DIFFERS-ON-PURPOSE. COMBAT is already building from the law; the spec
+   follows it rather than blocking it. ***
    DELIVERABLE: records/BOHEMIA_RF4_TEARDOWN_SPEC.md — a NUMBERED,
    mechanical inventory of RF4's systems (turn/energy model, ability
    economy, the POWER unification, enemy design rules, zone and boss
@@ -1757,6 +1765,38 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+ALIVE. *** "THE WORLD HAS TO FEEL MORE ALIVE" — TERRAIN THAT DOES
+   SOMETHING TO YOU (Paolo 8/17, LOCKED, the second half of his RF4
+   order — laws/BOHEMIA_ADDENDUM_THE_RF4_LIFT_8_17_26.md §5. TOP OF THIS
+   LANE'S QUEUE, and per the note below this section had nothing open, so
+   this is now the work.) His two demands are ONE demand: movement only
+   matters when the geometry MEANS something, and a room only feels alive
+   if the floor can do something to you. This is NOT combat code — it is
+   TILE TYPES with combat-readable properties, which is this lane.
+   THE FIVE TERRAIN CLASSES from his corpus:
+     KILLS        pits — an enemy knocked or charging in dies outright.
+                  The answer to high-HP tanks, and the thing that keeps a
+                  bad-item run solvable.
+     AMPLIFIES    unstable ground — +50% physical damage taken, and his
+                  tip is explicitly two-part: avoid standing on it while
+                  LEADING ENEMIES ONTO IT. Same tile, opposite meaning
+                  depending on who is standing there.
+     DISABLES     liquids switch OFF sprinting and movement abilities, so
+                  water is a wall against the strongest system in the game
+     FAVOURS THEM cursed floor heals undead — terrain reading becomes
+                  mandatory instead of optional
+     DENIES       standing on a body prevents its resurrection; the floor
+                  stays contested after the kill
+   AND THE HARD OBLIGATION THIS LANE INHERITS, in his synthesis's own
+   words: "if your combat loop requires retreat, your level generator has
+   a hard obligation to guarantee retreat is possible... combat design and
+   map generation are the same system wearing two hats. A cramped room
+   deletes the entire core verb." Interiors used for fights get loops,
+   corners and pillars — never boxes.
+   ART supplies pixels once the types exist (hazard tile forms).
+   | a tile type that kills, one that amplifies and one that disables,
+   readable by the combat surface and visible on the real one | how
+   common each is = his dials | yes (hazard tiles are judgeable art). ***
 STATE OF THIS SECTION, AUDITED 8/15 AGAINST THE CODE: every row below is DONE and gated
 (SYNC 8/15, FS 8/15, GM(a)-(e), EC, ER(a)(b)(c)). Nothing in this section is open work.
 WHAT IS ACTUALLY LEFT FOR THIS LANE, and it is not in this file because it belongs to
@@ -3867,6 +3907,72 @@ SPEC. *** THE RF4 TEARDOWN SPEC IS WRITTEN AND WAITING FOR YOU (LAB 8/17 —
    the 8/16 law §6 the combat-entry wire is demo row 1's missing piece: walk in a
    door, fight in the room.
 
+RF4-LIFT. *** HE DID THE RESEARCH HIMSELF AND SAID IMPLEMENT IT NOW
+   (Paolo 8/17, LOCKED — laws/BOHEMIA_ADDENDUM_THE_RF4_LIFT_8_17_26.md.
+   TOP OF THIS LANE'S QUEUE, ABOVE RF4-C AND MOVE, WHICH IT ABSORBS.)
+   He captured 83 RF4 tutorial screens verbatim and wrote a systems
+   synthesis on top of them. BOTH ARE IN THE REPO:
+     records/rf4/BOHEMIA_RF4_DANGER_SCHOOL_MASTER.md   (his source corpus)
+     records/rf4/BOHEMIA_RF4_COMBAT_SYSTEMS_SYNTHESIS_8_17_26.pdf (+ .txt)
+   His words: "implement this immediately... at the end of the day we
+   really need MORE MOVEMENT in the combat, THE WORLD HAS TO FEEL MORE
+   ALIVE." The corpus's own LIFT NOTES gate ("nothing enters without
+   Paolo's ruling") IS NOW OPEN.
+   HIS DOCUMENT'S ONE SENTENCE, WHICH IS THE WHOLE LIFT: "Rogue Fable IV
+   is not a damage game. It is a POSITION game with a damage readout, and
+   almost every system in it exists to make geometry more powerful than
+   statistics."
+   BUILD ORDER — START WITH #1, IT IS THE ONE HE FEELS FIRST:
+   (1) THE FREE-MOVEMENT BUDGET (his SP). Sprinting moves you WITHOUT
+       ending your turn, so movement stops competing with acting. Direct
+       answer to THE FIGHT HAS TO MOVE YOU (8/15). CRITICAL DETAIL, and
+       his corpus corrects its own tutorial on it: the refill is on a
+       GLOBAL clock (every Nth beat, for everyone) NOT a per-use timer —
+       "a resource on a global clock tests TIMING, the same resource on a
+       per-use cooldown tests only PATIENCE." Map the tick to a beat
+       multiple; the 120 BPM clock is already the substrate.
+   (3) MOVEMENT ASYMMETRY: slow enemies move orthogonally only, so the
+       player generates distance with diagonals, free, out of pure
+       geometry. A cleaner difficulty lever than more HP.
+   (4) VISION AS THE MASTER SWITCH — ONE VARIABLE, FIVE SYSTEMS: ranged
+       enemies cannot fire without sight of you; healers only heal what
+       they can SEE; summoners need sight to call; buff-casters need
+       sight of BOTH you and the ally; an aggroed enemy only SHOUTS for
+       help if you are in its vision. One wall disables five systems.
+       Then give the player tools that MANUFACTURE cover (smoke, steam, a
+       body in a doorway) so the board becomes editable mid-fight.
+   (7) PUBLISHED DETERMINISM (our law since June): a fixed, knowable enemy
+       resolution order — his corpus publishes RF4's as closest-first then
+       W,N,S,E,NW,SW,NE,SE — so the player always knows who acts next and
+       can choose whom to dial. THIS IS THE FOURTH ANSWER to this lane's
+       long-open multi-enemy dial question and the one consistent with
+       our locks. He may flip it on feel; nothing else here is his to flip.
+   (8) BOUNDED DAMAGE VARIANCE: RF4 rolls 50-100% of listed, so a
+       20-damage weapon deals 10-20 and kill counts are PLANNABLE against
+       the worst case. The floor under variance is why planning survives
+       randomness at all.
+   (9) STATUS EFFECTS ARE TURN DENIAL AND BOARD EDITING, NOT DAMAGE:
+       knockback denies an enemy its action; a sleeping body plugs a
+       corridor; one item doing five geometry-dependent jobs beats five
+       items doing one each.
+   THE CONTRADICTIONS ARE NAMED IN THE LAW (§3) — READ IT BEFORE BUILDING.
+   The one that will bite this lane: RF4 IS MELEE-AND-SPELL, WE ARE GUNS,
+   so DO NOT COPY THE KITE LOOP LITERALLY. There, distance is safety;
+   here, LINE OF SIGHT is. Breaking LOS is our kite verb, cover is our
+   corridor, a corner is still a spacing tool. Everything in his corpus
+   about VISION transfers directly and is worth more to us than to RF4;
+   everything about outrunning transfers only against melee.
+   ALSO RESOLVED THERE: SP does not violate our no-resource-tax rule (it
+   is upside-only, on a world clock); pits do not violate NO DAMAGE
+   BEFORE THE DIAL (environmental kills are a separate channel, never a
+   weapon); we are NOT adding mana (his 8/15 ammo ruling is the ability
+   currency); and we do NOT ship 83 tip boxes — his own synthesis calls
+   that out as reading placed between the player and the game.
+   | the free-movement budget playable on the real surface with a JOURNEY
+   test (SHARED -7), then vision-gating provable by stepping behind a
+   wall and watching a healer stop healing | the multi-enemy order is his
+   to flip on feel | YES — the first fight with a movement budget is the
+   judgeable, and it is what he has been asking for since 8/15. ***
 RF4-C. *** BUILD THE RF4 RECREATION — THIS LANE OWNS THE CODE (Paolo
    8/16, LOCKED — laws/BOHEMIA_ADDENDUM_RECREATE_RF4_FIRST_8_16_26.md;
    paired with LAB RF4, which owns the spec and writes no combat code).

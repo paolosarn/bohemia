@@ -21265,3 +21265,48 @@ unification, between-fight healing and rest-cheese prevention, full
 talent lists, and the RF3->RF4 omission list. Paolo owns the game; one
 recorded run would close all five. NOT a blocker — LAB can spec the rest
 today.
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/17 — THE RF4 LIFT IS AUTHORISED AND ROUTED (Paolo,
+LOCKED, direction-class — laws/BOHEMIA_ADDENDUM_THE_RF4_LIFT_8_17_26.md).
+HE DID THE RESEARCH HIMSELF: 83 RF4 tutorial screens captured verbatim
+plus a systems synthesis he wrote on top of them. BOTH ARE NOW IN THE
+REPO so every lane can read them — records/rf4/BOHEMIA_RF4_DANGER_SCHOOL_
+MASTER.md and records/rf4/BOHEMIA_RF4_COMBAT_SYSTEMS_SYNTHESIS_8_17_26.pdf
+(with a .txt extraction beside it). His corpus's own LIFT NOTES gate
+("nothing enters without Paolo's ruling") IS NOW OPEN: "implement this
+immediately... we really need MORE MOVEMENT in the combat, THE WORLD HAS
+TO FEEL MORE ALIVE."
+HIS SYNTHESIS'S ONE SENTENCE IS THE WHOLE LIFT: "Rogue Fable IV is not a
+damage game. It is a POSITION game with a damage readout, and almost
+every system in it exists to make geometry more powerful than statistics."
+THE SEVEN [PENDING, Paolo's call] FORKS IN HIS DOCUMENT ARE DECIDED IN
+THE LAW, NOT HANDED BACK — returning seven questions would be the
+approvals queue 8/9 killed and the technical questions 8/15 forbids. YES
+to the free-movement budget, YES to vision-gated enemy support, YES to
+published determinism (already our law since June), YES to environmental
+instakills (ENVIRONMENT ONLY — never a weapon, so NO DAMAGE BEFORE THE
+DIAL is untouched), YES to three-layer awareness as phase two, YES to the
+A/B/C teaching register fleet-wide, YES to a published enemy resolution
+order (the fourth answer to the long-open multi-enemy dial question —
+the ONLY one he may flip on feel).
+SIX CONTRADICTIONS NAMED AND RESOLVED IN §3. The one that will bite:
+RF4 IS MELEE-AND-SPELL, WE ARE GUNS — do NOT copy the kite loop
+literally. There distance is safety; here LINE OF SIGHT is. Breaking LOS
+is our kite verb, cover is our corridor. Also: SP does not violate our
+no-resource-tax rule (upside-only, world clock, and the GLOBAL tick is
+the version to build — his corpus corrects its own tutorial on this, a
+global clock tests TIMING where a per-use timer tests only PATIENCE); no
+mana (his 8/15 ammo ruling is the ability currency); and we do NOT ship
+83 tip boxes, which his own synthesis calls out.
+ROUTED: COMBAT RF4-LIFT (top of queue, absorbs MOVE and RF4-C; build
+order starts with the free-movement budget), WORLD ALIVE (the five
+terrain classes — KILLS / AMPLIFIES / DISABLES / FAVOURS THEM / DENIES —
+plus the level-generator obligation that retreat must always be possible,
+because "combat design and map generation are the same system wearing two
+hats"), LAB RF4 SHRUNK (do NOT re-search; turn his corpus into the
+numbered spec and mark the contradictions DIFFERS-ON-PURPOSE), ART
+(hazard tile forms once WORLD defines the types), ALL LANES (the A/B/C
+teaching register: tell what cannot be derived, hint at what can, SHOW
+what the room can demonstrate — never explain something the floor could
+have shown).
