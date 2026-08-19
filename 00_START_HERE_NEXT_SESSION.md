@@ -23632,3 +23632,37 @@ numbered spec and mark the contradictions DIFFERS-ON-PURPOSE), ART
 teaching register: tell what cannot be derived, hint at what can, SHOW
 what the room can demonstrate — never explain something the floor could
 have shown).
+
+--------------------------------------------------------------------------------
+COORDINATOR (07), 8/19 — THE SUITE IS BROKEN AND NOW IT HAS AN OWNER
+(Paolo, LOCKED, direction-class — laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md).
+MEASURED INDEPENDENTLY THIS TURN rather than transcribed: 379 registered
+gate rows; 123 launch a browser; NINETY-FOUR of those BOOT THE FULL 3.8 MB
+ALPHA; 120 files carry 22.7 MINUTES of hardcoded sleeps. The runner dies
+at 217 on a fifty-minute clock (found by a lane in 5bd10a40), so 165
+gates go UNRUN AND SILENT every time. His figures were right in shape and
+slightly conservative — it is a little worse than he said.
+HIS RULING: **DO NOT CUT GATES.** The constraint is wall clock PER CHECK,
+not check count.
+*** A NEW LANE EXISTS: GATES, first word "gates" ("suite"/"tests" too).
+It owns bohemia_gates.py, the harness, the runner, the fast lane and the
+health of the suite AS A SYSTEM — not individual gates' assertions, which
+stay with the lane whose law they enforce. THE SUITE HAD NO OWNER BECAUSE
+IT IS NOT ANY LANE'S SYSTEM, and a thing that belongs to nobody rots
+exactly this way. Doctrine lane words updated. ***
+FIRST SESSION, IN THIS ORDER: (1) kill the fixed sleeps — 22.7 min,
+mechanical, ZERO assertions changed, copy dayloop_gate.js which already
+polls instead of guessing; (2) ONE browser boot, not ninety-four — warm
+process, isolated contexts, virgin profiles must declare themselves;
+(3) THE FAST LANE IS ALREADY TWO THIRDS BUILT — 379 minus 123 browser
+gates leaves ~256 that never touch a browser, so --fast is a FILTER, not
+new work, and it becomes every lane's pre-ship check.
+THE EIGHT REDS NOW HAVE OWNERS, assigned by what each gate actually
+READS: WORLD gets four (DISTRICT FILL, ROAD CELLS, TRAFFIC SIGNAL, VOTE
+TAB — whose own header says "WORLD lane"), SOUNDS two (SFX RENDER, RUN
+BEAT), CHARACTER one (DRESS), ART one (LOOK). NOT BLAME: the finding lane
+proved by experiment that with its files reverted to main, three of them
+fail with identical counts — these are standing reds. A red with an owner
+gets fixed or gets a written reason; a red with no owner is invisible.
+FIFTH INSTANCE THIS MONTH of the same family: we instrument what we built
+and not what actually runs.

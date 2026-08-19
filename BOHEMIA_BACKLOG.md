@@ -1122,6 +1122,20 @@ RF4. *** THE RF4 TEARDOWN — LAB OWNS THE SPEC, COMBAT OWNS THE CODE
    to the coordinator.)
 
 ## ART (new lane — first word "art")
+RED. *** ONE OF THE EIGHT RED GATES ON MAIN IS YOURS (assigned 8/19 —
+   laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6): LOOK
+   (gates/look_gate.js), which reads the alpha, the city world and
+   BOHEMIA_LOOK_CURRENT.html — the LOOK tab, this lane's own surface.
+   NOT A BLAME ASSIGNMENT: the lane that found these proved by experiment
+   that with its own files reverted to origin/main, TRAFFIC SIGNAL, LOOK
+   and VOTE TAB fail with IDENTICAL counts (2, 1, 1) — these are STANDING
+   reds on main that predate the turn that noticed them. Owning one means
+   diagnosing it, not apologising for it. A red gate with an owner gets
+   fixed OR gets a written line saying why it is legitimately red; a red
+   gate with NO owner is what we just spent a month proving is invisible.
+   And per the GOODHART GUARD (SHARED -7): never change the game to make
+   the gate pass. If the gate is wrong, fix the gate and say so.
+   | green, or a written reason it is legitimately red | — | no. ***
 -1. PACK INTAKE — SHELVED/OPTIONAL (Paolo 7/28: "I need YOU to make tiles,
    just not dogshit" — AI authorship is the production path under the
    quality harness; this intake activates ONLY if he ever uploads packs)
@@ -1765,6 +1779,24 @@ A. [FILED BY VERDICT 7/26 — records/BOHEMIA_LAB_PORT_VERDICT_7_26_26.txt] ADOP
    placement].
 
 ## WORLD
+REDS. *** FOUR OF THE EIGHT RED GATES ON MAIN ARE YOURS (assigned 8/19 by
+   evidence — laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6. Nobody owned
+   these, which is why they have stayed red.)
+     DISTRICT FILL   reads engine/bohemia_district_kit.js + bohemia_world.js
+     ROAD CELLS      gates/roadcell_gate.js
+     TRAFFIC SIGNAL  the alpha's intersections and signals, your street work
+     VOTE TAB        its own header says "(8/7/26, WORLD lane)"
+   NOT A BLAME ASSIGNMENT: the lane that found these proved by experiment
+   that with its own files reverted to origin/main, TRAFFIC SIGNAL, LOOK
+   and VOTE TAB fail with IDENTICAL counts (2, 1, 1) — these are STANDING
+   reds on main that predate the turn that noticed them. Owning one means
+   diagnosing it, not apologising for it. A red gate with an owner gets
+   fixed OR gets a written line saying why it is legitimately red; a red
+   gate with NO owner is what we just spent a month proving is invisible.
+   And per the GOODHART GUARD (SHARED -7): never change the game to make
+   the gate pass. If the gate is wrong, fix the gate and say so.
+   | each of the four green, or a written reason it is legitimately red |
+   — | no. ***
 ALIVE. [DONE 8/18 — THE FLOOR HALF. Nobody invented a hazard and nobody placed one: 62
    district generators had been authoring drained pools, talus aprons, leachate ponds and
    standing pit water for weeks and NOTHING EVER TOLD THE GAME ANY OF IT WAS DANGEROUS. A
@@ -5304,6 +5336,21 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
 ## sounds chat". First word "sounds" (or "sound"/"music"). Owns everything
 ## audible: music, SFX, mix, beat plumbing. AUDIO MOVED OUT of CHARACTER —
 ## one system one session. Lane intent: doctrine §6.)
+REDS. *** TWO OF THE EIGHT RED GATES ON MAIN ARE YOURS (assigned 8/19 —
+   laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6):
+     SFX RENDER  gates/sfx_render_gate.py — real audio in a real browser
+     RUN BEAT    gates/run_beat_gate.py — "the run is on the SONG'S clock";
+                 you own the clock, RUN co-signs the consumer side
+   NOT A BLAME ASSIGNMENT: the lane that found these proved by experiment
+   that with its own files reverted to origin/main, TRAFFIC SIGNAL, LOOK
+   and VOTE TAB fail with IDENTICAL counts (2, 1, 1) — these are STANDING
+   reds on main that predate the turn that noticed them. Owning one means
+   diagnosing it, not apologising for it. A red gate with an owner gets
+   fixed OR gets a written line saying why it is legitimately red; a red
+   gate with NO owner is what we just spent a month proving is invisible.
+   And per the GOODHART GUARD (SHARED -7): never change the game to make
+   the gate pass. If the gate is wrong, fix the gate and say so.
+   | both green, or a written reason each is legitimately red | — | no. ***
 P0-WALK. *** THE APPROVED SOUNDS ARE WIRED TO A SURFACE THE PLAYER NEVER
    SEES. TOP OF THIS LANE'S QUEUE, DEMO-BLOCKING (8/14 coordinator audit —
    records/BOHEMIA_DEMO_STATUS_BOARD_8_14_26.md row 3). Nothing is wrong
@@ -5497,6 +5544,21 @@ SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    STILL OPEN AND NOT THIS ROW: no agent in the world carries a faction yet
    (FACTION_ASSIGN empty, faction:null everywhere) because WHICH FACTION HOLDS WHICH
    GROUND is his ruling. The outfits are ready the day it lands.
+RED. *** ONE OF THE EIGHT RED GATES ON MAIN IS YOURS (assigned 8/19 —
+   laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md §6): DRESS
+   (gates/dress_gate.js), which reads engine/bohemia_dress.js and
+   bohemia_agents.js — agents wearing ONLY the canon wardrobe. Clothing is
+   this lane per its own charter.
+   NOT A BLAME ASSIGNMENT: the lane that found these proved by experiment
+   that with its own files reverted to origin/main, TRAFFIC SIGNAL, LOOK
+   and VOTE TAB fail with IDENTICAL counts (2, 1, 1) — these are STANDING
+   reds on main that predate the turn that noticed them. Owning one means
+   diagnosing it, not apologising for it. A red gate with an owner gets
+   fixed OR gets a written line saying why it is legitimately red; a red
+   gate with NO owner is what we just spent a month proving is invisible.
+   And per the GOODHART GUARD (SHARED -7): never change the game to make
+   the gate pass. If the gate is wrong, fix the gate and say so.
+   | green, or a written reason it is legitimately red | — | no. ***
 2X. *** TWICE THE PIXELS ON THE PEOPLE (Paolo 8/14, LOCKED, watching a
    cutscene — laws/BOHEMIA_ADDENDUM_TWICE_THE_PIXELS_8_14_26.md. TOP OF
    THIS LANE'S QUEUE. His words: "the character models need twice as many
@@ -5882,6 +5944,52 @@ NM. THE MONEY SWEEP (8/15 — records/BOHEMIA_THERE_IS_NO_MONEY_8_15_26.md).
    aired_the_method, killed_the_token, walked_them_out, owes_the_cartel,
    sold_the_forger). Nothing consumes them. Wiring them to world beats is
    [PENDING Paolo] at the canon level; the mechanism half is item 3.
+
+## GATES  (NEW DEDICATED LANE, coordinator 8/19 on Paolo's ruling —
+## laws/BOHEMIA_COORDINATOR_SWEEP_8_19_26.md. First word "gates". Owns
+## gates/bohemia_gates.py, the harness, the runner, the fast lane, and
+## THE HEALTH OF THE SUITE AS A SYSTEM. It does NOT own individual gates'
+## assertions — those stay with the lane whose law they enforce. The
+## suite had no owner because it is not any lane's system, and a thing
+## that belongs to nobody rots exactly the way this did.)
+0. *** THE SUITE CANNOT FINISH, AND SILENCE READS AS GREEN. FIRST
+   SESSION, FIXES IN THIS ORDER. *** MEASURED THIS TURN, independently of
+   his figures: 379 registered gate rows; 123 launch a browser; NINETY-
+   FOUR of those BOOT THE FULL 3.8 MB ALPHA; and 120 files carry 22.7
+   MINUTES of hardcoded sleeps. The runner dies at 217 of 379 on a
+   fifty-minute clock (found by the lane in 5bd10a40), so 165 gates go
+   UNRUN AND SILENT every time, and every lane ships on a partial run
+   without knowing which part it missed.
+   HIS RULING, LOCKED: **DO NOT CUT GATES.** The constraint is wall clock
+   PER CHECK, not check count. Deleting coverage to make the clock would
+   trade the only thing keeping nine parallel lanes honest for a green
+   light that means less than the red one did.
+   (1) KILL THE FIXED SLEEPS — 22.7 minutes, mechanical, ZERO assertions
+       changed. Every `waitForTimeout` / `time.sleep` with a constant is a
+       guess that got tuned upward until it stopped flaking, so it is
+       always far longer than the real wait. Replace with CONDITIONS
+       (waitForFunction / waitForSelector / poll for the state the check
+       needs). COPY gates/dayloop_gate.js, which already does it right and
+       says so: "POLL, do not guess. Measured 8/11: the city frame's
+       script does not execute immediately."
+   (2) ONE BROWSER, NOT NINETY-FOUR. Boot chromium and the alpha ONCE,
+       hand each gate an isolated CONTEXT (or a fresh tab against the warm
+       process) instead of a cold boot. Gates that genuinely need a virgin
+       profile DECLARE it and pay for it; everything else shares. Changes
+       how a gate gets a page, never what it asserts.
+   (3) THE FAST LANE — AND IT IS ALREADY TWO THIRDS BUILT. 379 minus 123
+       browser gates leaves roughly 256 gates that never touch a browser.
+       The fast lane is a FILTER, not new work: tag every gate BROWSER or
+       PURE and give the runner a --fast mode. THAT becomes every lane's
+       pre-ship check, every turn, under a minute. The full suite becomes
+       the once-before-a-ship run, and it will finish once (1) and (2)
+       land.
+   | the full suite completes inside the clock, and --fast runs the pure
+   set in under a minute, both measured and written into the record |
+   — | no (machinery). ***
+1. AFTER THE SUITE RUNS: publish a per-gate timing table so the next
+   slowest thing is a number and not a hunch. A suite nobody has timed is
+   how this happened.
 
 ## SHARED / ANY IDLE SESSION (non-cook)
 -8. *** A BATCH'S VALUE IS ITS COVERAGE, NOT ITS COUNT (sweep 14 catch,
