@@ -1,3 +1,64 @@
+WORLD (world-9lfjtf): 8/18 (g) LATEST -- *** THE MOUNTAINS AND THE LAKE ARE REAL NOW, AND
+I HAD THE DIAGNOSIS WRONG TWICE BEFORE I HAD IT RIGHT. TAB: RUN -- walk to the edge of the
+valley, or out onto the lakebed. ***
+
+I reverted the mountain and the lake TWICE today and wrote down "terrain needs its own ART
+MAPPING". THAT WAS WRONG. The cause was ONE EARLY RETURN:
+
+    if(code===0){ c.g=slotGround(d); c.gArtPool='hyard'; return c; }
+
+Code 0 was treated as "empty ground" and RETURNED BEFORE THE LEGEND WAS EVER READ, handed
+slotGround(d) -- one hard-coded colour per district. For a DISTRICT that is correct: code 0
+is the dead setback. FOR TERRAIN CODE 0 IS A REAL AUTHORED TILE and it is the most common
+one in the cell: desert pavement, desert dead-ground, BEDROCK FACE (a solid structure,
+11,486 of 16,384 tiles), OPEN WATER. slotGround('mountain') is '#8a7a66' and
+slotGround('water') is '#3a6a8a' -- THOSE were the colours I was looking at and calling an
+art problem.
+
+    desert    16,219/16,384 walkable   13 types, its own #6e6045 pavement not generic sand
+    wash      14,799/16,384            13 types, concrete and riprap BLOCK
+    mountain     618/16,384            5 types, A WALL WITH PASSES -- was 0 of 16,384
+    water      8,949/16,384            6 types, lakebed walkable, DEEP WATER BLOCKS
+
+HOW I FINALLY FOUND IT, because the method is the transferable part: I compared THREE
+numbers for ONE tile -- what the LEGEND says, what the CELL OBJECT carries, and what PIXEL
+is actually painted. Legend #6e6045, cell #d8b078, paint matched the cell. Two of the three
+agreeing told me exactly which link was lying. I had been looking at the painted pixel alone
+and inferring a cause from it.
+
+*** A SECOND OCCUPANCY BUG, ONE LAYER BELOW THIS MORNING'S. *** The GROUND branch set
+walk=true for every ground tile and never looked at tl.solid, so `water:0 open water` --
+which DECLARES solid:true -- came back 16,384 of 16,384 WALKABLE. The whole reservoir,
+strollable. A GROUND TILE IS WALKABLE BECAUSE ITS TILE SAYS SO.
+
+*** AND MY OWN OCCUPANCY GATE WAS GREEN THROUGH IT, TWICE OVER. THIS IS THE PART TO KEEP. ***
+  1. It only swept PROPS, because that is where the first bug was. A GATE SCOPED TO WHERE
+     THE LAST BUG WAS ONLY EVER CATCHES THE LAST BUG. Widened to every layer.
+  2. Widened, IT STILL PASSED THE MUTATION -- because it sampled "the first 40 cells with a
+     kit grid" and they were all ordinary districts, where no GROUND tile is solid. The
+     interesting case was never in the sample. A COMPARISON THAT NEVER SEES THE INTERESTING
+     CASE REPORTS AGREEMENT. It samples one cell per district TYPE now and ASSERTS ITS OWN
+     COVERAGE (215,179 solid-ground cells seen); if that count is ever zero, the agreement
+     under it means nothing. The mutation bites now and names water:0 by hand.
+  Sweep is 664,798 walk-through and 257,232 solid cells, both directions, all agreeing.
+
+ONE MORE ASSERTION WAS WRONG ABOUT THE WORLD RATHER THAN THE OTHER WAY ROUND: I required 6
+tile types of every terrain and a mountain has 5 -- bedrock, cliff band, talus, rockfall
+scar, ridge crest, which is the honest vocabulary of rock. Demanding six of a mountain
+failed it FOR BEING A MOUNTAIN. The floor is per terrain now.
+
+GREEN: terrain_surface 18/0, occupancy 13/0, hazard 69/0, frame_budget 22/0 (perf held).
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. A residual faint course texture survives on dark rock from a source I did not identify.
+     It is no longer red brick and no longer wrong-coloured, but it is not clean either.
+  2. The three genuinely fatal drops modelled as STRUCTURE (quarry:7 bench crest, intake:13
+     shaft, reclaim:6 crusted pond) -- the model says wall, the world means hole.
+  3. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+  4. THE ROADS ARE THE LAST PARAMETRIC SURFACE. arterial/freeway/rail/interchange still draw
+     from a four-number XSEC table, the same way terrain drew from ten rectangles until
+     today. freeway:16 rail ballast and interchange:15 rubble are authored and unreachable.
+
 WORLD (world-9lfjtf): 8/18 (f) LATEST -- *** ROCK IS NOT A ROOF; THE MAP TAB CAUGHT MY OWN
 DRIFT; AND THE ZOOM SEAM GATE WAS FAILING BECAUSE THE MACHINE WAS BUSY. TAB: RUN. ***
 
