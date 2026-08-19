@@ -224,6 +224,39 @@ GROUND_NEW = ("    /* __GROUND_SOLIDITY_IS_PER_TILE__ -- the same defect the PRO
               "       The gate now sweeps every layer instead of one. */\n"
               "    c.g=pal; c.walk=!tl.solid; return c;")
 
+ROCKK_OLD = """function texKindFor(col,isStruct){
+  if(isStruct){ if(col==='#3a6a2a')return 'canopy'; return 'roof'; }"""
+ROCKK_NEW = """/* __TERRAIN_ROCK_TEXTURE__ -- THE ROCK TEXTURE ALREADY EXISTED AND NOTHING COULD REACH IT.
+   texKindFor has had a 'rock' kind for months, but only for NON-structure tiles at two
+   hard-coded colours. A STRUCTURE tile returned 'roof' unconditionally, so bedrock face,
+   ridge crest and cliff band -- solid structure, all of them -- were drawn with the ROOF
+   generator: courses. That is the faint brick pattern that survived after the art pool was
+   taken off terrain structure, and it is why a limestone massif still read as masonry.
+   THE SET IS DERIVED, NOT TYPED. Every palette colour of a STRUCTURE-layer tile in a
+   TERRAIN_KIT district maps to rock, read off the kit at first use. A terrain module that
+   adds a new rock colour tomorrow gets the rock texture with no edit here -- and a district
+   that is not terrain is untouched, so nothing about a building changes. */
+let __TROCK=null;
+function __terrainRockCols(){
+  if(__TROCK) return __TROCK;
+  __TROCK={};
+  try{
+    const K=(typeof BohemiaDistrictKit!=='undefined')?BohemiaDistrictKit:null;
+    if(K) for(const d in TERRAIN_KIT){
+      const sp=K.get(d); if(!sp||!sp.legend||!sp.palette) continue;
+      for(const cd in sp.legend){
+        if(K.tileLayer(sp.legend[cd]).layer!=='structure') continue;
+        const col=sp.palette[cd]; if(col) __TROCK[col]=1;
+      }
+    }
+  }catch(e){}
+  return __TROCK;
+}
+function texKindFor(col,isStruct){
+  if(isStruct){ if(col==='#3a6a2a')return 'canopy';
+    if(__terrainRockCols()[col]) return 'rock';   /* __TERRAIN_ROCK_TEXTURE__ */
+    return 'roof'; }"""
+
 refreshed = MARK in src
 _RS, _RE = '/* __TK_S__ */', '/* __TK_E__ */'
 while _RS in src:
@@ -235,7 +268,8 @@ for _legacy in LEGACY_REG:
     if _legacy in src:
         src = src.replace(_legacy, OLD_REG, 1)
 for _new, _old in ((NEW_META, OLD_META), (NEW_OPTS, OLD_OPTS), (ROCK_NEW, ROCK_OLD),
-                   (ZERO_NEW, ZERO_OLD), (GROUND_NEW, GROUND_OLD)):
+                   (ZERO_NEW, ZERO_OLD), (GROUND_NEW, GROUND_OLD),
+                   (ROCKK_NEW, ROCKK_OLD)):
     if _new in src:
         src = src.replace(_new, _old, 1)
 _a = '/* ==== THE DESERT DRAWS ITSELF (inlined verbatim) ==== */'
@@ -357,6 +391,13 @@ if GROUND_NEW not in src:
                  'Refusing to guess -- it decides where a body may stand on every flat tile '
                  'in the game.')
     src = src.replace(GROUND_OLD, GROUND_NEW, 1)
+
+# 8) ROCK GETS THE ROCK TEXTURE THAT ALREADY EXISTED. See the comment in ROCKK_NEW.
+if ROCKK_NEW not in src:
+    if ROCKK_OLD not in src:
+        sys.exit('TERRAIN PATCH: could not find texKindFor. Refusing to guess -- it decides '
+                 'which generator draws every untextured surface in the game.')
+    src = src.replace(ROCKK_OLD, ROCKK_NEW, 1)
 
 open(WORLD, 'w', encoding='utf-8').write(src)
 print('TERRAIN PATCH: %s -- desert and wash draw themselves from their own generators'

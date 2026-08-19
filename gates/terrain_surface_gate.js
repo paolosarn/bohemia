@@ -194,6 +194,35 @@ console.log('TERRAIN SURFACE GATE — the generator\'s output is what he walks o
        'ten-rectangle fallback',
        ['desert', 'wash', 'mountain', 'water'].every(t => (r.types[t] || {}).hasKit === true));
 
+    /* ── ROCK IS DRAWN AS ROCK ──
+       The last thing that made a routed mountain look like masonry. texKindFor has had a
+       'rock' generator for months and NOTHING COULD REACH IT: it was gated to non-structure
+       tiles at two hard-coded colours, while a structure tile returned 'roof' — the COURSE
+       generator — unconditionally. Bedrock face, ridge crest and cliff band are all
+       structure, so the massif was drawn with the same routine that draws a tiled roof.
+       The set is DERIVED off the kit (every structure-tile palette colour in a TERRAIN_KIT
+       district), so a terrain module that adds a rock colour tomorrow gets rock for free. */
+    {
+      const rk = await p.evaluate(() => {
+        try {
+          const cols = (typeof __terrainRockCols === 'function') ? __terrainRockCols() : null;
+          if (!cols) return { none: true };
+          return { cols: Object.keys(cols),
+                   bedrockIsRock: typeof texKindFor === 'function'
+                     ? texKindFor('#5b5346', true) : null,
+                   buildingStillRoof: typeof texKindFor === 'function'
+                     ? texKindFor('#7a7266', true) : null };
+        } catch (e) { return { err: String(e) }; }
+      });
+      ok('the terrain rock colour set is DERIVED from the kit, not typed (' +
+         ((rk.cols || []).length) + ' colours)', (rk.cols || []).length >= 3);
+      ok('a mountain structure colour draws as ROCK, not as a roof (' + rk.bedrockIsRock + ')',
+         rk.bedrockIsRock === 'rock');
+      ok('and a BUILDING colour still draws as a roof (' + rk.buildingStillRoof + ') — the ' +
+         'change is scoped to terrain and nothing about a building moved',
+         rk.buildingStillRoof === 'roof');
+    }
+
     /* ── THE SEAM ── */
     if (!r.seam) {
       ok('two adjacent desert cells exist to compare', false);
