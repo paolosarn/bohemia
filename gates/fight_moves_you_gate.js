@@ -403,6 +403,12 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
          check passed a build that did not have the feature in it. Caught by
          mutation testing, which is the only reason this line exists. */
       G.pillars = [];
+      /* AND NO SPOTTER WITH A LINE. V168 made a marksman's overwatch REFUSE the
+         sprint outright, which is correct and is the point of that feature -- but
+         it means this scenario silently stopped sprinting at all and measured
+         "no beads dropped". The rush is what is under test here, so the thing
+         that forbids the rush is removed rather than the claim weakened. */
+      (G.e || []).forEach(e => { if (e && e.E && e.E.spotter) e.dead = true; });
       for (const e of G.e) if (e && !e.dead) e.acq = 9;
       const guns = G.e.filter(e => e && !e.dead && !e.melee);
       const held = guns.filter(e => acquired(e)).length;
@@ -487,6 +493,102 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     + dial.onAccent.join(', ') + '). Two pure tones an octave apart with no noise floor is a glass ping by construction, and V75 already named that disease about this cue\'s twin',
     dial.onAccent.some(v => v.indexOf('drumV') >= 0) &&
     !dial.onAccent.some(v => v.indexOf('tone(') >= 0));
+
+  /* ===== V168 THE SPOTTER, MEASURED ON THE SHIPPED MOVE ================
+     RF4-37's other half: "what is missing is a target worth crossing the room
+     for." A designated marksman's real function is to DENY MOVEMENT -- he
+     "provides overwatch and covering fire" and by doing so "facilitates safe
+     movement" for his own side -- so while he has a line on you, the free move
+     is gone. There are TWO answers and both are checked here, because a puzzle
+     with one answer is a chore. */
+  const spot = await frame.evaluate(() => {
+    const R = {};
+    /* _chainWait IS CLEARED ON PURPOSE. The V166 block above opens the dial
+       through the shipped enterAim, which can leave a chain prompt armed, and
+       doMove eats the next input to answer it -- so the after-kill sprint
+       returned 0 and this check failed a build where the feature worked
+       perfectly. Standalone it measured 1 every time. The tests share one page,
+       so a test has to clear what earlier tests armed. */
+    /* DID THE MOVE HAPPEN -- measured as THE WORLD MOVING, not as a pip going
+       down. The first version returned `stam before minus stam after`, and V163's
+       global SP clock refills the budget every 5th turn, so a sprint that
+       succeeded perfectly could read as 0 spent purely because the tick landed on
+       it. The game's own readout said SPRINTED while my number said nothing
+       happened. A step IS the world shifting under him, so that is what is
+       counted. (Also clears the locks earlier tests leave armed: doMove's very
+       first line is `if(G.inc)return`, and the dial block above opens the dial.) */
+    const trySprint = () => { G.stam = 3; G.sprintArm = true; G.phase = 'cover'; G.over = false;
+      G._chainWait = false; G.runArm = false; G.dashArm = false;
+      G.inc = false; G.frozen = false; G.ks = null; G.win = false;
+      const o = G.worldOff || { x: 0, y: 0 }; const bx = o.x, by = o.y;
+      try { doMove(2); } catch (x) {}
+      const n = G.worldOff || { x: 0, y: 0 };
+      return (n.x !== bx || n.y !== by) ? 1 : 0; };
+
+    /* DOES IT EVER BITE? A denial that never fires is decoration, and the first
+       version of this feature was exactly that -- an infinite shout that measured
+       inside the noise and got cut. */
+    let fights = 0, pinTurns = 0, turns = 0, everPinned = 0;
+    for (let a = 1; a <= 30; a++) {
+      BohemiaArena.set(a); setupCombat();
+      if (!(G.e || []).some(e => e && e.E && e.E.spotter)) continue;
+      fights++;
+      let here = 0;
+      for (let t = 0; t < 12; t++) {
+        G.mTurn = (G.mTurn || 0) + 1;
+        try { visionTick(); } catch (x) {}
+        turns++; if (spotterOnMe()) { pinTurns++; here++; }
+        try { worldShift(Math.cos(t * 1.1), Math.sin(t * 1.1)); } catch (x) {}
+      }
+      if (here) everPinned++;
+    }
+    R.bite = { fights, pct: +(100 * pinTurns / Math.max(1, turns)).toFixed(1), everPinned };
+
+    /* ANSWER ONE: put him down. Clean line, no rocks, so only the flag decides. */
+    BohemiaArena.set(1); setupCombat();
+    const sn = (G.e || []).find(e => e && e.E && e.E.spotter);
+    if (sn) {
+      G.pillars = []; sn.dead = false; sn.stun = 0; sn.prone = 0; sn.lvl = 0; putCell(sn, 6, 0);
+      try { visionTick(); } catch (x) {}
+      R.pinned = spotterOnMe(); R.underPin = trySprint();
+      sn.dead = true; try { visionTick(); } catch (x) {}
+      R.afterKill = trySprint(); R.pinnedAfterKill = spotterOnMe();
+    }
+    /* ANSWER TWO: he LIVES and you step behind stone. One rock on the line and
+       nothing else changes -- if this needed him dead it would be one answer. */
+    BohemiaArena.set(1); setupCombat();
+    const s2 = (G.e || []).find(e => e && e.E && e.E.spotter);
+    if (s2) {
+      G.pillars = []; s2.dead = false; s2.stun = 0; s2.prone = 0; s2.lvl = 0; putCell(s2, 6, 0);
+      try { visionTick(); } catch (x) {}
+      R.pinnedFirst = spotterOnMe();
+      G.pillars = [{ ea: 0, edist: 3, r: 1.6, hard: true, lvl: 0 }];
+      try { visionTick(); } catch (x) {}
+      R.aliveBehindStone = !s2.dead; R.pinnedBehindStone = spotterOnMe(); R.sprintBack = trySprint();
+    }
+    return R;
+  });
+
+  console.log('  the spotter has a line on him ' + spot.bite.pct + '% of walking turns, in '
+    + spot.bite.everPinned + ' of ' + spot.bite.fights + ' fights');
+
+  ok('V168 THE PIN ACTUALLY BITES: a living spotter has a line on him ' + spot.bite.pct
+    + '% of walking turns and it happens at all in ' + spot.bite.everPinned + ' of ' + spot.bite.fights
+    + ' fights. The first version of this feature was an infinite SHOUT that measured 22.5% against a control of 20.8% -- inside the noise -- and was cut rather than shipped as flavour',
+    spot.bite.pct > 5 && spot.bite.pct < 60 && spot.bite.everPinned >= spot.bite.fights * 0.2);
+
+  ok('V168 AND HE TAKES YOUR LEGS: under the pin the sprint is refused and the world does not move ('
+    + (spot.underPin ? 'MOVED' : 'refused') + '). Walking still works -- one tile, ending your turn -- so what is gone is covering ground while still fighting, which is the ground you need to reach the way out',
+    spot.pinned === true && spot.underPin === 0);
+
+  ok('V168 ANSWER ONE, PUT HIM DOWN: with the spotter dead the same sprint goes through ('
+    + (spot.afterKill ? 'MOVED' : 'refused') + '). That is what makes him worth crossing the room for',
+    spot.pinnedAfterKill === false && spot.afterKill === 1);
+
+  ok('V168 ANSWER TWO, AND HE IS STILL ALIVE: one rock on his line lifts the pin and hands the legs back ('
+    + (spot.sprintBack ? 'MOVED' : 'refused') + ') without anybody being shot. A puzzle with one answer is a chore, and this one teaches the durable thing -- cover gives you your legs back',
+    spot.pinnedFirst === true && spot.aliveBehindStone === true
+    && spot.pinnedBehindStone === false && spot.sprintBack === 1);
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

@@ -1,3 +1,67 @@
+COMBAT (combat-nfnki9): 8/19 (i) LATEST -- *** THE MAN ON THE HILL TAKES YOUR LEGS.
+RF4-37, the core puzzle, is BUILT. TAB: COMBAT -- try to sprint while the SNIPER
+can see you. ***
+Record: records/BOHEMIA_COMBAT_THE_SPOTTER_8_19_26.md
+Tool:   tools/bohemia_combat_the_spotter_patch.py (v168, idempotent)
+Gates:  combat_lab 860/0 | fight_moves_you 30/0 | rf4_teardown 92/2 STILL LAB'S
+
+RF4-37's diff column named exactly one gap: "what is missing is A TARGET WORTH
+CROSSING THE ROOM FOR." V167 guaranteed one EXISTS and put him at the back; that
+was only the precondition. What makes RF4's priority targets worth the trip is
+that they COMPOUND -- every example in that row is a support whose presence makes
+the fight worse over time, not a body that hits hard.
+
+WHAT SHIPPED: while the SPOTTER has a line on you, YOU CANNOT SPRINT. Walking is
+untouched (one tile, ends your turn); what is gone is covering ground while still
+fighting, which is the ground you need to reach the way out. The research says
+what the man is actually for -- a marksman "provides overwatch and covering fire"
+and thereby "FACILITATES SAFE MOVEMENT" for his own side, so from the other side
+his job is DENYING MOVEMENT. No damage number touched: one boolean, one guard.
+TWO ANSWERS, and only one is spelled out anywhere: kill him, or break HIS line
+(seesMe already requires a clear line, so stone lifts it while he stands there
+unharmed). The second teaches the durable thing -- COVER GIVES YOU YOUR LEGS BACK.
+Measured: he has a line 16.1% of walking turns, in 13 of 30 fights.
+
+*** THE FIRST VERSION WAS DECORATION AND I CUT IT. *** The obvious build was to
+give his SHOUT infinite reach. Measured: 22.5% of turns with the board blind,
+against 25.0% with him dead and 20.8% with the flag off. NOISE. A long shout only
+matters when he is the ONLY man who can see you, and in a group of three to six
+somebody else almost always can. A DEAD DIAL IS WORSE THAN NO DIAL, so it is gone
+rather than shipped as flavour, and a gate check keeps it gone.
+
+*** THE FINDING ANY LANE CAN USE: I MEASURED THE WRONG THING AND IT COST TWO
+ROUNDS. *** My check asked "did stamina go down" to decide whether a sprint
+happened. V163's global SP clock refills the budget every 5th turn, so a sprint
+that worked perfectly read as 0 SPENT because the tick landed on it -- the game's
+own readout said SPRINTED E while my number said nothing happened. IF YOUR PROXY
+CAN BE RESET BY SOMETHING ELSE IN THE SYSTEM, IT IS NOT A MEASUREMENT. A step IS
+the world shifting under him, so that is what is counted now.
+SECOND, SMALLER: the gate's tests share one page, and the V166 dial block leaves
+G.inc set (doMove's FIRST line is `if(G.inc)return`). A later test has to clear
+what an earlier one armed.
+THIRD: a mutation ESCAPED, and it found a redundant guard in MY code rather than
+a hole in the gate. spotterOnMe had `!e.dead` and seesMe already rejects the dead
+on its first line, so deleting it changed nothing. A guard that cannot fail is a
+second opinion about a rule that already has one home. Removed.
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER (RF4 LIFT routes machines 1,3,4,7,8,9
+here; 1, 3, 4 BUILT, plus RF4-24, RF4-26 and now RF4-37):
+ 1. MACHINE 7 -- PUBLISHED DETERMINISTIC AI. RF4's enemies are readable because
+    they are rule-stated and never roll. Ours mostly are; the work is PUBLISHING
+    the rules on the surface so he can plan instead of learning by dying. Now the
+    most valuable thing left, because vision, the curve and the spotter have all
+    made the rules worth knowing and none of them is explained anywhere.
+ 2. MACHINE 9 -- STATUS EFFECTS AS TURN DENIAL. The spotter is the first turn
+    denial in the game and it is a hand-built special case; machine 9 is the
+    general system it should eventually be an instance of.
+ 3. THE FIGHT HALF OF MACHINE 6 -- terrain kills. Terrain PROPERTIES are WORLD's.
+ 4. MACHINE 8 -- BOUNDED DAMAGE VARIANCE. BLOCKED BY LAW. Do not start.
+ 5. STILL OPEN AND NOT A COMBAT PROBLEM: the curve made fights measurably less
+    lethal one for one (6.36 HP/turn at a pinned 8 vs 3.74 on the curve). The
+    compensator is ATTRITION ACROSS A RUN, which does not exist in a standalone
+    arena that starts every fight at 100 HP. If he says it plays easy, that is
+    the answer, not eight bodies again.
+
 CHARACTER (character-0lurbs): 8/19 (i) LATEST -- *** I MEASURED MY OWN WORK AT THE
 OTHER THREE ZOOMS AND IT ONLY HOLDS AT ONE OF THEM. TAB: LOOK, "WHEN A PERSON STOPS
 BEING SOMEBODY". ***

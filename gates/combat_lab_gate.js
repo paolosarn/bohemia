@@ -4610,6 +4610,36 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V168 THE SPOTTER (RF4-37, the other half) =================
+   "PRIORITY TARGETS ARE THE CORE PUZZLE... ignore the nearest enemies and
+   manoeuvre into position to kill the Priority-Target who is often hiding in the
+   back." Its diff column named exactly one gap: WHAT IS MISSING IS A TARGET
+   WORTH CROSSING THE ROOM FOR. V167 guaranteed one exists and put him at the
+   back; this makes ignoring him cost something.
+   The BEHAVIOUR is measured on the shipped doMove by fight_moves_you_gate. What
+   is pinned here is the shape, and the reason it is THIS mechanic. */
+  ok('V168 THE ROLE IS DECLARED beside every other identity number, and no damage number is touched: his hp, acc and dmg are exactly what they were',
+    /sniper:\{n:'SNIPER',hp:45, acc:0\.72, dmg:\[32,48\], bot:false, melee:false, spotter:true\}/.test(demo));
+
+  ok('V168 AND HE TAKES THE FREE MOVE, WHICH IS WHAT THE FIGHT IS ABOUT. V159 made reaching the way out the win condition and V163 made the sprint the one move that does not cost a turn, so the marksman\'s real job -- denying movement -- lands on exactly that. Walking is untouched',
+    /if\(_sprinting&&spotterOnMe\(\)\)\{ setRead\('PINNED BY THE SPOTTER'/.test(demo) &&
+    /if\(_sprinting&&\(G\.stam\|\|0\)<1\)\{ setRead\('NO STAMINA'/.test(demo));
+
+  ok('V168 THERE ARE TWO ANSWERS, and the second one needs no new geometry: spotterOnMe asks seesMe, which already requires a clear line, so stepping behind stone lifts the pin while he stands there alive',
+    /function spotterOnMe\(\)\{ return \(G\.e\|\|\[\]\)\.some\(e=>e&&e\.E&&e\.E\.spotter&&seesMe\(e\)\); \}/.test(demo) &&
+    /* AND NO SECOND OPINION ABOUT DEATH. It carried a `!e.dead` at first and a
+       mutation deleting it changed nothing, because seesMe already rejects the
+       dead on its first line. A guard that cannot fail is not caution, it is a
+       duplicate rule waiting to disagree with the one that matters. */
+    !/e&&!e\.dead&&e\.E&&e\.E\.spotter/.test(demo));
+
+  ok('V168 AND THE FIRST VERSION WAS CUT RATHER THAN SHIPPED AS FLAVOUR. Giving his SHOUT infinite reach measured 22.5% of turns with the board blind against a 20.8% control -- inside the noise, because a long shout only matters when he is the ONLY man who can see you and in a group of three to six somebody else almost always can. A DEAD DIAL IS WORSE THAN NO DIAL',
+    !/function shoutReach\(/.test(demo) &&
+    /if\(Math\.hypot\(sx,sy\)<=SHOUT_TILES\)\{ markSeen\(e\); e\.told=true; break; \}/.test(demo));
+
+  ok('V168 AND HE CAN TELL WHY, WITHOUT THE GAME GROWING A TUTORIAL ARROW: the readout he already reads names the problem and both halves of the answer, and only when it is true',
+    /setRead\('PINNED BY THE SPOTTER','break his line or put him down'/.test(demo));
+
 /* ===== V166 THE DIAL STOPS TINKLING (Paolo 8/19, a ruling) =======
    "when i leave or enter the deadshot dial theres like a glass bottle noise i
     hate that."
