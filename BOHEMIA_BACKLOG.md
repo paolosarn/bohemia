@@ -5215,6 +5215,48 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    run surface through the name-ask; drafts tagged | tone-zoning rides
    LIGHT=TERRITORY (comedy in the safe light, dread in the dark) — no new
    system | no (drafts, he edits live).
+0sc-SEQ. [SHIPPED 8/19 - records/BOHEMIA_THE_RAID_HAS_NO_CALLER_8_19_26.md]
+   *** THE FINDING FIRST, BECAUSE IT IS THE DEMO'S BIGGEST HOLE AND IT IS NOT
+   THIS LANE'S TO CLOSE: `grep -n "startColdOpen(" slices/BOHEMIA_ALPHA_0_9.html`
+   RETURNS ONE LINE, ITS OWN DEFINITION. ZERO CALLERS. *** The family-defense
+   encounter -- the combat tutorial, the raid, the scene the sibling is killed in
+   -- has never been played from anywhere. So the game as it boots is: warm
+   dinner, the cut, the father says get to the back door, AND THEN YOU WAKE UP ON
+   DAY 1 AND GET A JOB. The sibling's death does not happen. The premise of the
+   entire demo is absent from the demo.
+   IT EXPLAINS THREE THINGS AT ONCE: COLD_OPEN.cast being [] never mattered
+   because the defence never runs; the grief dinner grieves a death that did not
+   occur; and the burial shipped an hour earlier buries somebody the player never
+   saw die. Eighth instance of this lane's most expensive recurring shape: built,
+   gated, published seam, zero callers (the vista was this, the payday bridge was
+   this, the barks were this).
+   SHIPPED, and it is the half that IS this lane's: his law says the three beats
+   "fuse into ONE UNBROKEN SEQUENCE" and the opening runner played scene 1 then
+   called openDone, so beats 2 and 3 had never happened in the played game --
+   chips in a dev tab. The runner now reads what a scene says comes next out of
+   its own handoff beat (cold open -> combat:startColdOpen; grief dinner ->
+   scene:ridge burial; burial -> END). Proved on the real page: started at the
+   grief dinner, the burial followed on its own, zero page errors.
+   *** AND A HANDOFF IT CANNOT HONOUR STOPS THE SEQUENCE, IT NEVER SKIPS IT. ***
+   Auto-advancing past the combat handoff would seat the family down to mourn
+   somebody the player watched walk to the back door ninety seconds earlier and
+   never saw again -- worse than stopping, and it would have looked like a
+   feature. openContinue() is the published seam for whoever wires the fight,
+   the same courtesy COMBAT did this lane by exposing startColdOpen(onEnd).
+   WHY THE FIGHT WAS NOT WIRED HERE: startEncounter posts to the combat frame
+   WITHOUT switching the visible surface, so calling it from the opening runs the
+   raid behind the cutscene canvas -- which is backlog P0-DOOR row 10, already
+   written down and already claimed by RUN ("switch the surface with the
+   handoff") -- and COMBAT shipped encounter work the same day.
+   ALSO: the opening caption was hardcoded pre_collapse ? "BEFORE" : "TEN YEARS
+   LATER" (same bug the tab had), so the morning after the raid read "ten years
+   later"; scenes say `when` now. AND openScene applied his DIRECT edits to the
+   OPENER ONLY, so the day a second scene played, canon would have quietly
+   shipped over the top of his rewrites.
+   | gate: SCENE 69 -> 77, mutation-tested two ways | no decision taken | no.
+   *** WHAT THIS COSTS UNTIL SOMEBODY WIRES IT: everything downstream of the
+   death is decoration. RUN + COMBAT own the one call plus the surface switch. ***
+
 0sc-RIDGE. [SHIPPED 8/19 - records/BOHEMIA_THE_BURIAL_ON_THE_RIDGE_8_19_26.md]
    *** BEAT 3 OF HIS LOCKED OPENING EXISTED ONLY IN THE LAW. *** 7/19 calls the
    sequence CRYSTALLIZED and lists three: NIGHT RAID, GRIEF DINNER, BURIAL ON THE

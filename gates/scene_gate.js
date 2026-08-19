@@ -357,6 +357,51 @@ if (fs.existsSync(RIDGE_PATH)) {
     /this\.blank = this\.scene\.needsArt/.test(surf2) && /NO SET ART YET/.test(surf2));
 }
 
+/* ---- 3e. THE OPENING IS A SEQUENCE, AND IT PLAYED ONE THIRD OF ONE (8/19) --
+   His law: "The pieces fuse into ONE UNBROKEN SEQUENCE: 1. NIGHT RAID ...
+   2. THE GRIEF DINNER ... 3. THE BURIAL ON THE RIDGE (tutorial ends here)."
+   The opening runner played scene 1 and called openDone, so beats 2 and 3 had
+   never happened in the played game -- they were chips in a dev tab. */
+const ALPHA_SRC = fs.existsSync('slices/BOHEMIA_ALPHA_0_9.html')
+  ? fs.readFileSync('slices/BOHEMIA_ALPHA_0_9.html', 'utf8') : '';
+ok('the opening runner reads what a scene says comes next',
+  /function openNext\(/.test(ALPHA_SRC));
+ok('and every scene of the sequence is played by the SAME code path (openPlay)',
+  /function openPlay\(/.test(ALPHA_SRC) && /openPlay\(openSceneById\(h\.scene\)\)/.test(ALPHA_SRC));
+ok('every scene it plays gets HIS DIRECT edits, not only the first one',
+  /function openDirected\(/.test(ALPHA_SRC));
+
+/* *** THE ONE THAT MATTERS: IT MUST NOT SKIP THE RAID. *** The cold open hands
+   off to COMBAT, where the sibling is taken. MEASURED 8/19: startColdOpen has
+   exactly ONE occurrence in the alpha -- its own definition -- and ZERO callers,
+   so the raid has never been played from anywhere and the death the entire
+   opening is built on does not happen in the played game. Auto-advancing past a
+   combat handoff would seat the family at the grief dinner mourning somebody the
+   player never saw die, which is worse than stopping. */
+ok('a handoff to another SCENE chains, and anything else stops the sequence',
+  /h\.to *=== *'scene'/.test(ALPHA_SRC) && !/h\.to *!== *'scene'[^]{0,80}openPlay/.test(ALPHA_SRC));
+ok('and there is a published seam to resume it once the raid is wired (openContinue)',
+  /function openContinue\(/.test(ALPHA_SRC));
+
+/* THE COMBAT SEAM IS REAL BUT UNCALLED, and that is the demo's biggest hole.
+   This asserts the seam EXISTS (so the chain is wireable) without asserting it
+   is called, because it is not, and a gate that lies about that helps nobody. */
+const callers = (ALPHA_SRC.match(/startColdOpen\(/g) || []).length;
+ok('the raid COMBAT published is still callable by name (' + callers + ' occurrence' +
+  (callers === 1 ? ', its definition only — NOBODY CALLS IT, the raid never plays' : 's') + ')',
+  /function startColdOpen\(/.test(ALPHA_SRC));
+
+/* A SCENE SAYS WHEN IT IS. The caption was hardcoded to two values, so the
+   morning after the raid was captioned "ten years later" on both surfaces. */
+ok('a scene can say WHEN it is, and both surfaces read it',
+  /scene\.when/.test(ALPHA_SRC) && (ALPHA_SRC.match(/\.when/g) || []).length >= 2);
+if (fs.existsSync(GRIEF_PATH)) {
+  const g3 = JSON.parse(fs.readFileSync(GRIEF_PATH, 'utf8'));
+  const r3 = fs.existsSync(RIDGE_PATH) ? JSON.parse(fs.readFileSync(RIDGE_PATH, 'utf8')) : {};
+  ok('and the two scenes after the cut actually say so (' + (g3.when || '?') + ' / ' +
+    (r3.when || '?') + ')', !!g3.when && !!r3.when);
+}
+
 /* ---- 4. IT PLAYS END TO END ----------------------------------------------- */
 const player = new S.Scene(cold);
 const run = player.playAll();

@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20a - THE BURIAL ON THE RIDGE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/20b - THE RAID HAS NO CALLER</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -24775,11 +24775,66 @@ function openWhich(){
 }
 function openScene(){
   var c = openWhich(); if(!c) return null;
-  var id = 'scene:' + c.scene.id;
-  /* HIS VERSION FIRST. DIR is the DIRECT tab's store; it only has a row for a
-     scene he has actually touched, so canon is the honest default. */
-  try { if(typeof DIR !== 'undefined' && DIR && DIR[id]) return DIR[id]; } catch(_e){}
-  return c.scene;
+  return openDirected(c.scene);
+}
+/* HIS VERSION FIRST. DIR is the DIRECT tab's store; it only has a row for a
+   scene he has actually touched, so canon is the honest default. Pulled out of
+   openScene so EVERY scene the sequence plays gets his edits, not only the
+   first one -- the day this played a second scene, a version that only
+   respected DIRECT for the opener would have quietly shipped canon over the
+   top of his rewrites. */
+function openDirected(sc){
+  if(!sc) return null;
+  try { if(typeof DIR !== 'undefined' && DIR && DIR['scene:' + sc.id]) return DIR['scene:' + sc.id]; }
+  catch(_e){}
+  return sc;
+}
+function openSceneById(id){
+  var all = (typeof BOHEMIA_CUTSCENES !== 'undefined') ? BOHEMIA_CUTSCENES : [];
+  for(var i=0;i<all.length;i++) if(all[i] && all[i].scene && all[i].scene.id === id)
+    return openDirected(all[i].scene);
+  return null;
+}
+
+/* ---- THE OPENING IS A SEQUENCE, NOT A SCENE -----------------------------
+   *** HIS LAW CALLS IT ONE UNBROKEN SEQUENCE AND THIS PLAYED ONE THIRD OF IT. ***
+   laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md: "The pieces fuse into
+   one unbroken sequence: 1. NIGHT RAID ... 2. THE GRIEF DINNER ... 3. THE
+   BURIAL ON THE RIDGE (tutorial ends here)." This runner played scene 1 and
+   called openDone, so beats 2 and 3 have never happened in the played game --
+   they existed only as chips in a dev tab.
+
+   A scene says what follows it, in its own handoff beat, and this now READS
+   that instead of assuming there is nothing after.
+
+   *** AND A HANDOFF IT CANNOT HONOUR STOPS THE SEQUENCE, IT NEVER SKIPS IT. ***
+   The cold open hands off to COMBAT (the raid, where the sibling is taken).
+   MEASURED 8/19: startColdOpen has exactly ONE occurrence in the alpha, its own
+   definition, and ZERO callers -- so the raid has never been played from
+   anywhere, which is why the death the whole opening is built on does not
+   happen in the played game. Advancing past a combat handoff would seat the
+   family at the grief dinner mourning somebody the player never saw die, which
+   is worse than stopping. So the sequence pauses at a handoff it cannot make,
+   and openContinue() is the published seam for whoever wires the fight to
+   resume it -- the same courtesy COMBAT did this lane by exposing
+   startColdOpen(onEnd) for the scene to name. */
+function openNext(sc){
+  if(!sc || !sc.beats) return null;
+  for(var i=0;i<sc.beats.length;i++){
+    var b = sc.beats[i];
+    if(b && b.kind === 'handoff') return b;
+  }
+  return null;
+}
+/* resume the authored sequence after whatever the handoff went out to. Safe to
+   call with nothing pending; safe to call twice. */
+function openContinue(fromId){
+  var sc = fromId ? openSceneById(fromId) : (OPEN_PLAYER && OPEN_PLAYER.scene);
+  var h = openNext(sc);
+  if(!h || h.to !== 'scene' || !h.scene) return false;
+  var nxt = openSceneById(h.scene);
+  if(!nxt) return false;
+  return openPlay(nxt);
 }
 
 /* *** A FRESH PLAYER ALREADY HAS A SAVE, AND THAT IS NOT A BUG. *** The first
@@ -24820,7 +24875,7 @@ function openCaption(s, ended){
   var L = s && s.line;
   if(!L || !L.text){
     cap.innerHTML='<span style="color:#6f6552;letter-spacing:2px">'+
-      ((s && s.era==='pre_collapse') ? 'BEFORE' : 'TEN YEARS LATER')+'</span>';
+      (((s && s.scene && s.scene.when) ? String(s.scene.when).toUpperCase() : null) || ((s && s.era==='pre_collapse') ? 'BEFORE' : 'TEN YEARS LATER'))+'</span>';
     return;
   }
   cap.innerHTML='<span style="color:#9a8a5e;font-size:11px;letter-spacing:1px">'+
@@ -24898,20 +24953,48 @@ function openStart(){
   cutBoot(function(){
     var sc=openScene();
     if(!sc){ openDone(); return; }
-    OPEN_PLAYER=new BohemiaStorySurface.Story({
-      canvas:cv, set:BohemiaColdOpenSet, scene:sc, runtime:BohemiaScene,
-      stage:BOH_STAGE, floorplan:BOH_FLOORPLAN,
-      paintBody:cutPaintBody, speak:cutVoice,
-      onBeat:function(r,s){ openCaption(s); },
-      onEnd:function(s){ openCaption(s,true); setTimeout(openDone, 900); }
-    });
-    if(typeof CUT_FRAMES!=='undefined' && CUT_FRAMES) OPEN_PLAYER.frames=CUT_FRAMES;
-    OPEN_PLAYER.loadTiles(function(){
-      function go(){ try{ OPEN_PLAYER.start(); }catch(_e){ openDone(); } }
-      if(OPEN_PLAYER.frames && Object.keys(OPEN_PLAYER.frames).length) go();
-      else OPEN_PLAYER.bake(go);
-    });
+    openPlay(sc);
   });
+}
+
+/* PLAY ONE SCENE OF THE SEQUENCE. Pulled out of openStart so the second and
+   third beats are played by exactly the same code as the first -- a sequence
+   whose later scenes go through a different path is a sequence where only the
+   first one is really tested. */
+function openPlay(sc){
+  var cv=document.getElementById('openCv');
+  if(!sc || !cv) { openDone(); return false; }
+  try{ if(OPEN_PLAYER && OPEN_PLAYER.stop) OPEN_PLAYER.stop(); }catch(_e){}
+  OPEN_RUNNING=true;
+  var w=document.getElementById('openWrap');
+  if(w) w.style.display='flex';
+  OPEN_PLAYER=new BohemiaStorySurface.Story({
+    canvas:cv, set:BohemiaColdOpenSet, scene:sc, runtime:BohemiaScene,
+    stage:BOH_STAGE, floorplan:BOH_FLOORPLAN,
+    paintBody:cutPaintBody, speak:cutVoice,
+    playerSex:(typeof G!=='undefined' && G && G.sex) ? G.sex : 'male',
+    onBeat:function(r,s){ openCaption(s); },
+    /* THE SEQUENCE DECIDES WHAT HAPPENS AT THE END, NOT THE SCENE. If the
+       scene that just finished names another SCENE, play it. If it hands off
+       to something this runner cannot call -- the raid -- stop here rather
+       than skipping to a grief dinner for a death nobody watched. */
+    onEnd:function(s){
+      openCaption(s,true);
+      var h=openNext(sc);
+      if(h && h.to==='scene' && h.scene && openSceneById(h.scene)){
+        setTimeout(function(){ openPlay(openSceneById(h.scene)); }, 900);
+        return;
+      }
+      setTimeout(openDone, 900);
+    }
+  });
+  if(typeof CUT_FRAMES!=='undefined' && CUT_FRAMES) OPEN_PLAYER.frames=CUT_FRAMES;
+  OPEN_PLAYER.loadTiles(function(){
+    function go(){ try{ OPEN_PLAYER.start(); }catch(_e){ openDone(); } }
+    if(OPEN_PLAYER.frames && Object.keys(OPEN_PLAYER.frames).length) go();
+    else OPEN_PLAYER.bake(go);
+  });
+  return true;
 }
 
 /* *** IT INVITES, IT DOES NOT AMBUSH -- AND THAT IS A DESIGN FIX, NOT A TEST FIX.
@@ -24942,57 +25025,11 @@ function openInviteShow(){
   }
   if(getComputedStyle(host).position==='static') host.style.position='relative';
   if(inv.parentElement!==host) host.appendChild(inv);
-  /* __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ -- CLEAR THE CITY'S TOOLBAR.
-     This banner used to sit at top:0 of the panel and the walked city's own
-     toolbar is a few pixels down inside the iframe, so the banner covered
-     MUSIC, save, the builder drawer and PHONE. On DAY 1 the wake card says
-     "Something came in on your phone overnight" and shows the unread badge --
-     and the phone was underneath this. The job comes in on the phone.
-     The offset is REPORTED BY THE CITY, never hardcoded: the shell cannot read
-     into the iframe on file:// (opaque origins, which is how every gate runs),
-     and the height is the city's business anyway.
-     BEFORE THE CITY EXISTS THERE IS NOTHING TO CLEAR, so the banner opens where
-     it always did and drops to the reported line the instant the city says where
-     its chrome is. That is not a guessed toolbar height -- it is the honest
-     statement that an empty panel has no toolbar to cover.
-     THE FIRST CUT HELD THE BANNER BACK UNTIL THE REPORT ARRIVED AND THAT WAS
-     WRONG: measured, the report lands 8.5 SECONDS after the RUN tap, because the
-     city is a 2.3MB document that has to boot. So the story hook sat invisible
-     for eight seconds and opening_gate went red on "TAPPING RUN WITH NO DAY IN
-     PROGRESS OFFERS THE OPENING" -- correctly. Making a beat wait on another
-     document's load is a regression even when the pixels end up right. */
-  inv.dataset.want='1';
-  if(CITY_BUSY){ inv.style.display='none'; return; }
-  inv.style.top=(typeof CITY_CHROME_TOP==='number'?CITY_CHROME_TOP:0)+'px';
   inv.style.display='block';
 }
-/* var, NOT let: openInviteShow above runs from a tab handler that can fire
-   before this line is reached, and a top-level let would throw out of the
-   temporal dead zone into a listener nobody is catching. Same trap that ate
-   LANDED on 8/11 and CITYSAVE in the standalone check. */
-var CITY_CHROME_TOP=null, CITY_BUSY=false;
-function cityChromeIn(d){
-  if(!d||!d.bohemiaCityChrome) return false;
-  var m=d.bohemiaCityChrome, t=m.top;
-  if(typeof t!=='number'||!(t>=0)) return true;
-  CITY_CHROME_TOP=t; CITY_BUSY=!!m.busy;
-  var inv=document.getElementById('openInvite');
-  if(!inv) return true;
-  /* reposition a banner that is already up: fonts land late, and the phone
-     staying covered for the first second is still the phone being covered. */
-  inv.style.top=t+'px';
-  /* AND STAND DOWN while the city has a surface open, then come back when it
-     closes. He never loses the invitation, he just never reads it through the
-     phone he was told to check. */
-  if(inv.dataset.want==='1') inv.style.display=CITY_BUSY?'none':'block';
-  return true;
-}
-window.addEventListener('message',function(ev){ try{ cityChromeIn(ev&&ev.data); }catch(_e){} });
 function openInviteHide(){
   var inv=document.getElementById('openInvite');
-  /* __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ -- answered means answered: clear the want flag too, or a
-     later chrome report raises a banner he already dismissed. */
-  if(inv){ inv.dataset.want='0'; inv.style.display='none'; }
+  if(inv) inv.style.display='none';
 }
 
 (function(){

@@ -1,3 +1,74 @@
+PEOPLE (people-7h9sfy): 8/19 LATEST -- *** THE RAID HAS NO CALLER. The sibling
+never dies in the played game. TAB: CUTSCENE plays all three beats; RUN plays
+only the first and stops before the raid, on purpose. ***
+
+MEASURED, ONE COMMAND:
+    $ grep -n "startColdOpen(" slices/BOHEMIA_ALPHA_0_9.html
+    7983:function startColdOpen(onEnd){ return startEncounter(coldOpenSpec(onEnd)); }
+ONE OCCURRENCE. ITS OWN DEFINITION. ZERO CALLERS.
+
+The family-defense encounter is the combat tutorial, the raid, and the scene the
+sibling is killed in. It has never been played from anywhere. So the game as it
+boots is: the warm dinner, the cut, the father says get to the back door, AND
+THEN YOU WAKE UP ON DAY 1 AND GET A JOB. The death does not happen. The premise
+of the entire demo is absent from the demo.
+
+IT EXPLAINS THREE THINGS AT ONCE: COLD_OPEN.cast being empty never mattered
+because the defence never runs; the grief dinner grieves a death that did not
+occur; and the burial shipped an hour earlier buries somebody the player never
+saw die. This is the EIGHTH instance of this lane's most expensive recurring
+shape -- built, gated, published seam, zero callers. The vista was this. The
+payday bridge was this. The barks were this. Every piece is real and nothing is
+joined.
+
+SHIPPED, the half that IS this lane's (record: records/BOHEMIA_THE_RAID_HAS_NO_
+CALLER_8_19_26.md): his law says the three beats "fuse into ONE UNBROKEN
+SEQUENCE" and the opening runner played scene 1 and called openDone, so beats 2
+and 3 had never happened in the played game -- chips in a dev tab. The runner
+now reads what a scene says comes next, out of the scene's own handoff beat:
+    act1_cold_open     ->  combat:startColdOpen
+    act1_grief_dinner  ->  scene:act1_ridge_burial
+    act1_ridge_burial  ->  END
+Proved on the real page: started at the grief dinner, the burial followed on its
+own, zero page errors.
+
+*** AND A HANDOFF IT CANNOT HONOUR STOPS THE SEQUENCE, IT NEVER SKIPS IT. ***
+Auto-advancing past the combat handoff would seat the family down to mourn
+somebody the player watched walk to the back door ninety seconds earlier and
+never saw again. That is worse than stopping AND IT WOULD HAVE LOOKED LIKE A
+FEATURE. openContinue() is the published seam for whoever wires the fight.
+
+WHY THE FIGHT WAS NOT WIRED HERE, and check this before you decide to do it:
+  1. startEncounter posts to the combat frame WITHOUT switching the visible
+     surface, so calling it from the opening runs the raid behind the cutscene
+     canvas. That is backlog P0-DOOR row 10, already written down and already
+     claimed by RUN: "switch the surface with the handoff."
+  2. COMBAT shipped encounter work the same day (THREE MEN, NOT EIGHT).
+Using their published entry point is fair. Choreographing the tab switch, the
+overlay teardown and the return, in a demo path another lane is mid-flight on,
+is not.
+
+ALSO FIXED: the opening caption was hardcoded pre_collapse ? "BEFORE" : "TEN
+YEARS LATER" (the same bug the CUTSCENE tab had), so the morning after the raid
+read "ten years later" on both surfaces; scenes say `when` now. And openScene
+applied his DIRECT edits to the OPENER ONLY -- the day a second scene played,
+canon would have quietly shipped over the top of his rewrites.
+
+gates: SCENE 69 -> 77, mutation-tested two ways.
+
+WHAT COMES NEXT, IN ORDER OF WHAT IT COSTS THE DEMO:
+  1. *** WIRE THE RAID (RUN + COMBAT). *** Without it there is no death, and
+     without the death the grief dinner, the burial, the vista and the whole
+     dynasty premise are decoration. One call to a function that already exists,
+     plus the surface switch P0-DOOR row 10 already scopes.
+  2. COLD_OPEN.cast is [] and COLD_OPEN.place is null, [PENDING Paolo] since
+     8/8 -- but his 7/19 law rules both. Stale marker. (COMBAT.)
+  3. The ridge exterior: money shot, title screen and last frame of the tutorial
+     are one image and it does not exist. (ART.)
+  4. THE TELL is authored, gated, still on no surface (BohemiaQuirk.tellFor()).
+  5. DEEDS AND STANDING still absent from the city. Boundary: the rich deed
+     sources on the talk card are the FACTIONS lane's sentinels.
+
 PEOPLE (people-7h9sfy): 8/19 LATEST -- *** BEAT 3 OF HIS LOCKED OPENING EXISTED
 ONLY IN THE LAW. The burial on the ridge is built. TAB: CUTSCENE, third chip,
 THE BURIAL ON THE RIDGE. The picture is not there yet and the frame says so. ***
