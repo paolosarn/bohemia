@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19d - EVERY ROAD IS ITS OWN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19i - THEY STOP BEING PEOPLE WHEN YOU ZOOM OUT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3821,6 +3821,16 @@ function outfitBuild(){
     host.appendChild(card);
     FAC_CARDS.push({cv:bd, look:f});
   });
+  /* AND PUT THE CROWD BACK, because painting this board rebuilds the rig thirteen
+     times and ANYTHING already on screen was drawn before that happened. Moving the
+     build off the boot path (8/19) fixed crowd_gate standalone and turned it into a
+     FLAKE instead: under the full suite the machine is loaded, requestIdleCallback
+     lands somewhere else, and the gate went red in the suite while passing alone. A
+     gate that fails intermittently is worse than no gate -- it teaches everybody to
+     re-run until green. So this does not chase the timing, it restores the INVARIANT:
+     whatever is displayed matches what a redraw would produce. One line, and it is
+     true no matter when the board happens to build. */
+  try { if (window.crowdRefresh) crowdRefresh(); } catch (_e) {}
   var note = document.getElementById('facNote');
   if (note) note.textContent =
     'These are the 13 factions that can be joined. The four supremacist groups are ' +

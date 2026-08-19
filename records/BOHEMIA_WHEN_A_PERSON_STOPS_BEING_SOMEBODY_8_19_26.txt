@@ -1,0 +1,23 @@
+BOHEMIA -- WHEN DOES A PERSON STOP BEING SOMEBODY?
+CHARACTER lane, 8/19/26. Measured on the rungs the city actually draws.
+
+  The city blits a person at exactly one of four sizes, 1:1, never in between:
+      C >= 64 -> 224     C >= 32 -> 112     C < 17 -> 28     otherwise 56
+  Default walk zoom is the 112 rung, which is where every claim I have made
+  about telling people apart was measured. These are the two rungs below it.
+
+   rung   body   closest pair    mean   who is closest
+   56px   51px         0.0150   0.089   Blues/Remnants, Cartel/Volunteers, Trades/Remnants
+   28px   25px         0.0144   0.087   Caravans/Trades, Church/Mob, Church/Network
+
+  FOR SCALE: the gap that actually failed -- two city residents reading as one
+  person -- was 0.014, and gates/faction_outfit_gate.js holds 0.035 at 112.
+
+  *** IDENTITY DOES NOT SURVIVE THE 56 AND 28 RUNGS. ***
+  At that size two factions are closer together than the pin the build holds
+  at 112, which means zoomed out they are not thirteen people any more.
+  THAT IS NOT A BUG TO FIX BY WIDENING COATS: the body is only 25px tall there.
+  It is a LIMIT to know and to say out loud -- at the wide zooms the cast is
+  crowd, not characters, and anything that needs to be recognised (a faction
+  holding a street, somebody you are looking for) needs a channel that is not
+  the silhouette: a marker, a name, a colour, or the camera being closer.

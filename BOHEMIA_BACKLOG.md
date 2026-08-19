@@ -5515,6 +5515,27 @@ SIL. STRUCTURE-NOT-COLOR NOW GOVERNS IDENTITY, NOT JUST PROGRESS (sweep
    faction half of this row is built, RUN THE LEVER FIRST and assign from the top
    of the ranking. Pins ratcheted 0.010->0.030 / 0.070->0.085 so this cannot
    regress quietly. FACTIONS ARE STILL OWED; the city cast is done.
+   *** AND THE CLAIM HAS A LIMIT, MEASURED 8/19 -- records/BOHEMIA_WHEN_A_PERSON_
+   STOPS_BEING_SOMEBODY_8_19_26.txt, gates/zoom_identity_gate.js (7 claims). ***
+   Every "they tell each other apart" number in this row was measured at 112px, which
+   is ONE of the FOUR sizes the city draws a body at (the ladder: 224 / 112 / 56 / 28,
+   blitted 1:1, never fractional). Measured on the rungs below, closest pair:
+        112px  0.036   the pin the build holds is 0.035
+         56px  0.0150  the gap that ACTUALLY failed once was 0.014
+         28px  0.0144
+   IDENTITY DOES NOT SURVIVE BEING ZOOMED OUT, and no garment fixes a 25px body. The
+   good news is the demo is unaffected: `let HC=44` is the default walk zoom and maps
+   to the 112 rung. THE DESIGN CONSEQUENCE, for whoever needs it: anything the player
+   must RECOGNISE at a wide zoom -- which faction holds a street, a person he is
+   looking for -- needs a channel that is NOT the silhouette (a marker, a name, colour,
+   or the camera being closer). The gate does not fail on the limit, because a gate red
+   on physics gets switched off; it fails if the OPENING ZOOM ever drops below the 112
+   rung, which is a one-character regression that would otherwise be silent.
+   ALSO CORRECTED: I had been writing "the demo opens at 06:00 and the streets are
+   near-black". The game's own isNight() is 19:00-06:00, so 06:00 is exactly when night
+   ENDS. The darkness argument still stands but for the RIGHT reason -- only ~4% of
+   cells have live power (the city's own measurement), so most streets are unlit
+   whatever the clock says. The captions are fixed.
    *** SECOND HALF SHIPPED 8/18 -- ALL THIRTEEN FACTIONS HAVE AN OUTLINE. ROW SIL IS
    CLOSED. records/BOHEMIA_THIRTEEN_OUTFITS_AND_WHAT_HEADWEAR_IS_WORTH_8_18_26.txt ***
    CHARACTER tab, THE THIRTEEN OUTFITS. Held by gates/faction_outfit_gate.js (18).

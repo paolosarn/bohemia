@@ -1,3 +1,73 @@
+CHARACTER (character-0lurbs): 8/19 (i) LATEST -- *** I MEASURED MY OWN WORK AT THE
+OTHER THREE ZOOMS AND IT ONLY HOLDS AT ONE OF THEM. TAB: LOOK, "WHEN A PERSON STOPS
+BEING SOMEBODY". ***
+Record: records/BOHEMIA_WHEN_A_PERSON_STOPS_BEING_SOMEBODY_8_19_26.txt
+Gate: gates/zoom_identity_gate.js, 7 claims, registered as ZOOM IDENTITY.
+
+Every "you can tell these thirteen factions apart" number I have shipped was measured
+at 112 pixels on the CHARACTER tab. The city draws a body at one of FOUR sizes on an
+integer ladder, blitted 1:1 (224 / 112 / 56 / 28). I had measured one rung and talked
+as if I had measured the surface.
+
+    112px   closest pair 0.036    the pin the build holds is 0.035
+     56px   closest pair 0.0150   the gap that ACTUALLY failed once was 0.014
+     28px   closest pair 0.0144   the body is 25 pixels tall here
+
+IDENTITY DOES NOT SURVIVE BEING ZOOMED OUT. That is not a wardrobe problem and no coat
+fixes it. THE DEMO IS FINE -- `let HC=44` is the default walk zoom and lands on the
+112 rung -- but the claim needed a limit attached to it and now has one.
+
+THE DESIGN CONSEQUENCE, and it belongs to whoever needs it rather than to me: anything
+the player must RECOGNISE at a wide zoom (which faction holds this street, the person
+he is looking for) needs a channel that is NOT the silhouette -- a marker, a name,
+colour, or the camera being closer. At the wide zooms the cast is crowd, by physics.
+
+THE GATE DELIBERATELY DOES NOT FAIL ON THE LIMIT. A gate that goes red on something
+nobody can fix gets switched off, and it takes the real checks in the same file with
+it. It fails on LOSING THE GOOD RUNG: one character changing HC below 32 would turn
+the whole cast back into crowd with nothing going red anywhere. Mutation-tested at
+HC=20 -> red naming the rung. It also reads the ladder OUT OF THE CITY SOURCE rather
+than restating it, so it cannot pass by agreeing with a copy that has drifted.
+
+*** AND A CORRECTION TO SOMETHING I HAVE WRITTEN IN FRONT OF HIM SEVERAL TIMES. ***
+I kept captioning "the demo opens at 06:00 and the streets are near-black". The game's
+own isNight() is `T.min >= 19*60 || T.min < 6*60` -- so 06:00 is EXACTLY when night
+ends, and the demo does not open in the dark. The darkness argument still stands, but
+for the right reason: the city's own note measures only ~3.9% of cells with live power
+and 2.6% of people living on one, so most streets are unlit whatever the clock says.
+The LOOK captions are corrected.
+
+*** AND I TURNED A BUG INTO A FLAKE AND THEN FIXED IT PROPERLY -- WORTH READING. ***
+Yesterday the thirteen-outfits board broke crowd_gate by building during boot, and I
+moved it off the boot path with requestIdleCallback. That fixed it STANDALONE and made
+it LOAD-DEPENDENT: under the full suite the machine is busy, the idle callback lands
+somewhere else, and crowd_gate went red in the suite while passing on its own. A gate
+that fails intermittently is worse than no gate -- it teaches everybody to re-run
+until green, which is how a real failure gets waved through.
+THE FIX IS NOT MORE TIMING. Painting that board rebuilds the rig thirteen times, so
+anything already on screen was drawn before that happened; the board now calls
+crowdRefresh() when it finishes. That restores the INVARIANT the gate actually checks
+-- what is displayed matches what a redraw produces -- and it is true no matter when
+the build lands. Verified the way the flake was found: three crowd_gate runs under
+concurrent load, 16/0 each time.
+IF YOU CHASE A FLAKE WITH TIMING YOU WILL GET IT BACK UNDER DIFFERENT LOAD. Find the
+invariant and restore it.
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER, AND IT IS SHORT ON PURPOSE:
+ 1. NOTHING IN THE LANE IS BOTH UNBLOCKED AND WORTH BUILDING RIGHT NOW, and that is a
+    real state rather than a gap in the list. The faction outfits are done and nobody
+    wears them until he rules which faction holds which ground; the field surgery
+    clips are done and RUN owns the wiring; 2X needs painting at 112, which is his
+    call and not code. I checked the demo board: no open row is character-owned.
+ 2. I NEARLY COOKED NEW GARMENTS TO FILL THE TURN AND MEASURED FIRST INSTEAD. The
+    brief said "the outline is set at the shoulder and the hem, so cook a shape nobody
+    occupies" -- and mapping where each existing garment actually moves the outline
+    showed the coats already own the lower body. The brief was wrong, the cook would
+    have been filler, and the wardrobe already delivers exactly what the game needs.
+    If a cook does happen it should follow a fresh measurement, not that stale brief.
+ 3. THE HONEST BACKLOG for this lane is: faction ground assignment (his), 112 painting
+    (his), RUN wiring (theirs). Everything else is polish nobody has asked for.
+
 PEOPLE (people-7h9sfy): 8/19 LATEST -- *** SHE IS IN THE ROOM TONIGHT. The
 sister who dies on night one was never in the room on the night she dies.
 TAB: CUTSCENE, press PLAY on THE MATCH-CUT OPEN, then on THE GRIEF DINNER. ***

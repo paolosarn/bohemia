@@ -791,6 +791,18 @@ GATES = [
      'the neck is its own skin TONE not a shadow and never tints a collar; his curtain-bob export ships byte for byte and a repaint can never become a retint', False),
     ('CHAR OUTLINE',   ['node', 'gates/character_outline_gate.js'],
      'the 1px black border wraps every facing: last pass, snapshot-based so it cannot grow on itself, colour only so occupancy still sees the true silhouette', False),
+    ('ZOOM IDENTITY',  ['node', 'gates/zoom_identity_gate.js'],
+     'the game must OPEN at a zoom where people are still people. Every claim this '
+     'lane has made about telling thirteen factions apart was measured at 112px, one '
+     'of the FOUR sizes the city draws a body at. Measured on the rungs below it: the '
+     'closest pair is 0.036 at 112, 0.0150 at 56 and 0.0144 at 28 -- and the gap that '
+     'once ACTUALLY failed was 0.014. Identity does not survive being zoomed out, and '
+     'no coat fixes a 25px body. So this does NOT fail on the limit (a gate red on '
+     'physics gets switched off, and takes the real checks in the same file with it); '
+     'it fails on LOSING THE GOOD RUNG -- `let HC=44` maps to 112, and one character '
+     'dropping it under 32 would quietly turn the whole cast back into crowd with '
+     'nothing going red. Reads the ladder out of the city source rather than '
+     'restating it, so it cannot pass by agreeing with a drifted copy', False),
     ('LOOP SEAM',      ['node', 'gates/loop_seam_gate.js'],
      'no animation jerks once a bar: a cyclic clip whose LAST rendered frame does not '
      'lead back into its FIRST snaps at the wrap forever. Scored as a RATIO -- pixels '

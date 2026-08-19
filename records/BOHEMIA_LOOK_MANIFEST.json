@@ -2,6 +2,16 @@
  "built": "8/18/26",
  "shots": [
   {
+   "id": "zoom-identity",
+   "title": "WHEN A PERSON STOPS BEING SOMEBODY",
+   "caption": "I proved the thirteen faction outfits tell each other apart -- and I proved it at ONE of the four sizes this game draws a person at. This is the other two. At the zoom you actually walk around in they are thirteen people. One zoom out they are already closer together than the gap that once made two neighbours read as the same guy, and zoomed right out the body is twenty-five pixels tall and they are a crowd. That is not something a wider coat fixes; it is a limit worth knowing. What it means in practice: anything you need to RECOGNISE from far away -- whose street this is, somebody you are looking for -- needs something other than the outline. CHARACTER tab for the outfits themselves; this is what they look like from the CITY.",
+   "file": "look/zoom-identity.png",
+   "kb": 94.9,
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "stamp": "8/19/26",
+   "shooter": "node tools/bohemia_zoom_picture.js"
+  },
+  {
    "id": "the-drunk-seam",
    "title": "THE DRUNK WALK JUMPED EVERY TWO SECONDS",
    "caption": "The drunk walk teleported sideways every two seconds and had done since it was written: one number in its maths ran at half the speed of everything beside it, so it ended each loop on the opposite side from where it started. The line under each row is the body's real centre, measured off the drawn pixels. Before, the whole 12.5px of movement happened in ONE frame, at the restart. After, the step across the restart is 0.3px. I found it by checking every animation in the game for the same defect -- 102 of the 103 were already fine, which is the more useful half of the answer. ANIMATION tab, pick drunk.",
@@ -24,7 +34,7 @@
   {
    "id": "thirteen-outfits",
    "title": "THE THIRTEEN OUTFITS",
-   "caption": "Every faction you can join, and you can tell them apart with the colour switched off. That matters because the game is DARK -- the demo opens at 06:00 -- so colour is the one channel you cannot count on. These were not picked by eye: 880 fits were rendered out of clothes that already existed and the thirteen most different were kept, which is also how I found out the wardrobe holds exactly thirteen and not one more. The bottom block is the test. CHARACTER tab, THE THIRTEEN OUTFITS -- tap a body to turn it, hit COLOUR OFF to run the test yourself, WEAR IT to put one on and change it.",
+   "caption": "Every faction you can join, and you can tell them apart with the colour switched off. That matters because the valley goes DARK: night runs 19:00 to 06:00, and only about 4% of the map has live power, so most streets have no light even by day. Colour is the one channel you cannot count on. (I had been saying the demo OPENS in the dark -- it does not, 06:00 is exactly when night ends. Corrected.) These were not picked by eye: 880 fits were rendered out of clothes that already existed and the thirteen most different were kept, which is also how I found out the wardrobe holds exactly thirteen and not one more. The bottom block is the test. CHARACTER tab, THE THIRTEEN OUTFITS -- tap a body to turn it, hit COLOUR OFF to run the test yourself, WEAR IT to put one on and change it.",
    "file": "look/thirteen-outfits.png",
    "kb": 103.5,
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",
@@ -34,7 +44,7 @@
   {
    "id": "six-neighbours",
    "title": "THE SIX PEOPLE ON YOUR STREET",
-   "caption": "Your neighbours used to be YOU, six times, under six random colours -- same body, same clothes, only the hue changed, plus a durag on every third one. Strip the colour and they were six identical silhouettes, which matters because the valley is DARK: the demo opens at 06:00 and colour is the one channel you cannot count on. They are six SHAPES now -- different bodies, different garments, all from the canon wardrobe. TWO OF THEM STILL MATCHED, and the fix was not a new garment: I measured all 202 clothes in the wardrobe for how much each one changes the outline, and the SHOULDER MANTLE moves it four times more than the gap I could not close. It was already in there. The backpack I had given one of them turns out to be invisible from the front, which is the direction you meet somebody in. The two closest neighbours are now three times further apart. The bottom row is the test. RUN tab, walk into a settlement.",
+   "caption": "Your neighbours used to be YOU, six times, under six random colours -- same body, same clothes, only the hue changed, plus a durag on every third one. Strip the colour and they were six identical silhouettes, which matters because the valley goes DARK: night runs 19:00 to 06:00 and only about 4% of the map has live power, so colour is the one channel you cannot count on (06:00 itself is when night ENDS -- I had that wrong and it is corrected). They are six SHAPES now -- different bodies, different garments, all from the canon wardrobe. TWO OF THEM STILL MATCHED, and the fix was not a new garment: I measured all 202 clothes in the wardrobe for how much each one changes the outline, and the SHOULDER MANTLE moves it four times more than the gap I could not close. It was already in there. The backpack I had given one of them turns out to be invisible from the front, which is the direction you meet somebody in. The two closest neighbours are now three times further apart. The bottom row is the test. RUN tab, walk into a settlement.",
    "file": "look/six-neighbours.png",
    "kb": 59.4,
    "surface": "slices/BOHEMIA_ALPHA_0_9.html",

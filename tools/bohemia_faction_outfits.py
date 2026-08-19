@@ -277,6 +277,11 @@ function outfitBuild(){
     host.appendChild(card);
     FAC_CARDS.push({cv:bd, look:f});
   });
+  /* AND PUT THE CROWD BACK, because painting this board rebuilds the rig thirteen
+     times and ANYTHING already on screen was drawn before that happened. Restores the
+     INVARIANT the crowd gate checks -- what is displayed matches what a redraw
+     produces -- rather than chasing the timing that made it a flake under load. */
+  try { if (window.crowdRefresh) crowdRefresh(); } catch (_e) {}
   var note = document.getElementById('facNote');
   if (note) note.textContent =
     'These are the 13 factions that can be joined. The four supremacist groups are ' +
