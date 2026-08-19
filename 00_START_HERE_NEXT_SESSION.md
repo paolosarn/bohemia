@@ -1,3 +1,94 @@
+RUN (run-eak241): 8/19 (j) LATEST -- *** THE DAY COULD NOT BE SPENT BY PLAYING.
+One character, `| 0`, ate every step the player has ever taken. TAB: RUN. ***
+
+FOUND BY FINISHING THE REACHABILITY HALF of the first-night audit -- the half that
+stops asking "does the beat work" and starts asking "can he DO it". The demo gate
+teleports (`city.x = h.x`) and CALLS offerAccept() instead of tapping, so nothing
+had ever measured what happens when a player simply holds a direction.
+
+MEASURED WITH DAY.tick AND DAY.step HOOKED, ON THE REAL ALPHA:
+
+    held EAST, body moved 6 fine cells
+    DAY.tick called 6 times, 0.084 each   -> 0.504 minutes of walking owed
+    DAY.min BEFORE 360 ... AFTER 360      <-- NOTHING
+    DAY.step called 0 times, steps 0      <-- NOTHING
+
+TWO BUGS, AND THE FIRST IS ONE CHARACTER WIDE.
+
+(1) engine/bohemia_dayloop.js:109 was  `mins = Math.max(0, mins | 0);`
+    `| 0` truncates. The walk ticks 0.084 min per fine cell -- the city's own
+    comment calls it "time per CELL, distance-honest" -- and 0.084|0 is 0. Each
+    call truncated INDEPENDENTLY, so the remainder could never accumulate and
+    WALKING COULD NEVER MOVE THE CLOCK, at any distance, forever. Interior
+    movement (0.5, 0.084) went the same way. Only the whole-minute callers -- the
+    overmap marker at 10, sleep at 60 -- ever spent a day.
+    THIS IS WHY THE RECKONING ALWAYS SAID THE SAME THING. "0h lived - 16h given
+    back" reads like a report of a quiet day. It was a report of a day that COULD
+    NOT BE SPENT BY PLAYING: walk the whole valley, hand all sixteen hours back.
+
+(2) DAY.step had NO CALLER ANYWHERE. The engine has shipped `L.step` since the
+    day loop landed -- it is what the reckoning's "N steps" line reads -- and a
+    repo-wide grep found nobody calling it. The walk does `moved++`, a local
+    nothing reads. NINTH time this lane has found that exact shape: a finished
+    thing with a published seam and no caller.
+
+  tools/bohemia_the_day_is_spent_by_walking_patch.py
+  gates/first_night_gate.js now 38 claims (was 28)
+
+THE FIX KEEPS THE REMAINDER instead of discarding it. L.min stays a whole number
+because everything downstream reads it (hhmm, the HUD, serialize, T.min); a
+private accumulator carries the fraction and whole minutes fall out of it, so
+twelve walked cells cost one minute. THE SANITISING HALF OF `| 0` IS KEPT ON
+PURPOSE -- it also turned NaN and undefined into 0, and without that a bad caller
+could push NaN into the clock and freeze the day permanently. That is now an
+explicit finite check. The accumulator rides the save.
+
+WHAT IT DOES NOT DO: it does not tune anything. 0.084 min/cell is the city's
+existing number and EVERYTHING COSTS ONE (8/15) says the dials are his after he
+plays end to end. This makes the existing number REACH the clock.
+
+THE RECKONING, BEFORE AND AFTER A REAL WALKED DAY:
+    before   06:00 - 0h lived - 16h given back  /  0 steps
+    after    06:08 - 0.1h lived - 15.9h given back  /  96 steps  /  suburb
+
+TWO MISTAKES OF MY OWN, BOTH CAUGHT BY MEASURING AFTER:
+  - My gate's source check grepped the RAW file for the dead line, and the
+    patch's own comment QUOTES that line so the reader knows what was wrong --
+    so the gate read prose as code and went red on itself. Comments are stripped
+    now. Same trap as the seed literal on 8/18.
+  - My walk ran AFTER the goto assertions, which deliberately leave MODE='city',
+    so the pad was moving the overmap marker and I nearly concluded the fix had
+    not worked. And the house check has to run BEFORE the walk, because walking
+    can carry him into a neighbouring cell that has no enterable house -- a
+    mutation run failed it for exactly that wrong reason.
+
+WALK SPEED, MEASURED, AND IT IS NOT MINE TO SET: 1.5 fine cells per real second.
+Walking to the swap meet (42 overmap cells) is ~60 REAL MINUTES of holding a
+button. That is not the intended path -- the overmap marker at 10 min/cell IS the
+travel mechanism -- but it does mean ON-FOOT travel between districts is not a
+thing a player will ever do. Flagging, not touching: distances and rates are his.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+ 1. THE LAST UNPROVEN STRETCH: taking the job by TAPPING it in the phone (not
+    calling offerAccept), and walking INTO the building to trigger the quest
+    card. The audit now proves he can spend a day; it still does not prove he can
+    take and finish the job by hand. That teleport in demo_day_gate is the same
+    coverage hole that hid both bugs found this turn and last.
+ 2. THE TAB BAR IS IN FRONT OF THE PLAYER. RUN is SIXTH behind VOTE, LOOK, WORDS,
+    CUTSCENE, DIRECT. His 8/16 ruling one level up; the shell owns tab order.
+ 3. CAMP is frozen twice over (7/26 + backlog 1z). DO NOT SHIP IT.
+
+STILL NOT MINE: the swap meet is 42 cells from spawn (placement, MAP LAW); the
+phone's market distance is Euclidean while the vista's is Manhattan, sitting in
+one list looking comparable; arterial 20.4% / freeway 36.5% content against 45%
+floors (WORLD).
+
+THE CONTAINER HAS NOW REWOUND FOUR TURNS RUNNING to the same 8/15 snapshot on a
+branch called `decide`. Nothing pushed was lost. Start every turn with
+`git fetch origin main && git checkout -B <branch> origin/main`, and push to your
+session branch BEFORE the ~100 minute suite, never after.
+
+
 COMBAT (combat-nfnki9): 8/19 (i) LATEST -- *** THE MAN ON THE HILL TAKES YOUR LEGS.
 RF4-37, the core puzzle, is BUILT. TAB: COMBAT -- try to sprint while the SNIPER
 can see you. ***

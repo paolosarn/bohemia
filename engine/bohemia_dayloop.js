@@ -106,7 +106,32 @@
        and silently spend hours of a day that already ended. */
     L.tick = function (mins, where) {
       if (L.phase !== 'awake') return L.phase;
-      mins = Math.max(0, mins | 0);
+      /* __THE_DAY_IS_SPENT_BY_WALKING__ -- THIS LINE WAS `mins = Math.max(0, mins | 0)`
+         AND IT ATE EVERY STEP THE PLAYER EVER TOOK.
+         `| 0` truncates to an integer, and the walk ticks 0.084 minutes per fine
+         cell ("time per CELL, distance-honest", the city's own comment), so
+         0.084|0 === 0 and the time was discarded. Not a rounding error that
+         averages out: each call truncated independently, so the remainder could
+         never accumulate and WALKING COULD NEVER MOVE THE CLOCK, at any
+         distance, forever. Interior movement went the same way. Only whole-minute
+         callers -- the overmap marker at 10, sleep at 60 -- ever spent a day.
+         MEASURED 8/19 with tick hooked: six cells walked, six calls of 0.084,
+         0.504 minutes owed, DAY.min 360 before and 360 after. That is why the
+         reckoning always read "0h lived - 16h given back": it was not reporting a
+         quiet day, it was reporting a day that could not be spent by playing.
+         THE REMAINDER IS KEPT NOW. L.min stays whole because everything
+         downstream reads it (hhmm, the HUD, serialize, T.min); the fraction
+         lives here and whole minutes fall out of it, so twelve walked cells cost
+         one minute.
+         THE SANITISING HALF OF THE OLD LINE IS KEPT ON PURPOSE: `| 0` also turned
+         NaN and undefined into 0, and without that a bad caller could push NaN
+         into the clock and freeze the day permanently. That is what the explicit
+         finite check is for -- it is the half of the line that was doing real
+         work. */
+      mins = (typeof mins === 'number' && isFinite(mins)) ? Math.max(0, mins) : 0;
+      L._frac = (L._frac || 0) + mins;
+      mins = Math.floor(L._frac);
+      L._frac -= mins;
       if (L.min + mins >= NIGHT_MIN) {
         var spent = NIGHT_MIN - L.min;
         if (where) L.ledger.districts[where] = (L.ledger.districts[where] || 0) + spent;
@@ -201,7 +226,10 @@
 
     /* ---- persistence: plain JSON, so it rides the existing save ---------- */
     L.serialize = function () {
-      return { v: 1, day: L.day, min: L.min, phase: L.phase, ledger: L.ledger, history: L.history };
+      /* __THE_DAY_IS_SPENT_BY_WALKING__ -- the sub-minute remainder rides the save. Losing it
+         is harmless once and a slow lie every reload. */
+      return { v: 1, day: L.day, min: L.min, phase: L.phase, ledger: L.ledger,
+               history: L.history, frac: L._frac || 0 };
     };
     L.restore = function (st) {
       if (!st || st.v !== 1) return false;
@@ -210,6 +238,8 @@
       L.phase = st.phase || 'awake';
       L.ledger = st.ledger || freshLedger();
       L.history = st.history || [];
+      /* __THE_DAY_IS_SPENT_BY_WALKING__ -- an older save has no frac; 0 is exactly right for it. */
+      L._frac = (typeof st.frac === 'number' && isFinite(st.frac)) ? st.frac : 0;
       return true;
     };
 

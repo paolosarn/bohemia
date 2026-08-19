@@ -255,7 +255,19 @@ GATES = [
      'It TAPS the phone through the shell rather than comparing rectangles. Mutation-tested '
      'both ways: restore the overlap and the tap stops opening the phone; drop the z-index '
      'clause and the world canvas counts as an overlay, which suppresses the cold open '
-     'permanently -- the regression that hid INSIDE the fix, caught by measuring after', True),
+     'permanently -- the regression that hid INSIDE the fix, caught by measuring after. '
+     'IT NOW ALSO HOLDS THE TWO THINGS THE REACHABILITY HALF FOUND. (a) HIS HOUSE WAS 38 '
+     'CELLS FROM HIS FEET on every boot: the shell forwards a cell from the RUN SLICE (a '
+     'different surface with its own player) and homeFind keyed on that marker, so the one '
+     'thing the run is anchored on sat across the valley. (b) THE DAY COULD NOT BE SPENT BY '
+     'PLAYING: bohemia_dayloop tick did `mins = Math.max(0, mins | 0)`, the walk ticks 0.084 '
+     'min per cell, and 0.084|0 is 0 -- every step ever taken was discarded, each call '
+     'truncating independently so the remainder could never accumulate. DAY.step had NO '
+     'CALLER at all, so "N steps" was always 0 too. That is why the reckoning always read '
+     '"0h lived - 16h given back": not a quiet day, a day that could not be spent. It walks '
+     'the real pad with real pointer holds in eight directions (a wall ended the first cut '
+     'after six cells and would have reported the clock broken for the wrong reason) and '
+     'asserts the clock moved, the steps counted and the district ledger recorded it', True),
     ('INSTALL CARD',   ['node', 'gates/install_card_gate.js'],
      'DEMO BOARD row 6, THE LAST HALF OF THE HOME-SCREEN WORK ORDER: the manifest, the icon '
      'and the apple metas shipped 8/16 so an install WORKS, but NOTHING EVER TOLD HIM IT '

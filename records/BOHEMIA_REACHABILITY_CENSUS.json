@@ -1,6 +1,6 @@
 {
- "sources": 247,
- "total_mb": 304.0,
+ "sources": 249,
+ "total_mb": 304.1,
  "unreached_mb": 300.6,
  "rows": [
   {
@@ -1225,7 +1225,7 @@
    "samples": 5,
    "hits_shown": 5,
    "hits_loaded": 1,
-   "bytes": 9900
+   "bytes": 12023
   },
   {
    "path": "engine/bohemia_dead.js",
@@ -1496,6 +1496,15 @@
    "hits_shown": 32,
    "hits_loaded": 32,
    "bytes": 9350
+  },
+  {
+   "path": "engine/bohemia_landmarks.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 32,
+   "hits_shown": 32,
+   "hits_loaded": 0,
+   "bytes": 38734
   },
   {
    "path": "engine/bohemia_library.js",
@@ -1811,6 +1820,15 @@
    "hits_shown": 0,
    "hits_loaded": 0,
    "bytes": 6012
+  },
+  {
+   "path": "engine/bohemia_quirk.js",
+   "kind": "engine",
+   "verdict": "SHOWN (all)",
+   "samples": 19,
+   "hits_shown": 19,
+   "hits_loaded": 2,
+   "bytes": 17278
   },
   {
    "path": "engine/bohemia_rail.js",
@@ -2215,7 +2233,7 @@
    "samples": 32,
    "hits_shown": 0,
    "hits_loaded": 32,
-   "bytes": 64546
+   "bytes": 66189
   },
   {
    "path": "engine/bohemia_world_resolve.js",

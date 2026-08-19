@@ -131,6 +131,56 @@ async function worldFrame(page) {
      !/cityOccluded[\s\S]{0,600}?(phonewrap|daycard|mktwrap)/.test(ccode));
 }
 
+/* ---- 1b. THE DAY CAN BE SPENT BY PLAYING -------------------------------- */
+/* THE BUG: engine/bohemia_dayloop.js:109 was `mins = Math.max(0, mins | 0)`.
+   `| 0` truncates, the walk ticks 0.084 min per fine cell, and 0.084|0 === 0 --
+   so every step the player ever took was discarded. Each call truncated
+   independently, so the remainder could never accumulate and WALKING COULD NEVER
+   MOVE THE CLOCK, at any distance, forever. Measured with tick hooked: six cells
+   walked, six calls of 0.084, 0.504 minutes owed, DAY.min 360 before and 360
+   after. That is why the reckoning always read "0h lived - 16h given back" -- not
+   a quiet day, a day that could not be spent by playing.
+   AND DAY.step HAD NO CALLER AT ALL, so "N steps" was always 0 too. */
+{
+  const DL = require(path.join(ROOT, 'engine/bohemia_dayloop.js'));
+  const src = fs.readFileSync(path.join(ROOT, 'engine/bohemia_dayloop.js'), 'utf8');
+  /* COMMENTS STRIPPED FIRST. The patch's own comment QUOTES the dead line so the
+     next reader knows what was wrong, and the first cut of this check grepped the
+     raw file and matched that comment -- a gate that reads prose as code. Same
+     trap as the seed literal on 8/18. */
+  const esrc = src.replace(/\/\*[\s\S]*?\*\//g, '');
+  ok('the day loop no longer truncates sub-minute time with `| 0`',
+     !/mins\s*=\s*Math\.max\(0,\s*mins\s*\|\s*0\)/.test(esrc));
+
+  const L = DL.make(); L.wake();
+  const t0 = L.min;
+  for (let i = 0; i < 12; i++) L.tick(0.084, 'suburb');
+  ok('TWELVE WALKED CELLS COST ONE MINUTE -- the remainder accumulates instead of '
+     + 'being thrown away (' + t0 + ' -> ' + L.min + ')', L.min === t0 + 1);
+  for (let i = 0; i < 12; i++) L.tick(0.084, 'suburb');
+  ok('and it keeps accumulating (' + L.min + ')', L.min === t0 + 2);
+
+  /* THE HALF OF `| 0` THAT WAS DOING REAL WORK must survive: it also turned NaN
+     and undefined into 0, and without that a bad caller freezes the day forever. */
+  const S = DL.make(); S.wake(); const s0 = S.min;
+  S.tick(NaN, 'x'); S.tick(undefined, 'x'); S.tick('abc', 'x'); S.tick(-5, 'x');
+  ok('NaN / undefined / a string / a negative still cannot move or freeze the clock',
+     S.min === s0);
+
+  const W = DL.make(); W.wake(); W.tick(10, 'x');
+  ok('and the whole-minute callers are untouched (advance(10) still spends 10)',
+     W.min === 360 + 10);
+
+  const P = DL.make(); P.wake(); P.tick(0.5, 'x');
+  const Q = DL.make(); Q.restore(P.serialize()); Q.tick(0.5, 'x');
+  ok('the sub-minute remainder rides the save, so a reload does not quietly lose it',
+     Q.min === 361);
+
+  const M = DL.make(); M.wake();
+  for (let i = 0; i < 5; i++) M.step('suburb');
+  ok('and DAY.step counts steps when something calls it', M.summary().steps === 5);
+}
+
 /* ---- 2. played, on the real alpha ---------------------------------------- */
 (async () => {
   const { chromium } = pw();
@@ -259,6 +309,36 @@ async function worldFrame(page) {
        !!house.phoneHome && !!house.phoneHome.cell
        && house.phoneHome.cell.x === house.body.x
        && house.phoneHome.cell.y === house.body.y);
+
+    /* ---- AND HE CAN SPEND THE DAY BY WALKING --------------------------- */
+    /* THE ASSERTION THAT WOULD HAVE CAUGHT IT, and it has to be a real pointer
+       hold on the real pad: calling advance() proves the engine, not the game.
+       Eight directions in turn so a wall can never end the test early -- the
+       first cut held one direction, hit a fence after six cells, and would have
+       reported "the clock does not move" for the wrong reason. */
+    const walked = await f.evaluate(async () => {
+      const before = { min: DAY.min, steps: DAY.summary().steps };
+      for (const di of [0, 2, 4, 6, 1, 3, 5, 7, 0, 2, 4, 6]) {
+        const p = document.querySelectorAll('#pad .pb')[di];
+        if (!p) continue;
+        p.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, cancelable: true }));
+        await new Promise(r => setTimeout(() => {
+          p.dispatchEvent(new PointerEvent('pointerup', { bubbles: true })); r();
+        }, 1200));
+      }
+      return { before: before, after: { min: DAY.min, steps: DAY.summary().steps },
+               districts: DAY.summary().districts };
+    });
+    const gotSteps = walked.after.steps - walked.before.steps;
+    const gotMins = walked.after.min - walked.before.min;
+    ok('WALKING COUNTS AS STEPS on the surface he plays (' + gotSteps + ', it was '
+       + 'always 0 because DAY.step had no caller)', gotSteps > 0);
+    ok('AND WALKING SPENDS THE DAY (' + gotMins + ' minutes, it was always 0 because '
+       + '`mins | 0` truncated every 0.084 tick to nothing)', gotMins > 0);
+    ok('and the district ledger records where that time actually went ('
+       + JSON.stringify(walked.districts) + ')',
+       Array.isArray(walked.districts) && walked.districts.length > 0
+       && walked.districts.some(d => d.mins > 0));
 
     /* WHILE HE IS IN HIS BODY, AN OUTSIDE SURFACE MAY NOT MOVE HIM. */
     const held = await f.evaluate(() => {

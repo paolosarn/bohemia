@@ -22,15 +22,15 @@ verbatim.
 
 | | banks | engine modules |
 |---|---|---|
-| SHOWN (all) | 1 | 96 |
+| SHOWN (all) | 1 | 98 |
 | SHOWN (part) | 12 | 12 |
 | LOADED ONLY | 18 | 8 |
 | NO TRACE | 73 | 12 |
 | NOT FOR PLAYERS | 0 | 15 |
 | UNSAMPLED | 0 | 0 |
-| **total** | **104** | **143** |
+| **total** | **104** | **145** |
 
-**300.6 MB of 304.0 MB** sampled does not reach the shown surface.
+**300.6 MB of 304.1 MB** sampled does not reach the shown surface.
 
 > **What `NO TRACE` honestly means:** no sampled bytes of this source appear
 > verbatim in any surface. Strong evidence it does not ship — but not proof.
@@ -62,7 +62,7 @@ verbatim.
 | `banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt` | bank | 0.10 |
 | `engine/bohemia_loop.js` | engine | 0.08 |
 | `banks/BOHEMIA_GROUND_POOL_8_6_26.txt` | bank | 0.07 |
-| `engine/bohemia_world.js` | engine | 0.06 |
+| `engine/bohemia_world.js` | engine | 0.07 |
 | `engine/bohemia_dress.js` | engine | 0.02 |
 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | bank | 0.02 |
 | `engine/bohemia_standing.js` | engine | 0.02 |
@@ -168,6 +168,7 @@ verbatim.
 | `engine/bohemia_golf.js` | engine | 32/32 |
 | `engine/bohemia_introductions.js` | engine | 32/32 |
 | `engine/bohemia_landfill.js` | engine | 32/32 |
+| `engine/bohemia_landmarks.js` | engine | 32/32 |
 | `engine/bohemia_library.js` | engine | 32/32 |
 | `engine/bohemia_mall.js` | engine | 32/32 |
 | `engine/bohemia_medical.js` | engine | 32/32 |
@@ -202,4 +203,3 @@ verbatim.
 | `engine/bohemia_industrial.js` | engine | 26/26 |
 | `engine/bohemia_mountain.js` | engine | 25/25 |
 | `engine/bohemia_water.js` | engine | 25/25 |
-| `engine/bohemia_coldopen_set.js` | engine | 24/24 |
