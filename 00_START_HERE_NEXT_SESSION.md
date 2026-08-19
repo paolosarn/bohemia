@@ -5228,7 +5228,48 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/18 (d) LATEST -- *** THE SAME BUG FOUR TIMES IN ONE DAY, AND
+WORLD (city-1eztay): 8/19 LATEST -- *** THE VALLEY IS 99.9% BUILT. THE NINE CELLS
+LEFT ARE PAOLO'S, NOT MINE. ***
+Tab: RUN. Gate: `node gates/walked_surface_gate.js` (WALKED SURFACE in the suite).
+Grids: records/target/BOHEMIA_GRID_convention/_prison/_dam/_minigp.png
+
+walked_surface_gate named ELEVEN types with no module. FIVE were buildable and are
+now built (engine/bohemia_landmarks.js): convention 6 cells (the LVCC -- two
+column-free halls, a glazed concourse spine, a dock wall onto a marshalling yard),
+prison 4 (a Nevada desert facility: units round a services core, double perimeter,
+corner towers, sally port, ADMIN OUTSIDE THE WIRE), dam 4 (Hoover: arch wall, crest
+road, FOUR intake towers, two spillways, powerhouse U, the lake far below its own
+bathtub ring), minigp 1 (kart circuit), fort 1 (the Old Mormon Fort on Las Vegas
+Creek -- oldest structure in the valley). 9,207 of 9,216 cells = 99.9%.
+
+EVERY ONE IS A CLUSTER AND THAT IS THE DESIGN. A convention centre is 288 m and a
+cell is 96 m, so per-cell you get SIX SMALL CONVENTION CENTRES IN A ROW -- the
+airfield's defect before 7/26 and the Strip's before 8/18. They lay out in VALLEY
+coordinates against the blob bounds; each cell copies its window. Measured: the two
+convention cells return 8 and 7 codes at 50% and 36% -- different windows, one
+building. THE WORLD MODEL NEEDED IT TOO: DISTGEN handed generators {cw,ch,streets}
+and nothing else, so a district could not know it was part of something bigger. An
+entry declares cluster:true now and gets its blob bounds, as SURFACEGEN has since 7/26.
+
+THE PRISON HAS A PERIMETER, DECLARED NOT HIDDEN. Paolo 8/16 "no perimeter walls
+until I tell you" holds everywhere in that file EXCEPT the prison, where the
+perimeter IS the building and where `jail` already ships a walled secure yard with
+four guard towers, approved since 7/19. ONE CUT IN THE WIRE (Paolo 8/1: never locked
+in a district). One word from him kills it.
+
+*** A DIVERGENCE THE NEXT SESSION SHOULD KNOW ABOUT, found by censusing twice and
+getting two answers: a raw buildOvermap puts `fort` at (40,23) and `dam` at (9,89);
+THE WORLD MODEL SAYS `arterial` and `airbase` there and puts the dam at (89,85). The
+CITY PAGE -- the surface the player walks -- uses the raw overmap. So the walked
+surface and the model that quests and factions read DISAGREE about where at least
+two landmarks are. Not fixed, not guessed at, named on purpose. ***
+
+WHAT IS LEFT IS NINE CELLS AND THEY ARE ALL HIS: sphere (4), luxor, strat, sign (the
+Welcome sign), highroller, springs -- named REAL Las Vegas landmarks whose identity
+in Bohemia is his ruling. On the gate's debt list with [PENDING Paolo] beside each.
+Record: records/BOHEMIA_THE_LAST_SIXTEEN_CELLS_8_19_26.md
+
+WORLD (city-1eztay): 8/18 (d) -- *** THE SAME BUG FOUR TIMES IN ONE DAY, AND
 NOW THERE IS A MACHINE. 5,526 CELLS, 60% OF THE VALLEY. THE WALKED SURFACE IS 99.7%
 DRAWN BY ITS OWN MODULES. ***
 Tab: RUN -- walk anywhere. Gate: `node gates/walked_surface_gate.js` (in the suite as
