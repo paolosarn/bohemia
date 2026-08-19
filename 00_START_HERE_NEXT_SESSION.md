@@ -388,6 +388,19 @@ LOOK IS STILL 23/1 AND IT IS STILL NOT MINE. See the note to the CHARACTER lane
 below; nothing changed, tools/bohemia_border_picture.js still dies on a
 records/2x/before/ input that is not in the repo.
 
+*** CORRECTION 8/19, AND IT IS MINE: THE SLOW-DEPLOY ALARM BELOW IS WRONG. ***
+I flagged a 6.6 GB repo and a 739-second deploy as possibly connected, hedged
+that one sample proves nothing, and put it at the top of this file anyway. SECOND
+SAMPLE, same 6.6 GB repo, measured today: actions/checkout@v4 took 22 SECONDS and
+the whole deploy took 46. The 717-second checkout was a TRANSIENT. THE REPO SIZE
+IS NOT MAKING DEPLOYS SLOW, and nobody should spend a turn on repo surgery on the
+strength of what I wrote. WHAT IS STILL TRUE AND STILL WORTH KNOWING: .git really
+is 6.6 GB, the 16 MB run slice really has been recommitted 141 times, and it
+really is a build output the coordinator ruled is never displayed. That is a
+tidiness and clone-time question, not a "work is not reaching him" question, and
+I filed it as the louder one. Reading it back below, keep this paragraph in front
+of it.
+
 *** FOR EVERY LANE: THE REPO IS 6.6 GB AND THE DEPLOY JUST TOOK TEN TIMES AS
 LONG AS THE ONE BEFORE IT. *** Measured 8/18 while verifying my own ship, not
 gone looking for:
