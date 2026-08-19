@@ -20865,6 +20865,43 @@ function realizeCell(gx,gy){
       }
       return c;
     }
+    /* GROUND GETS A TEXTURE, THE WAY STRUCTURES ALREADY DO (8/18). The structure branch
+       above draws an APPROVED tile and tints it to the district's palette; the ground
+       branch drew a FLAT COLOUR, so every walkable surface in every district except code 0
+       was a plain fill with a faint procedural grain. Standing in a `water` cell at midday
+       the player sees a beige field; standing in the desert, four big rectangles of
+       slightly different sand.
+       IT IS ALSO A QUIET BREACH OF STREETS ARE THE HARMONIZED POOL (Paolo 7/31): the bank
+       carries `street` (18 asphalt tiles, the paint already on them) and `side` (36
+       sidewalk tiles), and the kit path was painting drive and walk surfaces as a HEX
+       COLOUR while those sat loaded and unused. The law's gate watches the combat street;
+       nothing watched this one.
+       CHOSEN BY THE DOSSIER'S OWN `kind`, never by a hardcoded tile code, so a district
+       written next month is textured the afternoon it lands:
+         drive / marking -> the harmonized ASPHALT pool, untinted (it is already the colour)
+         walk / gate     -> the harmonized SIDEWALK pool, untinted
+         water           -> nothing: water is not a grain, and tinting dirt blue is worse
+                            than a flat fill
+         everything else -> the approved yard grain, TINTED to the district's own palette,
+                            which is what makes gravel read as gravel and sand as sand
+       REUSE CHECK: cooks ZERO pixels. Every tile here is already in banks/ and already
+       approved -- this only stops throwing them away. */
+    if(tl.layer==='ground'||tl.layer==='overhead'){
+      const _k=entry&&entry.kind;
+      const _pool=(_k==='drive'||_k==='marking')?'street'
+                 :(_k==='walk'||_k==='gate')?'side'
+                 :(_k==='water')?null:'hyard';
+      /* ONE DOMINANT TILE, ACCENTS IN COHERENT CLUSTERS, AND PER-CELL RANDOM SHUFFLE IS
+         BANNED -- banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26 desert_dominance_law,
+         Paolo 7/14: "too much diversity with the desert tiles." My first cut hashed the
+         variant PER TILE and the amenity band came back a checkerboard of tan and brown
+         squares, which is that exact ruling broken. The variant is hashed per PLOT the way
+         the code-0 path has done since 7/6, so an area is one material and the palette
+         tint carries what material it is. */
+      if(_pool){ c.gArtPool=_pool;
+                 c.gArtVariant=((Math.imul(tx,2654435761)^Math.imul(ty,40503)^code)>>>0)%3;
+                 if(_pool==='hyard') c.gTint=pal; }
+    }
     if(tl.layer==='prop'){ c.s=pal; c.walk=false; return c; }
     if(tl.layer==='portal'){ c.g='#8a8a86'; c.walk=true;
       if(entry&&entry.enter){ c.enter=entry.enter; c.ecode=code; c.portal=true; }   /* STEP-INSIDE: a door/ramp/open bay you step through */
@@ -22066,6 +22103,15 @@ function chunkCanvas(cx,cy){
     const v=(OM.hash2(gx,gy,404))&3;                    // 4 variants per kind
     let _gt=null; if(c.g==='#b8a040'||c.g==='#d8d4c4'){ const _u=cellAt(gx,gy-1),_d=cellAt(gx,gy+1); const _vert=(_u&&_u.g===c.g)||(_d&&_d.g===c.g); const _pool=(c.g==='#b8a040')?(_vert?'median_v':'median_h'):(_vert?'lane_v':'lane_h'); _gt=saTex(_pool,v); } if(!_gt&&c.gArtPool){ const _ht=saTex(c.gArtPool,c.gArtVariant); if(_ht)_gt=_ht; }
     x.drawImage(_gt||texFor(c.g,false,v),i2*TPX,y*TPX);
+    /* the approved grain carries the FORM; the district's palette carries the MATERIAL.
+       Same two-step the structure branch below uses, at the weight ground needs -- at
+       0.16 a sand tile and a gravel tile are the same picture. */
+    /* 0.38, MEASURED BY LOOKING TWICE. At 0.55 with a per-tile variant the amenity band was
+       a tan-and-brown CHECKERBOARD (the banned per-cell shuffle); at 0.62 with a coherent
+       variant it was one flat khaki field with the grain wiped off. The tint has to say
+       WHAT the material is without erasing the grain that says it is a material at all. */
+    if(_gt&&c.gTint){ x.globalAlpha=0.38; x.fillStyle=c.gTint;
+                      x.fillRect(i2*TPX,y*TPX,TPX,TPX); x.globalAlpha=1; }
     if(c.s){ let _ht2=null;
       if(c.face&&c.artPool_face) _ht2=saTex(c.artPool_face,v);
       else if(!c.face&&c.artPool) _ht2=saTex(c.artPool,v);
