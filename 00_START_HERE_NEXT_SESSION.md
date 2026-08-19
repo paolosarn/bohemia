@@ -1,3 +1,120 @@
+SOUND (sound-xk7pjp): 8/19 (n,o,p) LATEST -- *** THE MUSIC SHIPPED OFF, A SONG HE
+KILLED ON 7/8 WAS PLAYING IN THE STREETS, AND THE INSTRUMENT BRIDGE WAS WRONG IN
+FOUR WAYS. TABS: RUN (you hear it the second you tap in), MUSIC (the three new
+songs, badged NEW). Nothing here needs judging. ***
+
+THREE SHIPS THIS TURN.
+
+--- 1. THE BORROWED VOICES PLAY RIGHT (161 render failures -> 0) --------------
+SFX RENDER was red on main with 161 failures, ALL MINE, in a gate this lane had
+shipped SIX TIMES without ever running. Every one was in the bridge that borrows
+voices out of his 602-instrument music rack.
+  a) It fired the wrong NUMBER of voices. render() already walks v.hits and calls
+     strike() per hit; bodyInstrument walked v.hits AGAIN inside each call, so a
+     3-hit recipe fired NINE voices and the last started a beat and a half after
+     the note was over. Most of "outlives its own beats".
+  b) It came out DEAD CENTRE. The bridge connected straight to the bus, so every
+     borrowed voice was a point source in the middle of his head. 50 candidates.
+  c) It LIED ABOUT ITS OWN LENGTH IN BOTH DIRECTIONS AT ONCE. Half his rack
+     IGNORES the step you hand it (templeblock is 45 ms whether you ask for 100
+     or 600); the other half stretches to six seconds. No single multiplier is
+     right for a woodblock and a pad, so 20 candidates outlived their spec and 9
+     were clicks inside it, off the SAME wrong number.
+  d) It was not the same loudness twice, or voice to voice. Several rack voices
+     draw from Math.random internally; taiko is 17x louder than boneplate at the
+     same drive.
+THE ENGINE STOPPED GUESSING. tools/bohemia_sfx_instrument_measure.py opens the
+real alpha and measures every borrowed voice on a 5-step x 2-semitone grid,
+THROUGH THE ENGINE'S OWN GAIN AND PANNER rather than a clean wire. INST_VOICE in
+engine/bohemia_sfx.js carries that grid; length and drive are derived from it,
+and the step is solved BACKWARDS when a voice is longer than the room it has, so
+a pad plays a shorter version of its whole shape instead of the chopped front of
+a long one. Math.random is swapped for the vector's own seeded stream.
+
+AND THE ONE THAT MATTERS MORE: measuring on the REAL path found two voices that
+render SILENT the moment a gain node is in front of them -- and both, `ironlung`
+and `throatsong`, were GRAVEYARDED 7/19 with "Do not re-add" written beside them.
+SFX-07/08 put them back because nothing checked a voice NAME against the
+registry. Paolo judged four candidates built on them, INCLUDING THE ONLY UP HE
+GAVE TO HIS WILL GOES -- an approval of a transient and a reflection with no
+instrument behind them. Swapped for chapelbreath and ghostvox, both live.
+  gates/instrument_gate.py now sweeps every voice name against the graveyard
+  (uses, never mentions). Mutation-proved red then green.
+  gates/verdict_frozen_gate.py grew THE ONLY DOOR out of a frozen verdict: a
+  committed reasons file, one line per id, PRINTED IN FULL EVERY RUN. A drift not
+  listed there is still refused. records/BOHEMIA_SFX_VERDICT_REOPENED.txt.
+Also: wake_up.2 was mono because bodyFriction always pushed LEFT by a fifth of
+the width and for that one candidate the pan and the offset cancelled to within
+0.007. Anything landing in the middle is now pushed back out; siblings identical.
+
+--- 2. THE MUSIC IS ON -------------------------------------------------------
+Went to close the MENU waiver the board had carried for fifteen days. Found:
+
+    slices/BOHEMIA_CITY_WORLD.html:27496    let CITYMUS_ON=false;
+
+THE MUSIC SHIPPED OFF. Open the link, tap in, SILENT -- until you find a small
+button in the city toolbar. 124 finished songs behind a toggle. The waiver was a
+hole in the wall of a house with no roof.
+It was off for a real reason (browsers refuse audio without a gesture) but there
+IS a gesture and nobody had used it: TAP TO ENTER. MENUMUS now opens the game on
+a MENU song inside that tap and hands to the street shuffle on the phrase
+boundary, 8 bars, quantised per the 120 BPM LAW. Empty MENU pool goes straight
+to the streets, so the game is never silent because a category is.
+
+AND EIGHT SONGS HE KILLED WERE NEVER BURIED. The embedded repo marks a kill with
+its own line. Ten songs carry it; EIGHT were still in MLOOPS and still baked at 2
+(CANON, the top weight in every pool). THE CHOIR THAT STAYED was also tagged
+OVERWORLD NIGHT -- the phase the valley ships in -- so a song he thumbed DOWN on
+7/8 was one of the most likely tracks in the streets for six weeks. Nothing
+caught it because the deaths lived in a COMMENT and none had a registry line.
+  tools/bohemia_music_bury_the_dead.py: verdict 0, out of MLOOPS (132 -> 124),
+  tags pruned, 8 tombstones written (graveyard gate 93 -> 101 dead tokens).
+  A combat WARM-UP could also hijack the music: warmTheFight builds the combat
+  iframe ~600ms after entry and it posts a faction with no fight happening.
+  Measured: the opening started on DEAD VALLEY DAWN and was playing REMNANTS
+  fourteen seconds later. Scoped to the opening only; a real fight is untouched.
+
+*** THE GATE LESSON OF THE TURN. My first version of the music-gate graveyard
+checks READ `code`, which is the alpha with the music-repo block CUT OUT -- so
+they swept a string the death notices had already been removed from, found zero
+killed songs, and PASSED ON NOTHING while reading like the thing that catches
+everything. They went green on a tree where THE CHOIR THAT STAYED was back in
+MLOOPS, baked canon and tagged OVERWORLD NIGHT. I only know because I mutated
+them. IF YOU ADD A CHECK, MUTATE IT. Second time this exact shape has bitten this
+repo (music_reach_gate's phase check matched its own comment on 8/4). ***
+
+--- 3. MENU BATCH 21 ---------------------------------------------------------
+The MENU pool was ONE live song, so every open would sound the same. Three songs,
+three new lead voices (NEW VOICES LAW), everything else reused:
+  THE POWER STILL ON SOMEWHERE  major pent, no drum. `gridglow`
+  WHAT THE VALLEY KEPT          harmonic minor, kick on 1. `keptkeys`
+  NOBODY IS COMING              aeolian, kick 1 and 9. `nobodyswell`
+NOT A QUEUE (EVERYTHING IS A THUMB): they PLAY at the front door now; badged NEW
+only so he can find them and because music_gate refuses a song neither badged nor
+ruled. Titles are attempts per ALWAYS MAKE AN ATTEMPT; he edits them any time.
+Verified: all three voices render real audio through the engine's own gain path
+(peaks 0.144/0.199/0.204) with a bogus-name control at 0.0000. Opened the game
+six times with a trusted tap: FOUR different openings, zero page errors.
+
+GATES: SFX RENDER 6106/0 (was 5470/161). SFX WIRED 842/0. INSTRUMENT 15/0.
+VERDICT-FROZEN 6/0. MUSIC 20/0 (127 songs, 3 fresh). MUSIC REACH 17/0 (the MENU
+waiver is DELETED and the waiver map is empty on purpose, which is now the
+assertion that every category he tagged can be heard). GRAVEYARD 0 live refs.
+ALPHA LOADS 20/0. FRONT DOOR 8/0. SHIPPED TRUTH 41/0.
+
+NOT MINE, STILL RED: one_world_tab_gate 336/14, on two tools/ files
+(bohemia_bone_scale_sheet.js, bohemia_look_shots.js). Red before this turn and
+after it. Needs whichever lane owns those tools.
+
+NEXT FOR THIS LANE, in order:
+ 1. The other MENU songs are thumbed DOWN (PURPLE DAWN, FIRST MORNING, LIGHTS
+    ACROSS THE VALLEY, EMBER VIGIL). The opening pool is 4 and three of those are
+    brand new. If he hates them the pool collapses again -- widen it before that.
+ 2. The overworld pools are worth the same sweep the MENU pool just got: with 8
+    corpses removed the DAY and DUSK/DAWN pools may now be very small.
+ 3. SFX: the instrument source is 29 UP / 60 (48%), the best in the engine. More
+    moments should be built on his rack rather than raw synthesis.
+
 RUN (run-eak241): 8/19 (j) LATEST -- *** THE DAY COULD NOT BE SPENT BY PLAYING.
 One character, `| 0`, ate every step the player has ever taken. TAB: RUN. ***
 
