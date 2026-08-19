@@ -66,7 +66,18 @@ function pw(){ try{ return require('/opt/node22/lib/node_modules/playwright'); }
         setZoomAt(zmax); await sleep(300);
         out.atClosest = +CZOOM.toFixed(3);
         setZoomAt(zmax * 2);             /* past the closest -- he keeps pinching in */
-        await sleep(1400);
+        /* WAIT FOR THE SEAM, DO NOT GUESS HOW LONG IT TAKES. This was a fixed sleep(1400)
+           and it made the gate LOAD-SENSITIVE: measured 8/18, five of five passes on an idle
+           box with the transition completing inside 500 ms, but one in three failures on a
+           busy one -- and three in three on a tree that had a gate suite running beside it.
+           The seam was firing correctly every time; the stopwatch was losing. A gate that
+           goes red because the machine was busy is a gate somebody switches off, and this
+           one guards a gesture PAOLO REPORTED HIMSELF ("I tried to zoom back in and then the
+           game started breaking"), so it is the last one that should be ignorable.
+           THE ASSERTION IS UNCHANGED -- it still requires MODE to become 'human'. Only the
+           waiting is honest now: poll to the same total budget instead of sleeping through
+           it, so a slow box costs seconds rather than a false red. */
+        for (let i = 0; i < 28; i++) { await sleep(100); if (MODE === 'human') break; }
         out.afterZoomIn = MODE;
       }
 

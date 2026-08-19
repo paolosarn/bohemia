@@ -1,3 +1,57 @@
+WORLD (world-9lfjtf): 8/18 (f) LATEST -- *** ROCK IS NOT A ROOF; THE MAP TAB CAUGHT MY OWN
+DRIFT; AND THE ZOOM SEAM GATE WAS FAILING BECAUSE THE MACHINE WAS BUSY. TAB: RUN. ***
+
+THREE THINGS, AND TWO OF THEM ARE ABOUT RULERS RATHER THAN FEATURES.
+
+*** ROCK IS NOT A ROOF. *** realizeCell gave EVERY structure tile artPool:'hroof' -- roof
+art tinted to its palette colour. Right for a building; BRICKWORK for a limestone cliff
+band, which is why the first routed mountain came back looking like a wall. Terrain
+structure (bedrock, ridge crest, cliff band, a concrete headwall) now takes its palette
+colour FLAT, the same fallback this renderer already uses when a pool is missing. Districts
+untouched. Verified by screenshot: the red brick is gone.
+
+*** THE MAP TAB WAS STALE AND ITS OWN GATE SAID SO, ON MY DRIFT. *** I edited 15 district
+legends this morning (the trunk-blocks fix). The MAP tab embeds its own copies, and 15 of
+its 62 came back "body drift, stamp missing/mismatched" naming EXACTLY the files I touched.
+tools/bohemia_map_tab.py regenerates it: 8/1 -> 9/0. If you edit an engine legend, RERUN
+THAT TOOL -- the ENGINE SYNC LAW covers the map tab too and it caught me before Paolo did.
+
+*** THE ZOOM SEAM GATE WAS RED FOR A REASON THAT HAD NOTHING TO DO WITH THE GAME, and the
+measurement is the interesting part. *** A single-run comparison said "main passes, mine
+fails" and I nearly filed it as my regression. Measured properly, three runs each:
+    MINE  1 fail of 3        MAIN  3 fails of 3        ISOLATED, fresh context  5 passes of 5
+Same code path on that gesture in both trees. It tracks MACHINE LOAD, not content. The gate
+did setZoomAt(zmax*2) then slept a fixed 1400 ms; the seam actually fires inside 500 ms when
+it fires at all, so on a busy box the stopwatch lost, not the game. It now POLLS to the same
+total budget instead of sleeping through it. THE ASSERTION IS UNCHANGED -- still MODE must
+become 'human' -- and it is mutation-confirmed: clamp the pinch so the seam can never fire
+and it still goes red. Three runs green after.
+TWO LESSONS WORTH KEEPING: a ONE-RUN comparison between two trees is not evidence, and a
+gate that goes red because the machine was busy is a gate somebody switches off -- and this
+one guards a gesture PAOLO REPORTED HIMSELF ("I tried to zoom back in and then the game
+started breaking"), so it is the last one that should be ignorable.
+
+*** THE MOUNTAIN IS STILL OUT, and the second attempt turned "it looks wrong" into a list
+somebody can finish. THREE BLOCKERS, ALL IN realizeCell: ***
+  1. ROCK IS NOT A ROOF -- fixed above, the only one generic enough to keep on its own.
+  2. `walk: d!=='water' && d!=='mountain'` HARD-CODES the mountain unwalkable at the top of
+     every kit cell, so its talus, ravine floors and drainages stay blocked even when the
+     generator supplies them. That default predates the mountain having tiles at all.
+  3. `if(code===0){ ... c.gArtPool='hyard'; return c; }` treats code 0 as generic yard ground
+     and RETURNS BEFORE THE LEGEND IS EVER READ. Mountain code 0 is BEDROCK FACE, a solid
+     structure, and it is 11,486 of 16,384 tiles in one cell -- the single biggest thing in
+     the mountain never reaches the structure branch at all.
+  A residual brick texture also survives from a source I did not identify, so the list is not
+  closed. Three named blockers and one unknown beats a vague "it looked bad".
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. Finish the mountain: blockers 2 and 3 above, then re-route it and LOOK at it again.
+     927 cells of valley edge that are currently a solid wall.
+  2. The water legend: `open water` must be solid. Then water can take the door too.
+  3. The three genuinely fatal drops modelled as STRUCTURE (quarry:7 bench crest, intake:13
+     shaft, reclaim:6 crusted pond) -- the model says wall, the world means hole.
+  4. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+
 WORLD (world-9lfjtf): 8/18 (e) LATEST -- *** THE MOUNTAIN WAS ROUTED, MEASURED, LOOKED AT
 AND REVERTED IN THE SAME HOUR. A GATE WOULD HAVE PASSED IT. NOT IN A TAB: nothing shipped,
 and that is the point. ***
