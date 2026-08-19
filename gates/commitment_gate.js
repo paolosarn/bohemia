@@ -343,6 +343,104 @@ async function partD() {
   } finally { await browser.close(); }
 }
 
+/* --------------------------------- Ez. THE WALL IS A FENCE, NOT A SIGN */
+async function partWall() {
+  console.log('Ez. PRESSING THE BUTTON CANNOT WALK THROUGH THE WALL');
+
+  const { chromium } = requirePlaywright();
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  const errors = [];
+  page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message));
+  try {
+    await page.goto('file://' + CITY);
+    await page.waitForTimeout(6000);
+    const out = await page.evaluate(() => {
+      /* THE CLAIM THAT DID NOT EXIST UNTIL 8/18, AND ITS ABSENCE COST THREE
+         SHIPS. Part A proves give() clamps -- true, and the city never called
+         give(). Part D proves the card DISPLAYS the wall and that committing
+         moves the state -- both true. Nothing ever PRESSED THE ACT BUTTON PAST
+         THE WALL on the real surface, so for three days the wall was a sign:
+         nine presses reached 9 against a ceiling of 5 with no commitment made.
+         "The card shows the right thing" is not "the thing is enforced". */
+      const bases = ctBases() || {};
+      let who = null, fid = null;
+      for (const b of Object.values(bases)) {
+        hx = b.x * FN + 2; hy = b.y * FN + 2;
+        for (const p of ctEveryone()) { const f = ctFactionOf(p); if (f) { who = p; fid = f; break; } }
+        if (who) break;
+      }
+      if (!who) return { skip: 'nobody in the valley runs with anybody' };
+      const at = ctAt(who); hx = at[0] + 1; hy = at[1];
+      const sv = ctBelongSave();
+      sv.meta.gave = {}; sv.meta.owed = {}; sv.meta.claims = {}; sv.meta.commit = {};
+      const ceiling = BohemiaCommitment.wallOf('none', 0).ceiling;
+      ctSawCell(); ctOpen();
+      /* press whatever writer the card offers, once a "day", well past the wall */
+      for (let i = 0; i < 9; i++) {
+        T.day = i + 1; sv.meta.gaveDay = {};
+        ctClose(); ctOpen();
+        const g = document.getElementById('ctgive') || document.getElementById('ctfavour');
+        if (g) g.click();
+      }
+      ctClose(); ctOpen();
+      return { fid, ceiling,
+        gave: BohemiaBelonging.gaveOf(sv, fid),
+        state: BohemiaCommitment.stateOf(sv, fid),
+        actOffered: !!document.getElementById('ctgive'),
+        commitOffered: !!document.getElementById('ctcommit') };
+    });
+    if (out.skip) { ok('Ez the walked surface has somebody who runs with somebody', false, out.skip); }
+    else {
+      ok('Ez1 NINE PRESSES CANNOT PASS THE WALL — the count stops at the ceiling '
+        + 'with no commitment made',
+        out.gave <= out.ceiling && out.state === 'none',
+        JSON.stringify({ gave: out.gave, ceiling: out.ceiling, state: out.state }));
+      ok('Ez2 …and it stops AT the ceiling rather than short of it, so the wall is '
+        + 'the limit and not an off-by-one',
+        out.gave === out.ceiling, JSON.stringify(out));
+      ok('Ez3 the act button is not offered once it could do nothing — a button '
+        + 'that does nothing tells the player the wall is soft',
+        out.actOffered === false);
+      ok('Ez4 …and the commitment IS offered there, so the road continues',
+        out.commitOffered === true);
+    }
+    /* ★ Ez1-Ez4 PASSED THE MUTATION TEST FOR THE WRONG REASON, and finding that
+       out is why this claim exists. I reopened the hole (routed the writer back
+       around the clamp) and the gate stayed green -- because the OTHER half of
+       the fix, hiding the act button at the wall, means no further presses ever
+       happen, so the count cannot exceed the ceiling whether the clamp works or
+       not. A claim that cannot separate "the clamp holds" from "the button is
+       hidden" cannot catch the regression it was written for.
+       So this presses the WRITER ITSELF, past the wall, with no button in the
+       way. Belt and braces are two things, and each needs its own claim. */
+    const clamp = await page.evaluate(() => {
+      const bases = ctBases() || {};
+      let who = null, fid = null;
+      for (const b of Object.values(bases)) {
+        hx = b.x * FN + 2; hy = b.y * FN + 2;
+        for (const p of ctEveryone()) { const f = ctFactionOf(p); if (f) { who = p; fid = f; break; } }
+        if (who) break;
+      }
+      if (!who) return { skip: 1 };
+      const sv = ctBelongSave();
+      sv.meta.gave = {}; sv.meta.commit = {}; sv.meta.gaveDay = {};
+      const ceiling = BohemiaCommitment.wallOf('none', 0).ceiling;
+      if (typeof ctGiveCapped !== 'function') return { missing: 1, ceiling };
+      for (let i = 0; i < 9; i++) { T.day = i + 1; sv.meta.gaveDay = {}; ctGiveCapped(sv, fid); }
+      return { ceiling, gave: BohemiaBelonging.gaveOf(sv, fid) };
+    });
+    ok('Ez6 THE CLAMP ITSELF HOLDS, tested with no button in the way — calling the '
+      + 'writer nine times past the wall still stops at the ceiling',
+      !clamp.skip && !clamp.missing && clamp.gave === clamp.ceiling,
+      JSON.stringify(clamp) + ' (if this passes while the clamp is removed, the '
+      + 'claim is measuring the hidden button again)');
+
+    ok('Ez5 the city threw no errors doing any of that', errors.length === 0,
+      errors.slice(0, 3).join(' | '));
+  } finally { await browser.close(); }
+}
+
 /* ------------------------------------------- E. THE GENERATOR IS THE TRUTH */
 function partE() {
   console.log('E. THE FILE IS GENERATED, AND THE ANCHORS STILL HOLD');
@@ -373,13 +471,89 @@ function partE() {
     refused, 'a citation a machine cannot check is a name-drop');
 }
 
+/* ------------------------------- F. THE TWO RUNGS TABLES ARE NOT ONE TABLE */
+/* THIS LANE FLAGGED ITS OWN CONSOLIDATION ON 8/15 AND THE FLAG WAS WRONG.
+   The 8/15 law noticed that bohemia_standing (8/2, PEOPLE) and bohemia_belonging
+   (8/12, this lane) "both now carry a RUNGS table" and wrote FLAGGED FOR
+   CONSOLIDATION -- three lines under its own table saying they answer DIFFERENT
+   QUESTIONS. It was a NAME COLLISION read as a duplicate mechanism, and it sat in
+   the handoff as the next job for four days.
+
+   Doing it would not have been a cleanup. It would have deleted a distinction the
+   game depends on, and the damage is measurable: feed the SAME NUMBER to both and
+   they disagree on every single input.
+
+       n=3   belonging -> USEFUL          (you did three things for that outfit)
+             standing  -> FWU             (they would take a bullet for you)
+
+   These are orthogonal axes, not two spellings of one. You can be INSIDE the
+   Cartel and HOSTILE to a specific member of it, both true at once, and a merged
+   table cannot represent that state at all.
+
+   SO THE FIX IS NOT A MERGE, IT IS A FENCE. These claims exist to make the next
+   session that reads "consolidate the two RUNGS tables" stop and read this
+   instead. A GATE MUST NEVER OUTRANK A RULING -- and a FLAG must never outrank
+   the evidence sitting three lines above it. */
+function partF() {
+  console.log('F. THE TWO RUNGS TABLES ANSWER DIFFERENT QUESTIONS, MEASURABLY');
+
+  let St = null;
+  try { St = require(path.join(ROOT, 'engine/bohemia_standing.js')); } catch (_e) {}
+  ok('F1 the other lane\'s standing organ is still there to compare against',
+    !!(St && Array.isArray(St.RUNGS) && typeof St.rungFor === 'function'),
+    'read-only: this gate never writes to another lane\'s module');
+  if (!St || !St.RUNGS) return;
+
+  const bWords = B.RUNGS.map(r => r.word);
+  const sWords = St.RUNGS.map(r => r[0]);
+
+  ok('F2 the two tables share not one word, so nothing is a re-spelling of '
+    + 'anything: ' + JSON.stringify(sWords) + ' vs ' + JSON.stringify(bWords),
+    bWords.filter(w => sWords.includes(w)).length === 0);
+
+  ok('F3 STANDING GOES NEGATIVE AND BELONGING CANNOT. People can think worse of '
+    + 'you than nothing; you cannot be less than a stranger to an outfit you '
+    + 'have never helped. A merged table has to pick one, and either choice is '
+    + 'a lie about the other system',
+    St.RUNGS.some(r => r[1] < 0) === true && B.RUNGS.every(r => r.at >= 0));
+
+  /* THE DAMAGE, MEASURED. Same number in, different answer out, every time. */
+  const rule = B.ruleOf('CARTEL') || B.DEFAULT;
+  const collisions = [];
+  for (const n of [0, 1, 3, 6, 10]) {
+    const b = B.rungOf(rule, n);
+    collisions.push({ n, belonging: b && b.word, standing: St.rungFor(n) });
+  }
+  ok('F4 fed the SAME NUMBER both tables disagree on EVERY input -- 3 is USEFUL '
+    + 'to one and FWU to the other -- so consolidating them would silently '
+    + 'rewrite both systems\' answers rather than tidy them',
+    collisions.every(c => c.belonging && c.belonging !== c.standing),
+    JSON.stringify(collisions));
+
+  /* AND THE NUMBERS MEAN DIFFERENT KINDS OF THING. Belonging's `at` is a FLOOR
+     you reach by doing things; standing's is the CEILING of an opinion band. */
+  ok('F5 belonging\'s number is a floor you climb to (monotonic thresholds on a '
+    + 'count of deeds) and standing\'s is the top of an opinion band -- different '
+    + 'shapes, so the row types are not even interchangeable',
+    B.RUNGS.every((r, i) => i === 0 || r.at > B.RUNGS[i - 1].at)
+    && B.RUNGS.every(r => typeof r.key === 'string' && typeof r.word === 'string')
+    && St.RUNGS.every(r => Array.isArray(r) && r.length === 2));
+
+  ok('F6 the orthogonal state is REACHABLE and that is the whole argument: you '
+    + 'can be INSIDE an outfit and still be somebody a given member thinks badly '
+    + 'of. One table cannot hold both, so there must be two',
+    B.rungOf(rule, 10).key === 'inside' && St.rungFor(-5) === 'HOSTILE');
+}
+
 (async function main() {
   console.log('COMMITMENT GATE — the wall, and who finds out\n');
   partA();
   partB();
   partC();
   await partD();
+  await partWall();
   partE();
+  partF();
   console.log('\nCOMMITMENT GATE: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error('COMMITMENT GATE CRASHED: ' + (e && e.stack || e)); process.exit(1); });

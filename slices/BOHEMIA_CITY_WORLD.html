@@ -31313,6 +31313,7 @@ function ctAdjacent(){
 var CT_OPEN=null;
 function ctRow(k,v){ return '<div class="r"><div class="k">'+k+'</div><div class="v">'+v+'</div></div>'; }
 function ctOpen(){
+  CT_TERMS_OPEN = false;   /* __CITY_CARDFOLD__: each card opens folded */
   var p=ctAdjacent(); if(!p) return;
   CT_OPEN=p; ctDraw();
   /* THE PERSON YOU JUST MET HAS A VOICE (8/11, SOUNDS lane). A MEETING speaks;
@@ -31405,6 +31406,19 @@ function ctValleyRoster(){
    thing you needed that week."
    The three economies are read off his firstMove axis, which until now only
    produced one warning row on this card. */
+/* __CITY_CARDFOLD__ -- THE TERMS FOLD ONCE YOU HAVE READ THEM.
+   Nielsen 2006 (progressive disclosure) + Cowan 2001 (~4 chunks): show the live
+   question, defer the reference. A fact about the OUTFIT belongs to the outfit,
+   not to every person in it -- THEY WANT / THEY HOLD / PAID IN / CAREFUL are
+   identical on every member of that outfit forever, and you read terms once.
+   Measured before this: 22 rows and 808px of an 844px screen. */
+var CT_TERMS_OPEN = false;
+function ctTermsFolded(given){
+  /* folded once you have ANY standing -- the moment you have demonstrably
+     already acted on their terms. Read off state that already exists: no new
+     save field, no new dial. */
+  return (given|0) > 0 && !CT_TERMS_OPEN;
+}
 function ctFavourOf(rule, given){
   if(typeof BohemiaFavour === 'undefined' || !rule) return null;
   return BohemiaFavour.askFor(rule, given, ctBelongSave());
@@ -31431,6 +31445,22 @@ function ctFavourRows(body, rule, given){
 function ctClaimWindow(){
   var d = (T && T.day) || 1;
   return { day: d, week: Math.floor((d - 1) / 7) + 1 };
+}
+/* __CITY_WALLFENCE__ -- THE ONE CLAMPED WRITER.
+   The wall (8/15) was a sign and not a fence: BohemiaCommitment.give() -- the
+   approved clamp -- was called zero times here, and the act button went straight
+   to BohemiaBelonging.record(), which has no ceiling. Measured before the fix:
+   nine presses took you to 9 against a ceiling of 5 with no commitment made.
+   Every writer that can RAISE the count goes through here now, so a third
+   caller cannot reopen it by accident. */
+function ctGiveCapped(sv, fid){
+  if(typeof BohemiaCommitment === 'undefined')
+    return BohemiaBelonging.record(sv, fid, (T && T.day) || 1);
+  var st = BohemiaCommitment.stateOf(sv, fid);
+  var have = BohemiaBelonging.gaveOf(sv, fid);
+  var r = BohemiaCommitment.give(st, have, 1);
+  if(r.gained <= 0) return have;              /* at the wall: nothing moves */
+  return BohemiaBelonging.record(sv, fid, (T && T.day) || 1);
 }
 function ctOwedTo(fid){
   if(typeof BohemiaFavour === 'undefined' || !fid) return 0;
@@ -31550,7 +31580,11 @@ function ctDraw(){
      asked - which is right for a heading and wrong for this row, where it made
      the card read "TRADE: MARISELA". Measured on the real surface the first time
      the loop was driven end to end. ROLE_WORDS is the module's own answer. */
-  body+=ctRow('TRADE', BohemiaPeople.ROLE_WORDS[who.role]||'SOMEBODY');
+  /* __CITY_CARDFOLD__ -- the heading above IS the trade word, so this row said
+     the same thing twice. A duplicate is not disclosure. */
+  var ctTradeWord = BohemiaPeople.ROLE_WORDS[who.role]||'SOMEBODY';
+  if(String(ctTradeWord).toUpperCase() !== String(nm?nm:BohemiaPeople.headingOf(who)).toUpperCase())
+    body+=ctRow('TRADE', ctTradeWord);
   body+=ctRow('LIVES', 'HERE, '+at[0]+' '+at[1]);
   /* RIGHT NOW is EYESIGHT and stays: present tense is what you can see. A
      future or habitual line would be a timetable, which Paolo banned. */
@@ -31566,11 +31600,28 @@ function ctDraw(){
     var bState = ctActState(ctFid);
     var bar = BohemiaBelonging.bargain(bRule, BohemiaBelonging.gaveOf(bState.sv, ctFid));
     if(bar){
-      body += ctRow('THEY WANT', bar.wantWord);
-      if(bar.holds) body += ctRow('THEY HOLD', bar.holds.split('.')[0]);
-      if(bar.pays) body += ctRow('PAID IN', bar.pays);
-      if(bar.refuses) body += ctRow('WILL NOT TAKE', bar.refuses);
-      if(bar.theyFirst) body += ctRow('CAREFUL', 'THEY HELP YOU BEFORE YOU AGREE TO ANYTHING');
+      /* __CITY_CARDFOLD__ -- the terms of the bargain, read once. */
+      /* THE STANDING IS READ HERE, NOT TAKEN FROM ctGave. ctGave is assigned
+         further DOWN this function, so `var` hoisting left it undefined at this
+         point and the fold silently never fired -- the third time this exact
+         use-before-assign class has bitten this file. Order is a fact. */
+      if(ctTermsFolded(BohemiaBelonging.gaveOf(bState.sv, ctFid))){
+        /* THE WHOLE ROW IS THE TAP TARGET, NOT THE WORDS. Measured on a real
+           touch page: the underlined span alone is 153x14px, and Apple's HIG
+           minimum is 44x44. Playwright's tap() hits dead centre and passed;
+           a thumb would not. The row is ~44px, so the row takes the tap and
+           the underline stays as the thing that says it is tappable. */
+        body += '<div class="r" id="ctterms" style="cursor:pointer;padding:15px 0;margin-top:0">'
+          + '<div class="k">THEIR TERMS</div><div class="v">'
+          + '<span style="text-decoration:underline">' + bar.wantWord
+          + ' &middot; tap to read</span></div></div>';
+      } else {
+        body += ctRow('THEY WANT', bar.wantWord);
+        if(bar.holds) body += ctRow('THEY HOLD', bar.holds.split('.')[0]);
+        if(bar.pays) body += ctRow('PAID IN', bar.pays);
+        if(bar.refuses) body += ctRow('WILL NOT TAKE', bar.refuses);
+        if(bar.theyFirst) body += ctRow('CAREFUL', 'THEY HELP YOU BEFORE YOU AGREE TO ANYTHING');
+      }
       /* __CITY_STANDING__ -- THE RUNG LINE WAS PROMISING WHAT THE WALL FORBIDS.
          With five acts done and nothing committed it read "1 MORE TO COUNTED".
          One more does nothing: COUNTED is not for sale at any quantity of the
@@ -31588,7 +31639,7 @@ function ctDraw(){
       if(bar.rung) body += ctRow('YOU ARE', bar.rung.word
         + ((bar.next && (!ctWall || !ctWall.atWall))
              ? (' \u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));
-      if(ctWall && ctWall.state !== 'none') body += ctRow('YOU HAVE', ctWall.word);
+      if(ctWall && ctWall.state !== 'none') body += ctRow('HOW FAR IN', ctWall.word);
       /* __CITY_CLAIM__ -- and what THEY want from you now, which only exists
          once they count you. It sits under YOU ARE because it is the consequence
          of that line, not a separate feature. */
@@ -31623,6 +31674,11 @@ function ctDraw(){
           + (Math.abs(gdy)>=Math.abs(gdx) ? (gdy<0?'NORTH':'SOUTH') : (gdx<0?'WEST':'EAST')));
       }
       ctAct = BohemiaBelonging.actFor(bRule, bState.st);
+      /* __CITY_WALLFENCE__ -- and NOT at the wall. actFor knows what an outfit
+         wants and nothing about ceilings, so the card was offering an act that
+         could not move anything. A button that does nothing is worse than no
+         button: it tells the player the wall is soft. */
+      if(ctAct && ctWall && ctWall.atWall) ctAct = null;
       /* __CITY_FAVOUR__ -- ONE GESTURE, ONE BUTTON, and it has to be computed
          HERE, after ctAct is actually assigned. For an outfit whose WANT is
          `debt`, TAKING their help IS the thing they want from you, so the act
@@ -31715,6 +31771,10 @@ function ctDraw(){
     });
   });
   /* __CITY_FACTIONS__ */
+  /* __CITY_CARDFOLD__ -- DEFER, NEVER DROP. Everything folded is one tap away. */
+  var tt=document.getElementById('ctterms');
+  if(tt) tt.addEventListener('click',function(ev){
+    ev.stopPropagation(); CT_TERMS_OPEN = true; ctDraw(); });
   /* __CITY_FAVOUR__ */
   var fav=document.getElementById('ctfavour');
   if(fav) fav.addEventListener('click',function(){
@@ -31725,7 +31785,9 @@ function ctDraw(){
     if(r.took && r.delta) BohemiaBelonging.adjust(sv, ctFid, r.delta);
     /* the same motion counts as the act for a debt outfit -- one press, both
        halves, and the count still moves through its one writer. */
-    if(r.took && ctFavIsAct) BohemiaBelonging.record(sv, ctFid, T.day||1);
+    /* __CITY_WALLFENCE__ -- the merged favour-act for a debt outfit is a WRITER
+       too, and it was the second way through the wall. */
+    if(r.took && ctFavIsAct) ctGiveCapped(sv, ctFid);
     advance(60);
     ctDraw(); render();
   });
@@ -31763,7 +31825,8 @@ function ctDraw(){
   var give=document.getElementById('ctgive');
   if(give) give.addEventListener('click',function(){
     var sv=ctBelongSave();
-    BohemiaBelonging.record(sv, ctFid, T.day||1);
+    /* __CITY_WALLFENCE__ */
+    ctGiveCapped(sv, ctFid);
     if(ctAct && ctAct.kind==='information')
       (sv.meta.told || (sv.meta.told={}))[ctFid] = Object.keys(sv.meta.seen||{}).length;
     advance(60);                       /* an hour, the same hour the run spends */

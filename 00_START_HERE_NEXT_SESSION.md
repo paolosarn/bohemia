@@ -523,7 +523,152 @@ WHAT COMES NEXT FOR THIS LANE, IN ORDER:
     the HEM. 34 of 202 garments carry the whole structural range. A new garment should
     occupy a silhouette nobody has -- not another colourway, and not another long coat.
 
-FACTIONS (factions-ovkjpf): 8/18 LATEST -- *** THE DEBT GETS CALLED IN. The free
+FACTIONS (factions-ovkjpf): 8/18 (m) LATEST -- *** THE WALL WAS A SIGN AND NOT A
+FENCE, FOR THREE DAYS, AND EVERY GATE WAS GREEN. Also: the person card had
+quietly grown to 96% of the phone. TAB: CITY (tap anybody who runs with
+somebody) + LOOK ("THE CARD FITS AGAIN"). ***
+
+THE FIND, AND IT IS THE ONE WORTH READING. 8/15 shipped THE WALL: turning up for
+an outfit runs out of road, and only a real commitment gets you past it. The card
+says so. The organ clamps. AND THE BUTTON DID NOT GO THROUGH THE ORGAN.
+BohemiaCommitment.give() -- the clamp, the whole point of the system -- was called
+ZERO TIMES on the walked surface. The act button went straight to
+BohemiaBelonging.record(), which has no ceiling at all.
+
+  MEASURED ON THE REAL CARD, BEFORE THE FIX:
+    press the act row 9 times  ->  gave 9, ceiling 5, commitment 'none', row COUNTED
+  You walk through the wall while the card tells you it is there.
+
+WHY EVERY GATE WAS GREEN, WHICH IS THE PART TO KEEP. Two checks existed, both
+real, both passing, and BOTH TRUE: part A proved give() clamps (it does, and
+nothing called it); part D proved the card DISPLAYS the wall and that the commit
+button MOVES the state (both true). NO CLAIM ANYWHERE PRESSED THE ACT BUTTON PAST
+THE WALL ON THE REAL SURFACE. Same shape as the 8/15 stale-agents outage one
+level down: THE ORGAN WAS VERIFIED AND THE WIRING WAS NOT, and "the card shows
+the right thing" was mistaken for "the thing is enforced".
+
+FIXED BELT AND BRACES: the act button is not offered at the wall (a button that
+does nothing tells the player the wall is soft, which is the exact lie the wall
+exists to prevent), AND both writers go through ONE clamped helper so a third
+caller cannot quietly reopen it.
+
+AND THE FIRST VERSION OF THE NEW CHECK WAS ITSELF A LIE -- hiding the button did
+all the work, so Ez1 PASSED with the clamp completely gutted. Ez6 presses the
+writer directly with no button in the way. Mutation-proven: gut the clamp, that
+claim goes red (52/1); restore it, 53/0. EVERY CLAIM THIS LANE SHIPS NOW GETS
+WATCHED TO FAIL ONCE BEFORE IT IS TRUSTED.
+Law: laws/BOHEMIA_ADDENDUM_THE_WALL_WAS_A_SIGN_8_18_26.md
+
+*** SECOND THING: NOBODY OWNED THE TOTAL. *** Five systems write rows onto the
+person card now (the name, the bargain, the wall, the claim, the favour). Every
+one asked "is my row right?" and every one was right. Nobody asked what the card
+WEIGHED. Measured at iPhone portrait, 844px tall:
+    first meeting        15 rows   591px   70%
+    after taking three   17 rows   640px   76%
+    counted and owing    22 rows   808px   96%
+At 96% the card IS the phone and the sixth system overflows it. This is what the
+factory pattern does when it works: independent systems, each gated on its own
+correctness, sharing one finite surface nobody's gate measures.
+
+THE FOLD, and it is not a taste call. Nielsen 2006 (progressive disclosure) plus
+Cowan 2001 (the real working-memory limit is about FOUR chunks, not seven) give
+the rule; THE DATA gives the answer to what folds: THEY WANT / THEY HOLD / PAID
+IN / CAREFUL are IDENTICAL on every member of that outfit forever, so they are a
+fact about the OUTFIT and you read terms ONCE. They collapse to one tappable line
+the moment you have any standing at all (gave > 0) -- exactly the moment you have
+demonstrably already acted on those terms, so it reads off state that already
+exists: NO new save field, NO new dial, nothing PENDING. 96% -> 84%.
+DEFER, NEVER DROP: every folded fact returns on tap, and the gate reds if it does
+not. A first meeting still shows the terms in full (you cannot have read what you
+were never shown) and the next card opens folded again.
+Law: laws/BOHEMIA_ADDENDUM_THE_CARD_HAS_TO_FIT_8_18_26.md
+
+*** AND THEN THE REAL SURFACE CAUGHT WHAT NINE GREEN CLAIMS COULD NOT. *** All
+nine passed while the tap target was 153x14px. Every one of them opened the fold
+with .click() or an element tap, which lands DEAD CENTRE every time -- and a thumb
+on a real phone does not. Apple's HIG has said 44x44 since 2013 and Material says
+48dp, for the same physical reason: a fingertip contact patch is about 10mm.
+The whole ROW is the target now (332x46px), and A10/A11 measure the BOX on a real
+touch page and open it with a REAL TAP instead of a synthetic click. Cost 2 points
+of screen (84% -> 86%), which is the correct trade. Mutation-proven.
+  THE HANDLER IS BOUND and A PERSON CAN REACH IT ARE DIFFERENT FACTS, AND ONLY ONE
+  OF THEM IS THE GAME. A synthetic click is the touch-target equivalent of a gate
+  that mocks the thing it is testing -- the same disease as 8/15's stubbed
+  ctFactionOf, one layer up.
+
+TWO MORE THINGS ONLY LOOKING AT THE RENDERED PIXELS CAUGHT (VERIFY ON THE REAL
+SURFACE, 7/18), also after the gate was already green:
+  1. The fold said "tap to read THE REST" one row under the Cartel's "HOW YOU GET
+     THE REST -> NOTHING. EVER." Two different "the rest", one line apart, on a
+     390px phone. Neither row is wrong; the collision only exists once they are
+     neighbours. It says "tap to read" now.
+  2. The commitment row was labelled "YOU HAVE" and sat four rows under "YOU HAVE
+     MET", so it read as a truncated duplicate. It is "HOW FAR IN" now.
+
+GATES: CARD FOLD 9/9 (new, all nine mutation-proven), COMMITMENT 53/53 (Ez6 new),
+CLAIM 45/45, FAVOUR 31/31. Card measured at 84% on the merged tree with the
+PEOPLE lane's 8/18 work in -- they added to the exchange surface, not the card,
+so no collision.
+
+*** THE STANDING JOB THIS CREATES, FOR ANY LANE: EVERY LANE THAT ADDS A ROW TO A
+SHARED SURFACE OWNS THE TOTAL, NOT JUST THE ROW. The next system to write onto
+the person card starts by measuring it. ***
+
+*** THIRD THING: I KILLED MY OWN NEXT JOB, BECAUSE IT WAS WRONG. *** The handoff
+has said "CONSOLIDATE THE TWO RUNGS TABLES" for four days and I restated it three
+times. bohemia_standing (8/2, PEOPLE) and bohemia_belonging (8/12, this lane) both
+have a RUNGS table, so it looked like the last duplicate mechanism in the lane.
+
+IT IS A NAME COLLISION, NOT A DUPLICATE, and the evidence was sitting three lines
+above my own flag in my own 8/15 law -- a table saying the two modules answer
+DIFFERENT QUESTIONS. I read the identifier and stopped reading.
+
+  MEASURED, feeding the SAME NUMBER to both:
+      n=0   belonging A STRANGER              standing NEUTRAL
+      n=1   belonging SOMEBODY WHO SHOWED UP  standing WARM
+      n=3   belonging USEFUL                  standing FWU
+      n=6   belonging COUNTED                 standing FWU
+      n=10  belonging INSIDE                  standing FWU
+  They disagree on EVERY input. They share ZERO words. Standing goes negative
+  (people can think worse of you than nothing); belonging cannot (you cannot be
+  less than a stranger to an outfit you never helped).
+
+AND THE ARGUMENT THAT SETTLES IT: you can be INSIDE the Cartel and still be
+somebody a particular member thinks badly of. Both true at once, both load-
+bearing. ONE TABLE CANNOT HOLD THAT STATE. A "consolidation" would not tidy these,
+it would silently rewrite both systems' answers.
+
+FENCED so nobody does it later: commitment_gate part F, 6 claims, READ-ONLY
+against the other lane's module (this lane already overwrote bohemia_standing.js
+once by accident on 8/15 -- it is not mine to rename). 59/59.
+Record: records/BOHEMIA_THE_TWO_RUNGS_TABLES_ARE_NOT_A_DUPLICATE_8_18_26.md
+LESSON: A SHARED IDENTIFIER IS NOT A SHARED MECHANISM, AND A FLAG IS A HYPOTHESIS,
+NOT A WORK ORDER. Anything sitting in the handoff as "next" gets re-derived before
+it gets done, not after. Four minutes of printing two tables would have caught it.
+
+NEXT FOR THIS LANE (decided, not asked, and this one IS derived): NOTHING COSTS
+YOU ANYWHERE ELSE. The commitment stage called "burned" says, in its own shipped
+text, "YOU BURNED A BRIDGE -- you cost yourself somewhere else to be here", and
+GREP SAYS NOTHING ANYWHERE EVER COSTS YOU SOMEWHERE ELSE: BohemiaBelonging.adjust
+is only ever called with ctFid, the outfit you are standing in front of. Word
+already travels (whoHears/landing ship and work -- other outfits hear what you did
+AS FACT at one hop and AS A RUMOUR beyond) and then NOTHING HAPPENS TO THEM. It is
+the same disease as the debt that was never collected, one system over: a stage
+named for a consequence the game does not apply. The research is already done and
+it is the whole point of the cross-cutting-cleavage literature (Coser, Lipset &
+Rokkan): a tie to one side is a LIABILITY with the other, and that liability is
+the mechanism by which cross-cutting ties damp conflict. Taking a side should cost
+you with whoever hears it and cares.
+
+STILL [PENDING Paolo], unchanged and NOT mine: REACH_CELLS (12) and
+AFFILIATED_RATE (0.30), the two dials that decide how far you walk before you
+meet anybody who runs with anybody. From the spawn cell the nearest 1,438 people
+include ZERO affiliated; the first is 9 cells out, the nearest base 29. Base
+placement is MAP LAW (his), and routing the demo past an outfit is QUESTS/RUN.
+
+---
+
+FACTIONS (factions-ovkjpf): 8/18 -- *** THE DEBT GETS CALLED IN. The free
 thing the Cartel gave you three days ago now has somebody coming for it.
 TAB: CITY (tap anybody who runs with somebody) + LOOK ("THEY ARE NOT WAITING"). ***
 

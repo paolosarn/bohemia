@@ -217,7 +217,7 @@ NEW_RUNG = """      /* """ + MARKER + """ -- THE RUNG LINE WAS PROMISING WHAT TH
       if(bar.rung) body += ctRow('YOU ARE', bar.rung.word
         + ((bar.next && (!ctWall || !ctWall.atWall))
              ? (' \\u00b7 '+bar.next.more+' MORE TO '+bar.next.rung.word) : ''));
-      if(ctWall && ctWall.state !== 'none') body += ctRow('YOU HAVE', ctWall.word);
+      if(ctWall && ctWall.state !== 'none') body += ctRow('HOW FAR IN', ctWall.word);
       if(ctWall && ctWall.atWall && ctWall.blocks){
         body += ctRow('THE WALL', 'TURNING UP GETS YOU NO FURTHER THAN '
           + ctWall.reaches + '. ' + ctWall.blocks + ' IS NOT FOR SALE.');

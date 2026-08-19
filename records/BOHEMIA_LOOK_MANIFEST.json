@@ -1,5 +1,5 @@
 {
- "built": "8/8/26",
+ "built": "8/18/26",
  "shots": [
   {
    "id": "field-surgery",
@@ -62,7 +62,7 @@
     "zoom": 44
    },
    "kb": 311.3,
-   "stamp": "8/8/26",
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -76,7 +76,7 @@
     "zoom": 44
    },
    "kb": 544.8,
-   "stamp": "8/8/26",
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -90,7 +90,7 @@
     "zoom": 44
    },
    "kb": 193,
-   "stamp": "8/8/26",
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -104,7 +104,7 @@
     "zoom": 22
    },
    "kb": 513.7,
-   "stamp": "8/8/26",
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -114,7 +114,7 @@
    "file": "look/vista.png",
    "at": null,
    "kb": 486.7,
-   "stamp": "8/8/26",
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -128,7 +128,7 @@
     "zoom": 30
    },
    "kb": 345.6,
-   "stamp": "8/8/26",
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -142,7 +142,7 @@
     "zoom": 30
    },
    "kb": 500.1,
-   "stamp": "8/8/26",
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -156,7 +156,7 @@
     "zoom": 26
    },
    "kb": 182.6,
-   "stamp": "8/8/26",
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -165,8 +165,8 @@
    "caption": "Walk up to anybody who runs with an outfit and this is their card. You have done what they want five times, and it says so: turning up gets you no further than USEFUL, and COUNTED is not for sale at any number of favours. The only button that passes it is saying out loud that you are with them. CITY tab, tap a person.",
    "file": "look/the-wall.png",
    "at": null,
-   "kb": 215.1,
-   "stamp": "8/8/26",
+   "kb": 206.9,
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -175,8 +175,8 @@
    "caption": "Once an outfit COUNTS you it starts asking, and what it asks for is the thing it already wanted. Saying yes buys you nothing -- it is the rent on being counted. Saying no drops you straight back below counted, and they remember which way you went. CITY tab, tap a person you have done favours for.",
    "file": "look/the-claim.png",
    "at": null,
-   "kb": 217.9,
-   "stamp": "8/8/26",
+   "kb": 214.5,
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -185,8 +185,8 @@
    "caption": "The other direction, finally. Some outfits give you something the first time you meet them, it costs you nothing, and that is exactly the part to worry about -- the card starts keeping a tally of what you have taken. Others hand you nothing until they count you, and then it spends the standing you built. One outfit gives nothing to anybody ever. CITY tab, tap a person.",
    "file": "look/the-favour.png",
    "at": null,
-   "kb": 204.5,
-   "stamp": "8/8/26",
+   "kb": 203,
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
@@ -195,8 +195,18 @@
    "caption": "This is what the free thing was for. You took what the Cartel was offering three times, and now that they count you they are asking -- and they are not waiting for the polite gap between asks, because that gap is for people who do not owe them. Saying no here does not cost you one rung, it costs you one for every favour you took. CITY tab, tap a person.",
    "file": "look/the-collection.png",
    "at": null,
-   "kb": 223.4,
-   "stamp": "8/8/26",
+   "kb": 223.2,
+   "stamp": "8/18/26",
+   "surface": "slices/BOHEMIA_CITY_WORLD.html"
+  },
+  {
+   "id": "the-terms-fold",
+   "title": "THE CARD FITS AGAIN",
+   "caption": "Five different systems write onto a person now and the card had quietly grown to 96 percent of your screen -- one more thing and it would have run off the bottom. So the stuff that is true of the WHOLE outfit and never changes (what they want, what they hold, what they pay in) collapses to one line the moment you have done anything for them, because you have already read it. Tap that line and it all comes back. Down to 84 percent. CITY tab, tap somebody you have helped.",
+   "file": "look/the-terms-fold.png",
+   "at": null,
+   "kb": 238.8,
+   "stamp": "8/18/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
   },
   {
