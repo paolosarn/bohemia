@@ -1356,6 +1356,42 @@ It drives --dry-run (walks the table, executes nothing) so ONE SUITE AT A TIME
 (7/30) is untouched for every run that actually runs something.
 Law: laws/BOHEMIA_ADDENDUM_A_SUITE_THAT_CANNOT_FINISH_8_19_26.md
 
+*** AND IT RUNS IN SHARDS NOW, BECAUSE THE SUITE IS BIGGER THAN A CONTAINER. ***
+With the cap fixed and the orphan reaped it still could not finish: 236 gates in
+2748s, 15 failures, and 150 NAMED as never run. Honest, and unfinished. That is
+~11.6s a gate, so all 386 need ~75 minutes and a container survives ~50 -- TOOLS
+RUN's whole 600s is only a third of a 25-minute gap, so NO AMOUNT OF TRIMMING
+CLOSES IT. Hence --shard i/n, interleaved so each shard gets a fair mix instead
+of one inheriting every browser gate.
+  MEASURED, and guessing was the mistake:
+    full run       owned 386, ran 236, 2748s  -> NO, 150 unrun
+    --shard 1/2    owned 193, ran 162, 2707s  -> NO, 31 of its own unrun
+    --shard 1/3    owned 129, ran 129, 1490s  -> YES, reached 385/386, no unrun
+  THREE SHARDS, ~25 MINUTES EACH. Use:
+    python3 gates/bohemia_gates.py --shard 1/3   (then 2/3, then 3/3)
+THE CLAIM THAT MATTERS IS COVERAGE, NOT SPEED: a scheme that drops or
+double-runs a gate is WORSE than none because it still looks complete. So the
+gate counts the UNION and the MULTIPLICITY against a full run -- 386 in both
+halves, every gate exactly once. Both failure modes mutation-proven.
+
+*** AND A REAL SHARD RUN FOUND A BUG I HAD SHIPPED 20 MINUTES EARLIER, IN THE
+EXACT THING THIS WORK EXISTS TO PREVENT. *** --shard 1/2 owns 193, stopped having
+run 162, and reported SIXTY-TWO never ran. It owned 31. The unrun list took
+GATES[i:] wholesale and counted THE OTHER SHARD'S GATES as ones it had failed to
+reach. A NUMBER THAT READS LIKE A FACT AND IS NOT ONE is the disease this work
+exists to kill, and it shipped inside the cure.
+Now checked as ARITHMETIC rather than as a shape, which is what makes it
+provable: what a run RAN plus what it reports UNRUN must equal exactly what that
+run OWNED. Asserted for a full run, both halves of a 2-shard split, and an --only
+run. THE MUTATION IS THE INSTRUCTIVE PART: restore the wholesale count and three
+of four go red while THE FULL RUN STAYS GREEN -- which is exactly why the
+original bug was invisible.
+And the runner works out the shard count ITSELF now rather than leaving the next
+person to guess as I did, printing the measured seconds-per-gate and AT LEAST how
+many shards cover the table. The rate is a SAMPLE and not a random one (the slow
+gates cluster; one alone is 600s), so it leaves real headroom.
+suite_honesty_gate: 19/19, six mutations all bite.
+
 FOR ANYBODY DEBUGGING PROCESSES IN THIS REPO: `pkill -f <pattern>` and
 `pgrep -f <pattern>` MATCH THE COMMAND LINE THEY ARE TYPED ON. Three times this
 turn a cleanup command killed its own shell (exit 144) because the pattern was in

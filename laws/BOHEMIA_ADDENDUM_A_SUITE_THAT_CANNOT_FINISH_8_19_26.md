@@ -100,6 +100,54 @@ that the others held nothing — **same rule as an unrun gate.** And a malformed
 `--shard` refuses rather than silently running everything, because a typo that
 quietly runs the wrong set is the whole disease.
 
+## 3d. TWO SHARDS WAS MY GUESS AND IT WAS WRONG. THREE FINISHES.
+
+Guessing was the mistake, and running it for real is what corrected it:
+
+| run | owned | ran | wall clock | finished? |
+|---|---|---|---|---|
+| full | 386 | 236 | 2748s | **no** — 150 unrun |
+| `--shard 1/2` | 193 | 162 | 2707s | **no** — 31 of its own unrun |
+| `--shard 1/3` | 129 | **129** | **1490s** | **YES** — reached gate 385/386, no unrun list at all |
+
+**Three shards, twenty-five minutes each, against a fifty-minute container.**
+
+And a real shard run is what exposed the accounting bug in §3e — the arithmetic
+looked right on paper and was wrong in the only place that counts.
+
+> **THE RUNNER WORKS OUT THE SHARD COUNT ITSELF NOW**, from what it just
+> measured, rather than leaving the next person to guess as I did. It prints the
+> measured seconds-per-gate, what this run's gates need against the budget, and
+> **at least** how many shards cover the table.
+>
+> The rate is a **sample, and not a random one** — it is whichever gates ran
+> before the clock, and the slow ones cluster (one gate alone is 600s). Measured
+> both ways: a full run averaged 11.6s a gate, `--shard 1/2` averaged 16.7s
+> because it held `TOOLS RUN`. So the advice leaves real headroom and says *at
+> least*, because being optimistic here costs somebody a whole container to find
+> out. Against both real measurements it advises 3 and 4.
+
+## 3e. AND THE UNRUN COUNT WAS OVERSTATED TWO TO ONE, INSIDE THE FIX FOR IT
+
+`--shard 1/2` owns 193 gates. It stopped having run 162 and reported **62 never
+ran**. It owned **31** more. The unrun list took `GATES[i:]` wholesale and counted
+**the other shard's gates** as things this run had failed to reach — and the names
+it printed included gates that were never that run's job.
+
+**A number that reads like a fact and is not one is precisely the disease this
+work exists to kill, and it shipped inside the cure.**
+
+The unrun list now obeys the same filters the run loop does, and it is checked as
+**arithmetic rather than as a shape**, which is what makes it provable:
+
+> **What a run RAN, plus what it reports UNRUN, must equal exactly what that run
+> OWNED.**
+
+Asserted for a full run (386), both halves of a two-way split (193 each) and a
+filtered run (1). The mutation is the instructive part: restore the wholesale
+count and **three of the four go red while the full run stays green** — which is
+exactly why the original bug was invisible.
+
 ## 4. HOW IT IS GATED WITHOUT BREAKING THE LOCK
 
 `gates/suite_honesty_gate.js` **runs the runner in a child process** and reads what
