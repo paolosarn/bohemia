@@ -294,7 +294,7 @@ function cutCaption(s, ended){
   if(st) st.textContent='beat '+s.beatNo;
   var L=s.line;
   if(!L || !L.text){ cap.innerHTML='<span style="color:#6f6552">'+
-      (s.era==='pre_collapse'?'before':'ten years later')+'</span>'; return; }
+      (BOHEMIA_CUTSCENES[CUT_PICK].scene.when || (s.era==='pre_collapse'?'before':'ten years later'))+'</span>'; return; }
   cap.innerHTML='<span style="color:#9a8a5e;font-size:11px;letter-spacing:1px">'+
     cutSpeakerName(L.speaker)+(L.draft
       ?' <span style="color:#6f6552">&middot; draft, edit in WORDS</span>'

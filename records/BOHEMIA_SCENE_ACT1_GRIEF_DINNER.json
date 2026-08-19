@@ -1,6 +1,7 @@
 {
  "id": "act1_grief_dinner",
  "title": "THE GRIEF DINNER",
+ "when": "the day after",
  "cites": "laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md - OPENING SEQUENCE CRYSTALLIZED beat 2 (THE GRIEF DINNER), plus THE TABLE IS THE THROUGHLINE AND IT STAYS SACRED and DEPRESSING / REAL CONVERSATIONS AS A PILLAR, both 7/19 Paolo, locked",
  "note": "THE SECOND CUTSCENE, AND IT COST ONE FILE. No new engine code, no new gate machinery, no hand-placed anything: the stager reads `place`, builds the room out of the walked world's own floorplan generator, furnishes it, seats whoever the beats place and times every line off its own text. That was the whole point of the 8/12 plumbing pass, and this is the proof rather than a promise.\n\nEVERY STRUCTURAL FACT HERE IS PAOLO'S, WRITTEN 7/19: 'THE GRIEF DINNER (next day, before the burial): the surviving family sits down to a real meal and a raw, genuinely sad conversation. People crying at the table. \"I miss them so much, I can't.\" \"I hate this.\" Bohemia commits to grief most games flinch from. This is the family-conversation mechanic's first and definitive beat.'\n\nTWO OF THE LINES ARE HIS OWN, VERBATIM, and they are tagged draft:false with a source - the first non-draft words in the game. No lane may edit them. The four around them are drafted attempts he can rewrite in the WORDS tab.\n\nWHAT THIS SCENE REFUSES TO DECIDE, AND IT IS THE HARD PART: WHO SURVIVED. It places only people whose survival is already ruled somewhere - the player, the mother ('it ends saving the mother', 7/19), and the older sibling (the CHARACTER lane's cast file: 'survives and becomes a co-founder'). THE FATHER IS NOT PLACED AND IS NOT DECLARED DEAD. His fate is unruled and this scene takes no position on it; if Paolo rules that he lives, it is ONE actor beat and nothing else changes.\n\nAND IT DOES NOT BUILD THE EMPTY CHAIR. 'MOTIF SEED: the sibling's EMPTY CHAIR persists at family meals' is [PENDING] in his own addendum. The room has more chairs than people because a room keeps its furniture - chairs belong to the room, bodies belong to the beats - which is a fact about seating and not a claim about a casualty. The motif is his to build when he wants it.\n\nSACRED TABLE (7/19): nothing bad happens AT the table. Nobody dies here, nothing is shown here. This is the after.",
  "place": {
@@ -175,6 +176,14 @@
      "applied": "the spine banked from Planescape is regret borne rather than undone. The last thing said at this table is a plan for the morning: the family carries it and keeps moving, which is the only answer the game is ever going to give."
     }
    ]
+  },
+  {
+   "kind": "handoff",
+   "id": "up_in_the_morning",
+   "to": "scene",
+   "scene": "act1_ridge_burial",
+   "returns": false,
+   "why": "*** THE PROMISE THE GAME DID NOT KEEP. *** The line directly above is the mother saying \"We go up in the morning\", and until now there was nothing to go up to: his law calls the opening sequence CRYSTALLIZED and lists three beats, and beat 3 (THE BURIAL ON THE RIDGE, \"tutorial ends here\") was the only one never built. This joins 2 to 3 so the authored opening is one unbroken chain, the same way the cold open hands off to the family-defense encounter. `returns:false` because his law ends the tutorial on the ridge -- nothing comes back here."
   },
   {
    "kind": "end",

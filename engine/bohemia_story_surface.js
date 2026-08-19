@@ -117,6 +117,18 @@
     /* the scene declares WHERE. It may carry `place`; a `set` beat may carry
        one; otherwise a residential living room, which is what "a house" means
        with nothing else said. */
+    /* *** A SCENE THIS SURFACE CANNOT DRAW MUST NOT BE DRAWN WRONG. ***
+       Everything below builds an INTERIOR: wall tiles, a floor, a baseboard, a
+       window, a table, and bodies posed sit-chair in seats derived from the
+       furniture. Handed the ridge burial -- three people standing outdoors over
+       a grave -- it silently generated the family's living room and sat them
+       down at dinner. Rendered and looked at: it reads as a bug, and it
+       misrepresents the most important beat in the opening.
+       So a scene declares `needsArt` and gets an HONEST EMPTY FRAME with the
+       missing set named on it. The words still play, in order, on the beat,
+       which is what the tab is for while art is outstanding. Drawing the wrong
+       room would have been the easy green. */
+    this.blank = this.scene.needsArt || null;
     var place = this.scene.place || null;
     (this.scene.beats || []).forEach(function (b) { if (!place && b.place && b.place.zone) place = b.place; });
     this.place = place || { zone: 'residential', role: 'living', seed: 7, w: 24, h: 16 };
@@ -236,6 +248,27 @@
     var c = this.cx, E = this.set.ERA[this.era], self = this, cam = this.cam;
     c.imageSmoothingEnabled = false;
     c.clearRect(0, 0, W, H);
+
+    /* THE HONEST EMPTY FRAME. No room, no furniture, no bodies posed at a table
+       that is not there. It says what is missing and whose it is, so the gap is
+       visible to the person who can close it instead of hidden behind a picture
+       of the wrong place. */
+    if (this.blank) {
+      c.fillStyle = '#100d0a'; c.fillRect(0, 0, W, H);
+      c.fillStyle = 'rgba(216,180,90,0.10)';
+      c.fillRect(0, Math.round(H * 0.62), W, Math.round(H * 0.38));
+      c.fillStyle = 'rgba(216,180,90,0.55)';
+      c.font = 'bold 11px ui-monospace, monospace';
+      c.textAlign = 'center';
+      c.fillText('NO SET ART YET', Math.round(W / 2), Math.round(H * 0.46));
+      c.fillStyle = 'rgba(216,180,90,0.34)';
+      c.font = '10px ui-monospace, monospace';
+      c.fillText(String(this.blank).toUpperCase(), Math.round(W / 2), Math.round(H * 0.52));
+      c.fillText('THE WORDS PLAY; THE PICTURE IS OUTSTANDING',
+        Math.round(W / 2), Math.round(H * 0.58));
+      c.textAlign = 'start';
+      return;
+    }
 
     /* WALL, FLOOR, BASEBOARD, all sized off the camera so any room works.
        Bigger tiles with alternate rows offset, or the repeat reads as

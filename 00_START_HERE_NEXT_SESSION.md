@@ -1,3 +1,70 @@
+PEOPLE (people-7h9sfy): 8/19 LATEST -- *** BEAT 3 OF HIS LOCKED OPENING EXISTED
+ONLY IN THE LAW. The burial on the ridge is built. TAB: CUTSCENE, third chip,
+THE BURIAL ON THE RIDGE. The picture is not there yet and the frame says so. ***
+
+His 7/19 law does not call the opening a sketch, it calls it CRYSTALLIZED and
+lists three beats: NIGHT RAID, GRIEF DINNER, BURIAL ON THE RIDGE ("tutorial ends
+here"). Scenes 1 and 2 shipped 8/9-8/11. Scene 3 was never built, and scene 2
+ends with the mother saying "We go up in the morning" with nothing to go up to.
+WORSE THAN MISSING, INVERTED: the vista already ships and already plays on the
+day 2 morning with NO grave and NO family in it, so the demo showed the player
+Bohemia's beauty completely unbound from the loss. His ruling is the opposite --
+"the first time you ever see Bohemia's beauty, you see it through tears, over a
+fresh grave... you can never take that view again without the grave in the
+foreground" -- and THE RIDGE = THE MENU / TITLE SCREEN is locked on top of it.
+
+SHIPPED (record: records/BOHEMIA_THE_BURIAL_ON_THE_RIDGE_8_19_26.md): 15 beats,
+5 drafted cited lines, 21 seconds. The valley reveal is SILENT for six beats,
+because his match-cut shows the whole apocalypse "without a word" and the valley
+gets the same respect. Grief arrives as labour, not a speech. Two small memories
+that are deliberately NOT the green-ones bit, since that ran its three instances
+and a fourth would cheapen the grief-dinner one. And the load-bearing line:
+"Everything we build down there, {sibling_lost} is up here looking at it" -- the
+first time anybody says the family will BUILD something, said over a grave, which
+turns the title screen into a promise somebody made out loud. The grief dinner
+hands off to it (returns:false, his law ends the tutorial there), so the authored
+opening is finally one unbroken chain.
+
+*** THE PICTURE WAS WRONG AND I ALMOST SHIPPED IT. READ THIS ONE. ***
+The cutscene surface builds an INTERIOR and only an interior: wall tiles, floor,
+baseboard, window, table, and bodies posed sit-chair in seats derived from the
+furniture. Handed an outdoor burial it DID NOT FAIL. It silently generated the
+family's living room and sat three people down at the dinner table for a burial
+on a hilltop. Every gate green. Caught by rendering it and looking at it.
+  A burial drawn as dinner is not a placeholder, it is a lie about the beat.
+  Drawing the wrong room would have been the easy green.
+So a scene now DECLARES what it cannot be drawn as (`needsArt`) and the surface
+REFUSES to draw it wrong, returning an honest frame: NO SET ART YET / RIDGE
+EXTERIOR, THE VALLEY BELOW, A FRESH GRAVE / THE WORDS PLAY; THE PICTURE IS
+OUTSTANDING. The captions still play in order on the beat, which is what the tab
+is for while art is owed, and the gap is now visible to whoever can close it.
+
+ALSO FIXED, same frame: the state caption was hardcoded to
+`pre_collapse ? "before" : "ten years later"`, so the morning after the raid was
+captioned "ten years later". A scene says `when` it is now.
+
+gates: SCENE 54 -> 69, mutation-tested three ways (break the chain -> 2 red; talk
+over the reveal -> 2 red; let the surface draw the wrong room -> 1 red).
+
+WHAT COMES NEXT, in order:
+  1. *** THE RIDGE EXTERIOR IS THE DEMO'S BIGGEST MISSING PICTURE AND IT IS
+     ART'S. *** The money shot, the title screen and the last frame of the
+     tutorial are all the same image, and none of them exists.
+  2. BIND THE SCENE TO THE REAL VISTA OVERLOOK so the burial and the vista are
+     one place rather than two views of the same valley. The vista's caller is
+     the day loop, which is RUN's, so this is a joint and not a solo.
+  3. *** FOR COMBAT, NOT TOUCHED BY THIS LANE: NOBODY IS BEHIND YOU IN THE FIGHT
+     YOU ARE TOLD TO DEFEND. *** COLD_OPEN.cast is [] and COLD_OPEN.place is
+     null, both marked [PENDING Paolo] since 8/8 -- but his 7/19 law rules both
+     ("defending the home room to room... a sibling is killed, it ends saving the
+     mother"), so that marker is STALE exactly the way the demo-scope banner was
+     until 8/14. There is nothing to lose in the encounter the whole opening is
+     built around losing somebody in. LEFT ALONE ON PURPOSE: combat shipped
+     encounter work the same day and it is their system.
+  4. THE TELL is authored, gated and still not on any surface
+     (BohemiaQuirk.tellFor(), all 22 shapes).
+  5. DEEDS AND STANDING are still not in the city at all. Boundary warning: the
+     rich deed sources on the talk card are the FACTIONS lane's sentinels.
 SOUND (sound-xk7pjp): 8/19 (n,o,p) LATEST -- *** THE MUSIC SHIPPED OFF, A SONG HE
 KILLED ON 7/8 WAS PLAYING IN THE STREETS, AND THE INSTRUMENT BRIDGE WAS WRONG IN
 FOUR WAYS. TABS: RUN (you hear it the second you tap in), MUSIC (the three new

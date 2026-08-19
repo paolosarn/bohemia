@@ -5215,6 +5215,55 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    run surface through the name-ask; drafts tagged | tone-zoning rides
    LIGHT=TERRITORY (comedy in the safe light, dread in the dark) — no new
    system | no (drafts, he edits live).
+0sc-RIDGE. [SHIPPED 8/19 - records/BOHEMIA_THE_BURIAL_ON_THE_RIDGE_8_19_26.md]
+   *** BEAT 3 OF HIS LOCKED OPENING EXISTED ONLY IN THE LAW. *** 7/19 calls the
+   sequence CRYSTALLIZED and lists three: NIGHT RAID, GRIEF DINNER, BURIAL ON THE
+   RIDGE ("tutorial ends here"). Scenes 1 and 2 shipped 8/9-8/11; scene 3 was
+   never built, and scene 2 ended with the mother saying "We go up in the
+   morning" with nothing to go up to. WORSE: the vista ships and plays on the day
+   2 morning with NO grave and NO family, so the demo showed Bohemia's beauty
+   completely unbound from the loss -- his thesis exactly backwards ("the first
+   time you ever see Bohemia's beauty, you see it through tears, over a fresh
+   grave... you can never take that view again without the grave in the
+   foreground"), and the ridge is also the locked MENU/TITLE SCREEN view.
+   SHIPPED: 15 beats, 5 drafted cited lines, 21s. The valley reveal is SILENT (6
+   beats, nobody talks over it -- his match-cut shows the apocalypse "without a
+   word" and the valley gets the same). Grief arrives as labour ("Ground's harder
+   than it looks up here." / "Then we take turns.") Two small memories that are
+   deliberately NOT the green-ones bit, since that ran its three and a fourth
+   would cheapen the grief-dinner one. And the load-bearing line: "Everything we
+   build down there, {sibling_lost} is up here looking at it" -- the first time
+   anybody says the family will BUILD something, said over a grave, which turns
+   the title screen into a promise. The grief dinner now hands off to it,
+   returns:false, so the authored opening is one unbroken chain.
+   *** THE PICTURE WAS WRONG AND I ALMOST SHIPPED IT. *** The cutscene surface
+   builds an INTERIOR only -- walls, floor, baseboard, window, table, bodies
+   posed sit-chair. Handed an outdoor burial it did not fail: it silently
+   generated the family's living room and SAT THREE PEOPLE DOWN AT THE DINNER
+   TABLE for a burial on a hilltop, with every gate green. Caught by rendering
+   and looking. A scene now DECLARES what it cannot be drawn as and the surface
+   refuses to draw it wrong, returning an honest frame that reads NO SET ART YET
+   / RIDGE EXTERIOR, THE VALLEY BELOW, A FRESH GRAVE / THE WORDS PLAY; THE
+   PICTURE IS OUTSTANDING. The words still play on the beat.
+   ALSO: the state caption was hardcoded pre_collapse ? "before" : "ten years
+   later", so the morning after the raid was captioned "ten years later". A scene
+   says `when` it is now.
+   | gate: SCENE 54 -> 69, mutation-tested three ways; rendered and looked at
+   | father's presence on the hill NOT decided (DIRECT tab), no casualty authored
+   | no (drafts).
+   *** THE RIDGE EXTERIOR IS NOW THE DEMO'S BIGGEST MISSING PICTURE AND IT IS
+   ART'S: *** money shot, title screen and last frame of the tutorial are all the
+   same image. Second joint, with RUN: bind this scene to the real vista overlook
+   so the burial and the vista are one place rather than two views of the valley.
+   AND A FINDING THIS LANE DID NOT TOUCH, FOR COMBAT: COLD_OPEN.cast is [] and
+   COLD_OPEN.place is null, both marked [PENDING Paolo] since 8/8 -- but his 7/19
+   law rules both ("defending the home room to room... it ends saving the
+   mother"), so that marker is stale exactly the way the demo-scope banner was.
+   NOBODY IS BEHIND YOU in the fight you are told to defend, which means there is
+   nothing to lose in the encounter the whole opening is built around losing
+   somebody in. Not touched because COMBAT shipped encounter work the same day
+   and it is their system.
+
 0sc-ATTACH. [SHIPPED 8/19 - records/BOHEMIA_SHE_IS_IN_THE_ROOM_TONIGHT_8_19_26.md]
    *** THE HALF OF 0sc's 8/13 AMENDMENT THAT IS WORDS AND STAGING. *** That
    amendment asks for "name and one quirk surfaced before the fight

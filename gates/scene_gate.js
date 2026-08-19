@@ -36,6 +36,7 @@ let pass = 0, fail = 0;
 const ok = (n, c) => { c ? pass++ : (fail++, console.log('  FAIL: ' + n)); };
 
 const S = require('../engine/bohemia_scene.js');
+const LAWS_IDX = JSON.parse(fs.readFileSync('records/BOHEMIA_QUESTBOOK_LAW_INDEX.json', 'utf8')).laws;
 const RT = require('../engine/bohemia_quest_runtime.js');
 const BQ = require('../engine/bohemia_bq.js');
 const parseBQ = BQ.parse || Object.values(BQ).find(v => typeof v === 'function');
@@ -271,6 +272,90 @@ ok('the story surface RESOLVES the line rather than printing the authored token'
   /fillNames\(b\.text/.test(surf) && !/text: b\.text \|\| ''/.test(surf));
 ok('and it takes the family\'s names from FAMILY_CAST, owning none itself',
   /FAMILY_CAST/.test(surf) && /survivesIf/.test(surf));
+
+/* ---- 3d. BEAT 3 OF HIS LOCKED OPENING: THE BURIAL ON THE RIDGE (8/19) -----
+   His 7/19 law calls the sequence CRYSTALLIZED and lists three beats: NIGHT
+   RAID, THE GRIEF DINNER, THE BURIAL ON THE RIDGE ("tutorial ends here").
+   Scenes 1 and 2 shipped 8/9-8/11. Beat 3 was never built, and scene 2 ended
+   with the mother saying "We go up in the morning" -- a promise the game had
+   nothing to keep. Meanwhile the vista shipped and plays with NO grave and NO
+   family, which is his thesis exactly backwards: "the first time you ever see
+   Bohemia's beauty, you see it through tears, over a fresh grave." */
+const RIDGE_PATH = 'records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json';
+ok('beat 3 of the locked opening sequence exists at all', fs.existsSync(RIDGE_PATH));
+if (fs.existsSync(RIDGE_PATH)) {
+  const ridge = JSON.parse(fs.readFileSync(RIDGE_PATH, 'utf8'));
+  ok('the burial is a legal scene', S.validate(ridge).length === 0);
+  const rCite = (ridge.cites || '').match(/laws\/[A-Za-z0-9_./]+\.md/);
+  ok('and it cites the ruling it was authored from, on disk',
+    !!rCite && fs.existsSync(rCite[0]));
+
+  /* THE CHAIN. A scene nothing leads to is the vista's own bug wearing a
+     different hat: built, armed, zero callers. */
+  const grief2 = JSON.parse(fs.readFileSync(GRIEF_PATH, 'utf8'));
+  const link = (grief2.beats || []).find(b => b.kind === 'handoff' && b.scene === ridge.id);
+  ok('THE GRIEF DINNER LEADS TO IT — the opening is one unbroken chain, 1 -> 2 -> 3',
+    !!link);
+  ok('and the tutorial ends there rather than coming back (his law: "tutorial ends here")',
+    !!link && link.returns === false);
+
+  /* THE REVEAL IS WORDLESS. His match-cut shows the apocalypse "without a word";
+     the valley gets the same. A line over the reveal is the game telling the
+     player how to feel about the view. */
+  const rb = ridge.beats;
+  const camAt = rb.findIndex(b => b.kind === 'camera');
+  const firstSay = rb.findIndex(b => b.kind === 'say');
+  ok('the full-scope valley reveal exists as its own framing beat', camAt >= 0);
+  ok('and NOBODY SPEAKS OVER IT — the reveal is silent, then people talk',
+    camAt >= 0 && firstSay > camAt &&
+    rb.slice(camAt, firstSay).some(b => b.kind === 'wait' && b.beats >= 4));
+
+  /* THE RULE OF THREE IS SPENT. The green-ones bit ran plant/repeat/break across
+     the first two scenes. A fourth instance here would cheapen the one that
+     lands at the grief dinner. */
+  ok('the green-ones bit is NOT called back a fourth time — three was the joke',
+    !rb.some(b => b.kind === 'say' && /green ones/i.test(b.text || '')));
+
+  /* WORDS: drafted, cited, no filler, spanning the corpus. */
+  const rSays = rb.filter(b => b.kind === 'say');
+  ok('the burial speaks (' + rSays.length + ' lines), every one a tagged draft',
+    rSays.length >= 3 && rSays.every(b => b.text && b.draft === true));
+  const rStudies = {}, rMasters = {}, rBad = [];
+  rSays.forEach(b => {
+    if (!b.study || b.study.length < 2) { rBad.push(b.id + ' (<2)'); return; }
+    b.study.forEach(c => {
+      const e = LAWS_IDX[c.id];
+      if (!e) { rBad.push(b.id + ' -> ' + c.id + ' unresolved'); return; }
+      if (String(e.title).trim() !== String(c.title).trim()) rBad.push(b.id + ' -> ' + c.id + ' not verbatim');
+      if (String(c.applied || '').trim().length < 40) rBad.push(b.id + ' -> ' + c.id + ' thin');
+      rStudies[e.study] = 1; rMasters[e.kind] = 1;
+    });
+  });
+  ok('every burial line cites the catalogue, verbatim, applied (' +
+    Object.keys(rStudies).length + ' studies, ' + Object.keys(rMasters).length + ' masters)',
+    rBad.length === 0 && Object.keys(rStudies).length >= 2 && Object.keys(rMasters).length >= 2,
+    rBad.slice(0, 3).join(' | '));
+
+  /* STRUCTURE IS STILL HIS. */
+  ok('the burial decides no casualty either',
+    !rb.some(b => b.dies === true || b.casualty || b.kills || (b.kind === 'actor' && b.state === 'dead')));
+  ok('and it does not resolve whether the father is on that hill — his call, and ' +
+    'the DIRECT tab is where it gets made',
+    !rb.some(b => b.kind === 'actor' && b.actor === 'father'));
+  ok('her name comes from the same one place (the token, not a copy)',
+    rb.some(b => b.kind === 'say' && /\{sibling_lost\}/.test(b.text || '')) && !ridge.cast);
+
+  /* *** AND IT MUST NOT BE DRAWN WRONG. *** The cutscene surface builds an
+     INTERIOR -- walls, floor, baseboard, window, table, bodies posed sit-chair.
+     Handed an outdoor burial it silently generated the family's living room and
+     sat three people down at dinner. Rendered and looked at, which is the only
+     way that was ever going to be caught. */
+  ok('the burial DECLARES that its set art does not exist yet',
+    typeof ridge.needsArt === 'string' && ridge.needsArt.length > 8);
+  const surf2 = fs.readFileSync('engine/bohemia_story_surface.js', 'utf8');
+  ok('and the surface HONOURS that with an empty frame instead of the wrong room',
+    /this\.blank = this\.scene\.needsArt/.test(surf2) && /NO SET ART YET/.test(surf2));
+}
 
 /* ---- 4. IT PLAYS END TO END ----------------------------------------------- */
 const player = new S.Scene(cold);

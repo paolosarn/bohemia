@@ -3,10 +3,10 @@
   "what": "Every authored player-facing line in Bohemia, with the questbook catalogue laws each was written from.",
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
-  "sources": 34,
-  "lines": 1903,
-  "cited": 1857,
-  "fingerprint": "70123915b6a0916b",
+  "sources": 35,
+  "lines": 1908,
+  "cited": 1862,
+  "fingerprint": "04d7e60eabdc84ea",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -46318,6 +46318,139 @@
      ],
      "citeLevel": "line",
      "title": "THE GRIEF DINNER"
+    }
+   ]
+  },
+  {
+   "src": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json",
+   "title": "THE BURIAL ON THE RIDGE",
+   "kind": "scene",
+   "cites": [],
+   "lines": [
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json#ground_is_hard",
+     "src": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json",
+     "beat": "ground_is_hard",
+     "speaker": "sibling_older",
+     "node": "ground_is_hard",
+     "text": "Ground's harder than it looks up here.",
+     "draft": true,
+     "why": "GRIEF ARRIVES AS LABOUR. The first words after the valley are about digging, because that is what people actually say, and because the alternative is a speech. It also tells you they are doing this themselves, with hands, which is the whole tone of the game. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q080.W8",
+       "title": "THE THESIS IS PROVED BY RESTRAINT, NOT A SPEECH",
+       "applied": "the corpus's example disproves a god's claim about humanity SILENTLY, by what people do rather than what they announce. The reveal of the valley is followed by a complaint about soil. Nobody in this scene ever says what the view means, and that is why it means something."
+      },
+      {
+       "id": "Q035.W9",
+       "title": "GRIEF + GUILT AS THE ENGINE (not gore)",
+       "applied": "\"psychological, not splatter; it haunts because it is HUMAN.\" There is no body on screen and no wound described anywhere in this scene. There is a hole being dug by hand in hard ground, which is the most physical grief gets to be here."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE BURIAL ON THE RIDGE"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json#we_take_turns",
+     "src": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json",
+     "beat": "we_take_turns",
+     "speaker": "mother",
+     "node": "we_take_turns",
+     "text": "Then we take turns.",
+     "draft": true,
+     "why": "four words, and they are the founding of the dynasty. She does not comfort anybody, she organises them. That is who survives an apocalypse and it is who starts a city. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q073.W6",
+       "title": "THE TURN IS A QUIET CONVERSATION",
+       "applied": "\"a nun telling him he was kind is the axis of a 60-hour game, not a set-piece.\" The whole hundred-year city-builder turns on a woman on a hill saying they will take turns with a shovel, and the scene never marks it as important."
+      },
+      {
+       "id": "Q031.X2",
+       "title": "STRESS/BLEAKNESS IS RELENTLESS",
+       "applied": "the corpus files unbroken bleakness as a FLAW and asks for texture and small warmth so the grimness is endurable. The warmth in this scene is not comfort, it is competence: somebody is still making a plan."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE BURIAL ON THE RIDGE"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json#she_hated_the_walk",
+     "src": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json",
+     "beat": "she_hated_the_walk",
+     "speaker": "sibling_older",
+     "node": "she_hated_the_walk",
+     "text": "Halfway up, {sibling_lost} would have sat down and refused to move.",
+     "draft": true,
+     "why": "THE FIRST OF TWO SMALL MEMORIES, and deliberately NOT the green-ones bit -- that ran its three instances and a fourth would cheapen the one at the grief dinner. This is a different ordinary thing about her, which is what having known somebody sounds like. The name is a token; FAMILY_CAST fills it, because the lost sibling's gender flips with the player (7/19). NO PRONOUNS in either memory line, on purpose. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q063.W2",
+       "title": "ATTACHMENT FROM MUNDANE INTIMACY",
+       "applied": "the bond is built and now spent through quiet ordinary detail. What survives of a person here is that they were annoying on hills, which is more of a person than any eulogy the scene could write."
+      },
+      {
+       "id": "Q010.W8",
+       "title": "FORESHADOW-IN-HINDSIGHT",
+       "applied": "\"the quest plays differently in memory than in the moment.\" The cold open spent three lines making her a specific irritating human so that one line about a walk has somebody in it. This is the interest being collected."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE BURIAL ON THE RIDGE"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json#you_always_did",
+     "src": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json",
+     "beat": "you_always_did",
+     "speaker": "mother",
+     "node": "you_always_did",
+     "text": "And you'd have carried {sibling_lost} the rest of the way. You always did.",
+     "draft": true,
+     "why": "the second memory, and it is about the SURVIVING sibling rather than the dead one -- the player learns something new about the person who is going to be with them for the whole game, in the same breath as losing the other. Said flatly, not fondly. EDIT FREELY.",
+     "cites": [
+      {
+       "id": "Q043.P7",
+       "title": "W9 (the permanent pre-game/inter-generational loss",
+       "applied": "the corpus uses permanent loss for instant stakes in a game about a bloodline. This line is the bloodline continuing: one child is in the ground and the mother is telling the other one who they have always been."
+      },
+      {
+       "id": "Q073.W6",
+       "title": "THE TURN IS A QUIET CONVERSATION",
+       "applied": "the small scene that turns everything. The surviving sibling becomes a co-founder of the city, and the only characterisation the opening ever gives them is that they used to carry somebody up a hill."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE BURIAL ON THE RIDGE"
+    },
+    {
+     "kind": "say",
+     "id": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json#looking_at_it",
+     "src": "records/BOHEMIA_SCENE_ACT1_RIDGE_BURIAL.json",
+     "beat": "looking_at_it",
+     "speaker": "mother",
+     "node": "looking_at_it",
+     "text": "Everything we build down there, {sibling_lost} is up here looking at it.",
+     "draft": true,
+     "why": "*** THE RULING, MADE INTO ONE SENTENCE. *** 7/19: \"the first time you ever see Bohemia's beauty, you see it through tears, over a fresh grave. The city's beauty is bound to loss from the first frame, and you can never take that view again without the grave in the foreground.\" And: THE RIDGE = THE MENU / TITLE SCREEN, forever, upgrading per act. This line is the hinge between the two: it is the first time anybody says the family is going to BUILD something, it is said over a grave, and it makes the title screen a promise somebody made out loud. EDIT FREELY, but this is the load-bearing one.",
+     "cites": [
+      {
+       "id": "Q023.W4",
+       "title": "ENVIRONMENTAL STORYTELLING",
+       "applied": "\"the space testifies.\" The corpus wants places to narrate wordlessly, and this line does not describe the valley at all -- it assigns it a witness. Every future return to this overlook, and every boot of the game, is the space testifying because of one sentence said here."
+      },
+      {
+       "id": "Q080.W8",
+       "title": "THE THESIS IS PROVED BY RESTRAINT, NOT A SPEECH",
+       "applied": "the game's entire premise arrives as a mother saying something small to her remaining children on a hill. No music cue is asked for, no camera move, nobody agrees with her, and the scene ends four beats later."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "THE BURIAL ON THE RIDGE"
     }
    ]
   },
