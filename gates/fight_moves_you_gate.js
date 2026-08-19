@@ -218,6 +218,15 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
     const chase = (ortho, a, dir) => {
       BohemiaArena.set(a); setupCombat();
       G.e.length = 0; G.hold = null; G.over = false;
+      /* V165: THE CHASE RIG RUNS ON A CLEAR FIELD, and that is what makes it an
+         experiment rather than an anecdote. This claim is about GEOMETRY --
+         four neighbours against eight -- so the two arms must differ by the
+         ortho flag and NOTHING else. Leaving the arena's pillars in injects
+         V165's line of sight into a V164 measurement: a chaser who loses sight
+         behind a rock walks to a memory and then parks, both arms park at
+         different times, and the number stops being about diagonals at all.
+         Vision has its own checks below, in a real arena, with the real roster. */
+      G.pillars = [];
       const E = JSON.parse(JSON.stringify(ARCH.bot)); E.ortho = ortho;
       const e = { i:0, E, n:'T', hp:160, max:160, arch:'bot', dead:false, melee:false,
                   acq:9, stun:0, supp:0, lvl:0, gcov:0, ea:0, edist:START };
@@ -227,6 +236,12 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       for (let k = 0; k < STEPS; k++) {
         worldShift(dir[0], dir[1]);
         G.mTurn = (G.mTurn||0) + 1; e._movedTurn = -1;
+        /* V165: the shipped turn resolves VISION and then presses, so a harness
+           that calls pressAI alone is simulating a turn the game never takes --
+           the chaser would be permanently blind with no memory and would hold.
+           Same class as the bug where this file forgot to advance G.mTurn and
+           nearly reported that enemies stop moving after turn one. */
+        try { visionTick(); } catch (x) {}
         const was = cellOf(e);
         try { pressAI(); } catch (x) {}
         const now = cellOf(e);
@@ -257,6 +272,7 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
       for (let t = 0; t < 20; t++) {
         const was = (G.e||[]).map(e => e && !e.dead ? cellOf(e) : null);
         G.mTurn = (G.mTurn||0) + 1;
+        try { visionTick(); } catch (x) {}   /* V165: the shipped turn order */
         try { pressAI(); } catch (x) {}
         (G.e||[]).forEach((e, i) => {
           if (!e || e.dead || !was[i] || !(e.E && e.E.ortho)) return;
@@ -305,6 +321,132 @@ const ok = (n, c) => { c ? (pass++, console.log('  PASS ' + n)) : (fail++, conso
   ok('V164 AND THE CONTROL MOVES BOTH WAYS -- if the fast arm had frozen too, the flag would not be what did it ('
     + asym.dO + ' diagonal steps by the slow arm across ' + asym.n + ' chases)',
     asym.mE > 0 && asym.dO === 0);
+
+  /* ===== V165 VISION IS THE MASTER SWITCH, MEASURED ON THE REAL FIGHT ====
+     RF4-52 machine 4. The lab gate pins that ONE variable exists and that five
+     systems read it. What has to be measured here is that it actually DOES
+     something in a fight: that men really do go blind, that the memory really
+     stays on its tile, that a blind man really walks to it, and that the shout
+     really carries. Each claim gets its own CONTROL, because "he moved" and "he
+     moved BECAUSE of this" are different sentences. */
+  const vis = await frame.evaluate(() => {
+    const R = {};
+    const mk = (cx, cy) => { const E = JSON.parse(JSON.stringify(ARCH.human));
+      const e = { i: G.e.length, E, n: 'T', hp: 60, max: 60, arch: 'human', dead: false,
+                  melee: false, acq: 0, stun: 0, supp: 0, lvl: 0, gcov: 0, ea: 0, edist: 1 };
+      putCell(e, cx, cy); G.e.push(e); return e; };
+    const N0 = G.numEnemies;
+
+    /* 1. IS ANYBODY EVER BLIND? A switch nobody is ever on the wrong side of is
+          a switch that does nothing. And the bead must be OFF for those men. */
+    let bodies = 0, blind = 0, blindWithBead = 0;
+    for (let a = 1; a <= 40; a++) {
+      BohemiaArena.set(a); setupCombat();
+      try { tickTurnEnd(); } catch (x) {}
+      for (const e of (G.e || [])) {
+        if (!e || e.dead || e.melee) continue;
+        bodies++;
+        if (!seesMe(e)) { blind++; if ((e.acq || 0) > 0) blindWithBead++; }
+      }
+    }
+    R.bell = { bodies, blind, blindWithBead };
+
+    /* 2. DOES THE MEMORY STAY ON ITS TILE? Walk three tiles; the remembered spot
+          must end three tiles behind. A memory that followed would read 0. */
+    BohemiaArena.set(3); setupCombat();
+    { const e = (G.e || []).find(x => x && !x.dead && !x.melee);
+      markSeen(e);
+      const b4 = pXY(e.lkp);
+      for (let k = 0; k < 3; k++) worldShift(1, 0);
+      const af = pXY(e.lkp);
+      R.drift = +Math.hypot(af[0] - b4[0], af[1] - b4[1]).toFixed(2); }
+
+    /* 3. DOES A BLIND MAN WALK TO IT -- and does the SAME man with no memory
+          stay put? Blind by being past the end of his own eyes, so the claim
+          does not depend on where the arena happened to put its rocks. */
+    const hunt = (withMemory) => {
+      BohemiaArena.set(5); setupCombat();
+      G.e.length = 0; G.hold = null; G.over = false; G.pillars = [];
+      const e = mk(20, 0); G.numEnemies = 1;
+      e.lkp = withMemory ? { ea: Math.atan2(-8, 20), edist: Math.hypot(20, -8), lvl: 0 } : null;
+      const gap = () => { if (!e.lkp) return 0; const k = pXY(e.lkp), c = cellOf(e);
+                          return Math.hypot(k[0] - c[0], k[1] - c[1]); };
+      const d0 = gap(); let moves = 0;
+      for (let t = 0; t < 10; t++) {
+        G.mTurn = (G.mTurn || 0) + 1; e._movedTurn = -1;
+        const was = cellOf(e); try { pressAI(); } catch (x) {}
+        const now = cellOf(e);
+        if (now[0] !== was[0] || now[1] !== was[1]) moves++;
+      }
+      return { blind: !seesMe(e), d0: +d0.toFixed(2), d1: +gap().toFixed(2), moves };
+    };
+    R.hunt = hunt(true); R.noMemory = hunt(false);
+
+    /* 4. DOES THE SHOUT CARRY -- and does it stop when the mouth is shut? */
+    BohemiaArena.set(7); setupCombat();
+    { G.e.length = 0; G.pillars = []; G.over = false;
+      const seer = mk(10, 0), heard = mk(18, 0), deaf = mk(40, 0);
+      G.numEnemies = 3;
+      for (const e of G.e) e.lkp = null;
+      visionTick();
+      R.shout = { seer: seesMe(seer), heardSees: seesMe(heard), deafSees: seesMe(deaf),
+                  heardTold: !!heard.lkp, deafTold: !!deaf.lkp };
+      for (const e of G.e) e.lkp = null;
+      seer.dead = true; visionTick();
+      R.shoutDead = { heardTold: !!heard.lkp }; }
+
+    /* 5. THE 3-5 SECOND RUSH: every bead drops on a sprint, line or no line */
+    BohemiaArena.set(9); setupCombat();
+    { /* ON A BARE FIELD, and that is the whole test. With the arena's rocks left
+         in, the step that sprints also breaks lines the ordinary V24 way, so
+         deleting the sprint rule entirely still measured 0 beads left and this
+         check passed a build that did not have the feature in it. Caught by
+         mutation testing, which is the only reason this line exists. */
+      G.pillars = [];
+      for (const e of G.e) if (e && !e.dead) e.acq = 9;
+      const guns = G.e.filter(e => e && !e.dead && !e.melee);
+      const held = guns.filter(e => acquired(e)).length;
+      G.stam = 3; G.sprintArm = true; G.phase = 'cover';
+      try { doMove(2); } catch (x) {}
+      R.sprint = { held, after: guns.filter(e => acquired(e)).length }; }
+
+    G.numEnemies = N0;
+    return R;
+  });
+
+  console.log('  at the bell across 40 arenas: ' + vis.bell.blind + ' of ' + vis.bell.bodies
+    + ' gunmen cannot see him');
+
+  ok('V165 MEN REALLY DO GO BLIND, and it is not a rare branch: ' + vis.bell.blind + ' of '
+    + vis.bell.bodies + ' gunmen across 40 arenas cannot see him at the bell. A switch nobody is ever on the wrong side of is a switch that does nothing',
+    vis.bell.blind > vis.bell.bodies * 0.15 && vis.bell.blind < vis.bell.bodies * 0.95);
+
+  ok('V165 AND NOT ONE OF THEM IS HOLDING A BEAD (' + vis.bell.blindWithBead
+    + ' with a red line while blind). This is the spec\'s headline: a wall does not make the guns miss, it turns them off',
+    vis.bell.blindWithBead === 0);
+
+  ok('V165 THE MEMORY STAYS ON ITS TILE: three tiles of walking put it ' + vis.drift
+    + ' tiles behind him. A memory that travelled with him would read 0.00 and the whole mechanic would be a no-op measuring green',
+    vis.drift >= 2.9 && vis.drift <= 3.1);
+
+  ok('V165 A BLIND MAN WALKS TO WHERE HE LAST SAW YOU: gap ' + vis.hunt.d0 + ' -> '
+    + vis.hunt.d1 + ' tiles over 10 turns, stepping ' + vis.hunt.moves + ' of them',
+    vis.hunt.blind && vis.hunt.d1 <= 1.5 && vis.hunt.moves >= 5);
+
+  ok('V165 AND THE CONTROL SAYS IT IS THE MEMORY DOING IT, not blindness in general: the SAME blind man with nothing remembered takes '
+    + vis.noMemory.moves + ' steps in 10 turns. A man who has never seen you has nowhere to be',
+    vis.noMemory.blind && vis.noMemory.moves === 0);
+
+  ok('V165 THE SHOUT CARRIES: a man 18 tiles out who cannot see him is told anyway by the one who can, and a man 40 tiles out is told nothing',
+    vis.shout.seer && !vis.shout.heardSees && vis.shout.heardTold
+    && !vis.shout.deafSees && !vis.shout.deafTold);
+
+  ok('V165 AND KILLING THE MOUTH SHUTS IT: with the only man who can see him dead, the man 18 tiles out is told nothing. That is what makes the one with eyes on you worth shooting FIRST',
+    vis.shoutDead.heardTold === false);
+
+  ok('V165 A SPRINT DROPS EVERY BEAD (' + vis.sprint.held + ' held -> ' + vis.sprint.after
+    + '): the 3-5 second rush, which is the realistic form of the capture\'s "enemies never spot a sprinting player" -- they are not blinded, you were simply only up for less time than acquiring takes',
+    vis.sprint.held > 0 && vis.sprint.after === 0);
 
   ok('no page errors while playing ' + (s.n + m.n) + ' fights', errors.length === 0);
   if (errors.length) console.log('    ' + errors.slice(0, 3).join('\n    '));

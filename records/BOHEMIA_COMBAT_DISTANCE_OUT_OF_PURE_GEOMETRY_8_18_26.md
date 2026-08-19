@@ -186,3 +186,32 @@ for one.
 "Liquids block sprinting and movement abilities" is the terrain half of this same
 spec row. Terrain properties are WORLD's system by the same law's section 6.
 Flagged, not built.
+
+---
+
+## AMENDED 8/19 BY V165: THE EXPERIMENT WAS NOISIER THAN I REPORTED
+
+Building machine 4 (vision) exposed a flaw in the measurement above. The chase rig
+ran on arenas **with their rocks left in**. That was harmless while nothing was
+gated on line of sight; the moment vision existed, a chaser could lose sight
+behind a pillar, walk to a remembered tile and park — so the two arms parked at
+different times and "distance manufactured by geometry" stopped being about
+diagonals at all.
+
+This claim is about GEOMETRY, so its two arms must differ by the ortho flag and
+NOTHING else. The rig runs on a clear field now, and the corrected numbers are
+better as well as cleaner:
+
+| | as shipped 8/18 | corrected |
+|---|---|---|
+| distance manufactured | 2.28 tiles | **3.59 tiles** |
+| trials where the slow one lost ground | 71 of 96 | **96 of 96** |
+| steps taken, slow arm vs fast arm | 6.1 vs 6.2 of 8 | **7.3 vs 7.3 of 8** |
+
+**No shipped code changed.** The feature is what it was; the ruler is a controlled
+experiment instead of a noisy one. The real-arena arm — real roster, real rocks, a
+flagged body never landing on a diagonal — is untouched and still runs as the
+ecological check.
+
+Filed here rather than only in the V165 record because a number stated in a record
+is a claim, and this one was measured through more noise than I said it was.

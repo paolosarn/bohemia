@@ -242,7 +242,11 @@ ok('STREET FLOOR: world-anchored tile board with median + lane markings (V94: th
    the player touches is not evidence. Second time this week; the giants first. */
 ok('V141 RANGE IS A FILTER ON WHO YOU CAN FIGHT, AND IT IS SYMMETRIC: my reach bounds my TARGETS (modePool), his reach bounds his THREAT (exposedToMe, posExposed). Those three predicates decide the whole fight and not one of them knew range existed',
   /const _inRange=a=>a\.filter\(e=>inMyRange\(e\)\);/.test(demo) &&
-  /function exposedToMe\(\)\{[^}]*inHisRange\(e\)\)/.test(demo) &&
+  /* V165 RE-POINTED: exposedToMe now carries the vision gate too, so the reach
+     test is no longer the last thing on the line. The CLAIM is unchanged and is
+     still that his reach bounds his threat -- what moved is where the closing
+     bracket sits. */
+  /function exposedToMe\(\)\{[^}]*inHisRange\(e\)/.test(demo) &&
   /function posExposed\(\)\{[^}]*inHisRange\(e\)\)/.test(demo));
 
 ok('V141 AND A BLOCKED SHOT EXPLAINS ITSELF: an unresponsive button is a bug to the person holding the phone however correct the rule behind it is. The button reads OUT OF RANGE, and popping is refused with the only two numbers that matter -- how far the nearest man is and how far this gun goes',
@@ -4593,6 +4597,82 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
       spender.filter((v, i) => i > 0 && v > spender[i - 1]).length > 0);
   }
 
+/* ===== V165 VISION IS THE MASTER SWITCH (RF4-52, machine 4) ======
+   "Pick ONE variable that as many enemy systems as possible depend on. Then
+    give the player tools to control that variable. You get combinatorial depth
+    without writing combinatorial content."
+   The BEHAVIOUR is measured on the real fight by fight_moves_you_gate. What is
+   pinned here is the thing that makes it worth anything: that it really is ONE
+   variable, that FIVE systems read it, and that NOTHING computes its own. */
+  ok('V165 THERE IS ONE VARIABLE AND IT IS A FUNCTION, not a flag anybody can set: seesMe(e) asks the same four questions every time -- is he able to look, is he on my deck, is he inside the end of his own eyes, and is there stone in the way',
+    /function seesMe\(e\)\{/.test(demo) &&
+    /if\(\(e\.lvl\|0\)!==myLvl\(\)\)return false;/.test(demo) &&
+    /if\(\(e\.edist\|\|0\)>SIGHT_TILES\)return false;/.test(demo) &&
+    /return !myConcealAgainst\(e\.ea,e\.edist,e\.lvl\); \}/.test(demo));
+
+  { /* FIVE SYSTEMS, COUNTED. The spec's whole argument is the FAN-OUT -- one
+       wall turning off many things at once -- so a check that only proved the
+       function exists would be proving the cheapest part. Each of these is a
+       different decision site in the file, and each reads the ONE variable. */
+    const sites = [
+      ['acquisition, the two-turn red line', /\(peeking\(e\)\|\|firing\(e\)\)&&seesMe\(e\);/],
+      ['ranged fire, the volley pool',       /function exposedToMe\(\)\{[^}]*&&seesMe\(e\)\)/],
+      ['the press, where a man walks',       /const _aim=seesMe\(e\)\?null:knownXY\(e\);/],
+      ['cover seek, running for stone',      /if\(!seesMe\(e\)\)continue;/],
+      ['the shout, telling the others',      /if\(seesMe\(e\)\)\{ markSeen\(e\); seers\.push\(e\); \}/],
+    ];
+    const missing = sites.filter(s => !s[1].test(demo)).map(s => s[0]);
+    ok('V165 AND FIVE SEPARATE ENEMY SYSTEMS READ IT -- ' + sites.map(s => s[0]).join('; ')
+      + (missing.length ? '   MISSING: ' + missing.join(', ') : ''),
+      missing.length === 0);
+  }
+
+  ok('V165 AND NOBODY ROLLS THEIR OWN. A second copy of "can he see me" is how one variable quietly becomes five that disagree, which is the exact failure the spec exists to prevent',
+    (demo.match(/myConcealAgainst\(e\.ea,e\.edist,e\.lvl\)/g) || []).length === 1);
+
+  ok('V165 THE MEMORY IS WORLD STATE, carried by worldShift beside the pillars, the blood and the way out. V137 already wrote down why in this same file: a thing that moves WITH you is your own position wearing a disguise, and an LKP like that is a no-op that measures perfectly green',
+    /for\(const e of \(G\.e\|\|\[\]\)\)if\(e&&e\.lkp\)mv\(e\.lkp,0\.02\);/.test(demo) &&
+    /function markSeen\(e\)\{/.test(demo));
+
+  ok('V165 SIGHT BEATS MEMORY, MEMORY BEATS NOTHING: a man who can see you presses at YOU, a man who cannot presses at where he last saw you, and a man who has never seen you holds his ground instead of wandering the lot',
+    /if\(seesMe\(e\)\)return \[0,0\];/.test(demo) &&
+    /if\(e&&e\.lkp\)return pXY\(e\.lkp\);/.test(demo) &&
+    /if\(!seesMe\(e\)&&!_aim\)continue;/.test(demo));
+
+  ok('V165 AND A BLIND MAN SCORES A TILE BY EXACTLY ONE THING -- how much closer it puts him to that memory. An angle on you, a standoff from you and a rock that covers you from him are all terms about a man he can SEE, and not one of them means anything when he does not know where you are',
+    /if\(aim\)return -PRESS_PULL\*Math\.hypot\(x-aim\[0\],y-aim\[1\]\);/.test(demo));
+
+  ok('V165 THE SEARCHING STANDOFF IS REUSED, NOT INVENTED: at PRESS_STANDOFF 3.2 a searching man would stop three tiles short of the tile he is walking to and circle it forever, so he uses HOLD_PASS -- V137\'s own number for a man running an objective rather than shopping for a firing angle',
+    /const standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+    !/const SEARCH_STANDOFF=/.test(demo));
+
+  ok('V165 VISION RESOLVES BEFORE THE BEAD, because the bead reads it. Run it after and every man on the board spends his turn acting on last turn\'s eyes',
+    demo.indexOf('try{ visionTick(); }catch(_e){}') < demo.indexOf('const bead=e.stun<=0') &&
+    demo.indexOf('try{ visionTick(); }catch(_e){}') > 0);
+
+  { /* THE 3-5 SECOND RUSH, AND THE ONE PLACE THE CAPTURE WAS NOT IMPORTED.
+       "Enemies never spot a sprinting player at all" is backwards for a game of
+       guns -- movement is the single thing most likely to get you SEEN. The
+       mechanic underneath it is real: the 3-5 second rush is the US Army's
+       individual movement technique, and the window is that size because it is
+       SHORTER THAN ACQUIRING TAKES. So the sprint does not blind anybody. It
+       means you were only up for less time than a bead needs, which lands
+       exactly on the two-turn red line this game has had since 7/19. */
+    ok('V165 A SPRINT DROPS EVERY BEAD, line or no line -- the 3-5 second rush, which is the REALISTIC form of the capture\'s "enemies never spot a sprinting player" and reaches the same outcome through a mechanism that is true',
+      /if\(_sprinting\)\{ if\(acquired\(e2\)\)_broke\+\+; e2\.acq=0; continue; \}/.test(demo) &&
+      /3-5 SECOND RUSH/.test(demo));
+    ok('V165 AND WALKING IS STILL NOT SPRINTING: a plain step only breaks the beads whose LINE you actually broke, which is Paolo\'s 7/19 ruling and is untouched',
+      /if\(myConcealAgainst\(e2\.ea,e2\.edist,e2\.lvl\)\)\{ if\(acquired\(e2\)\)_broke\+\+; e2\.acq=0; \} \}/.test(demo));
+  }
+
+  ok('V165 AND HE CAN SEE IT HAPPEN, or it does not exist: the moment the last pair of eyes comes off you the readout says THEY LOST YOU in those words, and short of that it says how many men are hunting a memory. A mechanic working and unreadable is the same as not working',
+    /setRead\('THEY LOST YOU'/.test(demo) &&
+    /setRead\('PARTLY LOST'/.test(demo) &&
+    /function blindHunters\(\)\{/.test(demo));
+
+  ok('V165 MANUFACTURING WALLS IS FLAGGED AND NOT BUILT: the spec\'s steam, sleep bombs and cloud walls are a second feature and half of it is terrain, which is WORLD\'s system. The variable has to exist before there is anything worth giving him tools to control',
+    !/function makeSteam\(|function cloudWall\(|function sleepBomb\(/.test(demo));
+
 /* ===== V164 MOVEMENT ASYMMETRY (RF4-51, machine 3) ===============
    "Slow enemies move ORTHOGONALLY ONLY; you move DIAGONALLY -- every diagonal
    step costs them more than it costs you, so you generate distance out of pure
@@ -4906,7 +4986,10 @@ ok('V135 MECHANISM MINE, CONTENTS HIS, AND THE CONTENTS SHIP EMPTY: who the fami
 ok('V136 THE GUNS MOVE AT ALL, WHICH THEY NEVER DID: coverSeekAI ran a shooter to the nearest rock exactly once and then `if(e.gcov)continue;` froze him there for the rest of the fight. Only the 7/19 blades ever advanced. pressAI is the other half, and it runs on the turn AFTER the scramble so a man caught in the open still gets his stone first',
   demo.includes('V136 THEY COME FOR YOU') &&
   demo.includes('function pressAI(){') &&
-  demo.includes('function pressScore(e,x,y){') &&
+  /* V165 RE-POINTED: pressScore takes a fourth argument now -- the tile a BLIND
+     man is walking to. The function is the same function and this claim is about
+     it existing and being called, not about its arity. */
+  demo.includes('function pressScore(e,x,y,aim){') &&
   /pressAI\(\); updateGeomCover\(\);/.test(demo) &&
   /function tickTurnEnd\(\)\{ meleeTurnRun\(\); updateGeomCover\(\); coverSeekAI\(\); updateGeomCover\(\);/.test(demo));
 
@@ -4949,7 +5032,11 @@ ok('V136 FIRE AND MOVEMENT, NOT A CAVALRY CHARGE: at most half the line bounds i
 ok('V136 THEY ARE STILL SHOOTERS, NOT BLADES: PRESS_STANDOFF holds them at a shooter\'s distance so nobody walks into your lap, and no candidate tile is ever inside a pillar or on top of another body',
   /const PRESS_STANDOFF=3\.2;/.test(demo) &&
   /if\(Math\.hypot\(nx,ny\)<standoff-0\.01\)continue;/.test(demo) &&
-  /const standoff=G\.hold\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+  /* V165 RE-POINTED: a THIRD case joins the two. A man searching for somebody he
+     cannot see keeps no firing distance from him, so he uses the same HOLD_PASS
+     V137 already wrote for a man running an objective. Both original numbers are
+     untouched and both original cases still read exactly as they did. */
+  /const standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
   /if\(Math\.hypot\(ox-nx,oy-ny\)<0\.9\)\{bad=true;break;\}/.test(demo) &&
   /if\(Math\.hypot\(q\[0\]-nx,q\[1\]-ny\)<\(P\.r\|\|0\.5\)\*0\.8\)\{bad=true;break;\}/.test(demo));
 
@@ -5028,7 +5115,9 @@ ok('V137 AND THEY ARE ALLOWED PAST, which is the number the whole feature lives 
      man at a fractional radius and knocked him straight back off the grid -- is
      replaced by putCell. Same law, same numbers, legal position. */
   /const HOLD_PASS=1\.8;/.test(demo) &&
-  /const standoff=G\.hold\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
+  /* V165 RE-POINTED: same line, same numbers, one more case on it -- a searching
+     man is running an objective in exactly the sense V137 meant. */
+  /const standoff=\(_aim\|\|G\.hold\)\?HOLD_PASS:PRESS_STANDOFF;/.test(demo) &&
   /putCell\(e,Math\.round\(p\.x\),Math\.round\(p\.y\)\); snapBody\(e\);/.test(demo));
 
 ok('V137 THE ARC ALONE COULD NEVER CARRY HIM ROUND IN TIME (0.9 rad at range 6 is a 5.4-tile walk against a 1.8-tile step), so a defending fight also offers the straight line at the place -- and those candidates run the SAME body and pillar rejections as every other one, with no shortcuts',
