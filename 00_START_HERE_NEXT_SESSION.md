@@ -1,3 +1,80 @@
+WORLD (world-9lfjtf): 8/18 (d) LATEST -- *** TEN RECTANGLES CANNOT SAY "GHOST PLAT".
+THE TERRAIN GENERATORS HAD NEVER REACHED THE SURFACE HE WALKS ON. TAB: RUN -- walk out
+into the desert or down a wash and look at the ground. ***
+
+MEASURED on the running page, asking tileMeta what a real terrain cell actually IS:
+    desert / wash / mountain   hasKit:false  open:true  rects:10
+    water                      hasKit:false  open:true  rects:0
+Every terrain cell in the valley -- a 128x128 tile plate -- was TEN 2x2 RECTANGLES OF FLAT
+COLOUR. That was the whole thing. Meanwhile engine/bohemia_desert.js had been authoring
+self-spaced creosote, OHV tracks, illegal dumping, caliche and the GHOST PLAT (a graded
+subdivision nobody built), and engine/bohemia_wash.js the braid, the riprap, the flood
+structure and the sewer tunnel mouth.
+
+*** gates/terrain_gate.js HAS BEEN GREEN ON ALL OF IT SINCE 7/26. *** It tests the
+GENERATOR. Nothing ever asked whether the game called it. THAT IS THE THIRD TIME IN ONE DAY
+FOR THIS EXACT SHAPE -- hazard classified ground nothing could reach, occupancy_gate found
+the model and the surface disagreeing about 4,327 of 4,327 cells, and here a generator with
+a full gate suite behind it was simply never invoked. A gate that checks its own side of a
+seam NOBODY IS STANDING ON will stay green through anything.
+
+AFTER, same cells:
+    desert  13 tile types -- desert pavement 6189, GRADED PAD 5304, rock lag 2043,
+            dry rill 1213, caliche hardpan 619, OHV track 334
+    wash    13 tile types -- channel bank 4554, channel invert 3276, maintenance road
+            1564, riprap 942   (and walkable 16,344 -> 14,799: the concrete BLOCKS now)
+
+  tools/bohemia_city_terrain_patch.py   the fix + the whole argument
+  gates/terrain_surface_gate.js         13 checks, standing ON the seam
+  records/BOHEMIA_TEN_RECTANGLES_8_18_26.md
+
+*** IT TOOK THE DOOR A ROAD BUILT LAST WEEK. *** The page's own comment: "A ROAD WITH ITS
+OWN MODULE DRAWS ITSELF -- four numbers cannot say palm median." Ten rectangles cannot say
+ghost plat.
+
+*** THE ONE THING THAT CAN BREAK SILENTLY, AND IT IS WHY THE GATE IS SHAPED LIKE THIS. ***
+Terrain is sampled from ONE valley-wide field in GLOBAL coordinates -- the entire reason a
+ridge crosses a cell boundary instead of stopping at it. __kitBlock makes one 128x128 block
+per GRP x GRP cells (FN=32, GRP=4), so THE BLOCK COORDINATE IS THE 128-TILE COORDINATE.
+Hand it the CELL instead and EVERY SEAM IN THE VALLEY BREAKS WHILE EACH CELL STILL LOOKS
+PERFECTLY FINE ON ITS OWN. You cannot see that in a screenshot, so it is measured against a
+control, AVERAGED over six distant cells because a single sample swings and a gate whose
+threshold sits near the noise gets switched off by whoever it wakes:
+    real neighbour      117/128
+    six controls, mean   54.7/128
+    MUTATION (pin it)    71/71 -- identical, no seam at all
+
+*** IT TOOK THREE MEASUREMENTS TO GET THE DESERT IN, and the middle one is the lesson. ***
+Run 1: wash took the door with 13 real types, DESERT DID NOT MOVE -- its generator is not
+inlined in the city page at all. Run 2: inlined it, STILL NOTHING -- it samples
+engine/bohemia_terrain_noise.js, the one continuous field, and that was not on the page
+either, so it threw on load and fell back to the rectangles. A DEPENDENCY THAT IS NOT THERE
+FAILS EXACTLY LIKE A FEATURE THAT WAS NEVER WIRED, and the only thing that told them apart
+was measuring the page again instead of re-reading the patch.
+
+MOUNTAIN AND WATER ARE DELIBERATELY OUT, with different reasons, and the gate proves they
+still take the fallback so it stays live code:
+  MOUNTAIN  routing it is an IMPROVEMENT (0/256 walkable today, a solid wall, while its own
+            gate insists it is "a wall with PASSES" and the ravines are walkable) but it
+            changes traversal for 927 cells and deserves its own before/after.
+  WATER     its legend calls `open water` non-solid, so routing it would let him WALK OUT
+            ONTO THE LAKE. That is a legend fix (deep water blocks), not a terrain fix.
+
+*** AND I CORRECTED A NUMBER I PUBLISHED THIS MORNING. *** The 8/18 (b) handoff said the
+walked surface "registers 35 of the engine's 66 district types, so 10 of the 21 hazard
+districts cannot be reached". IT REGISTERS 57 OF 66. The nine absent are suburb (its own
+realizer, deliberate, recorded 8/3), the roads and the terrain -- every one handled by a
+dedicated path rather than missing. The real gap was narrower and sharper than the number I
+gave. Corrected by name in both files rather than quietly edited.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. MOUNTAIN through the same door, with its own before/after on traversal. 927 cells that
+     are currently a solid wall and are supposed to have passes.
+  2. The water legend: `open water` must be solid. Then water can take the door too.
+  3. The three genuinely fatal drops modelled as STRUCTURE (quarry:7 bench crest, intake:13
+     shaft, reclaim:6 crusted pond) -- the model says wall, the world means hole.
+  4. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+
 WORLD (world-9lfjtf): 8/18 (c) LATEST -- *** THE WALKED SURFACE HAD BEEN IGNORING THE
 OCCUPANCY MODEL FOR EVERY PROP IN THE VALLEY. TAB: RUN -- brush, weeds and rubble drift
 are ground you walk over now instead of walls. ***
