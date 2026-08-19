@@ -411,6 +411,12 @@ grabPieces('banks/tileforms/TF-ART-010_ENDS_VOLUME_8_16_26.json',
 grabPieces('banks/tileforms/TF-ART-018_CANDIDATES_8_16_26.json',
   ['kerb_return_ne', 'kerb_return_nw', 'kerb_return_se', 'kerb_return_sw',
    'kerb_drop_n', 'kerb_drop_e', 'kerb_drop_s', 'kerb_drop_w']);
+/* TF-ART-017 8/19: THE THICKNESS - pure value-geometry joinery overlays
+   (outside corners with the bead hairline, window/boarded reveals) that
+   ride every skin and civic material - tools/tfcook/TF-ART-017_cook.py.
+   cor_in_* stay banked until a live concave site is measured. */
+grabPieces('banks/tileforms/TF-ART-017_CANDIDATES_8_19_26.json',
+  ['cor_out_l', 'cor_out_r', 'rev_window', 'rev_boarded']);
 /* TF-RUN-005 8/19: the tilt-up panel language - the joint rhythm, cap,
    plinth, rain streaks and boarded windows that make the live tilt-up
    field read as lifted panels - tools/tfcook/TF-RUN-005_cook.py */

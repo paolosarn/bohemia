@@ -2448,6 +2448,19 @@ function litSkin(im,mul){
   }
   return c;
 }
+/* TF-ART-017 (8/19): THE THICKNESS. The joinery pieces are pure VALUE
+   overlays (the form's own light law: a corner is a value step between two
+   planes and nothing else), so ONE set rides every approved skin and every
+   civic material - no colourway explosion. On a house: the end cells become
+   real outside corners (a 12px return plane past the arris, the bead's
+   dead-straight rust hairline on it), and a window becomes a HOLE (shaded
+   left jamb, lit right jamb, the soffit as the darkest band, sill weeps).
+   The doors stay untouched - they are his animated clip-bank art in a later
+   pass. */
+function joinery(nm,X,Y,S){
+  var o=TILEFORM_IMG[nm];
+  if(o&&o.complete&&o.naturalWidth) ctx.drawImage(look(o),X,Y,S,S);
+}
 function drawSkin(id,gx,gy,X,Y,S){
   var ov=OPENING_IMG[id];
   if(ov){
@@ -2459,13 +2472,21 @@ function drawSkin(id,gx,gy,X,Y,S){
       var w=skinImg('W',gx,gy);
       if(w) ctx.drawImage(look(w),X,Y,S,S);
     }
-    if(ov.complete&&ov.naturalWidth){ ctx.drawImage(look(ov),X,Y,S,S); return true; }
+    if(ov.complete&&ov.naturalWidth){
+      ctx.drawImage(look(ov),X,Y,S,S);
+      if(id==='wall_window') joinery('rev_window',X,Y,S);
+      else if(id==='wall_boarded') joinery('rev_boarded',X,Y,S);
+      return true;
+    }
     return !!OPEN_ON_WALL[id];
   }
   var k=SKIN_FIELD[id]; if(!k) return false;
   var im=skinImg(k,gx,gy); if(!im) return false;
   var mul=SKIN_LIGHT[id];
-  ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S); return true;
+  ctx.drawImage(look(mul?litSkin(im,mul):im),X,Y,S,S);
+  if(id==='wall_end_l') joinery('cor_out_l',X,Y,S);
+  else if(id==='wall_end_r') joinery('cor_out_r',X,Y,S);
+  return true;
 }
 /* ===========================================================================
    EVERY BUILDING IN THE VALLEY THAT IS NOT A HOUSE (8/3).
@@ -2659,6 +2680,14 @@ function drawCivicSkin(id,gx,gy,X,Y,S){
     }
   }
   if(k!=='W') return true;
+  /* TF-ART-017 (8/19): the civic masses get their thickness from the same
+     value-geometry pieces as the houses - a mass edge with open air past it
+     is an outside corner, and the overlay rides whatever material the mass
+     drew (tilt-up, corrugate, brick, stone) unchanged. */
+  if(!civicSolidAt(gx-1,gy)){ var c17l=TILEFORM_IMG['cor_out_l'];
+    if(c17l&&c17l.complete&&c17l.naturalWidth) ctx.drawImage(look(c17l),X,Y,S,S); }
+  if(!civicSolidAt(gx+1,gy)){ var c17r=TILEFORM_IMG['cor_out_r'];
+    if(c17r&&c17r.complete&&c17r.naturalWidth) ctx.drawImage(look(c17r),X,Y,S,S); }
   /* VOLUME (8/14): TF-ART-013 SKIRTS. A mobile home sits on piers and wears a
      skirt at the base - the panel band overlays the LOWER part of the bottom
      row so the siding still reads above it. Every trailer-district mass gets

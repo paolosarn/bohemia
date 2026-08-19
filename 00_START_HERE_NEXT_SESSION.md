@@ -1362,7 +1362,18 @@ faction, standing, what you were SEEN doing and whether they have met you.
 (3) Quest volume: 114 questbook studies still untouched.
 
 PEOPLE (people-7h9sfy): 8/17 (b) LATEST -- *** OVERHEARING A FACT NOW WRITES IT
-ART (f3eu53): 8/19 (b) LATEST -- *** BOTH 7/28 HIGH ROWS CLOSED IN ONE DAY.
+ART (f3eu53): 8/19 (c) LATEST -- *** THREE HIGH ROWS IN ONE DAY. The third:
+TF-ART-017 THE THICKNESS (first slice) - every building was a cardboard
+flat; now the suburb end cells and every civic mass edge turn a real 12px
+second plane (value step + the bead's rust hairline), and the suburb
+windows/boarded openings are HOLES (measured reveal: shaded jamb, lit
+jamb, darkest soffit, sill weeps). Pieces are PURE VALUE overlays riding
+every approved material - one set, no colourways. Verified by identical-
+site before/after diff (change column-localised at mass edges). Recorded
+scope: parapet corner struck (012 shipped it), rake held with CITY-001,
+concave corners BANKED until a live site is measured, doors untouched
+(his animated clip art). Sixteenth wired family.
+EARLIER TODAY - BOTH 7/28 HIGH ROWS CLOSED:
 (a) THE SIGNS STAND UP: TF-WORLD-010 wired - seven world-named sign
 surfaces (pylons, marquees, screen tower, scoreboard, blade signs, roof
 antennas/dish) draw as dead Vegas signs; sweep-verified exactly those
@@ -1392,7 +1403,7 @@ crossings, clarifier, deep_wet, gutter inlets still parked on WORLD/
 occupancy/weather; deck slab + stairs banks still wait on COMBAT).
 Base-red flags NOT mine, proven on clean origin/main: art_45 (hero bank),
 reusefirst (3 other-lane patch files), taste (2 RUN-lane factories).
-Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (passes 29 + 30)
+Record: records/BOHEMIA_TILE_BOARD_SITTING_8_9_26.md (passes 29-31)
 
 WORLD (world-9lfjtf): 8/18 (a) LATEST -- *** THE FLOOR CAN DO SOMETHING TO YOU. THE
 

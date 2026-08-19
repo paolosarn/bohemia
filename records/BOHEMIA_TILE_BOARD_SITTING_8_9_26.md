@@ -596,3 +596,29 @@ the sender is half a wiring.
 Verified live: warehouse (joints, boards, plinth bloom), jail (cap
 course), medical. Painted-tan colorway and rain-wet darkening stay
 future volume (colorways and weather, not new forms).
+
+## 8/19 THIRTY-FIRST PASS: THE BUILDINGS GET THEIR THICKNESS (TF-ART-017, first slice)
+
+The lane's own HIGH form: every building was a cardboard flat - ends that
+never turned, windows that were pictures. The insight that made it
+shippable in one pass is the form's own light law taken literally: "the
+corner is a VALUE STEP between two planes and nothing else." So the six
+pieces are pure luminance overlays (RGBA light/shade, no colour of their
+own) that ride WHATEVER material sits underneath - all fifteen approved
+house skins and every civic material get thickness from ONE set, no
+30-colourway explosion, STRUCTURE-NOT-COLOR at its purest.
+
+Wired: the suburb end cells and every civic mass edge wear the outside
+corners (12px return at the measured Clark County wall thickness, the
+bead's dead-straight rust hairline on the arris); the suburb windows and
+boarded openings wear their reveals (opening rects MEASURED off the
+approved starter tiles; shaded jamb / lit jamb / darkest soffit / lit
+sill / sill-corner weeps only).
+
+Verified by reshooting the IDENTICAL jail site before and after: the
+pixel diff is column-localised exactly at the mass edge bands. Scope
+resolutions recorded in the form: parapet corner struck (TF-ART-012
+shipped it 8/11 - the overlap resolved by the record, not by a question);
+rake corner held with TF-CITY-001; concave corners cooked and BANKED (no
+live concave site measured - inert-hook rule); the doors stay untouched
+(Paolo's animated clip-bank art in a later pass owns that surface).
