@@ -62,8 +62,16 @@ WHAT COMES NEXT FOR THIS LANE, in order:
      intake:13 shaft, reclaim:6 crusted pond) -- you bump into them instead of falling in.
      Same shape as this one: the model says wall, the world means hole.
   2. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
-  3. The walked surface's kit registers 35 of the engine's 66 district types, so 10 of the
-     21 hazard districts cannot be reached at all. That caps far more than these features.
+  3. [CORRECTED 8/18 -- I PUBLISHED A WRONG NUMBER HERE. The page registers 57 of 66, not
+     35. The nine absent are suburb (its own realizer, deliberate, recorded 8/3), the roads
+     (arterial, arterial_x, freeway, rail, interchange) and the terrain (desert, mountain,
+     water) -- every one handled by a dedicated path rather than missing. The REAL gap was
+     narrower and sharper: the terrain path realized every cell as TEN RECTANGLES and never
+     called the generators at all. Fixed for desert and wash the same day; see
+     records/BOHEMIA_TEN_RECTANGLES_8_18_26.md. What is still open from it: MOUNTAIN (927
+     cells, 0/256 walkable today while its own gate insists it is "a wall with PASSES") and
+     WATER (its legend calls open water non-solid, so routing it would let him walk onto the
+     lake -- a legend fix, not a terrain fix).]
 
 WORLD (world-9lfjtf): 8/18 (b) LATEST -- *** ROOMS HAVE THINGS IN THEM NOW, AND ONLY
 THE CHEST-HIGH THINGS HIDE YOU. TAB: RUN -- walk through any door and look at the

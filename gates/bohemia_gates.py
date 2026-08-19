@@ -1009,6 +1009,26 @@ GATES = [
      'module that classifies nineteen tiles and never reaches the glass has shipped nothing -- '
      'the running page had already corrected the rule once, failing six tiles the kit called '
      'non-solid and the walked surface blocks', False),
+    ('TERRAIN SURFACE',['node', 'gates/terrain_surface_gate.js'],
+     'THE GENERATOR\'S OUTPUT IS WHAT HE WALKS ON. gates/terrain_gate.js has been green '
+     'since 7/26 on the desert, the mountain and the lake -- the seam, the determinism, the '
+     'self-spaced creosote, the OHV tracks, the ghost plat, the bathtub ring. Every '
+     'assertion was true and NONE OF IT WAS IN THE GAME: measured on the running page, every '
+     'terrain cell in the valley was realized as TEN 2x2 RECTANGLES OF FLAT COLOUR. Same '
+     'shape as every other miss this lane found today -- terrain_gate tests the GENERATOR '
+     'and nothing asked whether the game called it. So this gate stands ON the seam: it '
+     'boots the real page and asks the running valley whether a terrain cell comes back with '
+     'its module grid (desert 13 tile types: desert pavement, graded pad, rock lag, dry '
+     'rill, caliche, OHV track; wash 13: channel bank, invert, maintenance road, riprap) or '
+     'with rectangles. THE ASSERTION THAT MATTERS IS THE SEAM, because it is the one thing '
+     'that can break silently: terrain is sampled from ONE valley-wide field in GLOBAL '
+     'coordinates, and handing the generator the CELL instead of the 128-tile BLOCK breaks '
+     'every seam in the valley WHILE EACH CELL STILL LOOKS FINE ON ITS OWN. Measured against '
+     'an AVERAGED control so it cannot flake: a real neighbour agrees 117/128 along the '
+     'shared edge, six distant controls average 54.7/128. Mutation-confirmed -- pin the '
+     'field coordinate and both collapse to exactly 71/71, identical, no seam at all. It '
+     'also proves the DELIBERATELY EXCLUDED types (mountain, water) still take the rectangle '
+     'fallback, so the exclusion is a live decision and the fallback is not dead code', False),
     ('OCCUPANCY',      ['node', 'gates/occupancy_gate.js'],
      'THE GAME AND THE MODEL MUST AGREE ABOUT EVERY TILE, AND UNTIL 8/18 NOTHING HAD EVER '
      'ASKED. First run, measured on the real page across 40 real district cells: 4,327 of '

@@ -1824,8 +1824,11 @@ ALIVE. [DONE 8/18 — THE FLOOR HALF. Nobody invented a hazard and nobody placed
    three were green because each was checking its own side of a seam nobody stood on.
    WHAT IS LEFT FOR THIS LANE, in order: (1) the three real lethal drops modelled as STRUCTURE (quarry:7,
    intake:13, reclaim:6); (3) gypsum:7 carrying two occupancies in one code; (4) the
-   walked surface's kit registering only 35 of 62 district types, which caps far more
-   than these features.]
+   walked surface's terrain path realizing every cell as TEN RECTANGLES instead of calling
+   the generators -- FIXED 8/18 for desert and wash, records/BOHEMIA_TEN_RECTANGLES_8_18_26.md;
+   mountain and water still open with reasons. (An earlier version of this line said the kit
+   registers "35 of 62" types. That was WRONG: the page registers 57 of 66, and the nine
+   absent are all handled by dedicated paths.)]
    *** "THE WORLD HAS TO FEEL MORE ALIVE" — TERRAIN THAT DOES
    SOMETHING TO YOU (Paolo 8/17, LOCKED, the second half of his RF4
    order — laws/BOHEMIA_ADDENDUM_THE_RF4_LIFT_8_17_26.md §5. TOP OF THIS
