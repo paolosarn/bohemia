@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19o - THE MUSIC IS ON</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19p - FOUR WAYS IN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -9927,6 +9927,77 @@ if(kind==='blankslate'){ const f0=hz(semi),g=AC.createGain();
     mg.gain.setValueAtTime(f0*0.3,t); mg.gain.exponentialRampToValueAtTime(f0*0.02,t+0.4); m.connect(mg); mg.connect(c.frequency);
     g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(g0*0.8,t+0.03); g.gain.exponentialRampToValueAtTime(0.0001,t+sd*1.8);
     c.connect(g);g.connect(MAST);m.start(t);c.start(t);m.stop(t+sd*2);c.stop(t+sd*2); return; }
+
+  /* ---- MENU BATCH 21 (8/19/26) -- three leads, one per song ------------
+     NEW VOICES LAW: a fresh song births a voice no other song uses as its
+     lead. These are those three. SCREECH LAW: excited-and-decaying only, no
+     delay line, no convolver, and the LFOs write to a gain PARAM, which is a
+     one-way wire and not a loop. */
+  if(kind==='gridglow'){ /* B21-1: THE POWER STILL ON SOMEWHERE -- two saws a
+      hair apart under a bandpass that opens over eight seconds and never quite
+      arrives. The 12% that is lit, seen from a long way off. */
+    const f0=hz(semi);
+    const bp=AC.createBiquadFilter(); bp.type='bandpass'; bp.Q.value=1.6;
+    bp.frequency.setValueAtTime(240,t); bp.frequency.linearRampToValueAtTime(1600,t+sd*14);
+    const g=AC.createGain();
+    g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(g0*0.34,t+1.2);
+    g.gain.setValueAtTime(g0*0.34,t+sd*10); g.gain.exponentialRampToValueAtTime(0.0001,t+sd*16);
+    bp.connect(g); g.connect(MAST);
+    for(const dt of [-6,7]){ const o=AC.createOscillator();
+      o.type='sawtooth'; o.frequency.value=f0; o.detune.value=dt;
+      o.connect(bp); o.start(t); o.stop(t+sd*16.5); }
+    /* the mains hum underneath it, one octave down, barely there */
+    const sub=AC.createOscillator(), sg=AC.createGain();
+    sub.type='sine'; sub.frequency.value=f0*0.5;
+    sg.gain.setValueAtTime(0.0001,t); sg.gain.linearRampToValueAtTime(g0*0.14,t+1.6);
+    sg.gain.exponentialRampToValueAtTime(0.0001,t+sd*15);
+    sub.connect(sg); sg.connect(MAST); sub.start(t); sub.stop(t+sd*15.5); return; }
+
+  if(kind==='keptkeys'){ /* B21-2: WHAT THE VALLEY KEPT -- a struck bell-piano.
+      Two INHARMONIC partials over the fundamental, each with its own shorter
+      decay, which is what makes it read as an object being hit in a room
+      instead of a pad holding a note. */
+    const f0=hz(semi);
+    const P=[[1,1.0,1.0],[2.76,0.34,0.55],[5.41,0.16,0.3]];
+    for(const [r,a,d] of P){ const f=f0*r; if(f<20||f>17000)continue;
+      const o=AC.createOscillator(), g=AC.createGain();
+      o.type=(r===1)?'triangle':'sine'; o.frequency.value=f;
+      g.gain.setValueAtTime(0.0001,t);
+      g.gain.linearRampToValueAtTime(g0*a*0.5,t+0.004);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+1.5*d);
+      o.connect(g); g.connect(MAST); o.start(t); o.stop(t+1.5*d+0.05); }
+    /* the felt: a breath of highpassed noise on the hammer, 12 ms */
+    const nb=AC.createBuffer(1,Math.ceil(AC.sampleRate*0.05),AC.sampleRate);
+    const nd=nb.getChannelData(0);
+    for(let i=0;i<nd.length;i++) nd[i]=(Math.random()*2-1)*(1-i/nd.length);
+    const ns=AC.createBufferSource(); ns.buffer=nb;
+    const hp=AC.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=2200;
+    const ng=AC.createGain();
+    ng.gain.setValueAtTime(g0*0.16,t); ng.gain.exponentialRampToValueAtTime(0.0001,t+0.012);
+    ns.connect(hp); hp.connect(ng); ng.connect(MAST); ns.start(t); ns.stop(t+0.06); return; }
+
+  if(kind==='nobodyswell'){ /* B21-3: NOBODY IS COMING -- a very low sine
+      breathing under a slow LFO, with one filtered breath of air over the top.
+      The LFO writes into a gain PARAM: one-way, nothing feeds back. */
+    const f0=hz(semi);
+    const o=AC.createOscillator(), g=AC.createGain();
+    o.type='sine'; o.frequency.value=f0*0.5;
+    g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(g0*0.46,t+1.4);
+    g.gain.setValueAtTime(g0*0.46,t+sd*9); g.gain.exponentialRampToValueAtTime(0.0001,t+sd*15);
+    o.connect(g); g.connect(MAST); o.start(t); o.stop(t+sd*15.5);
+    const lfo=AC.createOscillator(), lg=AC.createGain();
+    lfo.type='sine'; lfo.frequency.value=0.16; lg.gain.value=g0*0.2;
+    lfo.connect(lg); lg.connect(g.gain); lfo.start(t); lfo.stop(t+sd*15.5);
+    const ab=AC.createBuffer(1,Math.ceil(AC.sampleRate*2.2),AC.sampleRate);
+    const ad=ab.getChannelData(0);
+    for(let i=0;i<ad.length;i++) ad[i]=(Math.random()*2-1);
+    const as=AC.createBufferSource(); as.buffer=ab;
+    const lp=AC.createBiquadFilter(); lp.type='lowpass'; lp.Q.value=0.7;
+    lp.frequency.setValueAtTime(900,t); lp.frequency.exponentialRampToValueAtTime(260,t+sd*12);
+    const ag=AC.createGain();
+    ag.gain.setValueAtTime(0.0001,t); ag.gain.linearRampToValueAtTime(g0*0.1,t+2.0);
+    ag.gain.exponentialRampToValueAtTime(0.0001,t+sd*13);
+    as.connect(lp); lp.connect(ag); ag.connect(MAST); as.start(t); as.stop(t+sd*13.5); return; }
   if(kind==='dawnpad'){ for(const dt of [-7,0,7,12]){ const o=AC.createOscillator(),g=AC.createGain(),fl=AC.createBiquadFilter();
     o.type='triangle'; o.frequency.value=hz(semi); o.detune.value=dt; fl.type='lowpass'; fl.frequency.setValueAtTime(800,t); fl.frequency.linearRampToValueAtTime(2000,t+sd*6);
     g.gain.setValueAtTime(0.0001,t); g.gain.linearRampToValueAtTime(g0*0.3,t+0.7); g.gain.setValueAtTime(g0*0.3,t+sd*10); g.gain.exponentialRampToValueAtTime(0.0001,t+sd*15);
@@ -11930,7 +12001,10 @@ const MLOOPS=[
  {n:'A NAME NOT YET CHOSEN',acc:'#6a5d46',root:55,scale:[0,3,7,10],wave:'triangle',kick:[0,4,8,13],bass:[0,6,8,14],hat:[2,6,10,14],inst:{b:'osc',l:'blankslate'},am:'nightpad',kit:{k:'punchk',h:'tight'},mel:'seed8',swing:0,feel:'normal',klay:'drive',ff:true,bt:20},
  {n:'NOBODY CASHES OUT',acc:'#8a6a4a',root:50,scale:[0,2,3,6,7,9],wave:'sawtooth',kick:[0,6,8,14],bass:[0,3,8,11],hat:[2,6,10,14],inst:{b:'abyssbass',l:'lastrites'},am:'nightpad',kit:{k:'knock',h:'tight'},mel:'call',swing:0.2,feel:'normal',klay:'stabs',ff:true,bt:21},
  {n:'TITHE FOR THE EMPTY PEWS',acc:'#9a8ab0',root:38,scale:[0,3,5,8,11],wave:'sine',kick:[0,4,8,12],bass:[0,8],hat:[4,12],inst:{b:'choirbass',l:'tithebell'},am:'ashchoir',kit:{k:'boom',h:'ride'},mel:'hymn',swing:0,feel:'half',klay:'melody',ff:true,bt:21},
- {n:'THE MARKER ON THE DOOR',acc:'#a06a5a',root:48,scale:[0,2,4,7,9],wave:'sawtooth',kick:[0,4,8,11],bass:[0,4,9,12],hat:[2,6,10,14],inst:{b:'abyssbass',l:'brokenrosary'},am:'nightpad',kit:{k:'knock',h:'tight'},mel:'longs',swing:0.1,feel:'normal',klay:'melody',ff:true,bt:22}
+ {n:'THE MARKER ON THE DOOR',acc:'#a06a5a',root:48,scale:[0,2,4,7,9],wave:'sawtooth',kick:[0,4,8,11],bass:[0,4,9,12],hat:[2,6,10,14],inst:{b:'abyssbass',l:'brokenrosary'},am:'nightpad',kit:{k:'knock',h:'tight'},mel:'longs',swing:0.1,feel:'normal',klay:'melody',ff:true,bt:22},
+ {n:'MENU — THE POWER STILL ON SOMEWHERE',menu:true,acc:'#c8b878',root:45,scale:[0,2,4,7,9],wave:'sine',kick:[],bass:[0,7],hat:[],inst:{b:'dawnpad',l:'gridglow'},am:'faythhum',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
+ {n:'MENU — WHAT THE VALLEY KEPT',menu:true,acc:'#9a8ac8',root:43,scale:[0,2,3,5,7,8,11],wave:'triangle',kick:[0],bass:[0,7,12],hat:[],inst:{b:'coldpiano',l:'keptkeys'},am:'dawnwash',kit:{k:'thud',h:'wood'},mel:'call',swing:0,feel:'half',klay:'melody',ff:true},
+ {n:'MENU — NOBODY IS COMING',menu:true,acc:'#7a8a9a',root:38,scale:[0,2,3,5,7,8,10],wave:'sine',kick:[0,8],bass:[0],hat:[],inst:{b:'nobodyswell',l:'glasshope'},am:'edenmist',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'normal',klay:'melody',ff:true}
 ];
 const REMADE_S2=['REDS','BLUES','ANARCHISTS','NETWORK','REMNANTS'];
 /* SONG2_VER (Paolo 7/4/26, definitive): the ONLY remake counter. Each faction's
@@ -11943,7 +12017,7 @@ const SONG2_VER={REDS:14,BLUES:10,ANARCHISTS:16,NETWORK:8,REMNANTS:11,HOMELESS:9
 /* NEW_VIBES = the CURRENT fresh cook (drives the NEW badge). Batch 15 judged
    7/20 verdict three (3 canon, 4 down as SONGS); batch 16 answers under the
    SONG-DEAD-NOT-VOICES law. */
-const NEW_VIBES=[];   /* batch 19 (pit boss) still pending; batch 20 = 9 fresh vibes, one per zero-population faction pool */
+const NEW_VIBES=['MENU — THE POWER STILL ON SOMEWHERE','MENU — WHAT THE VALLEY KEPT','MENU — NOBODY IS COMING'];   /* batch 19 (pit boss) still pending; batch 20 = 9 fresh vibes, one per zero-population faction pool */
 const CANON_DEFAULTS={'CUSTOM#1':2,'CUSTOM#2':2,'REDS#1':2,'REDS#2':2,'BLUES#1':2,'BLUES#2':2,'ANARCHISTS#1':2,'ANARCHISTS#2':2,'COLORFUL#1':2,'COLORFUL#2':2,'CHURCH#1':2,'CHURCH#2':2,'NETWORK#1':2,'NETWORK#2':2,'TRADES#1':2,'TRADES#2':2,'CARAVANS#1':2,'CARAVANS#2':2,'VOLUNTEERS#1':2,'VOLUNTEERS#2':2,'REMNANTS#1':2,'REMNANTS#2':2,'CARTEL#1':2,'CARTEL#2':2,'MOB#1':2,'MOB#2':2,'HOMELESS#1':2,'HOMELESS#2':2,'DUST CRAWL#1':2,'MIDNIGHT ODDS#1':2,'COPPER DUNES#1':2,'IRON CHOIR#1':2,'RATTLESNAKE#1':2,'PALE RIDER#1':2,'GHOST ARCADE#1':2,'HOLLOW MASS#1':2,'DEVILS HAND#1':2,'DEAD MANS SLIDE#1':2,'LULLABY FOR NOBODY#1':2,'SERVER FARM#1':2,'FLUORESCENT DAWN#1':2,'SIX STRING SUNRISE#1':2,'BLUE VACANCY#1':2,'CAMPFIRE CONFESSION#1':2,'HANDPAN HOLLOW#1':2,'SILK ROAD GHOST#1':2,'BANKRUPT NEON#1':2,'GUTTER GOLD#1':2,'PROPHET STATIC#1':2,'TENT REVIVAL FIRE#1':2,'PARKING STRUCTURE#1':2,'POWER OUT#1':2,'RAVE IN THE RUINS#1':2,'BAYOU FUNERAL#1':2,'FROZEN AISLE#1':2,'DELTA BLUES#1':2,'PARADE GROUND#1':2,'BORDERTOWN#1':2,'REMNANTS — ASHES OF THE PARADE#1':2,'NETWORK — HYMN OF THE AMALGAM#1':2,'REDS — INTEREST NEVER SLEEPS#1':2,'RUST ANTHEM#1':2,'MENU — DEAD VALLEY DAWN#1':2,'PROCESSION OF ASH#1':2,'COLD TABLE#1':2,'MOB — BOSS WALKS IN#1':2,'THE VAULT#1':2,'RED LEDGER#1':2,'SLOW BLEED#1':2,'GHOST IN THE GRID#1':2,'LAST BROADCAST#1':2,'REPO MAN#1':2,'SATELLITE PRAYER#1':2,'SLOW CREEP#1':2,'NASHVILLE GOLD#1':2,'SKANK CITY#1':2,'HIGHWAY 15 SOUTH#1':2,'CARAVAN DUST#1':2,'THRONE OF STATIC#1':2,'CHOIR FOR THE MACHINE#1':2,'FLOWERS ON THE FREEWAY#1':2,'CRYSTAL IN THE RUBBLE#1':2,'SOMEWHERE A FOUNTAIN STILL RUNS#1':2,'MARCH OF THE UNPAID#1':0,'AIRSHIP GRAVE#1':0,'SOLAR CHURCH#1':0,'SPEAKEASY SWING#1':0,'MENU — PURPLE DAWN#1':0,'MENU — FIRST MORNING#1':0,'MOB — THE HOUSE REMEMBERS#1':0,'ONE CANDLE#1':0,'MOJAVE GHOST#1':0,'LONG WALK HOME#1':0,'TWO COINS FOR THE FERRYMAN#1':2,'THE GARDEN AT WORLDS END#1':2,'MENU — EMBER VIGIL#1':0,'NEON NECROPOLIS#1':0,'HYMN FOR RUNNING WATER#1':2,'PAWNSHOP PSALM#1':2,'SUNRISE OVER THE BONEYARD#1':2,'MENU — LIGHTS ACROSS THE VALLEY#1':0,'THE LAST DEALER FOLDS#1':2,'WHAT THE MIRRORS KEPT#1':2,'THE PIT BOSS IS GONE#1':2,'THE CANCELLED MAN#1':2,'THE WIND LEARNS WORDS#1':2,'MENU — WIND OVER THE MESA#1':0,'CATHEDRAL OF CRANES#1':2,'MOTHS AROUND THE LAST LIGHT#1':2,'A THOUSAND MILES OF COPPER#1':0,'THE CHOIR THAT STAYED#1':0,'MUSIC BOX FOR THE GONE#1':0,'IT WALKS THE STRIP AT 3AM#1':0,'PHANTOM CASINO#1':0,'THE DEBT COLLECTOR AT DAWN#1':0,'A HYMN NOBODY FINISHED#1':0,'SALT ON THE HIGHWAY#1':2,'WHAT GROWS IN THE VAULT#1':2,'THE LAST TABLE STANDING#1':2,'TAPS FOR THE VALLEY#1':2,'WHAT THE DAM HELD BACK#1':2,'THE SENDING#1':2,'PYREFLIES RISE#1':2,'NO SENDING LEFT#1':2,'THE ORGAN IN THE DROWNED CHAPEL#1':2,'WHAT SHATTERED IN THE VAULT DOOR#1':2,'THE SWELL BENEATH THE FLOOR#1':2,'THE CHOIR UNDER THE RESERVOIR#1':2,'BONE RELIQUARY#1':2,'THE TURBINE STILL TURNS#1':2,'WHERE THE PROCESSION DROWNED#1':2,'THE HYMN THE STATIC ATE#1':2,'THE BELL THAT COOLS TO SALT#1':2,'SOMETHING SINGS THROUGH THE PIPES#1':2,'THE SHAPE THE WATER TAKES#1':2,'TWO LIGHTS OVER THE FLOOD#1':2,'THE STAIRS UNDER THE LAKEBED#1':2,'THE LIGHT THAT WONT DECIDE#1':2,'EVERYTHING FALLS TO PITCH#1':2,'THREE NOTES IN THE DUST#1':2,'THE TEETH THE SONG LOST#1':2,'A HARP OF SALVAGED WIRE#1':2,'A HAND THAT WONT STOP COUNTING#1':2,'THE GAPS IN THE HYMNAL#1':2,'WHAT THE SLOT MACHINE REMEMBERS#1':2,'A GASP IN THE VAULT#1':2,'THE COUNT NEVER STOPS#1':2,'WHAT THE DICE FORGOT#1':2,'NOBODY CASHES OUT#1':2,'TITHE FOR THE EMPTY PEWS#1':2,'WHAT THE PIT BOSS BURIED#1':0,'THE HOUSE ALWAYS REMEMBERS#1':0,'THE LAST LIGHT ON THE STRIP#1':0,'THE MARKER ON THE DOOR#1':2,'A BELL FOR NOBODYS SHIFT#1':0,'COUNTING WHAT IS LEFT#1':0,'NOBODY LOCKS UP ANYMORE#1':0,'WHAT THE METER STILL READS#1':0};
 /* UNJUDGED LAW (7/19 fix, caught on the real surface): fresh cooks get NO
    CANON_DEFAULTS entry -- a baked 2 silently stamped new batches CANON, hid the
@@ -11976,7 +12050,10 @@ const CAT_DEFAULTS={
  'MENU — EMBER VIGIL#1':['MENU'],
  'MENU — FIRST MORNING#1':['MENU'],
  'MENU — LIGHTS ACROSS THE VALLEY#1':['MENU'],
+ 'MENU — NOBODY IS COMING#1':['MENU'],
  'MENU — PURPLE DAWN#1':['MENU'],
+ 'MENU — THE POWER STILL ON SOMEWHERE#1':['MENU'],
+ 'MENU — WHAT THE VALLEY KEPT#1':['MENU'],
  'PALE RIDER#1':['OVERWORLD DAY'],
  'PARADE OF LOST BALLOONS#1':['COLORFUL'],
  'PYREFLIES RISE#1':['OVERWORLD DAY'],
