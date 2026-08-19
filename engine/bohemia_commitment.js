@@ -343,6 +343,58 @@
      EVERYTHING COSTS ONE section 5 asks for can generate its list instead of
      remembering it. The ceilings are NOT in here on purpose: they are derived
      from a shipped gated table, so they are not waiting on a ruling. */
+  /* ---- WHAT IT COSTS YOU SOMEWHERE ELSE ----------------------------------
+     THE STAGE HAS SAID THIS SINCE 8/15 AND NOTHING EVER DID IT. `burned` reads
+     "You cost yourself somewhere else to be here. This is the one that cannot
+     be walked back", and grep says BohemiaBelonging.adjust was only ever called
+     on the outfit you are standing in front of. Word already travelled -- other
+     outfits heard, AS FACT at one hop and AS A RUMOUR beyond -- and then nothing
+     happened to them. The favour that was never collected, one system over.
+
+     COSER, LIPSET & ROKKAN: a tie to one side is a LIABILITY with the other,
+     and that liability is the entire mechanism by which cross-cutting ties damp
+     conflict -- everybody ends up partially compromised. So this needs NO
+     rivalry table and invents none of his canon: taking a side is exclusive by
+     construction, and what it costs you is with whoever finds out.
+
+     THREE THINGS FALL OUT OF SHIPPED TEXT RATHER THAN OUT OF MY PREFERENCE:
+
+     1. A RUMOUR CANNOT COST YOU. LANDING.secondhand says it itself: "They will
+        hear that you did something. THEY WILL NOT HEAR EXACTLY WHAT." You
+        cannot lose standing over a thing nobody can pin on you. Only `direct`
+        -- somebody who shares a roof or a job with one of theirs was close
+        enough to know -- costs.
+     2. YOU CANNOT FALL BELOW A STRANGER. An outfit that never counted you has
+        nothing to take away; belonging does not go negative and commitment_gate
+        part F is the proof of why that matters.
+     3. THE AMOUNT IS THE STAGE INDEX, exactly like neglect: nothing said out
+        loud costs nothing, taking a side costs one, burning a bridge costs two.
+        Derived from position, never typed -- add a stage and it follows.
+
+     AND THIS IS WHAT MAKES TERTIUS A DECISION INSTEAD OF A CAPTION. Standing
+     where the outfits have no line to each other (gaudens) means nobody hears
+     as fact, so it costs you NOTHING. Burt's structural hole finally pays out
+     in the numbers rather than in a row of text. */
+  function costs(state, heard, standings){
+    var lose = stateIndex(state);
+    if(lose <= 0) return [];
+    var out = [];
+    (heard||[]).forEach(function(h){
+      if(landing(h).key !== 'direct') return;   /* a rumour names nothing */
+      var want = norm(h.faction), have = 0;
+      for(var k in (standings||{})) if(norm(k)===want) have = standings[k]|0;
+      if(have <= 0) return;                     /* nothing to take */
+      out.push({ faction:h.faction, had:have,
+                 lose:Math.min(lose, have),     /* never below a stranger */
+                 through:h.through, via:h.via, hops:h.hops,
+                 word:'THEY HEARD, AND IT COST YOU',
+                 note:'Somebody close enough to know told them what you did. '
+                    + 'You are somebody else\'s now, and they have adjusted '
+                    + 'what you are worth to them accordingly.' });
+    });
+    return out;
+  }
+
   function placeholders(){
     return STAGES.filter(function(s){ return s.neglectPlaceholder; })
       .map(function(s){
@@ -350,14 +402,25 @@
                  value:s.neglect, placeholder:true,
                  law:'EVERYTHING COSTS ONE (Paolo 8/15/26)',
                  what:'what neglecting this outfit costs per day at this state' };
-      });
+      })
+      /* the OTHER price, and it is a different fact from neglect even though
+         both derive from the stage index -- one is the upkeep of a commitment,
+         one is what somebody else charges you for having made it. A shared
+         derivation is not a shared mechanism (8/18, the RUNGS finding). */
+      .concat(STAGES.map(function(s, i){
+        return { where:'bohemia_commitment.costs(' + s.state + ')',
+                 value:i, placeholder:true,
+                 law:'EVERYTHING COSTS ONE (Paolo 8/15/26)',
+                 what:'what an outfit that HEARS about this commitment takes '
+                    + 'off your standing with them' };
+      }).filter(function(x){ return x.value > 0; }));
   }
 
   var API = { STAGES:STAGES, LANDING:LANDING,
               stageOf:stageOf, firstState:firstState, states:function(){
                 return STAGES.map(function(s){ return s.state; }); },
               wallOf:wallOf, give:give, commit:commit, neglectFor:neglectFor,
-              whoHears:whoHears, landing:landing, tertius:tertius,
+              whoHears:whoHears, landing:landing, tertius:tertius, costs:costs,
               stateOf:stateOf, setState:setState,
               placeholders:placeholders };
   if(HASREQ) module.exports=API; else root.BohemiaCommitment=API;

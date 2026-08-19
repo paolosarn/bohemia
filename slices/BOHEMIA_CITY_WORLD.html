@@ -30668,6 +30668,58 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
      EVERYTHING COSTS ONE section 5 asks for can generate its list instead of
      remembering it. The ceilings are NOT in here on purpose: they are derived
      from a shipped gated table, so they are not waiting on a ruling. */
+  /* ---- WHAT IT COSTS YOU SOMEWHERE ELSE ----------------------------------
+     THE STAGE HAS SAID THIS SINCE 8/15 AND NOTHING EVER DID IT. `burned` reads
+     "You cost yourself somewhere else to be here. This is the one that cannot
+     be walked back", and grep says BohemiaBelonging.adjust was only ever called
+     on the outfit you are standing in front of. Word already travelled -- other
+     outfits heard, AS FACT at one hop and AS A RUMOUR beyond -- and then nothing
+     happened to them. The favour that was never collected, one system over.
+
+     COSER, LIPSET & ROKKAN: a tie to one side is a LIABILITY with the other,
+     and that liability is the entire mechanism by which cross-cutting ties damp
+     conflict -- everybody ends up partially compromised. So this needs NO
+     rivalry table and invents none of his canon: taking a side is exclusive by
+     construction, and what it costs you is with whoever finds out.
+
+     THREE THINGS FALL OUT OF SHIPPED TEXT RATHER THAN OUT OF MY PREFERENCE:
+
+     1. A RUMOUR CANNOT COST YOU. LANDING.secondhand says it itself: "They will
+        hear that you did something. THEY WILL NOT HEAR EXACTLY WHAT." You
+        cannot lose standing over a thing nobody can pin on you. Only `direct`
+        -- somebody who shares a roof or a job with one of theirs was close
+        enough to know -- costs.
+     2. YOU CANNOT FALL BELOW A STRANGER. An outfit that never counted you has
+        nothing to take away; belonging does not go negative and commitment_gate
+        part F is the proof of why that matters.
+     3. THE AMOUNT IS THE STAGE INDEX, exactly like neglect: nothing said out
+        loud costs nothing, taking a side costs one, burning a bridge costs two.
+        Derived from position, never typed -- add a stage and it follows.
+
+     AND THIS IS WHAT MAKES TERTIUS A DECISION INSTEAD OF A CAPTION. Standing
+     where the outfits have no line to each other (gaudens) means nobody hears
+     as fact, so it costs you NOTHING. Burt's structural hole finally pays out
+     in the numbers rather than in a row of text. */
+  function costs(state, heard, standings){
+    var lose = stateIndex(state);
+    if(lose <= 0) return [];
+    var out = [];
+    (heard||[]).forEach(function(h){
+      if(landing(h).key !== 'direct') return;   /* a rumour names nothing */
+      var want = norm(h.faction), have = 0;
+      for(var k in (standings||{})) if(norm(k)===want) have = standings[k]|0;
+      if(have <= 0) return;                     /* nothing to take */
+      out.push({ faction:h.faction, had:have,
+                 lose:Math.min(lose, have),     /* never below a stranger */
+                 through:h.through, via:h.via, hops:h.hops,
+                 word:'THEY HEARD, AND IT COST YOU',
+                 note:'Somebody close enough to know told them what you did. '
+                    + 'You are somebody else\'s now, and they have adjusted '
+                    + 'what you are worth to them accordingly.' });
+    });
+    return out;
+  }
+
   function placeholders(){
     return STAGES.filter(function(s){ return s.neglectPlaceholder; })
       .map(function(s){
@@ -30675,14 +30727,25 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
                  value:s.neglect, placeholder:true,
                  law:'EVERYTHING COSTS ONE (Paolo 8/15/26)',
                  what:'what neglecting this outfit costs per day at this state' };
-      });
+      })
+      /* the OTHER price, and it is a different fact from neglect even though
+         both derive from the stage index -- one is the upkeep of a commitment,
+         one is what somebody else charges you for having made it. A shared
+         derivation is not a shared mechanism (8/18, the RUNGS finding). */
+      .concat(STAGES.map(function(s, i){
+        return { where:'bohemia_commitment.costs(' + s.state + ')',
+                 value:i, placeholder:true,
+                 law:'EVERYTHING COSTS ONE (Paolo 8/15/26)',
+                 what:'what an outfit that HEARS about this commitment takes '
+                    + 'off your standing with them' };
+      }).filter(function(x){ return x.value > 0; }));
   }
 
   var API = { STAGES:STAGES, LANDING:LANDING,
               stageOf:stageOf, firstState:firstState, states:function(){
                 return STAGES.map(function(s){ return s.state; }); },
               wallOf:wallOf, give:give, commit:commit, neglectFor:neglectFor,
-              whoHears:whoHears, landing:landing, tertius:tertius,
+              whoHears:whoHears, landing:landing, tertius:tertius, costs:costs,
               stateOf:stateOf, setState:setState,
               placeholders:placeholders };
   if(HASREQ) module.exports=API; else root.BohemiaCommitment=API;
@@ -32249,6 +32312,16 @@ function ctValleyRoster(){
               [Math.floor(ph[0]/FN), Math.floor(ph[1]/FN)], ctBases()); }
       catch(_e){ a.faction = null; }
       a.__id = list[i].id;
+      /* __CITY_VALLEYKEY__ -- 298 PEOPLE IN THIS VALLEY SHARED 17 NAMES.
+         bohemia_population numbers people PER NEIGHBOURHOOD (H1-1, H2-1...), so
+         every neighbourhood re-uses the same names and this roster concatenates
+         all of them. whoHears keys byKey/seen/tiesOf on that id, so one "H1-1"
+         stood in for ~140 real people across nine different outfits and the rest
+         were silently skipped as already-visited. The neighbourhood is right
+         here in the loop; prefixing it makes the name a name again.
+         a.id is deliberately NOT touched: fociOf falls back to parsing it when a
+         home seat is missing, and other readers hold these objects. */
+      a.__vid = nx + ',' + ny + ':' + list[i].id;
       out.push(a);
     }
   }
@@ -32374,10 +32447,44 @@ function ctClaimOf(rule, given){
   return BohemiaClaim.claimFor(rule, given, (T && T.day) || 1, ctBelongSave());
 }
 
+/* __CITY_SIDECOST__ -- WHAT YOU STAND AT WITH EVERYBODY.
+   costs() needs every outfit's standing, not just this one's, because the
+   question is what the OTHERS take off you. Read through BohemiaBelonging's own
+   accessor rather than reaching into the save: the three-spellings bug has bitten
+   this file six times and gaveOf is where it is solved. */
+function ctStandings(){
+  var out = {};
+  if(typeof BohemiaBelonging === 'undefined') return out;
+  var sv = ctBelongSave(), rules = BohemiaBelonging.RULES || {};
+  for(var k in rules) out[k] = BohemiaBelonging.gaveOf(sv, k);
+  return out;
+}
+/* __CITY_SIDECOST__ -- WHAT TAKING THIS SIDE WILL COST YOU ELSEWHERE.
+   Asked for the state you would MOVE TO, never the one you are in, because the
+   card is answering "what happens if I press this" and the player has not
+   pressed it yet. */
+function ctSideCost(fid, nextState){
+  if(typeof BohemiaCommitment === 'undefined' || typeof BohemiaTies === 'undefined')
+    return [];
+  try {
+    /* __CITY_VALLEYKEY__ */
+    var heard = BohemiaCommitment.whoHears(fid, ctValleyRoster(), ctCell(),
+                  {ties:BohemiaTies, keyOf:ctVKey});
+    return BohemiaCommitment.costs(nextState, heard, ctStandings()) || [];
+  } catch(_e){ return []; }
+}
+function ctSideCostWords(list){
+  return list.map(function(c){ return c.faction + ' -' + c.lose; }).join(', ');
+}
+/* __CITY_VALLEYKEY__ -- THE VALLEY-UNIQUE KEY, IN ONE PLACE.
+   Falls back to a.id so a roster built by anything else still works, but on the
+   valley roster this is what makes two people with the same name two people. */
+function ctVKey(a){ return String((a && a.__vid) || (a && a.id)); }
 function ctHearRows(body, fid){
   if(typeof BohemiaCommitment==='undefined' || typeof BohemiaTies==='undefined') return body;
   var heard;
-  try { heard = BohemiaCommitment.whoHears(fid, ctValleyRoster(), ctCell(), {ties:BohemiaTies}); }
+  try { heard = BohemiaCommitment.whoHears(fid, ctValleyRoster(), ctCell(),
+                  /* __CITY_VALLEYKEY__ */ {ties:BohemiaTies, keyOf:ctVKey}); }
   catch(_e){ return body; }
   if(!heard.length){
     body += ctRow('WHO WILL HEAR', 'NOBODY. NO OUTFIT IN THIS VALLEY HAS A LINE TO THEM.');
@@ -32396,6 +32503,25 @@ function ctHearRows(body, fid){
   var via = heard[0].via==='home' ? 'SOMEBODY THEY SHARE A ROOF WITH'
                                   : 'SOMEBODY THEY WORK BESIDE';
   body += ctRow('IT GETS OUT THROUGH', via);
+  /* __CITY_SIDECOST__ -- THE CONSEQUENCE IS PRINTED BEFORE THE BUTTON, NEVER
+     AFTER (8/15, rule 2). A cost you find out about afterwards is a punishment;
+     a cost you read first is a decision. Asked for the state the button would
+     move you TO, because that is the question being answered. */
+  var ctNext = null;
+  try { ctNext = BohemiaCommitment.commit(
+          BohemiaCommitment.stateOf(ctBelongSave(), fid),
+          BohemiaBelonging.gaveOf(ctBelongSave(), fid)); } catch(_e){}
+  var ctCost = (ctNext && ctNext.moved) ? ctSideCost(fid, ctNext.state) : [];
+  if(ctCost.length){
+    body += ctRow('AND IT COSTS YOU', ctSideCostWords(ctCost));
+    body += ctRow('', 'They are not your enemies. They just heard you picked '
+      + 'somebody, and it was not them.');
+  } else if(ctNext && ctNext.moved){
+    /* THE STRUCTURAL HOLE, PAYING OUT IN A NUMBER. Burt/Simmel: standing where
+       your outfits have no line to each other means nobody hears it as fact. */
+    body += ctRow('AND IT COSTS YOU', 'NOTHING. NOBODY WHO COULD CHARGE YOU FOR '
+      + 'IT IS CLOSE ENOUGH TO KNOW.');
+  }
   return body;
 }
 
@@ -32709,7 +32835,15 @@ function ctDraw(){
     var sv=ctBelongSave();
     var cur=BohemiaCommitment.stateOf(sv, ctFid);
     var r=BohemiaCommitment.commit(cur, BohemiaBelonging.gaveOf(sv, ctFid));
-    if(r.moved) BohemiaCommitment.setState(sv, ctFid, r.state);
+    if(r.moved){
+      BohemiaCommitment.setState(sv, ctFid, r.state);
+      /* __CITY_SIDECOST__ -- AND IT COSTS YOU SOMEWHERE ELSE. The `burned`
+         stage has said this in writing since 8/15 and nothing ever did it:
+         adjust() was only ever called on the outfit in front of you. */
+      var ctPaid = ctSideCost(ctFid, r.state);
+      for(var ci=0; ci<ctPaid.length; ci++)
+        BohemiaBelonging.adjust(sv, ctPaid[ci].faction, -ctPaid[ci].lose);
+    }
     advance(60);
     ctDraw(); render();
   });

@@ -900,7 +900,101 @@ WHAT COMES NEXT FOR THIS LANE, IN ORDER:
     the HEM. 34 of 202 garments carry the whole structural range. A new garment should
     occupy a silhouette nobody has -- not another colourway, and not another long coat.
 
-FACTIONS (factions-ovkjpf): 8/18 (m) LATEST -- *** THE WALL WAS A SIGN AND NOT A
+FACTIONS (factions-ovkjpf): 8/19 (c) LATEST -- *** 298 PEOPLE IN THE VALLEY WERE
+ANSWERING TO 17 NAMES, AND THE WHOLE WORD-OF-MOUTH GRAPH WAS FICTION BECAUSE OF
+IT. Also: taking a side finally costs you somewhere else. TAB: CITY. ***
+
+WHAT I WAS BUILDING. The `burned` commitment stage has shipped this sentence
+since 8/15: "You cost yourself somewhere else to be here." NOTHING ANYWHERE EVER
+COST YOU SOMEWHERE ELSE -- BohemiaBelonging.adjust was called in exactly two
+places and both passed the outfit you are standing in front of. Word travelled,
+the card printed WHO WILL HEAR, and then nothing happened to any of them. Same
+disease as the debt that was never collected, one system over, in a system this
+lane wrote itself.
+
+IT NEEDS NO RIVALRY TABLE AND THAT IS WHAT KEEPS IT LEGAL. Who hates whom is HIS
+canon and unruled. Coser / Lipset & Rokkan: a tie to one side is a liability with
+EVERY other side, not only declared enemies, and that generalised liability IS
+the mechanism by which cross-cutting ties damp conflict. So the cost lands on
+whoever finds out, and no outfit is named anywhere in the code (asserted).
+  A RUMOUR CANNOT COST YOU -- read off LANDING's own shipped words, "they will
+    not hear exactly what". You do not lose standing over what nobody can pin on
+    you.
+  YOU CANNOT FALL BELOW A STRANGER, and it never takes more than you had.
+  THE AMOUNT IS THE STAGE INDEX (0/1/2), derived like neglect, never typed.
+  AND IT IS PRINTED BEFORE THE BUTTON (this lane's own 8/15 rule 2): a cost you
+    find out afterwards is a punishment, a cost you read first is a decision.
+This is also what finally makes TERTIUS a decision instead of a caption: stand
+where your outfits have no line to each other and it costs you NOTHING.
+Law: laws/BOHEMIA_ADDENDUM_IT_COSTS_YOU_SOMEWHERE_ELSE_8_19_26.md
+
+*** AND BUILDING IT FOUND SOMETHING MUCH WORSE. ***
+The card reported TRADES hearing about a Reds commitment through a FACTION focus
+at one hop. That is impossible -- a faction focus cannot bridge two factions,
+their keys are F:REDS and F:TRADES and they do not match. So I pulled the thread.
+
+  MEASURED ON THE REAL PAGE:
+    people in the valley roster            298
+    distinct ids                            17
+    ids used by more than one person        16
+    ids used by people IN DIFFERENT OUTFITS 11
+  "H1-1" alone covered ~140 people spanning Cartel, Caravans, Colorful, Network,
+  Homeless, Reds, Trades, Volunteers and Remnants.
+
+bohemia_population numbers people PER NEIGHBOURHOOD (H1-1, H2-1...) and
+ctValleyRoster concatenates every neighbourhood. whoHears keys byKey/seen/tiesOf
+on that id, so one name stood in for a hundred and forty real people and the rest
+were silently skipped as already-visited. THE SOCIAL GRAPH OF THE VALLEY WAS
+LARGELY FICTION, and had been since 8/15.
+
+WHY NO CLAIM CAUGHT IT, AND THIS IS THE PART THAT GENERALISES: every who-hears
+assertion tested SHAPE -- somebody hears, a rumour lands further than a fact, the
+bridge is cross-cutting -- and all of those stay TRUE on a graph built from
+colliding keys, because COLLISIONS ADD EDGES RATHER THAN REMOVE THEM. Nothing
+ever looked empty, so nothing ever looked wrong. NOBODY ASKED WHETHER TWO PEOPLE
+WITH THE SAME NAME WERE THE SAME PERSON. A shape assertion structurally cannot
+ask that.
+
+THE FIX IS FOUR LINES and engine/ is untouched: the foci were never wrong
+(home.building and j.site are real valley coordinates, unique across the map),
+only the KEYS collided, and whoHears has accepted an opts.keyOf since the day it
+was written. 298 people, 298 distinct keys now.
+Law: laws/BOHEMIA_ADDENDUM_TWO_HUNDRED_PEOPLE_SEVENTEEN_NAMES_8_19_26.md
+
+*** AND THE FIX EMPTIED THE FEATURE, WHICH IS THE FINDING, NOT A PROBLEM TO HIDE.
+With real keys NOBODY IN THE VALLEY HEARS ANYTHING AT ALL. Ground truth, and it
+does not depend on keys:
+    people 298 | affiliated 32 | outfits present 11
+    distinct homes among affiliated people      32
+    homes shared by two affiliated people        0
+    workplaces holding two DIFFERENT outfits     0
+THIRTY-TWO AFFILIATED PEOPLE LIVE IN THIRTY-TWO DIFFERENT BUILDINGS. Not one pair
+shares a roof, never mind two different outfits sharing one. So the 8/15
+word-travels system was producing output ONLY because of the collisions.
+
+I DID NOT WIDEN THE TIE RULE TO MAKE MY FEATURE LOOK ALIVE -- that would have
+manufactured exactly the fiction the fix just deleted, the same bug chosen on
+purpose. The density dials (REACH_CELLS 12, AFFILIATED_RATE) and base placement
+are HIS and already flagged. This lane records the number and stops.
+H3 asserts CONSISTENCY, never emptiness -- the card must never say an outfit
+heard when no two outfits share a setting -- so it holds in both worlds.
+
+GATES: COMMITMENT 72/72 (parts G and H new, three mutations all bite), TIES
+40/40, INTRODUCTIONS 46/46, BELONGING 58/58, CARD FOLD 11/11, CLAIM 45/45,
+FAVOUR 31/31. A13 was fixed AT THE RULER: it asserted "exactly three
+placeholders" as a proxy for "everything unruled is tagged", and went red the
+moment a second priced fact was tagged CORRECTLY.
+
+NEXT FOR THIS LANE (decided, not asked): THE OTHER TWO WRITERS. adjust() is now
+called on somebody other than the person in front of you exactly once. The claim
+(8/16) and the favour (8/16) still only ever touch ctFid, so refusing the Church
+is invisible to everybody who would care. Same shape, same graph, and it is
+DORMANT UNTIL THE DENSITY CHANGES -- which is the honest reason to do the cheap
+half first and not pretend otherwise.
+
+---
+
+FACTIONS (factions-ovkjpf): 8/18 (m) -- *** THE WALL WAS A SIGN AND NOT A
 FENCE, FOR THREE DAYS, AND EVERY GATE WAS GREEN. Also: the person card had
 quietly grown to 96% of the phone. TAB: CITY (tap anybody who runs with
 somebody) + LOOK ("THE CARD FITS AGAIN"). ***

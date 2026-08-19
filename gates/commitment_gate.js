@@ -130,8 +130,22 @@ function partA() {
     S.neglectFor('none') < S.neglectFor('sided') &&
     S.neglectFor('sided') < S.neglectFor('burned'));
   const ph = S.placeholders();
+  /* A13 USED TO COUNT `ph.length === STAGES.length` AND THAT WAS A PROXY, NOT THE
+     CLAIM. The law is that every unruled number is tagged and enumerable; "there
+     are exactly three of them" is a fact about how many priced facts existed on
+     8/15, and it went red the moment a second priced fact (what an outfit that
+     HEARS charges you, 8/19) was tagged correctly. Fix the ruler, never the
+     target: assert the property, and assert that BOTH priced facts are present
+     so the list cannot silently shrink either. */
   ok('A13 every unruled number is TAGGED and enumerable (EVERYTHING COSTS ONE, 8/15)',
-    ph.length === S.STAGES.length && ph.every(p => p.placeholder === true && /EVERYTHING COSTS ONE/.test(p.law)),
+    ph.length > 0 && ph.every(p => p.placeholder === true
+      && /EVERYTHING COSTS ONE/.test(p.law) && typeof p.what === 'string' && p.what.length > 10),
+    JSON.stringify(ph.map(p => p.where)));
+  ok('A13b …and BOTH priced facts are in the list — what neglecting them costs, '
+    + 'and what an outfit that hears about the commitment takes off you. They '
+    + 'derive from the same stage index and they are different facts',
+    ph.some(p => /\.neglect$/.test(p.where)) && ph.some(p => /costs\(/.test(p.where))
+      && S.STAGES.every(st => ph.some(p => p.where.indexOf(st.state) >= 0)),
     JSON.stringify(ph.map(p => p.where)));
   ok('A14 the DERIVED ceilings are NOT in the tuning list — they are not waiting on a ruling',
     ph.every(p => !/ceiling/i.test(p.where)));
@@ -545,6 +559,164 @@ function partF() {
     B.rungOf(rule, 10).key === 'inside' && St.rungFor(-5) === 'HOSTILE');
 }
 
+/* --------------------------- G. IT COSTS YOU SOMEWHERE ELSE (THE ORGAN) */
+/* THE `burned` STAGE HAS SAID THIS IN WRITING SINCE 8/15 AND NOTHING DID IT:
+   "You cost yourself somewhere else to be here." adjust() was only ever called
+   on the outfit standing in front of you. Word travelled and nothing happened.
+
+   NO RIVALRY TABLE, AND THAT IS DELIBERATE. Who hates whom is HIS canon and
+   unruled. Coser / Lipset & Rokkan: a tie to one side is a liability with EVERY
+   other side, not only declared enemies, and that generalised liability is the
+   whole mechanism by which cross-cutting ties damp conflict. Taking a side is
+   exclusive by construction, so the cost lands on whoever finds out. */
+function partG() {
+  console.log('G. TAKING A SIDE COSTS YOU WITH WHOEVER HEARS IT');
+
+  /* two outfits sharing one roof, a third with no line at all. */
+  const roster = [
+    { id: 'A1', faction: 'CHURCH', home: { building: 7 }, job: { kind: 'scav' } },
+    { id: 'A2', faction: 'CARTEL', home: { building: 7 }, job: { kind: 'scav' } },
+    { id: 'B1', faction: 'MOB', home: { building: 90 }, job: { kind: 'scav' } }
+  ];
+  const heard = S.whoHears('CHURCH', roster, [0, 0], { ties: T });
+  const standings = { CHURCH: 5, CARTEL: 4, MOB: 6 };
+
+  ok('G1 nothing said out loud costs nothing — you have not taken a side yet',
+    S.costs('none', heard, standings).length === 0);
+
+  const sided = S.costs('sided', heard, standings);
+  ok('G2 TAKING A SIDE COSTS YOU WITH THE OUTFIT THAT HEARD IT AS FACT. The '
+    + 'stage promised this on 8/15 and adjust() was only ever called on the '
+    + 'outfit in front of you',
+    sided.length === 1 && sided[0].faction === 'CARTEL' && sided[0].lose === 1,
+    JSON.stringify(sided.map(c => c.faction + ' -' + c.lose)));
+
+  ok('G3 …and it does NOT cost you with an outfit that has no line to you. '
+    + 'Burt/Simmel: the structural hole is worth something, and this is where '
+    + 'tertius stops being a caption and starts being a number',
+    !sided.some(c => c.faction === 'MOB'));
+
+  ok('G4 burning a bridge costs more than taking a side, and the amount is the '
+    + 'STAGE INDEX — derived like neglect, never typed, so a fourth stage would '
+    + 'follow on its own',
+    S.costs('burned', heard, standings)[0].lose === 2
+    && S.costs('sided', heard, standings)[0].lose === 1);
+
+  /* A RUMOUR NAMES NOTHING. LANDING.secondhand says it itself. */
+  const far = [
+    { id: 'C1', faction: 'CHURCH', home: { building: 1 }, job: { kind: 'site', site: 'J1' } },
+    { id: 'C2', faction: null, home: { building: 1 }, job: { kind: 'site', site: 'J2' } },
+    { id: 'C3', faction: 'BLUES', home: { building: 3 }, job: { kind: 'site', site: 'J2' } }
+  ];
+  const fh = S.whoHears('CHURCH', far, [0, 0], { ties: T });
+  const blues = fh.find(h => h.faction === 'BLUES');
+  ok('G5 A RUMOUR CANNOT COST YOU, and that is read off LANDING\'s own shipped '
+    + 'words — "They will hear that you did something. They will not hear '
+    + 'exactly what." You do not lose standing over what nobody can pin on you',
+    !blues || S.landing(blues).key !== 'direct'
+      ? !S.costs('sided', fh, { CHURCH: 5, BLUES: 4 }).some(c => c.faction === 'BLUES')
+      : true,
+    JSON.stringify(fh.map(h => h.faction + '@' + h.hops)));
+
+  ok('G6 an outfit that never counted you has nothing to take — you cannot fall '
+    + 'below a stranger, which is exactly why belonging does not go negative',
+    S.costs('burned', heard, { CHURCH: 5, CARTEL: 0, MOB: 6 })
+      .every(c => c.faction !== 'CARTEL'));
+
+  ok('G7 …and it never takes more than you had, so a deep commitment cannot '
+    + 'drive somebody into a debt the ladder cannot express',
+    S.costs('burned', heard, { CHURCH: 5, CARTEL: 1, MOB: 6 })[0].lose === 1);
+
+  ok('G8 no outfit is named in the organ — the cost needs no rivalry table and '
+    + 'invents none of his canon',
+    !/CHURCH|CARTEL|MOB|BLUES|REMNANTS/.test(
+      fs.readFileSync(GEN, 'utf8').split('function costs(')[1].split('\n  }')[0]));
+}
+
+/* ------------------- H. TWO PEOPLE WITH THE SAME NAME ARE TWO PEOPLE */
+/* 298 PEOPLE IN THE VALLEY SHARED 17 NAMES. bohemia_population numbers people
+   PER NEIGHBOURHOOD (H1-1, H2-1...) and ctValleyRoster concatenates every
+   neighbourhood, so "H1-1" stood in for ~140 real people across nine outfits.
+   whoHears keys byKey/seen/tiesOf on that id, so the social graph of the valley
+   was largely fiction -- it reported TRADES hearing a Reds commitment through a
+   FACTION focus, which cannot happen (F:REDS and F:TRADES do not match).
+
+   WHY NO CLAIM CAUGHT IT: every who-hears assertion tested SHAPE -- somebody
+   hears, a rumour lands further than a fact, the bridge is cross-cutting -- and
+   all of those stay true on a graph built from colliding keys, because
+   collisions ADD edges rather than remove them. Nothing ever looked empty.
+   NOBODY ASKED WHETHER TWO PEOPLE WITH THE SAME NAME WERE THE SAME PERSON. */
+async function partH() {
+  console.log('H. THE VALLEY ROSTER IS PEOPLE, NOT NAMES');
+  const { chromium } = requirePlaywright();
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  const errs = [];
+  page.on('pageerror', e => errs.push(e.message));
+  try {
+    await page.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'));
+    await page.waitForTimeout(6000);
+    const m = await page.evaluate(() => {
+      hx = 1026; hy = 8322;                 /* the Reds base: where it showed */
+      const roster = ctValleyRoster(), cell = ctCell();
+      const byOld = {}, byNew = {};
+      roster.forEach(a => { byOld[String(a.id)] = 1; byNew[ctVKey(a)] = 1; });
+      /* do two outfits actually share a setting anywhere? ground truth, and it
+         does not depend on keys at all. */
+      const buckets = {};
+      roster.forEach(a => {
+        const f = BohemiaTies.fociOf(a, cell);
+        for (const k of ['home', 'work', 'faction']) {
+          if (!f[k]) continue;
+          (buckets[f[k]] = buckets[f[k]] || new Set()).add(String(a.faction || '-'));
+        }
+      });
+      let mixed = 0;
+      for (const v of Object.values(buckets))
+        if ([...v].filter(x => x !== '-').length > 1) mixed++;
+      /* and what the card says, on the real surface */
+      const fids = [...new Set(roster.map(a => a.faction).filter(Boolean))];
+      let claimsSomebodyHeard = 0;
+      for (const fid of fids) {
+        let h = [];
+        try { h = BohemiaCommitment.whoHears(fid, roster, cell, { ties: BohemiaTies, keyOf: ctVKey }); } catch (_e) {}
+        if (h.length) claimsSomebodyHeard++;
+      }
+      return { people: roster.length, oldKeys: Object.keys(byOld).length,
+               newKeys: Object.keys(byNew).length, mixedFoci: mixed,
+               outfits: fids.length, claimsSomebodyHeard };
+    });
+
+    ok('H1 EVERY PERSON IN THE VALLEY HAS THEIR OWN KEY. Before this, ' + m.people
+      + ' people answered to ' + m.oldKeys + ' names and the graph walk treated '
+      + 'them as the same person',
+      m.newKeys === m.people,
+      JSON.stringify(m));
+
+    ok('H2 …and the old key really was colliding, so this is measuring a fix '
+      + 'rather than restating a fact that was already true',
+      m.oldKeys < m.people,
+      m.oldKeys + ' distinct ids for ' + m.people + ' people');
+
+    /* THE HONEST PART, AND IT IS NOT A PASS DISGUISED AS ONE. With real keys
+       the valley has NO cross-faction ties at all, so nobody hears anything.
+       That is a fact about the WORLD (base placement is MAP LAW, and
+       REACH_CELLS / AFFILIATED_RATE are [PENDING Paolo]), not about the organ,
+       which part G proves works the moment a shared setting exists. The claim
+       is CONSISTENCY -- the card must never say an outfit heard when no two
+       outfits share a setting -- and it holds in both worlds. */
+    ok('H3 THE CARD NEVER CLAIMS AN OUTFIT HEARD WHEN NO TWO OUTFITS SHARE A '
+      + 'SETTING. Measured: ' + m.mixedFoci + ' shared settings in this valley '
+      + 'join two named outfits, and ' + m.claimsSomebodyHeard + ' of '
+      + m.outfits + ' outfits report being heard about. Before the key fix it '
+      + 'claimed three, through ties that did not exist',
+      (m.mixedFoci === 0) === (m.claimsSomebodyHeard === 0),
+      JSON.stringify(m));
+
+    ok('H4 no page errors', errs.length === 0, errs.slice(0, 2).join(' | '));
+  } finally { await browser.close(); }
+}
+
 (async function main() {
   console.log('COMMITMENT GATE — the wall, and who finds out\n');
   partA();
@@ -554,6 +726,8 @@ function partF() {
   await partWall();
   partE();
   partF();
+  partG();
+  await partH();
   console.log('\nCOMMITMENT GATE: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error('COMMITMENT GATE CRASHED: ' + (e && e.stack || e)); process.exit(1); });
