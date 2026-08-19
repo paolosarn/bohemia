@@ -2128,15 +2128,52 @@ SUITE_BUDGET = int(os.environ.get('BOHEMIA_SUITE_BUDGET', '2700'))
 
 
 def run(argv):
+    """A TIMED-OUT GATE HAS TO ACTUALLY STOP, AND subprocess.run DOES NOT DO THAT.
+
+    MEASURED 8/19, and it is the reason the suite was slower than the sum of its
+    parts: subprocess.run(timeout=...) kills the CHILD it started and nothing
+    else. TOOLS RUN spawns bohemia_district_hero_factory.py, so when the gate was
+    killed at its cap the FACTORY KEPT RUNNING -- caught at FORTY-FIVE MINUTES,
+    long after the gate that started it was declared timed out, burning a core
+    alongside every gate that ran after it. Every timing downstream of a timeout
+    was inflated by a process nobody could see.
+
+    So each gate gets its own PROCESS GROUP (start_new_session) and a timeout
+    kills the GROUP. A gate that is over is over, including whatever it spawned.
+    """
     try:
-        p = subprocess.run(argv, capture_output=True, text=True, timeout=GATE_CAP)
-        return p.returncode, (p.stdout or '') + (p.stderr or '')
+        p = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                             text=True, start_new_session=True)
     except FileNotFoundError:
         return 127, 'gate file missing: ' + argv[-1]
+    try:
+        out, err = p.communicate(timeout=GATE_CAP)
+        return p.returncode, (out or '') + (err or '')
     except subprocess.TimeoutExpired:
-        return 124, ('timed out after %ds (BOHEMIA_GATE_CAP). A gate that cannot '
-                     'answer in that long is broken as a ship gate whether it '
-                     'would pass or not -- every ship waits behind it.' % GATE_CAP)
+        _kill_group(p)
+        out, err = '', ''
+        try:
+            out, err = p.communicate(timeout=10)
+        except Exception:
+            pass
+        return 124, ((out or '') + (err or '')
+                     + '\ntimed out after %ds (BOHEMIA_GATE_CAP) and the whole '
+                       'process GROUP was killed. A gate that cannot answer in '
+                       'that long is broken as a ship gate whether it would pass '
+                       'or not -- every ship waits behind it.' % GATE_CAP)
+
+
+def _kill_group(p):
+    """Kill the gate AND anything it spawned. Without the group kill an orphaned
+    grandchild outlives the whole suite (measured: 45 minutes)."""
+    import signal
+    try:
+        os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+    except (ProcessLookupError, PermissionError, OSError):
+        try:
+            p.kill()
+        except Exception:
+            pass
 
 def summarize(name, out):
     """One line that says what actually happened, not just pass/fail."""

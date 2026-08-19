@@ -106,7 +106,50 @@ ok('A9 …and a filtered run NEVER says ALL GATES GREEN — it says how many of 
   && !/ALL \d+ GATES GREEN/.test(only.out),
   only.out.split('\n').slice(-2).join(' | '));
 
-/* ---- 4. EVERY LINE SAYS WHERE IT IS ---------------------------------------- */
+/* ---- 4. A TIMED-OUT GATE ACTUALLY STOPS, INCLUDING WHAT IT SPAWNED --------- */
+/* MEASURED 8/19 AND IT IS WHY THE SUITE WAS SLOWER THAN THE SUM OF ITS PARTS:
+   subprocess.run(timeout=) kills the CHILD it started and nothing else. TOOLS RUN
+   spawns bohemia_district_hero_factory.py, so when the gate hit its cap the
+   FACTORY KEPT RUNNING -- caught at FORTY-FIVE MINUTES, long after the gate that
+   started it was declared timed out, burning a core alongside every gate that ran
+   after it. Every timing downstream of a timeout was inflated by a process nobody
+   could see. Proven both ways before this claim was written: the old code leaves
+   the grandchild alive, the group kill reaps it. */
+{
+  const dir = fs.mkdtempSync(path.join(require('os').tmpdir(), 'bohgk-'));
+  const gc = path.join(dir, 'gcproc.py');
+  const par = path.join(dir, 'parproc.py');
+  fs.writeFileSync(gc, 'import time\nwhile True: time.sleep(1)\n');
+  fs.writeFileSync(par, 'import subprocess, time\n'
+    + 'subprocess.Popen(["python3", ' + JSON.stringify(gc) + '])\n'
+    + 'time.sleep(300)\n');
+  const probe = path.join(dir, 'probe.py');
+  fs.writeFileSync(probe,
+    'import sys, os, time, subprocess, importlib.util\n'
+    + 'os.environ["BOHEMIA_GATE_CAP"]="3"\n'
+    + 'spec=importlib.util.spec_from_file_location("bg", ' + JSON.stringify(RUNNER) + ')\n'
+    + 'm=importlib.util.module_from_spec(spec); sys.argv=["x"]; spec.loader.exec_module(m)\n'
+    + 'def n():\n'
+    + '    r=subprocess.run(["pgrep","-f",' + JSON.stringify(gc) + '],capture_output=True,text=True)\n'
+    + '    return len([x for x in r.stdout.split() if x.strip()])\n'
+    + 'rc,out = m.run(["python3", ' + JSON.stringify(par) + '])\n'
+    + 'time.sleep(1.5)\n'
+    + 'print("RC=%s LEFT=%d" % (rc, n()))\n');
+  let res = '';
+  try {
+    res = execFileSync('python3', [probe], { cwd: ROOT, encoding: 'utf8', timeout: 120000 });
+  } catch (e) { res = String((e.stdout || '') + (e.stderr || '')); }
+  const m = res.match(/RC=(\d+) LEFT=(\d+)/);
+  ok('A11 A TIMED-OUT GATE ACTUALLY STOPS, INCLUDING ANYTHING IT SPAWNED. '
+    + 'subprocess.run kills only its direct child, so a grandchild outlives the '
+    + 'gate that started it — measured at 45 minutes, burning a core beside every '
+    + 'gate that ran after it and inflating every timing downstream',
+    !!m && m[1] === '124' && m[2] === '0',
+    res.trim() || 'probe produced nothing');
+  try { fs.rmSync(dir, { recursive: true, force: true }); } catch (_e) {}
+}
+
+/* ---- 5. EVERY LINE SAYS WHERE IT IS ---------------------------------------- */
 ok('A10 every gate line carries its position in the table, so a killed run\'s '
   + 'last line tells you exactly how far it got',
   /\[\s*\d+\/\s*\d+\]/.test(only.out), only.out.split('\n').filter(l => /CARD FOLD/.test(l))[0]);

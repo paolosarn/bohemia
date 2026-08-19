@@ -56,6 +56,24 @@ hand; doing it through the runner keeps the lock, the deps check and the table
 check. **And a filtered run never says ALL GATES GREEN either** — it says how many
 of how many, and that the rest held nothing. *Same lie as silence, smaller.*
 
+## 3b. AND A SECOND BUG UNDER IT: A TIMED-OUT GATE WAS NOT ACTUALLY STOPPING
+
+`subprocess.run(timeout=...)` kills **the child it started and nothing else.**
+
+`TOOLS RUN` spawns `bohemia_district_hero_factory.py`. So when the gate hit its
+cap and was declared timed out, **the factory kept running** — caught at
+**forty-five minutes**, long after the gate that started it had been reported
+dead, burning a core alongside every gate that ran after it.
+
+> **Every timing downstream of a timeout was inflated by a process nobody could
+> see** — which is why the suite was slower than the sum of its parts, and why the
+> measurement above understates how much the cap was costing.
+
+Each gate now runs in its **own process group** (`start_new_session`) and a
+timeout kills the **group**. A gate that is over is over, including whatever it
+spawned. Proven both ways before the claim was written: the old code leaves the
+grandchild alive, the group kill reaps it.
+
 ## 4. HOW IT IS GATED WITHOUT BREAKING THE LOCK
 
 `gates/suite_honesty_gate.js` **runs the runner in a child process** and reads what
