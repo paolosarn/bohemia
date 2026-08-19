@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19l - THE SOLAR FARM IS POWER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19m - THE RACK PLAYS RIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -15403,6 +15403,995 @@ drawLogoBig();requestAnimationFrame(loop);
 })();
 </script>
 <!-- /BOHEMIA SOUND MIX -->
+<!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->
+<script>
+/* === SFX WIRE, PARENT SIDE (7/30/26) ====================================
+   Paolo's 118 approved sounds, from his 8/15 full sweep. The table below is INDEXES
+   into the shipped generator, not copied audio: candidate n of event e is
+   BOH_SFX.cook(e,5)[n], which gates/sfx_render_gate.py fingerprints. So what
+   plays is byte-for-byte the thing he heard when he thumbed it.
+   Verdict: records/BOHEMIA_SFX_VERDICT_8_17_26.txt
+   Bank:    banks/BOHEMIA_SFX_APPROVED_8_17_26.json
+   ONE AUDIOCONTEXT: everything below plays on the MUSIC studio's context and
+   its brickwall limiter. The run posts an event name; nothing else. */
+(function(){
+  'use strict';
+  if(window.__SFX_WIRE)return; window.__SFX_WIRE=true;
+  var APPROVED={"air_day":[0,1,2,3,4],"air_inside":[0,1,2,3,4],"air_night":[0,1,2,3,4],"block":[2],"boots_go":[0,4],"casing":[0],"cloth_on":[1,4],"come_up":[0,1,2,4],"cover_more":[0,3],"demolish":[0,2,4],"dirt_take":[0,1,2,3,4],"door_drag":[0],"drink":[0,1,2,3,4],"dry_fire":[1],"eat":[2],"generator":[0,1,2,3],"heartbeat":[0,1,3],"hit":[2,4],"hit_more":[0],"hurt":[2],"hurt_more":[0,1,2,3,4],"kill":[0,1,2,3,4],"melee_hit":[0,2,3,4],"miss_past":[0,1,2,3,4],"phone_buzz":[2,4],"pickup":[0,1,2,3,4],"power_on":[0,4],"save_chime":[0,1,2,3,4],"set_down":[2,3],"shot":[3],"shot_more":[0,1,2,3,4],"sleep_sink":[0,1,2,3,4],"step_asphalt":[0,1,2,3,4],"step_concrete":[2],"step_dirt":[0,1,2,3,4],"step_gravel":[0,1,2,3,4],"step_sand":[4],"step_wood":[2,4],"stone_bite":[4],"swing_air":[2,3],"tape_pull":[1,4],"time_pass":[0,1,2,3,4],"ui_back":[2,3,4],"ui_deny":[0,2,4],"ui_tap":[1,2,3],"vital_deep":[0,2,4],"walk_more":[0,2,4],"went_down":[4],"will_goes":[2],"wind_gust":[0,1]};
+  /* THE BOARD HAS TO KNOW WHICH MOMENTS ACTUALLY HAVE A SOUND (8/2), and it
+     must read the SAME table playSFX reads. A second copy of his thumbs is a
+     second thing that can be wrong. */
+  try{ window.__SFX_APPROVED=APPROVED; }catch(_e){}
+  var last={};                       /* per event: what played last, never twice */
+  var SFX_COUNT=0;                   /* what the status line in the MUSIC tab reports */
+  /* ===== ONE MOMENT, MORE THAN FIVE VOICES (8/16b) ======================
+     MEASURED, and it is the worst number in this whole lane: THE MOST-PLAYED
+     SOUND IN THE GAME HAS EXACTLY ONE APPROVED VARIANT. Every shot in every
+     firefight is byte-identical. So is every sidewalk step, every hit you
+     take, every piece of brass, every shot your cover eats. Twelve wired
+     moments sit at one variant and four more at two.
+     This is the MACHINE GUN EFFECT and it is the oldest problem in game audio:
+     the same sample fired in rapid succession stops reading as an event and
+     starts reading as a machine. It is also, precisely, "its getting stale" --
+     except this time in the GAME rather than on the judge sheet, which is why
+     no amount of new moments was ever going to fix it.
+     APPROVAL UNLOCKS VOLUME is already this repo's law. It had never been
+     applied to sound: he approved shot.3 on 8/1 and the volume never came.
+
+     WHY A SIBLING EVENT RATHER THAN A BIGGER COOK. A recipe cooks exactly five
+     candidates and his thumbs are attached to those five vectors forever
+     (verdict_frozen_gate). Widening `shot` to eight would change what shot.3
+     IS. So a moment gains a SIBLING EVENT with its own id and its own five,
+     and the picker draws from the union. His old thumbs never move.
+
+     TWO THINGS THE RESEARCH CHANGED:
+       ODD IS BETTER THAN EVEN. Standard round-robin practice is an odd number
+       of variants against an even meter, so the cycle never locks to the
+       phrasing. This game quantises EVERYTHING to 120 BPM, which makes it the
+       worst possible case for an even count -- four variants against 4/4 would
+       line up forever.
+       NEVER TWICE IN A ROW, which this picker already did and which is kept. */
+  /* WHICH MOMENTS DRAW FROM WHICH SIBLINGS (8/16b). Left is the moment the
+     game asks for; right is the extra event whose approved candidates join its
+     pool. Nothing here changes what he approved -- it only widens the draw. */
+  var SIBLINGS={
+    shot:          ['shot_more'],
+    hurt:          ['hurt_more'],
+    hit:           ['hit_more'],
+    casing:        ['brass_more'],
+    block:         ['cover_more'],
+    step_concrete: ['walk_more']
+  };      /* moment -> extra event ids that also feed it */
+  window.__sfxSiblings=SIBLINGS;
+  function poolOf(ev){
+    var pool=[], set=APPROVED[ev]||[], i;
+    for(i=0;i<set.length;i++) pool.push([ev,set[i]]);
+    var sib=SIBLINGS[ev]||[];
+    for(var s=0;s<sib.length;s++){
+      var t=APPROVED[sib[s]]||[];
+      for(i=0;i<t.length;i++) pool.push([sib[s],t[i]]);
+    }
+    return pool;
+  }
+  window.__sfxPool=function(ev){ return poolOf(ev).map(function(x){return x[0]+'.'+x[1];}); };
+  function pick(ev){
+    var pool=poolOf(ev); if(!pool.length)return null;   /* unjudged = silent */
+    if(pool.length===1)return pool[0];
+    var c, guard=0, key;
+    do{ c=pool[(Math.random()*pool.length)|0]; key=c[0]+'.'+c[1]; }
+    while(key===last[ev] && ++guard<8);
+    last[ev]=key; return c;
+  }
+  var cache={};
+  function vec(ev,i){
+    var k=ev+'.'+i;
+    if(!cache[k]){ try{ cache[k]=BOH_SFX.cook(ev,5)[i]; }catch(e){ return null; } }
+    return cache[k];
+  }
+  /* ===== ONE BUS FOR EVERY SOUND EFFECT (8/2) ==========================
+     Paolo 8/2: "when we have a menu and it's gonna have Settings and then we
+     can change the volume of all sound effects or whatever so yeah just keep
+     that in mind."
+     Effects were reaching the output THREE different ways: footsteps on their
+     own quiet bus, ambience on another, and everything else straight into the
+     music master. A volume slider would have had to know about all three and
+     would have drifted the moment a fourth appeared. So there is one node now.
+     Everything an effect makes goes through SFXBUS -> MUS.MAST, and the whole
+     settings hook is setSFXVolume().
+     IT DOES NOT FLATTEN THE MIX HE APPROVED: the footstep bus and the ambience
+     bus keep their own gains and simply feed this one instead of the master, so
+     every level he judged stays exactly where it was relative to everything
+     else. This is a place to put a knob, not a re-mix. */
+  var SFXBUS=null, SFXVOL=1;
+  try{ var sv=parseFloat(localStorage.getItem('bohemia_sfxvol'));
+       if(sv>=0 && sv<=1) SFXVOL=sv; }catch(e){}
+  function sfxBus(){
+    try{
+      if(SFXBUS) return SFXBUS;
+      if(typeof MUS==='undefined' || !MUS.AC) return null;
+      SFXBUS=MUS.AC.createGain(); SFXBUS.gain.value=SFXVOL;
+      SFXBUS.connect(MUS.OUT||MUS.MAST||MUS.AC.destination);  /* 8/2: the OUTPUT bus, never the music master -- MUS.stop() ducks MAST to zero and that used to mute the whole game */
+      window.__SFXBUS=SFXBUS;
+    }catch(e){ SFXBUS=null; }
+    return SFXBUS;
+  }
+  /* THE WHOLE SETTINGS HOOK. When the menu exists it calls this and nothing
+     else. 0 is silent, 1 is the mix he judged. */
+  window.setSFXVolume=function(v){
+    v=Math.max(0,Math.min(1,+v||0)); SFXVOL=v;
+    try{ localStorage.setItem('bohemia_sfxvol',String(v)); }catch(e){}
+    try{ if(SFXBUS) SFXBUS.gain.value=v; }catch(e){}
+    return v;
+  };
+  window.getSFXVolume=function(){ return SFXVOL; };
+
+  /* FOOTSTEPS SIT WAY UNDER EVERYTHING (Paolo 8/1): "relative to like the music
+     it should be like a lot quieter like A LOT A LOT quieter -- the noise that
+     makes for me stepping in different terrain should be quieter."
+     ANOTHER SESSION BUILT THIS RULING AND IT NEVER FIRED. Their stepSfx() hangs
+     off a BOHEMIA_STEP message that the run does not post -- measured live:
+     stepSfx called 0 times across a walk, while playSFX handled every footstep.
+     So the 0.12 they set was dead code and his ruling was being dropped on the
+     floor while everyone assumed it had shipped. It is applied HERE, on the
+     path that actually runs.
+     A SUB-BUS, not an edit to his vectors: the verdict is on the SOUND, never
+     on how loud the game chooses to play it. STEPS -> SFXBUS -> master, so the
+     settings knob still reaches them. */
+  var STEPBUS=null, STEP_GAIN=0.12;      /* ~-18 dB under everything else */
+  function stepBus(){
+    try{
+      if(STEPBUS) return STEPBUS;
+      var out=sfxBus(); if(!out) return null;
+      STEPBUS=MUS.AC.createGain(); STEPBUS.gain.value=STEP_GAIN;
+      STEPBUS.connect(out); window.__STEPBUS=STEPBUS;
+    }catch(e){ STEPBUS=null; }
+    return STEPBUS;
+  }
+
+  /* THE ONE ENTRY POINT. when==='beat' fires on the next downbeat of the real
+     song (the 120 BPM LAW: a kill lands ON the beat), anything else fires now. */
+  /* === VOICE LIMITING (8/4) =============================================
+     MEASURED at the limiter output, firing N copies of one shot at the same
+     instant:
+        1 copy  energy 2.18    8 copies energy 2.25
+        2       2.18          16       1.81   <- LESS THAN ONE
+     Past the first, a stacked sound adds NOTHING. The brickwall holds the peak
+     at 0.80 either way, so all the extra copies do is push the limiter down --
+     and the limiter pushes EVERYTHING down with it: the music, the footsteps,
+     the ambience. The loudest moment in the game was the moment it went flat.
+     It is not hypothetical. A combat volley resolves several enemies in the same
+     frame, which is why the block sound already needed a hand-rolled guard and
+     the neighbour footstep needed another. Two ad-hoc guards for one defect
+     means the defect belongs one level up.
+     TWO LIMITS, both deliberately generous:
+       PER EVENT, 45ms. Two identical sounds closer together than about 40ms do
+       not read as two sounds; they read as one with a thicker attack. This is
+       the flam threshold, not a gameplay choice.
+       GLOBAL, 8 voices per 60ms. A fight can absolutely fire eight DIFFERENT
+       things at once and should. It cannot usefully fire twenty.
+     THE FIRST SOUND IS NEVER DROPPED, and a lone sound is never touched. */
+  var VOX=[], LASTEV={};
+  var VOX_EVENT_MS=45, VOX_WINDOW_MS=60, VOX_MAX=8;
+  /* ---- AND IT USED TO DROP WHATEVER ARRIVED NINTH (8/15) ---------------
+     The cap was first-come-first-served: eight sounds inside sixty
+     milliseconds and the ninth was refused, whatever it was. A mix that drops
+     by ARRIVAL ORDER is not a mix, it is a queue -- the thing the player most
+     needed to hear is as likely to be thrown away as anything else, in the
+     exact moment there is most going on.
+     BEING PRECISE ABOUT WHAT WAS AND WAS NOT REACHABLE, because the first
+     version of this comment overstated it and the measurement caught me: a
+     flood of FOOTSTEPS could never do this. The 45 ms per-event guard admits
+     one step_asphalt per burst however many are asked for -- measured, 1 of 40.
+     The reachable case is many DIFFERENT sounds landing together, which is
+     precisely what a fight is: a shot, a hit, a body, a casing, a door, the
+     phone, two neighbours walking. That is the moment the cap was deciding by
+     arrival order, and that is the moment it now decides by importance.
+     PRIORITY IS THE STANDARD ANSWER and every audio middleware has it under one
+     name or another -- a sound carries an importance, and when there are more
+     sounds than room the least important loses. Here it is deliberately coarse,
+     four tiers, because a fine-grained table would be inventing a hierarchy
+     nobody ruled on:
+       3 CRITICAL   the fight and the answer to it. kill, hurt, shot, hit,
+                    block, vital, melee. Never refused.
+       2 EVENT      something happened that you did. doors, saves, quests,
+                    money, the phone, the interface.
+       1 WORLD      the valley being the valley. ambience, gusts, generators.
+       0 CONSTANT   footsteps -- the sound the game makes most, and the only
+                    one that can plausibly flood the window on its own.
+     THE HEADROOM IS THE MECHANISM: a tier may only use part of the window, so
+     a flood of footsteps can never fill it past the point where a gunshot
+     still fits. CRITICAL bypasses the cap entirely, which is the whole point.
+     WHAT IT IS NOT: this is not voice STEALING. A Web Audio source already
+     scheduled cannot be cheaply un-scheduled, so nothing already sounding is
+     cut short -- the cap decides what gets IN. Saying so because "priority"
+     usually implies stealing and this does less than that. */
+  var PRIO={ kill:3, hurt:3, shot:3, hit:3, block:3, vital:3, melee_hit:3,
+             miss:3, clear:3, dry_fire:3, casing:3, swing_air:3, heartbeat:3,
+             air_day:1, air_night:1, air_inside:1, wind_gust:1, generator:1,
+             dog_far:1, dog_cry:1, neon_buzz:1, neon_hum:1 };
+  function prioOf(ev){
+    if(PRIO[ev]!=null) return PRIO[ev];
+    if(String(ev).indexOf('step_')===0) return 0;
+    return 2;
+  }
+  /* room a tier is allowed to take. 3 is uncapped and is not in the table. */
+  var TIER_ROOM={ 0:5, 1:6, 2:8 };
+  function voiceOK(ev){
+    var now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+    var last=LASTEV[ev];
+    if(last!=null && (now-last)<VOX_EVENT_MS) return false;
+    while(VOX.length && (now-VOX[0])>VOX_WINDOW_MS) VOX.shift();
+    var p=prioOf(ev);
+    var room=(p>=3) ? Infinity : (TIER_ROOM[p]!=null ? TIER_ROOM[p] : VOX_MAX);
+    if(VOX.length>=Math.min(room, p>=3 ? Infinity : VOX_MAX)) return false;
+    LASTEV[ev]=now; VOX.push(now);
+    return true;
+  }
+  window.__voiceStats=function(){ return {perEvent:VOX_EVENT_MS, window:VOX_WINDOW_MS,
+    max:VOX_MAX, tiers:TIER_ROOM, prio:PRIO, prioOf:function(e){ return prioOf(e); }}; };
+  /* THE ADMISSION DECISION ITSELF, so a test can ask it forty times without
+     paying for forty renders. Rendering is what made the first version of
+     the mix gate wrong: forty real sounds took longer than the sixty
+     millisecond window they were supposed to be crowding, so the window
+     emptied underneath the experiment and the cap looked broken. This is
+     THE SAME FUNCTION playSFX calls, not a copy of its logic. */
+  window.__voiceAdmit=function(ev){ return voiceOK(ev); };
+
+  /* ===== DUCKING: THE MUSIC GETS OUT OF THE WAY OF A PERSON (8/15) ======
+     Nothing in the game has ever moved out of the way of anything else. A
+     squiggle line and a full song arrived at the same weight and fought, and
+     the line lost, because a song is continuous and a voice is not.
+     DUCKING UNDER DIALOGUE IS THE OLDEST MOVE IN THE BOOK -- broadcast has done
+     it for decades and every game middleware ships it. THE RESEARCHED SHAPE:
+     about -9 dB of duck is the usual dialogue target, with a typical game ramp
+     of ~500 ms down and ~1000 ms back.
+     I SHORTENED THE ATTACK AND SAY SO: 500 ms down buries the first third of a
+     line that is often only a second and a half long, which is the exact thing
+     the duck exists to prevent. 150 ms is fast enough to be under the first
+     syllable and slow enough not to click. The recovery stays long (900 ms)
+     because a fast recovery pumps, and pumping is audible in a way a slow one
+     is not. All three are dials; one word from him moves any of them.
+     ITS OWN NODE, SO HIS SLIDER IS NEVER TOUCHED. MUSVOL is the music volume he
+     sets; ducking it would fight the mixer and lose his setting the first time
+     the two disagreed. A dedicated gain sits between the music master and that
+     slider instead, so the duck is the only thing that ever writes to it. */
+  var DUCK=null, DUCK_UNTIL=0;
+  var DUCK_DEPTH=0.355, DUCK_DOWN=0.15, DUCK_UP=0.9;   /* -9 dB, 150 ms, 900 ms */
+  function duckNode(){
+    try{
+      if(DUCK && DUCK.__wired) return DUCK;
+      if(typeof MUS==='undefined' || !MUS.AC || !MUS.MAST || !MUS.MUSVOL) return null;
+      var g=MUS.AC.createGain(); g.gain.value=1;
+      try{ MUS.MAST.disconnect(MUS.MUSVOL); }catch(_e){}
+      MUS.MAST.connect(g); g.connect(MUS.MUSVOL);
+      g.__wired=true; DUCK=g;
+      try{ window.__DUCK=DUCK; }catch(_e){}
+    }catch(e){ DUCK=null; }
+    return DUCK;
+  }
+  /* seconds = how long the thing that is ducking will last. Overlapping calls
+     EXTEND rather than restart, so two people talking do not pump the song. */
+  window.duckMusic=function(seconds){
+    try{
+      var g=duckNode(); if(!g) return null;
+      var AC=MUS.AC, now=AC.currentTime;
+      var hold=Math.max(0.05, Math.min(8, +seconds||0.6));
+      var until=now+hold;
+      if(until<DUCK_UNTIL) until=DUCK_UNTIL;      /* never cut a duck short */
+      DUCK_UNTIL=until;
+      g.gain.cancelScheduledValues(now);
+      g.gain.setValueAtTime(g.gain.value, now);
+      g.gain.linearRampToValueAtTime(DUCK_DEPTH, now+DUCK_DOWN);
+      g.gain.setValueAtTime(DUCK_DEPTH, until);
+      g.gain.linearRampToValueAtTime(1, until+DUCK_UP);
+      return { depth:DUCK_DEPTH, down:DUCK_DOWN, up:DUCK_UP, until:until };
+    }catch(e){ return null; }
+  };
+  window.__duckStats=function(){
+    return { depth:DUCK_DEPTH, down:DUCK_DOWN, up:DUCK_UP,
+             wired:!!(DUCK&&DUCK.__wired),
+             gain:(DUCK?DUCK.gain.value:null) }; };
+  /* ===== THE JUDGE SCREEN IS SILENT EXCEPT FOR WHAT HE PRESSES =========
+     PAOLO, 8/16, AND NOT FOR THE FIRST TIME: "how many fucking times do I have
+     to fucking tell you that when I click a sound button it shouldn't be doing
+     the button sound click because that's disturbing me from hearing the actual
+     sound effect ... everything should make a sound except for the fucking
+     sound button that I played to hear different sounds to vote on".
+
+     MEASURED BEFORE IT WAS FIXED, on the real page with a real touch, because
+     the obvious suspect was wrong. The preview button does NOT play a UI click:
+     tapping one renders exactly one thing, the candidate. What is actually
+     landing on top of his auditions is THE GAME PLAYING ITSELF IN ANOTHER TAB
+     -- the run keeps autosaving on its own timer and his approved save bell
+     rings straight through the MUSIC tab. Three seconds of doing nothing at all
+     renders save_chime.0. He hears it next to his taps and reads it as the
+     button; the button was innocent and the room was not.
+
+     THE AMBIENCE LANE ALREADY SOLVED THIS FOR ITSELF on 8/1 -- it checks the
+     RUN tab is actually open before it plays, because a hidden iframe keeps its
+     timers. That guard was never generalised, so every OTHER game sound kept
+     the hole: the bell today, and a footstep or a door the moment the run moves
+     while he is judging.
+
+     AND THE GUARD GOES ON THE SOURCE, NOT ON THE SOUND'S NAME. The first
+     version of this listed the run's event names and checked them inside
+     playSFX, and the wired gate went red on ten checks immediately -- because
+     step_asphalt is ALSO what he hears when he taps step_asphalt on the judge
+     board, and silencing that is the exact opposite of what he asked for.
+     Every one of those reds was right.
+     The honest discriminator is WHO ASKED. The run and combat are iframes and
+     can only reach the parent by postMessage; his finger on the board and the
+     parent's own interface call playSFX directly. So the check sits on the
+     message channel: a sound the RUN asks for while he is looking at another
+     tab is dropped, and nothing he presses can ever be. */
+  /* AND THE CONDITION IS "HE IS JUDGING", NOT "THE RUN TAB IS SHUT".
+     The first two versions asked whether the RUN tab was visible, which is a
+     PROXY for the thing he actually complained about and a bad one: it made
+     every game sound depend on a tab state, and it took the block-is-not-empty
+     checks red because a neighbour's footstep is staged from a probe that does
+     not sit on the RUN tab. FIX THE RULER, NOT THE TARGET -- and here the
+     ruler was my own condition.
+     What he described is one specific room: he is on the MUSIC tab auditioning
+     candidates to vote on, and the game is playing over them. So that is what
+     is checked. During real play the MUSIC tab is not open and this guard is
+     inert by construction, which is why it cannot silence anything he is
+     actually playing. */
+  function judging(){
+    try{
+      var el=document.getElementById('p-music');
+      return !!(el && el.classList && el.classList.contains('on'));
+    }catch(e){ return false; }  /* if we cannot tell, never silence */
+  }
+  window.__judging=judging;
+  /* ===== NO TWO PLAYBACKS ARE IDENTICAL (8/18) =========================
+     THE RESEARCH SAYS THERE IS NO MAGIC NUMBER OF VARIANTS. Game-audio
+     practice does not beat repetition by counting samples up to some
+     threshold; it randomises PITCH AND LEVEL ON EVERY PLAYBACK, and gets far
+     more heard variation out of a small approved set than the set contains.
+     THIS COSTS HIM NOTHING, which is why it beat the alternative. Widening a
+     pool takes a batch, a ballot and his thumbs, and buys ONE moment. This
+     multiplies variety across ALL 148 candidates he has ALREADY approved --
+     the six-variant gunshot and the twelve moments still holding one alike --
+     without asking him for a single new judgement.
+
+     IT IS DELIBERATELY SMALL, because his approval is of a SOUND, not of a
+     family of sounds. +/-3% on pitch is about half a semitone and +/-10% on
+     level is under a decibel: audibly not-the-same-twice, nowhere near a
+     different candidate. The gate measures BOTH bounds rather than trusting
+     this comment -- it has to move, and it has to stay small.
+
+     PITCH MOVES ONLY ON THE SYNTHESIS METHODS, NEVER ON HIS INSTRUMENTS.
+     bodyInstrument converts hz to a SEMITONE and rounds it, so a 3% nudge is
+     either nothing or a whole semitone -- and a whole semitone on one of his
+     own musical voices, in a game quantised to 120 BPM, is a WRONG NOTE rather
+     than a variation. His rack varies by LEVEL alone.
+
+     AND IT NEVER TOUCHES THE JUDGE SHEET. That surface renders candidates
+     through BOH_SFX.render directly and never comes through playSFX, so what
+     he auditions is always the exact vector he is voting on. Asserted in the
+     gate, not assumed. */
+  function vary(v){
+    if(!v) return v;
+    var w={},k; for(k in v) w[k]=v[k];
+    var lvl = 1 + (Math.random()*2-1)*0.10;      /* +/-10%, under a dB */
+    w.gain = Math.max(0.02, Math.min(1, (v.gain||0.3) * lvl));
+    if(v.synth !== 'instrument'){
+      var pit = 1 + (Math.random()*2-1)*0.03;    /* +/-3%, about half a semitone */
+      w.hz = Math.max(20, Math.min(18000, (v.hz||200) * pit));
+    }
+    return w;
+  }
+  window.__sfxVary=vary;   /* exposed so the gate can measure the real spread */
+  /* === THE ROOM TAKES THE SOUND (8/4) ==================================
+     Measured RT60 from the acoustics literature, mapped onto the four places
+     this game actually has. STREET is 1.0 on every dial ON PURPOSE: it is the
+     commonest place in the run, so his approved sounds are untouched there and
+     only LEAVING the street changes anything.
+       OPEN    open terrain has almost nothing to reflect off
+       STREET  the canyon, and the baseline
+       ROOM    ~0.2s, and darker: furniture and cloth eat the highs
+       HALL    2-3s (a parking basement measures ~3s), bright and long
+     No convolver, no delay, no feedback. These four fields are the engine's
+     OWN finite space machinery: re-struck bodies and a filtered noise tail. */
+  var SPACES={
+    OPEN:   {space:0.30, room:0.45, refl:0.0, dark:1.15},
+    STREET: {space:1.00, room:1.00, refl:1.0, dark:1.00},
+    ROOM:   {space:0.85, room:0.55, refl:1.6, dark:0.72},
+    HALL:   {space:1.70, room:3.00, refl:2.2, dark:1.30}
+  };
+  var SPACE='STREET';
+  window.__sfxSpace=function(){ return SPACE; };
+  /* EXPOSED SO IT CAN BE CHECKED EXACTLY. playSFX picks a RANDOM candidate from
+     his approved set every call, and the difference between two of his
+     candidates is bigger than the difference a room makes -- so measuring the
+     room by playing playSFX twice proves nothing, which is exactly what the
+     first measurement of this feature "showed". */
+  window.__sfxInSpace=function(v,sp){ var k=SPACE; if(sp)SPACE=sp;
+    try{ return inSpace(v); } finally { SPACE=k; } };
+  function inSpace(v){
+    var p=SPACES[SPACE]||SPACES.STREET;
+    if(p.space===1&&p.room===1&&p.refl===1&&p.dark===1) return v;   /* baseline: untouched */
+    var w={},k; for(k in v) w[k]=v[k];
+    w.space=Math.max(0,Math.min(1,(v.space||0)*p.space));
+    w.room =Math.max(0,Math.min(3,(v.room ||0)*p.room));
+    w.refl =Math.max(0,Math.min(4,Math.round((v.refl||0)*p.refl)));
+    w.dark =Math.max(300,Math.min(9000,(v.dark||2600)*p.dark));
+    return w;
+  }
+  window.playSFX=function(ev,when){
+    try{
+      if(typeof BOH_SFX==='undefined')return null;
+      if(!voiceOK(ev))return null;
+      var c=pick(ev); if(c==null)return null;
+      var v=vary(vec(c[0],c[1])); if(!v)return null;
+      v=inSpace(v);
+      MUS.audio();
+      var AC=MUS.AC;
+      /* a footstep goes to the quiet sub-bus; everything else to the master */
+      /* MUS.OUT BEFORE MUS.MAST, ALWAYS. MUS.stop() ducks the MUSIC master to
+         zero and leaves it there (his 7/27 fix, still correct), so anything
+         that falls back to MAST goes silent the moment he turns the music off.
+         THIS LINE HAD THE FIX AND LOST IT: somebody repaired it in the ALPHA
+         by hand, and the next run of this tool -- which owns the block and
+         re-injects it whole -- reverted them. A fix that lives in generated
+         output is a fix with a countdown on it. It lives in the generator now. */
+      var dest=(ev.indexOf('step_')===0 ? (stepBus()||sfxBus()) : sfxBus())
+               || MUS.OUT || MUS.MAST || AC.destination;
+      var at=null;
+      if(when==='beat' && MUS.playing && MUS.nextT){
+        /* the next 16th that is also a beat boundary */
+        var sd=MUS.stepDur(), s=MUS.step||0, ahead=(4-(s%4))%4;
+        at=MUS.nextT+ahead*sd;
+      }
+      var node=BOH_SFX.render(v,AC,dest,at);
+      if(node) SFX_COUNT++;         /* counted where it RENDERS, not where it is asked for */
+      return node;
+    }catch(e){ return null; }
+  };
+  /* UNLOCK ON THE FIRST TOUCH, ANY TOUCH (7/31 -- "I didnt hear ur sounds").
+     An AudioContext may only be STARTED inside a real user gesture. iOS is
+     strict about it: build one outside a gesture and it is born suspended, and
+     resume() from a postMessage handler is refused for the whole session.
+     The old wire only ever reached MUS.audio() from inside playSFX, and the
+     only gesture that could get there was a tap on a button/.tab/.opt. The
+     splash is <div id="front">, so THE FIRST THING HE EVER TOUCHES matched
+     nothing. Land straight in the RUN tab, walk, and every footstep arrives by
+     postMessage with no gesture behind it: silence, permanently, and the sound
+     is "working" the whole time. So: unlock on the first interaction of ANY
+     kind, anywhere, before anything needs to make noise. */
+  /* THE RING/SILENT SWITCH (7/31, second report of silence).
+     On iPhone, a page that makes sound ONLY through WebAudio is muted by the
+     physical switch on the side of the phone, with no error, no warning and
+     nothing in the page to see. Every check can pass and the phone stays quiet.
+     Safari 16.4+ lets a page say it is playback rather than ambient audio,
+     which opts out of that switch. Set it before the context starts, because it
+     decides the category the context is born into. Absent everywhere else, so
+     the guard is the whole compatibility story. */
+  function claimPlayback(){
+    try{ if(navigator.audioSession) navigator.audioSession.type='playback'; }catch(e){}
+  }
+  claimPlayback();
+  function unlock(){
+    claimPlayback();
+    try{ MUS.audio(); if(MUS.AC && MUS.AC.state==='suspended') MUS.AC.resume(); }catch(e){}
+    /* BUILD THE SFX MASTER THE INSTANT AUDIO EXISTS. Lazily is not good enough:
+       the footstep bus is built on the first footstep and reads window.__SFXBUS
+       to decide what to plug into, so if a step happens before any other sound
+       it wires itself to the music master FOREVER and the volume slider cannot
+       reach it. Measured exactly that: muted everything and footsteps still
+       came out at 0.27. Order of creation is not something to leave to luck. */
+    try{ sfxBus(); }catch(e){}
+  }
+  ['pointerdown','touchend','mousedown','click','keydown'].forEach(function(t){
+    document.addEventListener(t, unlock, {capture:true, passive:true});
+  });
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden) unlock();      /* coming back from the lock screen */
+  });
+  /* the run asks; the parent plays */
+  window.addEventListener('message',function(ev){
+    try{
+      var d=ev&&ev.data; if(!d)return;
+      /* A TOUCH INSIDE THE IFRAME IS STILL A TOUCH. It does not bubble out to
+         this document, so the run tells us one happened and we take the chance
+         to start the audio while the browser may still count it as gestured. */
+      if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
+      if(d.type==='BOHEMIA_WHERE'){
+        /* OCCLUSION HAD NO LISTENER (8/14). placeSound compares where a sound
+           was made against where the player is standing, and nothing ever told
+           it the second half -- so the wall cue shipped and could never fire.
+           The run has been reporting `inside` every four seconds since 8/1 and
+           this handler used it for the ambience bed and threw the rest away.
+           No new message, no new run code: the fact was already arriving. */
+        LISTENER.inside = !!d.inside;
+        AMB.where(d);
+        if(d.space && SPACES[d.space]) SPACE=d.space;   /* the run says where you stand */ musicPhase(d); timePass(d); return; }
+      /* THE GAME DOES NOT PLAY TO AN EMPTY ROOM (8/16, his ruling). Every
+         sound below was asked for by the RUN or by COMBAT, across an iframe
+         boundary. If he is not looking at that tab, he is judging, and the
+         game must not put a save bell or a footstep on top of the candidate
+         he is trying to hear. Nothing he PRESSES passes through here.
+         AND IT IS THE IFRAME THAT IS GATED, NOT THE MESSAGE TYPE. ev.source
+         is the window that posted: an iframe is not this window, a direct
+         post from the parent (a probe, a measurement, his own board) is.
+         Together with judging() this is as narrow as the rule can be made:
+         the run or combat, talking across the iframe boundary, while he is
+         looking at the judge sheet. Nothing else is touched. */
+      var _fromGame = (d.type==='BOHEMIA_NPCSTEP' || d.type==='BOHEMIA_SFX_AT'
+                       || d.type==='BOHEMIA_SFX');
+      var _fromIframe = !!(ev && ev.source && ev.source !== window);
+      if(_fromGame && _fromIframe && judging()) return;
+      if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
+      if(d.type==='BOHEMIA_SFX_AT'){
+        placeSound(d.ev, { dx:d.dx, dy:d.dy, dist:d.dist,
+                           inside:d.inside, when:d.when||null });
+        return; }
+      if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
+    }catch(e){}
+  });
+
+  /* === THE CLOCK FINALLY REACHES THE MUSIC (8/4) ========================
+     CITYMUS.phase shipped hardcoded to 'NIGHT', with a comment that said
+     outright: "the valley is night until a world clock lands; whoever builds
+     the clock sets CITYMUS.phase". The clock landed. Nobody set it.
+     MEASURED before touching anything, because a claim like this has to be a
+     number: at the shipped phase the overworld pool is 10 songs, and the SEVEN
+     songs Paolo tagged OVERWORLD DAY or OVERWORLD DUSK/DAWN are in none of
+     them. Over 200 draws, THE MARKER ON THE DOOR came up ZERO times -- the one
+     song in this entire project he has ever said he likes ("now one of my new
+     favorite songs that you've made"), tagged OVERWORLD DAY by his own hand,
+     unplayable in the run since the day he tagged it.
+     That is APPROVED-BUT-UNUSED, the defect this lane already has a law about,
+     sitting in the music instead of the sound effects.
+     THE FIX NEEDS NO RULING: the run already posts the world MINUTE here every
+     four seconds, and this handler already uses it to choose the ambience bed.
+     The same number now chooses the pool.
+     THE WINDOWS NEST INSIDE THE AMBIENCE SPLIT ON PURPOSE. The bed calls night
+     before 06:00 and from 19:00; DAWN and DUSK sit strictly inside the daylit
+     side of that line, so the two systems can never disagree about whether it
+     is dark. One clock, one opinion.
+     IT NEVER CUTS A SONG. Only the phase moves; CITYMUS picks again at the end
+     of its 64-bar pass, so the change arrives on a musical boundary instead of
+     as a jump-cut. */
+  var LASTPHASE=null;
+  function musicPhase(d){
+    try{
+      if(typeof CITYMUS==='undefined'||!CITYMUS) return;
+      var m=+d.min; if(!isFinite(m)) return;
+      var ph = (m<6*60||m>=19*60) ? 'NIGHT'
+             : (m<8*60)           ? 'DAWN'
+             : (m<17*60)          ? 'DAY'
+                                  : 'DUSK';
+      if(ph===LASTPHASE) return;
+      LASTPHASE=ph;
+      CITYMUS.phase=ph;
+      /* AND MAKE IT AUDIBLE (8/7). Setting the phase only changes what the NEXT
+         pick draws from, and the shuffle only picked at the end of a 64-bar
+         pass -- 128 seconds at 120 BPM -- so dawn could break and the night
+         pool would keep playing for over two minutes. onPhaseChange arms a turn
+         at the next 8-bar boundary; it never plays anything itself, so this
+         cannot interrupt a song mid-phrase. Guarded because the hook ships in a
+         separate patch and a missing one must never break the clock. */
+      if(typeof CITYMUS.onPhaseChange==='function') CITYMUS.onPhaseChange();
+    }catch(e){}
+  }
+  window.__musicPhase=function(){ return (typeof CITYMUS!=='undefined'&&CITYMUS)?CITYMUS.phase:null; };
+
+  /* === HOURS GO BY, AND YOU HEAR HOW MANY (8/7) ==========================
+     PAOLO'S RULING, on his own 130/130 export, and NOTES ARE RULINGS (7/19):
+
+        "For hours go by have it the amount of time that goes by"
+
+     He approved all five TIME_PASS candidates and killed all five SLEEP ones in
+     the same breath, which read together is one decision rather than two: the
+     passage of time is THE sound, and sleeping is a QUANTITY of it, not a
+     separate ceremony that needs its own cue.
+
+     SO IT STRIKES LIKE A CLOCK. One note per hour. Four hours is four notes,
+     eight is eight. That is the most literal reading of what he asked for and
+     it is also the only one that carries information: you can COUNT it without
+     being told, the way a bell tower tells a valley what time it is. Nothing
+     announces the number, you just hear it go by.
+
+     IT DOES NOT RE-COOK HIS SOUND. Every strike is one of the five vectors he
+     thumbed up, taken in order, cycling if there are more hours than
+     candidates. The mechanism picks BETWEEN the sounds he picked; it never
+     alters one. Same rule that makes footsteps work.
+
+     ON THE BEAT, per the 120 BPM LAW: strikes land a beat apart in AUDIO time,
+     scheduled ahead on the one AudioContext, not fired by a timer.
+
+     AND IT DELIBERATELY SKIPS THE VOICE LIMITER. voiceOK() throttles on the
+     WALL CLOCK, and every strike here is requested in the same millisecond even
+     though they sound seconds apart -- so the limiter would drop every note
+     after the first and an eight-hour sleep would strike ONCE. The limiter
+     exists to stop simultaneous pile-ups crushing the brickwall (16 at once
+     measured QUIETER than one, 8/4). These are not simultaneous; they are the
+     opposite. Scheduling is the throttle.
+
+     CAPPED AT 12. Past twelve strikes it stops being countable and starts being
+     noise, and twelve is where a clock face stops too. */
+  var STRIKE_MAX=12;
+  function strikeHours(h){
+    h=Math.max(1,Math.min(STRIKE_MAX, h|0));
+    try{
+      var set=(window.__SFX_APPROVED&&window.__SFX_APPROVED.time_pass)||[];
+      if(!set.length) return 0;            /* unjudged is silent, always */
+      if(typeof BOH_SFX==='undefined'||typeof MUS==='undefined') return 0;
+      MUS.audio(); var AC=MUS.AC; if(!AC) return 0;
+      var dest=sfxBus()||MUS.OUT||MUS.MAST||AC.destination;
+      var gap=(BOH_SFX.BEAT||0.5);
+      var t0=AC.currentTime+0.06, fired=0;
+      for(var i=0;i<h;i++){
+        var v=vec('time_pass', set[i%set.length]); if(!v) continue;
+        /* heard in the room he is standing in, like everything else */
+        var vv=(typeof window.__sfxInSpace==='function')?window.__sfxInSpace(v):v;
+        if(BOH_SFX.render(vv,AC,dest,t0+i*gap)){ fired++; SFX_COUNT++; }
+      }
+      return fired;
+    }catch(e){ return 0; }
+  }
+  window.__strikeHours=strikeHours;
+
+  /* WHAT COUNTS AS TIME GOING BY. The run already reports the world clock every
+     four seconds, so no new state and no new message: a JUMP in that number is
+     time passing, and its size is how much. An hour is the floor -- walking
+     around does not move the clock by an hour in four seconds, so ordinary play
+     can never trigger this, and only a real skip (sleep, a wait, a long
+     journey) can. Midnight is handled: 22:00 -> 06:00 reads as -960, which is
+     eight hours forward, not minus sixteen. */
+  var LASTMIN=null, LASTJUMP=null, TP_MIN=60, TP_LOG=[];
+  function timePass(d){
+    try{
+      var m=+d.min; if(!isFinite(m)) return;
+      if(LASTMIN===null){ LASTMIN=m; return; }
+      var jump=m-LASTMIN; if(jump<0) jump+=1440;
+      LASTMIN=m;
+      LASTJUMP=jump;
+      var struck=0;
+      if(jump>=TP_MIN) struck=strikeHours(Math.round(jump/60));
+      /* ONE ROW PER CLOCK MOVE, AND THE ROW OWNS ITS OWN STRIKES (8/12).
+         Reporting only the LAST jump was not enough to tell a test's clock move
+         from the run's. postMessage is asynchronous: the run's own four-second
+         report can be DELIVERED between a test clearing its counter and the
+         test's own message arriving, so its twelve strikes land in the test's
+         count while the final jump still reads as the test's. Third time this
+         class of bug has been shortened instead of closed. A per-call row
+         closes it: a measurement asks for the row whose jump is the one it
+         asked for, and somebody else's row is simply not that row. COUNT THE
+         THING, NOT EVERYTHING. */
+      TP_LOG.push({jump:jump, strikes:struck});
+      if(TP_LOG.length>200) TP_LOG.shift();
+    }catch(e){}
+  }
+  /* jump is reported so a test can tell ITS OWN clock move from somebody
+     else's. The run reports the world clock every four seconds on its own, and
+     a stray report landing between a test's two posts is a real jump that makes
+     real strikes -- indistinguishable from the test's own unless the game says
+     what it actually computed. */
+  window.__timePassStats=function(){
+    return {floorMin:TP_MIN, max:STRIKE_MAX, last:LASTMIN, jump:LASTJUMP,
+            rows:TP_LOG.length}; };
+  window.__timePassLog=function(from){ return TP_LOG.slice(from||0); };
+
+  /* === SOMEBODY ELSE'S FOOTSTEP, PLACED IN SPACE (8/2) ==================
+     THE DISTANCE MODEL IS THE RESEARCHED ONE, not a guess: a point source
+     follows the inverse law, amplitude proportional to 1/r, dropping about 6 dB
+     every time the distance doubles, and inverse is the recommended default
+     when in doubt. So 1/(1+k*r), not a linear fade -- linear is for ambient
+     zones and UI, and it makes everything sound like it is the same distance
+     away until it abruptly is not.
+     PAN is the crude, correct tool for a top-down 2D game: left is left. It is
+     taken from the x offset only, because a top-down view has no front/back to
+     confuse and faking one with filters would be inventing information the
+     game does not have.
+     CUTOFF, not fade-to-nothing: below a hearable gain it plays NOTHING rather
+     than a sound too quiet to identify. A sound you cannot place is noise. */
+  var NPC_PLAYED=0, NPC_PLACED=[];
+  window.__npcPlayed=function(){ return NPC_PLAYED; };
+  /* A LIST, NOT THE LAST ONE (8/14). A neighbour keeps walking on his own
+     schedule, so "the most recent placement" is whatever step he happened to
+     take after a test finished staging -- measured: a step staged at 3 tiles
+     read back as gain 0.172, which is nearly nine tiles out. A test wants the
+     step it asked for, so it gets the whole recent list and picks. */
+  window.__npcPlaced=function(from){ return NPC_PLACED.slice(from||0); };
+  /* ===== WHERE A SOUND IS (8/13) =========================================
+     THE VALLEY WAS A FLAT STEREO FIELD. Every sound in the game arrived at the
+     same level from the same nowhere, except one: a neighbour's footstep, which
+     got distance and pan on 8/2 and has been the only spatial sound since. A
+     door across the lot, a generator running somewhere, a dog -- all of them
+     played as if they were happening inside your head. In a game whose whole
+     texture is walking an empty city, WHERE a sound is IS the information.
+
+     THREE CUES, and the order matters because only the first two are exact:
+       1. LEVEL. The inverse law -- amplitude proportional to 1/r, about 6 dB
+          per doubling. The researched model already used for footsteps,
+          generalised here instead of copied a second time. 1/(1+k*r), never a
+          linear fade: linear makes everything sound the same distance away
+          until it abruptly does not.
+       2. PAN. Left is left. A top-down view has no front/back to confuse, and
+          faking one with filters would be inventing information the game does
+          not have.
+       3. COLOUR. Distant sound is DULLER, and the old code had no answer for
+          this at all. Two real effects push the same way: air absorbs high
+          frequencies faster than low ones (ISO 9613-1 is the standard that
+          quantifies it), and the further away you are the more of what reaches
+          you is reflection rather than direct sound.
+          HONEST ABOUT THE NUMBERS: across a city block, literal atmospheric
+          absorption is small. The curve below is a GAME DIAL chosen to read
+          right, resting on a real direction rather than pretending to be a
+          calculation. One word from him changes it.
+
+     OCCLUSION IS THE FOURTH AND IT IS THE ONE A CITY NEEDS. A sound made inside
+     a building and heard from the street has a wall in the way: much quieter,
+     much duller. The run already knows inside from outside, so this costs no
+     new state. A lowpass is a filter, not a delay -- SCREECH LAW is untouched.
+
+     HIS VECTORS ARE NEVER EDITED. Placement copies the vector and moves the
+     copy, exactly as the footstep path has always done: the verdict is on the
+     SOUND, never on where the game puts it. */
+  var LISTENER = { inside: false };
+  function placeSound(ev, place, dest0){
+    try{
+      if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return null;
+      var c=pick(ev); if(c==null) return null;
+      var v=vec(c[0],c[1]); if(!v) return null;
+      MUS.audio(); var AC=MUS.AC; if(!AC) return null;
+      var out = dest0 || sfxBus() || MUS.OUT || MUS.MAST || AC.destination;
+      if(!out) return null;
+      place = place || {};
+      var dx = +place.dx || 0, dy = +place.dy || 0;
+      var r = (place.dist != null) ? Math.max(0, +place.dist)
+                                   : Math.sqrt(dx*dx + dy*dy);
+      r = Math.max(0.5, r);
+      var g = 1/(1 + 0.55*r);                    /* the inverse law, as before */
+      /* A WALL BETWEEN YOU AND IT. Only when the two sides disagree: a sound
+         made inside, heard inside, is not occluded. */
+      var occl = (place.inside != null) && (!!place.inside !== !!LISTENER.inside);
+      if(occl) g *= 0.55;
+      if(g < 0.05) return null;                  /* too far to be information */
+      /* THE COLOUR OF DISTANCE. Wide open at your feet, about 4 kHz a dozen
+         tiles out, under 2 kHz across a block -- and a wall takes most of what
+         is left off the top. */
+      var cut = 18000/(1 + 0.30*r);
+      if(occl) cut *= 0.35;
+      cut = Math.max(320, Math.min(20000, cut));
+      var gain = AC.createGain(); gain.gain.value = g;
+      var lp = AC.createBiquadFilter(); lp.type='lowpass';
+      lp.frequency.value = cut; lp.Q.value = 0.7;
+      lp.connect(gain); gain.connect(out);
+      var w={}, k; for(k in v) w[k]=v[k];        /* his vector, never edited */
+      w.pan = Math.max(-1, Math.min(1, dx/6));
+      BOH_SFX.render(w, AC, lp, place.when || null);
+      SFX_COUNT++;
+      return { gain:g, cut:cut, pan:w.pan, occluded:!!occl, ev:ev, dist:r };
+    }catch(e){ return null; }
+  }
+  /* THE RUN SAYS WHERE IT IS STANDING, so occlusion has two sides to compare. */
+  try{ window.__sfxListener=function(o){ if(o) LISTENER.inside=!!o.inside; }; }catch(_e){}
+  try{ window.playSFXAt=placeSound; }catch(_e){}
+
+  function npcStep(d){
+    try{
+      var r=Math.max(0.5, +d.dist||0);
+      var g=1/(1+0.55*r);                    /* ~0.65 next to you, ~0.25 at 5 tiles */
+      if(g<0.06) return;                     /* too far to be information */
+      var pan=Math.max(-1,Math.min(1,(+d.dx||0)/6));
+      var ev='step_'+(({asphalt:'asphalt',dirt:'dirt',gravel:'gravel'})[d.surface]
+                      ||String(d.surface||'').replace('step_','')||'dirt');
+      if(!APPROVED[ev]) ev='step_dirt';
+      var c=pick(ev); if(c==null)return;
+      var v=vec(c[0],c[1]); if(!v)return;
+      if(typeof MUS==='undefined')return; MUS.audio(); if(!MUS.AC)return;
+      /* NOT through the player's footstep bus. That bus is at 0.12 because HIS
+         OWN steps fire constantly and would be fatiguing -- a neighbour's step
+         is rare and is INFORMATION, and stacking 0.12 on top of distance made
+         it 0.0095, which is a number, not a sound. Distance is the only thing
+         that should quieten this. */
+      var out=sfxBus(); if(!out)return;
+      NPC_PLAYED++;   /* what the neighbour ACTUALLY played, for anything that
+                         needs to ask. A test cannot get this from the bus peak:
+                         the ambience bed shares that bus and fires one-shots
+                         every 40-95s, so "the bus made a noise" attributes
+                         somebody else's sound to the neighbour. */
+      /* ONE PLACEMENT PATH, NOT TWO (8/13). This was the only spatial sound in
+         the game and it grew its own distance/pan code; placeSound is that same
+         model generalised, plus the colour of distance and occlusion. Keeping a
+         second copy here is how the two drift and only one of them gets fixed.
+         The NPC_PLAYED counter above still increments here, because it counts
+         what the NEIGHBOUR played specifically and placeSound serves everyone. */
+      /* WHAT WAS ACTUALLY PLACED, so a test can attribute instead of guess.
+         The shared SFX bus cannot answer "how loud was the NEIGHBOUR" -- it
+         cannot attribute a peak to a particular walker -- and while chasing
+         that, this recording is what found the actual bug: a step staged three
+         tiles away came back at gain 0.208, exactly 0.377 x 0.55, because the
+         listener still believed the player was indoors and a wall was being
+         applied that no longer existed. A blunt ruler had been showing that
+         intermittently as "distance does not attenuate". The ACOUSTIC proof
+         lives in spatial_sound_gate, which renders offline in isolation; what
+         belongs here is ATTRIBUTION -- this step, that distance, this gain. */
+      var _p = placeSound(ev, { dx:(+d.dx||0), dist:r, inside:false });
+      if(_p){ NPC_PLACED.push({ dist:_p.dist, gain:_p.gain, cut:_p.cut, pan:_p.pan });
+              if(NPC_PLACED.length>40) NPC_PLACED.shift(); }
+    }catch(e){}
+  }
+
+  /* === THE WORLD TONE (8/1) ==============================================
+     He approved all 15. It is one of the ambient noises: a rare sound so the
+     valley is not dead air. It is NOT a clock -- something that fires a minute
+     apart tells you nothing about the time, and the music already handles time
+     of day. What it does is make the place feel occupied by nothing.
+
+     THREE RULES, boring on purpose:
+       WHICH  indoors -> air_inside. Outdoors -> air_night before 06:00 or from
+              19:00, else air_day. The run reports both facts every 4s.
+       WHEN   a random gap of 40 to 95 seconds. That is MY DEFAULT and nothing
+              decided it but taste. One word from him changes it.
+       QUIET  its own bus at 0.4 of the level he judged it at. He judged these
+              loud enough to hear on a phone; under the game they sit below
+              everything. He was told that before he thumbed them, so this is
+              the plan he approved rather than a change to it.
+
+     IT ONLY RUNS WHILE THE RUN IS ON SCREEN. If the reports stop, the ambience
+     stops, so it can never play over him judging sounds in the MUSIC tab. */
+  var AMB={
+    kind:null, next:0, bus:null, seen:0,
+    where:function(d){
+      this.seen=Date.now();
+      this.inside = !!d.inside;
+      this.kind = d.inside ? 'air_inside' : (d.night ? 'air_night' : 'air_day');
+    },
+    /* THE RARE THING THAT BREAKS THE EMPTINESS (8/12). His 270-thumb sweep
+       approved A GUST COMES THROUGH (2 of 5) and A GENERATOR, SOMEWHERE (4 of
+       5), and both were written for exactly this slot: not a wall of wind, but
+       the occasional thing you hear when nothing is happening. They ride the
+       ambience clock instead of getting one of their own, so the valley still
+       makes ONE sound at a time and the gaps stay long.
+       OUTDOORS ONLY: a gust and a distant generator both say "out there", and
+       air_inside is the sound of a room with nobody in it but you.
+       THE FREQUENCIES ARE MY DEFAULT AND NOTHING DECIDED THEM BUT TASTE --
+       one gust in four, one generator in eight, so seven of eight are still the
+       bed he approved first. One word from him changes either number.
+       A GENERATOR MEANS PEOPLE, so it is rarer than weather on purpose. */
+    pick:function(){
+      if(this.inside) return this.kind;
+      var A=(window.__SFX_APPROVED||{});
+      var r=Math.random();
+      if(r<0.125 && (A.generator||[]).length) return 'generator';
+      if(r<0.375 && (A.wind_gust||[]).length) return 'wind_gust';
+      return this.kind;
+    },
+    gap:function(){ return 40 + Math.random()*55; },
+    tick:function(){
+      if(!this.kind) return;
+      /* IS THE RUN ACTUALLY ON SCREEN? Message recency does NOT answer this:
+         a hidden iframe keeps its timers running, so the run keeps reporting
+         from the MUSIC tab and the ambience would play over him judging
+         sounds. Ask the DOM whether the run panel is visible instead. */
+      if(Date.now()-this.seen > 12000) return;      /* the run is not even loaded */
+      /* ASK THE TAB, not the panel. Two wrong guesses before this one:
+         offsetParent is null under any position:fixed ancestor even when the
+         thing is plainly on screen, and #p-run is display:none the whole time
+         because the RUN tab actually shows the p-city panel
+         (PANEL = t.dataset.p==='run' ? 'city' : ...). The tab carrying class
+         'on' is what the alpha itself uses to mean "this is the open tab", so
+         use the app's own answer instead of inventing a third one. */
+      var tab=document.querySelector('.tab[data-p="run"]');
+      if(!tab || !tab.classList.contains('on')) return;
+      var now=Date.now();
+      if(!this.next){ this.next = now + this.gap()*1000; return; }
+      if(now < this.next) return;
+      this.next = now + this.gap()*1000;
+      try{
+        if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return;
+        MUS.audio(); if(!MUS.AC) return;
+        if(!this.bus){
+          this.bus = MUS.AC.createGain();
+          this.bus.gain.value = 0.4;
+          /* MUS.OUT before MUS.MAST: nothing that is not music may fall back
+             to the MUSIC master, because MUS.stop() ducks it to zero. */
+          this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
+        }
+        var ev=this.pick();
+        /* THE RARE ONES HAPPEN SOMEWHERE (8/14). His own briefs say it: a
+           generator is "somewhere", a dog is "far off", a gust comes "through".
+           All three arrived dead centre at full level, which is the one thing
+           those descriptions rule out. The BED stays exactly where it was -- an
+           air tone is the room you are in and has no direction -- but anything
+           that is an EVENT out in the valley gets a place.
+           THE DISTANCE IS A DIAL AND NOTHING DECIDED IT BUT TASTE: far enough
+           to read as "out there", near enough to stay information. */
+        if(ev!==this.kind){
+          var side=(Math.random()*2-1);
+          placeSound(ev, { dx: side*7, dist: 6+Math.random()*9, inside:false },
+                     this.bus);
+          this.last=ev; return;
+        }
+        var set=APPROVED[ev]; if(!set||!set.length) return;
+        var i=set[(Math.random()*set.length)|0];
+        var v=vec(ev,i); if(!v) return;
+        BOH_SFX.render(v,MUS.AC,this.bus,null);
+        this.last=ev; SFX_COUNT++;
+      }catch(e){}
+    }
+  };
+  window.__AMB=AMB;
+  setInterval(function(){ AMB.tick(); }, 1000);
+  /* the parent's own surfaces: every button on the phone is a UI TAP.
+     EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR
+     THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE
+     A SOUND WHEN I CLICK PLAY ON A NEW SOUND IM TESTING"). He is right, and it
+     made the entire soundboard useless: the tap fired on the SAME CLICK as the
+     candidate, so his own approved UI tick played on top of every sound he was
+     trying to judge. A judging surface has to be silent except for the thing
+     being judged.
+     MARKED BY CONTAINER, never by guessing at labels: anything inside the SFX
+     judge, the soundboard, the mix panel or the music studio's transport is
+     auditioning audio and never gets a tap over it. data-noui is the escape
+     hatch for any panel built later, so the next audition surface does not have
+     to rediscover this the hard way. */
+  var NOUI='#sfxWrap,#sbWrap,#mixWrap,.mus-play,.mus-cell,[data-noui]';
+  document.addEventListener('click',function(e){
+    var t=e&&e.target; if(!t)return;
+    if(t.closest&&t.closest(NOUI)) return;   /* this click IS a sound already */
+    var btn = t.closest && (t.closest('button')||t.closest('.tab')||t.closest('.opt'));
+    if(!btn) return;
+    /* BACK IS NOT FORWARD (8/12). ui_tap was carrying every interface moment in
+       the game by itself. His sweep approved BACK/CLOSE (3 of 5) and YOU CANNOT
+       DO THAT (3 of 5), so the interface finally answers in more than one way:
+       leaving a screen is a step DOWN from the tap, and a refusal is short and
+       flat and never a buzzer -- his own brief, in his own row.
+       READ OFF WHAT THE BUTTON ALREADY SAYS, never a new attribute nobody sets:
+       a disabled control is a refusal, and a control whose text or aria-label is
+       back/close/cancel/x is a way out. If neither, it is a tap, exactly as
+       before -- this can only ever narrow ui_tap, never silence it. */
+    var A = window.__SFX_APPROVED || {};
+    var lab = ((btn.getAttribute&&(btn.getAttribute('aria-label')||''))+' '+
+               (btn.textContent||'')).trim().toLowerCase();
+    var refused = btn.disabled === true
+               || (btn.classList && (btn.classList.contains('off')
+                                  || btn.classList.contains('disabled')));
+    if(refused && (A.ui_deny||[]).length) return window.playSFX('ui_deny');
+    if((A.ui_back||[]).length &&
+       /^(back|close|cancel|done|x|<|‹|×|←)$/.test(lab)) return window.playSFX('ui_back');
+    window.playSFX('ui_tap');
+  },true);
+  /* SAY WHAT THE AUDIO IS DOING (7/31). He reported silence twice and both
+     times I had to guess at his phone from here, because a muted iPhone and a
+     broken wire look exactly the same from the outside: nothing. This is one
+     line in the MUSIC tab that turns "I hear nothing" into something he can
+     read back to me. It reports the three things that can each cause silence
+     on their own: whether audio ever STARTED, whether the ring/silent switch
+     opt-out took, and how many sounds have actually been fired. */
+  function statusLine(){
+    var el=document.getElementById('sfxStatus');
+    if(!el){
+      var host=document.getElementById('p-music'); if(!host)return;
+      el=document.createElement('div'); el.id='sfxStatus';
+      el.style.cssText='font:11px ui-monospace,monospace;padding:7px 9px;margin:6px 0;'+
+        'border:1px solid #3a3a30;border-radius:6px;letter-spacing:.5px;line-height:1.5';
+      host.insertBefore(el, host.firstChild);
+    }
+    var on=false, st='never started';
+    try{ if(typeof MUS!=='undefined'&&MUS.AC){ st=MUS.AC.state; on=(st==='running'); } }catch(e){}
+    var claim='n/a on this browser';
+    try{ if(navigator.audioSession) claim=navigator.audioSession.type||'unset'; }catch(e){}
+    el.style.borderColor = on ? '#4d6b45' : '#7a3a30';
+    el.style.background  = on ? 'rgba(60,90,55,0.16)' : 'rgba(120,50,40,0.16)';
+    el.style.color       = on ? '#a8c69c' : '#e8a08f';
+    el.innerHTML =
+      '<b>SOUND: '+(on?'ON':'NOT PLAYING')+'</b><br>'+
+      'audio engine: '+st+'<br>'+
+      'silent-switch opt-out: '+claim+'<br>'+
+      'sounds fired: '+SFX_COUNT+
+      (on?'':'<br>if this stays red after you tap the screen, it is the phone, not the game');
+  }
+  setInterval(statusLine, 700);
+  if(document.readyState!=='loading') statusLine();
+  else document.addEventListener('DOMContentLoaded', statusLine);
+})();
+</script>
+<!-- /BOHEMIA SFX WIRE PARENT -->
 <!-- BOHEMIA SFX FACTORY MOUNT (7/29/26) -->
 <script>
 /* ENGINE SYNC LAW: this body is engine/bohemia_sfx.js, inlined verbatim.
@@ -15642,6 +16631,290 @@ const BOH_SFX = (function () {
     return o;
   }
 
+  /* ---- WHAT HIS RACK ACTUALLY DOES (8/19, MEASURED) --------------------
+     Every voice this engine borrows from the music studio, rendered off the
+     REAL rack in the REAL alpha and measured down to -50 dB, on a 2x2 grid of
+     the two things that turn out to change what a voice does:
+
+       name: [ sec  @ semi -24, step 0.10 |  sec  @ semi -24, step 0.60,
+               sec  @ semi +12, step 0.10 |  sec  @ semi +12, step 0.60,
+               peak @ semi -24, step 0.10 |  peak @ semi -24, step 0.60,
+               peak @ semi +12, step 0.10 |  peak @ semi +12, step 0.60 ]
+
+     THREE THINGS THIS TABLE SAYS THAT NOBODY HAD LOOKED AT. First, HALF HIS
+     RACK IGNORES THE STEP: `templeblock` is 45 ms whether you ask for 100 ms or
+     600, `udu` is 99 ms, `washboard` is 42 ms -- they are one-shots with their
+     own built-in length, and the other half (`dawnpad`, `bottle`, `ironstep`)
+     stretch with it linearly, out to six seconds. Second, THEY ARE NOT THE SAME
+     LOUDNESS, and not close: `boneplate` peaks at 0.03 where `taiko` peaks at
+     0.53 off the same bank at the same drive, a 17x spread. Driving them all at
+     one g0 -- which is what the first bridge did -- is why 27 candidates landed
+     outside the judgeable band. Paolo would have been picking whichever one he
+     could HEAR. Third, BOTH OF THOSE ALSO MOVE WITH PITCH: `edenmist` peaks 7x
+     higher two octaves up, `boneplate` is half as long an octave up. That third
+     one is why a first table indexed on the step alone still left four
+     candidates too quiet to judge and one that was a click.
+     Bilinear between the four corners, held inside them at the edges.
+     This is calibration data, not content: nothing here is a decision about
+     what anything sounds like, it is a ruler held up to his own instruments.
+     Regenerate with tools/bohemia_sfx_instrument_measure.py --write. */
+  var INST_VOICE = {
+    anvil:         [0.025, 0.069, 0.128, 0.269, 0.565,
+                    0.025, 0.070, 0.134, 0.265, 0.536,
+                    0.1599, 0.1801, 0.1832, 0.1556, 0.1244,
+                    0.1989, 0.1682, 0.1559, 0.1629, 0.1572],
+    boneplate:     [0.040, 0.082, 0.172, 0.285, 0.400,
+                    0.036, 0.060, 0.088, 0.097, 0.122,
+                    0.0047, 0.0090, 0.0070, 0.0123, 0.0113,
+                    0.0336, 0.0484, 0.0518, 0.0626, 0.0642],
+    bones:         [0.143, 0.143, 0.143, 0.143, 0.143,
+                    0.144, 0.144, 0.144, 0.144, 0.144,
+                    0.0913, 0.0913, 0.0913, 0.0913, 0.0913,
+                    0.1105, 0.1105, 0.1105, 0.1105, 0.1105],
+    bottle:        [0.068, 0.175, 0.325, 0.657, 1.312,
+                    0.069, 0.175, 0.329, 0.658, 1.315,
+                    0.2331, 0.2538, 0.2550, 0.2550, 0.2550,
+                    0.2550, 0.2550, 0.2550, 0.2550, 0.2550],
+    cabasa:        [0.027, 0.028, 0.029, 0.028, 0.027,
+                    0.027, 0.028, 0.028, 0.029, 0.029,
+                    0.0952, 0.0566, 0.0662, 0.0710, 0.0734,
+                    0.0773, 0.0718, 0.0782, 0.0611, 0.0667],
+    capacitor:     [0.144, 0.144, 0.144, 0.144, 0.144,
+                    0.142, 0.142, 0.142, 0.142, 0.142,
+                    0.1327, 0.1327, 0.1327, 0.1327, 0.1327,
+                    0.1338, 0.1338, 0.1338, 0.1338, 0.1338],
+    cellring:      [0.320, 0.320, 0.320, 0.320, 0.320,
+                    0.320, 0.320, 0.320, 0.320, 0.320,
+                    0.1200, 0.1200, 0.1200, 0.1200, 0.1200,
+                    0.1200, 0.1200, 0.1200, 0.1200, 0.1200],
+    chapelbreath:  [0.230, 0.565, 1.107, 1.968, 4.665,
+                    0.149, 0.606, 1.173, 2.125, 4.629,
+                    0.0040, 0.0059, 0.0062, 0.0068, 0.0135,
+                    0.0066, 0.0060, 0.0065, 0.0075, 0.0129],
+    coin:          [0.226, 0.226, 0.226, 0.226, 0.226,
+                    0.221, 0.221, 0.221, 0.221, 0.221,
+                    0.1525, 0.1525, 0.1525, 0.1525, 0.1525,
+                    0.1760, 0.1760, 0.1760, 0.1760, 0.1760],
+    dawnpad:       [0.165, 1.063, 2.061, 3.848, 6.248,
+                    0.465, 1.128, 2.061, 3.848, 6.248,
+                    0.2314, 0.1565, 0.1567, 0.1571, 0.2602,
+                    0.0349, 0.2294, 0.2308, 0.3264, 0.3512],
+    dawnwash:      [0.336, 0.902, 1.702, 3.389, 6.244,
+                    0.236, 0.711, 1.697, 3.260, 6.239,
+                    0.0405, 0.0438, 0.0470, 0.0518, 0.0630,
+                    0.0456, 0.0492, 0.0542, 0.0525, 0.0534],
+    dropkick:      [0.076, 0.076, 0.076, 0.076, 0.076,
+                    0.085, 0.085, 0.085, 0.085, 0.085,
+                    0.3463, 0.3463, 0.3463, 0.3463, 0.3463,
+                    0.3463, 0.3463, 0.3463, 0.3463, 0.3463],
+    edenmist:      [0.375, 0.996, 1.860, 3.719, 6.247,
+                    0.371, 0.993, 1.856, 3.715, 6.249,
+                    0.0057, 0.0086, 0.0096, 0.0110, 0.0113,
+                    0.0626, 0.0729, 0.0760, 0.0779, 0.0779],
+    formantvox:    [0.017, 0.148, 0.292, 0.601, 1.218,
+                    0.016, 0.164, 0.307, 0.618, 1.236,
+                    0.0240, 0.0704, 0.0704, 0.0704, 0.0704,
+                    0.0437, 0.0437, 0.0437, 0.0437, 0.0437],
+    ghostvox:      [0.114, 0.111, 0.172, 1.001, 2.029,
+                    0.044, 0.116, 0.173, 1.017, 2.033,
+                    0.0096, 0.0107, 0.0294, 0.0295, 0.0295,
+                    0.0176, 0.0212, 0.0230, 0.0242, 0.0242],
+    glassbottle:   [0.548, 0.548, 0.548, 0.548, 0.548,
+                    0.542, 0.542, 0.542, 0.542, 0.542,
+                    0.2060, 0.2060, 0.2060, 0.2060, 0.2060,
+                    0.2401, 0.2401, 0.2401, 0.2401, 0.2401],
+    glassdrop:     [0.317, 0.317, 0.317, 0.317, 0.317,
+                    0.318, 0.318, 0.318, 0.318, 0.318,
+                    0.1485, 0.1485, 0.1485, 0.1485, 0.1485,
+                    0.1485, 0.1485, 0.1485, 0.1485, 0.1485],
+    guiro:         [0.150, 0.150, 0.150, 0.150, 0.150,
+                    0.150, 0.150, 0.150, 0.150, 0.150,
+                    0.1253, 0.1129, 0.1172, 0.1061, 0.1111,
+                    0.1106, 0.1132, 0.1148, 0.1058, 0.1093],
+    heartbeatsub:  [0.394, 0.394, 0.394, 0.394, 0.394,
+                    0.388, 0.388, 0.388, 0.388, 0.388,
+                    0.1486, 0.1486, 0.1486, 0.1486, 0.1486,
+                    0.2001, 0.2001, 0.2001, 0.2001, 0.2001],
+    holdbreath:    [0.108, 0.288, 0.492, 0.963, 2.958,
+                    0.095, 0.416, 0.476, 0.979, 2.859,
+                    0.0712, 0.0652, 0.0634, 0.0518, 0.0508,
+                    0.0539, 0.0247, 0.0778, 0.0742, 0.0792],
+    ironheart:     [0.033, 0.086, 0.172, 0.338, 0.683,
+                    0.033, 0.092, 0.172, 0.346, 0.692,
+                    0.0862, 0.1794, 0.1794, 0.1794, 0.1794,
+                    0.1709, 0.1735, 0.1735, 0.1735, 0.1735],
+    ironstep:      [0.036, 0.087, 0.158, 0.337, 0.664,
+                    0.037, 0.098, 0.184, 0.362, 0.703,
+                    0.0757, 0.1272, 0.1601, 0.1807, 0.1915,
+                    0.0667, 0.0736, 0.0752, 0.0830, 0.1021],
+    meterclick:    [0.035, 0.073, 0.125, 0.237, 0.463,
+                    0.035, 0.073, 0.125, 0.238, 0.463,
+                    0.0861, 0.0851, 0.0886, 0.0862, 0.0851,
+                    0.0916, 0.0854, 0.0889, 0.0865, 0.0854],
+    onebreath:     [0.107, 0.245, 0.446, 0.902, 1.833,
+                    0.107, 0.243, 0.457, 0.923, 1.830,
+                    0.1216, 0.1430, 0.1647, 0.1662, 0.1693,
+                    0.1070, 0.1171, 0.1209, 0.1246, 0.1358],
+    paperlung:     [0.038, 0.095, 0.177, 0.355, 0.687,
+                    0.035, 0.089, 0.177, 0.352, 0.695,
+                    0.0032, 0.0050, 0.0071, 0.0055, 0.0074,
+                    0.0189, 0.0254, 0.0203, 0.0218, 0.0254],
+    pickscrape:    [0.012, 0.033, 0.061, 0.119, 0.247,
+                    0.011, 0.030, 0.057, 0.113, 0.222,
+                    0.0295, 0.0248, 0.0362, 0.0396, 0.0459,
+                    0.0261, 0.0360, 0.0374, 0.0510, 0.0532],
+    riveter:       [0.020, 0.051, 0.103, 0.210, 0.426,
+                    0.022, 0.058, 0.108, 0.213, 0.426,
+                    0.1430, 0.1430, 0.1434, 0.1538, 0.1593,
+                    0.1546, 0.1553, 0.1568, 0.1575, 0.1609],
+    rubblelight:   [0.136, 0.352, 1.847, 3.711, 6.234,
+                    0.132, 0.314, 1.770, 3.545, 6.246,
+                    0.0084, 0.0116, 0.0139, 0.0126, 0.0142,
+                    0.0721, 0.0812, 0.0813, 0.0813, 0.0813],
+    rubboard:      [0.159, 0.159, 0.159, 0.159, 0.159,
+                    0.159, 0.159, 0.159, 0.159, 0.159,
+                    0.0898, 0.1043, 0.1053, 0.1078, 0.1117,
+                    0.0976, 0.0897, 0.1021, 0.0911, 0.0950],
+    scrapchime:    [0.100, 0.215, 0.289, 0.555, 1.078,
+                    0.056, 0.147, 0.269, 0.557, 1.113,
+                    0.0846, 0.0954, 0.1190, 0.1372, 0.1679,
+                    0.1438, 0.1730, 0.1809, 0.1854, 0.1876],
+    shardglass:    [0.040, 0.104, 0.195, 0.390, 0.781,
+                    0.030, 0.077, 0.144, 0.289, 0.573,
+                    0.0055, 0.0055, 0.0068, 0.0081, 0.0089,
+                    0.1864, 0.1935, 0.2034, 0.2089, 0.2116],
+    shatterspark:  [0.010, 0.025, 0.047, 0.093, 0.186,
+                    0.009, 0.026, 0.047, 0.094, 0.188,
+                    0.1676, 0.1676, 0.1677, 0.1679, 0.1696,
+                    0.1706, 0.1706, 0.1706, 0.1736, 0.1754],
+    solarhum:      [0.036, 0.096, 0.567, 1.148, 2.311,
+                    0.036, 0.096, 0.576, 1.155, 2.312,
+                    0.0637, 0.1496, 0.1502, 0.1502, 0.1502,
+                    0.1345, 0.1440, 0.1502, 0.1502, 0.1502],
+    spoonclack:    [0.065, 0.065, 0.065, 0.065, 0.065,
+                    0.065, 0.065, 0.065, 0.065, 0.065,
+                    0.1217, 0.1217, 0.1217, 0.1217, 0.1217,
+                    0.1217, 0.1217, 0.1217, 0.1217, 0.1217],
+    stillair:      [0.479, 1.310, 2.441, 3.848, 6.247,
+                    0.492, 1.312, 2.459, 3.849, 6.249,
+                    0.0432, 0.0425, 0.0476, 0.0476, 0.0476,
+                    0.0489, 0.0505, 0.0525, 0.0525, 0.0525],
+    subboom:       [0.038, 0.115, 0.198, 0.417, 0.830,
+                    0.047, 0.116, 0.212, 0.423, 0.840,
+                    0.4084, 0.4142, 0.4020, 0.3928, 0.3884,
+                    0.3861, 0.4121, 0.4100, 0.4113, 0.4165],
+    taiko:         [0.043, 0.118, 0.216, 0.438, 0.882,
+                    0.043, 0.118, 0.216, 0.438, 0.893,
+                    0.4856, 0.5293, 0.5561, 0.5310, 0.5478,
+                    0.4980, 0.5337, 0.5364, 0.5462, 0.5293],
+    templeblock:   [0.046, 0.046, 0.046, 0.046, 0.046,
+                    0.046, 0.046, 0.046, 0.046, 0.046,
+                    0.1955, 0.1955, 0.1955, 0.1955, 0.1955,
+                    0.1955, 0.1955, 0.1955, 0.1955, 0.1955],
+    thunderdrum:   [0.023, 0.063, 0.112, 0.210, 0.417,
+                    0.022, 0.062, 0.097, 0.200, 0.415,
+                    0.0177, 0.0354, 0.0519, 0.0615, 0.0620,
+                    0.0207, 0.0263, 0.0681, 0.0544, 0.0584],
+    ticker:        [0.066, 0.066, 0.066, 0.066, 0.066,
+                    0.066, 0.066, 0.066, 0.066, 0.066,
+                    0.1137, 0.1137, 0.1137, 0.1137, 0.1137,
+                    0.1141, 0.1141, 0.1141, 0.1141, 0.1141],
+    timbale:       [0.078, 0.078, 0.078, 0.078, 0.078,
+                    0.072, 0.072, 0.072, 0.072, 0.072,
+                    0.0447, 0.0447, 0.0447, 0.0447, 0.0447,
+                    0.0685, 0.0685, 0.0685, 0.0685, 0.0685],
+    timpani:       [0.047, 0.133, 0.259, 0.530, 1.075,
+                    0.054, 0.143, 0.270, 0.538, 1.077,
+                    0.4229, 0.4375, 0.4436, 0.4461, 0.4477,
+                    0.4227, 0.4431, 0.4426, 0.4469, 0.4502],
+    udu:           [0.099, 0.099, 0.099, 0.099, 0.099,
+                    0.100, 0.100, 0.100, 0.100, 0.100,
+                    0.3193, 0.3193, 0.3193, 0.3193, 0.3193,
+                    0.3193, 0.3193, 0.3193, 0.3193, 0.3193],
+    washboard:     [0.042, 0.042, 0.042, 0.042, 0.042,
+                    0.042, 0.042, 0.042, 0.042, 0.042,
+                    0.0670, 0.0670, 0.0670, 0.0670, 0.0670,
+                    0.0670, 0.0670, 0.0670, 0.0670, 0.0670]
+  };
+  /* No SFX is longer than a bar and a quarter. His pads run six seconds, which
+     is a piece of music, not a game sound: the wake-up swell gets cut to this
+     and faded, it does not get to hold the beat grid open. */
+  var INST_MAX_BEATS = 2.5;
+  /* THE VOICE ARRIVES AT THIS PEAK, whatever it is. The recipe's own
+     gain x mkup still rides on top, so the mix ladder between loud and quiet
+     moments survives -- only the 17x accident between one borrowed voice and
+     the next is taken out. Held under 1.0 because the saturator downstream is
+     defined over -1..1 and PINS past it (the lesson already written into
+     render()). */
+  var INST_VREF = 0.75;
+  /* the grid the table was measured on. Each voice is four rows of INST_SD
+     numbers: seconds at the low semitone, seconds at the high one, then peak
+     at the low semitone and peak at the high one. */
+  var INST_SD = [0.03, 0.08, 0.15, 0.30, 0.60], INST_SEMI = [-24, 12];
+  var INST_N = INST_SD.length;
+  /* the step this engine hands his rack, for a given vector */
+  function instStep(v) { return Math.max(0.03, v.decay * BEAT); }
+  /* PIECEWISE, NOT ONE STRAIGHT LINE. `ironlung` sits at 0.20 s until a step of
+     0.20 and then jumps to 1.40 s -- a single line through the two ends of that
+     predicts 0.56 s where the truth is 0.19, and since the engine INVERTS this
+     curve to fit a voice into its window, that error comes back as a sound a
+     fifth of the length it declared. */
+  function instRow(e, base, sd) {
+    if (sd <= INST_SD[0]) return e[base];
+    for (var i = 1; i < INST_N; i++) {
+      if (sd <= INST_SD[i]) {
+        var f = (sd - INST_SD[i - 1]) / (INST_SD[i] - INST_SD[i - 1]);
+        return e[base + i - 1] + (e[base + i] - e[base + i - 1]) * f;
+      }
+    }
+    return e[base + INST_N - 1];
+  }
+  function instAt(name, sd, semi, base) {
+    var e = INST_VOICE[name];
+    if (!e) return null;
+    var w = clamp((semi - INST_SEMI[0]) / (INST_SEMI[1] - INST_SEMI[0]), 0, 1);
+    var lo = instRow(e, base, sd), hi = instRow(e, base + INST_N, sd);
+    return lo + (hi - lo) * w;
+  }
+  function instSec(name, sd, semi) {
+    var s = instAt(name, sd, semi, 0);
+    return (s == null) ? sd * 1.4 : Math.max(0.02, s);   /* unmeasured: guess */
+  }
+  function instPeak(name, sd, semi) {
+    var p = instAt(name, sd, semi, 2 * INST_N);
+    return (p != null && p > 0.002) ? p : 0.15;
+  }
+  /* THE PADS DO NOT GET GUILLOTINED. `edenmist` takes 1.24 s just to reach its
+     own peak and INST_MAX_BEATS closes the note at 1.25, so cutting it where it
+     stands handed Paolo a swell that was chopped a hair before the loudest part
+     of itself -- measured at 0.085 against a judgeable floor of 0.15. Instead
+     the STEP is solved backwards from the room available, so a long voice plays
+     a SHORTER version of its whole shape rather than the front of a long one.
+     A voice whose length does not follow the step (half the rack) has nothing
+     to solve, and says so by returning its default. */
+  function instStepFor(name, want, semi) {
+    var e = INST_VOICE[name];
+    if (!e) return clamp(want / 1.4, 0.03, 2);
+    var a = instSec(name, INST_SD[0], semi);
+    var b = instSec(name, INST_SD[INST_N - 1], semi);
+    if (Math.abs(b - a) < 0.004) return null;            /* fixed-length voice */
+    if (want <= a) return INST_SD[0];
+    if (want >= b) return INST_SD[INST_N - 1];
+    for (var i = 1; i < INST_N; i++) {
+      var p = instSec(name, INST_SD[i - 1], semi);
+      var n = instSec(name, INST_SD[i], semi);
+      if (want <= n && n - p > 1e-4) {
+        return INST_SD[i - 1] + (INST_SD[i] - INST_SD[i - 1]) * (want - p) / (n - p);
+      }
+    }
+    return INST_SD[INST_N - 1];
+  }
+  /* the absolute wall-clock instant the sound in flight is over. render() sets
+     it, bodyInstrument reads it. Synchronous scheduling, one render at a time,
+     so a module-level handoff is safe -- and it is the only way an instrument
+     body can know where the NOTE ends rather than where ITS OWN hit ends. */
+  var INST_CUT = null;
+
   /* THE WHOLE AUDIBLE LIFE. The room is triggered at the SAME instant as the
      strike, not after it -- so the sound lasts as long as the LONGER of the two,
      never their sum. The first version added them, which overstated every
@@ -15651,6 +16924,24 @@ const BOH_SFX = (function () {
      against, so it has to be the truth. */
   function beatsOf(v) {
     var body = q(v.atk + v.decay);
+    /* HIS RACK RINGS LONGER THAN ITS DECAY, AND EVERY VOICE RINGS DIFFERENTLY
+       (8/19). bodyInstrument hands synthV a step duration of decay*BEAT, but
+       his voices do NOT all obey it: `templeblock` is 45 ms no matter what you
+       ask for, `dawnpad` is six seconds. A recipe that declares `decay` alone
+       was therefore LYING ABOUT ITS OWN LENGTH in both directions at once --
+       sfx_render failed 20 candidates for outliving their spec and 9 more for
+       being "a click" inside it, off the SAME wrong number. A single fudge
+       multiplier cannot fix that, because there is no multiplier that is right
+       for a 45 ms woodblock and a 6 s pad.
+       SO THE NUMBER IS MEASURED, NOT GUESSED (VERIFY ON THE REAL SURFACE):
+       INST_VOICE holds every borrowed voice's real audible length, rendered
+       off his own rack. THE DECLARATION FOLLOWS THE BODY, never the other way
+       round -- shortening the sound to fit the number would have been changing
+       what he approved to make a gate go green. */
+    if (v.synth === 'instrument') {
+      body = q(Math.min(INST_MAX_BEATS,
+                        v.atk + instSec(v.inst, instStep(v), semiOf(v.hz)) / BEAT + 0.03));
+    }
     var tail = (v.space > 0.02) ? q(v.room) : 0;
     return q(Math.max(body, tail)) + Math.max.apply(null, v.hits);
   }
@@ -17050,7 +18341,16 @@ const BOH_SFX = (function () {
               width: 0.5, drive: 0.08, mkup: 0.9, gain: 0.4 },
       jit:  { hz: [74, 130], decay: [0.375, 0.625], width: [0.4, 0.64],
               dark: [900, 1700] },
-      instSets: ['onebreath', 'holdbreath', 'ironlung', 'throatsong',
+      /* GRAVEYARD IS FINAL (8/19). `ironlung` and `throatsong` were both
+         retired with their songs on 7/19 -- "Do not re-add" is written next to
+         each of them in gates/bohemia_graveyard.txt -- and I borrowed them
+         anyway, because nothing in the machine was checking a voice NAME
+         against the registry. They also happened to be the two voices that
+         render SILENT through this engine's own gain, so what Paolo thumbed on
+         these two slots was a transient and a reflection with no body behind
+         them. `chapelbreath` and `ghostvox` are the live breath voices that
+         take their places. Gate: instrument_gate.py now sweeps every name. */
+      instSets: ['onebreath', 'holdbreath', 'chapelbreath', 'ghostvox',
                  'formantvox']
     },
     come_up: {
@@ -17126,8 +18426,10 @@ const BOH_SFX = (function () {
               width: 0.32, drive: 0.18, mkup: 0.86, gain: 0.36 },
       jit:  { hz: [54, 96], decay: [0.1875, 0.375], width: [0.28, 0.5],
               dark: [620, 1200] },
-      instSets: ['heartbeatsub', 'subboom', 'ironlung', 'paperlung',
-                 'throatsong']
+      /* same 8/19 graveyard sweep: `ironlung` and `throatsong` were retired
+         7/19 and had to come out of here too. */
+      instSets: ['heartbeatsub', 'subboom', 'chapelbreath', 'paperlung',
+                 'ghostvox']
     },
     hit_more: {
       base: { synth: 'instrument', inst: 'boneplate', mat: 'bone', hz: 165,
@@ -17601,7 +18903,18 @@ const BOH_SFX = (function () {
     g.gain.linearRampToValueAtTime(0, t + A + ring + 0.005);
     slip.connect(slipG); slipG.connect(g.gain);
     src.connect(bp); bp.connect(g);
-    panTo(AC, g, clamp(v.pan - v.width * 0.2, -1, 1), dest);
+    /* THE OFFSET MUST NOT BE ABLE TO CANCEL THE PAN (8/19). This always pushed
+       LEFT by a fifth of the width, and for `wake_up.2` -- pan 0.169, width
+       0.809 -- the two happened to land within 0.007 of each other, so that one
+       candidate came out dead centre and sfx_render failed it as a point source
+       while its four siblings were fine. It is arithmetic, not taste: any fixed
+       one-directional offset can zero out somebody's pan eventually. Anything
+       that would end up in the middle gets pushed back out to the same side it
+       was already leaning; every other candidate is untouched, which is why
+       this is the fix rather than reversing the offset for half the bank. */
+    var fp = v.pan - v.width * 0.2;
+    if (Math.abs(fp) < 0.08) fp = (fp < 0 || (fp === 0 && v.pan <= 0)) ? -0.08 : 0.08;
+    panTo(AC, g, clamp(fp, -1, 1), dest);
     slip.start(t); slip.stop(t + A + ring + 0.02);
     src.start(t); src.stop(t + A + ring + 0.02);
     hold.push(slip); hold.push(src);
@@ -17650,7 +18963,7 @@ const BOH_SFX = (function () {
      HE WAS POINTING AT A REUSE-FIRST VIOLATION THAT HAD BEEN RUNNING SINCE
      7/29 AND NOBODY HAD MEASURED. The alpha carries a music studio whose
      voice rack, synthV(), holds SIX HUNDRED AND TWO named instruments --
-     splinterbell, ashchoir, farbell, ironlung, glassrequiem, mournhorn,
+     splinterbell, ashchoir, farbell, chapelbreath, glassrequiem, mournhorn,
      evictionbell, dustbowlguitar, on and on -- and every song he has ever
      called fire is built out of them. This engine had never called one. Five
      raw synthesis primitives, eighty moments, four hundred candidates, and
@@ -17697,22 +19010,84 @@ const BOH_SFX = (function () {
          : (typeof synthV !== 'undefined') ? synthV : null;
     } catch (e) { SV = null; }
     if (!SV || !v.inst) return t;
-    var sd   = Math.max(0.03, v.decay * BEAT);
+    var sd   = instStep(v);
     var semi = semiOf(v.hz);
     var hzFn = function (x) { return REF_HZ * Math.pow(2, x / 12); };
-    /* HIS RACK IS CALIBRATED AROUND g0 ~0.05-0.13 (read off the studio's own
-       call sites), and this engine's gain runs 0.18-0.72. Mapping into HIS
-       range rather than pushing his voices at ours is the whole point of
-       borrowing them: a voice driven three times as hard as the song drives
-       it is not the voice he approved. */
-    var g0 = clamp(amp * v.gain * 0.42, 0.01, 0.22);
-    var n = (v.hits && v.hits.length) ? v.hits.length : 1;
-    for (var i = 0; i < n; i++) {
-      var off = (v.hits && v.hits.length) ? v.hits[i] * BEAT : 0;
-      try { SV(v.inst, AC, dest, hzFn, sd, semi, t + off, g0); } catch (e) {}
+
+    /* LOUD ENOUGH TO JUDGE, AND ALL AT THE SAME LOUDNESS (8/19). The first
+       bridge mapped into his rack's own g0 range (~0.05-0.13, read off the
+       studio's call sites) so a borrowed voice was never driven harder than the
+       song drives it. Correct instinct, wrong result twice over: 27 candidates
+       landed outside the judgeable band of 0.15-0.85, and worse, they landed
+       all over it -- `taiko` came out 17x louder than `boneplate` from the SAME
+       bank at the SAME g0. On the board he would have been picking whichever
+       one he could HEAR rather than whichever one he liked.
+       So the drive is solved backwards from the measured peak: whatever the
+       voice is, it arrives at INST_VREF. The recipe's own gain x mkup still
+       rides on top downstream, so a punch still outranks a UI tick.
+       THE FIX IS HERE AND NOT IN THE RECIPE ON PURPOSE: `gain` is part of the
+       cooked vector and verdict_frozen_gate freezes it, so touching it would
+       reassign every thumb he has already spent on these. This is ENGINE
+       BEHAVIOUR -- the vector is byte-identical and the sound simply arrives
+       at a level he can judge. */
+    /* ONE VOICE PER STRIKE, NOT ONE PER STRIKE PER HIT (8/19). render() already
+       walks v.hits and calls strike() once per hit; this walked v.hits AGAIN
+       inside each of those calls, so a 3-hit recipe fired NINE voices and the
+       last of them started a beat and a half after the note was over. That is
+       most of what sfx_render was reporting as "outlives its own beats" on
+       panel_tick and boots_go. A body renders ONE body. */
+    var win = Math.min(instSec(v.inst, sd, semi), INST_MAX_BEATS * BEAT);
+    /* AND NOTHING GETS PAST THE NOTE. room() re-strikes the body a few tens of
+       ms late for its reflections, and a voice whose length does not scale with
+       the step (half his rack) comes back the SAME length from that later
+       start -- so the reflection, not the body, is what hangs over the end.
+       INST_CUT is the render's own spec'd end; past it there is silence, which
+       is the SCREECH LAW enforced at the only place that can enforce it. */
+    if (INST_CUT != null) win = Math.min(win, Math.max(0.02, INST_CUT - t));
+    /* if the voice is longer than the window it has, SHRINK IT rather than cut it */
+    if (instSec(v.inst, sd, semi) > win + 0.004) {
+      var fit = instStepFor(v.inst, win, semi);
+      if (fit != null) sd = fit;
     }
-    var last = (v.hits && v.hits.length) ? v.hits[n - 1] * BEAT : 0;
-    return t + last + sd * 2.4;
+    var end = t + win;
+
+    var g0 = clamp(amp * 0.30 * INST_VREF / instPeak(v.inst, sd, semi), 0.004, 60);
+
+    /* THE BORROWED VOICE OBEYS THIS ENGINE'S ENVELOPE. His rack rings on its
+       own schedule -- it was written for music, where a pad holding through the
+       next bar is the point. A game sound may not do that, so the voice goes
+       through a gain that CLOSES, and everything past the note is silence.
+       AND IT PUTS THE VOICE IN THE ROOM. Routed through panTo it finally has a
+       position: 50 candidates were failing dead-mono because the bridge
+       connected straight to the bus, so every borrowed voice came out as a
+       point source in the exact middle of his head -- the one thing FFX
+       explicitly moved away from. The placement is the vector's own declared
+       `width`, which is what that field has always meant, and the SIDE is
+       seeded off the id so it is the same every time he hears it. */
+    var seed = hashStr(String(v.id || v.ev || '') + '|' + v.inst);
+    var side = (seed & 1) ? 1 : -1;
+    var ig = AC.createGain();
+    ig.gain.setValueAtTime(1, t);
+    ig.gain.setValueAtTime(1, Math.max(t + 0.001, end - 0.018));
+    ig.gain.linearRampToValueAtTime(0, end);
+    panTo(AC, ig, clamp(v.pan + side * Math.max(0.14, v.width * 0.42), -1, 1), dest);
+
+    /* SEEDED, NOT RANDOM -- the same law the particle cloud already lives
+       under, applied to somebody else's code. Several of his voices (`anvil`,
+       `rubboard`, `guiro`, `cabasa`, `thunderdrum`) draw from Math.random
+       internally, which is fine in a song and fatal here: sfx_render measured
+       one of them rendering 161% of its own peak differently the second time.
+       A candidate he thumbed has to be the candidate that plays, so Math.random
+       is swapped for this vector's own stream across the call and put straight
+       back. Restored in a finally: it is the page's Math.random, not ours. */
+    var mr = Math.random;
+    var draw = rng(seed);
+    try {
+      Math.random = function () { return draw(); };
+      try { SV(v.inst, AC, ig, hzFn, sd, semi, t, g0); } catch (e) {}
+    } finally { Math.random = mr; }
+
+    return end;
   }
   /* A3. Chosen because his rack's own call sites pass semitone offsets in
      roughly -55..+12 around it, so a Hz in this engine's legal range converts
@@ -17895,13 +19270,17 @@ const BOH_SFX = (function () {
     }
 
     var hold = [], last = t0;
-    for (var i = 0; i < v.hits.length; i++) {
-      var t = t0 + v.hits[i] * BEAT;
-      var e = strike(v, AC, bus, t, 1, hold);
-      if (e > last) last = e;
-      var r = room(v, AC, bus, t, hold);
-      if (r > last) last = r;
-    }
+    var prevCut = INST_CUT;
+    INST_CUT = t0 + beatsOf(v) * BEAT;
+    try {
+      for (var i = 0; i < v.hits.length; i++) {
+        var t = t0 + v.hits[i] * BEAT;
+        var e = strike(v, AC, bus, t, 1, hold);
+        if (e > last) last = e;
+        var r = room(v, AC, bus, t, hold);
+        if (r > last) last = r;
+      }
+    } finally { INST_CUT = prevCut; }
 
     /* NOTHING OUTLIVES ITSELF. Realtime only: an OfflineAudioContext renders
        faster than the wall clock, so a wall-clock timer would tear the graph
@@ -18249,995 +19628,6 @@ var SETTLED={"step_dirt.0":1,"step_dirt.1":1,"step_dirt.2":1,"step_dirt.3":1,"st
 })();
 </script>
 <!-- /BOHEMIA SFX FACTORY MOUNT -->
-<!-- BOHEMIA SFX WIRE PARENT (7/30/26) -->
-<script>
-/* === SFX WIRE, PARENT SIDE (7/30/26) ====================================
-   Paolo's 118 approved sounds, from his 8/15 full sweep. The table below is INDEXES
-   into the shipped generator, not copied audio: candidate n of event e is
-   BOH_SFX.cook(e,5)[n], which gates/sfx_render_gate.py fingerprints. So what
-   plays is byte-for-byte the thing he heard when he thumbed it.
-   Verdict: records/BOHEMIA_SFX_VERDICT_8_17_26.txt
-   Bank:    banks/BOHEMIA_SFX_APPROVED_8_17_26.json
-   ONE AUDIOCONTEXT: everything below plays on the MUSIC studio's context and
-   its brickwall limiter. The run posts an event name; nothing else. */
-(function(){
-  'use strict';
-  if(window.__SFX_WIRE)return; window.__SFX_WIRE=true;
-  var APPROVED={"air_day":[0,1,2,3,4],"air_inside":[0,1,2,3,4],"air_night":[0,1,2,3,4],"block":[2],"boots_go":[0,4],"casing":[0],"cloth_on":[1,4],"come_up":[0,1,2,4],"cover_more":[0,3],"demolish":[0,2,4],"dirt_take":[0,1,2,3,4],"door_drag":[0],"drink":[0,1,2,3,4],"dry_fire":[1],"eat":[2],"generator":[0,1,2,3],"heartbeat":[0,1,3],"hit":[2,4],"hit_more":[0],"hurt":[2],"hurt_more":[0,1,2,3,4],"kill":[0,1,2,3,4],"melee_hit":[0,2,3,4],"miss_past":[0,1,2,3,4],"phone_buzz":[2,4],"pickup":[0,1,2,3,4],"power_on":[0,4],"save_chime":[0,1,2,3,4],"set_down":[2,3],"shot":[3],"shot_more":[0,1,2,3,4],"sleep_sink":[0,1,2,3,4],"step_asphalt":[0,1,2,3,4],"step_concrete":[2],"step_dirt":[0,1,2,3,4],"step_gravel":[0,1,2,3,4],"step_sand":[4],"step_wood":[2,4],"stone_bite":[4],"swing_air":[2,3],"tape_pull":[1,4],"time_pass":[0,1,2,3,4],"ui_back":[2,3,4],"ui_deny":[0,2,4],"ui_tap":[1,2,3],"vital_deep":[0,2,4],"walk_more":[0,2,4],"went_down":[4],"will_goes":[2],"wind_gust":[0,1]};
-  /* THE BOARD HAS TO KNOW WHICH MOMENTS ACTUALLY HAVE A SOUND (8/2), and it
-     must read the SAME table playSFX reads. A second copy of his thumbs is a
-     second thing that can be wrong. */
-  try{ window.__SFX_APPROVED=APPROVED; }catch(_e){}
-  var last={};                       /* per event: what played last, never twice */
-  var SFX_COUNT=0;                   /* what the status line in the MUSIC tab reports */
-  /* ===== ONE MOMENT, MORE THAN FIVE VOICES (8/16b) ======================
-     MEASURED, and it is the worst number in this whole lane: THE MOST-PLAYED
-     SOUND IN THE GAME HAS EXACTLY ONE APPROVED VARIANT. Every shot in every
-     firefight is byte-identical. So is every sidewalk step, every hit you
-     take, every piece of brass, every shot your cover eats. Twelve wired
-     moments sit at one variant and four more at two.
-     This is the MACHINE GUN EFFECT and it is the oldest problem in game audio:
-     the same sample fired in rapid succession stops reading as an event and
-     starts reading as a machine. It is also, precisely, "its getting stale" --
-     except this time in the GAME rather than on the judge sheet, which is why
-     no amount of new moments was ever going to fix it.
-     APPROVAL UNLOCKS VOLUME is already this repo's law. It had never been
-     applied to sound: he approved shot.3 on 8/1 and the volume never came.
-
-     WHY A SIBLING EVENT RATHER THAN A BIGGER COOK. A recipe cooks exactly five
-     candidates and his thumbs are attached to those five vectors forever
-     (verdict_frozen_gate). Widening `shot` to eight would change what shot.3
-     IS. So a moment gains a SIBLING EVENT with its own id and its own five,
-     and the picker draws from the union. His old thumbs never move.
-
-     TWO THINGS THE RESEARCH CHANGED:
-       ODD IS BETTER THAN EVEN. Standard round-robin practice is an odd number
-       of variants against an even meter, so the cycle never locks to the
-       phrasing. This game quantises EVERYTHING to 120 BPM, which makes it the
-       worst possible case for an even count -- four variants against 4/4 would
-       line up forever.
-       NEVER TWICE IN A ROW, which this picker already did and which is kept. */
-  /* WHICH MOMENTS DRAW FROM WHICH SIBLINGS (8/16b). Left is the moment the
-     game asks for; right is the extra event whose approved candidates join its
-     pool. Nothing here changes what he approved -- it only widens the draw. */
-  var SIBLINGS={
-    shot:          ['shot_more'],
-    hurt:          ['hurt_more'],
-    hit:           ['hit_more'],
-    casing:        ['brass_more'],
-    block:         ['cover_more'],
-    step_concrete: ['walk_more']
-  };      /* moment -> extra event ids that also feed it */
-  window.__sfxSiblings=SIBLINGS;
-  function poolOf(ev){
-    var pool=[], set=APPROVED[ev]||[], i;
-    for(i=0;i<set.length;i++) pool.push([ev,set[i]]);
-    var sib=SIBLINGS[ev]||[];
-    for(var s=0;s<sib.length;s++){
-      var t=APPROVED[sib[s]]||[];
-      for(i=0;i<t.length;i++) pool.push([sib[s],t[i]]);
-    }
-    return pool;
-  }
-  window.__sfxPool=function(ev){ return poolOf(ev).map(function(x){return x[0]+'.'+x[1];}); };
-  function pick(ev){
-    var pool=poolOf(ev); if(!pool.length)return null;   /* unjudged = silent */
-    if(pool.length===1)return pool[0];
-    var c, guard=0, key;
-    do{ c=pool[(Math.random()*pool.length)|0]; key=c[0]+'.'+c[1]; }
-    while(key===last[ev] && ++guard<8);
-    last[ev]=key; return c;
-  }
-  var cache={};
-  function vec(ev,i){
-    var k=ev+'.'+i;
-    if(!cache[k]){ try{ cache[k]=BOH_SFX.cook(ev,5)[i]; }catch(e){ return null; } }
-    return cache[k];
-  }
-  /* ===== ONE BUS FOR EVERY SOUND EFFECT (8/2) ==========================
-     Paolo 8/2: "when we have a menu and it's gonna have Settings and then we
-     can change the volume of all sound effects or whatever so yeah just keep
-     that in mind."
-     Effects were reaching the output THREE different ways: footsteps on their
-     own quiet bus, ambience on another, and everything else straight into the
-     music master. A volume slider would have had to know about all three and
-     would have drifted the moment a fourth appeared. So there is one node now.
-     Everything an effect makes goes through SFXBUS -> MUS.MAST, and the whole
-     settings hook is setSFXVolume().
-     IT DOES NOT FLATTEN THE MIX HE APPROVED: the footstep bus and the ambience
-     bus keep their own gains and simply feed this one instead of the master, so
-     every level he judged stays exactly where it was relative to everything
-     else. This is a place to put a knob, not a re-mix. */
-  var SFXBUS=null, SFXVOL=1;
-  try{ var sv=parseFloat(localStorage.getItem('bohemia_sfxvol'));
-       if(sv>=0 && sv<=1) SFXVOL=sv; }catch(e){}
-  function sfxBus(){
-    try{
-      if(SFXBUS) return SFXBUS;
-      if(typeof MUS==='undefined' || !MUS.AC) return null;
-      SFXBUS=MUS.AC.createGain(); SFXBUS.gain.value=SFXVOL;
-      SFXBUS.connect(MUS.OUT||MUS.MAST||MUS.AC.destination);  /* 8/2: the OUTPUT bus, never the music master -- MUS.stop() ducks MAST to zero and that used to mute the whole game */
-      window.__SFXBUS=SFXBUS;
-    }catch(e){ SFXBUS=null; }
-    return SFXBUS;
-  }
-  /* THE WHOLE SETTINGS HOOK. When the menu exists it calls this and nothing
-     else. 0 is silent, 1 is the mix he judged. */
-  window.setSFXVolume=function(v){
-    v=Math.max(0,Math.min(1,+v||0)); SFXVOL=v;
-    try{ localStorage.setItem('bohemia_sfxvol',String(v)); }catch(e){}
-    try{ if(SFXBUS) SFXBUS.gain.value=v; }catch(e){}
-    return v;
-  };
-  window.getSFXVolume=function(){ return SFXVOL; };
-
-  /* FOOTSTEPS SIT WAY UNDER EVERYTHING (Paolo 8/1): "relative to like the music
-     it should be like a lot quieter like A LOT A LOT quieter -- the noise that
-     makes for me stepping in different terrain should be quieter."
-     ANOTHER SESSION BUILT THIS RULING AND IT NEVER FIRED. Their stepSfx() hangs
-     off a BOHEMIA_STEP message that the run does not post -- measured live:
-     stepSfx called 0 times across a walk, while playSFX handled every footstep.
-     So the 0.12 they set was dead code and his ruling was being dropped on the
-     floor while everyone assumed it had shipped. It is applied HERE, on the
-     path that actually runs.
-     A SUB-BUS, not an edit to his vectors: the verdict is on the SOUND, never
-     on how loud the game chooses to play it. STEPS -> SFXBUS -> master, so the
-     settings knob still reaches them. */
-  var STEPBUS=null, STEP_GAIN=0.12;      /* ~-18 dB under everything else */
-  function stepBus(){
-    try{
-      if(STEPBUS) return STEPBUS;
-      var out=sfxBus(); if(!out) return null;
-      STEPBUS=MUS.AC.createGain(); STEPBUS.gain.value=STEP_GAIN;
-      STEPBUS.connect(out); window.__STEPBUS=STEPBUS;
-    }catch(e){ STEPBUS=null; }
-    return STEPBUS;
-  }
-
-  /* THE ONE ENTRY POINT. when==='beat' fires on the next downbeat of the real
-     song (the 120 BPM LAW: a kill lands ON the beat), anything else fires now. */
-  /* === VOICE LIMITING (8/4) =============================================
-     MEASURED at the limiter output, firing N copies of one shot at the same
-     instant:
-        1 copy  energy 2.18    8 copies energy 2.25
-        2       2.18          16       1.81   <- LESS THAN ONE
-     Past the first, a stacked sound adds NOTHING. The brickwall holds the peak
-     at 0.80 either way, so all the extra copies do is push the limiter down --
-     and the limiter pushes EVERYTHING down with it: the music, the footsteps,
-     the ambience. The loudest moment in the game was the moment it went flat.
-     It is not hypothetical. A combat volley resolves several enemies in the same
-     frame, which is why the block sound already needed a hand-rolled guard and
-     the neighbour footstep needed another. Two ad-hoc guards for one defect
-     means the defect belongs one level up.
-     TWO LIMITS, both deliberately generous:
-       PER EVENT, 45ms. Two identical sounds closer together than about 40ms do
-       not read as two sounds; they read as one with a thicker attack. This is
-       the flam threshold, not a gameplay choice.
-       GLOBAL, 8 voices per 60ms. A fight can absolutely fire eight DIFFERENT
-       things at once and should. It cannot usefully fire twenty.
-     THE FIRST SOUND IS NEVER DROPPED, and a lone sound is never touched. */
-  var VOX=[], LASTEV={};
-  var VOX_EVENT_MS=45, VOX_WINDOW_MS=60, VOX_MAX=8;
-  /* ---- AND IT USED TO DROP WHATEVER ARRIVED NINTH (8/15) ---------------
-     The cap was first-come-first-served: eight sounds inside sixty
-     milliseconds and the ninth was refused, whatever it was. A mix that drops
-     by ARRIVAL ORDER is not a mix, it is a queue -- the thing the player most
-     needed to hear is as likely to be thrown away as anything else, in the
-     exact moment there is most going on.
-     BEING PRECISE ABOUT WHAT WAS AND WAS NOT REACHABLE, because the first
-     version of this comment overstated it and the measurement caught me: a
-     flood of FOOTSTEPS could never do this. The 45 ms per-event guard admits
-     one step_asphalt per burst however many are asked for -- measured, 1 of 40.
-     The reachable case is many DIFFERENT sounds landing together, which is
-     precisely what a fight is: a shot, a hit, a body, a casing, a door, the
-     phone, two neighbours walking. That is the moment the cap was deciding by
-     arrival order, and that is the moment it now decides by importance.
-     PRIORITY IS THE STANDARD ANSWER and every audio middleware has it under one
-     name or another -- a sound carries an importance, and when there are more
-     sounds than room the least important loses. Here it is deliberately coarse,
-     four tiers, because a fine-grained table would be inventing a hierarchy
-     nobody ruled on:
-       3 CRITICAL   the fight and the answer to it. kill, hurt, shot, hit,
-                    block, vital, melee. Never refused.
-       2 EVENT      something happened that you did. doors, saves, quests,
-                    money, the phone, the interface.
-       1 WORLD      the valley being the valley. ambience, gusts, generators.
-       0 CONSTANT   footsteps -- the sound the game makes most, and the only
-                    one that can plausibly flood the window on its own.
-     THE HEADROOM IS THE MECHANISM: a tier may only use part of the window, so
-     a flood of footsteps can never fill it past the point where a gunshot
-     still fits. CRITICAL bypasses the cap entirely, which is the whole point.
-     WHAT IT IS NOT: this is not voice STEALING. A Web Audio source already
-     scheduled cannot be cheaply un-scheduled, so nothing already sounding is
-     cut short -- the cap decides what gets IN. Saying so because "priority"
-     usually implies stealing and this does less than that. */
-  var PRIO={ kill:3, hurt:3, shot:3, hit:3, block:3, vital:3, melee_hit:3,
-             miss:3, clear:3, dry_fire:3, casing:3, swing_air:3, heartbeat:3,
-             air_day:1, air_night:1, air_inside:1, wind_gust:1, generator:1,
-             dog_far:1, dog_cry:1, neon_buzz:1, neon_hum:1 };
-  function prioOf(ev){
-    if(PRIO[ev]!=null) return PRIO[ev];
-    if(String(ev).indexOf('step_')===0) return 0;
-    return 2;
-  }
-  /* room a tier is allowed to take. 3 is uncapped and is not in the table. */
-  var TIER_ROOM={ 0:5, 1:6, 2:8 };
-  function voiceOK(ev){
-    var now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
-    var last=LASTEV[ev];
-    if(last!=null && (now-last)<VOX_EVENT_MS) return false;
-    while(VOX.length && (now-VOX[0])>VOX_WINDOW_MS) VOX.shift();
-    var p=prioOf(ev);
-    var room=(p>=3) ? Infinity : (TIER_ROOM[p]!=null ? TIER_ROOM[p] : VOX_MAX);
-    if(VOX.length>=Math.min(room, p>=3 ? Infinity : VOX_MAX)) return false;
-    LASTEV[ev]=now; VOX.push(now);
-    return true;
-  }
-  window.__voiceStats=function(){ return {perEvent:VOX_EVENT_MS, window:VOX_WINDOW_MS,
-    max:VOX_MAX, tiers:TIER_ROOM, prio:PRIO, prioOf:function(e){ return prioOf(e); }}; };
-  /* THE ADMISSION DECISION ITSELF, so a test can ask it forty times without
-     paying for forty renders. Rendering is what made the first version of
-     the mix gate wrong: forty real sounds took longer than the sixty
-     millisecond window they were supposed to be crowding, so the window
-     emptied underneath the experiment and the cap looked broken. This is
-     THE SAME FUNCTION playSFX calls, not a copy of its logic. */
-  window.__voiceAdmit=function(ev){ return voiceOK(ev); };
-
-  /* ===== DUCKING: THE MUSIC GETS OUT OF THE WAY OF A PERSON (8/15) ======
-     Nothing in the game has ever moved out of the way of anything else. A
-     squiggle line and a full song arrived at the same weight and fought, and
-     the line lost, because a song is continuous and a voice is not.
-     DUCKING UNDER DIALOGUE IS THE OLDEST MOVE IN THE BOOK -- broadcast has done
-     it for decades and every game middleware ships it. THE RESEARCHED SHAPE:
-     about -9 dB of duck is the usual dialogue target, with a typical game ramp
-     of ~500 ms down and ~1000 ms back.
-     I SHORTENED THE ATTACK AND SAY SO: 500 ms down buries the first third of a
-     line that is often only a second and a half long, which is the exact thing
-     the duck exists to prevent. 150 ms is fast enough to be under the first
-     syllable and slow enough not to click. The recovery stays long (900 ms)
-     because a fast recovery pumps, and pumping is audible in a way a slow one
-     is not. All three are dials; one word from him moves any of them.
-     ITS OWN NODE, SO HIS SLIDER IS NEVER TOUCHED. MUSVOL is the music volume he
-     sets; ducking it would fight the mixer and lose his setting the first time
-     the two disagreed. A dedicated gain sits between the music master and that
-     slider instead, so the duck is the only thing that ever writes to it. */
-  var DUCK=null, DUCK_UNTIL=0;
-  var DUCK_DEPTH=0.355, DUCK_DOWN=0.15, DUCK_UP=0.9;   /* -9 dB, 150 ms, 900 ms */
-  function duckNode(){
-    try{
-      if(DUCK && DUCK.__wired) return DUCK;
-      if(typeof MUS==='undefined' || !MUS.AC || !MUS.MAST || !MUS.MUSVOL) return null;
-      var g=MUS.AC.createGain(); g.gain.value=1;
-      try{ MUS.MAST.disconnect(MUS.MUSVOL); }catch(_e){}
-      MUS.MAST.connect(g); g.connect(MUS.MUSVOL);
-      g.__wired=true; DUCK=g;
-      try{ window.__DUCK=DUCK; }catch(_e){}
-    }catch(e){ DUCK=null; }
-    return DUCK;
-  }
-  /* seconds = how long the thing that is ducking will last. Overlapping calls
-     EXTEND rather than restart, so two people talking do not pump the song. */
-  window.duckMusic=function(seconds){
-    try{
-      var g=duckNode(); if(!g) return null;
-      var AC=MUS.AC, now=AC.currentTime;
-      var hold=Math.max(0.05, Math.min(8, +seconds||0.6));
-      var until=now+hold;
-      if(until<DUCK_UNTIL) until=DUCK_UNTIL;      /* never cut a duck short */
-      DUCK_UNTIL=until;
-      g.gain.cancelScheduledValues(now);
-      g.gain.setValueAtTime(g.gain.value, now);
-      g.gain.linearRampToValueAtTime(DUCK_DEPTH, now+DUCK_DOWN);
-      g.gain.setValueAtTime(DUCK_DEPTH, until);
-      g.gain.linearRampToValueAtTime(1, until+DUCK_UP);
-      return { depth:DUCK_DEPTH, down:DUCK_DOWN, up:DUCK_UP, until:until };
-    }catch(e){ return null; }
-  };
-  window.__duckStats=function(){
-    return { depth:DUCK_DEPTH, down:DUCK_DOWN, up:DUCK_UP,
-             wired:!!(DUCK&&DUCK.__wired),
-             gain:(DUCK?DUCK.gain.value:null) }; };
-  /* ===== THE JUDGE SCREEN IS SILENT EXCEPT FOR WHAT HE PRESSES =========
-     PAOLO, 8/16, AND NOT FOR THE FIRST TIME: "how many fucking times do I have
-     to fucking tell you that when I click a sound button it shouldn't be doing
-     the button sound click because that's disturbing me from hearing the actual
-     sound effect ... everything should make a sound except for the fucking
-     sound button that I played to hear different sounds to vote on".
-
-     MEASURED BEFORE IT WAS FIXED, on the real page with a real touch, because
-     the obvious suspect was wrong. The preview button does NOT play a UI click:
-     tapping one renders exactly one thing, the candidate. What is actually
-     landing on top of his auditions is THE GAME PLAYING ITSELF IN ANOTHER TAB
-     -- the run keeps autosaving on its own timer and his approved save bell
-     rings straight through the MUSIC tab. Three seconds of doing nothing at all
-     renders save_chime.0. He hears it next to his taps and reads it as the
-     button; the button was innocent and the room was not.
-
-     THE AMBIENCE LANE ALREADY SOLVED THIS FOR ITSELF on 8/1 -- it checks the
-     RUN tab is actually open before it plays, because a hidden iframe keeps its
-     timers. That guard was never generalised, so every OTHER game sound kept
-     the hole: the bell today, and a footstep or a door the moment the run moves
-     while he is judging.
-
-     AND THE GUARD GOES ON THE SOURCE, NOT ON THE SOUND'S NAME. The first
-     version of this listed the run's event names and checked them inside
-     playSFX, and the wired gate went red on ten checks immediately -- because
-     step_asphalt is ALSO what he hears when he taps step_asphalt on the judge
-     board, and silencing that is the exact opposite of what he asked for.
-     Every one of those reds was right.
-     The honest discriminator is WHO ASKED. The run and combat are iframes and
-     can only reach the parent by postMessage; his finger on the board and the
-     parent's own interface call playSFX directly. So the check sits on the
-     message channel: a sound the RUN asks for while he is looking at another
-     tab is dropped, and nothing he presses can ever be. */
-  /* AND THE CONDITION IS "HE IS JUDGING", NOT "THE RUN TAB IS SHUT".
-     The first two versions asked whether the RUN tab was visible, which is a
-     PROXY for the thing he actually complained about and a bad one: it made
-     every game sound depend on a tab state, and it took the block-is-not-empty
-     checks red because a neighbour's footstep is staged from a probe that does
-     not sit on the RUN tab. FIX THE RULER, NOT THE TARGET -- and here the
-     ruler was my own condition.
-     What he described is one specific room: he is on the MUSIC tab auditioning
-     candidates to vote on, and the game is playing over them. So that is what
-     is checked. During real play the MUSIC tab is not open and this guard is
-     inert by construction, which is why it cannot silence anything he is
-     actually playing. */
-  function judging(){
-    try{
-      var el=document.getElementById('p-music');
-      return !!(el && el.classList && el.classList.contains('on'));
-    }catch(e){ return false; }  /* if we cannot tell, never silence */
-  }
-  window.__judging=judging;
-  /* ===== NO TWO PLAYBACKS ARE IDENTICAL (8/18) =========================
-     THE RESEARCH SAYS THERE IS NO MAGIC NUMBER OF VARIANTS. Game-audio
-     practice does not beat repetition by counting samples up to some
-     threshold; it randomises PITCH AND LEVEL ON EVERY PLAYBACK, and gets far
-     more heard variation out of a small approved set than the set contains.
-     THIS COSTS HIM NOTHING, which is why it beat the alternative. Widening a
-     pool takes a batch, a ballot and his thumbs, and buys ONE moment. This
-     multiplies variety across ALL 148 candidates he has ALREADY approved --
-     the six-variant gunshot and the twelve moments still holding one alike --
-     without asking him for a single new judgement.
-
-     IT IS DELIBERATELY SMALL, because his approval is of a SOUND, not of a
-     family of sounds. +/-3% on pitch is about half a semitone and +/-10% on
-     level is under a decibel: audibly not-the-same-twice, nowhere near a
-     different candidate. The gate measures BOTH bounds rather than trusting
-     this comment -- it has to move, and it has to stay small.
-
-     PITCH MOVES ONLY ON THE SYNTHESIS METHODS, NEVER ON HIS INSTRUMENTS.
-     bodyInstrument converts hz to a SEMITONE and rounds it, so a 3% nudge is
-     either nothing or a whole semitone -- and a whole semitone on one of his
-     own musical voices, in a game quantised to 120 BPM, is a WRONG NOTE rather
-     than a variation. His rack varies by LEVEL alone.
-
-     AND IT NEVER TOUCHES THE JUDGE SHEET. That surface renders candidates
-     through BOH_SFX.render directly and never comes through playSFX, so what
-     he auditions is always the exact vector he is voting on. Asserted in the
-     gate, not assumed. */
-  function vary(v){
-    if(!v) return v;
-    var w={},k; for(k in v) w[k]=v[k];
-    var lvl = 1 + (Math.random()*2-1)*0.10;      /* +/-10%, under a dB */
-    w.gain = Math.max(0.02, Math.min(1, (v.gain||0.3) * lvl));
-    if(v.synth !== 'instrument'){
-      var pit = 1 + (Math.random()*2-1)*0.03;    /* +/-3%, about half a semitone */
-      w.hz = Math.max(20, Math.min(18000, (v.hz||200) * pit));
-    }
-    return w;
-  }
-  window.__sfxVary=vary;   /* exposed so the gate can measure the real spread */
-  /* === THE ROOM TAKES THE SOUND (8/4) ==================================
-     Measured RT60 from the acoustics literature, mapped onto the four places
-     this game actually has. STREET is 1.0 on every dial ON PURPOSE: it is the
-     commonest place in the run, so his approved sounds are untouched there and
-     only LEAVING the street changes anything.
-       OPEN    open terrain has almost nothing to reflect off
-       STREET  the canyon, and the baseline
-       ROOM    ~0.2s, and darker: furniture and cloth eat the highs
-       HALL    2-3s (a parking basement measures ~3s), bright and long
-     No convolver, no delay, no feedback. These four fields are the engine's
-     OWN finite space machinery: re-struck bodies and a filtered noise tail. */
-  var SPACES={
-    OPEN:   {space:0.30, room:0.45, refl:0.0, dark:1.15},
-    STREET: {space:1.00, room:1.00, refl:1.0, dark:1.00},
-    ROOM:   {space:0.85, room:0.55, refl:1.6, dark:0.72},
-    HALL:   {space:1.70, room:3.00, refl:2.2, dark:1.30}
-  };
-  var SPACE='STREET';
-  window.__sfxSpace=function(){ return SPACE; };
-  /* EXPOSED SO IT CAN BE CHECKED EXACTLY. playSFX picks a RANDOM candidate from
-     his approved set every call, and the difference between two of his
-     candidates is bigger than the difference a room makes -- so measuring the
-     room by playing playSFX twice proves nothing, which is exactly what the
-     first measurement of this feature "showed". */
-  window.__sfxInSpace=function(v,sp){ var k=SPACE; if(sp)SPACE=sp;
-    try{ return inSpace(v); } finally { SPACE=k; } };
-  function inSpace(v){
-    var p=SPACES[SPACE]||SPACES.STREET;
-    if(p.space===1&&p.room===1&&p.refl===1&&p.dark===1) return v;   /* baseline: untouched */
-    var w={},k; for(k in v) w[k]=v[k];
-    w.space=Math.max(0,Math.min(1,(v.space||0)*p.space));
-    w.room =Math.max(0,Math.min(3,(v.room ||0)*p.room));
-    w.refl =Math.max(0,Math.min(4,Math.round((v.refl||0)*p.refl)));
-    w.dark =Math.max(300,Math.min(9000,(v.dark||2600)*p.dark));
-    return w;
-  }
-  window.playSFX=function(ev,when){
-    try{
-      if(typeof BOH_SFX==='undefined')return null;
-      if(!voiceOK(ev))return null;
-      var c=pick(ev); if(c==null)return null;
-      var v=vary(vec(c[0],c[1])); if(!v)return null;
-      v=inSpace(v);
-      MUS.audio();
-      var AC=MUS.AC;
-      /* a footstep goes to the quiet sub-bus; everything else to the master */
-      /* MUS.OUT BEFORE MUS.MAST, ALWAYS. MUS.stop() ducks the MUSIC master to
-         zero and leaves it there (his 7/27 fix, still correct), so anything
-         that falls back to MAST goes silent the moment he turns the music off.
-         THIS LINE HAD THE FIX AND LOST IT: somebody repaired it in the ALPHA
-         by hand, and the next run of this tool -- which owns the block and
-         re-injects it whole -- reverted them. A fix that lives in generated
-         output is a fix with a countdown on it. It lives in the generator now. */
-      var dest=(ev.indexOf('step_')===0 ? (stepBus()||sfxBus()) : sfxBus())
-               || MUS.OUT || MUS.MAST || AC.destination;
-      var at=null;
-      if(when==='beat' && MUS.playing && MUS.nextT){
-        /* the next 16th that is also a beat boundary */
-        var sd=MUS.stepDur(), s=MUS.step||0, ahead=(4-(s%4))%4;
-        at=MUS.nextT+ahead*sd;
-      }
-      var node=BOH_SFX.render(v,AC,dest,at);
-      if(node) SFX_COUNT++;         /* counted where it RENDERS, not where it is asked for */
-      return node;
-    }catch(e){ return null; }
-  };
-  /* UNLOCK ON THE FIRST TOUCH, ANY TOUCH (7/31 -- "I didnt hear ur sounds").
-     An AudioContext may only be STARTED inside a real user gesture. iOS is
-     strict about it: build one outside a gesture and it is born suspended, and
-     resume() from a postMessage handler is refused for the whole session.
-     The old wire only ever reached MUS.audio() from inside playSFX, and the
-     only gesture that could get there was a tap on a button/.tab/.opt. The
-     splash is <div id="front">, so THE FIRST THING HE EVER TOUCHES matched
-     nothing. Land straight in the RUN tab, walk, and every footstep arrives by
-     postMessage with no gesture behind it: silence, permanently, and the sound
-     is "working" the whole time. So: unlock on the first interaction of ANY
-     kind, anywhere, before anything needs to make noise. */
-  /* THE RING/SILENT SWITCH (7/31, second report of silence).
-     On iPhone, a page that makes sound ONLY through WebAudio is muted by the
-     physical switch on the side of the phone, with no error, no warning and
-     nothing in the page to see. Every check can pass and the phone stays quiet.
-     Safari 16.4+ lets a page say it is playback rather than ambient audio,
-     which opts out of that switch. Set it before the context starts, because it
-     decides the category the context is born into. Absent everywhere else, so
-     the guard is the whole compatibility story. */
-  function claimPlayback(){
-    try{ if(navigator.audioSession) navigator.audioSession.type='playback'; }catch(e){}
-  }
-  claimPlayback();
-  function unlock(){
-    claimPlayback();
-    try{ MUS.audio(); if(MUS.AC && MUS.AC.state==='suspended') MUS.AC.resume(); }catch(e){}
-    /* BUILD THE SFX MASTER THE INSTANT AUDIO EXISTS. Lazily is not good enough:
-       the footstep bus is built on the first footstep and reads window.__SFXBUS
-       to decide what to plug into, so if a step happens before any other sound
-       it wires itself to the music master FOREVER and the volume slider cannot
-       reach it. Measured exactly that: muted everything and footsteps still
-       came out at 0.27. Order of creation is not something to leave to luck. */
-    try{ sfxBus(); }catch(e){}
-  }
-  ['pointerdown','touchend','mousedown','click','keydown'].forEach(function(t){
-    document.addEventListener(t, unlock, {capture:true, passive:true});
-  });
-  document.addEventListener('visibilitychange',function(){
-    if(!document.hidden) unlock();      /* coming back from the lock screen */
-  });
-  /* the run asks; the parent plays */
-  window.addEventListener('message',function(ev){
-    try{
-      var d=ev&&ev.data; if(!d)return;
-      /* A TOUCH INSIDE THE IFRAME IS STILL A TOUCH. It does not bubble out to
-         this document, so the run tells us one happened and we take the chance
-         to start the audio while the browser may still count it as gestured. */
-      if(d.type==='BOHEMIA_GESTURE'){ unlock(); return; }
-      if(d.type==='BOHEMIA_WHERE'){
-        /* OCCLUSION HAD NO LISTENER (8/14). placeSound compares where a sound
-           was made against where the player is standing, and nothing ever told
-           it the second half -- so the wall cue shipped and could never fire.
-           The run has been reporting `inside` every four seconds since 8/1 and
-           this handler used it for the ambience bed and threw the rest away.
-           No new message, no new run code: the fact was already arriving. */
-        LISTENER.inside = !!d.inside;
-        AMB.where(d);
-        if(d.space && SPACES[d.space]) SPACE=d.space;   /* the run says where you stand */ musicPhase(d); timePass(d); return; }
-      /* THE GAME DOES NOT PLAY TO AN EMPTY ROOM (8/16, his ruling). Every
-         sound below was asked for by the RUN or by COMBAT, across an iframe
-         boundary. If he is not looking at that tab, he is judging, and the
-         game must not put a save bell or a footstep on top of the candidate
-         he is trying to hear. Nothing he PRESSES passes through here.
-         AND IT IS THE IFRAME THAT IS GATED, NOT THE MESSAGE TYPE. ev.source
-         is the window that posted: an iframe is not this window, a direct
-         post from the parent (a probe, a measurement, his own board) is.
-         Together with judging() this is as narrow as the rule can be made:
-         the run or combat, talking across the iframe boundary, while he is
-         looking at the judge sheet. Nothing else is touched. */
-      var _fromGame = (d.type==='BOHEMIA_NPCSTEP' || d.type==='BOHEMIA_SFX_AT'
-                       || d.type==='BOHEMIA_SFX');
-      var _fromIframe = !!(ev && ev.source && ev.source !== window);
-      if(_fromGame && _fromIframe && judging()) return;
-      if(d.type==='BOHEMIA_NPCSTEP'){ npcStep(d); return; }
-      if(d.type==='BOHEMIA_SFX_AT'){
-        placeSound(d.ev, { dx:d.dx, dy:d.dy, dist:d.dist,
-                           inside:d.inside, when:d.when||null });
-        return; }
-      if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
-    }catch(e){}
-  });
-
-  /* === THE CLOCK FINALLY REACHES THE MUSIC (8/4) ========================
-     CITYMUS.phase shipped hardcoded to 'NIGHT', with a comment that said
-     outright: "the valley is night until a world clock lands; whoever builds
-     the clock sets CITYMUS.phase". The clock landed. Nobody set it.
-     MEASURED before touching anything, because a claim like this has to be a
-     number: at the shipped phase the overworld pool is 10 songs, and the SEVEN
-     songs Paolo tagged OVERWORLD DAY or OVERWORLD DUSK/DAWN are in none of
-     them. Over 200 draws, THE MARKER ON THE DOOR came up ZERO times -- the one
-     song in this entire project he has ever said he likes ("now one of my new
-     favorite songs that you've made"), tagged OVERWORLD DAY by his own hand,
-     unplayable in the run since the day he tagged it.
-     That is APPROVED-BUT-UNUSED, the defect this lane already has a law about,
-     sitting in the music instead of the sound effects.
-     THE FIX NEEDS NO RULING: the run already posts the world MINUTE here every
-     four seconds, and this handler already uses it to choose the ambience bed.
-     The same number now chooses the pool.
-     THE WINDOWS NEST INSIDE THE AMBIENCE SPLIT ON PURPOSE. The bed calls night
-     before 06:00 and from 19:00; DAWN and DUSK sit strictly inside the daylit
-     side of that line, so the two systems can never disagree about whether it
-     is dark. One clock, one opinion.
-     IT NEVER CUTS A SONG. Only the phase moves; CITYMUS picks again at the end
-     of its 64-bar pass, so the change arrives on a musical boundary instead of
-     as a jump-cut. */
-  var LASTPHASE=null;
-  function musicPhase(d){
-    try{
-      if(typeof CITYMUS==='undefined'||!CITYMUS) return;
-      var m=+d.min; if(!isFinite(m)) return;
-      var ph = (m<6*60||m>=19*60) ? 'NIGHT'
-             : (m<8*60)           ? 'DAWN'
-             : (m<17*60)          ? 'DAY'
-                                  : 'DUSK';
-      if(ph===LASTPHASE) return;
-      LASTPHASE=ph;
-      CITYMUS.phase=ph;
-      /* AND MAKE IT AUDIBLE (8/7). Setting the phase only changes what the NEXT
-         pick draws from, and the shuffle only picked at the end of a 64-bar
-         pass -- 128 seconds at 120 BPM -- so dawn could break and the night
-         pool would keep playing for over two minutes. onPhaseChange arms a turn
-         at the next 8-bar boundary; it never plays anything itself, so this
-         cannot interrupt a song mid-phrase. Guarded because the hook ships in a
-         separate patch and a missing one must never break the clock. */
-      if(typeof CITYMUS.onPhaseChange==='function') CITYMUS.onPhaseChange();
-    }catch(e){}
-  }
-  window.__musicPhase=function(){ return (typeof CITYMUS!=='undefined'&&CITYMUS)?CITYMUS.phase:null; };
-
-  /* === HOURS GO BY, AND YOU HEAR HOW MANY (8/7) ==========================
-     PAOLO'S RULING, on his own 130/130 export, and NOTES ARE RULINGS (7/19):
-
-        "For hours go by have it the amount of time that goes by"
-
-     He approved all five TIME_PASS candidates and killed all five SLEEP ones in
-     the same breath, which read together is one decision rather than two: the
-     passage of time is THE sound, and sleeping is a QUANTITY of it, not a
-     separate ceremony that needs its own cue.
-
-     SO IT STRIKES LIKE A CLOCK. One note per hour. Four hours is four notes,
-     eight is eight. That is the most literal reading of what he asked for and
-     it is also the only one that carries information: you can COUNT it without
-     being told, the way a bell tower tells a valley what time it is. Nothing
-     announces the number, you just hear it go by.
-
-     IT DOES NOT RE-COOK HIS SOUND. Every strike is one of the five vectors he
-     thumbed up, taken in order, cycling if there are more hours than
-     candidates. The mechanism picks BETWEEN the sounds he picked; it never
-     alters one. Same rule that makes footsteps work.
-
-     ON THE BEAT, per the 120 BPM LAW: strikes land a beat apart in AUDIO time,
-     scheduled ahead on the one AudioContext, not fired by a timer.
-
-     AND IT DELIBERATELY SKIPS THE VOICE LIMITER. voiceOK() throttles on the
-     WALL CLOCK, and every strike here is requested in the same millisecond even
-     though they sound seconds apart -- so the limiter would drop every note
-     after the first and an eight-hour sleep would strike ONCE. The limiter
-     exists to stop simultaneous pile-ups crushing the brickwall (16 at once
-     measured QUIETER than one, 8/4). These are not simultaneous; they are the
-     opposite. Scheduling is the throttle.
-
-     CAPPED AT 12. Past twelve strikes it stops being countable and starts being
-     noise, and twelve is where a clock face stops too. */
-  var STRIKE_MAX=12;
-  function strikeHours(h){
-    h=Math.max(1,Math.min(STRIKE_MAX, h|0));
-    try{
-      var set=(window.__SFX_APPROVED&&window.__SFX_APPROVED.time_pass)||[];
-      if(!set.length) return 0;            /* unjudged is silent, always */
-      if(typeof BOH_SFX==='undefined'||typeof MUS==='undefined') return 0;
-      MUS.audio(); var AC=MUS.AC; if(!AC) return 0;
-      var dest=sfxBus()||MUS.OUT||MUS.MAST||AC.destination;
-      var gap=(BOH_SFX.BEAT||0.5);
-      var t0=AC.currentTime+0.06, fired=0;
-      for(var i=0;i<h;i++){
-        var v=vec('time_pass', set[i%set.length]); if(!v) continue;
-        /* heard in the room he is standing in, like everything else */
-        var vv=(typeof window.__sfxInSpace==='function')?window.__sfxInSpace(v):v;
-        if(BOH_SFX.render(vv,AC,dest,t0+i*gap)){ fired++; SFX_COUNT++; }
-      }
-      return fired;
-    }catch(e){ return 0; }
-  }
-  window.__strikeHours=strikeHours;
-
-  /* WHAT COUNTS AS TIME GOING BY. The run already reports the world clock every
-     four seconds, so no new state and no new message: a JUMP in that number is
-     time passing, and its size is how much. An hour is the floor -- walking
-     around does not move the clock by an hour in four seconds, so ordinary play
-     can never trigger this, and only a real skip (sleep, a wait, a long
-     journey) can. Midnight is handled: 22:00 -> 06:00 reads as -960, which is
-     eight hours forward, not minus sixteen. */
-  var LASTMIN=null, LASTJUMP=null, TP_MIN=60, TP_LOG=[];
-  function timePass(d){
-    try{
-      var m=+d.min; if(!isFinite(m)) return;
-      if(LASTMIN===null){ LASTMIN=m; return; }
-      var jump=m-LASTMIN; if(jump<0) jump+=1440;
-      LASTMIN=m;
-      LASTJUMP=jump;
-      var struck=0;
-      if(jump>=TP_MIN) struck=strikeHours(Math.round(jump/60));
-      /* ONE ROW PER CLOCK MOVE, AND THE ROW OWNS ITS OWN STRIKES (8/12).
-         Reporting only the LAST jump was not enough to tell a test's clock move
-         from the run's. postMessage is asynchronous: the run's own four-second
-         report can be DELIVERED between a test clearing its counter and the
-         test's own message arriving, so its twelve strikes land in the test's
-         count while the final jump still reads as the test's. Third time this
-         class of bug has been shortened instead of closed. A per-call row
-         closes it: a measurement asks for the row whose jump is the one it
-         asked for, and somebody else's row is simply not that row. COUNT THE
-         THING, NOT EVERYTHING. */
-      TP_LOG.push({jump:jump, strikes:struck});
-      if(TP_LOG.length>200) TP_LOG.shift();
-    }catch(e){}
-  }
-  /* jump is reported so a test can tell ITS OWN clock move from somebody
-     else's. The run reports the world clock every four seconds on its own, and
-     a stray report landing between a test's two posts is a real jump that makes
-     real strikes -- indistinguishable from the test's own unless the game says
-     what it actually computed. */
-  window.__timePassStats=function(){
-    return {floorMin:TP_MIN, max:STRIKE_MAX, last:LASTMIN, jump:LASTJUMP,
-            rows:TP_LOG.length}; };
-  window.__timePassLog=function(from){ return TP_LOG.slice(from||0); };
-
-  /* === SOMEBODY ELSE'S FOOTSTEP, PLACED IN SPACE (8/2) ==================
-     THE DISTANCE MODEL IS THE RESEARCHED ONE, not a guess: a point source
-     follows the inverse law, amplitude proportional to 1/r, dropping about 6 dB
-     every time the distance doubles, and inverse is the recommended default
-     when in doubt. So 1/(1+k*r), not a linear fade -- linear is for ambient
-     zones and UI, and it makes everything sound like it is the same distance
-     away until it abruptly is not.
-     PAN is the crude, correct tool for a top-down 2D game: left is left. It is
-     taken from the x offset only, because a top-down view has no front/back to
-     confuse and faking one with filters would be inventing information the
-     game does not have.
-     CUTOFF, not fade-to-nothing: below a hearable gain it plays NOTHING rather
-     than a sound too quiet to identify. A sound you cannot place is noise. */
-  var NPC_PLAYED=0, NPC_PLACED=[];
-  window.__npcPlayed=function(){ return NPC_PLAYED; };
-  /* A LIST, NOT THE LAST ONE (8/14). A neighbour keeps walking on his own
-     schedule, so "the most recent placement" is whatever step he happened to
-     take after a test finished staging -- measured: a step staged at 3 tiles
-     read back as gain 0.172, which is nearly nine tiles out. A test wants the
-     step it asked for, so it gets the whole recent list and picks. */
-  window.__npcPlaced=function(from){ return NPC_PLACED.slice(from||0); };
-  /* ===== WHERE A SOUND IS (8/13) =========================================
-     THE VALLEY WAS A FLAT STEREO FIELD. Every sound in the game arrived at the
-     same level from the same nowhere, except one: a neighbour's footstep, which
-     got distance and pan on 8/2 and has been the only spatial sound since. A
-     door across the lot, a generator running somewhere, a dog -- all of them
-     played as if they were happening inside your head. In a game whose whole
-     texture is walking an empty city, WHERE a sound is IS the information.
-
-     THREE CUES, and the order matters because only the first two are exact:
-       1. LEVEL. The inverse law -- amplitude proportional to 1/r, about 6 dB
-          per doubling. The researched model already used for footsteps,
-          generalised here instead of copied a second time. 1/(1+k*r), never a
-          linear fade: linear makes everything sound the same distance away
-          until it abruptly does not.
-       2. PAN. Left is left. A top-down view has no front/back to confuse, and
-          faking one with filters would be inventing information the game does
-          not have.
-       3. COLOUR. Distant sound is DULLER, and the old code had no answer for
-          this at all. Two real effects push the same way: air absorbs high
-          frequencies faster than low ones (ISO 9613-1 is the standard that
-          quantifies it), and the further away you are the more of what reaches
-          you is reflection rather than direct sound.
-          HONEST ABOUT THE NUMBERS: across a city block, literal atmospheric
-          absorption is small. The curve below is a GAME DIAL chosen to read
-          right, resting on a real direction rather than pretending to be a
-          calculation. One word from him changes it.
-
-     OCCLUSION IS THE FOURTH AND IT IS THE ONE A CITY NEEDS. A sound made inside
-     a building and heard from the street has a wall in the way: much quieter,
-     much duller. The run already knows inside from outside, so this costs no
-     new state. A lowpass is a filter, not a delay -- SCREECH LAW is untouched.
-
-     HIS VECTORS ARE NEVER EDITED. Placement copies the vector and moves the
-     copy, exactly as the footstep path has always done: the verdict is on the
-     SOUND, never on where the game puts it. */
-  var LISTENER = { inside: false };
-  function placeSound(ev, place, dest0){
-    try{
-      if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return null;
-      var c=pick(ev); if(c==null) return null;
-      var v=vec(c[0],c[1]); if(!v) return null;
-      MUS.audio(); var AC=MUS.AC; if(!AC) return null;
-      var out = dest0 || sfxBus() || MUS.OUT || MUS.MAST || AC.destination;
-      if(!out) return null;
-      place = place || {};
-      var dx = +place.dx || 0, dy = +place.dy || 0;
-      var r = (place.dist != null) ? Math.max(0, +place.dist)
-                                   : Math.sqrt(dx*dx + dy*dy);
-      r = Math.max(0.5, r);
-      var g = 1/(1 + 0.55*r);                    /* the inverse law, as before */
-      /* A WALL BETWEEN YOU AND IT. Only when the two sides disagree: a sound
-         made inside, heard inside, is not occluded. */
-      var occl = (place.inside != null) && (!!place.inside !== !!LISTENER.inside);
-      if(occl) g *= 0.55;
-      if(g < 0.05) return null;                  /* too far to be information */
-      /* THE COLOUR OF DISTANCE. Wide open at your feet, about 4 kHz a dozen
-         tiles out, under 2 kHz across a block -- and a wall takes most of what
-         is left off the top. */
-      var cut = 18000/(1 + 0.30*r);
-      if(occl) cut *= 0.35;
-      cut = Math.max(320, Math.min(20000, cut));
-      var gain = AC.createGain(); gain.gain.value = g;
-      var lp = AC.createBiquadFilter(); lp.type='lowpass';
-      lp.frequency.value = cut; lp.Q.value = 0.7;
-      lp.connect(gain); gain.connect(out);
-      var w={}, k; for(k in v) w[k]=v[k];        /* his vector, never edited */
-      w.pan = Math.max(-1, Math.min(1, dx/6));
-      BOH_SFX.render(w, AC, lp, place.when || null);
-      SFX_COUNT++;
-      return { gain:g, cut:cut, pan:w.pan, occluded:!!occl, ev:ev, dist:r };
-    }catch(e){ return null; }
-  }
-  /* THE RUN SAYS WHERE IT IS STANDING, so occlusion has two sides to compare. */
-  try{ window.__sfxListener=function(o){ if(o) LISTENER.inside=!!o.inside; }; }catch(_e){}
-  try{ window.playSFXAt=placeSound; }catch(_e){}
-
-  function npcStep(d){
-    try{
-      var r=Math.max(0.5, +d.dist||0);
-      var g=1/(1+0.55*r);                    /* ~0.65 next to you, ~0.25 at 5 tiles */
-      if(g<0.06) return;                     /* too far to be information */
-      var pan=Math.max(-1,Math.min(1,(+d.dx||0)/6));
-      var ev='step_'+(({asphalt:'asphalt',dirt:'dirt',gravel:'gravel'})[d.surface]
-                      ||String(d.surface||'').replace('step_','')||'dirt');
-      if(!APPROVED[ev]) ev='step_dirt';
-      var c=pick(ev); if(c==null)return;
-      var v=vec(c[0],c[1]); if(!v)return;
-      if(typeof MUS==='undefined')return; MUS.audio(); if(!MUS.AC)return;
-      /* NOT through the player's footstep bus. That bus is at 0.12 because HIS
-         OWN steps fire constantly and would be fatiguing -- a neighbour's step
-         is rare and is INFORMATION, and stacking 0.12 on top of distance made
-         it 0.0095, which is a number, not a sound. Distance is the only thing
-         that should quieten this. */
-      var out=sfxBus(); if(!out)return;
-      NPC_PLAYED++;   /* what the neighbour ACTUALLY played, for anything that
-                         needs to ask. A test cannot get this from the bus peak:
-                         the ambience bed shares that bus and fires one-shots
-                         every 40-95s, so "the bus made a noise" attributes
-                         somebody else's sound to the neighbour. */
-      /* ONE PLACEMENT PATH, NOT TWO (8/13). This was the only spatial sound in
-         the game and it grew its own distance/pan code; placeSound is that same
-         model generalised, plus the colour of distance and occlusion. Keeping a
-         second copy here is how the two drift and only one of them gets fixed.
-         The NPC_PLAYED counter above still increments here, because it counts
-         what the NEIGHBOUR played specifically and placeSound serves everyone. */
-      /* WHAT WAS ACTUALLY PLACED, so a test can attribute instead of guess.
-         The shared SFX bus cannot answer "how loud was the NEIGHBOUR" -- it
-         cannot attribute a peak to a particular walker -- and while chasing
-         that, this recording is what found the actual bug: a step staged three
-         tiles away came back at gain 0.208, exactly 0.377 x 0.55, because the
-         listener still believed the player was indoors and a wall was being
-         applied that no longer existed. A blunt ruler had been showing that
-         intermittently as "distance does not attenuate". The ACOUSTIC proof
-         lives in spatial_sound_gate, which renders offline in isolation; what
-         belongs here is ATTRIBUTION -- this step, that distance, this gain. */
-      var _p = placeSound(ev, { dx:(+d.dx||0), dist:r, inside:false });
-      if(_p){ NPC_PLACED.push({ dist:_p.dist, gain:_p.gain, cut:_p.cut, pan:_p.pan });
-              if(NPC_PLACED.length>40) NPC_PLACED.shift(); }
-    }catch(e){}
-  }
-
-  /* === THE WORLD TONE (8/1) ==============================================
-     He approved all 15. It is one of the ambient noises: a rare sound so the
-     valley is not dead air. It is NOT a clock -- something that fires a minute
-     apart tells you nothing about the time, and the music already handles time
-     of day. What it does is make the place feel occupied by nothing.
-
-     THREE RULES, boring on purpose:
-       WHICH  indoors -> air_inside. Outdoors -> air_night before 06:00 or from
-              19:00, else air_day. The run reports both facts every 4s.
-       WHEN   a random gap of 40 to 95 seconds. That is MY DEFAULT and nothing
-              decided it but taste. One word from him changes it.
-       QUIET  its own bus at 0.4 of the level he judged it at. He judged these
-              loud enough to hear on a phone; under the game they sit below
-              everything. He was told that before he thumbed them, so this is
-              the plan he approved rather than a change to it.
-
-     IT ONLY RUNS WHILE THE RUN IS ON SCREEN. If the reports stop, the ambience
-     stops, so it can never play over him judging sounds in the MUSIC tab. */
-  var AMB={
-    kind:null, next:0, bus:null, seen:0,
-    where:function(d){
-      this.seen=Date.now();
-      this.inside = !!d.inside;
-      this.kind = d.inside ? 'air_inside' : (d.night ? 'air_night' : 'air_day');
-    },
-    /* THE RARE THING THAT BREAKS THE EMPTINESS (8/12). His 270-thumb sweep
-       approved A GUST COMES THROUGH (2 of 5) and A GENERATOR, SOMEWHERE (4 of
-       5), and both were written for exactly this slot: not a wall of wind, but
-       the occasional thing you hear when nothing is happening. They ride the
-       ambience clock instead of getting one of their own, so the valley still
-       makes ONE sound at a time and the gaps stay long.
-       OUTDOORS ONLY: a gust and a distant generator both say "out there", and
-       air_inside is the sound of a room with nobody in it but you.
-       THE FREQUENCIES ARE MY DEFAULT AND NOTHING DECIDED THEM BUT TASTE --
-       one gust in four, one generator in eight, so seven of eight are still the
-       bed he approved first. One word from him changes either number.
-       A GENERATOR MEANS PEOPLE, so it is rarer than weather on purpose. */
-    pick:function(){
-      if(this.inside) return this.kind;
-      var A=(window.__SFX_APPROVED||{});
-      var r=Math.random();
-      if(r<0.125 && (A.generator||[]).length) return 'generator';
-      if(r<0.375 && (A.wind_gust||[]).length) return 'wind_gust';
-      return this.kind;
-    },
-    gap:function(){ return 40 + Math.random()*55; },
-    tick:function(){
-      if(!this.kind) return;
-      /* IS THE RUN ACTUALLY ON SCREEN? Message recency does NOT answer this:
-         a hidden iframe keeps its timers running, so the run keeps reporting
-         from the MUSIC tab and the ambience would play over him judging
-         sounds. Ask the DOM whether the run panel is visible instead. */
-      if(Date.now()-this.seen > 12000) return;      /* the run is not even loaded */
-      /* ASK THE TAB, not the panel. Two wrong guesses before this one:
-         offsetParent is null under any position:fixed ancestor even when the
-         thing is plainly on screen, and #p-run is display:none the whole time
-         because the RUN tab actually shows the p-city panel
-         (PANEL = t.dataset.p==='run' ? 'city' : ...). The tab carrying class
-         'on' is what the alpha itself uses to mean "this is the open tab", so
-         use the app's own answer instead of inventing a third one. */
-      var tab=document.querySelector('.tab[data-p="run"]');
-      if(!tab || !tab.classList.contains('on')) return;
-      var now=Date.now();
-      if(!this.next){ this.next = now + this.gap()*1000; return; }
-      if(now < this.next) return;
-      this.next = now + this.gap()*1000;
-      try{
-        if(typeof BOH_SFX==='undefined' || typeof MUS==='undefined') return;
-        MUS.audio(); if(!MUS.AC) return;
-        if(!this.bus){
-          this.bus = MUS.AC.createGain();
-          this.bus.gain.value = 0.4;
-          /* MUS.OUT before MUS.MAST: nothing that is not music may fall back
-             to the MUSIC master, because MUS.stop() ducks it to zero. */
-          this.bus.connect(sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination);
-        }
-        var ev=this.pick();
-        /* THE RARE ONES HAPPEN SOMEWHERE (8/14). His own briefs say it: a
-           generator is "somewhere", a dog is "far off", a gust comes "through".
-           All three arrived dead centre at full level, which is the one thing
-           those descriptions rule out. The BED stays exactly where it was -- an
-           air tone is the room you are in and has no direction -- but anything
-           that is an EVENT out in the valley gets a place.
-           THE DISTANCE IS A DIAL AND NOTHING DECIDED IT BUT TASTE: far enough
-           to read as "out there", near enough to stay information. */
-        if(ev!==this.kind){
-          var side=(Math.random()*2-1);
-          placeSound(ev, { dx: side*7, dist: 6+Math.random()*9, inside:false },
-                     this.bus);
-          this.last=ev; return;
-        }
-        var set=APPROVED[ev]; if(!set||!set.length) return;
-        var i=set[(Math.random()*set.length)|0];
-        var v=vec(ev,i); if(!v) return;
-        BOH_SFX.render(v,MUS.AC,this.bus,null);
-        this.last=ev; SFX_COUNT++;
-      }catch(e){}
-    }
-  };
-  window.__AMB=AMB;
-  setInterval(function(){ AMB.tick(); }, 1000);
-  /* the parent's own surfaces: every button on the phone is a UI TAP.
-     EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR
-     THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE
-     A SOUND WHEN I CLICK PLAY ON A NEW SOUND IM TESTING"). He is right, and it
-     made the entire soundboard useless: the tap fired on the SAME CLICK as the
-     candidate, so his own approved UI tick played on top of every sound he was
-     trying to judge. A judging surface has to be silent except for the thing
-     being judged.
-     MARKED BY CONTAINER, never by guessing at labels: anything inside the SFX
-     judge, the soundboard, the mix panel or the music studio's transport is
-     auditioning audio and never gets a tap over it. data-noui is the escape
-     hatch for any panel built later, so the next audition surface does not have
-     to rediscover this the hard way. */
-  var NOUI='#sfxWrap,#sbWrap,#mixWrap,.mus-play,.mus-cell,[data-noui]';
-  document.addEventListener('click',function(e){
-    var t=e&&e.target; if(!t)return;
-    if(t.closest&&t.closest(NOUI)) return;   /* this click IS a sound already */
-    var btn = t.closest && (t.closest('button')||t.closest('.tab')||t.closest('.opt'));
-    if(!btn) return;
-    /* BACK IS NOT FORWARD (8/12). ui_tap was carrying every interface moment in
-       the game by itself. His sweep approved BACK/CLOSE (3 of 5) and YOU CANNOT
-       DO THAT (3 of 5), so the interface finally answers in more than one way:
-       leaving a screen is a step DOWN from the tap, and a refusal is short and
-       flat and never a buzzer -- his own brief, in his own row.
-       READ OFF WHAT THE BUTTON ALREADY SAYS, never a new attribute nobody sets:
-       a disabled control is a refusal, and a control whose text or aria-label is
-       back/close/cancel/x is a way out. If neither, it is a tap, exactly as
-       before -- this can only ever narrow ui_tap, never silence it. */
-    var A = window.__SFX_APPROVED || {};
-    var lab = ((btn.getAttribute&&(btn.getAttribute('aria-label')||''))+' '+
-               (btn.textContent||'')).trim().toLowerCase();
-    var refused = btn.disabled === true
-               || (btn.classList && (btn.classList.contains('off')
-                                  || btn.classList.contains('disabled')));
-    if(refused && (A.ui_deny||[]).length) return window.playSFX('ui_deny');
-    if((A.ui_back||[]).length &&
-       /^(back|close|cancel|done|x|<|‹|×|←)$/.test(lab)) return window.playSFX('ui_back');
-    window.playSFX('ui_tap');
-  },true);
-  /* SAY WHAT THE AUDIO IS DOING (7/31). He reported silence twice and both
-     times I had to guess at his phone from here, because a muted iPhone and a
-     broken wire look exactly the same from the outside: nothing. This is one
-     line in the MUSIC tab that turns "I hear nothing" into something he can
-     read back to me. It reports the three things that can each cause silence
-     on their own: whether audio ever STARTED, whether the ring/silent switch
-     opt-out took, and how many sounds have actually been fired. */
-  function statusLine(){
-    var el=document.getElementById('sfxStatus');
-    if(!el){
-      var host=document.getElementById('p-music'); if(!host)return;
-      el=document.createElement('div'); el.id='sfxStatus';
-      el.style.cssText='font:11px ui-monospace,monospace;padding:7px 9px;margin:6px 0;'+
-        'border:1px solid #3a3a30;border-radius:6px;letter-spacing:.5px;line-height:1.5';
-      host.insertBefore(el, host.firstChild);
-    }
-    var on=false, st='never started';
-    try{ if(typeof MUS!=='undefined'&&MUS.AC){ st=MUS.AC.state; on=(st==='running'); } }catch(e){}
-    var claim='n/a on this browser';
-    try{ if(navigator.audioSession) claim=navigator.audioSession.type||'unset'; }catch(e){}
-    el.style.borderColor = on ? '#4d6b45' : '#7a3a30';
-    el.style.background  = on ? 'rgba(60,90,55,0.16)' : 'rgba(120,50,40,0.16)';
-    el.style.color       = on ? '#a8c69c' : '#e8a08f';
-    el.innerHTML =
-      '<b>SOUND: '+(on?'ON':'NOT PLAYING')+'</b><br>'+
-      'audio engine: '+st+'<br>'+
-      'silent-switch opt-out: '+claim+'<br>'+
-      'sounds fired: '+SFX_COUNT+
-      (on?'':'<br>if this stays red after you tap the screen, it is the phone, not the game');
-  }
-  setInterval(statusLine, 700);
-  if(document.readyState!=='loading') statusLine();
-  else document.addEventListener('DOMContentLoaded', statusLine);
-})();
-</script>
-<!-- /BOHEMIA SFX WIRE PARENT -->
 <div id="exportModal" style="display:none;position:fixed;inset:8px;background:#111;border:2px solid #6f6;z-index:99;padding:8px"><div style="margin-bottom:6px"><b>EXPORT</b> <span id="expStat"></span> <button id="expShare" class="opt" style="border-color:#6f6"><b>SHARE FILE</b></button> <button id="expCopy" class="opt">COPY</button> <button id="expDownload" class="opt">DOWNLOAD FILE</button> <button id="expClose" class="opt">CLOSE</button></div><textarea id="expText" style="width:100%;height:82%;background:#000;color:#9f9;font:11px monospace" readonly></textarea></div>
 <style>
 #p-clothes .cloHdr{font-size:11px;letter-spacing:1px;color:#7a6a4a;padding:6px 2px 2px;text-align:center}
