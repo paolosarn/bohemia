@@ -63,6 +63,28 @@ lookup goes 4 red, an unwired row goes 3 red, a spread cache keyed on the cell
 alone goes 1 red), dialogue_catalogue_gate 59 -> 62,
 and tools/bohemia_words_book.py grew parse_quirks so every line is editable.
 
+*** THE FULL SUITE NO LONGER FINISHES, AND THAT MAKES A LAW UNENFORCEABLE ***
+`python3 gates/bohemia_gates.py` ran 217 of 382 registered gates and was killed
+at the 50 minute mark. It never reached this lane's gates at all, nor DIALOGUE
+CATALOGUE, nor ASKING. A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED says the
+suite is the net and "green or it does not ship" -- but a suite that cannot
+complete means every lane is shipping on a PARTIAL run and cannot tell which
+part it missed. Nobody is doing anything wrong; the suite has simply outgrown
+one sitting. Whoever owns fleet infrastructure: it needs either a much longer
+budget declared out loud, or a way to run a named subset and report what it
+skipped, because silence about 165 unrun gates reads exactly like green.
+This turn's own coverage was made up by running the lane's gates directly
+(quirk 32/0, asking 21/0, known 19/0, exchange 31/0, dialogue catalogue 62/0,
+people 158/0, population dial 21/0, pages publish 15/0).
+
+*** EIGHT GATES ARE RED ON MAIN AND NONE OF THEM IS THIS LANE'S ***
+DISTRICT FILL, TRAFFIC SIGNAL, VOTE TAB, LOOK, RUN BEAT, SFX RENDER, DRESS,
+ROAD CELLS. CHECKED, NOT ASSUMED, by experiment: with THIS TURN'S FILES REVERTED
+TO ORIGIN/MAIN and nothing else changed, traffic_signal, look and vote_tab fail
+with the IDENTICAL counts (2, 1, 1). DISTRICT FILL is proven by provenance
+below. The remaining four are sounds, clothing, run tempo and roads -- files
+this turn never opened.
+
 *** A RED ON MAIN THAT IS NOT THIS LANE'S, FOUND BY THE SUITE THIS TURN ***
 DISTRICT FILL is FAILING on main, 51 passed / 2 failed:
 
