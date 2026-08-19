@@ -5776,7 +5776,26 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/19 LATEST -- *** THE VALLEY IS 99.9% BUILT. THE NINE CELLS
+WORLD (city-1eztay): 8/19 (b) LATEST -- *** THE LAST ROAD. EVERY ROAD IN THE VALLEY
+IS NOW DRAWN BY ITS OWN MODULE, AND THE NOT-ROUTED DEBT LIST IS EMPTY. ***
+Tab: RUN. Gate: WALKED SURFACE.
+  arterial  8.6% -> 100%     strip 20.7% -> 100%     freeway 17.9% -> 85.4%
+  rail      2.3% -> 82.0%    interchange 20.1% -> 69.9%
+The interchange was left behind YESTERDAY ON A MEASUREMENT, not an oversight: routed
+with only its BOUNDS it came back WORSE than the four-number table (8,843 bare tiles
+and THREE tiles of road vs 20% drawn). A STACK IS NOT BUILT FROM ITS OUTLINE, IT IS
+BUILT FROM ITS APPROACHES -- which columns have a highway arriving N/S and which rows
+have one arriving E/W is what says where each ramp starts and which arm goes over.
+The world model has computed that since 7/26 (clusterApproach); the walked surface
+never had to because it never carried the module. Fifteen lines ported -> 69.9% and
+ten distinct surfaces. FREEWAY FAMILY ONLY, not every road: the mile arterials touch
+the block on all four sides, so "is this a road" answers yes everywhere, the corridors
+swallow the block and eight ramps render as nothing.
+THE RATCHET DID IT: NOT_ROUTED_DEBT was the interchange alone and it came off because
+the gate would have gone red otherwise, not because anyone remembered.
+Record: records/BOHEMIA_THE_LAST_ROAD_8_19_26.md
+
+WORLD (city-1eztay): 8/19 -- *** THE VALLEY IS 99.9% BUILT. THE NINE CELLS
 LEFT ARE PAOLO'S, NOT MINE. ***
 Tab: RUN. Gate: `node gates/walked_surface_gate.js` (WALKED SURFACE in the suite).
 Grids: records/target/BOHEMIA_GRID_convention/_prison/_dam/_minigp.png

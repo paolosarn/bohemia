@@ -51,11 +51,14 @@ const NO_MODULE_DEBT = {
 };
 
 /* HAS A MODULE, still not routed through it, WITH THE MEASUREMENT THAT SAYS WHY NOT. */
+/* HAS A MODULE, still not routed through it, WITH THE MEASUREMENT THAT SAYS WHY NOT.
+   EMPTY, 8/19. The interchange was the last entry: it was here because routed with only
+   BOUNDS it came back WORSE than the table it replaced -- 8,843 bare tiles and THREE tiles
+   of road against 20% drawn -- and it came OFF when it got what it was actually missing,
+   which was its APPROACHES (which columns have a highway arriving, which rows do). 20.1%
+   -> 69.9% drawn, 10 surfaces. Every road in the valley is now drawn by its own module.
+   The ratchet below is what forced it off rather than letting it sit here green. */
 const NOT_ROUTED_DEBT = {
-  interchange: 'MEASURED WORSE through its module: 8,843 bare tiles and THREE tiles of road '
-             + 'against 20% drawn by the table, because a stack is built from its cluster\'s '
-             + 'APPROACH data (which arm climbs, which dives, where each ramp lands) and the '
-             + 'page can hand it bounds but not that. 16 cells. Needs clusterApproach here.',
 };
 
 let pass = 0; const fails = [];
