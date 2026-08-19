@@ -196,6 +196,24 @@ ROCK_NEW = ("      c.s=pal; c.walk=false;\n"
             "         missing. A real rock face is ART's ask; this is the interim, and it is not\n"
             "         brick. Districts are untouched. */\n"
             "      if(!TERRAIN_KIT[d]){ c.artPool='hroof'; c.tint=pal; }")
+ZERO_OLD = '''    if(code===0){
+      c.g=slotGround(d);'''
+ZERO_NEW = '''    /* __TERRAIN_CODE_ZERO_IS_A_REAL_TILE__ -- this branch treated code 0 as "empty ground"
+       and RETURNED BEFORE THE LEGEND WAS EVER READ, handing it slotGround(d) (one hard-coded
+       colour per district) plus the hyard texture pool. For a DISTRICT that is right: code 0
+       is the dead setback and slotGround is exactly what it should be.
+       FOR TERRAIN, CODE 0 IS A REAL AUTHORED TILE and it is the most common one in the cell:
+         desert:0   desert pavement   #6e6045   (was rendering as generic sand #d8b078)
+         wash:0     desert dead-ground #4a422f
+         mountain:0 BEDROCK FACE      #5b5346   solid structure, 11,486 of 16,384 tiles
+         water:0    OPEN WATER        #2c505c   solid
+       So the single biggest thing in a terrain cell never reached the legend, never got its
+       own colour, and in the mountain's case never reached the SOLID branch at all. That is
+       what made the routed mountain and lake look wrong, and it is why both were reverted:
+       the diagnosis was "terrain needs its own art" and the truth was one early return. */
+    if(code===0 && !TERRAIN_KIT[d]){
+      c.g=slotGround(d);'''
+
 refreshed = MARK in src
 _RS, _RE = '/* __TK_S__ */', '/* __TK_E__ */'
 while _RS in src:
@@ -206,7 +224,8 @@ while _RS in src:
 for _legacy in LEGACY_REG:
     if _legacy in src:
         src = src.replace(_legacy, OLD_REG, 1)
-for _new, _old in ((NEW_META, OLD_META), (NEW_OPTS, OLD_OPTS), (ROCK_NEW, ROCK_OLD)):
+for _new, _old in ((NEW_META, OLD_META), (NEW_OPTS, OLD_OPTS), (ROCK_NEW, ROCK_OLD),
+                   (ZERO_NEW, ZERO_OLD)):
     if _new in src:
         src = src.replace(_new, _old, 1)
 _a = '/* ==== THE DESERT DRAWS ITSELF (inlined verbatim) ==== */'
@@ -309,6 +328,13 @@ if ROCK_NEW not in src:
         sys.exit('TERRAIN PATCH: could not find the structure branch of realizeCell. Refusing '
                  'to guess -- this decides how every solid tile in the game is drawn.')
     src = src.replace(ROCK_OLD, ROCK_NEW, 1)
+
+# 6) CODE 0 IS A REAL TILE IN TERRAIN. See the comment in ZERO_NEW.
+if ZERO_NEW not in src:
+    if ZERO_OLD not in src:
+        sys.exit('TERRAIN PATCH: could not find the code-0 early return in realizeCell. '
+                 'Refusing to guess -- it decides what the most common tile in every cell is.')
+    src = src.replace(ZERO_OLD, ZERO_NEW, 1)
 
 open(WORLD, 'w', encoding='utf-8').write(src)
 print('TERRAIN PATCH: %s -- desert and wash draw themselves from their own generators'

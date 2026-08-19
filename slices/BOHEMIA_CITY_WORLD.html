@@ -12618,6 +12618,7 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
 
 
+
 /* ==== THE DESERT DRAWS ITSELF (inlined verbatim) ==== */
 /* ==== engine/bohemia_terrain_noise.js ==== */
 /* inlined verbatim by tools/bohemia_city_terrain_patch.py -- the desert samples it, and it must be defined before the generator runs. */
@@ -19049,7 +19050,20 @@ function realizeCell(gx,gy){
   const c={g:slotGround(d),s:null,walk:d!=='water'&&d!=='mountain',q:m.q};
   if(m.kit){
     const code=m.kit[ly*FN+lx];
-    if(code===0){
+    /* __TERRAIN_CODE_ZERO_IS_A_REAL_TILE__ -- this branch treated code 0 as "empty ground"
+       and RETURNED BEFORE THE LEGEND WAS EVER READ, handing it slotGround(d) (one hard-coded
+       colour per district) plus the hyard texture pool. For a DISTRICT that is right: code 0
+       is the dead setback and slotGround is exactly what it should be.
+       FOR TERRAIN, CODE 0 IS A REAL AUTHORED TILE and it is the most common one in the cell:
+         desert:0   desert pavement   #6e6045   (was rendering as generic sand #d8b078)
+         wash:0     desert dead-ground #4a422f
+         mountain:0 BEDROCK FACE      #5b5346   solid structure, 11,486 of 16,384 tiles
+         water:0    OPEN WATER        #2c505c   solid
+       So the single biggest thing in a terrain cell never reached the legend, never got its
+       own colour, and in the mountain's case never reached the SOLID branch at all. That is
+       what made the routed mountain and lake look wrong, and it is why both were reverted:
+       the diagnosis was "terrain needs its own art" and the truth was one early return. */
+    if(code===0 && !TERRAIN_KIT[d]){
       c.g=slotGround(d);
       const bh=(Math.imul(tx>>2,2654435761)^Math.imul(ty>>2,40503))>>>0;
       c.gArtPool='hyard'; c.gArtVariant=bh%3;
