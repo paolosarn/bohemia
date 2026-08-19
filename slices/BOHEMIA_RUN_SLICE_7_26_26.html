@@ -1008,6 +1008,51 @@ function drawSignform(gx,gy,X,Y,S){
   }
   return true;
 }
+/* TF-ART-016 SOLAR / BATTERY YARD (8/19, TF-RUN-007 merged in): the power
+   districts read as POWER now. Measured: solar's panel tables are always
+   4 cells deep, so a panel cell's ROW in its table is the count of panel
+   cells above it - row 0 wears the high galv back rail, rows 1-2 the dark
+   glass field (module frame on the phase column, two faint busbars), row 3
+   the lit front lip over the darkest under-slot in the district. Table
+   ends get the torque-tube stub with its rusted cut face. MAINTAINED here
+   by canon (CLUSTERED POWER: eerily perfect - even dust haze, nothing
+   sagging). The inverter pads pour their bought concrete slab and stand
+   the pad-mount cabinet at the blob's anchor. The battery yard's racks
+   are the DEAD half: cold cabinets, one in seven hanging open, oil at the
+   foot. Dead-panel glass states stay BANKED - no stripped block exists in
+   this world yet. */
+function drawSolarform(gx,gy,X,Y,S){
+  var n=String(NAMEG[gy][gx]||'').toLowerCase();
+  function tf(nm){var im=TILEFORM_IMG[nm];return (im&&im.complete&&im.naturalWidth)?im:null;}
+  if(n.indexOf('solar panel')>=0){
+    function isPan(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase().indexOf('solar panel')>=0; }
+    var row=0; while(row<3 && isPan(gx,gy-1-row)) row++;
+    var im1=tf('sol_r'+row+'_p'+(((gx%3)+3)%3));
+    if(!im1) return false;
+    ctx.drawImage(look(im1),X,Y,S,S);
+    if(!isPan(gx-1,gy)){var ew=tf('sol_end_w'); if(ew) ctx.drawImage(look(ew),X,Y,S,S);}
+    if(!isPan(gx+1,gy)){var ee=tf('sol_end_e'); if(ee) ctx.drawImage(look(ee),X,Y,S,S);}
+    return true;
+  }
+  if(n.indexOf('inverter / transformer pad')>=0){
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+    function isPad(x2,y2){ if(y2<0||x2<0||y2>=NAMEG.length||x2>=NAMEG[0].length) return false;
+      return String(NAMEG[y2][x2]||'').toLowerCase().indexOf('inverter / transformer pad')>=0; }
+    if(isPad(gx+1,gy)||isPad(gx,gy+1)) return true;
+    var bx=tf('sol_inv_box');
+    if(bx) ctx.drawImage(look(bx),X-S,Y-S,2*S,2*S);
+    return true;
+  }
+  if(n.indexOf('inverter / transformer rack')>=0){
+    var rk=tf('bat_rack_dead_'+(th(gx,gy,7)===0?1:0));
+    if(!rk) return false;
+    if(!drawBought('concrete',gx,gy,X,Y,S)) tput('concrete',X,Y,S);
+    ctx.drawImage(look(rk),X,Y,S,S);
+    return true;
+  }
+  return false;
+}
 function drawGateform(gx,gy,X,Y,S){
   var n=String(NAMEG[gy][gx]||'').toLowerCase();
   if(n.indexOf('gate')<0 || (n.indexOf('curb cut')<0 && n.indexOf('kerb cut')<0)) return false;
@@ -3529,6 +3574,10 @@ function draw(){
            ahead of the generic mass skins so a pylon can never fall through
            to plain brick again */
         if(!body && drawSignform(gx,gy2,X,Y,S)) continue;
+        /* TF-ART-016 (8/19): the power districts' own named cells - panel
+           tables, inverter pads, dead battery racks - claimed ahead of the
+           generic mass skins for the same reason */
+        if(!body && drawSolarform(gx,gy2,X,Y,S)) continue;
         if(!body && drawKerbform(gx,gy2,X,Y,S)) continue;
         var laid = isSuburbCell()
           ? (body ? bodyTile(c,gx,gy2) : groundTile(c,gx,gy2))

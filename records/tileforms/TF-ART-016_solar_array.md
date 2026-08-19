@@ -571,6 +571,39 @@
 - [ ] Caption JSON parses and matches sections C/D
 
 ## J. ADMIN
-- STATUS: OPEN | REQUESTED BY: ART lane (own queue, breaking down board row 7)
-  | DATE: 7/29/26 | PRIORITY: MED
-- BOARD ROW #: 25 | VERDICT: —
+- STATUS: COOKED AND WIRED (8/19/26) | REQUESTED BY: ART lane (own queue,
+  breaking down board row 7) | DATE: 7/29/26 | PRIORITY: MED
+- BOARD ROW #: 25 | VERDICT: shipped under EVERYTHING IS A THUMB (8/9)
+- WIRED 8/19/26. THE MERGE THE FORM ORDERED HAPPENED FIRST: TF-RUN-007 is
+  MERGED INTO this form (its status carries the merge record) - this form
+  survives with 007's frozen-tracker placement hook; 007's spiderweb clause
+  is corrected (tempered glass laminated to EVA goes to a milky crumb held
+  in place); 007's see-over-the-rows clause LOSES to the district dossier's
+  locked layering ruling (waist-to-head-high, route BETWEEN the rows).
+  MEASURED FIRST on the walked world: solar's panel tables are 27 or 36
+  cells long x EXACTLY 4 deep (the 9-cell tables butted in threes and
+  fours), pads x156 in 3x4 blobs, and the battery yard HAS NO PANEL CELLS -
+  its 480 'inverter / transformer rack' cells are the dead member here. So
+  the two-state canon split lands as: MAINTAINED at solar (eerily perfect -
+  even dust haze, straight galv, zero streaks, clean ON PURPOSE), DEAD at
+  battery (cold cabinets, one in seven hanging open, oil at the foot).
+  WIRED: the panel table reads its own geometry - a cell's ROW is the count
+  of panel cells above it: row 0 = the high galv back rail, rows 1-2 = the
+  dark glass field (module frame on the phase column, two faint CONTINUOUS
+  busbars - the first render's dotted busbars read as stipple, the banned
+  thing, and were made solid), row 3 = the lit front lip over the darkest
+  under-slot in the district, with pile glimpses; table ends wear the
+  torque-tube stub with its rusted cut face and 6-18px streak (never a dot
+  at a bolt). Pads pour the bought concrete slab and stand the pad-mount
+  cabinet at the blob anchor. BANKED, not wired (inert-hook rule): the
+  dead-glass sub-states sol_glass_browned + sol_glass_crumb - no stripped
+  block exists in this seed; they wait in the bank for one. The gravel
+  lane member FOLDED into the approved yard gravel exactly as section B
+  predicted (the bought pool already draws it; a wheel-track dressing is
+  future volume, not a second gravel family). Glass value target harvested
+  from the approved wall_window, steel from the approved galv parapet,
+  rust from the approved rail plate. Verified live standing in the solar
+  rank aisles and among the battery racks. Cook:
+  tools/tfcook/TF-ART-016_cook.py (19 pieces, 17 wired + 2 banked). Bank:
+  banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json. Card:
+  records/target/ART_WIRED_TF-ART-016.png (ART tab).

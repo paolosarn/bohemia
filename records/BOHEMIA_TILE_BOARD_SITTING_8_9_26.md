@@ -622,3 +622,29 @@ shipped it 8/11 - the overlap resolved by the record, not by a question);
 rake corner held with TF-CITY-001; concave corners cooked and BANKED (no
 live concave site measured - inert-hook rule); the doors stay untouched
 (Paolo's animated clip-bank art in a later pass owns that surface).
+
+## 8/19 THIRTY-SECOND PASS: THE POWER DISTRICTS READ AS POWER (TF-ART-016 + the ordered merge)
+
+Fourth family of the day. The form's own section B ordered a MERGE with
+TF-RUN-007 before any cook, and the merge is now on the record: 016
+survives with 007's frozen-tracker hook; 007's spiderweb-fracture clause
+corrected (laminated tempered glass crumbs milky and stays put); 007's
+see-over-the-rows clause loses to the dossier's locked layering ruling.
+
+MEASURED FIRST: solar's tables are 27/36 cells x exactly 4 deep, pads in
+3x4 blobs, and the battery yard has NO panel cells - so the canon
+two-state split (solar eerily maintained / battery dead) lands with no
+invented placement at all: maintained panels + pads at solar, dead racks
+at battery, dead-glass sub-states BANKED until a stripped block exists.
+
+The wiring reads the world's own geometry: a panel cell's ROW in its
+table is the count of panel cells above it - back rail, glass, glass,
+front-lip-over-under-slot - with the module frame on the phase column and
+table ends wearing the torque-tube stub. One render iteration: the first
+busbars were dotted columns and read as stipple (the banned thing);
+they are two faint continuous lines now.
+
+The gravel-lane member folded into the approved yard gravel exactly as
+the form predicted. Glass value from the approved wall_window, steel from
+the galv parapet, rust from the rail plate. Verified standing in the
+ranks and among the racks. Seventeenth wired family.

@@ -411,6 +411,14 @@ grabPieces('banks/tileforms/TF-ART-010_ENDS_VOLUME_8_16_26.json',
 grabPieces('banks/tileforms/TF-ART-018_CANDIDATES_8_16_26.json',
   ['kerb_return_ne', 'kerb_return_nw', 'kerb_return_se', 'kerb_return_sw',
    'kerb_drop_n', 'kerb_drop_e', 'kerb_drop_s', 'kerb_drop_w']);
+/* TF-ART-016 8/19 (TF-RUN-007 merged in): the power districts - panel
+   tables (4 rows x 3 phases), table ends, the pad-mount cabinet, the dead
+   battery racks - tools/tfcook/TF-ART-016_cook.py. The dead-panel glass
+   states (browned, crumb) stay BANKED: no stripped block exists yet. */
+grabPieces('banks/tileforms/TF-ART-016_CANDIDATES_8_19_26.json',
+  ['sol_r0_p0', 'sol_r0_p1', 'sol_r0_p2', 'sol_r1_p0', 'sol_r1_p1', 'sol_r1_p2',
+   'sol_r2_p0', 'sol_r2_p1', 'sol_r2_p2', 'sol_r3_p0', 'sol_r3_p1', 'sol_r3_p2',
+   'sol_end_w', 'sol_end_e', 'sol_inv_box', 'bat_rack_dead_0', 'bat_rack_dead_1']);
 /* TF-ART-017 8/19: THE THICKNESS - pure value-geometry joinery overlays
    (outside corners with the bead hairline, window/boarded reveals) that
    ride every skin and civic material - tools/tfcook/TF-ART-017_cook.py.
