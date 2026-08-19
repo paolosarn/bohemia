@@ -149,7 +149,7 @@
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
     1:{name:'apron / drive / lot',kind:'drive',    act1:'the bus apron and the park-and-ride — heavy-duty concrete gone to plates, weeds up every joint (bus- and car-drivable)'},
     2:{name:'head house',         kind:'building', act1:'the two-storey terminal, its long curved south wall glazed end to end, the waiting room dark behind it', enter:'terminal interior: the enclosed waiting room along the curve, the ticket and information counter, restrooms, and the operations offices on the upper floor'},
-    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead forecourt tree gone to stick, its grate prised up for the metal', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead forecourt tree gone to stick, its grate prised up for the metal', solid:true},
     4:{name:'hardpan',            kind:'ground',   act1:'decomposed granite gone to hardpan at the edges of the site, split by weeds. Not a lawn: nothing is watering this'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street onto the apron, wide enough for a bus, amber paint gone chalky'},
     6:{name:'rooftop solar array',kind:'structure',act1:'the photovoltaic array bolted across the head house roof — the LEED Platinum signature, the glass milky now and half the strings stripped for the copper in their leads', solid:true},

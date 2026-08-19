@@ -153,7 +153,7 @@
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
     1:{name:'drive / lot',        kind:'drive',    act1:'the public lot and the secure yard floor — asphalt gone to plates, weeds up every joint (car-drivable)'},
     2:{name:'courthouse',         kind:'building', act1:'beige limestone and precast panel, an L wrapped round its own plaza, blast-rated walls that outlived the government that ordered them', enter:'courthouse interior: the rotunda lobby under the dead dome, the screening hall, courtrooms and jury suites stacked up both legs, holding cells behind the sally port'},
-    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead setback tree gone to stick, its grate prised up for the metal', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead setback tree gone to stick, its grate prised up for the metal', solid:true},
     4:{name:'blast setback',      kind:'ground',   act1:'the standoff strip between the kerb and the wall — decomposed granite gone to hardpan. It is empty ON PURPOSE: this was the first federal building in the country built to the post-Oklahoma-City blast rules, and the emptiness IS the security'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the public lot, amber paint gone chalky'},
     6:{name:'precast panel joint',kind:'structure',act1:'the joint line between two precast panels, twenty-two feet by ten, the sealant gone chalky and dropped out in runs'},

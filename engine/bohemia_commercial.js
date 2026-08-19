@@ -216,7 +216,7 @@
     0:{name:'dead-ground',        kind:'ground',   act1:'bare cracked dirt at the property line'},
     1:{name:'lot asphalt',        kind:'drive',    act1:'the cracked parking field and its drive aisles, weeds up every joint (car-drivable)'},
     2:{name:'store',              kind:'building', act1:'concrete shell — the anchor box and the inline shop bays, fascia stripped, glass out', enter:'retail interior: an open sales floor, checkout line stripped for metal, stock room and office behind'},
-    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead lot tree in its island, gone to stick', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead lot tree in its island, gone to stick', solid:true},
     4:{name:'landscape island',   kind:'ground',   act1:'a kerbed planting island inside the parking field — the shrub is a stick, the kerb is cracked open, and this is where the loose carts end up'},
     5:{name:'curb cut / gate',    kind:'gate',     act1:'the driveway curb cut off the street, amber paint gone chalky'},
     6:{name:'storefront walk',    kind:'walk',     act1:'the covered concrete walk along the shopfronts, cracked, glass underfoot'},

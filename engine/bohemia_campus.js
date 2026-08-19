@@ -148,7 +148,7 @@
     1:  { name: 'pavement / drive',   kind: 'drive',     act1: 'the ring road and the lots, cracked, weeds in the joints' },
     2:  { name: 'academic hall',      kind: 'building',  act1: 'a teaching hall facing the quad, glass out, doors chained, a noticeboard still full',
           enter: 'academic interior: a double-loaded corridor of classrooms and offices' },
-    3:  { name: 'dead tree',          kind: 'tree-dead', act1: 'a campus tree gone to stick, the irrigation that kept it long dead', solid: false },
+    3:  { name: 'dead tree',          kind: 'tree-dead', act1: 'a campus tree gone to stick, the irrigation that kept it long dead', solid:true },
     4:  { name: 'quad (dead lawn)',   kind: 'ground',    act1: 'the quad, brown to the root — in the Mojave the lawn is the first thing to die' },
     5:  { name: 'gate / entrance',    kind: 'gate',      act1: 'the campus entrance off the street, amber curb, barrier arm up' },
     6:  { name: 'walkway / plaza',    kind: 'ground',    act1: 'the walks across the quad, on the diagonals people actually cut' },

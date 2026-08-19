@@ -148,7 +148,7 @@
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the churchyard edge (setback)'},
     1:{name:'drive / lot',        kind:'drive',      act1:'the small church parking + drop-off drive (car-drivable)'},
     2:{name:'building (church)',  kind:'building',   act1:'the cruciform church — stone walls, roof steep, doors chained', enter:'church interior: the narthex, the long nave of pews to the altar at the apse, the transept chapels off the crossing'},
-    3:{name:'dead tree',          kind:'tree-dead',  act1:'a dead churchyard tree gone to stick, its grate prised up for the metal', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',  act1:'a dead churchyard tree gone to stick, its grate prised up for the metal', solid:true},
     4:{name:'memorial court',     kind:'ground',     act1:'the walled memorial court — decomposed granite raked once, now hardpan split by weeds. Not a lawn: in this ground you do not dig graves, you build a wall and fill it'},
     5:{name:'gate',               kind:'gate',       act1:'the churchyard entrance off the street, amber curb'},
     6:{name:'bell tower',         kind:'structure',  act1:'the bell tower flanking the entrance, tall, the bell silent, a cross finial atop', solid:true},

@@ -39,7 +39,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the churchyard edge (setback) | ground | no | — | 1467 |
 | 1 | `#33333c` | drive / lot | drive | the small church parking + drop-off drive (car-drivable) | ground | no | — | 785 |
 | 2 | `#7a7060` | building (church) | building | the cruciform church — stone walls, roof steep, doors chained | structure | yes | church interior: the narthex, the long nave of pews to the altar at the apse, the transept chapels off the crossing | 1443 |
-| 3 | `#514f40` | dead tree | tree-dead | a dead churchyard tree gone to stick, its grate prised up for the metal | prop | no | — | 99 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead churchyard tree gone to stick, its grate prised up for the metal | prop | yes | — | 99 |
 | 4 | `#6b6250` | memorial court | ground | the walled memorial court — decomposed granite raked once, now hardpan split by weeds. Not a lawn: in this ground you do not dig graves, you build a wall and fill it | ground | no | — | 2582 |
 | 5 | `#c79a3f` | gate | gate | the churchyard entrance off the street, amber curb | portal | no | — | 11 |
 | 6 | `#6f665a` | bell tower | structure | the bell tower flanking the entrance, tall, the bell silent, a cross finial atop | structure | yes | — | 88 |

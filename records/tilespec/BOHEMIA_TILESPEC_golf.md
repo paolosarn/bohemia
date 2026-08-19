@@ -45,7 +45,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 9 | `#5c5a30` | tee box | ground | a level tee pad, markers toppled, turf dead | ground | no | — | 100 |
 | 10 | `#b04a3a` | flagstick / pin | prop | a leaning flagstick in the cup, the flag a bleached rag | prop | yes | — | 1 |
 | 11 | `#8f8676` | driving-range mat / target | prop | a rubber range mat / a downrange yardage target, weathered | prop | yes | — | 14 |
-| 12 | `#2f2a18` | dead tree / landscaping | tree-dead | a dead ornamental tree dotting the rough | prop | no | — | 78 |
+| 12 | `#2f2a18` | dead tree / landscaping | tree-dead | a dead ornamental tree dotting the rough | prop | yes | — | 78 |
 | 13 | `#8a6a5a` | abandoned golf cart | vehicle | a golf cart left in the lot, tyres flat, dust-caked | prop | yes | — | 4 |
 
 **Gate:** `gates/golf_gate.js` (+ the street-aware/drivable law via `gates/district_kit_gate.js`), the walkable-land law via `gates/walkable_gate.js`, and this dossier via `gates/tilespec_gate.js`.

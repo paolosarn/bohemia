@@ -469,7 +469,7 @@
     4:  { name: 'palm median',        kind: 'ground',   act1: 'the wide landscaped median down the middle of the boulevard, irrigation dead, gravel and dust', solid: false },
     5:  { name: 'curb + gutter',      kind: 'ground',   act1: 'concrete curb and gutter, silt packed in it, the promenade starting right off the back of it' },
     6:  { name: 'promenade',          kind: 'walk',     act1: 'the Strip promenade: wide pavers at the back of curb, cracked and lifted, sand drifted along the building line' },
-    7:  { name: 'planter',            kind: 'tree-dead',act1: 'a tree well cut into the promenade, the tree gone, the pit full of grit and trash', solid: false },
+    7:  { name: 'planter',            kind: 'tree-dead',act1: 'a tree well cut into the promenade, the tree gone, the pit full of grit and trash', solid:false },
     9:  { name: 'streetlight',        kind: 'prop',     act1: 'a boulevard light standard on the promenade, head dark' },
     11: { name: 'dead palm',          kind: 'tree-dead',act1: 'a Strip palm dead on its feet — bare grey trunk, the crown collapsed years ago; nothing in this valley is green' },
     12: { name: 'signal mast',        kind: 'prop',     act1: 'traffic signal mast arm reaching out over the lanes, every head dark' },

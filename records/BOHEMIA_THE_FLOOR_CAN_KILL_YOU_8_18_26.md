@@ -20,12 +20,12 @@ district's own LEGEND. Author a drained pool into a new district next month and 
 is lethal ground that afternoon, with no edit anywhere. The gate proves that by
 mutating a legend and watching the class follow, in both directions.
 
-**62 registered district types swept → 19 hazard tiles in 15 districts.**
+**66 registered district types swept → 26 hazard tiles in 21 districts.**
 
 | class | what the floor does (his words) | tiles | districts |
 |---|---|---|---|
 | **KILLS** | pits — an enemy knocked or charging in dies outright | 4 | 3 |
-| **AMPLIFIES** | unstable ground — +50% physical damage taken, and the tip is two-part: avoid standing on it while LEADING ENEMIES ONTO IT | 7 | 6 |
+| **AMPLIFIES** | unstable ground — +50% physical damage taken, and the tip is two-part: avoid standing on it while LEADING ENEMIES ONTO IT | 14 | 12 |
 | **DISABLES** | liquids switch OFF sprinting and movement abilities | 8 | 8 |
 | **FAVOURS** | cursed floor heals undead — terrain reading becomes mandatory, not optional | 0 | 0 |
 | **DENIES** | standing on a body prevents its resurrection; the floor stays contested after the kill | 0 | 0 |
@@ -64,12 +64,19 @@ _FOOTING YOU CANNOT SET. Loose, shifting or piled ground: you cannot brace, so y
 
 | district | code | tile | kind | the act-1 material it was authored as |
 |---|---|---|---|---|
+| casino | 3 | **debris / dead planting** | tree-dead | what got dragged out of the building and left in the alley, and dead planting gone to dust |
+| freeway | 15 | **rubble / debris** | prop | blown tyre, bumper, glass and drift across the lanes |
 | freeway | 16 | **rail ballast** | ground | the railway ballast running out from under the bridge, in the daylight between the abutments |
+| interchange | 15 | **rubble / debris** | prop | blown tyre, bumper, glass and drift across the lanes |
 | landfill | 14 | **debris (plastic/appliance)** | ground | faded blue-grey junk in the fill — bags, an appliance carcass, sheeting |
 | landfill | 15 | **debris (rust/wood)** | ground | rusted + rotted junk in the fill — metal, pallet wood, drums |
 | mountain | 3 | **talus / scree** | ground | apron of loose broken rock shed off the face, slow going |
 | rail | 1 | **ballast** | ground | crushed rock ballast prism, weeds coming up through it now |
 | railyard | 4 | **ballast / gravel** | ground | the crushed-stone ballast + gravel of the yard |
+| stadium | 3 | **dead weeds / rubble** | tree-dead | weeds + spalled concrete rubble through the cracked lots and stands |
+| storage | 3 | **debris / tumbleweed** | tree-dead | debris + tumbleweed + dumped junk drifted in the aisles |
+| swapmeet | 3 | **junk / debris pile** | tree-dead | a knocked-over stall / a pile of picked-over junk + torn tarp |
+| truckstop | 3 | **dead brush / rubble** | tree-dead | tumbleweed + spalled-concrete rubble at the cracked margins |
 | watertreat | 10 | **crusted sludge / scum** | ground | crusted dried sludge / scum drifted in the basins + on the deck |
 
 ## HOW MUCH OF A CELL IT IS (measured, one generated cell per district)
@@ -80,10 +87,12 @@ class SHOULD be is his call and that table ships empty.
 | district | class | share of the cell |
 |---|---|---|
 | apartment | KILLS | 1.98% |
+| casino | AMPLIFIES | 0.12% |
 | datafort | DISABLES | 1.10% |
-| freeway | — | 0% in a standalone cell |
+| freeway | AMPLIFIES | 0.22% |
 | gypsum | DISABLES | 10.27% |
 | intake | DISABLES | 16.94% |
+| interchange | AMPLIFIES | 3.55% |
 | landfill | AMPLIFIES | 3.70% |
 | landfill | DISABLES | 5.15% |
 | mountain | AMPLIFIES | 2.82% |
@@ -92,6 +101,10 @@ class SHOULD be is his call and that table ships empty.
 | rail | AMPLIFIES | 15.69% |
 | railyard | AMPLIFIES | 43.74% |
 | reclaim | DISABLES | 16.72% |
+| stadium | AMPLIFIES | 0.97% |
+| storage | AMPLIFIES | 0.02% |
+| swapmeet | AMPLIFIES | 0.20% |
+| truckstop | AMPLIFIES | 0.85% |
 | water | DISABLES | 7.33% |
 | waterpark | KILLS | 14.45% |
 | watertreat | AMPLIFIES | 0.12% |
@@ -133,8 +146,8 @@ is indistinguishable from an oversight.
    edge) and "the shell of the storage dome" (a roof). One code cannot carry two
    occupancies. Split it in the gypsum generator.
 4. **THE WALKED SURFACE KNOWS FEWER DISTRICTS THAN THE ENGINE DOES.** Measured on the
-   running page: the city world's kit registers 35 of the engine's 62 types, and
-   only 5 of the 15 hazard districts are among them. Every hazard in the other 10
+   running page: the city world's kit registers 35 of the engine's 66 types, and
+   only 5 of the 21 hazard districts are among them. Every hazard in the other 16
    exists in the engine and cannot be walked on. That is not a hazard problem, it is
    a district-registration gap on the one surface he plays, and it caps far more
    than this feature.

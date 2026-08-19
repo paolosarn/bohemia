@@ -100,7 +100,7 @@
     10:{name:'abandoned vehicle', kind:'vehicle',    act1:'a car or big rig left at a pump / in a stall, tyres flat, dust-caked'},
     11:{name:'parking / truck stall marking',kind:'marking',act1:'faded stall paint — customer parking + the long pull-through big-rig stalls'},
     12:{name:'concrete pad / sidewalk',kind:'ground',act1:'the light concrete fuel-court pad (poured under the canopy for spill resistance) + the store sidewalk, cracked'},
-    13:{name:'dead landscaping planter',kind:'prop', act1:'a curb planter island gone to dead weed — the landscaping that once broke up the lot', solid:false}
+    13:{name:'dead landscaping planter',kind:'prop', act1:'a curb planter island gone to dead weed — the landscaping that once broke up the lot', solid:true}
   };
   var NOTES={
     summary:'A dead highway truck stop / gas station — an overhead fuel canopy on columns over dry rusted pump islands on a light concrete pad, a boarded store + diner with a sidewalk + parking rows, a dead wash bay, long pull-through big-rig parking, dead landscaping planters, a blank price pylon, all on a cracked drivable forecourt.',

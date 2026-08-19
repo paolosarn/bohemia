@@ -239,28 +239,29 @@
     }
   ];
 
-  /* A FLOOR HAZARD MUST BE FLOOR: layer 'ground', nothing else. Derived from the kit's
-     own tileLayer() answer, never a second copy of the occupancy rules.
+  /* A FLOOR HAZARD MUST BE FLOOR, AND "FLOOR" IS THE KIT'S OWN ANSWER: not solid, and
+     on a layer a body actually stands on (ground, or a prop it can stand in).
 
-     THE FIRST VERSION OF THIS SAID "not solid and not a portal" AND THE RUNNING PAGE
-     PROVED IT WRONG, which is the 7/18 law doing its job. Six tiles passed that test
-     and came back walk:false when asked on the real surface — `storage:3 debris /
-     tumbleweed` among them — because the kit calls a `prop` non-solid while the walked
-     surface blocks it. Both are right about their own question. The mistake was mine:
-     A PROP IS AN OBJECT SITTING ON THE GROUND, NOT THE GROUND. A debris pile you cannot
-     stand on is not footing however loose it looks, and 'structure' and 'portal' were
-     never floor either. One rule now, and it is the strict one.
-
-     AND IT NAMES A REAL GAP RATHER THAN HIDING ONE: every rubble tile in the valley is
-     a prop, so the valley has no WALKABLE rubble field — the single most classic piece
-     of unstable ground there is. That is filed as an ask, not papered over here. */
+     THIS RULE WENT OUT AND CAME BACK, AND THE ROUND TRIP IS THE POINT. The first version
+     said exactly this. Six tiles passed it and came back walk:false when the RUNNING PAGE
+     was asked -- `storage:3 debris / tumbleweed` among them -- so I tightened it to
+     layer==='ground' and wrote down the lesson "a prop is an object on the ground, not the
+     ground". THAT WAS THE WRONG LESSON. The kit models prop solidity PER TILE and defaults
+     it to TRUE, so every solid:false in a legend is a district author deliberately saying a
+     body may stand there; the walked surface was discarding all 48 of those declarations in
+     one line that never looked at the flag. MEASURED: 4,327 of 4,327 such cells across 40
+     real district cells disagreed with the model, and 0 of 4,327 after the fix.
+     I had two systems contradicting each other and I believed the one in front of me
+     instead of asking which was lying. Full finding + the gate that now compares them, tile
+     by tile: records/BOHEMIA_THE_SURFACE_IGNORED_THE_MODEL_8_18_26.md, gates/occupancy_gate.js */
   function standable(kit, entry) {
     var K = kit || root.BohemiaDistrictKit ||
             (HASREQ ? require('./bohemia_district_kit.js') : null);
     if (!K || typeof K.tileLayer !== 'function') return true;
     var ly = K.tileLayer(entry);
     if (!ly) return true;
-    return ly.layer === 'ground' && !ly.solid;
+    if (ly.solid) return false;
+    return ly.layer === 'ground' || ly.layer === 'prop';
   }
 
   /* ── DELIBERATE NON-MEMBERS ──────────────────────────────────────────────────

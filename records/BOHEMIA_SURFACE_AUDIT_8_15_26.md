@@ -37,7 +37,7 @@ its own three rows.
 | wardrobe / clothing | INTEGRATED | `cast_bridge` | ONLY ON THE ONE HE NEVER SEES (0/3) | **no** |
 | face system | INTEGRATED | `portraits` | ONLY ON THE ONE HE NEVER SEES (0/2) | **no** |
 | walk cycle animation | INTEGRATED | `walk_frames` | ONLY ON THE ONE HE NEVER SEES (0/2) | **no** |
-| painter-sorted bodies | INTEGRATED | `body_sort` | ONLY ON THE ONE HE NEVER SEES (0/2) | **no** |
+| painter-sorted bodies | INTEGRATED | `body_sort` | ONLY ON THE ONE HE NEVER SEES (1/2) | **no** |
 | suburb block generator | INTEGRATED | `suburb_module` | ONLY ON THE ONE HE NEVER SEES (0/1) | **no** |
 | house skins | INTEGRATED | `art_banks` | CANNOT TELL FROM ITS PROBE | **no** |
 | animated doors (2 tiles tall) | INTEGRATED | `door_anim` | ONLY ON THE ONE HE NEVER SEES (0/3) | **no** |

@@ -39,7 +39,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the campus setback | ground | no | — | 1561 |
 | 1 | `#33333c` | pavement / drive | drive | the ring road and the lots, cracked, weeds in the joints | ground | no | — | 3080 |
 | 2 | `#7a6f5c` | academic hall | building | a teaching hall facing the quad, glass out, doors chained, a noticeboard still full | structure | yes | academic interior: a double-loaded corridor of classrooms and offices | 1782 |
-| 3 | `#3a4526` | dead tree | tree-dead | a campus tree gone to stick, the irrigation that kept it long dead | prop | no | — | 203 |
+| 3 | `#3a4526` | dead tree | tree-dead | a campus tree gone to stick, the irrigation that kept it long dead | prop | yes | — | 203 |
 | 4 | `#49512e` | quad (dead lawn) | ground | the quad, brown to the root — in the Mojave the lawn is the first thing to die | ground | no | — | 6796 |
 | 5 | `#c79a3f` | gate / entrance | gate | the campus entrance off the street, amber curb, barrier arm up | portal | no | — | 9 |
 | 6 | `#6a675e` | walkway / plaza | ground | the walks across the quad, on the diagonals people actually cut | ground | no | — | 677 |

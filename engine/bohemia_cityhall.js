@@ -181,7 +181,7 @@
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
     1:{name:'drive / lot / deck', kind:'drive',    act1:'the visitor lot, the aisle and the deck floor above it — asphalt gone to plates, weeds up every joint (car-drivable)'},
     2:{name:'city hall',          kind:'building', act1:'sand-coloured precast and glass — the angular office block and the curved council chamber that merge in the lobby, the curtain wall boarded in runs where it came down', enter:'city hall interior: the public counter and permits hall behind the doors, the round council chamber under its own roof, seven floors of department offices in the block'},
-    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead civic tree gone to stick, its grate prised up for the metal', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead civic tree gone to stick, its grate prised up for the metal', solid:true},
     4:{name:'forecourt hardpan',  kind:'ground',   act1:'decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the lot, amber paint gone chalky'},
     6:{name:'solar panel',        kind:'structure',act1:'a photovoltaic panel on its tree, tilted to the south — the glass milky, half the array stripped for the copper in the leads. Equipment in its own bed, not something you shelter under', solid:true},

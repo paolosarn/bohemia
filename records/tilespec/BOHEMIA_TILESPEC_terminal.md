@@ -40,7 +40,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb | ground | no | — | 1325 |
 | 1 | `#33333c` | apron / drive / lot | drive | the bus apron and the park-and-ride — heavy-duty concrete gone to plates, weeds up every joint (bus- and car-drivable) | ground | no | — | 4595 |
 | 2 | `#8c8577` | head house | building | the two-storey terminal, its long curved south wall glazed end to end, the waiting room dark behind it | structure | yes | terminal interior: the enclosed waiting room along the curve, the ticket and information counter, restrooms, and the operations offices on the upper floor | 1666 |
-| 3 | `#514f40` | dead tree | tree-dead | a dead forecourt tree gone to stick, its grate prised up for the metal | prop | no | — | 1 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead forecourt tree gone to stick, its grate prised up for the metal | prop | yes | — | 1 |
 | 4 | `#6b6250` | hardpan | ground | decomposed granite gone to hardpan at the edges of the site, split by weeds. Not a lawn: nothing is watering this | ground | no | — | 1224 |
 | 5 | `#c79a3f` | gate / kerb cut | gate | the kerb cut off the street onto the apron, wide enough for a bus, amber paint gone chalky | portal | no | — | 13 |
 | 6 | `#3f4a55` | rooftop solar array | structure | the photovoltaic array bolted across the head house roof — the LEED Platinum signature, the glass milky now and half the strings stripped for the copper in their leads | structure | yes | — | 270 |

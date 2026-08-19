@@ -269,7 +269,7 @@
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt at the campus edge (setback)'},
     1:{name:'pavement / drive',   kind:'drive',     act1:'cracked pavement — the student lot, bus loop and staff parking (car-drivable)'},
     2:{name:'academic building',  kind:'building',  act1:'the two-storey classroom spine and its wings, maroon roof faded, windows out, doors chained', enter:'high school interior: a double-loaded classroom corridor with lockers down both walls, offices and labs off it'},
-    3:{name:'dead tree / landscaping',kind:'tree-dead',act1:'a dead campus tree gone to stick', solid:false},
+    3:{name:'dead tree / landscaping',kind:'tree-dead',act1:'a dead campus tree gone to stick', solid:true},
     4:{name:'dead lawn (campus ground)',kind:'ground',act1:'the dead campus lawn — brown grass and weeds between everything'},
     5:{name:'gate / entrance',    kind:'gate',      act1:'the campus drive entrance off the street, amber curb'},
     6:{name:'field (dead turf)',  kind:'ground',    act1:'the dead football field inside the track — brown, cracked, the yard lines ghosted'},

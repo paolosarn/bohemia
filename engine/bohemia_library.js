@@ -165,7 +165,7 @@
     0:{name:'desert dead-ground', kind:'ground',   act1:'bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb'},
     1:{name:'drive / lot',        kind:'drive',    act1:'the library lot and its service drive — asphalt gone to plates, weeds up every joint (car-drivable)'},
     2:{name:'library / museum',   kind:'building', act1:'sandstone and concrete geometry — Predock built this valley a landmark out of a drum, a tower and two long low wings, and the sandstone is still the colour of the desert it was matched to', enter:'library interior: the drum is one round room under a dead oculus, the reading wing is stacks and tables to the clerestory, the museum wing is three floors of stripped gallery'},
-    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead courtyard tree gone to stick, its grate prised up for the metal', solid:false},
+    3:{name:'dead tree',          kind:'tree-dead',act1:'a dead courtyard tree gone to stick, its grate prised up for the metal', solid:true},
     4:{name:'forecourt ground',   kind:'ground',   act1:'the unpaved forecourt — decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this'},
     5:{name:'gate / kerb cut',    kind:'gate',     act1:'the kerb cut off the street into the lot, amber paint gone chalky'},
     6:{name:'stall marking',      kind:'marking',  act1:'the painted stall ticks across the lot, chalked out to ghosts by twenty summers — PAINT IS NOT A WALL, a car drives straight over it'},

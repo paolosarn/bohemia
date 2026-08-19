@@ -44,7 +44,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the edge of the townsite | ground | no | — | 976 |
 | 1 | `#33333b` | main street | drive | the one wide street, laid out for a wagon team to turn in, sand drifted across it | ground | no | — | 3829 |
 | 2 | `#8a6f4e` | storefront | building | an attached shopfront in the street wall, glass gone or boarded, the goods long carried off | structure | yes | storefront interior: one deep narrow room, a counter across the back, a stockroom behind it | 2717 |
-| 3 | `#3a4526` | dead tree | tree-dead | a dead street tree, the only one anybody ever watered | prop | no | — | 39 |
+| 3 | `#3a4526` | dead tree | tree-dead | a dead street tree, the only one anybody ever watered | prop | yes | — | 39 |
 | 4 | `#6f6449` | dirt lot | ground | the graded dirt the town sits on — never paved, never needed to be | ground | no | — | 4856 |
 | 5 | `#c79a3f` | gate / entrance | gate | where the main street meets the highway, amber curb | portal | no | — | 16 |
 | 6 | `#b0a184` | boardwalk | ground | the covered boardwalk under the canopy, boards split, shade still working | ground | no | — | 888 |

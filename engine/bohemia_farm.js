@@ -57,7 +57,7 @@
     0:{name:'desert dead-ground', kind:'ground',    act1:'bare Mojave dirt outside the fence (setback)'},
     1:{name:'farm road',          kind:'drive',      act1:'the dirt farm road — a truck/tractor reaches the farmstead from the gate (drivable)'},
     2:{name:'building (farmhouse/shed)',kind:'building',act1:'the farmhouse / equipment shed, weathered clapboard, windows dark', enter:'farmhouse interior: kitchen + rooms up front, the mud room + the shed\'s equipment bay off the yard'},
-    3:{name:'windbreak tree',     kind:'tree-dead',  act1:'a dead windbreak tree lining the road / field edge', solid:false},
+    3:{name:'windbreak tree',     kind:'tree-dead',  act1:'a dead windbreak tree lining the road / field edge', solid:true},
     4:{name:'field soil',         kind:'ground',     act1:'cracked dry field soil / a bare fallow patch'},
     5:{name:'gate',               kind:'gate',       act1:'the farm gate off the street, amber curb, a cattle grid'},
     6:{name:'silo',               kind:'structure',  act1:'a grain silo, corrugated steel, empty + rusting', solid:true},

@@ -179,7 +179,7 @@
     1:  { name: 'main street',        kind: 'drive',     act1: 'the one wide street, laid out for a wagon team to turn in, sand drifted across it' },
     2:  { name: 'storefront',         kind: 'building',  act1: 'an attached shopfront in the street wall, glass gone or boarded, the goods long carried off',
           enter: 'storefront interior: one deep narrow room, a counter across the back, a stockroom behind it' },
-    3:  { name: 'dead tree',          kind: 'tree-dead', act1: 'a dead street tree, the only one anybody ever watered', solid: false },
+    3:  { name: 'dead tree',          kind: 'tree-dead', act1: 'a dead street tree, the only one anybody ever watered', solid:true },
     4:  { name: 'dirt lot',           kind: 'ground',    act1: 'the graded dirt the town sits on — never paved, never needed to be' },
     5:  { name: 'gate / entrance',    kind: 'gate',      act1: 'where the main street meets the highway, amber curb' },
     6:  { name: 'boardwalk',          kind: 'ground',    act1: 'the covered boardwalk under the canopy, boards split, shade still working' },

@@ -42,7 +42,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb | ground | no | — | 1467 |
 | 1 | `#33333c` | drive / lot / deck | drive | the visitor lot, the aisle and the deck floor above it — asphalt gone to plates, weeds up every joint (car-drivable) | ground | no | — | 1573 |
 | 2 | `#7d7566` | city hall | building | sand-coloured precast and glass — the angular office block and the curved council chamber that merge in the lobby, the curtain wall boarded in runs where it came down | structure | yes | city hall interior: the public counter and permits hall behind the doors, the round council chamber under its own roof, seven floors of department offices in the block | 2292 |
-| 3 | `#514f40` | dead tree | tree-dead | a dead civic tree gone to stick, its grate prised up for the metal | prop | no | — | 16 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead civic tree gone to stick, its grate prised up for the metal | prop | yes | — | 16 |
 | 4 | `#6b6250` | forecourt hardpan | ground | decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this | ground | no | — | 2096 |
 | 5 | `#c79a3f` | gate / kerb cut | gate | the kerb cut off the street into the lot, amber paint gone chalky | portal | no | — | 11 |
 | 6 | `#3f4a55` | solar panel | structure | a photovoltaic panel on its tree, tilted to the south — the glass milky, half the array stripped for the copper in the leads. Equipment in its own bed, not something you shelter under | structure | yes | — | 528 |

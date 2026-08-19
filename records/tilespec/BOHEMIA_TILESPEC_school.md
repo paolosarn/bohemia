@@ -47,7 +47,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the campus edge (setback) | ground | no | — | 1249 |
 | 1 | `#33333c` | pavement / drive | drive | cracked pavement — the student lot, bus loop and staff parking (car-drivable) | ground | no | — | 2233 |
 | 2 | `#7a4038` | academic building | building | the two-storey classroom spine and its wings, maroon roof faded, windows out, doors chained | structure | yes | high school interior: a double-loaded classroom corridor with lockers down both walls, offices and labs off it | 1918 |
-| 3 | `#514f40` | dead tree / landscaping | tree-dead | a dead campus tree gone to stick | prop | no | — | 18 |
+| 3 | `#514f40` | dead tree / landscaping | tree-dead | a dead campus tree gone to stick | prop | yes | — | 18 |
 | 4 | `#49512e` | dead lawn (campus ground) | ground | the dead campus lawn — brown grass and weeds between everything | ground | no | — | 4209 |
 | 5 | `#c79a3f` | gate / entrance | gate | the campus drive entrance off the street, amber curb | portal | no | — | 9 |
 | 6 | `#4f6038` | field (dead turf) | ground | the dead football field inside the track — brown, cracked, the yard lines ghosted | ground | no | — | 614 |

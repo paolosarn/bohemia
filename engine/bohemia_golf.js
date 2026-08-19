@@ -121,7 +121,7 @@
     9:{name:'tee box',            kind:'ground',    act1:'a level tee pad, markers toppled, turf dead'},
     10:{name:'flagstick / pin',   kind:'prop',       act1:'a leaning flagstick in the cup, the flag a bleached rag'},
     11:{name:'driving-range mat / target',kind:'prop',act1:'a rubber range mat / a downrange yardage target, weathered'},
-    12:{name:'dead tree / landscaping',kind:'tree-dead',act1:'a dead ornamental tree dotting the rough', solid:false},
+    12:{name:'dead tree / landscaping',kind:'tree-dead',act1:'a dead ornamental tree dotting the rough', solid:true},
     13:{name:'abandoned golf cart',kind:'vehicle',   act1:'a golf cart left in the lot, tyres flat, dust-caked'}
   };
   var NOTES={

@@ -90,7 +90,7 @@
     9:{name:'pole light',         kind:'prop',       act1:'a market pole light, head dark'},
     10:{name:'abandoned car',     kind:'vehicle',    act1:'a car left in the gravel lot, tyres flat, dust-caked'},
     11:{name:'parking marking',   kind:'marking',    act1:'faded stall paint / row markers in the gravel lot'},
-    12:{name:'map kiosk / dead planter',kind:'prop', act1:'the you-are-here map kiosk / a dead planter at the market mouth', solid:false},
+    12:{name:'map kiosk / dead planter',kind:'prop', act1:'the you-are-here map kiosk / a dead planter at the market mouth', solid:true},
     13:{name:'stall canopy / tent (red)',kind:'overhead',act1:'a faded red vendor canopy over a stall row — the market navigated by tent color (you walk UNDER it)'},
     14:{name:'stall canopy / tent (teal)',kind:'overhead',act1:'a faded teal vendor canopy over a stall row — the market navigated by tent color (you walk UNDER it)'}
   };

@@ -20,13 +20,22 @@
  *     half drives a REAL STEP through the page's own metronome, onto a real hazard tile in
  *     the real valley, and reads what he would see.
  *
- * WHAT THE REAL SURFACE ALREADY CORRECTED, and it is the reason that half exists. The first
- * version of the standability rule was "not solid and not a portal". Six tiles passed it and
- * came back walk:false when the running page was asked — `storage:3 debris / tumbleweed`
- * among them — because the kit calls a prop non-solid while the walked surface blocks it.
- * A PROP IS AN OBJECT ON THE GROUND, NOT THE GROUND. The rule is layer==='ground' now, and
- * the six went out. Nineteen tiles that are all actually standable beats twenty-five where
- * six are decoration.
+ * WHAT THE REAL SURFACE CORRECTED, AND THEN WHAT CORRECTED THE CORRECTION. The first
+ * version of the standability rule was the kit's own answer: not solid, and on a layer a
+ * body stands on. Six tiles passed it and came back walk:false when the running page was
+ * asked — `storage:3 debris / tumbleweed` among them — so I tightened the rule to
+ * layer==='ground' and wrote down the lesson "a prop is an object on the ground, not the
+ * ground". THAT WAS THE WRONG LESSON, and the right one is worth more than the feature.
+ * The kit models prop solidity PER TILE and defaults it to TRUE, so every solid:false in a
+ * legend is a district author deliberately declaring that a body may stand there. The
+ * walked surface was discarding ALL FORTY-EIGHT of those declarations in one line that
+ * never looked at the flag: `if(tl.layer==='prop'){ c.walk=false; }`. MEASURED on the real
+ * page: 4,327 of 4,327 such cells disagreed with the model, and 0 of 4,327 after the fix.
+ * I HAD TWO LIVE SYSTEMS CONTRADICTING EACH OTHER AND I BELIEVED THE ONE IN FRONT OF ME
+ * INSTEAD OF ASKING WHICH WAS LYING. gates/occupancy_gate.js now compares them tile by
+ * tile so it can never be a matter of belief again. The rule is back to the kit's answer
+ * and the class grew from 19 tiles to 26 — including the walkable rubble field this lane
+ * had filed that morning as a MISSING piece of the world. It was never missing.
  *
  * WHAT IT DELIBERATELY DOES NOT ASSERT: how COMMON any class is. That is his dial and the
  * table ships empty (MECHANISM-MINE / CONTENTS-PAOLO'S). What is asserted is that the dial
@@ -163,19 +172,31 @@ console.log('\nA FLOOR HAZARD MUST BE FLOOR (the rule the running page corrected
   const solidNamedLikeAPit = { name: 'drained pool', kind: 'building', act1: 'x' };
   ok('a SOLID tile named "drained pool" is not a pit — you cannot be knocked into '
      + 'something that already blocks you', H.classOf(solidNamedLikeAPit, K) === null);
-  const propNamedLikeRubble = { name: 'rubble / debris', kind: 'prop', act1: 'x' };
-  ok('a PROP named "rubble / debris" is not footing — it is an object ON the ground, and '
-     + 'the walked surface blocks it', H.classOf(propNamedLikeRubble, K) === null);
+  /* THIS ASSERTION USED TO SAY THE OPPOSITE, AND THE FLIP IS THE FINDING. It read "a
+     PROP named rubble/debris is not footing, because the walked surface blocks it" -- true
+     of the surface, false of the model, and I believed the surface. The kit models prop
+     solidity PER TILE and defaults it to TRUE, so a prop that declares solid:false is a
+     district author saying a body may stand there. The surface was discarding all 48 such
+     declarations in one line (4,327 of 4,327 real cells disagreed; 0 after the fix). Now
+     the DECLARATION decides, in both directions. */
+  const softRubble = { name: 'rubble / debris', kind: 'prop', act1: 'x', solid: false };
+  ok('a prop DECLARED walk-through IS footing — rubble drift you can stand on is exactly '
+     + 'the unstable ground the AMPLIFIES class is for',
+     H.classOf(softRubble, K) === 'AMPLIFIES');
+  const hardRubble = { name: 'rubble / debris', kind: 'prop', act1: 'x' };
+  ok('and a prop that does NOT declare it stays solid by the kit\'s own default, so a '
+     + 'heap is still something you walk around', H.classOf(hardRubble, K) === null);
   const portalNamedLikeAPit = { name: 'sewer tunnel mouth', kind: 'portal', act1: 'x' };
   ok('a PORTAL is a door, not a drop — going through one is the intent',
      H.classOf(portalNamedLikeAPit, K) === null);
   let bad = [];
   for (const d in sweep) for (const c in sweep[d]) {
     const ly = K.tileLayer(K.get(d).legend[c]);
-    if (ly.layer !== 'ground' || ly.solid) bad.push(d + ':' + c + ' (' + ly.layer + ')');
+    if (ly.solid || (ly.layer !== 'ground' && ly.layer !== 'prop'))
+      bad.push(d + ':' + c + ' (' + ly.layer + (ly.solid ? ' solid' : '') + ')');
   }
-  ok('EVERY classified tile in the whole valley is ground-layer and non-solid' +
-     (bad.length ? ' — ' + bad.join(', ') : ''), bad.length === 0);
+  ok('EVERY classified tile in the whole valley is NON-SOLID and on a layer a body ' +
+     'actually stands on' + (bad.length ? ' — ' + bad.join(', ') : ''), bad.length === 0);
 }
 
 /* ── 7. A MENTION IS NOT A USE ─────────────────────────────────────────────────

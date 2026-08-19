@@ -39,7 +39,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb | ground | no | — | 1467 |
 | 1 | `#33333c` | drive / lot | drive | the library lot and its service drive — asphalt gone to plates, weeds up every joint (car-drivable) | ground | no | — | 1389 |
 | 2 | `#9a7f5c` | library / museum | building | sandstone and concrete geometry — Predock built this valley a landmark out of a drum, a tower and two long low wings, and the sandstone is still the colour of the desert it was matched to | structure | yes | library interior: the drum is one round room under a dead oculus, the reading wing is stacks and tables to the clerestory, the museum wing is three floors of stripped gallery | 2712 |
-| 3 | `#514f40` | dead tree | tree-dead | a dead courtyard tree gone to stick, its grate prised up for the metal | prop | no | — | 34 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead courtyard tree gone to stick, its grate prised up for the metal | prop | yes | — | 34 |
 | 4 | `#6b6250` | forecourt ground | ground | the unpaved forecourt — decomposed granite that was raked once, now hardpan split by weeds. Not a lawn: nothing is watering this | ground | no | — | 1577 |
 | 5 | `#c79a3f` | gate / kerb cut | gate | the kerb cut off the street into the lot, amber paint gone chalky | portal | no | — | 11 |
 | 6 | `#4a4a52` | stall marking | marking | the painted stall ticks across the lot, chalked out to ghosts by twenty summers — PAINT IS NOT A WALL, a car drives straight over it | ground | no | — | 130 |

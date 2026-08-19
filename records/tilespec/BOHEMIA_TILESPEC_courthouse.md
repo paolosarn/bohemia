@@ -43,7 +43,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 0 | `dead-dirt (kit ground)` | desert dead-ground | ground | bare Mojave dirt at the property line, sun-cracked, drift sand banked against the kerb | ground | no | — | 1467 |
 | 1 | `#33333c` | drive / lot | drive | the public lot and the secure yard floor — asphalt gone to plates, weeds up every joint (car-drivable) | ground | no | — | 1888 |
 | 2 | `#9c9179` | courthouse | building | beige limestone and precast panel, an L wrapped round its own plaza, blast-rated walls that outlived the government that ordered them | structure | yes | courthouse interior: the rotunda lobby under the dead dome, the screening hall, courtrooms and jury suites stacked up both legs, holding cells behind the sally port | 2183 |
-| 3 | `#514f40` | dead tree | tree-dead | a dead setback tree gone to stick, its grate prised up for the metal | prop | no | — | 7 |
+| 3 | `#514f40` | dead tree | tree-dead | a dead setback tree gone to stick, its grate prised up for the metal | prop | yes | — | 7 |
 | 4 | `#6b6250` | blast setback | ground | the standoff strip between the kerb and the wall — decomposed granite gone to hardpan. It is empty ON PURPOSE: this was the first federal building in the country built to the post-Oklahoma-City blast rules, and the emptiness IS the security | ground | no | — | 2257 |
 | 5 | `#c79a3f` | gate / kerb cut | gate | the kerb cut off the street into the public lot, amber paint gone chalky | portal | no | — | 11 |
 | 6 | `#8a8069` | precast panel joint | structure | the joint line between two precast panels, twenty-two feet by ten, the sealant gone chalky and dropped out in runs | structure | yes | — | 748 |

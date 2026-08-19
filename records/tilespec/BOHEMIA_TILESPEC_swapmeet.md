@@ -45,7 +45,7 @@ _layer: ground=flat floor · structure=has a ¾ front face, blocks · overhead=d
 | 9 | `#8f8676` | pole light | prop | a market pole light, head dark | prop | yes | — | 5 |
 | 10 | `#55555f` | abandoned car | vehicle | a car left in the gravel lot, tyres flat, dust-caked | prop | yes | — | 356 |
 | 11 | `#c9c1aa` | parking marking | marking | faded stall paint / row markers in the gravel lot | ground | no | — | 80 |
-| 12 | `#55603a` | map kiosk / dead planter | prop | the you-are-here map kiosk / a dead planter at the market mouth | prop | no | — | 45 |
+| 12 | `#55603a` | map kiosk / dead planter | prop | the you-are-here map kiosk / a dead planter at the market mouth | prop | yes | — | 45 |
 | 13 | `#a86a4a` | stall canopy / tent (red) | overhead | a faded red vendor canopy over a stall row — the market navigated by tent color (you walk UNDER it) | overhead | no | — | 1024 |
 | 14 | `#5f7a72` | stall canopy / tent (teal) | overhead | a faded teal vendor canopy over a stall row — the market navigated by tent color (you walk UNDER it) | overhead | no | — | 576 |
 

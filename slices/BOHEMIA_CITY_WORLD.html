@@ -18769,7 +18769,22 @@ function realizeCell(gx,gy){
       }
       return c;
     }
-    if(tl.layer==='prop'){ c.s=pal; c.walk=false; return c; }
+    /* __PROP_SOLIDITY_IS_PER_TILE__ -- this line read `c.walk=false` for EVERY prop and
+       never once looked at `tl.solid`, which the kit has computed per tile since July and
+       documents in its own contract ("prop - an object sitting on the ground; SOLID PER ITS
+       SIZE" / "solid = does the tile block a body's cell at grade"). The kit's DEFAULT for
+       prop and tree-dead is solid:TRUE, so every solid:false in a legend is a district
+       author deliberately saying A BODY MAY STAND HERE -- you push through creosote, you
+       walk over rubble drift, you step past a survey stake. There were 48 such declarations
+       across 41 districts and this line discarded all of them.
+       THE MODEL AND THE GAME DISAGREED ABOUT THE SAME TILE. Nothing compared them:
+       district_kit_gate holds the model, walkable_gate holds land statistics, and the
+       walked surface was never asked whether it agreed with either.
+       Found by accident -- the hazard classifier's first standability rule was the kit's
+       own answer, six tiles came back walk:false on the running page, and I wrote down the
+       wrong lesson ("a prop is not floor") instead of asking which of the two was lying.
+       gates/occupancy_gate.js now compares them, tile by tile, in every district. */
+    if(tl.layer==='prop'){ c.s=pal; c.walk=!tl.solid; return c; }
     if(tl.layer==='portal'){ c.g='#8a8a86'; c.walk=true;
       if(entry&&entry.enter){ c.enter=entry.enter; c.ecode=code; c.portal=true; }   /* STEP-INSIDE: a door/ramp/open bay you step through */
       return c; }
