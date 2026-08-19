@@ -1,3 +1,63 @@
+COMBAT (combat-nfnki9): 8/19 (a) LATEST -- *** BREAK THE LINE AND THE GUNS GO OFF.
+RF4-52, MACHINE 4 OF THE NINE, IS BUILT. TAB: COMBAT -- put a rock between you and
+them. Machines 1, 3 and 4 are now done. ***
+Record: records/BOHEMIA_COMBAT_VISION_IS_THE_MASTER_SWITCH_8_19_26.md
+Tool:   tools/bohemia_combat_vision_is_the_master_switch_patch.py  (v165, idempotent)
+Gates:  gates/fight_moves_you_gate.js 23/0  |  gates/combat_lab_gate.js 844/0
+
+ONE VARIABLE, FIVE SYSTEMS. seesMe(e) is the single authority on whether an enemy
+can see the player, and acquisition, the volley, the press, cover-seek and the
+shout all read it. A blind man walks to WHERE HE LAST SAW YOU; a man who has never
+seen you holds. A man who CAN see you tells everyone within 8 tiles, which is why
+the one with eyes on you is worth shooting first -- kill him and the callout stops.
+
+*** THE FINDING ANY LANE CAN USE: A CHECK CAN BE GREEN BECAUSE OF THE WRONG CAUSE.
+The sprint check ("a sprint drops every bead") passed a build with the feature
+DELETED, because the arena's rocks meant the sprinting step also broke lines the
+ordinary way. Two mechanisms, one outcome, and the check could not tell them
+apart. It runs on a BARE FIELD now, so only the rule under test can produce the
+result. If your scenario contains a second thing that would produce the same
+number, your check is not measuring what its sentence says. ***
+
+AND THE SAME DISEASE HIT YESTERDAY'S NUMBER FROM THE OTHER SIDE. V164's chase rig
+ran on arenas with rocks in; harmless until vision existed, then a chaser could
+lose sight and park, and "distance manufactured by geometry" stopped being about
+geometry. Clear field now: 2.28 -> 3.59 tiles, 71 of 96 -> 96 of 96 trials. NO
+SHIPPED CODE CHANGED, only the ruler. The 8/18 record carries the amendment,
+because a number stated in a record is a claim.
+
+WHERE THE CAPTURE AND REALISM FIRST DISAGREED, AND WHAT I DID. The spec line says
+"enemies never spot a sprinting player at all", which for guns is backwards --
+movement is what gets you SEEN. But the mechanic underneath is real: the 3-5
+SECOND RUSH is the US Army's individual movement technique and the window is that
+size because it is SHORTER THAN THE TIME AN ENEMY NEEDS to see, aim and fire. So
+sprinting does not blind anybody; you were only up for less time than acquiring
+takes. Same outcome, true mechanism, and it lands on the two-turn red line the
+game already had.
+
+I ALSO CHECKED IT DID NOT DELETE THE DIFFICULTY, because turning guns off is
+exactly the change that quietly does: 24 fights, one policy, through the shipped
+return-fire path, 4.2 HP lost and 5 hits taken WITH the gating and IDENTICAL
+without it. Vision does not protect a player who ignores it.
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER (the RF4 LIFT routes machines 1,3,4,7,8,9
+here; 1, 3 and 4 are BUILT):
+ 1. MACHINE 7 -- PUBLISHED DETERMINISTIC AI. RF4's enemies are readable because
+    they are rule-stated and never roll. Ours mostly are already; the work is
+    PUBLISHING the rules on the surface so he can plan against them rather than
+    learn them by dying. Now much more valuable than it was yesterday, because
+    vision just made the rules worth knowing.
+ 2. MACHINE 9 -- STATUS EFFECTS AS TURN DENIAL rather than damage.
+ 3. THE FIGHT HALF OF MACHINE 6 -- terrain kills. The terrain PROPERTIES half is
+    WORLD's.
+ 4. MACHINE 8 -- BOUNDED DAMAGE VARIANCE (50-100%). BLOCKED BY LAW, not by work:
+    NO DAMAGE BEFORE THE DIAL. Do not start it.
+ 5. NOT MINE, FLAGGED TWICE NOW: MANUFACTURING walls (steam, sleep bombs, cloud
+    walls) is RF4-52's second half and half of it is terrain = WORLD. And
+    "liquids block sprinting" is RF4-51's terrain half, also WORLD.
+ 6. KNOWN AND DELIBERATE: a rifleman in daylight is comfortable anywhere he can
+    shoot, so he repositions for ANGLE rather than closing. Tightening his
+    comfort band below his reach means picking a number and there is no ruling.
 CHARACTER (character-0lurbs): 8/18 (m) LATEST -- *** YOU CAN WATCH SOMEBODY TREAT A
 GUNSHOT WOUND NOW. BACKLOG ROW FS IS CLOSED. TAB: ANIMATION (pick pour / inject /
 tweeze from the clip list), and LOOK for the picture. ***
