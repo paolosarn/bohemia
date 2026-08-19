@@ -159,6 +159,16 @@ src = open(WORLD, encoding='utf-8').read()
 # CONTENT CHANGES. So the registry edit now carries its own delimiters and is cut by MARKER,
 # and every historical form it has ever had is listed so an older page can still be
 # reversed. Rename the marker and add the old one here, exactly like LEGACY_MARKS.
+ROCK_OLD = "      c.s=pal; c.walk=false; c.artPool='hroof'; c.tint=pal;"
+ROCK_NEW = ("      c.s=pal; c.walk=false;\n"
+            "      /* __ROCK_IS_NOT_A_ROOF__ -- a cliff band is not a roof. Every structure tile\n"
+            "         on this branch was given the ROOF pool tinted to its palette, which is right\n"
+            "         for a building and is BRICKWORK for limestone. Terrain structure (bedrock\n"
+            "         face, ridge crest, cliff band, a concrete headwall) takes its palette colour\n"
+            "         flat instead -- the same fallback this renderer already uses when a pool is\n"
+            "         missing. A real rock face is ART's ask; this is the interim, and it is not\n"
+            "         brick. Districts are untouched. */\n"
+            "      if(!TERRAIN_KIT[d]){ c.artPool='hroof'; c.tint=pal; }")
 refreshed = MARK in src
 _RS, _RE = '/* __TK_S__ */', '/* __TK_E__ */'
 while _RS in src:
@@ -169,7 +179,7 @@ while _RS in src:
 for _legacy in LEGACY_REG:
     if _legacy in src:
         src = src.replace(_legacy, OLD_REG, 1)
-for _new, _old in ((NEW_META, OLD_META), (NEW_OPTS, OLD_OPTS)):
+for _new, _old in ((NEW_META, OLD_META), (NEW_OPTS, OLD_OPTS), (ROCK_NEW, ROCK_OLD)):
     if _new in src:
         src = src.replace(_new, _old, 1)
 _a = '/* ==== THE DESERT DRAWS ITSELF (inlined verbatim) ==== */'
@@ -206,7 +216,22 @@ DEND = '/* ==== end THE DESERT DRAWS ITSELF ==== */'
 if DMARK not in src:
     if not os.path.exists(DESERT_MOD):
         sys.exit('TERRAIN PATCH: %s is missing.' % DESERT_MOD)
-    # THE MOUNTAIN WAS TRIED HERE AND TAKEN BACK OUT, and the attempt is worth keeping.
+    # THE MOUNTAIN WAS TRIED HERE TWICE AND TAKEN BACK OUT TWICE, and the second attempt is
+    # what turned "it looks wrong" into a list somebody can finish. THREE THINGS BLOCK IT AND
+    # THEY ARE ALL IN realizeCell:
+    #   1. ROCK IS NOT A ROOF -- fixed below, and it is the only one of the three that is
+    #      generic enough to keep on its own. Red brick is gone from terrain structure.
+    #   2. `walk: d!=='water' && d!=='mountain'` hard-codes the mountain unwalkable at the top
+    #      of every kit cell, so its talus, ravine floors and drainages stay blocked even when
+    #      the generator supplies them. That default predates the mountain having tiles.
+    #   3. `if(code===0){ ... c.gArtPool='hyard'; return c; }` treats code 0 as generic yard
+    #      ground and RETURNS BEFORE THE LEGEND IS EVER READ. Mountain code 0 is BEDROCK FACE,
+    #      a solid structure, and it is 11,486 of 16,384 tiles in one cell -- so the single
+    #      biggest thing in the mountain never reaches the structure branch at all.
+    # A residual brick texture also survives from a source I did not identify, so the list is
+    # not closed. Three named blockers and one unknown beats a vague "it looked bad".
+    #
+    # THE FIRST ATTEMPT AND ITS NUMBERS, kept:
     # MEASURED before: a mountain cell is 0/16,384 walkable -- 927 cells of TOTAL WALL, while
     # its own generator is 80.4% rock and 19.6% talus, ravine floor, dry drainage and alluvial
     # fan, and terrain_gate.js has asserted since 7/26 that "a mountain cell is never a solid
@@ -244,6 +269,19 @@ if DMARK not in src:
                        open(DESERT_MOD, encoding='utf-8').read(),
                        DEND])
     src = src[:di] + dblob + '\n' + src[di:]
+
+# 5) ROCK IS NOT A ROOF. The structure branch of realizeCell gives EVERY structure tile
+#    `artPool:'hroof'` -- roof art, tinted to the tile's palette colour. For a building that
+#    is exactly right. For a limestone cliff band it is BRICKWORK with a grey tint, which is
+#    what a routed mountain looked like and why the mountain was reverted the first time.
+#    Terrain structure is rock and concrete: it takes its palette colour flat, which is the
+#    same thing this renderer already does anywhere a tile pool is missing. The ART ask is a
+#    real rock face; this is the honest interim and it is not brick.
+if ROCK_NEW not in src:
+    if ROCK_OLD not in src:
+        sys.exit('TERRAIN PATCH: could not find the structure branch of realizeCell. Refusing '
+                 'to guess -- this decides how every solid tile in the game is drawn.')
+    src = src.replace(ROCK_OLD, ROCK_NEW, 1)
 
 open(WORLD, 'w', encoding='utf-8').write(src)
 print('TERRAIN PATCH: %s -- desert and wash draw themselves from their own generators'

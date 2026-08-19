@@ -12613,6 +12613,8 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
 
 
+
+
 /* ==== THE DESERT DRAWS ITSELF (inlined verbatim) ==== */
 /* ==== engine/bohemia_terrain_noise.js ==== */
 /* inlined verbatim by tools/bohemia_city_terrain_patch.py -- the desert samples it, and it must be defined before the generator runs. */
@@ -19051,7 +19053,15 @@ function realizeCell(gx,gy){
     const tl=BohemiaDistrictKit.tileLayer(entry);
     const pal=(spec&&spec.palette&&spec.palette[code])||'#98948a';
     if(tl.layer==='structure'){
-      c.s=pal; c.walk=false; c.artPool='hroof'; c.tint=pal;
+      c.s=pal; c.walk=false;
+      /* __ROCK_IS_NOT_A_ROOF__ -- a cliff band is not a roof. Every structure tile
+         on this branch was given the ROOF pool tinted to its palette, which is right
+         for a building and is BRICKWORK for limestone. Terrain structure (bedrock
+         face, ridge crest, cliff band, a concrete headwall) takes its palette colour
+         flat instead -- the same fallback this renderer already uses when a pool is
+         missing. A real rock face is ART's ask; this is the interim, and it is not
+         brick. Districts are untouched. */
+      if(!TERRAIN_KIT[d]){ c.artPool='hroof'; c.tint=pal; }
       if(entry&&entry.enter){ c.enter=entry.enter; c.ecode=code; }   /* STEP-INSIDE: the dossier says what is in here */
       if(entry&&entry.enter){ c.enter=entry.enter; c.ecode=code; }   /* STEP-INSIDE: the dossier says what is in here */
       if(entry&&entry.enter){ c.enter=entry.enter; c.ecode=code; }   /* STEP-INSIDE: the dossier says what is in here */
