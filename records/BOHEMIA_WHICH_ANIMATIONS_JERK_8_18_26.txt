@@ -1,0 +1,42 @@
+BOHEMIA -- WHICH ANIMATIONS JERK ONCE A BAR
+CHARACTER lane, 8/18/26. Measured on the rendered frame, not on rig maths.
+
+  SEAM RATIO = pixels changing at the wrap / the BIGGEST change between any
+  two neighbouring frames. At or under 1 the wrap is no bigger than a move the
+  clip already makes. Over 1 it is a jump nothing else in the clip matches.
+  103 cyclic clips, 24 rendered frames each, worst of two facings.
+
+   ratio   seam  biggest  dir  clip
+    0.81   2260     2776  SE   weave
+    0.77    564      734  S    flee-sprint
+    0.76   1338     1759  SE   deadeye
+    0.74    742     1006  SE   crouch-aim-2h
+    0.67    527      784  S    argue
+    0.64    379      591  SE   talk
+    0.62    888     1442  S    walk
+    0.57   1345     2377  SE   flee-scramble
+    0.55    769     1406  S    shadowbox
+    0.51   1088     2139  S    balance
+    0.51   1061     2080  SE   twist-stretch
+    0.50     66      131  S    sit-chair
+    0.50    706     1421  S    swagger
+    0.48   1033     2132  S    dizzy
+    0.46    273      598  S    sit-ground
+    0.46   1018     2197  SE   throw
+    0.42    333      800  S    rage
+    0.40   1017     2560  SE   drunk
+    0.37    801     2152  SE   dance
+    0.37    857     2323  SE   heave
+    0.35    159      452  S    preach
+    0.35    727     2105  S    jumping-jacks
+    0.35    470     1361  SE   gun-walk
+    0.32    492     1520  SE   wander
+
+  SNAPS (ratio >= 1.35): 0 of 103
+  FLOWS (ratio < 1.0):   103 of 103
+
+  THE ONE THAT WAS REAL was `drunk`, and it is fixed (8/18): its sway term ran
+  at HALF the frequency of every sibling in the same line -- sin(ph*PI+1.3)
+  against ph*2*PI -- so it flipped sign across the wrap and the hips teleported
+  3.5px sideways every two seconds. Measured seam 1.72 -> 0.40.
+  Held by gates/loop_seam_gate.js. Picture: LOOK tab, THE DRUNK WALK JUMPED.

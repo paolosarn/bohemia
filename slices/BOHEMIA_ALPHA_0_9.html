@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19e - EVERYBODY HAS A BIT NOW</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19f - THE DRUNK WALK STOPPED JUMPING</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3753,9 +3753,23 @@ window.famBuild = famBuild;
    only separates in daylight does not separate.
    Rendering is famPaintBody -- the family cast's own path, not a second painter. */
 var FAC_CARDS = [];
+/* BUILT ONCE, AND NOT DURING BOOT (fixed 8/19). This used to run on a 1500ms timer
+   and it made gates/crowd_gate.js go red on "redrawing the same crowd gives
+   byte-identical pixels". It is NOT a state leak -- measured: calling outfitBuild()
+   explicitly changes neither the crowd already drawn nor what a refresh draws. It is
+   a BOOT RACE. Painting thirteen bodies means thirteen rebuildFromRig() calls, and
+   that much synchronous work in the middle of startup moves when everything else
+   paints; the crowd ended up drawn at a different point in boot than the state it was
+   later refreshed against. The fragility was already there and my timer exposed it.
+   Building on first sight removes the race AND takes thirteen rig rebuilds off the
+   startup path, which is real time on a phone -- and the board is not needed until he
+   is looking at the CHARACTER tab. */
+var OUTFIT_BUILT = false;
 function outfitBuild(){
   var host = document.getElementById('outfitBoard');
   if (!host || !window.drawChar || typeof FACTION_LOOKS === 'undefined') return;
+  if (OUTFIT_BUILT && host.querySelector('canvas[data-faction]')) return;
+  OUTFIT_BUILT = true;
   factionLooksLoad();
   host.innerHTML = ''; FAC_CARDS.length = 0;
   var DIRS8 = ['S','SE','E','NE','N','NW','W','SW'];
@@ -4534,7 +4548,15 @@ const POSE={
 
  /* ===== PROMOTED 7/2/26: Paolo's 20 thumbs-up candidates, permanent, verbatim as judged ===== */
  sneak:(d,ph)=>{if(headOn(d)){const g=nsGait(d,ph,0.5*SWF());g.hipOff=[0,(g.hipOff?g.hipOff[1]:0)+4];g.spine=0.1;return g;}const s=Math.sin(ph*2*Math.PI),m=(RUNMIR[d]?-1:1)*depthFlip(d),as=(ARMSIDE[d]||1);return {spine:0.18,hipOff:[0,4-0.5*Math.abs(s)],legCompressL:0.18,legCompressR:0.18,thighR:0.26*s*m,thighL:-0.26*s*m,shinR:m*0.24*Math.max(0,-s),shinL:m*0.24*Math.max(0,s),upL:-0.18*s*m*as,upR:0.18*s*m*as,foreL:-0.35*m,foreR:-0.35*m};},
- drunk:(d,ph)=>{const s=Math.sin(ph*2*Math.PI),w=Math.sin(ph*Math.PI+1.3),m=(RUNMIR[d]?-1:1)*depthFlip(d);if(headOn(d)){const g=nsGait(d,ph,0.7*SWF());g.spine=0.12*w;return g;}const as=(ARMSIDE[d]||1);return {spine:0.14*w*m,head:-0.1*w,hipOff:[w*1.8,-0.8*Math.abs(s)],thighR:0.36*s*m,thighL:-0.36*s*m,shinR:m*0.3*Math.max(0,-s),shinL:m*0.3*Math.max(0,s),upL:(-0.3*s*m+0.2*w)*as,upR:(0.3*s*m+0.2*w)*as,foreL:-0.2*m,foreR:-0.2*m};},
+ /* THE SWAY USED TO RUN AT HALF THE FREQUENCY OF EVERYTHING ELSE AND FLIP SIGN AT
+    THE WRAP (fixed 8/18). `w` was sin(ph*PI+1.3) while every sibling term here is
+    ph*2*PI: it started at +0.96 and ended at -0.96, and since w drives hipOff the
+    hips TELEPORTED 3.5px sideways once a bar, forever. Measured seam ratio 1.72 --
+    nearly twice the biggest move this clip makes anywhere else, and the only clip
+    in the game that snapped (tools/bohemia_loop_seam_audit.js, 102 of 103 flow).
+    The 1.3 radian offset is KEPT, deliberately: the sway being out of phase with
+    the steps is the whole staggering read. Only the frequency is corrected. */
+ drunk:(d,ph)=>{const s=Math.sin(ph*2*Math.PI),w=Math.sin(ph*2*Math.PI+1.3),m=(RUNMIR[d]?-1:1)*depthFlip(d);if(headOn(d)){const g=nsGait(d,ph,0.7*SWF());g.spine=0.12*w;return g;}const as=(ARMSIDE[d]||1);return {spine:0.14*w*m,head:-0.1*w,hipOff:[w*1.8,-0.8*Math.abs(s)],thighR:0.36*s*m,thighL:-0.36*s*m,shinR:m*0.3*Math.max(0,-s),shinL:m*0.3*Math.max(0,s),upL:(-0.3*s*m+0.2*w)*as,upR:(0.3*s*m+0.2*w)*as,foreL:-0.2*m,foreR:-0.2*m};},
  jump:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const cr=e(0,0.2)*(1-e(0.25,0.4));const air=e(0.25,0.4)*(1-e(0.6,0.85));const land=e(0.6,0.85)*(1-e(0.85,1));const rL=gL(d),rR=gR(d);return {hipOff:[0,6*cr-9*air+4*land],legCompressL:0.3*cr+0.32*land+0.18*air,legCompressR:0.3*cr+0.32*land+0.18*air,spine:spF(d)*(0.06*cr+0.05*land),upL:rL*(0.9*air+0.15*cr),upR:rR*(0.92*air+0.15*cr),foreL:rL*0.2*air,foreR:rR*0.2*air};},
  eat:(d,ph)=>{const c=Math.abs(Math.sin(ph*2*Math.PI));const g=gunT(d,3.5,2);return {ikR:[g[0][0],g[0][1]-5*c],bendR:'auto',upL:0.3,foreL:-0.4,head:0.06*c,spine:0.03};},
  drink:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));const up=e(0.1,0.3)*(1-e(0.7,0.9));const g=gunT(d,3.5,2);return {ikR:[g[0][0],g[0][1]-6*up],bendR:'auto',head:-0.18*up,upL:0.25,foreL:-0.3};},
@@ -8177,6 +8199,7 @@ const PREFAB_B64='PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLT
     fr.srcdoc=new TextDecoder().decode(Uint8Array.from(atob(PREFAB_B64),c=>c.charCodeAt(0)));
     document.getElementById('p-prefab').appendChild(fr);}
   if(t.dataset.p==='clothes'){ if(window.CLO)CLO.build(); }
+  if(t.dataset.p==='char'){ if(window.outfitBuild)outfitBuild(); }   /* the thirteen outfits, built on first sight */
   if(t.dataset.p==='music'){ MUS.build();
     const cf=document.getElementById('combatFrame');   /* ONE ENGINE LAW: mute combat while the studio is open */
     if(cf&&cf.contentWindow)try{cf.contentWindow.postMessage({bohemiaMusicMute:true},'*');}catch(e){} }
@@ -13632,7 +13655,12 @@ function buildUI(){
     };
     setTimeout(function(){ try { window.hairJudgeBuild(); } catch(e){} }, 1200);
     setTimeout(function(){ try { window.famBuild(); } catch(e){} }, 1300);
-    setTimeout(function(){ try { window.outfitBuild(); } catch(e){} }, 1500);
+    /* OFF THE BOOT PATH (8/19). requestIdleCallback runs it once startup has gone
+       quiet; the timeout is the guarantee it happens at all on a browser that never
+       idles. See the note above outfitBuild for why it cannot run during boot. */
+    (function(){ var go=function(){ try { window.outfitBuild(); } catch(e){} };
+      if (window.requestIdleCallback) requestIdleCallback(go, {timeout:2400});
+      else setTimeout(go, 2400); })();
     setTimeout(function(){
       var g=document.getElementById('facGrey');   if(g) g.addEventListener('click', facGreyToggle);
       var x=document.getElementById('facExport'); if(x) x.addEventListener('click', facExport);

@@ -5631,11 +5631,27 @@ FS. THE FIELD SURGERY CLIPS (routed 8/13, HIS DIRECT ORDER: "definitely
         biggest hand move in both.
    RULES OF THUMB: shortest expressible move is 1/12 bar; land ramps on key
    boundaries; a looping clip must return to its start pose.
-   REPO-WIDE, REPORTED NOT ACTED ON: the loop-closure check was run over every clip as
-   information and 31 DO NOT CLOSE -- drunk 11.0px, deadeye 5.7, cheer 5.0, run 3.2,
-   dance 3.2, eat 3.0. Some may be deliberate. It is not failed by this gate because
-   those clips are not this session's work, and a gate that goes red on somebody
-   else's file gets switched off. Next animation lane: the measurement is already taken.
+   *** THE "31 CLIPS DO NOT CLOSE" I FILED HERE THE SAME DAY WAS WRONG, AND IT WAS MY
+   NUMBER -- CORRECTED BELOW, DO NOT ACT ON IT. *** It measured hand travel in
+   rig-space, which says nothing about whether anybody would see it: a 3px hand offset
+   at the seam is invisible in a clip whose normal motion is 2,000 pixels a frame.
+   Measured on the RENDERED FRAME as a ratio against the biggest move each clip already
+   makes: 102 OF 103 CYCLIC CLIPS FLOW. One snapped -- `drunk` -- and it is fixed.
+   The sweep I was recommending would have been 31 fixes to 30 clips that were fine.
+   records/BOHEMIA_WHICH_ANIMATIONS_JERK_8_18_26.txt; gates/loop_seam_gate.js holds it.
+   *** AND THE ONE THAT WAS REAL IS FIXED: `drunk` teleported sideways once a bar and
+   had since it was written. *** Its sway term was sin(ph*PI+1.3) while EVERY sibling
+   term in the same line uses ph*2*PI -- half the frequency, so it started the bar at
+   +0.96 and ended at -0.96, flipping sign at the wrap. It drives hipOff, so the hips
+   moved 3.5px sideways in one frame, every two seconds. Measured seam ratio 1.72 ->
+   0.40; the body's centre used to do its entire 12.5px of travel in the single frame
+   at the restart, and now does 0.3px there. The 1.3 radian offset is KEPT on purpose:
+   the sway being out of phase with the steps is the whole staggering read, and only
+   the frequency was wrong. LOOK tab, "THE DRUNK WALK JUMPED EVERY TWO SECONDS".
+   NEW FLEET NET: gates/loop_seam_gate.js (7 claims, registered as LOOP SEAM) now
+   holds every cyclic clip in the game at a seam ratio under 1.20, so no lane can ship
+   a clip that snaps. Mutation-tested by putting the half-period sway back: red at
+   1.72, naming drunk.
    STILL OPEN AND NOT THIS ROW: RUN consumes the clips in the treat-wound sequence;
    that wiring is RUN's half (ONE SYSTEM, ONE SESSION) and medkit_gate already records
    the treat-wound verb and clip hook as deliberately absent.

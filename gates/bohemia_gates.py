@@ -791,6 +791,17 @@ GATES = [
      'the neck is its own skin TONE not a shadow and never tints a collar; his curtain-bob export ships byte for byte and a repaint can never become a retint', False),
     ('CHAR OUTLINE',   ['node', 'gates/character_outline_gate.js'],
      'the 1px black border wraps every facing: last pass, snapshot-based so it cannot grow on itself, colour only so occupancy still sees the true silhouette', False),
+    ('LOOP SEAM',      ['node', 'gates/loop_seam_gate.js'],
+     'no animation jerks once a bar: a cyclic clip whose LAST rendered frame does not '
+     'lead back into its FIRST snaps at the wrap forever. Scored as a RATIO -- pixels '
+     'changing at the wrap over the biggest change between any two neighbouring frames '
+     '-- so `run` is not called broken for moving a lot. TWO EARLIER RULERS WERE WRONG '
+     'AND BOTH LOOKED FINE: hand travel in rig-space claimed 31 clips were broken when '
+     '102 of 103 were already fine, and a median denominator gave `run` a ratio of 2617 '
+     'because POSEHOLD holds each pose for a whole key so every second step is exactly '
+     'zero. It found the one real defect in the game: drunk`s sway ran at HALF the '
+     'frequency of every sibling term and flipped sign at the wrap, teleporting the hips '
+     '3.5px sideways every two seconds since it was written', False),
     ('FIELD SURGERY',  ['node', 'gates/field_surgery_gate.js'],
      'backlog row FS, his 8/13 order "we\'re gonna need to make animations for this": '
      'three clips for the five-step gunshot treatment he wrote at a bedside. All three '

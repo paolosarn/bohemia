@@ -209,9 +209,23 @@ NEW_BUILD = """window.famBuild = famBuild;
    only separates in daylight does not separate.
    Rendering is famPaintBody -- the family cast's own path, not a second painter. */
 var FAC_CARDS = [];
+/* BUILT ONCE, AND NOT DURING BOOT (fixed 8/19). This used to run on a 1500ms timer
+   and it made gates/crowd_gate.js go red on "redrawing the same crowd gives
+   byte-identical pixels". It is NOT a state leak -- measured: calling outfitBuild()
+   explicitly changes neither the crowd already drawn nor what a refresh draws. It is
+   a BOOT RACE. Painting thirteen bodies means thirteen rebuildFromRig() calls, and
+   that much synchronous work in the middle of startup moves when everything else
+   paints; the crowd ended up drawn at a different point in boot than the state it was
+   later refreshed against. The fragility was already there and my timer exposed it.
+   Building on first sight removes the race AND takes thirteen rig rebuilds off the
+   startup path, which is real time on a phone -- and the board is not needed until he
+   is looking at the CHARACTER tab. */
+var OUTFIT_BUILT = false;
 function outfitBuild(){
   var host = document.getElementById('outfitBoard');
   if (!host || !window.drawChar || typeof FACTION_LOOKS === 'undefined') return;
+  if (OUTFIT_BUILT && host.querySelector('canvas[data-faction]')) return;
+  OUTFIT_BUILT = true;
   factionLooksLoad();
   host.innerHTML = ''; FAC_CARDS.length = 0;
   var DIRS8 = ['S','SE','E','NE','N','NW','W','SW'];
@@ -298,8 +312,17 @@ function facExport(){
 
 # ------------------------------------------------------------ 4. wire the boot
 OLD_BOOT = """    setTimeout(function(){ try { window.famBuild(); } catch(e){} }, 1300);"""
+
+OLD_TAB = """  if(t.dataset.p==='clothes'){ if(window.CLO)CLO.build(); }"""
+NEW_TAB = """  if(t.dataset.p==='clothes'){ if(window.CLO)CLO.build(); }
+  if(t.dataset.p==='char'){ if(window.outfitBuild)outfitBuild(); }   /* the thirteen outfits, built on first sight */"""
 NEW_BOOT = """    setTimeout(function(){ try { window.famBuild(); } catch(e){} }, 1300);
-    setTimeout(function(){ try { window.outfitBuild(); } catch(e){} }, 1500);
+    /* OFF THE BOOT PATH (8/19). requestIdleCallback runs it once startup has gone
+       quiet; the timeout is the guarantee it happens at all on a browser that never
+       idles. See the note above outfitBuild for why it cannot run during boot. */
+    (function(){ var go=function(){ try { window.outfitBuild(); } catch(e){} };
+      if (window.requestIdleCallback) requestIdleCallback(go, {timeout:2400});
+      else setTimeout(go, 2400); })();
     setTimeout(function(){
       var g=document.getElementById('facGrey');   if(g) g.addEventListener('click', facGreyToggle);
       var x=document.getElementById('facExport'); if(x) x.addEventListener('click', facExport);
@@ -308,14 +331,33 @@ NEW_BOOT = """    setTimeout(function(){ try { window.famBuild(); } catch(e){} }
 
 def main():
     alpha = open(ALPHA, encoding='utf8').read()
+    # a stable identifier per edit: present iff that edit is installed, whatever its
+    # current wording is. Never a phrase from the comment prose.
+    marker = {
+        'the thirteen measured fits + his override store': 'window.FACTION_LOOKS = FACTION_LOOKS;',
+        'THE THIRTEEN OUTFITS section in the CHARACTER tab': 'id="outfitBoard"',
+        'the board, WEAR IT / SAVE TO / COLOUR OFF / EXPORT': 'window.outfitBuild = outfitBuild;',
+        'the board builds when it is first looked at, not during boot': 'window.outfitBuild();',
+        'and on the first CHARACTER tab open, since that panel opens by default':
+            "if(t.dataset.p==='char'){ if(window.outfitBuild)outfitBuild(); }",
+    }
     applied, missed = [], []
     for label, old, new in [
         ('the thirteen measured fits + his override store', OLD_TBL, NEW_TBL),
         ('THE THIRTEEN OUTFITS section in the CHARACTER tab', OLD_HTML, NEW_HTML),
         ('the board, WEAR IT / SAVE TO / COLOUR OFF / EXPORT', OLD_BUILD, NEW_BUILD),
-        ('the board builds at boot', OLD_BOOT, NEW_BOOT),
+        ('the board builds when it is first looked at, not during boot', OLD_BOOT, NEW_BOOT),
+        ('and on the first CHARACTER tab open, since that panel opens by default', OLD_TAB, NEW_TAB),
     ]:
-        if new in alpha:
+        # ALREADY-INSTALLED IS NOT THE SAME AS ALREADY-IDENTICAL, and mixing the two
+        # DUPLICATED THE WHOLE BOARD (8/19). This used to skip only when the exact new
+        # text was present, so the moment the shipped copy was edited by so much as a
+        # sentence the tool stopped recognising its own work, found its anchor still
+        # there, and inserted a SECOND outfitBuild. A later duplicate WINS at runtime
+        # while the fresh one sits above it as dead code -- the exact failure
+        # gates/banner_gate.js exists for. Each edit now carries a MARKER that says
+        # "this thing is installed", independent of its wording.
+        if new in alpha or (marker.get(label) and marker[label] in alpha):
             applied.append('(already) ' + label); continue
         n = alpha.count(old)
         if n != 1:

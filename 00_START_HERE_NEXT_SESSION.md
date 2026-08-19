@@ -1,3 +1,112 @@
+CHARACTER (character-0lurbs): 8/19 (c) LATEST -- *** I WENT TO FIX 31 BROKEN
+ANIMATIONS AND FOUND 30 OF THEM WERE FINE. THE ONE THAT WAS REAL IS FIXED.
+TAB: ANIMATION (pick `drunk`), and LOOK for the before/after. ***
+Record: records/BOHEMIA_WHICH_ANIMATIONS_JERK_8_18_26.txt
+Gate: gates/loop_seam_gate.js, 7 claims, registered as LOOP SEAM.
+
+*** READ THIS PART FIRST, BECAUSE THE THING IT CORRECTS IS MINE. *** My last handoff
+said "31 clips do not close their loop, next lane the measurement is already taken."
+THAT NUMBER WAS WRONG. It measured HAND TRAVEL IN RIG-SPACE, which says nothing about
+whether anybody watching would see it: a 3px hand offset at the seam is invisible in a
+clip whose normal motion is 2,000 pixels a frame. Measured on the RENDERED FRAME, as a
+ratio against the biggest move each clip already makes:
+
+    102 OF 103 CYCLIC CLIPS FLOW.  ONE snapped.
+
+The sweep I was recommending would have been 31 fixes to 30 clips that were fine. If
+you read the old note and were about to do it, don't.
+
+THE AUDIT'S OWN FIRST CUT WAS ALSO WRONG, and it is worth knowing why: it used the
+MEDIAN step as the denominator, and POSEHOLD holds each pose for a whole key, so
+sampled across the bar every second step is EXACTLY ZERO -- the median of the series
+is 0. `run` scored a seam ratio of 2617. A summary statistic has to fit the shape of
+the signal; this one alternates hold-move-hold-move, so the peak is the honest
+denominator. Both wrong rulers were caught by the numbers being absurd, not by
+anybody reading the code.
+
+THE ONE THAT WAS REAL: `drunk`, and it had been doing it since it was written.
+    const w = Math.sin(ph*Math.PI + 1.3);     <- HALF a period over the bar
+Every sibling term in that same line uses ph*2*Math.PI. So w started the bar at +0.96
+and ended at -0.96: it FLIPPED SIGN across the wrap. w drives hipOff, so the hips
+teleported 3.5px sideways in one frame, every two seconds, forever. Measured: the
+body's centre used to do its ENTIRE 12.5px of travel in the single frame at the
+restart; it now does 0.3px there. Seam ratio 1.72 -> 0.40.
+The 1.3 radian offset is KEPT on purpose -- the sway being out of phase with the steps
+is the whole staggering read, and only the frequency was wrong. Not a redesign: no
+amplitude, offset, joint or timing changed.
+
+NEW FLEET NET, and it is cheap to keep green: gates/loop_seam_gate.js holds EVERY
+cyclic clip in the game under a seam ratio of 1.20, sampled at FRAME_CACHE.buckets
+(the renderer's own frame count, not the pose grid). Mutation-tested by putting the
+half-period sway back: red at 1.72, naming drunk. Worst in the build now is weave at
+0.81. If you author a clip and this goes red, your loop does not close.
+
+AND A TRAP THAT COST ME TWO SHOTS OF THE PICTURE: POSEHOLD_CACHE. I rendered a
+before/after by borrowing POSE.drunk, and cleared FRAME_CACHE and HD_CACHE but not
+POSEHOLD_CACHE -- so the "before" row cached its posed skeletons and the "after" row
+was served those same poses. Both rows came out byte-identical and the measurement
+under each read 12.5px, which LOOKED like a result. A cache you forget to clear does
+not throw, it agrees with you. Clear all three.
+
+*** AND I BROKE A GATE AND FIXED IT, WITH TWO LESSONS WORTH MORE THAN THE BUG. ***
+crowd_gate went red on "redrawing the same crowd gives byte-identical pixels" and it
+was MINE: the thirteen-outfits board built on a 1500ms boot timer. IT IS NOT A STATE
+LEAK -- measured, calling outfitBuild() explicitly changes neither the crowd already
+drawn nor what a refresh draws. IT IS A BOOT RACE: painting thirteen bodies means
+thirteen rebuildFromRig() calls, and that much synchronous work in the middle of
+startup moves when everything else paints, so the crowd was drawn at a different point
+in boot than the state it was later refreshed against. The fragility was already there
+and my timer exposed it. The board is now built ON FIRST SIGHT (requestIdleCallback
+with a 2400ms guarantee, plus on the first CHARACTER tab open the way the CLOTHES tab
+already does it), which removes the race AND takes thirteen rig rebuilds off the
+startup path -- real time on a phone, and time-to-first-play is a demo row.
+   IF YOU ADD ANYTHING TO BOOT: it is not enough that your feature restores what it
+   borrows. Work on the boot path RESCHEDULES everybody else's paint. Build lazily.
+
+*** THE SECOND LESSON IS NASTIER AND IT NEARLY SHIPPED. *** My patch tool skipped an
+edit only when the EXACT new text was already present. So the moment the shipped copy
+differed by one sentence, the tool stopped recognising its own work, found its anchor
+still in place, and inserted a SECOND copy of the whole board. A later duplicate WINS
+at runtime while the fresh one sits above it as dead code -- the exact failure
+gates/banner_gate.js exists for, and it caught nobody here because the duplicate was
+in the alpha, not an engine module. Every edit in that tool now carries a MARKER that
+says "this is installed" independent of its wording, and the tool is proved idempotent
+by running it twice against an installed tree. ANY LANE WITH AN IDEMPOTENT-BY-STRING
+PATCH TOOL HAS THIS BUG: already-installed is not the same as already-identical.
+
+*** A LOOK RED THAT IS REAL AND IS NOT THE CHARACTER LANE'S -- CITY/WORLD, PLEASE
+READ. *** look_gate is 23/1 and the failing check is right: TWELVE PICTURES IN THE
+LOOK TAB ARE FROM 8/8 and photograph slices/BOHEMIA_CITY_WORLD.html, which has changed
+every day for eleven days. dead-suburb, dead-road, dead-desert, dead-density, vista,
+dead-pit, dead-cluster, the-pit-dug, the-wall, the-claim, the-favour, the-collection.
+They are pictures of last week's city and he is looking at them.
+IT WAS INVISIBLE UNTIL NOW FOR A DULL REASON: the check clocks file mtimes, and a
+fresh checkout stamps every file with the same time, so on a young working tree the
+pictures look exactly as new as the page. Let the tree age past six hours and the
+truth comes out. The gate was passing FALSELY, not passing correctly.
+I did not retake them, deliberately -- they are city-lane pictures of city-lane
+features, framed by driving the world to a coordinate, and re-shooting somebody's
+work without them is how a picture ends up showing the wrong thing. WHAT I DID DO is
+record the shooter for all twelve, so the red now prints the exact line that clears
+each one instead of being a dead end:
+      node tools/bohemia_look_shots.js --only dead-suburb        (etc, one per id)
+The five alpha-clocked pictures in that list were MINE and I retook all five this
+turn; they are green.
+
+WHAT COMES NEXT FOR THIS LANE, IN ORDER:
+ 1. RUN CONSUMES THE FIELD SURGERY CLIPS in the treat-wound sequence -- RUN's half of
+    the same routing (ONE SYSTEM, ONE SESSION). Do not reach across for it.
+ 2. NOBODY WEARS THE THIRTEEN FACTION OUTFITS YET: FACTION_ASSIGN is empty and every
+    agent is faction:null because WHICH FACTION HOLDS WHICH GROUND is his ruling. The
+    fits are ready the day it lands.
+ 3. 2X IS STILL BLOCKED ON PAINTING, NOT CODE (records/BOHEMIA_2X_WHY_THE_RIG_STAYS_
+    AT_56_8_16_26.txt). Two independent arguments for it now: headwear cannot carry
+    identity at 56 (a wide brim is 1.9% of a body), and the 12-key pose grid plus a
+    small rig leaves fine motion nowhere to live.
+ 4. A COOK BRIEF THAT IS ALREADY EXACT: the outline is set at the SHOULDER LINE and
+    the HEM, and 34 of 202 garments carry the whole structural range. A new garment
+    should occupy a silhouette nobody has.
+
 PEOPLE (people-7h9sfy): 8/19 LATEST -- *** EVERYBODY HAS A BIT NOW. Ask anybody
 their name and you get a person, not a surname. TAB: RUN, walk up to somebody,
 press the button at the bottom, then ASK THEIR NAME. Come back after dark and

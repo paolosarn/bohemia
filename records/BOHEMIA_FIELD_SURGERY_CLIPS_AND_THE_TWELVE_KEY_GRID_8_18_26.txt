@@ -71,7 +71,18 @@ THE POSE GRID IS 12 KEYS PER BAR. Design to it, not against it:
     alternates cleanly; 6/bar with a sine is invisible; 7/bar is noise
   - a looping clip must return to its start pose, or it snaps once a bar
 
-AND A REPO-WIDE FINDING, REPORTED AND NOT ACTED ON: the loop-closure check was run
+*** CORRECTED 8/18, LATER THE SAME DAY: THE "31 CLIPS" ABOVE IS WRONG AND IT WAS MY
+NUMBER. *** It measured HAND TRAVEL IN RIG-SPACE, which says nothing about whether
+anybody would see it: a 3px hand offset at the seam is invisible in a clip whose
+normal motion is 2,000 pixels a frame. Measured on the RENDERED FRAME instead, as a
+ratio against the biggest move each clip already makes:
+    102 OF 103 CYCLIC CLIPS FLOW. ONE snaps -- `drunk`, and it is now fixed.
+The sweep I was recommending would have been 31 fixes to 30 clips that were fine.
+Full measurement: records/BOHEMIA_WHICH_ANIMATIONS_JERK_8_18_26.txt, held by
+gates/loop_seam_gate.js.
+
+AND THE ORIGINAL CLAIM, KEPT SO THE CORRECTION HAS SOMETHING TO POINT AT:
+ the loop-closure check was run
 over every clip in the game as information. 31 OF THEM DO NOT CLOSE, some badly --
 drunk 11.0px, deadeye 5.7, cheer 5.0, run 3.2, dance 3.2, eat 3.0. Some of that may be
 deliberate and some is the same defect found here. It is NOT failed by this gate,
