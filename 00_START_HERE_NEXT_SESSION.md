@@ -4745,7 +4745,54 @@ valley should EVER reconnect (41 -- close to the spine of the story); whether cl
 summon's mana; and the MEDICINE-vs-RESOURCES currency name from earlier today.
 
 
-WORLD (city-1eztay): 8/18 (c) LATEST -- *** THE STREETS NEVER FILLED THE BOX. HIS
+WORLD (city-1eztay): 8/18 (d) LATEST -- *** THE SAME BUG FOUR TIMES IN ONE DAY, AND
+NOW THERE IS A MACHINE. 5,526 CELLS, 60% OF THE VALLEY. THE WALKED SURFACE IS 99.7%
+DRAWN BY ITS OWN MODULES. ***
+Tab: RUN -- walk anywhere. Gate: `node gates/walked_surface_gate.js` (in the suite as
+WALKED SURFACE, slow).
+
+A district's engine module is finished, gated and dossiered; the surface Paolo walks
+draws something else. EVERY GATE THAT READS engine/ WAS GREEN THROUGH ALL FOUR, which
+is the point -- a checker that reads the SOURCE cannot see a page that does not read
+the source. Not a gap in one gate, a gap in the SHAPE of every gate we had.
+  1 THE STRIP      resort/strip/casino, NO MODULE AT ALL              204 cells
+  2 EIGHTEEN TYPES a module the page did not CARRY                    165 cells
+  3 THE ROADS      a module carried and IGNORED for a 4-number table  3,386 cells
+  4 THE TERRAIN    same, at ONE OR TWO COLOURS                        1,771 cells
+
+THE FOURTH, measured 3 cells per type off the page's own render function:
+  mountain 927  2 colours 99.7% ONE COLOUR 0.3% built ->  8 colours 37.6% built
+  desert   620  2 colours 99.7% ONE COLOUR            -> 11 colours
+  water     74  1 COLOUR 100%                         -> 10 colours
+  wash      60  2 colours 99.8%                       -> 11 colours 11.8% built
+  rail      90  3 colours 97.7% fallback 0% built     -> 19 colours 19.4% built
+Their modules were building cliff bands, talus fans, creosote in its evenly-spaced
+grid, the lake's BATHTUB RING and a lined flood channel with the SEWER TUNNEL MOUTH
+-- every frame, and throwing it away. Terrain samples GLOBAL coordinates from one
+valley-wide noise field, so a cell not told where it is draws a ridge that stops at
+its own boundary: cellX/cellY go in with the request.
+
+THE MACHINE: gates/walked_surface_gate.js, the ONLY gate that opens the real alpha,
+walks to RUN and asks THE PAGE. Which path drew each type, and how many distinct
+surfaces came back. THREE cells per type and not one -- the first cell found is always
+a valley EDGE cell and edges are not typical; sampling one is exactly how the first
+version of this sweep reported suburb and desert wrong and I nearly shipped it. Debt is
+NAMED, carries a WRITTEN REASON, and RATCHETS BOTH WAYS (a fixed type still on the list
+fails). 75 types, 9,191 of 9,216 cells = 99.7%.
+
+WHAT IS LEFT IS 25 CELLS AND NINE ARE NOT OURS:
+  NEXT ITEM (buildable): convention 6 (the LVCC), prison 4 (desert correctional, NOT
+  the downtown jail), dam 4 (Hoover -- an arch-gravity dam is a CLUSTER like the
+  airfield), minigp 1, fort 1.
+  [PENDING Paolo] IDENTITY: sphere 4, luxor, strat, sign (the Welcome sign), highroller,
+  springs. Named REAL landmarks; what each IS in Bohemia is his ruling.
+  MEASURED EXCLUSION: interchange 16 still draws from the table -- through its module it
+  came back WORSE (8,843 bare tiles, THREE tiles of road, vs 20% drawn) because a stack
+  is built from its cluster's APPROACH data. clusterApproach on the walked surface is
+  the fix and it is small.
+Record: records/BOHEMIA_THE_SAME_BUG_FOUR_TIMES_AND_THE_MACHINE_8_18_26.md
+
+WORLD (city-1eztay): 8/18 (c) -- *** THE STREETS NEVER FILLED THE BOX. HIS
 8/11 RULING WAS BUILT THE SAME DAY AND REACHED THE SCREEN A WEEK LATE. 3,386 CELLS,
 37% OF THE VALLEY. ***
 Tab: RUN -- walk any street. Or MAP.
