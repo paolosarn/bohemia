@@ -2088,16 +2088,55 @@ GATES = [
      'structure frozen in every clip', True),
     ('PURITY',         ['python3', 'gates/bohemia_purity_gate.py'],
      'purple is the Amalgamation alone', True),
+    ('SUITE HONESTY',  ['node', 'gates/suite_honesty_gate.js'],
+     "SILENCE ABOUT AN UNRUN GATE READS EXACTLY LIKE GREEN. A LAW WITHOUT A MACHINE GATE IS "
+     "NOT ENFORCED makes this suite the net and 'green or it does not ship' the rule -- and "
+     "on 8/19 the WORLD lane measured it running 217 of 382 gates before the container clock "
+     "killed it, which this lane then hit twice in one session. Every lane was shipping on a "
+     "PARTIAL run and could not tell which part it missed, because a run that trails off "
+     "mid-table ends on a pass. THE ROOT CAUSE, MEASURED: the per-gate cap was 1800s and "
+     "TOOLS RUN spends all of it (bohemia_district_hero_factory.py takes 31 MINUTES), so ONE "
+     "gate ate thirty of the ~fifty minutes a container survives. The verdict is identical "
+     "either way -- a timeout is a failure -- so the extra 23 minutes bought nothing except "
+     "the last third of the table never running. Now: a 600s cap (the longest HEALTHY gate "
+     "measured is 61s, so two orders of margin), a whole-suite budget that makes the run "
+     "STOP ITSELF WHILE IT CAN STILL SPEAK, an unrun list printed BY NAME, exit 1 on an "
+     "unfinished run because an unrun gate has held nothing, a [n/total] counter on every "
+     "line so a killed run's last line says how far it got, and --only so a lane can use the "
+     "runner's lock and table check instead of calling gates by hand. A FILTERED RUN NEVER "
+     "SAYS ALL GATES GREEN EITHER -- same lie as silence, smaller. This gate RUNS THE RUNNER "
+     "in a child process and reads what it actually prints and exits with, because 'the code "
+     "has an unrun list' and 'the run says so' are different facts. It drives --dry-run, "
+     "which walks the table and executes nothing, so ONE SUITE AT A TIME (7/30) is untouched "
+     "for every run that actually runs something. Both mutations bite: swallow the unrun exit "
+     "code and A6 goes red, restore the 1800s cap and A1 does", False),
 ]
+
+# THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
+# Measured: TOOLS RUN runs bohemia_district_hero_factory.py, which took 31 MINUTES
+# and then hit the old 1800s cap -- so ONE gate ate thirty of the ~fifty minutes a
+# container survives, and the suite never reached the last third of the table. The
+# verdict is identical either way (a timeout is a failure), so the only thing the
+# extra 23 minutes bought was the rest of the suite not running.
+# A GATE THAT CANNOT ANSWER IN TEN MINUTES IS BROKEN AS A SHIP GATE WHETHER IT
+# PASSES OR NOT -- every ship in this repo waits behind it. The longest HEALTHY
+# gate measured is 61s, so this is two orders of margin, not a squeeze.
+GATE_CAP = int(os.environ.get('BOHEMIA_GATE_CAP', '600'))
+# and the whole-suite budget, so a run that cannot finish says so ITSELF rather
+# than being killed mid-sentence by the container and reading like silence.
+SUITE_BUDGET = int(os.environ.get('BOHEMIA_SUITE_BUDGET', '2700'))
+
 
 def run(argv):
     try:
-        p = subprocess.run(argv, capture_output=True, text=True, timeout=1800)
+        p = subprocess.run(argv, capture_output=True, text=True, timeout=GATE_CAP)
         return p.returncode, (p.stdout or '') + (p.stderr or '')
     except FileNotFoundError:
         return 127, 'gate file missing: ' + argv[-1]
     except subprocess.TimeoutExpired:
-        return 124, 'timed out'
+        return 124, ('timed out after %ds (BOHEMIA_GATE_CAP). A gate that cannot '
+                     'answer in that long is broken as a ship gate whether it '
+                     'would pass or not -- every ship waits behind it.' % GATE_CAP)
 
 def summarize(name, out):
     """One line that says what actually happened, not just pass/fail."""
@@ -2191,10 +2230,26 @@ def drop_lock():
 def main():
     fast = '--fast' in sys.argv
     strict = '--strict' in sys.argv
+    dry = '--dry-run' in sys.argv
+    # --only <substring>: run just the gates whose NAME matches. Every lane is
+    # already doing this by hand because the suite stopped finishing; doing it
+    # through the runner keeps the lock, the deps check and the table check.
+    only = None
+    if '--only' in sys.argv:
+        i = sys.argv.index('--only')
+        if i + 1 < len(sys.argv):
+            only = sys.argv[i + 1]
+    # THE LOCK IS FOR RUNS THAT EXECUTE GATES. A dry run rebuilds nothing, drives
+    # no browser and writes no slice, so there is nothing for a second one to
+    # corrupt -- and taking the lock would make it unusable from inside a suite,
+    # which is the only place it is needed. ONE SUITE AT A TIME (7/30) is
+    # untouched for every run that actually runs something.
+    if dry:
+        return _run_all(fast, strict, only, dry=True)
     if not take_lock():
         return 1
     try:
-        return _run_all(fast, strict)
+        return _run_all(fast, strict, only)
     finally:
         drop_lock()
 
@@ -2228,7 +2283,7 @@ def _check_table():
     return False
 
 
-def _run_all(fast, strict):
+def _run_all(fast, strict, only=None, dry=False):
     print('=' * 78)
     print('BOHEMIA GATES')
     print('=' * 78)
@@ -2237,16 +2292,39 @@ def _run_all(fast, strict):
     deps_check()
     failed = []
     t0 = time.time()
-    for name, argv, what, slow in GATES:
+    total = len(GATES)
+    unrun = []                 # the whole point: what never got a turn
+    ran = 0
+    for i, (name, argv, what, slow) in enumerate(GATES):
         if fast and slow:
             print('  %-15s SKIP     %s' % (name, what))
             continue
+        # SILENCE ABOUT AN UNRUN GATE READS EXACTLY LIKE GREEN (8/19). The suite
+        # stopped finishing -- 217 of 382 and then the container clock -- so every
+        # lane was shipping on a partial run and could not tell which part it
+        # missed. Now the run STOPS ITSELF while it can still speak, and names
+        # every gate it did not reach.
+        if only and only.upper() not in name.upper():
+            continue
+        if time.time() - t0 > SUITE_BUDGET:
+            unrun = [g[0] for g in GATES[i:]]
+            break
         t = time.time()
-        rc, out = run(argv)
+        # --dry-run WALKS THE TABLE AND EXECUTES NOTHING. It exists so the
+        # ACCOUNTING -- the budget stop, the unrun list, the exit code, the
+        # --only summary -- can be verified by a gate without a second suite
+        # rebuilding slices underneath the first one. It never reports on a
+        # gate's contents, only on the run's own bookkeeping.
+        if dry:
+            rc, out = 0, ''
+        else:
+            rc, out = run(argv)
         ok = (rc == 0)
         if not ok:
             failed.append(name)
-        print('  %-15s %-8s %-38s %5.1fs' % (name, 'GREEN' if ok else 'FAIL', what, time.time() - t))
+        print('  [%3d/%3d] %-15s %-8s %-30s %5.1fs'
+              % (i + 1, total, name, 'GREEN' if ok else 'FAIL', what[:30], time.time() - t))
+        ran += 1
         s = summarize(name, out)
         if s:
             print('                   %s' % s[:88])
@@ -2257,8 +2335,27 @@ def _run_all(fast, strict):
     print('=' * 78)
     if failed:
         print('  %d GATE(S) FAILED: %s   (%.0fs)' % (len(failed), ', '.join(failed), time.time() - t0))
-    else:
-        print('  ALL GATES GREEN   (%.0fs)' % (time.time() - t0))
+    elif not unrun:
+        # AND IT SAYS HOW MANY. "ALL GATES GREEN" after --only ran one gate is
+        # the same lie as silence about an unrun one.
+        if only:
+            print('  %d of %d GATE(S) GREEN -- filtered by --only %s. THE REST DID '
+                  'NOT RUN AND HELD NOTHING.   (%.0fs)'
+                  % (ran, total, only, time.time() - t0))
+        else:
+            print('  ALL %d GATES GREEN   (%.0fs)' % (ran, time.time() - t0))
+    # AND THE HALF THAT WAS MISSING. An unrun gate has held nothing, so a run
+    # with unrun gates is NEVER a pass -- it is an unfinished run, and it says
+    # so by name and by count rather than trailing off.
+    if unrun:
+        print('  %d GATE(S) NEVER RAN -- the suite hit its %ds budget with %d left.'
+              % (len(unrun), SUITE_BUDGET, len(unrun)))
+        print('  NOT GREEN AND NOT RED: UNFINISHED. These held nothing this run:')
+        for j in range(0, len(unrun), 6):
+            print('    ' + ', '.join(unrun[j:j + 6]))
+        print('  Run them directly, or: python3 gates/bohemia_gates.py --only <name>')
+    if unrun:
+        return 1
     return 1 if (failed and strict) else 0
 
 if __name__ == '__main__':
