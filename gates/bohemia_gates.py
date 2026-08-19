@@ -1009,6 +1009,25 @@ GATES = [
      'module that classifies nineteen tiles and never reaches the glass has shipped nothing -- '
      'the running page had already corrected the rule once, failing six tiles the kit called '
      'non-solid and the walked surface blocks', False),
+    ('OCCUPANCY',      ['node', 'gates/occupancy_gate.js'],
+     'THE GAME AND THE MODEL MUST AGREE ABOUT EVERY TILE, AND UNTIL 8/18 NOTHING HAD EVER '
+     'ASKED. First run, measured on the real page across 40 real district cells: 4,327 of '
+     '4,327 walk-through prop cells DISAGREED with the occupancy model, and 0 of 4,327 after '
+     'the fix. The kit models prop solidity PER TILE and documents it ("prop: an object '
+     'sitting on the ground; SOLID PER ITS SIZE" / "solid = does the tile block a body\'s '
+     'cell at grade") and defaults it to TRUE, so every solid:false in a legend is a district '
+     'author deliberately saying a body may stand there -- 48 declarations across 41 '
+     'districts, in dossiers, held by tilespec_gate and district_kit_gate. The walked surface '
+     'threw away all 48 in ONE LINE that never mentioned tl.solid. NO EXISTING GATE COULD SEE '
+     'IT because each was checking its own side of a seam nobody stood on: district_kit_gate '
+     'holds the model, walkable_gate holds land statistics, tilespec_gate holds the dossier, '
+     'and all three were green. So this gate is a COMPARISON and nothing else -- it asserts '
+     'nothing about which answer is right for any tile (that is the author\'s call, in the '
+     'legend) and only refuses to let the two disagree. Checked in BOTH directions, so "make '
+     'everything walkable" is not a way to pass it: both mutations bite. It also holds the '
+     'half that made the fix safe -- honouring the flag exposed twelve dead trees and two '
+     'hard objects declared walk-through, which would have shipped a player walking through '
+     'tree trunks, so A TRUNK BLOCKS is asserted by name', False),
     ('FURNISH',        ['node', 'gates/furnish_gate.js'],
      'WHAT IS IN THE ROOM, AND THEREFORE WHAT YOU CAN GET BEHIND -- the second half of a '
      'number this lane published the same morning. RETREAT measured the RF4 lift sec 6 '

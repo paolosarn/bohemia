@@ -1,0 +1,208 @@
+#!/usr/bin/env node
+/* OCCUPANCY GATE (8/18/26, WORLD lane) — THE GAME AND THE MODEL MUST AGREE ABOUT EVERY
+ * TILE, AND UNTIL TODAY NOTHING HAD EVER ASKED.
+ *
+ * WHAT IT FOUND ON ITS FIRST RUN, measured on the real page across 40 real district cells:
+ *
+ *     before   4,327 of 4,327 cells disagreed with the occupancy model
+ *     after    0 of 4,327
+ *
+ * engine/bohemia_district_kit.js models tile occupancy PER TILE and documents it:
+ *   "prop  - an object sitting on the ground (cart, pump, tree, furniture); SOLID PER ITS SIZE"
+ *   "solid = does the tile block a body's cell (occupancy) at grade"
+ * Its default for `prop` and `tree-dead` is solid:TRUE, so every `solid:false` in a legend
+ * is a district author DELIBERATELY declaring that a body may stand there — you push
+ * through creosote, you walk over rubble drift, you step past a survey stake. There were 48
+ * such declarations across 41 districts, written into dossiers and held by tilespec_gate
+ * and district_kit_gate.
+ *
+ * The walked surface threw away all 48 in one line — `if(tl.layer==='prop'){ c.walk=false; }`
+ * — which never mentioned tl.solid at all.
+ *
+ * WHY NO EXISTING GATE COULD SEE IT, and this is the whole reason this file exists.
+ * district_kit_gate holds the MODEL. walkable_gate holds land STATISTICS. tilespec_gate
+ * holds the DOSSIER. Every one of them was green, because each was checking its own side of
+ * a seam nobody was standing on. A CONTRADICTION BETWEEN TWO LIVE SYSTEMS IS A BUG AND NEVER
+ * AN INTERPRETATION CHOICE, but it can only be a bug once something compares them.
+ *
+ * SO THIS GATE IS A COMPARISON AND NOTHING ELSE. It boots the real page, walks real district
+ * cells in the real valley, and for every fine cell asks BOTH sides the same question:
+ *   the model  — K.tileLayer(legend[code]).solid
+ *   the game   — cellAt(gx,gy).walk
+ * and requires them to be each other's negation. It asserts nothing about which answer is
+ * right for any particular tile; that is the district author's call and it lives in the
+ * legend. It only refuses to let the two disagree.
+ *
+ * IT ALSO HOLDS THE HALF THAT MADE THE FIX SAFE. Honouring the flag immediately exposed
+ * fifteen declarations that were simply wrong — twelve dead trees, a map kiosk and a
+ * landscaping planter marked walk-through — and shipping the fix without correcting them
+ * would have put the player through tree trunks. A TRUNK BLOCKS, so the gate keeps that
+ * true: nothing whose name is a tree may be non-solid.
+ *
+ *   node gates/occupancy_gate.js
+ */
+const path = require('path');
+const ROOT = path.dirname(__dirname);
+let pass = 0, fail = 0;
+function ok(what, cond) {
+  if (cond) { pass++; console.log('  ok   ' + what); }
+  else { fail++; console.log('  FAIL ' + what); }
+}
+
+require(path.join(ROOT, 'engine/bohemia_world.js'));
+const K = require(path.join(ROOT, 'engine/bohemia_district_kit.js'));
+
+console.log('OCCUPANCY GATE — the game and the model agree about every tile\n');
+
+/* ── 1. THE MODEL STILL MODELS IT ──────────────────────────────────────────────
+   If the kit ever stops answering per tile, the comparison below becomes vacuous — it
+   would be comparing the surface against a constant. Check the ruler before the reading. */
+console.log('THE MODEL STILL ANSWERS PER TILE');
+{
+  const soft = K.tileLayer({ kind: 'prop', solid: false });
+  const hard = K.tileLayer({ kind: 'prop' });
+  ok('a prop that declares solid:false is non-solid', soft.solid === false);
+  ok('and a prop that declares nothing is SOLID by default — which is what makes a ' +
+     'declaration meaningful rather than decorative', hard.solid === true);
+  ok('tree-dead defaults to solid too', K.tileLayer({ kind: 'tree-dead' }).solid === true);
+  ok('and ground is never solid', K.tileLayer({ kind: 'ground' }).solid === false);
+}
+
+/* ── 2. A TRUNK BLOCKS ─────────────────────────────────────────────────────────
+   The half that made honouring the flag safe. Fifteen declarations were wrong; if any
+   comes back, the fix turns into a player walking through a tree. */
+console.log('\nA TRUNK BLOCKS');
+{
+  const trees = [], objects = [];
+  for (const d of K.types()) {
+    const sp = K.get(d);
+    if (!sp || !sp.legend) continue;
+    for (const c in sp.legend) {
+      const L = sp.legend[c], ly = K.tileLayer(L);
+      if (ly.solid) continue;
+      const n = String(L.name || '').toLowerCase();
+      if (/\btree\b/.test(n)) trees.push(d + ':' + c + ' ' + L.name);
+      else if (/\bkiosk\b/.test(n)) objects.push(d + ':' + c + ' ' + L.name);
+    }
+  }
+  ok('no tile named a TREE is walk-through' + (trees.length ? ' — ' + trees.join(', ') : ''),
+     trees.length === 0);
+  ok('and no kiosk is either' + (objects.length ? ' — ' + objects.join(', ') : ''),
+     objects.length === 0);
+  /* AND THE ONE I CORRECTED AND THEN PUT BACK, recorded because a silent revert is
+     indistinguishable from an oversight: strip:7 "planter" reads, in its own act1, "a tree
+     well cut into the promenade, the tree gone, the pit full of grit and trash". That is a
+     recess at grade, not a mass, and it stays walk-through. */
+  const strip = K.get('strip');
+  if (strip && strip.legend[7]) {
+    ok('the Strip tree well stays walk-through — its own description says it is a pit, ' +
+       'not a planter mass', K.tileLayer(strip.legend[7]).solid === false);
+  }
+}
+
+/* ── 3. SOMETHING IS ACTUALLY DECLARED ─────────────────────────────────────────
+   The comparison below passes trivially if no district declares a walk-through prop at
+   all. Count them, so a future "tidy-up" that deletes the declarations cannot look green. */
+console.log('\nTHE DECLARATIONS EXIST TO BE HONOURED');
+let declared = 0, districts = 0;
+for (const d of K.types()) {
+  const sp = K.get(d);
+  if (!sp || !sp.legend) continue;
+  let any = 0;
+  for (const c in sp.legend) {
+    const ly = K.tileLayer(sp.legend[c]);
+    if (ly.layer === 'prop' && !ly.solid) { declared++; any++; }
+  }
+  if (any) districts++;
+}
+console.log('       ' + declared + ' walk-through prop tiles declared across ' + districts +
+            ' districts');
+ok('district authors really do declare walk-through props (' + declared + ' tiles in ' +
+   districts + ' districts), so the comparison below is not vacuous',
+   declared >= 20 && districts >= 20);
+
+/* ── 4. THE COMPARISON, ON THE REAL PAGE ───────────────────────────────────────
+   The only assertion that matters. Everything above is about the ruler. */
+const PAGE = 'slices/BOHEMIA_CITY_WORLD.html';
+function requirePlaywright() {
+  for (const g of ['/opt/node22/lib/node_modules', '/usr/lib/node_modules',
+                   '/usr/local/lib/node_modules']) {
+    try { return require(path.join(g, 'playwright')); } catch (_e) {}
+  }
+  return require('playwright');
+}
+
+(async () => {
+  console.log('\nTHE GAME AND THE MODEL, ASKED THE SAME QUESTION ABOUT THE SAME CELLS');
+  let browser;
+  try {
+    const { chromium } = requirePlaywright();
+    browser = await chromium.launch();
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 },
+                                           hasTouch: true, isMobile: true });
+    const p = await ctx.newPage();
+    const errs = [];
+    p.on('pageerror', e => errs.push(String(e)));
+    await p.goto('file://' + path.join(ROOT, PAGE));
+    await p.waitForTimeout(3500);
+
+    const r = await p.evaluate(() => {
+      const out = { cells: 0, districts: 0, agree: 0, disagree: [], solidChecked: 0,
+                    solidAgree: 0, kinds: {} };
+      const KIT = BohemiaDistrictKit, N = om.n;
+      let seen = 0;
+      for (let ty = 0; ty < N && seen < 40; ty++) for (let tx = 0; tx < N && seen < 40; tx++) {
+        const t = om.at(tx, ty); if (!t) continue;
+        let m; try { m = tileMeta(tx, ty); } catch (e) { continue; }
+        if (!m.kit) continue;                        /* roads/terrain have no plot grid */
+        const sp = KIT.get(m.d); if (!sp || !sp.legend) continue;
+        /* every PROP code in this district, soft and hard alike — asking only about the
+           soft ones would prove half the seam and leave the other half unwatched */
+        const props = {};
+        for (const cd in sp.legend) {
+          const ly = KIT.tileLayer(sp.legend[cd]);
+          if (ly.layer === 'prop') props[+cd] = ly.solid;
+        }
+        if (!Object.keys(props).length) continue;
+        seen++; out.districts++;
+        for (let ly2 = 0; ly2 < FN; ly2++) for (let lx = 0; lx < FN; lx++) {
+          const code = m.kit[ly2 * FN + lx];
+          if (!(code in props)) continue;
+          const solid = props[code];
+          const cc = cellAt(tx * FN + lx, ty * FN + ly2);
+          const walk = !!(cc && cc.walk);
+          if (solid) { out.solidChecked++; if (!walk) out.solidAgree++; }
+          else {
+            out.cells++;
+            if (walk) out.agree++;
+            else if (out.disagree.length < 8)
+              out.disagree.push(m.d + ':' + code + ' ' + sp.legend[code].name);
+          }
+        }
+      }
+      return out;
+    });
+
+    console.log('       ' + r.districts + ' real district cells sampled in the real valley');
+    console.log('       walk-through props : ' + r.agree + ' of ' + r.cells + ' agree');
+    console.log('       solid props        : ' + r.solidAgree + ' of ' + r.solidChecked + ' agree');
+    ok('the sample actually contained walk-through prop cells (' + r.cells + ')', r.cells > 100);
+    ok('EVERY cell the model calls walk-through, the game lets him stand on' +
+       (r.disagree.length ? ' — ' + r.disagree.join(', ') : ''),
+       r.cells > 0 && r.agree === r.cells);
+    ok('and EVERY cell the model calls solid, the game blocks — the seam is checked in ' +
+       'both directions, so "make everything walkable" is not a way to pass this',
+       r.solidChecked > 0 && r.solidAgree === r.solidChecked);
+    ok('no page errors while walking the valley' + (errs.length ? ' — ' + errs[0] : ''),
+       errs.length === 0);
+    await browser.close();
+  } catch (e) {
+    if (browser) try { await browser.close(); } catch (_e) {}
+    ok('the real-surface comparison ran at all — ' + String(e).split('\n')[0], false);
+  }
+
+  console.log('\nOCCUPANCY GATE: ' + pass + ' passed, ' + fail + ' failed  (the game and the ' +
+              'model answer the same question the same way, in both directions, on the ' +
+              'surface he walks)');
+  process.exit(fail ? 1 : 0);
+})();
