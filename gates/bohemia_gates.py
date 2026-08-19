@@ -2108,8 +2108,24 @@ GATES = [
      "in a child process and reads what it actually prints and exits with, because 'the code "
      "has an unrun list' and 'the run says so' are different facts. It drives --dry-run, "
      "which walks the table and executes nothing, so ONE SUITE AT A TIME (7/30) is untouched "
-     "for every run that actually runs something. Both mutations bite: swallow the unrun exit "
-     "code and A6 goes red, restore the 1800s cap and A1 does", False),
+     "for every run that actually runs something. *** AND A SECOND BUG UNDER IT: A TIMED-OUT "
+     "GATE WAS NOT ACTUALLY STOPPING. *** subprocess.run(timeout=) kills the CHILD it started "
+     "and nothing else, so TOOLS RUN's hero factory KEPT RUNNING after the gate was declared "
+     "dead -- caught at FORTY-FIVE MINUTES, burning a core beside every gate that ran after "
+     "it, which means every timing downstream of a timeout was inflated by a process nobody "
+     "could see. Each gate now runs in its own process GROUP and a timeout kills the group; "
+     "proven both ways in a temp dir before the claim was written. *** AND THE ARITHMETIC SAYS "
+     "TRIMMING CANNOT CLOSE THE GAP. *** With both fixed the suite ran 236 gates in 2748s and "
+     "named the 150 that never ran -- honest, and still unfinished. That is ~11.6s a gate, so "
+     "386 need ~75 minutes and a container survives ~50; TOOLS RUN's whole 600s is a third of "
+     "a 25-minute gap. So --shard i/n, interleaved so each shard gets a fair mix rather than "
+     "one inheriting every browser gate. THE CLAIM THAT MATTERS IS COVERAGE, NOT SPEED: a "
+     "scheme that drops or double-runs a gate is WORSE than none because it looks complete, so "
+     "the gate counts the union and the multiplicity against a full run instead of trusting "
+     "the arithmetic. A sharded run never says ALL GATES GREEN either, and a malformed --shard "
+     "refuses rather than quietly running the wrong set. Every mutation bites: swallow the "
+     "unrun exit code (A6), restore the 1800s cap (A1), kill the child instead of the group "
+     "(A11), drop a gate from a shard (A12), overlap the shards (A13)", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).
@@ -2268,6 +2284,21 @@ def main():
     fast = '--fast' in sys.argv
     strict = '--strict' in sys.argv
     dry = '--dry-run' in sys.argv
+    # --shard i/n
+    shard = None
+    if '--shard' in sys.argv:
+        j = sys.argv.index('--shard')
+        if j + 1 < len(sys.argv) and '/' in sys.argv[j + 1]:
+            a, b = sys.argv[j + 1].split('/', 1)
+            try:
+                a, b = int(a), int(b)
+            except ValueError:
+                a = b = 0
+            if b > 0 and 1 <= a <= b:
+                shard = (a, b)
+        if not shard:
+            print('  --shard wants i/n, like --shard 1/2 (1-based). Nothing ran.')
+            return 1
     # --only <substring>: run just the gates whose NAME matches. Every lane is
     # already doing this by hand because the suite stopped finishing; doing it
     # through the runner keeps the lock, the deps check and the table check.
@@ -2282,11 +2313,11 @@ def main():
     # which is the only place it is needed. ONE SUITE AT A TIME (7/30) is
     # untouched for every run that actually runs something.
     if dry:
-        return _run_all(fast, strict, only, dry=True)
+        return _run_all(fast, strict, only, dry=True, shard=shard)
     if not take_lock():
         return 1
     try:
-        return _run_all(fast, strict, only)
+        return _run_all(fast, strict, only, shard=shard)
     finally:
         drop_lock()
 
@@ -2320,7 +2351,7 @@ def _check_table():
     return False
 
 
-def _run_all(fast, strict, only=None, dry=False):
+def _run_all(fast, strict, only=None, dry=False, shard=None):
     print('=' * 78)
     print('BOHEMIA GATES')
     print('=' * 78)
@@ -2342,6 +2373,16 @@ def _run_all(fast, strict, only=None, dry=False):
         # missed. Now the run STOPS ITSELF while it can still speak, and names
         # every gate it did not reach.
         if only and only.upper() not in name.upper():
+            continue
+        # --shard i/n: THE SUITE IS BIGGER THAN A CONTAINER'S LIFETIME AND THAT IS
+        # NOT GOING TO STOP BEING TRUE. Measured 8/19: 236 gates in 2748s, i.e.
+        # ~11.6s a gate, so all 386 need ~75 minutes and a container survives ~50.
+        # Trimming one slow gate cannot close a 25-minute gap. Two shards each
+        # finish comfortably and together cover the table EXACTLY ONCE -- a
+        # complete, honest answer in two runs instead of a partial one in one.
+        # Interleaved (i % n) rather than blocked, so each shard gets a fair mix
+        # of fast and slow gates instead of one shard inheriting all the browsers.
+        if shard and (i % shard[1]) != (shard[0] - 1):
             continue
         if time.time() - t0 > SUITE_BUDGET:
             unrun = [g[0] for g in GATES[i:]]
@@ -2379,6 +2420,10 @@ def _run_all(fast, strict, only=None, dry=False):
             print('  %d of %d GATE(S) GREEN -- filtered by --only %s. THE REST DID '
                   'NOT RUN AND HELD NOTHING.   (%.0fs)'
                   % (ran, total, only, time.time() - t0))
+        elif shard:
+            print('  %d of %d GATE(S) GREEN -- SHARD %d OF %d. THE OTHER SHARD(S) '
+                  'DID NOT RUN AND HELD NOTHING; run them to cover the table.   (%.0fs)'
+                  % (ran, total, shard[0], shard[1], time.time() - t0))
         else:
             print('  ALL %d GATES GREEN   (%.0fs)' % (ran, time.time() - t0))
     # AND THE HALF THAT WAS MISSING. An unrun gate has held nothing, so a run

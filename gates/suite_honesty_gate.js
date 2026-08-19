@@ -149,7 +149,56 @@ ok('A9 …and a filtered run NEVER says ALL GATES GREEN — it says how many of 
   try { fs.rmSync(dir, { recursive: true, force: true }); } catch (_e) {}
 }
 
-/* ---- 5. EVERY LINE SAYS WHERE IT IS ---------------------------------------- */
+/* ---- 5. SHARDING COVERS THE TABLE EXACTLY ONCE ----------------------------- */
+/* THE SUITE IS BIGGER THAN A CONTAINER'S LIFETIME AND THAT IS NOT GOING TO STOP
+   BEING TRUE. Measured 8/19: 236 gates in 2748s (~11.6s a gate), so all 386 need
+   about 75 minutes and a container survives about 50. Trimming one slow gate
+   cannot close a 25-minute gap — TOOLS RUN's whole 600s is only a third of it.
+   Two shards each finish comfortably and together cover the table EXACTLY ONCE.
+
+   THE CLAIM THAT MATTERS IS COVERAGE, NOT SPEED. A sharding scheme that drops or
+   double-runs a gate is worse than no sharding, because it looks like a complete
+   answer. So this counts the union and the multiplicity rather than trusting the
+   arithmetic. */
+{
+  function gatesIn(args) {
+    const r = runSuite({}, ['--dry-run'].concat(args));
+    const out = new Set();
+    for (const line of r.out.split('\n')) {
+      const m = line.match(/^\s*\[\s*(\d+)\/\s*(\d+)\]/);
+      if (m) out.add(Number(m[1]));
+    }
+    return { set: out, code: r.code, raw: r.out };
+  }
+  const full = gatesIn([]);
+  const s1 = gatesIn(['--shard', '1/2']);
+  const s2 = gatesIn(['--shard', '2/2']);
+  const union = new Set([...s1.set, ...s2.set]);
+  const overlap = [...s1.set].filter(x => s2.set.has(x));
+
+  ok('A12 two shards cover the WHOLE table — nothing is dropped, which is the '
+    + 'failure that would matter because a sharding scheme that loses a gate '
+    + 'still looks like a complete answer',
+    union.size === full.set.size && full.set.size > 0
+      && [...full.set].every(x => union.has(x)),
+    'full=' + full.set.size + ' union=' + union.size);
+
+  ok('A13 …and NOTHING RUNS TWICE, so two shards are one pass and not one and a '
+    + 'half',
+    overlap.length === 0, 'overlap: ' + overlap.length);
+
+  ok('A14 …and a sharded run says it is sharded rather than claiming ALL GATES '
+    + 'GREEN — the other shard held nothing, same rule as an unrun gate',
+    /SHARD 1 OF 2/.test(s1.raw) && !/ALL \d+ GATES GREEN/.test(s1.raw),
+    s1.raw.split('\n').slice(-2).join(' | '));
+
+  ok('A15 a malformed --shard refuses instead of silently running everything, '
+    + 'because a typo that runs the wrong set quietly is the whole disease',
+    runSuite({}, ['--dry-run', '--shard', '3/2']).code === 1
+      && runSuite({}, ['--dry-run', '--shard', 'banana']).code === 1);
+}
+
+/* ---- 6. EVERY LINE SAYS WHERE IT IS ---------------------------------------- */
 ok('A10 every gate line carries its position in the table, so a killed run\'s '
   + 'last line tells you exactly how far it got',
   /\[\s*\d+\/\s*\d+\]/.test(only.out), only.out.split('\n').filter(l => /CARD FOLD/.test(l))[0]);

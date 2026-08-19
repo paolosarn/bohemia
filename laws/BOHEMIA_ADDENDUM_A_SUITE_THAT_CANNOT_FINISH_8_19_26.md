@@ -74,6 +74,32 @@ timeout kills the **group**. A gate that is over is over, including whatever it
 spawned. Proven both ways before the claim was written: the old code leaves the
 grandchild alive, the group kill reaps it.
 
+## 3c. AND THE ARITHMETIC SAYS TRIMMING CANNOT CLOSE THE GAP
+
+With the cap fixed and the orphan reaped, the suite ran **236 gates in 2748s**,
+reported **15 failures**, and named **150 gates that never ran** — honest, and
+still unfinished.
+
+That is **~11.6 seconds a gate**, so the full 386 need about **75 minutes**, and a
+container survives about **50**. `TOOLS RUN`'s entire 600s is only a third of a
+25-minute gap. **No amount of trimming one slow gate closes it.**
+
+So: **`--shard i/n`**. Two shards each finish comfortably and together cover the
+table **exactly once** — a complete, honest answer in two runs instead of a
+partial one in one. Interleaved (`i % n`) rather than blocked, so each shard gets
+a fair mix of fast and slow gates instead of one inheriting all the browser gates.
+
+> **THE CLAIM THAT MATTERS IS COVERAGE, NOT SPEED.** A sharding scheme that drops
+> or double-runs a gate is *worse* than no sharding, because it looks like a
+> complete answer. So the gate counts the union and the multiplicity against a
+> full run rather than trusting the arithmetic — and both failure modes are
+> mutation-proven: an off-by-one that drops gates reds A12, an overlap reds A13.
+
+A sharded run also never says ALL GATES GREEN. It says which shard it was, and
+that the others held nothing — **same rule as an unrun gate.** And a malformed
+`--shard` refuses rather than silently running everything, because a typo that
+quietly runs the wrong set is the whole disease.
+
 ## 4. HOW IT IS GATED WITHOUT BREAKING THE LOCK
 
 `gates/suite_honesty_gate.js` **runs the runner in a child process** and reads what
