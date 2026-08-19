@@ -198,6 +198,17 @@
    "kb": 223.4,
    "stamp": "8/8/26",
    "surface": "slices/BOHEMIA_CITY_WORLD.html"
+  },
+  {
+   "id": "they-lost-you",
+   "title": "THEY LOST YOU",
+   "caption": "Put stone between you and them and the guns do not miss, they turn OFF. One thing decides it -- whether a man can actually see you -- and five separate systems ask it: whether he can hold a bead, whether he may shoot, where he walks, whether he runs for cover, and whether he shouts. A man who loses you walks to WHERE YOU WERE, not to where you are. And the one who can still see you tells everyone within eight tiles, so he is the one worth shooting first. COMBAT tab.",
+   "file": "look/they-lost-you.png",
+   "at": null,
+   "kb": 2117.0,
+   "stamp": "8/19/26",
+   "surface": "slices/BOHEMIA_ALPHA_0_9.html",
+   "shooter": "node tools/bohemia_vision_picture.js"
   }
  ]
 }
