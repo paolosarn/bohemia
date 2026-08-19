@@ -1,0 +1,961 @@
+{
+ "_meta": {
+  "what": "ONE THING THAT IS THEIRS. Every person in the valley carries a quirk, derived from the same three numbers they are derived from, delivered through the ask-their-name beat.",
+  "why": "backlog PEOPLE 0t + tone research R1 finding 1: a character nobody laughed with is a character nobody mourns.",
+  "how": "SHAPE x SPECIFIC, typed. Authored twice as the same person: the lit register is the joke, the dark register is the same trait where the power stops.",
+  "generated_by": "tools/bohemia_quirk_factory.py",
+  "draft": "every line is a draft attempt under ALWAYS MAKE AN ATTEMPT (8/11). Editable in the WORDS tab.",
+  "shapes": 22,
+  "specifics": {
+   "object": 16,
+   "place": 12,
+   "ritual": 12
+  },
+  "combinations": 304,
+  "lines": 44,
+  "spans": {
+   "studies": [
+    "Q013",
+    "Q014",
+    "Q017",
+    "Q022",
+    "Q031"
+   ],
+   "masters": [
+    "craft",
+    "flaws",
+    "ports"
+   ]
+  }
+ },
+ "quirks": [
+  {
+   "id": "shows-you-first",
+   "kind": "object",
+   "tell": "carries one thing everywhere and will get it out of their coat given any excuse",
+   "lit": "Yeah, in a second. Look at this first. I've been carrying {it} two years now.",
+   "dark": "You want a name out here? Fine. Hold {it} where I can see your hands.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "not-for-trade",
+   "kind": "object",
+   "tell": "answers questions with one hand over a pocket",
+   "lit": "Sure. And before you work up to it, I'm not trading {it}. Nothing personal.",
+   "dark": "Whatever you came for, you're not getting {it} either. Keep walking, friend.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "belonged-to-somebody",
+   "kind": "object",
+   "tell": "keeps two of the same small thing when one would do",
+   "lit": "Mine's the same as his was. We both carried {it}. I kept the pair when he stopped needing his.",
+   "dark": "He carried {it} too. He isn't here. Neither's the name, if you're following me.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "collects-them",
+   "kind": "object",
+   "tell": "stops mid-sentence to add to a count nobody asked about",
+   "lit": "Hang on. Forty. Forty-one. Sorry, I'm counting. Number one was {it} and I never stopped.",
+   "dark": "Forty-one. I started on {it} and I have to reach fifty before it's light or it doesn't count.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "superstitious-about-it",
+   "kind": "object",
+   "tell": "will not answer while holding a certain thing, and is embarrassed about it",
+   "lit": "Not while I'm carrying {it}. I know. I know it's stupid. Ask me tomorrow and you'll get it.",
+   "dark": "Not while I'm carrying {it}. Not out here. You wouldn't either, if you'd been out here longer.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "writes-it-down",
+   "kind": "object",
+   "tell": "does not say things out loud that can be written instead",
+   "lit": "I'll write it. I don't say it, I write it. Give me a second, I'm using {it}.",
+   "dark": "I'm not saying it out loud tonight. I'll put it down with {it} and you read it somewhere else.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "thinks-it-is-worth-something",
+   "kind": "object",
+   "tell": "talks about a sale that has not happened for a long time",
+   "lit": "Ask me again once I've sold {it}. I'll have a nicer name by then. People say it nicer.",
+   "dark": "The night I sell {it} I'm gone. You won't need to know what to call me.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "talks-about-it-instead",
+   "kind": "object",
+   "tell": "answers a question with an offer",
+   "lit": "Sure, sure. Have you eaten? I've got {it}. That's not food, I know that. I was getting to the food.",
+   "dark": "Don't need my name. Need you to take {it} and go on up the street. Please. Take it.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "narrates-themselves",
+   "kind": "object",
+   "tell": "says out loud what they are doing while they do it",
+   "lit": "'They turn. They give the name. They are still holding {it}.' Sorry. I do that. I've been alone a lot.",
+   "dark": "'They do not give the name. They are still holding {it}.' ...That's how it goes tonight.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "mishears-and-runs-with-it",
+   "kind": "object",
+   "tell": "answers the question they wanted rather than the one asked",
+   "lit": "My what? Oh. I thought you said trade. I'd much rather talk trade. Look at {it}, go on.",
+   "dark": "What? Speak up, I can't hear anything out here past {it} rattling in my coat.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "swears-by-a-place",
+   "kind": "place",
+   "tell": "mentions the same location in every conversation regardless of subject",
+   "lit": "Ask me at {p}. I'm better there. Everybody's better there, that's not just me.",
+   "dark": "Not here. Come to {p} and I'll say it. I won't say it anywhere else, so.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "will-not-go-there",
+   "kind": "place",
+   "tell": "routes around one specific place, every time, without explaining",
+   "lit": "You'll get it out of me anywhere except {p}. Don't ask, it's the stupidest reason you ever heard.",
+   "dark": "It went wrong at {p}. You want a name, don't stand this close to {p}.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "slept-there-once",
+   "kind": "place",
+   "tell": "mentions a winter they do not elaborate on",
+   "lit": "I slept a whole winter at {p}. Ask me anything except that and I'm an open book.",
+   "dark": "I slept at {p}. I still hear it. Stand still a second. You hear it?",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "keeps-a-place-clean",
+   "kind": "place",
+   "tell": "tidies a public place nobody has asked them to tidy",
+   "lit": "Give me a minute, I'm doing {p}. Nobody asked me. Somebody has to and nobody asked me.",
+   "dark": "I still do {p}. Nobody comes through there any more. I still do it.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "waiting-at-a-place",
+   "kind": "place",
+   "tell": "looks past you toward the same direction while you talk",
+   "lit": "I'm supposed to be met at {p}. Have been supposed to for a while now. It's fine.",
+   "dark": "They're coming to {p}. They said so. You didn't see anybody at {p}, did you.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "gives-the-wrong-one-first",
+   "kind": "place",
+   "tell": "gives an answer with the air of somebody who has a second one ready",
+   "lit": "The one I give first isn't the real one. Not a trick, just habit. Ask me again by {p}.",
+   "dark": "You already got the one I give out. Ask again by {p}. If I'm still standing there.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "asks-yours-first",
+   "kind": "place",
+   "tell": "will not go first",
+   "lit": "You go. That's the rule at {p} and I've decided it's the rule everywhere now.",
+   "dark": "You first. Whoever was at {p} tonight got asked the same and they didn't answer either.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "finish-it-first",
+   "kind": "ritual",
+   "tell": "cannot be interrupted partway through a small routine",
+   "lit": "Hang on, I'm {r}. You can't interrupt it. It doesn't work if you interrupt it.",
+   "dark": "Don't. I'm {r}. If I lose count I start again and I don't want to be out here that long.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "apologises-for-it",
+   "kind": "ritual",
+   "tell": "does a small thing and apologises for it in the same motion",
+   "lit": "Sorry. I know. I keep {r}. My mother did it, I hated it, and here we absolutely are.",
+   "dark": "I keep {r}. I know exactly what it looks like. I'd stop if it were safe to stop.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "insists-you-do-it-too",
+   "kind": "ritual",
+   "tell": "expects other people to observe their routine and is genuinely wounded when they do not",
+   "lit": "You didn't. You're meant to. Try {r}. Go on, I'll wait. There. Now we're properly introduced.",
+   "dark": "You have to as well. Start {r}. I'm not telling you my name until you've done it.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "keeps-time-by-it",
+   "kind": "ritual",
+   "tell": "does not read clocks",
+   "lit": "What day is it. No, don't tell me. I get it from {r}. That's how I know, and I'm never wrong.",
+   "dark": "I get it from {r}. It's the only clock I trust and it's been wrong twice this week.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  },
+  {
+   "id": "remembers-everybody",
+   "kind": "ritual",
+   "tell": "greets people by trade before they have spoken",
+   "lit": "I know yours already. I know everybody's on this block. It's {r}, that's the whole trick.",
+   "dark": "I know yours. I know who's stopped being on this block, too. Six. It's {r}.",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q013.W4",
+     "title": "ABSURD WITH HEART (never JUST a gag)",
+     "applied": "the corpus's rule is that the joke is the wrapper and the heart is the gift. So no quirk here is a gag with nothing under it: every shape is a real human core under collapse -- loneliness, pride, superstition, somebody kept waiting -- and the funny half is only how it comes out of their mouth."
+    },
+    {
+     "id": "Q013.W5",
+     "title": "COMMITMENT TO THE BIT",
+     "applied": "\"half-committed comedy dies.\" A quirk that only existed in one line would be half-committed, so every one of these is authored TWICE as the same person and carries a visible TELL as well as a line -- the bit is mechanical, not decorative, and it survives being met a second time in worse light."
+    },
+    {
+     "id": "Q014.W9",
+     "title": "PERSONALITY AS THE PUZZLE",
+     "applied": "\"reading WHO they are IS how you solve it -- characterization doubles as the deduction mechanic.\" The quirk is the first true thing you ever learn about a specific person here, and it arrives through the ask-their-name beat, so characterisation and the game's one social verb are the same action."
+    },
+    {
+     "id": "Q022.P4",
+     "title": "W5 (humanize the functional",
+     "applied": "\"nothing is just a system; everyone is someone.\" The valley's people were scheduled bodies with faction voices: a Blue said Blue things and a scavenger said scavenger things, and no individual said anything. This is the port of that finding onto the generic cast rather than onto named quest-givers."
+    },
+    {
+     "id": "Q031.X2",
+     "title": "STRESS/BLEAKNESS IS RELENTLESS",
+     "applied": "the corpus files unbroken bleakness as a FLAW, not a virtue: \"let the grimness have texture + the occasional small warmth so it's endurable.\" The lit register is that warmth, placed on the map rather than sprinkled -- it lives where the power is on, which is where the player is actually safe."
+    },
+    {
+     "id": "Q017.W3",
+     "title": "READ-THE-PERSON (partly randomized)",
+     "applied": "\"responses shuffle so you must READ the individual, not memorize.\" A quirk is derived from the person's own three numbers, so it is stable for THAT human forever and unguessable across humans -- you cannot learn the table, you can only learn people."
+    }
+   ]
+  }
+ ],
+ "specifics": {
+  "object": [
+   "a drink token from a floor that closed",
+   "a keno card with the numbers still circled",
+   "a room key with the plastic melted flat",
+   "one blue chip",
+   "a marquee bulb that never blew",
+   "a valet ticket numbered forty-one",
+   "a cocktail straw still in its paper",
+   "a folded pool towel",
+   "a slot handle snapped off at the base",
+   "a laminated buffet menu",
+   "a lanyard with somebody else's photo on it",
+   "a nickel that will not spend anywhere",
+   "a house deck with the queens missing",
+   "a room-service pen that still writes",
+   "half a pair of dice",
+   "a luggage tag for a flight that left"
+  ],
+  "place": [
+   "the loading dock behind the kitchens",
+   "the third floor of the parking garage",
+   "the drained pool deck",
+   "the stairwell that still has its light",
+   "the service corridor under the floor",
+   "the bus shelter with the ad still lit",
+   "the roof of the laundry",
+   "the dry fountain basin",
+   "the long ramp where the buses turned",
+   "the loading bay with the clock over it",
+   "the pump house at the end of the row",
+   "the alley behind the shuttered row"
+  ],
+  "ritual": [
+   "counting the lit windows",
+   "saying the day of the week out loud",
+   "checking the same dead payphone",
+   "straightening what is already straight",
+   "tapping the doorframe twice on the way out",
+   "washing up before eating",
+   "winding a watch that does not run",
+   "reading the expiry dates out loud",
+   "walking the block backwards once a week",
+   "keeping one light on for somebody",
+   "shaking out boots before putting them on",
+   "saying goodnight to the block"
+  ]
+ }
+}

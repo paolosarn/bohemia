@@ -1,3 +1,98 @@
+PEOPLE (people-7h9sfy): 8/19 LATEST -- *** EVERYBODY HAS A BIT NOW. Ask anybody
+their name and you get a person, not a surname. TAB: RUN, walk up to somebody,
+press the button at the bottom, then ASK THEIR NAME. Come back after dark and
+they say the other half of it. ***
+
+WHAT SHIPPED: backlog PEOPLE 0t, the attachment half of the demo's cold open.
+22 shapes x 40 typed nouns = 304 distinct quirks, each authored TWICE as the
+SAME person -- 608 utterances out of 106 authored pieces, all draft:true and
+editable in the WORDS tab. Record:
+records/BOHEMIA_ONE_THING_THAT_IS_THEIRS_8_19_26.md
+
+WHY, in the tone research's own sentence: A CHARACTER NOBODY LAUGHED WITH IS A
+CHARACTER NOBODY MOURNS. The demo kills the sibling and it cannot land in a
+valley of 297 interchangeable bodies. MEASURED BEFORE WRITING A WORD: the people
+module held 58 BUCKET lines (every Blue in the valley says the same five
+sentences) and 19 player-reactions, and ZERO things belonging to one human. R1
+had already named the delivery slot exactly -- "what a stranger says when you ask
+their name is where Undertale would put the first laugh" -- and that slot had
+been shipped and standing EMPTY since 7/31.
+
+THE IDEA IS NOT THE VOLUME, IT IS THE DIAL. Benign violation theory (R1 finding
+3): funny and scary are ONE dial, a violation appraised as SAFE, and the switch
+is perceived safety. The valley already owned that dial physically. So the lit
+register is the joke and the dark register is the SAME trait, SAME object, SAME
+human with the safety taken out. Never a different quirk, never a mode switch.
+
+*** THE FINDING THAT MATTERS MOST THIS TURN: IT WAS ABOUT TO SHIP BACKWARDS AND
+EVERY GATE WAS GREEN. *** The register asked dayDark() -- "is this block on a
+live circuit". Driving the real walked surface:
+
+    valley tiles on a live circuit      358 of 9,216   (3.9%)
+    people who live on one              131 of 5,007   (2.6%)
+    conversations that would be DREAD                   97.4%
+
+The joke would have been unreachable. Nothing upstream was wrong; every check
+was asking the same wrong question. A DIAL SOLDERED TO ONE END IS NOT A DIAL.
+The fix was not a new rule but the renderer's OWN test -- `isNight() && !live` --
+because an unpowered lot at noon is a lot, and LIGHT=TERRITORY was always about
+the night. One definition of dark in the file instead of two that drift.
+Re-measured: lit at 07/10/13/16, dark at 19/22/02.
+
+TWO MORE, both caught by machine and not by eye:
+  1. TEMPLATE SUBSTITUTION HAS NO GRAMMAR. First build shipped "Mine's the same
+     as his was. a slot handle snapped off at the base, both of us." A phrase
+     written for mid-sentence, dropped at the start of one. A human cannot
+     eyeball 44 lines x 40 nouns, so the grammar moved INTO THE SPEC and is
+     checked across all 608 renderings.
+  2. A PROBABILISTIC GUARANTEE IS NOT ONE. 304 combos drawn 32 times is a
+     birthday problem: measured 1.63 duplicate pairs per block, worst 7.
+     spreadOver() makes it exact (0.00) while moving only 5.3% of people, and
+     advances the NOUN before the SHAPE so four people with routines stay four
+     different routines.
+
+AND THE ROW LANDS WHEN THE NAME DOES NOT. Six of the sixteen introductions
+refuse a name; under the old card that made a third of the valley unmeetable --
+you pressed the only social button the game has and the world said no.
+
+THE MACHINE: tools/bohemia_quirk_factory.py, engine/bohemia_quirk.js,
+records/BOHEMIA_QUIRKS.json, tools/bohemia_city_quirk_patch.py (idempotent,
+refuses a diff that removes lines), gates/quirk_gate.js (32 assertions, 18
+driving the real alpha in a real browser, mutation-tested THREE ways: a decorative
+lookup goes 4 red, an unwired row goes 3 red, a spread cache keyed on the cell
+alone goes 1 red), dialogue_catalogue_gate 59 -> 62,
+and tools/bohemia_words_book.py grew parse_quirks so every line is editable.
+
+*** A RED ON MAIN THAT IS NOT THIS LANE'S, FOUND BY THE SUITE THIS TURN ***
+DISTRICT FILL is FAILING on main, 51 passed / 2 failed:
+
+    > FAIL arterial is not emptier than it was on 8/2 (20.4% vs 45.1%)
+    > FAIL freeway  is not emptier than it was on 8/2 (36.5% vs 45.8%)
+
+NOT MINE, and checked rather than assumed: that gate reads only
+engine/bohemia_district_kit.js, engine/bohemia_world.js and
+records/BOHEMIA_DISTRICT_FILL_BASELINE_8_2_26.json, and all three are
+byte-identical to origin/main in this tree (git status clean on them). The last
+commit to touch either engine file is f812f41 "THE STRIP WAS NEVER BUILT" (8/18,
+WORLD lane). Two road district types lost more than half their content share
+against the 8/2 baseline, which is exactly the emptying that gate exists to
+catch. WORLD LANE: this is yours and it is live on main right now.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. THE TELL IS AUTHORED, GATED AND NOT ON THE CARD. tellFor() returns what you
+     can SEE about somebody before they speak, for all 22 shapes. It wants a
+     surface that is NOT another row on a card that already has a dozen.
+  2. DEEDS AND STANDING ARE STILL NOT IN THE CITY AT ALL (measured again this
+     turn: zero occurrences of BohemiaDeeds or BohemiaStanding in the walked
+     surface). Two modules that know what the player was SEEN doing, absent from
+     the surface he plays. BOUNDARY WARNING FOUND THIS TURN: the rich deed
+     sources on the card (give / commit / answer-a-claim / take-a-favour) are the
+     FACTIONS lane's sentinels (__CITY_CLAIM__, __CITY_COLLECT__,
+     __CITY_STANDING__, __CITY_FAVOUR__). Wiring standing to observe them means
+     touching their system, which ONE SYSTEM ONE SESSION forbids. Do not start
+     this without checking who is live on factions.
+  3. Quest volume: the questbook is 152 studies and the corpus cites a fraction.
+
 RUN (run-eak241): 8/19 LATEST -- *** THE COLD OPEN WAS SITTING ON THE PHONE.
 The story hook was covering the job. TAB: RUN, the first morning. ***
 

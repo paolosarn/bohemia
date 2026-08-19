@@ -5077,7 +5077,47 @@ P-F. [CLOSED 8/4 BY P-O ABOVE. It was RIGHT that this needed its own turn, right
    garble. Ask, never fill. | one judge sheet, all factions side by side |
    standing ledger (below) is the mechanism half, ships empty regardless |
    yes (the dossiers ARE the judgeable).
-0t. THE ATTACHMENT PATTERN (tone research R1, 8/12 — records/BOHEMIA_TONE_
+0t. [SHIPPED 8/19 — records/BOHEMIA_ONE_THING_THAT_IS_THEIRS_8_19_26.md]
+   *** EVERY PERSON IN THE VALLEY NOW CARRIES ONE THING THAT IS THEIRS, AND YOU
+   MEET IT WHEN YOU ASK THEIR NAME. *** 22 shapes x 40 typed nouns = 304 distinct
+   quirks, each authored TWICE as the SAME person (608 utterances from 106
+   authored pieces), all draft:true and editable in the WORDS tab. Delivered on
+   the talk card in the RUN tab, directly under NAME, because R1 named the
+   ask-their-name beat as the slot: "what a stranger says when you ask their name
+   is where Undertale would put the first laugh."
+   THE IDEA, not the volume: benign violation theory says funny and scary are ONE
+   DIAL, and the valley already owned that dial physically. Lit register = the
+   joke; dark register = the SAME trait, SAME object, SAME human, with the safety
+   taken out. Never a different quirk and never a mode switch. Walking (or waiting
+   for night) between them IS the tone transition R1 asked for, at zero new
+   systems.
+   *** THE FINDING THAT MATTERS: IT WAS ABOUT TO SHIP BACKWARDS AND EVERY GATE WAS
+   GREEN. *** The register was decided by dayDark() (is this block on a live
+   circuit). Driving the real walked surface measured 358 of 9,216 valley tiles
+   live (3.9%) and 131 of 5,007 people living on one (2.6%): 97.4% of every
+   conversation in the game would have played the DREAD line and the joke, the
+   whole reason the feature exists, would have been unreachable. Nothing upstream
+   was wrong; every check was asking the same wrong question. A DIAL SOLDERED TO
+   ONE END IS NOT A DIAL. Fixed with the renderer's OWN test (isNight() AND not
+   live) rather than a second definition of dark, because an unpowered lot at noon
+   is a lot -- and LIGHT=TERRITORY was always about the night. Re-measured: lit at
+   07/10/13/16, dark at 19/22/02.
+   ALSO FIXED, both caught by machine not by eye: template substitution has no
+   grammar (the grammar contract is now in the SPEC and checked across all 608
+   renderings), and a probabilistic distinctness guarantee is not one (304 combos
+   drawn 32 times is a birthday problem -- measured 1.63 duplicate pairs per block,
+   worst 7; spreadOver() makes it exact at 0.00 while moving only 5.3% of people).
+   AND THE ROW LANDS WHEN THE NAME DOES NOT: six of the sixteen introductions
+   refuse a name, and under the old card that made a third of the valley
+   unmeetable -- you pressed the only social button the game has and got nothing.
+   | gate: ONE THING THAT IS THEIRS, 32 assertions (18 driving the real alpha in a
+   real browser), mutation-tested three ways; DIALOGUE CATALOGUE 59 -> 62 | words =
+   drafts, he edits live in WORDS | no (drafts).
+   STILL OPEN OFF THIS ROW: the TELL (what you can SEE about somebody before they
+   speak) is authored, gated and reachable via tellFor(), and is NOT on the card
+   yet -- it wants a surface that is not another row.
+
+0t-ORIGINAL. THE ATTACHMENT PATTERN (tone research R1, 8/12 — records/BOHEMIA_TONE_
    RESEARCH_R1_8_12_26.md; Paolo's tone canon: Undertale/Deltarune/F&H/
    Termina — funny, uncanny, traumatizing, fun): EVERY character, named or
    generic, carries ONE endearing or funny surface reachable through

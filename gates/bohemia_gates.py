@@ -1209,6 +1209,26 @@ GATES = [
      'inside a try/catch that ate it. A CAUGHT EXCEPTION IN A DRAW PATH IS A FEATURE THAT '
      'SILENTLY DOES NOTHING. So the claim is the same frame drawn silent and spoken, and the '
      'pixels must DIFFER', False),
+    ('ONE THING THAT IS THEIRS', ['node', 'gates/quirk_gate.js'],
+     'Every person in the valley was interchangeable: 58 BUCKET lines (every Blue says the '
+     'same five sentences) and 19 player-reactions, and ZERO things belonging to one human. '
+     'Tone research R1 finding 1: A CHARACTER NOBODY LAUGHED WITH IS A CHARACTER NOBODY '
+     'MOURNS -- the demo kills the sibling and that cannot land in a valley nobody has been '
+     'charmed by. R1 named the slot exactly ("what a stranger says when you ask their name is '
+     'where Undertale would put the first laugh") and the slot had been shipped and EMPTY '
+     'since 7/31. Now 22 shapes x 40 typed nouns = 304 quirks, each authored TWICE AS THE '
+     'SAME PERSON: benign violation theory says funny and scary are ONE DIAL (a violation '
+     'appraised as SAFE), so the lit register is the joke and the dark one is the same trait '
+     'with the safety taken out. *** IT WAS ABOUT TO SHIP BACKWARDS AND ONLY THE REAL SURFACE '
+     'KNEW: *** the register asked dayDark() alone, and driving the walked world measured 358 '
+     'of 9,216 tiles live (3.9%) and 131 of 5,007 people on one (2.6%) -- 97.4% of every '
+     'conversation would have been the DREAD line and the joke would have been unreachable, '
+     'with every gate green because every gate asked the same wrong question. A DIAL SOLDERED '
+     'TO ONE END IS NOT A DIAL. The fix is the renderer\'s own test (isNight() AND not live), '
+     'because an unpowered lot at noon is a lot. Also holds the GRAMMAR CONTRACT (all 608 '
+     'renderings: no noun opens a sentence, after the first build shipped "Mine\'s the same '
+     'as his was. a slot handle snapped off at the base"), and NOBODY ON A STREET SHARES A '
+     'BIT (measured 1.63 duplicate pairs per block -> 0.00, moving only 5.3% of people)', False),
     ('ASKING', ['node', 'gates/asking_gate.js'],
      'The overheard-fact log shipped READ-ONLY: eleven true things about this valley and no '
      'way to do anything with any of them. Q018.W3 THE RUMOR WEB asks for a thread to PULL, '
