@@ -1029,6 +1029,26 @@ GATES = [
      'field coordinate and both collapse to exactly 71/71, identical, no seam at all. It '
      'also proves the DELIBERATELY EXCLUDED types (mountain, water) still take the rectangle '
      'fallback, so the exclusion is a live decision and the fallback is not dead code', False),
+    ('FIGHT ROOM',     ['node', 'gates/fightroom_gate.js'],
+     'THE FIGHT WAS TOLD THE ROOM IS A RECTANGLE. __CITY_FIGHT__ made the door the fight, and '
+     'the handoff it posted to combat described the room as {w, h, zone} -- two numbers and a '
+     'label -- because walls as cover and doorways as chokepoints "belong to the teardown '
+     'spec, WHICH DOES NOT EXIST". It exists now (8/18), so the seam was the last thing left. '
+     'IT IS THE PUREST FORM OF WHAT THE LIFT sec 6 WARNS ABOUT: this lane spent a day making '
+     'the floor mean something -- cover you can get behind, ground that kills or slows, a '
+     'measured retreat guarantee -- and at the moment a fight starts, combat got a BOX. The '
+     'room now rides as one character per cell: floor, cover (chest-high and knee-high as '
+     'DIFFERENT characters, because only one of them hides you), the hazard channel, the '
+     'doorways as chokepoints, and the retreat obligation MEASURED FOR THAT ROOM. THE LEGEND '
+     'RIDES IN THE PAYLOAD so combat never guesses and neither side can silently redefine a '
+     'character. The gate asserts the map IS the room he is standing in, cell for cell, '
+     'against inPassable() -- the same seam bug that had the occupancy model and the walked '
+     'surface disagreeing about 4,327 of 4,327 cells -- and cross-checks the retreat cell '
+     'count against the standable cells in the map, two independent counts of one room. Both '
+     'mutations bite: flatten cover into one character and it names it; make the map forget '
+     'that furniture blocks and it names the coordinates. NOT COMBAT CODE and it decides '
+     'nothing about the fight -- WORLD owns making the room legible, COMBAT owns what to do '
+     'with it', False),
     ('OCCUPANCY',      ['node', 'gates/occupancy_gate.js'],
      'THE GAME AND THE MODEL MUST AGREE ABOUT EVERY TILE, AND UNTIL 8/18 NOTHING HAD EVER '
      'ASKED. First run, measured on the real page across 40 real district cells: 4,327 of '

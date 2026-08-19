@@ -1,3 +1,64 @@
+WORLD (world-9lfjtf): 8/19 (a) LATEST -- *** THE FIGHT WAS TOLD THE ROOM IS A RECTANGLE.
+IT ISN'T ANY MORE. TAB: RUN -- walk in a door and the fight now knows what it is standing
+in. ***
+
+FOR THE COMBAT LANE, THIS IS THE ONE TO READ. __CITY_FIGHT__ made the door the fight, and
+the handoff it posts you described the room as:
+
+    room:{ w: fp.W, h: fp.H, zone: INSIDE.zone }
+
+TWO NUMBERS AND A LABEL. Its own comment said why -- walls as cover and doorways as
+chokepoints "belong to the teardown spec, WHICH DOES NOT EXIST". THAT SPEC EXISTS NOW
+(records/BOHEMIA_RF4_TEARDOWN_SPEC.md, LAB, 8/18), so the reason was gone and the seam was
+the only thing left.
+
+*** AND IT IS THE PUREST FORM OF WHAT THE LIFT §6 WARNS ABOUT. *** This lane spent a day
+making the floor mean something -- cover you can get behind, ground that kills or slows you,
+a measured retreat guarantee -- and AT THE MOMENT A FIGHT STARTS, COMBAT GOT A BOX. Every
+one of those systems was invisible exactly where it was built to matter.
+
+WHAT RIDES NOW, measured off a real 21x12 house entered through its own door:
+    floor    252 chars for 252 cells, 142 standable -- a real map, row-major
+    cover    5 'C' chest-to-head (blocks body AND look), 16 'l' knee-to-waist (body only,
+             NEVER the look -- there is no crouch, a sofa cannot hide you)
+    ground   the hazard channel: K kills / A +50% physical / D no sprint. Empty indoors
+             today, shipped anyway so you read ONE shape indoors and out.
+    doors    5 chokepoints as coordinates -- a body in a doorway is a tool in his corpus
+    retreat  {ok:true, cells:142, stranded:0, worst:10, loops:75, pinches:6} FOR THAT ROOM
+    legend   IN THE PAYLOAD, so you never guess what a character means and neither side can
+             silently redefine one
+
+  tools/bohemia_city_fightroom_patch.py   the seam
+  gates/fightroom_gate.js                 12 checks, 2 mutations confirmed
+
+THIS IS NOT COMBAT CODE AND IT DECIDES NOTHING ABOUT THE FIGHT. §6 routes machines 1, 3, 4,
+7, 8 and 9 to you; WORLD owns making the room legible and that is where I stopped. What to
+DO with cover, chokepoints and a retreat number is yours.
+
+*** AND THE MEASURE HAD TO BE INLINED TO GET THERE, which is the same trap as yesterday. ***
+First run produced every field correct and `retreat` simply ABSENT -- engine/bohemia_retreat.js
+had only ever existed node-side for a gate. A DEPENDENCY THAT IS NOT THERE FAILS EXACTLY LIKE
+A FEATURE THAT WAS NEVER WIRED, and the only thing that told them apart was reading the
+payload off the running page instead of re-reading the patch. Second time in two days.
+
+THE GATE STANDS ON THE SEAM AND NOWHERE ELSE: the map must BE the room he is standing in,
+cell for cell, checked against inPassable() -- the same class of bug that had the occupancy
+model and the walked surface disagreeing about 4,327 of 4,327 cells -- and the retreat cell
+count is cross-checked against the standable cells in the map, two independent counts of one
+room. Flatten cover into one character and it goes red; make the map forget that furniture
+blocks and it names the coordinates.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. THE HAZARD CHANNEL IS EMPTY INDOORS because floorplans carry no terrain. When an
+     OUTDOOR fight exists, the ground channel wants the district's hazard classes -- the
+     wiring is already shaped for it, it just has nothing to say inside a house.
+  2. The three genuinely fatal drops modelled as STRUCTURE (quarry:7 bench crest, intake:13
+     shaft, reclaim:6 crusted pond) -- the model says wall, the world means hole.
+  3. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+  4. THE ROADS ARE THE LAST PARAMETRIC SURFACE -- arterial/freeway/rail/interchange still
+     draw from a four-number XSEC table, the way terrain drew from ten rectangles until
+     yesterday. NOT MINE: it is the other WORLD session's ground (they did the Strip 8/18).
+
 WORLD (world-9lfjtf): 8/18 (g) LATEST -- *** THE MOUNTAINS AND THE LAKE ARE REAL NOW, AND
 I HAD THE DIAGNOSIS WRONG TWICE BEFORE I HAD IT RIGHT. TAB: RUN -- walk to the edge of the
 valley, or out onto the lakebed. ***
