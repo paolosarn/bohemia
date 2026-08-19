@@ -17278,6 +17278,10 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
   // (Strip podium+tower / the boulevard itself / a no-setback downtown floor).
   var RES= HASREQ ? require('./bohemia_resort.js')          : (typeof BohemiaResort!=='undefined'?BohemiaResort:root.BohemiaResort);
   var CAS= HASREQ ? require('./bohemia_casino.js')          : (typeof BohemiaCasino!=='undefined'?BohemiaCasino:root.BohemiaCasino);
+  // THE LAST FIVE (8/19): convention / prison / dam / minigp / fort. Every one is a
+  // CLUSTER -- one blob spanning 1 to 6 cells -- so they lay out in valley coordinates and
+  // each cell copies its window, the airfield's pattern.
+  var LMK= HASREQ ? require('./bohemia_landmarks.js')      : (typeof BohemiaLandmarks!=='undefined'?BohemiaLandmarks:root.BohemiaLandmarks);
   var STR= HASREQ ? require('./bohemia_strip.js')           : (typeof BohemiaStrip!=='undefined'?BohemiaStrip:root.BohemiaStrip);
 
   // THE FACTORY (Paolo 7/18): a district TYPE -> its generator. Adding a district is now
@@ -17331,6 +17335,11 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
     // GAMING & RESORT (8/18): the two gaming PLOTS. `strip` is the boulevard itself and is
     // a SURFACE, not a district — it is in SURFACEGEN below, with the roads it belongs to.
     resort:     { mod:RES, foot:function(r){return r.footprints;},           zone:'leisure' },
+    convention: { mod:KIT.get('convention'), foot:function(r){return r.footprints;}, zone:'civic', cluster:true },
+    prison:     { mod:KIT.get('prison'),     foot:function(r){return r.footprints;}, zone:'institutional', cluster:true },
+    dam:        { mod:KIT.get('dam'),        foot:function(r){return r.footprints;}, zone:'warehouse', cluster:true },
+    minigp:     { mod:KIT.get('minigp'),     foot:function(r){return r.footprints;}, zone:'leisure', cluster:true },
+    fort:       { mod:KIT.get('fort'),       foot:function(r){return r.footprints;}, zone:'civic', cluster:true },
     casino:     { mod:CAS, foot:function(r){return r.footprints;},           zone:'leisure' },
     // THE TWELVE UTILITY LANDMARKS (8/5). Every one of these was already SITED by the
     // overmap with real geography behind it (Sloan quarry, the granary on the rail line,
@@ -17794,8 +17803,16 @@ if(typeof module!=='undefined')module.exports=BOH_FLOORPLAN;
            on every residential cell in the valley from 7/14 to 8/1.
            ONE ARGUMENT, exactly the shape `streets` already had. Every other
            generator ignores it; the ones that care read it. */
-        var gres=dg.mod.generate(cell.seed>>>0,
-          {cw:1,ch:1,streets:streets,district:cell.district});
+        /* A CLUSTER DISTRICT IS A BLOB, NOT A CELL (8/19). A convention centre is 288 m
+           across and a cell is 96 m, so handed only its own cell it builds a whole small
+           convention centre -- and the 3x2 blob becomes SIX of them in a row. That is the
+           defect the airfield fixed on 7/26 and the Strip on 8/18. These five lay out in
+           VALLEY coordinates against the bounds of the whole blob and each cell copies its
+           own window, so the seams line up by construction. */
+        var _co = {cw:1,ch:1,streets:streets,district:cell.district};
+        if(dg.cluster){ _co.bounds=clusterBoundsOf(m,x,y,cell.district);
+                        _co.cellX=x; _co.cellY=y; _co.kind=cell.district; }
+        var gres=dg.mod.generate(cell.seed>>>0, _co);
         var feet=dg.foot(gres)||[];
         // LAYERING (Paolo 7/19): expose the recorded per-tile layer/occupancy/interior so the
         // renderer + collision + interior/zoom systems can READ what blocks, what you pass

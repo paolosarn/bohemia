@@ -35,12 +35,9 @@ const MIN_COLOURS = 5;          // below this a cell is a painted rectangle, not
 
 /* NO MODULE AT ALL, and named rather than quietly waved through. */
 const NO_MODULE_DEBT = {
-  // BUILDABLE. Real building types, nobody's reserved canon, and this lane's next item.
-  convention: 'the Las Vegas Convention Center: exhibit halls + a dock wall. 6 cells.',
-  prison:     'a desert correctional facility, distinct from the downtown `jail`. 4 cells.',
-  dam:        'Hoover Dam -- an arch-gravity dam is a CLUSTER, like the airfield. 4 cells.',
-  minigp:     'a kart circuit: road course, pit lane, paddock. 1 cell.',
-  fort:       'the Old Mormon Fort. 1 cell.',
+  // BUILDABLE: EMPTY, 8/19. The five that were here -- convention, prison, dam, minigp,
+  // fort -- are built (engine/bohemia_landmarks.js), so they came OFF this list rather than
+  // sitting on it green, which is what the ratchet below exists to force.
   // IDENTITY, and therefore NOT MINE (MECHANISM-MINE / CONTENTS-PAOLO'S). Every one of
   // these is a NAMED, REAL Las Vegas landmark, and what each one IS in Bohemia -- who holds
   // it, what it became -- is Paolo's ruling. Building them before he rules would be

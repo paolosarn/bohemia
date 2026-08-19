@@ -59,11 +59,16 @@ One sheet per built district: every tile code -> name, kind, ACT-1 dead-world ma
 | [arterial_x](tilespec/BOHEMIA_TILESPEC_arterial_x.md) | (uncategorized) | 18 | yes |
 | [basin](tilespec/BOHEMIA_TILESPEC_basin.md) | infrastructure | 15 | yes |
 | [casino](tilespec/BOHEMIA_TILESPEC_casino.md) | gaming_resort | 16 | yes |
+| [convention](tilespec/BOHEMIA_TILESPEC_convention.md) | civic | 13 | yes |
+| [dam](tilespec/BOHEMIA_TILESPEC_dam.md) | infrastructure | 13 | yes |
 | [datafort](tilespec/BOHEMIA_TILESPEC_datafort.md) | infrastructure | 15 | yes |
+| [fort](tilespec/BOHEMIA_TILESPEC_fort.md) | civic | 13 | yes |
 | [fueldepot](tilespec/BOHEMIA_TILESPEC_fueldepot.md) | industrial | 15 | yes |
 | [granary](tilespec/BOHEMIA_TILESPEC_granary.md) | industrial | 15 | yes |
 | [gypsum](tilespec/BOHEMIA_TILESPEC_gypsum.md) | infrastructure | 15 | yes |
 | [intake](tilespec/BOHEMIA_TILESPEC_intake.md) | infrastructure | 15 | yes |
+| [minigp](tilespec/BOHEMIA_TILESPEC_minigp.md) | leisure | 13 | yes |
+| [prison](tilespec/BOHEMIA_TILESPEC_prison.md) | civic | 13 | yes |
 | [pumpstation](tilespec/BOHEMIA_TILESPEC_pumpstation.md) | infrastructure | 15 | yes |
 | [quarry](tilespec/BOHEMIA_TILESPEC_quarry.md) | infrastructure | 15 | yes |
 | [radio](tilespec/BOHEMIA_TILESPEC_radio.md) | infrastructure | 15 | yes |
