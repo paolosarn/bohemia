@@ -1339,10 +1339,10 @@
    "path": "engine/bohemia_exchanges.js",
    "kind": "engine",
    "verdict": "SHOWN (all)",
-   "samples": 10,
-   "hits_shown": 10,
+   "samples": 14,
+   "hits_shown": 14,
    "hits_loaded": 1,
-   "bytes": 34403
+   "bytes": 43400
   },
   {
    "path": "engine/bohemia_farm.js",

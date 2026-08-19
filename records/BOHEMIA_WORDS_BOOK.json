@@ -4,9 +4,9 @@
   "why": "DIALOGUE ALWAYS REFERS TO THE CATALOGUE (Paolo 8/11, LOCKED). He does not approve dialogue; he edits it later, and later happens in the WORDS tab this file bakes.",
   "generator": "tools/bohemia_words_book.py",
   "sources": 33,
-  "lines": 1769,
-  "cited": 1763,
-  "fingerprint": "c2cc9a9abb1e884a",
+  "lines": 1793,
+  "cited": 1787,
+  "fingerprint": "e903e054df144fc1",
   "index": "records/BOHEMIA_QUESTBOOK_LAW_INDEX.json (3672 laws)"
  },
  "books": [
@@ -55094,6 +55094,558 @@
        "id": "Q018.W3",
        "title": "THE RUMOR WEB (curiosity as the quest log)",
        "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-asking-heard.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-asking-heard (about)  [never heard]",
+     "text": "Somebody has been going round asking about the water.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-asking-heard.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-asking-heard (about)",
+     "text": "Asking who?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-asking-heard.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-asking-heard (about)",
+     "text": "Anybody who will stand still. Not from here, whoever it is.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-asking-heard.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-asking-heard (about)",
+     "text": "Then they will run out of people who stand still.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-asking-seen.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-asking-seen (about)  [never heard]",
+     "text": "That one asked me about the pressure.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-asking-seen.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-asking-seen (about)",
+     "text": "What did you tell them?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-asking-seen.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-asking-seen (about)",
+     "text": "What everybody knows. They already knew it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-asking-seen.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-asking-seen (about)",
+     "text": "So they were checking whether you would say it.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-doors-heard.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-doors-heard (about)  [never heard]",
+     "text": "How many doors is that now?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-doors-heard.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-doors-heard (about)  [never heard]",
+     "text": "Six that I have counted. Same street twice.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-doors-heard.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-doors-heard (about)",
+     "text": "Nobody walks a street twice by accident.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-doors-heard.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-doors-heard (about)",
+     "text": "They do if they are counting something themselves.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-doors-seen.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-doors-seen (about)  [never heard]",
+     "text": "They came to me first.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-doors-seen.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-doors-seen (about)",
+     "text": "They came to me second, then.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-doors-seen.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-doors-seen (about)",
+     "text": "Did you give them anything?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-doors-seen.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-doors-seen (about)",
+     "text": "I gave them what I give everybody. It is what they asked after that I am still thinking about.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q007.W10",
+       "title": "CROSS-SYSTEM CONSEQUENCE",
+       "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-names-heard.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-names-heard (about)  [never heard]",
+     "text": "They have been taking names.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-names-heard.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-names-heard (about)",
+     "text": "Taking them where?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-names-heard.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-names-heard (about)",
+     "text": "Nowhere. Just taking them. That is the part I do not like.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-names-heard.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-names-heard (about)",
+     "text": "A name is the one thing you cannot hand back after.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q062.P6",
+       "title": "W6 (external validation / the witness makes it real",
+       "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-names-seen.0",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-names-seen (about)  [never heard]",
+     "text": "They asked me what I am called.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-names-seen.1",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-names-seen (about)  [never heard]",
+     "text": "Did you tell them?",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-names-seen.2",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-names-seen (about)",
+     "text": "I did. And they said it back to me, once, like they were putting it somewhere.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+      }
+     ],
+     "citeLevel": "line",
+     "title": "WHAT TWO PEOPLE SAY TO EACH OTHER"
+    },
+    {
+     "kind": "exchange",
+     "id": "records/BOHEMIA_EXCHANGES.json#you-names-seen.3",
+     "src": "records/BOHEMIA_EXCHANGES.json",
+     "speaker": "any",
+     "node": "you-names-seen (about)",
+     "text": "Then it is somewhere.",
+     "draft": true,
+     "cites": [
+      {
+       "id": "Q003.W8",
+       "title": "THE WITNESS WHO KNOWS",
+       "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+      },
+      {
+       "id": "Q056.W8",
+       "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+       "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
       }
      ],
      "citeLevel": "line",

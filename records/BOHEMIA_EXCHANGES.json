@@ -4,15 +4,16 @@
   "why": "Q043.W4 asks for OVERHEARD RELATIONSHIPS and the 8/12 barks shipped 244 lines of people talking to nobody. Two bodies on one screen was physically impossible until the population dial landed 8/16.",
   "join": "every exchange is a full four-turn conversation and join is never 0. The opening line is written and deliberately never heard, which is what makes the line you DO hear sound like it has something behind it.",
   "generator": "tools/bohemia_exchange_factory.py",
-  "exchanges": 31,
-  "lines": 124,
+  "exchanges": 37,
+  "lines": 148,
   "kinds": {
    "work": 7,
    "grief": 6,
    "rumor": 5,
    "atmos": 4,
    "trade": 5,
-   "social": 4
+   "social": 4,
+   "about": 6
   },
   "leaks": 11,
   "masters": [
@@ -39,6 +40,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -70,6 +74,9 @@
    "leaks": true,
    "subject": "water",
    "implies": "The pressure is only up before five. Something else is running it the rest of the day.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -101,6 +108,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -132,6 +142,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -163,6 +176,9 @@
    "leaks": true,
    "subject": "power",
    "implies": "One street stays lit all night and nothing runs that clean by accident.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -194,6 +210,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -225,6 +244,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -256,6 +278,9 @@
    "leaks": true,
    "subject": "salvage",
    "implies": "The good panels face the wrong way for a flat roof. The carports are still standing.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -287,6 +312,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -318,6 +346,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -349,6 +380,9 @@
    "leaks": true,
    "subject": "work",
    "implies": "They are taking names at the yard and will not say what the work is.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -380,6 +414,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -411,6 +448,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -442,6 +482,9 @@
    "leaks": true,
    "subject": "salvage",
    "implies": "Whatever is still lying out past the wash was left there for a reason.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -473,6 +516,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -504,6 +550,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -535,6 +584,9 @@
    "leaks": true,
    "subject": "the hill",
    "implies": "Somebody sits on the road up the hill and writes down who goes.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -566,6 +618,9 @@
    "leaks": true,
    "subject": "water",
    "implies": "Families are leaving towards the water. Nobody says what is there.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -597,6 +652,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -628,6 +686,9 @@
    "leaks": true,
    "subject": "names",
    "implies": "Somebody is writing down who lives in which house.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -659,6 +720,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -690,6 +754,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -721,6 +788,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -752,6 +822,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -783,6 +856,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -814,6 +890,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -845,6 +924,9 @@
    "leaks": true,
    "subject": "strangers",
    "implies": "Somebody came in off the road instead of the houses, and was let past.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -876,6 +958,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -907,6 +992,9 @@
    "leaks": false,
    "subject": null,
    "implies": null,
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -938,6 +1026,9 @@
    "leaks": true,
    "subject": "strangers",
    "implies": "Somebody came through twice and did not buy anything either time.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {
@@ -949,6 +1040,228 @@
      "id": "Q018.W3",
      "title": "THE RUMOR WEB (curiosity as the quest log)",
      "applied": "a thread to pull and NO waypoint. What leaks here points somewhere without ever putting a marker on it; the player follows their own question."
+    }
+   ]
+  },
+  {
+   "id": "you-asking-heard",
+   "kind": "about",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "Somebody has been going round asking about the water.",
+    "Asking who?",
+    "Anybody who will stand still. Not from here, whoever it is.",
+    "Then they will run out of people who stand still."
+   ],
+   "join": 1,
+   "leaks": false,
+   "subject": null,
+   "implies": null,
+   "about": "you",
+   "needs": [
+    "asked",
+    2
+   ],
+   "witness": "heard",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q062.P6",
+     "title": "W6 (external validation / the witness makes it real",
+     "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+    },
+    {
+     "id": "Q007.W10",
+     "title": "CROSS-SYSTEM CONSEQUENCE",
+     "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+    }
+   ]
+  },
+  {
+   "id": "you-asking-seen",
+   "kind": "about",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "That one asked me about the pressure.",
+    "What did you tell them?",
+    "What everybody knows. They already knew it.",
+    "So they were checking whether you would say it."
+   ],
+   "join": 1,
+   "leaks": false,
+   "subject": null,
+   "implies": null,
+   "about": "you",
+   "needs": [
+    "asked",
+    2
+   ],
+   "witness": "seen",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q003.W8",
+     "title": "THE WITNESS WHO KNOWS",
+     "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+    },
+    {
+     "id": "Q007.W10",
+     "title": "CROSS-SYSTEM CONSEQUENCE",
+     "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+    }
+   ]
+  },
+  {
+   "id": "you-doors-heard",
+   "kind": "about",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "How many doors is that now?",
+    "Six that I have counted. Same street twice.",
+    "Nobody walks a street twice by accident.",
+    "They do if they are counting something themselves."
+   ],
+   "join": 2,
+   "leaks": false,
+   "subject": null,
+   "implies": null,
+   "about": "you",
+   "needs": [
+    "known",
+    4
+   ],
+   "witness": "heard",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q062.P6",
+     "title": "W6 (external validation / the witness makes it real",
+     "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+    },
+    {
+     "id": "Q007.W10",
+     "title": "CROSS-SYSTEM CONSEQUENCE",
+     "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+    }
+   ]
+  },
+  {
+   "id": "you-doors-seen",
+   "kind": "about",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "They came to me first.",
+    "They came to me second, then.",
+    "Did you give them anything?",
+    "I gave them what I give everybody. It is what they asked after that I am still thinking about."
+   ],
+   "join": 1,
+   "leaks": false,
+   "subject": null,
+   "implies": null,
+   "about": "you",
+   "needs": [
+    "known",
+    4
+   ],
+   "witness": "seen",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q003.W8",
+     "title": "THE WITNESS WHO KNOWS",
+     "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+    },
+    {
+     "id": "Q007.W10",
+     "title": "CROSS-SYSTEM CONSEQUENCE",
+     "applied": "the deed echoes into the wider game. Going round asking questions is a deed: it costs you the quiet you had, and the street starts saying so."
+    }
+   ]
+  },
+  {
+   "id": "you-names-heard",
+   "kind": "about",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "They have been taking names.",
+    "Taking them where?",
+    "Nowhere. Just taking them. That is the part I do not like.",
+    "A name is the one thing you cannot hand back after."
+   ],
+   "join": 1,
+   "leaks": false,
+   "subject": null,
+   "implies": null,
+   "about": "you",
+   "needs": [
+    "names",
+    2
+   ],
+   "witness": "heard",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q062.P6",
+     "title": "W6 (external validation / the witness makes it real",
+     "applied": "a moment is validated by a WITNESS, turning a possible rumour into shared truth. So an exchange about the player splits on whether one of the two has ACTUALLY MET HIM: a witness states it, a second-hand teller hedges."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
+    }
+   ]
+  },
+  {
+   "id": "you-names-seen",
+   "kind": "about",
+   "who": [
+    "any",
+    "any"
+   ],
+   "turns": [
+    "They asked me what I am called.",
+    "Did you tell them?",
+    "I did. And they said it back to me, once, like they were putting it somewhere.",
+    "Then it is somewhere."
+   ],
+   "join": 2,
+   "leaks": false,
+   "subject": null,
+   "implies": null,
+   "about": "you",
+   "needs": [
+    "names",
+    2
+   ],
+   "witness": "seen",
+   "draft": true,
+   "study": [
+    {
+     "id": "Q003.W8",
+     "title": "THE WITNESS WHO KNOWS",
+     "applied": "the one who has SEEN it carries a different weight to the one who has only been told. What people say about you turns on which of those they are."
+    },
+    {
+     "id": "Q056.W8",
+     "title": "ATMOSPHERE OVER EXPOSITION (vibes + prose + music)",
+     "applied": "nobody explains the collapse. They argue about the pressure, the shift, the meter and who has the lights on."
     }
    ]
   },
@@ -969,6 +1282,9 @@
    "leaks": true,
    "subject": "names",
    "implies": "Somebody was asking which one you were, and already knew where you live.",
+   "about": null,
+   "needs": null,
+   "witness": null,
    "draft": true,
    "study": [
     {

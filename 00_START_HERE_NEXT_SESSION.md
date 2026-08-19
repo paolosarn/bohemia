@@ -1,3 +1,58 @@
+PEOPLE (people-7h9sfy): 8/18 LATEST -- *** THE STREET TALKS ABOUT YOU NOW, AND
+ONLY BECAUSE OF WHAT YOU DID. TAB: RUN, go round asking people things and then
+keep walking. ***
+
+Yesterday shipped enough people to hold a conversation, two of them talking to
+each other, and the ability to ASK about what you overheard. All three were the
+world talking AT you. THIS IS THE WORLD TALKING ABOUT YOU.
+  MEASURED ON THE REAL STREET:
+    before he asks anything   world {asked:0,known:0,names:0}   about him: NONE
+    he asks 3 people 3 things world {asked:3,known:0,names:0}
+    after                     about him: you-asking-heard
+  and what he walks in on:
+    "Asking who?"
+    "Anybody who will stand still. Not from here, whoever it is."
+    "Then they will run out of people who stand still."
+  The opener he never hears is "Somebody has been going round asking about the
+  water", which is exactly what he had just been doing. YOUR INVESTIGATION HAS A
+  SOCIAL COST AND YOU FIND OUT BY OVERHEARING IT.
+
+*** THE WITNESS MAKES IT REAL (Q062.P6, Q003.W8). *** Every about-you exchange
+exists in TWO versions and which fires depends on whether either speaker has
+actually met you. Nobody has met you -> they hedge ("They have been taking names.
+Taking them where?"). One of them has -> they state it flat ("They asked me what
+I am called. I did. And they said it back to me, once, like they were putting it
+somewhere."). The research agrees from the other end: across open-world
+reputation systems the times you are CAUGHT are what count.
+
+*** AN EXCHANGE ABOUT YOU THAT FIRES WHEN IT IS NOT TRUE IS THE WORLD LYING
+ABOUT ITSELF. *** Every one names a CONDITION and a WITNESS STATE and the factory
+refuses to build one that names neither. Conditions are counters the city really
+keeps: asked (subjects gone round asking about), known (people met), names (names
+taken). Q007.W10 CROSS-SYSTEM CONSEQUENCE: going round asking IS a deed.
+It is picked BEFORE the ordinary ones while it is still news and unspent, then
+the pair goes back to the water -- a moment, not a state you are stuck in.
+
+*** MEASURED, NOT ASSUMED: engine/bohemia_deeds.js AND engine/bohemia_standing.js
+ARE NOT IN THE CITY AT ALL. *** Zero occurrences of either. Two whole modules
+that know what the player was SEEN doing, absent from the surface he plays, so
+the street can discuss what you ASKED but not what you DID. That is a reach gap
+for somebody and it is the obvious next depth axis.
+
+TWO OF MY OWN GATE ASSERTIONS WERE WRONG AND WERE FIXED AT THE RULER: A8 counted
+against forPair (the whole table) while nextFor draws from the ELIGIBLE subset,
+so it demanded more unique draws than the pool holds; and B12 ran after B11,
+which sets the dial to 1 to prove the solo bark survives an empty street AND LEFT
+IT THERE, removing the pairs a conversation needs. Both caught by the gate
+failing, both fixed in the gate.
+
+WHAT COMES NEXT FOR THIS LANE: (1) get deeds/standing onto the walked surface so
+the street can discuss what you DID, not only what you asked -- that is the same
+witness split with much better material. (2) The deeper facts still ask questions
+nobody answers; one sentence from him about what is up the hill turns seven dead
+ends into destinations and the machinery already carries them. (3) Quest volume:
+114 questbook studies still untouched.
+
 RUN (run-eak241): 8/18 LATEST -- *** KEEP THIS RUN. THE HOME-SCREEN WORK ORDER IS
 CLOSED: the game finally tells him the installed app exists, at the one moment he
 has the least to lose. TAB: RUN, at the end of his first night. ***
