@@ -35,6 +35,19 @@ GRP x GRP cells (FN=32, GRP=4), so THE BLOCK COORDINATE IS THE 128-TILE COORDINA
 passing gx4/gy4 is exactly right. Pass the cell instead and every seam in the valley breaks
 while each cell still looks fine on its own -- the failure terrain_gate exists to catch.
 
+*** THE GENERAL FINDING, WHICH TOOK TWO REVERTS TO SEE. ***
+Routing a terrain generator through the DISTRICT path also makes its tiles take the DISTRICT
+ART POOLS -- hroof for structure, hyard for ground -- and those pools are built for buildings
+and yards. DESERT AND WASH SURVIVE THAT because their materials (compacted dirt, concrete)
+are close to what those pools already serve. MOUNTAIN AND WATER DO NOT: the mountain came
+back as brickwork, and the lake came back with a SALMON-PINK lakebed and brick strips in
+colours that appear nowhere in its own palette (blues, tans, greys).
+So the blocker is not per-district and it is not the routing. IT IS THAT TERRAIN HAS NO ART
+MAPPING OF ITS OWN. Two districts shipped because they got lucky; the other two need terrain
+pools before they can come in, and that is an ART job with a renderer branch behind it.
+Both reverts are kept below rather than dropped, because two reverts are what made the
+general shape visible and a refusal nobody recorded is indistinguishable from never trying.
+
 DELIBERATELY NOT INCLUDED, AND THE REASONS ARE DIFFERENT:
   MOUNTAIN  routing it would be an improvement (it is 0/256 walkable today, a solid wall,
             while its own generator and gate insist "THE MOUNTAIN IS A WALL WITH PASSES"
@@ -106,8 +119,11 @@ NEW_REG = ("/* __TK_S__ */\n"
            "   draws structure with building art, so 927 cells came back looking like BRICKWORK.\n"
            "   The content was right and the picture was wrong; it needs a rock treatment for\n"
            "   structure-layer TERRAIN before it can come back.\n"
-           "   WATER's legend calls `open water` non-solid, so routing it would let him walk out\n"
-           "   onto the lake -- a legend fix, not a terrain fix. Both in the record. */\n"
+           "   WATER was routed too and reverted for the SAME reason as the mountain, which is what\n"
+           "   turned two per-district reverts into ONE GENERAL FINDING -- see the header. Its\n"
+           "   legend fix is KEPT: `open water` now declares solid:true (it had inherited\n"
+           "   walk-through from the water-dead kind default, right for a dry basin and wrong for\n"
+           "   a reservoir), which is true whether or not it is routed. */\n"
            "const TERRAIN_KIT={desert:1, wash:1};\n"
            "/* __TK_E__ */")
 
@@ -125,6 +141,17 @@ LEGACY_REG = [
      "   absent: its legend calls `open water` non-solid, so routing it would let him walk\n"
      "   out onto the lake -- a legend fix, not a terrain fix. See the record. */\n"
      "const TERRAIN_KIT={desert:1, wash:1, mountain:1};"),
+    ("const KIT_ROAD={strip:1};\n"
+     "/* __TERRAIN_DRAWS_ITSELF__ -- terrain types whose own generator draws the cell, the\n"
+     "   same way KIT_ROAD names the roads that draw themselves. TWO ARE DELIBERATELY OUT:\n"
+     "   MOUNTAIN was routed, MEASURED and REVERTED the same hour -- its generator is 80%\n"
+     "   bedrock face, ridge crest and cliff band, all STRUCTURE-layer, and this renderer\n"
+     "   draws structure with building art, so 927 cells came back looking like BRICKWORK.\n"
+     "   The content was right and the picture was wrong; it needs a rock treatment for\n"
+     "   structure-layer TERRAIN before it can come back.\n"
+     "   WATER's legend calls `open water` non-solid, so routing it would let him walk out\n"
+     "   onto the lake -- a legend fix, not a terrain fix. Both in the record. */\n"
+     "const TERRAIN_KIT={desert:1, wash:1};"),
 ]
 
 # 3) __kitBlock has to hand the generator the block coordinate, or the field is sampled at

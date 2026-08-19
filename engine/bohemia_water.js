@@ -135,7 +135,14 @@
   };
 
   var LEGEND = {
-    0:  { name: 'open water',     kind: 'water-dead', act1: 'what is left of the reservoir, flat and dead still' },
+    /* DEEP WATER BLOCKS (8/18). This inherited solid:false from the `water-dead` KIND
+       default, which is right for a dry ornamental basin and wrong for a reservoir: the
+       kit reads that flag as "a body may stand in this cell", so the walked surface
+       honouring it would have let him WALK OUT ONTO THE LAKE. Declared explicitly here
+       rather than special-cased in the renderer -- the tile is what knows how deep it is.
+       shallow water (1) stays walk-through ON PURPOSE: you wade the shallows, and that is
+       exactly the DISABLES ground the hazard classes are for. */
+    0:  { name: 'open water',     kind: 'water-dead', solid: true, act1: 'what is left of the reservoir, flat and dead still' },
     1:  { name: 'shallow water',  kind: 'water-dead', act1: 'silty shallows over the drowned bed' },
     2:  { name: 'bathtub ring',   kind: 'ground',     act1: 'the white mineral band on the rock marking where the water used to be' },
     3:  { name: 'exposed lakebed',kind: 'ground',     act1: 'lakebed the water gave up, grey silt gone hard' },

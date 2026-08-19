@@ -104,10 +104,30 @@ patch.
   It needs a rock treatment for structure-layer **terrain** before it comes back — a renderer
   and ART job, not a routing job. Kept here rather than quietly dropped, because a refusal
   nobody recorded is indistinguishable from never having tried.
-- **WATER** — its legend declares `open water` non-solid, because its kind is `water-dead`
-  which the kit layers as ground. Routing it would let him **walk out onto the lake**. That
-  is a misdeclaration in the water legend and the fix belongs there — deep water blocks —
-  not inside a terrain patch that would ship the bug first.
+- **WATER** — the legend was fixed and it was **still reverted**, and that is what turned two
+  per-district reverts into one general finding. `open water` inherited walk-through from the
+  `water-dead` kind default — right for a dry ornamental basin, wrong for a reservoir — so it
+  now **declares `solid: true`** in its own legend. That fix is **kept**: it is true whether or
+  not water is routed, and `occupancy_gate` holds it. Routed, a water cell came back 74%
+  walkable (the drawdown lakebed, exactly what its dossier says the point is) with deep water
+  correctly blocked. **Then I looked at it: a salmon-pink lakebed and vertical strips of brick,
+  in colours that appear nowhere in its own palette of blues, tans and greys.**
+
+## THE GENERAL FINDING, WHICH TOOK TWO REVERTS TO SEE
+
+Routing a terrain generator through the **district** path also makes its tiles take the
+**district art pools** — `hroof` for structure, `hyard` for ground — and those pools are built
+for buildings and yards.
+
+**Desert and wash survive that because they got lucky:** compacted dirt and concrete are close
+to what those pools already serve. Mountain and water do not — one came back as brickwork, the
+other as pink.
+
+So the blocker is **not per-district and it is not the routing**. It is that **terrain has no
+art mapping of its own.** Two districts shipped; the other two need terrain pools first, and
+that is an ART job with a renderer branch behind it. Both reverts are kept here rather than
+dropped, because two reverts are what made the general shape visible — and a refusal nobody
+recorded is indistinguishable from never having tried.
 
 The gate asserts both still take the rectangle fallback, so the exclusion stays a live
 decision and the fallback stays live code.
