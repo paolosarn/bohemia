@@ -198,7 +198,37 @@ ok('A9 …and a filtered run NEVER says ALL GATES GREEN — it says how many of 
       && runSuite({}, ['--dry-run', '--shard', 'banana']).code === 1);
 }
 
-/* ---- 6. EVERY LINE SAYS WHERE IT IS ---------------------------------------- */
+/* ---- 6. THE BOOKS BALANCE: ran + unrun == what this run OWNED --------------- */
+/* THIS BUG SHIPPED INSIDE THE FIX FOR IT, AND A REAL SHARD RUN FOUND IT. The
+   first unrun list took GATES[i:] wholesale, so `--shard 1/2` — which owns 193 of
+   386 — stopped at its budget having run 162 and reported SIXTY-TWO unrun. It was
+   counting the OTHER shard's gates as things it had failed to reach. Overstated
+   two-to-one, and the named list held gates that were never that run's job.
+
+   A NUMBER THAT READS LIKE A FACT AND IS NOT ONE is precisely the disease this
+   whole gate exists to kill, so the accounting is now checked as arithmetic
+   rather than as a shape: what a run RAN plus what it reports UNRUN must equal
+   exactly what that run OWNED. */
+{
+  function counts(args, budget) {
+    const r = runSuite({ BOHEMIA_SUITE_BUDGET: String(budget) }, ['--dry-run'].concat(args));
+    const ran = (r.out.match(/^\s*\[/gm) || []).length;
+    const m = r.out.match(/(\d+) GATE\(S\) NEVER RAN/);
+    return { ran, unrun: m ? Number(m[1]) : 0 };
+  }
+  for (const args of [[], ['--shard', '1/2'], ['--shard', '2/2'], ['--only', 'GATE']]) {
+    const owned = counts(args, 99999).ran;
+    const cut = counts(args, 0);
+    ok('A16 the books balance for `' + (args.join(' ') || 'a full run') + '` — it '
+      + 'owned ' + owned + ', and ran + unrun must equal that. The first version '
+      + 'counted the other shard\'s gates as ones it failed to reach and '
+      + 'overstated by two to one',
+      owned > 0 && cut.ran + cut.unrun === owned,
+      JSON.stringify({ owned, ran: cut.ran, unrun: cut.unrun }));
+  }
+}
+
+/* ---- 7. EVERY LINE SAYS WHERE IT IS ---------------------------------------- */
 ok('A10 every gate line carries its position in the table, so a killed run\'s '
   + 'last line tells you exactly how far it got',
   /\[\s*\d+\/\s*\d+\]/.test(only.out), only.out.split('\n').filter(l => /CARD FOLD/.test(l))[0]);

@@ -2385,7 +2385,16 @@ def _run_all(fast, strict, only=None, dry=False, shard=None):
         if shard and (i % shard[1]) != (shard[0] - 1):
             continue
         if time.time() - t0 > SUITE_BUDGET:
-            unrun = [g[0] for g in GATES[i:]]
+            # THE UNRUN LIST MUST OBEY THE SAME FILTERS THE RUN DOES. First
+            # version took GATES[i:] wholesale, so a `--shard 1/2` run reported
+            # 62 unrun when it only ever owned about 31 -- it was counting the
+            # OTHER shard's gates as things it had failed to reach. A number that
+            # reads like a fact and is not one is the exact disease this whole
+            # gate exists to kill, and it shipped inside the fix for it.
+            unrun = [g[0] for j, g in enumerate(GATES[i:], start=i)
+                     if not (fast and g[3])
+                     and not (only and only.upper() not in g[0].upper())
+                     and not (shard and (j % shard[1]) != (shard[0] - 1))]
             break
         t = time.time()
         # --dry-run WALKS THE TABLE AND EXECUTES NOTHING. It exists so the
@@ -2435,7 +2444,29 @@ def _run_all(fast, strict, only=None, dry=False, shard=None):
         print('  NOT GREEN AND NOT RED: UNFINISHED. These held nothing this run:')
         for j in range(0, len(unrun), 6):
             print('    ' + ', '.join(unrun[j:j + 6]))
-        print('  Run them directly, or: python3 gates/bohemia_gates.py --only <name>')
+        # AND IT WORKS OUT THE SHARD COUNT ITSELF, from what this run just
+        # measured, rather than leaving the next person to guess. Two shards was
+        # MY guess and it was wrong: shard 1/2 owns 193 gates and reached 162.
+        done = ran or 1
+        rate = (time.time() - t0) / done                 # seconds per gate, measured
+        owned = done + len(unrun)
+        need = rate * owned
+        # THE RATE IS A SAMPLE, AND NOT A RANDOM ONE -- it is whichever gates
+        # happened to run before the clock, and the slow ones are clustered (one
+        # gate alone is 600s). Measured both ways on 8/19: a full run averaged
+        # 11.6s a gate, while shard 1/2 averaged 16.7s because it held TOOLS RUN.
+        # So this leaves real headroom rather than dividing exactly, and says
+        # AT LEAST. Advice that is optimistic here costs somebody a whole
+        # container to find out.
+        want = max(2, -(-int(need * 100) // int(SUITE_BUDGET * 60)))
+        print('  MEASURED THIS RUN: %.1fs a gate, so this run\'s %d gates need '
+              '~%.0fs against a %ds budget.' % (rate, owned, need, SUITE_BUDGET))
+        print('  AT LEAST %d SHARD(S) -- the rate is a sample of whichever gates '
+              'ran, and the slow ones cluster, so this leaves headroom:' % want)
+        print('  ' + '  '.join(
+            'python3 gates/bohemia_gates.py --shard %d/%d' % (k + 1, want)
+            for k in range(min(want, 4))) + ('  ...' if want > 4 else ''))
+        print('  Or run one directly: python3 gates/bohemia_gates.py --only <name>')
     if unrun:
         return 1
     return 1 if (failed and strict) else 0
