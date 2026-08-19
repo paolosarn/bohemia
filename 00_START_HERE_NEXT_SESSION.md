@@ -1306,7 +1306,93 @@ WHAT COMES NEXT FOR THIS LANE, IN ORDER:
     the HEM. 34 of 202 garments carry the whole structural range. A new garment should
     occupy a silhouette nobody has -- not another colourway, and not another long coat.
 
-FACTIONS (factions-ovkjpf): 8/19 (c) LATEST -- *** 298 PEOPLE IN THE VALLEY WERE
+FACTIONS (factions-ovkjpf): 8/19 (i) LATEST -- *** THE GATE SUITE WAS GIVING UP
+TWO THIRDS OF THE WAY THROUGH AND LOOKING LIKE IT PASSED. Fixed, plus the
+45-MINUTE ORPHAN underneath it. TAB: none, this is the machine that guards every
+tab. ***
+
+A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED makes bohemia_gates.py the net and
+"green or it does not ship" the rule. EVERY LAW IN THIS REPO RESTS ON THAT
+SENTENCE, AND IT HAD QUIETLY STOPPED WORKING. The WORLD lane measured 217 of 382
+gates before the container clock killed it; this lane hit the same wall twice in
+one session. So every lane was shipping on a PARTIAL run and could not tell which
+part it missed -- a killed run does not announce itself, it trails off mid-table
+and the last thing on screen is a pass.
+  SILENCE ABOUT AN UNRUN GATE READS EXACTLY LIKE GREEN.
+That is a bug in the RUNNER, not in any gate, which is why it belonged to nobody
+and sat.
+
+THE ROOT CAUSE, MEASURED: the per-gate cap was 1800s and TOOLS RUN spends all of
+it (bohemia_district_hero_factory.py takes 31 MINUTES). ONE GATE ATE THIRTY OF
+THE ~FIFTY MINUTES A CONTAINER SURVIVES, and the verdict is identical either way
+because a timeout is a failure. The extra 23 minutes bought nothing except the
+last third of the table never running.
+
+WHAT CHANGED, all in the runner, no gate's assertions touched:
+  - 600s per-gate cap (BOHEMIA_GATE_CAP). Longest HEALTHY gate measured is 61s.
+    A gate that cannot answer in ten minutes is broken as a ship gate whether it
+    would pass or not; every ship in this repo waits behind it.
+  - a whole-suite budget so the run STOPS ITSELF WHILE IT CAN STILL SPEAK.
+  - the unrun list printed BY NAME, under NOT GREEN AND NOT RED: UNFINISHED.
+  - exit 1 on an unfinished run. An unrun gate has held nothing.
+  - a [n/total] counter on every line, so even a hard kill says how far it got.
+  - --only <name>, so a lane keeps the lock, deps check and table check instead
+    of calling gates by hand. AND A FILTERED RUN NEVER SAYS ALL GATES GREEN
+    EITHER -- same lie as silence, smaller.
+
+*** AND A SECOND BUG UNDER IT, FOUND BY LOOKING AT WHAT WAS STILL ON THE CPU. ***
+subprocess.run(timeout=) kills the CHILD it started and NOTHING ELSE. TOOLS RUN
+spawns the hero factory, so when the gate hit its cap and was declared timed out
+THE FACTORY KEPT RUNNING -- caught at FORTY-FIVE MINUTES, burning a core beside
+every gate that ran after it. So every timing downstream of a timeout was
+inflated by a process nobody could see, and the measurement above UNDERSTATES
+what the old cap was costing. Each gate now runs in its own process group and a
+timeout kills the GROUP.
+PROVEN BOTH WAYS before the claim was written: old path leaves the grandchild
+alive (rc=124, 1 left), group kill reaps it (rc=124, 0 left). Mutation-tested.
+Gate: suite_honesty_gate.js 11/11 -- it RUNS THE RUNNER in a child process,
+because "the code has an unrun list" and "the run says so" are different facts.
+It drives --dry-run (walks the table, executes nothing) so ONE SUITE AT A TIME
+(7/30) is untouched for every run that actually runs something.
+Law: laws/BOHEMIA_ADDENDUM_A_SUITE_THAT_CANNOT_FINISH_8_19_26.md
+
+FOR ANYBODY DEBUGGING PROCESSES IN THIS REPO: `pkill -f <pattern>` and
+`pgrep -f <pattern>` MATCH THE COMMAND LINE THEY ARE TYPED ON. Three times this
+turn a cleanup command killed its own shell (exit 144) because the pattern was in
+the bash -c string. Put the pattern in a script file.
+
+*** AND THE THING THAT ACTUALLY BLOCKS THIS LANE, MEASURED AND NOT MINE. ***
+I went to make the faction systems reachable and found the substrate empty:
+    people in the valley                298
+    populated neighbourhoods            139
+    distinct home coordinates           298
+    household size distribution      {1: 298}
+    people sharing a roof with anybody    0
+EVERY PERSON IN LAS VEGAS LIVES ALONE. bohemia_population declares
+HOUSEHOLD_MEAN = 2.2 and what reaches the walked surface is 1.0.
+MY FIRST READ WAS WRONG AND THE MEASUREMENT CORRECTED IT: I blamed the city's
+ctAgent adapter, but pplPeople's own records already carry 298 distinct home
+coordinates. The adapter is faithfully reflecting one-person-per-house.
+So the HOME focus -- one of the three dimensions of the acquaintance graph -- can
+never fire for anybody, affiliated or not. A third of the social substrate is
+dead by construction, and only WORK can currently produce a tie at all.
+I DID NOT WIDEN THE TIE RULE and I DID NOT EDIT bohemia_population (ONE SYSTEM
+ONE SESSION, and the WORLD lane shipped into it twice today). Record with the
+numbers: records/BOHEMIA_NOBODY_IN_THE_VALLEY_SHARES_A_ROOF_8_19_26.md
+  IF PEOPLE EVER SHARE ROOFS, this lane's word-of-mouth, broker position and
+  side-cost systems COME ALIVE WITH NO FURTHER WORK. They are wired, gated and
+  waiting on exactly that one fact.
+
+NEXT FOR THIS LANE (decided, not asked): nothing more on word-of-mouth until the
+substrate changes -- building a fourth dormant system is the STOP PRODUCING
+failure by definition. The reachable work is on the SINGLE person in front of
+you, which needs no graph: the claim and the favour still only ever call adjust()
+on ctFid, and the introductions/bargain/wall/claim/favour stack has never been
+walked end to end by one player in one sitting on the real surface.
+
+---
+
+FACTIONS (factions-ovkjpf): 8/19 (c) -- *** 298 PEOPLE IN THE VALLEY WERE
 ANSWERING TO 17 NAMES, AND THE WHOLE WORD-OF-MOUTH GRAPH WAS FICTION BECAUSE OF
 IT. Also: taking a side finally costs you somewhere else. TAB: CITY. ***
 
