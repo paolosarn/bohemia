@@ -1,3 +1,70 @@
+WORLD (world-9lfjtf): 8/18 (c) LATEST -- *** THE WALKED SURFACE HAD BEEN IGNORING THE
+OCCUPANCY MODEL FOR EVERY PROP IN THE VALLEY. TAB: RUN -- brush, weeds and rubble drift
+are ground you walk over now instead of walls. ***
+
+MEASURED ON THE REAL PAGE, 40 real district cells:
+    before   0 of 4,327 walk-through prop cells agreed with the model
+    after    4,327 of 4,327
+
+engine/bohemia_district_kit.js has modelled prop solidity PER TILE since July and says so
+in its own file ("prop: an object sitting on the ground; SOLID PER ITS SIZE" / "solid =
+does the tile block a body's cell at grade"). Its DEFAULT for prop and tree-dead is
+solid:TRUE, so every solid:false in a legend is a district author DELIBERATELY declaring
+that a body may stand there -- you push through creosote, you walk over rubble drift, you
+step past a survey stake. FORTY-EIGHT of them, across 41 districts, written into dossiers
+and held by tilespec_gate and district_kit_gate.
+
+The walked surface threw away all 48 in ONE LINE:
+    if(tl.layer==='prop'){ c.s=pal; c.walk=false; return c; }
+No mention of tl.solid.
+
+*** WHY NO GATE COULD SEE IT, and this is the part worth keeping. *** district_kit_gate
+holds the MODEL. walkable_gate holds land STATISTICS. tilespec_gate holds the DOSSIER. All
+three were green, because each was checking its own side of a seam NOBODY WAS STANDING ON.
+A contradiction between two live systems is a bug and never an interpretation choice -- but
+it can only BE a bug once something compares them, and nothing did.
+
+*** AND I FOUND IT BY BEING WRONG THIS MORNING. *** The hazard classifier's first
+standability rule was the kit's own answer. Six tiles came back walk:false on the running
+page, so I tightened the rule to layer==='ground' and wrote down the lesson "A PROP IS AN
+OBJECT ON THE GROUND, NOT THE GROUND". THAT WAS THE WRONG LESSON. I had two live systems
+contradicting each other and I believed the one in front of me instead of asking which was
+lying. VERIFYING ON THE REAL SURFACE IS NECESSARY AND IT IS NOT SUFFICIENT: the surface can
+be the broken half.
+
+  tools/bohemia_city_occupancy_patch.py   one condition, and the argument for it
+  gates/occupancy_gate.js                 12 checks, BOTH directions, 2 mutations bite
+  records/BOHEMIA_THE_SURFACE_IGNORED_THE_MODEL_8_18_26.md
+
+WHAT IT OPENED UP: hazard 19 -> 26 tiles, 15 -> 21 districts, AMPLIFIES 7 -> 14 tiles in 12
+districts. That closes gap 1 from this morning's hazard record -- "the valley has no
+walkable rubble field" -- and NOT by adding a tile. It was never missing. It was declared,
+authored, dossiered, and discarded one line before it reached him.
+
+*** FIFTEEN DECLARATIONS WERE GENUINELY WRONG AND THAT HALF IS WHY THE FIX IS SAFE. ***
+A TRUNK BLOCKS. Twelve dead/street/windbreak trees, a map kiosk and a landscaping planter
+carried solid:false, and honouring the flag without correcting them would have shipped a
+player walking through tree trunks. Corrected in their own legends, which is the right
+place: the tile was wrong, not the reader. They behave exactly as they do today.
+ONE CORRECTION WAS REVERTED and it is recorded because a silent revert is indistinguishable
+from an oversight: strip:7 / strip_x:7 "planter" reads, in its own act1, "a tree well cut
+into the promenade, the tree gone, the pit full of grit and trash". That is a recess at
+grade, not a mass. Two reasons to leave it: the description is explicit, and the Strip is
+another WORLD session's fresh ground (f812f41, today).
+
+THE GATE IS A COMPARISON AND NOTHING ELSE. It asserts nothing about which answer is right
+for any particular tile -- that is the district author's call and it lives in the legend --
+and only refuses to let the two disagree. Both directions, so "make everything walkable" is
+not a way to pass it.
+
+WHAT COMES NEXT FOR THIS LANE, in order:
+  1. The three genuinely fatal drops modelled as STRUCTURE tiles (quarry:7 bench crest,
+     intake:13 shaft, reclaim:6 crusted pond) -- you bump into them instead of falling in.
+     Same shape as this one: the model says wall, the world means hole.
+  2. gypsum:7 carries TWO occupancies in one code (a bench crest and a dome shell).
+  3. The walked surface's kit registers 35 of the engine's 66 district types, so 10 of the
+     21 hazard districts cannot be reached at all. That caps far more than these features.
+
 WORLD (world-9lfjtf): 8/18 (b) LATEST -- *** ROOMS HAVE THINGS IN THEM NOW, AND ONLY
 THE CHEST-HIGH THINGS HIDE YOU. TAB: RUN -- walk through any door and look at the
 room. ***

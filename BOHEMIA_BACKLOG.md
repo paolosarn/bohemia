@@ -1809,10 +1809,20 @@ ALIVE. [DONE 8/18 — THE FLOOR HALF. Nobody invented a hazard and nobody placed
    packs (oak barrels / burlap sacks / LIVE FLOWERING PLANTS in one, glowing sci-fi loot
    crates in the other) and nothing is wired from either -- read that before reaching for
    them. ART's cover-form ask is TWO forms, not twenty-five, and it is in the record.
-   WHAT IS LEFT FOR THIS LANE, in order: (1) a GROUND-LAYER RUBBLE TILE -- every rubble
-   tile in six districts is a prop the walked surface blocks, so the most classic piece
-   of unstable ground there is cannot be stood on, and it is what makes AMPLIFIES real
-   indoors and out; (2) the three real lethal drops modelled as STRUCTURE (quarry:7,
+   GAP 1 IS CLOSED (8/18, and NOT by adding a tile): the walkable rubble field was never
+   missing. engine/bohemia_district_kit.js models prop solidity PER TILE and defaults it to
+   TRUE, so every solid:false in a legend is a district author declaring a body may stand
+   there -- 48 of them across 41 districts, in dossiers, gated -- and the walked surface
+   discarded ALL 48 in one line that never mentioned tl.solid. MEASURED on the real page:
+   4,327 of 4,327 such cells disagreed with the model; 0 of 4,327 after the fix.
+   tools/bohemia_city_occupancy_patch.py + gates/occupancy_gate.js (12 checks, both
+   directions, both mutations bite) + records/BOHEMIA_THE_SURFACE_IGNORED_THE_MODEL_8_18_26.md.
+   Hazard grew 19 -> 26 tiles, 15 -> 21 districts, AMPLIFIES 7 -> 14. Fifteen declarations
+   WERE wrong (twelve trees, a kiosk, a planter) and were corrected in their own legends,
+   because a trunk blocks. NO EXISTING GATE COULD SEE ANY OF IT: district_kit_gate holds
+   the model, walkable_gate holds land statistics, tilespec_gate holds the dossier, and all
+   three were green because each was checking its own side of a seam nobody stood on.
+   WHAT IS LEFT FOR THIS LANE, in order: (1) the three real lethal drops modelled as STRUCTURE (quarry:7,
    intake:13, reclaim:6); (3) gypsum:7 carrying two occupancies in one code; (4) the
    walked surface's kit registering only 35 of 62 district types, which caps far more
    than these features.]
