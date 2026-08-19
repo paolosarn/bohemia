@@ -140,6 +140,55 @@ const useCount={}; for(const s of songs) for(const v of new Set([s.b,s.l,s.am].f
 ok('NEW VOICES LAW: every fresh song births at least one voice all its own',
    newSongs.filter(Boolean).every(s=>[s.b,s.l,s.am].filter(Boolean).some(v=>useCount[v]===1)));
 
+// ---- GRAVEYARD IS FINAL, FOR SONGS (8/19/26) -------------------------------
+// The embedded music repo marks a killed song with its own line:
+//     /* GRAVEYARD (down 7/8, no remake): THE CHOIR THAT STAYED */
+// TEN songs carried that line and EIGHT of them had never actually been buried.
+// They were still in MLOOPS, the live working list, and CANON_DEFAULTS still had
+// them at 2 -- which is CANON, the TOP weight in every play pool. THE CHOIR THAT
+// STAYED was tagged OVERWORLD NIGHT, which is the phase the valley ships in, so
+// a song Paolo killed on 7/8 was one of the most likely tracks to play in the
+// streets for six weeks. Nothing caught it because the deaths lived in a COMMENT
+// and none of them had a line in gates/bohemia_graveyard.txt, so the graveyard
+// gate had no token to look for. A law is only as enforced as its registry is
+// complete, and this is the check that does not need the registry at all: the
+// alpha's own death notice is the source of truth.
+// THE PATTERN IS DELIBERATELY NARROW. The repo says the word GRAVEYARD inside
+// VARIETY LAW prose, inside batch summaries that list the SURVIVORS, and beside
+// a song that was PROMOTED and whose OLD ARRANGEMENT became the graveyard
+// record. Matching any of those would kill live songs. Only the dedicated
+// `/* GRAVEYARD (down ...): NAME */` notice counts.
+{
+  // READ `src`, NOT `code`. `code` is the alpha with the BOHEMIA_MUSIC_REPO
+  // block CUT OUT -- and the death notices live inside that block, so the first
+  // version of this check swept a string the notices had already been removed
+  // from, found zero killed songs, and passed vacuously on all three legs while
+  // reading like the thing that catches everything. It went green on a tree
+  // where THE CHOIR THAT STAYED had been put back in MLOOPS, baked CANON and
+  // tagged OVERWORLD NIGHT. Caught by mutating it, which is the only reason
+  // anybody would ever know. IF YOU ADD A CHECK, MUTATE IT.
+  const head=src.slice(0,src.indexOf('const MLOOPS=['));
+  const NOTICE=/\/\*\s*[^\w\s]*\s*GRAVEYARD\s*\(down [^)]*\):\s*(.+?)\s*\*\//g;
+  const killed=new Set(); let km;
+  while((km=NOTICE.exec(head))) killed.add(km[1].trim());
+  const liveNames=new Set(songs.map(s=>s.n));
+  const cd=/const CANON_DEFAULTS=\{([\s\S]*?)\};/.exec(code);
+  const V={}; if(cd) for(const mm of cd[1].matchAll(/'([^']+)':(-?\d+)/g)) V[mm[1]]=+mm[2];
+  const walking=[...killed].filter(n=>liveNames.has(n));
+  const canon=[...killed].filter(n=>V[n+'#1']===2);
+  ok('GRAVEYARD IS FINAL: no killed song is still in the working list ('
+     +(walking.join(' | ')||killed.size+' death notices, all buried')+')', walking.length===0);
+  ok('GRAVEYARD IS FINAL: no killed song is still baked CANON ('
+     +(canon.join(' | ')||'none')+')', canon.length===0);
+  // and a category tag NOMINATES a song for a play pool, so a tag on a corpse
+  // is the same defect wearing a different hat
+  const ct=/const CAT_DEFAULTS=\{([\s\S]*?)\};/.exec(code);
+  const tagged=[]; if(ct) for(const mm of ct[1].matchAll(/'([^']+)':\[/g)){
+    const nm=mm[1].replace(/#\d+$/,''); if(killed.has(nm)) tagged.push(nm); }
+  ok('GRAVEYARD IS FINAL: no killed song still carries a play-pool tag ('
+     +(tagged.join(' | ')||'none')+')', tagged.length===0);
+}
+
 console.log('  '+songs.length+' songs, '+newNames.length+' fresh, screech-swept '+(code.length/1e6).toFixed(1)+'MB');
 console.log(`\n=== MUSIC GATE: ${p} passed, ${f} failed ===`);
 process.exit(f?1:0);

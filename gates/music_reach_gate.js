@@ -86,16 +86,37 @@ ok('the phase windows use the same 06:00/19:00 split as the ambience bed',
    /6\*60/.test(src) && /19\*60/.test(src));
 
 // ---- 2. EVERY CANON TAG HAS A PLAYER -------------------------------------
-// MENU is the one honest exception and it is NAMED, not hidden: there are two
-// canon MENU songs and no menu music player exists in the alpha. Wiring music
-// to the front splash is a DESIGN decision about what the game does when you
-// open it, which is Paolo's call and not a wiring job. It is listed here every
-// run so it stays visible instead of becoming folklore.
-const WAIVED = {
-  MENU: 'no menu music player exists; putting music on the front splash is a '
-      + 'design decision (his), not a wiring fix'
-};
+// THE MENU WAIVER IS DEAD (8/19/26). It stood for fifteen days as "no menu music
+// player exists; putting music on the front splash is a design decision (his),
+// not a wiring fix" -- and going to wire it found something the waiver was
+// standing in front of: `let CITYMUS_ON=false` in the city world. THE MUSIC
+// SHIPPED OFF. You opened the link, tapped in, and the game was silent until you
+// found a button in the city toolbar. 124 finished songs behind a toggle. The
+// waiver was a hole in the wall of a house with no roof.
+// MENUMUS now opens the game on a MENU song inside the tap gesture -- the one
+// moment a browser will let audio start -- and hands over to the street shuffle
+// on the phrase boundary. So MENU has a player, and there is nothing left to
+// waive. The map stays EMPTY on purpose: an empty waiver list is the assertion
+// that every category he has tagged can actually be heard.
+const WAIVED = {};
+
+// and the player has to still be there. A category with a player that got
+// deleted in a rebase is the same silence with better paperwork -- which is
+// exactly how the standalone notice went missing on 8/17.
+ok('the menu opening exists (MENUMUS)', /const MENUMUS=\{/.test(src));
+ok('the menu opening is armed by the tap that enters the game',
+   /MENUMUS\.open\(\)/.test(src));
+ok('the menu opening hands over to the street shuffle',
+   /handOff\(\)[\s\S]{0,400}CITYMUS\.startShuffle\(\)/.test(src));
+ok('the menu opening never plays a buried song',
+   /candidates\(\)[\s\S]{0,700}MUS\.V\[n\+'#1'\]===0\)continue;/.test(src));
 const OVERWORLD = ['OVERWORLD DAY', 'OVERWORLD NIGHT', 'OVERWORLD DUSK/DAWN'];
+// THE THIRD WAY (8/19). There used to be exactly two ways a tagged song could
+// reach a player -- the overworld shuffle and combat's faction pool -- and
+// anything else was unreachable or waived. MENUMUS is the third: it is a real
+// player, wired to a real gesture, proved above by the four checks that would
+// go red if any part of it were deleted. So MENU is REACHABLE, not waived.
+const MENU_PLAYER = /const MENUMUS=\{/.test(src) && /MENUMUS\.open\(\)/.test(src);
 
 const unreachable = [];
 const waivedSeen = {};
@@ -105,6 +126,7 @@ for (const song of Object.keys(tags)) {
   for (const cat of tags[song]) {
     if (OVERWORLD.includes(cat)) continue;           // the shuffle, checked above
     if (factions.has(cat)) continue;                 // combat's pool
+    if (cat === 'MENU' && MENU_PLAYER) continue;     // the opening
     if (WAIVED[cat]) { (waivedSeen[cat] = waivedSeen[cat] || []).push(song); continue; }
     unreachable.push(`${song} -> ${cat}`);
   }

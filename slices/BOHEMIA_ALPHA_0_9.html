@@ -1025,7 +1025,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19m - THE RACK PLAYS RIGHT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 8/19o - THE MUSIC IS ON</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -8143,6 +8143,13 @@ document.getElementById('front').addEventListener('click',()=>{
   if(!runTab){ window.__RUN_TAB_MISSING=true;
     console.error('THE RUN TAB IS GONE from the alpha tab bar: the game cannot open'); }
   else { runTab.click(); window.__OPENED_ON_THE_GAME=(window.__OPENED_ON_THE_GAME||0)+1; }
+  /* AND THE MUSIC COMES ON (8/19). This tap is the only gesture guaranteed to
+     exist before anything else happens, which is exactly what a browser wants
+     before it will let audio start -- so it is where the sound turns on. AFTER
+     runTab.click(), because that click runs the tab handler and the tab handler
+     calls MUS.stop() on the way out of the studio: starting first would have
+     the game silence its own opening one line later. */
+  try{ if(window.MENUMUS)MENUMUS.open(); }catch(_e){}
 });
 /* ===== V134 WARM THE FIGHT, RE-LANDED SAFELY =====================
    Paolo 8/8: "re-land the handoff warming without the stale-clothing bug (first
@@ -11873,18 +11880,10 @@ const MLOOPS=[
  {n:'HYMN FOR RUNNING WATER',acc:'#6ab8c8',root:48,scale:[0,2,4,7,9],wave:'sine',kick:[0,8],bass:[0,4,7],hat:[4,12],inst:{b:'reservoirbass',l:'watervoice'},am:'mistchoir',kit:{k:'thud',h:'tight'},mel:'call',swing:0,feel:'half',klay:'melody',ff:true},
  {n:'PAWNSHOP PSALM',acc:'#b09048',root:45,scale:[0,3,5,7,10],wave:'triangle',kick:[0,7,8],bass:[0,3,7,10],hat:[2,10,14],inst:{b:'pawnbass',l:'brokenkeys'},am:'smokehalo',kit:{k:'knock',h:'ride'},mel:'call',swing:0.35,klay:'stabs',ff:true},
  {n:'SUNRISE OVER THE BONEYARD',acc:'#e0a060',root:50,scale:[0,2,4,7,9],wave:'triangle',kick:[0,6,10],bass:[0,4,7,9],hat:[3,11],inst:{b:'boneyardbass',l:'neonrelic'},am:'dawnwash',kit:{k:'knock',h:'wood'},mel:'call',swing:0.08,klay:'melody',ff:true},
- {n:'MENU — WIND OVER THE MESA',menu:true,acc:'#b8a888',root:43,scale:[0,2,3,7,9],wave:'sine',kick:[],bass:[0],hat:[],inst:{b:'mesawind',l:'farbell'},am:'stillair',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
  {n:'CATHEDRAL OF CRANES',acc:'#c8a040',root:47,scale:[0,2,4,7,9],wave:'triangle',kick:[0,4,8,12],bass:[0,4,7,9],hat:[2,6,10,14],inst:{b:'riveter',l:'cranesong'},am:'scaffoldair',kit:{k:'knock',h:'tight'},mel:'call',swing:0,klay:'melody',ff:true},
  {n:'MOTHS AROUND THE LAST LIGHT',acc:'#e8d8a8',root:50,scale:[0,2,3,7,9],wave:'sine',kick:[0,8],bass:[0,7],hat:[4,12],inst:{b:'lampbass',l:'mothflutter'},am:'porchglow',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
- {n:'A THOUSAND MILES OF COPPER',acc:'#c87838',root:46,scale:[0,2,3,7,9],wave:'triangle',kick:[0,6,8,14],bass:[0,3,7,10],hat:[3,7,11,14],inst:{b:'coppertwang',l:'linewalker'},am:'oxidechoir',kit:{k:'knock',h:'shakerh'},mel:'call',swing:0.15,klay:'melody',ff:true},
- {n:'THE CHOIR THAT STAYED',acc:'#9a8ab8',root:45,scale:[0,1,5,7,8],wave:'square',kick:[0,9],bass:[0,1,7],hat:[],inst:{b:'cryptorgan',l:'ghostvox'},am:'chapelbreath',kit:{k:'thud',h:'wood'},mel:'longs',swing:0,feel:'half',klay:'melody',ff:true},
- {n:'MUSIC BOX FOR THE GONE',acc:'#d8c0d8',root:52,scale:[0,2,3,7,8],wave:'sine',kick:[0,11],bass:[0,3,8],hat:[6],inst:{b:'wireharp',l:'gonebox'},am:'nurserydust',kit:{k:'thud',h:'tight'},mel:'call',swing:0.06,klay:'melody',ff:true},
- {n:'IT WALKS THE STRIP AT 3AM',acc:'#6a3a4a',root:41,scale:[0,1,6,7,10],wave:'sine',kick:[0,7,11],bass:[0,6,7],hat:[3,13],inst:{b:'heartbeatsub',l:'neonhowl'},am:'pressurefront',kit:{k:'boom',h:'clickh'},mel:'longs',swing:0,klay:'drums',ff:true},
- {n:'PHANTOM CASINO',acc:'#4aa088',root:47,scale:[0,1,3,6,8],wave:'square',kick:[0,5,8,13],bass:[0,3,6,8],hat:[2,10],inst:{b:'boneshuffle',l:'jackpotghost'},am:'emptyfloorhum',kit:{k:'knock',h:'ride'},mel:'call',swing:0.3,klay:'stabs',ff:true},
  {n:'THE LAST DEALER FOLDS',acc:'#8a3a4a',root:43,scale:[0,2,3,6,7,10],wave:'triangle',kick:[0,6,11],bass:[0,3,7,3],hat:[4,12],inst:{b:'ashchoir',l:'rotviola'},am:'dreadbed',kit:{k:'thud',h:'shakerh'},mel:'call',swing:0,feel:'normal',klay:'melody',ff:true,nu:true},
  {n:'WHAT THE MIRRORS KEPT',acc:'#5a6a8a',root:49,scale:[0,1,4,5,8],wave:'sine',kick:[0,8],bass:[0,4,8,5],hat:[6,14],inst:{b:'nightpad',l:'glassrequiem'},am:'mistchoir',kit:{k:'boom',h:'clickh'},mel:'call',swing:0,feel:'half',klay:'stabs',ff:true,nu:true},
- {n:'THE DEBT COLLECTOR AT DAWN',acc:'#b06a2a',root:45,scale:[0,3,5,7,8,11],wave:'square',kick:[0,4,7,11],bass:[0,5,8,11],hat:[2,6,10,14],inst:{b:'foreclosurebass',l:'dustpipeorgan'},am:'ashchoir',kit:{k:'punchk',h:'tight'},mel:'drive16',swing:0,feel:'drive',klay:'drums',ff:true,nu:true},
- {n:'A HYMN NOBODY FINISHED',acc:'#6a9a7a',root:52,scale:[0,2,5,7,9],wave:'triangle',kick:[0,10,13],bass:[0,5,9,7],hat:[4,12],inst:{b:'gonebox',l:'brokencelesta'},am:'edenmist',kit:{k:'knock',h:'ride'},mel:'call',swing:0.2,feel:'normal',klay:'stabs',ff:true,nu:true},
  {n:'THE PIT BOSS IS GONE',acc:'#7a4a5a',root:41,scale:[0,2,3,7,8],wave:'sine',kick:[0,7,12],bass:[0,3,7,3],hat:[4,12],inst:{b:'nightpad',l:'rouletteghost'},am:'dreadbed',kit:{k:'boom',h:'shakerh'},mel:'call',swing:0,feel:'half',klay:'stabs',ff:true,nu:true},
  {n:'SALT ON THE HIGHWAY',acc:'#c89a5a',root:46,scale:[0,1,5,7,8,11],wave:'sawtooth',kick:[0,4,8,10],bass:[0,5,8,11],hat:[2,6,10,14],inst:{b:'foreclosurebass',l:'windpsaltery'},am:'mistchoir',kit:{k:'punchk',h:'tight'},mel:'drive16',swing:0,feel:'drive',klay:'drums',ff:true,nu:true},
  {n:'WHAT GROWS IN THE VAULT',acc:'#5a7a5a',root:50,scale:[0,3,5,6,9],wave:'triangle',kick:[0,6,9,13],bass:[0,3,6,9],hat:[6,14],inst:{b:'ashchoir',l:'moldorgan'},am:'edenmist',kit:{k:'thud',h:'clickh'},mel:'call',swing:0,feel:'normal',klay:'melody',ff:true,nu:true},
@@ -11945,7 +11944,7 @@ const SONG2_VER={REDS:14,BLUES:10,ANARCHISTS:16,NETWORK:8,REMNANTS:11,HOMELESS:9
    7/20 verdict three (3 canon, 4 down as SONGS); batch 16 answers under the
    SONG-DEAD-NOT-VOICES law. */
 const NEW_VIBES=[];   /* batch 19 (pit boss) still pending; batch 20 = 9 fresh vibes, one per zero-population faction pool */
-const CANON_DEFAULTS={'CUSTOM#1':2,'CUSTOM#2':2,'REDS#1':2,'REDS#2':2,'BLUES#1':2,'BLUES#2':2,'ANARCHISTS#1':2,'ANARCHISTS#2':2,'COLORFUL#1':2,'COLORFUL#2':2,'CHURCH#1':2,'CHURCH#2':2,'NETWORK#1':2,'NETWORK#2':2,'TRADES#1':2,'TRADES#2':2,'CARAVANS#1':2,'CARAVANS#2':2,'VOLUNTEERS#1':2,'VOLUNTEERS#2':2,'REMNANTS#1':2,'REMNANTS#2':2,'CARTEL#1':2,'CARTEL#2':2,'MOB#1':2,'MOB#2':2,'HOMELESS#1':2,'HOMELESS#2':2,'DUST CRAWL#1':2,'MIDNIGHT ODDS#1':2,'COPPER DUNES#1':2,'IRON CHOIR#1':2,'RATTLESNAKE#1':2,'PALE RIDER#1':2,'GHOST ARCADE#1':2,'HOLLOW MASS#1':2,'DEVILS HAND#1':2,'DEAD MANS SLIDE#1':2,'LULLABY FOR NOBODY#1':2,'SERVER FARM#1':2,'FLUORESCENT DAWN#1':2,'SIX STRING SUNRISE#1':2,'BLUE VACANCY#1':2,'CAMPFIRE CONFESSION#1':2,'HANDPAN HOLLOW#1':2,'SILK ROAD GHOST#1':2,'BANKRUPT NEON#1':2,'GUTTER GOLD#1':2,'PROPHET STATIC#1':2,'TENT REVIVAL FIRE#1':2,'PARKING STRUCTURE#1':2,'POWER OUT#1':2,'RAVE IN THE RUINS#1':2,'BAYOU FUNERAL#1':2,'FROZEN AISLE#1':2,'DELTA BLUES#1':2,'PARADE GROUND#1':2,'BORDERTOWN#1':2,'REMNANTS — ASHES OF THE PARADE#1':2,'NETWORK — HYMN OF THE AMALGAM#1':2,'REDS — INTEREST NEVER SLEEPS#1':2,'RUST ANTHEM#1':2,'MENU — DEAD VALLEY DAWN#1':2,'PROCESSION OF ASH#1':2,'COLD TABLE#1':2,'MOB — BOSS WALKS IN#1':2,'THE VAULT#1':2,'RED LEDGER#1':2,'SLOW BLEED#1':2,'GHOST IN THE GRID#1':2,'LAST BROADCAST#1':2,'REPO MAN#1':2,'SATELLITE PRAYER#1':2,'SLOW CREEP#1':2,'NASHVILLE GOLD#1':2,'SKANK CITY#1':2,'HIGHWAY 15 SOUTH#1':2,'CARAVAN DUST#1':2,'THRONE OF STATIC#1':2,'CHOIR FOR THE MACHINE#1':2,'FLOWERS ON THE FREEWAY#1':2,'CRYSTAL IN THE RUBBLE#1':2,'SOMEWHERE A FOUNTAIN STILL RUNS#1':2,'MARCH OF THE UNPAID#1':0,'AIRSHIP GRAVE#1':0,'SOLAR CHURCH#1':0,'SPEAKEASY SWING#1':0,'MENU — PURPLE DAWN#1':0,'MENU — FIRST MORNING#1':0,'MOB — THE HOUSE REMEMBERS#1':0,'ONE CANDLE#1':0,'MOJAVE GHOST#1':0,'LONG WALK HOME#1':0,'TWO COINS FOR THE FERRYMAN#1':2,'THE GARDEN AT WORLDS END#1':2,'MENU — EMBER VIGIL#1':0,'NEON NECROPOLIS#1':0,'HYMN FOR RUNNING WATER#1':2,'PAWNSHOP PSALM#1':2,'SUNRISE OVER THE BONEYARD#1':2,'MENU — LIGHTS ACROSS THE VALLEY#1':0,'THE LAST DEALER FOLDS#1':2,'WHAT THE MIRRORS KEPT#1':2,'THE PIT BOSS IS GONE#1':2,'THE CANCELLED MAN#1':2,'THE WIND LEARNS WORDS#1':2,'MENU — WIND OVER THE MESA#1':2,'CATHEDRAL OF CRANES#1':2,'MOTHS AROUND THE LAST LIGHT#1':2,'A THOUSAND MILES OF COPPER#1':2,'THE CHOIR THAT STAYED#1':2,'MUSIC BOX FOR THE GONE#1':2,'IT WALKS THE STRIP AT 3AM#1':2,'PHANTOM CASINO#1':2,'THE DEBT COLLECTOR AT DAWN#1':2,'A HYMN NOBODY FINISHED#1':2,'SALT ON THE HIGHWAY#1':2,'WHAT GROWS IN THE VAULT#1':2,'THE LAST TABLE STANDING#1':2,'TAPS FOR THE VALLEY#1':2,'WHAT THE DAM HELD BACK#1':2,'THE SENDING#1':2,'PYREFLIES RISE#1':2,'NO SENDING LEFT#1':2,'THE ORGAN IN THE DROWNED CHAPEL#1':2,'WHAT SHATTERED IN THE VAULT DOOR#1':2,'THE SWELL BENEATH THE FLOOR#1':2,'THE CHOIR UNDER THE RESERVOIR#1':2,'BONE RELIQUARY#1':2,'THE TURBINE STILL TURNS#1':2,'WHERE THE PROCESSION DROWNED#1':2,'THE HYMN THE STATIC ATE#1':2,'THE BELL THAT COOLS TO SALT#1':2,'SOMETHING SINGS THROUGH THE PIPES#1':2,'THE SHAPE THE WATER TAKES#1':2,'TWO LIGHTS OVER THE FLOOD#1':2,'THE STAIRS UNDER THE LAKEBED#1':2,'THE LIGHT THAT WONT DECIDE#1':2,'EVERYTHING FALLS TO PITCH#1':2,'THREE NOTES IN THE DUST#1':2,'THE TEETH THE SONG LOST#1':2,'A HARP OF SALVAGED WIRE#1':2,'A HAND THAT WONT STOP COUNTING#1':2,'THE GAPS IN THE HYMNAL#1':2,'WHAT THE SLOT MACHINE REMEMBERS#1':2,'A GASP IN THE VAULT#1':2,'THE COUNT NEVER STOPS#1':2,'WHAT THE DICE FORGOT#1':2,'NOBODY CASHES OUT#1':2,'TITHE FOR THE EMPTY PEWS#1':2,'WHAT THE PIT BOSS BURIED#1':0,'THE HOUSE ALWAYS REMEMBERS#1':0,'THE LAST LIGHT ON THE STRIP#1':0,'THE MARKER ON THE DOOR#1':2,'A BELL FOR NOBODYS SHIFT#1':0,'COUNTING WHAT IS LEFT#1':0,'NOBODY LOCKS UP ANYMORE#1':0,'WHAT THE METER STILL READS#1':0};
+const CANON_DEFAULTS={'CUSTOM#1':2,'CUSTOM#2':2,'REDS#1':2,'REDS#2':2,'BLUES#1':2,'BLUES#2':2,'ANARCHISTS#1':2,'ANARCHISTS#2':2,'COLORFUL#1':2,'COLORFUL#2':2,'CHURCH#1':2,'CHURCH#2':2,'NETWORK#1':2,'NETWORK#2':2,'TRADES#1':2,'TRADES#2':2,'CARAVANS#1':2,'CARAVANS#2':2,'VOLUNTEERS#1':2,'VOLUNTEERS#2':2,'REMNANTS#1':2,'REMNANTS#2':2,'CARTEL#1':2,'CARTEL#2':2,'MOB#1':2,'MOB#2':2,'HOMELESS#1':2,'HOMELESS#2':2,'DUST CRAWL#1':2,'MIDNIGHT ODDS#1':2,'COPPER DUNES#1':2,'IRON CHOIR#1':2,'RATTLESNAKE#1':2,'PALE RIDER#1':2,'GHOST ARCADE#1':2,'HOLLOW MASS#1':2,'DEVILS HAND#1':2,'DEAD MANS SLIDE#1':2,'LULLABY FOR NOBODY#1':2,'SERVER FARM#1':2,'FLUORESCENT DAWN#1':2,'SIX STRING SUNRISE#1':2,'BLUE VACANCY#1':2,'CAMPFIRE CONFESSION#1':2,'HANDPAN HOLLOW#1':2,'SILK ROAD GHOST#1':2,'BANKRUPT NEON#1':2,'GUTTER GOLD#1':2,'PROPHET STATIC#1':2,'TENT REVIVAL FIRE#1':2,'PARKING STRUCTURE#1':2,'POWER OUT#1':2,'RAVE IN THE RUINS#1':2,'BAYOU FUNERAL#1':2,'FROZEN AISLE#1':2,'DELTA BLUES#1':2,'PARADE GROUND#1':2,'BORDERTOWN#1':2,'REMNANTS — ASHES OF THE PARADE#1':2,'NETWORK — HYMN OF THE AMALGAM#1':2,'REDS — INTEREST NEVER SLEEPS#1':2,'RUST ANTHEM#1':2,'MENU — DEAD VALLEY DAWN#1':2,'PROCESSION OF ASH#1':2,'COLD TABLE#1':2,'MOB — BOSS WALKS IN#1':2,'THE VAULT#1':2,'RED LEDGER#1':2,'SLOW BLEED#1':2,'GHOST IN THE GRID#1':2,'LAST BROADCAST#1':2,'REPO MAN#1':2,'SATELLITE PRAYER#1':2,'SLOW CREEP#1':2,'NASHVILLE GOLD#1':2,'SKANK CITY#1':2,'HIGHWAY 15 SOUTH#1':2,'CARAVAN DUST#1':2,'THRONE OF STATIC#1':2,'CHOIR FOR THE MACHINE#1':2,'FLOWERS ON THE FREEWAY#1':2,'CRYSTAL IN THE RUBBLE#1':2,'SOMEWHERE A FOUNTAIN STILL RUNS#1':2,'MARCH OF THE UNPAID#1':0,'AIRSHIP GRAVE#1':0,'SOLAR CHURCH#1':0,'SPEAKEASY SWING#1':0,'MENU — PURPLE DAWN#1':0,'MENU — FIRST MORNING#1':0,'MOB — THE HOUSE REMEMBERS#1':0,'ONE CANDLE#1':0,'MOJAVE GHOST#1':0,'LONG WALK HOME#1':0,'TWO COINS FOR THE FERRYMAN#1':2,'THE GARDEN AT WORLDS END#1':2,'MENU — EMBER VIGIL#1':0,'NEON NECROPOLIS#1':0,'HYMN FOR RUNNING WATER#1':2,'PAWNSHOP PSALM#1':2,'SUNRISE OVER THE BONEYARD#1':2,'MENU — LIGHTS ACROSS THE VALLEY#1':0,'THE LAST DEALER FOLDS#1':2,'WHAT THE MIRRORS KEPT#1':2,'THE PIT BOSS IS GONE#1':2,'THE CANCELLED MAN#1':2,'THE WIND LEARNS WORDS#1':2,'MENU — WIND OVER THE MESA#1':0,'CATHEDRAL OF CRANES#1':2,'MOTHS AROUND THE LAST LIGHT#1':2,'A THOUSAND MILES OF COPPER#1':0,'THE CHOIR THAT STAYED#1':0,'MUSIC BOX FOR THE GONE#1':0,'IT WALKS THE STRIP AT 3AM#1':0,'PHANTOM CASINO#1':0,'THE DEBT COLLECTOR AT DAWN#1':0,'A HYMN NOBODY FINISHED#1':0,'SALT ON THE HIGHWAY#1':2,'WHAT GROWS IN THE VAULT#1':2,'THE LAST TABLE STANDING#1':2,'TAPS FOR THE VALLEY#1':2,'WHAT THE DAM HELD BACK#1':2,'THE SENDING#1':2,'PYREFLIES RISE#1':2,'NO SENDING LEFT#1':2,'THE ORGAN IN THE DROWNED CHAPEL#1':2,'WHAT SHATTERED IN THE VAULT DOOR#1':2,'THE SWELL BENEATH THE FLOOR#1':2,'THE CHOIR UNDER THE RESERVOIR#1':2,'BONE RELIQUARY#1':2,'THE TURBINE STILL TURNS#1':2,'WHERE THE PROCESSION DROWNED#1':2,'THE HYMN THE STATIC ATE#1':2,'THE BELL THAT COOLS TO SALT#1':2,'SOMETHING SINGS THROUGH THE PIPES#1':2,'THE SHAPE THE WATER TAKES#1':2,'TWO LIGHTS OVER THE FLOOD#1':2,'THE STAIRS UNDER THE LAKEBED#1':2,'THE LIGHT THAT WONT DECIDE#1':2,'EVERYTHING FALLS TO PITCH#1':2,'THREE NOTES IN THE DUST#1':2,'THE TEETH THE SONG LOST#1':2,'A HARP OF SALVAGED WIRE#1':2,'A HAND THAT WONT STOP COUNTING#1':2,'THE GAPS IN THE HYMNAL#1':2,'WHAT THE SLOT MACHINE REMEMBERS#1':2,'A GASP IN THE VAULT#1':2,'THE COUNT NEVER STOPS#1':2,'WHAT THE DICE FORGOT#1':2,'NOBODY CASHES OUT#1':2,'TITHE FOR THE EMPTY PEWS#1':2,'WHAT THE PIT BOSS BURIED#1':0,'THE HOUSE ALWAYS REMEMBERS#1':0,'THE LAST LIGHT ON THE STRIP#1':0,'THE MARKER ON THE DOOR#1':2,'A BELL FOR NOBODYS SHIFT#1':0,'COUNTING WHAT IS LEFT#1':0,'NOBODY LOCKS UP ANYMORE#1':0,'WHAT THE METER STILL READS#1':0};
 /* UNJUDGED LAW (7/19 fix, caught on the real surface): fresh cooks get NO
    CANON_DEFAULTS entry -- a baked 2 silently stamped new batches CANON, hid the
    NEW badge, and hid the thumbs. Unjudged = absent = badge + thumbs live.
@@ -11978,7 +11977,6 @@ const CAT_DEFAULTS={
  'MENU — FIRST MORNING#1':['MENU'],
  'MENU — LIGHTS ACROSS THE VALLEY#1':['MENU'],
  'MENU — PURPLE DAWN#1':['MENU'],
- 'MENU — WIND OVER THE MESA#1':['MENU'],
  'PALE RIDER#1':['OVERWORLD DAY'],
  'PARADE OF LOST BALLOONS#1':['COLORFUL'],
  'PYREFLIES RISE#1':['OVERWORLD DAY'],
@@ -11990,7 +11988,6 @@ const CAT_DEFAULTS={
  'SLOW CREEP#1':['OVERWORLD NIGHT'],
  'TAPS FOR THE VALLEY#1':['OVERWORLD DAY'],
  'THE BOSS TAKES HIS CUT#1':['MOB'],
- 'THE CHOIR THAT STAYED#1':['OVERWORLD NIGHT'],
  'THE COUNTING ROOM#1':['CARTEL'],
  'THE FORECLOSURE NOTICE#1':['REDS'],
  'THE LAST GOOD CHECK#1':['BLUES'],
@@ -12071,7 +12068,64 @@ const CITYMUS={on:false,watch:null,
     const fr=document.getElementById('cityFrame');
     if(fr&&fr.contentWindow)try{fr.contentWindow.postMessage({bohemiaCityMusicState:{on:false}},'*');}catch(e){} }
 };
-window.CITYMUS=CITYMUS;   /* same-origin iframes call this DIRECTLY inside the tap gesture, keeping the audio-activation stack alive (iOS law) */
+window.CITYMUS=CITYMUS;
+/* ===== MENUMUS (8/19/26) -- THE GAME HAS A VOICE WHEN YOU OPEN IT ==========
+   The music used to ship OFF (`let CITYMUS_ON=false` in the city world), so the
+   game opened silent and stayed silent until you found a button. 124 finished
+   songs behind a toggle. This is the other half of the tap that enters the
+   game: the gesture that opens the door also turns the sound on, which is the
+   one moment a browser will let audio start.
+   IT OPENS ON A MENU SONG because that is what the MENU category has always
+   been for. There is no menu SCREEN to sit on -- the splash is one tap -- so
+   the honest home for those songs is the WAY IN: one phrase of the front-door
+   theme, then the streets take it on the phrase boundary. 8 bars at 120 BPM is
+   16 seconds, the same unit CITYMUS already turns the time-of-day pool on, so
+   the hand-off lands where the music expects it instead of cutting.
+   It chooses nothing for him: same verdict weighting as the overworld shuffle,
+   canon 8x, unjudged 4x, and a buried song never plays at all. */
+const MENUMUS={on:false,watch:null,
+  HANDOFF_STEPS:128,                       /* 8 bars x 16 steps = one phrase */
+  candidates(){ const out=[];
+    for(let mi=0;mi<MLOOPS.length;mi++){ const n=MLOOPS[mi].n;
+      const cs=(MUS.cats&&MUS.cats[n+'#1'])||[];
+      if(cs.indexOf('MENU')<0&&!MLOOPS[mi].menu)continue;
+      /* GRAVEYARD IS FINAL: 0 is buried and a buried song does not get a turn.
+         The overworld shuffle weights a 0 at 1x, which is how a song Paolo
+         killed on 7/8 stayed in the streets for six weeks. Not here. */
+      if(MUS.V[n+'#1']===0)continue;
+      out.push({fi:MFACTIONS.length+mi,slot:1}); }
+    return out; },
+  pick(){ const cs=this.candidates(); if(!cs.length)return null;
+    const w=cs.map(c=>{ const f=MLOOPS[c.fi-MFACTIONS.length];
+      return MUS.V[f.n+'#1']===2?8:4; });     /* canon 8x, unjudged 4x */
+    let t=w.reduce((a,b)=>a+b,0), r=Math.random()*t;
+    for(let i=0;i<cs.length;i++){ r-=w[i]; if(r<=0)return cs[i]; } return cs[0]; },
+  /* CALL THIS INSIDE THE TAP. Not after a timeout, not on load: the whole
+     mechanism is that a user gesture is on the stack. */
+  open(){ if(this.on)return;
+    try{MUS.build();}catch(e){}
+    const c=this.pick();
+    if(!c){ try{CITYMUS.startShuffle();}catch(e){} return; }   /* never silent because a pool is empty */
+    this.on=true;
+    MUS.cur=c.fi; MUS.curSlot=1;
+    try{ MUS.start(); }catch(e){ this.on=false; try{CITYMUS.startShuffle();}catch(_e){} return; }
+    this.tellCity(true, MLOOPS[c.fi-MFACTIONS.length].n);
+    if(this.watch)clearInterval(this.watch);
+    this.watch=setInterval(()=>{ if(!MENUMUS.on)return;
+      /* if anything else stopped the transport -- a tab switch, the studio, the
+         off button -- the opening is over and it does not get to restart. */
+      if(!MUS.playing){ MENUMUS.on=false; clearInterval(MENUMUS.watch); MENUMUS.watch=null; return; }
+      if(MUS.step>=MENUMUS.HANDOFF_STEPS) MENUMUS.handOff(); },300); },
+  handOff(){ if(!this.on)return; this.on=false;
+    if(this.watch)clearInterval(this.watch); this.watch=null;
+    try{ CITYMUS.startShuffle(); }catch(e){} },   /* the streets take it */
+  stop(){ this.on=false; if(this.watch)clearInterval(this.watch); this.watch=null;
+    try{MUS.stop();}catch(e){} this.tellCity(false,null); },
+  tellCity(on,now){ const fr=document.getElementById('cityFrame');
+    if(fr&&fr.contentWindow)try{fr.contentWindow.postMessage({bohemiaCityMusicState:{on:on,now:now}},'*');}catch(e){} }
+};
+window.MENUMUS=MENUMUS;
+   /* same-origin iframes call this DIRECTLY inside the tap gesture, keeping the audio-activation stack alive (iOS law) */
 /* ---- CITYSAVE (7/7/26): SUSPEND SAVE, one slot, auto-overwrite, resume
    only. Backend PROBED at boot per the iOS STORAGE LAW (7/2 research):
    file:// launchers throw on setItem, so we fall back to in-memory and the
@@ -13200,6 +13254,10 @@ function buildUI(){
     setTimeout(()=>b.textContent='DOWNLOAD FILE',1600);});
   window.addEventListener('message',ev=>{
     if(ev&&ev.data&&typeof ev.data.bohemiaFactionPicked==='number'){
+      /* NOT DURING THE OPENING (8/19). See MENUMUS: the combat iframe is WARMED
+         seconds after entry and reports a faction from its rotation with no
+         fight in progress, which used to reassign whatever was playing. */
+      if(window.MENUMUS&&MENUMUS.on)return;
       MUS.cur=ev.data.bohemiaFactionPicked; MUS.userPicked=true; MUS._audit=false;   /* ONE TRUTH: combat's pick IS the studio's pick -- but combat picking must NOT freeze its own pool rotation (7/19) */
       document.querySelectorAll('.mus-play').forEach(b=>b.textContent='PLAY'); return; }
     if(ev&&ev.data&&combatMsgIn(ev.data))return;   /* COMBAT BRIDGE route */
